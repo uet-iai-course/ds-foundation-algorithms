@@ -348,7 +348,7 @@ Mức đóng góp của học phần: PI1.3 và PI1.4 ở mức `I`; PI4.3, PI6.
 1. Chương 1: Data Mining.
 2. Chương 2: MapReduce and the New Software Stack.
 3. Chương 3: Finding Similar Items, gồm Shingling, MinHash, Locality-Sensitive Hashing (LSH) và độ đo khoảng cách.
-4. Chương 4: Mining Data Streams, gồm mô hình dòng, lấy mẫu, lọc, đếm phần tử phân biệt, moment, cửa sổ và decay.
+4. Chương 4: Mining Data Streams, gồm mô hình dòng, lấy mẫu, lọc, đếm phần tử phân biệt, mômen, cửa sổ và suy giảm.
 5. Chương 5: Link Analysis, gồm PageRank, tính PageRank hiệu quả, Topic-Sensitive PageRank, link spam và HITS.
 
 Nguồn kiểm tra cấu trúc: [Mining of Massive Datasets](https://www.mmds.org/) và [mục lục do Cambridge University Press công bố](https://assets.cambridge.org/97811084/76348/toc/9781108476348_toc.pdf).
@@ -357,7 +357,7 @@ Các mô-đun sau không thuộc trục năm chương trên và cần sách bổ
 
 - Nén dữ liệu: Nelson và Gailly, *The Data Compression Book*, theo các chương đã ghi trong đề cương.
 - Lưu trữ, sắp xếp ngoài bộ nhớ, chỉ mục và Join: Silberschatz, Korth và Sudarshan, *Database System Concepts*, ấn bản thứ 7. Cấu trúc sách chính thức gồm Chương 12 về lưu trữ vật lý, Chương 13 về cấu trúc lưu trữ, Chương 14 về chỉ mục, Chương 15 về xử lý truy vấn, Chương 24 về chỉ mục nâng cao và Chương 31 về truy hồi thông tin. Nguồn: [Database System Concepts](https://www.db-book.com/).
-- Count-Min Sketch và HyperLogLog có slide bổ trợ từ UMass CS514. Bài 7 dùng Stanford BIODS 271 để đặt bối cảnh, giáo trình Princeton COS 597A cho cơ chế và bài tập, cùng bài báo gốc HNSW/PQ để kiểm chứng giả mã, giả thiết và kết luận. Rejection Sampling chưa có nguồn slide phù hợp và chỉ nên giữ khi bổ sung được nguồn đã kiểm chứng.
+- Count-Min Sketch có slide bổ trợ từ UMass CS514. Tệp UMass mang tên HyperLogLog chỉ đủ đối chiếu trực giác FM/LogLog, chưa đủ để dạy cơ chế HyperLogLog chuẩn. Bài 7 dùng Stanford BIODS 271 để đặt bối cảnh, giáo trình Princeton COS 597A cho cơ chế và bài tập, cùng bài báo gốc HNSW/PQ để kiểm chứng giả mã, giả thiết và kết luận. Rejection Sampling chưa có nguồn slide phù hợp và chỉ nên giữ khi bổ sung được nguồn đã kiểm chứng.
 
 Slide bổ trợ đã tải và bảng ánh xạ theo từng buổi nằm tại [`reference-slides/README.md`](reference-slides/README.md). Bảng này cho biết phần nào đủ cho bản nháp và phần nào vẫn cần giáo trình hoặc bài báo gốc trước khi hoàn tất deck.
 
@@ -398,7 +398,7 @@ Các tình huống dưới đây định hướng phần mở bài ở cấp bu�
 | 6 | Tìm nhanh các cặp tài liệu có khả năng tương đồng cao | Không thể tính độ tương đồng chính xác cho mọi cặp ứng viên |
 | 7 | Tìm hàng xóm gần cho vector biểu diễn trong một kho lớn | Duyệt tuyến tính cho mỗi truy vấn không đáp ứng yêu cầu thời gian; cần đánh đổi độ chính xác, bộ nhớ và độ trễ |
 | 8 | Lấy mẫu và loại nhanh phần tử không liên quan từ dòng sự kiện đến liên tục | Không biết trước độ dài dòng và không thể lưu toàn bộ dữ liệu |
-| 9 | Đếm phần tử phân biệt, tần suất và sự kiện gần đây trong dòng dữ liệu | Bộ nhớ hữu hạn và yêu cầu xử lý một lượt buộc phải chấp nhận xấp xỉ có kiểm soát |
+| 9 | Đếm phần tử phân biệt, tần suất, mômen và sự kiện gần đây trong dòng dữ liệu | Bộ nhớ hữu hạn và yêu cầu xử lý một lượt buộc phải chấp nhận xấp xỉ có kiểm soát |
 | 10 | Lưu trữ hoặc truyền một kho văn bản và nhật ký lớn mà phải khôi phục đúng từng bit | Dung lượng và băng thông hạn chế nhưng không cho phép mất thông tin |
 | 11 | Nén kho văn bản lặp mẫu và kho ảnh lớn có yêu cầu chất lượng khác nhau | Một mô hình nén duy nhất không phù hợp đồng thời với dữ liệu ký hiệu và dữ liệu cảm nhận |
 | 12 | Sắp xếp một tệp dữ liệu lớn hơn bộ nhớ chính | Thuật toán sắp xếp trong RAM không áp dụng; số lượt đọc và ghi khối chi phối chi phí |
@@ -420,7 +420,7 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 | 6 | Dùng Locality-Sensitive Hashing để tạo tập ứng viên và phân tích đánh đổi giữa bỏ sót với ứng viên giả | Bài 5; xác suất của nhiều hàm băm và độ đo khoảng cách | MMDS 3e, Chương 3, mục 3.4–3.8 |
 | 7 | So sánh LSH, HNSW và PQ theo chất lượng kết quả, thời gian truy vấn, thời gian xây dựng và bộ nhớ | Bài 5–6; vector, độ đo khoảng cách và đồ thị cơ bản | MMDS 3e, Chương 3; slide Stanford BIODS 271 trong `reference-slides/`; bài báo gốc nếu dạy bảo đảm hoặc phân tích chi tiết |
 | 8 | Đặc tả mô hình dòng, thực hiện lấy mẫu theo khóa và lấy mẫu hồ chứa, giải thích cơ chế lọc xác suất | Bài 1; xác suất, băm và bất biến vòng lặp | MMDS Chương 4, mục 4.1–4.3; slide MMDS/Stanford trong `reference-slides/`; bài tập trực tiếp 4.2.1 và 4.3.1–4.3.3; loại Rejection Sampling vì chưa có nguồn |
-| 9 | Chọn cấu trúc tóm tắt theo đại lượng cần ước lượng; nêu sai số, bộ nhớ và phạm vi truy vấn cửa sổ | Bài 8; biến ngẫu nhiên, kỳ vọng và xác suất va chạm băm | MMDS 3e, Chương 4, mục 4.4–4.7; slide Stanford CS246 và UMass CS514 trong `reference-slides/` |
+| 9 | Chọn cấu trúc tóm tắt theo đại lượng cần ước lượng; nêu sai số, bộ nhớ và phạm vi truy vấn cửa sổ | Bài 8; biến ngẫu nhiên, kỳ vọng và xác suất va chạm băm | Bản cục bộ MMDS Chương 4, mục 4.4–4.7; slide MMDS/Stanford và UMass Count-Min trong `reference-slides/`; bài tập trực tiếp 4.4.1, 4.5.1, 4.5.3, 4.6.1 và 4.6.3; không dạy HyperLogLog chi tiết vì nguồn hiện có không chứa cơ chế chuẩn |
 | 10 | Dựng mã tiền tố, chạy Huffman và phân tích điều kiện khôi phục đúng | Cây, hàng đợi ưu tiên và xác suất ký hiệu | Nelson và Gailly, Chương 3–5 |
 | 11 | So sánh nén từ điển với nén mất dữ liệu theo đặc tả khôi phục, tỷ lệ nén và miền ứng dụng | Bài 10; chuỗi, từ điển và biểu diễn ảnh cơ bản | Nelson và Gailly, Chương 8–11 |
 | 12 | Chạy External Merge Sort và phân tích số lượt đọc/ghi theo kích thước bộ nhớ và khối | Merge Sort, tệp, bộ đệm và mô hình I/O | *Database System Concepts* 7e, Chương 12–13 và phần sắp xếp ngoài bộ nhớ của Chương 15 |
@@ -440,7 +440,7 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 | 6 | Tìm cặp tương đồng bằng LSH | một phần 12 | Neo theo nửa sau MMDS Chương 3; dùng chữ ký MinHash của buổi 5 và bổ sung độ đo khoảng cách theo phạm vi sách. |
 | 7 | Chỉ mục hàng xóm gần đúng | 13 | Nối trực tiếp từ LSH; so sánh LSH, HNSW và PQ. Biểu diễn vector, khoảng cách và đồ thị lân cận phải được cung cấp trong Bài 5–7; không phụ thuộc Bài 14. |
 | 8 | Dòng dữ liệu: mô hình, lấy mẫu và lọc | 3, 2, 6 | Neo theo đầu MMDS Chương 4; dạy Reservoir Sampling và Bloom Filter trong mô hình một lượt. |
-| 9 | Dòng dữ liệu: đếm, moment và cửa sổ | 2, 6, 7 | Neo theo phần còn lại của MMDS Chương 4; tổ chức các phác thảo theo đại lượng cần ước lượng. |
+| 9 | Dòng dữ liệu: đếm, mômen và cửa sổ | 2, 6, 7 | Neo theo phần còn lại của MMDS Chương 4; tổ chức các phác thảo theo đại lượng cần ước lượng. |
 | 10 | Nén dữ liệu không mất thông tin | 8 | Mô-đun bổ trợ từ *The Data Compression Book*; giữ Huffman, Adaptive Huffman và Arithmetic Coding. |
 | 11 | Nén bằng từ điển và nén mất dữ liệu | 9 | Giữ LZ77, LZ78, LZW và JPEG, nhưng tách rõ hai đặc tả khôi phục dữ liệu. |
 | 12 | Mô hình I/O và sắp xếp ngoài bộ nhớ | 14 | Thiết lập khối, lượt đọc/ghi, run và phép trộn cho toàn mạch lưu trữ. |
@@ -473,7 +473,7 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 - Buổi 1 → buổi 2: bài toán dữ liệu lớn → mô hình xử lý phân tán.
 - Buổi 2 → buổi 3 → buổi 4: MapReduce → PageRank cơ sở → các biến thể xếp hạng.
 - Buổi 5 → buổi 6 → buổi 7: Shingling và MinHash → LSH → HNSW/PQ và tìm hàng xóm gần đúng.
-- Buổi 8 → buổi 9: mô hình dòng, lấy mẫu và lọc → ước lượng moment và cửa sổ trượt.
+- Buổi 8 → buổi 9: mô hình dòng, lấy mẫu và lọc → ước lượng mômen và cửa sổ trượt.
 - Buổi 10 → buổi 11: mã dựa trên xác suất → từ điển và nén mất dữ liệu.
 - Buổi 12 → buổi 13 → buổi 14: mô hình I/O và sắp xếp ngoài → chỉ mục trên đĩa → chỉ mục chuyên biệt.
 - Buổi 12–13 → buổi 15: mô hình I/O, sắp xếp ngoài và băm → Join.

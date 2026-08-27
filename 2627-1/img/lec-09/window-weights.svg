@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 390" role="img" aria-labelledby="title desc">
+<title id="title">So sánh cửa sổ cố định và cửa sổ suy giảm mũ</title><desc id="desc">Cửa sổ cố định cho trọng số một trên 1 chia c phần tử mới nhất rồi về không; cửa sổ suy giảm mũ giảm theo lũy thừa một trừ c và có tổng trọng số tiến tới 1 chia c khi dòng dài.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#18223c}.h{font-size:25px;font-weight:700}.b{font-size:21px}.axis{stroke:#18223c;stroke-width:3}.fixed{stroke:#2f3e7a;stroke-width:6;fill:none}.decay{stroke:#b15a2b;stroke-width:6;fill:none}.dash{stroke:#7c879a;stroke-width:2;stroke-dasharray:8 7}</style>
+<line class="axis" x1="90" y1="320" x2="1035" y2="320"/><line class="axis" x1="90" y1="320" x2="90" y2="45"/><text class="b" x="1045" y="327">tuổi i</text><text class="b" x="55" y="50">trọng số</text>
+<path class="fixed" d="M90 80 H470 V320 H1010"/><path class="decay" d="M90 80 C210 120 310 165 430 210 C570 260 730 295 1010 316"/>
+<line class="dash" x1="470" y1="70" x2="470" y2="328"/><text class="b" x="470" y="355" text-anchor="middle">1/c</text>
+<line class="fixed" x1="650" y1="55" x2="715" y2="55"/><text class="h" x="730" y="64">cửa sổ cố định</text><line class="decay" x1="650" y1="100" x2="715" y2="100"/><text class="h" x="730" y="109">suy giảm mũ</text>
+<text class="h" x="560" y="378" text-anchor="middle">Tổng suy giảm tiến tới 1/c khi dòng dài; phân bố vẫn khác</text>
+</svg>

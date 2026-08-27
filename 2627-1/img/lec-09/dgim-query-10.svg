@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
+<title id="title">Truy vấn mười bit gần nhất trên trạng thái DGIM</title><desc id="desc">Hình 4.2 với ranh giới trước bit thứ 16. Bucket kích thước 4 kết thúc ở bit thứ 17 là bucket cũ nhất có mốc phải trong hậu tố.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#18223c}.h{font-size:24px;font-weight:700}.b{font-size:20px}.dash{stroke:#b15a2b;stroke-width:4;stroke-dasharray:8 6}</style>
+<image href="dgim-buckets.svg" x="0" y="0" width="1120" height="370"/>
+<line class="dash" x1="650" y1="45" x2="650" y2="270"/><path d="M650 327 H1050" stroke="#b15a2b" stroke-width="5"/><text class="b" x="850" y="355" text-anchor="middle">mười bit gần nhất: vị trí 16–25</text><text class="h" x="560" y="410" text-anchor="middle">bucket biên: kích thước 4, mốc phải ở vị trí 17</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
+<title id="title">Hai ranh giới truy vấn cho Bài 4.6.1</title><desc id="desc">Hình 4.2 với hai đường dọc đánh dấu 15 và 5 vị trí gần nhất. Hình không hiển thị ước lượng hay số thật.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#18223c}.h{font-size:24px;font-weight:700}.b{font-size:20px}.k5{stroke:#b15a2b;stroke-width:4;stroke-dasharray:8 6}.k15{stroke:#2e7d32;stroke-width:4;stroke-dasharray:8 6}</style>
+<image href="dgim-buckets.svg" x="0" y="0" width="1120" height="370"/>
+<line class="k15" x1="450" y1="45" x2="450" y2="270"/><line class="k5" x1="850" y1="45" x2="850" y2="270"/><text class="h" x="450" y="340" text-anchor="middle" fill="#2e7d32">k = 15</text><text class="h" x="850" y="340" text-anchor="middle" fill="#b15a2b">k = 5</text><text class="b" x="560" y="410" text-anchor="middle">Xác định bucket biên, ước lượng, số thật và sai lệch</text>
+</svg>

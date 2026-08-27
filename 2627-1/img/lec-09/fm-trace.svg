@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 390" role="img" aria-labelledby="title desc">
+<title id="title">Vết chạy Flajolet–Martin</title><desc id="desc">Các phần tử phân biệt được băm thành chuỗi bit; số bit không ở cuối lần lượt là 0, 2, 1, 4 và giá trị lớn nhất R bằng 4 cho ước lượng 16.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#18223c}.h{font-size:27px;font-weight:700}.b{font-size:24px}.m{font-family:monospace;font-size:28px}.box{fill:#fff;stroke:#2f3e7a;stroke-width:3}.hi{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}.z{fill:#b15a2b;font-weight:700}</style>
+<text class="h" x="20" y="42">phần tử</text><text class="h" x="250" y="42">h(x), dạng nhị phân</text><text class="h" x="790" y="42">số bit 0 cuối</text>
+<g transform="translate(0,62)"><rect class="box" x="20" y="0" width="1040" height="60" rx="10"/><text class="b" x="100" y="39">a</text><text class="m" x="300" y="40">101101</text><text class="b" x="900" y="39">0</text></g>
+<g transform="translate(0,132)"><rect class="box" x="20" y="0" width="1040" height="60" rx="10"/><text class="b" x="100" y="39">b</text><text class="m" x="300" y="40">1101<tspan class="z">00</tspan></text><text class="b" x="900" y="39">2</text></g>
+<g transform="translate(0,202)"><rect class="box" x="20" y="0" width="1040" height="60" rx="10"/><text class="b" x="100" y="39">c</text><text class="m" x="300" y="40">10011<tspan class="z">0</tspan></text><text class="b" x="900" y="39">1</text></g>
+<g transform="translate(0,272)"><rect class="hi" x="20" y="0" width="1040" height="60" rx="10"/><text class="b" x="100" y="39">d</text><text class="m" x="300" y="40">11<tspan class="z">0000</tspan></text><text class="b" x="900" y="39">4</text></g>
+<text class="h" x="550" y="375" text-anchor="middle">R = 4  →  ước lượng đơn: 2⁴ = 16</text>
+</svg>
