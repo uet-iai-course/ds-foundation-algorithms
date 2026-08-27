@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-labelledby="title desc">
+  <title id="title">Ba vùng của hai tập hợp</title><desc id="desc">Hai tập C1 và C2 chia hợp thành vùng giao X và hai vùng chỉ thuộc một tập Y; vùng ngoài Z không ảnh hưởng độ tương đồng Jaccard.</desc>
+  <style>.set1{fill:#F7CDAE;fill-opacity:.7;stroke:#B15A2B;stroke-width:4}.set2{fill:#BFD1F1;fill-opacity:.7;stroke:#2F3E7A;stroke-width:4}.t{font:700 28px sans-serif;fill:#263238}.s{font:22px sans-serif;fill:#455A64}</style>
+  <rect x="10" y="10" width="880" height="420" rx="18" fill="#FAFAFA" stroke="#CFD8DC" stroke-width="3"/><ellipse class="set1" cx="360" cy="220" rx="235" ry="150"/><ellipse class="set2" cx="540" cy="220" rx="235" ry="150"/>
+  <text class="t" x="205" y="95">C₁</text><text class="t" x="665" y="95">C₂</text><text class="t" x="450" y="215" text-anchor="middle">X</text><text class="s" x="450" y="250" text-anchor="middle">1 trong cả hai</text>
+  <text class="t" x="260" y="215" text-anchor="middle">Y</text><text class="s" x="260" y="250" text-anchor="middle">chỉ C₁</text><text class="t" x="640" y="215" text-anchor="middle">Y</text><text class="s" x="640" y="250" text-anchor="middle">chỉ C₂</text>
+  <text class="t" x="760" y="390">Z</text><text class="s" x="790" y="390">0 trong cả hai</text>
+</svg>

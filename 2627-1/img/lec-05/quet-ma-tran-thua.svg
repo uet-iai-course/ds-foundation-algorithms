@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 390" role="img" aria-labelledby="title desc">
+  <title id="title">Quét ma trận thưa để lập chữ ký</title><desc id="desc">Mỗi phần tử một tại hàng r và cột c cập nhật p ô chữ ký của c bằng giá trị nhỏ hơn giữa giá trị cũ và các hàm băm của r.</desc>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#B15A2B"/></marker></defs>
+  <style>.box{fill:#fff;stroke:#90A4AE;stroke-width:3}.hot{fill:#FFF4EC;stroke:#B15A2B;stroke-width:4}.t{font:700 23px sans-serif;fill:#2F3E7A}.s{font:20px sans-serif;fill:#37474F}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}</style>
+  <rect class="box" x="25" y="90" width="235" height="185" rx="14"/><text class="t" x="143" y="133" text-anchor="middle">Danh sách phần tử 1</text><text class="s" x="143" y="180" text-anchor="middle">(r,c)</text><text class="s" x="143" y="220" text-anchor="middle">không lưu các số 0</text>
+  <line class="arr" x1="275" y1="183" x2="365" y2="183"/><rect class="hot" x="380" y="65" width="300" height="235" rx="14"/><text class="t" x="530" y="112" text-anchor="middle">Với mỗi (r,c)</text><text class="s" x="530" y="158" text-anchor="middle">tính h₁(r),…,hₚ(r)</text><text class="s" x="530" y="205" text-anchor="middle">SIG(i,c) ← min</text><text class="s" x="530" y="240" text-anchor="middle">{SIG(i,c),hᵢ(r)}</text>
+  <line class="arr" x1="695" y1="183" x2="785" y2="183"/><rect class="box" x="800" y="90" width="250" height="185" rx="14"/><text class="t" x="925" y="133" text-anchor="middle">Ma trận chữ ký</text><text class="s" x="925" y="180" text-anchor="middle">p × N giá trị</text><text class="s" x="925" y="220" text-anchor="middle">ước lượng Jaccard</text>
+</svg>
