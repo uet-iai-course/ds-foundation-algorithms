@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" role="img">
+<title>Bucket Euclid có dịch ngẫu nhiên</title>
+<desc>Điểm được chiếu lên đường thẳng rồi phân ngăn độ rộng a với độ dịch u ngẫu nhiên.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#26345f}.t{font-size:25px}.axis{stroke:#26345f;stroke-width:4}.cut{stroke:#b15a2b;stroke-width:3;stroke-dasharray:8 6}</style>
+<path class="axis" d="M70 210H840"/>
+<g class="cut">
+<path d="M160 90V290"/>
+<path d="M340 90V290"/>
+<path d="M520 90V290"/>
+<path d="M700 90V290"/>
+</g>
+<circle cx="390" cy="210" r="13" fill="#2f3e7a"/>
+<circle cx="470" cy="210" r="13" fill="#2e7d32"/>
+<text class="t" x="390" y="250" text-anchor="middle">v·x</text>
+<text class="t" x="470" y="250" text-anchor="middle">v·y</text>
+<path stroke="#b15a2b" stroke-width="3" d="M160 65H340"/>
+<text class="t" x="250" y="52" text-anchor="middle">a</text>
+<text class="t" x="430" y="340" text-anchor="middle">hᵥ,ᵤ(x)=⌊(v·x+u)/a⌋, u ∼ U[0,a)</text>
+</svg>

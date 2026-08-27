@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img">
+<title>Mô hình băm vân tay</title>
+<desc>Ba ô lưới được chọn; dấu vân tay có điểm đặc trưng trong cả ba ô vào ngăn có, còn các trường hợp không vào ngăn riêng.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#26345f}.t{font-size:24px}.h{font-size:29px;font-weight:bold}.g{fill:#edf4ff;stroke:#2f3e7a;stroke-width:2}.sel{fill:#f7c9a9;stroke:#b15a2b;stroke-width:3}.b{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}</style>
+<g transform="translate(65,65)">
+<rect class="g" width="300" height="300"/>
+<path stroke="#2f3e7a" d="M60 0V300M120 0V300M180 0V300M240 0V300M0 60H300M0 120H300M0 180H300M0 240H300"/>
+<rect class="sel" x="60" y="0" width="60" height="60"/>
+<rect class="sel" x="180" y="120" width="60" height="60"/>
+<rect class="sel" x="0" y="240" width="60" height="60"/>
+<circle cx="85" cy="28" r="8" fill="#26345f"/>
+<circle cx="210" cy="150" r="8" fill="#26345f"/>
+<circle cx="30" cy="270" r="8" fill="#26345f"/>
+</g>
+<text class="h" x="215" y="35" text-anchor="middle">Chọn 3 ô</text>
+<rect class="b" x="500" y="75" width="320" height="110" rx="15"/>
+<text class="h" x="660" y="120" text-anchor="middle">Có đủ 3 điểm</text>
+<text class="t" x="660" y="155" text-anchor="middle">một ngăn chung “có”</text>
+<rect class="b" x="500" y="235" width="320" height="110" rx="15"/>
+<text class="h" x="660" y="280" text-anchor="middle">Thiếu ít nhất 1 điểm</text>
+<text class="t" x="660" y="315" text-anchor="middle">các ngăn đơn riêng biệt</text>
+<text class="t" x="450" y="410" text-anchor="middle">Không gom mọi kết quả “không” vào cùng một ngăn.</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 390" role="img">
+<title>Khuếch đại AND và OR</title>
+<desc>AND làm xác suất rho thành rho mũ r, OR làm thành một trừ một trừ rho mũ b; thứ tự cho hàm khác nhau.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#26345f}.h{font-size:32px;font-weight:bold}.t{font-size:25px}.b{fill:#edf4ff;stroke:#2f3e7a;stroke-width:3}.o{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}</style>
+<rect class="b" x="45" y="70" width="350" height="230" rx="18"/>
+<text class="h" x="220" y="120" text-anchor="middle">AND r phép băm</text>
+<text class="h" x="220" y="180" text-anchor="middle">ρ ↦ ρʳ</text>
+<text class="t" x="220" y="230" text-anchor="middle">phải trùng tất cả</text>
+<rect class="o" x="505" y="70" width="350" height="230" rx="18"/>
+<text class="h" x="680" y="120" text-anchor="middle">OR b phép băm</text>
+<text class="h" x="680" y="180" text-anchor="middle">ρ ↦ 1−(1−ρ)ᵇ</text>
+<text class="t" x="680" y="230" text-anchor="middle">chỉ cần trùng một</text>
+<text class="t" x="450" y="355" text-anchor="middle">OR(AND(ρ)) ≠ AND(OR(ρ)) nói chung</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" role="img">
+<title>Đường cong xác suất ứng viên</title>
+<desc>Với b và r lớn hơn một, đường xác suất q theo độ tương đồng s có dạng chữ S và đi qua mức một phần hai tại s một phần hai.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#26345f}.t{font-size:25px}.axis{stroke:#26345f;stroke-width:3}.curve{fill:none;stroke:#b15a2b;stroke-width:7}.guide{stroke:#2e7d32;stroke-width:2;stroke-dasharray:8 8}</style>
+<path class="axis" d="M90 420V45M90 420H840"/>
+<path class="curve" d="M90 418 C260 417,360 405,450 345 S570 145,835 55"/>
+<path class="guide" d="M515 420V235H90"/>
+<circle cx="515" cy="235" r="8" fill="#2e7d32"/>
+<text class="t" x="850" y="425">s</text>
+<text class="t" x="55" y="55">q(s)</text>
+<text class="t" x="515" y="455" text-anchor="middle">s₁⁄₂</text>
+<text class="t" x="70" y="242" text-anchor="end">1/2</text>
+<text class="t" x="520" y="95">q(s)=1−(1−sʳ)ᵇ</text>
+<text class="t" x="520" y="130">xác suất của một cặp có độ tương đồng s</text>
+</svg>

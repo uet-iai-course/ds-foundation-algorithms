@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" role="img">
+<title>Bảo đảm của họ LSH</title>
+<desc>Cặp gần có xác suất va chạm ít nhất alpha một, cặp xa có xác suất không quá alpha hai, vùng giữa không có bảo đảm.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#26345f}.t{font-size:24px}.h{font-size:30px;font-weight:bold}.g{fill:#e8f5e9}.m{fill:#f4f4f4}.r{fill:#ffebee}.axis{stroke:#26345f;stroke-width:3}</style>
+<rect class="g" x="90" y="80" width="250" height="270"/>
+<rect class="m" x="340" y="80" width="220" height="270"/>
+<rect class="r" x="560" y="80" width="250" height="270"/>
+<path class="axis" d="M90 350H830"/>
+<text class="h" x="215" y="140" text-anchor="middle">d(x,y) ≤ d₁</text>
+<text class="t" x="215" y="200" text-anchor="middle">Prₕ[h(x)=h(y)]</text>
+<text class="h" x="215" y="245" text-anchor="middle">≥ α₁</text>
+<text class="h" x="450" y="170" text-anchor="middle">d₁ &lt; d &lt; d₂</text>
+<text class="t" x="450" y="220" text-anchor="middle">không bảo đảm</text>
+<text class="h" x="685" y="140" text-anchor="middle">d(x,y) ≥ d₂</text>
+<text class="t" x="685" y="200" text-anchor="middle">Prₕ[h(x)=h(y)]</text>
+<text class="h" x="685" y="245" text-anchor="middle">≤ α₂</text>
+<text class="t" x="340" y="385" text-anchor="middle">d₁</text>
+<text class="t" x="560" y="385" text-anchor="middle">d₂</text>
+<text class="t" x="450" y="430" text-anchor="middle">α₁ &gt; α₂; xác suất lấy theo h ∼ F</text>
+</svg>
