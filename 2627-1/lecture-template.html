@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+  <title>Bài NN: Tên bài</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css"/>
+  <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
+  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
+  <link rel="stylesheet" href="lecture-style.css"/>
+  <style>
+    .reveal .slides section[data-slide-id] { font-size: .82em; }
+    .reveal h1, .reveal h2 { color: #2f3e7a; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8em; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: .5em .65em; }
+    .math-large { font-size: 1.16em; text-align: center; }
+    .check { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: .35em .55em; }
+    .note-source { font-size: .9em; color: #444; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <section data-slide-id="P00">
+          <h1>Tên bài</h1>
+          <h3>Bài NN · Giải thuật nền tảng của Khoa học dữ liệu</h3>
+          <p>Năm học 2026–2027 · Học kỳ 1</p>
+          <p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
+          <aside class="notes">Nêu vị trí của bài trong học phần và câu nối vào nội dung đầu tiên.</aside>
+        </section>
+
+        <section data-slide-id="P01">
+          <h2>Mục tiêu học tập</h2>
+          <ul>
+            <li>Mục tiêu quan sát được thứ nhất.</li>
+            <li>Mục tiêu quan sát được thứ hai.</li>
+          </ul>
+          <aside class="notes">Nêu sản phẩm học tập có thể kiểm tra sau buổi học.</aside>
+        </section>
+      </section>
+
+      <section>
+        <section data-slide-id="A00">
+          <h1>A. Tên phần</h1>
+          <p>Một luận điểm trung tâm mở phần.</p>
+          <aside class="notes">Nêu câu nối từ mục tiêu sang vấn đề của phần.</aside>
+        </section>
+
+        <section data-slide-id="A01">
+          <h2>Tên khái niệm hoặc thuật toán</h2>
+          <div class="grid2">
+            <div class="card">
+              <h3>Đầu vào</h3>
+              <p>Kiểu, kích thước và điều kiện trước.</p>
+            </div>
+            <div class="card">
+              <h3>Đầu ra</h3>
+              <p>Kết quả và điều kiện bảo đảm.</p>
+            </div>
+          </div>
+          <div class="check"><strong>Câu hỏi:</strong> yêu cầu người học tính, giải thích, chứng minh hoặc áp dụng.</div>
+          <aside class="notes">Giải thích trực giác, bất biến, lỗi dễ mắc và nguồn của trang.</aside>
+        </section>
+      </section>
+
+      <div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài NN</div>
+    </div>
+  </div>
+
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: .04,
+      controlsLayout: "edges",
+      slideNumber: true,
+      hashOneBasedIndex: true,
+      hash: true,
+      katex: { local: "vendor/katex" },
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+    });
+  </script>
+</body>
+</html>

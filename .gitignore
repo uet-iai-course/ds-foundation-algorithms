@@ -1,0 +1,12 @@
+.DS_Store
+._*
+~$*
+__pycache__/
+*.py[cod]
+.agents/
+.codex/
+
+# Tài liệu nguồn nhị phân chỉ lưu cục bộ; không phát hành lại qua Git.
+sources/**/*.docx
+sources/**/*.pdf
+sources/**/*.pptx
