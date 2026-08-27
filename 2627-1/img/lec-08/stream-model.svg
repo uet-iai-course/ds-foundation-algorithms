@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" role="img" aria-labelledby="t d">
+<title id="t">Mô hình xử lý dòng dữ liệu</title><desc id="d">Ba dòng phần tử đi vào bộ xử lý có bộ nhớ làm việc hữu hạn; bộ xử lý trả lời truy vấn thường trực và có thể ghi kho lưu trữ.</desc>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#b15a2b"/></marker></defs>
+<g font-family="Arial,sans-serif" font-size="24" fill="#263238">
+<g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M45 78 H350"/><path d="M45 145 H350"/><path d="M45 212 H350"/></g>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><circle cx="75" cy="78" r="22"/><circle cx="145" cy="78" r="22"/><circle cx="215" cy="78" r="22"/><circle cx="75" cy="145" r="22"/><circle cx="145" cy="145" r="22"/><circle cx="215" cy="145" r="22"/><circle cx="75" cy="212" r="22"/><circle cx="145" cy="212" r="22"/><circle cx="215" cy="212" r="22"/></g>
+<rect x="370" y="45" width="265" height="210" rx="18" fill="#f7efe6" stroke="#b15a2b" stroke-width="4"/><text x="502" y="95" text-anchor="middle" font-weight="700">Bộ xử lý</text><rect x="410" y="125" width="185" height="75" rx="10" fill="#fff" stroke="#2f3e7a" stroke-width="3"/><text x="502" y="158" text-anchor="middle">bộ nhớ</text><text x="502" y="187" text-anchor="middle">hữu hạn</text>
+<path d="M635 105 H835" stroke="#b15a2b" stroke-width="4" marker-end="url(#a)"/><text x="740" y="84" text-anchor="middle">kết quả</text><rect x="850" y="62" width="125" height="85" rx="12" fill="#eef7f2" stroke="#2e7d32" stroke-width="3"/><text x="912" y="113" text-anchor="middle">truy vấn</text>
+<path d="M635 215 H835" stroke="#b15a2b" stroke-width="4" marker-end="url(#a)"/><rect x="850" y="175" width="125" height="85" rx="12" fill="#f5f5f5" stroke="#607d8b" stroke-width="3"/><text x="912" y="209" text-anchor="middle">kho</text><text x="912" y="239" text-anchor="middle">lưu trữ</text>
+<text x="175" y="285" text-anchor="middle">phần tử đến theo thời gian</text></g></svg>
