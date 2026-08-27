@@ -52,6 +52,8 @@ Khi có xung đột, tuân theo thứ tự sau:
 
 Giữ mạch cấp học phần theo `sources/source.md`; giữ mạch và ý chính trong từng bài theo tài liệu chi tiết. Chỉ gộp, tách, thêm, lược hoặc sắp xếp cục bộ khi cần sửa lỗi, giảm quá tải, khôi phục tiên quyết, hoàn thiện mạch học tập hoặc bảo đảm khả năng đọc. Mọi sai khác phải có lý do trong storyboard và nhật ký rà soát.
 
+Với bài neo theo *Mining of Massive Datasets* (MMDS), phải kiểm tra cả slide chính thức trên `http://www.mmds.org` và slide Stanford CS246 được ánh xạ cho bài. So sánh theo từng cụm nội dung dựa trên: mức khớp chuẩn đầu ra, độ chính xác và tính hiện thời, chất lượng ví dụ hoặc hình, và khả năng Việt hóa. Nếu hai nguồn tương đương, ưu tiên MMDS; nếu Stanford phù hợp hơn cho một cụm, được dùng Stanford và phải ghi lý do trong storyboard cùng nhật ký. Việt hóa tiêu đề, nội dung, ví dụ và nhãn hình; dùng sách MMDS để kiểm chứng và lấy bài tập. Vẽ lại theo giao diện của học phần; không sao chép CSS, phông chữ, ảnh raster hay tệp nhị phân của MMDS hoặc Stanford vào đầu ra Git. Khi dùng phần đáng kể của slide MMDS, ghi công bằng liên kết `http://www.mmds.org` theo yêu cầu của tác giả.
+
 ## Tiếp nhận và kiểm kê
 
 Sau khi người dùng chọn bài học hoặc tệp nguồn, điều phối viên phải:

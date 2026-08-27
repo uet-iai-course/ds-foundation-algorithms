@@ -364,13 +364,25 @@ Slide bổ trợ đã tải và bảng ánh xạ theo từng buổi nằm tại 
 ## Nguyên tắc điều chỉnh
 
 1. Mỗi thuật toán trọng tâm bắt đầu bằng một tình huống sử dụng trên dữ liệu lớn. Tình huống phải nêu loại dữ liệu, giới hạn khiến cách xử lý trực tiếp không phù hợp và đầu ra cần tính. Chỉ dùng quy mô định lượng khi tài liệu có nguồn; không bịa số liệu để tạo kịch tính.
-2. Theo trục MMDS 3e Chương 1→2→3→4→5 để giảm việc đổi mô hình bài toán liên tục.
+2. Dùng năm chương đầu của MMDS 3e làm trục nội dung; sắp theo mạch Chương 1→2→5→3→4 để các bài phân tán–xếp hạng và tương đồng–hàng xóm gần không bị ngắt quãng.
 3. Tách MapReduce khỏi PageRank: dạy mô hình xử lý phân tán trước, rồi dùng lại khi tính PageRank.
 4. Đặt MinHash cạnh Shingling và LSH; không dạy lặp trong bài lấy mẫu.
 5. Nêu mô hình dòng trước lấy mẫu, lọc và phác thảo; gom DGIM với cửa sổ trượt.
 6. Đặt Z-order Curve và Space-Filling Curve cạnh chỉ mục không gian.
 7. Giới thiệu mô hình chi phí I/O và sắp xếp ngoài bộ nhớ trước B+-Tree, Sort-Merge Join và Grace Hash Join.
 8. Giữ hai buổi nén liền nhau; không thay đổi tổng số buổi.
+
+## Năm mạch học tập
+
+Bài 1 là nền chung. Mười bốn bài còn lại được xếp liền nhau theo năm mạch; không xen một bài thuộc mạch khác vào giữa mạch:
+
+1. **Xử lý phân tán và xếp hạng:** Bài 2–4.
+2. **Tương đồng và hàng xóm gần:** Bài 5–7.
+3. **Dòng dữ liệu và cửa sổ:** Bài 8–9.
+4. **Nén dữ liệu và từ điển:** Bài 10–11.
+5. **Lưu trữ, chỉ mục và kết nối:** Bài 12–15.
+
+Bài hàng xóm gần được đặt ngay sau LSH; vì vậy phải giới thiệu đủ biểu diễn vector, độ đo khoảng cách và đồ thị lân cận trong chính mạch Bài 5–7, không phụ thuộc vào mạch chỉ mục lưu trữ. Bảng “Ánh xạ thứ tự gốc sang đề xuất” bên dưới chỉ ánh xạ từ 15 buổi trong đề cương gốc sang thứ tự mới.
 
 ## Tình huống dữ liệu lớn mở đầu mỗi buổi đề xuất
 
@@ -380,18 +392,18 @@ Các tình huống dưới đây định hướng phần mở bài ở cấp bu�
 |---:|---|---|
 | 1 | Phân tích một kho nhật ký hoặc tập dữ liệu không vừa bộ nhớ của một máy | Không thể giả định truy cập ngẫu nhiên nhanh hoặc quét lặp lại tùy ý |
 | 2 | Xây dựng chỉ mục hoặc tổng hợp thống kê từ dữ liệu phân tán trên nhiều máy | Chi phí truyền dữ liệu và đồng bộ có thể lớn hơn chi phí tính cục bộ |
-| 3 | Phát hiện tài liệu hoặc trang web gần trùng trong một kho văn bản lớn | So sánh từng cặp tạo số phép so sánh bậc hai |
-| 4 | Tìm nhanh các cặp tài liệu có khả năng tương đồng cao | Không thể tính độ tương đồng chính xác cho mọi cặp ứng viên |
-| 5 | Lấy mẫu và loại nhanh phần tử không liên quan từ dòng sự kiện đến liên tục | Không biết trước độ dài dòng và không thể lưu toàn bộ dữ liệu |
-| 6 | Đếm phần tử phân biệt, tần suất và sự kiện gần đây trong dòng dữ liệu | Bộ nhớ hữu hạn và yêu cầu xử lý một lượt buộc phải chấp nhận xấp xỉ có kiểm soát |
-| 7 | Xếp hạng các trang trong đồ thị liên kết web lớn | Ma trận liên kết thưa nhưng quá lớn để xử lý như ma trận đặc trên một máy |
-| 8 | Xếp hạng theo chủ đề và giảm tác động của liên kết rác | Một điểm PageRank toàn cục không phản ánh mọi ngữ cảnh truy vấn và có thể bị thao túng |
-| 9 | Lưu trữ hoặc truyền một kho văn bản và nhật ký lớn mà phải khôi phục đúng từng bit | Dung lượng và băng thông hạn chế nhưng không cho phép mất thông tin |
-| 10 | Nén kho văn bản lặp mẫu và kho ảnh lớn có yêu cầu chất lượng khác nhau | Một mô hình nén duy nhất không phù hợp đồng thời với dữ liệu ký hiệu và dữ liệu cảm nhận |
-| 11 | Sắp xếp một tệp dữ liệu lớn hơn bộ nhớ chính | Thuật toán sắp xếp trong RAM không áp dụng; số lượt đọc và ghi khối chi phối chi phí |
-| 12 | Tra cứu khóa trong một bảng lớn lưu trên thiết bị khối | Quét toàn bộ bảng cho mỗi truy vấn gây quá nhiều thao tác I/O |
-| 13 | Tìm từ khóa hoặc đối tượng gần một vị trí trong kho văn bản và dữ liệu không gian lớn | Cùng một thứ tự tuyến tính không hỗ trợ hiệu quả cả truy vấn văn bản và truy vấn lân cận |
-| 14 | Tìm hàng xóm gần cho vector biểu diễn trong một kho lớn | Duyệt tuyến tính cho mỗi truy vấn không đáp ứng yêu cầu thời gian; cần đánh đổi độ chính xác, bộ nhớ và độ trễ |
+| 3 | Xếp hạng các trang trong đồ thị liên kết web lớn | Ma trận liên kết thưa nhưng quá lớn để xử lý như ma trận đặc trên một máy |
+| 4 | Xếp hạng theo chủ đề và giảm tác động của liên kết rác | Một điểm PageRank toàn cục không phản ánh mọi ngữ cảnh truy vấn và có thể bị thao túng |
+| 5 | Phát hiện tài liệu hoặc trang web gần trùng trong một kho văn bản lớn | So sánh từng cặp tạo số phép so sánh bậc hai |
+| 6 | Tìm nhanh các cặp tài liệu có khả năng tương đồng cao | Không thể tính độ tương đồng chính xác cho mọi cặp ứng viên |
+| 7 | Tìm hàng xóm gần cho vector biểu diễn trong một kho lớn | Duyệt tuyến tính cho mỗi truy vấn không đáp ứng yêu cầu thời gian; cần đánh đổi độ chính xác, bộ nhớ và độ trễ |
+| 8 | Lấy mẫu và loại nhanh phần tử không liên quan từ dòng sự kiện đến liên tục | Không biết trước độ dài dòng và không thể lưu toàn bộ dữ liệu |
+| 9 | Đếm phần tử phân biệt, tần suất và sự kiện gần đây trong dòng dữ liệu | Bộ nhớ hữu hạn và yêu cầu xử lý một lượt buộc phải chấp nhận xấp xỉ có kiểm soát |
+| 10 | Lưu trữ hoặc truyền một kho văn bản và nhật ký lớn mà phải khôi phục đúng từng bit | Dung lượng và băng thông hạn chế nhưng không cho phép mất thông tin |
+| 11 | Nén kho văn bản lặp mẫu và kho ảnh lớn có yêu cầu chất lượng khác nhau | Một mô hình nén duy nhất không phù hợp đồng thời với dữ liệu ký hiệu và dữ liệu cảm nhận |
+| 12 | Sắp xếp một tệp dữ liệu lớn hơn bộ nhớ chính | Thuật toán sắp xếp trong RAM không áp dụng; số lượt đọc và ghi khối chi phối chi phí |
+| 13 | Tra cứu khóa trong một bảng lớn lưu trên thiết bị khối | Quét toàn bộ bảng cho mỗi truy vấn gây quá nhiều thao tác I/O |
+| 14 | Tìm từ khóa hoặc đối tượng gần một vị trí trong kho văn bản và dữ liệu không gian lớn | Cùng một thứ tự tuyến tính không hỗ trợ hiệu quả cả truy vấn văn bản và truy vấn lân cận |
 | 15 | Kết nối bảng sự kiện với bảng thực thể khi cả hai không vừa bộ nhớ | Nested-Loop Join trực tiếp gây quá nhiều lượt I/O; cần khai thác sắp xếp, băm hoặc chỉ mục |
 
 ## Mục tiêu, tiên quyết và học liệu của từng bài đề xuất
@@ -402,19 +414,19 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 |---:|---|---|---|
 | 1 | Phân biệt đặc tả bài toán, biểu diễn dữ liệu, thuật toán và mô hình chi phí trong bối cảnh dữ liệu lớn | Cấu trúc dữ liệu, phân tích độ phức tạp và xác suất cơ bản | MMDS 3e, Chương 1; Blum, Hopcroft và Kannan, Chương 1–2 |
 | 2 | Mô tả mô hình MapReduce, thiết kế các bước map/reduce và phân tích chi phí truyền thông ở mức nguồn yêu cầu | Bài 1; ánh xạ khóa–giá trị và phép nhóm | MMDS 3e, Chương 2 |
-| 3 | Tạo shingle, tính độ tương đồng Jaccard và giải thích vì sao chữ ký MinHash bảo toàn xác suất tương đồng | Băm, tập hợp và xác suất cơ bản | MMDS 3e, Chương 3, mục 3.1–3.3 |
-| 4 | Dùng Locality-Sensitive Hashing để tạo tập ứng viên và phân tích đánh đổi giữa bỏ sót với ứng viên giả | Bài 3; xác suất của nhiều hàm băm | MMDS 3e, Chương 3, mục 3.4–3.8 |
-| 5 | Đặc tả mô hình dòng, thực hiện lấy mẫu hồ chứa và giải thích cơ chế lọc xác suất | Bài 1; xác suất, băm và bất biến vòng lặp | MMDS 3e, Chương 4, mục 4.1–4.3; slide Stanford CS246 trong `reference-slides/`; Rejection Sampling là nội dung tùy chọn cho đến khi có nguồn |
-| 6 | Chọn cấu trúc tóm tắt theo đại lượng cần ước lượng; nêu sai số, bộ nhớ và phạm vi truy vấn cửa sổ | Bài 5; biến ngẫu nhiên, kỳ vọng và xác suất va chạm băm | MMDS 3e, Chương 4, mục 4.4–4.7; slide Stanford CS246 và UMass CS514 trong `reference-slides/` |
-| 7 | Lập phương trình PageRank, xử lý nút cụt và tính lặp PageRank trên đồ thị nhỏ trước khi mở rộng | Đồ thị có hướng, đại số tuyến tính, phân phối xác suất; bài 2 khi triển khai MapReduce | MMDS 3e, Chương 5, mục 5.1–5.2 |
-| 8 | So sánh Topic-Sensitive PageRank, cơ chế xử lý link spam và HITS theo mục tiêu xếp hạng | Bài 7 và ký hiệu PageRank đã thống nhất | MMDS 3e, Chương 5, mục 5.3–5.5 |
-| 9 | Dựng mã tiền tố, chạy Huffman và phân tích điều kiện khôi phục đúng | Cây, hàng đợi ưu tiên và xác suất ký hiệu | Nelson và Gailly, Chương 3–5 |
-| 10 | So sánh nén từ điển với nén mất dữ liệu theo đặc tả khôi phục, tỷ lệ nén và miền ứng dụng | Bài 9; chuỗi, từ điển và biểu diễn ảnh cơ bản | Nelson và Gailly, Chương 8–11 |
-| 11 | Chạy External Merge Sort và phân tích số lượt đọc/ghi theo kích thước bộ nhớ và khối | Merge Sort, tệp, bộ đệm và mô hình I/O | *Database System Concepts* 7e, Chương 12–13 và phần sắp xếp ngoài bộ nhớ của Chương 15 |
-| 12 | So sánh B-Tree, B+-Tree, băm tĩnh và Bitmap Index theo loại truy vấn và chi phí I/O | Bài 11; cây cân bằng và băm | *Database System Concepts* 7e, Chương 14 |
-| 13 | Chọn biểu diễn chỉ mục cho truy vấn văn bản hoặc không gian và giải thích giới hạn của từng cấu trúc | Bài 12; vector, khoảng cách và truy vấn phạm vi | *Database System Concepts* 7e, Chương 24 và 31; slide Cornell CS5780 và Auburn COMP7120 trong `reference-slides/` |
-| 14 | So sánh LSH, HNSW và PQ theo chất lượng kết quả, thời gian truy vấn, thời gian xây dựng và bộ nhớ | Bài 4 và 13; độ đo khoảng cách và đồ thị | MMDS 3e, Chương 3; slide Stanford BIODS 271 trong `reference-slides/`; bài báo gốc nếu dạy bảo đảm hoặc phân tích chi tiết |
-| 15 | Chạy và so sánh Nested-Loop Join, Sort-Merge Join, Hash Join và Grace Hash Join theo mô hình I/O | Bài 11–12; quan hệ, băm và sắp xếp ngoài bộ nhớ | *Database System Concepts* 7e, Chương 15 |
+| 3 | Lập phương trình PageRank, xử lý nút cụt và tính lặp PageRank trên đồ thị nhỏ trước khi mở rộng | Bài 2; đồ thị có hướng, đại số tuyến tính và phân phối xác suất | MMDS 3e, Chương 5, mục 5.1–5.2 |
+| 4 | So sánh Topic-Sensitive PageRank, cơ chế xử lý link spam và HITS theo mục tiêu xếp hạng | Bài 3 và ký hiệu PageRank đã thống nhất | MMDS 3e, Chương 5, mục 5.3–5.5 |
+| 5 | Tạo shingle, tính độ tương đồng Jaccard và giải thích vì sao chữ ký MinHash bảo toàn xác suất tương đồng | Băm, tập hợp, vector và xác suất cơ bản | MMDS 3e, Chương 3, mục 3.1–3.3 |
+| 6 | Dùng Locality-Sensitive Hashing để tạo tập ứng viên và phân tích đánh đổi giữa bỏ sót với ứng viên giả | Bài 5; xác suất của nhiều hàm băm và độ đo khoảng cách | MMDS 3e, Chương 3, mục 3.4–3.8 |
+| 7 | So sánh LSH, HNSW và PQ theo chất lượng kết quả, thời gian truy vấn, thời gian xây dựng và bộ nhớ | Bài 5–6; vector, độ đo khoảng cách và đồ thị cơ bản | MMDS 3e, Chương 3; slide Stanford BIODS 271 trong `reference-slides/`; bài báo gốc nếu dạy bảo đảm hoặc phân tích chi tiết |
+| 8 | Đặc tả mô hình dòng, thực hiện lấy mẫu hồ chứa và giải thích cơ chế lọc xác suất | Bài 1; xác suất, băm và bất biến vòng lặp | MMDS 3e, Chương 4, mục 4.1–4.3; slide Stanford CS246 trong `reference-slides/`; Rejection Sampling là nội dung tùy chọn cho đến khi có nguồn |
+| 9 | Chọn cấu trúc tóm tắt theo đại lượng cần ước lượng; nêu sai số, bộ nhớ và phạm vi truy vấn cửa sổ | Bài 8; biến ngẫu nhiên, kỳ vọng và xác suất va chạm băm | MMDS 3e, Chương 4, mục 4.4–4.7; slide Stanford CS246 và UMass CS514 trong `reference-slides/` |
+| 10 | Dựng mã tiền tố, chạy Huffman và phân tích điều kiện khôi phục đúng | Cây, hàng đợi ưu tiên và xác suất ký hiệu | Nelson và Gailly, Chương 3–5 |
+| 11 | So sánh nén từ điển với nén mất dữ liệu theo đặc tả khôi phục, tỷ lệ nén và miền ứng dụng | Bài 10; chuỗi, từ điển và biểu diễn ảnh cơ bản | Nelson và Gailly, Chương 8–11 |
+| 12 | Chạy External Merge Sort và phân tích số lượt đọc/ghi theo kích thước bộ nhớ và khối | Merge Sort, tệp, bộ đệm và mô hình I/O | *Database System Concepts* 7e, Chương 12–13 và phần sắp xếp ngoài bộ nhớ của Chương 15 |
+| 13 | So sánh B-Tree, B+-Tree, băm tĩnh và Bitmap Index theo loại truy vấn và chi phí I/O | Bài 12; cây cân bằng và băm | *Database System Concepts* 7e, Chương 14 |
+| 14 | Chọn biểu diễn chỉ mục cho truy vấn văn bản hoặc không gian và giải thích giới hạn của từng cấu trúc | Bài 13; vector, khoảng cách và truy vấn phạm vi | *Database System Concepts* 7e, Chương 24 và 31; slide Cornell CS5780 và Auburn COMP7120 trong `reference-slides/` |
+| 15 | Chạy và so sánh Nested-Loop Join, Sort-Merge Join, Hash Join và Grace Hash Join theo mô hình I/O | Bài 12–13; quan hệ, băm và sắp xếp ngoài bộ nhớ | *Database System Concepts* 7e, Chương 15 |
 
 ## Thứ tự đề xuất
 
@@ -422,18 +434,18 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 |---:|---|---|---|
 | 1 | Bài toán dữ liệu lớn và mô hình thuật toán | 1 | Neo theo MMDS Chương 1; làm rõ kích thước dữ liệu, hạn chế bộ nhớ, chi phí truyền dữ liệu và yêu cầu xấp xỉ. |
 | 2 | MapReduce và ngăn xếp xử lý dữ liệu lớn | phần MapReduce của 4 | Neo theo MMDS Chương 2; tách nền tảng tính toán phân tán khỏi PageRank để dùng lại ở các bài sau. |
-| 3 | Biểu diễn tương đồng: Shingling và MinHash | 3, một phần 12 | Neo theo nửa đầu MMDS Chương 3; chuyển MinHash khỏi bài lấy mẫu và đặt sau Shingling. |
-| 4 | Tìm cặp tương đồng bằng LSH | một phần 12 | Neo theo nửa sau MMDS Chương 3; dùng chữ ký MinHash của buổi 3 và bổ sung độ đo khoảng cách theo phạm vi sách. |
-| 5 | Dòng dữ liệu: mô hình, lấy mẫu và lọc | 3, 2, 6 | Neo theo đầu MMDS Chương 4; dạy Reservoir Sampling và Bloom Filter trong mô hình một lượt. Chỉ giữ Rejection Sampling khi có nguồn đã kiểm chứng; nếu chưa có, coi là nội dung tùy chọn. |
-| 6 | Dòng dữ liệu: đếm, moment và cửa sổ | 2, 6, 7 | Neo theo phần còn lại của MMDS Chương 4; tổ chức Flajolet-Martin, AMS, HyperLogLog, Count-Min Sketch và DGIM theo đại lượng cần ước lượng. Slide bổ trợ đã có; vẫn phải kiểm tra tải nội dung trong 120 phút. |
-| 7 | PageRank: mô hình và tính toán | phần PageRank của 4 | Neo theo đầu MMDS Chương 5; dùng lại MapReduce từ buổi 2 khi bàn về tính PageRank trên đồ thị lớn. |
-| 8 | Topic-Sensitive PageRank, link spam và HITS | 5 | Neo theo phần còn lại của MMDS Chương 5; giữ ngay sau PageRank cơ sở để dùng lại ký hiệu. |
-| 9 | Nén dữ liệu không mất thông tin | 8 | Mô-đun bổ trợ từ *The Data Compression Book*; giữ Huffman, Adaptive Huffman và Arithmetic Coding. |
-| 10 | Nén bằng từ điển và nén mất dữ liệu | 9 | Mô-đun bổ trợ; giữ LZ77, LZ78, LZW và JPEG, nhưng tách rõ hai đặc tả khôi phục dữ liệu. |
-| 11 | Mô hình I/O và sắp xếp ngoài bộ nhớ | 14 | Mô-đun bổ trợ từ *Database System Concepts*; chuyển lên để thiết lập khối, lượt đọc/ghi, run và phép trộn. |
-| 12 | Chỉ mục truyền thống và băm tĩnh | 10 | Dùng mô hình I/O của buổi 11 để phân tích B-Tree, B+-Tree, băm tĩnh và Bitmap Index. |
-| 13 | Chỉ mục văn bản và chỉ mục không gian | 11, một phần 12 | Đặt Inverted Index, kd-tree, ball tree, Z-order Curve và Space-Filling Curve trong cùng cụm biểu diễn và truy vấn. Cần chọn chương bổ trợ phù hợp thay vì chỉ mặc định Chương 14. |
-| 14 | Chỉ mục hàng xóm gần đúng | 13 | Nối từ LSH và chỉ mục không gian; so sánh LSH, HNSW và PQ theo độ chính xác, thời gian và bộ nhớ. Slide hiện có đủ cho mức tổng quan; cần bài báo gốc nếu triển khai thuật toán hoặc bảo đảm chi tiết. |
+| 3 | PageRank: mô hình và tính toán | phần PageRank của 4 | Neo theo đầu MMDS Chương 5; dùng lại MapReduce từ buổi 2 khi bàn về tính PageRank trên đồ thị lớn. |
+| 4 | Topic-Sensitive PageRank, link spam và HITS | 5 | Neo theo phần còn lại của MMDS Chương 5; giữ ngay sau PageRank cơ sở để dùng lại ký hiệu. |
+| 5 | Biểu diễn tương đồng: Shingling và MinHash | 3, một phần 12 | Neo theo nửa đầu MMDS Chương 3; chuyển MinHash khỏi bài lấy mẫu và đặt sau Shingling. |
+| 6 | Tìm cặp tương đồng bằng LSH | một phần 12 | Neo theo nửa sau MMDS Chương 3; dùng chữ ký MinHash của buổi 5 và bổ sung độ đo khoảng cách theo phạm vi sách. |
+| 7 | Chỉ mục hàng xóm gần đúng | 13 | Nối trực tiếp từ LSH; so sánh LSH, HNSW và PQ. Biểu diễn vector, khoảng cách và đồ thị lân cận phải được cung cấp trong Bài 5–7; không phụ thuộc Bài 14. |
+| 8 | Dòng dữ liệu: mô hình, lấy mẫu và lọc | 3, 2, 6 | Neo theo đầu MMDS Chương 4; dạy Reservoir Sampling và Bloom Filter trong mô hình một lượt. |
+| 9 | Dòng dữ liệu: đếm, moment và cửa sổ | 2, 6, 7 | Neo theo phần còn lại của MMDS Chương 4; tổ chức các phác thảo theo đại lượng cần ước lượng. |
+| 10 | Nén dữ liệu không mất thông tin | 8 | Mô-đun bổ trợ từ *The Data Compression Book*; giữ Huffman, Adaptive Huffman và Arithmetic Coding. |
+| 11 | Nén bằng từ điển và nén mất dữ liệu | 9 | Giữ LZ77, LZ78, LZW và JPEG, nhưng tách rõ hai đặc tả khôi phục dữ liệu. |
+| 12 | Mô hình I/O và sắp xếp ngoài bộ nhớ | 14 | Thiết lập khối, lượt đọc/ghi, run và phép trộn cho toàn mạch lưu trữ. |
+| 13 | Chỉ mục truyền thống và băm tĩnh | 10 | Dùng mô hình I/O của buổi 12 để phân tích B-Tree, B+-Tree, băm tĩnh và Bitmap Index. |
+| 14 | Chỉ mục văn bản và chỉ mục không gian | 11, một phần 12 | Đặt Inverted Index, kd-tree, ball tree, Z-order Curve và Space-Filling Curve trong cùng cụm biểu diễn và truy vấn. |
 | 15 | Thuật toán kết nối dữ liệu | 15 | Dùng sắp xếp ngoài bộ nhớ, chỉ mục và băm để phân tích Nested-Loop Join, Sort-Merge Join, Hash Join và Grace Hash Join. |
 
 ## Ánh xạ thứ tự gốc sang đề xuất
@@ -441,30 +453,30 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 | Buổi gốc | Vị trí hoặc phạm vi đề xuất | Quyết định |
 |---:|---|---|
 | 1 | Buổi 1 | Giữ |
-| 2 | Buổi 5 và 6 | Tách Bloom Filter sang buổi 5; các cấu trúc ước lượng sang buổi 6 |
-| 3 | Buổi 3 và 5 | Tách MinHash sang buổi 3; Reservoir/Rejection Sampling sang buổi 5 |
-| 4 | Buổi 2 và 7 | Tách MapReduce sang buổi 2; PageRank sang buổi 7 |
-| 5 | Buổi 8 | Giữ liền sau PageRank cơ sở |
-| 6 | Buổi 5 và 6 | Tách mô hình dòng sang buổi 5; các thuật toán đếm và cửa sổ sang buổi 6 |
-| 7 | Buổi 6 | Gộp với cụm cửa sổ và decay |
-| 8 | Buổi 9 | Giữ nội dung và quan hệ trước–sau |
-| 9 | Buổi 10 | Giữ nội dung và quan hệ trước–sau |
-| 10 | Buổi 12 | Đặt sau mô hình I/O và sắp xếp ngoài bộ nhớ |
-| 11 | Buổi 13 | Giữ; nhận thêm Z-order và Space-Filling Curve |
-| 12 | Buổi 3, 4 và 13 | Tách theo ba vai trò: chữ ký MinHash, truy hồi bằng LSH, ánh xạ không gian |
-| 13 | Buổi 14 | Giữ sau LSH và chỉ mục không gian |
-| 14 | Buổi 11 | Chuyển lên trước cụm chỉ mục và Join |
+| 2 | Buổi 8 và 9 | Tách Bloom Filter sang buổi 8; các cấu trúc ước lượng sang buổi 9 |
+| 3 | Buổi 5 và 8 | Tách MinHash sang buổi 5; Reservoir/Rejection Sampling sang buổi 8 |
+| 4 | Buổi 2 và 3 | Tách MapReduce sang buổi 2; PageRank sang buổi 3 |
+| 5 | Buổi 4 | Giữ liền sau PageRank cơ sở |
+| 6 | Buổi 8 và 9 | Tách mô hình dòng sang buổi 8; các thuật toán đếm và cửa sổ sang buổi 9 |
+| 7 | Buổi 9 | Gộp với cụm cửa sổ và decay |
+| 8 | Buổi 10 | Giữ nội dung và quan hệ trước–sau |
+| 9 | Buổi 11 | Giữ nội dung và quan hệ trước–sau |
+| 10 | Buổi 13 | Đặt sau mô hình I/O và sắp xếp ngoài bộ nhớ |
+| 11 | Buổi 14 | Giữ; nhận thêm Z-order và Space-Filling Curve |
+| 12 | Buổi 5, 6 và 14 | Tách theo ba vai trò: chữ ký MinHash, truy hồi bằng LSH, ánh xạ không gian |
+| 13 | Buổi 7 | Đặt ngay sau LSH trong mạch tương đồng và hàng xóm gần |
+| 14 | Buổi 12 | Mở mạch lưu trữ, chỉ mục và kết nối |
 | 15 | Buổi 15 | Giữ; hưởng lợi từ các tiên quyết đã sắp lại |
 
 ## Quan hệ tiên quyết sau điều chỉnh
 
 - Buổi 1 → buổi 2: bài toán dữ liệu lớn → mô hình xử lý phân tán.
-- Buổi 3 → buổi 4: Shingling và MinHash → khuếch đại xác suất và tìm ứng viên bằng LSH.
-- Buổi 5 → buổi 6: mô hình dòng → lấy mẫu/lọc → ước lượng moment và cửa sổ trượt.
-- Buổi 2 và 7 → buổi 8: MapReduce và PageRank cơ sở → tính toán quy mô lớn và các biến thể xếp hạng.
-- Buổi 9 → buổi 10: mã dựa trên xác suất → từ điển và nén mất dữ liệu.
-- Buổi 11 → buổi 12–15: mô hình I/O, run và phép trộn → chỉ mục trên đĩa, chỉ mục chuyên biệt, ANN và Join.
-- Buổi 4 và 13 → buổi 14: LSH và chỉ mục không gian → HNSW/PQ và tìm hàng xóm gần đúng.
+- Buổi 2 → buổi 3 → buổi 4: MapReduce → PageRank cơ sở → các biến thể xếp hạng.
+- Buổi 5 → buổi 6 → buổi 7: Shingling và MinHash → LSH → HNSW/PQ và tìm hàng xóm gần đúng.
+- Buổi 8 → buổi 9: mô hình dòng, lấy mẫu và lọc → ước lượng moment và cửa sổ trượt.
+- Buổi 10 → buổi 11: mã dựa trên xác suất → từ điển và nén mất dữ liệu.
+- Buổi 12 → buổi 13 → buổi 14: mô hình I/O và sắp xếp ngoài → chỉ mục trên đĩa → chỉ mục chuyên biệt.
+- Buổi 12–13 → buổi 15: mô hình I/O, sắp xếp ngoài và băm → Join.
 
 ## Việc cần xác minh trước khi tạo từng bộ trang chiếu
 
@@ -474,6 +486,6 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 4. Phân biệt hai mức tham dự cùng ghi 80–90% trong rubric chuyên cần.
 5. Xác định thuật ngữ gốc của “kỹ thuật làm cũ”.
 6. Chỉ rõ cách CLO4 được dạy và thu thập minh chứng trong các LLO/hoạt động của 15 buổi.
-7. Với buổi 14, bổ sung bài báo gốc HNSW và PQ nếu deck trình bày giả mã, bảo đảm hoặc phân tích độ phức tạp chi tiết.
-8. Khi lập kế hoạch chi tiết, kiểm tra tải nội dung của buổi 6 sau khi gom các thuật toán đếm và cửa sổ. Nếu vượt thời lượng, giảm số thuật toán triển khai đầy đủ; không thu nhỏ phần đặc tả, sai số và ví dụ chạy tay.
+7. Với buổi 7, bổ sung bài báo gốc HNSW và PQ nếu deck trình bày giả mã, bảo đảm hoặc phân tích độ phức tạp chi tiết.
+8. Khi lập kế hoạch chi tiết, kiểm tra tải nội dung của buổi 9 sau khi gom các thuật toán đếm và cửa sổ. Nếu vượt thời lượng, giảm số thuật toán triển khai đầy đủ; không thu nhỏ phần đặc tả, sai số và ví dụ chạy tay.
 9. Xác nhận việc tách MapReduce khỏi bài PageRank có phù hợp với phân công giảng dạy và lịch thực hành hiện hành.

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
-  <title id="title">Năm tuyến kiến thức của học phần</title>
-  <desc id="desc">Bài một dẫn đến năm tuyến lớn: xử lý phân tán và xếp hạng; tương đồng và hàng xóm gần; dòng dữ liệu; nén; lưu trữ, chỉ mục và kết nối. Mỗi tuyến có số các bài liên quan, biểu tượng và kiểu viền riêng.</desc>
+  <title id="title">Năm mạch kiến thức của học phần</title>
+  <desc id="desc">Bài một dẫn đến năm mạch học liền nhau: Bài 2 đến 4 về xử lý phân tán và xếp hạng; Bài 5 đến 7 về tương đồng và hàng xóm gần; Bài 8 đến 9 về dòng dữ liệu và cửa sổ; Bài 10 đến 11 về nén dữ liệu và từ điển; Bài 12 đến 15 về lưu trữ, chỉ mục và kết nối.</desc>
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0l10 5-10 5z" fill="#455a64"/></marker>
     <pattern id="stripe" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 12L12 0" stroke="#2f3e7a" stroke-width="2"/></pattern>
@@ -24,13 +24,13 @@
     <rect x="36" y="197" width="188" height="261" rx="14" fill="url(#stripe)" fill-opacity=".16"/>
     <rect x="271" y="197" width="188" height="261" rx="14" fill="url(#dot)" fill-opacity=".22"/>
     <g fill="#263238">
-      <text x="130" y="235" font-size="28" font-weight="700">Bài 2, 7, 8</text><text x="130" y="292" font-size="25">Xử lý phân tán</text><text x="130" y="328" font-size="25">và xếp hạng</text><text x="130" y="408" font-size="42">⇄</text>
-      <text x="365" y="235" font-size="28" font-weight="700">Bài 3, 4, 14</text><text x="365" y="292" font-size="25">Tương đồng</text><text x="365" y="328" font-size="25">và hàng xóm gần</text><text x="365" y="408" font-size="42">≈</text>
-      <text x="600" y="235" font-size="28" font-weight="700">Bài 5, 6</text><text x="600" y="292" font-size="25">Dòng dữ liệu</text><text x="600" y="328" font-size="25">và cửa sổ</text><text x="600" y="408" font-size="42">→</text>
-      <text x="835" y="235" font-size="28" font-weight="700">Bài 9, 10</text><text x="835" y="292" font-size="25">Nén dữ liệu</text><text x="835" y="328" font-size="25">và từ điển</text><text x="835" y="408" font-size="42">⇥</text>
-      <text x="1070" y="235" font-size="28" font-weight="700">Bài 11–13, 15</text><text x="1070" y="292" font-size="25">Lưu trữ, chỉ mục</text><text x="1070" y="328" font-size="25">và kết nối</text><text x="1070" y="408" font-size="42">⌘</text>
+      <text x="130" y="235" font-size="28" font-weight="700">Bài 2–4</text><text x="130" y="292" font-size="25">Xử lý phân tán</text><text x="130" y="328" font-size="25">và xếp hạng</text><text x="130" y="408" font-size="42">⇄</text>
+      <text x="365" y="235" font-size="28" font-weight="700">Bài 5–7</text><text x="365" y="292" font-size="25">Tương đồng</text><text x="365" y="328" font-size="25">và hàng xóm gần</text><text x="365" y="408" font-size="42">≈</text>
+      <text x="600" y="235" font-size="28" font-weight="700">Bài 8–9</text><text x="600" y="292" font-size="25">Dòng dữ liệu</text><text x="600" y="328" font-size="25">và cửa sổ</text><text x="600" y="408" font-size="42">→</text>
+      <text x="835" y="235" font-size="28" font-weight="700">Bài 10–11</text><text x="835" y="292" font-size="25">Nén dữ liệu</text><text x="835" y="328" font-size="25">và từ điển</text><text x="835" y="408" font-size="42">⇥</text>
+      <text x="1070" y="235" font-size="28" font-weight="700">Bài 12–15</text><text x="1070" y="292" font-size="25">Lưu trữ, chỉ mục</text><text x="1070" y="328" font-size="25">và kết nối</text><text x="1070" y="408" font-size="42">⌘</text>
     </g>
-    <text x="600" y="535" font-size="26" font-weight="700" fill="#2f3e7a">Mỗi tuyến thay đổi cách đếm chi phí hoặc phát biểu bảo đảm.</text>
+    <text x="600" y="535" font-size="26" font-weight="700" fill="#2f3e7a">Mỗi mạch giữ liền các bài có chung biểu diễn và mô hình chi phí.</text>
     <text x="600" y="575" font-size="22" fill="#546e7a">Số bài theo thứ tự đề xuất trong nguồn học phần</text>
   </g>
 </svg>

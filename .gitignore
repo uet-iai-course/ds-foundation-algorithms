@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 .agents/
 .codex/
+screenshot/
 
 # Tài liệu nguồn nhị phân chỉ lưu cục bộ; không phát hành lại qua Git.
 sources/**/*.docx

@@ -56,7 +56,7 @@ Không gộp hoặc đảo bước trong cụm trọng tâm. A03 chỉ định t
 | E00 | Số chiều lớn đổi trực giác | Mở phần và giới hạn phạm vi | BHK tr.12,17–21 | 2 | Khoảng cách là một tổng |
 | E01 | Khoảng cách là tổng của nhiều thành phần | Công thức, giả thiết và câu kiểm tra theo $d$ | BHK Ch.2 | 4 | Phân biệt với hiện tượng thể tích |
 | E02 | Thể tích tập trung gần biên | Hình BHK 2.2, cầu nối và câu kiểm tra | BHK tr.20–21 | 4 | Định tuyến học phần |
-| E03 | Năm tuyến của học phần | Gộp 15 bài thành năm tuyến chữ lớn | MMDS tr.17–18; Stanford 10; `source.md` | 3 | Chốt cách chọn mô hình |
+| E03 | Năm mạch của học phần | Gộp 15 bài thành năm mạch liền nhau: 2–4, 5–7, 8–9, 10–11, 12–15 | MMDS tr.17–18; Stanford 10; `source.md` | 3 | Chốt cách chọn mô hình |
 | E04 | Chọn mô hình theo điểm nghẽn | Bốn phép kiểm tra trước thiết kế | MMDS Ch.1; BHK Ch.1–2 | 2 | Chuyển sang bài tập nguồn |
 | R00 | Bài tập củng cố | Trang chuyển phần dọc | MMDS Bài 1.2.1–1.2.2, tr.8 | 0 | Đọc toàn bộ Bài 1.2.1 |
 | R01 | Bài 1.2.1: ba thay đổi của hồ sơ lưu trú | Bản dịch trung thành cả ba phần; dựng công thức | MMDS Bài 1.2.1(a–c), tr.8 | 10 | Tính phần a, b |
@@ -74,7 +74,7 @@ Phần bài tập: $10+15+10+10+15=60$ phút. R00 chỉ chuyển phần.
 ## Điều chỉnh nguồn
 
 - Chỉ dùng Stanford trang chiếu 62 trong khoảng 32–70; bỏ toàn bộ 32–61 và 63–70. Ví dụ bốn bản ghi được tự dựng từ lược đồ trang 62 để chạy tay và được ghi rõ là không phải dữ liệu thực nghiệm.
-- Gộp bản đồ 15 bài thành năm tuyến để chữ đủ lớn; không đổi thứ tự hoặc quan hệ bài học trong `source.md`.
+- Gộp bản đồ 15 bài thành năm mạch liền nhau theo `source.md`; sửa các nhóm rời rạc cũ thành 2–4, 5–7, 8–9, 10–11 và 12–15.
 - Chia MMDS Bài 1.2.1 thành các mốc R01–R03 và Bài 1.2.2 thành R04–R05; chỉ dịch, chia bước và chuyển đáp án vào ghi chú hoặc fragment.
 - Ở R04, thay nhãn con người nhạy cảm bằng “nhóm cần phát hiện” nhưng giữ nguyên giả thuyết toán học trong bài và chú thích 3.
 - Thu gọn phần số chiều lớn thành định tuyến; phân biệt rõ tổng khoảng cách ở E01 với thể tích gần biên ở E02.

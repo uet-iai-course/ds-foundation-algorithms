@@ -26,7 +26,7 @@
 | mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
 |---|---|---|---|---|
 | chặn bàn giao | A04, A05, B00–B07, C00–C03 | Ví dụ chạy tay xuất hiện sau hình thức hóa, giả mã và chứng minh | Khoảng cách khoảng 39 phút | Đưa vết chạy trước đặc tả và hoàn tất chu trình trước B |
-| nghiêm trọng | E03 | Bản đồ 15 bài có chữ quá nhỏ | SVG 1200×640 dùng chữ 17 px, khi co chỉ còn khoảng 11–12 px | Tách hai trang hoặc gộp thành năm tuyến chữ lớn |
+| nghiêm trọng | E03 | Bản đồ 15 bài có chữ quá nhỏ | SVG 1200×640 dùng chữ 17 px, khi co chỉ còn khoảng 11–12 px | Tách hai trang hoặc gộp thành năm mạch chữ lớn |
 | nghiêm trọng | R04–R05 | Trang chữa lộ công thức và đáp số | R05 hiện toàn bộ đáp án nhưng vẫn tính 15 phút | Dùng ghi chú hoặc fragment và thêm sản phẩm R04 |
 | trung bình | A05 | Một trang gánh giả mã, bất biến, dừng, biên và chi phí | Thời lượng bốn phút | Tách thuật toán, chứng minh và chi phí |
 | trung bình | P01, E00–E02 | Mục tiêu không báo trước chứng minh hoặc phần cao chiều | Mặt slide có bốn mục tiêu, outline có sáu | Đồng bộ; lược cao chiều khỏi đánh giá nếu chỉ định tuyến |
@@ -81,7 +81,7 @@
 
 Tất cả đề xuất `chặn bàn giao` và `nghiêm trọng` đã áp dụng. Các đề xuất `trung bình` và `nhẹ` cũng đã áp dụng, với hai lựa chọn cụ thể:
 
-- E03 dùng phương án gộp thành năm tuyến thay vì tách hai trang; cách này giữ một luận điểm trung tâm và không tăng thời lượng.
+- E03 dùng phương án gộp thành năm mạch thay vì tách hai trang; cách này giữ một luận điểm trung tâm và không tăng thời lượng.
 - E01 dùng câu kiểm tra về kỳ vọng theo $d$ thay cho một ví dụ số dài; câu hỏi dựa trực tiếp vào công thức đang hiển thị và giữ cụm cao chiều ở mức định tuyến.
 
 Không có đề xuất nào bị bác bỏ. Sau khi đổi thứ tự và số trang, đã rà lại toàn bộ cụm A, B, C, D, E và hai trang lân cận quanh mỗi điểm nối.
@@ -98,7 +98,7 @@ Không có đề xuất nào bị bác bỏ. Sau khi đổi thứ tự và số 
 | MMDS Bài 1.2.2 | Chia R04–R05 | Giữ nguyên giả thuyết toán học; đáp án chỉ hiện khi chữa |
 | Nhãn con người trong Bài 1.2.2 | Dùng “nhóm cần phát hiện” | Ngôn ngữ trung tính, không đổi cấu trúc toán học hoặc câu hỏi |
 | BHK Chương 2 | Chỉ định tuyến | Định lý chi tiết vượt phạm vi Bài 1 |
-| Bản đồ 15 bài | Gộp thành năm tuyến | Chữ 17 px không đọc được khi chiếu; số bài vẫn được giữ theo tuyến |
+| Bản đồ 15 bài | Gộp thành năm mạch | Chữ 17 px không đọc được khi chiếu; số bài được giữ theo mạch |
 
 ## Hình vẽ lại và tiếp cận
 
@@ -106,7 +106,7 @@ Không có đề xuất nào bị bác bỏ. Sau khi đổi thứ tự và số 
 - `giao-thoa-khai-pha-du-lieu.svg`: ba hoa văn được dùng thật, cùng ba kiểu viền.
 - `phep-thu-va-duong-tinh-gia.svg`: ba khối có nhãn và kiểu viền; đại lượng được gọi là biến cố trùng kỳ vọng.
 - `the-tich-gan-bien.svg`: vành ngoài dùng hoa văn chấm; mô tả đúng hiện tượng thể tích.
-- `ban-do-hoc-phan.svg`: năm tuyến, chữ nhỏ nhất 22 px, biểu tượng và kiểu viền riêng.
+- `ban-do-hoc-phan.svg`: năm mạch, chữ nhỏ nhất 22 px, biểu tượng và kiểu viền riêng.
 
 Mỗi SVG có `role="img"`, `title`, `desc`; không dùng màu làm tín hiệu duy nhất.
 
@@ -145,7 +145,14 @@ Mỗi SVG có `role="img"`, `title`, `desc`; không dùng màu làm tín hiệu 
 - Chạy máy chủ tại thư mục gốc bằng `python3 -m reloadserver 8765`. Môi trường không cài mô-đun toàn cục nên dùng bản tạm trong `/tmp` qua `PYTHONPATH`; máy chủ phục vụ đúng ở cổng 8765.
 - Tải thử HTML, RevealJS, CSS, plugin, ba tài nguyên KaTeX thực tế và năm SVG qua HTTP; tất cả trả mã 200.
 - Dùng Chromium qua Playwright duyệt tuần tự đủ 41 trang ở khung 1280×720 và 800×600. Hai lượt kiểm thử đạt; không có lỗi JavaScript, yêu cầu mạng thất bại hoặc phần tử vượt khung trang đang trình chiếu.
-- Chụp 41 ảnh ở khung 1280×720 và kiểm tra bản ghép toàn bộ. Các trang có giả mã, bảng vết chạy, công thức Bonferroni, năm tuyến học phần và bài tập đều đọc được; fragment R05 ẩn đáp án trước bước chữa.
+- Chụp 41 ảnh ở khung 1280×720 và kiểm tra bản ghép toàn bộ. Các trang có giả mã, bảng vết chạy, công thức Bonferroni, năm mạch học phần và bài tập đều đọc được; fragment R05 ẩn đáp án trước bước chữa.
+
+## Cập nhật mạch học tập
+
+- **Mức độ:** nghiêm trọng. **Trang chiếu:** E03. **Vấn đề:** số bài trên bản đồ phản ánh các nhóm chủ đề nhưng không phản ánh thứ tự học liền mạch. **Bằng chứng:** hình cũ ghi `2, 7, 8`, `3, 4, 14`, `5, 6`, `9, 10`, `11–13, 15`; `sources/source.md` đã sắp lại năm mạch thành các khoảng liên tiếp. **Quyết định:** sửa SVG và trang E03 thành `2–4`, `5–7`, `8–9`, `10–11`, `12–15`; đổi tiêu đề từ “tuyến” sang “mạch”.
+- E02 được sửa tham chiếu từ Bài 14 cũ sang Bài 7 mới. Đã rà lại E01–E04 theo quy tắc hai trang lân cận; không đổi thời lượng, công thức hoặc mạch lập luận của cụm số chiều lớn.
+- Vòng rà lại E01–E04 đã mở rộng văn bản thay thế của E03 để nêu đủ tên năm mạch. Ghi chú E02 cũng được sửa: với vành dày $O(1/d)$, chỉ kết luận một tỷ lệ lớn thể tích nằm gần biên và tỷ lệ phụ thuộc hằng số ẩn; không còn tuyên bố giới hạn bằng 1.
+- Kiểm tra lại bằng Chromium ở 1280 × 720 và 800 × 600: đủ 41 trang, không lỗi JavaScript hoặc tài nguyên, không tràn khung. E03 hiển thị đúng năm khoảng bài liên tiếp và đủ tên mạch.
 - Kiểm tra bàn phím bằng API điều hướng RevealJS trong cùng chuỗi trang; cấu hình vẫn giữ `controlsLayout: "edges"`, `slideNumber`, `hashOneBasedIndex` và `hash`.
 - `2627-1/index.html` đã có đúng một liên kết đến bài hoàn thành và không liên kết tới tệp quy trình.
 

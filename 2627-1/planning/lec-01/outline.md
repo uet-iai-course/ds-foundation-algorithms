@@ -27,7 +27,7 @@ Phần số chiều lớn chỉ định tuyến, không phải mục tiêu đán
 | Từ bài toán đến sản phẩm | B00–B07 | Năm tầng của lời giải và hai loại sản phẩm mô hình hóa | 19 phút |
 | Mô hình chi phí | C00–C02, C04–C05 | Ba chi phí, một bảo đảm và đặc tả xấp xỉ | 19 phút |
 | Tín hiệu giả | D00–D05 | Tình huống lưu trú, nguyên lý Bonferroni và kỳ vọng số biến cố trùng | 30 phút |
-| Định tuyến số chiều lớn | E00–E04 | Khoảng cách, thể tích gần biên và năm tuyến học phần | 15 phút |
+| Định tuyến số chiều lớn | E00–E04 | Khoảng cách, thể tích gần biên và năm mạch học phần | 15 phút |
 | **Tổng** |  |  | **120 phút** |
 
 ## Dàn ý phần bài tập
@@ -104,4 +104,4 @@ Sau $k$ bản ghi, tập khóa của bảng đúng bằng tập máy chủ trong
 | `giao-thoa-khai-pha-du-lieu.svg` | B02 | Stanford trang chiếu 7; ba hoa văn được dùng thật |
 | `phep-thu-va-duong-tinh-gia.svg` | D03 | MMDS trang 7–8 |
 | `the-tich-gan-bien.svg` | E02 | BHK Hình 2.2; vành dùng hoa văn chấm |
-| `ban-do-hoc-phan.svg` | E03 | MMDS trang 17–18, Stanford trang chiếu 10 và `source.md`; gộp thành năm tuyến chữ lớn |
+| `ban-do-hoc-phan.svg` | E03 | MMDS trang 17–18, Stanford trang chiếu 10 và `source.md`; gộp thành năm mạch chữ lớn |
