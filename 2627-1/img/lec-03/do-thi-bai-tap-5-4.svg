@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="450" viewBox="0 0 900 450" role="img" aria-labelledby="title desc">
+  <title id="title">Đồ thị của Hình 5.4 trong MMDS</title>
+  <desc id="desc">Đồ thị có hướng gồm năm nút: A trỏ đến B, C, D; B trỏ đến A, D; C trỏ đến E; D trỏ đến B, C; E không có cạnh ra.</desc>
+  <defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
+  <rect width="900" height="450" rx="18" fill="#fffdf9"/>
+  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#arr)">
+    <path d="M170 190 C205 95 300 70 345 100"/><path d="M335 127 C275 145 220 170 187 205"/>
+    <path d="M185 245 C235 300 290 325 345 325"/><path d="M190 225 L610 225"/>
+    <path d="M420 115 C510 95 590 120 625 185"/><path d="M620 195 C570 150 505 125 430 120"/>
+    <path d="M620 252 C560 315 500 330 430 330"/><path d="M425 350 L735 350"/>
+  </g>
+  <g fill="#edf4ff" stroke="#2F3E7A" stroke-width="5"><circle cx="145" cy="225" r="46"/><circle cx="385" cy="105" r="46"/><circle cx="385" cy="345" r="46"/><circle cx="655" cy="225" r="46"/><circle cx="785" cy="350" r="46"/></g>
+  <g font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#2F3E7A" text-anchor="middle"><text x="145" y="238">A</text><text x="385" y="118">B</text><text x="385" y="358">C</text><text x="655" y="238">D</text><text x="785" y="363">E</text></g>
+  <text x="785" y="425" font-family="Arial, sans-serif" font-size="23" text-anchor="middle" fill="#C62828">nút cụt</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="430" viewBox="0 0 1160 430" role="img" aria-labelledby="title desc">
+  <title id="title">Luồng cấu trúc và đóng góp trong một vòng PageRank</title>
+  <desc id="desc">Bản ghi cấu trúc đi vào map. Map phát lại cấu trúc theo khóa nút nguồn và phát đóng góp theo khóa nút đích. Sau khi nhóm, reduce cộng đóng góp, thêm phần từ nút cụt và dịch chuyển ngẫu nhiên, rồi xuất cấu trúc cùng hạng mới cho vòng sau.</desc>
+  <defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
+  <rect width="1160" height="430" rx="18" fill="#fffdf9"/>
+  <g fill="#edf4ff" stroke="#2F3E7A" stroke-width="4"><rect x="25" y="75" width="220" height="170" rx="16"/><rect x="315" y="75" width="235" height="170" rx="16"/><rect x="620" y="75" width="210" height="170" rx="16"/><rect x="900" y="75" width="235" height="170" rx="16"/></g>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g fill="#2F3E7A" font-size="27" font-weight="700"><text x="135" y="112">Bản ghi Sⱼ</text><text x="432" y="112">Tác vụ map</text><text x="725" y="112">Nhóm theo khóa</text><text x="1017" y="112">Tác vụ reduce</text></g>
+    <g fill="#37474F" font-size="22"><text x="135" y="153">j, d⁺(j), N⁺(j)</text><text x="135" y="187">hạng rⱼ⁽ᵗ⁾</text><text x="432" y="150">phát (j, cấu trúc)</text><text x="432" y="184">phát (i, βrⱼ⁽ᵗ⁾/d⁺)</text><text x="432" y="218">cho mỗi j→i</text><text x="725" y="154">i : cấu trúc Sᵢ</text><text x="725" y="190">và [c₁,c₂,…]</text><text x="1017" y="147">cộng đóng góp</text><text x="1017" y="181">+ βδ⁽ᵗ⁾/n +(1−β)/n</text><text x="1017" y="215">xuất Sᵢ với hạng mới</text></g>
+  </g>
+  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#arr)"><path d="M250 160 L307 160"/><path d="M555 160 L612 160"/><path d="M835 160 L892 160"/></g>
+  <g font-family="Arial, sans-serif" text-anchor="middle"><rect x="220" y="300" width="720" height="92" rx="14" fill="#fffaf5" stroke="#B15A2B" stroke-width="4"/><text x="580" y="334" font-size="24" font-weight="700" fill="#2F3E7A">δ⁽ᵗ⁾ = tổng hạng tại nút cụt; Δₜ₊₁ = tổng thay đổi L₁</text><text x="580" y="368" font-size="22" fill="#37474F">hai tổng toàn cục tạo các điểm đồng bộ giữa vòng lặp</text></g>
+</svg>

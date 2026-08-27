@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+  <title id="title">Đồ thị của Hình 5.7 trong MMDS</title>
+  <desc id="desc">Đồ thị có hướng: a trỏ đến a, b, c; b trỏ đến a, c; c trỏ đến b, c.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
+  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#a)"><path d="M250 165 C335 70 525 70 650 165"/><path d="M410 185 L280 185"/><path d="M270 225 L410 225"/><path d="M490 185 L630 185"/><path d="M630 225 L490 225"/><path d="M190 160 C105 65 80 270 185 230"/><path d="M690 160 C780 65 805 270 700 230"/></g>
+  <g fill="#edf4ff" stroke="#2F3E7A" stroke-width="5"><circle cx="230" cy="205" r="48"/><circle cx="450" cy="205" r="48"/><circle cx="670" cy="205" r="48"/></g>
+  <g font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#2F3E7A" text-anchor="middle"><text x="230" y="219">a</text><text x="450" y="219">b</text><text x="670" y="219">c</text></g>
+</svg>

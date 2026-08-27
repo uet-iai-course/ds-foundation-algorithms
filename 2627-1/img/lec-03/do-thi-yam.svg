@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="390" viewBox="0 0 980 390" role="img" aria-labelledby="title desc">
+  <title id="title">Đồ thị liên kết ba nút y, a, m</title>
+  <desc id="desc">Đồ thị có hướng: y trỏ đến y và a; a trỏ đến y và m; m trỏ đến a.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
+  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#arrow)">
+    <path d="M270 190 C340 85 515 85 590 190"/>
+    <path d="M590 215 C520 315 345 315 270 215"/>
+    <path d="M650 215 C720 300 825 280 850 205"/>
+    <path d="M845 170 C800 80 700 100 650 180"/>
+    <path d="M205 168 C130 70 105 245 198 225"/>
+  </g>
+  <g fill="#edf4ff" stroke="#2F3E7A" stroke-width="5">
+    <circle cx="230" cy="200" r="50"/><circle cx="620" cy="200" r="50"/><circle cx="860" cy="200" r="50"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#2F3E7A" text-anchor="middle"><text x="230" y="215">y</text><text x="620" y="215">a</text><text x="860" y="215">m</text></g>
+  <g font-family="Arial, sans-serif" font-size="25" fill="#37474F"><text x="390" y="88">1/2</text><text x="390" y="328">1/2</text><text x="740" y="310">1/2</text><text x="760" y="95">1</text><text x="100" y="108">1/2</text></g>
+</svg>
