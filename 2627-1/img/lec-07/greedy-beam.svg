@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Cực tiểu cục bộ và nhánh dự phòng</title><desc id="desc">Từ e, tham lam chọn a rồi b và dừng ở khoảng cách 5. Tìm kiếm chùm bề rộng 3 còn giữ s, đi qua t và u tới z ở khoảng cách 1.</desc>
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f3e7a"/></marker></defs>
+  <g stroke="#adb6c5" stroke-width="3" fill="none"><path d="M90 175L235 95L385 135"/><path d="M90 175L235 275L430 265L625 230L800 185"/></g>
+  <g fill="#fff" stroke="#2f3e7a" stroke-width="4"><circle cx="90" cy="175" r="22"/><circle cx="235" cy="95" r="22"/><circle cx="385" cy="135" r="22"/><circle cx="235" cy="275" r="22"/><circle cx="430" cy="265" r="22"/><circle cx="625" cy="230" r="22"/><circle cx="800" cy="185" r="22"/></g>
+  <circle cx="930" cy="180" r="14" fill="#b15a2b"/><text x="930" y="220" text-anchor="middle" font-size="22" fill="#b15a2b">q</text>
+  <g font-family="sans-serif" font-size="19" text-anchor="middle"><text x="90" y="180">e</text><text x="90" y="213">d=9</text><text x="235" y="100">a</text><text x="235" y="65">d=7</text><text x="385" y="140">b</text><text x="385" y="105">d=5</text><text x="235" y="280">s</text><text x="235" y="320">d=8</text><text x="430" y="270">t</text><text x="430" y="310">d=4</text><text x="625" y="235">u</text><text x="625" y="270">d=2</text><text x="800" y="190">z</text><text x="800" y="225">d=1</text></g>
+  <path d="M90 175L235 95L385 135" fill="none" stroke="#b15a2b" stroke-width="8" marker-end="url(#arr)"/><text x="340" y="55" font-size="20" fill="#b15a2b">tham lam: e → a → b</text>
+  <path d="M90 175L235 275L430 265L625 230L800 185" fill="none" stroke="#2f7d5b" stroke-width="7" stroke-dasharray="12 8" marker-end="url(#arr)"/><text x="545" y="345" text-anchor="middle" font-size="20" fill="#2f7d5b">chùm ef = 3 còn giữ nhánh s</text>
+</svg>

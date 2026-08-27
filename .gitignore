@@ -11,3 +11,4 @@ screenshot/
 sources/**/*.docx
 sources/**/*.pdf
 sources/**/*.pptx
+sources/**/*.ipynb

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="380" viewBox="0 0 1000 380" role="img" aria-labelledby="title desc">
+  <title id="title">Ba tầng của HNSW</title><desc id="desc">Tầng cao thưa với cạnh dài, tầng giữa vừa, tầng đáy dày với cạnh ngắn; truy vấn đi từ điểm vào xuống các tầng.</desc>
+  <defs><marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b15a2b"/></marker></defs>
+  <g font-family="sans-serif"><text x="35" y="75" font-size="22" fill="#2f3e7a">tầng 2</text><text x="35" y="190" font-size="22" fill="#2f3e7a">tầng 1</text><text x="35" y="315" font-size="22" fill="#2f3e7a">tầng 0</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none"><path d="M160 60L510 60L850 60"/><path d="M160 175L330 175L510 175L690 175L850 175"/><path d="M160 300L245 300L330 300L420 300L510 300L600 300L690 300L770 300L850 300"/></g>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><circle cx="160" cy="60" r="17"/><circle cx="510" cy="60" r="17"/><circle cx="850" cy="60" r="17"/><circle cx="160" cy="175" r="17"/><circle cx="330" cy="175" r="17"/><circle cx="510" cy="175" r="17"/><circle cx="690" cy="175" r="17"/><circle cx="850" cy="175" r="17"/><circle cx="160" cy="300" r="17"/><circle cx="245" cy="300" r="17"/><circle cx="330" cy="300" r="17"/><circle cx="420" cy="300" r="17"/><circle cx="510" cy="300" r="17"/><circle cx="600" cy="300" r="17"/><circle cx="690" cy="300" r="17"/><circle cx="770" cy="300" r="17"/><circle cx="850" cy="300" r="17"/></g>
+  <path d="M160 77V158M510 77V158M850 77V158M510 192V283M690 192V283" stroke="#b15a2b" stroke-width="4" stroke-dasharray="8 6" marker-end="url(#down)"/>
+  <circle cx="925" cy="318" r="12" fill="#b15a2b"/><text x="925" y="352" text-anchor="middle" font-size="22" fill="#b15a2b">q</text><text x="160" y="30" text-anchor="middle" font-size="21">điểm vào</text>
+</svg>

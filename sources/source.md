@@ -357,7 +357,7 @@ Các mô-đun sau không thuộc trục năm chương trên và cần sách bổ
 
 - Nén dữ liệu: Nelson và Gailly, *The Data Compression Book*, theo các chương đã ghi trong đề cương.
 - Lưu trữ, sắp xếp ngoài bộ nhớ, chỉ mục và Join: Silberschatz, Korth và Sudarshan, *Database System Concepts*, ấn bản thứ 7. Cấu trúc sách chính thức gồm Chương 12 về lưu trữ vật lý, Chương 13 về cấu trúc lưu trữ, Chương 14 về chỉ mục, Chương 15 về xử lý truy vấn, Chương 24 về chỉ mục nâng cao và Chương 31 về truy hồi thông tin. Nguồn: [Database System Concepts](https://www.db-book.com/).
-- Count-Min Sketch và HyperLogLog có slide bổ trợ từ UMass CS514. HNSW, PQ và FAISS có slide tổng quan từ Stanford BIODS 271; nếu dạy giả mã, bảo đảm hoặc phân tích chi tiết thì vẫn cần bài báo gốc. Rejection Sampling chưa có nguồn slide phù hợp và chỉ nên giữ khi bổ sung được nguồn đã kiểm chứng.
+- Count-Min Sketch và HyperLogLog có slide bổ trợ từ UMass CS514. Bài 7 dùng Stanford BIODS 271 để đặt bối cảnh, giáo trình Princeton COS 597A cho cơ chế và bài tập, cùng bài báo gốc HNSW/PQ để kiểm chứng giả mã, giả thiết và kết luận. Rejection Sampling chưa có nguồn slide phù hợp và chỉ nên giữ khi bổ sung được nguồn đã kiểm chứng.
 
 Slide bổ trợ đã tải và bảng ánh xạ theo từng buổi nằm tại [`reference-slides/README.md`](reference-slides/README.md). Bảng này cho biết phần nào đủ cho bản nháp và phần nào vẫn cần giáo trình hoặc bài báo gốc trước khi hoàn tất deck.
 

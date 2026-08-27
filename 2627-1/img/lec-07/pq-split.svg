@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Lượng tử hóa tích chia véc-tơ thành các véc-tơ con</title><desc id="desc">Véc-tơ tám chiều được chia thành bốn đoạn hai chiều; mỗi đoạn chọn một tâm riêng và mã cuối ghép bốn chỉ số.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f3e7a"/></marker></defs>
+  <text x="35" y="58" font-size="24" font-weight="700" fill="#2f3e7a">x ∈ ℝ⁸</text>
+  <g stroke="#2f3e7a" stroke-width="3"><rect x="35" y="85" width="100" height="65" fill="#edf4ff"/><rect x="135" y="85" width="100" height="65" fill="#edf4ff"/><rect x="235" y="85" width="100" height="65" fill="#f7efe6"/><rect x="335" y="85" width="100" height="65" fill="#f7efe6"/><rect x="435" y="85" width="100" height="65" fill="#eef7f2"/><rect x="535" y="85" width="100" height="65" fill="#eef7f2"/><rect x="635" y="85" width="100" height="65" fill="#fff5e8"/><rect x="735" y="85" width="100" height="65" fill="#fff5e8"/></g>
+  <g font-size="20" text-anchor="middle"><text x="135" y="190">x⁽¹⁾</text><text x="335" y="190">x⁽²⁾</text><text x="535" y="190">x⁽³⁾</text><text x="735" y="190">x⁽⁴⁾</text></g>
+  <path d="M435 220V265" stroke="#2f3e7a" stroke-width="5" marker-end="url(#a)"/>
+  <g stroke-width="3"><rect x="275" y="285" width="90" height="55" rx="8" fill="#edf4ff" stroke="#2f3e7a"/><rect x="370" y="285" width="90" height="55" rx="8" fill="#f7efe6" stroke="#b15a2b"/><rect x="465" y="285" width="90" height="55" rx="8" fill="#eef7f2" stroke="#2f7d5b"/><rect x="560" y="285" width="90" height="55" rx="8" fill="#fff5e8" stroke="#b15a2b"/></g>
+  <g font-size="22" text-anchor="middle"><text x="320" y="321">i₁</text><text x="415" y="321">i₂</text><text x="510" y="321">i₃</text><text x="605" y="321">i₄</text></g><text x="720" y="321" font-size="22">mã PQ</text>
+</svg>
