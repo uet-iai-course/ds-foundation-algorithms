@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="440" viewBox="0 0 1120 440" role="img" aria-labelledby="title desc">
+  <title id="title">Cụm thao túng liên kết trong Hình 5.16</title>
+  <desc id="desc">Các trang không tiếp cận được nằm bên trái. Một số trang có thể tác động ở giữa trỏ vào trang đích t. Trang đích trỏ đến q trang hỗ trợ do người thao túng sở hữu, và mỗi trang hỗ trợ trỏ lại t.</desc>
+  <defs><marker id="m" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
+  <rect x="28" y="55" width="255" height="325" rx="22" fill="#f3f5f7" stroke="#90A4AE" stroke-width="4"/>
+  <rect x="330" y="55" width="255" height="325" rx="22" fill="#edf4ff" stroke="#2F3E7A" stroke-width="4"/>
+  <rect x="632" y="55" width="455" height="325" rx="22" fill="#fff7ed" stroke="#B15A2B" stroke-width="4"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle" fill="#2F3E7A"><g font-size="25" font-weight="700"><text x="155" y="92">Không tác động được</text><text x="457" y="92">Có thể tác động</text><text x="860" y="92">Trang sở hữu</text></g></g>
+  <g fill="#fff" stroke="#2F3E7A" stroke-width="4"><circle cx="120" cy="180" r="30"/><circle cx="205" cy="265" r="30"/><circle cx="400" cy="170" r="30"/><circle cx="495" cy="260" r="30"/><circle cx="735" cy="220" r="45"/><circle cx="930" cy="135" r="28"/><circle cx="995" cy="220" r="28"/><circle cx="930" cy="305" r="28"/></g>
+  <g font-family="Arial,sans-serif" text-anchor="middle" fill="#2F3E7A" font-weight="700"><text x="735" y="233" font-size="36">t</text><text x="930" y="143" font-size="24">1</text><text x="995" y="228" font-size="24">2</text><text x="930" y="313" font-size="24">q</text></g>
+  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#m)"><path d="M430 180 L690 213"/><path d="M525 255 L690 228"/><path d="M774 197 L902 145"/><path d="M780 220 L960 220"/><path d="M776 240 L904 293"/><path d="M902 155 L776 210"/><path d="M965 220 L783 220"/><path d="M904 290 L776 234"/></g>
+  <text x="550" y="175" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#37474F">x</text>
+</svg>

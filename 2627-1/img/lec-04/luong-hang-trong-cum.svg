@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="390" viewBox="0 0 1100 390" role="img" aria-labelledby="title desc">
+  <title id="title">Luồng hạng trong cụm thao túng liên kết</title>
+  <desc id="desc">Hạng y của trang đích nhận phần x từ bên ngoài, phần beta lần hạng của q trang hỗ trợ, và phần dịch chuyển đều. Mỗi trang hỗ trợ nhận beta y chia q cùng phần dịch chuyển đều trên N trang.</desc>
+  <defs><marker id="m" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
+  <g font-family="Arial,sans-serif">
+    <rect x="55" y="125" width="220" height="120" rx="18" fill="#edf4ff" stroke="#2F3E7A" stroke-width="4"/>
+    <rect x="425" y="100" width="250" height="170" rx="18" fill="#fff7ed" stroke="#B15A2B" stroke-width="4"/>
+    <rect x="825" y="125" width="220" height="120" rx="18" fill="#edf4ff" stroke="#2F3E7A" stroke-width="4"/>
+    <g text-anchor="middle" fill="#2F3E7A"><text x="165" y="165" font-size="29" font-weight="700">Bên ngoài</text><text x="165" y="205" font-size="32">x</text><text x="550" y="145" font-size="29" font-weight="700">Trang đích t</text><text x="550" y="205" font-size="38">hạng y</text><text x="935" y="165" font-size="29" font-weight="700">q trang hỗ trợ</text><text x="935" y="207" font-size="27">βy/q +(1−β)/N</text></g>
+    <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#m)"><path d="M280 185 L415 185"/><path d="M685 160 L815 160"/><path d="M815 220 L685 220"/></g>
+    <g fill="#37474F" font-size="24"><text x="710" y="125">chia βy</text><text x="690" y="285">trả lại β lần tổng hạng</text></g>
+    <text x="550" y="330" text-anchor="middle" font-size="27" fill="#37474F">Mỗi nút còn nhận phần dịch chuyển đều (1−β)/N</text>
+  </g>
+</svg>
