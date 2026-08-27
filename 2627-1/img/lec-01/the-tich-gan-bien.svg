@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+  <title id="title">Thể tích quả cầu cao chiều tập trung gần biên</title>
+  <desc id="desc">Mặt cắt minh họa một quả cầu bán kính một với vành gần biên dày theo bậc một chia d. Vùng vành có hoa văn để không phụ thuộc màu.</desc>
+  <defs><pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="2" fill="#b15a2b"/></pattern></defs>
+  <rect width="1000" height="500" rx="22" fill="#fffdf9"/>
+  <circle cx="390" cy="250" r="190" fill="#f6e4d5" stroke="#b15a2b" stroke-width="5" stroke-dasharray="7 5"/>
+  <circle cx="390" cy="250" r="190" fill="url(#dots)" fill-opacity=".62"/>
+  <circle cx="390" cy="250" r="145" fill="#edf4ff" stroke="#2f3e7a" stroke-width="4"/>
+  <line x1="390" y1="250" x2="580" y2="250" stroke="#263238" stroke-width="4"/>
+  <line x1="535" y1="230" x2="535" y2="270" stroke="#263238" stroke-width="4"/>
+  <text x="478" y="235" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#263238">1 − O(1/d)</text>
+  <text x="560" y="300" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#b15a2b">O(1/d)</text>
+  <text x="760" y="160" font-family="sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#263238">Khi d tăng</text>
+  <text x="760" y="215" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#263238">phần lớn thể tích</text>
+  <text x="760" y="253" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#263238">nằm trong vành mỏng</text>
+  <rect x="650" y="305" width="220" height="72" rx="14" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/>
+  <text x="760" y="349" font-family="sans-serif" font-size="23" text-anchor="middle" fill="#263238">trực giác hình học</text>
+  <text x="500" y="470" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#546e7a">Hình mặt cắt minh họa, không phải dữ liệu thực nghiệm</text>
+</svg>

@@ -22,13 +22,15 @@ Mỗi yêu cầu phải tạo hoặc cập nhật:
 ## Đối tượng và thời lượng
 
 - Đối tượng mặc định là sinh viên đại học đã học lập trình, toán rời rạc, đại số tuyến tính và xác suất cơ bản.
-- Buổi học gồm ba tiết, mỗi tiết 50 phút, tổng cộng 150 phút.
-- Phần trình chiếu chính được thiết kế cho 120 phút. 30 phút còn lại dành cho chữa bài tập và trình diễn mã.
+- Mỗi bộ trang chiếu gồm phần giảng được thiết kế cho 120 phút và phần bài tập đủ cho 60 phút recitation, tổng cộng 180 phút học liệu.
+- Phần bài tập phải nằm trong cùng tệp HTML, tách thành một phần dọc riêng sau phần giảng. Bài tập phải có dữ kiện, yêu cầu, sản phẩm cần nộp hoặc trình bày, và lời giải hay hướng dẫn chấm trong ghi chú diễn giả. Tổng thời lượng dự kiến của các bài phải đạt 60 phút; ghi thời lượng trong storyboard và ghi chú, không hiển thị thời lượng trên mặt trang chiếu.
+- Bài tập recitation phải lấy trực tiếp từ giáo trình hoặc tài liệu nguồn đã được chỉ định cho bài. Ghi số bài, mục và trang nguồn trong storyboard cùng ghi chú diễn giả. Có thể dịch sang tiếng Việt, chia thành các bước nhỏ hoặc lược phần ngoài phạm vi, nhưng không tự đặt dữ kiện, đổi yêu cầu toán học hoặc tạo bài mới. Mọi điều chỉnh phải được ghi trong storyboard và `review-log.md`.
 - Chỉ chuyển hoặc chuẩn bị mã trình diễn khi nguồn có nội dung tương ứng. Không tự tạo sổ tay mã hoặc chương trình ngoài phạm vi nguồn nếu người dùng không yêu cầu.
 
 ## Ngôn ngữ và biên tập
 
 - Viết thuần Việt. Chỉ giữ tiếng Anh cho tên riêng, tên phần mềm, ký hiệu chuẩn, tên thuật toán hoặc thuật ngữ chưa có cách dịch ổn định.
+- Mọi tiêu đề trang chiếu, tiêu đề phần và nhãn bố cục phải viết thuần Việt. Chỉ dùng tiếng Anh trong tiêu đề khi đó là tên riêng, tên thuật toán hoặc thuật ngữ chưa có cách dịch ổn định, hoặc khi cần giữ nguyên công thức và ký hiệu chuẩn. Nếu cần giải thích thuật ngữ tiếng Anh, đặt sau thuật ngữ tiếng Việt và không dùng tiếng Anh thay cho một tiêu đề tiếng Việt đã rõ nghĩa.
 - Khi dùng viết tắt lần đầu, viết đầy đủ bằng tiếng Việt rồi đặt dạng viết tắt trong ngoặc.
 - Viết ngắn, trực tiếp và học thuật. Dùng câu ngắn, động từ rõ và thuật ngữ nhất quán.
 - Không dùng câu hỏi tu từ, câu cảm thán, lời ca tụng, khẩu hiệu hoặc cách diễn đạt quảng bá.
@@ -139,7 +141,7 @@ Storyboard phải chỉ ra cho từng cụm:
 - dữ kiện, trạng thái trung gian hoặc ký hiệu được truyền từ ví dụ sang giả mã và chứng minh;
 - bước được gộp hoặc ghi `không áp dụng`, kèm lý do;
 - câu nối giữa các bước;
-- thời lượng dự kiến của cụm và tổng thời lượng 120 phút.
+- thời lượng dự kiến của cụm; tổng phần giảng 120 phút và tổng phần bài tập recitation 60 phút.
 
 ## Tiêu chuẩn nội dung giải thuật
 
@@ -219,6 +221,7 @@ Giao một tác tử chỉ đọc rà từng trang và từng cụm khái niệm
 - kiểm tra chu trình học tập đúng thứ tự và nối được từ ví dụ sang hình thức, thuật toán và chứng minh;
 - phát hiện trang trùng ý, trang trang trí, trang quá tải và khoảng trống cần bổ sung;
 - kiểm tra thời lượng 120 phút, kiến thức tiên quyết và quan hệ trước–sau;
+- kiểm tra phần bài tập đủ 60 phút recitation, có lời giải hoặc hướng dẫn chấm trong ghi chú và sử dụng đúng kiến thức của phần giảng;
 - đề xuất quyết định, bằng chứng và tác động đến trang lân cận;
 - không sửa tệp.
 
