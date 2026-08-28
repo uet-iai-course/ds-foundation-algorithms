@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="470" viewBox="0 0 1000 470" role="img" aria-label="Cây Huffman cho A đến E với đường bit 101 được tô nổi để giải mã ký hiệu C" aria-labelledby="title desc">
+  <title id="title">Cây Huffman và đường giải mã</title><desc id="desc">Cây mã cho A bằng 0, B bằng 100, C bằng 101, D bằng 110, E bằng 111; đường 101 được tô nổi để giải mã C.</desc>
+  <defs><style>.e{stroke:#455a64;stroke-width:3}.h{stroke:#b15a2b;stroke-width:7}.n{fill:#fff;stroke:#2f3e7a;stroke-width:3}.l{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}.t{font:23px sans-serif;fill:#263238}.b{font:bold 23px sans-serif;fill:#b15a2b}</style></defs>
+  <path class="e" d="M500 55L260 145M500 55L740 145M740 145L600 245M740 145L870 245M600 245L520 355M600 245L680 355M870 245L800 355M870 245L940 355"/>
+  <path class="h" d="M500 55L740 145L600 245L680 355" fill="none"/>
+  <g text-anchor="middle"><circle class="n" cx="500" cy="55" r="26"/><circle class="l" cx="260" cy="145" r="38"/><text class="t" x="260" y="153">A:0</text><circle class="n" cx="740" cy="145" r="26"/><circle class="n" cx="600" cy="245" r="26"/><circle class="n" cx="870" cy="245" r="26"/><circle class="l" cx="520" cy="355" r="45"/><text class="t" x="520" y="363">B:100</text><circle class="l" cx="680" cy="355" r="45"/><text class="b" x="680" y="363">C:101</text><circle class="l" cx="800" cy="355" r="45"/><text class="t" x="800" y="363">D:110</text><circle class="l" cx="940" cy="355" r="45"/><text class="t" x="940" y="363">E:111</text></g>
+  <text class="t" x="330" y="95">0</text><text class="t" x="635" y="95">1</text><text class="t" x="645" y="195">0</text><text class="t" x="815" y="195">1</text><text class="t" x="540" y="305">0</text><text class="b" x="650" y="305">1</text><text class="t" x="815" y="305">0</text><text class="t" x="910" y="305">1</text>
+  <text class="t" x="45" y="440">Đọc 101: từ gốc đi 1 → 0 → 1 và dừng tại lá C.</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="390" viewBox="0 0 1050 390" role="img" aria-label="Giải mã số học giá trị 0,2572167752 thành B rồi chuẩn hóa để nhận ký hiệu I" aria-labelledby="title desc">
+  <title id="title">Giải mã số học bằng chuẩn hóa ngược</title><desc id="desc">Giá trị 0.2572167752 rơi vào khoảng B từ 0.2 đến 0.3; trừ 0.2 rồi chia 0.1 được 0.572167752, rơi vào khoảng I.</desc>
+  <defs><style>.c{fill:#fff;stroke:#2f3e7a;stroke-width:3}.a{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}.t{font:24px sans-serif;fill:#263238}.x{stroke:#b15a2b;stroke-width:4;marker-end:url(#m)}</style><marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#b15a2b"/></marker></defs>
+  <rect class="c" x="35" y="55" width="275" height="90" rx="12"/><text class="t" x="62" y="95">x = 0,2572167752</text><text class="t" x="85" y="128">x ∈ [0,2; 0,3)</text>
+  <path class="x" d="M315 100L475 100"/><text class="t" x="345" y="80">xuất B</text>
+  <rect class="a" x="480" y="55" width="305" height="90" rx="12"/><text class="t" x="505" y="95">x'=(x−0,2)/0,1</text><text class="t" x="535" y="128">= 0,572167752</text>
+  <path class="x" d="M630 150L630 260"/><text class="t" x="650" y="210">x' ∈ [0,5; 0,6)</text>
+  <rect class="c" x="480" y="270" width="305" height="80" rx="12"/><text class="t" x="535" y="320">ký hiệu tiếp theo: I</text>
+  <text class="t" x="35" y="375">Lặp phép chuẩn hóa với cùng bảng khoảng; dừng tại EOS hoặc sau độ dài đã truyền.</text>
+</svg>

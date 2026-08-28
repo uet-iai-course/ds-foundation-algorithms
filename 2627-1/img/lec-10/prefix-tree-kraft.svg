@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="390" viewBox="0 0 1080 390" role="img" aria-label="Cây mã tiền tố gồm các lá 0, 10, 110, 111 và tám ô sức chứa Kraft" aria-labelledby="title desc">
+  <title id="title">Cây mã tiền tố và sức chứa theo bất đẳng thức Kraft</title>
+  <desc id="desc">Bên trái là cây mã kết thúc đúng tại bốn lá 0, 10, 110 và 111. Bên phải là tám ô ở độ sâu ba, được chia thành bốn ô cho mã 0, hai ô cho mã 10, một ô cho 110 và một ô cho 111.</desc>
+  <defs><style>.edge{stroke:#455a64;stroke-width:3}.node{fill:#fff;stroke:#2f3e7a;stroke-width:3}.leaf{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}.cell{stroke:#fff;stroke-width:3}.c0{fill:#dce8fb}.c10{fill:#c9dcf7}.c110{fill:#f2d7c4}.c111{fill:#e9bd9e}.t{font:23px sans-serif;fill:#263238}.h{font:bold 24px sans-serif;fill:#2f3e7a}.s{font:20px sans-serif;fill:#455a64}</style></defs>
+  <text class="h" x="55" y="35">Cây mã dừng tại lá</text>
+  <path class="edge" d="M265 65L125 145M265 65L405 145M405 145L335 225M405 145L475 225M475 225L435 305M475 225L515 305"/>
+  <g text-anchor="middle"><circle class="node" cx="265" cy="65" r="19"/><circle class="leaf" cx="125" cy="145" r="36"/><text class="t" x="125" y="153">0</text><circle class="node" cx="405" cy="145" r="19"/><circle class="leaf" cx="335" cy="225" r="38"/><text class="t" x="335" y="233">10</text><circle class="node" cx="475" cy="225" r="19"/><circle class="leaf" cx="435" cy="305" r="42"/><text class="t" x="435" y="313">110</text><circle class="leaf" cx="515" cy="305" r="42"/><text class="t" x="515" y="313">111</text></g>
+  <text class="s" x="178" y="103">0</text><text class="s" x="337" y="103">1</text><text class="s" x="350" y="188">0</text><text class="s" x="451" y="188">1</text><text class="s" x="438" y="270">0</text><text class="s" x="500" y="270">1</text>
+  <text class="h" x="620" y="35">Quy về tám ô ở độ sâu 3</text>
+  <g><rect class="cell c0" x="620" y="105" width="52" height="82"/><rect class="cell c0" x="672" y="105" width="52" height="82"/><rect class="cell c0" x="724" y="105" width="52" height="82"/><rect class="cell c0" x="776" y="105" width="52" height="82"/><rect class="cell c10" x="828" y="105" width="52" height="82"/><rect class="cell c10" x="880" y="105" width="52" height="82"/><rect class="cell c110" x="932" y="105" width="52" height="82"/><rect class="cell c111" x="984" y="105" width="52" height="82"/></g>
+  <g class="t" text-anchor="middle"><text x="724" y="145">0</text><text x="724" y="175">4/8</text><text x="880" y="145">10</text><text x="880" y="175">2/8</text><text x="958" y="145">110</text><text x="958" y="175">1/8</text><text x="1010" y="145">111</text><text x="1010" y="175">1/8</text></g>
+  <text class="t" x="625" y="240">Các miền rời nhau vì không mã nào đi qua một lá đã dùng.</text>
+  <text class="h" x="650" y="305">1/2 + 1/4 + 1/8 + 1/8 = 1</text>
+  <text class="t" x="650" y="345">Toàn bộ sức chứa của cây đã được dùng.</text>
+</svg>

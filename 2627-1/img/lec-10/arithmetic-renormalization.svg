@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="430" viewBox="0 0 1100 430" role="img" aria-label="Ba trường hợp E1, E2 và E3 để chuẩn hóa khoảng nửa mở trong mã số học" aria-labelledby="title desc">
+  <title id="title">Ba trường hợp chuẩn hóa cho khoảng nửa mở</title><desc id="desc">E1 áp dụng khi H không vượt quá một phần hai và biến đổi khoảng thành hai L đến hai H. E2 áp dụng khi L không nhỏ hơn một phần hai. E3 áp dụng khi khoảng nằm trong một phần tư đến ba phần tư và trì hoãn bit.</desc>
+  <defs><style>.bar{fill:#e9eef8;stroke:#2f3e7a;stroke-width:3}.range{fill:#f7efe6;stroke:#b15a2b;stroke-width:4}.tick{stroke:#455a64;stroke-width:2}.t{font:21px sans-serif;fill:#263238}.h{font:bold 23px sans-serif;fill:#2f3e7a}.f{font:bold 21px sans-serif;fill:#b15a2b}</style></defs>
+  <text class="h" x="30" y="62">E1: H ≤ 1/2</text><text class="f" x="30" y="95">phát 0; [L,H) ↦ [2L,2H)</text><rect class="bar" x="430" y="38" width="600" height="50"/><rect class="range" x="475" y="38" width="230" height="50"/>
+  <text class="h" x="30" y="182">E2: L ≥ 1/2</text><text class="f" x="30" y="215">phát 1; [L,H) ↦ [2L−1,2H−1)</text><rect class="bar" x="430" y="158" width="600" height="50"/><rect class="range" x="760" y="158" width="225" height="50"/>
+  <text class="h" x="30" y="302">E3: 1/4 ≤ L &lt; H ≤ 3/4</text><text class="f" x="30" y="335">hoãn bit; [L,H) ↦ [2L−1/2,2H−1/2)</text><rect class="bar" x="430" y="278" width="600" height="50"/><rect class="range" x="600" y="278" width="260" height="50"/>
+  <g class="tick"><path d="M430 338V355M580 338V355M730 338V355M880 338V355M1030 338V355"/></g><g class="t" text-anchor="middle"><text x="430" y="385">0</text><text x="580" y="385">1/4</text><text x="730" y="385">1/2</text><text x="880" y="385">3/4</text><text x="1030" y="385">1</text></g>
+  <text class="t" x="430" y="418">Mỗi phép biến đổi đưa khoảng trở lại miền rộng hơn mà giữ thứ tự điểm.</text>
+</svg>
