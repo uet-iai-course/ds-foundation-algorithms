@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 500" role="img" aria-labelledby="title desc">
+  <title id="title">B+-Tree sau xóa 19, trước và sau khi gộp lá</title>
+  <desc id="desc">Bên trái là cây sau xóa 19 nhưng trước gộp, có gốc 7, 10, 19 và bốn lá, trong đó lá cuối 29, 31 thiếu khóa. Bên phải là cây sau gộp, có gốc 7, 10 và ba lá. Cả hai phía đều có cạnh gốc–lá và chuỗi liên kết lá.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0L8 3 0 6Z" fill="#2F3E7A"/></marker><marker id="merge" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0L8 3 0 6Z" fill="#B15A2B"/></marker></defs>
+  <g font-family="sans-serif" text-anchor="middle">
+    <text x="300" y="34" font-size="24" fill="#2F3E7A">sau xóa 19, trước gộp</text>
+    <rect x="190" y="55" width="220" height="55" rx="8" fill="#F7EFE6" stroke="#B15A2B" stroke-width="3"/><text x="300" y="91" font-size="25">7 | 10 | 19</text>
+    <g stroke="#555" stroke-width="2.5" fill="none"><path d="M225 110L80 210"/><path d="M275 110L225 210"/><path d="M325 110L380 210"/><path d="M375 110L535 210"/></g>
+    <g fill="#EEF2FA" stroke="#2F3E7A" stroke-width="2.5"><rect x="10" y="210" width="140" height="60" rx="6"/><rect x="160" y="210" width="140" height="60" rx="6"/><rect x="310" y="210" width="150" height="60" rx="6"/><rect x="470" y="210" width="130" height="60" rx="6"/></g>
+    <g font-size="18"><text x="80" y="247">2 | 3 | 5</text><text x="230" y="247">7 | 8 | 9</text><text x="385" y="247">10 | 11 | 17</text><text x="535" y="247">29 | 31</text></g>
+    <g stroke="#2F3E7A" stroke-width="3" fill="none" marker-end="url(#arrow)"><path d="M150 240H160"/><path d="M300 240H310"/><path d="M460 240H470"/></g><text x="535" y="300" font-size="18" fill="#B15A2B">thiếu khóa</text>
+    <path d="M610 150H710" stroke="#B15A2B" stroke-width="5" marker-end="url(#merge)"/><text x="660" y="130" font-size="21">gộp</text>
+    <text x="930" y="34" font-size="24" fill="#2F3E7A">sau gộp</text>
+    <rect x="840" y="55" width="180" height="55" rx="8" fill="#F7EFE6" stroke="#B15A2B" stroke-width="3"/><text x="930" y="91" font-size="25">7 | 10</text>
+    <g stroke="#555" stroke-width="2.5" fill="none"><path d="M875 110L755 210"/><path d="M930 110L915 210"/><path d="M985 110L1080 210"/></g>
+    <g fill="#EDF7EE" stroke="#2E7D32" stroke-width="2.5"><rect x="690" y="210" width="140" height="60" rx="6"/><rect x="840" y="210" width="140" height="60" rx="6"/><rect x="990" y="210" width="180" height="60" rx="6"/></g>
+    <g font-size="18"><text x="760" y="247">2 | 3 | 5</text><text x="910" y="247">7 | 8 | 9</text><text x="1080" y="247">10 | 11 | 17 | 29 | 31</text></g>
+    <g stroke="#2E7D32" stroke-width="3" fill="none" marker-end="url(#arrow)"><path d="M830 240H840"/><path d="M980 240H990"/></g>
+    <text x="590" y="410" font-size="22" fill="#555">Gộp hai lá vừa sức chứa; xóa khóa phân cách 19 ở gốc.</text>
+  </g>
+</svg>
