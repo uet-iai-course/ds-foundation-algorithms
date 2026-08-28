@@ -426,7 +426,7 @@ Bảng này là đặc tả biên tập, không phải nội dung nguyên văn c
 | 12 | Chạy External Merge Sort và phân tích số lượt đọc/ghi theo kích thước bộ nhớ và khối | Merge Sort, tệp, bộ đệm và mô hình I/O | *Database System Concepts* 7e, Chương 12–13 và phần sắp xếp ngoài bộ nhớ của Chương 15; bài tập trực tiếp 15.1, 15.9 và 13.5; Wisconsin CS764 chỉ bổ sung Replacement Selection |
 | 13 | So sánh B-Tree, B+-Tree, băm tĩnh và Bitmap Index theo loại truy vấn và chi phí I/O | Bài 12; cây cân bằng và băm | *Database System Concepts* 7e, Chương 14 |
 | 14 | Chọn biểu diễn chỉ mục cho truy vấn văn bản hoặc không gian và giải thích giới hạn của từng cấu trúc | Bài 13; vector, khoảng cách và truy vấn phạm vi | *Database System Concepts* 7e, Chương 24 và 31; slide Cornell CS5780 và Auburn COMP7120 trong `reference-slides/`; Chương 31 trực tuyến tại `textbooks/db-book-7e-ch31-information-retrieval.pdf`; lời giải chính thức Bài 25.2–25.3 của ấn bản 6 tại `exercises/db-book-6e/ch25-practice-solutions.pdf` |
-| 15 | Chạy và so sánh Nested-Loop Join, Sort-Merge Join, Hash Join và Grace Hash Join theo mô hình I/O | Bài 12–13; quan hệ, băm và sắp xếp ngoài bộ nhớ | *Database System Concepts* 7e, Chương 15 |
+| 15 | Chạy và so sánh Nested-Loop Join, Sort-Merge Join, Hash Join và Grace Hash Join theo mô hình I/O | Bài 12–13; quan hệ, băm và sắp xếp ngoài bộ nhớ | *Database System Concepts* 7e, Chương 15 tại `reference-slides/db-book-7e/ch15.pptx`; recitation dùng trực tiếp Bài 15.3–15.5 trong `exercises/db-book-7e/ch15-practice-exercises.pdf`, đối chiếu `ch15-practice-solutions.pdf` |
 
 ## Thứ tự đề xuất
 
