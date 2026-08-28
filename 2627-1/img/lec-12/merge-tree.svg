@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 430" role="img" aria-labelledby="title desc">
+  <title id="title">Cây hai lượt trộn với hệ số hai</title>
+  <desc id="desc">Bốn dãy ban đầu R1 đến R4 được trộn theo cặp thành hai dãy M1 và M2, rồi thành một dãy kết quả sau hai lượt.</desc>
+  <g font-family="sans-serif" text-anchor="middle">
+    <text x="110" y="70" font-size="24" fill="#2F3E7A">r₀=4</text>
+    <text x="110" y="225" font-size="24" fill="#2F3E7A">lượt 1</text>
+    <text x="110" y="375" font-size="24" fill="#2F3E7A">lượt 2</text>
+    <g fill="#EEF2FA" stroke="#2F3E7A" stroke-width="3">
+      <rect x="220" y="35" width="140" height="65" rx="10"/><rect x="420" y="35" width="140" height="65" rx="10"/>
+      <rect x="620" y="35" width="140" height="65" rx="10"/><rect x="820" y="35" width="140" height="65" rx="10"/>
+    </g>
+    <g font-size="24"><text x="290" y="76">R₁</text><text x="490" y="76">R₂</text><text x="690" y="76">R₃</text><text x="890" y="76">R₄</text></g>
+    <g fill="#F7EFE6" stroke="#B15A2B" stroke-width="3">
+      <rect x="320" y="190" width="180" height="70" rx="12"/><rect x="680" y="190" width="180" height="70" rx="12"/>
+    </g>
+    <g font-size="24"><text x="410" y="233">M₁</text><text x="770" y="233">M₂</text></g>
+    <rect x="500" y="340" width="180" height="70" rx="12" fill="#EDF7EE" stroke="#2E7D32" stroke-width="3"/>
+    <text x="590" y="383" font-size="24">kết quả</text>
+    <g stroke="#777" stroke-width="3" fill="none">
+      <path d="M290 100L385 190M490 100L435 190M690 100L745 190M890 100L795 190M410 260L555 340M770 260L625 340"/>
+    </g>
+  </g>
+</svg>
