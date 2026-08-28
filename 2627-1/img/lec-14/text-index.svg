@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 430" role="img" aria-label="Quy trình từ tài liệu qua tách thuật ngữ đến từ điển và danh sách tài liệu đảo">
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0L8 3 0 6Z" fill="#B15A2B"/></marker></defs>
+  <g font-family="sans-serif" text-anchor="middle"><text x="580" y="38" font-size="29" font-weight="700" fill="#2F3E7A">Từ tài liệu tới danh sách đảo</text>
+  <g fill="#EEF2FA" stroke="#2F3E7A" stroke-width="3"><rect x="35" y="95" width="215" height="190" rx="14"/><rect x="330" y="95" width="215" height="190" rx="14"/><rect x="625" y="95" width="215" height="190" rx="14"/><rect x="920" y="95" width="205" height="190" rx="14"/></g>
+  <g font-size="24"><text x="142" y="135" font-weight="700">tài liệu</text><text x="142" y="180">d1: cây tìm kiếm</text><text x="142" y="220">d2: tìm văn bản</text><text x="142" y="260">d3: cây không gian</text><text x="437" y="145" font-weight="700">chuẩn hóa</text><text x="437" y="195">tách thuật ngữ</text><text x="437" y="235">bỏ từ dừng</text><text x="732" y="145" font-weight="700">từ điển</text><text x="732" y="195">cây</text><text x="732" y="235">tìm</text><text x="1022" y="135" font-weight="700">posting</text><text x="1022" y="185">cây → 1, 3</text><text x="1022" y="225">tìm → 1, 2</text></g>
+  <g stroke="#B15A2B" stroke-width="5" marker-end="url(#a)"><path d="M250 190H320"/><path d="M545 190H615"/><path d="M840 190H910"/></g>
+  <text x="580" y="360" font-size="24" fill="#B15A2B">mỗi docID xuất hiện nhiều nhất một lần trong một posting</text></g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 440" role="img" aria-label="Heap giữ docID chưa xử lý nhỏ nhất của mỗi posting để tìm tài liệu có ít nhất k từ khóa">
+  <g font-family="sans-serif"><text x="580" y="38" text-anchor="middle" font-size="28" font-weight="700" fill="#2F3E7A">Heap giữ đầu chưa xử lý của mỗi posting</text>
+  <g font-size="23"><text x="55" y="115">P₁</text><text x="125" y="115" font-family="monospace">1 4 7</text><text x="55" y="180">P₂</text><text x="125" y="180" font-family="monospace">2 4 8</text><text x="55" y="245">P₃</text><text x="125" y="245" font-family="monospace">1 4 9</text><text x="55" y="310">P₄</text><text x="125" y="310" font-family="monospace">3 7 9</text></g>
+  <path d="M390 330L560 80L730 330Z" fill="#EEF2FA" stroke="#2F3E7A" stroke-width="4"/><g font-size="25" text-anchor="middle"><text x="560" y="125">1:P₁</text><text x="485" y="235">1:P₃</text><text x="635" y="235">2:P₂</text><text x="560" y="305">3:P₄</text></g>
+  <rect x="790" y="95" width="325" height="235" rx="16" fill="#F7EFE6" stroke="#B15A2B" stroke-width="3"/><text x="820" y="145" font-size="23">lấy docID nhỏ nhất x</text><text x="820" y="195" font-size="23">đếm mọi đầu bằng x</text><text x="820" y="245" font-size="23">nếu đếm ≥ k: xuất x</text><text x="820" y="295" font-size="23">đẩy đầu kế tiếp</text>
+  <text x="580" y="400" text-anchor="middle" font-size="23" fill="#B15A2B">heap có nhiều nhất n phần tử</text></g>
+</svg>
