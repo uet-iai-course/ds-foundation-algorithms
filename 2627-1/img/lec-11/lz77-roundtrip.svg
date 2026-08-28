@@ -1,0 +1,29 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='310' viewBox='0 0 1120 310' role='img' aria-label='Vòng mã hóa và giải mã LZ77 bằng bộ ba khoảng lùi, độ dài và ký tự kế' aria-labelledby='t d'>
+  <title id='t'>Vòng khôi phục LZ77</title>
+  <desc id='d'>
+    Bộ mã hóa chọn bộ ba khoảng lùi, độ dài và ký tự kế; bộ giải mã sao chép
+    tuần tự rồi thêm ký tự kế.
+  </desc>
+  <defs>
+    <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
+      <path d='M0 0L9 3L0 6Z' fill='#B15A2B'/>
+    </marker>
+  </defs>
+  <style>
+    text{font:23px
+    sans-serif;fill:#263238}.box{fill:#fff;stroke:#2f3e7a;stroke-width:3}.tok{fill:#f7efe6;stroke:#B15A2B;stroke-width:3}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
+  </style>
+  <rect class='box' x='30' y='95' width='230' height='100' rx='12'/>
+  <text x='70' y='138'>cửa sổ + vùng</text>
+  <text x='95' y='170'>nhìn trước</text>
+  <path class='arr' d='M265 145H375'/>
+  <rect class='tok' x='385' y='80' width='300' height='130' rx='12'/>
+  <text x='433' y='125'>(d, ℓ, c) = (5, 3, c)</text>
+  <text x='442' y='165'>sao chép “aac”</text>
+  <text x='467' y='195'>rồi thêm c</text>
+  <path class='arr' d='M690 145H800'/>
+  <rect class='box' x='810' y='95' width='270' height='100' rx='12'/>
+  <text x='858' y='138'>cửa sổ mới có</text>
+  <text x='900' y='170'>“aacc”</text>
+  <text x='350' y='265'>Hai phía khởi đầu cùng cửa sổ và cập nhật theo cùng thứ tự.</text>
+</svg>

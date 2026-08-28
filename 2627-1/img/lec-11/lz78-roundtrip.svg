@@ -1,0 +1,28 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='320' viewBox='0 0 1120 320' role='img' aria-label='Vòng mã hóa và giải mã LZ78 cho cặp mã cụm trước và ký tự mới' aria-labelledby='t d'>
+  <title id='t'>Mã hóa và giải mã LZ78</title>
+  <desc id='d'>
+    Mã hóa phát cặp mã cụm trước và ký tự mới; giải mã nối cụm được trỏ với ký
+    tự mới rồi thêm đúng cụm ấy vào từ điển.
+  </desc>
+  <defs>
+    <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
+      <path d='M0 0L9 3L0 6Z' fill='#B15A2B'/>
+    </marker>
+  </defs>
+  <style>
+    text{font:22px
+    sans-serif;fill:#263238}.box{fill:#fff;stroke:#2f3e7a;stroke-width:3}.new{fill:#f7efe6;stroke:#B15A2B;stroke-width:3}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
+  </style>
+  <rect class='box' x='30' y='80' width='250' height='130' rx='12'/>
+  <text x='65' y='125'>khớp dài nhất: “a”</text>
+  <text x='70' y='165'>ký tự mới: b</text>
+  <path class='arr' d='M285 145H390'/>
+  <rect class='new' x='400' y='80' width='250' height='130' rx='12'/>
+  <text x='475' y='125'>phát (1,b)</text>
+  <text x='447' y='165'>thêm mã 4 ↦ “ab”</text>
+  <path class='arr' d='M655 145H760'/>
+  <rect class='box' x='770' y='80' width='310' height='130' rx='12'/>
+  <text x='815' y='125'>đọc từ điển[1] + b</text>
+  <text x='825' y='165'>xuất “ab”; thêm mã 4</text>
+  <text x='235' y='275'>Bất biến: trước mỗi cặp, hai phía có cùng từ điển và cùng mã kế tiếp.</text>
+</svg>

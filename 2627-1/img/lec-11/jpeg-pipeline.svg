@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="340" viewBox="0 0 1180 340" role="img" aria-label="Đường ống JPEG từ đổi màu và chia khối qua DCT, lượng tử hóa, quét zigzag và mã hóa entropy" aria-labelledby="t d">
+  <title id="t">Đường ống JPEG cơ sở và các bước mất dữ liệu</title>
+  <desc id="d">Ảnh được đổi màu, có thể lấy mẫu thưa sắc độ, chia khối, dịch mức, biến đổi DCT, lượng tử hóa, tách hệ số DC và AC rồi mã hóa entropy. Lấy mẫu thưa sắc độ là mất dữ liệu tùy chọn; lượng tử hóa là mất dữ liệu bắt buộc trong lõi hệ số.</desc>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#B15A2B"/></marker></defs>
+  <style>text{font:17px sans-serif;fill:#263238}.box{fill:#fff;stroke:#2f3e7a;stroke-width:3}.loss{fill:#f7efe6;stroke:#E62727;stroke-width:4}.optional{fill:#fff8e1;stroke:#E62727;stroke-width:3;stroke-dasharray:8 6}.arr{stroke:#B15A2B;stroke-width:3;marker-end:url(#a)}.lab{font-weight:700}</style>
+  <g transform="translate(16 96)">
+    <rect class="optional" width="145" height="92" rx="10"/><text x="30" y="34">đổi màu</text><text x="15" y="61">lấy mẫu sắc</text><text x="18" y="82">tùy chọn mất</text><path class="arr" d="M150 46h30"/>
+    <rect class="box" x="185" width="120" height="92" rx="10"/><text x="209" y="39">khối 8×8</text><text x="214" y="68">dịch mức</text><path class="arr" d="M310 46h30"/>
+    <rect class="box" x="345" width="105" height="92" rx="10"/><text x="380" y="54">DCT</text><path class="arr" d="M455 46h30"/>
+    <rect class="loss" x="490" width="125" height="92" rx="10"/><text x="510" y="38">lượng tử</text><text x="515" y="66">hóa tròn</text><text x="518" y="86">bắt buộc mất</text><path class="arr" d="M620 46h30"/>
+    <rect class="box" x="655" width="150" height="92" rx="10"/><text x="682" y="34">DC: sai phân</text><text x="674" y="61">AC: zigzag</text><text x="691" y="82">và RLE</text><path class="arr" d="M810 46h30"/>
+    <rect class="box" x="845" width="145" height="92" rx="10"/><text x="863" y="40">mã entropy</text><text x="867" y="69">+ đầu mục</text><path class="arr" d="M995 46h30"/>
+    <rect class="box" x="1030" width="110" height="92" rx="10"/><text x="1049" y="54">dòng bit</text>
+  </g>
+  <text class="lab" x="28" y="235" fill="#E62727">Nét đứt: mất dữ liệu tùy chọn</text>
+  <text class="lab" x="455" y="235" fill="#E62727">Nét liền đỏ: lượng tử hóa mất dữ liệu trong lõi hệ số</text>
+  <text x="235" y="292">DCT, thứ tự DC/AC, RLE và mã entropy đều khả nghịch đối với đầu vào của từng bước.</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='330' viewBox='0 0 1120 330' role='img' aria-label='Trường hợp LZW nhận next_code chưa có và khôi phục cụm trước nối ký tự đầu của cụm trước' aria-labelledby='t d'>
+  <title id='t'>Trường hợp mã LZW chưa có</title>
+  <desc id='d'>
+    Khi bộ giải mã nhận đúng next_code chưa có trong từ điển, cụm phải là cụm
+    trước nối ký tự đầu của chính cụm trước.
+  </desc>
+  <defs>
+    <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
+      <path d='M0 0L9 3L0 6Z' fill='#B15A2B'/>
+    </marker>
+  </defs>
+  <style>
+    text{font:23px
+    sans-serif;fill:#263238}.box{fill:#fff;stroke:#2f3e7a;stroke-width:3}.warn{fill:#f7efe6;stroke:#B15A2B;stroke-width:4}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
+  </style>
+  <rect class='box' x='40' y='80' width='265' height='130' rx='12'/>
+  <text x='82' y='125'>cụm trước = w</text>
+  <text x='100' y='170'>mã = K</text>
+  <path class='arr' d='M310 145H410'/>
+  <rect class='warn' x='420' y='65' width='310' height='160' rx='12'/>
+  <text x='470' y='112'>K = next_code</text>
+  <text x='457' y='157'>nhưng từ điển[K]</text>
+  <text x='520' y='195'>chưa có</text>
+  <path class='arr' d='M735 145H835'/>
+  <rect class='box' x='845' y='80' width='235' height='130' rx='12'/>
+  <text x='880' y='125'>entry = w +</text>
+  <text x='875' y='170'>ký tự đầu(w)</text>
+  <text x='295' y='285'>Chỉ hợp lệ khi K đúng bằng mã sẽ được thêm ở bước này; mã lớn hơn là dòng lỗi.</text>
+</svg>

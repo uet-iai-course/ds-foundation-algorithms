@@ -1,0 +1,31 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1100' height='340' viewBox='0 0 1100 340' role='img' aria-label='Lượng tử hóa hệ số DCT bằng cách chia cho bước lượng tử và làm tròn để tạo nhiều số không' aria-labelledby='t d'>
+  <title id='t'>Lượng tử hóa hệ số DCT</title>
+  <desc id='d'>
+    Mỗi hệ số được chia cho bước lượng tử tương ứng rồi làm tròn; nhiều hệ số
+    tần số cao trở thành không.
+  </desc>
+  <defs>
+    <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
+      <path d='M0 0L9 3L0 6Z' fill='#B15A2B'/>
+    </marker>
+  </defs>
+  <style>
+    text{font:23px
+    sans-serif;fill:#263238}.m{fill:#edf4ff;stroke:#2f3e7a;stroke-width:3}.q{fill:#f7efe6;stroke:#B15A2B;stroke-width:3}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}.z{fill:#2E7D32;font-weight:700}
+  </style>
+  <rect class='m' x='35' y='70' width='260' height='190' rx='12'/>
+  <text x='95' y='110'>hệ số DCT</text>
+  <text x='75' y='160'>160 20 −6 3</text>
+  <text x='75' y='205'> 18 −8 2 −1</text>
+  <path class='arr' d='M305 165H415'/>
+  <rect class='q' x='425' y='70' width='260' height='190' rx='12'/>
+  <text x='470' y='110'>bước lượng tử</text>
+  <text x='465' y='160'> 8 10 16 24</text>
+  <text x='465' y='205'>10 14 24 40</text>
+  <path class='arr' d='M695 165H805'/>
+  <rect class='m' x='815' y='70' width='250' height='190' rx='12'/>
+  <text x='847' y='110'>làm tròn C/Q</text>
+  <text x='850' y='160'>20 2 0 0</text>
+  <text x='850' y='205'> 2 −1 0 0</text>
+  <text class='z' x='380' y='315'>Bước lớn hơn → nhiều số 0 hơn, sai số tái tạo lớn hơn.</text>
+</svg>

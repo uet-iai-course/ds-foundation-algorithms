@@ -1,0 +1,34 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='320' viewBox='0 0 1120 320' role='img' aria-label='So sánh nén từ điển khôi phục đúng từng byte với JPEG khôi phục ảnh gần đúng' aria-labelledby='t d'>
+  <title id='t'>Hai đặc tả khôi phục</title>
+  <desc id='d'>
+    Nén từ điển khôi phục đúng từng byte, còn JPEG khôi phục một ảnh gần ảnh gốc
+    sau biến đổi và lượng tử hóa.
+  </desc>
+  <defs>
+    <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
+      <path d='M0,0 L9,3 L0,6Z' fill='#B15A2B'/>
+    </marker>
+  </defs>
+  <style>
+    text{font:22px
+    sans-serif;fill:#263238}.h{font-weight:700;fill:#2f3e7a}.box{fill:#fff;stroke:#2f3e7a;stroke-width:3}.loss{fill:#f7efe6;stroke:#B15A2B;stroke-width:3}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
+  </style>
+  <text class='h' x='190' y='35'>Nén từ điển</text>
+  <rect class='box' x='30' y='70' width='220' height='90' rx='12'/>
+  <text x='88' y='124'>chuỗi byte x</text>
+  <path class='arr' d='M255 115H365'/>
+  <rect class='box' x='375' y='70' width='220' height='90' rx='12'/>
+  <text x='417' y='124'>dòng mã z</text>
+  <path class='arr' d='M600 115H710'/>
+  <rect class='box' x='720' y='70' width='300' height='90' rx='12'/>
+  <text x='770' y='124'>khôi phục đúng x</text>
+  <text class='h' x='190' y='213'>JPEG</text>
+  <rect class='loss' x='30' y='235' width='220' height='70' rx='12'/>
+  <text x='93' y='278'>ảnh X</text>
+  <path class='arr' d='M255 270H365'/>
+  <rect class='loss' x='375' y='235' width='220' height='70' rx='12'/>
+  <text x='435' y='278'>dòng bit</text>
+  <path class='arr' d='M600 270H710'/>
+  <rect class='loss' x='720' y='235' width='300' height='70' rx='12'/>
+  <text x='770' y='278'>ảnh gần đúng X̂</text>
+</svg>

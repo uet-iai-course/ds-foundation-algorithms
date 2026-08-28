@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="430" viewBox="0 0 1180 430" role="img" aria-label="Vết mã hóa LZW chuỗi ppqpprpqrpqrq với mã ban đầu 112 đến 114 và mã mới từ 256" aria-labelledby="t d">
+  <title id="t">Vết mã hóa LZW đầy đủ</title>
+  <desc id="d">Vết mã hóa chuỗi ppqpprpqrpqrq với bảng chữ cái p q r, các mã ban đầu 112 113 114, mã mới từ 256, và dòng mã đầu ra đầy đủ.</desc>
+  <style>text{font:18px sans-serif;fill:#263238}.h{font-weight:700;fill:#2f3e7a}.row{fill:#fff;stroke:#b0bec5}.add{fill:#f7efe6}.keep{fill:#edf4ff}.out{font-weight:700;fill:#8a431f}</style>
+  <text class="h" x="30" y="34">Chuỗi: ppqpprpqrpqrq</text>
+  <g transform="translate(25 52)">
+    <text class="h" x="10" y="22">w</text><text class="h" x="95" y="22">k</text><text class="h" x="170" y="22">quyết định</text><text class="h" x="340" y="22">phát</text><text class="h" x="410" y="22">thêm</text>
+    <text class="h" x="600" y="22">w</text><text class="h" x="685" y="22">k</text><text class="h" x="760" y="22">quyết định</text><text class="h" x="930" y="22">phát</text><text class="h" x="1000" y="22">thêm</text>
+    <g transform="translate(0 32)">
+      <rect class="row" width="555" height="38"/><rect class="add" x="385" width="170" height="38"/><text x="10" y="26">p</text><text x="95" y="26">p</text><text x="170" y="26">pp chưa có</text><text x="340" y="26">112</text><text x="400" y="26">256 ↦ pp</text>
+      <rect class="row" y="38" width="555" height="38"/><rect class="add" x="385" y="38" width="170" height="38"/><text x="10" y="64">p</text><text x="95" y="64">q</text><text x="170" y="64">pq chưa có</text><text x="340" y="64">112</text><text x="400" y="64">257 ↦ pq</text>
+      <rect class="row" y="76" width="555" height="38"/><rect class="add" x="385" y="76" width="170" height="38"/><text x="10" y="102">q</text><text x="95" y="102">p</text><text x="170" y="102">qp chưa có</text><text x="340" y="102">113</text><text x="400" y="102">258 ↦ qp</text>
+      <rect class="keep" y="114" width="555" height="38"/><text x="10" y="140">p</text><text x="95" y="140">p</text><text x="170" y="140">pp đã có → w=pp</text><text x="340" y="140">—</text><text x="400" y="140">—</text>
+      <rect class="row" y="152" width="555" height="38"/><rect class="add" x="385" y="152" width="170" height="38"/><text x="10" y="178">pp</text><text x="95" y="178">r</text><text x="170" y="178">ppr chưa có</text><text x="340" y="178">256</text><text x="400" y="178">259 ↦ ppr</text>
+      <rect class="row" y="190" width="555" height="38"/><rect class="add" x="385" y="190" width="170" height="38"/><text x="10" y="216">r</text><text x="95" y="216">p</text><text x="170" y="216">rp chưa có</text><text x="340" y="216">114</text><text x="400" y="216">260 ↦ rp</text>
+    </g>
+    <g transform="translate(590 32)">
+      <rect class="keep" width="555" height="38"/><text x="10" y="26">p</text><text x="95" y="26">q</text><text x="170" y="26">pq đã có → w=pq</text><text x="340" y="26">—</text><text x="410" y="26">—</text>
+      <rect class="row" y="38" width="555" height="38"/><rect class="add" x="385" y="38" width="170" height="38"/><text x="10" y="64">pq</text><text x="95" y="64">r</text><text x="170" y="64">pqr chưa có</text><text x="340" y="64">257</text><text x="400" y="64">261 ↦ pqr</text>
+      <rect class="keep" y="76" width="555" height="38"/><text x="10" y="102">r</text><text x="95" y="102">p</text><text x="170" y="102">rp đã có → w=rp</text><text x="340" y="102">—</text><text x="410" y="102">—</text>
+      <rect class="row" y="114" width="555" height="38"/><rect class="add" x="385" y="114" width="170" height="38"/><text x="10" y="140">rp</text><text x="95" y="140">q</text><text x="170" y="140">rpq chưa có</text><text x="340" y="140">260</text><text x="400" y="140">262 ↦ rpq</text>
+      <rect class="row" y="152" width="555" height="38"/><rect class="add" x="385" y="152" width="170" height="38"/><text x="10" y="178">q</text><text x="95" y="178">r</text><text x="170" y="178">qr chưa có</text><text x="340" y="178">113</text><text x="400" y="178">263 ↦ qr</text>
+      <rect class="row" y="190" width="555" height="38"/><rect class="add" x="385" y="190" width="170" height="38"/><text x="10" y="216">r</text><text x="95" y="216">q</text><text x="170" y="216">rq chưa có</text><text x="340" y="216">114</text><text x="400" y="216">264 ↦ rq</text>
+    </g>
+  </g>
+  <rect x="25" y="326" width="1130" height="78" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+  <text class="h" x="45" y="356">Kết thúc: phát mã của w=q</text>
+  <text class="out" x="45" y="388">112, 112, 113, 256, 114, 257, 260, 113, 114, 113</text>
+</svg>

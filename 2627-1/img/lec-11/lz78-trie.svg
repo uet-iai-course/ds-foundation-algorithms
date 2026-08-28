@@ -1,0 +1,37 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='350' viewBox='0 0 1120 350' role='img' aria-label='Cây từ điển LZ78 thêm cụm mới bằng mã cha và một ký tự' aria-labelledby='t d'>
+  <title id='t'>Cây từ điển LZ78</title>
+  <desc id='d'>Gốc mã 0 có các nhánh a và c; cụm mới được thêm bằng mã cha và một ký tự.</desc>
+  <defs>
+    <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
+      <path d='M0 0L9 3L0 6Z' fill='#B15A2B'/>
+    </marker>
+  </defs>
+  <style>
+    text{font:22px
+    sans-serif;fill:#263238}.n{fill:#fff;stroke:#2f3e7a;stroke-width:3}.new{fill:#f7efe6;stroke:#B15A2B;stroke-width:4}.e{stroke:#2f3e7a;stroke-width:3}.arr{stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
+  </style>
+  <line class='e' x1='250' y1='75' x2='150' y2='170'/>
+  <line class='e' x1='250' y1='75' x2='350' y2='170'/>
+  <line class='e' x1='150' y1='170' x2='80' y2='275'/>
+  <line class='e' x1='150' y1='170' x2='220' y2='275'/>
+  <circle class='n' cx='250' cy='60' r='34'/>
+  <circle class='n' cx='150' cy='180' r='34'/>
+  <circle class='n' cx='350' cy='180' r='34'/>
+  <circle class='n' cx='80' cy='290' r='34'/>
+  <circle class='new' cx='220' cy='290' r='34'/>
+  <text x='241' y='68'>0</text>
+  <text x='141' y='188'>1</text>
+  <text x='341' y='188'>2</text>
+  <text x='71' y='298'>3</text>
+  <text x='211' y='298'>4</text>
+  <text x='185' y='127'>a</text>
+  <text x='305' y='127'>c</text>
+  <text x='96' y='247'>a</text>
+  <text x='190' y='247'>b</text>
+  <text x='520' y='95'>mã 1 ↦ “a”</text>
+  <text x='520' y='140'>mã 2 ↦ “c”</text>
+  <text x='520' y='185'>mã 3 ↦ “aa” = (1,a)</text>
+  <text x='520' y='230'>mã 4 ↦ “ab” = (1,b)</text>
+  <path class='arr' d='M715 245H850'/>
+  <text x='875' y='252'>thêm đúng một cạnh</text>
+</svg>
