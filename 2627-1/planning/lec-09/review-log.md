@@ -9,6 +9,15 @@
 - Không dạy HyperLogLog chi tiết. Tệp UMass có tên HyperLogLog chỉ trình bày FM/LogLog, thiếu cơ chế chọn thanh ghi bằng tiền tố, trung bình điều hòa và hiệu chỉnh.
 - Cửa sổ suy giảm chỉ trình bày một tổng và truy hồi; không phát triển thuật toán duy trì mọi phần tử phổ biến.
 - X03 gọi đúng sản phẩm là bộ đếm hậu tố $c_i$; $X_i=9(2c_i-1)$ và trung bình 21 chỉ là phép tự kiểm trong ghi chú.
+- F02: quy ước $\rho(0)=L$ và dòng rỗng trả $0$ là quy ước biên do deck đặt để xử lý trường hợp hữu hạn, không phải mệnh đề trích nguyên từ MMDS tr.143; ghi chú trang đã nói rõ điều này.
+- M01 gắn nguồn định nghĩa và diễn giải ba mômen vào MMDS tr.146; X02 gắn MMDS Ex.4.5.1, tr.150; ba tệp quy trình (outline, storyboard, HTML) đã đồng bộ.
+- C03/C02: $n$ được làm rõ là tổng mọi cập nhật của dòng chỉ tăng ($n=\lVert f\rVert_1$); bảng ký hiệu outline bổ sung $n,m,t,\varepsilon,\delta,X$ và ước lượng chính.
+- T00/T01 thu hồi cửa sổ suy giảm mũ: tổng hữu hạn, cập nhật $O(1)$, không làm mặt slide quá tải.
+- Cầu nối ngắn trong ghi chú: F06→Count-Min, C04→mômen/AMS, E01→tổng hợp, T00→khóa bảo đảm.
+- Ghi chú P00 nêu tiên quyết: Bài 8, biến ngẫu nhiên, kỳ vọng, xác suất va chạm băm.
+- A01 ghi điều kiện $c>0$ cho cận 50% của DGIM.
+- Gộp P00–A02 thành mạch mở đầu và E00–T01 thành mạch kết luận; cùng mạch bài tập X00–X05, HTML có đúng bảy `<section>` ngoài. Không đổi thứ tự hay số trang.
+- Tái rà mạch sau khi gộp phát hiện ba cầu nối thiếu hoặc sai chiều. Đã thêm M07→D00, sửa D09→E00 thành chuyển từ biên cứng sang trọng số giảm theo tuổi, và thêm T01→X00.
 - X05 dùng hình tự chứa trạng thái của Hình 4.3, ghi rõ chiều cũ → mới và phần trái chưa xác định. Nếu đã có hai bucket kích thước 8, chuỗi gộp tiếp tục tạo bucket 16 và có thể lan lên mức cao hơn.
 
 ## Kiểm tra khi soạn
@@ -21,7 +30,7 @@
 - Đã kiểm truy hồi $S_{t+1}=(1-c)S_t+a_{t+1}$ và không đồng nhất phân bố với cửa sổ cố định $1/c$ phần tử.
 - Chín hình kỹ thuật đều là SVG tự vẽ, có `role="img"`, `title`, `desc`; HTML có văn bản thay thế. Không dùng raster.
 
-## Hợp nhất kiểm định storyboard và bốn phản biện độc lập
+## Hợp nhất kiểm định storyboard và năm phản biện độc lập
 
 | Mức độ | Trang chiếu | Vấn đề và bằng chứng | Quyết định chỉnh sửa |
 |---|---|---|---|
@@ -41,7 +50,17 @@
 | nghiêm trọng | D08 | Ghi chú chỉ nêu sai số nửa bucket nhưng chưa chứng minh mẫu số $c$ đủ lớn để suy ra sai số tương đối 50%. | Đặt $s=\lvert b^*\rvert$, $A$ là tổng bucket mới hơn; dùng bất biến để có $A\ge s-1$, nên $c\ge A+1\ge s$; xét riêng ước lượng thấp và cao rồi chia cho $c$. |
 | nhẹ | C02–C03 | Miền tham số, khởi tạo và hai mức độc lập của băm chưa hiện rõ trên mặt trang. | Thêm $n,k,\varepsilon,\delta$, $C=0$, họ băm độc lập đôi một trong từng hàng và độc lập giữa các hàng; C03 giữ cùng $m,t$ và sai số $\varepsilon n/k$. |
 
-Đã rà lại hai trang lân cận quanh các đổi thứ tự A00, M02–M03 và D02–D03; kết quả ghi cuối storyboard. Mọi lỗi `chặn bàn giao` và `nghiêm trọng` trong bốn báo cáo đã được xử lý. Các đề xuất nhẹ chỉ thay đổi phong cách không được áp dụng nếu làm tăng chữ hoặc tách thêm trang mà không tạo bước học tập mới.
+Đã rà lại hai trang lân cận quanh các đổi thứ tự A00, M02–M03 và D02–D03; kết quả ghi cuối storyboard. Năm vai độc lập gồm góc nhìn sinh viên, chuyên gia giải thuật và khoa học dữ liệu, độ chính xác toán học và thuật toán, phản biện học thuật và giảng dạy, kết nối và mạch viết. Mọi lỗi `chặn bàn giao` và `nghiêm trọng` có bằng chứng hợp lệ đã được xử lý. Các đề xuất nhẹ chỉ thay đổi phong cách không được áp dụng nếu làm tăng chữ hoặc tách thêm trang mà không tạo bước học tập mới.
+
+### Quyết định từ năm vai ở vòng hiện tại
+
+| Vai | Mức cao nhất có bằng chứng hợp lệ | Trang chiếu | Quyết định |
+|---|---|---|---|
+| Góc nhìn sinh viên | trung bình | C02–C03 | Làm rõ $n$ và bổ sung bảng ký hiệu. Không thêm ví dụ số tự soạn cho cửa sổ suy giảm vì nguồn không cung cấp dữ kiện. |
+| Chuyên gia giải thuật và khoa học dữ liệu | trung bình | T00–T01 | Thu hồi cửa sổ suy giảm trong bảng tổng hợp. Bác nhận định thiếu sáu trang vì báo cáo đã bỏ sót X00–X05. |
+| Độ chính xác toán học và thuật toán | nghiêm trọng | M01, X02 và ghi chú có thời lượng | Sửa nguồn thành tr.146/tr.150; xóa thời lượng khỏi ghi chú. Tái rà sau sửa: đạt, không còn lỗi chặn hoặc nghiêm trọng. |
+| Phản biện học thuật và giảng dạy | nghiêm trọng | F02, A01, toàn bộ ghi chú | Ghi rõ quy ước biên của deck, thêm điều kiện $c>0$, xóa mã nội bộ khỏi lời giảng và bỏ khóa zoom. |
+| Kết nối và mạch viết | nghiêm trọng | M07→D00, D09→E00, T01→X00 | Gộp về bảy mạch ngoài; sửa ba cầu nối. Tái rà đúng trang và hai phía lân cận: đạt, không còn lỗi chặn hoặc nghiêm trọng. |
 
 ## Tự kiểm biên tập sau chỉnh sửa
 
@@ -49,10 +68,18 @@
 - `quill` theo quy trình rà sửa: đạt. Không có `quill.json` và không khởi tạo mới. Mạch FM, Count-Min, AMS và DGIM nối dữ kiện ví dụ sang ký hiệu, thuật toán, lập luận và chi phí; thuật ngữ `mốc thời gian`, `dòng chỉ tăng`, `khóa nặng` được dùng nhất quán.
 - Tiêu đề và nhãn bố cục bằng tiếng Việt; chỉ giữ tên thuật toán, tên riêng và ký hiệu chuẩn bằng tiếng Anh.
 
+## Bác bỏ đề xuất có lý do
+
+- Không đổi `data-slide-id`: đây là chuẩn bắt buộc của deck và của quy trình phối hợp planning–HTML.
+- Không thêm ví dụ tự soạn: nguồn đã chọn không cho phép thêm dữ kiện ngoài nguồn.
+- Không thêm 6 slide: cấu trúc 46 trang (40 giảng + 6 bài tập) là bắt buộc.
+- Không dịch ranh giới trong SVG: tọa độ hiện đúng theo Hình 4.2. Kiểm định Chromium phát hiện lớp nền lồng không tải trong cả D07 và X04. Đã nhúng trực tiếp trạng thái nền vào hai SVG, giữ nguyên tọa độ và dữ liệu; không còn phụ thuộc SVG lồng.
+- Không giữ chín mạch ngoài của bản cũ: quy chuẩn yêu cầu 5–7. Hai cặp mạch liên tục được gộp thành mở đầu và kết luận, đưa tổng số về bảy mà không đổi 46 trang.
+
 ## Kiểm định cuối
 
-- Lệnh bắt buộc `python3 -m reloadserver 8765` không chạy vì môi trường không có mô-đun `reloadserver`. Máy chủ HTTP Python đã có sẵn tại cổng 8765 được dùng làm phương án thay thế; URL bài giảng trả `HTTP 200`.
-- Chromium duyệt đủ 46 trang ở khung $1280\times720$ và $800\times600$: không có lỗi JavaScript, lỗi tải tài nguyên hoặc trang tràn khung.
-- Ảnh tổng hợp và các trang có mật độ cao đã được xem trực tiếp. Lần xem đầu phát hiện các thẻ `.math` thiếu dấu phân cách KaTeX; đã sửa toàn bộ và render lại. Lần kiểm tra sau không còn lệnh TeX thô trên mặt trang.
-- Kiểm tra tĩnh cuối: 46 `data-slide-id` duy nhất, 46 ghi chú diễn giả, cấu trúc `section` cân bằng, chín SVG đều tồn tại và có mô tả, không có ảnh raster hoặc tài nguyên mạng cốt lõi; `git diff --check` sạch.
-- Dự án Codex Slides `20260827213434-b-i-9-d-ng-d-li-u-m-moment-v-c-a-s-unoi` lưu đủ tài liệu nguồn. `generated/outline.md` và `generated/brief.md` đã được cập nhật và đọc lại thành công. Bề mặt Browser của Codex Slides không khả dụng; dự án vẫn ở trạng thái nháp, 0 trang, và thao tác tải thêm Design File trả HTTP 500. Vì vậy không tuyên bố đã rà trực quan bằng Codex Slides; kiểm tra trực quan được thực hiện trên bản RevealJS cục bộ bằng Chromium.
+- Lệnh bắt buộc `python3 -m reloadserver 8765` không chạy vì môi trường không có mô-đun `reloadserver`. Máy chủ dự phòng `/tmp/reloadserver.py` được khởi động tại đúng thư mục gốc; URL bài giảng trả `HTTP 200`.
+- Kiểm tra tĩnh cuối: 46 `data-slide-id` duy nhất, 46 ghi chú diễn giả, đúng bảy `<section>` ngoài, chín SVG đều tồn tại và có mô tả; không có mã nội bộ hoặc thời lượng trong nội dung/ghi chú, ảnh raster, tài sản thiếu hay SVG lồng; `git diff --check` sạch.
+- Chromium duyệt lại đủ 46 trang ở cả $1280\times720$ và $800\times600$: không có lỗi JavaScript, lỗi tải tài nguyên, lỗi KaTeX, tràn hoặc chồng khung. Điều hướng bàn phím từ P00 cho kết quả xuống P01, lên lại P00 và sang phải F00.
+- Đã xem trực tiếp bốn ảnh tổng hợp của mỗi kích thước và các trang dày C02, M04, D08, T00, T01, X01, X03, X04, X05. Lần xem đầu phát hiện nền DGIM không hiện ở D07 và X04; sau khi nhúng trực tiếp trạng thái nền, đã render lại toàn bộ và xác nhận hai trang hiện đủ bit, bucket, ranh giới và nhãn ở cả hai kích thước.
+- Codex Slides: dự án `20260827213434-b-i-9-d-ng-d-li-u-m-moment-v-c-a-s-unoi` vẫn là bản nháp 0 trang; tệp HTML cuối được tải thành material `20260830133414001-sxq5.html`. Bề mặt Browser nội bộ không có công cụ điều hướng trong phiên này, còn `upload_design_file` trả HTTP 500. Vì vậy không tuyên bố đã rà trực quan bằng Codex Slides; bằng chứng trực quan cuối đến từ RevealJS cục bộ bằng Chromium.

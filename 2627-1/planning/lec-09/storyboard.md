@@ -24,6 +24,8 @@ Tình huống xuyên suốt là dòng sự kiện có khóa và thời gian đ�
 
 Tổng phần giảng: **120 phút**.
 
+Ánh xạ RevealJS: sáu mạch giảng là P00–A02, F00–F06, C00–C04, M00–M07, D00–D09 và E00–T01; mạch bài tập X00–X05 đứng cuối. Tổng cộng đúng bảy `<section>` ngoài. Trong mạch kết luận E00–T01, suy giảm mũ mở rộng khái niệm dữ liệu gần đây rồi T00–T01 đối chiếu năm cấu trúc và thu hồi bản đồ quyết định mở bài.
+
 ## Bản đồ từng trang phần giảng
 
 | ID | Bước tiến | Nguồn |
@@ -36,7 +38,7 @@ Tổng phần giảng: **120 phút**.
 | A02 | Kiểm tra giới hạn của bảng đếm chính xác. | MMDS tr.142, 146 |
 | F00 | Mở tình huống sử dụng người dùng duy nhất và nhiều dòng song song. | MMDS tr.142–143 |
 | F01 | Minh họa đuôi băm hiếm. | MMDS tr.143; Streams 2 tr.17–20 |
-| F02 | Đặc tả trạng thái, cập nhật, dòng rỗng và $\rho(0)$ cho băm $L$ bit. | MMDS tr.143; làm rõ trường hợp biên hữu hạn |
+| F02 | Đặc tả trạng thái, cập nhật, dòng rỗng và $\rho(0)$ cho băm $L$ bit. | MMDS tr.143; quy ước biên do deck đặt |
 | F03 | Lập luận xác suất ngưỡng quanh $2^r$ dưới mô hình băm đều, độc lập. | MMDS tr.143–144 |
 | F04 | Phân biệt trung bình/trung vị và cảnh báo đuôi nặng. | MMDS tr.144 |
 | F05 | Nêu đúng thứ tự trung bình trong nhóm rồi trung vị. | MMDS tr.144; Stanford 2017 Streams 2 |
@@ -47,7 +49,7 @@ Tổng phần giảng: **120 phút**.
 | C03 | Nối kỳ vọng nhiễu → Markov → hàng độc lập và phép min; kết luận sai số $\varepsilon n/k$. | UMass CS514 Lecture 10 |
 | C04 | Lượng hóa $O(t)$, $O(mt)$; nêu giới hạn ứng viên và cập nhật âm. | UMass CS514 Lecture 10 |
 | M00 | Đặt hai phân phối cùng độ dài, khác $F_2$. | MMDS tr.146 |
-| M01 | Định nghĩa $F_k$, diễn giải $F_0,F_1,F_2$. | MMDS tr.145–146 |
+| M01 | Định nghĩa $F_k$, diễn giải $F_0,F_1,F_2$. | MMDS tr.146 |
 | M02 | Chạy vết hậu tố để hình thành trực giác về bộ đếm $c_I$. | MMDS Ví dụ 4.7–4.8, tr.146–147 |
 | M03 | Định nghĩa rõ $I,c_I,X$ sau ví dụ. | MMDS tr.146–147 |
 | M04 | Giả mã một biến AMS. | MMDS tr.146–147 |
@@ -66,8 +68,8 @@ Tổng phần giảng: **120 phút**.
 | D09 | Phân tích bộ nhớ, cập nhật, truy vấn. | MMDS tr.153–155 |
 | E00 | Mở tình huống độ phổ biến gần đây; so sánh phân bố và sửa tổng hữu hạn. | MMDS Hình 4.4, tr.157–158 |
 | E01 | Dẫn truy hồi, chi phí $O(1)$ và kiểm tra bằng đổi chỉ số. | MMDS tr.158–159 |
-| T00 | Đối chiếu bốn cấu trúc theo đầu ra, cập nhật và trạng thái. | tổng hợp nguồn |
-| T01 | Khóa bốn điều kiện bảo đảm, ghi công nguồn. | tổng hợp nguồn |
+| T00 | Đối chiếu năm cấu trúc theo đầu ra, cập nhật và trạng thái. | tổng hợp nguồn |
+| T01 | Khóa năm điều kiện bảo đảm, ghi công nguồn. | tổng hợp nguồn |
 
 ## Phần bài tập củng cố
 
@@ -75,9 +77,9 @@ Tổng phần giảng: **120 phút**.
 |---|---:|---|---|---|
 | X00 | 0 | Mở phần và nêu hình thức nộp. | Nêu năm bài trực tiếp từ sách. | MMDS 4.4–4.6 |
 | X01 | 12 | Tính đuôi băm, $R$ và ba ước lượng cho dòng đã cho. | Bảng chín giá trị mỗi hàm và kết quả $1,16,16$. | Ex.4.4.1, tr.145 |
-| X02 | 8 | Lập bảng tần suất, tính $F_2,F_3$. | $F_2=21,F_3=51$. | Ex.4.5.1, tr.149–150 |
+| X02 | 8 | Lập bảng tần suất, tính $F_2,F_3$. | $F_2=21,F_3=51$. | Ex.4.5.1, tr.150 |
 | X03 | 12 | Tính rõ mọi bộ đếm hậu tố $c_i$, không nhập nhằng với $X_i$. | Một hàng chín giá trị; $X_i$ và trung bình 21 chỉ dùng tự kiểm trong ghi chú. | Ex.4.5.3, tr.150 |
-| X04 | 12 | Truy vấn Hình 4.2 với $k=5,15$ trên hình không lộ đáp án. | $3$ đúng tuyệt đối; $10$ so với $9$, lệch $1/9$. | Ex.4.6.1, tr.157 |
+| X04 | 12 | Truy vấn Hình 4.2 với $k=5,15$ trên hình không lộ đáp án; SVG bài tập khớp bit-by-bit trạng thái DGIM nền. | $3$ đúng tuyệt đối; $10$ so với $9$, lệch $1/9$. | Ex.4.6.1, tr.157 |
 | X05 | 16 | Từ trạng thái Hình 4.3 tự chứa, thêm ba bit 1 và ghi cascade qua mọi mức. | Ba trạng thái; nhánh điều kiện nếu phía trái đã có hai bucket 8, và tiếp tục cao hơn khi cần. | Ex.4.6.3, tr.157 |
 
 X00 không thêm yêu cầu toán học. Tổng phần bài tập: **60 phút**.
