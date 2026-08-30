@@ -33,11 +33,9 @@
 <li>Lập chữ ký bằng một lượt quét ma trận thưa.</li>
 <li>Phân biệt hoán vị lý tưởng với hàm băm thực hành.</li>
 </ul>
-<p class="muted">Tiên quyết: tập hợp, xác suất cơ bản, hàm băm và ma trận thưa.</p>
+<p class="muted">Tiên quyết: tập hợp, kỳ vọng, phương sai, độc lập, hàm băm và ma trận thưa.</p>
 <aside class="notes">Phạm vi dừng trước LSH; LSH thuộc Bài 6. Mỗi mục tiêu có một phép tính hoặc lập luận kiểm tra được.</aside>
 </section>
-</section>
-<section>
 <section data-slide-id="M00">
 <h1>Phát hiện tài liệu gần trùng ở quy mô lớn</h1>
 <img class="figure" src="img/lec-05/quy-mo-so-sanh-cap.svg" role="img" alt="Một triệu tài liệu tạo xấp xỉ năm trăm tỷ cặp, cần shingle và MinHash."/>
@@ -48,7 +46,7 @@
 <div class="grid2">
 <div class="card">
 <h3>Đầu vào</h3>
-<p>$N$ tài liệu; tổng độ dài $L$ byte.</p>
+<p>$N$ tài liệu, đọc tuần tự theo luồng.</p>
 </div>
 <div class="card accent">
 <h3>Đầu ra trung gian</h3>
@@ -59,7 +57,7 @@
 <aside class="notes">Bài 5 giải quyết biểu diễn và ước lượng một cặp đã chọn. Bài 6 mới tạo tập ứng viên. Nguồn: MMDS mục 3.1–3.4, trang in 73–91.</aside>
 </section>
 <section data-slide-id="M02">
-<h2>Chuỗi biểu diễn</h2>
+<h2>Luồng biểu diễn: tài liệu → shingle → chữ ký</h2>
 <div class="pipeline">
 <div class="stage">
 <div class="stage-title">Tài liệu</div>
@@ -126,7 +124,7 @@
 <div class="grid2">
 <div class="card">
 <h3>Đầu vào</h3>
-<p>Chuỗi byte $D$ dài $n$; $k\ge1$.</p>
+<p>Chuỗi byte $D$ đã chuẩn hóa theo quy tắc vừa chọn, dài $n$; $k\ge1$.</p>
 </div>
 <div class="card accent">
 <h3>Đầu ra</h3>
@@ -158,7 +156,7 @@ trả C</code>
 </div>
 </div>
 <p class="muted">Tạo hoặc băm trực tiếp: $\Theta(1+k\max(0,n-k+1))$ thời gian; bộ nhớ theo số shingle phân biệt.</p>
-<aside class="notes">Điều kiện sau là $C=S_k(D)$. Mỗi vòng tăng $i$, nên thuật toán dừng. Hạng 1 tính phép kiểm tra biên khi $k&gt;n$; nếu $k\le n$, tạo hoặc băm trực tiếp từng cửa sổ tốn $\Theta(k(n-k+1))$. Có thể dùng băm lăn hoặc mã định danh để tránh xử lý lại toàn bộ cửa sổ; vẫn phải kiểm soát va chạm. Bộ nhớ là tổng kích thước các shingle phân biệt, hoặc số mã phân biệt khi lưu mã.</aside>
+<aside class="notes">Điều kiện sau là $C=S_k(D)$. Mỗi vòng tăng $i$, nên thuật toán dừng. Phép kiểm tra biên khi $k&gt;n$ tốn $\Theta(1)$. Nếu $k\le n$, tạo hoặc băm trực tiếp từng cửa sổ tốn $\Theta(k)$, nên tổng là $\Theta(k(n-k+1))$. Vết chạy ngắn: chuỗi abcdabd với $k=2$ cho sáu cửa sổ ab, bc, cd, da, ab, bd; tập kết quả có năm phần tử. Băm lăn có thể giảm phần cập nhật mã của mỗi cửa sổ, nhưng vẫn phải kiểm soát va chạm. Bộ nhớ là tổng kích thước các shingle phân biệt, hoặc số mã phân biệt khi lưu mã.</aside>
 </section>
 <section data-slide-id="S05">
 <h2>Chọn $k$ để shingle đủ phân biệt</h2>
@@ -190,7 +188,7 @@ trả C</code>
 <p class="muted">Va chạm có thể nhập hai shingle khác nhau.</p>
 <div class="check">
 <strong>Câu hỏi:</strong> 4-shingle và mã 32 bit của 9-shingle có cùng lượng thông tin không?</div>
-<aside class="notes">Đáp án: không. Kích thước lưu có thể bằng nhau, nhưng shingle dài phân biệt tốt hơn trước khi băm. Nguồn: MMDS mục 3.2.3.</aside>
+<aside class="notes">Đáp án: không. Kích thước lưu có thể bằng nhau, nhưng shingle dài phân biệt tốt hơn trước khi băm. Cầu nối sang Jaccard: ta đã có tập shingle cho từng tài liệu; phần sau đo hai tập giống nhau đến đâu. Nguồn: MMDS mục 3.2.3.</aside>
 </section>
 </section>
 <section>
@@ -222,22 +220,22 @@ trả C</code>
 <li>$J=1$ khi hai tập bằng nhau và không rỗng.</li>
 <li>$J=0$ khi hai tập rời nhau và có ít nhất một tập không rỗng.</li>
 </ul>
-<aside class="notes">Không gán ngầm $J(\varnothing,\varnothing)$. Hệ thống trả “không xác định” vì tài liệu ngắn hơn $k$ có thể cho tập shingle rỗng.</aside>
+<aside class="notes">Không gán ngầm $J(\varnothing,\varnothing)$. Quy ước của bài: trả “không xác định” vì tài liệu ngắn hơn $k$ có thể cho tập shingle rỗng.</aside>
 </section>
 <section data-slide-id="J04">
 <h2>Tính trực tiếp trên danh sách đã sắp</h2>
 <pre>
-<code class="language-text">đầu vào: C₁,C₂ tăng dần, không lặp
+<code class="language-text">đầu vào: C1,C2 tăng dần, không lặp
 (i,j,giao,hợp) ← (0,0,0,0)
-trong khi i&lt;|C₁| và j&lt;|C₂|:
-  nếu C₁[i]=C₂[j]: tăng i,j,giao,hợp
-  ngược lại nếu C₁[i]&lt;C₂[j]: tăng i,hợp
+trong khi i&lt;|C1| và j&lt;|C2|:
+  nếu C1[i]=C2[j]: tăng i,j,giao,hợp
+  ngược lại nếu C1[i]&lt;C2[j]: tăng i,hợp
   ngược lại: tăng j,hợp
 cộng phần tử còn lại vào hợp
 trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”</code>
 </pre>
 <p class="muted">Thời gian trường hợp xấu nhất $\Theta(|C_1|+|C_2|)$; bộ nhớ phụ $O(1)$.</p>
-<aside class="notes">Ba nhánh loại trừ nhau, nên mỗi vòng chỉ cập nhật một trường hợp. Bất biến: các biến mô tả đúng hai tiền tố đã xử lý. Mỗi vòng tăng ít nhất một chỉ số. Sau vòng lặp, cộng phần đuôi chưa xử lý. Nếu hợp rỗng, trả “không xác định”, không chia cho 0.</aside>
+<aside class="notes">Ba nhánh loại trừ nhau, nên mỗi vòng chỉ cập nhật một trường hợp. Bất biến: các biến mô tả đúng hai tiền tố đã xử lý. Mỗi vòng tăng ít nhất một chỉ số. Sau vòng lặp, cộng phần đuôi chưa xử lý. Nếu hợp rỗng, trả “không xác định”, không chia cho 0. Danh sách sắp được dựng một lần khi tạo tập shingle và dùng lại cho mọi cặp so sánh; chi phí dựng không tính vào mỗi phép so.</aside>
 </section>
 <section data-slide-id="J05">
 <h2>Đo một cặp nhanh vẫn chưa đủ</h2>
@@ -253,13 +251,14 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 </div>
 <div class="check">
 <strong>Câu hỏi:</strong> bước nào giảm kích thước, bước nào giảm số cặp?</div>
-<aside class="notes">MinHash giảm kích thước biểu diễn. LSH ở Bài 6 giảm số cặp ứng viên. Nguồn: MMDS ghi chú cuối mục 3.3.1, trang in 81.</aside>
+<aside class="notes">MinHash giảm kích thước biểu diễn. LSH ở Bài 6 giảm số cặp ứng viên. Câu nối: sau khi biết mỗi cặp tốn tuyến tính, bước giảm kích thước là thay tập bằng chữ ký ngắn; bước giảm số cặp là bài toán của Bài 6. Nguồn: MMDS ghi chú cuối mục 3.3.1, trang in 81.</aside>
 </section>
 </section>
 <section>
 <section data-slide-id="H00">
 <h1>MinHash lý tưởng</h1>
 <p class="big">Một hoán vị đều của vũ trụ chọn phần tử đứng sớm nhất trong mỗi tập.</p>
+<p class="muted">Bước giảm kích thước: thay tập bằng chữ ký ngắn.</p>
 <aside class="notes">Nguồn chính: MMDS mục 3.3.1–3.3.3 và slide MMDS Chương 3, trang 32–35. Stanford CS246 03, trang 26–27 chỉ dùng đối chiếu hình quét; trang 28 chỉ xác nhận có thể lưu nhãn hàng hoặc hạng trong hoán vị nếu nhất quán.</aside>
 </section>
 <section data-slide-id="H01">
@@ -280,7 +279,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <section data-slide-id="H03">
 <h2>Ví dụ 3.7: thứ tự $b,e,a,d,c$</h2>
 <img class="figure" src="img/lec-05/minhash-hoan-vi.svg" role="img" alt="Ma trận quét theo b,e,a,d,c cho MinHash lần lượt a,c,b,a."/>
-<aside class="notes">$S_3$ gặp 1 ở b; $S_1,S_4$ gặp ở a; $S_2$ gặp ở c. Hình vẽ lại từ MMDS Hình 3.3, trang in 82–83.</aside>
+<aside class="notes">$S_3$ gặp 1 ở b; $S_1,S_4$ gặp ở a; $S_2$ gặp ở c. Ký hiệu $h(S)$ cho giá trị MinHash của tập $S$ được đặc tả ở trang tiếp theo. Hình vẽ lại từ MMDS Hình 3.3, trang in 82–83.</aside>
 </section>
 <section data-slide-id="H02">
 <h2>Đặc tả một hàm MinHash</h2>
@@ -354,7 +353,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <p>$\widehat J=X/p$ và $\mathbb E[\widehat J]=J$.</p>
 </div>
 </div>
-<aside class="notes">Sửa đơn vị so với một câu thiếu hệ số trong bản sách. Tuyến tính kỳ vọng không cần độc lập; độc lập cần cho phương sai.</aside>
+<aside class="notes">Sửa đơn vị so với một câu thiếu hệ số trong bản sách. Tuyến tính kỳ vọng không cần độc lập; độc lập cần cho phương sai. Tiên quyết ở mức vừa đủ: kỳ vọng, phương sai và độc lập của biến ngẫu nhiên Bernoulli.</aside>
 </section>
 <section data-slide-id="G07">
 <h2>Chọn $p$ theo sai số và chi phí</h2>
@@ -362,7 +361,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <p class="muted">Công thức cần các hoán vị độc lập và đều trong mô hình lý tưởng.</p>
 <div class="check">
 <strong>Câu hỏi:</strong> tăng $p$ làm giảm đại lượng nào và tăng chi phí nào?</div>
-<aside class="notes">Đáp án: giảm phương sai, tăng thời gian cập nhật và bộ nhớ tuyến tính theo $p$. Không áp dụng cận này cho một bộ hàm không độc lập và đều mà chưa có chứng minh riêng.</aside>
+<aside class="notes">Đáp án: giảm phương sai, tăng thời gian cập nhật và bộ nhớ tuyến tính theo $p$. Không áp dụng cận này cho một bộ hàm không độc lập và đều mà chưa có chứng minh riêng. Mô hình lý tưởng đến đây là đủ; phần sau thay hoán vị bằng một lượt quét mã băm thực hành.</aside>
 </section>
 </section>
 <section>
@@ -375,7 +374,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <h2>Cập nhật chỉ trên các số 1</h2>
 <img class="figure" src="img/lec-05/quet-ma-tran-thua.svg" role="img" alt="Mỗi phần tử một tại hàng r cột c cập nhật p giá trị chữ ký của cột c."/>
 <p class="muted">$SIG[i,c]$ là ô của bảng chữ ký đang được cập nhật cho hàm $h_i$ và cột $c$.</p>
-<aside class="notes">Giới thiệu $SIG$ ở mức thao tác trước khi G04 chạy tay; G01 sẽ đặc tả miền và kích thước. Các số 0 không thể hạ giá trị nhỏ nhất của tập. Hình diễn giải MMDS mục 3.3.5.</aside>
+<aside class="notes">Giới thiệu $SIG$ ở mức thao tác trước khi chạy tay; phần sau sẽ đặc tả miền và kích thước. Các số 0 không thể hạ giá trị nhỏ nhất của tập. Hình diễn giải MMDS mục 3.3.5.</aside>
 </section>
 <section data-slide-id="G04">
 <h2>Vết chạy của Hình 3.4</h2>
@@ -385,8 +384,8 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <tr>
 <th>$r$</th>
 <th>Cột có 1</th>
-<th>$h_1=r+1\bmod5$</th>
-<th>$h_2=3r+1\bmod5$</th>
+<th>$h_1(r)=r+1\bmod5$</th>
+<th>$h_2(r)=3r+1\bmod5$</th>
 <th>Thay đổi</th>
 </tr>
 </thead>
@@ -417,18 +416,18 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <td>$S_1,S_3,S_4$</td>
 <td>4</td>
 <td>0</td>
-<td>hàng hai xuống 0</td>
+<td>$SIG[2,S_1],SIG[2,S_3],SIG[2,S_4]\leftarrow0$</td>
 </tr>
 <tr>
 <td>4</td>
 <td>$S_3$</td>
 <td>0</td>
 <td>3</td>
-<td>$SIG(1,S_3)\leftarrow0$</td>
+<td>$SIG[1,S_3]\leftarrow0$</td>
 </tr>
 </tbody>
 </table>
-<aside class="notes">Kết quả cuối: hàng $h_1$ là $(1,3,0,1)$; hàng $h_2$ là $(0,2,0,0)$. Nguồn: MMDS Ví dụ 3.8, trang in 85–86.</aside>
+<aside class="notes">Kết quả cuối: hàng $h_1$ là $(1,3,0,1)$; hàng $h_2$ là $(0,2,0,0)$. Hai hàm của hình này khác các hàm cho trong phần bài tập. Nguồn: MMDS Ví dụ 3.8, trang in 85–86.</aside>
 </section>
 <section data-slide-id="G01">
 <h2>Đặc tả quét ma trận thưa</h2>
@@ -444,7 +443,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <p>Mỗi ô là mã nhỏ nhất đã thấy.</p>
 </div>
 </div>
-<aside class="notes">Để tính $h_i(r)$ một lần cho mỗi hàng như cận ở G05, đầu vào phải nhóm theo hàng hoặc cung cấp luồng có dấu mốc đổi hàng. Cột rỗng giữ chữ ký toàn $\infty$; chữ ký đó không hợp lệ để ước lượng và không được tính $\infty=\infty$ là một lần trùng.</aside>
+<aside class="notes">Để tính $h_i(r)$ một lần cho mỗi hàng như cận vừa nêu, đầu vào phải nhóm theo hàng hoặc cung cấp luồng có dấu mốc đổi hàng. Cột rỗng giữ chữ ký toàn $\infty$; chữ ký đó không hợp lệ để ước lượng và không được tính $\infty=\infty$ là một lần trùng.</aside>
 </section>
 <section data-slide-id="G03">
 <h2>Giả mã và bất biến</h2>
@@ -533,7 +532,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 <h1>Bài tập thực hành</h1>
 <p>Thực hiện bốn bài trực tiếp từ MMDS 3e: 3.1.1, 3.2.3, 3.3.2 và 3.3.3.</p>
 <p class="muted">Mỗi nhóm nộp bảng tính hoặc lập luận, kèm giá trị trung gian.</p>
-<aside class="notes">Tổng 60 phút: 15 + 10 + 15 + 20. Các trang sau tách dữ kiện và sản phẩm. Không hiển thị thời lượng trên mặt trang.</aside>
+<aside class="notes">Bốn bài sau tách rõ dữ kiện, yêu cầu và sản phẩm. Lời giải cùng hướng dẫn chấm chỉ nằm trong ghi chú diễn giả.</aside>
 </section>
 <section class="recitation" data-slide-id="R01">
 <h2>Bài 3.1.1: ba tập hợp</h2>
@@ -543,7 +542,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 </div>
 <p>
 <strong>Sản phẩm:</strong> ba giao, ba hợp và ba phân số tối giản.</p>
-<aside class="notes">Phân 15 phút. Đáp án: $J(A,B)=1/3$; $J(A,C)=2/5$; $J(B,C)=1/6$. Chấm giao, hợp và tỷ số. Nguồn: MMDS Bài tập 3.1.1, trang in 78.</aside>
+<aside class="notes">Đáp án: $J(A,B)=1/3$; $J(A,C)=2/5$; $J(B,C)=1/6$. Chấm giao, hợp và tỷ số. Nguồn: MMDS Bài tập 3.1.1, trang in 78.</aside>
 </section>
 <section class="recitation" data-slide-id="R02">
 <h2>Bài 3.2.3: số shingle lớn nhất</h2>
@@ -553,7 +552,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 </div>
 <p>
 <strong>Sản phẩm:</strong> công thức, trường hợp biên và lập luận đạt cận.</p>
-<aside class="notes">Phân 10 phút. Đáp án $\max(0,n-k+1)$. Có nhiều nhất $n-k+1$ vị trí bắt đầu nếu $k\le n$. Cận đạt được bằng cách lấy một đoạn đủ dài của chuỗi de Bruijn bậc $k$: các cửa sổ độ dài $k$ liên tiếp trong đoạn là khác nhau; giả thiết số chuỗi độ dài $k$ ít nhất $n$ bảo đảm đủ cửa sổ. Nếu $k&gt;n$, không có cửa sổ. Nguồn: MMDS Bài tập 3.2.3, trang in 81.</aside>
+<aside class="notes">Đáp án $\max(0,n-k+1)$. Có nhiều nhất $n-k+1$ vị trí bắt đầu nếu $k\le n$. Cận đạt được bằng cách lấy một đoạn đủ dài của chuỗi de Bruijn bậc $k$: các cửa sổ độ dài $k$ liên tiếp trong đoạn là khác nhau; giả thiết số chuỗi độ dài $k$ ít nhất $n$ bảo đảm đủ cửa sổ. Hướng dẫn chứng minh bổ sung: $q^k\ge n$ với $q$ là cỡ bảng chữ cái là một điều kiện đủ; “đoạn tuyến tính” của chuỗi de Bruijn là đoạn liên tiếp trong đó mọi cửa sổ độ dài $k$ khác nhau. Nếu $k&gt;n$, không có cửa sổ. Nguồn: MMDS Bài tập 3.2.3, trang in 81.</aside>
 </section>
 <section class="recitation" data-slide-id="R03">
 <h2>Bài 3.3.2: thêm hai hàng chữ ký</h2>
@@ -562,7 +561,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 <p>Tính $h_3(x)=2x+4\bmod5$ và $h_4(x)=3x-1\bmod5$, rồi thêm hai hàng vào chữ ký.</p>
 </div>
 <p><strong>Sản phẩm:</strong> bảng mười giá trị băm và hai hàng chữ ký mới.</p>
-<aside class="notes">Phân 15 phút cho R03–R04. Dữ liệu chép từ Hình 3.4. Nguồn: MMDS Bài tập 3.3.2, trang in 90.</aside>
+<aside class="notes">Dữ liệu chép từ Hình 3.4. Nguồn: MMDS Bài tập 3.3.2, trang in 90.</aside>
 </section>
 <section class="recitation" data-slide-id="R04">
 <h2>Bài 3.3.2: bảng làm việc</h2>
@@ -647,7 +646,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 </tr>
 </tbody>
 </table>
-<aside class="notes">Phân 20 phút cho R05–R08. Đây là MMDS Hình 3.6 dựng lại bằng HTML, trang in 90.</aside>
+<aside class="notes">Đây là MMDS Hình 3.6 dựng lại bằng HTML, trang in 90. Cảnh báo: dữ kiện của Hình 3.6 khác Hình 3.4; không dùng lại kết quả đã tính ở bài tập trước.</aside>
 </section>
 <section class="recitation" data-slide-id="R06">
 <h2>Bài 3.3.3: ba yêu cầu</h2>

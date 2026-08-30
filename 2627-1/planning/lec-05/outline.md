@@ -24,7 +24,7 @@
 
 | Cụm | Nguồn chọn | Lý do |
 |---|---|---|
-| Mở bài quy mô | Slide MMDS Chương 3, trang 15 và 24; Stanford CS246 `03-lsh.pdf`, trang 14 để đối chiếu | Hai nguồn tương đương; ưu tiên MMDS. Stanford chỉ giúp kiểm tra cách trình bày phép đếm cặp. |
+| Mở bài quy mô | Slide MMDS Chương 3, trang 15 và 24; Stanford CS246 `03-lsh.pdf`, trang 14 để đối chiếu | Hai nguồn tương đương; ưu tiên MMDS. Stanford chỉ giúp kiểm tra cách trình bày phép đếm cặp. M00 được dùng lại ở đầu các mạch sau, không lặp lại thành trang mới. |
 | Shingling, Jaccard | MMDS 3e §§3.1–3.2; slide MMDS Chương 3 | Khớp chuẩn đầu ra, có ví dụ và bài tập trực tiếp. |
 | Trực giác MinHash | MMDS §3.3 và slide MMDS trang 32–35; Stanford CS246 `03-lsh.pdf`, trang 26–27 để đối chiếu | MMDS khớp ví dụ và chứng minh. Stanford trang 28 chỉ dùng kiểm tra quy ước lưu nhãn hàng hay hạng. |
 | Chữ ký và quét thưa | MMDS 3e §§3.3.4–3.3.5 | Có bất biến cập nhật và Hình 3.4 để chạy tay. |

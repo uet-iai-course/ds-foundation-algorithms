@@ -32,8 +32,27 @@
 - J03 phần giảng dùng Ví dụ 3.1 với kết quả $3/8$, không dùng dữ kiện Bài tập 3.1.1.
 - R04, R07 và R08 chỉ hiển thị bảng làm việc trống. Lời giải, phân bổ thời gian và hướng dẫn chấm nằm trong ghi chú diễn giả; tổng 60 phút.
 - R03–R04 giữ đúng yêu cầu Bài tập 3.3.2: tính hai hàm và thêm hai hàng chữ ký; đã bỏ yêu cầu cùng điểm chấm kiểm tra hoán vị.
-- R02 bổ sung lập luận đạt cận bằng một đoạn chuỗi de Bruijn có các cửa sổ độ dài $k$ khác nhau.
+- R02 bổ sung lập luận đạt cận bằng một đoạn chuỗi de Bruijn có các cửa sổ độ dài $k$ khác nhau. Đây là hướng dẫn chứng minh bổ sung trong ghi chú diễn giả; đề bài 3.2.3 giữ nguyên. Ghi chú nêu điều kiện $q^k\ge n$ và ý nghĩa “đoạn tuyến tính” của chuỗi de Bruijn.
 - R07–R08 giải thích hai nguyên nhân: $h_1,h_2$ có va chạm và bộ ba hàm không được lấy độc lập–đều từ họ mọi hoán vị.
+
+## Vòng chỉnh sửa hợp nhất (mới nhất)
+
+- Gộp section ngoài P00–P01 và M00–M03 thành một section mở bài; tổng section ngoài kể cả recitation là 7. Storyboard mô tả 6 mạch giảng và một phần dọc recitation, ghi rõ P+M ở cụm mở bài.
+- Thời lượng: MinHash lý tưởng 35 phút, Chữ ký thực hành 24 phút; tổng vẫn 120. G07 xác nhận là trang cầu thuộc cụm MinHash lý tưởng.
+- M02 đổi tiêu đề thành “Luồng biểu diễn: tài liệu → shingle → chữ ký”; bỏ tham số $L$ không dùng ở M01.
+- S01 nêu đầu vào đã chuẩn hóa theo S04; thêm vết chạy ngắn abcdabd, $k=2$ vào notes S03; sửa câu chi phí thành $\Theta(1)$ cho mỗi cửa sổ khi dùng mã định danh hoặc băm lăn.
+- Thêm cầu S06→J02: đã có tập shingle, giờ đo hai tập giống nhau đến đâu; bổ sung câu nối J01→J04 và J04→J05 trong storyboard.
+- J04 làm rõ danh sách sắp được dựng một lần và dùng lại; dùng C1/C2 ASCII trong khối mã. J01 notes đổi “Hệ thống” thành “Quy ước của bài”.
+- H00 thu hồi câu hỏi J05 bằng dòng “Bước giảm kích thước: thay tập bằng chữ ký ngắn”; H03 notes báo ký hiệu $h(S)$ được đặc tả ở trang tiếp.
+- G04 tiêu đề cột thành $h_1(r),h_2(r)$; hàng $r=3$ ghi rõ $SIG[1,S_1]\leftarrow4$, $SIG[2,S_3]\leftarrow0$, $SIG[2,S_4]\leftarrow0$; dòng $r=4$ chuẩn hóa thành $SIG[1,S_3]\leftarrow0$. Không đổi số.
+- R05 notes cảnh báo dữ kiện Hình 3.6 khác Hình 3.4, không dùng lại kết quả R03–R04.
+- R02 notes nêu $q^k\ge n$ và “đoạn tuyến tính” của chuỗi de Bruijn; đây là hướng dẫn chứng minh bổ sung, không đổi đề bài.
+- P01 và notes H09 nhắc tiên quyết kỳ vọng, phương sai, độc lập ở mức vừa đủ.
+- Bổ sung câu nối S03→S05; ghi dữ kiện M00 được dùng lại ở các mạch sau thay vì coi M00 thuộc mọi mạch.
+- Không thêm Jaccard distance: ngoài sản phẩm chính, Bài 6 sẽ xử lý khoảng cách.
+- CSS `lecture-style.css` và năm SVG trong `img/lec-05/` đã được xác nhận tồn tại; không sửa CSS/SVG/index.
+- Yêu cầu recheck: rà lại thứ tự section, thời lượng tổng 120+60, câu nối mới và các notes đã sửa.
+- Tái kiểm sau chỉnh sửa dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter cho hai vai. Vai kết nối và mạch viết xác nhận 7 section ngoài, 6 mạch giảng, kết luận thu hồi mở bài và các cầu nối đều đạt. Vai độ chính xác tính lại S03, G04, R01, R02, R04, R07, R08, giả thiết MinHash, kỳ vọng, phương sai, biên và độ phức tạp; tất cả đạt. Ba góp ý nhẹ cuối đã xử lý trong ghi chú G07, G04 và R02.
 
 ## Tài sản và ngoại lệ
 
@@ -54,9 +73,9 @@
 - [x] Mạch đã rà theo Quill: ví dụ đứng trước đặc tả; dữ kiện được truyền theo S02→S01→S03, J02→J03→J00→H05–H07 và G04→G01→G03.
 - [x] H02 dùng $r$ làm biến lấy `argmin`, không trùng $u=|U|$; J04 ghi rõ cận trường hợp xấu nhất.
 
-## Kiểm định storyboard và bốn báo cáo độc lập
+## Kiểm định storyboard và năm báo cáo độc lập
 
-Kiểm định storyboard đã rà đủ 49 trang, quan hệ trước–sau, câu nối, thời lượng và phần bài tập. Bốn báo cáo độc lập đã hoàn tất trước vòng chỉnh sửa:
+Kiểm định storyboard đã rà đủ 49 trang, quan hệ trước–sau, câu nối, thời lượng và phần bài tập. Năm báo cáo độc lập đã hoàn tất trước vòng chỉnh sửa:
 
 | Góc rà soát | Trọng tâm | Kết quả sau chỉnh sửa |
 |---|---|---|
@@ -64,6 +83,9 @@ Kiểm định storyboard đã rà đủ 49 trang, quan hệ trước–sau, câ
 | Chuyên gia giải thuật và khoa học dữ liệu | Độ bao phủ, chiều sâu, thuật ngữ, chi phí và phạm vi 120 phút | Đã khóa phạm vi §§3.1–3.3, thời lượng 120 phút và mô hình đầu vào thưa. |
 | Độ chính xác toán học và thuật toán | Miền, trường hợp biên, giả thiết ngẫu nhiên, kết quả số và độ phức tạp | Đã sửa J04, $U$ hữu hạn, cột rỗng, cận chi phí và yêu cầu Bài tập 3.3.2. |
 | Phản biện học thuật và giảng dạy | Chu trình học tập, vị trí công thức, thuật toán, chứng minh và cầu nối | Đã sắp lại bốn chu trình và sửa luồng dữ liệu ở M02. |
+| Kết nối và mạch viết | Xương sống lập luận, vai trò, kết nối vào–ra, số section và câu nối | Đã gộp section mở bài, cân lại thời lượng cụm, bổ sung câu nối và chuẩn hóa ký hiệu. |
+
+Quyết định: chấp nhận năm báo cáo làm đầu vào rà soát và xử lý các phát hiện có bằng chứng. Riêng phát hiện của vai độ chính xác cho rằng đáp án R08 sai bị bác: tính lại trực tiếp từ ba hàng chữ ký cho $\widehat J=(1/3,1/3,2/3,2/3,2/3,2/3)$, còn ma trận Hình 3.6 cho $J=(0,0,1/4,0,1/4,1/4)$. Hai dãy hiện hành đúng theo thứ tự sáu cặp trên trang, nên không đổi đáp án.
 
 Các lỗi `chặn bàn giao` và `nghiêm trọng` đã được xử lý:
 
@@ -80,6 +102,15 @@ Các lỗi `chặn bàn giao` và `nghiêm trọng` đã được xử lý:
 Tái kiểm toán sau chỉnh sửa không còn lỗi `chặn bàn giao`, `nghiêm trọng` hoặc `trung bình`.
 
 ## Kiểm thử và giới hạn công cụ
+
+### Lượt hiện tại ngày 2026-08-30
+
+- Kiểm tra tĩnh sau sửa: 7 section ngoài, 49 mã trang duy nhất, 49 ghi chú; mọi mã đều có trong storyboard; không có mã nội bộ hay thời lượng trên mặt trang và trong ghi chú; không thiếu tài nguyên, không có ảnh raster, `git diff --check` sạch.
+- `python3 -m reloadserver 8765` tiếp tục không chạy vì môi trường thiếu mô-đun `reloadserver`. Máy chủ dự phòng `/tmp/reloadserver.py 8765` phục vụ đúng từ gốc kho.
+- Chromium và Playwright duyệt đủ 49 trang ở $1280\times720$ và $800\times600$: không có lỗi console, page, request; điều hướng bàn phím đạt. Bộ phát hiện hình học chỉ gắn cờ lề `h1` của theme ở tám trang mở phần; contact sheet và ảnh riêng G04 xác nhận không cắt, chồng lấn hoặc tràn thật.
+- Tái kiểm qua OpenRouter ghi nhận đúng `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`. Vai kết nối và mạch viết cùng vai độ chính xác đều kết luận không còn lỗi `chặn bàn giao`, `nghiêm trọng` hoặc `trung bình`.
+- Tự kiểm theo `no-ai-slop/eval.md` đạt: không thêm mệnh đề ngoài nguồn; câu hiển thị trực tiếp; không có lời dẫn rỗng, khẩu hiệu, câu hỏi tu từ, nhịp đối xứng máy móc hoặc kết luận lặp.
+- Dự án Codex Slides `20260827173151-b-i-5-bi-u-di-n-t-ng-ng-shingling-v-minh-3rca` vẫn ở trạng thái draft với 0 trang; các Design Files nguồn còn đọc được. Tải HTML cuối bằng công cụ Design Files trả HTTP 500; bề mặt hiện tại không có Browser nội bộ để mở liên kết dự án. Vì vậy, lượt này không tuyên bố đã rà trực quan bằng Codex Slides; bằng chứng trực quan cuối là kiểm thử RevealJS cục bộ bằng Chromium.
 
 - Đã kiểm 49 mã trang duy nhất, 49 ghi chú, thứ tự khớp storyboard, năm SVG hợp lệ, không có ảnh raster hay phụ thuộc mạng cốt lõi, và `git diff --check` sạch.
 - `python3 -m reloadserver 8765` không chạy được vì môi trường thiếu mô-đun `reloadserver`.

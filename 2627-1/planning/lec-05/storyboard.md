@@ -4,14 +4,14 @@
 
 | Cụm | Tình huống dữ liệu lớn | Vấn đề | Trực giác | Ví dụ | Hình thức | Thuật toán, lập luận đúng | Ứng dụng, chi phí | Kiểm tra | Thời lượng |
 |---|---|---|---|---|---|---|---|---|---:|
-| Mở bài | M00 | M01 | M02 | không áp dụng: cụm định hướng | M01 | không áp dụng | M03 | M03 | 8 phút, gồm P00–P01 |
-| Shingling | M00 | S00 | S04 | S02 | S01 | S03 | S05–S06 | S06 | 25 phút |
-| Jaccard | M00–M01 | J02 | J02 | J03 | J00–J01 | J04 | J05 | J05 | 20 phút |
-| MinHash lý tưởng | M00–M01 | H00 | H01 | H03 | H02,H04 | H05–H07 | H08–H09,G07 | H07,G07 | 32 phút |
-| Chữ ký thực hành | M00–M01 | G00 | G02 | G04 | G01 | G03 | G05–G06 | G06 | 27 phút |
+| Mở bài | M00 | M01 | M02 | không áp dụng: cụm định hướng | M01 | không áp dụng | M03 | M03 | 8 phút, gồm P00–P01 và M00–M03 trong cùng một section |
+| Shingling | M00 (dùng lại) | S00 | S04 | S02 | S01 | S03 | S05–S06 | S06 | 25 phút |
+| Jaccard | M00 (dùng lại) | J02 | J02 | J03 | J00–J01 | J04 | J05 | J05 | 20 phút |
+| MinHash lý tưởng | M00 (dùng lại) | H00 | H01 | H03 | H02,H04 | H05–H07 | H08–H09,G07 | H07,G07 | 35 phút |
+| Chữ ký thực hành | M00 (dùng lại) | G00 | G02 | G04 | G01 | G03 | G05–G06 | G06 | 24 phút |
 | Cầu nối | M00 | C00 | C02 | không áp dụng: trang tổng hợp | C01 | không áp dụng | C00 | C02 | 8 phút |
 
-Tình huống mở bài dùng $N=10^6$ tài liệu và $N(N-1)/2=499.999.500.000$ cặp. Con số này trở lại ở J05 và C00–C02 khi xác định phần còn thiếu là tạo ứng viên; G05 chỉ dùng tham số $N$ để phân tích kích thước chữ ký. Quy tắc chuẩn hóa S04 tạo chuỗi đầu vào cho Ví dụ 3.3 ở S02; dữ kiện đó truyền sang đặc tả S01 và bất biến S03. Ba vùng ở J02 truyền sang Ví dụ 3.1, công thức J00 và chứng minh H05–H07. G02 giới thiệu $SIG$ là bảng đang cập nhật; ma trận Hình 3.4 xuất hiện ở G04, rồi được hình thức hóa bởi G01 và bất biến G03; cùng dữ kiện trở lại ở R03–R04.
+Tình huống mở bài dùng $N=10^6$ tài liệu và $N(N-1)/2=499.999.500.000$ cặp. Con số này trở lại ở J05 và C00–C02 khi xác định phần còn thiếu là tạo ứng viên; G05 chỉ dùng tham số $N$ để phân tích kích thước chữ ký. Quy tắc chuẩn hóa S04 tạo chuỗi đầu vào cho Ví dụ 3.3 ở S02; dữ kiện đó truyền sang đặc tả S01 và bất biến S03. Ba vùng ở J02 truyền sang Ví dụ 3.1, công thức J00 và chứng minh H05–H07. G02 giới thiệu $SIG$ là bảng đang cập nhật; ma trận Hình 3.4 xuất hiện ở G04, rồi được hình thức hóa bởi G01 và bất biến G03; cùng dữ kiện trở lại ở R03–R04. Trang M00 không thuộc mọi mạch: nó nằm trong section mở bài và dữ kiện của nó được dùng lại ở các mạch sau. Toàn bộ deck có 7 section ngoài: mở bài (P00–P01, M00–M03), Shingling, Jaccard, MinHash lý tưởng, Chữ ký thực hành, Cầu nối và recitation. G07 là trang cầu thuộc cụm MinHash lý tưởng, kết thúc mạch đó trước khi sang quét thực hành.
 
 ## Bảng trang chiếu phần giảng
 
@@ -21,7 +21,7 @@ Tình huống mở bài dùng $N=10^6$ tài liệu và $N(N-1)/2=499.999.500.000
 | P01 | Năm sản phẩm học tập và tiên quyết | `source.md`, Bài 5 | 2 |
 | M00 | Một triệu tài liệu tạo gần năm trăm tỷ cặp | MMDS slide 15, 24; Stanford 03 tr.14 đối chiếu | 3 |
 | M01 | Bài 5 nén biểu diễn, chưa giảm số cặp | MMDS tr.73–74 | 1 |
-| M02 | Luồng dữ liệu là $D_i\to C_i\to\sigma(C_i)$; Jaccard là phép so sánh | MMDS tr.73–74 | 1 |
+| M02 | Luồng biểu diễn: tài liệu → shingle → chữ ký; $D_i\to C_i\to\sigma(C_i)$; Jaccard là phép so sánh | MMDS tr.73–74 | 1 |
 | M03 | Ba bài toán biểu diễn, đo và nén | Tổng hợp từ MMDS §§3.1–3.3 | 1 |
 | S00 | Shingle giữ dấu vết cụm từ chung | MMDS tr.78 | 2 |
 | S04 | Chuẩn hóa khoảng trắng làm đổi biểu diễn | MMDS Ví dụ 3.4 | 3 |
@@ -80,7 +80,11 @@ R00–R08 là một phần dọc riêng sau phần giảng. Lời giải và hư
 - M03 → S00: biểu diễn chuỗi thành tập trước khi chọn độ đo.
 - S00 → S04 → S02: chốt chuỗi đầu vào rồi mới quét tay cửa sổ.
 - S02 → S01 → S03: ví dụ cung cấp dữ kiện cho đặc tả và bất biến.
+- S03 → S05: sau khi biết chi phí quét một lượt, chọn $k$ để shingle đủ phân biệt trước khi băm.
 - S06 → J02 → J03 → J00: quan sát phần chung, chạy ví dụ rồi gọi tên công thức.
+- S06 → J02: đã có tập shingle cho từng tài liệu; giờ đo hai tập giống nhau đến đâu.
+- J01 → J04: quy ước hợp rỗng trả “không xác định” được cài thành nhánh cuối của thuật toán J04.
+- J04 → J05: tính một cặp trên danh sách sắp tốn tuyến tính; nhân với $\binom N2$ cặp vẫn quá tải.
 - J05 → H00: nén mỗi tập để so một cặp mà không đọc toàn bộ shingle.
 - H01 → H03 → H02: nhìn ma trận và chạy tay trước khi đặc tả MinHash.
 - H09 → G07 → G00: chốt sai số của mô hình lý tưởng rồi chuyển sang cách quét thực hành.
