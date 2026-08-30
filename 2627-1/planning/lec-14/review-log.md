@@ -1,115 +1,126 @@
 # Nhật ký rà soát Bài 14
 
-## Trạng thái chỉnh sửa
+## Trạng thái
 
-- Giữ 49 trang giảng và 9 trang recitation, tương ứng 120 + 60 phút.
-- Chỉ sửa HTML, SVG và ba tệp planning của Bài 14.
-- Không sửa `index.html`, CSS/RevealJS dùng chung, bài khác, nguồn, hoặc lịch sử Git.
+- Bản sửa sau kiểm định storyboard và năm báo cáo độc lập giữ 58 `data-slide-id`, 58 khối ghi chú, 120 phút giảng và 60 phút recitation.
+- Bảy wrapper là `P`; `I`; `S+R`; `K`; `B`; `Z+C`; `X`.
+- Chỉ đổi cục bộ thứ tự `I06→I08→I07` để hoàn tất NOT trước khi chuyển sang bố trí đĩa.
+- HTML và ghi chú không hiển thị thời lượng. Không sửa CSS chung, index, bài khác hay cấu hình người dùng.
+- Chưa commit. Tái kiểm toán, mạch và kiểm định RevealJS cục bộ đã hoàn tất; kết quả nằm ở cuối nhật ký.
 
-## Kiểm định storyboard
+## Đặc tả nguồn đã xác nhận
 
-| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
-|---|---|---|---|---|
-| nghiêm trọng | I09–I12, X01–X03 | Phần giảng giải trước Bài 31.2 nên recitation không còn là hoạt động thiết kế | I09–I12 cũ có đặc tả, heap, giả mã, bất biến và chi phí giống X01–X03 | Dành 31.2 cho recitation; dùng I09–I12 cho vị trí/tần suất, precision/recall |
-| nghiêm trọng | K03–K06 | Ví dụ xuất hiện sau hình thức và không có số | K06 cũ chỉ dùng $p^*,b,\tau$ tượng trưng | Đưa K06 trước K04–K05 và dùng một vết tọa độ nhất quán |
-| nghiêm trọng | B01–B03 | Công thức đến trước ví dụ; thiếu giả mã truy vấn | B01 cũ nêu LB trước dữ kiện, B03 chỉ đặc tả nút | Đưa B02 trước B01; dùng B03 cho giả mã truy vấn đầy đủ |
-| trung bình | R00–R03 | Thuật toán đến trước ví dụ và trộn lọc với kiểm hình thật | R01 cũ xuất hình thật ngay tại lá | Đổi thành R00→R02→R01→R03; tách gom ứng viên và tinh lọc |
+| Cụm | Nguồn | Quyết định |
+|---|---|---|
+| Chỉ mục đảo | *Database System Concepts* 7e, Ch31 trang 13–16, slide 14–16 | OR là hợp; giữ vị trí, tần suất, precision/recall; ví dụ số do deck dựng từ docID đã có |
+| R-tree | Ch24 slide 17, 21–24; Auburn trang 10–13 | Lọc MBR tạo ứng viên, sau đó kiểm hình thật; chỉ nêu hệ quả cập nhật, không dạy chèn/tách |
+| kd-tree và ball tree | Cornell CS5780 trang 1–5 | Giữ cơ chế; vết kd/ball và cận dựng là phần deck dựng, được ghi rõ |
+| Z-order | Auburn trang 12–13, slide 23–26 | Giữ hiệu chỉnh Morton 6/7; Z04 dẫn slide 26; so sánh đoạn chính xác/gộp từ cùng tập mã |
+| Bài 31.2 | Ch31 7e, trang in 25 | Lời giải đống do deck triển khai từ đề; không lộ trước X03 |
+| Bài 25.2–25.3 | Ch25 6e, Practice Exercises/Solutions trang 1–2 | Giữ lời giải nguồn; phân biệt tên B-tree của nguồn với B+-Tree triển khai |
 
-## Báo cáo độc lập 1: Góc nhìn sinh viên
-
-| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
-|---|---|---|---|---|
-| nghiêm trọng | Z01–Z03 | Hình, công thức và tập mã vùng không nhất quán | Công thức cho (1,4)→6 và (2,3)→7; hình cũ đặt ngược, Z03 dùng 6 | Sửa đủ 16 ô và tập vùng thành {4,7,10,13}; ghi sai khác Auburn |
-| nghiêm trọng | K00–K09 | Không có vết chạy tay có tọa độ, khoảng cách và thứ tự thăm | K06 cũ chỉ có nhãn tượng trưng | Thêm $q,p,s,\tau,LB$ và thứ tự thăm/cắt |
-| nghiêm trọng | B00–B07 | Không có vết số và thiếu thuật toán truy vấn có thể tự học | B02 cũ chỉ liệt kê ba bước; B03 cũ chỉ nêu nút | Thêm bảng số và giả mã xử lý lá, hòa, cập nhật trạng thái |
-| nghiêm trọng | I09–I12, X01–X03 | Recitation lặp lời giải trên lớp | Cùng heap, bất biến và chi phí xuất hiện hai lần | Chuyển nội dung heap hoàn toàn sang X01–X03 |
-| trung bình | P02, I01–I08, K00, X02 | Thuật ngữ tiếng Anh xuất hiện trước giải thích tiếng Việt | `posting`, `exact`, `heap` xuất hiện trên mặt trang | Dùng danh sách đảo, 1-NN chính xác, đống tối thiểu lần đầu |
-| trung bình | X01–X03 | Đề chưa tự chứa trường hợp rỗng và $n=1$ | Thiếu miền của $n,k$, tính duy nhất docID và chi phí khởi tạo khi $T=0$ | Nêu $n\ge1$, $1\le k\le n$, danh sách rỗng, $T$, $O(n+T\log(n+1))$ |
-
-## Báo cáo độc lập 2: Chuyên gia giải thuật và khoa học dữ liệu
+## Kiểm định storyboard mới
 
 | mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
 |---|---|---|---|---|
-| nghiêm trọng | K05 | Giả mã không khởi tạo và không nhận trạng thái trả về | Hai lời gọi đệ quy cũ không gán `(best,τ)` | Thêm `nearest`, xử lý lá và gán trạng thái ở cả hai nhánh |
-| nghiêm trọng | B03, B07 | Thiếu thuật toán truy vấn và lẫn chi phí dựng với truy vấn | B03 cũ chỉ đặc tả nút; B07 chỉ nêu $O(N)$ | Dùng B03 cho truy vấn; B07 tách mô hình dựng và truy vấn |
-| trung bình | S00, B00 | Tình huống dữ liệu lớn còn chung | Chỉ nói dữ liệu trên bộ nhớ phụ | Dùng ảnh vệ tinh/trạm xăng của Auburn và tập huấn luyện lớn của Cornell |
-| trung bình | C00 | Trộn CPU, I/O và số ứng viên | Bảng cũ chỉ có một cột trường hợp xấu | Nêu riêng nút/trang, phép đo/CPU và số ứng viên; không bịa cận I/O |
+| chặn bàn giao | toàn bài | Wrapper chưa khớp bảy mạch chức năng | kd và ball tranh một mạch; Z và tổng hợp bị tách dù C thu hồi Z | Dùng `P|I|S+R|K|B|Z+C|X`; ghi chức năng và kết nối vào–ra |
+| nghiêm trọng | B04–B06 | Chu trình dựng ball thiếu ví dụ chạy tay | Chưa có trạng thái $x_0,x_1,x_2,z,S_L,S_R,c,r$; lá chưa tạo ball | Đổi B04 thành vết số; B05 tạo $(c,r)$ trước trường hợp lá; B06 dùng lại cùng trạng thái |
+| nghiêm trọng | X03 | Lời giải đống chưa phải giả mã thực thi được | Thiếu điều kiện vòng lặp, mã danh sách, tiến và tái chèn | Viết đủ hai vòng `while`, hậu điều kiện, bất biến và chi phí |
+| nghiêm trọng | I06–I08 | NOT chưa có vết hoàn chỉnh trước bố trí đĩa | Chỉ có ký hiệu $S\setminus P_t$; I07 ngắt thuật toán | Dùng docID I02, đổi thứ tự I06→I08→I07 và ghi pipeline B12–B14 |
+| trung bình | I09–I12, C00–C02 | Precision/recall đứng ngoài tuyến chính | Không có một cặp $R,G$ nhất quán để tính cả hai | Dùng $G,R_h,R_l$ xuyên bốn trang; thu hồi ở C00–C02 |
+| trung bình | Z03–Z04 | “Nhiều đoạn” chưa cho thấy đánh đổi và tinh lọc | Không có dương tính giả cụ thể | So sánh bốn đoạn đơn với $[4,13]$, chỉ ra mã 5 bị loại |
+| trung bình | K06, B02 | Ví dụ đi thẳng vào số LB | Thiếu cầu trực giác trước công thức | Nêu khoảng cách tới miền và “tới tâm trừ bán kính” trước hình thức hóa |
 
-## Báo cáo độc lập 3: Độ chính xác toán học và thuật toán
+Quyết định: áp dụng toàn bộ. B04, B05 và X03 giữ cỡ chữ chuẩn bằng cách chuyển chứng minh dài và nguồn vào ghi chú, không thêm trang.
 
-| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
-|---|---|---|---|---|
-| chặn bàn giao | Z01–Z03 | Hoán vị 6/7 làm sai vết Morton | $z=1+\sum(2u_j+v_j)4^j$ cho ma trận khác hình nguồn ở hai ô | Giữ công thức chuẩn, sửa hình, tập mã và ghi lỗi nguồn |
-| nghiêm trọng | R01 | Bước lọc tuyên bố xuất nghiệm trước khi kiểm hình | MBR giao Q chỉ là điều kiện cần | Chỉ gom ứng viên; thêm bước tinh lọc và chứng minh không bỏ nghiệm |
-| nghiêm trọng | K04–K07 | Ký hiệu $N$ vừa là tập/số điểm/nút; chứng minh thiếu trạng thái hòa | Công thức cũ dùng $N$ ở nhiều vai trò | Dùng $n$ cho số điểm, $U$ cho nút; cắt với dấu `>` và giữ mọi hòa |
-| nghiêm trọng | B02–B06 | Thiếu ca LB=$\tau$, lá, dừng và gán trạng thái sau đệ quy | Giả mã truy vấn không tồn tại | Bổ sung vết LB 2/3/2,5 và giả mã đầy đủ |
-| trung bình | X06–X08 | Chứng minh Bài 25.3 phụ thuộc vùng tròn đóng nhưng đề không nói | Với vùng mở, điểm đúng bán kính có thể nằm ngoài A | Chốt vùng đóng và chứng minh dừng/đúng |
-
-## Báo cáo độc lập 4: Học thuật và giảng dạy
+## Báo cáo độc lập: góc nhìn sinh viên
 
 | mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
 |---|---|---|---|---|
-| nghiêm trọng | R00–R03 | Ví dụ đứng sau thuật toán | R01 cũ trước R02 | Đặt R02 trước R01 và giữ data-slide-id theo nội dung |
-| nghiêm trọng | K03–K06, B01–B03 | Công thức/thuật toán đúng riêng lẻ nhưng thiếu cầu từ ví dụ | Không có dữ kiện truyền sang giả mã và chứng minh | Dùng cùng trạng thái qua ví dụ→hình thức→giả mã→đúng |
-| nghiêm trọng | I09–I12 | Thứ tự làm mất nhiệm vụ khám phá của recitation | Lời giải 31.2 đã lộ trước bài tập | Thay bằng nội dung Ch31 về tìm kiếm toàn văn và đánh giá |
-| trung bình | C02, X00 | Hai trang chuyển phần lặp chức năng | C02 cũ liệt kê đúng ba bài ở X00 | Biến C02 thành kiểm tra tổng hợp có sản phẩm cụ thể |
+| nghiêm trọng | B04–B06 | Khó tự chạy phép dựng ball tree | Chưa có tập điểm nhỏ hay trạng thái trung gian | Thêm vết bốn điểm và bảng ball cha/hai lá |
+| trung bình | I06–I08 | Mạch NOT bị ngắt bởi trang bố trí đĩa | Người học chưa thấy đáp án và điều kiện dừng | Đặt I08 ngay sau I06; I07 sau thuật toán |
+| trung bình | I09–I12 | Công thức chất lượng thiếu dữ liệu để tính | $R$ và $G$ chỉ được định nghĩa trừu tượng | Dùng một ví dụ ngưỡng chặt/nới xuyên cụm |
+| nhẹ | K01, B07 | Trang có nguy cơ dày chữ | Chi tiết phá hòa và giả thiết cận cùng nằm trên mặt slide | Chuyển phá hòa K01 vào notes; giữ giả thiết B07 ở cỡ thân bài |
 
-## Quyết định hợp nhất
+Quyết định: áp dụng toàn bộ; không hạ cỡ chữ dưới chuẩn.
 
-- Đã xử lý toàn bộ mục chặn bàn giao và nghiêm trọng.
-- Sửa Z-order theo công thức Morton; ma trận từ trên xuống là `6,8,14,16 / 5,7,13,15 / 2,4,10,12 / 1,3,9,11`.
-- Đổi thứ tự R-tree, kd-tree và ball tree đúng chu trình ví dụ trước hình thức/giả mã.
-- Loại toàn bộ lời giải Bài 31.2 khỏi phần giảng; recitation vẫn 30+10+20 phút.
-- Làm rõ vùng tròn đóng, miền $n,k$, danh sách rỗng, docID duy nhất và trường hợp $n=1$.
-- Không thêm slide mới vì 58 slide hiện có đủ chứa sửa đổi mà vẫn giữ thời lượng. Không thêm Hilbert, cận I/O R-tree hoặc số liệu quy mô vì nguồn không hỗ trợ.
-- Không dùng lại `kofn-heap.svg` trong phần giảng; tệp vẫn thuộc bộ tài sản cũ nhưng HTML không tham chiếu. Không xóa để tránh một thao tác hủy không cần thiết.
-
-## Ảnh hưởng của no-ai-slop và Quill
-
-- `no-ai-slop`: đổi tiêu đề và câu hiển thị sang tiếng Việt trực tiếp; bỏ `exact`, `workload`, `posting` dùng thay thuật ngữ Việt; cắt câu dẫn và kết luận lặp; không thêm số liệu.
-- `quill`: khóa ký hiệu $n,U,p,q,\delta,\tau,LB$; nối cùng dữ kiện qua ví dụ, giả mã và chứng minh; cập nhật câu nối giữa các cụm. Không tạo `quill.json`.
-
-## Sai khác nguồn có chủ ý
-
-- Slide Chương 31 trang 14 in OR thành giao; deck sửa thành hợp.
-- Auburn PDF trang 13 đổi chỗ 6/7 so với công thức Morton; deck sửa hình và dùng {4,7,10,13}.
-- Vết kd-tree và ball tree là dữ kiện nhỏ dựng từ cơ chế Cornell để chạy tay; ghi rõ trong notes và storyboard.
-- Bài 25.2–25.3 dùng ấn bản 6 vì có Practice Exercises/Solutions chính thức; yêu cầu toán học không đổi.
-
-## Giới hạn
-
-- Không tuyên bố đã dùng Codex Slides Browser.
-- Kiểm định trực quan bằng Browser và cập nhật `index.html` thuộc vòng điều phối cuối, không thuộc lượt chỉnh sửa này.
-
-## Rà lại sau chỉnh sửa
+## Báo cáo độc lập: chuyên gia giải thuật và khoa học dữ liệu
 
 | mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
 |---|---|---|---|---|
-| nghiêm trọng | X03 | Chi phí thiếu bước duyệt $n$ danh sách khi khởi tạo | Với $T=0$, biểu thức chỉ theo $T$ cho 0 dù vẫn phải kiểm tra $n$ danh sách | Dùng $O(n+T\log(n+1))$ và giải thích ca mọi danh sách rỗng |
-| nghiêm trọng | B04–B06 | Phép dựng thiếu miền $S$, $\ell$, lựa chọn $x_0$ và lập luận hai nửa tiến triển | “Hai bước điểm xa” chưa xác định điểm đầu; tiến triển chưa suy ra nếu thiếu $\ell\ge1$ | Nêu $S$ hữu hạn, $\ell\ge1$, chọn $x_0\in S$, và chứng minh $|S|\ge2$ trước khi chia |
-| trung bình | I08 | Quy tắc trộn chưa đủ ba quan hệ | Bảng cũ chỉ nêu trường hợp hai đầu bằng nhau và phần đuôi | Ghi rõ $<$, $=$, $>$ cho hợp và hiệu; nêu $S$ tăng nghiêm ngặt |
-| trung bình | K08, C00 | Cận $O(n)$ chưa nói đơn vị và chi phí theo chiều | Một phép đo trên điểm $p$ chiều không phải chi phí hằng trong mô hình số học | Ghi $O(n)$ phép đo và $O(pn)$ phép toán số học |
+| nghiêm trọng | B04–B07 | Phạm vi Euclid và metric chưa đủ rạch ròi | Dựng dùng trung bình/phép chiếu nhưng truy vấn nói metric tổng quát | Giới hạn dựng ở $S\subseteq\mathbb R^p$; yêu cầu ball chứa cây con theo cùng metric truy vấn |
+| nghiêm trọng | X03 | Trạng thái đống thiếu mã danh sách | Không thể biết con trỏ nào phải tiến | Lưu `(docID,mã danh sách)` và tái chèn đầu mới |
+| trung bình | C00 | So sánh lẫn đơn vị RAM và I/O | kd/ball dùng phép đo; R/Z/inverted dùng trang | Chốt mô hình chi phí; không so trực tiếp |
+| trung bình | R03, C01 | Tải cập nhật bị bỏ khỏi quyết định chọn chỉ mục | MBR có thể nở và tăng chồng lấn | Nêu hệ quả cập nhật, không mở rộng sang thuật toán tách |
 
-Trạng thái: đã đóng cả bốn mục; HTML, outline và storyboard đã đồng bộ. Không đổi ID, thứ tự, số trang hoặc thời lượng.
+Quyết định: áp dụng toàn bộ; không thêm cận I/O ngoài nguồn.
 
-## QA trực quan bằng Chromium
+## Báo cáo độc lập: độ chính xác toán học và thuật toán
 
 | mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
 |---|---|---|---|---|
-| nghiêm trọng | K05, B03 | Hai khối giả mã bị cắt dòng cuối trong hộp mã ở khung 1280×720 | Ảnh Chromium cho thấy phần cuối không hiện dù phần tử trang không báo tràn ngoài | Dùng lớp cục bộ `code-fit`, giữ cỡ chữ `0.84em` trong section `0.9em` (hiệu dụng `0.756em`), giảm line-height/lề/padding và bỏ max-height chỉ cho hai khối |
+| nghiêm trọng | B05–B06 | Lá không có tâm và bán kính | Giả mã cũ trả `lá(S)` trước khi tính $(c,r)$ | Tính $(c,r)$ trước nhánh cơ sở; vết xác nhận hai lá chứa điểm |
+| nghiêm trọng | X03 | Chưa đủ điều kiện dừng và hậu điều kiện | Lệnh “lặp” không có điều kiện; không chỉ ra mỗi docID xuất một lần | Dùng `while H không rỗng`, gom hết đầu bằng $x$, nêu hậu điều kiện |
+| trung bình | K05 | Điểm hỏi trên biên chưa có quy ước near | “near chứa q” có thể không duy nhất | Dùng thứ tự con cố định; far vẫn xét khi $LB\le\tau$ |
+| trung bình | B07 | Cận dựng có thể bị hiểu là vô điều kiện | Cần cây cân bằng, sắp lại mỗi nút và chi phí $O(p)$ | Đưa đủ giả thiết ra mặt slide; ghi đây là suy ra của deck |
+| trung bình | X08 | Thiếu đơn vị chi phí sau chứng minh | Chỉ có tính đúng | Thêm $j+1$ truy vấn vùng và $O(p|A|)$ số học khi tinh lọc Euclid |
 
-Trạng thái: đã sửa cục bộ K05 và B03; không đổi CSS chung hoặc kích thước chữ của slide khác.
+Quyết định: áp dụng toàn bộ và chuyển B04–B07, K05, X03, X08 sang tái kiểm toán; kết quả cuối đạt sau khi làm rõ bộ nhớ X03.
 
-Điều phối viên đã chạy lại Chromium sau sửa đổi `code-fit`:
+## Báo cáo độc lập: phản biện học thuật và giảng dạy
 
-- duyệt đủ 58 slide ở khung 1280×720 và 800×600;
-- không có lỗi console hoặc lỗi trang, không có lỗi KaTeX và không có tràn nội dung;
-- ảnh kiểm tra K05 và B03 cho thấy toàn bộ giả mã đã hiển thị trong hộp mã.
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
+|---|---|---|---|---|
+| nghiêm trọng | B04–B06 | Hình thức hóa dựng xuất hiện trước ví dụ số kiểm được | Hình minh họa không truyền dữ kiện sang giả mã | Dùng B04 làm vết, B05 tổng quát hóa, B06 kiểm ball ở lá |
+| trung bình | K06→K04, B02→B01 | Chu trình trực giác–hình thức chưa được phát tín hiệu | Bảng số dùng LB trước khi người học có cách đọc hình học | Thêm câu trực giác, giữ công thức ở trang sau |
+| trung bình | I09–I12 | Precision dễ bị lẫn với “1-NN chính xác” | Cùng từ “độ chính xác” nhưng hai vai trò khác | Notes phân biệt precision với tính đúng exact 1-NN |
+| trung bình | Z03–Z04 | Tinh lọc được nêu nhưng chưa được thực hiện | Không có ứng viên sai cụ thể | Cho mã 5 trong đoạn gộp và loại bằng tọa độ |
 
-## Máy chủ cục bộ và giới hạn Codex Slides
+Quyết định: áp dụng toàn bộ.
 
-- `python3 -m reloadserver 8765` thất bại vì môi trường không có mô-đun `reloadserver`.
-- Máy chủ cục bộ hiện có đã trả HTTP 200 tại URL của bộ trang chiếu.
-- Codex Slides Browser không khả dụng. `start-project` không chạy vì runtime yêu cầu bind `0.0.0.0:4311`, thao tác này bị môi trường chặn.
-- Node hiện tại là 18.19.1, thấp hơn yêu cầu từ 20 trở lên; phiên bản manifest và runtime của plugin không khớp.
-- Không tuyên bố đã rà bộ trang chiếu bằng Codex Slides.
+## Báo cáo độc lập: kết nối và mạch viết
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
+|---|---|---|---|---|
+| chặn bàn giao | ranh giới wrapper | Bảy wrapper chưa khớp bảy mạch | Vai trò: K và B cần hai chu trình; Z+C cùng thu hồi truy vấn vùng. Kết nối vào/ra bị mờ | Tách K/B, gộp Z/C; cập nhật outline và storyboard |
+| nghiêm trọng | K09→B00 | Chuyển cấu trúc nhưng chưa nói rõ đặc tả được giữ | Vai trò K09 khép hòa; kết nối ra B00 thiếu “cùng 1-NN” | Nêu ball tree giữ đặc tả 1-NN và thay hộp bằng ball |
+| nghiêm trọng | B07→Z00 | Nhảy từ 1-NN sang Z-order | Vai trò B07 khép cây metric; kết nối ra cần trở lại truy vấn vùng và B+-Tree Bài 13 | Thêm câu nối rõ trong notes và storyboard |
+| trung bình | C00–C02 | Kết luận chưa thu hồi hai tình huống và chất lượng truy hồi | Vai trò tổng hợp; kết nối vào từ Z, kết nối ra bài tập | Gọi lại kho web, ảnh vệ tinh/trạm xăng, precision/recall và mô hình chi phí |
+
+Quyết định: áp dụng toàn bộ. Do đổi wrapper và thứ tự I06–I08–I07, các trang lân cận và mọi ranh giới phần đã được tái kiểm; kết quả mạch viết đạt.
+
+## Quyết định chỉnh sửa hợp nhất
+
+- Áp dụng mọi lỗi `chặn bàn giao`, `nghiêm trọng` và lỗi `trung bình` ảnh hưởng tính đúng hoặc mạch.
+- Không thêm slide riêng cho từng phép tính precision/recall hoặc chi phí X08: 58 ID là ràng buộc; chi tiết vừa trong notes.
+- Không xóa `ball-build.svg` hoặc `kofn-heap.svg` dù HTML không dùng: đây là tài sản có trước; lượt sửa không thực hiện thao tác hủy.
+- Không sửa CSS chung, index, bài khác hoặc cấu hình người dùng.
+
+## Tự kiểm biên tập và tính liên tục
+
+- `no-ai-slop/eval.md`: đạt. Câu hiển thị đi thẳng vào dữ kiện hoặc thao tác; không thêm khẩu hiệu, câu hỏi tu từ, số liệu hay nhận định ngoài nguồn. Các lời mời tương tác giữ nhãn **“Câu hỏi:”**.
+- Quill continuity: đạt ở mức rà dàn ý. Tuyến là tình huống → ví dụ → hình thức → thuật toán/tính đúng → chi phí → kiểm tra; thuật ngữ `danh sách đảo`, `metric`, `Euclid`, $LB$, $\tau$, $R$, $G$ nhất quán. Không tạo `quill.json`.
+
+## Tái kiểm sau chỉnh sửa
+
+| vai rà soát | kết quả | phạm vi | bằng chứng và quyết định |
+|---|---|---|---|
+| Kết nối và mạch viết | đạt | Bảy wrapper, các ranh giới phần và hai trang lân cận | Tuyến `P|I|S+R|K|B|Z+C|X` liên tục; K09→B00 giữ đặc tả 1-NN, B07→Z00 khép 1-NN rồi trở lại truy vấn vùng; không cần đổi cấu trúc hoặc thứ tự |
+| Toán học và thuật toán | sửa một lỗi trung bình tại X03 | Phân tích bộ nhớ của thuật toán đống | Ký hiệu $A$ lưu toàn bộ đầu ra nên câu “bộ nhớ $O(n)$” mơ hồ; sửa thành $O(n)$ bộ nhớ phụ không tính đầu ra, tương đương tổng $O(n+|A|)$ |
+
+## QA trực quan sau tái kiểm
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | quyết định |
+|---|---|---|---|---|
+| chặn bàn giao | Z03 | Phần dưới của hai thẻ bị cắt ở khung $1280\times720$ | Rà ảnh chụp trực quan phát hiện lỗi dù kiểm tra hình học tự động không báo tràn | Rút tiêu đề thành “Đoạn chính xác và đoạn gộp”; thêm lớp cục bộ `.z-interval-figure` với `max-height: 300px`; giữ nguyên nội dung, ID, cỡ chữ thân bài và mạch |
+
+Hai lần sửa bằng selector `.z-interval-figure` ở 300 px rồi 240 px đều chưa áp dụng vào kích thước tính toán: selector của Reveal giữ `max-height: 95%` do có độ đặc hiệu cao hơn. Đổi selector cục bộ thành `.reveal img.z-interval-figure{display:block;margin:.12em auto;max-height:240px}` để mức 240 px có hiệu lực và hình vẫn căn giữa khi Reveal ghi đè lề. Tái kiểm cuối đạt: `max-height` tính toán là 240 px; đáy thẻ ở 596 px, trước chân trang ở 690 px tại $1280\times720$; nội dung, ID và mạch không đổi.
+
+## Kiểm định cuối
+
+- Lệnh bắt buộc `python3 -m reloadserver 8765` thất bại vì môi trường không có mô-đun `reloadserver`. Máy chủ dự phòng `/tmp/reloadserver.py 8765` gặp `address already in use`; tiến trình ngoài phạm vi đang giữ cổng 8765 được giữ nguyên. QA dùng máy chủ dự phòng ở cổng 8766.
+- Chromium QA sau khi sửa độ đặc hiệu selector: cả $1280\times720$ và $800\times600$ đều có 58 trang, `errors=[]`, `problems=[]`, không có lỗi KaTeX hoặc tràn. Contact sheet toàn bộ và các trang B04, B05, C00, X03, Z03, Z04 đã được rà trực quan; Z03 đạt ở lần cuối.
+- DOM có đúng bảy stack: `P`; `I`; `S+R`; `K`; `B`; `Z+C`; `X`. Điều hướng bàn phím `P00→I00→I01` đạt.
+- HTML dùng 11 SVG, tất cả được kiểm tra; hai tài sản mồ côi `ball-build.svg` và `kofn-heap.svg` được giữ và đã ghi nhận, không tham chiếu trong HTML.
+- Dự án Codex Slides `20260830170505-b-i-14-ch-m-c-v-n-b-n-v-ch-m-c-kh-ng-gia-qpmz` vẫn ở trạng thái `draft` với 0 slide. Bản HTML mới nhất đã tải lên dưới mã vật liệu `20260830175122234-2rgp.html`. Browser nội bộ không khả dụng, nên không tuyên bố đã rà trực quan bằng Codex Slides.
+- Điều phối viên chạy kiểm tra tĩnh và diff cuối ngay trước khi commit; cấu trúc không thay đổi sau khi mạch viết đạt.
