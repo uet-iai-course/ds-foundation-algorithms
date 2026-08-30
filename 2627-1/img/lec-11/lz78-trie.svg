@@ -21,17 +21,17 @@
   <circle class='new' cx='220' cy='290' r='34'/>
   <text x='241' y='68'>0</text>
   <text x='141' y='188'>1</text>
-  <text x='341' y='188'>2</text>
+  <text x='341' y='188'>4</text>
   <text x='71' y='298'>3</text>
-  <text x='211' y='298'>4</text>
+  <text x='211' y='298'>2</text>
   <text x='185' y='127'>a</text>
   <text x='305' y='127'>c</text>
   <text x='96' y='247'>a</text>
   <text x='190' y='247'>b</text>
   <text x='520' y='95'>mã 1 ↦ “a”</text>
-  <text x='520' y='140'>mã 2 ↦ “c”</text>
+  <text x='520' y='140'>mã 2 ↦ “ab” = (1,b)</text>
   <text x='520' y='185'>mã 3 ↦ “aa” = (1,a)</text>
-  <text x='520' y='230'>mã 4 ↦ “ab” = (1,b)</text>
+  <text x='520' y='230'>mã 4 ↦ “c”</text>
   <path class='arr' d='M715 245H850'/>
   <text x='875' y='252'>thêm đúng một cạnh</text>
 </svg>

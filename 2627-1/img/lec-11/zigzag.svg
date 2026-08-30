@@ -1,17 +1,13 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='760' height='470' viewBox='0 0 760 470' role='img' aria-label='Đường quét zigzag qua khối tám nhân tám từ hệ số DC tới các hệ số tần số cao' aria-labelledby='t d'>
   <title id='t'>Thứ tự quét zigzag</title>
-  <desc id='d'>
-    Đường quét đi từ hệ số DC góc trên trái qua các đường chéo tần số tăng dần
-    để gom dãy số không ở cuối.
-  </desc>
+  <desc id='d'>Đường chuẩn đi qua đủ 64 ô của khối tám nhân tám, bắt đầu ở DC góc trên trái và kết thúc ở góc dưới phải.</desc>
   <defs>
     <marker id='a' markerWidth='8' markerHeight='8' refX='7' refY='3' orient='auto'>
       <path d='M0 0L8 3L0 6Z' fill='#B15A2B'/>
     </marker>
   </defs>
   <style>
-    text{font:18px
-    sans-serif;fill:#263238}.c{fill:#fff;stroke:#2f3e7a;stroke-width:2}.dc{fill:#f7efe6}.arr{fill:none;stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
+    text{font:20px sans-serif;fill:#263238}.c{fill:#fff;stroke:#2f3e7a;stroke-width:2}.dc{fill:#f7efe6}.mark{fill:#edf4ff}.arr{fill:none;stroke:#B15A2B;stroke-width:4;marker-end:url(#a)}
   </style>
   <g transform='translate(85 35)'>
     <rect class='c dc' width='50' height='50'/>
@@ -22,6 +18,8 @@
     <rect class='c' x='250' width='50' height='50'/>
     <rect class='c' x='300' width='50' height='50'/>
     <rect class='c' x='350' width='50' height='50'/>
+    <rect class='c mark' x='100' width='50' height='50'/>
+    <rect class='c mark' x='200' width='50' height='50'/>
     <g id='rows'>
       <rect class='c' y='50' width='50' height='50'/>
       <rect class='c' x='50' y='50' width='50' height='50'/>
@@ -38,16 +36,12 @@
     <use href='#rows' y='200'/>
     <use href='#rows' y='250'/>
     <use href='#rows' y='300'/>
-    <text x='15' y='32'>0</text>
-    <text x='65' y='32'>1</text>
-    <text x='15' y='82'>2</text>
-    <text x='15' y='132'>3</text>
-    <text x='65' y='82'>4</text>
-    <text x='115' y='32'>5</text>
-    <path class='arr' d='M25 25H75L25 75v50l50-50h50l-100 100v50L175 25h50L25 225v50L275 25h50L25 325v50L375 25v50L75 375h50L375 125v50L175 375h50l150-150v50L275 375h50l50-50v50'/>
+    <text x='15' y='32'>1</text><text x='65' y='32'>2</text><text x='15' y='82'>3</text><text x='15' y='132'>4</text><text x='65' y='82'>5</text><text x='112' y='32'>6</text><text x='207' y='32'>15</text>
+    <path class='arr' d='M25 25 L75 25 L25 75 L25 125 L75 75 L125 25 L175 25 L125 75 L75 125 L25 175 L25 225 L75 175 L125 125 L175 75 L225 25 L275 25 L225 75 L175 125 L125 175 L75 225 L25 275 L25 325 L75 275 L125 225 L175 175 L225 125 L275 75 L325 25 L375 25 L325 75 L275 125 L225 175 L175 225 L125 275 L75 325 L25 375 L75 375 L125 325 L175 275 L225 225 L275 175 L325 125 L375 75 L375 125 L325 175 L275 225 L225 275 L175 325 L125 375 L175 375 L225 325 L275 275 L325 225 L375 175 L375 225 L325 275 L275 325 L225 375 L275 375 L325 325 L375 275 L375 325 L325 375 L375 375'/>
   </g>
-  <text x='525' y='105'>đầu dãy:</text>
-  <text x='525' y='145'>DC và hệ số thấp</text>
+  <text x='525' y='90'>đếm từ 1:</text>
+  <text x='525' y='125'>(0,2) ở lượt 6</text>
+  <text x='525' y='160'>(0,4) ở lượt 15</text>
   <text x='525' y='250'>cuối dãy:</text>
   <text x='525' y='290'>nhiều số 0 liên tiếp</text>
   <text x='525' y='335'>→ mã độ dài loạt</text>

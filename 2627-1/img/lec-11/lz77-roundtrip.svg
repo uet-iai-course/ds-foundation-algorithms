@@ -18,12 +18,12 @@
   <text x='95' y='170'>nhìn trước</text>
   <path class='arr' d='M265 145H375'/>
   <rect class='tok' x='385' y='80' width='300' height='130' rx='12'/>
-  <text x='433' y='125'>(d, ℓ, c) = (5, 3, c)</text>
-  <text x='442' y='165'>sao chép “aac”</text>
-  <text x='467' y='195'>rồi thêm c</text>
+  <text x='433' y='125'>(d, ℓ, c) = (3, 4, b)</text>
+  <text x='442' y='165'>sao chép “aaca”</text>
+  <text x='467' y='195'>rồi thêm b</text>
   <path class='arr' d='M690 145H800'/>
   <rect class='box' x='810' y='95' width='270' height='100' rx='12'/>
   <text x='858' y='138'>cửa sổ mới có</text>
-  <text x='900' y='170'>“aacc”</text>
+  <text x='900' y='170'>“aacaacab”</text>
   <text x='350' y='265'>Hai phía khởi đầu cùng cửa sổ và cập nhật theo cùng thứ tự.</text>
 </svg>

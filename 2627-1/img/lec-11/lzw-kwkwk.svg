@@ -18,7 +18,7 @@
   <text x='100' y='170'>mã = K</text>
   <path class='arr' d='M310 145H410'/>
   <rect class='warn' x='420' y='65' width='310' height='160' rx='12'/>
-  <text x='470' y='112'>K = next_code</text>
+  <text x='470' y='112'>k = next_code</text>
   <text x='457' y='157'>nhưng từ điển[K]</text>
   <text x='520' y='195'>chưa có</text>
   <path class='arr' d='M735 145H835'/>

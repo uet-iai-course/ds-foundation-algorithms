@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1180" height="430" viewBox="0 0 1180 430" role="img" aria-label="Vết mã hóa LZW chuỗi ppqpprpqrpqrq với mã ban đầu 112 đến 114 và mã mới từ 256" aria-labelledby="t d">
   <title id="t">Vết mã hóa LZW đầy đủ</title>
   <desc id="d">Vết mã hóa chuỗi ppqpprpqrpqrq với bảng chữ cái p q r, các mã ban đầu 112 113 114, mã mới từ 256, và dòng mã đầu ra đầy đủ.</desc>
-  <style>text{font:18px sans-serif;fill:#263238}.h{font-weight:700;fill:#2f3e7a}.row{fill:#fff;stroke:#b0bec5}.add{fill:#f7efe6}.keep{fill:#edf4ff}.out{font-weight:700;fill:#8a431f}</style>
+  <style>text{font:20px sans-serif;fill:#263238}.h{font-weight:700;fill:#2f3e7a}.row{fill:#fff;stroke:#b0bec5}.add{fill:#f7efe6}.keep{fill:#edf4ff}.out{font-weight:700;fill:#8a431f}</style>
   <text class="h" x="30" y="34">Chuỗi: ppqpprpqrpqrq</text>
   <g transform="translate(25 52)">
     <text class="h" x="10" y="22">w</text><text class="h" x="95" y="22">k</text><text class="h" x="170" y="22">quyết định</text><text class="h" x="340" y="22">phát</text><text class="h" x="410" y="22">thêm</text>

@@ -1,8 +1,8 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='300' viewBox='0 0 1120 300' role='img' aria-label='Sao chép chồng lấn LZ77 với khoảng lùi 2 và độ dài 7 để tạo chuỗi abababa' aria-labelledby='t d'>
+<svg xmlns='http://www.w3.org/2000/svg' width='1120' height='300' viewBox='0 0 1120 300' role='img' aria-label='Vết bộ ba LZ77 khoảng lùi 3 độ dài 4 và ký tự b chép aaca từ lịch sử aac' aria-labelledby='t d'>
   <title id='t'>Sao chép chồng lấn trong LZ77</title>
   <desc id='d'>
-    Với khoảng lùi hai và độ dài bảy, các byte vừa giải mã trở thành nguồn cho
-    các byte tiếp theo.
+    Từ lịch sử aac, bộ ba khoảng lùi ba và độ dài bốn chép aaca; ký tự thứ tư
+    đọc lại ký tự vừa ghi, rồi bộ giải mã thêm b.
   </desc>
   <defs>
     <marker id='a' markerWidth='10' markerHeight='10' refX='8' refY='3' orient='auto'>
@@ -13,33 +13,21 @@
     text{font:24px
     sans-serif;fill:#263238}.cell{fill:#edf4ff;stroke:#2f3e7a;stroke-width:2}.new{fill:#f7efe6;stroke:#B15A2B;stroke-width:2}.arr{stroke:#B15A2B;stroke-width:3;marker-end:url(#a)}
   </style>
-  <text x='40' y='45'>đã có</text>
+  <text x='40' y='45'>đầu ra đã có: aac</text>
   <text x='360' y='45'>giải mã tuần tự từ trái sang phải</text>
   <g transform='translate(40 80)'>
-    <rect class='cell' width='80' height='64'/>
-    <rect class='cell' x='80' width='80' height='64'/>
-    <text x='28' y='43'>a</text>
-    <text x='108' y='43'>b</text>
-    <g transform='translate(160)'>
+    <rect class='cell' width='80' height='64'/><rect class='cell' x='80' width='80' height='64'/><rect class='cell' x='160' width='80' height='64'/>
+    <text x='28' y='43'>a</text><text x='108' y='43'>a</text><text x='188' y='43'>c</text>
+    <g transform='translate(240)'>
       <rect class='new' width='80' height='64'/>
       <rect class='new' x='80' width='80' height='64'/>
       <rect class='new' x='160' width='80' height='64'/>
       <rect class='new' x='240' width='80' height='64'/>
       <rect class='new' x='320' width='80' height='64'/>
-      <rect class='new' x='400' width='80' height='64'/>
-      <rect class='new' x='480' width='80' height='64'/>
       <text x='28' y='43'>a</text>
-      <text x='108' y='43'>b</text>
-      <text x='188' y='43'>a</text>
-      <text x='268' y='43'>b</text>
-      <text x='348' y='43'>a</text>
-      <text x='428' y='43'>b</text>
-      <text x='508' y='43'>a</text>
+      <text x='108' y='43'>a</text><text x='188' y='43'>c</text><text x='268' y='43'>a</text><text x='348' y='43'>b</text>
     </g>
   </g>
-  <path class='arr' d='M80 155v58h165v-58'/>
-  <path class='arr' d='M160 168v75h165v-88'/>
-  <path class='arr' d='M240 168v105h165V155'/>
-  <text x='685' y='220'>(khoảng lùi 2, độ dài 7)</text>
-  <text x='685' y='255'>→ abababa</text>
+  <path class='arr' d='M80 155v58h240v-58'/><path class='arr' d='M160 168v75h240v-88'/><path class='arr' d='M240 168v105h240V155'/><path class='arr' d='M320 168v120h240V155'/>
+  <text x='710' y='220'>(3, 4, b)</text><text x='710' y='255'>→ chép aaca, thêm b</text>
 </svg>

@@ -19,10 +19,10 @@
   <path class='arr' d='M285 145H390'/>
   <rect class='new' x='400' y='80' width='250' height='130' rx='12'/>
   <text x='475' y='125'>phát (1,b)</text>
-  <text x='447' y='165'>thêm mã 4 ↦ “ab”</text>
+  <text x='447' y='165'>thêm mã 2 ↦ “ab”</text>
   <path class='arr' d='M655 145H760'/>
   <rect class='box' x='770' y='80' width='310' height='130' rx='12'/>
   <text x='815' y='125'>đọc từ điển[1] + b</text>
-  <text x='825' y='165'>xuất “ab”; thêm mã 4</text>
+  <text x='825' y='165'>xuất “ab”; thêm mã 2</text>
   <text x='235' y='275'>Bất biến: trước mỗi cặp, hai phía có cùng từ điển và cùng mã kế tiếp.</text>
 </svg>
