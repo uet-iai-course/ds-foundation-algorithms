@@ -38,16 +38,20 @@ Phần cốt lõi: MMDS §§3.4, 3.6–3.8. Không gồm HNSW, lượng tử hó
 
 ## Mạch phần giảng — 120 phút
 
-| Cụm | Trang | Phút | Sản phẩm học tập |
+Sáu mạch giảng tương ứng sáu `<section>` ngoài. Bảng tách hai mạch ghép thành tám cụm nội dung để ghi rõ chức năng và kết nối vào–ra:
+
+| Cụm | Trang | Phút | Chức năng và kết nối vào–ra |
 |---|---:|---:|---|
-| Mở bài, mục tiêu và chữ ký đầu vào | P00–M02 | 12 | nhận diện nút thắt $\binom N2$ và hành trình lọc–định lượng–đối chiếu |
-| Phân dải | B00–B06 | 23 | tạo khóa dải đầy đủ và ứng viên |
-| Xác suất và ngưỡng | Q00–Q06 | 21 | suy ra $q(s)$, $s_{1/2}$ và chọn $b,r$ |
-| Thuật toán tạo ứng viên | A00–A05 | 20 | trực giác, vết chạy, đặc tả, bất biến, chi phí và bộ nhớ |
-| Họ LSH và khuếch đại | F00–F05 | 18 | phát biểu họ LSH và phân biệt AND/OR |
-| Ba độ đo | D00–D04 | 16 | chọn họ băm đúng cho Hamming, cosin, Euclid |
-| Vân tay | V00–V01 | 8 | nhận diện hai tầng khuếch đại trong mô hình nguồn |
-| Kết luận | C00 | 2 | nối ứng viên với đối chiếu và Bài 7 |
+| Mở bài (tình huống + bài toán) | P00–M02 | 12 | Vào từ Bài 5 (chữ ký MinHash); nêu nút thắt $\binom N2$ và bài toán đầu vào/đầu ra; ra vào mạch phân dải. |
+| Phân dải | B00–B06 | 23 | Tạo khóa dải đầy đủ và tập ứng viên; vào từ bài toán lọc, ra vào mạch xác suất qua câu hỏi biên B06. |
+| Xác suất và ngưỡng | Q00–Q06 | 21 | Suy ra $q(s)$, $s_{1/2}$ và chọn $b,r$; vào từ điều kiện phân dải, ra vào mạch thuật toán qua chi phí ứng viên. |
+| Thuật toán tạo ứng viên | A00–A05 | 20 | Trực giác, vết chạy, đặc tả, bất biến, chi phí và bộ nhớ; vào từ $q(s)$, ra vào mạch họ LSH khi cần ngôn ngữ chung. |
+| Họ LSH và khuếch đại | F00–F05 | 18 | Phát biểu họ LSH và phân biệt AND/OR; vào từ phân dải MinHash, ra vào mạch ba độ đo. |
+| Ba độ đo | D00–D04 | 16 | Chọn họ băm đúng cho Hamming, cosin, Euclid; vào từ định nghĩa họ LSH, ra vào ví dụ mô hình vân tay. |
+| Vân tay | V00–V01 | 8 | Nhận diện hai tầng khuếch đại trong mô hình nguồn; vào từ AND/OR, ra vào kết luận. |
+| Kết luận | C00 | 2 | Gom ba quyết định thiết kế; vào từ toàn bộ mạch, ra sang Bài 7. |
+
+Tổng phần giảng: **120 phút**.
 
 ## Bài tập — 60 phút
 
@@ -57,7 +61,7 @@ Phần cốt lõi: MMDS §§3.4, 3.6–3.8. Không gồm HNSW, lượng tử hó
 | MMDS Bài tập 3.6.1, tr. 108 | R05–R06 | 15 | dịch, bảng công thức để trống |
 | MMDS Bài tập 3.8.2, tr. 121–122 | R07–R09 | 20 | dịch, tách dữ kiện và hai phương án; không đổi số |
 
-R00 chỉ mở phần, không tính thời lượng. Đáp án và hướng dẫn chấm chỉ nằm trong ghi chú diễn giả.
+R00 chỉ mở phần, không tính thời lượng; hướng dẫn nhóm làm bài trước rồi mới mở ghi chú đối chiếu. Đáp án và hướng dẫn chấm chỉ nằm trong ghi chú diễn giả.
 
 ## Ánh xạ nguồn
 

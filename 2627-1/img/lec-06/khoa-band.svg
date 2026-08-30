@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" role="img">
 <title>Khóa dải đầy đủ</title>
-<desc>Khóa gồm số dải và toàn bộ vector trong dải; các văn bản cùng khóa vào cùng ngăn.</desc>
+<desc>Khóa gồm số dải và toàn bộ vector trong dải; D1 và D2 cùng khóa (2,(4,1)) vào cùng ngăn, D3 có khóa (2,(4,9)) vào ngăn riêng.</desc>
 <style>text{font-family:Arial,sans-serif;fill:#26345f}.t{font-size:24px}.h{font-size:30px;font-weight:bold}.b{fill:#edf4ff;stroke:#2f3e7a;stroke-width:3}.o{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}</style>
 <rect class="b" x="30" y="70" width="240" height="230" rx="15"/>
 <text class="h" x="150" y="110" text-anchor="middle">Dải 2</text>
-<text class="t" x="70" y="160">D₁: (4,1,7)</text>
-<text class="t" x="70" y="205">D₂: (4,1,7)</text>
-<text class="t" x="70" y="250">D₃: (4,9,7)</text>
+<text class="t" x="70" y="160">D₁: (4,1)</text>
+<text class="t" x="70" y="205">D₂: (4,1)</text>
+<text class="t" x="70" y="250">D₃: (4,9)</text>
 <path stroke="#b15a2b" stroke-width="4" d="M280 150H425M280 245H425"/>
 <rect class="o" x="440" y="90" width="420" height="90" rx="15"/>
-<text class="h" x="650" y="130" text-anchor="middle">(2, (4,1,7)) → {D₁,D₂}</text>
+<text class="h" x="650" y="130" text-anchor="middle">(2, (4,1)) → {D₁,D₂}</text>
 <text class="t" x="650" y="162" text-anchor="middle">sinh cặp {D₁,D₂}</text>
 <rect class="o" x="440" y="220" width="420" height="80" rx="15"/>
-<text class="h" x="650" y="270" text-anchor="middle">(2, (4,9,7)) → {D₃}</text>
+<text class="h" x="650" y="270" text-anchor="middle">(2, (4,9)) → {D₃}</text>
 <text class="t" x="450" y="355" text-anchor="middle">Nếu chỉ băm vector, phải kiểm tra va chạm trước khi sinh cặp.</text>
 </svg>
