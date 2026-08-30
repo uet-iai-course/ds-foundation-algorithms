@@ -10,7 +10,7 @@
   <rect x="475" y="35" width="225" height="275" rx="18" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/>
   <text x="588" y="82" text-anchor="middle" font-size="27" font-weight="700" fill="#b15a2b">Mã PQ</text>
   <g fill="#fff" stroke="#b15a2b"><rect x="505" y="112" width="44" height="44" rx="5"/><rect x="555" y="112" width="44" height="44" rx="5"/><rect x="605" y="112" width="44" height="44" rx="5"/></g>
-  <text x="662" y="142" font-size="26">…</text><text x="588" y="195" text-anchor="middle" font-size="22">512 mã × 8 bit</text>
+  <text x="662" y="142" font-size="26">…</text><text x="588" y="195" text-anchor="middle" font-size="22">512 đoạn/mã con × 8 bit</text>
   <text x="588" y="246" text-anchor="middle" font-size="27" font-weight="700" fill="#2f7d5b">5,12 TB</text><text x="588" y="278" text-anchor="middle" font-size="20">chưa tính mã định danh</text>
   <path d="M720 172H855" stroke="#2f3e7a" stroke-width="5" marker-end="url(#a)"/>
   <rect x="875" y="90" width="95" height="165" rx="14" fill="#fff" stroke="#2f3e7a" stroke-width="3"/><circle cx="922" cy="132" r="18" fill="#2f7d5b"/><path d="M899 191h46M899 217h46" stroke="#2f3e7a" stroke-width="5"/>

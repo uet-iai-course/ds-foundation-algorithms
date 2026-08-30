@@ -45,13 +45,15 @@ Phạm vi không gồm DiskANN, NSG, Vamana, huấn luyện bộ mã tối ưu, 
 | HNSW | H00–H13 | 48 | chạy tìm kiếm, phát biểu bất biến, truy vấn, chèn, tham số và giới hạn |
 | Lượng tử hóa tích | Q00–Q10 | 30 | mã hóa, tái dựng, ví dụ ADC số, công thức bộ nhớ và giới hạn quét tuyến tính |
 | IVF-PQ | I00–I04 | 14 | phân vùng, mã hóa phần dư, $nprobe$ và luồng truy vấn |
-| Kết luận | C00 | 8 | đối chiếu bốn cơ chế bằng cùng bốn trục đo |
+| Kết luận | C00 | 8 | đối chiếu bốn cơ chế bằng cùng bốn trục đo; trả lời trực tiếp bài toán mở đầu bằng lựa chọn theo chất lượng truy vấn, chi phí dựng và bộ nhớ |
+
+Ghi chú nhất quán: cận kỳ vọng $O(NM)$ cạnh của HNSW là suy luận ở mục 4.2.3 bài báo HNSW dưới giả thiết bậc trung bình bị chặn theo $M$, không phải kết quả trực tiếp cho mọi đồ thị.
 
 ## Bài tập — 60 phút
 
 | Nguồn trực tiếp | Trang | Phút | Điều chỉnh |
 |---|---:|---:|---|
-| Princeton runbook lớp 8, ô nền 0–4, 17, 21–24; “Product Quantization” và “Manual reconstruction”, ô 82–97 | R00–R03 | 20 | mỗi sinh viên chuẩn bị `d,xt,xb,xq,gt` trên chính kernel sẽ dùng; đọc cấu trúc và hoàn thiện TODO; thời gian máy không tính vào 60 phút |
+| Princeton runbook lớp 8, ô nền 0–4, 17, 21–24; “Product Quantization” và “Manual reconstruction”, ô 82–97 | R00–R03 | 20 | mỗi sinh viên chuẩn bị `d,xt,xb,xq,gt` trên chính kernel sẽ dùng; đọc và làm PQ ở ô 82–97 (có thể chạy 83–95 rồi hoàn thiện 96–97); thời gian máy được báo riêng |
 | “Compare options for fixed code_size”, ô 98–99 | R04–R05 | 20 | giữ ngân sách 6 byte và ba giá trị $M_{PQ}$; chạy trước ô 99 trên cùng kernel nếu huấn luyện chậm |
 | “IVFPQ index”, ô 148–155 | R06–R08 | 20 | tách xây dựng ở ô 149–151 khỏi truy vấn ở ô 152–155; dùng `xt,xb,xq,gt` từ trạng thái nền |
 
