@@ -126,7 +126,7 @@ Lượt rà toán cuối xác nhận các mục trên đã được đồng bộ
 | nhẹ | R00 | Notes dùng từ “chuẩn hóa” khi mô tả đối chiếu nhóm. | Cụm “đối chiếu ma trận, chuẩn hóa hoặc biểu diễn”. | Bỏ từ “chuẩn hóa”, thay bằng “tổng vector”. |
 | nhẹ | C07 | Dòng đầu khối giả mã chưa ghi $P$ đã sửa nút cụt. | Chỉ dòng muted bên dưới nêu $P=\bar P$. | Sửa ngay trong dòng đầu của khối giả mã. |
 
-Năm vai độc lập (storyboard, sinh viên, chuyên gia giải thuật/khoa học dữ liệu, độ chính xác toán học/thuật toán, phản biện học thuật/giảng dạy) đã rà bản 38 slide trước chỉnh sửa; bản 39 slide sau sửa được hai vai toán học và kết nối tái rà. Bảng trên là các phát hiện hợp nhất đã chấp nhận từ kiểm định storyboard và năm vai trên bản 38, không phải toàn bộ mục mới.
+Kiểm định storyboard là một bước riêng, không thuộc năm vai rà soát độc lập. Bốn vai góc nhìn sinh viên, chuyên gia giải thuật và khoa học dữ liệu, độ chính xác toán học và thuật toán, cùng phản biện học thuật và giảng dạy đã rà bản 38 slide trước chỉnh sửa. Sau thay đổi cấu trúc, vai kết nối và mạch viết đã rà bản 39 slide; vai toán học cũng tái rà các vùng bị ảnh hưởng. Vì vậy bản cuối đã được kiểm tra đủ năm góc nhìn theo AGENTS.md. Bảng trên hợp nhất các phát hiện đã chấp nhận từ kiểm định storyboard và các lượt rà này, không phải toàn bộ mục mới.
 
 ### Quyết định và các sửa HTML đã làm
 
