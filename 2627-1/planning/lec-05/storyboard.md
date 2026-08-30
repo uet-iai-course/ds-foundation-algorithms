@@ -66,7 +66,8 @@ Tình huống mở bài dùng $N=10^6$ tài liệu và $N(N-1)/2=499.999.500.000
 | R00 | Giao nhiệm vụ và quy tắc nộp | 0 |
 | R01 | Bài tập 3.1.1: ba giao, ba hợp, ba tỷ số | 15 |
 | R02 | Bài tập 3.2.3: công thức, biên, chứng minh đạt cận | 10 |
-| R03–R04 | Bài tập 3.3.2: bảng hàm và hai hàng chữ ký | 15 |
+| R03 | Bài tập 3.3.2: tính hai hàm băm và lập hai hàng chữ ký | 7 |
+| R04 | Bài tập 3.3.2: hoàn tất bảng chữ ký và trình bày kết quả | 8 |
 | R05 | Bài tập 3.3.3: ma trận sáu hàng | 4 |
 | R06 | Bài tập 3.3.3: ba yêu cầu và sản phẩm | 4 |
 | R07 | Bài tập 3.3.3: bảng chữ ký trống và kiểm tra hoán vị | 6 |

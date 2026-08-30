@@ -119,3 +119,9 @@ Tái kiểm toán sau chỉnh sửa không còn lỗi `chặn bàn giao`, `nghi�
 - Đã xem contact sheet và kiểm tra riêng các trang G04, R05 và R08.
 - Dự án Codex Slides có mã `20260827173151-b-i-5-bi-u-di-n-t-ng-ng-shingling-v-minh-3rca`; dàn ý cuối và bản tóm tắt đã được ghi rồi đọc lại thành công.
 - Tải HTML, SVG và các tệp planning lên Codex Slides trả HTTP 500; Browser trong trình soạn thảo không khả dụng. Vì vậy, nhật ký không tuyên bố đã rà trực quan bằng Codex Slides. Kiểm định trực quan nêu trên được thực hiện bằng Chromium và Playwright cục bộ.
+
+## Kiểm toán hoàn tất ngày 2026-08-31
+
+- Tách mục storyboard gộp `R03–R04` thành hai dòng `R03` và `R04` để mỗi `data-slide-id` có đúng một mục theo thứ tự HTML.
+- Giữ nguyên dữ kiện, yêu cầu và tổng 15 phút của Bài tập 3.3.2; phân bổ 7 phút cho tính hai hàm và 8 phút cho hoàn tất bảng chữ ký.
+- Sau sửa, 49 mã trong storyboard khớp đúng thứ tự 49 mã trong HTML; tổng phần giảng vẫn 120 phút và recitation vẫn 60 phút.
