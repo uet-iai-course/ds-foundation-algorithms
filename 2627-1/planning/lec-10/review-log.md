@@ -116,3 +116,9 @@ Các sửa trên không đổi số trang, mã trang, thứ tự hoặc sáu m�
 - Dự án Codex Slides `20260827223939-b-i-10-n-n-d-li-u-kh-ng-m-t-th-ng-tin-oh97` vẫn là bản nháp với 0 slide. HTML hiện tại đã được tải lên làm material `20260830141906650-7n5t.html`; tài nguyên mở workspace trả về thành công. Bề mặt công cụ hiện tại không có khả năng điều hướng Browser trong trình soạn thảo, nên không tuyên bố đã rà trực quan trên canvas Codex Slides.
 - `2627-1/index.html` đã có thẻ Bài 10 và liên kết đúng tới tệp bài giảng; không cần thay đổi trong lượt này.
 - Chưa ghi nhận commit hoặc push. Hai bước này chỉ được bổ sung sau khi lệnh Git tương ứng hoàn tất thành công.
+
+## Kiểm toán hoàn tất ngày 2026-08-31
+
+- Ghi chú `X00` từng nhắc “phân bổ thời lượng”, là siêu dữ liệu quy trình không cần cho mạch nói. Đã rút thành câu truy nguyên nguồn và cách chuyển đổi bài tập.
+- Không đổi nội dung hiển thị, dữ kiện, yêu cầu, lời giải, số trang, thứ tự hoặc sáu mạch ngoài.
+- Kiểm tra lại toàn HTML không còn `phút`, `thời lượng`, `minute` hoặc `duration`; thời lượng 120+60 chỉ nằm trong storyboard.
