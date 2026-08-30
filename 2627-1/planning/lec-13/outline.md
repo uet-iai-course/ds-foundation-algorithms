@@ -17,7 +17,7 @@
 | B-Tree | Chương 14, trang chiếu 46–48 | Đối chiếu hai trang; không dạy thuật toán cập nhật riêng |
 | Băm tĩnh | Chương 14, trang chiếu 51–59 | Giữ ngăn băm, chuỗi tràn, giới hạn M cố định và đối chiếu truy vấn khoảng |
 | Bitmap | Chương 14, trang chiếu 71–75; Chương 24, trang chiếu 11–15 | Dùng Chương 24 để bổ sung mặt nạ tồn tại và NULL cho NOT |
-| Bài tập | Bài 14.1, 14.3(b), 14.4 trên cây 14.3(b), 14.13 | Dùng trực tiếp; không làm trường hợp 14.3(a,c) |
+| Bài tập | Bài 14.1, 14.3(b), 14.4 trên cây 14.3(b), 14.13 | Đề PDF 1/tr.43 và PDF 3/tr.45; lời giải PDF 1/tr.99, PDF 2/tr.100, PDF 4/tr.102, PDF 10–11/tr.108–109; không làm 14.3(a,c) |
 
 MMDS và Stanford CS246 không được dùng vì Bài 13 neo theo giáo trình cơ sở dữ liệu và hai nguồn này không bao phủ cấu trúc chỉ mục trên đĩa trong phạm vi yêu cầu.
 
@@ -26,15 +26,15 @@ MMDS và Stanford CS246 không được dùng vì Bài 13 neo theo giáo trình 
 | Ký hiệu | Nghĩa |
 |---|---|
 | $m$ | hệ số phân nhánh tối đa của nút B+-Tree; nút trong có tối đa $m$ con, lá có tối đa $m-1$ khóa |
-| $K$ | tổng số giá trị khóa trong tệp |
+| $K$ | số mục khóa trong lá: số khóa phân biệt với RID-list; số cặp với khóa ghép $(v,\mathrm{RID})$ |
 | $d$ | số cạnh từ gốc đến lá; cây chỉ có gốc có $d=0$ |
 | $f$ | $\lceil m/2\rceil$, cận dưới số con của nút trong không phải gốc; ngoại lệ ở gốc chỉ đổi hằng số trong cận $d=O(\log_f K)$ |
-| $L,D$ | số khối lá đọc thêm và số khối dữ liệu chứa kết quả |
+| $L,J,D$ | số khối lá đọc thêm, số khối danh sách RID ngoài lá và số khối dữ liệu chứa kết quả |
 | $N$ | số khối của tệp dữ liệu; quét toàn tệp đọc $N$ khối |
 | $M,c,N_e,t$ | số ngăn băm, sức chứa mỗi ngăn, số mục và số ngăn tràn phải đọc |
 | $R$ | số vị trí bản ghi trong bitmap |
 | $w$ | số bit xử lý trong một từ máy |
-| $q$ | số giá trị được mã hóa thành bitmap |
+| $q$ | số giá trị hoặc dải không NULL được mã hóa thành bitmap |
 | $E$ | bitmap tồn tại |
 | $V_v$ | bitmap cho giá trị $v$ |
 | $V_{\mathrm{NULL}}$ | bitmap vị trí có NULL |
@@ -63,12 +63,10 @@ Không dùng $B$ làm biến vì Bài 12 đã dùng $B$ cho tổng số khung đ
 
 | Phần | Trang | Phút |
 |---|---:|---:|
-| Mở bài | P00–P02 | 6 |
-| Chọn chỉ mục | A00–A03 | 10 |
-| Cấu trúc và truy vấn B+-Tree | B00–B08 | 25 |
-| Cập nhật B+-Tree | C00–C11, C06A | 35 |
-| B-Tree đối chiếu | D00–D01 | 5 |
-| Băm tĩnh | H00–H06 | 16 |
+| Mở bài và chọn chỉ mục | P00–A03 | 14 |
+| Truy vấn B+-Tree | B00–B08 | 27 |
+| Cập nhật và đối chiếu cây | C00–D01, C06A | 42 |
+| Băm tĩnh | H00–H06 | 14 |
 | Bitmap Index | M00–M07, M00A | 19 |
 | Tổng kết | T00–T01 | 4 |
 | **Tổng phần giảng** | **49 trang** | **120** |
@@ -85,10 +83,10 @@ Không dùng $B$ làm biến vì Bài 12 đã dùng $B$ cho tổng số khung đ
 - Tìm khóa bằng khóa phân cách đi sang cây con bên phải theo quy ước khóa phân cách là khóa nhỏ nhất của cây con phải.
 - Tách lá sao chép khóa nhỏ nhất của lá phải lên cha; tách nút trong đẩy khóa phân cách giữa lên cha và bỏ nó khỏi hai nút mới.
 - Khóa trùng cần khóa ghép với mã bản ghi hoặc một mục khóa trỏ danh sách RID. Với danh sách RID, chèn RID không tăng số khóa; xóa RID chỉ xóa mục khóa khi danh sách rỗng.
-- Điểm đọc tối đa $d+1+D$ khối; khoảng đọc tối đa $d+1+L+D$ khối. Chỉ mục không phân cụm có thể bị $D$ chi phối.
+- Điểm đọc $d+1+J+D$ khối; khoảng đọc $d+1+L+J+D$ khối. Đặt $J=0$ khi không có danh sách RID ngoài lá. Chỉ mục không phân cụm có thể bị $D$ chi phối.
 - Xóa có thể mượn, gộp và lan lên gốc; gốc một con được thay bằng con đó.
-- Băm tĩnh đọc $1+t+D$ khối; kỳ vọng chuỗi ngắn chỉ khi băm gần đều và $\alpha=N_e/(Mc)$ được kiểm soát. Không có bảo đảm $O(1)$ trường hợp xấu.
-- $q$ bitmap giá trị chưa nén chiếm $qR$ bit; thêm $R$ bit cho $E$ và $R$ bit cho NULL khi cần, tối đa $(q+2)R$ trong mô hình này. Một phép Boolean cần $\lceil R/w\rceil$ phép toán từ; I/O còn gồm trang bitmap và $D$ khối dữ liệu ứng viên.
+- Mô hình chi phí băm giả sử một ngăn bằng một khối và không tính bộ nhớ đệm. Bài giảng suy ra $\alpha=N_e/(Mc)$ từ số mục và tổng sức chứa, rồi suy ra chi phí $1+t+D$ từ một khối ngăn nhà, $t$ khối ngăn tràn và $D$ khối dữ liệu. Ví dụ dẫn xuất ở H02 đặt $c=1$, nên Physics và Elec. Eng. tạo $t=1$. Nguồn mô tả các thành phần nhưng không phát biểu hai công thức này tại các trang được dẫn. Trường hợp xấu vẫn có thể tuyến tính.
+- Với $q$ là số giá trị hoặc dải không NULL, các bitmap giá trị chưa nén chiếm $qR$ bit; thêm $R$ bit cho $E$ và $R$ bit cho NULL khi cần, tối đa $(q+2)R$. Một phép Boolean cần $\lceil R/w\rceil$ phép toán từ; I/O còn gồm trang bitmap và $D$ khối dữ liệu ứng viên.
 - Cập nhật B+-Tree đọc $O(d+1)$ và ghi tối đa $O(d+1)$ khối.
 - Bitmap NOT phải chặn vị trí đã xóa bằng $E$ và vị trí NULL bằng $V_{\mathrm{NULL}}$.
 - Bitmap dải chỉ tạo ứng viên cho điều kiện hẹp hơn; mọi điều kiện dư phải được lọc trên bản ghi thật.
