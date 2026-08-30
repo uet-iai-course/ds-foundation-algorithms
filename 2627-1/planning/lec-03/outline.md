@@ -10,22 +10,27 @@
 
 ## Mạch nội dung
 
-1. Xếp hạng trên đồ thị liên kết lớn: đầu vào thưa, đầu ra xác suất và trực giác người lướt ngẫu nhiên.
-2. Đóng góp trên cạnh trước ma trận: chạy tay đồ thị $y,a,m$, rồi mới dựng ma trận cột và phép lặp.
-3. Nút cụt và bẫy nhện: dùng hai biến thể MMDS của cùng đồ thị, theo vết mất hoặc kẹt khối lượng, sửa cột nút cụt và thêm hệ số giảm.
-4. Tính đúng và hội tụ: bất biến xác suất, tính dương, ánh xạ co theo chuẩn $L_1$, cận hậu nghiệm và giới hạn vòng lặp.
-5. Tính toán quy mô lớn: bản ghi cấu trúc, đóng góp map, nhóm và reduce, tổng nút cụt, phần dư toàn cục, số pha đồng bộ và chi phí mỗi vòng.
-6. Bài tập MMDS: 5.1.1, 5.1.2, 5.2.1 và 5.2.2.
+Bảy mạch: mở đầu (gộp P/A), B, C, D, E, kết luận K và recitation R.
+
+1. Mở đầu (P/A): xếp hạng trên đồ thị liên kết lớn, đầu vào thưa, đầu ra xác suất và trực giác người lướt ngẫu nhiên.
+2. B: đóng góp trên cạnh trước ma trận — chạy tay đồ thị $y,a,m$, rồi mới dựng ma trận cột và phép lặp.
+3. C: nút cụt và bẫy nhện — hai biến thể MMDS của cùng đồ thị, theo vết mất hoặc kẹt khối lượng, sửa cột nút cụt và thêm hệ số giảm.
+4. D: tính đúng và hội tụ — bất biến xác suất, tính dương, ánh xạ co theo chuẩn $L_1$, cận hậu nghiệm và giới hạn vòng lặp.
+5. E: tính toán quy mô lớn — bản ghi cấu trúc, đóng góp map, nhóm và reduce, tổng nút cụt, phần dư toàn cục, số pha đồng bộ và chi phí mỗi vòng.
+6. K: kết luận — thu hồi bài toán A00, ba khối đã xây và nối sang Bài 4.
+7. R: bài tập MMDS — 5.1.1, 5.1.2, 5.2.1 và 5.2.2.
+
+Tổng cộng 39 slide: 120 phút giảng và 60 phút bài tập trực tiếp từ MMDS; K00 là trang kết luận.
 
 ## Chu trình học tập
 
 | Cụm | Tình huống và vấn đề | Trực giác | Ví dụ chạy tay | Hình thức hóa | Thuật toán và lập luận | Ứng dụng, chi phí và kiểm tra |
 |---|---|---|---|---|---|---|
-| PageRank cơ sở | A00–A01 | A02–A03 | B01–B02 | B03 | B04–B06 | D05, E00, R02–R03 |
+| PageRank cơ sở | A00–A01 | A02–A03 | B01–B02 | B03 | B04–B06 | D05, R02–R03 |
 | Nút cụt và bẫy nhện | C00–C02, C04 | C03, C05 | C02–C03, C04–C06 | C03, C05 | C07, D00–D03 | E04, R05 |
 | PageRank phân tán | E00 | E01 | E02 | E03–E04 | E04 | E05, R04–R05 |
 
-Dữ liệu $y,a,m$ được giữ từ B01 đến B05. C01 tạo hai biến thể nguồn bằng cách đổi riêng cạnh ra của $m$. C02–C06 truyền các trạng thái số sang công thức sửa và hệ số giảm. E01–E05 dùng lại bản ghi của $a$ và quy ước nút cụt để nối phép tính đại số với MapReduce.
+Dữ liệu $y,a,m$ được giữ từ B01 đến B05. C01 tạo hai biến thể nguồn bằng cách đổi riêng cạnh ra của $m$. C02–C06 truyền các trạng thái số sang công thức sửa và hệ số giảm. E01–E05 dùng lại bản ghi của $a$ và quy ước nút cụt để nối phép tính đại số với MapReduce. E00–E01 chỉ được tính một lần, thuộc chu trình phân tán; trong chu trình PageRank cơ sở, E00 chỉ thu hồi giới hạn ma trận đặc mà không tính lại thời lượng.
 
 ## Ký hiệu thống nhất
 
@@ -56,7 +61,7 @@ Dữ liệu $y,a,m$ được giữ từ B01 đến B05. C01 tạo hai biến th�
 | Động cơ, luồng hạng, ma trận, đồ thị $y,a,m$ | MMDS official slides Ch5 part 1, slide 18–27; MMDS 3e §5.1.2 | Giữ dữ kiện; thêm bước chạy tay đóng góp trước ma trận |
 | Người lướt ngẫu nhiên | Stanford CS246 `09-pagerank.pdf`, slide 17–18 | Dùng bổ trợ vì cầu nối hành vi–phương trình ngắn hơn; sách MMDS kiểm chứng |
 | Nút cụt, bẫy nhện, hệ số giảm | MMDS official slides, slide 38–46; MMDS 3e §5.1.4–5.1.5 | Dùng đúng hai biến thể $y,a,m$; chọn quy ước chuẩn hóa cột nút cụt bằng $e/n$ |
-| Điều kiện hội tụ | MMDS 3e §5.1.2 và chú thích 7; lý thuyết chuỗi Markov hữu hạn | Không lặp mệnh đề thiếu giả thiết; nêu bất khả quy là điều kiện đủ cho duy nhất, thêm không chu kỳ cho hội tụ khi $\beta=1$; chứng minh trường hợp $0<\beta<1$ bằng ánh xạ co |
+| Điều kiện hội tụ | MMDS 3e §5.1.2; lý thuyết chuỗi Markov hữu hạn | Không lặp mệnh đề thiếu giả thiết; nêu bất khả quy là điều kiện đủ cho duy nhất, thêm không chu kỳ cho hội tụ khi $\beta=1$; chứng minh trường hợp $0<\beta<1$ bằng ánh xạ co |
 | Cận dừng | Suy ra từ ánh xạ co | Dùng cận hậu nghiệm $\beta\Delta_t/(1-\beta)$; tách $\tau$ khỏi $\varepsilon$ |
 | Biểu diễn thưa và MapReduce | MMDS 3e §5.2.1–5.2.2; MMDS slides 48, 52–55 | Giữ đúng một bản ghi cho mỗi nút; dùng $P_0$ cho cạnh thật và $\delta e/n$ để hiện thực $\bar P$; làm rõ $\Delta$, hai pha đồng bộ và chi phí $\Theta(n+m)$ |
 | Bài tập | MMDS 3e, Bài 5.1.1–5.1.2, trang in 187–188; Bài 5.2.1–5.2.2, trang in 195 | Dịch trực tiếp; vẽ lại đủ Hình 5.4 và 5.7; không đổi dữ kiện |

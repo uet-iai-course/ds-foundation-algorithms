@@ -105,6 +105,69 @@ Lượt rà toán cuối xác nhận các mục trên đã được đồng bộ
 ## Kiểm định trình duyệt và Codex Slides
 
 - Máy chủ cục bộ phục vụ tệp tại cổng `8765` và trả mã HTTP `200`.
-- Chromium không giao diện duyệt đủ 38 trang ở khung $1280\times720$ và $800\times600$: không có lỗi bảng điều khiển, lỗi yêu cầu tài nguyên hoặc phần tử tràn khung. Ảnh liên hệ toàn bộ trang và các trang C07, E01–E05, R04 được kiểm tra trực quan.
+- Chromium không giao diện duyệt đủ 38 trang ở khung $1280\times720$ và $800\times600$: không có lỗi bảng điều khiển, lỗi yêu cầu tài nguyên hoặc phần tử tràn khung. Ảnh liên hệ toàn bộ trang và các trang C07, E01–E05, R04 được kiểm tra trực quan. Kiểm định này áp dụng cho bản 38 trang trước khi thêm K00; bản 39 trang sau chu kỳ 2026-08-30 chưa được kiểm định trình duyệt.
 - Kiểm tra tĩnh xác nhận 38 mã trang duy nhất, 38 ghi chú, 45 cặp thẻ `section`, mọi đường dẫn cục bộ tồn tại, năm SVG hợp lệ và không có tham chiếu ảnh raster.
 - Dự án Codex Slides bền vững `20260827151722-b-i-3-pagerank-m-h-nh-v-t-nh-to-n-edg9` vẫn ở trạng thái nháp với 0 trang. Trình duyệt tích hợp không khả dụng trong phiên này; bốn lần tải tệp thiết kế cuối vào dự án đều trả HTTP 500. Vì vậy chưa thể tuyên bố bản RevealJS đã được rà trực quan trong Codex Slides. URL bàn giao của dự án: `http://127.0.0.1:4311/project/20260827151722-b-i-3-pagerank-m-h-nh-v-t-nh-to-n-edg9?mode=workspace&checkpoint=clarify`.
+
+## Chu kỳ 2026-08-30
+
+### Kế hoạch và phân tích nguồn
+
+- Kế hoạch chu kỳ: rà lại bốn tệp Bài 3 sau lượt chỉnh sửa bị dừng; xác nhận cấu trúc 39 slide, 7 outer section và trang kết luận K00; đồng bộ outline, storyboard và HTML.
+- Phân tích nguồn: MMDS 3e §5.1–5.2 và slide chính thức MMDS Ch5 part 1 vẫn là nguồn ưu tiên; Stanford CS246 09-pagerank.pdf bổ trợ trực giác và kiểu kiểm tra thay đổi cạnh. Không phát hiện dữ kiện nguồn mới cần đổi.
+
+### Kiểm định storyboard và năm vai độc lập
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
+|---|---|---|---|---|
+| nghiêm trọng | toàn deck | Thiếu mạch kết luận; mở đầu chưa gộp P/A. | Deck kết thúc ở recitation mà không thu hồi bài toán A00 hay nối Bài 4. | Gộp P/A thành một mạch mở đầu, thêm K00 làm kết luận; vẫn giữ 7 outer section. |
+| trung bình | B06 | “Ước chung lớn” thiếu “nhất”; phản ví dụ chỉ nằm trong notes. | Mặt trang B06 nêu điều kiện không chu kỳ nhưng không có trạng thái đầu của phản ví dụ. | Đổi thành “ước chung lớn nhất” và nêu trạng thái đầu $(1,0)^T$ trên mặt trang. |
+| trung bình | D04 | Câu dẫn áp dụng $A_{0,8}$ cho đồ thị cơ sở và dẫn sang D05 chỉ có trong notes. | Mặt trang D04 chỉ có nghiệm và hai thẻ kiểm tra. | Thêm câu dẫn trên mặt trang. |
+| nhẹ | R00 | Notes dùng từ “chuẩn hóa” khi mô tả đối chiếu nhóm. | Cụm “đối chiếu ma trận, chuẩn hóa hoặc biểu diễn”. | Bỏ từ “chuẩn hóa”, thay bằng “tổng vector”. |
+| nhẹ | C07 | Dòng đầu khối giả mã chưa ghi $P$ đã sửa nút cụt. | Chỉ dòng muted bên dưới nêu $P=\bar P$. | Sửa ngay trong dòng đầu của khối giả mã. |
+
+Năm vai độc lập (storyboard, sinh viên, chuyên gia giải thuật/khoa học dữ liệu, độ chính xác toán học/thuật toán, phản biện học thuật/giảng dạy) đã rà bản 38 slide trước chỉnh sửa; bản 39 slide sau sửa được hai vai toán học và kết nối tái rà. Bảng trên là các phát hiện hợp nhất đã chấp nhận từ kiểm định storyboard và năm vai trên bản 38, không phải toàn bộ mục mới.
+
+### Quyết định và các sửa HTML đã làm
+
+- Quyết định thiếu mạch kết luận: gộp P/A thành một mạch mở đầu, thêm K00 (3 phút) làm kết luận thu hồi A00 và nối Bài 4; tổng outer section vẫn là 7.
+- Đã sửa HTML: B06 đổi “ước chung lớn” thành “ước chung lớn nhất” và thêm phản ví dụ với trạng thái đầu $(1,0)^T$ trên mặt trang; D04 thêm câu dẫn trên mặt trang về áp dụng $A_{0,8}$ cho đồ thị cơ sở phần B và dẫn sang D05; R00 notes bỏ từ “chuẩn hóa”; C07 dòng đầu khối giả mã ghi rõ $P$ cột ngẫu nhiên đã sửa nút cụt ($P=\bar P$). Đáp án R03 không thay đổi.
+- Phạm vi cần rà lại sau các sửa trên: B05–B06, C00 (câu nối vào C), D04–D05 và R00–R03 về mạch, ký hiệu và trạng thái truyền.
+
+### Đáp án R03 và bác đề xuất sai
+
+- Đáp án R03 $(7/27,25/81,35/81)^T$ với $\beta=0{,}8$ trên Hình 5.7 là đúng; tổng bằng 1 và thỏa $r=0{,}8Pr+0{,}2e/3$.
+- Đề xuất của tác tử nguồn cho bộ số khác bị bác: tác giả đã đọc nhầm tập cạnh của Hình 5.7, dẫn đến ma trận và nghiệm sai. Không thay đổi đáp án.
+
+### Bác cảnh báo thiếu tài sản
+
+- Cảnh báo “thiếu SVG, RevealJS, index” bị bác: bản sao tạm trong phiên này cố ý không chứa tài sản nhị phân và thư viện; kho thật có 5 SVG trong `img/lec-03/` cùng thư viện `revealjs/` và `plugin/`. Kiểm định cuối vẫn phải xác nhận các tài sản này trên kho thật.
+
+### Trạng thái và giới hạn của chu kỳ
+
+- Chưa chạy trình duyệt, chưa chạy Codex Slides, chưa thực hiện kiểm định cuối, chưa commit hoặc push trong chu kỳ này.
+- Lời văn được biên tập theo `no-ai-slop`: câu trực tiếp, không khuôn mẫu rỗng; mạch, thuật ngữ và ký hiệu được tự kiểm nhất quán theo quy trình Quill mà không tạo `quill.json`.
+
+### Báo cáo tái rà theo 5 trường, chu kỳ 2026-08-30
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa |
+|---|---|---|---|---|
+| nghiêm trọng | B06 | Mặt trang chứa `\\ldots` (hai backslash) trước lệnh TeX, KaTeX không nhận diện. | Dòng muted của B06 trong HTML. | Đổi thành `\ldots` đúng một backslash. Đã sửa. |
+| nghiêm trọng | D04 | Mặt trang chứa `\\to` (hai backslash) ở ba vị trí công thức. | Dòng muted của D04 trong HTML. | Đổi thành `\to` đúng một backslash ở cả ba vị trí. Đã sửa. |
+| nhẹ | D05→E00 | Thiếu câu nối giữa phần D và phần E. | Notes E00 chưa nhắc kết quả D05. | Thêm câu nối: phép tính phần D đúng trên ví dụ ba nút; phần E nâng cùng phép lặp lên quy mô nguồn. Đã sửa. |
+| nhẹ | K00→R00 | Notes R00 chưa gắn ba tài sản với phần tổng kết K00. | Notes R00 nêu ba tài sản nhưng không nói "vừa tổng kết ở K00". | Thêm rõ bốn bài dùng lại ba tài sản vừa tổng kết ở K00. Đã sửa. |
+
+- Runtime của hai báo cáo tái rà: requested_model=observed_model=z-ai/glm-5.3-flash, provider OpenRouter.
+- Hai lỗi KaTeX B06/D04 đã được chấp nhận và sửa; các phát hiện nhẹ D05→E00 và K00→R00 đã sửa bằng notes.
+- Tự kiểm sau sửa: 39 id duy nhất, 39 notes, 7 outer section; không còn lỗi chặn bàn giao hoặc nghiêm trọng sau sửa. Chưa tuyên bố kiểm định trình duyệt và chưa chạy Codex Slides cho bản 39 trang.
+
+## Kiểm định cuối chu kỳ 2026-08-30
+
+- Kiểm tra tĩnh trên bản hiện tại: 39 data-slide-id duy nhất, 39 notes, 7 outer section; tổng storyboard 120 phút giảng + 60 phút recitation; 17 tham chiếu cục bộ, 0 thiếu; 5 SVG hợp lệ XML theo Python ElementTree, đều có `role="img"`, `title`, `desc`; 0 ảnh raster; 0 ghi chú chứa thời lượng; cỡ chữ pre và trace đều 0.75em.
+- `git diff --check` đạt.
+- Lệnh bắt buộc `python3 -m reloadserver 8765` thất bại vì không có module `reloadserver`. Fallback `/tmp/reloadserver.py 8765` không dùng được vì cổng 8765 đang bị tiến trình ngoài phạm vi phục vụ từ `/tmp/lec05-web.ocTbZf`; điều phối viên không dừng tiến trình đó. Đã dùng cùng server fallback ở cổng 8766.
+- Chromium/Playwright duyệt đủ 39/39 trang ở 1280x720 và 800x600 trên cổng 8766: không phần tử nội dung bị cắt (clipped=0), không lỗi console/page, không request failed; bàn phím điều hướng hoạt động. Ảnh ghép toàn bộ 39 trang và ảnh B06, C07, D04, K00, R00 đã được xem trực quan, đọc được, không chồng lấn.
+- Hai vai tái rà cuối sau sửa KaTeX: vai toán học kiểm B05–C00, D03–D05 và xác nhận đúng; vai kết nối kiểm bốn ranh giới và xác nhận không lỗi chặn/nghiêm trọng/trung bình. Runtime cả hai: requested_model=observed_model=z-ai/glm-5.3-flash, provider OpenRouter.
+- Codex Slides: project `20260827151722-b-i-3-pagerank-m-h-nh-v-t-nh-to-n-edg9` mở được resource link nhưng state draft, 0 slides; upload Design File HTML hiện tại trả HTTP 500. Phiên không có Codex in-editor Browser callable, nên không tuyên bố đã rà deck trong Codex Slides.
+- Index không cần đổi vì mục Bài 3 và liên kết đã đúng/tồn tại.
+- Kết luận: mọi lỗi chặn/nghiêm trọng đã xử lý; deck đủ điều kiện commit/push, với giới hạn Codex Slides đã ghi rõ ở trên.

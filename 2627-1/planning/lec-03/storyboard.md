@@ -2,6 +2,16 @@
 
 ## Hành trình khái niệm
 
+Bảy mạch với chức năng và kết nối vào/ra:
+
+1. Mở đầu (P/A): đặt bài toán xếp hạng trên đồ thị thưa; nhận vào Bài 2 (MapReduce), chuyển ra mạch B qua phương trình luồng A03.
+2. B: chạy tay đóng góp trên cạnh rồi dựng ma trận cột và phép lặp; nhận trạng thái từ A03, chuyển đồ thị $y,a,m$ và ma trận $P$ sang C và D.
+3. C: sửa nút cụt và bẫy nhện bằng hai biến thể; nhận đồ thị $y,a,m$ từ B, chuyển ma trận đã sửa $\bar P$ và $A_\beta$ sang D, và quy ước nút cụt sang E.
+4. D: điều kiện hội tụ, ánh xạ co, cận dừng và kiểm tra kết quả; nhận $A_\beta$ từ C, chuyển thuật toán C07 thành điều kiện dừng và nghiệm D04 sang E và K.
+5. E: tính toán thưa/MapReduce; nhận quy ước nút cụt từ C và điều kiện dừng từ D, chuyển chi phí $\Theta(n+m)$ sang K.
+6. K (K00): kết luận thu hồi bài toán A00, ba khối đã xây và nối sang Bài 4.
+7. R: recitation bốn bài MMDS dùng lại tài sản của phần giảng.
+
 Đồ thị liên kết thưa tạo nhu cầu xếp hạng mà không dựng ma trận đặc. Sinh viên theo vết đóng góp trên cạnh của đồ thị $y,a,m$ trước khi chuyển sang ma trận cột. Hai biến thể nguồn của cùng đồ thị làm lộ nút cụt và bẫy nhện bằng số cụ thể. Quy ước sửa cột và hệ số giảm dẫn đến phép lặp có cận dừng. Phần cuối chuyển đúng trạng thái này sang bản ghi thưa, các pha MapReduce và hai tổng toàn cục.
 
 ## Phân bổ phần giảng: 120 phút
@@ -12,7 +22,7 @@
 | P01 | 3 | Sản phẩm quan sát được và tiên quyết | `sources/source.md`, Bài 3 |
 | A00 | 3 | Đồ thị Web thưa và đầu ra theo nút | MMDS §5.1–5.2; slide 48, 53 |
 | A01 | 4 | Đặc tả đồ thị đơn có vòng tự nối; gộp liên kết lặp | MMDS §5.1.1–5.1.2 |
-| A02 | 4 | Trực giác người lướt ngẫu nhiên | Stanford 17–18; MMDS §5.1.2 |
+| A02 | 3 | Trực giác người lướt ngẫu nhiên | Stanford 17–18; MMDS §5.1.2 |
 | A03 | 4 | Phương trình luồng; nút cụt chưa xử lý | MMDS slide 18–21 |
 | B00 | 2 | Mở phần chạy tay trước hình thức hóa | MMDS slide 18–24 |
 | B01 | 4 | Đọc cạnh và bậc của đồ thị $y,a,m$ | MMDS slide 19, 24 |
@@ -20,7 +30,7 @@
 | B03 | 4 | Gom đúng các đóng góp thành cột ma trận | MMDS slide 21, 24 |
 | B04 | 5 | Hai vòng lặp và bất biến tổng | MMDS slide 25–27 |
 | B05 | 3 | Điểm cố định của đồ thị cơ sở | MMDS slide 19–20 |
-| B06 | 4 | Bất khả quy, không chu kỳ và phản ví dụ hai nút | MMDS §5.1.2; chú thích 7 |
+| B06 | 3 | Bất khả quy, không chu kỳ và phản ví dụ hai nút với trạng thái đầu $(1,0)^T$ | MMDS §5.1.2 |
 | C00 | 2 | Hai biến thể nguồn của cùng đồ thị | MMDS slide 38–46 |
 | C01 | 4 | Nhận diện cạnh thay đổi ở nút cụt và bẫy nhện | MMDS slide 39, 41 |
 | C02 | 5 | Chạy tay mất khối lượng tại nút cụt | MMDS slide 41 |
@@ -33,7 +43,7 @@
 | D01 | 4 | Ma trận dương và nghiệm dừng duy nhất | MMDS §5.1.5; giả thiết bổ sung |
 | D02 | 5 | Ánh xạ co theo chuẩn $L_1$ và trực giác số | Suy ra từ $P$ cột ngẫu nhiên |
 | D03 | 5 | Cận hậu nghiệm và ngưỡng dừng | Tổng đuôi của dãy co |
-| D04 | 4 | Nghiệm đồ thị cơ sở có hệ số giảm; phân biệt với C06 | Tính lại độc lập |
+| D04 | 3 | Nghiệm đồ thị cơ sở có hệ số giảm; phân biệt với C06; dẫn sang D05 | Tính lại độc lập |
 | D05 | 4 | Kiểm tra xác định khi thêm cạnh $m\to y$ | Stanford 33–36; dữ liệu MMDS |
 | E00 | 2 | Quy mô $10^9$ trong nguồn và giới hạn ma trận đặc | MMDS slide 48 |
 | E01 | 3 | Biết $V$ và giữ đúng một bản ghi cấu trúc cho mọi nút, kể cả danh sách rỗng; bộ nhớ $\Theta(n+m)$ | MMDS §5.2.1; slide 53 |
@@ -41,6 +51,7 @@
 | E03 | 3 | Nhóm và reduce giữ cả nút không có cạnh vào | MMDS §5.2.2 |
 | E04 | 3 | $\bar P=P_0+ed^T/n$, cập nhật không cộng đôi $\delta$, $\Delta$, hai tác vụ MapReduce và hai điểm đồng bộ | Triển khai thưa của quy ước C03 |
 | E05 | 3 | Chi phí mỗi vòng; kiểm tra cặp map trên đồ thị cơ sở và nút cụt của biến thể C02 | MMDS §5.2.1–5.2.2 |
+| K00 | 3 | Kết luận: thu hồi bài toán A00, ba khối đã xây và nối sang Bài 4 | MMDS §5.1–5.2 |
 | **Tổng** | **120** |  |  |
 
 ## Phân bổ bài tập: 60 phút giải trực tiếp
@@ -54,13 +65,13 @@
 | R05 | 20 | MMDS Bài 5.2.2, trang in 195, PDF 21: biểu diễn Hình 5.4 và 5.7 |
 | **Tổng** | **60** |  |
 
-Việc giao nhóm và đối chiếu nằm trong khoảng của từng bài, không tính thành thời gian riêng. Mỗi block dành phần cuối để kiểm tra một sản phẩm cụ thể. Đáp án và hướng dẫn chấm chỉ nằm trong ghi chú diễn giả.
+Việc giao nhóm và đối chiếu nằm trong khoảng của từng bài, không tính thành thời gian riêng. Mỗi block dành phần cuối để kiểm tra một sản phẩm cụ thể. Đáp án và hướng dẫn chấm chỉ nằm trong ghi chú diễn giả. R01 đã bị bỏ và id không được tái sử dụng; các trang recitation hiện là R00, R02–R05.
 
 ## Chu trình và trạng thái truyền
 
 ### PageRank cơ sở
 
-- Tình huống: A00; vấn đề: A01; trực giác: A02–A03; ví dụ chạy tay: B01–B02; hình thức hóa: B03; phép lặp và điều kiện: B04–B06; ứng dụng và chi phí: E00–E01; kiểm tra: D05, R02–R03.
+- Tình huống: A00; vấn đề: A01; trực giác: A02–A03; ví dụ chạy tay: B01–B02; hình thức hóa: B03; phép lặp và điều kiện: B04–B06; kiểm tra: D05, R02–R03. E00–E01 không được tính hai lần: chúng thuộc chu trình phân tán; ở đây E00 chỉ thu hồi giới hạn ma trận đặc.
 - Trạng thái truyền: cạnh và bậc ở B01 tạo các phần $1/6,1/3$ ở B02; các phần này trở thành cột ở B03 và hàng $t=1$ ở B04.
 
 ### Nút cụt và bẫy nhện
@@ -79,4 +90,5 @@ Việc giao nhóm và đối chiếu nằm trong khoảng của từng bài, kh�
 - Cận dừng dùng hệ số $\beta/(1-\beta)$; $\tau$ là ngưỡng phần dư và $\varepsilon$ là sai số đích.
 - Quy ước cột nút cụt bằng $e/n$ khác quy ước rò khối lượng ở một đoạn của sách. E04 gọi toán tử cạnh thưa là $P_0$, gọi ma trận đã sửa là $\bar P=P_0+ed^T/n$, rồi triển khai $\bar Pr=P_0r+\delta e/n$ mà không vật chất hóa cột đặc hoặc cộng $\delta$ hai lần.
 - Một vòng PageRank có thể gồm hai tác vụ MapReduce khi $\delta$ cần pha tổng hợp riêng; không đồng nhất vòng thuật toán với tác vụ.
-- Không dùng Topic-Sensitive PageRank, link spam, TrustRank, HITS hoặc phân khối ma trận §5.2.3.
+- Không dùng Topic-Sensitive PageRank, link spam, TrustRank, HITS hoặc phân khối ma trận §5.2.3. Mục §5.1.6 bị bỏ vì ngoài sản phẩm học tập và thời lượng của buổi này.
+- Deck gồm 39 slide: P00–P01, A00–A03, B00–B06, C00–C07, D00–D05, E00–E05, K00 và R00, R02–R05.
