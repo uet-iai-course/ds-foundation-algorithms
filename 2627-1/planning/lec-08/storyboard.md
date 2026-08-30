@@ -35,7 +35,7 @@ Tổng phần giảng theo các cụm: **120 phút**.
 | K00 | 3 | Nêu nhu cầu giữ quan hệ theo khóa. | MMDS 4.2.1 |
 | K01 | 4 | Định nghĩa $x,d$ theo giá trị truy vấn phân biệt; phân biệt tỷ lệ đích với tỷ số từ số đếm kỳ vọng. | MMDS tr.136–137; `stanford-cs246/16-streams.pdf`, CS246 26/02/2026, tr.13–14 |
 | K02 | 3 | Ví dụ 30%: cùng khóa nhận cùng quyết định. | Streams 1 tr.15–16; ví dụ dựng từ cơ chế nguồn |
-| K03 | 3 | Hình thức hóa $h(K)<a$, miền băm và điều kiện sau. | MMDS 4.2.2–4.2.3 |
+| K03 | 3 | Hình thức hóa $h(K)<a$, miền băm và điều kiện sau; $h$ phải phân bố đều trên toàn miền để tỷ lệ $a/b$ được bảo đảm. | MMDS 4.2.2–4.2.3 |
 | K04 | 3 | Giả mã và điều kiện dừng. | MMDS 4.2.2–4.2.3 |
 | K05 | 3 | Chứng minh nhất quán và xác suất $a/b$. | MMDS 4.2.2–4.2.3 |
 | K06 | 3 | Nêu quy trình xác định khóa từ đơn vị thống kê qua tình huống truy vấn theo người dùng, không lộ đáp án Ex.4.2.1. | MMDS 4.2.1–4.2.3 |
@@ -50,19 +50,19 @@ Tổng phần giảng theo các cụm: **120 phút**.
 | R06 | 2 | Chứng minh xác suất của phần tử mới. | Streams 1 tr.20–21 |
 | R07 | 3 | Chứng minh xác suất của phần tử cũ. | Streams 1 tr.21 |
 | R08 | 3 | Nêu $\Theta(s)$ và $\Theta(1)$ trong mô hình RAM, giả thiết bộ sinh số ngẫu nhiên và kiểm tra. | Streams 1 tr.18–21 |
-| B00 | 3 | Mở bằng một tỷ địa chỉ và một gigabyte. | MMDS tr.139; Streams 2 tr.4–8 |
+| B00 | 3 | Mở bằng một tỷ địa chỉ và một gigabyte. | MMDS tr.139–140; Streams 2 tr.4–8 |
 | B02 | 3 | Đặt Bloom trước phép tra chính xác. | Streams 2 tr.6–7 |
-| B05 | 4 | Định nghĩa $h_1,h_2$ và chạy ví dụ 11 bit; chỉ bit 7 va chạm, bit 3 bằng 0 loại 118. | `stanford-cs246-2017/streams-2.pdf`, Ullman 01/03/2017, tr.5–8 |
+| B05 | 4 | Định nghĩa $h_1,h_2$ (bit lẻ/chẵn vị trí 1-based từ phải) và chạy ví dụ 11 bit (mảng hiển thị chỉ số 0–10 từ trái); chỉ bit 7 va chạm, bit 3 bằng 0 loại 118. | `stanford-cs246-2017/streams-2.pdf`, Ullman 01/03/2017, tr.5–8 |
 | B01 | 3 | Khái quát ví dụ thành đặc tả $n,m,k$ và hai loại câu trả lời. | MMDS 4.3.2 |
 | B03 | 4 | Giả mã xây dựng và chi phí. | MMDS 4.3.2 |
 | B04 | 4 | Giả mã truy vấn và dừng sớm. | MMDS 4.3.2 |
 | B06 | 4 | Chứng minh không âm giả với điều kiện trạng thái. | MMDS 4.3.2 |
 | B07 | 4 | Dẫn xác suất một bit 0/1 hữu hạn. | MMDS 4.3.3 |
-| B08 | 4 | Tách mật độ bit chính xác khỏi FPR xấp xỉ. | MMDS 4.3.3 |
+| B08 | 4 | Tách mật độ bit chính xác $q$ khỏi FPR xấp xỉ: $q^k$ là xấp xỉ chuẩn, dạng mũ là xấp xỉ khi $n$ lớn. | MMDS 4.3.3 |
 | B09 | 3 | Giải thích đánh đổi khi tăng $k$; thiết lập Ex.4.3.2 mà chưa giải. | MMDS Ex.4.3.2; Streams 2 tr.12–14 |
 | B10 | 3 | Dẫn xuất $k^*$, chứng minh cực tiểu và nêu quy tắc số nguyên $k\ge1$. | MMDS Ex.4.3.3; Streams 2 tr.14 |
-| B11 | 2 | Vẽ đủ $k=1,\ldots,10$, đánh dấu 5/6; sửa phép tính $k=6$ thành 0,02158. | MMDS công thức; `stanford-cs246/16-streams.pdf`, CS246 26/02/2026, tr.31–33 |
-| B12 | 3 | Tổng hợp chi phí, giới hạn và kiểm tra dương giả. | MMDS 4.3.2–4.3.3 |
+| B11 | 2 | Vẽ đủ $k=1,\ldots,10$, đánh dấu 5/6; sửa phép tính $k=6$ thành 0,02158. | MMDS công thức; `stanford-cs246/16-streams.pdf`, CS246 26/02/2026, tr.31–32 |
+| B12 | 3 | Tổng hợp chi phí, giới hạn và kiểm tra dương giả; câu hỏi dùng một khóa ngoài $S$ khác với 118 để không mâu thuẫn ví dụ B05. | MMDS 4.3.2–4.3.3 |
 | C00 | 2 | So sánh ba cấu trúc theo đơn vị và bảo đảm. | tổng hợp nguồn |
 | C01 | 2 | Áp dụng lại vào dòng truy vấn P01. | tổng hợp nguồn |
 | C02 | 1 | Ghi nguồn, quyết định MMDS/Stanford và phạm vi loại. | các nguồn đã dùng |
@@ -83,10 +83,10 @@ Tổng phần bài tập: **60 phút**. Các bước trên chỉ chia nhỏ các
 | ID | Phút | Dữ kiện, yêu cầu và sản phẩm | Đáp án trong ghi chú | Nguồn trực tiếp |
 |---|---:|---|---|---|
 | X00 | 0 | Mở phần, nêu bốn bài và phiếu nộp. | Nêu không có bài hồ chứa trực tiếp trong sách. | MMDS 4.2–4.3 |
-| X01 | 15 | Lược đồ Grades; chọn ba khóa và giải thích. Không thêm điều kiện ngưỡng băm. | `(university,courseID)`, `(university,studentID)`, `(university,courseID)`; rubric 10 điểm trong ghi chú. | Ex.4.2.1, tr.138 |
+| X01 | 15 | Lược đồ Grades với định danh university duy nhất toàn cục; chọn ba khóa và giải thích. Không thêm điều kiện ngưỡng băm. | `(university,courseID)`, `(university,studentID)`, `(university,courseID)`; rubric 10 điểm trong ghi chú. Đáp án/rubric là lời giải giảng viên suy ra từ đề. | Ex.4.2.1, tr.138 |
 | X02 | 10 | $n/m=8$; tính $p_3,p_4$, không thêm yêu cầu so sánh. | 0,030579 và 0,023969; rubric 10 điểm trong ghi chú. | Ex.4.3.1, tr.141 |
-| X03 | 15 | Với $k\mid n$ và băm đều, độc lập, dẫn FPR mảng chia và so với mảng chung. | Hai biểu thức theo $n$ hữu hạn khác nhau, biểu thức mảng chung là xấp xỉ FPR; cùng dẫn tới $(1-e^{-km/n})^k$; rubric 10 điểm. | Ex.4.3.2, tr.141 |
-| X04 | 20 | Tối thiểu hóa FPR theo $n,m$; chứng minh cực tiểu và nêu quy tắc số nguyên, không thêm $n/m=8$. | $k^*=(n/m)\ln2$ và so hai số nguyên lân cận không nhỏ hơn 1; rubric 10 điểm. | Ex.4.3.3, tr.141–142 |
+| X03 | 15 | Với $k\mid n$ và băm đều, độc lập, dẫn FPR mảng chia và so với mảng chung. | Hai biểu thức theo $n$ hữu hạn khác nhau; biểu thức mảng chung $q^k$ là xấp xỉ chuẩn của FPR vì trạng thái bit phụ thuộc và vị trí truy vấn có thể trùng; cả hai dẫn tới $(1-e^{-km/n})^k$ trong xấp xỉ mũ; rubric 10 điểm. | Ex.4.3.2, tr.141 |
+| X04 | 20 | Tối thiểu hóa FPR theo $n,m$; chứng minh cực tiểu và nêu quy tắc số nguyên, không thêm $n/m=8$. | $k^*=(n/m)\ln2$ và so hai số nguyên lân cận không nhỏ hơn 1; rubric 10 điểm. Đáp án/rubric là lời giải giảng viên suy ra từ đề. | Ex.4.3.3, tr.142 |
 | X05 | 0 | Đối chiếu đủ bốn sản phẩm, không thêm yêu cầu toán học. | Nhắc đối chiếu phiếu với rubric trong ghi chú. | tổng hợp bốn bài |
 
 Tổng recitation: **60 phút**. Chỉ dịch, chia bước và thêm mẫu sản phẩm; không đổi dữ kiện hoặc yêu cầu toán học.

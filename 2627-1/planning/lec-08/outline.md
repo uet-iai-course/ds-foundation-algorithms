@@ -15,7 +15,7 @@
 | Giáo trình, nguồn chuẩn | `sources/textbooks/mmds/ch4-mining-data-streams.pdf` | mục 4.1–4.3; bài tập 4.2.1 và 4.3.1–4.3.3 |
 | Slide chính | `sources/reference-slides/mmds/ch04-streams1.pdf` | mô hình dòng, lấy mẫu theo khóa, hồ chứa |
 | Slide chính | `sources/reference-slides/mmds/ch04-streams2.pdf` | Bloom filter và phân tích |
-| Đối chiếu | `sources/reference-slides/stanford-cs246/16-streams.pdf` | bản CS246 ngày 26/02/2026; phép đếm K01 và đường cong B11 |
+| Đối chiếu | `sources/reference-slides/stanford-cs246/16-streams.pdf` | bản CS246 ngày 26/02/2026; phép đếm K01 và đường cong B11 (tr.31–32) |
 | Đối chiếu | `sources/reference-slides/stanford-cs246-2017/streams-2.pdf` | bản Jeffrey D. Ullman tạo ngày 01/03/2017; ví dụ Bloom 11 bit B05 |
 
 MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì phép đếm số truy vấn phân biệt rõ hơn, tại B05 vì có trọn vết 11 bit và tại B11 để đối chiếu hình dạng đường cong. Mọi công thức được kiểm chứng bằng sách; ví dụ B05 giữ nguyên dữ kiện nguồn. Ghi công: <http://www.mmds.org>.
@@ -28,7 +28,7 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 4. R00, R01, R03, R02, R04–R08: vấn đề → phân biệt → chạy tay → đặc tả → thuật toán và chứng minh hồ chứa.
 5. B00, B02, B05, B01, B03–B12: tình huống → vị trí hệ thống → ví dụ → đặc tả → thuật toán, bảo đảm và xác suất dương giả.
 6. C00–C02: chọn cấu trúc theo câu hỏi, nguồn và phạm vi.
-7. X00–X05: bốn bài tập trực tiếp từ MMDS.
+7. X00–X05: bốn bài tập trực tiếp từ MMDS (Ex.4.2.1 tr.138; Ex.4.3.1–4.3.2 tr.141; Ex.4.3.3 tr.142).
 
 ## Thuật ngữ và ký hiệu
 
@@ -36,18 +36,20 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 |---|---|
 | $t$, $K(t)$ | một bộ trên dòng và khóa của bộ |
 | $a/b$ | tỷ lệ khóa cần lấy mẫu |
-| $h(K)<a$ | điều kiện chọn khi $h$ có miền $0,\ldots,b-1$ |
+| $h(K)<a$ | điều kiện chọn khi $h$ có miền $0,\ldots,b-1$; $h$ phải phân bố đều trên toàn miền để tỷ lệ $a/b$ được bảo đảm |
 | $s$ | sức chứa hồ chứa, $s\ge1$ |
-| $n$ | số vị trí đã thấy; trong cụm Bloom là số bit |
+| $n$ | số vị trí đã thấy; trong cụm Bloom là số bit của mảng (ký hiệu được dùng lại với nghĩa khác giữa hai cụm) |
 | $m$ | số khóa được đưa vào Bloom filter |
 | $k$ | số hàm băm của Bloom filter |
-| $p_{FP}$ | xác suất dương giả theo mô hình xấp xỉ |
+| $q$ | mật độ bit 1 chính xác dưới mô hình $km$ phép băm iid: $q=1-(1-1/n)^{km}$ |
+| $p_{FP}$ | xác suất dương giả; $q^k$ là xấp xỉ chuẩn và dạng mũ $(1-e^{-km/n})^k$ là xấp xỉ khi $n$ lớn |
 
 ## Kiểm kê nội dung và hình
 
 - Định nghĩa: mô hình dòng, mẫu theo khóa, mẫu hồ chứa, Bloom filter.
 - Thuật toán: `LẤY-MẪU-THEO-KHÓA`, `HỒ-CHỨA`, `XÂY-BLOOM`, `KIỂM-TRA-BLOOM`.
 - Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/n$; điều kiện không âm giả.
-- Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn và FPR xấp xỉ.
+- Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
+- Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
 - Sáu SVG tự vẽ: mô hình dòng, mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
