@@ -26,7 +26,7 @@
 - B01 dùng cụm từ tiếng Việt ngắn để chạy tay thay cho từ tiếng Anh trong Ví dụ 2.1–2.2. Quan hệ toán học và luồng cặp khóa–giá trị không đổi.
 - C01 dùng số lần xuất hiện minh họa để cho thấy bộ kết hợp giảm số cặp. Đây không phải dữ liệu đo; ghi rõ trong notes.
 - B05–B06 viết rõ điều kiện trước, điều kiện sau, trường hợp biên và bất biến từ thuật toán nguồn. Không thêm bảo đảm vượt quá mô hình nguồn.
-- R06 gộp cách trình bày ý (a) và (b), không gộp yêu cầu hoặc lời giải.
+- Hai ý 2.3.1(a) và 2.3.1(b) được tách thành hai trang dọc; dữ kiện, yêu cầu và lời giải của nguồn không đổi.
 - R01–R08 không thêm nhãn sản phẩm hoặc yêu cầu phụ ngoài giáo trình.
 
 ## Tài sản trực quan
@@ -50,7 +50,7 @@ Không có ảnh raster và không có ngoại lệ tài sản.
 - Tiêu đề thuần Việt; chỉ giữ MapReduce, Word Count, Hadoop, HDFS và Spark là tên riêng hoặc tên thuật toán cần thiết.
 - Không dùng nhịp đối lập giả, câu kết khẩu hiệu, emoji, dấu gạch ngang dài hoặc từ cường điệu.
 
-Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; cần bốn tác tử rà soát độc lập xác nhận tiếp.
+Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; các lượt rà soát độc lập được ghi theo từng chu kỳ bên dưới.
 
 ## Kiểm tra kỹ thuật bản nháp
 
@@ -59,7 +59,7 @@ Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; cần
 - [x] Kiểm tra cấu trúc section ngang/dọc.
 - [x] Kiểm tra KaTeX, đường dẫn SVG và tài nguyên cục bộ.
 - [ ] Kiểm tra hiển thị 1280 × 720 và màn hình hẹp.
-- [x] Chạy bốn rà soát độc lập và xử lý lỗi nghiêm trọng.
+- [x] Chạy đủ năm vai rà soát độc lập trong chu kỳ 2026-08-30 và xử lý lỗi nghiêm trọng.
 - [ ] Rà trực quan bằng Codex Slides hoặc ghi giới hạn công cụ.
 
 ## Báo cáo rà soát độc lập
@@ -106,15 +106,15 @@ Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; cần
 | trung bình | P01 | Mục tiêu trên trang không khớp outline | Thiếu chứng minh tính đúng và phân biệt hai quy ước chi phí | Đồng bộ mục tiêu | Đã thêm hai ý, giữ năm gạch ngắn |
 | trung bình | C05, C06 | Phần kiểm tra làm recitation thành chép lại | C05 trùng Bài 2.2.1(b); C06 lộ đáp án 2.3.1(b) | Chỉ kiểm tra cơ chế, không trình bày lời giải hoàn chỉnh | C06 đã ẩn đáp án; C05 giữ câu hỏi cơ chế nhưng không giải trường hợp bộ kết hợp |
 | trung bình | C03, D03–D04 | Ký hiệu chưa tự đủ | Người học phải dựa vào lời nói để hiểu miền ký hiệu | Định nghĩa trên mặt trang | Đã sửa |
-| nhẹ | toàn bộ | Cần xác nhận cấu trúc section | RevealJS yêu cầu phần ngoài và trang trong | Kiểm tra lại cây section | Đã kiểm tra: sáu phần ngang, mỗi trang là section dọc; mã trang không đổi |
+| nhẹ | toàn bộ | Cần xác nhận cấu trúc section | RevealJS yêu cầu phần ngoài và trang trong | Kiểm tra lại cây section | Bản hiện hành có bảy phần ngang; mỗi trang là section dọc |
 
-## Chỉnh sửa sau bốn rà soát
+## Chỉnh sửa sau các rà soát trước
 
 - Xử lý toàn bộ lỗi `chặn bàn giao` và `nghiêm trọng`.
-- Giữ nguyên đề MMDS trên mặt R01–R08; bỏ toàn bộ nhãn sản phẩm và yêu cầu phụ. Việc dịch, gộp R06 và chia trang không đổi dữ kiện hay yêu cầu toán học.
+- Giữ nguyên đề MMDS trên mặt R01–R08; bỏ toàn bộ nhãn sản phẩm và yêu cầu phụ. Việc dịch và tách hai ý R06 không đổi dữ kiện hay yêu cầu toán học.
 - Không dùng đề xuất hiển thị đáp án C06 bằng mảnh hiện dần; chuyển hẳn vào ghi chú để bản in cũng không lộ lời giải.
 - Không chọn thiết kế một lượt ở R08 làm đáp án chuẩn. Chỉ chấp nhận như phương án khác nếu người học chứng minh được tổng toàn cục.
-- Rà lại các trang ảnh hưởng và hai trang lân cận: P00–A01; B01–B05; C00–D01; D01–E00; E00–E04; R00–R08. Không đổi thứ tự hoặc mã trang; các câu nối từ ví dụ đến đặc tả, chi phí và bài tập vẫn liên tục.
+- Chu kỳ trước đã rà các trang ảnh hưởng và hai trang lân cận. Chu kỳ 2026-08-30 đổi thứ tự phần B và thêm hai mã `lec02-r06a`, `lec02-r06b`; phạm vi này được rà lại riêng bên dưới.
 - Theo yêu cầu bổ sung của người dùng, đã so sánh slide chính thức MMDS với Stanford CS246 theo từng cụm. MMDS được chọn cho động cơ, hệ tệp, Word Count, thực thi, lỗi, bộ kết hợp, phân vùng và $I+2M+O$; Stanford 50–60 và 66 được chọn cho DAG, Spark và giới hạn theo lô vì trực quan và hiện thời hơn slide MMDS v2.1. MMDS 3e kiểm chứng phần bổ sung. Không sao chép CSS, tài sản nhị phân hay hình nguồn; nội dung được Việt hóa và hình được vẽ lại.
 
 ## Tự kiểm sau chỉnh sửa
@@ -127,12 +127,105 @@ Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; cần
 - [x] Không có PageRank, phép nối, nhân ma trận, ảnh raster hoặc phụ thuộc mạng mới.
 - [x] Rà theo `no-ai-slop/eval.md`: không thêm mệnh đề ngoài nguồn; không còn lời dẫn rỗng, câu hỏi tu từ, nhịp đối lập giả, kết luận lặp hoặc từ cường điệu.
 - [x] Rà mạch theo Quill Outline Workflow mà không tạo `quill.json`: động cơ → hệ tệp → khóa–giá trị → tính đúng → bộ kết hợp → thực thi → chi phí → phạm vi → bài tập; thuật ngữ và ký hiệu truyền liên tục.
-- [x] Kiểm tra bằng Chromium headless ở 1280 × 720 và 800 × 600: 41 trang, 0 lỗi JavaScript hoặc tài nguyên, 0 trang tràn khung; đã duyệt bản ghép ảnh của toàn bộ 41 trang.
+- [x] Chu kỳ trước đã kiểm tra bằng Chromium headless ở 1280 × 720 và 800 × 600 với bản 41 trang. Kết quả này không thay thế kiểm tra hiển thị cho bản hiện hành 42 trang.
 - [x] Dự án Codex Slides bền vững `20260827135942-b-i-2-mapreduce-v-ng-n-x-p-x-l-d-li-u-l--4cwy` vẫn truy cập được và giữ đúng yêu cầu, năm học, nguồn tải lên cùng cấu hình 30 trang. Dự án đang ở bước làm rõ, có 0 trang và không có lượt chạy; phiên này không có Codex in-editor Browser để mở liên kết bàn giao, nên không tuyên bố đã rà trực quan bằng Codex Slides. Bản RevealJS cục bộ là bản đã được kiểm định hiển thị.
 
 ## Kiểm định cuối
 
-- HTML có 41 `data-slide-id` duy nhất và 41 khối ghi chú; cây có sáu phần ngang, các trang nội dung nằm ở cấp dọc.
+- HTML hiện có 42 `data-slide-id` duy nhất và 42 khối ghi chú; cây có bảy phần ngang, các trang nội dung nằm ở cấp dọc.
 - Năm SVG phân tích cú pháp XML thành công. Không có ảnh raster, tài nguyên cốt lõi từ xa hoặc liên kết tệp hỏng.
-- Tổng thời lượng ghi chú là 120 phút giảng và 60 phút bài tập. Bài tập chỉ lấy từ MMDS 2.2.1(a–c) và 2.3.1(a–d).
+- Thời lượng chỉ nằm trong outline và storyboard: 120 phút giảng, 60 phút bài tập. Bài tập chỉ lấy từ MMDS 2.2.1(a–c) và 2.3.1(a–d).
 - Kiểm tra Chromium cuối không còn cảnh báo KaTeX sau khi đổi hàm đếm từ có chữ Việt trong chế độ toán sang $f(w,d)$.
+
+## Chu kỳ rà soát 2026-08-30
+
+### Runtime và phạm vi
+
+- Một tác tử kiểm định storyboard và năm tác tử rà soát độc lập chạy qua OpenRouter. Mọi kết quả có `requested_model = z-ai/glm-5.3-flash`, `observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`.
+- Các tác tử chỉ đọc HTML, ba tệp quy trình và phần nguồn được giao. Tác tử sửa được giới hạn ở HTML cùng ba tệp quy trình của Bài 2.
+- Hai báo cáo trong thư mục tạm cảnh báo thiếu SVG và tệp trích `.txt`. Điều phối viên bác cảnh báo này sau khi kiểm tra kho thật có đủ năm SVG và các PDF gốc; tệp `.txt` chỉ là bản trích tạm để giảm phạm vi đọc, không phải học liệu bắt buộc.
+
+### Kiểm định storyboard
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | P00–R08 | Ghi chú diễn giả chứa thời lượng | Mọi notes của bản cũ kết bằng số phút | Chỉ giữ thời lượng trong outline và storyboard | Đã xóa toàn bộ tham chiếu thời lượng khỏi notes |
+| trung bình | B02–B05 | Giả mã xuất hiện trước đặc tả điều kiện trước và sau | Thứ tự cũ là B02, B03, B04, B05 | Đưa B05 lên trước B02 | Đã đổi thứ tự thành B01, B05, B02, B03, B04; giữ mã trang |
+| trung bình | E04 | Trang cuối phần giảng không thu hồi tình huống A00 | E04 cũ chỉ hỏi chọn khóa | Chuyển E04 thành kết luận | Đã thu hồi kho 400 TB, tuyến chia khối–khóa–chịu lỗi–chi phí và nối sang recitation |
+| trung bình | C05–C06 | Câu hỏi phần giảng làm sẵn hai ý recitation | C05 dùng đúng số 10/10.000; notes C06 nêu trọn trạng thái | Giữ cơ chế, hoãn lời giải cụ thể | C05 dùng tình huống trung tính; C06 chỉ giữ tiêu chí kiểm tra |
+
+### Góc nhìn sinh viên
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | B02, B04 | Giả mã dùng cỡ chữ 0,65 em | Quy tắc `pre` thấp hơn ngưỡng thân bài | Nâng lên ít nhất 0,75 em | Đã nâng lên 0,75 em |
+| trung bình | R06 | Cực đại và trung bình tranh cùng một trang | Hai bài toán thiết kế độc lập gộp trong 14 phút | Tách thành hai trang dọc | Đã tách thành `lec02-r06a` và `lec02-r06b`, giữ tổng 14 phút |
+| trung bình | E04 | Thiếu điểm chốt cho năm mục tiêu | Phần giảng kết bằng câu hỏi khóa | Thêm kết luận đối chiếu tuyến bài | Đã chuyển E04 thành kết luận |
+
+### Chuyên gia giải thuật và khoa học dữ liệu
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| trung bình | C03–C04 | `Reduce task` và `tác vụ reduce` dùng lẫn | Hai cách gọi cùng một đơn vị lập lịch | Chuẩn hóa thuật ngữ | Đã dùng nhất quán `Reduce task` |
+| trung bình | E02 | Giới hạn vòng lặp thiếu giải thích chi phí | Chỉ liệt kê kém phù hợp | Nối với việc ghi và đọc trung gian | Đã bổ sung lập luận và nối với D03 |
+| nhẹ | D03 | Hai công thức trông như hai đáp án cho cùng đại lượng | Hai thẻ đứng cạnh nhau | Nói rõ đo hai đại lượng khác nhau | Đã thêm kết luận trên mặt trang |
+
+### Độ chính xác toán học và thuật toán
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| trung bình | E02 | Truy nguyên đặc tính hệ tệp sai trang | Notes cũ dẫn trang in 30–31 thay vì mục 2.1 | Dẫn trang in 21–24 | Đã sửa nguồn trong notes |
+| nhẹ | A00 | Khoảng bốn tháng không bao phủ tốc độ 30 MB/giây | Phép tính cho khoảng 4,4–5,1 tháng | Ghi 4–5 tháng | Đã sửa mặt trang và notes |
+| nhẹ | R06 | Biên tệp rỗng chưa nói rõ | Cực đại và trung bình không xác định | Ghi trong hướng dẫn chấm | Đã bổ sung ở hai trang tách |
+
+### Phản biện học thuật và giảng dạy
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| trung bình | B06 | Mệnh đề và giả thiết chỉ nằm trong notes | Mặt trang cũ chỉ có bốn bước | Đưa mệnh đề và giả thiết lên mặt trang | Đã sửa B06 |
+| trung bình | C02 | Điều kiện kết hợp, giao hoán thiếu cầu nối | Chưa nói thứ tự giá trị có thể thay đổi | Thêm lý do và phản ví dụ | Đã thêm lý do trên mặt trang, phản ví dụ trong notes |
+| trung bình | D00 | Điều kiện chạy lại thiếu ví dụ đối lập | Chưa thấy hiệu ứng ngoài làm sai | Thêm ví dụ ghi trùng hoặc gửi lại | Đã thêm trong notes và ghi sai khác so với nguồn |
+
+### Kết nối và mạch viết
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | E04 | Vai trò kết luận chưa được thực hiện; kết nối vào từ E03 có nhưng không có kết nối ra thu hồi A00 | Trang cũ chỉ kiểm tra khóa, không nhắc kho 400 TB | Biến E04 thành kết luận; kết nối vào từ khuôn E03, kết nối ra sang R00 | Đã sửa và rà lại E02–R01 |
+| trung bình | D05–E00 | Ranh giới từ chi phí job sang ngăn xếp đột ngột | Câu nối chỉ có trong storyboard | Thêm câu chuyển trong notes D05 | Đã sửa |
+| nhẹ | B03–C03 | C03 lặp bảo đảm nhóm ở B03 | Chưa nói vai trò hình thức hóa | Gọi lại B03 trước công thức phân vùng | Đã sửa C03 |
+
+### Quyết định sau hợp nhất
+
+- Đã xử lý mọi phát hiện `chặn bàn giao` và `nghiêm trọng` hợp lệ. Cảnh báo thiếu tài sản do phạm vi thư mục tạm không được áp dụng.
+- Không thêm trang kết luận mới; E04 được chuyển chức năng để giữ 7 mạch ngoài và tránh tăng nhịp phần giảng.
+- Không đưa lời giải đầy đủ của câu hỏi trung bình vào notes C06; lời giải và hướng dẫn chấm vẫn nằm ở `lec02-r06b` theo đúng nguồn recitation.
+- Không thêm caveat về cách Hadoop tùy chọn chạy combiner lên mặt trang vì bài dạy mô hình MMDS, không dạy API Hadoop. Nếu giảng viên cần nêu khác biệt cài đặt, dùng như lưu ý ngoài phạm vi.
+
+### Trạng thái sau sửa
+
+- Bản hiện hành có 42 trang, 42 notes và 7 section ngoài. Năm SVG cục bộ vẫn được tham chiếu đúng; không có ảnh raster.
+- `no-ai-slop`: đã cắt thời lượng, nhãn quy trình và lời dẫn rỗng khỏi notes; tiêu đề và câu nối giữ tiếng Việt ngắn, trực tiếp.
+- Quill được dùng ở mức rà liên tục: đặc tả đi trước giả mã; thuật ngữ `Reduce task`, các ký hiệu $h,r,p(k),I,M,O$ và tuyến A00–E04 nhất quán; không tạo `quill.json`.
+- Codex Slides Browser không khả dụng trong bề mặt làm việc hiện tại. Chưa tuyên bố rà trực quan bằng Codex Slides cho chu kỳ này. Kiểm định kỹ thuật và hiển thị của bản 42 trang phải được chạy sau bước sửa.
+
+### Rà lại sau chỉnh sửa cấu trúc
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| trung bình | D05–E00 | Notes D05 chưa thực hiện câu nối đã ghi trong nhật ký | D05 chỉ chốt chi phí lỗi | Nối giới hạn chuỗi job sang ngăn xếp | Đã bổ sung trong notes D05 |
+| trung bình | E02 | Truy nguyên hệ tệp còn dẫn trang in 30–31 | Hệ tệp thuộc MMDS mục 2.1 | Sửa thành trang in 21–24 | Đã sửa notes E02 |
+| trung bình | C02 | Phản ví dụ nói sai rằng phép trừ có tính kết hợp | $(a-b)-c \ne a-(b-c)$ | Nêu phép trừ không kết hợp, không giao hoán | Đã sửa |
+| trung bình | C05 | Câu hỏi cũ hàm ý tăng số Reduce task giảm tải của một khóa lớn | Một khóa vẫn về đúng một Reduce task | Tách rõ trung bình hóa trong task và linh hoạt lập lịch | Đã sửa mặt trang và giữ lời giải cơ chế trong notes |
+| nhẹ | B05, C06 | Hai ranh giới B01–B05 và C06–D00 còn mờ | Notes chưa gọi lại vết chạy hoặc phần kế | Thêm câu nối | Đã bổ sung |
+| nhẹ | B06 | Giả thiết dùng `reducer` thay cho đơn vị lập lịch `Reduce task` | B03 và C04 đã phân biệt hai khái niệm | Chuẩn hóa thuật ngữ | Đã sửa |
+
+Rà lại mạch xác nhận đủ 7 section ngoài, 42 trang, mở đầu P, kết luận E04 và phần recitation R; không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Rà lại độ chính xác xác nhận A00, B05–B07, D03–D04, các biên ở hai trang R06 mới và luồng khóa–giá trị R07–R08 đúng sau các sửa trên.
+
+### Kiểm định kỹ thuật cuối chu kỳ
+
+- Lệnh `python3 -m reloadserver 8765` không khả dụng vì môi trường không cài mô-đun `reloadserver`; dùng cùng triển khai cục bộ `/tmp/reloadserver.py` với đối số vị trí `8765` từ thư mục gốc kho. URL kiểm tra: `http://localhost:8765/2627-1/lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html`.
+- Chromium headless duyệt đủ 42 trang tại 1280 × 720 và 800 × 600: không tràn ngang hoặc dọc, không lỗi JavaScript, không lỗi trang và không yêu cầu tài nguyên thất bại. Ảnh kiểm B06 và E04 được xem trực tiếp ở cả hai kích thước.
+- Kiểm tra tĩnh xác nhận 42 mã trang duy nhất, 42 khối notes, 7 section ngoài và 15 tham chiếu tệp cục bộ đều tồn tại. Năm SVG có `role="img"`, `title` và `desc`; không có ảnh raster.
+- `2627-1/index.html` đã có liên kết duy nhất tới HTML Bài 2; không cần sửa danh mục trong chu kỳ này.
+- Runtime Codex Slides cục bộ chỉ khởi động được ngoài sandbox do lỗi `listen EPERM` ở cổng 4311. Lệnh đọc dự án xác nhận dự án bền vững còn ở trạng thái `draft`, giai đoạn `clarify`, 0 trang và 0 outline; không có bản render để đối chiếu. Codex Slides Browser không khả dụng, vì vậy không tuyên bố rà trực quan bằng Codex Slides và không tải bản HTML hiện hành lên dịch vụ.
+- Lượt rà lại cuối bằng OpenRouter xác nhận không còn lỗi trung bình hoặc nghiêm trọng ở B05–B06, C02, C05–D00 và D05–E02. Sau đó chỉ thay mã nội bộ trong lời nói bằng mô tả khái niệm; kiểm thử Chromium được chạy lại và vẫn đạt.

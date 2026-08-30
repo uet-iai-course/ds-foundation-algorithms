@@ -24,7 +24,7 @@ Phần giảng dài 120 phút. Phần bài tập trong cùng HTML dài 60 phút,
 |---|---|---|---:|
 | Mở đầu | P00–P01 | Vị trí bài và sản phẩm học tập | 5 phút |
 | Đưa tính toán đến dữ liệu | A00–A03 | Kho tài liệu lớn, hệ tệp phân tán, chia trách nhiệm, đặc tả đầu ra | 15 phút |
-| Luồng khóa–giá trị | B00–B07 | Ví dụ Word Count, map, nhóm khóa, reduce, đặc tả, tính đúng, kiểm tra | 31 phút |
+| Luồng khóa–giá trị | B00, B01, B05, B02, B03, B04, B06, B07 | Ví dụ Word Count, đặc tả, map, nhóm khóa, reduce, tính đúng, kiểm tra | 31 phút |
 | Giảm dữ liệu trung gian | C00–C06 | Bộ kết hợp, điều kiện đại số, phân vùng, lệch tải, số tác vụ | 27 phút |
 | Thực thi khi máy hỏng | D00–D05 | Điều phối, khôi phục, hai quy ước chi phí, tác động của bộ kết hợp | 23 phút |
 | Ngăn xếp dữ liệu | E00–E04 | Các tầng phần mềm, phạm vi phù hợp, khuôn đặc tả, kiểm tra lựa chọn | 19 phút |
@@ -38,12 +38,13 @@ Phần giảng dài 120 phút. Phần bài tập trong cùng HTML dài 60 phút,
 | Lệch reducer khi không có bộ kết hợp | R02 | MMDS Bài 2.2.1(a), trang in 30, PDF trang 11 | 8 phút | Lời giải ý (a) |
 | So sánh 10 và 10.000 Reduce task | R03 | MMDS Bài 2.2.1(b), trang in 30, PDF trang 11 | 11 phút | Lời giải ý (b) |
 | Lệch tải với 100 bộ kết hợp | R04 | MMDS Bài 2.2.1(c), trang in 30, PDF trang 11 | 9 phút | Lời giải ý (c) |
-| Thiết kế cực đại và trung bình | R06 | MMDS Bài 2.3.1(a–b), trang in 40, PDF trang 21 | 14 phút | Lời giải hai ý (a–b) |
+| Thiết kế cực đại | lec02-r06a | MMDS Bài 2.3.1(a), trang in 40, PDF trang 21 | 6 phút | Lời giải ý (a) |
+| Thiết kế trung bình | lec02-r06b | MMDS Bài 2.3.1(b), trang in 40, PDF trang 21 | 8 phút | Lời giải ý (b) |
 | Loại bản sao | R07 | MMDS Bài 2.3.1(c), trang in 40, PDF trang 21 | 6 phút | Lời giải ý (c) |
 | Đếm số giá trị phân biệt | R08 | MMDS Bài 2.3.1(d), trang in 40, PDF trang 21 | 8 phút | Hai lượt MapReduce |
 | **Tổng** |  |  | **60 phút** |  |
 
-R00 và R05 là trang chuyển phần hoặc nêu nguyên văn phạm vi bài, không tính thời lượng. R01 dành 4 phút giao việc. Mặt trang R01–R08 chỉ giữ nội dung bài MMDS đã dịch; hướng dẫn tổ chức và chấm nằm trong ghi chú diễn giả.
+R00 và R05 là trang chuyển phần hoặc nêu nguyên văn phạm vi bài, không tính thời lượng. R01 dành 4 phút giao việc. Mặt trang R01–R08 chỉ giữ nội dung bài MMDS đã dịch; hướng dẫn tổ chức và chấm nằm trong ghi chú diễn giả. R06 được tách thành hai trang dọc lec02-r06a (6 phút) và lec02-r06b (8 phút); tổng phần bài tập vẫn 60 phút.
 
 ## Ánh xạ nguồn
 
@@ -66,7 +67,7 @@ MMDS 3e Chương 2 và bộ trang chiếu chính thức MMDS Chương 2 là ngu�
 | Stanford CS246, trang chiếu 50–60 và 66 | DAG, Spark và giới hạn của MapReduce theo lô | E00–E02 |
 | MMDS 3e, mục 2.5.1, trang in 53–55 | Chi phí truyền thông là tổng kích thước đầu vào tác vụ | D03–D04 |
 | MMDS 3e, Bài 2.2.1, trang in 30, PDF trang 11 | Toàn bộ bài tập lệch tải | R01–R04 |
-| MMDS 3e, Bài 2.3.1, trang in 40, PDF trang 21 | Toàn bộ bài tập thiết kế | R05–R08 |
+| MMDS 3e, Bài 2.3.1, trang in 40, PDF trang 21 | Toàn bộ bài tập thiết kế | R05–R08, lec02-r06a, lec02-r06b |
 
 Không dùng bộ trang chiếu chính thức MMDS trang chiếu 36–37 vì chứa phép nối, hoặc 43–48 vì mô tả phần mềm Hadoop cũ và tài liệu lịch sử ngoài mục tiêu. Không dùng các mục MMDS 2.3.1–2.3.10 về nhân ma trận và đại số quan hệ. Bài tập 2.3.1 chỉ được dùng trong phần recitation theo chỉ định.
 
@@ -102,7 +103,7 @@ Mỗi lần xuất hiện của $w$ tạo đúng một giá trị 1. Bảo đả
 | Thuật ngữ hoặc ký hiệu | Nghĩa dùng trong bài |
 |---|---|
 | map, reduce, MapReduce | Tên thao tác và mô hình thuật toán đã ổn định; giữ nguyên tiếng Anh |
-| Map task, Reduce task | Đơn vị lập lịch; phân biệt với một lần gọi mapper hoặc reducer |
+| Map task, Reduce task | Đơn vị lập lịch; phân biệt với một lần gọi mapper hoặc reducer. Bài dùng nhất quán "Reduce task", không dùng "tác vụ reduce" |
 | bộ kết hợp | Combiner; phép tổng hợp cục bộ trước khi chuyển dữ liệu |
 | nhóm theo khóa | Group by key; gồm phân vùng, trộn và sắp theo mô hình nguồn |
 | lệch tải | Skew; chênh lệch khối lượng xử lý giữa reducer hoặc tác vụ |
