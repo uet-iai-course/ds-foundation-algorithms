@@ -1,7 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="410" viewBox="0 0 1050 410" role="img" aria-label="Tăng trọng số lá A và các nút tổ tiên tới gốc trong cây Huffman thích nghi" aria-labelledby="title desc">
-  <title id="title">Tăng trọng số dọc đường lên gốc</title><desc id="desc">Lá A tăng từ một lên hai, sau đó các nút tổ tiên lần lượt tăng một; danh sách nút vẫn được xét theo trọng số không giảm và các cặp anh em đứng kề nhau.</desc>
-  <defs><style>.e{stroke:#455a64;stroke-width:4}.n{fill:#fff;stroke:#2f3e7a;stroke-width:3}.u{fill:#f7efe6;stroke:#b15a2b;stroke-width:4}.t{font:24px sans-serif;fill:#263238}.h{font:bold 24px sans-serif;fill:#b15a2b}</style></defs>
-  <path class="e" d="M520 55L350 145M520 55L690 145M350 145L270 250M350 145L430 250M690 145L610 250M690 145L770 250"/>
-  <g text-anchor="middle"><circle class="u" cx="270" cy="250" r="48"/><text class="h" x="270" y="244">A</text><text class="h" x="270" y="275">1→2</text><circle class="n" cx="430" cy="250" r="45"/><text class="t" x="430" y="258">B:2</text><circle class="n" cx="610" cy="250" r="45"/><text class="t" x="610" y="258">C:2</text><circle class="n" cx="770" cy="250" r="45"/><text class="t" x="770" y="258">D:2</text><circle class="u" cx="350" cy="145" r="43"/><text class="h" x="350" y="153">3→4</text><circle class="n" cx="690" cy="145" r="43"/><text class="t" x="690" y="153">4</text><circle class="u" cx="520" cy="55" r="45"/><text class="h" x="520" y="63">7→8</text></g>
-  <text class="t" x="105" y="350">Cập nhật một đường: lá A → cha → gốc.</text><text class="t" x="105" y="385">Trước mỗi lần tăng, kiểm tra thứ tự trọng số.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="440" viewBox="0 0 1050 440" role="img" aria-label="Toàn bộ cây ở Hình 4.2: tăng A rồi các tổ tiên đến gốc, trong khi nhánh E được giữ nguyên" aria-labelledby="title desc">
+  <title id="title">Tăng trọng số dọc đường từ A đến gốc</title>
+  <desc id="desc">Cây có các lá A, B, C, D trọng số hai và E trọng số mười. Đường cập nhật đi qua A số một, nút năm, nút bảy và gốc số chín; nút sáu và E không đổi.</desc>
+  <defs><style>.e{stroke:#455a64;stroke-width:4;fill:none}.n{fill:#fff;stroke:#2f3e7a;stroke-width:3}.u{fill:#f7efe6;stroke:#b15a2b;stroke-width:4}.t{font:22px sans-serif;fill:#263238}.h{font:bold 22px sans-serif;fill:#8a431f}.a{stroke:#b15a2b;stroke-width:4;fill:none;marker-end:url(#m)}</style><marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#b15a2b"/></marker></defs>
+  <path class="e" d="M535 55L420 135M535 55L815 135M420 135L300 225M420 135L540 225M300 225L235 330M300 225L365 330M540 225L475 330M540 225L605 330"/>
+  <path class="a" d="M185 352Q185 255 270 232M275 205Q330 155 385 142M455 118Q485 80 512 66"/>
+  <g text-anchor="middle">
+    <circle class="u" cx="535" cy="55" r="43"/><text class="h" x="535" y="51">17→18</text><text class="h" x="535" y="78">#9</text>
+    <circle class="u" cx="420" cy="135" r="41"/><text class="h" x="420" y="131">7→8</text><text class="h" x="420" y="158">#7</text>
+    <circle class="n" cx="815" cy="135" r="41"/><text class="t" x="815" y="131">E:10</text><text class="t" x="815" y="158">#8</text>
+    <circle class="u" cx="300" cy="225" r="41"/><text class="h" x="300" y="221">3→4</text><text class="h" x="300" y="248">#5</text>
+    <circle class="n" cx="540" cy="225" r="41"/><text class="t" x="540" y="221">4</text><text class="t" x="540" y="248">#6</text>
+    <circle class="u" cx="235" cy="330" r="39"/><text class="h" x="235" y="326">A:1→2</text><text class="h" x="235" y="353">#1</text>
+    <circle class="n" cx="365" cy="330" r="39"/><text class="t" x="365" y="326">B:2</text><text class="t" x="365" y="353">#2</text>
+    <circle class="n" cx="475" cy="330" r="39"/><text class="t" x="475" y="326">C:2</text><text class="t" x="475" y="353">#3</text>
+    <circle class="n" cx="605" cy="330" r="39"/><text class="t" x="605" y="326">D:2</text><text class="t" x="605" y="353">#4</text>
+  </g>
+  <text class="t" x="120" y="420">Đường màu nâu được tăng; nút #6 và nhánh E giữ nguyên.</text>
 </svg>
