@@ -7,7 +7,7 @@ Sau buổi học, sinh viên có thể:
 - giải thích vì sao quét mọi cặp không phù hợp ở quy mô của MMDS Ví dụ 3.10;
 - thiết kế phép phân dải trên chữ ký MinHash, tính xác suất cặp trở thành ứng viên và chọn $b,r$;
 - đặc tả thuật toán tạo ứng viên, bất biến, chi phí thời gian, bộ nhớ và đối chiếu hậu kỳ;
-- phát biểu đúng họ băm nhạy cảm cục bộ (LSH), khuếch đại AND/OR và áp dụng cho Hamming, cosin, Euclid;
+- phát biểu đúng họ băm nhạy cảm cục bộ (LSH), khuếch đại AND/OR, đồng thời giải thích và so sánh điều kiện của các họ Hamming, cosin, Euclid;
 - phân tích mô hình băm vân tay trong MMDS và phân biệt số liệu mô hình với bằng chứng thực nghiệm.
 
 Phần cốt lõi: MMDS §§3.4, 3.6–3.8. Không gồm HNSW, lượng tử hóa tích (PQ) hoặc nội dung Bài 7.
@@ -44,10 +44,10 @@ Sáu mạch giảng tương ứng sáu `<section>` ngoài. Bảng tách hai mạ
 |---|---:|---:|---|
 | Mở bài (tình huống + bài toán) | P00–M02 | 12 | Vào từ Bài 5 (chữ ký MinHash); nêu nút thắt $\binom N2$ và bài toán đầu vào/đầu ra; ra vào mạch phân dải. |
 | Phân dải | B00–B06 | 23 | Tạo khóa dải đầy đủ và tập ứng viên; vào từ bài toán lọc, ra vào mạch xác suất qua câu hỏi biên B06. |
-| Xác suất và ngưỡng | Q00–Q06 | 21 | Suy ra $q(s)$, $s_{1/2}$ và chọn $b,r$; vào từ điều kiện phân dải, ra vào mạch thuật toán qua chi phí ứng viên. |
+| Xác suất và ngưỡng | Q00–Q06 | 21 | Suy ra $q(s)$, $s_{1/2}$ và quyết định hướng chọn $b,r$ khi $p$ cố định; vào từ điều kiện phân dải, ra vào mạch thuật toán qua chi phí ứng viên. |
 | Thuật toán tạo ứng viên | A00–A05 | 20 | Trực giác, vết chạy, đặc tả, bất biến, chi phí và bộ nhớ; vào từ $q(s)$, ra vào mạch họ LSH khi cần ngôn ngữ chung. |
 | Họ LSH và khuếch đại | F00–F05 | 18 | Phát biểu họ LSH và phân biệt AND/OR; vào từ phân dải MinHash, ra vào mạch ba độ đo. |
-| Ba độ đo | D00–D04 | 16 | Chọn họ băm đúng cho Hamming, cosin, Euclid; vào từ định nghĩa họ LSH, ra vào ví dụ mô hình vân tay. |
+| Ba độ đo | D00–D04 | 16 | Giải thích và so sánh điều kiện của các họ Hamming, cosin, Euclid; vào từ định nghĩa họ LSH, ra vào ví dụ mô hình vân tay dùng phép ghép OR–AND. |
 | Vân tay | V00–V01 | 8 | Nhận diện hai tầng khuếch đại trong mô hình nguồn; vào từ AND/OR, ra vào kết luận. |
 | Kết luận | C00 | 2 | Gom ba quyết định thiết kế; vào từ toàn bộ mạch, ra sang Bài 7. |
 
@@ -67,8 +67,8 @@ R00 chỉ mở phần, không tính thời lượng; hướng dẫn nhóm làm b
 
 | Cụm đích | Nguồn chính | Quyết định |
 |---|---|---|
-| P01–Q06 | MMDS sách tr. 92–96; slide MMDS tr. 40–59 | giữ ví dụ, phân dải và công thức; sửa lỗi slide ghi $0.3\%$ thành $0.3=30\%$; thay xấp xỉ ngưỡng bằng dạng có $\ln 2$ |
-| A00–A05 | MMDS §§3.4.1, 3.4.3; Bài tập 3.4.4 | đặt luồng và vết chạy trước đặc tả; tách bất biến giai đoạn sinh cặp; nêu chi phí, bộ nhớ và đối chiếu nhưng giữ thiết kế hai công việc cho recitation |
+| P01–Q06 | MMDS sách tr. 92–96; slide MMDS tr. 40–59 | giữ ví dụ, phân dải và công thức; sửa lỗi slide ghi $0.3\%$ thành $0.3=30\%$; chuyển khai triển ngưỡng có $\ln 2$ vào notes để Q06 tập trung vào quyết định $b,r$ |
+| A00–A05 | MMDS §§3.4.1, 3.4.3; Bài tập 3.4.4 | đặt luồng và vết chạy trước đặc tả; tách bất biến giai đoạn sinh cặp; phân biệt bộ nhớ phụ trợ với lưu đầu vào, số bản ghi trung gian $bN+A$ với dung lượng $\Theta(pN+A)$, nhưng giữ thiết kế hai công việc cho recitation |
 | F00–F05 | Stanford CS246 04, cụm LSH/khuếch đại; kiểm chứng MMDS §§3.6.1–3.6.3 | dùng cách trình bày phân tầng của Stanford; thêm MMDS Ví dụ 3.18 trước định nghĩa; dùng $\rho$ cho xác suất; không phát biểu vùng giữa hoặc lộ chuỗi của Bài tập 3.6.1 |
 | D00–D04 | MMDS §§3.7.1–3.7.2, 3.7.4–3.7.5; Stanford CS246 04; Datar et al. 2004 | giữ Hamming; nêu điều kiện chính xác của siêu phẳng cosin; dùng $u\sim U[0,a)$ và phát biểu xác suất Euclid có điều kiện theo hướng chiếu |
 | V00–V01 | MMDS §§3.8.4–3.8.5 | giữ mô hình, tách ngăn “có” và ngăn đơn “không”; chỉ nêu hướng đánh đổi, dành phép tính cho Bài tập 3.8.2 |

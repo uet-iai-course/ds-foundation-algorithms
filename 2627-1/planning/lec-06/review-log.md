@@ -12,7 +12,7 @@
 - Ví dụ vân tay được gọi là phép tính trong mô hình MMDS, dựa trên giả thiết độc lập; không mô tả là kết quả thực nghiệm hiện thời. Kết quả “không” đi vào ngăn đơn riêng, không vào một ngăn “không” chung.
 - Không tuyên bố diện tích dưới đường cong chữ S là tỷ lệ lỗi của kho dữ liệu; đó chỉ là xác suất có điều kiện theo một cặp có độ tương đồng $s$.
 - Không tuyên bố thời gian $O(1)$ hay $O(N)$ nếu thiếu mô hình ngăn. Chi phí ghi theo $A=\sum_B\binom{|B|}{2}$ và trường hợp xấu $\Theta(bN^2)$.
-- B06 không tuyên bố đơn điệu chung của $q(s)$ theo $r$; trang nói đánh đổi theo ngưỡng $\tau$ và dành định lượng $q(s)$ cho phần xác suất.
+- Với $p=br$ cố định, tăng $r$ và giảm $b$ làm $q(s)$ giảm với mọi $0<s<1$: va chạm sai giảm nhưng xác suất bỏ sót tăng ở mọi mức tương đồng chưa bằng 1.
 
 ## Sai khác có chủ ý
 
@@ -42,10 +42,76 @@
 - **Planner:** tái cấu trúc thành 7 section ngoài kể cả recitation theo quyết định điều phối; outline mô tả 6 mạch giảng + recitation với chức năng và kết nối vào–ra, tổng 120 + 60 phút, kết luận C00 là section riêng. Quyết định: **sửa** outline và HTML.
 - **Source analysis:** bổ sung phạm vi nguồn §§3.6–3.8; F01 thống nhất trích dẫn “MMDS §3.6.2, Ví dụ 3.18, trang 105” trong HTML và storyboard; D03 giữ Gaussian là trường hợp L2 của họ phân phối ổn định, không thêm công thức Datar ngoài nguồn đã có. Quyết định: **sửa**.
 - **Storyboard audit:** khai báo chu trình F rút gọn ở D00–D04 và V00–V01 vì là khung tổng quát đã dựng ở F00–F05 và chi phí đã ở A05; bổ sung hành trình mở bài/kết luận với đầu vào–ra; sửa tuyên bố “P01 được dùng lại ở A05” thành ghi chú phân vai (P01 mở tình huống, A05 định lượng chi phí). Quyết định: **sửa** storyboard.
-- **Rà mạch (Quill):** B01 trả lời rõ câu hỏi B00; A02 ghi rõ là ví dụ nhỏ khác ví dụ B02; P01 notes tách phép tính thành các câu ngắn; D00 đổi “cùng khoảng chiếu” thành “cùng ngăn chiếu độ rộng $a$”; Q02 notes đổi “gần 1/3000” thành “gần 1/2800”; Q06 dùng ≈0.047 hoặc 0.0475 và giữ ghi nhận lỗi slide MMDS trang 50 đã được điều phối viên xác minh trực tiếp; B06 không tuyên bố đơn điệu chung, nói theo ngưỡng/đánh đổi và dành $q(s)$ cho phần Q; V01 không nêu 0.2/0.8 trên mặt trang, chỉ nói “giả thiết mô hình của sách”; R00 thêm hướng dẫn làm trước rồi mới mở notes; A05/R00 nối MapReduce Bài 2 với recitation. Quyết định: **sửa** HTML.
+- **Rà mạch (Quill):** B01 trả lời rõ câu hỏi B00; A02 ghi rõ là ví dụ nhỏ khác ví dụ B02; P01 notes tách phép tính thành các câu ngắn; D00 đổi “cùng khoảng chiếu” thành “cùng ngăn chiếu độ rộng $a$”; Q02 notes đổi “gần 1/3000” thành “gần 1/2800”; Q06 dùng ≈0.047 hoặc 0.0475 và giữ ghi nhận lỗi slide MMDS trang 50 đã được điều phối viên xác minh trực tiếp; B06 dành định lượng $q(s)$ cho phần Q; V01 không nêu 0.2/0.8 trên mặt trang, chỉ nói “giả thiết mô hình của sách”; R00 thêm hướng dẫn làm trước rồi mới mở notes; A05/R00 nối MapReduce Bài 2 với recitation. Quyết định: **sửa** HTML. Mệnh đề đơn điệu của B06 được hiệu chỉnh ở lượt rà toán sau.
 - **Kiểm định kỹ thuật:** đồng bộ khoa-band.svg với B02 $r=2$: D1, D2 (4,1), D3 (4,9), khóa (2,(4,1)); sửa desc and-or.svg thành “một trừ (một trừ rho) mũ b”; đổi title euclid-dich.svg từ “Bucket” thành “Ngăn”; xóa thời lượng khỏi notes R04, R06, R09 (thời lượng chỉ ở storyboard). Quyết định: **sửa** SVG và HTML. Bác đề xuất thêm Jaccard distance, HNSW, PQ ngoài phạm vi.
 
-## Metadata
+## Năm báo cáo độc lập của vòng rà hoàn tất
+
+### Góc nhìn sinh viên
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|
+| nghiêm trọng | D00–D04 | Mục tiêu nói “áp dụng” ba họ nhưng cụm chỉ giải thích điều kiện và không có bài tập đánh giá. | Phần bài tập chỉ kiểm tra MapReduce, AND/OR và vân tay. | Hạ mục tiêu về “giải thích và so sánh điều kiện”; **đã sửa** outline và storyboard, giữ đúng sản phẩm học tập trong `sources/source.md`. |
+| trung bình | M01, B/A | Ký hiệu tập $C_i$, cột $D_i$ và tập ứng viên $C$ dễ lẫn. | Ba vai trò khác nhau dùng chữ gần nhau. | **Giữ** ký hiệu nguồn nhưng ghi rõ $C$ là tập cặp ở M00/B03 và dùng $D_i$ nhất quán trong ví dụ; không đổi ký hiệu sẽ gây sai ánh xạ nguồn. |
+| trung bình | Q05–Q06 | Khai triển ngưỡng nửa chiếm tải nhưng chưa hỗ trợ trực tiếp một quyết định tham số. | Q06 chỉ kiểm tra lại giá trị $q(0.3)$, chưa buộc chọn hướng đổi $b,r$. | Chuyển khai triển lớn-$b$ vào notes; Q06 yêu cầu quyết định tăng $r$/giảm $b$ với $p$ cố định và nêu cái giá; **đã sửa**. |
+| trung bình | A05 | Một trang đồng thời chứa nhiều cận thời gian, bộ nhớ, hậu kiểm và câu hỏi MapReduce. | Thân trang có hai biến thể bộ nhớ cùng bốn cận. | Giữ cận quyết định trên mặt trang, chuyển cận kỳ vọng và vật hóa khóa vào notes; **đã sửa**. |
+| trung bình | A05, R00–R04 | Hợp đồng MapReduce của Bài 2 được nhắc quá ngắn. | R01 đi thẳng vào hai công việc. | R00 tái kích hoạt map → trộn/nhóm → reduce; notes A05 nêu số bản ghi và dung lượng trung gian; **đã sửa**. |
+| nhẹ | R05–R06 | Công thức lồng AND/OR khó theo dõi nếu chỉ viết biểu thức cuối. | Chuỗi (d) có bốn phép biến đổi. | Yêu cầu ghi giá trị trung gian và dùng $z_1,z_2,z_3$ trong đáp án; **đã sửa**. |
+
+### Chuyên gia giải thuật và khoa học dữ liệu
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|
+| trung bình | D00–D04 | Ba họ độ đo chưa khép vòng từ điều kiện va chạm tới quyết định AND/OR. | Cụm dừng ở bảng điều kiện; không có kiểm tra chọn cấu hình riêng. | Hạ mục tiêu “áp dụng”; D04 nối các va chạm cơ sở sang OR–AND ở V00–V01; **đã sửa**. |
+| trung bình | A05, R00–R04 | Phân tích hệ thống thiếu chi phí truyền thông trung gian. | Chỉ có thời gian cục bộ và bộ nhớ. | Notes A05 phân biệt $bN+A$ bản ghi với $\Theta(pN+A)$ từ truyền; khóa rút gọn vẫn phải đối chiếu vector đầy đủ; **đã sửa**. |
+| trung bình | Q06, recitation | Mục tiêu chọn $b,r$ chưa được đánh giá trực tiếp. | Không bài tập nguồn nào yêu cầu một cặp số mới. | Không bịa dữ kiện; biến Q06 thành kiểm tra quyết định hướng đổi $b,r$ từ chính công thức $q(s)$; **đã sửa**. |
+| nhẹ | Q00–V01 | Phần cuối dày nếu tiếp tục giữ động từ “áp dụng” cho ba họ. | F, D và V chiếm phần cuối của 120 phút. | Dùng động từ “giải thích và so sánh điều kiện”, giữ chu trình rút gọn; **đã sửa**. |
+
+### Độ chính xác toán học và thuật toán
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|
+| trung bình | M01 | Phân bố đều của một hàm băm không đủ cho đẳng thức MinHash. | Đẳng thức chính xác cần hoán vị ngẫu nhiên đều hoặc tính chất minwise phù hợp. | Nêu đúng hoán vị ngẫu nhiên đều và tách họ băm thực hành; **đã sửa**. |
+| trung bình | A05 | $O(bN+|C|)$ chưa được gắn nhãn bộ nhớ phụ trợ. | Lưu đầu vào $\Sigma$ đã cần $\Theta(pN)$. | Gắn nhãn bộ nhớ phụ trợ và ghi riêng lưu đầu vào; **đã sửa**. |
+| trung bình | R07 | “Mỗi hàm chọn ba ô độc lập” không đủ để biện minh các tích xác suất. | Phép tính dùng độc lập giữa ba ô, giữa hai dấu khác ngón và giữa các phép băm ở tầng OR/AND. | Phát biểu từng lớp độc lập trên mặt trang và notes; **đã sửa**. |
+| nhẹ | D02 | Pháp tuyến $\{\pm1\}^m$ dễ bị hiểu là cho cùng đẳng thức góc. | Phân phối này không bất biến quay trong trường hợp tổng quát. | Nêu không có đẳng thức tổng quát, chỉ là cách xấp xỉ thực dụng dưới giả thiết; **đã sửa**. |
+| nhẹ | D01, D03 | Miền tham số chưa hiện đủ. | Hamming cần $0\le d_1<d_2\le m$; Euclid cần $a>0$. | Bổ sung miền trong notes D01 và trên mặt D03–D04; **đã sửa**. |
+
+### Phản biện học thuật và giảng dạy
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|
+| nghiêm trọng | Q06 | Mục tiêu chọn $b,r$ chưa được người học thực hiện. | Câu hỏi cũ chỉ yêu cầu nhận ra $q(0.3)$. | Thay bằng quyết định hướng tăng $r$/giảm $b$ với $p$ cố định và yêu cầu nêu cái giá; **đã sửa**. |
+| trung bình | D03–D04 | Công thức Euclid xuất hiện mà không có vết chạy riêng. | Cụm độ đo là chu trình rút gọn, thời lượng không dành cho một ví dụ số mới. | **Không thêm dữ kiện** ngoài nguồn; giữ hình chiếu–ngăn làm trực giác, nêu rõ lý do chu trình rút gọn trong storyboard và hạ mục tiêu khỏi “áp dụng”. |
+| trung bình | D04→V00 | Chuyển từ điều kiện ba họ sang vân tay đột ngột. | Không có câu nối cho vai trò OR–AND. | Notes D04 nối phép va chạm cơ sở sang ghép OR–AND ở mô hình vân tay; storyboard ghi đầu ra D04 → V00; **đã sửa**. |
+| trung bình | R05–R06 | Ký hiệu $s$ đổi vai so với $\rho$ trong phần giảng. | F03–F05 dùng $\rho$ cho xác suất va chạm. | Đổi toàn bộ R05–R06 sang $\rho$; **đã sửa**. |
+| nhẹ | R00–R01 | Tiên quyết MapReduce chưa được khôi phục trước nhiệm vụ thiết kế. | Bài tập bắt đầu bằng khóa–giá trị của hai công việc. | R00 nhắc lại hợp đồng map → trộn/nhóm → reduce; **đã sửa**. |
+
+### Kết nối và mạch viết
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|
+| trung bình | P02 | Vai trò trong mạch: báo hành trình; kết nối vào: nút thắt P01; kết nối ra: M00. Trang chưa báo phần họ LSH, độ đo và vân tay. | Ba thẻ cũ chỉ có lọc, định lượng, đối chiếu. | Thêm chặng “Tổng quát” bao gồm họ LSH, AND/OR và ba độ đo; **đã sửa**. |
+| trung bình | D04→V00 | Vai trò trong mạch: D04 chốt điều kiện, V00 mở ví dụ; kết nối vào đúng nhưng kết nối ra chưa có. | Hai trang không giải thích vì sao vân tay theo sau ba độ đo. | Thêm câu nối phép va chạm cơ sở → OR–AND trong notes D04 và storyboard; **đã sửa**. |
+| trung bình | C00→R00 | Vai trò trong mạch: C00 thu hồi bài; kết nối vào: V01; kết nối ra cũ: Bài 7, khiến recitation thành phần phụ. | R00 nằm ngay sau C00 nhưng không được báo trước. | C00 dẫn trực tiếp vào ba bài tập rồi mới nói Bài 7; **đã sửa**. |
+| nhẹ | C00 | Kết luận chưa thu hồi các con số mở bài. | $10^6$ chữ ký và gần $5\cdot10^{11}$ cặp không trở lại. | Nối các số mở bài với $pN,A,|C|$; **đã sửa**. |
+| nhẹ | A05→F00 | Vai trò trong mạch: A05 chốt hệ thống; kết nối ra F00 mờ vì câu hỏi MapReduce hứa nội dung không đến ngay. | Phần kế tiếp tổng quát hóa họ LSH, bài MapReduce ở cuối. | Chuyển câu hỏi khỏi mặt A05; notes báo giữ thiết kế cho recitation rồi nối sang F00; **đã sửa**. |
+
+Kết quả hợp nhất: không còn vấn đề `chặn bàn giao` hoặc `nghiêm trọng`. Các đề xuất trung bình đã được áp dụng, trừ yêu cầu thêm vết chạy Euclid: quyết định không thêm dữ kiện ngoài nguồn và điều chỉnh mục tiêu cùng storyboard để phản ánh chu trình rút gọn.
+
+## Rà lại toán sau chỉnh sửa
+
+- **Mức độ: trung bình; trang chiếu: B06, Q06; vấn đề:** mô tả cũ dè dặt sai về tính đơn điệu khi $p$ cố định. **Bằng chứng:** với $q(s)=1-(1-s^r)^{p/r}$, tăng $r$ làm $q(s)$ giảm với mọi $0<s<1$. **Đề xuất sửa và quyết định:** bỏ “thường” và “không đơn điệu”; nêu rõ xác suất bỏ sót tăng ở mọi $s<1$ và phải tính $q$ tại các mức cần bảo vệ; **đã sửa** HTML, storyboard và nhật ký.
+- **Mức độ: trung bình; trang chiếu: A05; vấn đề:** số bản ghi trung gian chưa được phân biệt với dung lượng truyền. **Bằng chứng:** hai công việc phát $bN+A$ bản ghi, nhưng mỗi khóa dải đầy đủ chứa $\Theta(r)$ thành phần, nên dung lượng theo số từ là $\Theta(brN+A)=\Theta(pN+A)$. **Đề xuất sửa và quyết định:** ghi cả hai đại lượng; nếu dùng mã băm rút gọn, vẫn đối chiếu vector đầy đủ để xử lý va chạm mã; **đã sửa** HTML, outline, storyboard và nhật ký.
+- Không đổi số trang, thứ tự trang hoặc câu chuyển; phạm vi rà mạch không mở rộng.
+
+## Giới hạn điều phối mô hình của vòng rà này
+
+- Cầu nối OpenRouter đã xác nhận bằng một smoke test chỉ đọc `AGENTS.md`: `requested_model = observed_model = z-ai/glm-5.3-flash`, nhà cung cấp `OpenRouter`.
+- Lần thử chuyển payload Bài 6 cho reviewer OpenRouter bị chính sách hạ tầng từ chối. Không đọc hoặc gửi tệp `.env`, không tìm cách vượt chính sách.
+- Vì vậy năm báo cáo ở vòng hoàn tất này do năm reviewer Codex cục bộ, chỉ đọc và độc lập thực hiện. Metadata OpenRouter ở các vòng trước vẫn được giữ riêng bên dưới; không dùng nó để mô tả sai runtime của vòng này.
+
+## Metadata của vòng OpenRouter trước
 
 - Mô hình được yêu cầu và quan sát được: `z-ai/glm-5.3-flash`, nhà cung cấp OpenRouter.
 
