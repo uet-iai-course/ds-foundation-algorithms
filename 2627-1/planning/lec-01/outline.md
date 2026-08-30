@@ -26,8 +26,8 @@ Phần số chiều lớn chỉ định tuyến, không phải mục tiêu đán
 | Thuật toán quét-cộng dồn | A00–A08 | Giới hạn bộ nhớ, vết chạy, đặc tả, giả mã, bất biến và chi phí | 32 phút |
 | Từ bài toán đến sản phẩm | B00–B07 | Năm tầng của lời giải và hai loại sản phẩm mô hình hóa | 19 phút |
 | Mô hình chi phí | C00–C02, C04–C05 | Ba chi phí, một bảo đảm và đặc tả xấp xỉ | 19 phút |
-| Tín hiệu giả | D00–D05 | Tình huống lưu trú, nguyên lý Bonferroni và kỳ vọng số biến cố trùng | 30 phút |
-| Định tuyến số chiều lớn | E00–E04 | Khoảng cách, thể tích gần biên và năm mạch học phần | 15 phút |
+| Tín hiệu giả | D00–D05 | Tình huống lưu trú, mô hình ngẫu nhiên và kỳ vọng số biến cố trùng | 30 phút |
+| Định tuyến số chiều lớn | E00–E04 | Khoảng cách, thể tích gần biên và bản đồ 15 bài theo năm nhóm | 15 phút |
 | **Tổng** |  |  | **120 phút** |
 
 ## Dàn ý phần bài tập
@@ -49,7 +49,7 @@ R00 là trang chuyển phần, không tính vào 60 phút.
 |---|---|---|
 | `sources/source.md` | Tên bài, mục tiêu, tình huống kho nhật ký, thứ tự 15 bài | P00–P01, A01, E03–E04 |
 | MMDS 3e, trang 1–5 | Khai phá dữ liệu, mô hình, tóm tắt, trích đặc trưng | B00–B07, C04–C05 |
-| MMDS 3e, trang 5–8 | Nguyên lý Bonferroni và ví dụ hồ sơ lưu trú | D00–D05 |
+| MMDS 3e, trang 5–8 | Đếm biến cố trùng bằng kỳ vọng (nguyên lý Bonferroni phi hình thức) và ví dụ hồ sơ lưu trú | D00–D05 |
 | MMDS 3e, Bài 1.2.1–1.2.2 và chú thích 3, trang 8 | Toàn bộ phần bài tập | R01–R05 |
 | MMDS 3e, trang 13 | Lưu trữ thứ cấp và chi phí quét | A01–A02, C00–C02 |
 | MMDS 3e, trang 17–19 | Bản đồ chủ đề | E03–E04 |
@@ -104,4 +104,8 @@ Sau $k$ bản ghi, tập khóa của bảng đúng bằng tập máy chủ trong
 | `giao-thoa-khai-pha-du-lieu.svg` | B02 | Stanford trang chiếu 7; ba hoa văn được dùng thật |
 | `phep-thu-va-duong-tinh-gia.svg` | D03 | MMDS trang 7–8 |
 | `the-tich-gan-bien.svg` | E02 | BHK Hình 2.2; vành dùng hoa văn chấm |
-| `ban-do-hoc-phan.svg` | E03 | MMDS trang 17–18, Stanford trang chiếu 10 và `source.md`; gộp thành năm mạch chữ lớn |
+| `ban-do-hoc-phan.svg` | E03 | MMDS trang 17–18, Stanford trang chiếu 10 và `source.md`; gộp thành năm nhóm bài chữ lớn |
+
+## Thuật ngữ nội bộ
+
+- “Quét-cộng dồn” là thuật ngữ nội bộ của bài, đặt cho thuật toán một lượt quét giữ bảng tổng; nguồn chỉ mô tả hành động, không đặt tên.

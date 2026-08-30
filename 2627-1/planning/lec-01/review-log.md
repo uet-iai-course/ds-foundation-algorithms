@@ -1,12 +1,63 @@
 # Nhật ký rà soát Bài 1
 
+## Vòng rà 2026-08-30
+
+Kế hoạch: hợp nhất các sửa đã duyệt vào HTML, SVG bản đồ, outline, storyboard và nhật ký này; giữ 7 section ngoài và tổng thời lượng 120+60.
+
+Phân tích nguồn: đọc `AGENTS.md`, bản đồ nguồn, bản HTML và planning cùng bản trích xuất MMDS, Stanford, BHK; các sửa lấy từ quyết định của điều phối viên, không thêm số liệu, nguồn hay ví dụ mới.
+
+Kiểm định storyboard: đếm lại 41 trang, 7 section ngoài, tổng thời lượng phần giảng 120 phút và phần bài tập 60 phút; các mạch A–D giữ chức năng, kết nối vào/ra và đóng góp mục tiêu; bản đồ chu trình rút gọn cho B–E đã ghi bước gộp, bước không áp dụng và lý do.
+
+Năm vai độc lập (mỗi vai một lượt rà riêng):
+
+| mức độ | trang | vấn đề | bằng chứng | quyết định |
+|---|---|---|---|---|
+| nghiêm trọng | toàn bộ aside | Thời lượng lặp giữa HTML và storyboard | Cụm “Thời lượng dự kiến: … phút.” xuất hiện ở mọi ghi chú | Xóa khỏi mọi aside; chỉ giữ trong storyboard/outline |
+| trung bình | A06 | pre quá nhỏ | font-size .66em | Nâng lên .75em |
+| trung bình | A07 | Chưa nêu rõ điều kiện dừng | Ghi chú nói “dừng sau n bước” nhưng mặt trang không nêu | Thêm “mỗi bước xử lý một bản ghi” vào bước kết thúc |
+| trung bình | B06 | Ký hiệu e, w chưa định nghĩa | Công thức điểm(e) dùng e, w ngay trên mặt trang | Định nghĩa e là thư, w là từ trên mặt trang |
+| trung bình | B07 | Câu hỏi lặp câu B04 | Câu hỏi bảng tổng đã có ở B04 | Đổi sang phân loại “phân phối ước lượng từ mẫu”; notes đáp mô hình thống kê |
+| trung bình | C05 | Câu hỏi lặp câu A08 | Câu hỏi trường hợp thất bại đã có ở A08 | Đổi sang phép đánh đổi khi O(h) không vừa bộ nhớ; notes nêu đổi đặc tả, tóm tắt xấp xỉ hoặc thu hẹp truy vấn, phải nêu rõ |
+| trung bình | D01 | Giả thiết độc lập chưa hiện trên mặt trang | Chỉ có trong notes D02 | Viết rõ mỗi người mỗi ngày xác suất q=0,01, độc lập giữa người/ngày |
+| trung bình | D03 | Tiêu đề gán sai thuật ngữ | “Nguyên lý Bonferroni đếm biến cố trùng kỳ vọng” | Đổi thành “Đếm biến cố trùng bằng kỳ vọng”; notes phân định MMDS gọi đây là Bonferroni phi hình thức, công thức dùng tính tuyến tính của kỳ vọng, không dùng union bound |
+| nhẹ | D04 | Tiêu đề dài, chữ số bằng chữ | “Kỳ vọng có khoảng hai trăm năm mươi nghìn…” | Đổi thành “Kỳ vọng khoảng 250.000 biến cố trùng” |
+| trung bình | D05 | Ba thẻ hé chiều tác động | Thẻ cũ ghi sẵn “số cặp ngày gần gấp bốn” | Ba thẻ chỉ nêu dữ kiện; câu hỏi yêu cầu xác định số phép thử và xác suất thay đổi thế nào |
+| trung bình | E02 | Độ dày 1/d chỉ có trong notes | Câu hỏi O(1/d) xuất hiện trước khi nêu dữ kiện | Giới thiệu trên mặt trang trước câu hỏi rằng vành ngoài dày cỡ 1/d lần bán kính |
+| trung bình | E03 | Từ “mạch” không phù hợp cho bản đồ học phần | Tiêu đề, alt, SVG title/desc/footer dùng “mạch” | Đổi thành “Bản đồ 15 bài theo năm nhóm”; Bài 1 là nền chung; giữ nguyên nội dung năm nhóm và quan hệ |
+| trung bình | E04 | Notes chưa thu hồi mở đầu rõ | Ghi chú chỉ liệt kê bốn câu kiểm tra | Notes thu hồi: kho nhật ký không vừa bộ nhớ dẫn tới đặc tả, chi phí, bảo đảm; nhiều phép thử và số chiều buộc nêu mô hình/giả thiết; đây là kết luận phần giảng |
+| trung bình | R01 | Gộp sai hai thay đổi độc lập và hé sản phẩm | “nên có 200.000 khách sạn”; sản phẩm “ba công thức và ba giá trị” | Tách thành hai thay đổi độc lập (người, khách sạn); sản phẩm chỉ ba công thức; tham chiếu dữ kiện tới trang D01 thay vì chỉ Mục 1.2.3 |
+| nghiêm trọng | R05 | Đáp số và kết luận hiện trên mặt trang | Fragment chứa công thức và kết luận trong khi hoạt động 15 phút | Chuyển toàn bộ công thức, đáp số 1,898·10^-4, C(1000,10), cận xác suất, rubric và hai giới hạn vào notes; mặt trang chỉ giữ yêu cầu và sản phẩm; thêm câu kết nối thu hồi khung Bài 1; không đổi dữ kiện 10^8 |
+
+Hai phát hiện bị bác:
+
+- (a) “A00–A08 cộng sai thời lượng” — bác. A00–A08 cộng đúng 32 phút (2+5+4+2+4+4+4+4+3).
+- (b) “R05 đáp số sai bậc 10” — bác. R05 đúng 1,898·10^-4 vì C(10^8,2)≈5·10^15, không phải 5·10^17.
+
+Quyết định khác: không đổi tên học phần “của” trong tiêu đề vì đây là quy ước toàn bộ kho theo AGENTS, không sửa cục bộ một deck.
+
+Runtime: reader, reviewer và writer đều có requested_model=observed_model=z-ai/glm-5.3-flash, provider=OpenRouter.
+
+### Tái kiểm sau chỉnh sửa
+
+- Vai độ chính xác rà lại A07, B06–B07, C05, D01–D05, E02–E04 và R01–R05: mọi giả thiết, ký hiệu, ba biến thể, kết quả số và cận xác suất đều đúng; đáp án chỉ còn trong ghi chú. Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`.
+- Vai kết nối và mạch viết rà lại toàn bài rồi rà hẹp D04–E04 và R05 sau lần sửa cuối: D05→E00, E02→E03, E04→R00 và kết luận R05 đều có câu nối; E04 thu hồi bốn mục tiêu P01; đủ 7 section ngoài. Không còn lỗi bắt buộc.
+- Tự kiểm `no-ai-slop/eval.md`: giữ nguyên mệnh đề và số liệu nguồn; không có từ cấm, lời dẫn rỗng, câu hỏi tu từ trong tiêu đề, kết luận lặp hoặc nhịp câu quảng bá. Câu chữ hiển thị và ghi chú dùng động từ trực tiếp, thuật ngữ nhất quán.
+- Rà mạch theo Quill Outline Workflow mà không tạo `quill.json`: tuyến kho nhật ký → thuật toán → tầng lời giải → chi phí → tín hiệu giả → kết luận → bài tập tiến triển liên tục; bảng ký hiệu và thuật ngữ nội bộ được đồng bộ.
+
+### Kiểm định kỹ thuật và giới hạn công cụ
+
+- Bộ phân tích HTML xác nhận 7 section ngoài, 41 `data-slide-id` duy nhất, 41 ghi chú, không thiếu đường dẫn cục bộ; cả 5 SVG phân tích XML thành công; `git diff --check` đạt.
+- `python3 -m reloadserver 8765` không chạy vì môi trường không có mô-đun `reloadserver`. Cổng 8765 đang do một tiến trình cũ phục vụ `/tmp/lec03-webroot.wGW4jP` chiếm; không dừng tiến trình ngoài phạm vi.
+- Máy chủ thay thế chỉ gắn `127.0.0.1`, chỉ phục vụ `2627-1/` tại cổng 8766. HTML, RevealJS, Notes, Highlight, Math, ba tài nguyên KaTeX và SVG E03 đều trả HTTP 200; máy chủ được dừng sau kiểm tra.
+- Codex Slides đọc lại thành công dự án `20260827112432-b-i-1-b-i-to-n-d-li-u-l-n-v-m-h-nh-thu-t-8tlj`: nguồn và yêu cầu vẫn còn, nhưng dự án ở checkpoint `clarify` và có 0 trang. Phiên này không có Codex in-editor Browser hay trình duyệt Chromium/Firefox để rà canvas. Không tải bản HTML mới tới Codex Slides vì quyền gửi tệp đã cấp cho OpenRouter, không bao gồm đích Codex Slides. Vì vậy không tuyên bố đã rà trực quan bản sửa mới bằng Codex Slides; kiểm định hiển thị trước vòng này vẫn là mốc tham khảo, còn vòng mới dựa trên cấu trúc, HTTP và rà bố cục từ DOM/CSS.
+
 ## Trạng thái sau chỉnh sửa
 
 - Tệp trang chiếu: `2627-1/lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html`.
 - Phần giảng: 120 phút. Phần bài tập: 60 phút.
-- Bài tập lấy trực tiếp MMDS Bài 1.2.1 và 1.2.2, trang 8; đáp án ở ghi chú hoặc fragment có chủ ý.
+- Bài tập lấy trực tiếp MMDS Bài 1.2.1 và 1.2.2, trang 8; đáp án chỉ ở ghi chú diễn giả.
 - Tài sản trực quan: 5 SVG; không dùng ảnh raster.
-- Chưa cập nhật `2627-1/index.html`; điều phối viên thực hiện sau kiểm định cuối.
+- `2627-1/index.html` đã có thẻ Bài 1 và liên kết đúng tới tệp HTML; vòng này không cần sửa chỉ mục.
 
 ## Báo cáo kiểm định storyboard
 
