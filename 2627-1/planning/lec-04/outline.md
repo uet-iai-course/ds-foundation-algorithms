@@ -22,9 +22,11 @@
 | Cụm | Tình huống → vấn đề | Trực giác → ví dụ | Hình thức → tính đúng | Chi phí → kiểm tra |
 |---|---|---|---|---|
 | PageRank theo chủ đề | T00 | T01–T04 | T02, T05 | T06–T07 |
-| Cụm thao túng liên kết | S00–S02 | S03 | S04–S05 | S05 |
+| Cụm thao túng liên kết | S00–S02 | S03 | S04 | S05 |
 | TrustRank và khối lượng rác | K00–K02 | K04 | K03 | K05 |
-| HITS | H00–H01 | H03, H06–H07 | H02, H04–H05, H08 | H09, Z01–Z02 |
+| HITS | H00–H01 | H03, H06–H07 | H02, H04–H05, H08 | H09 |
+| So sánh và tổng kết | Z00 | Z01 | Z02 | Z03 |
+| Bài tập trên lớp | R00 | R01 | R02 | R03–R04 |
 
 ## Ký hiệu
 
@@ -39,7 +41,23 @@
 | $r_p,t_p,s_p$ | PageRank cơ sở, TrustRank và khối lượng rác của trang $p$ |
 | $L$ | Ma trận liên kết Boolean của HITS; hàng là nguồn |
 | $h,a$ | Vector trang trung tâm và trang thẩm quyền |
-| $K_{\max},\tau$ | Giới hạn vòng và ngưỡng dừng HITS |
+| $K_{\max},\tau$ | Giới hạn vòng và ngưỡng dừng HITS, $0&lt;\tau&lt;1$ |
+
+## Hàng ID Z và R
+
+- Hàng Z00–Z03 là một cụm riêng, không nằm trong bảng HITS; Z03 thu hồi các sản phẩm học tập của P01 và nối sang phần bài tập.
+- ID HITS giữ thứ tự phi tuần tự có chủ ý: H00→H01→H03→H02→H04→H06→H07→H05→H08→H09, để chạy tay trên cạnh trước khi đưa ma trận và giả mã vào.
+- R00 mở section bài tập trên lớp; R01–R04 phân bổ đúng 60 phút.
+
+## Phân bổ bài tập trên lớp
+
+| Trang | Nội dung | Phút |
+|---|---|---:|
+| R00 | Mở phần bài tập, bản đồ bốn bài | 0 (trong 60) |
+| R01 | MMDS Bài 5.3.1 | 18 |
+| R02 | Dữ kiện Bài 5.4.2 dùng cho R03 và R04 | 3 |
+| R03 | MMDS Bài 5.4.2 | 19 |
+| R04 | MMDS Bài 5.5.1 | 20 |
 
 ## Ánh xạ nguồn
 
@@ -54,7 +72,7 @@
 
 ## Điều kiện thuật toán HITS
 
-- Đầu vào: đồ thị con cố định, thứ tự nút xác định, $L\in\{0,1\}^{n\times n}$, $K_{\max}\ge1$, $\tau>0$.
+- Đầu vào: đồ thị con cố định, thứ tự nút xác định, $L\in\{0,1\}^{n\times n}$, $K_{\max}\ge1$, $0&lt;\tau&lt;1$.
 - Khởi tạo: $h^{(0)}=e$; chuẩn hóa vô cùng sau mỗi phép nhân.
 - Trường hợp biên: nếu một vector thô bằng 0, trả hai vector 0 và bật cờ suy biến thay vì chia cho 0.
 - Điều kiện sau: $h,a\ge0$; mỗi vector khác 0 có chuẩn vô cùng bằng 1; hai cờ phân biệt đạt ngưỡng với trường hợp suy biến.

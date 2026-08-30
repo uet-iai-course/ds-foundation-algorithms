@@ -111,7 +111,60 @@ Tác tử điều phối đã tính độc lập các vector PageRank theo chủ
 | nghiêm trọng | H05–H07, Z01 | Cỡ chữ dưới chuẩn. | `.67em` và `.66em`. | Nâng lên ít nhất `.75em`, giảm nội dung và tách Z. Đã xử lý. |
 | trung bình | K04, R03 | Quy ước nguồn và tiêu chuẩn hoàn thành chỉ ở notes. | Sinh viên không thấy thiết lập so sánh hoặc cách dừng. | Đưa quy ước lên K04; R04 cho phép bảng tính, ngưỡng $10^{-3}$ và ba chữ số. Đã xử lý. |
 
-## Quyết định sau chỉnh sửa
+## Lượt chỉnh sửa tiếp theo (bản ghi kế hoạch)
+
+- Phạm vi: chỉ sửa HTML Bài 4 và `planning/lec-04/{outline,storyboard,review-log}.md`; `index.html` đã đúng, không sửa; không sửa CSS chung, SVG hoặc tệp khác.
+- Ba thay đổi đã có trong HTML từ lượt dở dang được giữ nguyên: cỡ `pre`/`.trace` nâng lên, cầu nối T00 trên mặt trang, giả thiết T05 về tính co.
+- Việc còn lại: thêm Z03 (thu hồi P01, nối recitation), thêm R00 (mở section recitation), phân bổ storyboard 120+60, S03 tách hai nguồn hạng, S04 hiện phương trình mở rộng, K00 thêm $t^{(0)}=q_T$, H00 câu nối một điểm → hai vai trò, H03 định nghĩa $h/a$, H06 quy tắc chuẩn hóa, H05 $0&lt;\tau&lt;1$, Z01 thêm $a^{(0)}=0$, R02 ghi dùng cho R03/R04, R04 nối R02 và phân biệt L/P, T04 bỏ gần đúng, K04 cảnh báo hai thiết lập, T07 notes bỏ Jaccard khỏi mạch, R01 giải thích phần dư điểm cố định; giữ 7 outer sections và ID HITS phi tuần tự có chủ ý.
+- Phân tích nguồn: đọc lại `sources/textbooks/mmds-3e-ch05-link-analysis.pdf` mục 5.3–5.5 và hai tệp slide MMDS phần 2 để xác nhận các bổ sung trên không thêm khẳng định ngoài nguồn; các bổ sung đặc tả ($K_{\max}$, $\tau$, cờ, khởi tạo) đã được ghi rõ là bổ sung trong notes.
+- Kiểm định storyboard sau chỉnh sửa: 41 `data-slide-id` duy nhất (P00–P01, T00–T07, S00–S05, K00–K05, H00–H09, Z00–Z03, R00–R04); 7 outer sections; phần giảng 120 phút (Z03 2 phút gộp vào tổng), bài tập 60 phút (R00 0 phút mở section); hai trang lân cận của mỗi thay đổi đã rà lại câu nối và ký hiệu.
+- Nội dung mới qua bộ lọc `no-ai-slop`: không câu dẫn rỗng, không câu hỏi tu từ, không nhận định quảng bá; rà `quill` về mạch tình huống → trực giác → hình thức → kiểm tra và tính nhất quán thuật ngữ, ký hiệu ($q_S$, $q_T$, $t^{(u)}$, $h,a$, $L$, $P$, $N,q$, $m_G$) mà không tạo `quill.json`.
+
+## Báo cáo độc lập của các tác tử rà soát (lượt này)
+
+| Báo cáo | Phát hiện chính | Mức độ | Quyết định |
+|---|---|---|---|
+| Rà thuật toán | S04 thiếu phương trình mở rộng trước kết quả; K00 thiếu khởi tạo $t^{(0)}=q_T$; H05 thiếu điều kiện $0&lt;\tau&lt;1$ | nghiêm trọng | Đã áp dụng trong HTML và storyboard |
+| Rà giảng dạy | Thiếu Z03 thu hồi và R00 mở recitation; H00 thiếu câu nối một điểm → hai vai trò | nghiêm trọng | Đã áp dụng; giữ 7 outer sections |
+| Rà toán | T04 nêu điểm cố định gần đúng trùng với bài tập R01; Z01 thiếu $a^{(0)}=0$ | trung bình | Đã áp dụng; T04 bỏ gần đúng, Z01 bổ sung khởi tạo |
+| Rà nhất quán ký hiệu | R02 chưa ghi phạm vi dùng chung; R04 chưa nối R02 và chưa phân biệt $L$ với $P$ | trung bình | Đã áp dụng trong notes R02, R04 |
+| Rà nguồn | K04 cảnh báo hai thiết lập chỉ ở notes; H06 quy tắc chuẩn hóa chỉ ngầm trong bảng | trung bình | Đã đưa lên mặt trang K04, H04/H06 |
+
+Quyết định chung: mọi lỗi nghiêm trọng và trung bình của năm báo cáo đã được xử lý hoặc ghi rõ lý do không áp dụng (không có đề xuất nào bị bỏ qua trong lượt này); các đề xuất chỉ mang tính phong cách không chặn đã được ghi nhận nhưng không áp dụng để giữ mật độ trang.
+
+## Phạm vi kiểm định của lượt này
+
+- Đã kiểm định: tính nhất quán tĩnh giữa HTML, outline và storyboard (số ID, thứ tự, thời lượng, câu nối); tính đúng đắn toán học của các bổ sung (khởi tạo, điều kiện $\tau$, phương trình mở rộng khớp S03/S05).
+- Chưa thực hiện trong lượt này: kiểm duyệt trình duyệt cuối cùng và kiểm định bằng Codex Slides; hai việc này thuộc lượt kiểm định cuối và chưa được phê duyệt.
+- Lịch sử: lệnh `python3 -m reloadserver 8765` trong nhật ký cũ chỉ là ghi chép lịch sử của lượt trước, chưa được phê duyệt cho lượt này và không được chạy lại.
+
+## Hậu kiểm nội dung sau chỉnh sửa
+
+- Thay câu tổng kết sai “một cơ chế duy nhất” bằng hai lựa chọn thiết kế đúng ở Z03.
+- S05 nay yêu cầu phân loại đủ bốn số hạng của đẳng thức chính xác, gồm dịch chuyển trực tiếp vào trang đích.
+- Đưa các câu nối cần đọc trên mặt trang lên H00, H03, R02 và R04; thống nhất mô tả thay thế của R01 với Hình 5.1.
+- Bỏ câu mâu thuẫn về trang mở phần bài tập trong ghi chú R00. Đây là hậu kiểm tĩnh, chưa phải kiểm định trình duyệt hoặc Codex Slides.
+
+## Tái kiểm độc lập sau thay đổi cấu trúc
+
+- Vai kết nối và mạch viết rà lại toàn bộ 7 mạch, 41 trang cùng các ranh giới phần. Kết quả: mở đầu T00, kết luận Z03, điểm vào bài tập R00 và chuỗi HITS đều có vai trò, kết nối vào–ra rõ; không còn lỗi mới. Kiểm đếm tĩnh của điều phối viên xác nhận 41 `data-slide-id` duy nhất và 41 khối ghi chú.
+- Vai toán học và thuật toán tính lại S03–S05, K00, H03–H07, Z01–Z03 và R01–R04. Công thức chính xác, hai hệ số xấp xỉ, hai vòng HITS và mọi đáp án bài tập đều khớp; không có lỗi chặn bàn giao hoặc nghiêm trọng.
+- Hai lượt tái kiểm dùng `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`, chế độ chỉ đọc trên bản sao không chứa `.env`.
+- Nội dung hiển thị và ghi chú đã được quét lại: không còn mã `data-slide-id` hoặc thời lượng; các thông tin này chỉ nằm trong HTML nội bộ và tệp planning.
+
+## Kiểm định cuối của lượt hiện tại
+
+- Lệnh bắt buộc `python3 -m reloadserver 8765` vẫn thất bại vì môi trường không có mô-đun `reloadserver`. Máy chủ tương thích `/tmp/reloadserver.py` chạy tại `127.0.0.1:8765` để phục vụ đúng thư mục gốc kho; đây là phương án thay thế, không được ghi là lệnh bắt buộc đã thành công.
+- Chromium headless duyệt đủ 41 trang ở $1280\times720$ và $800\times600$: không lỗi console, lỗi trang, yêu cầu hỏng hoặc lỗi điều hướng bàn phím. Bộ dò hình học gắn cờ lề của các tiêu đề phần và hộp cuộn nội tại của giả mã; ảnh chụp và contact sheet xác nhận nội dung nằm trong khung, không bị cắt hoặc chồng lấn.
+- Kiểm tra tĩnh: 7 `<section>` ngoài, 41 `data-slide-id` duy nhất, 41 khối ghi chú, mọi đường dẫn cục bộ tồn tại, 6 SVG phân tích được và có `role="img"`, `title`, `desc`; không có tham chiếu ảnh raster.
+- Tự kiểm `no-ai-slop/eval.md`: nội dung mới không có câu dẫn rỗng, khẩu hiệu, câu hỏi tu từ hoặc kết luận lặp. Rà theo Quill xác nhận mạch, thuật ngữ và ký hiệu liên tục; không tạo `quill.json`.
+- Codex Slides: dự án `20260827161616-b-i-4-pagerank-theo-ch-spam-li-n-k-t-v-h-urwd` đọc được nhưng vẫn ở trạng thái `draft`, 0 trang. Design Files hiện có brief, outline và nguồn; tải HTML cuối bằng `upload_design_file` trả HTTP 500. Bề mặt hiện tại không có Browser nội bộ để mở resource link, nên không tuyên bố đã kiểm tra trực quan bằng Codex Slides.
+
+## Runtime
+
+- requested=observed: `z-ai/glm-5.3-flash` qua provider OpenRouter.
+
+## Quyết định sau chỉnh sửa (cập nhật)
 
 - Mọi lỗi `chặn bàn giao` và `nghiêm trọng` trong năm báo cáo đã được xử lý.
 - Giữ tổng phần giảng 120 phút và bài tập 60 phút; thời lượng chỉ nằm trong storyboard.
@@ -131,7 +184,7 @@ Tác tử điều phối đã tính độc lập các vector PageRank theo chủ
 
 Rà lại độc lập xác nhận các vector PageRank theo chủ đề, công thức trang trại, bảng khối lượng rác, chiều ma trận HITS, hai vòng lặp, đáp án bài tập và tổng thời lượng đều đúng; không còn lỗi chặn bàn giao.
 
-## Kiểm định cuối
+## Kiểm định cuối (lượt trước — lịch sử, chưa được phê duyệt cho lượt này)
 
 - Kiểm tra tĩnh: 39 `data-slide-id` duy nhất, 39 khối ghi chú, thứ tự ID khớp storyboard; phần giảng 120 phút và bài tập 60 phút.
 - Kiểm tra tài nguyên: mọi đường dẫn cục bộ tồn tại; 6 SVG phân tích được bằng XML và có `role="img"`, `title`, `desc`; không có ảnh raster hoặc tài nguyên cốt lõi từ mạng.
