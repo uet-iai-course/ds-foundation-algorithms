@@ -43,12 +43,12 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 
 - Tình huống/vấn đề: `H06`.
 - Trực giác: `H07`.
-- Ví dụ chạy tay: `H07`, `H10`, dùng khóa nhỏ để theo $h_1$, $h_2$, va chạm và cặp kết quả; `H08` dùng 100/400 khối cho điều kiện bộ nhớ.
-- Hình thức hóa: `H09`.
-- Thuật toán/tính đúng: `H11–H12`.
-- Ứng dụng/chi phí: `H13–H14`, sau thuật toán và chứng minh.
+- Ví dụ chạy tay: `H07`, `H10`, dùng khóa nhỏ để theo $h_1$, $h_2$, va chạm và cặp kết quả; `H08` dùng 100/400 khối cho pha phân hoạch.
+- Hình thức hóa: `H08–H09`, tách bộ đệm phân hoạch khỏi pha xây–dò.
+- Thuật toán/tính đúng: `H13`, `H11–H12`.
+- Ứng dụng/chi phí: `H14`, sau đường lui và chứng minh.
 - Kiểm tra: `H15`.
-- Dữ liệu truyền: $p_h=6$ và $M-2=18$ đi từ `H08` sang chi phí 1.500/1.524 và seek 336 ở `H14`; điều kiện thật là $\max_i b_{s_i}\le M-2$.
+- Dữ liệu truyền: $M=20$, $b_b=2$, $p_h=7$, $\alpha=1{,}2$ và các kích thước $15;15;14;14;14;14;14$ đi từ `H08–H09` sang chi phí 1.500/1.528 và 500 seek tổng ở `H14`; $b_b$ là hệ số đọc/ghi liên tiếp, độc lập với $b_{in}=b_{out}=1$ của pha xây–dò.
 
 ## Bản đồ trang và thời lượng
 
@@ -58,7 +58,7 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 | P01 | 2 | Use case `student/takes`, 100/400 khối | slide 24 |
 | P02 | 2 | Mục tiêu quan sát được và tuyến lựa chọn | slide 24–41 |
 | M00 | 2 | Đặc tả equi-join, bản sao và miền không `NULL` | slide 24–25 |
-| M01 | 2 | Ký hiệu $n,b,M,M-2,b_b$ | slide 7–9, 24, 28 |
+| M01 | 2 | Ký hiệu $n,b,M,q,b_b,p_h,\alpha$; không có vùng $M-2$ toàn cục | slide 7–9, 24, 28, 37–40 |
 | M02 | 3 | Tách truyền khối và seek | slide 7–9 |
 | M03 | 2 | Chốt giả thiết chi phí và đầu ra không ghi đĩa | slide 7–9 |
 | N00 | 2 | Theta join tổng quát và đường cơ sở | slide 25 |
@@ -66,7 +66,7 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 | N02 | 2 | Vết chạy tay trên ba tuple ngoài | slide 25; dữ liệu minh họa cấu trúc nguồn |
 | N03 | 2 | Giả mã, bất biến, dừng | slide 25 |
 | N04 | 3 | Công thức và ví dụ 2.000.100/1.000.400 | slide 26 |
-| N05 | 2 | Chuyển đơn vị tái sử dụng sang khối | slide 27–28 |
+| N05 | 2 | Chuyển đơn vị tái sử dụng sang khối; phân biệt $q=M-2$ và $q=M-1$ | slide 27–28; lời giải 15.3 |
 | N06 | 2 | Vết chạy nhóm hai khối ngoài với hai khối trong | slide 27–28 |
 | N07 | 2 | Giả mã và tính đúng Block Nested | slide 27–28 |
 | N08 | 2 | Chi phí, chọn phía ngoài và kiểm tra | slide 28 ẩn |
@@ -81,7 +81,7 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 | S05 | 3 | Giả mã theo nhóm | slide 31 |
 | S06 | 2 | Bất biến và kết luận đúng | slide 31 |
 | S07 | 3 | Nhóm trùng không vừa bộ nhớ | slide 31–32 |
-| S08 | 2 | Quét $b_r+b_s$ và cộng chi phí sắp | slide 32; slide 17–23 |
+| S08 | 2 | Vật chất hóa hai dãy đã sắp rồi quét $b_r+b_s$ | slide 32; slide 17–23; lời giải 15.3 |
 | S09 | 2 | Kiểm tra điều kiện một lượt quét | slide 32 |
 | H00 | 2 | Build input vừa bộ nhớ | slide 36, 39 |
 | H01 | 2 | Xây nhỏ, dò lớn | slide 36 |
@@ -91,13 +91,13 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 | H05 | 2 | Chi phí $b_r+b_s$ và kiểm tra | slide 39 |
 | H06 | 3 | Build input không vừa bộ nhớ | slide 33–37 |
 | H07 | 3 | Vết $h_1$ trên hai quan hệ nhỏ | slide 33–35; dữ liệu minh họa cơ chế |
-| H08 | 3 | Sáu phân hoạch gần cân bằng và điều kiện cực đại | slide 37, 40; sửa lỗi nguồn |
-| H09 | 3 | Điều kiện $s_i\le M-2$ và phía dò không cần vừa | slide 36–37; sửa slide 37 |
 | H10 | 3 | Vết $h_2(k)=\lfloor k/2\rfloor\bmod2\ne h_1$, va chạm và kiểm khóa | slide 35–36; dữ liệu tiếp H07 |
+| H08 | 3 | Pha phân hoạch: $100\to15;15;14;14;14;14;14$ và $(p_h+1)b_b=16\le20$ | slide 37, 40; sửa lỗi nguồn |
+| H09 | 3 | Pha xây–dò tái dùng bộ nhớ: $\alpha\max_i b_{s_i}+b_{in}+b_{out}\le M$ | slide 36–37; bổ sung phụ trội |
+| H13 | 2 | Skew, băm lại và fallback | slide 38 |
 | H11 | 3 | Hàng đợi với ba nhánh loại trừ và fallback khi không tiến triển | slide 36–38 |
 | H12 | 3 | Chứng minh phân hoạch rời và xử lý đúng một lần | slide 35–38 |
-| H13 | 2 | Skew, băm lại và fallback | slide 38 |
-| H14 | 2 | Chi phí 1.500/1.524 transfer và 336 seek khi không đệ quy | slide 39–40 |
+| H14 | 2 | Chi phí 1.500/1.528 transfer và 500 seek khi không đệ quy | slide 39–40 |
 | H15 | 3 | Kiểm tra bộ nhớ, bản sao và skew | slide 37–41 |
 | C00 | 3 | Bản đồ điều kiện nối → họ thuật toán | slide 24–41 |
 | C01 | 3 | Bảng so sánh truyền khối, seek và điều kiện | slide 26, 28–32, 39 |
@@ -107,11 +107,11 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 | X00 | 0 | Giao ba bài; tổng 60 phút | Practice Exercises 15.3–15.5 |
 | X01 | 10 | 15.3: đổi tuple sang khối, chốt $M$ | đề PDF 2; lời giải 112–113 |
 | X02 | 10 | 15.3a–b: Nested và Block Nested | lời giải 113 |
-| X03 | 8 | 15.3c: Merge Join; seek theo $P(b)$, $M,b_b$ | lời giải 113; slide 23 |
-| X04 | 7 | 15.3d: Grace Hash; tách bộ đệm phân hoạch và vùng xây | lời giải 113; slide 37, 39 |
+| X03 | 8 | 15.3c: Merge Join vật chất hóa; transfer và seek theo $P(b),M,b_b$ | lời giải 113; slide 23 |
+| X04 | 7 | 15.3d: Grace Hash; tách bộ đệm phân hoạch và điều kiện bảng băm có $\alpha$ | lời giải 113; slide 37, 39 |
 | X05 | 5 | 15.4: chỉ mục thứ cấp và bản sao | đề PDF 2 |
 | X06 | 5 | 15.4: nối với lá rồi sắp địa chỉ | lời giải 113 |
-| X07 | 5 | 15.4: điều kiện so với hybrid merge | lời giải 113 |
+| X07 | 5 | 15.4: so tổng I/O với Hybrid Merge, không suy chỉ từ kích thước | lời giải 113; hiệu chỉnh điều kiện |
 | X08 | 5 | 15.5: tối thiểu I/O với bộ nhớ vô hạn | đề PDF 2 |
 | X09 | 5 | 15.5: $b_r+b_s$, $\min(b_r,b_s)+2$ khối | lời giải 114 |
 
@@ -122,9 +122,11 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 - `N08→N09`: nếu phía trong có chỉ mục phù hợp, thay lượt quét bằng phép tra.
 - `N11→S00`: nếu không có chỉ mục nhưng có thể sắp theo khóa, hai con trỏ thay nhiều phép tra ngẫu nhiên.
 - `S09→H00`: equi-join còn cho phép gom khóa bằng băm thay vì thứ tự.
-- `H05→H06`: khi phía xây không vừa RAM, ghi các phân hoạch ra đĩa rồi xử lý từng cặp.
+- `H05→H06`: khi điều kiện vùng xây không giữ, ghi các phân hoạch ra đĩa rồi xử lý từng cặp.
+- `H07→H10→H08`: vết khóa nhỏ xác nhận tính đúng trước khi chuyển sang bố trí pha phân hoạch ở quy mô nguồn.
+- `H09→H13→H11`: khi pha xây–dò không vừa, nhận diện skew rồi chọn một trong ba nhánh hữu hạn.
 - `H15→C00`: mọi lựa chọn quay lại điều kiện nối, bộ nhớ, trạng thái sắp/chỉ mục và skew.
 
 Slide nguồn 28, 30, 35 và 40 bị ẩn nhưng chứa công thức hoặc ví dụ cần thiết nên vẫn được kiểm chứng và dùng có ghi nguồn. Các lỗi ở slide 33, 37, 39, 40 và 41 được sửa như `outline.md` mô tả.
 
-Lời giải 15.3 dùng $q=M-1$ cho Block Nested-Loop Join; deck dùng $q=M-2$ khi đếm cả khối đầu ra. `X02` yêu cầu công bố quy ước rồi tính, không trộn hai giá trị. `X03–X04` chỉ giao sản phẩm trên mặt trang; đáp án nằm trong notes. Lời giải chính thức không cho một giá trị $M$, nên kết quả Merge/Hash giữ dạng biểu thức.
+Lời giải 15.3 dùng $q=M-1$ cho Block Nested-Loop Join khi không giữ riêng đầu ra; bố trí vật chất hóa của slide 28 cho $q=M-2$. `X02` yêu cầu công bố quy ước rồi tính. `X03` chốt sắp xếp vật chất hóa để bám lời giải chính thức; `X04` tách bộ đệm phân hoạch khỏi dung lượng bảng băm. Lời giải không cho một giá trị $M$, nên kết quả Merge/Hash của bài tập giữ dạng biểu thức.

@@ -5,7 +5,7 @@
 - Đối tượng: sinh viên đã học mô hình I/O, sắp xếp ngoài bộ nhớ, B+-Tree và băm tĩnh ở Bài 12–13.
 - Phần giảng: 120 phút. Phần bài tập: 60 phút.
 - Sản phẩm học tập: chạy Nested-Loop Join, Block Nested-Loop Join, Indexed Nested-Loop Join, Sort-Merge Join, Hash Join trong bộ nhớ và Grace Hash Join; chứng minh không bỏ hoặc lặp sai cặp kết quả; tính riêng số lần truyền khối và seek; chọn thuật toán theo điều kiện nối, bộ nhớ, thứ tự, chỉ mục và độ lệch.
-- Tình huống xuyên suốt: kết nối bảng sự kiện `takes` với bảng thực thể `student` theo `ID` khi cả hai nằm trên đĩa. Nguồn cho $n_{student}=5.000$, $b_{student}=100$, $n_{takes}=10.000$, $b_{takes}=400$.
+- Tình huống xuyên suốt: kết nối bảng sự kiện `takes` với bảng thực thể `student` theo `ID` khi cả hai nằm trên đĩa. Nguồn cho $n_{student}=5.000$, $b_{student}=100$, $n_{takes}=10.000$, $b_{takes}=400$; kịch bản $M=20$ cho thấy không quan hệ nào vừa bộ nhớ.
 - Ngoài phạm vi: tối ưu hóa thứ tự nhiều phép nối, ước lượng lực lượng kết quả, nối song song, nối không gian, outer join, pipelining và cache-conscious join.
 
 ## Nguồn
@@ -14,7 +14,7 @@
 |---|---|---|
 | Mô hình chi phí | Ch15 slide 7–9 | Truyền khối, seek, bộ đệm và giả thiết trường hợp xấu |
 | Dữ liệu xuyên suốt | Ch15 slide 24 | `student`: 5.000 tuple, 100 khối; `takes`: 10.000 tuple, 400 khối |
-| Nested và Block Nested | Ch15 slide 25–28; slide 28 bị ẩn | Giả mã, quan hệ ngoài/trong, chi phí và vùng $M-2$ |
+| Nested và Block Nested | Ch15 slide 25–28; slide 28 bị ẩn | Giả mã, quan hệ ngoài/trong, chi phí và hai bố trí bộ đệm |
 | Indexed Nested | Ch15 slide 29–30; slide 30 bị ẩn | Tra chỉ mục, ví dụ và giới hạn chỉ mục thứ cấp |
 | Sort-Merge | Ch15 slide 31–32 | Sắp hai đầu vào, ghép nhóm khóa trùng và chi phí |
 | Hash/Grace | Ch15 slide 33–40; slide 35, 40 bị ẩn | Phân hoạch, build–probe, skew, đường lui hữu hạn và chi phí |
@@ -29,10 +29,12 @@ MMDS và Stanford CS246 không áp dụng cho bài này.
 | $r,s$ | hai quan hệ đầu vào; mặc định $s$ là phía xây khi băm |
 | $n_r,n_s$ | số tuple của $r,s$ |
 | $b_r,b_s$ | số khối chứa $r,s$ |
-| $M\ge3$ | số khối bộ nhớ dành cho phép nối |
-| $M-2$ | vùng giữ nhóm ngoài hoặc phân hoạch xây; hai khối còn lại dành cho đầu vào quét và đầu ra |
-| $b_b$ | số khối đọc hoặc ghi liên tiếp giữa hai seek |
+| $M$ | số khối bộ nhớ dành cho phép nối |
+| $q$ | số khối của một nhóm ngoài trong Block Nested; $q=M-2$ khi giữ riêng đầu ra, $q=M-1$ khi đầu ra được chuyển tiếp |
+| $b_b$ | hệ số đọc hoặc ghi liên tiếp trong mô hình seek tổng; độc lập với $b_{in},b_{out}$ |
+| $b_{in},b_{out}$ | bộ đệm đầu vào và đầu ra của pha xây–dò; deck dùng $b_{in}=b_{out}=1$ |
 | $p_h$ | số phân hoạch của Grace Hash Join |
+| $\alpha\ge1$ | hệ số bộ nhớ phụ trội của bảng băm so với số khối dữ liệu xây |
 | $t_T,t_S$ | thời gian một lần truyền khối và một seek |
 
 Chi phí được ghi thành cặp `(truyền khối, seek)`; không cộng chi phí ghi kết quả cuối. Các công thức dùng giả thiết không có khối sẵn trong bộ đệm. Deck xét equi-join theo khóa khác `NULL`; ngữ nghĩa ba trị của SQL nằm ngoài phạm vi.
@@ -47,12 +49,12 @@ Chi phí được ghi thành cặp `(truyền khối, seek)`; không cộng chi 
 
 ### Block Nested-Loop Join
 
-- Giữ tối đa $M-2$ khối ngoài, quét toàn bộ quan hệ trong cho mỗi nhóm.
+- Giữ tối đa $q$ khối ngoài, quét toàn bộ quan hệ trong cho mỗi nhóm. Giá trị $q$ được suy từ bố trí bộ đệm, không phải hằng số toàn cục.
 - Chi phí với $r$ ngoài:
 
-$$b_r+\left\lceil\frac{b_r}{M-2}\right\rceil b_s$$
+$$b_r+\left\lceil\frac{b_r}{q}\right\rceil b_s$$
 
-và xấp xỉ $2\left\lceil b_r/(M-2)\right\rceil$ seek.
+và xấp xỉ $2\left\lceil b_r/q\right\rceil$ seek.
 
 ### Indexed Nested-Loop Join
 
@@ -62,21 +64,23 @@ và xấp xỉ $2\left\lceil b_r/(M-2)\right\rceil$ seek.
 
 ### Sort-Merge Join
 
-- Hai quan hệ phải được sắp theo khóa nối; nếu chưa sắp, cộng chi phí External Merge Sort.
+- Hai quan hệ phải được sắp theo khóa nối. Deck vật chất hóa hai kết quả sắp để bám lời giải 15.3, rồi đọc lại chúng cho bước nối.
+- Với $f=\lfloor M/b_b\rfloor-1>1$ và $P(b)=\lceil\log_f\lceil b/M\rceil\rceil$, chi phí sắp vật chất hóa là $T_{sort}^{mat}(b)=2b(P(b)+1)$; seek là $2\lceil b/M\rceil+2P(b)\lceil b/b_b\rceil$.
 - Khi hai khóa bằng nhau, lấy trọn hai nhóm khóa $G_r,G_s$ và xuất $G_r\times G_s$.
 - Bất biến: mọi cặp có khóa nhỏ hơn khóa tại hai con trỏ đã được xuất đúng một lần.
-- Nếu một nhóm không vừa bộ nhớ, phải đánh dấu và quét lại nhóm còn lại hoặc dùng tệp tạm; cận quét một lần $b_r+b_s$ chỉ áp dụng khi mỗi nhóm khóa của ít nhất một phía được giữ theo giả thiết nguồn.
+- Nếu một nhóm vừa bộ nhớ, giữ nhóm đó và quét nhóm còn lại. Nếu cả hai nhóm không vừa, phải dùng tệp tạm hoặc thuật toán dự phòng; cận quét một lần $b_r+b_s$ chỉ áp dụng khi không phát sinh đọc lại.
 
 ### Hash Join trong bộ nhớ
 
-- Quan hệ xây vừa bộ nhớ. Bảng băm lưu danh sách mọi tuple theo khóa, không ghi đè bản sao.
+- Quan hệ xây thỏa $\alpha b_s+b_{in}+b_{out}\le M$ với $b_{in}=b_{out}=1$. Bảng băm lưu danh sách mọi tuple theo khóa, không ghi đè bản sao.
 - Băm chỉ chọn ngăn; thuật toán phải so sánh khóa thật để xử lý va chạm.
 - Chi phí lý tưởng $b_r+b_s$ lần truyền khối.
 
 ### Grace Hash Join
 
 - Dùng cùng hàm $h$ chia hai quan hệ thành các cặp $(r_i,s_i)$; chỉ nối cặp cùng chỉ số.
-- Khi xử lý cặp $i$, $s_i$ phải vừa vùng xây $M-2$ khối. $r_i$ không cần vừa bộ nhớ.
+- Pha phân hoạch cần $(p_h+1)b_b\le M$: một bộ đệm vào và $p_h$ bộ đệm ra.
+- Pha xây–dò tái dùng bộ nhớ; bảng băm của $s_i$ phải thỏa $\alpha b_{s_i}+b_{in}+b_{out}\le M$, với $b_{in}=b_{out}=1$. $r_i$ được đọc tuần tự.
 - Không đệ quy và bỏ qua khối biên: $3(b_r+b_s)$ lần truyền khối.
 - Nếu tính đọc/ghi lại tối đa một khối biên cho mỗi quan hệ và mỗi phân hoạch: $3(b_r+b_s)+4p_h$.
 - Skew hoặc nhiều khóa trùng có thể làm $s_i$ tràn; phân hoạch lại bằng hàm khác, và dùng Block Nested-Loop Join cho phân hoạch vẫn tràn.
@@ -86,8 +90,8 @@ và xấp xỉ $2\left\lceil b_r/(M-2)\right\rceil$ seek.
 - Slide 33 ghi nhầm các phân hoạch của $s$ thành $r_0,\ldots,r_n$ và trộn quy ước $0..n$ với số phân hoạch. Deck dùng $p_h$ phân hoạch, chỉ số $0..p_h-1$, gồm $r_i$ và $s_i$.
 - Slide 37 gọi nhầm phân hoạch của phía dò là $s_i$; deck dùng $r_i$ và chỉ yêu cầu $s_i$ vừa vùng xây.
 - Slide 39 đặt $3(b_r+b_s)+4n_h$ làm công thức duy nhất. Deck tách chi phí lý tưởng $3(b_r+b_s)$ khỏi phần tối đa $4p_h$ do các khối biên.
-- Slide 40 dùng $M=20$ nhưng chia phía xây 100 khối thành năm phân hoạch 20 khối, không còn chỗ cho vùng làm việc. Deck dùng sáu phân hoạch, kích thước trung bình $100/6<18=M-2$; chi phí lý tưởng vẫn 1.500, hoặc 1.524 nếu tính $4p_h$.
-- Slide 41 có câu kết bị cắt và lỗi diễn đạt. Deck chỉ giữ cơ chế hybrid cùng phép tính nguồn $1.300$ lần truyền khối cho $M=25$, không lặp phần câu hỏng.
+- Slide 40 dùng $M=20$ nhưng chia phía xây 100 khối thành năm phân hoạch 20 khối, không còn chỗ cho vùng làm việc. Deck dùng $b_b=2$, $p_h=7$, $\alpha=1{,}2$ và kích thước $15;15;14;14;14;14;14$: pha phân hoạch dùng 16 khối; pha xây–dò tái dùng bộ nhớ và đạt $\alpha\max_i b_{s_i}+b_{in}+b_{out}=20$. Chi phí là 1.500 lý tưởng, 1.528 với cận $4p_h$, và 500 seek.
+- Slide 41 có câu kết bị cắt và lỗi diễn đạt. Deck bỏ Hybrid Hash Join khỏi tuyến chính để dành chỗ cho điều kiện bộ nhớ và đường lui có thể kiểm chứng.
 
 ## Phân bổ thời lượng
 
