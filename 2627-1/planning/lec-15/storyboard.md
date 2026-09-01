@@ -130,3 +130,21 @@ Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O
 Slide nguồn 28, 30, 35 và 40 bị ẩn nhưng chứa công thức hoặc ví dụ cần thiết nên vẫn được kiểm chứng và dùng có ghi nguồn. Các lỗi ở slide 33, 37, 39, 40 và 41 được sửa như `outline.md` mô tả.
 
 Lời giải 15.3 dùng $q=M-1$ cho Block Nested-Loop Join khi không giữ riêng đầu ra; bố trí vật chất hóa của slide 28 cho $q=M-2$. `X02` yêu cầu công bố quy ước rồi tính. `X03` chốt sắp xếp vật chất hóa để bám lời giải chính thức; `X04` tách bộ đệm phân hoạch khỏi dung lượng bảng băm. Lời giải không cho một giá trị $M$, nên kết quả Merge/Hash của bài tập giữ dạng biểu thức.
+
+## Hành trình của ghi chú tự học
+
+| `note-topic-id` | Kết nối vào → đầu ra | Kiến thức đầu vào | Thành phần trình bày |
+|---|---|---|---|
+| `L15-N01` | Bài 12–13 → mô hình chung cho mọi phép nối | khối, bộ đệm, quan hệ | vai trò, đặc tả, ví dụ `student/takes`, mô hình chi phí, kiểm tra |
+| `L15-N02` | đường cơ sở → tái sử dụng theo khối | vòng lặp lồng | vết tuple, giả mã, bất biến, dừng, chi phí |
+| `L15-N03` | quét lại theo tuple → nhóm $q$ khối | `L15-N02`, bố trí bộ đệm | hai bố trí, vết khối, tính đúng, chi phí |
+| `L15-N04` | quét phía trong → tra chỉ mục | B+-Tree Bài 13 | vết bản sao/khóa không khớp, giả mã, chi phí thời gian |
+| `L15-N05` | tra ngẫu nhiên → thứ tự khóa | External Merge Sort Bài 12 | vết đầy đủ, nhóm trùng, giả mã, bất biến, chi phí vật chất hóa |
+| `L15-N06` | thứ tự → gom ngăn trong RAM | băm Bài 13 | điều kiện bộ nhớ, va chạm, bản sao, build–probe, chứng minh |
+| `L15-N07` | phía xây tràn → phân hoạch hai đầu vào | `L15-N06` | vết $h_1/h_2$, hai bố trí bộ đệm, điều kiện cực đại |
+| `L15-N08` | phân hoạch lệch → đường lui hữu hạn | `L15-N07` | hàng đợi ba nhánh, ví dụ tiến triển, chứng minh, cận I/O |
+| `L15-N09` | sáu thuật toán → quyết định có điều kiện | `L15-N02`–`N08` | bảng và bản đồ lựa chọn, kiểm tra đơn vị |
+| `L15-N10` | quy tắc lựa chọn → Bài 15.3–15.4 | toàn bộ mô hình chi phí | dữ kiện nguồn, phép tính, gợi ý và lời giải |
+| `L15-N11` | trường hợp đủ RAM → cận dưới đọc | `L15-N06`, cận I/O | thuật toán hai bước, chứng minh cận, bài kiểm tra |
+
+Ghi chú dùng lại dữ kiện `student/takes` từ mở bài đến Nested, Grace và bảng chọn. Vết Sort-Merge truyền cùng hai dãy qua so khóa, tích nhóm và điều kiện dừng; vết Grace truyền cùng tuple qua phân hoạch, bảng băm, va chạm và phép so khóa thật. Các mục ghi chú không mang mã trang hay thời lượng vì đây là sản phẩm tự học.

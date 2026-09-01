@@ -219,7 +219,8 @@
   }
 
   function buildTableOfContents() {
-    const headings = Array.from(contentElement.querySelectorAll("h2, h3"));
+    const headings = Array.from(contentElement.querySelectorAll("h2, h3"))
+      .filter((heading) => !heading.closest(".material-block"));
     const usedIds = new Map();
     const list = document.createElement("ol");
 

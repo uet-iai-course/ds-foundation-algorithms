@@ -129,3 +129,24 @@
 - Rà ảnh các trang rủi ro S08, H08, H11, H14 và X05 phát hiện công thức dưới ba thẻ H14 sát chân trang; giảm chiều cao hình H14 từ 335 xuống 250 px rồi chạy lại kiểm định trang này.
 - Kiểm tra bàn phím xác nhận điều hướng ngang/dọc hoạt động; DOM có 60 mã duy nhất, 60 notes, `lang="vi"` và không có phụ thuộc mạng cốt lõi.
 - Codex Slides đã tạo dự án bền vững `20260830180051-b-i-15-thu-t-to-n-k-t-n-i-d-li-u-ssuw` và nhận snapshot HTML cuối sau sửa H14 dưới mã học liệu `20260830183800757-8jy2.html`. Phiên Codex hiện tại không có bề mặt Browser nội bộ để giữ dự án mở và đối chiếu trực quan, nên không tuyên bố đã rà hình bằng Browser của Codex Slides; kiểm tra trực quan dùng RevealJS cục bộ.
+
+## Ghi chú tự học — vòng OpenRouter và biên tập cuối
+
+- Ba reader GLM đã hoàn tất ở các phiên `34866`, `81722`, `52504`; writer `deepseek/deepseek-v4-flash-0731` phiên `37140` soạn bản nháp trong gốc tạm hẹp. Codex chính kiểm bản nháp trước khi nhập vào kho.
+- Năm góc rà độc lập dùng `z-ai/glm-5.3-flash`: nguồn phiên thay thế `73898`, toán–thuật toán `75855`, mạch sư phạm `47740`, tính liên tục `43252`, viewer tĩnh `77991`. Phiên nguồn đầu hết giới hạn gọi công cụ nên không được dùng; phiên `73898` thay thế đã PASS.
+- Đã áp dụng các sửa có đồng thuận: đổi tích Descartes sai nghĩa thành phép nối trong ví dụ Block Nested; khai báo khóa tuple; chạy Sort-Merge đến khi hai dãy cạn; khép nhánh giả mã nhóm lớn; tách tên tuple khỏi tên phân hoạch; làm rõ hai vai trò thiết kế của $b_b$, khối biên, đường lui skew và ba trạng thái giả định.
+- Giữ $b_r+n_r$ seek của Nested, $b_r(t_T+t_S)+n_rc$ của Indexed và 500 seek của Grace vì đây là các công thức đã đối chiếu nguồn và chốt trong deck. Ghi chú bổ sung phạm vi mô hình để tránh suy rộng sang cách đọc lô khác.
+- Reviewer viewer phát hiện tiêu đề khối `exercise` đi vào mục lục. Đã sửa `material-viewer.js` để loại heading bên trong `.material-block`; cổng động xác nhận mục lục chỉ còn 15 đề mục nội dung.
+- Tái kiểm bắt buộc: toán–thuật toán phiên `13459` PASS; mạch viết phiên `44095` PASS. Metadata mọi phiên được chấp nhận đều có requested/observed model `z-ai/glm-5.3-flash` và provider OpenRouter.
+
+## Ghi chú tự học — no-ai-slop và Quill
+
+- `$no-ai-slop` loại “Deck chốt/dùng”, sửa câu nối ngược logic, bỏ diễn đạt phỏng đoán và giữ câu ngắn có chủ thể cụ thể. Tự kiểm theo `no-ai-slop/eval.md` không thấy lời dẫn rỗng, quảng bá, câu hỏi tu từ ngoài bài tập hay kết luận lặp vô ích.
+- `$quill` được dùng để rà mạch `student/takes → tuple → nhóm khối → chỉ mục → thứ tự → băm trong RAM → phân hoạch Grace → lựa chọn → recitation`; ký hiệu $q,b_b,p_h,\alpha,b_{in},b_{out}$ giữ nguyên nghĩa. Không tạo `quill.json`.
+
+## Ghi chú tự học — kiểm định viewer và index
+
+- Chromium ở 1280×720 và 390×844: 15 mục nội dung khớp 15 liên kết mục lục; 262 công thức KaTeX, 10 SVG, 24 khối gập và 6 khối mã; không lỗi KaTeX, ảnh hỏng, console, request hay tràn ngang.
+- Bàn phím đạt cho liên kết bỏ qua nội dung, khối gập và liên kết từ index. Bản in mở toàn bộ gợi ý/lời giải, ẩn mục lục/thanh hành động và không có ảnh vượt khung.
+- Viewer từ chối cả đường dẫn traversal và cặp số bài doc/deck không khớp. Index mở đúng ghi chú và deck ở cả hai kích thước màn hình.
+- Kiểm tra trực quan hai ảnh chụp toàn trang xác nhận bố cục rộng/hẹp liên tục, hình và khối mã không bị cắt. PDF in được tạo và kiểm tra cục bộ trước bàn giao.

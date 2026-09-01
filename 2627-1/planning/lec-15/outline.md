@@ -108,3 +108,21 @@ và xấp xỉ $2\left\lceil b_r/q\right\rceil$ seek.
 | Bài 15.4 | X05–X07 | 15 |
 | Bài 15.5 | X08–X09 | 10 |
 | **Tổng recitation** | **10 trang kể cả X00** | **60** |
+
+## Bản đồ chủ đề ghi chú tự học
+
+| `note-topic-id` | Vai trò | Sản phẩm học tập | Nguồn |
+|---|---|---|---|
+| `L15-N01` | cầu nối | Đặc tả phép nối `student/takes` và tách truyền khối khỏi seek | slide 7–9, 24 |
+| `L15-N02` | cốt lõi | Chạy và chứng minh Nested-Loop theo tuple | slide 25–26 |
+| `L15-N03` | cốt lõi | Suy $q$ từ bố trí bộ đệm và tính Block Nested | slide 27–28; Bài 15.3 |
+| `L15-N04` | cốt lõi | Duyệt hết danh sách RID và đánh giá Indexed Nested theo thời gian | slide 29–30; Bài 15.4 |
+| `L15-N05` | cốt lõi | Ghép tích hai nhóm khóa trùng và tính Sort-Merge vật chất hóa | slide 31–32; Bài 12, 15.3 |
+| `L15-N06` | cốt lõi | Xây–dò trong bộ nhớ, giữ bản sao và kiểm khóa thật | slide 35–36, 39 |
+| `L15-N07` | cốt lõi | Phân hoạch Grace và chạy vết bằng hai hàm băm | slide 33–37 |
+| `L15-N08` | cốt lõi | Xử lý skew bằng nhánh hữu hạn; chứng minh đúng và tính chi phí | slide 38–40 |
+| `L15-N09` | cốt lõi | Chọn thuật toán theo điều kiện và cùng đơn vị chi phí | tổng hợp slide 24–41 |
+| `L15-N10` | cốt lõi | Giải Bài 15.3–15.4 mà không đổi dữ kiện nguồn | Practice Exercises/Solutions 15.3–15.4 |
+| `L15-N11` | cốt lõi | Đạt cận đọc một lần và bộ nhớ tối thiểu của Bài 15.5 | Practice Exercises/Solutions 15.5 |
+
+Đồ thị tiên quyết của ghi chú là `N01→N02→N03→N04→N05→N06→N07→N08→N09→{N10,N11}`. Mỗi chủ đề cốt lõi có đặc tả, ví dụ kiểm được, thuật toán hoặc lập luận đúng, chi phí và bài tự kiểm; không bổ sung chủ đề ngoài nguồn.
