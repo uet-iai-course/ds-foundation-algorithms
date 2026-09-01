@@ -4,6 +4,20 @@
 
 Bài dùng lại phép lặp PageRank của Bài 3, chỉ thay vector dịch chuyển để tạo xếp hạng theo chủ đề. Cùng cơ chế đó dẫn đến TrustRank, còn cụm thao túng liên kết cho thấy điểm toàn cục có thể bị dồn bằng cấu trúc liên kết. HITS đổi cả đầu ra lẫn quy ước ma trận: hai vector trên đồ thị con truy vấn, hàng của $L$ là nút nguồn. Trang Z03 thu hồi các sản phẩm học tập của P01 rồi nối sang phần bài tập; trang R00 mở section bài tập trên lớp. Trang Z01 buộc người học chọn mô hình theo mục tiêu thay vì coi bốn tên là các biến thể tương đương.
 
+## Hành trình ghi chú tự học
+
+| `note-topic-id` | Vai trò | Kết nối vào | Thành phần áp dụng | Đầu ra cho phần sau |
+|---|---|---|---|---|
+| `L04-N01` | cầu nối | Ký hiệu Bài 03 | Vai trò, đặc tả ký hiệu, lỗi dễ mắc; không cần ví dụ, định lý hay thuật toán vì chỉ khôi phục tiên quyết | Quy ước thống nhất cho toàn bài |
+| `L04-N02` | cốt lõi | PageRank cơ sở | Đủ chuỗi; ví dụ Hình 5.15 truyền $S,q_S,r^{(0)}$ sang phép lặp, lập luận co và chi phí | Cơ chế đổi nơi dịch chuyển |
+| `L04-N03` | cốt lõi | Giới hạn của điểm liên kết | Đủ chuỗi; Hình 5.16 truyền $N,q,x,y$ từ luồng hạng sang phương trình và Ví dụ 5.11; suy dẫn đại số thay cho định lý | Động cơ chống spam |
+| `L04-N04` | cốt lõi | PageRank theo chủ đề và spam farm | Đủ chuỗi trừ chứng minh mới; phép lặp kế thừa N02, bảng Hình 5.17 kiểm tỷ số và giới hạn | Giới hạn của đầu ra một điểm |
+| `L04-N05` | cốt lõi | Nhu cầu hai vai trò | Đủ chuỗi; cộng trên cạnh trước ma trận, Hình 5.18–5.20 truyền dữ kiện sang giả mã, hội tụ và chi phí | Cơ sở so sánh mô hình |
+| `L04-N06` | cốt lõi tổng hợp | N02–N05 | Vai trò, tiêu chí, ví dụ chọn, kết luận và kiểm tra; không có thuật toán/chứng minh riêng | Tiêu chí làm bài và chọn mô hình |
+| `L04-N07` | cầu nối kiểm tra | Toàn bộ chủ đề cốt lõi | Đề, vết tính, kết quả và lỗi; vai trò/trực quan/lập luận gộp trong từng lời giải vì bài tập đo trực tiếp N02, N04, N05 | Kết thúc Bài 04, nối Bài 05 |
+
+Ghi chú giữ thứ tự N01→N07. Dữ kiện Hình 5.15, Hình 5.16, Hình 5.17 và Hình 5.18–5.20 phải được dùng lại từ định nghĩa qua ví dụ, thuật toán và kiểm tra; không đưa mã trang, thời lượng hoặc chỉ dẫn quy trình vào nội dung công khai.
+
 ## Phân bổ phần giảng: 120 phút
 
 | Trang | Phút | Vai trò và câu nối | Nguồn |

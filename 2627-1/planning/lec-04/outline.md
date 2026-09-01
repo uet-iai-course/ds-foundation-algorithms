@@ -87,3 +87,17 @@
 3. Dùng điểm này khi xếp hạng kết quả truy vấn.
 
 Không triển khai cách suy chủ đề bằng Jaccard trong bài này; Bài 5 cung cấp tiên quyết về độ tương đồng tập hợp.
+
+## Bản đồ chủ đề cho ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Đầu vào → sản phẩm | Quan hệ trước–sau |
+|---|---|---|---|---|
+| `L04-N01` | cầu nối | Ký hiệu từ PageRank cơ sở | $P,\beta,n,m_G$ → phân biệt với $L,N,q$ | Bài 03 → mọi chủ đề Bài 04 |
+| `L04-N02` | cốt lõi | PageRank theo chủ đề | $S,e_S,q_S$, Hình 5.15 → phép lặp, phối hợp vector, chi phí | `L04-N01` → `L04-N03` |
+| `L04-N03` | cốt lõi | Cụm thao túng liên kết | $N,q,x,y$, Hình 5.16 → đẳng thức, xấp xỉ, Ví dụ 5.11 | `L04-N02` → `L04-N04` |
+| `L04-N04` | cốt lõi | TrustRank và khối lượng rác | $T,q_T,r,t$ → phép lặp, $s_p$, giới hạn diễn giải | `L04-N03` → `L04-N05` |
+| `L04-N05` | cốt lõi | HITS | đồ thị con, $L,h,a$ → vết chạy, giả mã, hội tụ, chi phí | `L04-N04` → `L04-N06` |
+| `L04-N06` | cốt lõi | So sánh bốn mô hình | kết quả N02–N05 → bảng chọn mô hình | `L04-N05` → `L04-N07` |
+| `L04-N07` | cầu nối | Bài tập nguồn | MMDS 5.3.1, 5.4.2, 5.5.1 → lời giải kiểm được | tổng hợp → Bài 05 |
+
+Hai chủ đề bổ sung được duyệt ở mức ngắn: DMOZ trong Ví dụ 5.9 làm bối cảnh cho vector chủ đề; sự thích nghi qua lại trong §5.4.3 làm câu nối từ spam farm sang TrustRank. Không mở rộng sang Jaccard, Pixie, SimRank, API hoặc lời giải đóng đầy đủ của Ví dụ 5.15.

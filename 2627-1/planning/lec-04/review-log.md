@@ -184,6 +184,53 @@ Quyết định chung: mọi lỗi nghiêm trọng và trung bình của năm b�
 
 Rà lại độc lập xác nhận các vector PageRank theo chủ đề, công thức trang trại, bảng khối lượng rác, chiều ma trận HITS, hai vòng lặp, đáp án bài tập và tổng thời lượng đều đúng; không còn lỗi chặn bàn giao.
 
+## Chốt goal ghi chú tự học
+
+- Ba worker OpenRouter độc lập dùng đúng `z-ai/glm-5.3-flash`: reader lập kế hoạch, reader ánh xạ nguồn và reviewer phản biện bản đồ chủ đề. Cả ba chỉ đọc hồ sơ đã lọc, không chứa `.env` hoặc thông tin xác thực.
+- Reader nguồn đã đối chiếu trực tiếp MMDS §5.3–5.5, slide MMDS phần 2, Stanford CS246 `10-spam.pdf` và ba đề 5.3.1, 5.4.2, 5.5.1. Nguồn đủ để chuyển trạng thái goal sang `sẵn sàng soạn`.
+- Quyết định `giữ`: năm cụm cốt lõi PageRank theo chủ đề, spam farm, TrustRank/khối lượng rác, HITS và so sánh; hai cầu nối ký hiệu Bài 03 và bài tập nguồn.
+- Quyết định `thêm` ở mức ngắn: DMOZ trong Ví dụ 5.9 làm bối cảnh; một câu về sự thích nghi qua lại ở §5.4.3 nối spam farm với TrustRank.
+- Quyết định `bỏ` hoặc `chuyển bài`: Jaccard sang Bài 05; Pixie, SimRank, API, nhận định lịch sử về Ask, suy đoán về PageRank hiện thời và lời giải đóng đầy đủ Ví dụ 5.15 ra khỏi phạm vi.
+- Phần làm chặt của học phần phải được dán nhãn: tập dịch chuyển khác rỗng, $r_p>0$, nhánh vector 0, điều kiện dừng và điều kiện hội tụ HITS. Không gán các phát biểu này nguyên văn cho MMDS.
+- Goal được ghi tại `.codex/goal_lecture_4.md` với đúng 13 mục; không tạo `quill.json`.
+
+## Soạn và rà ghi chú Bài 04
+
+### Runtime writer
+
+- Writer được yêu cầu: `deepseek/deepseek-v4-flash-0731` qua OpenRouter.
+- Lượt đầu trên dossier nguồn dài thất bại nguyên văn: `model returned an empty or incomplete answer after all retries`; hai phản hồi đều kết thúc bằng `finish_reason: length`, không tạo tệp.
+- Lượt thử lại giữ nguyên model và nguồn nhưng dùng briefing hẹp. Writer tạo `lecture-note.md`, sau đó kết thúc với `model exceeded the tool-call limit (8)` trong lúc đọc lại. Tệp đã ghi đầy đủ được giữ làm bản thảo; điều phối viên kiểm và sửa trước khi review.
+- Reader, năm reviewer và recheck đều dùng `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Hồ sơ gửi ra ngoài đã lọc, không chứa `.env` hoặc thông tin xác thực.
+
+### Năm báo cáo độc lập
+
+| Vai rà | Phát hiện chính | Quyết định |
+|---|---|---|
+| Nguồn và phạm vi | Hai lỗi HITS ở bài 5.5.1; thiếu nhãn Ví dụ 5.11–5.12 và Hình 5.19–5.20 | Sửa vector tỷ lệ $(3,5,5,5)$, đỉnh thẩm quyền $B,C$; bổ sung nhãn và truy nguyên |
+| Toán và thuật toán | Xác nhận các ma trận, công thức spam farm, TrustRank, spam mass và phần lớn vector; yêu cầu làm rõ $h_{\text{thô}}=La_{\text{mới}}$ | Áp dụng đầy đủ; tính lại độc lập bằng phân số |
+| Mạch tự học | Thiếu tự kiểm cục bộ, giới hạn spam farm bị lẫn trong đại số, hình HITS dùng nhầm sơ đồ luồng spam | Thêm mục giới hạn và tự kiểm; chuyển hình luồng về phần spam; giữ SVG HITS đúng vai trò |
+| Ngôn ngữ và ký hiệu | Bản thảo còn toán văn bản thô, dấu trừ Unicode, dấu phẩy thập phân mơ hồ, câu quy trình và thuật ngữ không nhất quán | Viết lại ba cụm `exercise`/`hint`/`solution`; dùng KaTeX, dấu chấm phẩy cho vector thập phân; cắt nội dung quy trình; thống nhất thuật ngữ |
+| Viewer và khả năng tiếp cận | Cặp directive đúng; cảnh báo bảng rộng và ma trận; phát hiện đúng toán chưa bọc và alt lệch. Cảnh báo thiếu HTML/SVG do dossier hẹp | Sửa toán và alt; bác cảnh báo thiếu tài sản sau khi kiểm trực tiếp kho chính; giữ bảng để kiểm thực tế ở khung hẹp/in |
+
+### Biên tập cuối
+
+- `$no-ai-slop`: cắt lời dẫn rỗng, câu nhấn kiểu “điều cốt lõi/điều quan trọng”, nội dung quy trình, đoạn tự kiểm dành cho writer và phần kết luận lặp; giữ các số, giả thiết và chi tiết nguồn. Tự kiểm theo `no-ai-slop/eval.md` đạt: không thêm mệnh đề, không còn từ cấm hoặc mẫu câu máy móc được liệt kê.
+- `$quill`: dùng quy trình revise/outline để rà mạch Bài 03 → PageRank theo chủ đề → cụm thao túng → TrustRank/khối lượng rác → HITS → so sánh → bài tập; thuật ngữ và ký hiệu được truyền liên tục. Không khởi tạo `quill.json`.
+- Tính lại độc lập bằng phân số xác nhận hai vòng HITS Hình 5.18, ba nghiệm bài tập, tổng các phân phối và bốn tỷ số khối lượng rác.
+- Recheck GLM trên bản mới nhất trả `GO`: không còn lỗi chặn hoặc nghiêm trọng. Ba góp ý thẩm mỹ được xử lý hai mục về dấu câu và cách dùng “tách ... khỏi ...”; dấu chấm phẩy trong vector thập phân được giữ để phân biệt dấu phẩy thập phân tiếng Việt.
+- Không thay đổi ký hiệu, giả thiết, ví dụ, kết luận hoặc thứ tự dùng chung so với deck; không cần sửa deck. Các làm chặt của học phần vẫn khớp deck và được ghi rõ trong ghi chú.
+
+## Kiểm định viewer và phát hành index
+
+- Máy chủ cục bộ tương thích chạy tại `127.0.0.1:8765`; Chromium headless dùng viewport thật $1280\times720$ và $390\times844$.
+- Lượt đầu phát hiện bảng so sánh năm cột làm tài liệu tràn ngang 63 px ở khung hẹp. Bảng được tách thành hai bảng ba cột, giữ đủ bốn mô hình và năm tiêu chí.
+- Lượt cuối đạt ở cả hai khung: 41 heading và 41 liên kết mục lục; 380 biểu thức KaTeX, 0 lỗi; 5 SVG, 0 ảnh hỏng; 6 khối `hint`/`solution` đóng mặc định; không lỗi console, lỗi trang hoặc request; không tràn ngang.
+- Bàn phím: liên kết bỏ qua điều hướng nhận focus và hoạt động; phím Enter mở được khối gập đầu tiên.
+- Bản in: mọi khối gập mở, mục lục và nhóm hành động bị ẩn. PDF A4 có 19 trang; kiểm tra văn bản xác nhận đủ Gợi ý/Lời giải của ba bài và kiểm ảnh hai trang đầu không có cắt/chồng.
+- An toàn: viewer từ chối đường dẫn traversal và từ chối cặp `doc`/`deck` khác số bài.
+- Sau khi các cổng trên đạt, mới thêm đúng một liên kết ghi chú Bài 04 vào `2627-1/index.html`. Chromium nhấp từ index, tải đúng tiêu đề, `doc` và `deck`, không có lỗi runtime.
+
 ## Kiểm định cuối (lượt trước — lịch sử, chưa được phê duyệt cho lượt này)
 
 - Kiểm tra tĩnh: 39 `data-slide-id` duy nhất, 39 khối ghi chú, thứ tự ID khớp storyboard; phần giảng 120 phút và bài tập 60 phút.
