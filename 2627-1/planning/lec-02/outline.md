@@ -48,7 +48,7 @@ R00 và R05 là trang chuyển phần hoặc nêu nguyên văn phạm vi bài, k
 
 ## Ánh xạ nguồn
 
-MMDS 3e Chương 2 và bộ trang chiếu chính thức MMDS Chương 2 là nguồn chính cho luồng cốt lõi, ví dụ, thuật toán và bài tập. Stanford CS246 trang chiếu 50–60 và 66 được chọn cho DAG, Spark và giới hạn của xử lý theo lô vì trực quan và hiện thời hơn slide MMDS v2.1. Bộ trang chiếu MMDS được dùng theo giấy phép ghi ở trang 1; ghi công tại http://www.mmds.org. Không sao chép bố cục, CSS hoặc tài sản của nguồn; nội dung được Việt hóa và hình kỹ thuật được vẽ lại thành SVG.
+MMDS 3e Chương 2 và bộ trang chiếu chính thức MMDS Chương 2 là nguồn chính cho luồng cốt lõi, ví dụ, thuật toán và bài tập. Stanford CS246 trang chiếu 49–60, 62 và 66–69 được chọn cho DAG, Spark, tình huống metadata Web, chi phí và giới hạn của xử lý theo lô vì trực quan và hiện thời hơn slide MMDS v2.1. Bộ trang chiếu MMDS được dùng theo giấy phép ghi ở trang 1; ghi công tại http://www.mmds.org. Không sao chép bố cục, CSS hoặc tài sản của nguồn; nội dung được Việt hóa và hình kỹ thuật được vẽ lại thành SVG.
 
 | Nguồn | Phạm vi dùng | Mã trang |
 |---|---|---|
@@ -64,7 +64,7 @@ MMDS 3e Chương 2 và bộ trang chiếu chính thức MMDS Chương 2 là ngu�
 | MMDS 3e, mục 2.2.4–2.2.5, trang in 27–29 | Bộ kết hợp, reducer, Reduce task, lệch tải, thực thi | C00–C06, D01 |
 | MMDS 3e, mục 2.2.6, trang in 30 | Khôi phục sau lỗi máy | D00–D02 |
 | MMDS 3e, mục 2.4, trang in 41–50 | Hệ luồng công việc và Spark | E00–E01 |
-| Stanford CS246, trang chiếu 50–60 và 66 | DAG, Spark và giới hạn của MapReduce theo lô | E00–E02 |
+| Stanford CS246, trang chiếu 49–60, 62 và 66–69 | DAG, Spark, metadata Web, chi phí và giới hạn của MapReduce theo lô | A00, D03–D04, E00–E02 |
 | MMDS 3e, mục 2.5.1, trang in 53–55 | Chi phí truyền thông là tổng kích thước đầu vào tác vụ | D03–D04 |
 | MMDS 3e, Bài 2.2.1, trang in 30, PDF trang 11 | Toàn bộ bài tập lệch tải | R01–R04 |
 | MMDS 3e, Bài 2.3.1, trang in 40, PDF trang 21 | Toàn bộ bài tập thiết kế | R05–R08, lec02-r06a, lec02-r06b |
@@ -121,3 +121,25 @@ Mỗi lần xuất hiện của $w$ tạo đúng một giá trị 1. Bảo đả
 | `ngan-xep-du-lieu.svg` | E01 | MMDS mục 2.4; Stanford CS246 trang chiếu 51–59 |
 
 Mọi hình là SVG cục bộ có `role="img"`, `title`, `desc` và mô tả thay thế trong HTML. Không dùng ảnh raster.
+
+## Phạm vi ghi chú bài giảng
+
+Ghi chú tự học dùng cùng tình huống metadata Web, thuật ngữ và ký hiệu của deck, nhưng mở rộng đặc tả, vết chạy, lập luận đúng và chi phí.
+
+| `note-topic-id` | Chủ đề | Nhãn | Nguồn chính | Quyết định |
+|---|---|---|---|---|
+| `note-topic-02-motivation` | Metadata Web và giới hạn bộ nhớ/I/O | cốt lõi | Stanford 62; MMDS 2.1 | giữ |
+| `note-topic-02-dfs-locality` | DFS, chunk, bản sao, data locality | cầu nối | MMDS 2.1; slide MMDS 2–11 | giữ ngắn |
+| `note-topic-02-map-group-reduce` | Map–nhóm theo khóa–reduce | cốt lõi | MMDS 2.2.1–2.2.3 | giữ |
+| `note-topic-02-word-count` | Word Count từ đặc tả đến chứng minh | cốt lõi | MMDS Ví dụ 2.1–2.2 | giữ |
+| `note-topic-02-combiner` | Bộ kết hợp và bảo toàn ngữ nghĩa | cốt lõi | MMDS 2.2.4 | giữ |
+| `note-topic-02-partition-skew` | Phân vùng, số task và lệch tải | cốt lõi | MMDS 2.2.2, khung trang 28, 2.2.5 | giữ |
+| `note-topic-02-fault-tolerance` | Điều phối và chạy lại tác vụ | cốt lõi | MMDS 2.2.5–2.2.6 | giữ |
+| `note-topic-02-rerun-safety` | Điều kiện an toàn khi chạy lại | bổ sung | suy ra từ đặc tả chạy lại | giữ có điều kiện |
+| `note-topic-02-cost-models` | Hai quy ước chi phí | cốt lõi | MMDS 2.5.1; slide MMDS 38–40 | gộp trong một mục |
+| `note-topic-02-dag-spark` | DAG, Spark và ranh giới batch | cốt lõi ở mức định vị | MMDS 2.4; Stanford 49–60, 66–69 | giữ, không dạy API |
+| `note-topic-02-exercises` | MMDS 2.2.1 và 2.3.1 | cốt lõi luyện tập | MMDS PDF 11 và 21 | giữ nguyên dữ kiện |
+
+Đồ thị tiên quyết: `motivation → dfs-locality → map-group-reduce → word-count → {combiner, partition-skew} → fault-tolerance → rerun-safety → cost-models → dag-spark`. Bài tập nhận đầu vào từ Word Count, bộ kết hợp, lệch tải và mô hình chi phí.
+
+Hai phần bổ sung biên tập phải được nhận diện rõ: điều kiện đóng/cùng kiểu của bộ kết hợp nằm trong `combiner`; tính quyết định và việc không tạo hiệu ứng ngoài không kiểm soát nằm trong `rerun-safety`. Đây là điều kiện suy ra từ đặc tả, không phải phát biểu nguyên văn của MMDS.

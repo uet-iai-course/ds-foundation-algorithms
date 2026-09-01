@@ -6,7 +6,7 @@
 - Nguồn chính: MMDS 3e Chương 2 và `sources/reference-slides/mmds/ch02-mapreduce.pdf`, trang chiếu 2–40 theo ánh xạ chọn lọc. Ghi công bộ trang chiếu: http://www.mmds.org.
 - Phần giảng: 120 phút.
 - Phần bài tập: 60 phút, chỉ dùng MMDS Bài 2.2.1(a–c) và 2.3.1(a–d).
-- Ngoài phạm vi: PageRank, phép nối, nhân ma trận–vector và Bài 2.5.1.
+- Ngoài phạm vi: PageRank, phép nối, nhân ma trận–vector và Bài tập 2.5.1.
 
 ## Quyết định biên tập ban đầu
 
@@ -72,7 +72,7 @@ Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; các 
 | nghiêm trọng | B03, C02, C03, D04 | Công thức không nằm trong dấu phân cách KaTeX | Chuỗi LaTeX xuất hiện trực tiếp trong thẻ `p` | Bọc bằng `$...$` | Đã sửa cả bốn trang |
 | nghiêm trọng | R07, R08 | Đặt số nguyên vào sai trường của cặp đầu ra | R07 nói reducer “phát x”; R08 không giữ rõ $x$ ở trường giá trị của lượt 1 | Ghi rõ $(\text{khóa không dùng},x)$ | Đã sửa ghi chú R07; R08 đọc $x$ từ trường giá trị ở lượt 2 |
 | trung bình | C06 | Câu hỏi và đáp án cùng xuất hiện | Hai thẻ dưới câu hỏi nêu thẳng cặp tổng–số lượng | Chuyển đáp án sang ghi chú hoặc mảnh hiện dần | Đã chuyển toàn bộ đáp án sang ghi chú; không dùng mảnh hiện dần để tránh lộ khi in |
-| nhẹ | R01–R08 | Không dành thời gian giao việc | R01 ghi 0 phút | Phân bổ lại đủ 60 phút | Đã dùng nhịp $4+8+11+9+14+6+8=60$ phút |
+| nhẹ | R01–R08 | Không dành thời gian giao việc | R01 ghi 0 phút | Phân bổ lại đủ 60 phút | Đã dùng nhịp $4+8+11+9+6+8+6+8=60$ phút |
 
 ### B. Góc nhìn sinh viên
 
@@ -115,7 +115,7 @@ Kết quả tự kiểm theo `no-ai-slop/eval.md`: đạt ở bản nháp; các 
 - Không dùng đề xuất hiển thị đáp án C06 bằng mảnh hiện dần; chuyển hẳn vào ghi chú để bản in cũng không lộ lời giải.
 - Không chọn thiết kế một lượt ở R08 làm đáp án chuẩn. Chỉ chấp nhận như phương án khác nếu người học chứng minh được tổng toàn cục.
 - Chu kỳ trước đã rà các trang ảnh hưởng và hai trang lân cận. Chu kỳ 2026-08-30 đổi thứ tự phần B và thêm hai mã `lec02-r06a`, `lec02-r06b`; phạm vi này được rà lại riêng bên dưới.
-- Theo yêu cầu bổ sung của người dùng, đã so sánh slide chính thức MMDS với Stanford CS246 theo từng cụm. MMDS được chọn cho động cơ, hệ tệp, Word Count, thực thi, lỗi, bộ kết hợp, phân vùng và $I+2M+O$; Stanford 50–60 và 66 được chọn cho DAG, Spark và giới hạn theo lô vì trực quan và hiện thời hơn slide MMDS v2.1. MMDS 3e kiểm chứng phần bổ sung. Không sao chép CSS, tài sản nhị phân hay hình nguồn; nội dung được Việt hóa và hình được vẽ lại.
+- Theo yêu cầu bổ sung của người dùng, đã so sánh slide chính thức MMDS với Stanford CS246 theo từng cụm. MMDS được chọn cho động cơ, hệ tệp, Word Count, thực thi, lỗi, bộ kết hợp, phân vùng và $I+2M+O$; Stanford 49–60, 62 và 66–69 được chọn cho DAG, Spark, metadata Web, chi phí và giới hạn theo lô vì trực quan và hiện thời hơn slide MMDS v2.1. MMDS 3e kiểm chứng phần bổ sung. Không sao chép CSS, tài sản nhị phân hay hình nguồn; nội dung được Việt hóa và hình được vẽ lại.
 
 ## Tự kiểm sau chỉnh sửa
 
@@ -229,3 +229,41 @@ Rà lại mạch xác nhận đủ 7 section ngoài, 42 trang, mở đầu P, k�
 - `2627-1/index.html` đã có liên kết duy nhất tới HTML Bài 2; không cần sửa danh mục trong chu kỳ này.
 - Runtime Codex Slides cục bộ chỉ khởi động được ngoài sandbox do lỗi `listen EPERM` ở cổng 4311. Lệnh đọc dự án xác nhận dự án bền vững còn ở trạng thái `draft`, giai đoạn `clarify`, 0 trang và 0 outline; không có bản render để đối chiếu. Codex Slides Browser không khả dụng, vì vậy không tuyên bố rà trực quan bằng Codex Slides và không tải bản HTML hiện hành lên dịch vụ.
 - Lượt rà lại cuối bằng OpenRouter xác nhận không còn lỗi trung bình hoặc nghiêm trọng ở B05–B06, C02, C05–D00 và D05–E02. Sau đó chỉ thay mã nội bộ trong lời nói bằng mô tả khái niệm; kiểm thử Chromium được chạy lại và vẫn đạt.
+
+## Chu kỳ xây dựng ghi chú bài giảng
+
+### Quyết định phạm vi trước khi soạn
+
+- Reader lập kế hoạch, reader nguồn và reviewer bản đồ chủ đề OpenRouter đều dùng `z-ai/glm-5.3-flash`; metadata quan sát khớp model yêu cầu và provider là OpenRouter.
+- Giữ 11 chủ đề trong `.codex/goal_lecture_2.md`. Không đưa PageRank, phép nối, đại số quan hệ, nhân ma trận hoặc hướng dẫn API vào tuyến chính.
+- Thêm có điều kiện chủ đề an toàn khi chạy lại. Gộp điều kiện đóng/cùng kiểu và bảo toàn ngữ nghĩa vào chủ đề bộ kết hợp. Cả hai là suy luận từ đặc tả, không gán nguyên văn cho MMDS.
+- Đặt hai mô hình chi phí trong cùng một mục nhưng giữ phạm vi đo riêng: sách đếm tổng đầu vào task $I+M$; slide đếm tổng I/O tiến trình $I+2M+O$.
+- Kiểm tra trực tiếp MMDS PDF trang 21 xác nhận Bài 2.3.1 xử lý tệp số nguyên lớn, không phải nhân ma trận. Giữ nguyên bốn yêu cầu và quy ước bỏ khóa đầu ra.
+- Ghi chú dùng cùng ký hiệu, giả thiết, ví dụ Word Count và thứ tự khái niệm đã có trong deck. Chưa có thay đổi buộc sửa HTML; phải rà lại sau bản nháp.
+
+### Sự cố worker trước bản nháp
+
+- Lượt writer đầu đọc một gốc tạm quá rộng, chưa sửa tệp nào và dừng với lỗi nguyên văn `RuntimeError: OpenRouter request exceeded 300s wall timeout`.
+- Không chấp nhận đầu ra dở dang. Lượt tiếp theo giữ nguyên model/provider, thu hẹp gốc ghi và chỉ giao soạn `lecture-note.md`; planning đã được Codex chính cập nhật trước theo goal duyệt.
+
+### Năm lượt rà độc lập và sửa bản nháp
+
+- Bản nháp được writer `deepseek/deepseek-v4-flash-0731` tạo qua OpenRouter theo ngoại lệ model mà người dùng chỉ định. Phạm vi, nguồn và cổng kiểm định không đổi.
+- Năm reviewer độc lập dùng `z-ai/glm-5.3-flash` qua OpenRouter ở các góc nhìn sinh viên, chuyên gia giải thuật, độ chính xác, sư phạm và mạch nguồn. Metadata quan sát khớp model yêu cầu và provider là OpenRouter.
+- Lỗi nghiêm trọng ở lời giải Bài 2.2.1(c) đã sửa: với 100 Map task và combiner, mỗi khóa có nhiều nhất 100 tổng cục bộ, nên lệch độ dài danh sách giảm mạnh và không còn đáng kể như trường hợp không có combiner.
+- Ví dụ $I=100,M=40,O=10$ đã sửa: chênh lệch giữa 190 và 140 là $M+O=50$, do phạm vi hạch toán khác nhau; không suy ra byte mạng từ hiệu này.
+- Động lực metadata Web đã sửa để thừa nhận quét tuần tự dùng bộ nhớ nhỏ vẫn khả thi, nhưng bị giới hạn bởi băng thông và thời gian của một máy. Kết luận quay lại đúng phép Map $(host,kích\,thước)$, combiner/reduce cộng và vai trò của $M$.
+- Đã thêm nền function/task, kết hợp–giao hoán, tổng trên phân hoạch; chứng minh ngắn cho combiner; ký hiệu $h$ và $p(k)=h(k)\bmod r$; ví dụ khóa nóng định lượng; các câu tự kiểm tra và nguồn Word Count/trang lệch tải.
+- Bài 2.3.1 được giữ theo bản PDF trang 21 đã kiểm tra trực tiếp. Đầu ra ý (c) dùng $(\text{khóa không dùng},x)$; bỏ câu ngoài phạm vi về nhân ma trận.
+- Liên kết deck đổi sang đường dẫn theo ngữ nghĩa viewer. Các đường dẫn SVG `img/lec-02/*.svg` được giữ nguyên: năm tệp tồn tại trong kho và viewer phân giải chúng từ thư mục `2627-1/`. Cảnh báo thiếu SVG trong gốc tạm và đề xuất đổi sang `../../img` bị bác.
+- Writer sửa tự động thất bại nhiều lần do timeout, giới hạn tool call và lỗi giải mã JSON. Theo xác nhận của người dùng, Codex chính trực tiếp áp dụng các sửa đã được năm reviewer phê duyệt; không mở rộng nguồn hoặc phạm vi.
+
+### Biên tập, tái kiểm và công bố ghi chú
+
+- `$no-ai-slop` được áp dụng trực tiếp lên toàn bản ghi chú. Bản cuối giữ nguyên dữ kiện và mệnh đề, cắt câu mang tính quy trình, tránh nhịp đối lập giả và kết thúc bằng phép MapReduce cụ thể cho kho metadata Web. Tự kiểm theo `no-ai-slop/eval.md` đạt.
+- `$quill` được dùng để rà thứ tự và tính liên tục, không tạo `quill.json`: nền function/task và tổng trên phân hoạch đi trước đặc tả; Word Count truyền dữ liệu sang combiner và phân vùng; chạy lại nối sang chi phí; DAG/Spark dẫn về kết luận và bài tập. Ký hiệu $h,r,p(k),I,M,O$ nhất quán.
+- Hai reviewer `recheck` độc lập dùng `z-ai/glm-5.3-flash` qua OpenRouter xác nhận các sửa kỹ thuật và mạch viết đạt; cùng phát hiện một lỗi nhẹ `$oplus$`. Sau khi đổi thành `$\oplus$`, lượt GLM tái kiểm cuối xác nhận không còn lỗi trung bình hoặc nghiêm trọng và không còn nội dung quy trình trong ghi chú. Mọi lượt đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`.
+- Kiểm định viewer bằng Chromium headless đạt ở 1280 × 720 và 390 × 844: 32 mục nội dung/mục lục, 101 công thức KaTeX không lỗi, năm SVG tải đủ, bốn khối `hint`/`solution` gập mặc định, liên kết bỏ qua và thao tác bàn phím hoạt động, không tràn, không lỗi JavaScript hoặc yêu cầu thất bại.
+- Kiểm định bản in xác nhận mọi `details` mở, mục lục bên và thanh hành động ẩn. Viewer từ chối đường dẫn traversal và từ chối `doc`/`deck` lệch số bài.
+- Sau khi viewer đạt, `2627-1/index.html` được cập nhật bằng đúng một liên kết Ghi chú cho Bài 2. Kiểm tra Chromium ở màn hình rộng và hẹp xác nhận đủ 15 thẻ bài, Bài 2 có đúng hai tài nguyên, không tràn và không lỗi tải.
+- Ghi chú không làm thay đổi ký hiệu, giả thiết, ví dụ hoặc kết luận dùng chung theo cách buộc sửa deck. Năm SVG hiện có được tái sử dụng nguyên trạng.

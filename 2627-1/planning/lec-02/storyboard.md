@@ -4,7 +4,7 @@
 
 Chuỗi chính giữ một tình huống xuyên suốt: đếm từ trong kho tài liệu lớn. Kho không vừa một máy, nên hệ tệp chia khối và đặt tác vụ gần dữ liệu. Từ đầu ra theo từ, bài chọn khóa trung gian, chạy tay Word Count, hình thức hóa ba giai đoạn, chứng minh tính đúng, rồi phân tích dữ liệu trung gian, lệch tải, lỗi và chi phí. Phần cuối đặt MapReduce vào ngăn xếp và giới hạn phạm vi áp dụng.
 
-Mạch này dùng giáo trình và bộ trang chiếu chính thức MMDS Chương 2 cho phần cốt lõi: trang chiếu 2–11 mở động cơ và hệ tệp; 12–20 xây Word Count; 21–26 trình bày thực thi và lỗi; 27–32 trình bày độ hạt, bộ kết hợp và phân vùng; 38–40 định nghĩa chi phí I/O. Phần E so sánh hai nguồn và chọn Stanford CS246 trang 50–60, 66 cho DAG, Spark và giới hạn xử lý theo lô; MMDS 3e mục 2.4 dùng để kiểm chứng. Bài 2.2.1 và 2.3.1 tạo phần bài tập.
+Mạch này dùng giáo trình và bộ trang chiếu chính thức MMDS Chương 2 cho phần cốt lõi: trang chiếu 2–11 mở động cơ và hệ tệp; 12–20 xây Word Count; 21–26 trình bày thực thi và lỗi; 27–32 trình bày độ hạt, bộ kết hợp và phân vùng; 38–40 định nghĩa chi phí I/O. Phần bổ trợ chọn Stanford CS246 trang 49–60, 62 và 66–69 cho DAG, Spark, metadata Web, chi phí và giới hạn xử lý theo lô; MMDS 3e mục 2.4 dùng để kiểm chứng. Bài 2.2.1 và 2.3.1 tạo phần bài tập.
 
 Theo rà dàn ý của quy trình Quill, các phụ thuộc khái niệm là:
 
@@ -100,4 +100,24 @@ Hai ý 2.3.1(a–b) được tách thành hai trang dọc lec02-r06a và lec02-r
 - Dùng hai tài liệu nhỏ ở B01 để chạy tay đúng cơ chế Ví dụ 2.1–2.2; chuỗi tiếng Việt chỉ là dữ liệu minh họa, không phải số liệu thực nghiệm.
 - Đặt MMDS 2.5.1 cạnh bộ trang chiếu chính thức MMDS 38–40 để chỉ rõ hai quy ước, thay vì chọn một và làm mất truy nguyên.
 - Phần Spark chỉ định vị trong ngăn xếp; không dạy RDD, DataFrame hoặc API.
-- Phần recitation chỉ dùng Bài 2.2.1 và 2.3.1; không dùng Bài 2.5.1.
+- Phần recitation chỉ dùng Bài tập 2.2.1 và 2.3.1; không dùng Bài tập 2.5.1.
+
+## Bản đồ hành trình của ghi chú bài giảng
+
+| `note-topic-id` | Vai trò | Kết nối vào | Sản phẩm học tập | Kết nối ra | Thành phần trình bày |
+|---|---|---|---|---|---|
+| `note-topic-02-motivation` | Đặt bài toán metadata Web | Bài 01 | Xác định dữ liệu, đầu ra và điểm nghẽn | DFS | nhu cầu, ví dụ, kiểm tra |
+| `note-topic-02-dfs-locality` | Khôi phục hạ tầng đủ dùng | động lực | Giải thích chunk, bản sao, vị trí dữ liệu | task | định nghĩa, trực quan, giới hạn |
+| `note-topic-02-map-group-reduce` | Đặc tả ba vai trò | khóa–giá trị | Phân biệt phần người dùng và hệ thống | Word Count | đặc tả, ví dụ, quy trình |
+| `note-topic-02-word-count` | Ví dụ xuyên suốt | luồng MapReduce | Vết chạy, giả mã, tính đúng, biên, chi phí | combiner, phân vùng | đủ chuỗi trình bày |
+| `note-topic-02-combiner` | Giảm dữ liệu trung gian | Word Count | Nêu điều kiện và phản ví dụ | lệch tải, chi phí | cây gộp, mệnh đề, chứng minh |
+| `note-topic-02-partition-skew` | Phân biệt tải theo khóa, task, máy | nhóm theo khóa | Phân tích $p(k)$ và số task | điều phối | định nghĩa, ví dụ tải, kiểm tra |
+| `note-topic-02-fault-tolerance` | Mô tả trạng thái và chạy lại | DFS, task | Phân biệt lỗi Master/Map/Reduce | an toàn chạy lại | quy trình, trường hợp biên |
+| `note-topic-02-rerun-safety` | Nêu điều kiện thiết kế | chạy lại | Nhận diện tính quyết định và hiệu ứng ngoài | DAG | mệnh đề biên tập, phản ví dụ |
+| `note-topic-02-cost-models` | Đo chi phí đúng phạm vi | dữ liệu trung gian | Phân biệt $I+M$ với $I+2M+O$ | chọn mô hình | định nghĩa, phép tính, lỗi dễ mắc |
+| `note-topic-02-dag-spark` | Định vị ngăn xếp | chịu lỗi, chi phí | Chọn batch MapReduce khi phù hợp | tổng hợp | trực quan, so sánh có điều kiện |
+| `note-topic-02-exercises` | Luyện tập từ nguồn | các chủ đề trên | Thiết kế và giải thích thuật toán | tự đánh giá | đề, gợi ý, lời giải |
+
+Tình huống metadata Web trở lại ở bốn điểm: chọn khóa máy chủ trong đặc tả; tổng hợp cục bộ bằng phép cộng; đo dữ liệu trung gian; và quyết định một job batch có phù hợp. Ví dụ Word Count dùng bộ dữ liệu nhỏ riêng để nhìn thấy từng trạng thái, nhưng giữ cùng cấu trúc đóng góp theo khóa. Bản ghi chú khôi phục ngắn function/task, kết hợp–giao hoán và tổng trên phân hoạch; thêm kiểm tra tại các ranh giới đặc tả, Word Count, combiner, phân vùng và chi phí.
+
+Bài 2.3.1 đã được đối chiếu trực tiếp ở PDF trang 21: tìm số lớn nhất, trung bình, tập số không lặp và số lượng giá trị phân biệt. Chủ đề nhân ma trận xuất hiện ở phần trước của cùng trang PDF nhưng không thuộc bài tập này và không vào ghi chú.
