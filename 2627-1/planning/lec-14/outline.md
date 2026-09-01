@@ -120,3 +120,22 @@ Ma trận đúng, từ hàng trên xuống: `6,8,14,16`; `5,7,13,15`; `2,4,10,12
 | Bài 25.2 | X04–X05 | 10 |
 | Bài 25.3 | X06–X08 | 20 |
 | **Recitation** | **9 trang kể cả X00** | **60** |
+
+## Bản đồ chủ đề ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Kết nối và nguồn |
+|---|---|---|---|
+| `L14-N01` | cầu nối | Hai miền dữ liệu và tuyến ứng viên–tinh lọc | Bài 13 → chỉ mục văn bản/không gian |
+| `L14-N02` | cốt lõi | Danh sách đảo, AND, OR, NOT | Ch31 tr.13–14 → bố trí đĩa |
+| `L14-N03` | cầu nối | Vị trí–tần suất và bố trí trên đĩa | Ch31; Bài 12–13 → đánh giá |
+| `L14-N04` | cốt lõi | Precision/recall | Ch31 tr.15–16 → tổng hợp N10 |
+| `L14-N05` | cốt lõi | R-tree lọc–tinh lọc | Ch24; Auburn → cận khoảng cách |
+| `L14-N06` | cốt lõi | kd-tree và 1-NN chính xác | Cornell tr.1–4 → ball tree |
+| `L14-N07` | cốt lõi | Cận metric và truy vấn ball tree | Cornell tr.3–5 → phép dựng |
+| `L14-N08` | cốt lõi | Dựng ball tree Euclid | Cornell tr.5 + suy ra có điều kiện |
+| `L14-N09` | cốt lõi | Z-order, B+-Tree và tinh lọc | Auburn tr.12–13; Bài 13 |
+| `L14-N10` | bổ sung | Chọn chỉ mục theo mô hình chi phí | Tổng hợp N01–N09 |
+| `L14-N11` | cốt lõi | Recitation 31.2 | Ch31 Bài 31.2 |
+| `L14-N12` | cốt lõi | Recitation 25.2–25.3 | Ch25 Bài 25.2–25.3 |
+
+Đồ thị tiên quyết của ghi chú: `N01→N02→N03→N04→N05→N06→N07→N08→N09→N10→{N11,N12}`. Truy vấn ball theo metric và phép dựng Euclid được tách để giữ đúng giả thiết. Mỗi chủ đề có câu kiểm tra hoặc bài ngắn; ghi chú không hiển thị mã chủ đề.

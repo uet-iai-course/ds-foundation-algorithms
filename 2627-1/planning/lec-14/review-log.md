@@ -124,3 +124,35 @@ Hai lần sửa bằng selector `.z-interval-figure` ở 300 px rồi 240 px đ�
 - HTML dùng 11 SVG, tất cả được kiểm tra; hai tài sản mồ côi `ball-build.svg` và `kofn-heap.svg` được giữ và đã ghi nhận, không tham chiếu trong HTML.
 - Dự án Codex Slides `20260830170505-b-i-14-ch-m-c-v-n-b-n-v-ch-m-c-kh-ng-gia-qpmz` vẫn ở trạng thái `draft` với 0 slide. Bản HTML mới nhất đã tải lên dưới mã vật liệu `20260830175122234-2rgp.html`. Browser nội bộ không khả dụng, nên không tuyên bố đã rà trực quan bằng Codex Slides.
 - Điều phối viên chạy kiểm tra tĩnh và diff cuối ngay trước khi commit; cấu trúc không thay đổi sau khi mạch viết đạt.
+
+## Quy trình ghi chú tự học
+
+- Ba reader OpenRouter `z-ai/glm-5.3-flash`: kế hoạch phiên `79940`, nguồn `81734`, bản đồ chủ đề `12041`. Codex chính mở trực tiếp các PDF/PPTX mà reader văn bản không đọc được, hợp nhất 12 chủ đề và tách truy vấn ball metric khỏi phép dựng Euclid.
+- Writer `deepseek/deepseek-v4-flash-0731` phiên `23162` tạo bản nháp trong gốc tạm hẹp rồi chạm giới hạn công cụ sau khi ghi xong. Codex chính kiểm toàn vẹn, đưa bản nháp vào kho và sửa một đoạn lỗi mã hóa trước khi rà soát.
+- Năm vai reviewer GLM: nguồn phiên đầu `56788` hết vòng, chạy lại hẹp `87247`; toán–thuật toán `63063`; sư phạm phiên đầu `3373` hết vòng, chạy lại hẹp `54155`; mạch `10660`; viewer phiên đầu `7354` hết vòng, chạy lại hẹp `4796`. Mọi kết quả được chấp nhận đều có metadata đúng model và provider.
+
+### Quyết định sau rà soát ghi chú
+
+- Sửa mã Morton 5 từ tọa độ sai $(2,1)$ thành $(1,3)$; sửa bài tự kiểm vùng góc để hỏi có dương tính giả hay không.
+- Sửa điều kiện dừng của vết NOT: sau $6=6$, cả hai con trỏ cùng cạn.
+- Đổi tập điểm dựng ball từ $S$ sang $\mathcal X$ để không trùng tập nền của NOT; phát biểu $LB$ là điều kiện hợp lệ thay vì một định nghĩa duy nhất.
+- Ghi rõ vết và giả mã kd-tree/ball tree do bài giảng triển khai từ Cornell; ghi rõ $O(p|A|)$ của Bài 25.3 là suy ra của bài giảng.
+- Thay bài tự kiểm 25.3 thoái hóa bằng yêu cầu giải thích dãy bán kính, vùng đóng và tinh lọc, giữ đúng dữ kiện tổng quát của bài nguồn.
+- Điều kiện hóa ảnh hưởng của vị trí–tần suất lên số trang; chuẩn hóa `kd-tree / ball tree`, ký hiệu $q$, câu dẫn và kết luận.
+- Không áp dụng nhận xét viewer về việc đổi đường dẫn hình: viewer giải URL hình theo trang `material-viewer.html`, nên `img/lec-14/...` là dạng đúng. Giữ liên kết deck tương đối theo cùng cơ chế và kiểm bằng Chromium.
+
+### Tái kiểm
+
+- Toán–thuật toán phiên `58293`: `PASS`; mọi vết số, giả mã, dấu cắt, Morton, chi phí và điều kiện dừng đúng.
+- Mạch viết phiên `83256`: `PASS`; không còn lỗi chặn, nghiêm trọng hoặc trung bình. Sửa thêm lỗi từ “chèn” trong mô tả dương tính giả bằng phát biểu chính xác về MBR và hình thật.
+- `$no-ai-slop`: cắt câu kết dạng câu hỏi, bỏ lời dẫn rỗng, sửa câu gãy và nhịp liệt kê; giữ giọng học thuật trực tiếp.
+- `$quill`: rà tuyến `N01→N12`, thuật ngữ, ký hiệu, câu nối và các điểm thu hồi; không tạo `quill.json`.
+
+### Kiểm định viewer và index của ghi chú
+
+- Chromium ở $1280\times720$ và $390\times844$: 28 heading khớp 28 mục TOC; 464 công thức KaTeX, 0 lỗi; 10 SVG, 0 hình hỏng; 24 khối gập đều đóng mặc định; 7 khối mã; không tràn ngang, lỗi console, lỗi trang hay request thất bại.
+- Bàn phím: liên kết bỏ qua nội dung nhận focus; `Enter` mở khối gập. Bản in mở toàn bộ `hint/solution`, ẩn TOC và thanh hành động, không có hình vượt khổ; PDF A4 dài 29 trang.
+- Đường dẫn `../AGENTS.md` và cặp doc/deck lệch số bài đều bị từ chối, phần nội dung bị ẩn.
+- Liên kết Bài 14 trên index xuất hiện đúng một lần, nhận focus bằng bàn phím và mở đúng note/deck ở cả hai kích thước; không tràn ngang.
+- Ghi chú dùng 10 SVG phục vụ trực tiếp lập luận. Ba SVG có trước nhưng không cần trong ghi chú (`ball-build.svg`, `kofn-heap.svg`, `posting-merge.svg`) được giữ nguyên; không thêm hoặc xóa tài sản.
+- Kiểm tĩnh cuối: đúng một H1; 12 bộ `exercise/hint/solution`; 14 hàng rào mã; không có delimiter toán bị cấm, nhãn quy trình công khai, lỗi XML SVG hay `quill.json`.

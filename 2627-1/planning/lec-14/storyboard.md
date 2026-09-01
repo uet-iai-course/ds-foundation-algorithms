@@ -167,3 +167,22 @@ Mỗi dòng dưới đây khớp một `data-slide-id` và một khối ghi chú
 - `Z04→C00`: so sánh theo điều kiện không bỏ nghiệm và đơn vị chi phí.
 
 Vết kd-tree và ball tree là ví dụ dựng từ cơ chế Cornell, không phải dữ liệu số trích nguyên từ nguồn. Truy vấn ball chỉ đúng khi ball chứa cây con theo cùng metric; phép dựng và cận chi phí của deck dùng Euclid. Bài 25.3 được bổ sung điều kiện tập hữu hạn, không rỗng, $r_i\to\infty$ và vùng đóng để hoàn thiện chứng minh. Wrapper là `P`; `I`; `S+R`; `K`; `B`; `Z+C`; `X`, giữ 58 ID; chỉ đổi cục bộ thứ tự `I06→I08→I07`.
+
+## Storyboard ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày |
+|---|---|---|---|---|
+| `L14-N01` | Khôi phục Bài 13; mở tuyến ứng viên–tinh lọc | khóa tuyến tính, I/O | phân biệt đáp án với ứng viên | vai trò, đặc tả, kiểm tra; không cần định lý |
+| `L14-N02` | Văn bản → danh sách đã sắp | tập hợp, hai con trỏ | chạy AND/OR/NOT; nêu bất biến và chi phí | đủ vai trò, đặc tả, ví dụ, thuật toán, đúng, chi phí |
+| `L14-N03` | Danh sách → lưu trữ → đánh giá | Bài 12–13 | phân biệt mục RAM và trang I/O | cầu nối rút gọn; không có định lý riêng |
+| `L14-N04` | Kết quả Boolean → chất lượng truy hồi | tập hợp | tính precision/recall trên $G,R_h,R_l$ | định nghĩa, ví dụ, biên, kiểm tra |
+| `L14-N05` | Văn bản → truy vấn vùng | hình học cơ bản | giải thích R-tree lọc rồi tinh lọc | đủ chu trình; chứng minh không bỏ nghiệm |
+| `L14-N06` | Vùng → cận khoảng cách | metric, đệ quy | chạy và chứng minh 1-NN kd-tree | đủ chu trình; vết do bài giảng dựng |
+| `L14-N07` | Hộp → ball metric | N06, bất đẳng thức tam giác | tính $LB$ và chạy truy vấn ball | đủ chu trình; tách khỏi phép dựng |
+| `L14-N08` | Truy vấn ball → dựng Euclid | vector, chuẩn 2 | dựng cây, chứng minh tiến triển, phân tích cận | đủ chu trình; cận có điều kiện |
+| `L14-N09` | 1-NN → trở lại truy vấn vùng | B+-Tree Bài 13 | mã hóa Morton và tinh lọc đoạn gộp | định nghĩa, vết, thuật toán quét, kiểm tra |
+| `L14-N10` | Thu hồi hai tình huống mở bài | N01–N09 | chọn cấu trúc và đúng đơn vị chi phí | bảng tổng hợp và kiểm tra; không có chứng minh mới |
+| `L14-N11` | Phần giảng → bài nguồn 31.2 | danh sách đảo, đống | giả mã, bất biến, dừng, chi phí | exercise/hint/solution đầy đủ |
+| `L14-N12` | Phần giảng → bài nguồn 25.2–25.3 | R-tree, B+-Tree, vùng | chọn đường truy cập; chứng minh 1-NN qua vùng | exercise/hint/solution; ghi rõ điều kiện bổ sung |
+
+Ghi chú dùng thứ tự định nghĩa trước ví dụ theo khuôn tài liệu tự học; deck vẫn giữ trực giác trước hình thức hóa. Không đổi ký hiệu, kết luận hoặc thứ tự khái niệm dùng chung, nên không cần sửa deck.
