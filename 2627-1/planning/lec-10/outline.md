@@ -74,3 +74,20 @@ Tổng phần giảng: 120 phút. Phần recitation đủ 60 phút theo ngoại 
 ## Tài sản trực quan
 
 Tất cả hình được vẽ lại bằng SVG trong `2627-1/img/lec-10/`: cây tiền tố và tám miền Kraft; chuỗi ghép Huffman A–E; cây mã/giải mã; các mức phóng đại khoảng “BILL GATES”; chuẩn hóa giải mã; E1/E2/E3 theo khoảng nửa mở; tăng trọng số; đổi nút; hai đường ống `ESCAPE`/`EOS`.
+
+## Bản đồ chủ đề của ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Nguồn và đầu ra học tập |
+|---|---|---|---|
+| `L10-N01` | cốt lõi | Khôi phục chính xác, hai trục lựa chọn và giao thức | `sources/source.md`, Nelson–Gailly Ch.2–5; phân biệt mô hình với bộ mã và nêu đủ thông tin hai phía phải dùng chung. |
+| `L10-N02` | cốt lõi | Mã tiền tố và bất đẳng thức Kraft | CMU Assignment 1a P4; kiểm tra một bộ độ dài khả thi mà không đồng nhất Kraft với tối ưu. |
+| `L10-N03` | cốt lõi | Huffman tĩnh | Nelson–Gailly Ch.3, Stanford đối chiếu; dựng cây A–E, giải mã, chứng minh tối ưu và tính 87 bit. |
+| `L10-N04` | cốt lõi | Huffman thích nghi: khởi tạo và ký hiệu mới | Nelson–Gailly Ch.4; mô phỏng `ESCAPE`, tám bit thô, lá mới trọng số 0 và `EOS`. |
+| `L10-N05` | cốt lõi | Huffman thích nghi: tăng, đổi và dựng lại | Nelson–Gailly Hình 4.2–4.3 và tr.75–85; giữ tính chất anh em, đồng bộ và chống tràn. |
+| `L10-N06` | cốt lõi | Mã số học lý tưởng | Nelson–Gailly Ch.5; thu hẹp khoảng “BILL GATES”, giải mã và nêu điều kiện dừng. |
+| `L10-N07` | cốt lõi | Chuẩn hóa hữu hạn | Nelson–Gailly và Stanford EE398A; thực hiện E1/E2/E3 với trạng thái `pending`. |
+| `L10-N08` | cầu nối | Tự thông tin và entropy | Nelson–Gailly Ch.2/5; nối độ rộng khoảng với số bit của một chuỗi cụ thể. |
+| `L10-N09` | cốt lõi | So sánh ba cặp mô hình–bộ mã | Tổng hợp N03–N08; chọn theo bộ nhớ, công việc và giao thức thay vì xếp hạng tuyệt đối. |
+| `L10-N10` | cốt lõi | Bài tập củng cố | Hai ví dụ Nelson–Gailly chuyển thành bài luyện và CMU Assignment 1a P3; tạo vết có thể tự kiểm. |
+
+Không thêm chủ đề `bổ sung` hoặc `đọc thêm`. `L10-N08` được giữ làm `cầu nối` vì thiếu nó thì độ rộng khoảng chưa giải thích được số bit và bài CMU chưa có đại lượng để đối chiếu. Ghi chú dùng cùng ký hiệu, giả thiết và thứ tự khái niệm với deck; không có thay đổi nội dung dùng chung buộc phải sửa deck.

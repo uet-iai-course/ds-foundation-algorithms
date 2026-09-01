@@ -122,3 +122,34 @@ Các sửa trên không đổi số trang, mã trang, thứ tự hoặc sáu m�
 - Ghi chú `X00` từng nhắc “phân bổ thời lượng”, là siêu dữ liệu quy trình không cần cho mạch nói. Đã rút thành câu truy nguyên nguồn và cách chuyển đổi bài tập.
 - Không đổi nội dung hiển thị, dữ kiện, yêu cầu, lời giải, số trang, thứ tự hoặc sáu mạch ngoài.
 - Kiểm tra lại toàn HTML không còn `phút`, `thời lượng`, `minute` hoặc `duration`; thời lượng 120+60 chỉ nằm trong storyboard.
+
+## Quy trình và kiểm định ghi chú tự học ngày 2026-09-02
+
+### Tác tử OpenRouter
+
+- Ba reader dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter: lập kế hoạch (session 93306), bản đồ chủ đề (28479) và ánh xạ nguồn trong phạm vi hẹp (42275). Lượt ánh xạ 41422 vượt giới hạn công cụ nên bị loại, không dùng làm bằng chứng.
+- Writer dùng đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter (session 31245) trong gốc tạm chỉ chứa đặc tả và tài sản cần thiết. Bản nháp đầu bị loại do vượt giới hạn công cụ và hỏng đoạn cuối; bản viết lại thành công mới được đưa vào kho.
+- Năm reviewer độc lập dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter để rà nguồn, toán–thuật toán, mạch sư phạm, tính liên tục và viewer. Lượt reviewer nguồn đầu vượt giới hạn công cụ và được chạy lại trong phạm vi hẹp (session 46136). Các báo cáo hợp lệ đều ghi `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`.
+- Hai lượt tái kiểm sau sửa về toán–thuật toán và mạch tự học đều `PASS`, không còn lỗi nội dung. Lượt tái kiểm đầu gặp lỗi vận chuyển trong sandbox; các lượt chạy lại qua kết nối được phép mới được tính.
+
+### Quyết định sau năm báo cáo
+
+Đã áp dụng: sửa lỗi chính tả; bổ sung tiên quyết; làm rõ hai nút nhẹ nhất phải được lấy ra khỏi hàng đợi; bổ sung bước thứ hai trong chứng minh đổi; thay mệnh đề không có căn cứ về độ dài đường cập nhật; làm rõ trọng số `ESCAPE` và lá mới; thêm cây vào bài cập nhật để bài tự chứa; nêu quan hệ giữa khoảng chuẩn hóa và thanh ghi số nguyên; rút trùng lặp ở phần dựng lại và hoàn tất; chuyển bảng “BILL GATES” thành hai cột; bỏ mã nội bộ X01–X03 và mọi câu nhắc quy trình phê duyệt khỏi ghi chú công khai.
+
+Không áp dụng: đổi đường dẫn hình thành `../../img/...`, vì viewer chủ động giải quyết đường dẫn từ gốc `2627-1/`; nhận định deck không tồn tại, vì tệp deck cục bộ đã được kiểm; yêu cầu đưa R08 trước chuẩn hóa, vì mạch hiện tại chủ ý đi từ khoảng lý tưởng qua cơ chế hữu hạn rồi mới nối độ rộng với số bit; yêu cầu thêm biến thể NYT/FGK/Vitter, vì ngoài phạm vi nguồn trục.
+
+### Biên tập cuối và tính liên tục
+
+- `$no-ai-slop`: cắt cụm nhấn mạnh thừa, câu mang giọng quy trình và các đoạn tổng kết lặp; giữ nguyên giá trị, giả thiết và kết luận đã được reviewer xác minh. Tự kiểm theo `no-ai-slop/eval.md` không còn lời dẫn rỗng, đối lập giả tạo, kết luận phô trương hoặc mã quy trình trong nội dung công khai.
+- `$quill`: rà đồ thị `N01→N02→N03→N04→N05` và `N01→N06→N07→N08`, điểm hội tụ N09 và bài tập N10; thuật ngữ `ESCAPE`, `EOS`, $L,H,C_s,D_s$, tự thông tin và entropy nhất quán. Không tạo `quill.json`.
+- Ghi chú không đổi ký hiệu, giả thiết, ví dụ hoặc kết luận dùng chung theo cách buộc phải sửa deck. Việc lặp lại SVG cây thích nghi trong bài tập chỉ làm bài tự chứa.
+
+### Viewer và chỉ mục
+
+- Chromium kiểm ở $1280\times720$ và $390\times844$: 32 heading khớp 32 liên kết mục lục; 104 biểu thức KaTeX, không lỗi; 10 lượt hình, không ảnh hỏng và mọi alt cụ thể; 4 khối bài tập/lời giải gập mặc định; 4 khối mã có ngôn ngữ; không tràn ngang hay lỗi runtime.
+- Bàn phím `PASS`: liên kết bỏ qua điều hướng nhận focus, `Enter` tới nội dung và `Enter` mở khối gập. Bản in mở toàn bộ khối gập, ẩn mục lục và thanh hành động; mọi hình nằm trong khung in.
+- An toàn đường dẫn `PASS`: từ chối `../AGENTS.md` và từ chối ghép tài liệu Bài 9 với deck Bài 10.
+- Sau khi viewer đạt, `2627-1/index.html` mới được thêm liên kết ghi chú Bài 10. Chromium mở liên kết từ thẻ Bài 10 bằng bàn phím ở cả hai kích thước; đúng tiêu đề, deck, nguồn Markdown, 10 lượt hình và không lỗi KaTeX.
+- Hai ảnh chụp toàn trang rộng/hẹp đã được điều phối viên xem trực quan; bố cục, hình, bảng, mã và khối bài tập đọc được. Deck không thay đổi.
+
+Trạng thái ghi chú: `PASS`; đủ điều kiện commit và push. Commit và nhánh từ xa được xác minh bằng Git sau khi tạo commit.

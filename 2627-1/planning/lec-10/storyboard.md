@@ -89,3 +89,20 @@ Không có bước nào ghi `không áp dụng` cho ba thuật toán trọng tâ
 ## Trạng thái phần recitation
 
 X01–X03 có tổng thời lượng 60 phút và có lời giải trong ghi chú. Người dùng đã phê duyệt ngoại lệ nguồn ngày 2026-08-28: X01–X02 là ví dụ Nelson–Gailly được chuyển thành bài luyện, còn X03 là CMU Assignment 1a, Problem 3. Lỗi chặn nguồn đã đóng; phần recitation không còn lỗi chặn hoặc nghiêm trọng.
+
+## Storyboard ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày |
+|---|---|---|---|---|
+| `L10-N01` | Mở bài; tách mô hình khỏi bộ mã, mở hai nhánh Huffman và số học. | Xác suất cơ bản, cây nhị phân, hàng đợi ưu tiên. | Đặc tả đầu vào, đầu ra và bốn nhóm thông tin giao thức. | Vai trò, đặc tả, bảng lựa chọn, tự kiểm phá hòa. |
+| `L10-N02` | Nhận yêu cầu giải mã duy nhất; trao miền độ dài khả thi cho N03. | Cây nhị phân và độ sâu lá. | Giải thích mã tiền tố và tính tổng Kraft. | Định nghĩa, hình cây, lập luận đếm lá, trường hợp biên. |
+| `L10-N03` | Nhận miền khả thi; trao chi phí đếm trước và đầu mục cho N04. | Hàng đợi ưu tiên, tổng có trọng số. | Dựng và giải mã cây A–E; chứng minh bằng đổi, co cặp và quy nạp; tính chi phí. | Đặc tả, giả mã, hai hình, vết ghép, mệnh đề và chứng minh. |
+| `L10-N04` | Khắc phục lượt đếm trước; trao tính chất anh em cho thủ tục cập nhật. | Cây Huffman và giao thức hai phía. | Mô phỏng ký hiệu mới, phân biệt `ESCAPE`, `EOS` và lá mới. | Sơ đồ hai phía, vết tám bit, định nghĩa tính chất anh em. |
+| `L10-N05` | Nhận tính chất anh em; trao giới hạn độ dài nguyên bit cho N06. | Con trỏ cha và thứ tự nút theo trọng số. | Chạy vết A, đổi với D, nêu ba bất biến và điều kiện dựng lại. | Hai cây chuyển tiếp, giả mã, quy nạp đồng bộ, chi phí và lỗi dễ mắc. |
+| `L10-N06` | Mở nhánh số học từ N01; trao khoảng lý tưởng cho N07. | Xác suất tích lũy. | Thu hẹp và giải mã khoảng nửa mở; nêu `EOS` hoặc độ dài. | Ví dụ 100.000 số 0, bảng “BILL GATES”, hai hình, công thức và bất biến. |
+| `L10-N07` | Chuyển mô hình số thực lý tưởng thành cơ chế hữu hạn; trao độ rộng cuối cho N08. | Khoảng nửa mở và biểu diễn nhị phân. | Phân biệt E1/E2/E3, duy trì `pending` và hoàn tất dòng. | Giả mã chuẩn hóa, hình ba nhánh, liên hệ thanh ghi số nguyên. |
+| `L10-N08` | Cầu nối từ độ rộng khoảng sang chi phí; trao tiêu chí cho N09. | Xác suất chuỗi và logarit cơ số 2. | Phân biệt tự thông tin với entropy và nêu điều kiện nguồn không nhớ. | Định nghĩa, công thức, cảnh báo giả thiết. |
+| `L10-N09` | Hội tụ hai nhánh; trao tiêu chí lựa chọn cho bài tập. | N03–N08. | So sánh bộ nhớ, công việc và điều kiện giao thức của ba cặp. | Bảng so sánh và giới hạn không phụ thuộc cài đặt. |
+| `L10-N10` | Kiểm tra cuối; thu hồi các dữ kiện A–E, Hình 4.2–4.3 và CMU P3. | Toàn bộ N01–N09. | Ba vết giải có số liệu, trạng thái trung gian và kết luận kiểm được. | Ba khối bài tập–lời giải; cây thích nghi được lặp lại để bài tự chứa. |
+
+Đồ thị tiên quyết là `N01→N02→N03→N04→N05` và `N01→N06→N07→N08`; hai nhánh hội tụ ở `N09` rồi tới `N10`. Thứ tự ví dụ–trực quan được đổi cục bộ ở N03 và N06 để dữ kiện nguồn dẫn trực tiếp vào công thức; không có đề mục rỗng hoặc bước bị bỏ ngầm.
