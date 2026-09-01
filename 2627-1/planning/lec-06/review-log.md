@@ -2,6 +2,9 @@
 
 ## Quyết định nguồn và biên tập
 
+- Vòng ghi chú tự học xác nhận nguồn bổ sung Datar et al., “Locality-Sensitive Hashing Scheme Based on p-Stable Distributions”, SoCG 2004, DOI `10.1145/997817.997857`; Codex chính đọc bản tác giả tại `https://immorlica.com/pubs/pstable.pdf`, §3.2. Nguồn này lấp khoảng trống của công thức chiếu–dịch Euclid đã có trong deck; không dùng để mở rộng sang kết quả truy vấn lân cận gần đúng.
+- Ba worker OpenRouter độc lập dùng `z-ai/glm-5.3-flash` đã lập kế hoạch, ánh xạ nguồn và đề xuất bản đồ chủ đề cho ghi chú. Codex chính tính lại các công thức và bác nhãn sai cho Bài 3.8.2: $0.999776$ là xác suất dương tính thật của OR 2048, còn âm tính giả là khoảng $0.000224$.
+
 - MMDS là nguồn chính cho §3.4, các độ đo, vân tay và ba bài tập. Stanford CS246 bài 04 chỉ cung cấp cách trình bày từ họ cơ sở đến khuếch đại ở §§3.6–3.7; mọi công thức đã đối chiếu sách.
 - Sửa lỗi trên slide MMDS: giá trị dùng trong phép tính là $s=0.3=30\%$, không phải $0.3\%$. Lỗi này đã được điều phối viên xác minh trực tiếp trên slide MMDS trang 50.
 - Không dùng xấp xỉ $(1/b)^{1/r}$ như đẳng thức. Deck suy ra $s_{1/2}=(1-2^{-1/b})^{1/r}$ và xấp xỉ lớn-$b$ là $(\ln2/b)^{1/r}$.
@@ -22,6 +25,23 @@
 - Cấu trúc section: gộp P+M thành mở bài, gộp B+Q thành phân dải và xác suất, giữ A, giữ F, gộp D+V thành ứng dụng/độ đo, tách C00 thành section kết luận riêng, R riêng. Không đổi `data-slide-id`.
 
 ## Xử lý phản biện sau bản nháp
+
+### Vòng ghi chú tự học 2026-09-02
+
+- Writer được yêu cầu và quan sát đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter. Lượt đầu tạo đủ bản nháp nhưng chạm giới hạn tool-call khi tự đọc lại; lượt thử lại trên đúng bản nháp và cùng model hoàn tất thành công. Không đổi nguồn hoặc phạm vi.
+- Năm reviewer độc lập đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Các vai kiểm nguồn/phạm vi, toán–thuật toán, mạch sư phạm, thuật ngữ–liên tục và khả năng phát hành viewer.
+- Cả năm cùng phát hiện lỗi chặn bàn giao: Unicode và dấu tiếng Việt bị hỏng trên diện rộng từ mục AND/OR đến cuối bài. Codex chính viết lại các mục 6–11 bằng nội dung đã được reviewer xác nhận, đồng thời sửa các lỗi cục bộ trước đó.
+- Reviewer toán và reviewer nguồn xác nhận đúng các công thức $q(s)$, ngưỡng nửa, tính đơn điệu khi giữ $p$, bất biến và chi phí, ba họ Hamming–cosin–Euclid, mô hình vân tay và toàn bộ đáp án 3.4.4, 3.6.1, 3.8.2.
+- Đã sửa định nghĩa họ LSH để xác suất lấy theo $h\sim F$, không còn câu mâu thuẫn “với mọi $f\in F$”; sửa `\qquad`, ký tự Cyrillic trong mẫu số, `cosin`, `Euclid` và tên Ullman.
+- Đã bổ sung nhãn Ví dụ 3.11 cho ví dụ phân dải, ví dụ số ngắn cho AND/OR, trực quan tọa độ Hamming, đánh đổi FP/FN, câu nối từ thuật toán sang họ LSH và ranh giới sang Bài 07.
+- Đã sửa điều kiện hình học MMDS thành $d\le a/2$ và $d\ge2a$; không lặp chuỗi điều kiện in sai trong sách. Phần chiếu–dịch chỉ nêu xác suất theo $u$ có điều kiện trên $v$ và dẫn Datar et al. §3.2.
+- Bác đề xuất đổi đường dẫn ảnh thành `../../img/...` và đổi liên kết deck thành `DECK.html`. Reviewer phát hành chạy trên dossier tạm nên không thấy quy tắc phân giải của viewer; kho công khai yêu cầu ảnh `img/lec-06/...` và deck thật là `../../lecture-06-tim-cap-tuong-dong-bang-lsh.html` trong Markdown nguồn.
+- Bác đề xuất bắt buộc thêm liên kết chéo tới ghi chú Bài 05: tiên quyết và cầu nội dung đã rõ; một liên kết nguồn Markdown nội bộ không cần cho mục tiêu và có thể bị người đọc mở ngoài viewer. Giữ liên kết bắt buộc về deck Bài 06.
+- Hai lượt tái kiểm GLM sau sửa đều trả **GO** và xác nhận không còn lỗi từ mức trung bình. Góp ý nhẹ cuối cùng được áp dụng: thống nhất `vector_dải` và Việt hóa thao tác `sắp_xếp(loại_trùng(...))` trong giả mã.
+- `$no-ai-slop` được dùng để cắt câu gượng, lời dẫn quy trình và nhịp lặp; bản cuối qua tự kiểm `eval.md`. `$quill` được dùng để rà đồ thị tiên quyết, câu nối, thuật ngữ và ký hiệu; không tạo `quill.json`.
+- Viewer thật tải thành công ở `1280 × 720` và `390 × 844`: 82 heading khớp 82 mục lục, 362 biểu thức KaTeX không lỗi, chín SVG đều tải và có alt, 16 khối gập đóng mặc định, ba khối mã nhận `language-text`, không có lỗi console/request hoặc tràn ngang. Bàn phím mở được khối gập và liên kết bỏ qua điều hướng đưa tiêu điểm đúng chỗ.
+- Chế độ in mở toàn bộ khối gập, ẩn mục lục và thanh thao tác; PDF A4 được tạo thành 26 trang. Viewer từ chối cả đường dẫn vượt thư mục và cặp `doc`/`deck` khác số bài.
+- Sau khi mọi cổng viewer đạt, index được cập nhật. Kiểm từ `index.html` cho đúng một liên kết ghi chú Bài 06; một lần nhấp mở đúng viewer, đúng nguồn Markdown và đúng deck, không có lỗi tải.
 
 - **Chặn bàn giao — B02:** đổi vector dải 3 của $D_3$ từ $(6,3)$ thành $(6,9)$. Sau sửa, chỉ $D_1,D_2$ trùng trọn dải 2; hai cặp còn lại không trùng trọn dải nào. Ghi chú không còn mâu thuẫn với bảng.
 - **Nghiêm trọng — A01–A04:** A01 chuyển từ kiểu dữ liệu sang luồng trực giác; A02 giữ vết chạy; A03 gom điều kiện trước, kiểu khóa và giả mã; A04 chỉ phát biểu bất biến trên $t$ ngăn đã được gom xong. Ghi chú A04 tách rõ giai đoạn một xây ngăn và giai đoạn hai sinh cặp.

@@ -82,3 +82,14 @@ Tổng recitation: **60 phút**. Mặt trang không lộ kết quả; toàn bộ
 - Chu trình F (vấn đề → ví dụ → định nghĩa → biến đổi) được rút gọn ở D00–D04 và V00–V01 vì đây là khung tổng quát đã dựng đầy đủ ở F00–F05, và chi phí hệ thống đã chốt ở A05; hai cụm này chỉ cần nối trực giác hình học với hàm băm và hướng đánh đổi.
 - P01 nêu phép tính số cặp; A05 chốt chi phí tạo ứng viên. Hai trang này không lặp nhau: P01 mở tình huống, A05 định lượng chi phí thuật toán.
 - Kết nối MapReduce: A05 phân biệt $bN+A$ bản ghi với dung lượng $\Theta(pN+A)$ từ trung gian nhưng giữ thiết kế cho recitation; R00 tái kích hoạt hợp đồng map → trộn/nhóm → reduce của Bài 2 trước Bài tập 3.4.4.
+
+## Storyboard ghi chú tự học
+
+Ghi chú dùng các `note-topic-id` `L06-N01`–`L06-N11` trong outline. Mỗi chủ đề cốt lõi đi theo vai trò → đặc tả → ví dụ → trực quan → mệnh đề hoặc thuật toán → lập luận đúng → chi phí, giới hạn và kiểm tra. `L06-N01` không cần định lý; `L06-N11` gộp các bước vào từng lời giải vì ba bài tập trực tiếp đo các chủ đề trước.
+
+- `L06-N01 → L06-N04` giữ cùng dữ kiện $N=10^6,p=250$, rồi chuyển sang $p=br$, $s$, $q(s)$, tập $C$ và $A$. Đầu ra là một thuật toán lọc có thể chứng minh và tính chi phí.
+- `L06-N05 → L06-N06` đổi từ trường hợp MinHash sang phân phối $h\sim F$, giữ $\rho$ cho xác suất cơ sở và chỉ dùng lũy thừa khi các phép thử độc lập. Đầu ra là công cụ so sánh ba họ băm.
+- `L06-N07 → L06-N09` dùng ba miền riêng: bit với Hamming, vector khác 0 với cosin, vector thực với Euclid. Không truyền công thức va chạm từ họ này sang họ khác.
+- `L06-N10` tái dùng AND/OR trong mô hình vân tay của sách; `L06-N11` tính lại các xác suất và kết thúc bằng ranh giới sang tìm kiếm lân cận gần đúng ở Bài 07.
+
+Tình huống mở bài được thu hồi ở phân tích $bN+A$, $\Theta(pN+A)$ và $|C|$. Ví dụ, ký hiệu và giả thiết được truyền liên tục từ phân dải sang giả mã, bất biến và hậu kiểm; không dùng mã trang nội bộ trong nội dung công khai.

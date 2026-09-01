@@ -79,3 +79,21 @@ Slide Stanford được dùng ở F00–F05 vì cách dựng từ họ băm cơ 
 ## Kiểm kê hình
 
 Mười SVG vẽ lại: quy mô Ví dụ 3.10, chia dải, khóa dải đầy đủ, đường xác suất, luồng ứng viên, AND/OR, miền bảo đảm họ LSH, siêu phẳng cosin, Euclid có độ dịch ngẫu nhiên và mô hình vân tay. Không dùng ảnh raster.
+
+## Bản đồ chủ đề ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Nguồn chính | Sản phẩm học tập |
+|---|---|---|---|---|
+| `L06-N01` | cầu nối | Chữ ký ngắn nhưng số cặp vẫn lớn | Ví dụ 3.10 | tính quy mô và xác định nút thắt |
+| `L06-N02` | cốt lõi | Phân dải và khóa đầy đủ | §§3.4.1–3.4.2 | tạo ngăn và tập ứng viên đúng |
+| `L06-N03` | cốt lõi | Xác suất ứng viên và ngưỡng | §3.4.2, Ví dụ 3.11–3.12 | suy ra $q(s)$, $s_{1/2}$ và đánh đổi |
+| `L06-N04` | cốt lõi | Thuật toán tạo ứng viên | §§3.4.1, 3.4.3; Bài 3.4.4 | giả mã, bất biến, dừng, chi phí và hậu kiểm |
+| `L06-N05` | cốt lõi | Định nghĩa họ LSH | §§3.6.1–3.6.2 | phát biểu hai miền bảo đảm đúng |
+| `L06-N06` | cốt lõi | Khuếch đại AND/OR | §3.6.3; Bài 3.6.1 | suy ra và ghép đúng công thức |
+| `L06-N07` | cốt lõi | Họ Hamming | §3.7.1 | chứng minh xác suất va chạm |
+| `L06-N08` | cốt lõi | Họ cosin | §3.7.2 | nối hình học góc với xác suất |
+| `L06-N09` | cốt lõi | Họ Euclid | §§3.7.4–3.7.5; Datar et al. §3.2 | phân biệt hai xây dựng và điều kiện áp dụng |
+| `L06-N10` | cốt lõi | Mô hình vân tay | §§3.8.4–3.8.5 | tính xác suất và giới hạn mô hình |
+| `L06-N11` | cầu nối | Ba bài tập và tổng hợp | Bài 3.4.4, 3.6.1, 3.8.2 | lời giải truy nguyên được và tự kiểm |
+
+Đồ thị tiên quyết: `L06-N01 → L06-N02 → L06-N03 → L06-N04 → L06-N05 → L06-N06`; từ `L06-N06` tỏa sang `L06-N07`, `L06-N08`, `L06-N09`, rồi hội tụ ở `L06-N10 → L06-N11`. Ba phần bổ sung được giữ là kiểm khóa đầy đủ, mô hình chi phí bản ghi/từ và phép chiếu–dịch Euclid có nguồn. Không thêm nội dung của Bài 07.
