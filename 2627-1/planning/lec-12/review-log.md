@@ -156,3 +156,39 @@ Gộp các cặp này sẽ đặt hai luận điểm trung tâm hoặc giả mã
 - Điều hướng bàn phím đạt: P00 `(0,0)` → phím phải I00 `(1,0)` → phím xuống I01 `(1,1)`.
 - Dự án Codex Slides bền vững `20260828001844-b-i-12-m-h-nh-i-o-v-s-p-x-p-ngo-i-b-nh-9zjs` vẫn ở trạng thái bản nháp với 0 trang. HTML cuối đã tải lên thành tài liệu `20260830160804171-4q7e.html`. Công cụ trả liên kết bàn giao Browser, nhưng phiên này không có bề mặt Browser tích hợp để mở và xác minh canvas; vì vậy không tuyên bố đã rà trực quan bằng Codex Slides.
 - `git diff --check` đạt; chưa tạo `quill.json`.
+
+## Ghi chú tự học Bài 12
+
+### Điều phối OpenRouter
+
+- Ba reader dùng `z-ai/glm-5.3-flash`: lập kế hoạch phiên `27292`, ánh xạ nguồn phiên `53056`, bản đồ chủ đề phiên `87725`. Cảnh báo thiếu tệp do gốc tạm hẹp được đối chiếu lại trên kho thật trước khi bác bỏ.
+- Writer dùng `deepseek/deepseek-v4-flash-0731`. Các phiên `44749`, `42398`, `30279`, `88884`, `35136` tạo các phần bản nháp; một số phiên chạm giới hạn gọi công cụ hoặc ghi dở. Codex chính chỉ hợp nhất phần có thể kiểm chứng và trực tiếp áp dụng các sửa đã được reviewer phê duyệt.
+- Năm reviewer độc lập dùng `z-ai/glm-5.3-flash`: nguồn `64754`, toán–thuật toán `75649`, sư phạm `52013`, mạch viết `68655`, viewer `72287`. Cả năm kết luận đạt; reviewer viewer yêu cầu bằng chứng runtime vì gốc tạm không có tài sản, nên kết luận cuối dựa trên kiểm định Chromium ở kho thật.
+- Hai lần chạy tái kiểm đầu tiên gặp lỗi truyền tải trước khi model trả lời. Sau khi chạy lại với kết nối được cấp phép, reviewer toán–thuật toán phiên `55540` và reviewer mạch phiên `61765` đều trả `PASS` trên đúng bản cuối và `goal.md`.
+- Gốc tạm chỉ chứa các tệp cần cho từng vai; `.env`, bí mật và thông tin xác thực không được đưa vào phạm vi công cụ của worker.
+
+### Phát hiện và quyết định cho ghi chú
+
+| Mức | Phát hiện | Quyết định |
+|---|---|---|
+| nghiêm trọng | Các phần writer để lại khối tùy biến, giả mã và công thức chưa liền mạch; có lúc tham chiếu hình không tồn tại | Khôi phục ba giả mã đầy đủ, dùng đúng tám SVG hiện có, chuẩn hóa 10 bộ `exercise`–`hint`–`solution` không lồng nhau |
+| nghiêm trọng | Bản nháp có nguy cơ trộn biến thể ba khung của lời giải 15.1 với quy tắc chung $k=B-1$ | Tách riêng biến thể nguồn, giải thích giả thiết một bản ghi mỗi khối và không khái quát thành $k=B$ |
+| nghiêm trọng | Vết chọn thay thế từng phân loại sai `hornbill` so với `hyena` | Chạy lại toàn bộ 12 tên; chốt ba dãy dài 7, 3 và 2 đúng thứ tự từ điển |
+| trung bình | Thuật ngữ `heap`, `stream` chưa thuần Việt; “ổn định” chưa được định nghĩa | Dùng “đống (heap)” ở lần đầu rồi “đống”; đổi `stream` thành đầu vào; định nghĩa sắp ổn định là giữ thứ tự gốc giữa khóa trùng |
+| trung bình | Storyboard hứa một vết trúng–trượt đệm nhưng ghi chú mới có định nghĩa | Thêm vết hai khung chứa `A` sạch, `B` bẩn và yêu cầu `A,C`, qua đó chỉ ra một lần trượt có thể gồm một ghi và một đọc |
+| nhẹ | Bất biến trộn dùng cụm “đầu dãy giữ thứ tự” chưa chính xác về diễn đạt | Viết lại: dãy nguồn đã sắp nên đầu dãy là phần tử nhỏ nhất của phần chưa xuất |
+
+Các nhận xét thiếu SVG, deck, thư viện cục bộ và CSS trong báo cáo viewer không phải lỗi của kho thật; reviewer chỉ thấy snapshot hẹp. Kiểm tra tệp và trình duyệt sau đó xác nhận toàn bộ tài sản tồn tại và tải thành công.
+
+### Biên tập và tính liên tục
+
+- `$no-ai-slop`: bỏ nhãn sản xuất, câu dẫn rỗng và nhịp liệt kê máy móc; giữ nguyên dữ kiện, công thức và mức độ chắc chắn của nguồn. Bản cuối được đối chiếu `eval.md`, không còn mã chủ đề, tên worker, prompt, goal, rubric hoặc thời lượng trong tài liệu công khai.
+- `$quill`: rà tuyến `N01→N02→N03→N04→N05→N06→N07`, hai nhánh `N08` và `N09→N10`, rồi hội tụ `N11→N12`; thống nhất $n,b,N,B,k,r_0,p,H,b_b$ và các câu nối. Không tạo `quill.json`.
+
+### Kiểm định viewer và index
+
+- Chromium thật ở $1280\times720$ và $390\times844$: 33 heading khớp 33 liên kết mục lục, 201 biểu thức KaTeX, không lỗi KaTeX, tám ảnh không hỏng, ba khối mã có ngôn ngữ, 20 khối gập đóng mặc định, không tràn ngang, không lỗi console hoặc yêu cầu mạng.
+- Bàn phím đạt cho liên kết bỏ qua nội dung và khối gập. Viewer từ chối đường dẫn vượt thư mục và từ chối ghép tài liệu với deck khác số bài.
+- Bản in A4 gồm 18 trang; mọi `hint`/`solution` tự mở, mục lục và thanh thao tác bị ẩn, không có hình vượt khung.
+- Sau khi viewer đạt, `index.html` mới được cập nhật. Liên kết Bài 12 xuất hiện đúng một lần, nhận focus bằng bàn phím và mở đúng ghi chú ở cả khung rộng và hẹp; tám ảnh cùng công thức tiếp tục tải không lỗi.
+- Kiểm tra tĩnh: một H1; 10 `exercise`, 10 `hint`, 10 `solution` và 30 dấu đóng; ba khối mã `text`; tám SVG là XML hợp lệ; không có delimiter toán bị cấm; `git diff --check` đạt.

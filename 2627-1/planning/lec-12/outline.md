@@ -77,3 +77,24 @@ MMDS và Stanford CS246 không được dùng vì Bài 12 neo theo giáo trình 
 - Hai công thức trên đếm lần truyền khối, không đếm seek, CPU, khối cuối chưa đầy hay chồng lấp I/O–CPU.
 - Với $b_b\in\mathbb{Z}$, $b_b\ge1$: một khung đầu ra cho $k=\lfloor(B-1)/b_b\rfloor$; nếu đầu ra cũng dùng $b_b$ khung thì $k=\lfloor B/b_b\rfloor-1$. Hai công thức được suy ra từ phân bổ khung, còn nguồn 15.9 chỉ nêu đánh đổi định tính. Chọn tham số sao cho $k\ge2$ nếu còn hơn một dãy.
 - Wisconsin nêu độ dài trung bình khoảng $2H$ nhưng không đặc tả không gian xác suất. Riêng bài giảng chỉ dùng nhận định này như quy tắc kinh nghiệm cho luồng đủ dài có thứ tự đến giống ngẫu nhiên; điều kiện đó không được quy cho Wisconsin và không tạo bảo đảm trường hợp xấu nhất.
+
+## Bản đồ chủ đề của ghi chú tự học
+
+Ghi chú giữ cùng ký hiệu và tuyến lập luận với bộ trang chiếu, nhưng mở rộng đặc tả, vết chạy, chứng minh và các trường hợp biên. Mỗi chủ đề tạo một sản phẩm học tập có thể kiểm tra.
+
+| `note-topic-id` | Nhãn | Chủ đề | Đầu vào | Sản phẩm học tập | Nguồn và quan hệ |
+|---|---|---|---|---|---|
+| `L12-N01` | cốt lõi | `ORDER BY` khi tệp vượt RAM | Sắp xếp trong bộ nhớ | Nêu đầu vào, đầu ra và giới hạn khung | `source.md`, Ch.15.17; mở N02 |
+| `L12-N02` | cầu nối | Bản ghi, khối, khung và hệ số trộn | N01 | Tính $N$ và $k=B-1$ đúng đơn vị | Ch.12.10–11, Ch.13.2–3; trao mô hình cho N03 |
+| `L12-N03` | cốt lõi | Bộ quản lý đệm và hai thước đo I/O | N02 | Chạy vết trúng–trượt, tách truyền khối khỏi định vị | Ch.12.32–33, Ch.13.19–20; trao chi phí cho N04 |
+| `L12-N04` | cốt lõi | Đặc tả và tạo dãy ban đầu | N02–N03 | Xử lý ba trường hợp biên, tính và tạo $r_0$ dãy | Ch.15.17–19, Bài 15.1; sang N05 |
+| `L12-N05` | cốt lõi | Trộn nhiều đường | Các dãy của N04 | Chạy giả mã, phát biểu bất biến và chứng minh đúng | Ch.15.20–21; tạo một lượt cho N06 |
+| `L12-N06` | cốt lõi | Số lượt và cây trộn | $r_0,k$ | Tính $p$ với đúng điều kiện áp dụng | Ch.15.21–22; trao $p$ cho N07 |
+| `L12-N07` | cốt lõi | Điều kiện đầu ra và chi phí | $N,p$ | Phân biệt vật chất hóa với truyền dòng; tính hai chi phí | Ch.15.22, 51–59; mở hai cách giảm lượt |
+| `L12-N08` | cốt lõi | Định vị, CPU, bộ nhớ và đệm dài | N03, N07 | Phân tích đánh đổi $b_b$–$k$–$p$ | Ch.15.22–23, Bài 15.9; một nhánh tối ưu |
+| `L12-N09` | cốt lõi | Chọn thay thế: trạng thái và vết chạy | Hàng đợi ưu tiên, dữ liệu Bài 15.1 | Sinh đúng ba dãy hoạt động–đóng băng | Wisconsin 16–20; giảm $r_0$ cho N10 |
+| `L12-N10` | cốt lõi | Tính đúng và giới hạn của chọn thay thế | N09 | Chứng minh dãy không giảm, đúng đa tập; giới hạn nhận định $2H$ | Wisconsin 16–20; đóng nhánh tạo dãy dài |
+| `L12-N11` | cầu nối | Chuỗi $B\to(r_0,k)\to p\to C$ | N01–N10 | Chọn tham số và điều kiện đầu ra theo chi phí | Tổng hợp; thu hồi tình huống `ORDER BY` |
+| `L12-N12` | cốt lõi | Ba bài từ giáo trình | N03–N11 | Trình bày vết, đánh đổi và cấu trúc tra cứu | Bài 15.1, 15.9, 13.5 |
+
+Đồ thị tiên quyết: `N01→N02→N03→N04→N05→N06→N07`; từ N07 tách thành `N08` và `N09→N10`, rồi hội tụ ở `N11→N12`. Không thêm chủ đề ngoài nguồn. Hai công thức đệm dài là hệ quả của phân bổ khung; lịch ba khung ở Bài 15.1 chỉ là biến thể nguồn trong đúng trường hợp một bản ghi mỗi khối.

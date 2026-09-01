@@ -130,3 +130,22 @@ Không đổi thứ tự `S01/S02` hoặc `S07/S08`: đặc tả ở S01 cho ng�
 ## Thời lượng
 
 Phần giảng: P 6 + I 25 + S00–S11 35 + (Q00–Q02, S12–S17) 25 + R 25 + T 4 = **120 phút**. Recitation: X01–X04 35 + X05 15 + X06 10 = **60 phút**. `X00` chỉ giao nhiệm vụ trong thời gian chuyển nhóm.
+
+## Storyboard cho ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Thành phần trình bày | Dữ kiện và sản phẩm xuyên suốt |
+|---|---|---|---|
+| `L12-N01` | Đặt giới hạn RAM; trao bài toán cho mô hình khối | Vai trò, đầu vào–đầu ra, bốn mục tiêu | Bảng cần `ORDER BY`, $N$ khối, $B$ khung |
+| `L12-N02` | Đổi từ bản ghi sang đơn vị I/O; trao $N,k$ cho N03–N04 | Định nghĩa, công thức, hình phân cấp, bài tính ngắn | $n=12,b=1,N=12$; $k=B-1$ |
+| `L12-N03` | Giải thích đường đi của khối; trao hai thước đo chi phí | Trực quan, vết `A,C`, định nghĩa, tự kiểm | Hai khung chứa `A` sạch, `B` bẩn; kết quả ghi `B`, đọc `C` |
+| `L12-N04` | Từ mô hình sang pha tạo dãy; trao bốn dãy cho N05 | Đặc tả ba trường hợp, giả mã, hình hai pha, vết nguồn | 12 tên, $B=3$, bốn dãy, $r_0=4$ |
+| `L12-N05` | Hợp bốn dãy mà không vượt khung; trao một lượt cho cây trộn | Đặc tả, giả mã, hình, bất biến, quy nạp, tự kiểm | Đầu mỗi dãy và quy tắc lấy khóa nhỏ nhất |
+| `L12-N06` | Đếm số lượt từ $r_0,k$; trao $p$ cho chi phí | Công thức có điều kiện, hình cây, vết $4→2→1$ | $r_0=4,k=2,p=2$ |
+| `L12-N07` | Gắn chi phí với điều kiện sau; mở hai nhánh giảm lượt | Hai cách tiêu thụ, hình, dẫn xuất, trường hợp biên, bài tính | $C_{\mathrm{mat}}=72$, $C_{\mathrm{pipe}}=60$ |
+| `L12-N08` | Tách chi phí; đổi số khung mỗi dãy lấy số lần định vị | Mô hình chi phí, hai công thức phân bổ, phép thế, tự kiểm | $B=11,b_b=2$ cho $k=5$ hoặc $4$ |
+| `L12-N09` | Giảm $r_0$ từ pha tạo dãy; trao ba dãy cho chứng minh | Hai trạng thái, hai hình, giả mã, vết chạy đầy đủ | $H=3$; ba dãy dài 7, 3, 2 |
+| `L12-N10` | Chứng minh N09 và giới hạn tuyên bố $2H$ | Bất biến, đúng đa tập, dừng, chi phí, phản ví dụ biên | $H$ theo bản ghi, tách khỏi $B$ theo khung |
+| `L12-N11` | Hội tụ hai nhánh; thu hồi `ORDER BY` | Bảng điều kiện, ba vùng chi phí, chuỗi quyết định | $B→(r_0,k)→p→C$ và cách dùng đầu ra |
+| `L12-N12` | Chuyển từ hiểu sang thực hành có thể chấm | Ba bài `exercise` với `hint` và `solution` gập mặc định | Giữ nguyên Bài 15.1, 15.9, 13.5 |
+
+N01, N02 và N11 dùng chu trình rút gọn vì lần lượt là định hướng, cầu nối đơn vị và tổng hợp; không có định lý hoặc giả mã cần tạo. N03 có vết chạy ngắn để nối trực tiếp khối bẩn với hai thao tác I/O. Các chủ đề thuật toán N04–N10 đều có đặc tả, vết, trực quan khi cần, lập luận đúng, chi phí hoặc giới hạn, và câu kiểm tra.
