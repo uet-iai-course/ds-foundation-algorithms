@@ -79,3 +79,21 @@ Chín SVG được dùng trong HTML: quy mô véc-tơ, độ thu hồi tại K, 
 ## Giới hạn nguồn bài tập
 
 Runbook lớp 8 có bài trực tiếp cho PQ và IVF-PQ nhưng không có bài HNSW. Theo quy định không tự đặt dữ kiện, phần recitation chỉ dùng các nhiệm vụ PQ/IVF-PQ của nguồn. Khoảng trống này được ghi trong nhật ký rà soát; phần HNSW được kiểm tra bằng các câu ngắn trong phần giảng, không tính vào 60 phút recitation.
+
+## Bản đồ chủ đề ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Sản phẩm |
+|---|---|---|---|
+| `L07-N01` | cầu nối | Quy mô, ANN, phá hòa, recall@K | đặc tả và đo chất lượng |
+| `L07-N02` | cầu nối | LSH trong bản đồ cơ chế | phân biệt ngăn, đường, mã |
+| `L07-N03` | cốt lõi | Tìm kiếm tham lam | chạy tay và nhận diện cực tiểu cục bộ |
+| `L07-N04` | cốt lõi | Tìm kiếm chùm và `SEARCH-LAYER` | giả mã, bất biến, dừng, giới hạn |
+| `L07-N05` | cốt lõi | Kiến trúc, truy vấn, chèn HNSW | đặc tả các pha và chọn/cắt cạnh |
+| `L07-N06` | cốt lõi | Tham số và chi phí HNSW | đánh đổi có điều kiện |
+| `L07-N07` | cốt lõi | Từ VQ đến PQ | mã hóa và tái dựng |
+| `L07-N08` | cốt lõi | ADC và bộ nhớ PQ | bảng tra, chi phí, giới hạn quét |
+| `L07-N09` | cốt lõi | IVF-PQ | phần dư, $nprobe$, top-$K$ |
+| `L07-N10` | cốt lõi | So sánh bốn cơ chế | lựa chọn theo bốn trục |
+| `L07-N11` | cầu nối | Ba nhiệm vụ runbook | sản phẩm thực hành truy nguyên được |
+
+Đồ thị tiên quyết tách thành nhánh đồ thị `N03→N06` và nhánh nén `N07→N09`, rồi hội tụ ở `N10`. `N11` chỉ phụ thuộc nhánh PQ/IVF-PQ vì nguồn không có bài HNSW.

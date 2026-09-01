@@ -69,3 +69,15 @@ Tổng phần giảng: **120 phút**.
 | R08 | 5 | Hoàn thiện phiếu báo cáo năm dòng và giải thích xu hướng của phép quét nguồn. | không thêm mục tiêu vận hành hoặc $nprobe$ mới | ô 149–155 |
 
 Tổng recitation: **60 phút**. Bài tập giữ dữ kiện và yêu cầu nguồn; các trang chỉ chia bước và thêm mẫu sản phẩm.
+
+## Storyboard ghi chú tự học
+
+Ghi chú dùng `L07-N01`–`L07-N11` trong outline. Mỗi chủ đề cốt lõi theo vai trò → đặc tả → ví dụ → trực quan → thuật toán/mệnh đề → lập luận đúng → chi phí, giới hạn và kiểm tra.
+
+- `N01–N02` khóa bài toán, phép đo và cầu từ Bài 06; không lặp banding.
+- `N03–N06` truyền cùng ví dụ đồ thị từ tham lam sang chùm, `SEARCH-LAYER`, truy vấn và chèn HNSW; bất biến chỉ nói về phần đã thăm.
+- `N07–N09` truyền cùng phép chia vector, mã PQ và bảng ADC sang phần dư IVF-PQ; phân biệt mã, vector tái dựng và mã định danh trả về.
+- `N10` thu hồi tình huống mở bài bằng bốn trục đo, không xếp hạng phổ quát.
+- `N11` giữ đúng trạng thái notebook và ba nhiệm vụ nguồn; không thêm bài HNSW hoặc kết quả số cố định.
+
+Các ví dụ đồ thị, ADC và chi phí IVF-PQ do học phần dựng lại hoặc suy ra phải ghi rõ. Mã trang nội bộ và thời lượng không xuất hiện trong ghi chú công khai.

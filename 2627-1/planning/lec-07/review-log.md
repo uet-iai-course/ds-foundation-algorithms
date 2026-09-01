@@ -2,6 +2,10 @@
 
 ## Quyết định nguồn và biên tập
 
+- Vòng ghi chú tự học 2026-09-02 dùng ba worker OpenRouter với `z-ai/glm-5.3-flash` để lập kế hoạch, ánh xạ nguồn và bản đồ chủ đề. Lượt bản đồ đầu chạm giới hạn tool-call; lượt thử lại cùng model trên hồ sơ hẹp hoàn tất.
+- Codex chính giữ 11 chủ đề `L07-N01`–`L07-N11`, tách nhánh đồ thị và nhánh PQ/IVF-PQ rồi hội tụ ở bảng so sánh. Không thêm bài HNSW vào recitation vì runbook không có dữ kiện nguồn.
+- Bổ sung quy tắc phá hòa, phân biệt `nok/|xq|` với recall@K tổng quát và chi phí IVF-PQ dưới nhãn suy ra. Không dùng tỷ lệ hiệu năng BIODS/Princeton thiếu điều kiện.
+
 - Đọc `sources/source.md` và dòng Bài 7 trong `sources/reference-slides/README.md` trước khi soạn.
 - Stanford BIODS 271 trang 17–18 chỉ đặt bối cảnh. Giữ dữ kiện $N=10^{10}$, $D=3072$, đoạn 6 chiều và mã tâm 8 bit; bỏ tuyên bố giảm độ chính xác 20–30% vì không có tập dữ liệu, phép đo hoặc cấu hình đi kèm.
 - Suy ra 122,88 TB dữ liệu thô và 5,12 TB mã PQ theo hệ thập phân. Các số này chưa gồm mã định danh, bộ mã, danh sách đảo hoặc véc-tơ gốc; giới hạn được ghi ngay trong notes.
@@ -122,3 +126,16 @@ Phạm vi rà lại: các trang vừa sửa (A00, A01, H05, H06, Q06, Q07, I01, 
 - Không thêm bài HNSW recitation: nguồn được chỉ định không có bài HNSW; không tự tạo dữ kiện.
 - Xóa mã nội bộ và thời lượng khỏi mặt/notes nhưng giữ nguyên thuộc tính `data-slide-id`; thời lượng vẫn giữ trong outline/storyboard/review-log.
 - Điều phối viên đã chạy lại kiểm tra tĩnh, hai tái kiểm độc lập và kiểm định trình duyệt sau lượt sửa hiện tại; kết quả và quyết định đối với ba góp ý nhẹ được ghi ở phần “Kiểm tra tĩnh sau chỉnh sửa”.
+
+## Rà soát ghi chú tự học
+
+- Writer `deepseek/deepseek-v4-flash-0731` qua OpenRouter tạo bản nháp trong gốc tạm hẹp. Bản nháp từ mục 2 trở đi bị hỏng Unicode và sai tên nhiều SVG; Codex chính không phát hành bản này.
+- Năm reviewer độc lập dùng `z-ai/glm-5.3-flash` qua OpenRouter, lần lượt kiểm nguồn, toán–thuật toán, mạch sư phạm, tính liên tục và khả năng render. Hai lượt đầu chạm giới hạn công cụ được chạy lại cùng model trong gốc chỉ đọc hẹp; metadata runtime đều xác nhận đúng model và provider OpenRouter.
+- Đã áp dụng các lỗi có bằng chứng: soạn lại phần Unicode hỏng; bỏ nhãn chủ đề nội bộ khỏi bản công khai; khôi phục đủ chủ đề tham số HNSW; sửa giả mã `SEARCH-LAYER`; viết lại công thức tầng; tách VQ, PQ và ADC; cho đầy đủ dữ kiện của ví dụ ADC 0,31; thêm trường hợp IVF-PQ thiếu ứng viên; chuẩn hóa chín đường dẫn SVG; ghi rõ ba cấu hình notebook cùng ngân sách 6 byte.
+- Bác đề xuất đổi cấu hình BIODS thành 6 byte/véc-tơ. Nguồn đặt `Vs=6` là **số chiều mỗi đoạn**, nên $S=3072/6=512$ đoạn; với $C=256$ và $P_c=8$ bit, mã dài 512 byte và kho mã chiếm 5,12 TB. Cấu hình 6 byte chỉ thuộc nhiệm vụ ngân sách ở ô 98–99 của notebook.
+- Bác cảnh báo đường dẫn deck, notebook và SVG không tồn tại vì đó là hệ quả của gốc rà soát tạm: trong kho thật, deck và notebook đều có; viewer chủ động chuẩn hóa `img/lec-07/...` theo gốc `2627-1/`.
+- `$no-ai-slop` đã được dùng để bỏ câu dẫn rỗng, nhịp liệt kê máy móc và mọi dấu vết quy trình khỏi ghi chú công khai; tự kiểm theo `no-ai-slop/eval.md` không phát hiện lời quảng bá, câu hỏi tu từ trong tiêu đề hay kết luận lặp.
+- `$quill` đã được dùng để rà chuỗi quy mô → ANN → ba cơ chế; nhánh tham lam → `SEARCH-LAYER` → HNSW; nhánh VQ → PQ → ADC → IVF-PQ; hai nhánh hội tụ ở bảng so sánh rồi dẫn vào thực hành. Thuật ngữ và ký hiệu thống nhất với deck; không tạo `quill.json`.
+- Hai lượt tái kiểm cuối cùng dùng `z-ai/glm-5.3-flash` qua OpenRouter. Lượt toán–thuật toán xác nhận toàn bộ con số, giả mã, công thức chi phí và ranh giới tuyên bố; lượt mạch xác nhận đủ 11 chủ đề, không còn mojibake, nhãn nội bộ hoặc nội dung quy trình trong bản công khai. Ba góp ý nhẹ được xử lý về ký hiệu $k^*$, truy vấn dư $\widetilde q_i$ và từ “khối lượng công việc”; nhận xét ví dụ VQ bị hòa bị bác vì $|3-4|<|3-0|$.
+- Viewer thật đạt ở 1280×720 và 390×844: 26 tiêu đề khớp 26 liên kết mục lục, 189 công thức KaTeX không lỗi, chín SVG tải đủ, không lỗi trình duyệt hoặc tràn ngang. Sáu khối đáp án gập mặc định, mở được bằng bàn phím và mở khi in; bản in A4 có 16 trang. Traversal và cặp `doc`/`deck` lệch số bài đều bị từ chối.
+- Sau khi các cổng viewer đạt, `index.html` mới được cập nhật. Kiểm tra một lần nhấp từ thẻ Bài 07 mở đúng ghi chú, đúng deck, đủ chín hình và không có lỗi KaTeX.
