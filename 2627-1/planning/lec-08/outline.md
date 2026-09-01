@@ -53,3 +53,21 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 - Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
 - Sáu SVG tự vẽ: mô hình dòng, mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
+
+## Bản đồ chủ đề cho ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Sản phẩm |
+|---|---|---|---|
+| `L08-N01` | cốt lõi | Mô hình dòng một lượt | hợp đồng và bốn trục chi phí |
+| `L08-N02` | cốt lõi | Lấy mẫu sai đơn vị | nhận ra sai lệch khi thống kê theo nhóm |
+| `L08-N03` | cốt lõi | Lấy mẫu nhất quán theo khóa | đặc tả, thuật toán và chứng minh $a/b$ |
+| `L08-N04` | cầu nối | Điều chỉnh tỷ lệ bằng ngưỡng | đổi tỷ lệ mà không lưu quyết định cũ |
+| `L08-N05` | cốt lõi | Lấy mẫu hồ chứa | vết chạy, giả mã và quy nạp $s/r$ |
+| `L08-N06` | cốt lõi | Cơ chế Bloom filter | xây, truy vấn và ví dụ 11 bit |
+| `L08-N07` | cốt lõi | Bảo đảm không âm giả | điều kiện và giới hạn |
+| `L08-N08` | cốt lõi | Mật độ bit và FPR | phân biệt chính xác với xấp xỉ |
+| `L08-N09` | cốt lõi | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ |
+| `L08-N10` | cốt lõi | Chọn cấu trúc | ánh xạ đầu ra sang trạng thái |
+| `L08-N11` | cốt lõi | Bốn bài tập MMDS | sản phẩm recitation truy nguyên được |
+
+Đồ thị tiên quyết: `N01→N02→N03→N04`; `N01→N05`; `N01→N06→N07→N08→N09`; ba nhánh hội tụ tại `N10`, rồi sang `N11`. Ghi chú dùng $r$ cho số phần tử đã thấy ở hồ chứa để không xung đột với $n$ bit của Bloom.

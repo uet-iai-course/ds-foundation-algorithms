@@ -49,3 +49,40 @@
 - Lệnh bắt buộc `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`. Dùng `/tmp/reloadserver.py 8765` làm máy chủ HTTP cục bộ thay thế; bài giảng tải thành công.
 - Chromium ở $1280\times720$ và $800\times600$: duyệt đủ 48 trang; không lỗi console, lỗi trang, tài nguyên hỏng, tràn khung, chồng lấn, lỗi KaTeX hoặc chữ dưới 18 px; điều hướng bàn phím lên, xuống, phải đúng. Đã xem bản liên hệ toàn deck và kiểm riêng B05, B10, B11, X01, X03, X04.
 - Codex Slides: dự án bền vững `20260827204905-b-i-8-d-ng-d-li-u-m-h-nh-l-y-m-u-v-l-c-skiv` vẫn là bản nháp 0 slide. Tệp HTML cuối đã tải thành material `20260830105531489-g5c4.html`; `open_codex_slides` trả liên kết workspace. Môi trường Codex hiện tại không có công cụ Browser để mở bề mặt này, nên không tuyên bố đã rà trực quan bằng Codex Slides; kiểm RevealJS cục bộ là bằng chứng trực quan cuối.
+
+## Quyết định trước khi soạn ghi chú tự học
+
+- Ba reader độc lập dùng `z-ai/glm-5.3-flash` qua OpenRouter đã hoàn tất kế hoạch, ánh xạ nguồn và bản đồ chủ đề; metadata runtime xác nhận đúng model và provider.
+- Giữ 11 chủ đề `L08-N01`–`L08-N11`. MMDS Chương 4 mục 4.1–4.3 làm trục; Stanford 2017 chỉ cung cấp ví dụ Bloom 11 bit; Stanford 2026 đối chiếu chứng minh hồ chứa và đường cong FPR.
+- Thêm một cầu nối ngắn về thay đổi ngưỡng lấy mẫu theo MMDS 4.2.4; không mở thành thuật toán mới. Không thêm ví dụ số ngoài nguồn.
+- Chốt ranh giới: $q=1-(1-1/n)^{km}$ chính xác dưới $km$ phép băm iid; $q^k$ là xấp xỉ chuẩn cho FPR; dạng mũ cần $n$ lớn. Phép tính trực tiếp cho $(1-e^{-1/4})^2=0{,}048929\ldots$, nên sửa số 0,0493 in trong sách thành 0,0489; dùng khoảng 0,02158 cho $n/m=8,k=6$.
+- Dùng $r$ cho số vị trí đã thấy ở hồ chứa để tránh xung đột với $n$ bit Bloom. Không thêm Rejection Sampling, Flajolet–Martin, moment, DGIM, cửa sổ hoặc bài hồ chứa tự dựng.
+
+## Soạn, phản biện và kiểm định ghi chú tự học
+
+- Writer chạy qua OpenRouter với `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, chỉ được ghi vào cây tạm đã giới hạn. Bản tạo ra được điều phối viên kiểm tra trước khi áp dụng vào kho.
+- Đủ năm vai reviewer độc lập bằng `openrouter-mcp-reviewer`; mọi lượt được chấp nhận có `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`:
+  1. nguồn và truy nguyên;
+  2. toán học–thuật toán;
+  3. mạch sư phạm;
+  4. kết nối, tính liên tục và ký hiệu;
+  5. viewer, Markdown và khả năng tiếp cận.
+- Reviewer nguồn ba lần đầu không tạo được báo cáo hợp lệ do hết vòng công cụ hoặc lỗi phân tích JSON. Lượt hẹp chỉ đọc bảng tám mệnh đề và bằng chứng trích đã hoàn tất hợp lệ. Góp ý trung bình về số tính lại được xử lý bằng cách ghi rõ $k=6$ và 0,02158 được suy ra từ công thức, không phải số chép từ bài tập. Góp ý nhẹ về chứng minh hồ chứa đã được đối chiếu lại với MMDS Streams 1 tr.18–21.
+- Reviewer toán phát hiện số 0,0493 trong sách không khớp công thức. Tính lại cho $(1-e^{-1/4})^2=0{,}048929\ldots$; ghi chú dùng 0,0489 và nêu rõ sai khác với bản in. Các giá trị $p_3\approx0{,}030579$, $p_4\approx0{,}023969$ và $p_6\approx0{,}02158$ đều được tính lại.
+- Reviewer sư phạm đề nghị thêm các điểm tự kiểm, nêu biên $r\le s$ và tránh dùng lại một ký hiệu cho hồ chứa và Bloom. Đã bổ sung tự kiểm ở các nút suy luận, dùng $r$ cho số phần tử đã thấy và $\rho=m/n$ cho tỷ số khóa trên bit.
+- Reviewer kết nối xác nhận 11 chủ đề `L08-N01`–`L08-N11` tạo thành một tuyến liên tục. Deck được đồng bộ ký hiệu ở cụm hồ chứa và phép tối ưu Bloom. Thứ tự ví dụ–đặc tả của slide và đặc tả–ví dụ của ghi chú được giữ khác nhau có chủ ý theo hai chu trình trình bày trong `AGENTS.md`; không đảo nội dung để tạo đồng nhất hình thức.
+- Reviewer viewer không có lỗi chặn hoặc nghiêm trọng. Các khối mã được gắn ngôn ngữ `text`, đường dẫn nguồn dùng HTTPS và mọi SVG được tải qua thẻ ảnh của viewer.
+- Hai lượt `recheck` sau chỉnh sửa, một về toán–thuật toán và một về mạch viết, cùng xác nhận không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Các góp ý nhỏ cuối đã được áp dụng: biên $r\le s/r>s$, mô tả rõ hai miền ký hiệu, `tra cứu`, cách viết $1\,000$ và khuôn `exercise`/`solution` thống nhất.
+
+### Biên tập cuối
+
+- `$no-ai-slop`: bỏ nhãn nhấn rỗng, câu dẫn theo quy trình và nhịp kết luận lặp; giữ văn phong trực tiếp, có chủ thể và căn cứ. Tự kiểm theo `no-ai-slop/eval.md` không còn lời quảng bá, câu hỏi tu từ, nhận xét vô căn cứ hoặc chỉ dẫn dành cho người soạn trong nội dung công khai.
+- `$quill`: rà lại đồ thị tiên quyết và tính liên tục mà không tạo `quill.json`. Chuỗi khái niệm giữ nguyên: mô hình dòng → sai lệch lấy mẫu từng bộ → lấy mẫu theo khóa → điều chỉnh ngưỡng → hồ chứa → Bloom → định cỡ → chọn cấu trúc → bài tập. Ký hiệu $r,s,n,m,k,\tau,\rho$ nhất quán giữa các phần và đã rà tác động sang deck.
+
+### Bằng chứng kiểm định cuối
+
+- Viewer tại `material-viewer.html?doc=materials/lec-08/lecture-note.md&deck=lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html` vượt kiểm tra ở $1280\times720$ và $390\times844$: 48 mục lục khớp 48 heading; 325 biểu thức KaTeX, không lỗi; 6/6 SVG tải được và có văn bản thay thế; 11 khối gập đóng mặc định; 4 khối mã `text`; không lỗi console, lỗi trang, request hỏng hoặc tràn ngang.
+- Điều hướng bàn phím mở được liên kết bỏ qua và khối gập. Chế độ in mở toàn bộ khối gập, ẩn mục lục cùng nhóm thao tác; hình không vượt khung. Viewer từ chối cả đường dẫn vượt thư mục và cặp `doc`/`deck` sai số bài.
+- Deck được duyệt lại đủ 48 trang ở $1280\times720$ và $800\times600$ sau khi đồng bộ ký hiệu: không lỗi runtime và không trang tràn khung. Kiểm trực quan riêng trang B10 xác nhận $\rho$ cùng công thức hiển thị đúng.
+- Mục Bài 8 trên `index.html` có đúng một liên kết ghi chú. Nhấp bằng bàn phím ở màn hình rộng và hẹp mở đúng tài liệu, đúng liên kết deck, đủ 6 hình và không lỗi KaTeX hay tràn ngang.
+- `git diff --check` sạch. Không có `.env`, bí mật, thông tin xác thực, tệp tạm hoặc thay đổi ngoài phạm vi Bài 08 trong tập tệp chuẩn bị commit.

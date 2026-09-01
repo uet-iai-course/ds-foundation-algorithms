@@ -90,3 +90,15 @@ Tổng phần bài tập: **60 phút**. Các bước trên chỉ chia nhỏ các
 | X05 | 0 | Đối chiếu đủ bốn sản phẩm, không thêm yêu cầu toán học. | Nhắc đối chiếu phiếu với rubric trong ghi chú. | tổng hợp bốn bài |
 
 Tổng recitation: **60 phút**. Chỉ dịch, chia bước và thêm mẫu sản phẩm; không đổi dữ kiện hoặc yêu cầu toán học.
+
+## Storyboard ghi chú tự học
+
+Ghi chú dùng `L08-N01`–`L08-N11`. Mỗi chủ đề cốt lõi đi theo vai trò → đặc tả → ví dụ → trực quan → thuật toán/mệnh đề → lập luận đúng → chi phí, giới hạn và tự kiểm.
+
+- `N01→N04`: từ hợp đồng dòng đến sai lệch lấy mẫu từng bộ, rồi chọn khóa và điều chỉnh ngưỡng.
+- `N05`: dùng vết $s=2$ để truyền trạng thái sang giả mã và chứng minh quy nạp; ký hiệu số vị trí đã thấy là $r$.
+- `N06→N09`: ví dụ Bloom 11 bit dẫn sang đặc tả, xây/truy vấn, không âm giả, mật độ bit, FPR và chọn $k$.
+- `N10`: so sánh mẫu theo nhóm, mẫu vị trí và phép lọc thành viên xác suất; không xếp hạng phổ quát.
+- `N11`: giữ nguyên bốn bài MMDS cùng dữ kiện, yêu cầu và sản phẩm; không thêm bài hồ chứa.
+
+Mã trang, thời lượng và nhãn `note-topic-id` chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai.
