@@ -91,3 +91,18 @@ R00–R08 là một phần dọc riêng sau phần giảng. Lời giải và hư
 - H09 → G07 → G00: chốt sai số của mô hình lý tưởng rồi chuyển sang cách quét thực hành.
 - G00 → G02 → G04 → G01 → G03: quan sát cập nhật và vết chạy trước khi đặc tả, giả mã và bất biến.
 - G06 → C00: chữ ký nhỏ chưa loại được số cặp bậc hai.
+
+## Bản đồ chủ đề cho ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày |
+|---|---|---|---|---|
+| `L05-N01` | Nhận tình huống kho gần trùng; cấp bài toán biểu diễn cho `L05-N02` | phép đếm cặp, ký hiệu $N$ | tính số cặp và phân biệt nén biểu diễn với tạo ứng viên | vai trò, đặc tả, ví dụ quy mô, chi phí, kiểm tra; định lý/chứng minh không áp dụng |
+| `L05-N02` | Nhận tài liệu thô; trao tập shingle cho `L05-N03` | chuỗi, tập hợp, hàm băm | đặc tả và tạo $S_k(D)$; xử lý biên và va chạm | đủ chuỗi; lập luận bất biến thay cho chứng minh định lý |
+| `L05-N03` | Nhận hai tập shingle; trao phép so sánh chính xác cho `L05-N04` | giao, hợp, danh sách sắp | tính Jaccard và thuật toán hai con trỏ | đủ chuỗi, gồm quy ước hợp rỗng và bất biến thuật toán |
+| `L05-N04` | Nhận độ đo Jaccard; trao một phép thử không chệch cho `L05-N05` | xác suất đều, ma trận 0/1 | chạy MinHash và chứng minh định lý | đủ chuỗi, dùng X/Y/Z trong chứng minh |
+| `L05-N05` | Nhận một phép thử; trao chữ ký $p$ hàng cho `L05-N06` | Bernoulli, kỳ vọng, phương sai, độc lập | suy ra kỳ vọng, phương sai và đánh đổi theo $p$ | đủ chuỗi, ví dụ gắn với hai cột chữ ký |
+| `L05-N06` | Nhận chữ ký lý tưởng; trao cách tính thực hành cho `L05-N07` | dữ liệu thưa, phép lấy min | chạy Ví dụ 3.8, giả mã, bất biến, dừng và chi phí | đủ chuỗi; cột toàn $\infty$ là trường hợp biên |
+| `L05-N07` | Nhận cách tính thực hành; trao giới hạn và điều kiện dùng kết quả cho bài tập | va chạm băm, hoán vị | phân biệt bảo đảm lý tưởng với xấp xỉ thực hành | vai trò, đặc tả hai mô hình, phản ví dụ, kết luận có điều kiện, lỗi và kiểm tra; không có thuật toán mới |
+| `L05-N08` | Nhận toàn bộ công cụ; chốt bài và nối sang Bài 06 | `L05-N02`–`L05-N07` | lời giải bốn bài nguồn và xác định phần còn thiếu là tạo ứng viên | đặc tả đề, vết tính, kết quả, lỗi; các thành phần khác gộp vào lời giải |
+
+Ghi chú dùng chu trình riêng: sau vai trò và nhu cầu, đặt đặc tả trước ví dụ, rồi mới trực quan, mệnh đề/thuật toán, chứng minh và kiểm tra. Thứ tự này khác có chủ ý với deck, nơi trực giác và ví dụ thường đứng trước hình thức hóa.

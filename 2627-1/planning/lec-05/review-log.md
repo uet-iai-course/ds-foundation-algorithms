@@ -1,5 +1,13 @@
 # Nhật ký rà soát Bài 5
 
+## Chốt goal ghi chú tự học ngày 2026-09-02
+
+- Đã chạy ba vai độc lập qua OpenRouter bằng đúng `z-ai/glm-5.3-flash`: lập kế hoạch, ánh xạ nguồn và phản biện bản đồ chủ đề. Hai lượt đầu kết thúc với lỗi nguyên văn `model exceeded the tool-call limit (8)`; đã thử lại cùng model trên dossier văn bản hẹp và nhận đủ báo cáo. Metadata runtime của ba báo cáo cuối đều ghi `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`.
+- Giữ tám chủ đề `L05-N01`–`L05-N08`. Duyệt ba bổ sung: hợp rỗng/cột rỗng, thuật toán hai con trỏ và suy dẫn Bernoulli. Bỏ Jaccard distance, Jaccard đa tập, shingle theo từ, Bài 3.3.1 và nội dung LSH vì không cần cho chuẩn đầu ra.
+- Loại Hình 3.5 khỏi ghi chú: hình này thuộc §3.3.6, trong khi phạm vi đã khóa dừng ở §3.3.5 và loại §§3.3.6–3.3.7. Hình 3.2–3.4 và 3.6 vẫn được dùng đúng vai trò.
+- Bác phát hiện của reader rằng đáp án R07–R08 sai. Reader đã đọc nhầm Hình 3.6 thành $S_1=\{0,2,5\}$ và $S_2=\{1\}$; dữ kiện đúng là $S_1=\{2,5\}$, $S_2=\{0,1\}$, $S_3=\{3,4\}$, $S_4=\{0,2,4\}$. Tính lại ba hàm cho ma trận chữ ký $(5,1,1,1)$, $(2,2,2,2)$, $(0,1,4,0)$ và $\widehat J=(1/3,1/3,2/3,2/3,2/3,2/3)$, đúng với deck hiện hành.
+- Không có thay đổi ký hiệu, giả thiết, ví dụ, kết luận hoặc thứ tự khái niệm dùng chung cần sửa deck trước khi writer chạy. Goal `.codex/goal_lecture_5.md` đã được điều phối viên chấp nhận ở trạng thái `sẵn sàng soạn`.
+
 ## Nguồn và quyết định biên tập
 
 - Phạm vi cốt lõi giữ ở MMDS 3e §§3.1–3.3. Lược Jaccard đa tập, shingle dựa trên từ và tối ưu chia khối hàng §§3.3.6–3.3.7 vì không cần cho chuẩn đầu ra và làm quá tải 120 phút. LSH, banding và các độ đo khoảng cách chuyển sang Bài 6 hoặc bài sau.
@@ -125,3 +133,27 @@ Tái kiểm toán sau chỉnh sửa không còn lỗi `chặn bàn giao`, `nghi�
 - Tách mục storyboard gộp `R03–R04` thành hai dòng `R03` và `R04` để mỗi `data-slide-id` có đúng một mục theo thứ tự HTML.
 - Giữ nguyên dữ kiện, yêu cầu và tổng 15 phút của Bài tập 3.3.2; phân bổ 7 phút cho tính hai hàm và 8 phút cho hoàn tất bảng chữ ký.
 - Sau sửa, 49 mã trong storyboard khớp đúng thứ tự 49 mã trong HTML; tổng phần giảng vẫn 120 phút và recitation vẫn 60 phút.
+
+## Soạn và kiểm định ghi chú ngày 2026-09-02
+
+### Writer và năm lượt rà độc lập
+
+- Writer chạy qua OpenRouter bằng `deepseek/deepseek-v4-flash-0731` trên gốc ghi tạm chỉ chứa hồ sơ Bài 05; metadata runtime xác nhận `requested_model = observed_model = deepseek/deepseek-v4-flash-0731`, `provider = OpenRouter`. Writer chỉ tạo `lecture-note.md`; Codex chính nhập bản nháp và sửa đường dẫn deck theo quy tắc viewer.
+- Năm reviewer dùng `z-ai/glm-5.3-flash`: nguồn/phạm vi; toán và giải thuật; mạch tự học; thuật ngữ–ký hiệu–liên tục; viewer và khả năng tiếp cận. Metadata của năm báo cáo cuối đều xác nhận đúng model và OpenRouter. Vai thuật ngữ–liên tục hai lần hết hạn 240 và 300 giây; lượt cuối trên dossier chỉ có ghi chú hoàn tất với timeout 600 giây, không đổi model hoặc phạm vi.
+- Sửa theo reviewer: `ouch down`; nguồn và thời gian quét gần sáu ngày; truy nguyên Hình 3.2–3.3; định nghĩa $X=\sum_iX_i$; ngôn ngữ `text` cho ba khối giả mã; ví dụ tỷ lệ hàng trùng; trực giác phần tử đầu của hợp; bảy điểm tự kiểm; bảng tự kiểm cuối bài; tách các đoạn giả thiết và chi phí; thống nhất hàng loại X/Y/Z và cách gọi giá trị canh.
+- Bác hai cảnh báo viewer về “thiếu note/deck”: dossier reviewer dùng tên `NOTE.md` và `DECK.html`, còn hai tệp đúng tên vẫn tồn tại trong workspace. Bác đề xuất sửa CSS in khi chưa có bằng chứng runtime; bản in thực tế không cắt hoặc chồng nội dung.
+- Bản cuối được biên tập theo `$no-ai-slop` và tự kiểm theo `eval.md`: bỏ câu meta, lời dẫn rỗng, nhịp lặp và diễn đạt máy móc; giữ nguyên mệnh đề nguồn. Rà theo `$quill` xác nhận mạch `quy mô → Shingling → Jaccard → MinHash lý tưởng → chữ ký → quét thưa → giới hạn → bài tập`, ký hiệu được định nghĩa trước khi dùng và cầu sang Bài 06 không lấn phạm vi. Không tạo `quill.json`.
+
+### Tái kiểm sau chỉnh sửa
+
+- Hai reviewer GLM dùng hồ sơ `recheck` đều trả `GO`; metadata runtime xác nhận `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`.
+- Vai toán tính lại số cặp, Ví dụ 3.3–3.4, 3.7–3.8, bốn bài tập, Hình 3.4, Hình 3.6, kỳ vọng, phương sai, biên và cận chi phí; không còn lỗi chặn, nghiêm trọng hoặc trung bình.
+- Vai mạch viết xác nhận đủ tám chủ đề, các điểm tự kiểm, cú pháp khối không lồng nhau, thuật ngữ–ký hiệu nhất quán và LSH chỉ là ranh giới sang Bài 06.
+
+### Viewer và phát hành
+
+- Trước khi cập nhật index, Chromium tải URL chính xác ở khung $1280\times720$ và $390\times844$: 41 heading khớp 41 liên kết mục lục; 323 công thức KaTeX, 0 lỗi; 5 SVG, 0 ảnh hỏng; 15 khối `hint`/`solution` đóng mặc định; 3 khối mã có ngôn ngữ; không lỗi console, page hoặc request.
+- Lượt đầu phát hiện tràn ngang 95 px ở khung hẹp do một công thức dài trong bảng và danh sách sáu cặp trên một dòng. Đã đổi ô bảng sang câu ngắn và tách sáu cặp thành danh sách; lượt sau không còn tràn ngang ở cả hai khung.
+- Skip-link đưa focus tới nội dung; `summary` mở bằng Enter. Viewer từ chối traversal `../AGENTS.md` và từ chối cặp `doc`/`deck` lệch số bài.
+- Bản in A4 có 19 trang; mọi `details` mở, mục lục và nhóm thao tác ẩn. Văn bản PDF chứa đủ gợi ý, lời giải và bảng tự kiểm. Đã xem bản rộng, bản hẹp cùng các trang in 1–2, 11–12 và 17–19; không có nội dung bị cắt hoặc chồng.
+- Chỉ sau các cổng trên, index được thêm đúng một URL `material-viewer.html?doc=materials/lec-05/lecture-note.md&deck=lecture-05-bieu-dien-tuong-dong-shingling-va-minhash.html`. Click từ index tải đúng tiêu đề, nguồn Markdown và deck, không có lỗi runtime.

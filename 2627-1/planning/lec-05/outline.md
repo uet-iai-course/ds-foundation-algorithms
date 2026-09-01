@@ -61,3 +61,18 @@
 - `jaccard-ba-vung.svg`: ba kiểu hàng X, Y, Z.
 - `minhash-hoan-vi.svg`: Ví dụ 3.7.
 - `quet-ma-tran-thua.svg`: cập nhật chữ ký trên phần tử 1.
+
+## Bản đồ chủ đề ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Quyết định và nguồn |
+|---|---|---|---|
+| `L05-N01` | cầu nối | Quy mô so sánh cặp và vai trò của biểu diễn | giữ; MMDS §§3.1–3.3 và slide mở đầu |
+| `L05-N02` | cốt lõi | Chuẩn hóa và Shingling | giữ; MMDS §§3.2.1–3.2.3, Ví dụ 3.3–3.4 |
+| `L05-N03` | cốt lõi | Độ tương đồng Jaccard và hai con trỏ | giữ và bổ sung đặc tả; MMDS §3.1.1, Ví dụ 3.1 |
+| `L05-N04` | cốt lõi | MinHash lý tưởng và định lý xác suất | giữ; MMDS §§3.3.1–3.3.3, Ví dụ 3.7 |
+| `L05-N05` | cốt lõi | Chữ ký, kỳ vọng và phương sai | giữ và làm rõ đơn vị; MMDS §3.3.4 |
+| `L05-N06` | cốt lõi | Quét ma trận thưa và bất biến | giữ; MMDS §3.3.5, Ví dụ 3.8 |
+| `L05-N07` | cốt lõi | Giới hạn của hàm băm thực hành | tách riêng để không lẫn với định lý lý tưởng; MMDS §3.3.5 và Bài 3.3.3 |
+| `L05-N08` | cầu nối | Bốn bài tập và nối sang LSH | giữ nguyên bốn đề nguồn; chỉ nhắc LSH như đầu ra cho Bài 06 |
+
+Các bổ sung được duyệt là quy ước hợp rỗng/cột rỗng, thuật toán hai con trỏ và suy dẫn Bernoulli cho phương sai. Không thêm Jaccard distance, Jaccard đa tập, shingle theo từ, Hình 3.5, §§3.3.6–3.3.7 hoặc nội dung LSH.
