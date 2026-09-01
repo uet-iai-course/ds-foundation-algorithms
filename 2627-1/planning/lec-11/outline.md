@@ -63,3 +63,23 @@ MMDS và Stanford CS246 không có cụm tương đương cho bài này.
 ## Tài sản trực quan
 
 Có 12 SVG trong `2627-1/img/lec-11/`. Các hình LZ77 dùng vết CMU `(3,4,b)`; cây LZ78 có $D[2]=ab,D[4]=c$; lượng tử hóa dùng hai ô số từ Hình 11.10–11.11; zigzag đi qua đủ 64 ô và đánh dấu lượt 6, 15. Không dùng raster hoặc tài nguyên mạng.
+
+## Bản đồ chủ đề của ghi chú tự học
+
+Ghi chú giữ nguyên mục tiêu, ký hiệu và thứ tự khái niệm của deck nhưng mở rộng lập luận, vết chạy và chứng minh. Mỗi chủ đề có một sản phẩm học tập kiểm tra được.
+
+| `note-topic-id` | Nhãn | Chủ đề | Đầu vào | Sản phẩm học tập | Nguồn và quan hệ |
+|---|---|---|---|---|---|
+| `L11-N01` | cốt lõi | Hai đặc tả khôi phục | Bài 10 về mã entropy | Loại phương pháp trái với yêu cầu bảo toàn | `source.md`, CMU; mở hai nhánh N02 và N07 |
+| `L11-N02` | cốt lõi | LZ77: cửa sổ, token, vết chạy | Chuỗi và mảng | Phát đúng năm token, giải thích chồng lấn | Nelson–Gailly Ch.8, CMU logic 3–6; sang N03 |
+| `L11-N03` | cốt lõi | LZ77: giải mã, bất biến, chi phí | N02 | Chứng minh khôi phục đúng và nêu cận theo $n,W,L$ | Ch.8, CMU logic 6–10; nêu giới hạn để sang N04 |
+| `L11-N04` | cốt lõi | LZ78: từ điển cụm và EOS | Cây tiền tố, N03 | Chạy vết, phân biệt hai nhánh kết thúc, chứng minh đồng bộ | Ch.9, CMU logic 11–14, 18; sang N05 |
+| `L11-N05` | cốt lõi | LZW: mã hóa và vết từ điển | N04, mã byte | Sinh đúng dòng 10 mã và các mục 256–264 | Ch.9, CMU logic 15–17; chuẩn bị N06 |
+| `L11-N06` | cốt lõi | LZW: giải mã và hợp đồng bit | N05 | Xử lý ba trường hợp của mã kế và độ trễ một mục | Ch.9, CMU logic 16, 19; đóng nhánh khôi phục đúng |
+| `L11-N07` | cốt lõi | JPEG: tốc độ bit–sai số và đường ống | N01, đại số tuyến tính | Phân loại đúng bước khả nghịch và mất dữ liệu | Ch.11, CMU lossy logic 2, 13–16; sang N08 |
+| `L11-N08` | cốt lõi | DCT khối và lượng tử hóa | N07 | Tính hai ô lượng tử và chỉ ra nơi mất dữ liệu | Ch.11, Hình 11.10–11.11; sang N09 |
+| `L11-N09` | cốt lõi | DC/AC, zigzag, RLE, IDCT | N08, mã entropy | Nối hệ số lượng tử với dòng bit và ảnh tái tạo | Ch.11; đóng nhánh gần đúng |
+| `L11-N10` | cầu nối | So sánh bốn phương pháp | N03, N06, N09 | Chọn phương pháp theo đặc tả và chi phí trạng thái | Tổng hợp N01–N09; sang N11 |
+| `L11-N11` | cốt lõi | Năm bài tập có lời giải | N02–N10 | Mô phỏng, chứng minh và giải thích bằng dữ kiện nguồn | Năm bài CMU đã chọn |
+
+Đồ thị tiên quyết: `N01→N02→N03→N04→N05→N06`; `N01→N07→N08→N09`; hai nhánh hội tụ ở `N10`, rồi sang `N11`. Không có chủ đề bổ sung ngoài nguồn; MIT 15.564 chỉ dùng để đối chiếu tổng quan.

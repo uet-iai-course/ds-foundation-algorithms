@@ -118,3 +118,21 @@ Tổng phần giảng: 120 phút. Tổng recitation: 60 phút.
 ## Trạng thái phần recitation
 
 X01–X05 giữ nguồn cụ thể trong bảng và tổng thời lượng $12+8+12+15+13=60$ phút. Phần này bao phủ mục tiêu 1–3, 5 và một phần mục tiêu 4; không tự thêm bài để lấp phần còn lại. X05 giữ ba mục tiêu chọn biến đổi và phân tích biến đổi toàn ảnh theo mô hình trực tiếp của CMU logic 11; không thêm phép đo ngoài nguồn.
+
+## Storyboard cho ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Thành phần trình bày | Dữ kiện truyền xuyên suốt |
+|---|---|---|---|
+| `L11-N01` | Tách hai hợp đồng; mở nhánh LZ và JPEG | Vai trò, đặc tả, ví dụ chọn phương pháp, hình hai hợp đồng | Yêu cầu bảo toàn và giới hạn băng thông |
+| `L11-N02` | Từ hợp đồng khôi phục đúng đến cửa sổ hữu hạn; trao lịch sử cho N03 | Đặc tả token, vết chạy tay, trực quan chồng lấn, giả mã mã hóa | `aacaacabcabaaac`, $W=6,L=4$, năm token |
+| `L11-N03` | Dùng lịch sử N02 để chứng minh; chỉ ra giới hạn cửa sổ trước N04 | Giả mã giải mã, bất biến, dừng, chi phí, tự kiểm | Cùng năm token; $n,W,L$ |
+| `L11-N04` | Thay cửa sổ bằng từ điển toàn luồng; bỏ trường ký tự để sang N05 | Định nghĩa, cây cụm, vết chạy, hai giả mã, quy nạp, EOS | `aabaacabcabcb`, $D[0]=\epsilon$, sáu cặp |
+| `L11-N05` | Nạp sẵn bảng chữ cái và chỉ phát mã; trao độ trễ cho N06 | Đặc tả, giả mã, vết đầy đủ, hình vết | `ppqpprpqrpqrq`, mã 112–114, mục 256–264 |
+| `L11-N06` | Giải quyết mục chưa có và đóng hợp đồng LZW | Đường thường, trường hợp `k=next_code`, giả mã đầy đủ, bất biến, hợp đồng bit | $w=\texttt{aba}$, `next_code=271`; $T=2^b$, `MAX` |
+| `L11-N07` | Quay lại hợp đồng gần đúng của N01; chuẩn bị phép biến đổi | Đặc tả tốc độ bit–RMS, đường ống, phân loại bước mất dữ liệu | Ảnh gốc $X$, ảnh tái tạo $\hat X$, khối $8\times8$ |
+| `L11-N08` | Từ khối ảnh sang hệ số đã lượng tử; trao vị trí cho N09 | DCT, ý nghĩa tần số, công thức lượng tử, hai phép tính có nguồn | $(-9,7)\to-1\to-7$; $(3,11)\to0\to0$ |
+| `L11-N09` | Đóng đường ống từ hệ số sang ảnh tái tạo | DC/AC, zigzag, RLE, IDCT, chi phí và giới hạn | Các ô $(0,2)$ và $(0,4)$ ở lượt 6 và 15 |
+| `L11-N10` | Hội tụ hai nhánh; buộc lựa chọn có loại phương án | Bảng so sánh, tình huống kho ảnh và tự kiểm | Đặc tả, điều kiện tiết kiệm bit, trạng thái |
+| `L11-N11` | Chuyển từ hiểu sang thực hành có thể chấm | Năm bài `exercise` với `hint` và `solution` gập mặc định | Giữ nguyên dữ kiện CMU; tái dùng toàn bộ ký hiệu trên |
+
+Các chủ đề trọng tâm đều có vai trò, đặc tả, ví dụ, trực quan khi cần, thuật toán hoặc mệnh đề, lập luận đúng, chi phí và kiểm tra. N01 và N10 dùng chu trình rút gọn vì là chủ đề định hướng và tổng hợp; không tạo định lý hay giả mã không áp dụng. N11 là cụm luyện tập nên không lặp lại phần định nghĩa và chứng minh đã có ở N02–N09.

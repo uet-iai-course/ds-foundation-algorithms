@@ -136,3 +136,43 @@ Kiểm định xác nhận 48 trang, 7 mạch, phần giảng 120 phút và reci
 - Cả 12 SVG, kể cả hình không được nhúng, phân tích XML hợp lệ và có `role="img"`, `aria-label`; cỡ chữ chính từ 20 px trở lên.
 - Đường zigzag có 64 điểm; hai ô ví dụ ở lượt 6 và 15. Mọi ảnh HTML tồn tại; không có raster hoặc URL mạng trong nội dung.
 - Notes không có mã nội bộ hoặc thời lượng. `git diff --check` không báo lỗi khoảng trắng.
+
+## Ghi chú tự học Bài 11
+
+### Điều phối OpenRouter
+
+- Ba reader dùng `z-ai/glm-5.3-flash` qua OpenRouter: lập kế hoạch phiên `33029`, bản đồ chủ đề phiên `61360`, ánh xạ nguồn phiên `19586`. Codex chính hợp nhất thành 11 chủ đề `L11-N01`–`L11-N11`; giữ recitation là đầu ra cốt lõi, mã 256 là mục LZW mới đầu tiên và vị trí zigzag đếm từ 1.
+- Writer dùng `deepseek/deepseek-v4-flash-0731`. Phiên `89667` chạm giới hạn gọi công cụ trước khi ghi; phiên thu hẹp `86654` hoàn tất bản nháp trong gốc tạm. Codex chính chỉ đưa tệp cần thiết vào gốc tạm, không gửi `.env`, bí mật hoặc thông tin xác thực.
+- Năm reviewer độc lập dùng `z-ai/glm-5.3-flash`: truy nguyên nguồn `5012`, toán–thuật toán `22223`, sư phạm `58467`, mạch viết `51407`, viewer `4502`. Các lỗi có căn cứ đã được sửa trước tái kiểm.
+
+### Phát hiện và quyết định
+
+| Mức | Phát hiện | Quyết định |
+|---|---|---|
+| nghiêm trọng | Bản nháp có khối tùy biến và hàng rào mã bị hỏng, ký hiệu KaTeX lỗi, hai dấu vết nội bộ và lời giải lạc vị trí | Chuyển thành 10 bộ `exercise`–`hint`–`solution` hợp lệ, sửa bảy khối mã, công thức và xóa toàn bộ dấu vết quy trình |
+| nghiêm trọng | Bảng trạng thái LZ77 không khớp năm token | Sửa các tiền tố đã xử lý thành `aac`, `aacaacab`, `aacaacabcaba`; chạy lại giải mã |
+| trung bình | Bảng LZ78 ghi tiền tố hàng cuối là `b` dù dùng $D[5]=abc$ | Sửa thành `abcb`; giữ cặp $(5,b)$ và $D[6]=abcb$ |
+| trung bình | Ghi chú chưa dùng hai hình khứ hồi LZ77/LZ78 | Chèn hai SVG đúng tại phần chứng minh tương ứng; cả 12 SVG của bài được dùng |
+| nhẹ | Một số câu mang giọng hướng dẫn quy trình hoặc lặp cảnh báo | Biên tập lại theo `$no-ai-slop`: giữ mệnh đề, bỏ nhãn quy trình và nhịp câu máy móc |
+
+Hai nhận xét bị bác bỏ sau kiểm chứng độc lập:
+
+- Reviewer mạch cho rằng dòng mã LZW không khớp. Chạy lại thuật toán trên toàn chuỗi `ppqpprpqrpqrq` cho đúng 10 mã `112,112,113,256,114,257,260,113,114,113` và các mục 256–264 `pp,pq,qp,ppr,rp,pqr,rpq,qr,rq`; reviewer toán phiên `22223` cũng xác nhận.
+- Reviewer viewer đề nghị đổi đường hình thành `../../img/...`. Viewer giải đường dẫn từ gốc `2627-1/`, nên dạng đúng là `img/lec-11/...`; kiểm thử trình duyệt tải đủ 13 lần dùng ảnh, không có ảnh hỏng.
+
+### Biên tập và tính liên tục
+
+- `$no-ai-slop`: đổi lời dẫn và cảnh báo thành văn xuôi học thuật, bỏ các nhãn như “nguồn ghép”, “ghi chú quan trọng”, “phép tính bắt buộc”, không thêm mệnh đề hoặc ví dụ mới. Bản cuối được tự kiểm theo `eval.md`.
+- `$quill`: mạch `N01→N02→N03→N04→N05→N06` và `N01→N07→N08→N09` hội tụ ở `N10→N11`; ký hiệu $(d,\ell,c)$ và $(p,\ell,c)$ không trộn, $EOS$, $D[i]$, `next_code`, $C$, $Q$, $\hat C$, $\tilde C$ nhất quán. Không tạo `quill.json`.
+
+### Kiểm định viewer và index
+
+- Viewer thật ở khung $1280\times720$ và $390\times844$: 51 heading khớp 51 liên kết mục lục, 198 biểu thức KaTeX, không lỗi KaTeX, 13 lần dùng ảnh không hỏng, bảy khối mã có ngôn ngữ, 20 khối gập đóng mặc định, không tràn ngang hoặc lỗi trình duyệt.
+- Bàn phím đạt cho liên kết bỏ qua nội dung và `summary`; bản in A4 dài 24 trang, tự mở mọi `hint`/`solution`, ẩn mục lục và thanh thao tác, không có hình vượt khung.
+- Viewer từ chối đường dẫn vượt thư mục và từ chối ghép `doc` Bài 10 với `deck` Bài 11.
+- Sau khi viewer đạt, index được đổi sang hai tài nguyên Trang chiếu/Ghi chú. Kiểm thử từ index ở hai khung xác nhận đúng một liên kết, nhận focus bàn phím, mở đúng tài liệu, 13 ảnh và không lỗi KaTeX.
+
+### Tái kiểm cuối
+
+- Phiên toán–thuật toán `39844` hết thời gian chờ API và không cho kết luận. Lần thử lại thu hẹp ở phiên `83111` dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter: `PASS` 9/9 cho LZ77, LZ78, LZW, DCT/IDCT, lượng tử, zigzag, RMS, chi phí và năm lời giải.
+- Reviewer mạch sư phạm phiên `91975` dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter: `PASS`; xác nhận thứ tự N01–N11, các cầu nối, ký hiệu, EOS, mã 256, độ trễ LZW, ranh giới mất dữ liệu JPEG và văn phong công khai.
