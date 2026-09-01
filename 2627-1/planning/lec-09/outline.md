@@ -68,3 +68,20 @@ Tổng phần bài tập: **60 phút**. X00 chỉ mở phần, không tính th�
 - Thuật toán: FM, Count-Min, AMS và cập nhật/truy vấn DGIM; truy hồi cửa sổ suy giảm.
 - Lập luận: ngưỡng FM dưới mô hình băm lý tưởng; cảnh báo đuôi nặng; nhiễu kỳ vọng, Markov và khuếch đại Count-Min; tính không chệch AMS; bất biến, chi phí và cận sai số DGIM.
 - Không có ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
+
+## Bản đồ chủ đề ghi chú tự học
+
+| `note-topic-id` | Vai trò | Sản phẩm học tập | Nguồn chính |
+|---|---|---|---|
+| `L09-N01` | cốt lõi | Chọn cấu trúc theo đại lượng cần ước lượng và phạm vi thời gian. | MMDS 4.4–4.7 |
+| `L09-N02` | cốt lõi | Chạy Flajolet–Martin, giải thích ngưỡng $2^R$, đuôi nặng và phép gộp. | MMDS 4.4; Stanford CS246 2017 |
+| `L09-N03` | cốt lõi | Cập nhật, truy vấn và chứng minh bảo đảm một phía của Count-Min Sketch. | UMass CS514 Lecture 10 |
+| `L09-N04` | cốt lõi | Phân biệt $F_0,F_1,F_2$ và diễn giải độ tập trung. | MMDS 4.5.1 |
+| `L09-N05` | cốt lõi | Chạy biến AMS, chứng minh tính không chệch và duy trì bằng lấy mẫu hồ chứa. | MMDS 4.5.2–4.5.5 |
+| `L09-N06` | cốt lõi | Đặc tả bucket và sáu bất biến DGIM. | MMDS 4.6.1–4.6.3 |
+| `L09-N07` | cốt lõi | Cập nhật, truy vấn, chứng minh cận 50% và tính chi phí DGIM. | MMDS 4.6.3–4.6.5 |
+| `L09-N08` | cầu nối | Suy ra tổng hữu hạn và truy hồi của cửa sổ suy giảm mũ. | MMDS 4.7.1–4.7.2 |
+| `L09-N09` | cốt lõi | So sánh năm hợp đồng và điều kiện áp dụng. | Tổng hợp các nguồn trên |
+| `L09-N10` | cốt lõi | Giải năm bài tập trực tiếp từ MMDS. | MMDS 4.4.1, 4.5.1, 4.5.3, 4.6.1, 4.6.3 |
+
+Đồ thị tiên quyết của ghi chú là `N01→N02→N03`, `N01→N04→N05` và `N01→N06→N07→N08`; ba nhánh hội tụ tại `N09` rồi dẫn sang `N10`. Không thêm chủ đề ngoài nguồn. `N08` được giữ làm cầu nối vì nếu thiếu nó, khái niệm dữ liệu gần đây chỉ còn cửa sổ cứng và mạch kết luận của deck không được thu hồi trong tài liệu tự học.

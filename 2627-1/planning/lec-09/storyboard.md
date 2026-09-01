@@ -20,7 +20,7 @@ Tình huống xuyên suốt là dòng sự kiện có khóa và thời gian đ�
 | AMS | M00–M07 | vị trí đều, bộ đếm hậu tố → $\widehat F_2$ | dòng 15 phần tử và $c_I$ ở M02 truyền sang hình thức M03, thuật toán và chứng minh | kiểm tra gộp vào nhánh hồ chứa M07; chi phí lượng hóa theo $q$ | Mômen đo độ lệch mà một truy vấn tần suất riêng lẻ không thể hiện. | 25 |
 | DGIM | D00–D09 | dòng bit, cửa sổ $N$, hậu tố $k$ → $\widehat c(k)$ | Hình 4.2 ở D02 truyền sang bất biến D03, truy vấn D07 và cận D08 | ví dụ đứng trước bất biến; truy vấn chỉ dùng mốc phải, không giả định biết đầu trái | Từ toàn dòng chuyển sang câu hỏi chỉ về dữ liệu gần đây. | 36 |
 | Suy giảm | E00–E01 | dòng số và $c$ → tổng có trọng số | đường trọng số và tổng hữu hạn E00 truyền sang truy hồi E01 | rút gọn vì là khái niệm phụ; kiểm tra suy diễn ở E01; không dạy duy trì nhiều khóa | Bỏ biên cứng bằng cách giảm dần trọng số. | 7 |
-| Tổng hợp | T00–T01 | bốn hợp đồng → lựa chọn có điều kiện | bảo đảm từ F04, C03, M06, D08 | không có thuật toán mới | Bài tập kiểm tra trực tiếp từng bảo đảm. | 8 |
+| Tổng hợp | T00–T01 | năm hợp đồng → lựa chọn có điều kiện | bảo đảm từ F04, C03, M06, D08 và E01 | không có thuật toán mới | Bài tập kiểm tra trực tiếp từng bảo đảm. | 8 |
 
 Tổng phần giảng: **120 phút**.
 
@@ -90,3 +90,20 @@ X00 không thêm yêu cầu toán học. Tổng phần bài tập: **60 phút**.
 - M02 và M03 đổi thứ tự; đã rà M00–M05. Tình huống và mômen đi trước, vết hậu tố đi trước ký hiệu $I,c_I,X$, rồi mới đến giả mã và chứng minh.
 - D02 và D03 đổi thứ tự; đã rà D00–D05. Định nghĩa bucket đi trước trạng thái cụ thể, bất biến được đọc từ trạng thái, sau đó mới cập nhật.
 - D07 và X04 dùng hình riêng để ranh giới truy vấn không lẫn với trạng thái nền hoặc đáp án bài tập.
+
+## Hành trình chủ đề của ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào → sản phẩm | Thành phần trình bày |
+|---|---|---|---|
+| `L09-N01` | Mở từ giới hạn bộ nhớ; tách hai trục quyết định để dẫn sang ba nhánh toàn dòng và một nhánh dữ liệu gần đây. | Mô hình dòng → chọn đúng loại trạng thái. | Vai trò, đặc tả câu hỏi, hình quyết định, bảng hợp đồng, tự kiểm. |
+| `L09-N02` | Nhận nhánh $F_0$ từ N01; kết thúc bằng giới hạn của truy vấn số khóa để nối sang tần suất một khóa. | Băm và xác suất cơ bản → chạy FM, giải thích $2^R$ và gộp nhiều bản sao. | Đặc tả, giả mã, vết băm, lập luận ngưỡng, chi phí, trường hợp biên, tự kiểm. |
+| `L09-N03` | Nhận nhu cầu tần suất từ N02; đầu ra là bảo đảm một phía, chuẩn bị đối chiếu với mômen toàn phân phối. | Dòng chỉ tăng và Markov → cập nhật, truy vấn và chứng minh Count-Min. | Đặc tả, giả mã, ví dụ va chạm, chứng minh, chi phí, giới hạn, tự kiểm. |
+| `L09-N04` | Chuyển từ tần suất riêng lẻ sang độ tập trung của cả phân phối; đặt đại lượng cho AMS. | Tần suất → tính và diễn giải $F_0,F_1,F_2$. | Định nghĩa, ví dụ hai phân phối, câu nối. |
+| `L09-N05` | Nhận $F_2$ từ N04; chứng minh biến hậu tố không chệch và nối lại lấy mẫu hồ chứa của Bài 8. | Kỳ vọng và lấy mẫu đều → chạy AMS và giải thích bảo đảm theo kỳ vọng. | Ví dụ chạy tay, giả mã, mệnh đề, chứng minh, duy trì trực tuyến, chi phí, tự kiểm. |
+| `L09-N06` | Trở lại nhánh gần đây của N01; xây biểu diễn đủ để N07 cập nhật và truy vấn. | Dòng bit và cửa sổ $N$ → nhận biết bucket, mốc phải và trạng thái hợp lệ. | Đặc tả, hình trạng thái, sáu bất biến, giả mã cập nhật và vết cascade. |
+| `L09-N07` | Dùng bất biến N06 để truy vấn và chứng minh; đầu ra là hợp đồng DGIM hoàn chỉnh. | Bucket hợp lệ → tính truy vấn, cận 50% và chi phí. | Ví dụ $k=10$, mệnh đề, chứng minh đầy đủ, trường hợp $c=0$, tự kiểm. |
+| `L09-N08` | Nới biên cứng của N07 thành trọng số giảm dần; đưa hợp đồng thứ năm vào phần so sánh. | Cấp số nhân → suy ra tổng hữu hạn và truy hồi $O(1)$. | Vai trò, hình trọng số, dẫn xuất, chi phí, tự kiểm; không có định lý riêng vì chỉ là đồng nhất thức đại số. |
+| `L09-N09` | Hội tụ các nhánh N02–N08; khóa điều kiện trước khi làm bài tập. | Bốn phác thảo và một tổng suy giảm → so sánh năm hợp đồng mà không chuyển nhầm bảo đảm. | Bảng sáu cột và đoạn tổng hợp ngắn. |
+| `L09-N10` | Dùng trực tiếp các hợp đồng đã khóa; kết thúc tài liệu bằng sản phẩm kiểm tra được. | FM, mômen, AMS, DGIM → năm lời giải truy nguyên tới MMDS. | Năm khối bài tập–lời giải, hai SVG DGIM; không sửa dữ kiện hoặc yêu cầu toán học. |
+
+Ghi chú giữ cùng ký hiệu và ví dụ số với deck nhưng đặt định nghĩa trước ví dụ theo khuôn tài liệu tự học. Không dùng `data-slide-id` trong nội dung công khai; ánh xạ khái niệm được giữ ở bảng trên.

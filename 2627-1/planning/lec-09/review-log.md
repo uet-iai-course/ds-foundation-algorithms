@@ -83,3 +83,27 @@
 - Chromium duyệt lại đủ 46 trang ở cả $1280\times720$ và $800\times600$: không có lỗi JavaScript, lỗi tải tài nguyên, lỗi KaTeX, tràn hoặc chồng khung. Điều hướng bàn phím từ P00 cho kết quả xuống P01, lên lại P00 và sang phải F00.
 - Đã xem trực tiếp bốn ảnh tổng hợp của mỗi kích thước và các trang dày C02, M04, D08, T00, T01, X01, X03, X04, X05. Lần xem đầu phát hiện nền DGIM không hiện ở D07 và X04; sau khi nhúng trực tiếp trạng thái nền, đã render lại toàn bộ và xác nhận hai trang hiện đủ bit, bucket, ranh giới và nhãn ở cả hai kích thước.
 - Codex Slides: dự án `20260827213434-b-i-9-d-ng-d-li-u-m-moment-v-c-a-s-unoi` vẫn là bản nháp 0 trang; tệp HTML cuối được tải thành material `20260830133414001-sxq5.html`. Bề mặt Browser nội bộ không có công cụ điều hướng trong phiên này, còn `upload_design_file` trả HTTP 500. Vì vậy không tuyên bố đã rà trực quan bằng Codex Slides; bằng chứng trực quan cuối đến từ RevealJS cục bộ bằng Chromium.
+
+## Quy trình ghi chú tự học
+
+- Ba reader OpenRouter dùng `z-ai/glm-5.3-flash`: lập kế hoạch (session 68406), đề xuất bản đồ chủ đề (session 39960) và ánh xạ nguồn có phạm vi hẹp sau một lần chạm giới hạn công cụ (session 53830). Cả ba kết quả được điều phối viên hợp nhất vào goal trước khi soạn.
+- Writer dùng đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter. Lần đầu chạm giới hạn công cụ; lần hai ghi nguyên tử thành công nhưng bản thảo có lỗi mã hóa tiếng Việt, công thức, bảng và dữ kiện DGIM trên diện rộng. Bản thảo bị loại, không vá cục bộ.
+- Năm reviewer độc lập dùng `z-ai/glm-5.3-flash` qua OpenRouter: nguồn (session 87082), toán–thuật toán (91081), sư phạm (8603), mạch viết (62611) và viewer (9207). Năm báo cáo cùng yêu cầu viết lại toàn bộ. Codex chính áp dụng các sửa có bằng chứng theo quyền người dùng đã cấp.
+- Giữ các phát hiện: văn bản hỏng mã hóa; giả mã FM sai; thiếu ví dụ số AMS; sai bất biến, mốc gộp, truy vấn, chứng minh và chi phí DGIM; tên SVG không tồn tại; bảng hỏng; thiếu liên kết deck; sai bài 4.4.1; thiếu dẫn xuất truy hồi suy giảm. Bác các đề xuất đưa mã `note-topic-id` vào tài liệu công khai hoặc đổi đường dẫn hình thành `../../img/...`, vì chúng trái quy tắc planning và cơ chế phân giải của viewer.
+- Sau bản viết lại, reviewer mạch (session 54820) và reviewer toán–thuật toán phạm vi hẹp (session 17107) đều trả `PASS`, với `requested_model = observed_model = z-ai/glm-5.3-flash` và `provider = OpenRouter`. Một lượt toán rộng hơn chạm giới hạn công cụ trước khi kết luận, nên không được tính là cổng đạt.
+- Bác nhận xét đổi ô $h_2(2)$ của Bài 4.4.1 từ 0 thành 1: $h_2(2)=13=01101_2$ kết thúc bằng bit 1, do đó $\rho=0$ như bảng hiện tại.
+
+## Biên tập cuối ghi chú
+
+- `$no-ai-slop`: bỏ hoàn toàn lời dẫn quy trình, nhịp tổng kết lặp và câu chữ hỏng của bản writer; bản công khai dùng câu ngắn, động từ rõ, không có lời quảng bá hoặc câu hỏi tu từ. Các câu hỏi còn lại đều là bài tự kiểm có đáp án.
+- `$quill`: rà mạch `N01→N02→N03`, `N01→N04→N05`, `N01→N06→N07→N08`, điểm hội tụ N09 và bài tập N10; không tạo `quill.json`. Ký hiệu $f_x,F_p,R,c_I,b^*,N,k,n,m,t,\varepsilon,\delta$ nhất quán với goal và deck. Việc $k$ mang nghĩa cục bộ khác nhau trong Count-Min và DGIM được giới thiệu lại trong từng đặc tả, không dùng đồng thời.
+- Tài liệu công khai không chứa mã nội bộ, tên worker/reviewer, prompt, goal, thời lượng hoặc hướng dẫn quy trình. Chín đường dẫn SVG đều tồn tại; mọi khối `exercise` có `solution` cùng cấp, không lồng nhau.
+
+## Kiểm định viewer và công bố ghi chú
+
+- Viewer thật tải đúng tiêu đề và liên kết deck; mục lục có 32 liên kết cho 32 heading; KaTeX dựng 234 biểu thức, không có lỗi; chín SVG tải đủ và có văn bản thay thế; năm khối mã nhận đúng ngôn ngữ; 11 lời giải gập mặc định.
+- Chromium đạt ở $1280\times720$ và $390\times844$: không lỗi JavaScript, lỗi tải tài nguyên hoặc tràn thân trang; liên kết bỏ qua điều hướng và thao tác mở lời giải dùng được bằng bàn phím. Ảnh toàn trang rộng/hẹp đã được xem trực tiếp.
+- Chế độ in mở toàn bộ lời giải, ẩn mục lục và thanh hành động, giữ hình trong khung; PDF A4 được tạo để kiểm tra. Viewer từ chối cả đường dẫn vượt thư mục và cặp `doc`–`deck` khác số bài.
+- Phép đo đầu tiên dùng `documentElement.scrollWidth` báo 99 px trên màn hình hẹp do MathML ẩn của KaTeX nằm trong vùng cuộn đã cắt. Kiểm tra trực tiếp cho thấy `body.scrollWidth = body.clientWidth` và `window.scrollX` không thể tăng khỏi 0; cổng cuối dùng tràn thân trang và đạt 0 px. Đây không phải tràn nhìn thấy hoặc cuộn ngang cấp tài liệu.
+- Chỉ sau các cổng trên, mục Bài 9 trong `index.html` mới được đổi sang hai liên kết bài giảng và ghi chú.
+- Kiểm tra một lần kích hoạt từ index đạt ở cả $1280\times720$ và $390\times844$: liên kết nhận focus bàn phím, mở đúng tài liệu, tải đủ chín SVG và không có lỗi KaTeX hoặc lỗi console.
