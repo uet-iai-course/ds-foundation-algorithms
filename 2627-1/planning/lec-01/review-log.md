@@ -210,3 +210,49 @@ Mỗi SVG có `role="img"`, `title`, `desc`; không dùng màu làm tín hiệu 
 ### Giới hạn Codex Slides
 
 Dự án bền vững có mã `20260827112432-b-i-1-b-i-to-n-d-li-u-l-n-v-m-h-nh-thu-t-8tlj`. Trạng thái chuẩn được đọc lại thành công, nhưng dự án vẫn ở bước làm rõ và có 0 trang nội bộ. Tải các tệp cuối vào Design Files trả lỗi HTTP 500; tải HTML làm material thành công nhưng lượt chat không gắn được material vào ngữ cảnh. Giao diện Browser trong trình soạn thảo không khả dụng ở phiên này. Vì vậy không tuyên bố đã rà trực quan bằng Codex Slides; kiểm định trực quan cuối dựa trên RevealJS cục bộ và Chromium.
+
+## Vòng xây dựng ghi chú bài giảng 2026-09-01
+
+### Phạm vi và quyết định chủ đề
+
+- Chỉ xây dựng ghi chú bài giảng; không viết lại bộ trang chiếu. HTML chỉ được sửa hai điểm dùng chung: thống nhất thuật ngữ “quét–cộng dồn” và sửa nguồn BHK Hình 2.2 thành PDF trang 17.
+- Bản đồ N01–N10 gồm bảy chủ đề `cốt lõi` và ba chủ đề `cầu nối` là N02, N09, N10. Không có chủ đề `bổ sung`. BHK PDF trang 18–21 giữ ở mức `đọc thêm`; bất đẳng thức Markov là cầu nối ngắn trong N08.
+- Ghi chú dùng lại năm SVG đã có của Bài 01. Không tạo ảnh raster, không thêm dữ liệu, ví dụ thực nghiệm hoặc mệnh đề ngoài nguồn.
+- Viewer kế thừa cục bộ cấu trúc phát hành an toàn từ kho `math-4-AI`, đổi toàn bộ nhận diện học phần và dùng Marked, DOMPurify, KaTeX cục bộ. Không gửi mã ngoài workspace đó tới OpenRouter.
+
+### Worker OpenRouter và cổng duyệt
+
+Các lượt được chấp nhận đều báo `requested_model=observed_model=z-ai/glm-5.3-flash` và `provider=OpenRouter` tại runtime.
+
+| Giai đoạn | Vai | Kết quả dùng để triển khai |
+|---|---|---|
+| Lập kế hoạch | reader | Chốt goal, phạm vi, tiêu chí và rủi ro |
+| Phân tích nguồn | reader | Kiểm kê MMDS, Stanford, BHK và ánh xạ nguồn |
+| Bản đồ chủ đề | reviewer | Hợp nhất N01–N10; không đề xuất chủ đề bổ sung |
+| Soạn và sửa | writer | Tạo bản nháp trong thư mục tạm, rồi sửa theo các báo cáo đã duyệt |
+| Góc nhìn sinh viên | reviewer | Yêu cầu giải thích kỳ vọng biến cố, điều kiện $1/H$, ký hiệu và câu tự kiểm tra |
+| Phản biện giảng dạy | reviewer | Yêu cầu chuyển hình ba miền, nối Markov vào bài tập và bổ sung kiểm tra |
+| Chuyên gia giải thuật và khoa học dữ liệu | reviewer | Phát hiện nguồn BHK lệch, thuật ngữ chưa thống nhất và mục từ không dùng |
+| Độ chính xác toán học và thuật toán | reviewer | Xác nhận số học; yêu cầu thống nhất nguồn BHK và bỏ dẫn Stanford lặp |
+| Kết nối và mạch viết | reviewer | Yêu cầu cắt siêu bình luận, giải thích $249\,750$ so với $250\,000$ và chỉnh R01 |
+
+Một số lượt reviewer ban đầu chạm giới hạn vòng công cụ và không được dùng làm báo cáo. Điều phối viên dừng phần phụ thuộc, thu hẹp phạm vi rồi chạy lại đúng vai; năm báo cáo trong bảng trên đều hoàn tất và độc lập.
+
+### Sửa sau rà soát và tái kiểm
+
+- Mọi lỗi `nghiêm trọng` đã sửa, đặc biệt là vị trí BHK Hình 2.2. Các điểm trung bình và nhẹ về kỳ vọng chính xác, xác suất có điều kiện, ký hiệu $y,z$, Markov, câu nối, câu tự kiểm tra và nguồn A03 cũng đã xử lý.
+- Worker độ chính xác tái kiểm công thức tổ hợp, kỳ vọng, Markov, bất biến, chi phí và giả thiết độc lập: không còn lỗi chặn bàn giao hoặc nghiêm trọng. Xấp xỉ R03 được chuẩn hóa thành $0{,}083$ (xấp xỉ $1/12$).
+- Worker mạch viết tái kiểm N01–N10. Sau khi thêm câu tự kiểm tra cho N03, N06, N07, N09 và đổi đầu ra N10 thành áp dụng khung trong các bài sau, lượt xác nhận cuối báo không còn lỗi chặn bàn giao, nghiêm trọng hoặc trung bình.
+
+### Biên tập bản cuối
+
+- Codex chính đọc toàn bộ `lecture-note.md`, dùng `$no-ai-slop` để bỏ lời dẫn rỗng, câu mô tả quy trình, nhịp câu máy móc và đoạn kết tóm tắt lặp. Không đổi mệnh đề, dữ kiện, giả thiết, ký hiệu, kết quả hoặc nguồn.
+- Tự kiểm trực tiếp theo `no-ai-slop/eval.md`: đạt các tiêu chí về độ trung thành với nguồn, giọng tự nhiên, câu trực tiếp, không quảng bá, không siêu bình luận và không lặp kết luận.
+- Rà mạch theo Quill Outline Workflow: N01–N10 nối liên tục; thuật ngữ, ký hiệu và sản phẩm học tập khớp outline và storyboard. Không tạo `quill.json`.
+
+### Kiểm định viewer và index
+
+- Kiểm tra tĩnh đạt: Markdown bắt đầu bằng H1; ba bảng có hàng tiêu đề; sáu khối directive cân bằng, không lồng; khối mã có ngôn ngữ; năm SVG tồn tại, có `role="img"`, `title`, `desc`; năm mã SRI khớp tệp cục bộ; JavaScript qua `node --check`; không có tài nguyên lõi từ mạng.
+- Chromium/Playwright ở 1280×720 và 390×844: 23 mục lục, 178 công thức KaTeX, không lỗi công thức; năm SVG tải đủ; không tràn trang; không lỗi JavaScript, lỗi trang hoặc yêu cầu mạng; gợi ý và lời giải gập mặc định, mở được bằng bàn phím; liên kết bỏ qua điều hướng hoạt động.
+- Viewer từ chối đường dẫn ngoài `materials/lec-NN/` và từ chối số bài của `doc`/`deck` không khớp. Bản in A4 gồm 15 trang, tự mở mọi khối gập và ẩn mục lục cùng thanh điều hướng.
+- Sau khi viewer đạt, `index.html` mới được cập nhật. Kiểm tra index ở hai khung cho đủ 15 thẻ, đúng một liên kết ghi chú Bài 01, hai tài nguyên Bài giảng/Ghi chú, không tràn trang hoặc lỗi JavaScript.

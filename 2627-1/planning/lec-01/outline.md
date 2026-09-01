@@ -4,7 +4,7 @@
 
 Sau phần giảng, sinh viên có thể:
 
-1. Đặc tả thuật toán quét-cộng dồn trên kho dữ liệu không vừa bộ nhớ và chứng minh tính đúng bằng bất biến tiền tố.
+1. Đặc tả thuật toán quét–cộng dồn trên kho dữ liệu không vừa bộ nhớ và chứng minh tính đúng bằng bất biến tiền tố.
 2. Phân biệt bài toán, biểu diễn dữ liệu, thuật toán, cài đặt và kết quả.
 3. Phân tích ba chi phí cùng bảo đảm của một lời giải dữ liệu lớn.
 4. Dùng số phép thử và xác suất một phép thử để ước lượng số biến cố trùng ngẫu nhiên.
@@ -23,7 +23,7 @@ Phần số chiều lớn chỉ định tuyến, không phải mục tiêu đán
 | Phần | Mã trang | Nội dung | Thời lượng |
 |---|---|---|---:|
 | Mở đầu | P00–P01 | Tình huống và mục tiêu học tập | 5 phút |
-| Thuật toán quét-cộng dồn | A00–A08 | Giới hạn bộ nhớ, vết chạy, đặc tả, giả mã, bất biến và chi phí | 32 phút |
+| Thuật toán quét–cộng dồn | A00–A08 | Giới hạn bộ nhớ, vết chạy, đặc tả, giả mã, bất biến và chi phí | 32 phút |
 | Từ bài toán đến sản phẩm | B00–B07 | Năm tầng của lời giải và hai loại sản phẩm mô hình hóa | 19 phút |
 | Mô hình chi phí | C00–C02, C04–C05 | Ba chi phí, một bảo đảm và đặc tả xấp xỉ | 19 phút |
 | Tín hiệu giả | D00–D05 | Tình huống lưu trú, mô hình ngẫu nhiên và kỳ vọng số biến cố trùng | 30 phút |
@@ -56,7 +56,7 @@ R00 là trang chuyển phần, không tính vào 60 phút.
 | Stanford CS246, `01-intro.pdf`, trang chiếu 2–10 | Phạm vi khai phá dữ liệu và dạng dữ liệu | P00, A03, B02, E03 |
 | Stanford CS246, `01-intro.pdf`, trang chiếu 62 | Lược đồ kho web và tổng byte theo máy chủ | A01, A04–A08 |
 | Blum–Hopcroft–Kannan, PDF trang 9–12 | Dữ liệu hiện đại, bộ nhớ và số chiều lớn | A00, A03, C01, E00–E01 |
-| Blum–Hopcroft–Kannan, PDF trang 20–21, Hình 2.2 | Thể tích gần biên | E02 |
+| Blum–Hopcroft–Kannan, PDF trang 17, Hình 2.2 | Thể tích gần biên | E02 |
 
 Không dùng Stanford trang chiếu 32–61 hoặc 63–70. Trang chiếu 62 là ngoại lệ duy nhất trong khoảng 32–70. Ví dụ bốn bản ghi ở A04 được tự dựng từ lược đồ của trang chiếu 62; không phải dữ liệu thực nghiệm.
 
@@ -94,7 +94,6 @@ Sau $k$ bản ghi, tập khóa của bảng đúng bằng tập máy chủ trong
 | mô hình dữ liệu theo truy vấn | Bản tóm tắt phục vụ một lớp truy vấn; không phải computational model |
 | biến cố trùng | Một cặp người cùng một khách sạn trong từng ngày của cặp hoặc bộ ngày đã chọn |
 | $X$ ở R05 | Số cặp lượt mua của hai người khác nhau có cùng tập 10 mặt hàng |
-| mômen | Đại lượng được gọi là moment trong nguồn tiếng Anh |
 
 ## Hình được vẽ lại
 
@@ -108,4 +107,21 @@ Sau $k$ bản ghi, tập khóa của bảng đúng bằng tập máy chủ trong
 
 ## Thuật ngữ nội bộ
 
-- “Quét-cộng dồn” là thuật ngữ nội bộ của bài, đặt cho thuật toán một lượt quét giữ bảng tổng; nguồn chỉ mô tả hành động, không đặt tên.
+- “Quét–cộng dồn” là thuật ngữ nội bộ của bài, đặt cho thuật toán một lượt quét giữ bảng tổng; nguồn chỉ mô tả hành động, không đặt tên.
+
+## Bản đồ chủ đề của ghi chú bài giảng
+
+| `note-topic-id` | Chủ đề | Nhãn | Kiến thức đầu vào | Sản phẩm học tập | Nguồn chính | Kết nối ra |
+|---|---|---|---|---|---|---|
+| N01 | Kho nhật ký không vừa bộ nhớ | cốt lõi | Tệp, bộ nhớ | Xác định dữ liệu ngoài bộ nhớ và trạng thái cần giữ | Stanford 62; MMDS tr.13 | N02 làm rõ giới hạn RAM |
+| N02 | Dữ liệu hiện đại và giới hạn RAM | cầu nối | Mô hình RAM | Phân biệt truy cập ngẫu nhiên với một lượt quét | BHK PDF tr.9–12; Stanford 7–8 | N03 đặc tả thuật toán |
+| N03 | Thuật toán quét–cộng dồn | cốt lõi | Bảng băm, vòng lặp | Đặc tả, chạy tay, chứng minh và phân tích chi phí | Stanford 62; MMDS tr.13 | N04 tách các tầng lời giải |
+| N04 | Năm tầng của một lời giải | cốt lõi | N03 | Phân loại bài toán, biểu diễn, thuật toán, cài đặt, kết quả | MMDS tr.1; quyết định biên tập của học phần | N05 phân biệt sản phẩm mô hình hóa |
+| N05 | Mô hình thống kê và mô hình theo truy vấn | cốt lõi | Xác suất cơ bản | Phân biệt phân phối sinh dữ liệu với bản tóm tắt phục vụ truy vấn | MMDS tr.2–4 | N06 đặt mô hình chi phí |
+| N06 | Ba chi phí và một bảo đảm | cốt lõi | Độ phức tạp | Phân tích tính toán, bộ nhớ, truy cập và sai số | MMDS tr.3–4, 13 | N07 chuyển sang giới hạn thống kê |
+| N07 | Tín hiệu giả và kỳ vọng số biến cố trùng | cốt lõi | Tổ hợp, tuyến tính kỳ vọng, độc lập | Dựng mô hình ngẫu nhiên và tính kỳ vọng | MMDS tr.5–8 | N08 luyện mô hình hóa |
+| N08 | Bài tập MMDS 1.2.1–1.2.2 | cốt lõi | N07; Markov cơ bản | Tính lại khi quy mô đổi và kiểm tra giả thiết | MMDS Bài 1.2.1–1.2.2, tr.8 | N09 định tuyến cao chiều |
+| N09 | Trực giác số chiều lớn | cầu nối | Véc-tơ, khoảng cách Euclid | Nhận diện khoảng cách tập trung và thể tích gần biên; không đánh giá | BHK PDF tr.12, 17 | N10 đặt vào bản đồ học phần |
+| N10 | Bản đồ học phần và chọn mô hình theo điểm nghẽn | cầu nối | N01–N09 | Dùng bốn phép kiểm tra để chọn mô hình | MMDS tr.17–18; Stanford 10; `source.md` | Áp dụng khung trong các bài sau |
+
+Không có chủ đề `bổ sung`. BHK PDF trang 18–21 là `đọc thêm`; không đưa các chứng minh cao chiều vào tuyến chính. Bất đẳng thức Markov chỉ là cầu nối ngắn trong N08, không tạo chủ đề riêng.

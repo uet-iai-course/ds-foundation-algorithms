@@ -4,7 +4,7 @@
 
 Tình huống xuyên suốt là kho nhật ký web không vừa bộ nhớ. Dữ liệu gồm các cặp $(u_i,s_i)$, đầu ra là tổng byte theo máy chủ, giới hạn là $M<D$ và cận truyền dữ liệu là $D/b$. Tình huống được dùng lại trong vết chạy, đặc tả, giả mã, chứng minh, phân tích chi phí và câu kiểm tra. Phần Bonferroni chuyển từ giới hạn tính toán sang giới hạn thống kê: nhiều phép thử có thể sinh nhiều biến cố trùng ngẫu nhiên. Phần số chiều lớn chỉ định tuyến, không đặt thêm mục tiêu đánh giá.
 
-Chu trình của thuật toán quét-cộng dồn:
+Chu trình của thuật toán quét–cộng dồn:
 
 | Bước | Mã trang | Kiến thức đầu vào | Sản phẩm và dữ kiện truyền tiếp |
 |---|---|---|---|
@@ -25,10 +25,10 @@ Không gộp hoặc đảo bước trong cụm trọng tâm. A03 chỉ định t
 |---|---|---|---|---:|---|
 | P00 | Bài toán dữ liệu lớn và mô hình thuật toán | Đặt kho nhật ký web làm bối cảnh | MMDS tr.1,13; Stanford 2–4,62 | 2 | Từ học phần sang mục tiêu |
 | P01 | Mục tiêu học tập | Bốn sản phẩm đánh giá được; cao chiều chỉ định tuyến | `source.md`, Bài 1 | 3 | Mục tiêu đi vào kho nhật ký |
-| A00 | Dữ liệu vượt khỏi bộ nhớ | Mở phần về mô hình truy cập | MMDS tr.13; BHK tr.9–11 | 2 | Đi vào tình huống cụ thể |
+| A00 | Dữ liệu vượt khỏi bộ nhớ | Mở phần về mô hình truy cập | MMDS tr.13; BHK tr.9–12 | 2 | Đi vào tình huống cụ thể |
 | A01 | Kho nhật ký không vừa một máy | Dữ liệu, đầu ra, $M<D$ và hình một lượt quét | Stanford 62; MMDS tr.13 | 5 | Từ giới hạn bộ nhớ sang cận quét |
 | A02 | Một lần quét đã là một chi phí | $D,b,T_{\text{quét}}$ | MMDS tr.13 | 4 | Xem nhanh các dạng dữ liệu |
-| A03 | Dữ liệu lớn có nhiều hình dạng | Nhiều bản ghi, chiều, liên kết, liên tục | Stanford 8; BHK tr.9–11 | 2 | Trở lại nhật ký và chạy tay |
+| A03 | Dữ liệu lớn có nhiều hình dạng | Nhiều bản ghi, chiều, liên kết, liên tục | Stanford 7–8; BHK tr.9–12 | 2 | Trở lại nhật ký và chạy tay |
 | A04 | Một lượt quét đủ để cộng dồn | Vết bốn bản ghi tự dựng từ lược đồ nguồn | Stanford 62 | 4 | Dùng trạng thái để đặc tả |
 | A05 | Đặc tả xác định kết quả cần trả | $s_i\in\mathbb{N}_0$; tách ràng buộc truy cập | Stanford 62 | 4 | Đặc tả dẫn đến giả mã |
 | A06 | Thuật toán giữ một tổng cho mỗi máy chủ | Giả mã, dừng và trường hợp biên trong ghi chú | Stanford 62 | 4 | Giả mã cần chứng minh |
@@ -55,11 +55,11 @@ Không gộp hoặc đảo bước trong cụm trọng tâm. A03 chỉ định t
 | D05 | Thay đổi quy mô quan sát | Ba thẻ chỉ nêu dữ kiện; hỏi số phép thử và xác suất đổi thế nào | MMDS Bài 1.2.1, tr.8 | 6 | Định tuyến số chiều lớn |
 | E00 | Số chiều lớn đổi trực giác | Mở phần và giới hạn phạm vi | BHK tr.12,17–21 | 2 | Khoảng cách là một tổng |
 | E01 | Khoảng cách là tổng của nhiều thành phần | Công thức, giả thiết và câu kiểm tra theo $d$ | BHK Ch.2 | 4 | Phân biệt với hiện tượng thể tích |
-| E02 | Thể tích tập trung gần biên | Hình BHK 2.2, nêu trước độ dày 1/d, cầu nối và câu kiểm tra | BHK tr.20–21 | 4 | Định tuyến học phần |
+| E02 | Thể tích tập trung gần biên | Hình BHK 2.2, nêu trước độ dày 1/d, cầu nối và câu kiểm tra | BHK PDF tr.17 | 4 | Định tuyến học phần |
 | E03 | Bản đồ 15 bài theo năm nhóm | Gộp 15 bài thành năm nhóm liền nhau: 2–4, 5–7, 8–9, 10–11, 12–15; Bài 1 là nền chung | MMDS tr.17–18; Stanford 10; `source.md` | 3 | Chốt cách chọn mô hình |
 | E04 | Chọn mô hình theo điểm nghẽn | Bốn phép kiểm tra; kết luận phần giảng | MMDS Ch.1; BHK Ch.1–2 | 2 | Chuyển sang bài tập nguồn |
 | R00 | Bài tập củng cố | Trang chuyển phần dọc | MMDS Bài 1.2.1–1.2.2, tr.8 | 0 | Đọc toàn bộ Bài 1.2.1 |
-| R01 | Bài 1.2.1: ba thay đổi của hồ sơ lưu trú | Hai thay đổi độc lập (người, khách sạn); sản phẩm là ba công thức | MMDS Bài 1.2.1(a–c), tr.8 | 10 | Tính phần a, b |
+| R01 | Bài 1.2.1: ba thay đổi của hồ sơ lưu trú | Ba thay đổi quy mô cần phân tích riêng; sản phẩm là ba công thức | MMDS Bài 1.2.1(a–c), tr.8 | 10 | Tính phần a, b |
 | R02 | Tăng số ngày và số người | Hoạt động cá nhân rồi đối chiếu; hai giá trị | MMDS Bài 1.2.1(a,b), tr.8 | 15 | Tính phần c |
 | R03 | Yêu cầu trùng trong ba ngày | Làm và trình bày; không lộ đáp số trong giảng | MMDS Bài 1.2.1(c), tr.8 | 10 | Chuyển sang giỏ hàng |
 | R04 | Trùng giỏ hàng | Khôi phục giả thuyết nguồn bằng ngôn ngữ trung tính; đủ sản phẩm | MMDS Bài 1.2.2 và chú thích 3, tr.8 | 10 | Hoàn thiện lời giải trước khi chữa |
@@ -72,12 +72,12 @@ Bộ trang giữ đúng bảy section ngoài: P mở đầu; A, B, C, D là các
 | Section | Vai | Chức năng | Kết nối vào | Kết nối ra | Đóng góp mục tiêu |
 |---|---|---|---|---|---|
 | P | Mở đầu | Đặt tình huống và bốn mục tiêu | Từ học phần sang buổi học | Vào mạch A | Khung đánh giá |
-| A | Mạch nội dung | Chu trình quét-cộng dồn từ tình huống đến chi phí | Từ mục tiêu P01 | Sang B để tách tầng lời giải | Mục tiêu 1 |
+| A | Mạch nội dung | Chu trình quét–cộng dồn từ tình huống đến chi phí | Từ mục tiêu P01 | Sang B để tách tầng lời giải | Mục tiêu 1 |
 | B | Mạch nội dung | Năm tầng và hai loại sản phẩm mô hình hóa | Từ chi phí A08 | Sang C để định lượng chi phí | Mục tiêu 2 |
 | C | Mạch nội dung | Ba chi phí, một bảo đảm, đặc tả xấp xỉ | Từ phân loại B07 | Sang D khi chi phí tính toán chưa đủ | Mục tiêu 3 |
 | D | Mạch nội dung | Nhiều phép thử và biến cố trùng kỳ vọng | Từ phép đánh đổi C05 | Sang E để tổng hợp kiểm tra mô hình | Mục tiêu 4 |
 | E | Định tuyến và kết luận phần giảng | Số chiều lớn chỉ định tuyến; bản đồ 15 bài; bốn câu kiểm tra mô hình | Từ dữ kiện D05 | Sang R để làm bài tập | Củng cố cả bốn mục tiêu |
-| R | Bài tập và kết luận thực hành | Hai bài MMDS chia năm mốc hoạt động | Từ kết luận E04 | Kết thúc bằng thu hồi khung Bài 1 | Mục tiêu 4 và 1 |
+| R | Bài tập và kết luận thực hành | Hai bài MMDS chia năm mốc hoạt động | Từ kết luận E04 | Kết thúc bằng kiểm tra giả thiết mô hình | Mục tiêu 4 và 1 |
 
 ## Bản đồ chu trình rút gọn cho B–E
 
@@ -93,6 +93,23 @@ Bộ trang giữ đúng bảy section ngoài: P mở đầu; A, B, C, D là các
 Phần giảng: $5+32+19+19+30+15=120$ phút.
 
 Phần bài tập: $10+15+10+10+15=60$ phút. R00 chỉ chuyển phần.
+
+## Storyboard ghi chú bài giảng
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày áp dụng |
+|---|---|---|---|---|
+| N01 | Đặt kho nhật ký ngoài bộ nhớ; dẫn sang giới hạn RAM | Tệp và bộ nhớ | Nhận diện đầu vào, đầu ra, $D>M$ và trạng thái cần giữ | Vai trò, đặc tả sơ bộ, hình và kiểm tra |
+| N02 | Giải thích vì sao mô hình RAM không đủ; dẫn sang đặc tả một lượt quét | N01; truy cập tuần tự | Phân biệt truy cập ngẫu nhiên với truyền tuần tự | Vai trò, chi phí truy cập và kiểm tra |
+| N03 | Hoàn tất chu trình thuật toán trọng tâm; dẫn sang các tầng lời giải | Bảng băm, vòng lặp, N02 | Đặc tả, vết chạy, bất biến, giả mã, chi phí và biên | Đủ tám thành phần; ví dụ đứng sau đặc tả theo quy tắc ghi chú |
+| N04 | Tách năm tầng của lời giải; dẫn sang hai nghĩa của mô hình | N03 | Phân loại bài toán, biểu diễn, thuật toán, cài đặt và kết quả | Vai trò, định nghĩa, ví dụ và kiểm tra; không có định lý mới |
+| N05 | Phân biệt mô hình thống kê với mô hình theo truy vấn; dẫn sang mô hình chi phí | Xác suất cơ bản, N04 | Xác định đúng sản phẩm mô hình hóa | Vai trò, định nghĩa, ví dụ và kiểm tra; không có thuật toán mới |
+| N06 | Đặt ba chi phí và một bảo đảm; dẫn sang giới hạn thống kê | Độ phức tạp, N03–N05 | Phân tích tính toán, bộ nhớ, truy cập và sai số | Vai trò, đặc tả chi phí, ví dụ và kiểm tra |
+| N07 | Dựng mô hình biến cố trùng; dẫn sang bài tập nguồn | Tổ hợp, xác suất độc lập, tuyến tính kỳ vọng | Tính và diễn giải kỳ vọng số biến cố trùng | Vai trò, định nghĩa, ví dụ, mệnh đề kỳ vọng và kiểm tra; không có thuật toán |
+| N08 | Luyện thay đổi quy mô và kiểm tra giả thiết; dẫn sang cao chiều | N07; bất đẳng thức Markov cơ bản | Giải MMDS 1.2.1–1.2.2 và nêu giới hạn mô hình | Bài tập, gợi ý, lời giải và kiểm tra; Markov chỉ là cầu nối |
+| N09 | Định tuyến trực giác số chiều lớn; dẫn sang bản đồ học phần | Véc-tơ, khoảng cách Euclid | Nhận diện tổng theo chiều và thể tích gần biên | Vai trò, định nghĩa, trực quan, hình và kiểm tra; không có chứng minh hay thuật toán |
+| N10 | Đặt Bài 1 trong năm nhóm bài; kết thúc bằng tiêu chí chọn mô hình | N01–N09 | Dùng bốn phép kiểm tra cho một lời giải dữ liệu lớn | Bản đồ, ứng dụng và kiểm tra; không thêm mệnh đề học thuật |
+
+Các chủ đề N02, N09 và N10 là `cầu nối`; không có chủ đề `bổ sung`. BHK PDF trang 18–21 là `đọc thêm`. Ghi chú dùng cùng dữ kiện và ký hiệu với bộ trang chiếu; khác biệt duy nhất về thứ tự là đặc tả đứng trước ví dụ chạy tay, đúng chu trình dành cho tài liệu tự học.
 
 ## Điều chỉnh nguồn
 

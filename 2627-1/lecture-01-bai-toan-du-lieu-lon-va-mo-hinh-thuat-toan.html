@@ -34,7 +34,7 @@
     <section data-slide-id="P01">
       <h2>Mục tiêu học tập</h2>
       <ul>
-        <li>Đặc tả và chứng minh thuật toán quét-cộng dồn trên kho dữ liệu lớn.</li>
+        <li>Đặc tả và chứng minh thuật toán quét–cộng dồn trên kho dữ liệu lớn.</li>
         <li>Phân biệt bài toán, biểu diễn, thuật toán, cài đặt và kết quả.</li>
         <li>Phân tích ba chi phí cùng bảo đảm của một lời giải.</li>
         <li>Ước lượng số biến cố trùng ngẫu nhiên khi có nhiều phép thử.</li>
@@ -104,7 +104,7 @@ trả về tổng</code></pre>
       <h2>Năm tầng trả lời năm câu khác nhau</h2>
       <div class="flow"><span class="step">Bài toán</span><span class="arrow">→</span><span class="step">Biểu diễn</span><span class="arrow">→</span><span class="step">Thuật toán</span><span class="arrow">→</span><span class="step">Cài đặt</span><span class="arrow">→</span><span class="step">Kết quả</span></div>
       <ul class="tight"><li>Bài toán quy định cần trả lời gì.</li><li>Biểu diễn quy định dữ liệu nào có thể truy cập.</li><li>Mô hình chi phí quy định thao tác nào đắt.</li></ul>
-      <aside class="notes">Áp vào kho nhật ký: tổng byte theo máy chủ là bài toán; cặp (máy chủ, kích thước) là biểu diễn; quét-cộng dồn là thuật toán; ngôn ngữ và bảng băm là cài đặt; bảng tổng cụ thể là kết quả.</aside>
+      <aside class="notes">Áp vào kho nhật ký: tổng byte theo máy chủ là bài toán; cặp (máy chủ, kích thước) là biểu diễn; quét–cộng dồn là thuật toán; ngôn ngữ và bảng băm là cài đặt; bảng tổng cụ thể là kết quả.</aside>
     </section>
     <section data-slide-id="B02">
       <h2>Ba miền cùng giải quyết bài toán dữ liệu lớn</h2>
@@ -153,7 +153,7 @@ trả về tổng</code></pre>
     <section data-slide-id="C02">
       <h2>Ba chi phí và một bảo đảm</h2>
       <div class="grid2"><div class="card"><h3>Tính toán</h3><p>Số phép cập nhật hoặc phép toán.</p></div><div class="card"><h3>Bộ nhớ</h3><p>Kích thước trạng thái đang giữ.</p></div><div class="card"><h3>Truy cập dữ liệu</h3><p>Số lượt quét, đọc và ghi khối.</p></div><div class="card"><h3>Sai số</h3><p>Độ lệch hoặc xác suất thất bại nếu dùng xấp xỉ.</p></div></div>
-      <aside class="notes">Với quét-cộng dồn: thời gian kỳ vọng O(n) dưới giả thiết mỗi cập nhật bảng băm có thời gian kỳ vọng O(1); bộ nhớ O(h); một lượt quét; sai số bằng 0 theo đặc tả. Đây là ba chi phí và một bảo đảm, không gọi sai số là chi phí. Nguồn: MMDS trang 13.</aside>
+      <aside class="notes">Với quét–cộng dồn: thời gian kỳ vọng O(n) dưới giả thiết mỗi cập nhật bảng băm có thời gian kỳ vọng O(1); bộ nhớ O(h); một lượt quét; sai số bằng 0 theo đặc tả. Đây là ba chi phí và một bảo đảm, không gọi sai số là chi phí. Nguồn: MMDS trang 13.</aside>
     </section>
     <section data-slide-id="C04">
       <h2>Kết quả chính xác và kết quả xấp xỉ</h2>
@@ -217,7 +217,7 @@ trả về tổng</code></pre>
       <p>Vành ngoài có độ dày cỡ $1/d$ lần bán kính.</p>
       <p class="muted center">Trực giác này phụ thuộc mô hình; hình không phải kết quả thực nghiệm.</p>
       <div class="check"><strong>Câu hỏi:</strong> vành dày $O(1/d)$ mỏng đi hay dày lên khi $d$ tăng?</div>
-      <aside class="notes">Đáp án: mỏng đi trong khi vành vẫn chiếm một tỷ lệ lớn, phụ thuộc vào hằng số ẩn trong độ dày $O(1/d)$, theo mô tả của BHK Hình 2.2, PDF trang 20–21. Đây là hiện tượng thể tích gần biên, không phải chứng minh khoảng cách tập trung. Bài 7 sẽ quay lại tìm hàng xóm gần trong không gian vector; trang kế đặt nội dung này vào bản đồ 15 bài.</aside>
+      <aside class="notes">Đáp án: mỏng đi trong khi vành vẫn chiếm một tỷ lệ lớn, phụ thuộc vào hằng số ẩn trong độ dày $O(1/d)$, theo mô tả của BHK Hình 2.2, PDF trang 17. Đây là hiện tượng thể tích gần biên, không phải chứng minh khoảng cách tập trung. Bài 7 sẽ quay lại tìm hàng xóm gần trong không gian vector; trang kế đặt nội dung này vào bản đồ 15 bài.</aside>
     </section>
     <section data-slide-id="E03">
       <h2>Bản đồ 15 bài theo năm nhóm</h2>
@@ -253,7 +253,7 @@ trả về tổng</code></pre>
       <p>Giữ dữ kiện cơ sở. Chỉ báo một cặp nếu trong ba ngày khác nhau, ở mỗi ngày họ ở cùng một khách sạn cùng thời điểm; khách sạn có thể khác giữa các ngày.</p>
       <div class="check"><strong>Câu hỏi:</strong> tính kỳ vọng số biến cố trùng và so với 1.</div>
       <p><strong>Sản phẩm:</strong> công thức có $\binom{T}{3}$, giá trị xấp xỉ và kết luận theo mô hình.</p>
-      <aside class="notes">Nguồn trực tiếp: MMDS Bài 1.2.1(c), trang 8. Hoạt động: tính rồi trình bày; mốc bàn giao là công thức, giá trị và một câu diễn giải. Đáp số: C(10^9,2)C(1000,3)(10^-9)^3≈0,0831≈1/12. Các quyết định giữa người/ngày độc lập; có điều kiện đã đi, khách sạn được chọn đều. Chấm: 40% số phép thử, 35% xác suất, 25% kết quả và diễn giải.</aside>
+      <aside class="notes">Nguồn trực tiếp: MMDS Bài 1.2.1(c), trang 8. Hoạt động: tính rồi trình bày; mốc bàn giao là công thức, giá trị và một câu diễn giải. Đáp số: C(10^9,2)C(1000,3)(10^-9)^3≈0,083 (xấp xỉ 1/12). Các quyết định giữa người/ngày độc lập; có điều kiện đã đi, khách sạn được chọn đều. Chấm: 40% số phép thử, 35% xác suất, 25% kết quả và diễn giải.</aside>
     </section>
     <section class="recitation" data-slide-id="R04">
       <h2>Trùng giỏ hàng</h2>
