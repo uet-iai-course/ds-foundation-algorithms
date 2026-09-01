@@ -1,6 +1,6 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
-Một kho dữ liệu web lưu metadata của các trang. Cần tính tổng kích thước theo từng máy chủ, nhưng toàn bộ kho không vừa bộ nhớ chính. Bài toán tưởng như chỉ cần phép cộng nay đòi hỏi một mô hình truy cập phù hợp, một thuật toán có thể chứng minh và một cách tính chi phí. [Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) dùng cùng ký hiệu và ví dụ.
+Một kho dữ liệu web lưu metadata của các trang. Cần tính tổng kích thước theo từng máy chủ, nhưng toàn bộ kho không vừa bộ nhớ chính. Đây là một ví dụ điển hình về vai trò của giải thuật trong Khoa học dữ liệu: phép tính cần thực hiện chỉ là cộng, còn quy mô dữ liệu khiến cách làm trực tiếp không còn khả thi. Muốn biến yêu cầu phân tích thành một lời giải chạy được, ta phải chọn mô hình truy cập, thiết kế thuật toán có thể chứng minh tính đúng và phân tích chi phí tính toán, bộ nhớ cùng truyền dữ liệu. [Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) dùng cùng ký hiệu và ví dụ.
 
 ## Kho nhật ký không vừa bộ nhớ
 
