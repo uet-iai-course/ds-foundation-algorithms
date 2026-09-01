@@ -171,3 +171,74 @@ Kiểm định storyboard là một bước riêng, không thuộc năm vai rà 
 - Codex Slides: project `20260827151722-b-i-3-pagerank-m-h-nh-v-t-nh-to-n-edg9` mở được resource link nhưng state draft, 0 slides; upload Design File HTML hiện tại trả HTTP 500. Phiên không có Codex in-editor Browser callable, nên không tuyên bố đã rà deck trong Codex Slides.
 - Index không cần đổi vì mục Bài 3 và liên kết đã đúng/tồn tại.
 - Kết luận: mọi lỗi chặn/nghiêm trọng đã xử lý; deck đủ điều kiện commit/push, với giới hạn Codex Slides đã ghi rõ ở trên.
+
+## Chu kỳ ghi chú bài giảng 2026-09-01
+
+### Tiếp nhận, tác tử và quyết định phạm vi
+
+- Đã đọc lại `sources/source.md`, bảng ánh xạ slide, MMDS 3e Chương 5, slide chính thức MMDS, slide Stanford, deck, planning, viewer và index trước khi soạn.
+- Tác tử lập kế hoạch GLM hoàn tất. Tác tử nguồn GLM lần đầu vượt giới hạn 14 tool call; cùng model được chạy lại trên hồ sơ nguồn thu hẹp và hoàn tất. Một reviewer GLM độc lập đã phản biện bản đồ chủ đề. Metadata của các lượt thành công đều có requested model và observed model là `z-ai/glm-5.3-flash`, nhà cung cấp OpenRouter.
+- Codex chính hợp nhất hai đề xuất và duyệt `.codex/goal_lecture_3.md` gồm đúng 13 mục. Writer được khóa ở `deepseek/deepseek-v4-flash-0731`; nguồn, phạm vi và các cổng kiểm định không đổi.
+- Chỉ gửi các tệp cần thiết đã lọc tới OpenRouter; không gửi `.env`, khóa, token, mật khẩu, cookie, khóa riêng hoặc thông tin xác thực.
+
+### Quyết định chủ đề trước khi soạn
+
+| Quyết định | Chủ đề | Lý do |
+|---|---|---|
+| giữ | đồ thị Web, người lướt, phương trình luồng, nút cụt, bẫy nhện, MapReduce, bốn bài tập | Trực tiếp thực hiện chuẩn đầu ra Bài 03 |
+| thêm | ánh xạ co trên simplex | Lấp khoảng trống giữa phản ví dụ hội tụ và bảo đảm cho $0<\beta<1$; chứng minh trực tiếp từ đặc tả |
+| thêm | cận dừng hậu nghiệm | Phần dư giữa hai vòng chưa phải sai số đến nghiệm; cần nối thuật toán với hậu điều kiện kiểm tra được |
+| gộp | điều kiện bất khả quy và không chu kỳ khi $\beta=1$ | Chỉ là cầu nối ngắn trước bảo đảm bằng hệ số giảm, không mở lý thuyết Markov tổng quát |
+| đọc thêm | block-striping, combiner và tối ưu MMDS §5.2.3–5.2.5 | Không cần cho sản phẩm một vòng PageRank thưa bằng MapReduce |
+| chuyển bài | Topic-Sensitive PageRank, spam, TrustRank và HITS | Thuộc Bài 04 theo `sources/source.md` |
+
+Phần hội tụ và cận dừng là suy luận biên tập có chứng minh, không được ghi như định lý nguyên văn của MMDS. Ghi chú mặc định dùng năm SVG hiện có; chỉ thêm tài sản nếu một lập luận cần hình mà các hình này không đáp ứng.
+
+### Lượt soạn DeepSeek
+
+- Lượt đầu dùng đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter nhưng bốn symlink briefing bị cơ chế giới hạn đường dẫn từ chối; bản thảo đổi dữ kiện nguồn nên bị Codex chính bác, không nhập kho.
+- Lượt hai vẫn dùng đúng model và nhà cung cấp trên một hồ sơ chuẩn đã vật chất hóa trong thư mục tạm hẹp. Worker ghi bản thảo đầy đủ nhưng kết thúc ở giới hạn tool call sau khi tự sửa. Codex chính chỉ nhận tệp đó như bản nháp để rà, không coi trạng thái worker là cổng chất lượng đạt.
+- Kiểm tra sơ bộ trước reviewer đã đánh dấu bốn vùng bắt buộc rà: định nghĩa tập đích, diễn giải ma trận bẫy nhện, chỉ số trong cận hậu nghiệm và vị trí gom khối lượng nút cụt trong giả mã. Chưa có mục nào được xem là đã sửa ở giai đoạn này.
+
+### Năm lượt rà độc lập cho ghi chú
+
+Năm báo cáo hợp lệ đều dùng requested model và observed model `z-ai/glm-5.3-flash`, nhà cung cấp OpenRouter. Ba lượt đầu trên dossier rộng bị cắt do phản hồi dùng hết giới hạn token; một lượt cấu trúc gặp lỗi giải mã ở bridge. Các vai bị ảnh hưởng được chạy lại trên dossier hẹp gồm bản nháp và hồ sơ dữ kiện, không đổi model, vai hoặc tiêu chí.
+
+| Vai | Phát hiện được chấp nhận | Quyết định |
+|---|---|---|
+| Góc nhìn sinh viên | giả mã không thể gom nút cụt; Bài 5.1.1 dùng sai phương trình; cận dừng lệch chỉ số; cụm kiểm bẫy nhện thiếu phép nhân; thuật ngữ gây lẫn nút cụt–bẫy nhện | sửa toàn bộ; tính lại Bài 5.1.1 từ đúng Hình 5.7 |
+| Toán và giải thuật | $N^+$ bị dùng cho cả tập vào và tập ra; cận $\beta\Delta_t/(1-\beta)$ chưa được chứng minh; trả nhầm vector cũ; điều kiện trước thiếu $\beta<1$; phát biểu nút cụt “phân kỳ” không chính xác | thêm $N^-$; sửa tổng từ $k=1$; trả `r_new`; siết điều kiện; đổi sang “rò khối lượng” |
+| Trung thành nguồn và phạm vi | phần cốt lõi bám đúng ba biến thể và bốn đề; giả mã, ký hiệu lân cận và cận dừng vẫn chặn; chi phí bộ nhớ diễn đạt lẫn số cạnh với tổng cấu trúc | giữ phạm vi; sửa thuật toán, ký hiệu và phân rã $\Theta(m)+\Theta(n)$ |
+| Học thuật và sư phạm | diễn giải $A_{0,8}$ lấy dòng của đồ thị cơ sở; thiếu nối vào từ Bài 02; một số thuật ngữ Anh chưa có tên Việt | kiểm đúng dòng ba của biến thể bẫy; thêm câu nối MapReduce; Việt hóa “ngẫu nhiên theo cột”, “phép lặp lũy thừa” |
+| Markdown và viewer | directive `solution` cuối chưa đóng; hình là liên kết thường; code fence thiếu ngôn ngữ; hai header bảng sai chính tả | đóng directive; đổi thành ảnh Markdown có alt; dùng `text`; sửa header |
+
+Reviewer có một số kết luận trung gian tự mâu thuẫn về nghiệm Bài 5.1.1. Codex chính bác các con số không thỏa hệ và tính lại từ cạnh Hình 5.7: nghiệm không hệ số giảm là $(3/13,4/13,6/13)^T$. Nghiệm với $\beta=0{,}8$ là $(7/27,25/81,35/81)^T$ và được giữ sau khi thay trực tiếp vào ma trận.
+
+### Sửa kỹ thuật và biên tập bản cuối
+
+- Codex chính áp dụng trực tiếp các sửa đã được reviewer phê duyệt: tách $N^+$/$N^-$; sửa phép kiểm $A_{0,8}$; sửa chứng minh cận hậu nghiệm; viết lại giả mã để gom nút cụt trên tập nút; nêu hai tác vụ MapReduce khi $\delta$ cần pha tổng hợp riêng; tính lại Bài 5.1.1; sửa ảnh, directive, code fence và bảng.
+- `no-ai-slop` được dùng để bỏ lời dẫn quy trình, câu nhấn rỗng, nhịp giải thích máy móc và cách gọi “thuế” không nhất quán. Bản tự kiểm theo `no-ai-slop/eval.md` giữ nguyên dữ kiện, chứng minh, bài tập và giọng học thuật trực tiếp.
+- Quill Revise/Outline Workflow được dùng ở mức dàn ý vì kho không có và không được phép tạo `quill.json`: giữ tuyến Bài 02 → mô hình → ba biến thể → hội tụ → thuật toán thưa → bài tập → ranh giới Bài 04; thống nhất ký hiệu và đưa phần bài tập về trước kết luận.
+- Tác động tới deck: không đổi giả thiết, ký hiệu đã khóa, ví dụ nguồn hoặc kết luận dùng chung. Ghi chú bổ sung $N^-$ để diễn đạt tập nguồn rõ hơn nhưng không làm thay đổi công thức hay nội dung deck; chưa cần sửa HTML.
+
+### Tái rà sau sửa
+
+- Vai toán–giải thuật GLM tính lại cả ba biến thể, hai nghiệm có hệ số giảm, phép co, cận hậu nghiệm, giả mã, hai tác vụ MapReduce và bốn đáp án. Báo cáo xác nhận không còn lỗi chặn, nghiêm trọng hoặc trung bình.
+- Vai mạch–Markdown GLM xác nhận đúng tuyến Bài 02 → mô hình → lỗi cấu trúc → hội tụ → MapReduce → bài tập → Bài 04; đúng một H1; 22 cặp directive đóng và không lồng; code fence, bảng, ảnh, alt và công thức đều hợp lệ. Phát hiện nhẹ “Kí hiệu” đã sửa thành “Ký hiệu”. Nhận xét về bốn lần nhúng hai tệp SVG bị bác vì yêu cầu là dùng đúng hai tài sản hình, không giới hạn số vị trí hiển thị.
+- Hai lượt tái rà dùng requested model và observed model `z-ai/glm-5.3-flash`, nhà cung cấp OpenRouter. Sau sửa chính tả không phát sinh thay đổi kỹ thuật hoặc mạch cần mở thêm lượt rà.
+
+### Kiểm định viewer — lần đầu
+
+- Viewer tải được Markdown, dựng 350 công thức KaTeX không lỗi, tạo 30 liên kết mục lục, tám khối gập đóng mặc định, mở bằng bàn phím và mở toàn bộ khi in. Hai URL vượt thư mục và lệch số bài đều bị từ chối.
+- Cổng thất bại vì bốn ảnh dùng đường dẫn `../../img/...`; viewer giải liên kết từ `material-viewer.html`, nên đường dẫn đúng là `img/lec-03/...`. Cùng lỗi cũng làm phát sinh hai thông báo 404 cho mỗi viewport.
+- Đã sửa bốn ảnh và liên kết deck theo mô hình phát hành đã kiểm chứng ở Bài 02. Index chưa được cập nhật trước khi chạy lại toàn bộ suite.
+
+### Kiểm định viewer — đạt
+
+- Harness ban đầu dùng nhầm tùy chọn Playwright `viewportSize`, khiến lượt hẹp vẫn chạy ở 1280 px. Harness được sửa sang `viewport`; toàn bộ suite được chạy lại, không kế thừa kết quả hẹp giả.
+- Màn hình rộng $1280\times720$ và hẹp $390\times844$: tiêu đề và trạng thái đúng; 30 heading tương ứng 30 liên kết mục lục; 350 phần tử KaTeX, 0 lỗi KaTeX; 4 ảnh tải đủ; 8 khối gập đóng mặc định; 0 lỗi console, page hoặc request; không tràn ngang.
+- Bàn phím: liên kết bỏ qua điều hướng nhận focus và chuyển tới nội dung; `Enter` mở được khối gập đầu tiên.
+- Bản in: mọi `details` mở; mục lục và thanh hành động ẩn; PDF A4 được tạo thành công.
+- An toàn: đường dẫn vượt thư mục và cặp `doc`/`deck` lệch số bài đều hiện lỗi và giấu layout.
+- Ảnh toàn trang wide/narrow đã được xem trực quan; chữ, công thức, bảng, giả mã và SVG không chồng lấn. Chỉ sau kết quả này, mục tài nguyên Bài 03 mới được thêm vào `2627-1/index.html`.
+- Kiểm tra index bằng Chromium tìm đúng một liên kết Ghi chú Bài 03, nhấp liên kết và tải đúng tiêu đề, `doc`, `deck`; không có lỗi console. Index đạt cổng công bố.

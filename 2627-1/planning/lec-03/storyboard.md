@@ -92,3 +92,20 @@ Việc giao nhóm và đối chiếu nằm trong khoảng của từng bài, kh�
 - Một vòng PageRank có thể gồm hai tác vụ MapReduce khi $\delta$ cần pha tổng hợp riêng; không đồng nhất vòng thuật toán với tác vụ.
 - Không dùng Topic-Sensitive PageRank, link spam, TrustRank, HITS hoặc phân khối ma trận §5.2.3. Mục §5.1.6 bị bỏ vì ngoài sản phẩm học tập và thời lượng của buổi này.
 - Deck gồm 39 slide: P00–P01, A00–A03, B00–B06, C00–C07, D00–D05, E00–E05, K00 và R00, R02–R05.
+
+## Hành trình riêng của ghi chú bài giảng
+
+| `note-topic-id` | Kết nối vào | Thành phần trình bày | Đầu ra cho phần sau |
+|---|---|---|---|
+| `note-topic-03-web-graph` | Bài 02 và bài toán metadata Web | Vai trò, đặc tả $G,n,m$, giới hạn ma trận đặc, kiểm tra quy ước cạnh | Đầu vào cho mô hình người lướt |
+| `note-topic-03-random-surfer` | Đồ thị có hướng | Định nghĩa phân phối, trực giác và ví dụ đóng góp một nút | Phương trình luồng |
+| `note-topic-03-flow-matrix` | Đóng góp theo cạnh | Đặc tả ma trận cột, vết chạy $y,a,m$, điểm cố định, power iteration | Hai lỗi cấu trúc |
+| `note-topic-03-dead-end` | Ma trận có cột tổng bằng 1 | Biến thể nút cụt, vết mất khối lượng, $ar P$, chứng minh bảo toàn | Quy ước dùng trong triển khai thưa |
+| `note-topic-03-spider-trap` | Phân phối đã được bảo toàn | Biến thể bẫy, $A_\beta$, nghiệm nguồn và kiểm tra phân biệt đồ thị | Ánh xạ co |
+| `note-topic-03-convergence` | $A_\beta$ trên simplex | Mệnh đề, phản ví dụ $\beta=1$, chứng minh co và hệ quả | Cận dừng có bảo đảm |
+| `note-topic-03-stopping` | Hệ số co $\beta$ | Giả mã, $Delta_t$, cận hậu nghiệm, $\tau$, $K_{\max}$, hai hậu điều kiện | Thuật toán đủ để phân tán |
+| `note-topic-03-sparse-mapreduce` | Bài 02, $P_0$, $d$, $ar P$ | Bản ghi cấu trúc, hai pha, bất biến, ví dụ một nút, chi phí $Theta(n+m)$ | Thu hồi tình huống mở bài |
+| `note-topic-03-exercises` | Toàn bộ tuyến chính | Đề, hình, gợi ý và lời giải bốn bài nguồn | Tự đánh giá |
+| `note-topic-03-boundary` | Kết luận PageRank cơ sở | Liên kết ngắn sang Bài 04 | Không tạo nội dung mới |
+
+Ghi chú dùng cùng dữ kiện $(y,a,m)$ từ đóng góp theo cạnh tới ma trận, điểm cố định và ba biến thể. Tình huống kho metadata Web trở lại ở biểu diễn thưa, số bản ghi trung gian và chi phí mỗi vòng. Không áp dụng thời lượng hay `data-slide-id` cho hành trình này; deck chỉ được rà đồng bộ nếu bản ghi chú buộc phải đổi một ký hiệu, giả thiết, ví dụ hoặc kết luận dùng chung.

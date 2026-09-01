@@ -87,3 +87,20 @@ r^*=\begin{bmatrix}7/33&5/33&21/33\end{bmatrix}^{T}.
 $$
 
 Đồ thị cơ sở với $\beta=0{,}8$ có nghiệm $r^*=(35/93,37/93,21/93)^T$. Hai nghiệm có hệ số giảm thuộc hai đồ thị khác nhau và không được dùng thay nhau.
+
+## Bản đồ chủ đề của ghi chú bài giảng
+
+| `note-topic-id` | Chủ đề | Nhãn | Sản phẩm học tập | Nguồn và quyết định |
+|---|---|---|---|---|
+| `note-topic-03-web-graph` | Đồ thị Web có hướng và tính thưa | cốt lõi | Đặc tả đúng đầu vào, cạnh và tham số kích thước | MMDS §5.1.2, §5.2.1; giữ |
+| `note-topic-03-random-surfer` | Người lướt ngẫu nhiên và phân phối hạng | cầu nối | Nối hành vi truy cập với phân phối xác suất | MMDS §5.1.2; Stanford bổ trợ trực giác |
+| `note-topic-03-flow-matrix` | Đóng góp theo cạnh, ma trận cột và vết chạy $y,a,m$ | cốt lõi | Dựng $P$ và kiểm tra phương trình cố định | MMDS slide 16–27; giữ |
+| `note-topic-03-dead-end` | Nút cụt và sửa cột | cốt lõi | Tính khối lượng mất và chứng minh phép sửa bảo toàn tổng | MMDS §5.1.4, slide 38, 41–43; giữ |
+| `note-topic-03-spider-trap` | Bẫy nhện và hệ số giảm | cốt lõi | Phân biệt bẫy với nút cụt, dựng $A_\beta$ | MMDS §5.1.5, slide 39, 44–46; giữ |
+| `note-topic-03-convergence` | Ánh xạ co trên simplex | bổ sung | Chứng minh nghiệm duy nhất và hội tụ khi $0<\beta<1$ | Suy trực tiếp từ đặc tả; không gán cho MMDS |
+| `note-topic-03-stopping` | Thuật toán lặp và cận dừng hậu nghiệm | bổ sung | Chọn $\tau$ từ sai số đích $\varepsilon$ và đọc hai trạng thái trả về | Tiêu chí phần dư từ slide; cận suy bằng chuỗi hình học |
+| `note-topic-03-sparse-mapreduce` | Một vòng PageRank thưa bằng MapReduce | cốt lõi | Mô tả bản ghi, hai pha, $\delta$, $\Delta$ và chi phí | MMDS §5.2.1–5.2.2; giữ |
+| `note-topic-03-exercises` | Bốn bài tập MMDS | cốt lõi luyện tập | Tự tính PageRank và biểu diễn ma trận thưa | MMDS 5.1.1–5.2.2; giữ nguyên dữ kiện |
+| `note-topic-03-boundary` | Ranh giới sang Bài 04 | đọc thêm | Xác định phần chưa học | Chỉ liên kết ra; không soạn PageRank theo chủ đề, spam hoặc HITS |
+
+Đồ thị tiên quyết của ghi chú là `web-graph → random-surfer → flow-matrix → {dead-end, spider-trap} → convergence → stopping → sparse-mapreduce → exercises`. Hai chủ đề bổ sung chỉ lấp khoảng trống về bảo đảm hội tụ và điều kiện dừng; không mở rộng phạm vi sang lý thuyết chuỗi Markov tổng quát.
