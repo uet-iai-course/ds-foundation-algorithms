@@ -90,3 +90,21 @@ Không dùng $B$ làm biến vì Bài 12 đã dùng $B$ cho tổng số khung đ
 - Cập nhật B+-Tree đọc $O(d+1)$ và ghi tối đa $O(d+1)$ khối.
 - Bitmap NOT phải chặn vị trí đã xóa bằng $E$ và vị trí NULL bằng $V_{\mathrm{NULL}}$.
 - Bitmap dải chỉ tạo ứng viên cho điều kiện hẹp hơn; mọi điều kiện dư phải được lọc trên bản ghi thật.
+
+## Bản đồ chủ đề của ghi chú tự học
+
+| `note-topic-id` | Nhãn | Chủ đề | Đầu vào | Sản phẩm học tập | Nguồn và quan hệ |
+|---|---|---|---|---|---|
+| `L13-N01` | cốt lõi | Bài toán chỉ mục và tiêu chí chọn | Mô hình I/O Bài 12 | Chọn cấu trúc theo truy vấn và giá duy trì | Ch.14.3–16; mở N02 |
+| `L13-N02` | cốt lõi | B+-Tree: cấu trúc, bất biến, khóa trùng | Cây cân bằng, N01 | Tính cận nút, phân biệt RID-list và khóa ghép | Ch.14.17–24, 40; sang N03 |
+| `L13-N03` | cốt lõi | Tìm điểm, khoảng và I/O | N02 | Chạy phép dò, quét lá, tính $d+1+J+D$ và $d+1+L+J+D$ | Ch.14.25–28; trao bất biến cho N04 |
+| `L13-N04` | cốt lõi | Chèn và tách | N02–N03 | Phân biệt sao chép ở lá với đẩy ở nút trong | Ch.14.29–33, Bài 14.4; sang N05 |
+| `L13-N05` | cốt lõi | Xóa, mượn, gộp và co gốc | N04 | Chạy xóa 23, 19 và nêu điều kiện co gốc | Ch.14.34–39, Bài 14.4; đóng nhánh B+-Tree |
+| `L13-N06` | cầu nối | Đối chiếu B-Tree với B+-Tree | N03–N05 | So sánh điểm, khoảng và hệ số phân nhánh | Ch.14.46–48; bỏ yêu cầu thứ tự để sang N07 |
+| `L13-N07` | cốt lõi | Băm tĩnh và chuỗi tràn | N06, hàm băm | Chạy tra cứu; phân tích $\alpha$, $1+t+D$ và trường hợp xấu | Ch.14.51–59; sang bộ lọc tập |
+| `L13-N08` | cốt lõi | Bitmap cơ sở và phép Boolean | N01, phép toán bit | Dựng $S_1$–$S_4$, AND và tính dung lượng | Ch.14.71–75, Bài 14.13; mở N09 |
+| `L13-N09` | cốt lõi | Bitmap với vị trí xóa, NULL và NOT | N08 | Giải thích đúng hai mặt nạ $E,V_{\mathrm{NULL}}$ | Ch.24.11–15; đóng trường hợp biên |
+| `L13-N10` | cầu nối | Ma trận chọn cấu trúc | N01–N09 | Chọn theo truy vấn, I/O, cập nhật và dung lượng | Tổng hợp; sang N11 |
+| `L13-N11` | cốt lõi | Bốn bài nguồn có lời giải | N01–N10 | Dựng cây, cập nhật và tính bitmap | Bài 14.1, 14.3(b), 14.4, 14.13 |
+
+Đồ thị tiên quyết: `N01→N02→N03→N04→N05→N06→N07→N08→N09→N10→N11`. Nhắc tiên quyết được gộp vào N01; các lỗi dễ mắc nằm cạnh thuật toán tương ứng thay vì tạo một chủ đề lặp. Không có mục đọc thêm ngoài phạm vi.

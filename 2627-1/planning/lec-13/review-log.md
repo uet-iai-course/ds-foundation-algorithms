@@ -106,3 +106,41 @@
 - Chromium 1280×720 và 800×600: đủ 59 trang, không lỗi console, không lỗi KaTeX, không tràn biên. Rà ảnh liên hệ toàn bộ và ảnh riêng B07, C10–C11, H02, M03, T00: không còn chồng lấn hoặc cắt nội dung. Điều hướng bàn phím `P00 → B00 → B01` đạt.
 - Codex Slides: dự án `20260828012219-b-i-13-ch-m-c-truy-n-th-ng-v-b-m-t-nh-3hv7` vẫn ở trạng thái nháp với 0 trang; bản HTML cuối đã tải lên thành material `20260830165811833-mdaa.html`. Môi trường hiện không cung cấp bề mặt Browser trong trình soạn thảo, nên không tuyên bố đã rà trực quan bằng Codex Slides; kiểm định trực quan dùng RevealJS cục bộ như trên.
 - `git diff --check` và kiểm tra phần thay đổi được chạy lại trước commit. Chỉ các tệp thuộc Bài 13 được đưa vào commit; thay đổi cấu hình và tệp người dùng ngoài phạm vi được giữ nguyên.
+
+## Ghi chú tự học Bài 13
+
+### Điều phối OpenRouter
+
+- Ba reader `z-ai/glm-5.3-flash`: kế hoạch `11965`, nguồn `31332`, bản đồ chủ đề `78833`. Codex chính giữ 11 chủ đề; gộp nhắc tiên quyết vào N01, bác bảng lỗi lặp và mục đọc thêm ngoài phạm vi.
+- Writer `deepseek/deepseek-v4-flash-0731` phiên `94655` đã ghi bản nháp trước khi chạm giới hạn công cụ. Codex chính chỉ hợp nhất phần đã ghi và kiểm chứng, rồi trực tiếp áp dụng các sửa được reviewer phê duyệt.
+- Năm reviewer GLM: nguồn `60597`, toán–thuật toán `29726`, sư phạm `81489`, mạch `64599`, viewer `42582`. Lượt sư phạm đầu chạm giới hạn công cụ; lượt thu hẹp đọc đúng `goal.md` và bản cuối trả `PASS`.
+- Tái kiểm toán–thuật toán `8408` và mạch viết `73590` đều `PASS`. Gốc tạm không chứa `.env`, bí mật hoặc thông tin xác thực.
+
+### Phát hiện và quyết định
+
+| Mức | Phát hiện | Quyết định |
+|---|---|---|
+| nghiêm trọng | Writer tính cận lá $m=6$ thành 2–5 và ghi $d=2$ cho cây gốc nối trực tiếp tới lá | Sửa thành 3–5 khóa và $d=1$; bổ sung cận $d=O(\log_f K)$ cùng giả thiết gốc |
+| nghiêm trọng | Vết xóa 19 gọi việc gốc còn ba con là “co gốc” | Sửa thành gộp lá, xóa phân cách 19 và giữ gốc $[7,10]$; co gốc chỉ khi còn một con |
+| trung bình | Giả mã chèn coi cha có $m$ con là tràn; giả mã xóa thiếu nhánh khóa vắng | Tràn chỉ khi có hơn $m$ con; khóa vắng dừng và cây không đổi |
+| trung bình | Ghi chú dùng vị trí bitmap 1–12 trong khi deck dùng 0–11 | Chuẩn hóa toàn bộ ghi chú về 0–11; Wu ở 1, Singh ở 8; chuỗi bit không đổi |
+| trung bình | Cơ chế tách lá cứng hóa 3–3 và bảng tổng hợp bỏ $L$ | Viết $\lceil m/2\rceil$–$\lfloor m/2\rfloor$, vết $m=6$ là 3–3; truy vấn khoảng gồm dò và quét thêm $L$ lá |
+| nhẹ | Hai SVG được lặp với chú thích không đúng nội dung cụ thể; hint 14.4 nói co gốc | Chỉ dùng mỗi SVG một lần; sửa hint thành thiếu và gộp lá |
+
+Hai đề xuất không áp dụng:
+
+- Không chèn `note-topic-id` vào ghi chú công khai; mã nội bộ chỉ thuộc outline, storyboard và review log theo AGENTS.md.
+- Không đổi liên kết deck trong Markdown thành `../../...`; viewer tải Markdown tại `2627-1/material-viewer.html`, nên liên kết hiện tại phân giải đúng. Liên kết riêng ở header và kiểm thử Chromium đều mở đúng deck.
+
+### Biên tập và tính liên tục
+
+- `$no-ai-slop`: bỏ nhịp dẫn máy móc, Việt hóa “đống”, “ngăn”, “chuỗi tràn”, “mã định danh bản ghi”; giữ tên thuật toán và thuật ngữ chuẩn khi cần. Không thêm dữ kiện hoặc làm mạnh hơn kết luận nguồn.
+- `$quill`: rà tuyến N01–N11; thống nhất $m,f,K,d,L,J,D,M,c,N_e,t,R,w,q,E,V_v,V_{\mathrm{NULL}}$; giữ cùng quy ước vị trí 0-based với deck. Không tạo `quill.json`.
+
+### Kiểm định viewer và index
+
+- Chromium ở $1280\times720$ và $390\times844$: 31 heading khớp 31 liên kết mục lục, 249 biểu thức KaTeX, không lỗi KaTeX, 10 SVG không hỏng, 5 khối mã `text`, 28 khối gập đóng mặc định, không tràn ngang hoặc lỗi console.
+- Bàn phím đạt cho liên kết bỏ qua nội dung và khối gập. Viewer từ chối đường dẫn vượt thư mục và ghép tài liệu với deck khác số bài.
+- Bản in A4 dài 24 trang; mọi `hint`/`solution` tự mở, mục lục và thanh thao tác bị ẩn, không có hình vượt khung. Ảnh chụp toàn trang rộng và hẹp được xem trực quan, không thấy nội dung bị cắt.
+- Chỉ sau khi viewer đạt mới thêm liên kết Bài 13 vào index. Kiểm thử từ index ở hai khung xác nhận đúng một liên kết, nhận focus bàn phím, mở đúng deck/tài liệu, 10 ảnh và KaTeX không lỗi.
+- Kiểm tra tĩnh: một H1; 14 `exercise`, 14 `hint`, 14 `solution`, 42 dấu đóng; 5 khối mã; 10 SVG XML hợp lệ; không delimiter toán bị cấm; `git diff --check` đạt.

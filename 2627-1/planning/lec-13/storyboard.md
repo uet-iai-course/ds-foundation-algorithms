@@ -147,3 +147,21 @@ Thay đổi cục bộ: đặt vết chạy trước hình thức hóa ở `B03�
 ## Thời lượng
 
 Phần giảng: (P–A) 14 + B 27 + (C–D) 42 + H 14 + M 19 + T 4 = **120 phút**. Recitation: X01 5 + X02–X03 15 + X04–X06 25 + X07D–X08 15 = **60 phút**. `X00` chỉ giao nhiệm vụ trong thời gian chuyển nhóm.
+
+## Storyboard cho ghi chú tự học
+
+| `note-topic-id` | Vai trò và kết nối vào–ra | Thành phần trình bày | Dữ kiện và sản phẩm xuyên suốt |
+|---|---|---|---|
+| `L13-N01` | Nối I/O với lựa chọn chỉ mục; mở nhánh cây | Vai trò, đặc tả, bảng chi phí, hình đánh đổi, tự kiểm | Quan hệ $N$ khối; điểm, khoảng, bộ lọc |
+| `L13-N02` | Chốt biểu diễn và bất biến; trao cây cho N03 | Định nghĩa, hình, cận chiều sâu, khóa trùng, tự kiểm | $m,f,K,d$; gốc ngoại lệ |
+| `L13-N03` | Dùng bất biến để truy vấn; trao đường dò cho cập nhật | Giả mã, bất biến, chứng minh, hai hình, I/O, tự kiểm | $d,L,J,D$; cây $m=6$ |
+| `L13-N04` | Giữ bất biến khi chèn; trao cây mới cho xóa | Giả mã, hai cơ chế tách, hai hình, vết, dừng, tự kiểm | Chèn 9, 10, 8; lỗi in 9→19 |
+| `L13-N05` | Hoàn thiện cập nhật B+-Tree; mở đối chiếu N06 | Giả mã, mượn/gộp/co gốc, vết, hình, chứng minh, chi phí | Xóa 23, 19; gốc cuối $[7,10]$ |
+| `L13-N06` | Đối chiếu nơi lưu dữ liệu; bỏ thứ tự để sang băm | Hình so sánh, điểm, khoảng, hệ số phân nhánh, tự kiểm | B+-Tree lá liên kết và B-Tree dữ liệu ở nút trong |
+| `L13-N07` | Định tuyến trực tiếp cho điều kiện bằng; sang bộ lọc tập | Đặc tả, hình, giả mã, bất biến, dẫn xuất, biên, tự kiểm | $M,c,N_e,t,\alpha$; Physics/Elec. Eng. |
+| `L13-N08` | Mã hóa tập ứng viên; tạo nhu cầu mặt nạ N09 | Đặc tả, hình, vết 12 hàng, chi phí, tự kiểm | $S_1$–$S_4$, Finance, $R,w,q$ |
+| `L13-N09` | Sửa phép NOT ở vị trí xóa/NULL; sang tổng hợp | Hai mặt nạ, công thức, chứng minh từng vị trí, tự kiểm | $E,V_v,V_{\mathrm{NULL}}$ |
+| `L13-N10` | Hội tụ các nhánh; thu hồi tình huống mở bài | Ma trận chọn, I/O, cập nhật, dung lượng, tự kiểm | $d+1+L+J+D$, $1+t+D$, $(q+2)R$ |
+| `L13-N11` | Chuyển từ hiểu sang thực hành có thể chấm | Bốn bài `exercise` với `hint` và `solution` gập mặc định | Giữ nguyên dữ kiện Bài 14.1, 14.3(b), 14.4, 14.13 |
+
+N01, N06 và N10 dùng chu trình rút gọn vì là định hướng hoặc cầu nối; các thao tác không áp dụng được không được tạo giả mã. N02–N05 và N07–N09 đều có đặc tả, ví dụ hoặc vết, trực quan, thuật toán hay mệnh đề, lập luận đúng, chi phí hoặc giới hạn, và câu kiểm tra.
