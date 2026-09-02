@@ -24,7 +24,7 @@ Ghi chú giữ thứ tự N01→N07. Dữ kiện Hình 5.15, Hình 5.16, Hình 5
 |---|---:|---|---|
 | P00 | 2 | Nối ký hiệu và điều kiện từ Bài 3 | `sources/source.md`; Bài 3 |
 | P01 | 3 | Sản phẩm quan sát được | `sources/source.md`, Bài 4 |
-| T00 | 3 | Truy vấn “jaguar” đa nghĩa rồi đến giới hạn vector riêng cho mỗi người | MMDS §5.3.1 |
+| T00 | 2 | Truy vấn “jaguar” đa nghĩa rồi đến giới hạn vector riêng cho mỗi người | MMDS §5.3.1 |
 | T01 | 4 | Trực giác dịch chuyển về tập mẫu rồi mới định nghĩa $S,e_S,q_S$ | MMDS §5.3.2 |
 | T02 | 3 | Hình thức hóa phép cập nhật chỉ thay vector dịch chuyển | MMDS §5.3.2 |
 | T03 | 3 | Hình 5.15, $S=\{B,D\}$ | MMDS Hình 5.15 |
@@ -57,7 +57,7 @@ Ghi chú giữ thứ tự N01→N07. Dữ kiện Hình 5.15, Hình 5.16, Hình 5
 | Z00 | 1 | Mở phần so sánh | Tổng hợp §5.3–5.5 |
 | Z01 | 3 | So sánh $P$ chia bậc với $L,L^T$ Boolean; thêm $a^{(0)}=0$ và $t^{(0)}=q_T$ | Tổng hợp §5.3–5.5 |
 | Z02 | 2 | Chi phí, đầu ra và câu hỏi chọn mô hình | Tổng hợp §5.3–5.5 |
-| Z03 | 2 | Thu hồi sản phẩm P01 và nối sang phần bài tập | Tổng hợp §5.3–5.5 |
+| Z03 | 1 | Thu hồi sản phẩm P01 và nối sang phần bài tập | Tổng hợp §5.3–5.5 |
 | **Tổng** | **120** |  |  |
 
 ## Phân bổ bài tập: 60 phút

@@ -73,7 +73,7 @@ Phần dịch chuyển: $(1-\beta)q_S=0{,}2\cdot(0,1/2,0,1/2)^T=(0,1/10,0,1/10)^
 
 $$r^{(1)}=\left(\frac{2}{10},\frac{3}{10},\frac{2}{10},\frac{3}{10}\right)^T.$$
 
-So với $q_S$, khối lượng đã được phân tán từ B và D ra các trang chúng trỏ tới (A, D, B, C); chính B và D vẫn giữ giá trị cao nhất nhờ phần dịch chuyển trực tiếp. Điều này chỉ ra vai trò của $q_S$: giữ tín hiệu chủ đề qua các vòng.
+So với $q_S$, khối lượng đã được phân tán từ B và D ra các trang chúng trỏ tới (A, D, B, C); chính B và D vẫn giữ giá trị cao nhất nhờ phần dịch chuyển trực tiếp. Vector $q_S$ giữ tín hiệu chủ đề qua các vòng.
 
 ::: example
 Trong Ví dụ 5.10, phần theo cạnh phân đều khối lượng lên bốn trang, còn phần dịch chuyển chỉ thêm $1/10$ vào $B$ và $D$. Vì vậy $B,D$ có hạng $3/10$, cao hơn $A,C$ với hạng $2/10$ sau vòng đầu.
@@ -87,7 +87,7 @@ Có thể phối hợp nhiều chủ đề qua tổ hợp lồi. Cho trọng s�
 
 $$r=\sum_\ell\alpha_\ell r^{(S_\ell)}.$$
 
-Vì mỗi $r^{(S_\ell)}$ là một phân phối (tổng bằng $1$ và không âm), tổ hợp lồi $r$ cũng là một phân phối. Đó là điểm quan trọng khi muốn kết hợp nhiều chủ đề.
+Vì mỗi $r^{(S_\ell)}$ là một phân phối (tổng bằng $1$ và không âm), tổ hợp lồi $r$ cũng là một phân phối.
 
 ::: example
 Giả sử $r^{(S_1)}$ và $r^{(S_2)}$ là hai phân phối đã tính. Với $\alpha_1=0{,}6$ và $\alpha_2=0{,}4$, vector $0{,}6r^{(S_1)}+0{,}4r^{(S_2)}$ vẫn không âm và có tổng bằng $1$.
@@ -126,7 +126,7 @@ Cấu trúc đồ thị trong Hình 5.16: mỗi trang hỗ trợ chỉ trỏ t�
 
 ### 3.3 Hạng của mỗi trang hỗ trợ
 
-Gọi $z$ là hạng của mỗi một trong $q$ trang hỗ trợ. Do cấu trúc đối xứng, mọi trang hỗ trợ có cùng $z$.
+Gọi $z$ là hạng của mỗi trang trong $q$ trang hỗ trợ. Do cấu trúc đối xứng, mọi trang hỗ trợ có cùng $z$.
 
 Mỗi trang hỗ trợ nhận đóng góp từ $t$ qua phần $\beta P r$, rồi cộng phần dịch chuyển đều $(1-\beta)/N$. Vì $t$ trỏ tới cả $q$ trang hỗ trợ và hạng của $t$ là $y$, mỗi trang hỗ trợ nhận $y/q$ qua cạnh rồi nhân $\beta$:
 
@@ -347,7 +347,7 @@ $$h^{(2)}=\left(1,\frac{12}{29},\frac{1}{29},\frac{20}{29},0\right)^T.$$
 
 $A$ có điểm hub lớn nhất sau hai vòng; $B$ và $C$ có điểm authority lớn nhất.
 
-![Ma trận L hàng nguồn của Hình 5.18 dùng để tính hai vòng đầu HITS.](img/lec-04/hinh-5-18.svg)
+![Đồ thị Hình 5.18 gồm năm nút A, B, C, D, E và các cạnh dùng để tính HITS.](img/lec-04/hinh-5-18.svg)
 
 ### 5.4 Đặc tả làm chặt của học phần
 
@@ -508,7 +508,7 @@ h^{(1)}=\left(1,\frac23,\frac13,\frac23\right)^T.$$
 
 $$a^{(2)}=\left(\frac35,1,1,1\right)^T.$$
 
-Tiếp theo, $La^{(2)}$ tỷ lệ với $(15,8,3,10)^T$, nên
+Phép nhân $La^{(2)}$ cho vector tỷ lệ với $(15,8,3,10)^T$, nên
 
 $$h^{(2)}=\left(1,\frac8{15},\frac15,\frac23\right)^T.$$
 

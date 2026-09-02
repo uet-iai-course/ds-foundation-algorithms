@@ -35,7 +35,7 @@
 | $G=(V,E)$, $n=|V|$, $m_G=|E|$ | Đồ thị, số nút và số cạnh |
 | $P$ | Ma trận chuyển cột ngẫu nhiên đã sửa nút cụt từ Bài 3 |
 | $S\ne\varnothing$, $e_S$, $q_S=e_S/|S|$ | Tập dịch chuyển theo chủ đề, vector chỉ báo và phân phối chủ đề |
-| $r^{(t+1)}=\beta Pr^{(t)}+(1-\beta)q_S$ | Phép lặp PageRank theo chủ đề |
+| $r^{(u+1)}=\beta Pr^{(u)}+(1-\beta)q_S$ | Phép lặp PageRank theo chủ đề |
 | $N,q,x,y$ | Tổng số trang Web, số trang hỗ trợ, đóng góp ngoài đã có hệ số giảm và hạng trang đích trong Hình 5.16 |
 | $T\ne\varnothing$, $q_T=e_T/|T|$, $t$ | Tập tin cậy, phân phối dịch chuyển tin cậy và vector TrustRank |
 | $r_p,t_p,s_p$ | PageRank cơ sở, TrustRank và khối lượng rác của trang $p$ |

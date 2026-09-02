@@ -239,3 +239,43 @@ Rà lại độc lập xác nhận các vector PageRank theo chủ đề, công 
 - Lệnh bắt buộc `python3 -m reloadserver 8765` không chạy vì môi trường không cài mô-đun `reloadserver`. Máy chủ HTTP cục bộ đã có ở `127.0.0.1:8765`; trang Bài 4 trả HTTP 200 và được dùng cho toàn bộ kiểm tra trình duyệt.
 - Codex Slides: dự án bền vững `20260827161616-b-i-4-pagerank-theo-ch-spam-li-n-k-t-v-h-urwd` vẫn ở checkpoint `clarify`, có đủ nguồn MMDS, Stanford, giáo trình, mẫu và CSS. Outline cuối cùng cùng storyboard/nhật ký đã được ghi và đọc lại thành công trong Design Files. Công cụ tải Design File mới trả HTTP 500, nên HTML và SVG cuối không được sao chép vào dự án; Browser trong trình biên tập không khả dụng trên bề mặt hiện tại. Vì vậy không tuyên bố đã kiểm tra trực quan bằng Codex Slides; kiểm tra trực quan cuối dùng RevealJS cục bộ và ảnh chụp Chromium.
 - Chỉ sau các kiểm tra trên mới thêm thẻ Bài 4 vào `2627-1/index.html`; chỉ mục không liên kết tới tệp quy trình.
+
+## Chu kỳ đồng bộ bộ trang chiếu với ghi chú — 2026-09-02
+
+### Điều phối và soạn
+
+- Reader kế hoạch phiên `59340` và reader nguồn phiên `28513` dùng `z-ai/glm-5.3-flash` qua OpenRouter. Hai reader giữ nguyên MMDS mục 5.3–5.5, 41 trang, 7 mạch, ba bài tập và mọi công thức; chỉ đề xuất dọn văn phong, thống nhất ký hiệu và sửa nhãn index.
+- Writer hợp lệ dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter trên hồ sơ tạm chỉ gồm sáu đoạn notes. Metadata runtime xác nhận requested model trùng observed model và provider OpenRouter. Lượt writer trên toàn HTML hết thời hạn 300 giây và bị loại; không có thay đổi nào từ lượt lỗi được nhập vào kho.
+- Codex chính chỉ áp dụng các sửa đã được phê duyệt, không đổi nguồn hoặc phạm vi. Không gửi `.env`, khóa, token, mật khẩu, cookie, khóa riêng hoặc thông tin xác thực tới worker.
+
+### Năm báo cáo độc lập
+
+| Vai | Phiên hợp lệ | Kết quả và quyết định |
+|---|---:|---|
+| Trung thành nguồn và phạm vi | `6374` | PASS; đúng MMDS §5.3–5.5, nhãn hình/ví dụ và ba bài tập; các phần làm chặt được phân biệt với nguồn. |
+| Toán và giải thuật | `70845` | PASS; PageRank theo chủ đề, spam farm, TrustRank, khối lượng rác, HITS, đáp án và độ phức tạp đều đúng. |
+| Học thuật và sư phạm | `68572` | Phát hiện tổng hàng thời lượng là 122 phút và chỉ số vòng `t/u`; đã giảm T00, Z03 mỗi trang 1 phút và thống nhất chỉ số `u`. |
+| Văn phong, no-ai-slop và Quill | `88073` | PASS có sửa nhẹ; bỏ nhịp nhấn máy móc, sửa chú thích Hình 5.18, tiêu đề T06/K04 và nguồn S04. |
+| Kỹ thuật tĩnh | `81479` | PASS; 41 ID duy nhất, 41 notes, 7 mạch, thư viện cục bộ, viewer/index/planning và 6 SVG đạt. |
+
+Các lượt reviewer hết thời hạn, chạm giới hạn công cụ hoặc hết ngân sách phản hồi không được dùng làm bằng chứng. Thứ tự ID HITS phi tuần tự được giữ vì ID là mã nội bộ đã ổn định, vẫn duy nhất và không làm thay đổi thứ tự hiển thị.
+
+### Sửa đã chấp nhận và tái kiểm
+
+- Bỏ tên `sources/source.md`, câu nối kiểu quy trình và siêu bình luận khỏi notes; giữ nguồn học thuật ở dạng tự nhiên. Đổi câu chuyển ý `La^{(2)}` trong ghi chú thành phát biểu trực tiếp.
+- Thống nhất phép lặp PageRank theo chủ đề dùng chỉ số vòng `u` trong deck, note và outline. Storyboard hiện cộng đúng 120 phút giảng; recitation giữ 60 phút.
+- Làm rõ nguồn MMDS §5.4.2 cho S04, sửa alt Hình 5.18 thành mô tả đồ thị, đổi “Bảng tính” thành “Bảng số liệu” và thu gọn hai hộp nhiệm vụ R01/R04 mà không đổi yêu cầu toán học.
+- Đổi nhãn tài nguyên Bài 04 trên index thành “Ghi chú bài giảng”; URL `doc`/`deck` không đổi.
+- Tái kiểm mạch/no-ai-slop/Quill phiên `20423`: PASS; 120+60, văn phong, ký hiệu và tính liên tục deck–note đều đạt; không tạo `quill.json`.
+- Tái kiểm toán độc lập phiên `58341`: PASS; xác nhận bản exact disk về chỉ số, S04, các mô hình, ba đáp án, chi phí và caption đều đúng.
+- Các lượt tái kiểm dùng requested model và observed model `z-ai/glm-5.3-flash`, provider OpenRouter.
+
+### Kiểm định cuối
+
+- Kiểm tĩnh: 41 `data-slide-id` duy nhất, 41 notes, 7 outer section cân bằng; 6 SVG đọc được, đều có `role="img"`, `title`, `desc`; không có ảnh raster; `git diff --check` đạt.
+- Chromium duyệt đủ 41 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, không lỗi console/page/request. Bàn phím chuyển ngang/dọc đúng; 41 notes; 0 lỗi KaTeX. Hai hộp R01/R04 được xem trực quan sau sửa. PDF deck có 41 trang A4.
+- Viewer ở $1280\times720$ và $390\times844$: 41 heading, 29 liên kết mục lục, 380 phần tử KaTeX và 0 lỗi; 5 ảnh tải đủ; 6 khối gập đóng mặc định, mở được bằng bàn phím và mở khi in; không tràn ngang hay lỗi runtime. PDF viewer có 19 trang A4. Hai phép thử vượt thư mục và lệch số bài đều bị từ chối.
+- Index có đúng một URL ghi chú Bài 04 và mở đúng `doc`/`deck`, không lỗi console.
+- Codex Slides project `20260827161616-b-i-4-pagerank-theo-ch-spam-li-n-k-t-v-h-urwd` đọc được bằng CLI, giữ đủ bảy nguồn/tài sản. Project vẫn ở trạng thái `draft`, workflow `clarify`, `pages=[]`, `outline=[]`; không có Browser callable nên không tuyên bố đã kiểm trực quan trong Codex Slides. Kiểm định trực quan dùng Chromium trên đúng HTML phát hành.
+
+Kết luận: không còn lỗi chặn, nghiêm trọng hoặc trung bình; bộ trang chiếu, ghi chú, planning, viewer và index Bài 04 đồng bộ và đủ điều kiện commit/push.
