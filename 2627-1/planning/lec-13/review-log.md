@@ -144,3 +144,26 @@ Hai đề xuất không áp dụng:
 - Bản in A4 dài 24 trang; mọi `hint`/`solution` tự mở, mục lục và thanh thao tác bị ẩn, không có hình vượt khung. Ảnh chụp toàn trang rộng và hẹp được xem trực quan, không thấy nội dung bị cắt.
 - Chỉ sau khi viewer đạt mới thêm liên kết Bài 13 vào index. Kiểm thử từ index ở hai khung xác nhận đúng một liên kết, nhận focus bàn phím, mở đúng deck/tài liệu, 10 ảnh và KaTeX không lỗi.
 - Kiểm tra tĩnh: một H1; 14 `exercise`, 14 `hint`, 14 `solution`, 42 dấu đóng; 5 khối mã; 10 SVG XML hợp lệ; không delimiter toán bị cấm; `git diff --check` đạt.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch phiên `98497`, reader nguồn phiên `48249` và tái kiểm `68155` dùng `z-ai/glm-5.3-flash` qua OpenRouter; cùng chốt bản vá hẹp, inventory 59 trang/notes/ID, bảy phần ngoài, 49+10 trang và 120+60 phút.
+- Writer phiên `7280` dùng đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter trong `/tmp/lec13-deck-writer-retry.pYlJtt/`; phiên thử `10704` hết thời gian trước khi ghi và bị loại. Codex kiểm diff rồi áp dụng trực tiếp các sửa đã duyệt, đồng thời thay ba câu writer còn cụt ở A03, C06A và T01.
+- Sửa tên bản ghi nguồn thành `Srinivasan Comp. Sci. 65000`, chuẩn hóa $V_{\mathrm{NULL}}$ ở M05, ghi rõ hai biểu thức I/O tại B07 là suy ra của bài giảng, và chuẩn hóa nhãn/ARIA của thẻ Bài 13 trong index.
+- `$no-ai-slop`: biên tập hẹp speaker notes đã chốt; giữ nguyên dữ kiện, công thức, thuật toán và nguồn. Quill: tuyến nhu cầu→B+-Tree→B-Tree→băm→bitmap→tổng hợp→recitation và hệ ký hiệu $m,f,K,d,L,J,D,M,c,N_e,t,R,w,q,E,V_v,V_{\mathrm{NULL}}$ liên tục; không tạo `quill.json`.
+
+### Năm cổng reviewer
+
+- Nguồn, phiên `34991`: **GO**; xác nhận dữ liệu 14.13, M05, B07 và recitation khớp nguồn. Phiên `22964` bị loại vì ghép sai đường dẫn và chạm giới hạn công cụ.
+- Toán–thuật toán, phiên `71792`: **GO**; kiểm lại B+-Tree, băm, bitmap và các vết tính. Phiên `52747` chạm giới hạn công cụ và bị thay bằng lượt hợp lệ.
+- Sư phạm, phiên `33642`: **GO**; xác nhận 59/59/7, 49+10, 120+60 và mạch bài liên tục.
+- Văn phong, phiên `67807`: **GO**; không còn lỗi AI-slop chặn. Ba gợi ý đổi tiêu đề/nhãn nhẹ không được áp dụng vì không sửa lỗi và nhãn sản phẩm recitation phục vụ tiêu chí bắt buộc.
+- Kỹ thuật, phiên `84667`: **GO** sau khi Codex xác minh điều kiện duy nhất của reviewer. Dossier tối giản không chứa bốn CSS nên worker yêu cầu kiểm sự tồn tại; cả bốn CSS RevealJS và `index-pages.css` đều có trong workspace. Cấu trúc 59/59/7, 49+10, SVG, cấu hình Reveal, index, viewer và phạm vi diff đều đạt.
+
+### Kiểm định runtime
+
+- Chromium duyệt đủ 59 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, không lỗi console/KaTeX hoặc tài nguyên; điều hướng bàn phím đạt.
+- Viewer ở khung rộng/hẹp có 31 heading, 17 liên kết mục lục, 249 biểu thức KaTeX, 10 hình và 28 khối gập đóng mặc định; không tràn hoặc lỗi. Bàn phím, bản in, chặn path traversal và chặn ghép sai bài đều đạt.
+- PDF deck có 59 trang; PDF viewer có 24 trang và tự mở hint/solution khi in.
+- Index chứa đúng một liên kết Bài 13, mở đúng cặp doc/deck và không lỗi runtime.
+- Dự án Codex Slides `20260828012219-b-i-13-ch-m-c-truy-n-th-ng-v-b-m-t-nh-3hv7` truy cập được nhưng vẫn là draft 0 slide; không có canvas để đối chiếu, nên kiểm định hình ảnh dựa trên Chromium thật và không tuyên bố đã kiểm canvas.

@@ -527,7 +527,7 @@ Các mảnh lương $S_1..S_4$ đã được dựng và giải thích ở Phần
 :::
 
 ::: solution
-Dữ liệu 12 bản ghi theo thứ tự nguồn: `10101 Srini NASA Comp. Sci. 65000; 12121 Wu Finance 90000; 15151 Mozart Music 40000; 22222 Einstein Physics 95000; 32343 El Said History 60000; 33456 Gold Physics 87000; 45565 Katz Comp. Sci. 75000; 58583 Califieri History 62000; 76543 Singh Finance 80000; 76766 Crick Biology 72000; 83821 Brandt Comp. Sci. 92000; 98345 Kim Elec. Eng. 80000`.
+Dữ liệu 12 bản ghi theo thứ tự nguồn: `10101 Srinivasan Comp. Sci. 65000; 12121 Wu Finance 90000; 15151 Mozart Music 40000; 22222 Einstein Physics 95000; 32343 El Said History 60000; 33456 Gold Physics 87000; 45565 Katz Comp. Sci. 75000; 58583 Califieri History 62000; 76543 Singh Finance 80000; 76766 Crick Biology 72000; 83821 Brandt Comp. Sci. 92000; 98345 Kim Elec. Eng. 80000`.
 
 (a) Bốn mảnh lương:
 
