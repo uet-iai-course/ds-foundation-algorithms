@@ -139,3 +139,34 @@ Phạm vi rà lại: các trang vừa sửa (A00, A01, H05, H06, Q06, Q07, I01, 
 - Hai lượt tái kiểm cuối cùng dùng `z-ai/glm-5.3-flash` qua OpenRouter. Lượt toán–thuật toán xác nhận toàn bộ con số, giả mã, công thức chi phí và ranh giới tuyên bố; lượt mạch xác nhận đủ 11 chủ đề, không còn mojibake, nhãn nội bộ hoặc nội dung quy trình trong bản công khai. Ba góp ý nhẹ được xử lý về ký hiệu $k^*$, truy vấn dư $\widetilde q_i$ và từ “khối lượng công việc”; nhận xét ví dụ VQ bị hòa bị bác vì $|3-4|<|3-0|$.
 - Viewer thật đạt ở 1280×720 và 390×844: 26 tiêu đề khớp 26 liên kết mục lục, 189 công thức KaTeX không lỗi, chín SVG tải đủ, không lỗi trình duyệt hoặc tràn ngang. Sáu khối đáp án gập mặc định, mở được bằng bàn phím và mở khi in; bản in A4 có 16 trang. Traversal và cặp `doc`/`deck` lệch số bài đều bị từ chối.
 - Sau khi các cổng viewer đạt, `index.html` mới được cập nhật. Kiểm tra một lần nhấp từ thẻ Bài 07 mở đúng ghi chú, đúng deck, đủ chín hình và không có lỗi KaTeX.
+
+## Đồng bộ cuối với ghi chú đã phát hành — 2026-09-02
+
+Điều phối viên giữ nguyên 47 trang, 7 mạch, 38 trang giảng + 9 trang thực hành, thời lượng 120+60 phút và 9 SVG. Hai reader OpenRouter đã đối chiếu lại deck–note–nguồn: reader kế hoạch phiên `81520`, reader nguồn phiên `13583`; cả hai dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter. Writer phiên `98265` dùng đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter và chỉ đề xuất các delta hẹp; Codex chính áp dụng sau khi kiểm bằng nguồn.
+
+### Quyết định nội dung
+
+- Sửa hợp đồng `SEARCH-LAYER`: `ep` là tập với $1\le |ep|\le ef$; khởi tạo $V,C,W\leftarrow ep$ trong ghi chú, thống nhất với deck và Thuật toán 2.
+- Chuẩn hóa chỉ số VQ và tâm thô về 0-based; dùng $\widetilde q_i=q-\mu_i$ nhất quán cho truy vấn dư IVF-PQ.
+- Sửa cấu hình 48 bit từ $16\times4$ thành $16\times3$; ba cấu hình là $4\times12$, $8\times6$, $16\times3$.
+- Tách rõ ô nền 0–4, 17, 21–24; nhiệm vụ PQ đọc 82–97, chạy 83–95 và hoàn thiện 96–97; so sánh mã 6 byte dùng 98–99.
+- Sửa vết chạy tìm kiếm chùm trong ghi chú để khớp H03; đổi tiêu đề H02 sang “minh họa”; sửa bảng C00 thành $O(ND)$ số cho véc-tơ gốc.
+- Biên tập `$no-ai-slop`: bỏ câu quy trình và siêu bình luận; viết tự nhiên lại P02, H04, H10, Q01, Q06, Q08, I03 và R00. Rà Quill xác nhận chuỗi ANN → HNSW → PQ/ADC → IVF-PQ → so sánh → thực hành liền mạch; không tạo `quill.json`.
+
+### Năm reviewer và hai tái kiểm
+
+- Nguồn, phiên `89063`: `GO`; xác nhận HNSW, PQ, ADC, IVF-PQ và notebook khớp nguồn.
+- Toán–thuật toán, phiên `65731`: `GO`; xác nhận recall@K, `SEARCH-LAYER`, phân tầng/chèn HNSW, chi phí PQ/ADC/IVF-PQ và trường hợp thiếu ứng viên.
+- Góc nhìn sinh viên, phiên `99088`: phát hiện lỗi $16\times4$ và cách mô tả phần chuẩn bị notebook; đã sửa.
+- Văn phong, phiên `82806`: phát hiện vết chạy chùm, chỉ số tâm thô và các câu meta; đã sửa. Phiên `69221` bị loại vì báo lỗi ký tự không tồn tại trên tệp thật.
+- Kỹ thuật, phiên `16557`: `GO`; xác nhận 47 ID/notes, cấu trúc RevealJS, KaTeX và 9 SVG. Cảnh báo thiếu runtime trong dossier tạm bị bác vì các thư viện cục bộ tồn tại trong kho thật.
+- Tái kiểm toán, phiên `98685`: `GO`; xác nhận cấu hình 48 bit, ranh giới ô notebook, tập `ep` và truy vấn dư.
+- Tái kiểm văn phong đầu tiên, phiên `7699`, đọc nhầm bản sao planning cũ trong dossier nên không dùng làm bằng chứng cuối. Dossier đã đồng bộ lại trước lượt tái kiểm cuối.
+- Tái kiểm văn phong cuối, phiên `42473`: `GO`; xác nhận vết chạy chùm, chỉ số tâm thô, thuật ngữ “véc-tơ”, Q01, I03 và C00 đều đã đồng bộ, không còn lỗi chặn hoặc trung bình.
+
+### Kiểm định phát hành
+
+- Chromium trên deck thật: 47 trang, 47 notes, không lỗi KaTeX hay tài nguyên; điều hướng bàn phím đạt; PDF có 47 trang. Sau khi giảm nhẹ công thức I03, không còn tràn ở 1280×720, 800×600 và 720×900.
+- Viewer ở 1280×720 và 390×844: 26 heading, 19 mục lục, 193 công thức KaTeX, 9 SVG và 6 khối gập; không lỗi, không ảnh hỏng, không tràn ngang. Khối gập mở bằng bàn phím, mở khi in; PDF viewer có 16 trang. Traversal và cặp `doc`/`deck` lệch số bài đều bị từ chối.
+- `index.html` có đúng một liên kết Bài 07 với nhãn “Ghi chú bài giảng”; một lần nhấp mở đúng note và deck.
+- Dự án Codex Slides `20260827193022-b-i-7-ch-m-c-h-ng-x-m-g-n-ng-4lo7` truy xuất thành công nhưng vẫn ở checkpoint `clarify`, trạng thái draft, 0 slide. Vì vậy kiểm định trực quan cuối dựa trên RevealJS/Chromium thật; không tuyên bố Codex Slides đã render 47 trang.

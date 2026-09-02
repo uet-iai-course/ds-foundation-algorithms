@@ -47,7 +47,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q10 | 2 | Chỉ ra chi phí tuyến tính và byte mã còn lại ở quy mô P01. | PQ quét đủ → $\Theta(Nm)$, $N\lceil mb/8\rceil$ byte | PQ paper tr.2,6 |
 | I00 | 3 | Đặt IVF và PQ vào đúng vai trò. | quét N mã → phân vùng + nén | Princeton 08 tr.20–22,54–55 |
 | I01 | 3 | Hình thức hóa miền argmin và chạy ví dụ chọn danh sách gần nhất. | $\mu_0,\mu_1,q$ → mở $L_1$ trước | Princeton 08 tr.21–22; PQ paper tr.6; ví dụ dựng từ cơ chế nguồn |
-| I02 | 3 | Dùng truy vấn dư và bảng ADC riêng cho từng danh sách. | $q_i=q-\mu_i$, $r(y)=y-\mu_i$ → chấm mã trong $L_i$ | PQ paper §IV-A, tr.6 |
+| I02 | 3 | Dùng truy vấn dư và bảng ADC riêng cho từng danh sách. | $\widetilde q_i=q-\mu_i$, $r(y)=y-\mu_i$ → chấm mã trong $L_i$ | PQ paper §IV-A, tr.6 |
 | I03 | 2 | Tách chi phí tâm thô, nprobe bảng ADC và tổng kích thước danh sách; tách riêng phụ phí top-K. | $\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta(m\sum_{i\in P}|L_i|)$ | PQ paper tr.6–8 |
 | I04 | 3 | Gom thuật toán, điều kiện dừng và trường hợp thiếu K ứng viên. | $q$ → $\min(K,\sum|L_i|)$ mã định danh; đủ K khi tổng ứng viên ≥K | PQ paper §IV, tr.6; Princeton 08 tr.54–55 |
 | C00 | 8 | So sánh LSH, HNSW, PQ đầy đủ và IVF-PQ theo lưu/xây, phạm vi quét, núm truy vấn và bốn trục A02. | bốn cơ chế → lựa chọn có điều kiện, không xếp hạng phổ quát | tổng hợp các nguồn |
@@ -76,7 +76,7 @@ Ghi chú dùng `L07-N01`–`L07-N11` trong outline. Mỗi chủ đề cốt lõi
 
 - `N01–N02` khóa bài toán, phép đo và cầu từ Bài 06; không lặp banding.
 - `N03–N06` truyền cùng ví dụ đồ thị từ tham lam sang chùm, `SEARCH-LAYER`, truy vấn và chèn HNSW; bất biến chỉ nói về phần đã thăm.
-- `N07–N09` truyền cùng phép chia vector, mã PQ và bảng ADC sang phần dư IVF-PQ; phân biệt mã, vector tái dựng và mã định danh trả về.
+- `N07–N09` truyền cùng phép chia véc-tơ, mã PQ và bảng ADC sang phần dư IVF-PQ; phân biệt mã, véc-tơ tái dựng và mã định danh trả về.
 - `N10` thu hồi tình huống mở bài bằng bốn trục đo, không xếp hạng phổ quát.
 - `N11` giữ đúng trạng thái notebook và ba nhiệm vụ nguồn; không thêm bài HNSW hoặc kết quả số cố định.
 

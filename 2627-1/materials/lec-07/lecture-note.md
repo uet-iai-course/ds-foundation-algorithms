@@ -115,13 +115,13 @@ $b$ là cực tiểu cục bộ đối với các cạnh đã cho. Điều kiệ
 
 ## 4. Tìm kiếm chùm và `SEARCH-LAYER`
 
-Tìm kiếm chùm giữ nhiều hướng có triển vọng. Với ví dụ trên và $ef=3$, tập làm việc có thể lần lượt chứa $\{e\}$, $\{a,s\}$, rồi $\{t:4,b:5,a:7\}$ sau khi mở $a$ và $s$. Nhờ giữ nhánh $s$, thuật toán còn đường đến $u$ và $z$.
+Tìm kiếm chùm giữ nhiều hướng có triển vọng. Với ví dụ trên và $ef=3$, tập làm việc lần lượt là $\{e:9\}$; $\{a:7,s:8,e:9\}$ sau khi mở $e$; $\{b:5,a:7,s:8\}$ sau khi mở $a$; rồi $\{t:4,b:5,a:7\}$ sau khi mở $s$. Nhờ giữ nhánh $s$, thuật toán còn đường đến $u$ và $z$.
 
-`SEARCH-LAYER(q,ep,ef,ℓ)` dùng ba tập: $C$ là hàng đợi ứng viên chưa mở; $W$ giữ tối đa $ef$ đỉnh tốt nhất đã gặp; $V$ giữ các đỉnh đã thăm.
+`SEARCH-LAYER(q,ep,ef,ℓ)` dùng tập điểm vào $ep$ với $1\le |ep|\le ef$. Ba tập trạng thái gồm $C$, hàng đợi ứng viên chưa mở; $W$, tối đa $ef$ đỉnh tốt nhất đã gặp; và $V$, các đỉnh đã thăm.
 
 ```text
 SEARCH-LAYER(q, ep, ef, tầng ℓ)
-    V ← {ep}; C ← {ep}; W ← {ep}
+    V ← ep; C ← ep; W ← ep
     while C không rỗng
         c ← đỉnh gần q nhất trong C; bỏ c khỏi C
         f ← đỉnh xa q nhất trong W
@@ -207,13 +207,13 @@ Giảm `efSearch`. Truy vấn mở ít đỉnh hơn nhưng có thể bỏ lỡ h
 
 ## 7. Từ lượng tử hóa véc-tơ đến lượng tử hóa tích
 
-Lượng tử hóa véc-tơ (VQ) học bộ mã $C=\{c_1,\dots,c_{k^*}\}\subset\mathbb R^D$. Mỗi $y$ nhận chỉ số tâm gần nhất và được tái dựng bằng tâm đó:
+Lượng tử hóa véc-tơ (VQ) học bộ mã $C=\{c_0,\dots,c_{k^*-1}\}\subset\mathbb R^D$. Mỗi $y$ nhận chỉ số tâm gần nhất và được tái dựng bằng tâm đó:
 
 $$
-i(y)=\arg\min_{1\le i\le k^*}\|y-c_i\|^2,\qquad \widehat y=c_{i(y)}.
+i(y)=\arg\min_{0\le i<k^*}\|y-c_i\|^2,\qquad \widehat y=c_{i(y)}.
 $$
 
-Ví dụ một chiều: với các tâm 0 và 4, điểm $y=3$ nhận mã 2, tái dựng thành 4 và có sai số bình phương 1. Một bộ mã cho toàn không gian cần lưu $k^*D$ số; muốn biểu diễn rất nhiều mã thì số tâm tăng quá nhanh.
+Ví dụ một chiều: với $c_0=0$ và $c_1=4$, điểm $y=3$ nhận mã 1, tái dựng thành 4 và có sai số bình phương 1. Một bộ mã cho toàn không gian cần lưu $k^*D$ số; muốn biểu diễn rất nhiều mã thì số tâm tăng quá nhanh.
 
 PQ chia $D$ chiều thành $m$ đoạn bằng nhau, nên cần $m\mid D$. Mỗi đoạn dùng một bộ mã con gồm $k^*=2^b$ tâm. Mã của $y$ là $(i_1(y),\dots,i_m(y))$; véc-tơ tái dựng là phép ghép các tâm con tương ứng.
 
@@ -265,7 +265,7 @@ Tính khoảng cách đối xứng (SDC) lượng tử hóa cả truy vấn lẫ
 
 PQ quét đầy đủ vẫn xét mọi mã. Inverted File with Product Quantization (IVF-PQ) thêm một lượng tử hóa thô để chỉ mở vài danh sách.
 
-1. Học $k_c$ tâm thô $\mu_1,\dots,\mu_{k_c}$.
+1. Học $k_c$ tâm thô $\mu_0,\dots,\mu_{k_c-1}$.
 2. Gán $y$ vào tâm gần nhất $i(y)$ và lưu mã PQ của phần dư $r(y)=y-\mu_{i(y)}$ trong $L_{i(y)}$.
 3. Với $q$, chọn tập $P$ gồm $nprobe$ tâm thô gần nhất.
 4. Với mỗi $i\in P$, lập bảng ADC riêng cho $\widetilde q_i=q-\mu_i$, rồi chấm các mã trong $L_i$.
@@ -330,7 +330,7 @@ Làm các ô 82–97 với bộ lượng tử hóa tích có $d=64$, $m=4$, $b=8
 
 ### Nhiệm vụ 2: cùng ngân sách 6 byte
 
-Làm các ô 98–99 với $M\in\{4,8,16\}$ và `nbits=48/M`. Ba cấu hình lần lượt là $4\times12$, $8\times6$ và $16\times4$ bit; tất cả đều dùng 48 bit, tức 6 byte mỗi véc-tơ. Báo cáo `dsub`, `ksub`, sai số tái dựng trung bình và thời gian huấn luyện/mã hóa. Không trộn phần này với cấu hình $4\times8$ bit ở nhiệm vụ 1.
+Làm các ô 98–99 với $M\in\{4,8,16\}$ và `nbits=48/M`. Ba cấu hình lần lượt là $4\times12$, $8\times6$ và $16\times3$ bit; tất cả đều dùng 48 bit, tức 6 byte mỗi véc-tơ. Báo cáo `dsub`, `ksub`, sai số tái dựng trung bình và thời gian huấn luyện/mã hóa. Không trộn phần này với cấu hình $4\times8$ bit ở nhiệm vụ 1.
 
 ### Nhiệm vụ 3: điều chỉnh IVF-PQ
 
