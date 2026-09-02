@@ -78,7 +78,7 @@ Không dùng bộ trang chiếu chính thức MMDS trang chiếu 36–37 vì ch�
 - Đầu vào: tập tài liệu $D$ đã có quy tắc tách từ xác định; mỗi tài liệu là một phần tử không bị chia qua hai khối.
 - Đầu ra: với mỗi từ $w$ đã xuất hiện, đúng một cặp $(w,c(w))$.
 - Điều kiện trước: phép tách từ xác định và bộ đếm không tràn.
-- Điều kiện sau: $c(w)=\sum_{d\in D}\operatorname{số\_lần}(w,d)$.
+- Điều kiện sau: $c(w)=\sum_{d\in D}f(w,d)$, trong đó $f(w,d)$ là số lần $w$ xuất hiện trong tài liệu $d$.
 - Map: mỗi lần gặp $w$ phát $(w,1)$.
 - Nhóm theo khóa: hệ thống tạo $(w,[1,\ldots,1])$ chứa mọi đóng góp của $w$.
 - Reduce: cộng danh sách giá trị và phát $(w,c(w))$.
@@ -107,6 +107,8 @@ Mỗi lần xuất hiện của $w$ tạo đúng một giá trị 1. Bảo đả
 | bộ kết hợp | Combiner; phép tổng hợp cục bộ trước khi chuyển dữ liệu |
 | nhóm theo khóa | Group by key; gồm phân vùng, trộn và sắp theo mô hình nguồn |
 | lệch tải | Skew; chênh lệch khối lượng xử lý giữa reducer hoặc tác vụ |
+| $f(w,d)$ | Số lần từ $w$ xuất hiện trong tài liệu $d$ |
+| $h$, $r$, $p(k)=h(k)\bmod r$ | Hàm băm, số Reduce task và chỉ số task nhận khóa $k$ |
 | $I,M,O$ | Tổng kích thước đầu vào, dữ liệu trung gian và đầu ra |
 | Hadoop, HDFS, Spark | Tên riêng phần mềm; không dịch |
 
@@ -143,3 +145,10 @@ Ghi chú tự học dùng cùng tình huống metadata Web, thuật ngữ và k�
 Đồ thị tiên quyết: `motivation → dfs-locality → map-group-reduce → word-count → {combiner, partition-skew} → fault-tolerance → rerun-safety → cost-models → dag-spark`. Bài tập nhận đầu vào từ Word Count, bộ kết hợp, lệch tải và mô hình chi phí.
 
 Hai phần bổ sung biên tập phải được nhận diện rõ: điều kiện đóng/cùng kiểu của bộ kết hợp nằm trong `combiner`; tính quyết định và việc không tạo hiệu ứng ngoài không kiểm soát nằm trong `rerun-safety`. Đây là điều kiện suy ra từ đặc tả, không phải phát biểu nguyên văn của MMDS.
+
+## Đồng bộ bộ trang chiếu với ghi chú bài giảng
+
+- Giữ nguyên 42 trang, bảy mạch ngoài và thời lượng 120 phút giảng + 60 phút bài tập.
+- Deck và ghi chú cùng dùng $c(w)=\sum_{d\in D}f(w,d)$, $p(k)=h(k)\bmod r$ và hai quy ước $C_t=I+M$, $C_{I/O}=I+2M+O$.
+- Quy tắc chuyển chữ thường, tách theo khoảng trắng và bỏ dấu câu chỉ cụ thể hóa ví dụ chạy tay trong ghi chú; deck giữ điều kiện tổng quát “phép tách từ xác định”.
+- Không thêm chủ đề, thuật toán, ví dụ, trang hoặc nguồn. Các sửa đổi chỉ làm rõ ký hiệu, tương phản và lời giảng.

@@ -98,6 +98,7 @@ Hai ý 2.3.1(a–b) được tách thành hai trang dọc lec02-r06a và lec02-r
 - D00 bổ sung điều kiện đầu ra chỉ phụ thuộc đầu vào và không tạo hiệu ứng ngoài không kiểm soát để giải thích khi nào chạy lại tác vụ là an toàn; nguồn MMDS cung cấp cơ chế lập lịch lại.
 - E03 là khuôn đặc tả tổng hợp từ các bước đã dùng trong bài, không phải thuật toán hoặc API mới của nguồn.
 - Dùng hai tài liệu nhỏ ở B01 để chạy tay đúng cơ chế Ví dụ 2.1–2.2; chuỗi tiếng Việt chỉ là dữ liệu minh họa, không phải số liệu thực nghiệm.
+- Ghi chú bài giảng chọn quy tắc chuyển chữ thường, tách theo khoảng trắng và bỏ dấu câu riêng cho ví dụ chạy tay. Deck chỉ yêu cầu một phép tách từ xác định để đặc tả vẫn áp dụng cho các quy tắc chuẩn hóa khác; đây là sai khác mức cụ thể hóa, không đổi thuật toán hay kết luận.
 - Đặt MMDS 2.5.1 cạnh bộ trang chiếu chính thức MMDS 38–40 để chỉ rõ hai quy ước, thay vì chọn một và làm mất truy nguyên.
 - Phần Spark chỉ định vị trong ngăn xếp; không dạy RDD, DataFrame hoặc API.
 - Phần recitation chỉ dùng Bài tập 2.2.1 và 2.3.1; không dùng Bài tập 2.5.1.

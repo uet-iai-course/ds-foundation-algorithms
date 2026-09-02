@@ -267,3 +267,42 @@ Rà lại mạch xác nhận đủ 7 section ngoài, 42 trang, mở đầu P, k�
 - Kiểm định bản in xác nhận mọi `details` mở, mục lục bên và thanh hành động ẩn. Viewer từ chối đường dẫn traversal và từ chối `doc`/`deck` lệch số bài.
 - Sau khi viewer đạt, `2627-1/index.html` được cập nhật bằng đúng một liên kết Ghi chú cho Bài 2. Kiểm tra Chromium ở màn hình rộng và hẹp xác nhận đủ 15 thẻ bài, Bài 2 có đúng hai tài nguyên, không tràn và không lỗi tải.
 - Ghi chú không làm thay đổi ký hiệu, giả thiết, ví dụ hoặc kết luận dùng chung theo cách buộc sửa deck. Năm SVG hiện có được tái sử dụng nguyên trạng.
+
+## Vòng đồng bộ deck với ghi chú bài giảng 2026-09-02
+
+### Điều phối và worker OpenRouter
+
+- Reader kế hoạch `94510` và reader nguồn `35044` dùng `z-ai/glm-5.3-flash` qua OpenRouter. Cả hai giữ 42 trang, bảy mạch và toàn bộ phạm vi nội dung.
+- Writer DeepSeek sửa bản sao tạm hẹp của HTML ở phiên `16147`; lượt xác nhận runtime báo `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, provider OpenRouter. Codex chính đọc diff và nhập lại các thay đổi được duyệt.
+- Năm reviewer hợp lệ: nguồn–ghi chú `32990`, toán–giải thuật `12336`, sư phạm `2159`, no-ai + mạch Quill `10749`, kỹ thuật tĩnh `64442`. Tất cả dùng `z-ai/glm-5.3-flash` qua OpenRouter, chỉ đọc.
+- Các phiên `59338`, `10299`, `27424`, `10348`, `75887` chạm giới hạn công cụ; phiên `22827` hết thời gian. Không dùng các phiên này làm bằng chứng. Các vai tương ứng được chạy lại với cùng model, phạm vi hẹp hơn và hoàn tất.
+- Không gửi `.env`, bí mật hoặc thông tin xác thực tới worker.
+
+### Quyết định sau năm báo cáo
+
+- Thống nhất $f(w,d)$ trong outline, deck và ghi chú; bổ sung $h$, $r$ và $p(k)$ vào bảng ký hiệu.
+- Ghi sai khác có chủ ý về chuẩn hóa từ: ghi chú chọn một quy tắc cụ thể cho ví dụ, deck giữ đặc tả tổng quát.
+- Bỏ tên tệp nội bộ và các nhãn “Câu nối”, “trang này hình thức hóa”, “mẫu sản phẩm học tập” khỏi lời giảng; giữ nguồn, đáp án và hướng dẫn chấm.
+- Sửa nền tầng “Quản lý tài nguyên và lập lịch” trong `ngan-xep-du-lieu.svg` từ `#90a4ae` thành `#607d8b` để chữ trắng đạt tương phản tốt hơn.
+- Bác đề xuất bỏ nguồn nội bộ hoặc nhãn chủ đề khỏi planning vì planning cần truy nguyên và AGENTS bắt buộc bản đồ chủ đề. Giữ `lec02-r06a/b` vì việc tách hai bài toán đã được ghi rõ. Giữ $v_1,\ldots,v_m$ trên deck và $v_1,\ldots,v_n$ trong ghi chú vì đây là biến đếm cục bộ, không tạo khác biệt ngữ nghĩa.
+- Chuẩn hóa nhãn tài nguyên ghi chú của Bài 01 và Bài 02 trong index thành “Ghi chú bài giảng”; URL không đổi.
+
+### Biên tập bản cuối
+
+- Dùng `$no-ai-slop` trên nội dung hiển thị và ghi chú diễn giả; kiểm theo `no-ai-slop/eval.md` không còn nhãn quy trình, siêu bình luận, lời dẫn rỗng hoặc kết luận lặp.
+- Rà theo Quill Revise Workflow: động cơ → DFS → luồng khóa–giá trị → Word Count → bộ kết hợp → phân vùng → chịu lỗi → chi phí → ngăn xếp → bài tập giữ nguyên dữ kiện và đầu ra. Không tạo `quill.json`.
+
+### Kiểm định kỹ thuật và trực quan
+
+- 42 `data-slide-id` duy nhất, 42 ghi chú diễn giả, 49 thẻ `<section>` mở/đóng cân bằng và bảy section ngoài.
+- Năm SVG phân tích XML thành công, có `role="img"`, `title`, `desc`; không có ảnh raster hoặc tài nguyên lõi từ mạng.
+- Chromium duyệt đủ 42 trang ở 1280×720, 800×600 và 720×900: không tràn, không lỗi JavaScript, KaTeX, trang hoặc tài nguyên. Ảnh E01 sau sửa tương phản được xem trực tiếp.
+- Điều hướng bàn phím đi đúng từ P00 xuống P01 và sang A00. Bản in deck A4 có 42 trang; 42 notes tồn tại; không có `.katex-error`.
+- Viewer ở 1280×720 và 390×844 có 23 mục lục, 106 công thức KaTeX, năm SVG, bốn khối gập mặc định; bàn phím, traversal/mismatch rejection và bản in 15 trang đều đạt.
+- Index có 15 thẻ, đúng một liên kết ghi chú Bài 02, hai tài nguyên trên thẻ và không tràn ở khung rộng/hẹp.
+- Dự án Codex Slides `20260827135942-b-i-2-mapreduce-v-ng-n-x-p-x-l-d-li-u-l--4cwy` đọc lại thành công; trạng thái `draft`, bước `clarify`, 0 trang nội bộ. Browser Codex Slides không khả dụng trong phiên, nên kiểm định trực quan dùng RevealJS cục bộ và Chromium.
+
+### Tái kiểm
+
+- Toán–giải thuật: phiên `9238`, GLM/OpenRouter, PASS; xác nhận Word Count, bất biến, combiner, phân vùng, chạy lại, hai mô hình chi phí và toàn bộ đáp án recitation.
+- Mạch/no-ai: phiên `3922`, GLM/OpenRouter, PASS; xác nhận bảy mạch, ký hiệu và lời giảng tự nhiên, không còn nhãn quy trình.

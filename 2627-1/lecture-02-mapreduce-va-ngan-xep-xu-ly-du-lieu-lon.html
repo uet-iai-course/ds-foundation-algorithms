@@ -29,7 +29,7 @@
       <h3>Bài 2 · Giải thuật nền tảng của Khoa học dữ liệu</h3>
       <p>Năm học 2026–2027 · Học kỳ 1</p>
       <p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
-      <aside class="notes">Nối từ Bài 1: một lượt quét vẫn chưa đủ khi dữ liệu và bảng trạng thái không vừa một máy. Buổi này xét cách chia dữ liệu, di chuyển các cặp khóa–giá trị và khôi phục tác vụ. Nguồn chính: sources/source.md, Bài 2; MMDS 3e, Chương 2; bộ trang chiếu chính thức MMDS Chương 2, http://www.mmds.org.</aside>
+      <aside class="notes">Ở Bài 1, một lượt quét giải được bài toán khi bảng trạng thái vừa một máy. Trường hợp cả dữ liệu lẫn trạng thái đều vượt giới hạn đó đòi hỏi chia dữ liệu, di chuyển cặp khóa–giá trị và khôi phục tác vụ. Nguồn chính: MMDS 3e, Chương 2; bộ trang chiếu chính thức MMDS Chương 2, http://www.mmds.org.</aside>
     </section>
     <section data-slide-id="P01">
       <h2>Mục tiêu học tập</h2>
@@ -40,7 +40,7 @@
         <li>Giải thích lệch tải, khôi phục tác vụ và hai quy ước đo chi phí.</li>
         <li>Chọn MapReduce cho tác vụ phân tích theo lô phù hợp.</li>
       </ul>
-      <aside class="notes">Sản phẩm cuối buổi là một đặc tả MapReduce có đầu vào, đầu ra, điều kiện trước, điều kiện sau, quy tắc phát cặp và lập luận tính đúng. Kiến thức đầu vào: Bài 1, ánh xạ khóa–giá trị, phép nhóm và bảng băm. Nguồn: sources/source.md, dòng Bài 2.</aside>
+      <aside class="notes">Sản phẩm cuối buổi là một đặc tả MapReduce có đầu vào, đầu ra, điều kiện trước, điều kiện sau, quy tắc phát cặp và lập luận tính đúng. Kiến thức đầu vào: Bài 1, ánh xạ khóa–giá trị, phép nhóm và bảng băm.</aside>
     </section>
   </section>
 
@@ -67,7 +67,7 @@
   </section>
 
   <section>
-    <section data-slide-id="B00"><h1>Luồng khóa–giá trị</h1><p class="big">Map phát đóng góp cục bộ; hệ thống gom mọi đóng góp cùng khóa; reduce tạo kết quả theo khóa.</p><aside class="notes">Câu nối từ đầu ra theo từ sang ba giai đoạn MapReduce. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 14–16; MMDS mục 2.2.</aside></section>
+    <section data-slide-id="B00"><h1>Luồng khóa–giá trị</h1><p class="big">Map phát đóng góp cục bộ; hệ thống gom mọi đóng góp cùng khóa; reduce tạo kết quả theo khóa.</p><aside class="notes">Đầu ra theo từ được tách thành ba giai đoạn MapReduce. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 14–16; MMDS mục 2.2.</aside></section>
     <section data-slide-id="B01">
       <h2>Ví dụ đếm từ chạy qua ba giai đoạn</h2>
       <img class="figure" src="img/lec-02/luong-mapreduce.svg" role="img" alt="Hai tài liệu được map thành các cặp từ và một, nhóm theo từ, rồi reduce thành số lần xuất hiện."/>
@@ -85,7 +85,7 @@
   cho mỗi từ w trong d:
     phát (w, 1)</code></pre>
       <ul class="tight"><li>Miền khóa: chuỗi từ.</li><li>Miền giá trị: số nguyên dương.</li><li>Khóa không cần duy nhất trong đầu ra map.</li></ul>
-      <aside class="notes">Một Map task xử lý nhiều phần tử; hàm map được gọi trên từng phần tử. Một từ xuất hiện m lần trong phần của tác vụ tạo m cặp (w,1) trước bộ kết hợp. Biên: phần tử không chứa từ nào thì map phát 0 cặp. Điều kiện trước và sau đã nêu ở trang đặc tả; trang này hình thức hóa phía map. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 17 và 19; MMDS mục 2.2.1.</aside>
+      <aside class="notes">Một Map task xử lý nhiều phần tử; hàm map được gọi trên từng phần tử. Một từ xuất hiện m lần trong phần của tác vụ tạo m cặp (w,1) trước bộ kết hợp. Biên: phần tử không chứa từ nào thì map phát 0 cặp. Điều kiện trước và sau đã nêu ở phần đặc tả; giả mã này xác định phía map. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 17 và 19; MMDS mục 2.2.1.</aside>
     </section>
     <section data-slide-id="B03">
       <h2>Nhóm theo khóa là bảo đảm của hệ thống</h2>
@@ -113,7 +113,7 @@
       <h2>Kiểm tra luồng dữ liệu</h2>
       <div class="check"><strong>Câu hỏi:</strong> với hai tài liệu “a b a” và “b c”, hãy ghi đầu ra map, đầu vào reduce và kết quả.</div>
       <p class="muted">Giữ nguyên thứ tự xuất hiện trong đầu ra map; thứ tự các giá trị sau khi nhóm không ảnh hưởng phép cộng.</p>
-      <aside class="notes">Đáp án: map phát (a,1),(b,1),(a,1),(b,1),(c,1); nhóm cho a:[1,1], b:[1,1], c:[1]; kết quả (a,2),(b,2),(c,1). Câu hỏi dùng để kiểm tra ba vai trò trước khi sang tối ưu truyền dữ liệu.</aside>
+      <aside class="notes">Đáp án: map phát (a,1),(b,1),(a,1),(b,1),(c,1); nhóm cho a:[1,1], b:[1,1], c:[1]; kết quả (a,2),(b,2),(c,1). Ba kết quả lần lượt cho thấy đóng góp cục bộ, phép nhóm của hệ thống và tổng theo khóa.</aside>
     </section>
   </section>
 
@@ -132,7 +132,7 @@
     </section>
     <section data-slide-id="C03">
       <h2>Phân vùng quyết định nơi xử lý khóa</h2>
-      <p class="muted">Hình thức hóa bảo đảm nhóm theo khóa bằng một hàm phân vùng xác định.</p>
+      <p class="muted">Hàm phân vùng cụ thể hóa bảo đảm nhóm theo khóa.</p>
       <p class="formula">$p(k)=h(k)\bmod r$</p>
       <p class="muted">$k$: khóa · $h$: hàm băm · $r$: số Reduce task · $p(k)$: chỉ số task nhận khóa</p>
       <ul class="tight"><li>Mọi cặp có khóa $k$ đi đến một Reduce task.</li><li>Một Reduce task thường xử lý nhiều khóa.</li><li>Số Reduce task quá lớn tạo nhiều tệp trung gian và chi phí điều phối.</li></ul>
@@ -207,7 +207,7 @@
     <section data-slide-id="E03">
       <h2>Đặc tả một chương trình MapReduce</h2>
       <ol class="tight"><li>Nêu phần tử đầu vào, đầu ra và điều kiện trước.</li><li>Chọn khóa để gom đúng các đóng góp cần tổng hợp.</li><li>Viết map, reduce, điều kiện dừng và trường hợp biên.</li><li>Chứng minh mỗi đóng góp được tạo đúng một lần và gom đúng khóa.</li><li>Phân tích $I$, $M$, $O$, tải theo khóa và khả năng dùng bộ kết hợp, nêu rõ quy ước chi phí dùng để báo con số.</li></ol>
-      <aside class="notes">Đây là mẫu sản phẩm học tập cho bài tập, không phải thuật toán mới. Mục 4 nối ví dụ chạy tay với lập luận tính đúng; mục 5 buộc nêu rõ quy ước chi phí khi báo con số, vì hai quy ước đã học cho hai đại lượng khác nhau. Mẫu này áp dụng trực tiếp cho bài thiết kế trong phần bài tập. Nguồn chính: tổng hợp yêu cầu đặc tả từ MMDS Chương 2.</aside>
+      <aside class="notes">Khuôn đặc tả này không phải thuật toán mới. Chứng minh phải giải thích vì sao mỗi đóng góp được tạo đúng một lần và về đúng khóa. Khi báo chi phí, cần nêu quy ước vì hai công thức đã học đo hai đại lượng khác nhau. Phần bài tập dùng trực tiếp khuôn này. Nguồn chính: tổng hợp yêu cầu đặc tả từ MMDS Chương 2.</aside>
     </section>
     <section data-slide-id="E04">
       <h2>Kết luận: khi nào dùng MapReduce</h2>

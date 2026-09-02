@@ -18,8 +18,10 @@ Tiên quyết: Bài 01 với cặp khóa–giá trị, bảng băm, phép nhóm,
 | Ký hiệu | Ý nghĩa |
 |---|---|
 | $D$ | tập dữ liệu đầu vào (input) |
+| $d$ | một tài liệu trong $D$ |
 | $w$ | một từ (khóa) trong Word Count |
-| $c(w)$ | số lần xuất hiện của từ $w$ |
+| $f(w,d)$ | số lần từ $w$ xuất hiện trong tài liệu $d$ |
+| $c(w)$ | tổng số lần xuất hiện của từ $w$, $c(w)=\sum_{d\in D}f(w,d)$ |
 | $I$ | tổng kích thước input đi vào Map |
 | $M$ | tổng kích thước intermediate đi vào Reduce |
 | $O$ | tổng kích thước output |
@@ -91,7 +93,7 @@ Ta dùng quy ước riêng của ví dụ (không gán cho nguồn): chuyển ch
 ### Đặc tả
 
 - **Đầu vào**: một tập tài liệu đã chuẩn hóa theo quy ước trên.
-- **Đầu ra**: với mỗi từ $w$, cặp $(w,c(w))$ trong đó $c(w)$ là số lần $w$ xuất hiện.
+- **Đầu ra**: với mỗi từ $w$, cặp $(w,c(w))$ trong đó $c(w)=\sum_{d\in D}f(w,d)$.
 - **Điều kiện trước**: mỗi tài liệu là một chuỗi từ tách bởi khoảng trắng, không còn dấu câu.
 - **Điều kiện sau**: mọi từ xuất hiện đều có đúng một cặp đầu ra; không có cặp nào cho từ không xuất hiện.
 - **Biên**: tài liệu rỗng không phát cặp nào; từ xuất hiện nhiều lần trong một tài liệu vẫn đếm từng lần.
