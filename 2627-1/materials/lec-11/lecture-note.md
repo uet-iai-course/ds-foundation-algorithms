@@ -353,9 +353,7 @@ Hình: ![Đường ống JPEG](img/lec-11/jpeg-pipeline.svg)
 - **Lấy mẫu thưa sai màu** (tùy chọn, trước DCT): có thể bỏ mẫu kênh màu.
 - **Lượng tử hóa:** phép làm tròn $\hat C=\operatorname{round}(C/Q)$ không khả nghịch nói chung — đây là bước mất dữ liệu chính.
 
-Các bước còn lại **không mất thêm dữ liệu**: DCT là biến đổi (khả nghịch nếu giữ chính xác hệ số); sai phân DC, zigzag, RLE và mã entropy khôi phục đúng đầu vào của từng bước.
-
-DCT tự nó không làm mất dữ liệu. Trong mô hình này, lượng tử hóa là bước không khả nghịch nói chung; lấy mẫu thưa sai màu là tùy chọn; zigzag, RLE và mã entropy không làm mất thêm dữ liệu.
+Các bước còn lại **không mất thêm dữ liệu**: DCT là biến đổi khả nghịch nếu giữ chính xác hệ số; sai phân DC, zigzag, RLE và mã entropy khôi phục đúng đầu vào của từng bước.
 
 ### 5.3 Khối $8\times8$ và dịch mức
 

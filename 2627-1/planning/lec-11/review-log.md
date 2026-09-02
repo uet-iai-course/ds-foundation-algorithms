@@ -176,3 +176,20 @@ Hai nhận xét bị bác bỏ sau kiểm chứng độc lập:
 
 - Phiên toán–thuật toán `39844` hết thời gian chờ API và không cho kết luận. Lần thử lại thu hẹp ở phiên `83111` dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter: `PASS` 9/9 cho LZ77, LZ78, LZW, DCT/IDCT, lượng tử, zigzag, RMS, chi phí và năm lời giải.
 - Reviewer mạch sư phạm phiên `91975` dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter: `PASS`; xác nhận thứ tự N01–N11, các cầu nối, ký hiệu, EOS, mã 256, độ trễ LZW, ranh giới mất dữ liệu JPEG và văn phong công khai.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch dùng các phiên `35623`, `28920`; reader nguồn dùng phiên `73243`. Các phiên hợp lệ đều chạy `z-ai/glm-5.3-flash` qua OpenRouter và giữ nguyên 48 trang, 7 mạch, 42+6 trang, 120+60 phút, 12 SVG cùng toàn bộ nội dung toán–thuật toán.
+- Writer được gọi đúng `deepseek/deepseek-v4-flash-0731` trên dossier hẹp ở exec session `5667`. Worker đọc đủ mục cần sửa nhưng bị dừng sau hơn bốn phút chờ API, trước khi ghi tệp; không có JSON kết thúc để xác nhận model quan sát/provider. Theo quyền người dùng đã cấp, Codex áp dụng trực tiếp đúng delta hai reader phê duyệt.
+- Index Bài 11 dùng nhãn `Bài giảng`, `Ghi chú bài giảng` và `aria-label="Tài nguyên Bài 11"`. Ghi chú §5.2 gộp hai đoạn lặp về DCT, lượng tử hóa và zigzag. Speaker notes P02, L00, L02, L04, W07 được viết trực tiếp hơn, không đổi mệnh đề hoặc nguồn.
+- `$no-ai-slop/eval.md`: đạt ở phạm vi sửa. Quill: trật tự và ký hiệu LZ77→LZ78→LZW→JPEG giữ nguyên; không tạo `quill.json`.
+
+### Năm phản biện và kiểm định cuối vòng đồng bộ
+
+- Nguồn/truy nguyên `19464`, toán–thuật toán `72022`, sư phạm/sinh viên `93254`, văn phong `37783` và kỹ thuật `17226` đều trả `GO`. Tất cả dùng `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter, dossier dưới 40k token.
+- Các phiên `52622`, `50924` chạm giới hạn công cụ; `43412`, `38313` hết thời gian API; `84288` bị dừng sau 247 giây không có kết luận. Các phiên này bị loại khỏi cổng. Không có lỗi chặn hoặc nghiêm trọng còn lại.
+- Không đổi thứ tự L04 trước L03 vì chu trình trang chiếu chủ ý đưa ví dụ chạy tay trước hình thức hóa. Không sửa quy ước X02 vì mặt trang đã ghi rõ bài CMU dùng vị trí tuyệt đối, đánh số từ 0.
+- Chromium duyệt đủ 48 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, lỗi JavaScript, lỗi KaTeX hoặc tài nguyên tải thất bại; điều hướng bàn phím và 48 speaker notes đạt. PDF deck có 48 trang.
+- Viewer tải đúng tiêu đề, 51 heading, 41 liên kết mục lục, 198 biểu thức KaTeX không lỗi, 13 lượt hình và 20 khối gập đóng mặc định. Bản rộng/hẹp, bàn phím, bản in 24 trang, mở khối gập, từ chối vượt thư mục và từ chối cặp doc–deck khác bài đều đạt.
+- Index có đúng một liên kết ghi chú Bài 11 và mở đúng deck/note, không lỗi console. Đã xem trực tiếp L04, W07 và bản viewer hẹp; bảng, công thức, SVG và văn bản đều rõ, không chồng hoặc cắt.
+- Codex Slides project `20260827233040-b-i-11-n-n-b-ng-t-i-n-v-n-n-m-t-d-li-u-j6kj` vẫn là draft 0 slide. Không tuyên bố đã kiểm canvas; bằng chứng hiển thị cuối là RevealJS và viewer cục bộ bằng Chromium.
