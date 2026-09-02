@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" role="img">
 <title>Luồng tạo và kiểm tra ứng viên</title>
-<desc>Chữ ký đi qua tạo khóa dải, gom ngăn, sinh và loại trùng cặp, rồi đối chiếu hậu kỳ.</desc>
+<desc>Chữ ký đi qua tạo khóa dải, gom ngăn, sinh cặp rồi hợp vào tập C để loại trùng, sau đó đối chiếu.</desc>
 <style>text{font-family:Arial,sans-serif;fill:#26345f}.t{font-size:23px;font-weight:bold}.b{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}.a{stroke:#b15a2b;stroke-width:4;marker-end:url(#m)}</style>
 <defs>
 <marker id="m" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
@@ -20,8 +20,8 @@
 <text class="t" x="540" y="142" text-anchor="middle">Ngăn B</text>
 <path class="a" d="M620 135H665"/>
 <rect class="b" x="675" y="80" width="140" height="110" rx="12"/>
-<text class="t" x="745" y="122" text-anchor="middle">Hợp và</text>
-<text class="t" x="745" y="152" text-anchor="middle">loại trùng C</text>
+<text class="t" x="745" y="122" text-anchor="middle">Sinh cặp,</text>
+<text class="t" x="745" y="152" text-anchor="middle">hợp vào C</text>
 <path class="a" d="M820 135H865"/>
 <rect class="b" x="875" y="80" width="105" height="110" rx="12"/>
 <text class="t" x="927" y="122" text-anchor="middle">Đối chiếu</text>

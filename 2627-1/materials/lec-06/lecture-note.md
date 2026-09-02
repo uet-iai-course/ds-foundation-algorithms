@@ -34,6 +34,7 @@ Kiến thức tiên quyết: tập shingle, độ tương đồng Jaccard $s$, c
 | $d_1,d_2$ | ngưỡng gần và xa, $d_1<d_2$ |
 | $m$ | số chiều của vector Hamming hoặc cosin |
 | $u$ | độ dịch ngẫu nhiên của các ngăn Euclid, $u\sim U[0,a)$ |
+| TP, FN, FP | phát hiện đúng, bỏ sót và va chạm sai trong mô hình vân tay |
 
 ## 1. Chữ ký ngắn, số cặp vẫn lớn
 
@@ -48,23 +49,23 @@ Giả sử có $N=10^6$ tài liệu, mỗi tài liệu có chữ ký $p=250$ s�
 
 $$\binom N2=\frac{N(N-1)}2=\frac{10^6(10^6-1)}2\approx4.999995\cdot10^{11}.$$
 
-Nếu một phép tính độ tương đồng của một cặp chữ ký mất 1 microgiây, cả kết quả mất gần sáu ngày. Nút thắt là số cặp, không phải dung lượng lưu trữ. Nguồn: MMDS Ví dụ 3.10, §3.4.
+Nếu một phép tính độ tương đồng của một cặp chữ ký mất 1 microgiây, việc đối chiếu toàn bộ kho mất gần sáu ngày. Nút thắt là số cặp, không phải dung lượng lưu trữ. Nguồn: MMDS Ví dụ 3.10, §3.4.
 
-Hình dưới minh họa chuỗi từ lưu chữ ký đến số cặp.
+Hình dưới minh họa chuỗi từ lưu trữ chữ ký đến số cặp.
 :::
 
 ![Một triệu chữ ký tạo gần năm trăm tỷ cặp, trong khi lưu chữ ký chỉ cần khoảng một gigabyte.](img/lec-06/quy-mo.svg)
 
 ### Phân biệt giảm chiều với giảm số cặp
 
-Shingling và MinHash làm mỗi tài liệu ngắn hơn; chúng giảm chiều của biểu diễn nhưng không đụng tới $\binom N2$ cặp. Tìm cặp tương đồng yêu cầu giảm số cặp phải xử lý, đó là công việc của LSH. Không có cách nào tránh đối chiếu mọi cặp nếu mục tiêu là tính độ tương đồng của toàn bộ cặp; nhưng nếu chỉ cần các cặp có độ tương đồng từ $\tau$ trở lên thì có thể bỏ qua sớm những cặp khó có khả năng đạt ngưỡng.
+Shingling và MinHash làm mỗi tài liệu ngắn hơn; chúng giảm chiều của biểu diễn nhưng không đụng tới $\binom N2$ cặp. Tìm cặp tương đồng yêu cầu giảm số cặp phải xử lý, đó là công việc của LSH. Nếu mục tiêu là tính độ tương đồng của mọi cặp thì vẫn phải đối chiếu toàn bộ. Khi chỉ cần các cặp có độ tương đồng từ $\tau$ trở lên, ta có thể loại sớm những cặp khó đạt ngưỡng.
 
 ::: exercise Tự kiểm
 Nếu $N$ tăng từ $10^6$ lên $2\cdot10^6$, số cặp tăng gần bao nhiêu lần?
 :::
 
 ::: solution
-Từ $N(N-1)/2$ lên $2N(2N-1)/2$; tỷ số ~ $4$ khi $N$ lớn, nên số cặp tăng gần bốn lần.
+Từ $N(N-1)/2$ lên $2N(2N-1)/2$; tỷ số xấp xỉ $4$ khi $N$ lớn, nên số cặp tăng gần bốn lần.
 :::
 
 ## 2. Phân dải và khóa đầy đủ
@@ -81,7 +82,7 @@ $$\{i,j\}\in C\iff \exists \ell\in\{1,\ldots,b\}:\ \Sigma_{(\ell-1)r+1:\ell r,i}
 
 Tập $C$ là tập cặp không thứ tự, đã loại trùng. Điều kiện này không khẳng định độ tương đồng cuối cùng đạt $\tau$; đó là nhiệm vụ của đối chiếu hậu kỳ.
 
-### Ví dụ 3.11: chạy tay phép phân dải
+### Ví dụ chạy tay thu gọn theo MMDS Ví dụ 3.11
 
 ::: example Ba chữ ký, mỗi chữ ký sáu hàng
 Chia thành ba dải, mỗi dải hai hàng:
@@ -103,22 +104,14 @@ Khóa của một dải phải gồm chỉ số dải và toàn bộ vector $r$ 
 
 ### Lập luận bao phủ
 
-Nếu hai cột trùng toàn bộ dải $\ell$, chúng phát ra cùng khóa $(\ell,\text{vector})$, vào cùng ngăn. Khi liệt kê mọi cặp trong ngăn, cặp đó được thêm vào $C$. Vì vậy mọi cặp thỏa điều kiện phân dải đều xuất hiện trong $C$. Lập luận này không nói gì về cặp không thỏa điều kiện; phần xác suất sẽ định lượng xác suất bỏ sót.
+Nếu hai cột trùng toàn bộ dải $\ell$, chúng phát ra cùng khóa $(\ell,\text{vector})$, vào cùng ngăn. Khi liệt kê mọi cặp trong ngăn, cặp đó được thêm vào $C$. Vì vậy mọi cặp thỏa điều kiện phân dải đều xuất hiện trong $C$. Lập luận này không nói gì về cặp không thỏa điều kiện; $q(s)$ định lượng xác suất trở thành ứng viên và do đó xác suất bỏ sót.
 
 ### Trường hợp biên
 
 - $r=1$: chỉ cần trùng một hàng, nhiều ứng viên, dương tính giả cao.
 - $b=1$: phải trùng toàn bộ chữ ký, ít ứng viên, âm tính giả cao.
 
-Với $p=br$ cố định, tăng $r$ và giảm $b$ làm $q(s)$ giảm trên $0<s<1$; điều này giảm dương tính giả nhưng tăng xác suất bỏ sót ở mọi mức chưa bằng 1. Phần sau định lượng bằng $q(s)$.
-
-::: exercise Tự kiểm
-Vì sao mỗi kết quả "không" phải vào một ngăn đơn riêng, thay vì gom mọi kết quả "không" vào chung một ngăn?
-:::
-
-::: solution
-Ngăn đơn "không" đặt mỗi thực thể vào ngăn riêng nên ngăn nào cũng chứa một phần tử, không sinh cặp nào. Gom chúng chung một ngăn làm mọi cặp trong ngăn thành ứng viên, tức toàn bộ cặp không liên quan.
-:::
+Với $p=br$ cố định, tăng $r$ và giảm $b$ làm $q(s)$ giảm trên $0<s<1$; điều này giảm dương tính giả nhưng tăng xác suất bỏ sót ở mọi mức chưa bằng 1.
 
 ## 3. Xác suất trở thành ứng viên và ngưỡng
 
@@ -178,7 +171,7 @@ Giữ $p$ cố định. Muốn giảm dương tính giả dưới $\tau$ nên t�
 Tăng $r$ và giảm $b$. Với $p$ cố định và $0<s<1$, $s^r$ giảm khi $r$ tăng nên mỗi dải khó trùng hơn, dẫn tới $q(s)=1-(1-s^r)^b$ giảm với mọi $s$. Dương tính giả giảm, nhưng xác suất bỏ sót tăng ở mọi mức chưa bằng 1.
 :::
 
-## 4. Thuật toán tạo và hậu kiểm ứng viên
+## 4. Thuật toán tạo và đối chiếu ứng viên
 
 ### Vai trò
 
@@ -247,7 +240,7 @@ Phân biệt ba đại lượng:
 
 Nếu vật hóa mọi vector dải thay vì tham chiếu chữ ký, phần khóa cũng có thể tốn $O(pN)$. Nếu truyền mã băm rút gọn, bộ giảm vẫn phải đối chiếu vector đầy đủ để không gộp hai khóa khác nhau do va chạm mã.
 
-### Hậu kiểm
+### Đối chiếu hậu kỳ
 
 Đối chiếu chữ ký đầy đủ cho tỷ lệ hàng trùng, là ước lượng Jaccard; đối chiếu tập shingle hoặc dữ liệu gốc mới cho Jaccard chính xác. Quyết định cuối dùng ngưỡng $\tau$.
 
@@ -282,8 +275,8 @@ Họ MinHash là một họ $(0.3,0.6,0.7,0.4)$-nhạy. Vùng giữa $0.3<d<0.6$
 
 Cho khoảng cách $d$ và $d_1<d_2$. Một phân phối $F$ trên các hàm băm là $(d_1,d_2,\alpha_1,\alpha_2)$-nhạy nếu hàm $h$ được lấy theo $h\sim F$ thỏa:
 
-- $d(x,y)\le d_1$ kéo theo $\Pr[f(x)=f(y)]\ge\alpha_1$;
-- $d(x,y)\ge d_2$ kéo theo $\Pr[f(x)=f(y)]\le\alpha_2$.
+- $d(x,y)\le d_1$ kéo theo $\Pr[h(x)=h(y)]\ge\alpha_1$;
+- $d(x,y)\ge d_2$ kéo theo $\Pr[h(x)=h(y)]\le\alpha_2$.
 
 Xác suất lấy theo phép chọn $h\sim F$, không phải "với mọi $h$". Yêu cầu $d_1<d_2$ và $0\le\alpha_2<\alpha_1\le1$. Không phát biểu bảo đảm cho $d_1<d<d_2$. Nguồn: MMDS §3.6.1.
 
@@ -566,15 +559,15 @@ $$\rho_1=0.004096,\qquad \rho_0=0.000064.$$
 
 Với một nhóm,
 
-$$u_1=1-(1-\rho_1)^{1024}\approx0.985048,$$
+$$z_1=1-(1-\rho_1)^{1024}\approx0.985048,$$
 
-$$u_0=1-(1-\rho_0)^{1024}\approx0.063437.$$
+$$z_0=1-(1-\rho_0)^{1024}\approx0.063437.$$
 
 AND hai nhóm cho
 
-- TP: $u_1^2\approx0.970320$;
-- FN: $1-u_1^2\approx0.029680$;
-- FP: $u_0^2\approx0.004024$.
+- TP: $z_1^2\approx0.970320$;
+- FN: $1-z_1^2\approx0.029680$;
+- FP: $z_0^2\approx0.004024$.
 
 | Đại lượng | OR 2048 | AND 2 × (OR 1024) |
 |---|---:|---:|

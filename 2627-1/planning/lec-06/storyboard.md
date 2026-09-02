@@ -2,7 +2,7 @@
 
 ## Hành trình khái niệm
 
-- Mở bài (P00–M02): tình huống Ví dụ 3.10 → hành trình lọc–định lượng–tổng quát–đối chiếu → bài toán đầu vào/đầu ra → tiêu chí bộ lọc. Đầu vào là chữ ký MinHash của Bài 5; đầu ra là bài toán lọc cặp truyền cho mạch phân dải.
+- Mở bài (P00–M02): tình huống Ví dụ 3.10 → bốn thành phần lọc–định lượng–tổng quát–đối chiếu → bài toán đầu vào/đầu ra → tiêu chí bộ lọc. Đầu vào là chữ ký MinHash của Bài 5; đầu ra là bài toán lọc cặp truyền cho mạch phân dải.
 - Phân dải: vấn đề B00 → trực giác B01 → ví dụ B02 → hình thức B03 → khóa B04 → lập luận B05 → kiểm tra biên B06. Đầu vào là bài toán lọc; đầu ra là điều kiện ứng viên truyền cho mạch xác suất.
 - Xác suất: vấn đề Q00 → trực giác Q01 → ví dụ Q02 → hình thức Q03 → suy ra đường cong Q04 → ngưỡng và xấp xỉ Q05 → chọn tham số/kiểm tra Q06. Đầu vào là điều kiện phân dải; đầu ra là $q(s)$ và chi phí ứng viên truyền cho mạch thuật toán.
 - Tạo ứng viên: vấn đề A00 → trực giác luồng A01 → ví dụ trạng thái A02 → đặc tả A03 → bất biến giai đoạn sinh cặp A04 → chi phí, bộ nhớ phụ trợ, truyền thông MapReduce và đối chiếu A05. Giai đoạn gom ngăn hoàn tất trước khi áp dụng bất biến ở A04. Đầu vào là $q(s)$; đầu ra là thuật toán và chi phí, rồi A05 báo trước phần MapReduce được giữ cho recitation trước khi chuyển sang ngôn ngữ chung của họ LSH.
@@ -19,7 +19,7 @@ Tình huống Ví dụ 3.10 truyền $N=10^6,p=250$ từ P01 qua hành trình P0
 |---|---:|---|---|---|
 | P00 | 0 | Nhận diện bài và phạm vi. | Bài 5 → vị trí Bài 6 | MMDS Ch.3 |
 | P01 | 3 | Mở bằng nút thắt có số liệu, không trang trí. | $10^6,250$ → gần $5\cdot10^{11}$ cặp | MMDS Ví dụ 3.10, tr.92 |
-| P02 | 2 | Báo trước đủ hành trình lọc–định lượng–tổng quát hóa họ/độ đo–đối chiếu. | nút thắt → bốn chặng quan sát được | tổng hợp MMDS §§3.4, 3.6–3.8 |
+| P02 | 2 | Nêu bốn thành phần của bộ lọc: lọc–định lượng–tổng quát hóa họ/độ đo–đối chiếu. | nút thắt → bốn thành phần quan sát được | tổng hợp MMDS §§3.4, 3.6–3.8 |
 | M00 | 3 | Chuyển tình huống thành bài toán đầu vào/đầu ra. | chữ ký → cặp có độ tương đồng $\ge\tau$ | MMDS §3.4 |
 | M01 | 2 | Nhắc đẳng thức MinHash dưới hoán vị ngẫu nhiên đều; phân biệt với họ băm thực hành cần tính chất minwise. | $s$ → xác suất trùng một hàng | MMDS §§3.3.3, 3.4.2 |
 | M02 | 2 | Đặt tiêu chí cho bộ lọc ứng viên. | quét mọi cặp → lọc xác suất + hậu kiểm | MMDS §3.4.3 |

@@ -170,3 +170,31 @@ Kết quả hợp nhất: không còn vấn đề `chặn bàn giao` hoặc `ngh
 - Hai tái kiểm độc lập xác nhận không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`; các mục trung bình về mô hình chi phí, hậu kiểm, miền xác suất, nguồn ngẫu nhiên Euclid và giả thiết độc lập đã được vá.
 - Playwright duyệt đủ 50 trang ở `1280 × 720` và `800 × 600`: không có lỗi tải hoặc lỗi JavaScript; điều hướng dọc/ngang bằng bàn phím hoạt động. Bộ dò hình học chỉ báo các dương tính giả quen thuộc ở H1/KaTeX. Điều phối viên đã xem năm contact sheet và ảnh nguyên kích thước của các trang thay đổi; sau hai vòng sửa, không còn nội dung bị cắt hoặc chồng lấn.
 - Dự án Codex Slides vẫn ở trạng thái nháp với 0 trang; `generated/outline.md` và `generated/brief.md` đọc được. Lần tải HTML cuối hiện tại vào Design Files tiếp tục trả lỗi HTTP 500. Liên kết workspace được tạo nhưng bề mặt Browser nội bộ không khả dụng trong phiên tác tử, nên không tuyên bố đã rà trực quan bằng Codex Slides. Rà trực quan RevealJS cục bộ là kiểm định hiển thị cuối.
+
+## Vòng đồng bộ deck với ghi chú ngày 2026-09-02
+
+### Điều phối và tác tử OpenRouter
+
+- Reader nguồn: phiên `26339`, `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Reader phát hiện nhãn Ví dụ 3.11 chưa nói rõ bản thu gọn, biến $f/h$ lệch nhau, tiêu đề D02 dễ gây hiểu nhầm, phần Euclid hai chiều chỉ có trong ghi chú, TP/FN/FP chưa được ánh xạ và SVG chưa hiện bước sinh cặp.
+- Reader kế hoạch: phiên `19421`, cùng model và provider. Kế hoạch giữ 50 slide, 7 section ngoài, 40 slide giảng + 10 slide thực hành, 120+60 phút và 10 SVG; không thêm, bỏ, gộp hoặc tách.
+- Writer: phiên `6992`, `requested_model = observed_model = deepseek/deepseek-v4-flash-0731`, provider OpenRouter. Điều phối viên chỉ áp dụng các đề xuất hẹp có căn cứ; các đề xuất giữ câu quy trình bị bác.
+- Năm góc reviewer hợp lệ: nguồn delta (worker hoàn tất inline, runtime không cấp mã PTY), toán `87229`, góc nhìn sinh viên `25200`, văn phong `29664`, kỹ thuật `33529`. Các phiên `85105`, `71082`, `92025`, `27547`, `64727`, `7094` bị loại vì vượt giới hạn công cụ hoặc trả lời chưa hoàn tất; phiên `43128` bị loại vì đánh giá siêu dữ liệu của dossier thay vì nội dung bài.
+- Reviewer kỹ thuật và sinh viên có một số cảnh báo do dossier tạm không chứa runtime/tên tệp thật của toàn kho. Điều phối viên đối chiếu disk và bác các đề xuất đổi liên kết deck, đổi đường dẫn ảnh hoặc bổ sung runtime. Tổng thời lượng storyboard được tính lại trực tiếp là 120, không phải 118 phút.
+- Phát hiện hợp lệ đã sửa: bỏ câu tự kiểm về ngăn “không” đặt trước khi mô hình vân tay được định nghĩa và bị lặp ở mục 10; chuẩn hóa câu chữ, TP/FN/FP, số 0 trước phần thập phân và biến trung gian $z_0,z_1$; thống nhất “đối chiếu hậu kỳ”.
+- Tái kiểm toán `87229` trả **GO**. Tái kiểm văn phong cuối trả **GO**; thay đổi sau đó chỉ chuẩn hóa định dạng số và đổi biến trung gian theo chính góp ý của reviewer, không đổi mệnh đề.
+
+### Quyết định nội dung và biên tập
+
+- Đổi P02 từ nhãn quy trình “Hành trình của bài học” thành “Bốn thành phần của bộ lọc LSH”; bỏ các câu kiểu “phần sau”, “ngay sau trang này”, “không tính trước” và tên tệp nội bộ khỏi nội dung công khai.
+- Ghi chú gọi đúng ví dụ chạy tay là bản thu gọn theo quy tắc MMDS Ví dụ 3.11; định nghĩa họ LSH dùng nhất quán $h\sim F$ và $\Pr[h(x)=h(y)]$.
+- D02 đổi thành “Băm siêu phẳng cho khoảng cách góc”. D04 ghi rõ dựng hình Euclid hai chiều là phần mở rộng trong ghi chú, còn deck tập trung vào phép chiếu–dịch dựa trên phân phối ổn định.
+- R08–R09 ánh xạ nhãn Việt với TP/FN/FP. `luong-ung-vien.svg` hiện rõ “Sinh cặp, hợp vào C”. Index đổi nhãn Bài 06 thành “Ghi chú bài giảng”.
+- `$no-ai-slop` được dùng cho nội dung hiển thị, speaker notes và lecture note; bản cuối tự kiểm theo `eval.md`. Rà Quill giữ nguyên thứ tự khái niệm, ký hiệu và liên kết tiên quyết; không tạo `quill.json`.
+
+### Cổng kiểm định cuối
+
+- Kiểm tĩnh: 50 ID duy nhất, 50 speaker notes, 7 section ngoài, 10 SVG duy nhất, 120 phút giảng + 60 phút thực hành; `git diff --check` đạt. Cả 10 SVG có `role="img"`, `title` và `desc`.
+- Chromium duyệt đủ 50 slide ở `1280 × 720`, `800 × 600` và `720 × 900`. Lượt đầu phát hiện tràn B03, Q04, D03; đã ngắt dòng hai công thức và giảm chiều cao hình Q04. Lượt cuối không còn tràn, lỗi console, lỗi tài nguyên hoặc lỗi KaTeX. Điều hướng dọc/ngang bằng bàn phím đạt; PDF deck có 50 trang.
+- Viewer đạt ở `1280 × 720` và `390 × 844`: 81 heading, 57 liên kết mục lục, 362 biểu thức KaTeX, 9 SVG, 15 khối gập đóng mặc định, không ảnh hỏng hoặc tràn ngang. Bàn phím, liên kết bỏ qua điều hướng, chế độ in mở khối gập và PDF 26 trang đều đạt. Viewer từ chối đường dẫn vượt thư mục và cặp doc/deck khác số bài.
+- Index có đúng một liên kết Bài 06; liên kết mở đúng Markdown và deck, trạng thái viewer ẩn, không lỗi runtime.
+- Codex Slides `get` thành công cho dự án `20260827182308-b-i-6-t-m-c-p-t-ng-ng-b-ng-lsh-bmts`: trạng thái `draft`, workflow `clarify`, 7 material, `pages=[]`, `outline=[]`. Dự án chỉ là hồ sơ bền vững; kiểm định hiển thị cuối được thực hiện trên RevealJS thật.
