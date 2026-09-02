@@ -11,6 +11,8 @@
 | Chữ ký thực hành | M00 (dùng lại) | G00 | G02 | G04 | G01 | G03 | G05–G06 | G06 | 24 phút |
 | Cầu nối | M00 | C00 | C02 | không áp dụng: trang tổng hợp | C01 | không áp dụng | C00 | C02 | 8 phút |
 
+Ở cụm Jaccard, J02 vừa nêu vấn đề đo hai tập vừa dựng trực giác ba vùng; J05 vừa phân tích chi phí so sánh mọi cặp vừa kiểm tra giới hạn của biểu diễn. Hai trang này đảm nhiệm hai vai trong chu trình, không phải mục bị lặp.
+
 Tình huống mở bài dùng $N=10^6$ tài liệu và $N(N-1)/2=499.999.500.000$ cặp. Con số này trở lại ở J05 và C00–C02 khi xác định phần còn thiếu là tạo ứng viên; G05 chỉ dùng tham số $N$ để phân tích kích thước chữ ký. Quy tắc chuẩn hóa S04 tạo chuỗi đầu vào cho Ví dụ 3.3 ở S02; dữ kiện đó truyền sang đặc tả S01 và bất biến S03. Ba vùng ở J02 truyền sang Ví dụ 3.1, công thức J00 và chứng minh H05–H07. G02 giới thiệu $SIG$ là bảng đang cập nhật; ma trận Hình 3.4 xuất hiện ở G04, rồi được hình thức hóa bởi G01 và bất biến G03; cùng dữ kiện trở lại ở R03–R04. Trang M00 không thuộc mọi mạch: nó nằm trong section mở bài và dữ kiện của nó được dùng lại ở các mạch sau. Toàn bộ deck có 7 section ngoài: mở bài (P00–P01, M00–M03), Shingling, Jaccard, MinHash lý tưởng, Chữ ký thực hành, Cầu nối và recitation. G07 là trang cầu thuộc cụm MinHash lý tưởng, kết thúc mạch đó trước khi sang quét thực hành.
 
 ## Bảng trang chiếu phần giảng

@@ -28,7 +28,7 @@ Kiến thức tiên quyết: tập hợp, giao–hợp, hàm băm, biến chỉ 
 | $p$ | số hàng chữ ký |
 | $z$ | số phần tử 1 của $A$ |
 | $\pi$, $h_\pi$ | hoán vị hàng và MinHash lý tưởng |
-| $SIG$ | ma trận chữ ký $p\times N$; mỗi ô thuộc $\{0,\ldots,u-1\}\cup\{\infty\}$ |
+| $SIG$ | ma trận chữ ký $p\times N$; mỗi ô thuộc $\{0,\ldots,u-1\}\cup\{\infty\}$; cột toàn $\infty$ không dùng để ước lượng |
 
 ## 1. Quy mô so sánh cặp và vai trò của biểu diễn
 
@@ -45,6 +45,8 @@ Ngay cả khi xử lý được một triệu cặp mỗi giây, riêng lượt 
 Trước khi giảm số cặp, ta cần một đại diện nhỏ hơn cho mỗi tài liệu mà vẫn giữ thông tin về độ tương đồng từ vựng. Luồng biểu diễn là
 
 $$D_i\to C_i=S_k(D_i)\to\sigma(C_i).$$
+
+![Một triệu tài liệu tạo xấp xỉ năm trăm tỷ cặp, cần shingle và MinHash.](img/lec-05/quy-mo-so-sanh-cap.svg)
 
 Bước $D_i\to C_i$ (shingling) và bước $C_i\to\sigma(C_i)$ (chữ ký MinHash) làm giảm kích thước mỗi tài liệu; chúng không làm giảm số lượng cặp $\binom N2$. Việc giảm số cặp thuộc về một bước khác (LSH) nằm ngoài phạm vi bài này.
 
@@ -168,9 +170,7 @@ $J(\varnothing,\{a\})=0$ vì giao rỗng và hợp có một phần tử. $J(\va
 Vì so một cặp trên hai tập shingle vẫn tốn thời gian tuyến tính, ta thay mỗi tập bằng một chữ ký ngắn. Chữ ký MinHash lý tưởng dựa trên một hoán vị đều của vũ trụ. Nguồn: MMDS §§3.3.1–3.3.3.
 
 ### 4.1 Ma trận đặc trưng là mô hình
-Một vũ trụ hữu hạn $U$, $u=|U|$, được biểu diễn thành ma trận $A$: mỗi hàng ứng với một phần tử của $U$, mỗi cột ứng với một tập $C_j$. Ô $(r,j)=1$ khi hàng $r\in C_j$, nếu không là 0. Ma trận thường rất thưa nên triển khai lưu vị trí của các số 1 thay vì lưu ma trận đặc. Hình quy-mo-so-sanh-cap thể hiện chuỗi biểu diễn từ tài liệu đến chữ ký.
-
-![Một triệu tài liệu tạo xấp xỉ năm trăm tỷ cặp, cần shingle và MinHash.](img/lec-05/quy-mo-so-sanh-cap.svg)
+Một vũ trụ hữu hạn $U$, $u=|U|$, được biểu diễn thành ma trận $A$: mỗi hàng ứng với một phần tử của $U$, mỗi cột ứng với một tập $C_j$. Ô $(r,j)=1$ khi hàng $r\in C_j$, nếu không là 0. Ma trận thường rất thưa nên triển khai lưu vị trí của các số 1 thay vì lưu ma trận đặc.
 
 ### 4.2 Đặc tả $h_\pi$
 Cho hoán vị $\pi$ của $U$ và tập không rỗng $C\subseteq U$. MinHash của $C$ là phần tử của $C$ xuất hiện sớm nhất trong thứ tự $\pi$:
@@ -344,7 +344,7 @@ Có thể. Hai phần tử khác nhau có thể nhận cùng mã. Điều đó k
 
 ## 8. Bài tập nguồn và tổng hợp
 
-Bốn bài sau giữ nguyên dữ kiện, yêu cầu và được lấy trực tiếp từ MMDS 3e: 3.1.1 (§3.1, trang 78), 3.2.3 (§3.2, trang 81), 3.3.2 và 3.3.3 (§3.3, trang 90–91).
+Bốn bài giữ nguyên dữ kiện và yêu cầu từ MMDS 3e: 3.1.1 (§3.1, trang 78), 3.2.3 (§3.2, trang 81), 3.3.2 và 3.3.3 (§3.3, trang 90–91).
 
 ::: exercise Bài 3.1.1
 $A=\{1,2,3,4\}$, $B=\{2,3,5,7\}$, $C=\{2,4,6\}$. Tính độ tương đồng Jaccard của mỗi cặp.

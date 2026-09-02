@@ -157,3 +157,39 @@ Tái kiểm toán sau chỉnh sửa không còn lỗi `chặn bàn giao`, `nghi�
 - Skip-link đưa focus tới nội dung; `summary` mở bằng Enter. Viewer từ chối traversal `../AGENTS.md` và từ chối cặp `doc`/`deck` lệch số bài.
 - Bản in A4 có 19 trang; mọi `details` mở, mục lục và nhóm thao tác ẩn. Văn bản PDF chứa đủ gợi ý, lời giải và bảng tự kiểm. Đã xem bản rộng, bản hẹp cùng các trang in 1–2, 11–12 và 17–19; không có nội dung bị cắt hoặc chồng.
 - Chỉ sau các cổng trên, index được thêm đúng một URL `material-viewer.html?doc=materials/lec-05/lecture-note.md&deck=lecture-05-bieu-dien-tuong-dong-shingling-va-minhash.html`. Click từ index tải đúng tiêu đề, nguồn Markdown và deck, không có lỗi runtime.
+
+## Đồng bộ deck với ghi chú ngày 2026-09-02
+
+### Reader, writer và quyết định sửa
+
+- Reader kế hoạch dùng `z-ai/glm-5.3-flash` qua OpenRouter, phiên `71407`; reader nguồn dùng cùng model, phiên `46589`. Metadata runtime của cả hai xác nhận `requested_model = observed_model`, provider OpenRouter. Hai reader giữ 49 trang, 7 section ngoài, 120 phút giảng, 60 phút recitation, bốn bài tập và năm SVG; không đề nghị thêm, bỏ, gộp hoặc tách.
+- Reader nguồn yêu cầu sửa phạm vi ở notes M01 từ MMDS §§3.1–3.4 về §§3.1–3.3 và bỏ tên tệp hình khỏi ghi chú. Điều phối viên chấp nhận cả hai.
+- Writer chạy trên hồ sơ tạm chỉ chứa tám đoạn hẹp, phiên `69817`, với `requested_model = observed_model = deepseek/deepseek-v4-flash-0731`, provider OpenRouter. Codex chính không nhập máy móc hai câu writer vẫn còn “phần sau” và “giới thiệu ... trước”, mà viết lại trực tiếp theo `$no-ai-slop`.
+- Deck được sửa ở M01, M03, S06, H03, J05, G07, G02, G04, C00, C02 và R00. Tiêu đề C00 đổi từ nhãn quy trình sang “MinHash chưa giảm số cặp”. Các câu “cầu nối”, “trang tiếp theo”, “phần sau”, “Câu nối:” và siêu bình luận về phạm vi hoặc cấu trúc deck đã bị loại khỏi nội dung cùng speaker notes.
+- Ghi chú bài giảng bỏ tên tệp nội bộ, chuyển hình quy mô về phần mở bài, bổ sung quy ước cột chữ ký toàn $\infty$ và giữ nguyên dữ kiện bốn bài MMDS. Index chỉ đổi nhãn Bài 05 thành “Ghi chú bài giảng”; URL không đổi.
+
+### Năm reviewer và hai tái kiểm
+
+| Vai | Phiên OpenRouter | Kết quả |
+|---|---:|---|
+| Nguồn, phạm vi và truy nguyên | `32289` | PASS; §§3.1–3.3, bốn bài nguồn và quan hệ deck–note đúng. |
+| Toán và giải thuật | `86618` | PASS; tính lại toàn bộ ví dụ, chứng minh, chi phí, biên và bốn đáp án. |
+| Sư phạm và góc nhìn sinh viên | `46497` | PASS; chu trình học tập, 120+60 phút và tải nhận thức đạt. |
+| `$no-ai-slop` và Quill | `32129` | PASS; bốn câu meta mức thấp được sửa. |
+| Kỹ thuật và khả năng tiếp cận | `12000` | GO; 49 mã, 49 notes, 7 section ngoài, tài nguyên cục bộ, SVG, viewer và index đạt kiểm tĩnh. |
+
+Metadata runtime của năm phiên đều xác nhận `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Phiên kỹ thuật `82604` chạm giới hạn tool-call nên bị loại trước khi retry. Báo cáo toán `93252` đếm nhầm nhóm G thành sáu mã và kết luận 47 trang; bị bác vì exact disk có tám mã `G07,G00,G02,G04,G01,G03,G05,G06`, tổng 49, đồng thời Chromium trả 49 ở cả ba viewport.
+
+- Tái kiểm toán cuối phiên `58510` trả GO, xác nhận lại 49 mã, vết G04, mọi công thức, bốn đáp án, biên, chi phí và tổng 120+60.
+- Tái kiểm `$no-ai-slop`–Quill toàn tệp phiên `15993` trả GO. Sau hai chỉnh câu cuối, phiên delta `35747` xác nhận GO; không còn nhãn quy trình, siêu bình luận hoặc lỗi mạch ở phần bị thay đổi.
+- Bản cuối tự kiểm theo `no-ai-slop/eval.md` và rà theo Quill: mạch `quy mô → Shingling → Jaccard → MinHash lý tưởng → chữ ký → quét thưa → giới hạn → bài tập` không đổi; ký hiệu, thuật ngữ và dữ kiện truyền xuyên suốt. Không tạo `quill.json`.
+
+### Kiểm định bản cuối
+
+- Kiểm tĩnh: 49 `data-slide-id` duy nhất, 49 speaker notes, 7 section ngoài; `git diff --check` sạch; không có raster, phụ thuộc mạng cốt lõi hoặc tên tệp nội bộ trong sản phẩm công khai.
+- Chromium duyệt đủ 49 trang ở $1280\times720$, $800\times600$ và $720\times900$: HTTP 200, không tràn, không lỗi console, page hoặc request. Điều hướng bàn phím đạt; KaTeX không lỗi. PDF deck có 49 trang A4.
+- Viewer ở $1280\times720$ và $390\times844$: 41 heading, 21 liên kết mục lục, 324 công thức KaTeX, 5 SVG, 15 khối gập đóng mặc định, không tràn ngang hoặc lỗi runtime. Skip-link và Enter trên `summary` đạt; traversal cùng cặp doc/deck lệch số bài bị từ chối. Bản in mở mọi `details`, ẩn mục lục và nhóm thao tác; PDF có 19 trang A4.
+- Index chứa đúng một URL ghi chú Bài 05; click tải đúng tiêu đề, nguồn Markdown và deck, không lỗi runtime.
+- Dự án Codex Slides `20260827173151-b-i-5-bi-u-di-n-t-ng-ng-shingling-v-minh-3rca` đọc lại thành công sau khi chạy dịch vụ cục bộ với quyền được duyệt. Trạng thái vẫn là `draft`, workflow `clarify`, `pages=[]`, `outline=[]`, với đủ bảy material nguồn. Vì dự án không có trang render, bằng chứng trực quan cuối là Chromium cục bộ, không tuyên bố đã xem bản render trong Codex Slides.
+
+Quyết định: **đủ điều kiện bàn giao Bài 05**. Không còn lỗi chặn, nghiêm trọng hoặc trung bình.

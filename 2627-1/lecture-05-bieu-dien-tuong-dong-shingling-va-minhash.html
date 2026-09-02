@@ -54,7 +54,7 @@
 <p>Bài này chưa duyệt $\Theta(N^2)$ cặp.</p>
 </div>
 </div>
-<aside class="notes">Bài 5 giải quyết biểu diễn và ước lượng một cặp đã chọn. Bài 6 mới tạo tập ứng viên. Nguồn: MMDS mục 3.1–3.4, trang in 73–91.</aside>
+<aside class="notes">Bài 5 xây biểu diễn và ước lượng tương đồng cho một cặp tài liệu đã chọn. Việc tạo tập ứng viên thuộc Bài 6. Nguồn: MMDS mục 3.1–3.3, trang in 73–91.</aside>
 </section>
 <section data-slide-id="M02">
 <h2>Luồng biểu diễn: tài liệu → shingle → chữ ký</h2>
@@ -93,7 +93,7 @@
 <p>Một phép thử ngẫu nhiên giữ xác suất của tỷ lệ đó.</p>
 </div>
 </div>
-<aside class="notes">Câu trả lời lần lượt là shingling, Jaccard và MinHash. Chuyển sang ví dụ chạy tay của MMDS.</aside>
+<aside class="notes">Câu trả lời lần lượt là shingling, Jaccard và MinHash. Với Ví dụ 3.3, theo dõi từng cửa sổ và nhấn mạnh shingle <code>ab</code> chỉ xuất hiện một lần trong tập.</aside>
 </section>
 </section>
 <section>
@@ -188,7 +188,7 @@ trả C</code>
 <p class="muted">Va chạm có thể nhập hai shingle khác nhau.</p>
 <div class="check">
 <strong>Câu hỏi:</strong> 4-shingle và mã 32 bit của 9-shingle có cùng lượng thông tin không?</div>
-<aside class="notes">Đáp án: không. Kích thước lưu có thể bằng nhau, nhưng shingle dài phân biệt tốt hơn trước khi băm. Cầu nối sang Jaccard: ta đã có tập shingle cho từng tài liệu; phần sau đo hai tập giống nhau đến đâu. Nguồn: MMDS mục 3.2.3.</aside>
+<aside class="notes">Đáp án: không. Kích thước lưu có thể bằng nhau, nhưng shingle dài phân biệt tốt hơn trước khi băm. Sau khi mỗi tài liệu được biểu diễn thành một tập shingle, hệ số Jaccard đo phần chung so với phần xuất hiện của hai tập. Nguồn: MMDS mục 3.2.3.</aside>
 </section>
 </section>
 <section>
@@ -251,7 +251,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 </div>
 <div class="check">
 <strong>Câu hỏi:</strong> bước nào giảm kích thước, bước nào giảm số cặp?</div>
-<aside class="notes">MinHash giảm kích thước biểu diễn. LSH ở Bài 6 giảm số cặp ứng viên. Câu nối: sau khi biết mỗi cặp tốn tuyến tính, bước giảm kích thước là thay tập bằng chữ ký ngắn; bước giảm số cặp là bài toán của Bài 6. Nguồn: MMDS ghi chú cuối mục 3.3.1, trang in 81.</aside>
+<aside class="notes">MinHash giảm kích thước biểu diễn. Vì mỗi phép so sánh vẫn tốn thời gian tuyến tính theo độ dài hai biểu diễn, việc giảm số cặp ứng viên là nhiệm vụ của LSH ở Bài 6. Nguồn: MMDS ghi chú cuối mục 3.3.1, trang in 81.</aside>
 </section>
 </section>
 <section>
@@ -279,7 +279,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <section data-slide-id="H03">
 <h2>Ví dụ 3.7: thứ tự $b,e,a,d,c$</h2>
 <img class="figure" src="img/lec-05/minhash-hoan-vi.svg" role="img" alt="Ma trận quét theo b,e,a,d,c cho MinHash lần lượt a,c,b,a."/>
-<aside class="notes">$S_3$ gặp 1 ở b; $S_1,S_4$ gặp ở a; $S_2$ gặp ở c. Ký hiệu $h(S)$ cho giá trị MinHash của tập $S$ được đặc tả ở trang tiếp theo. Hình vẽ lại từ MMDS Hình 3.3, trang in 82–83.</aside>
+<aside class="notes">$S_3$ gặp 1 ở b; $S_1,S_4$ gặp ở a; $S_2$ gặp ở c. Các hàng này lần lượt cho giá trị MinHash $h(S)$ của bốn tập. Hình vẽ lại từ MMDS Hình 3.3, trang in 82–83.</aside>
 </section>
 <section data-slide-id="H02">
 <h2>Đặc tả một hàm MinHash</h2>
@@ -361,7 +361,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <p class="muted">Công thức cần các hoán vị độc lập và đều trong mô hình lý tưởng.</p>
 <div class="check">
 <strong>Câu hỏi:</strong> tăng $p$ làm giảm đại lượng nào và tăng chi phí nào?</div>
-<aside class="notes">Đáp án: giảm phương sai, tăng thời gian cập nhật và bộ nhớ tuyến tính theo $p$. Không áp dụng cận này cho một bộ hàm không độc lập và đều mà chưa có chứng minh riêng. Mô hình lý tưởng đến đây là đủ; phần sau thay hoán vị bằng một lượt quét mã băm thực hành.</aside>
+<aside class="notes">Đáp án: giảm phương sai, tăng thời gian cập nhật và bộ nhớ tuyến tính theo $p$. Không áp dụng cận này cho một bộ hàm không độc lập và đều mà chưa có chứng minh riêng. Trong thực hành, một lượt quét mã băm thay cho các hoán vị tường minh.</aside>
 </section>
 </section>
 <section>
@@ -374,7 +374,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 <h2>Cập nhật chỉ trên các số 1</h2>
 <img class="figure" src="img/lec-05/quet-ma-tran-thua.svg" role="img" alt="Mỗi phần tử một tại hàng r cột c cập nhật p giá trị chữ ký của cột c."/>
 <p class="muted">$SIG[i,c]$ là ô của bảng chữ ký đang được cập nhật cho hàm $h_i$ và cột $c$.</p>
-<aside class="notes">Giới thiệu $SIG$ ở mức thao tác trước khi chạy tay; phần sau sẽ đặc tả miền và kích thước. Các số 0 không thể hạ giá trị nhỏ nhất của tập. Hình diễn giải MMDS mục 3.3.5.</aside>
+<aside class="notes">Với mỗi số 1 tại hàng $r$, cột $c$, các giá trị $h_i(r)$ có thể hạ những ô $SIG[i,c]$ tương ứng. Các số 0 không thể hạ giá trị nhỏ nhất. Hình diễn giải MMDS mục 3.3.5.</aside>
 </section>
 <section data-slide-id="G04">
 <h2>Vết chạy của Hình 3.4</h2>
@@ -427,7 +427,7 @@ trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”
 </tr>
 </tbody>
 </table>
-<aside class="notes">Kết quả cuối: hàng $h_1$ là $(1,3,0,1)$; hàng $h_2$ là $(0,2,0,0)$. Hai hàm của hình này khác các hàm cho trong phần bài tập. Nguồn: MMDS Ví dụ 3.8, trang in 85–86.</aside>
+<aside class="notes">Ở hàng $r=2$, $S_4$ giữ $(1,1)$ vì hai giá trị mới $(3,2)$ đều lớn hơn. Kết quả cuối: hàng $h_1$ là $(1,3,0,1)$; hàng $h_2$ là $(0,2,0,0)$. Nguồn: MMDS Ví dụ 3.8, trang in 85–86.</aside>
 </section>
 <section data-slide-id="G01">
 <h2>Đặc tả quét ma trận thưa</h2>
@@ -496,7 +496,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 </section>
 <section>
 <section data-slide-id="C00">
-<h1>Giới hạn và cầu nối sang LSH</h1>
+<h1>MinHash chưa giảm số cặp</h1>
 <div class="grid2">
 <div class="card">
 <h3>Đã có</h3>
@@ -524,7 +524,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 <p class="formula">$D\xrightarrow[\text{chuẩn hóa}]{k\text{-shingle}}C\xrightarrow[p\text{ phép thử}]{\text{MinHash}}\sigma(C)\xrightarrow{\text{tỷ lệ trùng}}\widehat J$</p>
 <div class="check">
 <strong>Câu hỏi:</strong> với một triệu tài liệu, bước nào của Bài 6 phải ngăn việc so mọi cặp chữ ký?</div>
-<aside class="notes">Đáp án: tạo tập ứng viên bằng LSH. Kết thúc đúng phạm vi mục 3.3.</aside>
+<aside class="notes">Đáp án: LSH tạo tập ứng viên để chỉ giữ các cặp có khả năng tương đồng.</aside>
 </section>
 </section>
 <section>
@@ -532,7 +532,7 @@ cho từng hàng r trong luồng nhóm theo hàng:
 <h1>Bài tập thực hành</h1>
 <p>Thực hiện bốn bài trực tiếp từ MMDS 3e: 3.1.1, 3.2.3, 3.3.2 và 3.3.3.</p>
 <p class="muted">Mỗi nhóm nộp bảng tính hoặc lập luận, kèm giá trị trung gian.</p>
-<aside class="notes">Bốn bài sau tách rõ dữ kiện, yêu cầu và sản phẩm. Lời giải cùng hướng dẫn chấm chỉ nằm trong ghi chú diễn giả.</aside>
+<aside class="notes">Mỗi nhóm ghi rõ dữ kiện, các bước tính và kết quả trung gian. Đối chiếu lời giải trong ghi chú diễn giả khi chữa bài.</aside>
 </section>
 <section class="recitation" data-slide-id="R01">
 <h2>Bài 3.1.1: ba tập hợp</h2>
