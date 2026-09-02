@@ -242,3 +242,47 @@ Reviewer có một số kết luận trung gian tự mâu thuẫn về nghiệm 
 - An toàn: đường dẫn vượt thư mục và cặp `doc`/`deck` lệch số bài đều hiện lỗi và giấu layout.
 - Ảnh toàn trang wide/narrow đã được xem trực quan; chữ, công thức, bảng, giả mã và SVG không chồng lấn. Chỉ sau kết quả này, mục tài nguyên Bài 03 mới được thêm vào `2627-1/index.html`.
 - Kiểm tra index bằng Chromium tìm đúng một liên kết Ghi chú Bài 03, nhấp liên kết và tải đúng tiêu đề, `doc`, `deck`; không có lỗi console. Index đạt cổng công bố.
+
+## Chu kỳ đồng bộ bộ trang chiếu với ghi chú — 2026-09-02
+
+### Điều phối, nguồn và soạn
+
+- Hai reader độc lập dùng `z-ai/glm-5.3-flash` qua OpenRouter: reader kế hoạch phiên `64749`, reader nguồn phiên `78824`. Cả hai giữ nguyên phạm vi PageRank cơ sở, 39 trang, 7 mạch và bốn bài tập MMDS; reader nguồn yêu cầu sửa ký hiệu hỏng trong storyboard và thống nhất biến của bài ma trận thưa.
+- Writer hợp lệ dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter trong gốc tạm hẹp; metadata runtime xác nhận requested model trùng observed model và provider OpenRouter. Hai lượt writer rộng trước đó hết thời hạn, không được tính. Sửa hợp lệ của writer làm rõ phạm vi ở P01; Codex chính áp dụng các sửa còn lại đã được reviewer chấp thuận.
+- Không gửi `.env`, khóa, token, mật khẩu, cookie, khóa riêng hoặc thông tin xác thực tới worker.
+
+### Năm báo cáo độc lập
+
+| Vai | Phiên hợp lệ | Kết quả và quyết định |
+|---|---:|---|
+| Trung thành nguồn và phạm vi | `73999` | PASS; giữ nguồn, phạm vi, số liệu và bài tập. Xác minh cục bộ cho thấy slide MMDS 48 đúng là ví dụ $10^9$ trang và $10^{18}$ ô. |
+| Toán và giải thuật | `34666` | PASS; các ma trận, nghiệm, ánh xạ co, cận dừng, chi phí và đáp án đều đúng. Đổi vector tạm `q` thành `dong_gop` để không trùng $q$ là số ô 1 trong bài tập. |
+| Học thuật và sư phạm | `44102` | PASS; giữ cấu trúc 39 trang và tuyến học tập. |
+| Văn phong, no-ai-slop và Quill | `99442` | PASS có sửa nhẹ; bỏ mã nội bộ và câu nối mang giọng quy trình trong nội dung cùng notes. |
+| Kỹ thuật tĩnh | `71323` | PASS; 39 ID duy nhất, 39 notes, 7 mạch, thư viện cục bộ, viewer/index/planning và 5 SVG đạt. Chromium xác nhận ký tự $\bar P$ trong khối mã hiển thị đúng. |
+
+Các phiên reviewer `53776`, `40657`, `87803`, `81746`, `33347`, `66690` và `70427` bị timeout, chạm giới hạn hoặc không tạo kết luận hợp lệ nên không được dùng làm bằng chứng.
+
+### Sửa đã chấp nhận
+
+- Bỏ tên `sources/source.md`, mã trang nội bộ và các câu mô tả thao tác biên tập khỏi nội dung hiển thị và ghi chú diễn giả; giữ nguồn học thuật ở dạng “Nguồn: …”.
+- Thêm $N^-(i)$ vào bảng ký hiệu; sửa hai ký tự điều khiển làm hỏng $\bar P$, cùng các biểu thức $\Delta_t$ và $\Theta(n+m)$ trong storyboard.
+- Thống nhất $q$ là số phần tử 1 trong bài MMDS 5.2.1; vector đóng góp tạm trong giả mã ghi chú dùng `dong_gop`.
+- Làm rõ hàng $(0,1/2,1)$ và $P_{33}=1$ thuộc ma trận của biến thể bẫy nhện. Ghi rõ điều kiện không chu kỳ dựa trên lý thuyết chuỗi Markov hữu hạn, còn MMDS mục 5.1.2 chỉ nêu bất khả quy.
+- Đổi nhãn tài nguyên Bài 03 trên index thành “Ghi chú bài giảng”; URL `doc`/`deck` không đổi và vẫn đúng.
+
+### Tái kiểm và biên tập cuối
+
+- Tái kiểm mạch/no-ai-slop/Quill trên bản đĩa cuối phiên `57270`: PASS; mã nội bộ chỉ còn trong `data-slide-id`, không còn siêu bình luận hoặc ngôn ngữ quy trình. Phiên `9665` trước đó chạm giới hạn công cụ và không được tính. Không tạo `quill.json`.
+- Tái kiểm toán cuối phiên `46957`: PASS; xác nhận phép gán nguồn cho điều kiện không chu kỳ, số liệu slide 48, biến `dong_gop`, sửa nút cụt, dịch chuyển, phần dư và $\tau$ đều đúng.
+- Các lượt tái kiểm trên dùng requested model và observed model `z-ai/glm-5.3-flash`, provider OpenRouter.
+
+### Kiểm định cuối
+
+- Kiểm tĩnh: 39 `data-slide-id` duy nhất, 39 notes, 7 outer section cân bằng; 5 SVG đọc được, đều có `role="img"`, `title`, `desc`; không có ảnh raster; storyboard không còn byte điều khiển; `git diff --check` đạt.
+- Chromium duyệt đủ 39 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, không lỗi console/page/request. Bàn phím chuyển ngang/dọc đúng; 39 notes; 0 lỗi KaTeX. PDF deck có 39 trang A4.
+- Viewer ở $1280\times720$ và $390\times844$: 30 heading, 16 liên kết mục lục, 351 phần tử KaTeX và 0 lỗi; 4 ảnh tải đủ; 8 khối gập đóng mặc định, mở được bằng bàn phím và mở khi in; không tràn ngang hay lỗi runtime. Hai phép thử vượt thư mục và lệch số bài đều bị từ chối.
+- Index có đúng một URL ghi chú Bài 03 và mở đúng `doc`/`deck`, không lỗi console.
+- Codex Slides project `20260827151722-b-i-3-pagerank-m-h-nh-v-t-nh-to-n-edg9` đọc được bằng CLI. Project vẫn ở trạng thái `draft`, workflow `clarify`, chưa có page/outline; phiên không có Browser callable nên không tuyên bố đã kiểm trực quan trong Codex Slides. Kiểm định trực quan được thực hiện bằng Chromium trên đúng HTML phát hành.
+
+Kết luận: không còn lỗi chặn, nghiêm trọng hoặc trung bình; bộ trang chiếu, ghi chú, planning, viewer và index Bài 03 đồng bộ và đủ điều kiện commit/push.

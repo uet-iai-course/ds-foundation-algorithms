@@ -100,11 +100,11 @@ Việc giao nhóm và đối chiếu nằm trong khoảng của từng bài, kh�
 | `note-topic-03-web-graph` | Bài 02 và bài toán metadata Web | Vai trò, đặc tả $G,n,m$, giới hạn ma trận đặc, kiểm tra quy ước cạnh | Đầu vào cho mô hình người lướt |
 | `note-topic-03-random-surfer` | Đồ thị có hướng | Định nghĩa phân phối, trực giác và ví dụ đóng góp một nút | Phương trình luồng |
 | `note-topic-03-flow-matrix` | Đóng góp theo cạnh | Đặc tả ma trận cột, vết chạy $y,a,m$, điểm cố định, power iteration | Hai lỗi cấu trúc |
-| `note-topic-03-dead-end` | Ma trận có cột tổng bằng 1 | Biến thể nút cụt, vết mất khối lượng, $ar P$, chứng minh bảo toàn | Quy ước dùng trong triển khai thưa |
+| `note-topic-03-dead-end` | Ma trận có cột tổng bằng 1 | Biến thể nút cụt, vết mất khối lượng, $\bar P$, chứng minh bảo toàn | Quy ước dùng trong triển khai thưa |
 | `note-topic-03-spider-trap` | Phân phối đã được bảo toàn | Biến thể bẫy, $A_\beta$, nghiệm nguồn và kiểm tra phân biệt đồ thị | Ánh xạ co |
 | `note-topic-03-convergence` | $A_\beta$ trên simplex | Mệnh đề, phản ví dụ $\beta=1$, chứng minh co và hệ quả | Cận dừng có bảo đảm |
-| `note-topic-03-stopping` | Hệ số co $\beta$ | Giả mã, $Delta_t$, cận hậu nghiệm, $\tau$, $K_{\max}$, hai hậu điều kiện | Thuật toán đủ để phân tán |
-| `note-topic-03-sparse-mapreduce` | Bài 02, $P_0$, $d$, $ar P$ | Bản ghi cấu trúc, hai pha, bất biến, ví dụ một nút, chi phí $Theta(n+m)$ | Thu hồi tình huống mở bài |
+| `note-topic-03-stopping` | Hệ số co $\beta$ | Giả mã, $\Delta_t$, cận hậu nghiệm, $\tau$, $K_{\max}$, hai hậu điều kiện | Thuật toán đủ để phân tán |
+| `note-topic-03-sparse-mapreduce` | Bài 02, $P_0$, $d$, $\bar P$ | Bản ghi cấu trúc, hai pha, bất biến, ví dụ một nút, chi phí $\Theta(n+m)$ | Thu hồi tình huống mở bài |
 | `note-topic-03-exercises` | Toàn bộ tuyến chính | Đề, hình, gợi ý và lời giải bốn bài nguồn | Tự đánh giá |
 | `note-topic-03-boundary` | Kết luận PageRank cơ sở | Liên kết ngắn sang Bài 04 | Không tạo nội dung mới |
 

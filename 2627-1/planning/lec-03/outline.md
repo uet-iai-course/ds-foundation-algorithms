@@ -40,6 +40,7 @@ Dữ liệu $y,a,m$ được giữ từ B01 đến B05. C01 tạo hai biến th�
 | $n=|V|$, $m=|E|$ | Số nút và số cạnh sau khi gộp |
 | $j\to i$ | Cạnh từ nút nguồn $j$ đến nút đích $i$ |
 | $d^+(j)$, $N^+(j)$ | Bậc ra và tập đích của $j$ |
+| $N^-(i)$ | Tập tiền nhiệm có cạnh đi vào nút $i$ |
 | $P_0$ | Toán tử chuyển thưa chỉ chứa cạnh thật; cột của nút cụt bằng 0 |
 | $d$ | Vector chỉ báo nút cụt: $d_j=1$ khi $d^+(j)=0$, ngược lại bằng 0 |
 | $\bar P=P_0+ed^T/n$ | Ma trận chuyển cột ngẫu nhiên sau khi sửa nút cụt |

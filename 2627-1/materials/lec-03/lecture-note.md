@@ -83,7 +83,7 @@ Với $\beta=0{,}8$ trên biến thể bẫy nhện của đồ thị ba nút, t
 $$A_{0,8}=\begin{bmatrix}7/15&7/15&1/15\\7/15&1/15&1/15\\1/15&7/15&13/15\end{bmatrix},\qquad
 r^*=\begin{bmatrix}7/33&5/33&21/33\end{bmatrix}^{T}.$$
 
-Kiểm dòng thứ ba của $P$: $(0,1/2,1)$. Do đó $A_{31}=1/15$, $A_{32}=0{,}8\cdot1/2+1/15=7/15$ và $A_{33}=0{,}8\cdot1+1/15=13/15$. Với hàng thứ ba của $A_{0,8}$,
+Với ma trận $P$ của biến thể bẫy nhện, hàng thứ ba là $(0,1/2,1)$ và $P_{33}=1$. Do đó $A_{31}=1/15$, $A_{32}=0{,}8\cdot1/2+1/15=7/15$ và $A_{33}=0{,}8\cdot1+1/15=13/15$. Với hàng thứ ba của $A_{0,8}$,
 
 $$\frac1{15}\frac7{33}+\frac7{15}\frac5{33}+\frac{13}{15}\frac{21}{33}=\frac{315}{495}=\frac{21}{33},$$
 
@@ -183,11 +183,11 @@ cho t từ 1 đến K_max:
     cho mỗi nút j:
         nếu d_plus(j) = 0:
             delta_dangling ← delta_dangling + r[j]
-    q ← (0, ..., 0)
+    dong_gop ← (0, ..., 0)
     cho mỗi cạnh j → i:
-        q[i] ← q[i] + r[j]/d_plus(j)
+        dong_gop[i] ← dong_gop[i] + r[j]/d_plus(j)
     cho mỗi nút i:
-        r_new[i] ← beta*(q[i] + delta_dangling/n) + (1-beta)/n
+        r_new[i] ← beta*(dong_gop[i] + delta_dangling/n) + (1-beta)/n
     residual ← ||r_new-r||_1
     nếu residual ≤ tau:
         trả về ("đã hội tụ", r_new)
@@ -282,13 +282,13 @@ Cho ma trận Boolean $n\times n$ với $n\ge2$ biểu diễn một đồ thị.
 :::
 
 ::: hint
-Mỗi ô bằng $1$ được mã hóa bằng hai số nguyên (chỉ số hàng và chỉ số cột), mỗi số tốn $\lceil\log_2n\rceil$ bit, nên mỗi số $1$ tốn đúng $2\lceil\log_2n\rceil$ bit. Nếu có $k$ ô mang giá trị $1$, so sánh $2k\lceil\log_2n\rceil$ với $n^2$.
+Mỗi ô bằng $1$ được mã hóa bằng hai số nguyên (chỉ số hàng và chỉ số cột), mỗi số tốn $\lceil\log_2n\rceil$ bit, nên mỗi số $1$ tốn đúng $2\lceil\log_2n\rceil$ bit. Nếu có $q$ ô mang giá trị $1$, so sánh $2q\lceil\log_2n\rceil$ với $n^2$.
 :::
 
 ::: solution
-Với $k$ ô mang giá trị $1$, liệt kê cần $2k\lceil\log_2n\rceil$ bit; ma trận đầy cần $n^2$ bit. Biểu diễn thưa tiết kiệm hơn khi và chỉ khi
+Với $q$ ô mang giá trị $1$, liệt kê cần $2q\lceil\log_2n\rceil$ bit; ma trận đầy cần $n^2$ bit. Biểu diễn thưa tiết kiệm hơn khi và chỉ khi
 
-$$2k\lceil\log_2 n\rceil<n^2,\qquad\text{hay}\qquad \frac{k}{n^2}<\frac{1}{2\lceil\log_2 n\rceil}.$$
+$$2q\lceil\log_2 n\rceil<n^2,\qquad\text{hay}\qquad \frac{q}{n^2}<\frac{1}{2\lceil\log_2 n\rceil}.$$
 
 Vậy mật độ ngưỡng là $1/(2\lceil\log_2 n\rceil)$: nếu tỉ lệ ô $1$ thấp hơn ngưỡng này thì liệt kê rẻ hơn, ngược lại ma trận đầy rẻ hơn. Ví dụ $n=2^{20}$: $\lceil\log_2 n\rceil=20$, nên ngưỡng là $1/40=2{,}5\%$. Với trường hợp biên $n=2$, ngưỡng là $1/2$.
 :::

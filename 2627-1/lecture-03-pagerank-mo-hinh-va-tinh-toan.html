@@ -29,7 +29,7 @@
       <h3>Bài 3 · Giải thuật nền tảng của Khoa học dữ liệu</h3>
       <p>Năm học 2026–2027 · Học kỳ 1</p>
       <p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
-      <aside class="notes">Nối từ Bài 2: MapReduce cung cấp cơ chế phân phối tính toán; buổi này xây dựng đại lượng cần tính trên đồ thị liên kết rồi đưa một vòng lặp sang MapReduce. Nguồn chính: MMDS 3e, Chương 5, mục 5.1–5.2; bộ trang chiếu chính thức MMDS Chương 5, phần 1, http://www.mmds.org.</aside>
+      <aside class="notes">MapReduce của Bài 2 cung cấp cơ chế phân phối tính toán. Buổi này xây dựng đại lượng cần tính trên đồ thị liên kết, rồi đưa một vòng lặp sang mô hình đó. Nguồn chính: MMDS 3e, Chương 5, mục 5.1–5.2; bộ trang chiếu chính thức MMDS Chương 5, phần 1, http://www.mmds.org.</aside>
     </section>
     <section data-slide-id="P01">
       <h2>Mục tiêu học tập</h2>
@@ -40,7 +40,7 @@
         <li>Biểu diễn ma trận thưa và thiết kế một vòng lặp bằng MapReduce.</li>
         <li>Kiểm tra kết quả bằng chuẩn hóa, phần dư và trường hợp biên.</li>
       </ul>
-      <aside class="notes">Kiến thức đầu vào: đồ thị có hướng, phép nhân ma trận–vector, phân phối xác suất và luồng khóa–giá trị của Bài 2. Sản phẩm cuối buổi là một đặc tả PageRank có mô hình chuyển, điều kiện hội tụ và một vòng tính phân tán. Nguồn phạm vi: sources/source.md, Bài 3.</aside>
+      <aside class="notes">Kiến thức đầu vào: đồ thị có hướng, phép nhân ma trận–vector, phân phối xác suất và luồng khóa–giá trị của Bài 2. Kết quả cần đạt là một đặc tả PageRank có mô hình chuyển, điều kiện hội tụ và một vòng tính phân tán. Phạm vi dừng ở PageRank cơ sở.</aside>
     </section>
     <section data-slide-id="A00"><h1>Xếp hạng trên đồ thị liên kết lớn</h1><p class="big">Đầu vào là danh sách cạnh thưa của Web; đầu ra là một điểm quan trọng cho mỗi trang.</p><aside class="notes">Ta cần xếp hạng các trang trong đồ thị liên kết Web. Ma trận đặc có n² ô, trong khi đầu vào tự nhiên chỉ có m cạnh; với đồ thị lớn, phải quét biểu diễn thưa và không thể giải hệ tuyến tính đặc trên một máy. Nguồn: MMDS mục 5.1–5.2 và slide MMDS trang 48, 53.</aside></section>
     <section data-slide-id="A01">
@@ -54,41 +54,41 @@
       <div class="grid2"><div class="card"><h3>Một bước</h3><p>Đang ở trang $j$, chọn đều một liên kết ra và đi đến trang đích.</p></div><div class="card accent"><h3>Điểm xếp hạng</h3><p>Xác suất dài hạn người lướt ở trang $i$.</p></div></div>
       <div class="check"><strong>Câu hỏi:</strong> trang có nhiều liên kết vào luôn có PageRank lớn hơn không?</div>
       <p class="muted">Không. Bậc vào chỉ đếm số liên kết; PageRank còn phụ thuộc chất lượng của các trang trỏ đến.</p>
-      <aside class="notes">Trả lời tường minh: bậc vào không đủ quyết định PageRank. Một liên kết từ trang có hạng cao truyền nhiều khối lượng hơn liên kết từ trang có hạng thấp; phương trình luồng ở trang kế tiếp làm rõ điều này. Stanford trang 17–18 được chọn riêng cho cầu nối trực giác người lướt ngẫu nhiên sang phương trình đệ quy vì diễn đạt ngắn và trực tiếp hơn slide MMDS tương ứng. Nội dung được kiểm chứng bằng MMDS mục 5.1.2.</aside>
+      <aside class="notes">Bậc vào không đủ quyết định PageRank. Một liên kết từ trang có hạng cao truyền nhiều khối lượng hơn liên kết từ trang có hạng thấp; phương trình luồng làm rõ điều này. Nguồn: Stanford trang 17–18 và MMDS mục 5.1.2.</aside>
     </section>
     <section data-slide-id="A03">
       <h2>Mỗi liên kết chia một phần phiếu</h2>
       <p class="formula">$r_i=\sum_{j:\,j\to i}\frac{r_j}{d^+(j)}$</p>
       <ul class="tight"><li>Nút $j$ chia đều $r_j$ cho các cạnh ra.</li><li>Nút $i$ cộng các phần nhận từ mọi tiền nhiệm.</li><li>Phương trình chỉ có nghĩa trực tiếp khi $d^+(j)>0$.</li></ul>
-      <aside class="notes">Đây là phương trình luồng của MMDS. Nút cụt chưa được xử lý; không chia cho 0. Tiếp theo, dùng đồ thị y,a,m để theo vết từng phần khối lượng. Nguồn: slide MMDS trang 18–21; MMDS mục 5.1.2.</aside>
+      <aside class="notes">Đây là phương trình luồng của MMDS. Nút cụt chưa được xử lý; không chia cho 0. Đồ thị y,a,m cho phép theo vết từng phần khối lượng. Nguồn: slide MMDS trang 18–21; MMDS mục 5.1.2.</aside>
     </section>
   </section>
 
   <section>
-    <section data-slide-id="B00"><h1>Từ đóng góp trên cạnh đến ma trận</h1><p class="big">Theo vết từng phần khối lượng trước khi gom chúng thành một cột ma trận.</p><aside class="notes">Chuyển từ phương trình theo cạnh sang ví dụ chạy tay. Ma trận chỉ xuất hiện sau khi sinh viên đã thấy mỗi nút phát và mỗi nút đích cộng gì. Nguồn: slide MMDS trang 18–24; MMDS mục 5.1.2.</aside></section>
+    <section data-slide-id="B00"><h1>Từ đóng góp trên cạnh đến ma trận</h1><p class="big">Theo vết từng phần khối lượng trước khi gom chúng thành một cột ma trận.</p><aside class="notes">Ví dụ chạy tay cụ thể hóa phương trình theo cạnh. Ma trận chỉ xuất hiện sau khi đã xác định mỗi nút phát gì và mỗi nút đích cộng gì. Nguồn: slide MMDS trang 18–24; MMDS mục 5.1.2.</aside></section>
     <section data-slide-id="B01">
       <h2>Ví dụ xuyên suốt với ba nút</h2>
       <img class="figure" src="img/lec-03/do-thi-yam.svg" role="img" alt="Đồ thị có hướng: y trỏ đến y và a; a trỏ đến y và m; m trỏ đến a."/>
-      <aside class="notes">Theo vết: y có hai cạnh ra nên mỗi cạnh nhận r_y/2; a có hai cạnh ra; m có một cạnh ra. Đồ thị và nhãn y,a,m vẽ lại từ slide MMDS trang 19 và 24. Không thay cạnh hay trọng số.</aside>
+      <aside class="notes">Theo vết: y có hai cạnh ra nên mỗi cạnh nhận r_y/2; a có hai cạnh ra; m có một cạnh ra. Đồ thị và nhãn y,a,m theo slide MMDS trang 19 và 24.</aside>
     </section>
     <section data-slide-id="B02">
       <h2>Chạy tay đóng góp ở vòng đầu</h2>
       <p class="formula">$r^{(0)}=(1/3,1/3,1/3)^T$ theo thứ tự $(y,a,m)$.</p>
       <table class="trace"><thead><tr><th>Nút nguồn</th><th>Phát theo cạnh</th><th>Nút nhận</th></tr></thead><tbody><tr><td>y</td><td>$1/6$ trên mỗi cạnh</td><td>y, a</td></tr><tr><td>a</td><td>$1/6$ trên mỗi cạnh</td><td>y, m</td></tr><tr><td>m</td><td>$1/3$</td><td>a</td></tr></tbody></table>
       <p class="formula">$r^{(1)}=(1/3,1/2,1/6)^T$.</p>
-      <aside class="notes">Cộng theo đích: y nhận 1/6 từ y và 1/6 từ a; a nhận 1/6 từ y và 1/3 từ m; m nhận 1/6 từ a. Trạng thái này được giữ nguyên khi chuyển sang phép nhân ma trận ở trang sau. Nguồn: slide MMDS trang 18–21 và 25–27.</aside>
+      <aside class="notes">Cộng theo đích: y nhận 1/6 từ y và 1/6 từ a; a nhận 1/6 từ y và 1/3 từ m; m nhận 1/6 từ a. Phép nhân ma trận phải tái tạo đúng trạng thái này. Nguồn: slide MMDS trang 18–21 và 25–27.</aside>
     </section>
     <section data-slide-id="B03">
       <h2>Ma trận chuyển dùng cột nguồn</h2>
       <p class="formula matrix">$P_{ij}=\begin{cases}1/d^+(j),&j\to i,\\0,&\text{ngược lại,}\end{cases}\qquad P=\begin{bmatrix}1/2&1/2&0\\1/2&0&1\\0&1/2&0\end{bmatrix}$</p>
       <p class="muted center">Thứ tự hàng và cột: $(y,a,m)$.</p>
-      <aside class="notes">Ba cột mã hóa đúng ba hàng phát ở B02: cột y là (1/2,1/2,0)^T; cột a là (1/2,0,1/2)^T; cột m là (0,1,0)^T. Mỗi cột cộng thành 1 vì đồ thị chưa có nút cụt. Nguồn: slide MMDS trang 21 và 24.</aside>
+      <aside class="notes">Ba cột mã hóa đúng các đóng góp vừa tính: cột y là (1/2,1/2,0)^T; cột a là (1/2,0,1/2)^T; cột m là (0,1,0)^T. Mỗi cột cộng thành 1 vì đồ thị chưa có nút cụt. Nguồn: slide MMDS trang 21 và 24.</aside>
     </section>
     <section data-slide-id="B04">
       <h2>Một bước là phép nhân ma trận–vector</h2>
       <p class="formula">$r^{(t+1)}=Pr^{(t)},\qquad r^{(0)}=\begin{bmatrix}1/3&1/3&1/3\end{bmatrix}^{\!T}$</p>
       <table class="trace"><thead><tr><th>$t$</th><th>$r_y^{(t)}$</th><th>$r_a^{(t)}$</th><th>$r_m^{(t)}$</th><th>Tổng</th></tr></thead><tbody><tr><td>0</td><td>$1/3$</td><td>$1/3$</td><td>$1/3$</td><td>1</td></tr><tr><td>1</td><td>$1/3$</td><td>$1/2$</td><td>$1/6$</td><td>1</td></tr><tr><td>2</td><td>$5/12$</td><td>$1/3$</td><td>$1/4$</td><td>1</td></tr></tbody></table>
-      <aside class="notes">Dòng t=1 lặp lại kết quả chạy tay ở B02. Ở t=2, nhân thêm một lần với P. Tổng bằng 1 vì P không âm và mọi cột cộng 1. Bảng khớp slide MMDS trang 26.</aside>
+      <aside class="notes">Dòng t=1 lặp lại kết quả chạy tay của vòng đầu. Ở t=2, nhân thêm một lần với P. Tổng bằng 1 vì P không âm và mọi cột cộng 1. Bảng khớp slide MMDS trang 26.</aside>
     </section>
     <section data-slide-id="B05">
       <h2>Điểm cố định của ví dụ</h2>
@@ -102,16 +102,16 @@
       <div class="warn"><p>Ma trận cột ngẫu nhiên có thể có chu kỳ. Đồ thị hai nút $1\to2\to1$ làm vector hạng dao động.</p></div>
       <ul class="tight"><li><strong>Bất khả quy:</strong> từ mỗi nút đi được đến mọi nút khác; điều kiện đủ cho phân phối dừng duy nhất.</li><li><strong>Không chu kỳ:</strong> ước chung lớn nhất của các độ dài quay về một nút bằng 1; điều kiện đủ để phép lặp hội tụ từ mọi phân phối đầu.</li></ul>
       <p class="muted">Phản ví dụ: với chu trình hai nút và trạng thái đầu $(1,0)^T$, dãy hạng là $(1,0)^T,(0,1)^T,(1,0)^T,\ldots$ nên không hội tụ dù đồ thị bất khả quy.</p>
-      <aside class="notes">Hai mệnh đề tách riêng: bất khả quy cho phân phối dừng duy nhất; không chu kỳ cho hội tụ của phép lặp từ mọi phân phối đầu. Định nghĩa chu kỳ chính xác: chu kỳ của một nút là gcd của các độ dài d>0 với P^d(i,i)>0; đồ thị không chu kỳ khi gcd này bằng 1 tại mọi nút. Phản ví dụ: chu trình hai nút, trạng thái đầu (1,0)^T cho dãy (1,0),(0,1),(1,0),… nên không hội tụ dù đồ thị bất khả quy. Không tuyên bố bất khả quy là điều kiện cần cho duy nhất: chuỗi hữu hạn khả quy vẫn có thể có đúng một lớp đóng và một phân phối dừng duy nhất. MMDS mục 5.1.2 thiếu giả thiết không chu kỳ.</aside>
+      <aside class="notes">Hai mệnh đề tách riêng: bất khả quy cho phân phối dừng duy nhất; không chu kỳ cho hội tụ của phép lặp từ mọi phân phối đầu. Định nghĩa chu kỳ chính xác: chu kỳ của một nút là gcd của các độ dài d>0 với P^d(i,i)>0; đồ thị không chu kỳ khi gcd này bằng 1 tại mọi nút. Phản ví dụ: chu trình hai nút, trạng thái đầu (1,0)^T cho dãy (1,0),(0,1),(1,0),… nên không hội tụ dù đồ thị bất khả quy. Không tuyên bố bất khả quy là điều kiện cần cho duy nhất: chuỗi hữu hạn khả quy vẫn có thể có đúng một lớp đóng và một phân phối dừng duy nhất. Điều kiện không chu kỳ dựa trên lý thuyết chuỗi Markov hữu hạn; MMDS mục 5.1.2 chỉ nêu bất khả quy.</aside>
     </section>
   </section>
 
   <section>
-    <section data-slide-id="C00"><h1>Sửa nút cụt và bẫy nhện</h1><p class="big">PageRank chuẩn hóa cần một ma trận chuyển hợp lệ và một xác suất thoát khỏi nhóm kín.</p><aside class="notes">Hai biến thể tiếp theo cùng xuất phát từ đồ thị y,a,m của phần B. Biến thể thứ nhất bỏ cạnh ra của m; biến thể thứ hai thay cạnh m→a bằng vòng m→m. Ý phải giữ từ B06: trước khi quay lại phép lặp và hội tụ, ma trận chuyển phải được sửa thành cột ngẫu nhiên hợp lệ; phần C thực hiện đúng bước đó. Nguồn: slide MMDS trang 38–46; MMDS mục 5.1.4–5.1.5.</aside></section>
+    <section data-slide-id="C00"><h1>Sửa nút cụt và bẫy nhện</h1><p class="big">PageRank chuẩn hóa cần một ma trận chuyển hợp lệ và một xác suất thoát khỏi nhóm kín.</p><aside class="notes">Hai biến thể cùng xuất phát từ đồ thị y,a,m: biến thể thứ nhất bỏ cạnh ra của m; biến thể thứ hai thay cạnh m→a bằng vòng m→m. Trước khi xét phép lặp và hội tụ, ta phải sửa ma trận chuyển thành ma trận cột-ngẫu nhiên hợp lệ. Nguồn: slide MMDS trang 38–46; MMDS mục 5.1.4–5.1.5.</aside></section>
     <section data-slide-id="C01">
       <h2>Hai biến thể của đồ thị $y,a,m$</h2>
       <img class="figure" src="img/lec-03/nut-cut-va-bay-nhen.svg" role="img" alt="Hai đồ thị y, a, m: bên trái m là nút cụt; bên phải m có vòng tự nối và trở thành bẫy nhện một nút."/>
-      <aside class="notes">Bên trái, y trỏ đến y và a; a trỏ đến y và m; m không có cạnh ra. Bên phải giữ hai nút y,a nhưng m chỉ trỏ đến chính nó. Đây là hai biến thể nguồn ở slide MMDS trang 39 và 41, được vẽ lại để dùng cùng ký hiệu với phần B.</aside>
+      <aside class="notes">Bên trái, y trỏ đến y và a; a trỏ đến y và m; m không có cạnh ra. Bên phải giữ hai nút y,a nhưng m chỉ trỏ đến chính nó. Hai biến thể này theo slide MMDS trang 39 và 41.</aside>
     </section>
     <section data-slide-id="C02">
       <h2>Nút cụt làm mất khối lượng sau một bước</h2>
@@ -123,7 +123,7 @@
       <h2>Sửa cột nút cụt bằng phân phối đều</h2>
       <p class="formula">$P_{ij}=\begin{cases}1/d^+(j),&d^+(j)>0\ \text{và}\ j\to i,\\1/n,&d^+(j)=0,\\0,&\text{còn lại.}\end{cases}$</p>
       <p class="formula">$r^{(1)}=(4/9,5/18,5/18)^T,\qquad e^Tr^{(1)}=1$</p>
-      <aside class="notes">Thay cột m bằng (1/3,1/3,1/3)^T. Từ trạng thái đều ở C02, mỗi nút nhận thêm 1/9 từ m; tổng trở lại 1. Quy ước này tương đương việc người lướt chọn đều một nút khi đang ở nút cụt. Nguồn: slide MMDS trang 42 và 44. Giáo trình còn mô tả quy ước giữ cột 0; deck chọn bản chuẩn hóa.</aside>
+      <aside class="notes">Thay cột m bằng (1/3,1/3,1/3)^T. Từ trạng thái đều, mỗi nút nhận thêm 1/9 từ m; tổng trở lại 1. Quy ước này tương đương việc người lướt chọn đều một nút khi đang ở nút cụt. Nguồn: slide MMDS trang 42 và 44. Giáo trình còn mô tả quy ước giữ cột 0; bài giảng chọn bản chuẩn hóa.</aside>
     </section>
     <section data-slide-id="C04">
       <h2>Bẫy nhện giữ dần toàn bộ khối lượng</h2>
@@ -141,7 +141,7 @@
       <h2>Bẫy nhện sau khi thêm hệ số giảm</h2>
       <p class="formula matrix">$A_{0,8}=\begin{bmatrix}7/15&7/15&1/15\\7/15&1/15&1/15\\1/15&7/15&13/15\end{bmatrix}$</p>
       <p class="formula">$r^{(1)}=A_{0,8}(1/3,1/3,1/3)^T=(1/3,1/5,7/15)^T$</p>
-      <aside class="notes">Đây là đúng biến thể bẫy nhện m→m ở C01 và slide MMDS trang 46. So với C04, m vẫn nhận nhiều khối lượng nhưng y và a luôn nhận phần dịch chuyển. Ma trận này không phải ma trận của đồ thị cơ sở ở phần B.</aside>
+      <aside class="notes">Đây là biến thể bẫy nhện có vòng m→m trong slide MMDS trang 46. Sau khi thêm hệ số giảm, m vẫn nhận nhiều khối lượng nhưng y và a luôn nhận phần dịch chuyển. Ma trận này không phải ma trận của đồ thị cơ sở.</aside>
     </section>
     <section data-slide-id="C07">
       <h2>Thuật toán có giới hạn vòng lặp</h2>
@@ -154,7 +154,7 @@ cho k từ 1 đến K_max:
   r ← r_mới
 trả (r, sai, K_max)</code></pre>
       <p class="muted">$P$ là ma trận cột ngẫu nhiên đã sửa nút cụt, tức $P=\bar P$; cờ đúng bảo đảm sai số $L_1$ không quá $\varepsilon$, bảo đảm này được chứng minh ở phần hội tụ.</p>
-      <aside class="notes">Ở đây $P$ là ma trận đã sửa cột nút cụt, tức $P=\bar P$ theo ký hiệu được tách ở E04. Bất biến: $r$ không âm và $e^Tr=1$. Nếu trả cờ đúng, D03 sẽ chứng minh khoảng cách đến nghiệm không quá $\varepsilon$. Nếu hết $K_{\max}$, thuật toán vẫn trả một phân phối nhưng không tuyên bố đạt ngưỡng sai số. Nguồn cơ chế lặp: MMDS mục 5.1.2, 5.1.5 và slide 25, 45, 51–52; điều kiện dừng được làm chặt bằng cận hậu nghiệm.</aside>
+      <aside class="notes">Ở đây $P$ là ma trận đã sửa cột nút cụt, tức $P=\bar P$. Bất biến: $r$ không âm và $e^Tr=1$. Nếu trả cờ đúng, cận hậu nghiệm bảo đảm khoảng cách đến nghiệm không quá $\varepsilon$. Nếu hết $K_{\max}$, thuật toán vẫn trả một phân phối nhưng không tuyên bố đạt ngưỡng sai số. Nguồn cơ chế lặp: MMDS mục 5.1.2, 5.1.5 và slide 25, 45, 51–52.</aside>
     </section>
   </section>
 
@@ -164,7 +164,7 @@ trả (r, sai, K_max)</code></pre>
       <h2>$A_\beta$ là ma trận dương</h2>
       <p class="formula">$(A_\beta)_{ij}=\beta P_{ij}+\frac{1-\beta}{n}\ge\frac{1-\beta}{n}>0$</p>
       <ul class="tight"><li>Mọi cột cộng thành 1.</li><li>Mọi trạng thái có xác suất đi đến mọi nút sau một bước.</li><li>Tồn tại duy nhất một phân phối dừng $r^*=A_\beta r^*$.</li></ul>
-      <aside class="notes">Giả thiết: n hữu hạn và dương, 0&lt;β&lt;1, P cột ngẫu nhiên. Tính dương cho phép dùng định lý Perron–Frobenius hoặc lý thuyết chuỗi Markov để kết luận phân phối dừng duy nhất. Không áp dụng kết luận này cho β=1. Nguồn cơ chế: MMDS mục 5.1.5 và slide MMDS trang 45; phần giả thiết được làm chặt.</aside>
+      <aside class="notes">Giả thiết: n hữu hạn và dương, 0&lt;β&lt;1, P cột ngẫu nhiên. Tính dương cho phép dùng định lý Perron–Frobenius hoặc lý thuyết chuỗi Markov để kết luận phân phối dừng duy nhất. Không áp dụng kết luận này cho β=1. Nguồn: MMDS mục 5.1.5 và slide MMDS trang 45.</aside>
     </section>
     <section data-slide-id="D02">
       <h2>Ánh xạ co theo chuẩn $L_1$</h2>
@@ -176,25 +176,25 @@ trả (r, sai, K_max)</code></pre>
       <h2>Tiêu chí dừng và sai số</h2>
       <p class="formula">$\|r^{(t)}-r^*\|_1\le\frac{\beta}{1-\beta}\,\|r^{(t)}-r^{(t-1)}\|_1$</p>
       <div class="grid2"><div class="card"><h3>Ngưỡng phần dư</h3><p>$\tau=(1-\beta)\varepsilon/\beta$</p></div><div class="card accent"><h3>Bảo đảm khi dừng</h3><p>$\|r^{(t)}-r^*\|_1\le\varepsilon$</p></div></div>
-      <aside class="notes">Đặt Δ_t=||r^t−r^{t−1}||₁. Các bước sau thỏa Δ_{t+k}≤β^kΔ_t, nên khoảng cách từ r^t đến giới hạn không quá βΔ_t+β²Δ_t+…=βΔ_t/(1−β). Thuật toán ở C07 dùng τ cho phần dư và ε cho sai số đích.</aside>
+      <aside class="notes">Đặt Δ_t=||r^t−r^{t−1}||₁. Các bước sau thỏa Δ_{t+k}≤β^kΔ_t, nên khoảng cách từ r^t đến giới hạn không quá βΔ_t+β²Δ_t+…=βΔ_t/(1−β). Vì vậy thuật toán dùng τ cho phần dư và ε cho sai số đích.</aside>
     </section>
     <section data-slide-id="D04">
       <h2>Kết quả của đồ thị cơ sở có hệ số giảm</h2>
       <p class="formula">$r^*=\begin{bmatrix}35/93&37/93&21/93\end{bmatrix}^{T}\approx\begin{bmatrix}0{,}376&0{,}398&0{,}226\end{bmatrix}^{T}$</p>
       <div class="grid2"><div class="card"><h3>Kiểm tra đại số</h3><p>$A_{0,8}r^*=r^*$.</p></div><div class="card"><h3>Kiểm tra xác suất</h3><p>$r^*\ge0$ và $e^Tr^*=1$.</p></div></div>
-      <p class="muted">Áp dụng $A_{0,8}$ cho đúng đồ thị cơ sở $y\to y,a$; $a\to y,m$; $m\to a$ của phần B, không phải biến thể bẫy nhện ở C06; kết quả này dẫn trực tiếp sang câu hỏi kiểm tra D05.</p>
-      <aside class="notes">Áp dụng $A_{0,8}$ trên đúng đồ thị cơ sở y→y,a; a→y,m; m→a của phần B, không phải biến thể bẫy nhện C06; kết quả này dẫn trực tiếp sang câu hỏi kiểm tra D05. Nghiệm được tính bằng khử Gauss trên (I−0,8P)r=0,2e/3; tổng tử số là 93. Không gán kết quả này cho slide MMDS trang 46 và không dùng nó cho bài tập Hình 5.7.</aside>
+      <p class="muted">Áp dụng $A_{0,8}$ cho đồ thị cơ sở $y\to y,a$; $a\to y,m$; $m\to a$, không phải biến thể bẫy nhện.</p>
+      <aside class="notes">Áp dụng $A_{0,8}$ trên đồ thị cơ sở y→y,a; a→y,m; m→a, không phải biến thể bẫy nhện hay đồ thị trong Hình 5.7. Nghiệm được tính bằng khử Gauss trên (I−0,8P)r=0,2e/3; tổng tử số là 93.</aside>
     </section>
     <section data-slide-id="D05">
       <h2>Thêm cạnh $m\to y$ đổi đúng một cột</h2>
       <div class="check"><strong>Câu hỏi:</strong> sau khi thêm cạnh $m\to y$, hãy viết cột nguồn $m$ và các đóng góp mà $m$ phát ở vòng kế tiếp.</div>
       <p class="muted">Trước: $(0,1,0)^T$. Sau: $(1/2,1/2,0)^T$ theo thứ tự $(y,a,m)$.</p>
-      <aside class="notes">m có hai cạnh ra, đến y và a, nên phát r_m/2 cho mỗi nút. Các cột y và a không đổi. Câu hỏi xác định này thay cho dự đoán thứ hạng mơ hồ. Kiểu kiểm tra thay đổi cạnh tham khảo Stanford trang 33–36; dữ liệu vẫn là đồ thị y,a,m của MMDS.</aside>
+      <aside class="notes">m có hai cạnh ra, đến y và a, nên phát r_m/2 cho mỗi nút. Các cột y và a không đổi. Nguồn tham khảo: Stanford trang 33–36; dữ liệu là đồ thị y,a,m của MMDS.</aside>
     </section>
   </section>
 
   <section>
-    <section data-slide-id="E00"><h1>Tính PageRank trên đồ thị thưa</h1><p class="big">Một vòng lặp quét các nút, các cạnh và hai vector hạng; không dựng ma trận đặc.</p><div class="grid2"><div class="card"><h3>Ví dụ quy mô trong nguồn</h3><p>$n=10^9$ trang tạo ma trận đặc có $10^{18}$ ô.</p></div><div class="card accent"><h3>Biểu diễn cần dùng</h3><p>Danh sách cạnh và vector có kích thước $\Theta(n+m)$.</p></div></div><p class="muted">Số $10^9$ lấy từ slide MMDS trang 48 để minh họa; không phải số đo Web hiện tại.</p><aside class="notes">Quay lại giới hạn mở bài. MMDS dùng một tỷ trang để cho thấy ma trận đặc không khả thi; deck giữ số này như ví dụ nguồn, không trình bày như thống kê hiện thời. Nguồn: MMDS mục 5.2.1–5.2.2; slide MMDS trang 48, 53–55. Nối từ D05: phép tính phần D đúng trên ví dụ ba nút; phần E nâng cùng phép lặp lên quy mô nguồn.</aside></section>
+    <section data-slide-id="E00"><h1>Tính PageRank trên đồ thị thưa</h1><p class="big">Một vòng lặp quét các nút, các cạnh và hai vector hạng; không dựng ma trận đặc.</p><div class="grid2"><div class="card"><h3>Ví dụ quy mô trong nguồn</h3><p>$n=10^9$ trang tạo ma trận đặc có $10^{18}$ ô.</p></div><div class="card accent"><h3>Biểu diễn cần dùng</h3><p>Danh sách cạnh và vector có kích thước $\Theta(n+m)$.</p></div></div><p class="muted">Số $10^9$ lấy từ slide MMDS trang 48 để minh họa; không phải số đo Web hiện tại.</p><aside class="notes">MMDS dùng một tỷ trang để cho thấy ma trận đặc không khả thi; con số này là ví dụ nguồn, không phải thống kê hiện thời. Phép tính trên ba nút ở phần trước được giữ nguyên khi chuyển sang biểu diễn thưa ở quy mô lớn. Nguồn: MMDS mục 5.2.1–5.2.2; slide MMDS trang 48, 53–55.</aside></section>
     <section data-slide-id="E01">
       <h2>Bản ghi giữ cấu trúc cho vòng sau</h2>
       <p class="muted">Điều kiện trước: biết $V$; mỗi $i\in V$ có đúng một bản ghi $S_i$, kể cả khi $N^+(i)=\varnothing$.</p>
@@ -206,12 +206,12 @@ trả (r, sai, K_max)</code></pre>
       <h2>Tác vụ map phát cấu trúc và đóng góp</h2>
       <table class="trace"><thead><tr><th>Đọc bản ghi</th><th>Phát cấu trúc</th><th>Phát đóng góp theo đích</th></tr></thead><tbody><tr><td>$S_a=(a,2,[y,m],r_a^{(t)})$</td><td>$(a,\text{cấu trúc }S_a)$</td><td>$(y,\beta r_a^{(t)}/2)$; $(m,\beta r_a^{(t)}/2)$</td></tr></tbody></table>
       <p class="muted">$P_0$ chỉ chứa cạnh thật và có cột 0 tại nút cụt; nút cụt không phát theo cạnh mà góp vào $\delta^{(t)}$.</p>
-      <aside class="notes">Điều kiện trước vẫn là biết $V$ và có đúng một $S_i$ cho mỗi $i\in V$. Mỗi bản ghi luôn phát chính cấu trúc của nó theo khóa nút nguồn. Với mỗi cạnh $j\to i$, map phát thêm đóng góp theo khóa $i$; các đóng góp này tạo $\beta P_0r$. Nút cụt phát cấu trúc nhưng không phát đóng góp cạnh. Nguồn: MMDS mục 5.2.2 và slide 52–55; phần giữ cấu trúc được viết rõ để bảo toàn đầu vào vòng sau.</aside>
+      <aside class="notes">Điều kiện trước vẫn là biết $V$ và có đúng một $S_i$ cho mỗi $i\in V$. Mỗi bản ghi luôn phát chính cấu trúc của nó theo khóa nút nguồn. Với mỗi cạnh $j\to i$, map phát thêm đóng góp theo khóa $i$; các đóng góp này tạo $\beta P_0r$. Nút cụt phát cấu trúc nhưng không phát đóng góp cạnh. Nguồn: MMDS mục 5.2.2 và slide 52–55.</aside>
     </section>
     <section data-slide-id="E03">
       <h2>Nhóm và reduce không được làm mất nút</h2>
       <img class="figure short" src="img/lec-03/luong-pagerank-mapreduce.svg" role="img" alt="Map phát bản ghi cấu trúc và đóng góp theo nút đích; nhóm theo khóa; reduce cộng đóng góp, thêm phần nút cụt và dịch chuyển, rồi giữ cấu trúc cho vòng sau."/>
-      <aside class="notes">Sau khi nhóm theo khóa $i$, reduce cần cả bản ghi cấu trúc $S_i$ và danh sách đóng góp. Bản ghi cấu trúc bảo đảm nút không có cạnh vào vẫn xuất hiện trong đầu ra. Reduce tính hạng mới rồi xuất $S_i$ với $r_i$ mới. Nguồn: MMDS mục 5.2.2; sơ đồ được vẽ lại và bổ sung đường giữ cấu trúc.</aside>
+      <aside class="notes">Sau khi nhóm theo khóa $i$, reduce cần cả bản ghi cấu trúc $S_i$ và danh sách đóng góp. Bản ghi cấu trúc bảo đảm nút không có cạnh vào vẫn xuất hiện trong đầu ra. Reduce tính hạng mới rồi xuất $S_i$ với $r_i$ mới. Nguồn: MMDS mục 5.2.2.</aside>
     </section>
     <section data-slide-id="E04">
       <h2>Hai tổng toàn cục tạo hai điểm đồng bộ</h2>
@@ -223,47 +223,47 @@ trả (r, sai, K_max)</code></pre>
     <section data-slide-id="E05">
       <h2>Chi phí và kiểm tra một vòng</h2>
       <div class="grid2"><div class="card"><h3>Công việc và giao tiếp</h3><p>$\Theta(n+m)$ mỗi vòng; cần hai điểm đồng bộ khi tính $\delta$ bằng pha riêng.</p></div><div class="card accent"><h3>Câu hỏi</h3><p>Với $r_a^{(t)}=1/3$, map từ a phát những cặp nào? Trong biến thể nút cụt (m không có cạnh ra), m phát gì?</p></div></div>
-      <aside class="notes">Đáp án phần a trên đồ thị cơ sở E01: phát cấu trúc $(a,S_a)$, cùng $(y,\beta/6)$ và $(m,\beta/6)$. Phần hỏi về m chuyển riêng sang biến thể nút cụt ở C02, nơi m có danh sách đích rỗng: m chỉ phát cấu trúc và đóng góp $r_m^{(t)}$ vào tổng $\delta$; không phát cặp theo cạnh. Mỗi cạnh tạo một đóng góp, mỗi nút chuyển tiếp một cấu trúc, nên công việc và lượng dữ liệu trao đổi là $\Theta(n+m)$ ở mức mô hình nguồn. Phần bài tập dùng lại nghiệm nhỏ và biểu diễn thưa.</aside>
+      <aside class="notes">Đáp án phần a trên đồ thị cơ sở: phát cấu trúc $(a,S_a)$, cùng $(y,\beta/6)$ và $(m,\beta/6)$. Trong biến thể nút cụt, m có danh sách đích rỗng nên chỉ phát cấu trúc và đóng góp $r_m^{(t)}$ vào tổng $\delta$; không phát cặp theo cạnh. Mỗi cạnh tạo một đóng góp, mỗi nút chuyển tiếp một cấu trúc, nên công việc và lượng dữ liệu trao đổi là $\Theta(n+m)$ trong mô hình nguồn.</aside>
     </section>
   </section>
 
   <section>
     <section data-slide-id="K00">
       <h1>Kết luận: từ đồ thị thưa đến phân phối xếp hạng</h1>
-      <div class="grid2"><div class="card"><h3>Thu hồi bài toán A00</h3><p>Đầu vào: danh sách cạnh thưa. Đầu ra: một phân phối xác suất trên các trang.</p></div><div class="card accent"><h3>Ba khối đã xây</h3><p>Ma trận chuyển đã sửa nút cụt; dịch chuyển bảo đảm nghiệm và hội tụ; một vòng thưa/MapReduce chi phí $\Theta(n+m)$.</p></div></div>
+      <div class="grid2"><div class="card"><h3>Thu hồi bài toán mở đầu</h3><p>Đầu vào: danh sách cạnh thưa. Đầu ra: một phân phối xác suất trên các trang.</p></div><div class="card accent"><h3>Ba khối đã xây</h3><p>Ma trận chuyển đã sửa nút cụt; dịch chuyển bảo đảm nghiệm và hội tụ; một vòng thưa/MapReduce chi phí $\Theta(n+m)$.</p></div></div>
       <p class="muted">Bài 4 tiếp tục với các biến thể xếp hạng theo chủ đề và chống liên kết rác trên cùng nền tảng này.</p>
-      <aside class="notes">Thu hồi đúng bài toán mở đầu A00: đầu vào là danh sách cạnh thưa của Web, đầu ra là một phân phối xác suất trên các trang. Ba khối được giữ lại: ma trận chuyển đã sửa nút cụt thành cột ngẫu nhiên; hệ số giảm với dịch chuyển ngẫu nhiên bảo đảm nghiệm dừng duy nhất và hội tụ của phép lặp; một vòng tính thưa/MapReduce với chi phí Theta(n+m) mỗi vòng. Bài 4 tiếp nối bằng Topic-Sensitive PageRank, TrustRank, Spam Mass và HITS; nội dung đó không thuộc phạm vi buổi này. Nguồn: MMDS mục 5.1–5.2.</aside>
+      <aside class="notes">Bài toán mở đầu có đầu vào là danh sách cạnh thưa của Web và đầu ra là một phân phối xác suất trên các trang. Ba khối được giữ lại: ma trận chuyển đã sửa nút cụt thành cột ngẫu nhiên; hệ số giảm với dịch chuyển ngẫu nhiên bảo đảm nghiệm dừng duy nhất và hội tụ của phép lặp; một vòng tính thưa/MapReduce với chi phí Theta(n+m) mỗi vòng. Bài 4 tiếp nối bằng Topic-Sensitive PageRank, TrustRank, Spam Mass và HITS; nội dung đó không thuộc phạm vi buổi này. Nguồn: MMDS mục 5.1–5.2.</aside>
     </section>
   </section>
 
   <section>
-    <section class="recitation" data-slide-id="R00"><h1>Bài tập trên lớp</h1><p class="big">Bốn bài trực tiếp từ MMDS, mục 5.1–5.2.</p><div class="grid2"><div class="card"><h3>Dùng lại từ phần giảng</h3><p>Ma trận chuyển, nghiệm nhỏ của hệ điểm cố định và biểu diễn thưa vừa xây.</p></div><div class="card accent"><h3>Bốn bài</h3><p>5.1.1, 5.1.2, 5.2.1 và 5.2.2.</p></div></div><aside class="notes">Phần dọc riêng sau phần giảng. Chỉ dùng Bài 5.1.1, 5.1.2, 5.2.1 và 5.2.2 của MMDS 3e. Bốn bài dùng lại đúng ba tài sản của phần giảng vừa tổng kết ở K00: ma trận chuyển cột, nghiệm nhỏ của hệ điểm cố định và biểu diễn thưa. Mỗi bài dành phần cuối để nhóm đối chiếu ma trận, tổng vector hoặc biểu diễn; việc giao nhóm nằm trong chính khoảng làm bài.</aside></section>
+    <section class="recitation" data-slide-id="R00"><h1>Bài tập trên lớp</h1><p class="big">Bốn bài trực tiếp từ MMDS, mục 5.1–5.2.</p><div class="grid2"><div class="card"><h3>Dùng lại từ phần giảng</h3><p>Ma trận chuyển, nghiệm nhỏ của hệ điểm cố định và biểu diễn thưa vừa xây.</p></div><div class="card accent"><h3>Bốn bài</h3><p>5.1.1, 5.1.2, 5.2.1 và 5.2.2.</p></div></div><aside class="notes">Phần dọc riêng sau phần giảng. Chỉ dùng Bài 5.1.1, 5.1.2, 5.2.1 và 5.2.2 của MMDS 3e. Bốn bài dùng lại ba kết quả vừa tổng kết: ma trận chuyển cột, nghiệm nhỏ của hệ điểm cố định và biểu diễn thưa. Mỗi bài dành phần cuối để nhóm đối chiếu ma trận, tổng vector hoặc biểu diễn; việc giao nhóm nằm trong chính khoảng làm bài.</aside></section>
     <section class="recitation" data-slide-id="R02">
       <h2>Bài 5.1.1 · PageRank không có hệ số giảm</h2>
       <img class="figure short" src="img/lec-03/do-thi-bai-tap-5-7.svg" role="img" alt="Đồ thị Hình 5.7: a trỏ đến a, b, c; b trỏ đến a, c; c trỏ đến b, c."/>
       <p>Tính PageRank của mỗi trang trong Hình 5.7, giả sử không có hệ số giảm.</p>
       <div class="task"><p>Sản phẩm: ma trận cột, hệ điểm cố định và vector đã chuẩn hóa.</p></div>
-      <aside class="notes">Dịch trực tiếp MMDS Bài 5.1.1, trang in 187–188, PDF trang 13–14; dữ kiện chính là Hình 5.7. Nhóm làm bài rồi dành phần cuối kiểm tra tổng các thành phần bằng 1 thay vì nói "chuẩn hóa" chung chung. Hướng dẫn chấm 6 điểm: dựng đúng ma trận cột theo bậc ra 2 điểm; lập r=Pr 2 điểm; kiểm tra tổng bằng 1 và nhận r=(3/13,4/13,6/13)^T theo thứ tự (a,b,c) 2 điểm. Phương trình r_a=r_a/3+r_b/2, r_b=r_a/3+r_c/2, r_c=r_a/3+r_b/2+r_c/2.</aside>
+      <aside class="notes">Nguồn: MMDS Bài 5.1.1, trang in 187–188, PDF trang 13–14; dữ kiện chính là Hình 5.7. Nhóm làm bài rồi dành phần cuối kiểm tra tổng các thành phần bằng 1. Hướng dẫn chấm 6 điểm: dựng đúng ma trận cột theo bậc ra 2 điểm; lập r=Pr 2 điểm; kiểm tra tổng bằng 1 và nhận r=(3/13,4/13,6/13)^T theo thứ tự (a,b,c) 2 điểm. Phương trình r_a=r_a/3+r_b/2, r_b=r_a/3+r_c/2, r_c=r_a/3+r_b/2+r_c/2.</aside>
     </section>
     <section class="recitation" data-slide-id="R03">
       <h2>Bài 5.1.2 · PageRank với $\beta=0{,}8$</h2>
       <img class="figure short" src="img/lec-03/do-thi-bai-tap-5-7.svg" role="img" alt="Đồ thị Hình 5.7: a trỏ đến a, b, c; b trỏ đến a, c; c trỏ đến b, c."/>
       <p>Tính PageRank của mỗi trang trong Hình 5.7, giả sử $\beta=0{,}8$.</p>
       <div class="task"><p>Sản phẩm: phương trình có dịch chuyển, nghiệm và hai phép kiểm tra.</p></div>
-      <aside class="notes">Dịch trực tiếp MMDS Bài 5.1.2, trang in 188, PDF trang 14. Đồ thị không có nút cụt: d+(a)=3, d+(b)=d+(c)=2, nên mọi cột đều dương và quy ước sửa cột không đổi kết quả. Nhóm dùng lại ma trận từ bài trước và dành phần cuối đối chiếu phương trình cùng tổng vector. Hướng dẫn chấm 6 điểm: viết r=0,8Pr+0,2e/3 đúng 2 điểm; giải hệ hoặc lặp có kiểm tra 2 điểm; kết quả r=(7/27,25/81,35/81)^T≈(0,2593;0,3086;0,4321)^T và tổng 1 là 2 điểm.</aside>
+      <aside class="notes">Nguồn: MMDS Bài 5.1.2, trang in 188, PDF trang 14. Đồ thị không có nút cụt: d+(a)=3, d+(b)=d+(c)=2, nên mọi cột đều dương và quy ước sửa cột không đổi kết quả. Nhóm dùng lại ma trận từ bài trước và dành phần cuối đối chiếu phương trình cùng tổng vector. Hướng dẫn chấm 6 điểm: viết r=0,8Pr+0,2e/3 đúng 2 điểm; giải hệ hoặc lặp có kiểm tra 2 điểm; kết quả r=(7/27,25/81,35/81)^T≈(0,2593;0,3086;0,4321)^T và tổng 1 là 2 điểm.</aside>
     </section>
     <section class="recitation" data-slide-id="R04">
       <h2>Bài 5.2.1 · Ngưỡng lưu ma trận thưa</h2>
       <p>Giả sử $n\ge 2$. Một ma trận Boolean $n\times n$ dùng $n^2$ bit khi lưu đặc. Khi lưu vị trí các số 1 dưới dạng cặp số nguyên, mỗi số nguyên dùng $\lceil\log_2 n\rceil$ bit. Ma trận phải thưa đến mức nào để cách thứ hai tiết kiệm không gian?</p>
       <div class="task"><p>Sản phẩm: bất đẳng thức theo số phần tử 1 và ngưỡng mật độ.</p></div>
-      <aside class="notes">Dịch trực tiếp MMDS Bài 5.2.1, trang in 195, PDF trang 21; giả thiết $n\ge2$ làm mẫu số dương. Gọi $q$ là số phần tử 1. Nhóm dành phần cuối kiểm tra dấu nghiêm trong bất đẳng thức. Hướng dẫn chấm 4 điểm: chi phí đặc $n^2$ bit 1 điểm; chi phí thưa $2q\lceil\log_2n\rceil$ bit 1 điểm; bất đẳng thức $2q\lceil\log_2n\rceil&lt;n^2$ 1 điểm; với $n\ge2$, mật độ $q/n^2&lt;1/(2\lceil\log_2n\rceil)$, dấu nghiêm vì đề hỏi tiết kiệm, 1 điểm.</aside>
+      <aside class="notes">Nguồn: MMDS Bài 5.2.1, trang in 195, PDF trang 21; giả thiết $n\ge2$ làm mẫu số dương. Gọi $q$ là số phần tử 1. Nhóm dành phần cuối kiểm tra dấu nghiêm trong bất đẳng thức. Hướng dẫn chấm 4 điểm: chi phí đặc $n^2$ bit 1 điểm; chi phí thưa $2q\lceil\log_2n\rceil$ bit 1 điểm; bất đẳng thức $2q\lceil\log_2n\rceil&lt;n^2$ 1 điểm; với $n\ge2$, mật độ $q/n^2&lt;1/(2\lceil\log_2n\rceil)$, dấu nghiêm vì đề hỏi tiết kiệm, 1 điểm.</aside>
     </section>
     <section class="recitation" data-slide-id="R05">
       <h2>Bài 5.2.2(a–b) · Biểu diễn ma trận chuyển</h2>
       <div class="grid2"><div><h3>Hình 5.4</h3><img class="figure mini" src="img/lec-03/do-thi-bai-tap-5-4.svg" role="img" alt="Đồ thị Hình 5.4 gồm năm nút A, B, C, D, E; các mũi tên giữ nguyên như hình nguồn MMDS."/></div><div><h3>Hình 5.7</h3><img class="figure mini" src="img/lec-03/do-thi-bai-tap-5-7.svg" role="img" alt="Đồ thị Hình 5.7: a trỏ đến a, b, c; b trỏ đến a, c; c trỏ đến b, c."/></div></div>
       <p>Dùng cách của mục 5.2.1 để biểu diễn ma trận chuyển của hai đồ thị.</p>
       <p class="muted">Ghi mỗi hàng theo dạng: nút nguồn | bậc ra | danh sách đích.</p>
-      <aside class="notes">Dịch trực tiếp MMDS Bài 5.2.2, trang in 195, PDF trang 21. Hai hình được vẽ lại từ MMDS để cung cấp đủ dữ kiện; không đổi yêu cầu. Nhóm chia hai hình rồi dành phần cuối đối chiếu hàng của nút cụt E. Hướng dẫn chấm 8 điểm. Hình 5.4: A|3|B,C,D; B|2|A,D; C|1|E; D|2|B,C; E|0|∅, 4 điểm; ghi E là cột 0 trong quy ước chưa sửa của hình và cần thay bằng phân phối đều khi dựng P của deck, 1 điểm. Hình 5.7: a|3|a,b,c; b|2|a,c; c|2|b,c, 3 điểm.</aside>
+      <aside class="notes">Nguồn: MMDS Bài 5.2.2, trang in 195, PDF trang 21. Nhóm chia hai hình rồi dành phần cuối đối chiếu hàng của nút cụt E. Hướng dẫn chấm 8 điểm. Hình 5.4: A|3|B,C,D; B|2|A,D; C|1|E; D|2|B,C; E|0|∅, 4 điểm; ghi E là cột 0 trong quy ước chưa sửa của hình và cần thay bằng phân phối đều khi dựng P của bài giảng, 1 điểm. Hình 5.7: a|3|a,b,c; b|2|a,c; c|2|b,c, 3 điểm.</aside>
     </section>
   </section>
 
