@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 430" role="img" aria-labelledby="title desc">
   <title id="title">Số phép thử tạo nhiều dương tính giả</title>
-  <desc id="desc">Số cặp người nhân số cặp ngày nhân xác suất trùng ngẫu nhiên cho kỳ vọng khoảng 250 nghìn biến cố trùng dù dữ liệu hoàn toàn ngẫu nhiên.</desc>
+  <desc id="desc">Số cặp người nhân số cặp ngày nhân xác suất trùng ngẫu nhiên cho kỳ vọng xấp xỉ 249 nghìn 750 biến cố trùng dù dữ liệu hoàn toàn ngẫu nhiên.</desc>
   <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0l10 5-10 5z" fill="#2f3e7a"/></marker></defs>
   <rect width="1100" height="430" rx="22" fill="#fffdf9"/>
   <g font-family="sans-serif" text-anchor="middle">
@@ -17,7 +17,7 @@
     <text x="835" y="205" font-size="31" fill="#b15a2b">10⁻¹⁸</text>
     <path d="M505 268v58" stroke="#2f3e7a" stroke-width="6" marker-end="url(#a)"/>
     <rect x="330" y="335" width="350" height="70" rx="16" fill="#2f3e7a"/>
-    <text x="505" y="380" font-size="30" font-weight="700" fill="white">E[X] ≈ 250.000</text>
+    <text x="505" y="380" font-size="30" font-weight="700" fill="white">E[X] ≈ 249.750</text>
     <text x="880" y="375" font-size="23" fill="#263238">dữ liệu ngẫu nhiên</text>
   </g>
 </svg>

@@ -123,3 +123,18 @@ Các chủ đề N02, N09 và N10 là `cầu nối`; không có chủ đề `b�
 - Chia MMDS Bài 1.2.1 thành các mốc R01–R03 và Bài 1.2.2 thành R04–R05; chỉ dịch, chia bước và chuyển đáp án vào ghi chú diễn giả.
 - Ở R04, thay nhãn con người nhạy cảm bằng “nhóm cần phát hiện” nhưng giữ nguyên giả thuyết toán học trong bài và chú thích 3.
 - Thu gọn phần số chiều lớn thành định tuyến; phân biệt rõ tổng khoảng cách ở E01 với thể tích gần biên ở E02.
+
+## Vòng đồng bộ với ghi chú bài giảng
+
+Không đổi thứ tự trang, kết nối giữa bảy mạch hoặc thời lượng. Các điểm bị tác động:
+
+| Mã trang | Điều chỉnh | Tác động mạch |
+|---|---|---|
+| P01, A00, A02, B00, B03, B06, C04–C05, D05, E04, R00–R05 | Bỏ nhãn quy trình và siêu bình luận khỏi ghi chú diễn giả | Câu nối được viết trực tiếp; nguồn, đáp án và hướng dẫn chấm được giữ |
+| A03, E03 | Sửa phạm vi trang chiếu Stanford và bỏ tên tệp nội bộ khỏi lời giảng | Ánh xạ nguồn rõ hơn, không đổi nội dung |
+| D03–D04 | Phân biệt kết quả tổ hợp $249.750$ với xấp xỉ $250.000$ của nguồn | Ví dụ và diễn giải số học thống nhất |
+| E01 | Thống nhất $\mathbf{y},\mathbf{z}$, chỉ số $j$ và giả thiết | Công thức deck khớp ghi chú bài giảng |
+| E02 | Gắn $r=1-O(1/d)$ cho bán kính trong | Tránh hiểu nhãn bán kính là tỷ lệ thể tích |
+| R01–R02 | Bỏ mã nội bộ D01, làm rõ sản phẩm và hai hệ số triệt tiêu | Bài tập vẫn giữ nguyên dữ kiện và yêu cầu MMDS |
+
+Chu trình A, D và E đã được rà lại cùng hai trang lân cận. Không có thay đổi nào buộc sửa thứ tự khái niệm hoặc liên kết trong `index.html`.

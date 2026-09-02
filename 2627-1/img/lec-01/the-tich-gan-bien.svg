@@ -8,7 +8,7 @@
   <circle cx="390" cy="250" r="145" fill="#edf4ff" stroke="#2f3e7a" stroke-width="4"/>
   <line x1="390" y1="250" x2="580" y2="250" stroke="#263238" stroke-width="4"/>
   <line x1="535" y1="230" x2="535" y2="270" stroke="#263238" stroke-width="4"/>
-  <text x="478" y="235" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#263238">1 − O(1/d)</text>
+  <text x="478" y="235" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#263238">r = 1 − O(1/d)</text>
   <text x="560" y="300" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#b15a2b">O(1/d)</text>
   <text x="760" y="160" font-family="sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#263238">Khi d tăng</text>
   <text x="760" y="215" font-family="sans-serif" font-size="25" text-anchor="middle" fill="#263238">phần lớn thể tích</text>

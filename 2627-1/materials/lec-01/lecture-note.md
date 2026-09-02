@@ -263,7 +263,7 @@ Dữ liệu hiện đại thường được biểu diễn bằng véc-tơ số 
 
 Cho $y,z\in\mathbb{R}^d$, khoảng cách Euclid giữa hai véc-tơ là một tổng của nhiều thành phần:
 
-$$|y - z|^2 = \sum_{i=1}^{d} (y_i - z_i)^2.$$
+$$\|\mathbf{y} - \mathbf{z}\|_2^2 = \sum_{j=1}^{d} (y_j - z_j)^2.$$
 
 Khi $d$ lớn và các tọa độ là mẫu độc lập của biến ngẫu nhiên phương sai hữu hạn, luật số lớn cho biết trung bình của các mẫu hội tụ về kỳ vọng, nên khoảng cách giữa các cặp điểm ngẫu nhiên gần như bằng nhau khi $d$ đủ lớn (BHK, PDF trang 12). Đây là hiện tượng về tổng khoảng cách.
 

@@ -256,3 +256,42 @@ Một số lượt reviewer ban đầu chạm giới hạn vòng công cụ và 
 - Chromium/Playwright ở 1280×720 và 390×844: 23 mục lục, 178 công thức KaTeX, không lỗi công thức; năm SVG tải đủ; không tràn trang; không lỗi JavaScript, lỗi trang hoặc yêu cầu mạng; gợi ý và lời giải gập mặc định, mở được bằng bàn phím; liên kết bỏ qua điều hướng hoạt động.
 - Viewer từ chối đường dẫn ngoài `materials/lec-NN/` và từ chối số bài của `doc`/`deck` không khớp. Bản in A4 gồm 15 trang, tự mở mọi khối gập và ẩn mục lục cùng thanh điều hướng.
 - Sau khi viewer đạt, `index.html` mới được cập nhật. Kiểm tra index ở hai khung cho đủ 15 thẻ, đúng một liên kết ghi chú Bài 01, hai tài nguyên Bài giảng/Ghi chú, không tràn trang hoặc lỗi JavaScript.
+
+## Vòng đồng bộ deck với ghi chú bài giảng 2026-09-02
+
+### Điều phối và worker OpenRouter
+
+- Reader kế hoạch `45938` và reader nguồn `19318` dùng `z-ai/glm-5.3-flash` qua OpenRouter; cả hai kết luận không cần thêm, gộp, tách hoặc bỏ trang.
+- Writer hợp lệ `15607` dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter trên bản sao tạm. Phiên `67191` bị dừng ngay vì dùng nhầm model; phiên DeepSeek `42928` hết thời gian trước khi ghi tệp nên không được tính.
+- Năm báo cáo reviewer hợp lệ: nguồn–ghi chú `43467`, toán–giải thuật `83574`, sư phạm `26158`, no-ai + mạch Quill `64311`, kỹ thuật tĩnh `3556`. Tất cả reviewer hợp lệ báo `requested_model=observed_model=z-ai/glm-5.3-flash`, provider OpenRouter.
+- Hai phiên kỹ thuật `74396` và `53521` chạm giới hạn lượt công cụ, không dùng làm báo cáo. Reviewer kỹ thuật được chạy lại với phạm vi hẹp và hoàn tất ở phiên `3556`.
+- Không gửi `.env`, bí mật hoặc thông tin xác thực tới worker. Codex chính chỉ áp dụng các sửa nằm trong phạm vi đã duyệt.
+
+### Quyết định sau năm báo cáo
+
+- Chấp nhận sửa goal/prompt từ sáu thành bảy mạch; HTML và storyboard vốn đã có đúng bảy mạch, hợp chuẩn 5–7.
+- Chấp nhận bỏ mã nội bộ `D01` khỏi R01, bỏ cụm “mốc hoạt động”, các nhãn câu nối và tên tệp nội bộ khỏi lời giảng.
+- Chấp nhận thống nhất ký hiệu E01 với ghi chú, bổ sung giả thiết phương sai hữu hạn, làm rõ kết quả tổ hợp ở D03–D04/R02 và bán kính trong ở E02.
+- Xác minh trực tiếp `mmds-3e-ch01-data-mining.pdf`, trang 7–8: ví dụ nằm ở Mục 1.2.3 và Bài 1.2.1 dùng dữ kiện của mục này.
+- Bác đề xuất đổi cấu trúc index ngoài Bài 01 vì thuộc phạm vi đồng bộ toàn học phần, không phải lỗi của deck này. Giữ giả mã A06 không gắn lớp ngôn ngữ vì đây là giả mã, không có ngôn ngữ lập trình xác định. Giữ nhãn hiển thị “Bài 1” theo quy ước giao diện hiện có; `01` vẫn được dùng trong tên tệp và đường dẫn.
+
+### Biên tập bản cuối
+
+- Dùng `$no-ai-slop` trên toàn bộ nội dung hiển thị và ghi chú diễn giả. Kiểm tra theo `no-ai-slop/eval.md` không còn lời dẫn rỗng, nhãn quy trình, câu tổng kết lặp, quảng bá hoặc nhịp câu máy móc.
+- Rà theo Quill Revise Workflow: chuỗi kho nhật ký → đặc tả → thuật toán → bất biến → chi phí và chuỗi mô hình ngẫu nhiên → kỳ vọng → bài tập giữ nguyên dữ kiện, ký hiệu và đầu ra. Không tạo `quill.json`.
+- Ghi chú bài giảng chỉ đổi một công thức để thống nhất ký hiệu véc-tơ $\mathbf{y},\mathbf{z}$ và chỉ số $j$; đã rà lại E01 của deck và N09 của ghi chú.
+
+### Kiểm định kỹ thuật và trực quan
+
+- 41 `data-slide-id` duy nhất, 41 ghi chú diễn giả, 48 thẻ `<section>` mở/đóng cân bằng và bảy section ngoài.
+- Năm SVG phân tích XML thành công, có `role="img"`, `title` và `desc`; không có ảnh raster hoặc tài nguyên lõi từ mạng.
+- Chromium duyệt đủ 41 trang ở 1280×720, 800×600 và 720×900: không tràn khung, không lỗi JavaScript, KaTeX, trang hoặc yêu cầu tài nguyên.
+- Điều hướng bàn phím đi đúng từ P00 xuống P01 và sang A00. Bản in A4 có 41 trang; 41 ghi chú tồn tại; không có phần tử `.katex-error`.
+- Ảnh render D03, D04, E01, E02, E03, R01 và R02 được xem trực tiếp; công thức, nhãn SVG và phần bài tập đều đọc được.
+- `index.html` đã có đúng liên kết Bài giảng và Ghi chú của Bài 01; không cần đổi URL hoặc tài nguyên.
+- Dự án Codex Slides chuẩn `20260827112432-b-i-1-b-i-to-n-d-li-u-l-n-v-m-h-nh-thu-t-8tlj` đọc được nhưng vẫn ở bước làm rõ với 0 trang nội bộ. Browser Codex Slides không khả dụng trong phiên; vì vậy bằng chứng trực quan dùng RevealJS cục bộ và Chromium, không tuyên bố đã xem deck trong Codex Slides.
+
+### Tái kiểm
+
+- Toán–giải thuật: phiên `50263`, GLM/OpenRouter, PASS; tính lại D04, R02, R03, R05 và xác nhận bất biến, chi phí, giả thiết cùng hai SVG.
+- Mạch/no-ai: phiên `29457`, GLM/OpenRouter, PASS; xác nhận E01, E03, R01, năm SVG, bảy mạch và việc dọn nhãn quy trình đều đạt.

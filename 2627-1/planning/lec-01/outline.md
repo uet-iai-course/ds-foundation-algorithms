@@ -125,3 +125,12 @@ Sau $k$ bản ghi, tập khóa của bảng đúng bằng tập máy chủ trong
 | N10 | Bản đồ học phần và chọn mô hình theo điểm nghẽn | cầu nối | N01–N09 | Dùng bốn phép kiểm tra để chọn mô hình | MMDS tr.17–18; Stanford 10; `source.md` | Áp dụng khung trong các bài sau |
 
 Không có chủ đề `bổ sung`. BHK PDF trang 18–21 là `đọc thêm`; không đưa các chứng minh cao chiều vào tuyến chính. Bất đẳng thức Markov chỉ là cầu nối ngắn trong N08, không tạo chủ đề riêng.
+
+## Đồng bộ bộ trang chiếu với ghi chú bài giảng
+
+- Giữ nguyên 41 trang, bảy mạch ngoài và thời lượng 120 phút giảng + 60 phút bài tập.
+- A03 và E03 dùng đúng phạm vi nguồn Stanford tương ứng là trang chiếu 7–8 và 10.
+- D04 và R02 phân biệt kết quả theo tổ hợp với xấp xỉ $\binom{n}{2}\approx n^2/2$ của MMDS.
+- E01 thống nhất $\mathbf{y},\mathbf{z}$, chỉ số $j$ và các giả thiết độc lập, cùng phân phối, phương sai hữu hạn giữa deck và ghi chú.
+- D03 hiển thị $249.750$ theo phép tính tổ hợp; E02 ghi rõ $r=1-O(1/d)$ là bán kính trong.
+- Không thêm chủ đề, thuật toán, ví dụ, trang hoặc nguồn. Mọi sửa đổi chỉ làm rõ nguồn, ký hiệu, giả thiết và ngôn ngữ trình bày.
