@@ -156,3 +156,27 @@ Hai lần sửa bằng selector `.z-interval-figure` ở 300 px rồi 240 px đ�
 - Liên kết Bài 14 trên index xuất hiện đúng một lần, nhận focus bằng bàn phím và mở đúng note/deck ở cả hai kích thước; không tràn ngang.
 - Ghi chú dùng 10 SVG phục vụ trực tiếp lập luận. Ba SVG có trước nhưng không cần trong ghi chú (`ball-build.svg`, `kofn-heap.svg`, `posting-merge.svg`) được giữ nguyên; không thêm hoặc xóa tài sản.
 - Kiểm tĩnh cuối: đúng một H1; 12 bộ `exercise/hint/solution`; 14 hàng rào mã; không có delimiter toán bị cấm, nhãn quy trình công khai, lỗi XML SVG hay `quill.json`.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch các phiên `32738`, `50253`, `68928`, `4241`, `22769` và reader nguồn phiên `62472` dùng `z-ai/glm-5.3-flash` qua OpenRouter. Inventory chốt: 58 trang/notes/ID, bảy phần ngoài, 49+9 trang, 120+60 phút và 13 SVG.
+- Writer DeepSeek phiên `19801` treo sau 240 giây và bị dừng minh bạch. Sub-agent sau đó chuẩn bị patch tạm cùng manifest tại `/tmp/lec14-deck-writer`; Codex so diff từng tệp rồi áp dụng bằng các hunk hẹp, không ghi đè thay đổi index của bài trước.
+- Thống nhất tập điểm dựng ball tree là $\mathcal X$ trong deck, note, outline và storyboard; giữ $S$ cho tập nền của NOT. Sửa lập luận lấy cực đại với 0 cho trường hợp $q\in B$, đưa $1{,}5$ và $2{,}5$ vào math mode, đồng thời chuẩn hóa nhãn/ARIA Bài 14 trên index.
+- `$no-ai-slop`: sửa notes đã chốt và loại nhãn quy trình khỏi P01, Z01, X02 cùng hai heading công khai trong lecture note. Quill: mạch chỉ mục đảo→không gian→kd-tree→ball tree→Z-order→bài nguồn và hệ ký hiệu giữ liên tục; không tạo `quill.json`.
+- Hai SVG `ball-build.svg` và `kofn-heap.svg` vẫn mồ côi. Reviewer nguồn yêu cầu không xóa trong bản vá đồng bộ vì đây là tài sản có trước; việc dọn tài sản phải là một lượt riêng. Deck dùng 11 SVG, lecture note dùng 10 SVG, tổng thư mục giữ 13 SVG.
+
+### Năm cổng reviewer
+
+- Nguồn, phiên tự chứa `88216`: **GO**; kiểm trực tiếp Cornell, Chương 31, Chương 25, ký hiệu $\mathcal X$, trường hợp $q\in B$ và toàn bộ recitation. Phiên `83914` chạm giới hạn công cụ và bị loại.
+- Toán–thuật toán, phiên `25376`: **GO**; kiểm lại danh sách đảo, precision/recall, R-tree, kd-tree, ball tree, Morton/Z-order và bài tập.
+- Văn phong, phiên `61215`: **NO-GO** hẹp do còn nhãn `recitation` và metadiscourse. Codex sửa P01, Z01, X02 cùng hai heading; tái kiểm phiên `89784`: **GO**.
+- Sư phạm, phiên `52725`: **GO**; xác nhận 58/58/7, 49+9, 120+60 và chu trình học tập. Phiên `96098` chạm giới hạn công cụ và bị loại.
+- Kỹ thuật, phiên `49479`: **GO**; xác nhận nesting, inventory, SVG, tài nguyên cục bộ, viewer/index và độ đặc hiệu CSS.
+
+### Kiểm định runtime của vòng đồng bộ
+
+- Audit đầu phát hiện tràn thật ở B01 và Z01 do selector `.reveal img` thắng `.short`/`.figure`. Thêm hai selector cụ thể: B01 tối đa 285 px và Z01 tối đa 480 px. Chromium tái kiểm đủ 58 trang ở $1280\times720$, $800\times600$, $720\times900$: không tràn, không lỗi console/KaTeX hoặc request.
+- Hai ảnh B01 và Z01 sau sửa được xem trực tiếp; công thức, lưới và chân trang đều nằm trọn khung. Điều hướng bàn phím đạt; PDF deck có 58 trang.
+- Viewer rộng/hẹp có 28 heading, 16 liên kết mục lục, 466 biểu thức KaTeX, 10 hình và 24 khối gập đóng mặc định; bàn phím, in 29 trang, path traversal và ghép sai số bài đều đạt.
+- Index có đúng một liên kết Bài 14, mở đúng cặp doc/deck và không lỗi runtime.
+- Dự án Codex Slides `20260830170505-b-i-14-ch-m-c-v-n-b-n-v-ch-m-c-kh-ng-gia-qpmz` truy cập được nhưng vẫn là draft 0 slide; không có canvas để đối chiếu nên không tuyên bố đã kiểm canvas.

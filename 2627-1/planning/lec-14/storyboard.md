@@ -47,7 +47,7 @@ Kho tài liệu web (`I00`) → danh sách đảo và phép trộn (`I01–I06�
 - Tình huống/trực giác: `B00`.
 - Ví dụ số trước công thức: `B02`; hình thức/chứng minh cận: `B01`.
 - Giả mã truy vấn `B03` chỉ cần metric, ball chứa điểm và cùng trạng thái $best,\tau,LB$.
-- Dựng `B04–B06` chuyên biệt cho $S\subseteq\mathbb R^p$ hữu hạn, khoảng cách Euclid và $\ell\ge1$. Vết dùng bốn điểm $a,b,c,d$, khóa chiếu $(0,4,12,16)$, hai tập con và $(c,r)$ cho cả nút cha lẫn hai lá.
+- Dựng `B04–B06` chuyên biệt cho $\mathcal X\subseteq\mathbb R^p$ hữu hạn, khoảng cách Euclid và $\ell\ge1$. Vết dùng bốn điểm $a,b,c,d$, khóa chiếu $(0,4,12,16)$, hai tập con và $(c,r)$ cho cả nút cha lẫn hai lá.
 - Chi phí `B07` là suy ra của deck dưới giả thiết cây cân bằng, sắp lại mỗi nút và các phép đo/chiếu/tâm/bán kính tốn $O(p)$ mỗi điểm; không gán cho Cornell.
 - Vết: với $\tau=2{,}5$, LB 2 được thăm, LB 3 bị cắt, LB 2,5 vẫn được thăm.
 
@@ -135,7 +135,7 @@ Mỗi dòng dưới đây khớp một `data-slide-id` và một khối ghi chú
 | B02 | 3 | Vết số LB |
 | B01 | 3 | Công thức và chứng minh LB |
 | B03 | 2 | Giả mã truy vấn |
-| B04 | 3 | Vết số $x_0,x_1,x_2,z,S_L,S_R,c,r$ |
+| B04 | 3 | Vết số $x_0,x_1,x_2,z,\mathcal X_L,\mathcal X_R,c,r$ |
 | B05 | 2 | Giả mã dựng Euclid tạo ball cho cả lá |
 | B06 | 2 | Vết $(c,r)$ của cha và hai lá; điều kiện metric |
 | B07 | 2 | Cận dựng do deck suy ra có điều kiện |
@@ -185,4 +185,4 @@ Vết kd-tree và ball tree là ví dụ dựng từ cơ chế Cornell, không p
 | `L14-N11` | Phần giảng → bài nguồn 31.2 | danh sách đảo, đống | giả mã, bất biến, dừng, chi phí | exercise/hint/solution đầy đủ |
 | `L14-N12` | Phần giảng → bài nguồn 25.2–25.3 | R-tree, B+-Tree, vùng | chọn đường truy cập; chứng minh 1-NN qua vùng | exercise/hint/solution; ghi rõ điều kiện bổ sung |
 
-Ghi chú dùng thứ tự định nghĩa trước ví dụ theo khuôn tài liệu tự học; deck vẫn giữ trực giác trước hình thức hóa. Không đổi ký hiệu, kết luận hoặc thứ tự khái niệm dùng chung, nên không cần sửa deck.
+Ghi chú dùng thứ tự định nghĩa trước ví dụ theo khuôn tài liệu tự học; deck vẫn giữ trực giác trước hình thức hóa. Ký hiệu tập điểm ball tree được thống nhất là $\mathcal X$ trong cả hai tài liệu.

@@ -44,7 +44,7 @@ Ví dụ chạy tay dùng hai danh sách:
 
 Nếu thuật ngữ $t$ xuất hiện nhiều lần trong cùng một tài liệu, số lần xuất hiện là dữ liệu đi kèm docID, không phải docID lặp. Phần 3 sẽ làm rõ điều này.
 
-Nhận xét quan trọng: danh sách đảo **không phải một tập chưa sắp**. Nếu dùng một tập bình thường, không thể chạy hai con trỏ trộn tuyến tính. Cấu trúc đúng là danh sách tăng nghiêm ngặt của docID.
+Danh sách đảo **không phải một tập chưa sắp**. Hai con trỏ chỉ trộn tuyến tính khi docID nằm trong một danh sách tăng nghiêm ngặt.
 
 **Ví dụ AND — hai con trỏ.** Để tính giao của $P=[1,3,4,8]$ và $Q=[2,3,6,8]$, dùng hai con trỏ $i,j$:
 
@@ -349,7 +349,7 @@ Bất đẳng thức thứ nhất là bất đẳng thức tam giác cho metric;
 
 $$\delta(q,x)\ge\delta(q,c)-r.$$
 
-Lấy cực đại với 0 để tránh cận âm khi $q\notin B$:
+Lấy cực đại với 0 để tránh cận âm khi $q\in B$:
 
 $$\operatorname{LB}(q,B)=\max(0,\delta(q,c)-r).$$
 
@@ -363,7 +363,7 @@ Ví dụ số và giả mã truy vấn dưới đây do bài giảng triển kha
 |---|---|---|---|---|
 | $B_1$ | 3 | 1 | 2 | thăm |
 | $B_2$ | 5 | 2 | 3 | cắt |
-| $B_3$ | 4 | 1{,}5 | 2,5 | thăm |
+| $B_3$ | 4 | $1{,}5$ | $2{,}5$ | thăm |
 
 $B_1$ có cận 2 ≤ 2,5 nên được thăm. $B_2$ có cận 3 > 2,5 nên bị cắt. $B_3$ có cận 2,5 = $\tau$ nên **vẫn được thăm** để giữ nghiệm đồng hạng; một điểm trong $B_3$ cách $q$ đúng 2,5 sẽ được thêm vào $best$.
 
@@ -563,7 +563,7 @@ Xét R-tree tạo tập ứng viên; đầu ra chính xác không đồng nghĩa
 Nếu nói về tính đúng, câu có thể giữ được: bước lọc không bỏ nghiệm và tinh lọc loại dương tính giả, nên đầu ra hình học của vùng là chính xác theo ngữ nghĩa đó. Nếu nói về precision của truy hồi xếp hạng, câu sai: precision đo tỉ lệ $R\cap G$ trong tập trả về, một thuộc tính của xếp hạng và ngưỡng, không phải tính đúng của bước hình học. Phải ghi rõ đang nói đại lượng nào.
 :::
 
-## 11. Recitation 31.2 — hợp ít nhất $k$ danh sách bằng đống
+## 11. Bài 31.2 — hợp ít nhất $k$ danh sách bằng đống
 
 **Đặc tả.** Có $n\ge1$ từ khóa, mỗi từ khóa $i$ có một danh sách docID $P_i$ tăng dần, có thể rỗng và không lặp docID. Cho $1\le k\le n$. Yêu cầu: tìm mọi tài liệu chứa **ít nhất** $k$ trong $n$ từ khóa. Đặt
 
@@ -614,7 +614,7 @@ Bước khởi tạo vẫn không phụ thuộc vào nội dung các danh sách.
 Đống rỗng từ đầu, vòng ngoài không chạy, kết quả $A=[]$ rỗng. Nhưng bước duyệt $n$ danh sách để khởi tạo đống và xác nhận rỗng vẫn chạy, tốn $O(n)$. Đây là lý do chi phí khởi tạo được ghi rõ riêng trong phân tích.
 :::
 
-## 12. Recitation 25.2–25.3 — truy vấn điểm và 1-NN qua vùng tròn
+## 12. Bài 25.2–25.3 — truy vấn điểm và 1-NN qua vùng tròn
 
 Hai bài dưới đây dùng đề và lời giải chính thức của *Database System Concepts* 6e, Practice Solutions Chương 25.
 

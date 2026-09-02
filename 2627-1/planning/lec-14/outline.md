@@ -31,6 +31,7 @@ MMDS và Stanford CS246 không áp dụng: các nguồn đó không bao phủ c�
 |---|---|
 | $D$ | tập tài liệu; $S\subseteq D$ là tập nền của NOT |
 | $P_t$ | danh sách đảo tăng nghiêm ngặt của thuật ngữ $t$ |
+| $\mathcal X$ | tập điểm hữu hạn dùng để dựng ball tree |
 | $n$ | số điểm trong các cụm cây; trong Bài 31.2 là số danh sách, theo phạm vi cục bộ |
 | $T=\sum_i|P_i|$ | tổng số mục danh sách trong Bài 31.2 |
 | $q$ | điểm hỏi |
@@ -78,7 +79,7 @@ Với $q=(0,0)$ và $\tau=2{,}5$:
 - $(5,2)$ cho LB=3: cắt;
 - $(4,1{,}5)$ cho LB=2,5: thăm để giữ hòa.
 
-$\operatorname{LB}(q,B)=\max(0,\delta(q,c)-r)$ và thuật toán truy vấn chỉ cần metric, với điều kiện mỗi ball chứa cây con theo cùng metric $\delta$. Phép dựng của deck chuyên biệt cho tập hữu hạn $S\subseteq\mathbb R^p$, $\ell\ge1$ và chuẩn 2. Vết dùng $a=(0,0),b=(1,0),c=(3,0),d=(4,0)$; $x_0=a,x_1=d,x_2=a$; khóa chiếu $(0,4,12,16)$; hai lá $\{a,b\}$ và $\{c,d\}$ có tâm $(0{,}5,0)$ và $(3{,}5,0)$, cùng bán kính $0{,}5$. Mọi nút, kể cả lá, đều tạo $(c,r)$. Với cây cân bằng, sắp lại mỗi nút và mỗi phép đo/chiếu xử lý $p$ tọa độ, deck suy ra $O(n\log^2n+pn\log n)$; không gán cận này cho Cornell.
+$\operatorname{LB}(q,B)=\max(0,\delta(q,c)-r)$ và thuật toán truy vấn chỉ cần metric, với điều kiện mỗi ball chứa cây con theo cùng metric $\delta$. Phép dựng của deck chuyên biệt cho tập hữu hạn $\mathcal X\subseteq\mathbb R^p$, $\ell\ge1$ và chuẩn 2. Vết dùng $a=(0,0),b=(1,0),c=(3,0),d=(4,0)$; $x_0=a,x_1=d,x_2=a$; khóa chiếu $(0,4,12,16)$; hai lá $\{a,b\}$ và $\{c,d\}$ có tâm $(0{,}5,0)$ và $(3{,}5,0)$, cùng bán kính $0{,}5$. Mọi nút, kể cả lá, đều tạo $(c,r)$. Với cây cân bằng, sắp lại mỗi nút và mỗi phép đo/chiếu xử lý $p$ tọa độ, deck suy ra $O(n\log^2n+pn\log n)$; không gán cận này cho Cornell.
 
 ### Bài 31.2
 
