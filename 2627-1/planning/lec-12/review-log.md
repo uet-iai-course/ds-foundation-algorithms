@@ -192,3 +192,26 @@ Các nhận xét thiếu SVG, deck, thư viện cục bộ và CSS trong báo c�
 - Bản in A4 gồm 18 trang; mọi `hint`/`solution` tự mở, mục lục và thanh thao tác bị ẩn, không có hình vượt khung.
 - Sau khi viewer đạt, `index.html` mới được cập nhật. Liên kết Bài 12 xuất hiện đúng một lần, nhận focus bằng bàn phím và mở đúng ghi chú ở cả khung rộng và hẹp; tám ảnh cùng công thức tiếp tục tải không lỗi.
 - Kiểm tra tĩnh: một H1; 10 `exercise`, 10 `hint`, 10 `solution` và 30 dấu đóng; ba khối mã `text`; tám SVG là XML hợp lệ; không có delimiter toán bị cấm; `git diff --check` đạt.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch phiên `96490` và reader nguồn các phiên `45983`, `21434` đều dùng `z-ai/glm-5.3-flash` qua OpenRouter, kết luận `GO`. Kiểm trực tiếp PDF gốc bác false positive về lời giải 13.5: mốc đúng vẫn là PDF trang 5, trang in 95.
+- Writer DeepSeek phiên `42641` chạy trên `/tmp/lec12-deck-writer`, sửa hai nhãn index trong bản sao rồi chờ API hơn bốn phút; phiên bị dừng minh bạch, không có metadata kết thúc và không chạm tệp sản phẩm trong workspace. Codex áp dụng trực tiếp đúng các delta reader phê duyệt.
+- Index Bài 12 dùng nhãn `Bài giảng`, `Ghi chú bài giảng` và `aria-label="Tài nguyên Bài 12"`. Speaker notes P00, P01, P02, I06, I07, S06, S11, S15, S16, R00, T01 và X01 được viết trực tiếp hơn, giữ nguyên dữ kiện, công thức, thuật toán, nguồn và cấu trúc 53 trang.
+- `$no-ai-slop/eval.md`: đạt ở phạm vi sửa. Quill: tuyến khối/khung→tạo dãy→trộn→chi phí→chọn thay thế và hệ ký hiệu $N,B,k,r_0,p,H,b_b$ giữ nguyên; không tạo `quill.json`.
+
+### Năm cổng reviewer và tái kiểm
+
+- Nguồn, phiên `4408`: **GO**. Đối chiếu lại các mốc nguồn, gồm Bài 13.5 ở PDF trang 5/trang in 95.
+- Toán–thuật toán, phiên `89157`: **GO**. Không phát hiện thay đổi dữ kiện, công thức, điều kiện hoặc kết luận.
+- Văn phong, phiên `18640`: **GO**. Các notes đã sửa đạt tiêu chí `$no-ai-slop` và vẫn giữ chỉ dẫn giảng cần thiết.
+- Sư phạm, phiên thay thế `46598`: **GO**. Xác nhận bảy section ngoài, 53 ID/notes, 46+7 trang và 120+60 phút.
+- Kỹ thuật, phiên thay thế `28972`: **GO**. Xác nhận cấu trúc lồng section, bảy mạch và inventory khớp.
+- Hai báo cáo sư phạm/kỹ thuật ban đầu ở phiên `10656` và `39914` đếm nhầm sáu section ngoài nên đã được thay bằng hai lượt tái kiểm độc lập trên đúng bản cuối. Các phiên `9144`, `37105`, `13739`, `9870`, `51566` chạm giới hạn gọi công cụ; phiên `46291` đặt điều kiện nguồn sai. Tất cả đều bị loại khỏi bằng chứng nghiệm thu.
+
+### Kiểm định runtime của vòng đồng bộ
+
+- Chromium duyệt đủ 53 trang ở $1280\times720$, $800\times600$ và $720\times900$: không lỗi console/KaTeX, không tràn; điều hướng bàn phím đạt.
+- Viewer có 33 heading, 23 liên kết mục lục, 201 biểu thức KaTeX, tám ảnh và 20 khối gập đóng mặc định. Khung rộng, hẹp, bàn phím, bản in, chặn path traversal và chặn ghép sai số bài đều đạt.
+- Dự án Codex Slides `20260828001844-b-i-12-m-h-nh-i-o-v-s-p-x-p-ngo-i-b-nh-9zjs` truy cập được nhưng vẫn là draft với 0 slide; vì không có canvas để đối chiếu, kết luận hình ảnh dựa trên Chromium thật và không tuyên bố đã kiểm canvas Codex Slides.
+- Index được kiểm sau viewer: liên kết Bài 12 xuất hiện đúng một lần, nhãn và URL doc/deck đúng.
