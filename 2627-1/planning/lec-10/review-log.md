@@ -153,3 +153,25 @@ Không áp dụng: đổi đường dẫn hình thành `../../img/...`, vì view
 - Hai ảnh chụp toàn trang rộng/hẹp đã được điều phối viên xem trực quan; bố cục, hình, bảng, mã và khối bài tập đọc được. Deck không thay đổi.
 
 Trạng thái ghi chú: `PASS`; đủ điều kiện commit và push. Commit và nhánh từ xa được xác minh bằng Git sau khi tạo commit.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch phiên `64886` và reader nguồn phiên `87526` đều dùng `z-ai/glm-5.3-flash` qua OpenRouter; hai báo cáo giữ nguyên 48 trang, 6 mạch ngoài, 44+4 trang, 120+60 phút, 9 SVG với 10 lượt dùng và toàn bộ nội dung toán–thuật toán.
+- Writer được gọi đúng `deepseek/deepseek-v4-flash-0731` trên dossier hẹp. Exec session `72347` đọc đủ dossier và áp dụng các chỉnh hẹp, nhưng sau đó chờ API quá 327 giây ở vòng tự kiểm nên bị dừng minh bạch; không có JSON kết thúc để xác nhận model quan sát và provider. Codex đối chiếu diff và chỉ đưa các delta reader phê duyệt vào kho.
+- Index Bài 10 đổi nhãn `Ghi chú` thành `Ghi chú bài giảng`. Speaker notes P00, H02, H07, R00, R08 và R10 được viết trực tiếp hơn; H13, A10 và R13 bỏ nhãn “Kết cụm”; X00 bỏ lời nhắc phê duyệt và storyboard nhưng giữ nguồn Nelson–Gailly/CMU.
+- Không đổi nội dung hiển thị, dữ kiện, công thức, thuật toán, chứng minh, bài tập, thứ tự R11→R08, mã trang hoặc SVG.
+- `$no-ai-slop/eval.md`: đạt ở phạm vi sửa; không còn các nhãn quy trình đã khoanh vùng. Quill: thuật ngữ, ký hiệu và mạch sáu phần không đổi; không tạo `quill.json`.
+
+### Năm phản biện và tái kiểm vòng đồng bộ
+
+- Nguồn/truy nguyên `36219`, toán–thuật toán `47431`, sư phạm/sinh viên `72104`, văn phong `39981` và kỹ thuật `57678` đều trả `GO`. Tất cả dùng `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter, với dossier dưới 40k token.
+- Các phiên `41060` và `53228` chạm giới hạn công cụ; phiên `21696` vượt ngưỡng dossier 40k. Cả ba bị loại khỏi cổng.
+- Góp ý nhẹ có giá trị ở R00 được áp dụng: 100.000 số 0 cùng EOS cần 100.001 bit Huffman, tức $100001=8\times12500+1$ và làm tròn thành 12.501 byte. Phiên `79269` bị loại vì tính sai phép chia; tái kiểm nguồn–toán phiên `92757`, cùng model/provider, trả `GO` và xác nhận khớp Nelson–Gailly.
+- Không áp dụng nhận xét đổi thứ tự R08/R11 vì đây là quyết định mạch đã được reader nguồn và planning xác nhận. Không có lỗi chặn hoặc nghiêm trọng còn lại.
+
+### Kiểm định cuối vòng đồng bộ
+
+- Chromium duyệt đủ 48 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, lỗi JavaScript, lỗi KaTeX hay tài nguyên tải thất bại. Điều hướng bàn phím và đủ 48 speaker notes đạt; PDF deck có 48 trang.
+- Viewer tải đúng tiêu đề, 32 heading, 28 liên kết mục lục, 104 biểu thức KaTeX không lỗi, 10 lượt hình và 4 khối gập đóng mặc định. Bản rộng và hẹp không có cuộn ngang nhìn thấy; bàn phím, bản in 18 trang, mở khối gập, từ chối vượt thư mục và từ chối cặp doc–deck khác bài đều đạt.
+- Index có đúng một liên kết ghi chú Bài 10 và mở đúng deck/note, không có lỗi console. Đã xem trực tiếp R08, X00 và bản viewer hẹp; công thức, bố cục và SVG rõ, không chồng hoặc cắt.
+- Codex Slides project `20260827223939-b-i-10-n-n-d-li-u-kh-ng-m-t-th-ng-tin-oh97` vẫn là draft 0 slide. Không tuyên bố đã kiểm canvas; bằng chứng hiển thị cuối là RevealJS và viewer cục bộ bằng Chromium.
