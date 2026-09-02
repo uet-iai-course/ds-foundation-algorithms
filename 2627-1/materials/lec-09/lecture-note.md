@@ -25,7 +25,7 @@ Hai quyết định cần chốt trước khi chọn thuật toán là đại l�
 Mỗi cấu trúc có một hợp đồng riêng về đầu vào, sai số và xác suất thất bại. Không thể chuyển bảo đảm của cấu trúc này sang cấu trúc khác.
 
 ::: exercise Tự kiểm
-Một hệ thống cần đếm số địa chỉ IP phân biệt từ đầu ngày và đồng thời đếm số cảnh báo trong 10.000 sự kiện gần nhất. Hai truy vấn này khác nhau ở hai trục nào?
+Một hệ thống cần đếm số địa chỉ IP phân biệt từ đầu ngày và đồng thời đếm số cảnh báo trong $N$ sự kiện gần nhất. Hai truy vấn này khác nhau ở hai trục nào?
 :::
 
 ::: solution
@@ -281,7 +281,7 @@ trong khi số thật là $5$.
 
 Nếu số thật $c=0$, thuật toán trả $0$. Xét $c>0$. Đặt $s=|b^*|$. Do mỗi kích thước có một hoặc hai bucket và kích thước không giảm khi đi về quá khứ, các bucket mới hơn có tổng ít nhất
 
-$$A\ge1+2+\cdots+\frac{s}{2}=s-1.$$
+$$A\ge1+2+4+\cdots+\frac{s}{2}=s-1.$$
 
 Hậu tố chứa ít nhất bit 1 tại mốc phải của $b^*$, nên $c\ge A+1\ge s$.
 

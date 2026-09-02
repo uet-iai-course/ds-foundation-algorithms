@@ -107,3 +107,32 @@
 - Phép đo đầu tiên dùng `documentElement.scrollWidth` báo 99 px trên màn hình hẹp do MathML ẩn của KaTeX nằm trong vùng cuộn đã cắt. Kiểm tra trực tiếp cho thấy `body.scrollWidth = body.clientWidth` và `window.scrollX` không thể tăng khỏi 0; cổng cuối dùng tràn thân trang và đạt 0 px. Đây không phải tràn nhìn thấy hoặc cuộn ngang cấp tài liệu.
 - Chỉ sau các cổng trên, mục Bài 9 trong `index.html` mới được đổi sang hai liên kết bài giảng và ghi chú.
 - Kiểm tra một lần kích hoạt từ index đạt ở cả $1280\times720$ và $390\times844$: liên kết nhận focus bàn phím, mở đúng tài liệu, tải đủ chín SVG và không có lỗi KaTeX hoặc lỗi console.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch OpenRouter phiên `1878` và reader nguồn phiên `82404` đều dùng `z-ai/glm-5.3-flash` qua OpenRouter. Hai reader giữ nguyên 46 trang, 7 mạch ngoài, 40+6 trang, 120+60 phút, chín SVG và toàn bộ nội dung toán–thuật toán; phạm vi sửa chỉ gồm một quy mô ví dụ không có nguồn, nhãn index và speaker notes mang giọng quy trình.
+- Writer được gọi đúng model `deepseek/deepseek-v4-flash-0731` trên dossier tạm chỉ chứa các tệp Bài 09 cần thiết. Hai lượt đều dừng ở vòng API đầu với lỗi nguyên văn `api_transport_error`, trước mọi tool call; cầu nối không trả `observed_model`, `provider` hoặc mã phiên OpenRouter hoàn chỉnh. Dossier không bị sửa.
+- Theo quyền người dùng đã cấp cho pipeline sau Bài 02, Codex chính áp dụng trực tiếp đúng delta đã được hai reader phê duyệt. Không đổi nội dung hiển thị của deck ngoài nhãn tài nguyên trong index; không đổi công thức, thuật toán, chứng minh, dữ kiện, nguồn, thứ tự, ID hoặc SVG.
+- `lecture-note.md` đổi “10.000 sự kiện gần nhất” thành “$N$ sự kiện gần nhất” để không gắn một quy mô không có trong nguồn. Mục Bài 09 trên index dùng nhãn thống nhất “Ghi chú bài giảng”.
+- Speaker notes F06, C04, M07, D09, E01, T00 và C03 bỏ nhãn “Cầu nối”; P01, P02, A00, A02, F04, F05, M02, M04, M05, T00, T01 được biên tập tối thiểu theo `$no-ai-slop`. Các câu nối vẫn giữ tuyến FM → Count-Min → AMS → DGIM → suy giảm mũ → tổng hợp → bài tập.
+- Tự kiểm `$no-ai-slop/eval.md`: đạt. Bản sửa giữ nguyên ý và chi tiết nguồn, dùng câu trực tiếp, không còn các nhãn quy trình đã khoanh vùng, không thêm số liệu hoặc nhận định.
+- Rà theo Quill ở chế độ chỉnh sửa, không khởi tạo `quill.json`: đạt. Thứ tự khái niệm, thuật ngữ và ký hiệu không đổi; các ranh giới phần vẫn có đầu vào và đầu ra rõ.
+- Kiểm tra tĩnh sau sửa: 46 `data-slide-id` duy nhất, 46 speaker notes, đúng 7 `<section>` ngoài và 9 đường dẫn SVG duy nhất; không còn chuỗi “Cầu nối” hoặc “10.000 sự kiện”; `git diff --check` sạch. Các cổng năm reviewer và kiểm định trình duyệt của vòng này do điều phối viên thực hiện tiếp trước khi commit.
+
+### Năm phản biện và tái kiểm vòng đồng bộ
+
+- Nguồn và truy nguyên, phiên `25045`: `GO`; không có lỗi chặn hoặc nghiêm trọng.
+- Toán và thuật toán, phiên `41637`: `GO`; các ví dụ, cận sai số và lời giải giữ nguyên và đúng.
+- Sư phạm và góc nhìn sinh viên, phiên `31093`: `GO`; mạch 46 trang, 7 phần và phân bổ 120+60 phút không đổi.
+- Văn phong, phiên `30235`: yêu cầu làm rõ một số câu rút gọn. Đã sửa hẹp A01, M02, D03 và X03; tái kiểm phiên `3388` trả `GO`. Giữ nguồn MMDS 4.4–4.6 ở A01 và câu về FM/LogLog ở T00 vì khớp tài liệu đã chọn.
+- Kỹ thuật, phiên đầu `22167` bị loại vì dựa trên nhận định sai rằng các tệp cục bộ không tồn tại. Phiên thay thế `85256` đọc dossier hẹp và trả `GO`.
+- Cả năm cổng hợp lệ dùng `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Các lượt lỗi `api_transport_error` trước khi đọc tệp bị loại khỏi cổng.
+- Theo gợi ý kỹ thuật, tổng trong chứng minh DGIM được viết rõ thành $1+2+4+\cdots+s/2=s-1$ ở D08 và ghi chú bài giảng. Tái kiểm toán hẹp phiên `71981`, cùng model và provider, trả `GO` với 0 phát hiện.
+
+### Kiểm định cuối vòng đồng bộ
+
+- Chromium duyệt đủ 46 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, lỗi JavaScript, lỗi KaTeX hay tài nguyên tải thất bại. Điều hướng bàn phím đi đúng P00→P01 và sang F00; đủ 46 speaker notes. PDF deck có 46 trang.
+- Viewer tải đúng tiêu đề, 32 heading, 21 liên kết mục lục, 235 biểu thức KaTeX không lỗi, 9 SVG và 11 khối gập đóng mặc định. Bản rộng và hẹp không có cuộn ngang nhìn thấy; bàn phím, bản in 18 trang, mở khối gập, từ chối vượt thư mục và từ chối cặp doc–deck khác bài đều đạt.
+- Index có đúng một liên kết ghi chú Bài 09 và mở đúng deck/note, không có lỗi console.
+- Đã xem trực tiếp các trang C03, T00, X05 và bản viewer hẹp; công thức, bảng và SVG đều rõ, không chồng hoặc cắt.
+- Codex Slides project `20260827213434-b-i-9-d-ng-d-li-u-m-moment-v-c-a-s-unoi` vẫn ở trạng thái draft với 0 slide. Không tuyên bố đã kiểm canvas; bằng chứng hiển thị cuối là RevealJS và viewer cục bộ bằng Chromium.
