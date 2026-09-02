@@ -150,3 +150,25 @@
 - Bàn phím đạt cho liên kết bỏ qua nội dung, khối gập và liên kết từ index. Bản in mở toàn bộ gợi ý/lời giải, ẩn mục lục/thanh hành động và không có ảnh vượt khung.
 - Viewer từ chối cả đường dẫn traversal và cặp số bài doc/deck không khớp. Index mở đúng ghi chú và deck ở cả hai kích thước màn hình.
 - Kiểm tra trực quan hai ảnh chụp toàn trang xác nhận bố cục rộng/hẹp liên tục, hình và khối mã không bị cắt. PDF in được tạo và kiểm tra cục bộ trước bàn giao.
+
+## Vòng đồng bộ deck với ghi chú — 2026-09-02
+
+- Reader kế hoạch phiên `25176` và reader nguồn phiên `84227` dùng `z-ai/glm-5.3-flash` qua OpenRouter, cùng chốt bản vá hẹp và inventory 60 trang/notes/ID, bảy phần ngoài, 50+10 trang, 120+60 phút, 10 SVG.
+- Writer phiên `70707` dùng đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter trong `/tmp/lec15-deck-writer.dhdGTu/`. Codex so diff, khôi phục nguồn H07, rút X07 và áp dụng trực tiếp các sửa đã duyệt. Index chỉ đổi nhãn Bài 15 từ `Ghi chú` thành `Ghi chú bài giảng`.
+- `$no-ai-slop`: biên tập 14 speaker notes P00, M00, M01, N02, N08, S00, S08, H02, H07, H08, H09, H14, C04 và X07; giữ rubric bắt buộc cùng quy trình chọn thuật toán ở C03. Quill: tuyến mô hình I/O→Nested/Block/Indexed→Sort-Merge→Hash/Grace→lựa chọn→recitation và hệ ký hiệu giữ nguyên; không tạo `quill.json`.
+
+### Năm cổng reviewer
+
+- Nguồn, phiên `32010`: **GO**; 14 sửa chỉ tác động văn phong/siêu dữ liệu, H07 còn nguồn slide 33 và recitation 15.3–15.5 giữ nguyên.
+- Toán–thuật toán, phiên `11593`: **GO**; chạy lại sáu họ nối, bất biến, chi phí, Grace Hash và toàn bộ recitation. Hai ghi chú thấp ở H11/H14 không ảnh hưởng tính đúng.
+- Văn phong, phiên `63228`: **GO**; đủ 14 notes tự nhiên, không metadiscourse; rubric và C03 không bị mở lại.
+- Sư phạm, phiên `1888`: **GO**; xác nhận 60/60/7, 50+10, 120+60 và chu trình học tập đầy đủ.
+- Kỹ thuật, phiên `13710`: **GO**; xác nhận nesting, inventory, 10 SVG, Reveal, viewer/index, phạm vi diff và CSS của N05/N09.
+
+### Kiểm định runtime của vòng đồng bộ
+
+- Audit đầu phát hiện tràn thật ở N05 và N09 do selector ảnh thiếu độ đặc hiệu; công thức N09 cũng quá rộng. Codex thêm selector cụ thể, giảm hình N05 xuống 285 px, N09 xuống 220 px và chia công thức N09 thành ba dòng. Chromium tái kiểm đủ 60 trang ở $1280\times720$, $800\times600$ và $720\times900$: không tràn, không lỗi console/KaTeX hoặc request.
+- Ảnh N05 và N09 sau sửa được xem trực tiếp; hình, công thức và chân trang nằm trọn khung. Điều hướng bàn phím đạt; PDF deck có 60 trang.
+- Viewer rộng/hẹp có 27 heading, 15 liên kết mục lục, 262 biểu thức KaTeX, 10 hình và 24 khối gập đóng mặc định; bàn phím, in 24 trang, chặn path traversal và ghép sai số bài đều đạt.
+- Index có đúng một liên kết Bài 15, mở đúng doc/deck và không lỗi runtime.
+- Dự án Codex Slides `20260830180051-b-i-15-thu-t-to-n-k-t-n-i-d-li-u-ssuw` truy cập được nhưng vẫn là draft 0 slide; không có canvas để đối chiếu nên không tuyên bố đã kiểm canvas.
