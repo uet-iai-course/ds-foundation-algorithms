@@ -38,7 +38,8 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 | $a/b$ | tỷ lệ khóa cần lấy mẫu |
 | $h(K)<a$ | điều kiện chọn khi $h$ có miền $0,\ldots,b-1$; $h$ phải phân bố đều trên toàn miền để tỷ lệ $a/b$ được bảo đảm |
 | $s$ | sức chứa hồ chứa, $s\ge1$ |
-| $n$ | số vị trí đã thấy; trong cụm Bloom là số bit của mảng (ký hiệu được dùng lại với nghĩa khác giữa hai cụm) |
+| $r$ | số vị trí đã thấy ở hồ chứa |
+| $n$ | số bit của mảng Bloom |
 | $m$ | số khóa được đưa vào Bloom filter |
 | $k$ | số hàm băm của Bloom filter |
 | $q$ | mật độ bit 1 chính xác dưới mô hình $km$ phép băm iid: $q=1-(1-1/n)^{km}$ |
@@ -48,7 +49,7 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 
 - Định nghĩa: mô hình dòng, mẫu theo khóa, mẫu hồ chứa, Bloom filter.
 - Thuật toán: `LẤY-MẪU-THEO-KHÓA`, `HỒ-CHỨA`, `XÂY-BLOOM`, `KIỂM-TRA-BLOOM`.
-- Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/n$; điều kiện không âm giả.
+- Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/r$; điều kiện không âm giả.
 - Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
 - Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
 - Sáu SVG tự vẽ: mô hình dòng, mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.

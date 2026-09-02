@@ -86,3 +86,35 @@
 - Deck được duyệt lại đủ 48 trang ở $1280\times720$ và $800\times600$ sau khi đồng bộ ký hiệu: không lỗi runtime và không trang tràn khung. Kiểm trực quan riêng trang B10 xác nhận $\rho$ cùng công thức hiển thị đúng.
 - Mục Bài 8 trên `index.html` có đúng một liên kết ghi chú. Nhấp bằng bàn phím ở màn hình rộng và hẹp mở đúng tài liệu, đúng liên kết deck, đủ 6 hình và không lỗi KaTeX hay tràn ngang.
 - `git diff --check` sạch. Không có `.env`, bí mật, thông tin xác thực, tệp tạm hoặc thay đổi ngoài phạm vi Bài 08 trong tập tệp chuẩn bị commit.
+
+## Đồng bộ cuối deck–note — 2026-09-02
+
+Giữ nguyên 48 trang, 48 notes/ID, 7 mạch ngoài, 42 trang giảng + 6 trang bài tập, thời lượng 120+60 phút và 6 SVG. Reader kế hoạch phiên `56486` và reader nguồn phiên `74176` đều dùng đúng `z-ai/glm-5.3-flash` qua OpenRouter; hai reader thống nhất không đổi cấu trúc hay phạm vi.
+
+Writer `deepseek/deepseek-v4-flash-0731` chạy trong dossier tạm hẹp. Phiên `11325` áp dụng một phần sửa ký hiệu rồi chạm giới hạn công cụ; phiên `60882` cập nhật index rồi hết thời gian API khi biên tập notes. Hai phiên không được tính là hoàn tất. Theo ủy quyền của người dùng, Codex chính chỉ áp dụng các delta đã được hai reader phê duyệt và đưa toàn bộ kết quả qua năm reviewer.
+
+### Delta đã áp dụng
+
+- Dùng $r$ cho số vị trí đã xử lý của hồ chứa trong outline, storyboard và `reservoir-trace.svg`; giữ $n$ cho số bit Bloom. Sửa R02/R04 planning thành $r<s$, $r\ge s$ và $j\in\{1,\ldots,r\}$; xác suất biên là $s/r$.
+- Chuẩn hóa thẻ index thành “Bloom filter” và nhãn “Ghi chú bài giảng”.
+- Biên tập `$no-ai-slop` các notes P01, P02, A03, K01, K06, K07, R00, B00, B01, B05, B09, B11, C01, X00, X02, X05: bỏ đường dẫn nội bộ, nhãn quy trình và siêu bình luận; không đổi dữ kiện hay mệnh đề.
+- Rà Quill xác nhận mạch mô hình dòng → lấy mẫu theo khóa → hồ chứa → Bloom filter → lựa chọn → bài tập vẫn liền mạch; không tạo `quill.json`.
+
+### Năm reviewer và hai tái kiểm
+
+- Nguồn `67059`: `GO`; xác nhận $r,s,n,m,k$, ví dụ Bloom 11 bit, $p_3,p_4,k^*$ và bốn bài MMDS.
+- Toán–thuật toán `63413`: `GO`; tự tính lại K01, quy nạp hồ chứa, Bloom 11 bit, FPR, tối ưu $k$ và bốn bài.
+- Góc nhìn sinh viên `86645`: phát hiện hai dòng R02/R04 còn dùng $n$ và ba đường dẫn nguồn nội bộ trong notes; đã sửa.
+- Văn phong `3119`: `GO`; không còn lỗi trung bình. Góp ý nhẹ về các câu “Trang này/Cầu nối” đã được áp dụng rộng hơn trong notes.
+- Kỹ thuật `22356`: `GO`; xác nhận 48 ID/notes, 7 section, 6 SVG, HTML/KaTeX và khả năng đọc. Các góp ý đổi ID R03/R02 hoặc thêm nội dung B05 bị bác vì thứ tự là chủ ý và ví dụ đã đủ trong hình/notes.
+- Tái kiểm văn phong `1278`: `GO`; xác nhận toàn bộ notes đã sửa tự nhiên, không rò mã nội bộ hay đường dẫn.
+- Tái kiểm delta `51649`: `GO`; xác nhận năm thay đổi ký hiệu, SVG, X02 và no-ai-slop trên đúng bản cuối.
+
+Các phiên source/style `65709`, `42264` bị loại vì chạm giới hạn công cụ. Hai phiên tái kiểm `32810`, `40683` bị bác do sai số học: $(1-e^{-3/8})^3=0{,}030579\ldots$; với $585=1001001001_2$, vị trí lẻ 9,7,5,3,1 cho $01001_2=9$ và vị trí chẵn 10,8,6,4,2 cho $10010_2=18\equiv7\pmod{11}$. Kết quả này khớp nguồn và hai reviewer đầy đủ.
+
+### Kiểm định phát hành
+
+- Deck thật: 48 trang, 48 notes, 0 lỗi KaTeX; không tràn, lỗi console, lỗi trang hoặc request hỏng ở 1280×720, 800×600 và 720×900. Điều hướng bàn phím đạt; PDF có 48 trang.
+- Viewer thật ở 1280×720 và 390×844: 48 heading, 37 mục lục, 325 công thức KaTeX, 6 SVG, 11 khối gập; không lỗi hay tràn. Bàn phím, in và hai cổng an toàn đường dẫn đều đạt; PDF viewer có 20 trang.
+- Index có đúng một liên kết note Bài 08 và mở đúng deck/note.
+- Dự án Codex Slides `20260827204905-b-i-8-d-ng-d-li-u-m-h-nh-l-y-m-u-v-l-c-skiv` truy xuất thành công nhưng vẫn draft 0 slide ở checkpoint `clarify`; không tuyên bố đã rà canvas Codex Slides.

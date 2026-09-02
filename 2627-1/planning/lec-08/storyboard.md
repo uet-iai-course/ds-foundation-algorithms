@@ -14,7 +14,7 @@ Tình huống xuyên suốt là dòng truy vấn `(người dùng, truy vấn, t
 |---|---|---|---|---|---|---:|
 | Mô hình dòng | tình huống P01; vấn đề–hình thức A00–A02; ứng dụng–kiểm tra A03–A04 | dòng bộ chưa biết độ dài, bộ nhớ hữu hạn → hợp đồng và bốn trục chi phí | bộ `(người dùng, truy vấn, thời gian)`, đầu ra mẫu/lọc | trực giác và hình thức hóa gộp ở A00–A01 vì đây là mô hình, không phải thuật toán | Từ giới hạn chung, chọn trạng thái theo truy vấn. | 19 |
 | Mẫu theo khóa | tình huống–vấn đề K00–K01; trực giác–ví dụ K02; hình thức K03; thuật toán K04; đúng K05; ứng dụng–chi phí K06–K07; kiểm tra K08 | bộ $t$, khóa $K(t)$, $a,b,h$ → mẫu nhất quán theo khóa | $x,d$ ở K01 tạo nhu cầu; cùng `An`, $a=3,b=10$ ở K02 truyền sang quy tắc $h(K)<a$ | ví dụ và trực giác gộp K02; ứng dụng tách K06–K07 để không lộ bài tập | Một quyết định cố định cho khóa thay lấy độc lập từng bộ. | 26 |
-| Hồ chứa | tình huống R00; vấn đề R01; ví dụ R03; hình thức R02; thuật toán R04; đúng R05–R07; ứng dụng–chi phí–kiểm tra R08 | dòng vị trí, $s$, số ngẫu nhiên đều → đúng $s$ vị trí với xác suất biên $s/n$ | vết $s=2$, các giá trị $j$ và trạng thái $S$ ở R03 truyền sang đặc tả, giả mã và quy nạp | ứng dụng, chi phí và kiểm tra gộp R08 vì cùng kiểm tra giả thiết mô hình RAM/ngẫu nhiên | Vết chạy cho thấy trạng thái; đặc tả sau đó nêu bảo đảm cần chứng minh. | 26 |
+| Hồ chứa | tình huống R00; vấn đề R01; ví dụ R03; hình thức R02; thuật toán R04; đúng R05–R07; ứng dụng–chi phí–kiểm tra R08 | dòng vị trí, $s$, số ngẫu nhiên đều → đúng $s$ vị trí với xác suất biên $s/r$ | vết $s=2$, các giá trị $j$ và trạng thái $S$ ở R03 truyền sang đặc tả, giả mã và quy nạp | ứng dụng, chi phí và kiểm tra gộp R08 vì cùng kiểm tra giả thiết mô hình RAM/ngẫu nhiên | Vết chạy cho thấy trạng thái; đặc tả sau đó nêu bảo đảm cần chứng minh. | 26 |
 | Bloom filter | tình huống B00; vấn đề B02; trực giác–ví dụ B05; hình thức B01; thuật toán B03–B04; đúng B06; xác suất–chi phí B07–B11; kiểm tra B12 | $S,m,n,k,h_i$ → “chắc chắn không” hoặc “có thể thuộc” | ví dụ 11 bit truyền chỉ số, va chạm và hai câu trả lời sang đặc tả/giả mã; $q$ ở B07 truyền sang FPR B08 và tối ưu B10 | trực giác và ví dụ gộp B05; ứng dụng và kiểm tra gộp B12 | Ví dụ cụ thể được khái quát thành hợp đồng, rồi phân tích tỷ lệ dương giả. | 44 |
 | Tổng hợp | ứng dụng C00–C01; nguồn C02 | ba loại truy vấn → chọn đúng cấu trúc và nêu giới hạn | tình huống P01 cùng các bảo đảm K05, R05–R07, B06 | không áp dụng bước thuật toán mới vì chỉ đối chiếu sản phẩm | Chuyển từ lựa chọn cấu trúc sang bài tập đúng nguồn. | 5 |
 
@@ -44,8 +44,8 @@ Tổng phần giảng theo các cụm: **120 phút**.
 | R00 | 3 | Đặt tình huống bộ nhớ chỉ đủ $s$ vị trí. | Streams 1 tr.18 |
 | R01 | 2 | Phân biệt khóa với vị trí. | Streams 1 tr.12,18 |
 | R03 | 3 | Chạy tay $s=2$ với trạng thái trung gian. | Streams 1 tr.18–19; dãy j minh họa cơ chế nguồn |
-| R02 | 3 | Từ vết chạy, đặc tả $s\ge1$, $n<s$, $n\ge s$ và xác suất biên. | Streams 1 tr.18–19 |
-| R04 | 4 | Giả mã $j$ đều trong $1,\ldots,n$. | Streams 1 tr.19 |
+| R02 | 3 | Từ vết chạy, đặc tả $s\ge1$, $r<s$, $r\ge s$ và xác suất biên. | Streams 1 tr.18–19 |
+| R04 | 4 | Giả mã $j$ đều trong $1,\ldots,r$. | Streams 1 tr.19 |
 | R05 | 3 | Phát biểu bất biến và cơ sở quy nạp. | Streams 1 tr.19–20 |
 | R06 | 2 | Chứng minh xác suất của phần tử mới. | Streams 1 tr.20–21 |
 | R07 | 3 | Chứng minh xác suất của phần tử cũ. | Streams 1 tr.21 |
