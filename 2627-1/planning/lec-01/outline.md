@@ -1,6 +1,26 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
-## Sửa mở đầu và cầu nối ngày 2026-09-06
+## ER-001 — làm rõ bài toán trong phần giới thiệu
+
+Yêu cầu ngày 2026-09-06 trong edit_request.md: sửa section đầu để người mới hiểu bài toán, khó khăn do quy mô hoặc triển khai và hình minh họa. Phạm vi P00/P01/A01–A07, bảy SVG tương ứng và phần đầu ghi chú; giữ B–R. Kế hoạch này thay bản nháp 52 trang chưa triển khai và các mô tả phần A trong lịch sử bên dưới.
+
+Điều phối duyệt kế hoạch reader 41911: P00 chỉ nhận diện bài; P01 nêu mục tiêu khái quát; bỏ A08/A09 vì lặp đầu ra mà chưa đặt bài toán mới. Bảy ví dụ đi từ nhiệm vụ và đầu vào–đầu ra đến trở ngại; hình chỉ rõ đối tượng và cách trực tiếp gặp khó, không giới thiệu sớm chuỗi chữ ký/chỉ mục. Không giữ khung ba nhãn ngắn nếu chúng che mất ý nghĩa. Bác đề xuất ghi thời lượng trong notes; thời lượng chỉ ở storyboard. Phần A vẫn 25 phút, phân bổ 1/2/3/3/3/3/3/4/3; toàn bài 51 trang, bảy phần, 120+60 phút.
+
+Quill dùng rà ngữ cảnh trước thuật ngữ, nối A02→A03 (từ thống kê nội dung sang sắp kết quả), A05→A06 (điểm hạng và bản sao), A07→B00 (kho và dòng yêu cầu). No-ai-slop dùng bỏ lời dẫn trên trang bìa, tiêu đề chỉ gọi lĩnh vực, nhãn mơ hồ và chỉ dẫn người soạn; giữ giả thiết và câu hỏi học tập. Không khởi tạo dự án sách. Rà mạch toàn bài và kiểm trực quan sau triển khai.
+
+| Trang | Quyết định / sản phẩm nhìn thấy | Nguồn và giới hạn cần giữ |
+|---|---|---|
+| A01 | sửa: cộng kích thước trang web theo máy chủ; dùng lại bảng bốn bản ghi C02; hình kho lớn và bộ nhớ hữu hạn | Stanford intro62 cụ thể hơn MMDS về URL/size; MMDS1.3.4 tr13 cho chi phí; không nhầm với lưu lượng |
+| A02 | sửa: đếm mọi lần xuất hiện của từng từ trên nhiều máy; hình cùng từ ở các phần kho và nút thắt truyền mạng | MMDS Ch2 slide8–13,20 và sách2.1–2.2.6; không đếm số tài liệu, không tự tạo số đếm |
+| A03 | sửa: tính điểm quan trọng theo liên kết để hỗ trợ tìm kiếm; giữ đồ thị y,a,m và chỉ ra tính lặp | MMDS5.1–5.2/Link Analysis1:18–21,48,53; không tự gán điểm hay coi điểm liên kết là độ liên quan đầy đủ |
+| A04 | sửa: ưu tiên kết quả theo chủ đề đã xác định; hình jaguar và lựa chọn ô tô | MMDS5.3.1 tr195–196; lưu điểm riêng toàn web cho từng người quá lớn; không bảo đảm đoán ý định |
+| A05 | sửa: hạn chế tác động liên kết rác lên điểm; khoanh nhóm trang cùng bên kiểm soát | MMDS5.4/Hình5.16; giữ chiều cạnh và ba nhóm; TrustRank cần tập tin cậy, không loại hết spam |
+| A06 | sửa: tìm cặp văn bản gần trùng; hình phần nội dung chung/phần sửa và tất cả cặp | MMDS3.1–3.4 ưu tiên nội dung; Stanford03-lsh14 cho quy mô một triệu; công thức bằng KaTeX |
+| A07 | sửa: tìm đoạn tài liệu gần truy vấn bằng véc-tơ; hình một truy vấn đối chiếu nhiều đoạn đã mã hóa | BIODS271 L12:16 cho ứng dụng, 17–18 cho quy mô; Princeton08:2–5; không tự gán khoảng cách/kết quả |
+
+Các chủ đề đều là cốt lõi khảo sát ứng dụng đã có; thay hình/diễn giải, không thêm thuật toán hay bài tập. Chu trình đầy đủ cộng dồn vẫn ở C02–C06. Rà nguồn độc lập, storyboard, năm góc nhìn, writer chỉnh sửa và rà mạch lại trước bàn giao.
+
+## Lịch sử: sửa mở đầu và cầu nối trước ER-001
 
 Yêu cầu mới thay quyết định mở thẳng vào A01: bổ sung trang tên bài, nội dung buổi học và các cầu nối trên màn hình; sau triển khai dùng no-ai-slop bỏ chỉ dẫn người soạn khỏi HTML, ghi chú diễn giả và ghi chú tự học. Quill dùng để kiểm quan hệ vào–ra; không tạo dự án sách.
 
@@ -37,16 +57,16 @@ Mục tiêu 1–4 thực hiện sản phẩm Bài 01 trong nguồn cấp học p
 
 | Mạch | Vai trò, đầu vào và đầu ra | Phút |
 |---|---|---:|
-| A. Mở đầu, tổng hợp và tìm kiếm dữ liệu web | Tên bài và nội dung buổi học → tổng byte → phân tán, xếp hạng, gần trùng và véc-tơ; hai cầu nối làm rõ sự thay đổi đầu ra | 25 |
+| A. Mở đầu, tổng hợp và tìm kiếm dữ liệu web | Tên bài và nội dung buổi học → bảy bài toán có đầu vào, đầu ra, trở ngại và hình; câu nối nằm trong ngữ cảnh ứng dụng | 25 |
 | B. Dòng dữ liệu, nén và truy vấn | Ba cầu nối: kho sang dòng, thống kê sang khôi phục, lưu gọn sang truy cập | 26 |
 | C. Yêu cầu đối với giải thuật | Tổng hợp giới hạn, hoàn tất ví dụ quét–cộng dồn và lập khung đánh giá một lời giải | 25 |
 | D. Nội dung học phần | Từ giới hạn tới nhóm phương pháp, rồi giới thiệu mục tiêu học phần và năm mạch Bài 02–15 | 18 |
 | E. Chuẩn bị và cách học | Nối mỗi mạch với kiến thức đầu vào, kỹ năng và trách nhiệm; dẫn thẳng sang kiểm chứng kết luận | 9 |
 | F. Giả thiết và kết luận | Mẫu trùng → giới hạn suy luận → ứng dụng mở bài → chuẩn bị MapReduce ở cuối phần giảng | 17 |
-| **Phần giảng** | **47 trang; sáu phần giảng, tổng bảy phần ngoài khi tính R** | **120** |
+| **Phần giảng** | **45 trang; sáu phần giảng, tổng bảy phần ngoài khi tính R** | **120** |
 | R. Bài tập củng cố | MMDS 1.2.1–1.2.2; năm hoạt động có gợi ý và lời giải trong ghi chú diễn giả | 60 |
 
-R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng 53 trang, bảy phần ngoài. Hai mạch A–B giữ 16 tình huống ngắn, mỗi tình huống chỉ làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
+R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng 51 trang, bảy phần ngoài. Hai mạch A–B giữ 16 tình huống ngắn, mỗi tình huống làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
 
 ## Bản đồ nguồn từ Bài 02–15
 

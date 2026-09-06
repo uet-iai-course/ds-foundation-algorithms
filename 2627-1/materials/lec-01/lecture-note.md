@@ -1,94 +1,109 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
-Một kho nhật ký web lưu địa chỉ trang, kích thước và ngày thu thập. Cần tính tổng byte theo từng máy chủ, nhưng kho không vừa bộ nhớ chính. Phép tính chỉ là cộng; khó khăn nằm ở cách đọc dữ liệu và trạng thái phải giữ.
-
-Kho web còn phục vụ xếp hạng, tìm tài liệu gần trùng và truy hồi theo véc-tơ. Dòng truy vấn cần được lấy mẫu hoặc thống kê khi đến. Dữ liệu đã lưu cần nén, sắp xếp và lập chỉ mục. Mỗi công việc đòi một đầu ra khác nhau và sử dụng bộ nhớ, thời gian tính, lượt đọc/ghi hoặc đường truyền theo cách khác nhau.
-
 ## Nội dung và kết quả buổi học
 
-Bài học bắt đầu từ các ứng dụng của Bài 02–15, phân tích đầy đủ lời giải tổng byte, rồi đặt các phương pháp vào chương trình học. Phần cuối xét giới hạn của kết luận rút ra từ mẫu trùng trong dữ liệu.
+Bài học khảo sát các bài toán dữ liệu của Bài 02–15, từ đó xác định giới hạn tài nguyên và yêu cầu đối với thuật toán. Một thuật toán cộng dồn được phân tích qua đặc tả, vết chạy, chứng minh và chi phí. Phần cuối giới thiệu nội dung học phần, sự chuẩn bị cần có và các giả thiết khi suy luận từ dữ liệu.
 
 Sau buổi học, sinh viên có thể:
 
-1. Đặc tả tổng byte, giải thích bất biến giữ đúng tập khóa và tổng, nêu điều kiện của cận chi phí.
-2. Xác định đầu ra, giới hạn tài nguyên và bảo đảm của một ứng dụng; phân biệt bảo đảm với kết quả đo.
-3. Tính kỳ vọng trùng với đúng đơn vị đếm và giả thiết; nêu giới hạn suy luận.
+1. Nêu đầu vào, đầu ra và trở ngại của một bài toán dữ liệu.
+2. Giải thích tính đúng và điều kiện chi phí của thuật toán cộng dồn.
+3. Phân biệt kết quả tính toán với kết luận rút ra về dữ liệu; tính kỳ vọng trùng dưới các giả thiết đã cho.
 
-[Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) dùng cùng dữ kiện và ký hiệu. Ghi chú giải thích thêm đặc tả, chứng minh, điều kiện chi phí và lời giải bài tập.
+[Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) dùng cùng dữ kiện và ký hiệu. Ghi chú mở rộng đặc tả, chứng minh, điều kiện chi phí và lời giải bài tập.
 
 ## Tổng hợp và tìm kiếm trên kho web
 
-### Tổng kích thước theo máy chủ
+### Tính tổng kích thước trang web theo máy chủ
 
-Đầu vào là các bản ghi về trang web; đầu ra là tổng kích thước của những trang thuộc mỗi máy chủ. Gọi $D$ là số byte đầu vào và $M$ là dung lượng bộ nhớ chính khả dụng, cũng tính bằng byte. Khi $D>M$, cách tải cả kho vào bộ nhớ không đáp ứng giới hạn.
+Kho thu thập web lưu các bản ghi gồm địa chỉ trang, kích thước và ngày thu thập. Máy chủ được xác định từ địa chỉ trang. Bài toán yêu cầu cộng kích thước các trang có trong kho thuộc cùng máy chủ, rồi trả một tổng cho mỗi máy chủ. Tổng này không phải lưu lượng truy cập hoặc dung lượng toàn bộ máy chủ.
 
-Có thể đọc tuần tự và chỉ giữ tổng đang chạy theo máy chủ. Tuy nhiên, số máy chủ phân biệt cũng quyết định dung lượng của bảng tổng; đầu vào không vừa bộ nhớ không có nghĩa bảng tổng chắc chắn vừa. Stanford CS246 nêu tình huống này ở trang chiếu 62 của bài mở đầu; MMDS mục 1.3.4, trang 13 và BHK trang PDF 10 cung cấp bối cảnh truy cập ngoài bộ nhớ.
+Bốn bản ghi dùng xuyên suốt bài có dạng rút gọn:
 
-![Kho nhật ký đi qua một lượt quét; bộ nhớ chỉ giữ bảng tổng theo máy chủ, sau đó xuất tổng byte của từng máy chủ](img/lec-01/kho-nhat-ky-bo-nho.svg)
+| Máy chủ | Kích thước trang (byte) |
+|---|---:|
+| a.vn | 40 |
+| b.vn | 25 |
+| a.vn | 15 |
+| c.vn | 0 |
 
-Tổng byte chỉ cần một giá trị cho mỗi máy chủ. Khi dữ liệu nằm trên nhiều máy, việc gom các đóng góp còn sử dụng đường truyền và cần phối hợp giữa các tác vụ.
+Kết quả là a.vn có $40+15=55$ byte, b.vn có 25 byte và c.vn có 0 byte. Đây là ví dụ nhỏ để kiểm tra phép tính; nó không mô tả quy mô thật của một kho web.
 
-### Tổng hợp kho tài liệu phân tán
+Gọi $D$ là số byte của tệp bản ghi và $M$ là dung lượng bộ nhớ chính khả dụng. Khi $D>M$, cách nạp trọn tệp để xử lý không khả thi. $D$ đo dung lượng tệp đầu vào, không đồng nhất với tổng kích thước nội dung các trang được ghi trong tệp.
 
-Một kho tài liệu nằm trên nhiều máy. Với mỗi từ, cần tổng số lần xuất hiện trong toàn kho. Đầu ra là bảng từ–số lần, không phải bản sao của mọi tài liệu trên một máy.
+![Tệp bản ghi lớn trên đĩa không thể nạp trọn vào bộ nhớ chính hữu hạn](img/lec-01/kho-nhat-ky-bo-nho.svg)
 
-Gom toàn bộ kho về một máy phải truyền cả dữ liệu và tập trung công việc vào máy đó. Một hướng xử lý là tính đóng góp tại nơi lưu dữ liệu rồi gom theo từ. Khi tác vụ lỗi được chạy lại, môi trường thực thi phải bảo đảm kết quả cuối không bỏ sót hoặc tính trùng đóng góp. Lượng dữ liệu trung gian, phân bố tải và khôi phục tác vụ đều cần được xét. Nguồn: MMDS mục 2.1–2.2.6; slide Chương 2, trang 8–12 và 20; Bài 02.
+Một hướng xử lý là đọc tuần tự và chỉ giữ tổng đang chạy theo máy chủ. Bảng tổng cũng phải vừa bộ nhớ; số máy chủ phân biệt quyết định kích thước bảng này. Phần phân tích thuật toán sẽ dùng lại bốn bản ghi trên để kiểm tra cách cập nhật và chứng minh tính đúng. Nguồn bài toán: Stanford CS246 01-intro, trang chiếu 62; bối cảnh truy cập ngoài bộ nhớ: MMDS 1.3.4, tr. 13 và BHK trang PDF 10.
 
-![Các phần kho ở ba máy tạo đóng góp theo từ, truyền qua mạng và gom thành tổng; tác vụ lỗi cần được chạy lại](img/lec-01/ung-dung-tong-hop-phan-tan.svg)
+### Đếm số lần xuất hiện của từng từ
 
-### Xếp hạng trang web
+Khi kho tài liệu được chia trên nhiều máy, thống kê toàn kho cần kết hợp dữ liệu ở nhiều nơi. Bài toán đếm từ nhận các tài liệu và trả một bảng từ–số lần xuất hiện. Nếu một từ xuất hiện nhiều lần trong một tài liệu, phải tính đủ các lần đó; đầu ra khác với số tài liệu chứa từ.
 
-Tổng hợp theo khóa gom các giá trị của từng nhóm. Xếp hạng web còn sử dụng quan hệ liên kết giữa các trang để xác định điểm của chúng.
+![Cùng từ w nằm ở hai phần kho; gom mọi tài liệu qua mạng về một máy làm tập trung đường truyền và công việc](img/lec-01/ung-dung-tong-hop-phan-tan.svg)
 
-Đồ thị web có hướng: mỗi đỉnh là một trang, mỗi cạnh là một liên kết. Bài toán xếp hạng cần một điểm cho mỗi trang theo mô hình đã chọn. Đồ thị minh họa có ba đỉnh $y,a,m$: $y$ trỏ tới $y,a$; $a$ trỏ tới $y,m$; $m$ trỏ tới $a$. Các mũi tên biểu diễn liên kết có hướng, kể cả khuyên tại $y$.
+Hình lấy một từ $w$ để biểu diễn một khóa có mặt ở nhiều phần kho, không gán số đếm cụ thể. Gom toàn bộ tài liệu về một máy phải truyền cả dữ liệu và dồn việc vào máy nhận. Nếu máy hoặc tác vụ lỗi, chạy lại phải tránh bỏ sót và đếm trùng.
 
-![Đồ thị có ba đỉnh y, a, m; y có một khuyên, y và a liên kết hai chiều, a và m liên kết hai chiều](img/lec-01/ung-dung-xep-hang-web.svg)
+Tính đóng góp tại nơi lưu dữ liệu rồi gom theo từ là hướng xử lý của Bài 02. Lượng dữ liệu trung gian, phân bố tải và cơ chế xử lý kết quả tác vụ chạy lại đều ảnh hưởng đến lời giải. Nguồn: MMDS 2.1–2.2.6; slide Chương 2, trang 8–13 và 20.
 
-Biểu diễn một ma trận đặc cho mọi cặp trang có thể lãng phí bộ nhớ khi đồ thị thưa. Phương pháp tính lặp còn phải trả chi phí đọc cạnh và cập nhật điểm qua nhiều vòng. Điều kiện hội tụ, tiêu chuẩn dừng và chi phí mỗi vòng là ba việc khác nhau cần phân tích ở Bài 03. Nguồn: MMDS mục 5.1.2 và 5.2; slide Link Analysis 1, trang 18–21, 48 và 53.
+### Tính điểm quan trọng của trang web
 
-### Xếp hạng theo chủ đề
+Thống kê từ mô tả nội dung kho. Khi một truy vấn khớp nhiều trang, hệ thống tìm kiếm còn phải sắp xếp các kết quả. Bài toán ở đây dùng cấu trúc liên kết để tính một điểm quan trọng cho mỗi trang, làm một tín hiệu hỗ trợ việc sắp xếp.
 
-Truy vấn “jaguar” có thể chỉ loài báo, ô tô, hệ điều hành hoặc máy chơi trò chơi. Dữ liệu liên kết có thể như nhau nhưng đầu ra phù hợp còn phụ thuộc chủ đề truy vấn. Đặc tả vì thế phải nêu điểm hạng phục vụ mục tiêu nào; một điểm chung cho mỗi trang chưa phân biệt các nghĩa này.
+Đầu vào là đồ thị có hướng: đỉnh biểu diễn trang, cạnh biểu diễn liên kết. Đồ thị trong hình có ba đỉnh $y,a,m$: $y$ trỏ tới $y,a$; $a$ trỏ tới $y,m$; $m$ trỏ tới $a$. Khuyên tại $y$ biểu diễn liên kết từ trang đó về chính nó.
 
-![Truy vấn jaguar nối tới bốn cách hiểu: loài báo, ô tô, hệ điều hành và máy chơi trò chơi](img/lec-01/ung-dung-truy-van-theo-chu-de.svg)
+![Ba trang liên kết có hướng; việc đọc liên kết và cập nhật điểm được lặp lại để tính điểm hỗ trợ sắp kết quả](img/lec-01/ung-dung-xep-hang-web.svg)
 
-Bài 04 xem cách đưa chủ đề vào xếp hạng. Điều này không tạo ra bảo đảm rằng thuật toán biết đúng ý định của từng người dùng. Nguồn: MMDS mục 5.3.1, trang 195–196.
+Trong PageRank, điểm của một trang phụ thuộc điểm của các trang trỏ tới nó. Mỗi vòng cập nhật vì thế phải đọc liên kết và tính đóng góp cho nhiều trang. Một ma trận đặc cho mọi cặp trang còn có thể lãng phí bộ nhớ khi đồ thị thưa. Bài 03 phân tích biểu diễn, chi phí mỗi vòng, hội tụ và điều kiện dừng.
 
-### Liên kết bị thao túng
+Điểm quan trọng theo liên kết không đo đầy đủ độ liên quan với một truy vấn. Hình chỉ nêu đầu ra cần tính, không gán trước các điểm hay thứ hạng. Nguồn: MMDS 5.1–5.2; Link Analysis 1, trang 18–21, 48 và 53.
 
-Nếu một nhóm trang được tạo để hỗ trợ trang đích, liên kết không còn mang cùng ý nghĩa như trong giả thiết xếp hạng ban đầu. Hình phân biệt trang ngoài tầm tác động, trang có thể tác động và trang sở hữu. Các trang có thể tác động trỏ đến đích $t$; $t$ trỏ đến từng trang hỗ trợ, và mỗi trang hỗ trợ trỏ lại $t$.
+### Ưu tiên kết quả tìm kiếm theo chủ đề
 
-![Cụm liên kết theo Hình 5.16: liên kết ngoài đi vào t; t và các trang hỗ trợ sở hữu liên kết qua lại](img/lec-01/ung-dung-lien-ket-thao-tung.svg)
+Một điểm quan trọng dùng chung cho mỗi trang chưa phân biệt các chủ đề của truy vấn. “Jaguar” có thể chỉ loài báo, ô tô, hệ điều hành hoặc máy chơi trò chơi. Với chủ đề đã xác định là ô tô, yêu cầu là ưu tiên các trang về xe trong kết quả tìm kiếm.
 
-Yêu cầu ở đây là đánh giá độ tin cậy của tín hiệu và giới hạn diễn giải điểm hạng. Sơ đồ không chứng minh ý định hoặc danh tính của một người. Nguồn: MMDS mục 5.4, Hình 5.16; Bài 04.
+![Truy vấn jaguar có bốn nghĩa; chủ đề ô tô đã biết xác định mục tiêu ưu tiên trang về xe](img/lec-01/ung-dung-truy-van-theo-chu-de.svg)
 
-### Tìm tài liệu gần trùng
+Đầu vào bổ sung là chủ đề cần ưu tiên; đầu ra là điểm và thứ tự có xét chủ đề đó. Xác định chủ đề từ truy vấn hoặc ngữ cảnh là công việc riêng. Hình biểu diễn yêu cầu, không phải thứ hạng đã tính.
 
-Điểm hạng mô tả từng trang. Phát hiện gần trùng lại xét quan hệ giữa hai tài liệu; số đối tượng cần so sánh vì thế là số cặp trong kho.
+Lưu một bộ điểm cho toàn bộ trang web riêng với từng người dùng sẽ tốn quá nhiều bộ nhớ ở quy mô web. MMDS đề xuất dùng một số bộ điểm theo chủ đề thay vì một bộ đầy đủ cho mỗi người. Bài 04 học cách đưa chủ đề vào xếp hạng; phương pháp không bảo đảm suy đoán đúng ý định của mọi người dùng. Nguồn: MMDS 5.3.1, tr. 195–196.
 
-Đầu vào là một tập tài liệu; đầu ra là các cặp có độ tương đồng vượt mức đã chốt. Trước khi tối ưu, cần xác định biểu diễn và độ đo: “gần trùng” trên tập đoạn ký tự là một đặc tả cụ thể, khác với đánh giá hai tài liệu nói về cùng một chủ đề.
+### Hạn chế liên kết rác trong xếp hạng
 
-Với $N$ tài liệu, số cặp không thứ tự là $\binom N2=N(N-1)/2$. Khi $N=10^6$:
+Điểm dựa trên liên kết còn có thể bị đẩy lên bởi một bên cố ý tạo nhiều trang hỗ trợ. Bài toán là hạn chế ảnh hưởng của các liên kết rác lên điểm hạng và kết quả tìm kiếm.
+
+![Ba nhóm trang theo Hình 5.16; cụm cùng bên kiểm soát chứa đích t và các trang hỗ trợ liên kết qua lại](img/lec-01/ung-dung-lien-ket-thao-tung.svg)
+
+Hình phân biệt trang ngoài tầm tác động, trang cho phép bên tạo rác đặt liên kết, và trang do bên đó sở hữu. Các trang có thể tác động trỏ đến đích $t$; $t$ trỏ đến từng trang hỗ trợ và mỗi trang hỗ trợ trỏ lại $t$. Đích và các trang hỗ trợ nằm trong cùng cụm kiểm soát.
+
+Nhiều liên kết không nhất thiết đến từ nhiều nguồn độc lập. Chỉ xét số liên kết hoặc điểm truyền tới một trang chưa đủ để đánh giá độ tin cậy. Một hướng là dùng tập trang tin cậy ban đầu để điều chỉnh điểm, như TrustRank. Việc chọn tập tin cậy là yêu cầu riêng; phương pháp không bảo đảm loại hết liên kết rác. Sơ đồ cũng không đủ chứng minh danh tính hoặc ý định của một người ngoài đời. Nguồn: MMDS 5.4.1–5.4.4, Hình 5.16; Bài 04.
+
+### Tìm các cặp tài liệu gần trùng
+
+Ngay cả khi đã xử lý điểm hạng, kết quả tìm kiếm vẫn có thể chứa các bản sao chỉ khác một phần văn bản. Đầu vào của bài toán gần trùng là một kho tài liệu; đầu ra là các cặp có độ tương đồng đạt ngưỡng đã chọn.
+
+“Gần trùng” ở đây xét phần văn bản chung, không chỉ việc hai tài liệu nói về cùng chủ đề. Biểu diễn tài liệu, độ đo tương đồng và ngưỡng phải được xác định trước khi đánh giá kết quả.
+
+![Hai tài liệu giữ chung nhiều đoạn và sửa một phần; trong kho, so sánh trực tiếp phải xét mọi cặp tài liệu](img/lec-01/ung-dung-tai-lieu-gan-trung.svg)
+
+Nét trong hai trang chỉ minh họa phần chung và phần sửa, không biểu diễn một số đo. Với $N$ tài liệu, so sánh tất cả cần xét $N(N-1)/2$ cặp không thứ tự. Khi $N=10^6$:
 
 $$
 \binom{10^6}{2}=499\,999\,500\,000\approx5\times10^{11}.
 $$
 
-Đây là phép đếm, không phải kết quả đo thời gian. Biểu diễn gọn giúp giảm chi phí mỗi lần so sánh; chọn ứng viên giúp giảm số cặp phải đối chiếu. Hai tác dụng này khác nhau.
+Gần 500 tỷ là số cặp, không phải kết quả đo thời gian. Biểu diễn gọn giúp giảm chi phí mỗi lần so sánh; chọn ứng viên giúp giảm số cặp phải đối chiếu. Kiểm tra lại dữ liệu gốc có thể loại ứng viên sai, nhưng không khôi phục cặp đã bị bỏ sót. Bài 05–06 phân tích các phương pháp và xác suất này. Nguồn: MMDS 3.1–3.4; Stanford CS246 03-lsh, trang chiếu 14.
 
-![Tập đoạn ký tự tạo chữ ký gọn; chữ ký tạo cặp ứng viên; ứng viên được đối chiếu trên dữ liệu gốc](img/lec-01/ung-dung-tai-lieu-gan-trung.svg)
+### Tìm đoạn tài liệu bằng véc-tơ truy vấn
 
-Đối chiếu dữ liệu gốc có thể loại ứng viên không đủ tương đồng, nhưng không khôi phục cặp đã bị bước chọn ứng viên bỏ sót. Bài 05–06 phân tích các xác suất liên quan. Nguồn: MMDS mục 3.1–3.4; slide Chương 3, trang 15–16 và 24; Stanford CS246 03-lsh, trang 14.
+Tìm mọi cặp gần trùng xét cả kho. Một nhu cầu khác là cho một truy vấn rồi tìm các đoạn tài liệu gần truy vấn ấy. Mỗi đoạn tài liệu và truy vấn được mã hóa thành một dãy số, gọi là véc-tơ. Cùng một phép mã hóa được dùng cho cả đoạn và truy vấn, tạo các véc-tơ cùng số chiều.
 
-### Truy hồi theo véc-tơ
+Cho một quy tắc tính khoảng cách và số lượng $k$, đầu ra chính xác gồm $k$ đoạn có véc-tơ gần truy vấn nhất. Điều kiện là $1\le k\le N$, với $N$ là số đoạn; cần chốt cách xử lý khi nhiều đoạn bằng khoảng cách. Độ gần theo véc-tơ không tự bảo đảm đúng về ngữ nghĩa.
 
-Kho dữ liệu được biểu diễn bằng các véc-tơ cùng số chiều. Cho một véc-tơ truy vấn và một độ đo khoảng cách đã chọn, cần trả các mục gần truy vấn. Nếu yêu cầu $k$ hàng xóm, lời giải chính xác trả $k$ mục gần nhất theo quy ước xử lý hòa đã chốt. Lời giải gần đúng được đánh giá bằng chất lượng truy hồi và tài nguyên sử dụng.
+![Một truy vấn dạng véc-tơ được đối chiếu với các đoạn tài liệu đã mã hóa để trả k đoạn gần nhất](img/lec-01/ung-dung-truy-hoi-vec-to.svg)
 
-Độ thu hồi tại $k$ là tỷ lệ hàng xóm gần thật xuất hiện trong $k$ kết quả trả về, khi tập chuẩn và quy ước hòa đã cố định. Bên cạnh độ thu hồi, cần đo độ trễ truy vấn, bộ nhớ và chi phí xây chỉ mục. Quét toàn bộ kho cho mỗi truy vấn tránh xây cấu trúc phức tạp nhưng phải tính khoảng cách tới mọi véc-tơ.
+BIODS 271 dùng tình huống 10 tỷ véc-tơ, 3072 chiều, mỗi thành phần 32 bit. Quét hết kho cho mỗi truy vấn cần tính 10 tỷ khoảng cách; mỗi khoảng cách còn sử dụng nhiều thành phần. Truy vấn mới phải thực hiện lại công việc này. Quy mô trên lấy từ nguồn, không phải số đo của học phần.
 
-![Véc-tơ truy vấn qua chỉ mục để lấy các mục gần; bốn tiêu chí là độ thu hồi, độ trễ, bộ nhớ và xây dựng](img/lec-01/ung-dung-truy-hoi-vec-to.svg)
-
-BIODS 271, trang PDF 17–18 dùng tình huống 10 tỷ véc-tơ, 3072 chiều, mỗi thành phần 32 bit để làm rõ nhu cầu quy mô. Bài 07 học các chỉ mục và mã gọn; nguồn bổ sung là Princeton lớp 8, trang 2–5.
+Bài 07 học tổ chức và nén véc-tơ để giảm chi phí truy vấn. Khi cho phép gần đúng, phải đánh giá chất lượng: độ thu hồi tại $k$ là tỷ lệ hàng xóm gần thật xuất hiện trong $k$ kết quả trả về, với tập chuẩn và quy ước hòa đã chốt. Các chi phí khác gồm độ trễ, bộ nhớ, xây dựng và cập nhật chỉ mục. Nguồn: BIODS 271 L12, trang PDF 16 cho bài toán truy hồi đoạn tài liệu, 17–18 cho quy mô; Princeton lớp 8, trang 2–5.
 
 Tự kiểm tra: tìm mọi cặp gần trùng và tìm $k$ mục gần một truy vấn khác nhau về đầu ra và số đối tượng phải xét như thế nào?
 

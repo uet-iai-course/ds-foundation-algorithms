@@ -4,13 +4,13 @@
 
 Tuyến mới: ứng dụng cụ thể → giới hạn cần xử lý → đặc tả và thuộc tính giải thuật → nội dung học phần → sự chuẩn bị của sinh viên → giới hạn suy luận và bài tập. HTML và ghi chú đã theo tuyến này và đạt kiểm định; nhật ký ghi bằng chứng cùng giới hạn công cụ.
 
-Bản sửa mở đầu và cầu nối: 47 trang giảng, 120 phút; sáu trang bài tập kể cả trang chuyển phần, 60 phút. Bảy phần ngoài A, B, C, D, E, F, R. P00/P01 mở bài trong phần A; các trang nối nằm ngay trước cụm cần dẫn nhập. E04 chuyển xuống sau F04, cuối phần giảng. Kế hoạch này thay quyết định mở thẳng vào A01 của bản 45 trang.
+Bản ER-001: 45 trang giảng, 120 phút; sáu trang bài tập kể cả trang chuyển phần, 60 phút. Bảy phần ngoài A, B, C, D, E, F, R. P00/P01 mở bài, không đặt ví dụ chưa có ngữ cảnh. Bỏ A08/A09; A01–A07 tự nêu nhiệm vụ, đầu vào–đầu ra và trở ngại bằng hình. E04 vẫn cuối phần giảng. Bản này thay phần A của bản 53 trang; B–R không đổi.
 
 ## Vai trò và kết nối giữa các mạch
 
 | Mạch | Kiến thức đầu vào | Vai trò và sản phẩm | Kết nối vào → ra |
 |---|---|---|---|
-| A | Tệp, tập hợp, đồ thị/véc-tơ ở mức nhận diện | P00/P01 đặt bài toán và đích học; phân biệt tổng hợp, xếp hạng, gần trùng và hàng xóm gần | Kho nhật ký vượt bộ nhớ → nhiều đầu ra trên kho web → nhu cầu cập nhật dòng |
+| A | Tệp, bản ghi, liên kết web; véc-tơ được giải thích là dãy số | P00/P01 định vị buổi học; bảy nhiệm vụ phân biệt đầu vào, đầu ra và khó khăn | Mục tiêu học → thống kê kho web → sắp kết quả và tìm tương đồng → dòng yêu cầu |
 | B | Tệp, bản ghi, truy vấn cơ bản | Nhận diện trạng thái dòng, khôi phục và truy cập chọn lọc | Từ tìm kiếm kho tĩnh → danh mục giới hạn cần phân tích trong C |
 | C | Vòng lặp, bảng ánh xạ, độ phức tạp | Hoàn tất một chu trình giải thuật; lập khung chi phí và bảo đảm | Từ giới hạn của A/B → ngôn ngữ để đọc bản đồ học phần |
 | D | Khung đánh giá của C | Xác định năm mạch, tên phương pháp và lý do học | Từ nhu cầu → nội dung sẽ học → kiến thức phải chuẩn bị |
@@ -33,17 +33,15 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 
 | Mã trang | Tiêu đề trang chiếu | Luận điểm, hoạt động và sản phẩm | Nguồn/hình | Phút | Nối sang trang sau |
 |---|---|---|---|---:|---|
-| L01-P00 | Bài toán dữ liệu lớn và mô hình thuật toán | Tên bài và học phần; kho nhật ký vượt bộ nhớ làm điểm xuất phát | source.md; V01 | 1 | Định vị nội dung và sản phẩm buổi học |
-| L01-P01 | Nội dung buổi học | Ứng dụng → một lời giải → chương trình/cách học; nêu ba sản phẩm Bài 01 | source.md; mục tiêu đã duyệt | 2 | Bắt đầu bằng tổng byte theo máy chủ |
-| L01-A01 | Tổng kích thước theo máy chủ | Kho nhật ký lớn hơn bộ nhớ; cần bảng tổng byte, không cần giữ nguyên mọi bản ghi | V01 | 2 | Dữ liệu có thể nằm ở nhiều máy |
-| L01-A02 | Tổng hợp kho tài liệu phân tán | Từ tài liệu tới số lần xuất hiện theo từ; vị trí dữ liệu, đường truyền và lỗi máy tạo chi phí | V02 | 3 | Ngoài tổng hợp còn có xếp hạng |
-| L01-A08 | Từ tổng hợp đến xếp hạng | Tổng theo khóa khác điểm dựa trên liên kết; chuyển đầu ra từ tổng sang điểm trang | V01–V03; MMDS2.2,5.1 | 1 | Xem đồ thị có hướng ở A03 |
-| L01-A03 | Xếp hạng trang web | Đồ thị có hướng → điểm mỗi trang; danh sách cạnh thưa và phép tính lặp | V03 | 3 | Điểm chung chưa đủ cho mọi ngữ cảnh |
-| L01-A04 | Xếp hạng theo chủ đề | “jaguar” dẫn tới các nghĩa khác nhau; cần chỉ rõ mục tiêu của đầu ra | V04 | 2 | Cấu trúc liên kết cũng có thể bị tạo có chủ đích |
-| L01-A05 | Liên kết bị thao túng | Cụm liên kết hỗ trợ làm thay đổi tín hiệu; kết quả phải được diễn giải theo giả thiết | V05 | 2 | Một vấn đề khác là kết quả trùng nhau |
-| L01-A09 | Từ điểm hạng đến độ tương đồng | Điểm của từng trang khác quan hệ giữa cặp tài liệu; xác định đơn vị so sánh | V05–V07; MMDS3.1,5.4 | 1 | Đếm số cặp ở A06 |
-| L01-A06 | Tìm tài liệu gần trùng | Một triệu tài liệu sinh $499\,999\,500\,000$ cặp; cần biểu diễn gọn và chọn ứng viên | V06 | 4 | Tìm cặp khác với tìm quanh một truy vấn |
-| L01-A07 | Truy hồi theo véc-tơ | Véc-tơ truy vấn → các mục gần; nêu độ thu hồi, độ trễ, bộ nhớ và chi phí tạo chỉ mục | V07 | 4 | Truy vấn còn đến liên tục |
+| L01-P00 | Bài toán dữ liệu lớn và mô hình thuật toán | Nhận diện bài, học phần và học kỳ | source.md | 1 | Nội dung buổi học |
+| L01-P01 | Nội dung buổi học | Ứng dụng → phân tích thuật toán → nội dung và cách học; mục tiêu khái quát trước ví dụ | source.md | 2 | Nhiệm vụ thống kê kho web |
+| L01-A01 | Tính tổng kích thước trang web theo máy chủ | Bốn bản ghi → tổng 55/25/0; hình tệp vượt bộ nhớ; phân biệt kích thước trang và lưu lượng | V01; bảng HTML dùng lại C02 | 3 | Kho có thể chia trên nhiều máy |
+| L01-A02 | Đếm số lần xuất hiện của từng từ | Cùng từ ở nhiều phần kho → tổng toàn kho; gom dữ liệu qua mạng gây nút thắt, lỗi máy cần tránh đếm trùng | V02 | 3 | Kho tìm kiếm còn cần sắp kết quả |
+| L01-A03 | Tính điểm quan trọng của trang web | Trang và liên kết → điểm hỗ trợ sắp kết quả; phụ thuộc điểm buộc đọc/cập nhật nhiều vòng | V03 | 3 | Điểm chung chưa phân biệt chủ đề |
+| L01-A04 | Ưu tiên kết quả tìm kiếm theo chủ đề | Jaguar + chủ đề ô tô → ưu tiên trang về xe; điểm riêng cho mỗi người tốn lưu trữ | V04 | 3 | Điểm liên kết có thể bị thao túng |
+| L01-A05 | Hạn chế liên kết rác trong xếp hạng | Cụm cùng bên kiểm soát đẩy điểm t; cần hạn chế ảnh hưởng lên kết quả | V05 | 3 | Kết quả tìm kiếm còn có bản sao |
+| L01-A06 | Tìm các cặp tài liệu gần trùng | Nội dung chung và phần sửa; một triệu tài liệu sinh $499\,999\,500\,000$ cặp cần xét nếu so tất cả | V06 | 4 | Đổi từ mọi cặp sang một truy vấn |
+| L01-A07 | Tìm đoạn tài liệu bằng véc-tơ truy vấn | Truy vấn và đoạn tài liệu mã hóa cùng cách → k đoạn gần theo khoảng cách; mỗi truy vấn quét lại kho lớn | V07 | 3 | Truy vấn đến nối tiếp tạo dòng |
 | L01-B00 | Từ kho đã lưu đến dữ liệu đang đến | Truy hồi trên kho sinh dòng yêu cầu; dữ liệu đến buộc cập nhật trạng thái | V07–V09; MMDS4.1 | 1 | Hai đầu ra mẫu và lọc ở B01 |
 | L01-B01 | Lấy mẫu và lọc dòng truy vấn | Giữ mẫu hoặc loại phần tử trước phép tra cứu đắt; không lưu hết dòng | V08 | 3 | Mẫu chưa trả lời mọi thống kê |
 | L01-B02 | Thống kê trên dòng và cửa sổ | Phân biệt số khóa, tần suất, mômen tần suất và số sự kiện gần đây; đầu ra quyết định trạng thái | V09 | 3 | Dữ liệu cần giữ lại còn chiếm dung lượng |
@@ -103,17 +101,17 @@ Câu kiểm tra trên mặt trang dùng nhãn “Câu hỏi:”. Mã trang, V/H 
 
 Toàn bộ 19 tệp dưới đây đã được dựng trong 2627-1/img/lec-01/. V01/V17/H19 thay hình cùng tên; 16 tệp còn lại được thêm mới. Các tài sản bài khác chỉ làm nguồn tham khảo, không sửa. Hai SVG cũ về giao thoa lĩnh vực và thể tích gần biên được giữ nhưng không còn dùng trong tuyến mới. Bản đồ H19 dùng chung với index nên phải kiểm định cả hai nơi.
 
-Bố cục chung: hình chính phía trên, ba thẻ “Dữ liệu”, “Kết quả”, “Giới hạn” phía dưới; chuyển điều kiện dài sang ghi chú. Hình định tính phải được gọi là sơ đồ; số liệu mô hình không được vẽ như kết quả đo. Mỗi SVG cần role="img", title/desc, văn bản thay thế cụ thể, nhãn tiếng Việt, dấu/nét/hoa văn hỗ trợ màu. Công thức, bảng và giả mã dùng HTML/KaTeX.
+Bố cục ER-001 phần A: câu nêu bài toán, hình đối tượng/đầu ra/trở ngại, thẻ khó khăn; A01 ghép bảng HTML với hình bộ nhớ. B–R giữ bố cục cũ. Hình định tính là sơ đồ, không phải kết quả đo. SVG có role, title/desc, nhãn tiếng Việt và nét/hình hỗ trợ màu; bảng, công thức, giả mã bằng HTML/KaTeX.
 
 | Ví dụ / hình | Tệp dự kiến | Dữ liệu, bố cục và quan hệ phải giữ | Kết luận hình và văn bản thay thế dự kiến | Nguồn / tài sản tham khảo | Chỗ dùng lại |
 |---|---|---|---|---|---|
-| V01 / H01 | kho-nhat-ky-bo-nho.svg | Kho lớn → bộ nhớ nhỏ → bảng tổng; đánh dấu $D>M$. Ở C02 dùng cùng hình kèm bảng HTML của bốn bản ghi hiện có; không vẽ bảng thành ảnh | Chỉ giữ trạng thái theo máy chủ. Alt: “Kho nhật ký lớn hơn bộ nhớ đi qua một lượt quét để tạo tổng byte theo máy chủ.” | Stanford 01-intro slide 62; MMDS tr.13; SVG Bài 01 hiện có | A01, C01–C06, E02, F04 |
-| V02 / H02 | ung-dung-tong-hop-phan-tan.svg | Các phần kho tài liệu ở các máy → tổng cục bộ → gom theo từ → tổng; đánh dấu đường truyền và một tác vụ cần chạy lại. Hình mô tả trách nhiệm, chưa là vết MapReduce | Vị trí dữ liệu và khôi phục cũng có chi phí. Alt: “Kho tài liệu chia trên các máy, các đóng góp được gom để tính số lần xuất hiện theo từ.” | MMDS Ch2 slide 8–12, 20, sách 2.2.6; lec-02/he-tep-phan-tan.svg, khoi-phuc-tac-vu.svg | A02, C01, D03 |
-| V03 / H03 | ung-dung-xep-hang-web.svg | Giữ đồ thị $y,a,m$: $y\to y,a$; $a\to y,m$; $m\to a$; đặt bên cạnh danh sách cạnh và hộp “điểm mỗi trang”. Chưa gán điểm số | Cấu trúc liên kết là đầu vào để tính lặp. Alt: “Ba trang y, a, m và các liên kết có hướng được biểu diễn bằng danh sách cạnh để tính điểm trang.” | MMDS 5.1.2, slide 18–21; lec-03/do-thi-yam.svg | A03, C01, D03 |
-| V04 / H04 | ung-dung-truy-van-theo-chu-de.svg | “jaguar” → bốn ô động vật, ô tô, hệ điều hành, máy chơi trò chơi → nhãn ngữ cảnh. Dùng hình chữ nhật có chữ, không logo hoặc ảnh sản phẩm | Ngữ cảnh thay đổi đầu ra mong muốn. Alt: “Truy vấn jaguar có bốn cách hiểu; ngữ cảnh xác định nhóm trang cần ưu tiên.” | MMDS 5.3.1 tr.195–196; Bài 04 T00; đây là sơ đồ hóa ví dụ văn bản | A04, C08, D03 |
-| V05 / H05 | ung-dung-lien-ket-thao-tung.svg | Giữ trang đích, các trang hỗ trợ và liên kết ngoài của Hình 5.16; phân biệt mũi tên ngoài/cụm bằng nét; không thêm kết luận về người vận hành | Tín hiệu xếp hạng phụ thuộc cấu trúc có thể bị thao túng. Alt: “Trang đích nhận liên kết bên ngoài và liên kết từ cụm trang hỗ trợ.” | MMDS Hình 5.16; lec-04/hinh-5-16-cum-thao-tung.svg | A05, D03, F01 |
-| V06 / H06 | ung-dung-tai-lieu-gan-trung.svg | Hai tầng: kho tài liệu với miền cặp tam giác; bên dưới tài liệu → tập shingle → chữ ký → ứng viên → kiểm tra. Công thức số cặp đặt bằng KaTeX ngoài SVG; không vẽ đường cong hiệu năng | Biểu diễn ngắn và giảm cặp là hai việc khác nhau. Alt: “Kho tài liệu sinh các cặp so sánh; chữ ký và bước tạo ứng viên giảm lượng phải đối chiếu.” | MMDS Ch3 slide 15–16, 24; Stanford 03-lsh slide 14; lec-05/quy-mo-so-sanh-cap.svg, lec-06/luong-ung-vien.svg | A06, C01/C08, D04, F04 |
-| V07 / H07 | ung-dung-truy-hoi-vec-to.svg | Kho véc-tơ + truy vấn → chỉ mục → danh sách kết quả; bốn nhãn độ thu hồi/độ trễ/bộ nhớ/xây dựng. Nếu hiện quy mô, ghi 10 tỷ véc-tơ, 3072 chiều, 32 bit là cấu hình ví dụ nguồn; không dùng đám điểm 2D như dữ liệu thật | Mỗi truy vấn phải cân đối chi phí và chất lượng. Alt: “Một véc-tơ truy vấn tra chỉ mục để lấy các véc-tơ gần, với bốn tiêu chí đánh giá.” | BIODS 271 PDF 17–18; Princeton lớp 8 tr.2–5; lec-07/quy-mo-vector.svg | A07, C07–C08, D04 |
+| V01 / H01 | kho-nhat-ky-bo-nho.svg | Tệp trên đĩa không vừa bộ nhớ; mũi tên nạp toàn bộ bị chặn. SVG 600×360 để đọc trong cột. Bảng HTML dùng lại bốn bản ghi C02, tổng 55/25/0; không vẽ bảng trong SVG | Tệp lớn buộc đổi cách đọc và trạng thái giữ lại | Stanford intro62; MMDS1.3.4 tr13 | A01, C01–C06, E02, F04 |
+| V02 / H02 | ung-dung-tong-hop-phan-tan.svg | Từ w ở hai phần kho; gom toàn bộ tài liệu qua mạng về một máy để đếm. Không gán số đếm | Mạng và một máy nhận trở thành nút thắt; phần chữ nêu lỗi chạy lại | MMDS Ch2 slide8–13,20; sách2.1–2.2.6 | A02, C01, D03 |
+| V03 / H03 | ung-dung-xep-hang-web.svg | Giữ y→y,a; a→y,m; m→a. Hộp là trang, đầu ra điểm từng trang hỗ trợ sắp kết quả; dải đọc/cập nhật/lặp | Điểm phụ thuộc nhau, chi phí phát sinh nhiều vòng; không gán điểm/thứ hạng | MMDS5.1–5.2; Link Analysis1:18–21,48,53 | A03, C01, D03 |
+| V04 / H04 | ung-dung-truy-van-theo-chu-de.svg | Jaguar có bốn nghĩa; chủ đề ô tô đã biết dẫn tới mục tiêu ưu tiên trang về xe | Một từ chưa chốt đầu ra; thẻ khó khăn nêu chi phí bộ điểm riêng theo người | MMDS5.3.1 tr195–196 | A04, C08, D03 |
+| V05 / H05 | ung-dung-lien-ket-thao-tung.svg | Giữ ba nhóm Hình5.16; khoanh nét đứt t và trang hỗ trợ cùng bên kiểm soát; nhóm có thể tác động→t; t↔mỗi hỗ trợ | Nhiều liên kết cùng bên tạo có thể đẩy điểm; cần hạn chế ảnh hưởng | MMDS5.4.1–5.4.4/Hình5.16 | A05, D03, F01 |
+| V06 / H06 | ung-dung-tai-lieu-gan-trung.svg | Hai tài liệu có phần chung/phần sửa; bốn biểu tượng nối đủ sáu cặp không hướng; công thức bằng KaTeX. Bỏ chuỗi chữ ký chưa định nghĩa | Đầu ra là cặp; xét tất cả tăng theo số cặp. Nét minh họa định tính, không đo tương đồng | MMDS3.1–3.4; Stanford03-lsh14 | A06, C01/C08, D04, F04 |
+| V07 / H07 | ung-dung-truy-hoi-vec-to.svg | Truy vấn dạng véc-tơ được so với các đoạn tài liệu đã mã hóa; đầu ra k đoạn gần. Bỏ chỉ mục/độ thu hồi khỏi hình | Mỗi truy vấn quét lại kho, tính nhiều khoảng cách; không gán tọa độ hay kết quả giả | BIODS271 PDF16–18; Princeton08:2–5 | A07, C07–C08, D04 |
 | V08 / H08 | ung-dung-dong-truy-van.svg | Dòng chưa có điểm kết thúc → trạng thái nhỏ; tách nhánh lấy mẫu với nhánh lọc rồi tra chính xác. Không ngụ ý mọi phần tử qua bộ lọc đều thuộc tập | Trạng thái phải cập nhật khi dữ liệu đến. Alt: “Dòng truy vấn đi qua bộ nhớ hữu hạn để lấy mẫu hoặc lọc trước bước kiểm tra chính xác.” | MMDS 4.1–4.3; Streams 1 slide 6; lec-08/stream-model.svg, bloom-pipeline.svg | B01, C07–C08, D05 |
 | V09 / H09 | ung-dung-thong-ke-cua-so.svg | Dòng có khóa/thời gian → bốn đầu ra: số khóa khác nhau, tần suất khóa, mômen, số bit 1 gần đây. Mốc cửa sổ rõ, dữ liệu trước mốc nằm ngoài; chưa thêm kết quả số | Truy vấn và phạm vi thời gian quyết định trạng thái. Alt: “Cùng một dòng có bốn loại thống kê; cửa sổ chỉ xét phần gần đây.” | MMDS 4.4–4.7, Hình 4.2–4.4; UMass Count-Min; lec-09/decision-map.svg | B02, C08, D05 |
 | V10 / H10 | ung-dung-nen-van-ban.svg | Chuỗi aabaacabcabcb → mã hóa → dòng mã → giải mã → đúng chuỗi ban đầu. Dùng ngoặc đánh dấu cụm lặp đã có; không tự điền mã, cây hay tỷ lệ nén | Lưu gọn vẫn phải tái tạo đúng dữ liệu. Alt: “Chuỗi aabaacabcabcb được mã hóa rồi giải mã thành đúng chuỗi ban đầu.” | Nelson–Gailly Ch3/9; CMU LZ logic11–14; Bài11 Z00; lec-11/two-contracts.svg | B03, C08, D06 |
@@ -158,7 +156,7 @@ Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô
 
 | note-topic-id dự kiến | Vai trò trong ghi chú tương lai | Trang tương ứng | Vào → ra |
 |---|---|---|---|
-| L01-N01 | cốt lõi: ứng dụng tổng hợp và tìm kiếm, định nghĩa đầu ra trước ví dụ | P00/P01, A01–A09 theo thứ tự bảng | Bối cảnh/đích học → loại dữ liệu → nhu cầu đầu ra |
+| L01-N01 | cốt lõi: ứng dụng tổng hợp và tìm kiếm, định nghĩa đầu ra trước ví dụ | P00/P01, A01–A07 theo thứ tự bảng | Bối cảnh/đích học → loại dữ liệu → nhu cầu đầu ra |
 | L01-N02 | cốt lõi: dòng, khôi phục, lưu trữ và truy vấn | B01–B09 | Đầu ra → giới hạn trạng thái/truy cập |
 | L01-N03 | cốt lõi: đặc tả, vết, giả mã và chứng minh quét–cộng dồn | C02–C06 | Giới hạn → một lời giải đầy đủ |
 | L01-N04 | cốt lõi: khung đánh giá chi phí và bảo đảm | C01, C07–C08 | Lời giải → tiêu chí so sánh |
@@ -171,7 +169,7 @@ Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô
 
 ## Điều kiện kiểm định khi triển khai
 
-Kế hoạch được chốt khi đủ 14 bài, 18 ví dụ có đặc tả hình, mỗi trang có vai trò/nguồn/câu nối, thời lượng $25+26+25+18+9+17=120$ và $10+15+10+10+15=60$. Kiểm tra số trang 47+6=53, bảy phần ngoài, các mã duy nhất. R00 được tính trong 53 trang nhưng chỉ chuyển phần, không tính vào 60 phút làm bài của R01–R05.
+Kế hoạch được chốt khi đủ 14 bài, 18 ví dụ có đặc tả hình, mỗi trang có vai trò/nguồn/câu nối, thời lượng $25+26+25+18+9+17=120$ và $10+15+10+10+15=60$. Kiểm tra số trang 45+6=51, bảy phần ngoài, các mã duy nhất. R00 được tính trong 51 trang nhưng chỉ chuyển phần, không tính vào 60 phút làm bài của R01–R05.
 
 Rà lại toàn bộ bài vì mở bài và luận điểm đã đổi. Kiểm thử RevealJS/ghi chú/SVG ở 1280×720, màn hình hẹp, bàn phím và bản in; nguồn, hình, KaTeX và tài nguyên cục bộ; rà năm góc nhìn độc lập và xử lý lỗi bắt buộc. H19 dùng chung với index phải được kiểm tra tại trang chỉ mục. Kết quả thực thi nằm trong review-log, không suy đạt chỉ từ đặc tả này.
 
@@ -194,6 +192,6 @@ Ghi chú diễn giả không đọc mã nội bộ hoặc phút. Thời lượng
 
 ## Tiêu chí riêng cho trang mở đầu và cầu nối
 
-Tám trang P00/P01/A08/A09/B00/B10/B11/D00 mang nhãn cầu nối. Chúng dùng dữ liệu, đầu ra và giới hạn đã nêu ở các ví dụ lân cận; không có thuật toán hay định lý mới, nên không áp dụng chu trình giả mã–chứng minh riêng. P01 nêu sản phẩm học tập; các trang khác xác định sự thay đổi đầu ra hoặc tài nguyên. Hình của các ví dụ ở hai phía đủ để kiểm quan hệ; không thêm SVG trang trí.
+Sáu trang P00/P01/B00/B10/B11/D00 mở bài hoặc kết nối các cụm. Chúng không có thuật toán hay định lý mới, nên không áp dụng chu trình giả mã–chứng minh riêng. P00 nhận diện bài; P01 nêu sản phẩm học tập; các trang còn lại xác định sự thay đổi đầu ra hoặc tài nguyên. Không thêm SVG trang trí. A08/A09 đã bỏ theo ER-001; phần giới thiệu dùng ngữ cảnh và câu nối ngay trong các ví dụ.
 
 C01 gộp điểm vào phần C với khung tài nguyên; E01 nối chương trình với nền kiến thức; F01 nối trách nhiệm với suy luận; R00 nối mô hình lưu trú với bài tập. E04 nằm sau F04 để chỉ giao chuẩn bị bài kế tiếp khi kết thúc lập luận. Quill rà toàn bộ đường vào–ra và hai trang lân cận mỗi phía. No-ai-slop áp dụng lên mặt trang, alt, notes và Markdown; giữ nguồn, giả thiết, cảnh báo kỹ thuật và lời giải/chấm bài, bỏ lời dặn vẽ/soạn và giải trình lịch sử biên tập khỏi học liệu.

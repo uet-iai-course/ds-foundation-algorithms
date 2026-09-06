@@ -668,3 +668,60 @@ Commit `1c49e6276ef0335b3e93585fadc6e373dfe88184` chứa sáu tệp của lần 
 Lượt đối chiếu phát hiện hai lỗi tài liệu kế hoạch: khi bỏ thẻ xuống dòng của tiêu đề P00 đã làm mất một khoảng trắng, và đoạn mô tả bố cục còn nêu phương án hình bên cạnh thẻ. Sửa thành tên bài có khoảng trắng và hình trên, ba thẻ dưới, đúng HTML đã kiểm trực quan. Đây là đồng bộ tài liệu, không thay đổi trang chiếu, ghi chú, nguồn, số liệu hoặc hình.
 
 Chạy lại toàn bộ kiểm định Chromium sau đối chiếu: 53 trang, 7 phần, 53 notes, 120+60 phút; không lỗi công thức/tài nguyên/trang, không tràn khung ở rộng/hẹp; viewer có 19 hình và 42 mục lục, bàn phím và in đạt. Ba cảnh báo hình học KaTeX vẫn là các hộp nội dòng B09/C03/F03 đã kiểm bằng ảnh, không cắt nội dung. Kết quả khớp lần kiểm trước; bản HTML/Markdown không thay đổi sau commit nội dung.
+
+## ER-001 — bài toán và hình trong section giới thiệu
+
+### Yêu cầu, nguồn và phạm vi
+
+Yêu cầu mới đã ghi nguyên văn trong edit_request.md: người mới chưa hiểu các ví dụ; cần bài toán, khó khăn do quy mô/triển khai và hình minh họa. Sửa P00/P01/A01–A07, bảy SVG và phần đầu ghi chú; bỏ A08/A09; đồng bộ outline, storyboard, index. Giữ B–R, số liệu và bài tập. Bản đích có 51 trang, bảy phần, 120+60 phút; A giữ 25 phút.
+
+Điều phối đọc bản đồ nguồn, ánh xạ slide và các phần nguồn liên quan. Ưu tiên MMDS cho các cụm tương đương Stanford. A01 dùng Stanford intro62 vì nêu đúng URL/size/host; MMDS1.3.4 tr13 cho giới hạn bộ nhớ. A02 dùng MMDS Ch2 slide8–13,20 và sách2.1–2.2.6. A03 giữ đồ thị y,a,m của Link Analysis1 và MMDS5.1–5.2. A04 giữ bốn nghĩa jaguar và vấn đề bộ điểm riêng từng người ở MMDS5.3.1 tr195–196. A05 giữ ba nhóm/cạnh Hình5.16 và giả thiết tập tin cậy ở5.4.4. A06 dùng MMDS3.1–3.4; Stanford03-lsh14 cho quy mô số cặp. A07 đối chiếu BIODS271 PDF16 (các đoạn tài liệu và truy vấn dùng cùng phép mã hóa), 17–18 (10 tỷ véc-tơ, 3072 chiều, 32 bit mỗi thành phần), cùng Princeton08:2–5. Không đưa nội dung mô hình mã hóa vào học phần, không thêm số đo hoặc ví dụ số mới.
+
+### Điều phối và bằng chứng runtime
+
+Tất cả lượt hoàn tất dưới đây có `requested_model` và `observed_model` cùng bằng `z-ai/glm-5.3-flash`, `provider` là `OpenRouter`, lấy từ kết quả JSON của cầu nối. Không dùng lời tự khai của worker làm bằng chứng. Các worker chỉ đọc nhận hồ sơ/bản trích; điều phối trực tiếp kiểm PDF và ảnh trình duyệt. Writer chỉ ghi thư mục tạm `/tmp/er001.vCaHMQ`, sau đó điều phối kiểm và áp dụng bằng patch.
+
+| Vai trò | Phiên | Kết quả và quyết định |
+|---|---|---|
+| Lập kế hoạch | 41911 | Duyệt bỏ A08/A09 và nêu rõ bảy nhiệm vụ; bác giữ bắt buộc ba thẻ ngắn và ghi phút trong notes; tự phân bổ lại 25 phút |
+| Phân tích nguồn độc lập | 54450 | Bảy cụm đủ nguồn ở mức khảo sát; giữ các điều kiện D/M, đếm lần xuất hiện, đồ thị, chủ đề đã biết, tập tin cậy, số cặp và khoảng cách |
+| Soạn phạm vi nhỏ | 16127 | Nháp A02 HTML/SVG. Giữ ý gom dữ liệu gây nút thắt; sửa nhãn quá dài/chồng nhau, bỏ figcaption lặp và câu nối sai nghĩa “đếm từ dẫn tới sắp kết quả” |
+| Storyboard | 47804 | Đếm đúng51/120+60; phát hiện còn A08/A09 ở tiêu chí cầu nối cuối tệp; đã sửa thành sáu trang mở/nối |
+| Góc nhìn sinh viên | 99739 | Không lỗi dữ kiện; đề xuất giải thích khuyên/t và bộ điểm. Đổi alt sang liên kết về chính nó; t đã có nhãn Trang đích trong SVG; không thêm tên thuật toán lên mặt trang |
+| Giải thuật và dữ liệu | 83257 | Sửa câu chạy lại tác vụ tránh đếm trùng và alt A03; không thêm trường ngày vào bảng vì không dùng trong phép cộng; giữ 10 tỷ phép tính khoảng cách với giải thích mỗi phép dùng nhiều thành phần trong notes |
+| Toán học và thuật toán | 39083 | Tự tính55/25/0,499999500000,10tỷ khoảng cách; D/M,k/hòa,chiều và cạnh đúng. Áp dụng “từ bốn bản ghi”, “giữa các trang” và alt A06 đủ mạng cặp |
+| Phản biện giảng dạy | 36956 | Lo thiếu bối cảnh A07 được xử lý bằng truy hồi đoạn tài liệu từ nguồn16. Bác đề xuất ghi “bảy slide khảo sát” trên P01 và bỏ chi phí lặp A03: P01 đã nêu khảo sát, còn khó khăn là yêu cầu trực tiếp của người dùng. Không chuyển nhận xét “Cao” ngoài thang chuẩn thành lỗi bắt buộc thiếu bằng chứng |
+| Kết nối toàn bài | 93847 | Đọc đủ51slide; không lỗi bắt buộc. A07→B00/B01 và E04→R00 nối được; A01 dùng lại ở C02–C06; giữ các phần sau |
+| Chỉnh sửa độc lập sau năm báo cáo | 78857 | Soạn A07 cụ thể hóa đoạn tài liệu. Chấp nhận tác vụ/câu điều kiện; không áp dụng HTML bọc/CSS mới, mã B00 trong notes, figcaption lặp hoặc chữ32bit thiếu “mỗi thành phần”; dùng giao diện hiện tại |
+
+Một writer nháp của phạm vi trao đổi trước đó, phiên83971, kết thúc với lỗi `OpenRouter request exceeded 300s wall timeout`. Đã báo người dùng; không áp dụng nháp lỗi. Lượt16127 chạy lại cùng mô hình/provider với phạm vi nhỏ hơn và hoàn tất. Không đổi ngầm nhà cung cấp.
+
+### Biên tập và hình
+
+P00 chỉ giữ nhận diện học phần; P01 nói năng lực và nội dung khái quát. Bảy ví dụ có câu nêu nhiệm vụ, hình cụ thể và khó khăn. A01 đưa bảng bốn bản ghi lên mặt trang, hình bộ nhớ lớn hơn bản nháp, chuyển D/M về notes. A02 giới thiệu từ w ngay trong câu bài toán. A03 giữ điểm quan trọng như tín hiệu hỗ trợ, không đồng nhất với độ liên quan. A04 giữ chủ đề như đầu vào đã biết. A05 khoanh cụm cùng kiểm soát. A06 vẽ phần chung/phần thay đổi và sáu cặp giữa bốn tài liệu; không vẽ chữ ký chưa định nghĩa. A07 biểu diễn truy vấn/đoạn tài liệu cùng dạng véc-tơ; không gán khoảng cách hoặc thứ hạng giả.
+
+Quill rà trật tự nhiệm vụ→đầu ra→khó khăn và các chỗ dùng lại ví dụ; không tạo quill.json. No-ai-slop biên tập mặt trang, alt, notes và phần ghi chú bị tác động; điều phối tự kiểm trực tiếp theo eval.md: các nguyên tắc giữ ý/giọng, cắt từ rỗng, mẫu câu máy móc và đọc cuối áp dụng đều đạt. Giữ giả thiết phủ định, nguồn, câu hỏi học tập và lời giải; bỏ lời dẫn thiếu ngữ cảnh, nhãn mơ hồ và chỉ dẫn sản xuất. Bản đầy đủ nằm trong HTML/Markdown, không tạo bản rút gọn thay thế.
+
+### Giới hạn công cụ và kiểm định
+
+Codex Slides get_project vẫn trả draft/clarify,0slides cho dự án cũ; không có Browser nội bộ để xác minh bản RevealJS hiện tại. Tiếp tục đường dự phòng được kho cho phép: Chromium trên máy chủ8765 đang chạy; không tạo deck raster thay thế, không tuyên bố đã đồng bộ Codex Slides.
+
+Kiểm thử tạm dùng `/tmp/er001.vCaHMQ/verify.py`; ảnh/PDF không đưa vào Git. Lượt chẩn đoán so HTML từ HTTP với Git báo khác vì máy chủ chèn mã tải lại; đã đổi sang so hai bản nguồn trong kho, xác nhận phần từ B00 đến cuối tệp không đổi từng byte. Kiểm nhãn SVG bằng getBBox cho bảy hình không thấy vượt khung hoặc chồng chữ. Các cảnh báo scrollHeight ở A06/B09/C03/F03 là hộp KaTeX nội dòng; ảnh cho thấy công thức không bị cắt, không thu nhỏ chữ để giấu cảnh báo.
+
+### Rà lại và kết quả cuối ER-001
+
+Reviewer mạch phiên49476 đọc đủ51slide sau sửa A07, xác nhận bảy mạch, bốn bản ghi được dùng lại ở C02–C06 và các ranh giới A07→B00/B01, F04→E04→R00. Đồng ý không thêm chỉ dẫn sản xuất lên P01 và không bỏ khó khăn lặp ở A03. Đề xuất ghi lý do mã B10/B11 không tăng đều đã được đáp ứng trong outline: mã ổn định để truy nguyên, thứ tự theo storyboard. Reviewer toán phiên60870 xác nhận lại điều kiện A07, số liệu và nguồn. Câu báo cáo nói A03 “không còn trở ngại lặp” không đúng bản thật; điều phối bác câu này, giữ khó khăn đọc/cập nhật nhiều vòng như đã duyệt. Cả hai lượt có requested_model=observed_model=z-ai/glm-5.3-flash, provider=OpenRouter. Không còn lỗi chặn hoặc nghiêm trọng đã được xác minh.
+
+| Kiểm tra bản cuối | Kết quả |
+|---|---|
+| Cấu trúc/kế hoạch | 51 mã duy nhất khớp thứ tự storyboard;7phần;50notes vì trang tên bài không cần notes;120+60phút |
+| Phạm vi | HTML từ B00 đến cuối không đổi từng byte;ghi chú từ phần dòng dữ liệu trở đi giữ nguyên, trừ dòng nguồn chung nếu cần |
+| Hiển thị | Duyệt51slide ở1280×720 và390×844;không vượt khung;xem chín slide đầu và các trang lân cận/thu hồi ví dụ;A01/A07 xem lại ảnh chi tiết sau sửa cuối |
+| SVG | Bảy hình được vẽ lại;XML/role/title/desc hợp lệ;nhãn không chồng/vượt viewBox;không thêm raster/CSS/thư viện |
+| Công thức/tài nguyên | Không lỗi KaTeX/JavaScript/HTTP;không ảnh hỏng;không yêu cầu mạng ngoài cho thành phần cốt lõi |
+| Bàn phím | P00↓P01,→B00;Enter mở gợi ý viewer |
+| Ghi chú/index |19hình,42mục lục;không tràn ngang toàn trang ở rộng/hẹp;liên kết đúng;viewer từ chối doc ngoài mẫu/doc–deck khác số bài;index không lộ planning |
+| In |51trang slide,27trang A4 ghi chú;bốn khối gợi ý/lời giải mở khi in;đã xem sáu trang đầu bản in ghi chú |
+| Git |Chỉ đầu ra Bài01 vàedit_request.md;giữ thay đổi người dùng ởAGENTS.md,.gitignore,.codex,codex-orchestrator,openrouter-mcp |
+
+Thời lượng là thiết kế học liệu, không phải số đo diễn tập. Nội dung sẵn sàng xuất bản bằng commit/push thường lên origin/main; chỉ tick checklist sau xác nhận push thành công.
