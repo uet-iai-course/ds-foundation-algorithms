@@ -107,87 +107,91 @@ Bài 07 học tổ chức và nén véc-tơ để giảm chi phí truy vấn. Kh
 
 Tự kiểm tra: tìm mọi cặp gần trùng và tìm $k$ mục gần một truy vấn khác nhau về đầu ra và số đối tượng phải xét như thế nào?
 
-## Dòng dữ liệu, khôi phục và truy vấn
+## Xử lý dòng dữ liệu, lưu trữ và truy vấn
 
-Truy hồi trả lời một yêu cầu trên kho đã lưu. Các yêu cầu đến nối tiếp lại tạo thành dòng bản ghi cần phân tích. Khi dữ liệu tiếp tục đến, trạng thái phải được cập nhật mà vẫn nằm trong giới hạn bộ nhớ.
+Các yêu cầu tìm kiếm tạo ra nhật ký cần phân tích. Nội dung văn bản và ảnh cần được lưu để đọc lại. Dữ liệu nằm trên đĩa còn phải được sắp xếp, tra cứu hoặc ghép từ nhiều bảng. Ba nhóm công việc này có đầu ra khác nhau: mẫu và thống kê; dữ liệu khôi phục; kết quả truy vấn. Chúng không nhất thiết là các bước nối tiếp của cùng một hệ thống.
 
-### Lấy mẫu và lọc dòng truy vấn
+### Giữ mẫu truy vấn và lọc thư đến
 
-Dữ liệu đến theo thứ tự, có thể chưa biết độ dài cuối cùng. Một nhiệm vụ là giữ một mẫu phục vụ phân tích; nhiệm vụ khác là kiểm tra nhanh trước một phép tra cứu đắt. Cả hai đều dùng trạng thái nhỏ, nhưng đầu ra và điều kiện đúng khác nhau.
+Máy tìm kiếm muốn nghiên cứu mức lặp truy vấn của người dùng. Mỗi bản ghi gồm người dùng, truy vấn và thời điểm. Nếu không thể lưu hết nhật ký, hệ thống cần chọn một mẫu vẫn cho phép nghiên cứu hành vi ấy. Lấy mẫu từng bản ghi riêng lẻ có thể làm mất những lần lặp cần đo; chọn người dùng rồi giữ lịch sử truy vấn của họ là đơn vị lấy mẫu phù hợp với ví dụ này.
 
-![Dòng truy vấn có hai nhánh: giữ trạng thái mẫu để xuất mẫu; dùng bộ lọc để chuyển trường hợp có thể có tới tra cứu chính xác](img/lec-01/ung-dung-dong-truy-van.svg)
+Bài toán lọc thư có đầu vào khác: một dòng thư kèm địa chỉ gửi và danh sách địa chỉ cho phép. Đầu ra phải nhận thư từ địa chỉ trong danh sách, bỏ thư ngoài danh sách. Nếu danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra cứu trên đĩa.
 
-Mẫu phải có phân phối phù hợp với đơn vị lấy mẫu: bản ghi và khóa không luôn cho cùng ý nghĩa thống kê. Bộ lọc Bloom chuẩn, với thao tác chèn và tra cứu, không xóa, có thể báo “có thể có” cho phần tử chưa chèn. Nếu băm nhất quán và trạng thái không bị xóa hoặc hỏng, nó không báo vắng cho phần tử đã chèn. Vì vậy, kết quả “có thể có” vẫn cần kiểm tra chính xác khi ứng dụng đòi đáp án chắc chắn. Nguồn: MMDS mục 4.1–4.3, trang 133–142; Streams 1, trang 6; Bài 08.
+![Nhật ký truy vấn tạo mẫu theo người dùng; thư đến được kiểm địa chỉ theo danh sách cho phép](img/lec-01/ung-dung-dong-truy-van.svg)
 
-### Thống kê trên dòng và cửa sổ
+Giữ một tỷ lệ người dùng cố định không bảo đảm mẫu luôn vừa bộ nhớ khi lịch sử tăng. MMDS mục 4.2.4 xét điều chỉnh tỷ lệ để đáp ứng ngân sách. Với lọc thư, bộ lọc Bloom có thể loại nhanh địa chỉ chắc chắn không có trong danh sách; trường hợp “có thể có” vẫn phải tra danh sách chính xác nếu yêu cầu chỉ nhận thành viên. Bảo đảm không loại nhầm phần tử đã chèn áp dụng cho bộ lọc chuẩn chỉ chèn và tra cứu, không xóa, với băm và trạng thái nhất quán. Thuộc danh sách cho phép không phải bằng chứng rằng mọi thư đều không phải thư rác. Nguồn: MMDS mục 4.2–4.3, trang 136–142; Bài 08.
 
-Đầu ra có thể là số khóa khác nhau, tần suất một khóa, một mômen của phân phối tần suất hoặc số sự kiện trong cửa sổ gần đây. Với tần suất $f_j$ của khóa $j$, mômen thứ hai là $\sum_j f_j^2$; đại lượng này khác tổng số sự kiện $\sum_j f_j$.
+### Đếm người dùng và lượt truy cập gần đây
 
-![Một dòng phục vụ bốn loại thống kê; mốc cửa sổ tách phần gần đây khỏi quá khứ](img/lec-01/ung-dung-thong-ke-cua-so.svg)
+Nhật ký truy cập gồm mã người dùng và thời điểm của mỗi lượt. Hai đầu ra thường gặp là số người dùng khác nhau trong phạm vi đã chọn và số lượt truy cập trong một khoảng thời gian gần nhất. Một người quay lại tạo thêm lượt, nhưng không tạo thêm người dùng khác nhau.
 
-Truy vấn toàn dòng giữ ảnh hưởng của quá khứ, còn truy vấn cửa sổ phải loại ảnh hưởng trước mốc. Từ đó, đại lượng cần ước lượng và phạm vi thời gian quyết định trạng thái. Các cấu trúc sẽ học có loại sai số khác nhau: một số dùng ngẫu nhiên, còn DGIM có cận xác định. Nguồn: MMDS mục 4.4–4.7, trang 142–159, Hình 4.2–4.4; UMass CS514 Lecture 10 cho Count-Min; Bài 09.
+![Mốc thời gian tách lượt quá cũ khỏi cửa sổ gần đây; đếm người khác nhau khác với đếm lượt](img/lec-01/ung-dung-thong-ke-cua-so.svg)
 
-### Văn bản cần khôi phục nguyên vẹn
+Lưu mọi mã đã gặp có thể vượt bộ nhớ khi số người dùng tăng. Truy vấn cửa sổ còn phải loại ảnh hưởng của bản ghi hết hạn. Chỉ lưu tổng số lượt từ đầu là chưa đủ để trả số lượt gần đây. Tuy nhiên, đếm tổng lượt từ đầu chỉ cần một bộ đếm; không phải mọi thống kê trên dòng đều cần thuật toán xấp xỉ.
 
-Trạng thái thống kê phục vụ một đại lượng đã chọn, chẳng hạn số khóa phân biệt. Lưu lại văn bản đặt yêu cầu khác: tái tạo được dữ liệu sau khi mã hóa.
+Bài 09 còn xét tần suất $f_j$ của khóa $j$ và mômen thứ hai $\sum_j f_j^2$, khác tổng số sự kiện $\sum_j f_j$. Đại lượng cần ước lượng và phạm vi thời gian quyết định trạng thái cần giữ. Các phương pháp có bảo đảm sai số khác nhau; DGIM có cận xác định. Nguồn: MMDS mục 4.1.3, 4.4–4.7, trang 134–135, 142–159; UMass CS514 Lecture 10 cho Count-Min.
 
-Với nén không mất thông tin, đầu ra của bộ giải mã phải bằng đúng đầu vào bộ mã hóa. Chuỗi `aabaacabcabcb` có các mẫu lặp; nguồn dùng nó để minh họa nén từ điển. Bộ mã hóa khai thác phần lặp, còn bộ giải mã phải tái tạo đúng chuỗi.
+### Lưu văn bản với ít dung lượng hơn
 
-![Chuỗi aabaacabcabcb được mã hóa rồi giải mã thành đúng chuỗi ban đầu](img/lec-01/ung-dung-nen-van-ban.svg)
+Một số đếm không đủ để tái tạo nhật ký. Nén văn bản đặt bài toán lưu một biểu diễn có thể giải mã thành đúng chuỗi đầu vào. Trong nén không mất thông tin, mọi ký hiệu và thứ tự đều phải được bảo toàn.
 
-Dung lượng phải tính cả dòng mã và thông tin phụ trợ cần giải mã, chẳng hạn mô hình hoặc từ điển. Bộ mã hóa và bộ giải mã phải dùng quy ước tương thích. Nguồn: Nelson–Gailly Chương 3 và 9; CMU LZ, trang logic 11–14; Bài 10–11.
+Chuỗi `aabaacabcabcb` trong ví dụ LZ của CMU có các cụm lặp như `ab` và `abc`. Sự lặp lại có thể được khai thác khi mã hóa, nhưng không được tùy ý bỏ phần lặp nếu bộ giải mã không biết phải khôi phục nó ở đâu.
 
-### Ảnh cho phép khôi phục gần đúng
+![Dữ liệu mã cùng thông tin giải mã phải khôi phục đúng chuỗi aabaacabcabcb](img/lec-01/ung-dung-nen-van-ban.svg)
 
-Với tuyến nén ảnh có lượng tử hóa, đặc tả khôi phục khác với văn bản: ảnh tái tạo có thể khác ảnh đầu vào. Phải chốt cách đo sai số hoặc chất lượng phù hợp ứng dụng trước khi so sánh phương pháp.
+Dung lượng phải tính cả dữ liệu mã và thông tin phụ trợ cần giải mã. Không thể hứa mọi chuỗi đều ngắn hơn sau nén. Hình chỉ nêu yêu cầu khôi phục, không cho tỷ lệ nén hoặc bộ mã cụ thể. Nguồn: Nelson–Gailly Chương 3 và 9; CMU LZ, trang logic 11–14; Bài 10–11.
 
-![Khối ảnh đi qua biến đổi, lượng tử hóa và mã hóa; sau giải mã và tái tạo, ảnh có thể khác đầu vào](img/lec-01/ung-dung-nen-anh.svg)
+### Giảm dung lượng ảnh với sai số cho phép
 
-Lượng tử hóa có thể làm mất thông tin; đây là bước khác với phép biến đổi. Bài 11 học tuyến nén JPEG tương ứng. Nguồn: Nelson–Gailly Chương 11; CMU lossy, trang logic 2–16.
+Đầu vào là ảnh cần lưu hoặc truyền. Với nén có mất thông tin, đầu ra sau giải mã được phép khác ảnh gốc nhưng phải đáp ứng tiêu chí chất lượng của ứng dụng. Các ứng dụng cần khôi phục nguyên vẹn ảnh phải dùng đặc tả khác.
 
-### Sắp xếp tệp vượt bộ nhớ
+![Minh họa định tính: nhiều mức sáng gần nhau được gộp thành ít mức đại diện hơn, làm mất phân biệt giữa các mức ban đầu](img/lec-01/ung-dung-nen-anh.svg)
 
-Nén xử lý dung lượng lưu trữ. Để sắp xếp hoặc trả lời truy vấn trên dữ liệu đã lưu, còn phải tổ chức các bản ghi và những khối sẽ đọc vào bộ nhớ.
+Thay các mức sáng gần nhau bằng một mức đại diện làm mất thông tin. Đây là lượng tử hóa, một bước khác với phép biến đổi trong tuyến nén JPEG. Không thể suy ra tỷ lệ nén hoặc chất lượng từ hình định tính; cần đo dung lượng và đánh giá ảnh khôi phục bằng tiêu chí đã chọn. Nguồn: Nelson–Gailly Chương 11; CMU lossy, trang logic 2–16, đặc biệt trang 3; Bài 11.
 
-Đầu vào là tệp bản ghi lớn hơn bộ nhớ; đầu ra phải giữ cùng các bản ghi, kể cả bản ghi có khóa lặp, theo thứ tự khóa yêu cầu. Sắp như một mảng nằm trọn trong bộ nhớ không đáp ứng điều kiện.
+### Sắp xếp tệp lớn theo khóa
 
-![Tệp lớn được chia thành các dãy đã sắp, rồi đọc qua bộ đệm trộn để tạo tệp có thứ tự](img/lec-01/ung-dung-sap-xep-ngoai.svg)
+Đĩa trao đổi dữ liệu với bộ nhớ theo khối; mỗi khối có thể chứa nhiều bản ghi. Nén giảm dung lượng nhưng chưa xác định các khối cần đọc để xử lý. Các bài toán tiếp theo áp dụng cho tệp trên đĩa, không đòi tệp nhất thiết đã nén.
 
-Có thể tạo các dãy có thứ tự từ những phần vừa bộ nhớ, sau đó trộn qua bộ đệm. Số phép so sánh chưa mô tả đủ chi phí; cần tính các lượt đọc và ghi theo khối. Nguồn: Database System Concepts, ấn bản 7 (viết tắt DSC), Chương 15, trang chiếu 17–23; Bài 12.
+Sắp xếp nhận một tệp bản ghi chưa có thứ tự và tạo tệp chứa đủ các bản ghi ấy theo khóa tăng dần. Khóa là thuộc tính xác định thứ tự. Phải giữ cả những bản ghi có khóa lặp; sắp xếp không đồng nghĩa với loại trùng.
 
-### Tra khóa và khoảng giá trị
+![Các vạch biểu diễn thứ tự tương đối của khóa trước và sau sắp xếp; bộ nhớ chỉ giữ một phần tệp](img/lec-01/ung-dung-sap-xep-ngoai.svg)
 
-Truy vấn điểm tìm bản ghi có khóa bằng giá trị đã cho; truy vấn khoảng tìm bản ghi có khóa trong khoảng. Cần xác định cả quy ước biên của khoảng và cách trả các khóa lặp nếu có.
+Khi tệp vượt bộ nhớ, không thể sắp nó như một mảng nằm trọn trong bộ nhớ. Có thể sắp từng phần vừa bộ nhớ, rồi trộn các dãy đã có thứ tự. Chi phí cần tính cả đọc và ghi khối, không chỉ số so sánh. Nguồn: Database System Concepts, ấn bản 7 (viết tắt DSC), Chương 15, trang chiếu 17–23; Bài 12.
 
-![Yêu cầu tra điểm hoặc khoảng đi qua chỉ mục để chọn khối cần đọc; cập nhật dữ liệu phải duy trì chỉ mục](img/lec-01/ung-dung-tra-cuu-khoa.svg)
+### Tìm hồ sơ giảng viên theo mã hoặc lương
 
-Quét bảng mỗi lần có thể đọc nhiều khối không cần thiết. Chỉ mục giảm truy cập cho lớp truy vấn phù hợp nhưng có chi phí xây dựng, dung lượng và cập nhật. Cây có thứ tự và băm không có cùng khả năng phục vụ khoảng giá trị. Nguồn: DSC Chương 14, trang chiếu 3–16; Bài 13.
+Với bảng hồ sơ giảng viên `instructor`, truy vấn theo mã `ID` trả hồ sơ đúng mã. Truy vấn theo khoảng lương `salary` trả tất cả hồ sơ có lương trong khoảng. Phải xác định có lấy hai đầu mút hay không; hình dùng đoạn kín và không gán mức lương cụ thể.
 
-### Tìm tài liệu chứa từ khóa
+![Tra một mã trả hồ sơ tương ứng; tra đoạn lương kín trả đủ hồ sơ có lương trong đoạn](img/lec-01/ung-dung-tra-cuu-khoa.svg)
 
-Đầu vào là kho tài liệu và điều kiện từ khóa; đầu ra là tập mã tài liệu thỏa điều kiện. Hướng ánh xạ từ từ khóa đến danh sách tài liệu chứa từ tránh phải đọc toàn bộ kho cho mỗi yêu cầu.
+Quét cả bảng cho mỗi yêu cầu đọc nhiều dữ liệu không thuộc kết quả. Chỉ mục phù hợp giúp chọn khối cần đọc nhưng phải được xây dựng và cập nhật khi dữ liệu thay đổi. Nếu nhiều hồ sơ cùng mức lương thỏa điều kiện, phải trả đủ. Băm và cây có thứ tự không có cùng khả năng hỗ trợ truy vấn khoảng. Nguồn: DSC Chương 14, trang chiếu 4, 6, 10–16; Bài 13.
 
-![Từ khóa được tra trong từ điển để lấy danh sách mã tài liệu, sau đó kết hợp thành tập kết quả](img/lec-01/ung-dung-tim-tu-khoa.svg)
+### Tìm tài liệu chứa đồng thời hai từ khóa
 
-Điều kiện chứa đồng thời các từ dùng giao tập tài liệu; điều kiện chứa ít nhất một từ dùng hợp. Tìm tập tài liệu thỏa điều kiện và xếp hạng chúng là hai bước có đặc tả khác nhau. Nguồn: DSC Chương 31, trang 13–16 và trang chiếu 14–16; Bài 14.
+Đầu vào là kho tài liệu và hai từ khóa; đầu ra là tập tài liệu chứa cả hai từ. Một tài liệu chỉ chứa một từ không thỏa điều kiện. Bài toán này chọn tập tài liệu, chưa sắp xếp theo độ liên quan.
 
-### Tìm đối tượng trong một vùng
+![Hai từ khóa phải cùng xuất hiện trong mỗi tài liệu kết quả](img/lec-01/ung-dung-tim-tu-khoa.svg)
 
-Đầu vào gồm các đối tượng không gian và vùng truy vấn $Q$; đầu ra ở đây là những đối tượng giao $Q$. Chỉ mục có thể dùng hộp bao để chọn ứng viên, rồi kiểm quan hệ hình học trên đối tượng thật.
+Đọc lại toàn bộ kho cho mỗi yêu cầu tốn công. Chỉ mục đảo lưu ánh xạ từ mỗi từ khóa đến danh sách tài liệu chứa nó. Giao hai danh sách cho điều kiện chứa cả hai từ; hợp cho điều kiện chứa ít nhất một từ. Nguồn: DSC Chương 31, trang 13–16 và trang chiếu 14; Bài 14.
 
-![Vùng Q giao cả hai hộp bao A và B trong sơ đồ; cần xét ứng viên từ cả hai nhánh rồi kiểm đối tượng thật](img/lec-01/ung-dung-truy-van-khong-gian.svg)
+### Tìm đối tượng giao vùng trên bản đồ
 
-Vùng $Q$ giao cả hai hộp bao $A$ và $B$. Đi theo chỉ một nhánh sẽ bỏ phần ứng viên cần xét. Ngược lại, hộp bao giao vùng không đủ để kết luận đối tượng thật giao vùng. Nguồn: DSC Chương 24, trang chiếu 17, 21–24; Auburn, trang PDF 10–13.
+Đầu vào gồm các đối tượng hình học và vùng truy vấn $Q$. Đầu ra là các đối tượng có phần giao với $Q$, kể cả nằm hoàn toàn trong $Q$. Kiểm trực tiếp mọi hình trên bản đồ có thể tốn nhiều công.
 
-### Kết nối hai bảng theo mã sinh viên
+![Q giao hộp bao A và B của hai nhóm đối tượng; cả hai nhóm cần được kiểm tiếp](img/lec-01/ung-dung-truy-van-khong-gian.svg)
 
-Bảng `student` có 5000 bản ghi trong 100 khối; bảng `takes` có 10.000 bản ghi trong 400 khối. Đầu ra của phép nối theo `ID` gồm mọi cặp bản ghi có mã bằng nhau. Khi một mã xuất hiện nhiều lần, chỉ trả một cặp cho mã đó là sai.
+Hộp bao là hình chữ nhật chứa các đối tượng của một nhóm. Trong sơ đồ, $A$ và $B$ là hộp bao, không phải các đối tượng kết quả. Vì $Q$ giao cả hai, chỉ đi một nhánh có thể bỏ sót ứng viên. Ngược lại, hộp bao giao $Q$ chưa chứng minh đối tượng thật giao $Q$. Hình không vẽ đối tượng thật nên chưa thể liệt kê kết quả cuối cùng. Nguồn: DSC Chương 24, trang chiếu 17, 21–24; Auburn, trang PDF 10–13; Bài 14.
 
-![Hai bảng student và takes được đọc vào bộ nhớ hữu hạn để ghép theo ID và trả mọi cặp có ID bằng nhau](img/lec-01/ung-dung-noi-bang.svg)
+### Ghép sinh viên với các môn đã đăng ký
 
-Ví dụ ở Bài 15 đặt ngân sách $M_{\rm khối}=20$ khối. Quy mô hai bảng lấy từ DSC Chương 15, trang chiếu 28. Không bảng nào vừa ngân sách này. Lặp qua từng bản ghi của một bảng và quét lại bảng kia có thể đọc nhiều lần cùng dữ liệu; cần xét cách tái sử dụng khối, chỉ mục, thứ tự hoặc phân hoạch. Nguồn thêm: DSC Chương 15, trang chiếu 24 và 40.
+Bảng `student` lưu thông tin sinh viên, còn `takes` lưu các lượt đăng ký học. Ghép theo mã sinh viên `ID` tạo thông tin sinh viên kèm từng môn đã đăng ký. Đầu ra phải gồm mọi cặp bản ghi trùng mã; một sinh viên đăng ký nhiều môn có thể tạo nhiều kết quả.
 
-Tự kiểm tra: trong các ứng dụng trên, yêu cầu nào cần khôi phục đúng dữ liệu, yêu cầu nào cần lọc ứng viên, và yêu cầu nào phải trả đủ cặp khóa lặp?
+![Hồ sơ sinh viên ghép với từng lượt đăng ký cùng mã để trả sinh viên kèm môn đã đăng ký](img/lec-01/ung-dung-noi-bang.svg)
+
+Trong nguồn, `student` có 5000 bản ghi trong 100 khối và `takes` có 10.000 bản ghi trong 400 khối. Ví dụ ở Bài 15 dùng bộ nhớ $M_{\rm khối}=20$ khối; cả hai bảng đều vượt bộ nhớ. Quét bảng đăng ký lại cho từng sinh viên sẽ đọc nhiều lần cùng dữ liệu. Các phương pháp nối cần tái sử dụng khối mà vẫn trả đủ các cặp. Nguồn: DSC Chương 15, trang chiếu 24 cho quy mô, 28 cho nối theo khối và 40 cho ví dụ bộ nhớ; kịch bản bộ nhớ của Bài 15.
+
+Tự kiểm tra: phân biệt điều phải giữ khi lấy mẫu theo người dùng, khôi phục văn bản, lọc ứng viên vùng và trả các cặp trùng mã. Mỗi đầu ra đặt một điều kiện đúng khác nhau.
 
 ## Thuật toán quét–cộng dồn
 

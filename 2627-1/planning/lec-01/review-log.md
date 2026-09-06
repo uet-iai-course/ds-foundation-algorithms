@@ -1,6 +1,47 @@
 # Nhật ký rà soát Bài 1
 
-Trạng thái mới nhất: mục “Lập lại kế hoạch theo ứng dụng — 2026-09-06” ở cuối tệp. Các vòng trước mô tả bản công khai cũ; kế hoạch mới chưa được triển khai thành HTML/ghi chú/SVG.
+Trạng thái mới nhất: ER-002 bên dưới. Các mục về bản cũ và kế hoạch trước ER-001 được giữ làm lịch sử, không mô tả trạng thái hiện tại.
+
+## ER-002 — tổ chức lại phần dòng dữ liệu, lưu trữ và truy vấn, 2026-09-06
+
+Đã triển khai và kiểm định; chờ commit/push. Sửa 12 trang B và chín SVG, đồng bộ phần ghi chú tương ứng, outline/storyboard/index. Giữ nguyên HTML phần A và từ C01 đến cuối bằng so sánh với HEAD cde84ce. Không sửa CSS, thư viện, bài tập hoặc các bài khác. Các thay đổi AGENTS.md, .gitignore và hạ tầng OpenRouter của người dùng không thuộc commit.
+
+### Nguồn, kế hoạch và triển khai
+
+Đã đọc source.md và bảng ánh xạ nguồn Bài08–15, đối chiếu ví dụ MMDS4.2 tr136–138 (mẫu theo người dùng),4.3 tr139 (thư/danh sách cho phép),4.1.3/4.4–4.7 (thống kê). MMDS Streams1:3–9 và Stanford CS246 16-streams:4–9 tương đương về mục tiêu, độ chính xác và khả năng Việt hóa; chọn MMDS, dùng sách để cụ thể hóa tình huống. CMU LZ trang logic13–14 giữ chuỗi aabaacabcabcb; CMU lossy trang3 cho sơ đồ gộp mức sáng, đối chiếu cả hình khi trích xuất chữ lỗi phông. DSC14:4/6/10–16 cho mã/lương;15:17–24/28/40 cho sắp/nối;24:17/21–24 cho vùng;31:14 và sách tr13–16 cho hai từ cùng xuất hiện. Sửa dẫn quy mô hai bảng từ slide28 về24; giữ M20 theo kịch bản Bài15. Ghi nhận lỗi dấu giao ở công thức OR trong PPTX31; nội dung dùng phép hợp đúng, không chép lỗi.
+
+Planner36150 và source-reader71280 độc lập; điều phối duyệt kế hoạch ba cụm, giữ12trang/26phút. Source-reader53143 lỗi `model exceeded the tool-call limit (3)`; đã báo nguyên văn và chạy lại đúng hai đoạn tệp. Writer90571 lỗi `model exceeded the tool-call limit (4)`; giữ bản nháp ở /tmp và chạy lại writer21374. Runtime các lượt hoàn tất: requested_model=`z-ai/glm-5.3-flash`, observed_model=`z-ai/glm-5.3-flash`, provider=`OpenRouter`.
+
+Writer tạo ý ba nhóm và hai hàng bài toán; điều phối không nhập nguyên văn bản nháp thiếu B02, bỏ nhầm mã/notes hoặc nhãn chật. Khôi phục đầy đủ cấu trúc mẫu và soạn bản tích hợp theo đặc tả. Sau đủ năm báo cáo, writer chỉnh sửa55416 tạo lời giảng rút gọn; giữ ý phân biệt người/lượt và giải thích báo có nhầm, bác các câu “tức thì”, “chỉ con số lớn mới cần xấp xỉ” và gọi mọi bài toán là cấu trúc dòng. Không có hai writer chạy đồng thời.
+
+### Các báo cáo độc lập và quyết định
+
+Mọi reviewer dưới đây là tiến trình riêng, chạy song song trên toàn B cùng A06/A07 và C01/C02. Cùng runtime requested_model/observed_model=`z-ai/glm-5.3-flash`, provider=`OpenRouter`; không suy danh tính mô hình từ lời tự khai. Reviewer chỉ đọc nội dung và alt; điều phối kiểm SVG và trình duyệt riêng.
+
+| Vai / phiên | Mức độ, vị trí, vấn đề và bằng chứng | Đề xuất và quyết định |
+|---|---|---|
+| Storyboard42934 | Nhẹ, B10/B09: cân nhắc nhắc nhóm lưu trữ; số quy mô lặp ở notes. Xác nhận B00→dòng→nén→đĩa có tiến triển, không thiếu cầu nối | Giữ B10 vì đã nêu lưu để đọc lại; số ở notes cần nguồn/giả thiết nên giữ. Đếm toàn bài bằng script thay vì suy từ packet |
+| Sinh viên95675 | Reviewer dùng mức “Cao” cho B01/B02: Bloom, DGIM và “có thể có” trong lời giảng chưa rõ; trung bình B07 “xếp hạng liên quan” | Rút tên chuyên biệt khỏi lời giảng nhập môn, giữ điều kiện đúng và nguồn trong ghi chú tự học; giải thích báo có dù địa chỉ ngoài danh sách. B07 đổi “chưa sắp thứ tự ưu tiên”. Không còn vấn đề bắt buộc |
+| Giải thuật53189 | Không lỗi bắt buộc về phạm vi/kết luận; phân biệt đếm cặp, đếm người/lượt, nén/truy cập, giao/hợp đúng | Giữ chiều sâu khảo sát, không đưa thuật toán chuyên biệt vào phần giới thiệu |
+| Chính xác31136 | Không phát hiện lỗi kết luận; kiểm số cặp499999500000, vết40+15=55,100/400khối và M20, mọi cặp trùngID | Điều phối tự kiểm lại dữ kiện nguồn và quan hệ hình. Bảo đảm bộ lọc giữ đủ điều kiện, không nhận lời diễn giải “âm giả” sai trong báo cáo |
+| Sư phạm71192 | Trung bình B01/B02: tên Bloom/DGIM gây tải; nhẹ B06: cây/băm chưa học. Không có lỗi trình tự bắt buộc | Rút tên khỏi B01/B02; ghi chú B06 chỉ nêu giới hạn cấu trúc, mặt trang không có tên thuật toán. Không thêm lời dẫn dư vào A hoặc B00 |
+| Mạch viết30677 | Trung bình B09→C01: đề nghị thu giới hạn trước trở lại kho nhật ký; nhẹ B00: thứ tự câu ví dụ | B09 sửa rõ “phần tiếp theo phân loại chi phí rồi phân tích tổng byte”. Giữ B00 giới thiệu ba nhóm trước hai ví dụ vì đúng vai trò mở phần |
+
+Nhiều reviewer suy grid2 chứa bốn thẻ là lỗi. Bác: CSS định nghĩa hai cột và tự tạo hai hàng; trình duyệt xác nhận C01 đúng. Không tạo grid4 hay sửa CSS. Góp ý A06/A07 thiếu nối/giải thích bị bác vì nội dung đã có và nằm ngoài phạm vi; không thêm chỉ dẫn nội bộ lên mặt trang.
+
+Rà mạch lại4674 sau chỉnh sửa: toàn B cùng hai trang mỗi phía; xác nhận không còn lỗi bắt buộc. B00 định vị ba nhóm; B10 nối số đếm với nhu cầu khôi phục; B11 định nghĩa khối trước các bài toán đĩa; B09→C01 phân loại chi phí→C02 vết tổng byte. Không đổi mở/kết toàn bài hoặc luận điểm trung tâm nên phạm vi rà lại này phù hợp.
+
+### Biên tập và kiểm định cuối
+
+Quill kiểm thứ tự khái niệm và đầu vào–đầu ra giữa ba cụm, không tạo quill.json. No-ai-slop áp dụng cho mặt trang, lời giảng và ghi chú; tự kiểm trực tiếp eval.md: giữ ý/nguồn/điều kiện, mở bằng bài toán, bỏ khẩu hiệu và lời hướng dẫn người viết, tránh thuật ngữ chưa giải thích và tiêu đề kể tiến trình. Các nhóm Editing principles, Words to cut, Patterns to cut, Final read đạt trong phạm vi chỉnh sửa; bản đầy đủ là HTML/Markdown đã sửa, phần “thay đổi” được bàn giao ngắn gọn. Không thêm số đo, tỷ lệ nén hoặc dữ liệu thực nghiệm giả.
+
+Chín SVG có role/img và title/desc; hình vùng giữ Q giao cả A/B, không gán đối tượng kết quả. Nhãn B01/B02 quá dài được phát hiện bằng getBBox và ảnh chụp, đã rút. Dải mức sáng là minh họa định tính của lượng tử hóa; thứ tự các vạch sắp xếp giữ cùng đa tập và khóa lặp. Không raster, không tài sản lõi ngoài mạng.
+
+Chromium chạy lại bản cuối tại cổng8765: 51slide/7phần, 50notes (trang bìa không cần),120phút giảng+60recitation. Đối chiếu đủ51mã với storyboard; rộng1280×720 và hẹp390×844, duyệt toàn bộ, chụp102ảnh. Không trang ra ngoài khung, không lỗi JavaScript/KaTeX/HTTP hoặc tài nguyên ngoài mạng; chín SVG không nhãn vượt viewBox/chồng nhau. Điều phối xem trực tiếp12trang B; cảnh báo scrollHeight ở A06/C03/F03 do hộp KaTeX, ảnh không cắt và nội dung ngoài phạm vi không đổi. Bàn phím xuống P01, phải B00 đúng. PDF đủ51trang.
+
+Viewer: 19hình,42mục lục, không ảnh hỏng/công thức lỗi/tràn ngang ở cả rộng và hẹp; bốn khối đáp án gập mặc định, Enter mở, bản in mở tất cả; chặn đường dẫn vượt materials và doc/deck lệch số bài. Index rộng/hẹp và liên kết hợp lệ. Bằng chứng cục bộ: /tmp/er002.MGNeaE/verification/results.json, ảnh từng trang, slides.pdf và lecture-note.pdf. git diff --check đạt.
+
+Giới hạn Codex Slides: get_project trả dự án 20260827112432-b-i-1-b-i-to-n-d-li-u-l-n-v-m-h-nh-thu-t-8tlj ở trạng thái draft/0 slide. Không có bề mặt Browser tương ứng để xác minh bản RevealJS. Đã báo người dùng và dùng kiểm định cục bộ theo ngoại lệ AGENTS; không tuyên bố đã rà bản sửa bằng Codex Slides.
 
 ## Vòng rà 2026-08-30
 

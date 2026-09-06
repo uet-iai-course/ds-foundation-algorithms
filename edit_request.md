@@ -18,3 +18,10 @@
   - Tiêu chí: người mới nhận diện được tình huống, đầu vào, đầu ra, khó khăn và ý nghĩa của hình trên mỗi ví dụ; giữ nguồn, không thêm số liệu thiếu căn cứ.
   - Kết quả: sửa chín slide mở đầu, bỏ hai slide nối lặp; vẽ lại bảy SVG; đồng bộ ghi chú, ba tệp kế hoạch và index. Giữ nguyên HTML từ B00 đến cuối.
   - Kiểm tra: đủ sáu báo cáo độc lập và hai lượt rà lại; 51 slide, 7 phần, 120+60 phút; Chromium rộng/hẹp, công thức, SVG, bàn phím, viewer và bản in đạt. Codex Slides còn dự án nháp cũ; kiểm trực tiếp RevealJS cục bộ.
+
+- [ ] **ER-002** — Yêu cầu: tổ chức lại section này, phải có slide giới thiệu về section, các slide cần tham khảo cách thể hiện cuả section trước, rõ bài toán, khó khăn
+  - Trạng thái: đã triển khai và kiểm định; chờ commit/push.
+  - Phạm vi: section thứ hai của Bài 01, hiện mở bằng “Từ kho đã lưu đến dữ liệu đang đến”; đồng bộ hình, ghi chú và tài liệu kế hoạch liên quan.
+  - Tiêu chí: có slide giới thiệu toàn section; ba cụm dòng dữ liệu, lưu trữ và truy vấn nối rõ; mỗi ví dụ nêu bài toán, đầu ra và khó khăn, hình tương ứng theo cách trình bày section trước.
+  - Kết quả: sửa12trang B, vẽ lại9SVG; B00 giới thiệu ba nhóm, B10/B11 mở cụm, các ví dụ dùng bài toán và thẻ khó khăn; đồng bộ ghi chú, ba tệp kế hoạch và index. HTML phần A và C–R không đổi.
+  - Kiểm tra: sáu báo cáo độc lập và rà mạch lại; 51slide/7phần/120+60phút, Chromium rộng/hẹp, SVG, công thức, bàn phím, viewer và PDF51trang đạt. Codex Slides vẫn draft/0slide; kiểm RevealJS cục bộ theo ngoại lệ đã báo.

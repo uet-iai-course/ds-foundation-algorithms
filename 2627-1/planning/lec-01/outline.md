@@ -1,5 +1,15 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
+## ER-002 — dòng dữ liệu, lưu trữ và truy vấn
+
+Kế hoạch được điều phối duyệt ngày 2026-09-06: giữ 12 trang B và 26 phút; toàn bài 51 trang, bảy phần, 120+60 phút. B00 giới thiệu cả ba nhóm nhu cầu; B10 mở cụm nén; B11 mở cụm xử lý tệp trên đĩa. Ba nhóm không phải các bước bắt buộc của một hệ thống.
+
+Giữ chín ví dụ, sửa cách trình bày theo phần A: nhiệm vụ và đầu ra trước hình; hình giải thích dữ liệu và trở ngại; thẻ khó khăn thay nhãn trừu tượng. B01 phân biệt lấy mẫu truy vấn theo người dùng với lọc thư theo danh sách cho phép. B02 dùng người dùng và lượt truy cập để giải thích thống kê; mômen ở ghi chú, không xuất hiện trước định nghĩa trên mặt trang. Phần D vẫn định vị các thuật toán chuyên biệt.
+
+Nguồn: MMDS4.1–4.7 cho dòng; Nelson–Gailly và CMU cho nén; DSC14/15/24/31 cho lưu trữ và truy vấn. MMDS Streams1:3–9 và Stanford CS246 16-streams:4–9 tương đương về nhu cầu, ưu tiên MMDS; sách cung cấp ví dụ cụ thể. Sửa dẫn quy mô hai bảng sang DSC15 trang chiếu24. Giữ ngân sách20 khối từ ví dụ Bài15. Không thêm dữ liệu số hoặc kết quả thực nghiệm.
+
+Vẽ lại hình để giảm khái niệm cần biết trước; giữ quan hệ Q giao cả A và B trong hình vùng. Quill nối từ yêu cầu tìm kiếm của A sang ba nhóm công việc, rồi thu các giới hạn về khung phân tích C. No-ai-slop bỏ tiêu đề kể tiến trình, chỉ dẫn người viết và các câu thiếu đối tượng cụ thể. Đồng bộ ghi chú; A và C–R không đổi.
+
 ## ER-001 — làm rõ bài toán trong phần giới thiệu
 
 Yêu cầu ngày 2026-09-06 trong edit_request.md: sửa section đầu để người mới hiểu bài toán, khó khăn do quy mô hoặc triển khai và hình minh họa. Phạm vi P00/P01/A01–A07, bảy SVG tương ứng và phần đầu ghi chú; giữ B–R. Kế hoạch này thay bản nháp 52 trang chưa triển khai và các mô tả phần A trong lịch sử bên dưới.
