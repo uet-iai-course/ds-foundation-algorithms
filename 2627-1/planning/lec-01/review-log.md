@@ -660,3 +660,11 @@ Reviewer mạch viết phiên 85273 hoàn tất, metadata runtime vẫn đúng m
 | Phạm vi Git | Sáu tệp thuộc Bài 01 và mục chỉ mục; không đưa AGENTS.md, .gitignore, .codex, codex-orchestrator hay openrouter-mcp của người dùng vào commit |
 
 Thời lượng là thiết kế học liệu, chưa phải kết quả diễn tập trên lớp. Hạn chế công cụ Codex Slides đã nêu không được coi là đã kiểm trên Browser của ứng dụng; bản RevealJS được kiểm trực tiếp. Không còn lỗi chặn về nội dung hoặc hiển thị đã xác nhận. Bước xuất bản là commit và push thường lên origin/main theo quyền đã cấp, không ghi đè lịch sử.
+
+### Đối chiếu hoàn tất mục tiêu
+
+Commit `1c49e6276ef0335b3e93585fadc6e373dfe88184` chứa sáu tệp của lần sửa và đã được xác nhận trực tiếp trên `refs/heads/main` của origin bằng `git ls-remote`. Đối chiếu lại yêu cầu với hiện trạng: outline/storyboard có kế hoạch mở–nối; HTML triển khai đủ tám trang thêm và chuyển E04; ghi chú có các đoạn nối tương ứng; no-ai-slop đã cắt chỉ dẫn biên soạn, giữ nguồn và lời giải. Các thay đổi ngoài phạm vi của người dùng vẫn nguyên trạng.
+
+Lượt đối chiếu phát hiện hai lỗi tài liệu kế hoạch: khi bỏ thẻ xuống dòng của tiêu đề P00 đã làm mất một khoảng trắng, và đoạn mô tả bố cục còn nêu phương án hình bên cạnh thẻ. Sửa thành tên bài có khoảng trắng và hình trên, ba thẻ dưới, đúng HTML đã kiểm trực quan. Đây là đồng bộ tài liệu, không thay đổi trang chiếu, ghi chú, nguồn, số liệu hoặc hình.
+
+Chạy lại toàn bộ kiểm định Chromium sau đối chiếu: 53 trang, 7 phần, 53 notes, 120+60 phút; không lỗi công thức/tài nguyên/trang, không tràn khung ở rộng/hẹp; viewer có 19 hình và 42 mục lục, bàn phím và in đạt. Ba cảnh báo hình học KaTeX vẫn là các hộp nội dòng B09/C03/F03 đã kiểm bằng ảnh, không cắt nội dung. Kết quả khớp lần kiểm trước; bản HTML/Markdown không thay đổi sau commit nội dung.

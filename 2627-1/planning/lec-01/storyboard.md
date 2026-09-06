@@ -33,7 +33,7 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 
 | Mã trang | Tiêu đề trang chiếu | Luận điểm, hoạt động và sản phẩm | Nguồn/hình | Phút | Nối sang trang sau |
 |---|---|---|---|---:|---|
-| L01-P00 | Bài toán dữ liệu lớnvà mô hình thuật toán | Tên bài và học phần; kho nhật ký vượt bộ nhớ làm điểm xuất phát | source.md; V01 | 1 | Định vị nội dung và sản phẩm buổi học |
+| L01-P00 | Bài toán dữ liệu lớn và mô hình thuật toán | Tên bài và học phần; kho nhật ký vượt bộ nhớ làm điểm xuất phát | source.md; V01 | 1 | Định vị nội dung và sản phẩm buổi học |
 | L01-P01 | Nội dung buổi học | Ứng dụng → một lời giải → chương trình/cách học; nêu ba sản phẩm Bài 01 | source.md; mục tiêu đã duyệt | 2 | Bắt đầu bằng tổng byte theo máy chủ |
 | L01-A01 | Tổng kích thước theo máy chủ | Kho nhật ký lớn hơn bộ nhớ; cần bảng tổng byte, không cần giữ nguyên mọi bản ghi | V01 | 2 | Dữ liệu có thể nằm ở nhiều máy |
 | L01-A02 | Tổng hợp kho tài liệu phân tán | Từ tài liệu tới số lần xuất hiện theo từ; vị trí dữ liệu, đường truyền và lỗi máy tạo chi phí | V02 | 3 | Ngoài tổng hợp còn có xếp hạng |
@@ -103,7 +103,7 @@ Câu kiểm tra trên mặt trang dùng nhãn “Câu hỏi:”. Mã trang, V/H 
 
 Toàn bộ 19 tệp dưới đây đã được dựng trong 2627-1/img/lec-01/. V01/V17/H19 thay hình cùng tên; 16 tệp còn lại được thêm mới. Các tài sản bài khác chỉ làm nguồn tham khảo, không sửa. Hai SVG cũ về giao thoa lĩnh vực và thể tích gần biên được giữ nhưng không còn dùng trong tuyến mới. Bản đồ H19 dùng chung với index nên phải kiểm định cả hai nơi.
 
-Bố cục chung: một hình chính khoảng hai phần ba chiều rộng, bên cạnh là ba nhãn “Dữ liệu”, “Kết quả”, “Giới hạn”; chuyển điều kiện dài sang ghi chú. Hình định tính phải được gọi là sơ đồ; số liệu mô hình không được vẽ như kết quả đo. Mỗi SVG cần role="img", title/desc, văn bản thay thế cụ thể, nhãn tiếng Việt, dấu/nét/hoa văn hỗ trợ màu. Công thức, bảng và giả mã dùng HTML/KaTeX.
+Bố cục chung: hình chính phía trên, ba thẻ “Dữ liệu”, “Kết quả”, “Giới hạn” phía dưới; chuyển điều kiện dài sang ghi chú. Hình định tính phải được gọi là sơ đồ; số liệu mô hình không được vẽ như kết quả đo. Mỗi SVG cần role="img", title/desc, văn bản thay thế cụ thể, nhãn tiếng Việt, dấu/nét/hoa văn hỗ trợ màu. Công thức, bảng và giả mã dùng HTML/KaTeX.
 
 | Ví dụ / hình | Tệp dự kiến | Dữ liệu, bố cục và quan hệ phải giữ | Kết luận hình và văn bản thay thế dự kiến | Nguồn / tài sản tham khảo | Chỗ dùng lại |
 |---|---|---|---|---|---|
