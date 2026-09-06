@@ -1,6 +1,64 @@
 # Nhật ký rà soát Bài 1
 
-Trạng thái mới nhất: ER-002 bên dưới. Các mục về bản cũ và kế hoạch trước ER-001 được giữ làm lịch sử, không mô tả trạng thái hiện tại.
+Trạng thái mới nhất: ER-003 bên dưới. Các mục trước được giữ làm lịch sử, không mô tả trạng thái hiện tại.
+
+## ER-003 — đặc tả và đánh giá thuật toán, 2026-09-07
+
+Phần C thay8trang bằng17trang C00–C16: mở đúng tên người dùng; ví dụ cặp tài liệu gần trùng; tổng quan10tiêu chí và trang riêng có khái niệm, ví dụ, SVG. Thêm11SVG; đồng bộ ghi chú, outline/storyboard/index và các câu nhắc ví dụ cũ ngoài C. Không sửa CSS/thư viện hoặc bài tập nguồn. 60trang,7phần,120+60phút. Mục này là trạng thái hiện hành; các mục trước là lịch sử.
+
+### Nguồn và quyết định kế hoạch
+
+Đọc nguồn cấp học phần và ánh xạ Bài01; giữ mục tiêu phân biệt đặc tả/biểu diễn/thuật toán/mô hìnhchi phí. Bổ sung của người dùng bác ví dụ cộng dồn làm trọng tâm. Hai reader độc lập8482(lập kế hoạch) và92226(nguồn) hoàn tất; kế hoạch cộng dồn trước đó bị thay, không dùng làm cơ sở triển khai.
+
+Đối chiếu trực tiếp MMDS3eCh3 tr73–75/§3.1.1–3.1.2 và3.2.1, Ví dụ3.1/Hình3.1 giao3/hợp8; MMDSslidesCh3:15–17 và Stanford03-lsh:14–18. Hai slide nguồn tương đương về nhu cầu/biểu diễn/ứng viên; ưu tiên MMDS, Stanford kiểm quy mô1triệu. Không dùng số ngày làm tròn như số đo. Xét mọi cặp và chứng minh là hình thức hóa trực tiếp phép duyệt trong nguồn; không giảng trước cơ chế LSH. Lấy DSC15:24 cho bảng100/400khối; M20 từ Bài15; DSC15:17–23 cho sắp ngoài; DSC14:4,10–11 cho cập nhật lương; MMDS2.2.4–2.2.6/2.5 và Stanford01-intro67–69 cho đếm từ/mạng; Bài07 cho recall5=3/5 và xây/truy vấn; Nelson–Gailly/CMU cho yêu cầu lưu mã và khôi phục. Không thêm benchmark, tỷ lệ nén hoặc ngưỡng số.
+
+Planner đề xuất chia bảy nhóm bên trong C và giảng sâu shingling/băm: bác vì C chỉ một phần ngoài và mục tiêu Bài01 là phân tích. Source reader nêu khoảng trống cập nhật ANN: dùng DSC14thay vì suy diễn. Chấp nhận dùng ví dụ khác nhau cho các chi phí, không buộc một phép cộng đại diện mọi khía cạnh.
+
+### Điều phối và lỗi công cụ
+
+AGENTS.md cho phép gửi nội dung workspace không bí mật tới OpenRouter, ngoại trừ .env. Lượt đầu bị từ chối ở bước cấp quyền; điều phối đã kiểm điều khoản này và chạy lại với căn cứ rõ, được chấp thuận. Không đọc/in/gửi .env hay bí mật.
+
+Writer33938 dừng với lỗi đã báo nguyên văn: “RuntimeError: OpenRouter request exceeded 300s wall timeout”; chưa tạo draft. Writer76452 thử lại cùng mô hình hoàn tất một trang mở phần. Điều phối giữ cấu trúc hai thẻ, bỏ tiếng Anh thừa và mệnh đề “giải chính xác là bất khả thi”, sửa aside thành notes; triển khai phần còn lại từ đặc tả đã duyệt.
+
+Sáu reviewer là các tiến trình riêng chạy song song. Coherence45411 và18802 lỗi “model returned an empty or incomplete answer after all retries”; đã báo nguyên văn, dừng bước phụ thuộc, tăng giới hạn đầu ra cùng mô hình. Coherence4072 hoàn tất trên bản trích nội dung hiển thị toàn bộ60trang.
+
+Runtime được đọc từ JSON cầu nối cho mọi lượt hoàn tất nêu trên và sáu báo cáo: requested_model=z-ai/glm-5.3-flash; observed_model=z-ai/glm-5.3-flash; provider=OpenRouter. Không dùng lời tự khai trong báo cáo. Writer chỉnh sửa riêng được chạy sau đủ năm góc nhìn; các writer không chạy đồng thời.
+
+### Báo cáo độc lập và quyết định
+
+| Vai / phiên | Mức độ, vị trí, vấn đề và bằng chứng | Đề xuất / quyết định |
+|---|---|---|
+| Storyboard52024 | Nhẹ: cho rằng E9/F16 lệch vì cộng theo tiền tố ID; tùy chọn C16chỉ1phút | Bác kết luận lệch: E04thuộc outerF, thời lượng theo section làE9/F16. Nêu rõ quy ước. C16tăng2phút, C15giảm3→2; Cgiữ31phút |
+| Sinh viên83074 | Trung bình C02: “chọn đúng khi” mơ hồ; C11cho rằng véc-tơ chưa định nghĩa; C05nguy cơ chật | Đổi C02thành điều kiện chọn rõ. Bác tiên quyết thiếu: A07đã định nghĩa véc-tơ. C05kiểm ảnh1280×720không tràn, giữ chữ hiện hành. Không đổi hình C07chỉ vì tái dùng V06 |
+| Giải thuật32491 | Không lỗi thuật toán/phạm vi; nhẹ nguồn MMDS4.1 trong mục cập nhật; tùy chọn tự kiểm lặp | Tách nguồn DSC14cho chỉ mục và MMDS4.1cho tốc độ dòng, không gán nguồn dòng cho chỉ mục. Giữ kiểm tra thu hồi sau giải thích để đo hiểu điều kiện |
+| Toán99182 | Không lỗi thực; xác nhận tập khôngrỗng,3/8,chỉ số,biên,chứng minh,O(N²L),3/5,A∩R | Giữ giả thiết trong notes và ghi chú. Điều phối tự chạy số cặp/Jaccard/recall và1200trường hợp hữu hạn. Bổ sung chạy tay tượng trưng tại C04sẽ được rà lại |
+| Sư phạm50426 | Trung bình C00đòiSVG; C03–C07thiếu gắn đầu ra với cặp3/8 | C00hai thẻ đã trực quan hóa hai nhánh; người dùng không yêu cầu SVGtrangtrí nên không thêm. Nhận góp ý chạy tay: N2,C1=S,C2=T, xuất(1,2)nếuτ≤3/8, ngược lại rỗng; không tự tạo ngưỡng số |
+| Mạch4072 | Dùng mức “Cao” cho C01lặp A06; trung bình C08lặp B09; E04thiếu cầu hiển thị sau F04 | C01đổi vai trò từ nhắc quy mô sang phân biệt giống hệt/gầntrùng, nối vào từ C00 và ra độ đo C02. C08giữ dữ kiện nhưng hình/luậnđiểm mới: ngân sách đồng thời+bộđệm, nối C07tính→C09đọc lại; yêu cầu cho phép dùng lại ứng dụng. E04thêm câu gom đủ/không tínhtrùng trên nhiều máy, nối yêu cầu đúngđủ F04→chuẩn bịMapReduce→R dùng mô hình lưu trú |
+
+Điều phối phát hiện thêm E01và đoạn ghi chú tiên quyết còn hỏi bảng tổng bước3 sau khi bỏ ví dụ C: thay bằng giao3/hợp8. C16mở lại ngữ cảnh cặp tài liệu sau ví dụ truy vấn véc-tơ. Hình xây chỉ mục sửa chiều truy vấn→chỉ mục để không ngụ ý chỉ mục tạo ra truy vấn. Các ánh xạ N03/N04và tiêu chí đếm trang trong storyboard được đồng bộ, giữ mục lịch sử có nhãn riêng.
+
+
+Writer chỉnh sửa72050 hoàn tất trên cùng runtime; soạn bốn đoạnC01/C04/C16/E04. Điều phối giữ hai nhánh theo ngưỡng, sửa chiều định nghĩa ứng viên và bỏ cách hiểu sai “so sánh từng ký tự” thành “kiểm bằng nhau từng ký tự”. Không nhận nguyên văn câu gọi mọi cặp tài liệu là ứng viên. Bản cuối đang được reviewer toán58919và mạch73106rà lại; chưa đánh dấu yêu cầu hoàn tất trước khi push.
+
+### Rà lại và kiểm định cuối
+
+Reviewer toán58919 xác nhận hai nhánh chạy tay, đặc tả, giả mã, bất biến và trường hợp biên không có lỗi. Reviewer mạch73106 đã đọc trọn bản hiển thị 60 trang; C01→C02, C04, C16→D, E01 và E04 đạt, không còn lỗi nghiêm trọng/chặn. Gợi ý dấu cách chỉ thuộc dòng metadata của gói tạm, không nằm trong học liệu. Requested/observed model của cả hai là z-ai/glm-5.3-flash, provider OpenRouter.
+
+Điều phối chạy lại kiểm định sau chỉnh sửa:
+
+- 60 mã trang duy nhất khớp thứ tự storyboard; 7 section ngoài; 54 trang giảng và 6 trang bài tập. C31 phút, toàn giảng120 phút, bài tập60 phút; E04 được tính trong F.
+- So sánh HTML với HEAD d39fea7: ngoài C chỉ các sửa có chủ ý tại A01, B09, E01, F03, F04, E04; các phần khác giữ nguyên. Không sửa CSS, thư viện hoặc đề/lời giải bài tập.
+- Tính lại số cặp499999500000, Jaccard3/8, độ thu hồi3/5 và sáu cặp theo thứ tự; chạy1200trường hợp hữu hạn gồm N0/N1/ngưỡng0/ngưỡng1, đầu ra khớp đặc tả và không lặp.
+- Chromium1280×720 và390×844 duyệt toàn bộ60trang; không tràn khung, không lỗi JavaScript/KaTeX, ảnh hỏng hoặc yêu cầu mạng ngoài. Kiểm từng nhãn SVG phần C: không ra ngoài viewBox hoặc chồng nhãn.
+- Đã xem toàn bộ ảnh trang, phóng riêng C03/C04/C15/E01, ảnh sau sửa C01/C12/E04, hai trang lân cận các phía và các câu thu hồi. Hai cảnh báo scrollHeight của KaTeX ở A06/F03 là đo hộp công thức, ảnh không bị cắt.
+- Viewer: 31 lượt nhúng hình, không hình hỏng/công thức lỗi/tràn ngang ở rộng và hẹp; sáu khối gợi ý/lời giải gập mặc định, bàn phím mở được và mở khi in; từ chối đường dẫn thoát thư mục và số bài lệch.
+- PDF slide60trang; ghi chú A4 tạo được, hình/công thức và mục lục hiển thị. Chỉ mục rộng/hẹp và liên kết kiểm đạt.
+- Quill rà thứ tự khái niệm, ký hiệu và cầu nối; không tạo dự án sách. No-ai-slop biên tập mặt trang/notes/Markdown rồi tự kiểm đủ các mục eval.md: giữ dữ kiện và giọng học thuật, không khẩu hiệu/câu hỏi tu từ/chỉ dẫn người viết; phần đối lập còn lại là phân biệt toán học cần thiết. Không còn cách gọi bị người dùng phản đối trong HTML hoặc ghi chú công khai.
+- git diff --check đạt. Tệp .gitignore, AGENTS.md và hạ tầng .codex/OpenRouter của người dùng được giữ ngoài commit.
+
+Codex Slides: dự án20260827112432-b-i-1-b-i-to-n-d-li-u-l-n-v-m-h-nh-thu-t-8tlj vẫn draft/0slide của bản cũ, không có mặt Browser phù hợp để xác minh deck hiện hành. Đã thông báo và dùng kiểm RevealJS cục bộ theo ngoại lệ AGENTS.md; không tuyên bố đã rà hoặc đồng bộ qua Codex Slides. Bằng chứng ảnh/PDF/JSON ở thư mục tạm /tmp/er003.9rFlP5/verification, không đưa vào Git.
+
+Trạng thái: triển khai và kiểm định đạt; chờ commit nội dung và xác nhận origin/main trước khi tick ER-003.
 
 ## ER-002 — tổ chức lại phần dòng dữ liệu, lưu trữ và truy vấn, 2026-09-06
 

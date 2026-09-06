@@ -2,12 +2,12 @@
 
 ## Nội dung và kết quả buổi học
 
-Bài học khảo sát các bài toán dữ liệu của Bài 02–15, từ đó xác định giới hạn tài nguyên và yêu cầu đối với thuật toán. Một thuật toán cộng dồn được phân tích qua đặc tả, vết chạy, chứng minh và chi phí. Phần cuối giới thiệu nội dung học phần, sự chuẩn bị cần có và các giả thiết khi suy luận từ dữ liệu.
+Bài học khảo sát các bài toán dữ liệu của Bài 02–15, từ đó xác định giới hạn tài nguyên và yêu cầu đối với thuật toán. Bài toán tìm cặp tài liệu gần trùng được phân tích qua biểu diễn, đặc tả, thuật toán xét mọi cặp và các tiêu chí đánh giá. Phần cuối giới thiệu nội dung học phần, sự chuẩn bị cần có và các giả thiết khi suy luận từ dữ liệu.
 
 Sau buổi học, sinh viên có thể:
 
 1. Nêu đầu vào, đầu ra và trở ngại của một bài toán dữ liệu.
-2. Giải thích tính đúng và điều kiện chi phí của thuật toán cộng dồn.
+2. Giải thích tính đúng của thuật toán xét mọi cặp và phân biệt các khía cạnh đánh giá lời giải.
 3. Phân biệt kết quả tính toán với kết luận rút ra về dữ liệu; tính kỳ vọng trùng dưới các giả thiết đã cho.
 
 [Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) dùng cùng dữ kiện và ký hiệu. Ghi chú mở rộng đặc tả, chứng minh, điều kiện chi phí và lời giải bài tập.
@@ -18,7 +18,7 @@ Sau buổi học, sinh viên có thể:
 
 Kho thu thập web lưu các bản ghi gồm địa chỉ trang, kích thước và ngày thu thập. Máy chủ được xác định từ địa chỉ trang. Bài toán yêu cầu cộng kích thước các trang có trong kho thuộc cùng máy chủ, rồi trả một tổng cho mỗi máy chủ. Tổng này không phải lưu lượng truy cập hoặc dung lượng toàn bộ máy chủ.
 
-Bốn bản ghi dùng xuyên suốt bài có dạng rút gọn:
+Bốn bản ghi minh họa đầu ra có dạng rút gọn:
 
 | Máy chủ | Kích thước trang (byte) |
 |---|---:|
@@ -193,125 +193,220 @@ Trong nguồn, `student` có 5000 bản ghi trong 100 khối và `takes` có 10.
 
 Tự kiểm tra: phân biệt điều phải giữ khi lấy mẫu theo người dùng, khôi phục văn bản, lọc ứng viên vùng và trả các cặp trùng mã. Mỗi đầu ra đặt một điều kiện đúng khác nhau.
 
-## Thuật toán quét–cộng dồn
+## Phân tích thuật toán xử lý dữ liệu lớn
 
-Các ứng dụng đòi hỏi đầu ra và tài nguyên khác nhau. Với kho nhật ký ban đầu, đầu ra vẫn là tổng byte chính xác của mỗi máy chủ; chỉ cần giữ đủ trạng thái để tính tổng khi bản ghi tiếp tục được đọc. Lời giải dưới đây làm rõ trạng thái đó, tính đúng và điều kiện bộ nhớ.
+Các bài toán trên đĩa cho thấy hai yêu cầu khác nhau: trả đúng kết quả và thực hiện được trong ngân sách tài nguyên. Tìm cặp tài liệu gần trùng còn buộc ta phân biệt một cặp được tìm thấy với toàn bộ các cặp cần tìm.
 
-### Đặc tả và biểu diễn
+### Bài toán và cách biểu diễn
 
-Cho dãy $L=((u_i,s_i))_{i=1}^{n}$. Ở đây $n$ là số bản ghi hữu hạn, $u_i$ là tên máy chủ, $s_i\in\mathbb N_0$ là kích thước tính bằng byte.
+Các bản sao của một trang web thường giữ nội dung chính nhưng thay tên máy chủ hoặc liên kết. So sánh bằng nhau từng ký tự không nhận ra đủ những cặp này. Bài toán tìm gần trùng xét phần văn bản được chia sẻ; nó không kết luận hai tài liệu cùng ý nghĩa hay có hành vi sao chép trái phép.
 
-- Đầu ra: bảng $S$ có đúng tập máy chủ xuất hiện trong $L$, với $S[u]=\sum_{i:u_i=u}s_i$.
-- Điều kiện trước: bản ghi hợp lệ; kiểu dùng cho tổng không tràn.
-- Điều kiện sau: đúng tập khóa và đúng giá trị tổng tại mỗi khóa.
-- Ràng buộc lời giải đang xét: đọc tuần tự một lượt; chỉ giữ trạng thái cần thiết, không giữ toàn bộ dãy.
+Mỗi tài liệu được biểu diễn bằng tập các đoạn ký tự liên tiếp cùng độ dài. Cả kho dùng cùng quy tắc chuẩn hóa. Một đoạn chỉ xuất hiện một lần trong tập dù lặp nhiều lần trong văn bản. Trong phần này, các tập đã được tạo và đều không rỗng; Bài 05 phân tích cách tạo chúng.
 
-Giới hạn $D>M$ không tự bắt buộc mọi thuật toán chỉ được đọc một lượt; ở đây ta chọn và phân tích lời giải một lượt. Đặc tả bài toán không bắt buộc bảng băm: đó là một lựa chọn biểu diễn và cài đặt bảng $S$. Nguồn tình huống: Stanford CS246, trang chiếu 62.
+Độ tương đồng Jaccard của hai tập hữu hạn có hợp không rỗng là
 
-### Ví dụ và trực giác trạng thái
+$$J(S,T)=\frac{|S\cap T|}{|S\cup T|}.$$
 
-::: example
-Xét bốn bản ghi sau theo lược đồ máy chủ–kích thước.
+Tỷ lệ nằm trong $[0,1]$. Nó bằng $1$ khi hai tập không rỗng bằng nhau, bằng $0$ khi chúng rời nhau.
 
-| Bước | Bản ghi (máy chủ, byte) | Trạng thái $S$ sau bước |
-|---:|---|---|
-| 0 | Chưa đọc | Bảng rỗng |
-| 1 | (a.vn, 40) | a.vn: 40 |
-| 2 | (b.vn, 25) | a.vn: 40; b.vn: 25 |
-| 3 | (a.vn, 15) | a.vn: 55; b.vn: 25 |
-| 4 | (c.vn, 0) | a.vn: 55; b.vn: 25; c.vn: 0 |
+::: example MMDS Ví dụ 3.1
+Hình 3.1 cho hai phần tử chỉ thuộc $S$, ba phần tử chung và ba phần tử chỉ thuộc $T$. Do đó
 
-Sau bước 3, hai bản ghi của a.vn có tổng $40+15=55$. Sau bước 4, c.vn phải xuất hiện dù tổng bằng 0.
+$$J(S,T)=\frac{3}{2+3+3}=\frac38.$$
+
+Với ngưỡng $\tau$ đã cho, cặp này đạt yêu cầu khi và chỉ khi $\tau\le3/8$. Không chọn ngưỡng bằng cách nhìn riêng cặp ví dụ này.
 :::
 
-Bảng tổng giữ đủ thông tin về tiền tố để xử lý phần còn lại: khi gặp một bản ghi của $u$, chỉ cần tổng cũ của $u$ và số byte mới. Các bản ghi trước có thể bỏ sau khi cộng. Đây là trực giác tóm tắt trạng thái; tính đúng được chứng minh bằng bất biến, không chỉ bằng một vết chạy.
+![Hai tập có ba phần tử chung trong tám phần tử của hợp.](img/lec-01/danh-gia-jaccard.svg)
 
-### Mệnh đề và giả mã
+Nguồn: MMDS §3.1.1–3.1.2, tr. 74–75 và §3.2.1. MMDS slide Chương 3, trang 15–17 và Stanford CS246 03-lsh, trang 14–18 thống nhất về nhu cầu biểu diễn và giảm số cặp.
 
-Mệnh đề: với điều kiện trước đã nêu, thuật toán sau dừng và trả đúng bảng $S$ của đặc tả.
+### Đặc tả đầu vào và đầu ra
 
-```text
-S ← bảng rỗng
-với i từ 1 đến n:
-    (u, s) ← bản ghi tiếp theo
-    nếu u chưa có trong S:
-        S[u] ← 0
-    S[u] ← S[u] + s
-trả về S
-```
+Đầu vào gồm số nguyên $N\ge0$, các tập hữu hạn không rỗng $C_1,\ldots,C_N$ và ngưỡng $\tau\in[0,1]$. Tập $C_i$ biểu diễn tài liệu thứ $i$. Đầu ra phải là
 
-Thuật toán chỉ cần phép kiểm khóa, khởi tạo, đọc và cập nhật giá trị. Mỗi vòng tiêu thụ thêm một bản ghi; số bản ghi chưa xử lý giảm từ $n$ xuống $0$, nên thuật toán dừng sau $n$ vòng.
+$$R=\{(i,j):1\le i<j\le N,\ J(C_i,C_j)\ge\tau\},$$
 
-### Chứng minh bằng bất biến tiền tố
+với mỗi cặp xuất hiện đúng một lần. Điều kiện $i<j$ loại so sánh một tài liệu với chính nó và tránh trả cả hai thứ tự của cùng cặp. Khi $N<2$, kết quả rỗng.
 
-::: proof
-Sau $k$ bản ghi, với $0\le k\le n$, bất biến gồm hai vế:
+Chỉ trả các cặp đạt ngưỡng là chưa đủ nếu còn bỏ sót cặp khác cũng đạt ngưỡng. Nếu cho phép gần đúng, phải nêu sai lệch nào được chấp nhận. Tập rỗng nằm ngoài miền đầu vào đang xét; không tự gán giá trị cho $0/0$.
 
-1. Tập khóa của $S$ đúng bằng các máy chủ trong tiền tố dài $k$.
-2. Với mỗi khóa $u$ trong bảng, $S[u]=\sum_{i\le k,\;u_i=u}s_i$.
+| Thành phần | Nội dung trong bài toán |
+|---|---|
+| Đặc tả | Trả đúng tập $R$ theo Jaccard và ngưỡng đã cho |
+| Biểu diễn | Tập đoạn ký tự; có thể lưu thành danh sách đã sắp, không lặp |
+| Thuật toán | Duyệt các cặp, kiểm tương đồng, xuất cặp đạt ngưỡng |
+| Cài đặt | Kiểu phần tử, phép so sánh, cách đọc tệp, cách kiểm ngưỡng |
+| Kết quả thực nghiệm | Các cặp cụ thể và số đo trong thiết lập chạy đã công bố |
 
-**Khởi tạo.** Với $k=0$, tiền tố rỗng và bảng rỗng có cùng tập khóa. Không có khóa cần kiểm giá trị.
+Một lần chạy đúng không chứng minh mọi đầu vào, và một lần chạy nhanh không chứng minh một cận tiệm cận.
 
-**Duy trì.** Giả sử bất biến đúng sau $k<n$ bản ghi. Bản ghi tiếp theo là $(u_{k+1},s_{k+1})$. Nếu khóa mới, thuật toán thêm khóa với 0 rồi cộng $s_{k+1}$; đó là toàn bộ tổng của khóa trong tiền tố mới. Nếu khóa đã có, tổng cũ đúng theo giả thiết quy nạp; cộng $s_{k+1}$ cho tổng đúng trên tiền tố dài hơn. Các khóa khác không đổi. Tập khóa chỉ thêm đúng khóa mới nếu cần. Giả thiết tổng không tràn bảo đảm phép cộng cài đặt vẫn là phép cộng trong đặc tả.
+### Thuật toán xét mọi cặp và tính đúng
 
-**Kết thúc.** Thuật toán dừng ở $k=n$. Vế thứ nhất cho đúng tập máy chủ trong toàn dãy; vế thứ hai cho đúng tổng của từng máy chủ. Hai vế chính là điều kiện sau, nên thuật toán đúng.
+Giả sử phép kiểm Jaccard cho kết quả chính xác. Có thể duyệt hai danh sách đã sắp để đếm giao và hợp bằng hai con trỏ; Bài 05 phân tích thao tác đó.
+
+~~~text
+nếu N < 2:
+    kết thúc với kết quả rỗng
+cho i = 1,...,N−1:
+    cho j = i+1,...,N:
+        tính chính xác J(Cᵢ, Cⱼ)
+        nếu J(Cᵢ, Cⱼ) ≥ τ:
+            xuất cặp (i, j)
+~~~
+
+Với $N=2$, $C_1=S$, $C_2=T$ trong ví dụ, hai vòng chỉ xét $(1,2)$. Phép kiểm cho $J(C_1,C_2)=3/8$. Nếu $\tau\le3/8$, thuật toán xuất $(1,2)$ rồi dừng; nếu $\tau>3/8$, nó kết thúc với kết quả rỗng. Như vậy đầu ra là $\{(1,2)\}$ hoặc $\varnothing$ theo yêu cầu ngưỡng.
+
+Kết quả được xuất dần, không bắt buộc lưu mọi cặp đã xét hoặc toàn bộ đầu ra trong bộ nhớ. Chi phí ghi đầu ra vẫn tồn tại.
+
+::: proof Tính đúng và điều kiện dừng
+Mệnh đề: với đầu vào hợp lệ và phép kiểm tương đồng chính xác, thuật toán xuất đúng $R$, mỗi cặp một lần.
+
+Bất biến: sau mỗi bước, các cặp đã xuất gồm đúng các cặp đạt ngưỡng trong phần đã xét.
+
+Ban đầu chưa xét và chưa xuất cặp nào nên bất biến đúng. Giả sử nó đúng trước một bước. Cặp mới chưa được xét trước đó. Nếu đạt ngưỡng, thuật toán xuất cặp ấy; nếu không, nó không xuất. Kết quả trước giữ nguyên nên bất biến tiếp tục đúng và không có cặp trùng lặp.
+
+Hai vòng xét mỗi cặp $i<j$ đúng một lần rồi dừng sau $N(N-1)/2$ cặp. Khi kết thúc, phần đã xét là toàn bộ miền cặp; bất biến cho kết quả bằng $R$. Với $N<2$, miền cặp và kết quả đều rỗng.
 :::
 
-### Trường hợp biên, chi phí và tính khả thi
+![Ba trong sáu cặp đã xét; kết quả đang có đúng với phần đã xét.](img/lec-01/danh-gia-tinh-dung.svg)
 
-Dãy rỗng trả bảng rỗng. Khóa lặp được cộng dồn. Bản ghi kích thước 0 vẫn tạo khóa; bỏ bước ấy sẽ làm sai tập khóa. Kích thước âm hoặc bản ghi hỏng nằm ngoài miền đầu vào đã chốt, không được ngầm bỏ qua.
+Chứng minh giả định phép kiểm ngưỡng chính xác. Cài đặt dấu phẩy động phải được kiểm tra ở gần ngưỡng; không suy từ giả mã rằng mọi cách tính số đều giữ nguyên quyết định.
 
-Đặt $h$ là số máy chủ phân biệt, $D$ là số byte đầu vào, $M$ là số byte bộ nhớ khả dụng, $v$ là tốc độ đọc tính bằng byte/giây.
+::: exercise Tự kiểm đặc tả
+Nếu vòng trong bắt đầu từ $j=1$ thay vì $j=i+1$, thuật toán vi phạm phần nào của đặc tả?
+:::
 
-| Thành phần | Kết quả và điều kiện |
-|---|---|
-| Thời gian tính | $O(n)$ kỳ vọng nếu thao tác bảng băm có thời gian kỳ vọng $O(1)$ |
-| Trạng thái | $O(h)$ mục trong bảng; không đồng nhất $h$ mục với $h$ byte |
-| Truy cập đầu vào | Một lượt quét tuần tự |
-| Thời gian truyền | $T_{\rm quét}\ge D/v$; chưa tính xử lý bản ghi hoặc các chi phí khác |
-| Kết quả | Tổng chính xác và đúng tập khóa theo đặc tả |
+::: solution
+Nó có thể trả cặp tự so sánh $(i,i)$ và cả hai thứ tự $(i,j),(j,i)$ khi đạt ngưỡng. Chúng không thỏa điều kiện $i<j$.
+:::
 
-Mô hình thao tác đơn vị giả định kích thước khóa và tổng được xử lý trong chi phí đã nêu. Nếu tên máy chủ hoặc số nguyên dài tùy ý, phải tính thêm chi phí biểu diễn và thao tác theo độ dài. Dung lượng thực gồm khóa, tổng và phần phụ trợ của bảng.
+Nguồn bài toán và cách xét mọi cặp: MMDS Chương 3, tr. 73. Giả mã và chứng minh là cách hình thức hóa trực tiếp phép duyệt hữu hạn đó.
 
-Nếu bảng $h$ khóa không vừa $M$, chứng minh toán học vẫn đúng nhưng cài đặt giữ toàn bộ bảng trong bộ nhớ không khả thi. Cần thay cách tổ chức ngoài bộ nhớ hoặc phân tán và phân tích lại chi phí. Chỉ được đổi sang kết quả xấp xỉ khi đặc tả cho phép. Nguồn bối cảnh chi phí: MMDS mục 1.3.4, trang 13; BHK trang PDF 10.
+## Đánh giá lời giải theo từng khía cạnh
 
-Tự kiểm tra: nêu cả hai vế bất biến sau ba bản ghi. Nếu xóa khóa có tổng 0 để tiết kiệm chỗ, mệnh đề nào không còn đúng?
+Tính đúng đã được chứng minh cho thuật toán xét mọi cặp. Tính khả thi còn phụ thuộc tài nguyên và cách phục vụ công việc.
 
-## Khung đánh giá một lời giải
+| Nhóm | Tiêu chí | Đại lượng hoặc điều kiện |
+|---|---|---|
+| Kết quả | Tính đúng | Đáp ứng đặc tả trên mọi đầu vào hợp lệ |
+| Kết quả | Chất lượng gần đúng | Thước đo sai lệch và điều kiện bảo đảm |
+| Tài nguyên | Khối lượng tính toán | Số thao tác theo kích thước đầu vào |
+| Tài nguyên | Bộ nhớ làm việc | Dung lượng lớn nhất cần giữ đồng thời |
+| Tài nguyên | Đọc ghi và lượt quét | Khối chuyển giữa đĩa–bộ nhớ, số lần đọc toàn dữ liệu |
+| Tài nguyên | Dữ liệu mạng | Lượng dữ liệu trao đổi giữa máy |
+| Tài nguyên | Dung lượng lưu trữ | Dữ liệu đã lưu cùng phần phụ trợ |
+| Vận hành | Độ trễ truy vấn | Thời gian từ nhận đến trả kết quả |
+| Vận hành | Xây dựng | Thời gian, bộ nhớ để tạo cấu trúc trước truy vấn |
+| Vận hành | Cập nhật | Công việc phản ánh một thay đổi dữ liệu |
 
-Ví dụ tổng byte phân biệt năm tầng cần thống nhất với nhau:
+Không cộng trực tiếp số phép toán, dung lượng và sai số thành một giá trị nếu chưa định nghĩa mục tiêu tối ưu.
 
-| Tầng | Nội dung trong ví dụ |
-|---|---|
-| Bài toán | Tổng byte theo từng máy chủ |
-| Biểu diễn | Dãy cặp máy chủ–kích thước và bảng tổng |
-| Thuật toán | Quét, khởi tạo khóa mới, cộng dồn |
-| Cài đặt | Ngôn ngữ, bảng băm, kiểu tổng, cách đọc tệp |
-| Kết quả | Bảng tổng cụ thể; nếu đo thời gian, phải ghi thiết lập đo |
+### Khối lượng tính toán
 
-Chứng minh thuật toán, cận chi phí và kết quả đo thực nghiệm là những bằng chứng khác nhau. Một lần chạy đúng không chứng minh mọi đầu vào; một lần chạy nhanh không chứng minh cận tiệm cận.
+Với $N\ge2$ tài liệu, số lần kiểm là $\binom N2=N(N-1)/2$. Với $N=10^6$, có $499\,999\,500\,000$ cặp. Đây là phép đếm, không phải số đo tốc độ. Khi số tài liệu tăng gấp đôi, số cặp tăng gần bốn lần.
 
-### Tài nguyên và thời gian phục vụ
+Giả sử mỗi tập được lưu thành danh sách tăng dần không lặp, có không quá $L$ phần tử, và so sánh hai phần tử có chi phí đơn vị. Hai con trỏ duyệt một cặp trong $O(|C_i|+|C_j|)\subseteq O(L)$. Phần xét toàn kho có cận trên trường hợp xấu $O(N^2L)$, chưa tính tạo và sắp các tập.
 
-| Mặt cần xét | Ứng dụng dẫn đến yêu cầu |
-|---|---|
-| Khối lượng tính toán | Gần trùng có số cặp tăng bậc hai; đồ thị cần tính lặp |
-| Bộ nhớ | Bảng tổng theo khóa, trạng thái dòng, véc-tơ và chỉ mục |
-| Đọc/ghi và lượt quét | Sắp ngoài, tra cứu và kết nối bảng |
-| Truyền thông, phối hợp | Kho phân tán, dữ liệu trung gian, chạy lại tác vụ |
-| Độ trễ truy vấn | Truy hồi véc-tơ, tra khóa, từ khóa và vùng |
-| Cập nhật | Bản ghi dòng mới đến; chỉ mục phải theo dữ liệu mới |
-| Dung lượng lưu trữ | Dòng mã cùng mô hình hoặc từ điển để giải mã |
+![Bốn tài liệu tạo sáu cặp; số cặp tăng theo bình phương số tài liệu.](img/lec-01/ung-dung-tai-lieu-gan-trung.svg)
 
-Độ trễ một truy vấn khác tổng thời gian xử lý cả kho; cả hai khác thời gian xây chỉ mục. Ngân sách bộ nhớ, thời gian và sai số có đơn vị khác nhau, nên không cộng trực tiếp thành một đại lượng tối ưu khi chưa định nghĩa mục tiêu.
+Coi một lần kiểm là hằng số che mất tác động của độ dài tài liệu. Giảm số cặp kiểm cũng chưa xác định toàn bộ chi phí: còn tạo ứng viên và xuất kết quả. Nếu $R$ chứa bậc hai cặp, riêng xuất đầy đủ từng cặp đã cần bậc hai thao tác. Nguồn: MMDS Chương 3, tr. 73; Stanford 03-lsh, trang 14; Bài 05.
 
-### Bảo đảm phải gắn với đặc tả
+### Bộ nhớ làm việc
 
-Văn bản nén không mất thông tin phải giải mã đúng; ảnh có lượng tử hóa cần tiêu chí sai số tái tạo. Chọn cặp ứng viên cần xét cả ứng viên giả và bỏ sót. Truy hồi gần đúng cần đo độ thu hồi cùng tài nguyên. Bộ lọc Bloom chuẩn và lọc hộp bao có điều kiện không bỏ nghiệm, nhưng dựa trên hai cơ chế khác nhau.
+Bộ nhớ làm việc là dung lượng lớn nhất phải giữ đồng thời, gồm trạng thái, dữ liệu đang dùng và bộ đệm. Nó khác kích thước toàn bộ đầu vào và đầu ra đã ghi.
 
-Phải phân biệt bảo đảm xác suất dưới giả thiết ngẫu nhiên, cận xác định và chất lượng đo trên tập truy vấn. So sánh phương pháp cần cố định loại dữ liệu, ngân sách tài nguyên và yêu cầu đầu ra.
+Để ghép hồ sơ sinh viên với lượt đăng ký theo mã sinh viên, hai bảng chiếm 100 và 400 khối, còn ngân sách ví dụ chỉ có 20 khối bộ nhớ. Không bảng nào nạp trọn được. Xử lý từng phần phải chừa chỗ cho các bộ đệm và đầu ra.
 
-Tự kiểm tra: bước kiểm tra lại giải quyết loại lỗi nào trong chọn ứng viên? Chi phí xây chỉ mục có thể được bỏ khỏi báo cáo chỉ vì một truy vấn chạy nhanh không?
+![Hai bảng 100 và 400 khối vượt ngân sách 20 khối bộ nhớ.](img/lec-01/danh-gia-bo-nho.svg)
+
+Nguồn quy mô: DSC Chương 15, trang chiếu 24; ngân sách 20 khối từ Bài 15. Chia phần không đổi yêu cầu trả mọi cặp trùng mã, nhưng có thể làm tăng số lần đọc lại.
+
+### Đọc ghi và số lượt quét
+
+Chi phí đọc ghi đếm khối chuyển giữa đĩa và bộ nhớ. Một lượt quét đọc hết dữ liệu một lần. Với tệp $F$ khối chưa có trong bộ đệm, một lượt đọc cần $F$ lần chuyển khối. Nếu cũng ghi ra $F$ khối, phần chuyển dữ liệu của lượt đó là $2F$.
+
+Sắp ngoài tạo các dãy đã sắp rồi trộn. Các lượt trộn đọc ghi lại cùng dữ liệu; số bộ đệm giới hạn số dãy trộn đồng thời.
+
+![Sắp ngoài đọc tệp, xử lý trong bộ đệm, ghi dãy và tiếp tục đọc ghi ở lượt trộn sau.](img/lec-01/danh-gia-doc-ghi.svg)
+
+Hai phương pháp có số so sánh gần nhau vẫn có thể khác số khối đọc ghi. Truy cập tuần tự và ngẫu nhiên cũng có chi phí thực khác nhau; số khối chưa phải số giây. Nguồn: DSC Chương 15, trang chiếu 17–23; MMDS §1.3.4.
+
+### Dữ liệu truyền qua mạng
+
+Chi phí mạng ở đây đo lượng dữ liệu trao đổi giữa máy. Với đếm từ, mỗi máy đếm tại nơi giữ phần kho rồi gửi số đếm theo từ để cộng lại. Khi từ lặp nhiều, cách này có thể gửi ít dữ liệu hơn chuyển toàn bộ văn bản.
+
+![Hai máy đếm từ w tại chỗ rồi gửi số đếm để tổng hợp toàn kho.](img/lec-01/danh-gia-truyen-mang.svg)
+
+Đếm đúng đòi hỏi mỗi đóng góp được tính đúng một lần, kể cả khi tác vụ chạy lại. Tổng lượng truyền không tự quyết định thời gian hoàn thành: lệch tải, máy chậm và các vòng đồng bộ còn gây chờ. Lượng dữ liệu mạng chỉ đếm chuyển giữa máy, còn chi phí truyền thông trong MMDS §2.5 có thể tính cả dữ liệu vào ra của tác vụ. Nguồn: MMDS §2.2.4–2.2.6, §2.5; Stanford 01-intro, trang 67–69.
+
+### Độ trễ truy vấn
+
+Độ trễ là khoảng từ lúc nhận truy vấn đến lúc trả kết quả, gồm chờ, truy cập, tính toán và trả lời. Với tìm $k$ đoạn tài liệu gần véc-tơ truy vấn, chỉ đếm phép tính khoảng cách chưa mô tả đủ thời gian chờ.
+
+![Độ trễ trải từ nhận truy vấn qua các công đoạn đến trả kết quả.](img/lec-01/danh-gia-do-tre.svg)
+
+Thông lượng là số truy vấn hoàn tất trong một đơn vị thời gian, không phải độ trễ từng truy vấn. Khi đo cần công bố tập truy vấn, phần cứng, số luồng, tải và chất lượng. Độ rộng các công đoạn trong hình không biểu diễn số đo. Nguồn: Bài 07, mục 1; BIODS 271 và Princeton lớp 8–9.
+
+### Chi phí xây dựng chỉ mục
+
+Xây chỉ mục tổ chức kho thành cấu trúc phục vụ các truy vấn về sau. Cần tính thời gian và bộ nhớ lớn nhất lúc xây, không chỉ dung lượng chỉ mục hoàn tất.
+
+![Kho véc-tơ đi qua bước xây chỉ mục; nhiều truy vấn dùng lại chỉ mục.](img/lec-01/danh-gia-xay-dung.svg)
+
+Với tìm véc-tơ, phương pháp có thể cần tạo đồ thị hoặc học bộ mã. Báo cáo phải nói công việc nào được tính. Trả truy vấn nhanh vẫn có thể tốn nhiều thời gian chuẩn bị; lợi ích còn phụ thuộc cách dùng lại. Nguồn: Bài 07, mục 1; các trục đánh giá từ Princeton lớp 8–9.
+
+### Chi phí cập nhật
+
+Chi phí cập nhật gồm sửa dữ liệu và cấu trúc phụ thuộc. Khi lương của giảng viên thay đổi, phải sửa bản ghi gốc lẫn mục chỉ dẫn theo lương để truy vấn khoảng dùng giá trị mới.
+
+![Thay đổi lương tác động tới bản ghi và chỉ mục; tra cứu cần hai cấu trúc nhất quán.](img/lec-01/danh-gia-cap-nhat.svg)
+
+Nếu chỉ sửa bản ghi, truy vấn có thể bỏ sót mục đã chuyển vào khoảng hoặc lấy mục đã chuyển ra. Sơ đồ mô tả trạng thái sau cập nhật hoàn tất, không quy định giao thức giao dịch. Có thể đo thao tác, khối đọc ghi hay thời gian cho mỗi cập nhật; với dòng còn xét khả năng theo kịp tốc độ đến. Nguồn duy trì chỉ mục: DSC Chương 14, trang chiếu 4, 10–11 và các mục chèn/xóa. Nguồn yêu cầu theo kịp dòng: MMDS §4.1.
+
+### Dung lượng lưu trữ
+
+Dung lượng lưu trữ gồm dữ liệu đã lưu và phần phụ trợ. Với văn bản nén không mất thông tin, phải tính dòng mã và mọi thông tin giải mã thực sự cần lưu. Bản khôi phục phải bằng nguyên văn bản ban đầu.
+
+![Bản lưu gồm mã và thông tin giải mã cần thiết để khôi phục đúng văn bản.](img/lec-01/danh-gia-luu-tru.svg)
+
+Thông tin phụ tùy phương pháp: có từ điển được tái dựng, không cần lưu toàn bộ cạnh mã. Nếu có chỉ mục truy cập, phải tính cả nó. Dung lượng bản lưu khác bộ nhớ làm việc khi nén/giải nén; không phải mọi đầu vào đều nén ngắn hơn. Với ảnh cho phép mất thông tin, báo dung lượng cùng sai số tái tạo. Nguồn: Nelson–Gailly Chương 3, 8–9, 11; CMU về nén LZ; Bài 10–11.
+
+### Chất lượng kết quả gần đúng
+
+Với véc-tơ truy vấn $q$, gọi $N_k(q)$ là tập $k$ hàng xóm gần nhất theo khoảng cách đã chọn và quy tắc phá hòa cố định. Giả sử $1\le k\le N$ và kết quả $\widehat N_k(q)$ cũng gồm $k$ định danh phân biệt. Độ thu hồi tại $k$ là
+
+$$\operatorname{recall@}k(q)=\frac{|\widehat N_k(q)\cap N_k(q)|}{k}.$$
+
+::: example Ba trong năm hàng xóm thật
+Tập đúng $\{a,b,c,d,e\}$ và tập trả về $\{c,d,e,f,g\}$ có ba phần tử chung. Độ thu hồi tại năm là $3/5$; hai mục $f,g$ không bù được hai hàng xóm thật $a,b$ bị thiếu.
+:::
+
+![Hai tập năm phần tử có ba phần tử chung; a,b bị thiếu, f,g nằm ngoài tập đúng.](img/lec-01/danh-gia-do-thu-hoi.svg)
+
+Đây là ví dụ chạy tay từ Bài 07, không phải đo hiệu năng. Chất lượng đo trên tập truy vấn không tự là bảo đảm xác suất cho mọi đầu vào. Các bài toán dùng sai số khác nhau: độ thu hồi, sai số tái tạo, cận xác định hoặc cận xác suất với giả thiết tương ứng. Nguồn: Bài 07, mục 1 và hình độ thu hồi; Princeton lớp 8–9.
+
+### Giảm ứng viên và nguy cơ bỏ sót
+
+Một hướng giảm đối chiếu là chọn cặp ứng viên rồi tính Jaccard chính xác chỉ trên các cặp ấy. Gọi $A$ là tập ứng viên, $R$ là tập cặp đúng theo đặc tả. Sau hậu kiểm chính xác, đầu ra là
+
+$$\widehat R=A\cap R.$$
+
+Suy ra $\widehat R\subseteq R$: mọi cặp trả ra đều đạt ngưỡng. Muốn có $\widehat R=R$, còn cần $R\subseteq A$, tức không bỏ sót cặp đúng khi chọn ứng viên.
+
+![Cặp được chọn đi qua kiểm tra chính xác; cặp không được chọn không xuất hiện lại ở hậu kiểm.](img/lec-01/danh-gia-ung-vien.svg)
+
+Băm nhạy cảm cục bộ (LSH) ở Bài 06 xây cơ chế chọn ứng viên với bảo đảm xác suất dưới giả thiết cụ thể. Không gọi hậu kiểm là đầy đủ chỉ vì các phép kiểm đã thực hiện đều chính xác. Chi phí tạo ứng viên và kích thước đầu ra cũng phải được tính. Nguồn: MMDS Chương 3, tr. 73 và §3.4.
+
+::: exercise Tự kiểm đánh giá
+Bộ lọc chưa bảo đảm không bỏ sót, nhưng bước sau kiểm Jaccard chính xác cho mọi ứng viên. Có thể cam kết trả đúng tập $R$ không?
+:::
+
+::: solution
+Chưa thể. Hậu kiểm loại ứng viên không đạt ngưỡng nhưng không xét cặp ngoài $A$. Cần bảo đảm $R\subseteq A$ để giữ đặc tả chính xác, hoặc công bố yêu cầu chất lượng gần đúng được chấp nhận.
+:::
+
+Các nhóm phương pháp của học phần xử lý những giới hạn này. Mỗi phương pháp phải gắn với đầu ra, điều kiện áp dụng và mô hình chi phí cụ thể.
 
 ## Nội dung học phần và phương pháp sẽ học
 
@@ -360,7 +455,7 @@ Tiên quyết chính thức là UET.CS1058. Sinh viên cần lập trình, đọ
 | Nén | Phân phối ký hiệu, cây, chuỗi, từ điển; biến đổi cho ảnh |
 | Lưu trữ và truy vấn | Bản ghi, khối, cây chỉ mục và phép nối quan hệ |
 
-Không yêu cầu biết sẵn MapReduce, PageRank hoặc HNSW. Để tự đối chiếu nền chung, hãy chạy bước thứ ba của bảng tổng và giải thích phép nhân xác suất của hai biến cố độc lập. Nếu chưa giải thích được, ôn phần vòng lặp/bảng ánh xạ hoặc xác suất trước mạch liên quan.
+Không yêu cầu biết sẵn MapReduce, PageRank hoặc HNSW. Để tự đối chiếu nền chung, tính Jaccard khi giao có ba phần tử và hợp có tám phần tử, rồi giải thích phép nhân xác suất của hai biến cố độc lập. Kết quả thứ nhất là $3/8$; với độc lập, xác suất đồng thời là tích hai xác suất. Nếu chưa giải thích được, ôn tập hợp hoặc xác suất trước mạch liên quan.
 
 ### Kỹ năng cần tạo thành sản phẩm
 
@@ -431,7 +526,7 @@ Tự kiểm tra: giải thích nơi dùng độc lập và nơi chỉ dùng tuy�
 
 ## Từ lời giải một máy đến Bài 02
 
-Với tổng byte, đặc tả vẫn yêu cầu đúng tập khóa và đúng tổng. Nếu bảng tổng không vừa bộ nhớ, cần thay cách tổ chức trạng thái và truy cập, rồi phân tích lại chi phí đọc/ghi hoặc truyền thông. Bài 02 học cách gom các đóng góp theo khóa trên nhiều máy; các bài về lưu trữ xét phương án ngoài bộ nhớ.
+Với đếm từ trên kho phân tán, kết quả phải chứa đúng số lần xuất hiện của mỗi từ trong toàn kho. Đếm tại từng máy rồi gom số đếm phải bảo toàn mọi đóng góp và tránh tính trùng, kể cả khi tác vụ chạy lại. Bài 02 học cách gom theo khóa cùng chi phí truyền dữ liệu; các bài lưu trữ xét cách tổ chức ngoài bộ nhớ.
 
 Để chuẩn bị Bài 02, đọc MMDS Chương 2; ôn ánh xạ khóa–giá trị, phép nhóm và tính kết hợp, giao hoán của phép cộng. Với tổng số nguyên không tràn, đổi cách nhóm hoặc thứ tự cộng giữ nguyên tổng nếu mỗi đóng góp được tính đúng một lần. Bất biến giúp kiểm tra điều kiện ấy.
 
@@ -537,7 +632,7 @@ MMDS mục 1.1 phân biệt mô hình thống kê với bản tóm tắt phục 
 
 - **Đề cương học phần:** nguồn xác định mã UET.DSE2053, chuẩn đầu ra, tiên quyết và thứ tự 15 bài; xem [chỉ mục học phần](index.html).
 - **Mining of Massive Datasets, ấn bản 3:** Chương 1 cho chi phí và hai bài tập; Chương 2, 5, 3, 4 cho phân tán, xếp hạng, tương đồng và dòng. Nội dung và các sơ đồ tương ứng được biên soạn lại theo sách cùng slide chính thức. Ghi công tác giả tại [MMDS](http://www.mmds.org).
-- **Stanford CS246:** bài mở đầu trang chiếu 62 cho tổng byte; 03-lsh trang 14 cho quy mô so cặp.
+- **Stanford CS246:** bài mở đầu trang chiếu 62 cho tổng kích thước; 03-lsh trang 14 cho quy mô so cặp.
 - **Blum–Hopcroft–Kannan, Foundations of Data Science:** Chương 1–2, đặc biệt trang PDF 9–12, cho giới hạn mô hình bộ nhớ và định hướng đọc thêm.
 - **BIODS 271 và Princeton COS 597A:** các trang đã dẫn trong ứng dụng véc-tơ; tài liệu và bài báo HNSW/PQ theo Bài 07 dùng để học cơ chế chi tiết.
 - **Nelson–Gailly, The Data Compression Book:** Chương 3–5, 8–9, 11; slide CMU LZ và lossy theo Bài 10–11.

@@ -1,5 +1,27 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
+## ER-003 — bản hiện hành ngày 2026-09-07
+
+Yêu cầu đang xử lý: phần mở “Phân tích thuật toán xử lý dữ liệu lớn”, gồm đặc tả và đánh giá; có kết nối, tổng quan và trang riêng cho từng tiêu chí với khái niệm, ví dụ, hình. Bổ sung của người dùng: bỏ cách gọi “tổng byte” và ví dụ cộng dồn quá đơn giản khỏi phần phân tích.
+
+Điều phối duyệt hai đề xuất độc lập của reader, đối chiếu trực tiếp sách MMDS3 tr.73–75, slide MMDS Ch3:15–17 và Stanford03-lsh:14–18. Giữ Ví dụ3.1 giao3/hợp8 và quy mô một triệu tài liệu; ưu tiên MMDS cho ngữ nghĩa và chuỗi biểu diễn/ứng viên, dùng Stanford đối chiếu quy mô. Bác chia bảy phần ngoài bên trong C và nội dung băm/shingle/LSH chi tiết của planner: C vẫn một phần ngoài, cơ chế chuyên biệt thuộc Bài05–07. Không lấy số ngày làm tròn trong slide làm số đo.
+
+Phạm vi: C00–C16 thay C01–C08 cũ; A01 chỉ sửa lời hẹn ví dụ, B09 đổi câu nối, F03/F04 đổi cách thu hồi, E01 thay tự kiểm bảng tổng, E04 thêm cầu sang phân tán và bỏ cách gọi bị phản đối. Giữ bài tập nguồn. 60 trang, 7 phần; 120+60 phút. Dàn thời lượng và ánh xạ từng trang trong storyboard là bản hiện hành; các mục ER-001/ER-002 bên dưới là lịch sử.
+
+| Chủ đề | Nhãn / quyết định | Vai trò, tiên quyết, sản phẩm và kết nối |
+|---|---|---|
+| Đặc tả cặp gần trùng | cốt lõi / thay cộng dồn | Tập hợp→Jaccard3/8→R; lấp khoảng trống định nghĩa gần trùng của A06; dùng MMDS3.1, không kết luận ngữ nghĩa |
+| Xét mọi cặp | cốt lõi / giữ cơ chế trực tiếp của nguồn, hình thức hóa | Vòng lặp→giả mã→bất biến phần đã xét→O(N²L); không giảng cơ chế LSH |
+| Mười khía cạnh đánh giá | cốt lõi / tách | Đúng, tính, RAM, I/O, mạng, trễ, xây, cập nhật, dung lượng, chất lượng; mỗi tiêu chí có trang riêng và hình |
+| Ứng viên và bỏ sót | cầu nối / thêm vào cuối C | Kết quả đúng từng cặp chưa chắc đủ; A∩R và điều kiện R⊆A trong ghi chú; nối sang phương pháp D |
+| Shingling/MinHash/LSH chi tiết | chuyển bài | Không cần để đạt mục tiêu Bài01; chỉ dùng tập đoạn và vai trò bộ lọc; cơ chế ở Bài05–06 |
+| Ví dụ cộng dồn | bỏ khỏi phân tích C | A01 vẫn là một bài toán khảo sát; không dùng làm ví dụ xuyên suốt hoặc câu kiểm tra cuối |
+
+Cập nhật nguồn độc lập đề nghị dùng tiêu chí ANN nhưng chưa có cập nhật chỉ mục trong phần đã đọc; dùng DSC14:4,10–11 cho ví dụ thay lương, không suy diễn cơ chế cập nhật ANN. Các tiêu chí khác dùng DSC15:17–28, MMDS2.2/2.5, Nelson–Gailly và nguồn Bài07 đã ánh xạ. Không thêm số đo, tỷ lệ nén hoặc dữ liệu nguồn mới.
+
+Quill rà tuyến A/B→cặp gần trùng→đặc tả→đánh giá→D; ghi chú định nghĩa trước ví dụ, slide trực giác/ví dụ trước hình thức. No-ai-slop bỏ câu hỏi tu từ, diễn đạt khổng lồ/bất khả thi vô điều kiện và chỉ dẫn người soạn. Không tạo quill.json. Codex Slides dự án cũ vẫn draft/0slide; kiểm RevealJS cục bộ theo ngoại lệ đã báo, không tuyên bố đã đồng bộ trình soạn ấy.
+
+
 ## ER-002 — dòng dữ liệu, lưu trữ và truy vấn
 
 Kế hoạch được điều phối duyệt ngày 2026-09-06: giữ 12 trang B và 26 phút; toàn bài 51 trang, bảy phần, 120+60 phút. B00 giới thiệu cả ba nhóm nhu cầu; B10 mở cụm nén; B11 mở cụm xử lý tệp trên đĩa. Ba nhóm không phải các bước bắt buộc của một hệ thống.
@@ -56,7 +78,7 @@ Sau Bài 01, sinh viên có thể:
 
 1. Nêu đầu vào, đầu ra và giới hạn chính của các tình huống đã khảo sát.
 2. Phân biệt đặc tả bài toán, biểu diễn, thuật toán, cài đặt và kết quả đo.
-3. Theo dõi một thuật toán quét–cộng dồn; giải thích bất biến, điều kiện bộ nhớ và chi phí một lượt quét.
+3. Đặc tả tìm cặp gần trùng; giải thích tính đúng của thuật toán xét mọi cặp và chi phí theo số tài liệu, kích thước tập.
 4. So sánh các yêu cầu về tính toán, bộ nhớ, đọc/ghi, truyền thông, độ trễ và bảo đảm kết quả.
 5. Đặt các thuật toán sẽ học vào năm mạch của học phần; nêu kiến thức cần ôn và sản phẩm học tập cần tạo.
 6. Phân biệt kết quả tính đúng theo mô hình với kết luận có căn cứ về dữ liệu; nêu giới hạn của phép tìm mẫu trùng.
@@ -67,16 +89,16 @@ Mục tiêu 1–4 thực hiện sản phẩm Bài 01 trong nguồn cấp học p
 
 | Mạch | Vai trò, đầu vào và đầu ra | Phút |
 |---|---|---:|
-| A. Mở đầu, tổng hợp và tìm kiếm dữ liệu web | Tên bài và nội dung buổi học → bảy bài toán có đầu vào, đầu ra, trở ngại và hình; câu nối nằm trong ngữ cảnh ứng dụng | 25 |
-| B. Dòng dữ liệu, nén và truy vấn | Ba cầu nối: kho sang dòng, thống kê sang khôi phục, lưu gọn sang truy cập | 26 |
-| C. Yêu cầu đối với giải thuật | Tổng hợp giới hạn, hoàn tất ví dụ quét–cộng dồn và lập khung đánh giá một lời giải | 25 |
-| D. Nội dung học phần | Từ giới hạn tới nhóm phương pháp, rồi giới thiệu mục tiêu học phần và năm mạch Bài 02–15 | 18 |
+| A. Mở đầu, tổng hợp và tìm kiếm dữ liệu web | Tên bài và nội dung buổi học → bảy bài toán có đầu vào, đầu ra, trở ngại và hình; câu nối nằm trong ngữ cảnh ứng dụng | 23 |
+| B. Dòng dữ liệu, nén và truy vấn | Ba cầu nối: kho sang dòng, thống kê sang khôi phục, lưu gọn sang truy cập | 24 |
+| C. Phân tích thuật toán xử lý dữ liệu lớn | Đặc tả cặp gần trùng; xét mọi cặp; tổng quan và mười tiêu chí đánh giá | 31 |
+| D. Nội dung học phần | Từ giới hạn tới nhóm phương pháp, rồi giới thiệu mục tiêu học phần và năm mạch Bài 02–15 | 17 |
 | E. Chuẩn bị và cách học | Nối mỗi mạch với kiến thức đầu vào, kỹ năng và trách nhiệm; dẫn thẳng sang kiểm chứng kết luận | 9 |
-| F. Giả thiết và kết luận | Mẫu trùng → giới hạn suy luận → ứng dụng mở bài → chuẩn bị MapReduce ở cuối phần giảng | 17 |
-| **Phần giảng** | **45 trang; sáu phần giảng, tổng bảy phần ngoài khi tính R** | **120** |
+| F. Giả thiết và kết luận | Mẫu trùng → giới hạn suy luận → ứng dụng mở bài → chuẩn bị MapReduce ở cuối phần giảng | 16 |
+| **Phần giảng** | **54 trang; sáu phần giảng, tổng bảy phần ngoài khi tính R** | **120** |
 | R. Bài tập củng cố | MMDS 1.2.1–1.2.2; năm hoạt động có gợi ý và lời giải trong ghi chú diễn giả | 60 |
 
-R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng 51 trang, bảy phần ngoài. Hai mạch A–B giữ 16 tình huống ngắn, mỗi tình huống làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
+R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng 60 trang, bảy phần ngoài. Hai mạch A–B giữ 16 tình huống ngắn, mỗi tình huống làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
 
 ## Bản đồ nguồn từ Bài 02–15
 
@@ -147,8 +169,8 @@ Giới thiệu mã UET.DSE2053, 3 tín chỉ và CLO1–CLO4 từ đề cương.
 | Chủ đề | Nhãn | Quyết định và lý do |
 |---|---|---|
 | Các ứng dụng V01–V16 | cốt lõi | thêm, tách theo đầu ra; thực hiện trực tiếp yêu cầu mới, mỗi ví dụ dẫn đến một yêu cầu và được dùng lại ở C/D |
-| Quét–cộng dồn | cốt lõi | giữ, rút từ mạch 32 phút của kế hoạch cũ thành chu trình minh họa trong C; vẫn đủ vết, đặc tả, giả mã, bất biến, chi phí và biên |
-| Năm tầng lời giải | cốt lõi | gộp vào C03–C06 trên cùng ví dụ; bỏ cụm khảo sát riêng 19 phút |
+| Xét mọi cặp gần trùng | cốt lõi | thay ví dụ cộng dồn theo người dùng; có đặc tả, vết thứ tự cặp, giả mã, bất biến, chi phí và biên |
+| Đặc tả, biểu diễn, thuật toán, cài đặt và kết quả | cốt lõi | dùng cặp gần trùng; bảng phân biệt ở ghi chú, không nhồi lên slide |
 | Khung chi phí và bảo đảm | cốt lõi | mở rộng theo các ứng dụng, tách I/O khỏi truyền thông và thêm độ trễ/cập nhật |
 | Bản đồ chương trình và sự chuẩn bị | cốt lõi | thêm mạch D/E; tránh dồn 14 bài vào một trang cuối |
 | Nhiều phép thử, V17–V18 | cầu nối | giữ ở F/R; lấp tiên quyết trực tiếp cho bài tập và cụ thể hóa trách nhiệm suy luận |
@@ -158,18 +180,25 @@ Giới thiệu mã UET.DSE2053, 3 tín chỉ và CLO1–CLO4 từ đề cương.
 
 Các chủ đề thêm đều lấy từ nguồn và bài đã có; không thêm mệnh đề học thuật chưa có nguồn. Nguồn phân tích độc lập và quyết định bác/giữ của điều phối viên được ghi trong review-log.
 
-## Ký hiệu và điều kiện của ví dụ xuyên suốt
+## Ký hiệu và điều kiện hiện hành
 
-- $n$: số bản ghi; $h$: số máy chủ phân biệt; $D$: số byte đầu vào; $M$: số byte bộ nhớ khả dụng; $v$: tốc độ đọc byte/giây.
-- Đổi tên băng thông cũ $b$ thành $v$ trong kế hoạch để tránh lẫn số khối; khi triển khai phải đồng bộ HTML, ghi chú và hình cùng lúc.
-- Đầu vào $L=((u_i,s_i))_{i=1}^n$, $s_i\in\mathbb N_0$; đầu ra $S[u]=\sum_{i:u_i=u}s_i$. Bản ghi hợp lệ; kiểu tổng không tràn; truy cập tuần tự.
-- Bất biến gồm đúng tập khóa đã xuất hiện và đúng tổng trên tiền tố. Dừng sau $n$ bản ghi. Dãy rỗng, khóa lặp và kích thước 0 đều có xử lý.
-- Chi phí kỳ vọng $O(n)$ nếu bảng băm có thao tác kỳ vọng $O(1)$; $O(h)$ mục trạng thái; một lượt quét; $T_{\rm quét}\ge D/v$ trong mô hình chỉ tính truyền dữ liệu. Bảng tổng phải vừa bộ nhớ.
-- Trong V16 dùng $M_{\rm khối}=20$ khối để phân biệt với $M$ byte; quy ước là của riêng ví dụ.
-- V17 giữ $P,T,H,q$: số người, số ngày, số khách sạn và xác suất lưu trú mỗi ngày. Biến đếm là biến cố cặp người–bộ ngày, không đồng nhất với số cặp người phân biệt.
+- $N$: số tài liệu; $C_i$: tập đoạn ký tự hữu hạn không rỗng của tài liệu i; $\tau\in[0,1]$: ngưỡng đã cho.
+- $J(S,T)=|S\cap T|/|S\cup T|$; ví dụ giao3/hợp8. Hợp rỗng không thuộc miền đã chọn.
+- $R=\{(i,j):1\le i<j\le N,J(C_i,C_j)\ge\tau\}$; $N<2$ trả rỗng.
+- Duyệt mỗi cặp hợp lệ một lần, kiểm chính xác rồi xuất; bất biến kết quả đúng trên phần đã xét. Không phải lưu toàn bộ đầu ra trong RAM.
+- $L$: số phần tử lớn nhất của một tập; danh sách sắp không lặp và so sánh đơn vị cho $O(N^2L)$, cận trên phần xét cặp, chưa tính tiền xử lý; có thêm chi phí xuất.
+- $A$: tập ứng viên, $\widehat R=A\cap R$ sau hậu kiểm; đầy đủ khi $R\subseteq A$. Không tự đổi đặc tả chính xác sang gần đúng.
+- $k$: số hàng xóm cần trả, chuẩn đúng phá hòa cố định; recall tại5 bằng3/5 trong ví dụ có sẵn Bài07.
+- $F$: số khối tệp ở ví dụ I/O; đọc F và ghi F cho2F chuyển khối. Nối bảng giữ quy mô100/400khối và ngân sách20khối của Bài15.
+- V01 vẫn dùng $D,M$ cho dung lượng tệp và bộ nhớ, không làm ví dụ phân tích xuyên suốt.
+- V17 giữ $P,T,H,q$ và biến đếm cặp người–bộ ngày; bài tập không đổi.
 
 ## Hướng đồng bộ ghi chú khi triển khai
 
-Ghi chú đã được viết lại theo tám chủ đề của storyboard: vai trò/đặc tả ứng dụng trước ví dụ, thuật toán quét–cộng dồn, khung chi phí, chương trình, chuẩn bị, giới hạn suy luận và bài tập. Ký hiệu băng thông thống nhất thành $v$. Cao chiều và hai cách nhìn mô hình chỉ còn định tuyến đọc thêm; không giữ lại các mệnh đề cao chiều thiếu giả thiết trong bản cũ. Bản tự học có chứng minh đầy đủ, gợi ý và lời giải gập. Trạng thái kiểm định cuối được cập nhật trong nhật ký.
+Ghi chú đã được viết lại theo tám chủ đề của storyboard: vai trò/đặc tả ứng dụng trước ví dụ, thuật toán xét mọi cặp gần trùng, khung đánh giá, chương trình, chuẩn bị, giới hạn suy luận và bài tập. Ký hiệu băng thông thống nhất thành $v$. Cao chiều và hai cách nhìn mô hình chỉ còn định tuyến đọc thêm; không giữ lại các mệnh đề cao chiều thiếu giả thiết trong bản cũ. Bản tự học có chứng minh đầy đủ, gợi ý và lời giải gập. Trạng thái kiểm định cuối được cập nhật trong nhật ký.
 
 Nguồn quy trình: [bản đồ học phần](../../../sources/source.md), [slide tham khảo](../../../sources/reference-slides/README.md). Đặc tả từng trang và từng hình nằm trong [storyboard](storyboard.md); trạng thái rà soát nằm trong [nhật ký](review-log.md).
+
+### Kết quả chỉnh sau rà ER-003
+
+C01 phân biệt giống hệt/gầntrùng thay nhắc lại quy mô; C04 dùng N2,C1=S,C2=T cho kết quả{(1,2)} khiτ≤3/8 hoặc rỗng khiτ>3/8. Dữ kiện giữ từ Ví dụ3.1, chỉ suy ra hai trường hợp, không gán ngưỡng số mới. C16nhắc lại cặp tài liệu sau ví dụ véc-tơ. Tựkiểm E01 và cầu E04 đồng bộ. Chọn mốc2phút cho C15vàC16, giữ31phút cho C. Rà lại mạch toàn bài và độ chính xác sau writer chỉnh sửa.

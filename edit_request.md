@@ -25,3 +25,13 @@
   - Tiêu chí: có slide giới thiệu toàn section; ba cụm dòng dữ liệu, lưu trữ và truy vấn nối rõ; mỗi ví dụ nêu bài toán, đầu ra và khó khăn, hình tương ứng theo cách trình bày section trước.
   - Kết quả: sửa12trang B, vẽ lại9SVG; B00 giới thiệu ba nhóm, B10/B11 mở cụm, các ví dụ dùng bài toán và thẻ khó khăn; đồng bộ ghi chú, ba tệp kế hoạch và index. HTML phần A và C–R không đổi.
   - Kiểm tra: sáu báo cáo độc lập và rà mạch lại; 51slide/7phần/120+60phút, Chromium rộng/hẹp, SVG, công thức, bàn phím, viewer và PDF51trang đạt. Codex Slides vẫn draft/0slide; kiểm RevealJS cục bộ theo ngoại lệ đã báo.
+
+- [ ] **ER-003** — Yêu cầu: có slide mở đầu "Phân tích thuật toán xử lý dữ liệu lớn" --> gồm đặc tả & đánh giá
+  - Các slide cần có kết nối.
+  - Các tiêu chí, khía cạnh đánh giá cần có slide tổng và slide riêng có khái niệm, ví dụ cụ thể, hình minh hoạ.
+  - Trạng thái: triển khai, sáu báo cáo độc lập và hai lượt rà lại đã đạt; chờ commit/push được xác nhận.
+  - Phạm vi: section thứ ba của Bài 01, hiện mở bằng “Các giới hạn cần phân tích”; đồng bộ ghi chú, hình và tài liệu kế hoạch, giữ các phần khác khi không cần thay đổi.
+  - Tiêu chí: trang mở phần đúng tên yêu cầu; mạch đặc tả → lời giải → đánh giá liền lạc; có tổng quan các tiêu chí và trang riêng giải thích bằng ví dụ, hình.
+  - Kết quả triển khai: thay tám trang phân tích bằng 17 trang; dùng cặp tài liệu gần trùng, tách 10 tiêu chí đánh giá; thêm 11 SVG; đồng bộ ghi chú, kế hoạch, chỉ mục và các câu nối/tự kiểm còn nhắc ví dụ cũ. Toàn bài 60 trang, 7 phần, 120+60 phút.
+  - Kiểm tra: Chromium rộng/hẹp toàn bộ 60 trang; KaTeX, SVG, bàn phím, viewer, chỉ mục và bản in đạt. Kiểm số học và 1.200 trường hợp thuật toán hữu hạn; không còn lỗi nghiêm trọng/chặn. Codex Slides vẫn nháp cũ, dùng RevealJS cục bộ theo ngoại lệ đã báo.
+  - Bổ sung của người dùng: “đừng dùng tử tổng byte, ngoài ra ví dụ này quá đơn giản, không nêu hết ý nghĩa”. Bỏ ví dụ cộng dồn khỏi phần phân tích; dùng tìm cặp tài liệu gần trùng cho đặc tả, nhiều ứng dụng cho các tiêu chí. Không dùng cách gọi bị phản đối trong học liệu hiện hành.
