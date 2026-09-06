@@ -4,13 +4,13 @@
 
 Tuyến mới: ứng dụng cụ thể → giới hạn cần xử lý → đặc tả và thuộc tính giải thuật → nội dung học phần → sự chuẩn bị của sinh viên → giới hạn suy luận và bài tập. HTML và ghi chú đã theo tuyến này và đạt kiểm định; nhật ký ghi bằng chứng cùng giới hạn công cụ.
 
-Dự kiến 39 trang giảng, 120 phút; sáu trang bài tập kể cả trang chuyển phần, 60 phút. Bảy phần ngoài A, B, C, D, E, F, R. Không dành một phần riêng để mở mục lục trước ví dụ; A01 đồng thời mang tên bài ở phần nhận diện và đặt ngay bài toán tổng byte.
+Bản sửa mở đầu và cầu nối: 47 trang giảng, 120 phút; sáu trang bài tập kể cả trang chuyển phần, 60 phút. Bảy phần ngoài A, B, C, D, E, F, R. P00/P01 mở bài trong phần A; các trang nối nằm ngay trước cụm cần dẫn nhập. E04 chuyển xuống sau F04, cuối phần giảng. Kế hoạch này thay quyết định mở thẳng vào A01 của bản 45 trang.
 
 ## Vai trò và kết nối giữa các mạch
 
 | Mạch | Kiến thức đầu vào | Vai trò và sản phẩm | Kết nối vào → ra |
 |---|---|---|---|
-| A | Tệp, tập hợp, đồ thị/véc-tơ ở mức nhận diện | Phân biệt tổng hợp, xếp hạng, gần trùng và hàng xóm gần | Một kho web phục vụ nhiều đầu ra → các dạng dữ liệu khác đặt thêm giới hạn |
+| A | Tệp, tập hợp, đồ thị/véc-tơ ở mức nhận diện | P00/P01 đặt bài toán và đích học; phân biệt tổng hợp, xếp hạng, gần trùng và hàng xóm gần | Kho nhật ký vượt bộ nhớ → nhiều đầu ra trên kho web → nhu cầu cập nhật dòng |
 | B | Tệp, bản ghi, truy vấn cơ bản | Nhận diện trạng thái dòng, khôi phục và truy cập chọn lọc | Từ tìm kiếm kho tĩnh → danh mục giới hạn cần phân tích trong C |
 | C | Vòng lặp, bảng ánh xạ, độ phức tạp | Hoàn tất một chu trình giải thuật; lập khung chi phí và bảo đảm | Từ giới hạn của A/B → ngôn ngữ để đọc bản đồ học phần |
 | D | Khung đánh giá của C | Xác định năm mạch, tên phương pháp và lý do học | Từ nhu cầu → nội dung sẽ học → kiến thức phải chuẩn bị |
@@ -18,7 +18,7 @@ Dự kiến 39 trang giảng, 120 phút; sáu trang bài tập kể cả trang c
 | F | Tổ hợp, xác suất độc lập, tuyến tính kỳ vọng | Phân biệt đúng theo mô hình với suy luận có căn cứ; áp lại khung chọn giải thuật | Từ trách nhiệm dữ liệu → bài tập kiểm tra mô hình |
 | R | F02–F03, gợi ý công thức và dữ kiện nguồn | Giải các biến thể và giải thích giới hạn của phép tìm mẫu trùng | Dùng mô hình đã có → sản phẩm có thể chấm |
 
-Câu nối dự kiến trong lời giảng:
+Câu nối giữa các mạch được thể hiện cả trên trang mở phần và trong lời giảng:
 
 - A→B: “Kho web còn sinh dòng truy vấn, cần lưu trữ và phục vụ nhiều loại tra cứu. Mỗi công việc đặt thêm một giới hạn.”
 - B→C: “Các ví dụ vừa gặp yêu cầu khác nhau về bộ nhớ, thời gian truy cập và kết quả. Ta dùng tổng byte theo máy chủ để phân tích một lời giải đầy đủ.”
@@ -31,25 +31,32 @@ Câu nối dự kiến trong lời giảng:
 
 Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp nguồn và dữ kiện. Thời lượng gồm câu kiểm tra, chuyển ý và thời gian quan sát hình; không hiển thị trên trang chiếu. Tên thuật toán chuyên biệt chỉ được giới thiệu có hệ thống từ mạch D.
 
-| Mã trang | Tiêu đề dự kiến | Luận điểm, hoạt động và sản phẩm | Nguồn/hình | Phút | Nối sang trang sau |
+| Mã trang | Tiêu đề trang chiếu | Luận điểm, hoạt động và sản phẩm | Nguồn/hình | Phút | Nối sang trang sau |
 |---|---|---|---|---:|---|
+| L01-P00 | Bài toán dữ liệu lớnvà mô hình thuật toán | Tên bài và học phần; kho nhật ký vượt bộ nhớ làm điểm xuất phát | source.md; V01 | 1 | Định vị nội dung và sản phẩm buổi học |
+| L01-P01 | Nội dung buổi học | Ứng dụng → một lời giải → chương trình/cách học; nêu ba sản phẩm Bài 01 | source.md; mục tiêu đã duyệt | 2 | Bắt đầu bằng tổng byte theo máy chủ |
 | L01-A01 | Tổng kích thước theo máy chủ | Kho nhật ký lớn hơn bộ nhớ; cần bảng tổng byte, không cần giữ nguyên mọi bản ghi | V01 | 2 | Dữ liệu có thể nằm ở nhiều máy |
-| L01-A02 | Tổng hợp kho tài liệu phân tán | Từ tài liệu tới số lần xuất hiện theo từ; vị trí dữ liệu, đường truyền và lỗi máy tạo chi phí | V02 | 4 | Ngoài tổng hợp còn có xếp hạng |
-| L01-A03 | Xếp hạng trang web | Đồ thị có hướng → điểm mỗi trang; danh sách cạnh thưa và phép tính lặp | V03 | 4 | Điểm chung chưa đủ cho mọi ngữ cảnh |
-| L01-A04 | Xếp hạng theo chủ đề | “jaguar” dẫn tới các nghĩa khác nhau; cần chỉ rõ mục tiêu của đầu ra | V04 | 3 | Cấu trúc liên kết cũng có thể bị tạo có chủ đích |
+| L01-A02 | Tổng hợp kho tài liệu phân tán | Từ tài liệu tới số lần xuất hiện theo từ; vị trí dữ liệu, đường truyền và lỗi máy tạo chi phí | V02 | 3 | Ngoài tổng hợp còn có xếp hạng |
+| L01-A08 | Từ tổng hợp đến xếp hạng | Tổng theo khóa khác điểm dựa trên liên kết; chuyển đầu ra từ tổng sang điểm trang | V01–V03; MMDS2.2,5.1 | 1 | Xem đồ thị có hướng ở A03 |
+| L01-A03 | Xếp hạng trang web | Đồ thị có hướng → điểm mỗi trang; danh sách cạnh thưa và phép tính lặp | V03 | 3 | Điểm chung chưa đủ cho mọi ngữ cảnh |
+| L01-A04 | Xếp hạng theo chủ đề | “jaguar” dẫn tới các nghĩa khác nhau; cần chỉ rõ mục tiêu của đầu ra | V04 | 2 | Cấu trúc liên kết cũng có thể bị tạo có chủ đích |
 | L01-A05 | Liên kết bị thao túng | Cụm liên kết hỗ trợ làm thay đổi tín hiệu; kết quả phải được diễn giải theo giả thiết | V05 | 2 | Một vấn đề khác là kết quả trùng nhau |
+| L01-A09 | Từ điểm hạng đến độ tương đồng | Điểm của từng trang khác quan hệ giữa cặp tài liệu; xác định đơn vị so sánh | V05–V07; MMDS3.1,5.4 | 1 | Đếm số cặp ở A06 |
 | L01-A06 | Tìm tài liệu gần trùng | Một triệu tài liệu sinh $499\,999\,500\,000$ cặp; cần biểu diễn gọn và chọn ứng viên | V06 | 4 | Tìm cặp khác với tìm quanh một truy vấn |
-| L01-A07 | Truy hồi theo véc-tơ | Véc-tơ truy vấn → các mục gần; nêu độ thu hồi, độ trễ, bộ nhớ và chi phí tạo chỉ mục | V07 | 3 | Truy vấn còn đến liên tục |
+| L01-A07 | Truy hồi theo véc-tơ | Véc-tơ truy vấn → các mục gần; nêu độ thu hồi, độ trễ, bộ nhớ và chi phí tạo chỉ mục | V07 | 4 | Truy vấn còn đến liên tục |
+| L01-B00 | Từ kho đã lưu đến dữ liệu đang đến | Truy hồi trên kho sinh dòng yêu cầu; dữ liệu đến buộc cập nhật trạng thái | V07–V09; MMDS4.1 | 1 | Hai đầu ra mẫu và lọc ở B01 |
 | L01-B01 | Lấy mẫu và lọc dòng truy vấn | Giữ mẫu hoặc loại phần tử trước phép tra cứu đắt; không lưu hết dòng | V08 | 3 | Mẫu chưa trả lời mọi thống kê |
-| L01-B02 | Thống kê trên dòng và cửa sổ | Phân biệt số khóa, tần suất, mômen tần suất và số sự kiện gần đây; đầu ra quyết định trạng thái | V09 | 4 | Dữ liệu cần giữ lại còn chiếm dung lượng |
+| L01-B02 | Thống kê trên dòng và cửa sổ | Phân biệt số khóa, tần suất, mômen tần suất và số sự kiện gần đây; đầu ra quyết định trạng thái | V09 | 3 | Dữ liệu cần giữ lại còn chiếm dung lượng |
+| L01-B10 | Từ thống kê đến khôi phục dữ liệu | Trạng thái cho đại lượng đã chọn khác mã để tái tạo dữ liệu; dẫn tới hai đặc tả khôi phục | V09–V11; MMDS4; Nelson–Gailly3,11 | 1 | Nén văn bản khôi phục nguyên vẹn |
 | L01-B03 | Lưu văn bản và khôi phục đúng | Chuỗi đầu vào phải được khôi phục nguyên vẹn; khai thác phân phối và mẫu lặp | V10 | 3 | Dữ liệu ảnh có thể có đặc tả khác |
 | L01-B04 | Nén ảnh theo yêu cầu khôi phục | Lượng tử hóa có thể mất thông tin; phải chốt chất lượng cần giữ | V11 | 2 | Dữ liệu đã lưu vẫn cần tổ chức để xử lý |
+| L01-B11 | Từ lưu gọn đến truy cập dữ liệu | Dung lượng mã chưa giải quyết thứ tự bản ghi và truy cập khối; dẫn sắp/tra/nối | V11–V16; DSC15 | 1 | Sắp tệp lớn bằng các dãy và bộ đệm |
 | L01-B05 | Sắp xếp tệp vượt bộ nhớ | Tệp không vừa RAM; tạo dãy và trộn bằng bộ đệm, chi phí nằm ở lượt đọc/ghi | V12 | 3 | Tệp có thứ tự hỗ trợ truy cập chọn lọc |
 | L01-B06 | Tra khóa và khoảng giá trị | Tránh quét bảng cho mỗi yêu cầu; tính cả xây dựng và cập nhật chỉ mục | V13 | 2 | Từ khóa cần một cách ánh xạ khác |
 | L01-B07 | Tìm tài liệu chứa từ khóa | Từ → danh sách mã tài liệu; đầu ra là tập tài liệu thỏa điều kiện | V14 | 2 | Vùng không gian không phải danh sách từ |
 | L01-B08 | Tìm đối tượng trong một vùng | Vùng truy vấn → ứng viên → đối tượng thỏa thật; cần tinh lọc | V15 | 2 | Truy vấn cũng có thể kết hợp hai bảng |
-| L01-B09 | Kết nối hai bảng theo mã sinh viên | student và takes cùng nằm trên đĩa; giữ đủ cặp có ID bằng nhau, tránh đọc lại quá nhiều | V16 | 2 | Gom các giới hạn thành khung phân tích |
-| L01-C01 | Tính toán, bộ nhớ và di chuyển dữ liệu | Dùng lại V01, V02, V06, V16 để tách chi phí tính, trạng thái, khối và mạng | Các nguồn V01/V02/V06/V16 | 4 | Phân tích trọn một ví dụ nhỏ |
+| L01-B09 | Kết nối hai bảng theo mã sinh viên | student và takes cùng nằm trên đĩa; giữ đủ cặp có ID bằng nhau, tránh đọc lại quá nhiều | V16 | 3 | Gom các giới hạn thành khung phân tích |
+| L01-C01 | Các giới hạn cần phân tích | Dùng lại V01, V02, V06, V16 để tách chi phí tính, trạng thái, khối và mạng | Các nguồn V01/V02/V06/V16 | 4 | Phân tích trọn một ví dụ nhỏ |
 | L01-C02 | Một tổng đang chạy cho mỗi máy chủ | Trực giác giữ bảng theo khóa; vết bốn bản ghi với các trạng thái 40; 40/25; 55/25; 55/25/0 | V01; bảng vết bằng HTML | 4 | Từ trạng thái tới đặc tả |
 | L01-C03 | Đặc tả xác định kết quả phải trả | Miền, đầu vào/ra, điều kiện trước/sau; phân biệt bài toán với cách biểu diễn | Stanford 62; đặc tả trong outline | 2 | Viết thao tác đáp ứng đặc tả |
 | L01-C04 | Quét và cập nhật bảng tổng | Giả mã: bảng rỗng, duyệt, khởi tạo khóa mới, cộng; dừng sau $n$ bản ghi | V01; giả mã văn bản | 2 | Cần giải thích đúng với mọi tiền tố |
@@ -57,26 +64,27 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-C06 | Một lượt quét và bộ nhớ theo số khóa | $O(h)$ trạng thái; $O(n)$ kỳ vọng với bảng băm; $T_{\rm quét}\ge D/v$; hỏi trường hợp bảng tổng không vừa bộ nhớ | MMDS tr.13; BHK PDF 10; V01 | 3 | Các tác vụ truy vấn còn có chi phí khác |
 | L01-C07 | Độ trễ, xây dựng và cập nhật | Dùng lại V07/V08/V13: chi phí xử lý toàn bộ, một truy vấn, một cập nhật và xây chỉ mục khác nhau | Các bài 07, 08, 13 | 3 | Nêu cả đầu ra được bảo đảm |
 | L01-C08 | Điều kiện đúng và chất lượng kết quả | So sánh khôi phục đúng V10; ứng viên V06; độ thu hồi V07; lọc V08; hỏi bảo đảm phải giữ trong từng trường hợp | Các nguồn V06–V11/V15 | 4 | Từ yêu cầu tới nội dung học phần |
-| L01-D01 | Học phần và kết quả cần đạt | Tên, mã, 3 tín chỉ; CLO học phần và ba sản phẩm Bài 01: đặc tả/bất biến, phân tích giới hạn/bảo đảm, kỳ vọng/giới hạn kết luận | source.md phần I–II; mục tiêu trong outline | 3 | Xem cách tổ chức để đạt các kết quả đó |
-| L01-D02 | Năm mạch của học phần | Năm nhóm bài liền nhau; mỗi nhóm gắn một ứng dụng đã xem; tách thứ tự học với tiên quyết | source.md phần B; hình H19 | 3 | Mạch phân tán và đồ thị |
+| L01-D00 | Từ yêu cầu đến nhóm phương pháp | Các giới hạn đã nhận diện → nhóm công cụ sẽ học; không liệt kê lại 14 bài | source.md; C01/C07/C08 | 1 | Mục tiêu học phần rồi bản đồ năm nhóm |
+| L01-D01 | Học phần và năng lực cần đạt | Năng lực toàn học phần: giải thích/lựa chọn, thiết kế/triển khai, tự học/trách nhiệm; mục tiêu riêng Bài 01 đã đặt ở P01 | source.md phần I–II; mục tiêu trong outline | 2 | Xem cách tổ chức để đạt các kết quả đó |
+| L01-D02 | Năm mạch của học phần | Năm nhóm bài liền nhau; mỗi nhóm gắn một ứng dụng đã xem; tách thứ tự học với tiên quyết | source.md phần B; hình H19 | 2 | Mạch phân tán và đồ thị |
 | L01-D03 | Xử lý phân tán và xếp hạng | Bài 02–04: MapReduce, PageRank và các biến thể; ví dụ V02–V05 → thuộc tính trong outline | V02–V05 | 3 | Mạch biểu diễn và tìm tương đồng |
 | L01-D04 | Tương đồng và hàng xóm gần | Bài 05–07: Shingling/MinHash, LSH, HNSW/PQ; nêu đầu ra mỗi bước | V06–V07 | 3 | Mạch trạng thái nhỏ trên dòng |
-| L01-D05 | Dòng dữ liệu và cửa sổ | Bài 08–09: mẫu, Bloom, các phác thảo và DGIM; đại lượng cần ước lượng → cấu trúc | V08–V09 | 3 | Mạch dung lượng và khôi phục |
+| L01-D05 | Dòng dữ liệu và cửa sổ | Bài 08–09: mẫu, Bloom, các phác thảo và DGIM; đại lượng cần ước lượng → cấu trúc | V08–V09 | 2 | Mạch dung lượng và khôi phục |
 | L01-D06 | Nén dữ liệu và từ điển | Bài 10–11: Huffman/số học, LZ, JPEG; phân biệt hai yêu cầu khôi phục | V10–V11 | 2 | Mạch tổ chức và truy vấn trên đĩa |
 | L01-D07 | Lưu trữ, chỉ mục và kết nối | Bài 12–15: sắp ngoài → chỉ mục → truy vấn chuyên biệt/nối; chỉ nhấn tên đại diện, danh mục đầy đủ trong ghi chú | V12–V16 | 3 | Các mạch cần nền tảng khác nhau |
-| L01-E01 | Kiến thức cần có và cần ôn | Tiên quyết chính thức và nền xác suất, đồ thị, véc-tơ, CSDL; tự xác định phần cần ôn | source.md phần I; mục tiêu bài 02–15 | 4 | Chuyển kiến thức thành sản phẩm |
-| L01-E02 | Kỹ năng cần rèn | Đặc tả, vết chạy, chứng minh, chi phí, cài đặt và đo; liên hệ CLO1–CLO3 | source.md phần II; V01 | 4 | Sản phẩm cần có nguồn và giả thiết rõ |
-| L01-E03 | Học tập và xử lý dữ liệu có trách nhiệm | Đọc trước, tự học, phản biện, hợp tác, ghi nguồn/đóng góp, báo sai số và hạn chế, trách nhiệm dữ liệu | source.md CLO4 và yêu cầu học phần | 4 | Tổ chức những việc đó cho bài tiếp theo |
-| L01-E04 | Chuẩn bị cho bài MapReduce | Ôn khóa–giá trị, phép nhóm, bất biến; đọc MMDS Ch2; nêu cách dùng slide và ghi chú | source.md Bài 02 | 3 | Trách nhiệm còn nằm ở cách suy luận |
-| L01-F01 | Tính đúng theo mô hình và kết luận về dữ liệu | Trở lại V05: tính đúng điểm không chứng minh ý định; cần kiểm tra cách dữ liệu phát sinh | MMDS 1.2; V05 | 3 | Xem một mô hình trùng ngẫu nhiên |
-| L01-F02 | Mẫu trùng trong hồ sơ lưu trú | $P,T,H,q$; cùng khách sạn từng ngày, có thể khác giữa hai ngày; mô hình độc lập và chọn đều | V17, MMDS 1.2.3 tr.7 | 5 | Đếm phép thử trước khi thay số |
-| L01-F03 | Kỳ vọng của số biến cố trùng | Chỉ báo cho cặp người–cặp ngày; cộng kỳ vọng; phân biệt xấp xỉ 250.000 với kết quả tổ hợp xấp xỉ 249.750 | V17; MMDS tr.7–8 | 4 | Áp lại cả khung tính toán lẫn giả thiết |
-| L01-F04 | Phân tích một yêu cầu trước khi chọn giải thuật | Câu hỏi: dùng V01 hoặc V06 nêu đầu ra, biểu diễn, giới hạn, bảo đảm và bài sẽ cung cấp phương pháp | V01/V06; source.md | 3 | Luyện kiểm tra mô hình với bài tập nguồn |
-| L01-R00 | Bài tập củng cố | Chuyển phần dọc, không tính thời lượng; nêu tài liệu MMDS, không hiện đáp số | MMDS tr.8 | 0 | Dựng ba biến thể |
-| L01-R01 | Ba thay đổi của hồ sơ lưu trú | Bài 1.2.1(a–c): đọc đủ đề, dựng mô hình; gợi ý cho người cần bằng thừa số và bảng ký hiệu | V17; MMDS 1.2.1 tr.8 | 10 | Tính a, b |
-| L01-R02 | Thay số ngày và số người | a: 2.000 ngày; b: 2 tỷ người, 200.000 khách sạn; mỗi biến thể độc lập | V17; MMDS 1.2.1(a,b) | 15 | Đổi tiêu chuẩn trùng |
-| L01-R03 | Trùng trong ba ngày | Phần c: giữ quy mô gốc, yêu cầu ba ngày; nộp công thức, giá trị, diễn giải | V17; MMDS 1.2.1(c) | 10 | Chuyển mô hình sang giỏ hàng |
-| L01-R04 | Trùng giỏ hàng | 100 triệu người, 100 lượt/người/năm, mỗi lượt 10 trong 1.000 mặt hàng; giữ giả thuyết nguồn và chú thích 3 | V18; MMDS 1.2.2 tr.8 | 10 | Hoàn tất lời giải rồi phản biện |
+| L01-E01 | Kiến thức cần có và cần ôn | Tiên quyết chính thức và nền xác suất, đồ thị, véc-tơ, CSDL; tự xác định phần cần ôn | source.md phần I; mục tiêu bài 02–15 | 3 | Chuyển kiến thức thành sản phẩm |
+| L01-E02 | Kỹ năng cần rèn | Đặc tả, vết chạy, chứng minh, chi phí, cài đặt và đo; liên hệ CLO1–CLO3 | source.md phần II; V01 | 3 | Sản phẩm cần có nguồn và giả thiết rõ |
+| L01-E03 | Học tập và xử lý dữ liệu có trách nhiệm | Đọc trước, tự học, phản biện, hợp tác, ghi nguồn/đóng góp, báo sai số và hạn chế, trách nhiệm dữ liệu | source.md CLO4 và yêu cầu học phần | 3 | Dùng mẫu trùng để kiểm chứng trách nhiệm suy luận |
+| L01-F01 | Kiểm chứng kết luận từ dữ liệu | Trách nhiệm dữ liệu → liệt kê đúng mẫu trùng chưa đủ kết luận có phối hợp | MMDS 1.2; V05 | 3 | Xem một mô hình trùng ngẫu nhiên |
+| L01-F02 | Mô hình ngẫu nhiên cho hồ sơ lưu trú | $P,T,H,q$; cùng khách sạn từng ngày, có thể khác giữa hai ngày; mô hình độc lập và chọn đều | V17, MMDS 1.2.3 tr.7 | 5 | Đếm phép thử trước khi thay số |
+| L01-F03 | Kỳ vọng số biến cố trùng | Chỉ báo cho cặp người–cặp ngày; cộng kỳ vọng; phân biệt xấp xỉ 250.000 với kết quả tổ hợp xấp xỉ 249.750 | V17; MMDS tr.7–8 | 4 | Áp lại cả khung tính toán lẫn giả thiết |
+| L01-F04 | Khung phân tích một lời giải | Câu hỏi: dùng V01 hoặc V06 nêu đầu ra, biểu diễn, giới hạn, bảo đảm và bài sẽ cung cấp phương pháp | V01/V06; source.md | 3 | Đọc và ôn kiến thức cho MapReduce |
+| L01-E04 | Chuẩn bị cho bài MapReduce | Ôn khóa–giá trị, phép nhóm, bất biến; đọc MMDS Ch2; nêu cách dùng slide và ghi chú | source.md Bài 02 | 2 | Bài tập dùng lại mô hình hồ sơ lưu trú và kỳ vọng |
+| L01-R00 | Bài tập củng cố | Dùng lại mô hình lưu trú để thay quy mô/tiêu chuẩn rồi xét giỏ hàng; không hiện đáp số | MMDS tr.8 | 0 | Dựng ba biến thể |
+| L01-R01 | Ba biến thể của hồ sơ lưu trú | Bài 1.2.1(a–c): đọc đủ đề, dựng mô hình; gợi ý cho người cần bằng thừa số và bảng ký hiệu | V17; MMDS 1.2.1 tr.8 | 10 | Tính a, b |
+| L01-R02 | Thay đổi số ngày và số người | a: 2.000 ngày; b: 2 tỷ người, 200.000 khách sạn; mỗi biến thể độc lập | V17; MMDS 1.2.1(a,b) | 15 | Đổi tiêu chuẩn trùng |
+| L01-R03 | Yêu cầu trùng trong ba ngày | Phần c: giữ quy mô gốc, yêu cầu ba ngày; nộp công thức, giá trị, diễn giải | V17; MMDS 1.2.1(c) | 10 | Chuyển mô hình sang giỏ hàng |
+| L01-R04 | Trùng tập mặt hàng | 100 triệu người, 100 lượt/người/năm, mỗi lượt 10 trong 1.000 mặt hàng; giữ giả thuyết nguồn và chú thích 3 | V18; MMDS 1.2.2 tr.8 | 10 | Hoàn tất lời giải rồi phản biện |
 | L01-R05 | Giải thích kết quả và giới hạn | Hoàn tất/chữa 1.2.2; nộp số phép thử, xác suất, kỳ vọng và kết luận dưới giả thiết | V18; MMDS 1.2.2 | 15 | Kết thúc bằng giới hạn suy luận |
 
 ## Chu trình học tập và phạm vi rút gọn
@@ -133,13 +141,13 @@ Không yêu cầu một hình minh họa cho từng tên thuật toán trong dan
   $$\mathbb E[Y]=\frac{\binom{10^8}{2}\,100^2}{\binom{1000}{10}}.$$
   Giữ giả thuyết của đề/chú thích3 khi kết luận; không suy xác suất có điều kiện về danh tính chỉ từ kỳ vọng. Công thức là lời giải trong ghi chú, không hiện trước lúc chữa.
 
-Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô hình xác suất và kỳ vọng, 3 phút kết luận. Recitation giữ nguyên yêu cầu toán học, chỉ dịch và chia bước như bản trước. Vì phần lý thuyết xác suất giảm, R01 dành phần đầu để dựng lại mô hình; gợi ý phân tầng gồm bảng ký hiệu, số phép thử, xác suất một phép thử. R04 có sơ đồ đơn vị người/lượt/tập để tránh nhầm. Hai bài này đo mô hình hóa và diễn giải; các mục tiêu về tài nguyên và bản đồ khóa học được kiểm tra ở C06, C08, E01 và F04, không tuyên bố recitation đánh giá đủ mọi mục tiêu.
+Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô hình xác suất và kỳ vọng, 3 phút kết luận và 2 phút chuẩn bị MapReduce. Recitation giữ nguyên yêu cầu toán học, chỉ dịch và chia bước như bản trước. Vì phần lý thuyết xác suất giảm, R01 dành phần đầu để dựng lại mô hình; gợi ý phân tầng gồm bảng ký hiệu, số phép thử, xác suất một phép thử. R04 có sơ đồ đơn vị người/lượt/tập để tránh nhầm. Hai bài này đo mô hình hóa và diễn giải; các mục tiêu về tài nguyên và bản đồ khóa học được kiểm tra ở C06, C08, E01 và F04, không tuyên bố recitation đánh giá đủ mọi mục tiêu.
 
-## Ánh xạ sang bản công khai hiện có và ghi chú
+## Lịch sử ánh xạ từ bản trước và ghi chú
 
 | Cụm hiện có | Quyết định cho lần triển khai | Nơi đích / tác động |
 |---|---|---|
-| P00–P01 | Tách nhận diện khỏi giới thiệu mục tiêu; mở thẳng tình huống | A01; giới thiệu khóa học ở D01 |
+| P00–P01 của bản trước | Quyết định mở thẳng A01 đã được thay theo yêu cầu mới | P00/P01 mới mở bài; D01 chỉ giữ mục tiêu toàn học phần |
 | A00–A08 | Giữ tình huống, vết, đặc tả, giả mã, bất biến; giảm thời lượng | A01 và C01–C06 |
 | B00–B07 | Gộp năm tầng trên ví dụ; chuyển hai nghĩa mô hình/lọc thư khỏi tuyến chính | C03–C06; ghi chú đọc thêm nếu giữ |
 | C00–C05 | Khai triển theo ứng dụng, thêm mạng, độ trễ và cập nhật | C01/C06–C08 |
@@ -150,12 +158,12 @@ Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô
 
 | note-topic-id dự kiến | Vai trò trong ghi chú tương lai | Trang tương ứng | Vào → ra |
 |---|---|---|---|
-| L01-N01 | cốt lõi: ứng dụng tổng hợp và tìm kiếm, định nghĩa đầu ra trước ví dụ | A01–A07 | Loại dữ liệu → nhu cầu đầu ra |
+| L01-N01 | cốt lõi: ứng dụng tổng hợp và tìm kiếm, định nghĩa đầu ra trước ví dụ | P00/P01, A01–A09 theo thứ tự bảng | Bối cảnh/đích học → loại dữ liệu → nhu cầu đầu ra |
 | L01-N02 | cốt lõi: dòng, khôi phục, lưu trữ và truy vấn | B01–B09 | Đầu ra → giới hạn trạng thái/truy cập |
 | L01-N03 | cốt lõi: đặc tả, vết, giả mã và chứng minh quét–cộng dồn | C02–C06 | Giới hạn → một lời giải đầy đủ |
 | L01-N04 | cốt lõi: khung đánh giá chi phí và bảo đảm | C01, C07–C08 | Lời giải → tiêu chí so sánh |
-| L01-N05 | cốt lõi: bản đồ học phần và thuật ngữ theo vai trò | D01–D07 | Tiêu chí → nhóm phương pháp |
-| L01-N06 | cốt lõi: tiên quyết, kỹ năng và hành vi học tập | E01–E04 | Nhóm phương pháp → kế hoạch ôn tập |
+| L01-N05 | cốt lõi: bản đồ học phần và thuật ngữ theo vai trò | D00–D07 | Tiêu chí → nhóm phương pháp |
+| L01-N06 | cốt lõi: tiên quyết, kỹ năng và hành vi học tập | E01–E03; E04 ở cuối F | Nhóm phương pháp → kiến thức/kỹ năng/trách nhiệm → chuẩn bị bài tiếp theo |
 | L01-N07 | cầu nối: giả thiết, kỳ vọng và giới hạn suy luận | F01–F03 | Trách nhiệm → mô hình kiểm chứng |
 | L01-N08 | cốt lõi: tự kiểm và hai bài tập có gợi ý/lời giải | F04, R01–R05 | Mô hình → sản phẩm có thể kiểm tra |
 
@@ -163,7 +171,7 @@ Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô
 
 ## Điều kiện kiểm định khi triển khai
 
-Kế hoạch được chốt khi đủ 14 bài, 18 ví dụ có đặc tả hình, mỗi trang có vai trò/nguồn/câu nối, thời lượng $22+23+25+20+15+15=120$ và $10+15+10+10+15=60$. Kiểm tra số trang 39+6=45, bảy phần ngoài, các mã duy nhất. R00 được tính trong 45 trang nhưng chỉ chuyển phần, không tính vào 60 phút làm bài của R01–R05.
+Kế hoạch được chốt khi đủ 14 bài, 18 ví dụ có đặc tả hình, mỗi trang có vai trò/nguồn/câu nối, thời lượng $25+26+25+18+9+17=120$ và $10+15+10+10+15=60$. Kiểm tra số trang 47+6=53, bảy phần ngoài, các mã duy nhất. R00 được tính trong 53 trang nhưng chỉ chuyển phần, không tính vào 60 phút làm bài của R01–R05.
 
 Rà lại toàn bộ bài vì mở bài và luận điểm đã đổi. Kiểm thử RevealJS/ghi chú/SVG ở 1280×720, màn hình hẹp, bàn phím và bản in; nguồn, hình, KaTeX và tài nguyên cục bộ; rà năm góc nhìn độc lập và xử lý lỗi bắt buộc. H19 dùng chung với index phải được kiểm tra tại trang chỉ mục. Kết quả thực thi nằm trong review-log, không suy đạt chỉ từ đặc tả này.
 
@@ -183,3 +191,9 @@ Rà lại toàn bộ bài vì mở bài và luận điểm đã đổi. Kiểm t
 Bố cục ứng dụng được điều chỉnh từ hình hai phần ba chiều rộng sang hình toàn chiều ngang phía trên, ba thẻ dữ liệu/kết quả/giới hạn ở dưới để giữ chữ trong SVG dễ đọc. Mỗi trang vẫn có một luận điểm. H15 giữ vị trí tương đối A/B/Q, chỉ dịch cả nhóm hình khi vẽ lại; không tự thêm hình học thật. H10 giữ đúng chuỗi, không thêm mã hoặc tỷ lệ nén. H19 giữ năm nhóm và tên bài; danh mục phương pháp ở D03–D07 và bảng ghi chú.
 
 Ghi chú diễn giả không đọc mã nội bộ hoặc phút. Thời lượng tổ chức giữ ở bảng từng trang: R01 dựng mô hình10, R02 giải(a,b)15, R03 giải(c)10, R04 dựng giỏ hàng10, R05 hoàn tất/chữa15 phút; R00 chuyển phần không tính. Các lời giải và hướng chấm ở đúng trang bài tập. Không phát sinh mã trình diễn.
+
+## Tiêu chí riêng cho trang mở đầu và cầu nối
+
+Tám trang P00/P01/A08/A09/B00/B10/B11/D00 mang nhãn cầu nối. Chúng dùng dữ liệu, đầu ra và giới hạn đã nêu ở các ví dụ lân cận; không có thuật toán hay định lý mới, nên không áp dụng chu trình giả mã–chứng minh riêng. P01 nêu sản phẩm học tập; các trang khác xác định sự thay đổi đầu ra hoặc tài nguyên. Hình của các ví dụ ở hai phía đủ để kiểm quan hệ; không thêm SVG trang trí.
+
+C01 gộp điểm vào phần C với khung tài nguyên; E01 nối chương trình với nền kiến thức; F01 nối trách nhiệm với suy luận; R00 nối mô hình lưu trú với bài tập. E04 nằm sau F04 để chỉ giao chuẩn bị bài kế tiếp khi kết thúc lập luận. Quill rà toàn bộ đường vào–ra và hai trang lân cận mỗi phía. No-ai-slop áp dụng lên mặt trang, alt, notes và Markdown; giữ nguồn, giả thiết, cảnh báo kỹ thuật và lời giải/chấm bài, bỏ lời dặn vẽ/soạn và giải trình lịch sử biên tập khỏi học liệu.

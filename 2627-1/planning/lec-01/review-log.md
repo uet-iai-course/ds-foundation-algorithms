@@ -590,3 +590,73 @@ Các ảnh/PDF và kịch bản kiểm tra tạo trong thư mục tạm của ph
 ### Trạng thái bàn giao
 
 Slide, ghi chú, 19 hình, chỉ mục và ba tệp quy trình đã đồng bộ theo kế hoạch. Cần đọc học liệu từ MMDS, Stanford, BHK, Nelson–Gailly và DSC theo ánh xạ nguồn; không phát sinh nội dung thuật toán chuyên biệt ngoài phạm vi. Phiên bản được nhận diện bằng commit của lần triển khai này và lịch sử Git; push lên origin/main là bước xuất bản cuối theo quyền người dùng đã cấp.
+
+## Lần sửa mở bài và kết nối — 2026-09-06
+
+### Yêu cầu và phạm vi đã duyệt
+
+Người dùng yêu cầu lập kế hoạch, bổ sung trang mở bài và trang kết nối vì các ví dụ xuất hiện đột ngột; sau đó dùng no-ai-slop để loại bỏ chỉ dẫn dành cho người viết. Phiên bản trước nằm trong commit `0c810116ea55894ab4b9d210b6316dd53fb70e4b`; giữ nguyên các bản sao lưu đã có. Lần này sửa HTML, ghi chú, chỉ mục và ba tệp quy trình; không đổi CSS, thuật toán, bài tập hay 19 SVG.
+
+- Thêm P00/P01 để giới thiệu học phần, tình huống nhật ký vượt bộ nhớ, hành trình và sản phẩm học tập của buổi.
+- Thêm A08/A09 nối tổng hợp → xếp hạng → tìm tương đồng; B00/B10/B11 nối kho tìm kiếm → dòng truy vấn → khôi phục dữ liệu → truy cập khối; D00 nối yêu cầu tài nguyên với nhóm phương pháp.
+- C01/C02 thu hồi các ứng dụng về lời giải tổng byte; D01 chỉ giữ năng lực toàn học phần, tránh lặp mục tiêu P01.
+- Đặt E04 sau F04: kết thúc phần giảng bằng chuẩn bị MapReduce, rồi R00 chuyển rõ sang bài tập về mô hình ngẫu nhiên. Không đặt chuẩn bị bài sau vào cuối phần tiên quyết khi lập luận của buổi chưa kết thúc.
+- Giữ 7 phần ngoài, 53 trang gồm 47 trang giảng và 6 trang bài tập. Thời lượng thiết kế A25+B26+C25+D18+E9+F17=120 phút; R01–R05=10+15+10+10+15=60 phút. Mã trang cũ ổn định; thứ tự thực nằm trong bảng storyboard.
+
+### Điều phối và bằng chứng runtime
+
+Các lượt hoàn tất dưới đây đều có metadata runtime `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`. Reader/reviewer chỉ đọc; writer chỉ được ghi thư mục tạm, điều phối kiểm và áp dụng vào kho. Không cấp `.env` cho công cụ worker, không đổi mô hình khi lỗi.
+
+| Vai trò | Phiên và kết quả | Quyết định |
+|---|---|---|
+| Lập kế hoạch | 49196 hoàn tất | Nhận chẩn đoán thiếu mở bài và chuyển ý hiển thị; bác phương án cộng thời lượng thành 123 phút, nhãn sản xuất và tiêu đề hỏi tu từ; duyệt cấu trúc 8 trang thêm trong outline trước soạn |
+| Phân tích nguồn | 35130 lỗi `model exceeded the tool-call limit (4)`; 59769 đọc hồ sơ giới hạn và hoàn tất | Giữ các nguồn hiện có; không xóa giới hạn toán học, liên hệ Bài 02–15 hay xuất xứ tình huống 20 khối vì chúng không phải chỉ dẫn cho người soạn |
+| Soạn | 38545 lỗi `model exceeded the tool-call limit (5)`; 6493 hoàn tất trong thư mục tạm | Kiểm và sửa tên học phần/học kỳ, diễn đạt kho nhật ký vượt bộ nhớ, nguồn I/O; bỏ “chào lớp”, lời chỉ đạo nối trang và kết luận mọi thuật toán đều phải xét mọi cặp |
+| Rà storyboard | 57381 hoàn tất | Đồng bộ toàn bộ tiêu đề bảng với HTML, gồm R04 “Trùng tập mặt hàng”; cập nhật ánh xạ N05 thành D00–D07 |
+| Mạch viết | 56218 hoàn tất | Xác nhận đủ mở–nối–kết và vị trí E04 trước recitation; số trang/thời lượng được kiểm thêm bằng mã, không dựa vào các số đếm nhầm trong văn bản phản biện |
+| Giải thuật | 92472 hoàn tất | Làm rõ thao tác Bloom, nhãn cận truyền, độc lập người/ngày và hai yêu cầu tự kiểm E01; giữ nguyên công thức và điều kiện đúng |
+| Toán học | 52985 lỗi `model returned an empty or incomplete answer after all retries`; 11046 hoàn tất trên trích đoạn toán đầy đủ | Tự tính lại mọi đáp số; bác đề nghị sửa sai giá trị phần (a) và cảnh báo dấu thập phân không có thật |
+| Giảng dạy | 29147 cùng lỗi câu trả lời rỗng; 40104 hoàn tất trên đủ 53 trang và notes | Giữ E04 ở cuối 120 phút giảng, không chuyển ra sau 60 phút recitation; không thêm nhãn nội bộ lên mặt trang; không gọi số đã làm tròn là “chính xác” |
+| Góc nhìn sinh viên | 55714 cùng lỗi câu trả lời rỗng; 12942 hoàn tất trên đủ 53 trang và notes | Ghi nhận mở bài và các cầu nối rõ; kiểm trực tiếp mục tiêu P01 và đáp án F04/E04 đã đo được. Không thêm chỉ dẫn “Người soạn rà lại” vào notes. Không gắn nhãn tiên quyết dày đặc vào các ví dụ giới thiệu |
+| Sửa riêng sau năm phản biện | 71562 hoàn tất | Soạn bốn đoạn ngắn trong `final-copy.md`; áp dụng sau kiểm, bỏ câu giải thích cận dưới lặp, giữ công thức bằng KaTeX và nhãn “Câu hỏi:” |
+
+Mỗi lỗi worker đã được thông báo trước khi chạy lại với đầu vào giới hạn hơn; không âm thầm chuyển sang tác tử mặc định. Một số phản biện có nhận xét tự mâu thuẫn hoặc vượt yêu cầu; chúng là đề xuất, không phải bằng chứng thay cho nguồn và kiểm tra trực tiếp.
+
+### Quyết định nội dung và kiểm toán số học
+
+- Bloom: dùng “chuẩn, với thao tác chèn và tra cứu, không xóa”; giữ điều kiện băm và trạng thái đúng cho bảo đảm không bỏ phần tử đã chèn. Không tiếp nhận câu khái quát vô điều kiện về sai số từ reviewer.
+- Chi phí: phân biệt số phép tính kỳ vọng $O(n)$ với cận thời gian truyền $T_{\rm quét}\ge D/v$. Hai đại lượng không mâu thuẫn; nhãn mới làm rõ mô hình, không sửa một cận đang đúng.
+- Lưu trú: viết rõ lựa chọn độc lập giữa mọi người và mọi ngày; giữ chọn đều khách sạn có điều kiện đã đi. Tính tuyến tính kỳ vọng không đòi các phép thử cặp người–cặp ngày độc lập nhau.
+- Kiểm lại bằng phân số chính xác: $\binom{10^9}{2}=499999999500000000$, $\binom{2000}{2}=1999000$. Phần 1.2.1(a) bằng $999499{,}9990005$, không phải $999499{,}9995$ như reviewer đề xuất. Các giá trị còn lại: $249749{,}99975025$ (mô hình gốc), $249749{,}999875125$ (b), $0{,}0830834999169165$ (c); giỏ hàng xấp xỉ $0{,}00018981846904990663$. Không đổi công thức hoặc đáp số đã đúng.
+- Tự kiểm mục tiêu: P01 có đặc tả/bất biến, giới hạn/bảo đảm và kỳ vọng/giới hạn suy luận; các câu hỏi C06, C08, F04 và lời giải notes cho tiêu chí đối chiếu. Không thêm một trang đánh giá mới chỉ vì reviewer bỏ qua đáp án trong notes.
+- Nguồn lưu trữ thứ cấp sửa từ mục 1.3.3 thành MMDS mục 1.3.4, trang 13. Bài tập giữ sách MMDS ấn bản 3 và số bài/mục/trang đã truy nguyên. Lần mở website MMDS gặp HTTP 502; không dùng dữ kiện web mới thay nguồn cục bộ.
+
+### Biên tập no-ai-slop và rà mạch bằng quill
+
+Đã tự kiểm trực tiếp theo `no-ai-slop/eval.md`: 11 nguyên tắc biên tập, nhóm từ cần cắt, 9 nhóm mẫu câu và các mục đọc cuối áp dụng đều đạt. Giữ giọng học thuật tiếng Việt và từ chuyên môn; không thêm số liệu, bằng chứng hay ví dụ. Cắt lời chỉ đạo sản xuất, nhãn “bản trước”, lời dẫn rỗng và câu tổng kết lặp khỏi mặt trang, ghi chú diễn giả và tài liệu tự học. Không đánh đồng giả thiết phủ định, lời giải chấm bài hay hướng dẫn học tập với chỉ dẫn cho người viết. Bản đầy đủ là HTML và Markdown của bài, không tạo bản rút gọn thay tài liệu.
+
+Quill được dùng để đối chiếu dàn ý, thứ tự và thuật ngữ giữa slide/notes: ứng dụng → một lời giải có tính đúng và chi phí → bản đồ học phần → nền học tập → giới hạn suy luận. Mỗi cầu nối có đầu vào và đầu ra trong storyboard; ghi chú tự học thêm đoạn chuyển tương ứng, chuyển phần chuẩn bị MapReduce về cuối phần giảng. Không tạo `quill.json` hoặc dự án sách.
+
+### Giới hạn công cụ
+
+Dự án Codex Slides cũ vẫn ở draft/clarify, 0 trang; không có Browser trong trình soạn thảo để kiểm bản HTML trên bề mặt đó. Theo đường dự phòng của kho, dùng Chromium cục bộ trên chính RevealJS và viewer; không tạo deck raster thay thế, không tuyên bố trạng thái Codex Slides đã đồng bộ. Kho giao diện tham khảo machine-learning không có ở vị trí cục bộ đã kiểm; tiếp tục dùng template và CSS hiện hành, không tự tạo hệ giao diện mới.
+
+### Rà lại và kiểm định bản cuối
+
+Reviewer mạch viết phiên 85273 hoàn tất, metadata runtime vẫn đúng model/provider nêu trên. Đọc toàn bộ bản trích 53 trang và notes; xác nhận thứ tự mở bài đến chuẩn bị MapReduce, bốn diễn đạt đã sửa và không còn chỉ dẫn người soạn. Bác cảnh báo “thiếu recitation” của lượt này: bản trích đã có “Bài tập củng cố”; HTML thực có phần ngoài thứ bảy chứa R00–R05, và storyboard cộng đúng 60 phút. Không thêm từ tiếng Anh hay thời lượng lên mặt trang để chiều một cảnh báo dựa vào việc không thấy chữ “recitation”. Reviewer cũng trích nhầm bài tập cuối khi xác nhận E01; điều phối kiểm trực tiếp E01 và ảnh chụp, thấy đúng hai yêu cầu đã duyệt.
+
+| Kiểm tra sau sửa cuối | Kết quả |
+|---|---|
+| Cấu trúc và kế hoạch | 53 mã duy nhất khớp thứ tự và tiêu đề storyboard; 7 phần ngoài, 53 aside; tổng 120+60 phút |
+| Hiển thị từng trang | Kiểm cả 53 trang ở 1280×720 và 390×844; không vượt khung. Xem toàn bộ ảnh tổng hợp và ảnh chi tiết trang mở, trang sửa cuối |
+| Công thức và tài nguyên | 0 lỗi KaTeX, 0 ảnh hỏng, 0 lỗi JavaScript, 0 phản hồi HTTP lỗi, 0 yêu cầu mạng ngoài cho nội dung cốt lõi |
+| Cảnh báo hình học | B09/C03/F03 vẫn có cảnh báo scrollHeight của KaTeX nội dòng; ảnh xác nhận không cắt công thức, không thu nhỏ chữ để che cảnh báo |
+| SVG | Giữ nguyên 19 SVG; kiểm XML, role và mô tả; không thêm raster hay tài sản trang trí |
+| Bàn phím | Mũi tên xuống P00→P01, phải→B00; Enter mở gợi ý của viewer |
+| Ghi chú | 19 hình, 42 mục lục; không tràn ngang toàn trang ở rộng/hẹp; bốn khối gợi ý/lời giải gập khi đọc và mở khi in |
+| Liên kết/an toàn | Đúng liên kết note/deck; viewer từ chối đường dẫn ngoài mẫu và cặp doc/deck khác số bài; chỉ mục tải đúng ở rộng/hẹp |
+| In | PDF slide 53 trang, ghi chú 25 trang A4; kiểm ảnh trang in, hình và công thức; không thêm PDF/ảnh kiểm thử vào Git |
+| Biên tập | Tìm các mẫu chỉ dẫn sản xuất không còn kết quả trong HTML/Markdown; no-ai-slop giữ nguồn, giả thiết, lời giải và câu hỏi học tập; quill đối chiếu thứ tự phần và ký hiệu |
+| Phạm vi Git | Sáu tệp thuộc Bài 01 và mục chỉ mục; không đưa AGENTS.md, .gitignore, .codex, codex-orchestrator hay openrouter-mcp của người dùng vào commit |
+
+Thời lượng là thiết kế học liệu, chưa phải kết quả diễn tập trên lớp. Hạn chế công cụ Codex Slides đã nêu không được coi là đã kiểm trên Browser của ứng dụng; bản RevealJS được kiểm trực tiếp. Không còn lỗi chặn về nội dung hoặc hiển thị đã xác nhận. Bước xuất bản là commit và push thường lên origin/main theo quyền đã cấp, không ghi đè lịch sử.

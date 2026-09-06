@@ -1,10 +1,22 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
-## Trạng thái và yêu cầu ngày 2026-09-06
+## Sửa mở đầu và cầu nối ngày 2026-09-06
+
+Yêu cầu mới thay quyết định mở thẳng vào A01: bổ sung trang tên bài, nội dung buổi học và các cầu nối trên màn hình; sau triển khai dùng no-ai-slop bỏ chỉ dẫn người soạn khỏi HTML, ghi chú diễn giả và ghi chú tự học. Quill dùng để kiểm quan hệ vào–ra; không tạo dự án sách.
+
+Kế hoạch đã được điều phối viên duyệt sau hai đề xuất độc lập của reader (lập kế hoạch và nguồn). Thêm P00/P01 trước A01; A08 giữa A02/A03; A09 giữa A05/A06; B00 trước B01; B10 giữa B02/B03; B11 giữa B04/B05; D00 trước D01. Chuyển E04 sau F04; sửa C01, D01, E01, F01, R00 thành điểm vào phần có nội dung cụ thể. Giữ các mã cũ để truy nguyên; thứ tự là thứ tự trong storyboard, không phải thứ tự từ điển của mã.
+
+Tám trang mới mang nhãn `cầu nối`, không thêm chủ đề học thuật, ví dụ, dữ liệu hay thuật toán. P00/P01 đặt bối cảnh và sản phẩm; các trang còn lại đối chiếu đầu ra/giới hạn của hai cụm lân cận. Nguồn và ví dụ theo bảng dưới. Không vẽ thêm hình trang trí; 19 SVG hiện có tiếp tục minh họa các ứng dụng. Bản trước sửa được lưu nguyên vẹn trong commit `0c81011`, ngoài bản sao lưu đã có.
+
+Chấp nhận chẩn đoán thiếu mở đầu và chỉ có câu nối trong notes của planner. Bác đề xuất tăng tổng lên 123 phút và bù thời lượng không khớp số học; phân bổ lại đúng 120+60. Bác gợi ý dùng câu hỏi tu từ, mã A00 đặt cuối A, hoặc đưa “16 trang sau” lên slide. Với source reader, giữ các câu liên hệ Bài 02–15 và phân biệt liệt kê cặp với truy hồi vì đó là định hướng cho sinh viên, không phải chỉ dẫn tác giả. Giữ nhãn quy mô mô hình của 20 khối và cảnh báo toán. Bỏ lời giải trình việc vẽ/soạn, chuyển chúng về nhật ký. Sửa dẫn lưu trữ MMDS từ mục 1.3.3 thành 1.3.4, tr. 13 sau đối chiếu trực tiếp sách.
+
+Tiêu chí: 53 trang, 7 phần ngoài, 120 phút giảng +60 phút bài tập; có mở bài, mọi ranh giới phần có câu nối, kết thúc phần giảng mới giao chuẩn bị MapReduce; không còn chỉ dẫn người viết trong học liệu. Rà lại toàn bộ bài và ghi chú, sáu reviewer độc lập gồm storyboard và năm góc nhìn, rồi writer chỉnh sửa và reviewer mạch rà lại; kiểm trực quan, công thức, bàn phím và bản in trước commit/push.
+
+## Nền nội dung giữ từ lần triển khai trước
 
 Đây là đặc tả cho bản triển khai ngày 2026-09-06, đã qua kiểm định nội dung và hiển thị. Yêu cầu: mở bằng ví dụ và ứng dụng từ Bài 02–15, từ đó rút ra nhiều mặt của nhu cầu giải thuật; sau đó giới thiệu học phần, nội dung sẽ học, thuộc tính cần đánh giá và sự chuẩn bị của sinh viên. Mỗi ví dụ có hình trong storyboard và bản công khai.
 
-Người dùng đã yêu cầu triển khai cả HTML, ghi chú bài giảng, SVG và chỉ mục, sao lưu bản cũ, rồi commit/push khi kiểm định đạt. HTML hiện có 45 mã trang dưới đây; bản cũ được lưu tại `2627-1/backups/lec-01/2026-09-06-before-applications/`. Giữ số bài, tên bài và đường dẫn theo thứ tự đề xuất của nguồn cấp học phần. Bài 01 ánh xạ buổi gốc 1.
+Người dùng đã yêu cầu triển khai cả HTML, ghi chú bài giảng, SVG và chỉ mục, sao lưu bản cũ, rồi commit/push khi kiểm định đạt. Bản sao lưu đầu tiên nằm tại `2627-1/backups/lec-01/2026-09-06-before-applications/`. Giữ số bài, tên bài và đường dẫn theo thứ tự đề xuất của nguồn cấp học phần. Bài 01 ánh xạ buổi gốc 1.
 
 ## Luận điểm và sản phẩm học tập
 
@@ -25,16 +37,16 @@ Mục tiêu 1–4 thực hiện sản phẩm Bài 01 trong nguồn cấp học p
 
 | Mạch | Vai trò, đầu vào và đầu ra | Phút |
 |---|---|---:|
-| A. Tổng hợp và tìm kiếm dữ liệu web | Mở trực tiếp bằng tổng byte theo máy chủ; đi qua phân tán, xếp hạng, gần trùng và véc-tơ; tạo các yêu cầu đầu ra khác nhau | 22 |
-| B. Dòng dữ liệu, nén và truy vấn | Mở rộng từ kho tĩnh sang dữ liệu đến liên tục, yêu cầu khôi phục và truy cập chọn lọc; tạo danh mục giới hạn | 23 |
+| A. Mở đầu, tổng hợp và tìm kiếm dữ liệu web | Tên bài và nội dung buổi học → tổng byte → phân tán, xếp hạng, gần trùng và véc-tơ; hai cầu nối làm rõ sự thay đổi đầu ra | 25 |
+| B. Dòng dữ liệu, nén và truy vấn | Ba cầu nối: kho sang dòng, thống kê sang khôi phục, lưu gọn sang truy cập | 26 |
 | C. Yêu cầu đối với giải thuật | Tổng hợp giới hạn, hoàn tất ví dụ quét–cộng dồn và lập khung đánh giá một lời giải | 25 |
-| D. Nội dung học phần | Dùng khung đánh giá để giới thiệu học phần, năm mạch và nhóm thuật toán ở Bài 02–15 | 20 |
-| E. Chuẩn bị và cách học | Nối mỗi mạch với kiến thức đầu vào, kỹ năng cần rèn và hành vi học tập có trách nhiệm | 15 |
-| F. Giả thiết và kết luận | Dùng mẫu trùng để phân biệt tính đúng với suy luận; quay lại ứng dụng mở bài và chốt cách phân tích | 15 |
-| **Phần giảng** | **39 trang dự kiến; sáu phần giảng, tổng bảy phần ngoài khi tính R** | **120** |
+| D. Nội dung học phần | Từ giới hạn tới nhóm phương pháp, rồi giới thiệu mục tiêu học phần và năm mạch Bài 02–15 | 18 |
+| E. Chuẩn bị và cách học | Nối mỗi mạch với kiến thức đầu vào, kỹ năng và trách nhiệm; dẫn thẳng sang kiểm chứng kết luận | 9 |
+| F. Giả thiết và kết luận | Mẫu trùng → giới hạn suy luận → ứng dụng mở bài → chuẩn bị MapReduce ở cuối phần giảng | 17 |
+| **Phần giảng** | **47 trang; sáu phần giảng, tổng bảy phần ngoài khi tính R** | **120** |
 | R. Bài tập củng cố | MMDS 1.2.1–1.2.2; năm hoạt động có gợi ý và lời giải trong ghi chú diễn giả | 60 |
 
-R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng dự kiến 45 trang, bảy phần ngoài. Hai mạch A–B dùng 16 tình huống ngắn, mỗi tình huống chỉ làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
+R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng 53 trang, bảy phần ngoài. Hai mạch A–B giữ 16 tình huống ngắn, mỗi tình huống chỉ làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
 
 ## Bản đồ nguồn từ Bài 02–15
 

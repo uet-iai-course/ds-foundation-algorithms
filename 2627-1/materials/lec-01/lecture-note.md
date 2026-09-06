@@ -2,7 +2,17 @@
 
 Một kho nhật ký web lưu địa chỉ trang, kích thước và ngày thu thập. Cần tính tổng byte theo từng máy chủ, nhưng kho không vừa bộ nhớ chính. Phép tính chỉ là cộng; khó khăn nằm ở cách đọc dữ liệu và trạng thái phải giữ.
 
-Kho web còn phục vụ xếp hạng, tìm tài liệu gần trùng và truy hồi theo véc-tơ. Dòng truy vấn cần được lấy mẫu hoặc thống kê ngay khi đến. Dữ liệu đã lưu cần nén, sắp xếp và lập chỉ mục. Các ứng dụng dưới đây lấy từ Bài 02–15; mỗi ứng dụng xác định một đầu ra và một giới hạn cần giải thuật xử lý. Sau đó, ta phân tích trọn thuật toán tổng byte, dùng các tiêu chí ấy để đọc chương trình học và chuẩn bị kiến thức.
+Kho web còn phục vụ xếp hạng, tìm tài liệu gần trùng và truy hồi theo véc-tơ. Dòng truy vấn cần được lấy mẫu hoặc thống kê khi đến. Dữ liệu đã lưu cần nén, sắp xếp và lập chỉ mục. Mỗi công việc đòi một đầu ra khác nhau và sử dụng bộ nhớ, thời gian tính, lượt đọc/ghi hoặc đường truyền theo cách khác nhau.
+
+## Nội dung và kết quả buổi học
+
+Bài học bắt đầu từ các ứng dụng của Bài 02–15, phân tích đầy đủ lời giải tổng byte, rồi đặt các phương pháp vào chương trình học. Phần cuối xét giới hạn của kết luận rút ra từ mẫu trùng trong dữ liệu.
+
+Sau buổi học, sinh viên có thể:
+
+1. Đặc tả tổng byte, giải thích bất biến giữ đúng tập khóa và tổng, nêu điều kiện của cận chi phí.
+2. Xác định đầu ra, giới hạn tài nguyên và bảo đảm của một ứng dụng; phân biệt bảo đảm với kết quả đo.
+3. Tính kỳ vọng trùng với đúng đơn vị đếm và giả thiết; nêu giới hạn suy luận.
 
 [Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) dùng cùng dữ kiện và ký hiệu. Ghi chú giải thích thêm đặc tả, chứng minh, điều kiện chi phí và lời giải bài tập.
 
@@ -12,23 +22,25 @@ Kho web còn phục vụ xếp hạng, tìm tài liệu gần trùng và truy h�
 
 Đầu vào là các bản ghi về trang web; đầu ra là tổng kích thước của những trang thuộc mỗi máy chủ. Gọi $D$ là số byte đầu vào và $M$ là dung lượng bộ nhớ chính khả dụng, cũng tính bằng byte. Khi $D>M$, cách tải cả kho vào bộ nhớ không đáp ứng giới hạn.
 
-Có thể đọc tuần tự và chỉ giữ tổng đang chạy theo máy chủ. Tuy nhiên, số máy chủ phân biệt cũng quyết định dung lượng của bảng tổng; đầu vào không vừa bộ nhớ không có nghĩa bảng tổng chắc chắn vừa. Stanford CS246 nêu tình huống này ở trang chiếu 62 của bài mở đầu; MMDS mục 1.3.3, trang 13 và BHK trang PDF 10 cung cấp bối cảnh truy cập ngoài bộ nhớ.
+Có thể đọc tuần tự và chỉ giữ tổng đang chạy theo máy chủ. Tuy nhiên, số máy chủ phân biệt cũng quyết định dung lượng của bảng tổng; đầu vào không vừa bộ nhớ không có nghĩa bảng tổng chắc chắn vừa. Stanford CS246 nêu tình huống này ở trang chiếu 62 của bài mở đầu; MMDS mục 1.3.4, trang 13 và BHK trang PDF 10 cung cấp bối cảnh truy cập ngoài bộ nhớ.
 
 ![Kho nhật ký đi qua một lượt quét; bộ nhớ chỉ giữ bảng tổng theo máy chủ, sau đó xuất tổng byte của từng máy chủ](img/lec-01/kho-nhat-ky-bo-nho.svg)
 
-Ví dụ này được phân tích đầy đủ ở phần thuật toán quét–cộng dồn. Các ứng dụng tiếp theo cho thấy ngoài bộ nhớ còn có những giới hạn khác.
+Tổng byte chỉ cần một giá trị cho mỗi máy chủ. Khi dữ liệu nằm trên nhiều máy, việc gom các đóng góp còn sử dụng đường truyền và cần phối hợp giữa các tác vụ.
 
 ### Tổng hợp kho tài liệu phân tán
 
 Một kho tài liệu nằm trên nhiều máy. Với mỗi từ, cần tổng số lần xuất hiện trong toàn kho. Đầu ra là bảng từ–số lần, không phải bản sao của mọi tài liệu trên một máy.
 
-Gom toàn bộ kho về một máy phải truyền cả dữ liệu và tập trung công việc vào máy đó. Một hướng xử lý là tính đóng góp tại nơi lưu dữ liệu rồi gom theo từ. Hình thể hiện luồng đóng góp, chưa phải vết chạy một chương trình cụ thể. Khi tác vụ lỗi được chạy lại, môi trường thực thi phải bảo đảm kết quả cuối không bỏ sót hoặc tính trùng đóng góp. Lượng dữ liệu trung gian, phân bố tải và khôi phục tác vụ đều cần được xét. Nguồn: MMDS mục 2.1–2.2.6; slide Chương 2, trang 8–12 và 20; Bài 02.
+Gom toàn bộ kho về một máy phải truyền cả dữ liệu và tập trung công việc vào máy đó. Một hướng xử lý là tính đóng góp tại nơi lưu dữ liệu rồi gom theo từ. Khi tác vụ lỗi được chạy lại, môi trường thực thi phải bảo đảm kết quả cuối không bỏ sót hoặc tính trùng đóng góp. Lượng dữ liệu trung gian, phân bố tải và khôi phục tác vụ đều cần được xét. Nguồn: MMDS mục 2.1–2.2.6; slide Chương 2, trang 8–12 và 20; Bài 02.
 
 ![Các phần kho ở ba máy tạo đóng góp theo từ, truyền qua mạng và gom thành tổng; tác vụ lỗi cần được chạy lại](img/lec-01/ung-dung-tong-hop-phan-tan.svg)
 
 ### Xếp hạng trang web
 
-Đồ thị web có hướng: mỗi đỉnh là một trang, mỗi cạnh là một liên kết. Bài toán xếp hạng cần một điểm cho mỗi trang theo mô hình đã chọn. Đồ thị minh họa có ba đỉnh $y,a,m$: $y$ trỏ tới $y,a$; $a$ trỏ tới $y,m$; $m$ trỏ tới $a$. Hình giữ nguyên các cạnh của nguồn, không gán điểm xếp hạng mới.
+Tổng hợp theo khóa gom các giá trị của từng nhóm. Xếp hạng web còn sử dụng quan hệ liên kết giữa các trang để xác định điểm của chúng.
+
+Đồ thị web có hướng: mỗi đỉnh là một trang, mỗi cạnh là một liên kết. Bài toán xếp hạng cần một điểm cho mỗi trang theo mô hình đã chọn. Đồ thị minh họa có ba đỉnh $y,a,m$: $y$ trỏ tới $y,a$; $a$ trỏ tới $y,m$; $m$ trỏ tới $a$. Các mũi tên biểu diễn liên kết có hướng, kể cả khuyên tại $y$.
 
 ![Đồ thị có ba đỉnh y, a, m; y có một khuyên, y và a liên kết hai chiều, a và m liên kết hai chiều](img/lec-01/ung-dung-xep-hang-web.svg)
 
@@ -52,6 +64,8 @@ Yêu cầu ở đây là đánh giá độ tin cậy của tín hiệu và giớ
 
 ### Tìm tài liệu gần trùng
 
+Điểm hạng mô tả từng trang. Phát hiện gần trùng lại xét quan hệ giữa hai tài liệu; số đối tượng cần so sánh vì thế là số cặp trong kho.
+
 Đầu vào là một tập tài liệu; đầu ra là các cặp có độ tương đồng vượt mức đã chốt. Trước khi tối ưu, cần xác định biểu diễn và độ đo: “gần trùng” trên tập đoạn ký tự là một đặc tả cụ thể, khác với đánh giá hai tài liệu nói về cùng một chủ đề.
 
 Với $N$ tài liệu, số cặp không thứ tự là $\binom N2=N(N-1)/2$. Khi $N=10^6$:
@@ -74,13 +88,13 @@ Kho dữ liệu được biểu diễn bằng các véc-tơ cùng số chiều. 
 
 ![Véc-tơ truy vấn qua chỉ mục để lấy các mục gần; bốn tiêu chí là độ thu hồi, độ trễ, bộ nhớ và xây dựng](img/lec-01/ung-dung-truy-hoi-vec-to.svg)
 
-BIODS 271, trang PDF 17–18 dùng tình huống 10 tỷ véc-tơ, 3072 chiều, mỗi thành phần 32 bit để làm rõ nhu cầu quy mô. Hình ở đây chỉ mô tả luồng truy hồi, không dùng hình hai chiều làm bằng chứng cho không gian 3072 chiều. Bài 07 học các chỉ mục và mã gọn; nguồn bổ sung là Princeton lớp 8, trang 2–5.
+BIODS 271, trang PDF 17–18 dùng tình huống 10 tỷ véc-tơ, 3072 chiều, mỗi thành phần 32 bit để làm rõ nhu cầu quy mô. Bài 07 học các chỉ mục và mã gọn; nguồn bổ sung là Princeton lớp 8, trang 2–5.
 
 Tự kiểm tra: tìm mọi cặp gần trùng và tìm $k$ mục gần một truy vấn khác nhau về đầu ra và số đối tượng phải xét như thế nào?
 
 ## Dòng dữ liệu, khôi phục và truy vấn
 
-Kho tĩnh sinh truy vấn liên tục, còn dữ liệu lưu trữ phải được tổ chức để đọc lại. Các tình huống này bổ sung yêu cầu về cập nhật, thời gian phục vụ và khôi phục.
+Truy hồi trả lời một yêu cầu trên kho đã lưu. Các yêu cầu đến nối tiếp lại tạo thành dòng bản ghi cần phân tích. Khi dữ liệu tiếp tục đến, trạng thái phải được cập nhật mà vẫn nằm trong giới hạn bộ nhớ.
 
 ### Lấy mẫu và lọc dòng truy vấn
 
@@ -88,7 +102,7 @@ Dữ liệu đến theo thứ tự, có thể chưa biết độ dài cuối cù
 
 ![Dòng truy vấn có hai nhánh: giữ trạng thái mẫu để xuất mẫu; dùng bộ lọc để chuyển trường hợp có thể có tới tra cứu chính xác](img/lec-01/ung-dung-dong-truy-van.svg)
 
-Mẫu phải có phân phối phù hợp với đơn vị lấy mẫu: bản ghi và khóa không luôn cho cùng ý nghĩa thống kê. Bộ lọc Bloom chuẩn với thao tác chỉ chèn có thể báo “có thể có” cho phần tử chưa chèn. Nếu băm nhất quán và trạng thái không bị xóa hoặc hỏng, nó không báo vắng cho phần tử đã chèn. Vì vậy, kết quả “có thể có” vẫn cần kiểm tra chính xác khi ứng dụng đòi đáp án chắc chắn. Nguồn: MMDS mục 4.1–4.3, trang 133–142; Streams 1, trang 6; Bài 08.
+Mẫu phải có phân phối phù hợp với đơn vị lấy mẫu: bản ghi và khóa không luôn cho cùng ý nghĩa thống kê. Bộ lọc Bloom chuẩn, với thao tác chèn và tra cứu, không xóa, có thể báo “có thể có” cho phần tử chưa chèn. Nếu băm nhất quán và trạng thái không bị xóa hoặc hỏng, nó không báo vắng cho phần tử đã chèn. Vì vậy, kết quả “có thể có” vẫn cần kiểm tra chính xác khi ứng dụng đòi đáp án chắc chắn. Nguồn: MMDS mục 4.1–4.3, trang 133–142; Streams 1, trang 6; Bài 08.
 
 ### Thống kê trên dòng và cửa sổ
 
@@ -100,9 +114,11 @@ Truy vấn toàn dòng giữ ảnh hưởng của quá khứ, còn truy vấn c�
 
 ### Văn bản cần khôi phục nguyên vẹn
 
-Với nén không mất thông tin, đầu ra của bộ giải mã phải bằng đúng đầu vào bộ mã hóa. Chuỗi `aabaacabcabcb` có các mẫu lặp; nguồn dùng nó để minh họa nén từ điển. Trong Bài 01, chỉ theo dõi yêu cầu khôi phục, chưa xây mã.
+Trạng thái thống kê phục vụ một đại lượng đã chọn, chẳng hạn số khóa phân biệt. Lưu lại văn bản đặt yêu cầu khác: tái tạo được dữ liệu sau khi mã hóa.
 
-![Chuỗi aabaacabcabcb được mã hóa rồi giải mã thành đúng chuỗi ban đầu, không gán tỷ lệ nén](img/lec-01/ung-dung-nen-van-ban.svg)
+Với nén không mất thông tin, đầu ra của bộ giải mã phải bằng đúng đầu vào bộ mã hóa. Chuỗi `aabaacabcabcb` có các mẫu lặp; nguồn dùng nó để minh họa nén từ điển. Bộ mã hóa khai thác phần lặp, còn bộ giải mã phải tái tạo đúng chuỗi.
+
+![Chuỗi aabaacabcabcb được mã hóa rồi giải mã thành đúng chuỗi ban đầu](img/lec-01/ung-dung-nen-van-ban.svg)
 
 Dung lượng phải tính cả dòng mã và thông tin phụ trợ cần giải mã, chẳng hạn mô hình hoặc từ điển. Bộ mã hóa và bộ giải mã phải dùng quy ước tương thích. Nguồn: Nelson–Gailly Chương 3 và 9; CMU LZ, trang logic 11–14; Bài 10–11.
 
@@ -112,9 +128,11 @@ Với tuyến nén ảnh có lượng tử hóa, đặc tả khôi phục khác 
 
 ![Khối ảnh đi qua biến đổi, lượng tử hóa và mã hóa; sau giải mã và tái tạo, ảnh có thể khác đầu vào](img/lec-01/ung-dung-nen-anh.svg)
 
-Hình đánh dấu lượng tử hóa là bước mất thông tin; không đồng nhất nó với phép biến đổi. Không có ảnh trước/sau hay số chất lượng thực nghiệm được tự thêm. Bài 11 học tuyến nén JPEG tương ứng. Nguồn: Nelson–Gailly Chương 11; CMU lossy, trang logic 2–16.
+Lượng tử hóa có thể làm mất thông tin; đây là bước khác với phép biến đổi. Bài 11 học tuyến nén JPEG tương ứng. Nguồn: Nelson–Gailly Chương 11; CMU lossy, trang logic 2–16.
 
 ### Sắp xếp tệp vượt bộ nhớ
+
+Nén xử lý dung lượng lưu trữ. Để sắp xếp hoặc trả lời truy vấn trên dữ liệu đã lưu, còn phải tổ chức các bản ghi và những khối sẽ đọc vào bộ nhớ.
 
 Đầu vào là tệp bản ghi lớn hơn bộ nhớ; đầu ra phải giữ cùng các bản ghi, kể cả bản ghi có khóa lặp, theo thứ tự khóa yêu cầu. Sắp như một mảng nằm trọn trong bộ nhớ không đáp ứng điều kiện.
 
@@ -142,23 +160,23 @@ Quét bảng mỗi lần có thể đọc nhiều khối không cần thiết. C
 
 Đầu vào gồm các đối tượng không gian và vùng truy vấn $Q$; đầu ra ở đây là những đối tượng giao $Q$. Chỉ mục có thể dùng hộp bao để chọn ứng viên, rồi kiểm quan hệ hình học trên đối tượng thật.
 
-![Vùng Q giao cả hai hộp bao A và B trong sơ đồ của Bài14; cần xét ứng viên từ cả hai nhánh rồi kiểm đối tượng thật](img/lec-01/ung-dung-truy-van-khong-gian.svg)
+![Vùng Q giao cả hai hộp bao A và B trong sơ đồ; cần xét ứng viên từ cả hai nhánh rồi kiểm đối tượng thật](img/lec-01/ung-dung-truy-van-khong-gian.svg)
 
-Hình giữ vị trí tương đối của hai hộp bao và $Q$ từ Bài 14. Đi theo chỉ một nhánh sẽ bỏ phần ứng viên cần xét. Ngược lại, hộp bao giao vùng không đủ để kết luận đối tượng thật giao vùng. Nguồn: DSC Chương 24, trang chiếu 17, 21–24; Auburn, trang PDF 10–13.
+Vùng $Q$ giao cả hai hộp bao $A$ và $B$. Đi theo chỉ một nhánh sẽ bỏ phần ứng viên cần xét. Ngược lại, hộp bao giao vùng không đủ để kết luận đối tượng thật giao vùng. Nguồn: DSC Chương 24, trang chiếu 17, 21–24; Auburn, trang PDF 10–13.
 
 ### Kết nối hai bảng theo mã sinh viên
 
-Bảng `student` có 5000 bản ghi trong 100 khối; bảng `takes` có 10.000 bản ghi trong 400 khối. Đầu ra của phép nối theo `ID` gồm **mọi cặp** bản ghi có mã bằng nhau. Khi một mã xuất hiện nhiều lần, chỉ trả một cặp cho mã đó là sai.
+Bảng `student` có 5000 bản ghi trong 100 khối; bảng `takes` có 10.000 bản ghi trong 400 khối. Đầu ra của phép nối theo `ID` gồm mọi cặp bản ghi có mã bằng nhau. Khi một mã xuất hiện nhiều lần, chỉ trả một cặp cho mã đó là sai.
 
 ![Hai bảng student và takes được đọc vào bộ nhớ hữu hạn để ghép theo ID và trả mọi cặp có ID bằng nhau](img/lec-01/ung-dung-noi-bang.svg)
 
-Dùng ngân sách $M_{\rm khối}=20$ khối như kịch bản giảng dạy ở Bài 15. Số 20 không phải số đo hay hằng số của giáo trình; các quy mô hai bảng lấy từ DSC Chương 15, trang chiếu 28. Không bảng nào vừa ngân sách này. Lặp qua từng bản ghi của một bảng và quét lại bảng kia có thể đọc nhiều lần cùng dữ liệu; cần xét cách tái sử dụng khối, chỉ mục, thứ tự hoặc phân hoạch. Nguồn thêm: DSC Chương 15, trang chiếu 24 và 40.
+Ví dụ ở Bài 15 đặt ngân sách $M_{\rm khối}=20$ khối. Quy mô hai bảng lấy từ DSC Chương 15, trang chiếu 28. Không bảng nào vừa ngân sách này. Lặp qua từng bản ghi của một bảng và quét lại bảng kia có thể đọc nhiều lần cùng dữ liệu; cần xét cách tái sử dụng khối, chỉ mục, thứ tự hoặc phân hoạch. Nguồn thêm: DSC Chương 15, trang chiếu 24 và 40.
 
 Tự kiểm tra: trong các ứng dụng trên, yêu cầu nào cần khôi phục đúng dữ liệu, yêu cầu nào cần lọc ứng viên, và yêu cầu nào phải trả đủ cặp khóa lặp?
 
 ## Thuật toán quét–cộng dồn
 
-Các tình huống vừa khảo sát chỉ định vị nhu cầu; thuật toán chuyên biệt thuộc các bài sau. Với tổng byte, ta có thể đi hết từ đặc tả đến chứng minh ngay trong Bài 01.
+Các ứng dụng đòi hỏi đầu ra và tài nguyên khác nhau. Với kho nhật ký ban đầu, đầu ra vẫn là tổng byte chính xác của mỗi máy chủ; chỉ cần giữ đủ trạng thái để tính tổng khi bản ghi tiếp tục được đọc. Lời giải dưới đây làm rõ trạng thái đó, tính đúng và điều kiện bộ nhớ.
 
 ### Đặc tả và biểu diễn
 
@@ -169,12 +187,12 @@ Cho dãy $L=((u_i,s_i))_{i=1}^{n}$. Ở đây $n$ là số bản ghi hữu hạn
 - Điều kiện sau: đúng tập khóa và đúng giá trị tổng tại mỗi khóa.
 - Ràng buộc lời giải đang xét: đọc tuần tự một lượt; chỉ giữ trạng thái cần thiết, không giữ toàn bộ dãy.
 
-Giới hạn $D>M$ không tự bắt buộc mọi thuật toán chỉ được đọc một lượt; ở đây ta chọn và phân tích lời giải một lượt. Đặc tả bài toán không bắt buộc bảng băm: đó là một lựa chọn biểu diễn và cài đặt bảng $S$. Nguồn tình huống là Stanford CS246 trang chiếu 62; đặc tả và lập luận dưới đây được dựng cho ví dụ học phần.
+Giới hạn $D>M$ không tự bắt buộc mọi thuật toán chỉ được đọc một lượt; ở đây ta chọn và phân tích lời giải một lượt. Đặc tả bài toán không bắt buộc bảng băm: đó là một lựa chọn biểu diễn và cài đặt bảng $S$. Nguồn tình huống: Stanford CS246, trang chiếu 62.
 
 ### Ví dụ và trực giác trạng thái
 
 ::: example
-Dùng bốn bản ghi đã có của học phần. Đây là dữ liệu chạy tay từ lược đồ nguồn, không phải dữ liệu thực nghiệm.
+Xét bốn bản ghi sau theo lược đồ máy chủ–kích thước.
 
 | Bước | Bản ghi (máy chủ, byte) | Trạng thái $S$ sau bước |
 |---:|---|---|
@@ -236,7 +254,7 @@ Dãy rỗng trả bảng rỗng. Khóa lặp được cộng dồn. Bản ghi k�
 
 Mô hình thao tác đơn vị giả định kích thước khóa và tổng được xử lý trong chi phí đã nêu. Nếu tên máy chủ hoặc số nguyên dài tùy ý, phải tính thêm chi phí biểu diễn và thao tác theo độ dài. Dung lượng thực gồm khóa, tổng và phần phụ trợ của bảng.
 
-Nếu bảng $h$ khóa không vừa $M$, chứng minh toán học vẫn đúng nhưng cài đặt giữ toàn bộ bảng trong bộ nhớ không khả thi. Cần thay cách tổ chức ngoài bộ nhớ hoặc phân tán và phân tích lại chi phí. Chỉ được đổi sang kết quả xấp xỉ khi đặc tả cho phép. Nguồn bối cảnh chi phí: MMDS mục 1.3.3, trang 13; BHK trang PDF 10. Không dùng tốc độ thiết bị lịch sử trong sách như tốc độ phần cứng hiện tại.
+Nếu bảng $h$ khóa không vừa $M$, chứng minh toán học vẫn đúng nhưng cài đặt giữ toàn bộ bảng trong bộ nhớ không khả thi. Cần thay cách tổ chức ngoài bộ nhớ hoặc phân tán và phân tích lại chi phí. Chỉ được đổi sang kết quả xấp xỉ khi đặc tả cho phép. Nguồn bối cảnh chi phí: MMDS mục 1.3.4, trang 13; BHK trang PDF 10.
 
 Tự kiểm tra: nêu cả hai vế bất biến sau ba bản ghi. Nếu xóa khóa có tổng 0 để tiết kiệm chỗ, mệnh đề nào không còn đúng?
 
@@ -272,25 +290,19 @@ Chứng minh thuật toán, cận chi phí và kết quả đo thực nghiệm l
 
 Văn bản nén không mất thông tin phải giải mã đúng; ảnh có lượng tử hóa cần tiêu chí sai số tái tạo. Chọn cặp ứng viên cần xét cả ứng viên giả và bỏ sót. Truy hồi gần đúng cần đo độ thu hồi cùng tài nguyên. Bộ lọc Bloom chuẩn và lọc hộp bao có điều kiện không bỏ nghiệm, nhưng dựa trên hai cơ chế khác nhau.
 
-Phải phân biệt bảo đảm xác suất dưới giả thiết ngẫu nhiên, cận xác định và chất lượng đo trên tập truy vấn. Không hứa một phương pháp đồng thời nhanh nhất, nhỏ nhất và chính xác tuyệt đối cho mọi dữ liệu.
+Phải phân biệt bảo đảm xác suất dưới giả thiết ngẫu nhiên, cận xác định và chất lượng đo trên tập truy vấn. So sánh phương pháp cần cố định loại dữ liệu, ngân sách tài nguyên và yêu cầu đầu ra.
 
 Tự kiểm tra: bước kiểm tra lại giải quyết loại lỗi nào trong chọn ứng viên? Chi phí xây chỉ mục có thể được bỏ khỏi báo cáo chỉ vì một truy vấn chạy nhanh không?
 
 ## Nội dung học phần và phương pháp sẽ học
 
-Học phần **Giải thuật nền tảng của Khoa học dữ liệu**, mã **UET.DSE2053**, có **3 tín chỉ**. Đề cương quy định bốn chuẩn đầu ra học phần (CLO): giải thích nguyên lý và giải thuật; phân tích để lựa chọn; thiết kế, triển khai và đánh giá; tự học và xử lý dữ liệu có trách nhiệm.
+Các yêu cầu vừa phân tích dẫn tới năm nhóm phương pháp: xử lý phân tán, tìm tương đồng, duy trì trạng thái dòng, nén dữ liệu, tổ chức lưu trữ và truy vấn.
 
-Riêng Bài 01, sinh viên cần tạo được ba sản phẩm:
+Học phần Giải thuật nền tảng của Khoa học dữ liệu, mã UET.DSE2053, có 3 tín chỉ. Đề cương quy định bốn chuẩn đầu ra học phần (CLO): giải thích nguyên lý và giải thuật; phân tích để lựa chọn; thiết kế, triển khai và đánh giá; tự học và xử lý dữ liệu có trách nhiệm.
 
-1. Đặc tả và giải thích bất biến của tổng byte: giữ đúng tập khóa và đúng tổng, kể cả khóa có tổng 0; nêu điều kiện của cận chi phí.
-2. Phân tích một ứng dụng đã khảo sát: xác định đầu ra, giới hạn tài nguyên và bảo đảm có điều kiện; phân biệt bảo đảm với kết quả đo.
-3. Tính kỳ vọng trùng trong bài tập: dùng đúng đơn vị đếm và giả thiết; nêu giới hạn khi suy luận về dữ liệu.
+![Bài 01 là nền chung cho năm nhóm bài liền nhau: phân tán và xếp hạng; tương đồng và tìm gần; dòng và cửa sổ; nén; lưu trữ và truy vấn](img/lec-01/ban-do-hoc-phan.svg)
 
-Các câu tự kiểm về bảng tổng, ứng viên và hai bài tập MMDS kiểm những sản phẩm này. Việc triển khai thuật toán chuyên biệt thuộc các bài sau.
-
-![Bài01 là nền chung cho năm nhóm bài liền nhau: phân tán và xếp hạng; tương đồng và tìm gần; dòng và cửa sổ; nén; lưu trữ và truy vấn](img/lec-01/ban-do-hoc-phan.svg)
-
-Bảng dưới đây là danh mục của học phần, theo thứ tự đề xuất của đề cương. Bài 01 chỉ định vị vai trò và thuộc tính cần đánh giá; cơ chế, chứng minh và cài đặt thuộc bài tương ứng.
+Năm nhóm được học liền nhau theo thứ tự dưới đây. Mỗi bài gắn phương pháp với một đầu ra và các thuộc tính cần đánh giá.
 
 | Bài | Phương pháp và cấu trúc sẽ học | Ứng dụng và thuộc tính cần đánh giá |
 |---:|---|---|
@@ -309,11 +321,13 @@ Bảng dưới đây là danh mục của học phần, theo thứ tự đề xu
 | 14 | Chỉ mục đảo, R-tree, kd-tree, ball tree, Z-order | Từ khóa và không gian; cắt nhánh, độ đầy đủ của lọc và tinh lọc |
 | 15 | Nối vòng lặp theo bản ghi/khối/chỉ mục; nối sắp xếp–trộn; nối băm và Grace Hash | Kết nối bảng; đúng mọi cặp khớp, ngân sách bộ nhớ, lệch phân hoạch, đọc/ghi |
 
-MapReduce là mô hình xử lý; Jaccard là độ đo; chỉ mục là cấu trúc dữ liệu. Spark và Faiss là phần mềm hỗ trợ khi bài tương ứng sử dụng, không được gộp tất cả các tên thành “thuật toán”. HNSW, HITS, AMS và DGIM được giữ như tên phương pháp; IVF-PQ kết hợp chỉ mục phân vùng với mã lượng tử hóa tích.
+MapReduce là mô hình xử lý; Jaccard là độ đo; chỉ mục là cấu trúc dữ liệu. Spark và Faiss là phần mềm hỗ trợ khi bài tương ứng sử dụng, có vai trò khác với các thuật toán và cấu trúc dữ liệu. IVF-PQ kết hợp chỉ mục phân vùng với mã lượng tử hóa tích.
 
 Năm nhóm theo thứ tự học là Bài 02–04, 05–07, 08–09, 10–11 và 12–15. Tiên quyết có các nhánh: Bài 01 đến 02–03–04; đến 05–06–07; đến 08–09; đến 10–11; đến 12–13–14. Bài 12–13 hỗ trợ Bài 15; Bài 02 hỗ trợ cách tính phân tán khi cần. Nhóm sau không mặc nhiên cần toàn bộ nhóm trước.
 
 ## Kiến thức, kỹ năng và cách học
+
+Mỗi nhóm phương pháp sử dụng một phần kiến thức nền: đồ thị cho xếp hạng, xác suất cho lấy mẫu, cây và khối dữ liệu cho chỉ mục. Việc chuẩn bị theo từng nhóm giúp xác định phần cần ôn trước khi học.
 
 ### Kiến thức đầu vào và phần cần ôn
 
@@ -339,15 +353,11 @@ Nền thực hành gồm Python hoặc C++, đọc tài liệu chuyên ngành ti
 
 Đọc trước và ghi lại điểm chưa hiểu để tự học có mục tiêu. Khi phản biện, chỉ rõ giả thiết hoặc bước suy luận cần kiểm. Khi làm nhóm, ghi nguồn và đóng góp của từng thành viên. Báo cáo cả sai số, hạn chế và kết quả không như dự kiến.
 
-Trách nhiệm dữ liệu gồm cách thu thập, xử lý, sử dụng và chia sẻ phù hợp quy định áp dụng. Tránh gán ý định cho con người từ một mẫu trùng trong dữ liệu. Đây là hành vi học tập theo CLO4, không phải một chính sách đánh giá mới.
-
-### Chuẩn bị Bài 02
-
-Đọc MMDS Chương 2 theo tài liệu Bài 02. Ôn ánh xạ khóa–giá trị, phép nhóm và tính kết hợp, giao hoán của phép cộng. Với tổng số nguyên không tràn, thay cách nhóm hoặc thứ tự cộng giữ nguyên tổng nếu mỗi đóng góp được tính đúng một lần. Bất biến giúp kiểm tra điều kiện ấy.
-
-Bài 01 không đặt thêm bài lập trình hoặc phần mềm bắt buộc. Phần thực hành theo đúng bài và tài liệu đã chỉ định. Một chương trình tính đúng theo mô hình vẫn cần được kiểm tra về ý nghĩa suy luận từ dữ liệu; phần sau dùng mẫu trùng để làm rõ giới hạn đó.
+Trách nhiệm dữ liệu gồm cách thu thập, xử lý, sử dụng và chia sẻ phù hợp quy định áp dụng. Tránh gán ý định cho con người từ một mẫu trùng trong dữ liệu.
 
 ## Mô hình ngẫu nhiên và giới hạn suy luận
+
+Trách nhiệm khi phân tích dữ liệu còn nằm ở cách diễn giải đầu ra. Liệt kê đúng mọi mẫu trùng chưa cho biết những trùng hợp ấy có bất thường hay có thể xuất hiện ngẫu nhiên. Hồ sơ lưu trú cho phép tính cụ thể mức trùng dưới một mô hình nền.
 
 ### Mô hình hồ sơ lưu trú
 
@@ -400,9 +410,15 @@ Một thuật toán liệt kê đúng các mẫu trùng chỉ đáp ứng đặc
 
 Tự kiểm tra: giải thích nơi dùng độc lập và nơi chỉ dùng tuyến tính kỳ vọng. Nếu một cặp người trùng trên ba ngày, họ đóng góp bao nhiêu biến cố cặp ngày vào $X$?
 
+## Từ lời giải một máy đến Bài 02
+
+Với tổng byte, đặc tả vẫn yêu cầu đúng tập khóa và đúng tổng. Nếu bảng tổng không vừa bộ nhớ, cần thay cách tổ chức trạng thái và truy cập, rồi phân tích lại chi phí đọc/ghi hoặc truyền thông. Bài 02 học cách gom các đóng góp theo khóa trên nhiều máy; các bài về lưu trữ xét phương án ngoài bộ nhớ.
+
+Để chuẩn bị Bài 02, đọc MMDS Chương 2; ôn ánh xạ khóa–giá trị, phép nhóm và tính kết hợp, giao hoán của phép cộng. Với tổng số nguyên không tràn, đổi cách nhóm hoặc thứ tự cộng giữ nguyên tổng nếu mỗi đóng góp được tính đúng một lần. Bất biến giúp kiểm tra điều kiện ấy.
+
 ## Bài tập từ MMDS
 
-Hai bài sau lấy trực tiếp từ MMDS, mục 1.2.4, trang 8. Giữ dữ kiện và yêu cầu toán học, dịch và chia bước để dựng mô hình, tính, rồi diễn giải. Gợi ý và lời giải có thể mở riêng.
+Hai bài từ MMDS, mục 1.2.4, trang 8 dùng lại cách đếm cặp và tính kỳ vọng của hồ sơ lưu trú: thay quy mô quan sát, thay tiêu chuẩn trùng, rồi xét tập mặt hàng. Mỗi lời giải cần nêu đơn vị đếm, giả thiết và giới hạn kết luận.
 
 ### Bài 1.2.1: thay đổi quy mô quan sát
 
@@ -448,7 +464,7 @@ $$
 =249\,749{,}999875125\approx249\,750.
 $$
 
-Số cặp người gần gấp 4, còn xác suất trùng trong hai ngày giảm đúng 4 lần. Kỳ vọng gần như không đổi; xấp xỉ của sách cho khoảng $250\,000$. Không nói tổ hợp chính xác cho giá trị hoàn toàn bằng cơ sở.
+Số cặp người gần gấp 4, còn xác suất trùng trong hai ngày giảm đúng 4 lần. Kỳ vọng gần như không đổi; xấp xỉ của sách cho khoảng $250\,000$. Giá trị dùng tổ hợp không hoàn toàn bằng cơ sở.
 
 **(c)** Giữ quy mô gốc, chọn bộ ba ngày:
 
@@ -498,14 +514,14 @@ Tuy nhiên, xác suất có điều kiện một cặp là khủng bố sau khi 
 
 ## Đọc thêm và tài liệu nguồn
 
-Các chủ đề cao chiều và hai cách nhìn mô hình trong bản trước được chuyển khỏi tuyến chính. Đọc MMDS mục 1.1 để phân biệt mô hình thống kê với bản tóm tắt phục vụ truy vấn; đọc BHK Chương 1–2 để tìm hiểu dữ liệu cao chiều. Không dùng những chủ đề đọc thêm này làm điều kiện hoàn thành Bài 01.
+MMDS mục 1.1 phân biệt mô hình thống kê với bản tóm tắt phục vụ truy vấn. BHK Chương 1–2 trình bày nền tảng về dữ liệu cao chiều.
 
 - **Đề cương học phần:** nguồn xác định mã UET.DSE2053, chuẩn đầu ra, tiên quyết và thứ tự 15 bài; xem [chỉ mục học phần](index.html).
 - **Mining of Massive Datasets, ấn bản 3:** Chương 1 cho chi phí và hai bài tập; Chương 2, 5, 3, 4 cho phân tán, xếp hạng, tương đồng và dòng. Nội dung và các sơ đồ tương ứng được biên soạn lại theo sách cùng slide chính thức. Ghi công tác giả tại [MMDS](http://www.mmds.org).
-- **Stanford CS246:** bài mở đầu trang chiếu 62 cho tổng byte; 03-lsh trang 14 cho quy mô so cặp. Các phần MMDS tương đương được ưu tiên; tình huống tổng byte dùng Stanford vì đặc tả đầu ra trực tiếp phù hợp ví dụ xuyên suốt.
+- **Stanford CS246:** bài mở đầu trang chiếu 62 cho tổng byte; 03-lsh trang 14 cho quy mô so cặp.
 - **Blum–Hopcroft–Kannan, Foundations of Data Science:** Chương 1–2, đặc biệt trang PDF 9–12, cho giới hạn mô hình bộ nhớ và định hướng đọc thêm.
 - **BIODS 271 và Princeton COS 597A:** các trang đã dẫn trong ứng dụng véc-tơ; tài liệu và bài báo HNSW/PQ theo Bài 07 dùng để học cơ chế chi tiết.
 - **Nelson–Gailly, The Data Compression Book:** Chương 3–5, 8–9, 11; slide CMU LZ và lossy theo Bài 10–11.
 - **Database System Concepts, ấn bản 7:** slide Chương 14–15, 24 và nội dung Chương 31 theo Bài 12–15. UMass CS514 Lecture 10 bổ sung Count-Min trong Bài 09.
 
-Các dẫn trang trong từng ứng dụng cho biết phần nguồn được dùng; hình là sơ đồ được vẽ lại, không phải biểu đồ đo hiệu năng. [Quay về bộ trang chiếu](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html).
+[Quay về bộ trang chiếu](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html).
