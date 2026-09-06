@@ -58,7 +58,7 @@ Reviewer toán58919 xác nhận hai nhánh chạy tay, đặc tả, giả mã, b
 
 Codex Slides: dự án20260827112432-b-i-1-b-i-to-n-d-li-u-l-n-v-m-h-nh-thu-t-8tlj vẫn draft/0slide của bản cũ, không có mặt Browser phù hợp để xác minh deck hiện hành. Đã thông báo và dùng kiểm RevealJS cục bộ theo ngoại lệ AGENTS.md; không tuyên bố đã rà hoặc đồng bộ qua Codex Slides. Bằng chứng ảnh/PDF/JSON ở thư mục tạm /tmp/er003.9rFlP5/verification, không đưa vào Git.
 
-Trạng thái: triển khai và kiểm định đạt; chờ commit nội dung và xác nhận origin/main trước khi tick ER-003.
+Trạng thái: hoàn tất. Commit nội dung `5661db9e23f2e75565b27107c85e6a842b940faa` đã push bằng `git push origin main`; `git ls-remote origin refs/heads/main` trả đúng hash. ER-003 được tick sau xác nhận này. Không có thay đổi nội dung học liệu sau lượt kiểm cuối.
 
 ## ER-002 — tổ chức lại phần dòng dữ liệu, lưu trữ và truy vấn, 2026-09-06
 
