@@ -4,7 +4,7 @@ Trạng thái mới nhất: ER-002 bên dưới. Các mục về bản cũ và k
 
 ## ER-002 — tổ chức lại phần dòng dữ liệu, lưu trữ và truy vấn, 2026-09-06
 
-Đã triển khai và kiểm định; chờ commit/push. Sửa 12 trang B và chín SVG, đồng bộ phần ghi chú tương ứng, outline/storyboard/index. Giữ nguyên HTML phần A và từ C01 đến cuối bằng so sánh với HEAD cde84ce. Không sửa CSS, thư viện, bài tập hoặc các bài khác. Các thay đổi AGENTS.md, .gitignore và hạ tầng OpenRouter của người dùng không thuộc commit.
+Đã triển khai, kiểm định và push commit nội dung `961a5d2b94cdd8b4fb2953b3c9f2ea62f44798f9`; git ls-remote xác nhận đúng hash trên origin/main. Sửa 12 trang B và chín SVG, đồng bộ phần ghi chú tương ứng, outline/storyboard/index. Giữ nguyên HTML phần A và từ C01 đến cuối bằng so sánh với HEAD cde84ce. Không sửa CSS, thư viện, bài tập hoặc các bài khác. Các thay đổi AGENTS.md, .gitignore và hạ tầng OpenRouter của người dùng không thuộc commit.
 
 ### Nguồn, kế hoạch và triển khai
 
