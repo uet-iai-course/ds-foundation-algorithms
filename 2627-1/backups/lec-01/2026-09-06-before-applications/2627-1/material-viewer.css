@@ -370,17 +370,6 @@
     padding: 0;
   }
 
-  /* Bài 01: co SVG vừa giấy thay cho chiều rộng cuộn trên màn hình. */
-  .markdown-body p:has(> img[src^="img/lec-01/"]) {
-    overflow: visible;
-  }
-
-  .markdown-body img[src^="img/lec-01/"] {
-    min-width: 0;
-    max-width: 100%;
-    height: auto;
-  }
-
   .material-block,
   table,
   figure {

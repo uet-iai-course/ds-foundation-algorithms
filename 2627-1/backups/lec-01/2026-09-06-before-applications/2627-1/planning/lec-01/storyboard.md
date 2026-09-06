@@ -1,8 +1,8 @@
 # Storyboard Bài 1
 
-## Bản triển khai theo kế hoạch ngày 2026-09-06
+## Kế hoạch thay thế ngày 2026-09-06
 
-Tuyến mới: ứng dụng cụ thể → giới hạn cần xử lý → đặc tả và thuộc tính giải thuật → nội dung học phần → sự chuẩn bị của sinh viên → giới hạn suy luận và bài tập. HTML và ghi chú đã theo tuyến này và đạt kiểm định; nhật ký ghi bằng chứng cùng giới hạn công cụ.
+Tuyến mới: ứng dụng cụ thể → giới hạn cần xử lý → đặc tả và thuộc tính giải thuật → nội dung học phần → sự chuẩn bị của sinh viên → giới hạn suy luận và bài tập. Đây là đặc tả triển khai, chưa phải mô tả HTML công khai hiện tại.
 
 Dự kiến 39 trang giảng, 120 phút; sáu trang bài tập kể cả trang chuyển phần, 60 phút. Bảy phần ngoài A, B, C, D, E, F, R. Không dành một phần riêng để mở mục lục trước ví dụ; A01 đồng thời mang tên bài ở phần nhận diện và đặt ngay bài toán tổng byte.
 
@@ -41,7 +41,7 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-A06 | Tìm tài liệu gần trùng | Một triệu tài liệu sinh $499\,999\,500\,000$ cặp; cần biểu diễn gọn và chọn ứng viên | V06 | 4 | Tìm cặp khác với tìm quanh một truy vấn |
 | L01-A07 | Truy hồi theo véc-tơ | Véc-tơ truy vấn → các mục gần; nêu độ thu hồi, độ trễ, bộ nhớ và chi phí tạo chỉ mục | V07 | 3 | Truy vấn còn đến liên tục |
 | L01-B01 | Lấy mẫu và lọc dòng truy vấn | Giữ mẫu hoặc loại phần tử trước phép tra cứu đắt; không lưu hết dòng | V08 | 3 | Mẫu chưa trả lời mọi thống kê |
-| L01-B02 | Thống kê trên dòng và cửa sổ | Phân biệt số khóa, tần suất, mômen tần suất và số sự kiện gần đây; đầu ra quyết định trạng thái | V09 | 4 | Dữ liệu cần giữ lại còn chiếm dung lượng |
+| L01-B02 | Thống kê trên dòng và cửa sổ | Phân biệt số khóa, tần suất, độ lệch và số sự kiện gần đây; đầu ra quyết định trạng thái | V09 | 4 | Dữ liệu cần giữ lại còn chiếm dung lượng |
 | L01-B03 | Lưu văn bản và khôi phục đúng | Chuỗi đầu vào phải được khôi phục nguyên vẹn; khai thác phân phối và mẫu lặp | V10 | 3 | Dữ liệu ảnh có thể có đặc tả khác |
 | L01-B04 | Nén ảnh theo yêu cầu khôi phục | Lượng tử hóa có thể mất thông tin; phải chốt chất lượng cần giữ | V11 | 2 | Dữ liệu đã lưu vẫn cần tổ chức để xử lý |
 | L01-B05 | Sắp xếp tệp vượt bộ nhớ | Tệp không vừa RAM; tạo dãy và trộn bằng bộ đệm, chi phí nằm ở lượt đọc/ghi | V12 | 3 | Tệp có thứ tự hỗ trợ truy cập chọn lọc |
@@ -57,7 +57,7 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-C06 | Một lượt quét và bộ nhớ theo số khóa | $O(h)$ trạng thái; $O(n)$ kỳ vọng với bảng băm; $T_{\rm quét}\ge D/v$; hỏi trường hợp bảng tổng không vừa bộ nhớ | MMDS tr.13; BHK PDF 10; V01 | 3 | Các tác vụ truy vấn còn có chi phí khác |
 | L01-C07 | Độ trễ, xây dựng và cập nhật | Dùng lại V07/V08/V13: chi phí xử lý toàn bộ, một truy vấn, một cập nhật và xây chỉ mục khác nhau | Các bài 07, 08, 13 | 3 | Nêu cả đầu ra được bảo đảm |
 | L01-C08 | Điều kiện đúng và chất lượng kết quả | So sánh khôi phục đúng V10; ứng viên V06; độ thu hồi V07; lọc V08; hỏi bảo đảm phải giữ trong từng trường hợp | Các nguồn V06–V11/V15 | 4 | Từ yêu cầu tới nội dung học phần |
-| L01-D01 | Học phần và kết quả cần đạt | Tên, mã, 3 tín chỉ; CLO học phần và ba sản phẩm Bài 01: đặc tả/bất biến, phân tích giới hạn/bảo đảm, kỳ vọng/giới hạn kết luận | source.md phần I–II; mục tiêu trong outline | 3 | Xem cách tổ chức để đạt các kết quả đó |
+| L01-D01 | Học phần và kết quả cần đạt | Tên, mã, 3 tín chỉ; giải thích, phân tích/lựa chọn, thiết kế/triển khai, trách nhiệm dữ liệu | source.md phần I–II | 3 | Xem cách tổ chức để đạt các kết quả đó |
 | L01-D02 | Năm mạch của học phần | Năm nhóm bài liền nhau; mỗi nhóm gắn một ứng dụng đã xem; tách thứ tự học với tiên quyết | source.md phần B; hình H19 | 3 | Mạch phân tán và đồ thị |
 | L01-D03 | Xử lý phân tán và xếp hạng | Bài 02–04: MapReduce, PageRank và các biến thể; ví dụ V02–V05 → thuộc tính trong outline | V02–V05 | 3 | Mạch biểu diễn và tìm tương đồng |
 | L01-D04 | Tương đồng và hàng xóm gần | Bài 05–07: Shingling/MinHash, LSH, HNSW/PQ; nêu đầu ra mỗi bước | V06–V07 | 3 | Mạch trạng thái nhỏ trên dòng |
@@ -93,7 +93,7 @@ Câu kiểm tra trên mặt trang dùng nhãn “Câu hỏi:”. Mã trang, V/H 
 
 ## Đặc tả hình cho mọi ví dụ
 
-Toàn bộ 19 tệp dưới đây đã được dựng trong 2627-1/img/lec-01/. V01/V17/H19 thay hình cùng tên; 16 tệp còn lại được thêm mới. Các tài sản bài khác chỉ làm nguồn tham khảo, không sửa. Hai SVG cũ về giao thoa lĩnh vực và thể tích gần biên được giữ nhưng không còn dùng trong tuyến mới. Bản đồ H19 dùng chung với index nên phải kiểm định cả hai nơi.
+Toàn bộ tệp dưới đây là hình dự kiến trong 2627-1/img/lec-01/. Chưa có hình mới nào được vẽ trong lần lập kế hoạch này. V01/V17 có thể sửa từ SVG Bài 01; các tài sản bài khác chỉ là tham khảo để vẽ lại trong thư mục bài đang làm. Không sửa bản đồ hiện dùng bởi index khi chưa triển khai.
 
 Bố cục chung: một hình chính khoảng hai phần ba chiều rộng, bên cạnh là ba nhãn “Dữ liệu”, “Kết quả”, “Giới hạn”; chuyển điều kiện dài sang ghi chú. Hình định tính phải được gọi là sơ đồ; số liệu mô hình không được vẽ như kết quả đo. Mỗi SVG cần role="img", title/desc, văn bản thay thế cụ thể, nhãn tiếng Việt, dấu/nét/hoa văn hỗ trợ màu. Công thức, bảng và giả mã dùng HTML/KaTeX.
 
@@ -159,27 +159,10 @@ Phần F gồm 3 phút về giả thiết và trách nhiệm, 9 phút dựng mô
 | L01-N07 | cầu nối: giả thiết, kỳ vọng và giới hạn suy luận | F01–F03 | Trách nhiệm → mô hình kiểm chứng |
 | L01-N08 | cốt lõi: tự kiểm và hai bài tập có gợi ý/lời giải | F04, R01–R05 | Mô hình → sản phẩm có thể kiểm tra |
 
-Ánh xạ này đã được áp dụng cho ghi chú. Những chủ đề đọc thêm chỉ được định tuyến ở cuối, không tạo mã mới trong tuyến chính.
+Đây là ánh xạ tác động, chưa phải yêu cầu viết lại ghi chú trong lần này. Những chủ đề đọc thêm không tạo mã mới trong tuyến chính.
 
 ## Điều kiện kiểm định khi triển khai
 
 Kế hoạch được chốt khi đủ 14 bài, 18 ví dụ có đặc tả hình, mỗi trang có vai trò/nguồn/câu nối, thời lượng $22+23+25+20+15+15=120$ và $10+15+10+10+15=60$. Kiểm tra số trang 39+6=45, bảy phần ngoài, các mã duy nhất. R00 được tính trong 45 trang nhưng chỉ chuyển phần, không tính vào 60 phút làm bài của R01–R05.
 
-Rà lại toàn bộ bài vì mở bài và luận điểm đã đổi. Kiểm thử RevealJS/ghi chú/SVG ở 1280×720, màn hình hẹp, bàn phím và bản in; nguồn, hình, KaTeX và tài nguyên cục bộ; rà năm góc nhìn độc lập và xử lý lỗi bắt buộc. H19 dùng chung với index phải được kiểm tra tại trang chỉ mục. Kết quả thực thi nằm trong review-log, không suy đạt chỉ từ đặc tả này.
-
-## Khuôn ghi chú và quyết định triển khai
-
-| note-topic-id | Đầu vào → sản phẩm → nối ra | Thành phần áp dụng và phần không áp dụng |
-|---|---|---|
-| L01-N01 | Tệp, tập hợp, đồ thị/véc-tơ → phân biệt bảy đầu ra → thêm nhu cầu dòng/lưu trữ | Vai trò, đặc tả, ví dụ/hình, giới hạn, kiểm tra. Không có giả mã/chứng minh chuyên biệt vì chỉ khảo sát ứng dụng Bài 02–07 |
-| L01-N02 | Các đầu ra đã gặp → phân biệt khôi phục, truy cập, cửa sổ → khung tài nguyên | Định nghĩa trước minh họa, hình và điều kiện. Không có định lý hoặc giả mã mới của Bài 08–15 |
-| L01-N03 | V01, vòng lặp/bảng → đặc tả, vết, bất biến và chi phí → so sánh lời giải | Đầy đủ vai trò, đặc tả, ví dụ, trực giác, mệnh đề, giả mã, chứng minh, biên, chi phí, kiểm tra. Trực quan là trạng thái bảng, không ép hình học |
-| L01-N04 | Lời giải cụ thể → phân biệt năm tầng, chi phí và bảo đảm → đọc chương trình | Bảng so sánh gắn ví dụ; không có định lý/giả mã vì đây là khung phân tích |
-| L01-N05 | Khung đánh giá → tên/vai trò/thuộc tính của 14 bài → chuẩn bị | Bản đồ và bảng 14 bài. Không áp dụng chứng minh/giả mã cho thông tin chương trình |
-| L01-N06 | Bản đồ và nền cá nhân → kế hoạch ôn, sản phẩm, hành vi → trách nhiệm suy luận | Tiên quyết, kỹ năng, tự chẩn đoán, chuẩn bị Bài 02. Không áp dụng định lý/thuật toán |
-| L01-N07 | Tổ hợp, độc lập, kỳ vọng → biến đếm/giá trị đúng → bài tập | Vai trò, mô hình, hình, suy diễn và giới hạn. Không có thuật toán/cận triển khai vì chỉ đếm theo mô hình |
-| L01-N08 | Mô hình nền → lời giải hai bài nguồn → giới hạn khi diễn giải | Đề, hình, gợi ý, lời giải và kiểm tra. Lập luận chỉ báo cho xác suất có trùng giữ từ bản cũ, được chứng minh một bước; không thêm thuật toán phát hiện người |
-
-Bố cục ứng dụng được điều chỉnh từ hình hai phần ba chiều rộng sang hình toàn chiều ngang phía trên, ba thẻ dữ liệu/kết quả/giới hạn ở dưới để giữ chữ trong SVG dễ đọc. Mỗi trang vẫn có một luận điểm. H15 giữ vị trí tương đối A/B/Q, chỉ dịch cả nhóm hình khi vẽ lại; không tự thêm hình học thật. H10 giữ đúng chuỗi, không thêm mã hoặc tỷ lệ nén. H19 giữ năm nhóm và tên bài; danh mục phương pháp ở D03–D07 và bảng ghi chú.
-
-Ghi chú diễn giả không đọc mã nội bộ hoặc phút. Thời lượng tổ chức giữ ở bảng từng trang: R01 dựng mô hình10, R02 giải(a,b)15, R03 giải(c)10, R04 dựng giỏ hàng10, R05 hoàn tất/chữa15 phút; R00 chuyển phần không tính. Các lời giải và hướng chấm ở đúng trang bài tập. Không phát sinh mã trình diễn.
+Lần triển khai phải rà lại toàn bộ bài vì mở bài và luận điểm đã đổi. Kiểm thử RevealJS/ghi chú/SVG ở 1280×720, màn hình hẹp, bàn phím và bản in; nguồn, hình, KaTeX và tài nguyên cục bộ; rà năm góc nhìn độc lập và xử lý lỗi bắt buộc. H19 dùng chung với index nên phải kiểm tra cả trang chỉ mục nếu sửa. Chưa thực hiện các kiểm định hiển thị cho kế hoạch chưa dựng.

@@ -2,9 +2,9 @@
 
 ## Trạng thái và yêu cầu ngày 2026-09-06
 
-Đây là đặc tả cho bản triển khai ngày 2026-09-06, đã qua kiểm định nội dung và hiển thị. Yêu cầu: mở bằng ví dụ và ứng dụng từ Bài 02–15, từ đó rút ra nhiều mặt của nhu cầu giải thuật; sau đó giới thiệu học phần, nội dung sẽ học, thuộc tính cần đánh giá và sự chuẩn bị của sinh viên. Mỗi ví dụ có hình trong storyboard và bản công khai.
+Đây là kế hoạch thay thế cho lần triển khai tiếp theo. Yêu cầu: mở bằng ví dụ và ứng dụng từ Bài 02–15, từ đó rút ra nhiều mặt của nhu cầu giải thuật; sau đó giới thiệu học phần, nội dung sẽ học, thuộc tính cần đánh giá và sự chuẩn bị của sinh viên. Mỗi ví dụ có đặc tả hình trong storyboard.
 
-Người dùng đã yêu cầu triển khai cả HTML, ghi chú bài giảng, SVG và chỉ mục, sao lưu bản cũ, rồi commit/push khi kiểm định đạt. HTML hiện có 45 mã trang dưới đây; bản cũ được lưu tại `2627-1/backups/lec-01/2026-09-06-before-applications/`. Giữ số bài, tên bài và đường dẫn theo thứ tự đề xuất của nguồn cấp học phần. Bài 01 ánh xạ buổi gốc 1.
+Phạm vi lần này là ba tệp kế hoạch. HTML, ghi chú bài giảng, SVG và chỉ mục công khai vẫn theo bản đã phát hành; các mã trang mới dưới đây chưa tồn tại trong HTML. Giữ số bài, tên bài và đường dẫn theo thứ tự đề xuất của nguồn cấp học phần. Bài 01 ánh xạ buổi gốc 1.
 
 ## Luận điểm và sản phẩm học tập
 
@@ -128,6 +128,6 @@ Các chủ đề thêm đều lấy từ nguồn và bài đã có; không thêm
 
 ## Hướng đồng bộ ghi chú khi triển khai
 
-Ghi chú đã được viết lại theo tám chủ đề của storyboard: vai trò/đặc tả ứng dụng trước ví dụ, thuật toán quét–cộng dồn, khung chi phí, chương trình, chuẩn bị, giới hạn suy luận và bài tập. Ký hiệu băng thông thống nhất thành $v$. Cao chiều và hai cách nhìn mô hình chỉ còn định tuyến đọc thêm; không giữ lại các mệnh đề cao chiều thiếu giả thiết trong bản cũ. Bản tự học có chứng minh đầy đủ, gợi ý và lời giải gập. Trạng thái kiểm định cuối được cập nhật trong nhật ký.
+Ghi chú hiện có N01–N10 chưa đổi. Lần triển khai sau cần đặt vai trò/đặc tả của từng ứng dụng trước ví dụ theo chu trình tự học, rồi theo cùng thứ tự ứng dụng → nhu cầu → chương trình → chuẩn bị → giới hạn suy luận. Giữ toàn bộ lập luận quét–cộng dồn và lời giải bài tập có nguồn; tách nội dung cao chiều thành đọc thêm. Rà N01–N03, N06–N10, lời mở bài, câu kết, ký hiệu băng thông và mọi dẫn liên kết trang.
 
 Nguồn quy trình: [bản đồ học phần](../../../sources/source.md), [slide tham khảo](../../../sources/reference-slides/README.md). Đặc tả từng trang và từng hình nằm trong [storyboard](storyboard.md); trạng thái rà soát nằm trong [nhật ký](review-log.md).
