@@ -12,8 +12,8 @@
 
 ## Checklist
 
-- [ ] **ER-001** — Yêu cầu: trong section lớn đầu tiên, các ví dụ được đưa ra rất khó hiểu với người mới bắt đầu. Cần nêu rõ bài toán, khó khăn khi dữ liêụ lớn hoặc triển khai phức tạp, trực quan hoá bài toán và vấn đề, hãy chỉnh lại section lớn đầu tiên (section giới thiệu)
-  - Trạng thái: đã triển khai và kiểm định; chờ xác nhận commit/push.
+- [x] **ER-001** — Yêu cầu: trong section lớn đầu tiên, các ví dụ được đưa ra rất khó hiểu với người mới bắt đầu. Cần nêu rõ bài toán, khó khăn khi dữ liêụ lớn hoặc triển khai phức tạp, trực quan hoá bài toán và vấn đề, hãy chỉnh lại section lớn đầu tiên (section giới thiệu)
+  - Trạng thái: hoàn tất; commit nội dung `627d69ee9a214830ee81543faa170b1b50e7e532` đã push và xác nhận bằng `git ls-remote origin refs/heads/main`.
   - Phạm vi: phần ngoài đầu tiên của Bài 01; hình và ghi chú tương ứng; đồng bộ tài liệu kế hoạch, ghi chú tự học và chỉ mục khi cần.
   - Tiêu chí: người mới nhận diện được tình huống, đầu vào, đầu ra, khó khăn và ý nghĩa của hình trên mỗi ví dụ; giữ nguồn, không thêm số liệu thiếu căn cứ.
   - Kết quả: sửa chín slide mở đầu, bỏ hai slide nối lặp; vẽ lại bảy SVG; đồng bộ ghi chú, ba tệp kế hoạch và index. Giữ nguyên HTML từ B00 đến cuối.

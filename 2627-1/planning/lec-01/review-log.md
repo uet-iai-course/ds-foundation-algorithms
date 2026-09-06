@@ -724,4 +724,4 @@ Reviewer mạch phiên49476 đọc đủ51slide sau sửa A07, xác nhận bảy
 | In |51trang slide,27trang A4 ghi chú;bốn khối gợi ý/lời giải mở khi in;đã xem sáu trang đầu bản in ghi chú |
 | Git |Chỉ đầu ra Bài01 vàedit_request.md;giữ thay đổi người dùng ởAGENTS.md,.gitignore,.codex,codex-orchestrator,openrouter-mcp |
 
-Thời lượng là thiết kế học liệu, không phải số đo diễn tập. Nội dung sẵn sàng xuất bản bằng commit/push thường lên origin/main; chỉ tick checklist sau xác nhận push thành công.
+Thời lượng là thiết kế học liệu, không phải số đo diễn tập. Nội dung đã xuất bản bằng commit `627d69ee9a214830ee81543faa170b1b50e7e532`, push thường lên origin/main; `git ls-remote` xác nhận đúng mã commit từ xa. ER-001 được tick sau xác nhận này. Bản cập nhật checklist/nhật ký không đổi học liệu đã kiểm định.
