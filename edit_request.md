@@ -47,6 +47,7 @@
     - Hoàn tất11trang D,4SVG, đồng bộ ghi chú và kế hoạch; Chromium rộng/hẹp, viewer, PDF63trang, sáu báo cáo và rà mạch lại đạt. Commit `9ca7a455a9738a170a28906a8216a4d36458ed04` đã push, xác nhận bằng `git ls-remote origin refs/heads/main`.
   - [x] E — Kiến thức, kỹ năng và cách học: nền cần ôn → vận dụng → sản phẩm → trách nhiệm.
     - Hoàn tất6trang E,1SVGmới, ghi chú và kế hoạch; sáu báo cáo/rà lại, Chromium rộng/hẹp, viewer và PDF66trang đạt. Commit `b2ab434932e073702fdc7a4981aff3a07d5dc19a` đã push và xác nhận trên origin/main.
-  - [ ] F — Mô hình ngẫu nhiên và giới hạn suy luận: bài toán lưu trú → mô hình → xác suất → kỳ vọng → diễn giải.
+  - [x] F — Mô hình ngẫu nhiên và giới hạn suy luận: bài toán lưu trú → mô hình → xác suất → kỳ vọng → diễn giải.
+    - Hoàn tất9trang F,2SVGmới; sáu báo cáo, rà lại toán/mạch toàn bài và Chromium rộng/hẹp, viewer, PDF70trang đạt. Commit `ea364a09a64718cdbdd309eb88111d9495c4719a` đã push và xác nhận trên origin/main.
   - [ ] R — Bài tập về phép đếm và suy luận: mô hình gốc → thay quy mô → đổi tiêu chuẩn → tập mặt hàng.
   - Trạng thái: đang lập kế hoạch; kiểm tra, commit/push riêng từng phần trước khi đánh dấu hoàn tất.
