@@ -19,6 +19,10 @@ Dẫn nguồn MMDS và Stanford tương đương về mô hình và nhu cầu; �
 
 Theo quill: rà thứ tự khái niệm, đầu vào/đầu ra từng phần và hai trang lân cận; F thay kết luận nên rà toàn bài. Theo no-ai-slop: bỏ lời dành cho người soạn, tiêu đề kể tiến trình và danh sách tên thiếu nghĩa; giữ giả thiết và nguồn. Không tạo quill.json. Mỗi phần qua storyboard, năm reviewer độc lập, writer sửa riêng, kiểm định trình duyệt rồi commit/push. Codex Slides hiện nháp0trang; dùng RevealJS cục bộ theo giới hạn đã báo.
 
+### E — triển khai ER-004
+
+Phần E có6trang/9phút: E00mở phần → E01nền theo nhóm → E05vận dụngtậphợp → E02sản phẩm → E06báocáo → E03trách nhiệm. Toàn bài66trang,7phần,120+60phút. N06cốt lõi theo CLO1–CLO4, nối N05→N07; định nghĩa kỹ năng trước ví dụ trong ghi chú; slide lấy lại giao3/hợp8 và recall3/5 đã giải thích. Thêm hoc-tap-san-pham.svg; tái dùng hai hình nguồn, không có số đo mới. Không áp chu trình giải thuật đầy đủ cho thông tin cách học, nhưng có vận dụng và sản phẩm kiểm tra được. Writer8112 soạn mở phần; điều phối giữ ba nhánh, bỏ câu chỉ dẫn người trình bày khỏi draft.
+
 ## ER-003 — lịch sử bản ngày 2026-09-07
 
 Yêu cầu đang xử lý: phần mở “Phân tích thuật toán xử lý dữ liệu lớn”, gồm đặc tả và đánh giá; có kết nối, tổng quan và trang riêng cho từng tiêu chí với khái niệm, ví dụ, hình. Bổ sung của người dùng: bỏ cách gọi “tổng byte” và ví dụ cộng dồn quá đơn giản khỏi phần phân tích.

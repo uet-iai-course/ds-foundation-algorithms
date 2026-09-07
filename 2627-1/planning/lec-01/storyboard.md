@@ -1,5 +1,10 @@
 # Storyboard Bài 1
 
+## Trạng thái hiện hành
+
+ER-004: D đã commit/push; E đang kiểm định. 66trang,7phần; A23/B24/C31/D17/E9/F16=120phút và R60phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
+
+
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
 
 Bốn phần còn lại là D/E/F/R; A–C giữ nguyên. Điều phối đã đọc nguồn cấp học phần, ánh xạ, toàn bộ Stanford01-intro và MMDS1.2 tr.6–8. Reader lập kế hoạch82151 và nguồn67108 hoàn tất: requested_model và observed_model đều z-ai/glm-5.3-flash, provider OpenRouter.
@@ -24,6 +29,10 @@ Theo quill: rà thứ tự khái niệm, đầu vào/đầu ra từng phần và
 D có11trang, thêm D08/D09/D10 để tách xếp hạng, truy vấn véc-tơ và thống kê dòng. Toàn bài hiện63trang (57giảng,6bài tập),7phần; A23/B24/C31/D17/E9/F16=120, R60. Bảng từng trang dưới đây là hiện hành; thống kê ER-003 là lịch sử. Chu trình D rút gọn: bài toán A/B → ý tưởng bằng sơ đồ/ví dụ → thuộc tính cần xét → bài sẽ học. Giả mã/chứng minh chuyên biệt không áp dụng vì thuộc Bài02–15. N05 trong ghi chú mở rộng ý nghĩa các tên trong danh mục và nối N04→N06.
 
 Bốn SVG thêm: chuong-trinh-cap-ung-vien (MMDS3.3–3.4), chuong-trinh-vec-to (Bài07/Princeton8–9), chuong-trinh-mau-loc (MMDS4.2–4.3), chuong-trinh-thong-ke (MMDS4.1,4.4–4.7). Sơ đồ định tính, không có xác suất/số đo mới; D03/D08/D06 dùng lại hình đếm từ/đồ thị/chuỗi gốc; D07 dùng bảng ánh xạ bài toán–cách tổ chức. Giữ dữ kiện, không đổi nguồn bài tập.
+
+### E — triển khai ER-004
+
+Phần E có6trang/9phút: E00mở phần → E01nền theo nhóm → E05vận dụngtậphợp → E02sản phẩm → E06báocáo → E03trách nhiệm. Toàn bài66trang,7phần,120+60phút. N06cốt lõi theo CLO1–CLO4, nối N05→N07; định nghĩa kỹ năng trước ví dụ trong ghi chú; slide lấy lại giao3/hợp8 và recall3/5 đã giải thích. Thêm hoc-tap-san-pham.svg; tái dùng hai hình nguồn, không có số đo mới. Không áp chu trình giải thuật đầy đủ cho thông tin cách học, nhưng có vận dụng và sản phẩm kiểm tra được. Writer8112 soạn mở phần; điều phối giữ ba nhánh, bỏ câu chỉ dẫn người trình bày khỏi draft.
 
 ## ER-003 — lịch sử bản ngày 2026-09-07
 
@@ -134,9 +143,12 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-D10 | Cấu trúc gọn cho thống kê dòng | Tóm tắt truy vấn → khôi phục dữ liệu; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | khôi phục dữ liệu |
 | L01-D06 | Nén theo ký hiệu, mẫu lặp và ảnh | Dung lượng mã → truy cập dữ liệu đã lưu; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | truy cập dữ liệu đã lưu |
 | L01-D07 | Tổ chức dữ liệu để giảm đọc ghi | Các phương pháp → kiến thức và cách học; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | kiến thức và cách học |
-| L01-E01 | Kiến thức cần có và cần ôn | Tiên quyết chính thức và nền xác suất, đồ thị, véc-tơ, CSDL; tự xác định phần cần ôn | source.md phần I; mục tiêu bài 02–15 | 3 | Chuyển kiến thức thành sản phẩm |
-| L01-E02 | Kỹ năng cần rèn | Đặc tả, vết chạy, chứng minh, chi phí, cài đặt và đo; liên hệ CLO1–CLO3 | source.md phần II; V01 | 3 | Sản phẩm cần có nguồn và giả thiết rõ |
-| L01-E03 | Học tập và xử lý dữ liệu có trách nhiệm | Đọc trước, tự học, phản biện, hợp tác, ghi nguồn/đóng góp, báo sai số và hạn chế, trách nhiệm dữ liệu | source.md CLO4 và yêu cầu học phần | 3 | Dùng mẫu trùng để kiểm chứng trách nhiệm suy luận |
+| L01-E00 | Kiến thức, kỹ năng và cách học | Xác định ba nội dung chuẩn bị: kiến thức, kỹ năng và cách học | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | nền cần ôn |
+| L01-E01 | Kiến thức nền dùng ở từng nhóm bài | Gắn mỗi phần kiến thức nền với một công việc trong nhóm bài | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | vận dụng tập hợp |
+| L01-E05 | Tập hợp, Jaccard và điều kiện chọn | Tính giao/hợp và giải điều kiện ngưỡng của cặp Jaccard3/8 | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | sản phẩm thuật toán |
+| L01-E02 | Sản phẩm khi phân tích thuật toán | Phân biệt đặc tả, vết chạy, chứng minh và kiểm thử | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | đo kết quả |
+| L01-E06 | Báo cáo chất lượng và hiệu năng | Đọc độ thu hồi3/5 và nêu điều kiện so hiệu năng | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | báo cáo có trách nhiệm |
+| L01-E03 | Tự học, hợp tác và trách nhiệm dữ liệu | Nêu hành vi tự học/hợp tác và giới hạn suy luận từ độ tương đồng | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | mô hình ngẫu nhiên và suy luận |
 | L01-F01 | Kiểm chứng kết luận từ dữ liệu | Trách nhiệm dữ liệu → liệt kê đúng mẫu trùng chưa đủ kết luận có phối hợp | MMDS 1.2; V05 | 3 | Xem một mô hình trùng ngẫu nhiên |
 | L01-F02 | Mô hình ngẫu nhiên cho hồ sơ lưu trú | $P,T,H,q$; cùng khách sạn từng ngày, có thể khác giữa hai ngày; mô hình độc lập và chọn đều | V17, MMDS 1.2.3 tr.7 | 5 | Đếm phép thử trước khi thay số |
 | L01-F03 | Kỳ vọng số biến cố trùng | Chỉ báo cho cặp người–cặp ngày; cộng kỳ vọng; phân biệt xấp xỉ 250.000 với kết quả tổ hợp xấp xỉ 249.750 | V17; MMDS tr.7–8 | 4 | Áp lại cả khung tính toán lẫn giả thiết |

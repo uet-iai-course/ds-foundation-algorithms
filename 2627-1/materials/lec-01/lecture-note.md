@@ -467,33 +467,51 @@ Các mô tả trên dùng để nhận diện vai trò của phương pháp. Đi
 
 ## Kiến thức, kỹ năng và cách học
 
-Mỗi nhóm phương pháp sử dụng một phần kiến thức nền: đồ thị cho xếp hạng, xác suất cho lấy mẫu, cây và khối dữ liệu cho chỉ mục. Việc chuẩn bị theo từng nhóm giúp xác định phần cần ôn trước khi học.
+Năm nhóm thuật toán dùng các phần kiến thức nền khác nhau. Việc chuẩn bị gồm xác định nội dung cần ôn, vận dụng nó vào một bài toán và tạo sản phẩm có thể kiểm tra. Đề cương yêu cầu cả tự học, hợp tác và trách nhiệm dữ liệu; những năng lực này thể hiện trong cách trình bày lời giải và báo cáo.
 
 ### Kiến thức đầu vào và phần cần ôn
 
-Tiên quyết chính thức là UET.CS1058. Sinh viên cần lập trình, đọc giả mã, dùng cấu trúc dữ liệu và phân tích độ phức tạp. Nền cơ sở dữ liệu, xác suất, toán rời rạc và đại số tuyến tính được dùng theo mạch.
+Tiên quyết chính thức là UET.CS1058. Nền chung gồm lập trình, đọc giả mã, dùng cấu trúc dữ liệu và phân tích độ phức tạp. Toán rời rạc, xác suất, đại số tuyến tính và cơ sở dữ liệu được ôn theo nhóm bài.
 
-| Mạch | Phần nền cần huy động |
+| Nhóm bài | Kiến thức và cách dùng |
 |---|---|
-| Phân tán và xếp hạng | Khóa–giá trị, tính kết hợp; đồ thị, ma trận, xác suất |
-| Tương đồng và hàng xóm gần | Tập hợp, băm, véc-tơ, khoảng cách, xác suất |
-| Dòng và cửa sổ | Biến ngẫu nhiên, kỳ vọng, xác suất, trạng thái cập nhật |
-| Nén | Phân phối ký hiệu, cây, chuỗi, từ điển; biến đổi cho ảnh |
-| Lưu trữ và truy vấn | Bản ghi, khối, cây chỉ mục và phép nối quan hệ |
+| Phân tán và xếp hạng | Khóa–giá trị để gom đóng góp; đồ thị và ma trận để truyền điểm |
+| Tương đồng và tìm gần | Tập hợp để tính Jaccard; véc-tơ và khoảng cách để tìm đoạn tài liệu gần truy vấn |
+| Dòng dữ liệu | Xác suất để lấy mẫu; kỳ vọng để phân tích thống kê |
+| Nén | Cây và phân phối ký hiệu để tạo mã; chuỗi và từ điển để biểu diễn đoạn lặp |
+| Lưu trữ và truy vấn | Bản ghi, khối, cây và băm để tổ chức nơi cần đọc |
 
-Không yêu cầu biết sẵn MapReduce, PageRank hoặc HNSW. Để tự đối chiếu nền chung, tính Jaccard khi giao có ba phần tử và hợp có tám phần tử, rồi giải thích phép nhân xác suất của hai biến cố độc lập. Kết quả thứ nhất là $3/8$; với độc lập, xác suất đồng thời là tích hai xác suất. Nếu chưa giải thích được, ôn tập hợp hoặc xác suất trước mạch liên quan.
+Không yêu cầu biết sẵn các thuật toán sẽ học. Chẳng hạn, để hiểu điều kiện chọn cặp gần trùng, trước hết cần giải thích phép đếm giao và hợp của hai tập.
+
+![Hai tập đoạn ký tự có phần giao gồm ba phần tử, phần hợp gồm tám phần tử](img/lec-01/danh-gia-jaccard.svg)
+
+Với hai tập không rỗng $S,T$ của ví dụ MMDS3.1, $|S\cap T|=3$, $|S\cup T|=8$, nên $J(S,T)=3/8$. Giao đếm các đoạn có trong cả hai tài liệu; hợp đếm mỗi đoạn xuất hiện ở ít nhất một tài liệu đúng một lần. Điều kiện chọn là $J(S,T)\ge\tau$, nên cặp này được chọn khi $\tau\le3/8$. Nếu chưa lý giải được hai phép đếm, phần cần ôn là tập hợp, chưa phải cơ chế MinHash.
 
 ### Kỹ năng cần tạo thành sản phẩm
 
-Giải thích một phương pháp phải nêu được đặc tả, cơ chế và giả thiết. Phân tích lựa chọn phải chỉ ra tài nguyên trội và bảo đảm cần giữ. Khi thiết kế và triển khai, cần có vết chạy nhỏ, luận điểm chứng minh, trường hợp biên và bảng chi phí.
+Đặc tả nêu miền đầu vào, kết quả và bảo đảm. Chạy tay theo dõi trạng thái ở một đầu vào cụ thể. Chứng minh giải thích đúng và đủ cho mọi đầu vào hợp lệ. Phân tích chi phí xác định phép toán, dữ liệu phải giữ hoặc khối cần đọc trong mô hình đã chọn.
 
-Nền thực hành gồm Python hoặc C++, đọc tài liệu chuyên ngành tiếng Anh và làm việc với giả mã. Báo cáo thử nghiệm cần ghi dữ liệu, tham số, môi trường, kết quả hiệu suất và chất lượng đầu ra để người khác kiểm tra lại. Các yêu cầu này cụ thể hóa CLO1–CLO3; không biến một kết quả đo thành định lý.
+![Đặc tả cặp đạt ngưỡng dẫn tới vết chạy và lập luận, sau đó kiểm mã và phân tích chi phí](img/lec-01/hoc-tap-san-pham.svg)
 
-### Thái độ thể hiện trong cách làm việc
+Với $N=2$, $C_1=S$, $C_2=T$, thuật toán xét mọi cặp chỉ thăm $(1,2)$ một lần. Trạng thái kết quả ban đầu là $R=\varnothing$; nếu $3/8\ge\tau$ thì thêm $(1,2)$, nếu không thì giữ rỗng. Vết này giúp đối chiếu giả mã với đặc tả. Để kết luận cho mọi $N$, vẫn cần bất biến trên các cặp đã xét như ở phần phân tích. Kiểm thử còn cần $N<2$ và các ngưỡng biên hợp lệ. Trường hợp $J=\tau$ phải được chọn vì đặc tả dùng dấu $\ge$.
 
-Đọc trước và ghi lại điểm chưa hiểu để tự học có mục tiêu. Khi phản biện, chỉ rõ giả thiết hoặc bước suy luận cần kiểm. Khi làm nhóm, ghi nguồn và đóng góp của từng thành viên. Báo cáo cả sai số, hạn chế và kết quả không như dự kiến.
+Nền thực hành gồm Python hoặc C++, đọc tài liệu chuyên ngành tiếng Anh và làm việc với giả mã. Mã chạy đúng trên một ví dụ chưa thay thế chứng minh; một lần chạy nhanh chưa chứng minh cận tiệm cận. Các sản phẩm này cụ thể hóa CLO1–CLO3.
 
-Trách nhiệm dữ liệu gồm cách thu thập, xử lý, sử dụng và chia sẻ phù hợp quy định áp dụng. Tránh gán ý định cho con người từ một mẫu trùng trong dữ liệu.
+### Báo cáo chất lượng và hiệu năng
+
+Ở ví dụ truy vấn véc-tơ, chuẩn đúng là $\{a,b,c,d,e\}$ còn kết quả trả về là $\{c,d,e,f,g\}$. Giao gồm ba phần tử, nên độ thu hồi tại 5 là $3/5$. Đây là ví dụ khác với hai tập đoạn ký tự dùng tính Jaccard.
+
+![Chuẩn đúng và tập hàng xóm trả về đều có năm phần tử, giao ba phần tử nên độ thu hồi bằng ba phần năm](img/lec-01/danh-gia-do-thu-hoi.svg)
+
+Một báo cáo thực nghiệm phải nêu dữ liệu, tập truy vấn, chuẩn đúng, tham số, thiết bị và cách đo. Độ thu hồi cần đi cùng độ trễ và bộ nhớ khi so các cách tìm gần. Ví dụ $3/5$ minh họa cách đọc kết quả, không phải số đo hiệu năng của hệ thống nào. Phương pháp có độ trễ nhỏ hơn nhưng bỏ sót nhiều hơn chưa thể được coi là phù hợp hơn nếu chưa nêu yêu cầu chất lượng. Nguồn: Bài07 và CLO3.
+
+### Tự học, hợp tác và trách nhiệm
+
+Tự học bắt đầu từ điểm chưa giải thích được. Ví dụ, khi đọc quy trình chọn ứng viên, cần nêu được vì sao hậu kiểm không cứu cặp đạt ngưỡng nhưng không được chọn: cặp đó không xuất hiện trong đầu vào của bước hậu kiểm. Một phản ví dụ như vậy cụ thể hơn việc chỉ ghi chưa hiểu bộ lọc.
+
+Khi làm nhóm, ghi nguồn thuật toán, dữ liệu và phần đóng góp của từng người. Báo cáo cả trường hợp bỏ sót, sai số và kết quả không như dự kiến; chỉ chia sẻ dữ liệu được phép dùng trong bài học. Những hành vi này thực hiện chuẩn đầu ra CLO4 về tự học, phản biện, hợp tác và trách nhiệm.
+
+Jaccard chỉ đo độ tương đồng theo biểu diễn đã chọn. Tìm đúng cặp đạt ngưỡng chưa đủ chứng minh có hành vi sao chép. Với dữ liệu lớn, nhiều mẫu trùng còn có thể phát sinh ngẫu nhiên; mô hình hồ sơ lưu trú tiếp theo cho một phép tính cụ thể về hiện tượng ấy.
 
 ## Mô hình ngẫu nhiên và giới hạn suy luận
 

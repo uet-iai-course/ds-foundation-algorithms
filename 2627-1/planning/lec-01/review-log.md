@@ -1,5 +1,24 @@
 # Nhật ký rà soát Bài 1
 
+## ER-004 — E, kết quả rà soát
+
+Phần E sửa3trang thành6trang, có E00mở phần, E05vận dụng tập hợp, E06báo cáo thực nghiệm; thêm hoc-tap-san-pham.svg, dùng lại hình Jaccard và độ thu hồi. N06 trong ghi chú viết lại cùng mạch. Writer8112 soạn mở phần; giữ ba nhánh và bỏ chỉ dẫn người trình bày khỏi draft. Toàn bài66trang/7phần/120+60phút, E9phút. HTML ngoài E không đổi.
+
+| Vai / tiến trình | Kết quả, quyết định |
+|---|---|
+| Storyboard82224 | Đúng thứ tự và9phút; thay mô tả sản phẩm lặp bằng sản phẩm riêng cho từng trang. Giữ IDổn định; E04thuộc phầnF |
+| Sinh viên99447 | Xác nhận hai ví dụ tách rõ; các góp ý về dấu đóng/Markdown xen HTML là do gói ghép, không phải học liệu. Con số1/2trong bảng là phút, không phải thứ tự |
+| Giải thuật75567 | Nhận ca J=τ được chọn và giải thích mẫu số độ thu hồi. Bác nhận định cao về F02: q²/H là một ngày, hai ngày là bình phương; công thức nằm F03ngoài trích, không sửa F ở commit E |
+| Toán77999 | Không lỗi toán; nhận sửa khoảng trắng số/ký hiệu trong notes |
+| Sư phạm71707 | Nhận làm rõ sản phẩm E05; giữ tự kiểm hậu kiểm vì C16/D04đã giải thích; không lặp lại toàn cơ chế |
+| Mạch83039 | Xác nhận D→E→F và9phút; bác đảo thứ tự ghi chú vì gói ghép hai sản phẩm, ghi chú thật N06nằm trước N07 |
+| Writer sửa88117 | Viết hai câu ca biên và mẫu số, đã tích hợp vào notes và ghi chú |
+| Rà lại4835 | Xác nhận J=τ, Jaccard3/8 và recall3/5 đúng, mạch theo thứ tự hợp lệ. E04không nằm trong đoạn trích nhưng tồn tại trong outerF của HTML đầy đủ |
+
+Mọi lượt hoàn tất có requested_model=observed_model=z-ai/glm-5.3-flash, provider OpenRouter. Lượt gọi reviewer đầu bị bộ duyệt quyền từ chối vì chưa nhận quyền gửi học liệu; điều phối báo nguyên nhân, đọc xác minh AGENTS.md dòng393, rồi gọi lại cùng kênh với điều khoản cho phép rõ. Được chấp thuận; không đổi kênh, không đọc/gửi .env hoặc bí mật.
+
+Kiểm trực quan phát hiện E05sát chân trang; bỏ khoảng đệm công thức khối, giữ cỡ chữ. Chromium rộng/hẹp toàn66trang, SVG/KaTeX/ảnh/liên kết/bàn phím/viewer/PDF66trang đã kiểm; E05sau sửa không tràn. Quill giữ tuyến kiến thức→vận dụng→sản phẩm→báo cáo→trách nhiệm; no-ai-slop bỏ chỉ dẫn tác giả, sửa câu dính số và thay nhật ký bằng cặp gần trùng. Codex Slides vẫn nháp0trang, kiểm RevealJS cục bộ. Index không đổi vì thông tin và liên kết vẫn đúng.
+
 ### D — kết quả phản biện và kiểm định
 
 | Vai / tiến trình | Kết quả và quyết định của điều phối |
