@@ -2,7 +2,7 @@
 
 ## Trạng thái hiện hành
 
-ER-004: D đã commit/push; E đang kiểm định. 66trang,7phần; A23/B24/C31/D17/E9/F16=120phút và R60phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
+ER-004: D/E đã commit/push; F đang kiểm định. 70trang,7phần; A23/B24/C31/D17/E9/F16=120phút và R60phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
 
 
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
@@ -33,6 +33,10 @@ Bốn SVG thêm: chuong-trinh-cap-ung-vien (MMDS3.3–3.4), chuong-trinh-vec-to 
 ### E — triển khai ER-004
 
 Phần E có6trang/9phút: E00mở phần → E01nền theo nhóm → E05vận dụngtậphợp → E02sản phẩm → E06báocáo → E03trách nhiệm. Toàn bài66trang,7phần,120+60phút. N06cốt lõi theo CLO1–CLO4, nối N05→N07; định nghĩa kỹ năng trước ví dụ trong ghi chú; slide lấy lại giao3/hợp8 và recall3/5 đã giải thích. Thêm hoc-tap-san-pham.svg; tái dùng hai hình nguồn, không có số đo mới. Không áp chu trình giải thuật đầy đủ cho thông tin cách học, nhưng có vận dụng và sản phẩm kiểm tra được. Writer8112 soạn mở phần; điều phối giữ ba nhánh, bỏ câu chỉ dẫn người trình bày khỏi draft.
+
+### F — triển khai ER-004
+
+F9trang/16phút: F00mở → F01bàitoán → F02môhình → F05xácsuất → F06đếm → F03kỳvọng → F07diễngiải → F04thu hồi → E04MapReduce. Toàn bài70trang/7phần/120+60phút. N07cốt lõi: định nghĩa mô hình và biến đếm trước kỳ vọng, ví dụ nguồn dùng xuyên suốt; N08thu hồi chuẩn bịBài02. Hai SVGmới suy-luan-mau-luu-tru và suy-luan-hai-ngay, nguồnMMDS1.2.3tr.7; không có dữ liệu quan sát mới. Gộp bước thuật toán/chi phí triển khai là không áp dụng vì đây là phép đếm mô hình, không thuật toán phát hiện người. F03/F07mỗi3phút cho khái niệm kỳ vọng/giới hạn suy luận. Writer50859soạn mở phần; điều phối giữ3bước, bỏ cách gọi số trùng bình thường vì chỉ tính kỳ vọng.
 
 ## ER-003 — lịch sử bản ngày 2026-09-07
 
@@ -149,11 +153,15 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-E02 | Sản phẩm khi phân tích thuật toán | Phân biệt đặc tả, vết chạy, chứng minh và kiểm thử | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | đo kết quả |
 | L01-E06 | Báo cáo chất lượng và hiệu năng | Đọc độ thu hồi3/5 và nêu điều kiện so hiệu năng | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | báo cáo có trách nhiệm |
 | L01-E03 | Tự học, hợp tác và trách nhiệm dữ liệu | Nêu hành vi tự học/hợp tác và giới hạn suy luận từ độ tương đồng | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | mô hình ngẫu nhiên và suy luận |
-| L01-F01 | Kiểm chứng kết luận từ dữ liệu | Trách nhiệm dữ liệu → liệt kê đúng mẫu trùng chưa đủ kết luận có phối hợp | MMDS 1.2; V05 | 3 | Xem một mô hình trùng ngẫu nhiên |
-| L01-F02 | Mô hình ngẫu nhiên cho hồ sơ lưu trú | $P,T,H,q$; cùng khách sạn từng ngày, có thể khác giữa hai ngày; mô hình độc lập và chọn đều | V17, MMDS 1.2.3 tr.7 | 5 | Đếm phép thử trước khi thay số |
-| L01-F03 | Kỳ vọng số biến cố trùng | Chỉ báo cho cặp người–cặp ngày; cộng kỳ vọng; phân biệt xấp xỉ 250.000 với kết quả tổ hợp xấp xỉ 249.750 | V17; MMDS tr.7–8 | 4 | Áp lại cả khung tính toán lẫn giả thiết |
-| L01-F04 | Khung phân tích một lời giải | Câu hỏi: dùng V06 nêu đầu ra, biểu diễn, giới hạn, bảo đảm và bài sẽ cung cấp phương pháp | V06; source.md | 2 | Đọc và ôn kiến thức cho MapReduce |
-| L01-E04 | Chuẩn bị cho bài MapReduce | Ôn khóa–giá trị, phép nhóm, bất biến; đọc MMDS Ch2; nêu cách dùng slide và ghi chú | source.md Bài 02 | 2 | Bài tập dùng lại mô hình hồ sơ lưu trú và kỳ vọng |
+| L01-F00 | Mô hình ngẫu nhiên và giới hạn suy luận | Trách nhiệm dữ liệu → bài toán lưu trú; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | bài toán lưu trú |
+| L01-F01 | Tìm mẫu trùng trong hồ sơ lưu trú | Mẫu trùng → cách dữ liệu phát sinh; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | cách dữ liệu phát sinh |
+| L01-F02 | Mô hình lưu trú không phối hợp | Giả thiết → xác suất một và hai ngày; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 2 | xác suất một và hai ngày |
+| L01-F05 | Xác suất trùng một ngày và hai ngày | Xác suất một phép thử → số phép thử; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 2 | số phép thử |
+| L01-F06 | Đơn vị đếm và số phép thử | Đơn vị cặp người–cặp ngày → biến đếm X; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 2 | biến đếm X |
+| L01-F03 | Kỳ vọng số biến cố trùng | Kỳ vọng nền → giới hạn diễn giải; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 3 | giới hạn diễn giải |
+| L01-F07 | Mẫu trùng và căn cứ suy luận | Giới hạn suy luận → thu hồi bài toán gần trùng; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 3 | thu hồi bài toán gần trùng |
+| L01-F04 | Đặc tả, chi phí và giới hạn kết luận | Khung toàn bài → chuẩn bị MapReduce; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | chuẩn bị MapReduce |
+| L01-E04 | Chuẩn bị cho Bài 02: MapReduce | Chuẩn bị bài sau → bài tập mô hình lưu trú; giải thích và tính theo mô hình nguồn | MMDS2.2; hình đếm từ | 1 | bài tập mô hình lưu trú |
 | L01-R00 | Bài tập củng cố | Dùng lại mô hình lưu trú để thay quy mô/tiêu chuẩn rồi xét giỏ hàng; không hiện đáp số | MMDS tr.8 | 0 | Dựng ba biến thể |
 | L01-R01 | Ba biến thể của hồ sơ lưu trú | Bài 1.2.1(a–c): đọc đủ đề, dựng mô hình; gợi ý cho người cần bằng thừa số và bảng ký hiệu | V17; MMDS 1.2.1 tr.8 | 10 | Tính a, b |
 | L01-R02 | Thay đổi số ngày và số người | a: 2.000 ngày; b: 2 tỷ người, 200.000 khách sạn; mỗi biến thể độc lập | V17; MMDS 1.2.1(a,b) | 15 | Đổi tiêu chuẩn trùng |
@@ -167,9 +175,9 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 |---|---|---|---|
 | Cặp gần trùng, cốt lõi | A06/C01 đặt bài toán; C02 tập đoạn và trực giác giao–hợp | C02 chạy Ví dụ3.1; C03 đặc tả; C04 giả mã; C06 chứng minh | C05 tổng quan để định vị chứng minh; C07 chi phí; C16 kiểm tra hậu kiểm. Bài01 không giảng cơ chế LSH; đủ chu trình cho thuật toán xét mọi cặp |
 | V02–V16, khảo sát ứng dụng | A02–B09 mỗi trang có đầu vào, đầu ra, cách trực tiếp và giới hạn; hình gợi một hướng xử lý | Không chạy giả mã hay chứng minh chuyên biệt trong Bài 01; D03–D07 định vị nơi sẽ học | C05–C16 nêu phép đo và bảo đảm; F04 kiểm tra lựa chọn. Chu trình rút gọn vì mục tiêu là nhận diện nhu cầu, không làm chủ thuật toán bài sau |
-| V17, mô hình xác suất | F01 đặt nhu cầu kiểm tra kết luận; F02 dựng tình huống và trực giác về nhiều phép thử | F02 nêu giả thiết trước xác suất; F03 định nghĩa biến đếm, cộng kỳ vọng và thay số | R01–R03 thay quy mô; thuật toán/chi phí triển khai không áp dụng vì đây là phép đếm mô hình |
+| V17, mô hình xác suất | F00 mở phần; F01 đặt bài toán và mẫu lưu trú; F02 nêu mô hình nền | F05 tính một/hai ngày; F06 xác định đơn vị và số phép thử; F03 định nghĩa X, kỳ vọng và thay số | F07 giới hạn suy luận; R01–R03 thay quy mô. Thuật toán/chi phí triển khai không áp dụng vì đây là phép đếm mô hình, không thuật toán phát hiện người |
 | V18, bài tập nguồn | R04 giữ đề và giả thuyết, đặt dữ kiện mua hàng | Người học dựng mô hình; R05 chữa và kiểm tra ý nghĩa biến đếm | Không biến thành bài học khai phá tập phổ biến hoặc thuật toán phát hiện con người |
-| D/E, giới thiệu khóa học | Dựa ứng dụng và khung C | Nêu chương trình, tiên quyết và sản phẩm; không thêm định lý | Người học tự đánh giá phần cần ôn; tám bước giải thuật không áp dụng cho thông tin học phần |
+| D/E, giới thiệu khóa học | D00 và E00 mở rõ nội dung; dùng lại bài toán A/B và khung C | D03/D08/D04/D09/D05/D10/D06/D07 giải thích ý tưởng đại diện; E05/E02/E06 vận dụng tập hợp, vết chạy và độ thu hồi | Nhận diện vai trò phương pháp và sản phẩm học; không dạy trước giả mã/chứng minh bài sau. E03 nối trách nhiệm sang F |
 
 Câu kiểm tra trên mặt trang dùng nhãn “Câu hỏi:”. Mã trang, V/H và nhãn quy trình chỉ ở tệp kế hoạch. Chi tiết thời lượng nằm ở storyboard và hướng dẫn tổ chức; lời giảng không đọc các mã nội bộ.
 

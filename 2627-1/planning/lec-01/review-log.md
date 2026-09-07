@@ -1,5 +1,30 @@
 # Nhật ký rà soát Bài 1
 
+## ER-004 — F, phản biện và kiểm định
+
+Rà mạch cuối2520 đã đọc trọn798dòng, xác nhận đúng70slide và các nhómouter, F06trướcF03, câu nốiF04thu hồi gần trùng, E→F→Rliền mạch; không còn lỗi nghiêm trọng/chặn. Runtime requested/observed z-ai/glm-5.3-flash, provider OpenRouter. Fđủ điều kiện commit/push.
+
+Phần F có9trang/16phút (8mãF và E04): mở phần, bài toán lưu trú, mô hình, xác suất, đơn vị đếm, kỳ vọng, giới hạn suy luận, thu hồi khung toàn bài và chuẩn bịMapReduce. Thêm2SVG, cập nhật N07/N08 và kế hoạch. Toàn bài70trang,7phần,120+60phút. D/Eđã push; HTML A–E vàR giữ nguyên trong commitF.
+
+Writer50859soạn mở phần: giữ ba bước, sửa cách gọi mức trùng bình thường thành kỳ vọng dưới mô hình. Rà nguồn MMDS1.2.1–1.2.4tr.6–8, giữ P=10^9,T=1000,H=10^5,q=.01 và khách sạn có thể khác giữa ngày; không dựng hồ sơ quan sát giả.
+
+| Vai / tiến trình | Báo cáo và quyết định |
+|---|---|
+| Storyboard62988 | Đúng16phút/cầu nối; sửa nguồn từng hàng, không gánMMDS2.2cho mọiF. Bác đề xuất chuyển hình sau công thức: hình trực giác chuẩn bị cho phép nhân. Bảng thật cóheader, gói trích không có |
+| Sinh viên37273 | Nhận bổ sung thay số q²=10^-4và công thức kỳ vọng; đưa khác khách sạn giữa ngày lên hình. Không bịa thêm hồ sơ ngày1/ngày5/kháchsạnX; hình ký hiệu là mẫu cụ thể trong mô hình nguồn |
+| Giải thuật54297 | Nhận tách sai khác đơn vị đếm khỏi sai khác do xấp xỉ tổ hợp; thêm theo mô hình nền ở mở phần. Giữ khoảng249750vì đây là giá trị làm tròn và đã định nghĩa kỳ vọng |
+| Toán33146 | Kết luận mô hình đúng nhưng báo cáo tự viết sai số trung gian C(10^9,2), thiếu3số0; điều phối bác số đó, không có trong học liệu. Kiểm số nguyên độc lập rồi giao rà lại91515 |
+| Sư phạm5127 | Nhận diễn đạt tuyến tính kỳ vọng bằng lời. Bác nhận địnhF06sauF03: thứ tựHTMLvàstoryboard đã làF06→F03. Giữ tênBonferroni trongnotes cùng mô tả, không dạy hiệu chỉnh kiểm định |
+| Mạch27025 | Nhận tăng cầu nối F07→F04 bằng mẫu lưu trú rồi gần trùng. Bác đếm68trang/F8: Bcó12trang, E04thuộcF; HTMLthật70trang/F9. Không đổi dữ kiệnE05vì đây là vận dụng ví dụ đã học |
+| Writer sửa97458/26234 | Lượt97458ghi draft nhưng lỗi tool-call limit; đã báo và dừng tích hợp. Lượt26234cùng mô hình hoàn tất; tích hợp thay số, tuyến tính và câu nối, bỏ câu dành cho người soạn |
+| Toán rà lại91515 | Xác nhận đủ các số tổ hợp/tích/kỳ vọng, giả thiết độc lập và đơn vị đếm; không lỗi |
+
+Lỗi OpenRouter đã báo nguyên văn: `model exceeded the tool-call limit (3)` ở writer97458; `model exceeded the tool-call limit (2)` ở reviewer mạch18567. Không đổi kênh/mô hình; chạy lại phạm vi hẹp và cho đọc toàn gói một lượt. Mọi lượt hoàn tất có requested_model=observed_model=z-ai/glm-5.3-flash, providerOpenRouter từJSONruntime.
+
+Điều phối kiểm số nguyên: C(10^9,2)=499999999500000000; C(1000,2)=499500; tích249749999750250000000000, nhân10^-18cho249749.99975025. Xác suất1ngày10^-9và2ngày10^-18; tính tuyến tính không cần mọi phép thử độc lập. Không đồng nhất biến cố với cặp người và không suy xác suất phối hợp từ kỳ vọng.
+
+Chromium rộng/hẹp toàn70trang,7phần,120+60phút; công thức, SVG, bàn phím, viewer và PDF70trang đạt, không tài nguyên hỏng/mạngngoài. Đã xem toànF và phóngF01/F03sau sửa; một cảnh báo đo hộp KaTeX A06đã có từ trước, ảnh không bị cắt. Quill rà toànmạch vì Fthu hồi/kếtluận thay đổi; no-ai-slop bỏ lời soạn thảo, làm rõ phép tính và giữ giả thiết. Codex Slides vẫn nháp0trang; kiểm trên RevealJS cục bộ.
+
 ## ER-004 — E, kết quả rà soát
 
 Phần E sửa3trang thành6trang, có E00mở phần, E05vận dụng tập hợp, E06báo cáo thực nghiệm; thêm hoc-tap-san-pham.svg, dùng lại hình Jaccard và độ thu hồi. N06 trong ghi chú viết lại cùng mạch. Writer8112 soạn mở phần; giữ ba nhánh và bỏ chỉ dẫn người trình bày khỏi draft. Toàn bài66trang/7phần/120+60phút, E9phút. HTML ngoài E không đổi.

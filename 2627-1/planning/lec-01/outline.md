@@ -23,6 +23,10 @@ Theo quill: rà thứ tự khái niệm, đầu vào/đầu ra từng phần và
 
 Phần E có6trang/9phút: E00mở phần → E01nền theo nhóm → E05vận dụngtậphợp → E02sản phẩm → E06báocáo → E03trách nhiệm. Toàn bài66trang,7phần,120+60phút. N06cốt lõi theo CLO1–CLO4, nối N05→N07; định nghĩa kỹ năng trước ví dụ trong ghi chú; slide lấy lại giao3/hợp8 và recall3/5 đã giải thích. Thêm hoc-tap-san-pham.svg; tái dùng hai hình nguồn, không có số đo mới. Không áp chu trình giải thuật đầy đủ cho thông tin cách học, nhưng có vận dụng và sản phẩm kiểm tra được. Writer8112 soạn mở phần; điều phối giữ ba nhánh, bỏ câu chỉ dẫn người trình bày khỏi draft.
 
+### F — triển khai ER-004
+
+F9trang/16phút: F00mở → F01bàitoán → F02môhình → F05xácsuất → F06đếm → F03kỳvọng → F07diễngiải → F04thu hồi → E04MapReduce. Toàn bài70trang/7phần/120+60phút. N07cốt lõi: định nghĩa mô hình và biến đếm trước kỳ vọng, ví dụ nguồn dùng xuyên suốt; N08thu hồi chuẩn bịBài02. Hai SVGmới suy-luan-mau-luu-tru và suy-luan-hai-ngay, nguồnMMDS1.2.3tr.7; không có dữ liệu quan sát mới. Gộp bước thuật toán/chi phí triển khai là không áp dụng vì đây là phép đếm mô hình, không thuật toán phát hiện người. F03/F07mỗi3phút cho khái niệm kỳ vọng/giới hạn suy luận. Writer50859soạn mở phần; điều phối giữ3bước, bỏ cách gọi số trùng bình thường vì chỉ tính kỳ vọng.
+
 ## ER-003 — lịch sử bản ngày 2026-09-07
 
 Yêu cầu đang xử lý: phần mở “Phân tích thuật toán xử lý dữ liệu lớn”, gồm đặc tả và đánh giá; có kết nối, tổng quan và trang riêng cho từng tiêu chí với khái niệm, ví dụ, hình. Bổ sung của người dùng: bỏ cách gọi “tổng byte” và ví dụ cộng dồn quá đơn giản khỏi phần phân tích.

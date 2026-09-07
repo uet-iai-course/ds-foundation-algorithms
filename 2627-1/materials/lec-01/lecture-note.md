@@ -515,37 +515,67 @@ Jaccard chỉ đo độ tương đồng theo biểu diễn đã chọn. Tìm đ�
 
 ## Mô hình ngẫu nhiên và giới hạn suy luận
 
-Trách nhiệm khi phân tích dữ liệu còn nằm ở cách diễn giải đầu ra. Liệt kê đúng mọi mẫu trùng chưa cho biết những trùng hợp ấy có bất thường hay có thể xuất hiện ngẫu nhiên. Hồ sơ lưu trú cho phép tính cụ thể mức trùng dưới một mô hình nền.
+Trách nhiệm khi phân tích dữ liệu còn nằm ở cách diễn giải đầu ra. Liệt kê đúng mọi mẫu trùng chưa cho biết chúng có bất thường hay có thể xuất hiện ngẫu nhiên. Phần này đặt bài toán lưu trú, xác định cách dữ liệu phát sinh, tính xác suất và số trùng trung bình rồi giới hạn kết luận.
 
-### Mô hình hồ sơ lưu trú
+### Bài toán tìm mẫu lưu trú trùng
 
-MMDS mục 1.2.3, trang 7–8 xét việc tìm các cặp có hoạt động phối hợp từ hồ sơ khách sạn. Mô hình nền giả sử không có nhóm như vậy, với:
+MMDS mục 1.2.3, trang 7–8 xét việc tìm dấu hiệu hoạt động phối hợp từ hồ sơ khách sạn. Đầu vào gồm các bản ghi người, ngày và khách sạn. Mẫu tìm kiếm là hai người cùng ở một khách sạn trong hai ngày khác nhau. Khách sạn có thể khác giữa hai ngày; điều kiện trùng được xét trong từng ngày.
+
+![Cặp người u,v trùng khách sạn trong ngày s và ngày t; khách sạn giữa hai ngày có thể khác](img/lec-01/suy-luan-mau-luu-tru.svg)
+
+Hình chỉ ký hiệu một mẫu cần tìm, không tạo hồ sơ quan sát mới. Khó khăn nằm ở số cặp người và bộ ngày rất lớn: một mẫu hiếm trong mỗi phép thử vẫn có thể xuất hiện nhiều khi xét mọi khả năng. Đầu ra tìm kiếm cần được phân biệt với kết luận về ý định của một người.
+
+### Mô hình lưu trú không phối hợp
+
+Mô hình nền giả sử không có phối hợp, với các tham số nguồn:
 
 | Ký hiệu | Ý nghĩa | Giá trị |
 |---|---|---:|
 | $P$ | Số người | $10^9$ |
 | $T$ | Số ngày quan sát | $1000$ |
 | $H$ | Số khách sạn | $10^5$ |
-| $q$ | Xác suất một người đi khách sạn mỗi ngày | $0{,}01$ |
+| $q$ | Xác suất một người lưu trú trong một ngày | $0{,}01$ |
 
-Mỗi người quyết định độc lập giữa người và ngày; nếu đi thì chọn đều một trong $H$ khách sạn. Nguồn dùng 100 chỗ mỗi khách sạn để đặt quy mô $H$; phép tính ngẫu nhiên không áp thêm giới hạn sức chứa cứng làm các lựa chọn phụ thuộc.
+Mỗi người quyết định lưu trú độc lập giữa mọi người và mọi ngày. Nếu đi, người đó chọn đều một trong $H$ khách sạn: mỗi khách sạn có xác suất $1/H$ khi đã lưu trú. Độc lập nghĩa lựa chọn của một người/ngày không làm thay đổi phân phối lựa chọn của người/ngày khác.
 
-Một phép thử gồm một cặp người và một cặp ngày khác nhau. Biến cố trùng xảy ra nếu hai người ở cùng khách sạn trong từng ngày được chọn; khách sạn có thể khác giữa hai ngày.
+Các điều kiện ấy là giả thiết mô hình, chưa phải kết quả được xác nhận từ hồ sơ thật. Nguồn dùng 100 chỗ mỗi khách sạn để đặt quy mô $H$; phép tính không áp thêm sức chứa cứng làm các lựa chọn phụ thuộc.
 
-![Một cặp người và một cặp ngày được ghép thành phép thử cùng khách sạn trong từng ngày](img/lec-01/phep-thu-va-duong-tinh-gia.svg)
+### Xác suất trùng trong một phép thử
 
-### Từ xác suất một phép thử đến kỳ vọng
+Cố định một cặp người và một ngày. Hai người đều lưu trú với xác suất $q^2$, nhờ độc lập giữa người. Khi cả hai đã đi, cố định khách sạn của người thứ nhất; người thứ hai chọn trùng với xác suất $1/H$.
 
 ::: derivation
-Hai người cùng đi trong một ngày có xác suất $q^2$. Khi đã đi, xác suất chọn cùng khách sạn là $1/H$. Do đó:
+Xác suất trùng trong một ngày là:
 
 $$
-p=\frac{q^2}{H}=10^{-9}.
+p=q^2\frac1H=\frac{(0{,}01)^2}{10^5}=10^{-9}.
 $$
 
-Hai ngày độc lập cho xác suất trùng trong cả hai ngày là $p^2=10^{-18}$.
+Cố định thêm một ngày khác. Nhờ độc lập giữa ngày, xác suất trùng trong cả hai ngày là:
 
-Với mỗi cặp người và cặp ngày, đặt biến chỉ báo bằng 1 nếu trùng, bằng 0 nếu không. Gọi $X$ là tổng các chỉ báo, tức số biến cố **cặp người–cặp ngày** trùng. Tính tuyến tính kỳ vọng cho:
+$$
+p^2=10^{-18}.
+$$
+:::
+
+![Cặp người phải trùng trong ngày s và cả ngày t; độc lập giữa ngày cho phép nhân hai xác suất](img/lec-01/suy-luan-hai-ngay.svg)
+
+Hai khách sạn ở hai ngày không phải trùng nhau. Xác suất $1/H$ nói về hai người trong cùng một ngày, không phải cùng người trong hai ngày.
+
+### Đơn vị đếm và số phép thử
+
+Một phép thử chọn một cặp người không thứ tự và một cặp ngày không thứ tự. Có $\binom P2$ cách chọn người và $\binom T2$ cách chọn ngày, nên tổng số phép thử là tích $\binom P2\binom T2$.
+
+![Một cặp người và một cặp ngày xác định một phép thử trùng khách sạn trong từng ngày](img/lec-01/phep-thu-va-duong-tinh-gia.svg)
+
+Với mỗi phép thử, đặt biến chỉ báo bằng 1 nếu mẫu trùng xảy ra và bằng 0 nếu không. Gọi $X$ là tổng các chỉ báo. $X$ đếm các biến cố **cặp người–cặp ngày**, không đếm cặp người phân biệt. Nếu một cặp người trùng trong ba ngày, họ đóng góp $\binom32=3$ biến cố vào $X$.
+
+### Kỳ vọng số trùng
+
+Kỳ vọng là giá trị trung bình theo mô hình qua các lần sinh dữ liệu, không phải số đếm quan sát được trên một kho cụ thể. Mỗi chỉ báo bằng 1 với xác suất $p^2$, nên có kỳ vọng $p^2$.
+
+::: derivation
+Tính tuyến tính kỳ vọng cho:
 
 $$
 \mathbb E[X]=\binom P2\binom T2p^2
@@ -556,23 +586,31 @@ $$
 Làm tròn được $249\,750$. MMDS dùng $\binom n2\approx n^2/2$ và được khoảng $250\,000$.
 :::
 
-Các phép thử có thể chia sẻ người hoặc ngày; tính tuyến tính kỳ vọng không đòi hỏi chúng độc lập. Giả thiết độc lập trong mô hình được dùng khi tính $q^2$ và $p^2$.
+Các phép thử có thể chia sẻ người hoặc ngày; tuyến tính kỳ vọng không đòi hỏi chúng độc lập. Giả thiết độc lập được dùng khi tính $q^2$ và $p^2$, không phải khi cộng kỳ vọng.
 
-$X$ không phải số cặp người phân biệt: một cặp có thể trùng trên nhiều bộ ngày. Phép đếm chính xác ở đây là số biến cố; cách gọi cặp trong nguồn dựa trên xấp xỉ hiếm trùng nhiều lần. Không cần đồng nhất hai đại lượng để thấy quy mô trùng ngẫu nhiên.
+Nguồn diễn giải kết quả bằng số cặp người, còn công thức trên đếm biến cố cặp người–cặp ngày. Để đếm cặp người phân biệt phải gộp các bộ ngày của cùng một cặp. Đây là vấn đề đơn vị đếm; chênh lệch giữa $250\,000$ và $249\,750$ ở phép tính lại do xấp xỉ số tổ hợp.
 
 ### Diễn giải có điều kiện
 
-MMDS gọi cảnh báo này là nguyên lý Bonferroni phi hình thức: cần ước lượng số mẫu trùng dưới dữ liệu ngẫu nhiên trước khi coi kết quả tìm được là bằng chứng. Phần này không trình bày định lý hiệu chỉnh kiểm định nhiều lần.
+MMDS gọi cảnh báo về số mẫu trùng ngẫu nhiên là nguyên lý Bonferroni phi hình thức. Cần ước lượng mức trùng trong dữ liệu ngẫu nhiên trước khi coi kết quả tìm được là bằng chứng. Phần này không trình bày định lý hiệu chỉnh nhiều kiểm định.
 
-Một thuật toán liệt kê đúng các mẫu trùng chỉ đáp ứng đặc tả tìm kiếm. Kỳ vọng nền không tự cho xác suất một người thuộc nhóm cần tìm khi đã thấy trùng. Kết luận ấy còn phụ thuộc mô hình thay thế, tỷ lệ nền và tính phù hợp của giả thiết về dữ liệu.
+| Kết quả | Điều có thể kết luận |
+|---|---|
+| Thuật toán liệt kê đủ mẫu trùng | Đầu ra đáp ứng điều kiện tìm kiếm |
+| Mô hình không phối hợp cho kỳ vọng khoảng $249\,750$ | Mẫu trùng ngẫu nhiên có thể tạo nhiều kết quả cần xem xét |
+| Một cặp có tên trong đầu ra | Chưa xác định xác suất họ có phối hợp từ kỳ vọng nền |
 
-Tự kiểm tra: giải thích nơi dùng độc lập và nơi chỉ dùng tuyến tính kỳ vọng. Nếu một cặp người trùng trên ba ngày, họ đóng góp bao nhiêu biến cố cặp ngày vào $X$?
+Kết luận về hoạt động phối hợp còn phụ thuộc mô hình thay thế, tỷ lệ nền và tính phù hợp của giả thiết. Thuật toán chạy đúng không xác nhận giả thiết độc lập. Tương tự, Jaccard đạt ngưỡng chưa đủ chứng minh có hành vi sao chép.
 
-## Từ lời giải một máy đến Bài 02
+Tự kiểm: giải thích nơi dùng độc lập và nơi dùng tuyến tính kỳ vọng; phân biệt $X$ với số cặp người phân biệt. Trường hợp ba ngày ở trên cho một cách kiểm tra đơn vị đếm.
 
-Với đếm từ trên kho phân tán, kết quả phải chứa đúng số lần xuất hiện của mỗi từ trong toàn kho. Đếm tại từng máy rồi gom số đếm phải bảo toàn mọi đóng góp và tránh tính trùng, kể cả khi tác vụ chạy lại. Bài 02 học cách gom theo khóa cùng chi phí truyền dữ liệu; các bài lưu trữ xét cách tổ chức ngoài bộ nhớ.
+## Đặc tả, chi phí và chuẩn bị Bài 02
 
-Để chuẩn bị Bài 02, đọc MMDS Chương 2; ôn ánh xạ khóa–giá trị, phép nhóm và tính kết hợp, giao hoán của phép cộng. Với tổng số nguyên không tràn, đổi cách nhóm hoặc thứ tự cộng giữ nguyên tổng nếu mỗi đóng góp được tính đúng một lần. Bất biến giúp kiểm tra điều kiện ấy.
+Với cặp tài liệu gần trùng, đặc tả yêu cầu đúng, đủ và không lặp; mô hình chi phí đếm số cặp và chi phí mỗi lần đối chiếu; mô hình dữ liệu giới hạn ý nghĩa suy ra từ độ tương đồng. Năm nhóm bài của học phần phát triển phương pháp theo các giới hạn đã nhận diện.
+
+Bài 02 dùng đếm từ trên kho phân tán. Kết quả phải chứa đúng số lần xuất hiện của từng từ trong toàn kho. Đếm cục bộ rồi gom theo khóa phải bảo toàn mọi đóng góp và tránh tính lặp, kể cả khi tác vụ chạy lại.
+
+Để chuẩn bị, đọc MMDS Chương 2; ôn khóa–giá trị, phép nhóm, tính kết hợp và giao hoán. Phép cộng số nguyên không tràn cho phép đổi cách nhóm nếu mỗi đóng góp được tính đúng một lần; bản thân tính kết hợp không loại đóng góp trùng. Các bài tập ngay sau đây quay lại mô hình lưu trú để thay đổi quy mô và tiêu chuẩn trùng, rồi chuyển sang tập mặt hàng.
 
 ## Bài tập từ MMDS
 
