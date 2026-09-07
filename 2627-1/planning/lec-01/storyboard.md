@@ -2,7 +2,7 @@
 
 ## Trạng thái hiện hành
 
-ER-004: D/E/F đã commit/push; R đã triển khai và rà nội dung, chờ xuất bản sau kiểm định cuối. 71 trang, 7 phần; A23/B24/C31/D17/E9/F16 = 120 phút và R60 phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
+ER-004 hoàn tất: D/E/F/R đã kiểm định và commit/push riêng lên origin/main. 71 trang, 7 phần; A23/B24/C31/D17/E9/F16 = 120 phút và R60 phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
 
 
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07

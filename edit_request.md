@@ -36,7 +36,7 @@
   - Kiểm tra: Chromium rộng/hẹp toàn bộ 60 trang; KaTeX, SVG, bàn phím, viewer, chỉ mục và bản in đạt. Kiểm số học và 1.200 trường hợp thuật toán hữu hạn; không còn lỗi nghiêm trọng/chặn. Codex Slides vẫn nháp cũ, dùng RevealJS cục bộ theo ngoại lệ đã báo.
 - Bổ sung của người dùng: “đừng dùng tử tổng byte, ngoài ra ví dụ này quá đơn giản, không nêu hết ý nghĩa”. Bỏ ví dụ cộng dồn khỏi phần phân tích; dùng tìm cặp tài liệu gần trùng cho đặc tả, nhiều ứng dụng cho các tiêu chí. Không dùng cách gọi bị phản đối trong học liệu hiện hành.
 
-- [ ] **ER-004** — Yêu cầu: với các section lớn còn lại hãy:
+- [x] **ER-004** — Yêu cầu: với các section lớn còn lại hãy:
   - nêu section muốn nói gì
   - nêu mạch thể hiện của section
   - bổ sung các slide mở đầu với tiêu đề thể hiện nội dung section, các slide kết nối
@@ -49,5 +49,6 @@
     - Hoàn tất6trang E,1SVGmới, ghi chú và kế hoạch; sáu báo cáo/rà lại, Chromium rộng/hẹp, viewer và PDF66trang đạt. Commit `b2ab434932e073702fdc7a4981aff3a07d5dc19a` đã push và xác nhận trên origin/main.
   - [x] F — Mô hình ngẫu nhiên và giới hạn suy luận: bài toán lưu trú → mô hình → xác suất → kỳ vọng → diễn giải.
     - Hoàn tất9trang F,2SVGmới; sáu báo cáo, rà lại toán/mạch toàn bài và Chromium rộng/hẹp, viewer, PDF70trang đạt. Commit `ea364a09a64718cdbdd309eb88111d9495c4719a` đã push và xác nhận trên origin/main.
-  - [ ] R — Bài tập về phép đếm và suy luận: mô hình gốc → thay quy mô → đổi tiêu chuẩn → tập mặt hàng.
-  - Trạng thái: đang lập kế hoạch; kiểm tra, commit/push riêng từng phần trước khi đánh dấu hoàn tất.
+  - [x] R — Bài tập về phép đếm và suy luận: mô hình gốc → thay quy mô → đổi tiêu chuẩn → tập mặt hàng.
+    - Hoàn tất 7 trang R, 2 SVG mới, ghi chú và kế hoạch; sáu báo cáo, rà lại toán/nguồn và mạch, Chromium rộng/hẹp, viewer và PDF 71 trang đạt. Sáu khối đề/gợi ý/lời giải Markdown giữ nguyên. Commit `7cb48d523e3d22b0e70769c51edd9668ddc3aa23` đã push và xác nhận bằng `git ls-remote origin refs/heads/main`.
+  - Trạng thái: hoàn tất. Bốn phần được commit/push riêng; toàn bài 71 trang, 7 phần, 120+60 phút. Thêm 11 slide và 9 SVG, đồng bộ ghi chú và ba tệp kế hoạch; HTML A–C giữ nguyên. Quill rà mạch, no-ai-slop biên tập và cắt chỉ dẫn người soạn. Codex Slides còn nháp cũ; kiểm trực tiếp RevealJS cục bộ theo ngoại lệ đã báo.

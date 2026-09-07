@@ -2,6 +2,8 @@
 
 ## ER-004 — R, bài tập về phép đếm và suy luận
 
+ER-004 hoàn tất. Bốn commit nội dung đã push riêng và xác nhận bằng git ls-remote: D `9ca7a455a9738a170a28906a8216a4d36458ed04`, E `b2ab434932e073702fdc7a4981aff3a07d5dc19a`, F `ea364a09a64718cdbdd309eb88111d9495c4719a`, R `7cb48d523e3d22b0e70769c51edd9668ddc3aa23`. Lượt Chromium cuối sau bổ sung nguồn trong Markdown vẫn đạt toàn bộ 71 trang và viewer; sáu khối bài tập giữ nguyên. Checklist chỉ được tick sau xác nhận push. Bản cập nhật trạng thái không thay học liệu đã kiểm định.
+
 Phần R có 7 trang, 60 phút: mở phần → dựng mô hình gốc → thay quy mô → trùng ba ngày → bài mua hàng → đơn vị đếm → lời giải có điều kiện. Thêm R06 và hai SVG; phân lại thời lượng trong phần, không thêm bài tập. Toàn bài có 71 trang, 7 phần ngoài; 64 trang giảng/120 phút và 7 trang bài tập/60 phút. HTML A–F giữ nguyên so với commit trước phần R.
 
 Nguồn là MMDS mục 1.2.3–1.2.4, trang 7–8, Bài 1.2.1(a–c), Bài 1.2.2 và chú thích 3. Sáu khối đề, gợi ý, lời giải trong Markdown giữ nguyên từng ký tự so với HEAD trước phần R; phần giải thích, bảng và hình được thêm bên ngoài. Không tạo số liệu hay đổi giả thuyết nguồn. Chú thích trong nguồn yêu cầu chấp nhận giả thuyết của bài mua hàng để làm bài, không coi đó là kết luận về dữ liệu thực.

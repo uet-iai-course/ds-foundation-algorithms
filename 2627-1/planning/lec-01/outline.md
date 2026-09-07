@@ -2,7 +2,7 @@
 
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
 
-Bản hiện hành: 71 trang, 7 phần ngoài; 64 trang giảng/120 phút và 7 trang bài tập/60 phút. D/E/F đã xuất bản; R hoàn tất nội dung, chờ kiểm định cuối và xuất bản. Các thống kê ở mục triển khai từng phần ghi nhận thời điểm tương ứng.
+Bản hiện hành: 71 trang, 7 phần ngoài; 64 trang giảng/120 phút và 7 trang bài tập/60 phút. D/E/F/R đã kiểm định và xuất bản bằng các commit riêng lên origin/main; ER-004 hoàn tất. Các thống kê ở mục triển khai từng phần ghi nhận thời điểm tương ứng.
 
 Bốn phần còn lại là D/E/F/R; A–C giữ nguyên. Điều phối đã đọc nguồn cấp học phần, ánh xạ, toàn bộ Stanford01-intro và MMDS1.2 tr.6–8. Reader lập kế hoạch82151 và nguồn67108 hoàn tất: requested_model và observed_model đều z-ai/glm-5.3-flash, provider OpenRouter.
 
