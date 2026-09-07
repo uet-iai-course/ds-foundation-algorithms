@@ -425,7 +425,7 @@ Năm nhóm được học liền nhau theo thứ tự dưới đây. Mỗi bài 
 | 04 | PageRank theo chủ đề, TrustRank, khối lượng rác, HITS | Chủ đề và liên kết thao túng; giả thiết tín hiệu, phạm vi đồ thị, giới hạn diễn giải |
 | 05 | Shingling, độ đo Jaccard, MinHash | Gần trùng; dưới hoán vị đều, xác suất trùng MinHash bằng độ tương đồng Jaccard |
 | 06 | Băm nhạy cảm cục bộ (LSH), phân dải và khuếch đại | Tạo ứng viên; xác suất ứng viên, bỏ sót và chi phí đối chiếu |
-| 07 | HNSW; lượng tử hóa tích (PQ); IVF-PQ | Truy hồi véc-tơ; độ thu hồi, độ trễ, bộ nhớ, xây dựng; phân biệt phép đo với bảo đảm lý thuyết |
+| 07 | HNSW; lượng tử hóa tích (PQ); IVF-PQ | Truy vấn véc-tơ; độ thu hồi, độ trễ, bộ nhớ, xây dựng; phân biệt phép đo với bảo đảm lý thuyết |
 | 08 | Lấy mẫu theo khóa, lấy mẫu hồ chứa, bộ lọc Bloom | Dòng truy vấn; đơn vị và phân phối mẫu, cập nhật, sai số một phía có điều kiện |
 | 09 | Flajolet–Martin, phác thảo Count-Min, AMS, DGIM, suy giảm mũ | Thống kê dòng; đại lượng, cửa sổ, loại sai số và trạng thái; DGIM có cận xác định |
 | 10 | Huffman tĩnh, Huffman thích nghi, mã hóa số học | Nén không mất thông tin; độ dài mã, dữ liệu phụ trợ, khôi phục đúng |
@@ -438,6 +438,32 @@ Năm nhóm được học liền nhau theo thứ tự dưới đây. Mỗi bài 
 MapReduce là mô hình xử lý; Jaccard là độ đo; chỉ mục là cấu trúc dữ liệu. Spark và Faiss là phần mềm hỗ trợ khi bài tương ứng sử dụng, có vai trò khác với các thuật toán và cấu trúc dữ liệu. IVF-PQ kết hợp chỉ mục phân vùng với mã lượng tử hóa tích.
 
 Năm nhóm theo thứ tự học là Bài 02–04, 05–07, 08–09, 10–11 và 12–15. Tiên quyết có các nhánh: Bài 01 đến 02–03–04; đến 05–06–07; đến 08–09; đến 10–11; đến 12–13–14. Bài 12–13 hỗ trợ Bài 15; Bài 02 hỗ trợ cách tính phân tán khi cần. Nhóm sau không mặc nhiên cần toàn bộ nhóm trước.
+
+### Ý tưởng của các nhóm phương pháp
+
+**Phân tán và xếp hạng.** Với kho văn bản trên nhiều máy, MapReduce tạo cặp khóa–giá trị, gom cùng khóa rồi kết hợp các giá trị. Trong đếm từ, khóa là từ, giá trị là số lần xuất hiện; có thể cộng cục bộ trước khi truyền. Mỗi đóng góp phải được tính đúng một lần, kể cả khi tác vụ chạy lại. PageRank giải bài toán khác: cập nhật điểm trang qua liên kết và một phân phối dịch chuyển. Dịch chuyển giúp xác định mô hình hội tụ khi xử lý đúng nút cụt. Bài 04 dùng trang mẫu theo chủ đề để ưu tiên kết quả, hoặc trang tin cậy làm nguồn tín hiệu TrustRank. HITS tách điểm trang trung tâm dẫn tới nguồn tốt và điểm trang thẩm quyền được trang trung tâm tốt dẫn tới; khối lượng rác là tín hiệu so sánh hạng thông thường với tín hiệu tin cậy. Điểm liên kết không tự chứng minh chất lượng nội dung. Nguồn: MMDS2.2 và5.1–5.5.
+
+**Tương đồng và truy vấn véc-tơ.** Tập các đoạn ký tự liên tiếp biểu diễn một tài liệu. MinHash lấy giá trị nhỏ nhất của tập sau một hoán vị; nhiều hoán vị cho chữ ký gọn. Với hoán vị đều, xác suất hai giá trị MinHash bằng nhau bằng Jaccard. Băm nhạy cảm cục bộ (LSH) dùng các phần của chữ ký để chọn cặp ứng viên. Với hai tập có Jaccard $3/8$ đã xét, cặp chỉ được hậu kiểm nếu bộ lọc đã chọn nó; tính Jaccard chính xác sau lọc không bảo đảm không bỏ sót.
+
+![Tập đoạn ký tự tạo chữ ký MinHash, LSH chọn cặp ứng viên rồi hậu kiểm bằng Jaccard](img/lec-01/chuong-trinh-cap-ung-vien.svg)
+
+Khi đầu vào là một véc-tơ truy vấn, HNSW tổ chức đồ thị lân cận nhiều tầng để tìm từ tầng thưa xuống tầng chi tiết. Lượng tử hóa tích (PQ) chia véc-tơ thành các đoạn, lưu mã tâm đại diện cho từng đoạn để giảm dung lượng và tính khoảng cách qua mã. IVF-PQ kết hợp phân vùng với PQ; chỉ tìm một số vùng có thể bỏ sót hàng xóm thật. Hai hướng này giảm những khoản chi phí khác nhau: PQ quét đầy đủ vẫn chấm điểm mọi mã. Độ thu hồi $3/5$ ở ví dụ trước phải được báo cùng độ trễ và bộ nhớ. Nguồn: MMDS3.1–3.4; Bài07, Princeton8–9, BIODS271L12.
+
+![HNSW chọn các véc-tơ cần chấm điểm qua liên kết; PQ giảm biểu diễn từng véc-tơ bằng mã đại diện](img/lec-01/chuong-trinh-vec-to.svg)
+
+**Dòng dữ liệu.** Lấy mẫu theo khóa chọn một nhóm người dùng rồi giữ các truy vấn của họ; lấy mẫu hồ chứa giữ mẫu đều theo vị trí bản ghi. Đơn vị mẫu quyết định kết quả đại diện cho cái gì. Bộ lọc Bloom biểu diễn tập đã chèn bằng mảng bit và các hàm băm. Bloom chuẩn, không xóa bit và dùng cùng các hàm băm, không báo vắng nhầm phần tử đã chèn; kết quả có thể có vẫn cần tra danh sách gốc để xác minh.
+
+![Mẫu giữ các truy vấn được chọn, còn Bloom trả chắc chắn không có hoặc cần xác minh](img/lec-01/chuong-trinh-mau-loc.svg)
+
+Flajolet–Martin theo dõi dấu hiệu hiếm ở giá trị băm để ước lượng số khóa khác nhau, chẳng hạn số người dùng. Count-Min chia sẻ nhiều hàng bộ đếm qua băm để ước lượng tần suất một khóa. AMS ước lượng tổng bình phương tần suất, phản ánh mức tập trung của dòng. DGIM gom bit 1 thành các nhóm có kích thước và mốc thời gian để trả lời truy vấn trong cửa sổ gần đây. Suy giảm mũ giảm dần trọng số sự kiện cũ thay vì loại chúng ngay tại một ranh giới. Đây là các đại lượng khác nhau, có giả thiết và sai số khác nhau; một cấu trúc gọn không trả lời được mọi truy vấn. Nguồn: MMDS4.2–4.7; UMassCount-Min và Bài08–09.
+
+**Nén.** Với chuỗi aabaacabcabcb đã xét, có thể khai thác phân phối ký hiệu hoặc các đoạn lặp. Huffman tạo mã tiền tố: không từ mã nào là tiền tố của từ mã khác. Mô hình tĩnh cố định thống kê, còn mô hình thích nghi cập nhật theo ký hiệu đã đọc. Mã hóa số học thu hẹp một khoảng để biểu diễn cả chuỗi. LZ77 tham chiếu đoạn đã xuất hiện trong cửa sổ; LZ78 mở rộng từ điển các cụm; LZW dùng mã mục từ điển được hai phía xây đồng bộ. Những cách nén không mất thông tin phải khôi phục nguyên chuỗi, kể cả thứ tự ký hiệu. JPEG được học dùng biến đổi cô-sin rời rạc (DCT) và lượng tử hóa, tức làm tròn hệ số về các mức đại diện; bước này cho phép mất chi tiết ảnh. Không thể kết luận lợi ích lưu trữ chỉ từ độ dài mã mà bỏ dữ liệu phụ trợ. Nguồn: Nelson–Gailly3–5,8–11; CMU nén.
+
+**Lưu trữ và truy vấn.** Sắp xếp trộn ngoài bộ nhớ tạo các dãy có thứ tự vừa bộ nhớ rồi trộn chúng; chọn thay thế dùng hàng đợi để tạo dãy ban đầu. Cây B/B+ phân chia miền khóa theo thứ tự để hỗ trợ tìm khóa và khoảng; băm tĩnh định vị nhóm cho khóa bằng nhau; bitmap dùng dãy bit đánh dấu bản ghi thuộc một giá trị. Chỉ mục đảo ánh xạ từ sang các tài liệu chứa từ. R-tree nhóm các hộp bao; kd-tree chia không gian theo tọa độ; ball tree nhóm các điểm trong vùng cầu; Z-order mã hóa vị trí thành một thứ tự một chiều. Các biểu diễn ấy phù hợp những phép lọc khác nhau, không mặc nhiên thay thế nhau.
+
+Với hai bảng sinh viên và đăng ký đã xét, nối vòng lặp dò bản ghi hoặc khối của bảng kia; nối theo chỉ mục dùng khóa để tra; nối trộn đi qua hai đầu vào có thứ tự; nối băm gom khóa vào nhóm rồi kiểm các cặp khớp. Grace Hash phân hoạch cả hai bảng ra ngoài bộ nhớ trước khi nối từng cặp phần, cần xét phần lớn và lệch phân bố. Cả hai bảng không vừa bộ nhớ không có nghĩa chỉ dùng một lần quét là đủ. Nguồn: DSC14–15,24,31; Bài12–15.
+
+Các mô tả trên dùng để nhận diện vai trò của phương pháp. Điều kiện áp dụng, giả mã, chứng minh và ví dụ chạy đầy đủ được học ở bài tương ứng; chương trình không yêu cầu thuộc danh sách tên trước khi bắt đầu.
 
 ## Kiến thức, kỹ năng và cách học
 

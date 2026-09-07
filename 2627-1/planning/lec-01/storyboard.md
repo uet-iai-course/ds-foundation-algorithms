@@ -1,6 +1,31 @@
 # Storyboard Bài 1
 
-## ER-003 — bản hiện hành ngày 2026-09-07
+## ER-004 — kế hoạch được duyệt ngày 2026-09-07
+
+Bốn phần còn lại là D/E/F/R; A–C giữ nguyên. Điều phối đã đọc nguồn cấp học phần, ánh xạ, toàn bộ Stanford01-intro và MMDS1.2 tr.6–8. Reader lập kế hoạch82151 và nguồn67108 hoàn tất: requested_model và observed_model đều z-ai/glm-5.3-flash, provider OpenRouter.
+
+Giữ đề xuất năm nhóm chương trình, nhánh tiên quyết, mô hình lưu trú và bài tập đúng nguồn. Bác đề xuất D chỉ có tên bài/thuộc tính: yêu cầu mới cần lý giải và minh họa. D giới thiệu ý tưởng và công dụng bằng ví dụ A/B/C; không dạy trước giả mã/chứng minh chuyên biệt của Bài02–15. Bác dùng lại nhật ký trong E02 vì C đã chuyển sang cặp gần trùng.
+
+| Phần / chủ đề | Quyết định và vai trò | Mạch, sản phẩm và hình |
+|---|---|---|
+| D / nội dung học phần, cốt lõi | sửa và tách ba trang quá tải; không mở rộng danh mục | Nhu cầu → năm nhóm → cơ chế đại diện → bảo đảm. D00–D10 theo thứ tự storyboard; sơ đồ chữ ký/ứng viên, chỉ mục véc-tơ, trạng thái dòng; ví dụ cũ giữ dữ kiện |
+| E / chuẩn bị học, cốt lõi và cầu nối | thêm mở phần; thay nhắc nhật ký bằng Jaccard | Kiến thức → vận dụng → sản phẩm → trách nhiệm; hình giao3/hợp8, vết chạy và báo cáo có điều kiện |
+| F / giới hạn suy luận, cốt lõi | thêm mở phần, tách xác suất khỏi kỳ vọng | Bài toán lưu trú → mô hình nền → một ngày/hai ngày → đơn vị đếm → kỳ vọng → giới hạn. Giữ P,T,H,q; không đồng nhất biến cố với cặp người |
+| R / bài tập nguồn, cốt lõi | sửa mở phần, thêm cầu sang tập mặt hàng | Mô hình → đổi quy mô → đổi tiêu chuẩn → đổi dữ liệu. Giữ MMDS1.2.1(a–c),1.2.2 và chú thích3; không đặt bài mới |
+
+D17/E9/F16 và R60 phút; toàn giảng120 phút. Thời lượng được phân lại trong từng phần khi tách trang. Mọi khái niệm trên trang có nghĩa/công dụng và ví dụ hoặc hình; danh mục chi tiết trong ghi chú là tài liệu định vị bài sau, không yêu cầu học thuộc tại Bài01. Thuật ngữ được giải thích khi xuất hiện.
+
+Dẫn nguồn MMDS và Stanford tương đương về mô hình và nhu cầu; ưu tiên MMDS cho nội dung, dùng Stanford39–43 đối chiếu đếm từ. Các mạch nén/lưu trữ theo nguồn đã ánh xạ Nelson–Gailly/CMU và DSC. Không lấy chương trình, đánh giá hay quy định riêng của Stanford thay đề cương UET.
+
+Theo quill: rà thứ tự khái niệm, đầu vào/đầu ra từng phần và hai trang lân cận; F thay kết luận nên rà toàn bài. Theo no-ai-slop: bỏ lời dành cho người soạn, tiêu đề kể tiến trình và danh sách tên thiếu nghĩa; giữ giả thiết và nguồn. Không tạo quill.json. Mỗi phần qua storyboard, năm reviewer độc lập, writer sửa riêng, kiểm định trình duyệt rồi commit/push. Codex Slides hiện nháp0trang; dùng RevealJS cục bộ theo giới hạn đã báo.
+
+### Triển khai D của ER-004
+
+D có11trang, thêm D08/D09/D10 để tách xếp hạng, truy vấn véc-tơ và thống kê dòng. Toàn bài hiện63trang (57giảng,6bài tập),7phần; A23/B24/C31/D17/E9/F16=120, R60. Bảng từng trang dưới đây là hiện hành; thống kê ER-003 là lịch sử. Chu trình D rút gọn: bài toán A/B → ý tưởng bằng sơ đồ/ví dụ → thuộc tính cần xét → bài sẽ học. Giả mã/chứng minh chuyên biệt không áp dụng vì thuộc Bài02–15. N05 trong ghi chú mở rộng ý nghĩa các tên trong danh mục và nối N04→N06.
+
+Bốn SVG thêm: chuong-trinh-cap-ung-vien (MMDS3.3–3.4), chuong-trinh-vec-to (Bài07/Princeton8–9), chuong-trinh-mau-loc (MMDS4.2–4.3), chuong-trinh-thong-ke (MMDS4.1,4.4–4.7). Sơ đồ định tính, không có xác suất/số đo mới; D03/D08/D06 dùng lại hình đếm từ/đồ thị/chuỗi gốc; D07 dùng bảng ánh xạ bài toán–cách tổ chức. Giữ dữ kiện, không đổi nguồn bài tập.
+
+## ER-003 — lịch sử bản ngày 2026-09-07
 
 Phần C được thay trọn theo yêu cầu và bổ sung bỏ ví dụ cộng dồn. Mở bằng “Phân tích thuật toán xử lý dữ liệu lớn”; dùng cặp gần trùng để thiết lập đặc tả và thuật toán, rồi tổng quan và tách mười tiêu chí. 60 trang: 54 trang giảng, 6 trang bài tập; 7 phần ngoài. Thời lượng A23, B24, C31, D17, E9, F16 =120 phút; R60 phút. E04 nằm trong phần ngoài F nên thời lượng tính vào F, không cộng theo tiền tố mã. Các phần lịch sử bên dưới mô tả bản trước, không thay bảng từng trang hiện hành.
 
@@ -98,14 +123,17 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-C14 | Dung lượng lưu trữ | Mã văn bản và thông tin giải mã cần lưu; khôi phục đúng, khác RAM | Nelson–Gailly3,8–9,11; H28 | 1 | Khi cho phép gần đúng cần đo chất lượng |
 | L01-C15 | Chất lượng kết quả gần đúng | Hai tập5phần tử giao3; recall@5=3/5; chuẩn đúng, phá hòa và điều kiện đo | Bài07 mục1; H29 | 2 | Bỏ sót cặp tài liệu cũng không sửa bằng hậu kiểm |
 | L01-C16 | Giảm ứng viên và nguy cơ bỏ sót | Ứng viên→kiểm chính xác; trả đúng từng cặp chưa bảo đảm đủ; câu kiểm tra | MMDS3.4; H30 | 2 | Yêu cầu xác định nhóm phương pháp D |
-| L01-D00 | Từ yêu cầu đến nhóm phương pháp | Các giới hạn đã nhận diện → nhóm công cụ sẽ học; không liệt kê lại 14 bài | source.md; C05–C16 | 1 | Mục tiêu học phần rồi bản đồ năm nhóm |
-| L01-D01 | Học phần và năng lực cần đạt | Năng lực toàn học phần: giải thích/lựa chọn, thiết kế/triển khai, tự học/trách nhiệm; mục tiêu riêng Bài 01 đã đặt ở P01 | source.md phần I–II; mục tiêu trong outline | 2 | Xem cách tổ chức để đạt các kết quả đó |
-| L01-D02 | Năm mạch của học phần | Năm nhóm bài liền nhau; mỗi nhóm gắn một ứng dụng đã xem; tách thứ tự học với tiên quyết | source.md phần B; hình H19 | 2 | Mạch phân tán và đồ thị |
-| L01-D03 | Xử lý phân tán và xếp hạng | Bài 02–04: MapReduce, PageRank và các biến thể; ví dụ V02–V05 → thuộc tính trong outline | V02–V05 | 3 | Mạch biểu diễn và tìm tương đồng |
-| L01-D04 | Tương đồng và hàng xóm gần | Bài 05–07: Shingling/MinHash, LSH, HNSW/PQ; nêu đầu ra mỗi bước | V06–V07 | 3 | Mạch trạng thái nhỏ trên dòng |
-| L01-D05 | Dòng dữ liệu và cửa sổ | Bài 08–09: mẫu, Bloom, các phác thảo và DGIM; đại lượng cần ước lượng → cấu trúc | V08–V09 | 2 | Mạch dung lượng và khôi phục |
-| L01-D06 | Nén dữ liệu và từ điển | Bài 10–11: Huffman/số học, LZ, JPEG; phân biệt hai yêu cầu khôi phục | V10–V11 | 2 | Mạch tổ chức và truy vấn trên đĩa |
-| L01-D07 | Lưu trữ, chỉ mục và kết nối | Bài 12–15: sắp ngoài → chỉ mục → truy vấn chuyên biệt/nối; chỉ nhấn tên đại diện, danh mục đầy đủ trong ghi chú | V12–V16 | 2 | Các mạch cần nền tảng khác nhau |
+| L01-D00 | Nội dung học phần và các nhóm thuật toán | Nhu cầu đã phân tích → chương trình và năng lực; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | chương trình và năng lực |
+| L01-D01 | Học phần và năng lực cần đạt | Bốn năng lực → năm nhóm bài; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | năm nhóm bài |
+| L01-D02 | Năm nhóm bài của học phần | Bản đồ → đếm từ phân tán; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | đếm từ phân tán |
+| L01-D03 | MapReduce: gom kết quả theo khóa | Gom một lượt → tính lặp trên đồ thị; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | tính lặp trên đồ thị |
+| L01-D08 | PageRank: tính điểm theo liên kết | Điểm theo liên kết → tương đồng nội dung; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | tương đồng nội dung |
+| L01-D04 | MinHash và LSH: chọn cặp cần đối chiếu | Cặp tập hợp → một truy vấn véc-tơ; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | một truy vấn véc-tơ |
+| L01-D09 | Chỉ mục cho truy vấn véc-tơ | Kho lập chỉ mục → cập nhật dòng; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | cập nhật dòng |
+| L01-D05 | Lấy mẫu và lọc trên dòng dữ liệu | Mẫu/phép thuộc → thống kê; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | thống kê |
+| L01-D10 | Cấu trúc gọn cho thống kê dòng | Tóm tắt truy vấn → khôi phục dữ liệu; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | khôi phục dữ liệu |
+| L01-D06 | Nén theo ký hiệu, mẫu lặp và ảnh | Dung lượng mã → truy cập dữ liệu đã lưu; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | truy cập dữ liệu đã lưu |
+| L01-D07 | Tổ chức dữ liệu để giảm đọc ghi | Các phương pháp → kiến thức và cách học; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | kiến thức và cách học |
 | L01-E01 | Kiến thức cần có và cần ôn | Tiên quyết chính thức và nền xác suất, đồ thị, véc-tơ, CSDL; tự xác định phần cần ôn | source.md phần I; mục tiêu bài 02–15 | 3 | Chuyển kiến thức thành sản phẩm |
 | L01-E02 | Kỹ năng cần rèn | Đặc tả, vết chạy, chứng minh, chi phí, cài đặt và đo; liên hệ CLO1–CLO3 | source.md phần II; V01 | 3 | Sản phẩm cần có nguồn và giả thiết rõ |
 | L01-E03 | Học tập và xử lý dữ liệu có trách nhiệm | Đọc trước, tự học, phản biện, hợp tác, ghi nguồn/đóng góp, báo sai số và hạn chế, trách nhiệm dữ liệu | source.md CLO4 và yêu cầu học phần | 3 | Dùng mẫu trùng để kiểm chứng trách nhiệm suy luận |

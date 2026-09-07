@@ -1,6 +1,25 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
-## ER-003 — bản hiện hành ngày 2026-09-07
+## ER-004 — kế hoạch được duyệt ngày 2026-09-07
+
+Bốn phần còn lại là D/E/F/R; A–C giữ nguyên. Điều phối đã đọc nguồn cấp học phần, ánh xạ, toàn bộ Stanford01-intro và MMDS1.2 tr.6–8. Reader lập kế hoạch82151 và nguồn67108 hoàn tất: requested_model và observed_model đều z-ai/glm-5.3-flash, provider OpenRouter.
+
+Giữ đề xuất năm nhóm chương trình, nhánh tiên quyết, mô hình lưu trú và bài tập đúng nguồn. Bác đề xuất D chỉ có tên bài/thuộc tính: yêu cầu mới cần lý giải và minh họa. D giới thiệu ý tưởng và công dụng bằng ví dụ A/B/C; không dạy trước giả mã/chứng minh chuyên biệt của Bài02–15. Bác dùng lại nhật ký trong E02 vì C đã chuyển sang cặp gần trùng.
+
+| Phần / chủ đề | Quyết định và vai trò | Mạch, sản phẩm và hình |
+|---|---|---|
+| D / nội dung học phần, cốt lõi | sửa và tách ba trang quá tải; không mở rộng danh mục | Nhu cầu → năm nhóm → cơ chế đại diện → bảo đảm. D00–D10 theo thứ tự storyboard; sơ đồ chữ ký/ứng viên, chỉ mục véc-tơ, trạng thái dòng; ví dụ cũ giữ dữ kiện |
+| E / chuẩn bị học, cốt lõi và cầu nối | thêm mở phần; thay nhắc nhật ký bằng Jaccard | Kiến thức → vận dụng → sản phẩm → trách nhiệm; hình giao3/hợp8, vết chạy và báo cáo có điều kiện |
+| F / giới hạn suy luận, cốt lõi | thêm mở phần, tách xác suất khỏi kỳ vọng | Bài toán lưu trú → mô hình nền → một ngày/hai ngày → đơn vị đếm → kỳ vọng → giới hạn. Giữ P,T,H,q; không đồng nhất biến cố với cặp người |
+| R / bài tập nguồn, cốt lõi | sửa mở phần, thêm cầu sang tập mặt hàng | Mô hình → đổi quy mô → đổi tiêu chuẩn → đổi dữ liệu. Giữ MMDS1.2.1(a–c),1.2.2 và chú thích3; không đặt bài mới |
+
+D17/E9/F16 và R60 phút; toàn giảng120 phút. Thời lượng được phân lại trong từng phần khi tách trang. Mọi khái niệm trên trang có nghĩa/công dụng và ví dụ hoặc hình; danh mục chi tiết trong ghi chú là tài liệu định vị bài sau, không yêu cầu học thuộc tại Bài01. Thuật ngữ được giải thích khi xuất hiện.
+
+Dẫn nguồn MMDS và Stanford tương đương về mô hình và nhu cầu; ưu tiên MMDS cho nội dung, dùng Stanford39–43 đối chiếu đếm từ. Các mạch nén/lưu trữ theo nguồn đã ánh xạ Nelson–Gailly/CMU và DSC. Không lấy chương trình, đánh giá hay quy định riêng của Stanford thay đề cương UET.
+
+Theo quill: rà thứ tự khái niệm, đầu vào/đầu ra từng phần và hai trang lân cận; F thay kết luận nên rà toàn bài. Theo no-ai-slop: bỏ lời dành cho người soạn, tiêu đề kể tiến trình và danh sách tên thiếu nghĩa; giữ giả thiết và nguồn. Không tạo quill.json. Mỗi phần qua storyboard, năm reviewer độc lập, writer sửa riêng, kiểm định trình duyệt rồi commit/push. Codex Slides hiện nháp0trang; dùng RevealJS cục bộ theo giới hạn đã báo.
+
+## ER-003 — lịch sử bản ngày 2026-09-07
 
 Yêu cầu đang xử lý: phần mở “Phân tích thuật toán xử lý dữ liệu lớn”, gồm đặc tả và đánh giá; có kết nối, tổng quan và trang riêng cho từng tiêu chí với khái niệm, ví dụ, hình. Bổ sung của người dùng: bỏ cách gọi “tổng byte” và ví dụ cộng dồn quá đơn giản khỏi phần phân tích.
 

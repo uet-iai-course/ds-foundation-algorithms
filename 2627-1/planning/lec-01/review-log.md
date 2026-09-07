@@ -1,6 +1,31 @@
 # Nhật ký rà soát Bài 1
 
-Trạng thái mới nhất: ER-003 bên dưới. Các mục trước được giữ làm lịch sử, không mô tả trạng thái hiện tại.
+### D — kết quả phản biện và kiểm định
+
+| Vai / tiến trình | Kết quả và quyết định của điều phối |
+|---|---|
+| Storyboard57755 | Đúng17phút và mạch. Bác lỗi thiếu đóng section: gói gửi là trích đoạn kết thúc ở E02; HTML thật đã kiểm7outer. Giữ IDổn định, không đánh số nội dung hiển thị theo mã |
+| Sinh viên88450 | Nhận góp ý giải thích phân phối dịch chuyển và nhánh Bloom cần xác minh; gọi rõ ví dụ Jaccard. Bác thiếu hình recall: SVG C15 đã hiển thị hai tập; không sửa C |
+| Giải thuật99069 | Không lỗi nghiêm trọng; giữ điều kiện Bloom và phân biệt giảm bộ nhớ/giảm ứng viên. Không thêm cận Count-Min khi chỉ giới thiệu vai trò |
+| Toán97046 | Không lỗi; xác nhận3/8,3/5,MinHash,Bloom,PageRank và logic hậu kiểm |
+| Sư phạm66710 | Bác “mâu thuẫn3/8và3/5”: là hai bộ dữ kiện và hai độ đo khác nhau, được gọi rõ. Nhận góp ý quá tải notes: rút D06/D07/D10, giữ chi tiết ở N05. Không xóa ý tưởng cơ chế vì người dùng yêu cầu lý giải |
+| Mạch94303 | Không lỗi nghiêm trọng; C→D và D→E liền mạch. Thống nhất cách gọi truy vấn véc-tơ trong N05 |
+| Writer sửa8702 | Soạn lại hai đoạn; điều phối rút câu định nghĩa điểm nền lặp, giữ dữ kiện100/400/20khối và câu nối E |
+| Rà mạch lại59613 | Xác nhận điểm nền và các cầu D08/D07 đúng; không lỗi nghiêm trọng. Bác đưa ví dụ3/8sang “Bài05”: ví dụ đã nằm ở C02 của chính bài này |
+
+Mọi lượt hoàn tất có requested_model=observed_model=z-ai/glm-5.3-flash, provider=OpenRouter, xác nhận từ JSON runtime. Không đổi mô hình. Writer sửa phản hồi chậm nhưng hoàn tất, không có lỗi OpenRouter.
+
+Điều phối kiểm rộng1280×720/hẹp390×844 toàn63trang,7phần,120+60phút; SVG mới/được dùng ở D không tràn nhãn/chồng chữ, không ảnh hỏng/KaTeX lỗi/JavaScript lỗi/yêu cầu mạng ngoài. Xem ảnh toàn D, phóng D04/D08; rút dòng cuối D04 để tách khỏi chân trang. Viewer có34hình, mục lục, công thức, khối gập/bàn phím/bản in đạt; PDF63trang. Các cảnh báo hộp công thức A06/F03 đã kiểm bằng ảnh, không bị cắt.
+
+Quill dùng kiểm mạch và N04→N05→N06; no-ai-slop dùng bỏ mô tả chung sai từ draft, rút danh sách trong lời giảng, định nghĩa thuật ngữ bằng câu trực tiếp. Tự kiểm eval.md đạt cho phần sửa; học liệu nằm trong tệp sản phẩm, không lộ chỉ dẫn người soạn. Codex Slides vẫn nháp cũ0trang; đã dùng RevealJS cục bộ và không tuyên bố kiểm bằng Codex Slides. Index không đổi vì mô tả/liên kết/bản đồ vẫn đúng và đã kiểm. Chỉ thay D trong HTML; E/F/R chờ các commit kế tiếp.
+
+
+## ER-004 — D, nguồn và kế hoạch
+
+Đã duyệt kế hoạch reader82151 và nguồn67108 (requested/observed z-ai/glm-5.3-flash, provider OpenRouter). Writer77070 soạn mở phần trong gói tạm; giữ tiêu đề rõ nội dung, bác phần đánh đồng mọi phương pháp với biểu diễn nhỏ hơn và đổi đếm tất cả từ thành tìm từ phổ biến. Đếm từ MapReduce phải giữ mọi đóng góp; nối bảng không bắt buộc dùng chỉ mục. Điều phối triển khai11trang D,4SVG và mở rộng N05 theo nguồn đã đối chiếu; A–C/E/F/R giữ nguyên HTML. Chu trình khảo sát có ý tưởng/ví dụ nhưng không giảng trước chứng minh bài sau. Rà storyboard và năm góc nhìn độc lập trước bước writer chỉnh sửa.
+
+
+Trạng thái mới nhất: ER-004, cập nhật lần lượt D/E/F/R. Các mục ER-003 trở về trước được giữ làm lịch sử.
 
 ## ER-003 — đặc tả và đánh giá thuật toán, 2026-09-07
 

@@ -34,4 +34,17 @@
   - Tiêu chí: trang mở phần đúng tên yêu cầu; mạch đặc tả → lời giải → đánh giá liền lạc; có tổng quan các tiêu chí và trang riêng giải thích bằng ví dụ, hình.
   - Kết quả triển khai: thay tám trang phân tích bằng 17 trang; dùng cặp tài liệu gần trùng, tách 10 tiêu chí đánh giá; thêm 11 SVG; đồng bộ ghi chú, kế hoạch, chỉ mục và các câu nối/tự kiểm còn nhắc ví dụ cũ. Toàn bài 60 trang, 7 phần, 120+60 phút.
   - Kiểm tra: Chromium rộng/hẹp toàn bộ 60 trang; KaTeX, SVG, bàn phím, viewer, chỉ mục và bản in đạt. Kiểm số học và 1.200 trường hợp thuật toán hữu hạn; không còn lỗi nghiêm trọng/chặn. Codex Slides vẫn nháp cũ, dùng RevealJS cục bộ theo ngoại lệ đã báo.
-  - Bổ sung của người dùng: “đừng dùng tử tổng byte, ngoài ra ví dụ này quá đơn giản, không nêu hết ý nghĩa”. Bỏ ví dụ cộng dồn khỏi phần phân tích; dùng tìm cặp tài liệu gần trùng cho đặc tả, nhiều ứng dụng cho các tiêu chí. Không dùng cách gọi bị phản đối trong học liệu hiện hành.
+- Bổ sung của người dùng: “đừng dùng tử tổng byte, ngoài ra ví dụ này quá đơn giản, không nêu hết ý nghĩa”. Bỏ ví dụ cộng dồn khỏi phần phân tích; dùng tìm cặp tài liệu gần trùng cho đặc tả, nhiều ứng dụng cho các tiêu chí. Không dùng cách gọi bị phản đối trong học liệu hiện hành.
+
+- [ ] **ER-004** — Yêu cầu: với các section lớn còn lại hãy:
+  - nêu section muốn nói gì
+  - nêu mạch thể hiện của section
+  - bổ sung các slide mở đầu với tiêu đề thể hiện nội dung section, các slide kết nối
+  - Mỗi khái niệm trong section cần lý giải, minh hoạ, ví dụ để làm rõ
+  - sau khi hoàn thiện mỗi section hãy commit / push, tôi cho phép push lên origin
+  - Phạm vi: D, E, F, R của Bài 01; đồng bộ ghi chú, hình và ba tệp kế hoạch. Giữ A–C.
+  - [ ] D — Nội dung học phần và các nhóm phương pháp: nhu cầu → cơ chế đại diện → bài sẽ học → bảo đảm/chi phí.
+  - [ ] E — Kiến thức, kỹ năng và cách học: nền cần ôn → vận dụng → sản phẩm → trách nhiệm.
+  - [ ] F — Mô hình ngẫu nhiên và giới hạn suy luận: bài toán lưu trú → mô hình → xác suất → kỳ vọng → diễn giải.
+  - [ ] R — Bài tập về phép đếm và suy luận: mô hình gốc → thay quy mô → đổi tiêu chuẩn → tập mặt hàng.
+  - Trạng thái: đang lập kế hoạch; kiểm tra, commit/push riêng từng phần trước khi đánh dấu hoàn tất.
