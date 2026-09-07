@@ -43,7 +43,8 @@
   - Mỗi khái niệm trong section cần lý giải, minh hoạ, ví dụ để làm rõ
   - sau khi hoàn thiện mỗi section hãy commit / push, tôi cho phép push lên origin
   - Phạm vi: D, E, F, R của Bài 01; đồng bộ ghi chú, hình và ba tệp kế hoạch. Giữ A–C.
-  - [ ] D — Nội dung học phần và các nhóm phương pháp: nhu cầu → cơ chế đại diện → bài sẽ học → bảo đảm/chi phí.
+  - [x] D — Nội dung học phần và các nhóm phương pháp: nhu cầu → cơ chế đại diện → bài sẽ học → bảo đảm/chi phí.
+    - Hoàn tất11trang D,4SVG, đồng bộ ghi chú và kế hoạch; Chromium rộng/hẹp, viewer, PDF63trang, sáu báo cáo và rà mạch lại đạt. Commit `9ca7a455a9738a170a28906a8216a4d36458ed04` đã push, xác nhận bằng `git ls-remote origin refs/heads/main`.
   - [ ] E — Kiến thức, kỹ năng và cách học: nền cần ôn → vận dụng → sản phẩm → trách nhiệm.
   - [ ] F — Mô hình ngẫu nhiên và giới hạn suy luận: bài toán lưu trú → mô hình → xác suất → kỳ vọng → diễn giải.
   - [ ] R — Bài tập về phép đếm và suy luận: mô hình gốc → thay quy mô → đổi tiêu chuẩn → tập mặt hàng.
