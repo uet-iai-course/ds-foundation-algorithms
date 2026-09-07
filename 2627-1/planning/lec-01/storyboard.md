@@ -2,7 +2,7 @@
 
 ## Trạng thái hiện hành
 
-ER-004: D/E đã commit/push; F đang kiểm định. 70trang,7phần; A23/B24/C31/D17/E9/F16=120phút và R60phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
+ER-004: D/E/F đã commit/push; R đã triển khai và rà nội dung, chờ xuất bản sau kiểm định cuối. 71 trang, 7 phần; A23/B24/C31/D17/E9/F16 = 120 phút và R60 phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
 
 
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
@@ -37,6 +37,10 @@ Phần E có6trang/9phút: E00mở phần → E01nền theo nhóm → E05vận d
 ### F — triển khai ER-004
 
 F9trang/16phút: F00mở → F01bàitoán → F02môhình → F05xácsuất → F06đếm → F03kỳvọng → F07diễngiải → F04thu hồi → E04MapReduce. Toàn bài70trang/7phần/120+60phút. N07cốt lõi: định nghĩa mô hình và biến đếm trước kỳ vọng, ví dụ nguồn dùng xuyên suốt; N08thu hồi chuẩn bịBài02. Hai SVGmới suy-luan-mau-luu-tru và suy-luan-hai-ngay, nguồnMMDS1.2.3tr.7; không có dữ liệu quan sát mới. Gộp bước thuật toán/chi phí triển khai là không áp dụng vì đây là phép đếm mô hình, không thuật toán phát hiện người. F03/F07mỗi3phút cho khái niệm kỳ vọng/giới hạn suy luận. Writer50859soạn mở phần; điều phối giữ3bước, bỏ cách gọi số trùng bình thường vì chỉ tính kỳ vọng.
+
+### R — triển khai ER-004
+
+R7trang/60phút: R00mở3, R01dựngmôhình7, R02a/b15, R03c10, R04giỏhàng8, R06đơnvịđếm5, R05lờigiải12. Toàn bài71trang:64giảng+7bàitập,7outer,120+60phút. N09cốt lõi: bài1.2.1và1.2.2, MMDS1.2.4tr.8; các khối đề/gợi ý/lời giải Markdown giữ nguyên. Thêm phần giải thích ngoài các khối, bảng đổi đơn vị và2SVG bai-tap-quy-mo/bai-tap-ba-ngay. Chỉ chia bước/đổi bố cục, không đổi dữ kiện hoặc đặt bài. R00lấy3phút từR01; R06lấy2phút từR04và3phút từR05. Writer95599lỗi đầu ra không hoàn chỉnh; lượt79767cùng mô hình hoàn tất, giữ hai bài/bốn sản phẩm và bỏ lời chào/nhãn nhấn rỗng bằng no-ai-slop.
 
 ## ER-003 — lịch sử bản ngày 2026-09-07
 
@@ -162,12 +166,13 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-F07 | Mẫu trùng và căn cứ suy luận | Giới hạn suy luận → thu hồi bài toán gần trùng; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 3 | thu hồi bài toán gần trùng |
 | L01-F04 | Đặc tả, chi phí và giới hạn kết luận | Khung toàn bài → chuẩn bị MapReduce; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | chuẩn bị MapReduce |
 | L01-E04 | Chuẩn bị cho Bài 02: MapReduce | Chuẩn bị bài sau → bài tập mô hình lưu trú; giải thích và tính theo mô hình nguồn | MMDS2.2; hình đếm từ | 1 | bài tập mô hình lưu trú |
-| L01-R00 | Bài tập củng cố | Dùng lại mô hình lưu trú để thay quy mô/tiêu chuẩn rồi xét giỏ hàng; không hiện đáp số | MMDS tr.8 | 0 | Dựng ba biến thể |
-| L01-R01 | Ba biến thể của hồ sơ lưu trú | Bài 1.2.1(a–c): đọc đủ đề, dựng mô hình; gợi ý cho người cần bằng thừa số và bảng ký hiệu | V17; MMDS 1.2.1 tr.8 | 10 | Tính a, b |
-| L01-R02 | Thay đổi số ngày và số người | a: 2.000 ngày; b: 2 tỷ người, 200.000 khách sạn; mỗi biến thể độc lập | V17; MMDS 1.2.1(a,b) | 15 | Đổi tiêu chuẩn trùng |
-| L01-R03 | Yêu cầu trùng trong ba ngày | Phần c: giữ quy mô gốc, yêu cầu ba ngày; nộp công thức, giá trị, diễn giải | V17; MMDS 1.2.1(c) | 10 | Chuyển mô hình sang giỏ hàng |
-| L01-R04 | Trùng tập mặt hàng | 100 triệu người, 100 lượt/người/năm, mỗi lượt 10 trong 1.000 mặt hàng; giữ giả thuyết nguồn và chú thích 3 | V18; MMDS 1.2.2 tr.8 | 10 | Hoàn tất lời giải rồi phản biện |
-| L01-R05 | Giải thích kết quả và giới hạn | Hoàn tất/chữa 1.2.2; nộp số phép thử, xác suất, kỳ vọng và kết luận dưới giả thiết | V18; MMDS 1.2.2 | 15 | Kết thúc bằng giới hạn suy luận |
+| L01-R00 | Bài tập về phép đếm và suy luận | Nhận diện hai bài tập và bốn thành phần của lời giải | MMDS1.2.4 tr.8 | 3 | hai bài tập nguồn |
+| L01-R01 | Ba biến thể của bài toán lưu trú | Lập bảng tham số thay đổi riêng cho từng biến thể | MMDS Bài1.2.1(a–c) tr.8 | 7 | thay riêng từng điều kiện |
+| L01-R02 | Ảnh hưởng của số ngày và số người | Tính kỳ vọng và tỷ lệ thay đổi ở hai biến thể quy mô | MMDS Bài 1.2.1(a,b), tr. 8 | 15 | thay tiêu chuẩn trùng |
+| L01-R03 | Mẫu lưu trú trùng trong ba ngày | Đổi đơn vị đếm sang bộ ba ngày và tính kỳ vọng | MMDS Bài 1.2.1(c), tr. 8; mô hình 1.2.3, tr. 7 | 10 | cặp lượt mua |
+| L01-R04 | Tìm cặp người mua cùng tập mặt hàng | Xác định dữ kiện, giả thuyết nguồn và đầu ra cần tìm | MMDS Bài1.2.2 và chú thích3 tr.8 | 8 | đơn vị người/lượt/tập |
+| L01-R06 | Đơn vị đếm trong bài toán giỏ hàng | Phân biệt người, lượt mua, tập mặt hàng và mô hình nền | MMDS Bài1.2.2 và chú thích3 tr.8 | 5 | lời giải và diễn giải |
+| L01-R05 | Lời giải và giới hạn kết luận | Hoàn thiện phép đếm, xác suất, kỳ vọng và kết luận có điều kiện | MMDS Bài1.2.2 và chú thích3 tr.8 | 12 | trả lời có điều kiện |
 
 ## Chu trình học tập và phạm vi rút gọn
 
@@ -176,7 +181,7 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | Cặp gần trùng, cốt lõi | A06/C01 đặt bài toán; C02 tập đoạn và trực giác giao–hợp | C02 chạy Ví dụ3.1; C03 đặc tả; C04 giả mã; C06 chứng minh | C05 tổng quan để định vị chứng minh; C07 chi phí; C16 kiểm tra hậu kiểm. Bài01 không giảng cơ chế LSH; đủ chu trình cho thuật toán xét mọi cặp |
 | V02–V16, khảo sát ứng dụng | A02–B09 mỗi trang có đầu vào, đầu ra, cách trực tiếp và giới hạn; hình gợi một hướng xử lý | Không chạy giả mã hay chứng minh chuyên biệt trong Bài 01; D03–D07 định vị nơi sẽ học | C05–C16 nêu phép đo và bảo đảm; F04 kiểm tra lựa chọn. Chu trình rút gọn vì mục tiêu là nhận diện nhu cầu, không làm chủ thuật toán bài sau |
 | V17, mô hình xác suất | F00 mở phần; F01 đặt bài toán và mẫu lưu trú; F02 nêu mô hình nền | F05 tính một/hai ngày; F06 xác định đơn vị và số phép thử; F03 định nghĩa X, kỳ vọng và thay số | F07 giới hạn suy luận; R01–R03 thay quy mô. Thuật toán/chi phí triển khai không áp dụng vì đây là phép đếm mô hình, không thuật toán phát hiện người |
-| V18, bài tập nguồn | R04 giữ đề và giả thuyết, đặt dữ kiện mua hàng | Người học dựng mô hình; R05 chữa và kiểm tra ý nghĩa biến đếm | Không biến thành bài học khai phá tập phổ biến hoặc thuật toán phát hiện con người |
+| V18, bài tập nguồn | R04 giữ đề và giả thuyết; R06 đối chiếu cặp ngày với cặp lượt mua | Người học dựng mô hình; R05 hoàn tất phép đếm, xác suất, kỳ vọng và kết luận; N09 có lời giải gập | Giữ câu hỏi MMDS1.2.2/chú thích3, không biến thành bài mới hoặc thuật toán nhận diện người; R00–R05/R06 tổng60phút |
 | D/E, giới thiệu khóa học | D00 và E00 mở rõ nội dung; dùng lại bài toán A/B và khung C | D03/D08/D04/D09/D05/D10/D06/D07 giải thích ý tưởng đại diện; E05/E02/E06 vận dụng tập hợp, vết chạy và độ thu hồi | Nhận diện vai trò phương pháp và sản phẩm học; không dạy trước giả mã/chứng minh bài sau. E03 nối trách nhiệm sang F |
 
 Câu kiểm tra trên mặt trang dùng nhãn “Câu hỏi:”. Mã trang, V/H và nhãn quy trình chỉ ở tệp kế hoạch. Chi tiết thời lượng nằm ở storyboard và hướng dẫn tổ chức; lời giảng không đọc các mã nội bộ.

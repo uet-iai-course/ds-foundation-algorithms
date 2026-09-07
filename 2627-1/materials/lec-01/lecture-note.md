@@ -614,7 +614,14 @@ Bài 02 dùng đếm từ trên kho phân tán. Kết quả phải chứa đúng
 
 ## Bài tập từ MMDS
 
-Hai bài từ MMDS, mục 1.2.4, trang 8 dùng lại cách đếm cặp và tính kỳ vọng của hồ sơ lưu trú: thay quy mô quan sát, thay tiêu chuẩn trùng, rồi xét tập mặt hàng. Mỗi lời giải cần nêu đơn vị đếm, giả thiết và giới hạn kết luận.
+Hai bài từ MMDS, mục 1.2.4, trang 8 dùng mô hình ngẫu nhiên để xét số mẫu trùng. Bài 1.2.1 thay riêng từng điều kiện của hồ sơ lưu trú; Bài 1.2.2 chuyển từ ngày lưu trú sang lượt mua và tập mặt hàng. Mỗi bài yêu cầu tính số mẫu trùng rồi xác định điều có thể suy ra từ kết quả.
+
+| Thành phần lời giải | Nội dung phải xác định |
+|---|---|
+| Đơn vị và số phép thử | Một phép thử chọn những người, ngày hoặc lượt nào |
+| Xác suất trùng | Điều kiện trùng và giả thiết để tính xác suất |
+| Kỳ vọng số trùng | Cộng đóng góp của các phép thử, phân biệt biến cố với cặp người |
+| Diễn giải | Kết luận trong mô hình và điều chưa suy ra từ mẫu trùng |
 
 ### Bài 1.2.1: thay đổi quy mô quan sát
 
@@ -672,7 +679,28 @@ $$
 Yêu cầu ba ngày làm kỳ vọng trùng ngẫu nhiên xuống dưới 1 trong mô hình. Điều đó không có nghĩa không thể xuất hiện trùng và không chứng minh danh tính của một cặp. Xấp xỉ $\binom T3\approx T^3/6$ cho khoảng $0{,}0833$.
 :::
 
+### Đổi quy mô và đổi tiêu chuẩn trùng
+
+Hai thay đổi (a), (b) đều bắt đầu từ mô hình gốc. Với (a), số người và khách sạn không đổi; với (b), số người và khách sạn cùng tăng, còn thời gian quan sát không đổi. Vì vậy phải tách ảnh hưởng lên số phép thử khỏi ảnh hưởng lên xác suất mỗi phép thử.
+
+![Hai nhánh bắt đầu từ mô hình gốc: tăng thời gian lên 2000 ngày hoặc tăng lên 2 tỷ người và 200 000 khách sạn](img/lec-01/bai-tap-quy-mo.svg)
+
+Phần (c) giữ quy mô gốc nhưng yêu cầu trùng trong cả ba ngày. Theo mô hình MMDS mục 1.2.3, trang 7, khách sạn có thể khác giữa các ngày; trong mỗi ngày, hai người phải ở cùng khách sạn. Đơn vị đếm chuyển từ cặp ngày sang bộ ba ngày, và điều kiện xảy ra của một phép thử cũng thay đổi.
+
+![Một cặp người được kiểm trên bộ ba ngày khác nhau, cần trùng khách sạn trong từng ngày](img/lec-01/bai-tap-ba-ngay.svg)
+
 ### Bài 1.2.2: trùng tập mặt hàng
+
+Bài lưu trú chọn một cặp ngày. Bài mua hàng chọn một lượt của mỗi người; hai lượt không buộc có cùng số thứ tự.
+
+| Thành phần | Hồ sơ lưu trú | Tập mặt hàng |
+|---|---|---|
+| Đối tượng | Cặp người | Cặp người |
+| Quan sát được chọn | Cặp ngày | Một lượt của mỗi người |
+| Điều kiện trùng | Cùng khách sạn trong từng ngày | Hai tập 10 mặt hàng bằng nhau |
+
+Một giỏ là một tập: đổi thứ tự mua không tạo thêm tập mới. Mô hình nền giả sử các lượt độc lập và chọn đều tập 10 mặt hàng; đây là điều kiện tính toán, không phải mô tả đã được xác nhận cho hành vi mua hàng thực.
+
 
 ::: exercise
 Có thông tin mua sắm của $100$ triệu người. Mỗi người đi siêu thị $100$ lần trong một năm và mua $10$ trong $1000$ mặt hàng được bán.

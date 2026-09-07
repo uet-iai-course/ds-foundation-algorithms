@@ -1,5 +1,34 @@
 # Nhật ký rà soát Bài 1
 
+## ER-004 — R, bài tập về phép đếm và suy luận
+
+Phần R có 7 trang, 60 phút: mở phần → dựng mô hình gốc → thay quy mô → trùng ba ngày → bài mua hàng → đơn vị đếm → lời giải có điều kiện. Thêm R06 và hai SVG; phân lại thời lượng trong phần, không thêm bài tập. Toàn bài có 71 trang, 7 phần ngoài; 64 trang giảng/120 phút và 7 trang bài tập/60 phút. HTML A–F giữ nguyên so với commit trước phần R.
+
+Nguồn là MMDS mục 1.2.3–1.2.4, trang 7–8, Bài 1.2.1(a–c), Bài 1.2.2 và chú thích 3. Sáu khối đề, gợi ý, lời giải trong Markdown giữ nguyên từng ký tự so với HEAD trước phần R; phần giải thích, bảng và hình được thêm bên ngoài. Không tạo số liệu hay đổi giả thuyết nguồn. Chú thích trong nguồn yêu cầu chấp nhận giả thuyết của bài mua hàng để làm bài, không coi đó là kết luận về dữ liệu thực.
+
+| Vai / phiên | Kết quả và quyết định |
+|---|---|
+| Writer ban đầu 79767 | Soạn mở phần sau lượt 95599 lỗi; giữ hai bài và bốn thành phần lời giải, cắt lời chào và lời nhấn rỗng |
+| Storyboard 9258 | Xác nhận 60 phút; nhận sửa nguồn R02 riêng (a,b), R03 riêng (c). Bác số cơ sở khoảng 249875 do reviewer tự nêu: giá trị thật là 249749,99975025 |
+| Sinh viên 88995 | Nhận sửa khoảng trắng trong alt và nói rõ MMDS/năm quan sát. Không sắp lại theo mã nội bộ hoặc đưa đáp án lên mặt slide bài tập |
+| Giải thuật/nguồn 78020 | Nhận nguồn từng hàng cần chính xác. Bác cách hiểu phải ở một khách sạn cố định suốt ba ngày: trang 7 của mô hình 1.2.3 nói rõ khách sạn có thể khác giữa các ngày; trang 8 tiếp tục mô hình này |
+| Toán 42115 | Xác nhận bốn giá trị kỳ vọng và bài mua hàng đúng; nhận thống nhất dấu thập phân trong notes và làm rõ cận xác suất bằng chỉ báo |
+| Sư phạm 83491 | Nhận sửa khoảng trắng và nguồn; R06 là chia bước của cùng bài. Giữ cột nối theo nghĩa dẫn sang trang kế tiếp, không đổi thành nội dung lặp trong trang |
+| Mạch 1745 | Không lỗi nghiêm trọng; F→R và R04→R06→R05 nối được. Làm rõ sản phẩm riêng của từng trang trong storyboard; R01 lập mô hình, R02 giải nên mức gợi ý khác nhau có chủ đích |
+| Writer chỉnh sửa 7401 | Chạy sau đủ năm báo cáo, soạn hai câu về tập không thứ tự và chỉ báo không lớn hơn số đếm; tích hợp vào notes, giữ phân biệt xác suất nền và xác suất có điều kiện |
+
+Lượt writer 95599 kết thúc với lỗi `model returned an empty or incomplete answer after all retries`; đã báo người dùng và dừng tích hợp, chạy lại cùng mô hình/provider với giới hạn đầu ra phù hợp. Các lượt hoàn tất trên có requested_model=observed_model=z-ai/glm-5.3-flash, provider=OpenRouter, xác nhận từ JSON runtime. Không đổi kênh hoặc gửi tệp bí mật.
+
+Rà lại toán/nguồn 83837 đã đọc cả trang 7–8, xác nhận cách hiểu khách sạn có thể khác giữa các ngày, các kết quả kỳ vọng và cận chỉ báo. Báo cáo tự viết một dấu bằng sai khi thay tổ hợp bằng số làm tròn ở bước trung gian (b), không nằm trong học liệu; điều phối giữ phép tính tổ hợp chính xác đã tự kiểm. Rà mạch 57987 đọc đủ 135 dòng, xác nhận F04→E04→R00 và chuỗi bài tập liền mạch. Cả hai báo cáo hiểu cột cuối của bản trích thiếu header là từ khóa của trang hiện tại: bác đề xuất đổi cột vì bảng thật ghi rõ “Nối sang trang sau” ở dòng tiêu đề. R02 nối sang tiêu chuẩn ba ngày, R03 sang cặp lượt mua là đúng. Không còn lỗi nội dung hoặc hiển thị bắt buộc đã được xác minh. Runtime của hai lượt vẫn đúng model/provider nêu trên.
+
+Điều phối kiểm độc lập bằng tổ hợp chính xác: cơ sở 249749,99975025; (a) 999499,9990005; (b) 249749,999875125; (c) 0,0830834999169165; bài mua hàng 0,00018981846904990663. Y đếm cặp lượt; chỉ báo của Y≥1 không lớn hơn Y nên Pr(Y≥1)≤E[Y] trong mô hình nền. Cận này không cho xác suất một cặp có ý định gì khi đã quan sát trùng.
+
+Quill dùng rà thứ tự khái niệm, đơn vị đếm và các cầu F04/E04→R00, R03→R04→R06→R05. No-ai-slop dùng biên tập mặt trang, alt, notes và đoạn ghi chú mới; tự kiểm trực tiếp eval.md: giữ dữ kiện, giọng học thuật và giả thiết, cắt chỉ dẫn sản xuất, lời mở rỗng và diễn đạt lặp. Không cắt hướng dẫn học tập hoặc lời giải cần cho người học. Không tạo quill.json.
+
+Kiểm Chromium trên bản 71 trang: rộng 1280×720 và hẹp 390×844; 7 phần, 70 notes (trang tên bài không cần notes), 120+60 phút. Không lỗi KaTeX/JavaScript/HTTP, ảnh hỏng hoặc yêu cầu mạng ngoài. SVG không chồng nhãn/vượt khung; đã xem toàn bộ R và phóng R04 sau sửa cuối. Cảnh báo hộp KaTeX A06 là cảnh báo đo đã có, ảnh không bị cắt. Viewer có 41 lượt nhúng hình, 54 mục lục, không tràn ngang; sáu khối gợi ý/lời giải gập khi đọc, bàn phím mở được và mở khi in. PDF slide có 71 trang. Liên kết chỉ mục/viewer và từ chối đường dẫn/số bài sai đạt. Index không đổi vì mô tả và liên kết vẫn đúng.
+
+Codex Slides vẫn là nháp cũ 0 trang, không có Browser phù hợp; đã báo và kiểm trực tiếp RevealJS cục bộ theo ngoại lệ của kho. Không tuyên bố đã đồng bộ hoặc kiểm trên Codex Slides. Ảnh/PDF/gói rà soát ở /tmp/er004.8MWOn4, không đưa vào Git. Chỉ stage đầu ra Bài 01; giữ các thay đổi người dùng ngoài phạm vi.
+
 ## ER-004 — F, phản biện và kiểm định
 
 Rà mạch cuối2520 đã đọc trọn798dòng, xác nhận đúng70slide và các nhómouter, F06trướcF03, câu nốiF04thu hồi gần trùng, E→F→Rliền mạch; không còn lỗi nghiêm trọng/chặn. Runtime requested/observed z-ai/glm-5.3-flash, provider OpenRouter. Fđủ điều kiện commit/push.

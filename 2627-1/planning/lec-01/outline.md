@@ -2,6 +2,8 @@
 
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
 
+Bản hiện hành: 71 trang, 7 phần ngoài; 64 trang giảng/120 phút và 7 trang bài tập/60 phút. D/E/F đã xuất bản; R hoàn tất nội dung, chờ kiểm định cuối và xuất bản. Các thống kê ở mục triển khai từng phần ghi nhận thời điểm tương ứng.
+
 Bốn phần còn lại là D/E/F/R; A–C giữ nguyên. Điều phối đã đọc nguồn cấp học phần, ánh xạ, toàn bộ Stanford01-intro và MMDS1.2 tr.6–8. Reader lập kế hoạch82151 và nguồn67108 hoàn tất: requested_model và observed_model đều z-ai/glm-5.3-flash, provider OpenRouter.
 
 Giữ đề xuất năm nhóm chương trình, nhánh tiên quyết, mô hình lưu trú và bài tập đúng nguồn. Bác đề xuất D chỉ có tên bài/thuộc tính: yêu cầu mới cần lý giải và minh họa. D giới thiệu ý tưởng và công dụng bằng ví dụ A/B/C; không dạy trước giả mã/chứng minh chuyên biệt của Bài02–15. Bác dùng lại nhật ký trong E02 vì C đã chuyển sang cặp gần trùng.
@@ -26,6 +28,10 @@ Phần E có6trang/9phút: E00mở phần → E01nền theo nhóm → E05vận d
 ### F — triển khai ER-004
 
 F9trang/16phút: F00mở → F01bàitoán → F02môhình → F05xácsuất → F06đếm → F03kỳvọng → F07diễngiải → F04thu hồi → E04MapReduce. Toàn bài70trang/7phần/120+60phút. N07cốt lõi: định nghĩa mô hình và biến đếm trước kỳ vọng, ví dụ nguồn dùng xuyên suốt; N08thu hồi chuẩn bịBài02. Hai SVGmới suy-luan-mau-luu-tru và suy-luan-hai-ngay, nguồnMMDS1.2.3tr.7; không có dữ liệu quan sát mới. Gộp bước thuật toán/chi phí triển khai là không áp dụng vì đây là phép đếm mô hình, không thuật toán phát hiện người. F03/F07mỗi3phút cho khái niệm kỳ vọng/giới hạn suy luận. Writer50859soạn mở phần; điều phối giữ3bước, bỏ cách gọi số trùng bình thường vì chỉ tính kỳ vọng.
+
+### R — triển khai ER-004
+
+R7trang/60phút: R00mở3, R01dựngmôhình7, R02a/b15, R03c10, R04giỏhàng8, R06đơnvịđếm5, R05lờigiải12. Toàn bài71trang:64giảng+7bàitập,7outer,120+60phút. N09cốt lõi: bài1.2.1và1.2.2, MMDS1.2.4tr.8; các khối đề/gợi ý/lời giải Markdown giữ nguyên. Thêm phần giải thích ngoài các khối, bảng đổi đơn vị và2SVG bai-tap-quy-mo/bai-tap-ba-ngay. Chỉ chia bước/đổi bố cục, không đổi dữ kiện hoặc đặt bài. R00lấy3phút từR01; R06lấy2phút từR04và3phút từR05. Writer95599lỗi đầu ra không hoàn chỉnh; lượt79767cùng mô hình hoàn tất, giữ hai bài/bốn sản phẩm và bỏ lời chào/nhãn nhấn rỗng bằng no-ai-slop.
 
 ## ER-003 — lịch sử bản ngày 2026-09-07
 
