@@ -125,3 +125,23 @@ HTML, storyboard và ghi chú cuối được lưu vào Design Files; việc t�
 ### Trạng thái đẩy kho
 
 Commit nội dung `e6b4194` đã tạo thành công. Lệnh `git push origin main` bị bộ xét duyệt tự động từ chối vì chưa xác nhận quyền phát hành lên nhánh mặc định và đích từ xa. Sau từ chối, chỉ kiểm tra đọc: `origin` là `https://github.com/uet-iai-course/ds-foundation-algorithms.git`. Không thử đường vòng để đẩy. Nội dung và kiểm định hoàn tất cục bộ; phát hành lên GitHub đang chờ người dùng cho phép.
+
+### Đối chiếu theo từng phần sau khi tiếp tục mục tiêu
+
+Đã kiểm tra lại đúng tệp ở HEAD bằng Chromium. Không có thay đổi nội dung chưa commit. Cả 53 trang đều có trong kết quả kiểm tra, không tràn khung, không lỗi KaTeX/JavaScript hoặc tài nguyên hỏng. Bảng dưới ghi phạm vi thực tế và dấu vết nội dung từng section; đây là bằng chứng rà chốt, không phải tuyên bố đã có lịch sử viết/commit riêng từng section.
+
+| Phần | Trang giảng | Trang bài tập | Mã trang đầu–cuối | SHA-256 nội dung section |
+|---|---:|---:|---|---|
+| Mở đầu | 3 | 0 | `lec02-s00-01` → `lec02-s00-03` | `a88558ce6044b468ee007fd18125a81104506c863463dbcf1cc253973464c8fd` |
+| Mục 2.1 | 3 | 0 | `lec02-s01-01` → `lec02-s01-03` | `d212b460030f922c44147f1e1c33de3af7dc2cbe865091a9e9351ebe344bb7b9` |
+| Mục 2.2 | 7 | 3 | `lec02-s02-01` → `lec02-ex221c` | `5fc97b3405c0ad21885f88ea18c686ac38dd771d707d81cfe5363ae4122168d9` |
+| Mục 2.3 | 10 | 4 | `lec02-s03-01` → `lec02-ex231d` | `054f1592c9401b06f7dd10e7e6826634b33f12075a347481d562c1ffe50c8bff` |
+| Mục 2.4 | 5 | 0 | `lec02-s04-01` → `lec02-s04-05` | `5d4fffc5889edc60451816ca3f98edba389f4f5bad3b2240c44a968729eb6964` |
+| Mục 2.5 | 9 | 2 | `lec02-s05-01` → `lec02-ex251c` | `d26402ad12e7c682b4ec523de84d9e74380f7a173dddc93767133aa89ddd5da5` |
+| Mục 2.6 | 4 | 0 | `lec02-s06-01` → `lec02-s06-04` | `805c3434def255b8c3634adbf5491be02e6b4e04f4138cb3f4e7c77d0b8ce02a` |
+| Mục 2.7 | 2 | 0 | `lec02-s07-01` → `lec02-s07-02` | `36fee529d3b64f926cf89a72e72c7039eb8232040a9b8d4e4e3001b661c2f85d` |
+| Mục 2.8 | 1 | 0 | `lec02-s08-01` → `lec02-s08-01` | `f630b2818a9fd5918a0f48a1d2a5b0ea5c0f67389c50585f59c545441270d0bd` |
+
+SHA-256 toàn tệp HTML: `26c50bc9997aa20e5796e054f76f04bd3a4522fae94b620540423f321fcb0e45`. Ghi chú có 185 công thức được render, năm hình tải được; kiểm tra màn hình hẹp và bàn phím đạt.
+
+Sai khác quy trình còn ghi nhận: bản viết mới đã được gộp trong commit nội dung e6b4194 trước khi mục tiêu tiếp tục nhắc lại yêu cầu commit/push từng phần. Không sửa lịch sử để tạo các mốc viết giả. Lần push tiếp theo vẫn bị xét duyệt tự động từ chối vì chưa công nhận xác nhận trực tiếp cho thao tác trên origin/main. Chưa có bằng chứng phát hành thành công; mục tiêu chưa được đánh dấu hoàn tất.
