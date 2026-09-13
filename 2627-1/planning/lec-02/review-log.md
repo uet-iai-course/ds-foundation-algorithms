@@ -121,3 +121,7 @@ HTML, storyboard và ghi chú cuối được lưu vào Design Files; việc t�
 ## Bàn giao và Git
 
 Đã kiểm tra diff trong phạm vi Bài 02; giữ nguyên các thay đổi ngoài phạm vi ở AGENTS, .gitignore, .codex, codex-orchestrator và openrouter-mcp. Commit gồm HTML, ghi chú, năm SVG mới, ba tệp quy trình và mô tả index. Lệnh phát hành theo AGENTS là git push origin main, không viết lại lịch sử. Kết quả commit/push được xác minh khi bàn giao; mã commit không tự nhúng vào tệp thuộc chính commit đó.
+
+### Trạng thái đẩy kho
+
+Commit nội dung `e6b4194` đã tạo thành công. Lệnh `git push origin main` bị bộ xét duyệt tự động từ chối vì chưa xác nhận quyền phát hành lên nhánh mặc định và đích từ xa. Sau từ chối, chỉ kiểm tra đọc: `origin` là `https://github.com/uet-iai-course/ds-foundation-algorithms.git`. Không thử đường vòng để đẩy. Nội dung và kiểm định hoàn tất cục bộ; phát hành lên GitHub đang chờ người dùng cho phép.
