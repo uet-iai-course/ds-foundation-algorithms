@@ -3,279 +3,302 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-  <title>Bài 2: MapReduce và ngăn xếp xử lý dữ liệu lớn</title>
+  <title>Bài 02: MapReduce và ngăn xếp xử lý dữ liệu lớn</title>
   <link rel="stylesheet" href="revealjs/dist/reset.css"/>
   <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
   <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
   <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
   <link rel="stylesheet" href="lecture-style.css"/>
   <style>
-    .reveal .slides section[data-slide-id]{font-size:.82em}.reveal h1,.reveal h2{color:#2f3e7a}.reveal h3{color:#37474f}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.72em}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.55em}
-    .card{border:2px solid #cfd8dc;border-radius:12px;padding:.42em .62em;background:#fff}.card.accent{border-left:7px solid #b15a2b;background:#fffaf5}
-    .check{background:#edf4ff;border:2px solid #2f3e7a;border-radius:10px;padding:.35em .55em;margin-top:.5em}
-    .formula{font-size:1.08em;text-align:center;padding:.25em}.tight li{margin:.1em 0}.muted{color:#546e7a}.big{font-size:1.16em}.center{text-align:center}
-    .trace{border-collapse:collapse;width:100%;font-size:.75em}.trace th,.trace td{border:1px solid #b0bec5;padding:.28em .38em;text-align:center}.trace th{background:#edf4ff}
-    .flow{display:flex;align-items:center;justify-content:center;gap:.32em;flex-wrap:wrap}.step{border:2px solid #2f3e7a;border-radius:10px;padding:.34em .48em;background:#edf4ff}.arrow{font-size:1.15em;color:#b15a2b}
-    .source-line{font-size:.64em;color:#546e7a;margin-top:.35em}.figure{display:block;max-height:410px;max-width:96%;margin:.16em auto}.figure.short{max-height:335px}
-    pre{width:96%;font-size:.75em!important}.reveal .slides section.recitation{border-top:8px solid #b15a2b}.task{background:#fffaf5;border-left:7px solid #b15a2b;padding:.3em .6em}
+    .reveal .slides section[data-slide-id] { font-size: .82em; }
+    .reveal h1, .reveal h2 { color: #2f3e7a; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8em; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: .5em .65em; }
+    .math-large { font-size: 1.16em; text-align: center; }
+    .check { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: .35em .55em; }
+    .note-source { font-size: .9em; color: #444; }
+
+    .reveal .slides section[data-slide-id] { font-size: 32px; text-align: left; }
+    .reveal h1 { font-size: 1.55em; line-height: 1.16; }
+    .reveal h2 { font-size: 1.3em; line-height: 1.18; margin-bottom: .5em; }
+    .reveal h3 { font-size: 1.05em; }
+    .reveal p, .reveal li { line-height: 1.35; }
+    .reveal p { margin: .4em 0; }
+    .reveal table { font-size: .92em; width: 100%; margin: .5em 0; }
+    .reveal table th, .reveal table td { padding: .25em .4em; }
+    .reveal pre { width: 100%; font-size: .82em; box-shadow: none; margin: .4em 0; }
+    .reveal pre code { padding: .55em; max-height: none; white-space: pre-wrap; }
+    .reveal .figure { width: 100%; max-height: 350px; object-fit: contain; margin: .1em 0; }
+    .reveal .math-large { margin: .5em 0; }
+    .reveal .footer { font-size: 17px; }
+    .reveal .exercise-label { color: #B15A2B; }
   </style>
 </head>
-<body>
-<div class="reveal"><div class="slides">
-  <section>
-    <section data-slide-id="P00">
-      <h1>MapReduce và ngăn xếp xử lý dữ liệu lớn</h1>
-      <h3>Bài 2 · Giải thuật nền tảng của Khoa học dữ liệu</h3>
-      <p>Năm học 2026–2027 · Học kỳ 1</p>
-      <p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
-      <aside class="notes">Ở Bài 1, một lượt quét giải được bài toán khi bảng trạng thái vừa một máy. Trường hợp cả dữ liệu lẫn trạng thái đều vượt giới hạn đó đòi hỏi chia dữ liệu, di chuyển cặp khóa–giá trị và khôi phục tác vụ. Nguồn chính: MMDS 3e, Chương 2; bộ trang chiếu chính thức MMDS Chương 2, http://www.mmds.org.</aside>
-    </section>
-    <section data-slide-id="P01">
-      <h2>Mục tiêu học tập</h2>
-      <ul>
-        <li>Mô tả đúng ba giai đoạn của MapReduce và trách nhiệm của hệ thống.</li>
-        <li>Đặc tả và chứng minh tính đúng của chương trình đếm từ.</li>
-        <li>Thiết kế map, reduce và bộ kết hợp cho phép tổng hợp khóa–giá trị.</li>
-        <li>Giải thích lệch tải, khôi phục tác vụ và hai quy ước đo chi phí.</li>
-        <li>Chọn MapReduce cho tác vụ phân tích theo lô phù hợp.</li>
-      </ul>
-      <aside class="notes">Sản phẩm cuối buổi là một đặc tả MapReduce có đầu vào, đầu ra, điều kiện trước, điều kiện sau, quy tắc phát cặp và lập luận tính đúng. Kiến thức đầu vào: Bài 1, ánh xạ khóa–giá trị, phép nhóm và bảng băm.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section data-slide-id="A00"><h1>Đưa tính toán đến dữ liệu</h1><p class="big">Ví dụ MMDS: hơn 20 tỷ trang Web, mỗi trang 20 KB, tạo hơn 400 TB dữ liệu.</p><div class="grid2"><div class="card"><h3>Một máy</h3><p>Đọc 30–35 MB/giây, cần khoảng 4–5 tháng cho một lượt quét.</p></div><div class="card accent"><h3>Đầu ra cần tạo</h3><p>Số lần xuất hiện theo từ hoặc danh sách URL phổ biến.</p></div></div><aside class="notes">Số liệu lịch sử của bộ trang chiếu MMDS: hơn 20 tỷ trang Web, mỗi trang 20 KB, hơn 400 TB; một máy đọc 30–35 MB/giây nên một lượt quét mất khoảng 4–5 tháng. Không trình bày đây là quy mô Web hiện tại. Tình huống xuyên suốt là đếm từ trong kho tài liệu lớn. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 4, 8 và 12; MMDS mục 2.1 và 2.2.1.</aside></section>
-    <section data-slide-id="A01">
-      <h2>Kho tài liệu nằm trên nhiều máy</h2>
-      <img class="figure" src="img/lec-02/he-tep-phan-tan.svg" role="img" alt="Một tệp được chia thành ba khối có bản sao trên các máy công nhân, và bộ điều phối gán tác vụ đọc bản sao cục bộ."/>
-      <aside class="notes">Hệ tệp phân tán chia tệp thành khối, lưu bản sao trên nhiều máy và theo dõi vị trí. Bộ lập lịch ưu tiên đặt tác vụ gần bản sao để giảm truyền qua mạng. Hình vẽ lại từ bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 9–11 và MMDS mục 2.1, 2.2.5; theo số liệu lịch sử của MMDS, khối khoảng 64 MB và mỗi khối có ba bản sao; các con số này chỉ định hình quy mô, không cần cho lập luận.</aside>
-    </section>
-    <section data-slide-id="A02">
-      <h2>Ba yêu cầu của mô hình thực thi MapReduce</h2>
-      <div class="grid3"><div class="card"><h3>Chia việc</h3><p>Mỗi tác vụ xử lý một hoặc nhiều khối độc lập.</p></div><div class="card"><h3>Che lỗi</h3><p>Hệ thống phát hiện và lập lịch lại tác vụ.</p></div><div class="card"><h3>Quản lý dữ liệu</h3><p>Hệ thống định vị đầu vào và chuyển dữ liệu trung gian.</p></div></div>
-      <div class="check"><strong>Câu hỏi:</strong> phần nào nên do người viết thuật toán quyết định?</div>
-      <aside class="notes">Đáp án: phép biến đổi trên một phần tử và phép tổng hợp theo khóa. Việc chia khối, lập lịch, nhóm khóa và khôi phục do môi trường MapReduce đảm nhiệm. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 20; MMDS mục 2.2.1–2.2.6.</aside>
-    </section>
-    <section data-slide-id="A03">
-      <h2>Đầu ra quyết định khóa trung gian</h2>
-      <div class="grid2"><div class="card"><h3>Đầu vào</h3><p>Tập tài liệu được chia thành các phần tử; mỗi phần tử không bị cắt qua hai khối.</p></div><div class="card accent"><h3>Đầu ra</h3><p>Với mỗi từ $w$ đã xuất hiện, trả số lần xuất hiện $c(w)$.</p></div></div>
-      <p class="formula">$c(w)=\sum_{d\in D} f(w,d)$</p>
-      <p class="muted center">$f(w,d)$ là số lần từ $w$ xuất hiện trong tài liệu $d$.</p>
-      <aside class="notes">Khóa trung gian phải đưa mọi đóng góp cho cùng từ về cùng một phép tổng hợp. Điều kiện phần tử không bị chia qua hai khối lấy từ MMDS mục 2.2.1, trang in 25, PDF trang 6. Tình huống đếm từ và nhật ký Web lấy từ bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 12–14. Chưa viết giả mã; trước hết chạy tay luồng dữ liệu.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section data-slide-id="B00"><h1>Luồng khóa–giá trị</h1><p class="big">Map phát đóng góp cục bộ; hệ thống gom mọi đóng góp cùng khóa; reduce tạo kết quả theo khóa.</p><aside class="notes">Đầu ra theo từ được tách thành ba giai đoạn MapReduce. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 14–16; MMDS mục 2.2.</aside></section>
-    <section data-slide-id="B01">
-      <h2>Ví dụ đếm từ chạy qua ba giai đoạn</h2>
-      <img class="figure" src="img/lec-02/luong-mapreduce.svg" role="img" alt="Hai tài liệu được map thành các cặp từ và một, nhóm theo từ, rồi reduce thành số lần xuất hiện."/>
-      <aside class="notes">Chạy tay theo luồng ở bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 18–19 và Ví dụ 2.1–2.2 của giáo trình, nhưng dùng hai tài liệu tiếng Việt nhỏ. Dữ liệu nhỏ chỉ minh họa trạng thái; tình huống sử dụng vẫn là kho tài liệu lớn. Theo vết: “dữ liệu” có danh sách [1], “lớn” có [1,1,1], rồi tổng thành 1 và 3.</aside>
-    </section>
-    <section data-slide-id="B05">
-      <h2>Đặc tả chương trình đếm từ</h2>
-      <div class="grid2"><div class="card"><h3>Điều kiện trước</h3><p>Tách từ xác định; mỗi tài liệu là một phần tử; bộ đếm không tràn.</p></div><div class="card"><h3>Điều kiện sau</h3><p>Mỗi từ xuất hiện đúng một lần trong đầu ra, kèm tổng số lần xuất hiện.</p></div></div>
-      <p class="muted">Trường hợp biên: kho rỗng cho đầu ra rỗng; tài liệu rỗng không phát cặp.</p>
-      <aside class="notes">Vết chạy ở trang trước cho “lớn” danh sách [1,1,1] và kết quả 3; đặc tả dưới đây yêu cầu mọi vết chạy hợp lệ giữ đúng quan hệ đó. Phân biệt đặc tả với cài đặt. Cách chuẩn hóa hoa–thường và dấu câu phải được quy định trong phép tách từ; nguồn không chọn một quy tắc cụ thể. MapReduce cho phép hàm map hoặc reduce phát không cặp.</aside>
-    </section>
-    <section data-slide-id="B02">
-      <h2>Map có thể phát không, một hoặc nhiều cặp</h2>
-      <pre><code class="language-text">map(tài_liệu d):
-  cho mỗi từ w trong d:
-    phát (w, 1)</code></pre>
-      <ul class="tight"><li>Miền khóa: chuỗi từ.</li><li>Miền giá trị: số nguyên dương.</li><li>Khóa không cần duy nhất trong đầu ra map.</li></ul>
-      <aside class="notes">Một Map task xử lý nhiều phần tử; hàm map được gọi trên từng phần tử. Một từ xuất hiện m lần trong phần của tác vụ tạo m cặp (w,1) trước bộ kết hợp. Biên: phần tử không chứa từ nào thì map phát 0 cặp. Điều kiện trước và sau đã nêu ở phần đặc tả; giả mã này xác định phía map. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 17 và 19; MMDS mục 2.2.1.</aside>
-    </section>
-    <section data-slide-id="B03">
-      <h2>Nhóm theo khóa là bảo đảm của hệ thống</h2>
-      <p class="formula">$(k,v_1),\ldots,(k,v_m)\longmapsto(k,[v_1,\ldots,v_m])$</p>
-      <div class="grid2"><div class="card"><h3>Phân vùng</h3><p>Mỗi khóa được gán cho đúng một Reduce task.</p></div><div class="card"><h3>Sắp và trộn</h3><p>Các tệp trung gian được gom thành danh sách theo khóa.</p></div></div>
-      <aside class="notes">Không gọi đây là mã do người dùng viết. Hệ thống chọn hoặc nhận hàm phân vùng; với r Reduce task thường dùng băm khóa vào 0,…,r−1. Tất cả cặp cùng khóa phải đến cùng một Reduce task. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 16, 21, 23 và 32; MMDS mục 2.2.2.</aside>
-    </section>
-    <section data-slide-id="B04">
-      <h2>Reduce xử lý một khóa cùng danh sách giá trị</h2>
-      <pre><code class="language-text">reduce(từ w, danh_sách V):
-  tổng ← 0
-  cho mỗi v trong V:
-    tổng ← tổng + v
-  phát (w, tổng)</code></pre>
-      <aside class="notes">Một reducer là một lần gọi hàm reduce cho một khóa; một Reduce task có thể chạy nhiều reducer. Vòng lặp dừng sau |V| bước. Đầu ra của mọi Reduce task được hợp thành tệp kết quả. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 17 và 19; MMDS mục 2.2.3.</aside>
-    </section>
-    <section data-slide-id="B06">
-      <h2>Tính đúng theo phép phân hoạch đóng góp</h2>
-      <p><strong>Mệnh đề.</strong> Nếu điều kiện trước thỏa và hệ thống nhóm theo khóa đúng, chương trình thỏa điều kiện sau.</p>
-      <p><strong>Giả thiết.</strong> Mỗi lần từ $w$ xuất hiện, map phát đúng một cặp $(w,1)$; mọi cặp cùng khóa về đúng một Reduce task.</p>
-      <ol class="tight"><li>Bước 1 tạo song ánh giữa lần xuất hiện và giá trị 1.</li><li>Bước 2 phân hoạch theo từ.</li><li>Bất biến reduce: sau $j$ giá trị, biến tổng bằng tổng của $j$ giá trị đầu.</li><li>Khi vòng lặp dừng, tổng bằng số lần $w$ xuất hiện trong toàn bộ đầu vào.</li></ol>
-      <aside class="notes">Bước 3–4 là bất biến vòng lặp và điều kiện dừng. Không dựa vào thứ tự giá trị.</aside>
-    </section>
-    <section data-slide-id="B07">
-      <h2>Kiểm tra luồng dữ liệu</h2>
-      <div class="check"><strong>Câu hỏi:</strong> với hai tài liệu “a b a” và “b c”, hãy ghi đầu ra map, đầu vào reduce và kết quả.</div>
-      <p class="muted">Giữ nguyên thứ tự xuất hiện trong đầu ra map; thứ tự các giá trị sau khi nhóm không ảnh hưởng phép cộng.</p>
-      <aside class="notes">Đáp án: map phát (a,1),(b,1),(a,1),(b,1),(c,1); nhóm cho a:[1,1], b:[1,1], c:[1]; kết quả (a,2),(b,2),(c,1). Ba kết quả lần lượt cho thấy đóng góp cục bộ, phép nhóm của hệ thống và tổng theo khóa.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section data-slide-id="C00"><h1>Giảm dữ liệu trung gian</h1><p class="big">Đầu ra map đi qua mạng; gộp đúng ở máy cục bộ có thể giảm lượng phải chuyển.</p><aside class="notes">Từ tính đúng của Word Count chuyển sang chi phí. MMDS giới thiệu bộ kết hợp ngay sau reduce và chỉ ra cách giảm đầu ra map trước khi chuyển. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 30–31; MMDS mục 2.2.4.</aside></section>
-    <section data-slide-id="C01">
-      <h2>Bộ kết hợp tổng hợp trước khi truyền</h2>
-      <img class="figure" src="img/lec-02/phan-vung-va-bo-ket-hop.svg" role="img" alt="Các cặp cùng từ được cộng cục bộ ở hai tác vụ map rồi phân vùng đến Reduce task theo khóa."/>
-      <aside class="notes">Với Word Count, bộ kết hợp thay m cặp (w,1) của một Map task bằng (w,m). Vẫn phải nhóm và reduce vì mỗi Map task có thể phát một tổng cục bộ cho cùng w. Hình vẽ lại từ cơ chế ở bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 30–31; số lượng là minh họa, không phải dữ liệu thực nghiệm. Nguồn giáo trình: MMDS mục 2.2.4.</aside>
-    </section>
-    <section data-slide-id="C02">
-      <h2>Phép gộp phải bảo toàn kết quả</h2>
-      <p class="formula">$(a\oplus b)\oplus c=a\oplus(b\oplus c),\qquad a\oplus b=b\oplus a$</p>
-      <div class="grid2"><div class="card"><h3>Cùng kiểu</h3><p>Đầu ra của một lần gộp lại là đầu vào hợp lệ cho lần gộp tiếp.</p></div><div class="card accent"><h3>Cùng ngữ nghĩa</h3><p>Gộp theo bất kỳ cây nào vẫn biểu diễn đúng phần dữ liệu đã xử lý.</p></div></div>
-      <aside class="notes">Thứ tự gộp tùy ý chỉ an toàn khi phép gộp kết hợp và giao hoán: nếu thiếu một trong hai, hai cây gộp khác nhau cho cùng dữ liệu có thể cho kết quả khác nhau. Phản ví dụ: phép trừ không kết hợp và không giao hoán; phép trung bình trực tiếp giao hoán nhưng không kết hợp. Cần thêm tính đóng: trạng thái sau một lần gộp phải có cùng kiểu với đầu vào, và giữ cùng ngữ nghĩa qua nhiều lần gộp; chẳng hạn tổng là tổng của phần dữ liệu đã xử lý. Không dùng trung bình để tránh làm trước Bài 2.3.1(b). Nguồn: MMDS mục 2.2.4, trang in 27–28.</aside>
-    </section>
-    <section data-slide-id="C03">
-      <h2>Phân vùng quyết định nơi xử lý khóa</h2>
-      <p class="muted">Hàm phân vùng cụ thể hóa bảo đảm nhóm theo khóa.</p>
-      <p class="formula">$p(k)=h(k)\bmod r$</p>
-      <p class="muted">$k$: khóa · $h$: hàm băm · $r$: số Reduce task · $p(k)$: chỉ số task nhận khóa</p>
-      <ul class="tight"><li>Mọi cặp có khóa $k$ đi đến một Reduce task.</li><li>Một Reduce task thường xử lý nhiều khóa.</li><li>Số Reduce task quá lớn tạo nhiều tệp trung gian và chi phí điều phối.</li></ul>
-      <aside class="notes">r là số Reduce task do chương trình cấu hình. Mỗi Map task tạo một tệp trung gian cho mỗi Reduce task trong mô hình MMDS, nên r quá lớn làm số tệp tăng mạnh. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 25, 27 và 32; MMDS mục 2.2.2, 2.2.5.</aside>
-    </section>
-    <section data-slide-id="C04">
-      <h2>Lệch tải xuất phát từ độ dài danh sách</h2>
-      <div class="grid2"><div class="card accent"><h3>Reducer</h3><p>Một lần gọi reduce cho một khóa; khóa phổ biến tạo danh sách dài.</p></div><div class="card"><h3>Reduce task</h3><p>Đơn vị lập lịch có thể chạy nhiều reducer nối tiếp.</p></div></div>
-      <p>Một máy công nhân có thể chạy nhiều Reduce task. Bộ kết hợp làm ngắn danh sách trước khi truyền.</p>
-      <aside class="notes">Phân biệt reducer, Reduce task và máy công nhân. Một reducer ứng với một khóa; một task chạy nhiều reducer; một máy có thể chạy nhiều task nối tiếp. Lệch tải trong khung chú thích của MMDS trang in 28 là nền cho Bài 2.2.1.</aside>
-    </section>
-    <section data-slide-id="C05">
-      <h2>Gộp tải và lập lịch là hai cơ chế khác nhau</h2>
-      <div class="grid2"><div class="card"><h3>Trong một task</h3><p>Gom nhiều reducer có thể trung bình hóa tải giữa các khóa.</p></div><div class="card"><h3>Giữa các máy</h3><p>Nhiều task cho bộ lập lịch thêm cơ hội phân phối việc.</p></div></div>
-      <div class="check"><strong>Câu hỏi:</strong> gộp nhiều reducer vào một Reduce task có thể trung bình hóa tải giữa các khóa; tăng số Reduce task chỉ tạo thêm đơn vị lập lịch. Hai cơ chế này khác nhau ở điểm nào?</div>
-      <aside class="notes">Gộp trong task trung bình hóa tải giữa các khóa bằng cách gom ngẫu nhiên nhiều reducer; tăng số task cho bộ lập lịch thêm đơn vị để phân phối lên máy công nhân. Một cơ chế tác động vào nội dung task, cơ chế kia tác động vào lập lịch giữa máy; không đồng nhất hai hiệu ứng. Chưa giải trọn Bài 2.2.1 vì còn trường hợp bộ kết hợp ở phần recitation.</aside>
-    </section>
-    <section data-slide-id="C06">
-      <h2>Kiểm tra tính an toàn của bộ kết hợp</h2>
-      <div class="check"><strong>Câu hỏi:</strong> trạng thái nào cho phép gộp cục bộ khi cần tính trung bình của mọi số nguyên?</div>
-      <p class="muted">Kiểm tra kiểu trạng thái, ý nghĩa sau mỗi lần gộp và phép tính kết quả cuối.</p>
-      <aside class="notes">Chỉ gợi ý tiêu chí chấm: trạng thái phải đóng dưới phép gộp, giữ cùng ngữ nghĩa qua mọi thứ tự gộp, và phép tính cuối phải khôi phục được trung bình. Không ghi trọn trạng thái (tổng, số lượng) trước khi sinh viên trả lời; lời giải đầy đủ nằm ở trang Bài 2.3.1(b) trong phần bài tập. Sau tối ưu dữ liệu trung gian, phần kế xét thực thi khi máy hỏng.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section data-slide-id="D00"><h1>Thực thi khi máy có thể hỏng</h1><p class="big">Tác vụ có thể chạy lại nếu đầu ra chỉ phụ thuộc đầu vào và không tạo hiệu ứng ngoài không kiểm soát.</p><aside class="notes">Mô hình MMDS dùng bộ điều phối chính, công nhân map, công nhân reduce và tệp trung gian cục bộ. Câu đầu là điều kiện thiết kế thực hành để việc chạy lại cho cùng kết quả; nguồn mô tả cơ chế lập lịch lại. Ví dụ hiệu ứng ngoài: một tác vụ ghi trực tiếp vào hệ tệp dùng chung hoặc gửi thư điện tử; chạy lại sẽ ghi trùng hoặc gửi lại, nên điều kiện này là bắt buộc để chạy lại an toàn.</aside></section>
-    <section data-slide-id="D01">
-      <h2>Bộ điều phối theo dõi vòng đời tác vụ</h2>
-      <div class="flow"><span class="step">Chờ</span><span class="arrow">→</span><span class="step">Đang chạy</span><span class="arrow">→</span><span class="step">Đã xong</span></div>
-      <ul class="tight"><li>Gán Map task cho công nhân gần khối đầu vào.</li><li>Ghi vị trí và kích thước tệp trung gian.</li><li>Chỉ gán Reduce task khi đầu vào trung gian sẵn sàng.</li></ul>
-      <aside class="notes">Bộ điều phối nhận báo cáo hoàn thành và cấp tác vụ mới cho công nhân rảnh. Mỗi Map task ghi một tệp cho mỗi Reduce task trên đĩa cục bộ. Reduce ghi kết quả vào hệ tệp phân tán. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 23–25; MMDS mục 2.2.5.</aside>
-    </section>
-    <section data-slide-id="D02">
-      <h2>Lỗi map và lỗi reduce cần xử lý khác nhau</h2>
-      <img class="figure short" src="img/lec-02/khoi-phuc-tac-vu.svg" role="img" alt="Lỗi máy map làm chạy lại cả tác vụ đã xong vì mất tệp cục bộ; lỗi máy reduce chỉ làm chạy lại tác vụ đang chạy."/>
-      <aside class="notes">Nếu máy map hỏng, cả tác vụ đã xong trên máy đó phải chạy lại vì tệp trung gian cục bộ mất. Nếu máy reduce hỏng, chỉ các tác vụ đang chạy được đặt lại trạng thái chờ. Theo mô hình nguồn, lỗi máy chạy bộ điều phối làm công việc MapReduce bị hủy và ứng dụng khách được báo. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 26; MMDS mục 2.2.6.</aside>
-    </section>
-    <section data-slide-id="D03">
-      <h2>Hai quy ước đo hai đại lượng khác nhau</h2>
-      <p class="muted">$I$: đầu vào map · $M$: dữ liệu trung gian · $O$: đầu ra reduce</p>
-      <p>$C_t=I+M$ đo tổng kích thước dữ liệu vào các tác vụ; $C_{\mathrm{I/O}}=I+2M+O$ đo số lần đọc và ghi vật lý. Hai công thức không đo cùng một đại lượng.</p>
-      <div class="grid2"><div class="card"><h3>Giáo trình MMDS</h3><p>Cộng kích thước đầu vào của tác vụ.</p><p class="formula">$C_t=I+M$</p></div><div class="card accent"><h3>Trang chiếu MMDS</h3><p>Đếm toàn bộ đọc và ghi.</p><p class="formula">$C_{\mathrm{I/O}}=I+2M+O$</p></div></div>
-      <aside class="notes">I là tổng kích thước đầu vào map; M là tổng kích thước dữ liệu trung gian từ map sang reduce; O là tổng kích thước đầu ra reduce; $C_t$ là tổng đầu vào của các tác vụ. MMDS mục 2.5.1, trang in 53–55, cộng đầu vào của mọi tác vụ nên một job là I+M và thường bỏ đầu ra cuối nhỏ. Bộ trang chiếu chính thức MMDS Chương 2, trang chiếu 38–40, đếm I/O vật lý: đọc I, ghi rồi đọc M, và ghi O. Đây là mô hình I/O của tác vụ, không chỉ là số byte đi qua mạng. Không trộn hai quy ước khi so thuật toán.</aside>
-    </section>
-    <section data-slide-id="D04">
-      <h2>Bộ kết hợp tác động vào đại lượng trung gian</h2>
-      <p class="formula">$M_c\le M_0$</p>
-      <p class="muted center">$M_c$: có bộ kết hợp · $M_0$: không có bộ kết hợp</p>
-      <div class="grid2"><div class="card"><h3>Không đổi</h3><p>Kích thước đầu vào $I$ và đầu ra $O$.</p></div><div class="card accent"><h3>Có thể giảm</h3><p>Kích thước dữ liệu trung gian $M$ và tải của bước trộn.</p></div></div>
-      <aside class="notes">$M_c$ là lượng dữ liệu trung gian khi có bộ kết hợp; $M_0$ là lượng tương ứng khi không có bộ kết hợp. Bất đẳng thức đúng với bộ kết hợp Word Count vì nhiều cặp cùng khóa trong một Map task được thay bằng một cặp. Nếu mỗi khóa chỉ xuất hiện một lần trong mỗi phần, M không giảm. Không tuyên bố mức giảm cố định. Nguồn chính: MMDS mục 2.2.4 và 2.5.1.</aside>
-    </section>
-    <section data-slide-id="D05">
-      <h2>Kiểm tra chi phí và khôi phục</h2>
-      <div class="check"><strong>Câu hỏi:</strong> một máy map hỏng sau khi báo hoàn thành. Tác vụ nào phải chạy lại, và đại lượng $I$, $M$, $O$ nào có thể phát sinh thêm trong lần thực thi thực tế?</div>
-      <aside class="notes">Đáp án: các Map task đã gán cho máy hỏng chạy lại vì mất tệp trung gian; Reduce task nhận vị trí mới. Việc chạy lại đọc lại một phần I và tạo lại một phần M; O chỉ tăng nếu một Reduce task cũng chạy lại và ghi lại kết quả. Hai công thức chi phí mô tả thuật toán lý tưởng, không tự động tính phần lặp do lỗi. Giới hạn của chuỗi job phải ghi và đọc dữ liệu trung gian dẫn sang phần ngăn xếp dữ liệu.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section data-slide-id="E00"><h1>Từ MapReduce đến ngăn xếp dữ liệu</h1><p class="big">MapReduce là một máy thực thi trong ngăn xếp, không phải giao diện duy nhất cho mọi bài toán dữ liệu lớn.</p><aside class="notes">Chuyển từ một job sang hệ phần mềm bao quanh nó. MMDS mục 2.4 cung cấp mô hình hệ luồng công việc; Stanford CS246 trang chiếu 50–53 cho thấy giới hạn của chuỗi job và bước chuyển sang đồ thị tác vụ. Không dạy chi tiết RDD hay API.</aside></section>
-    <section data-slide-id="E01">
-      <h2>Năm tầng chia trách nhiệm</h2>
-      <img class="figure" src="img/lec-02/ngan-xep-du-lieu.svg" role="img" alt="HDFS ở tầng lưu trữ; Hadoop MapReduce và Spark ở tầng thực thi; phía trên là giao diện dữ liệu và thư viện phân tích."/>
-      <aside class="notes">Sơ đồ năm tầng là tổng hợp từ MMDS 3e mục 2.4 và Stanford CS246 trang chiếu 51–59; không sao chép nguyên sơ đồ của một nguồn. HDFS cung cấp lưu trữ phân tán cho dữ liệu đầu vào và kết quả. Hadoop MapReduce là máy thực thi dựa trên mô hình map, nhóm khóa và reduce. Spark cũng là máy thực thi nhưng hỗ trợ đồ thị tác vụ và lưu dữ liệu phân vùng trong bộ nhớ để dùng lại. Các lớp giao diện và thư viện nằm phía trên. Stanford được chọn cho DAG/Spark vì có sơ đồ trực quan và mới hơn slide MMDS v2.1.</aside>
-    </section>
-    <section data-slide-id="E02">
-      <h2>MapReduce phù hợp với phân tích theo lô</h2>
-      <div class="grid2"><div class="card accent"><h3>Phù hợp</h3><ul class="tight"><li>xử lý theo lô;</li><li>quét tuần tự tệp rất lớn;</li><li>phân hoạch hoặc tổng hợp theo khóa.</li></ul></div><div class="card"><h3>Kém phù hợp</h3><ul class="tight"><li>truy cập ngẫu nhiên;</li><li>phản hồi tương tác;</li><li>nhiều vòng lặp dùng lại trạng thái.</li></ul></div></div>
-      <aside class="notes">Mỗi vòng lặp phải ghi kết quả trung gian vào hệ tệp rồi đọc lại ở vòng sau, vì MapReduce không giữ trạng thái trong bộ nhớ giữa các job; đây là chi phí chính của chuỗi job. Bộ trang chiếu chính thức MMDS trang 9 và 12–14 cùng MMDS mục 2.1, trang in 21–24, nêu hệ tệp phân tán phù hợp tệp rất lớn, quét tuần tự và hiếm cập nhật tại chỗ. Stanford CS246 trang chiếu 50 và 66 làm rõ chi phí của chuỗi job, truy cập bất quy tắc và vòng lặp. Không dạy thuật toán đồ thị hoặc PageRank trong bài này.</aside>
-    </section>
-    <section data-slide-id="E03">
-      <h2>Đặc tả một chương trình MapReduce</h2>
-      <ol class="tight"><li>Nêu phần tử đầu vào, đầu ra và điều kiện trước.</li><li>Chọn khóa để gom đúng các đóng góp cần tổng hợp.</li><li>Viết map, reduce, điều kiện dừng và trường hợp biên.</li><li>Chứng minh mỗi đóng góp được tạo đúng một lần và gom đúng khóa.</li><li>Phân tích $I$, $M$, $O$, tải theo khóa và khả năng dùng bộ kết hợp, nêu rõ quy ước chi phí dùng để báo con số.</li></ol>
-      <aside class="notes">Khuôn đặc tả này không phải thuật toán mới. Chứng minh phải giải thích vì sao mỗi đóng góp được tạo đúng một lần và về đúng khóa. Khi báo chi phí, cần nêu quy ước vì hai công thức đã học đo hai đại lượng khác nhau. Phần bài tập dùng trực tiếp khuôn này. Nguồn chính: tổng hợp yêu cầu đặc tả từ MMDS Chương 2.</aside>
-    </section>
-    <section data-slide-id="E04">
-      <h2>Kết luận: khi nào dùng MapReduce</h2>
-      <p class="big">Tuyến bài: chia khối → khóa trung gian → nhóm theo khóa → chịu lỗi → chi phí.</p>
-      <ul class="tight"><li>Kho hơn 400 TB không vừa một máy; MapReduce đưa tính toán đến dữ liệu.</li><li>Dùng MapReduce khi xử lý theo lô, quét tuần tự, tổng hợp theo khóa.</li><li>Chuyển sang DAG/Spark khi nhiều vòng lặp dùng lại trạng thái hoặc truy cập bất quy tắc.</li></ul>
-      <div class="check"><strong>Câu hỏi:</strong> chọn khóa trung gian cho ba đầu ra: số lần xuất hiện theo từ, tổng byte theo máy chủ Web, và số lần xuất hiện theo chuỗi năm từ.</div>
-      <aside class="notes">Đáp án lần lượt là từ, tên máy chủ tách từ URL, và chuỗi năm từ. Cả ba tác vụ đều quét kho dữ liệu lớn rồi tổng hợp độc lập theo khóa, nên phù hợp với các tiêu chí vừa nêu. Phần bài tập tiếp theo áp dụng đúng khuôn đặc tả đã học. Nguồn chính: bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 12, 34–35.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section class="recitation" data-slide-id="R00"><h1>Bài tập trên lớp</h1><p class="big">Hai bài trong MMDS kiểm tra lệch tải và thiết kế MapReduce.</p><aside class="notes">Phần dọc riêng sau phần giảng. Chia nhóm nhỏ, yêu cầu mỗi nhóm trình bày giả thiết và luồng khóa–giá trị. Chỉ dùng trực tiếp MMDS Bài 2.2.1, trang in 30, PDF trang 11 và Bài 2.3.1, trang in 40, PDF trang 21.</aside></section>
-    <section class="recitation" data-slide-id="R01">
-      <h2>Bài 2.2.1 · Lệch tải khi đếm từ</h2>
-      <div class="task"><p>Chạy chương trình MapReduce đếm từ trên một kho lớn, chẳng hạn một bản sao Web. Dùng 100 Map task và một số Reduce task.</p></div>
-      <aside class="notes">Dịch trực tiếp phần dẫn của MMDS Bài 2.2.1, trang in 30, PDF trang 11. Không đổi dữ kiện 100 Map task. Chia nhóm, giao ba ý trên ba trang kế tiếp và thống nhất cách trình bày. Không thêm yêu cầu phân biệt thuật ngữ vào đề.</aside>
-    </section>
-    <section class="recitation" data-slide-id="R02">
-      <h2>Bài 2.2.1(a) · Không dùng bộ kết hợp</h2>
-      <p>Không dùng bộ kết hợp tại các Map task. Thời gian xử lý danh sách giá trị của các reducer có lệch đáng kể không? Giải thích.</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.2.1(a), trang in 30, PDF trang 11. Hướng dẫn chấm: 4 điểm. (1) Có lệch đáng kể: 1 điểm. (2) Tần suất từ phân bố rất không đều: 1 điểm. (3) Từ phổ biến tạo danh sách rất dài, từ hiếm tạo danh sách ngắn: 1 điểm. (4) Liên hệ thời gian reducer với độ dài danh sách: 1 điểm.</aside>
-    </section>
-    <section class="recitation" data-slide-id="R03">
-      <h2>Bài 2.2.1(b) · Gom reducer thành tác vụ</h2>
-      <p>Nếu gom ngẫu nhiên các reducer vào 10 Reduce task, lệch tải có đáng kể không? Kết quả thay đổi thế nào nếu gom vào 10.000 Reduce task?</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.2.1(b), trang in 30, PDF trang 11. Hướng dẫn chấm: 6 điểm. Với 10 task, nhiều reducer được gom ngẫu nhiên nên tổng tải giữa task có xu hướng trung bình hóa, lệch giảm: 3 điểm. Với 10.000 task, mỗi task nhận ít reducer hơn nên ít trung bình hóa; reducer của từ phổ biến vẫn tạo task dài: 3 điểm. Có thể ghi nhận rằng nhiều task giúp bộ lập lịch phân phối việc giữa máy, nhưng đó là cơ chế khác và không thay kết luận mà đề hỏi về tải giữa task.</aside>
-    </section>
-    <section class="recitation" data-slide-id="R04">
-      <h2>Bài 2.2.1(c) · Dùng bộ kết hợp</h2>
-      <p>Dùng bộ kết hợp tại 100 Map task. Lệch tải có đáng kể không? Giải thích.</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.2.1(c), trang in 30, PDF trang 11. Hướng dẫn chấm: 5 điểm. Mỗi Map task phát nhiều nhất một tổng cục bộ cho một từ nên danh sách của mỗi từ có độ dài không quá 100: 3 điểm. Độ dài vẫn phụ thuộc số phần dữ liệu chứa từ, nhưng chênh lệch nhỏ hơn nhiều và không còn tỷ lệ với tổng tần suất: 2 điểm.</aside>
-    </section>
-    <section class="recitation" data-slide-id="R05">
-      <h2>Bài 2.3.1 · Tệp số nguyên rất lớn</h2>
-      <div class="task"><p>Thiết kế thuật toán MapReduce nhận một tệp số nguyên rất lớn và tạo bốn loại đầu ra. Có thể giả sử khóa của mỗi cặp đầu ra sẽ bị bỏ hoặc không được dùng.</p></div>
-      <aside class="notes">Dịch trực tiếp phần dẫn của MMDS Bài 2.3.1, trang in 40, PDF trang 21. Bốn đầu ra ở các trang kế tiếp được giữ nguyên. Không thêm giả thiết về số lượng hay miền giá trị.</aside>
-    </section>
-    <section class="recitation" data-slide-id="lec02-r06a">
-      <h2>Bài 2.3.1(a) · Cực đại</h2>
-      <p>Tạo số nguyên lớn nhất.</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.3.1(a), trang in 40, PDF trang 21. Hướng dẫn chấm: 3 điểm. map phát một khóa chung với x; reduce lấy cực đại. Có thể chấp nhận bộ kết hợp cho ý này. Biên: tệp rỗng không có cực đại xác định; nếu đề cập, yêu cầu sinh viên nêu quy ước riêng và không gán giá trị tùy ý.</aside>
-    </section>
-    <section class="recitation" data-slide-id="lec02-r06b">
-      <h2>Bài 2.3.1(b) · Trung bình</h2>
-      <p>Tạo trung bình của mọi số nguyên.</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.3.1(b), trang in 40, PDF trang 21. Hướng dẫn chấm: 4 điểm. map phát khóa chung với x; reduce tính tổng và số lượng rồi phát trung bình: 3 điểm. Nếu đề xuất bộ kết hợp thì phải dùng trạng thái (tổng, số lượng), nhưng đây không phải yêu cầu của đề: 1 điểm cho giải thích đúng. Biên: tệp rỗng không có trung bình; không thêm yêu cầu xử lý tệp rỗng vào đề.</aside>
-    </section>
-    <section class="recitation" data-slide-id="R07">
-      <h2>Bài 2.3.1(c) · Loại bản sao</h2>
-      <p>Tạo cùng tập số nguyên, nhưng mỗi số nguyên chỉ xuất hiện một lần.</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.3.1(c), trang in 40, PDF trang 21. Hướng dẫn chấm: 4 điểm. Với mỗi $x$, map phát một cặp có khóa $x$ và giá trị rỗng: 2 điểm. Nhóm theo khóa gom mọi bản sao; reducer nhận $x$ từ khóa, phát $x$ ở trường giá trị đúng một lần, còn khóa đầu ra không được dùng: 2 điểm. Có thể dùng bộ kết hợp để loại trùng cục bộ, nhưng đề không yêu cầu.</aside>
-    </section>
-    <section class="recitation" data-slide-id="R08">
-      <h2>Bài 2.3.1(d) · Đếm số giá trị phân biệt</h2>
-      <p>Đếm số lượng số nguyên phân biệt trong đầu vào.</p>
-      <aside class="notes">Nguồn: MMDS Bài 2.3.1(d), trang in 40, PDF trang 21. Hướng dẫn chấm: 5 điểm. Lượt 1 thực hiện ý (c) và phát $x$ ở trường giá trị để mỗi giá trị phân biệt xuất hiện đúng một lần: 2 điểm. Lượt 2 đọc $x$ từ trường giá trị, map thành cặp có khóa chung và giá trị 1, rồi reduce tính tổng: 2 điểm. Khóa kết quả bị bỏ hoặc không dùng: 1 điểm. Một thiết kế một lượt chỉ được chấp nhận nếu giải thích cách thu tổng toàn cục đúng.</aside>
-    </section>
-  </section>
-
-  <div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 2</div>
+<body><div class="reveal"><div class="slides">
+<section aria-label="Mở đầu">
+<section id="lec02-s00-01" data-slide-id="lec02-s00-01"><h1>MapReduce và ngăn xếp xử lý dữ liệu lớn</h1>
+<h3>Bài 02 · Giải thuật nền tảng của Khoa học dữ liệu</h3><p>Học kỳ 1 · Năm học 2026–2027</p><p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
+<aside class="notes"><p>Bài trước đặt vấn đề dữ liệu vượt bộ nhớ hoặc khả năng xử lý của một máy. Bài này xây mô hình chia việc, thiết kế phép tính theo khóa và đánh giá lượng dữ liệu các tác vụ phải đọc. Phạm vi bám chương 2 của tài liệu được chỉ định; các chứng minh cận dưới dài dành cho đọc thêm.</p><p>Nguồn: MMDS, Chương 2, Phần dẫn chương, trang in 21–22; sources/source.md, Bài 2.</p></aside>
+</section>
+<section id="lec02-s00-02" data-slide-id="lec02-s00-02"><h2>Nội dung bài giảng</h2>
+<div class="grid2"><div class="card"><ul><li>2.1 · Hệ tệp phân tán</li><li>2.2 · Mô hình MapReduce</li><li>2.3 · Các thuật toán dùng MapReduce</li><li>2.4 · Mở rộng MapReduce</li></ul></div><div class="card"><ul><li>2.5 · Mô hình chi phí truyền thông</li><li>2.6 · Bộ nhớ và sao chép dữ liệu</li><li>2.7 · Tổng kết chương</li><li>2.8 · Tài liệu tham khảo</li></ul></div></div>
+<aside class="notes"><p>Thứ tự giữ nguyên các mục cấp chương. Hai trọng tâm thực hành là chọn khóa và tính chi phí. Phần hệ tệp cung cấp nền thực thi; phần mở rộng giải thích mạng nhiều tác vụ; phần lý thuyết dùng một ví dụ để làm rõ đánh đổi. Bài tập nằm sau mục nguồn tương ứng và được quay lại trong phần luyện tập.</p><p>Nguồn: MMDS, Chương 2, các mục 2.1–2.8.</p></aside>
+</section>
+<section id="lec02-s00-03" data-slide-id="lec02-s00-03"><h2>Mục tiêu học tập</h2>
+<ul><li>Theo dõi đầu vào, khóa trung gian và kết quả của MapReduce.</li><li>Viết map/reduce cho nhân ma trận–vector, nối và tổng hợp.</li><li>Tính chi phí từ đầu vào của từng tác vụ.</li><li>Giải thích đánh đổi giữa dữ liệu mỗi reducer và số bản sao.</li></ul>
+<aside class="notes"><p>Sinh viên cần biết vòng lặp, hàm, bảng băm và phép nhân ma trận–vector. Không mặc định đã học hệ phân tán hoặc đại số quan hệ; các khái niệm này sẽ được giải thích tại nơi sử dụng. Kết quả học tập được kiểm tra bằng vết chạy, một giải thích tính đúng và bảng tính chi phí.</p><p>Nguồn: MMDS, Chương 2, sources/source.md, Bài 2; Chương 2.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.1">
+<section id="lec02-s01-01" data-slide-id="lec02-s01-01"><h2>Cụm máy và mạng kết nối</h2>
+<div class="grid2"><div class="card"><h3>Cụm máy</h3><p>Nhiều máy cùng xử lý dữ liệu.</p><p>Các máy được đặt trong các tủ máy.</p></div><div class="card"><h3>Đường truyền</h3><p>Máy cùng tủ dùng mạng nội tủ.</p><p>Giữa các tủ cần qua mạng kết nối.</p></div></div><p>Vị trí dữ liệu ảnh hưởng lượng dữ liệu cần truyền.</p>
+<aside class="notes"><p>Nguồn: mục 2.1.1 và Hình 2.1 của chương 2 . Sách mô tả kiến trúc tính toán cụm: các node tính đặt trên rack, nối bằng Ethernet, các rack nối qua switch ở tầng trên; Hình 2.1 vẽ switch ở trên và các rack bên dưới. Lưu ý: sinh viên năm 2 chưa từng thấy hệ phân tán, nên chỉ đặt tên ba khái niệm — node, rack, switch — và tránh mọi thông số phần cứng lịch sử của sách. Câu nối: nhờ thấy dữ liệu phải di chuyển giữa các chặng, sinh viên sẵn sàng chấp nhận hai giải pháp ở trang sau: lưu dữ liệu dư thừa và chia phép tính thành tác vụ. Kiểm tra nhanh: hỏi một máy ở tủ A gửi dữ liệu cho máy ở tủ B phải qua mấy loại mạng.</p><p>Nguồn: MMDS, Chương 2, 2.1, trang in 22–24.</p></aside>
+</section>
+<section id="lec02-s01-02" data-slide-id="lec02-s01-02"><h2>Lỗi máy và lỗi kết nối</h2>
+<div class="grid2"><div class="card"><h3>Lỗi một máy</h3><p>Mất dữ liệu cục bộ và tác vụ đang chạy.</p></div><div class="card"><h3>Lỗi một tủ máy</h3><p>Nhiều máy cùng mất kết nối.</p></div></div><ul><li>Lưu nhiều bản sao để còn dữ liệu đầu vào.</li><li>Chia phép tính thành tác vụ để chạy lại phần bị ảnh hưởng.</li></ul>
+<aside class="notes"><p>Nguồn: mục 2.1.1, đoạn về failure modes và hai giải pháp đánh số 1–2; ý (2) dẫn thẳng tới MapReduce ở mục 2.2. Sách nói rõ: mất một node thường do đĩa hỏng, mất cả rack thường do mạng nối rack hỏng. Giả thiết: sinh viên chưa biết hệ phân tán, nên nhấn mệnh đề "càng nhiều thành phần, càng thường có thứ hỏng" như một thực tế, không phải nhược điểm của thiết kế kém. Câu nối: giải pháp thứ nhất dẫn sang tổ chức tệp ở mục 2.1.2, đó là nội dung trang tiếp theo. Không nêu bất kỳ con số về tốc độ hay độ tin cậy hiện nay. Ý chính: tệp dự phòng giúp dữ liệu còn đọc được khi một node hoặc một rack hỏng.</p><p>Nguồn: MMDS, Chương 2, 2.1, trang in 22–24.</p></aside>
+</section>
+<section id="lec02-s01-03" data-slide-id="lec02-s01-03"><h2>Hệ tệp phân tán: chia khối và đặt tính toán gần dữ liệu</h2>
+<img class="figure" src="img/lec-02/ch2-khoi-ban-sao.svg" alt="Ba khối, mỗi khối có hai bản sao trên các máy khác nhau."/><p>Siêu dữ liệu ghi vị trí khối. Đặt tác vụ gần một bản sao để giảm truyền dữ liệu.</p>
+<aside class="notes"><p>Hệ tệp phân tán (DFS) chia tệp lớn thành khối, sao chép khối ở nhiều máy và các tủ khác nhau. Hình là sơ đồ khái niệm với hai bản sao, không quy định số bản sao thực tế. Máy quản lý siêu dữ liệu giữ thông tin vị trí khối; không đồng nhất máy đó với một tệp. Nguồn dùng cách gọi master/name node ở đoạn mô tả này. Mất máy A vẫn đọc được các khối của nó từ B hoặc C; để chịu lỗi cả tủ, bản sao phải nằm khác tủ. Số bản sao không tự bảo đảm dữ liệu còn nếu mọi vị trí chứa nó đều hỏng. Nguồn hướng tới tệp lớn, ít cập nhật tại chỗ. Chuyển sang MapReduce: dữ liệu đã chia, cần chia và phối hợp phép tính.</p><p>Nguồn: MMDS, Chương 2, 2.1, trang in 22–24.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.2">
+<section id="lec02-s02-01" data-slide-id="lec02-s02-01"><h2>2.2 · Mô hình MapReduce</h2>
+<div class="grid2"><div class="card"><h3>Đầu vào</h3><p>Kho tài liệu được chia trên nhiều máy.</p></div><div class="card"><h3>Đầu ra</h3><p>Mỗi từ đã xuất hiện đi kèm tổng số lần xuất hiện.</p></div></div><p class="takeaway">Map phát đóng góp → hệ thống nhóm theo khóa → reduce tổng hợp.</p>
+<aside class="notes"><p>Với kho lớn, giữ và xử lý tất cả trên một máy có thể không phù hợp. Ta bắt đầu bằng đếm từ để thấy từng đóng góp. Đơn vị đếm của ví dụ tiếng Việt là chuỗi tách theo khoảng trắng; đó không phải bài toán phân tích từ vựng. Người dùng viết map và reduce, còn hệ thống bảo đảm nhóm đúng khóa.</p><p>Nguồn: MMDS, Chương 2, 2.2.1–2.2.3, Ví dụ 2.1–2.2, trang in 25–27.</p></aside>
+</section>
+<section id="lec02-s02-02" data-slide-id="lec02-s02-02"><h2>Mỗi lần xuất hiện tạo một đóng góp</h2>
+<table><thead><tr><th>Tài liệu</th><th>Cặp map phát</th></tr></thead><tbody><tr><td>dữ liệu lớn</td><td>(dữ,1), (liệu,1), (lớn,1)</td></tr><tr><td>lớn lớn</td><td>(lớn,1), (lớn,1)</td></tr></tbody></table><p class="check"><strong>Câu hỏi:</strong> Từ “lớn” tạo bao nhiêu cặp trước khi nhóm?</p>
+<aside class="notes"><p>Ví dụ cụ thể hóa cơ chế của Ví dụ 2.1 bằng hai chuỗi đã tách theo khoảng trắng. Có năm đơn vị đếm và năm cặp, trong đó ba cặp mang khóa lớn. Các cặp trùng nhau phải được giữ vì mỗi cặp biểu diễn một lần xuất hiện. Đáp án câu hỏi là ba, không phải hai tài liệu. Bước kế tiếp chỉ đổi cách nhóm, chưa làm mất đóng góp.</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.1, trang in 26; dữ liệu minh họa tiếng Việt được ghi trong storyboard.</p></aside>
+</section>
+<section id="lec02-s02-03" data-slide-id="lec02-s02-03"><h2>Nhóm theo khóa rồi cộng</h2>
+<table><thead><tr><th>Khóa</th><th>Giá trị nhận được</th><th>Kết quả</th></tr></thead><tbody><tr><td>dữ</td><td>[1]</td><td>(dữ,1)</td></tr><tr><td>liệu</td><td>[1]</td><td>(liệu,1)</td></tr><tr><td>lớn</td><td>[1,1,1]</td><td>(lớn,3)</td></tr></tbody></table><p class="takeaway">Mọi đóng góp của một từ về cùng một nhóm.</p>
+<aside class="notes"><p>Nhóm theo khóa do hệ thống thực hiện. Reduce được gọi cho một khóa và danh sách các giá trị của khóa đó, không phải cho từng tài liệu. Với khóa lớn, tổng đi qua 0,1,2,3. Thứ tự các số 1 không làm đổi kết quả cộng. Hỏi sinh viên chỉ ra điều gì sẽ sai nếu một cặp lớn bị đưa sang nhóm khác: kết quả thiếu đóng góp.</p><p>Nguồn: MMDS, Chương 2, 2.2.2–2.2.3, Ví dụ 2.2, trang in 26–27.</p></aside>
+</section>
+<section id="lec02-s02-04" data-slide-id="lec02-s02-04"><h2>Thuật toán đếm từ và tính đúng</h2>
+<div class="grid2"><div class="card"><pre><code class="language-text">map(tài_liệu):
+  với mỗi từ w:
+    phát(w, 1)</code></pre></div><div class="card"><pre><code class="language-text">reduce(w, V):
+  s ← 0
+  với mỗi v trong V: s ← s + v
+  phát(w, s)</code></pre></div></div><p>Mỗi lần xuất hiện tạo đúng một số 1; sau $j$ bước, $s$ bằng tổng $j$ giá trị đầu.</p>
+<aside class="notes"><p>Mệnh đề: với tách từ xác định, bộ đếm không tràn và bảo đảm nhóm đúng, đầu ra đếm đúng mọi từ xuất hiện. Map tạo đúng một cặp cho từng lần xuất hiện. Nhóm chứa mọi và chỉ đóng góp của từ đang xét. Cơ sở bất biến: tổng rỗng bằng 0. Duy trì: thêm đúng giá trị tiếp theo. Khi danh sách hữu hạn kết thúc, s bằng số lần xuất hiện của từ. Map dừng vì mỗi tài liệu hữu hạn. Kho rỗng cho đầu ra rỗng. Reduce đọc tuần tự cần một biến tổng; thời gian tuyến tính theo số giá trị nhận, theo mô hình số học đơn vị. Tràn bộ đếm và phân tích tách từ nằm ngoài giả mã này.</p><p>Nguồn: MMDS, Chương 2, 2.2.1–2.2.3, trang in 25–27; lập luận đúng từ Ví dụ 2.1–2.2.</p></aside>
+</section>
+<section id="lec02-s02-05" data-slide-id="lec02-s02-05"><h2>Gộp cục bộ trước khi truyền</h2>
+<div class="grid2"><div class="card"><h3>Chưa gộp</h3><p>D2 phát:</p><p>(lớn,1), (lớn,1)</p></div><div class="card"><h3>Đã gộp</h3><p>D2 phát:</p><p>(lớn,2)</p></div></div><p>Toàn ví dụ: 5 cặp → 4 cặp. Kết quả cuối vẫn là (lớn,3).</p>
+<aside class="notes"><p>Bộ kết hợp là phép tổng hợp cục bộ trước khi gửi trung gian. Với phép cộng, kết hợp và giao hoán cho phép cộng các tổng nhóm theo bất kỳ thứ tự; trạng thái vẫn biểu diễn cùng số lần xuất hiện. Bộ kết hợp có thể không được chạy, nên reduce cuối vẫn phải xử lý đúng các giá trị nhận được. Không thay cộng bằng max dù max cũng kết hợp/giao hoán: như vậy đổi ý nghĩa bài toán. Trung bình cục bộ cần giữ cả tổng và số lượng. Giảm số cặp chưa phải một tỷ lệ giảm byte đã đo.</p><p>Nguồn: MMDS, Chương 2, 2.2.4, trang in 27–28.</p></aside>
+</section>
+<section id="lec02-s02-06" data-slide-id="lec02-s02-06"><h2>Khóa, tác vụ và máy</h2>
+<table><thead><tr><th>Cấp</th><th>Vai trò</th></tr></thead><tbody><tr><td>Một reducer</td><td>Một lần gọi reduce cho một khóa</td></tr><tr><td>Một Reduce task</td><td>Đơn vị lập lịch, xử lý nhiều khóa</td></tr><tr><td>Một máy</td><td>Có thể chạy nhiều tác vụ</td></tr></tbody></table><p class="check"><strong>Câu hỏi:</strong> Một khóa có danh sách rất dài có tự được chia nhỏ khi tăng số tác vụ?</p>
+<aside class="notes"><p>Đáp án: không, nếu giữ thuật toán nhóm theo khóa hiện tại. Mọi giá trị của khóa vẫn thuộc một reducer. Phải phân biệt gom nhiều reducer vào ít tác vụ để trung bình hóa tải theo khóa với tạo nhiều tác vụ hơn số máy để lập lịch linh hoạt. Từ phổ biến tạo danh sách dài; bộ kết hợp có thể rút ngắn danh sách ấy. Sách bàn hai cơ chế trong khung ở trang 28 và phần thực thi, không bảo đảm tăng số task luôn xử lý được lệch tải.</p><p>Nguồn: MMDS, Chương 2, Khung reducer/tác vụ/máy, trang in 28; 2.2.5.</p></aside>
+</section>
+<section id="lec02-s02-07" data-slide-id="lec02-s02-07"><h2>Lưu trữ quyết định phần cần chạy lại</h2>
+<table><thead><tr><th>Điểm hỏng</th><th>Phần cần xử lý lại</th></tr></thead><tbody><tr><td>Máy map</td><td>Map task đang chạy và đã xong nếu trung gian cục bộ bị mất</td></tr><tr><td>Máy reduce</td><td>Reduce task đang chạy trên máy hỏng</td></tr></tbody></table><p>Đầu vào và kết quả cuối nằm trên hệ tệp phân tán; trung gian MapReduce nằm cục bộ.</p>
+<aside class="notes"><p>Bộ điều phối giữ trạng thái chờ, đang chạy, đã hoàn thành. Khi map worker mất, các tệp trung gian ở máy đó mất nên cả map task đã hoàn thành có thể phải chạy lại; thông báo vị trí mới cho reduce. Khi reduce worker mất, chỉ tác vụ đang chạy được đặt về chờ theo mô hình sách. Đầu ra đã hoàn tất nằm trên hệ tệp phân tán. Chạy lại phải tái tạo cùng kết quả logic và không làm hiệu ứng ngoài bị nhân đôi. Sách mô tả lỗi bộ điều phối là trường hợp có thể phải khởi động lại công việc, không được hiểu hệ thống chịu được mọi dạng lỗi.</p><p>Nguồn: MMDS, Chương 2, 2.2.5–2.2.6, trang in 28–30.</p></aside>
+</section>
+<section id="lec02-ex221a" data-slide-id="lec02-ex221a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.2.1(a) · Lệch tải khi chưa gộp</h2>
+<p>Kho tài liệu rất lớn, chẳng hạn một bản sao Web; đếm từ bằng 100 tác vụ Map.</p><p class="check"><strong>Câu hỏi:</strong> Không dùng bộ kết hợp. Thời gian xử lý danh sách của các reducer có lệch đáng kể không? Giải thích.</p><p><strong>Sản phẩm:</strong> giải thích bằng độ dài danh sách và cách gán khóa.</p>
+<aside class="notes"><p>Có thể lệch đáng kể: số lần xuất hiện của từng từ khác nhau nhiều, reducer của từ thường gặp phải đọc danh sách dài. Đây là nhận định theo phân bố từ tự nhiên, không là định lý mọi tập dữ liệu đều lệch. Phân biệt reducer theo khóa với Reduce task.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.2.1(a), trang in 30 / PDF 11.</p></aside>
+</section>
+<section id="lec02-ex221b" data-slide-id="lec02-ex221b" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.2.1(b) · Gom reducer vào tác vụ</h2>
+<p>Kho tài liệu rất lớn, chẳng hạn một bản sao Web; đếm từ bằng 100 tác vụ Map.</p><p class="check"><strong>Câu hỏi:</strong> Gán ngẫu nhiên các reducer vào 10 tác vụ Reduce. So sánh mức lệch với cách gán vào 10000 tác vụ Reduce.</p><p><strong>Sản phẩm:</strong> giải thích bằng độ dài danh sách và cách gán khóa.</p>
+<aside class="notes"><p>Với 10 tác vụ, mỗi tác vụ thường nhận nhiều khóa nên tổng tải có xu hướng được san đều hơn. Với 10000 tác vụ, ít khóa mỗi tác vụ hơn nên từ phổ biến có thể chi phối một tác vụ. Không bảo đảm 10 tác vụ luôn cân bằng: một khóa cực lớn vẫn có thể gây lệch; gán ngẫu nhiên không chia nhỏ chính khóa ấy. Không suy ra 10000 tác vụ luôn chạy chậm hơn vì còn lịch và số máy.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.2.1(b), trang in 30 / PDF 11.</p></aside>
+</section>
+<section id="lec02-ex221c" data-slide-id="lec02-ex221c" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.2.1(c) · Tác động của bộ kết hợp</h2>
+<p>Kho tài liệu rất lớn, chẳng hạn một bản sao Web; đếm từ bằng 100 tác vụ Map.</p><p class="check"><strong>Câu hỏi:</strong> Dùng bộ kết hợp tại cả 100 tác vụ Map. Mức lệch có còn đáng kể không? Giải thích.</p><p><strong>Sản phẩm:</strong> giải thích bằng độ dài danh sách và cách gán khóa.</p><p><a href="#/lec02-ex231a">Tiếp: bài tập thiết kế thuật toán</a></p>
+<aside class="notes"><p>Nếu mỗi Map task gộp toàn bộ các lần xuất hiện của từng từ thành một tổng, mỗi từ gửi tối đa 100 tổng sang reduce. Danh sách từ phổ biến ngắn đi rất nhiều, nên mức lệch thời gian reduce giảm. Đây là mô hình gộp theo tác vụ của bài tập; triển khai có thể chạy bộ kết hợp nhiều lần trên nhiều mảnh nên không mặc định cận 100 cho mọi triển khai. Từ hiếm vẫn có danh sách ngắn hơn và Map vẫn có thể lệch tải.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.2.1(c), trang in 30 / PDF 11.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.3">
+<section id="lec02-s03-01" data-slide-id="lec02-s03-01"><h2>2.3 · Nhân ma trận–vector</h2>
+<div class="math-large">$x_i=\sum_{j=1}^{n}m_{ij}v_j$</div><div class="grid2"><div class="card"><p>$M$: ma trận $n \times n$.</p><p>$v$: vector độ dài $n$.</p></div><div class="card"><p>Ma trận lưu các bộ $(i,j,m_{ij})$.</p><p>Cần một tổng cho mỗi hàng $i$.</p></div></div>
+<aside class="notes"><p>Tình huống nguồn là tính toán trên ma trận rất lớn, chẳng hạn ma trận liên kết Web; ma trận thường thưa. Không cần tải ma trận đặc lên một máy. Khôi phục ý nghĩa nhân hàng với vector trước khi bàn MapReduce: thành phần i là tổng các tích có cùng chỉ số hàng i. Phân biệt chỉ số hàng i và cột j. Với dữ liệu nhỏ vừa một máy, nguồn lưu ý không cần MapReduce. Dùng chính công thức nguồn, không thêm ma trận số ngoài tài liệu.</p><p>Nguồn: MMDS, Chương 2, 2.3.1, trang in 31–32.</p></aside>
+</section>
+<section id="lec02-s03-02" data-slide-id="lec02-s03-02"><h2>Khóa hàng gom đúng các tích</h2>
+<table><thead><tr><th>Phần tử</th><th>Map phát</th></tr></thead><tbody><tr><td>$(i,1,m_{i1})$</td><td>$(i,m_{i1}v_1)$</td></tr><tr><td>$(i,2,m_{i2})$</td><td>$(i,m_{i2}v_2)$</td></tr><tr><td>$\ldots$</td><td>$\ldots$</td></tr></tbody></table><pre><code class="language-text">map(i,j,m): phát(i, m × v[j])
+reduce(i,V): phát(i, tổng(V))</code></pre>
+<aside class="notes"><p>Trước map, mỗi tác vụ cần vector v có sẵn trong bộ nhớ. Mỗi phần tử ma trận tạo đúng tích cần thiết và mang khóa hàng i. Reduce cộng toàn bộ tích của hàng, nên trả x_i. Nếu lưu thưa, các phần tử không lưu được hiểu bằng 0; hàng không phát cặp cũng phải được hiểu là kết quả 0 hoặc được bổ sung theo quy ước đầu ra. Các vòng duyệt hữu hạn nên dừng. Thời gian map tuyến tính theo số phần tử lưu, chưa tính đọc v và nhóm; reduce tuyến tính theo số tích nhận. Số học dấu phẩy động có thể làm tổng khác một ít theo thứ tự cộng: lập luận đại số xét số thực chính xác.</p><p>Nguồn: MMDS, Chương 2, 2.3.1, trang in 31–32.</p></aside>
+</section>
+<section id="lec02-s03-03" data-slide-id="lec02-s03-03"><h2>Chia dải khi vector không vừa bộ nhớ</h2>
+<img class="figure" src="img/lec-02/ch2-dai-ma-tran.svg" alt="Ma trận chia năm dải dọc và vector chia năm dải tương ứng."/>
+<aside class="notes"><p>Mỗi map task nhận một phần của dải ma trận và đọc toàn bộ dải vector tương ứng. Chọn số dải để phần vector cần dùng vừa bộ nhớ. Khóa kết quả vẫn là hàng i, do đó các đóng góp từ những dải khác nhau vẫn cộng về cùng thành phần x_i. Không nhầm chia dải với bỏ các tích ở dải khác. Chi phí đọc vector có thể lặp giữa tác vụ; phần bài tập chi phí yêu cầu ghi rõ số lần đọc. Sách dùng năm dải để minh họa, không khẳng định năm luôn đủ.</p><p>Nguồn: MMDS, Chương 2, 2.3.2, Hình 2.4, trang in 32.</p></aside>
+</section>
+<section id="lec02-s03-04" data-slide-id="lec02-s03-04"><h2>Một quan hệ là một bảng dữ liệu</h2>
+<div class="grid2"><div class="card"><table><thead><tr><th>From</th><th>To</th></tr></thead><tbody><tr><td>url1</td><td>url2</td></tr><tr><td>url1</td><td>url3</td></tr><tr><td>url2</td><td>url3</td></tr><tr><td>url2</td><td>url4</td></tr></tbody></table></div><div class="card"><p><strong>Links(From, To)</strong></p><p>Mỗi hàng là một cạnh có hướng.</p><p>Tên các cột tạo thành lược đồ của quan hệ.</p></div></div>
+<aside class="notes"><p>Đây là bốn hàng được trích trong Hình 2.5, không phải toàn bộ Web. Một bộ là một hàng, một thuộc tính là một cột. Cặp url1,url2 cho biết có liên kết từ url1 sang url2. Trong các phép toán dưới đây quan hệ theo ngữ nghĩa tập hợp: không có nhiều bản giống hệt cùng một bộ trong một quan hệ. Không giả định đã học SQL; ta sẽ hiểu thao tác trên bảng trước ký hiệu đại số.</p><p>Nguồn: MMDS, Chương 2, 2.3.3, Hình 2.5, Ví dụ 2.3, trang in 33–34.</p></aside>
+</section>
+<section id="lec02-s03-05" data-slide-id="lec02-s03-05"><h2>Phép chọn giữ các hàng thỏa điều kiện</h2>
+<div class="grid2"><div class="card"><p>Điều kiện: From = url1</p><table><thead><tr><th>Hàng</th><th>Kết quả</th></tr></thead><tbody><tr><td>(url1,url2)</td><td>Giữ</td></tr><tr><td>(url2,url3)</td><td>Bỏ</td></tr></tbody></table></div><div class="card"><pre><code class="language-text">map(t):
+  nếu C(t) đúng: phát(t,t)
+reduce(t,V): phát(t,t)</code></pre><p>$\sigma_C(R)=\{t\in R:C(t)\}$</p></div></div><p class="check"><strong>Câu hỏi:</strong> Phép chọn thay đổi hàng hay cột?</p>
+<aside class="notes"><p>Đáp án: giữ một số hàng và giữ lược đồ cột. Mỗi bộ đi qua một kiểm tra C. Nếu điều kiện đúng, map phát bộ; nếu sai không phát gì. Reduce giữ nguyên bộ theo đặc tả quan hệ dạng tập hợp. Tính đúng: mọi đầu ra thỏa C; mọi đầu vào thỏa C đều được giữ. Dừng sau số bộ hữu hạn; thời gian kiểm tra tuyến tính theo số bộ nếu đánh giá C mất thời gian hằng. Hai hàng lấy từ phần trích Links ở Hình 2.5; điều kiện From=url1 là áp dụng định nghĩa phép chọn của nguồn để chạy tay. Các cột không thay đổi.</p><p>Nguồn: MMDS, Chương 2, 2.3.4, trang in 35.</p></aside>
+</section>
+<section id="lec02-s03-06" data-slide-id="lec02-s03-06"><h2>Phép chiếu giữ cột và loại bản sao</h2>
+<div class="grid2"><div class="card"><table><thead><tr><th>Bộ (From, To)</th><th>Cột From</th></tr></thead><tbody><tr><td>(url1, url2)</td><td>url1</td></tr><tr><td>(url1, url3)</td><td>url1</td></tr><tr><td>(url2, url3)</td><td>url2</td></tr><tr><td>(url2, url4)</td><td>url2</td></tr></tbody></table><p>Bốn giá trị → hai giá trị phân biệt: <strong>url1, url2</strong>.</p></div><div class="card"><pre><code class="language-text">map(t):
+  t′ ← các cột cần giữ của t
+  phát(t′, t′)
+reduce(t′,V): phát(t′, t′)</code></pre></div></div>
+<aside class="notes"><p>Đây là áp dụng thuật toán nguồn (2.3.5) lên phần trích Hình 2.5, không phải câu ví dụ trích nguyên văn từ sách. Chiếu cột From trên bốn hàng cho bốn giá trị url1,url1,url2,url2. Mọi bộ chiếu về cùng khóa; reduce phát đúng một lần cho mỗi khóa, nên chỉ còn hai giá trị phân biệt url1,url2. Số hàng và danh sách giá trị hữu hạn nên vòng lặp dừng; mỗi đầu vào tạo một cặp, chi phí cục bộ tuyến tính với số cột cố định, còn nhóm có chi phí hệ thống.</p><p>Nguồn: MMDS, Chương 2, 2.3.5, trang in 35–36; phần trích Hình 2.5.</p></aside>
+</section>
+<section id="lec02-s03-07" data-slide-id="lec02-s03-07"><h2>Hai cạnh nối qua cùng đỉnh giữa</h2>
+<div class="math-large">$R(A,B)\bowtie S(B,C)$</div><table><thead><tr><th>Bộ đầu vào</th><th>Cặp map phát</th></tr></thead><tbody><tr><td>$(a,b)\in R$</td><td>$(b,(R,a))$</td></tr><tr><td>$(b,c)\in S$</td><td>$(b,(S,c))$</td></tr></tbody></table><pre><code class="language-text">reduce(b,V):
+  A ← các a có nhãn R; C ← các c có nhãn S
+  với mỗi a trong A và c trong C: phát(b,(a,b,c))</code></pre>
+<aside class="notes"><p>Bài toán nguồn là tìm đường đi dài hai trong kho liên kết lớn. Một cạnh kết thúc ở b chỉ ghép với cạnh bắt đầu ở b. Trước công thức, chạy cặp url1→url2 và url2→url3: đỉnh giữa url2 quyết định khóa. Nhãn nguồn giúp reducer phân biệt hai phía; R và S trong giá trị là nhãn, không phải toàn quan hệ. Với mỗi khóa, phải ghép mọi cặp một từ mỗi phía. Nếu một phía rỗng thì không phát. Các vòng lặp hữu hạn nên dừng; thời gian tạo kết quả phụ thuộc tích hai độ dài nhóm. Khóa của cặp đầu ra không ảnh hưởng kết quả nối; bộ giá trị (a,b,c) vẫn phải giữ thuộc tính chung b, theo mục 2.3.7.</p><p>Nguồn: MMDS, Chương 2, 2.3.7 và Ví dụ 2.4, trang in 35,37.</p></aside>
+</section>
+<section id="lec02-s03-08" data-slide-id="lec02-s03-08"><h2>Vết nối trên bốn hàng Links</h2>
+<table><thead><tr><th>Khóa giữa</th><th>Từ $L_1$</th><th>Từ $L_2$</th></tr></thead><tbody><tr><td>url1</td><td>—</td><td>url2, url3</td></tr><tr><td>url2</td><td>url1</td><td>url3, url4</td></tr><tr><td>url3</td><td>url1, url2</td><td>—</td></tr><tr><td>url4</td><td>url2</td><td>—</td></tr></tbody></table><p>Kết quả: <strong>(url1,url2,url3)</strong>, <strong>(url1,url2,url4)</strong>.</p>
+<aside class="notes"><p>L1(U1,U2) và L2(U2,U3) là hai bản sao của bốn hàng Links. Cạnh (url1,url2) ở L1 phát (url2,(L1,url1)); ở L2 phát (url1,(L2,url2)). Chỉ khóa url2 có dữ liệu từ cả hai phía. Ghép url1 với url3 và url4 tạo đúng hai bộ đã nêu. Đây chỉ là kết quả trên phần trích. Tính đúng có hai chiều: mỗi kết quả nối chứa hai cạnh chung đỉnh giữa; mọi cặp cạnh như vậy gặp ở đúng khóa chung. Không phát đường url1→url1 vì không có cạnh vào url1 trong phần trích. Yêu cầu sinh viên giải thích vì sao khóa url3 không phát kết quả.</p><p>Nguồn: MMDS, Chương 2, Hình 2.5, Ví dụ 2.4 và 2.3.7, trang in 33,35,37.</p></aside>
+</section>
+<section id="lec02-s03-09" data-slide-id="lec02-s03-09"><h2>Nhóm theo người dùng rồi tổng hợp</h2>
+<div class="grid2"><div class="card"><p>Friends(User, Friend)</p><p>Gom các hàng có cùng User.</p><p>Ví dụ sách: (Sally, 300).</p></div><div class="card"><pre><code class="language-text">map(user,friend): phát(user, 1)
+reduce(user,V): phát(user, tổng(V))</code></pre></div></div><p>COUNT đếm hàng; SUM cộng giá trị; AVG cần tổng và số lượng.</p>
+<aside class="notes"><p>Ví dụ 2.5 cho kết quả Sally có 300 bạn nhưng không cung cấp danh sách 300 tên để chạy số từng dòng. Ta biểu diễn danh sách đóng góp của Sally bằng các số 1 rồi dùng COUNT. Đây là cụ thể hóa COUNT của cơ chế nhóm và tổng hợp 2.3.8; với SUM map giữ giá trị cần cộng thay vì 1. Tính đúng do mọi hàng cùng người dùng thuộc cùng nhóm. Nhóm rỗng không xuất hiện ở đầu ra của quy ước quan hệ. Reduce tổng đọc tuần tự cần một bộ đếm, không phải toàn danh sách; chi phí truyền sẽ được tính ở phần sau.</p><p>Nguồn: MMDS, Chương 2, 2.3.8 và Ví dụ 2.5, trang in 35,38.</p></aside>
+</section>
+<section id="lec02-s03-10" data-slide-id="lec02-s03-10"><h2>Nhân ma trận là nối rồi cộng</h2>
+<div class="math-large">$p_{ik}=\sum_j m_{ij}n_{jk}$</div><table><thead><tr><th>Công việc</th><th>Khóa</th><th>Kết quả</th></tr></thead><tbody><tr><td>1 · Ghép phần tử</td><td> $j$ </td><td>$((i,k),m_{ij}n_{jk})$</td></tr><tr><td>2 · Cộng các tích</td><td>$(i,k)$</td><td>$((i,k),p_{ik})$</td></tr></tbody></table><p>Biến thể một công việc phát lại phần tử tới các khóa $(i,k)$ cần nó.</p>
+<aside class="notes"><p>Điều kiện nhân: số cột ma trận M bằng số hàng N. Mỗi chỉ số j nối hai phần tử cần nhân; sau đó các tích được gom theo ô kết quả. Đây là trang liên hệ kiến thức đã học, không thay một phần giảng đầy đủ về hai biến thể. Chi tiết giả mã của 2.3.9–2.3.10 và phép hợp/giao/hiệu 2.3.6 dành cho đọc thêm. Không kết luận một công việc luôn tốt hơn vì ít vòng: việc sao chép dữ liệu có thể tăng mạnh. Các bài tập bắt buộc bên dưới không đòi hỏi tự thiết kế biến thể nhân ma trận–ma trận.</p><p>Nguồn: MMDS, Chương 2, 2.3.9–2.3.10, trang in 38–40.</p></aside>
+</section>
+<section id="lec02-ex231a" data-slide-id="lec02-ex231a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(a) · Số nguyên lớn nhất</h2>
+<p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả số nguyên lớn nhất.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p>
+<aside class="notes"><p>Map phát (0,x), reduce lấy max. Có thể gộp max cục bộ trước. Bất biến sau khi đọc j số: m là lớn nhất trong j số đã đọc. Khởi tạo từ phần tử đầu hoặc âm vô cùng; không dùng 0 vì dữ liệu có thể toàn số âm. Tệp rỗng cần báo không có kết quả. Đọc N số, O(N) công việc cộng dồn, O(1) trạng thái mỗi nhóm, N cặp nếu chưa gộp.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(a), trang in 40 / PDF 21.</p></aside>
+</section>
+<section id="lec02-ex231b" data-slide-id="lec02-ex231b" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(b) · Trung bình các số nguyên</h2>
+<p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả trung bình các số nguyên.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p>
+<aside class="notes"><p>Map phát (0,(x,1)); reduce cộng từng thành phần thành (S,N), xuất S/N nếu N>0. Bộ kết hợp cũng cộng hai thành phần, chưa chia. Bất biến S là tổng, N là số phần tử đã đọc. Trung bình của trung bình không đúng khi các nhóm có kích thước khác nhau. Tệp rỗng không có trung bình. O(N) công việc cộng dồn, trạng thái O(1) nếu số nguyên và bộ đếm có độ dài cố định trong mô hình.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(b), trang in 40 / PDF 21.</p></aside>
+</section>
+<section id="lec02-ex231c" data-slide-id="lec02-ex231c" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(c) · Mỗi số chỉ xuất hiện một lần</h2>
+<p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả mỗi số chỉ xuất hiện một lần.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p>
+<aside class="notes"><p>Map phát (x,1); reduce theo x phát (0,x) một lần. Mọi bản sao x cùng khóa nên không mất giá trị nào và không còn trùng ở đầu ra. Không cần giữ toàn bộ danh sách giá trị, chỉ nhận biết nhóm xuất hiện. Không bảo đảm thứ tự số trong tệp cuối. O(N) số cặp phát; chi phí nhóm do hệ thống xử lý, không bỏ qua nó khi phân tích cài đặt cụ thể.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(c), trang in 40 / PDF 21.</p></aside>
+</section>
+<section id="lec02-ex231d" data-slide-id="lec02-ex231d" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(d) · Số lượng giá trị khác nhau</h2>
+<p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả số lượng giá trị khác nhau.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p><p><a href="#/lec02-ex251a">Tiếp: bài tập tính chi phí</a></p>
+<aside class="notes"><p>Một lời giải hai công việc: công việc 1 map (x,1), reduce mỗi x phát (0,1); công việc 2 cộng các số 1. Nếu có D giá trị khác nhau, công việc 1 tạo D đóng góp; tổng cuối bằng D. Tệp rỗng có D=0 theo quy ước đếm; hệ thống cần trả 0 nếu không tạo nhóm. Đây là phương án phân tán tự nhiên, không chứng minh hai công việc là bắt buộc: có thể gom toàn bộ vào một reducer và dùng tập hợp nhưng bộ nhớ tăng O(D).</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(d), trang in 40 / PDF 21.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.4">
+<section id="lec02-s04-01" data-slide-id="lec02-s04-01"><h2>Mở rộng: luồng công việc nhiều hàm</h2>
+<p>MapReduce là một luồng hai tầng: Map đưa vào Reduce. <strong>Hệ luồng công việc (workflow)</strong> mở rộng thành một <strong>đồ thị có hướng không chu trình</strong> của các hàm: cung a → b nghĩa là đầu ra của a là đầu vào của b.</p><div class='grid2'><div class='card'>Hàm được thực thi bằng <strong>nhiều tác vụ</strong>, mỗi tác vụ nhận một phần đầu vào.</div><div class='card'><strong>Tính chất chặn:</strong> tác vụ chỉ phát đầu ra sau khi hoàn thành; hỏng thì chạy lại ở node khác.</div></div><p>Phân biệt: sơ đồ các hàm là một thứ; tập tác vụ chạy trên máy thực thi các hàm đó là một thứ khác.</p>
+<aside class="notes"><p>Nguồn: mục 2.4.1 và Hình 2.6, Ví dụ 2.6 : luồng gồm năm hàm f, g, h, i, j; h đọc tệp có sẵn của DFS, mỗi đầu ra của h đi tới cả i và j, i nhận đầu vào của cả f và h, đầu ra của j được lưu vào DFS hoặc trả về ứng dụng. Slide chỉ nêu cấu trúc chung, không vẽ lại toàn bộ Ví dụ 2.6 để giữ một việc cần theo dõi. Giả thiết: sinh viên đã xong phần MapReduce, nên chỉ cần ý "từ hai tầng sang đồ thị". Tính chất chặn (blocking) là cơ sở chống lỗi: tác vụ chưa hoàn thành thì chưa phát gì, nên chạy lại không gây trùng đầu ra. Câu nối: cách tổ chức này dùng file các phần tử cùng kiểu trao giữa các hàm — chính là nơi giới thiệu RDD của Spark ở trang sau.</p><p>Nguồn: MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48.</p></aside>
+</section>
+<section id="lec02-s04-02" data-slide-id="lec02-s04-02"><h2>Spark và RDD; Map khác Flatmap</h2>
+<p><strong>Tập dữ liệu phân tán có khả năng khôi phục (RDD)</strong>: các phần tử cùng kiểu, chia trên nhiều máy.</p><table><thead><tr><th>Phép biến đổi</th><th>Đầu ra từ một phần tử</th></tr></thead><tbody><tr><td>Map</td><td>Đúng một đối tượng</td></tr><tr><td>Flatmap</td><td>Không, một hoặc nhiều phần tử</td></tr></tbody></table><p>Với một tài liệu: Map có thể trả một danh sách cặp; Flatmap phát từng cặp (từ,1).</p>
+<aside class="notes"><p>Nguồn: mục 2.4.2, phần định nghĩa RDD và "Map, Flatmap, and Filter" cùng Ví dụ 2.7 . Sách nhấn hai điểm khác với Map của MapReduce: Map của Spark áp dụng cho mọi kiểu đối tượng (không chỉ cặp khóa–giá trị) và tạo đúng một đối tượng kết quả; muốn từ một đầu vào tạo nhiều phần tử thì dùng Flatmap. Ví dụ 2.7: đếm từ, nếu dùng Map, RDD đầu ra là danh sách các tập hợp, mỗi tập gồm các cặp (w,1) của một tài liệu; muốn lặp lại đúng Map của Ví dụ 2.1 — mỗi lần xuất hiện một cặp (w,1) — phải dùng Flatmap. Bảng trên tái hiện đúng sự phân biệt này; lưu ý nói rõ "một tập hợp vẫn là một đối tượng" vì đây là chỗ sinh viên hay nhầm. Câu nối: Flatmap ghép với Filter để loại từ dừng ở trang sau.</p><p>Nguồn: MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48.</p></aside>
+</section>
+<section id="lec02-s04-03" data-slide-id="lec02-s04-03"><h2>Nối Flatmap với Filter</h2>
+<img class="figure" src="img/lec-02/ch2-spark.svg" alt="Tài liệu qua Flatmap thành R1, qua Filter thành R2 bỏ từ dừng."/><p class="check"><strong>Câu hỏi:</strong> Một từ dừng xuất hiện ba lần; R₂ còn bao nhiêu cặp của từ đó?</p>
+<aside class="notes"><p>Nguồn: mục 2.4.2, phần Filter và Ví dụ 2.8 . Sách mô tả Filter nhận vị từ áp cho kiểu phần tử của RDD đầu vào, đầu ra chỉ gồm phần tử được trả true; Ví dụ 2.8 nối tiếp Ví dụ 2.7: Flatmap tạo R1 gồm cặp (w,1) cho mỗi lần xuất hiện, rồi Filter với danh sách từ dừng cài sẵn cho ra R2 chỉ chứa cặp của từ không dừng. Giả thiết: danh sách từ dừng được coi là đã có sẵn trong hàm, không đi vào chi tiết cách xây. Đáp án câu hỏi: 0 cặp, vì cả ba lần xuất hiện đều bị vị từ loại; dùng câu này để nhấn Filter hoạt động trên từng phần tử. Câu nối: chuỗi biến đổi này sẽ được dùng lại để minh họa đánh giá lười và dòng dõi ở trang sau.</p><p>Nguồn: MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48.</p></aside>
+</section>
+<section id="lec02-s04-04" data-slide-id="lec02-s04-04"><h2>Đánh giá lười và dòng dõi</h2>
+<ul><li>Phép biến đổi ghi cách tạo dữ liệu; hành động kích hoạt việc tính.</li><li>Lưu đệm giúp dùng lại phần dữ liệu đã tính.</li><li>Lịch sử biến đổi cho phép tính lại phần bị mất.</li></ul><p class="check"><strong>Câu hỏi:</strong> R₂ bị mất; hãy nêu thứ tự áp dụng phép biến đổi từ tệp tài liệu.</p>
+<aside class="notes"><p>Nguồn: mục 2.4.3, phần Lazy Evaluation với Ví dụ 2.9 và phần Resilience of RDD's với Ví dụ 2.10 . Ví dụ 2.9: R0 là RDD tạo từ tệp tài liệu, Flatmap cho R1, Filter cho R2; mọi biến đổi chỉ chạy khi có hành động trên R2; các phần R1, R2 tồn tại cục bộ và bị bỏ sau khi dùng. Ví dụ 2.10: dòng dõi của R2 ghi rõ R2 tạo từ R1 bằng Filter loại từ dừng, R1 tạo từ R0 bằng Flatmap, R0 tạo từ tệp ngoài; mất một phần R2 thì lần lượt tái tạo từ R1, rồi R0 — R0 lấy lại được từ hệ tệp dự phòng — rồi áp lại các phép biến đổi. Giả thiết: sinh viên đã thấy cơ chế chịu lỗi ở phần MapReduce, nên chỉ đối chiếu "còn/mất" chứ không giảng lại. Trả lời câu hỏi: R2 ← R1 ← R0 ← tệp ngoài, theo đúng chuỗi biến đổi đã ghi. Câu nối: nhấn mạnh Spark Reduce là hành động trả một giá trị, không phải reduce theo khóa của MapReduce, để tránh đồng nhất hai mô hình.</p><p>Thứ tự chạy lại theo chiều thuận: đọc phần cần thiết từ tệp, Flatmap, rồi Filter. Ví dụ này là chuỗi biến đổi trên từng phần; không khái quát rằng mọi phép biến đổi Spark không trao đổi dữ liệu. Lưu đệm không đồng nghĩa mọi dữ liệu luôn vừa bộ nhớ.</p><p>Nguồn: MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48.</p></aside>
+</section>
+<section id="lec02-s04-05" data-slide-id="lec02-s04-05"><h2>Vai trò lưu trữ và thực thi</h2>
+<table><thead><tr><th>Lớp</th><th>Trách nhiệm</th></tr></thead><tbody><tr><td>Hệ tệp phân tán</td><td>Lưu khối và bản sao</td></tr><tr><td>MapReduce / Spark</td><td>Phân chia, lập lịch, khôi phục tác vụ</td></tr></tbody></table><p>Reduce của Spark trả một giá trị tổng hợp; reduce của MapReduce được gọi theo khóa.</p><p>Đọc thêm: TensorFlow, tính toán đệ quy, đồng bộ theo từng bước.</p>
+<aside class="notes"><p>Nguồn: tổng hợp mục 2.4 : ba đặc điểm chung của các hệ mở rộng (xây trên DFS, quản lượng lớn tác vụ từ ít hàm người dùng viết, tự xử lý phần lớn lỗi); mục 2.4.1 cho giới hạn hai tầng và ý tưởng đồ thị; các mục 2.4.4–2.4.6 (TensorFlow, mở rộng đệ quy của MapReduce, hệ đồng bộ theo từng bước) được định vị là đọc thêm, không kiểm tra chi tiết. Giả thiết: bảng so sánh giúp sinh viên năm 2 tách bạch vai trò lưu trữ của DFS với vai trò thực thi của hệ tính toán — hai tầng trong sơ đồ tư duy. Lưu ý giảng dạy: không đồng nhất Reduce của Spark (hành động, gộp liên tiếp hai phần tử thành một giá trị, không gom theo khóa) với reduce theo khóa của MapReduce; sách nói rõ điều này ở phần Reduce của 2.4.2. Câu nối sang phần chi phí: một phép tính có thể là mạng nhiều tác vụ, nên cần một quy tắc đếm chi phí cho cả mạng — nội dung mục 2.5.</p><p>Nguồn: MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.5">
+<section id="lec02-s05-01" data-slide-id="lec02-s05-01"><h2>2.5 · Đếm đầu vào của từng tác vụ</h2>
+<img class="figure" src="img/lec-02/ch2-chi-phi.svg" alt="Mô hình cộng đầu vào Map I và đầu vào Reduce M."/><div class="math-large">$C=\sum_{\text{tác vụ }u}|\operatorname{in}(u)|=I+M$</div>
+<p>$I$: tổng đầu vào Map; $M$: tổng đầu vào Reduce.</p>
+<aside class="notes"><p>Mục 2.5 chọn chi phí truyền thông của một tác vụ bằng kích thước đầu vào, kể cả đọc cục bộ; tổng của thuật toán là tổng trên các tác vụ. Chọn đơn vị trước: byte hoặc đơn vị bản ghi chuẩn hóa. M ở đây là kích thước dữ liệu trung gian Reduce nhận, đã tính số bản sao; không phải ma trận M ở mục 2.3. Đầu ra cuối chưa được đếm riêng trong quy ước này; nếu được công việc sau đọc thì trở thành đầu vào và được đếm ở đó. Không đổi sang I+2M+O mà vẫn gọi là mô hình sách. Đây là mô hình để so sánh thuật toán, không phải đo chính xác mọi byte mạng hay thời gian thực thi.</p><p>Nguồn: MMDS, Chương 2, 2.5.1, trang in 53–55.</p></aside>
+</section>
+<section id="lec02-s05-02" data-slide-id="lec02-s05-02"><h2>Đơn vị và phạm vi của phép đếm</h2>
+<table><thead><tr><th>Cần chốt</th><th>Cách dùng trong bài</th></tr></thead><tbody><tr><td>Đơn vị</td><td>Một bộ hoặc một cặp có kích thước chuẩn hóa</td></tr><tr><td>Đọc lặp / sao chép</td><td>Mỗi lần một tác vụ nhận đều được đếm</td></tr><tr><td>Chi phí tổng</td><td>Cộng qua mọi tác vụ và công việc</td></tr><tr><td>Thời gian hoàn thành</td><td>Còn phụ thuộc tải lớn nhất, CPU và bộ nhớ</td></tr></tbody></table>
+<aside class="notes"><p>Khi bộ và cặp có độ dài khác nhau, phải nhân mỗi số lượng với số byte tương ứng. Bài dùng đơn vị chuẩn hóa để nhìn hệ số sao chép, đúng cách nguồn bỏ qua hệ số kích thước cố định. Chi phí tổng không bằng đường truyền của tác vụ chậm nhất. Một thuật toán có ít dữ liệu tổng hơn vẫn có thể chậm do một khóa nóng hoặc công việc nối tiếp. Chi phí đầu ra lớn không biến mất trong hệ thống thật chỉ vì quy ước này không cộng trực tiếp. Phần 2.5.2 bổ sung kích thước đầu vào lớn nhất của một tác vụ làm thước đo tường thời gian trong mô hình phù hợp.</p><p>Nguồn: MMDS, Chương 2, 2.5.1–2.5.2, trang in 53–56.</p></aside>
+</section>
+<section id="lec02-s05-03" data-slide-id="lec02-s05-03"><h2>Đếm từ: theo dữ liệu qua hai tầng</h2>
+<table><thead><tr><th>Đại lượng</th><th>Chưa gộp</th><th>Có gộp trong D2</th></tr></thead><tbody><tr><td>Đầu vào Map</td><td>$I$</td><td>$I$</td></tr><tr><td>Cặp đến Reduce</td><td>5</td><td>4</td></tr><tr><td>Chi phí (byte)</td><td>$I+5B$</td><td>$I+4B$</td></tr></tbody></table><p>$I$ tính bằng byte; giả sử mỗi cặp trung gian dài $B$ byte.</p>
+<aside class="notes"><p>Dùng lại dữ liệu nhỏ cụ thể hóa cơ chế đếm từ của Ví dụ 2.1: D1 chứa dữ, liệu, lớn; D2 chứa lớn, lớn. Hai chuỗi do bài giảng chọn để minh họa, không phải chuỗi trích nguyên văn sách. Mỗi lần xuất hiện phát một cặp; D2 cộng hai cặp cùng từ thành (lớn,2). I là kích thước đầu vào tính trong cùng đơn vị với cặp chuẩn hóa, không mặc định hai tài liệu là hai byte hoặc hai bản ghi cùng cỡ cặp. Nếu cặp có độ dài B byte như nhau thì phần trung gian là 5B và 4B. Ví dụ minh họa phép cộng chi phí, không đưa ra mức giảm thực tế cho một kho tài liệu.</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.1, 2.2.4 và mô hình 2.5.1; phần trích minh họa được ghi trong storyboard.</p></aside>
+</section>
+<section id="lec02-s05-04" data-slide-id="lec02-s05-04"><h2>Nối hai bảng: một lần phát cho mỗi bộ</h2>
+<div class="math-large">$R(A,B)\bowtie S(B,C),\quad |R|=r,\ |S|=s$</div><table><thead><tr><th>Tầng</th><th>Số đơn vị đầu vào</th></tr></thead><tbody><tr><td>Map</td><td>$r+s$</td></tr><tr><td>Reduce</td><td>$r+s$</td></tr><tr><td>Tổng</td><td>$2(r+s)$</td></tr></tbody></table><p>Số kết quả nối có thể lớn hơn nhiều so với $r+s$.</p>
+<aside class="notes"><p>Ví dụ 2.14: mỗi bộ chỉ gửi một lần tới khóa B. Nếu chuẩn hóa kích thước bộ đầu vào và cặp có nhãn thành một đơn vị, tổng bằng 2(r+s); nguồn kết luận O(r+s) khi bỏ hằng số kích thước. Với bốn hàng Links dùng hai bản sao, r=s=4 nên Map đọc 8, Reduce nhận 8, tổng 16 đơn vị, kết quả 2 bộ. Kết quả cuối bị loại khỏi tổng này theo quy ước nguồn. Nếu một khóa có x hàng trái, y hàng phải, phải tạo xy kết quả: không suy ra thời gian chạy O(r+s).</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.14, trang in 55; phần Links Hình 2.5.</p></aside>
+</section>
+<section id="lec02-s05-05" data-slide-id="lec02-s05-05"><h2>Nối ba bảng: gửi tới một lưới</h2>
+<img class="figure" src="img/lec-02/ch2-luoi-reducer.svg" alt="Lưới 4 nhân 4: R đến hàng 2, S đến ô (2,1), T đến cột 1."/><p>$R(A,B)\bowtie S(B,C)\bowtie T(C,D)$; băm $B$ vào $b$ nhóm, $C$ vào $c$ nhóm.</p>
+<aside class="notes"><p>Ví dụ 2.15 dùng b=c=4 và k=bc=16 reducer. Chuẩn hóa chỉ số nhóm 0,1,2,3 đúng hình nguồn; đoạn văn nguồn lẫn chỉ số 1 đến 4 đã được hiệu chỉnh. Bộ S với hB=2,hC=1 gửi đúng ô (2,1). Bộ R chỉ biết B nên đến bốn ô của hàng 2; T chỉ biết C nên đến bốn ô của cột 1. Mỗi bộ ba hợp lệ có duy nhất cặp nhóm (hB(B),hC(C)), nên gặp nhau tại đúng ô ấy. Trong mỗi ô vẫn kiểm tra giá trị B,C thật, vì trùng băm không có nghĩa bằng nhau. Chỉ hai quan hệ ngoài bị nhân bản.</p><p>Nguồn: MMDS, Chương 2, 2.5.3 và Ví dụ 2.15, trang in 56–58.</p></aside>
+</section>
+<section id="lec02-s05-06" data-slide-id="lec02-s05-06"><h2>Chi phí của phép nối ba bảng</h2>
+<table><thead><tr><th>Quan hệ</th><th>Map đọc</th><th>Reduce nhận</th></tr></thead><tbody><tr><td>$R$</td><td>$r$</td><td>$cr$</td></tr><tr><td>$S$</td><td>$s$</td><td>$s$</td></tr><tr><td>$T$</td><td>$t$</td><td>$bt$</td></tr></tbody></table><div class="math-large">$C_3=r+2s+t+cr+bt,\qquad bc=k$</div>
+<aside class="notes"><p>Cộng từng cột: Map đọc r+s+t; Reduce đọc cr+s+bt. Hệ số 2s xuất hiện vì S được đọc ở cả Map và Reduce, không phải vì S gửi hai bản. Với b=c=4, tổng là 5r+2s+5t. Mỗi ô chạy nối cục bộ bằng giá trị thực. Giả mã map của R lặp y=0..c-1 phát ((hB(B),y),(R,A,B)); S phát ((hB(B),hC(C)),(S,B,C)); T lặp z=0..b-1 phát ((z,hC(C)),(T,C,D)). Reduce phát mỗi bộ (A,B,C,D) thỏa cả hai điều kiện nối. Các vòng hữu hạn; đầy đủ và không nhân kết quả giữa các ô nhờ ô duy nhất.</p><p>Nguồn: MMDS, Chương 2, 2.5.3, trang in 56–58.</p></aside>
+</section>
+<section id="lec02-s05-07" data-slide-id="lec02-s05-07"><h2>Nối tuần tự có thể tạo bảng trung gian lớn</h2>
+<div class="math-large">$|R|=|S|=|T|=r=3\cdot10^{11},\quad |R\bowtie S|\approx30r$</div><table><thead><tr><th>Công việc</th><th>Chi phí</th></tr></thead><tbody><tr><td>Nối $R$ và $S$</td><td>$2(r+r)=4r$</td></tr><tr><td>Nối trung gian và $T$</td><td>$2(30r+r)=62r$</td></tr><tr><td>Tổng</td><td>$66r=1{,}98\cdot10^{13}$</td></tr></tbody></table>
+<aside class="notes"><p>Ví dụ 2.16 dùng quan hệ bạn bè với khoảng một tỷ người dùng, trung bình 300 bạn mỗi người, nên r=3×10^11. Sách ước lượng quan hệ bạn-của-bạn lớn gấp 30, coi đây là giả thiết của ví dụ, không là đẳng thức đúng cho mọi mạng. Bảng trung gian được công việc 2 đọc, do đó xuất hiện trong chi phí công việc 2. Không cộng thêm một lần ghi trung gian khi đang dùng mô hình đầu vào tác vụ. Đây là ví dụ lịch sử của sách, không phải số người dùng hiện nay.</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.16, trang in 58–59.</p></aside>
+</section>
+<section id="lec02-s05-08" data-slide-id="lec02-s05-08"><h2>So sánh hai cách dưới cùng giả thiết</h2>
+<div class="math-large">$b=c=\sqrt{k},\quad C_3=4r+2r\sqrt{k}$</div><table><thead><tr><th>Lưới vuông</th><th>Chi phí nối ba bảng</th></tr></thead><tbody><tr><td>$k=16$</td><td>$12r$</td></tr><tr><td>$k=961=31^2$</td><td>$66r$</td></tr></tbody></table><p>Nối ba bảng ít chi phí hơn khi $k&lt;961$; tại $k=961$ hai cách bằng nhau.</p>
+<aside class="notes"><p>Thay r=s=t và b=c=sqrt(k) vào tổng vừa tính. So với 66r: 4+2sqrt(k)<66 tương đương sqrt(k)<31, nên k<961. Tại 961 bằng nhau; sửa chữ preferable và dấu không nghiêm trong nguồn. Ví dụ k=16 lấy từ lưới 4×4 của Ví dụ 2.15, không là một thí nghiệm mới. Giả thiết lưới vuông yêu cầu k là số chính phương; tổng quát chọn b,c nguyên dương có bc=k rồi tính cr+bt. Chi phí thấp chưa bảo đảm đầu vào mỗi reducer vừa bộ nhớ. Đây là câu nối sang phần 2.6.</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.15–2.16, trang in 57–59; hiệu chỉnh biên đẳng thức.</p></aside>
+</section>
+<section id="lec02-s05-09" data-slide-id="lec02-s05-09"><h2>Tổng chi phí và tải lớn nhất</h2>
+<div class="grid2"><div class="card"><h3>Tổng</h3><p>Cộng đầu vào của mọi tác vụ.</p><p>Cho biết lượng công việc truyền/đọc.</p></div><div class="card"><h3>Tác vụ nặng nhất</h3><p>Xem đầu vào và phép tính cục bộ.</p><p>Kiểm tra lệch khóa và bộ nhớ.</p></div></div><p class="check"><strong>Câu hỏi:</strong> Tổng chi phí giảm có đủ để kết luận bài toán chạy nhanh hơn không?</p>
+<aside class="notes"><p>Đáp án không. Cần lịch thực thi, số máy, tải nặng nhất, thời gian CPU, bộ nhớ và kết quả đầu ra. Phần 2.5.2 giới thiệu tổng chi phí và chi phí theo thời gian thực như hai thước đo khác nhau. Trong ví dụ nối ba bảng, tăng số ô làm tăng sao chép quan hệ ngoài nhưng có thể giảm đầu vào mỗi ô nếu băm phân bố tốt. Băm không bảo đảm cân bằng trước khóa nóng. Phần tiếp theo đặt tên hai đại lượng để mô tả đánh đổi này.</p><p>Nguồn: MMDS, Chương 2, 2.5.2 và chuyển sang 2.6, trang in 55–56,61.</p></aside>
+</section>
+<section id="lec02-ex251a" data-slide-id="lec02-ex251a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.5.1(a) · Nhân ma trận–vector</h2>
+<p>Xét thuật toán chia dải ở mục 2.3.2.</p><p class="check"><strong>Câu hỏi:</strong> Biểu diễn chi phí truyền thông theo kích thước ma trận và vector.</p><p><strong>Sản phẩm:</strong> bảng đầu vào Map/Reduce; nêu số lần đọc từng dải vector.</p>
+<aside class="notes"><p>Gọi z là số phần tử ma trận được lưu, L_j là độ dài dải vector j, a_j là số Map task cần đọc dải đó. Mỗi bộ ma trận được đọc một lần, nên Map đọc z+Σ_j a_j L_j đơn vị chuẩn hóa; mỗi bộ tạo một tích, Reduce đọc z. Tổng C=2z+Σ_j a_j L_j. Nếu mỗi dải dùng đúng một Map task và Σ_j L_j=n thì C=2z+n. Nếu có nhiều task cho một dải, không được mặc định vector chỉ đọc một lần. Nếu ma trận đặc z=n². Nếu phân biệt kích thước bộ ma trận, số vector và cặp trung gian bằng B_M,B_v,B_P byte, C=zB_M+(Σ_j a_jL_j)B_v+zB_P. Chưa dùng gộp cục bộ tích theo hàng. Kết quả vector cuối không được đếm trực tiếp theo mô hình này. Hướng dẫn chấm: định nghĩa đơn vị và số lần đọc; đếm Map; đếm Reduce; kết luận điều kiện 2z+n.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.5.1(a), trang in 59 / PDF 40; 2.3.2.</p></aside>
+</section>
+<section id="lec02-ex251c" data-slide-id="lec02-ex251c" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.5.1(c) · Nhóm và tổng hợp</h2>
+<p>Xét thuật toán tổng hợp ở mục 2.3.8 trên quan hệ $R$.</p><p class="check"><strong>Câu hỏi:</strong> Biểu diễn chi phí truyền thông theo kích thước quan hệ.</p><p><strong>Sản phẩm:</strong> bảng đầu vào Map/Reduce và kết luận với đơn vị đã chọn.</p><p><a href="#/lec02-s07-01">Trở về tổng kết</a></p>
+<aside class="notes"><p>Đặt N=|R|. Không có bộ kết hợp: Map đọc N bộ và phát một cặp chứa khóa nhóm cùng các thuộc tính cần tổng hợp cho mỗi bộ; Reduce nhận N cặp. Với đơn vị bản ghi chuẩn hóa, C=2N=O(N). Với kích thước bộ B_R và cặp B_P, C=N(B_R+B_P); phép chiếu thuộc tính có thể giảm byte dù số cặp không đổi. Nếu áp dụng bộ kết hợp hợp lệ cho COUNT hoặc SUM và chỉ còn G cặp thì phần trung gian là G, nhưng đó là biến thể phải nêu riêng. Lỗi cần sửa: lấy số nhóm làm đầu vào Reduce dù chưa gộp; cộng đầu ra cuối vào mô hình đầu vào tác vụ; suy ra thời gian thực chỉ từ C.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.5.1(c), trang in 59 / PDF 40; 2.3.8.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.6">
+<section id="lec02-s06-01" data-slide-id="lec02-s06-01"><h2>2.6 · Bộ nhớ và số lần sao chép</h2>
+<table><thead><tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr></thead><tbody><tr><td>$q$</td><td>Số giá trị đầu vào tối đa của một reducer</td></tr><tr><td>$\rho$</td><td>Số cặp trung gian trung bình trên một đầu vào</td></tr></tbody></table><div class="math-large">$\rho=\frac{\text{tổng số cặp phát}}{\text{số đầu vào}}$</div><p>Giảm dữ liệu ở từng reducer có thể đòi hỏi gửi nhiều bản sao hơn.</p>
+<aside class="notes"><p>Sách dùng r cho tốc độ sao chép; bài đổi thành rho để không nhầm r=|R| ở phần trước. q đếm số giá trị, không trực tiếp là byte RAM. Nếu một giá trị có B byte và mọi giá trị được giữ đồng thời, tải dữ liệu là qB, chưa gồm cấu trúc phụ và mã. Đây là mô hình phân tích một vòng, không mô tả mọi chi phí của một cụm. Mỗi đầu vào có thể tạo nhiều cặp đến các reducer khác nhau; rho tính trung bình, không phải số bản sao DFS.</p><p>Nguồn: MMDS, Chương 2, 2.6.1, trang in 61.</p></aside>
+</section>
+<section id="lec02-s06-02" data-slide-id="lec02-s06-02"><h2>So sánh mọi cặp ảnh</h2>
+<div class="math-large">$N=10^6\text{ ảnh},\quad B=10^6\text{ byte/ảnh}$</div><ul><li>Mỗi reducer nhận đúng một cặp ảnh.</li><li>Mỗi ảnh đến $N-1$ reducer.</li></ul><div class="math-large">$q=2,\quad \rho=N-1,\quad C_{\text{trung gian}}=N(N-1)B\approx10^{18}\text{ byte}$</div>
+<aside class="notes"><p>Nguồn xét kho một triệu ảnh; mỗi cặp cần được so sánh theo tiêu chí đã chọn, chẳng hạn phân bố màu; đầu ra là kết quả so sánh cho mọi cặp khác nhau, không biết trước cặp nào phù hợp. Số reducer khái niệm là N(N-1)/2, mỗi reducer nhận 2 ảnh nên số bản gửi là N(N-1). q nhỏ nhưng số bản sao rất lớn. Công thức đang tính phần trung gian theo rho, không bao gồm đầu vào Map NB; nếu dùng tổng mô hình phần trước phải cộng NB. Những con số chỉ là dữ kiện ví dụ sách, không đo thời gian cụm thực.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 61–63.</p></aside>
+</section>
+<section id="lec02-s06-03" data-slide-id="lec02-s06-03"><h2>Gom nhóm để dùng lại mỗi ảnh</h2>
+<ul><li>Chia $10^6$ ảnh thành $g=1000$ nhóm, mỗi nhóm 1000 ảnh.</li><li>Một reducer nhận hai nhóm và so sánh chéo.</li><li>Mỗi nhóm gặp $g-1$ nhóm còn lại.</li></ul><div class="math-large">$q=2000,\quad \rho=999,\quad C_{\text{trung gian}}=9{,}99\cdot10^{14}\text{ byte}$</div>
+<aside class="notes"><p>Mỗi reducer nhận hai nhóm nên dữ liệu ảnh là 2000×10^6=2×10^9 byte, chưa tính chi phí phụ. Mỗi ảnh gửi tới 999 reducer. Các cặp khác nhóm được xét ở duy nhất reducer của hai nhóm. Cặp trong cùng nhóm phải xét đúng một nơi: đánh số nhóm 0..g-1, giao cặp nội bộ nhóm i cho reducer nhận nhóm i và nhóm (i+1) modulo g, theo quy tắc nguồn. Không để mọi reducer chứa nhóm i đều so sánh nội bộ vì sẽ lặp 999 lần. Số phép so sánh ảnh cần thiết vẫn là N(N-1)/2; lợi ích nằm ở dùng lại ảnh đã nhận. Đây không phải giảm từ bậc hai xuống tuyến tính cho số cặp phải kiểm tra.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 62–63.</p></aside>
+</section>
+<section id="lec02-s06-04" data-slide-id="lec02-s06-04"><h2>Đánh đổi cần kiểm tra trước khi triển khai</h2>
+<table><thead><tr><th>Cách phân chia</th><th>Đầu vào/reducer</th><th>Bản sao/ảnh</th></tr></thead><tbody><tr><td>Mỗi cặp ảnh</td><td>$2$</td><td>$999999$</td></tr><tr><td>Mỗi cặp nhóm</td><td>$2000$</td><td>$999$</td></tr></tbody></table><p class="check"><strong>Câu hỏi:</strong> Với cách gom nhóm, 2 GB dữ liệu ảnh đã đủ để kết luận reducer chạy được chưa?</p><p>Đọc thêm: lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7.</p>
+<aside class="notes"><p>Chưa: còn cấu trúc dữ liệu, bộ nhớ chương trình, cách biểu diễn ảnh và chi phí so sánh; GB ở đây dùng 10^9 byte. Sinh viên cần giải thích được nguồn gốc q và rho, kiểm tra tính đầy đủ của các cặp và nhận ra tổng phép so sánh không giảm. Không yêu cầu tự chứng minh các cận dưới tổ hợp trong phần đọc thêm. Khép tình huống: tăng dữ liệu mỗi reducer để một ảnh phục vụ nhiều phép so sánh trước khi phải truyền lại.</p><p>Nguồn: MMDS, Chương 2, 2.6.2–2.6.7, trang in 61–74.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.7">
+<section id="lec02-s07-01" data-slide-id="lec02-s07-01"><h2>2.7 · Từ lưu trữ đến đánh giá thuật toán</h2>
+<table><thead><tr><th>Lớp lập luận</th><th>Kết quả cần nắm</th></tr></thead><tbody><tr><td>Hệ tệp phân tán</td><td>Chia khối, bản sao, đọc gần dữ liệu</td></tr><tr><td>MapReduce</td><td>Chọn khóa để dữ liệu cần nhau gặp nhau</td></tr><tr><td>Thuật toán</td><td>Giả mã, vết chạy, lập luận đúng</td></tr><tr><td>Mở rộng</td><td>Nối phép biến đổi, lưu đệm, tính lại</td></tr><tr><td>Đánh giá</td><td>Đơn vị chi phí, tải lớn nhất, sao chép</td></tr></tbody></table>
+<aside class="notes"><p>Tổng kết theo 2.7 nhưng giữ các nội dung đã giảng sâu: không đưa chứng minh hoặc hệ thống đọc thêm thành chuẩn bắt buộc. Nhắc sinh viên tách đặc tả bài toán khỏi một cách cài đặt. Với nối, khóa quyết định nơi gặp nhau; với chi phí, số nơi nhận quyết định hệ số sao chép; với bộ nhớ, lượng dữ liệu tại nơi gặp nhau quyết định tính khả thi. Chuỗi này thu hồi mục tiêu đầu bài.</p><p>Nguồn: MMDS, Chương 2, 2.7, trang in 74–77.</p></aside>
+</section>
+<section id="lec02-s07-02" data-slide-id="lec02-s07-02"><h2>Kiểm tra bằng sản phẩm học tập</h2>
+<ul><li>Viết map/reduce và chạy lại trên một phần dữ liệu nguồn.</li><li>Giải thích mọi đóng góp gặp đúng khóa, không mất hay lặp.</li><li>Lập bảng đầu vào từng tầng trước khi cộng chi phí.</li><li>Nêu điều kiện bộ nhớ và trường hợp lệch tải.</li></ul><p>Bài tập: <a href="#/lec02-ex221a">2.2.1</a> · <a href="#/lec02-ex231a">2.3.1</a> · <a href="#/lec02-ex251a">2.5.1(a,c)</a></p>
+<aside class="notes"><p>Các liên kết mở bài tập nằm cuối phần nội dung tương ứng. Sau khi giảng xong mục tài liệu tham khảo, quay lại bài 2.2.1 rồi chuyển theo liên kết cuối mỗi cụm. Sản phẩm gồm lời giải ngắn cho lệch tải, giả mã kèm vết bất biến cho số nguyên và bảng chi phí. Đáp án chi tiết nằm trong ghi chú bài giảng và ghi chú diễn giả của từng bài. Bài tập được lấy nguyên dữ kiện nguồn, chỉ dịch và tách các ý.</p><p>Nguồn: MMDS, Chương 2, 2.7 và bài tập 2.2.1,2.3.1,2.5.1.</p></aside>
+</section>
+</section>
+<section aria-label="Mục 2.8">
+<section id="lec02-s08-01" data-slide-id="lec02-s08-01"><h2>2.8 · Tài liệu tham khảo</h2>
+<ul><li>Leskovec, Rajaraman, Ullman. Mining of Massive Datasets, Chương 2.</li><li>Nguồn chính của bài: ch2n.pdf, Chương 2, trang in 20–79; mục 2.1–2.8 từ trang 22.</li><li>Đọc tài liệu gốc được liệt kê ở mục 2.8 khi cần chi tiết hệ thống.</li></ul><p><a href="http://www.mmds.org">Sách và học liệu MMDS</a> · <a href="material-viewer.html?doc=materials/lec-02/lecture-note.md&amp;deck=lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html">Ghi chú bài giảng</a></p><p><a href="#/lec02-ex221a">Bắt đầu bài tập</a></p>
+<aside class="notes"><p>Mục 2.8 là danh mục bài báo và hệ thống làm nền cho chương. Bài dùng chương do người học cung cấp làm nguồn nội dung; không dùng thông số phần cứng trong sách như mô tả công nghệ hiện tại. Ghi công học liệu MMDS tại mmds.org. Hướng đọc: ôn 2.2–2.3 trước, làm 2.5.1 sau khi tự lập được bảng chi phí; 2.6.3 trở đi dành cho người muốn học phân tích cận dưới.</p><p>Nguồn: MMDS, Chương 2, 2.8, trang in 77–79.</p></aside>
+</section>
+</section>
+<div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 02</div>
 </div></div>
-<script src="revealjs/dist/reveal.js"></script>
-<script src="plugin/notes/notes.js"></script>
-<script src="plugin/markdown/markdown.js"></script>
-<script src="plugin/highlight/highlight.js"></script>
-<script src="plugin/math/math.js"></script>
-<script>
-  Reveal.initialize({width:1280,height:720,margin:.04,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealMarkdown,RevealHighlight,RevealNotes,RevealMath.KaTeX]});
-</script>
+  <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: .04,
+      controlsLayout: "edges",
+      slideNumber: true,
+      hashOneBasedIndex: true,
+      hash: true,
+      katex: { local: "vendor/katex" },
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+    });
+  </script>
 </body>
 </html>

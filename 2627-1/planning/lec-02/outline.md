@@ -1,154 +1,54 @@
-# Bài 2: MapReduce và ngăn xếp xử lý dữ liệu lớn
+# Dàn ý Bài 02: MapReduce và ngăn xếp xử lý dữ liệu lớn
 
-## Mục tiêu và phạm vi
+## Mục tiêu và quyết định phạm vi
 
-Sau phần giảng, sinh viên có thể:
+Viết mới bộ trang chiếu và ghi chú tự học Bài 02 cho sinh viên năm 2: theo dõi luồng khóa–giá trị, thiết kế thuật toán cơ bản, chứng minh bằng các đóng góp được gom đúng, và tính chi phí từ đầu vào từng tác vụ. Người dùng yêu cầu lấy `sources/textbooks/ch2n.pdf` làm nguồn chính, mỗi section ngoài ứng với một mục PDF; section đầu gồm tiêu đề, nội dung và mục tiêu.
 
-1. Mô tả đúng ba giai đoạn map, nhóm theo khóa và reduce, đồng thời phân biệt phần do người dùng viết với phần hệ thống thực hiện.
-2. Đặc tả và chứng minh tính đúng của chương trình MapReduce đếm từ.
-3. Quyết định khi nào dùng bộ kết hợp, phân tích lệch tải và giải thích khôi phục tác vụ.
-4. Phân biệt quy ước đầu vào tác vụ $I+M$ trong giáo trình MMDS với quy ước vào/ra $I+2M+O$ trong bộ trang chiếu chính thức MMDS.
-5. Chọn MapReduce cho tác vụ phân tích theo lô phù hợp và định vị nó trong ngăn xếp xử lý dữ liệu lớn.
+Bài số 02 theo thứ tự đề xuất trong `sources/source.md`, ánh xạ buổi gốc 4. Phạm vi học phần là MapReduce và ngăn xếp xử lý dữ liệu lớn. Kiến thức đầu vào: lập trình, toán rời rạc, đại số tuyến tính và xác suất cơ bản; khôi phục hàng/cột/quan hệ, nhóm và khóa ngay trước nơi dùng. Thiết kế 120 phút giảng và 60 phút bài tập. Không tạo mã trình diễn ngoài nguồn.
 
-Phần giảng dài 120 phút. Phần bài tập trong cùng HTML dài 60 phút, dùng trực tiếp toàn bộ MMDS Bài 2.2.1(a–c), trang in 30, PDF trang 11 và Bài 2.3.1(a–d), trang in 40, PDF trang 21. Không dạy PageRank, phép nối hoặc nhân ma trận–vector.
+## Bản đồ chủ đề và đồ thị tiên quyết
 
-## Kiến thức tiên quyết
+| Chủ đề | Nhãn | Đầu vào → sản phẩm → phần sau | Nguồn | Quyết định |
+|---|---|---|---|---|
+| Hệ tệp phân tán | cốt lõi | Giới hạn một máy → khối, bản sao → chia tác vụ | 2.1, tr.22–24 | giữ |
+| Đếm từ, nhóm và bộ kết hợp | cốt lõi | Vòng lặp, tổng → map/reduce và bất biến → chọn khóa khác | 2.2, tr.25–30 | giữ, tách vết chạy/giả mã |
+| Hàng/cột, quan hệ tập hợp | cầu nối | Bảng dữ liệu → hiểu chọn/chiếu/nối | 2.3.3, tr.32–35 | thêm trước phép toán để không giả định đã học CSDL |
+| Nhân ma trận–vector và chia dải | cốt lõi | Tổng theo hàng → phát tích, gom đúng hàng → đọc lặp vector | 2.3.1–2.3.2 | giữ |
+| Chọn, chiếu, nối và tổng hợp | cốt lõi | Khóa, quan hệ → giả mã và vết Links → chi phí nối | 2.3.4–2.3.8 | giữ; phép tập hợp 2.3.6 đọc thêm |
+| Nhân ma trận–ma trận | đọc thêm | Nối + tổng → liên hệ hai công việc | 2.3.9–2.3.10 | một trang định vị; chi tiết đọc thêm |
+| Luồng công việc, Spark | cốt lõi | Một công việc → chuỗi biến đổi, lưu đệm, tính lại → tổng qua nhiều tác vụ | 2.4.1–2.4.3 | giữ, giảm chi tiết hệ thống |
+| Các mở rộng khác | đọc thêm | Định vị các mô hình | 2.4.4–2.4.6 | không kiểm tra chi tiết |
+| Mô hình đầu vào tác vụ | cốt lõi | Thuật toán cụ thể → bảng Map/Reduce → so sánh có điều kiện | 2.5.1–2.5.3 | giữ, nêu đơn vị trước công thức |
+| Bộ nhớ và sao chép | cốt lõi | Lưới reducer → q, rho và mọi cặp ảnh → tính khả thi | 2.6.1–2.6.2 | giữ ví dụ, đổi r thành rho tránh trùng |
+| Lược đồ ánh xạ, cận dưới | đọc thêm | Mô hình q/rho → phân tích tổ hợp | 2.6.3–2.6.7 | không giảng chứng minh dài |
+| Tổng kết và nguồn | cốt lõi | Thu hồi sản phẩm học tập, hướng đọc | 2.7–2.8 | giữ thành hai section theo yêu cầu |
 
-- Bài 1: giới hạn bộ nhớ, lượt quét và chi phí di chuyển dữ liệu.
-- Ánh xạ khóa–giá trị, bảng băm và phép nhóm.
-- Bất biến vòng lặp và phép toán kết hợp, giao hoán.
+Không thêm mệnh đề học thuật từ nguồn ngoài. Năm hình SVG mới minh họa khối/bản sao, chia dải, chuỗi Spark, mô hình chi phí và lưới reducer. Các sơ đồ khái niệm được phân biệt với dữ kiện cấu hình thực tế. Không sao chép tài sản hoặc CSS môn tham khảo.
 
-## Dàn ý phần giảng
+## Quy tắc thể hiện
 
-| Phần | Mã trang | Nội dung | Thời lượng |
-|---|---|---|---:|
-| Mở đầu | P00–P01 | Vị trí bài và sản phẩm học tập | 5 phút |
-| Đưa tính toán đến dữ liệu | A00–A03 | Kho tài liệu lớn, hệ tệp phân tán, chia trách nhiệm, đặc tả đầu ra | 15 phút |
-| Luồng khóa–giá trị | B00, B01, B05, B02, B03, B04, B06, B07 | Ví dụ Word Count, đặc tả, map, nhóm khóa, reduce, tính đúng, kiểm tra | 31 phút |
-| Giảm dữ liệu trung gian | C00–C06 | Bộ kết hợp, điều kiện đại số, phân vùng, lệch tải, số tác vụ | 27 phút |
-| Thực thi khi máy hỏng | D00–D05 | Điều phối, khôi phục, hai quy ước chi phí, tác động của bộ kết hợp | 23 phút |
-| Ngăn xếp dữ liệu | E00–E04 | Các tầng phần mềm, phạm vi phù hợp, khuôn đặc tả, kiểm tra lựa chọn | 19 phút |
-| **Tổng** |  |  | **120 phút** |
+Với slide: nhu cầu → trực giác → vết chạy → đặc tả/giả mã → lập luận đúng → chi phí → kiểm tra. Vết ký hiệu của ma trận thay ma trận số tự đặt; bốn hàng Links dùng xuyên phép toán và tính chi phí. Với ghi chú: đặc tả trước ví dụ, sau đó giải thích, chứng minh và ứng dụng. Các chủ đề hệ thống không gán định lý hay giả mã khi không áp dụng; dùng cơ chế, điều kiện và tình huống lỗi. Các phần đọc thêm chỉ định vị, không giả vờ hoàn thành chu trình thuật toán.
 
-## Dàn ý phần bài tập
-
-| Hoạt động | Mã trang | Nguồn | Thời lượng | Sản phẩm |
-|---|---|---|---:|---|
-| Giao việc Bài 2.2.1 | R01 | MMDS Bài 2.2.1, trang in 30, PDF trang 11 | 4 phút | Phân công ba ý (a–c) |
-| Lệch reducer khi không có bộ kết hợp | R02 | MMDS Bài 2.2.1(a), trang in 30, PDF trang 11 | 8 phút | Lời giải ý (a) |
-| So sánh 10 và 10.000 Reduce task | R03 | MMDS Bài 2.2.1(b), trang in 30, PDF trang 11 | 11 phút | Lời giải ý (b) |
-| Lệch tải với 100 bộ kết hợp | R04 | MMDS Bài 2.2.1(c), trang in 30, PDF trang 11 | 9 phút | Lời giải ý (c) |
-| Thiết kế cực đại | lec02-r06a | MMDS Bài 2.3.1(a), trang in 40, PDF trang 21 | 6 phút | Lời giải ý (a) |
-| Thiết kế trung bình | lec02-r06b | MMDS Bài 2.3.1(b), trang in 40, PDF trang 21 | 8 phút | Lời giải ý (b) |
-| Loại bản sao | R07 | MMDS Bài 2.3.1(c), trang in 40, PDF trang 21 | 6 phút | Lời giải ý (c) |
-| Đếm số giá trị phân biệt | R08 | MMDS Bài 2.3.1(d), trang in 40, PDF trang 21 | 8 phút | Hai lượt MapReduce |
-| **Tổng** |  |  | **60 phút** |  |
-
-R00 và R05 là trang chuyển phần hoặc nêu nguyên văn phạm vi bài, không tính thời lượng. R01 dành 4 phút giao việc. Mặt trang R01–R08 chỉ giữ nội dung bài MMDS đã dịch; hướng dẫn tổ chức và chấm nằm trong ghi chú diễn giả. R06 được tách thành hai trang dọc lec02-r06a (6 phút) và lec02-r06b (8 phút); tổng phần bài tập vẫn 60 phút.
-
-## Ánh xạ nguồn
-
-MMDS 3e Chương 2 và bộ trang chiếu chính thức MMDS Chương 2 là nguồn chính cho luồng cốt lõi, ví dụ, thuật toán và bài tập. Stanford CS246 trang chiếu 49–60, 62 và 66–69 được chọn cho DAG, Spark, tình huống metadata Web, chi phí và giới hạn của xử lý theo lô vì trực quan và hiện thời hơn slide MMDS v2.1. Bộ trang chiếu MMDS được dùng theo giấy phép ghi ở trang 1; ghi công tại http://www.mmds.org. Không sao chép bố cục, CSS hoặc tài sản của nguồn; nội dung được Việt hóa và hình kỹ thuật được vẽ lại thành SVG.
-
-| Nguồn | Phạm vi dùng | Mã trang |
-|---|---|---|
-| `sources/source.md` | Tên bài, mục tiêu, tiên quyết, việc tách MapReduce khỏi PageRank | P00–P01, E02–E04 |
-| Bộ trang chiếu chính thức MMDS, Chương 2, trang chiếu 2–11 | Động cơ, cụm máy, hệ tệp phân tán, đưa tính toán đến dữ liệu | A00–A02 |
-| Bộ trang chiếu chính thức MMDS, trang chiếu 12–20 | Kho Web, Word Count, luồng, giả mã và trách nhiệm môi trường | A03, B00–B07 |
-| Bộ trang chiếu chính thức MMDS, trang chiếu 21–26 | Thực thi phân tán, bộ điều phối và khôi phục lỗi | D00–D02 |
-| Bộ trang chiếu chính thức MMDS, trang chiếu 27–32 | Độ hạt tác vụ, bộ kết hợp và hàm phân vùng | C00–C06, D01 |
-| Bộ trang chiếu chính thức MMDS, trang chiếu 34–35 | Tổng byte theo máy chủ và chuỗi năm từ | E04 |
-| Bộ trang chiếu chính thức MMDS, trang chiếu 38–40 | Chi phí I/O $I+2M+O$ | D03–D04 |
-| MMDS 3e, mục 2.1, trang in 21–24 | Hệ tệp phân tán, khối, bản sao, vị trí dữ liệu | A00–A02 |
-| MMDS 3e, mục 2.2.1–2.2.3, trang in 25–27 | Mô hình ba bước, Word Count, map, nhóm khóa, reduce | A03, B00–B07 |
-| MMDS 3e, mục 2.2.4–2.2.5, trang in 27–29 | Bộ kết hợp, reducer, Reduce task, lệch tải, thực thi | C00–C06, D01 |
-| MMDS 3e, mục 2.2.6, trang in 30 | Khôi phục sau lỗi máy | D00–D02 |
-| MMDS 3e, mục 2.4, trang in 41–50 | Hệ luồng công việc và Spark | E00–E01 |
-| Stanford CS246, trang chiếu 49–60, 62 và 66–69 | DAG, Spark, metadata Web, chi phí và giới hạn của MapReduce theo lô | A00, D03–D04, E00–E02 |
-| MMDS 3e, mục 2.5.1, trang in 53–55 | Chi phí truyền thông là tổng kích thước đầu vào tác vụ | D03–D04 |
-| MMDS 3e, Bài 2.2.1, trang in 30, PDF trang 11 | Toàn bộ bài tập lệch tải | R01–R04 |
-| MMDS 3e, Bài 2.3.1, trang in 40, PDF trang 21 | Toàn bộ bài tập thiết kế | R05–R08, lec02-r06a, lec02-r06b |
-
-Không dùng bộ trang chiếu chính thức MMDS trang chiếu 36–37 vì chứa phép nối, hoặc 43–48 vì mô tả phần mềm Hadoop cũ và tài liệu lịch sử ngoài mục tiêu. Không dùng các mục MMDS 2.3.1–2.3.10 về nhân ma trận và đại số quan hệ. Bài tập 2.3.1 chỉ được dùng trong phần recitation theo chỉ định.
-
-## Thuật toán trọng tâm
-
-### Đặc tả Word Count
-
-- Đầu vào: tập tài liệu $D$ đã có quy tắc tách từ xác định; mỗi tài liệu là một phần tử không bị chia qua hai khối.
-- Đầu ra: với mỗi từ $w$ đã xuất hiện, đúng một cặp $(w,c(w))$.
-- Điều kiện trước: phép tách từ xác định và bộ đếm không tràn.
-- Điều kiện sau: $c(w)=\sum_{d\in D}f(w,d)$, trong đó $f(w,d)$ là số lần $w$ xuất hiện trong tài liệu $d$.
-- Map: mỗi lần gặp $w$ phát $(w,1)$.
-- Nhóm theo khóa: hệ thống tạo $(w,[1,\ldots,1])$ chứa mọi đóng góp của $w$.
-- Reduce: cộng danh sách giá trị và phát $(w,c(w))$.
-- Dừng: map dừng sau số từ hữu hạn của tài liệu; reduce dừng sau độ dài danh sách hữu hạn.
-- Biên: đầu vào rỗng cho đầu ra rỗng; tài liệu rỗng không phát cặp.
-
-### Lập luận tính đúng
-
-Mỗi lần xuất hiện của $w$ tạo đúng một giá trị 1. Bảo đảm nhóm theo khóa đặt toàn bộ và chỉ các giá trị có khóa $w$ vào một reducer. Sau $j$ bước, biến tổng của reducer bằng tổng $j$ giá trị đầu. Khi dừng, tổng bằng số lần $w$ xuất hiện trong toàn bộ đầu vào.
-
-### Bộ kết hợp và chi phí
-
-- Với Word Count, phép cộng kết hợp và giao hoán nên mỗi Map task có thể thay nhiều cặp $(w,1)$ bằng $(w,m)$.
-- Bộ kết hợp không loại bỏ bước nhóm và reduce toàn cục.
-- Trạng thái phải đóng dưới phép gộp và giữ cùng ngữ nghĩa qua mọi thứ tự, mọi cây gộp.
-- Ký hiệu: $I$ là tổng đầu vào map, $M$ là tổng dữ liệu trung gian, $O$ là tổng đầu ra reduce.
-- MMDS đếm tổng đầu vào của tác vụ: $I+M$ cho một công việc, thường bỏ đầu ra cuối nhỏ.
-- Bộ trang chiếu chính thức MMDS, trang chiếu 38–40, đếm toàn bộ I/O: $I+2M+O$ vì dữ liệu trung gian được ghi rồi đọc. Hai công thức là mô hình I/O của tác vụ, không chỉ đếm byte qua mạng.
+Bằng chứng hoàn thành: 53 mã trang khớp storyboard, 9 section ngoài, đủ 120+60 phút trong kế hoạch, các ví dụ và công thức tính lại được, năm báo cáo độc lập, xem được slide/ghi chú ngoại tuyến với tài nguyên cục bộ, liên kết chỉ mục đúng. Chi tiết kiểm định và giới hạn công cụ nằm trong review-log.md.
 
 ## Thuật ngữ và ký hiệu
 
-| Thuật ngữ hoặc ký hiệu | Nghĩa dùng trong bài |
+| Ký hiệu/thuật ngữ | Quy ước |
 |---|---|
-| map, reduce, MapReduce | Tên thao tác và mô hình thuật toán đã ổn định; giữ nguyên tiếng Anh |
-| Map task, Reduce task | Đơn vị lập lịch; phân biệt với một lần gọi mapper hoặc reducer. Bài dùng nhất quán "Reduce task", không dùng "tác vụ reduce" |
-| bộ kết hợp | Combiner; phép tổng hợp cục bộ trước khi chuyển dữ liệu |
-| nhóm theo khóa | Group by key; gồm phân vùng, trộn và sắp theo mô hình nguồn |
-| lệch tải | Skew; chênh lệch khối lượng xử lý giữa reducer hoặc tác vụ |
-| $f(w,d)$ | Số lần từ $w$ xuất hiện trong tài liệu $d$ |
-| $h$, $r$, $p(k)=h(k)\bmod r$ | Hàm băm, số Reduce task và chỉ số task nhận khóa $k$ |
-| $I,M,O$ | Tổng kích thước đầu vào, dữ liệu trung gian và đầu ra |
-| Hadoop, HDFS, Spark | Tên riêng phần mềm; không dịch |
+| khóa–giá trị | Đơn vị Map phát; mọi cặp trùng vẫn được giữ khi chúng biểu diễn đóng góp |
+| reducer / tác vụ Reduce / máy | Một khóa / đơn vị lập lịch nhiều khóa / nơi thực thi |
+| RDD | Tập dữ liệu phân tán có khả năng khôi phục; không loại lặp tự động |
+| $M,v,x$ | Ma trận, vector đầu vào, vector kết quả |
+| $i,j$ | Chỉ số hàng/cột; chỉ số băm 0..b-1 hoặc 0..c-1 được nêu riêng |
+| $r,s,t$ | Số bộ của quan hệ R,S,T |
+| $I,M$ trong phần chi phí | Tổng kích thước đầu vào Map và Reduce; M ở đây không là ma trận |
+| $b,c,k$ | Số nhóm băm B,C và số reducer k=bc |
+| $q,\rho$ | Đầu vào tối đa/reducer và số cặp trung gian trung bình/đầu vào |
 
-## Hình được vẽ lại
+## Nguồn và tham khảo cách dạy
 
-| Tệp | Mã trang | Căn cứ |
-|---|---|---|
-| `he-tep-phan-tan.svg` | A01 | Trang chiếu MMDS 9–11; MMDS mục 2.1 và 2.2.5 |
-| `luong-mapreduce.svg` | B01 | Trang chiếu MMDS 18–19; MMDS Hình 2.2 và Ví dụ 2.1–2.2 |
-| `phan-vung-va-bo-ket-hop.svg` | C01 | Trang chiếu MMDS 30–32; MMDS mục 2.2.2 và 2.2.4 |
-| `khoi-phuc-tac-vu.svg` | D02 | Trang chiếu MMDS 23–26; MMDS mục 2.2.6 |
-| `ngan-xep-du-lieu.svg` | E01 | MMDS mục 2.4; Stanford CS246 trang chiếu 51–59 |
+Nguồn nội dung quyết định: `sources/textbooks/ch2n.pdf`, 60 trang PDF, trang in 20–79. Bản đồ học phần và slide tham khảo đã được kiểm kê trong giai đoạn đầu; MMDS/Stanford chỉ đối chiếu, không quyết định cấu trúc thay chương sách. Tham khảo `../math-4-AI/2627-1/` lecture 01–03 ở mức một ý trung tâm, ví dụ trước ký hiệu, nhịp hình–giải thích–kiểm tra; không chuyển nội dung toán của môn đó sang bài này. Mẫu kỹ thuật: `2627-1/lecture-template.html` và `lecture-style.css`. Đường dẫn kho machine-learning được quy định trong AGENTS không có tại môi trường này; áp dụng các nguyên tắc đã nêu trong AGENTS.
 
-Mọi hình là SVG cục bộ có `role="img"`, `title`, `desc` và mô tả thay thế trong HTML. Không dùng ảnh raster.
+## Đầu ra
 
-## Phạm vi ghi chú bài giảng
-
-Ghi chú tự học dùng cùng tình huống metadata Web, thuật ngữ và ký hiệu của deck, nhưng mở rộng đặc tả, vết chạy, lập luận đúng và chi phí.
-
-| `note-topic-id` | Chủ đề | Nhãn | Nguồn chính | Quyết định |
-|---|---|---|---|---|
-| `note-topic-02-motivation` | Metadata Web và giới hạn bộ nhớ/I/O | cốt lõi | Stanford 62; MMDS 2.1 | giữ |
-| `note-topic-02-dfs-locality` | DFS, chunk, bản sao, data locality | cầu nối | MMDS 2.1; slide MMDS 2–11 | giữ ngắn |
-| `note-topic-02-map-group-reduce` | Map–nhóm theo khóa–reduce | cốt lõi | MMDS 2.2.1–2.2.3 | giữ |
-| `note-topic-02-word-count` | Word Count từ đặc tả đến chứng minh | cốt lõi | MMDS Ví dụ 2.1–2.2 | giữ |
-| `note-topic-02-combiner` | Bộ kết hợp và bảo toàn ngữ nghĩa | cốt lõi | MMDS 2.2.4 | giữ |
-| `note-topic-02-partition-skew` | Phân vùng, số task và lệch tải | cốt lõi | MMDS 2.2.2, khung trang 28, 2.2.5 | giữ |
-| `note-topic-02-fault-tolerance` | Điều phối và chạy lại tác vụ | cốt lõi | MMDS 2.2.5–2.2.6 | giữ |
-| `note-topic-02-rerun-safety` | Điều kiện an toàn khi chạy lại | bổ sung | suy ra từ đặc tả chạy lại | giữ có điều kiện |
-| `note-topic-02-cost-models` | Hai quy ước chi phí | cốt lõi | MMDS 2.5.1; slide MMDS 38–40 | gộp trong một mục |
-| `note-topic-02-dag-spark` | DAG, Spark và ranh giới batch | cốt lõi ở mức định vị | MMDS 2.4; Stanford 49–60, 66–69 | giữ, không dạy API |
-| `note-topic-02-exercises` | MMDS 2.2.1 và 2.3.1 | cốt lõi luyện tập | MMDS PDF 11 và 21 | giữ nguyên dữ kiện |
-
-Đồ thị tiên quyết: `motivation → dfs-locality → map-group-reduce → word-count → {combiner, partition-skew} → fault-tolerance → rerun-safety → cost-models → dag-spark`. Bài tập nhận đầu vào từ Word Count, bộ kết hợp, lệch tải và mô hình chi phí.
-
-Hai phần bổ sung biên tập phải được nhận diện rõ: điều kiện đóng/cùng kiểu của bộ kết hợp nằm trong `combiner`; tính quyết định và việc không tạo hiệu ứng ngoài không kiểm soát nằm trong `rerun-safety`. Đây là điều kiện suy ra từ đặc tả, không phải phát biểu nguyên văn của MMDS.
-
-## Đồng bộ bộ trang chiếu với ghi chú bài giảng
-
-- Giữ nguyên 42 trang, bảy mạch ngoài và thời lượng 120 phút giảng + 60 phút bài tập.
-- Deck và ghi chú cùng dùng $c(w)=\sum_{d\in D}f(w,d)$, $p(k)=h(k)\bmod r$ và hai quy ước $C_t=I+M$, $C_{I/O}=I+2M+O$.
-- Quy tắc chuyển chữ thường, tách theo khoảng trắng và bỏ dấu câu chỉ cụ thể hóa ví dụ chạy tay trong ghi chú; deck giữ điều kiện tổng quát “phép tách từ xác định”.
-- Không thêm chủ đề, thuật toán, ví dụ, trang hoặc nguồn. Các sửa đổi chỉ làm rõ ký hiệu, tương phản và lời giảng.
+HTML, ghi chú, SVG mới, outline, storyboard, review-log và mô tả bài 2 trong index. Không dùng nội dung HTML cũ làm khung; chỉ giữ tên tệp để liên kết học phần ổn định. Các tệp của bài khác và hạ tầng người dùng đang sửa nằm ngoài phạm vi.
