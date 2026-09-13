@@ -145,3 +145,7 @@ Commit nội dung `e6b4194` đã tạo thành công. Lệnh `git push origin mai
 SHA-256 toàn tệp HTML: `26c50bc9997aa20e5796e054f76f04bd3a4522fae94b620540423f321fcb0e45`. Ghi chú có 185 công thức được render, năm hình tải được; kiểm tra màn hình hẹp và bàn phím đạt.
 
 Sai khác quy trình còn ghi nhận: bản viết mới đã được gộp trong commit nội dung e6b4194 trước khi mục tiêu tiếp tục nhắc lại yêu cầu commit/push từng phần. Không sửa lịch sử để tạo các mốc viết giả. Lần push tiếp theo vẫn bị xét duyệt tự động từ chối vì chưa công nhận xác nhận trực tiếp cho thao tác trên origin/main. Chưa có bằng chứng phát hành thành công; mục tiêu chưa được đánh dấu hoàn tất.
+
+### Đã phát hành sau xác nhận trực tiếp
+
+Người dùng xác nhận rõ `git push origin main` tới kho `uet-iai-course/ds-foundation-algorithms`. Lệnh đã thành công: `origin/main` chuyển từ `80dceb4` tới `9b05438`, gồm commit nội dung `e6b4194` và hai commit nhật ký. Trạng thái bị chặn ở các mục lịch sử phía trên đã được gỡ. Nội dung HTML, ghi chú và SVG không thay đổi sau kiểm định; các thay đổi ngoài phạm vi vẫn giữ ở máy cục bộ.
