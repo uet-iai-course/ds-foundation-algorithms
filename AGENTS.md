@@ -8,6 +8,8 @@ Tệp này áp dụng cho mọi yêu cầu chọn một bộ trang chiếu hoặ
 
 `sources/reference-slides/README.md` là bảng ánh xạ slide tham khảo cho 15 buổi đề xuất. Sau khi xác định bài từ `sources/source.md`, phải đọc dòng tương ứng trong bảng này và các tệp cục bộ được chỉ định. Trạng thái “đủ có điều kiện” là một khoảng trống nguồn phải xử lý trước khi hoàn tất deck, không phải giấy phép tự bổ sung mệnh đề.
 
+[slide_authoring_standard.md](slide_authoring_standard.md) là tiêu chuẩn bắt buộc về cách xây dựng kiến thức và thể hiện nội dung cho sinh viên năm 2. Với mọi yêu cầu tạo, viết lại, sửa hoặc rà soát slide, phải đọc tiêu chuẩn này trước khi lập storyboard hoặc sửa nội dung. Áp dụng sáu nhóm yêu cầu: đối tượng, mục đích và mạch của từng slide, thuật toán, ví dụ, đánh giá chi phí và trực quan hóa. Dùng các mục “Điều kiện đạt” cùng phiếu kiểm tra cuối tài liệu để rà bản soạn; ghi bằng chứng, sai khác và quyết định xử lý trong `review-log.md`.
+
 Mỗi yêu cầu phải tạo hoặc cập nhật:
 
 - `2627-1/lecture-NN-<ten-bai>.html`;
@@ -47,8 +49,9 @@ Khi có xung đột, tuân theo thứ tự sau:
 2. `sources/source.md` về số bài, tên bài, thứ tự, phạm vi, chuẩn đầu ra, kiến thức tiên quyết và học liệu cần dùng.
 3. Bộ trang chiếu hoặc tài liệu chi tiết được chọn trong `sources/` về nội dung, ví dụ, chứng minh, thuật toán, hình và mã của bài.
 4. Tài liệu bổ sung và tài sản liên quan do người dùng cung cấp.
-5. `2627-1/lecture-template.html` và `2627-1/lecture-style.css` về giao diện và nền kỹ thuật.
-6. Các quy ước trong tệp này.
+5. `slide_authoring_standard.md` về mức độ cho sinh viên năm 2, mạch xây dựng kiến thức và cách thể hiện nội dung slide.
+6. `2627-1/lecture-template.html` và `2627-1/lecture-style.css` về giao diện và nền kỹ thuật.
+7. Các quy ước trong tệp này.
 
 Giữ mạch cấp học phần theo `sources/source.md`; giữ mạch và ý chính trong từng bài theo tài liệu chi tiết. Chỉ gộp, tách, thêm, lược hoặc sắp xếp cục bộ khi cần sửa lỗi, giảm quá tải, khôi phục tiên quyết, hoàn thiện mạch học tập hoặc bảo đảm khả năng đọc. Mọi sai khác phải có lý do trong storyboard và nhật ký rà soát.
 
@@ -63,7 +66,7 @@ Sau khi người dùng chọn bài học hoặc tệp nguồn, điều phối vi
 - từ mục học liệu của bài, xác định tài liệu chi tiết cần dùng, đọc các tệp tương ứng và kiểm tra tài liệu liên quan trong `sources/`;
 - bỏ qua `.DS_Store`, tệp có tiền tố `._` và tệp tạm có tiền tố `~$`;
 - xác định số bài, tên bài, mục tiêu, kiến thức tiên quyết và phạm vi từ `sources/source.md`; xác định số trang, phần hoặc chương nguồn và các tài sản từ tài liệu chi tiết;
-- đọc `2627-1/lecture-template.html`, `2627-1/lecture-style.css` và `2627-1/index.html` trước khi lập kế hoạch;
+- đọc `slide_authoring_standard.md`, `2627-1/lecture-template.html`, `2627-1/lecture-style.css` và `2627-1/index.html` trước khi lập kế hoạch;
 - kiểm kê định nghĩa, định lý, bổ đề, chứng minh, thuật toán, cấu trúc dữ liệu, ví dụ, bài tập, hình, bảng, công thức và đoạn mã phải chuyển;
 - xác định phần nào của nguồn là nội dung, bố cục, ghi chú, tài liệu tham khảo hoặc tài sản trực quan;
 - chỉ hỏi người dùng về thông tin không thể suy ra từ kho và có thể làm thay đổi đáng kể kết quả.
@@ -182,6 +185,7 @@ Storyboard phải chỉ ra cho từng cụm:
 
 Tác tử lập kế hoạch:
 
+- dùng `slide_authoring_standard.md` để xác định mục đích từng trang, kiến thức đầu vào, sản phẩm học tập và kết nối vào–ra của từng cụm;
 - xác định mục tiêu, phạm vi, đối tượng, thời lượng và tiêu chí hoàn thành;
 - lập danh mục khái niệm và thuật toán trọng tâm cùng bản đồ chu trình học tập;
 - chia việc thành kiểm kê, ánh xạ, soạn, rà soát, chỉnh sửa và kiểm định;
@@ -206,6 +210,7 @@ Giao một tác tử chỉ đọc:
 
 Giao một tác tử soạn:
 
+- áp dụng `slide_authoring_standard.md` cho từng cụm thuật toán, ví dụ, đánh giá chi phí và hình minh họa; phân bổ các yêu cầu của cả cụm qua các slide, không dồn tất cả lên một trang;
 - tạo `outline.md`, `storyboard.md`, HTML và SVG theo đặc tả;
 - dịch và biên tập bằng tiếng Việt theo `$no-ai-slop`;
 - dùng `$quill` để kiểm tra mạch phần, chuyển ý, thuật ngữ và ký hiệu;
@@ -256,6 +261,7 @@ Các tác tử sửa tệp không được chạy song song.
 
 Điều phối viên hoặc tác tử kiểm thử riêng phải:
 
+- đối chiếu sáu nhóm yêu cầu và phiếu kiểm tra trong `slide_authoring_standard.md`; rà nội dung trên bản trình chiếu thực, ghi kết quả cùng lỗi cần sửa vào `review-log.md`;
 - đối chiếu số trang nguồn, bảng ánh xạ, `data-slide-id` và mục tương ứng trong storyboard;
 - kiểm tra HTML, cấu trúc `<section>`, KaTeX, tiện ích, ghi chú diễn giả, đường dẫn, SVG và liên kết;
 - tìm mọi tham chiếu ảnh raster; chỉ chấp nhận mục có ngoại lệ đã được người dùng duyệt và ghi trong nhật ký;
@@ -292,6 +298,7 @@ Mỗi bộ trang chiếu chỉ được coi là hoàn tất sau khi đã vượt
 
 Chỉ bàn giao khi:
 
+- các yêu cầu áp dụng của `slide_authoring_standard.md` đã được kiểm tra, mọi lỗi bắt buộc đã được xử lý và ngoại lệ có lý do được ghi trong storyboard cùng nhật ký;
 - bản RevealJS giữ đúng ý chính và mạch nguồn, còn mọi sai khác đều được ghi;
 - nội dung chính bằng tiếng Việt, ngắn, trực tiếp và đã qua `$no-ai-slop`;
 - outline, storyboard và nhật ký nằm đúng `planning/lec-NN/`;

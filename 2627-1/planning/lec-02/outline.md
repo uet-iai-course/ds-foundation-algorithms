@@ -23,13 +23,13 @@ Bài số 02 theo thứ tự đề xuất trong `sources/source.md`, ánh xạ b
 | Lược đồ ánh xạ, cận dưới | đọc thêm | Mô hình q/rho → phân tích tổ hợp | 2.6.3–2.6.7 | không giảng chứng minh dài |
 | Tổng kết và nguồn | cốt lõi | Thu hồi sản phẩm học tập, hướng đọc | 2.7–2.8 | giữ thành hai section theo yêu cầu |
 
-Không thêm mệnh đề học thuật từ nguồn ngoài. Năm hình SVG mới minh họa khối/bản sao, chia dải, chuỗi Spark, mô hình chi phí và lưới reducer. Các sơ đồ khái niệm được phân biệt với dữ kiện cấu hình thực tế. Không sao chép tài sản hoặc CSS môn tham khảo.
+Không thêm mệnh đề học thuật từ nguồn ngoài. Sáu hình SVG minh họa khối/bản sao, chia dải, luồng công việc, chuỗi Spark, mô hình chi phí và lưới reducer. Các sơ đồ khái niệm được phân biệt với dữ kiện cấu hình thực tế. Không sao chép tài sản hoặc CSS môn tham khảo.
 
 ## Quy tắc thể hiện
 
 Với slide: nhu cầu → trực giác → vết chạy → đặc tả/giả mã → lập luận đúng → chi phí → kiểm tra. Vết ký hiệu của ma trận thay ma trận số tự đặt; bốn hàng Links dùng xuyên phép toán và tính chi phí. Với ghi chú: đặc tả trước ví dụ, sau đó giải thích, chứng minh và ứng dụng. Các chủ đề hệ thống không gán định lý hay giả mã khi không áp dụng; dùng cơ chế, điều kiện và tình huống lỗi. Các phần đọc thêm chỉ định vị, không giả vờ hoàn thành chu trình thuật toán.
 
-Bằng chứng hoàn thành: 53 mã trang khớp storyboard, 9 section ngoài, đủ 120+60 phút trong kế hoạch, các ví dụ và công thức tính lại được, năm báo cáo độc lập, xem được slide/ghi chú ngoại tuyến với tài nguyên cục bộ, liên kết chỉ mục đúng. Chi tiết kiểm định và giới hạn công cụ nằm trong review-log.md.
+Bằng chứng hoàn thành: 61 mã trang khớp storyboard, 9 section ngoài, đủ 120+60 phút trong kế hoạch, các ví dụ và công thức tính lại được, năm báo cáo độc lập, xem được slide/ghi chú ngoại tuyến với tài nguyên cục bộ, liên kết chỉ mục đúng. Chi tiết kiểm định và giới hạn công cụ nằm trong review-log.md.
 
 ## Thuật ngữ và ký hiệu
 
@@ -52,3 +52,11 @@ Nguồn nội dung quyết định: `sources/textbooks/ch2n.pdf`, 60 trang PDF, 
 ## Đầu ra
 
 HTML, ghi chú, SVG mới, outline, storyboard, review-log và mô tả bài 2 trong index. Không dùng nội dung HTML cũ làm khung; chỉ giữ tên tệp để liên kết học phần ổn định. Các tệp của bài khác và hạ tầng người dùng đang sửa nằm ngoài phạm vi.
+
+## Sửa theo slide_authoring_standard.md — 2026-09-14
+
+Mục tiêu không đổi. Bản hiện hành có52 trang giảng và9 trang recitation, giữ9 section và 120+60phút. Storyboard mới ghi mục đích quan sát được, tiên quyết, cách thể hiện, kết nối, nguồn và thời lượng cho từng trang. Đây là tiêu chí duyệt, không xem tiêu đề như thay thế mục đích học tập.
+
+Quyết định hợp nhất plan/source: giữ các nguồn, thêm các trang cầu nối làm rõ giả thiết và tính đúng; tách giả mã nhân ma trận–vector khỏi vết ký hiệu; chuyển vết nối trước khái quát; thêm quy tắc Map/Reduce nối ba bảng trước tính chi phí; sửa đặc tả cặp ảnh vượt ngưỡng. Không bổ sung tối ưu Lagrange vào phần bắt buộc. Các chủ đề đọc thêm vẫn không thành tiên quyết ngầm.
+
+Thứ tự nối: ví dụ hai cạnh → bảng nhóm → đặc tả/giả mã → hai chiều đúng/biên/chi phí. Thứ tự đánh giá: đơn vị/phạm vi → hình nơi nhận → đếm từng tầng → cộng/thay số → kết luận với điều kiện. Phần ảnh phải giải thích cặp cùng nhóm được giao đúng một nơi. Ghi chú dùng tau cho ngưỡng; s là hàm tương tự trong2.6, khác số bộ quan hệ S trong2.5.

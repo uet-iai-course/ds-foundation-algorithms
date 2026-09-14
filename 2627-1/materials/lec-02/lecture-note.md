@@ -148,17 +148,7 @@ Phép chiếu lấy các cột chỉ định rồi bỏ bộ trùng theo ngữ n
 
 Cho $R(A,B)$ và $S(B,C)$. Phép nối tạo mọi $(a,b,c)$ sao cho $(a,b)\in R$ và $(b,c)\in S$. Khóa chung $b$ là nơi hai bộ cần gặp nhau. Nhãn nguồn trong giá trị giúp phân biệt phía trái và phía phải.
 
-```text
-map bộ (a,b) của R: phát(b, (R,a))
-map bộ (b,c) của S: phát(b, (S,c))
 
-reduce(b, V):
-    A ← các a mang nhãn R
-    C ← các c mang nhãn S
-    với mỗi a trong A:
-        với mỗi c trong C:
-            phát(b, (a,b,c))
-```
 
 ::: example
 Dùng hai bản sao của phần trích Links: $L_1(U_1,U_2)$ và $L_2(U_2,U_3)$. Đầu ra mô tả đường đi dài hai.
@@ -173,6 +163,18 @@ Dùng hai bản sao của phần trích Links: $L_1(U_1,U_2)$ và $L_2(U_2,U_3)$
 Chỉ khóa url2 có cả hai phía. Ghép hai phía được (url1,url2,url3) và (url1,url2,url4). Đây là toàn bộ kết quả trên **bốn hàng được trích**, không phải toàn bộ kho liên kết của ví dụ nguồn.
 :::
 
+```text
+map bộ (a,b) của R: phát(b, (R,a))
+map bộ (b,c) của S: phát(b, (S,c))
+
+reduce(b, V):
+    A ← các a mang nhãn R
+    C ← các c mang nhãn S
+    với mỗi a trong A:
+        với mỗi c trong C:
+            phát(b, (a,b,c))
+```
+
 ::: proof
 Mỗi bộ phát từ reduce chứa một phần tử của $R$ và một phần tử của $S$ có cùng $b$, nên thỏa đặc tả nối. Ngược lại, mọi cặp bộ nối được đều có cùng khóa $b$, được gửi tới cùng reducer và được duyệt trong tích hai danh sách. Do đó không bỏ sót kết quả. Một phía rỗng cho tích rỗng. Với đầu vào hữu hạn, các vòng lặp dừng.
 :::
@@ -182,6 +184,15 @@ Nếu một nhóm có $x$ bộ trái và $y$ bộ phải thì có $xy$ kết qu�
 ### Nhóm và tổng hợp
 
 Với Friends(User,Friend), nhóm theo User để đếm số hàng của mỗi người. Map phát (User,1); reduce cộng. Ví dụ 2.5 cho kết quả (Sally,300). Sách không cung cấp danh sách 300 tên, nên không thể dựng một vết 300 dòng như dữ kiện gốc.
+
+Áp dụng cùng cơ chế COUNT lên bốn hàng Links: dùng From làm khóa, mỗi cạnh đóng góp một số 1.
+
+| Khóa | Giá trị nhận | Trạng thái tổng | Kết quả |
+|---|---|---|---|
+| url1 | [1,1] | 0 → 1 → 2 | (url1,2) |
+| url2 | [1,1] | 0 → 1 → 2 | (url2,2) |
+
+Đây là áp dụng mục 2.3.8 lên dữ kiện Hình 2.5, không phải ví dụ số nguyên văn của sách. Với $N$ hàng hữu hạn, thuật toán dừng sau khi xử lý các nhóm; khi chưa gộp cục bộ có $N$ cặp trung gian và $N$ lần cộng theo mô hình thao tác đơn vị. Nhóm không có hàng không xuất hiện trong đầu ra.
 
 Cơ chế tổng quát là chọn thuộc tính nhóm làm khóa, giữ thuộc tính cần tổng hợp trong giá trị. COUNT đếm hàng, SUM cộng giá trị, AVG giữ tổng và số lượng rồi chia ở cuối. Tính đúng dựa vào phân hoạch đầy đủ theo khóa và bất biến của phép tổng hợp. Nguồn: mục 2.3.8, trang 38; Ví dụ 2.5, trang 35.
 
@@ -195,6 +206,10 @@ Mục 2.3.6 về các phép tập hợp và giả mã chi tiết của hai biế
 
 MapReduce có hai tầng tính toán chính. Hệ luồng công việc mở rộng thành một đồ thị có hướng không chu trình của các hàm: cung từ $f$ tới $g$ nghĩa là đầu ra của $f$ cung cấp đầu vào cho $g$. Mỗi hàm có thể được thực thi bởi nhiều tác vụ. Phải phân biệt đồ thị các hàm với tập tác vụ thực tế được lập lịch trên máy.
 
+![Đồ thị năm hàm: f đưa vào g và i; h đưa vào i và j; g và i đưa vào j.](img/lec-02/ch2-luong-cong-viec.svg)
+
+Hình vẽ lại Hình 2.6, trang 42. Mỗi tác vụ chỉ chuyển đầu ra sau khi hoàn tất theo tính chất chặn được mô tả ở trang 43; khi hỏng trước lúc đó, tác vụ có thể được chạy lại mà chưa tạo đầu ra trùng cho bước kế tiếp.
+
 Chương giới thiệu Spark qua **tập dữ liệu phân tán có khả năng khôi phục (RDD)**: các phần tử cùng kiểu được chia trên nhiều máy. Kiểu phần tử không bị giới hạn là cặp khóa–giá trị.
 
 | Phép biến đổi | Tác động lên một phần tử |
@@ -204,6 +219,8 @@ Chương giới thiệu Spark qua **tập dữ liệu phân tán có khả năng
 | Filter | Giữ phần tử nếu vị từ trả đúng |
 
 Trong Ví dụ 2.7, Map có thể biến một tài liệu thành một danh sách cặp (từ,1), nhưng danh sách ấy vẫn là một đối tượng đầu ra. Flatmap phát từng cặp riêng cho từng lần xuất hiện. Không được bỏ các cặp trùng như thể RDD là tập hợp toán học không có lặp.
+
+Dùng lại tài liệu minh họa D2 = “lớn lớn”: Map có thể trả một đối tượng là danh sách [(lớn,1), (lớn,1)]; Flatmap trả hai phần tử (lớn,1) riêng biệt. Đây là áp dụng phép biến đổi của Ví dụ 2.7 vào dữ kiện đã dùng trong bài.
 
 Ví dụ 2.8 dùng Filter để loại những cặp có từ trong danh sách từ dừng. Một từ dừng xuất hiện ba lần sẽ bị loại cả ba cặp.
 
@@ -312,7 +329,7 @@ Nếu mỗi giá trị có $B$ byte và reducer giữ đồng thời toàn bộ 
 
 ### So sánh mọi cặp ảnh
 
-Mục 2.6.2 xét $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte; cần so sánh mọi cặp ảnh khác nhau. Một reducer cho mỗi cặp nhận hai ảnh, nên $q=2$. Mỗi ảnh được gửi tới $N-1$ reducer:
+Mục 2.6.2 xét $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte. Cho hàm độ tương tự đối xứng $s(P_i,P_j)$ và ngưỡng $\tau$; đầu ra gồm các cặp ảnh khác nhau có $s(P_i,P_j)>\tau$. Trong mô hình của nguồn, cần tính độ tương tự cho mọi cặp để quyết định có phát cặp đó hay không. Sách dùng $t$ cho ngưỡng; bài dùng $\tau$ để tránh nhầm với kích thước quan hệ $T$. Ký hiệu $s$ ở đây là hàm độ tương tự, khác số bộ của quan hệ $S$ trong mục 2.5. $B$ là số byte mỗi ảnh; ở ví dụ đếm từ, $B$ là số byte mỗi cặp. Một reducer cho mỗi cặp nhận hai ảnh, nên $q=2$. Mỗi ảnh được gửi tới $N-1$ reducer:
 
 $$
 \rho=N-1=999999,\qquad C_{\mathrm{trung\ gian}}=N(N-1)B\approx10^{18}\text{ byte}.
@@ -328,7 +345,7 @@ Dữ liệu ảnh của một reducer là $2\cdot10^9$ byte, tức 2 GB theo đ�
 
 Mỗi cặp khác nhóm được xét đúng một nơi. Để xét cặp trong cùng nhóm mà không lặp, đánh số nhóm 0 đến $g-1$ và giao các cặp nội bộ nhóm $i$ cho reducer chứa nhóm $i$ và nhóm $(i+1)\bmod g$. Không để mọi reducer có nhóm $i$ đều lặp lại các cặp nội bộ.
 
-Cách gom nhóm giảm truyền ảnh nhờ dùng lại ảnh cho nhiều phép so sánh. Tổng số cặp cần so sánh vẫn là $N(N-1)/2$; không giảm thành tuyến tính theo $N$. Cần kiểm tra bộ nhớ và chi phí so sánh trước khi chọn kích thước nhóm. Nguồn: mục 2.6.1–2.6.2, trang 61–63. Lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7 là đọc thêm.
+Cách gom nhóm giảm truyền ảnh nhờ dùng lại ảnh cho nhiều phép so sánh. Tổng số cặp cần so sánh vẫn là $N(N-1)/2$; không giảm thành tuyến tính theo $N$. Cần kiểm tra bộ nhớ và chi phí so sánh trước khi chọn kích thước nhóm. Nguồn: mục 2.6.1–2.6.2, trang 61–64. Lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7 là đọc thêm.
 
 ## 2.7. Tổng kết và bài tập
 
@@ -339,7 +356,7 @@ Các bài dưới đây dịch và tách ý từ đúng bài tập nguồn. Khô
 ### Bài tập 2.2.1 — Lệch tải khi đếm từ
 
 ::: exercise
-Đếm từ trên kho rất lớn, chẳng hạn một bản sao Web, dùng 100 tác vụ Map.
+Đếm từ trên kho rất lớn, chẳng hạn một bản sao kho trang Web, dùng 100 tác vụ Map.
 
 (a) Không dùng bộ kết hợp ở Map. Thời gian các reducer xử lý danh sách giá trị có lệch đáng kể không? Giải thích.
 
