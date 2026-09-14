@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 300" role="img" aria-labelledby="title desc">
+  <title id="title">Khóa và tác vụ Reduce trong MapReduce</title>
+  <desc id="desc">Máy A minh họa một tác vụ Reduce xử lý hai nhóm khóa dữ:[1] và liệu:[1]. Máy B minh họa một tác vụ xử lý nhóm khóa lớn:[1,1,1]. Vùng máy chứa vùng tác vụ; vùng tác vụ chứa các nhóm khóa. Phân công chỉ minh họa.</desc>
+  <style>
+    text { font-family: sans-serif; fill: #263238; }
+    .t { font-size: 26px; font-weight: bold; }
+    .s { font-size: 26px; }
+  </style>
+  <rect x="0" y="0" width="1080" height="300" fill="#edf4ff"/>
+  <!-- Máy A -->
+  <rect x="30" y="30" width="490" height="240" rx="14" fill="#fff0df" stroke="#2f3e7a" stroke-width="3"/>
+  <text x="60" y="70" class="t">Máy A</text>
+  <rect x="60" y="90" width="430" height="150" rx="10" fill="#edf4ff" stroke="#B15A2B" stroke-width="2"/>
+  <text x="80" y="125" class="s">Tác vụ Reduce 1</text>
+  <rect x="80" y="145" width="180" height="70" rx="8" fill="#fff0df" stroke="#2f3e7a" stroke-width="2"/>
+  <text x="95" y="175" class="s">khóa: dữ</text>
+  <text x="95" y="205" class="s">nhóm: [1]</text>
+  <rect x="280" y="145" width="190" height="70" rx="8" fill="#fff0df" stroke="#2f3e7a" stroke-width="2"/>
+  <text x="295" y="175" class="s">khóa: liệu</text>
+  <text x="295" y="205" class="s">nhóm: [1]</text>
+  <!-- Máy B -->
+  <rect x="560" y="30" width="490" height="240" rx="14" fill="#fff0df" stroke="#2f3e7a" stroke-width="3"/>
+  <text x="590" y="70" class="t">Máy B</text>
+  <rect x="590" y="90" width="430" height="150" rx="10" fill="#edf4ff" stroke="#B15A2B" stroke-width="2"/>
+  <text x="610" y="125" class="s">Tác vụ Reduce 2</text>
+  <rect x="610" y="145" width="390" height="70" rx="8" fill="#fff0df" stroke="#2f3e7a" stroke-width="2"/>
+  <text x="625" y="175" class="s">khóa: lớn</text>
+  <text x="625" y="205" class="s">nhóm: [1, 1, 1]</text>
+</svg>

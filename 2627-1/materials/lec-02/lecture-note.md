@@ -10,6 +10,10 @@ Nguồn chính là *Mining of Massive Datasets* (Leskovec, Rajaraman, Ullman), C
 
 Một kho dữ liệu lớn có thể vượt khả năng lưu trữ hoặc xử lý của một máy. Cụm máy chia công việc cho nhiều máy nối qua mạng. Các máy thường được đặt trong tủ máy; truyền giữa các tủ phải đi qua mạng kết nối. Vì vậy, vị trí dữ liệu có ảnh hưởng tới chi phí thực hiện phép tính.
 
+![Các máy trong hai tủ nối qua mạng nội tủ và bộ chuyển mạch liên tủ.](img/lec-02/ch2-mang-tu-may.svg)
+
+Sơ đồ khái niệm dựa Hình 2.1, trang 23, chỉ vẽ hai tủ để phân biệt các cấp kết nối. Số máy trong hình không quy định quy mô của cụm.
+
 Nhiều thành phần cũng tạo nhiều vị trí có thể hỏng. Một máy mất có thể làm mất dữ liệu cục bộ; lỗi mạng của một tủ có thể khiến nhiều máy cùng không truy cập được. Hai cơ chế bổ trợ nhau là lưu nhiều bản sao và chia phép tính thành tác vụ có thể chạy lại.
 
 **Hệ tệp phân tán (DFS)** chia một tệp lớn thành các khối và lưu bản sao của khối ở nhiều máy. Đặt bản sao ở các tủ khác nhau giúp tránh mất mọi bản sao khi một tủ hỏng. Siêu dữ liệu cho biết khối của tệp nằm ở đâu. Máy quản lý siêu dữ liệu và tệp siêu dữ liệu là hai đối tượng khác nhau.
@@ -84,6 +88,10 @@ Bộ kết hợp là tối ưu tùy chọn: thuật toán cuối phải đúng c
 | Một máy | Có thể chạy nhiều tác vụ |
 
 Tăng số tác vụ không tự chia một khóa lớn thành nhiều reducer. Muốn xử lý một khóa nóng theo nhiều giai đoạn phải thay thuật toán.
+
+![Máy A minh họa một tác vụ xử lý hai khóa dữ, liệu; máy B minh họa một tác vụ xử lý khóa lớn.](img/lec-02/ch2-khoa-tac-vu.svg)
+
+Hình áp dụng khung ở trang 28 và mục 2.2.5 lên ba khóa của ví dụ đếm từ. Phân công này chỉ minh họa: một tác vụ có thể xử lý nhiều khóa, một máy có thể chạy nhiều tác vụ. Mọi giá trị của cùng một khóa vẫn thuộc một lần gọi reduce.
 
 ### Khôi phục khi máy hỏng
 
@@ -180,6 +188,10 @@ Mỗi bộ phát từ reduce chứa một phần tử của $R$ và một phần
 :::
 
 Nếu một nhóm có $x$ bộ trái và $y$ bộ phải thì có $xy$ kết quả. Giả mã giữ hai danh sách cần bộ nhớ $O(x+y)$; việc phát kết quả cần ít nhất $\Omega(xy)$ thao tác. Biến thể giữ một phía và đọc phía kia tuần tự có thể giảm trạng thái, nhưng không loại được chi phí tạo kết quả. Nguồn: mục 2.3.7, trang 37; Ví dụ 2.4, trang 35.
+
+![Bốn cạnh Links tạo hai đường đi hai cạnh qua url2; cạnh trực tiếp url1 đến url3 chỉ dài một cạnh.](img/lec-02/ch2-noi-hai-canh.svg)
+
+Đồ thị biểu diễn lại đúng bốn hàng của Hình 2.5, trang 33. Hai kết quả nối là $(url1,url2,url3)$ và $(url1,url2,url4)$. Các nhãn $L_1,L_2$ chỉ vai trò cạnh trước và cạnh sau trong một đường đi; cả hai quan hệ đều là bản sao đầy đủ của Links.
 
 ### Nhóm và tổng hợp
 
@@ -346,6 +358,10 @@ Dữ liệu ảnh của một reducer là $2\cdot10^9$ byte, tức 2 GB theo đ�
 Mỗi cặp khác nhóm được xét đúng một nơi. Để xét cặp trong cùng nhóm mà không lặp, đánh số nhóm 0 đến $g-1$ và giao các cặp nội bộ nhóm $i$ cho reducer chứa nhóm $i$ và nhóm $(i+1)\bmod g$. Không để mọi reducer có nhóm $i$ đều lặp lại các cặp nội bộ.
 
 Cách gom nhóm giảm truyền ảnh nhờ dùng lại ảnh cho nhiều phép so sánh. Tổng số cặp cần so sánh vẫn là $N(N-1)/2$; không giảm thành tuyến tính theo $N$. Cần kiểm tra bộ nhớ và chi phí so sánh trước khi chọn kích thước nhóm. Nguồn: mục 2.6.1–2.6.2, trang 61–64. Lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7 là đọc thêm.
+
+![Bên trong reducer của hai nhóm kề nhau: bốn cặp chéo trên phần trích nối nét liền; cặp nội bộ nhóm u nối nét đứt và chỉ được giao ở đây.](img/lec-02/ch2-cap-nhom-anh.svg)
+
+Hình minh họa quy tắc của mục 2.6.2, trang 63–64, với $v=(u+1)\bmod g$ và cách đánh số nhóm $0,\ldots,g-1$. Các ký hiệu ảnh chỉ đại diện cho một phần của mỗi nhóm 1000 ảnh. Reducer xét mọi cặp chéo hai nhóm và các cặp nội bộ nhóm $u$ được giao riêng; cặp nội bộ nhóm $v$ thuộc reducer kế tiếp của $v$. Chỉ các cặp vượt ngưỡng tương tự được phát ra.
 
 ## 2.7. Tổng kết và bài tập
 

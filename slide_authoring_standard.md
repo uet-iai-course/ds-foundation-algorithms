@@ -4,6 +4,27 @@ Tài liệu này quy định cách xây dựng và rà soát nội dung slide c�
 
 Đọc cùng [AGENTS.md](AGENTS.md). Phạm vi học thuật, tài liệu nguồn, thời lượng, cấu trúc tệp và quy trình phát hành tuân theo chỉ dẫn của bài đang làm và AGENTS.md. Tiêu chuẩn này cụ thể hóa yêu cầu về cách dạy và cách thể hiện; các ngoại lệ phải có lý do trong storyboard và nhật ký rà soát.
 
+## Cách sử dụng tài liệu
+
+Lần đầu soạn bài, đọc toàn bộ để nắm sáu nhóm yêu cầu. Những lần sửa sau, tập trung vào phần liên quan:
+
+| Công việc | Phần cần đọc |
+|---|---|
+| Tạo hoặc viết lại cả bài | Mục tiêu sư phạm; mục 1–2; các mục 3–6 theo nội dung; quy trình và phiếu kiểm tra cuối tài liệu |
+| Mở rộng một phần | Mục 2; mục về loại nội dung đang soạn; các phần trước đó trong storyboard để giữ mạch |
+| Rà một bài đã có | Phiếu kiểm tra; mục 2 về mạch; mục 3–5 về nội dung; mục 6 về hiển thị |
+| Sửa một slide | Mục đích trong storyboard; tiêu chuẩn cho loại slide; quy tắc mật độ và khả năng đọc |
+
+Khi rà nhanh một slide, kiểm tra bốn điều: có một ý chính; có một thành phần trung tâm; có thể bớt chữ mà giữ đủ lập luận; chú thích chốt đúng điều hình, bảng hoặc mã cho thấy. Nếu ý chính hoặc trọng tâm chưa rõ, sửa cấu trúc trước khi trau chuốt câu chữ.
+
+## Mục tiêu sư phạm
+
+Ưu tiên thiết kế là **dễ giảng trên lớp → đúng bản chất kiến thức → dễ tự đọc lại**. Độ chính xác là điều kiện bắt buộc: giảm nội dung hoặc chia bước khi quá tải, không bỏ giả thiết quyết định tính đúng để làm slide ngắn hơn.
+
+Slide phục vụ nhịp giảng. Giữ trên mặt slide những gì sinh viên cần quan sát, suy luận và ghi nhớ tại thời điểm đó. Chuyển lời dẫn, diễn giải phụ và chứng minh chi tiết sang ghi chú; tài liệu tự học cung cấp lập luận đầy đủ. Mỗi slide cần có một câu chốt dự kiến trong storyboard, nhưng không nhất thiết thêm một hộp kết luận trên mặt slide nếu tiêu đề hoặc chú thích đã nói đủ.
+
+Các nguyên tắc dưới đây được chọn lọc từ *Slide Style Guide* cho môn Phương pháp luận lập trình do giảng viên cung cấp và điều chỉnh cho học phần này. Quy ước riêng về ngôn ngữ lập trình, bảng màu, nhãn nâng cao và cấu trúc phần của môn tham khảo không trở thành quy định của học phần này.
+
 ## 1. Đối tượng xem là sinh viên năm 2
 
 ### Kiến thức có thể giả định
@@ -31,6 +52,8 @@ Giữ độ chính xác của định nghĩa và thuật toán, nhưng chia bư�
 - Định nghĩa ký hiệu ngay nơi dùng: ý nghĩa, miền giá trị, kích thước và đơn vị khi có.
 - Dùng cùng tên biến, chỉ số và dữ kiện qua hình, ví dụ, giả mã và phân tích chi phí. Nếu đổi ký hiệu, nói rõ sự tương ứng.
 - Câu hỏi tương tác phải có nhiệm vụ cụ thể, dùng nhãn **“Câu hỏi:”**; đáp án hoặc hướng giải đặt trong ghi chú diễn giả.
+- Viết câu chủ động, tự nhiên như khi giảng; mỗi gạch đầu dòng diễn đạt một ý đủ rõ, tránh các nhãn cụt khiến sinh viên phải đoán nghĩa.
+- Giữ đúng mức độ khẳng định của nguồn. Các từ “luôn”, “tối ưu”, “nhanh hơn” phải có điều kiện hoặc căn cứ tương ứng; tránh lời đánh giá chung không chỉ ra cơ chế.
 
 ## 2. Mỗi slide có mục đích rõ ràng trong mạch xây dựng kiến thức
 
@@ -60,12 +83,24 @@ Tình huống phải nêu dữ liệu, đầu ra cần tạo và giới hạn t�
 
 Tám bước trên không đồng nghĩa tám slide. Có thể gộp những bước phục vụ cùng một luận điểm nếu vẫn đọc được. Với khái niệm phụ, ghi rõ chu trình rút gọn và lý do. Với một hệ thống hoặc cơ chế lưu trữ, có thể giải thích bằng vai trò, trạng thái và điều kiện hoạt động; không tạo giả mã hoặc định lý khi không áp dụng.
 
+### Nhịp của bài giảng và cách mở rộng một phần
+
+- Slide mở phần nêu chủ đề, nhu cầu và vị trí trong mạch bài; không chỉ hiển thị số phần. Khi chuyển hướng rõ, dùng một đoạn hoặc slide nối ngắn: **kết quả đã có → giới hạn còn lại → nội dung phần tiếp theo**. Đặt slide nối trong phần thích hợp, giữ cấu trúc phần theo AGENTS.md và yêu cầu nguồn của bài.
+- Với chủ đề kỹ thuật quan trọng, slide tổng quan chỉ mở đầu. Tách các thành phần quyết định hành vi thành những trang giải thích cơ chế, dùng dữ kiện và trạng thái cụ thể. Nếu cách tiếp cận mới thay đổi giả thiết hoặc cách giải bài toán, phải chỉ rõ bước thay đổi đó.
+- Kết phần bằng kết quả đã đạt, điều kiện áp dụng hoặc đánh đổi cần nhớ, rồi nối tới nhu cầu của phần sau. Tránh lặp lại toàn bộ danh sách thuật ngữ.
+- Phần kết bài thu hồi tình huống ban đầu và có 4–6 nhiệm vụ tự kiểm tra ngắn, phân bố qua các mục tiêu chính. Có thể chia thành nhiều slide để giữ khả năng đọc; đáp án nằm trong ghi chú. Phần bài tập 60 phút vẫn tuân nguồn và cấu trúc trong AGENTS.md.
+
+Với 120 phút giảng, khoảng 45–55 slide là mốc lập kế hoạch tham khảo, không phải chỉ tiêu phải đạt. Tính riêng phần bài tập 60 phút. Nếu phần giảng vượt 60 slide, storyboard phải nêu cách phân bổ thời gian và phần nào đọc thêm; không rút ngắn ví dụ hay chứng minh cốt lõi chỉ để đạt số lượng.
+
+Nội dung đọc thêm phải được ghi rõ trong kế hoạch và tài liệu tự học. Không chuyển một định nghĩa, giả thiết hoặc bước suy luận cần cho phần sau sang đọc thêm. Dùng cách đánh dấu đã có của học phần; không tự thêm hệ badge, biểu tượng hoặc màu mới.
+
 ### Thông tin tối thiểu trong storyboard
 
 | Trường | Nội dung cần ghi |
 |---|---|
 | Mã và tiêu đề | Mã duy nhất; tiêu đề dự kiến trên mặt slide |
 | Mục đích | Một việc sinh viên làm được sau trang này |
+| Câu chốt | Một câu diễn đạt điều cần nhớ, làm căn cứ chọn và lược nội dung |
 | Vai trò trong mạch | Nêu vấn đề, xây trực giác, chạy ví dụ, hình thức hóa, giải thích cơ chế, chứng minh, đánh giá hoặc kiểm tra |
 | Kiến thức đầu vào | Khái niệm, ký hiệu hoặc kết quả đã được thiết lập |
 | Nội dung và cách thể hiện | Hình, bảng, giả mã, công thức hoặc thao tác cụ thể cần thấy |
@@ -103,6 +138,15 @@ Các giả thiết quyết định kết luận phải hiện trên mặt slide 
 - Tách đoạn mã dài theo các bước có chức năng rõ. Giữ đủ ngữ cảnh và trạng thái truyền giữa các trang.
 - Với thuật toán phân tán, phân biệt hàm người dùng viết, việc hệ thống thực hiện, tác vụ và máy. Chỉ rõ nơi lưu hoặc nơi nhận dữ liệu khi điều đó ảnh hưởng kết quả hay chi phí.
 
+### Khối mã và bố cục
+
+Mặc định dùng một khối giả mã lớn với một câu giải thích thao tác quyết định. Dùng hai cột khi cần đối chiếu hai phiên bản hoặc liên hệ trực tiếp mã với trạng thái; cả hai phải cùng phục vụ một luận điểm.
+
+- Khối `<pre><code>` dùng `data-trim`; khai báo lớp ngôn ngữ đúng khi bộ tô màu cục bộ hỗ trợ. Không chọn ngôn ngữ gần giống chỉ để có màu.
+- Đoạn mã trên 30 dòng là tín hiệu cần tách. Có thể lược chi tiết phụ bằng chú thích rõ, nhưng không giấu khởi tạo, điều kiện dừng hoặc thao tác đang phân tích chi phí.
+- Dùng bộ tô màu và giao diện khối mã của mẫu học phần. Không đưa quy ước giả mã hoặc thư viện riêng của môn tham khảo vào bài.
+- Nếu dùng lớp `.inline-code`, chỉ gắn cho `<span>`; khối mã dùng `<pre><code>`, không dùng `<p class="inline-code">`.
+
 ### Cách trình bày tính đúng
 
 Mở đầu bằng mệnh đề cần chứng minh. Sau đó nêu ý tưởng và các bước then chốt. Với bất biến vòng lặp, phải có khởi tạo, duy trì và kết luận khi dừng. Với đệ quy, phải có cơ sở và bước giảm về bài toán nhỏ hơn. Ví dụ chạy đúng chỉ minh họa cơ chế; bảo đảm cho mọi đầu vào cần lập luận riêng.
@@ -125,6 +169,8 @@ Chọn chi tiết theo loại thuật toán:
 Ví dụ cần đủ nhỏ để chạy tay và đủ cấu trúc để bộc lộ ý tưởng trọng tâm. Chọn dữ kiện từ nguồn của bài. Nếu áp dụng thuật toán nguồn lên một phần dữ liệu hoặc cụ thể hóa ví dụ ký hiệu, ghi rõ cách làm và căn cứ; không gọi dữ kiện do người soạn chọn là dữ kiện trích nguyên văn.
 
 Ưu tiên dùng cùng một ví dụ qua nhiều bước: trực giác, giả mã, tính đúng và chi phí. Chỉ đổi ví dụ khi cần thể hiện một cơ chế hoặc trường hợp khác; nói rõ điểm thay đổi. Bài tập recitation phải tuân quy định giữ dữ kiện và yêu cầu toán học của nguồn trong AGENTS.md.
+
+Mỗi lần sử dụng ví dụ phải làm rõ một thông điệp của slide. Dữ kiện có thể dùng lại ở trang sau cho mục đích khác, nhưng không buộc người học đồng thời học thêm miền ứng dụng, công cụ và thuật toán mới. Kết ví dụ bằng điều rút ra từ vết chạy, không chỉ trình bày kết quả cuối.
 
 ### Cấu trúc của một vết chạy
 
@@ -188,6 +234,14 @@ Nếu $I$ là số byte đầu vào và có $m$ cặp trung gian, mỗi cặp d�
 
 Khi dùng mô hình chi phí đầu vào tác vụ của MMDS ở Bài 02, ghi rõ chi phí tác vụ là kích thước đầu vào và tổng là tổng trên các tác vụ. Không tự cộng thêm đầu ra cuối hoặc đếm trung gian theo một quy ước khác mà giữ nguyên tên mô hình. Các bài khác phải xác lập mô hình phù hợp với nguồn của mình.
 
+### Cách đặt công thức trên slide
+
+Một công thức cần có câu dẫn nêu việc đang tính, ký hiệu đã được giải thích và câu chốt diễn giải kết quả. Chỉ giữ công thức phục vụ định nghĩa, cơ chế hoặc bước suy luận đang học.
+
+Mỗi slide ưu tiên một công thức trung tâm. Một chuỗi biến đổi của cùng biểu thức có thể đặt chung nếu mỗi bước đọc được và có lý do; các công thức có vai trò độc lập nên tách. Không lược bước đếm quan trọng để chỉ còn công thức cuối.
+
+Trong Markdown, dùng `$...$` và `$$...$$`. Trong HTML, dùng cách phân cách công thức của mẫu cùng `RevealMath.KaTeX`. Với tiêu đề chịu CSS viết hoa, dùng tên bằng chữ cho các ký hiệu Hy Lạp và đặt công thức trong thân slide; không để định dạng tiêu đề làm hỏng lệnh toán. Mã và nhãn SVG dùng ký tự hiển thị phù hợp, không trông chờ KaTeX xử lý bên trong chúng.
+
 ### So sánh phương án
 
 - So sánh trên cùng bài toán, dữ liệu và mô hình; ghi rõ điều kiện thay đổi giữa hai phương án.
@@ -226,22 +280,60 @@ Không dùng cùng một kiểu hộp–mũi tên cho mọi khái niệm. Một 
 - Giữ tỷ lệ có ý nghĩa, chỉ số và giá trị nguồn. Ghi rõ hình khái niệm khi kích thước hình không biểu diễn độ lớn dữ liệu.
 - Chú thích hình nêu quan hệ hoặc kết quả cần đọc, thay vì chỉ lặp tên hình.
 
-Chỉ dùng hiệu ứng xuất hiện từng bước khi nó giúp theo dõi đúng thứ tự suy luận. Dữ kiện cần so sánh phải còn nhìn thấy. Nếu hai trạng thái cần xem đồng thời hoặc bản in phải giữ được vết chạy, dùng bố cục trước–sau hoặc các trang riêng.
+Không dùng hiệu ứng `class="fragment"`. Mỗi slide hiển thị đầy đủ để giảng viên điều khiển bằng lời và sinh viên tự đọc lại. Với vết chạy cần chia bước, dùng các trang liên tiếp giữ nguyên khung hoặc bố cục trước–sau; dữ kiện cần so sánh phải còn nhìn thấy.
+
+### Mật độ nội dung và dấu hiệu quá tải
+
+Bố cục thường phù hợp là một hình lớn cùng chú thích, một khối giả mã cùng câu chốt, hoặc 2–3 gạch đầu dòng ngắn. Một hình và công thức có thể đi cùng khi công thức giải thích trực tiếp quan hệ trong hình.
+
+Cần rà lại cấu trúc nếu có hơn ba gạch đầu dòng chính, trên 10–12 dòng văn bản liên tục, nhiều công thức độc lập, hình nhỏ ở góc hoặc chữ phải thu nhỏ để vừa khung. Đây là dấu hiệu cần xem xét, không phải quy tắc đếm máy móc áp cho bảng vết chạy và giả mã.
+
+Thử bỏ 20–30% chữ bằng cách cắt lời dẫn rỗng, chú thích lặp tiêu đề và ý không phục vụ mục đích. Không cắt dữ kiện cần tính lại, giả thiết, đơn vị hoặc bước chứng minh quyết định chỉ để đạt tỷ lệ này.
+
+### Bảng, hộp nhấn và hệ thống trình bày
+
+- Dùng bảng khi cần so sánh cùng tiêu chí hoặc theo dõi giá trị chính xác. Ưu tiên 3–4 cột, ô ngắn; tách bảng nếu mỗi ô trở thành một đoạn văn. Bảng so sánh thuật toán cần nêu điều kiện hoặc tình huống sử dụng khi phù hợp.
+- Dùng hộp nhấn cho nhiệm vụ tương tác, định nghĩa trọng tâm, kết luận hoặc cảnh báo quyết định. Thường chỉ cần một hộp; hơn hai hộp là dấu hiệu cần giảm nhấn. Danh sách thông thường dùng gạch đầu dòng hoặc thẻ nhẹ có sẵn trong CSS.
+- Hai cột so sánh phải dùng cùng tiêu chí, tỷ lệ và thứ tự nhãn. Màu biểu thị vai trò nhất quán; không mặc định phương án mới luôn tốt hơn phương án cũ.
+- Giữ khoảng cách tiêu đề–thân bài, hình–chú thích và hai cột theo mẫu. Khi một bố cục lặp nhiều lần, dùng lớp CSS chung phù hợp thay vì sao chép kiểu nội dòng. Chỉ bổ sung CSS khi lớp hiện có không đáp ứng và đã kiểm tra ảnh hưởng tới các bài dùng chung.
+- Lưu SVG chính trong thư mục hình của bài theo AGENTS.md. Với hình sinh bằng mã, lưu mã tái tạo cùng tài sản của bài và cập nhật qua mã đó; không sửa thủ công đầu ra rồi bỏ mất khả năng tái tạo.
 
 ### Khả năng đọc và nền kỹ thuật
 
 - Mỗi trang có một hình, bảng, công thức hoặc đoạn giả mã làm trọng tâm. Các thành phần phụ giải thích trực tiếp trọng tâm ấy.
 - Giữ chữ thân bài từ `0.75em` trở lên theo mẫu học phần. Không thu nhỏ chữ để chứa thêm nội dung; tách trang hoặc chuyển diễn giải phụ sang ghi chú. Chú thích nhỏ tuân ngoại lệ và kiểm tra khả năng đọc trong AGENTS.md.
 - Giữ gạch đầu dòng ngắn, mỗi ý không quá hai dòng ở khung 16:9. Nhãn hình phải đọc được ở kích thước trình chiếu thực tế.
+- Chữ trong SVG dưới 14px sau khi co giãn là dấu hiệu phải tăng kích thước; đạt 14px chưa đủ chứng minh đọc được khi chiếu. Kiểm tra ở khung thực và ưu tiên giảm chữ xung quanh thay vì thu nhỏ hình.
 - Dùng SVG cho hình kỹ thuật; có mô tả thay thế cụ thể. Dựng công thức bằng KaTeX, bảng bằng HTML và giả mã bằng khối mã.
 - Kế thừa [mẫu slide](2627-1/lecture-template.html) và [CSS học phần](2627-1/lecture-style.css), giữ khung 1280 × 720 và thư viện cục bộ.
 - Kiểm tra ảnh, công thức, tương phản, cắt chữ, chồng lấn và điều hướng bàn phím trên bản render thực. Kiểm tra cả màn hình rộng, màn hình hẹp và bản in khi có phát hành dạng in.
 
 **Điều kiện đạt:** người học đọc được đối tượng, quan hệ và phép biến đổi từ hình; hình khớp với dữ liệu, công thức và giả mã của cùng cụm. Người rà phải xem hình đã render, không suy luận chất lượng hiển thị chỉ từ văn bản hoặc mã nguồn.
 
+## Quy trình soạn và sửa
+
+### Khi tạo slide hoặc mở rộng một phần
+
+1. Đọc mạch trước đó; xác định mục đích, kiến thức đầu vào và câu chốt trong storyboard.
+2. Chọn trọng tâm thể hiện: hình, công thức, giả mã, bảng hoặc vết chạy. Chọn bố cục theo quan hệ cần giải thích.
+3. Với chủ đề mới, lập đủ chuỗi giải thích cơ chế theo mục 2–5 trước khi viết chi tiết từng slide.
+4. Viết ngắn bằng tiếng Việt, giữ dữ kiện và ký hiệu nhất quán; bỏ nội dung không phục vụ câu chốt.
+5. Tự tính lại ví dụ và chi phí, rà lập luận đúng, rồi kiểm tra bản render theo mục 6.
+
+### Khi sửa slide quá tải hoặc tràn khung
+
+1. Xác định có bao nhiêu ý và thành phần cạnh tranh làm trọng tâm. Tách trước nếu có hai lập luận độc lập.
+2. Cắt diễn giải phụ và nội dung lặp; giữ đủ giả thiết, dữ kiện và bước suy luận.
+3. Điều chỉnh khoảng trắng hoặc padding trong giới hạn của mẫu; giữ hình và chữ trung tâm đủ lớn.
+4. Nếu vẫn tràn, tách slide hoặc chuyển chi tiết phụ sang ghi chú. Giữ ngưỡng chữ trong AGENTS.md; không giảm font liên tục để nhét nội dung.
+5. Kiểm tra lại slide đã sửa, các trang liên quan, cấu trúc `<section>` và bản in khi có. Cập nhật storyboard nếu việc tách hoặc lược làm thay đổi mạch hay thời lượng.
+
 ## Phiếu kiểm tra trước khi duyệt
 
 - [ ] Mỗi slide có một mục đích học tập và vai trò trong mạch được ghi ở storyboard.
+- [ ] Mỗi phần mở rõ nhu cầu, giải thích đủ cơ chế và nối được kết quả sang phần sau.
+- [ ] Phần kết thu hồi tình huống ban đầu, có nhiệm vụ tự kiểm tra; thời lượng giảng và bài tập được tính riêng.
+- [ ] Mỗi slide có một trọng tâm; chú thích khớp với hình, bảng hoặc mã; chữ được lược mà không mất điều kiện thiết yếu.
 - [ ] Mọi tiên quyết và ký hiệu đã được thiết lập trước nơi dùng.
 - [ ] Các cụm thuật toán có đủ đặc tả, ví dụ, giả mã, lập luận đúng, dừng, biên và chi phí.
 - [ ] Ví dụ có dữ kiện và trạng thái trung gian tính lại được; phân biệt rõ nguồn và phần áp dụng.
@@ -250,6 +342,7 @@ Chỉ dùng hiệu ứng xuất hiện từng bước khi nó giúp theo dõi đ
 - [ ] Hình, giả mã, bảng và lời giải dùng cùng dữ kiện, chỉ số và thuật ngữ.
 - [ ] Các câu hỏi đo đúng mục tiêu, có đáp án hoặc hướng dẫn trong ghi chú.
 - [ ] Bản render đọc được, không tràn hoặc chồng lấn; hình và liên kết hoạt động.
+- [ ] Khối mã có `data-trim` và ngôn ngữ phù hợp; công thức render đúng; không dùng `fragment`.
 - [ ] Sai khác với nguồn và ngoại lệ có lý do, vị trí và quyết định xử lý trong nhật ký.
 
 Ghi kết quả rà bằng **vị trí → vấn đề → bằng chứng → cách sửa**. Với lỗi mạch viết, nêu rõ kiến thức đầu vào bị thiếu hoặc kết quả chưa được nối sang bước tiếp theo. Với lỗi nội dung hoặc hình thức, chỉ ra dữ kiện, phép tính, nhãn hoặc thành phần hiển thị cụ thể cần sửa.

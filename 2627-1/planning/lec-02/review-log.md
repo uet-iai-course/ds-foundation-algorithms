@@ -647,3 +647,361 @@ Toàn bộ chuỗi s03-02a → s06-03a đúng về toán và thuật toán, kh�
 - `slide_authoring_standard.md`: `7b76cab059afbb77c8544b5f9b831b63e02a8d3911c44484f8914b4c4377a43c`.
 
 Phạm vi commit: đầu ra Bài2 đã sửa, SVG luồng công việc mới, tiêu chuẩn biên soạn và chỉ phần tích hợp tiêu chuẩn của AGENTS. Các thay đổi AGENTS có sẵn trước nhiệm vụ, .gitignore, .codex, codex-orchestrator và openrouter-mcp giữ nguyên ngoài commit. Quyền đẩy origin/main tới uet-iai-course/ds-foundation-algorithms đã được người dùng xác nhận trực tiếp; kiểm tra mã HEAD từ xa sau push, không viết lại lịch sử.
+
+
+## Lượt sửa theo tiêu chuẩn bổ sung và hình minh họa — 14-09-2026
+
+### Phạm vi và kết quả
+
+Áp dụng slide_authoring_standard.md sau khi tích hợp Style Guide do giảng viên cung cấp. Giữ nguồn ch2n.pdf, mạch intro + 2.1–2.8, 52 slide giảng và 9 slide bài tập, thời lượng dự kiến 120 + 60 phút. Giữ ngoại lệ chín phần và bài tập sau mục nguồn đã được người dùng yêu cầu. Không đổi dữ kiện bài tập, thuật toán, mô hình I+M hoặc các phép tính.
+
+Bổ sung bốn SVG và dùng chung trong slide/ghi chú: mạng tủ máy (s01-01); vùng máy–tác vụ–nhóm khóa (s02-06); bốn cạnh Links và hai đường đi qua url2 (s03-07a); cặp chéo/cặp nội bộ trong reducer của hai nhóm kề nhau (s06-03a). Hai hình đầu/đồ thị Links dùng cơ chế hoặc dữ kiện sách, hình nhóm là phần trích tượng trưng, không phải dữ liệu ảnh mới. Đồ thị không thay bảng vết, công thức hay giả mã.
+
+Storyboard có câu chốt cho từng trang, cập nhật trực tiếp cách thể hiện của các trang sửa. Tám khối giả mã có data-trim, giữ language-text. Bốn nhiệm vụ tự kiểm cuối bài dùng lại D2, Links, r=s=4 và ví dụ nhóm ảnh; đáp án trong notes. Đã bổ sung số mục ở slide mở 2.1 và 2.4, làm rõ liên kết quay lại bài tập, đồng bộ outline, ghi chú và index.
+
+### Điều phối và bằng chứng mô hình
+
+Người dùng xác nhận rõ quyền dùng OpenRouter để sửa Lecture 02 và bổ sung hình trước khi các worker chạy thành công. Hai lần từ chối tự động trước đó do bộ duyệt cho rằng phạm vi chỉ là cập nhật tiêu chuẩn; sau xác nhận, cùng cơ chế OpenRouter được phép chạy. Không đọc hoặc gửi nội dung .env.
+
+| Vai | Lượt thành công | requested_model | observed_model | provider |
+|---|---|---|---|---|
+| Lập kế hoạch | plan | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Phân tích nguồn | source | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Soạn hình khóa–tác vụ | writer-small | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Góc nhìn sinh viên | student | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Chuyên gia giải thuật | algorithm-retry | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Toán học và thuật toán | math | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Phản biện giảng dạy | teaching-retry | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Kết nối và mạch viết | flow-retry | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Kiểm định storyboard | storyboard | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Chỉnh sửa riêng | editor | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Rà lại mạch cuối | final-flow | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+| Rà lại toán và hình cuối | final-math | z-ai/glm-5.3-flash | z-ai/glm-5.3-flash | OpenRouter |
+
+Planner riêng hoàn tất trước phân tích chi tiết và writer. Nguồn xác nhận bốn hình; điều phối duyệt phạm vi, tự kiểm PDF. Writer nhỏ tạo SVG khóa–tác vụ; điều phối triển khai ba hình còn lại và 61 câu chốt theo đặc tả đã duyệt. Sau năm báo cáo độc lập, editor riêng vẽ lại hình cặp nhóm và ghi quyết định; điều phối sửa nhãn, bố cục và đồng bộ tài liệu. Không có hai worker ghi chạy đồng thời.
+
+Các lượt lỗi được giữ nguyên trạng thái, không tính là báo cáo hoàn tất: writer và teaching dừng với `RuntimeError: OpenRouter request exceeded 480s wall timeout`; flow và algorithm dừng với `model exceeded the tool-call limit (20)`. Chỉ thử lại sau khi tiến trình kết thúc, dùng cùng mô hình/vai với nhiệm vụ nhỏ hoặc nội dung được cung cấp trực tiếp. Không đổi ngầm nhà cung cấp. Một lỗi chuẩn bị prompt cục bộ đã được sửa trước khi hai lượt rà cuối khởi chạy; không có nội dung từ lượt chưa chạy được dùng làm bằng chứng.
+
+### Quyết định xử lý báo cáo
+
+| Vị trí/vấn đề | Quyết định và bằng chứng |
+|---|---|
+| Nhãn mạng nội tủ bị đường nối cắt; nhãn cạnh trực tiếp đè cung | Đã sửa bằng script sinh SVG; xem lại ảnh render 1280×720, không còn cắt nhãn |
+| Hình nhóm ảnh còn chủ yếu là chữ | Editor thay bằng bốn cặp chéo trên phần trích hai ảnh mỗi nhóm và một cặp nội bộ u; nét liền/đứt, có nhãn nhóm kế tiếp và phần trích; đã chỉnh khoảng cách caption cuối, xem lại render |
+| Storyboard còn ghi sáu SVG và bảng ba cấp | Đã cập nhật mười SVG, sửa trực tiếp trường cách thể hiện của năm slide; mỗi trang vẫn đúng một câu chốt |
+| Đề xuất đổi ID hoặc đảo s05-02/s05-01 | Không áp dụng: Reveal theo DOM, đã kiểm đủ 61 slide; mô hình trước công thức và ví dụ trước giả mã là chủ ý, có giải thích trong storyboard |
+| Liên kết cuối bị cho là không có đích | Link thật trỏ #/lec02-ex221a; đã bấm trong Chromium và xác nhận đích. Đổi nhãn thành Quay lại bài tập 2.2.1 để rõ nghĩa |
+| Đề xuất đổi ô lưới (2,1) thành (1,0) | Bác sau xem trực tiếp trang in 57/PDF38: Hình2.8 đã dùng0..3 và ô(2,1), đoạn văn dùng1..4. Giữ hình và chuẩn hóa bảng theo0..3; reviewer toán cuối đã xác nhận |
+| Đề xuất tách giả mã khỏi s05-06, gộp s02-04/04a | Không áp dụng: s05-06 chỉ có bảng chi phí; giả mã nằm ở các slide trước. s02-04 là giả mã, s02-04a là chứng minh. Đã phân biệt mặt slide/notes trong lượt rà cuối |
+| Đề xuất bổ sung r=s=t ở s05-07 | Đã có ngay trên mặt slide; không lặp thêm vào bảng |
+| Ký hiệu q,rho,g,B | q và rho là hai ký hiệu chính ở s06-01; N,B đã có ở s06-00, g được thiết lập tại ví dụ gom nhóm. Không thêm bảng ký hiệu trước khi khái niệm được học |
+| Câu hỏi về so sánh lặp trái quy tắc trong hình | Đổi rõ thành Nếu bỏ quy tắc giao riêng…; giữ câu hỏi trong hộp riêng và đáp án999 trong notes |
+| Câu giảm số cặp/byte | Viết lại notes theo độ dài biểu diễn của từng cặp, không ngụ ý tỷ lệ byte đã đo |
+| Gợi ý nhãn tác vụ A/B hoặc thêm liên kết ngược mọi vết | Giữ nhãn tác vụ1/2 minh họa, mặt slide nói rõ một máy có thể chạy nhiều tác vụ. Vết ngay trước giả mã; thêm chỉ dẫn lặp sẽ tăng chữ |
+
+Một số báo cáo có diễn đạt không chính xác về hình Links. Điều phối xác nhận độc lập: SVG có đúng bốn cạnh tổng cộng, gồm cạnh trực tiếp nét đứt; không phải bốn cộng một. L1 và L2 đều là bản sao đầy đủ của Links; nhãn trên hình chỉ vai trò hai cạnh của đường đi. Các câu tóm tắt sai trong báo cáo không được áp dụng vào sản phẩm.
+
+### Kiểm định cuối theo sáu nhóm tiêu chuẩn
+
+| Yêu cầu | Bằng chứng hiện tại |
+|---|---|
+| Sinh viên năm 2 | Giữ các tiên quyết được giải thích tại nơi dùng; bốn hình thể hiện quan hệ cụ thể, không thêm thông số phần cứng hoặc kiến thức ngoài chương |
+| Mục đích và mạch | 61 ID duy nhất khớp thứ tự storyboard, 61 câu chốt; tổng từng trang120+60phút; reviewer storyboard và mạch cuối không còn lỗi bắt buộc |
+| Thuật toán | Đặc tả, ví dụ, giả mã, lập luận đúng, dừng/biên giữ nguyên;8khối data-trim; các giả thiết quyết định vẫn hiện trên mặt slide |
+| Ví dụ | Tự tính lại đủ4cạnh Links, hai kết quả; D2 trả(lớn,2); hình nhóm chỉ trích hai ảnh đại diện, giữ quy mô1000ảnh/nhóm ở nguồn |
+| Chi phí | Mô hình I+M trước phép tính; nối r=s=4 trả16;66r và biên961, q=2000,rho=999, trung gian9,99×10^14byte đều được tính lại |
+| Trực quan và kỹ thuật | Chromium duyệt61slide, không tràn hoặc lỗi KaTeX/tài nguyên; xem toàn bài qua contact sheets và xem riêng các slide đổi ở1280×720;10SVG trong ghi chú tải đủ |
+
+Đã kiểm bàn phím, màn hình hẹp390px, ghi chú206công thức không lỗi, link bài tập thực,3khối lời giải gập mặc định → mở khi in → gập lại. Chặn mọi request ngoài máy chủ cục bộ không phát hiện request ngoài nào cho thành phần cốt lõi. SVG XML hợp lệ, có role/title/mô tả; không thêm raster. PDF cuối đủ61trang và không lỗi KaTeX. Mã sinh hai hình mạng/Links lưu tại img/lec-02/scripts/render-concept-diagrams.py; hai SVG còn lại được soạn trực tiếp.
+
+Đã rà câu chữ theo no-ai-slop/eval.md: giữ dữ kiện, bỏ câu giảm byte mơ hồ, không thêm nhận định mạnh hoặc câu hỏi tu từ. Rà mạch theo quill: giữ thứ tự khái niệm và ký hiệu chung giữa slide/ghi chú; không tạo dự án sách hay quill.json.
+
+Giới hạn: thời lượng là kế hoạch, chưa diễn tập với lớp thật. Không có Browser tích hợp của Codex trong phiên; Codex Slides là hồ sơ Design Files, không phải một deck native đã render. Đã lưu HTML, storyboard, ghi chú,4SVG và PDF cuối, đối chiếu bằng byte; kiểm tra trực quan thực hiện bằng Chromium của RevealJS, không tuyên bố đã rà bằng Browser Codex Slides. Dùng http://127.0.0.1:8765/2627-1/lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html vì localhost IPv6 ở máy này đang phục vụ kho khác.
+
+### Báo cáo độc lập được lưu nguyên nội dung
+
+Các báo cáo dưới đây là đầu vào phản biện; quyết định áp dụng/không áp dụng và hiệu chỉnh diễn đạt nằm ở bảng trên.
+
+#### Góc nhìn sinh viên — student
+
+#### Báo cáo review — góc nhìn sinh viên năm 2 (Bài 02, bản 61 slide)
+
+##### Nhận định tổng quan về các điểm bắt buộc
+
+Đối chiếu với ràng buộc đã cho, tôi **không tìm thấy lỗi chặn bàn giao**:
+
+- **Mô hình chi phí I+M**: s05-01/s05-04 giữ `C = I + M`; nối hai bảng với r=s=4 cho 8+8=16 đơn vị — khớp s05-04 và s07-02(3).
+- **Links 4 cạnh, đúng cấu trúc nhóm**: s03-08 — nhóm url1: L1 "—", L2 {url2,url3}; nhóm url2: L1 {url1}, L2 {url3,url4}. Khớp "url1 có L2:2,3 không L1; url2 có L1:1, L2:3,4". Hai kết quả (url1,url2,url3),(url1,url2,url4) đúng.
+- **Cặp nhóm 0..g−1, g=1000, cặp nội bộ tại {u,(u+1)mod g}**: đúng ở s06-03 và s06-03a ("đánh số nhóm 0..g−1… nhóm (i+1) modulo g"); đáp án "g−1=999 lần" đúng vì mỗi nhóm xuất hiện ở g−1 reducer.
+- **q là cận trên, không trung bình**: s06-01 "q là cận trên cho mọi nhóm"; **ρ không phải bản sao DFS**: s06-01 "rho tính trung bình, không phải số bản sao DFS". Cả hai đều khớp.
+- **Cấu trúc 61 slide**: 9 bài tập (3×2.2.1, 4×2.3.1, 2×2.5.1) = 9; 9 section (3 intro + 2.1–2.8). Bài tập đặt sau mục nguồn tương ứng. Mã ổn định (s03-07a trước s03-08 trước s03-07) — không tính là lỗi theo quy ước.
+
+Vết chạy s07-02: (1) D2="lớn lớn" → (lớn,2) đúng; (2) "url3 có cạnh vào từ L1 nhưng không có cạnh ra ở L2" đúng (hai cạnh (url1,url3),(url2,url3) đóng vai L1; không cạnh nào xuất phát từ url3); (3) 16 đúng; (4) "chưa đủ" đúng.
+
+##### Flow của bài (vai trò / vào / ra)
+
+Intro (s00) → **2.1** hạ tầng: vào = bài 01, ra = dữ liệu đã chia khối/có bản sao → **2.2** mô hình MR: vào = dữ liệu chia, ra = khái niệm khóa/tác vụ/lưu trữ → **2.3** thuật toán theo khóa (MR/đại số), vào = khóa, ra = giả mã + vết + ý thức chi phí → **2.4** mở rộng (workflow/Spark), ra = đồ thị phụ thuộc → **2.5** quy ước chi phí, dùng lại ví dụ 2.2 và Links, ra = C=Σ|in(u)|, nối 3 bảng → **2.6** bộ nhớ/sao chép (q, ρ), vào = nhận thức bộ nhớ từ 2.5, ra = đánh đổi → **2.7** tổng kết khép vòng, **2.8** nguồn + nút "Bắt đầu bài tập" quay về 2.2.1. Mạch nối vào/ra nhất quán, mỗi mục đều mở đầu và chốt bằng câu chuyển tiếp.
+
+##### Các vấn đề (tối đa 6, theo mức độ)
+
+| Mức độ | Trang | Vấn đề | Bằng chứng | Đề xuất |
+|---|---|---|---|---|
+| Nghiêm trọng? Không — **cần kiểm render** | s03-07a | Nhãn "Cạnh trực tiếp: một cạnh" (x=450, y=31) có thể chồng lên đường cong nét đứt url1→url3 (control points C165 3 645 8 đẩy cung lên vùng y≈30–40 quanh x=450). Tôi chỉ đọc SVG, không tự khai đã xem hình trình chiếu. | SVG thứ 3, phần `<path stroke-dasharray>` và `<text x="450" y="31">`. | Kiểm render; nếu chồng, hạ cung hoặc dịch nhãn lên y<20. |
+| Trung bình (cần kiểm render) | s01-01 | Đường nối từ hộp switch (đáy y=66) tới tủ A/B bắt đầu tại y=65 — lệch 1px có thể để lại khe hở hoặc chạm mép không sạch khi render; marker `#arrow` được định nghĩa nhưng không dùng. | SVG thứ 1: `<rect y="8" height="58">` vs `<path d="M540 65 V90 …">`. | Kiểm render tại đáy hộp switch; bỏ marker nếu không dùng. |
+| Trung bình | s06-03a | Hình minh họa quy tắc **đúng** nhưng câu hỏi slide lại giả định **cách sai** ("mọi reducer chứa nhóm u đều xét cặp nội bộ…"). Sinh viên năm 2 dễ đọc nhầm hình đang vẽ tình huống sai. | Văn bản hình: "chỉ giao ở đây khi v là nhóm kế tiếp" đặt cạnh câu hỏi về tình huống ngược. | Thêm nhãn nhỏ trên hình "(vẽ theo quy tắc đúng)" hoặc tách câu hỏi ra khối riêng dưới hình. |
+| Trung bình | s06-01 | Mật độ ký hiệu mới cao cho năm 2: q, ρ, g, B xuất hiện cùng lúc, ví dụ số (10⁶, g=1000) phải chờ sang s06-02 mới có. | s06-01: bảng ký hiệu + câu "q đếm số giá trị, không trực tiếp là byte RAM… tải dữ liệu là qB". | Thêm cột "ví dụ với N=10⁶, g=1000" ngay trong bảng để neo ký hiệu. |
+| Nhẹ | s02-05 | Câu "Giảm số cặp chưa phải một tỷ lệ giảm byte đã đo" tối nghĩa với người học lần đầu; không rõ nghĩa là "chưa hẳn tỉ lệ thuận" hay "không phải giảm theo tỷ lệ đã đo". | s02-05, dòng cuối phần thân. | Viết lại: "Giảm số cặp chưa hẳn làm giảm cùng tỷ lệ số byte trung gian đã đo." |
+| Nhẹ | s03-07 / s03-07b | Trình tự đọc là 07a → 08 → 07 → 07b; s03-07b nói "vết trên Links" nhưng vết nằm cách 2 slide và slide tổng quát s03-07 không có liên kết ngược về vết. | s03-07b: "Khái quát từ vết trên Links"; s03-07 không nhắc slide vết. | Thêm một dòng "Vết chạy bốn hàng: xem trang vết nối trước đó" ở s03-07. |
+
+##### Kết luận
+
+Không có lỗi bắt buộc về tiên quyết, mô hình chi phí, cấu trúc nhóm Links, quy ước q/ρ/cặp nhóm hay số slide/bài tập. Ba mục trên s01-01, s03-07a, s06-03a là các nhận xét suy từ mã SVG/văn bản và **đều cần được điều phối viên kiểm ở bản render thật** trước khi chốt; hai mục ký hiệu s06-01 và câu chữ s02-05 là gợi ý cải thiện khả năng tiếp thu cho sinh viên năm 2.
+
+#### Chuyên gia giải thuật — algorithm-retry
+
+##### Kết luận tổng quát
+
+Đã rà toàn bộ 61 slide theo bốn trọng tâm (MapReduce/chọn khóa/giả mã–vết–tính đúng/chi phí–đánh đổi q,ρ). **Không tìm thấy lỗi bắt buộc nào về nội dung, tính đúng đắn hay mạch học thuật.** Các số liệu, vết và công thức đều tự nhất quán:
+
+- Đếm từ: 5 cặp → 4 sau gộp; chi phí I+5B vs I+4B đúng.
+- Nối hai bảng: 2(r+s)=16 với r=s=4, nhất quán giữa s03-08, s05-04 và s07-02(3).
+- Nối ba bảng: C₃=r+2s+t+cr+bt; b=c=√k cho 4r+2r√k; k=961 cho đẳng thức 66r đúng; k=16 cho 12r đúng.
+- Ảnh tương tự: q=2, ρ=N−1=999999, N(N−1)B≈10¹⁸; gom nhóm g=1000: q=2000, ρ=999, 9,99·10¹⁴; câu trả lời lặp 999 lần ở s06-03a đúng.
+- Tự kiểm s07-02: cả bốn đáp án (đặc biệt (2): nhóm url3 có cạnh vào từ L1 nhưng không có cạnh ra ở L2) đúng với bảng bốn hàng Links.
+- Giả mã chọn/chiếu/nối/đếm và lập luận tính đúng hai chiều đều khớp đặc tả; các biên (khóa một phía rỗng, hàng không phát cặp → xᵢ=0, tệp rỗng) đã được nêu.
+
+##### Ghi chú nhỏ (không bắt buộc, khuyến nghị)
+
+1. **Mức: nhỏ – trình bày. Trang: dãy s03-07a → s03-08 → s03-07 → s03-07b.** Thứ tự mã slide lệch với thứ tự trình bày: slide "s03-07" (thuật toán nối tổng quát) xuất hiện *sau* "s03-08" (vết nối). Về mạch giảng vẫn hợp lý (bài toán → vết → khái quát), nhưng nếu tên tệp/số slide được dùng để điều hướng hoặc in phụ đề, người đọc sẽ thấy số thứ tự lộn xộn. Đề xuất: đổi nhãn thành s03-07→s03-07a (bài toán)→s03-07b (vết)→s03-07c (thuật toán)→s03-07d (tính đúng), hoặc thêm chú thích "nhãn tệp giữ nguyên theo storyboard".
+
+2. **Mức: nhỏ – nhất quán ký hiệu. Trang: s03-07/s05-06.** Ở s03-07, reduce phát(b, (a,b,c)) — bộ giá trị đã chứa b, đầu ra lại gắn khóa b; slide đã tự lưu ý "khóa đầu ra không ảnh hưởng bộ giá trị", nhưng sinh viên năm 2 dễ nhầm vì cùng ký hiệu b làm cả khóa nhóm và thuộc tính. Đề xuất thêm một câu phân biệt "b ở khóa nhóm là khóa truyền; b trong bộ là thuộc tính nối" ngay bảng giả mã.
+
+3. **Mức: nhỏ – độ chính xác phát biểu. Trang: s05-07.** Dòng "(r+r)+(r+r)=4r" ngầm dùng r=s; slide có ghi "giữ r=s=t" ở s05-08 nhưng bảng ở s05-07 chưa nhắc tại chỗ. Đề xuất thêm "(r=s=t)" cạnh tiêu đề bảng để bảng đứng độc lập vẫn đúng.
+
+##### Xác nhận phạm vi
+
+- 9 phần intro + 2.1–2.8 đủ; các bài tập 2.2.1, 2.3.1, 2.5.1(a)(c) gắn đúng vị trí sau mục nguồn tương ứng.
+- Bốn slide hình mới (s01-01, s02-06, s03-07a, s06-03a) đều có ghi chú phạm vi hình ("không quy định số máy/bản sao thực tế") và câu hỏi kiểm tra gắn với hình — hợp lệ, không có khẳng định vượt bằng chứng.
+- Đánh đổi dữ liệu mỗi reducer và số bản sao (2.6) được soi đủ bằng q, ρ và bảng so sánh s06-04, khép về đúng mục tiêu năm 2.
+
+Không tuyên bố đã xem render; các nhận xét chỉ dựa trên nội dung văn bản slide được cung cấp.
+
+#### Toán học và thuật toán — math
+
+#### Báo cáo review — Độ chính xác toán học & thuật toán (Bài 02)
+
+Phạm vi: đối chiếu storyboard với ch2n.txt (nguồn gốc) tại các điểm nghi ngờ; trọng tâm s01-01, s02-06, s03-07a, s06-03a, s07-02 và các con số chốt. Không sửa file.
+
+##### Kết luận tổng quát
+Không tìm thấy lỗi toán học chặn bàn giao. Các con số chốt đều đúng khi tự tính lại từ nguồn:
+- s05-04: nối hai bảng, Map đọc r+s, Reduce nhận r+s, tổng 2(r+s); r=s=4 → 16 ✓ (đúng Ví dụ 2.14, ch2n dòng 1618–1635).
+- s05-06: C₃ = r+2s+t+cr+bt; b=c=4 → 5r+2s+5t ✓ (khung chi phí, ch2n 1775–1787).
+- s05-07: 4r + 62r = 66r = 1,98·10¹³ ✓ (Ví dụ 2.16, ch2n 1821–1830; giả thiết |R⋈R|≈30r là ước lượng của sách, deck đã ghi rõ là giả thiết — đúng).
+- s05-08: C₃=4r+2r√k; √k<31 ⇔ k<961; tại 961 bằng nhau ✓ (ch2n 1831–1838; việc sửa "preferable" thành đẳng thức tại 961 là hiệu chỉnh đúng, đã khai báo).
+- s06-02: q=2, ρ=N−1=999999, N(N−1)B≈10¹⁸ ✓ (ch2n 2008–2012); ghi đúng "chưa cộng đầu vào Map NB".
+- s06-03: q=2N/g=2000, ρ=g−1=999, N(g−1)B=9,99·10¹⁴ ✓ (ch2n 2033–2042, Ví dụ 2.18).
+- s06-03a: quy tắc cặp nội bộ nhóm u giao cho reducer {u,(u+1) mod g} ✓ khớp ch2n 2026–2032; đáp án lặp g−1=999 lần đúng vì nhóm u xuất hiện trong g−1 khóa.
+- s03-07a/s03-08: bảng nhóm bốn khóa đúng — url1: chỉ L2{2,3}; url2: L1{1}, L2{3,4}; url3: L1{1,2}, L2 rỗng; url4: L1{2}; kết quả đúng 2 bộ (url1,url2,url3),(url1,url2,url4). Đáp án s07-02(2) "url3 có cạnh vào từ L1, không có cạnh ra ở L2" khớp bảng ✓.
+- s07-02(1)(3)(4): (lớn,2) trên D2; 16 đơn vị; 2GB=2·10⁹ byte (ch2n 2040) — đều đúng.
+- s02-06 SVG: máy A một tác vụ hai khóa dữ/liệu, máy B khóa lớn [1,1,1] — nhất quán với slide và nguyên tắc "một khóa một lần gọi reduce" ✓.
+- s01-01 SVG: hai tủ + switch liên tủ, đúng khái niệm Hình 2.1 ✓.
+
+##### Các vấn đề nêu ra (tối đa 6, có bằng chứng)
+
+**1. Trung bình — s05-05 (lec02-s05-05)**
+- Vấn đề: slide khẳng định "đoạn văn nguồn lẫn chỉ số 1 đến 4 đã được hiệu chỉnh". Thực tế đoạn văn Ví dụ 2.15 trong ch2n (dòng 1746–1753) dùng nhất quán chỉ số 1..4 (h(v)=2, g(w)=1, y=1,2,3,4) — không có chỗ "lẫn". Việc deck chuẩn hóa về 0..3 là hợp lệ, nhưng lý do nêu ra là mô tả sai về nguồn; hệ quả: ô ví dụ (2,1) của deck (chỉ số 0) không phải ô (2,1) của sách (chỉ số 1).
+- Bằng chứng: ch2n.txt dòng 1748–1751; slide s05-05 và SVG ch2-luoi-reducer.svg ghi "S đến ô (2,1)".
+- Đề xuất: đổi thành "nguồn dùng chỉ số 1..4; bài chuẩn hóa về 0..g−1, ô ví dụ tương ứng đổi" — không nói nguồn "lẫn".
+
+**2. Nhẹ — s05-05/s05-05a (tính nhất quán nội bộ sau tái đánh số)**
+- Vấn đề: sau khi đổi sang 0..3, các giá trị "hai giá trị băm là 2 và 1" (s05-05a) và "hàng 2, cột 1" (s05-05, SVG) vẫn tự nhất quán trong hệ 0..3, nhưng người đọc đối chiếu sách sẽ thấy lệch một đơn vị. Cần một chú thích ánh xạ rõ (ô sách (2,1) ↔ deck (1,0) nếu giữ nguyên giá trị băm).
+- Bằng chứng: như mục 1.
+- Đề xuất: thêm một dòng chú thích ánh xạ chỉ số trên slide s05-05a.
+
+**3. Nhẹ — bốn SVG mới (s01-01, s02-06, s03-07a, s06-03a)**
+- Vấn đề: mọi nhận xét hiển thị rút ra từ mã SVG (vị trí text, marker mũi tên, nét đứt "Cạnh trực tiếp", nhãn L₁/L₂, "Cặp nội bộ nhóm u: chỉ giao ở đây") mới chỉ kiểm tra được ở mức mã; chưa xác nhận render (chữ tràn khung, marker hiển thị, thứ tự vẽ).
+- Bằng chứng: SVG ch2-mang-tu-may.svg, ch2-khoa-tac-vu.svg, ch2-noi-hai-canh.svg, ch2-cap-nhom-anh.svg (nội dung được cung cấp).
+- Đề xuất: cần kiểm render trình chiếu trước khi chốt; đặc biệt nhãn "L₁/L₂" và text "Đỉnh giữa" ở ch2-noi-hai-canh.svg dễ chồng lên cạnh/đường uốn.
+
+**4. Nhẹ — s06-03a (diễn đạt trách nhiệm reducer)**
+- Vấn đề: câu "Một reducer so sánh chéo hai nhóm rồi chỉ xử lý cặp nội bộ thuộc trách nhiệm của nó" đúng về nội dung, nhưng SVG ghi "Cặp nội bộ nhóm u: chỉ giao ở đây" — đúng chỉ khi v=(u+1) mod g; với reducer {u,v} tổng quát (v≠u, v≠u+1) thì reducer này không xét cặp nội bộ nào. SVG đã ghi rõ trường hợp v là nhóm kế tiếp trong desc, nên chỉ cần nhấn mạnh trên slide.
+- Bằng chứng: ch2n 2029–2032; slide s06-03a.
+- Đề xuất: giữ nguyên, thêm "(chỉ khi v=(u+1) mod g)" cạnh dòng "Cặp nội bộ nhóm u" nếu không gian cho phép.
+
+**5. Nhẹ — s05-08 (biên k=961)**
+- Vấn đề: không phải lỗi; xác nhận lại rằng hiệu chỉnh "tại 961 bằng nhau" là đúng toán học (nguồn chỉ nói "preferable provided √k<31"). Đã khai báo trong slide. Chỉ đề xuất giữ nguyên và không ghi là "sửa lỗi nguồn" mà là "làm rõ biên đẳng thức" để tránh hàm ý nguồn sai.
+- Bằng chứng: ch2n 1835–1838.
+- Đề xuất: chỉnh câu chữ "hiệu chỉnh biên đẳng thức" (đã gần đúng).
+
+**6. Nhẹ — s03-07a (trích dẫn trang)**
+- Vấn đề: ghi "trang in 35,37" cho 2.3.7 và Ví dụ 2.4; nguồn đặt Ví dụ 2.4 trong mục 2.3.7 quanh trang 35–37 — chấp nhận được, nhưng slide s03-08 ghi "trang in 33,35,37" gộp Hình 2.5; nên thống nhất một bộ số trang cho cụm nối để tránh nhiễu khi đối chiếu.
+- Đề xuất: rà lại ba slide s03-07a/s03-08/s03-07 dùng cùng chuỗi trang "33,35,37".
+
+##### Flow (vai trò / kết nối vào–ra)
+- Luồng chi phí (s05): vào từ s04-05 (cần quy tắc cộng chi phí trên mạng tác vụ) → s05-01 định nghĩa C=I+M → các ví dụ đếm từ, nối 2 bảng, nối 3 bảng → s05-09 ra vào s06 (đánh đổi tổng chi phí vs tải/reducer). Nhất quán.
+- Luồng 2.6: s06-00 đặt bài → s06-01 định nghĩa q, ρ → s06-02 (cực điểm q=2) → s06-03/s06-03a (gom nhóm, quy tắc cặp nội bộ) → s06-04 kết nối về 2.6.3 (đọc thêm). Nhất quán, không mâu thuẫn với nguồn.
+
+##### Kết luận bắt buộc
+Không có lỗi toán học/thuật toán bắt buộc sửa. Hai mục cần xử lý trước bàn giao: (1) câu mô tả nguồn ở s05-05 (mục 1), (2) kiểm render bốn SVG (mục 3). Các mục còn lại là tinh chỉnh câu chữ.
+
+#### Phản biện giảng dạy — teaching-retry
+
+**Kết luận rà soát (không gọi công cụ, chỉ đọc nội dung 61 slide):** không còn lỗi bắt buộc (blocking) về mặt khoa học; các con số, vết và đáp án tự kiểm đều nhất quán. Bốn vấn đề tối đa sau đây, xếp theo mức độ:
+
+**1. [Trung bình] Thứ tự ID không khớp thứ tự trình bày (DOM)**
+- Vị trí: cụm 2.3 và 2.5.
+- Bằng chứng: `lec02-s05-02` (slide mở đầu "2.5 · Quy ước tính chi phí") đứng trước `lec02-s05-01` (hình + công thức C=I+M); `lec02-s03-07a` và `lec02-s03-08` đứng trước `lec02-s03-07` (thuật toán nối tổng quát).
+- Đánh giá: về sư phạm, trật tự trình bày hiện tại ĐÚNG nguyên tắc "trực giác/ví dụ trước hình thức và giả mã" (bài toán nối → vết → thuật toán; quy ước → công thức). Lỗi nằm ở đánh số ID gây nhầm khi bảo trì/tái sinh slide.
+- Đề xuất: đánh lại ID theo thứ tự DOM (ví dụ đổi s05-01↔s05-02, s03-07↔s03-07a/08), không đổi nội dung.
+
+**2. [Trung bình] Hai slide quá dày cho sinh viên năm hai**
+- Vị trí: `lec02-s03-09` (nhân ma trận–ma trận) và `lec02-s05-06` (bảng chi phí nối ba bảng + giả mã map của cả ba quan hệ + reduce).
+- Bằng chứng: s05-06 chứa bảng 3 quan hệ, công thức C₃, trường hợp b=c=4, và toàn bộ giả mã map/reduce trên một slide.
+- Đề xuất: tách giả mã sang slide riêng hoặc chuyển thành ghi chú; giữ bảng chi phí làm trung tâm (đúng yêu cầu "bảng vết/chi phí là trung tâm").
+
+**3. [Thấp] Trùng lặp lập luận đúng giữa s02-04 và s02-04a**
+- Bằng chứng: cả hai slide đều trình bày mệnh đề, khởi tạo s=0, bất biến cộng dồn, trường hợp kho rỗng.
+- Đề xuất: gộp, hoặc ghi rõ s02-04a là "slide tự ôn/tóm tắt chứng minh" để tránh cảm giác lặp khi giảng 120 phút.
+
+**4. [Thấp] Ký hiệu τ/t và ρ/r cần nhắc chéo**
+- Bằng chứng: s06-00 đã ghi chú đổi t→τ (tránh trùng |S|) và s06-01 đổi r→ρ (tránh trùng |R|); nhưng s05-04/s05-06 vẫn dùng r,s,t là kích thước quan hệ, còn s06-02 dùng B là byte/ảnh trong khi s05-03 dùng B là byte/cặp.
+- Đề xuất: thêm một dòng "bảng ký hiệu" ở s00-03 hoặc s05-02 để SV phân biệt B (byte cặp) và B (byte ảnh), r (|R|) và ρ (tốc độ sao chép).
+
+**Các điểm đã kiểm và đạt:** cơ chế mới (combiner, khóa–tác vụ–máy, lưới reducer 3-way, RDD/lazy evaluation) đều có ví dụ chạy tay trước giả mã; mọi câu hỏi tự kiểm (s02-02, s02-06, s03-08, s04-03, s04-04, s05-09, s06-03a, s06-04) đều có đáp án trong ghi chú, SV năm 2 suy luận được; phân biệt reducer/task/máy rõ (s02-06); phân biệt Reduce Spark (hành động) với reduce theo khóa rõ (s04-05); 9 bài tập đủ, đặt sau mục nguồn — ngoại lệ hợp lệ đã được người dùng chấp nhận; 4 hình bổ sung (mạng tủ, khóa/tác vụ, đồ thị Links, cặp nhóm ảnh) nhất quán với Hình 2.1/2.5/2.6 của nguồn.
+
+#### Kết nối và mạch viết — flow-retry
+
+##### Báo cáo rà soát mạch KẾT NỐI và MẠCH VIẾT (61 slide, chỉ đọc nội dung cung cấp)
+
+Nhận định chung: cấu trúc tổng thể đạt yêu cầu — intro (s00-01…03) → mục 2.1–2.8 đủ 9 section theo đúng thứ tự; mỗi section có slide mở có đánh số "2.x"; bài tập (9 bài: 3×2.2.1, 4×2.3.1, 2.5.1a+c) nằm sau phần nội dung tương ứng, có dòng dẫn hướng "Tiếp: …"/"Trở về tổng kết"; hình đã đặt đúng vị trí kèm chú thích vai trò (ch2-mang-tu-may, ch2-khoi-ban-sao, ch2-khoa-tac-vu, ch2-dai-ma-tran, ch2-noi-hai-canh, ch2-luong-cong-viec, ch2-spark, ch2-chi-phi, ch2-luoi-reducer, ch2-cap-nhom-anh). Các trang được yêu cầu sửa lượt trước (s01-01, s02-06, s03-07a, s06-03a, s07-02) đều đã nêu rõ vai trò hình, kết nối vào/ra và câu dẫn sang trang kế — không còn lỗi bắt buộc ở đó. Còn lại 4 vấn đề về trình tự/dẫn hướng:
+
+**1. (Cao) s05-02 đứng trước s05-01.** Nội dung cung cấp có thứ tự: s05-02 ("2.5 · Quy ước tính chi phí" — slide mở mục) rồi mới s05-01 ("Cộng dữ liệu mà mỗi tầng nhận"). Nếu trình chiếu theo ID, slide nội dung đầu tiên sẽ rơi sau slide mở mục, mạch "mở mục → khái niệm → ví dụ" bị đảo; hơn nữa s05-02 nhắc "Phần 2.5.2 bổ sung…" trong khi s05-01 mới là slide định nghĩa quy ước. Đề xuất: đổi số thành s05-01 (mở mục) và s05-02 (quy ước), hoặc hoán vị vị trí.
+
+**2. (Trung bình) Chuỗi nối s03-07a → s03-08 → s03-07 → s03-07b: ID không theo thứ tự trình bày.** Mạch nội dung đúng (bài toán → vết → thuật toán tổng quát → tính đúng/chi phí; s03-07a viết "Trang sau chạy vết… rồi mới khái quát" và s03-08 viết "…khái quát" hợp lệ), nhưng ID s03-07 nằm sau s03-08 sẽ gây rối khi render/sắp file. Đề xuất: đánh lại s03-07 thành s03-07c để ID khớp thứ tự.
+
+**3. (Trung bình) s08-01 chốt bằng "Bắt đầu bài tập" nhưng không có slide bài tập nào theo sau.** Toàn bộ 9 bài tập đã nằm xen giữa các mục (2.2, 2.3, 2.5) và s07-02 đã dẫn "quay lại bài 2.2.1 rồi chuyển theo liên kết cuối mỗi cụm" — hợp lệ theo ngoại lệ người dùng. Tuy nhiên nút/chữ "Bắt đầu bài tập" cuối slide 2.8 tạo kỳ vọng có cụm bài tập ở cuối deck; người nghe bấm sẽ không thấy gì tiếp theo. Đề xuất: đổi thành "Làm bài tập theo liên kết cuối mỗi mục (2.2.1, 2.3.1, 2.5.1)" hoặc chú thích "quay về s07-02".
+
+**4. (Thấp) Mục 2.4 và 2.6 không có bài tập, không có dòng dẫn giải thích.** s00-02 hứa "Bài tập nằm sau mục nguồn tương ứng và được quay lại trong phần luyện tập"; thực tế chỉ 2.2, 2.3, 2.5 có bài. Không sai về số lượng (9 bài, đúng yêu cầu 52 giảng + 9 bài 120+60'), nhưng s00-02 nên ghi rõ "bài tập tập trung ở 2.2, 2.3, 2.5" để người học không tìm bài ở 2.4/2.6.
+
+**Kết luận:** không có lỗi kết nối/vai trò bắt buộc phải sửa; 4 điểm trên là vấn đề trình tự ID và dẫn hướng cuối deck, sửa bằng đánh số lại (điểm 1–2) và chỉnh một dòng chữ (điểm 3–4).
+
+#### Kiểm định storyboard — storyboard
+
+#### Báo cáo kiểm định storyboard Bài 02 (chỉ đọc, không sửa)
+
+##### Phạm vi đã rà
+Đối chiếu `current-storyboard.md` (đặc tả 61 trang, phần "Bổ sung trực quan", "Quyết định rà cuối") với nội dung deck và 4 SVG mới. Đã tự đếm lại thay vì tin các con số ghi sẵn.
+
+##### Kết quả đối chiếu bắt buộc (không tìm thấy lỗi)
+- **Số trang:** đếm độc lập trên deck: 61 mục `## lec02-` = 52 giảng + 9 bài tập (ex221a–c, ex231a–d, ex251a/c). Khớp ngoại lệ 9 section (intro + 2.1–2.8), bài tập sau mục nguồn.
+- **Thời lượng:** cộng từng trang: giảng s00=5, s01=10, s02=18, s03=30, s04=12, s05=27, s06=12, s07=5, s08=1 → 120 phút; recitation 15+20+25 = 60 phút. Khớp.
+- **61 câu chốt:** đếm được 62 dòng "Câu chốt" (61 trang + 1 trong phần dẫn) — mỗi trang có đúng một câu chốt, nội dung khớp đặc tả.
+- **Mã ổn định:** thứ tự s03-07a → s03-08 → s03-07 → s03-07b và s05-02 → s05-01 đã được biện minh tại dòng 743 ("Không đổi mã chỉ để làm thứ tự số tăng dần") — không phải lỗi.
+- **Mô hình I+M:** s05-01 giữ C=I+M, không đổi sang I+2M+O ✓. Nối hai bảng r=s=4 → 2(r+s)=16 ✓ (s05-04, s07-02(3)).
+- **Links 4 cạnh:** s03-07a SVG vẽ đúng 4 cạnh (url1→url2, url1→url3 nét đứt, url2→url3, url2→url4), không thêm cạnh ✓. Bảng nhóm s03-08: url1 có L2:{2,3}; url2 có L1:{1}, L2:{3,4}; đúng hai kết quả (url1,url2,url3), (url1,url2,url4) ✓.
+- **Cặp nhóm:** s06-03a đánh số 0..g−1, g=1000, giao cặp nội bộ nhóm u cho reducer {u,(u+1) mod g}; đáp án lặp 999 lần khớp mô hình ✓. q là cận trên (s06-01 dòng 745 xác nhận) ✓. ρ không phải DFS: s06-01 "rho tính trung bình, không phải số bản sao DFS"; s01-03 gọi đúng DFS ✓.
+- **Toán s05:** 4r+62r=66r; k=16→12r, k=961→66r; điều kiện k<961 ✓.
+
+##### Các vấn đề phát hiện (tối đa 6)
+
+**1. Mức độ: nhẹ — Trang: dòng 46, `current-storyboard.md`**
+- Vấn đề: Câu "Sáu SVG gồm khối và bản sao, năm dải ma trận, luồng công việc, chuỗi Spark, mô hình chi phí và lưới 4×4" đã lỗi thời: sau lượt bổ sung ngày 14-09-2026 deck có 10 SVG (6 cũ + 4 mới ở bảng dòng 754–757).
+- Bằng chứng: dòng 46 đối chiếu bảng dòng 752–758 liệt kê 4 hình mới (s01-01, s02-06, s03-07a, s06-03a).
+- Đề xuất: sửa "Sáu SVG" thành "Mười SVG" (hoặc liệt kê đủ) để đặc tả khớp hiện trạng.
+
+**2. Mức độ: nhẹ — Trang: lec02-s02-06 (đặc tả dòng 190)**
+- Vấn đề: Đặc tả từng trang ghi "Vai trò và cách thể hiện: Bảng ba cấp" trong khi lượt bổ sung (dòng 755) đã đổi thành "Các vùng máy–tác vụ–nhóm khóa lồng nhau" (SVG). Hai mô tả cùng một trường không đồng bộ.
+- Bằng chứng: dòng 190 vs dòng 755; deck hiện dùng SVG vùng lồng, không còn bảng ba cấp riêng.
+- Đề xuất: cập nhật trường "Vai trò" của s02-06 trong đặc tả chính để trỏ tới SVG.
+
+**3. Mức độ: trung bình (cần kiểm render) — Trang: lec02-s03-07a (SVG đồ thị Links)**
+- Vấn đề: hai rủi ro hiển thị từ mã: (a) hai cung L₂ bắt đầu tại x=506 trong khi rect url2 kết thúc x=515 — mũi tên xuất phát chìm vào trong hình chữ nhật url2; (b) cung nét đứt url1→url3 chạy C qua đỉnh y≈3–53, có thể đè nhãn "Cạnh trực tiếp: một cạnh" (y=31) hoặc viền rect url3 (y=34).
+- Bằng chứng: tọa độ trong SVG: `rect x="385" width="130"` (→515); `path M506 145 L837 77`; `path M123 124 C165 3 645 8 837 53`.
+- Đề xuất: tôi chỉ đọc mã SVG, chưa xem hình render — bắt buộc điều phối viên kiểm bản trình chiếu; nếu đè, dịch nhãn hoặc chỉnh tọa độ.
+
+**4. Mức độ: nhẹ (cần kiểm render) — Trang: lec02-s06-03a (SVG hai nhóm ảnh)**
+- Vấn đề: dòng ngang trong hộp reducer `M375 116 H705` và các dòng chữ "Mọi cặp chéo u–v" (y=155), "Cặp nội bộ nhóm u:" (y=196), "chỉ giao ở đây" (y=232) — hộp chỉ cao tới y=250; dòng 232 sát viền dưới, dễ tràn/chạm viền ở font khác mặc định.
+- Bằng chứng: `rect x="350" y="55" width="380" height="195"` (đáy y=250) vs text y=232.
+- Đề xuất: cần kiểm render thực tế; nếu sát, tăng chiều cao hộp hoặc giảm khoảng cách dòng.
+
+**5. Mức độ: nhẹ (cần kiểm render) — Trang: lec02-s01-01 (SVG hai tủ)**
+- Vấn đề: đường nối từ bộ chuyển mạch `M540 65 V90 H265 V117` chạm đúng biên trên Tủ A tại (265,117) nhưng nhánh sang Tủ B (`M540 90 H815 V117`) cũng kết thúc tại biên; cả hai nhánh không có marker — hình vẫn đọc được, nhưng dòng 51 yêu cầu mọi khối giả mã data-trim (không liên quan SVG); điểm cần kiểm là nhãn "Mạng nội tủ" (y=205) nằm giữa đường ngang y=177 và các chân máy y=220 — có thể chạm chân máy x=125/265/405.
+- Bằng chứng: tọa độ path và text trong SVG.
+- Đề xuất: kiểm render; không sửa mã tại đây.
+
+**6. Mức độ: nhẹ — Trang: lec02-s02-06 (SVG) vs đặc tả nguồn**
+- Vấn đề: SVG ghi "Tác vụ Reduce 1" trên Máy A và "Tác vụ Reduce 2" trên Máy B — đánh số tác vụ toàn cục dễ khiến sinh viên nghĩ "tác vụ 1" và "tác vụ 2" là hai tác vụ toàn cục, trong khi nội dung slide nhấn "một máy có thể chạy nhiều tác vụ" và đánh số chỉ minh họa. Đây là nhận xét hiển thị từ mã: cần kiểm render cách người đọc nhận diện nhãn.
+- Bằng chứng: `text "Tác vụ Reduce 1"` / `"Tác vụ Reduce 2"`; mô tả slide "phân công máy A/B chỉ minh họa".
+- Đề xuất: cân nhắc nhãn "Tác vụ trên máy A" / "Tác vụ trên máy B" nếu render cho thấy nhầm lẫn; quyết định thuộc điều phối viên.
+
+##### Kết luận
+Không có lỗi chặn bàn giao về số trang (61=52+9), 9 section, 120+60 phút, 61 câu chốt, mô hình I+M, r=s=4→16, 4 cạnh Links, q cận trên, ρ trung bình, hay quy tắc cặp nhóm 0..g−1. Hai điểm đồng bộ tài liệu (vấn đề 1–2) và bốn điểm cần kiểm render thực tế (vấn đề 3–6) là những gì tôi phát hiện được với bằng chứng mã; phần hiển thị bắt buộc do người kiểm render xác nhận.
+
+#### Chỉnh sửa riêng — editor
+
+Đã viết 2 tệp, không đụng file khác:
+
+1. **ch2-cap-nhom-anh-final.svg** (3.324 ký tự < 4.500): viewBox 1080×300, role="img", title/desc + aria-labelledby, font 24, palette chuẩn, không raster.
+   - Panel trái 600px "Cặp chéo u–v": 2 ảnh đại diện u (u₁, u₂) nối đủ 4 cặp chéo tới 2 ảnh đại diện v (v₁, v₂) bằng nét liền, đường vô hướng không mũi tên; nhãn "Trích hai ảnh mỗi nhóm" và "v là nhóm kế tiếp u".
+   - Panel phải 430px "Cặp nội bộ nhóm u": cặp u₁–u₂ nối nét đứt màu #B15A2B, nhãn "chỉ giao ở đây"; footer "Bên trong reducer {u, v}". Không vẽ cặp nội bộ nhóm v.
+2. **editor-decisions.md** (2740 bytes < 500 từ): ghi 9 quyết định — vẽ quan hệ bằng nét; bác đánh lại ID (DOM quyết định thứ tự); s05-07 giữ r=s=t trên mặt; s05-06 không chứa giả mã (nằm hai slide trước); không gộp s02-04/s02-04a (giả mã vs chứng minh); không thêm bảng ký hiệu trước khái niệm (tránh quá tải, giữ định nghĩa tại nơi dùng); nhãn chống nhầm với 1000 ảnh/nhóm; hai lỗi nhãn cắn nét và mô tả "Sáu SVG" cũ chuyển điều phối sửa.
+
+#### Rà lại mạch cuối — final-flow
+
+**Kết luận rà soát (không gọi công cụ, dựa trên bản cuối đã cung cấp): không phát hiện lỗi bắt buộc.** Các điểm kiểm chính:
+
+**1. Vai trò và kết nối các slide sửa**
+- **s01-01**: hình hai tủ + bộ chuyển mạch liên tủ khớp Hình 2.1; note nêu rõ số máy không phải quy mô bắt buộc. Kết nối vào từ s00-03, ra sang s01-02 (lỗi máy/tủ) mạch lạc.
+- **s02-06**: câu hỏi "tăng số tác vụ có chia nhỏ danh sách một khóa?" — đáp án "không" nhất quán với khung trang 28; note phân biệt đúng gom reducer vs. tăng tác vụ. Ra sang s02-07 (khôi phục) hợp lý.
+- **s03-07a**: đặt trước s03-08 (vết trên bốn hàng) rồi s03-07 (thuật toán tổng quát) — note s03-07a nói "trang sau chạy vết… rồi khái quát", khớp đúng thứ tự DOM. Hình chỉ chuyển bốn hàng Hình 2.5 thành đồ thị, không thêm cạnh; nhấn mạnh hai đường đi hai cạnh đều qua url2, khớp kết quả s03-08.
+- **s06-03a**: hình hai nhóm kề nhau, nét liền = cặp chéo, nét đứt = cặp nội bộ nhóm u được giao riêng — khớp quy tắc reducer {u, (u+1) mod g} ở s06-03; đáp án câu hỏi 999 lần đúng; cặp nội bộ nhóm v thuộc reducer kế tiếp, không mâu thuẫn.
+- **s07-02**: bốn nhiệm vụ khớp bốn đáp án tự kiểm tra; (2) "url3 có cạnh vào từ L1 nhưng không có cạnh ra ở L2" khớp bảng s03-08; (3) tổng 16 đơn vị khớp s05-04; (4) khớp s06-04.
+
+**2. Liên kết cuối**
+- s08-01: nhãn "Quay lại bài tập 2.2.1", href #/lec02-ex221a — hoạt động, khớp note s07-02 ("sau mục tài liệu tham khảo, quay lại bài 2.2.1"). Chuỗi "Tiếp" (ex221c→ex231a, ex231d→ex251a) và "Trở về tổng kết" (ex251c→s07-01) khép vòng mạch.
+
+**3. Số học đốm thấy, đều đúng**: 5→4 cặp (s02-05); 10¹⁸ và 9,99×10¹⁴ (s06-02/03); 66r=1,98×10¹³ (s05-07); 4+2√k<66 ⟺ k<961 (s05-08); 2(r+s)=16 (s05-04).
+
+**4. Nguyên tắc giữ đúng**: notes không bị đưa lên mặt slide; các giả mã/vết chỉ nằm trong nội dung; nguồn ghi rõ từng slide; 61 câu chốt và thời lượng 120+60 đã đồng bộ theo storyboard.
+
+**Nhận xét không bắt buộc sửa**: liên kết "Tiếp: bài tập thiết kế thuật toán" ở ex221c nhảy tới ex231a vượt qua toàn mục 2.3 — nếu chủ ý là "liên kết cuối mỗi cụm bài tập" thì chấp nhận được, nhưng có thể cân nhắc nhãn rõ hơn (ví dụ "Bài tập 2.3.1 ở cuối mục 2.3") để người học không tưởng nhầm slide kế tiếp trong DOM.
+
+#### Rà lại toán và hình cuối — final-math
+
+##### Kết luận: giữ quyết định của điều phối — Ô (2,1) đúng, không đổi thành (1,0)
+
+**Kiểm chứng Hình 2.8 / Ví dụ 2.15 (nguồn trang 57, nguyên văn):**
+- Hình nguồn: trục hàng và cột ghi **0, 1, 2, 3**; nhãn `h(R.B) = 2`, `g(T.C) = 1`, S-tuple có `h(S.B)=2, g(S.C)=1` → reducer **(2,1)**.
+- Đoạn văn nguồn gửi R tới `(2,y)` với y=1..4 và T tới `(z,1)` với z=1..4 — đây là chỗ **nguồn tự mâu thuẫn** (chỉ số 1..4 không tồn tại trên trục 0..3 của chính hình ấy). Slide đã chuẩn hóa về 0..3 ở cả hình lẫn bảng ở lec02-s05-05a (`0≤y<c`, `0≤z<b`, b=c=4) — nhất quán và đúng bản chất: R vẫn đến 4 ô hàng 2, T đến 4 ô cột 1, chỉ hệ đánh số được làm cho nhất quán. Người review trước đề xuất (2,1)→(1,0) là áp nhầm đoạn văn lỗi của nguồn; điều phối bác là **đúng**.
+
+**Kiểm 4 cạnh Links (s03-07a, s03-08, SVG):** L1: url1→url2, url1→url3; L2: url2→url3, url2→url4. Bảng 4 khóa: url1(—;2,3), url2(1;3,4), url3(1,2;—), url4(2;—) — khớp. Kết quả (url1,url2,url3), (url1,url2,url4) đúng; SVG vẽ đúng 4 cạnh + 1 cạnh trực tiếp nét đứt, không thêm cạnh. Nhóm url3 chỉ có phía L1, không phát — khớp đáp án (2).
+
+**Kiểm đáp án 4 tự kiểm (s07-02):** (1) D2="lớn lớn" → (lớn,2) đúng. (2) đúng như trên. (3) 8+8=16 theo mô hình 2.5.1 đã khai báo — tự nhất quán trong khung slide. (4) 2 GB/reducer chưa đủ kết luận thời gian chạy — đúng hướng.
+
+**Kiểm toán học nhóm ảnh (s06-03/03a):** g=1000, q=2·(N/g)=2000 ✓; N(g−1)B=9,99·10¹⁴ ✓; 999 nơi nhận ✓; cặp nội bộ giao cho reducer chứa nhóm i và (i+1) mod g, tránh lặp 999 lần ✓; hình mới vẽ 4 cặp chéo + cặp nội bộ nét đứt khớp văn bản, v=(u+1) mod g ✓.
+
+**Lỗi bắt buộc còn lại:** không phát hiện.
+
+**Lưu ý không bắt buộc:** (a) nên giữ một chú thích ở s05-05 ghi rõ đoạn văn nguồn trang 57 dùng 1..4 là lệch số với Hình 2.8 (đã có ý này trong ghi chú — đủ); (b) cặp nội bộ nhóm v trong s06-03a chỉ nói bằng chữ "thuộc reducer kế tiếp của v" — hình không vẽ, chấp nhận được.
+
+### Dấu vân tay tệp sản phẩm đã kiểm
+
+| Tệp | SHA-256 |
+|---|---|
+| `slide_authoring_standard.md` | `ae162e45818ac9818581c6ab2acd97600f5997c781dadf1f429925943d261e4d` |
+| `2627-1/lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html` | `eb4e844a45e5dbb2160158c855e6ca210195426593eb17b371ef8b7775ce8fd4` |
+| `2627-1/materials/lec-02/lecture-note.md` | `4fe33c801e90dad29339efc1399632738b61b07035d6f5c1c9534b17eaf81fb2` |
+| `2627-1/planning/lec-02/storyboard.md` | `39f85272a33469be7c4a1532bb09d667b8dda2aff74e6d657f337e5d57100ea3` |
+| `2627-1/planning/lec-02/outline.md` | `50ce609ca0a9bdc23c588d6f6ac8f157509496ef1faf37dc988f7e74601938ac` |
+| `2627-1/index.html` | `3c0eb3e91d49a938e5ee93396f535ed4a9dc5c89cdd4a3322d0e96cd74b9d8e0` |
+| `2627-1/img/lec-02/ch2-cap-nhom-anh.svg` | `3820753089ed367ca689e6fee13d3241ae2ec3fa0812bd05c0f63c86e23eeab1` |
+| `2627-1/img/lec-02/ch2-chi-phi.svg` | `9b43b912a15b38e45f24ef753797417a5ea740acaf1bd90225467b3d79593529` |
+| `2627-1/img/lec-02/ch2-dai-ma-tran.svg` | `99b16a504e88f39d1a8052ba3a935aac81b5d1ce9dbfb9454095a87279c45e97` |
+| `2627-1/img/lec-02/ch2-khoa-tac-vu.svg` | `9c630da5583bad4fa3cecaf768edbb03bd4c2d7530203f0e7a24ac8ba9679124` |
+| `2627-1/img/lec-02/ch2-khoi-ban-sao.svg` | `d27722d97b16a8d77b3d9ca141941114d24e9c26a8ad56badc01c923068f9dac` |
+| `2627-1/img/lec-02/ch2-luoi-reducer.svg` | `b2a48571893199e0e064a51a8eb77e04c953ae36c3958202fbb26c150c458b8d` |
+| `2627-1/img/lec-02/ch2-luong-cong-viec.svg` | `289e68d7e0b8ed0f4ab5e9f40d5805199f6dad26b864f596f9216c0338a29366` |
+| `2627-1/img/lec-02/ch2-mang-tu-may.svg` | `08f5e57a8f110a77628e744efed457fd8dd9d78330d860fff12b3a10ddf748f3` |
+| `2627-1/img/lec-02/ch2-noi-hai-canh.svg` | `ff9494d823545b2563afb3b4568cc22a52dba025eae7885d3370427a3924cd81` |
+| `2627-1/img/lec-02/ch2-spark.svg` | `9cc87f2f568eca934340c67e3a02c41ddb2fe973e56a0c60af14519ce99fcd20` |
+| `2627-1/img/lec-02/scripts/render-concept-diagrams.py` | `3e4c7968dd21fea86f7f37405ef1b9830673e04ffb333706472377b288b1ff22` |
