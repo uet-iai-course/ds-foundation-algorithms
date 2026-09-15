@@ -368,77 +368,134 @@ dem.saveAsTextFile(thu_muc_ket_qua)</code></pre>
 </section>
 </section>
 <section aria-label="Mục 2.5">
-<section id="lec02-s05-02" data-slide-id="lec02-s05-02"><h2>2.5 · Quy ước tính chi phí</h2>
-<table><thead><tr><th>Thành phần mô hình</th><th>Quy ước của mục 2.5</th></tr></thead><tbody><tr><td>Đại lượng và phạm vi</td><td>Tổng kích thước đầu vào mọi tác vụ của thuật toán</td></tr><tr><td>Đơn vị</td><td>Byte; hoặc bộ/cặp chuẩn hóa cùng một đơn vị</td></tr><tr><td>Đọc và sao chép</td><td>Mỗi lần nhận tính một lần, kể cả đọc cục bộ</td></tr><tr><td>Đầu ra cuối</td><td>Chỉ tính khi được một tác vụ tiếp theo đọc</td></tr></tbody></table><p>Đây là mô hình so sánh lượng dữ liệu; thời gian hoàn thành còn phụ thuộc tải, CPU và bộ nhớ.</p>
-<aside class="notes"><p>Khi bộ và cặp có độ dài khác nhau, phải nhân mỗi số lượng với số byte tương ứng. Bài dùng đơn vị chuẩn hóa để nhìn hệ số sao chép, đúng cách nguồn bỏ qua hệ số kích thước cố định. Chi phí tổng không bằng đường truyền của tác vụ chậm nhất. Một thuật toán có ít dữ liệu tổng hơn vẫn có thể chậm do một khóa nóng hoặc công việc nối tiếp. Chi phí đầu ra lớn không biến mất trong hệ thống thật chỉ vì quy ước này không cộng trực tiếp. Phần 2.5.2 bổ sung kích thước đầu vào lớn nhất của một tác vụ làm thước đo tường thời gian trong mô hình phù hợp.</p><p>Nguồn: MMDS, Chương 2, 2.5.1–2.5.2, trang in 53–56.</p></aside>
+<section id="lec02-s05-02" data-slide-id="lec02-s05-02"><h2>2.5 · Đếm dữ liệu mỗi tác vụ nhận</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-input-intro.svg" alt="Hai tài liệu vào Map; năm cặp vào Reduce. Bộ đếm ở đầu vào mỗi tầng."/><p>Dùng lại D1 “dữ liệu lớn” và D2 “lớn lớn” ở mục 2.2.</p><p>Đếm lượng dữ liệu mỗi tác vụ nhận, kể cả đọc cục bộ.</p>
+<aside class="notes"><p>D1 phát ba cặp (dữ,1), (liệu,1), (lớn,1); D2 phát hai cặp (lớn,1). Chưa gộp cục bộ, Reduce nhận đủ năm cặp. Bộ đếm đo kích thước dữ liệu chứ không chỉ số tài liệu. Đặt tại nơi nhận để mỗi lần một tác vụ đọc được tính một lần.</p><p>Nguồn: MMDS, Ví dụ 2.1, trang 25–26; mô hình 2.5.1, trang 53–55. D1/D2 là minh họa Việt hóa đã dùng ở mục 2.2.</p></aside>
 </section>
-<section id="lec02-s05-01" data-slide-id="lec02-s05-01"><h2>Cộng dữ liệu mà mỗi tầng nhận</h2>
-<img class="figure" src="img/lec-02/ch2-chi-phi.svg" alt="Đầu vào I đến Map; trung gian M đến Reduce. Mỗi tầng nhận dữ liệu được đếm một lần."/><p>$I$: tổng kích thước đầu vào Map; $M$: tổng kích thước đầu vào Reduce, cùng đơn vị.</p><div class="math-large">$C=\sum_{\text{tác vụ }u}|\operatorname{in}(u)|=I+M$</div><p>$M$ ở đây là kích thước trung gian, không phải ma trận.</p>
-<aside class="notes"><p>Mục 2.5 chọn chi phí truyền thông của một tác vụ bằng kích thước đầu vào, kể cả đọc cục bộ; tổng của thuật toán là tổng trên các tác vụ. Chọn đơn vị trước: byte hoặc đơn vị bản ghi chuẩn hóa. M ở đây là kích thước dữ liệu trung gian Reduce nhận, đã tính số bản sao; không phải ma trận M ở mục 2.3. Đầu ra cuối chưa được đếm riêng trong quy ước này; nếu được công việc sau đọc thì trở thành đầu vào và được đếm ở đó. Không đổi sang I+2M+O mà vẫn gọi là mô hình sách. Đây là mô hình để so sánh thuật toán, không phải đo chính xác mọi byte mạng hay thời gian thực thi.</p><p>Nguồn: MMDS, Chương 2, 2.5.1, trang in 53–55.</p></aside>
+
+<section id="lec02-s05-01" data-slide-id="lec02-s05-01"><h2>Từ hai bộ đếm đến tổng chi phí</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-input.svg" alt="I là đầu vào Map, M là trung gian đến Reduce; C = I + M."/>
+<p>$I$: tổng byte vào Map; $M$: tổng byte vào Reduce (không phải ma trận).</p>
+<div class="math-large">$C = I + M$</div>
+<aside class="notes"><p>Mô hình 2.5.1: chi phí truyền thông của một tác vụ bằng kích thước đầu vào của nó, kể cả đọc cục bộ; cộng trên mọi tác vụ. Đầu ra cuối chỉ được đếm khi một tác vụ sau đọc nó, tức trở thành đầu vào của tác vụ đó. $M$ ở đây là kích thước trung gian Reduce nhận, không phải ma trận $M$ ở mục 2.3; khác mô hình $I+2M+O$ của slide tham khảo. Nguồn: MMDS, 2.5.1, trang in 53–55.</p></aside>
 </section>
-<section id="lec02-s05-03" data-slide-id="lec02-s05-03"><h2>Đếm từ: theo dữ liệu qua hai tầng</h2><p>$I$ tính bằng byte; giả sử mỗi cặp trung gian dài $B$ byte.</p>
-<table><thead><tr><th>Đại lượng</th><th>Chưa gộp</th><th>Có gộp trong D2</th></tr></thead><tbody><tr><td>Đầu vào Map</td><td>$I$</td><td>$I$</td></tr><tr><td>Cặp đến Reduce</td><td>5</td><td>4</td></tr><tr><td>Chi phí (byte)</td><td>$I+5B$</td><td>$I+4B$</td></tr></tbody></table>
-<aside class="notes"><p>Dùng lại dữ liệu nhỏ cụ thể hóa cơ chế đếm từ của Ví dụ 2.1: D1 chứa dữ, liệu, lớn; D2 chứa lớn, lớn. Hai chuỗi do bài giảng chọn để minh họa, không phải chuỗi trích nguyên văn sách. Mỗi lần xuất hiện phát một cặp; D2 cộng hai cặp cùng từ thành (lớn,2). I là kích thước đầu vào tính trong cùng đơn vị với cặp chuẩn hóa, không mặc định hai tài liệu là hai byte hoặc hai bản ghi cùng cỡ cặp. Nếu cặp có độ dài B byte như nhau thì phần trung gian là 5B và 4B. Ví dụ minh họa phép cộng chi phí, không đưa ra mức giảm thực tế cho một kho tài liệu.</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.1, 2.2.4 và mô hình 2.5.1; phần trích minh họa được ghi trong storyboard.</p></aside>
+
+<section id="lec02-s05-03" data-slide-id="lec02-s05-03"><h2>Năm cặp trung gian tạo 5B byte</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-five.svg" alt="D1 phát ba cặp dữ một, liệu một, lớn một; D2 phát hai cặp lớn một, mỗi cặp dài B byte."/><p>Giả sử mỗi cặp dài $B$ byte: $M=3B+2B=5B$.</p><div class="math-large">$C=I+5B$</div>
+<aside class="notes"><p>Đếm từng ô trên hình: ba cặp của D1, hai cặp của D2. Không loại các cặp lặp vì chúng biểu diễn những lần xuất hiện khác nhau. B là giả thiết kích thước cố định để minh họa phép đếm, không phải độ dài thực của mọi từ. I là tổng byte văn bản đầu vào Map.</p><p>Nguồn: MMDS, Ví dụ 2.1, trang 25–26; 2.5.1, trang 53–55.</p></aside>
 </section>
-<section id="lec02-s05-03a" data-slide-id="lec02-s05-03a"><h2>Ma trận–vector: đếm đầu vào từng tầng</h2>
-<p>Không gộp cục bộ; dùng đơn vị bản ghi chuẩn hóa.</p><p>$z$: số phần tử ma trận được lưu; $L_j$: độ dài dải vector $j$;<br/>$a_j$: số tác vụ Map đọc dải đó.</p><table><thead><tr><th>Nơi nhận</th><th>Lượng dữ liệu</th><th>Lý do</th></tr></thead><tbody><tr><td>Map: ma trận</td><td>$z$</td><td>Mỗi phần tử đọc một lần</td></tr><tr><td>Map: vector</td><td>$\sum_j a_jL_j$</td><td>Dải $j$ được đọc $a_j$ lần</td></tr><tr><td>Reduce</td><td>$z$</td><td>Mỗi phần tử tạo một tích</td></tr></tbody></table>
-<aside class="notes"><p>Quay lại sơ đồ chia dải ở 2.3. Mỗi tác vụ đọc phần ma trận được giao và toàn dải vector tương ứng. Ở trang này j đánh số dải, không còn là chỉ số cột trong công thức nhân ma trận. Đơn vị chuẩn hóa coi một phần tử lưu, một phần tử vector và một cặp tích có chi phí một đơn vị. Đây là quy ước phân tích, không khẳng định chúng có cùng số byte. Không cộng kết quả cuối vì mô hình chỉ cộng đầu vào tác vụ.</p><p>Nguồn: MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32,54–55,59.</p></aside>
+
+<section id="lec02-s05-04" data-slide-id="lec02-s05-04"><h2>Gộp trong D2 bớt một cặp</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-combine.svg" alt="Hai cặp (lớn,1) gộp thành (lớn,2): 4 cặp đến Reduce thay vì 5."/>
+<p>Hai cặp $(\text{lớn},1)$ gộp cục bộ thành $(\text{lớn},2)$: còn 4 cặp, $3+1=4$.</p>
+<div class="math-large">$C = I + 4B$</div>
+<aside class="notes"><p>$I$ không đổi vì Map vẫn nhận cùng hai tài liệu; $B$ cố định như trước nên phần trung gian giảm từ 5B xuống 4B; kết quả lớn = 3 không đổi. Gộp chỉ giảm số cặp gửi đi, không giảm đầu vào. Nguồn: MMDS, Ví dụ 2.1 và 2.5.1, trang in 53–55.</p></aside>
 </section>
-<section id="lec02-s05-03b" data-slide-id="lec02-s05-03b"><h2>Chi phí đọc lặp dải vector</h2>
-<p>Cộng ba dòng trong bảng đầu vào:</p><div class="math-large">$C=2z+\sum_j a_jL_j$</div><table><thead><tr><th>Cách phân công</th><th>Chi phí chuẩn hóa</th></tr></thead><tbody><tr><td>Mỗi dải có một tác vụ; tổng độ dài là $n$</td><td>$2z+n$</td></tr><tr><td>Mỗi dải có $a$ tác vụ</td><td>$2z+an$</td></tr></tbody></table><p>Chia thêm tác vụ có thể làm tăng số lần đọc vector.</p>
-<aside class="notes"><p>Hai dòng là hai trường hợp đại số của cùng công thức, không phải số đo thực nghiệm. Nếu ma trận đặc thì z=n². Với kích thước mỗi bộ ma trận B_M, phần tử vector B_v, cặp tích B_P tính bằng byte: C=zB_M+(Σ_j a_jL_j)B_v+zB_P. Bài tập yêu cầu tự giải thích điều kiện của các số hạng; không mặc định vector chỉ đọc một lần. Tổng dữ liệu đọc không đủ suy ra thời gian hoàn thành hoặc bộ nhớ mỗi tác vụ.</p><p>Nguồn: MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32,54–55,59.</p></aside>
+
+<section id="lec02-s05-03a" data-slide-id="lec02-s05-03a"><h2>Ma trận: một lần đọc, một lần nhận tích</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-matrix.svg" alt="z phần tử ma trận vào Map; mỗi phần tử tạo một cặp tích, z cặp vào Reduce."/>
+<p>Đơn vị chuẩn hóa: mỗi bộ ma trận, số vector hoặc cặp tích tính một đơn vị.</p><p>$z$: số phần tử ma trận được lưu. $z$ bộ vào Map; mỗi bộ tạo một tích, nên $z$ cặp vào Reduce.</p>
+<aside class="notes"><p>Giả thiết: đơn vị bản ghi chuẩn hóa — mỗi bộ ma trận, mỗi số vector và mỗi cặp tích có chi phí một đơn vị; chưa cộng vector, chưa cộng kết quả cuối vì mô hình chỉ cộng đầu vào tác vụ. Nguồn: MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32, 54–55, 59.</p></aside>
 </section>
-<section id="lec02-s05-09" data-slide-id="lec02-s05-09"><h2>Tổng chi phí và tải lớn nhất</h2>
-<div class="grid2"><div class="card"><h3>Tổng</h3><p>Cộng đầu vào của mọi tác vụ.</p><p>Cho biết lượng công việc truyền/đọc.</p></div><div class="card"><h3>Tác vụ nặng nhất</h3><p>Xem đầu vào và phép tính cục bộ.</p><p>Kiểm tra lệch khóa và bộ nhớ.</p></div></div><p class="check"><strong>Câu hỏi:</strong> Tổng chi phí giảm có đủ để kết luận bài toán chạy nhanh hơn không?</p>
-<aside class="notes"><p>Đáp án không. Cần lịch thực thi, số máy, tải nặng nhất, thời gian CPU, bộ nhớ và kết quả đầu ra. Phần 2.5.2 giới thiệu tổng chi phí và chi phí theo thời gian thực như hai thước đo khác nhau. Với nhân ma trận–vector, thêm tác vụ có thể tăng số lần đọc dải vector. Phần tiếp theo đặt tên hai đại lượng để mô tả đánh đổi này.</p><p>Nguồn: MMDS, Chương 2, 2.5.2 và chuyển sang 2.6, trang in 55–56,61.</p></aside>
+
+<section id="lec02-s05-03c" data-slide-id="lec02-s05-03c"><h2>Một dải vector có thể được đọc nhiều lần</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-stripe.svg" alt="Dải L_j được 2 tác vụ Map đọc: tổng 2L_j; tổng quát a_j tác vụ đọc a_j L_j."/>
+<p>$j$ là chỉ số dải; $L_j$ là số phần tử của dải đó.</p>
+<div class="math-large">Tổng quát: $a_j$ tác vụ đọc $\Rightarrow$ $a_j L_j$</div>
+<aside class="notes"><p>Định nghĩa: $j$ chỉ là chỉ số của dải, không phải chỉ số cột của phép nhân ma trận; $a_j$ là số tác vụ đọc dải đó. Giả thiết: vector được lưu một bản không đồng nghĩa với chỉ đọc một lần — mỗi tác vụ đọc toàn dải nó cần. Nguồn: MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32, 54–55, 59.</p></aside>
 </section>
+
+<section id="lec02-s05-03b" data-slide-id="lec02-s05-03b"><h2>Ghép ba khoản chi phí</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-sum.svg" alt="Ba khoản: ma trận z, vector Σ a_j L_j, tích z; tổng C = 2z + Σ a_j L_j."/>
+<div class="math-large">$C = 2z + \sum_j a_j L_j$</div>
+<p>Đơn vị bản ghi chuẩn hóa: mỗi bộ, số và cặp là một đơn vị.</p>
+<aside class="notes"><p>Trường hợp quen thuộc: mỗi dải một tác vụ và $\sum_j L_j = n$ cho $2z+n$; mỗi dải $a$ tác vụ cho $2z+an$. Khi tính bằng byte: $C = zB_M + (\sum_j a_jL_j)B_v + zB_P$ với kích thước $B_M, B_v, B_P$. Nguồn: MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32, 54–55, 59.</p></aside>
+</section>
+
+<section id="lec02-s05-09" data-slide-id="lec02-s05-09"><h2>Tổng dữ liệu và nơi nhận nhiều nhất</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-load.svg" alt="R0 nhận dữ, liệu (2 giá trị); R1 nhận lớn 3 lần (3 giá trị). Tổng 5, nhiều nhất 3."/>
+<p>Đầu vào Reduce, chưa gộp: tổng $5B$ byte; lớn nhất $3B$ byte mỗi tác vụ.</p>
+<p class="check"><strong>Câu hỏi:</strong> Tổng giảm có đủ để suy ra nhanh hơn không?</p>
+<aside class="notes"><p>Đáp án không: cần thêm tải nơi nhận nhiều nhất, số máy, CPU, bộ nhớ. Trong ví dụ R0 nhận 2 giá trị (dữ, liệu), R1 nhận 3 giá trị (lớn), đúng cách đếm ở 2.2. Nếu gộp D2: R0=2, R1=2 giá trị (từ D1 lớn 1 và D2 lớn 2), tổng 4B, max 2B — R1 vẫn nhận 2, không phải 1. Chuyển sang 2.6: đổi cách phân công để giảm bản gửi nhưng làm tăng dữ liệu một nơi nhận. Nguồn: MMDS, 2.5.2 và chuyển 2.6, trang in 55–56, 61.</p></aside>
+</section>
+
 <section id="lec02-ex251a" data-slide-id="lec02-ex251a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.5.1(a) · Nhân ma trận–vector</h2>
 <p>Xét thuật toán chia dải ở mục 2.3.2.</p><p class="check"><strong>Câu hỏi:</strong> Biểu diễn chi phí truyền thông theo kích thước ma trận và vector.</p><p><strong>Sản phẩm:</strong> bảng đầu vào Map/Reduce; nêu số lần đọc từng dải vector.</p>
 <aside class="notes"><p>Gọi z là số phần tử ma trận được lưu, L_j là độ dài dải vector j, a_j là số Map task cần đọc dải đó. Mỗi bộ ma trận được đọc một lần, nên Map đọc z+Σ_j a_j L_j đơn vị chuẩn hóa; mỗi bộ tạo một tích, Reduce đọc z. Tổng C=2z+Σ_j a_j L_j. Nếu mỗi dải dùng đúng một Map task và Σ_j L_j=n thì C=2z+n. Nếu có nhiều task cho một dải, không được mặc định vector chỉ đọc một lần. Nếu ma trận đặc z=n². Nếu phân biệt kích thước bộ ma trận, số vector và cặp trung gian bằng B_M,B_v,B_P byte, C=zB_M+(Σ_j a_jL_j)B_v+zB_P. Chưa dùng gộp cục bộ tích theo hàng. Kết quả vector cuối không được đếm trực tiếp theo mô hình này. Hướng dẫn chấm: định nghĩa đơn vị và số lần đọc; đếm Map; đếm Reduce; kết luận điều kiện 2z+n.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.5.1(a), trang in 59 / PDF 40; 2.3.2.</p></aside>
 <p><a href="#/lec02-s07-01">Trở về tổng kết</a></p>
 </section>
 </section>
+
 <section aria-label="Mục 2.6">
-<section id="lec02-s06-00" data-slide-id="lec02-s06-00"><h2>2.6 · Tìm các cặp ảnh tương tự</h2><p>Đầu vào: $N=10^6$ ảnh $P_1,\ldots,P_N$, mỗi ảnh $B=10^6$ byte.</p><p>Cho hàm độ tương tự đối xứng $s$ và ngưỡng $\tau$.</p><p>Trả mỗi cặp $(i,j)$ có $i&lt;j$ và $s(P_i,P_j)&gt;\tau$ đúng một lần.</p><div class="grid2"><div class="card"><h3>Mỗi reducer một cặp</h3><p>Mỗi ảnh phải gửi đến nhiều nơi.</p></div><div class="card"><h3>Mỗi reducer hai nhóm</h3><p>Dùng lại ảnh đã nhận, nhưng cần giữ nhiều ảnh hơn.</p></div></div><p>Trong mô hình nguồn, phải tính độ tương tự cho mọi cặp; chưa có cách bỏ qua cặp.</p><aside class="notes"><p>Ký hiệu tau là ngưỡng độ tương tự; s là hàm độ tương tự. Tính đối xứng cho phép xét cặp không thứ tự và bỏ cặp tự so sánh. Không định nghĩa một hàm màu cụ thể ngoài nguồn. Đầu ra chỉ là các cặp vượt ngưỡng, dù mọi cặp được kiểm tra.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 62–63.</p></aside></section>
-<section id="lec02-s06-01" data-slide-id="lec02-s06-01"><h2>Đầu vào mỗi reducer và số lần sao chép</h2>
-<table><thead><tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr></thead><tbody><tr><td>$q$</td><td>Số giá trị đầu vào tối đa của một reducer</td></tr><tr><td>$\rho$</td><td>Số cặp trung gian trung bình trên một đầu vào</td></tr></tbody></table><div class="math-large">$\rho=\frac{\text{tổng số cặp phát}}{\text{số đầu vào}}$</div><p>Giảm dữ liệu ở từng reducer có thể đòi hỏi gửi nhiều bản sao hơn.</p>
-<aside class="notes"><p>q là cận trên cho mọi nhóm. Trong hai cách chia đều sắp xét, mọi reducer đều nhận đúng q ảnh nên cận đạt bằng. Sách dùng r cho tốc độ sao chép; bài dùng ký hiệu rho cho đại lượng này. q đếm số giá trị, không trực tiếp là byte RAM. Nếu một giá trị có B byte và mọi giá trị được giữ đồng thời, tải dữ liệu là qB, chưa gồm cấu trúc phụ và mã. Đây là mô hình phân tích một vòng, không mô tả mọi chi phí của một cụm. Mỗi đầu vào có thể tạo nhiều cặp đến các reducer khác nhau; rho tính trung bình, không phải số bản sao DFS.</p><p>Nguồn: MMDS, Chương 2, 2.6.1, trang in 61.</p></aside>
+<section id="lec02-s06-00" data-slide-id="lec02-s06-00"><h2>2.6 · Phân chia ảnh để giảm số bản gửi</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-image-task.svg" alt="Hai ảnh được hàm độ tương tự s đánh giá; giữ cặp nếu vượt ngưỡng tau."/>
+<p>$N=10^6$ ảnh; $B=10^6$ byte/ảnh. $B$ ở đây đo ảnh, không còn đo cặp từ.</p><p>Cho độ tương tự đối xứng $s$ và ngưỡng $\tau$. Trả mỗi cặp $i&lt;j$ có $s(P_i,P_j)&gt;\tau$ đúng một lần.</p><p>Mọi cặp ảnh khác nhau đều phải được xét.</p>
+<aside class="notes"><p>Giả thiết: trong mô hình nguồn, mọi cặp đều phải được xét; chưa có cách bỏ qua cặp. Đối xứng của s cho phép xét cặp không thứ tự. Nguồn: MMDS, 2.6.2, trang in 62–63.</p></aside>
 </section>
-<section id="lec02-s06-02" data-slide-id="lec02-s06-02"><h2>Mỗi reducer xử lý một cặp ảnh</h2>
-<p>Với mỗi ảnh $(i,P_i)$, Map gửi nó tới khóa $\{i,j\}$ cho mọi $j\ne i$. Reducer của khóa đó nhận hai ảnh.</p><p>Reduce tính $s(P_i,P_j)$ và phát cặp nếu vượt $\tau$.</p><table><thead><tr><th>Đếm</th><th>Kết quả</th></tr></thead><tbody><tr><td>Ảnh mỗi reducer</td><td>$q=2$</td></tr><tr><td>Nơi nhận mỗi ảnh</td><td>$\rho=N-1=999999$</td></tr><tr><td>Byte trung gian</td><td>$N(N-1)B\approx10^{18}$</td></tr></tbody></table><p>Phạm vi: dữ liệu ảnh Map gửi tới Reduce; chưa cộng đầu vào Map $NB$.</p>
-<aside class="notes"><p>Nguồn xét kho một triệu ảnh; mỗi cặp cần được so sánh theo tiêu chí đã chọn, chẳng hạn phân bố màu; đầu ra gồm các cặp khác nhau vượt ngưỡng tương tự; phải kiểm tra mọi cặp vì chưa có cách bỏ qua cặp. Số reducer khái niệm là N(N-1)/2, mỗi reducer nhận 2 ảnh nên số bản gửi là N(N-1). q nhỏ nhưng số bản sao rất lớn. Công thức đang tính phần trung gian theo rho, không bao gồm đầu vào Map NB; nếu dùng tổng mô hình phần trước phải cộng NB. Những con số chỉ là dữ kiện ví dụ sách, không đo thời gian cụm thực.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 62–63.</p></aside>
+
+<section id="lec02-s06-02" data-slide-id="lec02-s06-02"><h2>Một ảnh phải đến nhiều cặp</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-four.svg" alt="Bốn ảnh và sáu khóa cặp: mỗi ảnh đến ba khóa, mỗi khóa nhận hai ảnh."/><p>Trong hình: mỗi ảnh gửi đến 3 khóa; mỗi khóa nhận 2 ảnh.</p><p>Với $N$ ảnh, Map gửi $P_i$ đến mọi khóa $\{i,j\}$, $j\ne i$.</p>
+<aside class="notes"><p>Map(i,P_i): duyệt mọi j khác i, phát (cặp chỉ số đã sắp tăng, (i,P_i)). Reduce của khóa {i,j} nhận đúng hai ảnh, tính s(P_i,P_j), phát (i,j) nếu vượt tau. Mỗi cặp có duy nhất khóa nên được xét đúng một lần. Các vòng duyệt hữu hạn; giả sử s kết thúc. Nếu N nhỏ hơn hai, không phát cặp nào.</p><p>Hình bốn ảnh dùng lại Ví dụ 2.19, Hình 2.9, mục 2.6.3, trang 64–65; đưa lên đây để chạy tay thuật toán mục 2.6.2, trang 62–63. Bốn ảnh có ba nơi nhận mỗi ảnh; không nhầm với 999999 nơi của kho một triệu ảnh.</p></aside>
 </section>
-<section id="lec02-s06-03" data-slide-id="lec02-s06-03"><h2>Gom nhóm để dùng lại mỗi ảnh</h2>
-<p>Chia đều $N=10^6$ ảnh vào $g=1000$ nhóm; mỗi nhóm có 1000 ảnh.</p><p>Map gửi ảnh thuộc nhóm $u$ tới mọi khóa $\{u,v\}$ với $v\ne u$. Mỗi reducer nhận hai nhóm.</p><table><thead><tr><th>Đếm</th><th>Phép tính</th></tr></thead><tbody><tr><td>Ảnh mỗi reducer</td><td>$q=2(N/g)=2000$</td></tr><tr><td>Nơi nhận mỗi ảnh</td><td>$\rho=g-1=999$</td></tr><tr><td>Byte trung gian</td><td>$N(g-1)B=9{,}99\cdot10^{14}$</td></tr></tbody></table><p>Dùng lại ảnh đã nhận để so sánh nhiều cặp. Bước Reduce phải bao phủ cả cặp khác nhóm và cùng nhóm.</p>
-<aside class="notes"><p>Mỗi reducer nhận hai nhóm nên dữ liệu ảnh là 2000×10^6=2×10^9 byte, chưa tính chi phí phụ. Mỗi ảnh gửi tới 999 reducer. Các cặp khác nhóm được xét ở duy nhất reducer của hai nhóm. Cặp trong cùng nhóm phải xét đúng một nơi: đánh số nhóm 0..g-1, giao cặp nội bộ nhóm i cho reducer nhận nhóm i và nhóm (i+1) modulo g, theo quy tắc nguồn. Không để mọi reducer chứa nhóm i đều so sánh nội bộ vì sẽ lặp 999 lần. Số phép so sánh ảnh cần thiết vẫn là N(N-1)/2; lợi ích nằm ở dùng lại ảnh đã nhận. Đây không phải giảm từ bậc hai xuống tuyến tính cho số cặp phải kiểm tra.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, Ví dụ 2.18, trang in 63–64.</p></aside>
+
+<section id="lec02-s06-02a" data-slide-id="lec02-s06-02a"><h2>Từ số bản gửi đến số byte</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-bytes-pair.svg" alt="Ba yếu tố nhân: N ảnh × (N−1) nơi nhận mỗi ảnh × B byte mỗi ảnh."/>
+<p>Chỉ tính tải ảnh trung gian; chưa gồm đầu vào Map $NB$ và nhãn cặp.</p>
+<div class="math-large">$N(N-1)B \approx 10^{18}$ byte</div>
+<aside class="notes"><p>Phạm vi: chỉ tính tải ảnh trung gian Map gửi Reduce; chưa gồm đầu vào Map $NB$ và nhãn/chi phí phụ. Với bốn ảnh: $4\times3\times B=12B$. Nếu cộng theo mô hình 2.5 thì thêm $NB$. Nguồn: MMDS, 2.6.2, trang in 62–63.</p></aside>
 </section>
-<section id="lec02-s06-03a" data-slide-id="lec02-s06-03a"><h2>Bao phủ mọi cặp, mỗi cặp đúng một nơi</h2>
-<p>Cặp khác nhóm $u,v$ do reducer $\{u,v\}$ so sánh. Hình xét $v=(u+1)\bmod g$.</p>
-<img class="figure" style="max-height:260px" src="img/lec-02/ch2-cap-nhom-anh.svg" alt="Bên trong reducer của hai nhóm kề nhau: trích hai ảnh mỗi nhóm, bốn cặp chéo nối nét liền; cặp nội bộ nhóm u nối nét đứt và chỉ được giao ở đây."/>
-<p>Nhóm đánh số $0,\ldots,g-1$, $g=1000$. Mỗi cặp được xét một lần; vẫn cần $N(N-1)/2$ phép so sánh.</p>
-<p class="check"><strong>Câu hỏi:</strong> Nếu bỏ quy tắc giao riêng, một cặp nội bộ bị xét mấy lần?</p>
-<aside class="notes"><p>Hình minh họa trường hợp hai nhóm kề nhau theo vòng. Mỗi ký hiệu ảnh là một phần trích, không biểu diễn đầy đủ 1000 ảnh của nhóm. Nét nối phân biệt cặp chéo với cặp nội bộ nhóm u được giao riêng. Cặp nội bộ nhóm v thuộc reducer kế tiếp của v; phát kết quả chỉ khi độ tương tự vượt ngưỡng tau.</p><p>Đáp án g−1=999 lần. Quy tắc giao cặp nội bộ chỉ cho một reducer khắc phục việc lặp. Cặp chéo có duy nhất cặp nhóm, cặp nội bộ có duy nhất nơi được giao; hai loại không giao nhau và phủ mọi cặp khác ảnh. Dữ liệu hữu hạn nên dừng. Một reducer so sánh chéo hai nhóm rồi chỉ xử lý cặp nội bộ thuộc trách nhiệm của nó. Đổi số nhóm 1..g trong nguồn thành 0..g−1 để nhất quán; lấy modulo xử lý nhóm cuối. Số thao tác ngoài so sánh và chi phí hàm s không được suy ra chỉ từ số byte truyền.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 63–64.</p></aside>
+
+<section id="lec02-s06-01" data-slide-id="lec02-s06-01"><h2>Đặt tên hai đại lượng vừa đếm</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-qr.svg" alt="Nhắc lại: P1 đến 3 nơi; mỗi nơi nhận 2 ảnh — hai con số là q và ρ."/>
+<p>$q$: cận trên số giá trị nhận tại một khóa Reduce; $\rho$: số cặp phát trung bình trên mỗi đầu vào.</p>
+<p>Với bốn ảnh: $q=2$, $\rho=3$; toàn $N$ ảnh: $q=2$, $\rho=N-1$.</p>
+<aside class="notes"><p>Giả thiết: $q$ đếm số giá trị theo khóa, không phải số máy hay số tác vụ Reduce — một khóa một khái niệm (tr64 phân biệt reducer và Reduce task). Đại lượng $\rho$ là trung bình số cặp phát trên mỗi đầu vào; trong ví dụ bốn ảnh, mỗi khóa nhận 1 bản của mỗi ảnh nên $\rho$ cũng bằng số nơi nhận/ảnh — không khái quát hóa với mọi thuật toán. Số bản gửi này không phải số bản sao khối trong hệ tệp; $qB$ chỉ là tải ảnh nhận, không có nghĩa toàn bộ nằm trong RAM. Nguồn: MMDS, 2.6.1–2.6.2, trang in 61–63.</p></aside>
 </section>
-<section id="lec02-s06-03b" data-slide-id="lec02-s06-03b">
-  <h2>Số phép so sánh khi gom nhóm ảnh</h2>
-  <p>Mỗi lần gọi $s$ tính một phép so sánh; chưa quy đổi thành giây.</p>
-  <table><thead><tr><th>Cách chia</th><th>Tổng lần gọi $s$</th><th>Nhiều nhất / reducer</th></tr></thead><tbody>
-<tr><td>Từng cặp ảnh</td><td>$N(N-1)/2$</td><td>$1$</td></tr>
-<tr><td>1000 nhóm đều</td><td>$N(N-1)/2$</td><td>$1\,499\,500$</td></tr></tbody></table>
-<p>Với $N=10^6$: cả hai cách đều cần $499\,999\,500\,000$ lần gọi.</p>
-<p>Reducer nhiều việc nhất: $1\,000\,000$ cặp chéo<br/>cộng $499\,500$ cặp nội bộ được giao riêng.</p>
-<p>Gom nhóm giảm truyền ảnh; số cặp phải xét không giảm.</p>
-  <aside class="notes">
-    Giả thiết g = 1000, đánh số 0..999, giao nội bộ u → {u, u+1 mod g}. 499500 là số cặp nhóm, tức C(1000,2) = 499.500 reducer, mỗi reducer xét 1000000 cặp chéo; thêm 1000 nhóm, mỗi nhóm có C(1000,2) = 499500 cặp nội bộ: tổng 499500·1000000 + 1000·499500 = 499999500000.
-    Nếu mỗi lần gọi s có chi phí cố định c_s thì công việc đánh giá độ tương tự là c_s·N(N-1)/2; không tính Map, truyền mạng, ghi đầu ra. Không biết c_s thì giữ nguyên số lần gọi.
-    Bộ nhớ đầu vào 2MB so với 2GB chưa gồm vùng làm việc của s, quét hữu hạn, đầu ra i &lt; j để duy nhất. Nguồn: MMDS ch2, tr.62–64.
-  </aside>
+
+<section id="lec02-s06-03" data-slide-id="lec02-s06-03"><h2>Gom nhóm để dùng lại ảnh</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-groups.svg" alt="N ảnh chia g nhóm đều; một reducer nhận 2 nhóm và so sánh nhiều cặp bằng ảnh đã nhận."/>
+<p>Chia $N=10^6$ ảnh thành $g=1000$ nhóm đều, mỗi nhóm 1000 ảnh. Một nơi nhận 2 nhóm, tức 2000 ảnh, rồi so sánh nhiều cặp bằng ảnh đã nhận.</p>
+<aside class="notes"><p>Giả thiết: chia đều để mỗi nhóm cùng cỡ; ý tưởng là dùng lại một ảnh cho nhiều phép so sánh thay vì gửi lại mỗi lần. Ở bước này, hai nhóm đã có mặt tại cùng một nơi; cần đếm số nơi nhận mỗi ảnh để tính phần trung gian. Nguồn: MMDS, 2.6.2, trang in 63–64.</p></aside>
 </section>
-<section id="lec02-s06-04" data-slide-id="lec02-s06-04"><h2>Đánh đổi cần kiểm tra trước khi triển khai</h2>
-<table><thead><tr><th>Cách phân chia</th><th>Đầu vào/reducer</th><th>Bản sao/ảnh</th></tr></thead><tbody><tr><td>Mỗi cặp ảnh</td><td>$2$</td><td>$999999$</td></tr><tr><td>Mỗi cặp nhóm</td><td>$2000$</td><td>$999$</td></tr></tbody></table><p class="check"><strong>Câu hỏi:</strong> Với cách gom nhóm, 2 GB dữ liệu ảnh đã đủ để kết luận reducer chạy được chưa?</p><p>Đọc thêm: lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7.</p>
-<aside class="notes"><p>Chưa: còn cấu trúc dữ liệu, bộ nhớ chương trình, cách biểu diễn ảnh và chi phí so sánh; GB ở đây dùng 10^9 byte. Sinh viên cần giải thích được nguồn gốc q và rho, kiểm tra tính đầy đủ của các cặp và nhận ra tổng phép so sánh không giảm. Không yêu cầu tự chứng minh các cận dưới tổ hợp trong phần đọc thêm. Khép tình huống: tăng dữ liệu mỗi reducer để một ảnh phục vụ nhiều phép so sánh trước khi phải truyền lại.</p><p>Nguồn: MMDS, Chương 2, 2.6.2–2.6.7, trang in 61–74.</p></aside>
+
+<section id="lec02-s06-03c" data-slide-id="lec02-s06-03c"><h2>Đếm lại nơi nhận và số ảnh</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-group-count.svg" alt="Nhóm u ghép g−1 cặp nhóm; mỗi nơi nhận 2 nhóm, mỗi nhóm N/g ảnh."/>
+<p>Một nhóm ghép với 999 nhóm khác; mỗi khóa nhận hai nhóm, mỗi nhóm 1000 ảnh.</p>
+<div class="math-large">$q = 2N/g = 2000$, &nbsp; $\rho = g-1 = 999$</div>
+<aside class="notes"><p>Phép đếm: nhóm $u$ ghép với $g-1$ nhóm khác; mỗi nơi nhận 2 nhóm, mỗi nhóm $N/g$ ảnh nên $q=2N/g$. Mỗi ảnh thuộc một nhóm $u$ nên được gửi đến $g-1=999$ khóa $\{u,v\}$, $v\ne u$. Nguồn: MMDS, 2.6.2, trang in 63–64.</p></aside>
+</section>
+
+<section id="lec02-s06-03d" data-slide-id="lec02-s06-03d"><h2>Gom nhóm giảm số byte trung gian</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-bytes-group.svg" alt="Cùng ba yếu tố nhưng thay (N−1) bằng (g−1): N(g−1)B byte."/>
+<p>Vẫn chỉ tính tải ảnh trung gian; mỗi ảnh nay đến 999 nơi.</p>
+<div class="math-large">$N(g-1)B = 9{,}99\times10^{14}$ byte</div>
+<aside class="notes"><p>So sánh: giảm so với $\approx10^{18}$ byte của cách từng cặp. Phạm vi giống trước: chỉ tải ảnh trung gian, chưa gồm đầu vào Map $NB$. Không khẳng định giảm thời gian, tính toán hay RAM đủ — đó là các thước đo khác. Nguồn: MMDS, 2.6.2, trang in 63–64.</p></aside>
+</section>
+
+<section id="lec02-s06-03a" data-slide-id="lec02-s06-03a"><h2>Mỗi cặp được so sánh đúng một nơi</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/ch2-cap-nhom-anh.svg" alt="Reducer của hai nhóm: cặp chéo u,v → {u,v}; cặp nội bộ nhóm u chỉ giao cho nhóm kế tiếp; nhóm cuối quay về 0."/>
+<p>Cặp chéo $u,v$ do nơi $\{u,v\}$ so sánh; cặp nội bộ nhóm $u$ chỉ giao cho $\{u,\text{nhóm kế tiếp}\}$; nhóm cuối quay về 0.</p>
+<aside class="notes"><p>Đánh số nhóm 0 đến g−1 với g=1000. Map của ảnh thuộc nhóm u phát ảnh đến mọi khóa cặp nhóm {u,v}, v khác u, kèm mã nhóm và mã ảnh. Reduce so sánh mọi cặp chéo hai nhóm. Ngoài ra, chỉ so sánh các cặp nội bộ nhóm u nếu khóa chứa nhóm kế tiếp của u theo vòng; phát chỉ số tăng dần khi s vượt tau.</p><p>Một cặp chéo có duy nhất cặp nhóm chứa nó. Một cặp nội bộ có duy nhất khóa được giao. Hai loại không giao nhau và phủ mọi cặp khác ảnh, do đó không thiếu và không lặp. Duyệt hữu hạn, s kết thúc nên thuật toán dừng. Trong hình v là nhóm kế tiếp của u; chỉ trích hai ảnh mỗi nhóm. Cặp nội bộ v được giao nơi kế tiếp, không lặp ở đây.</p><p>Nguồn: MMDS, 2.6.2, trang 63–64; đổi đánh số nhóm thành 0..g−1.</p></aside>
+</section>
+
+<section id="lec02-s06-03b" data-slide-id="lec02-s06-03b"><h2>Số cặp phải xét vẫn giữ nguyên</h2>
+<img class="figure" style="max-height:260px" src="img/lec-02/cost-comparisons.svg" alt="Lưới 4×4 tô 6 ô phía trên đường chéo: N(N−1)/2 phép so sánh."/>
+<p>$N$ ảnh, mỗi ảnh được so sánh với $N-1$ ảnh; chia 2 để bỏ đếm đôi:</p>
+<div class="math-large">$N(N-1)/2$</div>
+<aside class="notes"><p>Với dữ kiện của sách: với $N=10^6$ là 499 999 500 000. Đây là số lần gọi s, chưa phải thời gian chạy. Nếu mỗi lần gọi tốn cố định c_s đơn vị thì công việc so sánh là c_s N(N−1)/2; nếu không cố định phải cộng chi phí từng lần gọi. Chưa tính truyền ảnh, nhóm khóa và ghi đầu ra. Mỗi nơi nhận nhiều nhất: $1000^2 + 1000\cdot999/2 = 1\,499\,500$ — 1 000 000 cặp chéo cộng 499 500 cặp nội bộ được giao riêng. Nguồn: MMDS, 2.6.2, trang in 62–64.</p></aside>
+</section>
+
+<section id="lec02-s06-04" data-slide-id="lec02-s06-04"><h2>Đánh đổi giữa bản gửi và dữ liệu mỗi nơi</h2>
+<table><thead><tr><th>Cách phân chia</th><th>$q$ (ảnh/nơi)</th><th>$\rho$ (nơi nhận/ảnh)</th></tr></thead><tbody>
+<tr><td>Mỗi cặp ảnh</td><td>$2$</td><td>$999\,999$</td></tr>
+<tr><td>Mỗi cặp nhóm</td><td>$2000$</td><td>$999$</td></tr>
+</tbody></table>
+<p>Mỗi nơi nhận $2000\times10^6=2\times10^9$ byte ảnh = 2 GB.</p>
+<p class="check"><strong>Câu hỏi:</strong> Lượng dữ liệu này đã đủ để kết luận nơi xử lý chạy được chưa?</p>
+<aside class="notes"><p>Hai đại lượng đã được giải thích ở phần định nghĩa q và rho; bảng chỉ đổi cách chia. Đáp án: chưa — còn phụ thuộc RAM mỗi nơi, bộ nhớ phụ và chi phí hàm $s$. Kết 2.5: đếm chi phí; kết 2.6: chọn phân chia để đổi chi phí. Đọc thêm: cận dưới ở 2.6.3–2.6.7. Nguồn: MMDS, Chương 2, trang in 61–74.</p></aside>
 </section>
 </section>
+
 <section aria-label="Mục 2.7">
 <section id="lec02-s07-01" data-slide-id="lec02-s07-01"><h2>2.7 · Từ lưu trữ đến đánh giá thuật toán</h2>
 <table><thead><tr><th>Lớp lập luận</th><th>Kết quả cần nắm</th></tr></thead><tbody><tr><td>Hệ tệp phân tán</td><td>Chia khối, bản sao, đọc gần dữ liệu</td></tr><tr><td>MapReduce</td><td>Chọn khóa để dữ liệu cần nhau gặp nhau</td></tr><tr><td>Thuật toán</td><td>Đặc tả, giả mã, lập luận đúng</td></tr><tr><td>Mở rộng</td><td>Chuỗi phép biến đổi, lưu đệm, tính lại</td></tr><tr><td>Đánh giá</td><td>Đơn vị chi phí, tải lớn nhất, sao chép</td></tr></tbody></table>

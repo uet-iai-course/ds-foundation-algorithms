@@ -4,7 +4,7 @@
 
 Bài 02 theo thứ tự đề xuất của sources/source.md, từ buổi gốc 4; nguồn MMDS Chương 2, ch2n.pdf. Sinh viên năm 2 đã học lập trình, toán rời rạc và đại số tuyến tính; chưa học CSDL. Sau bài, sinh viên mô tả miền vào–ra của hai hàm, chạy vết và viết giả mã đếm từ/nhân ma trận–vector, giải thích tính đúng và tính chi phí từ đầu vào tác vụ.
 
-Theo yêu cầu mới, bỏ đại số quan hệ và thuật toán nối, cùng ví dụ chi phí và câu hỏi phụ thuộc. Giữ 9 section: mở đầu và 2.1–2.8 theo PDF, ngoại lệ quy tắc 5–7. 54 trang giảng, 8 trang bài tập; 120 + 60 phút thiết kế dự kiến. Không thay dữ kiện hoặc tạo bài tập ngoài nguồn.
+Theo yêu cầu mới, bỏ đại số quan hệ và thuật toán nối, cùng ví dụ chi phí và câu hỏi phụ thuộc. Giữ 9 section: mở đầu và 2.1–2.8 theo PDF, ngoại lệ quy tắc 5–7. 59 trang giảng, 8 trang bài tập; 120 + 60 phút thiết kế dự kiến. Không thay dữ kiện hoặc tạo bài tập ngoài nguồn.
 
 ## Bản đồ chủ đề
 
@@ -17,9 +17,9 @@ Theo yêu cầu mới, bỏ đại số quan hệ và thuật toán nối, cùng
 | Ma trận–vector | Nhân hàng với vector → gom theo hàng → chia dải | 2.3.1–2.3.2 | Giữ |
 | Quan hệ và nối | Cần tiên quyết CSDL chưa học | 2.3.3–2.3.10 | Bỏ theo yêu cầu |
 | Hadoop và Spark | Ví dụ văn bản → hệ lưu trữ/tính toán → chuỗi biến đổi, dùng lại, khôi phục | 2.4.1–2.4.3 và Apache | Viết lại theo yêu cầu; các mở rộng khác đọc thêm |
-| Chi phí | Thuật toán → nơi đọc/nhận → bảng → tổng → điều kiện | 2.5.1–2.5.2; Bài 2.5.1a | Giữ đếm từ; thêm đọc dải từ lời giải nguồn |
+| Chi phí | Thuật toán → nơi đọc/nhận → hình đếm từng khoản → tổng → điều kiện | 2.5.1–2.5.2; Bài 2.5.1a | Tách 8 trang; giữ đếm từ, giải thích đọc dải và ba khoản chi phí |
 | Chi phí nối | Phụ thuộc thuật toán đã bỏ | 2.5.3 | Bỏ |
-| Bộ nhớ và sao chép | Tải tác vụ → các cặp ảnh → phân công nhóm | 2.6.1–2.6.2 | Giữ; cận dưới 2.6.3–2.6.7 đọc thêm |
+| Bộ nhớ và sao chép | Tải tác vụ → bốn ảnh → đếm byte → q/rho → phân công nhóm → đếm lại | 2.6.1–2.6.2 | Giữ; cận dưới 2.6.3–2.6.7 đọc thêm |
 | Tổng kết và nguồn | Kiểm tra đúng mục tiêu đã học | 2.7–2.8 | Tự kiểm tra không dùng Links/nối |
 
 ## Quyết định điều phối
@@ -43,9 +43,9 @@ Recitation giữ 2.2.1(a–c): 15 phút; 2.3.1(a–d): 20 phút; 2.5.1(a): 25 ph
 
 ## Cách thể hiện và kiểm định
 
-Áp dụng slide_authoring_standard.md; một luận điểm/trang, vết trước hình thức hóa, bảng đếm trước kết luận chi phí. Hai chữ ký là hai phần của một giao diện nên cùng trang để đối chiếu kiểu trung gian. Sơ đồ riêng làm rõ bước hệ thống giữa hai hàm. Ghi chú mở rộng lập luận, không sao chép slide.
+Áp dụng slide_authoring_standard.md; một luận điểm/trang, vết trước hình thức hóa, hình và phép đếm trước kết luận chi phí. Hai chữ ký là hai phần của một giao diện nên cùng trang để đối chiếu kiểu trung gian. Sơ đồ riêng làm rõ bước hệ thống giữa hai hàm. Ghi chú mở rộng lập luận, không sao chép slide.
 
-Đầu ra: HTML, 15 SVG được dùng, lecture-note, storyboard, outline, review-log, index. Hai tài sản phép nối cũ giữ để truy nguyên nhưng không nhúng. Kiểm tra 62 ID khớp storyboard, 9 section, 120 + 60 phút; năm vai độc lập và storyboard, biên tập riêng; trình duyệt thực, công thức, ảnh, liên kết, bàn phím và bản in. Kết quả và giới hạn ghi ở review-log.md.
+Đầu ra: HTML, 30 SVG được dùng, lecture-note, storyboard, outline, review-log, index. Hai tài sản phép nối cũ giữ để truy nguyên nhưng không nhúng. Kiểm tra 67 ID khớp storyboard, 9 section, 120 + 60 phút; năm vai độc lập và storyboard, biên tập riêng; trình duyệt thực, công thức, ảnh, liên kết, bàn phím và bản in. Kết quả và giới hạn ghi ở review-log.md.
 
 ## Nguồn và tham khảo cách dạy
 
@@ -83,3 +83,10 @@ Chấp nhận planner dùng ví dụ văn bản trước hệ thống; bác th�
 Ví dụ Việt hóa Ví dụ2.7–2.10: tài liệu A “dữ liệu và giải thuật”, B “dữ liệu lớn”; tập từ dừng chỉ gồm“và” để thấy phép lọc thực sự. Tách khoảng trắng, không phân tích từ ghép. Có8đơnvị trướclọc,7sau lọc,5khóa: dữ2,liệu2,giải1,thuật1,lớn1. Dùng A/B để không đổi D1/D2 ở2.2/2.5. Đây là minh họa chuyển ngữ cho cơ chế nguồn, không bài tập mới hoặc trích nguyên câu sách.
 
 Nguồn: MMDS2.4.1tr41–43,2.4.2–3tr44–48; slideMMDSch2phầnHadoop vàStanford01-introtr50–60. ChọnStanford cho triển khaiSpark vì cócụm riêng,trongkhiMMDSslidesch2chủ yếuMapReduce/Hadoop; sách quyết địnhluậnđiểm. ApacheHadoop(hadoop.apache.org) xácnhậnHDFS/MapReduce; SparkRDDProgrammingGuide xácnhậnreduceByKey,saveAsTextFile,count,cachevàshuffle. Các nguồnApache được duyệt làm cầu nối tênphầnmềm vàđóng ví dụ; khôngđưaCSDL hoặc thông số tốc độ/phiênbản vào bài.
+
+
+## Kế hoạch sửa mạch chi phí — 2026-09-16
+
+Kế hoạch được điều phối viên chấp nhận: viết lại 2.5 bằng 8 trang, 2.6 bằng 10 trang. Quan sát → đếm → đặt tên → công thức. Giữ ví dụ đếm từ D1/D2, ma trận chia dải và ảnh của sách. 2.5: đầu vào mỗi tác vụ; I+M; năm cặp; gộp còn bốn; hai khoản z; dải vector đọc lặp; cộng ba khoản; tổng và tải lớn nhất. 2.6: đặc tả ảnh; bốn ảnh/sáu cặp từ Hình2.9; đếm bản gửi rồi byte; đặt tên q/rho; hai nhóm; đếm nơi nhận; tính byte; bao phủ; đếm so sánh; đánh đổi. Giữ bài tập, tổng120+60; dự kiến67trang,59giảng. Nguồn sách2.5.1 định nghĩa đầu vào tác vụ, ưu tiên hơn slide MMDS/Stanford đếm I/O cả đầu ra. Bác công thức I+2M+O trong phạm vi này. Không cộng đầu ra cuối trừ khi tác vụ tiếp theo đọc. Hai khoản z lần lượt là bộ ma trận và cặp tích. Ví dụ bốn ảnh chỉ có ba nơi nhận/ảnh; không gán 999999 cho hình nhỏ. q là cận đầu vào một khóa Reduce, không số máy. Công thức 2z+Σa_jL_j là suy ra từ thuật toán và bài2.5.1a, không trích nguyên văn sách. Phân bổ mới5/7/31/16/17/18/20/5/1phút; bài tập60 không đổi. Dời minh họa bốn ảnh của2.6.3 lên trước ký hiệu để tạo trực giác, không thêm phần cận dưới. Mọi kích thước và phạm vi chi phí hiện rõ trước công thức.
+
+Planner và source reader độc lập qua OpenRouter, requested/observed model `z-ai/glm-5.3-flash`; kết quả tại `/tmp/lec02-cost/plan.json`, `source.json`. Điều phối viên sửa các điểm nhầm phạm vi đầu ra và phân biệt ví dụ nhỏ với quy mô nguồn trước khi giao soạn.

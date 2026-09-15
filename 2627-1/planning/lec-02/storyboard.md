@@ -4,7 +4,7 @@
 
 Áp dụng [slide_authoring_standard.md](../../../slide_authoring_standard.md) và [AGENTS.md](../../../AGENTS.md). Sinh viên năm 2 đã học lập trình và nhân ma trận–vector, chưa học CSDL. Nguồn chính: [MMDS Chương 2](../../../sources/textbooks/ch2n.pdf), trang in 20–79; trang PDF bằng trang in trừ 19. Giữ 9 section: mở đầu và mỗi mục 2.1–2.8 một section theo yêu cầu người dùng, ngoại lệ quy tắc 5–7 section.
 
-Bản hiện hành có **54 trang giảng và 8 trang bài tập**, thiết kế **120 phút giảng + 60 phút recitation**. Phân bổ dự kiến, chưa diễn tập với lớp thật. Bỏ quan hệ, chọn, chiếu, nối, tổng hợp và liên hệ nhân hai ma trận (2.3.3–2.3.10), các ví dụ chi phí nối của 2.5.3 và bài 2.5.1(c) theo chỉ dẫn mới về tiên quyết. Không giữ phép nối ngầm trong bài tập hoặc phần kết. Thời gian chuyển sang giải thích hai hàm, vết chạy và đếm chi phí; không thêm số liệu ngoài nguồn.
+Bản hiện hành có **59 trang giảng và 8 trang bài tập**, thiết kế **120 phút giảng + 60 phút recitation**. Phân bổ dự kiến, chưa diễn tập với lớp thật. Bỏ quan hệ, chọn, chiếu, nối, tổng hợp và liên hệ nhân hai ma trận (2.3.3–2.3.10), các ví dụ chi phí nối của 2.5.3 và bài 2.5.1(c) theo chỉ dẫn mới về tiên quyết. Không giữ phép nối ngầm trong bài tập hoặc phần kết. Thời gian chuyển sang giải thích hai hàm, vết chạy và đếm chi phí; không thêm số liệu ngoài nguồn.
 
 Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 21: 20 phút; 2.5.1(a), trang 59/PDF 40: 25 phút. Giữ nguyên đề nguồn, chỉ dịch và tách ý. Bỏ bài 2.5.1(c), dành trọn 25 phút cho lập bảng, trình bày và đối chiếu điều kiện của ý (a); không thêm bài mới. Bài tập nằm cuối section nguồn, ngoại lệ để giữ ánh xạ PDF; liên kết từ tổng kết dẫn vào recitation sau phần giảng.
 
@@ -13,22 +13,22 @@ Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 
 | Mục | Mạch viết và sản phẩm chuyển tiếp | Phút giảng |
 |---|---|---:|
 | Mở đầu | Giới hạn một máy → mục tiêu và nội dung. | 5 |
-| 2.1 | Cụm máy → lỗi → khối và bản sao → đầu vào tác vụ. | 8 |
-| 2.2 | Lợi ích → đếm từ → hai hàm → giả mã/đúng → tạo tác vụ → phân khóa → gán máy → dữ liệu còn lại → phục hồi lỗi. | 34 |
-| 2.3 | Đổi khóa từ từ sang hàng → vết các tích → giả mã → chia dải vector. | 18 |
-| 2.4 | Văn bản → tách/lọc/đếm → Hadoop → Spark → dùng lại/khôi phục → chi phí. | 18 |
-| 2.5 | Mô hình/đơn vị → đếm từ → đọc dải vector → tổng và tải lớn nhất. | 15 |
-| 2.6 | Giới hạn tác vụ → đặc tả ảnh → từng cặp → nhóm ảnh → đúng và bộ nhớ. | 16 |
+| 2.1 | Cụm máy → lỗi → khối và bản sao → đầu vào tác vụ. | 7 |
+| 2.2 | Lợi ích → đếm từ → hai hàm → giả mã/đúng → tạo tác vụ → phân khóa → gán máy → dữ liệu còn lại → phục hồi lỗi. | 31 |
+| 2.3 | Đổi khóa từ từ sang hàng → vết các tích → giả mã → chia dải vector. | 16 |
+| 2.4 | Văn bản → tách/lọc/đếm → Hadoop → Spark → dùng lại/khôi phục → chi phí. | 17 |
+| 2.5 | Hai nơi nhận → năm cặp → gộp bốn cặp → bộ ma trận/tích → đọc lặp vector → cộng → tải lớn nhất. | 18 |
+| 2.6 | Bài toán ảnh → bốn ảnh chạy tay → byte → q/rho → nhóm ảnh → đếm lại → bao phủ → so sánh và đánh đổi. | 20 |
 | 2.7 | Thu hồi các lớp lập luận → bốn sản phẩm tự kiểm tra. | 5 |
 | 2.8 | Nguồn/hướng đọc → bài tập từ giáo trình. | 1 |
 
 ## Chu trình và nguồn
 
 - Đếm từ: s02-01 đặt vấn đề; 02/03 chạy vết; 03a hình thức hóa; 03b nối hai hàm bằng sơ đồ; 04 giả mã; 03c đặc tả đầu ra; 04a tính đúng; 04b đếm thao tác; 05 gộp; 06–06c tạo và phân công tác vụ; 07–07b lưu trữ và phục hồi. D1 “dữ liệu lớn”, D2 “lớn lớn” là ví dụ Việt hóa đã có, minh họa Ví dụ 2.1–2.2, trang 25–27. Số 1 biểu diễn từng lần xuất hiện; không loại lặp. Hình dựa Hình 2.2, không đồng nhất mỗi hàm với một máy. Kiểm tra ở 02/06 và tổng kết; chi phí dùng lại cùng 5 cặp ở s05-03.
-- Ma trận–vector: s03-01 đặc tả từ tiên quyết; 02 vết ký hiệu; 02a giả mã, giả thiết và đúng; 03 chia dải (Hình 2.4); 03a đánh giá phép tính và bộ nhớ. Không tự đặt ma trận số ngoài nguồn. 2.5 quay lại dữ liệu này: mỗi phần tử đọc một lần, mỗi tác vụ đọc dải vector cần dùng. s05-03a định nghĩa đơn vị/kích thước và đếm; 03b cộng rồi xét trường hợp. Bài 2.5.1(a) yêu cầu giải thích mỗi số hạng và điều kiện. Số học chính xác; hàng không lưu hiểu bằng 0.
-- Cặp ảnh: s06-00 đặc tả theo 2.6.2; 01 định nghĩa q/rho; 02 từng cặp; 03 từng nhóm; 03a bao phủ cặp chéo/nội bộ; 03b đếm so sánh; 04 kiểm tra bộ nhớ. Giữ dữ kiện nguồn một triệu ảnh, một triệu byte mỗi ảnh và 1000 nhóm đều; không giảm số so sánh. Không cần phép nối quan hệ để theo dõi phân công ảnh.
+- Ma trận–vector: s03-01 đặc tả từ tiên quyết; 02 vết ký hiệu; 02a giả mã, giả thiết và đúng; 03 chia dải (Hình 2.4); 03a đánh giá phép tính và bộ nhớ. Không tự đặt ma trận số ngoài nguồn. 2.5 quay lại dữ liệu này: mỗi phần tử đọc một lần, mỗi tác vụ đọc dải vector cần dùng. s05-03a đếm bộ ma trận và cặp tích; 03c đếm dải vector đọc lặp; 03b cộng ba khoản rồi xét trường hợp trong notes. Bài 2.5.1(a) yêu cầu giải thích mỗi số hạng và điều kiện. Số học chính xác; hàng không lưu hiểu bằng 0.
+- Cặp ảnh: s06-00 đặt bài toán; 02 chạy tay bốn ảnh; 02a đếm byte; 01 đặt tên q/rho sau ví dụ; 03/03c/03d gom nhóm và đếm lại; 03a chứng minh bao phủ; 03b đếm số so sánh; 04 kiểm tra đánh đổi. Giữ dữ kiện một triệu ảnh, một triệu byte mỗi ảnh và 1000 nhóm đều.
 - Hệ thống và Spark dùng hình cơ chế/phụ thuộc; không tạo chứng minh hay giả mã ngoài nguồn. MMDS và Stanford đã được kiểm kê; sách quyết định mạch, ví dụ và chi phí. Giữ cách thể hiện một bước suy luận mỗi trang, ví dụ trước ký hiệu đã tham khảo math-4-AI 01–03.
-- 15 SVG được dùng; phần2.4 thay hai hình cũ bằng bốn hình về chuỗi văn bản, Hadoop, lưu đệm và phục hồi Spark. Các hình thực thi/phục hồi MapReduce ở2.2 được giữ. Hình khóa–tác vụ cũ không còn nhúng; các tài sản cũ giữ để truy nguyên. Mỗi hình mới có script tái sinh, mô tả và mũi tên; không dùng màu làm tín hiệu duy nhất.
+- 30 SVG được dùng; các hình mới ở 2.5–2.6 diễn giải từng phép đếm; phần2.4 thay hai hình cũ bằng bốn hình về chuỗi văn bản, Hadoop, lưu đệm và phục hồi Spark. Các hình thực thi/phục hồi MapReduce ở2.2 được giữ. Hình khóa–tác vụ cũ không còn nhúng; các tài sản cũ giữ để truy nguyên. Mỗi hình mới có script tái sinh, mô tả và mũi tên; không dùng màu làm tín hiệu duy nhất.
 
 Các ID giữ ổn định từ bản trước; thứ tự trình bày do DOM quyết định, không sắp xếp ID. Khoảng trống ID là các slide đã bỏ, không phải bài tập bị thiếu.
 
@@ -83,7 +83,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** SVG có nhãn và chiều luồng.
 - **Nguồn:** MMDS, Chương 2, 2.1, trang in 22–24.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s01-01).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s01-02` · Lỗi máy và lỗi kết nối
 
@@ -116,7 +116,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.2.1–2.2.3, Ví dụ 2.1–2.2, trang in 25–27.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-01).
-- **Thời lượng:** 2 phút giảng.
+- **Thời lượng:** 1 phút giảng.
 
 ### `lec02-s02-01a` · Lợi ích của MapReduce
 
@@ -138,7 +138,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, Ví dụ 2.1, trang in 26; dữ liệu minh họa tiếng Việt được ghi trong storyboard.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-02).
-- **Thời lượng:** 2 phút giảng.
+- **Thời lượng:** 1 phút giảng.
 
 ### `lec02-s02-03` · Nhóm theo khóa rồi cộng
 
@@ -149,7 +149,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.2.2–2.2.3, Ví dụ 2.2, trang in 26–27.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-03).
-- **Thời lượng:** 2 phút giảng.
+- **Thời lượng:** 1 phút giảng.
 
 ### `lec02-s02-03a` · Hai hàm của MapReduce
 
@@ -354,7 +354,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.3.1, trang in 31–32.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s03-01).
-- **Thời lượng:** 4 phút giảng.
+- **Thời lượng:** 3 phút giảng.
 
 ### `lec02-s03-02` · Khóa hàng gom đúng các tích
 
@@ -365,7 +365,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.3.1, trang in 31–32.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s03-02).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s03-02a` · Giả mã nhân ma trận–vector
 
@@ -542,71 +542,85 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
 - **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
 - **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-09).
+- **Thời lượng:** 1 phút giảng.
+
+### `lec02-s05-02` · 2.5 · Đếm dữ liệu mỗi tác vụ nhận
+
+- **Kiến thức đầu vào:** So sánh Hadoop và Spark.
+- **Mục đích / câu chốt:** Hai tài liệu vào Map; năm cặp vào Reduce. Bộ đếm ở đầu vào mỗi tầng.
+- **Kết nối vào–ra:** từ “So sánh Hadoop và Spark”; chuẩn bị “Từ hai bộ đếm đến tổng chi phí”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.5.1–2.5.2, trang 53–56; Ví dụ 2.1 và 2.2.4.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-02).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s05-02` · 2.5 · Quy ước tính chi phí
+### `lec02-s05-01` · Từ hai bộ đếm đến tổng chi phí
 
-- **Kiến thức đầu vào:** Mạng tác vụ và nơi lưu dữ liệu.
-- **Mục đích:** Chọn đơn vị, phạm vi và quy tắc đếm chi phí.
-- **Câu chốt:** Phải chốt đơn vị, phạm vi và quy tắc đếm trước khi cộng chi phí.
-- **Kết nối vào–ra:** từ “Vai trò lưu trữ và thực thi”; chuẩn bị “Cộng dữ liệu mà mỗi tầng nhận”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.5.1–2.5.2, trang in 53–56.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-02).
-- **Thời lượng:** 3 phút giảng.
-
-### `lec02-s05-01` · Cộng dữ liệu mà mỗi tầng nhận
-
-- **Kiến thức đầu vào:** Quy tắc chi phí đầu vào tác vụ.
-- **Mục đích:** Lập tổng I+M từ hai tầng nhận dữ liệu.
-- **Câu chốt:** Chi phí theo mô hình sách là tổng kích thước đầu vào của các tác vụ.
-- **Kết nối vào–ra:** từ “2.5 · Quy ước tính chi phí”; chuẩn bị “Đếm từ: theo dữ liệu qua hai tầng”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** SVG có nhãn và chiều luồng.
-- **Nguồn:** MMDS, Chương 2, 2.5.1, trang in 53–55.
+- **Kiến thức đầu vào:** 2.5 · Đếm dữ liệu mỗi tác vụ nhận.
+- **Mục đích / câu chốt:** I là đầu vào Map, M là trung gian đến Reduce; C = I + M.
+- **Kết nối vào–ra:** từ “2.5 · Đếm dữ liệu mỗi tác vụ nhận”; chuẩn bị “Năm cặp trung gian tạo 5B byte”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.5.1–2.5.2, trang 53–56; Ví dụ 2.1 và 2.2.4.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-01).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s05-03` · Đếm từ: theo dữ liệu qua hai tầng
+### `lec02-s05-03` · Năm cặp trung gian tạo 5B byte
 
-- **Kiến thức đầu vào:** Năm cặp, bốn cặp; I và B byte.
-- **Mục đích:** Tính chi phí đếm từ trước và sau gộp.
-- **Câu chốt:** Gộp D2 giảm trung gian từ năm xuống bốn cặp trong cùng ví dụ đếm từ.
-- **Kết nối vào–ra:** từ “Cộng dữ liệu mà mỗi tầng nhận”; chuẩn bị “Ma trận–vector: đếm đầu vào từng tầng”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, Ví dụ 2.1, 2.2.4 và mô hình 2.5.1; phần trích minh họa được ghi trong storyboard.
+- **Kiến thức đầu vào:** Từ hai bộ đếm đến tổng chi phí.
+- **Mục đích / câu chốt:** D1 phát ba cặp dữ một, liệu một, lớn một; D2 phát hai cặp lớn một, mỗi cặp dài B byte.
+- **Kết nối vào–ra:** từ “Từ hai bộ đếm đến tổng chi phí”; chuẩn bị “Gộp trong D2 bớt một cặp”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.5.1–2.5.2, trang 53–56; Ví dụ 2.1 và 2.2.4.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-03).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s05-03a` · Ma trận–vector: đếm đầu vào từng tầng
+### `lec02-s05-04` · Gộp trong D2 bớt một cặp
 
-- **Kiến thức đầu vào:** Cách chia dải vector và mô hình tổng đầu vào tác vụ.
-- **Mục đích:** Đếm ma trận, vector và tích trung gian ở đúng nơi nhận.
-- **Câu chốt:** Mỗi dải vector bị đọc lại theo số tác vụ cần nó.
-- **Kết nối vào–ra:** từ “Đếm từ: theo dữ liệu qua hai tầng”; chuẩn bị “Chi phí đọc lặp dải vector”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32,54–55,59.
+- **Kiến thức đầu vào:** Năm cặp trung gian tạo 5B byte.
+- **Mục đích / câu chốt:** Hai cặp (lớn,1) gộp thành (lớn,2): 4 cặp đến Reduce thay vì 5.
+- **Kết nối vào–ra:** từ “Năm cặp trung gian tạo 5B byte”; chuẩn bị “Ma trận: một lần đọc, một lần nhận tích”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.5.1–2.5.2, trang 53–56; Ví dụ 2.1 và 2.2.4.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-04).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s05-03a` · Ma trận: một lần đọc, một lần nhận tích
+
+- **Kiến thức đầu vào:** Gộp trong D2 bớt một cặp.
+- **Mục đích / câu chốt:** z phần tử ma trận vào Map; mỗi phần tử tạo một cặp tích, z cặp vào Reduce.
+- **Kết nối vào–ra:** từ “Gộp trong D2 bớt một cặp”; chuẩn bị “Một dải vector có thể được đọc nhiều lần”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.3.2, 2.5.1 và Bài 2.5.1(a), trang 32, 54–55, 59; phép đếm suy ra từ nguồn.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-03a).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s05-03c` · Một dải vector có thể được đọc nhiều lần
+
+- **Kiến thức đầu vào:** Ma trận: một lần đọc, một lần nhận tích.
+- **Mục đích / câu chốt:** Dải L_j được 2 tác vụ Map đọc: tổng 2L_j; tổng quát a_j tác vụ đọc a_j L_j.
+- **Kết nối vào–ra:** từ “Ma trận: một lần đọc, một lần nhận tích”; chuẩn bị “Ghép ba khoản chi phí”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.3.2, 2.5.1 và Bài 2.5.1(a), trang 32, 54–55, 59; phép đếm suy ra từ nguồn.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-03c).
 - **Thời lượng:** 3 phút giảng.
 
-### `lec02-s05-03b` · Chi phí đọc lặp dải vector
+### `lec02-s05-03b` · Ghép ba khoản chi phí
 
-- **Kiến thức đầu vào:** Bảng ba lượng dữ liệu ở trang trước, tổng hữu hạn.
-- **Mục đích:** Cộng ba số hạng và suy ra hai trường hợp phân công.
-- **Câu chốt:** Nhiều tác vụ có thể tăng tổng dữ liệu đọc.
-- **Kết nối vào–ra:** từ “Ma trận–vector: đếm đầu vào từng tầng”; chuẩn bị “Tổng chi phí và tải lớn nhất”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32,54–55,59.
+- **Kiến thức đầu vào:** Một dải vector có thể được đọc nhiều lần.
+- **Mục đích / câu chốt:** Ba khoản: ma trận z, vector Σ a_j L_j, tích z; tổng C = 2z + Σ a_j L_j.
+- **Kết nối vào–ra:** từ “Một dải vector có thể được đọc nhiều lần”; chuẩn bị “Tổng dữ liệu và nơi nhận nhiều nhất”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.3.2, 2.5.1 và Bài 2.5.1(a), trang 32, 54–55, 59; phép đếm suy ra từ nguồn.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-03b).
 - **Thời lượng:** 3 phút giảng.
 
-### `lec02-s05-09` · Tổng chi phí và tải lớn nhất
+### `lec02-s05-09` · Tổng dữ liệu và nơi nhận nhiều nhất
 
-- **Kiến thức đầu vào:** Chi phí đọc dải vector và mô hình tổng đầu vào.
-- **Mục đích:** Phân biệt tổng chi phí với thời gian hoàn thành.
-- **Câu chốt:** Tổng đầu vào không đủ quyết định thời gian và bộ nhớ tác vụ nặng nhất.
-- **Kết nối vào–ra:** từ “Chi phí đọc lặp dải vector”; chuẩn bị “2.6 · Tìm các cặp ảnh tương tự”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.5.2 và chuyển sang 2.6, trang in 55–56,61.
+- **Kiến thức đầu vào:** Ghép ba khoản chi phí.
+- **Mục đích / câu chốt:** Trước gộp: R0 nhận hai giá trị, R1 nhận ba; tổng 5B byte, lớn nhất 3B. Sau gộp: tổng 4B, mỗi tác vụ 2B.
+- **Kết nối vào–ra:** từ “Ghép ba khoản chi phí”; chuẩn bị “2.6 · Phân chia ảnh để giảm số bản gửi”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.5.1–2.5.2, trang 53–56; Ví dụ 2.1 và 2.2.4.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s05-09).
 - **Thời lượng:** 2 phút giảng.
 
@@ -621,81 +635,104 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-ex251a).
 - **Thời lượng:** 25 phút recitation.
 
-### `lec02-s06-00` · 2.6 · Tìm các cặp ảnh tương tự
 
-- **Kiến thức đầu vào:** Đánh đổi bộ nhớ và truyền dữ liệu.
-- **Mục đích:** Đặc tả đầu ra cặp ảnh vượt ngưỡng tương tự.
-- **Câu chốt:** Cần kiểm tra mọi cặp ảnh nhưng chỉ trả các cặp vượt ngưỡng tương tự.
-- **Kết nối vào–ra:** từ “Tổng chi phí và tải lớn nhất”; chuẩn bị “Đầu vào mỗi reducer và số lần sao chép”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.6.2, trang in 62–63.
+### `lec02-s06-00` · 2.6 · Phân chia ảnh để giảm số bản gửi
+
+- **Kiến thức đầu vào:** Tổng dữ liệu và nơi nhận nhiều nhất.
+- **Mục đích / câu chốt:** Hai ảnh được hàm độ tương tự s đánh giá; giữ cặp nếu vượt ngưỡng tau.
+- **Kết nối vào–ra:** từ “Tổng dữ liệu và nơi nhận nhiều nhất”; chuẩn bị “Một ảnh phải đến nhiều cặp”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-00).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s06-01` · Đầu vào mỗi reducer và số lần sao chép
+### `lec02-s06-02` · Một ảnh phải đến nhiều cặp
 
-- **Kiến thức đầu vào:** Nhu cầu chia ảnh cho reducer.
-- **Mục đích:** Đọc q và rho như hai đại lượng khác nhau.
-- **Câu chốt:** q giới hạn đầu vào mỗi reducer; rho đếm số cặp phát trung bình trên một đầu vào.
-- **Kết nối vào–ra:** từ “2.6 · Tìm các cặp ảnh tương tự”; chuẩn bị “Mỗi reducer xử lý một cặp ảnh”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.6.1, trang in 61.
+- **Kiến thức đầu vào:** 2.6 · Phân chia ảnh để giảm số bản gửi.
+- **Mục đích / câu chốt:** Bốn ảnh và sáu khóa cặp: mỗi ảnh đến ba khóa, mỗi khóa nhận hai ảnh.
+- **Kết nối vào–ra:** từ “2.6 · Phân chia ảnh để giảm số bản gửi”; chuẩn bị “Từ số bản gửi đến số byte”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-02).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s06-02a` · Từ số bản gửi đến số byte
+
+- **Kiến thức đầu vào:** Một ảnh phải đến nhiều cặp.
+- **Mục đích / câu chốt:** Ba yếu tố nhân: N ảnh × (N−1) nơi nhận mỗi ảnh × B byte mỗi ảnh.
+- **Kết nối vào–ra:** từ “Một ảnh phải đến nhiều cặp”; chuẩn bị “Đặt tên hai đại lượng vừa đếm”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-02a).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s06-01` · Đặt tên hai đại lượng vừa đếm
+
+- **Kiến thức đầu vào:** Từ số bản gửi đến số byte.
+- **Mục đích / câu chốt:** Nhắc lại: P1 đến 3 nơi; mỗi nơi nhận 2 ảnh — hai con số là q và ρ.
+- **Kết nối vào–ra:** từ “Từ số bản gửi đến số byte”; chuẩn bị “Gom nhóm để dùng lại ảnh”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-01).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s06-02` · Mỗi reducer xử lý một cặp ảnh
+### `lec02-s06-03` · Gom nhóm để dùng lại ảnh
 
-- **Kiến thức đầu vào:** q,rho; cặp không thứ tự.
-- **Mục đích:** Đếm số bản sao khi mỗi reducer nhận hai ảnh.
-- **Câu chốt:** Mỗi reducer nhận hai ảnh nhưng mỗi ảnh phải gửi tới N−1 nơi.
-- **Kết nối vào–ra:** từ “Đầu vào mỗi reducer và số lần sao chép”; chuẩn bị “Gom nhóm để dùng lại mỗi ảnh”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.6.2, trang in 62–63.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-02).
-- **Thời lượng:** 3 phút giảng.
-
-### `lec02-s06-03` · Gom nhóm để dùng lại mỗi ảnh
-
-- **Kiến thức đầu vào:** Phương án từng cặp, chia đều1000 nhóm.
-- **Mục đích:** Tính q,rho khi mỗi reducer nhận hai nhóm.
-- **Câu chốt:** Gom nhóm tăng dữ liệu mỗi reducer để dùng lại ảnh đã nhận cho nhiều phép so sánh.
-- **Kết nối vào–ra:** Từ “Mỗi reducer xử lý một cặp ảnh”; cung cấp kết quả cho “Bao phủ mọi cặp, mỗi cặp đúng một nơi”. Bài tập được quay lại sau phần giảng.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.6.2, Ví dụ 2.18, trang in 63–64.
+- **Kiến thức đầu vào:** Đặt tên hai đại lượng vừa đếm.
+- **Mục đích / câu chốt:** N ảnh chia g nhóm đều; một reducer nhận 2 nhóm và so sánh nhiều cặp bằng ảnh đã nhận.
+- **Kết nối vào–ra:** từ “Đặt tên hai đại lượng vừa đếm”; chuẩn bị “Đếm lại nơi nhận và số ảnh”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-03).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s06-03a` · Bao phủ mọi cặp, mỗi cặp đúng một nơi
+### `lec02-s06-03c` · Đếm lại nơi nhận và số ảnh
 
-- **Kiến thức đầu vào:** Cặp nhóm và phép modulo.
-- **Mục đích:** Chứng minh mọi cặp ảnh được xét đúng một nơi.
-- **Câu chốt:** Mọi cặp chéo và cặp nội bộ đều được giao đúng một nơi, không giảm số cặp phải so sánh.
-- **Kết nối vào–ra:** Từ “Gom nhóm để dùng lại mỗi ảnh”; cung cấp kết quả cho “Số phép so sánh khi gom nhóm ảnh”. Bài tập được quay lại sau phần giảng.
-- **Cách thể hiện:** SVG có nhãn và chiều luồng.
-- **Nguồn:** MMDS, Chương 2, 2.6.2, trang in 63–64.
+- **Kiến thức đầu vào:** Gom nhóm để dùng lại ảnh.
+- **Mục đích / câu chốt:** Nhóm u ghép g−1 cặp nhóm; mỗi nơi nhận 2 nhóm, mỗi nhóm N/g ảnh.
+- **Kết nối vào–ra:** từ “Gom nhóm để dùng lại ảnh”; chuẩn bị “Gom nhóm giảm số byte trung gian”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-03c).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s06-03d` · Gom nhóm giảm số byte trung gian
+
+- **Kiến thức đầu vào:** Đếm lại nơi nhận và số ảnh.
+- **Mục đích / câu chốt:** Cùng ba yếu tố nhưng thay (N−1) bằng (g−1): N(g−1)B byte.
+- **Kết nối vào–ra:** từ “Đếm lại nơi nhận và số ảnh”; chuẩn bị “Mỗi cặp được so sánh đúng một nơi”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-03d).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s06-03a` · Mỗi cặp được so sánh đúng một nơi
+
+- **Kiến thức đầu vào:** Gom nhóm giảm số byte trung gian.
+- **Mục đích / câu chốt:** Reducer của hai nhóm: cặp chéo u,v → {u,v}; cặp nội bộ nhóm u chỉ giao cho nhóm kế tiếp; nhóm cuối quay về 0.
+- **Kết nối vào–ra:** từ “Gom nhóm giảm số byte trung gian”; chuẩn bị “Số cặp phải xét vẫn giữ nguyên”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-03a).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s06-03b` · Số phép so sánh khi gom nhóm ảnh
+### `lec02-s06-03b` · Số cặp phải xét vẫn giữ nguyên
 
-- **Kiến thức đầu vào:** Phân công mọi cặp đúng một nơi, N=10^6 và g=1000.
-- **Mục đích:** Tính tổng số lần gọi hàm và tải lớn nhất một reducer.
-- **Câu chốt:** Gom nhóm không giảm số cặp phải xét, nhưng dồn nhiều phép so sánh vào một reducer.
-- **Kết nối vào–ra:** Từ “Bao phủ mọi cặp, mỗi cặp đúng một nơi”; cung cấp kết quả cho “Đánh đổi cần kiểm tra trước khi triển khai”. Bài tập được quay lại sau phần giảng.
-- **Cách thể hiện:** Bảng hai cách chia; tổng 499999500000, tối đa 1 hoặc1499500; notes đếm cặp chéo/nội bộ.
-- **Nguồn:** MMDS Chương 2, 2.6.2, trang 62–64; phép đếm từ quy tắc nguồn.
-- **Ghi chú:** [Giả thiết, phân tích và giới hạn](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-03b).
-- **Thời lượng:** 3 phút giảng.
+- **Kiến thức đầu vào:** Mỗi cặp được so sánh đúng một nơi.
+- **Mục đích / câu chốt:** Lưới 4×4 tô 6 ô phía trên đường chéo: N(N−1)/2 phép so sánh.
+- **Kết nối vào–ra:** từ “Mỗi cặp được so sánh đúng một nơi”; chuẩn bị “Đánh đổi giữa bản gửi và dữ liệu mỗi nơi”.
+- **Cách thể hiện:** SVG lớn theo phép đếm, công thức HTML/KaTeX và lời giải trong notes.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
+- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-03b).
+- **Thời lượng:** 2 phút giảng.
 
+### `lec02-s06-04` · Đánh đổi giữa bản gửi và dữ liệu mỗi nơi
 
-### `lec02-s06-04` · Đánh đổi cần kiểm tra trước khi triển khai
-
-- **Kiến thức đầu vào:** q2000,1 MB/ảnh; đầy đủ các cặp.
-- **Mục đích:** Kiểm tra bộ nhớ thực tế ngoài kích thước ảnh.
-- **Câu chốt:** Dung lượng ảnh chưa bao gồm bộ nhớ phụ nên chưa đủ kết luận reducer chạy được.
-- **Kết nối vào–ra:** Từ “Số phép so sánh khi gom nhóm ảnh”; cung cấp kết quả cho “2.7 · Từ lưu trữ đến đánh giá thuật toán”. Bài tập được quay lại sau phần giảng.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.6.2–2.6.7, trang in 61–74.
+- **Kiến thức đầu vào:** Số cặp phải xét vẫn giữ nguyên.
+- **Mục đích / câu chốt:** Bảng so sánh hai phương án; tính 2000 ảnh × một triệu byte = 2 GB mỗi nơi rồi kiểm tra bộ nhớ phụ.
+- **Kết nối vào–ra:** từ “Số cặp phải xét vẫn giữ nguyên”; chuẩn bị “Tổng kết”.
+- **Cách thể hiện:** Bảng so sánh hai phương án; tính 2000 ảnh × một triệu byte = 2 GB mỗi nơi rồi kiểm tra bộ nhớ phụ.
+- **Nguồn:** MMDS 2.6.1–2.6.2, trang 61–64; hình bốn ảnh từ Ví dụ 2.19/Hình 2.9, trang 64–65.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-04).
 - **Thời lượng:** 2 phút giảng.
 
@@ -752,3 +789,11 @@ Trang lợi ích s02-01a nằm sau mở mục 2.2, trước vết đếm từ; c
 ## Quyết định viết lại 2.4 — 2026-09-16
 
 Thay toàn bộ5trang cũ bằng9trang theo kế hoạch outline, giữ ID01–05 và thêm06–09. Hình f,g,h,i,j không còn dùng; hình chuỗi Spark cũ thay bằng ví dụ A/B. Phần2.4=18phút; ngân sách và từng trang phía trên là hiện hành. Bài tập60phút không đổi. Cơ chế hệ thống không tạo chứng minh mới; thuật toán lọc/đếm dùng lại chứng minh đếm từ. Các bước thực thi và đánh giá được phân bố qua ví dụ, giả mã, lưu đệm, khôi phục và nối sang2.5.
+
+## Lần sửa 2.5–2.6: bản đồ chủ đề và ngoại lệ cục bộ
+
+2.5 thực hiện mục tiêu đánh giá: biết thuật toán nhận dữ liệu ở đâu → chọn đơn vị → đếm từng khoản → cộng tổng → phân biệt tổng với tải lớn nhất. 2.6 thực hiện mục tiêu thiết kế: từ tải lớn nhất → đặc tả ảnh → gửi từng cặp → đếm bản gửi → đặt tên đại lượng → thay cách phân chia → kiểm tra tính đúng và đánh đổi. Không đưa q/rho lên trước ví dụ.
+
+Các chủ đề cốt lõi gồm mô hình đầu vào, thuật toán từng cặp/nhóm và đánh giá. Cầu nối là hình bốn ảnh từ phần sau của sách, chuyển lên trước để khôi phục trực giác, không thêm lý thuyết đồ thị hai phía/cận dưới. Bổ sung là tách phép đọc lặp vector và ba yếu tố byte vốn bị gộp. Nội dung đọc thêm giữ 2.6.3–2.6.7. Không thêm bài tập hoặc dữ kiện thực nghiệm.
+
+Ghi chú tự học ánh xạ: `note-cost-input` ↔ s05-02/01; `note-cost-word` ↔ s05-03/04; `note-cost-matrix` ↔ s05-03a/03c/03b; `note-cost-load` ↔ s05-09; `note-image-pair` ↔ s06-00/02/02a/01; `note-image-group` ↔ s06-03/03c/03d/03a; `note-image-work` ↔ s06-03b/04. Ghi chú mở bằng vai trò rồi định nghĩa; slide ưu tiên quan sát trước ký hiệu. Bước chứng minh không áp dụng cho quy ước đo; thuật toán ảnh có bao phủ, duy nhất và điều kiện dừng. Kiểm tra bằng giải thích khoản chi phí và đánh đổi bộ nhớ, bài2.5.1a giữ nguyên25phút.

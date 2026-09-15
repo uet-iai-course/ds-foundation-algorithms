@@ -303,81 +303,147 @@ Tình huống giả sử A/B thuộc hai phần riêng và không còn trung gia
 
 Hadoop MapReduce biểu diễn công việc theo Map, nhóm và Reduce; Spark cho phép diễn đạt chuỗi biến đổi RDD và dùng lại kết quả trung gian. Spark có thể đọc HDFS, nên lưu trữ và hệ tính toán phải được phân biệt. Trong ví dụ, reduceByKey là bước cần đưa các đóng góp cùng từ về cùng nơi. Điều này nối sang mục 2.5: muốn đánh giá, phải xác định mỗi tác vụ đọc hoặc nhận những dữ liệu nào.
 
-## 2.5. Mô hình chi phí truyền thông
+## 2.5. Đếm dữ liệu mỗi tác vụ nhận
 
-### Quy ước trước khi tính
+Phần trước đã xác định những bước xử lý và nơi dữ liệu được dùng lại. Phần này đo lượng dữ liệu các tác vụ phải nhận để thực hiện thuật toán. Ta dùng lại đếm từ và nhân ma trận–vector để biết từng số hạng đến từ đâu.
 
-Mục 2.5 định nghĩa chi phí truyền thông của một tác vụ là kích thước đầu vào tác vụ; tổng chi phí là tổng trên tất cả tác vụ:
+### Mô hình và hai nơi đặt bộ đếm
+
+Theo MMDS 2.5.1, chi phí truyền thông của một tác vụ là kích thước đầu vào tác vụ, kể cả đọc cục bộ. Tổng chi phí là tổng trên tất cả tác vụ:
 
 $$
 C=\sum_u|\operatorname{in}(u)|.
 $$
 
-Với một công việc MapReduce, gọi $I$ là tổng đầu vào Map, $M$ là tổng đầu vào Reduce sau khi tính đủ các bản sao. Khi đó $C=I+M$. Ký hiệu $M$ ở phần này là kích thước trung gian, không phải ma trận ở mục 2.3. Cả đọc cục bộ cũng nằm trong phép đếm. Đây không phải công thức đo riêng byte đi trên dây mạng.
+Với một công việc MapReduce, gọi $I$ là tổng byte đầu vào Map, $M$ là tổng byte đầu vào Reduce, tính đủ mọi bản gửi. Khi đó $C=I+M$. Ký hiệu $M$ ở đây không phải ma trận của mục 2.3. Phải thống nhất đơn vị trước khi cộng.
 
-![Mô hình cộng đầu vào Map I và đầu vào Reduce M; không cộng trực tiếp đầu ra cuối.](img/lec-02/ch2-chi-phi.svg)
+![Hai bộ đếm đo văn bản vào Map và các cặp vào Reduce.](img/lec-02/cost-input.svg)
 
-Phải dùng một đơn vị nhất quán: byte hoặc bản ghi chuẩn hóa. Nếu độ dài bộ và cặp khác nhau thì nhân số lượng với độ dài tương ứng. Trong chuỗi nhiều công việc, đầu ra của công việc trước được đếm khi tác vụ sau đọc nó. Kết quả cuối không được cộng trực tiếp theo quy ước này; trong hệ thống thật, tạo và ghi kết quả vẫn tốn tài nguyên.
+Đầu ra cuối không được cộng trực tiếp theo quy ước này. Nếu tác vụ tiếp theo đọc nó, lần đọc ấy được tính là đầu vào của tác vụ đó. Đây là mô hình lượng dữ liệu nhận, không đo riêng byte trên dây mạng và không dự đoán thời gian chạy. Các slide tham khảo MMDS/Stanford có mô hình cộng cả đọc và ghi $I+2M+O$; bài này chọn mô hình đầu vào của sách theo nguồn chính, không trộn hai quy ước.
 
-Với vết đếm từ, Map đọc lượng dữ liệu $I$. Chưa gộp thì Reduce nhận 5 cặp; gộp hai lần xuất hiện ở D2 thì nhận 4 cặp. Nếu mỗi cặp dài $B$ byte, hai chi phí là $I+5B$ và $I+4B$, với $I$ tính bằng byte. Không đồng nhất hai tài liệu với hai cặp có kích thước bằng nhau.
+### Chạy lại phép đếm trên hai tài liệu
 
-### Chi phí nhân ma trận–vector
+D1 chứa “dữ liệu lớn”, D2 chứa “lớn lớn”. D1 phát ba cặp $(\text{dữ},1)$, $(\text{liệu},1)$, $(\text{lớn},1)$; D2 phát hai cặp $(\text{lớn},1)$. Các cặp giống nhau vẫn được đếm riêng vì biểu diễn những lần xuất hiện khác nhau.
 
-Quay lại cách chia dải ở mục 2.3.2. Gọi $z$ là số phần tử ma trận được lưu, $L_j$ là độ dài dải vector $j$, $a_j$ là số tác vụ đọc dải đó. Ở đây $j$ đánh số dải. Không gộp cục bộ các tích; dùng đơn vị bản ghi chuẩn hóa.
+![Ba cặp của D1 và hai cặp của D2 tạo năm bản gửi trung gian.](img/lec-02/cost-five.svg)
 
-| Tầng nhận | Lượng dữ liệu | Căn cứ |
-|---|---|---|
-| Map: ma trận | $z$ | Mỗi phần tử đọc một lần |
-| Map: vector | $\sum_j a_jL_j$ | Dải $j$ được đọc $a_j$ lần |
-| Reduce | $z$ | Mỗi phần tử phát một tích |
+Giả sử mỗi cặp có cùng độ dài $B$ byte. Reduce nhận $3B+2B=5B$ byte; Map vẫn đọc $I$ byte văn bản. Vì vậy $C=I+5B$. Hai tài liệu không đồng nghĩa với hai byte hay hai bản ghi cùng kích thước cặp.
 
-Vì vậy $C=2z+\sum_j a_jL_j$. Nếu mỗi dải có một tác vụ và tổng độ dài vector là $n$, chi phí là $2z+n$. Nếu mỗi dải có $a$ tác vụ thì chi phí thành $2z+an$. Hai trường hợp này suy ra từ công thức, không phải kết quả đo thực nghiệm. Với ma trận đặc, $z=n^2$.
+![D2 gộp hai cặp lớn một thành một cặp lớn hai; D1 giữ ba cặp.](img/lec-02/cost-combine.svg)
 
-Đơn vị chuẩn hóa không khẳng định mọi loại bản ghi dài bằng nhau theo byte. Nếu độ dài lần lượt là $B_M,B_v,B_P$ byte thì $C=zB_M+(\sum_j a_jL_j)B_v+zB_P$. Chia thêm tác vụ có thể tăng số lần đọc vector; tổng này chưa xác định thời gian thực hoặc tải bộ nhớ lớn nhất. Nguồn: MMDS 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang 32,54–55,59.
+Sau khi gộp cục bộ tại D2, Reduce nhận ba cặp từ D1 và một cặp $(\text{lớn},2)$ từ D2. Theo cùng giả thiết $B$, chi phí trở thành $I+4B$. Đầu vào Map không đổi, kết quả của từ “lớn” vẫn là $1+2=3$. Đây là phép đếm trên ví dụ minh họa của bài, không phải mức tiết kiệm đo trên dữ liệu thực. Nguồn: Ví dụ 2.1, mục 2.2.4 và mô hình 2.5.1.
 
-## 2.6. Bộ nhớ và sao chép dữ liệu
+### Ma trận và các tích: hai khoản khác nhau
 
-Để diễn tả đánh đổi, đặt $q$ là số giá trị đầu vào tối đa một reducer nhận và $\rho$ là số cặp trung gian trung bình trên một đầu vào. Sách dùng $r$ cho đại lượng thứ hai; bài dùng ký hiệu $\rho$ cho đại lượng này.
+Xét thuật toán chia dải ở mục 2.3.2, không gộp cục bộ các tích. Gọi $z$ là số phần tử ma trận được lưu. Mỗi tọa độ lưu đúng một bộ; phần tử không lưu được hiểu là 0. Dùng đơn vị chuẩn hóa: một bộ ma trận, một số vector và một cặp tích đều tính một đơn vị. Quy ước này không khẳng định chúng có cùng độ dài theo byte.
 
-$$
-\rho=\frac{\text{số cặp trung gian phát}}{\text{số phần tử đầu vào}}.
-$$
+![Mỗi bộ ma trận được Map đọc và tạo một cặp tích để Reduce nhận.](img/lec-02/cost-matrix.svg)
 
-Nếu mỗi giá trị có $B$ byte và reducer giữ đồng thời toàn bộ đầu vào thì phần dữ liệu chiếm tối đa $qB$ byte, chưa tính cấu trúc phụ. $\rho$ không phải số bản sao của khối trong hệ tệp.
+Map nhận $z$ bộ ma trận. Mỗi bộ phát một cặp tích, nên Reduce nhận $z$ cặp. Hai khoản $z$ thuộc hai loại dữ liệu khác nhau; không phải ma trận được đọc hai lần. Ta còn phải đếm vector mà Map cần để tạo tích.
 
-### So sánh mọi cặp ảnh
+### Dải vector và số lần đọc
 
-Mục 2.6.2 xét $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte. Cho hàm độ tương tự đối xứng $s(P_i,P_j)$ và ngưỡng $\tau$; đầu ra gồm các cặp ảnh khác nhau có $s(P_i,P_j)>\tau$. Trong mô hình của nguồn, cần tính độ tương tự cho mọi cặp để quyết định có phát cặp đó hay không. Sách dùng $t$ cho ngưỡng; bài dùng ký hiệu $\tau$. $B$ là số byte mỗi ảnh; ở ví dụ đếm từ, $B$ là số byte mỗi cặp. Một reducer cho mỗi cặp nhận hai ảnh, nên $q=2$. Mỗi ảnh được gửi tới $N-1$ reducer:
+Gọi $L_j$ là số phần tử dải vector thứ $j$, $a_j$ là số tác vụ Map đọc toàn bộ dải đó. Ở phần này $j$ đánh số dải, không phải chỉ số cột trong công thức nhân ma trận. Nếu hai tác vụ xử lý hai phần ma trận cần cùng dải dài $L_j$, tổng dữ liệu vector chúng đọc là $L_j+L_j=2L_j$.
 
-$$
-\rho=N-1=999999,\qquad C_{\mathrm{trung\ gian}}=N(N-1)B\approx10^{18}\text{ byte}.
-$$
+![Hai tác vụ đọc cùng một dải dài L j, tạo hai lần nhận dữ liệu.](img/lec-02/cost-stripe.svg)
 
-Gom ảnh thành $g=1000$ nhóm, mỗi nhóm 1000 ảnh. Mỗi reducer nhận hai nhóm để so sánh chéo; một ảnh đi tới $g-1=999$ reducer. Khi đó
+Tổng quát, dải $j$ đóng góp $a_jL_j$ đơn vị. Cộng trên mọi dải cho $\sum_j a_jL_j$. Dải lưu một bản không có nghĩa nó chỉ được đọc một lần; ta đếm theo tác vụ nhận dữ liệu.
+
+![Ba khoản chi phí gồm bộ ma trận, các lần đọc vector và cặp tích.](img/lec-02/cost-sum.svg)
+
+Vì vậy:
 
 $$
-q=2000,\quad \rho=999,\quad C_{\mathrm{trung\ gian}}=9{,}99\cdot10^{14}\text{ byte}.
+C=\underbrace{z}_{\text{ma trận vào Map}}+\underbrace{\sum_j a_jL_j}_{\text{vector vào Map}}+\underbrace{z}_{\text{tích vào Reduce}}=2z+\sum_j a_jL_j.
 $$
 
-Dữ liệu ảnh của một reducer là $2\cdot10^9$ byte, tức 2 GB theo đơn vị thập phân, chưa gồm chi phí phụ. Cả hai công thức trên chỉ tính trung gian; nếu dùng tổng của mục 2.5 cần cộng đầu vào Map $NB$.
+Nếu mỗi dải có một tác vụ và các dải phủ vector dài $n$, thì $\sum_j L_j=n$, nên $C=2z+n$. Nếu mỗi dải có $a$ tác vụ, phần vector là $an$, nên $C=2z+an$. Với ma trận đặc, $z=n^2$.
 
-Mỗi cặp khác nhóm được xét đúng một nơi. Để xét cặp trong cùng nhóm mà không lặp, đánh số nhóm 0 đến $g-1$ và giao các cặp nội bộ nhóm $i$ cho reducer chứa nhóm $i$ và nhóm $(i+1)\bmod g$. Không để mọi reducer có nhóm $i$ đều lặp lại các cặp nội bộ.
+Khi tính byte, gọi $B_M,B_v,B_P$ lần lượt là độ dài bộ ma trận, số vector và cặp tích. Khi đó $C=zB_M+(\sum_j a_jL_j)B_v+zB_P$. Đây là phép suy ra từ thuật toán và mô hình, không phải công thức trích nguyên văn nguồn. Nguồn: MMDS 2.3.2, 2.5.1 và Bài 2.5.1(a), trang 32, 54–55, 59.
 
-Cách gom nhóm giảm truyền ảnh nhờ dùng lại ảnh cho nhiều phép so sánh. Tổng số cặp cần so sánh vẫn là $N(N-1)/2$; không giảm thành tuyến tính theo $N$. Cần kiểm tra bộ nhớ và chi phí so sánh trước khi chọn kích thước nhóm. Nguồn: mục 2.6.1–2.6.2, trang 61–64. Lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7 là đọc thêm.
+### Tổng và nơi nhận nhiều nhất
 
-![Bên trong reducer của hai nhóm kề nhau: bốn cặp chéo trên phần trích nối nét liền; cặp nội bộ nhóm u nối nét đứt và chỉ được giao ở đây.](img/lec-02/ch2-cap-nhom-anh.svg)
+![R0 nhận hai giá trị, R1 nhận ba; tổng năm và tải lớn nhất ba.](img/lec-02/cost-load.svg)
 
-Hình minh họa quy tắc của mục 2.6.2, trang 63–64, với $v=(u+1)\bmod g$ và cách đánh số nhóm $0,\ldots,g-1$. Các ký hiệu ảnh chỉ đại diện cho một phần của mỗi nhóm 1000 ảnh. Reducer xét mọi cặp chéo hai nhóm và các cặp nội bộ nhóm $u$ được giao riêng; cặp nội bộ nhóm $v$ thuộc reducer kế tiếp của $v$. Chỉ các cặp vượt ngưỡng tương tự được phát ra.
+Quay lại trường hợp chưa gộp trong phân công đếm từ ở 2.2, riêng đầu vào Reduce có tổng $5B$ byte; tác vụ nặng nhất nhận $3B$ byte. Tổng dữ liệu giảm chưa đủ để kết luận thời gian giảm: còn tải lớn nhất, số máy, lịch thực thi, bộ nhớ và công việc tính toán. Mục 2.6 tiếp tục bằng một lựa chọn phân chia làm giảm số bản gửi nhưng tăng dữ liệu mỗi nơi phải nhận.
 
-### Đánh giá số lần so sánh
+## 2.6. Phân chia ảnh để giảm số bản gửi
 
-Các ảnh có mã duy nhất $1,\ldots,N$. Đặc tả đầu ra là tập các cặp $(i,j)$ thỏa $1\le i<j\le N$ và $s(P_i,P_j)>\tau$; mỗi cặp được phát đúng một lần. Hàm $s$ cho sẵn, đối xứng và kết thúc trên mỗi cặp. Với ít hơn hai ảnh, kết quả rỗng; phương án chia đều đang giảng dùng riêng $N=10^6$, $g=1000$, không áp dụng nguyên xi cho mọi kích thước đầu vào.
+### Bài toán và phương án từng cặp
 
-Lấy một lần gọi $s$ làm một đơn vị so sánh. Cả hai phương án đều gọi hàm đúng $N(N-1)/2=499\,999\,500\,000$ lần. Cách từng cặp chỉ gọi một lần tại mỗi reducer. Cách nhóm có $1000^2=1\,000\,000$ cặp chéo tại mỗi reducer; reducer được giao thêm nội bộ một nhóm cần thêm $1000\cdot999/2=499\,500$ lần gọi. Tải lớn nhất vì thế là $1\,499\,500$ lần gọi, theo đúng quy tắc giao nội bộ đã nêu.
+Nguồn xét $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte. Các ảnh có mã duy nhất $1,\ldots,N$. Cho hàm độ tương tự đối xứng $s$ kết thúc trên mỗi cặp và ngưỡng $\tau$. Trả mỗi cặp $(i,j)$ thỏa $i<j$ và $s(P_i,P_j)>\tau$ đúng một lần. Trong mô hình này phải tính độ tương tự của mọi cặp ảnh khác nhau; chưa có cách bỏ qua cặp. Với ít hơn hai ảnh, kết quả rỗng. $B$ ở đây đo byte ảnh, khác $B$ đo byte cặp từ ở 2.5.
 
-Kiểm tra tổng: $\binom{1000}{2}$ reducer đều xét một triệu cặp chéo, và 1000 nhóm đều có 499500 cặp nội bộ được giao đúng một nơi. Cộng lại được $499\,999\,500\,000$, bằng số cặp không thứ tự của một triệu ảnh. Đây là phép đếm suy ra từ MMDS 2.6.2, trang 62–64.
+![Hai ảnh qua hàm độ tương tự, trả cặp chỉ số nếu vượt ngưỡng.](img/lec-02/cost-image-task.svg)
 
-Nếu mỗi lần gọi có chi phí cố định $c_s$, phần công việc tính độ tương tự bằng $c_sN(N-1)/2$. Nếu chi phí khác nhau giữa các cặp thì phải cộng chi phí thực của từng lần gọi. Cả hai kết luận đều chưa gồm tạo bản sao, nhóm khóa, truyền ảnh và ghi đầu ra. Dữ liệu đầu vào một reducer là 2 MB hoặc 2 GB theo hai cách chia, còn bộ nhớ cần cho hàm $s$ và hệ thống chưa biết. Vì vậy bảng so sánh đánh giá lượng công việc và dữ liệu, không dự đoán thời gian hoàn thành trên cụm máy.
+Map của ảnh $(i,P_i)$ duyệt mọi $j\ne i$ và phát ảnh đến khóa cặp $\{i,j\}$, biểu diễn chỉ số tăng dần. Reduce nhận hai ảnh của khóa, gọi $s$, phát cặp nếu vượt $\tau$. Mỗi cặp có duy nhất khóa và nhận đủ hai ảnh, nên xét đúng một lần. Các vòng duyệt hữu hạn nên thuật toán dừng theo giả thiết về $s$.
+
+![Bốn ảnh đến sáu khóa cặp; mỗi ảnh có ba bản gửi và mỗi khóa nhận hai ảnh.](img/lec-02/cost-four.svg)
+
+Hình dùng trường hợp bốn ảnh của Ví dụ 2.19, Hình 2.9 để nhìn thấy cách gửi. P1 đến ba khóa $\{1,2\},\{1,3\},\{1,4\}$. Các ảnh khác cũng có ba nơi nhận: tổng $4\times3=12$ bản gửi, tức $12B$ byte tải ảnh.
+
+### Đếm byte từ ba yếu tố
+
+Với $N$ ảnh, một ảnh có $N-1$ đối tác. Tổng tải ảnh trung gian bằng số ảnh nhân số nơi nhận mỗi ảnh nhân số byte mỗi ảnh:
+
+$$
+C_{\mathrm{ảnh}}=N(N-1)B\approx10^{18}\text{ byte}.
+$$
+
+![Ba yếu tố là số ảnh, số nơi nhận mỗi ảnh và byte mỗi ảnh.](img/lec-02/cost-bytes-pair.svg)
+
+Công thức chỉ tính tải ảnh Map gửi tới Reduce, bỏ qua nhãn cặp và chi phí phụ. Nếu áp dụng tổng chi phí của 2.5 trong cùng mô hình tải ảnh, cần cộng thêm đầu vào Map $NB$. Không gọi phần trung gian này là toàn bộ chi phí của công việc.
+
+### Đặt tên các đại lượng để so sánh phân chia
+
+Gọi $q$ là cận trên số giá trị của một khóa Reduce; gọi $\rho$ là số cặp trung gian trung bình phát ra trên một đầu vào. Sách dùng $r$ cho đại lượng thứ hai. Trong mô hình mục 2.6, “reducer” gắn với một khóa, không phải một máy hay một tác vụ xử lý nhiều khóa ở mục 2.2.
+
+$$
+\rho=\frac{\text{tổng số cặp trung gian phát}}{\text{số phần tử đầu vào}}.
+$$
+
+![Từ hình bốn ảnh: mỗi ảnh gửi ba nơi, mỗi khóa nhận hai ảnh.](img/lec-02/cost-qr.svg)
+
+Với bốn ảnh, $q=2$, $\rho=3$. Với toàn bộ kho ảnh, $q=2$, $\rho=N-1=999999$. Đây là số bản gửi trung gian, không phải số bản sao khối trong hệ tệp. Nếu mỗi giá trị dài $B$ byte, tải ảnh tối đa là $qB$; bộ nhớ chạy thuật toán còn phụ thuộc cách giữ dữ liệu và vùng làm việc của $s$.
+
+### Gom nhóm để dùng lại ảnh đã nhận
+
+Chia đều $N=10^6$ ảnh thành $g=1000$ nhóm, mỗi nhóm $N/g=1000$ ảnh. Map gửi ảnh nhóm $u$ đến mọi khóa cặp nhóm $\{u,v\}$ với $v\ne u$, kèm mã nhóm và mã ảnh. Mỗi khóa nhận hai nhóm để so sánh nhiều cặp bằng dữ liệu đã có.
+
+![Một khóa nhận hai nhóm, mỗi nhóm 1000 ảnh, tổng 2000 ảnh.](img/lec-02/cost-groups.svg)
+
+Một khóa nhận $2N/g=2000$ ảnh nên chọn $q=2000$. Mỗi nhóm ghép với $g-1=999$ nhóm khác, nên mỗi ảnh gửi đến 999 khóa và $\rho=999$.
+
+![Mỗi ảnh nhóm u gửi đến các cặp nhóm chứa u; mỗi nơi nhận hai nhóm.](img/lec-02/cost-group-count.svg)
+
+Ba yếu tố tính byte vẫn như trước, chỉ số nơi nhận thay từ $N-1$ thành $g-1$:
+
+$$
+C_{\mathrm{ảnh}}=N(g-1)B=9{,}99\times10^{14}\text{ byte}.
+$$
+
+![Gom nhóm thay 999999 nơi nhận mỗi ảnh bằng 999 nơi, cùng số ảnh và kích thước ảnh.](img/lec-02/cost-bytes-group.svg)
+
+Mỗi nơi nay nhận $2000\times10^6=2\times10^9$ byte ảnh, tức 2 GB thập phân. Phạm vi vẫn chỉ là tải ảnh; tổng mô hình 2.5 cần thêm $NB$. Chia đều ở đây dùng dữ kiện của sách; không áp dụng nguyên xi cho mọi $N,g$.
+
+### Bao phủ các cặp và tính đúng
+
+Reduce so sánh mọi cặp chéo hai nhóm. Các cặp trong cùng một nhóm cần được giao riêng, nếu không sẽ bị xét lặp ở mọi nơi chứa nhóm đó. Đánh số nhóm $0,\ldots,g-1$ với $g=1000$; giao các cặp nội bộ nhóm $u$ cho khóa $\{u,(u+1)\bmod g\}$. Chỉ phát cặp chỉ số tăng dần khi độ tương tự vượt ngưỡng.
+
+![Bốn cặp chéo và một cặp nội bộ được giao riêng trên phần trích hai ảnh mỗi nhóm.](img/lec-02/ch2-cap-nhom-anh.svg)
+
+Mỗi cặp khác nhóm có duy nhất cặp nhóm chứa nó. Mỗi cặp cùng nhóm có duy nhất nơi được giao theo vòng. Hai loại không giao nhau và phủ toàn bộ cặp khác ảnh: thuật toán không bỏ sót hoặc xét lặp. Dữ liệu hữu hạn và $s$ kết thúc nên thuật toán dừng. Hình chỉ trích hai ảnh mỗi nhóm; cặp nội bộ nhóm kế tiếp được xử lý ở nơi được giao cho nhóm đó.
+
+### Số so sánh và đánh đổi
+
+Mỗi ảnh có $N-1$ đối tác. Tích $N(N-1)$ đếm cả $(i,j)$ lẫn $(j,i)$, nên chia hai để lấy số cặp khác nhau. Cả hai phương án cần $N(N-1)/2=499\,999\,500\,000$ lần gọi $s$.
+
+![Sáu ô phía trên đường chéo của lưới bốn ảnh biểu diễn sáu cặp; các ô dưới lặp thứ tự.](img/lec-02/cost-comparisons.svg)
+
+Cách từng cặp gọi $s$ một lần tại mỗi khóa. Cách nhóm có $1000^2=1\,000\,000$ cặp chéo tại mỗi khóa; nơi được giao nội bộ một nhóm cần thêm $1000\cdot999/2=499\,500$ lần gọi. Tải lớn nhất là $1\,499\,500$ lần gọi. Kiểm tra tổng: $\binom{1000}{2}\cdot1000^2+1000\binom{1000}{2}=499\,999\,500\,000$.
+
+Nếu mỗi lần gọi có chi phí cố định $c_s$, công việc tính độ tương tự là $c_sN(N-1)/2$. Nếu chi phí thay đổi, phải cộng chi phí từng lần gọi. Chưa tính tạo bản gửi, nhóm khóa, truyền ảnh và ghi đầu ra. Gom nhóm giảm lượng ảnh truyền nhờ dùng lại dữ liệu; số cặp cần so sánh không giảm. Cần kiểm tra bộ nhớ phụ và chi phí của $s$ trước khi kết luận một nơi nhận 2 GB có thể chạy được.
+
+Nguồn: MMDS 2.6.1–2.6.2, trang 61–64; ví dụ bốn ảnh từ 2.6.3, Hình 2.9, trang 64–65. Phần lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7 dành để đọc thêm.
 
 ## 2.7. Tổng kết và bài tập
 

@@ -1835,3 +1835,38 @@ Năm tác tử độc lập (sinh viên, giải thuật, toán, sư phạm, mạ
 - Chromium1280×720 duyệt62slide:0phầntử tràn khung,0lỗiKaTeX,0lỗiJavaScript,0HTTP lỗi. Đã xem ảnh chụp cả9trang của2.4; chữtrongSVG lớn, các mũitên và nhãn đọc được. Bản in62trang, liên kết recitationđúng;15ảnhghi chú tảiđược, màn hìnhhẹp390px và bànphím mởlờigiải hoạtđộng. Script tái sinh bốnSVG cho cùnghash. gitdiff--check đạt.
 - Mọi kết quả tác tử xác nhận providerOpenRouter và requested_model=observed_model=z-ai/glm-5.3-flash. Bằng chứng ở /tmp/lec02-flow: JSONcácvai, browser-report.json, final-render-report.json, final-*.png vàdeck-final.pdf.
 - Ngân sách thời gian chưa diễn tập với lớp thật. Hồ sơ CodexSlides DesignFiles chưa cập nhật vì quyền xuất các tài liệu tới đích đó vẫn chưa được xác nhận sau automaticreview từchối ởlầntrước; không thửlại hoặcđổi đườngxuất. RevealJS trong kho làbảnđãkiểmđịnh.
+
+
+## Kế hoạch sửa mạch chi phí — 2026-09-16
+
+Kế hoạch được điều phối viên chấp nhận: viết lại 2.5 bằng 8 trang, 2.6 bằng 10 trang. Quan sát → đếm → đặt tên → công thức. Giữ ví dụ đếm từ D1/D2, ma trận chia dải và ảnh của sách. 2.5: đầu vào mỗi tác vụ; I+M; năm cặp; gộp còn bốn; hai khoản z; dải vector đọc lặp; cộng ba khoản; tổng và tải lớn nhất. 2.6: đặc tả ảnh; bốn ảnh/sáu cặp từ Hình2.9; đếm bản gửi rồi byte; đặt tên q/rho; hai nhóm; đếm nơi nhận; tính byte; bao phủ; đếm so sánh; đánh đổi. Giữ bài tập, tổng120+60; dự kiến67trang,59giảng. Nguồn sách2.5.1 định nghĩa đầu vào tác vụ, ưu tiên hơn slide MMDS/Stanford đếm I/O cả đầu ra. Bác công thức I+2M+O trong phạm vi này. Không cộng đầu ra cuối trừ khi tác vụ tiếp theo đọc. Hai khoản z lần lượt là bộ ma trận và cặp tích. Ví dụ bốn ảnh chỉ có ba nơi nhận/ảnh; không gán 999999 cho hình nhỏ. q là cận đầu vào một khóa Reduce, không số máy. Công thức 2z+Σa_jL_j là suy ra từ thuật toán và bài2.5.1a, không trích nguyên văn sách. Phân bổ mới5/7/31/16/17/18/20/5/1phút; bài tập60 không đổi. Dời minh họa bốn ảnh của2.6.3 lên trước ký hiệu để tạo trực giác, không thêm phần cận dưới. Mọi kích thước và phạm vi chi phí hiện rõ trước công thức.
+
+Planner và source reader độc lập qua OpenRouter, requested/observed model `z-ai/glm-5.3-flash`; kết quả tại `/tmp/lec02-cost/plan.json`, `source.json`. Điều phối viên sửa các điểm nhầm phạm vi đầu ra và phân biệt ví dụ nhỏ với quy mô nguồn trước khi giao soạn.
+
+## Hoàn tất mạch chi phí 2.5–2.6 — 2026-09-16
+
+### Thay đổi được giữ
+
+- Thay 13 trang của hai phần bằng 18 trang: 8 trang để đếm đầu vào tác vụ, 10 trang để thiết kế phân chia ảnh. Toàn bài 67 trang = 59 giảng + 8 bài tập; 9 section theo ngoại lệ nguồn PDF. Storyboard cộng đúng 120 phút giảng + 60 phút recitation, chưa diễn tập với lớp thật.
+- Giữ dữ liệu D1/D2 và ma trận chia dải. Tách năm cặp, gộp bốn cặp, hai khoản z và đọc lặp vector; giải thích từng số hạng trước khi cộng. Ghi đơn vị chuẩn hóa ngay khi chuyển khỏi byte.
+- Dùng bốn ảnh của Ví dụ 2.19/Hình 2.9 làm cầu nối trước định nghĩa q/rho. Nêu bài toán và thuật toán, đếm nơi nhận, nhân ba yếu tố thành byte, gom nhóm rồi đếm lại. Giải thích chia hai khi đếm cặp; giữ chứng minh bao phủ, duy nhất và điều kiện dừng trong notes/ghi chú.
+- Thêm 16 SVG có script tái sinh `img/lec-02/scripts/render-cost-diagrams.py`; 30 SVG được nhúng trong deck, 29 trong ghi chú. Hình bốn ảnh được sửa tuyến mũi tên để không đi qua chữ; hình bài toán có đủ hai đầu vào hàm độ tương tự.
+- Cập nhật outline, từng mục storyboard, ghi chú tự học và mô tả tài nguyên ở index. Tám slide bài tập được so khớp nguyên văn với HEAD trước sửa, không thay dữ kiện/yêu cầu/lời giải.
+
+### Rà soát độc lập và quyết định của điều phối viên
+
+Planner, source reader, writer, storyboard reviewer, năm vai (sinh viên, giải thuật, toán, sư phạm, mạch), biên tập viên riêng và hai lượt rà cuối đều dùng OpenRouter. Metadata `requested_model` và `observed_model` là `z-ai/glm-5.3-flash`, `provider` là `OpenRouter`. Bằng chứng JSON ở `/tmp/lec02-cost/`; không đưa cấu hình hoặc bí mật vào Git.
+
+Giữ góp ý làm rõ trường hợp chưa gộp khi quay về tổng 5B/tải lớn nhất 3B; phân biệt M với ma trận, B của ảnh với B của cặp từ; tính 2000 × một triệu byte = 2 GB trước câu hỏi bộ nhớ. Sau gộp D2, R1 nhận hai giá trị (1 và 2), không phải một giá trị như một reviewer suy ra.
+
+Bác các góp ý sai sau khi đối chiếu nguồn: q không phải tải của cả tác vụ nhiều khóa (sách trang 61 định nghĩa cận một khóa); một bộ ma trận chỉ phát một tích, không nhân theo số dải; quy tắc giao cặp nội bộ cho nhóm kế tiếp theo vòng có ngay trang 63; R0 là tác vụ nên được xử lý nhiều khóa; 59 là số trang giảng, không phải số phút của hai phần. Mốc trang nguồn khác nhau theo từng mệnh đề là có chủ đích, không gộp thành một trích dẫn thiếu chính xác. Giữ thứ tự ví dụ → phép đếm → đặt tên q/rho để tránh tái lập lỗi đưa khái niệm đột ngột. Hai lượt rà cuối xác nhận không còn lỗi nội dung thực chất; điều phối viên vẫn đối chiếu từng nhận xét với tệp, không dùng nhầm ID của reviewer làm bằng chứng.
+
+Chọn chi phí đầu vào tác vụ của sách 2.5.1, trang 54–55; không trộn với mô hình tổng đọc/ghi I+2M+O trên slide MMDS/Stanford. Phần ảnh chỉ tính tải ảnh trung gian, chưa Map input NB và nhãn cặp. Công thức đọc dải là suy ra từ thuật toán/bài 2.5.1a, không trình bày như trích nguyên văn. Áp dụng no-ai-slop để bỏ câu chỉ dẫn soạn thảo và lời lặp; rà mạch theo quill mà không khởi tạo dự án sách.
+
+### Kiểm định
+
+- 67 ID duy nhất, khớp thứ tự storyboard; 120+60 phút; 8 bài tập giữ nguyên.
+- Kiểm tra độc lập phép tính byte, số so sánh và duyệt hết cặp trên các trường hợp 3/4/5 nhóm nhỏ: quy tắc theo vòng phủ mỗi cặp đúng một lần.
+- Chromium thật: 67 slide không tràn, không lỗi KaTeX, JavaScript hoặc HTTP. Ghi chú có 241 công thức, 29 hình tải được; màn hình hẹp không cuộn ngang, khối lời giải dùng bàn phím được. Liên kết recitation về đúng bài đầu.
+- Bản in thử có 67 trang, không lỗi công thức; đã xem ảnh chụp cả 18 trang sửa và kiểm tra lại các hình/nhãn cuối. Tệp kiểm định ở `/tmp/lec02-cost/`, không phát hành PDF thử vào Git.
+- Codex Slides Design Files chưa đồng bộ: lần xuất nội dung trước đã bị automatic approval review từ chối vì đích egress chưa được xác nhận; không thử lại hoặc đi đường vòng. Đầu ra kiểm định của lần này là RevealJS và tài liệu trong kho.
