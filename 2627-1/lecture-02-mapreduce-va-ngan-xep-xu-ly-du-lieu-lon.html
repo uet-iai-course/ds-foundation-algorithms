@@ -68,6 +68,24 @@
 <div class="grid2"><div class="card"><h3>Đầu vào</h3><p>Kho tài liệu được chia trên nhiều máy.</p></div><div class="card"><h3>Đầu ra</h3><p>Mỗi từ đã xuất hiện đi kèm tổng số lần xuất hiện.</p></div></div><p class="takeaway">Map phát đóng góp → hệ thống nhóm theo khóa → reduce tổng hợp.</p>
 <aside class="notes"><p>Với kho lớn, giữ và xử lý tất cả trên một máy có thể không phù hợp. Ta bắt đầu bằng đếm từ để thấy từng đóng góp. Đơn vị đếm của ví dụ tiếng Việt là chuỗi tách theo khoảng trắng; đó không phải bài toán phân tích từ vựng. Người dùng viết map và reduce, còn hệ thống bảo đảm nhóm đúng khóa.</p><p>Nguồn: MMDS, Chương 2, 2.2.1–2.2.3, Ví dụ 2.1–2.2, trang in 25–27.</p></aside>
 </section>
+<section id="lec02-s02-01a" data-slide-id="lec02-s02-01a">
+  <h2>Lợi ích của MapReduce</h2>
+  <table>
+    <thead>
+      <tr><th>Lợi ích</th><th>Cơ chế</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Song song trên nhiều máy</td><td>Chia dữ liệu thành nhiều phần việc để xử lý đồng thời</td></tr>
+      <tr><td>Mở rộng bằng thêm máy</td><td>Bổ sung máy phổ thông để tăng năng lực xử lý</td></tr>
+      <tr><td>Tự phục hồi lỗi máy</td><td>Phát hiện lỗi, giao lại phần việc bị ảnh hưởng</td></tr>
+      <tr><td>Lập trình gọn hơn</td><td>Viết Map/Reduce; hệ thống lo phân phối và điều phối</td></tr>
+      <tr><td>Xử lý gần dữ liệu</td><td>Ưu tiên Map gần bản sao đầu vào để giảm truyền mạng</td></tr>
+    </tbody>
+  </table>
+  <p class="takeaway">Lập trình viên mô tả phép tính; hệ thống tổ chức việc thực thi.</p>
+  <aside class="notes"><p>Kho tài liệu ở trang trước lớn hơn khả năng xử lý thuận tiện của một máy. Bảng này nêu những việc hệ thống hỗ trợ khi ta mô tả bài toán bằng hai hàm. Nhiều phần việc của Map, hoặc của Reduce, có thể xử lý đồng thời; các giai đoạn vẫn có phụ thuộc dữ liệu. Thêm máy phổ thông tăng tài nguyên, nhưng mức tăng tốc phụ thuộc số phần việc, độ cân bằng tải và lượng dữ liệu phải truyền.</p><p>Khả năng phục hồi ở đây xét lỗi máy thực thi: hệ thống phát hiện và giao lại phần việc bị ảnh hưởng. Theo mô hình MMDS, máy bộ điều phối hỏng vẫn có thể buộc khởi động lại toàn bộ công việc. Đặt Map gần bản sao đầu vào là ưu tiên để giảm truyền dữ liệu, không bảo đảm mọi lần đọc đều cục bộ hoặc loại bỏ truyền trung gian. Lập trình viên vẫn phải chọn khóa và bảo đảm tính đúng của hai hàm. Tiếp theo, chạy D1/D2 để xem các đóng góp được phát và nhóm thế nào; phần tổ chức tác vụ và phục hồi phía sau sẽ giải thích từng cơ chế.</p><p>Nguồn: MMDS, Chương 2, trang in 21–22; mục 2.2, trang 25–30; slide MMDS Chương 2, trang 24–25. Đối chiếu: Dean và Ghemawat (2004), <a href="https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/">MapReduce: Simplified Data Processing on Large Clusters</a>, tóm tắt và mục 3.4.</p></aside>
+</section>
+
 <section id="lec02-s02-02" data-slide-id="lec02-s02-02"><h2>Mỗi lần xuất hiện tạo một đóng góp</h2>
 <table><thead><tr><th>Tài liệu</th><th>Cặp map phát</th></tr></thead><tbody><tr><td>dữ liệu lớn</td><td>(dữ,1), (liệu,1), (lớn,1)</td></tr><tr><td>lớn lớn</td><td>(lớn,1), (lớn,1)</td></tr></tbody></table><p class="check"><strong>Câu hỏi:</strong> Từ “lớn” tạo bao nhiêu cặp trước khi nhóm?</p>
 <aside class="notes"><p>Ví dụ cụ thể hóa cơ chế của Ví dụ 2.1 bằng hai chuỗi đã tách theo khoảng trắng. Có năm đơn vị đếm và năm cặp, trong đó ba cặp mang khóa lớn. Các cặp trùng nhau phải được giữ vì mỗi cặp biểu diễn một lần xuất hiện. Đáp án câu hỏi là ba, không phải hai tài liệu. Bước kế tiếp chỉ đổi cách nhóm, chưa làm mất đóng góp.</p><p>Nguồn: MMDS, Chương 2, Ví dụ 2.1, trang in 26; dữ liệu minh họa tiếng Việt được ghi trong storyboard.</p></aside>

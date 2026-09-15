@@ -4,7 +4,7 @@
 
 Áp dụng [slide_authoring_standard.md](../../../slide_authoring_standard.md) và [AGENTS.md](../../../AGENTS.md). Sinh viên năm 2 đã học lập trình và nhân ma trận–vector, chưa học CSDL. Nguồn chính: [MMDS Chương 2](../../../sources/textbooks/ch2n.pdf), trang in 20–79; trang PDF bằng trang in trừ 19. Giữ 9 section: mở đầu và mỗi mục 2.1–2.8 một section theo yêu cầu người dùng, ngoại lệ quy tắc 5–7 section.
 
-Bản hiện hành có **45 trang giảng và 8 trang bài tập**, thiết kế **120 phút giảng + 60 phút recitation**. Phân bổ dự kiến, chưa diễn tập với lớp thật. Bỏ quan hệ, chọn, chiếu, nối, tổng hợp và liên hệ nhân hai ma trận (2.3.3–2.3.10), các ví dụ chi phí nối của 2.5.3 và bài 2.5.1(c) theo chỉ dẫn mới về tiên quyết. Không giữ phép nối ngầm trong bài tập hoặc phần kết. Thời gian chuyển sang giải thích hai hàm, vết chạy và đếm chi phí; không thêm số liệu ngoài nguồn.
+Bản hiện hành có **46 trang giảng và 8 trang bài tập**, thiết kế **120 phút giảng + 60 phút recitation**. Phân bổ dự kiến, chưa diễn tập với lớp thật. Bỏ quan hệ, chọn, chiếu, nối, tổng hợp và liên hệ nhân hai ma trận (2.3.3–2.3.10), các ví dụ chi phí nối của 2.5.3 và bài 2.5.1(c) theo chỉ dẫn mới về tiên quyết. Không giữ phép nối ngầm trong bài tập hoặc phần kết. Thời gian chuyển sang giải thích hai hàm, vết chạy và đếm chi phí; không thêm số liệu ngoài nguồn.
 
 Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 21: 20 phút; 2.5.1(a), trang 59/PDF 40: 25 phút. Giữ nguyên đề nguồn, chỉ dịch và tách ý. Bỏ bài 2.5.1(c), dành trọn 25 phút cho lập bảng, trình bày và đối chiếu điều kiện của ý (a); không thêm bài mới. Bài tập nằm cuối section nguồn, ngoại lệ để giữ ánh xạ PDF; liên kết từ tổng kết dẫn vào recitation sau phần giảng.
 
@@ -14,7 +14,7 @@ Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 
 |---|---|---:|
 | Mở đầu | Giới hạn một máy → mục tiêu và nội dung. | 5 |
 | 2.1 | Cụm máy → lỗi → khối và bản sao → đầu vào tác vụ. | 10 |
-| 2.2 | Đếm từ → hai hàm → giả mã/đúng → tạo tác vụ → phân khóa → gán máy → dữ liệu còn lại → phục hồi lỗi. | 36 |
+| 2.2 | Lợi ích → đếm từ → hai hàm → giả mã/đúng → tạo tác vụ → phân khóa → gán máy → dữ liệu còn lại → phục hồi lỗi. | 36 |
 | 2.3 | Đổi khóa từ từ sang hàng → vết các tích → giả mã → chia dải vector. | 17 |
 | 2.4 | Một công việc → đồ thị phụ thuộc → Spark/tính lại → nhiều tác vụ cần đánh giá. | 13 |
 | 2.5 | Mô hình/đơn vị → đếm từ → đọc dải vector → tổng và tải lớn nhất. | 18 |
@@ -112,18 +112,29 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Kiến thức đầu vào:** Dữ liệu đã chia thành khối.
 - **Mục đích:** Đặc tả đầu vào và đầu ra của đếm từ.
 - **Câu chốt:** Map phát đóng góp; hệ thống nhóm theo khóa; reduce tổng hợp từng nhóm.
-- **Kết nối vào–ra:** từ “Chia khối, lưu bản sao và đọc gần dữ liệu”; chuẩn bị “Mỗi lần xuất hiện tạo một đóng góp”. Mạch giảng bỏ qua recitation tới cuối buổi.
+- **Kết nối vào–ra:** từ “Chia khối, lưu bản sao và đọc gần dữ liệu”; chuẩn bị “Lợi ích của MapReduce”. Mạch giảng bỏ qua recitation tới cuối buổi.
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.2.1–2.2.3, Ví dụ 2.1–2.2, trang in 25–27.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-01).
 - **Thời lượng:** 3 phút giảng.
+
+### `lec02-s02-01a` · Lợi ích của MapReduce
+
+- **Kiến thức đầu vào:** Giới hạn một máy, cụm máy và hai hàm vừa được giới thiệu.
+- **Mục đích:** Ghép năm lợi ích với cơ chế hệ thống tạo ra chúng.
+- **Câu chốt:** Lập trình viên mô tả phép tính; hệ thống tổ chức việc thực thi.
+- **Kết nối vào–ra:** từ kho tài liệu lớn ở s02-01; tạo động lực theo dõi D1/D2 ở s02-02 và các cơ chế phân công, phục hồi phía sau.
+- **Cách thể hiện:** Một bảng năm hàng, hai cột lợi ích/cơ chế; không thêm sơ đồ trang trí. Các giới hạn và câu nối nằm trong notes.
+- **Nguồn:** MMDS Chương 2, trang 21–22, 25–30; slide MMDS trang 24–25. Dean và Ghemawat (2004), tóm tắt và mục 3.4, dùng để đối chiếu. Năm ý do người dùng cung cấp; năm video YouTube không truy cập được nên không trích lời hoặc coi là đã xem.
+- **Ghi chú:** [Giải thích điều kiện và nối mạch](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-01a).
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-02` · Mỗi lần xuất hiện tạo một đóng góp
 
 - **Kiến thức đầu vào:** Đặc tả đếm từ; tách theo khoảng trắng.
 - **Mục đích:** Phát đủ năm đóng góp từ hai tài liệu.
 - **Câu chốt:** Năm lần xuất hiện tạo năm cặp, kể cả các cặp trùng nhau.
-- **Kết nối vào–ra:** từ “2.2 · Mô hình MapReduce”; chuẩn bị “Nhóm theo khóa rồi cộng”. Mạch giảng bỏ qua recitation tới cuối buổi.
+- **Kết nối vào–ra:** từ “Lợi ích của MapReduce”; chuẩn bị “Nhóm theo khóa rồi cộng”. Mạch giảng bỏ qua recitation tới cuối buổi.
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, Ví dụ 2.1, trang in 26; dữ liệu minh họa tiếng Việt được ghi trong storyboard.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-02).
@@ -151,7 +162,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
     Reduce được gọi đúng một lần cho mỗi khóa có mặt ở dữ liệu trung gian.
     Không dựa vào thứ tự tài liệu ban đầu khi cộng các giá trị; phép cộng trong ví dụ không phụ thuộc thứ tự. Khóa đầu ra K_3 có thể khác K_2.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-03a).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-03b` · Từ Map đến Reduce
 
@@ -176,7 +187,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.2.1–2.2.3, trang in 25–27; lập luận đúng từ Ví dụ 2.1–2.2.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-04).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-04a` · Bộ đếm trả đúng số lần xuất hiện
 
@@ -272,7 +283,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Mục đích:** Mô phỏng chạy lại Reduce đang thực hiện, giữ kết quả đã hoàn tất.
 - **Câu chốt:** Reduce đang chạy được giao lại; Reduce đã xong không cần tính lại trong tình huống này.
 - **Kết nối vào–ra:** từ “Phục hồi khi máy Map hỏng”; chuẩn bị “2.3 · Nhân ma trận–vector”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** SVG D hỏng → Reduce 1 chờ → F đọc lại Map → ghi kết quả; Reduce 0 giữ nguyên. Nêu giới hạn lỗi bộ điều phối.
+- **Cách thể hiện:** SVG D hỏng → Reduce 1 chờ → F đọc lại Map → ghi kết quả; Reduce 0 giữ nguyên. Máy bộ điều phối hỏng: khởi động lại toàn bộ công việc theo mô hình MMDS.
 - **Nguồn:** MMDS 2.2.1–2.2.6, trang 25–30; khung trang 28, Hình 2.3. Các tên máy và phân công D1/D2 là minh họa cơ chế, không là dữ kiện nguyên văn sách.
 - **Ghi chú:** [Cơ chế, giả thiết, đáp án và nguồn chi tiết](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-07b).
 - **Thời lượng:** 2 phút giảng.
@@ -639,3 +650,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - `note-02-06` → mục 2.6 của lecture-note.md và các slide cùng mục. Vai trò: Giới hạn tác vụ → đặc tả ảnh → từng cặp → nhóm ảnh → đúng và bộ nhớ. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-07` → mục 2.7 của lecture-note.md và các slide cùng mục. Vai trò: Thu hồi các lớp lập luận → bốn sản phẩm tự kiểm tra. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-08` → mục 2.8 của lecture-note.md và các slide cùng mục. Vai trò: Nguồn/hướng đọc → bài tập từ giáo trình. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
+
+## Bổ sung lợi ích — 2026-09-15
+
+Thêm s02-01a sau trang mở mục 2.2, trước vết đếm từ. Bảng nêu song song, mở rộng bằng máy phổ thông, phục hồi lỗi, giảm việc lập trình phân tán và xử lý gần dữ liệu; đây là trang động lực, cơ chế chi tiết vẫn nằm ở 06–07b. Không thêm ví dụ, thuật toán hoặc số liệu. Giảm s02-03a từ 3 xuống 2 phút và s02-04 từ 3 xuống 2 phút, dành 2 phút cho trang mới; mục2.2 giữ36phút, tổng120+60. Bản hiện hành54trang=46giảng+8bài tập.

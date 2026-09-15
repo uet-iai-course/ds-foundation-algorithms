@@ -26,6 +26,22 @@ Môi trường trong chương hướng tới tệp rất lớn, ít cập nhật
 
 ## 2.2. Mô hình MapReduce
 
+### Lợi ích của MapReduce
+
+MapReduce giúp khai thác cụm máy bằng cách tách phép tính người lập trình mô tả khỏi việc tổ chức thực thi. Năm lợi ích gắn với các cơ chế sau:
+
+| Lợi ích | Cơ chế tạo ra lợi ích |
+|---|---|
+| Song song trên nhiều máy | Các phần việc của Map hoặc Reduce được phân chia để nhiều máy xử lý đồng thời. |
+| Mở rộng bằng thêm máy | Bổ sung máy phổ thông vào cụm để tăng tài nguyên xử lý các phần việc. |
+| Tự phục hồi lỗi máy | Bộ điều phối phát hiện máy thực thi không phản hồi và giao lại các tác vụ bị ảnh hưởng. |
+| Lập trình gọn hơn | Lập trình viên định nghĩa Map/Reduce; hệ thống tổ chức phân phối dữ liệu, giao việc và liên lạc giữa các máy. |
+| Xử lý gần dữ liệu | Ưu tiên chạy Map ở nơi có bản sao đầu vào hoặc gần nơi đó, giảm lượng dữ liệu phải truyền. |
+
+Các giai đoạn vẫn phụ thuộc dữ liệu của nhau; song song không có nghĩa mọi bước chạy độc lập. Thêm máy không bảo đảm tăng tốc tuyến tính: cần đủ phần việc, phân chia hợp lý và kiểm soát tải lệch theo khóa. Lập trình viên vẫn chịu trách nhiệm chọn khóa và viết hai hàm đúng. Khả năng phục hồi xét lỗi máy thực thi; trong mô hình MMDS, lỗi máy bộ điều phối có thể đòi hỏi khởi động lại cả công việc. Đặt Map gần dữ liệu là ưu tiên, không loại bỏ toàn bộ truyền qua mạng.
+
+Nguồn: MMDS Chương 2, trang 21–22, mục 2.2 trang 25–30; slide MMDS Chương 2, trang 24–25. Đối chiếu [Dean và Ghemawat (2004)](https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/), tóm tắt và mục 3.4. Các phần dưới giải thích những cơ chế này qua bài toán đếm từ.
+
 ### Đầu vào, đầu ra và khóa
 
 Xét bài toán đếm số lần xuất hiện của từng từ trong kho tài liệu. Giả sử cách tách từ đã được xác định. Đầu ra chứa một cặp gồm từ và số lần xuất hiện cho mỗi từ xuất hiện ít nhất một lần. Kho rỗng cho đầu ra rỗng.
