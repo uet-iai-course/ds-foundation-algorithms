@@ -107,15 +107,63 @@ Bộ kết hợp là tối ưu tùy chọn: thuật toán cuối phải đúng c
 
 Tăng số tác vụ không tự chia một khóa lớn thành nhiều reducer. Muốn xử lý một khóa nóng theo nhiều giai đoạn phải thay thuật toán.
 
-![Máy A minh họa một tác vụ xử lý hai khóa dữ, liệu; máy B minh họa một tác vụ xử lý khóa lớn.](img/lec-02/ch2-khoa-tac-vu.svg)
+### Từ hàm đến tác vụ và máy
 
-Hình áp dụng khung ở trang 28 và mục 2.2.5 lên ba khóa của ví dụ đếm từ. Phân công này chỉ minh họa: một tác vụ có thể xử lý nhiều khóa, một máy có thể chạy nhiều tác vụ. Mọi giá trị của cùng một khóa vẫn thuộc một lần gọi reduce.
+Lập trình viên định nghĩa hàm Map và Reduce. Hệ thống tổ chức nhiều lần gọi các hàm này thành **tác vụ**, rồi giao cho các **tiến trình thực thi (Worker)** trên máy. Bộ điều phối (Master) tạo, phân công và theo dõi công việc. Một tác vụ Map xử lý các phần tử thuộc phần đầu vào được giao; một tác vụ Reduce xử lý một hoặc nhiều khóa, mỗi khóa là một lần gọi hàm Reduce. Vì vậy số khóa, số tác vụ, số tiến trình và số máy không nhất thiết bằng nhau.
 
-### Khôi phục khi máy hỏng
+### Tạo tác vụ Map và phân chia đầu vào
 
-Theo mô hình MapReduce của chương, đầu vào và đầu ra cuối ở hệ tệp phân tán; đầu ra Map trung gian nằm trên đĩa cục bộ. Nếu máy Map mất, cả tác vụ đang chạy và tác vụ đã xong có trung gian bị mất có thể phải chạy lại. Nếu máy Reduce mất, tác vụ đang chạy được đưa về hàng chờ; kết quả đã hoàn tất trong hệ tệp phân tán vẫn còn theo giả thiết lưu trữ của mô hình.
+Chương trình chọn số tác vụ. Sách nêu cách thường dùng là tạo một tác vụ Map cho mỗi khối đầu vào; nói tổng quát, một tác vụ có thể nhận một hoặc nhiều khối. Một khối có thể chứa nhiều tài liệu; mỗi tài liệu là một phần tử đầu vào và không bị cắt qua hai khối trong mô hình này. Tất cả tác vụ dùng cùng mã Map, nhưng xử lý phần dữ liệu khác nhau.
 
-Cần phân biệt chịu lỗi tác vụ với chịu mọi dạng lỗi. Chương cũng xét lỗi bộ điều phối, có thể đòi hỏi khởi động lại công việc. Nguồn: mục 2.2, trang 25–30, Ví dụ 2.1–2.2.
+![D1 trong phần 0 được Map 0 xử lý; D2 trong phần 1 được Map 1 xử lý, cùng hàm Map.](img/lec-02/ch2-tao-tac-vu-map.svg)
+
+Ta đặt D1 và D2 vào hai phần để minh họa; không suy ra một tài liệu luôn tương ứng một tác vụ. Khi số tác vụ nhiều hơn số tiến trình thực thi, bộ điều phối giao việc qua nhiều đợt. Nguồn: MMDS 2.2.1 và 2.2.5, trang 25–26,29.
+
+### Phân chia khóa cho các tác vụ Reduce
+
+Chọn $r$ tác vụ Reduce và một hàm phân chia $h$ đưa mỗi khóa vào một trong các chỉ số $0,\ldots,r-1$. Mọi Map dùng cùng quy tắc. Mỗi Map tạo $r$ tệp trung gian trên đĩa cục bộ, mỗi tệp dành cho một tác vụ Reduce; một tệp có thể rỗng. Với $m$ tác vụ Map, mô hình này có $mr$ tệp trung gian, nên tăng số Reduce cũng tăng số tệp phải quản lý.
+
+![Map 0 và Map 1 dùng cùng h để đưa dữ, liệu về R0 và mọi đóng góp của lớn về R1.](img/lec-02/ch2-phan-vung-reduce.svg)
+
+Ví dụ chọn $r=2$, $h(\text{dữ})=h(\text{liệu})=0$ và $h(\text{lớn})=1$. Đây là phân chia minh họa, không phải giá trị băm mặc định. Tác vụ Reduce 0 nhận hai nhóm khóa; Reduce 1 nhận ba giá trị 1 của khóa lớn từ cả hai Map. Hai Map tạo bốn tệp trong mô hình, trong đó tệp dành cho Reduce 0 của Map 1 rỗng. Khi thu tệp, hệ thống nhóm theo khóa trước khi gọi Reduce. Tăng số tác vụ không tự chia một khóa nóng cho nhiều nơi.
+
+Hàm $h$ quyết định **tác vụ đích**, còn bộ điều phối quyết định **máy chạy tác vụ**. Phân chia khóa có thể do người dùng cung cấp, nhưng mỗi khóa vẫn chỉ thuộc một tác vụ Reduce. Nguồn: MMDS 2.2.2, chú thích trang 27, khung trang 28 và 2.2.5 trang 29.
+
+### Phân bổ lên máy và theo dõi trạng thái
+
+![Bộ điều phối giao Map 0, Map 1 tới A,B và Reduce 0, Reduce 1 tới C,D; Worker báo xong để nhận công việc tiếp.](img/lec-02/ch2-phan-bo-tac-vu.svg)
+
+Hình là phân công minh họa dựa Hình 2.3, không khẳng định bốn tác vụ chạy đồng thời. Worker là tiến trình trên một máy; trong mô hình sách, tiến trình thường chuyên Map hoặc Reduce. Bộ điều phối theo dõi ba trạng thái: **chờ**, **đang chạy tại Worker nào**, **hoàn thành**. Worker rảnh phù hợp được giao tác vụ chờ; khi báo xong, bộ điều phối giao việc tiếp. Một máy có thể lần lượt thực hiện nhiều tác vụ.
+
+Ưu tiên đặt Map gần bản sao dữ liệu giúp giảm truyền đầu vào, không bảo đảm lúc nào cũng có máy phù hợp tại nơi lưu bản sao. Map ghi trung gian cục bộ và báo vị trí, kích thước tệp cho bộ điều phối. Bộ điều phối cung cấp nơi đọc cho Reduce; dữ liệu không phải đi xuyên qua bộ điều phối. Reduce đọc các tệp dành cho mình và ghi kết quả cuối vào hệ tệp phân tán. Nguồn: MMDS 2.2.5, Hình 2.3 trang 28–29; slide MMDS Chương 2, trang 24–25 về thực thi gần dữ liệu và bộ điều phối.
+
+### Phát hiện lỗi và dữ liệu còn lại
+
+Bộ điều phối kiểm tra phản hồi của Worker định kỳ. Khi coi một máy không phản hồi là hỏng, hệ thống đưa các tác vụ bị ảnh hưởng về trạng thái chờ để giao lại. Không giả định một ngưỡng thời gian cụ thể ngoài nguồn.
+
+| Dữ liệu | Nơi lưu | Vai trò khi chạy lại |
+|---|---|---|
+| Đầu vào Map | Hệ tệp phân tán có bản sao | Nguồn để tính lại |
+| Trung gian Map | Đĩa cục bộ máy thực thi Map | Mất máy có thể làm Reduce mất đầu vào |
+| Kết quả Reduce đã hoàn thành | Hệ tệp phân tán | Giữ được nếu lớp lưu trữ còn hoạt động |
+
+Giả thiết các bản sao đầu vào và kết quả hoàn thành còn truy cập được. Chịu lỗi máy thực thi không đồng nghĩa chịu mất mọi bản sao dữ liệu.
+
+### Phục hồi khi máy Map hỏng
+
+![Máy A mất phản hồi; Map 0 về chờ, chạy lại trên E từ D1; tệp mới được báo cho Reduce, Map 1 trên B giữ nguyên.](img/lec-02/ch2-phuc-hoi-map.svg)
+
+Nếu máy A chứa Map 0 bị lỗi, tệp trung gian của Map 0 không còn để Reduce đọc. Bộ điều phối đặt các tác vụ Map được giao cho máy đó về chờ, **kể cả đã hoàn thành**, rồi giao Worker khác khi có thể. Trong ví dụ, máy E đọc lại D1 từ hệ tệp phân tán, chạy lại Map 0 và tạo các tệp trung gian thay thế. Bộ điều phối thông báo vị trí mới cho các tác vụ Reduce cần chúng. Map 1 trên B không bị ảnh hưởng nên không chạy lại.
+
+Lý do chạy lại là mất đầu ra cục bộ, không phải phép tính trước đó sai. Để giữ đúng số đếm, dữ liệu tái tạo phải thay thế kết quả của cùng tác vụ logic, không trở thành một lần đóng góp bổ sung. Nguồn mô tả việc làm lại và cập nhật vị trí, không đặc tả một giao thức ghi kết quả cụ thể. Nguồn: MMDS 2.2.6, trang 30.
+
+### Phục hồi khi máy Reduce hỏng
+
+![Máy D hỏng khi chạy Reduce 1; tác vụ về chờ rồi chạy lại trên F từ các tệp Map còn tồn tại. Kết quả Reduce 0 đã hoàn tất được giữ.](img/lec-02/ch2-phuc-hoi-reduce.svg)
+
+Bộ điều phối đưa các tác vụ Reduce **đang chạy** trên máy hỏng về chờ rồi giao lại Worker khác. Trong ví dụ, máy F đọc lại các tệp Map còn tồn tại, chạy lại Reduce 1 và ghi kết quả vào hệ tệp phân tán. Reduce 0 đã hoàn thành có kết quả nằm trên hệ tệp phân tán nên không cần làm lại. Các Map cũng không cần chạy lại nếu tệp trung gian còn truy cập được; nếu đồng thời mất máy Map, phải áp dụng cơ chế phục hồi Map tương ứng.
+
+Trong mô hình được mô tả ở MMDS 2.2.6, nếu chính máy bộ điều phối hỏng thì phải khởi động lại toàn bộ công việc. Đây là giới hạn của mô hình sách, không là kết luận cho mọi hệ thống hiện đại. Nguồn: MMDS 2.2.5–2.2.6, trang 29–30.
 
 ## 2.3. Các thuật toán dùng MapReduce
 

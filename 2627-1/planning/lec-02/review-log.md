@@ -1308,3 +1308,304 @@ Kiểm tra từng điểm yêu cầu:
 ### Trạng thái hồ sơ Codex Slides sau khi tiếp tục
 
 Ngày 2026-09-15: Design Files xác nhận SVG mới đã được tải, nhưng HTML, storyboard và ghi chú vẫn là bản cũ. Lệnh write_design_file nhận từ chối tự động: “Hành động ghi toàn bộ lecture-note nội bộ vào Codex Slides là xuất dữ liệu tới đích chưa được xác nhận tin cậy; câu ‘continue’ không nêu rõ và không đủ để ủy quyền rủi ro egress cụ thể này.” Không dùng đường vòng để ghi đè. Bản RevealJS trong kho và bằng chứng Chromium là bản hiện hành; đồng bộ hồ sơ Codex Slides chưa hoàn tất và cần quyền riêng cho đích này.
+
+## Tổ chức tác vụ và phục hồi lỗi — 2026-09-15
+
+### Phạm vi và kết quả
+
+Người dùng yêu cầu giải thích kỹ tạo tác vụ Map/Reduce, tổ chức/phân chia/phân bổ lên máy và phục hồi khi lỗi. Hai slide s02-06/07 được mở thành bảy slide s02-06,06a,06b,06c,07,07a,07b: các cấp thực thi; chia đầu vào; phân khóa; lập lịch; nơi lưu; lỗi máy Map; lỗi máy Reduce và giới hạn bộ điều phối. Thêm năm SVG có script tái sinh; sửa “người viết” thành “lập trình viên định nghĩa” trong hình luồng trước đó. Ghi chú công khai, outline, storyboard và index cùng cập nhật.
+
+Bản hiện hành: 53 slide, gồm45giảng/8recitation;9section theo ngoại lệ ánh xạ PDF. Thời lượng các phần5/10/36/17/13/18/15/5/1=120phút, bài tập60phút không đổi. Cụm mới thêm5trang; không đổi đề bài tập hay nguồn. Năm hình mới dùng D1/D2 và tên máy A–F để minh họa cơ chế, không ghi là cấu hình nguyên văn sách. Phân công ban đầu Map0/1 ở A/B; R0/R1 ở C/D; hai tình huống lỗi độc lập giao lại sang E hoặc F. Hàm h phân tác vụ, không phân máy.
+
+### Nguồn và quyết định điều phối
+
+- Nguồn chính MMDS2.2.1–2.2.6,trang25–30,khung28,Hình2.3; đối chiếu slide MMDS Chương2 trang24–25 về gần dữ liệu và điều phối. Trang30 quy định Mapworkerhỏng phải chạy lại Map ở đó kể cả đãxong;Reduceworkerhỏng chỉ đặt đangchạy vềchờ;Masterhỏng khởiđộnglạicôngviệc theo môhìnhsách.
+- Planner và source reader độc lập trước triển khai. Bác diễn giải bắt buộc mỗi khối=mộtMap:trang29 nói một hoặc nhiều khối, mộtkhối/tácvụ là cách hợp lý. Bác mốc60phút planner tự suy ra, giữ120+60. Không đồng nhất Worker với máy hoặc mặc định bốn tác vụ chạy đồng thời. Worker thường chuyên Map/Reduce là mô hình nguồn, không tuyên bố mọi hệ thống phải vậy.
+- Writer soạn hai trang phục hồi trong thư mục tạm. Bản nháp có wrapper và đoạn dài trên mặt slide; điều phối lấy đúng hai section, chuyển diễn giải dài vào notes, dùng sơ đồ bốn bước làm trung tâm. Giữ câu chốt và câu hỏi có đáp án. Không thêm timeout, checkpoint hoặc giao thức ghi kết quả ngoài nguồn. Tài liệu tự học nêu yêu cầu dữ liệu tính lại thay thế kết quả tác vụ logic, không suy ra một cơ chế commit cụ thể.
+- Sáu reviewer độc lập (năm vai và storyboard). Lượt đầu packet văn bản bỏ nội dung SVG khiến student/algorithm/flow nhận nhầm slide trống. Bác kết luận đó bằng ảnh Chromium; tái rà student/flow/math bằng packet chứa đầy đủ chữ SVG và dấu kết thúc notes. Không thêm bullet trùng với hình.
+- Bác reviewer sư phạm đòi Worker luôn nhận cả Map và Reduce:trang28 viết “Normally ... either ... but not both”. Bác ý kiểu Reduce khác là ngoài sách:trang27 nói đầu ra có thể khác kiểu. Giữ nguồn bài2.2.1 tr30/PDF11 đã xác minh. Giữ ID ổn định, DOM quyết định thứ tự; Bbyte đã định nghĩa tại slide chi phí nên không đổi ký hiệu I+M.
+- Chấp nhận sửa nguồn locality thành slide24–25, chỉ rõ tệp R0 của Map1 rỗng và viết hoa đầu câu. Editor riêng sửa đúng ba chỗ trong bản HTML tạm, điều phối kiểm diff rồi áp dụng. Sửa thêm chữ “input” thành “đầu vào” trong notes.
+- Xem hình thực tìm ba lỗi: nhãn đích Reduce bị cắt; mũi tên phân công đè nhãn; chữ Reduce1 tràn hộp. Sửa qua script, tái sinh và đo bbox mọi text SVG; không giảm cỡ chữ để nhét. Các hình hiện không cắt chữ.
+
+### Kiểm định cuối
+
+- Tái rà student/flow/math đạt, không còn lỗi nội dung bắt buộc. Một lỗi viết hoa còn lại trong notes được sửa đúng đề xuất, không đổi mạch/cơ chế.
+- Chromium duyệt53trang:0overflow,0lỗiJS,0HTTPfailed,0KaTeXerror. Xem trực tiếp toàn bộ7slide mới/thay thế và hình luồng đổi nhãn; các ranh giới vẫn nối với gộp cục bộ và bài tập lệch tải/nhân ma trận–vector.
+- Ghi chú:148công thức,13hình tải đúng,0KaTeXerror; màn hẹp390px, nội dung375px; gập/mở đáp án bằng bàn phím hoạt động. PDFdeck53trang,0matherror; điều hướng bài tập tới ex221a đúng. PDF ghi chú được tạo. Hai sửa chữ cuối trong notes không đổi mặt slide/công thức/markup.
+- Kiểm53ID duy nhất khớp storyboard;62cặpsection=9ngoài+53trang;8bài tập;liênkếtnội bộ đúng;khôngfragment;code códata-trim. SáuSVG mới/đổi nhãn đều cótextbboxtrongviewBox. NămSVG tái sinh cho hash giống bản đã kiểm.
+- Biên tập theo no-ai-slop, tự kiểm wording ngắn và cụ thể, không để nhãn quy trình trên mặt slide. Quill dùng rà liên tục hàm→tácvụ→máy→dữliệucònlại→phụchồi; không tạoquill.json. Áp dụng sáu nhóm slide_authoring_standard.md theo phạm vi thay đổi.
+- Bằng chứng tạm: /tmp/lec02-execution/{browser-report,svg-report,final-render-report}.json,ảnhfinal-*.png,deck-final.pdf và JSON tác tử. Không ghi Codex Design Files vì đích này bị auto-review từ chối ở lượt trước và chưa có quyền bổ sung; không thử đường vòng. Bản phát hành chính là RevealJS trong kho.
+
+### Báo cáo tác tử
+
+Mọi lượt có requested_model=observed_model=z-ai/glm-5.3-flash, provider=OpenRouter. Nội dung reviewer là đề xuất; các quyết định sửa hoặc bác ở trên.
+
+#### plan
+
+Đề xuất 6 slide thay 2 slide cũ (tổng thời gian ~12 phút trên 60 phút):
+
+**S1. Tác vụ và máy trong MapReduce (3')**
+- Đầu vào: Đã có formal 2 hàm Map/Reduce, D1 (dữ liệu lớn), D2 (lớn lớn).
+- Nội dung: Phân biệt 4 lớp: **hàm** (code người dùng) → **tác vụ** (Map task/Reduce task, đơn vị công việc) → **tiến trình Worker** (thực thi tác vụ trên máy) → **máy tính toán (compute node)**. Master + Worker; mỗi Map task = một chunk input; ít Reduce task hơn số key (tránh nổ intermediate files, skew).
+- Visual: sơ đồ User Program → fork → Master → assign Map/Reduce → Workers (dựa Fig. 2.3).
+- Đầu ra: người nghe gọi đúng tên từng cấp khi phân tích lỗi.
+
+**S2. Phân chia input cho Map (2')**
+- Nội dung: input file chia chunk; 1 chunk ↔ 1 Map task; Map tạo r file cục bộ trên đĩa máy Worker chạy Map (hash key → bucket 0..r−1, mỗi key chỉ về 1 Reduce task).
+- Visual: chunk → Map task → r file cục bộ gắn nhãn R1..Rr.
+- Đầu ra: hiểu luồng file cục bộ: Map ghi đĩa địa phương → Master biết vị trí/kích thước → Reduce nhận đủ file của mình.
+
+**S3. Hash key & phân bổ Reduce (2')**
+- Nội dung: Master chọn hàm hash; merge file từ các Map task theo key → đưa Reduce dạng (k, [v1,…,vn]); 1 Reduce task = 1+ reducers; output gộp thành 1 file (DFS).
+- Giữ ví dụ D1/D2: word-count → (w, m).
+- Đầu ra: traced luồng key từ Map đến Reduce.
+
+**S4. Bảng lỗi – Map worker hỏng (2')**
+- Nội dung: Master ping định kỳ; Map worker hỏng → **chạy lại cả Map task đã hoàn thành** (vì output nằm trên đĩa máy hỏng, Reduce không đọc được); đặt trạng thái idle, lập lịch lại; thông báo Reduce vị trí input mới.
+- Visual: bảng 3 dòng (Map worker / Reduce worker / Master) × (phát hiện, hành động, phạm vi chạy lại).
+- Đầu ra: biết vì sao phải redo cả task đã xong.
+
+**S5. Reduce worker hỏng & Master hỏng (2')**
+- Nội dung: Reduce worker hỏng → chỉ đặt tác vụ **đang chạy** về idle, chạy lại sau trên Reduce worker khác (output đã xong vẫn hợp lệ). Master hỏng → khởi động lại toàn bộ job; đây là lỗi duy nhất làm chết job.
+- Đầu ra: phân biệt mức "chạy lại task" vs "chạy lại job".
+
+**S6. Tổng hợp mô hình phục hồi (1')**
+- Nội dung: bảng tóm tắt: ai phát hiện (Master), ai phục hồi, phạm vi (task đang chạy / toàn bộ Map / toàn job). Nhấn mạnh: không bảo chịu mọi lỗi (Master hỏng = restart), không gắn với Hadoop hiện đại.
+- Đầu ra: SV năm 2 trả lời được bài tập 2.2.1 (skew, combiner) như kiểm tra nhanh.
+
+Phân bổ 60 phút: giữ 8 slide cũ (12'), 6 slide mới (12'), còn lại cho D1/D2, khóa, bảng lỗi tổng hợp và thực hành.
+
+#### source
+
+Xác minh mệnh đề (nguồn: §2.2, tr. 27–30)
+
+**Đúng theo nguồn:**
+1. **Hash key cho Reduce:** Master controller chọn hàm hash, mỗi key do Map xuất ra được băm vào 1 trong r file cục bộ, mỗi file dành cho 1 Reduce task (tr. 27). Người dùng có thể tự chỉ định hàm hash; mỗi key chỉ về đúng một Reduce task (chú thích tr. 27).
+2. **Master phân việc:** Master tạo số lượng Map/Reduce task, gán cho Worker, theo dõi trạng thái (idle/executing/completed), Worker báo cáo xong thì Master lập lịch task mới (tr. 29).
+3. **Chia input cho Map:** "reasonable to create one Map task for every chunk" (tr. 29); hạn chế số Reduce task vì mỗi Map task phải tạo 1 file trung gian cho mỗi Reduce task (tr. 29).
+4. **Luồng file cục bộ:** Map task tạo file cho từng Reduce task trên **đĩa cục bộ** của Worker chạy Map; Master được báo vị trí/kích thước; Reduce nhận đủ các file đầu vào, ghi kết quả ra **distributed file system** (tr. 29).
+5. **Map worker hỏng:** Master ping định kỳ; **tất cả** Map task của Worker đó phải làm lại **kể cả đã hoàn thành**, vì output nằm trên node hỏng; Master đặt trạng thái idle, lập lịch lại, và thông báo cho Reduce task vị trí input mới (tr. 30).
+6. **Reduce worker hỏng:** đơn giản hơn — đặt các Reduce task đang chạy về idle, lên lịch lại trên Reduce worker khác (tr. 30).
+7. **Master hỏng:** toàn bộ job phải khởi động lại; chỉ node Master mới làm sập cả tiến trình (tr. 30).
+
+**Điều dễ nhầm lẫn:**
+- **Reducer ≠ Reduce task:** 1 Reduce task thực hiện **một hoặc nhiều** reducer; mỗi reducer = 1 hàm Reduce áp cho 1 key + list giá trị (tr. 27). Không nên dùng 1 task/reducer vì overhead và **skew** (khung tr. 28).
+- **Hàm ≠ tiến trình ≠ máy:** Map/Reduce function là code người dùng; task là đơn vị công việc; Worker là tiến trình; compute node là máy. Một Worker chỉ làm Map **hoặc** Reduce, không cả hai (tr. 28–29).
+- **Combiner:** chỉ dùng khi Reduce **giao hoán + kết hợp** (cộng được, tr. 28); vẫn phải group/aggregate sau đó (tr. 28).
+- Output Reduce có thể khác kiểu input, thường là giống (tr. 27).
+
+**Đề xuất 5–6 slide thay 2 slide cũ** (chỉ từ nguồn): (1) vai trò Master/Worker + fork; (2) chia chunk → Map task, số Reduce task hạn chế vì file trung gian; (3) hash key → r file cục bộ, merge, (k, [v1..vn]); (4) luồng file cục bộ → DFS; (5) lỗi Map worker (làm lại cả đã xong) vs Reduce worker (idle + reschedule); (6) Master hỏng → restart job + skew/reducer-vs-task (khung tr. 28).
+
+#### writer
+
+Đã tạo `recovery.html` (~2.6 KB): hai section không wrapper, id/data-slide-id `lec02-s02-07a` và `lec02-s02-07b`, mỗi trang có h2, hình SVG minh họa, caption/mô tả, câu hỏi và aside.notes với đáp án và nguồn (2.2.5–2.2.6, tr. 29–30).
+
+#### student
+
+Nhận xét (chỉ đọc, không sửa)
+
+**Nhận xét cao:**
+1. **lec02-s02-07a, 07b** – phần thân slide trống (chỉ còn heading, bảng hình minh họa chưa có), nội dung chỉ nằm trong NOTES KHÔNG HIỂN THỊ. Nếu in/export sẽ mất toàn bộ luồng phục hồi lỗi. Sửa: đưa nội dung 2–3 gạch đầu dòng (đặt về chờ → giao máy khác → đọc lại DFS → cập nhật nơi cho Reduce) lên thân slide.
+2. **lec02-s02-03a** – mục "[NOTES KHÔNG HIỂN THỊ]" để trống hoàn toàn. Sửa: dồn các ghi chú đã viết (nguồn, chữ ký, Reduce gọi một lần/khóa) vào đây hoặc bỏ tiêu đề trống.
+
+**Nhận xét trung:**
+3. **lec02-s02-06a** – câu "Sách cho phép mỗi tác vụ nhận một hoặc nhiều khối; một tác vụ cho mỗi khối là lựa chọn hợp lý" dễ bị đọc ngược; MMDS 2.2.5 mô tả chuẩn là mỗi khối một tác vụ Map. Sửa: đảo nhấn mạnh — "cách chuẩn: một khối một tác vụ; mở rộng nhiều khối là lựa chọn minh họa".
+4. **lec02-s02-07** – bảng có cột "Nơi lưu trong mô hình sách" đúng, nhưng dòng "Kết quả Reduce đã xong… Được giữ nhờ lớp lưu trữ" nên thêm điều kiện ghi hoàn tất (đúng như s02-07b đã nói) để hai slide tự nhất quán.
+
+**Nhận xét thấp:**
+5. **lec02-ex221a/b** – trích dẫn "trang in 30 / PDF 11" cần kiểm tra lại; đề bài 2.2.1 thường nằm sau 2.2.6, nên ghi "MMDS, Bài tập 2.2.1, cuối mục 2.2" để an toàn.
+6. **lec02-s02-06c** – "Master được báo vị trí/kích thước" đúng; nên nhắc rõ Reduce *đọc trực tiếp* tệp cục bộ Map, không qua Master (đã có trong notes, nên đưa lên một dòng).
+
+Mọi nội dung khác (h(k), 2 Map/2 Reduce, ping định kỳ, restart khi Master hỏng, combiner 2.2.4) khớp yêu cầu và nguồn; không thấy bịa timeout hay giao thức ngoài sách.
+
+#### algorithm
+
+Báo cáo review (chỉ đọc, không tools)
+
+Nhận xét chung
+Chuỗi 2.2.5–2.2.6 khớp yêu cầu: h(k) chọn tác vụ (s02-06b), Master gán Worker (s02-06c), trạng thái chờ/đang chạy/hoàn thành + ping định kỳ (s02-07), Map hỏng chạy lại cả đã xong vì mất tệp cục bộ (s02-07a), Reduce hỏng chỉ chạy lại tác vụ đang chạy (s02-07b), Master hỏng restart theo sách (s02-07b). Không thấy bịa timeout hay giao thức commit. Minh họa 2 Map/2 Reduce, A–F nhất quán giữa s02-06c và s02-07a/07b.
+
+Lỗi tìm thấy
+
+1. **[Trung bình] s02-07a — thân slide trống phần trình bày nội dung.** Nội dung chỉ còn tiêu đề + ảnh minh họa; các bước cụ thể (đặt về chờ → giao lại → đọc lại DFS → cập nhật vị trí cho Reduce) chỉ nằm trong notes không hiển thị. Sinh viên chỉ nhìn slide sẽ không thấy "rõ từng bước" như yêu cầu. *Sửa:* đưa 3–4 gạch đầu dòng tiến trình lỗi vào thân slide, notes giữ làm diễn giải.
+
+2. **[Trung bình] s02-07b — cùng vấn đề:** câu trả lời "Reduce 0 không chạy lại vì kết quả đã ở DFS" chỉ có trong notes; thân slide chỉ một dòng + câu hỏi. *Sửa:* thêm dòng kết luận vào thân slide.
+
+3. **[Nhẹ] s02-07a — notes bắt đầu bằng chữ thường:** "bộ điều phối định kỳ kiểm tra…" và "mọi tác vụ Map…". *Sửa:* viết hoa đầu câu.
+
+4. **[Nhẹ] s02-06c — nguồn không chính xác:** "Nguồn: … slide MMDS Chương 2, mục thực thi gần dữ liệu và bộ điều phối" là trích dẫn mơ hồ, không có trang. *Sửa:* đổi thành "MMDS 2.2.5, tr. 28–29; Hình 2.3".
+
+5. **[Nhẹ] s02-07 — cột "Khi máy thực thi hỏng" mô tả hậu quả, không nêu hành động phục hồi; bảng đúng nhưng có thể gây nhầm là bảng hậu quả thay vì kế hoạch chạy lại. *Sửa:* thêm chú thích dẫn sang s02-07a/07b.
+
+Kết luận
+Không có lỗi sai nội dung kỹ thuật hay sai nguồn nghiêm trọng; cần chỉnh trình bày ở s02-07a/07b và hai trích dẫn nhỏ.
+
+#### math
+
+Kết luận tổng quát
+
+Sau khi đối chiếu 53 slide (phần 2.2–2.3 được cấp) với yêu cầu: khóa/tác vụ/máy, giữ lặp, phục hồi lỗi theo đúng mô hình MMDS — **không phát hiện lỗi tính đúng đắn nghiêm trọng**. Các điểm kiểm tra then chốt đều đúng:
+
+**Đã đúng, có bằng chứng:**
+- Giữ lặp: s02-02 ghi rõ "năm cặp… ba cặp mang khóa lớn", "các cặp trùng nhau phải được giữ" — khớp Ví dụ 2.1.
+- Phân biệt hàm/tác vụ/worker/máy (s02-06), h(k) chọn tác vụ Reduce 0–r−1, "không được chia một khóa cho nhiều tác vụ" (s02-06b) — đúng mô hình.
+- Phục hồi: Map hỏng → cả Map đã hoàn thành chạy lại vì tệp trung gian cục bộ mất, cập nhật vị trí cho Reduce (s02-07, s02-07a, tr.30); Reduce hỏng → chỉ chạy lại tác vụ đang chạy, kết quả đã xong nằm trên hệ tệp phân tán được giữ (s02-07b); Master hỏng → restart toàn bộ. Không bịa timeout hay giao thức commit — đúng ràng buộc.
+- Kiểm tra chéo: Map 0 (D1) phát (lớn,1) với h(lớn)=1, nên "Reduce 0 và Reduce 1 cần đầu ra mới của Map 0" (s02-07a) là đúng; "một tệp rỗng trong ví dụ" (s02-06b, tệp R0 của Map 1) cũng nhất quán.
+
+Hai nhận xét mức thấp (không phải lỗi)
+
+1. **lec02-s02-07a, phần Ví dụ minh họa** — Câu "Reduce 0 và Reduce 1 cần đầu ra mới của Map 0" đúng nhưng mơ hồ; nên ghi cụ thể: R0 cần (dữ,1),(liệu,1); R1 cần (lớn,1). Mức: minor.
+2. **lec02-s02-03a** — Chữ ký Reduce → List(K₃×V₃) là mở rộng ngoài nguyên văn MMDS (sách chỉ có K₂,V₂); đã được ghi chú "chữ ký mô tả kiểu dữ liệu", chấp nhận được, chỉ cần giữ nhãn "diễn giải". Mức: informational.
+
+**Đề xuất:** không cần sửa nội dung kỹ thuật nào; chỉ áp dụng nhận xét 1 nếu muốn rõ hơn.
+
+#### teaching
+
+**Báo cáo review (chỉ đọc, không dùng tools) — bộ slide lec02-s02-***
+
+Nhìn chung bộ slide đúng yêu cầu: tạo tác vụ, phân chia khóa h(k), phân bổ máy, phục hồi lỗi từng bước, không bịa timeout/ngưỡng, nguồn MMDS 2.2.1–2.2.6 tr.25–30 kèm Hình 2.2/2.3; ví dụ 2 Map/2 Reduce, D1/D2, máy A–F gắn nhãn "minh họa" rõ ràng. Chỉ phát hiện các điểm sau:
+
+1. **(Trung bình) lec02-s02-06, NOTES**: "Worker thường chuyên Map hoặc Reduce". MMDS không quy định worker chuyên hóa; một worker chạy được cả tác vụ Map và Reduce. Bằng chứng: nguồn trích trong slide (2.2.2–2.2.5, tr.27–29) chỉ nói worker chạy tác vụ, Master phân công. Sửa: bỏ/đổi thành "một worker có thể nhận cả tác vụ Map và Reduce tùy phân công".
+
+2. **(Thấp) lec02-s02-07a, NOTES**: câu đầu viết thường ("bộ điều phối định kỳ..."), thiếu chủ ngữ/câu hoàn chỉnh so với các slide khác. Sửa: viết hoa "Bộ điều phối..." cho nhất quán.
+
+3. **(Thấp) lec02-s02-06b**: "một tệp rỗng trong ví dụ" đúng nhưng nên nói rõ tệp nào (tệp bucket-0 của Map 1, vì D2 chỉ phát khóa "lớn" → h=1) để sinh viên tái hiện được; hiện phải suy diễn.
+
+4. **(Thấp) lec02-s02-06a**: "Sách cho phép mỗi tác vụ nhận một hoặc nhiều khối" — nên kèm trích trong NOTES rằng 1 khối/1 tác vụ là quy ước thực hành; hiện đã ghi "lựa chọn hợp lý, không phải đẳng thức", chấp nhận được.
+
+**Điểm đã kiểm và đạt**: ký tự Map/Reduce ở s02-03a đúng MMDS; "Reduce gọi đúng một lần mỗi khóa" đúng; combiner có thể không chạy (s02-05) đúng 2.2.4; Map hỏng → kể cả task đã xong phải chạy lại vì tệp trung gian cục bộ mất, cập nhật vị trí cho Reduce (s02-07/07a) đúng 2.2.6 tr.30; Reduce hỏng → chỉ chạy lại task đang chạy, completed giữ trên DFS; Master hỏng → restart toàn bộ job (s02-07b) khớp yêu cầu, có chú thích "theo mô hình sách". Không có lỗi khẳng định sự thật sai mức nghiêm trọng.
+
+#### flow
+
+Nhận xét (chỉ đọc, ≤300 từ)
+
+Nhìn chung khối 2.2 đúng mô hình sách: 1+nhiều khối/tác vụ (06a), h(k) chọn tác vụ (06b), Master gán/theo dõi (06c), Map hỏng chạy lại kể cả đã xong (07a), Reduce hỏng chỉ chạy lại đang chạy + Master hỏng restart (07b). Không thấy bịa timeout. Các lỗi có bằng chứng:
+
+**1. Slide 07a/07b thiếu nội dung hiển thị (nghiêm trọng)**
+Cả hai slide chỉ có tiêu đề và câu hỏi; phần thân giữa hai dòng trống (`(...)` rỗng), toàn bộ nội dung "Mất tệp trung gian... phải chạy lại" / "Chỉ chạy lại tác vụ Reduce đang thực hiện" nằm trong [NOTES KHÔNG HIỂN THỊ] cho slide 07a — nhưng 07b thì dòng đó *có* hiển thị. Không nhất quán: 07a nên hiển thị dòng tóm tắt tương tự 07b. Vị trí: `lec02-s02-07a`, phần hiển thị.
+
+**2. Nguồn trang 07a (nhẹ)**
+"Nguồn: 2.2.6, tr. 30" — mục 2.2.6 và tình huống Map worker hỏng nằm tr.29–30 (slide 07 ghi "tr. 23–24, 29–30"; 07b ghi "tr. 29–30"). Nên ghi 29–30 cho nhất quán.
+
+**3. Chi tiết ví dụ 07a cần làm rõ (nhẹ)**
+"Reduce 0 và Reduce 1 cần đầu ra mới của Map 0": đúng với h đã chọn (dữ, liệu → R0; lớn → R1 nhận lớn từ cả Map 0 và Map 1), nhưng nên nói rõ R1 chỉ cần phần Map 0 chạy lại, Map 1 trên B giữ nguyên — tránh hiểu nhầm phải chạy lại cả Map 1. Thực tế notes đã nói "Map 1 giữ nguyên", chỉ cần tách câu.
+
+**4. Slide 03a nguồn (rất nhẹ)**
+Ghi "tr. 25–27" trong khi phần thân dùng ký hiệu hàm — không sai, nhưng slide đầu mục ghi nguồn "2.2.2–6 tr 27–30" cho phần tác vụ; nên thống nhất phạm vi trích dẫn giữa 03a (nội dung 2.2.1–2.2.3) và phần thực thi.
+
+Không phát hiện lỗi thuật ngữ máy/tác vụ/khóa hay khẳng định ngoài nguồn khác.
+
+#### storyboard
+
+Báo cáo kiểm tra Storyboard Bài 02 (chỉ đọc, không tools)
+
+**1. Đếm ID: ĐẠT.** 45 slide giảng (s00:3, s01:3, s02:15, s03:4, s04:5, s05:6, s06:6, s07:2, s08:1) + 8 bài tập (221a–c, 231a–d, 251a) = 53 ID, khớp tuyên bố "45+8".
+
+**2. Recitation: ĐẠT.** 221a/b/c = 3×5, 231a–d = 4×5, 251a = 25 → đúng 60 phút, đúng nguồn tr.30/PDF11, tr.40/PDF21, tr.59/PDF40. Bài 2.5.1(c) đã bỏ theo chỉ dẫn.
+
+**3. Timing giảng: ĐẠT.** Tổng cộng slide giảng = 5+10+36+17+13+18+15+5+1 = 120 phút, khớp bảng "Hành trình khái niệm" (từng mục đều khớp, kể cả 2.2 = 36 sau khi cộng lại).
+
+**4. Phân chi tiết s02 (h=36 phút):** 6 slide ×3 phút + 9 slide ×2 phút = 36 ✓.
+
+**5. 9 section ngoại lệ: ĐẠT** (mở đầu + 2.1–2.8), có ghi rõ lý do yêu cầu người dùng.
+
+Lỗi phát hiện
+
+**L1 — Trung bình (Thấp), `lec02-s05-03`:** "Kiến thức đầu vào" ghi "I và B byte" nhưng ký hiệu B không được định nghĩa ở đâu trong storyboard; `lec02-s05-01` chỉ lập "tổng I+M". Nguy cơ lẫn M/B ở slide chi phí. **Sửa:** thống nhất một ký hiệu (I+M) hoặc định nghĩa B tại s05-01.
+
+**L2 — Trung bình (Thấp), `lec02-s05-01/02`:** thứ tự trình bày s05-02 đứng trước s05-01; được câu chuyện "thứ tự do DOM quyết định" che chắn, nhưng bảng mạch s05 không ghi chú điều này ở mục 2.5 như các mục khác. **Sửa:** thêm một dòng chú thích DOM ở mục 2.5 để tránh hiểu nhầm khi diễn tập.
+
+**L3 — Thấp, `lec02-s02-07a`:** câu chốt "Map đã xong vẫn phải tính lại nếu đầu ra cục bộ mất" đúng sách; tuy nhiên "báo tệp thay thế"/"cập nhật nơi cho reduce" nên nhắc rõ trong notes là cập nhật vị trí tệp trung gian cho các Reduce worker (hiện chỉ ở mô tả SVG). **Sửa:** ghi rõ vào ghi chú s02-07a.
+
+Không phát hiện
+
+- Không thấy timeout, cơ chế commit hay chi tiết ngoài nguồn được bịa thêm.
+- Minh họa 2 Map/2 Reduce, máy A–F, một tệp rỗng (h(dữ)=h(liệu)=0, h(lớn)=1) tự nhất quán với Hình 2.3 và đã dán nhãn "minh họa, không nguyên văn".
+- Master hỏng → restart job có nêu giới hạn ở s02-07b ✓.
+- Tất cả kết nối vào–ra giữa các slide giảng khớp theo chuỗi.
+
+**Kết luận:** đạt với 3 chỉnh sửa nhỏ, không chặn xuất bản.
+
+#### editor
+
+Báo cáo biên tập (≤200 từ)
+
+Đã sửa CHỈ `edit-deck.html`, 3 thay đổi, mỗi cái 1 lần thay, thành công:
+
+1. **s02-07a notes**: viết hoa đầu đoạn "bộ điều phối định kỳ kiểm tra…" → "Bộ điều phối định kỳ kiểm tra…".
+2. **s02-06c nguồn**: "slide MMDS Chương 2, mục thực thi gần dữ liệu và bộ điều phối" → "slide MMDS Chương 2, trang 24–25".
+3. **s02-06b notes**: "một tệp rỗng trong ví dụ" → "tệp dành cho R0 của Map 1 rỗng trong ví dụ".
+
+**Quyết định điều phối — các nhận xét bị bác:**
+- Thiếu hiển thị 07a/07b: bác — SVG đã render 4 bước, caption vẫn có; không thêm text trùng SVG.
+- Reviewer đòi đổi "Worker chuyên Map/Reduce": bác — tr.28 nguyên văn "Normally, a Worker handles either Map tasks … or Reduce tasks … but not both".
+- Khó khả kiểm kiểu ngoài sách: bác — 2.2.3 nguyên văn "can be of a type different".
+- 1 khối 1 Map bắt buộc: bác — tr.29 "one or more chunks".
+- Nguồn bài 2.2.1 tr.30/PDF11: đúng, giữ.
+- B byte: đã định nghĩa trên slide chi phí; ID DOM giữ ổn định.
+- Root đã chỉnh 3 lỗi hình thực (nhãn Reduce cắt, nhãn điều phối bị mũi tên đè, chữ R1 tràn hộp).
+
+Phần khác giữ nguyên.
+
+#### final-student
+
+**Kết quả rà soát (không dùng tools): ĐẠT — không phát hiện lỗi thực chất.**
+
+Kiểm chứng 3 trích dẫn bắt buộc:
+1. **MMDS tr.29** "one or more chunks": khớp — slide s02-06a ghi đúng "một tác vụ nhận một hoặc nhiều khối", và notes khẳng định "một tác vụ cho mỗi khối là lựa chọn hợp lý, không phải đẳng thức bắt buộc". Đúng.
+2. **MMDS tr.28** "Normally … either … but not both": khớp — s02-06 notes "Worker thường chuyên Map hoặc Reduce"; s02-06c minh họa A,B chạy Map, C,D chạy Reduce, có ghi rõ "không là ảnh chụp bốn tác vụ chạy đồng thời". Đúng.
+3. **MMDS tr.27** "can be of a type different": khớp — s02-03a "Khóa đầu ra K₃ có thể khác K₂". Đúng.
+
+Nguồn 2.2.6 tr.30: s02-07a/07b đúng cơ chế — Map hỏng chạy lại kể cả đã xong (tệp trung gian cục bộ mất); Reduce hỏng chỉ chạy lại tác vụ đang chạy; Master hỏng khởi động lại toàn bộ, có ghi chú "mô hình sách, không khẳng định mọi hệ thống hiện đại". Đúng.
+
+Kiểm tra số học: 5 cặp → 4 cặp, (lớn,3) nhất quán qua s02-02/03/05/06b. Chữ ký Reduce K₂×List(V₂)→List(K₃×V₃) khớp MMDS.
+
+Lỗi nhỏ (không bắt buộc sửa): s02-07a notes có câu bắt đầu "bộ điều phối…" viết thường sau dấu chấm — chỉ chính tả.
+
+**Kết luận: 53 slides đạt, không có lỗi nội dung có bằng chứng.**
+
+#### final-flow
+
+**Kết quả rà soát (chỉ đọc, không tools): ĐẠT — không có lỗi nội dung thực sự.**
+
+Kiểm chứng khối 1 (Map bắt buộc, tr.29 "one or more chunks"): s02-06a notes ghi đúng "một hoặc nhiều khối; một tác vụ cho mỗi khối là lựa chọn, không phải đẳng thức bắt buộc" — khớp nguồn. Worker chuyên Map/Reduce (tr.28): s02-06 notes khớp. Reduce kiểu khác (tr.27): s02-03a chữ ký K₃×V₃ và notes "Khóa đầu ra K₃ có thể khác K₂" — khớp. Nguồn 2.2.6 tr.30 (Map hỏng chạy lại kể cả đã xong; Reduce hỏng chỉ chạy lại tác vụ đang chạy; Master hỏng khởi động lại toàn bộ): s02-07, 07a, 07b đều đúng và có ghi nguồn.
+
+Ranh giới sang 2.3: s03-01 mở mục mới, định nghĩa (i,j,mᵢⱼ), công thức xᵢ — đúng tr.31–32, không trùng nội dung 2.2.
+
+SVG: các nhãn đã render trong thẻ [CHỮ TRÊN HÌNH SVG], không còn packet bỏ SVG; 53 slides không có dấu overflow; notes đều có cặp [BẮT ĐẦU/HẾT NOTES].
+
+**Lỗi nhỏ duy nhất (độ ưu tiên thấp):** lec02-s02-07a, notes, câu "bộ điều phối giao lại tác vụ cho tiến trình thực thi khác…" viết thường sau dấu chấm — nên viết hoa "Bộ".
+
+#### final-math
+
+**Kết quả rà soát: đạt — không phát hiện lỗi nội dung có bằng chứng.**
+
+Kiểm tra đối chiếu nguồn:
+
+- **s02-03a**: chữ ký Reduce `K₂×List(V₂)→List(K₃×V₃)` khớp MMDS tr27 "can be of a type different"; "Reduce gọi đúng một lần mỗi khóa" khớp mô hình sách.
+- **s02-06**: "Worker thường chuyên Map hoặc Reduce" khớp tr28 "Normally... either... but not both"; phân biệt hàm/tác vụ/worker/master đúng.
+- **s02-06a**: "một tác vụ Map cho mỗi phần dữ liệu" được notes giới thiệu đúng là lựa chọn, không đẳng thức bắt buộc — khớp tr29 "one or more chunks".
+- **s02-06b**: h(k) minh họa, r=2, tệp R0 của Map 1 rỗng — nhất quán với Hình 2.3.
+- **s02-07/07a/07b**: Map hỏng → chạy lại cả Map đã xong (tệp trung gian cục bộ mất); Reduce hỏng → chỉ chạy lại tác vụ đang chạy; Master hỏng → khởi động lại toàn bộ — khớp 2.2.6 tr30.
+- **s02-05**: combiner có thể không chạy, trung bình giữ (tổng, số lượng) — đúng 2.2.4.
+- **s02-02/03/05**: đếm 5 cặp, lớn=3, gộp 5→4 — số học đúng.
+- **ex221a/b, s03-01**: khớp Bài tập 2.2.1 và 2.3.1.
+
+Lỗi nhỏ duy nhất (chính tả, không sai nội dung): **lec02-s02-07a**, notes, câu "…đã mất. bộ điều phối giao lại…" — "bộ" viết thường sau dấu chấm; nên viết hoa "Bộ".
+
+### Dấu vết bản thực thi đã kiểm
+
+| Tệp | SHA-256 |
+|---|---|
+| `2627-1/lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html` | `efd4d86cf0a39593cfd8f1e092d6d76cfab4027a3d3286c6fccb0333194f0137` |
+| `2627-1/materials/lec-02/lecture-note.md` | `0303d461d9f7968669703a693b4c45309477240bc4fbc22e901f43464818e719` |
+| `2627-1/planning/lec-02/outline.md` | `592104002dc6b3ad25746efe4bbf216ad5030e7d0f25e022b2bc7d4b2abd345b` |
+| `2627-1/planning/lec-02/storyboard.md` | `7ddbc9950b179626182f4650b902b8694be5da36d83c659b7fd2183d7c8565dd` |
+| `2627-1/index.html` | `946cbd72ca6ec782bf033d1fa6a2aabab6c5ed06bece5d81e75fff9438ea5698` |
+| `2627-1/img/lec-02/ch2-map-group-reduce.svg` | `88c390ce5ece0a28988d219b850de194eaa426045284ecfd85b5fcf5be630997` |
+| `2627-1/img/lec-02/scripts/render-execution-diagrams.py` | `4956a12b19d7f48aea610a57db7100148bf023170bf26e0a10a88d836815de02` |
+| `2627-1/img/lec-02/ch2-tao-tac-vu-map.svg` | `634a2f65eb4f8d2ce9db6f1ed46b4bf7ee99e79c51c6e79d044e659a7efaa47f` |
+| `2627-1/img/lec-02/ch2-phan-vung-reduce.svg` | `259c01ba4ef1d2c14c88940d35e7aa628fcd0c5132fdd80c7a560fb4f9fc40ef` |
+| `2627-1/img/lec-02/ch2-phan-bo-tac-vu.svg` | `51289b20470e0fbd3d6d61f9aa788f3e5394dc8f184b93c2d8dbb97fcb1479ae` |
+| `2627-1/img/lec-02/ch2-phuc-hoi-map.svg` | `3853234eb35238b60a8c0e9d3a3bb3c24b0eea4babea193bc30fea69c82dbfd2` |
+| `2627-1/img/lec-02/ch2-phuc-hoi-reduce.svg` | `189bcaca0cde327708838ca184cbf141e9a1f42dfbd0be95ca26c569b93f7cad` |

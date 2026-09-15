@@ -15,7 +15,7 @@
   </defs>
 
   <!-- Cột 1: tài liệu + Map (gộp bên trái) -->
-  <text x="30" y="40">Map: người viết</text>
+  <text x="30" y="40">Hàm Map</text>
   <rect class="box" x="30" y="60" width="340" height="90"/>
   <text x="45" y="100">D1: dữ liệu lớn</text>
   <text class="small" x="45" y="135">(dữ,1), (liệu,1), (lớn,1)</text>
@@ -60,5 +60,5 @@
   <path class="arrow" d="M910,185 L945,185"/>
 
   <!-- Nhãn vai trò -->
-  <text x="30" y="335">Người viết: Map / Reduce — Hệ thống: nhóm khóa</text>
+  <text x="30" y="335">Lập trình viên định nghĩa Map/Reduce; hệ thống nhóm khóa</text>
 </svg>

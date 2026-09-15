@@ -99,7 +99,7 @@
   <aside class="notes">
     Nguồn: Figure 2.2 (MMDS), áp dụng cho D1, D2 đã có. D1 = "dữ liệu lớn" phát
     (dữ,1), (liệu,1), (lớn,1); D2 = "lớn lớn" phát hai cặp (lớn,1). Ba nhóm:
-    dữ [1], liệu [1], lớn [1,1,1]. Nhãn vai trò: Người viết: Map/Reduce;
+    dữ [1], liệu [1], lớn [1,1,1]. Nhãn vai trò: Lập trình viên định nghĩa Map/Reduce;
     Hệ thống: nhóm khóa.
   </aside>
 </section>
@@ -122,13 +122,47 @@
 <aside class="notes"><p>Bộ kết hợp là phép tổng hợp cục bộ trước khi gửi trung gian. Với phép cộng, kết hợp và giao hoán cho phép cộng các tổng nhóm theo bất kỳ thứ tự; trạng thái vẫn biểu diễn cùng số lần xuất hiện. Bộ kết hợp có thể không được chạy, nên reduce cuối vẫn phải xử lý đúng các giá trị nhận được. Không thay cộng bằng max dù max cũng kết hợp/giao hoán: như vậy đổi ý nghĩa bài toán. Trung bình cục bộ cần giữ cả tổng và số lượng. Mức giảm số byte còn phụ thuộc độ dài biểu diễn của từng cặp; ở đây chỉ đếm số cặp.</p><p>Nguồn: MMDS, Chương 2, 2.2.4, trang in 27–28.</p></aside>
 </section>
 <section id="lec02-s02-06" data-slide-id="lec02-s02-06"><h2>Khóa, tác vụ và máy</h2>
-<img class="figure" src="img/lec-02/ch2-khoa-tac-vu.svg" alt="Minh họa phân công ba khóa: tác vụ trên máy A xử lý dữ và liệu; tác vụ trên máy B xử lý lớn với ba giá trị 1."/>
-<p>Mỗi khóa có một lần gọi reduce. Một tác vụ có thể xử lý nhiều khóa; một máy có thể chạy nhiều tác vụ.</p><p class="check"><strong>Câu hỏi:</strong> Tăng số tác vụ có tự chia nhỏ danh sách của một khóa?</p>
-<aside class="notes"><p>Hình áp dụng khung ở trang 28 và mục 2.2.5 vào ba khóa của ví dụ D1/D2; phân công máy A/B chỉ minh họa. Vùng ngoài là máy, vùng trong là tác vụ, mỗi nhóm khóa là một lần gọi reduce. Không đồng nhất một tác vụ với một máy hoặc một khóa.</p><p>Đáp án: không, nếu giữ thuật toán nhóm theo khóa hiện tại. Mọi giá trị của khóa vẫn thuộc một reducer. Phải phân biệt gom nhiều reducer vào ít tác vụ để trung bình hóa tải theo khóa với tạo nhiều tác vụ hơn số máy để lập lịch linh hoạt. Từ phổ biến tạo danh sách dài; bộ kết hợp có thể rút ngắn danh sách ấy. Sách bàn hai cơ chế trong khung ở trang 28 và phần thực thi, không bảo đảm tăng số task luôn xử lý được lệch tải.</p><p>Nguồn: MMDS, Chương 2, Khung reducer/tác vụ/máy, trang in 28; 2.2.5.</p></aside>
+<table><thead><tr><th>Đơn vị</th><th>Vai trò trong thực thi</th></tr></thead><tbody><tr><td>Hàm Map / Reduce</td><td>Mã do lập trình viên định nghĩa</td></tr><tr><td>Tác vụ Map / Reduce</td><td>Phần công việc được giao để thực hiện</td></tr><tr><td>Tiến trình thực thi (Worker)</td><td>Chạy tác vụ trên một máy</td></tr><tr><td>Bộ điều phối (Master)</td><td>Tạo, phân công và theo dõi các tác vụ</td></tr></tbody></table><p>Một tác vụ Reduce gọi hàm Reduce cho từng khóa được giao.<br/>Một máy có thể lần lượt chạy nhiều tác vụ.</p>
+<aside class="notes"><p>Hàm là quy tắc xử lý, không phải một tiến trình hoặc một máy. Một tác vụ Map gọi cùng hàm Map trên các phần tử trong phần dữ liệu nó nhận. Một tác vụ Reduce thực hiện nhiều lần gọi Reduce, mỗi lần một khóa và danh sách giá trị. Một lần gọi cho một khóa là reducer theo thuật ngữ sách. Worker là tiến trình trên máy tính toán; trong mô hình Hình 2.3, Worker thường chuyên Map hoặc Reduce. Không đồng nhất một khóa, một tác vụ và một máy. Chương trình dùng thư viện để khởi tạo bộ điều phối và các tiến trình thực thi. Các trang tiếp theo tách tạo công việc khỏi phân bổ máy.</p><p>Nguồn: MMDS, Chương 2, 2.2.2–2.2.5, trang in 27–29; Hình 2.3.</p></aside>
+</section>
+<section id="lec02-s02-06a" data-slide-id="lec02-s02-06a"><h2>Tạo tác vụ Map từ dữ liệu đầu vào</h2>
+<p>Chương trình chọn số tác vụ; bộ điều phối tạo công việc.<br/>Cách thường dùng: một tác vụ Map cho mỗi phần dữ liệu.</p><img class="figure" src="img/lec-02/ch2-tao-tac-vu-map.svg" alt="Phần 0 chứa D1 giao Map 0, phần 1 chứa D2 giao Map 1; cả hai dùng cùng hàm Map."/><p>Một phần có thể chứa nhiều tài liệu; hàm Map được gọi cho từng tài liệu.</p>
+<aside class="notes"><p>Ta minh họa D1 và D2 nằm trong hai phần khác nhau, mỗi phần có một tài liệu. Đây là cách áp dụng dữ kiện đã có để giải thích nguồn, không phải quy định một tài liệu luôn tạo một tác vụ. Sách cho phép mỗi tác vụ nhận một hoặc nhiều khối; một tác vụ cho mỗi khối là lựa chọn hợp lý, không phải đẳng thức bắt buộc. Các phần tử đầu vào không cắt qua hai khối trong mô hình sách. Số tác vụ Map không bị buộc bằng số máy. Map 0 và Map 1 dùng cùng mã, khác tập phần tử được giao. Phần đầu vào nằm trên hệ tệp phân tán; vị trí máy chạy sẽ do bộ điều phối quyết định.</p><p>Nguồn: MMDS, 2.2.1 và 2.2.5, trang in 25–26,29; minh họa D1/D2 đã có.</p></aside>
+</section>
+<section id="lec02-s02-06b" data-slide-id="lec02-s02-06b"><h2>Phân chia khóa cho các tác vụ Reduce</h2>
+<p>Chọn $r$ tác vụ Reduce; hàm $h(k)$ chọn một tác vụ từ $0$ đến $r-1$.</p><img class="figure" src="img/lec-02/ch2-phan-vung-reduce.svg" alt="Hai Map chia đầu ra theo cùng h: dữ và liệu về R0; lớn từ cả hai Map về R1. Tệp R0 của Map 1 rỗng."/><p>Cùng khóa phải về cùng tác vụ; một tác vụ có thể nhận nhiều khóa.</p>
+<aside class="notes"><p>Ví dụ chọn r=2, R0 và R1 là tên hai tác vụ Reduce. Hàm phân chia minh họa h(dữ)=h(liệu)=0, h(lớn)=1; không khẳng định đây là giá trị băm mặc định. Mỗi Map phân cặp phát ra vào r tệp cục bộ, mỗi tệp dành cho một tác vụ Reduce. Hai Map và hai Reduce tạo bốn tệp theo mô hình sách, tệp dành cho R0 của Map 1 rỗng trong ví dụ. Khi Reduce nhận các tệp dành cho nó từ mọi Map, hệ thống nhóm các cặp theo khóa trước từng lần gọi Reduce. R0 nhận hai nhóm dữ và liệu, R1 nhận nhóm lớn chứa ba giá trị. Hàm h quyết định tác vụ đích, không quyết định máy vật lý. Người dùng có thể cung cấp hàm phân chia khác, nhưng không được chia một khóa cho nhiều tác vụ trong mô hình này. Nhiều tác vụ Reduce làm tăng số tệp trung gian mỗi Map; khóa nóng vẫn có thể gây lệch tải.</p><p>Nguồn: MMDS, Chương 2, 2.2.2–2.2.5, trang in 27–29; Hình 2.3.</p></aside>
+</section>
+<section id="lec02-s02-06c" data-slide-id="lec02-s02-06c"><h2>Bộ điều phối phân bổ tác vụ lên máy</h2>
+<img class="figure" src="img/lec-02/ch2-phan-bo-tac-vu.svg" alt="Master giao Map 0, Map 1 cho Worker ở A,B và Reduce 0, Reduce 1 cho Worker ở C,D; theo dõi trạng thái tác vụ."/><p>Ưu tiên chạy Map gần dữ liệu đầu vào.<br/>Tác vụ chờ được giao tiếp khi Worker phù hợp rảnh.</p>
+<aside class="notes"><p>Sơ đồ là phân công minh họa, không là ảnh chụp bốn tác vụ chạy đồng thời. Mũi tên biểu diễn lệnh giao việc, không phải đường truyền toàn bộ dữ liệu qua Master. Bộ điều phối lưu trạng thái chờ, đang chạy ở Worker nào và hoàn thành. Worker báo xong, bộ điều phối cập nhật rồi giao công việc tiếp; khi số tác vụ nhiều hơn Worker, chúng chạy qua nhiều đợt. Tối ưu gần dữ liệu giúp giảm truyền đầu vào, không bảo đảm mọi Map luôn chạy trên máy có bản sao. Map 0,1 ở A,B tạo tệp trung gian cục bộ; Master được báo vị trí/kích thước và cung cấp vị trí tệp cho các tác vụ Reduce ở C,D. Reduce đọc dữ liệu từ nơi lưu tệp. Sau lỗi có thể đổi máy mà không đổi phần công việc logic. Số tác vụ là số phần việc, không phải số máy.</p><p>Nguồn: MMDS, 2.2.5, Hình 2.3, trang in 28–29; slide MMDS Chương 2, trang 24–25.</p></aside>
 </section>
 <section id="lec02-s02-07" data-slide-id="lec02-s02-07"><h2>Lưu trữ quyết định phần cần chạy lại</h2>
-<table><thead><tr><th>Điểm hỏng</th><th>Phần cần xử lý lại</th></tr></thead><tbody><tr><td>Máy map</td><td>Map task đang chạy và đã xong nếu trung gian cục bộ bị mất</td></tr><tr><td>Máy reduce</td><td>Reduce task đang chạy trên máy hỏng</td></tr></tbody></table><p>Đầu vào và kết quả cuối nằm trên hệ tệp phân tán; trung gian MapReduce nằm cục bộ.</p>
-<aside class="notes"><p>Bộ điều phối giữ trạng thái chờ, đang chạy, đã hoàn thành. Khi map worker mất, các tệp trung gian ở máy đó mất nên cả map task đã hoàn thành có thể phải chạy lại; thông báo vị trí mới cho reduce. Khi reduce worker mất, chỉ tác vụ đang chạy được đặt về chờ theo mô hình sách. Đầu ra đã hoàn tất nằm trên hệ tệp phân tán. Chạy lại phải tái tạo cùng kết quả logic và không làm hiệu ứng ngoài bị nhân đôi. Sách mô tả lỗi bộ điều phối là trường hợp có thể phải khởi động lại công việc, không được hiểu hệ thống chịu được mọi dạng lỗi.</p><p>Nguồn: MMDS, Chương 2, 2.2.5–2.2.6, trang in 28–30.</p></aside>
+<table><thead><tr><th>Dữ liệu</th><th>Nơi lưu trong mô hình sách</th><th>Khi máy thực thi hỏng</th></tr></thead><tbody><tr><td>Đầu vào Map</td><td>Hệ tệp phân tán, có bản sao</td><td>Còn nguồn để đọc lại</td></tr><tr><td>Trung gian Map</td><td>Đĩa cục bộ của máy chạy Map</td><td>Có thể mất nơi Reduce cần đọc</td></tr><tr><td>Kết quả Reduce đã xong</td><td>Hệ tệp phân tán</td><td>Được giữ nhờ lớp lưu trữ</td></tr></tbody></table><p>Bộ điều phối kiểm tra Worker định kỳ; khi phát hiện lỗi, đưa các tác vụ bị ảnh hưởng về trạng thái chờ.</p>
+<aside class="notes"><p>Giả thiết bản sao đầu vào và kết quả hoàn thành trong hệ tệp phân tán còn truy cập được. Không kết luận mọi lỗi đều được che giấu; mất toàn bộ bản sao nằm ngoài tình huống này. Bộ điều phối định kỳ kiểm tra phản hồi của Worker; không đặt một ngưỡng thời gian cụ thể ngoài nguồn. Mất máy Map làm mất tệp trung gian cần cho Reduce, nên tình trạng “đã hoàn thành tính toán” chưa đủ để giữ kết quả. Hai trang sau theo dõi từ phát hiện đến tạo dữ liệu thay thế và cập nhật nơi đọc.</p><p>Nguồn: MMDS, 2.1.2, 2.2.5–2.2.6, trang in 23–24,29–30.</p></aside>
+</section>
+<section id="lec02-s02-07a" data-slide-id="lec02-s02-07a">
+  <h2>Phục hồi khi máy Map hỏng</h2>
+  <img class="figure" src="img/lec-02/ch2-phuc-hoi-map.svg" alt="Sơ đồ phục hồi khi máy Map hỏng">
+
+
+  <p>Mất tệp trung gian cục bộ: cả Map đã hoàn thành cũng phải chạy lại.</p>
+  <p><strong>Câu hỏi:</strong> Tại sao tác vụ Map đã hoàn thành vẫn phải chạy lại?</p>
+  <aside class="notes"><p>Bộ điều phối định kỳ kiểm tra các tiến trình thực thi; máy không phản hồi được coi là hỏng. Mọi tác vụ Map trên máy đó được đặt về trạng thái chờ — kể cả tác vụ đã hoàn thành, vì tệp trung gian nằm trên đĩa cục bộ của máy hỏng đã mất. Bộ điều phối giao lại tác vụ cho tiến trình thực thi khác, đọc lại đầu vào từ hệ tệp phân tán, chạy Map tạo tệp trung gian mới, rồi cập nhật vị trí tệp cho các tác vụ Reduce.</p><p>Ví dụ minh họa (tên máy chỉ mang tính minh họa): Map 0 trên máy A hỏng → Map 0 chạy lại trên máy E; D2, Map 1 trên máy B giữ nguyên. Reduce 0 và Reduce 1 cần đầu ra mới của Map 0.</p>
+    Đáp án: vì đầu ra (tệp trung gian) của Map nằm trên đĩa cục bộ máy hỏng, không còn cho Reduce đọc, nên phải chạy lại để tạo tệp mới. Nguồn: 2.2.6, tr. 30.
+  </aside>
+</section>
+<section id="lec02-s02-07b" data-slide-id="lec02-s02-07b">
+  <h2>Phục hồi khi máy Reduce hỏng</h2>
+  <img class="figure" src="img/lec-02/ch2-phuc-hoi-reduce.svg" alt="Sơ đồ phục hồi khi máy Reduce hỏng">
+
+
+  <p>Chỉ chạy lại tác vụ Reduce đang thực hiện trên máy hỏng.</p>
+  <p><strong>Câu hỏi:</strong> Reduce 0 đã hoàn thành có phải chạy lại không?</p>
+  <p>Nếu máy bộ điều phối hỏng: khởi động lại toàn bộ công việc theo mô hình sách.</p>
+<aside class="notes"><p>Reduce 1 đang chạy trên máy D, máy D hỏng → bộ điều phối đặt Reduce 1 về chờ → máy F đọc lại các tệp Map còn tồn tại → chạy lại Reduce 1 → ghi kết quả ra hệ tệp phân tán. Reduce 0 đã hoàn thành, kết quả đã nằm trên hệ tệp phân tán nên giữ nguyên.</p><p>Chỉ cần chạy lại tác vụ Reduce đang chạy của máy hỏng, không phải mọi Reduce. Các tệp Map vẫn còn nên không phải chạy lại Map; nếu tệp Map cũng mất thì áp dụng trường hợp máy Map hỏng.</p>
+    Đáp án: Không, vì kết quả của Reduce 0 đã ghi ra hệ tệp phân tán, được giữ khi lớp lưu trữ phân tán còn hoạt động. Lưu ý đặc biệt: nếu máy bộ điều phối hỏng thì toàn bộ công việc phải khởi động lại theo mô hình sách (tr. 30); điều này là mô hình của sách, không khẳng định mọi hệ thống hiện đại. Nguồn: 2.2.5–2.2.6, tr. 29–30.
+  </aside>
 </section>
 <section id="lec02-ex221a" data-slide-id="lec02-ex221a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.2.1(a) · Lệch tải khi chưa gộp</h2>
 <p>Kho tài liệu rất lớn, chẳng hạn một bản sao kho trang Web; đếm từ bằng 100 tác vụ Map.</p><p class="check"><strong>Câu hỏi:</strong> Không dùng bộ kết hợp. Thời gian xử lý danh sách của các reducer có lệch đáng kể không? Giải thích.</p><p><strong>Sản phẩm:</strong> giải thích bằng độ dài danh sách và cách gán khóa.</p>
