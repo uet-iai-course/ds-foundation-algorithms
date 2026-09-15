@@ -2,7 +2,7 @@
 
 Bài này giải thích cách tổ chức phép tính khi dữ liệu nằm trên nhiều máy: chia dữ liệu, chọn khóa để các đóng góp cần nhau gặp nhau, rồi đánh giá lượng dữ liệu phải đọc và truyền. Sau bài học, người học cần viết được map/reduce cho các phép tính cơ bản, giải thích tính đúng và lập bảng chi phí với đơn vị rõ ràng.
 
-Nguồn chính là *Mining of Massive Datasets* (Leskovec, Rajaraman, Ullman), Chương 2, bản `ch2n.pdf` được chỉ định cho học phần. Các số trang dưới đây là **trang in**; số trang PDF bằng số trang in trừ 19; ví dụ trang in 30 là trang PDF 11. Thứ tự các phần giữ nguyên mục 2.1–2.8. Kiến thức đầu vào gồm vòng lặp, hàm, bảng băm, tổng hữu hạn và phép nhân ma trận–vector. Các thuật ngữ hệ phân tán và quan hệ được giải thích trước khi dùng.
+Nguồn chính là *Mining of Massive Datasets* (Leskovec, Rajaraman, Ullman), Chương 2, bản `ch2n.pdf` được chỉ định cho học phần. Các số trang dưới đây là **trang in**; số trang PDF bằng số trang in trừ 19; ví dụ trang in 30 là trang PDF 11. Thứ tự các phần giữ nguyên mục 2.1–2.8. Kiến thức đầu vào gồm vòng lặp, hàm, bảng băm, tổng hữu hạn và phép nhân ma trận–vector. Các thuật ngữ hệ phân tán được giải thích trước khi dùng; bài không yêu cầu kiến thức CSDL.
 
 [Bộ trang chiếu Bài 02](lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html) · [Sách và học liệu MMDS](http://www.mmds.org)
 
@@ -37,6 +37,24 @@ MapReduce chia trách nhiệm thành ba bước:
 3. Hàm reduce nhận một khóa cùng các giá trị của nó và tạo kết quả.
 
 Trong bài toán đếm từ, khóa là từ, giá trị là một đóng góp đếm. Ví dụ 2.1 của sách mô tả tài liệu $w_1,w_2,\ldots,w_n$ phát $(w_1,1),\ldots,(w_n,1)$. Những cặp bằng nhau vẫn phải được giữ: mỗi cặp biểu diễn một lần xuất hiện.
+
+### Hình thức hóa hai hàm
+
+Gọi $K_i$ là miền khóa và $V_i$ là miền giá trị: chỉ số $1$ chỉ đầu vào, $2$ chỉ dữ liệu trung gian, $3$ chỉ đầu ra. Ký hiệu $\operatorname{List}(X)$ chỉ danh sách hữu hạn phần tử thuộc $X$, có thể rỗng và giữ phần tử lặp. Giao diện hai hàm là:
+
+$$
+\operatorname{Map}:K_1\times V_1\longrightarrow\operatorname{List}(K_2\times V_2).
+$$
+
+$$
+\operatorname{Reduce}:K_2\times\operatorname{List}(V_2)\longrightarrow\operatorname{List}(K_3\times V_3).
+$$
+
+Map được áp dụng cho từng phần tử đầu vào. Hệ thống thu tất cả cặp Map phát, nhóm theo khóa $k$ và chuyển $(k,[v_1,\ldots,v_m])$ cho Reduce. Danh sách chứa **mọi lần xuất hiện** của giá trị đi kèm $k$; không biến danh sách thành tập hợp. Reduce xử lý từng khóa có mặt và có thể phát không cặp nào hoặc nhiều cặp; kiểu khóa và giá trị đầu ra có thể khác kiểu trung gian.
+
+Trong đếm từ, khóa đầu vào có thể là mã tài liệu; Map không dùng mã đó nên giả mã lược tham số này. Giá trị đầu vào là nội dung tài liệu; khóa trung gian và đầu ra là từ; giá trị trung gian là số 1, giá trị đầu ra là số lần xuất hiện. Chữ ký mô tả kiểu dữ liệu, còn thuật toán cụ thể quy định cách phát và cộng. Nguồn: MMDS 2.2.1–2.2.3, trang 25–27.
+
+![Hai tài liệu phát năm cặp; hệ thống gom thành ba nhóm giữ lặp, Reduce trả dữ 1, liệu 1, lớn 3.](img/lec-02/ch2-map-group-reduce.svg)
 
 ::: example
 Để đọc vết chạy, bài giảng cụ thể hóa công thức của Ví dụ 2.1 bằng hai chuỗi tiếng Việt: D1 là “dữ liệu lớn”, D2 là “lớn lớn”. Đây là dữ liệu minh họa được chọn trong bài giảng, không phải đoạn văn trích từ sách. Đơn vị đếm là chuỗi tách theo khoảng trắng, không phải phân tích từ vựng tiếng Việt.
@@ -137,83 +155,6 @@ Nếu vector không vừa bộ nhớ, chia ma trận thành các dải dọc và
 
 Các dải chia miền cột thành những phần không giao nhau và phủ hết miền cột. Vì thế mỗi tích được tạo đúng một lần, dù các tích của một hàng xuất phát từ nhiều dải. Điều kiện bộ nhớ áp dụng cho dải vector và trạng thái tác vụ, không chỉ cho số dải. Có thể nhiều tác vụ đọc cùng dải vector; khi tính chi phí phải đếm những lần đọc đó. Nguồn: mục 2.3.1–2.3.2, trang 31–32, Hình 2.4.
 
-### Quan hệ, phép chọn và phép chiếu
-
-Trong phần này, quan hệ là tập các bộ: mỗi bộ là một hàng, thuộc tính là một cột. Không mặc định đây là ngữ nghĩa bảng cho phép lặp của mọi hệ SQL. Hình 2.5 trích quan hệ Links(From,To):
-
-| From | To |
-|---|---|
-| url1 | url2 |
-| url1 | url3 |
-| url2 | url3 |
-| url2 | url4 |
-
-Phép chọn giữ những hàng thỏa điều kiện. Áp dụng phép chọn của mục 2.3.4 lên phần trích ở Hình 2.5 với điều kiện From = url1 sẽ giữ hai hàng đầu. Map kiểm tra từng bộ, phát bộ thỏa điều kiện; reduce có thể chỉ chuyển tiếp. Tính đúng đi trực tiếp từ vị từ: mỗi hàng đầu ra thỏa điều kiện, mỗi hàng đầu vào thỏa điều kiện đều được giữ.
-
-Phép chiếu lấy các cột chỉ định rồi bỏ bộ trùng theo ngữ nghĩa tập hợp. Áp dụng phép chiếu của mục 2.3.5 lên phần trích Links (Hình 2.5), cột From cho các giá trị url1, url1, url2, url2 trước khi bỏ trùng. Map dùng phần chiếu làm khóa; reduce phát một lần cho mỗi khóa. Kết quả là {url1, url2}. Nếu chỉ bỏ cột mà không bỏ trùng thì chưa thực hiện phép chiếu tập hợp. Nguồn: mục 2.3.3–2.3.5, trang 32–35; Hình 2.5 và Ví dụ 2.3.
-
-### Phép nối tự nhiên
-
-Cho $R(A,B)$ và $S(B,C)$. Phép nối tạo mọi $(a,b,c)$ sao cho $(a,b)\in R$ và $(b,c)\in S$. Khóa chung $b$ là nơi hai bộ cần gặp nhau. Nhãn nguồn trong giá trị giúp phân biệt phía trái và phía phải.
-
-
-
-::: example
-Dùng hai bản sao của phần trích Links: $L_1(U_1,U_2)$ và $L_2(U_2,U_3)$. Đầu ra mô tả đường đi dài hai.
-
-| Khóa $U_2$ | Từ $L_1$ | Từ $L_2$ |
-|---|---|---|
-| url1 | không có | url2, url3 |
-| url2 | url1 | url3, url4 |
-| url3 | url1, url2 | không có |
-| url4 | url2 | không có |
-
-Chỉ khóa url2 có cả hai phía. Ghép hai phía được (url1,url2,url3) và (url1,url2,url4). Đây là toàn bộ kết quả trên **bốn hàng được trích**, không phải toàn bộ kho liên kết của ví dụ nguồn.
-:::
-
-```text
-map bộ (a,b) của R: phát(b, (R,a))
-map bộ (b,c) của S: phát(b, (S,c))
-
-reduce(b, V):
-    A ← các a mang nhãn R
-    C ← các c mang nhãn S
-    với mỗi a trong A:
-        với mỗi c trong C:
-            phát(b, (a,b,c))
-```
-
-::: proof
-Mỗi bộ phát từ reduce chứa một phần tử của $R$ và một phần tử của $S$ có cùng $b$, nên thỏa đặc tả nối. Ngược lại, mọi cặp bộ nối được đều có cùng khóa $b$, được gửi tới cùng reducer và được duyệt trong tích hai danh sách. Do đó không bỏ sót kết quả. Một phía rỗng cho tích rỗng. Với đầu vào hữu hạn, các vòng lặp dừng.
-:::
-
-Nếu một nhóm có $x$ bộ trái và $y$ bộ phải thì có $xy$ kết quả. Giả mã giữ hai danh sách cần bộ nhớ $O(x+y)$; việc phát kết quả cần ít nhất $\Omega(xy)$ thao tác. Biến thể giữ một phía và đọc phía kia tuần tự có thể giảm trạng thái, nhưng không loại được chi phí tạo kết quả. Nguồn: mục 2.3.7, trang 37; Ví dụ 2.4, trang 35.
-
-![Bốn cạnh Links tạo hai đường đi hai cạnh qua url2; cạnh trực tiếp url1 đến url3 chỉ dài một cạnh.](img/lec-02/ch2-noi-hai-canh.svg)
-
-Đồ thị biểu diễn lại đúng bốn hàng của Hình 2.5, trang 33. Hai kết quả nối là $(url1,url2,url3)$ và $(url1,url2,url4)$. Các nhãn $L_1,L_2$ chỉ vai trò cạnh trước và cạnh sau trong một đường đi; cả hai quan hệ đều là bản sao đầy đủ của Links.
-
-### Nhóm và tổng hợp
-
-Với Friends(User,Friend), nhóm theo User để đếm số hàng của mỗi người. Map phát (User,1); reduce cộng. Ví dụ 2.5 cho kết quả (Sally,300). Sách không cung cấp danh sách 300 tên, nên không thể dựng một vết 300 dòng như dữ kiện gốc.
-
-Áp dụng cùng cơ chế COUNT lên bốn hàng Links: dùng From làm khóa, mỗi cạnh đóng góp một số 1.
-
-| Khóa | Giá trị nhận | Trạng thái tổng | Kết quả |
-|---|---|---|---|
-| url1 | [1,1] | 0 → 1 → 2 | (url1,2) |
-| url2 | [1,1] | 0 → 1 → 2 | (url2,2) |
-
-Đây là áp dụng mục 2.3.8 lên dữ kiện Hình 2.5, không phải ví dụ số nguyên văn của sách. Với $N$ hàng hữu hạn, thuật toán dừng sau khi xử lý các nhóm; khi chưa gộp cục bộ có $N$ cặp trung gian và $N$ lần cộng theo mô hình thao tác đơn vị. Nhóm không có hàng không xuất hiện trong đầu ra.
-
-Cơ chế tổng quát là chọn thuộc tính nhóm làm khóa, giữ thuộc tính cần tổng hợp trong giá trị. COUNT đếm hàng, SUM cộng giá trị, AVG giữ tổng và số lượng rồi chia ở cuối. Tính đúng dựa vào phân hoạch đầy đủ theo khóa và bất biến của phép tổng hợp. Nguồn: mục 2.3.8, trang 38; Ví dụ 2.5, trang 35.
-
-### Liên hệ nhân ma trận–ma trận
-
-Với kích thước tương thích, $p_{ik}=\sum_jm_{ij}n_{jk}$. Có thể dùng công việc thứ nhất nối phần tử theo $j$ để tạo các tích mang khóa $(i,k)$; công việc thứ hai cộng theo khóa ô kết quả. Biến thể một công việc phải gửi phần tử tới các ô cần nó. Ít công việc hơn có thể tăng sao chép dữ liệu.
-
-Mục 2.3.6 về các phép tập hợp và giả mã chi tiết của hai biến thể nhân ma trận ở 2.3.9–2.3.10 được dành cho đọc thêm. Phần bắt buộc tập trung vào cơ chế chọn khóa, chạy tay và chứng minh của các thuật toán đã trình bày.
-
 ## 2.4. Mở rộng MapReduce
 
 MapReduce có hai tầng tính toán chính. Hệ luồng công việc mở rộng thành một đồ thị có hướng không chu trình của các hàm: cung từ $f$ tới $g$ nghĩa là đầu ra của $f$ cung cấp đầu vào cho $g$. Mỗi hàm có thể được thực thi bởi nhiều tác vụ. Phải phân biệt đồ thị các hàm với tập tác vụ thực tế được lập lịch trên máy.
@@ -260,78 +201,23 @@ Phải dùng một đơn vị nhất quán: byte hoặc bản ghi chuẩn hóa. 
 
 Với vết đếm từ, Map đọc lượng dữ liệu $I$. Chưa gộp thì Reduce nhận 5 cặp; gộp hai lần xuất hiện ở D2 thì nhận 4 cặp. Nếu mỗi cặp dài $B$ byte, hai chi phí là $I+5B$ và $I+4B$, với $I$ tính bằng byte. Không đồng nhất hai tài liệu với hai cặp có kích thước bằng nhau.
 
-### Nối hai bảng
+### Chi phí nhân ma trận–vector
 
-Ví dụ 2.14 xét $R(A,B)\bowtie S(B,C)$, $r=|R|$, $s=|S|$. Mỗi bộ gửi một cặp theo khóa $B$.
+Quay lại cách chia dải ở mục 2.3.2. Gọi $z$ là số phần tử ma trận được lưu, $L_j$ là độ dài dải vector $j$, $a_j$ là số tác vụ đọc dải đó. Ở đây $j$ đánh số dải. Không gộp cục bộ các tích; dùng đơn vị bản ghi chuẩn hóa.
 
-| Tầng | Đầu vào chuẩn hóa |
-|---|---:|
-| Map | $r+s$ |
-| Reduce | $r+s$ |
-| Tổng | $2(r+s)$ |
+| Tầng nhận | Lượng dữ liệu | Căn cứ |
+|---|---|---|
+| Map: ma trận | $z$ | Mỗi phần tử đọc một lần |
+| Map: vector | $\sum_j a_jL_j$ | Dải $j$ được đọc $a_j$ lần |
+| Reduce | $z$ | Mỗi phần tử phát một tích |
 
-Sách kết luận $O(r+s)$ khi bỏ các hệ số kích thước cố định. Với hai bản sao của bốn hàng Links, $r=s=4$, tổng là $8+8=16$ đơn vị. Kết quả nối trên phần trích có hai bộ.
+Vì vậy $C=2z+\sum_j a_jL_j$. Nếu mỗi dải có một tác vụ và tổng độ dài vector là $n$, chi phí là $2z+n$. Nếu mỗi dải có $a$ tác vụ thì chi phí thành $2z+an$. Hai trường hợp này suy ra từ công thức, không phải kết quả đo thực nghiệm. Với ma trận đặc, $z=n^2$.
 
-Chi phí này không phải cận thời gian chạy $O(r+s)$ cho mọi phép nối: một nhóm có thể tạo tích số lượng hai phía. Chính sự khác biệt giữa chi phí truyền thông và chi phí tạo kết quả làm việc nêu mô hình trở nên cần thiết.
-
-### Nối ba bảng trên lưới reducer
-
-Xét $R(A,B)\bowtie S(B,C)\bowtie T(C,D)$, kích thước lần lượt $r,s,t$. Băm $B$ vào $b$ nhóm, $C$ vào $c$ nhóm, dùng $k=bc$ reducer mang chỉ số $(i,j)$.
-
-- Bộ $R$ biết nhóm $B$ nhưng chưa biết $C$, nên gửi tới $c$ ô của một hàng.
-- Bộ $S$ biết cả $B,C$, nên gửi tới một ô.
-- Bộ $T$ biết nhóm $C$ nhưng chưa biết $B$, nên gửi tới $b$ ô của một cột.
-
-![Lưới 4×4: R gửi hàng 2, S gửi ô (2,1), T gửi cột 1.](img/lec-02/ch2-luoi-reducer.svg)
-
-Hình theo Ví dụ 2.15, dùng nhóm 0 đến 3 nhất quán. Trong mỗi ô, phải kiểm tra giá trị $B,C$ thật; trùng nhóm băm chưa có nghĩa nối được.
-
-```text
-map R(a,B): với y = 0..c-1, phát((hB(B),y), (R,a,B))
-map S(B,C): phát((hB(B),hC(C)), (S,B,C))
-map T(C,d): với z = 0..b-1, phát((z,hC(C)), (T,C,d))
-reduce(i,j): nối các bộ nhận được theo giá trị B và C thật
-```
-
-Mọi bộ ba hợp lệ gặp nhau ở đúng ô $(h_B(B),h_C(C))$. Ngược lại, kiểm tra điều kiện nối trong ô chỉ phát bộ ba hợp lệ. Như vậy thuật toán đầy đủ và không phát lặp cùng bộ ba ở nhiều ô. Các vòng lặp và tập dữ liệu hữu hạn nên dừng.
-
-| Quan hệ | Map đọc | Reduce nhận |
-|---|---:|---:|
-| $R$ | $r$ | $cr$ |
-| $S$ | $s$ | $s$ |
-| $T$ | $t$ | $bt$ |
-
-Do đó
-
-$$
-C_3=(r+s+t)+(cr+s+bt)=r+2s+t+cr+bt.
-$$
-
-Với $b=c=4$, tổng là $5r+2s+5t$. Hai lần $s$ đến từ hai tầng đọc, không phải gửi $S$ hai lần ở Map.
-
-### So sánh với nối tuần tự
-
-Ví dụ 2.16 đặt $r=s=t=3\cdot10^{11}$ và ước lượng quan hệ trung gian lớn gấp 30 một quan hệ đầu vào. Đây là giả thiết về mạng bạn bè trong ví dụ lịch sử của sách, không là quy luật mọi dữ liệu.
-
-Hai công việc nối tuần tự có chi phí:
-
-$$
-C_{\mathrm{tuần\ tự}}=2(r+r)+2(30r+r)=66r=1{,}98\cdot10^{13}.
-$$
-
-Với lưới vuông $b=c=\sqrt{k}$, cách nối ba bảng có
-
-$$
-C_3=4r+2r\sqrt{k}.
-$$
-
-Vì $r>0$, $C_3<66r$ tương đương $\sqrt{k}<31$, tức $k<961$. Tại $k=961$, hai cách bằng nhau. Bài hiệu chỉnh dấu biên trong diễn giải “preferable” của nguồn. Lưới vuông yêu cầu $k$ là số chính phương; tổng quát phải chọn $b,c$ nguyên dương thỏa $bc=k$ rồi tính lại $cr+bt$.
-
-So sánh này chỉ có ý nghĩa khi các phương án đáp ứng giới hạn thực thi. Tổng đầu vào nhỏ hơn không bảo đảm tác vụ nặng nhất vừa RAM hoặc hoàn thành sớm hơn. Nguồn: mục 2.5, trang 53–60, Ví dụ 2.14–2.16.
+Đơn vị chuẩn hóa không khẳng định mọi loại bản ghi dài bằng nhau theo byte. Nếu độ dài lần lượt là $B_M,B_v,B_P$ byte thì $C=zB_M+(\sum_j a_jL_j)B_v+zB_P$. Chia thêm tác vụ có thể tăng số lần đọc vector; tổng này chưa xác định thời gian thực hoặc tải bộ nhớ lớn nhất. Nguồn: MMDS 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang 32,54–55,59.
 
 ## 2.6. Bộ nhớ và sao chép dữ liệu
 
-Để diễn tả đánh đổi, đặt $q$ là số giá trị đầu vào tối đa một reducer nhận và $\rho$ là số cặp trung gian trung bình trên một đầu vào. Sách dùng $r$ cho đại lượng thứ hai; bài đổi thành $\rho$ để tránh nhầm với $r=|R|$.
+Để diễn tả đánh đổi, đặt $q$ là số giá trị đầu vào tối đa một reducer nhận và $\rho$ là số cặp trung gian trung bình trên một đầu vào. Sách dùng $r$ cho đại lượng thứ hai; bài dùng ký hiệu $\rho$ cho đại lượng này.
 
 $$
 \rho=\frac{\text{số cặp trung gian phát}}{\text{số phần tử đầu vào}}.
@@ -341,7 +227,7 @@ Nếu mỗi giá trị có $B$ byte và reducer giữ đồng thời toàn bộ 
 
 ### So sánh mọi cặp ảnh
 
-Mục 2.6.2 xét $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte. Cho hàm độ tương tự đối xứng $s(P_i,P_j)$ và ngưỡng $\tau$; đầu ra gồm các cặp ảnh khác nhau có $s(P_i,P_j)>\tau$. Trong mô hình của nguồn, cần tính độ tương tự cho mọi cặp để quyết định có phát cặp đó hay không. Sách dùng $t$ cho ngưỡng; bài dùng $\tau$ để tránh nhầm với kích thước quan hệ $T$. Ký hiệu $s$ ở đây là hàm độ tương tự, khác số bộ của quan hệ $S$ trong mục 2.5. $B$ là số byte mỗi ảnh; ở ví dụ đếm từ, $B$ là số byte mỗi cặp. Một reducer cho mỗi cặp nhận hai ảnh, nên $q=2$. Mỗi ảnh được gửi tới $N-1$ reducer:
+Mục 2.6.2 xét $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte. Cho hàm độ tương tự đối xứng $s(P_i,P_j)$ và ngưỡng $\tau$; đầu ra gồm các cặp ảnh khác nhau có $s(P_i,P_j)>\tau$. Trong mô hình của nguồn, cần tính độ tương tự cho mọi cặp để quyết định có phát cặp đó hay không. Sách dùng $t$ cho ngưỡng; bài dùng ký hiệu $\tau$. $B$ là số byte mỗi ảnh; ở ví dụ đếm từ, $B$ là số byte mỗi cặp. Một reducer cho mỗi cặp nhận hai ảnh, nên $q=2$. Mỗi ảnh được gửi tới $N-1$ reducer:
 
 $$
 \rho=N-1=999999,\qquad C_{\mathrm{trung\ gian}}=N(N-1)B\approx10^{18}\text{ byte}.
@@ -367,7 +253,7 @@ Hình minh họa quy tắc của mục 2.6.2, trang 63–64, với $v=(u+1)\bmod
 
 Chọn khóa quyết định dữ liệu nào gặp nhau. Lập luận đúng cần chỉ ra mọi đóng góp cần thiết đều gặp nhau và không bị mất hoặc lặp. Lập bảng đầu vào từng tầng cho biết hệ số sao chép xuất hiện ở đâu; sau đó vẫn phải kiểm tra tải lớn nhất, bộ nhớ và chi phí tạo kết quả.
 
-Các bài dưới đây dịch và tách ý từ đúng bài tập nguồn. Không thay dữ kiện hay yêu cầu toán học. Bài 2.5.1 chỉ chọn ý (a), (c), phù hợp các thuật toán được giảng sâu.
+Các bài dưới đây dịch và tách ý từ đúng bài tập nguồn. Không thay dữ kiện hay yêu cầu toán học. Bài 2.5.1 chỉ chọn ý (a), phù hợp thuật toán nhân ma trận–vector đã học.
 
 ### Bài tập 2.2.1 — Lệch tải khi đếm từ
 
@@ -417,14 +303,13 @@ Khóa của cặp đầu ra có thể bị bỏ qua. Sản phẩm: giả mã, ý
 (d) Một phương án hai công việc: công việc đầu nhóm theo x và phát một số 1 cho mỗi khóa; công việc sau cộng các số 1. Nếu có $D$ giá trị khác nhau, có đúng $D$ đóng góp. Tệp rỗng cần quy ước trả 0. Hai công việc không phải điều kiện bắt buộc trong mọi mô hình: gom mọi số về một reducer rồi dùng tập hợp cũng được, nhưng cần bộ nhớ theo số giá trị khác nhau.
 :::
 
-### Bài tập 2.5.1(a,c) — Tính chi phí
+### Bài tập 2.5.1(a) — Tính chi phí
 
 ::: exercise
-Biểu diễn chi phí truyền thông theo kích thước quan hệ, ma trận hoặc vector:
+Biểu diễn chi phí truyền thông theo kích thước ma trận và vector:
 
 (a) Thuật toán nhân ma trận–vector ở mục 2.3.2.
 
-(c) Thuật toán tổng hợp ở mục 2.3.8.
 
 Sản phẩm: định nghĩa đơn vị, bảng đầu vào Map/Reduce và công thức tổng. Nguồn: trang 59, PDF 40.
 :::
@@ -442,7 +327,6 @@ Nếu mỗi dải chỉ được một tác vụ đọc và $\sum_jL_j=n$ thì $
 
 Nếu một bộ ma trận dài $B_M$ byte, một phần tử vector dài $B_v$ byte và một cặp tích dài $B_P$ byte, công thức là $zB_M+(\sum_j a_jL_j)B_v+zB_P$.
 
-(c) Đặt $N=|R|$. Map đọc $N$ bộ và phát một cặp cho mỗi bộ; Reduce nhận $N$ cặp. Không dùng bộ kết hợp, tổng chuẩn hóa là $2N=O(N)$. Nếu bộ đầu vào dài $B_R$ byte và cặp dài $B_P$ byte thì $C=N(B_R+B_P)$. Số nhóm không thay thế được số cặp đầu vào Reduce khi chưa gộp.
 :::
 
 ## 2.8. Tài liệu tham khảo và hướng đọc

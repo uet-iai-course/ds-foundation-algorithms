@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 350" role="img" aria-labelledby="t d">
+  <title id="t">Từ Map đến Reduce: nhóm theo khóa</title>
+  <desc id="d">Hai tài liệu D1 và D2 qua hàm Map phát các cặp (từ, 1); hệ thống nhóm theo khóa tạo ba nhóm dữ [1], liệu [1], lớn [1,1,1]; Reduce cộng theo từ cho kết quả dữ 1, liệu 1, lớn 3.</desc>
+  <style>
+    text { font-family: sans-serif; font-size: 24px; fill: #111; }
+    .small { font-size: 24px; }
+    .box { fill: #f4f4f4; stroke: #333; stroke-width: 2; }
+    .grp { fill: #eef; stroke: #336; stroke-width: 2; }
+    .arrow { stroke: #333; stroke-width: 2.5; fill: none; marker-end: url(#ah); }
+  </style>
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Cột 1: tài liệu + Map (gộp bên trái) -->
+  <text x="30" y="40">Map: người viết</text>
+  <rect class="box" x="30" y="60" width="340" height="90"/>
+  <text x="45" y="100">D1: dữ liệu lớn</text>
+  <text class="small" x="45" y="135">(dữ,1), (liệu,1), (lớn,1)</text>
+  <rect class="box" x="30" y="200" width="340" height="90"/>
+  <text x="45" y="240">D2: lớn lớn</text>
+  <text class="small" x="45" y="275">2 × (lớn,1)</text>
+
+  <!-- Cột 2: nhóm theo khóa -->
+  <text x="400" y="40">Hệ thống: nhóm khóa</text>
+  <rect class="grp" x="400" y="60" width="260" height="70"/>
+  <text x="415" y="105">dữ: [1]</text>
+  <rect class="grp" x="400" y="150" width="260" height="70"/>
+  <text x="415" y="195">liệu: [1]</text>
+  <rect class="grp" x="400" y="240" width="260" height="70"/>
+  <text x="415" y="285">lớn: [1, 1, 1]</text>
+
+  <!-- Cột 3: Reduce -->
+  <text x="745" y="40">Reduce</text>
+  <rect class="box" x="760" y="60" width="150" height="250"/>
+  <text x="775" y="105">cộng</text>
+  <text x="775" y="140">theo từ</text>
+
+  <!-- Cột 4: kết quả -->
+  <text x="950" y="40">Kết quả</text>
+  <rect class="box" x="950" y="60" width="130" height="250"/>
+  <text x="965" y="105">dữ: 1</text>
+  <text x="965" y="195">liệu: 1</text>
+  <text x="965" y="285">lớn: 3</text>
+
+  <!-- Mũi tên: 2 nhánh Map về nhóm -->
+  <path class="arrow" d="M370,105 L395,95"/>
+  <path class="arrow" d="M370,245 L395,275"/>
+
+  <path class="arrow" d="M370,115 L395,185"/>
+  <path class="arrow" d="M370,125 L395,265"/>
+  <!-- Mũi tên: 3 nhóm về Reduce -->
+  <path class="arrow" d="M660,95 C710,95 715,120 755,140"/>
+  <path class="arrow" d="M660,185 L755,185"/>
+  <path class="arrow" d="M660,275 C710,275 715,250 755,230"/>
+
+  <!-- Mũi tên: Reduce về kết quả -->
+  <path class="arrow" d="M910,185 L945,185"/>
+
+  <!-- Nhãn vai trò -->
+  <text x="30" y="335">Người viết: Map / Reduce — Hệ thống: nhóm khóa</text>
+</svg>

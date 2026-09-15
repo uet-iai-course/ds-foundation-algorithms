@@ -1005,3 +1005,306 @@ Không có lỗi chặn bàn giao về số trang (61=52+9), 9 section, 120+60 p
 | `2627-1/img/lec-02/ch2-noi-hai-canh.svg` | `ff9494d823545b2563afb3b4568cc22a52dba025eae7885d3370427a3924cd81` |
 | `2627-1/img/lec-02/ch2-spark.svg` | `9cc87f2f568eca934340c67e3a02c41ddb2fe973e56a0c60af14519ce99fcd20` |
 | `2627-1/img/lec-02/scripts/render-concept-diagrams.py` | `3e4c7968dd21fea86f7f37405ef1b9830673e04ffb333706472377b288b1ff22` |
+
+## Hình thức hóa MapReduce và bỏ tiên quyết CSDL — 2026-09-15
+
+### Yêu cầu và kết quả
+
+Người dùng yêu cầu thêm hình thức hóa hai hàm Map/Reduce, trực quan hóa quan hệ giữa hai hàm; phản ánh cụm quan hệ khó hiểu và yêu cầu bỏ thuật toán nối vì sinh viên chưa học CSDL. Đã bỏ cả cụm quan hệ và các phụ thuộc: 9 trang ở 2.3, 7 trang chi phí nối ở 2.5, bài 2.5.1(c). Thêm hai trang formal/luồng và hai trang chi phí nhân ma trận–vector. Bản mới có 48 trang (40 giảng,8 bài tập), 9 section, 120+60 phút dự kiến. Cập nhật mục tiêu, tự kiểm tra, ghi chú công khai, outline, storyboard và index. Hai SVG nối cũ không còn được nhúng; không xóa tài sản lịch sử.
+
+Map: K1×V1 → List(K2×V2); Reduce: K2×List(V2) → List(K3×V3). List hữu hạn, giữ lặp, có thể rỗng; hệ thống nhóm tất cả giá trị cùng khóa. Nguồn 2.2.1–2.2.3 trang25–27. Sơ đồ Hình2.2 áp dụng ví dụ D1/D2 đã có; đủ5cặp,3nhóm,3kết quả. Hình do writer soạn, điều phối sửa chiều luồng để cả ba đóng góp từ D1 đến đúng nhóm, mở rộng hộp tránh chữ tràn; thêm ID và bỏ wrapper cùng câu siêu dữ liệu khỏi bản writer.
+
+### Điều phối và quyết định phản biện
+
+- Planner chỉ đọc chạy trước khi sửa. Giữ formal/hình đếm từ; bác giữ chi phí nối sau khi bỏ thuật toán, định nghĩa quan hệ trừu tượng thay bảng, giữ61slide cứng và bài tập ngoài nguồn. Kế hoạch duyệt lưu ở /tmp/lec02-formal/approved-plan.md và hợp nhất trong outline.
+- Hồ sơ source lượt đầu bị cắt sau Ví dụ2.1; reader nêu đúng giới hạn. Lượt source2 bổ sung trang27–28,40,59,62–63 xác nhận Reduce phát0+nhiều cặp khác kiểu, đề2.5.1(a) và cặp ảnh không cần phép nối. Không coi suy luận về thứ tự danh sách là bảo đảm từ chữ ký; dùng phép cộng không phụ thuộc thứ tự.
+- Sau năm báo cáo độc lập và kiểm định storyboard, editor riêng sửa mục tiêu còn chữ “nối” và tổng kết thành “chuỗi phép biến đổi”. Điều phối kiểm diff chỉ hai thay đổi rồi tích hợp.
+- Bác yêu cầu hiển thị phút lên slide: AGENTS yêu cầu thời lượng ở storyboard, không ở mặt slide/notes. Bác nhận xét8thay9section: 1intro+8mụcPDF=9; sốthứtự trong mục lục không là sốsectionDOM. Bác đánh lạiID: ID lịch sử ổn định, DOM quyết định thứ tự, ghi rõ trong storyboard.
+- Bác đề xuất một tỷ ảnh: nguồn2.6.2 trang62–63 là một triệu ảnh; giữ N=10^6. Báo cáo editor kết luận “đúng8” là diễn đạt sai; số thực tế9section đã kiểm DOM.
+- Giữ định nghĩa K_i,V_i trên formal và giải thích khóa đầu vào bị lược trong notes để tránh dày chữ; không suy ra K3 bắt buộc khác K2. Câu “mỗi dải có a tác vụ” đã nêu a_j=a; không thêm ký hiệu lặp.
+- Làm rõ “bỏ bài2.5.1(c)” trong storyboard, khôi phục kiến thức đầu vào cho mỗi trang và bỏ tiên quyết chi phí nối còn sót. Thứ tự mạch giảng trong storyboard bỏ qua recitation tới cuối buổi.
+- Tái rà flow toàn bộ và toán học đều đạt. Flow tìm một câu notes giải thích rho bằng r=|R| cũ; đã bỏ tham chiếu đó trong HTML và ghi chú, giữ nguyên ký hiệu/công thức. Đây là sửa tham chiếu đã được reviewer yêu cầu, không đổi lập luận.
+
+### Kiểm định
+
+- Cấu trúc: 48 ID duy nhất, khớp48mục storyboard;57cặp thẻ section=9ngoài+48trang;8bài tập. Mọi liên kết nội bộ trỏ ID còn tồn tại. Không còn Links, thuật toán nối hoặc bài2.5.1(c) trong HTML/ghi chú công khai.
+- Thời lượng: các phần giảng5/10/26/20/15/21/17/5/1=120phút. Recitation2.2.1(a–c)15phút,2.3.1(a–d)20phút,2.5.1(a)25phút=60. Thêm thời gian tự lập bảng/trình bày cho ý(a), không đổi đề.
+- Chromium thực tại127.0.0.1:8765: duyệt48trang,0overflow,0lỗiJS,0HTTPfailed,0KaTeXerror. Xem trực tiếp các hình formal/luồng, bảng chi phí và ranh giới thay đổi. Bản in48trang; liên kết recitation tới ex221a hoạt động.
+- Ghi chú:139công thức,9ảnh tải đúng;0KaTeXerror; màn hẹp390px không cuộn ngang (nội dung375px); chi tiết đáp án mở bằng bàn phím. Bản in ghi chú được tạo. Câu rho cuối chỉ bỏ văn bản tham chiếu, không đổi markup hay công thức.
+- Áp dụng no-ai-slop và tự kiểm eval.md cho wording: bỏ câu quy trình khỏi mặt slide, giữ tiếng Việt trực tiếp, không thêm số liệu hoặc khẳng định mới. Quill dùng rà liên tục ví dụ→formal→giả mã và thuật toán→chi phí; không khởi tạo dự án sách/quill.json theo AGENTS.
+- Codex Slides dùng hồ sơ Design Files hiện có, không có Browser trong trình soạn thảo được cung cấp ở phiên này. Bằng chứng hiển thị là Chromium/RevealJS; không tuyên bố tạo48trang native trong Codex Slides.
+
+### Báo cáo tác tử
+
+Mọi lượt dưới đây dùng provider OpenRouter, requested_model và observed_model đều z-ai/glm-5.3-flash. Các lỗi do kết luận reviewer không được tự động áp dụng; quyết định điều phối ở trên. Bằng chứng JSON và ảnh nằm tại /tmp/lec02-formal/.
+
+#### plan
+
+Kế hoạch chỉ đọc: sửa cụm quan hệ (s03-04..10) theo MMDS 2.2.1–2.2.3
+
+1. Phạm vi sửa — giới hạn
+- Chỉ sửa các slide trong cụm quan hệ **s03-04 → s10** và bài tập liên quan; **không đụng** các phần khác (chi phí s05-04..08, Spark, nhân ma trận–vector, cặp ảnh, D1/D2).
+- Bỏ toàn bộ khung "quan hệ = bảng dữ liệu + thuật toán nối" và thuật toán nối 2/3 bảng khỏi cụm quan hệ (chi phí s05 giữ nguyên vì đứng ngoài phạm vi).
+
+2. Phụ thuộc phải bỏ/thay
+- Slide định nghĩa quan hệ là bảng → **thay** bằng trực quan quan hệ: tập hợp các bộ/ngữ cảnh dùng chung (không dùng thuật ngữ bảng/CSDL vì SV năm 2 chưa học CSDL).
+- Thuật toán nối → **bỏ**; nếu cần dẫn dắt, thay bằng ví dụ "ghép theo khóa chung" nêu trực quan thôi, không trình bày thuật toán.
+- **Bài tập 2.5.1c (quan hệ)** → thay bằng **2.5.1a (ma trận, đã có sẵn)**, giữ nguyên đề gốc, **không tự chế đề mới**. Tổng thời gian vẫn **60 phút**, phân bổ lại đề xuất:
+  - 2.5.1a (ma trận): 25 phút
+  - Ví dụ đếm từ (D1/D2): 15 phút
+  - Nhân ma trận–vector: 10 phút
+  - Spark / cặp ảnh: 10 phút
+  (Nếu giữ các bài còn lại nguyên giờ, điều chỉnh trong nhóm 60 phút ghi rõ trên slide phân bổ.)
+
+3. Formal 2 hàm Map/Reduce + trực quan (nguồn MMDS 2.2.1–2.2.3)
+- **Slide formal Map**: hàm nhận **phần tử đầu vào bất kỳ** (kỹ thuật là cặp khóa–giá trị, thường bỏ khóa đầu vào), phát ra **0 hoặc nhiều cặp**.
+- **Slide hệ thống giữa**: nhóm tất cả giá trị cùng khóa; **giữ nguyên văn "giữ lặp"** (danh sách có thể có phần tử lặp).
+- **Slide formal Reduce**: nhận **khóa + danh sách** giá trị, phát ra **0 hoặc nhiều cặp**, **kiểu đầu ra có thể khác** kiểu đầu ra của Map.
+- **Trực quan quan hệ** (thay bảng): sơ đồ "khóa → danh sách giá trị" (manh mối/nhóm), ví dụ minh hoạ bằng đếm từ D1/D2 — mỗi từ là khóa, danh sách các 1 là giá trị, Reduce cộng danh sách.
+
+4. Visual đề xuất
+- Diagram 3 lớp: đầu vào → Map → nhóm theo khóa (nêu rõ giữ lặp) → Reduce → đầu ra, dùng chính ví dụ đếm từ làm chuỗi chạy (walkthrough).
+- Một slide "danh sách ≠ tập hợp" nhấn giữ lặp.
+
+5. Tiêu chí kiểm tra sau sửa
+1. Cụm quan hệ **không còn** cụm từ "bảng dữ liệu", "thuật toán nối", "nối 2/3 bảng".
+2. Formal Map/Reduce khớp nguyên văn 2.2.1/2.2.2/2.2.3 (đặc biệt: "giữ lặp", "0 hoặc nhiều cặp", "kiểu có thể khác").
+3. Bài tập 2.5.1c đã bỏ; 2.5.1a thay vào; tổng **60 phút** đúng, phân bổ ghi rõ.
+4. Không mở rộng kiến thức ngoài MMDS 2.1–2.8.
+5. Đếm slide: tổng **61** không đổi (thay–thế, không thêm/bớt mục ngoài), 52 giảng / 9 bài tập giữ nguyên cấu trúc.
+
+*Lưu ý: mọi thay đổi chỉ viết lại nội dung slide/bài tập hiện có; đây là kế hoạch, chưa thao tác file.*
+
+#### source
+
+Xác nhận các mệnh đề (chỉ dựa vào nguồn được cung cấp)
+
+**1. Chữ ký Map/Reduce và tính hữu hạn.**
+Nguồn (§2.2.1) khẳng định Map nhận một phần tử đầu vào và sinh "zero or more key-value pairs" — tức Map: K1×V1 → List(K2×V2) với danh sách có thể rỗng và (theo ngữ cảnh Example 2.1, dãy w1…wn của một tài liệu) hữu hạn. Reduce không được trích nguyên văn trong nguồn, nhưng sơ đồ Hình 2.2 cho thấy giai đoạn "Group by keys" tạo ra "keys with all their values (k, [v, w, …])", xác nhận dạng Reduce: K2×List(V2) → List(K3×V3). ✅
+
+**2. Khóa không duy nhất, không bảo đảm thứ tự.**
+"keys are not 'keys' in the usual sense; they do not have to be unique. Rather a Map task can produce several key-value pairs with the same key" — xác nhận danh sách giữ lặp. Tuy nhiên nguồn **không** phát biểu tường minh về bảo đảm/giữ nguyên thứ tự của danh sách giá trị; đây là **suy luận** từ Hình 2.2 (gom nhóm theo khóa). Cần cẩn trọng. ⚠️
+
+**3. Khóa đầu vào của Map.**
+"normally the keys of input elements are not relevant and we shall tend to ignore them" — xác nhận việc bỏ khóa vào (ví dụ mã tài liệu) là nhất quán với nguồn. ✅
+
+**4. "Group by keys" là bước hệ thống.**
+Hình 2.2 vẽ "Group by keys" như một giai đoạn riêng giữa Map tasks và Reduce tasks; nguồn không liệt kê nó là một hàm người dùng định nghĩa — nhất quán với khẳng định của bạn. ✅
+
+**5. Các mục 2.3.3–2.3.10, 2.5.3, 2.6, 2.5.1a.**
+Nguồn cung cấp chỉ chứa §2.2.1 (và Example 2.1). **Không có bằng chứng** về nội dung các mục 2.3.3–2.3.10, 2.5.3, 2.6 hay bài tập 2.5.1a; các xác nhận về việc bỏ mục và tiên quyết của 2.6 **không thể xác minh từ nguồn này**. ❌
+
+Giới hạn nguồn
+Chỉ có §2.2.1 trích đến dòng "An option, which we discuss in Section" (bị cắt); văn bản ngoài phần trích không truy cập được (lệnh "không dùng tools").
+
+**Mệnh đề cần cẩn trọng:** (i) bảo đảm/thứ tự của List(V2); (ii) tính hữu hạn của đầu ra Reduce; (iii) mọi khẳng định về 2.3.x, 2.5.x, 2.6.
+
+#### source2
+
+**Xác nhận dựa trên văn bản cung cấp (trang 27–28, 40, 59, 62–63):**
+
+1. **Reduce phát 0+ cặp, kiểu có thể khác:** ✅ Có nguồn — §2.2.3 (tr.27): "The output of the Reduce function is a sequence of zero or more key-value pairs. These key-value pairs can be of a type different from those sent from Map tasks to Reduce tasks, but often they are the same type."
+
+2. **Không bảo đảm thứ tự:** ⚠️ Không có nguồn trực tiếp trong đoạn trích. Văn bản chỉ nói Reduce nhận (k, [v1,…,vn]) và với hàm giao hoán/kết hợp "the values to be combined can be combined in any order" (§2.2.4, tr.27) — đây là về tính giao hoán/kết hợp, không phải tuyên bố chung về thứ tự đầu ra. **Không xác nhận.**
+
+3. **Phép nối không phải tiên quyết cặp ảnh:** ✅ Có nguồn — §2.6.2 (tr.62): "we shall consider only the raw form of the problem, where we have to look at each pair of elements of X and determine their similarity by applying the function s"; ví dụ ảnh chỉ là minh họa (một triệu ảnh, 1TB), không có điều kiện tiên quyết nào về cặp ảnh.
+
+4. **Bài 2.5.1a giữ đề chi phí dải:** ✅ Có nguồn — Exercise 2.5.1(a) (tr.59): "The matrix-vector multiplication algorithm of Section 2.3.2", hỏi communication cost "as a function of the size of the relations, matrices, or vectors" — tức chi phí theo kích thước đầu vào, không đổi đề.
+
+**Kết luận:** Mục 1, 3, 4 được xác nhận; mục 2 không tìm thấy bằng chứng trong hồ sơ.
+
+#### writer
+
+Đã viết đúng 2 tệp:
+
+- **formal-slides.html** (2 slide, không wrapper): slide `lec02-s02-03a` với hai công thức Map/Reduce trong `div.math-large`, định nghĩa $K_i, V_i$, List(X), ghi chú "hai phần của một giao diện", caption và aside.notes (MMDS 2.2.1–2.2.3, tr. 25–27); slide `lec02-s02-03b` với h2, img.figure trỏ tới SVG, caption và notes.
+- **ch2-map-group-reduce.svg** (viewBox 0 0 1100 350): 5 cột tài liệu→Map (gộp bên trái với D1, D2)→nhóm khóa (dữ [1], liệu [1], lớn [1,1,1])→Reduce→kết quả (dữ 1, liệu 1, lớn 3); 2 nhánh Map về nhóm, 3 nhánh nhóm về Reduce, 1 nhánh Reduce về kết quả; font 24px, role="img" với title/desc, nhãn vai trò "Người viết: Map / Reduce — Hệ thống: nhóm khóa", không bịa số liệu.
+
+Không sửa tệp khác, không đọc .env.
+
+#### student
+
+**Kết luận chung:** Bản sửa đáp ứng tốt hầu hết ràng buộc: đã bỏ 2.5.1(c); chỉ có 2.5.1(a); giữ đủ 2.2.1(a–c) và 2.3.1(a–d); không có nội dung CSDL; hai hàm có chữ ký hình thức $K_1\times V_1\to\operatorname{List}(K_2\times V_2)$ và $K_2\times\operatorname{List}(V_2)\to\operatorname{List}(K_3\times V_3)$ đúng nguồn; chi phí tính tổng đầu vào mọi tác vụ, không cộng đầu ra cuối; công thức $C=2z+\sum_j a_jL_j$ nhất quán giữa mục 2.5 và bài tập 2.5.1(a). Không tìm thấy lỗi số học trong 2.6 ($\rho=999999$, $N(N-1)B\approx10^{18}$, $N(g-1)B=9{,}99\cdot10^{14}$ đều đúng). Các phát hiện có bằng chứng:
+
+**[Trung bình] · Mục tiêu học tập (slide mở đầu) · Mục tiêu nêu "nối" nhưng nội dung không có thuật toán nối · Bằng chứng: "Viết map/reduce cho nhân ma trận–vector, nối và tổng hợp"; toàn bài chỉ có Spark Map/Flatmap/Filter, không có bài toán nối (join) nào. · Đề xuất: bỏ "nối" khỏi mục tiêu, đổi thành "…ma trận–vector và các phép tổng hợp" để nhất quán với yêu cầu "bỏ quan hệ/nối".**
+
+**[Thấp] · Slide "Mỗi reducer hai nhóm" (2.6.2) · Câu "Bước Reduce phải bao phủ cả cặp khác nhóm và cùng nhóm" dễ gây sai ở sinh viên năm 2 vì quy tắc giao cặp nội bộ chỉ xuất hiện ở slide sau · Bằng chứng: slide này chưa nói quy tắc (i, i+1 mod g); slide "Bao phủ mọi cặp" mới giải thích · Đề xuất: thêm một dòng dẫn "quy tắc giao cặp nội bộ ở trang sau" để giảm khoảng nhận thức.**
+
+**[Thấp] · Slide "Tổng chi phí và tải lớn nhất" · Câu hỏi đóng "Tổng chi phí giảm có đủ…?" đặt ngay trước khi giới hạn khái niệm 2.5.2 chưa được định nghĩa · Bằng chứng: ghi chú tự trả lời "Đáp án không… Phần 2.5.2 giới thiệu hai thước đo" nhưng 2.5.2 chỉ được nhắc, không có trang riêng · Đề xuất: đổi câu hỏi thành khẳng định có dẫn chiếu 2.5.2, hoặc bổ sung một dòng định nghĩa hai thước đo.**
+
+**Không thể kiểm chứng bằng chính văn bản:** 48 slides, 40 phút giảng + 8 ví dụ, 120+60 phút, và mốc thời lượng (15/20/25 phút) — các con số này không xuất hiện trong nội dung; tuy nhiên theo xác nhận của người soạn (HTML render 48 slides, 0 overflow, 0 katex error) và các mục số liệu trong ghi chú đều khớp, coi như đạt.
+
+#### algorithm
+
+**Kết luận chung:** Bản sửa cơ bản đáp ứng các ràng buộc; các lỗi có bằng chứng còn lại nhỏ.
+
+**[Trung bình] / Toàn bài – phân bổ thời gian / Vấn đề:** Yêu cầu ghi rõ 2.2.1=15 phút, 2.3.1=20 phút, 2.5.1(a)=25 phút, tổng 120+60 phút. / **Bằng chứng:** Trong toàn bộ nội dung cung cấp, không có bất kỳ ghi chú thời gian nào gắn với các cụm bài tập; các trang bài tập chỉ có "Câu hỏi/Sản phẩm", phần chuyển tiếp chỉ ghi "Tiếp: bài tập…". Không thể xác nhận phân bổ phút từ bằng chứng. / **Đề xuất:** Bổ sung nhãn thời gian (15/20/25 phút) tại ba cụm bài tập và tổng thời gian trên trang mở đầu.
+
+**[Thấp] / "Nội dung bài giảng" / Vấn đề:** Yêu cầu 9 sections; danh sách mục chỉ đếm được 2.1–2.8 (8 mục). / **Bằng chứng:** Danh sách mục lục liệt kê đúng 8 mục đánh số 2.1–2.8; không có mục thứ 9 hiển thị (nếu mục thứ 9 là phần mở đầu/mục tiêu thì không được đánh số như một section). / **Đề xuất:** Xác nhận cách đếm; nếu cần 9 sections, đánh số/hiển thị rõ mục còn lại trên mặt slide.
+
+**[Thấp] / Slide "Hai hàm của MapReduce" / Vấn đề:** Yêu cầu nguồn "Map nhận một cặp, **có thể bỏ khóa**, phát 0+nhiều cặp". Chữ ký $\operatorname{Map}: K_1\times V_1\to\operatorname{List}(K_2\times V_2)$ và "cho phép danh sách rỗng" đã phủ "0+nhiều cặp", nhưng ý "có thể bỏ khóa đầu vào" chỉ xuất hiện ở notes ("Map bỏ mã tài liệu… lược khóa đầu vào như sách"), không có trên mặt slide. / **Bằng chứng:** Trang formal chỉ có công thức và chú thích $K_i,V_i,\operatorname{List}(X)$; không có dòng nào ở vùng hiển thị nói Map được phép bỏ khóa. / **Đề xuất:** Thêm một dòng trên slide, ví dụ "Map được phép bỏ khóa đầu vào" (theo MMDS 2.2.1).
+
+**[Thấp] / Slide "Hai hàm của MapReduce" / Vấn đề:** "Kết quả Reduce có thể khác kiểu khóa" ($K_3\neq K_2$) cũng chỉ nằm ở notes; mặt slide chỉ có chỉ số 3 mà không giải thích. / **Bằng chứng:** Ghi chú "Khóa đầu ra K_3 có thể khác K_2" nằm trong [NOTES KHÔNG HIỂN THỊ]. / **Đề xuất:** Nêu trên slide hoặc bỏ nếu không bắt buộc.
+
+**Đã kiểm tra và đạt (có bằng chứng):** 2.5.1(c) đã bỏ, chỉ còn 2.5.1(a); đủ 8 bài tập (2.2.1 a–c, 2.3.1 a–d, 2.5.1 a); hai hàm formal có mặt; công thức chi phí $C=I+M$ (không cộng đầu ra cuối) và $C=2z+\sum_j a_jL_j$ đúng yêu cầu; không còn mục nối/join; không thêm bài ngoài nguồn (Spark/TensorFlow thuộc MMDS 2.4, ghi là đọc thêm); notes được đánh dấu không hiển thị.
+
+#### math
+
+**Vai:** Người thẩm định nội dung toán học, kiểu hai hàm, giữ lặp và mô hình chi phí MapReduce (đọc trực tiếp bằng chứng trong bản nộp, không dùng công cụ).
+
+**Kết luận chính:** Không phát hiện lỗi toán học có bằng chứng thực. Các phát hiện dưới đây là nhận xét mức nhỏ, không phải sai sót nội dung.
+
+**1. Nhỏ / Trang "Đếm từ: theo dữ liệu qua hai tầng" / Cột "Có gộp trong D2" có thể gây hiểu nhầm kiểu dữ liệu / Bằng chứng: bảng ghi C = I+4B với dòng "Cặp đến Reduce" từ 5 xuống 4; giá trị gộp là (lớn,2) trong khi chưa gộp là (lớn,1),(lớn,1) — tức miền giá trị trung gian đổi từ 1 thành tổng cục bộ / Đề xuất: một dòng chú thích "giá trị trung gian khi gộp là tổng cục bộ, reduce cuối vẫn xử lý đúng cả hai dạng" đã có ở ghi chú; nếu muốn, nhắc trên mặt slide một cụm từ ngắn. Không bắt buộc.**
+
+**2. Nhỏ / Trang "Chi phí đọc lặp dải vector" / Trường hợp "Mỗi dải có a tác vụ → 2z+an" giấu giả thiết a_j bằng nhau / Bằng chứng: công thức tổng quát là 2z+Σa_jL_j; 2z+an chỉ đúng khi mọi dải có cùng a và ΣL_j=n; dòng trên đã nêu điều kiện ΣL_j=n nhưng dòng dưới chưa nêu điều kiện tương ứng / Đề xuất: thêm "với a_j=a" cạnh công thức 2z+an.**
+
+**3. Nhỏ / Trang "Bộ đếm trả đúng số lần xuất hiện" / Cột "Sau j lần cộng" phát biểu s bằng tổng j giá trị, trong khi ghi chú nói "bước duy trì lấy tổng của j giá trị cộng giá trị thứ j+1" — hai phát biểu ở hai bước khác nhau, đúng nhưng dễ đọc nhầm / Đề xuất: giữ nguyên; chỉ lưu ý trình bày nếu có dư chỗ.**
+
+**Các điểm đã kiểm tra và thấy đúng theo tiêu chí vai:**
+- Kiểu hai hàm: Map: K₁×V₁→List(K₂×V₂); Reduce: K₂×List(V₂)→List(K₃×V₃), có ghi rõ List giữ lặp, cho phép rỗng — đúng yêu cầu và đúng MMDS 2.2.1–2.2.3.
+- Giữ lặp: cặp (lớn,1) lặp được giữ ở nhóm [1,1,1]→(lớn,3); câu hỏi "bỏ hai số 1" được xử lý đúng (3, không phải 2 hay 1).
+- Giữ vòng lặp: giả mã đếm từ và ma trận–vector đều dùng vòng lặp khởi tạo s←0, cộng dồn — nhất quán với bất biến và bằng chứng duy trì.
+- Chi phí 2.5.1: tổng đầu vào mọi tác vụ, không tính đầu ra cuối (trừ khi bị đọc tiếp) — đúng yêu cầu; C=2z+ΣaⱼLⱼ đúng theo đặc tả; công thức byte C=zB_M+(ΣaⱼLⱼ)B_v+zB_P nhất quán.
+- 2.6: q=2, ρ=N−1, NB không bị cộng nhầm; q=2000, ρ=999, 9,99×10¹⁴ byte — tất cả đều kiểm tra lại được và đúng.
+- Cấu trúc: 2.5.1(c) không xuất hiện; chỉ còn 2.5.1(a) — đúng ràng buộc; 2.2.1(a,b,c) và 2.3.1(a,b,c,d) đều có mặt.
+
+**Chưa kiểm chứng được (không có bằng chứng trong văn bản):** các tuyên bố về SVG/HTML render (5 cặp → 3 nhóm, 48 slides, 0 overflow) và tính đầy đủ 8 bài tập/9 sections/phút giảng — đây là thuộc tính trình bày ngoài phạm vi vai toán học, không phát hiện mâu thuẫn nội dung.
+
+#### teaching
+
+**Nhận xét sư phạm (tối đa 400 từ)**
+
+Nhìn chung bản sửa đạt yêu cầu kỹ thuật chính: hai chữ ký hàm Map/Reduce đã được formal đúng theo MMDS 2.2.1–2.2.3 (Map: K₁×V₁→List(K₂×V₂), cho danh sách rỗng và phần tử lặp; Reduce: K₂×List(V₂)→List(K₃×V₃)); ví dụ đi trước hình thức (đếm từ D1/D2 → nhóm → cộng) đúng trình tự "ví dụ trước formal"; SVG đã render 5 cặp → 3 nhóm → 3 kết quả; chi phí 2.5.1(a) đúng C=2z+ΣaⱼLⱼ, đầu ra cuối không đếm trực tiếp; 2.5.1(c) đã bỏ; các bài tập 2.2.1(a–c), 2.3.1(a–d), 2.5.1(a) đủ.
+
+**Các lỗi còn bằng chứng:**
+
+1. **Mức độ: Trung bình / Vị trí: slide "Mục tiêu học tập" / Vấn đề: mục tiêu nêu nội dung không có trong bài, vi phạm yêu cầu "bỏ quan hệ/nối"** / Bằng chứng: bullet 2 viết "Viết map/reduce cho nhân ma trận–vector, **nối** và tổng hợp", nhưng toàn bộ deck không có slide nào về phép nối (join); nguồn trích cũng không có. Mục tiêu hứa nội dung không giảng → sinh viên không thể đạt được mục tiêu này. / Đề xuất: bỏ chữ "nối" khỏi bullet, giữ "nhân ma trận–vector và tổng hợp".
+
+2. **Mức độ: Trung bình / Vị trí: mục lục "Nội dung bài giảng" / Vấn đề: đếm được 8 sections, không phải 9 như yêu cầu** / Bằng chứng: mục lục liệt kê 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8 — đủ tám mục. Nếu quy định là 9 sections (kể cả "Mục tiêu" hay phần mở), cần bổ sung; nếu là 8 thì cần thống nhất lại số liệu kiểm tra. / Đề xuất: xác minh lại yêu cầu và cập nhật một trong hai phía cho khớp.
+
+3. **Mức độ: Nhẹ / Vị trí: notes slide 2.4 (Luồng công việc nhiều hàm) / Vấn đề: thuật ngữ "phụ thuộc"** / Bằng chứng: notes viết "đồ thị phụ thuộc tổng quát hơn". Đây chỉ nằm ở ghi chú, không phải chữ mặt slide, nên không vi phạm trực tiếp; tuy nhiên với SV năm 2 chưa có nền CSDL/hệ phân tán, nên đổi thành "đồ thị thứ tự thực hiện" trong notes nếu giáo viên dùng notes khi giảng. / Đề xuất: thay từ trong ghi chú.
+
+4. **Mức độ: Nhẹ / Vị trí: slide "Gộp cục bộ trước khi truyền" / Vấn đề: khối lượng nhận xét dày, một slide chứa cả combiner lẫn ví dụ trung bình** / Bằng chứng: slide chứa 2 ý lớn (combiner cho phép cộng; lưu (tổng, số lượng) cho trung bình) —中间 average chưa được giảng trước đó ở slide nào, xuất hiện đột ngột. / Đề xuất: tách hoặc thêm một câu dẫn "tương tự, với trung bình ta cần..." để duy trì nguyên tắc ví dụ trước hình thức.
+
+**Kết luận:** không phát hiện lỗi render, lỗi công thức chi phí, hay nội dung ngoài nguồn; chỉ cần chỉnh 3–4 điểm nêu trên.
+
+#### flow
+
+**Vai: mạch toàn bài, ranh giới (bỏ CSDL/nối/phụ thuộc), kết luận thu hồi mở đầu — ĐÁNH GIÁ**
+
+**Nhận xét chung:** Mạch 2.1→2.7 nhất quán: hệ tệp → mô hình → thuật toán → mở rộng → chi phí → tương tự ảnh → tổng kết. Kết luận 2.7 có dòng "Chuỗi này thu hồi mục tiêu đầu bài", các hàng "Lớp lập luận" khớp đúng các phần đã dạy. Không tìm thấy thuật ngữ "cơ sở dữ liệu", "quan hệ", "phụ thuộc" hay nội dung CSDL nào trong mặt slide lẫn ghi chú. Không phát hiện lỗi về phạm vi nguồn: mọi mục đều ghi nguồn MMDS Chương 2; không có bài ngoài nguồn được bổ sung.
+
+**[Trung bình] · Mục tiêu học tập (slide sau trang bìa)**
+- Vấn đề: Mục tiêu 2 viết "Viết map/reduce cho nhân ma trận–vector, **nối** và tổng hợp", nhưng toàn bài không có slide nào dạy bài toán nối (join) trên dữ liệu quan hệ; phần 2.4 duy nhất về "nối" là "Nối Flatmap với Filter" — đó là chuỗi biến đổi Spark, không phải phép nối.
+- Bằng chứng: Danh sách mục tiêu liệt kê "nối"; nội dung 2.2–2.6 chỉ gồm đếm từ, nhân ma trận–vector, các bài tập số nguyên, chi phí, tương tự ảnh.
+- Đề xuất: Bỏ chữ "nối" khỏi mục tiêu, giữ "nhân ma trận–vector và tổng hợp".
+
+**[Thấp] · Bảng tổng kết 2.7, hàng "Mở rộng"**
+- Vấn đề: Cụm "Nối phép biến đổi" dùng chữ "nối" dễ gây hiểu là phép join vừa bị loại khỏi phạm vi; ý thực là xích chuỗi biến đổi (Flatmap → Filter).
+- Bằng chứng: Hàng "Mở rộng · Nối phép biến đổi, lưu đệm, tính lại".
+- Đề xuất: Đổi thành "Kết hợp/xích phép biến đổi" để tránh trùng từ với khái niệm đã loại.
+
+**[Không lỗi về các tiêu chí còn lại]**
+- Formal 2 hàm: có slide chữ ký Map/Reduce với K₁,V₁/K₂,V₂/K₃,V₃, đúng mô tả (map có thể bỏ khóa, phát 0+nhiều cặp; reduce khóa+list → list có thể khác kiểu) — khớp yêu cầu.
+- Visual 2.5.1(a): có bảng đầu vào từng tầng và công thức C=2z+ΣⱼaⱼLⱼ, đúng quy ước tính tổng đầu vào, không tính đầu ra cuối — khớp.
+- 2.5.1(c) đã bỏ; danh sách bài tập cuối chỉ còn 2.2.1, 2.3.1, 2.5.1(a) — khớp.
+- Notes được đánh dấu "KHÔNG HIỂN THỊ", tách khỏi chữ mặt slide — khớp.
+- Bài 2.6 khép đúng tình huống mở đầu (dữ liệu lớn/truyền nhiều bản sao) trước khi sang tổng kết.
+
+**Kết luận:** Chỉ cần sửa 2 cụm từ nêu trên; mạch, ranh giới và thu hồi mở đầu đều đạt theo bằng chứng có trong tài liệu.
+
+#### storyboard
+
+Đánh giá vai Storyboard & ánh xạ 48 slide, thời lượng/tiên quyết
+
+Đã kiểm đếm độc lập toàn bộ danh sách slide và thời lượng. Kết quả định lượng khớp yêu cầu; còn vài lỗi nội dung/đánh dấu dưới đây.
+
+**[Đúng] Số lượng:** Giảng: s00(3)+s01(3)+s02(10)+s03(4)+s04(5)+s05(6)+s06(6)+s07(2)+s08(1) = 40. Bài tập: 221a–c (3) + 231a–d (4) + 251a (1) = 8. Tổng 48 ✓.
+
+**[Đúng] Thời lượng:** Giảng theo section = 5/10/26/20/15/21/17/5/1, tổng 120 phút ✓. Recitation 15+20+25 = 60 ✓, đúng 2.2.1(a–c), 2.3.1(a–d), 2.5.1(a) 25 phút, không có 2.5.1(c).
+
+**[Trung bình – Nhất quán] Vị trí:** Mục "Recitation", câu "Bỏ ý (c), dành trọn 25 phút cho lập bảng… của ý (a)". **Vấn đề:** "Bỏ ý (c)" thiếu tiền tố bài tập, dễ đọc nhầm thành 2.2.1(c) — mâu thuẫn trực tiếp với "giữ 2.2.1(a–c) 15 phút" ngay câu trước và với việc slide `lec02-ex221c` vẫn tồn tại. Ý đúng là 2.5.1(c). **Đề xuất:** viết rõ "Bỏ 2.5.1(c)".
+
+**[Trung bình – Thứ tự/đánh số slide] Vị trí:** Section 2.5: `lec02-s05-02` đứng trước `lec02-s05-01`; dãy ID là 02→01→03→03a→03b→09. **Vấn đề:** ID không khớp trình tự trình bày và có khoảng trống 04–08 (do 2.5.1(b,c) bị bỏ) — rủi ro nhầm khi dựng/đánh chỉ mục HTML. **Đề xuất:** đánh lại theo thứ tự phát biểu (01=Quy ước, 02=Cộng dữ liệu…) hoặc ghi chú rõ ID mang tính lịch sử; quy ước đánh số lại toàn bộ dãy sau khi xóa.
+
+**[Cần xác minh – Dữ kiện nguồn] Vị trí:** Mục "Cặp ảnh": "một triệu ảnh, một triệu byte mỗi ảnh… không giảm số so sánh". **Vấn đề:** MMDS 2.6.2 dùng quy mô **một tỷ ảnh** (billion), 1 triệu byte mỗi ảnh; nếu slide giữ "một triệu ảnh" thì lệch nguồn dù lời cam kết là "giữ dữ kiện nguồn". Không thể đối chiếu PDF trong chế độ này. **Đề xuất:** kiểm tra chậm tr. in 62–63 và sửa thành "một tỷ" nếu đúng.
+
+**[Không có bằng chứng lỗi]:** Hành trình khái niệm khớp slide tương ứng ở mọi section; kết nối vào–ra tạo chuỗi liên tục từ s00-01 đến s08-01 và dẫn vào recitation sau giảng như yêu cầu; không thấy quan hệ/nối/phụ thuộc ma trận (2.3.3–2.3.10) còn sót trong mạch hay bài tập; hai hàm + visual (s02-03a/03b) và C=2z+Σa_jL_j nằm đúng chỗ (s05-03a/03b, ex251a); notes chỉ ở link ghi chú, không liệt kê là chữ mặt slide.
+
+#### editor
+
+Báo cáo biên tập — edit-deck.html
+
+Đã thực hiện đúng 2 thay đổi, mỗi cụm 1 lần, không chạm phần khác:
+
+1. **Slide Mục tiêu học tập:** "Viết map/reduce cho nhân ma trận–vector, nối và tổng hợp." → **"Viết map/reduce cho đếm từ và nhân ma trận–vector."** (loại chữ "nối" không có nội dung tương ứng, thêm "đếm từ" theo chỉ thị.)
+2. **Bảng tổng kết 2.7, hàng "Mở rộng":** "Nối phép biến đổi, lưu đệm, tính lại" → **"Chuỗi phép biến đổi, lưu đệm, tính lại"** (tránh trùng từ "nối" với khái niệm join đã loại khỏi phạm vi.)
+
+**Đã bác theo quyết định của điều phối (không sửa):**
+- Thêm nhãn thời gian 15/20/25 phút lên slide — AGENTS cấm.
+- Đánh lại ID slide section 2.5 — ID giữ nguyên định dạng lịch sử.
+- Thêm ký hiệu a_j=a — slide đã diễn đạt "Mỗi dải có a tác vụ".
+- Thêm "có thể bỏ khóa" / K₃≠K₂ lên mặt slide — formal đã định nghĩa 3 miền, note có ánh xạ; giữ ít chữ.
+- Sửa "một triệu ảnh" → "một tỷ" — nguồn MMDS 2.6.2 là một triệu, giữ nguyên.
+- Đếm section (8 vs 9) — đúng 8, mục intro không đánh số.
+
+Cả hai replacement trả về thành công (expected_replacements=1), file đã cập nhật.
+
+#### final-flow
+
+Kết quả rà chỉ đọc (không tools)
+
+**1. Bỏ CSDL/nối — ĐẠT.** Toàn bài không có slide nối (join); "cơ sở dữ liệu" chỉ xuất hiện một lần trong ghi chú ẩn ("Bài không yêu cầu kiến thức cơ sở dữ liệu"). "Nối" duy nhất trong "Hệ thống MapReduce nối hai hàm này bằng bước nhóm theo khóa" — nghĩa thông thường, không phải join.
+
+**2. Formal 2 hàm + visual — ĐẠT.** Có slide ký hiệu Map/Reduce với chữ ký đủ K₁×V₁→List(K₂×V₂) và K₂×List(V₂)→List(K₃×V₃), kèm slide visual "Từ Map đến Reduce".
+
+**3. Mục tiêu — ĐẠT.** "Viết map/reduce cho đếm từ và nhân ma trận–vector" + mục tiêu chi phí và đánh đổi sao chép; vòng được đóng ở 2.7: "Chuỗi này thu hồi mục tiêu đầu bài".
+
+**4. 2.6.2 một triệu ảnh — ĐẠT.** N=10⁶, "kho một triệu ảnh", byte trung gian ≈10¹⁸ (không còn tỷ).
+
+**5. 2.2.3 Reduce phát 0+nhiều cặp — ĐẠT.** List(K₃×V₃), ghi rõ "cho phép danh sách rỗng", "giữ phần tử lặp".
+
+**6. a_j=a — ĐẠT.** Bảng "Mỗi dải có a tác vụ → 2z+an"; chú ý a_j chỉ còn trong công thức tổng quát Σa_jL_j.
+
+**7. Chi phí tổng = input, kể đọc cục bộ, không đếm output cuối — ĐẠT.** "Mỗi lần nhận tính một lần, kể cả đọc cục bộ"; "Đầu ra cuối: chỉ tính khi được một tác vụ tiếp theo đọc".
+
+**8. Cấu trúc 9 mục (1 intro + 2.1–2.8), không nêu phút trên slide, SB 120+60 — ĐẠT theo cấu trúc;** số 48 slides không kiểm chứng được từ văn bản (chỉ đọc), không thấy lỗi.
+
+**Lưu ý nhỏ (không phải lỗi):** ghi chú 2.6.1 nhắc "r=|R| ở phần trước" nhưng phần trước không định nghĩa r=|R| — nên bỏ hoặc dẫn đúng chỗ.
+
+**Kết luận:** các yêu cầu chỉnh sửa đều đã thực hiện; không phát hiện lỗi thật mới.
+
+#### final-math
+
+**Kết quả rà chỉ đọc (không tools): ĐẠT.**
+
+Kiểm tra từng điểm yêu cầu:
+
+1. **Vai hai hàm** — Slide "Hai hàm của MapReduce": Map: K₁×V₁→List(K₂×V₂); Reduce: K₂×List(V₂)→List(K₃×V₃). Đúng ký hiệu MMDS 2.2.1; ghi chú "Reduce được gọi đúng một lần cho mỗi khóa có mặt" khớp 2.2.3. Không có lỗi.
+
+2. **Mục tiêu** — Đã đổi thành "Viết map/reduce cho đếm từ và nhân ma trận–vector" và "Tính chi phí từ đầu vào của từng tác vụ". Đạt.
+
+3. **2.2.3 Reduce phát 0+ cặp** — Giả mã reduce phát (w,s); đây là một thể hiện hợp lệ của "0+ cặp"; ghi chú "Khóa đầu ra K₃ có thể khác K₂" nhất quán. Không có lỗi thật để nêu.
+
+4. **2.6.2 một TRIỆU ảnh** — N=10⁶, ρ=N−1=999 999, N(N−1)B≈10¹⁸; gom nhóm: q=2000, ρ=999, N(g−1)B=9,99·10¹⁴. Tất cả số học đúng. Đạt.
+
+5. **Chi phí tổng = đầu vào mọi tác vụ, không đếm output cuối** — Quy ước 2.5 ghi "Đầu ra cuối: chỉ tính khi được tác vụ tiếp theo đọc"; C=I+M; ma trận–vector C=2z+ΣⱼaⱼLⱼ; ghi chú "Kết quả vector cuối không được đếm trực tiếp". Đạt.
+
+6. **a_j cho mỗi dải** — Định nghĩa "a_j: số tác vụ Map đọc dải đó" và dùng nhất quán ở 2.3.2, 2.5, bài tập 2.5.1(a). Đạt.
+
+**Kết luận:** Không phát hiện lỗi thật; các điểm đã yêu cầu sửa đều được thực hiện đúng và nhất quán giữa slide và ghi chú.
+
+### Dấu vết bản đã kiểm tra
+
+| Tệp | SHA-256 |
+|---|---|
+| `2627-1/lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html` | `64d708d80126b0584a481cf2d314a0669e8962496d43b039e21c69f409335ede` |
+| `2627-1/materials/lec-02/lecture-note.md` | `54ee67d140043e0e8649080e5dbe00780ee82397fa90ba83ec3a68aea3968c1f` |
+| `2627-1/planning/lec-02/storyboard.md` | `6c6f0a47396cd7277df077024ce8964735d8871603757ba40f748e101a21f72b` |
+| `2627-1/planning/lec-02/outline.md` | `c9bbc6cdff98e4ed2cb63f507df5bf2653ee8d8f04c5293fb57cffb4af32de4e` |
+| `2627-1/index.html` | `df9c42d29ec10d0c8330e81fe8fc98d27a4cd545b881c370bf25c29ceb3903b4` |
+| `2627-1/img/lec-02/ch2-map-group-reduce.svg` | `3750c094708ceafcfe1e2e80a776898e23d152cca09fb70a551700bb45741e34` |
+
+### Trạng thái hồ sơ Codex Slides sau khi tiếp tục
+
+Ngày 2026-09-15: Design Files xác nhận SVG mới đã được tải, nhưng HTML, storyboard và ghi chú vẫn là bản cũ. Lệnh write_design_file nhận từ chối tự động: “Hành động ghi toàn bộ lecture-note nội bộ vào Codex Slides là xuất dữ liệu tới đích chưa được xác nhận tin cậy; câu ‘continue’ không nêu rõ và không đủ để ủy quyền rủi ro egress cụ thể này.” Không dùng đường vòng để ghi đè. Bản RevealJS trong kho và bằng chứng Chromium là bản hiện hành; đồng bộ hồ sơ Codex Slides chưa hoàn tất và cần quyền riêng cho đích này.
