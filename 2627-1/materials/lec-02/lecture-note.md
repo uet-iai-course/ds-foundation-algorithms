@@ -107,7 +107,16 @@ Map tạo đúng một số 1 cho mỗi lần xuất hiện. Do nhóm theo khóa
 Mỗi tài liệu và mỗi danh sách hữu hạn nên các vòng lặp dừng. Bất biến chứng minh kết quả; chỉ quan sát vết chạy chưa đủ chứng minh cho mọi đầu vào.
 :::
 
-Với $N$ lần xuất hiện, map phát $N$ cặp nếu chưa gộp. Reduce của một từ xuất hiện $f$ lần thực hiện $O(f)$ phép cộng và cần một biến tổng khi đọc tuần tự. Các phát biểu này dùng mô hình số học đơn vị; nhóm, truyền dữ liệu và lưu trữ của hệ thống vẫn có chi phí riêng.
+### Đặc tả và mô hình đếm thao tác
+
+Đầu vào là một tập hữu hạn tài liệu, được tách theo cùng quy tắc khoảng trắng. Gọi $T$ là tổng số lần xuất hiện và $f(w)$ là số lần từ $w$ xuất hiện. Kết quả chứa đúng một cặp $(w,f(w))$ cho mỗi từ xuất hiện; không chứa khóa chưa xuất hiện. Kho rỗng trả kết quả rỗng. Mỗi lần xuất hiện phải được xử lý đúng một lần về mặt logic.
+
+Trong giả mã chưa gộp, Map phát $T$ cặp. Reduce khởi tạo tổng bằng 0 và thực hiện một phép cộng cho **mỗi** giá trị nhận, nên toàn công việc có đúng $T$ phép cộng, kể cả cộng giá trị đầu vào 0. D1/D2 cho 5 cặp và 5 phép cộng; riêng “lớn” có 3 phép cộng. Với truy cập, cộng và phát một cặp được tính là một đơn vị, công việc duyệt từ đã tách là $O(T)$ khi $T\ge1$, chưa gồm khởi tạo và các lời gọi Map trên tài liệu rỗng. Đây là mô hình thao tác trên dữ liệu đã tách; chưa gồm tách chuỗi, so sánh khóa, nhóm, sắp xếp, truyền dữ liệu hoặc khởi tạo tác vụ. Nếu tính số nguyên có độ dài tùy ý, chi phí cộng còn phụ thuộc số bit.
+
+Một lần gọi Reduce duyệt tuần tự chỉ cần một biến tổng: $O(1)$ từ nhớ phụ theo mô hình trên, ngoài khóa, vùng đầu vào và bộ đệm của hệ thống. Không suy ra cả máy chỉ cần $O(1)$ bộ nhớ hoặc thời gian hoàn thành bằng $T$ chia số máy. Chi phí dữ liệu được tính riêng ở mục 2.5. Các phép đếm này được suy ra từ giả mã dựa MMDS 2.2.1–2.2.3, trang 25–27.
+
+Với bộ kết hợp, nếu tác vụ Map $a$ gộp trọn từng từ và có $d_a$ từ phân biệt, tổng số cặp gửi là $G=\sum_a d_a\le T$. Các từ giống nhau ở hai tác vụ vẫn tạo hai tổng riêng. Nếu bộ kết hợp chỉ chạy trên từng mảnh, phải đếm số tổng thực sự phát; không dùng $G$ này vô điều kiện. Một cách cài đặt giữ bảng tổng theo từ cần $O(d_a)$ bộ đếm, ngoài vùng khóa; đây là lựa chọn cài đặt, không là yêu cầu mọi bộ kết hợp. Tổng công việc có thêm bước gộp; ít cặp truyền hơn không có nghĩa ít phép cộng hơn. Nguồn: MMDS 2.2.4, trang 27–28.
+
 
 ### Gộp cục bộ và đơn vị thực thi
 
@@ -204,7 +213,9 @@ map(i, j, m):
     phát(i, m × v[j])
 
 reduce(i, V):
-    phát(i, tổng các giá trị trong V)
+    s ← 0
+    với mỗi p trong V: s ← s + p
+    phát(i, s)
 ```
 
 ::: proof
@@ -218,6 +229,16 @@ Nếu vector không vừa bộ nhớ, chia ma trận thành các dải dọc và
 ![Năm dải dọc của ma trận ghép với năm dải vector tương ứng, theo Hình 2.4.](img/lec-02/ch2-dai-ma-tran.svg)
 
 Các dải chia miền cột thành những phần không giao nhau và phủ hết miền cột. Vì thế mỗi tích được tạo đúng một lần, dù các tích của một hàng xuất phát từ nhiều dải. Điều kiện bộ nhớ áp dụng cho dải vector và trạng thái tác vụ, không chỉ cho số dải. Có thể nhiều tác vụ đọc cùng dải vector; khi tính chi phí phải đếm những lần đọc đó. Nguồn: mục 2.3.1–2.3.2, trang 31–32, Hình 2.4.
+
+### Đặc tả biểu diễn và đánh giá phép tính
+
+Lấy $n\ge1$ và $1\le i,j\le n$. Mỗi vị trí khác không của ma trận được lưu đúng một lần; vị trí không lưu mang giá trị 0. Thuật toán trả các cặp $(i,x_i)$ cho hàng có đóng góp; hàng không xuất hiện ở đầu ra được hiểu là 0. Do đó một ma trận không có phần tử lưu trả danh sách rỗng biểu diễn vector không. Các bộ trùng tọa độ không thuộc biểu diễn này: nếu vẫn cộng chúng sẽ đổi ma trận cần tính.
+
+Gọi $z$ là số phần tử được lưu. Với giả mã khởi tạo $s=0$ rồi cộng từng tích, Map thực hiện $z$ phép nhân, phát $z$ cặp và Reduce thực hiện $z$ phép cộng trên toàn công việc. Không dùng $z-n$: hàng rỗng không tạo lời gọi Reduce, còn hàng có dữ liệu vẫn cộng phần tử đầu tiên vào 0. Phép đếm giả sử truy cập vector, cộng và nhân có chi phí đơn vị; đây là mô hình đếm, tách khỏi giả thiết số học chính xác của chứng minh. Chưa tính đọc vector, nhóm khóa hoặc ghi kết quả.
+
+Khi giữ toàn bộ vector, mỗi tác vụ cần chỗ cho $n$ phần tử vector. Khi chia dải, một tác vụ chỉ giữ $L$ phần tử của dải tương ứng và duyệt phần ma trận được giao. Cách tính là: đọc dải vector → với mỗi bộ $(i,j,m_{ij})$ thuộc dải, phát $(i,m_{ij}v_j)$ → hệ thống nhóm theo hàng → Reduce cộng như trước. Các dải phủ hết cột, không giao nhau nên đầu ra không đổi. Bộ nhớ giữ vector là $O(n)$ hoặc $O(L)$ từ nhớ; một lời gọi Reduce dùng thêm một biến tổng nếu duyệt tuần tự. Bộ đệm và vùng quản lý tác vụ vẫn phải tính riêng.
+
+Việc chia dải không giảm số phép nhân/cộng. Nó giảm phần vector cần giữ, nhưng nhiều tác vụ có thể phải đọc lại cùng dải. Mục 2.5 tính khoản này bằng $\sum_j a_jL_j$, trong đó $j$ ở công thức chi phí đánh số dải. Các phép đếm là suy ra từ thuật toán MMDS 2.3.1–2.3.2, trang 31–32, không phải số đo thời gian thực.
 
 ## 2.4. Mở rộng MapReduce
 
@@ -313,6 +334,16 @@ Cách gom nhóm giảm truyền ảnh nhờ dùng lại ảnh cho nhiều phép 
 
 Hình minh họa quy tắc của mục 2.6.2, trang 63–64, với $v=(u+1)\bmod g$ và cách đánh số nhóm $0,\ldots,g-1$. Các ký hiệu ảnh chỉ đại diện cho một phần của mỗi nhóm 1000 ảnh. Reducer xét mọi cặp chéo hai nhóm và các cặp nội bộ nhóm $u$ được giao riêng; cặp nội bộ nhóm $v$ thuộc reducer kế tiếp của $v$. Chỉ các cặp vượt ngưỡng tương tự được phát ra.
 
+### Đánh giá số lần so sánh
+
+Các ảnh có mã duy nhất $1,\ldots,N$. Đặc tả đầu ra là tập các cặp $(i,j)$ thỏa $1\le i<j\le N$ và $s(P_i,P_j)>\tau$; mỗi cặp được phát đúng một lần. Hàm $s$ cho sẵn, đối xứng và kết thúc trên mỗi cặp. Với ít hơn hai ảnh, kết quả rỗng; phương án chia đều đang giảng dùng riêng $N=10^6$, $g=1000$, không áp dụng nguyên xi cho mọi kích thước đầu vào.
+
+Lấy một lần gọi $s$ làm một đơn vị so sánh. Cả hai phương án đều gọi hàm đúng $N(N-1)/2=499\,999\,500\,000$ lần. Cách từng cặp chỉ gọi một lần tại mỗi reducer. Cách nhóm có $1000^2=1\,000\,000$ cặp chéo tại mỗi reducer; reducer được giao thêm nội bộ một nhóm cần thêm $1000\cdot999/2=499\,500$ lần gọi. Tải lớn nhất vì thế là $1\,499\,500$ lần gọi, theo đúng quy tắc giao nội bộ đã nêu.
+
+Kiểm tra tổng: $\binom{1000}{2}$ reducer đều xét một triệu cặp chéo, và 1000 nhóm đều có 499500 cặp nội bộ được giao đúng một nơi. Cộng lại được $499\,999\,500\,000$, bằng số cặp không thứ tự của một triệu ảnh. Đây là phép đếm suy ra từ MMDS 2.6.2, trang 62–64.
+
+Nếu mỗi lần gọi có chi phí cố định $c_s$, phần công việc tính độ tương tự bằng $c_sN(N-1)/2$. Nếu chi phí khác nhau giữa các cặp thì phải cộng chi phí thực của từng lần gọi. Cả hai kết luận đều chưa gồm tạo bản sao, nhóm khóa, truyền ảnh và ghi đầu ra. Dữ liệu đầu vào một reducer là 2 MB hoặc 2 GB theo hai cách chia, còn bộ nhớ cần cho hàm $s$ và hệ thống chưa biết. Vì vậy bảng so sánh đánh giá lượng công việc và dữ liệu, không dự đoán thời gian hoàn thành trên cụm máy.
+
 ## 2.7. Tổng kết và bài tập
 
 Chọn khóa quyết định dữ liệu nào gặp nhau. Lập luận đúng cần chỉ ra mọi đóng góp cần thiết đều gặp nhau và không bị mất hoặc lặp. Lập bảng đầu vào từng tầng cho biết hệ số sao chép xuất hiện ở đâu; sau đó vẫn phải kiểm tra tải lớn nhất, bộ nhớ và chi phí tạo kết quả.
@@ -366,6 +397,17 @@ Khóa của cặp đầu ra có thể bị bỏ qua. Sản phẩm: giả mã, ý
 
 (d) Một phương án hai công việc: công việc đầu nhóm theo x và phát một số 1 cho mỗi khóa; công việc sau cộng các số 1. Nếu có $D$ giá trị khác nhau, có đúng $D$ đóng góp. Tệp rỗng cần quy ước trả 0. Hai công việc không phải điều kiện bắt buộc trong mọi mô hình: gom mọi số về một reducer rồi dùng tập hợp cũng được, nhưng cần bộ nhớ theo số giá trị khác nhau.
 :::
+
+Để đánh giá các lời giải trên, gọi $N$ là số phần tử đầu vào và $D$ là số giá trị phân biệt; chưa dùng bộ kết hợp. Đếm bản ghi theo đơn vị chuẩn hóa, không coi các kiểu bản ghi có cùng số byte. Trong mô hình số học đơn vị, đọc một giá trị và cập nhật một số lượng hữu hạn biến có chi phí hằng số. Chi phí hệ thống nhóm khóa, khởi tạo và ghi kết quả cuối được tách riêng.
+
+| Lời giải | Đặc tả đầu ra và ca rỗng | Công việc xử lý giá trị | Bộ nhớ phụ một reducer | Tổng bản ghi đầu vào các tầng |
+|---|---|---|---|---|
+| (a) Lớn nhất | Một giá trị lớn nhất; không xác định nếu rỗng | $N-1$ lần so sánh khi $N>0$, khởi tạo từ phần tử đầu | Một giá trị đang lớn nhất | $2N$ |
+| (b) Trung bình | $S/N$ khi $N>0$; không xác định nếu rỗng | $N$ lần cộng mỗi thành phần, một lần chia | Tổng và số lượng | $2N$ |
+| (c) Loại trùng | Đúng một bản mỗi giá trị; rỗng trả rỗng | Duyệt $N$ giá trị, phát $D$ kết quả | Trạng thái hằng số khi duyệt từng nhóm, ngoài khóa | $2N$ |
+| (d) Đếm giá trị khác nhau | Đúng $D$; rỗng trả 0 theo quy ước | Duyệt $N$ giá trị ở công việc đầu, cộng $D$ số 1 ở công việc sau | Trạng thái hằng số mỗi lần gọi, ngoài khóa | $2N+2D$ |
+
+Ở (d), công việc đầu nhận $N$ bản ghi tại Map và $N$ tại Reduce; công việc sau nhận $D$ tại Map và $D$ tại Reduce. Với đầu vào rỗng, không có khóa kích hoạt Reduce; bên gọi phải trả 0 khi không có đầu ra. Các cận bộ nhớ không gồm vùng nhóm, bộ đệm hoặc bảng của hệ thống. Bảng là phân tích các lời giải của Bài 2.3.1 (trang 40) theo mô hình mục 2.5.1 (trang 52–53), không thêm yêu cầu vào đề bài.
 
 ### Bài tập 2.5.1(a) — Tính chi phí
 

@@ -1782,3 +1782,34 @@ Không đụng file khác. Bỏ source 25 theo chỉ đạo (tr24 song song/loca
 | `2627-1/index.html` | `9d57cf1571787c0974e7d539e3f47cc58df2448d13758d4c54496106a8f4a6fd` |
 
 Lưu ý báo cáo editor: câu “Bỏ source25 theo chỉ đạo” không khớp diff. Không bỏ trang25; editor chỉ sửa hai câu trong storyboard như kiểm chứng ở trên.
+
+## Bổ sung đặc tả và đánh giá — 2026-09-15
+
+Đã nhận kế hoạch và báo cáo nguồn từ hai tác tử OpenRouter độc lập, mô hình z-ai/glm-5.3-flash. Điều phối duyệt bốn trang tập trung; quyết định giữ/bác ghi trong outline. Phép đếm cộng được kiểm tra lại trực tiếp từ giả mã khởi tạo0, không dùng T−D hoặc z−n của reader. Đề bài recitation giữ nguyên. Hồ sơ tác tử và kiểm định: `/tmp/lec02-spec/`. Chưa hoàn tất kiểm định bản soạn tại thời điểm lập kế hoạch.
+
+### Kết quả soạn, rà soát và quyết định cuối
+
+- Bổ sung bốn trang: s02-03c đặc tả đếm từ; s02-04b đếm cặp/phép cộng; s03-03a phép tính và vùng vector; s06-03b tổng và tải lớn nhất theo số lần gọi hàm độ tương tự. Đặc tả ma trận làm rõ mỗi tọa độ lưu đúng một lần, đầu ra ngầm 0; đặc tả ảnh dùng mã 1..N và i<j. Chia dải nêu thứ tự đọc vector, duyệt ma trận, phát tích.
+- Ghi chú bổ sung mô hình số học đơn vị, giới hạn bộ nhớ phụ, trường hợp rỗng, chi phí bộ kết hợp theo từng tác vụ; lời giải Bài 2.3.1 có bảng đặc tả và đánh giá theo mô hình bản ghi. Không thay đề bài hoặc ví dụ nguồn. Các công thức mới là suy ra từ giả mã/ phân công trong sách, không được ghi như trích nguyên văn.
+- Năm vai rà soát độc lập và vai storyboard đều đã trả báo cáo. Chấp nhận làm rõ số cặp nhóm trong notes ảnh và sửa phần cuối storyboard còn mô tả ngân sách của lần thêm lợi ích trước. Bác yêu cầu thêm một công thức lặp ngay bảng ảnh: dòng diễn giải đã tách cặp chéo/nội bộ. Bác nhận xét s05-01 đứng trước s05-02: DOM và storyboard thực tế đặt quy ước trước phép cộng chi phí. Bác yêu cầu gán i≤j ở nhóm ảnh: quy tắc nguồn là giao nội bộ u cho {u,u+1 mod g}; đầu ra ảnh dùng i<j. Không dùng các mã bài tập ex232a–f mà báo cáo toán tự nêu, vì không tồn tại trong deck.
+- Tác tử writer tạo bản nháp thiếu data-slide-id và đưa lời chỉ dẫn vị trí lên mặt slide; điều phối sửa trước vòng review. Không đưa các nhận định sai về phép cộng hoặc nguồn trang của bản nháp vào bản cuối. Tác tử biên tập riêng đã chỉnh phạm vi bộ nhớ và notes theo năm báo cáo; điều phối kiểm diff, gộp câu đầu vào ảnh bị lặp và thay emit bằng phát cặp. Rà mạch lần cuối xác nhận bốn trang có vai trò riêng và nối được vào/ra. Không dùng câu diễn giải nhầm “đọc cả vector” cho phương án chia dải trong báo cáo này: bản cuối đọc đúng dải tương ứng.
+- Một lần gọi editor bị lỗi CLI: `argument --task-profile: invalid choice: 'edit' (choose from 'general', 'plan', 'source', 'storyboard', 'review', 'write', 'recheck')`. Đã báo người dùng, dừng tích hợp phụ thuộc và gọi lại cùng worker với profile write; chạy thành công, không đổi nhà cung cấp hoặc mô hình. Tất cả kết quả hoàn tất xác nhận provider OpenRouter, requested_model = observed_model = z-ai/glm-5.3-flash.
+- Áp dụng no-ai-slop: bỏ lời chỉ dẫn quy trình, câu lặp và thuật ngữ tiếng Anh không cần thiết; giữ các giả thiết quyết định kết luận. Rà Quill theo mạch/thuật ngữ: T cho đếm từ, z và L cho ma trận, N và g cho ảnh; không khởi tạo quill.json. Tách số phép tính toàn công việc khỏi bộ nhớ một tác vụ và chi phí đọc/truyền mục 2.5.
+
+### Kiểm định bản cuối
+
+58 data-slide-id duy nhất khớp đúng thứ tự storyboard; 9 section theo ngoại lệ PDF; 50 trang giảng và 8 bài tập. Script cộng thời lượng được 120+60 phút, ngân sách các phần 5/8/38/20/10/15/18/5/1. So sánh HTML với HEAD trước sửa xác nhận mặt của cả tám bài tập không đổi. `git diff --check -- 2627-1` đạt.
+
+Kiểm tra phép tính bằng vòng lặp trên D1/D2: 5 cặp, 5 phép cộng, lớn=3. Kiểm tra tổng cặp ảnh bằng hai cách: N(N−1)/2 và số cặp chéo + nội bộ đều bằng499999500000; tải lớn nhất1499500. Phép cộng ma trận đếm đúng mỗi lần cập nhật từ tổng0. Không đưa ra thời gian chạy thực hoặc bảo đảm tăng tốc tuyến tính.
+
+Chromium trên http://127.0.0.1:8765: duyệt58slide ở1280×720, không có phần tử vượt khung kiểm tra, lỗi JavaScript, HTTP hoặc KaTeX. Đã xem ảnh chụp bốn trang mới và ba trang đặc tả/giả mã/chia dải sửa; câu đặc tả ảnh được rút lại để công thức không gãy dòng. Ghi chú render214côngthức,13ảnh tải được; màn hình hẹp390px không tràn trang, mở lời giải bằng bàn phím được; liên kết index/deck/recitation hoạt động. Bản in58trang, không lỗi công thức. Tệp bằng chứng tại `/tmp/lec02-spec/`: browser-report.json, final-render-report.json, ảnh final-*.png, deck-final.pdf và các báo cáo tác tử. Không cần SVG mới vì bảng HTML thể hiện phép đếm; không đổi CSS hoặc thư viện.
+
+Giới hạn: thời lượng là kế hoạch, chưa diễn tập với lớp. Không cập nhật Design Files của Codex Slides vì quyền xuất HTML/note/storyboard tới đích đó vẫn chưa được xác nhận sau lần automatic review từ chối trước; bản RevealJS trong kho là bản đã kiểm định và phát hành. Không thử lại hoặc chuyển đường xuất dữ liệu.
+
+SHA-256 của các tệp nội dung kiểm định (không gồm nhật ký tự tham chiếu):
+
+- `2627-1/lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html`: `255a9b676b1ede5763b8a09bf5cafa413f6b3dab217d518be18f933a9d45cce2`
+- `2627-1/materials/lec-02/lecture-note.md`: `2455909a2dd92f64c8e99aae355843791a06d5ec12197af985825f06c17fbb75`
+- `2627-1/planning/lec-02/storyboard.md`: `23e13193877ea720c31d1ecb27ab43216d4df848a32245f056ac2c238873de57`
+- `2627-1/planning/lec-02/outline.md`: `4a2b17fe7429ac5a7a5acb64532dbecb04f9ada743e8e520f20240520b85466d`
+- `2627-1/index.html`: `d8e2994ab3f13de09b7891fd193aff13ee0bd3db8640616230cc16b5f7644904`

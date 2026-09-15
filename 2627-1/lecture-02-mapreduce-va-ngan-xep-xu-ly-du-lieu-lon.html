@@ -121,6 +121,23 @@
     Hệ thống: nhóm khóa.
   </aside>
 </section>
+<section id="lec02-s02-03c" data-slide-id="lec02-s02-03c">
+  <h2>Đặc tả bài toán đếm từ</h2>
+  <p>Gọi $T$ là tổng số lần xuất hiện; $f(w)$ là số lần từ $w$ xuất hiện.</p>
+  <table>
+    <tr><th>Yếu tố</th><th>Đặc tả</th></tr>
+    <tr><td>Đầu vào</td><td>Tập hữu hạn tài liệu, tách theo khoảng trắng</td></tr>
+    <tr><td>Đầu ra</td><td>Đúng một cặp $(w,f(w))$ cho mỗi từ xuất hiện</td></tr>
+    <tr><td>Điều kiện</td><td>Tách thống nhất; xử lý mỗi lần xuất hiện đúng một lần</td></tr>
+  </table>
+  <p>D1/D2: $T=5$, từ “lớn” xuất hiện 3 lần.<br/>Kho rỗng trả kết quả rỗng; không phát từ chưa xuất hiện.</p>
+  <aside class="notes">
+    Đặc tả quy định kết quả, chưa quy định cách thực hiện. Hai tài liệu có thể chứa nhiều lần cùng một từ; đầu ra vẫn chỉ có một cặp cho từ ấy.
+    Điều kiện tách phải thống nhất và mỗi lần xuất hiện được xử lý đúng một lần; kho từ rỗng cho kết quả rỗng.
+    Cần phân biệt số tài liệu và số lần xuất hiện của từ: hai đại lượng khác nhau.
+    Nguồn: MMDS ch2, tr.25–28.
+  </aside>
+</section>
 <section id="lec02-s02-04" data-slide-id="lec02-s02-04"><h2>Thuật toán đếm từ</h2>
 <p>Giả thiết: tách theo khoảng trắng; bộ đếm không tràn; hệ thống nhóm đủ và đúng khóa.</p><div class="grid2"><div class="card"><pre><code class="language-text" data-trim>map(tài_liệu):
   với mỗi từ w:
@@ -134,6 +151,24 @@
 <section id="lec02-s02-04a" data-slide-id="lec02-s02-04a"><h2>Bộ đếm trả đúng số lần xuất hiện</h2>
 <p>Mệnh đề: mỗi từ xuất hiện được trả cùng số lần xuất hiện của nó.</p><table><thead><tr><th>Bước</th><th>Lập luận</th></tr></thead><tbody><tr><td>Map và nhóm</td><td>Mỗi lần xuất hiện tạo một số 1 về đúng từ.</td></tr><tr><td>Khởi tạo</td><td>$s=0$: tổng của danh sách rỗng.</td></tr><tr><td>Sau $j$ lần cộng</td><td>$s$ bằng tổng $j$ giá trị đã đọc.</td></tr><tr><td>Khi hết danh sách</td><td>$s$ là tổng mọi đóng góp của từ.</td></tr></tbody></table><p>Dữ liệu hữu hạn nên dừng. Kho rỗng trả đầu ra rỗng.</p>
 <aside class="notes"><p>Bước duy trì lấy tổng của j giá trị cộng giá trị thứ j+1. Giả thiết ở trang trước bảo đảm không mất đóng góp và không tràn số. Với khóa lớn, các trạng thái s là 0,1,2,3. Mỗi giá trị cần một lần cộng trong mô hình số học đơn vị; bộ nhớ phụ của bộ đếm là một biến, chưa gồm nhóm do hệ thống quản lý.</p><p>Nguồn: MMDS, Chương 2, 2.2.1–2.2.3, trang in 25–27; diễn giải tính đúng của Ví dụ 2.1–2.2.</p></aside>
+</section>
+<section id="lec02-s02-04b" data-slide-id="lec02-s02-04b">
+  <h2>Đếm thao tác của thuật toán đếm từ</h2>
+  <p>Xét $T$ lần xuất hiện, chưa gộp. Đếm thao tác trên dữ liệu đã tách; chưa tính nhóm khóa.</p>
+  <table>
+    <tr><th>Thao tác</th><th>Số lượng</th></tr>
+    <tr><td>Map phát cặp</td><td>$T$ cặp</td></tr>
+    <tr><td>Reduce cộng</td><td>$T$ phép cộng trên toàn công việc</td></tr>
+    <tr><td>Biến tổng mỗi Reduce</td><td>1 biến</td></tr>
+  </table>
+  <p>Ví dụ D1, D2: 5 cặp, 5 phép cộng; riêng từ "lớn" chiếm 3 phép cộng.</p>
+  <p>Một lần gọi Reduce chỉ giữ biến tổng; bộ đệm của hệ thống tính riêng.</p>
+  <aside class="notes">
+    Giả mã khởi tạo tổng bằng 0 rồi cộng mỗi giá trị, kể cả giá trị đầu tiên. Vì thế số phép cộng bằng số giá trị nhận. Phép đếm suy ra từ giả mã trong bài, không trích nguyên văn nguồn.
+    Mô hình số học theo đơn vị: một lần phát cặp hay một cập nhật coi như một đơn vị; O(1) bộ nhớ phụ của một lời gọi Reduce không gồm khóa và phần hệ thống.
+    Tổng công việc duyệt từ đã tách là O(T) với T >= 1: đây chỉ là công việc duyệt, không gồm khởi tạo và không gồm các lời gọi Map trên các tài liệu rỗng. Map phát cặp $(w,1)$, mỗi lần xuất hiện phát đúng một cặp.
+    Phần 2.5 tính riêng chi phí dữ liệu theo byte. Nguồn: MMDS 2.2.1–2.2.3, trang 25–27.
+  </aside>
 </section>
 <section id="lec02-s02-05" data-slide-id="lec02-s02-05"><h2>Gộp cục bộ trước khi truyền</h2>
 <div class="grid2"><div class="card"><h3>D2 chưa gộp</h3><p>(lớn,1), (lớn,1)</p></div><div class="card"><h3>D2 đã gộp</h3><p>(lớn,2)</p></div></div><p>Toàn ví dụ: 5 cặp → 4 cặp; tổng cuối vẫn là (lớn,3).</p><p>Phép cộng giữ cùng ý nghĩa, có tính kết hợp và giao hoán. Reduce phải đúng cả khi bộ kết hợp không chạy.</p><p>Trung bình cần giữ <strong>(tổng, số lượng)</strong>, rồi chia ở cuối.</p>
@@ -205,7 +240,7 @@
 <aside class="notes"><p>Vết ký hiệu: tổng khởi tạo bằng 0, rồi cộng $m_{i1}v_1$, sau đó cộng $m_{i2}v_2$, tiếp tục đến hết hàng. Mỗi phần tử ma trận tạo đúng một tích và mang khóa hàng $i$; reduce cộng toàn bộ tích của hàng, nên trả $x_i$. Nếu lưu thưa, các phần tử không lưu được hiểu bằng 0; hàng không phát cặp cũng phải được hiểu là kết quả 0 hoặc được bổ sung theo quy ước đầu ra. Các vòng duyệt hữu hạn nên dừng. Số học dấu phẩy động có thể làm tổng khác một ít theo thứ tự cộng: lập luận đại số xét số thực chính xác. Giả mã tách sang trang sau.</p><p>Nguồn: MMDS, Chương 2, 2.3.1, trang in 31–32.</p></aside>
 </section>
 <section id="lec02-s03-02a" data-slide-id="lec02-s03-02a"><h2>Giả mã nhân ma trận–vector</h2>
-<p>Điều kiện: mỗi tác vụ giữ được $v$ trong bộ nhớ; xét số học chính xác.</p><pre><code class="language-text" data-trim>map(i,j,m): phát(i, m × v[j])
+<p>Mỗi vị trí khác không lưu đúng một lần. Mỗi tác vụ giữ được $v$ trong bộ nhớ; xét số học chính xác.</p><pre><code class="language-text" data-trim>map(i,j,m): phát(i, m × v[j])
 reduce(i,V):
   s ← 0
   với mỗi p trong V: s ← s + p
@@ -214,24 +249,43 @@ reduce(i,V):
 </section>
 <section id="lec02-s03-03" data-slide-id="lec02-s03-03"><h2>Chia dải khi vector không vừa bộ nhớ</h2>
 <img class="figure" src="img/lec-02/ch2-dai-ma-tran.svg" alt="Ma trận chia năm dải dọc và vector chia năm dải tương ứng."/>
-<p>Chọn dải vector vừa bộ nhớ tác vụ. Các dải phủ hết cột, không giao nhau; mọi tích vẫn mang khóa hàng $i$.</p>
+<p>Đọc dải vector vào bộ nhớ → duyệt phần ma trận tương ứng → phát $(i,m_{ij}v_j)$.<br/>Các dải phủ hết cột, không giao nhau; Reduce vẫn cộng theo hàng $i$.</p>
 <aside class="notes"><p>Mỗi map task nhận một phần của dải ma trận và đọc toàn bộ dải vector tương ứng. Chọn số dải để phần vector cần dùng vừa bộ nhớ. Khóa kết quả vẫn là hàng i, do đó các đóng góp từ những dải khác nhau vẫn cộng về cùng thành phần x_i. Không nhầm chia dải với bỏ các tích ở dải khác. Chi phí đọc vector có thể lặp giữa tác vụ; phần bài tập chi phí yêu cầu ghi rõ số lần đọc. Sách dùng năm dải để minh họa, không khẳng định năm luôn đủ.</p><p>Nguồn: MMDS, Chương 2, 2.3.2, Hình 2.4, trang in 32.</p></aside>
+</section>
+<section id="lec02-s03-03a" data-slide-id="lec02-s03-03a">
+  <h2>Công việc và bộ nhớ khi nhân ma trận–vector</h2>
+  <p>$z$: số phần tử ma trận được lưu; $L$: độ dài dải vector một tác vụ dùng. Chưa gộp tích cục bộ.</p>
+  <table>
+    <tr><th>Đại lượng</th><th>Số lượng</th></tr>
+    <tr><td>Map nhân</td><td>$z$ phép nhân</td></tr>
+    <tr><td>Reduce cộng</td><td>$z$ phép cộng</td></tr>
+    <tr><td>Bộ nhớ vector</td><td>$n$ phần tử; chia dải còn $L$ phần tử</td></tr>
+  </table>
+  <p>Đếm phép tính trên toàn công việc; tính vùng vector cho một tác vụ.</p>
+  <p>Chi phí đọc lặp vector được tính ở mục 2.5.</p>
+  <aside class="notes">
+    Giả mã khởi tạo tổng 0 rồi cộng từng giá trị, nên tổng là z phép cộng (không z-n); truy cập vector, phép nhân và cộng tính theo đơn vị.
+    z là số lần phát trung gian; mỗi Reduce giữ 1 biến tổng ngoài vùng đầu vào.
+    Số học chính xác là giả thiết của phép chứng minh, còn đơn vị là mô hình đếm riêng.
+    Chi phí đọc vector ở 2.5 có thể lặp lại; nếu z = 0 thì kết quả ngầm là toàn 0; không nói tổng CPU bằng z khi chưa tính chi phí đọc vector.
+    Các phép đếm suy ra từ giả mã MMDS 2.3.1–2.3.2, trang 31–32.
+  </aside>
 </section>
 <section id="lec02-ex231a" data-slide-id="lec02-ex231a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(a) · Số nguyên lớn nhất</h2>
 <p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả số nguyên lớn nhất.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p>
-<aside class="notes"><p>Map phát (0,x), reduce lấy max. Có thể gộp max cục bộ trước. Bất biến sau khi đọc j số: m là lớn nhất trong j số đã đọc. Khởi tạo từ phần tử đầu hoặc âm vô cùng; không dùng 0 vì dữ liệu có thể toàn số âm. Tệp rỗng cần báo không có kết quả. Đọc N số, O(N) công việc cộng dồn, O(1) trạng thái mỗi nhóm, N cặp nếu chưa gộp.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(a), trang in 40 / PDF 21.</p></aside>
+<aside class="notes"><p>Map phát (0,x), reduce lấy max. Có thể gộp max cục bộ trước. Bất biến sau khi đọc j số: m là lớn nhất trong j số đã đọc. Khởi tạo từ phần tử đầu hoặc âm vô cùng; không dùng 0 vì dữ liệu có thể toàn số âm. Tệp rỗng cần báo không có kết quả. Đọc N số, O(N) công việc cộng dồn, O(1) trạng thái mỗi nhóm, N cặp nếu chưa gộp.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(a), trang in 40 / PDF 21.</p><p>Đánh giá lời giải: N phần tử, chưa gộp: N−1 lần so sánh khi N>0; giữ một giá trị lớn nhất. Tổng đầu vào Map và Reduce là 2N bản ghi chuẩn hóa. Mô hình số học đơn vị; chưa gồm nhóm khóa, bộ đệm hệ thống và ghi đầu ra cuối. Đơn vị bản ghi không phải byte; các kiểu có thể dài khác nhau. Đây là suy ra từ lời giải theo mục 2.5.1.</p></aside>
 </section>
 <section id="lec02-ex231b" data-slide-id="lec02-ex231b" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(b) · Trung bình các số nguyên</h2>
 <p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả trung bình các số nguyên.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p>
-<aside class="notes"><p>Map phát (0,(x,1)); reduce cộng từng thành phần thành (S,N), xuất S/N nếu N>0. Bộ kết hợp cũng cộng hai thành phần, chưa chia. Bất biến S là tổng, N là số phần tử đã đọc. Trung bình của trung bình không đúng khi các nhóm có kích thước khác nhau. Tệp rỗng không có trung bình. O(N) công việc cộng dồn, trạng thái O(1) nếu số nguyên và bộ đếm có độ dài cố định trong mô hình.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(b), trang in 40 / PDF 21.</p></aside>
+<aside class="notes"><p>Map phát (0,(x,1)); reduce cộng từng thành phần thành (S,N), xuất S/N nếu N>0. Bộ kết hợp cũng cộng hai thành phần, chưa chia. Bất biến S là tổng, N là số phần tử đã đọc. Trung bình của trung bình không đúng khi các nhóm có kích thước khác nhau. Tệp rỗng không có trung bình. O(N) công việc cộng dồn, trạng thái O(1) nếu số nguyên và bộ đếm có độ dài cố định trong mô hình.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(b), trang in 40 / PDF 21.</p><p>Đánh giá lời giải: N phần tử, chưa gộp: N lần cộng tổng và N lần cộng số lượng, một lần chia khi N>0; giữ hai biến. Tổng đầu vào hai tầng là 2N bản ghi chuẩn hóa. Mô hình số học đơn vị; chưa gồm nhóm khóa, bộ đệm hệ thống và ghi đầu ra cuối. Đơn vị bản ghi không phải byte; các kiểu có thể dài khác nhau. Đây là suy ra từ lời giải theo mục 2.5.1.</p></aside>
 </section>
 <section id="lec02-ex231c" data-slide-id="lec02-ex231c" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(c) · Mỗi số chỉ xuất hiện một lần</h2>
 <p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả mỗi số chỉ xuất hiện một lần.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p>
-<aside class="notes"><p>Map phát (x,1); reduce theo x phát (0,x) một lần. Mọi bản sao x cùng khóa nên không mất giá trị nào và không còn trùng ở đầu ra. Không cần giữ toàn bộ danh sách giá trị, chỉ nhận biết nhóm xuất hiện. Không bảo đảm thứ tự số trong tệp cuối. O(N) số cặp phát; chi phí nhóm do hệ thống xử lý, không bỏ qua nó khi phân tích cài đặt cụ thể.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(c), trang in 40 / PDF 21.</p></aside>
+<aside class="notes"><p>Map phát (x,1); reduce theo x phát (0,x) một lần. Mọi bản sao x cùng khóa nên không mất giá trị nào và không còn trùng ở đầu ra. Không cần giữ toàn bộ danh sách giá trị, chỉ nhận biết nhóm xuất hiện. Không bảo đảm thứ tự số trong tệp cuối. O(N) số cặp phát; chi phí nhóm do hệ thống xử lý, không bỏ qua nó khi phân tích cài đặt cụ thể.</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(c), trang in 40 / PDF 21.</p><p>Đánh giá lời giải: N phần tử, D giá trị khác nhau: duyệt N giá trị ở các nhóm, phát D kết quả. Một lời gọi giữ trạng thái hằng số ngoài khóa; tổng đầu vào hai tầng là 2N bản ghi chuẩn hóa. Mô hình số học đơn vị; chưa gồm nhóm khóa, bộ đệm hệ thống và ghi đầu ra cuối. Đơn vị bản ghi không phải byte; các kiểu có thể dài khác nhau. Đây là suy ra từ lời giải theo mục 2.5.1.</p></aside>
 </section>
 <section id="lec02-ex231d" data-slide-id="lec02-ex231d" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.3.1(d) · Số lượng giá trị khác nhau</h2>
 <p>Đầu vào: một tệp số nguyên rất lớn. Khóa đầu ra có thể bị bỏ qua.</p><p class="check"><strong>Câu hỏi:</strong> Thiết kế MapReduce để trả số lượng giá trị khác nhau.</p><p><strong>Sản phẩm:</strong> map/reduce, trạng thái trung gian và lập luận đúng.</p><p><a href="#/lec02-ex251a">Tiếp: bài tập tính chi phí</a></p>
-<aside class="notes"><p>Một lời giải hai công việc: công việc 1 map (x,1), reduce mỗi x phát (0,1); công việc 2 cộng các số 1. Nếu có D giá trị khác nhau, công việc 1 tạo D đóng góp; tổng cuối bằng D. Tệp rỗng có D=0 theo quy ước đếm; hệ thống cần trả 0 nếu không tạo nhóm. Đây là phương án phân tán tự nhiên, không chứng minh hai công việc là bắt buộc: có thể gom toàn bộ vào một reducer và dùng tập hợp nhưng bộ nhớ tăng O(D).</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(d), trang in 40 / PDF 21.</p></aside>
+<aside class="notes"><p>Một lời giải hai công việc: công việc 1 map (x,1), reduce mỗi x phát (0,1); công việc 2 cộng các số 1. Nếu có D giá trị khác nhau, công việc 1 tạo D đóng góp; tổng cuối bằng D. Tệp rỗng có D=0 theo quy ước đếm; hệ thống cần trả 0 nếu không tạo nhóm. Đây là phương án phân tán tự nhiên, không chứng minh hai công việc là bắt buộc: có thể gom toàn bộ vào một reducer và dùng tập hợp nhưng bộ nhớ tăng O(D).</p><p>Nguồn: MMDS, Chương 2, Bài tập 2.3.1(d), trang in 40 / PDF 21.</p><p>Đánh giá lời giải: N phần tử, D giá trị khác nhau: hai công việc nhận tổng 2N+2D bản ghi chuẩn hóa; công việc sau cộng D số 1. Với đầu vào rỗng, bên gọi trả 0 khi không có đầu ra. Mô hình số học đơn vị; chưa gồm nhóm khóa, bộ đệm hệ thống và ghi đầu ra cuối. Đơn vị bản ghi không phải byte; các kiểu có thể dài khác nhau. Đây là suy ra từ lời giải theo mục 2.5.1.</p></aside>
 </section>
 </section>
 <section aria-label="Mục 2.4">
@@ -288,7 +342,7 @@ reduce(i,V):
 </section>
 </section>
 <section aria-label="Mục 2.6">
-<section id="lec02-s06-00" data-slide-id="lec02-s06-00"><h2>2.6 · Tìm các cặp ảnh tương tự</h2><p>Đầu vào nguồn: $N=10^6$ ảnh, mỗi ảnh $B=10^6$ byte.</p><p>Cho hàm độ tương tự đối xứng $s(P_i,P_j)$ và ngưỡng $\tau$. Cần trả các cặp khác nhau có $s(P_i,P_j)&gt;\tau$.</p><div class="grid2"><div class="card"><h3>Mỗi reducer một cặp</h3><p>Mỗi ảnh phải gửi đến nhiều nơi.</p></div><div class="card"><h3>Mỗi reducer hai nhóm</h3><p>Dùng lại ảnh đã nhận, nhưng cần giữ nhiều ảnh hơn.</p></div></div><p>Trong mô hình nguồn, phải tính độ tương tự cho mọi cặp; chưa có cách bỏ qua cặp.</p><aside class="notes"><p>Ký hiệu tau là ngưỡng độ tương tự; s là hàm độ tương tự. Tính đối xứng cho phép xét cặp không thứ tự và bỏ cặp tự so sánh. Không định nghĩa một hàm màu cụ thể ngoài nguồn. Đầu ra chỉ là các cặp vượt ngưỡng, dù mọi cặp được kiểm tra.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 62–63.</p></aside></section>
+<section id="lec02-s06-00" data-slide-id="lec02-s06-00"><h2>2.6 · Tìm các cặp ảnh tương tự</h2><p>Đầu vào: $N=10^6$ ảnh $P_1,\ldots,P_N$, mỗi ảnh $B=10^6$ byte.</p><p>Cho hàm độ tương tự đối xứng $s$ và ngưỡng $\tau$.</p><p>Trả mỗi cặp $(i,j)$ có $i&lt;j$ và $s(P_i,P_j)&gt;\tau$ đúng một lần.</p><div class="grid2"><div class="card"><h3>Mỗi reducer một cặp</h3><p>Mỗi ảnh phải gửi đến nhiều nơi.</p></div><div class="card"><h3>Mỗi reducer hai nhóm</h3><p>Dùng lại ảnh đã nhận, nhưng cần giữ nhiều ảnh hơn.</p></div></div><p>Trong mô hình nguồn, phải tính độ tương tự cho mọi cặp; chưa có cách bỏ qua cặp.</p><aside class="notes"><p>Ký hiệu tau là ngưỡng độ tương tự; s là hàm độ tương tự. Tính đối xứng cho phép xét cặp không thứ tự và bỏ cặp tự so sánh. Không định nghĩa một hàm màu cụ thể ngoài nguồn. Đầu ra chỉ là các cặp vượt ngưỡng, dù mọi cặp được kiểm tra.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 62–63.</p></aside></section>
 <section id="lec02-s06-01" data-slide-id="lec02-s06-01"><h2>Đầu vào mỗi reducer và số lần sao chép</h2>
 <table><thead><tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr></thead><tbody><tr><td>$q$</td><td>Số giá trị đầu vào tối đa của một reducer</td></tr><tr><td>$\rho$</td><td>Số cặp trung gian trung bình trên một đầu vào</td></tr></tbody></table><div class="math-large">$\rho=\frac{\text{tổng số cặp phát}}{\text{số đầu vào}}$</div><p>Giảm dữ liệu ở từng reducer có thể đòi hỏi gửi nhiều bản sao hơn.</p>
 <aside class="notes"><p>q là cận trên cho mọi nhóm. Trong hai cách chia đều sắp xét, mọi reducer đều nhận đúng q ảnh nên cận đạt bằng. Sách dùng r cho tốc độ sao chép; bài dùng ký hiệu rho cho đại lượng này. q đếm số giá trị, không trực tiếp là byte RAM. Nếu một giá trị có B byte và mọi giá trị được giữ đồng thời, tải dữ liệu là qB, chưa gồm cấu trúc phụ và mã. Đây là mô hình phân tích một vòng, không mô tả mọi chi phí của một cụm. Mỗi đầu vào có thể tạo nhiều cặp đến các reducer khác nhau; rho tính trung bình, không phải số bản sao DFS.</p><p>Nguồn: MMDS, Chương 2, 2.6.1, trang in 61.</p></aside>
@@ -308,6 +362,21 @@ reduce(i,V):
 <p class="check"><strong>Câu hỏi:</strong> Nếu bỏ quy tắc giao riêng, một cặp nội bộ bị xét mấy lần?</p>
 <aside class="notes"><p>Hình minh họa trường hợp hai nhóm kề nhau theo vòng. Mỗi ký hiệu ảnh là một phần trích, không biểu diễn đầy đủ 1000 ảnh của nhóm. Nét nối phân biệt cặp chéo với cặp nội bộ nhóm u được giao riêng. Cặp nội bộ nhóm v thuộc reducer kế tiếp của v; phát kết quả chỉ khi độ tương tự vượt ngưỡng tau.</p><p>Đáp án g−1=999 lần. Quy tắc giao cặp nội bộ chỉ cho một reducer khắc phục việc lặp. Cặp chéo có duy nhất cặp nhóm, cặp nội bộ có duy nhất nơi được giao; hai loại không giao nhau và phủ mọi cặp khác ảnh. Dữ liệu hữu hạn nên dừng. Một reducer so sánh chéo hai nhóm rồi chỉ xử lý cặp nội bộ thuộc trách nhiệm của nó. Đổi số nhóm 1..g trong nguồn thành 0..g−1 để nhất quán; lấy modulo xử lý nhóm cuối. Số thao tác ngoài so sánh và chi phí hàm s không được suy ra chỉ từ số byte truyền.</p><p>Nguồn: MMDS, Chương 2, 2.6.2, trang in 63–64.</p></aside>
 </section>
+<section id="lec02-s06-03b" data-slide-id="lec02-s06-03b">
+  <h2>Số phép so sánh khi gom nhóm ảnh</h2>
+  <p>Mỗi lần gọi $s$ tính một phép so sánh; chưa quy đổi thành giây.</p>
+  <table><thead><tr><th>Cách chia</th><th>Tổng lần gọi $s$</th><th>Nhiều nhất / reducer</th></tr></thead><tbody>
+<tr><td>Từng cặp ảnh</td><td>$N(N-1)/2$</td><td>$1$</td></tr>
+<tr><td>1000 nhóm đều</td><td>$N(N-1)/2$</td><td>$1\,499\,500$</td></tr></tbody></table>
+<p>Với $N=10^6$: cả hai cách đều cần $499\,999\,500\,000$ lần gọi.</p>
+<p>Reducer nhiều việc nhất: $1\,000\,000$ cặp chéo<br/>cộng $499\,500$ cặp nội bộ được giao riêng.</p>
+<p>Gom nhóm giảm truyền ảnh; số cặp phải xét không giảm.</p>
+  <aside class="notes">
+    Giả thiết g = 1000, đánh số 0..999, giao nội bộ u → {u, u+1 mod g}. 499500 là số cặp nhóm, tức C(1000,2) = 499.500 reducer, mỗi reducer xét 1000000 cặp chéo; thêm 1000 nhóm, mỗi nhóm có C(1000,2) = 499500 cặp nội bộ: tổng 499500·1000000 + 1000·499500 = 499999500000.
+    Nếu mỗi lần gọi s có chi phí cố định c_s thì công việc đánh giá độ tương tự là c_s·N(N-1)/2; không tính Map, truyền mạng, ghi đầu ra. Không biết c_s thì giữ nguyên số lần gọi.
+    Bộ nhớ đầu vào 2MB so với 2GB chưa gồm vùng làm việc của s, quét hữu hạn, đầu ra i &lt; j để duy nhất. Nguồn: MMDS ch2, tr.62–64.
+  </aside>
+</section>
 <section id="lec02-s06-04" data-slide-id="lec02-s06-04"><h2>Đánh đổi cần kiểm tra trước khi triển khai</h2>
 <table><thead><tr><th>Cách phân chia</th><th>Đầu vào/reducer</th><th>Bản sao/ảnh</th></tr></thead><tbody><tr><td>Mỗi cặp ảnh</td><td>$2$</td><td>$999999$</td></tr><tr><td>Mỗi cặp nhóm</td><td>$2000$</td><td>$999$</td></tr></tbody></table><p class="check"><strong>Câu hỏi:</strong> Với cách gom nhóm, 2 GB dữ liệu ảnh đã đủ để kết luận reducer chạy được chưa?</p><p>Đọc thêm: lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7.</p>
 <aside class="notes"><p>Chưa: còn cấu trúc dữ liệu, bộ nhớ chương trình, cách biểu diễn ảnh và chi phí so sánh; GB ở đây dùng 10^9 byte. Sinh viên cần giải thích được nguồn gốc q và rho, kiểm tra tính đầy đủ của các cặp và nhận ra tổng phép so sánh không giảm. Không yêu cầu tự chứng minh các cận dưới tổ hợp trong phần đọc thêm. Khép tình huống: tăng dữ liệu mỗi reducer để một ảnh phục vụ nhiều phép so sánh trước khi phải truyền lại.</p><p>Nguồn: MMDS, Chương 2, 2.6.2–2.6.7, trang in 61–74.</p></aside>
@@ -315,7 +384,7 @@ reduce(i,V):
 </section>
 <section aria-label="Mục 2.7">
 <section id="lec02-s07-01" data-slide-id="lec02-s07-01"><h2>2.7 · Từ lưu trữ đến đánh giá thuật toán</h2>
-<table><thead><tr><th>Lớp lập luận</th><th>Kết quả cần nắm</th></tr></thead><tbody><tr><td>Hệ tệp phân tán</td><td>Chia khối, bản sao, đọc gần dữ liệu</td></tr><tr><td>MapReduce</td><td>Chọn khóa để dữ liệu cần nhau gặp nhau</td></tr><tr><td>Thuật toán</td><td>Giả mã, vết chạy, lập luận đúng</td></tr><tr><td>Mở rộng</td><td>Chuỗi phép biến đổi, lưu đệm, tính lại</td></tr><tr><td>Đánh giá</td><td>Đơn vị chi phí, tải lớn nhất, sao chép</td></tr></tbody></table>
+<table><thead><tr><th>Lớp lập luận</th><th>Kết quả cần nắm</th></tr></thead><tbody><tr><td>Hệ tệp phân tán</td><td>Chia khối, bản sao, đọc gần dữ liệu</td></tr><tr><td>MapReduce</td><td>Chọn khóa để dữ liệu cần nhau gặp nhau</td></tr><tr><td>Thuật toán</td><td>Đặc tả, giả mã, lập luận đúng</td></tr><tr><td>Mở rộng</td><td>Chuỗi phép biến đổi, lưu đệm, tính lại</td></tr><tr><td>Đánh giá</td><td>Đơn vị chi phí, tải lớn nhất, sao chép</td></tr></tbody></table>
 <aside class="notes"><p>Tổng kết theo 2.7 nhưng giữ các nội dung đã giảng sâu: không đưa chứng minh hoặc hệ thống đọc thêm thành chuẩn bắt buộc. Nhắc sinh viên tách đặc tả bài toán khỏi một cách cài đặt. Với đếm từ và nhân ma trận–vector, khóa quyết định nơi cộng các đóng góp; với chi phí, số nơi nhận quyết định hệ số sao chép; với bộ nhớ, lượng dữ liệu tại nơi gặp nhau quyết định tính khả thi. Chuỗi này thu hồi mục tiêu đầu bài.</p><p>Nguồn: MMDS, Chương 2, 2.7, trang in 74–77.</p></aside>
 </section>
 <section id="lec02-s07-02" data-slide-id="lec02-s07-02"><h2>Kiểm tra bằng sản phẩm học tập</h2>
