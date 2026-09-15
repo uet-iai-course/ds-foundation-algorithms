@@ -1813,3 +1813,25 @@ SHA-256 của các tệp nội dung kiểm định (không gồm nhật ký tự
 - `2627-1/planning/lec-02/storyboard.md`: `23e13193877ea720c31d1ecb27ab43216d4df848a32245f056ac2c238873de57`
 - `2627-1/planning/lec-02/outline.md`: `4a2b17fe7429ac5a7a5acb64532dbecb04f9ada743e8e520f20240520b85466d`
 - `2627-1/index.html`: `d8e2994ab3f13de09b7891fd193aff13ee0bd3db8640616230cc16b5f7644904`
+
+## Viết lại 2.4 — 2026-09-16
+
+Đã duyệt kế hoạch ở outline; bằng chứng tác tử và bản dựng tại /tmp/lec02-flow. Giai đoạn đang soạn, chưa kiểm định hoàn tất.
+
+### Kết quả và quyết định rà soát
+
+Hoàn tất thay5trang của2.4 bằng9trang, từ ví dụ văn bản A/B rồi mới tới Hadoop và Spark. Thay hình f,g,h,i,j bằng luồng dữ liệu có nhãn8→7→5; thêm hình một công việc HadoopMapReduce, dùng lại dữ liệu sạch, phục hồi phầnA. Giữ15SVG đang dùng trong deck; bốn hình mới có script render-workflow-diagrams.py và mô tả truy cập. Hai hình cũ ch2-luong-cong-viec.svg/ch2-spark.svg không còn nhúng, giữ làm lịch sử. Không thay CSS/thư viện hoặc các trang ngoài2.4. Ghi chú và ba tệp quy trình cùng mục index đã đồng bộ.
+
+Tác tử nguồn xác nhận ánh xạ Ví dụ2.7–2.10 và chỉ ra reduceByKey cần tài liệuApache. Bác đoạn reader nói “7khóa”: dữ liệu thật có7lầnxuấthiện và5khóa, đã kiểm bằng Counter. Lập trình Map vừa tách vừa lọc là vận dụng thuật toán nguồn vào bài toán đã đặc tả, không phải phát biểu nguyên văn sách. Đã đọc ApacheHadoop overview/MapReduceTutorial và SparkRDDGuide (ngày2026-09-16) để kiểm API, vai tròHDFS, hành động/lưu đệm và trao đổi dữ liệu. Không sử dụng số phiên bản hoặc hệ số tăng tốc trong các nguồn này.
+
+Năm tác tử độc lập (sinh viên, giải thuật, toán, sư phạm, mạch) và tác tử storyboard đều hoàn tất. Chấp nhận làm rõ bảng05chỉxétA, giả mã06đọc thư mục chứaA/B, và câu ghi chú về hai khóa dữ/liệu. Bác suy luận một đường dẫn chỉ có thể chứa một tài liệu; vẫn viết rõ thư mục để tránh nhầm. Bác đề xuất chèn cache ngay vào06vì cơ chế này được giới thiệu ở07;07chỉ rõ cần thêm trước hành động đầu. Bác lỗi &gt; trong báo cáo storyboard: đây là escapeHTML hợp lệ, trình duyệt đã hiển thị dấu=>. Tác tử biên tập riêng thực hiện sửa; điều phối kiểmdiff, phục hồi câu ví dụA mà editor lược mất và sửa caption hiển thị thay vì sửa nhầm alt. Mạch được rà lại sau biên tập, xác nhận ví dụ→Hadoop→Spark và kết nối sang2.5. Báo cáo mạch cuối có câu diễn giải dem thành đầu vào2.5; không dùng làm nội dung học thuật:2.5giới thiệu mô hình tổng quát, không phải phép biến đổi tiếp theo của dem.
+
+Áp dụng no-ai-slop/eval và Quill: dùng từ/cụm tiếngViệt cụ thể, một vai trò mỗi trang, giữ dữ kiện8→7→5 cùng ký hiệuA/B. Không khởi tạo quill.json. Bổ sung ví dụViệt hóa theo yêu cầu người dùng, không đổiD1/D2 và không tạo đề recitation mới. Đặc tả và đánh giá lọc/đếm có trong ghi chú/notes; không áp số phép cộng từ giả mã thủ công vào reduceByKey đã tối ưu.
+
+### Kiểm định và giới hạn
+
+- Script xác nhận62IDduy nhất khớp thứ tự storyboard,9section theoPDF,54tranggiảng+8bàitập. Tổng thời lượng120+60;2.4có18phút. So sánh từng section cóID vớiHEAD trước sửa: mọi slide ngoài2.4 giữ nguyên, gồm8bài tập.
+- Chạy phép đếm trênA/B:8đơnvịtrướclọc,7saulọc, kếtquảdữ2/liệu2/giải1/thuật1/lớn1; phầnAriêng5→4. Không thực thiSpark thật; mã trên slide được ghi rõ là giả mã, các phép API đối chiếu tài liệu chính thức.
+- Chromium1280×720 duyệt62slide:0phầntử tràn khung,0lỗiKaTeX,0lỗiJavaScript,0HTTP lỗi. Đã xem ảnh chụp cả9trang của2.4; chữtrongSVG lớn, các mũitên và nhãn đọc được. Bản in62trang, liên kết recitationđúng;15ảnhghi chú tảiđược, màn hìnhhẹp390px và bànphím mởlờigiải hoạtđộng. Script tái sinh bốnSVG cho cùnghash. gitdiff--check đạt.
+- Mọi kết quả tác tử xác nhận providerOpenRouter và requested_model=observed_model=z-ai/glm-5.3-flash. Bằng chứng ở /tmp/lec02-flow: JSONcácvai, browser-report.json, final-render-report.json, final-*.png vàdeck-final.pdf.
+- Ngân sách thời gian chưa diễn tập với lớp thật. Hồ sơ CodexSlides DesignFiles chưa cập nhật vì quyền xuất các tài liệu tới đích đó vẫn chưa được xác nhận sau automaticreview từchối ởlầntrước; không thửlại hoặcđổi đườngxuất. RevealJS trong kho làbảnđãkiểmđịnh.

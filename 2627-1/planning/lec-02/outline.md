@@ -4,7 +4,7 @@
 
 Bài 02 theo thứ tự đề xuất của sources/source.md, từ buổi gốc 4; nguồn MMDS Chương 2, ch2n.pdf. Sinh viên năm 2 đã học lập trình, toán rời rạc và đại số tuyến tính; chưa học CSDL. Sau bài, sinh viên mô tả miền vào–ra của hai hàm, chạy vết và viết giả mã đếm từ/nhân ma trận–vector, giải thích tính đúng và tính chi phí từ đầu vào tác vụ.
 
-Theo yêu cầu mới, bỏ đại số quan hệ và thuật toán nối, cùng ví dụ chi phí và câu hỏi phụ thuộc. Giữ 9 section: mở đầu và 2.1–2.8 theo PDF, ngoại lệ quy tắc 5–7. 50 trang giảng, 8 trang bài tập; 120 + 60 phút thiết kế dự kiến. Không thay dữ kiện hoặc tạo bài tập ngoài nguồn.
+Theo yêu cầu mới, bỏ đại số quan hệ và thuật toán nối, cùng ví dụ chi phí và câu hỏi phụ thuộc. Giữ 9 section: mở đầu và 2.1–2.8 theo PDF, ngoại lệ quy tắc 5–7. 54 trang giảng, 8 trang bài tập; 120 + 60 phút thiết kế dự kiến. Không thay dữ kiện hoặc tạo bài tập ngoài nguồn.
 
 ## Bản đồ chủ đề
 
@@ -16,7 +16,7 @@ Theo yêu cầu mới, bỏ đại số quan hệ và thuật toán nối, cùng
 | Gộp, phân công, chạy lại | Đếm từ → tạo tác vụ → phân khóa → gán máy → nơi lưu → phục hồi | 2.2.4–2.2.6 | Mở rộng 2 trang thành 7 trang, thêm 5 sơ đồ |
 | Ma trận–vector | Nhân hàng với vector → gom theo hàng → chia dải | 2.3.1–2.3.2 | Giữ |
 | Quan hệ và nối | Cần tiên quyết CSDL chưa học | 2.3.3–2.3.10 | Bỏ theo yêu cầu |
-| Spark/luồng công việc | Một công việc → chuỗi phụ thuộc, tính lại | 2.4.1–2.4.3 | Giữ; các mở rộng khác đọc thêm |
+| Hadoop và Spark | Ví dụ văn bản → hệ lưu trữ/tính toán → chuỗi biến đổi, dùng lại, khôi phục | 2.4.1–2.4.3 và Apache | Viết lại theo yêu cầu; các mở rộng khác đọc thêm |
 | Chi phí | Thuật toán → nơi đọc/nhận → bảng → tổng → điều kiện | 2.5.1–2.5.2; Bài 2.5.1a | Giữ đếm từ; thêm đọc dải từ lời giải nguồn |
 | Chi phí nối | Phụ thuộc thuật toán đã bỏ | 2.5.3 | Bỏ |
 | Bộ nhớ và sao chép | Tải tác vụ → các cặp ảnh → phân công nhóm | 2.6.1–2.6.2 | Giữ; cận dưới 2.6.3–2.6.7 đọc thêm |
@@ -45,7 +45,7 @@ Recitation giữ 2.2.1(a–c): 15 phút; 2.3.1(a–d): 20 phút; 2.5.1(a): 25 ph
 
 Áp dụng slide_authoring_standard.md; một luận điểm/trang, vết trước hình thức hóa, bảng đếm trước kết luận chi phí. Hai chữ ký là hai phần của một giao diện nên cùng trang để đối chiếu kiểu trung gian. Sơ đồ riêng làm rõ bước hệ thống giữa hai hàm. Ghi chú mở rộng lập luận, không sao chép slide.
 
-Đầu ra: HTML, 13 SVG được dùng, lecture-note, storyboard, outline, review-log, index. Hai tài sản phép nối cũ giữ để truy nguyên nhưng không nhúng. Kiểm tra 58 ID khớp storyboard, 9 section, 120 + 60 phút; năm vai độc lập và storyboard, biên tập riêng; trình duyệt thực, công thức, ảnh, liên kết, bàn phím và bản in. Kết quả và giới hạn ghi ở review-log.md.
+Đầu ra: HTML, 15 SVG được dùng, lecture-note, storyboard, outline, review-log, index. Hai tài sản phép nối cũ giữ để truy nguyên nhưng không nhúng. Kiểm tra 62 ID khớp storyboard, 9 section, 120 + 60 phút; năm vai độc lập và storyboard, biên tập riêng; trình duyệt thực, công thức, ảnh, liên kết, bàn phím và bản in. Kết quả và giới hạn ghi ở review-log.md.
 
 ## Nguồn và tham khảo cách dạy
 
@@ -73,3 +73,13 @@ Bản đồ bao phủ: đếm từ có đặc tả mới, giả mã/đúng hiệ
 Phân bổ dự kiến: mở5;2.1=8;2.2=38;2.3=20;2.4=10;2.5=15;2.6=18;2.7=5;2.8=1. Bài tập60 giữ nguyên. Không thay nội dung hoặc CSS chung; không cần SVG mới vì phép đếm dùng bảng HTML. Nội dung chuẩn bị trong /tmp, chưa tích hợp trước khi kế hoạch và bản soạn được kiểm tra.
 
 Điều phối chấp nhận hướng bổ sung ba loại chi phí của planner, điều chỉnh thành bốn trang tập trung như trên. Bác bảng tổng hợp thêm ở phần kết vì lặp; bác gộp giả mã và ba loại chi phí lên một trang. Bác khẳng định combiner không đổi số phép cộng và qB là bộ nhớ phụ: phụ thuộc cài đặt; qB là vùng đầu vào. Bác các mức trừ thời gian lớn hơn thời gian slide hiện có. Giữ mô tả Map/Reduce nhóm ảnh đã đủ các bước; bổ sung đặc tả và phép đếm thay vì đổi cú pháp thành mã cho có. Kế hoạch được duyệt để soạn.
+
+## Viết lại mục 2.4 — kế hoạch 2026-09-16
+
+Theo yêu cầu dùng ví dụ quen thuộc rồi dẫn tới Hadoop và Spark, thay5trang bằng9trang: (01) đặc tả văn bản; (02) sơ đồ tách/lọc/đếm có dữ liệu; (03) thành phần Hadoop; (04) thực hiện ví dụ trong một công việc MapReduce; (05) Spark RDD và các phép biến đổi trên ví dụ; (06) giả mã Spark kết thúc bằng lưu kết quả; (07) tính khi cần và dùng lại; (08) phục hồi phần dữ liệu bị mất; (09) so sánh vai trò và nối sang chi phí2.5. Mỗi trang2phút, phần2.4=18phút; toàn bài120+60,62trang=54giảng+8bàitập. Trích4phút từ2.2,2phút từ2.3,2phút từ2.6 ở các trang ôn/tổng hợp, không rút thời gian bài tập.
+
+Chấp nhận planner dùng ví dụ văn bản trước hệ thống; bác thứ tự tách→đếm→lọc để theo đúng Ví dụ2.7–2.9 là tách→lọc→đếm. Bác dùng lại hình f,g,h,i,j vì không giải quyết vấn đề user nêu. Tách phục hồi khỏi trang lười/lưu đệm để tránh quá tải. Không so sánh blocking và lazy như hai thuộc tính đối lập. Không đồng nhất Hadoop với riêngMapReduce; Spark có thể đọc HDFS.
+
+Ví dụ Việt hóa Ví dụ2.7–2.10: tài liệu A “dữ liệu và giải thuật”, B “dữ liệu lớn”; tập từ dừng chỉ gồm“và” để thấy phép lọc thực sự. Tách khoảng trắng, không phân tích từ ghép. Có8đơnvị trướclọc,7sau lọc,5khóa: dữ2,liệu2,giải1,thuật1,lớn1. Dùng A/B để không đổi D1/D2 ở2.2/2.5. Đây là minh họa chuyển ngữ cho cơ chế nguồn, không bài tập mới hoặc trích nguyên câu sách.
+
+Nguồn: MMDS2.4.1tr41–43,2.4.2–3tr44–48; slideMMDSch2phầnHadoop vàStanford01-introtr50–60. ChọnStanford cho triển khaiSpark vì cócụm riêng,trongkhiMMDSslidesch2chủ yếuMapReduce/Hadoop; sách quyết địnhluậnđiểm. ApacheHadoop(hadoop.apache.org) xácnhậnHDFS/MapReduce; SparkRDDProgrammingGuide xácnhậnreduceByKey,saveAsTextFile,count,cachevàshuffle. Các nguồnApache được duyệt làm cầu nối tênphầnmềm vàđóng ví dụ; khôngđưaCSDL hoặc thông số tốc độ/phiênbản vào bài.

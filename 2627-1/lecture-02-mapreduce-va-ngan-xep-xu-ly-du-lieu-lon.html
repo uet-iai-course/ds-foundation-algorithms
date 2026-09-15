@@ -289,25 +289,82 @@ reduce(i,V):
 </section>
 </section>
 <section aria-label="Mục 2.4">
-<section id="lec02-s04-01" data-slide-id="lec02-s04-01"><h2>2.4 · Luồng công việc nhiều hàm</h2>
-<p>Hệ luồng công việc dùng đồ thị có hướng không chu trình. Cung a → b: đầu ra của a cung cấp đầu vào cho b.</p><img class="figure" src="img/lec-02/ch2-luong-cong-viec.svg" alt="Theo Hình 2.6: f đến g và i; h đến i và j; g và i đến j; đầu ra j đi ra hệ thống."/><p>Mỗi hàm có nhiều tác vụ. Theo mô hình sách, tác vụ chỉ chuyển đầu ra sau khi hoàn thành; hỏng trước đó thì chạy lại.</p>
-<aside class="notes"><p>Nguồn: mục 2.4.1 và Hình 2.6, Ví dụ 2.6 : luồng gồm năm hàm f, g, h, i, j; h đọc tệp có sẵn của DFS, mỗi đầu ra của h đi tới cả i và j, i nhận đầu vào của cả f và h, đầu ra của j được lưu vào DFS hoặc trả về ứng dụng. Hình vẽ lại đủ sáu cung giữa năm hàm của Hình 2.6; cung h đến j được uốn cong để phân biệt với đường qua i. MapReduce đã có hai tầng; ở đây các hàm tạo một đồ thị phụ thuộc tổng quát hơn. Tính chất chặn (blocking) là cơ sở chống lỗi: tác vụ chưa hoàn thành thì chưa phát gì, nên chạy lại không gây trùng đầu ra. Các hàm trao đổi tệp gồm những phần tử cùng kiểu; Spark gọi tập dữ liệu phân tán có khả năng khôi phục là RDD.</p><p>Nguồn: MMDS, Chương 2, 2.4.1, Hình 2.6 và Ví dụ 2.6, trang in 42–43.</p></aside>
+<section id="lec02-s04-01" data-slide-id="lec02-s04-01"><h2>2.4 · Từ văn bản đến chuỗi xử lý dữ liệu</h2>
+<p>Đếm số lần xuất hiện của mỗi từ sau khi bỏ từ dừng “và”.<br/>Tách theo khoảng trắng; giữ mọi lần xuất hiện còn lại.</p>
+<table><thead><tr><th>Tài liệu</th><th>Nội dung</th></tr></thead><tbody><tr><td>A</td><td>dữ liệu và giải thuật</td></tr><tr><td>B</td><td>dữ liệu lớn</td></tr></tbody></table>
+<p>Kết quả: (dữ,2), (liệu,2), (giải,1), (thuật,1), (lớn,1).</p><p>Với kho lớn, các bước phải xử lý được dữ liệu trên nhiều máy.</p>
+<aside class="notes"><p>Phần trước thiết kế Map/Reduce cho một phép tính. Phần này thêm xử lý trước khi đếm để thấy một chương trình có nhiều bước phụ thuộc. A/B là ví dụ Việt hóa mới của MMDS Ví dụ 2.7–2.8, không đổi D1/D2 của phần 2.2. Có 8 đơn vị sau tách, bỏ đúng một “và” còn 7; 5 khóa kết quả. Danh sách từ dừng chỉ gồm “và” trong ví dụ, không là danh sách chuẩn cho tiếng Việt. Không coi “dữ liệu” là một đơn vị vì quy ước tách khoảng trắng. Kho rỗng cho đầu ra rỗng; đếm số nguyên không tràn. Nguồn: MMDS 2.4.2, trang 44–45; mở rộng bài toán đếm từ đã học.</p></aside></section>
+<section id="lec02-s04-02" data-slide-id="lec02-s04-02"><h2>Đầu ra một bước là đầu vào bước sau</h2>
+<img class="figure" src="img/lec-02/ch2-van-ban-luong.svg" alt="Tài liệu qua tách từ rồi lọc; các từ còn lại được dùng để đếm theo từ hoặc đếm tổng số lần xuất hiện."/><p>Mũi tên biểu diễn phụ thuộc dữ liệu; mỗi hộp là một bước xử lý.</p><p>Một kết quả trung gian có thể phục vụ nhiều phép tính tiếp theo.</p>
+<aside class="notes"><p>Đọc lần lượt A/B → 8 từ → 7 từ sau lọc → 5 cặp đếm. Nhánh thứ hai đếm tổng số phần tử còn lại, cho 7, không phải 5 từ phân biệt. Nhánh này minh họa nhu cầu dùng lại dữ liệu sẽ gặp ở phần lưu đệm. Mỗi bước cần đúng dữ liệu đầu vào của nó; hai nhánh dùng cùng dữ liệu lọc. Sơ đồ không quy định mỗi hộp là một máy, tác vụ hay công việc MapReduce riêng. Hệ thống có thể ghép các phép biến đổi theo phần; hình chưa là lịch chạy. Đây là đồ thị phụ thuộc có hướng không chu trình: không có đường quay lại bước trước. Thay hình f,g,h,i,j của MMDS Hình 2.6 bằng sơ đồ ví dụ cụ thể, không coi là bản vẽ lại nguyên hình nguồn. Nguồn: MMDS 2.4.1, trang 41–43; Ví dụ 2.7–2.9, trang 44–47; nhánh đếm tổng là áp dụng hành động count theo Apache Spark RDD Guide.</p></aside></section>
+<section id="lec02-s04-03" data-slide-id="lec02-s04-03">
+  <h2>Hadoop: lưu dữ liệu và chạy MapReduce</h2>
+  <p>Hadoop là một hệ sinh thái gồm nhiều thành phần; trong bài này ta chỉ xét hai thành phần cốt lõi sau.</p>
+  <table>
+    <thead>
+      <tr><th>Thành phần</th><th>Vai trò</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>HDFS</td><td>Hệ tệp phân tán Hadoop: lưu khối và bản sao.</td></tr>
+      <tr><td>Hadoop MapReduce</td><td>Chia, lập lịch và chạy lại các tác vụ MapReduce trên cụm máy.</td></tr>
+    </tbody>
+  </table>
+  <p>Trên ví dụ đếm từ với văn bản A/B, HDFS giữ các tệp văn bản dạng khối, còn MapReduce thực hiện các bước Map → nhóm → Reduce trên dữ liệu đó.</p>
+  <aside class="notes">Nguồn: Apache Hadoop (https://hadoop.apache.org); MMDS mục 2.1 và 2.4 (phần mở đầu).</aside>
 </section>
-<section id="lec02-s04-02" data-slide-id="lec02-s04-02"><h2>Spark: Map và Flatmap</h2>
-<p><strong>Tập dữ liệu phân tán có khả năng khôi phục (RDD)</strong>: các phần tử cùng kiểu, chia trên nhiều máy.</p><p>Dùng lại D2 = “lớn lớn”; hàm tách tạo hai cặp giống nhau.</p><table><thead><tr><th>Phép biến đổi</th><th>Các phần tử đầu ra từ D2</th><th>Số phần tử</th></tr></thead><tbody><tr><td>Map</td><td>[(lớn,1), (lớn,1)]</td><td>1 danh sách</td></tr><tr><td>Flatmap</td><td>(lớn,1) và (lớn,1)</td><td>2 cặp</td></tr></tbody></table><p>Map trả đúng một đối tượng; Flatmap trả không, một hoặc nhiều phần tử. Các lần xuất hiện trùng nhau vẫn được giữ.</p>
-<aside class="notes"><p>Hai lần xuất hiện trong D2 là dữ liệu minh họa đã dùng ở phần MapReduce, áp dụng phép biến đổi của Ví dụ 2.7; không phải chuỗi trích nguyên văn. Dấu ngoặc vuông biểu diễn một danh sách là một đối tượng, còn hàng Flatmap biểu diễn hai phần tử của RDD.</p><p>Nguồn: mục 2.4.2, phần định nghĩa RDD và "Map, Flatmap, and Filter" cùng Ví dụ 2.7 . Sách nhấn hai điểm khác với Map của MapReduce: Map của Spark áp dụng cho mọi kiểu đối tượng (không chỉ cặp khóa–giá trị) và tạo đúng một đối tượng kết quả; muốn từ một đầu vào tạo nhiều phần tử thì dùng Flatmap. Ví dụ 2.7: đếm từ, nếu dùng Map, RDD đầu ra là danh sách các tập hợp, mỗi tập gồm các cặp (w,1) của một tài liệu; muốn lặp lại đúng Map của Ví dụ 2.1 — mỗi lần xuất hiện một cặp (w,1) — phải dùng Flatmap. Bảng trên tái hiện đúng sự phân biệt này; lưu ý nói rõ "một tập hợp vẫn là một đối tượng" vì đây là chỗ sinh viên hay nhầm. Sau Flatmap, Filter có thể loại các cặp chứa từ dừng.</p><p>Nguồn: MMDS, Chương 2, 2.4.2, Ví dụ 2.7, trang in 44–45.</p></aside>
+<section id="lec02-s04-04" data-slide-id="lec02-s04-04"><h2>Ví dụ văn bản trong Hadoop MapReduce</h2>
+<img class="figure" src="img/lec-02/ch2-hadoop-van-ban.svg" alt="HDFS cung cấp A/B; Map tách và lọc rồi phát cặp; hệ thống nhóm khóa; Reduce cộng và ghi kết quả vào HDFS."/><p>Map có thể tách từ, bỏ “và” rồi phát $(w,1)$ trong cùng một hàm.</p><p>Nhiều bước xử lý trong ví dụ này vẫn chỉ cần một công việc MapReduce.</p>
+<aside class="notes"><p>Map duyệt từng đơn vị của tài liệu, bỏ từ thuộc danh sách dừng, phát một cặp cho mỗi đơn vị còn lại. Hệ thống nhóm theo từ và Reduce cộng như phần 2.2. Như vậy khóa dữ và khóa liệu, mỗi khóa nhận hai đóng góp, ba khóa còn lại mỗi khóa nhận một. Bộ kết hợp tùy chọn có thể giảm số cặp thực sự truyền. HDFS chứa đầu vào và kết quả công việc; trung gian Map thường ở đĩa cục bộ, không đồng nhất mọi dữ liệu trung gian với HDFS. Nếu một ứng dụng cần nối nhiều công việc MapReduce qua tệp, đầu ra công việc trước có thể thành đầu vào công việc sau; ví dụ này không bắt buộc cách chia đó. Nguồn: vận dụng thuật toán MMDS 2.2.1–2.2.4 và Ví dụ 2.8; Apache Hadoop MapReduce Tutorial, phần Mapper, Reducer, Job Input/Output. Hình thể hiện cách cài đặt minh họa, không trích nguyên hình sách.</p></aside></section>
+<section id="lec02-s04-05" data-slide-id="lec02-s04-05">
+  <h2>Spark: biến đổi các phần dữ liệu</h2>
+  <p>Tập dữ liệu phân tán có khả năng khôi phục (RDD):<br/>các phần tử cùng kiểu, được chia thành nhiều phần.</p>
+  <p>Xét riêng tài liệu A: “dữ liệu và giải thuật”.</p>
+  <table>
+    <thead>
+      <tr><th>Biến đổi</th><th>Kết quả</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>map (tách)</td><td>1 danh sách chứa 5 từ</td></tr>
+      <tr><td>flatMap (tách)</td><td>5 phần tử từ</td></tr>
+      <tr><td>filter sau flatMap</td><td>4 từ, đã bỏ “và”</td></tr>
+    </tbody>
+  </table>
+  <p>Lưu ý: tên <code>map</code> ở Spark trả về 1 đối tượng cho mỗi phần tử, khác với MapReduce phát 0..n cặp.</p>
+  <aside class="notes">Trong hai hàng đầu, map và flatMap là hai lựa chọn thay thế trên cùng tài liệu A. Hàng filter áp dụng sau flatMap, không áp dụng trực tiếp lên danh sách mà map trả về. RDD giữ các lần xuất hiện lặp; không hiểu tập dữ liệu như tập hợp loại trùng. Với tài liệu rỗng, map(tách) vẫn trả một danh sách rỗng, còn flatMap không phát phần tử. Nguồn: MMDS 2.4.2, trang 44–45.</aside>
 </section>
-<section id="lec02-s04-03" data-slide-id="lec02-s04-03"><h2>Nối Flatmap với Filter</h2>
-<img class="figure" src="img/lec-02/ch2-spark.svg" alt="Tài liệu qua Flatmap thành R1, qua Filter thành R2 bỏ từ dừng."/><p class="check"><strong>Câu hỏi:</strong> Một từ dừng xuất hiện ba lần; R₂ còn bao nhiêu cặp của từ đó?</p>
-<aside class="notes"><p>Nguồn: mục 2.4.2, phần Filter và Ví dụ 2.8 . Sách mô tả Filter nhận vị từ áp cho kiểu phần tử của RDD đầu vào, đầu ra chỉ gồm phần tử được trả true; Ví dụ 2.8 nối tiếp Ví dụ 2.7: Flatmap tạo R1 gồm cặp (w,1) cho mỗi lần xuất hiện, rồi Filter với danh sách từ dừng cài sẵn cho ra R2 chỉ chứa cặp của từ không dừng. Giả thiết: danh sách từ dừng được coi là đã có sẵn trong hàm, không đi vào chi tiết cách xây. Đáp án câu hỏi: 0 cặp, vì cả ba lần xuất hiện đều bị vị từ loại; dùng câu này để nhấn Filter hoạt động trên từng phần tử. Ta dùng lại chuỗi biến đổi này để giải thích thời điểm tính và cách khôi phục dữ liệu.</p><p>Nguồn: MMDS, Chương 2, 2.4.2, Ví dụ 2.8, trang in 45–46.</p></aside>
+<section id="lec02-s04-06" data-slide-id="lec02-s04-06">
+  <h2>Spark: từ chuỗi biến đổi đến kết quả</h2>
+  <p>Giả mã đọc cả hai tài liệu A và B:</p>
+  <pre><code class="language-text" data-trim>van_ban = doc_tep(thu_muc_A_B)
+tu = van_ban.flatMap(tach_khoang_trang)
+sach = tu.filter(w =&gt; w != "và")
+cap = sach.map(w =&gt; (w, 1))
+dem = cap.reduceByKey((a, b) =&gt; a + b)
+dem.saveAsTextFile(thu_muc_ket_qua)</code></pre>
+  <p><code>reduceByKey</code> cộng các giá trị có cùng khóa; <code>saveAsTextFile</code> yêu cầu thực thi và ghi kết quả ra thư mục.</p>
+
+  <aside class="notes">Đây là giả mã, doc_tep tạo RDD các chuỗi, không phải tên hàm thư viện thật. thu_muc_A_B là thư mục chứa hai tài liệu A và B. Chỉ bỏ “và”; mỗi lần xuất hiện còn lại sinh một cặp, cộng theo khóa bảo toàn số đếm nếu số nguyên không tràn. Dữ liệu hữu hạn nên kết thúc, kho rỗng ghi kết quả rỗng. Có 8 từ trước lọc, 7 từ sau lọc, 7 cặp logic và 5 khóa kết quả; không coi 7 là số cặp thực sự truyền mạng vì có thể gộp cục bộ. Tách/lọc/ghép cặp xử lý tuyến tính số đơn vị trong mô hình thao tác đơn vị trên từ đã tách; việc đọc chuỗi còn phụ thuộc độ dài văn bản. Trao đổi và nhóm theo khóa xét riêng. reduceByKey trả RDD; reduce của Spark trả một giá trị, không thay thế trực tiếp phép đếm theo khóa này. Không dùng collect để đưa toàn bộ kết quả lớn về máy điều khiển. Nguồn: MMDS 2.4.2–2.4.3, Ví dụ 2.7–2.9 và Apache RDD Guide (https://spark.apache.org/docs/latest/rdd-programming-guide.html).</aside>
 </section>
-<section id="lec02-s04-04" data-slide-id="lec02-s04-04"><h2>Đánh giá lười và dòng dõi</h2>
-<ul><li>Phép biến đổi ghi cách tạo dữ liệu; hành động kích hoạt việc tính.</li><li>Lưu đệm giúp dùng lại phần dữ liệu đã tính.</li><li>Lịch sử biến đổi cho phép tính lại phần bị mất.</li></ul><p class="check"><strong>Câu hỏi:</strong> R₂ bị mất; hãy nêu thứ tự áp dụng phép biến đổi từ tệp tài liệu.</p>
-<aside class="notes"><p>Nguồn: mục 2.4.3, phần Lazy Evaluation với Ví dụ 2.9 và phần Resilience of RDD's với Ví dụ 2.10 . Ví dụ 2.9: R0 là RDD tạo từ tệp tài liệu, Flatmap cho R1, Filter cho R2; mọi biến đổi chỉ chạy khi có hành động trên R2; các phần R1, R2 tồn tại cục bộ và bị bỏ sau khi dùng. Ví dụ 2.10: dòng dõi của R2 ghi rõ R2 tạo từ R1 bằng Filter loại từ dừng, R1 tạo từ R0 bằng Flatmap, R0 tạo từ tệp ngoài; mất một phần R2 thì lần lượt tái tạo từ R1, rồi R0 — R0 lấy lại được từ hệ tệp dự phòng — rồi áp lại các phép biến đổi. Tương tự phần chịu lỗi của MapReduce, cần xác định dữ liệu nào còn và phần nào phải tính lại. Trả lời câu hỏi: R2 ← R1 ← R0 ← tệp ngoài, theo đúng chuỗi biến đổi đã ghi. Spark Reduce là hành động trả một giá trị; reduce của MapReduce được gọi theo khóa.</p><p>Thứ tự chạy lại theo chiều thuận: đọc phần cần thiết từ tệp, Flatmap, rồi Filter. Ví dụ này là chuỗi biến đổi trên từng phần; không khái quát rằng mọi phép biến đổi Spark không trao đổi dữ liệu. Lưu đệm không đồng nghĩa mọi dữ liệu luôn vừa bộ nhớ.</p><p>Nguồn: MMDS, Chương 2, 2.4.3, Ví dụ 2.9–2.10, trang in 46–47.</p></aside>
-</section>
-<section id="lec02-s04-05" data-slide-id="lec02-s04-05"><h2>Vai trò lưu trữ và thực thi</h2>
-<table><thead><tr><th>Lớp</th><th>Trách nhiệm</th></tr></thead><tbody><tr><td>Hệ tệp phân tán</td><td>Lưu khối và bản sao</td></tr><tr><td>MapReduce / Spark</td><td>Phân chia, lập lịch, khôi phục tác vụ</td></tr></tbody></table><p>Reduce của Spark trả một giá trị tổng hợp; reduce của MapReduce được gọi theo khóa.</p><p>Đọc thêm: TensorFlow, tính toán đệ quy, đồng bộ theo từng bước.</p>
-<aside class="notes"><p>Nguồn: tổng hợp mục 2.4 : ba đặc điểm chung của các hệ mở rộng (xây trên DFS, quản lượng lớn tác vụ từ ít hàm người dùng viết, tự xử lý phần lớn lỗi); mục 2.4.1 cho giới hạn hai tầng và ý tưởng đồ thị; các mục 2.4.4–2.4.6 (TensorFlow, mở rộng đệ quy của MapReduce, hệ đồng bộ theo từng bước) được định vị là đọc thêm, không kiểm tra chi tiết. DFS lưu dữ liệu, còn hệ tính toán phân chia và thực thi tác vụ. Cần phân biệt Reduce của Spark (hành động, gộp liên tiếp hai phần tử thành một giá trị, không gom theo khóa) với reduce theo khóa của MapReduce; sách nói rõ điều này ở phần Reduce của 2.4.2. Một phép tính có thể là mạng nhiều tác vụ; ta cần một quy tắc cộng chi phí trên cả mạng.</p><p>Nguồn: MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48; 2.4.4–2.4.6, trang in 48–53 là đọc thêm.</p></aside>
+<section id="lec02-s04-07" data-slide-id="lec02-s04-07"><h2>Tính khi cần và dùng lại kết quả</h2>
+<img class="figure" src="img/lec-02/ch2-spark-dung-lai.svg" alt="Dữ liệu sạch được lưu khi hành động đầu tính nó; lần đếm tổng dùng lại phần còn lưu."/><p>Biến đổi ghi cách tạo dữ liệu; hành động mới yêu cầu tính kết quả.</p><p>Để dùng lại, thêm <span class="inline-code">sach.cache()</span> trước lệnh lưu kết quả ở trang trước.</p>
+<aside class="notes"><p>Trong giả mã trước, flatMap, filter, map, reduceByKey tạo kế hoạch biến đổi; saveAsTextFile là hành động. Nếu muốn dùng dữ liệu sạch cho cả lưu số đếm theo từ và sach.count(), đặt sach.cache() trước hành động đầu. Lần đầu tính tới đâu thì lưu các phần đó tới đó; cache() tự nó không tính ngay dữ liệu. Hành động sau có thể dùng lại những phần còn được lưu, tránh tách/lọc lại chúng. Nếu không lưu hoặc phần đã bị loại, có thể phải tính lại. RDD cache mặc định trong bộ nhớ; không vừa thì một số phần không được lưu, không tự bảo đảm chuyển sang đĩa. persist với mức lưu phù hợp có thể dùng cả bộ nhớ và đĩa. Không áp dụng khẳng định mọi phép biến đổi tránh mạng: reduceByKey có thể cần trao đổi dữ liệu giữa các phần. Nguồn: MMDS 2.4.3, trang 46–47, Ví dụ 2.9; Apache Spark RDD Programming Guide, RDD Operations và RDD Persistence.</p></aside></section>
+<section id="lec02-s04-08" data-slide-id="lec02-s04-08"><h2>Tính lại phần dữ liệu bị mất</h2>
+<img class="figure" src="img/lec-02/ch2-spark-khoi-phuc.svg" alt="Phần sạch của A mất: đọc lại A từ HDFS, tách, lọc rồi tái tạo; phần sạch của B còn lưu được giữ."/><p>Spark ghi lại các phép biến đổi đã tạo từng tập dữ liệu.</p><p><strong>Câu hỏi:</strong> Phần sạch của A mất, phần của B còn. Cần tính lại phần nào?</p>
+<aside class="notes"><p>Giả sử A và B nằm trong hai phần dữ liệu khác nhau, nguồn HDFS còn truy cập được và các phép tách/lọc xác định. Nếu chỉ phần sạch A bị mất và không còn trung gian phù hợp, đọc lại phần A, tách rồi lọc; giữ phần B còn lưu. Tên A/B chỉ minh họa một tài liệu trong mỗi phần, không phải quy định một tài liệu là một phần. Lịch sử tạo dữ liệu này gọi là dòng dõi. Khôi phục đi theo phụ thuộc, từ nguồn còn tồn tại tới phần cần dùng. Ví dụ là chuỗi tách/lọc theo từng phần; sau một phép nhóm khóa hoặc trao đổi dữ liệu, việc tính lại có thể cần đầu vào từ nhiều phần. Không suy ra mọi lỗi luôn chỉ đọc một tài liệu hoặc cache thay thế lưu trữ bền vững. Nguồn: MMDS 2.4.3, Ví dụ 2.10, trang 47; Apache Spark RDD Guide, RDD Persistence.</p></aside></section>
+<section id="lec02-s04-09" data-slide-id="lec02-s04-09">
+  <h2>Hadoop MapReduce và Spark</h2>
+  <table>
+    <thead>
+      <tr><th>Loại</th><th>Cách biểu diễn</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Hadoop MapReduce</td><td>Công việc Map → nhóm → Reduce</td></tr>
+      <tr><td>Spark</td><td>Chuỗi biến đổi trên RDD</td></tr>
+    </tbody>
+  </table>
+  <p>Spark có thể đọc dữ liệu trực tiếp từ HDFS; Spark không phải là hệ thống thay thế HDFS.</p>
+  <p>Câu hỏi: trong ví dụ đếm từ, bước nào cần gom các cặp cùng từ từ các phần?</p>
+  <aside class="notes">Nguồn: Apache RDD Guide; MMDS 2.4.3, tr. 46–48. Trả lời câu hỏi: reduceByKey. Phép reduceByKey có thể cần phân phối lại dữ liệu theo khóa. Dữ liệu lưu đệm và trao đổi có thể dùng bộ nhớ hoặc đĩa; không kết luận Spark luôn nhanh hơn Hadoop MapReduce. Phần 2.5 sẽ tính lượng dữ liệu mỗi tác vụ nhận.</aside>
 </section>
 </section>
 <section aria-label="Mục 2.5">

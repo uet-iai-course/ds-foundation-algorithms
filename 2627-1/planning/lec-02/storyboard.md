@@ -4,7 +4,7 @@
 
 Áp dụng [slide_authoring_standard.md](../../../slide_authoring_standard.md) và [AGENTS.md](../../../AGENTS.md). Sinh viên năm 2 đã học lập trình và nhân ma trận–vector, chưa học CSDL. Nguồn chính: [MMDS Chương 2](../../../sources/textbooks/ch2n.pdf), trang in 20–79; trang PDF bằng trang in trừ 19. Giữ 9 section: mở đầu và mỗi mục 2.1–2.8 một section theo yêu cầu người dùng, ngoại lệ quy tắc 5–7 section.
 
-Bản hiện hành có **50 trang giảng và 8 trang bài tập**, thiết kế **120 phút giảng + 60 phút recitation**. Phân bổ dự kiến, chưa diễn tập với lớp thật. Bỏ quan hệ, chọn, chiếu, nối, tổng hợp và liên hệ nhân hai ma trận (2.3.3–2.3.10), các ví dụ chi phí nối của 2.5.3 và bài 2.5.1(c) theo chỉ dẫn mới về tiên quyết. Không giữ phép nối ngầm trong bài tập hoặc phần kết. Thời gian chuyển sang giải thích hai hàm, vết chạy và đếm chi phí; không thêm số liệu ngoài nguồn.
+Bản hiện hành có **54 trang giảng và 8 trang bài tập**, thiết kế **120 phút giảng + 60 phút recitation**. Phân bổ dự kiến, chưa diễn tập với lớp thật. Bỏ quan hệ, chọn, chiếu, nối, tổng hợp và liên hệ nhân hai ma trận (2.3.3–2.3.10), các ví dụ chi phí nối của 2.5.3 và bài 2.5.1(c) theo chỉ dẫn mới về tiên quyết. Không giữ phép nối ngầm trong bài tập hoặc phần kết. Thời gian chuyển sang giải thích hai hàm, vết chạy và đếm chi phí; không thêm số liệu ngoài nguồn.
 
 Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 21: 20 phút; 2.5.1(a), trang 59/PDF 40: 25 phút. Giữ nguyên đề nguồn, chỉ dịch và tách ý. Bỏ bài 2.5.1(c), dành trọn 25 phút cho lập bảng, trình bày và đối chiếu điều kiện của ý (a); không thêm bài mới. Bài tập nằm cuối section nguồn, ngoại lệ để giữ ánh xạ PDF; liên kết từ tổng kết dẫn vào recitation sau phần giảng.
 
@@ -14,11 +14,11 @@ Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 
 |---|---|---:|
 | Mở đầu | Giới hạn một máy → mục tiêu và nội dung. | 5 |
 | 2.1 | Cụm máy → lỗi → khối và bản sao → đầu vào tác vụ. | 8 |
-| 2.2 | Lợi ích → đếm từ → hai hàm → giả mã/đúng → tạo tác vụ → phân khóa → gán máy → dữ liệu còn lại → phục hồi lỗi. | 38 |
-| 2.3 | Đổi khóa từ từ sang hàng → vết các tích → giả mã → chia dải vector. | 20 |
-| 2.4 | Một công việc → đồ thị phụ thuộc → Spark/tính lại → nhiều tác vụ cần đánh giá. | 10 |
+| 2.2 | Lợi ích → đếm từ → hai hàm → giả mã/đúng → tạo tác vụ → phân khóa → gán máy → dữ liệu còn lại → phục hồi lỗi. | 34 |
+| 2.3 | Đổi khóa từ từ sang hàng → vết các tích → giả mã → chia dải vector. | 18 |
+| 2.4 | Văn bản → tách/lọc/đếm → Hadoop → Spark → dùng lại/khôi phục → chi phí. | 18 |
 | 2.5 | Mô hình/đơn vị → đếm từ → đọc dải vector → tổng và tải lớn nhất. | 15 |
-| 2.6 | Giới hạn tác vụ → đặc tả ảnh → từng cặp → nhóm ảnh → đúng và bộ nhớ. | 18 |
+| 2.6 | Giới hạn tác vụ → đặc tả ảnh → từng cặp → nhóm ảnh → đúng và bộ nhớ. | 16 |
 | 2.7 | Thu hồi các lớp lập luận → bốn sản phẩm tự kiểm tra. | 5 |
 | 2.8 | Nguồn/hướng đọc → bài tập từ giáo trình. | 1 |
 
@@ -28,7 +28,7 @@ Recitation: 2.2.1(a–c), trang 30/PDF 11: 15 phút; 2.3.1(a–d), trang 40/PDF 
 - Ma trận–vector: s03-01 đặc tả từ tiên quyết; 02 vết ký hiệu; 02a giả mã, giả thiết và đúng; 03 chia dải (Hình 2.4); 03a đánh giá phép tính và bộ nhớ. Không tự đặt ma trận số ngoài nguồn. 2.5 quay lại dữ liệu này: mỗi phần tử đọc một lần, mỗi tác vụ đọc dải vector cần dùng. s05-03a định nghĩa đơn vị/kích thước và đếm; 03b cộng rồi xét trường hợp. Bài 2.5.1(a) yêu cầu giải thích mỗi số hạng và điều kiện. Số học chính xác; hàng không lưu hiểu bằng 0.
 - Cặp ảnh: s06-00 đặc tả theo 2.6.2; 01 định nghĩa q/rho; 02 từng cặp; 03 từng nhóm; 03a bao phủ cặp chéo/nội bộ; 03b đếm so sánh; 04 kiểm tra bộ nhớ. Giữ dữ kiện nguồn một triệu ảnh, một triệu byte mỗi ảnh và 1000 nhóm đều; không giảm số so sánh. Không cần phép nối quan hệ để theo dõi phân công ảnh.
 - Hệ thống và Spark dùng hình cơ chế/phụ thuộc; không tạo chứng minh hay giả mã ngoài nguồn. MMDS và Stanford đã được kiểm kê; sách quyết định mạch, ví dụ và chi phí. Giữ cách thể hiện một bước suy luận mỗi trang, ví dụ trước ký hiệu đã tham khảo math-4-AI 01–03.
-- 13 SVG được dùng, gồm năm hình mới về tạo Map, phân khóa, phân bổ máy, phục hồi Map và phục hồi Reduce. Hình khóa–tác vụ cũ không còn nhúng; các tài sản cũ giữ để truy nguyên. Mỗi hình mới có script tái sinh, mô tả và mũi tên; không dùng màu làm tín hiệu duy nhất.
+- 15 SVG được dùng; phần2.4 thay hai hình cũ bằng bốn hình về chuỗi văn bản, Hadoop, lưu đệm và phục hồi Spark. Các hình thực thi/phục hồi MapReduce ở2.2 được giữ. Hình khóa–tác vụ cũ không còn nhúng; các tài sản cũ giữ để truy nguyên. Mỗi hình mới có script tái sinh, mô tả và mũi tên; không dùng màu làm tín hiệu duy nhất.
 
 Các ID giữ ổn định từ bản trước; thứ tự trình bày do DOM quyết định, không sắp xếp ID. Khoảng trống ID là các slide đã bỏ, không phải bài tập bị thiếu.
 
@@ -116,7 +116,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.2.1–2.2.3, Ví dụ 2.1–2.2, trang in 25–27.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-01).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-01a` · Lợi ích của MapReduce
 
@@ -138,7 +138,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, Ví dụ 2.1, trang in 26; dữ liệu minh họa tiếng Việt được ghi trong storyboard.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-02).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-03` · Nhóm theo khóa rồi cộng
 
@@ -149,7 +149,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.2.2–2.2.3, Ví dụ 2.2, trang in 26–27.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-03).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-03a` · Hai hàm của MapReduce
 
@@ -176,7 +176,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
     dữ [1], liệu [1], lớn [1,1,1]. Nhãn vai trò: Người viết: Map/Reduce;
     Hệ thống: nhóm khóa.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s02-03b).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s02-03c` · Đặc tả bài toán đếm từ
 
@@ -354,7 +354,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.3.1, trang in 31–32.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s03-01).
-- **Thời lượng:** 5 phút giảng.
+- **Thời lượng:** 4 phút giảng.
 
 ### `lec02-s03-02` · Khóa hàng gom đúng các tích
 
@@ -365,7 +365,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.3.1, trang in 31–32.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s03-02).
-- **Thời lượng:** 4 phút giảng.
+- **Thời lượng:** 3 phút giảng.
 
 ### `lec02-s03-02a` · Giả mã nhân ma trận–vector
 
@@ -439,65 +439,109 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Kiến thức đầu vào:** Đếm và loại trùng.
 - **Mục đích:** Tổng hợp số khóa phân biệt thành một số đếm.
 - **Câu chốt:** Có thể loại trùng theo khóa rồi cộng số khóa để đếm giá trị phân biệt.
-- **Kết nối vào–ra:** từ “Bài tập 2.3.1(c) · Mỗi số chỉ xuất hiện một lần”; tạo cơ sở cho “2.4 · Luồng công việc nhiều hàm”. Bài tập dùng sau phần giảng qua liên kết.
+- **Kết nối vào–ra:** từ “Bài tập 2.3.1(c) · Mỗi số chỉ xuất hiện một lần”; tạo cơ sở cho “2.4 · Từ văn bản đến chuỗi xử lý dữ liệu”. Bài tập dùng sau phần giảng qua liên kết.
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, Bài tập 2.3.1(d), trang in 40 / PDF 21.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-ex231d).
 - **Thời lượng:** 5 phút recitation.
 
-### `lec02-s04-01` · 2.4 · Luồng công việc nhiều hàm
+### `lec02-s04-01` · 2.4 · Từ văn bản đến chuỗi xử lý dữ liệu
 
-- **Kiến thức đầu vào:** Hai tầng MapReduce và chịu lỗi.
-- **Mục đích:** Đọc phụ thuộc dữ liệu giữa nhiều hàm.
-- **Câu chốt:** Cung trong luồng công việc thể hiện đầu ra hàm trước cung cấp đầu vào hàm sau.
-- **Kết nối vào–ra:** từ “Chia dải khi vector không vừa bộ nhớ”; chuẩn bị “Spark: Map và Flatmap”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** SVG có nhãn và chiều luồng.
-- **Nguồn:** MMDS, Chương 2, 2.4.1, Hình 2.6 và Ví dụ 2.6, trang in 42–43.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-01).
+- **Kiến thức đầu vào:** Giả mã MapReduce và mô hình tác vụ đã học.
+- **Mục đích:** Đặc tả và chạy tay ví dụ lọc rồi đếm từ.
+- **Câu chốt:** Lọc đúng từ dừng rồi đếm mọi lần xuất hiện còn lại.
+- **Kết nối vào–ra:** Từ “Giả mã MapReduce và mô hình tác vụ đã học”; cung cấp cơ chế và dữ liệu cho “Đầu ra một bước là đầu vào bước sau”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-01).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s04-02` · Spark: Map và Flatmap
+### `lec02-s04-02` · Đầu ra một bước là đầu vào bước sau
 
-- **Kiến thức đầu vào:** D2, cặp từ–số đếm.
-- **Mục đích:** Phân biệt một danh sách với nhiều phần tử RDD.
-- **Câu chốt:** Map trả một đối tượng cho mỗi đầu vào; Flatmap có thể trả nhiều phần tử.
-- **Kết nối vào–ra:** từ “2.4 · Luồng công việc nhiều hàm”; chuẩn bị “Nối Flatmap với Filter”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.4.2, Ví dụ 2.7, trang in 44–45.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-02).
+- **Kiến thức đầu vào:** 2.4 · Từ văn bản đến chuỗi xử lý dữ liệu.
+- **Mục đích:** Theo dõi dữ liệu qua chuỗi bước và hai nhánh dùng lại.
+- **Câu chốt:** Các bước phụ thuộc qua dữ liệu, và một kết quả có thể dùng cho nhiều nhánh.
+- **Kết nối vào–ra:** Từ “2.4 · Từ văn bản đến chuỗi xử lý dữ liệu”; cung cấp cơ chế và dữ liệu cho “Hadoop: lưu dữ liệu và chạy MapReduce”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-02).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s04-03` · Nối Flatmap với Filter
+### `lec02-s04-03` · Hadoop: lưu dữ liệu và chạy MapReduce
 
-- **Kiến thức đầu vào:** RDD và Flatmap.
-- **Mục đích:** Theo dõi lọc từng phần tử sau Flatmap.
-- **Câu chốt:** Filter quyết định giữ hay bỏ từng phần tử mà Flatmap đã tạo.
-- **Kết nối vào–ra:** từ “Spark: Map và Flatmap”; chuẩn bị “Đánh giá lười và dòng dõi”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** SVG có nhãn và chiều luồng.
-- **Nguồn:** MMDS, Chương 2, 2.4.2, Ví dụ 2.8, trang in 45–46.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-03).
+- **Kiến thức đầu vào:** Đầu ra một bước là đầu vào bước sau.
+- **Mục đích:** Phân biệt vai trò HDFS và Hadoop MapReduce.
+- **Câu chốt:** HDFS lưu tệp; Hadoop MapReduce tổ chức tính toán.
+- **Kết nối vào–ra:** Từ “Đầu ra một bước là đầu vào bước sau”; cung cấp cơ chế và dữ liệu cho “Ví dụ văn bản trong Hadoop MapReduce”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-03).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s04-04` · Đánh giá lười và dòng dõi
+### `lec02-s04-04` · Ví dụ văn bản trong Hadoop MapReduce
 
-- **Kiến thức đầu vào:** Chuỗi Flatmap rồi Filter.
-- **Mục đích:** Nêu thứ tự tính lại R2 từ lịch sử biến đổi.
-- **Câu chốt:** Dòng dõi lưu cách tạo dữ liệu để tính lại phần bị mất khi còn đầu vào cần thiết.
-- **Kết nối vào–ra:** từ “Nối Flatmap với Filter”; chuẩn bị “Vai trò lưu trữ và thực thi”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.4.3, Ví dụ 2.9–2.10, trang in 46–47.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-04).
+- **Kiến thức đầu vào:** Hadoop: lưu dữ liệu và chạy MapReduce.
+- **Mục đích:** Ánh xạ tách/lọc/đếm vào một công việc MapReduce.
+- **Câu chốt:** Tách và lọc có thể nằm trong cùng hàm Map của một công việc.
+- **Kết nối vào–ra:** Từ “Hadoop: lưu dữ liệu và chạy MapReduce”; cung cấp cơ chế và dữ liệu cho “Spark: biến đổi các phần dữ liệu”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-04).
 - **Thời lượng:** 2 phút giảng.
 
-### `lec02-s04-05` · Vai trò lưu trữ và thực thi
+### `lec02-s04-05` · Spark: biến đổi các phần dữ liệu
 
-- **Kiến thức đầu vào:** DFS, MapReduce, Spark.
-- **Mục đích:** Phân biệt trách nhiệm lưu trữ với thực thi.
-- **Câu chốt:** Lưu trữ phân tán và hệ thực thi giải quyết hai trách nhiệm khác nhau.
-- **Kết nối vào–ra:** từ “Đánh giá lười và dòng dõi”; chuẩn bị “2.5 · Quy ước tính chi phí”. Mạch giảng bỏ qua recitation tới cuối buổi.
-- **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
-- **Nguồn:** MMDS, Chương 2, 2.4.1–2.4.3, trang in 41–48; 2.4.4–2.4.6, trang in 48–53 là đọc thêm.
-- **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-05).
+- **Kiến thức đầu vào:** Ví dụ văn bản trong Hadoop MapReduce.
+- **Mục đích:** Phân biệt map, flatMap và filter trên cùng tài liệu.
+- **Câu chốt:** map tạo một đối tượng, flatMap tạo từng phần tử, filter giữ phần tử đạt điều kiện.
+- **Kết nối vào–ra:** Từ “Ví dụ văn bản trong Hadoop MapReduce”; cung cấp cơ chế và dữ liệu cho “Spark: từ chuỗi biến đổi đến kết quả”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-05).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s04-06` · Spark: từ chuỗi biến đổi đến kết quả
+
+- **Kiến thức đầu vào:** Spark: biến đổi các phần dữ liệu.
+- **Mục đích:** Đọc chuỗi biến đổi Spark và xác định hành động tạo kết quả.
+- **Câu chốt:** reduceByKey tạo số đếm theo từ; hành động lưu yêu cầu tính và ghi kết quả.
+- **Kết nối vào–ra:** Từ “Spark: biến đổi các phần dữ liệu”; cung cấp cơ chế và dữ liệu cho “Tính khi cần và dùng lại kết quả”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-06).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s04-07` · Tính khi cần và dùng lại kết quả
+
+- **Kiến thức đầu vào:** Spark: từ chuỗi biến đổi đến kết quả.
+- **Mục đích:** Giải thích thời điểm tính và điều kiện dùng lại dữ liệu.
+- **Câu chốt:** Lưu lại dữ liệu đã tính giúp hành động sau dùng lại các phần còn giữ.
+- **Kết nối vào–ra:** Từ “Spark: từ chuỗi biến đổi đến kết quả”; cung cấp cơ chế và dữ liệu cho “Tính lại phần dữ liệu bị mất”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-07).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s04-08` · Tính lại phần dữ liệu bị mất
+
+- **Kiến thức đầu vào:** Tính khi cần và dùng lại kết quả.
+- **Mục đích:** Chỉ ra phần cần đọc và tính lại khi mất dữ liệu.
+- **Câu chốt:** Lịch sử biến đổi chỉ ra cách tái tạo phần cần dùng từ nguồn còn tồn tại.
+- **Kết nối vào–ra:** Từ “Tính khi cần và dùng lại kết quả”; cung cấp cơ chế và dữ liệu cho “Hadoop MapReduce và Spark”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-08).
+- **Thời lượng:** 2 phút giảng.
+
+### `lec02-s04-09` · Hadoop MapReduce và Spark
+
+- **Kiến thức đầu vào:** Tính lại phần dữ liệu bị mất.
+- **Mục đích:** Phân biệt hệ tính toán với lưu trữ và nhận ra bước cần nhóm dữ liệu.
+- **Câu chốt:** Spark có thể dùng HDFS; cả hai hệ tính toán đều cần được đánh giá theo dữ liệu thực nhận.
+- **Kết nối vào–ra:** Từ “Tính lại phần dữ liệu bị mất”; cung cấp cơ chế và dữ liệu cho “2.5 · Quy ước tính chi phí”.
+- **Cách thể hiện:** Ví dụ A/B đi xuyên suốt; sơ đồ dữ liệu ở 02/04/07/08, bảng vai trò hoặc phép biến đổi ở 03/05/09, giả mã ở 06. Mỗi trang chỉ tập trung bước nêu trong tiêu đề.
+- **Nguồn:** MMDS 2.4.1–2.4.3, trang 41–48, Ví dụ 2.7–2.10; Apache Hadoop và Spark RDD Guide cho tên thành phần/API, theo outline. Ví dụ A/B là chuyển ngữ cơ chế nguồn, không thay D1/D2.
+- **Ghi chú:** [Lập luận, giả thiết và câu chuyển](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s04-09).
 - **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s05-02` · 2.5 · Quy ước tính chi phí
@@ -586,7 +630,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.6.2, trang in 62–63.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-00).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s06-01` · Đầu vào mỗi reducer và số lần sao chép
 
@@ -597,7 +641,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - **Cách thể hiện:** Bảng, giả mã hoặc công thức theo từng bước; diễn giải và đáp án trong notes.
 - **Nguồn:** MMDS, Chương 2, 2.6.1, trang in 61.
 - **Ghi chú:** [Giả thiết, lập luận và đáp án](../../lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html#/lec02-s06-01).
-- **Thời lượng:** 3 phút giảng.
+- **Thời lượng:** 2 phút giảng.
 
 ### `lec02-s06-02` · Mỗi reducer xử lý một cặp ảnh
 
@@ -693,7 +737,7 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 - `note-02-01` → mục 2.1 của lecture-note.md và các slide cùng mục. Vai trò: Cụm máy → lỗi → khối và bản sao → đầu vào tác vụ. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-02` → mục 2.2 của lecture-note.md và các slide cùng mục. Vai trò: Đếm từ → vết phát/nhóm/cộng → hai chữ ký → hình luồng → giả mã và đúng → thực thi. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-03` → mục 2.3 của lecture-note.md và các slide cùng mục. Vai trò: Đổi khóa từ từ sang hàng → vết các tích → giả mã → chia dải vector. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
-- `note-02-04` → mục 2.4 của lecture-note.md và các slide cùng mục. Vai trò: Một công việc → đồ thị phụ thuộc → Spark/tính lại → nhiều tác vụ cần đánh giá. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
+- `note-02-04` → mục 2.4 của lecture-note.md và các slide cùng mục. Vai trò: Văn bản → tách/lọc/đếm → Hadoop → Spark → dùng lại/khôi phục → chi phí. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-05` → mục 2.5 của lecture-note.md và các slide cùng mục. Vai trò: Mô hình/đơn vị → đếm từ → đọc dải vector → tổng và tải lớn nhất. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-06` → mục 2.6 của lecture-note.md và các slide cùng mục. Vai trò: Giới hạn tác vụ → đặc tả ảnh → từng cặp → nhóm ảnh → đúng và bộ nhớ. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
 - `note-02-07` → mục 2.7 của lecture-note.md và các slide cùng mục. Vai trò: Thu hồi các lớp lập luận → bốn sản phẩm tự kiểm tra. Ghi chú định nghĩa trước ví dụ, mở rộng lập luận, cùng ký hiệu với slide.
@@ -701,6 +745,10 @@ D1 thuộc phần 0, D2 thuộc phần 1 chỉ là minh họa. Map 0/1 ban đầ
 
 ## Các bổ sung trong bản hiện hành
 
-Trang lợi ích s02-01a nằm sau mở mục 2.2, trước vết đếm từ; cơ chế chi tiết ở 06–07b. Bốn trang đặc tả/đánh giá mới là s02-03c, s02-04b, s03-03a và s06-03b. Tổng hiện hành 58 trang = 50 giảng + 8 bài tập; mục 2.2 có 38 phút, toàn bài 120+60 phút theo bảng và từng trang phía trên. Phân bổ của lần thêm lợi ích trước đây được lưu trong review-log, không dùng làm ngân sách hiện hành.
+Trang lợi ích s02-01a nằm sau mở mục 2.2, trước vết đếm từ; cơ chế chi tiết ở 06–07b. Bốn trang đặc tả/đánh giá mới là s02-03c, s02-04b, s03-03a và s06-03b. Tổng hiện hành 62 trang = 54 giảng + 8 bài tập; mục 2.2 có 34 phút, toàn bài 120+60 phút theo bảng và từng trang phía trên. Phân bổ của lần thêm lợi ích trước đây được lưu trong review-log, không dùng làm ngân sách hiện hành.
 
-Đặc tả ma trận làm rõ tọa độ duy nhất và đầu ra hàng rỗng; đặc tả ảnh quy định mã 1..N và cặp i<j. Bộ kết hợp có phân tích số tổng cục bộ và bộ nhớ bảng trong ghi chú. Lời giải Bài 2.3.1 bổ sung bảng đặc tả/đánh giá, giữ nguyên đề. Các đại lượng bộ nhớ phụ không gồm vùng đầu vào và quản lý hệ thống. Không thêm SVG vì bốn trang mới dùng bảng HTML để đối chiếu các bước với phép đếm; giữ 13 hình hiện có.
+Đặc tả ma trận làm rõ tọa độ duy nhất và đầu ra hàng rỗng; đặc tả ảnh quy định mã 1..N và cặp i<j. Bộ kết hợp có phân tích số tổng cục bộ và bộ nhớ bảng trong ghi chú. Lời giải Bài 2.3.1 bổ sung bảng đặc tả/đánh giá, giữ nguyên đề. Các đại lượng bộ nhớ phụ không gồm vùng đầu vào và quản lý hệ thống. Không thêm SVG vì bốn trang mới dùng bảng HTML để đối chiếu các bước với phép đếm; giữ các hình đã có ở những phần khác; phần 2.4 dùng bốn hình mới.
+
+## Quyết định viết lại 2.4 — 2026-09-16
+
+Thay toàn bộ5trang cũ bằng9trang theo kế hoạch outline, giữ ID01–05 và thêm06–09. Hình f,g,h,i,j không còn dùng; hình chuỗi Spark cũ thay bằng ví dụ A/B. Phần2.4=18phút; ngân sách và từng trang phía trên là hiện hành. Bài tập60phút không đổi. Cơ chế hệ thống không tạo chứng minh mới; thuật toán lọc/đếm dùng lại chứng minh đếm từ. Các bước thực thi và đánh giá được phân bố qua ví dụ, giả mã, lưu đệm, khôi phục và nối sang2.5.
