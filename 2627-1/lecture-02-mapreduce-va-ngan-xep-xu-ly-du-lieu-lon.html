@@ -43,6 +43,91 @@
     .reveal .rack-points p { font-size:25px; margin:.2em 0; }
     .reveal .rack-slide > p { font-size:26px; }
     .reveal .rack-slide > .motivation-source { font-size:18px; }
+    .reveal .model-slide h1 { font-size:1.35em; color:#2f3e7a; margin-bottom:.55em; }
+    .model-slide .cards, .wordcount-slide .io-cols { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .model-slide .card, .wordcount-slide .col { padding:18px; border:1px solid #bec8d9; border-left:4px solid #2f3e7a; border-radius:7px; background:#f8fafc; }
+    .reveal .model-slide h3, .reveal .wordcount-slide h3 { font-size:29px; text-transform:none; color:#2f3e7a; margin:0 0 .25em; }
+    .reveal .model-slide .card p, .reveal .wordcount-slide .col p { font-size:27px; margin:0; }
+    .reveal .model-slide .takeaway { color:#2f3e7a; font-size:28px; margin-top:.7em; }
+    .reveal .wordcount-slide .main-formula { margin-top:.8em; font-size:27px; }
+    .reveal .wordcount-slide .formula { text-align:center; font-size:34px; color:#2f3e7a; }
+    .reveal .wordcount-slide .difficulties { border-top:2px solid #bec8d9; padding-top:10px; }
+    .reveal .wordcount-slide .difficulties p { font-size:26px; }
+    .capability-heading { display:flex; gap:14px; align-items:center; margin-bottom:10px; }
+    .reveal .model-slide .capability-heading h3 { font-size:27px; margin:0; }
+    .capability-icon { width:58px; height:60px; flex-shrink:0; color:#2f3e7a; }
+    .wordcount-layout { display:grid; grid-template-columns:minmax(0,7fr) minmax(0,3fr); gap:28px; align-items:center; }
+    .reveal .wordcount-content .io-cols { gap:16px; }
+    .reveal .wordcount-content .col { padding:14px; }
+    .reveal .wordcount-content .col p { font-size:26px; }
+    .reveal .wordcount-content .main-formula { font-size:26px; margin-top:.6em; }
+    .reveal .wordcount-content .difficulties p { font-size:25px; }
+    .wordcount-picture { border-left:1px solid #bec8d9; padding-left:20px; text-align:center; color:#2f3e7a; }
+    .reveal .wordcount-picture .picture-label { font-size:26px; margin:0 0 18px; }
+    .document-stack { display:flex; align-items:center; justify-content:center; gap:8px; height:190px; margin:auto; }
+    .document-sheet { box-sizing:border-box; width:78px; height:145px; padding:12px; flex-shrink:0; border:2px solid #2f3e7a; border-radius:5px; background:white; font-size:25px; }
+    .document-sheet i { display:block; height:3px; background:#a5afc0; margin:16px 0 0; }
+    .document-sheet i:last-child { width:65%; }
+    .wordcount-arrow { display:block; width:50px; height:60px; margin:5px auto; }
+    .reveal .count-output { font-size:26px; margin:0 auto; width:100%; }
+    .reveal .count-output th, .reveal .count-output td { text-align:center; padding:.3em; }
+    .reveal .wordcount-picture .picture-caption { font-size:22px; margin:.65em 0 0; }
+    .wordmap-cards { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .wordmap-cards .card { padding:18px; border:2px solid #bec8d9; border-radius:8px; }
+    .reveal .wordmap-slide h3, .reveal .taskflow-slide h3, .reveal .wordtrace-slide h3 { font-size:29px; text-transform:none; color:#2f3e7a; margin:0 0 12px; }
+    .reveal .wordmap-cards p { font-size:25px; }
+    .reveal .wordmap-cards pre { box-shadow:none; margin:16px 0; width:100%; font-size:22px; background:#edf4ff; padding:12px; box-sizing:border-box; }
+    .reveal .wordmap-cards code { font-family:monospace; white-space:pre-wrap; padding:0; line-height:1.5; max-height:none; }
+    .wordmap-strip { border-left:4px solid #2f3e7a; padding-left:16px; margin-top:18px; }
+    .reveal .wordmap-strip p { font-size:26px; margin:6px 0; }
+    .taskflow-diagram { display:grid; grid-template-columns:1fr .85fr 1fr; gap:20px; align-items:center; }
+    .task-card { background:#f8fafc; border:2px solid #bec8d9; border-radius:7px; padding:14px; margin:12px 0; font-size:25px; color:#2f3e7a; }
+    .task-card span { color:#526070; font-size:23px; }
+    .taskflow-arrows svg { display:block; width:100%; height:215px; }
+    .reveal .taskflow-arrows p { text-align:center; font-size:23px; }
+    .reveal .taskflow-foot, .reveal .taskflow-lead { font-size:27px; }
+    .wordtrace-diagram { display:grid; grid-template-columns:1.25fr 1fr 1fr; gap:24px; }
+    .trace-col { background:#f8fafc; border:1px solid #bec8d9; border-radius:8px; padding:18px; }
+    .trace-doc + .trace-doc { border-top:1px solid #bec8d9; margin-top:15px; padding-top:8px; }
+    .reveal .trace-input { font-size:26px; color:#2f3e7a; }
+    .reveal .trace-pairs, .reveal .trace-groups, .reveal .trace-out { font-size:28px; list-style:none; margin:0; }
+    .trace-pairs li { margin:5px 0; }
+    .trace-groups li, .trace-out li { margin:28px 0; padding:10px; border-left:3px solid #2f3e7a; }
+    .reveal .trace-total { font-size:25px; color:#2f3e7a; }
+    .taskflow-diagram { align-items:start; gap:10px; }
+    .task-group { display:flex; flex-direction:column; gap:12px; }
+    .reveal .task-group h3 { height:36px; margin:0; }
+    .task-group .task-card { height:90px; box-sizing:border-box; margin:0; padding:12px; }
+    .reduce-tasks { margin-top:51px; }
+    .taskflow-arrows svg { margin-top:48px; height:294px; }
+    .reveal .taskflow-arrows p { margin:0; font-size:21px; }
+    .reveal .taskflow-foot { font-size:25px; }
+    .reveal .formal-slide > p { font-size:27px; }
+    .reveal .formal-slide .formal-equation { font-size:36px; color:#2f3e7a; text-align:center; margin:.65em 0; }
+    .formal-domains { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .reveal .formal-domains p { font-size:26px; }
+    .formal-visual { display:grid; grid-template-columns:1fr 30px 135px 30px 1.25fr; gap:12px; align-items:center; margin:24px 0; }
+    .formal-node { background:#f8fafc; border:2px solid #bec8d9; border-radius:8px; padding:18px; text-align:center; font-size:26px; }
+    .reveal .formal-node p { font-size:25px; margin:.35em 0; }
+    .formal-node strong, .formal-function { color:#2f3e7a; }
+    .formal-function { border:2px solid #2f3e7a; background:#edf4ff; padding:20px 8px; text-align:center; border-radius:8px; font-size:29px; }
+    .formal-arrow { color:#2f3e7a; font-size:32px; text-align:center; }
+    .reveal .formal-slide .formal-takeaway { color:#2f3e7a; font-size:27px; margin-top:.6em; }
+    .reveal .formal-slide .formal-example-note { font-size:24px; color:#526070; }
+    .group-visual { display:grid; grid-template-columns:1.1fr 28px 1fr 28px 1.15fr; gap:10px; align-items:center; margin-top:24px; }
+    .phase-flow { display:grid; grid-template-columns:1fr 22px 1fr 22px 1fr 22px 1fr; gap:7px; margin:28px 0; align-items:center; }
+    .phase-card { padding:14px; border:2px solid #bec8d9; border-radius:8px; background:#f8fafc; min-height:250px; }
+    .reveal .phase-card h3 { color:#2f3e7a; font-size:26px; text-transform:none; min-height:63px; margin:0; }
+    .reveal .phase-card p { font-size:24px; }
+    .phase-card > span { display:block; color:#526070; font-size:21px; }
+    .reveal .formal-code { font-size:23px; line-height:1.35; width:100%; box-sizing:border-box; padding:16px; margin:16px 0; background:#edf4ff; box-shadow:none; }
+    .reveal .formal-code code { padding:0; white-space:pre-wrap; max-height:none; }
+    .reveal .formal-slide .motivation-source { font-size:18px; }
+    .reveal .combine-slide h2 { font-size:38px; line-height:1.15; }
+    .reveal .combine-slide .conditions { font-size:26px; margin:8px 0 8px 28px; }
+    .reveal .combine-slide .conditions li { margin:8px 0; }
+    .reveal .model-check-slide ol { font-size:30px; line-height:1.45; }
+    .reveal .model-check-slide li { margin:22px 0; }
   </style>
 </head>
 <body>
@@ -56,7 +141,7 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li></ul>
+          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li></ul>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -151,6 +236,318 @@
     HDFS cung cấp vị trí khối cho hệ thống thực thi chọn nơi chạy tác vụ; HDFS không tự lập lịch tính toán. Máy có bản sao đọc tại chỗ; nếu phải đọc máy khác cùng rack, dữ liệu qua bộ chuyển mạch của rack; đọc rack khác dùng cả đường nối liên rack. Ưu tiên này còn phụ thuộc tài nguyên chạy tác vụ. NameNode quản lý vị trí khối, theo dõi tín hiệu hoạt động định kỳ của máy lưu trữ và chỉ đạo sao chép lại từ bản sao còn tốt khi thiếu bản sao và có đủ tài nguyên. Bản sao chiếm thêm dung lượng và việc tạo lại cũng dùng băng thông. Mỗi khối chỉ được xử lý một lần trong ví dụ cộng; không cộng lặp các bản sao.
     Lỗi một rack không đồng nghĩa mọi hệ thống luôn sẵn sàng; chi tiết metadata nằm ngoài phạm vi hình.
     Nguồn: https://hadoop.apache.org/docs/current3/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html (Data Replication, Replica Placement, Moving Computation, Robustness).
+  </aside>
+</section>
+
+      </section>
+      <section aria-label="Mô hình tính toán Map-Reduce">
+<section id="lec02-s02-01" data-slide-id="lec02-s02-01" class="motivation-slide model-slide">
+  <h1>2 · Mô hình tính toán Map-Reduce</h1>
+  <p class="lead">Map-Reduce đáp ứng các nhu cầu tính toán trên cụm máy.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="capability-heading"><svg class="capability-icon" viewBox="0 0 72 74" role="img" aria-labelledby="icon-distributed"><title id="icon-distributed">Ba máy nối mạng, mỗi máy lưu một phần dữ liệu</title><g fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 35v13h40V35M36 48v9"/><rect x="5" y="9" width="22" height="26" rx="3"/><rect x="45" y="9" width="22" height="26" rx="3"/><rect x="25" y="57" width="22" height="12" rx="2"/><path d="M10 17h12m-12 8h12m28-8h12m-12 8h12"/></g></svg><h3>Xử lý dữ liệu phân tán</h3></div>
+      <p>Đọc và xử lý dữ liệu nằm trên nhiều máy.</p>
+    </div>
+    <div class="card">
+      <div class="capability-heading"><svg class="capability-icon" viewBox="0 0 72 74" role="img" aria-labelledby="icon-parallel"><title id="icon-parallel">Ba tác vụ tiến hành đồng thời</title><g fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="15" height="14" rx="2"/><rect x="5" y="30" width="15" height="14" rx="2"/><rect x="5" y="52" width="15" height="14" rx="2"/><path d="M26 15h39l-7-6m7 6-7 6M26 37h39l-7-6m7 6-7 6M26 59h39l-7-6m7 6-7 6"/></g></svg><h3>Tính toán song song</h3></div>
+      <p>Nhiều máy cùng làm; thêm máy để tăng năng lực xử lý khi bài toán cho phép.</p>
+    </div>
+    <div class="card">
+      <div class="capability-heading"><svg class="capability-icon" viewBox="0 0 72 74" role="img" aria-labelledby="icon-local"><title id="icon-local">Phép tính và dữ liệu nằm trong cùng một máy</title><g fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="64" height="57" rx="5"/><rect x="12" y="25" width="20" height="22" rx="3"/><path d="M17 36h10m-5-5v10M36 35h8m-4-4 4 4-4 4"/><ellipse cx="54" cy="24" rx="8" ry="4"/><path d="M46 24v23c0 6 16 6 16 0V24M46 36c0 6 16 6 16 0"/></g></svg><h3>Tính toán gần dữ liệu</h3></div>
+      <p>Ưu tiên nơi có dữ liệu để giảm truyền mạng.</p>
+    </div>
+    <div class="card">
+      <div class="capability-heading"><svg class="capability-icon" viewBox="0 0 72 74" role="img" aria-labelledby="icon-recovery"><title id="icon-recovery">Tác vụ được chuyển từ máy lỗi sang máy khác để chạy lại</title><g fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="23" height="31" rx="3"/><path d="m9 21 11 11m0-11L9 32M30 25h11l-5-5m5 5-5 5"/><rect x="46" y="11" width="23" height="31" rx="3"/><path d="m51 26 5 5 8-11M59 48c-5 17-36 18-46 3m0 0 1 10m-1-10 10 1"/></g></svg><h3>Điều phối và phục hồi tự động</h3></div>
+      <p>Hệ thống phân chia, lập lịch, phát hiện lỗi và chạy lại tác vụ.</p>
+    </div>
+  </div>
+  <p class="takeaway">Lập trình viên tập trung vào phép tính; hệ thống tổ chức thực thi.</p>
+  <p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.</p>
+  <aside class="notes"><p>Phần Giới thiệu đã nêu nhu cầu; ở đây ta xác định những khả năng Map-Reduce cung cấp. Mô hình cho phép xử lý dữ liệu phân tán bằng nhiều tác vụ chạy song song, ưu tiên nơi có dữ liệu và giao việc tổ chức thực thi cho hệ thống. Tăng số máy có thể tăng năng lực xử lý, nhưng tốc độ còn phụ thuộc truyền mạng, phân bố dữ liệu và phần không song song hóa được. Phục hồi đòi hỏi còn dữ liệu hoặc bản sao cần thiết và tài nguyên để chạy lại; không có nghĩa chịu được mọi lỗi.</p><p>Ta sẽ dùng bài toán đếm từ để tìm hiểu các khả năng này được thực hiện như thế nào. Trước hết cần thống nhất chính xác đầu vào và kết quả cần tạo.</p><p>Nguồn: MMDS mục 2.2 mở đầu, trang 25, và 2.2.5; Dean–Ghemawat 2004, tóm tắt và mục 3.1, 3.3, 3.4.</p></aside>
+</section>
+
+<section id="lec02-s02-02" data-slide-id="lec02-s02-02" class="motivation-slide wordcount-slide">
+  <h2>Ví dụ: Đếm tần suất xuất hiện từ</h2>
+  <div class="wordcount-layout"><div class="wordcount-content">
+  <div class="io-cols">
+    <div class="col">
+      <h3>Đầu vào</h3>
+      <p>$n$ văn bản $d_1, \dots, d_n$ đã tách từ thống nhất; $V$ là tập các từ xuất hiện.</p>
+    </div>
+    <div class="col">
+      <h3>Đầu ra</h3>
+      <p>Mỗi $w\in V$ có một cặp $(w,c(w))$, với $c(w)$ là tổng số lần xuất hiện.</p>
+    </div>
+  </div>
+  <p class="main-formula">Gọi $c_i(w)$ là số lần từ $w$ xuất hiện trong $d_i$. Với $w\in V$:</p>
+  <p class="formula">$c(w) = \sum_{i=1}^{n} c_i(w)$</p>
+  <div class="difficulties">
+    <p><strong>Khó ở quy mô lớn:</strong> dữ liệu phân tán có thể vượt bộ nhớ một máy.</p>
+    <p><strong>Cùng từ ở nhiều máy:</strong> cần gộp số đếm, hạn chế truyền toàn bộ văn bản.</p>
+  </div>
+  </div>
+<div class="wordcount-picture" role="group" aria-label="Minh họa bài toán: tập n văn bản, đầu ra là số lần xuất hiện của mỗi từ">
+    <p class="picture-label">Tập văn bản</p>
+    <div class="document-stack">
+      <div class="document-sheet"><span>$d_1$</span><i></i><i></i><i></i></div>
+      <div class="document-sheet"><span>$d_2$</span><i></i><i></i><i></i></div>
+      <span aria-label="các văn bản tiếp theo">…</span>
+      <div class="document-sheet"><span>$d_n$</span><i></i><i></i><i></i></div>
+    </div>
+    <svg class="wordcount-arrow" viewBox="0 0 60 65" role="img" aria-label="Đầu vào được xử lý thành kết quả đếm"><path d="M30 5v48m-13-13 13 13 13-13" fill="none" stroke="#2f3e7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <table class="count-output"><thead><tr><th>Từ</th><th>Số lần</th></tr></thead><tbody><tr><td>$w$</td><td>$c(w)$</td></tr></tbody></table>
+    <p class="picture-caption">Mỗi từ một số đếm<br>trong toàn bộ tập văn bản.</p>
+  </div>
+  </div>
+  <p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3, ví dụ 2.1–2.2.</p>
+  <aside class="notes"><p>Bài toán đếm từ là ví dụ xuyên suốt phần này. Mỗi văn bản đã được tách thành dãy từ theo cùng quy tắc; quy tắc tách từ và chuẩn hóa chữ hoa, dấu câu được coi là đã xác định, không phải nội dung đang giải quyết. Xét hữu hạn $n\geq1$ văn bản $d_i=(w_{i1},\ldots,w_{im_i})$, với $m_i$ là số từ trong văn bản thứ $i$. Gọi $V$ là tập các từ xuất hiện trong toàn bộ các dãy này. Với $w\in V$, đặt $c_i(w)=|\{j\in\{1,\ldots,m_i\}:w_{ij}=w\}|$. Đầu ra là các cặp $(w,c(w))$, mỗi từ đúng một cặp, trong đó $c(w)=\sum_{i=1}^{n}c_i(w)$.</p><p>Tần suất trong bài này nghĩa là số lần xuất hiện, không chia cho tổng số từ. Một từ lặp trong cùng văn bản phải được tính từng lần, nên đây không phải số văn bản chứa từ. Văn bản rỗng có mọi số đếm bằng 0; nếu tất cả văn bản rỗng thì $V$ rỗng và không có cặp đầu ra. Các bản sao lưu trữ không được tính như những văn bản mới.</p><p>Công thức mô tả kết quả cần đạt, chưa quy định cách cài đặt. Nó nối với phép cộng đã học: cộng các đóng góp của cùng một từ. Khó khăn khi dữ liệu lớn là đọc dữ liệu ở nhiều máy và tập hợp số đếm của cùng từ mà hạn chế chuyển văn bản qua mạng. Các bước tiếp theo sẽ dùng chính bài toán này để giải thích Map, nhóm theo khóa và Reduce.</p><p>Nguồn: MMDS 2.2.1–2.2.3, ví dụ 2.1–2.2, trang 25–27. Ký hiệu được viết lại để đặc tả bài toán rõ ràng.</p></aside>
+</section>
+
+
+<section id="lec02-s02-03" data-slide-id="lec02-s02-03" class="motivation-slide wordmap-slide">
+  <h2>Map và Reduce cho bài toán đếm từ</h2>
+  <div class="wordmap-cards">
+    <div class="card map-card">
+      <h3>Hàm Map</h3>
+      <p>Nhận một văn bản $d_i$. Mỗi lần gặp từ $w$, phát một cặp $(w, 1)$.</p>
+      <pre><code data-trim>Map(d_i):
+  với mỗi lần từ w xuất hiện trong d_i:
+      phát(w, 1)</code></pre>
+      <p>Một từ xuất hiện nhiều lần thì phát nhiều cặp.</p>
+    </div>
+    <div class="card reduce-card">
+      <h3>Hàm Reduce</h3>
+      <p>Nhận từ $w$ và danh sách giá trị $L_w$, tính tổng và phát $(w, c(w))$.</p>
+      <pre><code data-trim>Reduce(w, L_w):
+  c = 0
+  với mỗi giá trị v trong L_w:
+      c = c + v
+  phát(w, c)</code></pre>
+      <p>Mỗi từ cho đúng một cặp kết quả $(w,c(w))$.</p>
+    </div>
+  </div>
+  <div class="wordmap-strip">
+    <p><strong>Hệ thống nhóm theo khóa:</strong> gom tất cả giá trị của cùng từ $w$ vào $L_w$.</p><p>Khóa = từ; giá trị $1$ = một lần xuất hiện.</p>
+  </div>
+  <p class="motivation-source">Nguồn cơ chế: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3.</p>
+  <aside class="notes">
+    Đầu vào của Map là một văn bản d_i; đầu ra là dãy các cặp (w, 1), giữ nguyên cả các cặp lặp — nếu từ w xuất hiện m lần trong d_i thì có đúng m cặp (w, 1), không gộp trước. Đầu vào của Reduce là cặp (w, L_w) với L_w là danh sách tất cả giá trị 1 ứng với từ w từ mọi tác vụ Map; đầu ra là (w, c(w)) với c(w) là tổng các phần tử của L_w. Nếu w không xuất hiện thì không có nhóm nào cho w và Reduce không được gọi cho w — danh sách rỗng không đi vào bài toán. Tính đúng đắn: vì mỗi lần xuất hiện của w đóng góp đúng một giá trị 1 vào L_w, ta có c(w) = tổng theo i của c_i(w), tức tổng số lần xuất hiện của w trên toàn bộ tập văn bản. Giả sử mỗi số đếm vừa một từ máy và mỗi phép cộng có chi phí đơn vị. Chi phí trong mô hình đếm: duyệt m_i từ của văn bản d_i ở pha Map, và q_w = |L_w| lần phép cộng cho từ w ở pha Reduce; bộ nhớ tích lũy O(1) vì chỉ giữ một biến đếm, chưa tính chi phí lưu bộ đệm trung gian hay văn bản gốc, và chưa tính chi phí truyền thông giữa các máy.
+Nguồn: MMDS, Chương 2, mục 2.2.1–2.2.3. Hàm Map được gọi theo từng văn bản; một tác vụ Map có thể gọi hàm này nhiều lần.
+  </aside>
+</section>
+
+<section id="lec02-s02-04" data-slide-id="lec02-s02-04" class="motivation-slide taskflow-slide">
+  <h2>Hệ thống phối hợp và phân phối tác vụ</h2>
+  <p class="taskflow-lead">Bộ điều phối chia đầu vào, rồi giao tác vụ cho máy rảnh; ưu tiên nơi có dữ liệu.</p>
+  <div class="taskflow-diagram">
+    <div class="map-tasks task-group">
+      <h3>Tác vụ Map</h3>
+      <div class="task-card">Tác vụ Map 1 · Máy 1<br><span>một phần đầu vào</span></div>
+      <div class="task-card">Tác vụ Map 2 · Máy 2<br><span>một phần đầu vào</span></div>
+      <div class="task-card">Tác vụ Map 3 · Máy 3<br><span>một phần đầu vào</span></div>
+    </div>
+    <div class="taskflow-arrows"><svg viewBox="0 0 220 294" preserveAspectRatio="none" role="img" aria-label="Mỗi tác vụ Map có thể chuyển các cặp tới cả hai tác vụ Reduce tùy từ"><defs><marker id="task-route-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#2f3e7a"/></marker></defs><g fill="none" stroke="#7889ad" stroke-width="2" marker-end="url(#task-route-arrow)"><path d="M0 45L218 96"/><path d="M0 45L218 198"/><path d="M0 147L218 96"/><path d="M0 147L218 198"/><path d="M0 249L218 96"/><path d="M0 249L218 198"/></g></svg><p>Chuyển và nhóm theo từ:<br><strong>cùng từ → cùng tác vụ Reduce.</strong></p></div>
+    <div class="reduce-tasks task-group">
+      <h3>Tác vụ Reduce</h3>
+      <div class="task-card">Tác vụ Reduce 1 · Máy 1<br><span>một số từ</span></div>
+      <div class="task-card">Tác vụ Reduce 2 · Máy 3<br><span>các từ còn lại</span></div>
+    </div>
+  </div>
+  <p class="taskflow-foot">Một máy có thể chạy <strong>nhiều tác vụ</strong>. Một tác vụ có thể có <strong>nhiều lượt thực thi trên các máy khác nhau</strong> để dự phòng.</p>
+  <p class="motivation-source">Nguồn cơ chế: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2; <a href="https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/">Dean–Ghemawat (2004)</a>, mục 3.3, 3.6.</p>
+  <aside class="notes">
+    Ba tác vụ Map được gán cho Máy 1, 2, 3, mỗi tác vụ xử lý từng phần đầu vào; hai tác vụ Reduce được gán cho Máy 1 và Máy 3 — đây chỉ là một ví dụ bố trí minh họa, không phải số liệu hiệu năng. Bộ điều phối chia đầu vào thành nhiều phần và giao mỗi phần cho tác vụ Map. Một tác vụ Map gọi hàm Map cho từng văn bản trong phần được giao. Các cặp đầu ra được chia theo từ vào các phần dành cho từng tác vụ Reduce. Bộ điều phối cung cấp vị trí dữ liệu; máy chạy Reduce lấy dữ liệu trực tiếp từ các máy chạy Map, không truyền toàn bộ qua bộ điều phối. Tất cả các cặp cùng từ w đều đến đúng một tác vụ Reduce; một tác vụ Reduce có thể nhận nhiều từ và hệ thống gọi Reduce cho từng từ một. Việc nhóm và chuyển có thể diễn ra trong khi Map vẫn đang chạy; Reduce cho mỗi từ chỉ chốt kết quả sau khi đã nhận đủ đầu vào của từ đó. Nếu một tác vụ Map lỗi trên một máy, các kết quả trung gian trên máy đó có thể mất và tác vụ phải chạy lại — chi tiết xử lý lỗi không giảng đầy đủ ở đây. Việc Máy 1 xuất hiện ở cả hai pha không có nghĩa là nó đồng thời chạy hai tác vụ trên một lõi xử lý. Cần phân biệt: không đồng nhất hàm với tác vụ, không đồng nhất văn bản với khối dữ liệu, và không gán cố định mỗi từ cho một máy vật lý.
+    Phân biệt tác vụ logic với các lượt thực thi của nó: hệ thống có thể chạy lại trên máy khác khi lỗi, hoặc chạy thêm một lượt dự phòng khi tác vụ quá chậm. Các lượt dự phòng có thể chạy đồng thời trên cùng đầu vào; đây là dư thừa tính toán, khác với bản sao khối dữ liệu của HDFS. Hệ thống chọn kết quả hoàn tất hợp lệ của tác vụ, không cộng gộp các kết quả trùng của các lượt thực thi. Với bài toán đếm từ xác định này, mỗi lần xuất hiện trong đầu vào chỉ đóng góp một lần dù tác vụ được chạy nhiều lượt. Hình thể hiện một cách phân công, không liệt kê mọi lượt dự phòng. Một tác vụ Reduce vẫn có thể xử lý nhiều từ.
+    Nguồn: Dean–Ghemawat 2004, mục 3.1, 3.3 và 3.6; MMDS 2.2.
+  </aside>
+</section>
+
+<section id="lec02-s02-05" data-slide-id="lec02-s02-05" class="motivation-slide wordtrace-slide">
+  <h2>Ví dụ: Chạy Map-Reduce để đếm từ</h2>
+  <div class="wordtrace-diagram">
+    <div class="trace-col trace-map">
+      <h3>Map</h3>
+      <div class="trace-doc">
+        <p class="trace-input">$d_1$ = "mèo chó mèo"</p>
+        <ul class="trace-pairs">
+          <li>(mèo, 1)</li>
+          <li>(chó, 1)</li>
+          <li>(mèo, 1)</li>
+        </ul>
+      </div>
+      <div class="trace-doc">
+        <p class="trace-input">$d_2$ = "chó chim"</p>
+        <ul class="trace-pairs">
+          <li>(chó, 1)</li>
+          <li>(chim, 1)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="trace-col trace-group">
+      <h3>→ Nhóm theo từ</h3>
+      <ul class="trace-groups">
+        <li>mèo: $[1, 1]$</li>
+        <li>chó: $[1, 1]$</li>
+        <li>chim: $[1]$</li>
+      </ul>
+    </div>
+    <div class="trace-col trace-reduce">
+      <h3>→ Reduce</h3>
+      <ul class="trace-out">
+        <li>(mèo, 2)</li>
+        <li>(chó, 2)</li>
+        <li>(chim, 1)</li>
+      </ul>
+      <p class="trace-total">Kiểm tra: $2+2+1=5$ lần.</p>
+    </div>
+  </div>
+  <p class="motivation-source">Nguồn cơ chế: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3.</p>
+  <aside class="notes">
+    Chạy từng cặp: d_1 = "mèo chó mèo" phát (mèo, 1), (chó, 1), (mèo, 1) — lưu ý mèo xuất hiện hai lần trong cùng một văn bản nên hai cặp (mèo, 1) đều đến từ d_1 và được tính hai lần; d_2 = "chó chim" phát (chó, 1), (chim, 1) — chó góp từ cả hai văn bản nên danh sách của nó là [1, 1]. Hệ thống nhóm theo từ cho mèo: [1, 1], chó: [1, 1], chim: [1]; thứ tự các từ không quan trọng, mỗi nhóm chỉ cần giữ đủ các phần tử lặp. Reduce cộng từng nhóm: (mèo, 2), (chó, 2), (chim, 1). Cần phân biệt số lần xuất hiện của từ với số văn bản có chứa từ: mèo xuất hiện 2 lần nhưng chỉ trong 1 văn bản, chó xuất hiện 2 lần trong 2 văn bản. Tổng cộng 5 lần xuất hiện ở đầu vào và đầu ra tổng cũng là 5. Ví dụ minh họa này do chúng ta chọn theo yêu cầu; cơ chế theo MMDS 2.2.1–2.2.3. Hai văn bản d_1 và d_2 trong ví dụ không bắt buộc phải do đúng hai tác vụ Map xử lý; mỗi tác vụ Map có thể xử lý nhiều văn bản.
+  </aside>
+</section>
+
+
+<section id="lec02-s02-06" data-slide-id="lec02-s02-06" class="motivation-slide formal-slide formal-map-slide">
+<h2>Hình thức hóa hàm Map</h2>
+<p>Một cặp đầu vào được biến thành một dãy cặp trung gian.</p>
+<p class="formal-equation">$\mathrm{Map}:K_1\times V_1\longrightarrow(K_2\times V_2)^*$</p>
+<div class="formal-domains"><p>$K_1,V_1$: miền khóa và giá trị <strong>đầu vào</strong>.</p><p>$K_2,V_2$: miền khóa và giá trị <strong>trung gian</strong>.</p></div>
+<p class="formal-definition">$A^*$: các dãy hữu hạn phần tử thuộc $A$, gồm dãy rỗng; <strong>giữ phần tử lặp</strong>.</p>
+<div class="formal-visual"><div class="formal-node"><strong>Đếm từ: một văn bản</strong><p>$(1,d_1)$: mã và nội dung</p><p>“mèo chó mèo”</p></div><span class="formal-arrow">→</span><div class="formal-function">Map</div><span class="formal-arrow">→</span><div class="formal-node"><strong>Các cặp được phát</strong><p>(mèo, 1), (chó, 1), (mèo, 1)</p></div></div>
+<p class="formal-takeaway">Mỗi lần gọi Map có thể phát <strong>không, một hoặc nhiều cặp</strong>.</p>
+<p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3; diễn giải bằng ký hiệu tổng quát.</p><aside class="notes">
+    <p>Nguồn: MMDS 2.2.1 và nguyên bản Dean &amp; Ghemawat 2004, §2.2. Sách coi đầu vào là các phần tử bất kỳ (bộ, tài liệu); Map nhận một phần tử và phát không, một hoặc nhiều cặp khóa–giá trị; các khóa không cần duy nhất, cùng một phần tử có thể tạo nhiều cặp cùng khóa. Ví dụ 2.1: mỗi lần xuất hiện của từ w tạo một cặp (w, 1), nên một từ xuất hiện m lần cho m cặp (w, 1) — các cặp trùng phải được giữ.</p>
+    <p>Nhấn mạnh ký hiệu $(K_2 \times V_2)^*$ là dãy (sequence), không phải tập hợp: dùng tập hợp sẽ mất phần tử lặp, làm sai số đếm. "0 hoặc nhiều cặp" là đầu ra của <strong>một lần gọi</strong> Map trên một phần tử đầu vào; khác với một <strong>tác vụ</strong> Map, vốn xử lý nhiều phần tử và gọi hàm Map cho từng phần tử.</p>
+    <p>Trong ví dụ đếm từ, có thể bỏ qua mã văn bản khi mô tả thao tác Map. Dạng đầy đủ thêm khóa i để thể hiện cặp mã–nội dung. Thuật toán đếm từ giữ nguyên. Hàm nhận một cặp có hai thành phần, không bắt buộc một giao diện lập trình cụ thể phải có hai đối số.</p>
+    <p>Nguồn: MMDS, Chương 2, mục 2.2.1, Ví dụ 2.1, trang in 25–26; Dean &amp; Ghemawat, MapReduce, §2.2. </p>
+  </aside></section>
+<section id="lec02-s02-07" data-slide-id="lec02-s02-07" class="motivation-slide formal-slide formal-reduce-slide">
+<h2>Hình thức hóa hàm Reduce</h2>
+<p>$L_k$: danh sách các giá trị đi cùng khóa $k$, do hệ thống cung cấp.</p>
+<p class="formal-equation">$\mathrm{Reduce}:K_2\times V_2^*\longrightarrow(K_3\times V_3)^*$</p>
+<p class="formal-definition">$K_3,V_3$: miền khóa và giá trị <strong>đầu ra</strong>; có thể khác $K_2,V_2$.</p>
+<div class="formal-visual"><div class="formal-node"><strong>Đếm từ: một nhóm</strong><p>mèo, [1, 1]</p></div><span class="formal-arrow">→</span><div class="formal-function">Reduce</div><span class="formal-arrow">→</span><div class="formal-node"><strong>Dãy cặp kết quả</strong><p>[(mèo, 2)]</p></div></div>
+<p class="formal-takeaway">Reduce có thể phát <strong>không, một hoặc nhiều cặp</strong>.<br>Phép cộng chỉ là lựa chọn trong ví dụ đếm từ.</p>
+<p class="formal-example-note">Để kết quả ổn định, Reduce không phụ thuộc thứ tự các giá trị trong $L_k$.</p>
+<p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3; diễn giải bằng ký hiệu tổng quát.</p><aside class="notes">
+    <p>Nguồn: MMDS 2.2.3. Đầu vào của Reduce là cặp (k, [v1, v2, ..., vn]) — khóa cùng danh sách mọi giá trị đi kèm do bước nhóm theo khóa tạo ra; đầu ra là dãy 0 hoặc nhiều cặp khóa–giá trị, có thể khác kiểu với cặp trung gian. Mỗi lần áp Reduce cho một khóa và danh sách giá trị của nó được sách gọi là một "reducer"; một tác vụ Reduce thực hiện một hoặc nhiều reducer.</p>
+    <p>Ví dụ 2.2: với đếm từ, Reduce cộng các giá trị và phát (w, m) — nhưng đó chỉ là một lựa chọn của người viết; Reduce nói chung không phải luôn là phép cộng, có thể phát nhiều cặp hoặc không phát cặp nào.</p>
+    <p>Lưu ý ký hiệu: MMDS 2.2.3 dùng quy ước Reduce trả một dãy các cặp (mỗi reducer phát sequence of zero or more key-value pairs), còn Dean 2004 §2.2 trình bày reduce trả một danh sách giá trị. Hai quy ước không đánh đồng được; bài này theo quy ước cặp đầu ra của MMDS 2.2.3. Do đó không yêu cầu Reduce là giao hoán–kết hợp của một phép nhị phân cho mọi lần gọi Reduce.</p>
+    <p>Về thứ tự: để độc lập với thứ tự chạy các tác vụ, hàm trên danh sách $L_k$ phải cho kết quả không phụ thuộc thứ tự các giá trị trong danh sách; nếu thuật toán cần thứ tự cụ thể của các giá trị thì phải quy định rõ trong đặc tả, vì hệ thống không bảo đảm thứ tự. Bộ kết hợp (combiner) là chủ đề mục sau, ngoài phạm vi slide này.</p>
+    <p>Nguồn: MMDS, Chương 2, mục 2.2.2–2.2.3, Ví dụ 2.2, trang in 26–27; so sánh ký hiệu với Dean &amp; Ghemawat 2004, §2.2. </p>
+  </aside></section>
+<section id="lec02-s02-08" data-slide-id="lec02-s02-08" class="motivation-slide formal-slide formal-group-slide">
+<h2>Phân phối và nhóm theo khóa</h2>
+<p>$I$: dãy cặp trung gian theo một thứ tự tùy chọn. Giữ mọi lần lặp:</p>
+<p class="formal-equation">$L_k=[\,v\mid(k',v)\in I,\ k'=k\,]$</p>
+<p class="formal-definition">$r\geq1$ tác vụ Reduce; $p:K_2\to\{0,\ldots,r-1\}$ gán khóa cho tác vụ (hàm phân phối).</p>
+<div class="group-visual"><div class="formal-node"><strong>Trích các cặp từ $I$</strong><p>(mèo, 1), (chó, 1)<br>(mèo, 1), (chó, 1)</p></div><span class="formal-arrow">→</span><div class="formal-node"><strong>Hai nhóm riêng</strong><p>mèo: [1, 1]<br>chó: [1, 1]</p></div><span class="formal-arrow">→</span><div class="formal-node"><strong>Tác vụ Reduce 0</strong><p>Gọi Reduce cho mèo.<br>Gọi Reduce cho chó.</p></div></div>
+<p class="formal-example-note">Trích ví dụ với mèo và chó: $p$ gán cả hai khóa cho tác vụ 0.</p>
+<p class="formal-takeaway">Cùng khóa → cùng tác vụ. Khác khóa có thể cùng tác vụ, <strong>nhưng nhóm riêng</strong>.</p>
+<p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3; diễn giải bằng ký hiệu tổng quát.</p><aside class="notes">
+    <p>Nguồn: MMDS 2.2.2. Sau khi mọi tác vụ Map hoàn thành, hệ thống (không phụ thuộc mã Map/Reduce) nhóm các cặp theo khóa: với mỗi khóa k, mọi cặp (k, v) từ mọi tác vụ Map được gom thành một danh sách giá trị L_k. Mỗi lần phát một cặp là một phần tử riêng của I, nên giá trị lặp được giữ — một từ xuất hiện hai lần cho hai phần tử, không bị gộp tự động.</p>
+    <p>I được liệt kê theo một thứ tự tùy chọn; công thức L_k cho một cách biểu diễn nhóm. Hệ thống giữ đủ giá trị nhưng không cam kết thứ tự của chúng.</p>
+    <p>Số tác vụ Reduce r là tham số đã được cấu hình; bộ điều phối chọn hàm băm đưa khóa về số nhóm từ 0 đến r−1, mỗi khóa gán vào một tệp trung gian ứng với một tác vụ Reduce. Bài viết dạng p(k) = h(k) mod r để ký hiệu hóa; đây chỉ là minh họa cách chọn p, không phải gắn giá trị băm hay số liệu benchmark cụ thể nào. Hai khóa khác nhau có thể được phân cùng một tác vụ (cùng p), nhưng danh sách giá trị của chúng vẫn là hai nhóm riêng biệt.</p>
+    <p>Ví dụ minh họa: phần dữ liệu I được vẽ gồm bốn cặp (mèo,1), (chó,1), (mèo,1), (chó,1); sau bước nhóm mới có hai danh sách [1,1]; nếu p chọn sao cho cả hai khóa về tác vụ Reduce 0 thì tác vụ đó thực hiện hai reducer — hai nhóm vẫn tách biệt. Hình dùng phần trích chỉ gồm mèo và chó từ ví dụ, không vẽ nhóm chim; công việc đầy đủ vẫn xử lý cả chim. Không cam kết thứ tự các giá trị bên trong L_k do hệ thống không bảo đảm thứ tự truyền.</p>
+    <p>Về cài đặt: không có bước "bộ điều phối thu thập toàn bộ dữ liệu về một nơi"; phân phối (partition) và shuffle lấy dữ liệu trung gian trực tiếp từ các máy đã chạy Map, ghi tệp cục bộ theo nhóm đích, rồi gộp phía reducer.</p>
+    <p>Nguồn: MMDS, Chương 2, mục 2.2.2, trang in 26–27. </p>
+  <p>I là mô tả logic của các cặp trung gian phân tán, không buộc lưu tất cả tại một máy hoặc trong bộ nhớ. Danh sách giá trị có thể được đọc tuần tự khi gọi Reduce.</p></aside></section>
+<section id="lec02-s02-09" data-slide-id="lec02-s02-09" class="motivation-slide formal-slide formal-phases-slide">
+<h2>Các pha của một công việc Map-Reduce</h2>
+<p>$X$: dãy cặp đầu vào; $m\geq1$: số tác vụ Map; $Y$: dãy cặp đầu ra.</p>
+<div class="phase-flow">
+<div class="phase-card"><h3>1 · Chia đầu vào</h3><p>$B_1,\ldots,B_m$</p><p>Mỗi vị trí của $X$ thuộc đúng một phần.</p><span>Hệ thống chia</span></div><span class="formal-arrow">→</span>
+<div class="phase-card"><h3>2 · Map</h3><p>Các cặp trung gian $I$</p><p>Gọi Map cho từng cặp đầu vào.</p><span>Hàm do người lập trình viết</span></div><span class="formal-arrow">→</span>
+<div class="phase-card"><h3>3 · Phân phối<br>và nhóm</h3><p>Các nhóm $(k,L_k)$</p><p>Chuyển theo $p(k)$; nhóm theo khóa.</p><span>Hệ thống thực hiện</span></div><span class="formal-arrow">→</span>
+<div class="phase-card"><h3>4 · Reduce</h3><p>Các cặp kết quả $Y$</p><p>Gọi Reduce cho từng nhóm.</p><span>Hàm do người lập trình viết</span></div>
+</div>
+<p class="formal-takeaway">Một pha có nhiều tác vụ; một tác vụ có thể gọi hàm nhiều lần.</p>
+<p class="formal-example-note">Đây là các pha logic; việc chuyển dữ liệu có thể chồng lấp với Map.</p>
+<p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3; diễn giải bằng ký hiệu tổng quát.</p><aside class="notes">
+    <p>Nguồn: MMDS 2.2 (mở đầu mục 2.2 và các mục 2.2.1–2.2.3). Sách tóm tắt: một số tác vụ Map nhận khối từ hệ tệp phân tán và biến khối thành dãy cặp khóa–giá trị theo mã người dùng; các cặp được gom, sắp theo khóa và chia cho các tác vụ Reduce sao cho mọi cặp cùng khóa về cùng một tác vụ; Reduce làm việc từng khóa một và kết hợp các giá trị theo mã người dùng. Hình 2.2 là sơ đồ tham chiếu.</p>
+    <p>Bốn pha ở đây là <strong>pha logic</strong>, không cam kết biên vật lý: trong cài đặt, pha Map và shuffle có thể chồng lên nhau (một tác vụ Map xong có thể bắt đầu ghi tệp trung gian khi các tác vụ khác còn chạy); pha Reduce chỉ bắt đầu xử lý khi đã đủ dữ liệu các nhóm của nó. Một pha gồm nhiều tác vụ chạy song song; một tác vụ gọi hàm nhiều lần trên các phần tử hoặc các khóa được giao.</p>
+    <p>Phân vai: chia khối (theo vị trí bản ghi — mỗi bản ghi nằm đúng một khối, không mất, không trùng) và nhóm theo khóa là việc hệ thống; code Map và Reduce là của người dùng; lập lịch và khôi phục tác vụ do hệ thống xuyên suốt cả công việc.</p>
+    <p>X (đầu vào) và Y (đầu ra) là các dãy hữu hạn cặp; các bản ghi của X có vị trí để phân chia, nhưng việc thực thi không buộc theo thứ tự đó; thứ tự các cặp trong Y không được quy định bởi mô hình. Phân biệt rõ một job với chuỗi nhiều job: mô hình này đặc tả đúng một lượt Map-Reduce, việc nối nhiều job thuộc phần mở rộng luồng công việc, không thêm vào đây.</p>
+    <p>Nguồn: MMDS, Chương 2, mục 2.2 mở đầu, 2.2.1–2.2.3, Hình 2.2, trang in 25–27. </p>
+  </aside></section>
+<section id="lec02-s02-10" data-slide-id="lec02-s02-10" class="motivation-slide formal-slide formal-algorithm-slide">
+<h2>Mô hình Map-Reduce: mô tả hình thức</h2>
+<p class="algorithm-input"><strong>Đầu vào:</strong> $X$, Map, Reduce, $m,r\geq1$, hàm phân phối $p$.</p>
+<p class="formal-example-note">Giả thiết: hai hàm xác định và kết thúc; Reduce độc lập với thứ tự giá trị.</p>
+<pre class="formal-code"><code data-trim>khởi tạo O_0, ..., O_{r−1} là các dãy rỗng
+chia X thành B_1, ..., B_m theo vị trí bản ghi
+song song với j = 1, ..., m:
+  I_j ← gom_giữ_lặp(Map(k,v) với mỗi (k,v) trong B_j)
+I ← gom_giữ_lặp(I_1, ..., I_m)
+song song với t = 0, ..., r−1:
+  với mỗi khóa phân biệt k xuất hiện trong I và p(k) = t:
+    L_k ← danh sách các v đi cùng k trong I
+    ghi mọi cặp Reduce(k,L_k) vào O_t
+trả về Y = gom_giữ_lặp(O_0, ..., O_{r−1})</code></pre>
+<p class="formal-example-note"><code>gom_giữ_lặp</code>: gộp các dãy, giữ mọi phần tử; không quy định thứ tự.</p>
+<p class="formal-takeaway">Mỗi bản ghi góp đúng một lần; mỗi khóa tạo đúng một nhóm cho Reduce.</p>
+<p class="motivation-source">Nguồn: <a href="http://www.mmds.org">MMDS, Chương 2</a>, mục 2.2.1–2.2.3; diễn giải bằng ký hiệu tổng quát.</p><aside class="notes">
+    <p>Trong giả mã, vòng Map song song hoàn tất trước khi dùng toàn bộ I ở vòng Reduce. Đây là quan hệ phụ thuộc logic; cài đặt vẫn có thể chuyển từng phần dữ liệu trong lúc các tác vụ Map khác còn chạy.</p>
+    <p>Đây là đặc tả logic, không phải trình tự cài đặt: không quét toàn bộ I cho mỗi khóa trong cài đặt thật; bước "danh sách các v đi cùng k" được thực hiện bởi shuffle/sort của hệ thống (mục 2.2.2 — gộp tệp trung gian theo khóa trước khi đưa vào Reduce). Vị từ "xuất hiện trong I và p(k) = t" chỉ nghĩa là nhóm L_k được giao cho tác vụ t.</p>
+    <p>Cho phép phần đầu vào rỗng khi chia X; một bản ghi có cùng nội dung ở hai vị trí vẫn là hai đóng góp. Các trường hợp biên: X rỗng thì mọi I_j rỗng, I rỗng, không có khóa nào xuất hiện, mọi O_t rỗng nên Y rỗng. Một lần gọi Map không phát cặp nào thì đóng góp rỗng, không tạo nhóm. Mỗi lần gọi phát một dãy hữu hạn. Giả sử mọi lần gọi Map và Reduce đều kết thúc và phát dãy hữu hạn; đầu vào hữu hạn tự nó không bảo đảm một chương trình kết thúc; tính xác định (deterministic) của từng lần gọi là giả định của mô hình; để kết quả ổn định, Reduce phải độc lập với thứ tự các giá trị trong L_k (như slide trước đã nêu).</p>
+    <p>Về thực thi và lỗi: về logic, mỗi vị trí của X được Map đúng một lần; các lần chạy lại (retry) hoặc tác vụ dự phòng (backup task) trùng lặp không được tính thêm vào dữ liệu logic. Đầu ra là một bag (đa tập): bất biến của đầu ra là các cặp cùng số lượng, không bảo đảm thứ tự của Y; Y là gộp giữ lặp của các O_t.</p>
+    <p>Số khóa có thể rất lớn nhưng luôn hữu hạn vì I là dãy hữu hạn cặp. Mô hình không tuyên bố chi phí O(n) hay tốc độ tăng (speedup) chung nào: chi phí phụ thuộc mã người dùng và lượng dữ liệu trao đổi giữa các tác vụ, phải phân tích riêng cho từng thuật toán.</p>
+    <p>Giới hạn của phát biểu: đặc tả hình thức một job Map-Reduce; nói rằng mọi thuật toán tính toán đều viết được dưới dạng Map-Reduce "đúng bài toán" là khẳng định sai nếu các hàm người dùng được chọn thiếu chính xác — tính đúng đắn thuộc về phần cài đặt Map/Reduce cụ thể, không phải của khung.</p>
+    <p>Nguồn: MMDS, Chương 2, mục 2.2.1–2.2.3 (tr. 25–27), diễn giải hình thức từ mô tả thực thi của Dean &amp; Ghemawat 2004, §2.2. </p>
+  <p>I là mô tả logic của các cặp trung gian phân tán, không buộc lưu tất cả tại một máy hoặc trong bộ nhớ. Danh sách giá trị có thể được đọc tuần tự khi gọi Reduce.</p></aside></section>
+<section id="lec02-s02-11" data-slide-id="lec02-s02-11" class="motivation-slide formal-slide combine-slide">
+  <h2>Gộp cục bộ trước khi Reduce:<br>hàm Combine</h2>
+
+  <p>Combine gộp các giá trị cùng khóa ở phía Map trước khi truyền qua mạng.</p>
+
+  <svg role="img" aria-label="Trước và sau Combine: Map 1 gộp hai giá trị mèo thành 2; Map 2 giữ nguyên hai cặp khác khóa" viewBox="0 0 1120 180" style="width:100%;height:180px" xmlns="http://www.w3.org/2000/svg">
+    <g font-family="Arial,sans-serif" font-size="25" fill="#2f3e7a">
+    <text x="270" y="27" text-anchor="middle">Các cặp do Map phát</text><text x="845" y="27" text-anchor="middle">Sau Combine tại từng tác vụ Map</text>
+    <rect x="0" y="42" width="540" height="58" rx="8" fill="#f8fafc" stroke="#bec8d9"/><rect x="640" y="42" width="480" height="58" rx="8" fill="#edf4ff" stroke="#bec8d9"/>
+    <text x="18" y="79">Map 1: (mèo, 1), (chó, 1), (mèo, 1)</text><text x="660" y="79">(mèo, 2), (chó, 1)</text><text x="575" y="79">→</text>
+    <rect x="0" y="114" width="540" height="58" rx="8" fill="#f8fafc" stroke="#bec8d9"/><rect x="640" y="114" width="480" height="58" rx="8" fill="#edf4ff" stroke="#bec8d9"/>
+    <text x="18" y="151">Map 2: (chó, 1), (chim, 1)</text><text x="660" y="151">(chó, 1), (chim, 1)</text><text x="575" y="151">→</text>
+    </g>
+  </svg>
+  <p class="formal-example-note">5 cặp → 4 cặp qua mạng; Reduce vẫn cho mèo:2, chó:2, chim:1.</p>
+
+  <ul class="conditions">
+    <li>Khi Reduce gộp bằng phép toán kết hợp và giao hoán, Combine có thể dùng cùng phép gộp.</li>
+    <li>Giữ khóa, kết quả gộp cùng kiểu giá trị trung gian.</li>
+  </ul>
+
+  <p class="formal-takeaway">Kết quả không đổi dù bỏ Combine hoặc gộp nhiều lần.</p>
+
+  <p class="motivation-source">Nguồn: MMDS 2.2.4, tr.27–28.</p>
+
+  <aside class="notes">
+    <p>Trong ví dụ, giao văn bản d1 cho tác vụ Map 1 và d2 cho tác vụ Map 2. Combine chỉ gộp các cặp cùng khóa trong dữ liệu cục bộ của tác vụ Map; không cần chờ mọi Map. Hai cặp chó từ hai tác vụ vẫn phải được nhóm rồi cộng tại Reduce cuối. Combine là bước tối ưu tùy chọn, chưa có trong mô hình cơ bản ở các slide trước.</p>
+    <p>Điều kiện đủ cho cách dùng cùng phép gộp ở đây: phép toán đóng trên kiểu giá trị trung gian, kết hợp và giao hoán; giữ nguyên khóa. Phép gộp của Combine phải tương thích với Reduce cuối, chứ không phải chọn một phép toán bất kỳ có hai tính chất trên. Với phép cộng số nguyên, thay một nhóm bằng tổng của nó bảo toàn tổng toàn cục theo từng khóa. Không Combine, gộp một phần hoặc gộp lặp trên các tổng bộ phận đều cho cùng kết quả. Đây không phải điều kiện bắt buộc đối với Reduce tổng quát.</p>
+    <p>Trung bình trực tiếp không có tính kết hợp: nhóm có số lượng khác nhau không được coi là có trọng số bằng nhau. Cách phù hợp là Map phát trạng thái (giá trị,1), Combine cộng riêng tổng và số lượng; Reduce cộng các trạng thái rồi chia tổng cho số lượng. Không dùng trung bình của các trung bình. Đây là diễn giải điều kiện áp dụng, không thêm bài toán vào mạch chính.</p>
+    <p>Mô hình chi phí trong ví dụ chỉ đếm số cặp trung gian truyền: 5 xuống 4, đổi lại cần phép cộng cục bộ. Không suy ra mức giảm byte hoặc thời gian; khóa không lặp có thể không giảm gì. Combine không bảo đảm mọi nhóm vừa bộ nhớ; Reduce có thể đọc lần lượt danh sách giá trị. Khi bật Combine, danh sách nhận ở Reduce gồm các giá trị gốc và/hoặc tổng bộ phận, không còn nhất thiết toàn số 1.</p>
+    <p>Câu hỏi: Vì sao hai cặp chó vẫn phải gặp nhau ở Reduce? Vì chúng thuộc hai phần đầu vào khác nhau và chưa được cộng chung tại phía Map. Nguồn: MMDS 2.2.4, trang 27–28; Dean–Ghemawat 2004, mục 4.3. Ví dụ dùng lại dữ liệu đã xây trong bài.</p>
+  </aside>
+</section>
+<section id="lec02-s02-12" data-slide-id="lec02-s02-12" class="motivation-slide formal-slide model-check-slide">
+  <h2>Câu hỏi kiểm tra</h2>
+  <p><strong>Dữ kiện:</strong> $d_1$ = “mèo chó mèo”, $d_2$ = “chó chim”; giao mỗi văn bản cho một tác vụ Map; Combine và Reduce cộng số đếm.</p>
+  <p>Câu hỏi:</p>
+  <ol>
+    <li>Sau Combine tại mỗi tác vụ Map, những cặp nào được gửi đi?</li>
+    <li>Reduce nhận danh sách nào cho khóa "chó", và trả kết quả gì?</li>
+    <li>Hai khóa khác nhau có thể cùng một tác vụ Reduce không, một máy có thể chạy nhiều tác vụ không?</li>
+  </ol>
+  <aside class="notes">
+    <ul>
+      <li>Map1 trên d1: mèo→1, chó→1, mèo→1, Combine → (mèo,2), (chó,1).</li>
+      <li>Map2 trên d2: (chó,1), (chim,1).</li>
+      <li>Reduce nhận khóa "chó" với danh sách [1, 1], trả về (chó, 2).</li>
+      <li>Hai khóa khác nhau có thể được giao cho cùng một tác vụ Reduce tùy hàm phân phối, nhưng trong tác vụ đó chúng được nhóm riêng theo khóa.</li>
+      <li>Một máy có thể chạy nhiều tác vụ Map hoặc Reduce, lần lượt hoặc đồng thời tùy tài nguyên và lịch phân công.</li>
+      <li>Lưu ý: đầu ra của Reduce không bảo đảm thứ tự giữa các khóa.</li>
+    </ul>
   </aside>
 </section>
 
