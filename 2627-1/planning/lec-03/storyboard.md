@@ -1,6 +1,6 @@
 # Lecture 03 — Đề xuất xây dựng lại từ đầu
 
-Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1–4 có 40 slide đã kiểm định và storyboard chi tiết bên dưới; các phần 5–7 đang triển khai. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
+Trạng thái: Phần 1–5 có 49 slide đã kiểm định; các phần 6–7 đang triển khai. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
 
 ## Phạm vi và mục tiêu
 
@@ -416,3 +416,108 @@ Hình SVG do render_large.py ghi cạnh script (bản phát hành ghi vào thư 
 ### Điều chỉnh sau bản nháp
 
 Sửa chữ và khái niệm đột ngột (giá trị delta, bản ghi khởi tạo); Map nhận cả khối, duyệt bản ghi rồi yield; Reduce nhận danh sách có thể gồm tổng từng phần. Bổ sung tập $V_b$ để công thức tổng không dùng chỉ số b như tập hợp. Giữ Combine trước khi chuyển/nhóm dữ liệu. Mỗi dải điểm được k tác vụ dùng, không đồng nhất k lần đọc với k lần truyền mạng. Bỏ câu hỏi tu từ và số liệu trung bình Web không cần thiết. Script hình bản nháp có hàm chữ sai tham số và ghi vào thư mục con ngoài đường dẫn tích hợp; điều phối đã sửa, vẽ rõ dải nguồn cấp cho cả cột khối và hàng khối gộp về dải đích.
+
+## Storyboard triển khai phần 5
+
+# Storyboard Phần 5 — Chi phí và lợi ích của cách tính (Lecture 03)
+
+Tệp: s05.html, s05.css. 9 slide, 15 phút (1, 2, 2, 2, 2, 2, 1, 1, 2).
+Nguồn chính: MMDS 5.2, trang 190–194; quy ước chi phí I, H, C theo MMDS 2.5.1 (source-cost-conventions.md); số liệu đã kiểm trong checked-blocks.txt.
+
+## Quy ước ký hiệu (định nghĩa trước khi dùng, dùng nhất quán toàn phần; Markdown chỉ $...$/$$...$$)
+
+- $n$ trang, $m$ liên kết, $k$ dải mỗi chiều, $p$ máy.
+- $S$: dung lượng lưu đĩa (byte) của biểu diễn đồ thị. $S_{\text{dense}}=8n^2$; $S_{\text{adj}}\approx 4(n+m)$; $S_{\text{blocks}}=88$ byte cho ví dụ (định dạng khác $S_{\text{adj}}$, nhấn mạnh ở slide 02/04).
+- $B$: bộ nhớ RAM một tác vụ cần giữ; $B_{\text{task}}\approx 16n/k+B_{\text{buf}}$.
+- $W$: tổng thời gian tính tuần tự theo mô hình giây/cạnh, không phụ thuộc $p$; $W=m\cdot c_e$ cho pha tính đóng góp.
+- $T$: thời gian; $c_e>0$ giây/cạnh (giả định). Không dùng τ làm thời gian; τ đã là ngưỡng dừng ở phần 3.
+- $I$: đầu vào các Map (byte); $H$: đầu vào Reduce sau Combine (byte); $C=I+H$ — giữ ký hiệu chi phí của Bài 02. Ví dụ: $I=152$, $H=84$ (96 không Combine), $C=236$ (248 không Combine).
+- $Q$: byte qua mạng vật lý; $Q$ có thể bằng $I$ hoặc $C$ trong tình huống cụ thể, không đồng nhất về bản chất. $T_{\text{shuffle}}\ge Q/b_{\text{eff}}$, $b_{\text{eff}}$ byte/giây.
+- $L$: tổng số vòng đã chạy; $t$: chỉ số vòng. $T_{\text{job}}=T_{\text{setup}}+\sum_t T_{\text{round},t}$.
+- Ví dụ chạy xuyên suốt: đồ thị MMDS Hình 5.1, $n=4$, $m=8$, $k=2$, 4 khối, $h=7$ bản ghi nguồn, $q=7$ bản ghi khóa sau Combine. Không nút cụt, mọi đích có inlinks → bỏ seed và δ khỏi ví dụ đếm chi phí core.
+- Mọi công thức byte/runtime là mô hình giả định suy từ cấu trúc thuật toán, ghi rõ trong notes; không trình bày như benchmark hay số đo Google.
+
+## Slide
+
+### lec03-s05-01 — 5 · Chi phí và lợi ích của cách tính (1 phút)
+- Mục đích: SV gọi tên và phân biệt bốn đại lượng S, B, W, T.
+- Câu chốt: bốn đại lượng đo bốn thứ khác nhau; T có thể giảm khi chia việc giữa các máy.
+- Trung tâm: 4 cards nhỏ với icon SVG native (đĩa, RAM, phép cộng, đồng hồ).
+- Nguồn: MMDS 5.2, trang 190–194.
+- Vào: cơ chế chia khối, Map, Combine, Reduce của phần 4. Ra: bộ ký hiệu cho cả phần.
+- Tiên quyết: phần 4; ký hiệu n, m, k từ phần 2–4.
+- Ghi chú soạn: L được định nghĩa tại slide thời gian cả công việc.
+
+### lec03-s05-02 — Dung lượng biểu diễn đồ thị (2 phút)
+- Mục đích: SV tính S_dense và S_adj, giải thích vì sao thưa tiết kiệm khi m≪n².
+- Câu chốt: biểu diễn thưa giảm dung lượng từ bậc n² xuống bậc n+m.
+- Trung tâm: bảng so sánh 128 vs 48 byte (n=4, m=8).
+- Nguồn: MMDS 5.2.1, trang 190; công thức byte là diễn giải từ cấu trúc định dạng.
+- Vào: bảng nguồn–bậc–đích phần 4. Ra: nền so sánh với S_blocks ở slide 04.
+- Tiên quyết: quy ước float 8 byte, int 4 byte (nêu trên mặt slide).
+- Ghi chú soạn: hai biểu thức trong bảng là cùng luận điểm, được phép. Nhấn mạnh 48 byte là biểu diễn toàn cục, không phải S_blocks (khối lặp bậc toàn cục và mã nguồn). Notes đã nói không tính object/header Python.
+
+### lec03-s05-03 — Bộ nhớ của một tác vụ (2 phút)
+- Mục đích: SV tính B_task cho một tác vụ khối và nêu đánh đổi theo k.
+- Câu chốt: tác vụ chỉ giữ hai dải vector cộng buffer; tăng k giảm RAM nhưng tăng lặp đọc vector.
+- Trung tâm: SVG hai dải r_b, z_a và buffer B_buf, nhãn đọc được.
+- Nguồn: MMDS 5.2.4, trang 192–194; mô hình giả định.
+- Vào: tác vụ M_ab giữ dải vào r_b và dải tích lũy z_a (phần 4). Ra: cơ sở cho I ở slide 04.
+- Tiên quyết: giả sử k chia hết n (nêu trên slide).
+
+### lec03-s05-04 — Dữ liệu đầu vào các tác vụ (2 phút)
+- Mục đích: SV tính I = S_blocks + 8kn và chỉ ra phạm vi của I.
+- Câu chốt: I là tổng đầu vào các Map của block product một vòng, không phải byte qua mạng.
+- Trung tâm: công thức I và thẻ ví dụ 88 + 64 = 152 byte.
+- Nguồn: MMDS 2.5.1 (định nghĩa chi phí tác vụ); MMDS 5.2.3–5.2.4; checked-blocks.txt.
+- Vào: B_task và cấu trúc khối. Ra: I là một nửa của C ở slide 05.
+- Tiên quyết: định dạng bản ghi nguồn 4 + bậc 4 + đích 4 byte (chi tiết numeric trong notes, mặt slide giữ I = 88 + 64).
+- Ghi chú soạn: h = 7 bản ghi nguồn trải 4 khối (2+2+2+1); S_blocks = 8h + 4m = 88. I chưa gồm δ, seed, đầu ra, I/O job khác. Không đồng nhất I với byte mạng.
+
+### lec03-s05-05 — Combine giảm dữ liệu cần gộp (2 phút)
+- Mục đích: SV tính H trước/sau Combine và phân biệt H với Q.
+- Câu chốt: Combine giảm H từ 96 xuống 84 byte (12,5% của H, không phải của runtime); H là tổng đầu vào Reduce sau Combine, chưa đương nhiên là Q.
+- Trung tâm: SVG hai bản ghi D gộp thành một; bảng 96 vs 84 byte.
+- Nguồn: MMDS 5.2.3, trang 192; checked-blocks.txt.
+- Vào: Map/Combine phần 4; I ở slide 04. Ra: C = I + H = 236 byte (248 không Combine) — giữ ký hiệu chi phí Bài 02; C chưa gồm δ/Δ/seed/điều phối toàn vòng.
+- Tiên quyết: khóa là trang đích, record key 4 + value 8 byte.
+- Ghi chú soạn: đếm trên cả 4 khối; Trong cùng M21, A và B tạo hai cặp (D,1/12), (D,1/8), gộp thành (D,5/24). Q chỉ bằng 84/96 nếu mọi record ra Map đều qua mạng, không nén, không retry, không overhead. T_net ≥ Q/b_eff để ở slide 07. Trên đồ thị mẫu không nút cụt nên seed/δ không nằm trong ví dụ đếm core.
+
+### lec03-s05-06 — Thời gian khi tăng số máy (2 phút)
+- Mục đích: SV tính T_map theo p và giải thích vì sao tăng tốc 8/3 chứ không phải 4.
+- Câu chốt: $W = 8c_e$ không đổi; cận tổng quát $T_{\text{map}}\ge \max(W/p, w_{\max})$, không đẳng thức mọi trường hợp; ở đây $3c_e$ vì khối 3 cạnh là nút cổ chai.
+- Trung tâm: một dòng chạy tuần tự và bốn dòng máy bắt đầu đồng thời (8c_e so với 3c_e).
+- Nguồn: mô hình tính theo MMDS 5.2.2–5.2.5; c_e tham số giả định.
+- Vào: W từ slide 01; công việc bốn khối 2, 2, 3, 1 c_e. Ra: T_map là một số hạng của T_round ở slide 07.
+- Tiên quyết: mô hình bỏ I/O và scheduling (nêu trên slide).
+- Ghi chú soạn: bài áp dụng p=2 — xếp 3+1 và 2+2 được 4c_e, nêu trong notes. Không đặt hai công thức ngang nhau gây stress; cận dưới nằm trong caption.
+
+### lec03-s05-07 — Dữ liệu qua mạng và băng thông (1 phút)
+- Mục đích: tính cận thời gian truyền từ lượng byte và băng thông.
+- Câu chốt: Q phụ thuộc vị trí dữ liệu/tác vụ, không đồng nhất I,H,C.
+- Trung tâm: T_shuffle ≥ Q/b_eff, định nghĩa đơn vị trước công thức.
+- Nguồn: MMDS 2.5.1 và 5.2, mô hình truyền dữ liệu đơn giản.
+- Vào: H sau Combine. Ra: số hạng truyền mạng trong thời gian vòng.
+- Tiên quyết: byte, giây và các pha phần 4.
+- Ví dụ: Q=84 chỉ khi mọi bản ghi phải qua mạng, bỏ nén và phần phụ trội; không phải cận dưới vô điều kiện.
+
+### lec03-s05-08 — Thời gian một vòng và cả công việc (1 phút)
+- Mục đích: cộng thời gian các pha và các vòng dưới giả định rõ.
+- Câu chốt: thêm máy không giảm đồng đều mọi pha.
+- Trung tâm: công thức tổng thời gian một vòng, nhãn giải thích từng thời gian; toàn công việc cộng các vòng và khởi tạo.
+- Nguồn: MMDS 5.2 và mô hình pha của bài.
+- Vào: T_map và truyền mạng. Ra: câu hỏi áp dụng, rồi kiểm chứng bằng code.
+- Tiên quyết: pha delta, Map, chuyển/nhóm, Reduce, đồng bộ. Định nghĩa L và T_setup tại đây.
+- Notes: pha chồng nhau dùng max; không tự đặt thời gian pha chưa được cho, không giả định số vòng cố định.
+
+### lec03-s05-09 — Câu hỏi kiểm tra (2 phút)
+- Mục đích: SV tự giải ba bài bằng công thức vừa lập.
+- Câu chốt (thuần Việt, đúng 1 câu): biểu diễn thưa giảm lưu trữ, trong khối giảm RAM, thêm máy có thể giảm T_map nhưng không giảm mọi chi phí.
+- Trung tâm: 3 câu hỏi; đáp án trong notes.
+- Nguồn: các công thức slide 02–07.
+- Vào: toàn phần. Ra: nối sang phần 6 — chạy kết quả trên đồ thị nhỏ (không phải benchmark).
+- Đáp án notes: 32 byte + buffer; 3c_e (tăng tốc 8/3); không suy được I=Q vì I gồm dữ liệu cục bộ và Q phụ thuộc placement, nén, retry, overhead.
+
+## Quyết định sau kiểm tra của điều phối
+
+Bản nháp có sơ đồ Combine sai khối và sai phân số, timeline không thể hiện bốn máy song song, W chưa thống nhất đơn vị, tỷ số dung lượng thiếu hệ số2 và chưa đưa C lên slide. Đã sửa trước khi gửi sáu reviewer. Ba hình chính được vẽ lại bằng render_cost.py thành cost-memory.svg, cost-combine.svg, cost-timeline.svg. Tách slide runtime thành mạng và thời gian cả vòng, tổng thời lượng vẫn15phút. Các ví dụ phân số và byte đối chiếu bằng Fraction. Không coi Q=84 là cận dưới vô điều kiện. Ghi chú bỏ thuật ngữ tiếng Anh không cần và thông tin chỉ dành cho tác giả. Công thức C chỉ tính phép nhân theo khối, không toàn bộ vòng.
