@@ -1,6 +1,6 @@
 # Bài 03 — Dàn ý mới để duyệt
 
-Trạng thái: Phần 1–5 có 49 slide đã kiểm định; các phần 6–7 đang triển khai. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
+Trạng thái: Phần 1–6 có 56 slide đã kiểm định; các phần 7–7 đang triển khai. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
 
 
 - Tên bài: **PageRank: mô hình và tính toán**, Bài 03 theo thứ tự đề xuất trong `sources/source.md`; tiếp nối phép nhân ma trận–véc tơ và MapReduce của Bài 02.

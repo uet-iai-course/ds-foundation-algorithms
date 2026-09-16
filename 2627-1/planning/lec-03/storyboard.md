@@ -1,6 +1,6 @@
 # Lecture 03 — Đề xuất xây dựng lại từ đầu
 
-Trạng thái: Phần 1–5 có 49 slide đã kiểm định; các phần 6–7 đang triển khai. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
+Trạng thái: Phần 1–6 có 56 slide đã kiểm định; các phần 7–7 đang triển khai. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
 
 ## Phạm vi và mục tiêu
 
@@ -521,3 +521,80 @@ Nguồn chính: MMDS 5.2, trang 190–194; quy ước chi phí I, H, C theo MMDS
 ## Quyết định sau kiểm tra của điều phối
 
 Bản nháp có sơ đồ Combine sai khối và sai phân số, timeline không thể hiện bốn máy song song, W chưa thống nhất đơn vị, tỷ số dung lượng thiếu hệ số2 và chưa đưa C lên slide. Đã sửa trước khi gửi sáu reviewer. Ba hình chính được vẽ lại bằng render_cost.py thành cost-memory.svg, cost-combine.svg, cost-timeline.svg. Tách slide runtime thành mạng và thời gian cả vòng, tổng thời lượng vẫn15phút. Các ví dụ phân số và byte đối chiếu bằng Fraction. Không coi Q=84 là cận dưới vô điều kiện. Ghi chú bỏ thuật ngữ tiếng Anh không cần và thông tin chỉ dành cho tác giả. Công thức C chỉ tính phép nhân theo khối, không toàn bộ vòng.
+
+## Storyboard triển khai phần 6
+
+# Storyboard Phần 6 — Thực hành tính PageRank (Lecture 03)
+
+Outer: `pagerank-practice`, 7 slide `pr-slide`, id `lec03-s06-01..07`. Tổng 20 phút: 2, 2, 4, 4, 3, 3, 2. Mọi slide có badge Thực hành; dùng CSS của deck (s01.css) và s06.css mới chỉ trong `#pagerank-practice`. Mã là trung tâm của mọi slide, không thêm hình trang trí.
+
+## s06-01 — 6 · Thực hành tính PageRank (2 phút)
+- Mục đích: sinh viên nêu được bốn sản phẩm (r tổng 1, trạng thái dừng, số vòng, Δ) và môi trường cần có.
+- Câu chốt: đi từ dữ liệu tới chương trình chạy được và kiểm bằng số, một máy, Python 3 chuẩn.
+- Trung tâm: hai card — sản phẩm và môi trường; link `materials/lec-03/code/pagerank.py`.
+- Tiên quyết: công thức cập nhật đầy đủ phần 3.
+- Nối vào: từ kết quả lý thuyết phần 3. Nối ra: dữ liệu cụ thể ở slide sau.
+- Nguồn: MMDS 5.1.5; cấu trúc mã của phần này.
+
+## s06-02 — Dữ liệu và giao diện hàm (2 phút)
+- Mục đích: đọc được giao diện `pagerank(adj, beta, tol, max_iter)` và điều kiện vào của `adj`.
+- Câu chốt: dict chuỗi A→đích, giữ mọi nút, cạnh trùng phải gộp; kiểm tra đầy đủ nằm trong tệp.
+- Trung tâm: khối mã dict adj + liệt kê 4 giá trị trả về.
+- Tiên quyết: bảng lưu liên kết ra phần 4 (lec03-s04-02).
+- Nối vào: giao diện phần 3. Nối ra: mã `step` dùng đúng dữ liệu này.
+- Nguồn: MMDS Hình 5.1; đặc tả phần 3.
+- Ghi chú soạn: validation đầy đủ để trong tệp, chỉ nêu điều kiện trên caption; không nhét hết lên slide.
+
+## s06-03 — Mã cập nhật một vòng (4 phút)
+- Mục đích: đối chiếu từng dòng của `step` với ba thành phần của công thức cập nhật.
+- Câu chốt: phần theo liên kết, bước nhảy và bù nút cụt đều dùng điểm cũ; `step` không mutate `r`.
+- Trung tâm: khối mã `step` 12 dòng (dưới 30 dòng), khớp chính xác mã chạy trong pagerank.py.
+- Tiên quyết: công thức r^{t+1} (lec03-s03-08), quy tắc bù nút cụt (lec03-s03-07).
+- Nối vào: δ và common từ công thức. Nối ra: vòng lặp gọi `step`.
+- Nguồn: MMDS 5.1.5; slidelec03-s03-08.
+
+## s06-04 — Mã lặp và điều kiện dừng (4 phút)
+- Mục đích: theo dõi được vòng lặp, tính Δ và phát hiện trạng thái "hết vòng chưa đạt".
+- Câu chốt: tol là ngưỡng độ thay đổi giữa hai vòng, không phải chặn sai số so với nghiệm.
+- Trung tâm: khối mã lặp 12 dòng (n, khởi tạo r0 đều, iterations, converged, vòng for, tính Δ, break khi Δ ≤ tol) với r0 đều.
+- Tiên quyết: định nghĩa Δ_t (lec03-s03-12).
+- Nối vào: một vòng đã có. Nối ra: lệnh chạy thật ở slide sau.
+- Nguồn: thuật toán lec03-s03-11, 12.
+- Ghi chú soạn: code validation nằm riêng trong tệp, không đưa lên slide.
+
+## s06-05 — Chạy chương trình (3 phút)
+- Mục đích: chạy được lệnh đúng từ thư mục 2627-1 và đọc đầu ra JSON.
+- Câu chốt: groundtruth base là A = 9/28 ≈ 0.321429, B = C = D = 19/84 ≈ 0.226190.
+- Trung tâm: khối lệnh CLI + giá trị hội tụ mong đợi.
+- Tiên quyết: giao diện hàm và mô hình cập nhật.
+- Nối vào: mã đã đọc xong. Nối ra: các phép kiểm.
+- Nguồn: MMDS Hình 5.1; practice-README.md.
+- Ghi chú soạn: Mã đã chạy: 20 vòng, delta≈5.4975583e-9; kết quả hiển thị và README khớp.
+
+## s06-06 — Kiểm chứng kết quả (3 phút)
+- Mục đích: thực hiện được ba phép kiểm (tổng/dấu, một bước base, một bước dead) với dung sai 1e-12.
+- Câu chốt: một bước base cho 7/20 và 13/60; một bước dead cho 1/5 và 4/15 — khớp bảng phần 3.
+- Trung tâm: bảng ba phép kiểm và quy tắc abs tolerance.
+- Tiên quyết: bảng một vòng và nút cụt phần 3.
+- Nối vào: chạy đã xong. Nối ra: câu hỏi kiểm tra về lỗi lập trình.
+- Nguồn: MMDS Hình 5.1, 5.3; bảng lec03-s03-09, 10.
+- Ghi chú soạn: kiểm toàn node cụt và selfloop đặt trong README/notes, không thêm slide.
+
+## s06-07 — Câu hỏi kiểm tra (2 phút)
+- Mục đích: giải thích và sửa ba lỗi: mutate r trong vòng for, bỏ node không inlinks, gán converged True khi hết max_iter.
+- Câu chốt: ba lỗi đối ứng ba thành phần vừa xây — một vòng, tập nút, điều kiện dừng.
+- Trung tâm: danh sách ba tình huống lỗi; đáp án trong notes.
+- Tiên quyết: slides 03–04 của phần này.
+- Nối vào: chương trình đã kiểm. Nối ra: tổng kết phần; bài tiếp theo của bài giảng.
+- Nguồn: tổng hợp từ phần 3 và mã phần này.
+
+## Đối chiếu nhãn và dữ kiện
+- Hướng cạnh nguồn→đích: A→B,C,D; B→A,D; C→A; D→B,C (base); dead bỏ C→A; trap thay C→A bằng C→C — nhất quán pagerank.py, slides, README.
+- 7/20, 13/60 (base, một vòng) và 1/5, 4/15 (dead, một vòng) khớp bảng lec03-s03-09/10.
+- Groundtruth hội tụ 9/28 và 19/84 lấy từ dữ kiện bài; iterations=20, delta≈5.4975583e-9 đã chạy kiểm chứng.
+- beta = 0.8 = 4/5 nhất quán với phần 3.
+
+## Trạng thái sau sáu reviewer
+- materials/lec-03/code/pagerank.py đã đồng bộ và khớp hệt bản gốc pagerank.py; test chạy lại trên chính đường dẫn materials, không đổi logic, không thay giá trị 20 vòng, delta≈5.4975583e-9.
+- Notes đã rà: không còn mã slide nội bộ lec03-sXX, không lời hẹn "primary điền", không chỉ dẫn người soạn.
+- Văn xuôi dùng "véc tơ", "từ điển"; giữ `dict` trong code/thuật ngữ Python.

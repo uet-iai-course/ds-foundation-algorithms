@@ -174,6 +174,21 @@
 #lec03-s05-05 .cost-table {font-size:26px;}
 #lec03-s05-01 .cost-cards h3 {font-size:27px;}
 
+/* s06.css — chỉ trong phạm vi #pagerank-practice (Phần 6, Lecture 03) */
+
+.reveal #pagerank-practice h1 {font-size:40px;}
+.reveal #pagerank-practice h2 {font-size:36px;}
+.reveal #pagerank-practice pre {font-size:24px;line-height:1.3;width:100%;}
+.reveal #pagerank-practice table {font-size:26px;border-collapse:collapse;margin:0 auto;}
+.reveal #pagerank-practice th,.reveal #pagerank-practice td {padding:6px 16px;text-align:left;border-bottom:1px solid #d5d9e8;}
+.reveal #pagerank-practice .inline-code-wrap {font-size:26px;font-family:'Courier New',Courier,monospace;word-break:break-all;white-space:normal;}
+.reveal #pagerank-practice .card {padding:14px 20px;}
+
+#pagerank-practice .practice-badge{display:inline-block;border:1px solid #b9c2dd;border-radius:6px;padding:3px 10px;background:#eef1fa;color:#2f3e7a;font-size:21px;}
+#pagerank-practice .slide-badge-row{margin:4px 0 10px;}
+#pagerank-practice pre{font-size:24px;line-height:1.2;}
+#pagerank-practice pre code{max-height:none;}
+
 </style>
 </head>
 <body>
@@ -190,7 +205,7 @@
 
 <section id="lec03-s01-02" data-slide-id="lec03-s01-02" class="pr-slide">
   <h2>Nội dung</h2>
-  <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li><li>Mô hình và thuật toán PageRank</li><li>Tính PageRank trên đồ thị lớn</li><li>Chi phí và lợi ích của cách tính</li></ul>
+  <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li><li>Mô hình và thuật toán PageRank</li><li>Tính PageRank trên đồ thị lớn</li><li>Chi phí và lợi ích của cách tính</li><li>Thực hành tính PageRank</li></ul>
   <aside class="notes">Tuyến của bài bắt đầu bằng nhu cầu xếp hạng và một đồ thị nhỏ có thể tính tay. Từ ví dụ, ta xây mô hình và thuật toán PageRank. Tiếp đó là cách tổ chức phép tính trên đồ thị lớn, rồi đánh giá chi phí. Phần thực hành chuyển đặc tả thành chương trình Python và đối chiếu với kết quả tính tay. Cuối bài, các bài tập yêu cầu tính điểm và chọn cách biểu diễn dữ liệu. Các phần dùng chung một ví dụ để tránh phải học lại dữ kiện mỗi khi đổi cách nhìn.</aside>
 </section>
 
@@ -818,6 +833,134 @@ Reduce(i, L_i):
 <p class="caption">Biểu diễn thưa giảm lưu trữ, chia khối giảm RAM, thêm máy có thể giảm \(T_{\text{map}}\) nhưng không giảm mọi chi phí.</p>
 <p class="source-note">Phần sau: cài đặt phép cập nhật và kiểm chứng kết quả trên đồ thị nhỏ.</p>
 <aside class="notes">Đáp án. Câu một: hai dải nhân hai phần tử nhân tám byte bằng ba mươi hai byte, cộng bộ đệm đọc khối. Câu hai: theo mô hình chỉ tính toán, T_map bằng tác vụ nặng nhất là ba c_e; tổng việc tám c_e không đổi, tăng tốc tám chia ba chứ không phải bốn. Câu ba: không. I là tổng byte đầu vào các Map gồm cả dữ liệu khối cục bộ; Q là byte thực sự qua mạng, phụ thuộc nơi lưu và phân phối tác vụ, có thể nhỏ hơn I khi dữ liệu cục bộ và có thể khác do nén, chạy lại, phần phụ trội. Phần sau chạy kết quả trên đồ thị nhỏ. Nguồn: MMDS 2.5.1 và 5.2; vận dụng các mô hình chi phí vừa xây dựng.</aside>
+</section>
+
+</section>
+
+<section id="pagerank-practice" aria-label="Phần 6: Thực hành tính PageRank">
+
+<section id="lec03-s06-01" data-slide-id="lec03-s06-01" class="pr-slide">
+  <h1>6 · Thực hành tính PageRank</h1>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Sản phẩm của phần này</h3>
+      <ul>
+        <li>Véc tơ điểm \(r\) với tổng bằng 1.</li>
+        <li>Trạng thái dừng: đạt ngưỡng hoặc hết giới hạn vòng.</li>
+        <li>Số vòng đã chạy và độ thay đổi \(\Delta\) cuối.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Môi trường</h3>
+      <p>Python 3, chỉ thư viện chuẩn — không cần pip.</p>
+      <p>Chạy trên một máy để kiểm công thức.</p>
+      <p class="inline-code-wrap">Mã: <a href="materials/lec-03/code/pagerank.py" download>Tải pagerank.py</a></p>
+    </div>
+  </div>
+  <p class="caption">Đi từ dữ liệu đồ thị tới chương trình chạy được và các phép kiểm bằng số.</p>
+  <aside class="notes">Phần ba đã có công thức cập nhật đầy đủ với bước nhảy và bù điểm nút cụt. Phần này biến công thức thành một chương trình Python chỉ dùng thư viện chuẩn, chạy trên một máy để kiểm tra tính đúng, không phải để đo tăng tốc trên đồ thị nhỏ. Sản phẩm gồm véc tơ điểm có tổng bằng một, trạng thái dừng, số vòng và độ thay đổi cuối. Ta sẽ đi qua dữ liệu, mã một vòng, vòng lặp, lệnh chạy và các phép kiểm. Nguồn: MMDS 5.1.5; mã nằm tại materials/lec-03/code/pagerank.py.</aside>
+</section>
+
+<section id="lec03-s06-02" data-slide-id="lec03-s06-02" class="pr-slide">
+  <h2>Dữ liệu và giao diện hàm</h2>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Danh sách kề (nhãn chuỗi)</h3>
+      <pre><code class="language-python" data-trim>adj = {
+    "A": ["B", "C", "D"],
+    "B": ["A", "D"],
+    "C": ["A"],
+    "D": ["B", "C"],
+}</code></pre>
+    </div>
+    <div>
+      <p><span class="inline-code">pagerank(adj, beta=0.8, tol=1e-8, max_iter=100)</span></p>
+      <p>Trả về dict: <span class="inline-code">rank</span>, <span class="inline-code">converged</span>, <span class="inline-code">iterations</span>, <span class="inline-code">delta</span>.</p>
+      <p>Giữ mọi nút, kể cả nút không có liên kết vào hoặc không có liên kết ra.</p>
+    </div>
+  </div>
+  <p class="caption">Điều kiện vào: \(n\ge1\); đích phải có trong dict; gộp cạnh trùng trong bản sao; \(0&lt;\beta&lt;1\), \(\tau&gt;0\), \(T_{\max}\) nguyên dương. Kiểm tra đầy đủ nằm trong tệp mã.</p>
+  <aside class="notes">Đồ thị được biểu diễn bằng dict từ tên nút sang danh sách đích, đúng như bảng lưu liên kết ra ở phần bốn; nhãn là chuỗi A, B, C, D. Hàm pagerank nhận beta, ngưỡng dừng và giới hạn số vòng, trả về bốn thành phần: điểm từng nút, trạng thái hội tụ, số vòng và độ thay đổi cuối. Mọi nút đều giữ lại kể cả khi không có liên kết vào hay ra, vì nút cụt cần có mặt khi tính phần bù. Điều kiện vào gồm n ít nhất một, đích phải là khóa của dict, hàm gộp cạnh trùng trong bản sao, beta trong khoảng mở từ không tới một, ngưỡng dương và giới hạn vòng nguyên dương. Hàm kiểm tra tham số trước khi bắt đầu vòng lặp. Nguồn: MMDS Hình 5.1; đặc tả theo phần ba.</aside>
+</section>
+
+<section id="lec03-s06-03" data-slide-id="lec03-s06-03" class="pr-slide">
+  <h2>Mã cập nhật một vòng</h2>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <pre><code class="language-python" data-trim>def step(adj, r, beta):
+    n = len(adj)
+    delta = sum(r[j] for j in adj if not adj[j])
+    common = (1.0 - beta + beta * delta) / n
+    new = {i: common for i in adj}
+    for j, targets in adj.items():
+        if not targets:
+            continue
+        share = beta * r[j] / len(targets)
+        for i in targets:
+            new[i] += share
+    return new</code></pre>
+  <p class="caption"><span class="inline-code">common</span> cấp phần chung cho mọi trang; nguồn có đích chia điểm theo liên kết. Điểm cũ \(r\) chỉ được đọc.</p>
+  <aside class="notes">Hàm step thực hiện đúng một vòng của công thức cập nhật. Trước hết tính delta là tổng điểm của các nút có danh sách đích rỗng, lấy từ véc tơ cũ. Phần chung bằng một trừ beta cộng beta nhân delta, chia n, được đặt cho mọi nút ngay khi khởi tạo dict mới, nên cả nút không có liên kết vào cũng nhận phần chung. Nút cụt bỏ qua vòng chia vì không có đích; điểm của nó đã vào phần bù. Mỗi nguồn còn lại chia beta nhân điểm cũ của mình cho số đích, cộng vào từng đích trong danh sách. Véc tơ r chỉ được đọc, không bị thay đổi; điểm mới nằm hoàn toàn trong dict new. Mã trên slide trùng khớp mã trong tệp chạy được. Nguồn: công thức cập nhật phần ba, MMDS 5.1.5.</aside>
+</section>
+
+<section id="lec03-s06-04" data-slide-id="lec03-s06-04" class="pr-slide">
+  <h2>Mã lặp và điều kiện dừng</h2>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <pre><code class="language-python" data-trim>n = len(adj)
+r = {i: 1.0 / n for i in adj}
+iterations, converged = 0, False
+for _ in range(max_iter):
+    new = step(adj, r, beta)
+    delta = sum(abs(new[i] - r[i]) for i in adj)
+    r = new
+    iterations += 1
+    if delta <= tol:
+        converged = True
+        break
+# Trả r, converged, iterations, delta sau vòng lặp.</code></pre>
+  <p class="caption">\(r^0\) đều \(1/n\); mỗi vòng so sánh \(\Delta_t=\sum_i|r_i^{t+1}-r_i^t|\) với \(\tau\). \(\tau\) là ngưỡng độ thay đổi giữa hai vòng, không phải chặn sai số so với nghiệm.</p>
+  <aside class="notes">Khởi tạo điểm đều một chia n cho mọi nút. Mỗi vòng gọi step để lấy véc tơ mới, tính độ thay đổi là tổng trị tuyệt đối của hiệu giữa hai véc tơ liên tiếp, rồi mới gán véc tơ mới vào r. Nếu độ thay đổi nhỏ hơn hoặc bằng ngưỡng, gắn trạng thái đạt và dừng. Nếu chạy hết giới hạn vòng mà chưa đạt, trạng thái trả về là chưa đạt, kèm số vòng và độ thay đổi cuối để người dùng biết tình trạng. Cần nhắc lại: ngưỡng dừng đo độ thay đổi giữa hai vòng, không phải khoảng cách tới nghiệm mà ta chưa biết. Việc kiểm tra tham số nằm riêng trong tệp mã trước khi vào vòng lặp. Phân biệt hai biến cùng tên: delta trong step là tổng điểm nút cụt (δ), delta trong vòng lặp là độ thay đổi giữa hai vòng (Δ); chúng thuộc hai phạm vi hàm khác nhau. Nguồn: thuật toán và tiêu chí dừng ở phần ba.</aside>
+</section>
+
+<section id="lec03-s06-05" data-slide-id="lec03-s06-05" class="pr-slide">
+  <h2>Chạy chương trình</h2>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <pre><code class="language-plaintext" data-trim>python3 materials/lec-03/code/pagerank.py \
+    --variant base --beta 0.8 --tol 1e-8 --max-iter 100</code></pre>
+  <p>Chạy từ thư mục <span class="inline-code">2627-1</span>. Đầu ra là JSON: <span class="inline-code">rank</span>, <span class="inline-code">converged</span>, <span class="inline-code">iterations</span>, <span class="inline-code">delta</span>, <span class="inline-code">rank_sum</span>.</p>
+  <p>Giá trị hội tụ của <span class="inline-code">base</span>:</p>
+  <p>\(r_A=9/28\approx0{,}321429\)</p>
+  <p>\(r_B=r_C=r_D=19/84\approx0{,}226190\)</p>
+  <p class="caption">Kết quả: đạt ngưỡng sau 20 vòng; độ thay đổi cuối \(\Delta\approx 5{,}50\times 10^{-9}\). Tổng điểm xấp xỉ 1.</p>
+  <aside class="notes">Lệnh chạy từ thư mục 2627-1, trỏ tới tệp mã trong materials. Các tham số dòng lệnh là biến thể đồ thị, beta và ngưỡng dừng, cùng giới hạn vòng. Chương trình in JSON ổn định gồm điểm từng nút, trạng thái, số vòng, độ thay đổi cuối và tổng điểm. Với biến thể base và beta bốn phần năm, điểm hội tụ là chín phần hai mươi tám cho A và mười chín phần tám mươi tư cho B, C, D; ba giá trị sau bằng nhau vì phép cập nhật giữ tính bằng nhau của điểm B, C, D khi khởi tạo đều. Các trang này không có cùng bậc ra. Chạy mã với các tham số trên cho 20 vòng, độ thay đổi cuối khoảng 5,50×10⁻⁹. Sai khác làm tròn rất nhỏ có thể xuất hiện giữa môi trường chạy. README ghi đủ môi trường, lệnh, dữ liệu, đầu ra và cách kiểm, xem practice-README.md. Nguồn: MMDS Hình 5.1.</aside>
+</section>
+
+<section id="lec03-s06-06" data-slide-id="lec03-s06-06" class="pr-slide">
+  <h2>Kiểm chứng kết quả</h2>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <table>
+    <tr><th>Phép kiểm</th><th>Giá trị đúng</th></tr>
+    <tr><td>Tổng điểm, dấu</td><td>\(\sum_i r_i\approx1\), mọi \(r_i\ge0\)</td></tr>
+    <tr><td>Một bước, <span class="inline-code">base</span>, \(r^0\) đều, \(\beta=0{,}8\)</td><td>\(r_A=7/20\); \(r_B=r_C=r_D=13/60\)</td></tr>
+    <tr><td>Một bước, <span class="inline-code">dead</span> (bỏ C→A), cùng \(r^0\), \(\beta\)</td><td>\(r_A=1/5\); \(r_B=r_C=r_D=4/15\)</td></tr>
+  </table>
+  <p>So sánh bằng dung sai: <span class="inline-code">abs(got - want) &lt;= 1e-12</span>, không dùng so sánh bằng của số thực.</p>
+  <p class="caption">Kiểm một bước bằng bảng tính tay; kiểm thêm trường hợp toàn nút cụt và một nút trong hướng dẫn.</p>
+  <aside class="notes">Ba lớp kiểm. Thứ nhất là bất biến: tổng điểm xấp xỉ một và mọi giá trị không âm, đúng theo lập luận bảo toàn tổng ở phần ba. Thứ hai là một vòng trên đồ thị gốc từ điểm đều với beta bốn phần năm: A nhận bảy phần hai mươi, ba nút còn lại nhận mười ba phần sáu mươi, khớp bảng một vòng của phần ba. Thứ ba là một vòng trên biến thể nút cụt sau khi xóa cạnh C tới A: phần chung là một phần mười, cho A bằng một phần năm và ba nút còn lại bốn phần mười lăm. So sánh số thực dùng dung sai mười trừ mười hai, không dùng phép bằng. Hai trường hợp bổ sung là toàn bộ nút cụt và một nút có vòng lặp lên chính nó, được ghi trong README để kiểm các trường hợp biên. Nguồn: bảng một vòng phần ba, MMDS Hình 5.1 và 5.3.</aside>
+</section>
+
+<section id="lec03-s06-07" data-slide-id="lec03-s06-07" class="pr-slide">
+  <h2>Câu hỏi kiểm tra</h2>
+  <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
+  <p><strong>Câu hỏi:</strong> tìm và sửa lỗi trong ba đoạn cập nhật sau.</p>
+  <ul>
+    <li>Trong vòng lặp, mã cập nhật trực tiếp <span class="inline-code">r[i] += ...</span> khi quét từng cạnh.</li>
+    <li>Trước khi chạy, mã bỏ đi mọi nút không có liên kết nào đi vào.</li>
+    <li>Khi đã chạy hết <span class="inline-code">max_iter</span> mà chưa đạt ngưỡng, mã vẫn gắn <span class="inline-code">converged = True</span>.</li>
+  </ul>
+  <p class="source-note">Tổng kết phần: công thức phần 3 → mã một vòng → vòng lặp → chạy và kiểm bằng số.</p>
+  <aside class="notes">Đáp án. Lỗi một: cập nhật trực tiếp lên r trong khi quét khiến các cạnh sau dùng điểm đã đổi của các cạnh trước, kết quả lệch khỏi công thức dùng cùng véc tơ cũ; sửa bằng cách ghi vào dict mới như step và chỉ gán r bằng new sau khi tính xong độ thay đổi. Lỗi hai: bỏ nút không có liên kết vào làm mất nút khỏi phân phối, tổng điểm không còn tính trên n trang và phần chung bị chia sai; mọi nút phải được giữ, nút không có liên kết vào vẫn nhận phần chung. Lỗi ba: hết giới hạn vòng mà chưa đạt ngưỡng thì trạng thái phải là chưa đạt, kèm số vòng và độ thay đổi cuối; gắn đạt sai làm người dùng tin nhầm kết quả đã hội tụ. Ba lỗi nối đúng ba thành phần vừa xây: một vòng, tập nút, điều kiện dừng.</aside>
 </section>
 
 </section>
