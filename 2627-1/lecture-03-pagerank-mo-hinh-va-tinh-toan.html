@@ -61,6 +61,15 @@
 .reveal #web-ranking-problem table {font-size:26px;line-height:1.25;}
 .reveal #web-ranking-problem table th,.reveal #web-ranking-problem table td {padding:.22em .3em;}
 
+
+.reveal #pagerank-model h1 {font-size:40px;}
+.reveal #pagerank-model table {font-size:28px;border-collapse:collapse;}
+.reveal #pagerank-model th,.reveal #pagerank-model td {padding:5px 14px;text-align:center;}
+.reveal #pagerank-model pre {font-size:23px;line-height:1.3;width:100%;}
+.reveal #pagerank-model .matrix-note {font-size:26px;}
+
+.reveal #lec03-s03-11 pre {font-size:25px;line-height:1.2;}
+
 </style>
 </head>
 <body>
@@ -77,7 +86,7 @@
 
 <section id="lec03-s01-02" data-slide-id="lec03-s01-02" class="pr-slide">
   <h2>Nội dung</h2>
-  <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li></ul>
+  <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li><li>Mô hình và thuật toán PageRank</li></ul>
   <aside class="notes">Tuyến của bài bắt đầu bằng nhu cầu xếp hạng và một đồ thị nhỏ có thể tính tay. Từ ví dụ, ta xây mô hình và thuật toán PageRank. Tiếp đó là cách tổ chức phép tính trên đồ thị lớn, rồi đánh giá chi phí. Phần thực hành chuyển đặc tả thành chương trình Python và đối chiếu với kết quả tính tay. Cuối bài, các bài tập yêu cầu tính điểm và chọn cách biểu diễn dữ liệu. Các phần dùng chung một ví dụ để tránh phải học lại dữ kiện mỗi khi đổi cách nhìn.</aside>
 </section>
 
@@ -240,6 +249,214 @@
   </ul>
   <p class="source-note">Dữ kiện: MMDS, mục 5.1.2, Ví dụ 5.1–5.2.</p>
   <aside class="notes">Đầu vào là đồ thị các trang và liên kết có hướng; đầu ra là điểm chuẩn hóa cùng thứ tự giảm dần, cho phép đồng hạng. D nhận một phần mười hai từ A và một phần tám từ B, tổng năm phần hai mươi tư. A nhận một phần tám từ B và một phần tư từ C; B nhận một phần mười hai từ A và một phần tám từ D. Vì C chuyển cả điểm cho A, A nhận nhiều hơn B dù hai trang có cùng số liên kết vào. Từ ví dụ này, phần 3 sẽ xây quy tắc tổng quát và xét điểm ổn định khi lặp.</aside>
+</section>
+
+</section>
+
+<section id="pagerank-model" aria-label="Phần 3: Mô hình và thuật toán PageRank">
+
+<section id="lec03-s03-01" data-slide-id="lec03-s03-01" class="pr-slide">
+  <h1>3 · Mô hình và thuật toán PageRank</h1>
+  <div class="grid2">
+    <img src="img/lec-03/model-one-round.svg" role="img" class="main-figure"
+         alt="Nút j mang điểm cũ rⱼ chia đều cho ba trang đích, mỗi mũi tên mang nhãn rⱼ/dⱼ"/>
+    <div class="card">
+      <h3>Từ một vòng đến mô hình</h3>
+      <p>Phần 2 đã chạy một vòng chia điểm trên đồ thị ví dụ.</p>
+      <p>Cần hoàn thiện quy tắc để lặp trên đồ thị bất kỳ.</p>
+    </div>
+  </div>
+  <p class="caption">Điểm \(r_i\) là xác suất người đọc đang ở trang \(i\); \(d_j\) là số liên kết ra của trang \(j\).</p>
+  <aside class="notes">Phép chia điểm của phần trước có thể đọc như một bước di chuyển ngẫu nhiên. Gọi d_j là số liên kết ra của trang j. Nếu người đọc ở j với xác suất r_j và chọn đều một trong d_j liên kết, xác suất đi từ j tới mỗi đích là r_j/d_j. Khi lặp nhiều bước, ta muốn tìm một phân phối không đổi sau cập nhật. Quy tắc hiện tại chưa xử lý trang không có liên kết ra và chưa bảo đảm hội tụ trên mọi đồ thị. Ta sẽ hoàn thiện hai điểm đó trước khi phát biểu thuật toán. Nguồn: MMDS 5.1.2, trang 178–180.</aside>
+</section>
+
+<section id="lec03-s03-02" data-slide-id="lec03-s03-02" class="pr-slide">
+  <h2>Ma trận liên kết</h2>
+  <div class="grid2">
+    <img src="img/lec-03/model-column-a.svg" role="img" class="main-figure"
+         alt="Đồ thị bốn trang: ba cạnh ra A tới B, C, D được vẽ đậm"/>
+    <div>
+      <p>\(d_j\) là số liên kết ra của trang \(j\) (bậc ra).</p>
+      <p>Ma trận \(M_0\) có \(n\) hàng và \(n\) cột:</p>
+      <p>\[(M_0)_{ij}=\begin{cases}1/d_j &amp; \text{nếu } j\to i,\ d_j&gt;0\\ 0 &amp; \text{nếu không}\end{cases}\]</p>
+      <p class="matrix-note">Cột \(j\) là trang nguồn, hàng \(i\) là trang đích.</p>
+    </div>
+  </div>
+  <p class="caption">Cột A theo thứ tự hàng A, B, C, D là \((0,1/3,1/3,1/3)^T\): A chia cho ba đích.</p>
+  <aside class="notes">Ô ở hàng i, cột j mô tả cách trang nguồn j chuyển điểm tới trang đích i. Vì A trỏ tới B, C, D và có bậc ra bằng ba, cột A theo thứ tự hàng A, B, C, D là (0, 1/3, 1/3, 1/3). Các cạnh đi vào A thuộc hàng A, không thuộc cột A. Đây là chỗ cần phân biệt khi lập ma trận từ hình. Trang không có liên kết ra được biểu diễn bằng một cột toàn số không; không thực hiện phép chia cho không. Nguồn: MMDS 5.1.2, Ví dụ 5.1.</aside>
+</section>
+
+<section id="lec03-s03-03" data-slide-id="lec03-s03-03" class="pr-slide">
+  <h2>Lặp phép truyền điểm</h2>
+  <p style="font-size:30px;">Khi mọi trang đều có liên kết ra, một bước là:</p>
+  <p class="math-large">\[r^{t+1}=M_0\,r^t\]</p>
+  <p>Đồ thị bốn trang của phần trước:</p><p>\(r^0=(1/4,1/4,1/4,1/4)^T\)</p><p>\(r^1=(9/24,5/24,5/24,5/24)^T\)</p>
+  <p class="caption">Quy tắc khởi tạo: \(r^0\) đều \(1/n\). Kết quả một vòng khớp đúng phép chia điểm của phần 2; mục tiêu của phép lặp là tìm điểm \(r^*\) không đổi qua cập nhật.</p>
+  <aside class="notes">Nhân ma trận liên kết với vector điểm cột thực hiện đồng thời việc chia tại nguồn và cộng tại đích. Trên đồ thị bốn trang của phần trước, khởi tạo đều cho kết quả một vòng đúng như bảng đã tính tay. Ký hiệu t đếm số bước đã thực hiện; r^0 là điểm ban đầu. Điểm ổn định là một vector không đổi khi cập nhật. Chưa thể suy ra rằng phép lặp này luôn đạt một giới hạn trên mọi đồ thị. Hai biến thể tiếp theo làm rõ những vấn đề mà quy tắc hiện tại gặp phải. Nguồn: MMDS 5.1.2, Ví dụ 5.2, trang 180.</aside>
+</section>
+
+<section id="lec03-s03-04" data-slide-id="lec03-s03-04" class="pr-slide">
+  <h2>Trang không có liên kết ra</h2>
+  <div class="grid2">
+    <img src="img/lec-03/model-dead-end.svg" role="img" class="main-figure"
+         alt="Đồ thị bốn trang đã xóa cạnh C tới A; nút C không có mũi tên đi ra, tô cam nhạt"/>
+    <div>
+      <p>\(r^0=(1/4,1/4,1/4,1/4)^T\), một vòng lặp thô:</p>
+      <p>\[M_0r^0=\left(3/24,\ 5/24,\ 5/24,\ 5/24\right)^T\]</p>
+      <p>Tổng \(=18/24=3/4\): thiếu \(1/4\) điểm của C.</p>
+    </div>
+  </div>
+  <p class="caption">C vẫn nhận điểm, nhưng không có liên kết ra để chuyển điểm cũ của mình.</p>
+  <aside class="notes">Biến thể này xóa cạnh C tới A khỏi đồ thị gốc. C vẫn nhận điểm từ A và D, nhưng không còn liên kết ra để chia điểm của chính nó. Cột C của ma trận bằng không, nên điểm cũ của C không đóng góp cho bất kỳ đích nào. Từ điểm đều, tổng sau một vòng chỉ còn ba phần tư. Mất điểm ở đây là hậu quả của quy tắc truyền theo cạnh chưa đầy đủ. Ta cần thêm cách xử lý riêng cho trang không có liên kết ra. Nguồn: MMDS 5.1.4, Hình 5.3 và Ví dụ 5.3, trang 182–183.</aside>
+</section>
+
+<section id="lec03-s03-05" data-slide-id="lec03-s03-05" class="pr-slide">
+  <h2>Bẫy liên kết</h2>
+  <div class="grid2">
+    <img src="img/lec-03/model-spider-trap.svg" role="img" class="main-figure"
+         alt="Đồ thị bốn trang với cạnh C tới A thay bằng vòng lặp C tới chính C; nút C tô cam nhạt"/>
+    <div>
+      <p>Thay C→A bằng C→C: C là bẫy một nút.</p>
+      <p>Người đã đến C không rời khỏi C khi bám theo liên kết.</p>
+      <p class="matrix-note">Lặp thô trên ví dụ này dồn toàn bộ điểm về C.</p>
+    </div>
+  </div>
+  <p class="caption">Bẫy liên kết: nhóm trang có liên kết ra nhưng không trỏ ra ngoài nhóm.</p>
+  <aside class="notes">Ở biến thể này, liên kết duy nhất từ C quay lại chính C. C vẫn có bậc ra bằng một, nên không có phép chia cho không và tổng điểm vẫn được giữ. Tuy vậy, một người đã đến C sẽ ở lại đó nếu chỉ đi theo liên kết. Trên đúng đồ thị này, các phép lặp trong sách đưa toàn bộ điểm về C. Một bẫy có thể gồm nhiều trang, miễn các trang trong nhóm đều có liên kết ra và không có cạnh ra ngoài nhóm. Bước nhảy ngẫu nhiên sẽ tạo cơ hội thoát nhóm. Nguồn: MMDS 5.1.5, Hình 5.6, trang 185–186.</aside>
+</section>
+
+<section id="lec03-s03-06" data-slide-id="lec03-s03-06" class="pr-slide">
+  <h2>Bước nhảy ngẫu nhiên</h2>
+  <div class="grid2">
+    <img src="img/lec-03/model-teleport.svg" role="img" class="main-figure"
+         alt="Hai nhánh từ trang hiện tại: nhánh xác suất beta tới một đích liên kết; nhánh xác suất một trừ beta tới một trang bất kỳ"/>
+    <div>
+      <p>Với xác suất \(\beta\): đi theo một liên kết ra (chia đều).</p>
+      <p>Với xác suất \(1-\beta\): nhảy đều tới 1 trang bất kỳ, kể cả trang hiện tại.</p>
+      <p>\(0&lt;\beta&lt;1\); quy ước ví dụ \(\beta=4/5\).</p>
+    </div>
+  </div>
+  <p class="caption">Bước nhảy cho người đọc cơ hội rời bẫy liên kết và tới bất kỳ trang nào.</p>
+  <aside class="notes">Ở mỗi bước, trước hết chọn một trong hai cách di chuyển. Với xác suất beta, chọn đều một liên kết ra; với xác suất một trừ beta, chọn đều một trang trong toàn bộ đồ thị. Bước nhảy có thể quay về trang hiện tại. Vì vậy, xác suất nhảy không đồng nghĩa với xác suất chắc chắn rời một nhóm trang. Điều nó bảo đảm là mọi trang đều có cơ hội được chọn, kể cả khi không có liên kết từ trang hiện tại tới đó. Ví dụ tính tay dùng beta bằng bốn phần năm. Trường hợp không có liên kết ra còn cần quy tắc bổ sung. Nguồn: MMDS 5.1.5, trang 186.</aside>
+</section>
+
+<section id="lec03-s03-07" data-slide-id="lec03-s03-07" class="pr-slide">
+  <h2>Phân phối lại điểm ở nút cụt</h2>
+  <div class="grid2">
+    <img src="img/lec-03/model-dead-redistribute.svg" role="img" class="main-figure"
+         alt="Tổng điểm nút cụt được phân phối đều tới cả bốn trang A, B, C, D; mũi tên nét đứt chỉ phép bù của mô hình"/>
+    <div>
+      <p>\(\delta=\sum_{j:\,d_j=0}r_j\): tổng điểm đang ở các nút cụt.</p>
+      <p>Ở nhánh theo liên kết của nút cụt: chọn đều 1 trang bất kỳ.</p>
+      <p>Mỗi trang nhận thêm \(\beta\delta/n\).</p>
+    </div>
+  </div>
+  <p class="caption">Trên biến thể nút cụt, \(\delta=1/4\). Đây là phép chia theo mô hình, không phải liên kết thật của đồ thị.</p>
+  <aside class="notes">Gọi delta là tổng điểm đang ở các nút cụt. Trong nhánh có xác suất beta, các nút này chuyển điểm đều cho tất cả n trang, kể cả chính nút cụt. Do đó mỗi trang nhận beta nhân delta chia n. Hình có bốn đích A, B, C, D; các mũi tên nét đứt là phép phân phối của mô hình, không bổ sung liên kết thật vào dữ liệu. Quy tắc này bảo toàn tổng điểm theo cách bù trong slide MMDS 42/52 và Stanford 45/54. Nó khác công thức taxation trên ma trận có cột không trong sách trang 186–187, vốn có thể làm tổng điểm nhỏ hơn một.</aside>
+</section>
+
+<section id="lec03-s03-08" data-slide-id="lec03-s03-08" class="pr-slide">
+  <h2>Quy tắc cập nhật đầy đủ</h2>
+  <p class="math-large">\[r_i^{\,t+1}=\beta\sum_{j:\,j\to i}\frac{r_j^{\,t}}{d_j}+\frac{(1-\beta)+\beta\,\delta^t}{n}\]</p>
+  <ul>
+    <li><strong>Theo liên kết:</strong> \(\beta\sum r_j^t/d_j\) từ các trang \(j\) trỏ tới \(i\).</li>
+    <li><strong>Bước nhảy:</strong> \((1-\beta)/n\) ở mọi trang.</li>
+    <li><strong>Bù nút cụt:</strong> \(\beta\delta^t/n\) với \(\delta^t=\sum_{j:\,d_j=0}r_j^t\).</li>
+  </ul>
+  <p class="caption">Ba thành phần cùng dùng điểm cũ \(r^t\); khởi tạo \(r^0\) đều \(1/n\). Khi không có nút cụt, \(\delta^t=0\) và công thức còn phần theo liên kết cộng bước nhảy.</p>
+  <aside class="notes">Ba nguồn điểm dùng chung vector cũ: truyền theo liên kết, bước nhảy đều và bù điểm nút cụt. Đặt u là vector có mọi thành phần bằng 1/n. Dạng vector tương đương là \(r^{t+1}=\beta M_0r^t+((1-\beta)+\beta\delta^t)u\). Khi delta bằng không, phần bù nút cụt bằng không. Nếu bỏ phần bù trên đồ thị có nút cụt, tổng điểm sau cập nhật sẽ là một trừ beta nhân delta, dù điểm cũ có tổng một. Trong bài này, điểm luôn được hiểu là phân phối xác suất nên phải giữ phần bù. Nguồn mô hình: MMDS 5.1.5 và các slide bù điểm MMDS 42/52.</aside>
+</section>
+
+<section id="lec03-s03-09" data-slide-id="lec03-s03-09" class="pr-slide">
+  <h2>Ví dụ: Một vòng có bước nhảy</h2>
+  <p style="font-size:30px;">Đồ thị gốc, không nút cụt nên \(\delta=0\); \(\beta=4/5\); \(r^0\) đều \(1/4\).</p>
+  <table style="font-size:30px;">
+    <tr><th>Trang</th><th>\(\beta\,M_0r^0\)</th><th>\((1-\beta)/n\)</th><th>\(r^1\)</th></tr>
+    <tr><td>A</td><td>\(\dfrac{4}{5}\cdot\dfrac{3}{8}=\dfrac{3}{10}\)</td><td>\(\dfrac{1}{20}\)</td><td>\(\dfrac{7}{20}\)</td></tr>
+    <tr><td>B</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{20}\)</td><td>\(\dfrac{13}{60}\)</td></tr>
+    <tr><td>C</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{20}\)</td><td>\(\dfrac{13}{60}\)</td></tr>
+    <tr><td>D</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{20}\)</td><td>\(\dfrac{13}{60}\)</td></tr>
+  </table>
+  <p class="caption">Tổng \(=7/20+3\times 13/60=1\). Với \(\beta=4/5\), mô hình mới cho kết quả khác phần 2 vì thêm bước nhảy.</p>
+  <aside class="notes">Đồ thị gốc có liên kết ra ở mọi trang nên delta bằng không. Mỗi trang nhận thêm một phần hai mươi từ bước nhảy. A nhận ba phần tám trước khi nhân beta; nhân bốn phần năm rồi cộng một phần hai mươi được bảy phần hai mươi. B, C, D đều nhận năm phần hai mươi tư trước khi nhân beta, nên điểm mới bằng mười ba phần sáu mươi. Tổng bằng một. So với phép lặp không bước nhảy của phần trước, khoảng cách điểm sau vòng này nhỏ hơn vì một phần điểm được chia đều. Dữ kiện: MMDS Hình 5.1; áp dụng công thức mục 5.1.5.</aside>
+</section>
+
+<section id="lec03-s03-10" data-slide-id="lec03-s03-10" class="pr-slide">
+  <h2>Ví dụ: Một vòng có nút cụt</h2>
+  <p style="font-size:30px;">Xóa C→A khỏi đồ thị: C là nút cụt, \(\delta^0=1/4\); \(\beta=4/5\); \(r^0\) đều \(1/4\).</p>
+  <p style="font-size:30px;">Thành phần chung: \(\dfrac{(1-\beta)+\beta\delta^0}{n}=\dfrac{1/5+1/5}{4}=\dfrac{1}{10}\).</p>
+  <table style="font-size:30px;">
+    <tr><th>Trang</th><th>\(\beta\,M_0r^0\)</th><th>Chung</th><th>\(r^1\)</th></tr>
+    <tr><td>A</td><td>\(\dfrac{4}{5}\cdot\dfrac{1}{8}=\dfrac{1}{10}\)</td><td>\(\dfrac{1}{10}\)</td><td>\(\dfrac{1}{5}\)</td></tr>
+    <tr><td>B</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{10}\)</td><td>\(\dfrac{4}{15}\)</td></tr>
+    <tr><td>C</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{10}\)</td><td>\(\dfrac{4}{15}\)</td></tr>
+    <tr><td>D</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{10}\)</td><td>\(\dfrac{4}{15}\)</td></tr>
+  </table>
+  <p class="caption">Tổng \(=1/5+3\times 4/15=1\): điểm của C được hoàn lại đầy đủ qua phần bù.</p>
+  <aside class="notes">Xóa cạnh C tới A chỉ làm mất đóng góp đi ra từ C, không xóa các cạnh đi vào C. C vẫn nhận từ A và D, nên phần theo liên kết của C trước khi nhân beta vẫn là năm phần hai mươi tư. Delta bằng một phần tư. Bước nhảy góp một phần hai mươi và bù nút cụt góp thêm một phần hai mươi cho mỗi trang, tạo thành phần chung một phần mười. A nhận một phần tám từ B rồi nhân beta và cộng chung, được một phần năm. B, C, D đều được bốn phần mười lăm. Nguồn dữ kiện: MMDS Hình 5.3; quy tắc bù theo mô hình đã nêu.</aside>
+</section>
+
+<section id="lec03-s03-11" data-slide-id="lec03-s03-11" class="pr-slide">
+<h2>Thuật toán tính PageRank</h2>
+<p style="font-size:26px;">Vào: danh sách kề của \(G\), \(n\ge1\), \(0&lt;\beta&lt;1\), \(\tau&gt;0\), \(T_{\max}\) nguyên dương.<br>Ra: vector điểm xấp xỉ và trạng thái đạt ngưỡng hoặc chưa đạt.</p>
+<pre><code class="language-plaintext" data-trim>
+r = (1/n, ..., 1/n)
+lặp t = 1, ..., Tmax:
+  delta = tổng r[j] của các nút cụt
+  với mỗi i: new[i] = (1 - beta + beta * delta) / n
+  với mỗi j có d[j] > 0:
+    với mỗi i thuộc out[j]: new[i] += beta * r[j] / d[j]
+  Delta = tổng |new[i] - r[i]|
+  r = new
+  nếu Delta <= tau: trả về (r, đạt ngưỡng)
+trả về (r, chưa đạt)
+</code></pre>
+<p class="caption">\(\mathrm{out}[j]\) chứa các đích của \(j\); mọi đóng góp trong một vòng dùng điểm cũ.</p>
+<aside class="notes">Biểu diễn out[j] là danh sách các đích của trang j, không chứa cạnh trùng; d[j] là độ dài danh sách đó. Khởi tạo điểm đều. Mỗi vòng tạo mảng mới riêng, đặt thành phần chung cho tất cả trang, sau đó cộng đóng góp của từng cạnh. Mảng điểm cũ chỉ được thay khi đã tính xong cả vòng và độ thay đổi. Ngưỡng dương và giới hạn số vòng nguyên dương bảo đảm có tiêu chí kết thúc rõ. Nếu hết giới hạn trước khi đạt ngưỡng, kết quả phải kèm trạng thái chưa đạt. Quét các trang và cạnh cần thời gian tỉ lệ n+m mỗi vòng; phần chi phí sẽ phân tích cụ thể.</aside>
+</section>
+
+<section id="lec03-s03-12" data-slide-id="lec03-s03-12" class="pr-slide">
+  <h2>Độ thay đổi và điều kiện dừng</h2>
+  <p class="math-large">\[\Delta_t=\sum_i\left|r_i^{\,t+1}-r_i^{\,t}\right|\]</p>
+  <table style="font-size:28px;">
+    <tr><th>Vòng</th><th>\(r^t\) (A; B, C, D)</th></tr>
+    <tr><td>1</td><td>\(7/20;\ 13/60\)</td></tr>
+    <tr><td>2</td><td>\(31/100;\ 23/100\)</td></tr>
+  </table>
+  <p style="font-size:28px;">Ví dụ đồ thị gốc, \(\beta=4/5\): \(\Delta_1=\left|31/100-7/20\right|+3\left|23/100-13/60\right|=\dfrac{2}{25}=0{,}08\).</p>
+  <p class="caption">So sánh \(\Delta_t\) với \(\tau\): chỉ là độ thay đổi giữa hai vòng, không phải sai số với nghiệm. Dừng khi \(\Delta_t\le\tau\); \(\tau\) là ngưỡng dừng, \(T_{\max}\) là giới hạn số vòng.</p>
+  <aside class="notes">Độ thay đổi là tổng chênh lệch tuyệt đối giữa hai vector liên tiếp. Từ vòng một tới vòng hai trong ví dụ, A thay đổi 1/25, còn B, C, D mỗi trang thay đổi 1/75. Tổng là 1/25 cộng ba lần 1/75, bằng 2/25 hay 0,08. Với ngưỡng 0,01, thuật toán tiếp tục. Đại lượng này khác khoảng cách tới nghiệm mà ta chưa biết. Mô hình đầy đủ cho phép chặn sai số bằng độ thay đổi, nhưng hai đại lượng không bằng nhau. Giới hạn số vòng kiểm soát tài nguyên và cần được báo riêng trong trạng thái trả về.</aside>
+</section>
+
+<section id="lec03-s03-13" data-slide-id="lec03-s03-13" class="pr-slide">
+<h2>Bảo toàn tổng điểm</h2>
+<p>Giả sử điểm cũ không âm và có tổng bằng 1.</p>
+<p class="math-large">\[\underbrace{\beta(1-\delta)}_{\text{theo liên kết}}+\underbrace{\beta\delta}_{\text{bù nút cụt}}+\underbrace{(1-\beta)}_{\text{bước nhảy}}=1\]</p>
+<p class="caption">Các phần đóng góp đều không âm và có tổng bằng 1; điểm mới vẫn là một phân phối xác suất.</p>
+<aside class="notes">Giả sử điểm cũ không âm và có tổng một. Tất cả hệ số của phép cập nhật đều không âm nên điểm mới không âm. Với một trang không cụt, cộng đóng góp qua mọi liên kết ra thu lại beta lần điểm của trang đó. Tổng trên các trang không cụt là beta nhân một trừ delta. Phần bù trả lại beta nhân delta cho toàn bộ đồ thị, còn bước nhảy đóng góp một trừ beta. Tổng ba phần bằng một. Đây là bất biến của thuật toán, giúp kiểm tra chương trình. Bảo toàn tổng không tự nó chứng minh hội tụ; cần lập luận tiếp theo.</aside>
+</section>
+
+<section id="lec03-s03-14" data-slide-id="lec03-s03-14" class="pr-slide">
+<h2>Hội tụ của mô hình đầy đủ</h2>
+<p>Gọi \(F\) là phép cập nhật. Đo khoảng cách bằng tổng chênh lệch tuyệt đối:<br>\(\|x-y\|_1=\sum_i|x_i-y_i|\).</p>
+<p class="math-large">\[\|F(x)-F(y)\|_1\le\beta\|x-y\|_1\]</p>
+<p class="caption">Với \(0&lt;\beta&lt;1\), bước nhảy đều và bù nút cụt, khoảng cách giảm qua mỗi vòng. Dãy lặp hội tụ tới duy nhất một phân phối không đổi \(r^*\) — PageRank của mô hình đầy đủ.</p>
+<aside class="notes">Đặt S bằng M0 sau khi thay mỗi cột nút cụt bằng vector đều u. S không âm và mỗi cột có tổng một. Quy tắc cập nhật là F(x)=beta Sx+(1-beta)u. Với hai phân phối x,y, phần bước nhảy triệt tiêu trong hiệu. Áp dụng bất đẳng thức tam giác theo từng hàng, rồi đổi thứ tự tổng; tổng mỗi cột bằng một cho thấy khoảng cách theo tổng trị tuyệt đối sau cập nhật không vượt beta lần khoảng cách trước cập nhật. Vì beta nhỏ hơn một, khoảng cách giữa hai vòng liên tiếp giảm theo cấp số nhân. Tổng các khoảng cách từ một vòng tới các vòng sau được chặn bằng đuôi một chuỗi hình học, tiến về không. Dãy lặp vì thế có giới hạn trong tập phân phối; tính liên tục của F cho thấy giới hạn không đổi qua cập nhật. Hai điểm không đổi nếu khác nhau sẽ có khoảng cách vừa giữ nguyên vừa giảm theo hệ số nhỏ hơn một, điều không thể xảy ra. Do đó điểm ổn định duy nhất. Đây là chứng minh từ quy tắc đã chọn, không dùng kết luận hội tụ thiếu điều kiện cho ma trận liên kết thô.</aside>
+</section>
+
+<section id="lec03-s03-15" data-slide-id="lec03-s03-15" class="pr-slide">
+  <h2>Từ thuật toán đến dữ liệu lớn</h2>
+  <img src="img/lec-03/model-collect.svg" role="img" class="main-figure"
+       alt="B góp 1/8 và C góp 1/4 tới A; tổng đóng góp 3/8 chưa nhân beta và chưa cộng phần chung"/>
+  <p class="caption">Cộng đóng góp \(r_j/d_j\) theo đích — A nhận \(1/8+1/4=3/8\) từ B và C; sau đó nhân \(\beta\) và cộng phần chung.</p>
+  <aside class="notes">Trong phép cập nhật, phần phụ thuộc từng cạnh có thể được tính độc lập khi mọi tác vụ dùng cùng điểm cũ. Các đóng góp có chung trang đích được cộng lại, rồi áp dụng hệ số beta và thành phần chung. Đây là phép nhân ma trận–vector đã học ở Bài 2, được lặp nhiều vòng. Ma trận liên kết chỉ mô tả các cạnh nên có thể lưu bằng danh sách thay vì lưu cả các ô không. Bước tiếp theo là chia dữ liệu sao cho các tác vụ giữ được phần vector cần thiết trong bộ nhớ và trả về cùng kết quả như phép tính một máy. Nguồn: MMDS 5.2, trang 189–192.</aside>
+</section>
+
+<section id="lec03-s03-16" data-slide-id="lec03-s03-16" class="pr-slide">
+  <h2>Câu hỏi kiểm tra</h2>
+  <p><strong>Câu hỏi:</strong> áp dụng mô hình vừa xây dựng.</p><ul><li>Trên đồ thị gốc A–D, viết cột D của \(M_0\).</li><li>Phân biệt nút cụt với bẫy liên kết và nêu cách xử lý mỗi trường hợp.</li><li>Lần kiểm tra hiện tại có \(\Delta=0{,}08\), \(\tau=0{,}1\). Thuật toán trả trạng thái nào?</li></ul>
+  <p class="source-note">Dữ kiện: MMDS, mục 5.1.2–5.1.5, Ví dụ 5.1–5.6, trang 178–187.</p>
+  <aside class="notes">Đáp án: D trỏ tới B và C, nên cột D theo thứ tự A, B, C, D là (0, 1/2, 1/2, 0). Nút cụt không có liên kết ra; bẫy vẫn có liên kết nhưng không có đường ra ngoài nhóm. Phép bù beta delta chia n xử lý điểm ở nút cụt, còn bước nhảy đều tạo cơ hội rời bẫy. Với độ thay đổi 0,08 và ngưỡng 0,1, lần kiểm tra hiện tại đạt ngưỡng nên thuật toán trả vector mới cùng trạng thái đạt ngưỡng, không cần đợi hết giới hạn số vòng. Các câu này kiểm tra quy ước ma trận, vai trò hai phần bổ sung và cách dùng tiêu chí dừng.</aside>
 </section>
 
 </section>

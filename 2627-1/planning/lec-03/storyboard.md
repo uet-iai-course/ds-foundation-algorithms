@@ -1,6 +1,6 @@
 # Lecture 03 — Đề xuất xây dựng lại từ đầu
 
-Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1–2 có 14 slide đã kiểm định và storyboard chi tiết bên dưới; các phần 3–7 đang triển khai. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
+Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1–3 có 30 slide đã kiểm định và storyboard chi tiết bên dưới; các phần 4–7 đang triển khai. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
 
 ## Phạm vi và mục tiêu
 
@@ -239,3 +239,45 @@ Phân vai: phần này chỉ chứa **chuỗi bài toán và trực giác** (ph�
 - Phân biệt với cụm trực giác: chứng minh hội tụ, điều kiện đúng và thuật toán lặp thuộc phần 3, đã phân vai trong storyboard-approved.
 - Script `render_problem.py` ghi SVG vào thư mục hiện tại khi chạy trong /tmp/lec03-rebuild; khi copy vào `scripts/` của bài, dùng `.parent.parent` để output về thư mục hình. Không sửa SVG thủ công.
 - Ghi công: nguồn MMDS 5.1.2, Hình 5.1, Ví dụ 5.1–5.2, trang 178–180, http://www.mmds.org.
+
+
+## Storyboard Phần 3 — Lecture 03: Mô hình và thuật toán PageRank
+
+- Tệp slide: `s03.html`; style: `s03.css`; hình: `render_model.py` sinh `model-*.svg`.
+- Slide 01–16, inner `class="pr-slide"`, `id`/`data-slide-id` = `lec03-s03-01..16`, trong outer `section id="pagerank-model"`.
+- Tổng thời lượng: 1+2+2+1+2+2+2+2+2+2+2+2+1+2+1+2 = **28 phút** (đã kiểm).
+- Nguồn gốc: MMDS 5.1.2–5.1.5, trang 178–187; slide MMDS 42/52, Stanford 45/54 cho bù điểm nút cụt; chứng minh hội tụ từ nguồn phân tích `source-section3.md`.
+- Quy tắc nội dung: mỗi slide một ý chính, không nhét đồng thời hình + giả mã + công thức; mọi phân số đã tự tính lại (vết tính Fraction khớp `source-section3.md`).
+
+| Mã slide | Tiêu đề | Mục đích (SV làm được) | Câu chốt | Trung tâm | Tiên quyết | Nối vào–ra | Nguồn | Thời lượng |
+|---|---|---|---|---|---|---|---|---|
+| lec03-s03-01 | 3 · Mô hình và thuật toán PageRank | Diễn giải trực giác người đọc chọn đều liên kết ra; đọc r_i là xác suất ở trang i | Lặp phép chia điểm của phần 2 nhiều lần tạo thành mô hình di chuyển | Hình nút j chia r_j/d_j cho các đích | Kết quả một vòng phần 2 (s02-05..07) | Vào: một vòng phần 2. Ra: nhu cầu ma trận hóa | MMDS 5.1.2, tr.178–179 | 1 |
+| lec03-s03-02 | Ma trận liên kết | Lập được cột của M0 cho một trang, đúng quy ước cột nguồn / hàng đích | (M0)_ij = 1/d_j nếu j→i, cột j là nguồn, hàng i là đích | Công thức định nghĩa M0 + hình cột A | Bậc ra d_j (s02-03) | Vào: một vòng chia điểm. Ra: viết phép cập nhật dạng nhân ma trận | MMDS 5.1.2–5.1.3, tr.178–182 | 2 |
+| lec03-s03-03 | Lặp phép truyền điểm | Chạy tay r^1 = M0 r^0 và nêu mục tiêu tìm r* | r^{t+1} = M0 r^t; mục tiêu là điểm không đổi sau cập nhật; r^1 khớp phần 2 | Công thức lặp + hai vector r0→r1 | Slide 02 | Vào: ma trận M0. Ra: trường hợp mà lặp thô hỏng (04, 05) | MMDS 5.1.2, Ví dụ 5.2, tr.178–179 | 2 |
+| lec03-s03-04 | Trang không có liên kết ra | Chỉ ra điểm bị mất khi có nút cụt và vì sao phép chia không xác định | Nút cụt làm phép chia của nó không xác định, một vòng thô mất đúng δ điểm | Hình biến thể C nút cụt + phép tính tổng 3/4 | Slide 03 | Vào: lặp thô. Ra: nhu cầu phân phối lại (07) | MMDS 5.1.4, Ví dụ 5.3, tr.182–183 | 1 |
+| lec03-s03-05 | Bẫy liên kết | Nhận diện bẫy một nút và giải thích điểm dồn về C khi lặp thô | Bẫy là nhóm có liên kết ra nhưng không trỏ ra ngoài; lặp thô dồn điểm về bẫy | Hình vòng lặp C→C | Slide 03, 04 | Vào: nút cụt (đối chiếu). Ra: nhu cầu bước nhảy (06) | MMDS 5.1.5, Ví dụ 5.5, tr.185–186 | 2 |
+| lec03-s03-06 | Bước nhảy ngẫu nhiên | Mô tả hai nhánh di chuyển tại một bước với β và 1−β | Với xác suất 1−β nhảy đều tới trang bất kỳ; không mất điểm, chỉ đổi nơi đến; chưa xử lý nút cụt | Hình hai nhánh β / 1−β | Slide 05 | Vào: bẫy. Ra: thành phần (1−β)/n trong quy tắc (08) | MMDS 5.1.5, tr.186 | 2 |
+| lec03-s03-07 | Phân phối lại điểm ở nút cụt | Định nghĩa δ và giải thích bù βδ/n cho mỗi trang | Điểm gom δ từ nút cụt được chia đều βδ/n; khác bước nhảy áp dụng ở mọi trang | Định nghĩa δ + sơ đồ bù βδ/n (không phải liên kết thật) | Slide 04, 06 | Vào: nút cụt + bước nhảy. Ra: quy tắc đầy đủ (08) | MMDS 5.1.4–5.1.5, tr.183–187; slide MMDS 42/52, Stanford 45/54 | 2 |
+| lec03-s03-08 | Quy tắc cập nhật đầy đủ | Gọi tên ba thành phần của công thức và áp dụng từng thành phần | r_i^{t+1} = βΣ r_j/d_j + ((1−β)+βδ)/n; ba thành phần cùng dùng điểm cũ | Một công thức trung tâm + 3 chú thích ngắn | Slide 02, 06, 07 | Vào: β, δ, bước nhảy. Ra: hai ví dụ số (09, 10) | MMDS 5.1.5, tr.186–187; phân biệt taxation thiếu khối lượng trong notes | 2 |
+| lec03-s03-09 | Ví dụ: Một vòng có bước nhảy | Tính r^1 trên đồ thị gốc với β=4/5 và δ=0 | A: β·3/8+1/20=7/20; B,C,D: 13/60; tổng 1; khác phần 2 vì có β | Bảng 4 cột: βM0r, (1−β)/n, r^1 | Slide 03, 08 | Vào: quy tắc. Ra: vết số dùng cho Δ ở slide 12 | MMDS 5.1.5, tr.186–187; vết Fraction của bài | 2 |
+| lec03-s03-10 | Ví dụ: Một vòng có nút cụt | Tính r^1 khi C cụt, dùng thành phần chung (1−β+βδ)/n | Thành phần chung 1/10; A: 1/5; B,C,D: 4/15; tổng 1 — δ được hoàn lại đầy đủ | Bảng ngắn với cột "Chung" | Slide 04, 08, 09 | Vào: bù δ. Ra: xác nhận bảo toàn (13) | Biến thể từ MMDS Ví dụ 5.3; quy tắc từ MMDS 5.1.5; slide MMDS 42/52, Stanford 45/54 | 2 |
+| lec03-s03-11 | Thuật toán tính PageRank | Đọc giả mã, nêu đặc tả vào/ra và vị trí tính Δ trước khi gán r | Thuật toán cập nhật theo danh sách cạnh, dừng khi Δ≤τ hoặc hết Tmax, báo đúng trạng thái | Khối giả mã ~15 dòng (data-trim, language-plaintext) | Slide 08; Δ được định nghĩa ngay trong giả mã | Vào: quy tắc + ngưỡng. Ra: chi phí theo cạnh (15) | Quy tắc MMDS 5.1.5; cấu trúc dừng theo đặc tả phần này | 2 |
+| lec03-s03-12 | Độ thay đổi và điều kiện dừng | Tính Δ_t và kết luận dừng cho τ, Tmax cho trước | Δ_t là tổng thay đổi giữa hai vòng, không phải sai số với nghiệm; τ là ngưỡng dừng, Tmax là giới hạn số vòng | Công thức Δ_t + vết r^1, r^2, Δ=2/25 | Slide 09, 11 | Vào: vết số slide 09. Ra: điều kiện dừng đã dùng ở 11 | Đặc tả phần này; số liệu từ vết phân số trên ví dụ MMDS 5.1 | 2 |
+| lec03-s03-13 | Bảo toàn tổng điểm | Phát biểu mệnh đề bất biến và giải thích vì sao phần theo liên kết chỉ còn β(1−δ) | Nếu r^t≥0, tổng 1 thì r^{t+1}≥0, tổng 1; ba đóng góp β(1−δ)+βδ+(1−β)=1 | Một đẳng thức tổng ba thành phần, chú thích vai trò dưới mỗi số hạng | Slide 07, 08 | Vào: quy tắc. Ra: nền cho định lý hội tụ (14) | Lập luận từ quy tắc MMDS 5.1.5, tr.186–187 | 1 |
+| lec03-s03-14 | Hội tụ của mô hình đầy đủ | Phát biểu kết luận hội tụ và ý nghĩa bất đẳng thức co ‖F(x)−F(y)‖₁ ≤ β‖x−y‖₁ | Với n≥1, β∈(0,1), nhảy đều + bù nút cụt: r* duy nhất — PageRank của mô hình đầy đủ — và dãy lặp hội tụ; không khẳng định cho lặp thô | Một công thức co ánh xạ + caption; chứng minh đầy đủ trong notes | Slide 08, 13 | Vào: bất biến + co. Ra: nền tin cậy cho thuật toán 11 | Chứng minh từ source-section3.md; mô hình MMDS 5.1.5, tr.186–187 | 2 |
+| lec03-s03-15 | Từ thuật toán đến dữ liệu lớn | Nối cấu trúc "chia theo cạnh, cộng tại đích" với khuôn MapReduce Bài 2 | Chỉ cần danh sách cạnh, không ma trận dày đặc; một pha phát đóng góp, một pha cộng theo đích | Hình model-collect.svg: hai nguồn B, C trỏ vào A, cộng 1/8+1/4=3/8 | Slide 11; MapReduce Bài 2 | Vào: giả mã theo cạnh. Ra: phần4 tính trên đồ thị lớn | MMDS 5.2 mở đầu (liên hệ, notes ghi rõ dựa trên phép cập nhật) | 1 |
+| lec03-s03-16 | Câu hỏi kiểm tra | Tự làm 3 câu: lập cột M0, đối chiếu nút cụt vs bẫy, kiểm dừng | Ba câu kiểm quy ước ma trận, hai trường hợp đặc biệt và quyết định dừng | Danh sách 3 câu hỏi nhãn "Câu hỏi:" | Slide 02–12 | Vào: toàn phần 3. Ra: bài tập/kết phần | MMDS 5.1.2–5.1.5, Ví dụ 5.1–5.6, tr.178–187; đáp án trong notes | 2 |
+
+## Ghi chú sản xuất
+
+- Hình do `render_model.py` sinh tại thư mục chạy script; slide tham chiếu `img/lec-03/model-*.svg` (như quy ước s01/s02). Tích hợp: copy SVG vào `img/lec-03/`.
+- `render_model.py` dùng hàm vẽ cạnh nội bộ; tự vẽ đúng self-loop C→C (slide 05) và nút cụt C (slide 04, 07). Không ghi đè tài sản khác.
+- Ma trận M0 không hiển thị 4×4 đầy đủ trên slide 02 để giữ một ý chính; sinh viên tự lập các cột còn lại (notes). Nếu muốn thêm 4×4 sau, dùng thứ tự A, B, C, D cùng nhãn hàng/cột rõ.
+- Slide 11 dùng `language-plaintext` (không tô màu cú pháp sai), `data-trim`; lưu ý gán `r = new` chỉ sau khi tính Δ.
+- Các điểm khẳng định cẩn trọng đã giữ: không nói lặp thô luôn hội tụ (03, 05, 14); Δ không phải sai số với nghiệm (12); kết luận hội tụ chỉ cho mô hình đầy đủ (14).
+
+### Kiểm bản nháp và quyết định của điều phối
+
+Sửa hình cột A thành các cạnh RA A; bù nút cụt tới cả bốn trang, kể cả C. Cột C bằng không không có nghĩa hàng C bằng không: C vẫn nhận từ A,D. Sửa hàng C của bảng ví dụ và toàn bộ lời giải liên quan. Δ giữa vòng1 và2 là 1/25+3×1/75=2/25. Quy tắc trong sách với nút cụt khác quy tắc bù đang dùng; ghi đúng khác biệt. Thuật toán quét n+m, không chỉ m. Giữ chuẩn một và chứng minh co trong notes, không đưa Banach lên mặt slide. Rút câu hỏi cuối, bỏ thông tin quy trình khỏi notes. Bỏ hình thanh tổng để công thức bảo toàn làm trung tâm; dành hai phút cho ý tưởng hội tụ.
+
+Hình chuyển tiếp phần3 dùng model-collect.svg với nhãn “tổng đóng góp 3/8”, không tái dùng nhãn “điểm mới 3/8” của phần2 để tránh nhầm với PageRank đầy đủ 7/20. Quan hệ B→A1/8 và C→A1/4 giữ nguyên.
