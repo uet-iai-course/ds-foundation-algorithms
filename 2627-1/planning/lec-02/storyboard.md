@@ -1,5 +1,20 @@
 # Storyboard Bài 02
 
+## Lịch giảng hiện tại
+
+| Phần | Vai trò | Số slide | Thời lượng |
+|---|---|---:|---:|
+| 1. Giới thiệu | Nhu cầu dữ liệu lớn, song song và cục bộ | 6 | 10 phút |
+| 2. Mô hình | Từ đếm từ đến Map/Reduce/Combine hình thức | 12 | 22 phút |
+| 3. Ví dụ | Thiết kế, chạy tay và lập luận đúng | 20 | 30 phút |
+| 4. Chi phí | Công việc, thời gian, băng thông, lợi ích | 11 | 25 phút |
+| 5. Hệ thống | Đọc thêm: phân phối, shuffle, phục hồi | 14 | 25 phút ngoài lớp |
+| 6. Thực hành | Compose, Python, thực thi và kiểm chứng | 12 | 25 phút |
+| 7. Tổng kết | Thu hồi vấn đề, đối chiếu, tự kiểm | 3 | 8 phút |
+| 7. Bài tập vận dụng | MMDS 2.3.1(a), (b), (d) | 3 | 60 phút recitation |
+
+Tổng giảng chính: 120 phút, không gồm phần 5; bài tập: 60 phút. Docker và image được chuẩn bị trước lớp. Bảy phần ngoài; ba bài tập là nhóm trang dọc cuối phần 7, sau tổng kết. Đây là ngoại lệ tổ chức recitation chung với phần kết theo yêu cầu ba phần chính mới. Tổng 81 slide; 64 trang giảng gồm 12 trang từng bước trình diễn nên không dành thời lượng bằng nhau cho mọi trang. Các mốc cũ bên dưới là lịch sử xây dựng từng phần; dùng lịch này cho bản hiện tại.
+
 ## Section 1 — Giới thiệu bài học
 
 ### `lec02-s01-01` — Tiêu đề bài học
@@ -563,3 +578,32 @@ Ghi chú viết:
 - Notes mỗi slide 80–140 từ, có nguồn/lời giải/cầu nối, không nhãn author/mã/thời lượng.
 - Mặt chữ ~30px kế thừa; `ex-source` 18px; `ex-note` 24px; `cost-figure` chứa `img`.
 - Không bịa thời gian chạy; counters chỉ của một lần chạy; không claim data-local, hai rack, speedup, HA.
+
+
+## Storyboard phần 7 — Tổng kết và bài tập vận dụng (lec02)
+
+- Outer section: `id="summary-exercises"`, 6 inner slides `lec02-s07-01` … `lec02-s07-06`, class `motivation-slide example-slide cost-slide summary-slide`.
+- H1 ở slide 01, H2 ở các slide 02–06. Không fragment, không raster, không hình mới.
+- Tổng thời lượng: tổng kết 2+3+3 = 8 phút; mỗi bài tập 20 phút (chỉ storyboard, không hiện trên mặt).
+
+| # | Tiêu đề | Purpose / kiến thức | Trung tâm | Nối vào–ra | Nguồn | Thời lượng |
+|---|---------|--------------------|-----------|-----------|-------|-----------|
+| `lec02-s07-01` | 7 · Tổng kết và bài tập vận dụng | Ghép 3 hàng quan hệ nhu cầu Google ở intro → mô hình | Dữ liệu nhiều máy → Map xử lý phần đầu vào; kết quả cần liên kết → khóa quy định nhóm Reduce; lập trình viên cần tập trung vào hàm → hệ thống phân chia/lập lịch/phục hồi. Caption chốt đường đi dữ liệu qua Map và Reduce; phần 5 hệ thống chỉ Đọc thêm | Vào: phần 1–6. Ra: slide 02 | MMDS Ch.2 | 2′ |
+| `lec02-s07-02` | Ba bài toán, ba cách gộp | Chọn khóa theo đầu ra, giữ đủ thông tin để gộp | Bảng 3 cột: matvec (A p×q, v q; key i; sum a_ij·v_j), distinct (key giá trị x; giữ sự hiện diện; bỏ trùng, rồi đếm), average (key chung; giữ (S,C); cộng từng thành phần rồi S/C cuối) | Ra: slide 03 | MMDS 2.2–2.3 | 3′ |
+| `lec02-s07-03` | Câu hỏi kiểm tra | Đo đúng 4 mục tiêu | 4 câu: trách nhiệm Map/Reduce trong đếm từ; điều kiện Combine giữ kết quả; tăng máy có luôn giảm thời gian; bằng chứng bài thực hành job chạy và đúng | Ra: slide 04 | MMDS 2.2; lab phần 6 | 3′ |
+| `lec02-s07-04` | Bài tập: Số nguyên lớn nhất | Thiết kế Map/Combine/Reduce + luận chứng đúng | Đề MMDS 2.3.1(a) p.40: tệp rất lớn chứa các số nguyên; đầu ra số nguyên lớn nhất; khóa đầu ra bỏ qua. Sản phẩm: đặc tả Map/Combine/Reduce và lập luận đúng. KHÔNG hiện lời giải trên mặt | Ra: slide 05 | MMDS 2.3.1(a) p.40 | 20′ |
+| `lec02-s07-05` | Bài tập: Trung bình cộng | Thiết kế với trạng thái (S,C) | Đề MMDS 2.3.1(b) p.40: cùng tệp số nguyên; đầu ra average all; khóa đầu ra bỏ qua. Map/Combine/Reduce + proof | Ra: slide 06 | MMDS 2.3.1(b) p.40 | 20′ |
+| `lec02-s07-06` | Bài tập: Số giá trị phân biệt | Thiết kế nhiều vòng | Đề MMDS 2.3.1(d) p.40: tệp số nguyên; đầu ra distinct count; khóa đầu ra bỏ qua. Đề KHÔNG bắt 2 vòng; sản phẩm: hàm các vòng + proof | Ra: kết thúc bài giảng | MMDS 2.3.1(d) p.40 | 20′ |
+
+Ghi chú viết:
+- Notes: 3 exercise 200–350 từ (lời giải + giả thiết đầy đủ); 3 summary 100–150 từ.
+- Mặt 30px, ex-note 24px, ex-source 18px; không thời lượng/mã nội bộ trên mặt; nhãn tương tác "Câu hỏi:".
+- Ngoại lệ recitation trang dọc ghi riêng ở CUỐI phần 7, sau 3 trang tổng kết; giữ 7 outer sections.
+- Ghi chú student "thiếu recitation": slides 04–06 chính là 3 trang recitation ở cuối phần 7, không thêm 3 trang trùng.
+- Không nhắc version Compose hay số "5.5.1" trong phần 7 — ngữ cảnh không liên quan.
+- Lỗi đã bác: max/mean rỗng trả 0 (sai); distinct shuffle O(D) (sai); "đề bắt 2 jobs" (sai); A p×q, v q giữ đúng.
+
+
+### Nhãn phần 6 (2026-09-17)
+
+Theo yêu cầu giảng viên, cả 12 slide phần 6 có nhãn **Thực hành** dưới tiêu đề; phần 5 giữ nhãn **Đọc thêm**. Không đổi nội dung, thứ tự hoặc thời lượng.

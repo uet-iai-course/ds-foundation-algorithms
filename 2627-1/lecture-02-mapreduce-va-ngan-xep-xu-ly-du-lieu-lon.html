@@ -200,6 +200,7 @@
 .reveal #lec02-s04-11 .ex-table td,.reveal #lec02-s04-11 .ex-table th {padding:7px 10px;}
 
   .reveal .system-slide .self-study-badge { font-size: 22px; }
+  .reveal .practice-badge { display: inline-block; background: #1565c0; color: white; font-size: 22px; padding: 3px 10px; border-radius: 16px; font-weight: 600; }
   .reveal .practical-slide pre.ex-code { background: #272822; color: #f8f8f2; }
   .reveal .practical-slide .hljs-comment { color: #b8bdac; }
 </style>
@@ -215,7 +216,7 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce (đọc thêm)</li><li>Thực hành Hadoop với Docker Compose</li></ul>
+          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce (đọc thêm)</li><li>Thực hành Hadoop với Docker Compose</li><li>Tổng kết và bài tập vận dụng</li></ul>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -1307,6 +1308,7 @@ Reduce(i, L):  yield(i, sum(L))
 
   <section id="lec02-s06-01" data-slide-id="lec02-s06-01" class="motivation-slide example-slide cost-slide practical-slide">
 <h1>6 · Thực hành Hadoop với Docker Compose</h1>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <p>Biến mô hình Map-Reduce thành một chương trình chạy thật trên cụm nhỏ.</p>
 <table class="ex-table"><tbody><tr><td>Mục đích</td><td>Chạy bài đếm từ trên cụm Hadoop 6 container, một máy.</td></tr><tr><td>Kết quả mong đợi</td><td>chim 1 · chó 2 · mèo 2 — đúng như đã tính trên giấy.</td></tr><tr><td>Chuẩn bị</td><td>Cài Docker trước lớp; phần 5 là Đọc thêm, không tiên quyết.</td></tr></tbody></table>
 <p class="ex-source">Mã lab: <a href="examples/lec-02/hadoop-compose/README.md">Hướng dẫn thực hành</a> · <a href="examples/lec-02/hadoop-compose.zip" download>Tải mã Docker Compose</a>.</p>
@@ -1315,6 +1317,7 @@ Reduce(i, L):  yield(i, sum(L))
 
   <section id="lec02-s06-02" data-slide-id="lec02-s06-02" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Cụm Hadoop trên một máy</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <img class="cost-figure" src="img/lec-02/lab-cluster.svg" alt="NameNode lưu vị trí khối cho 2 DataNode; ResourceManager cấp tài nguyên cho 2 NodeManager chạy MapReduce; 6 container trên một mạng bridge."/>
 <p class="ex-note">NameNode lưu vị trí khối; 2 DataNode lưu khối và bản sao.<br>ResourceManager cấp tài nguyên; 2 NodeManager chạy MapReduce.</p>
 <p class="ex-source">Nguồn: Apache Hadoop, docker-compose mẫu chính thức; compose.yaml của lab.</p>
@@ -1323,6 +1326,7 @@ Reduce(i, L):  yield(i, sum(L))
 
   <section id="lec02-s06-03" data-slide-id="lec02-s06-03" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Khởi động bằng Docker Compose</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <p>Cài Docker Engine/Desktop và Compose plugin trước; giải nén bộ mã rồi vào thư mục lab.</p>
 <pre class="ex-code"><code class="language-bash" data-trim>cd hadoop-compose
 docker compose pull
@@ -1335,6 +1339,7 @@ docker compose ps</code></pre>
 
   <section id="lec02-s06-04" data-slide-id="lec02-s06-04" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Kiểm tra cụm đã sẵn sàng</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <pre class="ex-code"><code class="language-bash" data-trim>docker compose exec namenode hdfs dfsadmin -report
 docker compose exec namenode yarn node -list</code></pre>
 <p class="ex-note">Dấu hiệu sẵn sàng: 2 DataNode ở trạng thái <em>Live</em>,<br>2 NodeManager ở trạng thái <em>RUNNING</em>.</p>
@@ -1344,6 +1349,7 @@ docker compose exec namenode yarn node -list</code></pre>
 
   <section id="lec02-s06-05" data-slide-id="lec02-s06-05" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Hai văn bản trên HDFS</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <table class="ex-table"><tbody><tr><td><code>d1.txt</code></td><td>mèo chó mèo</td></tr><tr><td><code>d2.txt</code></td><td>chó chim</td></tr></tbody></table>
 <p class="ex-note">Trong cấu hình mẫu: hai tệp → hai Map. Hai bản sao không làm tăng số từ.</p>
 <p class="ex-source">Script <code>run-job.sh</code> tự đưa <code>data/*.txt</code> lên HDFS bằng <code>hdfs dfs -put</code>.</p>
@@ -1352,6 +1358,7 @@ docker compose exec namenode yarn node -list</code></pre>
 
   <section id="lec02-s06-06" data-slide-id="lec02-s06-06" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Hàm Map bằng Python</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <pre class="ex-code"><code class="language-python" data-trim>import sys
 
 # Mỗi từ phân cách bởi khoảng trắng đóng góp một lần xuất hiện.
@@ -1365,6 +1372,7 @@ for line in sys.stdin:
 
   <section id="lec02-s06-07" data-slide-id="lec02-s06-07" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Giao diện giữa Python và Hadoop</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <img class="cost-figure" src="img/lec-02/lab-streaming.svg" alt="stdin dòng văn bản vào mapper; stdout các cặp word TAB count; Hadoop phân phối và sắp xếp; reducer nhận các dòng cùng khóa liền nhau qua stdin."/>
 <p class="ex-note">Mapper in <code>mèo&nbsp;TAB&nbsp;1</code>, <code>mèo&nbsp;TAB&nbsp;1</code>…; Hadoop gom các dòng cùng khóa liền nhau rồi đưa vào reducer.</p>
 <p class="ex-source">Nguồn: Apache Hadoop Streaming 3.4.2; MMDS 2.2 (dạng hàm Reduce nhận danh sách giá trị).</p>
@@ -1373,6 +1381,7 @@ for line in sys.stdin:
 
   <section id="lec02-s06-08" data-slide-id="lec02-s06-08" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Hàm Reduce và Combine bằng Python</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <pre class="ex-code"><code class="language-python" data-trim>import sys
 from itertools import groupby
 
@@ -1388,6 +1397,7 @@ for word, group in groupby(pairs, key=lambda pair: pair[0]):
 
   <section id="lec02-s06-09" data-slide-id="lec02-s06-09" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Nộp công việc Map-Reduce</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <pre class="ex-code"><code class="language-bash" data-trim>docker compose exec -T namenode bash /work/run-job.sh</code></pre>
 <p class="ex-note">Bốn dòng khai báo trong script (cùng một lệnh <code>hadoop jar</code>):<br>
 <code>-files /work/mapper.py,/work/reducer.py</code> · <code>-mapper 'python3 mapper.py'</code><br>
@@ -1398,6 +1408,7 @@ for word, group in groupby(pairs, key=lambda pair: pair[0]):
 
   <section id="lec02-s06-10" data-slide-id="lec02-s06-10" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Đối chiếu kết quả</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <pre class="ex-code"><code class="language-plaintext" data-trim>chim	1
 chó	2
 mèo	2</code></pre>
@@ -1408,6 +1419,7 @@ mèo	2</code></pre>
 
   <section id="lec02-s06-11" data-slide-id="lec02-s06-11" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Quan sát các bộ đếm</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <img class="cost-figure" src="img/lec-02/lab-counters.svg" alt="5 cặp Map output, 4 cặp sau Combine, 3 cặp Reduce output; nhãn counter ghi số bản ghi."/>
 <p class="ex-note">Lần chạy kiểm thử: 5 cặp Map → 4 cặp Combine → 3 cặp Reduce.<br>Đếm theo số cặp, không suy ra giảm thời gian chạy.</p>
 <p class="ex-source">Nguồn: bộ đếm trong log lệnh Hadoop Streaming, lần kiểm thử của bộ mã.</p>
@@ -1416,6 +1428,7 @@ mèo	2</code></pre>
 
   <section id="lec02-s06-12" data-slide-id="lec02-s06-12" class="motivation-slide example-slide cost-slide practical-slide">
 <h2>Câu hỏi kiểm tra</h2>
+<div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <p><strong>Câu hỏi:</strong> giải thích kết quả và cách kiểm chứng.</p>
 <table class="ex-table"><tbody>
 <tr><td>1</td><td>Xóa khai báo Combiner trong script — kết quả đếm có đổi không?</td></tr>
@@ -1427,6 +1440,76 @@ mèo	2</code></pre>
 </section>
 
 </section>
+<section id="summary-exercises" aria-label="Tổng kết và bài tập vận dụng">
+
+  <section id="lec02-s07-01" data-slide-id="lec02-s07-01" class="motivation-slide example-slide cost-slide summary-slide">
+<h1>7 · Tổng kết và bài tập vận dụng</h1>
+<table class="ex-table"><tbody>
+<tr><td>Dữ liệu nằm trên nhiều máy</td><td>Map xử lý từng phần; ưu tiên gần dữ liệu.</td></tr>
+<tr><td>Kết quả cần liên kết với nhau</td><td>Khóa quy định nhóm nào vào cùng một Reduce.</td></tr>
+<tr><td>Lập trình viên cần tập trung vào hàm</td><td>Hệ thống lo phân chia, lập lịch, phục hồi.</td></tr>
+</tbody></table>
+<p class="ex-note">Đường đi dữ liệu: đầu vào → Map → chuyển và nhóm theo khóa → Reduce → đầu ra.<br>Phần 5 về hệ thống thực thi là Đọc thêm, tùy chọn.</p>
+<p class="ex-source">Nguồn: MMDS Chương 2; ba nhu cầu đã nêu ở phần mở đầu bài giảng.</p>
+<aside class="notes">Dữ liệu của các bài toán ở phần mở đầu nằm trên nhiều máy, nên mô hình cho phép mỗi Map xử lý một phần đầu vào; hệ thống ưu tiên nơi chạy gần dữ liệu khi có thể, đây là ưu tiên chứ không phải bảo đảm. Những kết quả cần gộp được gắn cùng khóa để đưa tới một Reduce; khóa xác định nhóm cần gộp. Cách chọn khóa thuộc thiết kế thuật toán, còn phân chia đầu vào, lập lịch và chạy lại tác vụ thuộc hệ thống thực thi. Cụm Docker vừa dùng minh họa sự phân công này: chương trình Python chỉ đọc và ghi các dòng, Hadoop tổ chức tác vụ. Tiếp theo, đối chiếu ba bài toán đã học để xác định thông tin nào phải giữ lại trước khi gộp.</aside>
+</section>
+
+  <section id="lec02-s07-02" data-slide-id="lec02-s07-02" class="motivation-slide example-slide cost-slide summary-slide">
+<h2>Ba bài toán, ba cách gộp</h2>
+<table class="ex-table"><tbody>
+<tr><th>Bài toán</th><th>Khóa và thông tin giữ lại</th><th>Phép gộp</th></tr>
+<tr><td>Nhân ma trận–véc tơ</td><td>Khóa hàng \(i\); giữ \(a_{ij}\cdot v_j\)</td><td>Cộng các tích</td></tr>
+<tr><td>Đếm giá trị phân biệt</td><td>Khóa là giá trị \(x\); giữ sự hiện diện</td><td>Bỏ trùng, rồi đếm</td></tr>
+<tr><td>Trung bình cộng</td><td>Khóa chung; giữ \((S, C)\)</td><td>Cộng từng thành phần, rồi \(S/C\) cuối</td></tr>
+</tbody></table>
+<p class="ex-note">Chọn khóa theo đầu ra mong muốn; giữ đủ thông tin để phép gộp cho đúng kết quả.</p>
+<p class="ex-source">Nguồn: MMDS 2.2–2.3.</p>
+<aside class="notes">Với ma trận A p×q và véc tơ v có q phần tử, Map xử lý khối ma trận, tạo tích a_ij v_j và dùng chỉ số hàng i làm khóa; Reduce cộng các tích cùng hàng, Combine có thể cộng trước theo mô hình số học đã nêu. Với số giá trị phân biệt, dùng chính giá trị làm khóa để bỏ trùng, rồi một vòng tiếp theo đếm các khóa còn lại. Với trung bình, S là tổng và C là số phần tử: gộp bằng cách cộng từng thành phần, chỉ chia S/C ở bước cuối.  Cả ba thiết kế đều bắt đầu từ đầu ra cần tính để chọn khóa và trạng thái trung gian.</aside>
+</section>
+
+  <section id="lec02-s07-03" data-slide-id="lec02-s07-03" class="motivation-slide example-slide cost-slide summary-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<table class="ex-table"><tbody>
+<tr><td>1</td><td><strong>Câu hỏi:</strong> Map và Reduce chịu trách nhiệm gì trong bài đếm từ?</td></tr>
+<tr><td>2</td><td><strong>Câu hỏi:</strong> Điều kiện nào để Combine giữ nguyên kết quả cuối?</td></tr>
+<tr><td>3</td><td><strong>Câu hỏi:</strong> Tăng số máy có luôn giảm thời gian chạy không, và vì sao?</td></tr>
+<tr><td>4</td><td><strong>Câu hỏi:</strong> Bằng chứng nào từ bài thực hành xác nhận tác vụ đã chạy và kết quả đúng?</td></tr>
+</tbody></table>
+<p class="ex-note">Trả lời bằng mô hình phần 2, chi phí phần 4 và bài thực hành phần 6.</p>
+<p class="ex-source">Nguồn: MMDS 2.2; bài thực hành phần 6.</p>
+<aside class="notes">Câu 1: Map tạo cặp (từ, 1) cho mỗi lần xuất hiện; Reduce cộng số đếm cùng từ. Câu 2: với các phép gộp đã học, cần tính kết hợp, giao hoán, kiểu trạng thái tương thích và bảo toàn kết quả Reduce khi thay một nhóm bằng trạng thái đã gộp; điều này phải đúng khi bỏ qua Combine hoặc áp dụng nhiều lần. Câu 3: tăng máy chưa chắc giảm thời gian vì còn chi phí truyền, điều phối, tải lệch và băng thông dùng chung; so sánh T₁ và T_P cho cùng bài toán, dữ liệu và phạm vi đo, tăng tốc là S_P = T₁/T_P. Câu 4: kiểm tra trạng thái SUCCEEDED trên YARN, bộ đếm tác vụ và các cặp kết quả đúng; docker compose ps chỉ cho biết container đang chạy. Không được tự ý nhân đôi bản ghi.</aside>
+</section>
+
+  <section id="lec02-s07-04" data-slide-id="lec02-s07-04" class="motivation-slide example-slide cost-slide summary-slide">
+<h2>Bài tập: Số nguyên lớn nhất</h2>
+<p>Tệp rất lớn chứa các số nguyên. Đầu ra: số nguyên lớn nhất trong toàn bộ tệp. Khóa đầu ra: bỏ qua.</p>
+<p><strong>Câu hỏi:</strong> Thiết kế thuật toán Map-Reduce.</p>
+<p class="ex-note">Sản phẩm: đặc tả Map / Combine / Reduce và lập luận chứng minh tính đúng.</p>
+<p class="ex-source">Nguồn: bài tập MMDS 2.3.1(a), trang 40.</p>
+<aside class="notes">Gọi n là số lượng số nguyên trong tệp và B₁,…,B_m là các khối không rỗng tạo thành một phân hoạch đầu vào. Với mỗi khối B_j, Map quét các phần tử, giữ số lớn nhất b_j rồi yield(*, b_j). Dấu * là khóa chung. Combine và Reduce lấy max của các giá trị nhận được; Reduce trả số lớn nhất và có thể bỏ khóa đầu ra. Chứng minh: sau khi Map đọc một tiền tố của khối, biến đang giữ bằng max của tiền tố đó. Vì mỗi phần tử thuộc đúng một khối, max của cả tệp bằng max của các max khối. Phép max kết hợp và giao hoán, nên gộp cục bộ không đổi kết quả. Các vòng quét hữu hạn; mỗi tác vụ chỉ giữ một giá trị cực đại ngoài bộ đệm đầu vào. Với mô hình mỗi số nguyên chiếm một từ máy và so sánh có chi phí hằng số, công việc quét là Θ(n). Map gộp tường minh trong khối nên tạo m cặp trước Combine; nhận xét này không dựa vào việc hệ thống có gọi Combine hay không. Tệp rỗng không có giá trị lớn nhất: cần báo không có giá trị hoặc nêu miền xác định không rỗng; không mặc định trả 0 vì dữ liệu có thể toàn số âm. Một phương án Map theo từng bản ghi cũng đúng nhưng tạo nhiều cặp hơn. Nguồn đề: MMDS, bài 2.3.1(a), trang 40.</aside>
+</section>
+
+  <section id="lec02-s07-05" data-slide-id="lec02-s07-05" class="motivation-slide example-slide cost-slide summary-slide">
+<h2>Bài tập: Trung bình cộng</h2>
+<p>Một tệp rất lớn chứa các số nguyên. Đầu ra: trung bình cộng của tất cả các số. Khóa đầu ra: bỏ qua.</p>
+<p><strong>Câu hỏi:</strong> Thiết kế thuật toán Map-Reduce.</p>
+<p class="ex-note">Sản phẩm: đặc tả Map / Combine / Reduce và lập luận chứng minh tính đúng.</p>
+<p class="ex-source">Nguồn: bài tập MMDS 2.3.1(b), trang 40.</p>
+<aside class="notes">Gọi n là số phần tử và B₁,…,B_m là các khối không rỗng, rời nhau, phủ toàn bộ tệp. Map trên B_j tính s_j là tổng và c_j là số phần tử, rồi yield(*, (s_j, c_j)). Combine cộng từng thành phần của các trạng thái: (S₁,C₁) và (S₂,C₂) thành (S₁+S₂,C₁+C₂). Reduce gộp tất cả trạng thái rồi trả S/C; không dùng phép chia này trong Combine. Bất biến của mỗi trạng thái là tổng và số phần tử của đúng phần dữ liệu nó đại diện. Các phần rời nhau nên khi gộp, cộng hai thành phần giữ bất biến. Cuối cùng S là tổng toàn tệp và C=n, do đó S/C là trung bình cần tìm. Các tác vụ quét hữu hạn và giữ hai biến tích lũy. Xét số học nguyên chính xác và kết quả hữu tỉ trong mô hình toán học; phép cộng dấu phẩy động trên máy có thể phụ thuộc thứ tự, dù phép cộng số thực trong toán học có tính kết hợp. Trong mô hình chi phí đơn vị cho phép cộng, công việc quét là Θ(n); Map gộp trong khối tạo m cặp trung gian, chưa tính biểu diễn byte hay bộ đệm của hệ thống. Nếu tệp rỗng thì C=0 và trung bình không xác định: không chia cho 0 hoặc tự quy ước trung bình bằng 0. Nguồn đề: MMDS, bài 2.3.1(b), trang 40.</aside>
+</section>
+
+  <section id="lec02-s07-06" data-slide-id="lec02-s07-06" class="motivation-slide example-slide cost-slide summary-slide">
+<h2>Bài tập: Số giá trị phân biệt</h2>
+<p>Tệp số nguyên rất lớn. Đầu ra: số lượng giá trị phân biệt trong tệp. Khóa đầu ra: bỏ qua.</p>
+<p><strong>Câu hỏi:</strong> Thiết kế thuật toán Map-Reduce.</p>
+<p class="ex-note">Sản phẩm: đặc tả hàm của các vòng và lập luận chứng minh tính đúng.</p>
+<p class="ex-source">Nguồn: bài tập MMDS 2.3.1(d), trang 40.</p>
+<aside class="notes">Gọi n là số nguyên đầu vào và D là số giá trị phân biệt. Chọn thiết kế hai vòng đã học; đề bài không bắt buộc số vòng. Vòng 1: Map trên một khối yield(x,1) cho mỗi số x. Combine tùy chọn và Reduce cùng thay một nhóm khóa x bằng đúng một cặp (x,1). Combine chỉ loại bản trùng cục bộ; Reduce bảo đảm mỗi giá trị phân biệt có đúng một bản ghi đầu ra toàn vòng. Vòng 2: Map đổi mỗi cặp (x,1) thành (*,1); Combine cộng cục bộ, Reduce cộng các giá trị để trả D. Chứng minh: tập khóa có mặt ở vòng 1 chính là tập giá trị đầu vào. Reduce tạo một bản ghi cho mỗi phần tử của tập đó; vòng 2 đếm số bản ghi, nên cho đúng lực lượng D. Các tác vụ đọc hết các dòng hữu hạn rồi dừng; Reduce vòng 1 chỉ cần ghi nhận khóa đang đọc, vòng 2 giữ một tổng. Khi đầu vào rỗng, D=0: bước điều khiển phát hiện vòng 1 không có bản ghi và trả 0; không mặc định việc không có tệp đầu ra là đã trả số 0. Vòng 1 tạo tối đa n cặp trung gian và D cặp đầu ra; vòng 2 tạo tối đa D cặp trung gian. Combine không bảo đảm chỉ còn O(D) cặp toàn cục vì cùng giá trị có thể xuất hiện ở nhiều Map. Đây là đếm cặp, chưa tính chi phí sắp xếp của shuffle. Một Reduce giữ tập giá trị cũng là cách giải đúng, nhưng cần bộ nhớ Θ(D) ô nhớ, với mỗi giá trị chiếm một từ máy. Nguồn đề: MMDS, bài 2.3.1(d), trang 40.</aside>
+</section>
+
+</section>
+
+      <div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 02</div>
 
     </div>
   </div>
@@ -1437,7 +1520,7 @@ mèo	2</code></pre>
   <script>
     Reveal.initialize({
       width: 1280, height: 720, margin: .04,
-      controls: true, controlsLayout: "edges", progress: false, slideNumber: false,
+      controls: true, controlsLayout: "edges", progress: false, slideNumber: true,
       hashOneBasedIndex: true, hash: true, katex: { local: "vendor/katex" }, highlight: { highlightOnLoad: false, escapeHTML: false, beforeHighlight: function(hljs) { document.querySelectorAll(".practical-slide pre code").forEach(function(block) { hljs.highlightElement(block); }); } },
       plugins: [RevealNotes, RevealMath.KaTeX, RevealHighlight]
     });

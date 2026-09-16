@@ -1,5 +1,9 @@
 # Dàn ý Bài 02: Mô hình tính toán Map-Reduce
 
+## Dàn ý hiện tại — đủ bảy phần
+
+Bản hiện tại có 81 slide: 64 trang giảng/trình diễn, 14 trang hệ thống đọc thêm và 3 trang bài tập. Giảng chính 120 phút; tự đọc hệ thống 25 phút ngoài lớp; recitation 60 phút. Các quyết định theo giai đoạn bên dưới được cập nhật bởi trạng thái này; bảng thời lượng cuối thay các ước lượng cũ.
+
 ## 1. Giới thiệu bài học
 
 - Slide 1: tiêu đề bài, tên môn học và học kỳ theo yêu cầu người dùng.
@@ -130,3 +134,33 @@ Giữ 12 trang/25 phút: mục tiêu thực hành → sơ đồ sáu container �
 Theo yêu cầu mới, dùng image Docker Hub `apache/hadoop:3.4.2-lean` khóa digest, sáu service trên một mạng Docker Compose. Thay phương án cài Hadoop/Java trực tiếp. Python 3.10.12 đã có trong image. Dữ liệu giữ nguyên hai văn bản của phần mô hình. Mã giảng dạy dùng Hadoop Streaming, HDFS và YARN thật. Phần hệ thống đọc thêm không là tiên quyết; các vai trò cần dùng được giải thích lại ở sơ đồ.
 
 Đã hợp nhất reader kế hoạch/phân tích nguồn: sửa đếm nhầm năm container thành sáu; dùng `image` thay `build`; khai báo riêng hai DataNode và hai NodeManager; replication bằng hai; không suy số tác vụ chỉ từ số máy; không coi container đang chạy là bằng chứng node đã đăng ký. Bác các gợi ý dùng screenshot raster, fallback ngôn ngữ khác khi Python đã được kiểm chứng, hoặc chuyển mạch cuối phần về phần đọc thêm. Kết phần bằng tự kiểm và nối tới tổng kết. Nguồn bổ sung: Docker Hub Apache Hadoop, nhánh Apache `docker-hadoop-3.4.2` (compose/config), tài liệu Hadoop Streaming/MapReduceTutorial 3.4.2. Mọi số đo và kết luận chạy thành công phải lấy từ kiểm thử thực tế.
+
+
+## Phần 7 — Tổng kết và bài tập vận dụng (lec02)
+
+## Luồng được duyệt
+- 3 slide tổng kết (01–03, 8 phút: 2+3+3) rồi 3 slide bài tập (04–06, 20 phút mỗi bài).
+- 01: mở đầu bằng 3 hàng quan hệ nhu cầu Google ở intro → mô hình: dữ liệu nhiều máy → Map xử lý phần đầu vào; kết quả cần liên kết → khóa quy định nhóm Reduce; lập trình viên cần tập trung vào hàm → hệ thống phân chia/lập lịch/phục hồi. Caption chốt đường đi dữ liệu qua Map và Reduce. Đọc thêm phần 5 chỉ tùy chọn.
+- 02: bảng 3 cột "Bài toán / khóa và thông tin giữ lại / phép gộp" cho matvec, distinct, average. Tên bài "Đếm giá trị phân biệt"; cột distinct "Khóa là giá trị x; giữ sự hiện diện", phép gộp "Bỏ trùng, rồi đếm".
+- 03: 4 câu hỏi kiểm tra ngắn, nhãn "Câu hỏi:".
+- 04–06: ba bài tập MMDS 2.3.1 trang 40 (a, b, d) — giữ nguyên đề, không hiện lời giải trên mặt.
+
+## Lỗi từ reader đã bác (không lặp lại)
+- max/mean trên input rỗng trả 0 là SAI: max không xác định trên miền rỗng; mean chia cho C=0 không xác định. Phải báo "không có giá trị" / mean undefined.
+- distinct: shuffle O(D) là SAI — Combine không bảo đảm O(D) toàn cục vì cùng x xuất hiện ở nhiều Map; trung gian vòng 1 là ≤ n cặp.
+- "Đề bắt 2 jobs" là SAI — đề chỉ yêu cầu thiết kế MapReduce; 2 vòng là lựa chọn phân tích, không phải ràng buộc đề.
+- Ký hiệu ma trận giữ đúng: A p×q, v q — không đổi thành A n×m.
+
+## Nguồn
+- Sách: MMDS (raw provided), primary read p.40, bài 2.3.1 (a), (b), (d). Lược (c) vì distinct list là bước trung gian đã học; không SQL/Pregel.
+- Không tự đặt bộ số/file đề bài mới; không nói "đã commit/test" hay "81 passed" trước verification.
+
+## Bố cục toàn bài (tham chiếu)
+- Core P1=10, P2=22, P3=30, P4=25, P6=25, P7 summary=8 → 120 core; P5 read 25 ngoài lớp; exercise 60.
+- Tổng deck 81 slides: 14 read + 3 exercise → 64 core gồm 12 demo slides; cài Docker/tải mã trước lớp; nhiều trang chỉ một bước demo, không thu nhỏ chữ.
+- Ngoại lệ recitation trang dọc ghi riêng ở CUỐI phần 7, sau 3 trang tổng kết; giữ 7 outer sections.
+
+
+### Nhãn phần 6 (2026-09-17)
+
+Theo yêu cầu giảng viên, cả 12 slide phần 6 có nhãn **Thực hành** dưới tiêu đề; phần 5 giữ nhãn **Đọc thêm**. Không đổi nội dung, thứ tự hoặc thời lượng.
