@@ -535,3 +535,31 @@ Nguồn chính: MMDS 2.2.5 (tr.28–29), 2.2.6 (tr.30), slide MMDS 23–27; bài
 **Trạng thái deck:** sau phần này tổng cộng 63 slide / 5 phần; chưa đạt mục tiêu toàn bài.
 
 **Ảnh external do điều phối viên tạo:** sys-02, sys-02a, sys-03, sys-04, sys-05, sys-06, sys-07, sys-09, sys-10 (writer không vẽ).
+
+
+## Storyboard phần 6 — Thực hành Hadoop với Docker Compose (lec02)
+
+- Outer section: `id="practical-hadoop"`, 12 inner slides `lec02-s06-01` … `lec02-s06-12`, class `motivation-slide example-slide cost-slide practical-slide`.
+- H1 ở slide 01, H2 ở các slide còn lại. Không fragment, không inline font-size nhỏ.
+- Tổng thời lượng: **25 phút** (cài đặt Docker và tải ZIP **trước lớp**).
+- Số liệu runtime đã kiểm chứng: image `apache/hadoop:3.4.2-lean` (digest `27eb85…cb790`), Python 3.10.12 có sẵn; 6 Docker container (NN, RM, DN1, DN2, NM1, NM2), mỗi service 1 vai trò trên 1 bridge network, 1 host; 2 DN Live, 2 NM Running; replication 2. Job Hadoop Streaming thật: SUCCEEDED, kết quả chim 1, chó 2, mèo 2. minsplit 134217728 → 2 tệp nhỏ → 2 Map; `-D job.reduces=2` → 2 Reduce. Combine 5 input → 4 output; reduce 3 nhóm/output 3. Counters là của một lần chạy; Combine có thể chạy số lần khác nhau. DN và NM là container khác nhau — không claim data-local hay hai rack thật; mô phỏng cùng host không chứng minh speedup/HA. YARN container = đơn vị tài nguyên chạy AM/Map/Reduce trong NM, khác Docker container.
+
+| # | Tiêu đề | Purpose / knowledge | Input | Output / trung tâm | Nối vào–ra | Nguồn | Thời lượng |
+|---|---------|--------------------|-------|--------------------|-----------|-------|-----------|
+| `lec02-s06-01` | 6 · Thực hành Hadoop với Docker Compose | Mở phần: chuyển Map/Reduce thành chương trình chạy thật | Mô hình phần 2, chi phí phần 4 (phần 5 Đọc thêm, không tiên quyết) | Kết quả mong đợi: chim 1, chó 2, mèo 2; liên kết mã `examples/lec-02/hadoop-compose/README.md` và ZIP | Vào: từ phần 2/4. Ra: toàn phần 6 | MMDS 2.2 (chung) | 2′ |
+| `lec02-s06-02` | Cụm Hadoop trên một máy | Kiến trúc lab: HDFS + YARN trên 6 container | compose.yaml, hình `lab-cluster.svg` | NN lưu vị trí → 2 DN lưu khối/bản sao; RM cấp tài nguyên → 2 NM chạy MapReduce; 1 bridge | Ra: slide 03 khởi động | Apache Hadoop docker-compose chính thức | 2′ |
+| `lec02-s06-03` | Khởi động bằng Docker Compose | Ba lệnh cơ bản | Docker đã cài trước lớp, bộ mã giải nén | `pull` / `up -d` / `ps`; image version ngắn trên mặt, digest trong file | Ra: slide 04 kiểm tra | Docker Hub apache/hadoop; Docker Compose docs | 2′ |
+| `lec02-s06-04` | Kiểm tra cụm đã sẵn sàng | Tiêu chí sẵn sàng | Cụm đang chạy | 2 DN Live, 2 NM RUNNING; UI 19870 / 18088 | Ra: slide 05 nạp dữ liệu | Hadoop dfsadmin / yarn node | 2′ |
+| `lec02-s06-05` | Hai văn bản trên HDFS | Dữ liệu đầu vào | d1 “mèo chó mèo”, d2 “chó chim”, UTF-8, tách whitespace | Trong cấu hình mẫu: hai tệp → hai Map (ngưỡng tách 128 MiB giữ mỗi tệp nhỏ 1 split); replication 2 không nhân đôi số từ; script tự `hdfs dfs -put` | Ra: slide 06 mapper | MMDS 2.2; run-job.sh | 2′ |
+| `lec02-s06-06` | Hàm Map bằng Python | Code mapper thật (6 dòng) | stdin từng dòng | stdout `word TAB 1`; Streaming cấp dòng, không nhận cả tệp | Ra: slide 07 giao diện Streaming | mapper.py; Hadoop Streaming | 2′ |
+| `lec02-s06-07` | Giao diện giữa Python và Hadoop | Cơ chế stdin/stdout | Hình `lab-streaming.svg`; ví dụ `mèo TAB 1` | Hadoop phân phối/sắp xếp; reducer nhận các dòng cùng khóa liền nhau; Reduce nhận danh sách giá trị được hiện thực bằng dòng liền kề | Ra: slide 08 reducer | Hadoop Streaming 3.4.2; MMDS 2.2 | 2′ |
+| `lec02-s06-08` | Hàm Reduce và Combine bằng Python | Code reducer thật (8 dòng) | stdin các dòng cùng khóa liền nhau | Cộng giá trị nhóm, không gom list toàn nhóm; sum giao hoán + cùng kiểu (word,count) → dùng được làm Combine (tùy chọn); EOF dừng nhóm cuối | Ra: slide 09 nộp job | reducer.py; MMDS 2.2 | 2′ |
+| `lec02-s06-09` | Nộp công việc Map-Reduce | Lệnh nộp job thật | `docker compose exec -T namenode bash /work/run-job.sh` | Thứ tự script: chờ safe mode → kiểm node → tạo input mới + put → chọn output chưa tồn tại → nộp `hadoop jar` với `-D mapreduce.job.reduces=2`, `-files`, `-mapper`, `-combiner`, `-reducer` (cùng một lệnh, -D/-files trước input/output); hệ thống phân phối mã tới NM | Ra: slide 10 kết quả | run-job.sh; Hadoop Streaming | 2′ |
+| `lec02-s06-10` | Đối chiếu kết quả | Xác nhận đúng | output `part-*` từ run thật | chim 1, chó 2, mèo 2; SUCCEEDED; mỗi Reduce một tệp, cùng tập khóa; thứ tự toàn cục không bảo đảm với nhiều Reduce | Ra: slide 11 counters | run thật; YARN UI | 2′ |
+| `lec02-s06-11` | Quan sát các bộ đếm | Kiểm chứng từng pha | Hình `lab-counters.svg` | 5 Map → 4 Combine → 3 Reduce output (một lần chạy); đếm cặp/byte, không suy thời gian; Combine không cố định số lần | Ra: slide 12 câu hỏi | Log lệnh Hadoop Streaming | 2′ |
+| `lec02-s06-12` | Câu hỏi kiểm tra | Củng cố | 3 câu hỏi | Đáp án: không đổi / 5 từ / SUCCEEDED + counters + output (2 node chưa đủ) | Ra: phần 7 tổng kết và vận dụng | — | 3′ |
+
+Ghi chú viết:
+- Notes mỗi slide 80–140 từ, có nguồn/lời giải/cầu nối, không nhãn author/mã/thời lượng.
+- Mặt chữ ~30px kế thừa; `ex-source` 18px; `ex-note` 24px; `cost-figure` chứa `img`.
+- Không bịa thời gian chạy; counters chỉ của một lần chạy; không claim data-local, hai rack, speedup, HA.

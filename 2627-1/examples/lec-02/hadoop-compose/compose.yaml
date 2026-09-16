@@ -1,0 +1,55 @@
+name: lec02-mapreduce
+
+x-hadoop-common: &hadoop-common
+  image: apache/hadoop:3.4.2-lean@sha256:27eb85ba5765b79fd0cde5a245579a3c5ab93799016a44dd0c447a13e64cb790
+  platform: linux/amd64
+  env_file: config
+
+services:
+  namenode:
+    <<: *hadoop-common
+    hostname: namenode
+    environment:
+      ENSURE_NAMENODE_DIR: /tmp/lec02/name
+    command: hdfs namenode
+    ports:
+      - "127.0.0.1:19870:9870"
+    volumes:
+      - ./:/work:ro
+    mem_limit: 1g
+
+  datanode1:
+    <<: *hadoop-common
+    hostname: datanode1
+    command: hdfs datanode
+    mem_limit: 768m
+
+  datanode2:
+    <<: *hadoop-common
+    hostname: datanode2
+    command: hdfs datanode
+    mem_limit: 768m
+
+  resourcemanager:
+    <<: *hadoop-common
+    hostname: resourcemanager
+    command: yarn resourcemanager
+    ports:
+      - "127.0.0.1:18088:8088"
+    mem_limit: 1g
+
+  nodemanager1:
+    <<: *hadoop-common
+    hostname: nodemanager1
+    command: yarn nodemanager
+    mem_limit: 3g
+
+  nodemanager2:
+    <<: *hadoop-common
+    hostname: nodemanager2
+    command: yarn nodemanager
+    mem_limit: 3g
+
+networks:
+  default:
+    driver: bridge

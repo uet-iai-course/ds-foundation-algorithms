@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
   <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
   <link rel="stylesheet" href="lecture-style.css"/>
+  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
   <style>
     .reveal .lecture-title { font-size: 1.8em; color: #2f3e7a; line-height: 1.2; }
     .reveal .course-name { font-size: .85em; margin-top: 1.2em; }
@@ -199,6 +200,8 @@
 .reveal #lec02-s04-11 .ex-table td,.reveal #lec02-s04-11 .ex-table th {padding:7px 10px;}
 
   .reveal .system-slide .self-study-badge { font-size: 22px; }
+  .reveal .practical-slide pre.ex-code { background: #272822; color: #f8f8f2; }
+  .reveal .practical-slide .hljs-comment { color: #b8bdac; }
 </style>
 </head>
 <body>
@@ -212,7 +215,7 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce (đọc thêm)</li></ul>
+          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce (đọc thêm)</li><li>Thực hành Hadoop với Docker Compose</li></ul>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -1300,16 +1303,143 @@ Reduce(i, L):  yield(i, sum(L))
 
 </section>
 
+<section id="practical-hadoop" aria-label="Thực hành Hadoop với Docker Compose">
+
+  <section id="lec02-s06-01" data-slide-id="lec02-s06-01" class="motivation-slide example-slide cost-slide practical-slide">
+<h1>6 · Thực hành Hadoop với Docker Compose</h1>
+<p>Biến mô hình Map-Reduce thành một chương trình chạy thật trên cụm nhỏ.</p>
+<table class="ex-table"><tbody><tr><td>Mục đích</td><td>Chạy bài đếm từ trên cụm Hadoop 6 container, một máy.</td></tr><tr><td>Kết quả mong đợi</td><td>chim 1 · chó 2 · mèo 2 — đúng như đã tính trên giấy.</td></tr><tr><td>Chuẩn bị</td><td>Cài Docker trước lớp; phần 5 là Đọc thêm, không tiên quyết.</td></tr></tbody></table>
+<p class="ex-source">Mã lab: <a href="examples/lec-02/hadoop-compose/README.md">Hướng dẫn thực hành</a> · <a href="examples/lec-02/hadoop-compose.zip" download>Tải mã Docker Compose</a>.</p>
+<aside class="notes">Phần 2 xây dựng mô hình Map-Reduce, phần 4 tính chi phí của nó; phần này đưa cả hai vào một chương trình thật. Ta dựng cụm Hadoop nhỏ bằng Docker Compose, viết hàm Map và Reduce bằng Python, nộp công việc qua Hadoop Streaming và đối chiếu kết quả với đếm thủ công đã làm ở phần 2. Phần 5 về hệ thống thực thi là Đọc thêm, không phải tiên quyết. Toàn bộ mã nằm trong examples/lec-02/hadoop-compose; hãy tải ZIP và cài Docker trước khi đến lớp.</aside>
+</section>
+
+  <section id="lec02-s06-02" data-slide-id="lec02-s06-02" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Cụm Hadoop trên một máy</h2>
+<img class="cost-figure" src="img/lec-02/lab-cluster.svg" alt="NameNode lưu vị trí khối cho 2 DataNode; ResourceManager cấp tài nguyên cho 2 NodeManager chạy MapReduce; 6 container trên một mạng bridge."/>
+<p class="ex-note">NameNode lưu vị trí khối; 2 DataNode lưu khối và bản sao.<br>ResourceManager cấp tài nguyên; 2 NodeManager chạy MapReduce.</p>
+<p class="ex-source">Nguồn: Apache Hadoop, docker-compose mẫu chính thức; compose.yaml của lab.</p>
+<aside class="notes">Cụm gồm 6 Docker container trên một mạng bridge: NameNode, 2 DataNode, ResourceManager, 2 NodeManager. NameNode quản lý không gian tên và vị trí khối; DataNode giữ khối với replication 2. ResourceManager điều phối tài nguyên YARN; NodeManager chạy các tiến trình MapReduce. Cần phân biệt hai loại container: container Docker là tiến trình cô lập trên máy host, còn container YARN là đơn vị tài nguyên mà NodeManager cấp cho ApplicationMaster, Map hoặc Reduce — số container YARN thay đổi theo job. Hai DataNode và hai NodeManager là các container khác nhau trên cùng một host, không phải hai máy vật lý.</aside>
+</section>
+
+  <section id="lec02-s06-03" data-slide-id="lec02-s06-03" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Khởi động bằng Docker Compose</h2>
+<p>Cài Docker Engine/Desktop và Compose plugin trước; giải nén bộ mã rồi vào thư mục lab.</p>
+<pre class="ex-code"><code class="language-bash" data-trim>cd hadoop-compose
+docker compose pull
+docker compose up -d
+docker compose ps</code></pre>
+<p class="ex-note"><code>pull</code> tải image <code>apache/hadoop:3.4.2-lean</code> từ Docker Hub;<br><code>up -d</code> tạo 6 container nền; <code>ps</code> liệt kê trạng thái.</p>
+<p class="ex-source">Nguồn: Docker Hub apache/hadoop; tài liệu Docker Compose chính thức.</p>
+<aside class="notes">Ba lệnh theo thứ tự: pull tải image đã công bố về máy; compose.yaml cố định phiên bản bằng mã băm của image; up -d tạo và khởi động 6 container ở chế độ nền theo compose.yaml; ps cho thấy container nào đang chạy. Không cần cài Java hay Hadoop trên máy local vì mọi thứ nằm trong image. Thời gian chờ cụm sẵn sàng phụ thuộc máy.</aside>
+</section>
+
+  <section id="lec02-s06-04" data-slide-id="lec02-s06-04" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Kiểm tra cụm đã sẵn sàng</h2>
+<pre class="ex-code"><code class="language-bash" data-trim>docker compose exec namenode hdfs dfsadmin -report
+docker compose exec namenode yarn node -list</code></pre>
+<p class="ex-note">Dấu hiệu sẵn sàng: 2 DataNode ở trạng thái <em>Live</em>,<br>2 NodeManager ở trạng thái <em>RUNNING</em>.</p>
+<p class="ex-source">Web UI: HDFS NameNode http://127.0.0.1:19870 · YARN http://127.0.0.1:18088.</p>
+<aside class="notes">dfsadmin -report hỏi NameNode về các DataNode: cần thấy đúng 2 node Live. yarn node -list hỏi ResourceManager: cần thấy 2 NodeManager RUNNING. Container đang chạy chưa đủ — daemon có thể đã khởi động nhưng chưa đăng ký với NameNode hoặc ResourceManager, nên phải kiểm tra bằng hai lệnh này trước khi nộp job. Hai giao diện web cũng xác nhận cùng thông tin: 19870 cho HDFS (tab Datanodes), 18088 cho YARN (mục Nodes). Nếu một node chưa lên, chờ vài giây rồi chạy lại lệnh kiểm tra.</aside>
+</section>
+
+  <section id="lec02-s06-05" data-slide-id="lec02-s06-05" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Hai văn bản trên HDFS</h2>
+<table class="ex-table"><tbody><tr><td><code>d1.txt</code></td><td>mèo chó mèo</td></tr><tr><td><code>d2.txt</code></td><td>chó chim</td></tr></tbody></table>
+<p class="ex-note">Trong cấu hình mẫu: hai tệp → hai Map. Hai bản sao không làm tăng số từ.</p>
+<p class="ex-source">Script <code>run-job.sh</code> tự đưa <code>data/*.txt</code> lên HDFS bằng <code>hdfs dfs -put</code>.</p>
+<aside class="notes">Đây chính là hai văn bản đã đếm thủ công ở phần 2, nên kết quả mong đợi đã biết: chim 1, chó 2, mèo 2. Mapper tách theo whitespace và giữ nguyên chữ hoa, dấu câu — giới hạn được ghi rõ trong README. Hai tệp đều nhỏ hơn minsplit 128 MiB nên mỗi tệp thành một phần đầu vào, tức 2 Map. Replication 2 tạo bản sao khối trên cả hai DataNode nhưng chỉ phục vụ độ bền và vị trí đọc, không làm tăng số lần đếm. Script tạo thư mục đầu vào riêng cho mỗi lần chạy rồi đưa hai tệp lên HDFS.</aside>
+</section>
+
+  <section id="lec02-s06-06" data-slide-id="lec02-s06-06" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Hàm Map bằng Python</h2>
+<pre class="ex-code"><code class="language-python" data-trim>import sys
+
+# Mỗi từ phân cách bởi khoảng trắng đóng góp một lần xuất hiện.
+for line in sys.stdin:
+    for word in line.split():
+        print(f"{word}\t1")</code></pre>
+<p class="ex-note">Đọc từng dòng từ stdin; với mỗi từ in <code>word&nbsp;TAB&nbsp;1</code> ra stdout.</p>
+<p class="ex-source">Tệp đầy đủ: <code>mapper.py</code> trong bộ lab.</p>
+<aside class="notes">Toàn bộ mapper là 6 dòng này. Hadoop Streaming cấp từng dòng văn bản cho tiến trình Python qua stdin — mapper không nhận cả tệp và không tự tải dữ liệu; việc chia phần đầu vào và cấp bản ghi là việc của hệ thống. Với mỗi từ, chương trình in một cặp khóa-giá trị word TAB 1 ra stdout theo giao thức Streaming. Đây đúng là hàm Map của mô hình phần 2: mỗi lần xuất hiện đóng góp một cặp. Đầu ra của mapper này chính là dữ liệu mà slide sau theo dõi qua giao diện Streaming.</aside>
+</section>
+
+  <section id="lec02-s06-07" data-slide-id="lec02-s06-07" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Giao diện giữa Python và Hadoop</h2>
+<img class="cost-figure" src="img/lec-02/lab-streaming.svg" alt="stdin dòng văn bản vào mapper; stdout các cặp word TAB count; Hadoop phân phối và sắp xếp; reducer nhận các dòng cùng khóa liền nhau qua stdin."/>
+<p class="ex-note">Mapper in <code>mèo&nbsp;TAB&nbsp;1</code>, <code>mèo&nbsp;TAB&nbsp;1</code>…; Hadoop gom các dòng cùng khóa liền nhau rồi đưa vào reducer.</p>
+<p class="ex-source">Nguồn: Apache Hadoop Streaming 3.4.2; MMDS 2.2 (dạng hàm Reduce nhận danh sách giá trị).</p>
+<aside class="notes">Streaming quy hàm Map/Reduce về văn bản qua ba kênh: stdin của mapper nhận từng dòng; stdout của mapper phát các cặp word TAB count; Hadoop phân phối theo khóa và sắp xếp, rồi đưa các dòng cùng khóa liền nhau vào stdin của reducer. Dạng hàm Reduce trong MMDS nhận danh sách giá trị của một khóa; ở đây danh sách đó được hiện thực bằng các dòng liền kề — Hadoop lo việc chuyển và gom, chương trình chỉ đọc tuần tự. Với bài đếm từ, reducer chỉ cần giữ tổng của nhóm đang đọc.</aside>
+</section>
+
+  <section id="lec02-s06-08" data-slide-id="lec02-s06-08" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Hàm Reduce và Combine bằng Python</h2>
+<pre class="ex-code"><code class="language-python" data-trim>import sys
+from itertools import groupby
+
+# Hadoop đưa các dòng cùng khóa liền nhau; đọc nhóm lần lượt.
+pairs = (line.rstrip("\n").split("\t", 1) for line in sys.stdin)
+for word, group in groupby(pairs, key=lambda pair: pair[0]):
+    total = sum(int(value) for _, value in group)
+    print(f"{word}\t{total}")</code></pre>
+<p class="ex-note">Cộng giá trị trong nhóm; đầu vào và đầu ra cùng dạng <code>word&nbsp;TAB&nbsp;count</code>.</p>
+<p class="ex-source">Tệp đầy đủ: <code>reducer.py</code> trong bộ lab.</p>
+<aside class="notes">groupby gom các dòng liền nhau cùng khóa; tổng được cộng lần lượt qua generator, không tạo danh sách cả nhóm trong RAM. Phép cộng có tính kết hợp, giao hoán và đầu vào/đầu ra cùng kiểu (word, count), nên cùng tệp này dùng được làm combiner: chạy trên đầu ra Map để giảm dữ liệu truyền qua shuffle mà kết quả cuối không đổi. Combiner là tùy chọn — Hadoop có thể chạy nó nhiều lần hoặc không chạy, kết quả được bảo toàn nhờ tính kết hợp, giao hoán và kiểu dữ liệu phù hợp. Dòng cuối tệp hoặc input rỗng: khi stdin kết thúc, nhóm cuối vẫn được xử lý rồi vòng lặp dừng tự nhiên.</aside>
+</section>
+
+  <section id="lec02-s06-09" data-slide-id="lec02-s06-09" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Nộp công việc Map-Reduce</h2>
+<pre class="ex-code"><code class="language-bash" data-trim>docker compose exec -T namenode bash /work/run-job.sh</code></pre>
+<p class="ex-note">Bốn dòng khai báo trong script (cùng một lệnh <code>hadoop jar</code>):<br>
+<code>-files /work/mapper.py,/work/reducer.py</code> · <code>-mapper 'python3 mapper.py'</code><br>
+<code>-combiner 'python3 reducer.py'</code> · <code>-reducer 'python3 reducer.py'</code></p>
+<p class="ex-source">Script đầy đủ: <code>run-job.sh</code> — tự tạo input, put, chọn output mới chưa tồn tại, 2 Reduce, minsplit 128 MiB.</p>
+<aside class="notes">Một lệnh duy nhất nộp job; bốn dòng trên là các tham số của cùng lệnh hadoop jar Streaming trong run-job.sh, không phải các lệnh độc lập. Thứ tự script làm việc: chờ thoát safe mode, kiểm tra 2 DataNode Live và 2 NodeManager RUNNING, tạo thư mục input mới rồi put hai tệp lên HDFS, chọn đường dẫn output chưa tồn tại (mỗi lần chạy một tên riêng, không mkdir output trước job), sau đó mới nộp lệnh hadoop jar với -D và -files đặt trước input/output. -files gửi mapper.py và reducer.py tới các NodeManager, nên hệ thống phân phối mã đến nơi chạy tác vụ — không cần đăng nhập từng worker để chép mã. Script cũng đặt mapreduce.job.reduces=2 và minsplit 128 MiB. ApplicationMaster do ResourceManager cấp tài nguyên sẽ lo phần còn lại.</aside>
+</section>
+
+  <section id="lec02-s06-10" data-slide-id="lec02-s06-10" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Đối chiếu kết quả</h2>
+<pre class="ex-code"><code class="language-plaintext" data-trim>chim	1
+chó	2
+mèo	2</code></pre>
+<p class="ex-note">Script in đường dẫn output; kết quả nằm trong <code>output/part-*</code> —<br>ghép các tệp sẽ thu được đủ ba cặp kết quả.</p>
+<p class="ex-source">Trạng thái job: <code>SUCCEEDED</code> trên Web UI YARN (127.0.0.1:18088).</p>
+<aside class="notes">Đây là đầu ra in bởi run-job.sh từ một lần chạy thật: chim 1, chó 2, mèo 2 — khớp đếm thủ công ở slide đầu phần. Với 2 Reduce, HDFS output chứa hai tệp part-*; mỗi tệp gồm các khóa được giao cho Reduce đó, gộp lại cho kết quả toàn bài. Trong lần chạy mẫu, một tệp có ba khóa và một tệp rỗng: hàm băm mặc định khác quy tắc phân phối minh họa trước đó. Hai Reduce không bảo đảm tải cân bằng. Thứ tự các dòng trong một tệp là thứ tự sau sắp xếp trong phạm vi Reduce; với nhiều Reduce, thứ tự toàn cục của các khóa không được bảo đảm, nên đừng xem thứ tự tệp là bằng chứng gì. Trạng thái SUCCEEDED xác nhận job hoàn tất trên YARN.</aside>
+</section>
+
+  <section id="lec02-s06-11" data-slide-id="lec02-s06-11" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Quan sát các bộ đếm</h2>
+<img class="cost-figure" src="img/lec-02/lab-counters.svg" alt="5 cặp Map output, 4 cặp sau Combine, 3 cặp Reduce output; nhãn counter ghi số bản ghi."/>
+<p class="ex-note">Lần chạy kiểm thử: 5 cặp Map → 4 cặp Combine → 3 cặp Reduce.<br>Đếm theo số cặp, không suy ra giảm thời gian chạy.</p>
+<p class="ex-source">Nguồn: bộ đếm trong log lệnh Hadoop Streaming, lần kiểm thử của bộ mã.</p>
+<aside class="notes">Hadoop đếm số bản ghi ở từng pha. Trong lần chạy kiểm thử này: 2 bản ghi input, 5 cặp đầu ra Map, 4 cặp sau Combine, 3 nhóm vào Reduce, 3 cặp đầu ra với 3 khóa. Combine giảm 5 xuống 4 vì hai cặp mèo liền nhau được gộp — số lần Combine chạy không cố định giữa các lần nộp job, nên đừng coi 5→4 là bất biến. Bộ đếm đo số cặp và số byte, không phải thời gian; không suy ra Combine làm giảm 20% thời gian chạy hay con số tương tự. Đây là công cụ kiểm chứng từng pha của mô hình đã học.</aside>
+</section>
+
+  <section id="lec02-s06-12" data-slide-id="lec02-s06-12" class="motivation-slide example-slide cost-slide practical-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<p><strong>Câu hỏi:</strong> giải thích kết quả và cách kiểm chứng.</p>
+<table class="ex-table"><tbody>
+<tr><td>1</td><td>Xóa khai báo Combiner trong script — kết quả đếm có đổi không?</td></tr>
+<tr><td>2</td><td>Với replication 2, vì sao tổng số từ đếm được vẫn là 5 chứ không phải 10?</td></tr>
+<tr><td>3</td><td>Bằng chứng nào cho thấy job đã chạy trên YARN và cho kết quả đúng?</td></tr>
+</tbody></table>
+<p class="ex-source">Nguồn: bài đếm từ ở phần mô hình; Apache Hadoop Streaming 3.4.2.</p>
+<aside class="notes">Đáp án: (1) Không — phép cộng kết hợp và giao hoán, Combine chỉ tối ưu truyền dữ liệu, kết quả cuối như nhau. (2) Replication là cơ chế lưu trữ tạo bản sao khối để đọc và độ bền; mỗi từ vẫn chỉ được một Map xử lý một lần, nên tổng là 5. (3) Hai node đăng ký chưa đủ — cần job ở trạng thái SUCCEEDED trên YARN, bộ đếm các pha hợp lệ, và output/part-* cho đúng chim 1, chó 2, mèo 2. Ba câu này ôn lại mô hình phần 2 và thông tin HDFS vừa có trong phần 6; phần 7 sẽ tổng kết bài học và vận dụng vào bài toán lớn hơn.</aside>
+</section>
+
+</section>
+
     </div>
   </div>
   <script src="revealjs/dist/reveal.js"></script>
   <script src="plugin/notes/notes.js"></script>
   <script src="plugin/math/math.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
   <script>
     Reveal.initialize({
       width: 1280, height: 720, margin: .04,
       controls: true, controlsLayout: "edges", progress: false, slideNumber: false,
-      hashOneBasedIndex: true, hash: true, katex: { local: "vendor/katex" }, plugins: [RevealNotes, RevealMath.KaTeX]
+      hashOneBasedIndex: true, hash: true, katex: { local: "vendor/katex" }, highlight: { highlightOnLoad: false, escapeHTML: false, beforeHighlight: function(hljs) { document.querySelectorAll(".practical-slide pre code").forEach(function(block) { hljs.highlightElement(block); }); } },
+      plugins: [RevealNotes, RevealMath.KaTeX, RevealHighlight]
     });
   </script>
 </body>

@@ -121,3 +121,12 @@ Theo yêu cầu hiện tại, bổ sung lần lượt phần 5 hệ thống, ph�
 Mạch phần hệ thống: phần đầu vào → HDFS cung cấp dữ liệu và vị trí → giao gần dữ liệu → chia trung gian theo hàm phân phối → shuffle → nhóm để đọc lần lượt → theo dõi tác vụ → phân biệt nơi lưu → phục hồi Map/Reduce → nhiều lần thực thi → giới hạn → kiểm tra. Phần thực hành sẽ nhắc lại giao diện và phạm vi chạy, không lấy phần đọc thêm làm tiên quyết bắt buộc.
 
 Lịch mục tiêu khi đủ bảy phần: phần 1 = 10 phút; phần 2 = 22; phần 3 = 30; phần 4 = 25; phần 6 = 25 (giảng và trình diễn, cài đặt chuẩn bị trước); phần 7 tổng kết = 8. Tổng 120 phút giảng chính. Phần hệ thống: 25 phút tự đọc ngoài lớp. Ba bài vận dụng cuối: 60 phút riêng, nguồn MMDS 2.3.1. Lịch này thay các ước lượng cục bộ trước; sẽ chốt theo slide thực tế ở phần cuối. Không rút giả thiết hoặc chứng minh để ép số slide.
+
+
+## Phần 6 — thực hành Docker Compose (kế hoạch được duyệt)
+
+Giữ 12 trang/25 phút: mục tiêu thực hành → sơ đồ sáu container → khởi động Compose → kiểm tra hai DataNode/hai NodeManager → hai văn bản trên HDFS → Map Python → giao diện dòng và nhóm khóa → Reduce/Combine Python → nộp tác vụ → đối chiếu kết quả → quan sát/giới hạn → câu hỏi kiểm tra. Cài đặt trước buổi học. Mỗi trang giữ một hình, đoạn mã hoặc nhóm lệnh chính; lệnh đầy đủ có trong bộ thực hành kèm theo.
+
+Theo yêu cầu mới, dùng image Docker Hub `apache/hadoop:3.4.2-lean` khóa digest, sáu service trên một mạng Docker Compose. Thay phương án cài Hadoop/Java trực tiếp. Python 3.10.12 đã có trong image. Dữ liệu giữ nguyên hai văn bản của phần mô hình. Mã giảng dạy dùng Hadoop Streaming, HDFS và YARN thật. Phần hệ thống đọc thêm không là tiên quyết; các vai trò cần dùng được giải thích lại ở sơ đồ.
+
+Đã hợp nhất reader kế hoạch/phân tích nguồn: sửa đếm nhầm năm container thành sáu; dùng `image` thay `build`; khai báo riêng hai DataNode và hai NodeManager; replication bằng hai; không suy số tác vụ chỉ từ số máy; không coi container đang chạy là bằng chứng node đã đăng ký. Bác các gợi ý dùng screenshot raster, fallback ngôn ngữ khác khi Python đã được kiểm chứng, hoặc chuyển mạch cuối phần về phần đọc thêm. Kết phần bằng tự kiểm và nối tới tổng kết. Nguồn bổ sung: Docker Hub Apache Hadoop, nhánh Apache `docker-hadoop-3.4.2` (compose/config), tài liệu Hadoop Streaming/MapReduceTutorial 3.4.2. Mọi số đo và kết luận chạy thành công phải lấy từ kiểm thử thực tế.
