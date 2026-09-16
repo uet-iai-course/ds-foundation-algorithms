@@ -1035,20 +1035,21 @@ Reduce(i, L):  yield(i, sum(L))
 
 <section id="lec02-s04-05" data-slide-id="lec02-s04-05" class="motivation-slide example-slide cost-slide">
   <h2>Chi phí đầu vào tác vụ C</h2>
-  <p>Quy ước MMDS: cộng kích thước đầu vào của mọi tác vụ.</p>
-  <p class="cost-assumptions"><strong>I</strong> — tổng kích thước đầu vào các tác vụ Map; <strong>H</strong> — tổng kích thước đầu vào các tác vụ Reduce.</p>
+  <p>Cùng một bài toán, cách tổ chức tác vụ quyết định lượng dữ liệu phải đọc.</p>
+  <p class="cost-assumptions"><strong>I</strong>: tổng kích thước dữ liệu gốc các Map đọc.<br><strong>H</strong>: tổng kích thước dữ liệu trung gian các Reduce nhận.<br><strong>Quy ước:</strong> chi phí <strong>C</strong> là tổng kích thước đầu vào mọi tác vụ.</p>
   <figure class="ex-figure">
     <img class="cost-figure" src="img/lec-02/cost-05.svg" alt="Đầu vào Map I bằng 100 MB đi vào các tác vụ Map; 40 MB trung gian H đi vào Reduce; đầu ra cuối không được cộng vào chi phí C theo quy ước sách."/>
   </figure>
   <p class="ex-equation">\( C = I + H = 100 + 40 = 140\,\text{MB} \)</p>
-  <p class="ex-note">C gồm cả đọc cục bộ; Combine (nếu có) nằm trong Map; một công việc, không chạy lại. V là byte thực sự qua mạng, phụ thuộc vị trí dữ liệu — khác C.</p>
+  <p class="ex-note">Dùng C để so sánh tổng lượng đầu vào giữa các cách tổ chức cùng bài toán.<br>Một công việc, không chạy lại; Combine nằm trong Map. Tính cả đọc cục bộ.</p>
   <p class="ex-source">Nguồn: MMDS 2.5.1, tr. 54.</p>
-  <aside class="notes">Theo sách MMDS 2.5.1, trang 54, chi phí của một tác vụ là kích thước đầu vào; chi phí thuật toán là tổng trên tất cả tác vụ. I là tổng kích thước đầu vào các tác vụ Map, H là tổng kích thước đầu vào các tác vụ Reduce. Với một công việc và Combine nằm trong Map, C=I+H=100+40=140 MB. Đầu ra trung gian được tính khi đi vào Reduce, không cộng lần thứ hai; đầu ra cuối không được tính theo quy ước này. Nếu một dữ liệu được đọc bởi nhiều tác vụ, phải tính đầu vào của mỗi tác vụ. C gồm cả đọc tại máy; nếu I được đọc cục bộ và H qua đường nối một lần, riêng lượng truyền trung gian V=40 MB. Ví dụ V này không tính ghi và nhân bản đầu ra cuối. Slide MMDS 38–40 và Stanford CS246 67–70 dùng tổng đọc/ghi, cho I+2H+O khi O là kích thước đầu ra; đó là quy ước khác. Dữ kiện 100 và 40 MB chỉ dùng minh họa.</aside>
+  <aside class="notes">Vì sao đo C: khi có nhiều cách tổ chức cùng bài toán, ta cần một quy ước thống nhất để so sánh lượng dữ liệu mà các tác vụ phải đọc. Quy ước MMDS 2.5.1 (trang 54): chi phí một tác vụ là kích thước đầu vào của nó; chi phí thuật toán là tổng trên tất cả tác vụ. I là tổng dữ liệu gốc được các tác vụ Map đọc, H là tổng dữ liệu trung gian chuyển vào các tác vụ Reduce, C là tổng hai phần, đơn vị MB. Với giả thiết một công việc và Combine nằm trong Map ; giả sử không có tác vụ chạy lại, C = I + H = 100 + 40 = 140 MB. Nếu một dữ liệu được đọc bởi nhiều tác vụ, tính đầu vào của mỗi tác vụ. C gồm cả đọc tại máy; đầu ra trung gian được tính khi đi vào Reduce, không cộng lần hai; đầu ra cuối không được tính theo quy ước này (hình đã ghi chú). C chưa cho biết thời gian hoàn thành: còn cần tốc độ xử lý, cách giao tác vụ và băng thông — Slide MMDS 38–40 và Stanford CS246 67–70 dùng tổng đọc/ghi, cho I+2H+O; đó là quy ước khác. Các số 100 và 40 MB chỉ minh họa.</aside>
 </section>
 
 <section id="lec02-s04-06" data-slide-id="lec02-s04-06" class="motivation-slide example-slide cost-slide">
   <h2>Băng thông và thời gian truyền</h2>
-  <p class="cost-assumptions">\(V\): lượng dữ liệu (byte); \(B\): băng thông hữu dụng (byte/s); \(\lambda\): độ trễ khởi đầu (s).</p>
+  <p>Để tính thời gian truyền, cần biết lượng dữ liệu qua đường truyền và tốc độ truyền.</p>
+  <p class="cost-assumptions"><strong>V</strong>: lượng dữ liệu cần truyền (MB); <strong>B</strong>: lượng chuyển được mỗi giây (MB/s).<br><strong>λ</strong>: độ trễ khởi đầu (giây), trước khi dữ liệu bắt đầu tới.</p>
   <figure class="ex-figure">
     <svg role="img" aria-label="Một khối dữ liệu 100MB truyền qua một đường truyền 50MB/s với độ trễ 0,02 giây, thời gian truyền khoảng 2,02 giây" viewBox="0 0 1120 200" width="1120">
       <defs><marker id="cost-arrow-6" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2f3e7a"/></marker></defs>
@@ -1067,26 +1068,30 @@ Reduce(i, L):  yield(i, sum(L))
     </svg>
   </figure>
   <p class="ex-equation">\( T_{\text{truyền}} \approx \lambda + \dfrac{V}{B} = 0{,}02 + \dfrac{100}{50} = 2{,}02\,\text{s} \)</p>
-  <p class="cost-assumptions">Một thông điệp truyền riêng, băng thông ổn định. Quy ước 1 MB = 10⁶ byte.</p>
+
+  <p class="ex-note">100 MB cần 2 giây truyền, cộng 0,02 giây khởi đầu.<br>Một thông điệp truyền riêng, băng thông ổn định; 1 MB = 10⁶ byte.</p>
   <p class="ex-source">Nguồn: Cornell CS5220, Intro to Message Passing.</p>
-  <aside class="notes">Mô hình một thông điệp cô lập có thời gian xấp xỉ độ trễ khởi đầu cộng thời gian chuyển dữ liệu: λ+V/B. Nguồn Cornell dùng α+βM, với β là nghịch đảo băng thông; đổi tên độ trễ thành λ để không trùng L của Reduce. B là băng thông hữu dụng ổn định; chưa xét tranh chấp, chồng lấp hay truyền lại. Ví dụ giả định λ=0,02 giây, V=100 MB, B=50 MB/s cho 2,02 giây. Dùng MB thập phân, một MB bằng 10⁶ byte; MB và Mb khác nhau. Nguồn: https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-10-06-intro.html, mục mô hình alpha–beta.</aside>
+  <aside class="notes">C ở slide trước đếm đầu vào, nhưng để ước tính thời gian truyền ta cần lượng dữ liệu thực sự đi qua đường truyền đang xét — đó là V. Mô hình: thời gian truyền xấp xỉ λ + V/B, với λ là thời gian khởi đầu trước khi dữ liệu bắt đầu tới (bức hình cho thấy λ = 0,02 s trước luồng 100 MB), V = 100 MB là số byte trên đường, B = 50 MB/s nghĩa là mỗi giây chuyển được 50 MB. Như vậy 100 MB cần 2 giây để truyền, cộng thêm 0,02 giây khởi đầu là 2,02 giây. Nguồn Cornell dùng α+βM với β là nghịch đảo băng thông; đổi tên thành λ để không trùng chữ L của Reduce. Giả thiết một thông điệp truyền riêng, băng thông ổn định; chưa xét tranh chấp, chồng lấp hay truyền lại. Quy ước 1 MB = 10⁶ byte; phân biệt MB và Mb. Nguồn: https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-10-06-intro.html, mục mô hình alpha–beta.</aside>
 </section>
 
 <section id="lec02-s04-07" data-slide-id="lec02-s04-07" class="motivation-slide example-slide cost-slide">
   <h2>Băng thông dùng chung</h2>
+  <p>100 MB/s là băng thông của cả đường nối dùng chung: nhiều máy cùng gửi thì phải chia sẻ.</p>
   <figure class="ex-figure">
     <img class="cost-figure" src="img/lec-02/cost-07.svg" alt="Bốn máy trong rack gửi, mỗi máy 100 MB; tất cả 400 MB qua một đường nối 100 MB mỗi giây tới máy nhận trong rack khác."/>
   </figure>
   <p class="ex-equation">\( T \geq \dfrac{V}{B} = \dfrac{400}{100} = 4\,\text{s} \)</p>
-  <p class="cost-assumptions">Cận dưới do băng thông của đường nối dùng chung; chưa tính độ trễ.</p>
-<p>Đưa tính toán tới dữ liệu có thể giảm lượng phải truyền qua đường nối này.</p>
+  <p class="cost-assumptions"><strong>T</strong> là thời gian chuyển đủ 400 MB: cần ít nhất 4 giây, chưa kể độ trễ.</p>
+  <p>Xử lý gần dữ liệu có thể giảm số byte qua đường nối này, giảm nhu cầu băng thông.</p>
   <p class="ex-source">Nguồn: MMDS 2.1.1, tr. 22–23.</p>
-  <aside class="notes">Bốn máy cần gửi 100 MB mỗi máy, tất cả qua một đường nối dùng chung 100 MB/s. Dù gửi đồng thời, đường nối vẫn phải chuyển đủ 400 MB; chỉ riêng băng thông đã buộc thời gian ít nhất là 4 giây. Đây là cận dưới, không phải dự đoán chính xác mọi thành phần của thời gian. Độ trễ, tranh chấp khác và chi phí xử lý có thể làm lâu hơn. Đưa tính toán tới rack chứa dữ liệu có thể giảm số byte phải chuyển qua đường nối này. Vị trí dữ liệu không tự làm mất công việc đọc và xử lý tại máy. Nguồn: MMDS 2.1.1, trang 22–23; cấu hình và con số là ví dụ giả định.</aside>
+  <aside class="notes">Điểm mấu chốt: con số 100 MB/s là băng thông của cả đường nối dùng chung, không phải của mỗi máy. Bốn máy mỗi máy gửi 100 MB, tất cả phải đi qua cùng một đường nối sang rack khác, nên V = 4 × 100 = 400 MB như hình. Dù bốn máy gửi đồng thời, đường nối vẫn phải chuyển đủ 400 MB, vì thế T — thời gian chuyển đủ dữ liệu — ít nhất là V/B = 4 giây. Đây là cận dưới: độ trễ, tranh chấp khác và chi phí xử lý có thể làm lâu hơn, nên không nói chắc chắn 4 giây. Hệ quả thực hành: chuyển xử lý tới gần dữ liệu (cùng rack chứa dữ liệu) làm giảm số byte phải đi qua đường nối, nhờ đó giảm áp lực băng thông. Vị trí dữ liệu không tự làm mất việc đọc và xử lý tại máy. Nguồn: MMDS 2.1.1, trang 22–23; cấu hình và con số là ví dụ giả định.</aside>
 </section>
 
 <section id="lec02-s04-08" data-slide-id="lec02-s04-08" class="motivation-slide example-slide cost-slide">
   <h2>Combine giảm lượng truyền</h2>
+  <p>Combine gộp các lần xuất hiện cùng từ tại Map để gửi ít cặp hơn.</p>
   <p class="ex-equation">\( d_1 = \text{mèo chó mèo}, \quad d_2 = \text{chó chim} \)</p>
+  <figure class="ex-figure">
   <table class="ex-table">
     <thead><tr><th>Phương án</th><th>Cặp đi qua đường truyền</th><th>V (mỗi cặp 16 byte)</th></tr></thead>
     <tbody>
@@ -1094,33 +1099,36 @@ Reduce(i, L):  yield(i, sum(L))
       <tr><td>Có Combine<br>(4 cặp)</td><td>d₁: (mèo,2), (chó,1)<br>d₂: (chó,1), (chim,1)</td><td>4 × 16 = 64 byte</td></tr>
     </tbody>
   </table>
-  <p class="ex-takeaway">Giảm 16 byte, tức 20% lượng truyền — thời gian còn phụ thuộc các pha khác.</p>
-  <p class="ex-note">Mỗi văn bản một tác vụ Map. Giả sử mỗi cặp 16 byte, mọi cặp đi qua đường truyền đang xét đúng một lần, không tính phần đầu gói. I không đổi, H giảm nên C = I + H cũng giảm.</p>
+  </figure>
+  <p class="ex-takeaway">Lượng truyền giảm từ 80 xuống 64 byte (20%), nhưng Map phải cộng thêm.<br>Cần tính cả hai phần thời gian để biết Combine có giúp chạy nhanh hơn.</p>
+  <p class="cost-assumptions">Giả thiết: mỗi văn bản một tác vụ Map; mỗi cặp 16 byte; mọi cặp qua đường truyền đang xét đúng một lần; không tính phần đầu gói.</p>
   <p class="ex-source">Nguồn: MMDS 2.2.4 và 2.5.1; dùng lại ví dụ đếm từ.</p>
-  <aside class="notes">Dùng lại hai văn bản, mỗi văn bản một tác vụ Map. Không Combine có 5 cặp; có Combine thì văn bản thứ nhất còn (mèo,2),(chó,1), văn bản thứ hai còn (chó,1),(chim,1): tổng 4 cặp. Với giả định mọi cặp chiếm 16 byte và đều qua đường truyền một lần, lượng dữ liệu trung gian giảm từ 80 xuống 64 byte, tức 16/80=20%. Không tính phần đầu gói hay lần truyền lại trong ví dụ này. Combine phải xử lý thêm tại máy, nên giảm byte chưa đủ kết luận thời gian giảm cùng tỷ lệ. Combine không làm giảm số từ phải đọc; I giữ nguyên, H giảm nên C=I+H cũng giảm. Nếu không có từ lặp trong từng tác vụ, cách Combine này không giảm số cặp. Phép cộng số đếm thỏa điều kiện kết hợp, giao hoán và giữ kiểu trung gian đã học. Nguồn: MMDS 2.2.4, trang 27–28 và 2.5.1, trang 54; 16 byte/cặp là quy ước minh họa.</aside>
+  <aside class="notes">Vì sao dùng Combine: thay vì gửi từng lần xuất hiện, Map gộp các lần xuất hiện cùng từ ngay tại chỗ, nhờ đó gửi đi ít cặp hơn qua đường truyền. Dùng lại hai văn bản, mỗi văn bản một tác vụ Map. Không Combine có 5 cặp; có Combine thì văn bản thứ nhất còn (mèo,2),(chó,1), văn bản thứ hai còn (chó,1),(chim,1): tổng 4 cặp. Với giả thiết mỗi cặp 16 byte và mọi cặp đi qua đường truyền đang xét đúng một lần (không tính phần đầu gói), lượng truyền giảm từ 80 xuống 64 byte, tức 20%. Chốt: giảm 20% lượng truyền, nhưng Combine thêm phép cộng tại Map, nên để kết luận có lợi hay không ta cần tính thời gian toàn công việc — sẽ làm ở slide sau. Về C: số từ phải đọc không đổi nên I giữ nguyên; H giảm nên C = I + H cũng giảm. Nếu không có từ lặp trong từng tác vụ, Combine này không giảm số cặp. Phép cộng số đếm thỏa điều kiện kết hợp, giao hoán và giữ kiểu trung gian đã học. Nguồn: MMDS 2.2.4, trang 27–28 và 2.5.1, trang 54; 16 byte/cặp là quy ước minh họa.</aside>
 </section>
 
 <section id="lec02-s04-09" data-slide-id="lec02-s04-09" class="motivation-slide example-slide cost-slide">
   <h2>Thời gian của cả công việc</h2>
+  <p>\(T_P\) là thời gian từ lúc bắt đầu đến khi nhận đủ kết quả trên \(P\) máy.<br>Với \(P=4\), ta cộng thời gian hoàn tất từng pha theo lịch sau.</p>
   <figure class="ex-figure">
     <img class="cost-figure" src="img/lec-02/cost-09.svg" alt="Bốn pha nối tiếp: điều phối từ 0 đến 1 giây, Map từ 1 đến 5 giây, truyền và nhóm từ 5 đến 8 giây, Reduce từ 8 đến 10 giây."/>
   </figure>
-  <p>Với \(P=4\) máy; \(T_{\text{đp}}\) là thời gian điều phối.</p><p class="ex-equation">\(\begin{aligned}T_P &= T_{\text{đp}} + T_{\text{Map}} + T_{\text{truyền và nhóm}} + T_{\text{Reduce}}\\ &= 1+4+3+2=10\,\text{s}\end{aligned}\)</p>
-  <p class="cost-assumptions">Các pha nối tiếp, không chồng lấp, không lỗi. Thời gian đọc/ghi đã tính trong các pha.</p>
+  <p class="ex-equation">\(\begin{aligned}T_P &= T_{\text{điều phối}} + T_{\text{Map}} + T_{\text{truyền và nhóm}} + T_{\text{Reduce}}\\ &= 1+4+3+2=10\,\text{s}\end{aligned}\)</p>
+  <p class="cost-assumptions">Mỗi pha tính đến khi máy cuối cùng hoàn tất; không cộng thời gian của mọi máy.<br>Các pha nối tiếp, không chồng lấp, không lỗi; đọc/ghi đã tính trong các pha.</p>
   <p class="ex-source">Nguồn: mô hình pha theo MMDS 2.2.2 và 2.5.2.</p>
-  <aside class="notes">Trong mô hình này các pha nối tiếp không chồng lấp và không có lỗi. Với P=4 máy, pha điều phối mất 1 giây, Map mất 4 giây, truyền và nhóm mất 3 giây, Reduce mất 2 giây. Tổng thời gian là 10 giây. Mỗi thời gian pha là thời gian hoàn thành pha, không phải tổng thời gian làm việc của các máy. Ba giây ở giữa đã gồm cả truyền và nhóm. Quy ước đếm: đọc đầu vào nằm trong Map; ghi đầu ra cuối nằm trong Reduce; ghi/đọc trung gian, truyền và sắp xếp nằm trong pha giữa, không tính lại ở pha khác. Hệ thống thực có thể chồng lấp một số hoạt động, khi đó cần mô hình lịch chi tiết hơn. Nguồn: MMDS 2.2.2 và 2.5.2; thời gian là dữ kiện giả định.</aside>
+  <aside class="notes">Sau khi biết Combine giảm lượng truyền nhưng tốn thêm thời gian Map, ta cần thước đo tổng thể để đánh giá: T_P — thời gian từ khi bắt đầu đến khi nhận đủ kết quả trên P máy, với P = 4. Hình cho thấy bốn pha nối tiếp: điều phối 0→1 giây, Map 1→5, truyền và nhóm 5→8, Reduce 8→10; các thời gian này đọc trực tiếp từ độ dài các đoạn trên trục thời gian. Mỗi thời gian pha là thời gian chờ pha đó hoàn tất — ví dụ Map kéo dài 4 giây cho đến khi tác vụ Map chậm nhất xong — chứ không phải cộng thời gian làm việc của mọi máy. Tổng thời gian của cả công việc là 10 giây; đây là con số dùng để so sánh với cách chạy trên một máy ở slide sau. Giả thiết: các pha nối tiếp, không chồng lấp, không lỗi; đọc/ghi đã tính trong các pha (đọc đầu vào trong Map, ghi đầu ra cuối trong Reduce, truyền/sắp xếp trong pha giữa). Hệ thống thực có thể chồng lấp hoạt động, khi đó cần mô hình chi tiết hơn. Nguồn: mô hình pha theo MMDS 2.2.2 và 2.5.2; thời gian là dữ kiện giả định.</aside>
 </section>
 
 <section id="lec02-s04-10" data-slide-id="lec02-s04-10" class="motivation-slide example-slide cost-slide">
   <h2>Mức tăng tốc</h2>
-  <p>So sánh cùng dữ liệu, cùng kết quả và cùng phạm vi đo thời gian.</p>
+  <p>Mức tăng tốc \(S_P\) cho biết dùng \(P\) máy giúp chạy nhanh gấp bao nhiêu lần.<br>\(T_1\): thời gian trên 1 máy; \(T_P\): thời gian trên \(P\) máy.</p>
   <figure class="ex-figure">
     <img class="cost-figure" src="img/lec-02/cost-10.svg" alt="Cùng công việc: một máy 24 giây, bốn máy 10 giây. Hai thanh dùng chung thang thời gian, tỷ lệ 2,4."/>
   </figure>
   <p class="ex-equation">\( S_P = \dfrac{T_1}{T_P}, \qquad S_4 = \dfrac{24}{10} = 2{,}4 \)</p>
-  <p class="ex-note">Thêm máy chỉ giảm phần chia được; truyền, gộp và lệch tải vẫn còn. Điều kiện có lợi: T<sub>P</sub> &lt; T₁.</p>
+  <p class="ex-takeaway">Chạy 4 máy nhanh hơn 2,4 lần; có lợi về thời gian khi T<sub>P</sub> &lt; T₁.</p>
+  <p class="cost-assumptions">So sánh cùng đầu vào, cùng đầu ra, cùng phạm vi đo thời gian.</p>
   <p class="ex-source">Nguồn: Cornell CS5220, Performance basics.</p>
-  <aside class="notes">Giữ cùng dữ liệu, kết quả và phạm vi đo khi so sánh. Dữ kiện minh họa: một máy cần 24 giây, bốn máy cần 10 giây như lịch vừa tính, nên mức tăng tốc là 24/10=2,4 lần. Đây không phải kết quả đo một cụm máy thực. Điều kiện có lợi về thời gian là T_P<T_1, với T_P>0. Việc truyền, gộp và lệch tải giải thích vì sao thêm máy không bảo đảm thời gian giảm tỷ lệ với số máy. Nếu cần mở rộng, hiệu suất sử dụng theo mức tăng tốc là E_P=S_P/P, ở đây 2,4/4=0,6; phần này không cần cho bài kiểm tra. Nguồn: https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-09-08-perf-basics.html.</aside>
+  <aside class="notes">Vì sao đo mức tăng tốc: sau khi có T_P của cả công việc, ta muốn biết thêm máy có đáng không. Định nghĩa: T₁ là thời gian chạy trên 1 máy, T_P là thời gian chạy trên P máy, S_P = T₁/T_P là số lần tăng tốc. Hình minh họa: cùng một công việc, 1 máy mất 24 giây, 4 máy mất 10 giây (đúng như lịch vừa tính), nên S₄ = 24/10 = 2,4 lần. Kết luận: chạy 4 máy nhanh hơn 2,4 lần; có lợi về thời gian khi T_P < T₁. Chi phí truyền, gộp, điều phối và việc chia tải không đều có thể khiến thời gian không giảm tỷ lệ với số máy. Lưu ý giữ cùng đầu vào, đầu ra và phạm vi đo khi so sánh; đây là dữ kiện minh họa, không phải đo trên cụm máy thực. Nguồn: https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-09-08-perf-basics.html.</aside>
 </section>
 
 <section id="lec02-s04-11" data-slide-id="lec02-s04-11" class="motivation-slide example-slide cost-slide">
@@ -1130,7 +1138,7 @@ Reduce(i, L):  yield(i, sum(L))
       <table class="ex-table">
         <thead><tr><th>Đại lượng</th><th>Dữ kiện</th></tr></thead><tbody>
           <tr><td>Điều phối</td><td>1s</td></tr>
-          <tr><td>Tải Map (3 máy)</td><td>2s / 3s / 5s</td></tr>
+          <tr><td>Thời gian Map mỗi máy<br>(P = 3)</td><td>2s / 3s / 5s</td></tr>
           <tr><td>Lượng truyền V</td><td>120 MB</td></tr>
           <tr><td>Băng thông B</td><td>40 MB/s</td></tr>
           <tr><td>Reduce</td><td>2s</td></tr>
@@ -1142,12 +1150,12 @@ Reduce(i, L):  yield(i, sum(L))
     <div>
       <p><strong>Câu hỏi:</strong></p><ol>
         <li>Tính T<sub>Map</sub> và T<sub>truyền</sub>.</li>
-        <li>Tính T<sub>P</sub> và S<sub>P</sub>.</li>
+        <li>Tính thời gian toàn công việc T<sub>P</sub> và mức tăng tốc S<sub>P</sub>.</li>
         <li>Combine giảm V còn 40 MB, pha Map tăng 1 s; các pha khác giữ nguyên. Tính T′<sub>P</sub> và thời gian tiết kiệm.</li>
       </ol>
     </div>
   </div>
-  <aside class="notes">Đáp án: tải Map là tổng tải trên từng máy, nên T_Map=max(2,3,5)=5 giây. Bỏ độ trễ và chi phí nhóm; thời gian truyền bằng 120/40=3 giây. Thời gian toàn công việc là 1+5+3+2=11 giây; mức tăng tốc so với một máy là 22/11=2 lần. Với Combine, pha Map tăng từ 5 lên 6 giây, lượng truyền còn 40 MB nên truyền mất 1 giây. Các pha khác giữ nguyên: T′_P=1+6+1+2=10 giây, tiết kiệm 1 giây so với phương án không Combine; mức tăng tốc so với một máy là 22/10=2,2 lần. Lợi ích ròng là bớt 2 giây truyền, thêm 1 giây xử lý Map. Chú ý không cộng tải ba máy để làm thời gian Map và không bỏ quên điều phối. Dữ kiện giả định dùng vận dụng các mô hình đã học.</aside>
+  <aside class="notes">Nhắc ý nghĩa trước khi giải: T_P là thời gian từ khi bắt đầu đến khi nhận đủ kết quả trên P máy (đây P = 3), S_P là số lần tăng tốc so với 1 máy. Dữ kiện "tải Map 2s/3s/5s" là tổng thời gian các tác vụ Map trên từng máy — hãy nhớ T_Map là thời gian chờ pha Map hoàn tất, tức máy chậm nhất. Đáp án: T_Map = max(2,3,5) = 5 giây; bỏ độ trễ và chi phí nhóm nên truyền mất 120/40 = 3 giây; T_P = 1+5+3+2 = 11 giây; S_P = 22/11 = 2 lần. Câu 3: pha Map tăng từ 5 lên 6 giây, V còn 40 MB nên truyền mất 1 giây; T′_P = 1+6+1+2 = 10 giây, tiết kiệm 1 giây so với 11 giây; S′_P = 22/10 = 2,2 lần. Lợi ích ròng: bớt 2 giây truyền, thêm 1 giây Map. Sai lầm thường gặp: cộng tải ba máy để tính T_Map, hoặc bỏ quên pha điều phối. Dữ kiện giả định dùng để vận dụng các mô hình đã học.</aside>
 </section>
 
 </section>

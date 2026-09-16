@@ -404,12 +404,12 @@ Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn sect
 
 ### `lec02-s04-05` — Chi phí đầu vào tác vụ C
 
-- **Mục đích / sản phẩm:** Áp dụng đúng quy ước chi phí trong sách MMDS.
+- **Mục đích / sản phẩm:** Tính tổng đầu vào các tác vụ và dùng đại lượng này để so sánh hai cách tổ chức cùng bài toán.
 - **Câu chốt:** $C=I+H=100+40=140$ MB, gồm cả đọc cục bộ.
 - **Vai trò:** Định nghĩa và ví dụ tính chi phí dữ liệu
 - **Kiến thức đầu vào:** Luồng Map → Reduce; byte là đơn vị kích thước.
 - **Cách thể hiện:** SVG cost-05 gồm đầu vào Map, Map, đầu vào Reduce, Reduce, đầu ra cuối. Định nghĩa $I,H$ trước công thức; đầu ra cuối ghi không tính vào $C$.
-- **Kết nối vào–ra:** Từ chi phí tính toán sang kích thước dữ liệu phải đọc; phân biệt với lượng qua mạng trước khi đưa băng thông vào.
+- **Kết nối vào–ra:** Từ số phép tính sang lượng dữ liệu phải đọc; C chưa cho thời gian hoàn thành. Slide sau mới giới thiệu V để chuyển sang thời gian truyền.
 - **Kiểm tra và ghi chú:** Một công việc, không chạy lại; Combine nằm trong Map. Notes giải thích trung gian tính tại đầu vào Reduce, không cộng đầu ra lần nữa; nếu một dữ liệu vào nhiều tác vụ, tính mỗi lần.
 - **Nguồn:** MMDS 2.5.1, trang 54–55. Notes đối chiếu quy ước tổng đọc/ghi ở hai bộ slide.
 - **Thời lượng:** 2,5 phút
@@ -419,7 +419,7 @@ Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn sect
 - **Mục đích / sản phẩm:** Tính thời gian một thông điệp từ dung lượng, băng thông và độ trễ.
 - **Câu chốt:** $T_{\mathrm{truyền}}\approx\lambda+V/B=0{,}02+100/50=2{,}02$ giây.
 - **Vai trò:** Mô hình băng thông và thay số
-- **Kiến thức đầu vào:** $V$; định nghĩa $B$ byte/s và $\lambda$ giây trước hình/công thức.
+- **Kiến thức đầu vào:** Byte và giây; slide này mới định nghĩa $V$ trên một đường truyền, $B$ là số byte chuyển mỗi giây và $\lambda$ là độ trễ khởi đầu.
 - **Cách thể hiện:** SVG nội dòng: thông điệp 100 MB → đường truyền 50 MB/s, độ trễ 0,02 giây → máy nhận.
 - **Kết nối vào–ra:** Từ lượng dữ liệu sang thời gian; chuẩn bị xét giới hạn khi đường truyền dùng chung.
 - **Kiểm tra và ghi chú:** Một thông điệp truyền riêng, $B$ ổn định, không tranh chấp; 1 MB bằng $10^6$ byte. Notes phân biệt MB/Mb và giới hạn dự đoán.
@@ -453,7 +453,7 @@ Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn sect
 ### `lec02-s04-09` — Thời gian của cả công việc
 
 - **Mục đích / sản phẩm:** Ghép đúng thời gian các pha trong mô hình nối tiếp.
-- **Câu chốt:** $T_P=T_{\mathrm{đp}}+T_{\mathrm{Map}}+T_{\mathrm{truyền\ và\ nhóm}}+T_{\mathrm{Reduce}}=10$ giây.
+- **Câu chốt:** $T_P=T_{\mathrm{điều\ phối}}+T_{\mathrm{Map}}+T_{\mathrm{truyền\ và\ nhóm}}+T_{\mathrm{Reduce}}=10$ giây.
 - **Vai trò:** Tổng hợp mô hình
 - **Kiến thức đầu vào:** Thời gian một pha và truyền dữ liệu.
 - **Cách thể hiện:** SVG cost-09: 1 giây điều phối, 4 giây Map, 3 giây truyền và nhóm, 2 giây Reduce; trục 0/1/5/8/10, thang 100 px/giây. Công thức và thay số trên hai dòng.
@@ -470,7 +470,7 @@ Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn sect
 - **Kiến thức đầu vào:** $T_4=10$ giây từ lịch trước; thêm dữ kiện tuần tự 24 giây.
 - **Cách thể hiện:** SVG cost-10: hai thanh cùng thang 38 px/giây, dài 24 và 10; công thức tỷ số dưới hình.
 - **Kết nối vào–ra:** Từ runtime tổng sang quyết định có lợi; cung cấp công thức cho câu hỏi kiểm tra.
-- **Kiểm tra và ghi chú:** Cùng dữ liệu, kết quả và phạm vi đo, $T_P>0$. Có lợi về thời gian khi $T_P<T_1$; notes nói giới hạn do truyền/gộp/lệch tải, hiệu suất là đọc thêm.
+- **Kiểm tra và ghi chú:** Cùng dữ liệu, kết quả và phạm vi đo, $T_P>0$. Có lợi về thời gian khi $T_P<T_1$; notes giải thích chi phí truyền/gộp và lệch tải; bỏ hiệu suất vì chưa cần trong mạch này.
 - **Nguồn:** Cornell CS5220, Performance basics; số giây giả định.
 - **Thời lượng:** 2,5 phút
 
@@ -485,3 +485,19 @@ Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn sect
 - **Kiểm tra và ghi chú:** Các pha nối tiếp; bỏ độ trễ/chi phí nhóm, đọc ghi đã trong Map/Reduce. Notes có lời giải: $T_{\mathrm{Map}}=5$, $T_{\mathrm{truyền}}=3$, $T_P=11$, $S_P=2$; sau Combine $T^{\prime}_P=10$, $S^{\prime}_P=2{,}2$.
 - **Nguồn:** Dữ kiện giả định vận dụng mô hình đã nêu, theo yêu cầu kiểm tra tại lớp.
 - **Thời lượng:** 3 phút
+
+## Rà lại cách dẫn dắt phần chi phí theo góp ý giảng viên
+
+Phạm vi: sửa các trang `lec02-s04-05` đến `lec02-s04-11`; giữ số trang, thứ tự, ví dụ và nguồn. Không mở rộng phần hệ thống hay bài tập recitation trong lượt sửa này.
+
+| Trang | Câu hỏi học tập được giải quyết | Vai trò của đại lượng và kết nối |
+|---|---|---|
+| 05 | Các tác vụ phải đọc tổng cộng bao nhiêu dữ liệu? | Định nghĩa I, H trước C; C so sánh tổng đầu vào, gồm đọc cục bộ. Chưa đưa V vào đây. |
+| 06 | Chuyển dữ liệu giữa máy mất bao lâu? | Giới thiệu V trên đường truyền, B byte/giây và độ trễ khởi đầu; thay số vào mô hình một thông điệp. |
+| 07 | Nhiều máy gửi đồng thời có làm đường nối nhanh hơn? | B dùng chung; tổng V phải qua đường nối tạo thời gian tối thiểu. Dẫn tới giảm byte truyền. |
+| 08 | Combine giảm phần chi phí nào? | Giảm số cặp gửi nhưng thêm xử lý cục bộ; phải đo thời gian toàn công việc mới biết lợi ích ròng. |
+| 09 | Người dùng phải chờ bao lâu để có đủ kết quả? | TP cộng thời gian các pha nối tiếp; mỗi pha dùng thời gian hoàn tất, không cộng công việc các máy. |
+| 10 | Dùng nhiều máy giúp nhanh hơn bao nhiêu lần? | T1 và TP cùng phạm vi; SP là tỷ số, giải thích 2,4 lần và điều kiện lợi về thời gian. |
+| 11 | Có nên dùng Combine trong cấu hình đã cho? | Tính thời gian trước/sau từ dữ kiện, cân đối thời gian truyền giảm và thời gian Map tăng. |
+
+Cách thể hiện: câu dẫn nêu nhu cầu đo, ký hiệu được giải nghĩa trước công thức, hình/bảng giữ vai trò trung tâm, câu cuối diễn giải kết quả cụ thể. Ghi chú diễn giả mở rộng giả thiết và câu nối. Giữ các ngoại lệ phạm vi và thời lượng của bản đang xây dựng từng phần.

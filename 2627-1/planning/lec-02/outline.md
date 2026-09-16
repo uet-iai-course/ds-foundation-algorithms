@@ -107,3 +107,7 @@ Ký hiệu trong phần này: $P$ số máy (phân biệt $p$ số hàng ma tr�
 Giả thiết áp dụng riêng cho từng mô hình: phép cộng đơn vị, số học chính xác, chia đều với $n\geq P\geq1$ và $n$ chia hết cho $P$; một máy gộp tuần tự; mỗi máy chạy một tác vụ tại một thời điểm, mọi tác vụ của pha sẵn sàng ở đầu pha, không có thời gian nghỉ giữa tác vụ trên máy; các pha nối tiếp, không lỗi/chạy lại. Giả thiết băng thông ổn định chỉ dùng cho đường truyền được chỉ rõ. Phân biệt giá trị trong mô hình với cận dưới do dung lượng đường nối.
 
 Các con số 16 phần tử, kích thước byte, băng thông và số giây là dữ kiện minh họa để tính mô hình, không phải số đo hệ thống hay bài tập nguyên văn từ sách. Kiểm tra cuối phần là tương tác tại lớp theo yêu cầu, không thay phần recitation 60 phút. Phần mới dự kiến 27,5 phút; toàn bài tiếp tục được xây từng section nên chưa tuyên bố đủ 120+60 phút hoặc hoàn tất 5–7 mạch. Tách 11 slide thay vì 9 đề xuất ban đầu để quy ước $C$ và mức tăng tốc có slide riêng.
+
+### Điều chỉnh cách trình bày chi phí
+
+Giữ mạch và 11 trang của phần 4. Từ trang 05, lần lượt xây: tổng đầu vào tác vụ C (I + H) → lượng qua một đường truyền V và thời gian theo băng thông → giới hạn đường nối dùng chung → Combine giảm byte nhưng thêm xử lý → thời gian toàn công việc TP → mức tăng tốc SP → bài kiểm tra lợi ích ròng. Chỉ giới thiệu V ở trang băng thông; không dùng tên nguồn thay cho lời giải thích quy ước trên mặt slide. Các ký hiệu đều có ý nghĩa và đơn vị tại nơi dùng. Không thêm mô hình hiệu suất sử dụng máy trong lượt này.
