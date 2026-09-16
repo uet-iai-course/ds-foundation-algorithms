@@ -1,6 +1,6 @@
 # Lecture 03 — Đề xuất xây dựng lại từ đầu
 
-Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1–3 có 30 slide đã kiểm định và storyboard chi tiết bên dưới; các phần 4–7 đang triển khai. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
+Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1–4 có 40 slide đã kiểm định và storyboard chi tiết bên dưới; các phần 5–7 đang triển khai. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
 
 ## Phạm vi và mục tiêu
 
@@ -281,3 +281,138 @@ Phân vai: phần này chỉ chứa **chuỗi bài toán và trực giác** (ph�
 Sửa hình cột A thành các cạnh RA A; bù nút cụt tới cả bốn trang, kể cả C. Cột C bằng không không có nghĩa hàng C bằng không: C vẫn nhận từ A,D. Sửa hàng C của bảng ví dụ và toàn bộ lời giải liên quan. Δ giữa vòng1 và2 là 1/25+3×1/75=2/25. Quy tắc trong sách với nút cụt khác quy tắc bù đang dùng; ghi đúng khác biệt. Thuật toán quét n+m, không chỉ m. Giữ chuẩn một và chứng minh co trong notes, không đưa Banach lên mặt slide. Rút câu hỏi cuối, bỏ thông tin quy trình khỏi notes. Bỏ hình thanh tổng để công thức bảo toàn làm trung tâm; dành hai phút cho ý tưởng hội tụ.
 
 Hình chuyển tiếp phần3 dùng model-collect.svg với nhãn “tổng đóng góp 3/8”, không tái dùng nhãn “điểm mới 3/8” của phần2 để tránh nhầm với PageRank đầy đủ 7/20. Quan hệ B→A1/8 và C→A1/4 giữ nguyên.
+
+
+## Storyboard triển khai phần 4
+
+# Storyboard Phần 4 — Tính PageRank trên đồ thị lớn (Lecture 03)
+
+Phạm vi: MMDS 5.2.1 (tr.190), 5.2.3 (tr.191–192), 5.2.4 (tr.192–194); tổng quan thưa MMDS slide 53 (tương đương Stanford 55, ưu tiên MMDS). 10 slide `lec03-s04-01..10`, outer `id="large-graph"`. 22 phút, thứ tự phút: 1, 2, 3, 2, 3, 3, 3, 2, 1, 2. Phần 5 sẽ phân tích chi phí chi tiết; phần này chỉ nêu giới hạn RAM và không đưa con số chi phí vào mạch chính (gộp hàng block 5.2.5 chỉ xuất hiện trong notes slide 09 như một lựa chọn).
+
+Ký hiệu chung theo phần 3: $M_0$ ma trận liên kết (cột $j$ nguồn, hàng $i$ đích), $(M_0)_{ij}=1/d_j$ khi có cạnh $j\to i$; $d_j$ là bậc ra toàn cục; $\delta=\sum_{j:d_j=0}r_j$; công thức $r_i^{t+1}=\beta\sum_{j:j\to i}r_j^t/d_j+((1-\beta)+\beta\delta^t)/n$. Dữ kiện đồ thị: A→B,C,D (d=3); B→A,D (d=2); C→A (d=1); D→B,C (d=2). Bảng đóng góp $k^2$ đã kiểm Fraction trong checked-blocks.txt (m=8, n=4, k=2; M11: A,d3,[B]; B,d2,[A]; M12: C,d1,[A]; D,d2,[B]; M21: A,d3,[C,D]; B,d2,[D]; M22: D,d2,[C]).
+
+Quyết định riêng của phần này (không phải trích nguồn, ghi rõ): bù $\delta$ và bộ bản ghi khởi tạo $(i,0)$ là bước hoàn thiện để đưa mô hình phần 3 vào cấu trúc MapReduce của MMDS; lập luận tính đúng (slide 08) xây từ cách chia khối đã chọn. Không dùng con số n=10 tỷ với id 4 byte (tràn); phần5 nêu định dạng và phạm vi mã trang trước khi tính byte.
+
+Hình SVG do render_large.py ghi cạnh script (bản phát hành ghi vào thư mục hình của bài), tên model `rlarge-*.svg`, primary sẽ chạy script và đặt vào `img/lec-03/` theo đúng đường dẫn trong s04.html.
+
+---
+
+## lec03-s04-01 — “4 · Tính PageRank trên đồ thị lớn” (1 phút)
+
+- **Mục đích**: SV chỉ ra vì sao ma trận đặc không phù hợp khi $m\ll n^2$ và nêu hai nhiệm vụ của phần (cách lưu, cách chia việc).
+- **Câu chốt**: thông tin thực chỉ là $m$ cạnh; lưu cả ô 0 là lãng phí khi ma trận thưa.
+- **Vai trò**: mở phần, nêu vấn đề.
+- **Đầu vào**: phép cập nhật đầy đủ phần 3 (slide s03-08).
+- **Nội dung**: h1; nhiệm vụ tổ chức lưu trữ và tính toán; card nêu $n$ trang, $m$ liên kết, so sánh ma trận đặc chứa cả 0 với danh sách liên kết (không benchmark, không số byte).
+- **Kết nối**: vào từ phần 3; ra cho slide 02 (cách lưu thưa).
+- **Kiểm tra/notes**: không đưa số liệu liên kết trung bình như hiện trạng Web; nhấn $m\ll n^2$.
+- **Nguồn**: MMDS 5.2, tr.189–190.
+
+## lec03-s04-02 — “Lưu các liên kết ra” (2 phút)
+
+- **Mục đích**: SV đọc bảng (nguồn, $d_j$, đích) và suy ra giá trị $1/d_j$ của ô khác không.
+- **Câu chốt**: mỗi cột chỉ cần bậc ra và danh sách đích; không cần lưu từng $1/d_j$.
+- **Vai trò**: giải thích cơ chế biểu diễn thưa.
+- **Đầu vào**: định nghĩa $d_j$, cột nguồn của $M_0$ (s03-02).
+- **Nội dung**: bảng MMDS Fig 5.11 đúng A d3 BCD; B d2 AD; C d1 A; D d2 BC. Nút cụt giữ bản ghi $d_j=0$, danh sách rỗng. Ví dụ 4 node không quá thưa — chỉ minh họa cách ghi.
+- **Kết nối**: vào slide 01; ra cho slide 04 (bản ghi trong khối).
+- **Nguồn**: MMDS 5.2.1, Ví dụ 5.7, Fig 5.11, tr.190.
+
+## lec03-s04-03 — “Chia ma trận và véc tơ thành khối” (3 phút)
+
+- **Mục đích**: SV chỉ ra tác vụ $M_{ab}$ nhận dải $r_b$ nào và đóng góp cho dải đầu ra $a$ nào.
+- **Câu chốt**: chia hai chiều thành $k^2$ khối để mỗi tác vụ chỉ giữ dải đầu vào và dải tích lũy đầu ra trong RAM.
+- **Vai trò**: trực giác → hình thức hóa cách chia.
+- **Đầu vào**: $z=M_0r$; giới hạn RAM nêu ở slide 01.
+- **Nội dung**: dòng định nghĩa đầu tiên: đặt $z=M_0r$; chia $r$ thành $k$ dải và $M_0$ thành $k^2$ khối; ví dụ $k=2$, nguồn A,B và C,D. SVG `rlarge-blocks-grid.svg`: hai khung nét đứt nhóm khối theo cột nguồn — khung cột 1 chứa $M_{11},M_{21}$, khung cột 2 chứa $M_{12},M_{22}$; $r_1$ (nguồn A,B) và $r_2$ (nguồn C,D) có mũi tên thẳng vào khung cột tương ứng, nhãn nguồn đặt ngay trong hộp $r$; mỗi hàng khối có một mũi tên gộp về dải $z_a$ tương ứng. Khung nét đứt chỉ nhóm, không là cạnh dữ liệu. Ma trận đọc stream, không ôm nguyên block.
+- **Kết nối**: vào slide 02; ra cho slide 04 (khối cụ thể) và 05 (map/combine).
+- **Notes**: động lực: nếu chỉ chia cột, đầu ra véc tơ $z$ dài bằng $r$ nên combining tại task không vừa RAM → truy cập đĩa dồn dập; chia 2 chiều khắc phục.
+- **Nguồn**: MMDS 5.2.3, Fig 5.12, tr.191–192.
+
+## lec03-s04-04 — “Dữ liệu trong một khối” (2 phút)
+
+- **Mục đích**: SV viết đúng bản ghi của một khối, giữ bậc toàn cục và đặt mỗi cạnh vào đúng một khối.
+- **Câu chốt**: bậc ra trong khối là bậc toàn cục; mỗi cạnh thuộc đúng một khối.
+- **Vai trò**: đặc tả biểu diễn khối, ví dụ nhỏ.
+- **Đầu vào**: bảng Fig 5.11 (slide 02), lưới khối (slide 03).
+- **Nội dung**: 2 card phóng $M_{11}$ (A d3 → B; B d2 → A) và $M_{21}$ (A d3 → C,D; B d2 → D), đúng Fig 5.14(a),(c). Toàn cục $d_A=3$ giữ nguyên ở cả hai. $M_{12}$ (C d1 A; D d2 B) và $M_{22}$ (D d2 C) chỉ trong notes; không nhét bảng 4 khối vào slide.
+- **Kết nối**: vào slide 03; ra cho slide 05 (Map nhận khối và dải điểm, duyệt từng bản ghi).
+- **Nguồn**: MMDS 5.2.4, Ví dụ 5.8, Fig 5.13–5.14, tr.192–193.
+
+## lec03-s04-05 — “Map và Combine trên một khối” (3 phút)
+
+- **Mục đích**: SV theo dõi một bản ghi nguồn qua Map và Combine, viết được cặp (khóa, giá trị) phát ra.
+- **Câu chốt**: Map tạo $(i, r_j/d_j)$ cho mỗi đích; Combine chỉ gộp tổng tại tác vụ, đầu ra thô chưa nhân $\beta$.
+- **Vai trò**: giả mã cơ chế.
+- **Đầu vào**: bản ghi khối (slide 04), dải $r_b$ (slide 03).
+- **Nội dung**: mã sáu dòng `data-trim language-plaintext` (map, combine); dùng yield tạo một bản ghi cho mỗi đích, đúng một lần qua task — không giả định mọi id có trong khối (chi tiết ở notes slide 06).
+- **Kết nối**: vào slide 04; ra cho slide 06 (reduce + δ).
+- **Notes**: tổng trong toán học kết hợp/giao hoán; số thực máy tính có rounding → kiểm bằng tolerance.
+- **Nguồn**: MMDS 5.2.3, tr.191–192.
+
+## lec03-s04-06 — “Reduce và điểm ở nút cụt” (3 phút)
+
+- **Mục đích**: SV tính được đầu ra Reduce cho một id, kể cả id không có in-link.
+- **Câu chốt**: Reduce trả $\beta z_i+((1-\beta)+\beta\delta)/n$; bản ghi khởi tạo $(i,0)$ bảo đảm mọi nút có bản ghi đầu ra.
+- **Vai trò**: hoàn thiện thuật toán với trường hợp biên nút cụt.
+- **Đầu vào**: đầu ra Combine (slide 05); $\delta$ phần 3.
+- **Nội dung**: $\delta$ là tổng điểm của CHỈ các trang không có liên kết ra, mỗi trang nguồn được tính đúng một lần (không cộng điểm mọi trang), rồi gửi giá trị tới các tác vụ Reduce; mã Reduce(i,L_i), L_i là danh sách đóng góp hoặc tổng từng phần; bản ghi khởi tạo $(i,0)$.
+- **Kết nối**: vào slide 05; ra cho slide 07 (ví dụ gộp).
+- **Notes**: có thể vẽ sơ đồ pipeline δ → common term + grouped contributions → Reduce; mỗi nút phải có bản ghi đầu ra; công thức đầy đủ đã có ở s03-08.
+- **Nguồn**: mô hình phần 3 (hoàn thiện của người soạn) + MMDS 5.2.2–5.2.3.
+
+## lec03-s04-07 — “Ví dụ: Gộp hai khối tại A” (3 phút)
+
+- **Mục đích**: SV tính lại $z_A$ và $r_A^1$ từ đóng góp của hai khối khác nhau.
+- **Câu chốt**: hai khối cùng phát tới khóa A, gộp trước khi nhân $\beta$ và cộng phần chung.
+- **Vai trò**: vết chạy ví dụ.
+- **Đầu vào**: dữ liệu khối $M_{11}$, $M_{12}$; $r^0$ đều 1/4; $\beta=4/5$; đồ thị gốc ($\delta=0$).
+- **Nội dung**: SVG `rlarge-merge-a.svg` (2 task → A) + HTML: B→A cho 1/8, C→A cho 1/4; nhóm [1/8, 1/4]; $z_A=3/8$; $r_A^1=7/20$.
+- **Kết nối**: vào slide 06; ra cho slide 08 (tính đúng tổng quát).
+- **Notes**: ba đích còn lại có $z=5/24$, $r=13/60$. Không đưa 1/5 (thuộc biến thể nút cụt, đồ thị khác).
+- **Nguồn**: MMDS Ví dụ 5.7–5.8 cho dữ liệu khối; phép tính vòng khớp bảng s03-09.
+
+## lec03-s04-08 — “Tính đúng của cách chia khối” (2 phút)
+
+- **Mục đích**: SV nêu được vì sao kết quả phân tán bằng phép cập nhật tuần tự.
+- **Câu chốt**: mỗi cạnh tạo $r_j/d_j$ đúng một lần; Combine và Reduce chỉ đổi nhóm tổng.
+- **Vai trò**: lập luận đúng.
+- **Đầu vào**: map/combine (05), reduce/δ (06).
+- **Nội dung**: gọi $V_b$ là tập trang nguồn trong dải b; đặc tả kết quả phân tán = cập nhật tuần tự trên số thực chính xác; đẳng thức $\sum_{b=1}^{k}\sum_{j\in V_b:j\to i}r_j/d_j=\sum_{j:j\to i}r_j/d_j$; δ đếm 1 lần; common chỉ cộng 1 lần/i sau group.
+- **Kết nối**: vào slide 07; ra cho slide 09 (tổ chức vòng).
+- **Notes** (~120 từ): input snapshot cố định; không retry double count (hệ thống chọn đầu ra task thành công như Bài 2); không claim associativity cho floating point.
+- **Nguồn**: MMDS 5.2.3–5.2.4; lập luận hoàn thiện của mô hình đã chọn.
+
+## lec03-s04-09 — “Tổ chức một vòng tính” (1 phút)
+
+- **Mục đích**: SV sắp xếp đúng thứ tự các giai đoạn của một vòng.
+- **Câu chốt**: snapshot $r^t$ chốt trước, véc tơ mới chỉ dùng khi vòng xong; $k^2$ là số task, không phải số máy.
+- **Vai trò**: tổng hợp quy trình.
+- **Đầu vào**: tất cả các bước trước.
+- **Nội dung**: SVG `rlarge-round-pipeline.svg` (sáu giai đoạn; trường hợp 2 máy / 4 tác vụ nêu ở caption): snapshot $r^t$ → δ aggregation + block tasks → Combine → chuyển và nhóm theo khóa → final reduce → Δ global → $r^{t+1}$.
+- **Kết nối**: vào slide 08; ra cho câu hỏi kiểm tra và phần 5.
+- **Notes**: toàn graph/$d_j$ giữ cho vòng sau (không xóa list kề trong reduce); δ giá trị chạy song song block product nhưng phải xong trước final reduce. Gộp hàng block (5.2.5) là lựa chọn khác, chỉ nêu ở notes, không bắt SV nắm thêm.
+- **Nguồn**: MMDS 5.2.2–5.2.4, tr.191–194.
+
+## lec03-s04-10 — “Câu hỏi kiểm tra” (2 phút)
+
+- **Mục đích**: SV tự kiểm 3 điểm: bậc toàn cục trong khối, bản ghi khởi tạo/common cho đích không in-link, phân biệt task và máy.
+- **Câu chốt**: ba câu phủ ba quyết định chính của phần.
+- **Vai trò**: kiểm tra.
+- **Nội dung**: 3 câu trên slide; đáp án trong notes: A ghi d=3 trong $M_{21}$; đích không in-link nhận phần chung $(1-\beta+\beta\delta)/n$ qua bản ghi khởi tạo $(i,0)$; $k^2=4$ task trên 2 máy (mỗi máy 2 tác vụ là một cách phân bổ).
+- **Kết nối**: ra — phần 5 nhu cầu so RAM / bytes / runtime; hộp source-note đã ghi chuyển tiếp.
+- **Nguồn**: tổng hợp phần 4.
+
+---
+
+## Kiểm tra chéo đã làm
+
+- Chiều nguồn→đích nhất quán: bảng theo cột nguồn, $(M_0)_{ij}$ từ $j$ đến $i$; $M_{11}$ đích A/B, $M_{21}$ đích C/D khớp Fig 5.14(a)/(c) và checked-blocks.txt.
+- Số học: 1/8 + 1/4 = 3/8; (4/5)(3/8) + 1/20 = 3/10 + 1/20 = 7/20 ✓ (khớp Fraction step 1 phần 3).
+- Không có con số chi phí (byte/RAM/runtime) trên slide core; phần 5 đảm nhận. Không dùng id 4 byte với n=10 tỷ.
+- Font: thân ≥28, mã 24, caption 26, formula KaTeX HTML; SVG role="img" + alt; CSS mới bọc trong `#large-graph`, không đụng `.pr-slide` toàn bài, không lặp s01.css.
+- Không có câu hướng dẫn tác giả trong notes hay mặt slide.
+
+### Điều chỉnh sau bản nháp
+
+Sửa chữ và khái niệm đột ngột (giá trị delta, bản ghi khởi tạo); Map nhận cả khối, duyệt bản ghi rồi yield; Reduce nhận danh sách có thể gồm tổng từng phần. Bổ sung tập $V_b$ để công thức tổng không dùng chỉ số b như tập hợp. Giữ Combine trước khi chuyển/nhóm dữ liệu. Mỗi dải điểm được k tác vụ dùng, không đồng nhất k lần đọc với k lần truyền mạng. Bỏ câu hỏi tu từ và số liệu trung bình Web không cần thiết. Script hình bản nháp có hàm chữ sai tham số và ghi vào thư mục con ngoài đường dẫn tích hợp; điều phối đã sửa, vẽ rõ dải nguồn cấp cho cả cột khối và hàng khối gộp về dải đích.
