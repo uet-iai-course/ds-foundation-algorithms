@@ -109,3 +109,43 @@ Bản cuối đã thêm giả thiết hiển thị, giải thích khóa mã văn
 - Kiểm tra Chromium: 18 slide, không tràn khung, không lỗi JavaScript/HTTP/KaTeX, bản in 18 trang; đã xem ảnh slide mới. `git diff --check` đạt. Không commit/push.
 
 - Theo yêu cầu cuối, bỏ cụm “Map phát (từ, 1)” khỏi dữ kiện hiển thị của slide Câu hỏi kiểm tra; giữ đáp án trong notes. Người dùng đã yêu cầu commit và push các thay đổi Lecture 02.
+
+## Kế hoạch section ví dụ
+
+- Thêm section chính theo yêu cầu: ba bài toán, mỗi bài năm slide riêng đúng thứ tự chỉ định; mở phần và kiểm tra cuối, tổng 17 slide mới. Ngoại lệ thứ tự chu trình học tập được chấp nhận theo người dùng.
+- Hai reader OpenRouter requested/observed z-ai/glm-5.3-flash, provider OpenRouter; hồ sơ /tmp/lec02-examples/. Điều phối duyệt thiết kế trong design.md trước writer.
+- Không áp dụng phương án reader gộp chạy tay/chứng minh hoặc thêm slide ngoài khuôn; sửa nhầm khóa của trung bình thành khóa chung g, bác trả 0 cho trung bình dãy rỗng và nhận định một từ chỉ nằm trong một Map. Bác ví dụ kiểm tra ma trận sai kích thước của reader. Bản writer phải theo đặc tả đã kiểm tra.
+- Ví dụ ma trận dùng 2×2 đầy đủ tọa độ kể cả 0 để giữ đầu ra hàng toàn 0. Đây là quy ước minh họa rõ ràng, không khẳng định các ma trận dữ liệu lớn phải lưu dày. Sách cho phép biết tọa độ qua vị trí hoặc bản ghi.
+- Yêu cầu mới về icon/hình được đưa vào đặc tả trước khi soạn; không dùng ảnh raster hoặc nguồn mạng.
+
+### Rà soát và hoàn thiện section 3
+
+- Năm reviewer độc lập đã rà góc nhìn sinh viên, giải thuật, toán, giảng dạy và mạch. Tất cả requested/observed z-ai/glm-5.3-flash, provider OpenRouter. Giữ kết luận có bằng chứng: sửa các câu đảo 5/6 trong ví dụ trung bình và ghi chú kiểm tra; sửa ví dụ hai nhóm bằng nhau bị viết thành bất đẳng thức; thay chỉ số Unicode sai trong sơ đồ.
+- Điều phối rà thêm đầu vào Reduce sau Combine: danh sách hàng 1 là [13], hàng 2 là [15], không phải các danh sách trước Combine. Làm rõ từ có thể xuất hiện ở nhiều tác vụ; bỏ Combine trong vết chạy công việc đếm cuối để không ngầm giả định tất cả bản ghi nằm trong một tác vụ Map.
+- Tác tử chỉnh sửa đầu dừng với lỗi nguyên văn “model exceeded the tool-call limit (10)”. Đã chạy lại cùng vai OpenRouter với giới hạn phù hợp; không đổi nhà cung cấp. Điều phối bác chỉnh sửa nhầm số 5/6 của bài trung bình sang đáp án đếm từ ở lượt sửa lại, khôi phục đúng 2+2=4 đếm trùng chó, kết quả3. Không dựa vào kết luận “đạt” khi báo cáo bỏ sót phép tính sai.
+- Biên tập theo no-ai-slop: bỏ câu siêu dữ liệu “Câu nối”, “các giả thiết được nêu gọn”; Việt hóa chunk/mean/scalar/Job. Rà theo quill: giữ cùng dữ kiện, ký hiệu, đầu ra và giả thiết trong mỗi chuỗi năm slide; không tạo quill.json.
+- SVG nội dòng có role/nhãn thay thế, icon trên các slide đặc điểm, ba sơ đồ luồng có mũi tên. Bảng và công thức giữ ở HTML/KaTeX; không thêm ảnh vào chứng minh khi không giúp suy luận. Không áp dụng đề xuất thêm hình lặp lại bảng chạy tay trung bình.
+- Mục lục và mô tả bài trong index đã cập nhật. Tổng hiện tại 35 slide, ba section chính; số section ngoài 5–7 là ngoại lệ vì người dùng đang xây bài từng phần. Hệ thống và Chi phí còn ở mức kế hoạch.
+- Kiểm định 1280×720: 35 slide không tràn, không lỗi JavaScript/HTTP/KaTeX; bản in35trang. Mã slide duy nhất, section lồng đúng, SVG có mô tả thay thế; đã xem trực tiếp hình/bảng mới. Ví dụ tự tính lại cho kết quả (13,15),3,5.
+- Rà cuối toán và mạch trên bản đã sửa đều kết luận đạt (final-math.json, final-flow.json). Kiểm tra bàn phím ở chế độ trình chiếu đạt. Màn hình hẹp 390×844 dùng chế độ cuộn tự động của Reveal, không lỗi công thức; phép thử ban đầu giả định mũi tên xuống chuyển ngay một slide đã được sửa để phù hợp chế độ cuộn. Đã xem ảnh hẹp.
+- git diff --check đạt. Section mới chưa commit/push; commit/push trước thuộc lần hoàn tất section mô hình.
+
+## Mở rộng ma trận chữ nhật theo yêu cầu
+- Đổi A thành p×q, v có q phần tử, y có p phần tử; i chạy1..p, j chạy1..q, đủ pq bản ghi. Nguồn bổ sung: MMDS bài 2.3.2 trang40.
+- Ví dụ đổi thành A=[[2,1],[0,3],[1,2]], v=[4,5], y=[13,15,14]. Bảng giữ đủ sáu tích và cặp trung gian; mỗi hàng một tác vụ Map. Sau Combine, Reduce nhận [13],[15],[14].
+- Chứng minh xét p hàng, mỗi hàng q tích; thuật toán Map/Combine/Reduce giữ nguyên. Outline và storyboard đã đồng bộ. Các kết quả ví dụ 2×2 trong nhật ký trước đây là lịch sử đã được thay thế.
+- Theo yêu cầu tiếp theo, thêm lưu trữ A theo khối có bản sao trên nhiều máy vào slide bài toán và hình slide đặc điểm. Nhãn khối giữ nhất quán giữa các máy; phân biệt bản sao lưu trữ với tác vụ chạy lại, không nhân đôi đóng góp toán học.
+- Đổi giao diện ví dụ ma trận thành Map(B), mỗi lần gọi duyệt toàn bộ một khối; thay “phát” bằng yield trong đặc tả. Vết chạy đặt B1/B2/B3 là đầu vào; chứng minh dựa vào phân hoạch các bản ghi vào khối logic, không đếm bản sao.
+
+## Bổ sung ba slide ứng dụng
+- Theo yêu cầu, thêm một slide ứng dụng sau chứng minh từng bài, không thay thế năm slide cốt lõi. Tổng section3 thành20slide, toàn deck38slide.
+- Đã kiểm chứng biểu diễn truy vấn/tài liệu bằng véc tơ và cosine từ IR6.3.1–6.3.2 trên trang Stanford chính thức. Chỉ chấm điểm theo lô, không khẳng định hệ tìm kiếm thực tế triển khai mỗi truy vấn bằng MapReduce.
+- Writer OpenRouter requested/observed z-ai/glm-5.3-flash, provider OpenRouter, hồ sơ /tmp/lec02-applications/. Điều phối sửa thiếu data-slide-id, class và notes; đổi công thức sang KaTeX; bỏ khẳng định sai “chọn trang điểm cao chỉ bằng phép nhân”; giữ điều kiện chuẩn hóa trên mặt slide.
+- Ứng dụng đếm từ chỉ cho số cột khi dùng toàn bộ từ vựng, không tự gán chỉ số. Ứng dụng trung bình giữ trang rỗng trong mẫu số; trạng thái(5,2) không phải đầu ra Reduce (đầu ra là2,5).
+- Rà ma trận chữ nhật và hình khối nhân bản đã đạt qua rectangle-review; bổ sung nguồn lưu trữ MMDS2.1.2 trên slide bài toán.
+- Reviewer cuối xác nhận đặc tả Map(B), ma trận chữ nhật và ba ứng dụng đạt; đã đưa điều kiện véc tơ khác0 lên mặt slide cosine. Kiểm tra Chromium38slide: không tràn, không lỗi JS/HTTP/KaTeX, bản in38trang; đã xem hình Map(B) và cả ba slide ứng dụng. git diff --check đạt. Chưa commit/push.
+
+- Theo yêu cầu, đổi tiêu đề slide thành “Nhân ma trận–véc tơ: Ví dụ”; dùng A4×4, mỗi khối2×2. Giữ đủ16cặp Map trong bảng,8cặp Combine; Reduce nhận [5,4],[2,6],[2,7],[3,8], kết quả(9,8,9,11). Đồng bộ notes ứng dụng cosine và storyboard; đặc tả p×q không đổi.
+- Theo yêu cầu mới, chuyển cả ba slide ứng dụng ngay sau phát biểu bài toán, trước đặc điểm/ý tưởng. Giữ mã slide, sửa các câu dẫn “ví dụ trước” để khớp thứ tự mới; cập nhật outline/storyboard.
+- Vết chạy bốn khối đã được tự tính lại và reviewer OpenRouter xác nhận đạt; ảnh trình chiếu đã xem, không tràn/lỗi công thức. Kiểm tra thứ tự mới: cả ba ứng dụng nằm ngay sau bài toán; 38 mã slide duy nhất.
+- Rà mạch độc lập trên bản đủ20slide xác nhận thứ tự mới và các tham chiếu trước/sau đều đạt. Gói rà lần đầu bị cắt do chọn sai điểm kết thúc HTML; đã sửa gói và chạy lại, không dùng kết luận trên gói thiếu. Chưa commit/push.

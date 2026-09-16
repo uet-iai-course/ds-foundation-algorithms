@@ -128,6 +128,33 @@
     .reveal .combine-slide .conditions li { margin:8px 0; }
     .reveal .model-check-slide ol { font-size:30px; line-height:1.45; }
     .reveal .model-check-slide li { margin:22px 0; }
+    .reveal .example-slide h1, .reveal .example-slide h2 { font-size:38px; color:#2f3e7a; line-height:1.18; margin-bottom:22px; }
+    .reveal .example-slide h3 { font-size:28px; color:#2f3e7a; text-transform:none; margin:0 0 12px; }
+    .reveal .example-slide p, .reveal .example-slide li { font-size:28px; line-height:1.35; }
+    .reveal .example-slide li { margin:12px 0; }
+    .ex-grid2 { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start; }
+    .ex-card { border:1px solid #bec8d9; border-left:4px solid #2f3e7a; border-radius:8px; background:#f8fafc; padding:18px; }
+    .reveal .example-slide .ex-equation { font-size:34px; color:#2f3e7a; text-align:center; margin:20px 0; }
+    .reveal .example-slide pre.ex-code { font-size:24px; line-height:1.4; margin:14px 0; padding:16px; box-sizing:border-box; background:#edf4ff; box-shadow:none; width:100%; }
+    .reveal .example-slide pre.ex-code code { padding:0; max-height:none; white-space:pre-wrap; }
+    .reveal .example-slide .ex-table { width:100%; font-size:25px; line-height:1.35; margin:18px 0; border-collapse:collapse; }
+    .reveal .example-slide .ex-table th { color:#2f3e7a; background:#edf4ff; }
+    .reveal .example-slide .ex-table th, .reveal .example-slide .ex-table td { padding:10px 14px; vertical-align:top; border-bottom:1px solid #bec8d9; }
+    .reveal .example-slide .ex-note { font-size:24px; color:#526070; }
+    .reveal .example-slide .ex-takeaway { font-size:28px; color:#2f3e7a; margin-top:18px; }
+    .reveal .example-slide .ex-source { font-size:18px; color:#526070; }
+    .reveal .example-slide svg { max-width:100%; }
+    .reveal .example-slide .ex-card { font-size:28px; line-height:1.35; margin:12px 0; }
+    .example-slide .ex-grid2 .ex-card { margin:0; }
+    .example-slide .ex-figure { margin:18px 0 0; text-align:center; }
+    #lec02-s03-03 .ex-grid2, #lec02-s03-13 .ex-grid2 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    #lec02-s03-03 .ex-card svg, #lec02-s03-08 .ex-card svg, #lec02-s03-13 .ex-card svg { display:block; width:46px; height:46px; margin-bottom:14px; }
+    .reveal .example-slide .ex-distinct-functions { font-size:25px; }
+
+    .matrix-block-trace { display:grid; grid-template-columns:0.9fr 1.1fr; gap:24px; align-items:center; }
+    .reveal #lec02-s03-05 .matrix-block-trace .ex-equation { font-size:30px; }
+    .reveal #lec02-s03-05 .matrix-block-trace .ex-table { font-size:23px; margin:0; }
+    .reveal #lec02-s03-05 .matrix-block-trace th, .reveal #lec02-s03-05 .matrix-block-trace td { padding:8px 10px; }
   </style>
 </head>
 <body>
@@ -141,7 +168,7 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li></ul>
+          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li></ul>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -552,6 +579,335 @@ trả về Y = gom_giữ_lặp(O_0, ..., O_{r−1})</code></pre>
 </section>
 
       </section>
+<section id="examples">
+  <section class="motivation-slide example-slide" id="lec02-s03-01" data-slide-id="lec02-s03-01">
+<h1>3 · Các ví dụ Map-Reduce</h1>
+<p>Từ mô hình chung đến cách chọn khóa và giá trị trung gian.</p>
+<div class="ex-card"><strong>Nhân ma trận–véc tơ:</strong> gom các tích theo hàng.</div>
+<div class="ex-card"><strong>Đếm từ phân biệt:</strong> loại trùng rồi đếm.</div>
+<div class="ex-card"><strong>Trung bình cộng:</strong> gộp tổng và số lượng, chia ở cuối.</div>
+<aside class="notes">Giả thiết: người học đã biết khung Map-Reduce và cơ chế Combine. Nguồn: Leskovec, Rajaraman, Ullman, Mining of Massive Datasets (MMDS), mục 2.2–2.3. Chuyển ý: ba ví dụ sẽ cho thấy ba kiểu "giá trị" khác nhau — tích phần tử, dấu hiệu hiện diện, và cặp trạng thái (tổng, số lượng).</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-02" data-slide-id="lec02-s03-02">
+<h2>Bài toán nhân ma trận–véc tơ</h2>
+<p><strong>Đầu vào:</strong> $A\in\mathbb{R}^{p\times q}$, $v\in\mathbb{R}^q$, với $p,q\geq1$.</p>
+<p><strong>Đầu ra:</strong> véc tơ $y=Av\in\mathbb{R}^p$, gồm $p$ phần tử:</p>
+<p class="ex-equation">$y_i=\sum_{j=1}^{q}a_{ij}v_j,\qquad 1\leq i\leq p$</p>
+<div class="ex-card">Dữ liệu logic: $pq$ bản ghi $(i,j,a_{ij})$, $1\leq i\leq p$, $1\leq j\leq q$, kể cả phần tử 0.</div>
+<p class="ex-note">$A$ được chia thành các khối, mỗi khối có bản sao trên nhiều máy. Mỗi bản ghi logic góp đúng một lần.</p>
+<p class="ex-note">Giả thiết: $v$ vừa bộ nhớ mỗi tác vụ Map; số học chính xác.</p>
+<p class="ex-source">Nguồn: MMDS 2.1.2, 2.3.1; bài 2.3.2, tr.40.</p>
+<aside class="notes">Giả thiết: ma trận p×q, v có q phần tử, y có p phần tử, v vừa RAM, số học chính xác. Nguồn: MMDS 2.3.1 tr.31–32 và bài 2.3.2 tr.40 (ma trận chữ nhật). Chuyển ý: nếu ma trận thưa, ta có thể chỉ lưu các phần tử khác 0; nếu hàng rỗng thì cần quy ước riêng để xuất 0 — quy ước đó chưa dùng ở đây. Trường hợp v không vừa RAM (chia dải) là mục 2.3.2, ngoài phạm vi phần này.</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-06a" data-slide-id="lec02-s03-06a">
+<h2>Ứng dụng: Tương đồng trang web và truy vấn</h2>
+<div class="ex-grid2">
+<div class="ex-card"><strong>Ma trận $A$:</strong> $p$ hàng là các trang web; $q$ cột là các từ. Mỗi phần tử là trọng số của một từ trong trang.</div>
+<div class="ex-card"><strong>Véc tơ $v$:</strong> trọng số của $q$ từ ấy trong truy vấn. Tính một điểm cho mỗi trang.</div>
+</div>
+<p class="ex-note">Với các véc tơ khác 0, chuẩn hóa từng hàng của $A$ và $v$ về độ dài Euclid 1.</p>
+<p class="ex-equation">$y=Av,\qquad y_i=\sum_{j=1}^{q}a_{ij}v_j$</p>
+<svg width="100%" viewBox="0 0 1110 120" role="img" aria-label="Sơ đồ chấm điểm: ma trận A nhân vector truy vấn v cho vector điểm y" style="font-size:26px">
+    <rect x="20" y="25" width="300" height="70" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="170" y="68" text-anchor="middle" fill="#2f3e7a">A: p trang × q từ</text>
+    <text x="355" y="68" fill="#2f3e7a" font-size="34">×</text>
+    <rect x="400" y="25" width="240" height="70" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="520" y="68" text-anchor="middle" fill="#2f3e7a">v: truy vấn (q chiều)</text>
+    <text x="675" y="68" fill="#2f3e7a" font-size="34">=</text>
+    <rect x="720" y="25" width="370" height="70" rx="10" fill="#bec8d9" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="905" y="68" text-anchor="middle" fill="#2f3e7a">y: điểm cosine từng trang</text>
+  </svg>
+<p class="ex-takeaway">$y_i$ là điểm tương đồng cosine của trang $i$ với truy vấn.</p>
+<p class="ex-source">Nguồn: <a href="https://nlp.stanford.edu/IR-book/html/htmledition/queries-as-vectors-1.html">Introduction to Information Retrieval, 6.3.1–6.3.2</a>.</p>
+<aside class="notes">
+<p>Trang web và truy vấn dùng cùng bộ từ và cùng thứ tự tọa độ. Có thể khởi đầu bằng số lần xuất hiện mỗi từ rồi chuẩn hóa; không cần học cách đặt trọng số phức tạp trong slide này. Trọng số bằng 0 nếu từ không xuất hiện. Chỉ xét các véc tơ khác 0 trước khi chuẩn hóa.</p>
+<p>Chia từng véc tơ cho độ dài Euclid của nó. Khi hai véc tơ đều có độ dài 1, tích vô hướng bằng cosine của góc giữa chúng. Vì mỗi hàng biểu diễn một trang, phép nhân Av cho tất cả điểm tương đồng với truy vấn. Ma trận số 4×4 ở slide ví dụ sau chưa được chuẩn hóa; 9,8,9,11 không phải điểm cosine.</p>
+<p>Áp dụng Map(B): mỗi bản ghi của khối tạo đóng góp a_ij*v_j cho trang i; Combine và Reduce cộng theo i. Sau đó có thể chọn các trang điểm cao; bước chọn hoặc sắp xếp không nằm trong phép nhân vừa đặc tả. Đây là ứng dụng chấm điểm theo lô, không khẳng định hệ tìm kiếm thực tế chạy toàn bộ MapReduce cho từng truy vấn trực tiếp.</p>
+<p>Nguồn: Manning, Raghavan, Schütze, Introduction to Information Retrieval, 6.3.1 và 6.3.2. <a href="https://nlp.stanford.edu/IR-book/html/htmledition/dot-products-1.html">Tích vô hướng và chuẩn hóa</a>; <a href="https://nlp.stanford.edu/IR-book/html/htmledition/queries-as-vectors-1.html">Biểu diễn truy vấn bằng véc tơ</a>.</p>
+</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-03" data-slide-id="lec02-s03-03">
+    <h2>Nhân ma trận – véc tơ: đặc điểm và ý tưởng</h2>
+    <div class="ex-grid2">
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon ma trận lớn phân tán" viewBox="0 0 40 40" width="40" height="40"><rect x="2" y="2" width="36" height="36" rx="4" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><line x1="14" y1="2" x2="14" y2="38" stroke="#bec8d9" stroke-width="2"/><line x1="26" y1="2" x2="26" y2="38" stroke="#bec8d9" stroke-width="2"/><line x1="2" y1="14" x2="38" y2="14" stroke="#bec8d9" stroke-width="2"/><line x1="2" y1="26" x2="38" y2="26" stroke="#bec8d9" stroke-width="2"/></svg>
+        Ma trận chia thành các khối; mỗi khối có bản sao trên nhiều máy.
+      </div>
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon cần vj tại Map" viewBox="0 0 40 40" width="40" height="40"><circle cx="10" cy="20" r="5" fill="#2f3e7a"/><circle cx="30" cy="10" r="5" fill="#bec8d9"/><circle cx="30" cy="30" r="5" fill="#bec8d9"/><line x1="15" y1="20" x2="25" y2="11" stroke="#2f3e7a" stroke-width="2"/><line x1="15" y1="20" x2="25" y2="29" stroke="#2f3e7a" stroke-width="2"/></svg>
+        Map nhận một khối $B$; duyệt từng bản ghi và tra $v_j$ để tính tích.
+      </div>
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon gom đóng góp theo hàng" viewBox="0 0 40 40" width="40" height="40"><rect x="2" y="4" width="36" height="8" rx="2" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><rect x="2" y="16" width="36" height="8" rx="2" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><rect x="2" y="28" width="36" height="8" rx="2" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><circle cx="34" cy="20" r="4" fill="#2f3e7a"/></svg>
+        Gom các đóng góp cùng hàng về một khóa duy nhất.
+      </div>
+    </div>
+    <figure class="ex-figure"><svg role="img" aria-label="Ma trận chia thành ba khối logic B1 B2 B3; máy 1 lưu B1 B2, máy 2 lưu B2 B3, máy 3 lưu B3 B1; mỗi khối có hai bản sao minh họa" viewBox="0 0 1110 146" width="1110" height="146"><rect x="10" y="12" width="340" height="122" rx="9" fill="#f8fafc" stroke="#2f3e7a" stroke-width="2"/><text x="180" y="46" text-anchor="middle" fill="#2f3e7a" font-size="26">Máy 1</text><rect x="35" y="64" width="130" height="49" rx="6" fill="#edf4ff" stroke="#bec8d9" stroke-width="2"/><text x="100" y="97" text-anchor="middle" font-size="26" fill="#2f3e7a">B1</text><rect x="195" y="64" width="130" height="49" rx="6" fill="#edf4ff" stroke="#bec8d9" stroke-width="2"/><text x="260" y="97" text-anchor="middle" font-size="26" fill="#2f3e7a">B2</text><rect x="385" y="12" width="340" height="122" rx="9" fill="#f8fafc" stroke="#2f3e7a" stroke-width="2"/><text x="555" y="46" text-anchor="middle" fill="#2f3e7a" font-size="26">Máy 2</text><rect x="410" y="64" width="130" height="49" rx="6" fill="#edf4ff" stroke="#bec8d9" stroke-width="2"/><text x="475" y="97" text-anchor="middle" font-size="26" fill="#2f3e7a">B2</text><rect x="570" y="64" width="130" height="49" rx="6" fill="#edf4ff" stroke="#bec8d9" stroke-width="2"/><text x="635" y="97" text-anchor="middle" font-size="26" fill="#2f3e7a">B3</text><rect x="760" y="12" width="340" height="122" rx="9" fill="#f8fafc" stroke="#2f3e7a" stroke-width="2"/><text x="930" y="46" text-anchor="middle" fill="#2f3e7a" font-size="26">Máy 3</text><rect x="785" y="64" width="130" height="49" rx="6" fill="#edf4ff" stroke="#bec8d9" stroke-width="2"/><text x="850" y="97" text-anchor="middle" font-size="26" fill="#2f3e7a">B3</text><rect x="945" y="64" width="130" height="49" rx="6" fill="#edf4ff" stroke="#bec8d9" stroke-width="2"/><text x="1010" y="97" text-anchor="middle" font-size="26" fill="#2f3e7a">B1</text></svg><figcaption class="ex-note">Ba khối B1, B2, B3; mỗi khối có hai bản sao trong hình.</figcaption></figure>
+    <aside class="notes">Các bản ghi tọa độ của A được đóng thành khối dữ liệu và lưu phân tán, có nhân bản để chịu lỗi. B1,B2,B3 trong hình là tên khối logic; hai ô cùng tên biểu diễn hai bản sao của cùng dữ liệu, không phải hai đóng góp độc lập. Số bản sao 2 chỉ là minh họa. Một tác vụ Map đọc bản sao phù hợp của phần dữ liệu được giao; ưu tiên gần nơi lưu dữ liệu. Nếu có chạy lại hoặc thực thi dự phòng, hệ thống chỉ nhận một kết quả hợp lệ của tác vụ logic. Khối lưu trữ không mặc định là một hàng; ví dụ chạy tay chia theo hàng để dễ theo dõi. Giả thiết: v vừa RAM; ma trận được chia thành các bản ghi (i, j, a_ij). Nguồn: MMDS 2.1.2 về lưu khối/nhân bản, 2.3.1 về nhân ma trận. Chuyển ý: khóa phải là hàng i vì y_i là tổng theo hàng; nếu v không vừa RAM thì phải chia dải theo mục 2.3.2 — ngoài phạm vi hôm nay.</aside>
+  </section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-04" data-slide-id="lec02-s03-04">
+    <h2>Nhân ma trận – véc tơ: các hàm</h2>
+    <p class="ex-note">$B$ là một khối ma trận; $v$ đã có trong bộ nhớ. $L$ chứa các giá trị cùng hàng.</p>
+    <pre class="ex-code"><code data-trim>
+Map(B):
+  với mỗi bản ghi (i, j, a_ij) trong B:
+    yield(i, a_ij * v[j])
+
+Combine(i, L): yield(i, sum(L))
+Reduce(i, L):  yield(i, sum(L))
+    </code></pre>
+    <div class="ex-card">Khóa là hàng \( i \); giá trị là tích \( a_{ij} v_j \) hoặc tổng bộ phận của các tích.</div>
+    <div class="ex-card"><code>yield</code> đưa một cặp vào luồng đầu ra rồi tiếp tục; Combine cộng cục bộ theo hàng.</div>
+    <aside class="notes">Giả thiết: mỗi tọa độ (i, j) xuất hiện đúng 1 lần trong đầu vào, nên mọi tích được góp đủ một lần. Theo yêu cầu, đầu vào hàm Map ở ví dụ này là một khối B, thay cho cách nhận một phần tử trong sách: vòng lặp trong Map(B) tạo cùng các cặp trung gian. yield đưa từng cặp ra mà không kết thúc vòng lặp; không return ngay cặp đầu tiên. Mỗi khối logic được xử lý một lần, không duyệt thêm các bản sao. Nguồn: MMDS 2.3.1, điều chỉnh cách đóng gói đầu vào theo người dùng. Chương trình kết thúc hữu hạn vì số khóa hữu hạn và danh sách giá trị hữu hạn; Combine không bắt buộc vì cộng kết hợp và giao hoán.</aside>
+  </section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-05" data-slide-id="lec02-s03-05">
+<h2>Nhân ma trận–véc tơ: Ví dụ</h2>
+<p class="ex-note">Bốn khối $2\times2$: $B_{11},B_{12}$ ở trên; $B_{21},B_{22}$ ở dưới. Gọi Map cho từng khối.</p>
+<div class="matrix-block-trace">
+<div>
+<p class="ex-equation">$A=\left[\begin{array}{cc|cc}1&amp;2&amp;0&amp;1\\0&amp;1&amp;2&amp;0\\\hline2&amp;0&amp;1&amp;1\\1&amp;1&amp;0&amp;2\end{array}\right],\quad v=\begin{bmatrix}1\\2\\3\\4\end{bmatrix}$</p>
+<p class="ex-note">Ví dụ: $B_{12}$ chứa hàng 1–2, cột 3–4.</p>
+<p class="ex-note">Bản ghi $(2,3,2)$ → <code>yield(2, 2*3)</code> → $(2,6)$.</p>
+</div>
+<table class="ex-table">
+<thead><tr><th>Khối</th><th>Các cặp Map yield</th><th>Combine yield</th></tr></thead>
+<tbody>
+<tr><td>$B_{11}$</td><td>(1,1), (1,4)<br>(2,0), (2,2)</td><td>(1,5)<br>(2,2)</td></tr>
+<tr><td>$B_{12}$</td><td>(1,0), (1,4)<br>(2,6), (2,0)</td><td>(1,4)<br>(2,6)</td></tr>
+<tr><td>$B_{21}$</td><td>(3,2), (3,0)<br>(4,1), (4,2)</td><td>(3,2)<br>(4,3)</td></tr>
+<tr><td>$B_{22}$</td><td>(3,3), (3,4)<br>(4,0), (4,8)</td><td>(3,7)<br>(4,8)</td></tr>
+</tbody></table>
+</div>
+<p class="ex-note"><strong>Reduce theo hàng:</strong> $5+4=9$; $2+6=8$; $2+7=9$; $3+8=11$.</p>
+<p class="ex-takeaway">$y=(9,8,9,11)^T$. Mỗi hàng nhận đóng góp từ hai khối.</p>
+<aside class="notes">
+<p>Ví dụ chọn p=q=4 để minh họa bốn khối 2×2; đặc tả tổng quát vẫn là ma trận p×q, không đòi vuông. B11 chứa tọa độ hàng1–2,cột1–2; B12 hàng1–2,cột3–4; B21 hàng3–4,cột1–2; B22 hàng3–4,cột3–4. Mỗi khối có thể có nhiều bản sao vật lý, nhưng chỉ đóng góp một lần về logic. Chỉ số i,j trong bản ghi là chỉ số toàn cục, không đánh lại từ1 trong từng khối.</p>
+<p>Map(B) duyệt bốn bản ghi và yield bốn cặp. Trong ví dụ, mỗi khối được giao cho một tác vụ Map riêng nên Combine tại tác vụ đó tạo hai tổng bộ phận, mỗi tổng cho một hàng. Có thể bỏ Combine mà kết quả vẫn đúng.</p>
+<p>B11 có các tích1×1=1,2×2=4,0×1=0,1×2=2. B12 có0×3=0,1×4=4,2×3=6,0×4=0. B21 có2×1=2,0×2=0,1×1=1,1×2=2. B22 có1×3=3,1×4=4,0×3=0,2×4=8. Bảng giữ đủ16cặp, kể cả giá trị0.</p>
+<p>Sau Combine, nhóm của Reduce là L1=[5,4], L2=[2,6], L3=[2,7], L4=[3,8]. Reduce yield(1,9), yield(2,8), yield(3,9), yield(4,11). Kiểm tra trực tiếp từng hàng của Av cho đúng bốn số này. Mỗi hàng bị chia vào hai khối; khóa hàng i giúp gom đủ các đóng góp.</p>
+<p>Nguồn thuật toán: MMDS2.3.1 và bài2.3.2; ma trận4×4, phân khối2×2 là dữ kiện minh họa theo yêu cầu giảng viên.</p>
+</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-06" data-slide-id="lec02-s03-06">
+    <h2>Nhân ma trận – véc tơ: tính đúng</h2>
+    <p class="ex-note"><strong>Mệnh đề:</strong> với mọi hàng $1\leq i\leq p$, đầu ra bằng $y_i=\sum_{j=1}^{q}a_{ij}v_j$.</p>
+    <div class="ex-card">Bước 1: mỗi tọa độ thuộc đúng một khối logic; Map duyệt khối và yield mỗi tích \( a_{ij} v_j \) đúng một lần.</div>
+    <div class="ex-card">Bước 2: khóa \( i \) gom đúng các tích của hàng \( i \) — tức đúng \( q \) tích (giữ cả tích 0).</div>
+    <div class="ex-card">Bước 3: Combine bảo toàn tổng (cộng kết hợp, giao hoán), nên Reduce nhận tổng đủ và yield \( \sum_j a_{ij} v_j = y_i \).</div>
+    <p class="ex-takeaway">Vì cả $p$ hàng đều đúng, véc tơ \( y = Av \) đúng.</p>
+    <aside class="notes">Giả thiết: đầu vào mỗi tọa độ 1 lần, số học chính xác. Nguồn: MMDS 2.3.1. Chuyển ý: hàng gồm toàn 0 vẫn được xuất vì ta giữ cả phần tử 0 trong bản ghi. Lưu ý: khi dùng số thực dấu phẩy động, phép cộng thực tế có làm tròn; ta không khẳng định tính kết hợp của số float.</aside>
+  </section>
+
+
+
+  <section class="motivation-slide example-slide" id="lec02-s03-07" data-slide-id="lec02-s03-07">
+<h2>Đếm từ phân biệt: bài toán</h2>
+<p><strong>Đầu vào:</strong> $n\geq1$ văn bản $d_1,\ldots,d_n$, đã tách từ nhất quán.</p>
+<p>Gọi $W_i$ là tập các từ xuất hiện trong văn bản $d_i$.</p>
+<p><strong>Đầu ra:</strong> số từ phân biệt trong toàn bộ các văn bản:</p>
+<p class="ex-equation">$D=\left|\bigcup_{i=1}^{n}W_i\right|$</p>
+<p class="ex-takeaway">Mỗi loại từ chỉ được đếm một lần, dù xuất hiện ở nhiều nơi.</p>
+<p class="ex-note">Nếu mọi văn bản đều rỗng thì $D=0$.</p>
+<p class="ex-source">Nguồn: MMDS, bài 2.3.1(d), tr.40; đổi miền số nguyên sang từ.</p>
+<aside class="notes">Giả thiết: n >= 1 văn bản, tách từ nhất quán. Nguồn: MMDS bài tập 2.3.1(d) tr.40, được chuyển từ đếm số nguyên sang đếm token, cùng cơ chế Combine mục 2.2/2.3.5; đây là biến thể dùng để dạy, không phải bài tập nguyên văn. Chuyển ý: đếm loại từ khó hơn đếm lượt vì một từ có thể xuất hiện trong nhiều tài liệu — cộng cục bộ sẽ đếm trùng.</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-11a" data-slide-id="lec02-s03-11a">
+<h2>Ứng dụng: Kích thước từ vựng</h2>
+<p>Biểu diễn kho trang web theo từ: cần biết có bao nhiêu từ khác nhau.</p>
+<svg width="100%" viewBox="0 0 1110 120" role="img" aria-label="Sơ đồ: kho trang web, rút ra các từ duy nhất, đếm được D bằng q" style="font-size:26px">
+    <rect x="20" y="25" width="300" height="70" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="170" y="68" text-anchor="middle" fill="#2f3e7a">Kho n trang web</text>
+    <text x="355" y="68" fill="#2f3e7a" font-size="34">→</text>
+    <rect x="400" y="25" width="330" height="70" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="565" y="68" text-anchor="middle" fill="#2f3e7a">Từ duy nhất (đại diện)</text>
+    <text x="765" y="68" fill="#2f3e7a" font-size="34">→</text>
+    <rect x="810" y="25" width="280" height="70" rx="10" fill="#bec8d9" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="950" y="68" text-anchor="middle" fill="#2f3e7a">D = q cột</text>
+  </svg>
+<div class="ex-card">“mèo chó mèo” và “chó chim” → ba từ: <strong>mèo, chó, chim</strong>.</div>
+<p class="ex-equation">$D=3\quad\Longrightarrow\quad q=3\text{ cột}$</p>
+<p class="ex-note">Khi dùng toàn bộ từ vựng của kho, mỗi từ khác nhau tương ứng một chiều.</p>
+<p class="ex-source">Nguồn: MMDS, bài 2.3.1(d), tr.40; <a href="https://nlp.stanford.edu/IR-book/html/htmledition/queries-as-vectors-1.html">Introduction to Information Retrieval, 6.3.2</a>.</p>
+<aside class="notes">
+<p>Ứng dụng nối với ma trận trang–từ đã giới thiệu ở bài nhân ma trận: số từ phân biệt cho số chiều nếu dùng toàn bộ từ vựng sau một quy tắc tách từ nhất quán và không lọc thêm từ. Với hai văn bản, có 5 lần xuất hiện nhưng 3 loại từ. Công việc 1 tạo một đại diện mỗi từ, công việc 2 đếm các đại diện.</p>
+<p>Kết quả D chỉ cho số lượng cột; gán từng từ thành chỉ số cột cần thêm một bước, không được thuật toán đếm tự thực hiện. Nếu chọn một tập từ nhỏ hơn để biểu diễn, số cột là kích thước tập đã chọn, không còn nhất thiết bằng D của toàn kho. Đây là ứng dụng do giảng viên yêu cầu, dựa trên thuật toán đếm phân biệt và cách biểu diễn tài liệu trong sách IR.</p>
+</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-08" data-slide-id="lec02-s03-08">
+    <h2>Từ phân biệt: đặc điểm và ý tưởng</h2>
+    <div class="ex-card">Vấn đề: từ trùng trong cùng tài liệu và giữa các tài liệu; cộng số loại từ của từng văn bản có thể <strong>đếm trùng</strong>.</div>
+    <div class="ex-grid2">
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon nhóm theo từ" viewBox="0 0 40 40" width="40" height="40"><circle cx="12" cy="12" r="6" fill="#2f3e7a"/><circle cx="28" cy="12" r="6" fill="#2f3e7a"/><circle cx="12" cy="28" r="6" fill="#2f3e7a"/><circle cx="28" cy="28" r="6" fill="#bec8d9"/></svg>
+        Công việc 1: nhóm theo từ \( w \), giữ một cặp \( (w, 1) \) cho mỗi từ hiện diện.
+      </div>
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon đếm bằng khóa chung g" viewBox="0 0 40 40" width="40" height="40"><rect x="6" y="6" width="28" height="28" rx="4" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="16" y="27" font-size="24" fill="#2f3e7a">g</text></svg>
+        Công việc 2: đếm các cặp ấy bằng khóa chung \( g \).
+      </div>
+    </div>
+    <figure class="ex-figure"><svg role="img" aria-label="Từ ở nhiều văn bản → Một cặp cho mỗi từ → Đếm với khóa chung g" viewBox="0 0 1110 115" width="1110" height="115"><defs><marker id="ex-arrow-8" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2f3e7a"/></marker></defs><rect x="10" y="24" width="310" height="65" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="165" y="64" text-anchor="middle" font-size="26" fill="#2f3e7a">Từ ở nhiều văn bản</text><rect x="400" y="24" width="310" height="65" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="555" y="64" text-anchor="middle" font-size="26" fill="#2f3e7a">Một cặp cho mỗi từ</text><rect x="790" y="24" width="310" height="65" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="945" y="64" text-anchor="middle" font-size="26" fill="#2f3e7a">Đếm với khóa chung g</text><path d="M325 56 H392" fill="none" stroke="#2f3e7a" stroke-width="3" marker-end="url(#ex-arrow-8)"/><path d="M715 56 H782" fill="none" stroke="#2f3e7a" stroke-width="3" marker-end="url(#ex-arrow-8)"/></svg></figure>
+    <p class="ex-note">\( g \) là <strong>nhãn cố định</strong> dùng để gom toàn bộ số đếm — không phải một từ. Đây là phương án dùng hai công việc đang dạy, không phải cách duy nhất.</p>
+    <aside class="notes">Giả thiết: một từ có thể ở nhiều tài liệu, nên phải loại trùng trước khi đếm. Nguồn: MMDS 2.2, 2.3.5. Chuyển ý: g chỉ là nhãn; không khẳng định hai công việc là cách cài đặt duy nhất — hôm nay ta dạy phương án hai công việc.</aside>
+  </section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-09" data-slide-id="lec02-s03-09">
+<h2>Từ phân biệt: các hàm</h2>
+<p class="ex-note">$L$ là danh sách giá trị cùng khóa, khác rỗng; $g$ là khóa chung cố định.</p>
+<table class="ex-table ex-distinct-functions">
+<thead><tr><th>Hàm</th><th>Công việc 1: loại trùng</th><th>Công việc 2: đếm</th></tr></thead>
+<tbody>
+<tr><td>Map</td><td>Với mỗi lần từ $w$ xuất hiện trong $d_i$, phát $(w,1)$.</td><td>Nhận $(w,1)$, phát $(g,1)$.</td></tr>
+<tr><td>Combine</td><td>Nhận $(w,L)$, phát một cặp $(w,1)$.</td><td>Nhận $(g,L)$, phát $(g,\sum_{v\in L}v)$.</td></tr>
+<tr><td>Reduce</td><td>Nhận $(w,L)$, phát một cặp $(w,1)$.</td><td>Nhận $(g,L)$, phát $(g,\sum_{v\in L}v)$.</td></tr>
+</tbody></table>
+<p class="ex-takeaway">Đầu ra công việc 1 là đầu vào công việc 2. Giá trị cuối là $D$.</p>
+<p class="ex-note">Nếu không có từ: chương trình điều phối trả 0; không gọi Reduce với nhóm rỗng.</p>
+<aside class="notes">Giả thiết: Công việc 1 chuyển cặp (w, 1) sang Công việc 2; g là nhãn cố định. Nguồn: MMDS 2.2/2.3.5. Chuyển ý: hai vai của Combine khác nhau giữa hai job — Công việc 1 giữ sự hiện diện, Công việc 2 giữ tổng; lấy value Công việc 2 làm D, và trả 0 khi nhóm rỗng do điều phối khởi tạo.</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-10" data-slide-id="lec02-s03-10">
+    <h2>Từ phân biệt: chạy tay</h2>
+    <p class="ex-equation">\( d_1 = \text{mèo chó mèo},\; d_2 = \text{chó chim} \).</p>
+    <table class="ex-table">
+      <thead><tr><th>Bước</th><th>Dữ liệu</th></tr></thead>
+      <tbody>
+        <tr><td>Map phát 5 cặp</td><td>(mèo,1), (chó,1), (mèo,1) từ d1; (chó,1), (chim,1) từ d2</td></tr>
+        <tr><td>Combine 1 từng Map</td><td>d1: mèo 1, chó 1 — d2: chó 1, chim 1</td></tr>
+        <tr><td>Công việc 1 Reduce nhóm</td><td>mèo [1] → mèo 1; chó [1, 1] → chó 1; chim [1] → chim 1</td></tr>
+        <tr><td>Công việc 2</td><td>Map phát (g,1) ba lần → nhóm [1,1,1] → Reduce (g,3); lần này không dùng Combine ở công việc 2.</td></tr>
+      </tbody>
+    </table>
+    <p class="ex-note">Kết luận: 3 loại từ (mèo, chó, chim), 5 lần xuất hiện. Không cộng số đếm cục bộ 2 + 2 để ra 4.</p>
+    <aside class="notes">Giả thiết: cùng dữ liệu ví dụ của bài; Map 1 nhận d1, Map 2 nhận d2. Nguồn: ví dụ số tự chọn theo đặc tả. Chuyển ý: chó hiện ở cả hai tài liệu nhưng chỉ được đếm một lần vì Công việc 1 đã phát đúng 1 cặp mỗi từ; caption nhấn mạnh 3 loại từ khác 5 lần xuất hiện.</aside>
+  </section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-11" data-slide-id="lec02-s03-11">
+    <h2>Từ phân biệt: tính đúng</h2>
+    <div class="ex-card">Mỗi từ xuất hiện có ít nhất một cặp Map; khi gom theo \( w \), Công việc 1 sinh đúng một cặp \( (w, 1) \) cho mỗi từ.</div>
+    <div class="ex-card">Từ không xuất hiện thì không tự sinh cặp nào — nên đầu ra Công việc 1 tương ứng 1–1 với các từ khác nhau.</div>
+    <div class="ex-card">Công việc 2: mỗi cặp góp đúng một số 1 vào khóa \( g \), nên giá trị cuối bằng số từ khác nhau \( D \).</div>
+    <p class="ex-takeaway">Combine 1 giữ sự hiện diện (loại trùng), Combine 2 giữ tổng; nếu mọi tài liệu rỗng thì không có cặp nào và giá trị mặc định 0 là đúng.</p>
+    <aside class="notes">Giả thiết: Công việc 1 đầu vào gồm mọi cặp (w, 1) từ Map; nhóm rỗng không gọi Reduce nên cần khởi tạo 0 từ chương trình điều phối. Nguồn: MMDS 2.2/2.3.5. Chuyển ý: bất biến then chốt là "đúng một cặp cho mỗi từ khác nhau" — mọi bước sau chỉ đếm các cặp này.</aside>
+  </section>
+
+
+
+  <section class="motivation-slide example-slide" id="lec02-s03-12" data-slide-id="lec02-s03-12">
+<h2>Trung bình cộng: bài toán</h2>
+<p><strong>Đầu vào:</strong> dãy $a_1,\ldots,a_n\in\mathbb{R}$, với $n\geq1$.</p>
+<p><strong>Đầu ra:</strong> trung bình cộng của toàn bộ dãy:</p>
+<p class="ex-equation">$\mu=\frac{1}{n}\sum_{i=1}^{n}a_i$</p>
+<div class="ex-card">Chia dữ liệu theo vị trí: hai phần tử bằng nhau vẫn là hai đóng góp.</div>
+<p class="ex-note">Giả sử số học chính xác. Trung bình của dãy rỗng không xác định.</p>
+<p class="ex-source">Nguồn: MMDS, bài 2.3.1(b), tr.40; mở miền số nguyên sang số thực.</p>
+<aside class="notes">Giả thiết: n >= 1, a_i thuộc R, số học chính xác. Nguồn: MMDS bài tập 2.3.1(b) tr.40; chuyển integer sang thực là mở rộng cùng thuật toán. Chuyển ý: trung bình không thuần kết hợp khi nhóm lệch kích thước — ví dụ dãy 2, 4, 9: lấy trung bình của 3 và 9 cho 6, nhưng trung bình của cả dãy là 5; cần giữ thêm số lượng.</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-16a" data-slide-id="lec02-s03-16a">
+<h2>Ứng dụng: Số từ trung bình mỗi trang</h2>
+<p>Với $n\geq1$ trang web, đặt $a_i$ là số lần từ xuất hiện trong trang $i$.</p>
+<p class="ex-note">Hai trang “mèo chó mèo” và “chó chim” có lần lượt 3 và 2 từ.</p>
+<svg width="100%" viewBox="0 0 1110 120" role="img" aria-label="Sơ đồ luồng: hai trang có 3 và 2 từ, ghép thành tổng 5 từ trên 2 trang, kết quả 2,5 từ mỗi trang" style="font-size:26px">
+    <rect x="20" y="25" width="280" height="70" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="160" y="68" text-anchor="middle" fill="#2f3e7a">(3,1) và (2,1)</text>
+    <text x="335" y="68" fill="#2f3e7a" font-size="34">→</text>
+    <rect x="380" y="25" width="300" height="70" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="530" y="68" text-anchor="middle" fill="#2f3e7a">Tổng = 5; số trang = 2</text>
+    <text x="715" y="68" fill="#2f3e7a" font-size="34">→</text>
+    <rect x="760" y="25" width="330" height="70" rx="10" fill="#bec8d9" stroke="#2f3e7a" stroke-width="2"/>
+    <text x="925" y="68" text-anchor="middle" fill="#2f3e7a">2,5 từ / trang</text>
+  </svg>
+<p class="ex-equation">$\mu=\frac{3+2}{2}=2{,}5\text{ từ/trang}$</p>
+<p class="ex-takeaway">Giữ tổng số từ và số trang; chỉ chia sau khi gộp toàn bộ.</p>
+<p class="ex-source">Nguồn: ứng dụng thuật toán từ MMDS, bài 2.3.1(b), tr.40.</p>
+<aside class="notes">
+<p>Đây là thống kê mô tả độ dài văn bản trong kho. Dùng cùng quy tắc tách từ cho mọi trang; a_i là số lần xuất hiện từ, không phải số loại từ. Bước đếm số từ từng trang tạo dãy a_1..a_n, rồi áp dụng thuật toán trung bình sẽ được đặc tả ở các slide tiếp theo.</p>
+<p>Map tạo giá trị (3,1) và (2,1), cùng khóa g; gộp được tổng 5 và số trang 2. Reduce chia ra 2,5. Cặp (5,2) trong hình là trạng thái trước phép chia, không phải giá trị đầu ra của Reduce. Combine tùy chọn và chỉ gộp dữ liệu cục bộ.</p>
+<p>Trang rỗng vẫn là một trang và phải đóng góp (0,1); bỏ nó sẽ làm sai mẫu số. Kho không có trang nào thì trung bình không xác định. Hai bước có thể được tổ chức khác nhau trong cài đặt; slide này áp dụng lại thuật toán trung bình, không mở thêm thuật toán mới.</p>
+</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-13" data-slide-id="lec02-s03-13">
+    <h2>Trung bình cộng: đặc điểm và ý tưởng</h2>
+    <div class="ex-grid2">
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon phần không đều" viewBox="0 0 40 40" width="40" height="40"><rect x="4" y="18" width="12" height="18" fill="#bec8d9"/><rect x="18" y="8" width="12" height="28" fill="#2f3e7a"/></svg>
+        Các phần có kích thước khác nhau: [2, 4] có trung bình 3; [9] có trung bình 9.
+      </div>
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon trọng số số lượng" viewBox="0 0 40 40" width="40" height="40"><path d="M4 30 L20 8 L36 30 Z" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><circle cx="20" cy="24" r="4" fill="#2f3e7a"/></svg>
+        Nhóm lớn hơn phải có trọng số lớn hơn: lấy trung bình của 3 và 9 cho 6 — sai, vì trung bình của 3 số 2, 4, 9 là 5.
+      </div>
+      <div class="ex-card">
+        <svg role="img" aria-label="Icon tổng và đếm" viewBox="0 0 40 40" width="40" height="40"><text x="4" y="30" font-size="26" fill="#2f3e7a">Σ</text><text x="22" y="30" font-size="26" fill="#bec8d9">#</text></svg>
+        Giữ trạng thái cặp \( (s, c) \) với \( s \) = tổng, \( c \) = số lượng.
+      </div>
+    </div>
+    <figure class="ex-figure"><svg role="img" aria-label="Trạng thái (s, c) → Cộng tổng và số lượng → Chia tổng cho số lượng" viewBox="0 0 1110 115" width="1110" height="115"><defs><marker id="ex-arrow-13" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2f3e7a"/></marker></defs><rect x="10" y="24" width="310" height="65" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="165" y="64" text-anchor="middle" font-size="26" fill="#2f3e7a">Trạng thái (s, c)</text><rect x="400" y="24" width="310" height="65" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="555" y="64" text-anchor="middle" font-size="26" fill="#2f3e7a">Cộng tổng và số lượng</text><rect x="790" y="24" width="310" height="65" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/><text x="945" y="64" text-anchor="middle" font-size="26" fill="#2f3e7a">Chia tổng cho số lượng</text><path d="M325 56 H392" fill="none" stroke="#2f3e7a" stroke-width="3" marker-end="url(#ex-arrow-13)"/><path d="M715 56 H782" fill="none" stroke="#2f3e7a" stroke-width="3" marker-end="url(#ex-arrow-13)"/></svg></figure>
+    <aside class="notes">Giả thiết: các nhóm có thể kích thước khác nhau, nên phải trọng số theo số lượng. Nguồn: MMDS 2.2. Chuyển ý: ví dụ dãy 2, 4, 9: lấy trung bình của 3 và 9 cho 6 — sai; trung bình của cả 3 số là 5 — đúng. Đây chính là lỗi "trung bình của trung bình". Trường hợp hàm trung bình không cộng được trực tiếp chính là lý do dùng cặp (s, c).</aside>
+  </section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-14" data-slide-id="lec02-s03-14">
+<h2>Trung bình cộng: các hàm</h2>
+<p>$g$ là khóa chung; $L$ là danh sách các trạng thái $(s,c)$.</p>
+<p class="ex-note">Đặt $S=\sum_{(s,c)\in L}s$, $C=\sum_{(s,c)\in L}c$: cộng từng thành phần, giữ mọi lần lặp.</p>
+<table class="ex-table">
+<thead><tr><th>Hàm</th><th>Đầu vào → cặp được phát</th><th>Kiểu giá trị phát</th></tr></thead>
+<tbody>
+<tr><td>Map</td><td>$a_i\ \longrightarrow\ (g,(a_i,1))$</td><td>Cặp (tổng, số lượng)</td></tr>
+<tr><td>Combine</td><td>$(g,L)\ \longrightarrow\ (g,(S,C))$</td><td>Cặp (tổng, số lượng)</td></tr>
+<tr><td>Reduce</td><td>$(g,L)\ \longrightarrow\ (g,S/C)$</td><td>Một số</td></tr>
+</tbody></table>
+<p class="ex-takeaway">Combine giữ tổng và số lượng; Reduce chỉ chia sau khi gộp toàn bộ.</p>
+<aside class="notes">Giả thiết: g là khóa chung, L là danh sách cặp (s, c); sum trên L là tổng thành phần. Nguồn: MMDS 2.2. Chuyển ý: nếu dùng Reduce (phát S/C) làm Combine, các cặp tiếp theo không thể gộp nữa — sai chữ ký và sai ngữ nghĩa. Combine giữ kiểu giá trị trung gian; phép chia chỉ diễn ra tại Reduce cuối.</aside>
+</section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-15" data-slide-id="lec02-s03-15">
+    <h2>Trung bình cộng: chạy tay</h2>
+    <p class="ex-equation">Map 1 nhận \( [2, 4] \), Map 2 nhận \( [9] \); tổng cộng \( n = 3 \).</p>
+    <table class="ex-table">
+      <thead><tr><th>Bước</th><th>Dữ liệu</th></tr></thead>
+      <tbody>
+        <tr><td>Map 1</td><td>phát (g, (2,1)), (g, (4,1)) → Combine phát (g, (6, 2))</td></tr>
+        <tr><td>Map 2</td><td>phát (g, (9,1)) → Combine phát (g, (9, 1))</td></tr>
+        <tr><td>Reduce</td><td>L = [(6, 2), (9, 1)] → S = 15, C = 3 → phát (g, 5)</td></tr>
+      </tbody>
+    </table>
+    <p class="ex-note">\( \mu = 15 / 3 = 5 \). Lưu ý: không chia trong Combine — Combine chỉ cộng hai thành phần.</p>
+    <aside class="notes">Giả thiết: Map 1 giữ [2, 4], Map 2 giữ [9], khóa chung g. Nguồn: ví dụ số tự chọn theo đặc tả. Chuyển ý: nếu chia cục bộ ta được trung bình của (3, 9) = 6 — sai; cặp (s, c) cho phép Reduce tính đúng 5 với trọng số 2 và 1.</aside>
+  </section>
+
+  <section class="motivation-slide example-slide" id="lec02-s03-16" data-slide-id="lec02-s03-16">
+    <h2>Trung bình cộng: tính đúng</h2>
+    <p class="ex-note"><strong>Bất biến:</strong> mỗi cặp \( (s, c) \) tóm tắt đúng tổng và số vị trí gốc của một nhóm phần tử rời nhau.</p>
+    <div class="ex-card">Cơ sở: Map phát giá trị \( (a_i, 1) \) — tổng và số lượng của một vị trí.</div>
+    <div class="ex-card">Bước gộp: các nhóm rời nhau, cộng hai thành phần bảo toàn tổng và tổng số vị trí.</div>
+    <div class="ex-card">Reduce cuối: \( S = \sum_{i=1}^{n} a_i \), \( C = n > 0 \), nên \( S/C = \mu \) đúng.</div>
+    <p class="ex-takeaway">Có hoặc không có Combine, kết quả vẫn bảo toàn vì mọi phép gộp chỉ cộng trên nhóm rời nhau và số học chính xác.</p>
+    <aside class="notes">Giả thiết: số thực chính xác, n >= 1. Nguồn: MMDS 2.2 và bài tập 2.3.1(b). Chuyển ý: chứng minh quy nạp ngắn — bất biến đúng ở cơ sở (a_i, 1), và mỗi lần gộp hai nhóm rời nhau giữ bất biến; Reduce cuối nhận các nhóm bao trùm toàn bộ dãy, nên s = tổng, c = n > 0, μ = s/c. Chương trình kết thúc hữu hạn vì số cặp hữu hạn. Lưu ý: float thực tế có làm tròn, không khẳng định tính kết hợp của float.</aside>
+  </section>
+
+
+
+  <section class="motivation-slide example-slide" id="lec02-s03-17" data-slide-id="lec02-s03-17">
+    <h2>Câu hỏi kiểm tra</h2>
+<p>Câu hỏi:</p>
+    <div class="ex-card">1. Trong nhân ma trận – véc tơ, tại sao khóa là hàng \( i \) chứ không phải cột \( j \)?</div>
+    <div class="ex-card">2. Có thể cộng số từ phân biệt của từng văn bản để ra số từ phân biệt toàn bộ không? Kiểm tra với \( d_1 = \) mèo chó mèo, \( d_2 = \) chó chim.</div>
+    <div class="ex-card">3. Có thể dùng hàm Reduce của bài trung bình làm Combine không? Nếu không, cần giữ gì?</div>
+    <aside class="notes">Đáp án: (1) khóa hàng i vì y_i là tổng các tích theo hàng i — các tích cùng hàng phải về chung một khóa để được cộng thành y_i, còn cột j không ứng với thành phần nào của kết quả. (2) Không: cộng số loại từ cục bộ cho 2 + 2 = 4, nhưng chó bị đếm hai lần; số từ phân biệt đúng là 3. (3) Không: Reduce phát S/C (một số) nên các cặp sau không gộp được; Combine cần giữ cặp (s, c) và chỉ cộng hai thành phần. Ví dụ dãy 2, 4, 9: lấy trung bình của 3 và 9 cho 6 (không trọng số — sai), còn trung bình có trọng số đúng là 5.</aside>
+  </section>
+</section>
+
     </div>
   </div>
   <script src="revealjs/dist/reveal.js"></script>

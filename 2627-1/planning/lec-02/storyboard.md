@@ -171,3 +171,172 @@ Theo yêu cầu, nối từ ví dụ đếm từ sang chữ ký hai hàm, nhóm/
 - Đáp án trong notes: Map1 (mèo,2),(chó,1); Map2 (chó,1),(chim,1); chó nhận [1,1], trả (chó,2); khóa khác nhau có thể cùng tác vụ nhưng nhóm riêng, một máy có thể chạy nhiều tác vụ.
 - Không thêm hình vì sản phẩm học tập là sinh viên tự mô phỏng từ dữ kiện ngắn. Dự kiến 3 phút, kiểm tra trên lớp theo yêu cầu người dùng; không là bài tập recitation trích nguồn. Cơ sở: mô hình và ví dụ đã đối chiếu MMDS 2.2.1–2.2.4.
 - Kết section mô hình tại đây. Hệ thống và Chi phí được tách thành hai section chính riêng trong outline; chưa triển khai trong lần sửa này.
+
+## Section 3 — Các ví dụ Map-Reduce
+
+Chức năng: vận dụng mô hình đã học để chọn khóa, giá trị trung gian và phép gộp; chứng minh bảo toàn đóng góp và kết quả. Điểm vào: Map/Reduce/Combine ở section 2; điểm ra: ba thuật toán để dùng tiếp khi học hệ thống và chi phí. Không thêm hai section đó trong lần này.
+
+Theo chỉ dẫn cụ thể, mỗi bài giữ đúng thứ tự: bài toán hình thức → ứng dụng → đặc điểm và ý tưởng → các hàm → ví dụ → chứng minh. Đây là ngoại lệ có chủ đích so với chu trình mặc định. Ví dụ số tự chọn theo yêu cầu, không phải số liệu thực nghiệm hoặc bài recitation nguyên văn. Thời lượng dự kiến 49 phút cho section (gồm ba slide ứng dụng mới); bài vẫn đang được xây từng phần, chưa chốt tổng 120+60 phút.
+
+### `lec02-s03-01` — Mở phần: Các ví dụ Map-Reduce
+
+- Mục đích: Chọn khóa và giá trị theo đầu ra cần tính.
+- Câu chốt và kết nối: Mô hình chung → ba kiểu gộp: tổng theo hàng, hiện diện theo từ, tổng và số lượng.
+- Nội dung, cách thể hiện: Ba hàng giới thiệu, chưa thêm đặc tả.
+- Nguồn: MMDS 2.3.1; bài 2.3.1(b,d), tr.40.
+- Thời lượng dự kiến: 1 phút.
+
+### `lec02-s03-02` — Bài toán nhân ma trận–véc tơ
+
+- Mục đích: Phát biểu đúng đầu vào, đầu ra và giả thiết.
+- Câu chốt và kết nối: Ma trận A kích thước p×q, véc tơ v có q phần tử → y=Av có p phần tử; mỗi tọa độ góp đúng một lần.
+- Nội dung, cách thể hiện: Công thức trung tâm; p,q>=1, đủ pq tọa độ cả 0, v vừa RAM mỗi Map, số học chính xác.
+- Nguồn: MMDS 2.3.1, tr.31–32 và bài 2.3.2, tr.40.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-06a` — Ứng dụng: Tương đồng trang web và truy vấn
+
+- Vị trí: ngay sau lec02-s03-02 (phát biểu bài toán), trước lec02-s03-03 (đặc điểm và ý tưởng).
+- Mục đích: Ánh xạ trang web và truy vấn vào bài toán nhân ma trận–véc tơ.
+- Câu chốt và dữ kiện: A: trang×từ; v: truy vấn; y: điểm cosine. Các hàng A và v khác 0 trước chuẩn hóa, có độ dài Euclid1.
+- Cách thể hiện và notes: Hai thẻ biểu diễn, công thức y=Av và sơ đồ nhân. Notes phân biệt điểm số với bước xếp hạng; ví dụ9,8,9,11 ở slide ví dụ sau chưa chuẩn hóa.
+- Nguồn: Introduction to Information Retrieval, 6.3.1–6.3.2; MMDS 2.3.1.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-03` — Nhân ma trận–véc tơ: đặc điểm và ý tưởng
+
+- Mục đích: Giải thích chọn khóa hàng i.
+- Câu chốt và kết nối: Các tích nằm phân tán → nhóm đúng các tích của một hàng.
+- Nội dung, cách thể hiện: Icon cạnh đặc điểm và hình ba máy: máy1 chứa B1/B2, máy2 B2/B3, máy3 B3/B1. Ba khối logic, mỗi khối hai bản sao minh họa. Mỗi bản ghi logic chỉ góp một lần; khối không bắt buộc tương ứng một hàng.
+- Nguồn: MMDS 2.3.1–2.3.2, tr.31–32.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-04` — Nhân ma trận–véc tơ: các hàm
+
+- Mục đích: Đọc được Map và phép gộp dùng chung.
+- Câu chốt và kết nối: Map(B) duyệt mọi bản ghi (i,j,a_ij) trong khối và yield(i,a_ij*v[j]); Combine và Reduce yield tổng cùng khóa hàng.
+- Nội dung, cách thể hiện: Giả mã ngắn, danh sách L được định nghĩa; Combine tùy chọn.
+- Nguồn: MMDS 2.3.1; 2.2.4.
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-05` — Nhân ma trận–véc tơ: Ví dụ
+
+- Mục đích: Tái tạo đủ các tích và kết quả.
+- Câu chốt và kết nối: A=[[1,2,0,1],[0,1,2,0],[2,0,1,1],[1,1,0,2]], v=[1,2,3,4] → y=[9,8,9,11].
+- Nội dung, cách thể hiện: Bốn khối2×2 B11,B12,B21,B22; đường chia hàng/cột trong ma trận. Map mỗi khối yield4cặp; Combine mỗi khối tạo2tổng theo hàng. Bảng hiển thị đủ16cặp. Reduce nhận [5,4],[2,6],[2,7],[3,8].
+- Nguồn: Ví dụ tự chọn từ thuật toán MMDS 2.3.1.
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-06` — Nhân ma trận–véc tơ: tính đúng
+
+- Mục đích: Chứng minh kết quả cho hàng i bất kỳ.
+- Câu chốt và kết nối: Đủ và không lặp các tích của hàng i; gộp giữ tổng → y_i đúng.
+- Nội dung, cách thể hiện: Ba bước suy luận; notes hàng toàn 0 và giới hạn số dấu phẩy động.
+- Nguồn: Suy diễn từ đặc tả MMDS 2.3.1.
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-07` — Đếm từ phân biệt: bài toán
+
+- Mục đích: Phân biệt số loại từ với số lần xuất hiện.
+- Câu chốt và kết nối: W_i là tập từ trong d_i; D là kích thước hợp các W_i.
+- Nội dung, cách thể hiện: Công thức và giả thiết tách từ nhất quán; tất cả rỗng trả 0.
+- Nguồn: Bài MMDS 2.3.1(d), tr.40, đổi miền theo user.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-11a` — Ứng dụng: Kích thước từ vựng
+
+- Vị trí: ngay sau lec02-s03-07 (phát biểu bài toán), trước lec02-s03-08 (đặc điểm và ý tưởng).
+- Mục đích: Dùng số từ phân biệt để biết số chiều biểu diễn theo toàn bộ từ vựng.
+- Câu chốt và dữ kiện: D=3 với mèo,chó,chim; q=D khi không chọn lọc thêm từ.
+- Cách thể hiện và notes: Sơ đồ kho → từ duy nhất → kích thước. Đếm D không tự gán chỉ số cột.
+- Nguồn: Ứng dụng bài MMDS2.3.1(d), tr.40; IR6.3.2.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-08` — Từ phân biệt: đặc điểm và ý tưởng
+
+- Mục đích: Giải thích cần loại trùng toàn cục trước khi cộng.
+- Câu chốt và kết nối: Trùng trong/giữa văn bản → công việc1 loại trùng → công việc2 đếm.
+- Nội dung, cách thể hiện: Icon cạnh đặc điểm và sơ đồ hai công việc; g là khóa chung cố định.
+- Nguồn: MMDS 2.2; 2.3.5; bài 2.3.1(d).
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-09` — Từ phân biệt: các hàm
+
+- Mục đích: Theo dõi đầu ra công việc1 trở thành đầu vào công việc2.
+- Câu chốt và kết nối: Công việc1 mỗi từ phát1 đại diện; công việc2 đưa mỗi đại diện về g để cộng.
+- Nội dung, cách thể hiện: Bảng/khối hai công việc, Map/Combine/Reduce mỗi công việc; rỗng do chương trình điều phối trả 0.
+- Nguồn: Lời giải diễn giải bài MMDS 2.3.1(d).
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-10` — Từ phân biệt: chạy tay
+
+- Mục đích: Tính số loại từ qua hai công việc.
+- Câu chốt và kết nối: mèo chó mèo / chó chim → mèo,chó,chim → D=3.
+- Nội dung, cách thể hiện: Hiển thị cặp Map, Combine, nhóm và kết quả; 5 lần xuất hiện, 3 loại từ; cộng cục bộ 2+2 sai.
+- Nguồn: Dùng lại ví dụ section2, thuật toán từ nguồn.
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-11` — Từ phân biệt: tính đúng
+
+- Mục đích: Chứng minh không thiếu và không đếm lặp từ.
+- Câu chốt và kết nối: Từ xuất hiện ↔ đúng1 cặp công việc1; công việc2 cộng1 mỗi cặp.
+- Nội dung, cách thể hiện: Lập luận hai chiều, Combine giữ hiện diện; trường hợp rỗng.
+- Nguồn: Suy diễn từ đặc tả hai công việc.
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-12` — Trung bình cộng: bài toán
+
+- Mục đích: Nêu miền n>=1 và đầu ra trung bình.
+- Câu chốt và kết nối: Dãy a_1..a_n → tổng chia n; giữ các vị trí dù giá trị trùng.
+- Nội dung, cách thể hiện: Công thức trung tâm, số học chính xác; n=0 không xác định.
+- Nguồn: MMDS bài 2.3.1(b), tr.40; mở miền sang thực.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-16a` — Ứng dụng: Số từ trung bình mỗi trang
+
+- Vị trí: ngay sau lec02-s03-12 (phát biểu bài toán), trước lec02-s03-13 (đặc điểm và ý tưởng).
+- Mục đích: Diễn giải trung bình như thống kê độ dài trang.
+- Câu chốt và dữ kiện: Hai trang có3và2từ; trạng thái(3,1),(2,1) → tổng5,sốtrang2 →2,5từ/trang.
+- Cách thể hiện và notes: Sơ đồ tổng–số lượng và công thức; đếm trang rỗng trong mẫu số, không có trang thì không xác định.
+- Nguồn: Ứng dụng bài MMDS2.3.1(b), tr.40.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-13` — Trung bình cộng: đặc điểm và ý tưởng
+
+- Mục đích: Nhận ra vì sao phải giữ tổng cùng số lượng.
+- Câu chốt và kết nối: [2,4] và [9] có kích thước khác nhau; trung bình các trung bình 6 sai, kết quả đúng 5.
+- Nội dung, cách thể hiện: Icon các phần không đều, số lượng, phép gộp; sơ đồ trạng thái (s,c).
+- Nguồn: Diễn giải bài 2.3.1(b) bằng cơ chế Combine 2.2.4.
+- Thời lượng dự kiến: 2 phút.
+
+### `lec02-s03-14` — Trung bình cộng: các hàm
+
+- Mục đích: Phân biệt kiểu đầu ra Combine với Reduce.
+- Câu chốt và kết nối: Map phát (a_i,1); Combine cộng tổng/đếm; Reduce chia sau khi gộp toàn bộ.
+- Nội dung, cách thể hiện: Giả mã/bảng hàm ngắn, g là khóa chung, L là danh sách trạng thái.
+- Nguồn: Lời giải bài MMDS 2.3.1(b).
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-15` — Trung bình cộng: chạy tay
+
+- Mục đích: Tính được trạng thái qua từng bước.
+- Câu chốt và kết nối: [2,4]|[9] → (6,2),(9,1) → (15,3) → 5.
+- Nội dung, cách thể hiện: Bảng cặp Map và Combine; Reduce nhận đủ trạng thái, chia một lần.
+- Nguồn: Ví dụ tự chọn theo yêu cầu.
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-16` — Trung bình cộng: tính đúng
+
+- Mục đích: Dùng bất biến tổng và số lượng để chứng minh.
+- Câu chốt và kết nối: Mỗi trạng thái tóm tắt một nhóm vị trí rời nhau; cộng bảo toàn → (tổng,n).
+- Nội dung, cách thể hiện: Cơ sở một phần tử, bước gộp, kết luận n>0; notes kết thúc hữu hạn.
+- Nguồn: Suy diễn từ đặc tả bài MMDS 2.3.1(b).
+- Thời lượng dự kiến: 3 phút.
+
+### `lec02-s03-17` — Câu hỏi kiểm tra
+
+- Mục đích: Giải thích quyết định thiết kế trong cả ba bài.
+- Câu chốt và kết nối: Khóa hàng; loại trùng trước khi đếm; giữ cặp tổng–số lượng.
+- Nội dung, cách thể hiện: Ba câu hỏi, đáp án trong notes; dùng lại dữ kiện đã học.
+- Nguồn: Kiểm tra ngắn theo yêu cầu, không recitation.
+- Thời lượng dự kiến: 3 phút.
