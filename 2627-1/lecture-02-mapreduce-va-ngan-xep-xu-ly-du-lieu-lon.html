@@ -155,6 +155,49 @@
     .reveal #lec02-s03-05 .matrix-block-trace .ex-equation { font-size:30px; }
     .reveal #lec02-s03-05 .matrix-block-trace .ex-table { font-size:23px; margin:0; }
     .reveal #lec02-s03-05 .matrix-block-trace th, .reveal #lec02-s03-05 .matrix-block-trace td { padding:8px 10px; }
+
+/* CSS scoped cho .cost-slide — chỉ áp dụng trong section Chi phí và lợi ích của song song hóa */
+.reveal .cost-slide { font-size: 30px; text-align: left; }
+.reveal .cost-slide h2 { font-size: 38px; color: #2f3e7a; line-height: 1.18; margin-bottom: 20px; }
+
+/* Slide mở phần */
+.reveal .cost-open h1 { font-size: 1.6em; color: #2f3e7a; line-height: 1.2; margin-bottom: .4em; }
+.reveal .cost-open .cost-lead { font-size: 30px; line-height: 1.35; max-width: 1050px; margin: .3em 0 .7em; }
+.cost-icons { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; margin: 24px 0 18px; }
+.cost-icon-card { border: 2px solid #2f3e7a; border-radius: 10px; background: #f8fafc; padding: 22px 16px; text-align: center; }
+.reveal .cost-icon-card p { font-size: 28px; margin: 14px 0 0; color: #2f3e7a; }
+.cost-icon-card svg { display: block; margin: 0 auto; }
+.reveal .cost-slide .cost-note { font-size: 26px; color: #526070; }
+
+/* Hình timeline lớn, canh giữa */
+.reveal .cost-slide .ex-figure { margin: 16px auto 0; text-align: center; }
+.reveal .cost-slide .ex-figure svg { display: block; margin: 0 auto; max-width: 100%; }
+.reveal .cost-slide .cost-figure { display: block; margin: 0 auto; width: 100%; max-height: 340px; object-fit: contain; }
+
+/* Công thức và bảng */
+.reveal .cost-slide .ex-equation { font-size: 34px; color: #2f3e7a; text-align: center; margin: 18px 0; }
+.reveal .cost-slide .ex-table { width: 100%; font-size: 28px; line-height: 1.35; margin: 16px 0; border-collapse: collapse; }
+.reveal .cost-slide .ex-table th { color: #2f3e7a; background: #edf4ff; }
+.reveal .cost-slide .ex-table th, .reveal .cost-slide .ex-table td { padding: 10px 14px; vertical-align: top; border-bottom: 1px solid #bec8d9; }
+
+/* Slide câu hỏi kiểm tra: bảng trái, câu hỏi phải */
+.reveal .cost-slide .quiz-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 36px; align-items: start; }
+
+/* Ghi chú và nguồn */
+.reveal .cost-slide .ex-note { font-size: 24px; color: #526070; margin: 10px 0; }
+.reveal .cost-slide .ex-takeaway { font-size: 28px; color: #2f3e7a; margin-top: 16px; }
+.reveal .cost-slide .ex-source { font-size: 18px; color: #526070; margin-top: 8px; }
+
+/* Danh sách câu hỏi kiểm tra */
+.reveal .cost-slide ol { font-size: 28px; line-height: 1.4; }
+.reveal .cost-slide ol li { margin: 14px 0; }
+
+.reveal .cost-slide .cost-assumptions {font-size:26px; line-height:1.3; color:#526070; margin:10px 0;}
+.reveal #lec02-s04-04 .cost-figure {max-height:290px;}
+.reveal #lec02-s04-04 .ex-equation {margin:10px 0; font-size:32px;}
+.reveal #lec02-s04-11 .ex-table {font-size:26px; margin-top:0;}
+.reveal #lec02-s04-11 .ex-table td,.reveal #lec02-s04-11 .ex-table th {padding:7px 10px;}
+
   </style>
 </head>
 <body>
@@ -168,7 +211,7 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li></ul>
+          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li></ul>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -908,6 +951,206 @@ Reduce(i, L):  yield(i, sum(L))
   </section>
 </section>
 
+<section id="parallel-cost" aria-label="Chi phí và lợi ích của song song hóa">
+
+<section id="lec02-s04-01" data-slide-id="lec02-s04-01" class="motivation-slide example-slide cost-slide cost-open">
+  <h1>4 · Chi phí và lợi ích của song song hóa</h1>
+  <p class="cost-lead">Các hàm đã được đặc tả; phần này đánh giá công việc, thời gian và lượng truyền khi chạy trên nhiều máy.</p>
+  <div class="cost-icons">
+    <div class="cost-icon-card">
+      <svg role="img" aria-label="Icon tổng phép toán W" viewBox="0 0 60 60" width="60" height="60"><rect x="6" y="6" width="48" height="48" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><text x="30" y="41" text-anchor="middle" font-size="30" fill="#2f3e7a">W</text></svg>
+      <p><strong>W</strong> — tổng phép toán</p>
+    </div>
+    <div class="cost-icon-card">
+      <svg role="img" aria-label="Icon thời gian T_P giây" viewBox="0 0 60 60" width="60" height="60"><circle cx="30" cy="30" r="24" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><path d="M30 16 V30 L40 36" fill="none" stroke="#2f3e7a" stroke-width="3" stroke-linecap="round"/></svg>
+      <p><strong>T<sub>P</sub></strong> — thời gian, giây</p>
+    </div>
+    <div class="cost-icon-card">
+      <svg role="img" aria-label="Icon lượng truyền V byte qua mạng" viewBox="0 0 60 60" width="60" height="60"><rect x="8" y="20" width="44" height="20" rx="4" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><path d="M14 30 H44 M38 24 L44 30 L38 36" fill="none" stroke="#2f3e7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p><strong>V</strong> — byte qua mạng</p>
+    </div>
+  </div>
+  <p class="cost-note">Trong phần này: <strong>P</strong> là số máy giống nhau; <strong>p</strong> vẫn là số hàng ma trận như trước.</p>
+  <aside class="notes">Các ví dụ vừa học đã cho cách chọn khóa, giá trị và viết các hàm. Nay dùng hai ví dụ quen thuộc là cộng dãy số và đếm từ để đánh giá hiệu quả khi chạy trên nhiều máy. W đếm tổng phép toán; T_P đo thời gian hoàn thành; V đếm số byte qua đường truyền đang xét. Ba đại lượng có đơn vị khác nhau. Trong phần này dùng P cho số máy, phân biệt với p số hàng ma trận. Nguồn: MMDS 2.5, trang 53–56.</aside>
+</section>
+
+<section id="lec02-s04-02" data-slide-id="lec02-s04-02" class="motivation-slide example-slide cost-slide">
+  <h2>Tổng công việc: cộng 16 số</h2>
+  <div class="ex-grid2">
+    <div class="ex-card">
+      <svg role="img" aria-label="Một máy cộng 16 số a1 đến a16: khởi tạo bằng a1 rồi 15 phép cộng" viewBox="0 0 520 210" width="520">
+        <rect x="10" y="20" width="500" height="60" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="260" y="58" text-anchor="middle" font-size="26" fill="#2f3e7a">a₁ a₂ a₃ … a₁₆</text>
+        <rect x="10" y="120" width="500" height="60" rx="8" fill="#f8fafc" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="260" y="158" text-anchor="middle" font-size="26" fill="#2f3e7a">1 máy: 15 phép cộng</text>
+      </svg>
+    </div>
+    <div class="ex-card">
+      <svg role="img" aria-label="Bốn máy, mỗi máy cộng cục bộ 4 số với 3 phép cộng, rồi một máy gộp 4 tổng cục bộ với 3 phép cộng" viewBox="0 0 520 210" width="520">
+        <rect x="10" y="14" width="110" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="65" y="48" text-anchor="middle" font-size="24" fill="#2f3e7a">a₁…a₄</text>
+        <rect x="130" y="14" width="110" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="185" y="48" text-anchor="middle" font-size="24" fill="#2f3e7a">a₅…a₈</text>
+        <rect x="250" y="14" width="120" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="310" y="48" text-anchor="middle" font-size="24" fill="#2f3e7a">a₉…a₁₂</text>
+        <rect x="380" y="14" width="130" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="445" y="48" text-anchor="middle" font-size="24" fill="#2f3e7a">a₁₃…a₁₆</text>
+        <text x="260" y="98" text-anchor="middle" font-size="24" fill="#526070">Bốn máy: 4 × 3 = 12 phép cộng</text>
+        <rect x="110" y="120" width="300" height="52" rx="8" fill="#f8fafc" stroke="#2f3e7a" stroke-width="2"/>
+        <text x="260" y="154" text-anchor="middle" font-size="24" fill="#2f3e7a">gộp 4 tổng: 3 phép cộng</text>
+        <text x="260" y="200" text-anchor="middle" font-size="24" fill="#2f3e7a">tổng: 15 phép cộng</text>
+      </svg>
+    </div>
+  </div>
+  <p>Với \(n\) số chia đều cho \(P\) máy, \(W_P\) đếm tất cả phép cộng:</p>
+<p class="ex-equation">\( W_P = P\left(\tfrac{n}{P}-1\right) + (P-1) = n-1 \)</p>
+  <p class="ex-note">Chỉ đếm phép cộng; khởi tạo tổng bằng phần tử đầu, không cộng vào 0. Giả thiết: n ≥ P ≥ 1, n chia hết cho P, số học chính xác.</p>
+  <p class="ex-source">Nguồn: MMDS 2.5.1.</p>
+  <aside class="notes">Một máy cộng 16 số cần 15 phép cộng. Chia đều cho 4 máy: mỗi máy cộng 4 số bằng 3 phép cộng; gộp 4 tổng cục bộ bằng 3 phép cộng nữa. Tổng công việc là 4×3+3=15. Khái quát: P nhóm, mỗi nhóm n/P phần tử; công việc cục bộ P(n/P−1), công việc gộp P−1, tổng n−1. Khởi tạo bằng phần tử đầu tiên, nên nhóm một phần tử không cần phép cộng. Khởi tạo bằng 0 là cách cài đặt khác, cần đếm lại. Giả thiết n và P nguyên dương, n chia hết cho P, P≤n, số học chính xác; chỉ đếm phép cộng, bỏ chi phí khác. Ví dụ tự chọn minh họa cách đếm công việc, không phải đo hiệu năng. Liên hệ phân biệt tổng chi phí và thời gian ở MMDS 2.5.</aside>
+</section>
+
+<section id="lec02-s04-03" data-slide-id="lec02-s04-03" class="motivation-slide example-slide cost-slide">
+  <h2>Thời gian của một pha</h2>
+  <p class="cost-assumptions">Tất cả tác vụ sẵn sàng từ 0; mỗi máy chạy lần lượt, không nghỉ, không lỗi.</p>
+  <figure class="ex-figure">
+    <img class="cost-figure" src="img/lec-02/cost-03.svg" alt="Ba máy chạy từ thời điểm 0. Máy 1: A và B, mỗi tác vụ 2 giây; máy 2: C và D, mỗi tác vụ 3 giây; máy 3: E dài 3 giây. Pha kết thúc ở giây 6."/>
+  </figure>
+  <p>Gọi \(t_m\) là tổng thời gian các tác vụ giao cho máy \(m\).</p>
+<p class="ex-equation">\( T_{\text{pha}} = \max_m t_m = \max(4,\,6,\,3) = 6\,\text{s} \)</p>
+
+  <aside class="notes">Các tác vụ đều sẵn sàng từ thời điểm 0; mỗi máy chạy từng tác vụ nối tiếp không nghỉ và không lỗi. Tổng tải máy 1 là 2+2=4 giây; máy 2 là 3+3=6 giây; máy 3 là 3 giây. Pha chỉ hoàn thành khi máy 2 xong, nên thời gian là max(4,6,3)=6 giây. Một tác vụ dài nhất chỉ mất 3 giây nhưng máy 2 phải chạy hai tác vụ như vậy. Nếu có khoảng chờ do phụ thuộc dữ liệu hoặc tài nguyên, phải đưa khoảng chờ vào lịch; không tự áp dụng công thức chỉ cộng thời gian tác vụ. Đây là ví dụ giả định cụ thể hóa nhu cầu cân bằng tải trong MMDS 2.5.2, trang 55–56.</aside>
+</section>
+
+<section id="lec02-s04-04" data-slide-id="lec02-s04-04" class="motivation-slide example-slide cost-slide">
+  <h2>Cộng 16 số trên 4 máy</h2>
+  <p class="cost-assumptions">\(\tau>0\): thời gian một phép cộng; \(n\) số chia đều cho \(P\) máy.</p>
+  <figure class="ex-figure">
+    <img class="cost-figure" src="img/lec-02/cost-04.svg" alt="Cùng trục thời gian: một máy cộng 16 số trong 15 tau. Bốn máy cùng cộng cục bộ từ 0 đến 3 tau, sau đó máy 1 gộp từ 3 đến 6 tau. Các thanh và mốc dùng 60 pixel cho một tau."/>
+  </figure>
+  <p class="ex-equation">\(T_1=15\tau,\qquad T_4=(3+3)\tau=6\tau\)<br>\( T_P = \left(\tfrac{n}{P}-1\right)\tau + (P-1)\tau \)</p>
+  <p class="cost-assumptions">\(n\geq P\geq1\), \(n\) chia hết cho \(P\); dữ liệu cục bộ, một máy gộp tuần tự.<br>Bỏ thời gian đọc/ghi, truyền và điều phối; khởi tạo tổng bằng phần tử đầu.</p>
+
+  <aside class="notes">Dùng lại 16 số, chia 4 số cho mỗi máy. Cả bốn máy cộng cục bộ đồng thời trong 3τ; sau đó máy 1 gộp bốn tổng trong 3τ. Công việc kết thúc tại 6τ; không gọi khoảng từ 6τ đến 15τ là thời gian nhàn rỗi của công việc đã xong. Tổng số phép cộng vẫn là 15. Với n số chia đều cho P máy và một máy gộp tuần tự, T_P=(n/P−1)τ+(P−1)τ. Giả thiết số học chính xác, τ>0 không đổi, khởi tạo tổng bằng phần tử đầu, dữ liệu đã nằm trên máy; bỏ thời gian đọc/ghi, truyền và điều phối. Công thức này đánh giá cách gộp tuần tự đang minh họa; gộp theo cây có lịch khác. Với P=1, thu được (n−1)τ; với n=P, phần cục bộ không cần cộng. Dữ kiện tự chọn, liên hệ MMDS 2.5.2.</aside>
+</section>
+
+<section id="lec02-s04-05" data-slide-id="lec02-s04-05" class="motivation-slide example-slide cost-slide">
+  <h2>Chi phí đầu vào tác vụ C</h2>
+  <p>Quy ước MMDS: cộng kích thước đầu vào của mọi tác vụ.</p>
+  <p class="cost-assumptions"><strong>I</strong> — tổng kích thước đầu vào các tác vụ Map; <strong>H</strong> — tổng kích thước đầu vào các tác vụ Reduce.</p>
+  <figure class="ex-figure">
+    <img class="cost-figure" src="img/lec-02/cost-05.svg" alt="Đầu vào Map I bằng 100 MB đi vào các tác vụ Map; 40 MB trung gian H đi vào Reduce; đầu ra cuối không được cộng vào chi phí C theo quy ước sách."/>
+  </figure>
+  <p class="ex-equation">\( C = I + H = 100 + 40 = 140\,\text{MB} \)</p>
+  <p class="ex-note">C gồm cả đọc cục bộ; Combine (nếu có) nằm trong Map; một công việc, không chạy lại. V là byte thực sự qua mạng, phụ thuộc vị trí dữ liệu — khác C.</p>
+  <p class="ex-source">Nguồn: MMDS 2.5.1, tr. 54.</p>
+  <aside class="notes">Theo sách MMDS 2.5.1, trang 54, chi phí của một tác vụ là kích thước đầu vào; chi phí thuật toán là tổng trên tất cả tác vụ. I là tổng kích thước đầu vào các tác vụ Map, H là tổng kích thước đầu vào các tác vụ Reduce. Với một công việc và Combine nằm trong Map, C=I+H=100+40=140 MB. Đầu ra trung gian được tính khi đi vào Reduce, không cộng lần thứ hai; đầu ra cuối không được tính theo quy ước này. Nếu một dữ liệu được đọc bởi nhiều tác vụ, phải tính đầu vào của mỗi tác vụ. C gồm cả đọc tại máy; nếu I được đọc cục bộ và H qua đường nối một lần, riêng lượng truyền trung gian V=40 MB. Ví dụ V này không tính ghi và nhân bản đầu ra cuối. Slide MMDS 38–40 và Stanford CS246 67–70 dùng tổng đọc/ghi, cho I+2H+O khi O là kích thước đầu ra; đó là quy ước khác. Dữ kiện 100 và 40 MB chỉ dùng minh họa.</aside>
+</section>
+
+<section id="lec02-s04-06" data-slide-id="lec02-s04-06" class="motivation-slide example-slide cost-slide">
+  <h2>Băng thông và thời gian truyền</h2>
+  <p class="cost-assumptions">\(V\): lượng dữ liệu (byte); \(B\): băng thông hữu dụng (byte/s); \(\lambda\): độ trễ khởi đầu (s).</p>
+  <figure class="ex-figure">
+    <svg role="img" aria-label="Một khối dữ liệu 100MB truyền qua một đường truyền 50MB/s với độ trễ 0,02 giây, thời gian truyền khoảng 2,02 giây" viewBox="0 0 1120 200" width="1120">
+      <defs><marker id="cost-arrow-6" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2f3e7a"/></marker></defs>
+      <rect x="30" y="60" width="260" height="80" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+      <text x="160" y="95" text-anchor="middle" font-size="26" fill="#2f3e7a">Thông điệp</text>
+      <text x="160" y="128" text-anchor="middle" font-size="26" fill="#2f3e7a">V = 100 MB</text>
+      <rect x="430" y="60" width="300" height="115" rx="8" fill="#f8fafc" stroke="#2f3e7a" stroke-width="2"/>
+      <text x="580" y="92" text-anchor="middle" font-size="26" fill="#2f3e7a">1 đường truyền</text>
+      <text x="580" y="122" text-anchor="middle" font-size="26" fill="#2f3e7a">B = 50 MB/s</text>
+      <text x="580" y="152" text-anchor="middle" font-size="26" fill="#2f3e7a">λ = 0,02 s</text>
+      <rect x="830" y="60" width="260" height="80" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+      <text x="960" y="95" text-anchor="middle" font-size="26" fill="#2f3e7a">Máy nhận</text>
+      <text x="960" y="128" text-anchor="middle" font-size="26" fill="#2f3e7a">chờ 2,02 s</text>
+      <path d="M295 100 H422" fill="none" stroke="#2f3e7a" stroke-width="3" marker-end="url(#cost-arrow-6)"/>
+      <path d="M735 100 H822" fill="none" stroke="#2f3e7a" stroke-width="3" marker-end="url(#cost-arrow-6)"/>
+    </svg>
+  </figure>
+  <p class="ex-equation">\( T_{\text{truyền}} \approx \lambda + \dfrac{V}{B} = 0{,}02 + \dfrac{100}{50} = 2{,}02\,\text{s} \)</p>
+  <p class="cost-assumptions">Một thông điệp truyền riêng, băng thông ổn định. Quy ước 1 MB = 10⁶ byte.</p>
+  <p class="ex-source">Nguồn: Cornell CS5220, Intro to Message Passing.</p>
+  <aside class="notes">Mô hình một thông điệp cô lập có thời gian xấp xỉ độ trễ khởi đầu cộng thời gian chuyển dữ liệu: λ+V/B. Nguồn Cornell dùng α+βM, với β là nghịch đảo băng thông; đổi tên độ trễ thành λ để không trùng L của Reduce. B là băng thông hữu dụng ổn định; chưa xét tranh chấp, chồng lấp hay truyền lại. Ví dụ giả định λ=0,02 giây, V=100 MB, B=50 MB/s cho 2,02 giây. Dùng MB thập phân, một MB bằng 10⁶ byte; MB và Mb khác nhau. Nguồn: https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-10-06-intro.html, mục mô hình alpha–beta.</aside>
+</section>
+
+<section id="lec02-s04-07" data-slide-id="lec02-s04-07" class="motivation-slide example-slide cost-slide">
+  <h2>Băng thông dùng chung</h2>
+  <figure class="ex-figure">
+    <img class="cost-figure" src="img/lec-02/cost-07.svg" alt="Bốn máy trong rack gửi, mỗi máy 100 MB; tất cả 400 MB qua một đường nối 100 MB mỗi giây tới máy nhận trong rack khác."/>
+  </figure>
+  <p class="ex-equation">\( T \geq \dfrac{V}{B} = \dfrac{400}{100} = 4\,\text{s} \)</p>
+  <p class="cost-assumptions">Cận dưới do băng thông của đường nối dùng chung; chưa tính độ trễ.</p>
+<p>Đưa tính toán tới dữ liệu có thể giảm lượng phải truyền qua đường nối này.</p>
+  <p class="ex-source">Nguồn: MMDS 2.1.1, tr. 22–23.</p>
+  <aside class="notes">Bốn máy cần gửi 100 MB mỗi máy, tất cả qua một đường nối dùng chung 100 MB/s. Dù gửi đồng thời, đường nối vẫn phải chuyển đủ 400 MB; chỉ riêng băng thông đã buộc thời gian ít nhất là 4 giây. Đây là cận dưới, không phải dự đoán chính xác mọi thành phần của thời gian. Độ trễ, tranh chấp khác và chi phí xử lý có thể làm lâu hơn. Đưa tính toán tới rack chứa dữ liệu có thể giảm số byte phải chuyển qua đường nối này. Vị trí dữ liệu không tự làm mất công việc đọc và xử lý tại máy. Nguồn: MMDS 2.1.1, trang 22–23; cấu hình và con số là ví dụ giả định.</aside>
+</section>
+
+<section id="lec02-s04-08" data-slide-id="lec02-s04-08" class="motivation-slide example-slide cost-slide">
+  <h2>Combine giảm lượng truyền</h2>
+  <p class="ex-equation">\( d_1 = \text{mèo chó mèo}, \quad d_2 = \text{chó chim} \)</p>
+  <table class="ex-table">
+    <thead><tr><th>Phương án</th><th>Cặp đi qua đường truyền</th><th>V (mỗi cặp 16 byte)</th></tr></thead>
+    <tbody>
+      <tr><td>Không Combine<br>(5 cặp)</td><td>d₁: (mèo,1), (chó,1), (mèo,1)<br>d₂: (chó,1), (chim,1)</td><td>5 × 16 = 80 byte</td></tr>
+      <tr><td>Có Combine<br>(4 cặp)</td><td>d₁: (mèo,2), (chó,1)<br>d₂: (chó,1), (chim,1)</td><td>4 × 16 = 64 byte</td></tr>
+    </tbody>
+  </table>
+  <p class="ex-takeaway">Giảm 16 byte, tức 20% lượng truyền — thời gian còn phụ thuộc các pha khác.</p>
+  <p class="ex-note">Mỗi văn bản một tác vụ Map. Giả sử mỗi cặp 16 byte, mọi cặp đi qua đường truyền đang xét đúng một lần, không tính phần đầu gói. I không đổi, H giảm nên C = I + H cũng giảm.</p>
+  <p class="ex-source">Nguồn: MMDS 2.2.4 và 2.5.1; dùng lại ví dụ đếm từ.</p>
+  <aside class="notes">Dùng lại hai văn bản, mỗi văn bản một tác vụ Map. Không Combine có 5 cặp; có Combine thì văn bản thứ nhất còn (mèo,2),(chó,1), văn bản thứ hai còn (chó,1),(chim,1): tổng 4 cặp. Với giả định mọi cặp chiếm 16 byte và đều qua đường truyền một lần, lượng dữ liệu trung gian giảm từ 80 xuống 64 byte, tức 16/80=20%. Không tính phần đầu gói hay lần truyền lại trong ví dụ này. Combine phải xử lý thêm tại máy, nên giảm byte chưa đủ kết luận thời gian giảm cùng tỷ lệ. Combine không làm giảm số từ phải đọc; I giữ nguyên, H giảm nên C=I+H cũng giảm. Nếu không có từ lặp trong từng tác vụ, cách Combine này không giảm số cặp. Phép cộng số đếm thỏa điều kiện kết hợp, giao hoán và giữ kiểu trung gian đã học. Nguồn: MMDS 2.2.4, trang 27–28 và 2.5.1, trang 54; 16 byte/cặp là quy ước minh họa.</aside>
+</section>
+
+<section id="lec02-s04-09" data-slide-id="lec02-s04-09" class="motivation-slide example-slide cost-slide">
+  <h2>Thời gian của cả công việc</h2>
+  <figure class="ex-figure">
+    <img class="cost-figure" src="img/lec-02/cost-09.svg" alt="Bốn pha nối tiếp: điều phối từ 0 đến 1 giây, Map từ 1 đến 5 giây, truyền và nhóm từ 5 đến 8 giây, Reduce từ 8 đến 10 giây."/>
+  </figure>
+  <p>Với \(P=4\) máy; \(T_{\text{đp}}\) là thời gian điều phối.</p><p class="ex-equation">\(\begin{aligned}T_P &= T_{\text{đp}} + T_{\text{Map}} + T_{\text{truyền và nhóm}} + T_{\text{Reduce}}\\ &= 1+4+3+2=10\,\text{s}\end{aligned}\)</p>
+  <p class="cost-assumptions">Các pha nối tiếp, không chồng lấp, không lỗi. Thời gian đọc/ghi đã tính trong các pha.</p>
+  <p class="ex-source">Nguồn: mô hình pha theo MMDS 2.2.2 và 2.5.2.</p>
+  <aside class="notes">Trong mô hình này các pha nối tiếp không chồng lấp và không có lỗi. Với P=4 máy, pha điều phối mất 1 giây, Map mất 4 giây, truyền và nhóm mất 3 giây, Reduce mất 2 giây. Tổng thời gian là 10 giây. Mỗi thời gian pha là thời gian hoàn thành pha, không phải tổng thời gian làm việc của các máy. Ba giây ở giữa đã gồm cả truyền và nhóm. Quy ước đếm: đọc đầu vào nằm trong Map; ghi đầu ra cuối nằm trong Reduce; ghi/đọc trung gian, truyền và sắp xếp nằm trong pha giữa, không tính lại ở pha khác. Hệ thống thực có thể chồng lấp một số hoạt động, khi đó cần mô hình lịch chi tiết hơn. Nguồn: MMDS 2.2.2 và 2.5.2; thời gian là dữ kiện giả định.</aside>
+</section>
+
+<section id="lec02-s04-10" data-slide-id="lec02-s04-10" class="motivation-slide example-slide cost-slide">
+  <h2>Mức tăng tốc</h2>
+  <p>So sánh cùng dữ liệu, cùng kết quả và cùng phạm vi đo thời gian.</p>
+  <figure class="ex-figure">
+    <img class="cost-figure" src="img/lec-02/cost-10.svg" alt="Cùng công việc: một máy 24 giây, bốn máy 10 giây. Hai thanh dùng chung thang thời gian, tỷ lệ 2,4."/>
+  </figure>
+  <p class="ex-equation">\( S_P = \dfrac{T_1}{T_P}, \qquad S_4 = \dfrac{24}{10} = 2{,}4 \)</p>
+  <p class="ex-note">Thêm máy chỉ giảm phần chia được; truyền, gộp và lệch tải vẫn còn. Điều kiện có lợi: T<sub>P</sub> &lt; T₁.</p>
+  <p class="ex-source">Nguồn: Cornell CS5220, Performance basics.</p>
+  <aside class="notes">Giữ cùng dữ liệu, kết quả và phạm vi đo khi so sánh. Dữ kiện minh họa: một máy cần 24 giây, bốn máy cần 10 giây như lịch vừa tính, nên mức tăng tốc là 24/10=2,4 lần. Đây không phải kết quả đo một cụm máy thực. Điều kiện có lợi về thời gian là T_P<T_1, với T_P>0. Việc truyền, gộp và lệch tải giải thích vì sao thêm máy không bảo đảm thời gian giảm tỷ lệ với số máy. Nếu cần mở rộng, hiệu suất sử dụng theo mức tăng tốc là E_P=S_P/P, ở đây 2,4/4=0,6; phần này không cần cho bài kiểm tra. Nguồn: https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-09-08-perf-basics.html.</aside>
+</section>
+
+<section id="lec02-s04-11" data-slide-id="lec02-s04-11" class="motivation-slide example-slide cost-slide">
+  <h2>Câu hỏi kiểm tra</h2>
+  <div class="quiz-grid">
+    <div>
+      <table class="ex-table">
+        <thead><tr><th>Đại lượng</th><th>Dữ kiện</th></tr></thead><tbody>
+          <tr><td>Điều phối</td><td>1s</td></tr>
+          <tr><td>Tải Map (3 máy)</td><td>2s / 3s / 5s</td></tr>
+          <tr><td>Lượng truyền V</td><td>120 MB</td></tr>
+          <tr><td>Băng thông B</td><td>40 MB/s</td></tr>
+          <tr><td>Reduce</td><td>2s</td></tr>
+          <tr><td>Tuần tự T₁</td><td>22s</td></tr>
+        </tbody>
+      </table>
+      <p class="ex-note">Các pha nối tiếp; bỏ độ trễ và chi phí nhóm; đọc/ghi đã tính trong Map/Reduce; cùng đầu ra.</p>
+    </div>
+    <div>
+      <p><strong>Câu hỏi:</strong></p><ol>
+        <li>Tính T<sub>Map</sub> và T<sub>truyền</sub>.</li>
+        <li>Tính T<sub>P</sub> và S<sub>P</sub>.</li>
+        <li>Combine giảm V còn 40 MB, pha Map tăng 1 s; các pha khác giữ nguyên. Tính T′<sub>P</sub> và thời gian tiết kiệm.</li>
+      </ol>
+    </div>
+  </div>
+  <aside class="notes">Đáp án: tải Map là tổng tải trên từng máy, nên T_Map=max(2,3,5)=5 giây. Bỏ độ trễ và chi phí nhóm; thời gian truyền bằng 120/40=3 giây. Thời gian toàn công việc là 1+5+3+2=11 giây; mức tăng tốc so với một máy là 22/11=2 lần. Với Combine, pha Map tăng từ 5 lên 6 giây, lượng truyền còn 40 MB nên truyền mất 1 giây. Các pha khác giữ nguyên: T′_P=1+6+1+2=10 giây, tiết kiệm 1 giây so với phương án không Combine; mức tăng tốc so với một máy là 22/10=2,2 lần. Lợi ích ròng là bớt 2 giây truyền, thêm 1 giây xử lý Map. Chú ý không cộng tải ba máy để làm thời gian Map và không bỏ quên điều phối. Dữ kiện giả định dùng vận dụng các mô hình đã học.</aside>
+</section>
+
+</section>
     </div>
   </div>
   <script src="revealjs/dist/reveal.js"></script>

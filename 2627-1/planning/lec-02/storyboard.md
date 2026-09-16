@@ -14,7 +14,7 @@
 ### `lec02-s01-02` — Nội dung
 
 - **Mục đích:** Giới thiệu các phần của bài học sau slide tiêu đề.
-- **Hiện trạng:** Hai mục “Giới thiệu” và “Mô hình tính toán Map-Reduce”.
+- **Hiện trạng:** Bốn mục “Giới thiệu”, “Mô hình tính toán Map-Reduce”, “Các ví dụ Map-Reduce”, “Chi phí và lợi ích của song song hóa”.
 - **Quy tắc cập nhật:** Khi thêm section mới, thêm tên phần tương ứng vào slide “Nội dung”.
 - **Nguồn:** Chỉ dẫn trực tiếp của người dùng.
 
@@ -340,3 +340,148 @@ Theo chỉ dẫn cụ thể, mỗi bài giữ đúng thứ tự: bài toán hìn
 - Nội dung, cách thể hiện: Ba câu hỏi, đáp án trong notes; dùng lại dữ kiện đã học.
 - Nguồn: Kiểm tra ngắn theo yêu cầu, không recitation.
 - Thời lượng dự kiến: 3 phút.
+
+
+## Section 4 — Chi phí và lợi ích của song song hóa
+
+Phần này nối từ các hàm và thuật toán đã đặc tả sang cách đánh giá một phương án chạy trên nhiều máy. Ba góc nhìn là công việc, thời gian hoàn thành và lượng truyền. Mô hình chi phí đầu vào của sách MMDS được giới thiệu riêng để không nhầm với lượng byte thực sự qua mạng. Các ví dụ cộng dãy số và đếm từ được dùng lại, không đưa thêm thuật toán hoặc kiến thức CSDL.
+
+Chuỗi suy luận: phân biệt đơn vị → đếm công việc → đọc lịch chạy → tính thời gian cộng dãy số → đếm đầu vào tác vụ → thời gian một truyền → đường nối dùng chung → Combine → ghép các pha → tăng tốc → vận dụng. Với mỗi mô hình, hình chỉ ra nơi phát sinh chi phí, ví dụ cho phép tính lại và công thức khái quát có giả thiết. Không áp dụng bước giả mã/chứng minh thuật toán mới vì đây là phân tích các thuật toán đã học; thay bằng suy ra công thức từ quy tắc đếm và lịch chạy.
+
+Nguồn: sách MMDS `sources/textbooks/ch2n.pdf`, 2.5.1–2.5.2 trang 53–56; 2.2.4 trang 27–28; 2.1.1 trang 22–23. Đối chiếu slide MMDS 38–40 và Stanford CS246 67–70: hai bộ dùng tổng đọc/ghi, sách dùng kích thước đầu vào. Chọn sách cho $C$; giữ riêng $V$ cho đường truyền được xét. Bổ sung được duyệt: Cornell CS5220 [độ trễ–băng thông](https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-10-06-intro.html) và [mức tăng tốc](https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-09-08-perf-basics.html). Không dùng tốc độ mạng lịch sử của sách như thông số hiện tại.
+
+Dữ kiện số là minh họa mô hình theo yêu cầu giảng viên, không phải phép đo hệ thống hay bài tập nguyên văn. Giới hạn quy mô được thể hiện bằng phần dữ liệu phải đi qua đường nối dùng chung và tải của máy bận nhất; con số nhỏ chỉ giúp tính tay, không mô tả quy mô Google. Đầu ra của phần là bộ công thức có điều kiện áp dụng để đánh giá và so sánh cách tổ chức các tác vụ. Nội dung hệ thống chi tiết vẫn ở mức kế hoạch.
+
+Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn section chính. Đây là ngoại lệ theo yêu cầu xây bài từng phần, chưa tuyên bố đủ toàn bài 120 phút và recitation 60 phút; câu hỏi cuối phần là tương tác tại lớp. Sáu SVG chính có mã tái tạo tại `img/lec-02/scripts/render-cost-figures.py`; hình nhỏ còn lại là SVG nội dòng.
+
+### `lec02-s04-01` — Chi phí và lợi ích của song song hóa
+
+- **Mục đích / sản phẩm:** Phân biệt đại lượng và đơn vị trước khi so sánh hai cách thực hiện.
+- **Câu chốt:** $W$ đếm phép toán, $T_P$ đo thời gian, $V$ đếm byte qua mạng.
+- **Vai trò:** Mở phần và xác lập mô hình
+- **Kiến thức đầu vào:** Đặc tả Map/Reduce/Combine, ba ví dụ trước.
+- **Cách thể hiện:** Ba ô có biểu tượng và nhãn; định nghĩa $P$ số máy, phân biệt $p$ số hàng ma trận.
+- **Kết nối vào–ra:** Từ cách viết các hàm sang cách đánh giá; tạo ba góc nhìn cho các slide tiếp theo.
+- **Kiểm tra và ghi chú:** Notes giải thích không cộng trực tiếp đại lượng khác đơn vị.
+- **Nguồn:** MMDS 2.5, trang 53–56; cách chia ba góc nhìn theo yêu cầu.
+- **Thời lượng:** 2 phút
+
+### `lec02-s04-02` — Tổng công việc: cộng 16 số
+
+- **Mục đích / sản phẩm:** Đếm công việc của mọi máy, kể cả các phép cộng chạy đồng thời.
+- **Câu chốt:** $W_P=P(n/P-1)+(P-1)=n-1$ trong quy ước đang xét.
+- **Vai trò:** Ví dụ và khái quát quy tắc đếm
+- **Kiến thức đầu vào:** $W$ và $P$ từ slide mở; phép cộng tại máy rồi gộp.
+- **Cách thể hiện:** Hai hình: 1 máy dùng 15 phép cộng; 4 máy dùng $4\times3+3=15$. Công thức dưới hình; $n$ và $W_P$ định nghĩa trước công thức.
+- **Kết nối vào–ra:** Từ đơn vị phép toán tới tổng công việc; tạo dữ kiện giữ nguyên cho slide thời gian.
+- **Kiểm tra và ghi chú:** Khởi tạo bằng phần tử đầu; số học chính xác, $n\geq P\geq1$, $n$ chia hết cho $P$. Bỏ chi phí khác; notes xét nhóm một phần tử.
+- **Nguồn:** Suy ra từ cách cộng đã học; liên hệ MMDS 2.5; số 16/4 là minh họa.
+- **Thời lượng:** 3 phút
+
+### `lec02-s04-03` — Thời gian của một pha
+
+- **Mục đích / sản phẩm:** Tính thời gian một pha từ tổng tải trên từng máy.
+- **Câu chốt:** $T_{\mathrm{pha}}=\max_m t_m=\max(4,6,3)=6$ giây.
+- **Vai trò:** Trực giác từ lịch chạy và hình thức hóa
+- **Kiến thức đầu vào:** $T_P$, tác vụ và máy; phép cộng thời gian.
+- **Cách thể hiện:** SVG cost-03: năm tác vụ trên ba hàng máy; cùng thang 150 px/giây, từ 0 đến 6. $t_m$ là tổng thời gian tác vụ giao máy $m$.
+- **Kết nối vào–ra:** Sau tổng công việc, chuyển sang thời gian hoàn thành; dùng quy tắc lấy lớn nhất cho ví dụ cộng.
+- **Kiểm tra và ghi chú:** Tất cả tác vụ sẵn sàng từ 0, mỗi máy chạy lần lượt không nghỉ và không lỗi. Phân biệt tác vụ dài nhất 3 giây với máy bận nhất 6 giây.
+- **Nguồn:** MMDS 2.5.2, trang 55–56; lịch giả định.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-04` — Cộng 16 số trên 4 máy
+
+- **Mục đích / sản phẩm:** Tính thời gian và đối chiếu với công việc đã đếm.
+- **Câu chốt:** Tổng công việc vẫn 15 phép cộng; thời gian tính giảm từ $15\tau$ xuống $6\tau$.
+- **Vai trò:** Áp dụng mô hình thời gian
+- **Kiến thức đầu vào:** Hai slide trước; $\tau>0$ được định nghĩa là thời gian một phép cộng.
+- **Cách thể hiện:** SVG cost-04: thanh tuần tự 15 đơn vị; bốn máy cùng cộng từ 0–3, máy 1 gộp từ 3–6; thang 60 px mỗi đơn vị. Hai dòng công thức $T_1,T_4$ và $T_P=(n/P-1)\tau+(P-1)\tau$.
+- **Kết nối vào–ra:** Dùng lại 16 số/4 máy để phân biệt công việc và thời gian; chuẩn bị xét chi phí dữ liệu đã bỏ qua.
+- **Kiểm tra và ghi chú:** Dữ liệu cục bộ; chia đều, $n$ chia hết $P$; một máy gộp tuần tự; bỏ đọc/ghi, truyền và điều phối. Notes nêu gộp theo cây là lịch khác, kiểm $P=1$ và $n=P$.
+- **Nguồn:** Suy ra từ mô hình đã định nghĩa; MMDS 2.5.2.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-05` — Chi phí đầu vào tác vụ C
+
+- **Mục đích / sản phẩm:** Áp dụng đúng quy ước chi phí trong sách MMDS.
+- **Câu chốt:** $C=I+H=100+40=140$ MB, gồm cả đọc cục bộ.
+- **Vai trò:** Định nghĩa và ví dụ tính chi phí dữ liệu
+- **Kiến thức đầu vào:** Luồng Map → Reduce; byte là đơn vị kích thước.
+- **Cách thể hiện:** SVG cost-05 gồm đầu vào Map, Map, đầu vào Reduce, Reduce, đầu ra cuối. Định nghĩa $I,H$ trước công thức; đầu ra cuối ghi không tính vào $C$.
+- **Kết nối vào–ra:** Từ chi phí tính toán sang kích thước dữ liệu phải đọc; phân biệt với lượng qua mạng trước khi đưa băng thông vào.
+- **Kiểm tra và ghi chú:** Một công việc, không chạy lại; Combine nằm trong Map. Notes giải thích trung gian tính tại đầu vào Reduce, không cộng đầu ra lần nữa; nếu một dữ liệu vào nhiều tác vụ, tính mỗi lần.
+- **Nguồn:** MMDS 2.5.1, trang 54–55. Notes đối chiếu quy ước tổng đọc/ghi ở hai bộ slide.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-06` — Băng thông và thời gian truyền
+
+- **Mục đích / sản phẩm:** Tính thời gian một thông điệp từ dung lượng, băng thông và độ trễ.
+- **Câu chốt:** $T_{\mathrm{truyền}}\approx\lambda+V/B=0{,}02+100/50=2{,}02$ giây.
+- **Vai trò:** Mô hình băng thông và thay số
+- **Kiến thức đầu vào:** $V$; định nghĩa $B$ byte/s và $\lambda$ giây trước hình/công thức.
+- **Cách thể hiện:** SVG nội dòng: thông điệp 100 MB → đường truyền 50 MB/s, độ trễ 0,02 giây → máy nhận.
+- **Kết nối vào–ra:** Từ lượng dữ liệu sang thời gian; chuẩn bị xét giới hạn khi đường truyền dùng chung.
+- **Kiểm tra và ghi chú:** Một thông điệp truyền riêng, $B$ ổn định, không tranh chấp; 1 MB bằng $10^6$ byte. Notes phân biệt MB/Mb và giới hạn dự đoán.
+- **Nguồn:** Cornell CS5220, Intro to Message Passing, mô hình alpha–beta; đổi ký hiệu theo bài.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-07` — Băng thông dùng chung
+
+- **Mục đích / sản phẩm:** Tính cận dưới thời gian khi nhiều máy cùng dùng một đường nối.
+- **Câu chốt:** 400 MB qua đường nối 100 MB/s cần ít nhất 4 giây.
+- **Vai trò:** Mở rộng mô hình sang tài nguyên dùng chung
+- **Kiến thức đầu vào:** Rack đã học; $V/B$ của slide trước.
+- **Cách thể hiện:** SVG cost-07: bốn máy gửi 100 MB mỗi máy qua cùng một đường nối giữa hai rack; $T\geq400/100=4$ giây.
+- **Kết nối vào–ra:** Từ một truyền riêng tới tranh chấp đường nối; dẫn tới giảm lượng truyền bằng xử lý tại máy.
+- **Kiểm tra và ghi chú:** Cận dưới do băng thông, chưa tính độ trễ. Không cấp riêng 100 MB/s cho từng máy. Tính cục bộ có thể giảm byte qua đường nối.
+- **Nguồn:** MMDS 2.1.1, trang 22–23; cấu hình và phép tính minh họa.
+- **Thời lượng:** 2 phút
+
+### `lec02-s04-08` — Combine giảm lượng truyền
+
+- **Mục đích / sản phẩm:** Đếm số cặp trung gian và quy đổi thành byte trước/sau Combine.
+- **Câu chốt:** Năm cặp thành bốn cặp: 80 byte thành 64 byte; chưa đủ suy ra thời gian giảm 20%.
+- **Vai trò:** So sánh hai cách tổ chức
+- **Kiến thức đầu vào:** Combine của đếm từ; $C=I+H$ và $V$.
+- **Cách thể hiện:** Bảng hai phương án dùng lại $d_1$: mèo chó mèo, $d_2$: chó chim; giữ ranh giới văn bản, số cặp tổng và phép nhân 16 byte/cặp.
+- **Kết nối vào–ra:** Sau nút thắt đường truyền, chỉ ra một cách giảm byte; chuẩn bị đánh giá cả thời gian xử lý thêm.
+- **Kiểm tra và ghi chú:** Mỗi văn bản một Map, cặp cố định 16 byte, qua đường xét một lần, không tính phần đầu gói. Notes: Combine thêm xử lý; $I$ giữ nguyên, $H$ giảm nên $C$ giảm.
+- **Nguồn:** MMDS 2.2.4 trang 27–28, 2.5.1 trang 54; dữ kiện cũ và kích thước giả định.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-09` — Thời gian của cả công việc
+
+- **Mục đích / sản phẩm:** Ghép đúng thời gian các pha trong mô hình nối tiếp.
+- **Câu chốt:** $T_P=T_{\mathrm{đp}}+T_{\mathrm{Map}}+T_{\mathrm{truyền\ và\ nhóm}}+T_{\mathrm{Reduce}}=10$ giây.
+- **Vai trò:** Tổng hợp mô hình
+- **Kiến thức đầu vào:** Thời gian một pha và truyền dữ liệu.
+- **Cách thể hiện:** SVG cost-09: 1 giây điều phối, 4 giây Map, 3 giây truyền và nhóm, 2 giây Reduce; trục 0/1/5/8/10, thang 100 px/giây. Công thức và thay số trên hai dòng.
+- **Kết nối vào–ra:** Từ từng thành phần tới toàn công việc trên $P=4$ máy; đưa $T_4=10$ sang slide tăng tốc.
+- **Kiểm tra và ghi chú:** Các pha không chồng lấp, không lỗi; đọc/ghi đã nằm trong các pha. Notes chỉ rõ nơi tính từng loại để không đếm lặp; 3 giây đã gồm truyền và nhóm.
+- **Nguồn:** Mô hình đơn giản hóa từ MMDS 2.2.2 và 2.5.2; thời gian giả định.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-10` — Mức tăng tốc
+
+- **Mục đích / sản phẩm:** Tính và diễn giải mức tăng tốc trên cùng bài toán.
+- **Câu chốt:** $S_P=T_1/T_P$; $S_4=24/10=2{,}4$ lần.
+- **Vai trò:** So sánh lợi ích
+- **Kiến thức đầu vào:** $T_4=10$ giây từ lịch trước; thêm dữ kiện tuần tự 24 giây.
+- **Cách thể hiện:** SVG cost-10: hai thanh cùng thang 38 px/giây, dài 24 và 10; công thức tỷ số dưới hình.
+- **Kết nối vào–ra:** Từ runtime tổng sang quyết định có lợi; cung cấp công thức cho câu hỏi kiểm tra.
+- **Kiểm tra và ghi chú:** Cùng dữ liệu, kết quả và phạm vi đo, $T_P>0$. Có lợi về thời gian khi $T_P<T_1$; notes nói giới hạn do truyền/gộp/lệch tải, hiệu suất là đọc thêm.
+- **Nguồn:** Cornell CS5220, Performance basics; số giây giả định.
+- **Thời lượng:** 2,5 phút
+
+### `lec02-s04-11` — Câu hỏi kiểm tra
+
+- **Mục đích / sản phẩm:** Vận dụng cả lịch chạy, lượng truyền, runtime và mức tăng tốc.
+- **Câu chốt:** Tính lợi ích ròng: Combine bớt 2 giây truyền nhưng thêm 1 giây xử lý, tiết kiệm 1 giây.
+- **Vai trò:** Kiểm tra vận dụng
+- **Kiến thức đầu vào:** Các mô hình của phần này.
+- **Cách thể hiện:** Bảng dữ kiện trái, ba nhiệm vụ phải: tải Map 2/3/5 giây, 120 MB qua 40 MB/s, điều phối 1 giây, Reduce 2 giây, tuần tự 22 giây; phương án Combine còn 40 MB và pha Map tăng 1 giây.
+- **Kết nối vào–ra:** Thu hồi toàn bộ phần; kết quả giúp đánh giá một cách phân chia và giao tác vụ.
+- **Kiểm tra và ghi chú:** Các pha nối tiếp; bỏ độ trễ/chi phí nhóm, đọc ghi đã trong Map/Reduce. Notes có lời giải: $T_{\mathrm{Map}}=5$, $T_{\mathrm{truyền}}=3$, $T_P=11$, $S_P=2$; sau Combine $T^{\prime}_P=10$, $S^{\prime}_P=2{,}2$.
+- **Nguồn:** Dữ kiện giả định vận dụng mô hình đã nêu, theo yêu cầu kiểm tra tại lớp.
+- **Thời lượng:** 3 phút

@@ -4,7 +4,7 @@
 
 - Slide 1: tiêu đề bài, tên môn học và học kỳ theo yêu cầu người dùng.
 
-- Slide 2: Nội dung; bổ sung mục thứ ba “Các ví dụ Map-Reduce” sau “Giới thiệu” và “Mô hình tính toán Map-Reduce”. Khi thêm section mới, bổ sung mục tương ứng vào slide này.
+- Slide 2: Nội dung gồm “Giới thiệu”, “Mô hình tính toán Map-Reduce”, “Các ví dụ Map-Reduce” và “Chi phí và lợi ích của song song hóa”. Khi thêm section mới, bổ sung mục tương ứng vào slide này.
 
 - Slide 3: Bối cảnh Google, các máy phổ thông và ba bài toán có quy mô lịch sử: chỉ mục hơn 8 tỷ trang (2004), mẫu nhật ký truy vấn nén 450 GB (2005), kho 24 triệu trang với hơn 259 triệu liên kết (1998).
 - Slide 4: Dữ liệu phân tán, song song hóa, tính toán gần dữ liệu, điều phối/chống lỗi/phục hồi trong suốt.
@@ -40,7 +40,7 @@ Thêm sau đặc tả mô hình cơ bản: gộp cục bộ bằng Combine, dùn
 - Kết section 2 “Mô hình tính toán Map-Reduce” bằng slide “Câu hỏi kiểm tra” (`lec02-s02-12`); chỉ kiểm tra kiến thức vừa học.
 - Sau section ví dụ, section chính dự kiến: **Hệ thống Map-Reduce**. Dự kiến mạch: chia đầu vào và giao tác vụ → hàm phân phối khóa → chuyển và nhóm dữ liệu → theo dõi tác vụ → phát hiện lỗi và phục hồi Map/Reduce → phân biệt chạy lại và thực thi dự phòng. Làm rõ dữ liệu nào được lưu bền vững, dữ liệu trung gian nào cần tạo lại; nguồn MMDS 2.2.2, 2.2.5 và Dean–Ghemawat 3.1–3.6.
 - Section chính riêng: **Chi phí và lợi ích của song song hóa**. Dự kiến mạch: quy ước mô hình chi phí → tổng công việc và thời gian hoàn thành → ví dụ tính tuần tự/song song với giả thiết rõ → chi phí truyền dữ liệu và Combine → giới hạn do lệch tải, tác vụ chậm và chi phí điều phối. Đối chiếu MMDS 2.5–2.6 trước khi soạn chi tiết.
-- Hai section mới hiện ở mức kế hoạch; chưa dựng slide tiêu đề rỗng hoặc đưa vào mục lục. Cập nhật mục lục khi triển khai từng section như quy trình người dùng đang chỉ đạo. Thứ tự dự kiến Hệ thống trước Chi phí để mô hình chi phí dựa trên cơ chế đã học.
+- Theo yêu cầu tiếp theo của giảng viên, triển khai Chi phí ngay sau Các ví dụ; Hệ thống vẫn ở mức kế hoạch. Những cơ chế đã có ở section 2 đủ làm tiên quyết; các giả thiết về lịch chạy và đường truyền được nêu tại từng slide chi phí. Chưa dựng slide trống hoặc thêm Hệ thống vào mục lục.
 
 ## 3. Các ví dụ Map-Reduce
 
@@ -78,3 +78,32 @@ Theo yêu cầu, đặt một slide ứng dụng ngay sau phát biểu bài toá
 Nguồn bổ sung theo yêu cầu ứng dụng: Manning, Raghavan, Schütze, Introduction to Information Retrieval, 6.3.1–6.3.2, [tích vô hướng](https://nlp.stanford.edu/IR-book/html/htmledition/dot-products-1.html) và [truy vấn như véc tơ](https://nlp.stanford.edu/IR-book/html/htmledition/queries-as-vectors-1.html). Điều phối đã đọc và duyệt trước khi soạn; không thêm học phần TF-IDF hoặc chỉ mục tìm kiếm vào phạm vi.
 
 Ví dụ nhân ma trận đổi thành A4×4 chia bốn khối2×2 B11/B12/B21/B22, v=[1,2,3,4], y=[9,8,9,11]. Mỗi hàng trải trên hai khối; Combine tạo tổng bộ phận và Reduce cộng hai tổng. Đặc tả tổng quát vẫn p×q.
+
+
+## 4. Chi phí và lợi ích của song song hóa
+
+Phần mới theo yêu cầu giảng viên: mô hình chi phí tính toán, mô hình thời gian thực hiện và mô hình băng thông; dùng hình để đọc đại lượng trước khi thay số. Từ ba thuật toán ở section 3, chuyển sang đánh giá hiệu quả một cách tổ chức tác vụ. Dùng lại cộng dãy số ở phần giới thiệu và đếm từ ở section 2; không thêm thuật toán hoặc kiến thức CSDL.
+
+| Slide | Sản phẩm học tập | Trọng tâm |
+|---|---|---|
+| lec02-s04-01 | Phân biệt công việc, thời gian và lượng truyền | Ba đại lượng $W$, $T_P$, $V$ cùng đơn vị |
+| lec02-s04-02 | Đếm số phép cộng của toàn bộ các máy | $W_P=P(n/P-1)+(P-1)=n-1$ |
+| lec02-s04-03 | Tính thời gian một pha từ lịch giao tác vụ | Lấy tải lớn nhất trong các máy, không lấy tác vụ dài nhất |
+| lec02-s04-04 | So sánh thời gian tuần tự và song song | Cộng 16 số: $15\tau$ và $6\tau$; một máy gộp tuần tự |
+| lec02-s04-05 | Tính chi phí theo quy ước sách MMDS | $C=I+H$, tổng kích thước đầu vào tác vụ |
+| lec02-s04-06 | Đổi lượng truyền sang thời gian | $T_{\text{truyền}}\approx\lambda+V/B$ cho một thông điệp cô lập |
+| lec02-s04-07 | Xác định giới hạn của đường nối dùng chung | $T\geq V/B$, 400 MB qua đường nối 100 MB/s cần ít nhất 4 giây |
+| lec02-s04-08 | Tính tác động của Combine lên lượng truyền | Năm cặp thành bốn cặp: 80 byte thành 64 byte với mã hóa giả định |
+| lec02-s04-09 | Ghép thời gian các pha không chồng lấp | Điều phối + Map + truyền và nhóm + Reduce |
+| lec02-s04-10 | Tính mức tăng tốc trên cùng bài toán | $S_P=T_1/T_P$; $24/10=2{,}4$ |
+| lec02-s04-11 | Vận dụng mô hình và đánh giá Combine | Lịch tải, lượng truyền, runtime, mức tăng tốc |
+
+Nguồn chính: `sources/textbooks/ch2n.pdf`, mục 2.5.1–2.5.2, trang 53–56; Combine mục 2.2.4, trang 27–28; cấu trúc rack mục 2.1.1, trang 22–23. Đối chiếu `sources/reference-slides/mmds/ch02-mapreduce.pdf`, slide 38–40 và Stanford CS246 `01-intro.pdf`, slide 67–70. Hai bộ slide tương đương cho phân biệt tổng chi phí và thời gian; sách làm chuẩn cho quy tắc đếm đầu vào. Slide nguồn đếm tổng I/O, có $I+2H+O$; bài này không dùng quy ước đó cho $C$ và không coi $C$ là byte qua mạng thực tế.
+
+Nguồn bổ sung được điều phối đọc và duyệt: Cornell CS5220, [Intro to Message Passing, mô hình độ trễ–băng thông](https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-10-06-intro.html) và [Performance basics, mức tăng tốc](https://www.cs.cornell.edu/courses/cs5220/2020fa/lec/2020-09-08-perf-basics.html). Chỉ dùng công thức cơ bản đáp ứng yêu cầu giảng viên, không mở sang MPI, LogP hoặc định luật Amdahl.
+
+Ký hiệu trong phần này: $P$ số máy (phân biệt $p$ số hàng ma trận); $n$ số phần tử của dãy; $\tau$ thời gian một phép cộng; $t_m$ tổng thời gian các tác vụ giao máy $m$; $C$ tổng kích thước đầu vào tác vụ; $I$ tổng đầu vào Map; $H$ tổng đầu vào Reduce; $V$ byte đi qua đường truyền đang xét; $B$ băng thông hữu dụng; $\lambda$ độ trễ khởi đầu (không dùng $L$ đã chỉ danh sách Reduce); $S_P$ mức tăng tốc. Các ký hiệu được định nghĩa lại tại slide sử dụng.
+
+Giả thiết áp dụng riêng cho từng mô hình: phép cộng đơn vị, số học chính xác, chia đều với $n\geq P\geq1$ và $n$ chia hết cho $P$; một máy gộp tuần tự; mỗi máy chạy một tác vụ tại một thời điểm, mọi tác vụ của pha sẵn sàng ở đầu pha, không có thời gian nghỉ giữa tác vụ trên máy; các pha nối tiếp, không lỗi/chạy lại. Giả thiết băng thông ổn định chỉ dùng cho đường truyền được chỉ rõ. Phân biệt giá trị trong mô hình với cận dưới do dung lượng đường nối.
+
+Các con số 16 phần tử, kích thước byte, băng thông và số giây là dữ kiện minh họa để tính mô hình, không phải số đo hệ thống hay bài tập nguyên văn từ sách. Kiểm tra cuối phần là tương tác tại lớp theo yêu cầu, không thay phần recitation 60 phút. Phần mới dự kiến 27,5 phút; toàn bài tiếp tục được xây từng section nên chưa tuyên bố đủ 120+60 phút hoặc hoàn tất 5–7 mạch. Tách 11 slide thay vì 9 đề xuất ban đầu để quy ước $C$ và mức tăng tốc có slide riêng.
