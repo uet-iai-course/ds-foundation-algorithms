@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 330" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="rk-title rk-desc">
+  <title id="rk-title">Sơ đồ xếp hạng trang kết quả</title>
+  <desc id="rk-desc">Truy vấn dẫn tới các trang liên quan, các trang được sắp thứ tự để hiển thị; liên kết giữa các trang là một tín hiệu góp phần xác định độ quan trọng.</desc>
+
+  <!-- Khối 1: truy vấn -->
+  <rect x="20" y="120" width="230" height="90" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+  <text x="135" y="158" text-anchor="middle" font-size="24" fill="#2f3e7a" font-weight="bold">Truy vấn</text>
+  <text x="135" y="190" text-anchor="middle" font-size="22" fill="#666666">Từ khóa người dùng</text>
+
+  <!-- Khối 2: các trang liên quan -->
+  <rect x="340" y="120" width="280" height="90" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+  <text x="480" y="158" text-anchor="middle" font-size="24" fill="#2f3e7a" font-weight="bold">Các trang liên quan</text>
+  <text x="480" y="190" text-anchor="middle" font-size="22" fill="#666666">Khớp với truy vấn</text>
+
+  <!-- Khối 3: thứ tự hiển thị -->
+  <rect x="710" y="120" width="280" height="90" rx="10" fill="#fff" stroke="#2f3e7a" stroke-width="2"/>
+  <text x="850" y="158" text-anchor="middle" font-size="24" fill="#2f3e7a" font-weight="bold">Sắp thứ tự</text>
+  <text x="850" y="190" text-anchor="middle" font-size="22" fill="#666666">kết hợp nhiều tín hiệu</text>
+
+  <!-- Mũi tên khối 1 -> 2 -->
+  <line x1="250" y1="165" x2="326" y2="165" stroke="#2f3e7a" stroke-width="3"/>
+  <polygon points="340,165 326,158 326,172" fill="#2f3e7a"/>
+
+  <!-- Mũi tên khối 2 -> 3 -->
+  <line x1="620" y1="165" x2="696" y2="165" stroke="#2f3e7a" stroke-width="3"/>
+  <polygon points="710,165 696,158 696,172" fill="#2f3e7a"/>
+
+  <!-- Tín hiệu liên kết đi vào bước sắp thứ tự -->
+  <rect x="710" y="255" width="280" height="55" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+  <text x="850" y="290" text-anchor="middle" font-size="22" fill="#ef6c00">Điểm từ liên kết</text>
+  <line x1="850" y1="255" x2="850" y2="222" stroke="#ef6c00" stroke-width="3"/>
+  <polygon points="843,224 850,210 857,224" fill="#ef6c00"/>
+</svg>

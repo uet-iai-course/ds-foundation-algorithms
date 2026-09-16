@@ -286,3 +286,54 @@ Các phiên reviewer `53776`, `40657`, `87803`, `81746`, `33347`, `66690` và `7
 - Codex Slides project `20260827151722-b-i-3-pagerank-m-h-nh-v-t-nh-to-n-edg9` đọc được bằng CLI. Project vẫn ở trạng thái `draft`, workflow `clarify`, chưa có page/outline; phiên không có Browser callable nên không tuyên bố đã kiểm trực quan trong Codex Slides. Kiểm định trực quan được thực hiện bằng Chromium trên đúng HTML phát hành.
 
 Kết luận: không còn lỗi chặn, nghiêm trọng hoặc trung bình; bộ trang chiếu, ghi chú, planning, viewer và index Bài 03 đồng bộ và đủ điều kiện commit/push.
+
+
+## Khởi động lại Lecture 03 — đề xuất section (2026-09-17)
+
+- Theo yêu cầu giảng viên, bỏ toàn bộ slide cũ khỏi HTML; giữ một slide trắng theo nền kỹ thuật của template. Outline và storyboard được thay bằng đề xuất mới ở cấp section, chưa phải đặc tả từng slide. Các báo cáo và trạng thái hoàn thành ở trên chỉ thuộc bản cũ, không xác nhận bản mới.
+- Đối chiếu sources/source.md: Bài03 PageRank, MMDS5.1–5.2, nối Lecture02, giữ nội dung5.3–5.5 cho Lecture04. Đọc nguồn sách cùng hai bộ slide được ánh xạ; MMDS/Stanford tương đương nên ưu tiên MMDS. Nguồn có sẵn, không có khoảng trống ngăn lập đề xuất.
+- Đề xuất bảy phần: giới thiệu; xếp hạng từ liên kết; mô hình/thuật toán đầy đủ; tính trên đồ thị lớn; chi phí; thực hành; tổng kết/bài tập. Dự kiến120phút chính +60phút recitation, chưa chốt số slide. Bài tập5.1.1/5.1.2 trang187–188 và5.2.1/5.2.2 trang195, giữ nguyên dữ kiện. Mã Python mới chưa được soạn hoặc chạy.
+- Điều phối viên chọn đồ thị A–D Hình5.1 của sách và các biến thể nút cụt/bẫy của nó, thay vì bắt buộc ví dụ y–a–m trong slide. Đề xuất phân phối lại điểm nút cụt bảo toàn tổng1 theo slide MMDS42/52 và Stanford45/54; sẽ ghi khác biệt với taxation trên ma trận thiếu khối lượng trong sách. Không công bố mệnh đề hội tụ thiếu điều kiện; chứng minh phổ chi tiết không là cửa vào bài.
+- Lượt reader phân tích nguồn đã hoàn tất: requested_model = observed_model = z-ai/glm-5.3-flash, provider OpenRouter. Bác các điểm trong đầu ra: không có formfeed (Python xác nhận có và lấy được số trang PDF); bắt buộc ưu tiên Stanford làm khung dù hai nguồn tương đương; tự biến ví dụ slide thành bài recitation mới; đề xuất sáu phần thiếu tổng kết/thực hành theo phương án cần cân nhắc. Dùng nhận xét về hội tụ, điểm nút cụt và chi phí I/O sau khi tự đối chiếu.
+- Lượt reader lập kế hoạch độc lập bị automatic approval review từ chối trước khi chạy: “The command sends workspace planning instructions and source-derived content to OpenRouter for Lecture 03, but the trusted user authorization only explicitly covered OpenRouter use for Lecture 02; the agent’s justification cannot expand that scope.” Không gọi đường vòng, không đổi worker. Đề xuất hiện tại do điều phối viên tổng hợp từ nguồn và kết quả reader đã được phép chạy; chưa coi là hoàn tất quy trình đa tác tử. Cần xác nhận phạm vi OpenRouter cho Lecture03 trước giai đoạn phụ thuộc tiếp theo.
+- Đã mở trang chủ Codex Slides nhưng không có công cụ Browser tương ứng để điều khiển/kiểm định. Không tạo bản trình chiếu mới trên dịch vụ hoặc tuyên bố đồng bộ. Phạm vi hiện tại là đề xuất Markdown và reset RevealJS.
+- Giữ nguyên các SVG và lecture-note.md cũ để tránh xóa tài sản ngoài yêu cầu; chưa tái sử dụng. Index chuyển Bài03 sang Đang xây dựng lại, tạm ngừng liên kết deck/notes để không trình bày bản cũ như học liệu mới. Ghi chú phải rà lại ký hiệu, thứ tự khái niệm, mô hình nút cụt, thuật toán và chi phí sau khi duyệt phương án. Không ảnh hưởng bài khác.
+- Rà no-ai-slop và quill ở mức đề xuất: tên phần tiếng Việt, mỗi phần có kết nối vào–ra và sản phẩm học tập; phần thực hành không tự bắt cài framework mới. Chưa có kiểm định nội dung/hiển thị của deck mới vì chưa soạn.
+
+
+## Điều chỉnh phần 2 theo giảng viên (2026-09-17)
+
+- Đổi tên thành “Bài toán Xếp hạng trang web” trong outline và storyboard. Bổ sung mô tả, đầu vào–đầu ra, quy ước chuẩn hóa và đồng hạng; chưa coi chuẩn hóa là đủ để xác định nghiệm.
+- Bổ sung chuỗi slide dự kiến và ví dụ tính tay từ MMDS Hình5.1/Ví dụ5.1–5.2: bốn trang cùng hai liên kết vào, chia điểm ban đầu1/4 cho kết quả A=3/8, B=C=D=5/24, tổng1. Phân biệt quy tắc đếm liên kết, một vòng truyền điểm và PageRank cuối. Kiểm lại phép tính bằng phân số chính xác.
+- Chuyển người lướt ngẫu nhiên, ma trận và phương trình cân bằng sang đầu phần3; cần rà cân đối thời gian khi soạn chi tiết. HTML vẫn một slide trắng theo phạm vi đang duyệt kế hoạch. Chỉnh sửa cục bộ bởi điều phối viên, không gọi OpenRouter trong lúc quyền cho Lecture03 chưa được xác nhận.
+
+
+## Triển khai phần 1 — trạng thái đang rà (2026-09-17)
+
+- Goal mới giao triển khai đủ7phần theo storyboard, giữ tên phần2 Bài toán Xếp hạng trang web. Giảng viên nhắc commit/push sau mỗi section; chỉ thực hiện sau khi phần vượt đủ kiểm định.
+- Reader lập kế hoạch và writer phần1 được hệ thống cho phép thực thi; requested_model=observed_model=z-ai/glm-5.3-flash, provider=OpenRouter. Reader nguồn từ giai đoạn trước đã được đối chiếu. Điều phối viên duyệt kế hoạch và tách mục lục/mục tiêu thành hai slide. Sáu slide phần1 dự kiến10phút.
+- Đã tạo shell Codex Slides 20260916181910-ds-b-i-03-pagerank-b-n-vi-t-m-i-r6x2, chưa đồng bộ hoặc render. Không có Browser tương ứng để thao tác; kiểm định trực quan dùng RevealJS cục bộ.
+- Writer tạo HTML/CSS/storyboard/script hình trong thư mục tạm. Điều phối viên sửa cấu trúc section, đường dẫn hình, lời dẫn sai thứ tự phần; thay ma trận dày đặc bằng ma trận đặc, sửa nguồn quy mô Stanford từ trang49 thành trangPDF51. Quy ước8byte/ô là điều chỉnh minh họa có ghi rõ, không phải số liệu Google. Hai SVG có script tái sinh; bỏ thông tin định hướng hàng/cột chưa cần ở hình mở bài.
+- Rà toán, sinh viên và storyboard đã hoàn tất PASS, cùng metadata model/provider trên. Bác yêu cầu tự định nghĩa lại card vì class có trong template. Xóa CSS thừa, sửa nguồn của slide chuyển tiếp; tăng chữ tiêu đề. Kiểm tra trực quan phát hiện nhãn trong sơ đồ vượt hộp dù không vượt khung slide; đã rút nhãn và tái sinh SVG.
+- Ba reviewer giải thuật, giảng dạy và mạch bị automatic approval review từ chối trước khi chạy vì chưa có xác nhận rõ quyền gửi nội dung Lecture03 tới OpenRouter. Không gọi lại qua đường vòng, không đổi worker. Đã hỏi giảng viên bằng câu hỏi bất đồng bộ, đang chờ trả lời. Chưa có editor riêng hoặc kiểm định cuối đầy đủ, chưa commit/push phần1.
+- Kiểm tra cục bộ: HTML có sáu slide trong một section, notes đủ; Chromium1280×720 không lỗi JavaScript, KaTeX, ảnh hỏng hoặc tràn khung; đã xem sáu ảnh và sửa nhãn vượt hộp. Bản này chỉ là phần1, không đạt tiêu chí hoàn tất toàn bài. Index vẫn ghi Đang xây dựng lại; ghi chú công khai cũ chưa được dùng như bản mới.
+
+### Kiểm tra cục bộ bổ sung trong lúc chờ quyền tác tử (2026-09-17)
+
+- Lượt goal trước có tiến triển: sáu slide phần 1, hai SVG, storyboard và ba báo cáo đã được tạo; không phải tiến trình OpenRouter còn chạy cần chờ. Các worker được phép chạy đã kết thúc.
+- Xác minh lại hiện trạng: vẫn thiếu ba reviewer giải thuật, giảng dạy, mạch và editor riêng; chưa nhận xác nhận phạm vi OpenRouter cho Lecture03. Không gọi lại hành động bị từ chối. Đây là lần goal thứ hai gặp cùng điều kiện chặn, chưa đủ ngưỡng đánh dấu blocked.
+- Bổ sung kiểm định bằng Chromium: ArrowDown từ slide01 tới02 và ArrowUp trở lại đạt; bản in có đúng sáu trang, không lỗi KaTeX. Trang mở đầu ở khung390×844 không tràn ngang; tài nguyên ảnh của deck tải đủ. Xem lại ảnh slide04 sau rút nhãn: chữ nằm trong các hộp, sơ đồ và caption khớp nhau. Hồ sơ kiểm tra cục bộ: /tmp/lec03-rebuild/access.json và part1.pdf; không đưa tệp tạm vào Git.
+- Chưa coi phần1 hoàn tất, chưa commit/push; mục tiêu đủ bảy phần vẫn giữ nguyên.
+
+### Điểm dừng do quyền tác tử (2026-09-17)
+
+Lần goal thứ ba liên tiếp xác minh cùng điều kiện chặn: chưa có xác nhận mới cho việc gửi nội dung Lecture03 tới OpenRouter; ba báo cáo giải thuật, giảng dạy và mạch vẫn thiếu. Lượt trước đã hoàn thành thêm kiểm tra bản in và bàn phím. Các kiểm tra cục bộ cần thiết cho bản nháp phần1 đã thực hiện; không lặp kiểm tra hoặc đổi worker để thay thế bước bị từ chối. Đánh dấu goal blocked, giữ nguyên mục tiêu đủ bảy phần và bản nháp hiện có. Khi có xác nhận, tiếp tục ba reviewer còn thiếu, editor riêng, kiểm định rồi commit/push phần1 trước khi triển khai phần2. Chưa có section mới nào được công bố là hoàn tất.
+
+
+## Hoàn tất phần 1 sau xác nhận quyền OpenRouter (2026-09-17)
+
+- Giảng viên xác nhận: “cho phép OpenRouter soạn, rà soát và chỉnh sửa toàn bộ Lecture 03”. Quyền áp dụng cho toàn bộ các phần tiếp theo; điều kiện chặn trước đây đã được giải quyết. Goal được tiếp tục, giữ phạm vi đủ bảy phần.
+- Ba reviewer giải thuật, giảng dạy và mạch đã hoàn tất PASS; tổng đủ reviewer storyboard và năm vai độc lập. Editor riêng chỉnh CSS h1 trùng, tên slide Nội dung trong storyboard, mô tả alt và đầu mũi tên dừng đúng biên hộp. Tất cả requested_model=observed_model=z-ai/glm-5.3-flash, provider OpenRouter. Không còn lỗi bắt buộc.
+- Giữ caption26px đã xác nhận đọc được và chú giải có chấm để không dùng màu làm tín hiệu duy nhất. Không áp đề xuất tam giác của reviewer vì chiều mũi tên sai. Các sửa cuối là bố cục/siêu dữ liệu truy cập, không đổi mạch đã được reviewer toàn sáu slide xác nhận.
+- Tái sinh hai SVG bằng script đã phát hành, tích hợp HTML/notes/CSS đúng template. Kiểm Chromium cuối sáu slide không lỗi JavaScript/KaTeX, ảnh hỏng hoặc tràn. Đã kiểm bản in sáu trang và bàn phím; xem lại hình sửa. Nguồn và phép tính8EB đã đối chiếu; git diff --check sạch.
+- Ngoại lệ phát hành từng phần theo yêu cầu: hiện một section ngoài, mục lục chỉ phần đã soạn. Index có nhãn rõ bài đang xây dựng, liên kết bản phần1; chưa công bố ghi chú cũ là bản mới. Phần2–7 và đồng bộ ghi chú toàn bài còn phải hoàn tất. Commit/push riêng phần1 theo yêu cầu giảng viên.
