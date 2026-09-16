@@ -57,6 +57,10 @@
 .reveal .pr-slide .grid2 {align-items:center;}
 .reveal .pr-slide .check {font-size:28px; margin-top:24px;}
 
+.reveal #web-ranking-problem h1 {font-size:38px;}
+.reveal #web-ranking-problem table {font-size:26px;line-height:1.25;}
+.reveal #web-ranking-problem table th,.reveal #web-ranking-problem table td {padding:.22em .3em;}
+
 </style>
 </head>
 <body>
@@ -73,9 +77,7 @@
 
 <section id="lec03-s01-02" data-slide-id="lec03-s01-02" class="pr-slide">
   <h2>Nội dung</h2>
-  <ul>
-    <li>Giới thiệu bài học</li>
-  </ul>
+  <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li></ul>
   <aside class="notes">Tuyến của bài bắt đầu bằng nhu cầu xếp hạng và một đồ thị nhỏ có thể tính tay. Từ ví dụ, ta xây mô hình và thuật toán PageRank. Tiếp đó là cách tổ chức phép tính trên đồ thị lớn, rồi đánh giá chi phí. Phần thực hành chuyển đặc tả thành chương trình Python và đối chiếu với kết quả tính tay. Cuối bài, các bài tập yêu cầu tính điểm và chọn cách biểu diễn dữ liệu. Các phần dùng chung một ví dụ để tránh phải học lại dữ kiện mỗi khi đổi cách nhìn.</aside>
 </section>
 
@@ -124,6 +126,120 @@
   <div class="check"><strong>Câu hỏi:</strong> từ dữ liệu trang và liên kết, kết quả cần tạo cho mỗi trang là gì?</div>
 
   <aside class="notes">Ở Bài 02, đầu vào của phép nhân ma trận–véc tơ đã được cho sẵn. Trong bài này, trước hết ta cần hiểu các trang và liên kết tạo ra phép tính điểm như thế nào. Sau đó mới dùng công cụ đã học để tổ chức tính toán. Với câu hỏi trên slide, đầu ra cần tạo là một điểm cho mỗi trang và thứ tự giảm dần theo điểm; các trang có thể đồng hạng. Điểm quan trọng theo liên kết không thay thế độ khớp truy vấn. Phần 2 sẽ đặc tả bài toán và dùng bốn trang để tính tay.</aside>
+</section>
+
+</section>
+
+<section id="web-ranking-problem" aria-label="Bài toán Xếp hạng trang web">
+
+<section id="lec03-s02-01" data-slide-id="lec03-s02-01" class="pr-slide">
+  <h1>2 · Bài toán Xếp hạng trang web</h1>
+  <div class="grid2"><img src="img/lec-03/graph-pages.svg" role="img" class="main-figure" alt="Bốn trang A, B, C, D nối với nhau bằng các liên kết có hướng"/><div class="card"><h3>Kết quả cần tạo</h3><p>Mỗi trang có một điểm.</p><p>Sắp thứ tự các trang theo điểm.</p></div></div>
+  <p class="caption">Từ mạng liên kết giữa các trang, tìm một điểm quan trọng cho mỗi trang và sắp các trang theo điểm đó.</p>
+  <aside class="notes">Phần trước đặt nhu cầu dùng liên kết làm một tín hiệu xếp hạng. Bây giờ ta tách riêng bài toán tạo tín hiệu đó. Hình bên trái là các trang và liên kết có hướng; thẻ bên phải nêu kết quả cần tạo, chưa gán con số nào. Một điểm quan trọng theo liên kết không phải điểm phù hợp với truy vấn. Ta sẽ thử cách đếm liên kết vào, rồi xét cách để một trang chia điểm cho các đích của nó. Cùng đồ thị nhỏ giúp so sánh kết quả mà không thay dữ kiện.</aside>
+</section>
+
+<section id="lec03-s02-02" data-slide-id="lec03-s02-02" class="pr-slide">
+  <h2>Đầu vào và đầu ra</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Đầu vào</h3>
+      <p>Đồ thị có hướng \(G=(V,E)\), \(n=|V|\) trang, \(m=|E|\) liên kết.</p>
+      <p>Cạnh \(j\to i\): trang \(j\) trỏ tới trang \(i\).</p>
+    </div>
+    <div class="card">
+      <h3>Đầu ra</h3>
+      <p>Điểm \(r_i\ge 0\) cho mỗi trang, quy ước \(\sum_i r_i=1\).</p>
+      <p>Thứ tự giảm dần theo điểm; cho phép đồng hạng.</p>
+    </div>
+  </div>
+  <p class="source-note">Miền xét: \(G\) hữu hạn, \(n\ge 1\); hai liên kết cùng nguồn cùng đích gộp thành một cạnh.</p>
+  <aside class="notes">Đỉnh là trang và cạnh có hướng cho biết trang nguồn trỏ tới trang đích. Hai liên kết cùng nguồn, cùng đích được gộp thành một cạnh theo mô hình sách. Ta xét đồ thị hữu hạn có ít nhất một trang. Điểm đầu ra không âm và có tổng bằng một để tiện so sánh; thứ tự theo điểm có thể có đồng hạng. Chuẩn hóa chưa xác định duy nhất cách chấm điểm, vì nhiều vector thỏa điều kiện này. Phần 3 mới xây quy tắc PageRank đầy đủ. Ký hiệu n và m lần lượt đếm trang và liên kết, sẽ dùng lại khi tính chi phí.</aside>
+</section>
+
+<section id="lec03-s02-03" data-slide-id="lec03-s02-03" class="pr-slide">
+  <h2>Ví dụ: Bốn trang web</h2>
+  <div class="grid2">
+    <img src="img/lec-03/graph-pages.svg" role="img"
+         class="main-figure" style="height:300px;width:100%;" alt="Đồ thị bốn trang: A tới B, C, D; B tới A, D; C tới A; D tới B, C"/>
+    <div>
+      <p style="font-size:28px;">\(n=4\) trang, \(m=8\) liên kết.</p>
+      <table>
+        <tr><th>Trang</th><th>Liên kết ra tới</th><th>Bậc ra</th></tr>
+        <tr><td>A</td><td>B, C, D</td><td>3</td></tr>
+        <tr><td>B</td><td>A, D</td><td>2</td></tr>
+        <tr><td>C</td><td>A</td><td>1</td></tr>
+        <tr><td>D</td><td>B, C</td><td>2</td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="caption">Mỗi mũi tên biểu diễn một liên kết; bậc ra là số liên kết đi khỏi trang.</p>
+  <p class="source-note">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Hình 5.1, trang 178.</p>
+  <aside class="notes">Đây là đồ thị Hình 5.1 của MMDS. A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới A; D trỏ tới B, C. Đọc theo từng trang nguồn cho ta bậc ra lần lượt ba, hai, một, hai, tổng cộng tám cạnh. Các liên kết hai chiều vẫn là hai cạnh riêng. Bảng giúp kiểm tra lại mũi tên và sẽ dùng khi chia điểm. Chưa cần dựng ma trận: mỗi phép tính sắp tới có thể theo dõi trực tiếp trên cạnh của đồ thị.</aside>
+</section>
+
+<section id="lec03-s02-04" data-slide-id="lec03-s02-04" class="pr-slide">
+  <h2>Đếm liên kết vào</h2>
+  <div class="grid2">
+    <img src="img/lec-03/graph-inlinks.svg" role="img"
+         class="main-figure" style="height:300px;width:100%;" alt="Đồ thị bốn trang với hai cạnh vào A là B tới A và C tới A được vẽ đậm, các cạnh còn lại nhạt"/>
+    <div>
+      <table>
+        <tr><th>Trang</th><th>Liên kết vào từ</th><th>Số liên kết vào</th></tr>
+        <tr><td>A</td><td>B, C</td><td>2</td></tr>
+        <tr><td>B</td><td>A, D</td><td>2</td></tr>
+        <tr><td>C</td><td>A, D</td><td>2</td></tr>
+        <tr><td>D</td><td>A, B</td><td>2</td></tr>
+      </table>
+      <p style="font-size:28px;">Chuẩn hóa trên ví dụ này: \(2/8=1/4\) mỗi trang; bốn trang đồng hạng.</p>
+    </div>
+  </div>
+  <p class="caption">Cách đếm này cho mọi liên kết cùng trọng lượng, chưa xét điểm và số liên kết ra của trang nguồn.</p>
+  <p class="source-note">Nguồn: <a href="http://www.mmds.org">MMDS</a>, mục 5.1.2, Ví dụ 5.1, trang 178–179.</p>
+  <aside class="notes">Thử lấy số liên kết vào làm điểm thô. A nhận hai liên kết từ B và C; ba trang còn lại cũng có hai liên kết vào. Tổng điểm thô là tám, nên chuẩn hóa riêng trên ví dụ này cho mỗi trang một phần tư. Cả bốn trang đồng hạng. Quy tắc đếm coi mọi liên kết như nhau; chẳng hạn liên kết từ C chỉ trỏ một nơi được tính ngang với một liên kết từ A trỏ ba nơi. Cách chia điểm tiếp theo sẽ xét số đích của trang nguồn. Đây chưa phải kết quả PageRank.</aside>
+</section>
+
+<section id="lec03-s02-05" data-slide-id="lec03-s02-05" class="pr-slide">
+  <h2>Chia điểm theo liên kết ra</h2>
+  <img src="img/lec-03/graph-distribute.svg" role="img"
+       class="main-figure" alt="Nút A có điểm 1/4, ba mũi tên tới B, C, D, mỗi mũi tên mang nhãn 1/12"/>
+  <p class="caption">Khởi đầu mỗi trang có \(1/4\) điểm. A chia đều cho ba đích: mỗi đích nhận \((1/4)/3=1/12\).</p>
+  <aside class="notes">Khởi tạo mỗi trang với một phần tư điểm, rồi chia đều cho các liên kết ra của trang đó. A có ba đích nên mỗi đích nhận một phần mười hai. B và D có hai đích nên mỗi cạnh mang một phần tám; C có một đích nên chuyển cả một phần tư tới A. Trên đồ thị này, mọi trang đều có liên kết ra, nên tổng các phần chia bằng tổng điểm cũ. Trường hợp không có liên kết ra chưa được quy tắc này xử lý; ta sẽ xét ở phần 3. Bước tiếp theo là cộng tại đích. Nguồn: MMDS, mục 5.1.2, Ví dụ 5.2.</aside>
+</section>
+
+<section id="lec03-s02-06" data-slide-id="lec03-s02-06" class="pr-slide">
+  <h2>Cộng điểm tại trang A</h2>
+  <img src="img/lec-03/graph-receive.svg" role="img"
+       class="main-figure" alt="Hai mũi tên từ B và C vào A; B đóng góp 1/8, C đóng góp 1/4; điểm mới của A là 3/8"/>
+  <p class="caption">B chia cho hai đích, C chỉ cho một đích. A nhận \(1/8+1/4=3/8\) điểm.</p>
+  <aside class="notes">A chỉ nhận từ B và C. B chia một phần tư cho hai liên kết ra nên góp một phần tám; C chỉ có một liên kết ra nên góp một phần tư. A nhận tổng ba phần tám. Các phần đóng góp được xác định bởi điểm cũ và bậc ra của trang nguồn, không phải bậc vào của trang nhận. Ta chưa cập nhật điểm của B hay C khi tính A. Mọi trang đều dùng cùng vector điểm cũ để tính điểm mới; cách này giúp kết quả không phụ thuộc thứ tự duyệt các trang. Nguồn: MMDS, mục 5.1.2, Ví dụ 5.2.</aside>
+</section>
+
+<section id="lec03-s02-07" data-slide-id="lec03-s02-07" class="pr-slide">
+  <h2>Ví dụ: Kết quả sau một vòng</h2>
+  <p style="font-size:28px;">Điểm cũ: \(r_A=r_B=r_C=r_D=1/4\). Tất cả các trang tính đồng thời từ điểm cũ.</p>
+  <table style="font-size:28px;">
+    <tr><th>Trang</th><th>Các đóng góp nhận được</th><th>Điểm mới</th></tr>
+    <tr><td>A</td><td>\(1/8+1/4\)</td><td>\(9/24=3/8\)</td></tr>
+    <tr><td>B</td><td>\(1/12+1/8\)</td><td>\(5/24\)</td></tr>
+    <tr><td>C</td><td>\(1/12+1/8\)</td><td>\(5/24\)</td></tr>
+    <tr><td>D</td><td>\(1/12+1/8\)</td><td>\(5/24\)</td></tr>
+  </table>
+  <p style="font-size:28px;">Tổng \(=9/24+3\times 5/24=1\). Thứ tự sau một vòng: A đứng trước B, C, D đồng hạng.</p>
+  <p class="caption">Kết quả một vòng chưa phải điểm PageRank cuối cùng.</p>
+  <aside class="notes">Bảng tổng hợp đúng một vòng tính từ điểm cũ đồng đều. A nhận ba phần tám, còn B, C, D mỗi trang nhận năm phần hai mươi tư. Tổng bằng một, nên không có điểm bị mất hoặc đếm thêm trong bước này. A đứng trước ba trang đồng hạng còn lại, khác cách đếm liên kết vào ở slide trước. Đừng dùng điểm mới của A để tính B trong cùng vòng, vì khi đó đã đổi quy tắc cập nhật. Những số này chưa phải điểm PageRank cuối; phần sau sẽ định nghĩa mô hình và cách tính lặp đầy đủ.</aside>
+</section>
+
+<section id="lec03-s02-08" data-slide-id="lec03-s02-08" class="pr-slide">
+  <h2>Câu hỏi kiểm tra</h2>
+  <p><strong>Câu hỏi:</strong> áp dụng vào đồ thị bốn trang vừa xét.</p>
+  <ul>
+    <li>Cho đồ thị \(G=(V,E)\), nêu đầu vào và đầu ra của bài toán xếp hạng trang web.</li>
+    <li> tự tính điểm mới của D sau một vòng, từ điểm cũ \(1/4\) của mỗi trang.</li>
+    <li> A và B đều có 2 liên kết vào; giải thích vì sao điểm mới của A cao hơn B.</li>
+  </ul>
+  <p class="source-note">Dữ kiện: MMDS, mục 5.1.2, Ví dụ 5.1–5.2.</p>
+  <aside class="notes">Đầu vào là đồ thị các trang và liên kết có hướng; đầu ra là điểm chuẩn hóa cùng thứ tự giảm dần, cho phép đồng hạng. D nhận một phần mười hai từ A và một phần tám từ B, tổng năm phần hai mươi tư. A nhận một phần tám từ B và một phần tư từ C; B nhận một phần mười hai từ A và một phần tám từ D. Vì C chuyển cả điểm cho A, A nhận nhiều hơn B dù hai trang có cùng số liên kết vào. Từ ví dụ này, phần 3 sẽ xây quy tắc tổng quát và xét điểm ổn định khi lặp.</aside>
 </section>
 
 </section>

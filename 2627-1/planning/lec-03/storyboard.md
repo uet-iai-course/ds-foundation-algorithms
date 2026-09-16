@@ -1,6 +1,6 @@
 # Lecture 03 — Đề xuất xây dựng lại từ đầu
 
-Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1 có sáu slide đã kiểm định và storyboard chi tiết bên dưới; các phần 2–7 còn ở kế hoạch. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
+Trạng thái: đang triển khai bảy phần theo yêu cầu giảng viên. Phần 1–2 có 14 slide đã kiểm định và storyboard chi tiết bên dưới; các phần 3–7 đang triển khai. Chưa hoàn tất toàn deck. Bản mới không lấy cấu trúc, slide hay ghi chú cũ làm khuôn.
 
 ## Phạm vi và mục tiêu
 
@@ -206,3 +206,36 @@ Phạm vi: sáu slide, id/introduction. Nguồn chính: MMDS 5.1.1 (trang 176–
 ## Tài sản
 - `render_intro.py` — tạo `intro-ranking.svg`, `intro-scale.svg` ngay thư mục này; SVG chỉ là sơ đồ/nhãn, công thức dùng HTML+KaTeX trên slide.
 - Liên kết nguồn trên slide: http://www.mmds.org (nội dung MMDS); không tải asset bên ngoài.
+
+
+## Storyboard Phần 2 — "2 · Bài toán Xếp hạng trang web" (Lecture 03)
+
+Trạng thái: đã triển khai theo `storyboard-approved.md` (phần 2 đã sửa) và `source-section2.md`.
+8 slide, `id`/`data-slide-id` từ `lec03-s02-01` đến `lec03-s02-08`, mỗi slide là một
+inner `<section class="pr-slide">` trong `<section id="web-ranking-problem">`.
+Thời lượng: 1/2/2/2/3/3/3/2 = 18 phút.
+Hình sinh bằng `render_problem.py`: `graph-pages.svg`, `graph-inlinks.svg`,
+`graph-distribute.svg`, `graph-receive.svg`. Style dùng lại `s01.css` (lớp `.pr-slide`);
+bổ sung `s02.css` cho cỡ tiêu đề phần và bảng.
+Phân vai: phần này chỉ chứa **chuỗi bài toán và trực giác** (phát biểu bài toán, đọc đồ thị,
+đếm, chia/cộng điểm); hình thức hóa, chứng minh và thuật toán lặp ở **phần 3**.
+
+| Slide | Mục đích | Câu chốt | Trung tâm | Kiến thức đầu vào | Nối vào–ra | Nguồn | Thời lượng |
+|---|---|---|---|---|---|---|---|
+| lec03-s02-01 | Phát biểu bài toán: từ mạng liên kết tìm điểm quan trọng rồi sắp thứ tự | Bài toán biến dữ liệu trang/cạnh thành điểm/thứ tự cho mỗi trang | Đồ thị `graph-pages.svg` bên trái; thẻ HTML điểm và thứ hạng bên phải | Nhu cầu tín hiệu xếp hạng từ liên kết của phần 1 (slide s01-04, s01-06) | Vào: kết thúc phần 1; Ra: đặc tả đầu vào–đầu ra slide 02 | storyboard-approved phần 2, mạch | 1 phút |
+| lec03-s02-02 | Đặc tả đầu vào–đầu ra của bài toán | Đầu vào $G=(V,E)$, cạnh $j\to i$; đầu ra $r_i\ge 0$, tổng bằng 1, sắp giảm dần, cho phép đồng hạng; chuẩn hóa chưa xác định cách chấm điểm | Hai thẻ đầu vào–đầu ra với công thức ngắn (KaTeX) | Đồ thị có hướng, ký hiệu tập hợp; không giả định CSDL/Markov | Ra: quy ước ký hiệu $n,m,r_i$ dùng cho mọi slide sau; PageRank chốt mô hình ở phần 3 | MMDS 5.1.2 mở đầu | 2 phút |
+| lec03-s02-03 | Đọc đồ thị ví dụ, xác định liên kết ra/vào đủ để tính tay | Bốn trang A→B,C,D; B→A,D; C→A; D→B,C; $n=4$, $m=8$ | `graph-pages.svg` (A B trên, C D dưới, 8 mũi tên, 2 chiều tách đường cong) + bảng bậc ra | Ký hiệu $n,m$, cạnh có hướng của slide 02 | Ra: dữ kiện dùng chung phần 2–6 | MMDS Hình 5.1, trang 178 | 2 phút |
+| lec03-s02-04 | Tính quy tắc đếm liên kết vào và thấy giới hạn | Mỗi trang đều có 2 liên kết vào nên 4 trang đồng hạng; cách đếm coi mọi liên kết cùng trọng lượng | `graph-inlinks.svg` (2 cạnh vào A đậm) + bảng đếm cả 4 trang | Bảng liên kết ra slide 03 | Ra: động cơ cho quy tắc chia điểm slide 05; không tuyên bố PageRank | MMDS 5.1.2, Ví dụ 5.1 | 2 phút |
+| lec03-s02-05 | Hiểu quy tắc chia điểm theo liên kết ra | Mỗi trang chia đều điểm cho các đích; A chia 3 → 1/12 mỗi cạnh; B, D chia 2 → 1/8; C chia 1 → 1/4; tổng phần chia bằng điểm cũ | `graph-distribute.svg`: A phóng to, ba nhãn 1/12 | Điểm khởi tạo 1/4; bậc ra bảng slide 03 | Ra: các phần đóng góp dùng ở slide 06–07 (bảng đóng góp của B, D, C để ở notes/slide 06 tránh quá tải) | MMDS 5.1.2, Ví dụ 5.2 | 3 phút |
+| lec03-s02-06 | Cộng các phần đến tại một trang, tránh lỗi chia theo bậc vào | A nhận 1/8 từ B (chia cho bậc ra 2) và 1/4 từ C (bậc ra 1) ⇒ điểm mới 3/8 | `graph-receive.svg`: 2 nguồn B, C → A, nhãn đúng | Quy tắc chia slide 05 | Ra: dòng A của bảng kết quả slide 07 | MMDS Ví dụ 5.2 | 3 phút |
+| lec03-s02-07 | Trình bày kết quả một vòng cho cả bốn trang, kiểm tra tổng | A: 1/8+1/4=9/24; B=C=D: 1/12+1/8=5/24; tổng 1; thứ tự A>B=C=D; đây 1 vòng từ điểm cũ đồng đều, tính đồng thời, chưa phải PageRank cuối | Bảng vết chạy (đóng góp → điểm mới), không kèm đồ thị | Kết quả A slide 06; quy tắc chia slide 05 | Ra: căn cứ câu hỏi slide 08; đầu vào cho khái niệm điểm ổn định ở phần 3 | MMDS Ví dụ 5.2, trang 180 | 3 phút |
+| lec03-s02-08 | Kiểm tra mục tiêu phần và nối sang phần 3 | Ba yêu cầu (đầu vào/đầu ra; tự tính D; giải thích A cao hơn dù bậc vào bằng nhau); đáp án ở notes; phần 3 cần quy tắc tổng quát, điểm ổn định, xử lý đồ thị khác | Danh sách 3 nhiệm vụ dưới nhãn “Câu hỏi:”; lời chuyển sang phần 3 ở notes | Toàn bộ phép tính slide 02–07 | Ra: chuyển sang phần 3 (mô hình, thuật toán, tính đúng) | MMDS 5.1.2, Ví dụ 5.1–5.2 (dữ kiện; câu hỏi tự soạn) | 2 phút |
+
+## Ghi chú chung
+
+- Notes mỗi slide 80–130 từ, tiếng Việt thuần, không mã slide/thời lượng/hướng dẫn tác giả; câu hỏi có nhãn "Câu hỏi:".
+- Không dùng ma trận, chuỗi Markov, vector riêng, xác suất chuyển ngẫu nhiên trên mặt slide; các khái niệm này ở phần 3.
+- Không tuyên bố kết quả một vòng là PageRank cuối; nhãn "kết quả một vòng" xuất hiện trên slide 07.
+- Phân biệt với cụm trực giác: chứng minh hội tụ, điều kiện đúng và thuật toán lặp thuộc phần 3, đã phân vai trong storyboard-approved.
+- Script `render_problem.py` ghi SVG vào thư mục hiện tại khi chạy trong /tmp/lec03-rebuild; khi copy vào `scripts/` của bài, dùng `.parent.parent` để output về thư mục hình. Không sửa SVG thủ công.
+- Ghi công: nguồn MMDS 5.1.2, Hình 5.1, Ví dụ 5.1–5.2, trang 178–180, http://www.mmds.org.

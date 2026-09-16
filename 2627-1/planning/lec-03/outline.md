@@ -1,6 +1,6 @@
 # Bài 03 — Dàn ý mới để duyệt
 
-Bản mới ngày 2026-09-17 thay thế deck cũ theo yêu cầu giảng viên. Đã lập kế hoạch triển khai đủ bảy phần; phần 1 có sáu slide đã kiểm định, các phần 2–7 chưa soạn. Giữ phạm vi 120 phút giảng + 60 phút bài tập.
+Bản mới ngày 2026-09-17 thay thế deck cũ theo yêu cầu giảng viên. Đã lập kế hoạch triển khai đủ bảy phần; phần 1–2 có 14 slide đã kiểm định, các phần 3–7 đang triển khai. Giữ phạm vi 120 phút giảng + 60 phút bài tập.
 
 
 - Tên bài: **PageRank: mô hình và tính toán**, Bài 03 theo thứ tự đề xuất trong `sources/source.md`; tiếp nối phép nhân ma trận–véc tơ và MapReduce của Bài 02.
