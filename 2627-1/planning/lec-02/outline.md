@@ -113,3 +113,11 @@ Các con số 16 phần tử, kích thước byte, băng thông và số giây l
 Giữ mạch và 11 trang của phần 4. Từ trang 05, lần lượt xây: tổng đầu vào tác vụ C (I + H) → lượng qua một đường truyền V và thời gian theo băng thông → giới hạn đường nối dùng chung → Combine giảm byte nhưng thêm xử lý → thời gian toàn công việc TP → mức tăng tốc SP → bài kiểm tra lợi ích ròng. Chỉ giới thiệu V ở trang băng thông; không dùng tên nguồn thay cho lời giải thích quy ước trên mặt slide. Các ký hiệu đều có ý nghĩa và đơn vị tại nơi dùng. Không thêm mô hình hiệu suất sử dụng máy trong lượt này.
 
 Ví dụ cộng 16 số dùng nhãn $T_{\mathrm{Map}}=3\tau$, $T_{\mathrm{Reduce}}=3\tau$; ví dụ thời gian toàn công việc 1/4/3/2 giây được đánh dấu dữ kiện giả định riêng.
+
+## Ba phần cuối — phạm vi đã duyệt
+
+Theo yêu cầu hiện tại, bổ sung lần lượt phần 5 hệ thống, phần 6 thực hành Hadoop Streaming với Python, phần 7 tổng kết và bài tập. Mỗi phần có một commit và push sau kiểm định. Phần 5 có 14 slide được đánh dấu **Đọc thêm** theo chỉ dẫn mới, gồm slide riêng HDFS hỗ trợ Map-Reduce. Dùng MMDS 2.2.5–2.2.6 và slide MMDS 23–27 làm trục, đối chiếu Stanford 44–47; bổ sung bài báo gốc Dean–Ghemawat và tài liệu Apache cho chi tiết InputSplit, shuffle và HDFS.
+
+Mạch phần hệ thống: phần đầu vào → HDFS cung cấp dữ liệu và vị trí → giao gần dữ liệu → chia trung gian theo hàm phân phối → shuffle → nhóm để đọc lần lượt → theo dõi tác vụ → phân biệt nơi lưu → phục hồi Map/Reduce → nhiều lần thực thi → giới hạn → kiểm tra. Phần thực hành sẽ nhắc lại giao diện và phạm vi chạy, không lấy phần đọc thêm làm tiên quyết bắt buộc.
+
+Lịch mục tiêu khi đủ bảy phần: phần 1 = 10 phút; phần 2 = 22; phần 3 = 30; phần 4 = 25; phần 6 = 25 (giảng và trình diễn, cài đặt chuẩn bị trước); phần 7 tổng kết = 8. Tổng 120 phút giảng chính. Phần hệ thống: 25 phút tự đọc ngoài lớp. Ba bài vận dụng cuối: 60 phút riêng, nguồn MMDS 2.3.1. Lịch này thay các ước lượng cục bộ trước; sẽ chốt theo slide thực tế ở phần cuối. Không rút giả thiết hoặc chứng minh để ép số slide.

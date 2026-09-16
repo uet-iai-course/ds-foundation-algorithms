@@ -198,7 +198,8 @@
 .reveal #lec02-s04-11 .ex-table {font-size:26px; margin-top:0;}
 .reveal #lec02-s04-11 .ex-table td,.reveal #lec02-s04-11 .ex-table th {padding:7px 10px;}
 
-  </style>
+  .reveal .system-slide .self-study-badge { font-size: 22px; }
+</style>
 </head>
 <body>
   <div class="reveal">
@@ -211,7 +212,7 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li></ul>
+          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce (đọc thêm)</li></ul>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -1159,6 +1160,146 @@ Reduce(i, L):  yield(i, sum(L))
 </section>
 
 </section>
+<section id="system-execution" aria-label="Hệ thống thực thi Map-Reduce">
+
+  <section id="lec02-s05-01" data-slide-id="lec02-s05-01" class="motivation-slide example-slide cost-slide system-slide">
+<h1>5 · Hệ thống thực thi Map-Reduce</h1>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div>
+<p>Thời gian chạy phụ thuộc vào cách giao tác vụ và chuyển dữ liệu giữa các máy.</p>
+<table class="ex-table"><tbody><tr><td>Giao việc</td><td>Chọn máy và tận dụng vị trí dữ liệu.</td></tr><tr><td>Chuyển dữ liệu</td><td>Đưa các phần trung gian tới đúng Reduce.</td></tr><tr><td>Phục hồi</td><td>Phát hiện lỗi và làm lại phần kết quả bị mất.</td></tr></tbody></table>
+<p class="ex-source">Nguồn: MMDS 2.2.5–2.2.6 (trang 28–30), http://www.mmds.org.</p>
+<aside class="notes">Phần trước đã tách thời gian tính toán, truyền và điều phối. Phần này giải thích các cơ chế tạo ra những chi phí đó. Ta dùng lại ví dụ đếm từ để theo đầu ra của từng Map đến Reduce, rồi xét máy hỏng khi công việc chưa kết thúc. Mô hình điều phối trong phần này theo MMDS; chi tiết Hadoop được ghi riêng khi cần. Nguồn: MMDS 2.2.5–2.2.6, trang 28–30; slide chính thức 23–27, http://www.mmds.org.</aside>
+</section>
+
+  <section id="lec02-s05-02" data-slide-id="lec02-s05-02" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Từ phần dữ liệu đến tác vụ</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p><strong>Phần đầu vào (InputSplit)</strong> xác định dữ liệu một tác vụ Map phải đọc.</p>
+<img class="cost-figure" src="img/lec-02/sys-02.svg" alt="Sáu phần dữ liệu tạo sáu Map; ba máy nhận mỗi máy hai tác vụ kế tiếp."/>
+<p class="ex-note">Ví dụ mỗi máy chạy một tác vụ mỗi lượt. Số Reduce do cấu hình chọn.<br>Phần đầu vào là đơn vị chia việc; khối HDFS là đơn vị lưu trữ, có thể khác nhau.</p>
+<p class="ex-source">Nguồn: Apache Hadoop Tutorial, mục Job Input; MMDS 2.2.5.</p>
+<aside class="notes">Một tác vụ Map xử lý phần đầu vào được giao. Với Hadoop, InputFormat tạo các InputSplit và RecordReader đưa các bản ghi trong phần đó tới Map. Sáu phần S1 đến S6 tạo sáu tác vụ, dù chỉ có ba máy thực thi. Khi máy rảnh, nó có thể nhận tác vụ tiếp theo. Ví dụ minh họa một tác vụ mỗi máy mỗi lượt, không phải giới hạn của mọi hệ thống. Số Reduce được cấu hình riêng. Không suy số Map chỉ từ số máy hoặc mặc định một khối luôn là một phần đầu vào. Nguồn: MMDS 2.2.5; Apache Hadoop MapReduce Tutorial, Job Input.</aside>
+</section>
+
+<section id="lec02-s05-02a" data-slide-id="lec02-s05-02a" class="motivation-slide example-slide cost-slide system-slide">
+<h2>HDFS hỗ trợ Map-Reduce</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div>
+<p>Hệ tệp phân tán Hadoop (HDFS) cung cấp lớp lưu trữ cho đầu vào và kết quả.</p>
+<img class="cost-figure" src="img/lec-02/sys-02a.svg" alt="HDFS cung cấp vị trí bản sao để giao Map gần dữ liệu, đầu vào để đọc lại và nơi lưu kết quả Reduce."/>
+<p class="ex-note">HDFS quản lý dữ liệu. Hệ thống MapReduce phân chia, lập lịch và chạy lại tác vụ.</p>
+<p class="ex-source">Nguồn: MMDS 2.1.2, 2.2.5; Apache Hadoop, HDFS Architecture.</p>
+<aside class="notes">HDFS chia tệp thành khối và lưu các bản sao theo cấu hình. NameNode quản lý thông tin tệp và vị trí khối; DataNode giữ khối và phục vụ đọc ghi. MapReduce dùng thông tin vị trí để ưu tiên chạy Map gần một bản sao. Khi phải chạy lại Map, hệ thống còn đầu vào để đọc nếu một bản sao khác vẫn truy cập được. Kết quả Reduce đã hoàn tất cũng được lưu trên HDFS, nên mất máy tính toán không đồng nghĩa mất kết quả. Đầu ra Map trung gian trong mô hình đang học nằm trên đĩa cục bộ, không tự được bảo vệ như tệp HDFS. Nguồn: MMDS 2.1.2, 2.2.5; https://hadoop.apache.org/docs/r3.4.2/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html.</aside>
+</section>
+
+  <section id="lec02-s05-03" data-slide-id="lec02-s05-03" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Giao Map gần nơi lưu dữ liệu</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p>Ưu tiên máy có bản sao; nếu không phù hợp, xét máy cùng tủ rack rồi xa hơn.</p>
+<img class="cost-figure" src="img/lec-02/sys-03.svg" alt="A và D có bản sao B1; Map tại đó đọc cục bộ. B đọc từ A trong cùng rack; C đọc từ A qua hai rack."/>
+<p class="ex-note">A và D đều có thể đọc B₁ tại máy. Các bản sao giúp chọn nơi đọc;<br>chúng không làm số bản ghi đầu vào tăng lên.</p>
+<p class="ex-source">Nguồn: MMDS 2.1.2, 2.2.5; bài báo MapReduce (OSDI 2004), mục 3.4.</p>
+<aside class="notes">Trong hình, A và D giữ hai bản sao của cùng khối B1. Nếu Map chạy tại một trong hai máy này, nó đọc cục bộ. Map ở B phải đọc từ A qua mạng trong rack; C đọc bản ở A phải dùng đường nối giữa hai rack. Bộ lập lịch cân nhắc vị trí và tài nguyên sẵn có, không bảo đảm mọi Map đều đọc cục bộ. Dữ liệu có bản sao không có nghĩa đếm cùng một phần nhiều lần: bản sao thuộc lưu trữ, tác vụ thuộc tính toán. Nguồn: MMDS 2.1.2 và 2.2.5; Dean–Ghemawat 3.4.</aside>
+</section>
+
+  <section id="lec02-s05-04" data-slide-id="lec02-s05-04" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Chia đầu ra Map theo hàm phân phối</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p>Hai văn bản, hai Map, hai Reduce; tạm bỏ Combine để thấy từng cặp.</p>
+<img class="cost-figure" src="img/lec-02/sys-04.svg" alt="M1 chia hai cặp mèo vào phần R0 và chó vào R1; M2 chia chim vào R0 và chó vào R1."/>
+<p class="ex-note">Mỗi Map lưu các phần trung gian trên đĩa cục bộ.<br>Tiến trình điều phối nhận vị trí và kích thước các phần để báo cho Reduce.</p>
+<p class="ex-source">Nguồn: MMDS 2.2.5; bài báo MapReduce, mục 3.1 (trang 4).</p>
+<aside class="notes">Dùng lại d1 gồm mèo chó mèo và d2 gồm chó chim. Quy tắc phân phối minh họa là f(mèo)=0, f(chim)=0, f(chó)=1. Mọi Map dùng cùng quy tắc, nên cặp cùng khóa đi tới cùng Reduce. Một Map chia đầu ra thành R phần; đây là các phần logic, không khẳng định Hadoop tạo đúng R tệp vật lý riêng biệt. Tiến trình điều phối giữ thông tin vị trí, không thu toàn bộ dữ liệu trung gian về nó. Tiếp theo, mỗi Reduce dùng những vị trí đó để lấy phần của mình. Nguồn: MMDS 2.2.5; Dean–Ghemawat 3.1.</aside>
+</section>
+
+  <section id="lec02-s05-05" data-slide-id="lec02-s05-05" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Shuffle: mỗi Reduce lấy phần của mình</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p><strong>Shuffle</strong> chuyển các phần trung gian tới tác vụ Reduce đã được chỉ định.</p>
+<img class="cost-figure" src="img/lec-02/sys-05.svg" alt="Mỗi Reduce lấy đúng phần của mình từ cả hai Map; R0 nhận mèo mèo chim, R1 nhận chó chó."/>
+<p class="ex-note">R₀ nhận nhiều khóa; mọi cặp cùng khóa vẫn về cùng một Reduce.<br>Việc lấy dữ liệu có thể bắt đầu khi một số Map khác còn chạy.</p>
+<p class="ex-source">Nguồn: MMDS slide 23, 2.2.5; Apache Hadoop Tutorial, phần Shuffle and Sort.</p>
+<aside class="notes">R0 lấy phần 0 từ M1 và M2; R1 lấy phần 1 từ cả hai. Đây là bước truyền dữ liệu qua mạng giữa các máy nếu bên gửi và nhận không cùng máy. Có nhiều khóa thuộc một Reduce nên lấy đủ dữ liệu chưa thay thế bước nhóm theo khóa. Trong Hadoop, lấy và ghép dữ liệu có thể chồng lấp; mô hình cộng thời gian các pha nối tiếp ở phần trước là giả thiết đơn giản hóa để tính chi phí. Nguồn: MMDS slide 23; Apache Hadoop MapReduce Tutorial, Shuffle và Sort.</aside>
+</section>
+
+  <section id="lec02-s05-06" data-slide-id="lec02-s05-06" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Nhóm theo khóa để Reduce đọc lần lượt</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p>Hệ thống sắp xếp và ghép dữ liệu; hàm Reduce xử lý từng nhóm khóa.</p>
+<img class="cost-figure" src="img/lec-02/sys-06.svg" alt="R0 nhóm chim và mèo; Reduce cộng lần lượt hai giá trị của mèo để được 2."/>
+<p class="ex-note">Với đếm từ, Reduce chỉ cần một biến tổng cho khóa đang xử lý.<br>Nhóm giá trị đầy đủ về mặt logic không có nghĩa phải giữ cả nhóm trong RAM.</p>
+<p class="ex-source">Nguồn: bài báo MapReduce, mục 3.1 (trang 4); Apache Hadoop Tutorial, Shuffle and Sort.</p>
+<aside class="notes">Danh sách giá trị theo khóa trong đặc tả là đối tượng logic. Giao diện có thể cung cấp từng giá trị để hàm Reduce đọc lần lượt. Trong ví dụ, nhóm mèo có hai số 1; biến tổng đi từ 0 tới 1 rồi 2. Nếu dữ liệu trung gian không vừa bộ nhớ, hệ thống có thể dùng sắp xếp và ghép trên đĩa. Việc này có chi phí đọc/ghi, đã được tính trong pha tương ứng khi dùng mô hình thời gian toàn công việc. Không suy ra mọi hàm Reduce đều chỉ cần một biến hoặc mọi đầu ra được sắp thứ tự toàn cục. Nguồn: Dean–Ghemawat 3.1, trang 4; Apache Hadoop Tutorial, Shuffle/Sort.</aside>
+</section>
+
+  <section id="lec02-s05-07" data-slide-id="lec02-s05-07" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Theo dõi trạng thái và giao việc tiếp</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p>Tiến trình điều phối (Master) theo dõi mỗi tác vụ và máy thực thi nó.</p>
+<img class="cost-figure" src="img/lec-02/sys-07.svg" alt="Chờ, đang chạy, hoàn tất; tác vụ đang chạy bị lỗi trở về chờ để giao lại."/>
+<p class="ex-note">Máy thực thi báo tiến độ và kết quả; máy rảnh có thể nhận tác vụ tiếp theo.<br>Mất liên lạc quá hạn được coi là lỗi để xử lý, không nhất thiết máy đã hỏng vật lý.</p>
+<p class="ex-source">Nguồn: MMDS 2.2.5–2.2.6.</p>
+<aside class="notes">Tiến trình điều phối giữ trạng thái tác vụ, nơi thực thi và vị trí đầu ra. Nó kiểm tra liên lạc định kỳ; khi một máy không trả lời trong thời hạn, tác vụ có thể được giao lại ở máy khác. Hình thể hiện tác vụ đang chạy trở về chờ. Trường hợp Map đã hoàn tất nhưng mất tệp trung gian cần xét thêm nơi lưu dữ liệu ở các trang sau. Master ở đây là vai trò điều phối MapReduce theo mô hình MMDS, khác NameNode quản lý tệp và khối HDFS. Nguồn: MMDS 2.2.5–2.2.6.</aside>
+</section>
+
+  <section id="lec02-s05-08" data-slide-id="lec02-s05-08" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Nơi lưu dữ liệu quyết định cách phục hồi</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div>
+<table class="ex-table"><thead><tr><th>Dữ liệu</th><th>Nơi lưu</th><th>Khi mất máy lưu</th></tr></thead><tbody>
+<tr><td>Đầu vào</td><td>HDFS có bản sao</td><td>Đọc bản sao khác</td></tr>
+<tr><td>Đầu ra Map trung gian</td><td>Đĩa cục bộ</td><td>Chạy lại Map để tạo lại</td></tr>
+<tr><td>Đầu ra Reduce đã hoàn tất</td><td>HDFS</td><td>Giữ kết quả đã công bố</td></tr></tbody></table>
+<p class="cost-assumptions">Xét hệ tệp dùng bản sao; còn ít nhất một bản sao HDFS truy cập được.</p>
+<p class="ex-source">Nguồn: MMDS 2.2.5–2.2.6; bài báo MapReduce, mục 3.3.</p>
+<aside class="notes">Đầu vào và đầu ra cuối được lưu trên hệ tệp phân tán; trung gian Map thường nằm ở đĩa cục bộ. Do đó hai tác vụ cùng báo hoàn tất chưa có cùng cách phục hồi: mất đầu ra Map có thể buộc tính lại, còn kết quả Reduce trên hệ tệp phân tán được giữ nếu bản sao vẫn truy cập được. Đây là mô hình lưu trữ của MMDS và MapReduce gốc, dùng HDFS làm ví dụ hệ tệp. Không khẳng định mọi hệ thống đều lưu trung gian giống nhau. Hai trang tiếp theo áp dụng bảng này vào Map và Reduce. Nguồn: MMDS 2.2.5–2.2.6; Dean–Ghemawat 3.3.</aside>
+</section>
+
+  <section id="lec02-s05-09" data-slide-id="lec02-s05-09" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Máy Map hỏng: tạo lại đầu ra trung gian</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p>M₁ đã xong trên máy A, nhưng Reduce chưa lấy phần dữ liệu cần từ A.</p>
+<img class="cost-figure" src="img/lec-02/sys-09.svg" alt="Máy A hỏng; máy B đọc bản sao đầu vào, chạy lại M1 và cung cấp địa chỉ mới cho Reduce đang đợi."/>
+<p class="ex-note">Điều phối viên đưa M₁ về chờ, giao máy khác chạy lại và báo vị trí đầu ra mới.<br>Map đã xong vẫn phải làm lại nếu đầu ra cục bộ cần dùng không còn truy cập được.</p>
+<p class="ex-source">Nguồn: MMDS 2.2.6; bài báo MapReduce, mục 3.3 (trang 4–5).</p>
+<aside class="notes">M1 đã xử lý đầu vào nhưng sản phẩm của nó nằm trên đĩa cục bộ máy A. Khi A không truy cập được, Reduce chưa lấy phần cần thiết không thể tiếp tục bằng địa chỉ cũ. Hệ thống giao lại M1 cho B, đọc một bản sao đầu vào và tạo đầu ra trung gian mới. Tiến trình điều phối báo vị trí mới cho Reduce. Với hàm xác định, Reduce đã đọc đủ phần cũ không cần đọc lần nữa chỉ vì Map được chạy lại; Reduce đã hoàn tất cũng không bị buộc chạy lại trong tình huống này. Nguồn: MMDS 2.2.6, trang 30; Dean–Ghemawat 3.3.</aside>
+</section>
+
+  <section id="lec02-s05-10" data-slide-id="lec02-s05-10" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Máy Reduce hỏng: làm lại tác vụ chưa xong</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p>R₀ chưa hoàn tất; R₁ đã công bố kết quả O₁ lên HDFS.</p>
+<img class="cost-figure" src="img/lec-02/sys-10.svg" alt="R0 bỏ đầu ra tạm, chạy lại từ dữ liệu Map còn truy cập được; O1 đã hoàn tất được giữ."/>
+<p class="ex-note">R₀ mới lấy lại các phần trung gian và tính Reduce lại; chưa cần chạy lại các Map.<br>Chỉ chấp nhận đầu ra của lần thực thi hoàn tất qua cơ chế công bố kết quả.</p>
+<p class="ex-source">Nguồn: MMDS 2.2.6; bài báo MapReduce, mục 3.3 (trang 4–5).</p>
+<aside class="notes">Khi máy chạy R0 hỏng giữa chừng, phần kết quả tạm chưa được chấp nhận phải bỏ. R0 được thực thi lại ở máy khác: nó lấy lại các phần trung gian và chạy lại phép tính Reduce. Vì đầu ra Map trong ví dụ còn truy cập được, các Map không phải chạy lại. O1 của R1 đã hoàn tất nằm trên HDFS và có bản sao, nên được giữ. Nếu đồng thời mất đầu ra Map cần dùng, hệ thống phải tạo lại phần đó trước. Nguồn: MMDS 2.2.6; Dean–Ghemawat 3.3.</aside>
+</section>
+
+  <section id="lec02-s05-11" data-slide-id="lec02-s05-11" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Một tác vụ có thể có nhiều lần thực thi</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div>
+<table class="ex-table"><thead><tr><th>Tình huống</th><th>Cách xử lý</th></tr></thead><tbody>
+<tr><td>Lỗi hoặc mất liên lạc</td><td>Giao lại tác vụ trên máy khác</td></tr>
+<tr><td>Một tác vụ chạy quá chậm</td><td>Có thể chạy thêm một bản dự phòng</td></tr></tbody></table>
+<p>Mỗi tác vụ logic có một mã; các lần thực thi có mã riêng.</p>
+<p class="ex-takeaway">Hệ thống chấp nhận một kết quả cho tác vụ, không cộng hai bản kết quả.</p>
+<p class="cost-assumptions">Xét hàm xác định, dữ liệu đầu vào không đổi, đầu ra qua cơ chế của hệ thống.</p>
+<p class="ex-source">Nguồn: bài báo MapReduce, mục 3.3 (trang 4–5) và 3.6.</p>
+<aside class="notes">Chạy lại sau lỗi và chạy dự phòng để giảm thời gian chờ là hai lý do khác nhau để cùng tác vụ có nhiều lần thực thi. Các bản dự phòng có thể chạy đồng thời, vì vậy không bảo đảm mã người dùng chỉ được thực thi một lần. Hệ thống dùng nhận diện tác vụ và cơ chế công bố đầu ra để không tính hai bản kết quả như hai đóng góp độc lập. Hàm xác định giúp các lần chạy từ cùng đầu vào cho cùng kết quả. Cam kết đầu ra không tự áp dụng cho tác động bên ngoài như gửi thư hoặc ghi tùy ý vào dịch vụ khác. Nguồn: Dean–Ghemawat 3.3 và 3.6.</aside>
+</section>
+
+  <section id="lec02-s05-12" data-slide-id="lec02-s05-12" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Phạm vi chống chịu lỗi</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div>
+<table class="ex-table"><thead><tr><th>Sự cố</th><th>Khả năng phục hồi</th></tr></thead><tbody>
+<tr><td>Một máy thực thi hỏng</td><td>Làm lại tác vụ hoặc đầu ra trung gian bị mất</td></tr>
+<tr><td>Một tủ rack không truy cập được</td><td>Dùng bản sao ở rack khác và giao lại tác vụ</td></tr>
+<tr><td>Master hỏng trong mô hình MMDS</td><td>Công việc phải được khởi động lại</td></tr></tbody></table>
+<p class="cost-assumptions">Phục hồi cần đầu vào còn đọc được và máy thay thế.<br>Chạy lại không tự sửa lỗi chương trình lặp lại trên cùng dữ liệu.</p>
+<p class="ex-source">Nguồn: MMDS 2.1, 2.2.6; Dean–Ghemawat 3.3.</p>
+<aside class="notes">Phục hồi phụ thuộc tài nguyên và dữ liệu còn lại. Bản sao ở các rack khác nhau giúp tránh mất toàn bộ một khối khi một rack hỏng, nhưng không bảo đảm sống sót khi tất cả bản sao đều mất. Mô hình MMDS giả định một Master; nếu nó hỏng, công việc phải khởi động lại. Không dùng kết luận này như mô tả cố định của mọi phiên bản Hadoop, vì hệ thống hiện đại có các chính sách điều phối và phục hồi khác. Trong phần thực hành, ta sẽ chỉ rõ chế độ chạy để không nhầm một lần chạy cục bộ với cụm chịu lỗi. Nguồn: MMDS 2.1 và 2.2.6; Dean–Ghemawat 3.3.</aside>
+</section>
+
+  <section id="lec02-s05-13" data-slide-id="lec02-s05-13" class="motivation-slide example-slide cost-slide system-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div><p><strong>Câu hỏi:</strong> áp dụng vào ví dụ hai Map, hai Reduce vừa xét.</p>
+<ol><li>R₀ và R₁ lần lượt lấy phần nào từ M₁ và M₂?</li><li>M₁ đã xong trên A; A hỏng trước khi R₀ lấy dữ liệu. Phần nào phải tính lại?</li><li>R₁ đã công bố O₁, rồi máy chạy R₁ hỏng. Có cần chạy lại R₁ nếu HDFS còn bản sao O₁?</li></ol>
+<p class="ex-source">Nguồn: tổng hợp MMDS 2.2.5–2.2.6; bài báo MapReduce mục 3.3; http://www.mmds.org.</p>
+<aside class="notes">R0 lấy phần 0 của M1 và M2, gồm hai cặp mèo và một cặp chim. R1 lấy phần 1 của hai Map, gồm hai cặp chó. Khi A hỏng, đầu ra cục bộ của M1 không truy cập được nên M1 phải được chạy lại từ bản sao đầu vào; sau đó R0 lấy dữ liệu ở vị trí mới. R1 đã hoàn tất không cần chạy lại khi O1 còn trên HDFS. Các câu trả lời phải viện dẫn vị trí dữ liệu và trạng thái công bố, không chỉ nói chung là hệ thống có bản sao. Phần tiếp theo dùng Hadoop để thực thi mã Python và kiểm tra kết quả đếm từ.</aside>
+</section>
+
+</section>
+
     </div>
   </div>
   <script src="revealjs/dist/reveal.js"></script>
