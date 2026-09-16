@@ -25,11 +25,11 @@ b+=txt(45,111,'4 máy',24)
 for m,y in [(1,118),(2,162),(3,206),(4,250)]:
  b+=txt(135,y+26,f'Máy {m}',24,'end')+rect(x0,y,180,34)+txt(250,y+25,'3τ',24)
  if m==1:b+=rect(340,y,180,34,darker)+txt(430,y+25,'3τ',24)
-b+=txt(645,156,'Mỗi máy cộng 4 số: 3 phép cộng.',26,'start')
-b+=txt(645,203,'Máy 1 gộp 4 tổng: 3 phép cộng.',26,'start')
+b+=txt(645,156,'Map: cộng 4 số, 3 phép cộng.',26,'start')
+b+=txt(645,203,'Reduce: gộp 4 tổng, 3 phép cộng.',26,'start')
 b+=txt(645,250,'Kết thúc sau 6τ.',26,'start')
 b+=axis(x0,scale,[0,3,6,9,12,15],310,'τ')
-figs['04']=svg(b,352,'Cùng trục thời gian: một máy cộng 16 số trong 15 tau. Bốn máy cùng cộng cục bộ từ 0 đến 3 tau, sau đó máy 1 gộp từ 3 đến 6 tau. Các thanh và mốc dùng 60 pixel cho một tau.')
+figs['04']=svg(b,352,'Cùng trục thời gian: một máy cộng 16 số trong 15 tau. Map trên bốn máy cộng cục bộ từ 0 đến 3 tau, sau đó Reduce trên máy 1 gộp từ 3 đến 6 tau. Các thanh và mốc dùng 60 pixel cho một tau.')
 b='<defs><marker id="cost-input-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2f3e7a"/></marker></defs>'
 for x,w,labels in [(10,220,['Đầu vào Map','I = 100 MB']),(275,100,['Map']),(420,220,['Đầu vào Reduce','H = 40 MB']),(685,135,['Reduce']),(865,245,['Kết quả cuối','Không tính vào C'])]:
  b+=rect(x,45,w,95)

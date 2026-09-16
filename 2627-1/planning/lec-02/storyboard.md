@@ -501,3 +501,9 @@ Phạm vi: sửa các trang `lec02-s04-05` đến `lec02-s04-11`; giữ số tra
 | 11 | Có nên dùng Combine trong cấu hình đã cho? | Tính thời gian trước/sau từ dữ kiện, cân đối thời gian truyền giảm và thời gian Map tăng. |
 
 Cách thể hiện: câu dẫn nêu nhu cầu đo, ký hiệu được giải nghĩa trước công thức, hình/bảng giữ vai trò trung tâm, câu cuối diễn giải kết quả cụ thể. Ghi chú diễn giả mở rộng giả thiết và câu nối. Giữ các ngoại lệ phạm vi và thời lượng của bản đang xây dựng từng phần.
+
+## Thống nhất nhãn pha trong ví dụ cộng và làm rõ dữ kiện thời gian
+
+- `lec02-s04-04`: gọi cộng cục bộ là Map và gộp bốn tổng là Reduce. Mỗi pha mất $3\tau$, nên $T_4=T_{\mathrm{Map}}+T_{\mathrm{Reduce}}=3\tau+3\tau=6\tau$. Giữ phép cộng tuần tự tại mỗi tác vụ và tổng khởi tạo bằng phần tử đầu; không đổi sang cây cộng. Nhãn hình khớp công thức. Công thức tổng quát giữ trong ghi chú để mặt slide tập trung vào ví dụ.
+- `lec02-s04-09`: ghi trên mặt slide rằng thời gian 1/4/3/2 giây là dữ kiện cho trước của ví dụ giả định trên bốn máy. Không suy ra những số này từ ví dụ cộng 16 số; không phải số đo thực nghiệm. Mục đích là tập ghép thời gian các pha; bài tập phải cung cấp thời gian pha hoặc dữ kiện để tính chúng.
+- Giữ thứ tự, số trang, các giả thiết và nguồn của phần chi phí. Hai trang dùng cùng ký hiệu pha nhưng hai bộ dữ kiện riêng.

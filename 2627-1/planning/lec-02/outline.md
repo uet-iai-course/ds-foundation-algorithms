@@ -111,3 +111,5 @@ Các con số 16 phần tử, kích thước byte, băng thông và số giây l
 ### Điều chỉnh cách trình bày chi phí
 
 Giữ mạch và 11 trang của phần 4. Từ trang 05, lần lượt xây: tổng đầu vào tác vụ C (I + H) → lượng qua một đường truyền V và thời gian theo băng thông → giới hạn đường nối dùng chung → Combine giảm byte nhưng thêm xử lý → thời gian toàn công việc TP → mức tăng tốc SP → bài kiểm tra lợi ích ròng. Chỉ giới thiệu V ở trang băng thông; không dùng tên nguồn thay cho lời giải thích quy ước trên mặt slide. Các ký hiệu đều có ý nghĩa và đơn vị tại nơi dùng. Không thêm mô hình hiệu suất sử dụng máy trong lượt này.
+
+Ví dụ cộng 16 số dùng nhãn $T_{\mathrm{Map}}=3\tau$, $T_{\mathrm{Reduce}}=3\tau$; ví dụ thời gian toàn công việc 1/4/3/2 giây được đánh dấu dữ kiện giả định riêng.

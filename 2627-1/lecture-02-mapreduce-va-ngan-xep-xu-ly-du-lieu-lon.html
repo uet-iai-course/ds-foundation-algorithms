@@ -1023,14 +1023,14 @@ Reduce(i, L):  yield(i, sum(L))
 
 <section id="lec02-s04-04" data-slide-id="lec02-s04-04" class="motivation-slide example-slide cost-slide">
   <h2>Cộng 16 số trên 4 máy</h2>
-  <p class="cost-assumptions">\(\tau>0\): thời gian một phép cộng; \(n\) số chia đều cho \(P\) máy.</p>
+  <p class="cost-assumptions">\(\tau>0\): thời gian một phép cộng; mỗi máy nhận 4 số.</p>
   <figure class="ex-figure">
-    <img class="cost-figure" src="img/lec-02/cost-04.svg" alt="Cùng trục thời gian: một máy cộng 16 số trong 15 tau. Bốn máy cùng cộng cục bộ từ 0 đến 3 tau, sau đó máy 1 gộp từ 3 đến 6 tau. Các thanh và mốc dùng 60 pixel cho một tau."/>
+    <img class="cost-figure" src="img/lec-02/cost-04.svg" alt="Cùng trục thời gian: một máy cộng 16 số trong 15 tau. Bốn máy cùng Map cộng cục bộ từ 0 đến 3 tau, sau đó Reduce trên máy 1 gộp từ 3 đến 6 tau. Các thanh và mốc dùng 60 pixel cho một tau."/>
   </figure>
-  <p class="ex-equation">\(T_1=15\tau,\qquad T_4=(3+3)\tau=6\tau\)<br>\( T_P = \left(\tfrac{n}{P}-1\right)\tau + (P-1)\tau \)</p>
-  <p class="cost-assumptions">\(n\geq P\geq1\), \(n\) chia hết cho \(P\); dữ liệu cục bộ, một máy gộp tuần tự.<br>Bỏ thời gian đọc/ghi, truyền và điều phối; khởi tạo tổng bằng phần tử đầu.</p>
+  <p class="ex-equation">\(T_{\text{Map}}=3\tau,\qquad T_{\text{Reduce}}=3\tau\)<br>\(T_4=T_{\text{Map}}+T_{\text{Reduce}}=3\tau+3\tau=6\tau\)</p>
+  <p class="cost-assumptions">Dữ liệu đã nằm tại mỗi máy; một tác vụ Reduce gộp tuần tự bốn tổng.<br>Bỏ thời gian đọc/ghi, truyền và điều phối; khởi tạo tổng bằng phần tử đầu.</p>
 
-  <aside class="notes">Dùng lại 16 số, chia 4 số cho mỗi máy. Cả bốn máy cộng cục bộ đồng thời trong 3τ; sau đó máy 1 gộp bốn tổng trong 3τ. Công việc kết thúc tại 6τ; không gọi khoảng từ 6τ đến 15τ là thời gian nhàn rỗi của công việc đã xong. Tổng số phép cộng vẫn là 15. Với n số chia đều cho P máy và một máy gộp tuần tự, T_P=(n/P−1)τ+(P−1)τ. Giả thiết số học chính xác, τ>0 không đổi, khởi tạo tổng bằng phần tử đầu, dữ liệu đã nằm trên máy; bỏ thời gian đọc/ghi, truyền và điều phối. Công thức này đánh giá cách gộp tuần tự đang minh họa; gộp theo cây có lịch khác. Với P=1, thu được (n−1)τ; với n=P, phần cục bộ không cần cộng. Dữ kiện tự chọn, liên hệ MMDS 2.5.2.</aside>
+  <aside class="notes">Map: mỗi máy cộng 4 số, mất 3 phép cộng; Reduce: một máy cộng 4 tổng, mất 3 phép cộng — đây là ví dụ dùng cộng cục bộ trong Map (gộp cục bộ đã học). Dùng lại 16 số, chia 4 số cho mỗi máy. Cả bốn máy cộng cục bộ đồng thời trong 3τ; sau đó máy 1 gộp bốn tổng trong 3τ. Công việc kết thúc tại 6τ; không gọi khoảng từ 6τ đến 15τ là thời gian nhàn rỗi của công việc đã xong. Tổng số phép cộng vẫn là 15. Với n số chia đều cho P máy và một máy gộp tuần tự, T_P=(n/P−1)τ+(P−1)τ. Giả thiết số học chính xác, τ>0 không đổi, khởi tạo tổng bằng phần tử đầu, dữ liệu đã nằm trên máy; bỏ thời gian đọc/ghi, truyền và điều phối. Công thức này đánh giá cách gộp tuần tự đang minh họa; gộp theo cây có lịch khác. Với P=1, thu được (n−1)τ; với n=P, phần cục bộ không cần cộng. Dữ kiện tự chọn, liên hệ MMDS 2.5.2.</aside>
 </section>
 
 <section id="lec02-s04-05" data-slide-id="lec02-s04-05" class="motivation-slide example-slide cost-slide">
@@ -1108,14 +1108,14 @@ Reduce(i, L):  yield(i, sum(L))
 
 <section id="lec02-s04-09" data-slide-id="lec02-s04-09" class="motivation-slide example-slide cost-slide">
   <h2>Thời gian của cả công việc</h2>
-  <p>\(T_P\) là thời gian từ lúc bắt đầu đến khi nhận đủ kết quả trên \(P\) máy.<br>Với \(P=4\), ta cộng thời gian hoàn tất từng pha theo lịch sau.</p>
+  <p>\(T_P\) là thời gian từ lúc bắt đầu đến khi nhận đủ kết quả trên \(P\) máy.<br>Ví dụ giả định trên \(P=4\) máy: cho trước thời gian các pha như hình.</p>
   <figure class="ex-figure">
     <img class="cost-figure" src="img/lec-02/cost-09.svg" alt="Bốn pha nối tiếp: điều phối từ 0 đến 1 giây, Map từ 1 đến 5 giây, truyền và nhóm từ 5 đến 8 giây, Reduce từ 8 đến 10 giây."/>
   </figure>
   <p class="ex-equation">\(\begin{aligned}T_P &= T_{\text{điều phối}} + T_{\text{Map}} + T_{\text{truyền và nhóm}} + T_{\text{Reduce}}\\ &= 1+4+3+2=10\,\text{s}\end{aligned}\)</p>
   <p class="cost-assumptions">Mỗi pha tính đến khi máy cuối cùng hoàn tất; không cộng thời gian của mọi máy.<br>Các pha nối tiếp, không chồng lấp, không lỗi; đọc/ghi đã tính trong các pha.</p>
   <p class="ex-source">Nguồn: mô hình pha theo MMDS 2.2.2 và 2.5.2.</p>
-  <aside class="notes">Sau khi biết Combine giảm lượng truyền nhưng tốn thêm thời gian Map, ta cần thước đo tổng thể để đánh giá: T_P — thời gian từ khi bắt đầu đến khi nhận đủ kết quả trên P máy, với P = 4. Hình cho thấy bốn pha nối tiếp: điều phối 0→1 giây, Map 1→5, truyền và nhóm 5→8, Reduce 8→10; các thời gian này đọc trực tiếp từ độ dài các đoạn trên trục thời gian. Mỗi thời gian pha là thời gian chờ pha đó hoàn tất — ví dụ Map kéo dài 4 giây cho đến khi tác vụ Map chậm nhất xong — chứ không phải cộng thời gian làm việc của mọi máy. Tổng thời gian của cả công việc là 10 giây; đây là con số dùng để so sánh với cách chạy trên một máy ở slide sau. Giả thiết: các pha nối tiếp, không chồng lấp, không lỗi; đọc/ghi đã tính trong các pha (đọc đầu vào trong Map, ghi đầu ra cuối trong Reduce, truyền/sắp xếp trong pha giữa). Hệ thống thực có thể chồng lấp hoạt động, khi đó cần mô hình chi tiết hơn. Nguồn: mô hình pha theo MMDS 2.2.2 và 2.5.2; thời gian là dữ kiện giả định.</aside>
+  <aside class="notes">Sau khi biết Combine giảm lượng truyền nhưng tốn thêm thời gian Map, ta cần thước đo tổng thể để đánh giá: T_P — thời gian từ khi bắt đầu đến khi nhận đủ kết quả trên P máy, với P = 4. Hình cho thấy bốn pha nối tiếp: điều phối 0→1 giây, Map 1→5, truyền và nhóm 5→8, Reduce 8→10; các thời gian này đọc trực tiếp từ độ dài các đoạn trên trục thời gian. Mỗi thời gian pha là thời gian chờ pha đó hoàn tất — ví dụ Map kéo dài 4 giây cho đến khi tác vụ Map chậm nhất xong — chứ không phải cộng thời gian làm việc của mọi máy. Tổng thời gian của cả công việc là 10 giây; đây là con số dùng để so sánh với cách chạy trên một máy ở slide sau. Giả thiết: các pha nối tiếp, không chồng lấp, không lỗi; đọc/ghi đã tính trong các pha (đọc đầu vào trong Map, ghi đầu ra cuối trong Reduce, truyền/sắp xếp trong pha giữa). Hệ thống thực có thể chồng lấp hoạt động, khi đó cần mô hình chi tiết hơn. Nguồn: mô hình pha theo MMDS 2.2.2 và 2.5.2; thời gian là dữ kiện giả định. Lưu ý: các số 1/4/3/2 giây là dữ kiện giả định cho ví dụ minh họa, không suy ra từ ví dụ cộng 16 số và không phải kết quả benchmark.</aside>
 </section>
 
 <section id="lec02-s04-10" data-slide-id="lec02-s04-10" class="motivation-slide example-slide cost-slide">
