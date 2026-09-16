@@ -3,24 +3,168 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Bài 02</title>
+  <title>Bài 02: Mô hình tính toán Map-Reduce</title>
   <link rel="stylesheet" href="revealjs/dist/reset.css"/>
   <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
   <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
   <link rel="stylesheet" href="lecture-style.css"/>
+  <style>
+    .reveal .lecture-title { font-size: 1.8em; color: #2f3e7a; line-height: 1.2; }
+    .reveal .course-name { font-size: .85em; margin-top: 1.2em; }
+    .reveal .term-name { font-size: .7em; }
+    .reveal .motivation-slide { font-size: 30px; text-align: left; }
+    .reveal .motivation-slide h2 { font-size: 1.35em; color: #2f3e7a; margin-bottom: .55em; }
+    .reveal .motivation-slide p { line-height: 1.35; margin: .45em 0; }
+    .motivation-grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: 30px; align-items: center; }
+    .motivation-figure { width: 100%; max-height: 325px; object-fit: contain; }
+    .motivation-example { margin: 0 0 .65em; padding-left: 16px; border-left: 3px solid #2f3e7a; }
+    .motivation-example strong { color: #2f3e7a; }
+    .reveal .motivation-example p { font-size: .9em; margin: .15em 0 0; }
+    .reveal .motivation-takeaway { color: #2f3e7a; }
+    .reveal .motivation-source { font-size: 18px; color: #526070; }
+    .requirements-list { display: grid; gap: 18px; }
+    .requirement { display: grid; grid-template-columns: 45px 1fr; gap: 16px; align-items: start; }
+    .requirement-number { background: #edf4ff; color: #2f3e7a; border-radius: 50%; text-align: center; line-height: 45px; }
+    .reveal .requirement h3 { font-size: 1em; color: #2f3e7a; margin: 0; text-transform: none; }
+    .reveal .requirement p { font-size: .9em; margin: .2em 0 0; }
+    .sum-machines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: .6em; }
+    .sum-machine { border: 2px solid #2f3e7a; border-radius: 8px; padding: 10px; text-align: center; }
+    .reveal .sum-machine h3 { color: #2f3e7a; font-size: .9em; margin: 0; text-transform: none; }
+    .reveal .sum-machine p { margin: .25em 0 0; }
+    .sum-connector { display: block; width: 100%; height: 38px; }
+    .reveal .sum-slide .sum-result { text-align: center; background: #edf4ff; padding: .2em; margin: 0 auto .5em; width: 65%; border-radius: 8px; }
+    .sum-properties { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: center; color: #2f3e7a; }
+    .reveal .sum-property p { margin: .1em 0; font-size: .9em; }
+    .reveal .sum-generalization { margin-top: .5em; }
+    .reveal .sum-slide .motivation-source { font-size: 23px; }
+    .reveal .rack-slide .rack-figure { display:block; width:100%; height:330px; object-fit:contain; margin:0; }
+    .rack-points { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+    .reveal .rack-points h3 { font-size:28px; color:#2f3e7a; text-transform:none; margin:0; }
+    .reveal .rack-points p { font-size:25px; margin:.2em 0; }
+    .reveal .rack-slide > p { font-size:26px; }
+    .reveal .rack-slide > .motivation-source { font-size:18px; }
+  </style>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
-      <section id="lec02-blank" data-slide-id="lec02-blank" aria-label="Trang trống"></section>
+      <section aria-label="Giới thiệu bài học">
+        <section id="lec02-s01-01" data-slide-id="lec02-s01-01">
+          <h1 class="lecture-title">Mô hình tính toán<br/>Map-Reduce</h1>
+          <p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p>
+          <p class="term-name">Học kỳ 1 · Năm học 2026–2027</p>
+        </section>
+        <section id="lec02-s01-02" data-slide-id="lec02-s01-02">
+          <h2>Nội dung</h2>
+          <ul><li>Giới thiệu</li></ul>
+        </section>
+<section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
+  <h2>Dữ liệu lớn trên nhiều máy</h2>
+  <p>Google: quy mô dữ liệu trong các công bố 1998–2005</p>
+  <div class="motivation-grid">
+    <img class="motivation-figure" src="img/lec-02/google-data-machines.svg?v=2" alt="Dữ liệu chia thành khối A, B, C; máy 1 lưu A và B, máy 2 lưu B và C, máy 3 lưu C và A. Mỗi khối có hai bản sao trên các máy khác nhau.">
+    <div>
+      <div class="motivation-example">
+        <strong>Lập chỉ mục tìm kiếm</strong>
+        <p><b>Hơn 8 tỷ trang</b> trong chỉ mục (2004).<br>Đầu ra: danh sách trang chứa từng từ.</p>
+      </div>
+      <div class="motivation-example">
+        <strong>Đếm truy vấn chứa từ khóa</strong>
+        <p><b>450 GB nhật ký đã nén</b> (2005).<br>Đầu ra: số truy vấn chứa từ khóa, theo ngày.</p>
+      </div>
+      <div class="motivation-example">
+        <strong>Tìm liên kết đến</strong>
+        <p><b>24 triệu trang, hơn 259 triệu liên kết</b> (1998).<br>Đầu ra: danh sách trang trỏ tới từng trang đích.</p>
+      </div>
+    </div>
+  </div>
+  <p class="motivation-takeaway">Dữ liệu nằm ở nhiều nơi; cần tổ chức các máy cùng xử lý.</p>
+  <p class="motivation-source">Nguồn: <a href="https://googleblog.blogspot.com/2004/11/googles-index-nearly-doubles.html">Google (2004)</a>; <a href="https://storage.googleapis.com/gweb-research2023-media/pubtools/1924.pdf">Pike và cộng sự (2005), tr. 26–27</a>; <a href="https://infolab.stanford.edu/~backrub/google.html">Brin–Page (1998), mục 2.2</a>.</p>
+  <aside class="notes"><p>Ba ví dụ là những công bố lịch sử ở các thời điểm khác nhau, không phải cùng một ảnh chụp hệ thống. Ngày 10/11/2004 Google công bố chỉ mục có hơn 8 tỷ trang; đây là quy mô chỉ mục, không phải số trang của một lần chạy MapReduce. Bài báo Dean–Ghemawat 2004, mục 6.1 trang 10–11 còn ghi đầu vào hệ thống lập chỉ mục là hơn 20 TB nội dung thô; hai nguồn không khẳng định đây là cùng một tập dữ liệu.</p><p>Ví dụ nhật ký được đổi sang bài toán có số liệu trực tiếp: nghiên cứu Sawzall của Pike và cộng sự (2005), trang 26–27, dùng mẫu 450 GB nhật ký truy vấn đã nén để đếm truy vấn chứa các từ khóa đã chọn theo ngày. Đây là dung lượng mẫu thí nghiệm, không phải lượng nhật ký mỗi ngày hay toàn bộ nhật ký Google; không phải số lượt truy cập tới địa chỉ trang.</p><p>Brin–Page (1998), mục 2.2, báo cáo lần thu thập 24 triệu trang với hơn 259 triệu liên kết được lập chỉ mục. Số này minh họa quy mô đầu vào web và liên kết cho bài toán tìm liên kết đến; không phải số đo thời gian chạy hoặc tuyên bố một tác vụ MapReduce năm 1998. Bài toán tìm liên kết đến được mô tả trong Dean–Ghemawat 2004, mục 2.3.</p><p>Hình ba máy chỉ minh họa: dữ liệu chia thành khối A/B/C, mỗi khối có hai bản sao ở khác máy. Hai bản sao không phải cấu hình mặc định của Google; bản sao không phải dữ liệu mới để tính thêm. Kho dữ liệu lớn và kết quả toàn cục tạo nhu cầu tổ chức nhiều máy cùng xử lý.</p></aside>
+</section>
+
+<section id="lec02-s01-04" data-slide-id="lec02-s01-04" class="motivation-slide">
+  <h2>Các yêu cầu của mô hình tính toán</h2>
+  <div class="requirements-list">
+    <div class="requirement"><span class="requirement-number">1</span><div><h3>Dữ liệu nằm trên nhiều máy</h3><p>Chương trình phải xử lý các phần dữ liệu ở những nơi khác nhau.</p></div></div>
+    <div class="requirement"><span class="requirement-number">2</span><div><h3>Song song hóa tính toán</h3><p>Cho nhiều máy cùng xử lý các phần việc độc lập để rút ngắn thời gian.</p></div></div>
+    <div class="requirement"><span class="requirement-number">3</span><div><h3>Đưa tính toán đến gần dữ liệu</h3><p>Ưu tiên chạy tại máy đang lưu dữ liệu để giảm truyền qua mạng.</p></div></div>
+    <div class="requirement"><span class="requirement-number">4</span><div><h3>Điều phối và phục hồi “trong suốt”</h3><p>Lập trình viên mô tả phép tính; hệ thống lo phân chia, lập lịch, chống lỗi và phục hồi các tác vụ song song.</p></div></div>
+  </div>
+  <p class="motivation-source">Nguồn: <a href="https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/">Dean &amp; Ghemawat, 2004, mục 1, 3.1, 3.3 và 3.4</a>.</p>
+  <aside class="notes"><p>Quay lại ba bài toán Google: dữ liệu đầu vào đã nằm ở nhiều máy, nên cần tổ chức chương trình để tận dụng các máy ấy. Một phần việc được giao thực hiện gọi là tác vụ. Lập lịch là quyết định tác vụ nào chạy ở máy nào và khi nào. Xử lý gần nơi lưu ưu tiên đọc cục bộ, không có nghĩa mọi dữ liệu đều tránh được truyền mạng. “Trong suốt” nghĩa là hệ thống đảm nhiệm việc phân chia, lập lịch, chống lỗi và phục hồi các tác vụ song song; người viết chương trình vẫn phải diễn đạt đúng phép tính và có thể cần cấu hình. Chống lỗi không có nghĩa máy không hỏng: hệ thống phát hiện lỗi và chạy lại các tác vụ cần thiết khi có thể. Song song hóa nhằm giảm thời gian, không hứa tăng tốc tuyến tính. Bốn yêu cầu tạo động lực cho mô hình lập trình sẽ được giới thiệu sau.</p><p>Nguồn: Dean và Ghemawat, MapReduce, OSDI 2004, mục 1, 3.1, 3.3, 3.4, trang 1, 3–5; MMDS Chương 2, trang 21–24. Đây là bối cảnh của nguồn lịch sử, không mô tả cấu hình Google hiện nay.</p></aside>
+</section>
+
+<section id="lec02-s01-05" data-slide-id="lec02-s01-05" class="motivation-slide sum-slide">
+  <h2>Ví dụ: Cộng dãy số (song song hoá và cục bộ hoá)</h2>
+
+  <p>Tính $S=a_1+\cdots+a_n$. Minh họa $n=6$: ba máy cộng đồng thời trên dữ liệu tại máy.</p>
+
+  <div class="sum-machines">
+    <div class="sum-machine">
+      <h3>Máy 1</h3>
+      <p>$s_1=a_1+a_4$</p>
+    </div>
+    <div class="sum-machine">
+      <h3>Máy 2</h3>
+      <p>$s_2=a_2+a_5$</p>
+    </div>
+    <div class="sum-machine">
+      <h3>Máy 3</h3>
+      <p>$s_3=a_3+a_6$</p>
+    </div>
+  </div>
+
+  <svg class="sum-connector" viewBox="0 0 1200 45" preserveAspectRatio="none" role="img" aria-labelledby="sum-flow-title"><title id="sum-flow-title">Ba tổng cục bộ được chuyển tới bước gộp</title><defs><marker id="sum-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7Z" fill="#2f3e7a"/></marker></defs><path d="M200 0 L490 35" fill="none" stroke="#2f3e7a" stroke-width="2" marker-end="url(#sum-arrow)"/><path d="M600 0 V35" fill="none" stroke="#2f3e7a" stroke-width="2" marker-end="url(#sum-arrow)"/><path d="M1000 0 L710 35" fill="none" stroke="#2f3e7a" stroke-width="2" marker-end="url(#sum-arrow)"/></svg>
+
+  <p class="sum-result">Gộp kết quả: $S=s_1+s_2+s_3$</p>
+
+  <div class="sum-properties">
+    <div class="sum-property">
+      <strong>Giao hoán</strong>
+      <p>Đổi thứ tự các số</p>
+    </div>
+    <div class="sum-property">
+      <strong>Kết hợp</strong>
+      <p>Đổi cách nhóm</p>
+    </div>
+  </div>
+
+  <p class="sum-generalization">Thay mọi dấu $+$ bằng $\oplus$ có hai tính chất này: vẫn tính tại từng máy rồi gộp.</p>
+
+  <p class="motivation-source">Phép toán chính xác; mỗi số được tính đúng một lần.</p>
+
+  <aside class="notes"><p>Xét dãy hữu hạn gồm n số, n ít nhất bằng 1, với phép cộng chính xác. Trong hình, máy 1 giữ a1 và a4, máy 2 giữ a2 và a5, máy 3 giữ a3 và a6. Các máy cộng đồng thời; bước gộp nhận ba tổng cục bộ để tính tổng toàn bộ. Kết hợp cho phép đổi cách đặt ngoặc, giao hoán cho phép đổi thứ tự các số: $(a_1+a_4)+(a_2+a_5)+(a_3+a_6)=a_1+a_2+a_3+a_4+a_5+a_6$. Mỗi số góp đúng một lần. Bản sao lưu trữ ở slide trước không phải hạng số mới để cộng thêm.</p><p>Khái quát: toán tử $\oplus:D\times D\to D$ đóng trên cùng một miền, giao hoán $x\oplus y=y\oplus x$ và kết hợp $(x\oplus y)\oplus z=x\oplus(y\oplus z)$. Thay dấu cộng ở cả bước tính cục bộ và bước gộp bằng toán tử này. Kết quả bằng phép gộp toàn bộ dãy bằng $\oplus$, không phụ thuộc thứ tự hoặc cách nhóm; không có nghĩa kết quả của toán tử mới bằng tổng số học. Các nhóm ở đây không rỗng; nhóm rỗng cần được bỏ qua hoặc xử lý bằng phần tử đơn vị phù hợp.</p><p>Trong chương trình, cộng số dấu phẩy động có thể cho kết quả khác khi đổi cách nhóm do làm tròn. Ví dụ trên dùng phép toán chính xác, không khẳng định mọi cách cộng trên máy cho kết quả giống nhau từng bit. Nguồn: ví dụ theo chỉ dẫn người dùng; MMDS Chương 2, mục 2.2.4, trang 27–29 về giao hoán, kết hợp và gộp cục bộ.</p></aside>
+</section>
+<section class="motivation-slide rack-slide" id="lec02-s01-06" data-slide-id="lec02-s01-06">
+  <h2>Cụm máy và lưu trữ phân tán HDFS</h2>
+  <p>Hệ thống tệp phân tán Hadoop (HDFS): chia tệp thành khối và lưu nhiều bản sao.</p>
+  <img class="rack-figure" src="img/lec-02/hdfs-racks.svg" alt="Hai rack nối mạng, mỗi rack có hai máy qua bộ chuyển mạch. A ở máy 1, 3, 4; B ở máy 1, 2, 3. Mỗi rack đều có đủ A và B.">
+  <div class="rack-points">
+    <div><h3>Cục bộ hóa tính toán</h3><p>Ưu tiên máy có khối → cùng rack → rack khác.<br>Trong máy: không truyền mạng.<br>Cùng rack: không truyền liên rack.</p></div>
+    <div><h3>Chịu lỗi nhờ bản sao</h3><p>Trong hình, mất một máy hoặc một rack vẫn còn A và B. HDFS sao chép lại để bù bản sao thiếu.</p></div>
+  </div>
+  <p class="motivation-source">Nguồn: <a href="https://hadoop.apache.org/docs/current3/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html">Apache Hadoop — HDFS Architecture</a>. Sơ đồ chỉ minh họa mạng và nơi lưu khối.</p>
+  <aside class="notes">
+    Rack là tủ máy trong phòng máy; switch là bộ chuyển mạch nối các máy và các rack với nhau.
+    Ví dụ tệp gồm 2 khối, mỗi khối 3 bản sao chỉ mang tính minh họa.
+    HDFS cung cấp vị trí khối cho hệ thống thực thi chọn nơi chạy tác vụ; HDFS không tự lập lịch tính toán. Máy có bản sao đọc tại chỗ; nếu phải đọc máy khác cùng rack, dữ liệu qua bộ chuyển mạch của rack; đọc rack khác dùng cả đường nối liên rack. Ưu tiên này còn phụ thuộc tài nguyên chạy tác vụ. NameNode quản lý vị trí khối, theo dõi tín hiệu hoạt động định kỳ của máy lưu trữ và chỉ đạo sao chép lại từ bản sao còn tốt khi thiếu bản sao và có đủ tài nguyên. Bản sao chiếm thêm dung lượng và việc tạo lại cũng dùng băng thông. Mỗi khối chỉ được xử lý một lần trong ví dụ cộng; không cộng lặp các bản sao.
+    Lỗi một rack không đồng nghĩa mọi hệ thống luôn sẵn sàng; chi tiết metadata nằm ngoài phạm vi hình.
+    Nguồn: https://hadoop.apache.org/docs/current3/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html (Data Replication, Replica Placement, Moving Computation, Robustness).
+  </aside>
+</section>
+
+      </section>
     </div>
   </div>
   <script src="revealjs/dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/math/math.js"></script>
   <script>
     Reveal.initialize({
       width: 1280, height: 720, margin: .04,
-      controls: false, progress: false, slideNumber: false,
-      hashOneBasedIndex: true, hash: true
+      controls: true, controlsLayout: "edges", progress: false, slideNumber: false,
+      hashOneBasedIndex: true, hash: true, katex: { local: "vendor/katex" }, plugins: [RevealNotes, RevealMath.KaTeX]
     });
   </script>
 </body>

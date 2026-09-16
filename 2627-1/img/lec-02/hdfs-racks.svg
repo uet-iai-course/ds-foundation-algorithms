@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="330" viewBox="0 0 1160 330" role="img" aria-labelledby="title desc"><title id="title">Các rack, kết nối mạng và bản sao khối trong HDFS</title><desc id="desc">Tệp chia thành A và B. Rack 1 gồm máy 1 lưu A B, máy 2 lưu B; rack 2 gồm máy 3 lưu A B, máy 4 lưu A. Mỗi rack có bộ chuyển mạch nối tới mạng liên rack. Mỗi khối có ba bản sao trên hai rack.</desc><style>text{font-family:Arial,sans-serif;fill:#2f3e7a;font-size:22px} .small{font-size:20px} .line{stroke:#526070;stroke-width:3;fill:none}</style>
+<text x="153" y="26" text-anchor="middle" class="">Tệp → khối A, B</text>
+<rect x="408" y="4" width="344" height="40" rx="7" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="580" y="31" text-anchor="middle" class="">Bộ chuyển mạch liên rack</text>
+<path d="M408 24 H292 V106 M752 24 H868 V106" class="line"/>
+<rect x="22" y="62" width="536" height="226" rx="7" fill="#f8fafc" stroke="#a5afc0" stroke-width="2"/>
+<text x="112" y="92" text-anchor="middle" class="">Tủ rack 1</text>
+<path d="M292 62 V106" class="line"/>
+<rect x="174" y="106" width="232" height="38" rx="7" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="290" y="133" text-anchor="middle" class="">Bộ chuyển mạch</text>
+<path d="M290 144 V164 H157 V188 M290 164 H425 V188" class="line"/>
+<rect x="52" y="188" width="208" height="77" rx="7" fill="white" stroke="#2f3e7a" stroke-width="2"/>
+<text x="102" y="216" text-anchor="middle" class="small">Máy 1</text>
+<rect x="148" y="200" width="40" height="46" rx="7" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="168" y="231" text-anchor="middle" class="">A</text>
+<rect x="197" y="200" width="40" height="46" rx="7" fill="#fff3e0" stroke="#b66b22" stroke-width="2"/>
+<text x="217" y="231" text-anchor="middle" class="">B</text>
+<rect x="320" y="188" width="208" height="77" rx="7" fill="white" stroke="#2f3e7a" stroke-width="2"/>
+<text x="370" y="216" text-anchor="middle" class="small">Máy 2</text>
+<rect x="416" y="200" width="40" height="46" rx="7" fill="#fff3e0" stroke="#b66b22" stroke-width="2"/>
+<text x="436" y="231" text-anchor="middle" class="">B</text>
+<rect x="602" y="62" width="536" height="226" rx="7" fill="#f8fafc" stroke="#a5afc0" stroke-width="2"/>
+<text x="692" y="92" text-anchor="middle" class="">Tủ rack 2</text>
+<path d="M872 62 V106" class="line"/>
+<rect x="754" y="106" width="232" height="38" rx="7" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="870" y="133" text-anchor="middle" class="">Bộ chuyển mạch</text>
+<path d="M870 144 V164 H737 V188 M870 164 H1005 V188" class="line"/>
+<rect x="632" y="188" width="208" height="77" rx="7" fill="white" stroke="#2f3e7a" stroke-width="2"/>
+<text x="682" y="216" text-anchor="middle" class="small">Máy 3</text>
+<rect x="728" y="200" width="40" height="46" rx="7" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="748" y="231" text-anchor="middle" class="">A</text>
+<rect x="777" y="200" width="40" height="46" rx="7" fill="#fff3e0" stroke="#b66b22" stroke-width="2"/>
+<text x="797" y="231" text-anchor="middle" class="">B</text>
+<rect x="900" y="188" width="208" height="77" rx="7" fill="white" stroke="#2f3e7a" stroke-width="2"/>
+<text x="950" y="216" text-anchor="middle" class="small">Máy 4</text>
+<rect x="996" y="200" width="40" height="46" rx="7" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="1016" y="231" text-anchor="middle" class="">A</text>
+<text x="580" y="319" text-anchor="middle" class="small">Cùng nhãn = cùng dữ liệu · Mỗi khối có 3 bản sao trên 2 rack</text>
+</svg>
