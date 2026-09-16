@@ -401,3 +401,35 @@ Reader độc lập đã đối chiếu MMDS5.2 và đề xuất mạch biểu d
 - Kiểm toàn deck, bản in, bàn phím và màn hình hẹp được ghi ở mục kiểm định phát hành cuối. Commit/push riêng phần7 theo yêu cầu. Ghi chú tự học đang đồng bộ và sẽ chỉ liên kết công khai sau khi kiểm định.
 
 Lượt sinh viên đầu tiên tìm sang các báo cáo khác ngoài phạm vi nên không được dùng làm kiểm định độc lập. Điều phối chủ động hủy lượt này (KeyboardInterrupt, exit130 của lệnh điều phối), rồi dùng báo cáo mới cùng mô hình trong thư mục chỉ có nội dung và nguồn phần7. Không có lỗi API hoặc chuyển mô hình dự phòng; các vai khác đã hoàn tất.
+
+## Đồng bộ ghi chú tự học và kiểm định phát hành Bài 03 (2026-09-17)
+
+### Phạm vi và quyết định nội dung
+
+Viết lại ghi chú theo bảy phần của deck; thay ví dụ y/a/m cũ bằng đồ thị A–D của Hình 5.1 và hai biến thể nút cụt/bẫy. Giữ bốn bài MMDS 5.1.1, 5.1.2, 5.2.1, 5.2.2 cùng dữ kiện, hình và yêu cầu; bổ sung lời giải và thang chấm. Các chủ đề cốt lõi, cầu nối và bổ sung đã được lập trước khi soạn. Chứng minh co/hội tụ mở rộng bằng bất đẳng thức tam giác và chuỗi hình học; cận hậu nghiệm là đọc thêm. Không thêm HITS, TrustRank hoặc phạm vi Bài 04.
+
+Ghi chú đặt định nghĩa trước ví dụ theo chu trình tài liệu tự học; slide giữ trực giác trước hình thức hóa. Cùng quy ước cột nguồn, bậc ra toàn cục, tổng điểm nút cụt, bước nhảy, tiêu chí dừng và chi phí. Bổ sung hình đúng vị trí đã định nghĩa ký hiệu. Phân biệt nghiệm chính xác với kết quả máy đạt ngưỡng, chi phí đầu vào tác vụ C với dữ liệu mạng Q, tổng việc với thời gian chạy.
+
+### Soạn, rà và chỉnh sửa
+
+OpenRouter thực hiện writer, sáu vai rà độc lập (bản đồ chủ đề, sinh viên, thuật toán, toán, biên tập, mạch bài) và editor riêng. Các reviewer đọc nội dung trong thư mục riêng không chứa báo cáo của nhau. Metadata được kiểm: requested_model = observed_model = z-ai/glm-5.3-flash; provider = OpenRouter. Vai mạch bài đọc toàn deck 63 slide cùng ghi chú, xác nhận mở bài–kết bài và các ranh giới phần nhất quán.
+
+Điều phối sửa các lỗi bản nháp trước rà: ranh giới phần 1–3; điều kiện hội tụ lặp thô thiếu giả thiết; ví dụ dừng gọi nhầm vòng hai thành vòng một; phép thế phân số b ở Bài 5.1.2; hình 5.4 cần xuất hiện trước lời giải; thang chấm và các ký hiệu chưa định nghĩa. Editor tiếp tục rút câu, đồng bộ ký hiệu, thang chấm, phép tính giải thích và vị trí hình. Rà theo no-ai-slop và tính liên tục của quill; không khởi tạo dự án sách.
+
+Hai nhận xét FAIL không được chấp nhận sau kiểm chứng độc lập:
+
+- Reviewer thuật toán đề nghị đổi điểm C của biến thể bẫy từ 5/12 thành 1/4 vì bỏ hai cạnh A→C và D→C. Đúng là z_C = 1/12 + 1/8 + 1/4 = 11/24; sau bước nhảy r_C = 5/12. Tổng bốn điểm vẫn bằng 1.
+- Reviewer toán đề nghị đổi độ thay đổi vòng đầu từ 1/5 thành 3/10 vì tính sai 7/20 − 1/4. Hiệu đúng là 1/10; tổng độ thay đổi là 1/10 + 3×1/30 = 1/5. Điều phối kiểm bằng Fraction và giữ số đúng. Các kết luận còn lại về bảo toàn, co, hội tụ, bài tập và chi phí đều khớp.
+
+Sau editor, điều phối phát hiện vết C của bẫy trộn đóng góp đã nhân beta với z_C chưa nhân beta. Sửa về z_C = 1/12 + 1/4 + 1/8 = 11/24 rồi mới nhân 4/5 và cộng 1/20. Sửa cách ghi thời gian từng khối để không đồng nhất ma trận M_ab với một số giây. Các đoạn vừa thay được gửi reviewer riêng rà lại trước phát hành. Không thay mô hình, chứng minh hay mã. Lượt recheck riêng xác nhận các phép tính trap C, Delta0/Delta1, chi phí và thời gian đúng; báo FAIL duy nhất do đọc “mỗi bảng 4 điểm” thành chỉ một bảng. Có hai bảng ở bài 4, nên tổng là 4+4+2=10. Điều phối viết rõ tên từng bảng và điểm để loại bỏ cách đọc nhầm; không thêm tiêu chí ngoài đề.
+
+Lỗi gọi CLI đầu tiên dùng profile không tồn tại `lecture_notes` bị argparse từ chối trước khi gọi mô hình (exit 2); đổi thành profile `write` hợp lệ. Không có chuyển mô hình hoặc bỏ bước do lỗi này.
+
+### Kiểm định sản phẩm
+
+- Deck: bảy phần, 63 slide, 59 slide giảng 120 phút và bốn slide bài tập 60 phút. Đã xem từng slide, kiểm tràn vùng nội dung, lỗi KaTeX, hình và nguồn; sửa rồi kiểm lại các phần thay đổi. Bàn phím đạt; bản in 63 trang; khung hẹp 390 px không gây tràn trang hoặc mất hình/công thức.
+- Ghi chú: một tiêu đề chính, bảy phần, công thức Markdown dùng dollar, không lồng khối. Trình đọc cục bộ tải đúng công thức/hình và các liên kết cục bộ; không có lỗi JavaScript. Gợi ý/lời giải gập mặc định, mở bằng bàn phím và mở khi in. Kiểm màn hình rộng, hẹp và bản in 17 trang, xem trực quan các đoạn chứa hình/công thức. Bản cuối có 352 biểu thức KaTeX, tám khối gợi ý/lời giải; không lỗi render, hình hoặc liên kết cục bộ.
+- Mã Python công khai: kiểm ví dụ gốc, nút cụt, bẫy, nút không có liên kết vào, toàn nút cụt, khuyên, cạnh trùng, tham số sai, giới hạn vòng và không sửa đầu vào. Mã trích từ HTML và ghi chú cho kết quả khớp tệp công khai. Không dùng đồ thị nhỏ để suy ra kết quả tăng tốc thực nghiệm.
+- Liên kết ghi chú trên index chỉ được thêm sau kiểm định. Các phần 1–7 đã commit/push riêng theo yêu cầu; lần phát hành cuối đồng bộ ghi chú, mục tài nguyên và tài liệu quy trình.
+
+Deck RevealJS và tài liệu Markdown là đầu ra chính. Kiểm hiển thị dùng Chromium cục bộ; dự án Codex Slides chỉ là hồ sơ điều phối, không được coi là bản đã đồng bộ hoặc đã kiểm định trong Browser của Codex Slides.

@@ -1,6 +1,6 @@
-# Bài 03 — Dàn ý mới để duyệt
+# Bài 03 — Dàn ý triển khai
 
-Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thiện ghi chú công khai và kiểm định phát hành toàn bài. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
+Trạng thái: Hoàn tất bảy phần, 63 slide (59 slide giảng trong 120 phút và bốn bài tập trong 60 phút), ghi chú tự học và mã Python đã kiểm định. Bản mới thay cấu trúc deck cũ theo yêu cầu.
 
 
 - Tên bài: **PageRank: mô hình và tính toán**, Bài 03 theo thứ tự đề xuất trong `sources/source.md`; tiếp nối phép nhân ma trận–véc tơ và MapReduce của Bài 02.
@@ -9,7 +9,7 @@ Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thi
 - Đầu ra: giải thích ý nghĩa điểm; lập phép cập nhật; xử lý nút cụt và bẫy liên kết; chạy lặp, kiểm kết quả; mô tả phép tính theo khối/MapReduce; tính chi phí cơ bản và chuyển thuật toán thành Python.
 - Để Bài 04 xử lý PageRank theo chủ đề, liên kết rác, TrustRank và HITS. Không mở thêm phần hệ thống Hadoop; dùng lại Bài 02 khi cần.
 
-## Bảy section đề xuất
+## Bảy phần của bài giảng
 
 | Phần | Tên trên mục lục | Loại phần | Thời lượng chính dự kiến |
 |---|---|---|---:|
@@ -21,7 +21,14 @@ Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thi
 | 6 | Thực hành tính PageRank | Thực hành | 20 phút |
 | 7 | Tổng kết và bài tập vận dụng | Tổng kết, kiểm tra, recitation | 7 phút + 60 phút bài tập |
 
-Tổng giảng chính 120 phút; recitation 60 phút. Chưa chốt số slide trước khi lập storyboard chi tiết. Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
+Tổng giảng chính 120 phút; recitation 60 phút. Bản triển khai có 63 slide, phân bổ theo bảy phần: 6, 8, 16, 10, 9, 7, 7. Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
 
 
 Chi tiết mạch, cách thể hiện, đầu ra học tập, nguồn và bài tập: [storyboard.md](storyboard.md).
+
+## Ghi chú tự học đã phát hành
+
+- Bảy chủ đề `lec03-note-01` đến `lec03-note-07` khớp bảy phần slide; bản đồ chi tiết ở cuối storyboard.
+- Chủ đề 01–07 là cốt lõi. Giữ cầu nối từ phép chia điểm sang ma trận và từ nhân ma trận sang chia khối; bổ sung các bước chứng minh và lời giải để đọc độc lập. Cận sai số hậu nghiệm chỉ đọc thêm.
+- Thay toàn bộ ví dụ cũ y/a/m bằng đồ thị A–D và các biến thể đã dùng trên slide. Giữ bốn bài nguồn và hình 5.4, 5.7; không thêm HITS, TrustRank hoặc nội dung Bài 04.
+- Tài liệu tại `materials/lec-03/lecture-note.md`, mã thực hành tại `materials/lec-03/code/`; liên kết trên trang danh mục dùng trình đọc Markdown cục bộ.

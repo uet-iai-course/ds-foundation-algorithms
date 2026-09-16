@@ -1,6 +1,6 @@
-# Lecture 03 — Đề xuất xây dựng lại từ đầu
+# Bài 03 — Storyboard triển khai
 
-Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thiện ghi chú công khai và kiểm định phát hành toàn bài. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
+Trạng thái: Hoàn tất bảy phần, 63 slide (59 slide giảng trong 120 phút và bốn bài tập trong 60 phút), ghi chú tự học và mã Python đã kiểm định. Bản mới thay cấu trúc deck cũ theo yêu cầu.
 
 ## Phạm vi và mục tiêu
 
@@ -10,7 +10,7 @@ Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thi
 - Đầu ra: giải thích ý nghĩa điểm; lập phép cập nhật; xử lý nút cụt và bẫy liên kết; chạy lặp, kiểm kết quả; mô tả phép tính theo khối/MapReduce; tính chi phí cơ bản và chuyển thuật toán thành Python.
 - Để Bài 04 xử lý PageRank theo chủ đề, liên kết rác, TrustRank và HITS. Không mở thêm phần hệ thống Hadoop; dùng lại Bài 02 khi cần.
 
-## Bảy section đề xuất
+## Bảy phần của bài giảng
 
 | Phần | Tên trên mục lục | Loại phần | Thời lượng chính dự kiến |
 |---|---|---|---:|
@@ -22,7 +22,7 @@ Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thi
 | 6 | Thực hành tính PageRank | Thực hành | 20 phút |
 | 7 | Tổng kết và bài tập vận dụng | Tổng kết, kiểm tra, recitation | 7 phút + 60 phút bài tập |
 
-Tổng giảng chính 120 phút; recitation 60 phút. Chưa chốt số slide trước khi lập storyboard chi tiết. Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
+Tổng giảng chính 120 phút; recitation 60 phút. Bản triển khai có 63 slide, phân bổ theo bảy phần: 6, 8, 16, 10, 9, 7, 7. Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
 
 ### 1. Giới thiệu bài học
 
@@ -688,3 +688,60 @@ Thời lượng 15 phút/bài chỉ ở storyboard, không xuất hiện trên m
 ## Sửa trước khi rà độc lập
 
 Điều phối đối chiếu nguồn và sửa hình5.7 bỏ cạnh c→a không có trong sách; khuyên không bị cắt và hàm selfloop gọi đúng chữ ký. Lời giải5.1.1/2 viết lại các bước khử hệ chính xác, không giữ phép biến đổi sai hoặc suy diễn bốn ẩn. Đáp số được chuyển khỏi mặt bài tập vào notes. Bài5.2.1 chỉ yêu cầu mô hình theo n,m,không thêm ví dụ n=1024. Hình5.4 có8cạnh,Hình5.7 có7cạnh. Tổng kết dùng công thức cập nhật có chỉ số vòng và đúng mô hình bù nút cụt; bỏ câu quảng cáo vô nghĩa, không khẳng định mọi điểm dồn vào một bẫy. Thời lượng7+60phút chỉ trongstoryboard; notes có lời giải/thangchấm.
+
+## Bản đồ chủ đề ghi chú tự học
+
+
+## lec03-note-01 — Giới thiệu bài học
+- Vai trò: cốt lõi, xác định tín hiệu liên kết trong bài toán tìm kiếm; mục tiêu và kiến thức đầu vào.
+- Kết nối: Bài 02 về nhân ma trận–véc tơ và MapReduce → bài toán xếp hạng ở chủ đề 02.
+- Sản phẩm học tập: phân biệt điểm theo liên kết với mức phù hợp truy vấn.
+- Nguồn: MMDS 5.1.1–5.1.2; bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s01 (lec03-s01-01…06).
+- Chu trình rút gọn: phần định hướng, chưa có thuật toán để chứng minh hay phân tích chi phí.
+
+## lec03-note-02 — Bài toán Xếp hạng trang web
+- Vai trò: cốt lõi; đầu vào/đầu ra, đồ thị A–D, so sánh đếm cạnh vào với chia điểm theo bậc ra.
+- Kết nối: nhu cầu tìm kiếm → vết chạy một vòng → hình thức hóa ở chủ đề 03.
+- Sản phẩm học tập: tính được (3/8,5/24,5/24,5/24), phân biệt điểm sau một vòng với nghiệm cuối.
+- Nguồn: MMDS 5.1.2, Hình 5.1, Ví dụ 5.1–5.2; bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s02 (lec03-s02-01…08).
+- Chu trình: đặc tả rồi ví dụ và trực giác; mô hình, thuật toán và chứng minh đầy đủ chuyển sang chủ đề 03 để xử lý nút cụt và bẫy.
+
+## lec03-note-03 — Mô hình đầy đủ: nút cụt, bước nhảy, thuật toán, chứng minh
+- Mục tiêu: lập ma trận theo cột nguồn, hiểu phép nhân truyền điểm; phát biểu quy tắc $r^{t+1}=\beta M_0r^t+((1-\beta)+\beta\delta^t)u$; phân biệt nút cụt/bẫy; chứng minh bảo toàn khối lượng và hội tụ (bất đẳng thức tam giác + chuỗi hình học + Cauchy, không Banach); đọc thuật toán với $\tau$, $T_{\max}$, trạng thái trả về.
+- Vai trò: cơ chế và lập luận đúng trọng tâm của bài.
+- Kết nối vào – ra: vào từ note-02; ra cho phần 4 (chia khối phải tái lập đúng quy tắc này) và phần 6 (code cài đúng công thức).
+- Nguồn: MMDS 5.1 và hai bộ slide tham khảo (MMDS 5.1.3–5.1.5, trang 182–187; vết Fraction đã kiểm; chỉ định chứng minh co); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s03.
+- Slides liên quan: phần s03, slide lec03-s03-01…lec03-s03-16 (nút cụt, bẫy, teleport, bù δ, quy tắc đầy đủ, bảng một vòng, bảo toàn, hội tụ, thuật toán, dừng).
+- Ngoại lệ: quy tắc bù δ khác công thức taxation thiếu khối lượng ở sách trang 186–187 — nguồn là slide MMDS 42/52, Stanford 45/54; cận hậu nghiệm β/(1−β)Δ chỉ đọc thêm; không dùng Banach.
+
+## lec03-note-04 — Tính trên đồ thị lớn: biểu diễn thưa và MapReduce theo khối
+- Mục tiêu: lập bảng nguồn–bậc ra–đích; chia $M_0$ thành $k^2$ khối với k dải; đặc tả Map/Combine/Reduce và pha δ; giải thích bản ghi seed (i,0) và snapshot r bất biến; chứng minh tính đúng của cách chia khối.
+- Vai trò: tổ chức dữ liệu/phân tán.
+- Kết nối vào – ra: vào từ note-03 (quy tắc cập nhật); ra cho phần 5 (chi phí các cấu trúc này).
+- Nguồn: MMDS 5.2 (MMDS 5.2.1–5.2.5, Ví dụ 5.7–5.8, Hình 5.11–5.14, trang 190–194); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s04.
+- Slides liên quan: phần s04, slide s04-02…s04-09.
+- Ngoại lệ: bậc ra trong khối là bậc toàn cục; δ tính một lần; không khẳng định associativity tuyệt đối của float; biến thể 5.2.5 (một hàng khối/tác vụ) chỉ đọc thêm.
+
+## lec03-note-05 — Chi phí: S, B, I/H/C, Q, W, T
+- Mục tiêu: tính $S_{\text{dense}}=8n^2$, $S_{\text{adj}}\approx4(n+m)$, $B_{\text{task}}\approx16n/k+B_{\text{buf}}$, $I=152$, $H=84/96$, $C=236/248$ trên n=4, m=8, k=2; phân biệt I với Q, W với T; tăng tốc 8/3 do tác vụ nặng nhất.
+- Vai trò: đánh giá và so sánh phương án.
+- Kết nối vào – ra: vào từ note-04; ra cho phần 7 bài 5.2.1 (đếm bit cùng kiểu lập luận).
+- Nguồn: Quy ước chi phí trong storyboard phần 5 (MMDS 2.5.1 trang 53–54); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s05.
+- Slides liên quan: phần s05, slide s05-01…s05-09.
+- Ngoại lệ: mọi bytecount là định dạng giả định, không phải Python object size/benchmark; không đồng nhất C với Q; không dùng con số 1Gbps như số liệu hiện nay; c_e là tham số giả định, không dùng τ để kẻ thời gian; T_round/T_job giả thiết các pha không chồng nhau.
+
+## lec03-note-06 — Thực hành: mã pagerank.py
+- Mục tiêu: chạy được `pagerank.py`; hiểu `step` là dịch trực tiếp quy tắc phần 3; kiểm tổng ≈1, điểm không âm, một bước tính tay (7/20, 13/60 và 1/5, 4/15); phân biệt δ trong step với Δ dừng; phân biệt số thực lý tưởng với float.
+- Vai trò: kiểm chứng công thức.
+- Kết nối vào – ra: vào từ note-03; ra cho thói quen kiểm chứng ở các bài sau.
+- Nguồn: materials/lec-03/code/pagerank.py, practice-README.md, kết quả kiểm mã ghi trong review-log.md (base 20 vòng, dead 12, trap 34 tại β=0.8, tol=1e-8); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s06.
+- Slides liên quan: phần s06, slide s06-01…s06-07.
+- Ngoại lệ: chỉ dùng giá trị CLI đã được kiểm, không bịa số vòng; không dùng đồ thị 4 nút để chứng minh speedup; so sánh float bằng dung sai.
+
+## lec03-note-07 — Bài tập và tài liệu
+- Mục tiêu: giải được bốn bài MMDS 5.1.1, 5.1.2, 5.2.1, 5.2.2; trình bày lời giải có kiểm nghiệm và chuẩn hóa.
+- Vai trò: vận dụng và đánh giá.
+- Kết nối vào – ra: vào từ note-03 (bài 1–2), note-05 (bài 3), note-04 (bài 4); ra cho các bài sau về link analysis.
+- Nguồn: MMDS 5.1.1–5.1.2, 5.2.1–5.2.2 (bài tập) (nghiệm đã kiểm bằng khử Gauss phân số: 3/13, 4/13, 6/13 và 7/27, 25/81, 35/81); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s07; đề giữ nguyên Hình 5.4 và 5.7.
+- Slides liên quan: phần s07, slide s07-04…s07-07.
+- Ngoại lệ: hình 5.7 có 5 cạnh giữa các nút + 2 khuyên = 7 cạnh (không cộng kép); hình 5.4 có 8 cạnh; 5.7c không trỏ tới a; bài 5.2.2 không yêu cầu tính PageRank; bài 5.1.2 phương trình của b là 15b=4a+6c+1 (không phải 11b); kết luận tài liệu cuối chỉ dẫn chiếu cụ thể (mmds.org, chương/trang), không tuyên bố trạng thái trang web hiện thời.
