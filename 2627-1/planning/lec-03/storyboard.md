@@ -1,6 +1,6 @@
 # Lecture 03 — Đề xuất xây dựng lại từ đầu
 
-Trạng thái: Phần 1–6 có 56 slide đã kiểm định; các phần 7–7 đang triển khai. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
+Trạng thái: Đủ bảy phần, 63 slide đã kiểm định; đang hoàn thiện ghi chú công khai và kiểm định phát hành toàn bài. Giữ 120 phút giảng và 60 phút bài tập; bản mới thay cấu trúc deck cũ theo yêu cầu.
 
 ## Phạm vi và mục tiêu
 
@@ -598,3 +598,93 @@ Outer: `pagerank-practice`, 7 slide `pr-slide`, id `lec03-s06-01..07`. Tổng 20
 - materials/lec-03/code/pagerank.py đã đồng bộ và khớp hệt bản gốc pagerank.py; test chạy lại trên chính đường dẫn materials, không đổi logic, không thay giá trị 20 vòng, delta≈5.4975583e-9.
 - Notes đã rà: không còn mã slide nội bộ lec03-sXX, không lời hẹn "primary điền", không chỉ dẫn người soạn.
 - Văn xuôi dùng "véc tơ", "từ điển"; giữ `dict` trong code/thuật ngữ Python.
+
+## Storyboard triển khai phần 7
+
+# Storyboard Phần 7 — Tổng kết và bài tập vận dụng (Lecture 03)
+
+Outer: `summary-exercises`, 7 slide `pr-slide`, id `lec03-s07-01..07`.
+Tổng kế hoạch 120 + 60: phần giảng 7 phút (2 + 2 + 3), recitation 60 phút (15 + 15 + 15 + 15).
+CSS mới trong s07.css chỉ scoped `#summary-exercises`; không override `.pr-slide` toàn bài.
+Thời lượng 15 phút/bài chỉ ở storyboard, không xuất hiện trên mặt slide hay notes.
+
+## s07-01 — 7 · Tổng kết và bài tập vận dụng (2 phút)
+- Mục đích: sinh viên nêu được chuỗi liên kết → chia điểm → lặp có bước nhảy → xếp hạng, và giới hạn của xếp hạng theo liên kết.
+- Câu chốt: PageRank là một tín hiệu xếp hạng bên cạnh mức phù hợp truy vấn.
+- Trung tâm: hai card — chuỗi kết quả đã xây và giới hạn cần nhớ.
+- Vai trò: mở phần, đóng vòng động lực của bài giảng.
+- Tiên quyết: toàn bộ các phần 2–6.
+- Nối vào: kết quả công thức phần 3. Nối ra: công thức gọn ở slide sau.
+- Nguồn: MMDS chương 5 (tổng hợp).
+
+## s07-02 — Các bước tính PageRank (2 phút)
+- Mục đích: sinh viên trình bày được quy trình tính trong một công thức cập nhật và ba bước.
+- Câu chốt: r^{t+1} = βM0r^t + ((1−β)+βδ^t)u; ba bước là lập ma trận chia theo bậc ra (toàn cục), bù nút cụt và bước nhảy, lặp tới ngưỡng; sau khi dừng kiểm tổng điểm và trạng thái dừng.
+- Trung tâm: công thức cập nhật có chỉ số vòng t+1 + ba bước.
+- Vai trò: hình thức hóa — thu gọn chương trình thành công thức.
+- Tiên quyết: M0 theo cột nguồn (lec03-s03-02), bù nút cụt và teleport (lec03-s03-06..08), Δ và τ (lec03-s03-11..12).
+- Nối vào: công thức đầy đủ phần 3. Nối ra: bài tập 1–2 giải hệ từ M0.
+- Nguồn: MMDS 5.1.4, 5.1.5.
+- Ghi chú soạn: chỉ một công thức trung tâm, không nhét toàn chương vào bảng.
+
+## s07-03 — Câu hỏi kiểm tra (3 phút)
+- Mục đích: sinh viên trả lời được 4 yêu cầu ngắn đo bậc nguồn, phân biệt nút cụt/bẫy, lý do khớp phân tán–tuần tự, giới hạn tăng tốc theo tỉ lệ máy.
+- Câu chốt: bốn câu đối ứng bốn khối kiến thức của bài — mô hình, hai hiệu chỉnh, tính đúng phân tán, chi phí.
+- Trung tâm: hai card, mỗi card hai câu.
+- Vai trò: kiểm tra; đáp án nằm trong notes, mặt slide không có đáp án hay lời tự hỏi tự trả lời.
+- Tiên quyết: phần 3 (mô hình, hiệu chỉnh) và phần 5 (chi phí, tăng tốc).
+- Nguồn: phần 3 và phần 5 của bài giảng.
+
+## s07-04 — Bài tập 1: Điểm theo liên kết (15 phút recitation)
+- Mục đích: tính PageRank từng trang không bước nhảy (taxation) của Hình 5.7.
+- Nguồn: NGUYÊN MMDS 5.1.7, Bài 5.1.1, trang 187–188, Hình 5.7; đề và đồ thị giữ nguyên, link MMDS trên slide.
+- Dữ kiện giữ nguyên: a→a, b, c; b→a, c; c→b, c — 7 cạnh, khuyên ở a và c; không nút cụt.
+- Output: điểm của 3 trang với tổng bằng 1 và cách tính.
+- Câu chốt: giải r = M0r với M0 theo cột nguồn và điều kiện tổng 1 cho (3/13, 4/13, 6/13).
+- Hình: `ex-fig-57.svg` vẽ đúng 7 cạnh, khuyên a và c rõ ràng, mũi tên dừng ở biên nút.
+- Lời giải trong notes: lập cột a (1/3 tại hàng a,b,c), cột b (1/2 tại hàng a,c), cột c (1/2 tại hàng b,c); hệ ba phương trình + điều kiện tổng; giải r_a = 3r_b/4, r_c = 3r_b/2, điều kiện tổng cho r_b = 4/13; kiểm bằng thay vào từng phương trình.
+- Đường giải: notes trình bày đường giải sạch, không để lại vết rà trong quá trình soạn.
+- Lưu ý sư phạm: graph không nút cụt, có chu trình và khuyên; hội tụ trên ví dụ này không suy ra mọi graph hội tụ — có thể giải hệ tuyến tính thay vì lặp.
+- Thang chấm (notes): ma trận 3đ, hệ + điều kiện 3đ, nghiệm 2đ, kiểm thế vào 2đ.
+
+## s07-05 — Bài tập 2: Thêm bước nhảy (15 phút recitation)
+- Mục đích: tính PageRank của cùng Hình 5.7 với β = 0.8.
+- Nguồn: NGUYÊN MMDS 5.1.7, Bài 5.1.2, trang 188, cùng Hình 5.7; giữ nguyên đề, link MMDS trên slide.
+- Dữ kiện giữ nguyên: cùng 7 cạnh; không nút cụt nên δ = 0.
+- Output: điểm của 3 trang; phương trình r = 0.8 M0 r + (1/15)·1.
+- Câu chốt: kết quả (7/27, 25/81, 35/81), kiểm lại bằng thế vào từng phương trình.
+- Hình: `ex-fig-57.svg` giữ hiển thị đủ.
+- Lời giải trong notes: hai phương trình đã khử 11a−6b=1 và 2a+21b=7 (từ hệ ba phương trình + điều kiện tổng); nghiệm duy nhất (7/27, 25/81, 35/81); kiểm thế vào: r_a qua 210/810, r_b qua 250/810, r_c qua 350/810; tổng 81/81.
+- Ghi chú soạn: mọi phép rút gọn trong notes phải truy được phép tính; đường giải sạch, không để vết rà soạn thảo.
+- Thang chấm (notes): phương trình với β và phần chung 3đ, giải hệ 4đ, kiểm nghiệm cùng chuẩn hóa 3đ.
+
+## s07-06 — Bài tập 3: Ngưỡng lưu ma trận thưa (15 phút recitation)
+- Mục đích: thiết lập được ngưỡng tỷ lệ ô 1 để cách liệt kê tọa độ tiết kiệm hơn cách đặc.
+- Nguồn: NGUYÊN MMDS 5.2.6, Bài 5.2.1, trang 195; không thêm n/dữ liệu mới; ký hiệu m = số ô 1, ρ = m/n² chỉ giúp đặc tả, không đổi đề.
+- Dữ kiện: ma trận Boolean n×n; đặc = n² bit; thưa = 2m·⌈log₂n⌉ bit (2 số nguyên mỗi ô 1).
+- Câu chốt: thưa tiết kiệm khi ρ < 1/(2⌈log₂n⌉), điều kiện ngặt với n ≥ 2; trường hợp bằng nhau chưa tiết kiệm; n = 1 là mô hình suy biến (⌈log₂1⌉ = 0) nên so sánh chỉ có nghĩa từ n ≥ 2.
+- Lời giải trong notes: hai biểu thức dung lượng, bất đẳng thức 2m⌈log₂n⌉ < n², rút ngưỡng ρ < 1/(2⌈log₂n⌉).
+- Thang chấm (notes): hai biểu thức 4đ, bất đẳng thức và ngưỡng 4đ, điều kiện ngặt + bằng nhau 2đ.
+
+## s07-07 — Bài tập 4: Biểu diễn đồ thị (15 phút recitation)
+- Mục đích: biểu diễn ma trận chuyển của Hình 5.4 và Hình 5.7 bằng cách mục 5.2.1 (bảng nguồn / bậc ra / đích).
+- Nguồn: NGUYÊN MMDS 5.2.6, Bài 5.2.2, trang 195; Hình 5.4 trang 184 và Hình 5.7 trang 188; link MMDS trên slide.
+- Dữ kiện giữ nguyên — Fig 5.4: A→B,C,D; B→A,D; C→E; D→B,C; E không có liên kết ra (bậc ra 3, 2, 1, 2, 0). Fig 5.7: a→a,b,c; b→a,c; c→b,c (bậc ra 3, 2, 2).
+- Output: hai bảng nguồn, bậc ra, toàn bộ đích; E được liệt kê với danh sách rỗng.
+- Câu chốt: hai bảng khớp 8 cạnh Fig 5.4 và 7 cạnh Fig 5.7, kể cả hai khuyên.
+- Hình: `ex-fig-54.svg` và `ex-fig-57.svg` vẽ đúng từng cạnh theo chiều nguồn→đích; nhãn Fig 5.4 chữ hoa A–E, Fig 5.7 chữ thường a–c theo nguồn.
+- Lời giải trong notes: đầy đủ bảng dữ liệu cả hai hình; nhắc bậc ra của a, b, c là 3, 2, 2; bài không yêu cầu tính PageRank của đồ thị 5 nút.
+- Thang chấm (notes): bảng 5.4 (gồm E rỗng) 4đ, bảng 5.7 (gồm khuyên) 4đ, ghi rõ nguồn ảnh 2đ.
+
+## Đối chiếu nhãn và dữ kiện trước bàn giao
+- Fig 5.7 (script `render_exercises.py`, hàm fig57): 7 cạnh a→a (selfloop), a→b, a→c, b→a, b→c, c→b, c→c (selfloop) — mỗi cạnh một mũi tên riêng, không gộp cặp ngược chiều; khuyên a và c là cung riêng thấy rõ, mũi tên dừng ở biên nút.
+- Fig 5.4 (hàm fig54): 8 cạnh A→B, A→C, A→D, B→A, B→D, D→B, D→C, C→E; E không có cạnh ra.
+- Kết quả: (3/13, 4/13, 6/13) không taxation; (7/27, 25/81, 35/81) với β = 0.8 — khớp source-section7.md.
+- Ba kết quả beta tổng 81/81; raw tổng 13/13 — kiểm tổng đã làm bằng tay trên từng phương trình.
+- Script render chỉ dùng stdlib và `Path(__file__).resolve().parent`; hàm `node(x, y, name)` đúng chữ ký; chưa chạy script, primary thực thi và xem render trước khi duyệt.
+- CSS: s07.css scoped `#summary-exercises` toàn bộ; caption 26px, body 28px, nhãn SVG ≥ 28px trong hình 1 cột lớn.
+
+
+## Sửa trước khi rà độc lập
+
+Điều phối đối chiếu nguồn và sửa hình5.7 bỏ cạnh c→a không có trong sách; khuyên không bị cắt và hàm selfloop gọi đúng chữ ký. Lời giải5.1.1/2 viết lại các bước khử hệ chính xác, không giữ phép biến đổi sai hoặc suy diễn bốn ẩn. Đáp số được chuyển khỏi mặt bài tập vào notes. Bài5.2.1 chỉ yêu cầu mô hình theo n,m,không thêm ví dụ n=1024. Hình5.4 có8cạnh,Hình5.7 có7cạnh. Tổng kết dùng công thức cập nhật có chỉ số vòng và đúng mô hình bù nút cụt; bỏ câu quảng cáo vô nghĩa, không khẳng định mọi điểm dồn vào một bẫy. Thời lượng7+60phút chỉ trongstoryboard; notes có lời giải/thangchấm.
