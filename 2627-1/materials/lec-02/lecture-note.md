@@ -367,6 +367,28 @@ Khi tính byte, gọi $B_M,B_v,B_P$ lần lượt là độ dài bộ ma trận,
 
 Quay lại trường hợp chưa gộp trong phân công đếm từ ở 2.2, riêng đầu vào Reduce có tổng $5B$ byte; tác vụ nặng nhất nhận $3B$ byte. Tổng dữ liệu giảm chưa đủ để kết luận thời gian giảm: còn tải lớn nhất, số máy, lịch thực thi, bộ nhớ và công việc tính toán. Mục 2.6 tiếp tục bằng một lựa chọn phân chia làm giảm số bản gửi nhưng tăng dữ liệu mỗi nơi phải nhận.
 
+### Lợi ích thời gian của song song hóa
+
+Tổng công việc và thời gian chờ kết quả là hai đại lượng khác nhau. Xét riêng tầng Reduce chưa gộp của ví dụ trên: R0 nhận 2 giá trị, R1 nhận 3 giá trị. Giả sử hai tác vụ độc lập, dữ liệu đã đến nơi xử lý, các máy có cùng tốc độ, mỗi giá trị mất $c>0$ đơn vị thời gian; bỏ qua khởi động và lập lịch. Đây là mô hình minh họa, không phải số đo thực tế.
+
+![Một máy chạy R0 rồi R1 trong 5c; hai máy chạy đồng thời, hoàn tất sau 3c.](img/lec-02/cost-parallel-time.svg)
+
+Một máy chạy nối tiếp nên $T_1=2c+3c=5c$. Hai máy chạy đồng thời nên thời điểm hoàn tất là $T_2=\max(2c,3c)=3c$. Mức tăng tốc là $T_1/T_2=5/3$, khoảng 1,67 lần. Tổng vẫn là 5 giá trị, tương ứng $5B$ byte đầu vào Reduce và $5c$ thời gian xử lý cộng trên hai máy. Lợi ích ở đây là người dùng nhận kết quả sớm hơn, không phải giảm tổng số thao tác hay tổng byte.
+
+Nếu thêm máy thứ ba mà giữ nguyên hai tác vụ, thời gian vẫn là $3c$: không có tác vụ thứ ba để giao, và tác vụ dài nhất vẫn cần $3c$. Ngay với hai máy, máy xử lý R0 kết thúc sớm hơn và phải chờ R1 một khoảng $c$.
+
+Gọi $W$ là tổng số đơn vị công việc, $p$ là số máy đồng tốc và $w_{\max}$ là công việc của tác vụ nặng nhất. Với các tác vụ độc lập không chia nhỏ, mỗi đơn vị mất $c$, tổng năng lực $p$ máy và tác vụ nặng nhất cho hai giới hạn:
+
+$$
+T_p\ge\max\left(\frac{Wc}{p},w_{\max}c\right).
+$$
+
+Vế thứ nhất đến từ việc phải thực hiện đủ $Wc$ thời gian xử lý trên $p$ máy. Vế thứ hai đến từ việc tác vụ nặng nhất phải chạy trọn trên một máy. Trong ví dụ, $W=5$, $w_{\max}=3$, nên hai máy không thể hoàn tất sau $2{,}5c$: tác vụ R1 đã cần $3c$.
+
+Khi có đủ tác vụ và chia tải gần đều, thời gian lý tưởng gần $Wc/p$, tức tăng tốc gần $p$ lần so với $Wc$. Đây là điều kiện của mô hình, không phải bảo đảm cho mọi thuật toán. Thời gian toàn công việc MapReduce còn gồm các phần Map, chuyển dữ liệu, lập lịch và chờ phụ thuộc; các phần này có thể chồng lấp tùy cách thực thi, nên không cộng tùy tiện hoặc lấy thời gian tầng Reduce thay cho cả công việc.
+
+Nguồn: lập luận về thời gian hoàn thành và chia đều tác vụ trong MMDS 2.5.2, trang 55–56; các phép tính trên suy ra từ mô hình thời gian giả định và vết đếm từ đã có. Phần 2.6 tiếp tục chọn cách phân chia để giảm bản gửi mà vẫn có đủ tác vụ sử dụng các máy.
+
 ## 2.6. Phân chia ảnh để giảm số bản gửi
 
 ### Bài toán và phương án từng cặp
@@ -442,6 +464,8 @@ Mỗi ảnh có $N-1$ đối tác. Tích $N(N-1)$ đếm cả $(i,j)$ lẫn $(j,
 Cách từng cặp gọi $s$ một lần tại mỗi khóa. Cách nhóm có $1000^2=1\,000\,000$ cặp chéo tại mỗi khóa; nơi được giao nội bộ một nhóm cần thêm $1000\cdot999/2=499\,500$ lần gọi. Tải lớn nhất là $1\,499\,500$ lần gọi. Kiểm tra tổng: $\binom{1000}{2}\cdot1000^2+1000\binom{1000}{2}=499\,999\,500\,000$.
 
 Nếu mỗi lần gọi có chi phí cố định $c_s$, công việc tính độ tương tự là $c_sN(N-1)/2$. Nếu chi phí thay đổi, phải cộng chi phí từng lần gọi. Chưa tính tạo bản gửi, nhóm khóa, truyền ảnh và ghi đầu ra. Gom nhóm giảm lượng ảnh truyền nhờ dùng lại dữ liệu; số cặp cần so sánh không giảm. Cần kiểm tra bộ nhớ phụ và chi phí của $s$ trước khi kết luận một nơi nhận 2 GB có thể chạy được.
+
+Với 1000 nhóm, có $1000\cdot999/2=499500$ khóa cặp nhóm. Có thể phân các khóa này vào số tác vụ phù hợp với số máy sẵn có, như sách giải thích ở trang 64. Gom nhóm vừa phải giảm bản gửi, vừa phải giữ đủ công việc độc lập để các máy làm đồng thời; số khóa không phải số máy hoặc mức tăng tốc.
 
 Nguồn: MMDS 2.6.1–2.6.2, trang 61–64; ví dụ bốn ảnh từ 2.6.3, Hình 2.9, trang 64–65. Phần lược đồ ánh xạ và chứng minh cận dưới ở 2.6.3–2.6.7 dành để đọc thêm.
 

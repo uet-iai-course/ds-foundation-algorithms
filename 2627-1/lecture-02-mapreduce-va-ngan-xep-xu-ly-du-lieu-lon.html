@@ -412,12 +412,30 @@ dem.saveAsTextFile(thu_muc_ket_qua)</code></pre>
 <aside class="notes"><p>Trường hợp quen thuộc: mỗi dải một tác vụ và $\sum_j L_j = n$ cho $2z+n$; mỗi dải $a$ tác vụ cho $2z+an$. Khi tính bằng byte: $C = zB_M + (\sum_j a_jL_j)B_v + zB_P$ với kích thước $B_M, B_v, B_P$. Nguồn: MMDS, 2.3.2, 2.5.1 và Bài tập 2.5.1(a), trang in 32, 54–55, 59.</p></aside>
 </section>
 
-<section id="lec02-s05-09" data-slide-id="lec02-s05-09"><h2>Tổng dữ liệu và nơi nhận nhiều nhất</h2>
-<img class="figure" style="max-height:260px" src="img/lec-02/cost-load.svg" alt="R0 nhận dữ, liệu (2 giá trị); R1 nhận lớn 3 lần (3 giá trị). Tổng 5, nhiều nhất 3."/>
-<p>Đầu vào Reduce, chưa gộp: tổng $5B$ byte; lớn nhất $3B$ byte mỗi tác vụ.</p>
-<p class="check"><strong>Câu hỏi:</strong> Tổng giảm có đủ để suy ra nhanh hơn không?</p>
-<aside class="notes"><p>Đáp án không: cần thêm tải nơi nhận nhiều nhất, số máy, CPU, bộ nhớ. Trong ví dụ R0 nhận 2 giá trị (dữ, liệu), R1 nhận 3 giá trị (lớn), đúng cách đếm ở 2.2. Nếu gộp D2: R0=2, R1=2 giá trị (từ D1 lớn 1 và D2 lớn 2), tổng 4B, max 2B — R1 vẫn nhận 2, không phải 1. Chuyển sang 2.6: đổi cách phân công để giảm bản gửi nhưng làm tăng dữ liệu một nơi nhận. Nguồn: MMDS, 2.5.2 và chuyển 2.6, trang in 55–56, 61.</p></aside>
+<section id="lec02-s05-09" data-slide-id="lec02-s05-09">
+  <h2>Song song hóa giảm thời gian hoàn thành</h2>
+  <p>Riêng tầng Reduce chưa gộp: dữ liệu đã sẵn sàng, hai máy đồng tốc.<br/>Giả sử mỗi giá trị mất $c$ thời gian; bỏ qua chi phí lập lịch.</p>
+    <img class="figure" src="img/lec-02/cost-parallel-time.svg" alt="Biểu đồ thời gian tầng Reduce: một máy chạy R0 trong 2c rồi R1 trong 3c, tổng 5c; hai máy chạy R0 và R1 đồng thời, hoàn tất sau 3c" style="max-height:260px;">
+  <p>Tổng công việc vẫn là 5 giá trị; thời gian hoàn thành từ $5c$ còn $3c$.</p>
+  <aside class="notes">Mức tăng tốc bằng T1/T2=5/3, khoảng 1,67 lần. Giả thiết hai tác vụ độc lập, không chia nhỏ; mỗi máy chạy một tác vụ tại một thời điểm. Đây mới chỉ là tầng Reduce, chưa phải toàn bộ công việc. Đầu vào Reduce vẫn 5B byte, với B là độ dài mỗi cặp đã giả sử ở các trang trước, nên không đồng nhất byte/thời gian. Nguồn: MMDS 2.5.2 tr.55–56; R0 nhận 2 giá trị, R1 nhận 3 giá trị trong vết đếm từ chưa gộp, suy ra từ mô hình giả định, không phải số đo thật.</aside>
 </section>
+
+<section id="lec02-s05-10" data-slide-id="lec02-s05-10">
+  <h2>Thêm máy cần đủ việc và chia đều</h2>
+  <table>
+    <thead><tr><th>Số máy $p$</th><th>Thời gian tầng Reduce</th><th>Nguyên nhân</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>$5c$</td><td>Nối tiếp</td></tr>
+      <tr><td>2</td><td>$3c$</td><td>Hai tác vụ đồng thời</td></tr>
+      <tr><td>3</td><td>$3c$</td><td>R1 vẫn cần $3c$; không có tác vụ thứ ba</td></tr>
+    </tbody>
+  </table>
+  <p>Với $W$ giá trị, $p$ máy; đủ tác vụ cân bằng và chi phí phụ nhỏ:</p>
+  <div class="math-large">$T_p\approx Wc/p$</div>
+  <p>Ví dụ trên chưa chia đều: hai máy mất $3c$, không đạt $5c/2$.</p>
+  <aside class="notes">T1 = Wc; trong mô hình không có chi phí phụ, Tp ≥ max(Wc/p, wmax·c) với wmax = 3 cố định, không chia được. Cả công việc còn Map, truyền và lập lịch; đây là giả thiết lý tưởng, không ngụ ý tăng tốc hoàn hảo. Nối sang 2.6: chọn phân chia để giảm truyền mà vẫn đủ việc chạy đồng thời. Nguồn: MMDS 2.5.2 tr.55–56 và 2.6 tr.64; công thức suy ra bằng lập luận chia đều.</aside>
+</section>
+
 
 <section id="lec02-ex251a" data-slide-id="lec02-ex251a" data-visibility="uncounted" class="exercise"><h2>Bài tập 2.5.1(a) · Nhân ma trận–vector</h2>
 <p>Xét thuật toán chia dải ở mục 2.3.2.</p><p class="check"><strong>Câu hỏi:</strong> Biểu diễn chi phí truyền thông theo kích thước ma trận và vector.</p><p><strong>Sản phẩm:</strong> bảng đầu vào Map/Reduce; nêu số lần đọc từng dải vector.</p>
@@ -489,10 +507,10 @@ dem.saveAsTextFile(thu_muc_ket_qua)</code></pre>
 <table><thead><tr><th>Cách phân chia</th><th>$q$ (ảnh/nơi)</th><th>$\rho$ (nơi nhận/ảnh)</th></tr></thead><tbody>
 <tr><td>Mỗi cặp ảnh</td><td>$2$</td><td>$999\,999$</td></tr>
 <tr><td>Mỗi cặp nhóm</td><td>$2000$</td><td>$999$</td></tr>
-</tbody></table>
+</tbody></table><p>Gom nhóm giảm bản gửi; vẫn cần đủ tác vụ để dùng hết các máy.</p>
 <p>Mỗi nơi nhận $2000\times10^6=2\times10^9$ byte ảnh = 2 GB.</p>
 <p class="check"><strong>Câu hỏi:</strong> Lượng dữ liệu này đã đủ để kết luận nơi xử lý chạy được chưa?</p>
-<aside class="notes"><p>Hai đại lượng đã được giải thích ở phần định nghĩa q và rho; bảng chỉ đổi cách chia. Đáp án: chưa — còn phụ thuộc RAM mỗi nơi, bộ nhớ phụ và chi phí hàm $s$. Kết 2.5: đếm chi phí; kết 2.6: chọn phân chia để đổi chi phí. Đọc thêm: cận dưới ở 2.6.3–2.6.7. Nguồn: MMDS, Chương 2, trang in 61–74.</p></aside>
+<aside class="notes"><p>Với 1000 nhóm có 1000×999/2 = 499500 khóa cặp nhóm. Sách trang 64 giải thích có thể chia các reducer này vào ít tác vụ hơn để tận dụng số máy có sẵn. Khóa không phải máy; không lấy số khóa làm mức tăng tốc. Thời gian phụ thuộc số tác vụ chạy đồng thời, tải lớn nhất và truyền dữ liệu; số lần so sánh vẫn giữ nguyên.</p><p>Hai đại lượng đã được giải thích ở phần định nghĩa q và rho; bảng chỉ đổi cách chia. Đáp án: chưa — còn phụ thuộc RAM mỗi nơi, bộ nhớ phụ và chi phí hàm $s$. Kết 2.5: đếm chi phí; kết 2.6: chọn phân chia để đổi chi phí. Đọc thêm: cận dưới ở 2.6.3–2.6.7. Nguồn: MMDS, Chương 2, trang in 61–74.</p></aside>
 </section>
 </section>
 

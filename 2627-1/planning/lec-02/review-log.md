@@ -1870,3 +1870,18 @@ Chọn chi phí đầu vào tác vụ của sách 2.5.1, trang 54–55; không t
 - Chromium thật: 67 slide không tràn, không lỗi KaTeX, JavaScript hoặc HTTP. Ghi chú có 241 công thức, 29 hình tải được; màn hình hẹp không cuộn ngang, khối lời giải dùng bàn phím được. Liên kết recitation về đúng bài đầu.
 - Bản in thử có 67 trang, không lỗi công thức; đã xem ảnh chụp cả 18 trang sửa và kiểm tra lại các hình/nhãn cuối. Tệp kiểm định ở `/tmp/lec02-cost/`, không phát hành PDF thử vào Git.
 - Codex Slides Design Files chưa đồng bộ: lần xuất nội dung trước đã bị automatic approval review từ chối vì đích egress chưa được xác nhận; không thử lại hoặc đi đường vòng. Đầu ra kiểm định của lần này là RevealJS và tài liệu trong kho.
+
+
+## Bổ sung lợi ích song song hóa — 2026-09-16
+
+Chấp nhận hai trang nối tiếp: thay s05-09 bằng timeline 1/2 máy trên cùng R0=2,R1=3 chưa gộp; thêm s05-10 so tổng công việc, thời gian hoàn thành, giới hạn tác vụ nặng nhất và điều kiện tăng tốc gần p. Đổi ký hiệu thời gian mỗi giá trị thành c để không trùng ngưỡng tau ở phần ảnh. Bác liên kết ngược s06-04→trước2.5 của planner; thứ tự2.5 rồi2.6 giữ nguyên. Bác việc gọi w_max là toàn bộ critical path cho cả job của reader; chỉ xét một tầng độc lập, tác vụ không chia nhỏ. Không thêm một bộ gộp sau Reduce ngoài thuật toán. Mỗi số là suy ra từ dữ kiện 2/3 có sẵn và mô hình giả định, không benchmark. Tổng68trang,60giảng; thêm3phút tại09/10, giảm1phút tại05-03c,05-03b,06-03d để giữ120+60. 2.6 kết bằng liên hệ số nơi xử lý với số máy, không hứa gom nhóm làm giảm phép so sánh.
+
+### Kết quả bổ sung lợi ích song song hóa
+
+Thay s05-09 bằng hình thời gian cùng tỉ lệ, thêm s05-10 và nối lại s06-04. Trên cùng hai tác vụ R0/R1 chưa gộp, một máy chạy5c, hai máy chạy3c, ba máy vẫn3c; tổng5giátrị và5B byte không đổi. Giả thiết dữ liệu sẵn, máy đồng tốc, tác vụ độc lập, mỗi giá trị mấtc, bỏ lập lịch được nêu trước kết quả. Công thức thời gian gầnWc/p chỉ dùng khi có đủ tác vụ cân bằng và chi phí phụ nhỏ. Ghi chú phân biệt thời gian một tầng với thời gian toàn công việc; giới hạn tác vụ nặng nhất không bị gọi thành mô hình đầy đủ của mọi chuỗi phụ thuộc.
+
+Nguồn chính: MMDS 2.5.2, trang55–56 và2.6, trang64. Mô hình thời gian là phép suy ra từ ví dụ đã có; không thêm benchmark hoặc dữ kiện thực nghiệm. Ghi chú tự học bổ sung chứng minh hai giới hạn Wc/p và w_max c, cùng mức tăng tốc5/3. Phần2.6 nhắc số khóa không phải số máy và vẫn cần đủ tác vụ để dùng các máy đồng thời.
+
+Planner/source độc lập, writer, storyboard reviewer, năm vai rà soát, editor riêng và flow recheck đều có requested/observed `z-ai/glm-5.3-flash`, provider `OpenRouter` trong `/tmp/lec02-parallel/*.json`. Giữ góp ý làm rõ “R0 nhận2giátrị/R1 nhận3giátrị”, nhắc lại đơn vịB; bác đề xuất lặp điều kiện đã có trên mặt slide. Một số reviewer viết w_max=3c: điều phối viên giữ đúng w_max=3giátrị, thời gian lớn nhất=w_max c. Rà cuối xác nhận mạch chi phí→thời gian→điều kiện→phân chia liền và không có lỗi phải sửa. Biên tập tiếng Việt theo no-ai-slop; rà chuỗi lập luận theo quill, không tạo dự án sách.
+
+Kiểm định: 68ID duy nhất khớp storyboard, 60slidegiảng+8bàitập giữ nguyên,120+60phút. 30SVG được dùng trong deck; thêm `cost-parallel-time.svg` và script `scripts/render-parallel.py`, giữ hình tải cũ để truy nguyên/ghi chú. Chromium kiểm68slide không tràn, không lỗiKaTeX/JS/HTTP; ghi chú/hình/bàn phím/màn hình hẹp đạt. Đã xem hình thật của09/10/06-04; bản in68trang, liên kếtrecitation đúng. Script xuất thử ban đầu lỗi dấu nháy trong JavaScript lồng Python; đã sửa script tạm và chạy lại thành công. Không thay bài tập hoặc cấu hình khác của người dùng. DesignFiles giữ giới hạn đồng bộ đã ghi ở lần trước, không thử lại đích egress bị từ chối.
