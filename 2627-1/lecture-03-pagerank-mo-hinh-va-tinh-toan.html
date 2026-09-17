@@ -9,258 +9,26 @@
   <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
   <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
   <link rel="stylesheet" href="lecture-style.css"/>
-  <style>
-    .reveal .slides section[data-slide-id] { font-size: .82em; }
-    .reveal h1, .reveal h2 { color: #2f3e7a; }
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8em; }
-    .card { border: 1px solid #ddd; border-radius: 8px; padding: .5em .65em; }
-    .math-large { font-size: 1.16em; text-align: center; }
-    .check { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: .35em .55em; }
-    .note-source { font-size: .9em; color: #444; }
-  /* s01.css — style phạm vi .pr-slide (Phần 1, Lecture 03) */
-
-.pr-slide .main-figure {
-    height: 320px;
-    width: 100%;
-    object-fit: contain;
-    display: block;
-}
-
-.pr-slide .caption {
-    font-size: 26px;
-}
-
-.pr-slide .source-note {
-    font-size: 18px;
-}
-
-.reveal .pr-slide h1 {
-    font-size: 52px;
-    line-height: 1.2;
-    color: #2f3e7a;
-}
-
-.pr-slide h2 {
-    font-size: 38px;
-    color: #2f3e7a;
-}
-
-.pr-slide p,
-.pr-slide li {
-    font-size: 30px;
-}
-
-.reveal .pr-slide h3 {font-size:28px; line-height:1.25; color:#2f3e7a; text-transform:none;}
-.reveal .pr-slide p,.reveal .pr-slide li {line-height:1.35;}
-.reveal .pr-slide .caption {font-size:26px;}
-.reveal .pr-slide .source-note {font-size:18px;}
-.reveal .pr-slide .grid2 {align-items:center;}
-.reveal .pr-slide .check {font-size:28px; margin-top:24px;}
-
-.reveal #web-ranking-problem h1 {font-size:38px;}
-.reveal #web-ranking-problem table {font-size:26px;line-height:1.25;}
-.reveal #web-ranking-problem table th,.reveal #web-ranking-problem table td {padding:.22em .3em;}
-
-
-.reveal #pagerank-model h1 {font-size:40px;}
-.reveal #pagerank-model table {font-size:28px;border-collapse:collapse;}
-.reveal #pagerank-model th,.reveal #pagerank-model td {padding:5px 14px;text-align:center;}
-.reveal #pagerank-model pre {font-size:23px;line-height:1.3;width:100%;}
-.reveal #pagerank-model .matrix-note {font-size:26px;}
-
-.reveal #lec03-s03-11 pre {font-size:25px;line-height:1.2;}
-
-/* s04.css — style riêng cho #large-graph (Phần 4, Lecture 03), không đụng .pr-slide toàn bài */
-
-#large-graph .card {
-    border: 1px solid #c8d0e8;
-    border-radius: 10px;
-    padding: 16px 22px;
-    background: #f7f9ff;
-}
-
-#large-graph table {
-    border-collapse: collapse;
-    margin: 0 auto;
-}
-
-#large-graph th,
-#large-graph td {
-    border: 1px solid #9aa6c8;
-    padding: 6px 16px;
-    text-align: center;
-}
-
-#large-graph th {
-    background: #e6ebfa;
-    color: #2f3e7a;
-}
-
-#large-graph .inline-code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-    background: #eef1fa;
-    border-radius: 4px;
-    padding: 1px 8px;
-    font-size: 28px;
-}
-
-#large-graph pre {
-    font-size: 24px;
-    line-height: 1.4;
-}
-
-#large-graph .main-figure {
-    height: 360px;
-    width: 100%;
-    object-fit: contain;
-    display: block;
-}
-
-.reveal #large-graph h1 {font-size:40px;}
-.reveal #large-graph pre {font-size:26px;line-height:1.3;width:100%;}
-.reveal #lec03-s04-03 .main-figure {height:365px;}
-.reveal #lec03-s04-09 .main-figure {height:350px;}
-
-/* s05.css — style phạm vi #pagerank-cost (Phần 5, Lecture 03).
-   Không override .pr-slide toàn bài; không lặp CSS s01 đã có. */
-
-#pagerank-cost .cost-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 24px;
-}
-
-#pagerank-cost .cost-cards .card {
-    text-align: center;
-    padding: 16px 12px;
-}
-
-#pagerank-cost .cost-cards h3 {
-    margin: 10px 0 6px;
-}
-
-#pagerank-cost .cost-cards p {
-    font-size: 24px;
-    margin: 0;
-}
-
-#pagerank-cost .cost-table {
-    border-collapse: collapse;
-    margin: 16px auto;
-    font-size: 28px;
-}
-
-#pagerank-cost .cost-table th,
-#pagerank-cost .cost-table td {
-    border: 1px solid #b9c2dd;
-    padding: 8px 18px;
-    text-align: left;
-}
-
-#pagerank-cost .cost-table th {
-    background: #eef1fa;
-    color: #2f3e7a;
-}
-
-#pagerank-cost .math-large {
-    font-size: 34px;
-    margin: 14px 0;
-}
-
-#pagerank-cost .phase-labels {display:flex;flex-wrap:wrap;gap:10px 24px;font-size:26px; margin:18px 0;}
-#pagerank-cost .main-figure {max-width:100%;max-height:330px;object-fit:contain;}
-#lec03-s05-06 .main-figure {display:block;height:330px;margin:0 auto;}
-#lec03-s05-05 .cost-table {font-size:26px;}
-#lec03-s05-01 .cost-cards h3 {font-size:27px;}
-
-/* s06.css — chỉ trong phạm vi #pagerank-practice (Phần 6, Lecture 03) */
-
-.reveal #pagerank-practice h1 {font-size:40px;}
-.reveal #pagerank-practice h2 {font-size:36px;}
-.reveal #pagerank-practice pre {font-size:24px;line-height:1.3;width:100%;}
-.reveal #pagerank-practice table {font-size:26px;border-collapse:collapse;margin:0 auto;}
-.reveal #pagerank-practice th,.reveal #pagerank-practice td {padding:6px 16px;text-align:left;border-bottom:1px solid #d5d9e8;}
-.reveal #pagerank-practice .inline-code-wrap {font-size:26px;font-family:'Courier New',Courier,monospace;word-break:break-all;white-space:normal;}
-.reveal #pagerank-practice .card {padding:14px 20px;}
-
-#pagerank-practice .practice-badge{display:inline-block;border:1px solid #b9c2dd;border-radius:6px;padding:3px 10px;background:#eef1fa;color:#2f3e7a;font-size:21px;}
-#pagerank-practice .slide-badge-row{margin:4px 0 10px;}
-#pagerank-practice pre{font-size:24px;line-height:1.2;}
-#pagerank-practice pre code{max-height:none;}
-
-/* s07.css — style riêng chỉ trong #summary-exercises (Phần 7, Lecture 03) */
-
-#summary-exercises .exercise-header {
-    font-size: 20px;
-    color: #666666;
-    margin: 4px 0 8px 0;
-}
-
-#summary-exercises .answer-box {
-    border-left: 6px solid #2f3e7a;
-    background: #edf4ff;
-    padding: 10px 18px;
-    border-radius: 4px;
-    margin: 10px 0;
-}
-
-#summary-exercises .answer-box p {
-    margin: 4px 0;
-}
-
-#summary-exercises table.ex-table {
-    border-collapse: collapse;
-    margin: 8px auto;
-    font-size: 28px;
-}
-
-#summary-exercises table.ex-table th,
-#summary-exercises table.ex-table td {
-    border: 1px solid #b0bec5;
-    padding: 6px 14px;
-    text-align: center;
-}
-
-#summary-exercises table.ex-table th {
-    background: #edf4ff;
-    color: #2f3e7a;
-}
-
-#summary-exercises .ex-figure {
-    width: 100%;
-    max-height: 380px;
-    object-fit: contain;
-    display: block;
-}
-
-#summary-exercises .link-check {
-    font-size: 26px;
-    color: #2f3e7a;
-    margin-top: 8px;
-}
-
-</style>
 </head>
 <body>
-  <div class="reveal">
+  <div class="reveal course-deck lecture-pagerank">
     <div class="slides">
 <section id="introduction" aria-label="Giới thiệu bài học">
 
-<section id="lec03-s01-01" data-slide-id="lec03-s01-01" class="pr-slide">
-  <h1>PageRank: mô hình và tính toán</h1>
-  <h3>Bài 03 · Giải thuật nền tảng của Khoa học dữ liệu</h3>
-  <p>Học kỳ 1, năm học 2026–2027 · Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
+<section id="lec03-s01-01" data-slide-id="lec03-s01-01" class="pr-slide title-slide">
+  <h1 class="lecture-title">PageRank:<br/>mô hình và tính toán</h1>
+  <p class="course-name">Bài 03 · Giải thuật nền tảng của Khoa học dữ liệu</p>
+  <p class="term-name">Học kỳ 1, năm học 2026–2027<br/>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
   <aside class="notes">Bài 02 đã giới thiệu mô hình MapReduce và dùng phép nhân ma trận–véc tơ để minh họa cách phân chia công việc. Bài này dùng lại công cụ đó để tính điểm quan trọng của các trang web từ liên kết giữa chúng. Ta sẽ bắt đầu bằng bài toán và ví dụ tính tay, sau đó xây quy tắc tổng quát, cách tính trên dữ liệu lớn và chương trình Python để kiểm tra kết quả.</aside>
 </section>
 
-<section id="lec03-s01-02" data-slide-id="lec03-s01-02" class="pr-slide">
+<section id="lec03-s01-02" data-slide-id="lec03-s01-02" class="pr-slide agenda-slide">
   <h2>Nội dung</h2>
   <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li><li>Mô hình và thuật toán PageRank</li><li>Tính PageRank trên đồ thị lớn</li><li>Chi phí và lợi ích của cách tính</li><li>Thực hành tính PageRank</li><li>Tổng kết và bài tập vận dụng</li></ul>
   <aside class="notes">Tuyến của bài bắt đầu bằng nhu cầu xếp hạng và một đồ thị nhỏ có thể tính tay. Từ ví dụ, ta xây mô hình và thuật toán PageRank. Tiếp đó là cách tổ chức phép tính trên đồ thị lớn, rồi đánh giá chi phí. Phần thực hành chuyển đặc tả thành chương trình Python và đối chiếu với kết quả tính tay. Cuối bài, các bài tập yêu cầu tính điểm và chọn cách biểu diễn dữ liệu. Các phần dùng chung một ví dụ để tránh phải học lại dữ kiện mỗi khi đổi cách nhìn.</aside>
 </section>
 
-<section id="lec03-s01-03" data-slide-id="lec03-s01-03" class="pr-slide">
+<section id="lec03-s01-03" data-slide-id="lec03-s01-03" class="pr-slide motivation-slide">
   <h2>Mục tiêu học tập</h2>
   <ul>
     <li>Lập và giải thích quy tắc tính điểm cho một trang dựa trên liên kết trỏ tới nó.</li>
@@ -270,7 +38,7 @@
   <aside class="notes">Kết quả cần đạt là tự giải thích và thực hiện được phép tính, chứ không chỉ nhớ tên PageRank. Trước hết, ta xác định mỗi trang đóng góp điểm cho các trang khác như thế nào. Sau đó ta kiểm tra cách tính trên những đồ thị có cấu trúc khác nhau, rồi đánh giá lượng dữ liệu và công việc cần xử lý. Cuối cùng, mã Python phải thực hiện đúng quy tắc đã đặc tả và cho kết quả một vòng khớp với phép tính tay. Những mục tiêu này sẽ được kiểm tra qua ví dụ và bài tập cuối bài.</aside>
 </section>
 
-<section id="lec03-s01-04" data-slide-id="lec03-s01-04" class="pr-slide">
+<section id="lec03-s01-04" data-slide-id="lec03-s01-04" class="pr-slide motivation-slide">
   <h2>Xếp hạng các trang kết quả</h2>
   <img src="img/lec-03/intro-ranking.svg" role="img"
        class="main-figure" alt="Sơ đồ: truy vấn dẫn tới các trang liên quan, các trang được sắp thứ tự để hiển thị, trong đó liên kết giữa các trang là một tín hiệu góp phần xác định độ quan trọng"/>
@@ -279,7 +47,7 @@
   <aside class="notes">Mô hình tìm kiếm trong sách phân biệt việc tìm các trang liên quan và việc sắp thứ tự hiển thị. Độ khớp với truy vấn phản ánh nội dung người dùng đang tìm. PageRank cung cấp một tín hiệu khác: điểm quan trọng theo cấu trúc liên kết. Điểm đó được tính cho đồ thị, không phụ thuộc riêng vào truy vấn đang xét. Hình chỉ mô tả các vai trò, không mô phỏng toàn bộ một máy tìm kiếm hiện nay. Phần tiếp theo tập trung vào cách tạo điểm từ liên kết, chưa kết hợp các tín hiệu thành công thức xếp hạng kết quả tìm kiếm.</aside>
 </section>
 
-<section id="lec03-s01-05" data-slide-id="lec03-s01-05" class="pr-slide">
+<section id="lec03-s01-05" data-slide-id="lec03-s01-05" class="pr-slide motivation-slide">
   <h2>Giới hạn của ma trận đặc</h2>
   <div class="grid2">
     <div>
@@ -296,7 +64,7 @@
   <aside class="notes">Đây là phép tính quy mô giả định: một tỷ trang, mỗi cặp trang ứng với một ô, mỗi ô chiếm tám byte. Số ô là một tỷ nhân một tỷ, nên tổng là tám nhân mười mũ mười tám byte. Một exabyte theo hệ thập phân bằng mười mũ mười tám byte. Việc dựng toàn bộ ma trận như vậy không phù hợp với bộ nhớ của một máy tính thông thường. Đồ thị web có ít liên kết so với số cặp trang có thể có; phần lớn ô biểu diễn không có liên kết. Ta sẽ khai thác tính chất này ở phần tính toán trên đồ thị lớn.</aside>
 </section>
 
-<section id="lec03-s01-06" data-slide-id="lec03-s01-06" class="pr-slide">
+<section id="lec03-s01-06" data-slide-id="lec03-s01-06" class="pr-slide motivation-slide">
   <h2>Từ phép nhân đến bài toán xếp hạng</h2>
   <div class="grid2">
     <div class="card"><h3>Công cụ đã học</h3><p>Nhân ma trận–véc tơ.<br>Phân chia phép tính bằng MapReduce.</p></div>
@@ -311,14 +79,14 @@
 
 <section id="web-ranking-problem" aria-label="Bài toán Xếp hạng trang web">
 
-<section id="lec03-s02-01" data-slide-id="lec03-s02-01" class="pr-slide">
+<section id="lec03-s02-01" data-slide-id="lec03-s02-01" class="pr-slide example-slide">
   <h1>2 · Bài toán Xếp hạng trang web</h1>
   <div class="grid2"><img src="img/lec-03/graph-pages.svg" role="img" class="main-figure" alt="Bốn trang A, B, C, D nối với nhau bằng các liên kết có hướng"/><div class="card"><h3>Kết quả cần tạo</h3><p>Mỗi trang có một điểm.</p><p>Sắp thứ tự các trang theo điểm.</p></div></div>
   <p class="caption">Từ mạng liên kết giữa các trang, tìm một điểm quan trọng cho mỗi trang và sắp các trang theo điểm đó.</p>
   <aside class="notes">Phần trước đặt nhu cầu dùng liên kết làm một tín hiệu xếp hạng. Bây giờ ta tách riêng bài toán tạo tín hiệu đó. Hình bên trái là các trang và liên kết có hướng; thẻ bên phải nêu kết quả cần tạo, chưa gán con số nào. Một điểm quan trọng theo liên kết không phải điểm phù hợp với truy vấn. Ta sẽ thử cách đếm liên kết vào, rồi xét cách để một trang chia điểm cho các đích của nó. Cùng đồ thị nhỏ giúp so sánh kết quả mà không thay dữ kiện.</aside>
 </section>
 
-<section id="lec03-s02-02" data-slide-id="lec03-s02-02" class="pr-slide">
+<section id="lec03-s02-02" data-slide-id="lec03-s02-02" class="pr-slide example-slide">
   <h2>Đầu vào và đầu ra</h2>
   <div class="grid2">
     <div class="card">
@@ -336,14 +104,14 @@
   <aside class="notes">Đỉnh là trang và cạnh có hướng cho biết trang nguồn trỏ tới trang đích. Hai liên kết cùng nguồn, cùng đích được gộp thành một cạnh theo mô hình sách. Ta xét đồ thị hữu hạn có ít nhất một trang. Điểm đầu ra không âm và có tổng bằng một để tiện so sánh; thứ tự theo điểm có thể có đồng hạng. Chuẩn hóa chưa xác định duy nhất cách chấm điểm, vì nhiều vector thỏa điều kiện này. Phần 3 mới xây quy tắc PageRank đầy đủ. Ký hiệu n và m lần lượt đếm trang và liên kết, sẽ dùng lại khi tính chi phí.</aside>
 </section>
 
-<section id="lec03-s02-03" data-slide-id="lec03-s02-03" class="pr-slide">
+<section id="lec03-s02-03" data-slide-id="lec03-s02-03" class="pr-slide example-slide">
   <h2>Ví dụ: Bốn trang web</h2>
   <div class="grid2">
     <img src="img/lec-03/graph-pages.svg" role="img"
          class="main-figure" style="height:300px;width:100%;" alt="Đồ thị bốn trang: A tới B, C, D; B tới A, D; C tới A; D tới B, C"/>
     <div>
-      <p style="font-size:28px;">\(n=4\) trang, \(m=8\) liên kết.</p>
-      <table>
+      <p class="supporting-text">\(n=4\) trang, \(m=8\) liên kết.</p>
+      <table class="ex-table">
         <tr><th>Trang</th><th>Liên kết ra tới</th><th>Bậc ra</th></tr>
         <tr><td>A</td><td>B, C, D</td><td>3</td></tr>
         <tr><td>B</td><td>A, D</td><td>2</td></tr>
@@ -357,20 +125,20 @@
   <aside class="notes">Đây là đồ thị Hình 5.1 của MMDS. A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới A; D trỏ tới B, C. Đọc theo từng trang nguồn cho ta bậc ra lần lượt ba, hai, một, hai, tổng cộng tám cạnh. Các liên kết hai chiều vẫn là hai cạnh riêng. Bảng giúp kiểm tra lại mũi tên và sẽ dùng khi chia điểm. Chưa cần dựng ma trận: mỗi phép tính sắp tới có thể theo dõi trực tiếp trên cạnh của đồ thị.</aside>
 </section>
 
-<section id="lec03-s02-04" data-slide-id="lec03-s02-04" class="pr-slide">
+<section id="lec03-s02-04" data-slide-id="lec03-s02-04" class="pr-slide example-slide">
   <h2>Đếm liên kết vào</h2>
   <div class="grid2">
     <img src="img/lec-03/graph-inlinks.svg" role="img"
          class="main-figure" style="height:300px;width:100%;" alt="Đồ thị bốn trang với hai cạnh vào A là B tới A và C tới A được vẽ đậm, các cạnh còn lại nhạt"/>
     <div>
-      <table>
+      <table class="ex-table">
         <tr><th>Trang</th><th>Liên kết vào từ</th><th>Số liên kết vào</th></tr>
         <tr><td>A</td><td>B, C</td><td>2</td></tr>
         <tr><td>B</td><td>A, D</td><td>2</td></tr>
         <tr><td>C</td><td>A, D</td><td>2</td></tr>
         <tr><td>D</td><td>A, B</td><td>2</td></tr>
       </table>
-      <p style="font-size:28px;">Chuẩn hóa trên ví dụ này: \(2/8=1/4\) mỗi trang; bốn trang đồng hạng.</p>
+      <p class="supporting-text">Chuẩn hóa trên ví dụ này: \(2/8=1/4\) mỗi trang; bốn trang đồng hạng.</p>
     </div>
   </div>
   <p class="caption">Cách đếm này cho mọi liên kết cùng trọng lượng, chưa xét điểm và số liên kết ra của trang nguồn.</p>
@@ -378,7 +146,7 @@
   <aside class="notes">Thử lấy số liên kết vào làm điểm thô. A nhận hai liên kết từ B và C; ba trang còn lại cũng có hai liên kết vào. Tổng điểm thô là tám, nên chuẩn hóa riêng trên ví dụ này cho mỗi trang một phần tư. Cả bốn trang đồng hạng. Quy tắc đếm coi mọi liên kết như nhau; chẳng hạn liên kết từ C chỉ trỏ một nơi được tính ngang với một liên kết từ A trỏ ba nơi. Cách chia điểm tiếp theo sẽ xét số đích của trang nguồn. Đây chưa phải kết quả PageRank.</aside>
 </section>
 
-<section id="lec03-s02-05" data-slide-id="lec03-s02-05" class="pr-slide">
+<section id="lec03-s02-05" data-slide-id="lec03-s02-05" class="pr-slide example-slide">
   <h2>Chia điểm theo liên kết ra</h2>
   <img src="img/lec-03/graph-distribute.svg" role="img"
        class="main-figure" alt="Nút A có điểm 1/4, ba mũi tên tới B, C, D, mỗi mũi tên mang nhãn 1/12"/>
@@ -386,7 +154,7 @@
   <aside class="notes">Khởi tạo mỗi trang với một phần tư điểm, rồi chia đều cho các liên kết ra của trang đó. A có ba đích nên mỗi đích nhận một phần mười hai. B và D có hai đích nên mỗi cạnh mang một phần tám; C có một đích nên chuyển cả một phần tư tới A. Trên đồ thị này, mọi trang đều có liên kết ra, nên tổng các phần chia bằng tổng điểm cũ. Trường hợp không có liên kết ra chưa được quy tắc này xử lý; ta sẽ xét ở phần 3. Bước tiếp theo là cộng tại đích. Nguồn: MMDS, mục 5.1.2, Ví dụ 5.2.</aside>
 </section>
 
-<section id="lec03-s02-06" data-slide-id="lec03-s02-06" class="pr-slide">
+<section id="lec03-s02-06" data-slide-id="lec03-s02-06" class="pr-slide example-slide">
   <h2>Cộng điểm tại trang A</h2>
   <img src="img/lec-03/graph-receive.svg" role="img"
        class="main-figure" alt="Hai mũi tên từ B và C vào A; B đóng góp 1/8, C đóng góp 1/4; điểm mới của A là 3/8"/>
@@ -394,22 +162,22 @@
   <aside class="notes">A chỉ nhận từ B và C. B chia một phần tư cho hai liên kết ra nên góp một phần tám; C chỉ có một liên kết ra nên góp một phần tư. A nhận tổng ba phần tám. Các phần đóng góp được xác định bởi điểm cũ và bậc ra của trang nguồn, không phải bậc vào của trang nhận. Ta chưa cập nhật điểm của B hay C khi tính A. Mọi trang đều dùng cùng vector điểm cũ để tính điểm mới; cách này giúp kết quả không phụ thuộc thứ tự duyệt các trang. Nguồn: MMDS, mục 5.1.2, Ví dụ 5.2.</aside>
 </section>
 
-<section id="lec03-s02-07" data-slide-id="lec03-s02-07" class="pr-slide">
+<section id="lec03-s02-07" data-slide-id="lec03-s02-07" class="pr-slide example-slide">
   <h2>Ví dụ: Kết quả sau một vòng</h2>
-  <p style="font-size:28px;">Điểm cũ: \(r_A=r_B=r_C=r_D=1/4\). Tất cả các trang tính đồng thời từ điểm cũ.</p>
-  <table style="font-size:28px;">
+  <p class="supporting-text">Điểm cũ: \(r_A=r_B=r_C=r_D=1/4\). Tất cả các trang tính đồng thời từ điểm cũ.</p>
+  <table class="ex-table">
     <tr><th>Trang</th><th>Các đóng góp nhận được</th><th>Điểm mới</th></tr>
     <tr><td>A</td><td>\(1/8+1/4\)</td><td>\(9/24=3/8\)</td></tr>
     <tr><td>B</td><td>\(1/12+1/8\)</td><td>\(5/24\)</td></tr>
     <tr><td>C</td><td>\(1/12+1/8\)</td><td>\(5/24\)</td></tr>
     <tr><td>D</td><td>\(1/12+1/8\)</td><td>\(5/24\)</td></tr>
   </table>
-  <p style="font-size:28px;">Tổng \(=9/24+3\times 5/24=1\). Thứ tự sau một vòng: A đứng trước B, C, D đồng hạng.</p>
+  <p class="supporting-text">Tổng \(=9/24+3\times 5/24=1\). Thứ tự sau một vòng: A đứng trước B, C, D đồng hạng.</p>
   <p class="caption">Kết quả một vòng chưa phải điểm PageRank cuối cùng.</p>
   <aside class="notes">Bảng tổng hợp đúng một vòng tính từ điểm cũ đồng đều. A nhận ba phần tám, còn B, C, D mỗi trang nhận năm phần hai mươi tư. Tổng bằng một, nên không có điểm bị mất hoặc đếm thêm trong bước này. A đứng trước ba trang đồng hạng còn lại, khác cách đếm liên kết vào ở slide trước. Đừng dùng điểm mới của A để tính B trong cùng vòng, vì khi đó đã đổi quy tắc cập nhật. Những số này chưa phải điểm PageRank cuối; phần sau sẽ định nghĩa mô hình và cách tính lặp đầy đủ.</aside>
 </section>
 
-<section id="lec03-s02-08" data-slide-id="lec03-s02-08" class="pr-slide">
+<section id="lec03-s02-08" data-slide-id="lec03-s02-08" class="pr-slide example-slide">
   <h2>Câu hỏi kiểm tra</h2>
   <p><strong>Câu hỏi:</strong> áp dụng vào đồ thị bốn trang vừa xét.</p>
   <ul>
@@ -425,7 +193,7 @@
 
 <section id="pagerank-model" aria-label="Phần 3: Mô hình và thuật toán PageRank">
 
-<section id="lec03-s03-01" data-slide-id="lec03-s03-01" class="pr-slide">
+<section id="lec03-s03-01" data-slide-id="lec03-s03-01" class="pr-slide motivation-slide model-slide">
   <h1>3 · Mô hình và thuật toán PageRank</h1>
   <div class="grid2">
     <img src="img/lec-03/model-one-round.svg" role="img" class="main-figure"
@@ -440,7 +208,7 @@
   <aside class="notes">Phép chia điểm của phần trước có thể đọc như một bước di chuyển ngẫu nhiên. Gọi d_j là số liên kết ra của trang j. Nếu người đọc ở j với xác suất r_j và chọn đều một trong d_j liên kết, xác suất đi từ j tới mỗi đích là r_j/d_j. Khi lặp nhiều bước, ta muốn tìm một phân phối không đổi sau cập nhật. Quy tắc hiện tại chưa xử lý trang không có liên kết ra và chưa bảo đảm hội tụ trên mọi đồ thị. Ta sẽ hoàn thiện hai điểm đó trước khi phát biểu thuật toán. Nguồn: MMDS 5.1.2, trang 178–180.</aside>
 </section>
 
-<section id="lec03-s03-02" data-slide-id="lec03-s03-02" class="pr-slide">
+<section id="lec03-s03-02" data-slide-id="lec03-s03-02" class="pr-slide motivation-slide model-slide">
   <h2>Ma trận liên kết</h2>
   <div class="grid2">
     <img src="img/lec-03/model-column-a.svg" role="img" class="main-figure"
@@ -456,16 +224,16 @@
   <aside class="notes">Ô ở hàng i, cột j mô tả cách trang nguồn j chuyển điểm tới trang đích i. Vì A trỏ tới B, C, D và có bậc ra bằng ba, cột A theo thứ tự hàng A, B, C, D là (0, 1/3, 1/3, 1/3). Các cạnh đi vào A thuộc hàng A, không thuộc cột A. Đây là chỗ cần phân biệt khi lập ma trận từ hình. Trang không có liên kết ra được biểu diễn bằng một cột toàn số không; không thực hiện phép chia cho không. Nguồn: MMDS 5.1.2, Ví dụ 5.1.</aside>
 </section>
 
-<section id="lec03-s03-03" data-slide-id="lec03-s03-03" class="pr-slide">
+<section id="lec03-s03-03" data-slide-id="lec03-s03-03" class="pr-slide motivation-slide model-slide">
   <h2>Lặp phép truyền điểm</h2>
-  <p style="font-size:30px;">Khi mọi trang đều có liên kết ra, một bước là:</p>
+  <p>Khi mọi trang đều có liên kết ra, một bước là:</p>
   <p class="math-large">\[r^{t+1}=M_0\,r^t\]</p>
   <p>Đồ thị bốn trang của phần trước:</p><p>\(r^0=(1/4,1/4,1/4,1/4)^T\)</p><p>\(r^1=(9/24,5/24,5/24,5/24)^T\)</p>
   <p class="caption">Quy tắc khởi tạo: \(r^0\) đều \(1/n\). Kết quả một vòng khớp đúng phép chia điểm của phần 2; mục tiêu của phép lặp là tìm điểm \(r^*\) không đổi qua cập nhật.</p>
   <aside class="notes">Nhân ma trận liên kết với vector điểm cột thực hiện đồng thời việc chia tại nguồn và cộng tại đích. Trên đồ thị bốn trang của phần trước, khởi tạo đều cho kết quả một vòng đúng như bảng đã tính tay. Ký hiệu t đếm số bước đã thực hiện; r^0 là điểm ban đầu. Điểm ổn định là một vector không đổi khi cập nhật. Chưa thể suy ra rằng phép lặp này luôn đạt một giới hạn trên mọi đồ thị. Hai biến thể tiếp theo làm rõ những vấn đề mà quy tắc hiện tại gặp phải. Nguồn: MMDS 5.1.2, Ví dụ 5.2, trang 180.</aside>
 </section>
 
-<section id="lec03-s03-04" data-slide-id="lec03-s03-04" class="pr-slide">
+<section id="lec03-s03-04" data-slide-id="lec03-s03-04" class="pr-slide motivation-slide model-slide">
   <h2>Trang không có liên kết ra</h2>
   <div class="grid2">
     <img src="img/lec-03/model-dead-end.svg" role="img" class="main-figure"
@@ -480,7 +248,7 @@
   <aside class="notes">Biến thể này xóa cạnh C tới A khỏi đồ thị gốc. C vẫn nhận điểm từ A và D, nhưng không còn liên kết ra để chia điểm của chính nó. Cột C của ma trận bằng không, nên điểm cũ của C không đóng góp cho bất kỳ đích nào. Từ điểm đều, tổng sau một vòng chỉ còn ba phần tư. Mất điểm ở đây là hậu quả của quy tắc truyền theo cạnh chưa đầy đủ. Ta cần thêm cách xử lý riêng cho trang không có liên kết ra. Nguồn: MMDS 5.1.4, Hình 5.3 và Ví dụ 5.3, trang 182–183.</aside>
 </section>
 
-<section id="lec03-s03-05" data-slide-id="lec03-s03-05" class="pr-slide">
+<section id="lec03-s03-05" data-slide-id="lec03-s03-05" class="pr-slide motivation-slide model-slide">
   <h2>Bẫy liên kết</h2>
   <div class="grid2">
     <img src="img/lec-03/model-spider-trap.svg" role="img" class="main-figure"
@@ -495,7 +263,7 @@
   <aside class="notes">Ở biến thể này, liên kết duy nhất từ C quay lại chính C. C vẫn có bậc ra bằng một, nên không có phép chia cho không và tổng điểm vẫn được giữ. Tuy vậy, một người đã đến C sẽ ở lại đó nếu chỉ đi theo liên kết. Trên đúng đồ thị này, các phép lặp trong sách đưa toàn bộ điểm về C. Một bẫy có thể gồm nhiều trang, miễn các trang trong nhóm đều có liên kết ra và không có cạnh ra ngoài nhóm. Bước nhảy ngẫu nhiên sẽ tạo cơ hội thoát nhóm. Nguồn: MMDS 5.1.5, Hình 5.6, trang 185–186.</aside>
 </section>
 
-<section id="lec03-s03-06" data-slide-id="lec03-s03-06" class="pr-slide">
+<section id="lec03-s03-06" data-slide-id="lec03-s03-06" class="pr-slide motivation-slide model-slide">
   <h2>Bước nhảy ngẫu nhiên</h2>
   <div class="grid2">
     <img src="img/lec-03/model-teleport.svg" role="img" class="main-figure"
@@ -510,7 +278,7 @@
   <aside class="notes">Ở mỗi bước, trước hết chọn một trong hai cách di chuyển. Với xác suất beta, chọn đều một liên kết ra; với xác suất một trừ beta, chọn đều một trang trong toàn bộ đồ thị. Bước nhảy có thể quay về trang hiện tại. Vì vậy, xác suất nhảy không đồng nghĩa với xác suất chắc chắn rời một nhóm trang. Điều nó bảo đảm là mọi trang đều có cơ hội được chọn, kể cả khi không có liên kết từ trang hiện tại tới đó. Ví dụ tính tay dùng beta bằng bốn phần năm. Trường hợp không có liên kết ra còn cần quy tắc bổ sung. Nguồn: MMDS 5.1.5, trang 186.</aside>
 </section>
 
-<section id="lec03-s03-07" data-slide-id="lec03-s03-07" class="pr-slide">
+<section id="lec03-s03-07" data-slide-id="lec03-s03-07" class="pr-slide motivation-slide model-slide">
   <h2>Phân phối lại điểm ở nút cụt</h2>
   <div class="grid2">
     <img src="img/lec-03/model-dead-redistribute.svg" role="img" class="main-figure"
@@ -525,7 +293,7 @@
   <aside class="notes">Gọi delta là tổng điểm đang ở các nút cụt. Trong nhánh có xác suất beta, các nút này chuyển điểm đều cho tất cả n trang, kể cả chính nút cụt. Do đó mỗi trang nhận beta nhân delta chia n. Hình có bốn đích A, B, C, D; các mũi tên nét đứt là phép phân phối của mô hình, không bổ sung liên kết thật vào dữ liệu. Quy tắc này bảo toàn tổng điểm theo cách bù trong slide MMDS 42/52 và Stanford 45/54. Nó khác công thức taxation trên ma trận có cột không trong sách trang 186–187, vốn có thể làm tổng điểm nhỏ hơn một.</aside>
 </section>
 
-<section id="lec03-s03-08" data-slide-id="lec03-s03-08" class="pr-slide">
+<section id="lec03-s03-08" data-slide-id="lec03-s03-08" class="pr-slide motivation-slide model-slide">
   <h2>Quy tắc cập nhật đầy đủ</h2>
   <p class="math-large">\[r_i^{\,t+1}=\beta\sum_{j:\,j\to i}\frac{r_j^{\,t}}{d_j}+\frac{(1-\beta)+\beta\,\delta^t}{n}\]</p>
   <ul>
@@ -537,10 +305,10 @@
   <aside class="notes">Ba nguồn điểm dùng chung vector cũ: truyền theo liên kết, bước nhảy đều và bù điểm nút cụt. Đặt u là vector có mọi thành phần bằng 1/n. Dạng vector tương đương là \(r^{t+1}=\beta M_0r^t+((1-\beta)+\beta\delta^t)u\). Khi delta bằng không, phần bù nút cụt bằng không. Nếu bỏ phần bù trên đồ thị có nút cụt, tổng điểm sau cập nhật sẽ là một trừ beta nhân delta, dù điểm cũ có tổng một. Trong bài này, điểm luôn được hiểu là phân phối xác suất nên phải giữ phần bù. Nguồn mô hình: MMDS 5.1.5 và các slide bù điểm MMDS 42/52.</aside>
 </section>
 
-<section id="lec03-s03-09" data-slide-id="lec03-s03-09" class="pr-slide">
+<section id="lec03-s03-09" data-slide-id="lec03-s03-09" class="pr-slide motivation-slide model-slide">
   <h2>Ví dụ: Một vòng có bước nhảy</h2>
-  <p style="font-size:30px;">Đồ thị gốc, không nút cụt nên \(\delta=0\); \(\beta=4/5\); \(r^0\) đều \(1/4\).</p>
-  <table style="font-size:30px;">
+  <p>Đồ thị gốc, không nút cụt nên \(\delta=0\); \(\beta=4/5\); \(r^0\) đều \(1/4\).</p>
+  <table class="ex-table">
     <tr><th>Trang</th><th>\(\beta\,M_0r^0\)</th><th>\((1-\beta)/n\)</th><th>\(r^1\)</th></tr>
     <tr><td>A</td><td>\(\dfrac{4}{5}\cdot\dfrac{3}{8}=\dfrac{3}{10}\)</td><td>\(\dfrac{1}{20}\)</td><td>\(\dfrac{7}{20}\)</td></tr>
     <tr><td>B</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{20}\)</td><td>\(\dfrac{13}{60}\)</td></tr>
@@ -551,11 +319,11 @@
   <aside class="notes">Đồ thị gốc có liên kết ra ở mọi trang nên delta bằng không. Mỗi trang nhận thêm một phần hai mươi từ bước nhảy. A nhận ba phần tám trước khi nhân beta; nhân bốn phần năm rồi cộng một phần hai mươi được bảy phần hai mươi. B, C, D đều nhận năm phần hai mươi tư trước khi nhân beta, nên điểm mới bằng mười ba phần sáu mươi. Tổng bằng một. So với phép lặp không bước nhảy của phần trước, khoảng cách điểm sau vòng này nhỏ hơn vì một phần điểm được chia đều. Dữ kiện: MMDS Hình 5.1; áp dụng công thức mục 5.1.5.</aside>
 </section>
 
-<section id="lec03-s03-10" data-slide-id="lec03-s03-10" class="pr-slide">
+<section id="lec03-s03-10" data-slide-id="lec03-s03-10" class="pr-slide motivation-slide model-slide">
   <h2>Ví dụ: Một vòng có nút cụt</h2>
-  <p style="font-size:30px;">Xóa C→A khỏi đồ thị: C là nút cụt, \(\delta^0=1/4\); \(\beta=4/5\); \(r^0\) đều \(1/4\).</p>
-  <p style="font-size:30px;">Thành phần chung: \(\dfrac{(1-\beta)+\beta\delta^0}{n}=\dfrac{1/5+1/5}{4}=\dfrac{1}{10}\).</p>
-  <table style="font-size:30px;">
+  <p>Xóa C→A khỏi đồ thị: C là nút cụt, \(\delta^0=1/4\); \(\beta=4/5\); \(r^0\) đều \(1/4\).</p>
+  <p>Thành phần chung: \(\dfrac{(1-\beta)+\beta\delta^0}{n}=\dfrac{1/5+1/5}{4}=\dfrac{1}{10}\).</p>
+  <table class="ex-table">
     <tr><th>Trang</th><th>\(\beta\,M_0r^0\)</th><th>Chung</th><th>\(r^1\)</th></tr>
     <tr><td>A</td><td>\(\dfrac{4}{5}\cdot\dfrac{1}{8}=\dfrac{1}{10}\)</td><td>\(\dfrac{1}{10}\)</td><td>\(\dfrac{1}{5}\)</td></tr>
     <tr><td>B</td><td>\(\dfrac{4}{5}\cdot\dfrac{5}{24}=\dfrac{1}{6}\)</td><td>\(\dfrac{1}{10}\)</td><td>\(\dfrac{4}{15}\)</td></tr>
@@ -566,9 +334,9 @@
   <aside class="notes">Xóa cạnh C tới A chỉ làm mất đóng góp đi ra từ C, không xóa các cạnh đi vào C. C vẫn nhận từ A và D, nên phần theo liên kết của C trước khi nhân beta vẫn là năm phần hai mươi tư. Delta bằng một phần tư. Bước nhảy góp một phần hai mươi và bù nút cụt góp thêm một phần hai mươi cho mỗi trang, tạo thành phần chung một phần mười. A nhận một phần tám từ B rồi nhân beta và cộng chung, được một phần năm. B, C, D đều được bốn phần mười lăm. Nguồn dữ kiện: MMDS Hình 5.3; quy tắc bù theo mô hình đã nêu.</aside>
 </section>
 
-<section id="lec03-s03-11" data-slide-id="lec03-s03-11" class="pr-slide">
+<section id="lec03-s03-11" data-slide-id="lec03-s03-11" class="pr-slide motivation-slide model-slide">
 <h2>Thuật toán tính PageRank</h2>
-<p style="font-size:26px;">Vào: danh sách kề của \(G\), \(n\ge1\), \(0&lt;\beta&lt;1\), \(\tau&gt;0\), \(T_{\max}\) nguyên dương.<br>Ra: vector điểm xấp xỉ và trạng thái đạt ngưỡng hoặc chưa đạt.</p>
+<p class="slide-detail">Vào: danh sách kề của \(G\), \(n\ge1\), \(0&lt;\beta&lt;1\), \(\tau&gt;0\), \(T_{\max}\) nguyên dương.<br>Ra: vector điểm xấp xỉ và trạng thái đạt ngưỡng hoặc chưa đạt.</p>
 <pre><code class="language-plaintext" data-trim>
 r = (1/n, ..., 1/n)
 lặp t = 1, ..., Tmax:
@@ -585,20 +353,20 @@ trả về (r, chưa đạt)
 <aside class="notes">Biểu diễn out[j] là danh sách các đích của trang j, không chứa cạnh trùng; d[j] là độ dài danh sách đó. Khởi tạo điểm đều. Mỗi vòng tạo mảng mới riêng, đặt thành phần chung cho tất cả trang, sau đó cộng đóng góp của từng cạnh. Mảng điểm cũ chỉ được thay khi đã tính xong cả vòng và độ thay đổi. Ngưỡng dương và giới hạn số vòng nguyên dương bảo đảm có tiêu chí kết thúc rõ. Nếu hết giới hạn trước khi đạt ngưỡng, kết quả phải kèm trạng thái chưa đạt. Quét các trang và cạnh cần thời gian tỉ lệ n+m mỗi vòng; phần chi phí sẽ phân tích cụ thể.</aside>
 </section>
 
-<section id="lec03-s03-12" data-slide-id="lec03-s03-12" class="pr-slide">
+<section id="lec03-s03-12" data-slide-id="lec03-s03-12" class="pr-slide motivation-slide model-slide">
   <h2>Độ thay đổi và điều kiện dừng</h2>
   <p class="math-large">\[\Delta_t=\sum_i\left|r_i^{\,t+1}-r_i^{\,t}\right|\]</p>
-  <table style="font-size:28px;">
+  <table class="ex-table">
     <tr><th>Vòng</th><th>\(r^t\) (A; B, C, D)</th></tr>
     <tr><td>1</td><td>\(7/20;\ 13/60\)</td></tr>
     <tr><td>2</td><td>\(31/100;\ 23/100\)</td></tr>
   </table>
-  <p style="font-size:28px;">Ví dụ đồ thị gốc, \(\beta=4/5\): \(\Delta_1=\left|31/100-7/20\right|+3\left|23/100-13/60\right|=\dfrac{2}{25}=0{,}08\).</p>
+  <p class="supporting-text">Ví dụ đồ thị gốc, \(\beta=4/5\): \(\Delta_1=\left|31/100-7/20\right|+3\left|23/100-13/60\right|=\dfrac{2}{25}=0{,}08\).</p>
   <p class="caption">So sánh \(\Delta_t\) với \(\tau\): chỉ là độ thay đổi giữa hai vòng, không phải sai số với nghiệm. Dừng khi \(\Delta_t\le\tau\); \(\tau\) là ngưỡng dừng, \(T_{\max}\) là giới hạn số vòng.</p>
   <aside class="notes">Độ thay đổi là tổng chênh lệch tuyệt đối giữa hai vector liên tiếp. Từ vòng một tới vòng hai trong ví dụ, A thay đổi 1/25, còn B, C, D mỗi trang thay đổi 1/75. Tổng là 1/25 cộng ba lần 1/75, bằng 2/25 hay 0,08. Với ngưỡng 0,01, thuật toán tiếp tục. Đại lượng này khác khoảng cách tới nghiệm mà ta chưa biết. Mô hình đầy đủ cho phép chặn sai số bằng độ thay đổi, nhưng hai đại lượng không bằng nhau. Giới hạn số vòng kiểm soát tài nguyên và cần được báo riêng trong trạng thái trả về.</aside>
 </section>
 
-<section id="lec03-s03-13" data-slide-id="lec03-s03-13" class="pr-slide">
+<section id="lec03-s03-13" data-slide-id="lec03-s03-13" class="pr-slide motivation-slide model-slide">
 <h2>Bảo toàn tổng điểm</h2>
 <p>Giả sử điểm cũ không âm và có tổng bằng 1.</p>
 <p class="math-large">\[\underbrace{\beta(1-\delta)}_{\text{theo liên kết}}+\underbrace{\beta\delta}_{\text{bù nút cụt}}+\underbrace{(1-\beta)}_{\text{bước nhảy}}=1\]</p>
@@ -606,7 +374,7 @@ trả về (r, chưa đạt)
 <aside class="notes">Giả sử điểm cũ không âm và có tổng một. Tất cả hệ số của phép cập nhật đều không âm nên điểm mới không âm. Với một trang không cụt, cộng đóng góp qua mọi liên kết ra thu lại beta lần điểm của trang đó. Tổng trên các trang không cụt là beta nhân một trừ delta. Phần bù trả lại beta nhân delta cho toàn bộ đồ thị, còn bước nhảy đóng góp một trừ beta. Tổng ba phần bằng một. Đây là bất biến của thuật toán, giúp kiểm tra chương trình. Bảo toàn tổng không tự nó chứng minh hội tụ; cần lập luận tiếp theo.</aside>
 </section>
 
-<section id="lec03-s03-14" data-slide-id="lec03-s03-14" class="pr-slide">
+<section id="lec03-s03-14" data-slide-id="lec03-s03-14" class="pr-slide motivation-slide model-slide">
 <h2>Hội tụ của mô hình đầy đủ</h2>
 <p>Gọi \(F\) là phép cập nhật. Đo khoảng cách bằng tổng chênh lệch tuyệt đối:<br>\(\|x-y\|_1=\sum_i|x_i-y_i|\).</p>
 <p class="math-large">\[\|F(x)-F(y)\|_1\le\beta\|x-y\|_1\]</p>
@@ -614,7 +382,7 @@ trả về (r, chưa đạt)
 <aside class="notes">Đặt S bằng M0 sau khi thay mỗi cột nút cụt bằng vector đều u. S không âm và mỗi cột có tổng một. Quy tắc cập nhật là F(x)=beta Sx+(1-beta)u. Với hai phân phối x,y, phần bước nhảy triệt tiêu trong hiệu. Áp dụng bất đẳng thức tam giác theo từng hàng, rồi đổi thứ tự tổng; tổng mỗi cột bằng một cho thấy khoảng cách theo tổng trị tuyệt đối sau cập nhật không vượt beta lần khoảng cách trước cập nhật. Vì beta nhỏ hơn một, khoảng cách giữa hai vòng liên tiếp giảm theo cấp số nhân. Tổng các khoảng cách từ một vòng tới các vòng sau được chặn bằng đuôi một chuỗi hình học, tiến về không. Dãy lặp vì thế có giới hạn trong tập phân phối; tính liên tục của F cho thấy giới hạn không đổi qua cập nhật. Hai điểm không đổi nếu khác nhau sẽ có khoảng cách vừa giữ nguyên vừa giảm theo hệ số nhỏ hơn một, điều không thể xảy ra. Do đó điểm ổn định duy nhất. Đây là chứng minh từ quy tắc đã chọn, không dùng kết luận hội tụ thiếu điều kiện cho ma trận liên kết thô.</aside>
 </section>
 
-<section id="lec03-s03-15" data-slide-id="lec03-s03-15" class="pr-slide">
+<section id="lec03-s03-15" data-slide-id="lec03-s03-15" class="pr-slide motivation-slide model-slide">
   <h2>Từ thuật toán đến dữ liệu lớn</h2>
   <img src="img/lec-03/model-collect.svg" role="img" class="main-figure"
        alt="B góp 1/8 và C góp 1/4 tới A; tổng đóng góp 3/8 chưa nhân beta và chưa cộng phần chung"/>
@@ -622,7 +390,7 @@ trả về (r, chưa đạt)
   <aside class="notes">Trong phép cập nhật, phần phụ thuộc từng cạnh có thể được tính độc lập khi mọi tác vụ dùng cùng điểm cũ. Các đóng góp có chung trang đích được cộng lại, rồi áp dụng hệ số beta và thành phần chung. Đây là phép nhân ma trận–vector đã học ở Bài 2, được lặp nhiều vòng. Ma trận liên kết chỉ mô tả các cạnh nên có thể lưu bằng danh sách thay vì lưu cả các ô không. Bước tiếp theo là chia dữ liệu sao cho các tác vụ giữ được phần vector cần thiết trong bộ nhớ và trả về cùng kết quả như phép tính một máy. Nguồn: MMDS 5.2, trang 189–192.</aside>
 </section>
 
-<section id="lec03-s03-16" data-slide-id="lec03-s03-16" class="pr-slide">
+<section id="lec03-s03-16" data-slide-id="lec03-s03-16" class="pr-slide motivation-slide model-slide">
   <h2>Câu hỏi kiểm tra</h2>
   <p><strong>Câu hỏi:</strong> áp dụng mô hình vừa xây dựng.</p><ul><li>Trên đồ thị gốc A–D, viết cột D của \(M_0\).</li><li>Phân biệt nút cụt với bẫy liên kết và nêu cách xử lý mỗi trường hợp.</li><li>Lần kiểm tra hiện tại có \(\Delta=0{,}08\), \(\tau=0{,}1\). Thuật toán trả trạng thái nào?</li></ul>
   <p class="source-note">Dữ kiện: MMDS, mục 5.1.2–5.1.5, Ví dụ 5.1–5.6, trang 178–187.</p>
@@ -633,17 +401,17 @@ trả về (r, chưa đạt)
 
 <section id="large-graph" aria-label="Phần 4: Tính PageRank trên đồ thị lớn">
 
-<section id="lec03-s04-01" data-slide-id="lec03-s04-01" class="pr-slide">
+<section id="lec03-s04-01" data-slide-id="lec03-s04-01" class="pr-slide example-slide">
 <h1>4 · Tính PageRank trên đồ thị lớn</h1>
 <div class="grid2"><div><p>Giữ nguyên quy tắc cập nhật PageRank.</p><p>Tổ chức dữ liệu và chia phép tính khi đồ thị, véc tơ không vừa bộ nhớ chính (RAM).</p></div><div class="card"><h3>Dữ liệu cần xử lý</h3><p>\(n\) trang, \(m\) liên kết.</p><p>Ma trận đặc lưu \(n^2\) ô; danh sách liên kết chỉ ghi các cạnh có thật.</p></div></div>
 <p class="caption">Khi \(m\ll n^2\), phần lớn ô bằng 0; biểu diễn thưa tránh lưu các ô này.</p>
 <aside class="notes">Phần ba đã xong công thức cập nhật với bước nhảy và bù điểm nút cụt. Vấn đề còn lại thuộc về quy mô: với n trang và m liên kết, ma trận đặc cần n bình phương ô trong khi thông tin thực chỉ là m cạnh. Khi m nhỏ hơn rất nhiều so với n bình phương, phần áp đảo của ma trận là số không, nên ta cần cách biểu diễn thưa và một cách chia việc bảo đảm mỗi tác vụ chỉ giữ phần dữ liệu vừa bộ nhớ. Chi phí chi tiết sẽ được phân tích ở phần năm; phần này chỉ nêu giới hạn bộ nhớ RAM. Nguồn: MMDS 5.2, trang 189–190.</aside>
 </section>
 
-<section id="lec03-s04-02" data-slide-id="lec03-s04-02" class="pr-slide">
+<section id="lec03-s04-02" data-slide-id="lec03-s04-02" class="pr-slide example-slide">
   <h2>Lưu các liên kết ra</h2>
   <div class="grid2">
-    <table style="font-size:30px;">
+    <table class="ex-table">
       <tr><th>Nguồn</th><th>Bậc \(d_j\)</th><th>Đích</th></tr>
       <tr><td>A</td><td>3</td><td>B, C, D</td></tr>
       <tr><td>B</td><td>2</td><td>A, D</td></tr>
@@ -660,7 +428,7 @@ trả về (r, chưa đạt)
   <aside class="notes">Đây là cách biểu diễn ma trận chuyển tiếp của MMDS mục 5.2.1: liệt kê theo cột, mỗi cột chỉ cần một số nguyên cho bậc ra và các số nguyên chỉ hàng có phần tử khác không, vì giá trị luôn là một chia bậc ra. Đồ thị bốn trang giúp theo dõi cách ghi; lợi ích lưu trữ rõ hơn khi số cạnh nhỏ so với số ô của ma trận. Nút cụt vẫn cần một bản ghi để tính delta ở slide sau, với bậc bằng không và danh sách rỗng. Nguồn: MMDS 5.2.1, Ví dụ 5.7, Hình 5.11, trang 190.</aside>
 </section>
 
-<section id="lec03-s04-03" data-slide-id="lec03-s04-03" class="pr-slide">
+<section id="lec03-s04-03" data-slide-id="lec03-s04-03" class="pr-slide example-slide">
 <h2>Chia ma trận và véc tơ thành khối</h2>
 <p>Đặt \(z=M_0r\): chia \(r,z\) thành \(k\) dải, \(M_0\) thành \(k^2\) khối; ví dụ \(k=2\), nguồn A,B và C,D.</p>
 <img src="img/lec-03/rlarge-blocks-grid.svg" role="img" class="main-figure" alt="Hai khung nét đứt nhóm các khối theo cột nguồn: khung cột 1 chứa M11, M21 nhận mũi tên thẳng từ r1 (nguồn A, B); khung cột 2 chứa M12, M22 nhận mũi tên thẳng từ r2 (nguồn C, D). Mỗi hàng khối gộp về dải z_a tương ứng của z=M0r"/>
@@ -668,12 +436,12 @@ trả về (r, chưa đạt)
 <aside class="notes">Nếu chỉ chia theo cột, mỗi tác vụ có thể phải cộng vào toàn bộ véc tơ kết quả, vẫn quá lớn so với bộ nhớ. Chia thêm theo hàng giới hạn cả miền đầu vào lẫn miền đầu ra của một tác vụ. Gọi z bằng M0 nhân r là tổng đóng góp chưa nhân beta. Hàng khối a chứa các trang đích, cột khối b chứa các trang nguồn. Mỗi dải r_b được các tác vụ cùng cột b sử dụng, còn các kết quả của cùng hàng được cộng thành z_a. Ma trận không cần nằm trọn trong RAM: tác vụ đọc lần lượt các bản ghi. Nguồn: MMDS 5.2.3, Hình 5.12, trang 191–192.</aside>
 </section>
 
-<section id="lec03-s04-04" data-slide-id="lec03-s04-04" class="pr-slide">
+<section id="lec03-s04-04" data-slide-id="lec03-s04-04" class="pr-slide example-slide">
   <h2>Dữ liệu trong một khối</h2>
   <div class="grid2">
     <div class="card">
       <h3>\(M_{11}\): nguồn A, B → đích A, B</h3>
-      <table style="font-size:28px;">
+      <table class="ex-table">
         <tr><th>Nguồn</th><th>\(d_j\)</th><th>Đích</th></tr>
         <tr><td>A</td><td>3</td><td>B</td></tr>
         <tr><td>B</td><td>2</td><td>A</td></tr>
@@ -681,7 +449,7 @@ trả về (r, chưa đạt)
     </div>
     <div class="card">
       <h3>\(M_{21}\): nguồn A, B → đích C, D</h3>
-      <table style="font-size:28px;">
+      <table class="ex-table">
         <tr><th>Nguồn</th><th>\(d_j\)</th><th>Đích</th></tr>
         <tr><td>A</td><td>3</td><td>C, D</td></tr>
         <tr><td>B</td><td>2</td><td>D</td></tr>
@@ -692,7 +460,7 @@ trả về (r, chưa đạt)
   <aside class="notes">Bậc ra trong mỗi khối vẫn là bậc toàn cục của trang nguồn, không phải số đích trong khối; nếu không, giá trị một chia bậc ra sẽ sai. Mỗi cạnh được ghi vào đúng một khối xác định bởi dải của nguồn và dải của đích: cạnh A tới B thuộc M11, cạnh A tới C và A tới D thuộc M21. Hai khối còn lại: M12 gồm C bậc một đích A và D bậc hai đích B; M22 chỉ có D bậc hai đích C, vì C không trỏ tới C hay D. Bậc ra phải được lặp lại trong các khối có cạnh của cùng nguồn; phần sau sẽ tính dung lượng theo một định dạng bản ghi cụ thể. Nguồn: MMDS 5.2.4, Ví dụ 5.8, Hình 5.13–5.14, trang 192–193.</aside>
 </section>
 
-<section id="lec03-s04-05" data-slide-id="lec03-s04-05" class="pr-slide">
+<section id="lec03-s04-05" data-slide-id="lec03-s04-05" class="pr-slide example-slide">
 <h2>Map và Combine trên một khối</h2>
 <p>Vào: khối \(B_{ab}\) gồm các bản ghi nguồn–bậc ra–đích trong khối, và dải điểm \(r_b\).</p>
 <pre><code class="language-plaintext" data-trim>
@@ -707,7 +475,7 @@ Combine(i, values):
 <aside class="notes">Map nhận cả khối dữ liệu và dải điểm của các nguồn trong khối. Ký hiệu r_b[j] tra điểm theo mã trang nguồn j thuộc dải b; d_j là bậc ra toàn cục. Mỗi bản ghi có danh sách các đích nằm trong hàng khối a. Vòng lặp tạo một cặp cho mỗi cạnh, chưa nhân beta. Combine nhận các giá trị cùng khóa và trả một tổng từng phần cùng kiểu số. Phép cộng trên số thực chính xác có tính kết hợp và giao hoán nên việc gộp không đổi tổng cuối. Trên máy tính có thể có chênh lệch làm tròn do thứ tự cộng. Nguồn: MMDS 5.2.3, trang 191–192.</aside>
 </section>
 
-<section id="lec03-s04-06" data-slide-id="lec03-s04-06" class="pr-slide">
+<section id="lec03-s04-06" data-slide-id="lec03-s04-06" class="pr-slide example-slide">
 <h2>Reduce và điểm ở nút cụt</h2>
 <p>\(L_i\) là danh sách đóng góp hoặc tổng từng phần có khóa \(i\).</p>
 <pre><code class="language-plaintext" data-trim>
@@ -720,7 +488,7 @@ Reduce(i, L_i):
 <aside class="notes">Các nguồn được chia thành những phần không chồng nhau để tính tổng điểm nút cụt. Pha tổng hợp thu một giá trị delta và gửi nó tới các tác vụ Reduce; không tính delta lại từ các khối có bản ghi nguồn lặp. Danh sách toàn bộ trang còn được dùng để tạo một bản ghi giá trị không cho mỗi mã trang. Nhờ đó, ngay cả trang không có đóng góp qua cạnh cũng xuất hiện khi nhóm theo khóa. Reduce cộng các giá trị nhận được, nhân beta và cộng phần chung. Danh sách L_i có thể chứa tổng từng phần từ Combine thay vì mọi đóng góp ban đầu. Nguồn: MMDS 5.2.2–5.2.3; bổ sung bù nút cụt theo mô hình phần3.</aside>
 </section>
 
-<section id="lec03-s04-07" data-slide-id="lec03-s04-07" class="pr-slide">
+<section id="lec03-s04-07" data-slide-id="lec03-s04-07" class="pr-slide example-slide">
 <h2>Ví dụ: Gộp hai khối tại A</h2>
 <p>Đồ thị gốc, \(r^0\) đều \(1/4\), \(\beta=4/5\), \(k=2\); không có nút cụt.</p>
 <div class="grid2"><img src="img/lec-03/rlarge-merge-a.svg" role="img" class="main-figure" alt="Khối M11 tạo (A,1/8), khối M12 tạo (A,1/4); tổng đóng góp tại A bằng 3/8"/><div><p>\(z_A=1/8+1/4=3/8\).</p><p>\[r_A^1=\frac45\cdot\frac38+\frac1{20}=\frac7{20}\]</p></div></div>
@@ -728,7 +496,7 @@ Reduce(i, L_i):
 <aside class="notes">Trên đồ thị gốc không có nút cụt nên delta bằng không và thành phần chung chỉ là bước nhảy một phần hai mươi. Khối M11 phát cặp A, một phần tám từ cạnh B tới A; khối M12 phát cặp A, một phần tư từ cạnh C tới A. Reduce nhóm hai giá trị này thành z_A bằng ba phần tám, nhân beta được ba phần mười, cộng bước nhảy được bảy phần hai mươi — trùng kết quả bảng một vòng ở phần ba. Ba đích B, C, D có z bằng năm phần hai mươi tư rồi nhân beta; kết quả vòng của chúng là mười ba phần sáu mươi. Lưu ý đây là đồ thị gốc, không dùng con số một phần năm của biến thể nút cụt. Nguồn: MMDS Ví dụ 5.7–5.8 cho dữ liệu khối; phần ba cho phép tính vòng.</aside>
 </section>
 
-<section id="lec03-s04-08" data-slide-id="lec03-s04-08" class="pr-slide">
+<section id="lec03-s04-08" data-slide-id="lec03-s04-08" class="pr-slide example-slide">
 <h2>Tính đúng của cách chia khối</h2>
 <p>Mọi tác vụ dùng cùng điểm cũ. Gọi \(V_b\) là tập trang nguồn thuộc dải \(b\).</p>
 <p class="math-large">\[\sum_{b=1}^{k}\ \sum_{j\in V_b:\ j\to i}\frac{r_j}{d_j}=\sum_{j:\ j\to i}\frac{r_j}{d_j}\]</p>
@@ -737,14 +505,14 @@ Reduce(i, L_i):
 <aside class="notes">Chứng minh ngắn: mọi tác vụ dùng cùng bản chụp cố định của véc tơ r, không có tác vụ nào đọc r trong khi vector đang đổi. Mỗi cạnh j tới i xuất hiện đúng ở khối hàng a chứa i, cột b chứa j, nên giá trị r_j chia d_j được tạo đúng một lần. Tổng trên các khối cột b cho đích i gom lại đúng tất cả các nguồn j trỏ tới i, trùng với tổng trong công thức cập nhật tuần tự. Delta tính trên phân hoạch nguồn nên mỗi nút cụt góp đúng một lần, và phần chung chỉ cộng vào kết quả cuối của mỗi i sau khi nhóm, không lặp theo số khối. Combine và Reduce chỉ tái nhóm các tổng. Lưu ý khẳng định đúng cho số thực chính xác; trên máy tính, thứ tự cộng khác nhau gây chênh làm tròn nhỏ, nên kiểm tra bằng dung sai. Cũng như Bài 2, hệ thống chọn đầu ra của tác vụ thành công, không có cơ chế thử lại làm đếm kép. Nguồn: MMDS 5.2.3–5.2.4; phần lập luận hoàn thiện cho mô hình đã chọn.</aside>
 </section>
 
-<section id="lec03-s04-09" data-slide-id="lec03-s04-09" class="pr-slide">
+<section id="lec03-s04-09" data-slide-id="lec03-s04-09" class="pr-slide example-slide">
 <h2>Tổ chức một vòng tính</h2>
 <img src="img/lec-03/rlarge-round-pipeline.svg" role="img" class="main-figure" alt="Điểm cũ cố định; tính Map và tổng điểm nút cụt; Combine tại chỗ; chuyển và nhóm theo khóa; Reduce; tính độ thay đổi và chuyển sang vòng sau nếu cần"/>
 <p class="caption">\(k^2\) là số tác vụ khối, không phải số máy. Với \(k=2\), bốn tác vụ có thể chạy trên hai máy.</p>
 <aside class="notes">Các tác vụ dùng cùng véc tơ điểm cũ trong suốt một vòng. Tổng điểm nút cụt có thể được tính song song với các tác vụ khối, nhưng phải có trước khi Reduce hoàn thiện kết quả. Combine gộp tại chỗ trước khi chuyển và nhóm dữ liệu theo khóa. Mỗi tác vụ Reduce có thể xử lý nhiều trang đích. Sau khi có đủ điểm mới, tổng hợp độ thay đổi để quyết định dừng hay chạy vòng tiếp theo. Các máy có thể nhận nhiều tác vụ; dữ liệu đồ thị và bậc ra được giữ cho những vòng sau. Nguồn: MMDS 5.2.2–5.2.4 và mô hình lặp phần3. Biến thể gộp một hàng khối thành một tác vụ nằm ở mục5.2.5 để đọc thêm.</aside>
 </section>
 
-<section id="lec03-s04-10" data-slide-id="lec03-s04-10" class="pr-slide">
+<section id="lec03-s04-10" data-slide-id="lec03-s04-10" class="pr-slide example-slide">
   <h2>Câu hỏi kiểm tra</h2>
   <p><strong>Câu hỏi:</strong> vận dụng cách chia khối.</p>
   <ul>
@@ -761,7 +529,7 @@ Reduce(i, L_i):
 
 <section id="pagerank-cost" aria-label="Phần 5: Chi phí và lợi ích của cách tính">
 
-<section id="lec03-s05-01" data-slide-id="lec03-s05-01" class="pr-slide">
+<section id="lec03-s05-01" data-slide-id="lec03-s05-01" class="pr-slide cost-slide cost-open">
 <h1>5 · Chi phí và lợi ích của cách tính</h1>
 <p>Bốn đại lượng để đánh giá cách tổ chức tính PageRank theo khối.</p>
 <div class="cost-cards">
@@ -790,10 +558,10 @@ Reduce(i, L_i):
 <aside class="notes">Phần bốn đã xong cơ chế chia khối, Map, Combine và Reduce. Phần này trả lời câu hỏi: cách tổ chức đó tiết kiệm được gì, và ở đâu nó không tiết kiệm được. Ta đo bốn đại lượng riêng biệt. S là dung lượng lưu đĩa của biểu diễn đồ thị, tính bằng byte. B là bộ nhớ RAM mà một tác vụ cần giữ để làm việc. W là tổng thời gian tính tuần tự theo mô hình mỗi cạnh tốn cùng một khoảng thời gian. T là thời gian từ khi bắt đầu tới khi hoàn tất. Phân biệt rõ bốn đại lượng này là mục tiêu của cả phần. Các công thức byte và thời gian là mô hình giả định suy từ cấu trúc thuật toán, không phải số đo thực nghiệm. Nguồn: MMDS 5.2, trang 190–194.</aside>
 </section>
 
-<section id="lec03-s05-02" data-slide-id="lec03-s05-02" class="pr-slide">
+<section id="lec03-s05-02" data-slide-id="lec03-s05-02" class="pr-slide cost-slide">
 <h2>Dung lượng biểu diễn đồ thị</h2>
 <p>Quy ước: một giá trị điểm dùng số thực 8 byte, một mã trang hoặc bậc ra dùng số nguyên 4 byte, vừa 32 bit.</p>
-<table class="cost-table">
+<table class="ex-table cost-table">
   <tr><th>Cách biểu diễn</th><th>Công thức</th><th>Ví dụ \(n=4,\ m=8\)</th></tr>
   <tr><td>Ma trận đặc</td><td>\(S_{\text{dense}}=8n^2\)</td><td>128 byte</td></tr>
   <tr><td>Danh sách liên kết, mã nguồn ngầm</td><td>\(S_{\text{adj}}\approx 4(n+m)\)</td><td>48 byte</td></tr>
@@ -803,7 +571,7 @@ Reduce(i, L_i):
 <aside class="notes">Ma trận đặc lưu n bình phương ô, mỗi ô một số thực tám byte, nên với n bằng bốn cần một trăm hai mươi tám byte. Danh sách cạnh chỉ cần bậc ra của mỗi trang cộng mã đích của mỗi cạnh, mỗi cái bốn byte, nên xấp xỉ bốn nhân n cộng m, ở đây bốn mươi tám byte. Hai biểu thức trong bảng cùng luận điểm: biểu diễn thưa tiết kiệm khi m nhỏ hơn rất nhiều so với n bình phương. Lưu ý con số bốn mươi tám byte là của biểu diễn toàn cục; biểu diễn theo khối ở phần bốn lặp lại bậc ra toàn cục và mã nguồn ở nhiều khối, nên không gán bốn mươi tám cho S_blocks. Các con số này đếm thuần nội dung định dạng, không tính đối tượng hay thông tin phụ của định dạng của ngôn ngữ lập trình. Nguồn: MMDS 5.2.1, trang 190; công thức byte là diễn giải từ cấu trúc định dạng.</aside>
 </section>
 
-<section id="lec03-s05-03" data-slide-id="lec03-s05-03" class="pr-slide">
+<section id="lec03-s05-03" data-slide-id="lec03-s05-03" class="pr-slide cost-slide">
 <h2>Bộ nhớ của một tác vụ</h2>
 <div class="grid2">
 <img class="main-figure" src="img/lec-03/cost-memory.svg" alt="Tác vụ đọc khối qua bộ đệm, dùng dải điểm vào và dải tích lũy, mỗi dải n/k giá trị."/>
@@ -817,7 +585,7 @@ Reduce(i, L_i):
 <aside class="notes">Một tác vụ khối đọc ma trận theo luồng qua bộ đệm, nên phần ma trận không cần nằm trọn trong RAM. Nó giữ hai dải véc tơ: dải điểm vào r_b và dải tích lũy z_a, mỗi dải n chia k giá trị, mỗi giá trị tám byte. Cộng lại được mười sáu n chia k byte, cộng thêm bộ đệm đọc khối B_buf mà ta không cố định kích thước. Với n bằng bốn và k bằng hai, hai dải nhân hai phần tử nhân tám byte cho ba mươi hai byte. Tăng k làm giảm bộ nhớ mỗi tác vụ nhưng tăng số lần mỗi dải véc tơ được đọc, vì mỗi dải phục vụ k tác vụ. Đây là đánh đổi sẽ thấy ở phần đầu vào. Nguồn: MMDS 5.2.4, trang 192–194; công thức là mô hình giả định.</aside>
 </section>
 
-<section id="lec03-s05-04" data-slide-id="lec03-s05-04" class="pr-slide">
+<section id="lec03-s05-04" data-slide-id="lec03-s05-04" class="pr-slide cost-slide">
 <h2>Dữ liệu đầu vào các tác vụ</h2>
 <p>\(I\): tổng số byte đầu vào Map cho phép nhân theo khối.</p>
 <p class="math-large">\[I = S_{\text{blocks}} + 8kn\]</p>
@@ -830,12 +598,12 @@ Reduce(i, L_i):
 <aside class="notes">Chi phí đầu vào các Map theo mô hình Bài hai là kích thước dữ liệu tác vụ nhận. Phần ma trận: mỗi khối đọc một lần, tổng là S_blocks. Phần véc tơ: mỗi dải r_b được gửi tới k tác vụ cùng cột, nên toàn bộ véc tơ được đọc k lần, mỗi lần tám n byte. Với ví dụ đang chạy: bảy bản ghi nguồn trải trên bốn khối là hai, hai, hai, một; mỗi bản ghi nguồn tốn bốn byte mã nguồn cộng bốn byte bậc toàn cục, mỗi đích bốn byte, nên tám nhân bảy cộng bốn nhân tám bằng tám mươi tám byte; cộng sáu mươi bốn byte véc tơ được I bằng một trăm năm mươi hai byte, đã bỏ qua thông tin phụ của định dạng. Lưu ý I không đồng nhất với byte qua mạng: dữ liệu khối thường nằm cục bộ tại máy chạy tác vụ. Nguồn: MMDS 2.5.1 cho định nghĩa chi phí tác vụ; MMDS 5.2.3–5.2.4 cho cấu trúc dữ liệu.</aside>
 </section>
 
-<section id="lec03-s05-05" data-slide-id="lec03-s05-05" class="pr-slide">
+<section id="lec03-s05-05" data-slide-id="lec03-s05-05" class="pr-slide cost-slide">
 <h2>Combine giảm dữ liệu cần gộp</h2>
 <div class="grid2">
 <img class="main-figure" src="img/lec-03/cost-combine.svg" alt="Trong tác vụ M21, hai đóng góp A tới D một phần mười hai và B tới D một phần tám được gộp thành năm phần hai mươi tư."/>
 <div>
-<table class="cost-table">
+<table class="ex-table cost-table">
   <tr><th>Phương án</th><th>Bản ghi</th><th>Byte</th></tr>
   <tr><td>Không Combine</td><td>\(m=8\) bản ghi cạnh, 12 byte/bản ghi</td><td>96</td></tr>
   <tr><td>Có Combine</td><td>\(q=7\) bản ghi khóa, 12 byte/bản ghi</td><td>84</td></tr>
@@ -847,7 +615,7 @@ Reduce(i, L_i):
 <aside class="notes">Sau Combine, thay vì tám bản ghi cạnh, các tác vụ phát bảy bản ghi khóa: trong riêng khối M21, A và B góp vào D lần lượt 1/12 và 1/8; Combine cộng thành 5/24. Các khối khác không giảm số bản ghi. Mỗi bản ghi gồm khóa bốn byte và giá trị tám byte, nên H giảm từ chín mươi sáu xuống tám mươi bốn byte, giảm một phần tám, tức mười hai phẩy năm phần trăm của H — không phải giảm mười hai phẩy năm phần trăm toàn bộ thời gian chạy. Cần tách hai khái niệm: H là tổng dữ liệu đầu vào Reduce sau Combine; Q là byte thực sự đi qua mạng, chỉ bằng H nếu mọi bản ghi ra Map đều phải qua mạng, không nén, không chạy lại, không phần phụ trội. T_net tối thiểu bằng Q chia b_eff với b_eff là băng thông hiệu quả tổng hợp; công thức thời gian để ở slide sau. C bằng I cộng H nên giảm từ 248 xuống 236 byte. Ví dụ chỉ tính phép nhân theo khối, bỏ thông tin phụ; đồ thị không có nút cụt, mọi đích đều có cạnh vào, không cần bản ghi khởi tạo bằng không. Chưa đếm tổng hợp delta, độ thay đổi và điều phối vòng. Nguồn: MMDS 2.5.1 và 5.2.3.</aside>
 </section>
 
-<section id="lec03-s05-06" data-slide-id="lec03-s05-06" class="pr-slide">
+<section id="lec03-s05-06" data-slide-id="lec03-s05-06" class="pr-slide cost-slide">
 <h2>Thời gian khi tăng số máy</h2>
 <p>Mỗi cạnh tốn \(c_e\) giây: \(W=m\cdot c_e\). Bỏ thời gian đọc, truyền dữ liệu và lập lịch.</p>
 <p>Công việc bốn khối: \(2c_e,\ 2c_e,\ 3c_e,\ 1c_e\) — tổng \(W=8c_e\) không đổi.</p>
@@ -856,7 +624,7 @@ Reduce(i, L_i):
 <aside class="notes">Giai đoạn tính đóng góp của Map làm đúng m lần, mỗi lần tốn c_e giây theo giả định mọi cạnh tốn như nhau, nên tổng việc bằng tám c_e bất kể số máy. Bốn tác vụ có công việc hai, hai, ba, một nhân c_e. Trên một máy chạy tuần tự mất tám c_e. Trên bốn máy, mỗi tác vụ một máy, thời gian pha Map bằng tác vụ dài nhất, ba c_e, theo mô hình bỏ I/O và lập lịch. Tăng tốc là tám chia ba, không phải bốn, vì tác vụ khối ba cạnh là nút cổ chai. Cận dưới tổng quát: T_map ít nhất bằng max của W chia p và tác vụ nặng nhất w_max. Với hai máy, xếp ba cộng một và hai cộng hai được bốn c_e. Nguồn: mô hình tính theo MMDS 5.2.2–5.2.5; c_e là tham số giả định.</aside>
 </section>
 
-<section id="lec03-s05-07" data-slide-id="lec03-s05-07" class="pr-slide">
+<section id="lec03-s05-07" data-slide-id="lec03-s05-07" class="pr-slide cost-slide">
 <h2>Dữ liệu qua mạng và băng thông</h2>
 <p>\(Q\): số byte thực sự truyền qua mạng; \(b_{\mathrm{eff}}\): băng thông hiệu quả tổng hợp (byte/giây).</p>
 <p class="math-large">\[T_{\mathrm{shuffle}}\ge \frac{Q}{b_{\mathrm{eff}}}\]</p>
@@ -864,7 +632,7 @@ Reduce(i, L_i):
 <p class="caption">\(I,H,C\) đếm dữ liệu các tác vụ xử lý; \(Q\) còn phụ thuộc vị trí dữ liệu và tác vụ.</p>
 <aside class="notes">Pha chuyển và nhóm dữ liệu phải đưa đóng góp tới nơi chạy Reduce. Chỉ những byte đi qua mạng mới góp vào Q. Nếu Map và Reduce cùng máy, một phần dữ liệu có thể ở lại máy đó. Vì vậy 84 byte là giá trị có điều kiện, không phải cận dưới cho mọi cách phân bố. Băng thông hiệu quả tổng hợp đo số byte toàn hệ thống chuyển được mỗi giây trong tình huống đang xét. Chia lượng truyền cho tốc độ cho thời gian truyền tối thiểu; việc nhóm, sắp xếp và chờ có thể làm pha dài hơn. Mô hình bỏ nén, chạy lại và thông tin phụ. Nguồn: MMDS 2.5.1, 5.2; mô hình truyền dữ liệu của bài.</aside>
 </section>
-<section id="lec03-s05-08" data-slide-id="lec03-s05-08" class="pr-slide">
+<section id="lec03-s05-08" data-slide-id="lec03-s05-08" class="pr-slide cost-slide">
 <h2>Thời gian một vòng và cả công việc</h2>
 <p>Giả định các pha không chồng nhau:</p>
 <p class="math-large">\[T_{\mathrm{round}}\approx T_\delta+T_{\mathrm{map}}+T_{\mathrm{shuffle}}+T_{\mathrm{reduce}}+T_{\mathrm{sync}}\]</p>
@@ -873,7 +641,7 @@ Reduce(i, L_i):
 <p class="caption">Thêm máy có thể rút ngắn pha Map; mạng, gộp và đồng bộ vẫn góp vào thời gian cả công việc.</p>
 <aside class="notes">Mỗi đại lượng là thời gian của một pha, đo bằng giây. Trong ví dụ lý tưởng, thay T_map bằng 3c_e. Nếu mọi bản ghi đi qua mạng, thay cận dưới của T_shuffle bằng 84 chia b_eff; các thời gian còn lại cần được cho trong đề bài hoặc đo, không tự đặt số. Khi tổng hợp delta diễn ra đồng thời với Map, dùng giá trị lớn hơn của hai thời gian thay cho tổng. Tổng theo L vòng cho thời gian công việc, cộng khởi tạo. Nếu các vòng tương tự nhau, có thể xấp xỉ bằng T_setup cộng L lần T_round. L phụ thuộc tiêu chí dừng, không mặc định số vòng cố định cho mọi đồ thị. Nguồn: MMDS 5.2 và mô hình các pha của bài.</aside>
 </section>
-<section id="lec03-s05-09" data-slide-id="lec03-s05-09" class="pr-slide">
+<section id="lec03-s05-09" data-slide-id="lec03-s05-09" class="pr-slide cost-slide">
 <h2>Câu hỏi kiểm tra</h2>
 <p><strong>Câu hỏi:</strong> dùng công thức của phần này để giải ba bài sau.</p>
 <ul>
@@ -890,7 +658,7 @@ Reduce(i, L_i):
 
 <section id="pagerank-practice" aria-label="Phần 6: Thực hành tính PageRank">
 
-<section id="lec03-s06-01" data-slide-id="lec03-s06-01" class="pr-slide">
+<section id="lec03-s06-01" data-slide-id="lec03-s06-01" class="pr-slide example-slide practical-slide">
   <h1>6 · Thực hành tính PageRank</h1>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <div class="grid2">
@@ -913,7 +681,7 @@ Reduce(i, L_i):
   <aside class="notes">Phần ba đã có công thức cập nhật đầy đủ với bước nhảy và bù điểm nút cụt. Phần này biến công thức thành một chương trình Python chỉ dùng thư viện chuẩn, chạy trên một máy để kiểm tra tính đúng, không phải để đo tăng tốc trên đồ thị nhỏ. Sản phẩm gồm véc tơ điểm có tổng bằng một, trạng thái dừng, số vòng và độ thay đổi cuối. Ta sẽ đi qua dữ liệu, mã một vòng, vòng lặp, lệnh chạy và các phép kiểm. Nguồn: MMDS 5.1.5; mã nằm tại materials/lec-03/code/pagerank.py.</aside>
 </section>
 
-<section id="lec03-s06-02" data-slide-id="lec03-s06-02" class="pr-slide">
+<section id="lec03-s06-02" data-slide-id="lec03-s06-02" class="pr-slide example-slide practical-slide">
   <h2>Dữ liệu và giao diện hàm</h2>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <div class="grid2">
@@ -936,7 +704,7 @@ Reduce(i, L_i):
   <aside class="notes">Đồ thị được biểu diễn bằng dict từ tên nút sang danh sách đích, đúng như bảng lưu liên kết ra ở phần bốn; nhãn là chuỗi A, B, C, D. Hàm pagerank nhận beta, ngưỡng dừng và giới hạn số vòng, trả về bốn thành phần: điểm từng nút, trạng thái hội tụ, số vòng và độ thay đổi cuối. Mọi nút đều giữ lại kể cả khi không có liên kết vào hay ra, vì nút cụt cần có mặt khi tính phần bù. Điều kiện vào gồm n ít nhất một, đích phải là khóa của dict, hàm gộp cạnh trùng trong bản sao, beta trong khoảng mở từ không tới một, ngưỡng dương và giới hạn vòng nguyên dương. Hàm kiểm tra tham số trước khi bắt đầu vòng lặp. Nguồn: MMDS Hình 5.1; đặc tả theo phần ba.</aside>
 </section>
 
-<section id="lec03-s06-03" data-slide-id="lec03-s06-03" class="pr-slide">
+<section id="lec03-s06-03" data-slide-id="lec03-s06-03" class="pr-slide example-slide practical-slide">
   <h2>Mã cập nhật một vòng</h2>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <pre><code class="language-python" data-trim>def step(adj, r, beta):
@@ -955,7 +723,7 @@ Reduce(i, L_i):
   <aside class="notes">Hàm step thực hiện đúng một vòng của công thức cập nhật. Trước hết tính delta là tổng điểm của các nút có danh sách đích rỗng, lấy từ véc tơ cũ. Phần chung bằng một trừ beta cộng beta nhân delta, chia n, được đặt cho mọi nút ngay khi khởi tạo dict mới, nên cả nút không có liên kết vào cũng nhận phần chung. Nút cụt bỏ qua vòng chia vì không có đích; điểm của nó đã vào phần bù. Mỗi nguồn còn lại chia beta nhân điểm cũ của mình cho số đích, cộng vào từng đích trong danh sách. Véc tơ r chỉ được đọc, không bị thay đổi; điểm mới nằm hoàn toàn trong dict new. Mã trên slide trùng khớp mã trong tệp chạy được. Nguồn: công thức cập nhật phần ba, MMDS 5.1.5.</aside>
 </section>
 
-<section id="lec03-s06-04" data-slide-id="lec03-s06-04" class="pr-slide">
+<section id="lec03-s06-04" data-slide-id="lec03-s06-04" class="pr-slide example-slide practical-slide">
   <h2>Mã lặp và điều kiện dừng</h2>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <pre><code class="language-python" data-trim>n = len(adj)
@@ -974,7 +742,7 @@ for _ in range(max_iter):
   <aside class="notes">Khởi tạo điểm đều một chia n cho mọi nút. Mỗi vòng gọi step để lấy véc tơ mới, tính độ thay đổi là tổng trị tuyệt đối của hiệu giữa hai véc tơ liên tiếp, rồi mới gán véc tơ mới vào r. Nếu độ thay đổi nhỏ hơn hoặc bằng ngưỡng, gắn trạng thái đạt và dừng. Nếu chạy hết giới hạn vòng mà chưa đạt, trạng thái trả về là chưa đạt, kèm số vòng và độ thay đổi cuối để người dùng biết tình trạng. Cần nhắc lại: ngưỡng dừng đo độ thay đổi giữa hai vòng, không phải khoảng cách tới nghiệm mà ta chưa biết. Việc kiểm tra tham số nằm riêng trong tệp mã trước khi vào vòng lặp. Phân biệt hai biến cùng tên: delta trong step là tổng điểm nút cụt (δ), delta trong vòng lặp là độ thay đổi giữa hai vòng (Δ); chúng thuộc hai phạm vi hàm khác nhau. Nguồn: thuật toán và tiêu chí dừng ở phần ba.</aside>
 </section>
 
-<section id="lec03-s06-05" data-slide-id="lec03-s06-05" class="pr-slide">
+<section id="lec03-s06-05" data-slide-id="lec03-s06-05" class="pr-slide example-slide practical-slide">
   <h2>Chạy chương trình</h2>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <pre><code class="language-plaintext" data-trim>python3 materials/lec-03/code/pagerank.py \
@@ -987,10 +755,10 @@ for _ in range(max_iter):
   <aside class="notes">Lệnh chạy từ thư mục 2627-1, trỏ tới tệp mã trong materials. Các tham số dòng lệnh là biến thể đồ thị, beta và ngưỡng dừng, cùng giới hạn vòng. Chương trình in JSON ổn định gồm điểm từng nút, trạng thái, số vòng, độ thay đổi cuối và tổng điểm. Với biến thể base và beta bốn phần năm, điểm hội tụ là chín phần hai mươi tám cho A và mười chín phần tám mươi tư cho B, C, D; ba giá trị sau bằng nhau vì phép cập nhật giữ tính bằng nhau của điểm B, C, D khi khởi tạo đều. Các trang này không có cùng bậc ra. Chạy mã với các tham số trên cho 20 vòng, độ thay đổi cuối khoảng 5,50×10⁻⁹. Sai khác làm tròn rất nhỏ có thể xuất hiện giữa môi trường chạy. README ghi đủ môi trường, lệnh, dữ liệu, đầu ra và cách kiểm, xem practice-README.md. Nguồn: MMDS Hình 5.1.</aside>
 </section>
 
-<section id="lec03-s06-06" data-slide-id="lec03-s06-06" class="pr-slide">
+<section id="lec03-s06-06" data-slide-id="lec03-s06-06" class="pr-slide example-slide practical-slide">
   <h2>Kiểm chứng kết quả</h2>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
-  <table>
+  <table class="ex-table">
     <tr><th>Phép kiểm</th><th>Giá trị đúng</th></tr>
     <tr><td>Tổng điểm, dấu</td><td>\(\sum_i r_i\approx1\), mọi \(r_i\ge0\)</td></tr>
     <tr><td>Một bước, <span class="inline-code">base</span>, \(r^0\) đều, \(\beta=0{,}8\)</td><td>\(r_A=7/20\); \(r_B=r_C=r_D=13/60\)</td></tr>
@@ -1001,7 +769,7 @@ for _ in range(max_iter):
   <aside class="notes">Ba lớp kiểm. Thứ nhất là bất biến: tổng điểm xấp xỉ một và mọi giá trị không âm, đúng theo lập luận bảo toàn tổng ở phần ba. Thứ hai là một vòng trên đồ thị gốc từ điểm đều với beta bốn phần năm: A nhận bảy phần hai mươi, ba nút còn lại nhận mười ba phần sáu mươi, khớp bảng một vòng của phần ba. Thứ ba là một vòng trên biến thể nút cụt sau khi xóa cạnh C tới A: phần chung là một phần mười, cho A bằng một phần năm và ba nút còn lại bốn phần mười lăm. So sánh số thực dùng dung sai mười trừ mười hai, không dùng phép bằng. Hai trường hợp bổ sung là toàn bộ nút cụt và một nút có vòng lặp lên chính nó, được ghi trong README để kiểm các trường hợp biên. Nguồn: bảng một vòng phần ba, MMDS Hình 5.1 và 5.3.</aside>
 </section>
 
-<section id="lec03-s06-07" data-slide-id="lec03-s06-07" class="pr-slide">
+<section id="lec03-s06-07" data-slide-id="lec03-s06-07" class="pr-slide example-slide practical-slide">
   <h2>Câu hỏi kiểm tra</h2>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <p><strong>Câu hỏi:</strong> tìm và sửa lỗi trong ba đoạn cập nhật sau.</p>
@@ -1018,7 +786,7 @@ for _ in range(max_iter):
 
 <section id="summary-exercises" aria-label="Phần 7: Tổng kết và bài tập vận dụng">
 
-<section id="lec03-s07-01" data-slide-id="lec03-s07-01" class="pr-slide">
+<section id="lec03-s07-01" data-slide-id="lec03-s07-01" class="pr-slide example-slide">
   <h1>7 · Tổng kết và bài tập vận dụng</h1>
 
   <div class="grid2">
@@ -1039,14 +807,14 @@ for _ in range(max_iter):
   <aside class="notes">Bài giảng đã đi một đường liên tục: từ việc đếm liên kết vào, tới quy tắc chia điểm của trang nguồn theo bậc ra, rồi hai vấn đề là nút cụt làm mất điểm và bẫy liên kết làm dồn điểm, được xử lý bằng bước nhảy với hệ số beta và phần bù điểm nút cụt. Kết quả là công thức cập nhật đầy đủ, và việc lặp công thức này tới khi thay đổi nhỏ hơn ngưỡng cho ta điểm PageRank dùng để xếp hạng trang. Cần nhắc lại đúng mức: điểm PageRank chỉ đo cấu trúc liên kết, là một tín hiệu xếp hạng bên cạnh mức phù hợp nội dung với truy vấn. Mức phù hợp với nội dung truy vấn vẫn cần được đánh giá riêng. Phần còn lại là bốn bài tập vận dụng trực tiếp các kết quả này. Nguồn: MMDS chương 5.</aside>
 </section>
 
-<section id="lec03-s07-02" data-slide-id="lec03-s07-02" class="pr-slide">
+<section id="lec03-s07-02" data-slide-id="lec03-s07-02" class="pr-slide example-slide">
 <h2>Các bước tính PageRank</h2>
 <p class="math-large">\[r^{t+1}=\beta M_0r^t+\bigl((1-\beta)+\beta\delta^t\bigr)u\]</p>
 <ol><li>Chia điểm theo bậc ra toàn cục; cộng các đóng góp tại đích.</li><li>Phân phối lại điểm nút cụt và thêm bước nhảy đều.</li><li>Lặp tới ngưỡng thay đổi hoặc giới hạn số vòng; trả đúng trạng thái.</li></ol>
 <p class="caption">Lưu thưa và chia khối để tổ chức phép tính; kiểm tổng điểm, dấu và điều kiện dừng.</p>
 <aside class="notes">Ma trận M0 ghi quy tắc chia điểm của mỗi nguồn theo cột, có cột bằng không tại nút cụt. Delta tại vòng t là tổng điểm nút cụt, u là phân phối đều trên n trang. Công thức cho vòng tiếp theo dùng cùng một véc tơ cũ. Bước nhảy và phân phối lại điểm nút cụt đảm bảo tổng điểm bằng một trong mô hình này. Cách lưu danh sách liên kết và chia khối thay đổi tổ chức dữ liệu, không thay quy tắc toán học. Trong chương trình, kiểm điểm không âm, tổng gần một và trạng thái dừng. Chưa đạt ngưỡng khi hết giới hạn vòng phải được báo rõ. Nguồn: MMDS 5.1–5.2 và quy tắc bù nút cụt theo slide MMDS42/52, Stanford45/54.</aside>
 </section>
-<section id="lec03-s07-03" data-slide-id="lec03-s07-03" class="pr-slide">
+<section id="lec03-s07-03" data-slide-id="lec03-s07-03" class="pr-slide example-slide">
   <h2>Câu hỏi kiểm tra</h2>
   <p><strong>Câu hỏi:</strong> trả lời bốn yêu cầu ngắn sau.</p>
   <div class="grid2">
@@ -1067,7 +835,7 @@ for _ in range(max_iter):
   <aside class="notes">Đáp án bốn câu. Câu một: bậc ra của trang nguồn, là số liên kết đi ra; nguồn chia điểm của mình đều cho các đích, mỗi đích nhận r_j chia d_j. Câu hai: nút cụt là trang không có liên kết ra nào, không truyền điểm của nó qua cạnh ra, làm mất khối lượng khi cập nhật mà chưa bù; bẫy liên kết là tập trang không có cạnh đi ra khỏi tập, có thể giữ điểm trong tập khi chưa có bước nhảy; không khẳng định mọi đồ thị đều dồn toàn bộ điểm vào cùng một bẫy. Cách xử lý khác nhau: nút cụt được bù phân phối lại điểm, bẫy được xử lý bằng bước nhảy với xác suất một trừ beta. Câu ba: phép cập nhật phân tán tính cùng các đóng góp theo cạnh và cộng lại theo trang đích như nhân ma trận tuần tự; mỗi đóng góp được tính đúng một lần và phép Reduce cộng đủ mọi đóng góp gửi tới một đích, nên kết quả bằng nhau trên số thực chính xác; số dấu phẩy động có thể khác nhỏ do thứ tự cộng. Câu bốn: tổng việc tính chia cho số máy chỉ là chặn dưới lý tưởng; còn các chi phí không chia được như truyền dữ liệu, chờ tác vụ chậm nhất và phần việc không song song được, nên thời gian giảm chậm hơn tỉ lệ số máy. Nguồn: phần 3 và phần 5 của bài giảng.</aside>
 </section>
 
-<section id="lec03-s07-04" data-slide-id="lec03-s07-04" class="pr-slide">
+<section id="lec03-s07-04" data-slide-id="lec03-s07-04" class="pr-slide example-slide">
   <h2>Bài tập 1: Điểm theo liên kết</h2>
   <p class="exercise-header">MMDS 5.1.7, Bài 5.1.1 (trang 187–188, Hình 5.7). <a href="http://www.mmds.org">Giáo trình MMDS</a></p>
   <div class="grid2">
@@ -1082,7 +850,7 @@ for _ in range(max_iter):
   <aside class="notes">Nguồn: MMDS Bài 5.1.1, trang 187–188, Hình 5.7; giữ nguyên đề và đồ thị. Đặt a,b,c là điểm của ba trang. Ma trận có cột nguồn a là (1/3,1/3,1/3), cột b là (1/2,0,1/2), cột c là (0,1/2,1/2). Hệ cân bằng: a=a/3+b/2, b=a/3+c/2, c=a/3+b/2+c/2 và a+b+c=1. Từ phương trình đầu, b=4a/3. Thế vào phương trình thứ hai cho c=2b−2a/3=2a. Tổng điểm là a+4a/3+2a=13a/3=1. Suy ra a=3/13, b=4/13, c=6/13. Kiểm phương trình thứ ba: 1/13+2/13+3/13=6/13; hai phương trình đầu cũng thỏa. Không suy rộng kết luận hội tụ của phép lặp thô cho mọi đồ thị. Hướng dẫn chấm: biểu diễn đúng hướng ma trận 3 điểm; hệ và điều kiện tổng 3 điểm; giải hệ 2 điểm; kiểm nghiệm 2 điểm.</aside>
 </section>
 
-<section id="lec03-s07-05" data-slide-id="lec03-s07-05" class="pr-slide">
+<section id="lec03-s07-05" data-slide-id="lec03-s07-05" class="pr-slide example-slide">
   <h2>Bài tập 2: Thêm bước nhảy</h2>
   <p class="exercise-header">MMDS 5.1.7, Bài 5.1.2 (trang 188, cùng Hình 5.7), \(\beta = 0{,}8\). <a href="http://www.mmds.org">Giáo trình MMDS</a></p>
   <div class="grid2">
@@ -1098,7 +866,7 @@ for _ in range(max_iter):
   <aside class="notes">Nguồn: MMDS Bài 5.1.2, trang 188, cùng Hình 5.7, beta=4/5. Không có nút cụt nên phần chung là (1−beta)/3=1/15. Đặt a,b,c là điểm, tổng bằng1. Hai phương trình đầu: a=(4/15)a+(2/5)b+1/15 và b=(4/15)a+(2/5)c+1/15. Nhân15 rồi dùng c=1−a−b thu được 11a−6b=1 và 2a+21b=7. Nhân phương trình đầu với7, phương trình sau với2 rồi cộng:81a=21, nên a=7/27. Tiếp theo b=(11a−1)/6=25/81 và c=1−a−b=35/81. Kiểm phương trình thứ ba: (4/5)(7/81+25/162+35/162)+1/15 =148/405+27/405=35/81. Tổng21/81+25/81+35/81=1. Hướng dẫn chấm: mô hình có bước nhảy và phần chung đúng3điểm; lập và giải hệ4điểm; kiểm nghiệm cùng chuẩn hóa3điểm.</aside>
 </section>
 
-<section id="lec03-s07-06" data-slide-id="lec03-s07-06" class="pr-slide">
+<section id="lec03-s07-06" data-slide-id="lec03-s07-06" class="pr-slide example-slide">
   <h2>Bài tập 3: Ngưỡng lưu ma trận thưa</h2>
   <p class="exercise-header">MMDS 5.2.6, Bài 5.2.1 (trang 195). <a href="http://www.mmds.org">Giáo trình MMDS</a></p>
   <div class="grid2">
@@ -1120,7 +888,7 @@ for _ in range(max_iter):
   <aside class="notes">Nguồn: MMDS Bài 5.2.1, trang 195; đề giữ nguyên, ký hiệu m là số ô 1 và rho bằng m chia n bình phương chỉ giúp đặc tả. Cách đặc lưu n bình phương bit. Cách thưa lưu với mỗi ô 1 hai số nguyên tọa độ, mỗi số cần ceiling của log cơ số hai của n bit, nên tổng cộng 2 m nhân ceiling log hai n bit. So sánh: 2 m ceiling log hai n nhỏ hơn n bình phương, tức rho nhỏ hơn một chia hai lần ceiling log hai n, với n ít nhất hai. Tại điểm bằng nhau hai cách tốn như nhau nên chưa tiết kiệm, điều kiện là bất đẳng thức ngặt. Với n bằng một, ceiling log hai n bằng không và cách tọa độ tốn không bit, là mô hình suy biến nên so sánh chỉ có nghĩa từ n bằng hai. Đề không cho n cụ thể và không cần thêm dữ liệu mới: kết luận là điều kiện theo n.  Thang chấm gợi ý: viết đúng hai biểu thức dung lượng 4 điểm, lập bất đẳng thức và rút ra ngưỡng 4 điểm, nêu đúng điều kiện ngặt và trường hợp bằng nhau 2 điểm.</aside>
 </section>
 
-<section id="lec03-s07-07" data-slide-id="lec03-s07-07" class="pr-slide">
+<section id="lec03-s07-07" data-slide-id="lec03-s07-07" class="pr-slide example-slide">
   <h2>Bài tập 4: Biểu diễn đồ thị</h2>
   <p class="exercise-header">MMDS 5.2.6, Bài 5.2.2 (trang 195; dùng Hình 5.4 trang 184 và Hình 5.7 trang 188). <a href="http://www.mmds.org">Giáo trình MMDS</a></p>
   <div class="grid2">

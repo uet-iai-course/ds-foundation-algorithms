@@ -100,6 +100,11 @@ Mỗi bài dùng cấu trúc sau:
 
 - Dùng `2627-1/lecture-template.html` làm nền. Chỉ kế thừa cấu trúc, giao diện và cấu hình kỹ thuật; không sao chép chủ đề, nội dung hoặc siêu dữ liệu của bài khác.
 - Dùng `2627-1/lecture-style.css`, màu, phông chữ, khoảng cách, thẻ, lưới và chân trang hiện có. Không tạo hệ giao diện mới.
+- `2627-1/lecture-style.css` là nguồn duy nhất cho các kiểu trình bày dùng lại giữa các bài: trang tiêu đề, tên môn/học kỳ, mục lục, tiêu đề phần/trang, chữ thân bài, bảng, mã, chú thích, nguồn và badge. Lecture 02 là mẫu đối chiếu ban đầu; Lecture 02 và Lecture 03 cùng dùng các lớp vai trò trong CSS này.
+- Không chép khối `<style>` hoặc tự đặt lại cỡ chữ, màu, khoảng cách của các thành phần tương ứng trong từng HTML. Khi cần kiểu mới, thêm hoặc mở rộng lớp có ý nghĩa trong CSS chung rồi dùng lớp đó; chỉ giữ kiểu nội dòng cho hình hoặc bố cục đơn lẻ khi thực sự cần, không dùng để ghi đè thang chữ chung.
+- CSS riêng cho sơ đồ hoặc bố cục của một bài vẫn đặt trong `lecture-style.css`, giới hạn bằng lớp gốc của bài (ví dụ `.lecture-pagerank`); không để selector chung như `.card`, `h2`, `p` làm đổi các bài khác. Những bài dùng hệ thành phần chung nhận lớp `.course-deck`.
+- Khi sửa CSS chung, đối chiếu cỡ chữ và khoảng cách thực tế của các thành phần cùng vai trò; kiểm tra tất cả deck bị ảnh hưởng, ít nhất Lecture 02 và Lecture 03. Kiểm cả tiêu đề, mục lục, nội dung, bảng/mã, tràn khung, công thức và hình; không chỉ kiểm deck đang sửa. Ghi phạm vi ảnh hưởng và kết quả vào `review-log.md`.
+
 - Tham khảo cách tổ chức bố cục trong kho `uet-iai-course/machine-learning`, ưu tiên `SLIDE_STYLE_GUIDE.md` và các tệp `2526-2/lecture-*.html`. Áp dụng nguyên tắc một luận điểm trung tâm, hình hoặc công thức đủ lớn, chú thích nêu kết luận và nhịp mở phần–trực giác–cơ chế–ví dụ–kiểm tra. Không sao chép nội dung, tài sản hoặc CSS từ kho tham khảo.
 - Giữ `lang="vi"`, khung `1280 × 720`, `controlsLayout: "edges"`, `slideNumber: true`, `hashOneBasedIndex: true` và `hash: true`.
 - Dùng các thư viện cục bộ trong `2627-1/`: RevealJS, `RevealMath.KaTeX`, `RevealNotes` và `RevealHighlight`.

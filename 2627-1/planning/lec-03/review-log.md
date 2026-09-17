@@ -433,3 +433,14 @@ Lỗi gọi CLI đầu tiên dùng profile không tồn tại `lecture_notes` b�
 - Liên kết ghi chú trên index chỉ được thêm sau kiểm định. Các phần 1–7 đã commit/push riêng theo yêu cầu; lần phát hành cuối đồng bộ ghi chú, mục tài nguyên và tài liệu quy trình.
 
 Deck RevealJS và tài liệu Markdown là đầu ra chính. Kiểm hiển thị dùng Chromium cục bộ; dự án Codex Slides chỉ là hồ sơ điều phối, không được coi là bản đã đồng bộ hoặc đã kiểm định trong Browser của Codex Slides.
+
+
+## Đồng bộ CSS Lecture 02–03 (2026-09-17)
+
+- Theo yêu cầu người dùng, chuyển toàn bộ khối `<style>` của Lecture 02 vào `2627-1/lecture-style.css`. Hai deck dùng `.course-deck` và cùng các lớp vai trò; bỏ khối `<style>` riêng của Lecture 03, bỏ ghi đè cỡ chữ nội dòng và thống nhất tiêu đề, mục lục, nội dung, bảng, mã, công thức, chú thích, nguồn và badge.
+- Giữ phần nền CSS cũ; thành phần mới có phạm vi `.reveal.course-deck`, bố cục PageRank có phạm vi `.reveal.lecture-pagerank`. Các deck chưa nhận lớp mới không chịu tác động. Lecture 02 là chuẩn đối chiếu: đo tất cả h1/h2/h3/p/li/pre/table cho thấy cỡ chữ, dòng, độ đậm, lề và màu không đổi.
+- Hai trang đầu cùng thang chữ: tiêu đề bài 75,6px; tên môn 35,7px; học kỳ 29,4px; tiêu đề mục lục 67,2px; dòng mục lục 42px. Cỡ chữ nội dung dùng lớp theo loại slide, không đặt lại riêng theo phần của Lecture 03.
+- Parser xác nhận nội dung, notes, mã, SVG, ID và thứ tự của cả hai deck không đổi. Trang tiêu đề Lecture 03 chỉ đổi thẻ tên môn sang đoạn văn, ngắt dòng tiêu đề và thay dấu phân cách đơn vị bằng xuống dòng. Không đổi mục tiêu, thời lượng hoặc ghi chú tự học.
+- OpenRouter chỉ nhận Lecture 03 theo phạm vi được cho phép: reader kiểm kê/kế hoạch, writer tách component CSS, sáu reviewer độc lập và editor tổng hợp đều hoàn tất; requested_model = observed_model = z-ai/glm-5.3-flash, provider = OpenRouter. Tác tử không được dùng để xác nhận hiển thị thay cho Chromium. Yêu cầu gửi kèm Lecture 02 bị tự động từ chối; sau đó chỉ so sánh và di chuyển style Lecture 02 cục bộ, không gửi nó hoặc CSS của nó sang OpenRouter.
+- Kiểm hiển thị: 81 slide Lecture 02 và 63 slide Lecture 03 không tràn khung, không lỗi KaTeX, không thiếu hình/JavaScript. Xem trực quan trang tiêu đề, mục lục, mở phần và nội dung tiêu biểu; đối chiếu cỡ chữ thực. Bàn phím đạt; bản in 81/63 trang; khung hẹp 390px không tràn trang. Script kiểm cũ chứa ID cố định lec03 được sửa riêng để kiểm Lecture 02, không phải lỗi deck.
+- AGENTS.md bổ sung nguyên tắc CSS chung là nguồn duy nhất cho các thành phần lặp lại, scope cho bố cục riêng và kiểm hồi quy cả hai deck khi sửa CSS chung.

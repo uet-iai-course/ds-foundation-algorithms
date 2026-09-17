@@ -745,3 +745,8 @@ Thời lượng 15 phút/bài chỉ ở storyboard, không xuất hiện trên m
 - Nguồn: MMDS 5.1.1–5.1.2, 5.2.1–5.2.2 (bài tập) (nghiệm đã kiểm bằng khử Gauss phân số: 3/13, 4/13, 6/13 và 7/27, 25/81, 35/81); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s07; đề giữ nguyên Hình 5.4 và 5.7.
 - Slides liên quan: phần s07, slide s07-04…s07-07.
 - Ngoại lệ: hình 5.7 có 5 cạnh giữa các nút + 2 khuyên = 7 cạnh (không cộng kép); hình 5.4 có 8 cạnh; 5.7c không trỏ tới a; bài 5.2.2 không yêu cầu tính PageRank; bài 5.1.2 phương trình của b là 15b=4a+6c+1 (không phải 11b); kết luận tài liệu cuối chỉ dẫn chiếu cụ thể (mmds.org, chương/trang), không tuyên bố trạng thái trang web hiện thời.
+
+
+## Cập nhật trình bày theo CSS chung (2026-09-17)
+
+Giữ nguyên 63 slide, nội dung và thời lượng. Trang bìa dùng `title-slide` cùng `lecture-title`, `course-name`, `term-name`; mục lục dùng `agenda-slide`. Các trang nội dung dùng lớp động lực/mô hình, ví dụ, chi phí hoặc thực hành đã dùng ở Lecture 02. Cỡ chữ và khoảng cách đặt trong `lecture-style.css`; bố cục PageRank có scope riêng trong cùng tệp. Không giữ khối `<style>` hoặc cỡ chữ nội dòng trong HTML Lecture 03.
