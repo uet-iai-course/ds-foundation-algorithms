@@ -750,3 +750,37 @@ Thời lượng 15 phút/bài chỉ ở storyboard, không xuất hiện trên m
 ## Cập nhật trình bày theo CSS chung (2026-09-17)
 
 Giữ nguyên 63 slide, nội dung và thời lượng. Trang bìa dùng `title-slide` cùng `lecture-title`, `course-name`, `term-name`; mục lục dùng `agenda-slide`. Các trang nội dung dùng lớp động lực/mô hình, ví dụ, chi phí hoặc thực hành đã dùng ở Lecture 02. Cỡ chữ và khoảng cách đặt trong `lecture-style.css`; bố cục PageRank có scope riêng trong cùng tệp. Không giữ khối `<style>` hoặc cỡ chữ nội dòng trong HTML Lecture 03.
+
+
+## Điều chỉnh trực quan sau đối chiếu Lecture 02 (2026-09-17)
+
+Bản phân tích và quyết định: [visual-revision.md](visual-revision.md). Giữ 63 slide, bảy phần và thời lượng; thay cách thể hiện của 21 slide dưới đây. Nguồn, giả thiết và notes hiện có vẫn áp dụng. Các hàng này thay mô tả bố cục cũ tại đúng ID; không tạo slide mới.
+
+| Mã slide | Mục đích và câu chốt | Trung tâm thể hiện; kết nối vào–ra |
+|---|---|---|
+| lec03-s01-06 | Nối công cụ đã học với bài toán mới: từ liên kết cần xây quy tắc tính điểm. | Luồng đồ thị → quy tắc → lặp → điểm; chuẩn bị đặc tả phần 2. |
+| lec03-s02-02 | Phân biệt dữ liệu đồ thị và điểm chuẩn hóa đầu ra. | Hai vùng có mũi tên; giữ miền, cạnh trùng và đồng hạng. |
+| lec03-s03-02 | Lập đúng cột từ các cạnh ra: cột là nguồn, hàng là đích. | Ba cạnh A nối đúng hàng B,C,D trong cột A; hình mới visual-column-a.svg. |
+| lec03-s03-03 | Tính cùng một vòng từ điểm cũ. | Bảng điểm cũ/mới nối ví dụ chia điểm với phép nhân ma trận. |
+| lec03-s03-04 | Xác định phần điểm bị thiếu khi có nút cụt. | Đồ thị C cụt và thanh 3/4 + phần thiếu 1/4; dẫn tới phép bù. |
+| lec03-s03-08 | Ghép ba nguồn thành điểm mới của một trang. | Ba số hạng KaTeX có dấu cộng và vùng kết quả; không lặp lại bằng bullet. |
+| lec03-s03-12 | Tính được độ thay đổi giữa hai vòng. | Bảng r1/r2/chênh lệch, phân biệt một trang với ba trang B,C,D. |
+| lec03-s03-13 | Giải thích bảo toàn tổng từ ba thành phần. | Công thức tổng quát; thanh ví dụ 3/5 + 1/5 + 1/5 ghi rõ beta/delta. |
+| lec03-s03-14 | Hiểu hệ số co đo khoảng cách giữa hai phân phối. | Hai trạng thái qua cùng F; bất đẳng thức và chứng minh notes giữ nguyên. |
+| lec03-s03-15 | Nhận ra khóa trang đích trong phép cộng đóng góp. | Bản ghi → nhóm khóa A → tổng 3/8; nối sang tổ chức dữ liệu lớn. |
+| lec03-s04-03 | Đọc các phần tử thực thuộc mỗi khối. | Ma trận 4×4 cắt sau B ở hai chiều; hai dải nguồn được cấp tới đúng tác vụ. |
+| lec03-s04-04 | Giữ bậc toàn cục khi chia danh sách đích. | Bản ghi A phân sang M11/M21; hàng A được nhấn trong hai bảng. |
+| lec03-s04-05 | Chạy Map và Combine trên khối M21. | Giả mã và bảng đầu vào → các cặp Map → các cặp Combine; gộp hai đóng góp cho D. |
+| lec03-s04-06 | Cấp đủ dữ liệu để Reduce tạo điểm mọi trang. | Hai nhánh chuẩn bị delta và bản ghi 0; giả mã gộp cuối, phần chung đúng một lần. |
+| lec03-s04-08 | Giải thích tại sao chia khối không đổi tổng. | Đẳng thức tổng quát và ví dụ hai tập nguồn cộng tại A; giữ giả thiết điểm cũ cố định. |
+| lec03-s05-04 | Tự suy ra I=152 byte từ bốn tác vụ. | Bảng kích thước từng khối và dải điểm; không đồng nhất I với lưu lượng mạng. |
+| lec03-s05-07 | Phân biệt đầu vào Reduce với dữ liệu thực sự qua mạng. | Combine ở máy 1 gửi cục bộ hoặc tới máy 2; chỉ nhánh qua mạng góp vào Q. |
+| lec03-s05-08 | Ghép thời gian các pha theo giả thiết không chồng nhau. | Timeline có nhãn công việc từng pha; độ dài ô không phải số đo. |
+| lec03-s06-02 | Nối dữ liệu dict với các đối số của hàm cập nhật. | Dải adj + r + beta → step → new, giữ giao diện pagerank và điều kiện vào. |
+| lec03-s06-04 | Theo dõi điều kiện dừng trong mã. | Mã nguyên vẹn cạnh hai vòng đầu, Delta 0,2 rồi 0,08; chưa đạt 1e-8. |
+| lec03-s07-02 | Thu hồi vòng tính bằng đầu vào, thao tác và phép kiểm. | Pipeline có vòng quay lại, công thức véc tơ và kiểm tổng/dấu/trạng thái dừng. |
+
+Bảng và vết chạy mới đều suy trực tiếp từ đồ thị MMDS Hình 5.1 và định dạng byte đã quy định; không đổi bài tập nguồn. Các hình mới có script tái sinh `img/lec-03/scripts/render_visual_revision.py`. Chỉ thêm bố cục có phạm vi Lecture 03 trong CSS chung, không giảm cỡ chữ.
+
+
+Sau rà soát, s05-05 bổ sung tên gọi C là tổng đầu vào Map và Reduce ngay trong caption; s05-04 định nghĩa Sblocks và nhắc mỗi dải điểm được đọc k lần; s06-04 đặt nhãn `delta đo Δ` cạnh vết chạy. Đây là biên tập làm rõ ký hiệu, không đổi dữ kiện, mã hoặc mục tiêu. Tổng số slide có thay đổi là 22.

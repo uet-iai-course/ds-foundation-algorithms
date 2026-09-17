@@ -864,3 +864,46 @@
 .reveal.lecture-pagerank #summary-exercises .answer-box { border-left: 6px solid #2f3e7a; background: #edf4ff; padding: 10px 18px; border-radius: 4px; margin: 10px 0; }
 .reveal.lecture-pagerank #summary-exercises .answer-box p { margin: 4px 0; }
 .reveal.lecture-pagerank #summary-exercises .link-check { font-size: 26px; color: #2f3e7a; margin-top: 8px; }
+
+/* Lecture 03: dữ liệu, phép biến đổi và kết quả cùng một mạch nhìn. */
+.reveal.lecture-pagerank .visual-flow,
+.reveal.lecture-pagerank .visual-sources { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; margin:24px 0; }
+.reveal.lecture-pagerank .visual-flow.four-steps { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.reveal.lecture-pagerank .flow-step,
+.reveal.lecture-pagerank .source-term { position:relative; padding:18px; border:1px solid #c8d0e8; border-top:4px solid #2f3e7a; border-radius:6px; background:#f7f9ff; }
+.reveal.lecture-pagerank .flow-step h3,
+.reveal.lecture-pagerank .source-term h3 { color:#2f3e7a; text-transform:none; }
+.reveal.lecture-pagerank .flow-step:not(:last-child)::after { content:"→"; position:absolute; right:-29px; top:43%; color:#2f3e7a; }
+.reveal.lecture-pagerank .source-term:not(:last-child)::after { content:"+"; position:absolute; right:-27px; top:43%; color:#2f3e7a; }
+.reveal.lecture-pagerank .visual-result { padding:12px 18px; background:#edf4ff; border-left:5px solid #2f3e7a; text-align:center; margin:12px 0; }
+.reveal.lecture-pagerank .io-flow { gap:76px; }
+.reveal.lecture-pagerank .io-flow .card:first-child { position:relative; }
+.reveal.lecture-pagerank .io-flow .card:first-child::after { content:"→"; position:absolute; right:-56px; top:45%; color:#2f3e7a; }
+.reveal.lecture-pagerank .mass-bar { display:flex; margin:24px 0; min-height:76px; border:2px solid #2f3e7a; border-radius:6px; overflow:hidden; }
+.reveal.lecture-pagerank .mass-bar > span { display:flex; align-items:center; justify-content:center; gap:8px; background:#edf4ff; padding:10px 4px; box-sizing:border-box; }
+.reveal.lecture-pagerank .dead-mass > span:first-child { width:75%; }
+.reveal.lecture-pagerank .dead-mass > span:last-child { width:25%; background:repeating-linear-gradient(45deg,#fff3e0,#fff3e0 8px,#ffe4c1 8px,#ffe4c1 10px); border-left:2px dashed #bd6834; }
+.reveal.lecture-pagerank .complete-mass > span:first-child { width:60%; }
+.reveal.lecture-pagerank .complete-mass > span:nth-child(2) { width:20%; background:#fff3e0; border-left:2px solid #bd6834; }
+.reveal.lecture-pagerank .complete-mass > span:last-child { width:20%; background:#e8f5e9; border-left:2px solid #2e7d32; }
+.reveal.lecture-pagerank .pr-slide .short-figure { height:230px; }
+
+.reveal.lecture-pagerank .source-term { display:flex; flex-direction:column; }
+.reveal.lecture-pagerank .source-term > p:last-child { margin-top:auto; }
+
+.reveal.lecture-pagerank .block-matrix { width:100%; }
+.reveal.lecture-pagerank #large-graph .block-matrix th:nth-child(4),
+.reveal.lecture-pagerank #large-graph .block-matrix td:nth-child(4) { border-left:4px solid #bd6834; }
+.reveal.lecture-pagerank #large-graph .block-matrix tr:nth-child(4) > * { border-top:4px solid #bd6834; }
+.reveal.lecture-pagerank .block-matrix tr:nth-child(-n+3) td:nth-child(-n+3),
+.reveal.lecture-pagerank .block-matrix tr:nth-child(n+4) td:nth-child(n+4) { background:#edf4ff; }
+.reveal.lecture-pagerank .trace-focus { background:#fff3e0; }
+.reveal.lecture-pagerank .trace-table { width:100%; }
+.reveal.lecture-pagerank .sum-flow .flow-step:first-child::after { content:"+"; }
+.reveal.lecture-pagerank .sum-flow .flow-step:nth-child(2)::after { content:"="; }
+.reveal.lecture-pagerank .phase-timeline { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; margin:20px 0; }
+.reveal.lecture-pagerank .phase-timeline > div { border-top:5px solid #2f3e7a; background:#edf4ff; padding:14px; }
+.reveal.lecture-pagerank .phase-timeline > div:nth-child(even) { border-color:#bd6834; background:#fff3e0; }
+.reveal.lecture-pagerank .code-trace { display:grid; grid-template-columns:minmax(0,3fr) minmax(0,1fr); gap:24px; align-items:center; }
+.reveal.lecture-pagerank .trace-side { padding-left:18px; border-left:3px solid #bd6834; }
+.reveal.lecture-pagerank .trace-side h3 { text-transform:none; color:#2f3e7a; }

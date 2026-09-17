@@ -444,3 +444,58 @@ Deck RevealJS và tài liệu Markdown là đầu ra chính. Kiểm hiển thị
 - OpenRouter chỉ nhận Lecture 03 theo phạm vi được cho phép: reader kiểm kê/kế hoạch, writer tách component CSS, sáu reviewer độc lập và editor tổng hợp đều hoàn tất; requested_model = observed_model = z-ai/glm-5.3-flash, provider = OpenRouter. Tác tử không được dùng để xác nhận hiển thị thay cho Chromium. Yêu cầu gửi kèm Lecture 02 bị tự động từ chối; sau đó chỉ so sánh và di chuyển style Lecture 02 cục bộ, không gửi nó hoặc CSS của nó sang OpenRouter.
 - Kiểm hiển thị: 81 slide Lecture 02 và 63 slide Lecture 03 không tràn khung, không lỗi KaTeX, không thiếu hình/JavaScript. Xem trực quan trang tiêu đề, mục lục, mở phần và nội dung tiêu biểu; đối chiếu cỡ chữ thực. Bàn phím đạt; bản in 81/63 trang; khung hẹp 390px không tràn trang. Script kiểm cũ chứa ID cố định lec03 được sửa riêng để kiểm Lecture 02, không phải lỗi deck.
 - AGENTS.md bổ sung nguyên tắc CSS chung là nguồn duy nhất cho các thành phần lặp lại, scope cho bố cục riêng và kiểm hồi quy cả hai deck khi sửa CSS chung.
+
+
+## Điều chỉnh cách viết và minh họa (2026-09-17)
+
+### Phạm vi và bằng chứng
+
+Đối chiếu cục bộ hai deck sau khi đã dùng CSS chung cho thấy khác biệt chủ yếu ở quan hệ giữa dữ liệu, phép tính và kết quả. Quyết định theo từng cụm được ghi trong `visual-revision.md` và bảng bổ sung của storyboard. Thay cách thể hiện 21 slide; bổ sung định nghĩa C ở s05-05 sau rà soát, tổng cộng 22 slide có diff. Giữ bảy phần, 63 slide, ID, thứ tự, notes, mã Python, đề bài và thời lượng.
+
+Ba SVG mới: ánh xạ cạnh vào cột A, hai phân phối qua phép cập nhật F, và dữ liệu cục bộ/qua mạng. Script `render_visual_revision.py` tái sinh đúng byte các hình. Các biểu diễn còn lại dùng HTML/KaTeX: thanh tổng điểm, ba nguồn cộng, ma trận thực chia khối, bảng vết Map/Combine, bảng byte theo tác vụ, timeline và trạng thái cạnh mã. CSS mới chỉ có phạm vi `.reveal.lecture-pagerank`, không thêm ghi đè cỡ chữ.
+
+### Điều phối và lỗi công cụ
+
+- Hai reader lập kế hoạch/kiểm kê, writer đặc tả nhóm mô hình và writer biên tập nhóm tính toán đã hoàn tất; requested_model = observed_model = `z-ai/glm-5.3-flash`, provider = `OpenRouter`. Điều phối viên dựng HTML/SVG, đối chiếu các quan hệ và loại đề xuất sai hoặc làm tăng tải.
+- Lượt writer ban đầu dừng với `model exceeded the tool-call limit (30)`. Lượt tiếp tục lặp đọc cùng một SVG nên điều phối viên chủ động dừng. Không áp dụng bản HTML/SVG chưa đạt trong thư mục tạm; chia đầu ra thành đặc tả nội dung ngắn và giữ nguyên mô hình OpenRouter.
+- Lượt soạn nhóm tính toán gặp `RuntimeError: OpenRouter request exceeded 480s wall timeout`. Tạm dừng phần phụ thuộc, tiếp tục kiểm định cục bộ; lượt thử lại cùng mô hình đã hoàn tất. Không chuyển ngầm sang tác tử khác.
+- Lecture 02 chỉ được đọc và đối chiếu cục bộ. Phạm vi gửi OpenRouter chỉ gồm Lecture 03; không gửi CSS chứa nguồn Lecture 02, bản phân tích có nội dung Lecture 02, hoặc tệp bí mật.
+
+### Quyết định từ các báo cáo đã nhận
+
+- Rà toán nhóm mô hình: không thấy lỗi trong slide. Báo cáo viết nhầm nguồn góp vào A là D ở một phép kiểm, trong khi đồ thị và slide ghi B,C. Bác chỗ nhầm trong báo cáo; giữ đúng cạnh B→A và C→A.
+- Rà giảng dạy: bổ sung định nghĩa dung lượng các khối $S_{\mathrm{blocks}}$ và tổng đầu vào Map+Reduce $C=I+H$ ngay trên mặt slide. Không thêm một lớp thông tin hoặc thu nhỏ chữ; sửa phần diễn đạt sẵn có.
+- Rà giải thuật: báo cáo tự rút cáo buộc sai phương trình bài tập 2 sau khi nhận ra cạnh a→c. Giữ lời giải theo đồ thị nguồn. Bác đề nghị đổi 20 vòng thành 19: $\Delta_{19}$ so sánh $r^{20}$ và $r^{19}$, nên đã thực hiện 20 lần cập nhật. Chạy mã công khai xác nhận `iterations=20`, `delta=5.4975582974847725e-09`, `rank_sum=1.0`.
+
+### Kiểm định cục bộ đã chạy
+
+- Phân số độc lập: $r^1=(7/20,13/60,13/60,13/60)$; $r^2=(31/100,23/100,23/100,23/100)$; $\Delta_0=1/5$, $\Delta_1=2/25$.
+- Đếm từ danh sách cạnh: M11/M12/M21/M22 lần lượt 24/24/28/12 byte; tổng khối 88, bốn lượt đọc dải 16 byte cho 64; I=152.
+- Parser xác nhận 63 ID và thứ tự, notes và tất cả khối mã không đổi. Ba SVG không có nhãn vượt viewBox hoặc chồng nhau; tái sinh được.
+- Chromium: toàn bộ 63 slide Lecture 03 và 81 slide Lecture 02 không tràn khung, không lỗi KaTeX, ảnh hoặc JavaScript. Sửa một caption chi phí sát chân trang rồi kiểm lại. Sau bổ sung định nghĩa ký hiệu, chín slide phần chi phí đều đạt.
+- Bàn phím đạt; bản in 63 trang; màn hình hẹp 390px không tràn trang và không thiếu ảnh/công thức.
+- Ghi chú công khai dùng cùng dữ kiện, công thức và giả thiết; không bị tác động vì notes/mã không đổi, hình cũ mà ghi chú tham chiếu vẫn giữ nguyên. Không cần phát hành lại ghi chú cho thay đổi bố cục.
+
+Trạng thái sau biên tập: đã đủ báo cáo, xử lý các nhận xét và kiểm bản hiển thị cuối; đủ điều kiện commit/push. Không coi kiểm hiển thị là bằng chứng thay thế việc rà nội dung. Giới hạn Codex Slides như đã ghi: kiểm bản RevealJS phát hành bằng Chromium cục bộ, không tuyên bố đồng bộ bản Browser của dịch vụ.
+
+
+### Hoàn tất các lượt rà và biên tập
+
+| Vai trò | Phạm vi thực sự đọc | Kết quả và quyết định |
+|---|---|---|
+| Storyboard | 22 slide thay đổi có notes, bản đồ 63 slide, dữ kiện kiểm chứng | Đạt mạch dữ liệu → thao tác → kết quả; không phát hiện lỗi kiến thức. |
+| Góc nhìn sinh viên | Toàn bộ HTML 63 slide, phạm vi thay đổi và ba SVG mới | Hình nối đúng đối tượng, vết chạy và byte khớp. Bác nhận xét cho rằng Delta0/Delta1 không nhất quán; chấp nhận làm rõ nhãn delta đo Δ cạnh mã. |
+| Giải thuật và dữ liệu | Toàn bộ HTML và phạm vi thay đổi | Khối, bậc toàn cục, Combine, seed, delta và chi phí đúng. Bác nhầm chỉ số vòng và cáo buộc bài tập đã được chính reviewer rút lại. |
+| Toán học | 22 slide thay đổi có notes, bản đồ toàn bài, dữ kiện; trước đó có lượt riêng 10 slide mô hình + SVG | Đạt phân số, bảo toàn tổng, giả thiết hội tụ, phân hoạch khối, công thức byte và quy ước chỉ số Delta. |
+| Giảng dạy | Toàn bộ HTML và phạm vi thay đổi | Hai thiếu sót nhỏ về tên gọi Sblocks/C đã bổ sung; không lỗi chặn hoặc nghiêm trọng. |
+| Liên tục, nguồn, mạch viết | 22 slide thay đổi có notes, bản đồ toàn bài và dữ kiện | Đạt quan hệ ví dụ–hình thức–tác vụ–chi phí–mã; giữ nguồn và ký hiệu. |
+| Editor riêng | Hai slide cần chốt diễn đạt cùng quyết định hợp nhất sáu báo cáo | Nhãn `delta đo Δ` ở s06-04; thêm mỗi dải đọc k lần ở s05-04. Không đổi công thức, mã, notes hoặc thang chữ. |
+
+Tất cả các lượt thành công trong bảng có requested_model = observed_model = `z-ai/glm-5.3-flash`, provider = `OpenRouter`. Ba lượt rà đầu về storyboard/toán/liên tục gặp timeout 480 giây; đã thử lại cùng mô hình bằng hồ sơ chỉ chứa phần thay đổi kèm bản đồ toàn bài và hoàn tất. Không thay kết luận bằng trạng thái tiến trình hoặc lời tự nhận của tác tử.
+
+Điều phối viên kiểm lại các nhận xét trước khi áp dụng. Báo cáo sinh viên viết phép trừ A thiếu dấu trị tuyệt đối trong lời kiểm, nhưng bảng trên slide dùng đúng trị tuyệt đối; không sửa số trong slide theo câu đó. Báo cáo liên tục có một chỗ gom r1 thô và r1 có bước nhảy khi liệt kê ID; HTML vẫn phân biệt rõ s03-03 thô với s03-09 có bước nhảy. Phép tính phân số độc lập là căn cứ chấp nhận dữ kiện.
+
+Editor trả chuỗi JSON escape thừa; điều phối viên chuẩn hóa dấu ngoặc/KaTeX khi áp dụng và dùng ký tự Δ trong heading thay công thức KaTeX. Đây là sửa định dạng, không thay ý toán học. Tự rà theo no-ai-slop: cắt lời dẫn lặp, gắn câu chốt với dữ kiện; theo Quill: giữ đối tượng A–D và ký hiệu qua các phần, không tạo dự án sách.
+
+
+Kiểm cuối sau hai chỉnh sửa của editor: toàn bộ 63 slide không tràn khung, không lỗi KaTeX, hình hoặc JavaScript; xem trực tiếp lại hai slide sửa cuối. Bản in vẫn 63 trang, bàn phím và khung hẹp đạt. Đối chiếu mã/notes vẫn nguyên vẹn. CSS không đổi sau lượt hồi quy 81 slide Lecture 02. Đã kiểm trường runtime của 11 đầu ra thành công (hai reader, hai writer, sáu reviewer và editor), không dựa vào lời tự khai trong báo cáo. Không còn việc nội dung hoặc kiểm định cần xử lý trong phạm vi yêu cầu.

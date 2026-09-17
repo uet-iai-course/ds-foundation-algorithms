@@ -32,3 +32,8 @@ Chi tiết mạch, cách thể hiện, đầu ra học tập, nguồn và bài t
 - Chủ đề 01–07 là cốt lõi. Giữ cầu nối từ phép chia điểm sang ma trận và từ nhân ma trận sang chia khối; bổ sung các bước chứng minh và lời giải để đọc độc lập. Cận sai số hậu nghiệm chỉ đọc thêm.
 - Thay toàn bộ ví dụ cũ y/a/m bằng đồ thị A–D và các biến thể đã dùng trên slide. Giữ bốn bài nguồn và hình 5.4, 5.7; không thêm HITS, TrustRank hoặc nội dung Bài 04.
 - Tài liệu tại `materials/lec-03/lecture-note.md`, mã thực hành tại `materials/lec-03/code/`; liên kết trên trang danh mục dùng trình đọc Markdown cục bộ.
+
+
+## Điều chỉnh cách thể hiện ngày 2026-09-17
+
+Giữ mục tiêu, bảy phần, đồ thị A–D, thuật toán, bài tập và thời lượng. Bổ sung [phân tích trực quan](visual-revision.md) cùng bảng 21 slide được điều chỉnh trong storyboard. Ưu tiên liên hệ đối tượng–thao tác–kết quả: cạnh/cột ma trận, ba nguồn điểm, vết Map/Combine, bảng đếm byte và trạng thái của mã. Kiểm định và trạng thái phát hành ghi tại review-log.md.
