@@ -77,7 +77,7 @@ Cổng 8765 đang thuộc máy chủ của kho `rl-plan`; không dừng tiến t
 
 Không nhận câu diễn đạt trong báo cáo rằng mọi $r_2,r_3,r^*$ đều là điểm bất động: chỉ $r^*$ là nghiệm, các hàng trước là trạng thái lặp. Nội dung deck và ghi chú đã phân biệt đúng. Không đổi ký hiệu $P$ thành $M_0$ chỉ vì bài tập dùng G4; chỉ thêm giải thích chúng trùng nhau khi không có nút cụt.
 
-Lượt bổ sung `final-continuity-compact` được dừng khi báo cáo đầy đủ `final-continuity` đã hoàn tất hợp lệ; không dùng lượt bổ sung chưa kết thúc làm bằng chứng đạt.
+Lượt bổ sung `final-continuity-compact` đã tự hoàn tất trước khi lệnh dừng được thực thi, với runtime đúng `z-ai/glm-5.3-flash` / OpenRouter; không còn lỗi chặn hoặc nghiêm trọng. Chấp nhận sửa nhẹ câu đáp án 3 ở phần tổng kết và tên bộ slide nguồn. Bác nhận xét bảng HITS thiếu ô: hai cột số chia dùng `rowspan="5"`, HTML và ảnh render có đủ cột; bản đọc thuần văn bản không thể hiện thuộc tính này. Không sửa bảng đúng để bù một mất mát do bỏ markup.
 
 ### Codex Slides và giới hạn bàn giao
 
@@ -96,6 +96,7 @@ Bản RevealJS và ghi chú đã qua các kiểm định nêu trên. Chỉ các 
 | `review-continuity` | `bb365186a30b` | `z-ai/glm-5.3-flash` / OpenRouter |
 | `final-math` | `afcb7717831e` | `z-ai/glm-5.3-flash` / OpenRouter |
 | `final-continuity` | `4c2fd3048a5b` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `final-continuity-compact` | `6029c8d57522` | `z-ai/glm-5.3-flash` / OpenRouter |
 
 ---
 
