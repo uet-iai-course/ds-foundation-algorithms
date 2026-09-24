@@ -1,17 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="430" viewBox="0 0 940 430" role="img" aria-labelledby="title desc">
-  <title id="title">Đồ thị bốn trang trong Hình 5.15</title>
-  <desc id="desc">Đồ thị có hướng: A trỏ đến B, C, D; B trỏ đến A, D; C trỏ đến A; D trỏ đến B, C. B và D thuộc tập dịch chuyển theo chủ đề.</desc>
-  <defs><marker id="m" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
-  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#m)">
-    <path d="M353 125 L557 125"/><path d="M580 160 C500 225 415 225 340 160"/>
-    <path d="M305 178 L305 272"/><path d="M340 165 L580 295"/>
-    <path d="M615 178 L615 272"/><path d="M567 330 L353 330"/>
-    <path d="M305 282 L305 178"/><path d="M650 295 C710 235 710 205 650 165"/>
-  </g>
-  <g stroke="#2F3E7A" stroke-width="5">
-    <circle cx="305" cy="130" r="48" fill="#edf4ff"/><circle cx="615" cy="130" r="48" fill="#fff2df"/>
-    <circle cx="305" cy="330" r="48" fill="#edf4ff"/><circle cx="615" cy="330" r="48" fill="#fff2df"/>
-  </g>
-  <g font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#2F3E7A" text-anchor="middle"><text x="305" y="143">A</text><text x="615" y="143">B</text><text x="305" y="343">C</text><text x="615" y="343">D</text></g>
-  <g font-family="Arial,sans-serif" font-size="25" fill="#37474F"><text x="680" y="118">Tập S</text><text x="680" y="150">gồm B và D</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 500" width="620" height="500" role="img" aria-labelledby="h515-t h515-d">
+  <title id="h515-t">Hình 5.15: G4 với tập chủ đề S</title>
+  <desc id="h515-d">Đồ thị G4 như Hình 5.1; B và D có thêm viền ngoài và chữ S, thuộc tập chủ đề S.</desc>
+  <defs>
+    <marker id="h515-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="500" fill="#edf4ff"/>
+  <path d="M 182,90 L 438,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="A" data-target="B" />
+  <path d="M 480,48 Q 310,-20 140,48" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="B" data-target="A" />
+  <path d="M 140,132 L 140,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="A" data-target="C" />
+  <path d="M 98,350 Q 0,220 98,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="C" data-target="A" />
+  <path d="M 480,132 L 480,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="B" data-target="D" />
+  <path d="M 522,350 Q 620,220 522,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="D" data-target="B" />
+  <path d="M 173.4,115.5 L 446.6,324.5" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="A" data-target="D" />
+  <path d="M 438,350 L 182,350" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h515-arw)" data-source="D" data-target="C" />
+  <circle cx="140" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="140" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">A</text>
+  <circle cx="140" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="140" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">C</text>
+  <circle cx="480" cy="90" r="50" fill="none" stroke="#2F3E7A" stroke-width="2.5"/>
+  <circle cx="480" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="480" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <text x="480" y="82" font-family="Arial, sans-serif" font-size="22" fill="#2F3E7A" font-weight="bold" text-anchor="middle">S</text>
+  <text x="480" y="116" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">B</text>
+  <circle cx="480" cy="350" r="50" fill="none" stroke="#2F3E7A" stroke-width="2.5"/>
+  <circle cx="480" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="480" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <text x="480" y="342" font-family="Arial, sans-serif" font-size="22" fill="#2F3E7A" font-weight="bold" text-anchor="middle">S</text>
+  <text x="480" y="376" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">D</text>
+  <text x="310" y="470" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">B và D thuộc tập chủ đề S</text>
 </svg>

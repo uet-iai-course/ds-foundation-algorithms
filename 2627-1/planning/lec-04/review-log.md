@@ -1,3 +1,201 @@
+# Nhật ký rà soát Bài 04
+
+## Triển khai deck theo storyboard — 24/09/2026
+
+Đây là lượt triển khai sau khi chốt kế hoạch. Căn cứ trực tiếp là `storyboard.md`, giữ 51 mã trang và thứ tự bảy phần (6/10/8/8/11/5/3). Phần giảng 120 phút, ba bài tập nguồn 18/22/20 phút, gồm cả suy nghĩ và chữa. Đối tượng năm 3 giữ theo ngoại lệ người dùng đã chấp nhận; không nâng kiến thức tiên quyết.
+
+Đã cập nhật HTML, ghi chú tự học, sáu SVG và chương trình tái sinh SVG, CSS bố cục giới hạn bởi `.lecture-pagerank-advanced`, thẻ Bài 04 trong chỉ mục và ba tệp quy trình. Hạ tầng viewer không đổi. Không thêm mã trình diễn, notebook hoặc bài tập tự đặt.
+
+### Điều phối và bằng chứng runtime
+
+Mọi reader/writer/reviewer hợp lệ của lượt triển khai này đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`, được kiểm từ JSON cầu nối. Không dùng lời tự khai của worker làm bằng chứng model. Đầu vào không chứa `.env` hoặc giá trị bí mật. Người dùng đã cho phép chuyển đặc tả, dữ kiện, HTML/SVG, ghi chú, CSS liên quan và trích đoạn nguồn của Lecture 04 tới OpenRouter.
+
+Các mốc đã kiểm: kế hoạch `plan-approved`, phân tích nguồn `source-approved` và `source-evidence-retry`; kiểm storyboard `storyboard-review-retry`; writer bảy phần, tài sản và ghi chú; năm reviewer độc lập; editor `focus-01`, `focus-02`, `focus-03`, `focus-04-whole`, `focus-05`, `focus-06`, `focus-07`, `focus-note` chạy tuần tự. Điều phối viên đọc lại kết quả, sửa lỗi còn lại và kiểm định độc lập. Không có hai writer chạy đồng thời.
+
+Một số lượt bị timeout, chạm giới hạn công cụ hoặc bị điều phối viên dừng vì lặp đọc/thay thế không tiến triển. Cụ thể: `write-04` timeout; `review-student` và `review-math` chạm giới hạn rồi chạy lại thành công; `focus-04` báo `model exceeded the tool-call limit (32)`; lượt editor tổng và `focus-04-retry` bị dừng vì lặp công cụ. Không dùng các lượt này làm bằng chứng đạt, không chuyển model. Các job chạy lại dùng đầu vào gọn và quy trình đọc một lần, ghi một lần.
+
+### Năm báo cáo độc lập và quyết định
+
+| Vai | Job hợp lệ | Vấn đề có bằng chứng và xử lý |
+|---|---|---|
+| Sinh viên | `review-student-retry` | Làm rõ điểm thô/đã chuẩn hóa; thống nhất ký hiệu dừng; giảm nội dung lặp, giữ thang chữ; sửa nguồn và lời nói của notes. |
+| Chuyên gia | `review-expert` | Sửa chú thích hình, nguồn phương pháp lũy thừa, bảng bộ nhớ và bản ghi kiểm màn hình hẹp bị lặp ID. Bộ kiểm mới xác nhận đúng ID trước khi chụp. |
+| Toán và thuật toán | `review-math-retry` | Sửa lỗi giải thích cạnh trong ghi chú, giả mã/biên, điều kiện đủ HITS và chi phí; tự tính lại phân số và vết lặp. |
+| Học thuật và giảng dạy | `review-pedagogy` | Phân biệt trạng thái ví dụ với nghiệm; giữ ví dụ trước hình thức hóa trên slide, dùng lại PageRank theo chủ đề cho TrustRank; tách phép tính tỷ số khỏi kết luận phân loại. |
+| Kết nối và mạch viết | `review-continuity` | Sửa các đoạn chuyển sai đích, ký hiệu giữa deck–note, khối nguồn và ngưỡng bài tập; không đưa ngôn ngữ điều phối lên mặt slide. |
+
+Không chấp nhận máy móc mọi đề xuất reviewer:
+
+- Giữ chẩn đoán dùng sai chuyển vị: $\beta P^Tq_S+(1-\beta)q_S=(4/15,3/10,0,3/10)$, tổng $13/15$. Các giá trị thay thế và tổng khác do reviewer đề xuất sai khi tính lại.
+- Không gọi đổi B↔D là tự đẳng cấu G4. Quan hệ đúng là $r'_B-r'_D=-(\beta/2)(r_B-r_D)$ khi hai thành phần dịch chuyển bằng nhau; khởi bằng nhau nên tiếp tục bằng nhau.
+- Tổng $h_{\text{thô},v}=\sum_{u:v\to u}a_{\text{mới},u}$ có chỉ số hợp lệ. Lỗi thật là gọi tổng thô thành điểm mới trước chuẩn hóa.
+- Giữ hợp đồng HITS trả hai vector 0 và trạng thái suy biến trước phép chia cho 0. Với ma trận không âm và khởi toàn 1, nhánh cực đại của $h$ bằng 0 không xảy ra sau nhánh $a$ dương; vẫn giữ kiểm biên nhất quán.
+- Không thu nhỏ chữ hoặc thêm slide để chữa tràn. Không sửa các số nguồn chỉ vì chúng bằng nhau, không coi ngưỡng thay đổi là chứng nhận sai số tới nghiệm.
+- Các số 32 vòng cho G5, 11 và 43 vòng cho G4 được tính nội bộ từ dữ kiện sách; không phải số liệu thực nghiệm ngoài nguồn. Hai số sau ứng với hai ngưỡng khác nhau.
+
+### Sửa nội dung và bố cục được chấp nhận
+
+G4/G5 vẽ chung đúng tám cạnh, ổn định vị trí đỉnh. Hình ba vùng và hình dòng khối lượng được vẽ lại để tách mũi tên và làm rõ nhãn. Không raster, không công thức LaTeX nằm trong SVG text. Mỗi SVG có mô tả và không dùng màu làm tín hiệu duy nhất.
+
+Trong phần PageRank, các tổng theo cạnh và dịch chuyển có nhãn riêng; tổng $4/5$ và $1/5$ không bị gọi nhầm là phân bố. Giả mã tính lại khối lượng nút cụt mỗi vòng. Phép co ghi rõ giả thiết và $F$; khai triển bất đẳng thức ở notes. Thời gian $O(kI(n+m_G))$ được tách khỏi bộ nhớ tổng $O(kn+m_G)$.
+
+Trong mô hình cụm thao túng, $x$ đã chứa hệ số $\beta$; hạng bị bỏ $(1-\beta)/N$ khác sai khác nghiệm $1/[N(1+\beta)]$. Không nói số trang hỗ trợ không ảnh hưởng chi phí toàn Web. Giữ sự phụ thuộc giữa $q,N,x$ và giới hạn của mô hình.
+
+TrustRank dùng $t'=\beta Pt+(1-\beta)q_T$ trên toàn đồ thị. Tập chủ đề và tập tin cậy có ngữ nghĩa khác nhau. Bảng 5.17 giữ cảnh báo $r$ dùng $\beta=1$, $t$ dùng $\beta=4/5$. Khối lượng rác âm tại B được giải thích bằng $t_B>r_B$; không là xác suất hoặc bảo đảm trang sạch.
+
+HITS dùng $L$ hàng nguồn; cập nhật thô rồi chuẩn hóa riêng bằng 2, 3, $5/3$, $29/10$ trong hai vòng G5. Bảng vòng 2 có hai ô số chia gộp theo hàng. Truy hồi theo $h$ bắt đầu ở $u\ge0$, theo $a$ ở $u\ge1$, vì $a_0=0$ chỉ dùng đo chênh. Nguồn phương pháp lũy thừa là Cornell INFO4300, Ginsparg, bài 16 ngày 27/10/2009, slide 10; không gán nhầm cho slide MMDS. Phác thảo phổ trong ghi chú nêu điều kiện đủ, không tự nhận là chứng minh Perron–Frobenius đầy đủ. Chi phí gồm hai lượt quét cạnh và số hữu hạn lượt quét đỉnh.
+
+Ba bài tập giữ đúng MMDS 5.3.1/5.4.2/5.5.1 (trang in 199/204/208). Đề Việt hóa, bảng trả lời và lời giải tách rõ. Ma trận HITS G4 chuyển xuống notes để mặt đề thoáng; đồ thị vẫn đủ dữ kiện. Nghiệm giới hạn khác trạng thái vòng 11 với ngưỡng 0.001. Ghi chú đọc độc lập, dùng cùng dữ kiện và ký hiệu.
+
+Các điều chỉnh tỷ lệ, vị trí công thức và bảng đã ghi cụ thể ở cuối storyboard, kèm lý do cho sinh viên năm 3. Không đổi số slide, thứ tự, thời lượng hoặc phạm vi nguồn.
+
+### Kiểm định của điều phối viên trên bản mới
+
+| Nhóm bắt buộc | Bằng chứng |
+|---|---|
+| Đối tượng | Ngoại lệ năm 3 ghi trong outline/storyboard; tiên quyết Bài 03 được nhắc và kiểm ở đầu bài. |
+| Mục đích và mạch | 51 phiếu, 7 phần; mỗi phần có kiểm tra. Mở bài và tổng kết cùng ba vấn đề: chủ đề, thao túng, hai vai trò. |
+| Thuật toán | PageRank thưa có bù cụt và hai trạng thái; HITS luân phiên có ba trạng thái. Đã kiểm đồ thị toàn nút cụt, HITS không cạnh, một cạnh, và hết ngân sách một vòng. |
+| Ví dụ | Tính lại G4 bằng phân số chính xác, farm bằng biến đổi đại số, HITS bằng lặp độc lập; đáp án ba bài khớp. |
+| Chi phí | Tách số đỉnh/cạnh, số chủ đề và số vòng; thống nhất bộ nhớ tổng trong bảng so sánh; tính đủ khởi tạo, chuẩn hóa và đo chênh. |
+| Trực quan | Điều phối viên xem toàn bộ 51 ảnh slide và cả sáu SVG; sửa chồng chân trang ở phần chứng minh/farm và kiểm lại các ảnh bị tác động. |
+
+Kiểm tĩnh: 51 ID duy nhất theo đúng thứ tự storyboard, 51 notes, 7 outer section; đúng cấu hình 1280×720, controls ở mép, hash và số trang; mọi tài nguyên cục bộ tồn tại, không raster, không lỗi công thức hoặc CSS riêng không định nghĩa.
+
+Chromium: đủ 51 ID khác nhau ở 1280×720 và 390×844, không tràn, lỗi JavaScript, KaTeX, yêu cầu hỏng hoặc tài nguyên cốt lõi bên ngoài. Kiểm lại hai slide thay nhãn sau review. Bộ kiểm màn hình hẹp được sửa để khởi tạo lại chế độ cuộn và xác nhận slide hiện tại; các lượt đo bị lặp/mất ID trước đó không dùng làm bằng chứng. Một lần kiểm hai slide bị máy chủ tự tải lại trong lúc đọc DOM đã được chạy lại thành công sau khi tệp ổn định.
+
+Viewer: hai độ rộng 1440 và 390, 457 phần tử KaTeX, 31 liên kết mục lục, không công thức lỗi, hình hỏng hoặc tràn ngang; sáu gợi ý/lời giải gập mặc định, mở/đóng bằng bàn phím, mở khi in. Đã tạo và kiểm bản in cục bộ. Index có đúng liên kết deck và URL viewer với số bài đồng nhất. Phím xuống/phải của deck được kiểm riêng.
+
+CSS: chỉ thêm selector giới hạn cho Lecture 04. 144 slide Lecture 02/03 có kiểu và kích thước thành phần khớp baseline; 10 ảnh đại diện khớp byte sau khi tắt hoạt ảnh chỉ trong trình duyệt kiểm. SVG tái sinh khớp byte, mọi marker hợp lệ và cạnh G4/G5 đúng nguồn.
+
+Cổng 8765 đang thuộc máy chủ của kho `rl-plan`; không dừng tiến trình ấy. Kiểm kho tại 8766 và bản tạm tại 8767. Không có Browser tích hợp callable trong phiên; kiểm ảnh trực tiếp dùng Chromium headless. Trạng thái Codex Slides và rà lại sau chỉnh sửa được ghi ở phần kết thúc dưới đây.
+
+
+### Rà lại bản sau chỉnh sửa
+
+`final-math` và `final-continuity` đã rà toàn bộ 51 slide, notes và ghi chú công khai; metadata runtime đúng model/provider quy định. Cả hai không phát hiện lỗi chặn hoặc nghiêm trọng. Các nhận xét nhẹ được xử lý: ghi rõ trạng thái giả định ở câu kiểm tiên quyết; nhãn Hình 5.15 cho bài 5.3.1; tham chiếu đúng phần tổng kết; đánh dấu mốc 32 vòng là phép tính đối chiếu; nhắc hệ số $0.85$ của ví dụ farm khác $4/5$ của PageRank theo chủ đề; giải thích đổi vai trò ký hiệu $t$; thống nhất nhãn Hình 5.17; làm rõ $P=M_0$ trên G4; dùng dấu chấm thập phân trong công thức ghi chú. Không đổi kết quả số hoặc yêu cầu toán học. Ba slide đổi nhãn được chụp và kiểm lại; viewer được kiểm lại trên đúng tệp trong kho.
+
+Không nhận câu diễn đạt trong báo cáo rằng mọi $r_2,r_3,r^*$ đều là điểm bất động: chỉ $r^*$ là nghiệm, các hàng trước là trạng thái lặp. Nội dung deck và ghi chú đã phân biệt đúng. Không đổi ký hiệu $P$ thành $M_0$ chỉ vì bài tập dùng G4; chỉ thêm giải thích chúng trùng nhau khi không có nút cụt.
+
+Lượt bổ sung `final-continuity-compact` được dừng khi báo cáo đầy đủ `final-continuity` đã hoàn tất hợp lệ; không dùng lượt bổ sung chưa kết thúc làm bằng chứng đạt.
+
+### Codex Slides và giới hạn bàn giao
+
+Dự án bền vững `20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu` có outline 51 trang và đã đọc lại bằng công cụ. Lệnh tải ảnh slide đầu tiên bị bộ xét duyệt tự động từ chối: quyền người dùng đã cấp nêu OpenRouter, chưa nêu chuyển ảnh tới Codex Slides. Không có ảnh nào được tải sau từ chối và không dùng đường khác để vượt chặn. Đã hỏi người dùng riêng về quyền tải 51 ảnh; bước này còn chờ phản hồi. Vì vậy không tuyên bố đã rà 51 ảnh trong Codex Slides. Theo nhánh dự phòng của AGENTS.md khi Codex Slides không khả dụng, kiểm định hình ảnh dùng đầy đủ RevealJS/Chromium cục bộ; giới hạn này không được che bằng trạng thái dự án hoặc kết quả cũ.
+
+Bản RevealJS và ghi chú đã qua các kiểm định nêu trên. Chỉ các sản phẩm thuộc Lecture 04 và CSS/chỉ mục liên quan được đưa vào commit; giữ nguyên mọi thay đổi có sẵn ngoài phạm vi. Bằng chứng phát hành cuối là commit của lượt này trên `origin/main`.
+
+### Dấu vết báo cáo của lượt triển khai
+
+| Job | SHA-256 báo cáo JSON (12 ký tự đầu) | Runtime |
+|---|---|---|
+| `review-student-retry` | `5b6204a5b148` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `review-expert` | `e85ded3e8fb9` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `review-math-retry` | `7e722b2f861f` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `review-pedagogy` | `c3aef5abc480` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `review-continuity` | `bb365186a30b` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `final-math` | `afcb7717831e` | `z-ai/glm-5.3-flash` / OpenRouter |
+| `final-continuity` | `4c2fd3048a5b` | `z-ai/glm-5.3-flash` / OpenRouter |
+
+---
+
+## Lịch sử lập kế hoạch và các bản trước
+
+Phần dưới giữ nguyên lịch sử; những câu “chưa triển khai” mô tả thời điểm lập kế hoạch, không phải trạng thái bản HTML ngày 24/09/2026 đã kiểm ở trên.
+
+## Phạm vi và căn cứ
+
+Lượt này lập lại dàn bài theo skill `build-slide-deck-outline`: 7 phần, 48 slide giảng trong 120 phút và 3 slide bài tập trong 60 phút. Chỉ cập nhật `outline.md`, `storyboard.md` và nhật ký này. Chưa triển khai kế hoạch vào HTML, SVG, CSS, ghi chú bài giảng hoặc chỉ mục; chưa kiểm hiển thị bản mới và chưa phát hành. Kết quả kiểm bản cũ ở phần lịch sử không áp dụng cho kế hoạch mới.
+
+Đối tượng năm 3 là ngoại lệ theo yêu cầu skill của phiên này so với mặc định năm 2. Tiên quyết vẫn là lập trình, đồ thị, ma trận–vector và xác suất cơ bản; không bổ sung giả định về cơ sở dữ liệu hay hệ phân tán. Dùng `no-ai-slop` để biên tập và `quill` để rà mạch, không khởi tạo dự án sách.
+
+Nguồn: Bài 4 theo thứ tự đề xuất trong `sources/source.md`, buổi gốc 5; MMDS Chương 5 §§5.3–5.5 và toàn bộ slide cục bộ được ánh xạ. Đối chiếu MMDS–Stanford theo cụm nội dung, dùng Cornell làm nguồn đại học thứ hai cho HITS; mô tả ngắn cùng giới hạn truy cập nằm ở outline. Ưu tiên MMDS khi tương đương. MMDS trực tuyến trả 502 ở lượt kiểm; các PDF chính thức cục bộ đủ dùng. Đã mở hướng dẫn bố cục UET, không sao chép CSS hay tài sản.
+
+Đã xem trực tiếp các trang nguồn: sách PDF 23, 26, 27, 29, 32, 33; MMDS phần 2 slide 10, 35, 55, 56; Stanford slide 13, 55, 65. Cornell đọc văn bản trang 1, 10, 20–34; ảnh 26/30 không tải được, không dùng làm bằng chứng bố cục. Danh mục NG0–NG7, trang in/PDF và liên kết nằm trong outline.
+
+## Quyết định sau phân tích nguồn
+
+| Vấn đề | Quyết định và căn cứ |
+|---|---|
+| Đề xuất thời lượng 125 phút | Bác; phân bổ lại 120 phút giảng và 60 phút bài tập, có thời gian suy nghĩ/chữa trong từng phần. |
+| Ký hiệu của Bài 03 | Dùng cầu nối $P:=S_{\text{Bài 03}}$; $S$ ở bài này là tập chủ đề. Giữ cách bù nút cụt đều. |
+| Ba giới hạn của điểm PageRank cơ sở | Dùng làm tuyến chính: chủ đề truy vấn → thao túng và phòng vệ → hai vai trò HITS; kết luận thu hồi cả ba. |
+| RWR, SimRank, Pixie, chọn tập gốc/mở rộng HITS | Không đưa vào tuyến chính; ngoài phạm vi bài. DMOZ chỉ là tham khảo lịch sử. |
+| Ví dụ số và bài tập | Giữ dữ kiện nguồn; phân biệt vai trò bằng nhãn đỉnh, trạng thái, ký hiệu và vị trí. Không ép các số bằng nhau thành số khác. |
+| Nghiệm cụm thao túng | Trình bày đẳng thức chính xác trước xấp xỉ. Hạng bỏ trong phương trình là $(1-\beta)/N$; sai khác nghiệm là $1/[N(1+\beta)]$. Không kết luận tăng số trang làm xác suất lớn tùy ý. |
+| Bảng khối lượng rác của sách | Giữ $r$ không suy giảm ($\beta=1$) và $t$ với $\beta=4/5$; đặt cảnh báo hai thiết lập ngay trên mặt slide. $4/5$ và $0.8$ là cùng một giá trị, không phải hai thiết lập. |
+| Chuẩn HITS | Theo sách: chuẩn hóa theo phần tử lớn nhất, cập nhật luân phiên. Chuẩn L2/cập nhật đồng thời của slide MMDS không dùng cho vết chạy này. |
+| Phần bổ sung có căn cứ | Làm rõ bất biến/co đã học, điều kiện đủ về hướng riêng trội, cờ dừng và trường hợp suy biến; không biến quan sát số thành chứng minh. |
+
+## Hợp nhất báo cáo và xử lý
+
+Đã hợp nhất đủ năm báo cáo độc lập và báo cáo kiểm định storyboard. Một writer chỉnh sửa riêng xử lý tuần tự sau khi các báo cáo hoàn tất; điều phối viên kiểm lại nội dung thực tế trước khi chấp nhận.
+
+| Vai rà soát | Phát hiện chính và cách xử lý |
+|---|---|
+| Góc nhìn sinh viên | Giảm mật độ bảng HITS, làm rõ nhãn số và câu hỏi kiểm tra; giữ vết chạy qua vị trí ổn định. |
+| Chuyên gia giải thuật và khoa học dữ liệu | Giữ phạm vi MMDS §§5.3–5.5, phân biệt ba mô hình xếp hạng và mô hình thao túng; bỏ số liệu không có nguồn. |
+| Độ chính xác toán học và thuật toán | Sửa đóng góp theo cạnh, khối lượng nút cụt, chứng minh co, hệ thức cụm thao túng, trạng thái trả về và chỉ số truy hồi HITS. |
+| Phản biện học thuật và giảng dạy | Tổng theo cạnh trước ma trận HITS; ví dụ trước hình thức hóa; dùng lại chứng minh TSP cho TrustRank thay vì chứng minh trùng. |
+| Kết nối và mạch viết | Thống nhất đầu vào–đầu ra của bảy phần, sửa câu chuyển sai đích và thu hồi ba giới hạn đã nêu ở mở đầu. |
+| Kiểm định storyboard | Đủ 51 phiếu, bố cục cụ thể, lý do năm 3, bảy slide kiểm tra; tách mã nội bộ và đáp án khỏi mặt slide. |
+
+Rà lại toàn bộ toán học (`final-math`) đạt, không còn lỗi chặn hoặc nghiêm trọng. Đã bổ sung bằng chứng tính 11 vòng với ngưỡng 0.001 rồi giao rà lại giả mã HITS và bài tập 5.5.1 (`final2-math`): đạt. Rà lại toàn bộ 51 phiếu về mạch (`final2-continuity`) và storyboard (`final2-storyboard`): đạt, còn ba nhận xét nhẹ về mạch, một nhận xét trung bình và các nhận xét nhẹ về nhãn/câu chữ. Các điểm này đã được sửa và kiểm lại trong lượt `closure` trên 33 phiếu chịu tác động hoặc lân cận cùng các bản đồ cụm; không còn lỗi chặn hoặc nghiêm trọng.
+
+Các sửa cuối: mục tiêu trên mặt không mang nhãn MT; mục lục không mang ID nội bộ; thời lượng giữ trong kế hoạch và ghi chú giảng viên. Gợi ý của s02-10 chỉ nói khi người học bế tắc. Thống nhất “thiếu độ phủ” ở s04-04; nêu rõ quy ước β kế thừa ở đề bài tập; thống nhất ranh giới S02→S03; sửa đầu ra s03-07; tách vector TrustRank khỏi tỷ số khối lượng rác trong bảng tổng kết. R3 chấp nhận nghiệm giới hạn làm tròn bốn chữ số hoặc trạng thái vòng 11 kèm ngưỡng thay đổi, không coi số chữ số in ra là bảo đảm sai số tới nghiệm.
+
+Không áp dụng đề xuất đồng nhất “hội tụ” với “đạt ngưỡng thay đổi”: giữ yêu cầu toán học của bài tập nguồn và phân biệt nghiệm giới hạn với tiêu chí dừng thực dụng. Ghi chú nhỏ của lượt `closure` về tham chiếu từ s02-10 sang các phần sử dụng lại không cần sửa: điểm chuyển trực tiếp sang s03-01 đã có trong bản đồ cụm và phiếu nhận.
+
+| Nhóm phát hiện | Vị trí | Quyết định |
+|---|---|---|
+| Đóng góp thiếu điểm nguồn; cạnh D→A không tồn tại | s01-06, s02-03, s02-10 | Dùng $\beta r_j/d_j$; A nhận B,C. Bảng 4 đỉnh có phần liên kết cùng $1/5$, khác biệt A/B ở vòng 1 do dịch chuyển. |
+| Khối lượng nút cụt khởi một lần | s02-07 | Tính $\delta$ từ vector hiện tại trong mỗi vòng; trả vector mới và trạng thái kết thúc. |
+| Bất đẳng thức chưa chứng minh co | s02-08,HT2 | Dùng hiệu $F(r)-F(s)$; nêu không âm, tổng 1 và điều kiện $\beta\in(0,1)$. |
+| Hình cụm thao túng sai vùng/cạnh | s03-02 | Ba vùng theo Hình 5.16; đích và trang hỗ trợ cùng vùng sở hữu; helper chỉ trỏ đích. |
+| Hệ số và hạng bị bỏ | s03-07,s06-04 | Tách hệ số $17/37$ khỏi số hạng $(17/37)(q/N)$; phân biệt phương trình và nghiệm. |
+| Ngân sách100 trang, chi phí thẩm định và thứ tự trust theo khoảng cách không có căn cứ | s04-02,s04-04 | Bỏ số và so sánh không nguồn; diễn giải phụ thuộc cấu trúc đường đi, chất lượng và độ phủ tập tin cậy. |
+| Ma trận HITS xuất hiện trước định nghĩa và diễn giải sai chiều | s05-04…06 | Tổng theo cạnh trước, sau đó định nghĩa $L$ hàng nguồn; hàng của $L^T$ liệt kê cạnh vào. |
+| HITS thiếu giá trị trả về, lẫn cờ và truy hồi từ vector 0 | s05-08…09 | Ba trạng thái kết thúc; trả cặp mới khi đạt; truy hồi theo $a$ bắt đầu sau $a_1$. |
+| Bảng HITS quá dày | s05-07 | Chỉ vòng 2 trên bảng 5 hàng A–E, 4 cột; giữ nhãn các số chia $5/3$ và $29/10$. |
+| Số vòng gắn sai ngưỡng | s07-03 | $\tau=.001$ đạt 11 vòng; 43 vòng ứng với $10^{-12}$. Không phạt cách dùng ma trận 4×4 đúng toán. |
+| Thời lượng/ID/nhãn quy trình dự kiến trên mặt slide | s01-02,s03-08,s06-04,S07 | Chuyển về trường kế hoạch; mặt slide chỉ nội dung học và câu hỏi. |
+| Thiếu điều kiện ở HT, bảng trùng, liên kết hỏng, ánh xạ thiếu ô | outline/bản đồ cuối storyboard | Hợp nhất HT1–HT8, bổ sung điều kiện; sửa liên kết và điền đầu ra của từng phần. |
+| Câu nối bỏ qua S05 hoặc quay ngược S07→S06 | Bản đồ cụm và S07 | Nối theo thứ tự bài; phân biệt nhận kiến thức trước với chuyển sang hoạt động tiếp theo. |
+
+Bác các đề xuất rà soát sau: đổi đồng loạt phân số tương đương sang dạng tối giản (mất mẫu nguồn); coi cạnh hai chiều đích–hỗ trợ là lỗi (hai chiều này đúng, chỉ cạnh chéo giữa helpers sai); coi mọi phép dựng $L_4^TL_4$ là sai toán (hợp lệ trên bài tập nhỏ). Các nhận xét “đã sửa” của reviewer chỉ được chấp nhận sau khi đối chiếu tệp, không dựa riêng vào lời kết luận.
+
+## Kiểm định của điều phối viên
+
+- Đếm đủ 51 ID duy nhất, đúng thứ tự; số phiếu theo phần là 6, 10, 8, 8, 11, 5, 3. Thời lượng tương ứng 10, 25, 22, 21, 30, 12, 60 phút: phần giảng 120 phút, recitation 60 phút.
+- Mỗi phiếu có bố cục được chọn, vùng/tỷ lệ, thứ tự đọc, lý do gắn với sinh viên năm 3, giới hạn tải nội dung, kết nối, nguồn và ghi chú. Bảy slide kiểm tra có đề, đáp án trong ghi chú và tiêu chí đánh giá.
+- Kiểm độc lập bằng phân số và phép lặp: các vòng TSP, nghiệm cố định, hệ số và sai khác xấp xỉ của cụm thao túng, bảng TrustRank/khối lượng rác, hai vòng HITS và đáp án ba bài tập đều khớp. Giữ dữ kiện nguồn, phân biệt số bằng đại lượng, nhãn đỉnh và trạng thái; các số bằng nhau có ý nghĩa toán học không bị thay tùy ý.
+- Kiểm trường hợp nút cụt và HITS trên đồ thị không cạnh; thuật toán tính lại khối lượng nút cụt mỗi vòng, kiểm số chia trước chuẩn hóa và trả đúng trạng thái cuối. Các phép kiểm này chỉ phục vụ rà soát nội bộ, không tạo bài tập hoặc chương trình mới cho sinh viên.
+- Bài 5.5.1 đạt ngưỡng thay đổi 0.001 sau 11 vòng, chênh lớn nhất giữa hai trạng thái liên tiếp khoảng 0.0007450739557. Số 43 vòng thuộc ngưỡng khác là 10⁻¹²; không dùng số vòng hoặc ngưỡng thay đổi làm chứng nhận sai số tới nghiệm.
+- Kiểm `1523` biểu thức của phần kế hoạch mới bằng KaTeX cục bộ: không có lỗi phân tích cú pháp. Có cảnh báo về thước đo ký tự tiếng Việt trong lệnh `\text{}`; cần kiểm hiển thị khi triển khai HTML. Đây là kiểm cú pháp công thức, chưa phải kiểm trình chiếu thực.
+- Không có liên kết tương đối hỏng, bảng Markdown lệch số cột, dấu phân cách công thức không hợp lệ, ký tự điều khiển hoặc dấu chờ viết tiếp trong phần kế hoạch mới. Nội dung nhật ký cũ được giữ nguyên ở phần lịch sử bên dưới.
+- Chỉ áp dụng vào ba tệp kế hoạch. Kiểm diff không có lỗi khoảng trắng. Không triển khai hoặc tuyên bố đã kiểm HTML/SVG, màn hình rộng/hẹp, Codex Slides, ghi chú bài giảng hay bản phát hành trong lượt lập dàn bài này.
+
+## Điều phối và bằng chứng runtime
+
+Người dùng cho phép gửi đặc tả, dữ kiện và các tệp kế hoạch Lecture 04 tới OpenRouter. Không gửi nội dung `.env` hay khóa bí mật. Writers chỉ làm trong thư mục tạm; bản đã kiểm mới được áp dụng vào 3 tệp kế hoạch.
+
+Đối chiếu trực tiếp các trường trong JSON kết quả cầu nối; mọi lượt thành công dưới đây dùng cùng mô hình yêu cầu và mô hình quan sát được. Tên lượt là mã tệp JSON trong thư mục làm việc tạm `/tmp/ds-lecture04-outline-20260924/`; không dựa vào lời tự khai của worker.
+
+| Giai đoạn | Vai | Lượt có kết quả JSON | requested_model | observed_model | provider |
+|---|---|---|---|---|---|
+| Lập kế hoạch, phân tích nguồn | reader | `plan`, `source` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Soạn bản nháp tuần tự | writer | `writer1a`, `writer1b`, `writer1c`, `writer1e`, `writer2`, `writer3_finalize` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Năm báo cáo độc lập | reviewer | `review-student`, `review-expert`, `review2-math`, `review2-pedagogy`, `review2-continuity` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Kiểm định storyboard | reviewer | `review2-storyboard` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Chỉnh sửa riêng, tuần tự | writer | `edit1b`, `edit2`, `edit3a`, `edit3b` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Rà lại toán học | reviewer | `final-math`, `final2-math` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Rà lại mạch và storyboard | reviewer | `final2-continuity`, `final2-storyboard` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+| Xác nhận sửa cuối và lân cận | reviewer | `closure` | `z-ai/glm-5.3-flash` | `z-ai/glm-5.3-flash` | `OpenRouter` |
+
+Các lỗi công cụ đã gặp: `model exceeded the tool-call limit (24)`; `OpenRouter request exceeded 900s wall timeout`; `model exceeded the tool-call limit (48)`; `model returned an empty or incomplete answer after all retries`; `JSONDecodeError: Expecting value: line 69 column 1 (char 374)`; `model exceeded the tool-call limit (96)`; `OpenRouter HTTP 429: OpenRouter could not verify available credits for this request in time. Retry shortly.`; `JSONDecodeError: Expecting value: line 31 column 1 (char 165)`. Đã dừng các bước phụ thuộc, giữ kho, thông báo lỗi và chạy lại phần bị lỗi với cùng nhà cung cấp/mô hình. Không dùng kết quả thiếu JSON làm bằng chứng `observed_model`. Sau lần tự động xét duyệt từ chối gửi dữ liệu, người dùng đã cho phép gửi các tệp Lecture 04; các lượt tiếp tục nằm trong phạm vi đó.
+
+## Lịch sử của bản đã triển khai trước kế hoạch 2026-09-24
+
 # Nhật ký rà soát Bài 4
 
 ## Nguồn đã đọc

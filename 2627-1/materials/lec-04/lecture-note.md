@@ -1,101 +1,100 @@
 # Bài 04 — PageRank theo chủ đề, liên kết rác và HITS
 
-Tài liệu bám theo **MMDS §5.3–5.5** (Jure Leskovec, Anand Rajaraman, Jeffrey D. Ullman, *Mining of Massive Datasets*). Nguồn trục: [http://www.mmds.org](http://www.mmds.org). Bài học liên kết tới slide [`lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html`](lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html).
+Tài liệu này dựa trên chương 5 của *Mining of Massive Datasets* (Leskovec, Rajaraman, Ullman), các mục §5.3–5.5; bộ slide chính thức tại [www.mmds.org](http://www.mmds.org). Bản trình chiếu của bài nằm ở [Bộ trang chiếu](lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html).
 
 ## 1. Cầu nối từ Bài 03
 
-Bài 03 đã xây PageRank cổ điển trên toàn đồ thị $G=(V,E)$, với $n=|V|$, $m_G=|E|$. Ma trận chuyển $P$ là ma trận cột ngẫu nhiên đã xử lý nút cụt. Vòng lặp cập nhật
+Bài 03 đã xây dựng ma trận sửa nút cụt $S$ với cột nguồn là các cạnh ra và cột nút cụt được bù đều bằng $u=\mathbf{1}/n$. Trong bài này ta đặt $P := S_{\text{Bài03}}$ và dùng $P$ làm ma trận chuyển. Lưu ý đổi ký hiệu: chữ $S$ ở Bài 04 **không** còn là ma trận mà là **tập đỉnh** chủ đề — tập các trang đại diện cho một chủ đề, phân bố dịch chuyển trên đó gọi là $q_S$.
 
-$$r^{(u+1)}=\beta P r^{(u)}+(1-\beta)v$$
+PageRank cơ sở có ba giới hạn dẫn đến hướng mới của bài này:
 
-với $0<\beta<1$ và $v$ là phân phối dịch chuyển. Số hạng $(1-\beta)v$ đưa khối lượng ra khỏi các bẫy liên kết. Phương trình điểm bất động $r=\beta Pr+(1-\beta)v$ có nghiệm duy nhất vì toán tử là phép co trong chuẩn $L_1$.
+1. Điểm xếp hạng không phụ thuộc chủ đề truy vấn (riêng tín hiệu PageRank cơ sở không đổi giữa hai nghĩa động vật và ô tô của *jaguar*);
+2. Dễ bị đẩy điểm bằng cụm trang hỗ trợ (cụm thao túng liên kết);
+3. Không phân biệt hai vai trò trang dẫn (hub) và trang được dẫn (authority).
 
-Bài 04 xử lý ba giới hạn của điểm xếp hạng toàn cục:
+Ba mô hình trả lời lần lượt: PageRank theo chủ đề (§2), phân tích cụm thao túng cùng TrustRank/khối lượng rác (§3–4), và HITS (§5). Giả thiết người đọc đã quen đồ thị có hướng, phép nhân ma trận–vector và xác suất cơ bản. Tên đầy đủ của HITS lần đầu gặp là *tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS)* (Hyperlink-Induced Topic Search).
 
-1. PageRank theo chủ đề thay phân phối dịch chuyển để ưu tiên một chủ đề.
-2. Phân tích cụm thao túng liên kết giải thích cách cấu trúc nhân tạo dồn hạng; TrustRank và khối lượng rác cung cấp tín hiệu chống thao túng.
-3. HITS tách điểm trang trung tâm và trang thẩm quyền trên một đồ thị con truy vấn.
+## 2. PageRank theo chủ đề (topic-sensitive PageRank)
 
-Trong bài này, HITS dùng một ma trận khác với $P$: dùng $L\in\{0,1\}^{n\times n}$ với $L_{ij}=1$ khi $i\to j$. Vậy hàng của $L$ là nguồn của cạnh, cột là đích. Không đồng nhất $L$ với $P$; $P$ là ma trận xác suất chuyển (dựa trên cột), còn $L$ chỉ là cấu trúc liên kết thô.
+### 2.1 Nhu cầu
 
-## 2. PageRank theo chủ đề — MMDS §5.3.1–5.3.3
-
-### 2.1 Vai trò
-
-PageRank cổ điển cho một thứ hạng toàn cục, còn truy vấn có thể cần ưu tiên một chủ đề. Chọn tập khác rỗng $S\subseteq V$ làm tập trang mẫu. PageRank theo chủ đề thay phân phối dịch chuyển đều bằng phân phối chỉ đặt khối lượng lên $S$; liên kết sau đó truyền tín hiệu này sang các trang lân cận.
+PageRank cơ sở cho mỗi trang một điểm độc lập với truy vấn. Khi truy vấn mang tính chủ đề, thứ hạng nên thiên về các trang thuộc chủ đề đó. Ý tưởng: chạy nhiều bộ PageRank, mỗi bộ ứng với một chủ đề, và phần dịch chuyển chỉ nhảy về tập đại diện của chủ đề ấy.
 
 ### 2.2 Đặc tả
 
-Chọn một chủ đề hẹp $S\subseteq V$ khác rỗng, đặt tín hiệu
+Cho đồ thị với $n\ge1$ đỉnh, ma trận chuyển cột nguồn $P$ (cột tổng 1, không âm; nút cụt đã được bù đều trong $P$). Cho $S\ne\emptyset$ là tập đỉnh chủ đề và $\beta\in(0,1)$. Vector dịch chuyển $q_S$ là một phân bố trên $S$: $q_S\ge0$, $\sum_i(q_S)_i=1$, và $(q_S)_i=0$ với mọi $i\notin S$ (giá của $q_S$ nằm trong $S$). Trường hợp dùng xuyên suốt bài này là $q_S$ **đều trên $S$**: $q_S=e_S/|S|$, với $e_S$ là vector chỉ thị của $S$.
 
-$$q_S=\frac{e_S}{|S|}$$
+PageRank theo chủ đề là nghiệm của phương trình bất động
 
-trong đó $(e_S)_i=1$ nếu $i\in S$ và $0$ nếu không, tức $q_S$ là phân phối đều trên các phần tử của $S$. Vòng lặp:
+$$r = \beta P r + (1-\beta)\, q_S,$$
 
-$$r^{(u+1)}=\beta P r^{(u)}+(1-\beta)q_S.$$
+Phần $(1-\beta)q_S$ là **phần dịch chuyển**: mỗi vòng, một khối lượng $(1-\beta)$ được phân bố lại trên tập $S$ thay vì trên toàn bộ đồ thị.
 
-Khi $S=V$ ta thu được PageRank cổ điển vì $q_V$ là phân phối đều. Với tập $S$ nhỏ hơn, $q_S$ neo khối lượng dịch chuyển vào các phần tử của $S$ trước khi liên kết truyền khối lượng sang phần còn lại của đồ thị.
+### 2.3 Ví dụ G4
 
-Tính chất hội tụ. Định nghĩa toán tử $F_S(x)=\beta Px+(1-\beta)q_S$. Với hai vector $x,y$ bất kỳ:
+Dùng G4 ($n=4$, $m_G=8$; A→B,C,D; B→A,D; C→A; D→B,C), không nút cụt nên $P=M_0$:
 
-$$\|F_S(x)-F_S(y)\|_1\le\beta\|x-y\|_1.$$
+$$P=\begin{bmatrix}0&\tfrac12&1&0\\ \tfrac13&0&0&\tfrac12\\ \tfrac13&0&0&\tfrac12\\ \tfrac13&\tfrac12&0&0\end{bmatrix}$$
 
-Đây là phép co chuẩn $L_1$ với hệ số $\beta<1$. Vì vậy vòng lặp hội tụ tới một điểm bất động duy nhất, độc lập với phân phối khởi tạo.
+**Vế theo cạnh:** $\beta P r$ — khối lượng đi theo cạnh, bị co hệ số $\beta$. **Vế dịch chuyển:** $(1-\beta)q_S$ — khối lượng nhảy về tập chủ đề.
 
-### 2.3 Ví dụ chạy tay — Hình 5.15
+Với $S=\{B,D\}$, $\beta=4/5$, $q_S=(0,\tfrac12,0,\tfrac12)$, khởi $r_0=q_S$:
 
-Xét đồ thị trên Hình 5.15 với thứ tự $(A,B,C,D)$ và cạnh:
+| Vòng | $r_A$ | $r_B$ | $r_C$ | $r_D$ | Trạng thái |
+|---|---|---|---|---|---|
+| $r_0=q_S$ | $0$ | $\tfrac12$ | $0$ | $\tfrac12$ | khởi |
+| $r_1$ | $\tfrac15$ | $\tfrac3{10}$ | $\tfrac15$ | $\tfrac3{10}$ | 1 vòng |
+| $r_2$ | $\tfrac{42}{150}$ | $\tfrac{41}{150}$ | $\tfrac{26}{150}$ | $\tfrac{41}{150}$ | 2 vòng |
+| $r_3$ | $\tfrac{62}{250}$ | $\tfrac{71}{250}$ | $\tfrac{46}{250}$ | $\tfrac{71}{250}$ | 3 vòng |
+| $r^*$ | $\tfrac{54}{210}$ | $\tfrac{59}{210}$ | $\tfrac{38}{210}$ | $\tfrac{59}{210}$ | nghiệm chính xác (giải hệ) |
 
-- $A\to B,C,D$;
-- $B\to A,D$;
-- $C\to A$;
-- $D\to B,C$.
+Ví dụ vòng 1: $\beta P r_0 = (\tfrac15,\tfrac15,\tfrac15,\tfrac15)$ và $(1-\beta)q_S=(0,\tfrac1{10},0,\tfrac1{10})$, cộng lại được $r_1$. Chú ý $r^*$ là nghiệm giải hệ, không phải kết quả vòng 3.
 
-Ma trận chuyển cột tương ứng:
+### 2.4 Trực giác và bất biến
 
-$$P=\begin{bmatrix}0&1/2&1&0\\1/3&0&0&1/2\\1/3&0&0&1/2\\1/3&1/2&0&0\end{bmatrix}.$$
+Mỗi vòng, khối lượng chia làm hai dòng: phần $\beta$ đi theo cạnh, phần $1-\beta$ quay về tập $S$. Vì $P$ cột tổng 1 và $q_S$ là phân bố, ánh xạ $F(r)=\beta Pr+(1-\beta)q_S$ bảo toàn bất biến xác suất: nếu $r\ge0$, $\sum r_i=1$ thì $r_{\text{mới}}\ge0$ và $\sum (r_{\text{mới}})_i = \beta + (1-\beta) = 1$. Phép co theo chuẩn L1:
 
-Kiểm tra: cột B ứng với $B\to A,D$ nên $P_{B}=(1/2,0,0,1/2)$, cột C ứng với $C\to A$ nên $P_C=(1,0,0,0)$, cột D ứng với $D\to B,C$ nên $P_D=(0,1/2,1/2,0)$.
+$$\|F(r)-F(s)\|_1 = \beta\,\|P(r-s)\|_1 \le \beta\,\|r-s\|_1,$$
 
-Chọn $S=\{B,D\}$, $\beta=0{,}8$. Khởi đầu $r^{(0)}=q_S=(0,1/2,0,1/2)^T$. Tính vòng 1:
+vì $\|Pv\|_1\le\|v\|_1$ khi $P$ cột tổng 1. Với $\beta<1$, ánh xạ co trên simplex nên $r^*$ tồn tại duy nhất và lặp hội tụ. Điểm có thể bằng 0 ở những trang không được $q_S$ hỗ trợ gián tiếp — không tuyên bố dương mọi trang.
 
-$$\beta P r^{(0)}=(0{,}8)\,P\,(0,1/2,0,1/2)^T.$$
+### 2.5 Giả mã thưa
 
-Cột B (trọng $1/2$) cộng cột D (trọng $1/2$):
+Không lưu $P$ đặc; mỗi vòng chỉ quét cạnh của đồ thị thô và **tính lại** phần bù nút cụt. Ở đây $M_0$ là ma trận cột nguồn chuẩn hóa của đồ thị thô (cột của nút cụt là cột 0):
 
-$$P r^{(0)}=\frac12\begin{bmatrix}1/2\\0\\0\\1/2\end{bmatrix}+\frac12\begin{bmatrix}0\\1/2\\1/2\\0\end{bmatrix}=\begin{bmatrix}1/4\\1/4\\1/4\\1/4\end{bmatrix}.$$
+```text
+r ← q_S                      # khởi tạo từ q_S
+với vòng = 1 .. K_max:
+    δ ← Σ r_j trên các đỉnh cụt      # tính lại mỗi vòng
+    r_mới ← β M0 r + β δ u + (1−β) q_S
+    nếu ‖r_mới − r‖₁ ≤ τ:  trả r_mới, trạng thái ĐẠT
+    r ← r_mới
+hết K_max:  trả r, trạng thái CHƯA ĐẠT
+```
 
-Nhân với $\beta=0{,}8$:
+với $u=\mathbf{1}/n$, $n\ge1$, $K_{max}$ nguyên $\ge1$, $\tau>0$. Hai trạng thái kết thúc: đạt ngưỡng (trả vector mới) hoặc hết ngân sách vòng (trả vector và trạng thái cuối).
 
-$$\beta P r^{(0)}=\left(\frac{2}{10},\frac{2}{10},\frac{2}{10},\frac{2}{10}\right)^T.$$
+### 2.6 Chi phí và phối hợp
 
-Phần dịch chuyển: $(1-\beta)q_S=0{,}2\cdot(0,1/2,0,1/2)^T=(0,1/10,0,1/10)^T$. Vậy:
+Mỗi vòng tốn $\Theta(n+m_G)$ phép nhân–cộng với $m_G$ là số cạnh của đồ thị thô (không lưu $P$ đặc sau bù cụt); tổng bộ nhớ $O(n+m_G)$ cho vector và danh sách cạnh. Với $k$ chủ đề, gọi $I$ là số vòng lặp: $O(kI(n+m_G))$ phép tính, bộ nhớ $O(kn+m_G)$ — chỉ cần lưu $k$ vector ngoài đồ thị. Phối hợp lúc truy vấn: với trọng số $\alpha_l\ge0$, $\sum\alpha_l=1$, dùng chung $P$ và $\beta$, trong đó $r^{(l)*}$ là nghiệm của mỗi chủ đề $l$,
 
-$$r^{(1)}=\left(\frac{2}{10},\frac{3}{10},\frac{2}{10},\frac{3}{10}\right)^T.$$
+$$r^* = \sum_{l=1}^{k} \alpha_l\, r^{(l)*},$$
 
-So với $q_S$, khối lượng đã được phân tán từ B và D ra các trang chúng trỏ tới (A, D, B, C); chính B và D vẫn giữ giá trị cao nhất nhờ phần dịch chuyển trực tiếp. Vector $q_S$ giữ tín hiệu chủ đề qua các vòng.
-
-::: example
-Trong Ví dụ 5.10, phần theo cạnh phân đều khối lượng lên bốn trang, còn phần dịch chuyển chỉ thêm $1/10$ vào $B$ và $D$. Vì vậy $B,D$ có hạng $3/10$, cao hơn $A,C$ với hạng $2/10$ sau vòng đầu.
-:::
-
-### 2.4 Chi phí và giới hạn
-
-Nếu lưu $k$ chủ đề, mỗi chủ đề cần một vector riêng kích thước $n$, tổng bộ nhớ $\Theta(kn)$. Cho một vòng cập nhật đầy đủ cả $k$ chủ đề, ta nhân $P$ (có $m_G$ cạnh khác không) với mỗi vector rồi cộng phần dịch chuyển, tổng công việc $\Theta(k(n+m_G))$.
-
-Có thể phối hợp nhiều chủ đề qua tổ hợp lồi. Cho trọng số $\alpha_1,\dots,\alpha_k\ge0$ với $\sum_\ell\alpha_\ell=1$. Đặt
-
-$$r=\sum_\ell\alpha_\ell r^{(S_\ell)}.$$
-
-Vì mỗi $r^{(S_\ell)}$ là một phân phối (tổng bằng $1$ và không âm), tổ hợp lồi $r$ cũng là một phân phối.
+tức điểm hỗn hợp ứng với dịch chuyển hỗn hợp $q=\sum_l\alpha_l q_l$; tính tuyến tính theo các vector chủ đề.
 
 ::: example
-Giả sử $r^{(S_1)}$ và $r^{(S_2)}$ là hai phân phối đã tính. Với $\alpha_1=0{,}6$ và $\alpha_2=0{,}4$, vector $0{,}6r^{(S_1)}+0{,}4r^{(S_2)}$ vẫn không âm và có tổng bằng $1$.
+Kiểm tra nhanh trên G4: A nhận theo cạnh từ B và C. Vì $r_{0,B}=1/2$, $r_{0,C}=0$ và $(q_S)_A=0$,
+
+$$r_{1,A}=\frac45\left(\frac12\cdot\frac12+1\cdot0\right)+\frac15\cdot0=\frac15.$$
+
+Tại B, cạnh D→B đóng góp $1/5$ và phần dịch chuyển đóng góp $1/10$:
+
+$$r_{1,B}=\frac45\left(\frac13\cdot0+\frac12\cdot\frac12\right)+\frac1{10}=\frac3{10}.$$
+
+Hai thành phần theo cạnh và dịch chuyển có nguồn khác nhau.
 :::
 
-MMDS dùng danh mục DMOZ gồm 16 chủ đề trong Ví dụ 5.9 để minh họa việc chuẩn bị một số ít vector. Đây là bối cảnh của ví dụ, không phải mô tả một hệ thống hiện thời. Trong bài này, tập $S$ là dữ liệu đầu vào.
-
-**Tự kiểm.** Thay $S$ bằng $V$ trong công thức cập nhật và chỉ ra vì sao ta thu lại PageRank với dịch chuyển đều. Bài 7.1 kiểm tra việc thay $S$ trên cùng một đồ thị.
+Tự kiểm: $S=V$ (toàn bộ đỉnh) với $q_S=\mathbf{1}/n$ phải cho lại đúng PageRank cơ sở của Bài 03. Giới hạn: đặc tả đòi $S\ne\emptyset$; nếu $S$ rỗng thì $q_S$ không phải phân bố và mô hình không xác định.
 
 ## 3. Cụm thao túng liên kết — MMDS §5.4.1–5.4.2
 
@@ -122,7 +121,9 @@ Cả $q$ và $N$ đều có thể thay đổi khi tăng $q$ (thêm trang hỗ tr
 
 Cấu trúc đồ thị trong Hình 5.16: mỗi trang hỗ trợ chỉ trỏ tới $t$; $t$ trỏ tới cả $q$ trang hỗ trợ.
 
-![Sơ đồ hai cụm spam farm: mỗi trang hỗ trợ (dưới) trỏ tới một trang đích t (trên), và t trỏ lại tất cả q trang hỗ trợ.](img/lec-04/hinh-5-16-cum-thao-tung.svg)
+![Hình 5.16 — Cụm thao túng liên kết với ba vùng: vùng không thể tác động, vùng có thể tác động, và vùng các trang sở hữu; trang đích t và q trang hỗ trợ cùng nằm trong vùng sở hữu, dòng chảy từ vùng giữa vào t](img/lec-04/hinh-5-16-cum-thao-tung.svg)
+
+**Hình 5.16** — Ba vùng của cụm thao túng: vùng không thể tác động, vùng có thể tác động, và vùng các trang sở hữu. Trang đích $t$ và $q$ trang hỗ trợ cùng thuộc vùng sở hữu; mỗi trang hỗ trợ chỉ trỏ về đích, đích trỏ tới mọi trang hỗ trợ. Dòng đóng góp $x$ đi từ vùng giữa vào $t$.
 
 ### 3.3 Hạng của mỗi trang hỗ trợ
 
@@ -132,12 +133,10 @@ Mỗi trang hỗ trợ nhận đóng góp từ $t$ qua phần $\beta P r$, rồi
 
 $$z=\beta\frac{y}{q}+\frac{1-\beta}{N}.$$
 
-![Luồng hạng từ trang ngoài vào đích t, rồi tuần hoàn giữa t và q trang hỗ trợ.](img/lec-04/luong-hang-trong-cum.svg)
-
-Công thức dựa trên phép co: trang hỗ trợ không nhận gì từ các trang hỗ trợ khác (chúng chỉ trỏ tới $t$), vậy nguồn vào duy nhất là $t$ và phần dịch chuyển.
+![Luồng hạng từ trang ngoài vào trang đích t, rồi tuần hoàn giữa t và q trang hỗ trợ.](img/lec-04/luong-hang-trong-cum.svg)
 
 ::: derivation
-Tại một trang hỗ trợ, đóng góp từ $t$ qua một trong $q$ cạnh là $\beta y/q$. Cộng phần dịch chuyển đều $(1-\beta)/N$ cho $z=\beta y/q+(1-\beta)/N$.
+Trang đích $t$ có điểm $y$ và chia phần theo cạnh đều cho $q$ trang hỗ trợ. Mỗi trang nhận $\beta y/q$. Phần dịch chuyển đều thêm $(1-\beta)/N$, tạo phương trình cân bằng của $z$ ở trên.
 :::
 
 ### 3.4 Phương trình chính xác cho $y$
@@ -161,35 +160,25 @@ Vì $1-\beta^2=(1-\beta)(1+\beta)$, ta có:
 
 $$y=\frac{x}{1-\beta^2}+\frac{\beta q+1}{N(1+\beta)}.$$
 
-::: derivation
-Từ $y=x+\beta qz+(1-\beta)/N$, thay biểu thức của $z$ rồi gom $y$ về một vế:
-
-$$y(1-\beta^2)=x+\frac{(1-\beta)(\beta q+1)}{N}.$$
-
-Chia cho $(1-\beta^2)=(1-\beta)(1+\beta)$ thu được công thức chính xác ở trên.
-:::
-
-Sách (MMDS §5.4.2) đưa ra một biểu thức đơn giản hơn bằng cách bỏ số hạng phần dịch chuyển trực tiếp vào $t$ trước khi giải:
-
-Theo dạng xấp xỉ trong sách,
+Sách (MMDS §5.4.2) đưa ra một biểu thức đơn giản hơn bằng cách bỏ số hạng phần dịch chuyển trực tiếp vào $t$ — tức bỏ $(1-\beta)/N$ **ở vế phải** của phương trình cân bằng — trước khi giải:
 
 $$y\approx\frac{x}{1-\beta^2}+\frac{\beta}{1+\beta}\cdot\frac{q}{N}.$$
 
-Sai số so với biểu thức chính xác:
+**Phân biệt hai đại lượng dễ nhầm.** Số hạng bị bỏ là $(1-\beta)/N$ — một thành phần của phương trình cân bằng tại vế phải. Hệ quả của việc bỏ nó, sau khi đã giải và chia cho $1-\beta^2$, là hai nghiệm chênh nhau $\dfrac{1}{N(1+\beta)}$:
 
-$$\frac{1}{N(1+\beta)}.$$
+$$y_{\text{chính xác}}=\frac{x}{1-\beta^2}+\frac{\beta q+1}{N(1+\beta)}, \qquad y_{\text{xấp xỉ}}=\frac{x}{1-\beta^2}+\frac{\beta q}{N(1+\beta)}.$$
 
-Đây là phần dịch chuyển trực tiếp vào $t$ đã bị bỏ. Xấp xỉ hợp lý khi $1/[N(1+\beta)]$ nhỏ so với các số hạng được giữ. Không được suy luận rằng có thể tăng $q$ tùy ý trong khi giữ mọi đại lượng khác cố định: thêm trang hỗ trợ làm đổi $N$ và có thể đổi cả $x$.
+Vậy $(1-\beta)/N$ và $\dfrac{1}{N(1+\beta)}$ là hai đại lượng **khác nhau**: một là số hạng bị bỏ trong phương trình, kia là sai khác giữa hai nghiệm sau khi đã chia cho $1-\beta^2$. Không được gọi hai đại lượng ấy là một.
 
 ::: example
 **Ví dụ 5.11.**
 
-Với $\beta=0{,}85$,
+Với $\beta=0.85$,
 
-$$\frac{1}{1-\beta^2}=\frac{1}{0{,}2775}\approx3{,}6036,
-\qquad \frac{\beta}{1+\beta}=\frac{0{,}85}{1{,}85}\approx0{,}4595.$$
+$$\frac{1}{1-\beta^2}=\frac{1}{0.2775}\approx3.6036,
+\qquad \frac{\beta}{1+\beta}=\frac{0.85}{1.85}\approx0.4595.$$
 
-Dạng xấp xỉ của sách là $y\approx3{,}6036x+0{,}4595q/N$.
+Dạng xấp xỉ của sách là $y\approx3.6036x+0.4595q/N$.
 :::
 
 ### 3.5 Giới hạn của mô hình
@@ -204,7 +193,7 @@ Mô hình giả sử mỗi trang hỗ trợ chỉ trỏ tới $t$, còn $t$ tr�
 
 Liên kết có thể bị thao túng, nên TrustRank thay tập trang theo chủ đề bằng tập trang đã được thẩm định. Khối lượng rác sau đó đo độ chênh tương đối giữa PageRank và TrustRank của từng trang.
 
-TrustRank chạy trên toàn đồ thị, dùng tín hiệu $q_T$ và trả một điểm tin cậy cho mỗi trang.
+Từ phần này, $t$ là vector điểm tin cậy; ở mô hình cụm thao túng trước đó, chữ $t$ chỉ trang đích. TrustRank chạy trên toàn đồ thị, dùng tín hiệu $q_T$ và trả một điểm tin cậy cho mỗi trang.
 
 ### 4.2 Đặc tả
 
@@ -214,7 +203,7 @@ $$t^{(0)}=q_T,\qquad t^{(u+1)}=\beta P t^{(u)}+(1-\beta)q_T.$$
 
 Công thức co $L_1$ tương tự PageRank chủ đề, xác định duy nhất điểm bất động.
 
-Chọn seed: chọn ứng viên có PageRank cao rồi thẩm định thủ công, hoặc chọn các miền có cơ chế thành viên. Không coi hậu tố miền là chứng nhận tuyệt đối. Kết quả TrustRank phụ thuộc độ phủ của seed và sai số chọn seed.
+Chọn hạt giống: chọn ứng viên có PageRank cao rồi thẩm định thủ công, hoặc chọn các miền có cơ chế thành viên. Không coi hậu tố miền là chứng nhận tuyệt đối. Kết quả TrustRank phụ thuộc độ phủ của hạt giống và sai số chọn hạt giống.
 
 ### 4.3 Khối lượng rác (spam mass)
 
@@ -234,12 +223,12 @@ Vì vậy chỉ tính $s_p$ khi $r_p>0$, giữ nguyên giá trị âm và không
 
 Hình 5.17 minh họa một điểm về quy ước tính. Trên cùng một cấu trúc liên kết, hình cố ý dùng hai quy ước khác nhau:
 
-- PageRank **không hệ số giảm**: $r=(3/9,2/9,2/9,2/9)^T$.
-- TrustRank với $\beta=0{,}8$, $T=\{B,D\}$: $t=(54,59,38,59)^T/210$.
+- PageRank **không suy giảm ($\beta=1$)**: $r=(3/9,2/9,2/9,2/9)^T$.
+- TrustRank với $\beta=0.8$, $T=\{B,D\}$: $t=(54,59,38,59)^T/210$.
 
 Khối lượng rác tương ứng là $(8/35,-37/140,13/70,-37/140)^T$. Chẳng hạn, tại $A$:
 
-$$s_A=\frac{3/9-54/210}{3/9}=\frac{8}{35}\approx0{,}229.$$
+$$s_A=\frac{3/9-54/210}{3/9}=\frac{8}{35}\approx0.229.$$
 
 Hai vector trong hình dùng hai quy ước khác nhau, nên ví dụ chỉ minh họa phép tính tỷ số. Khi dùng khối lượng rác để so sánh trong ứng dụng, phải tính PageRank và TrustRank với cùng $\beta$ và cùng quy ước xử lý nút cụt.
 
@@ -254,27 +243,27 @@ HITS (Hyperlink-Induced Topic Search) xếp hạng trong một đồ thị con c
 - **Điểm thẩm quyền** (authority) $a_i$: cao khi được các trang trung tâm có điểm cao trỏ tới.
 - **Điểm trung tâm** (hub) $h_i$: cao khi trỏ tới các trang thẩm quyền có điểm cao.
 
-Trực quan: hub là "trang tìm đường", authority là "trang nội dung". Hai vai trò củng cố lẫn nhau: một hub tốt trỏ tới những authority tốt, và một authority tốt được những hub tốt trỏ tới.
+Trang danh mục minh họa vai trò dẫn đường; trang học phần minh họa vai trò cung cấp nội dung. Điểm của hai vai trò phụ thuộc lẫn nhau qua liên kết.
 
-![Trực quan hai vai trò HITS: hub hướng tới các authority; các authority được đánh giá qua các hub trỏ tới nó.](img/lec-04/cap-vai-tro-hits.svg)
+![Trực quan hai vai trò HITS: trang trung tâm trỏ tới các trang thẩm quyền; mỗi trang có cả hai loại điểm.](img/lec-04/cap-vai-tro-hits.svg)
 
 ### 5.2 Hai phép cập nhật luân phiên
 
-Cho đồ thị con với ma trận $L\in\{0,1\}^{n\times n}$ hàng nguồn: $L_{ij}=1$ nếu $i\to j$.
+Cho đồ thị con $G_H$ với $n_H$ đỉnh và $m_H$ cạnh. Khác với PageRank (dùng ma trận **cột nguồn**), HITS dùng ma trận kề $L\in\{0,1\}^{n_H\times n_H}$ với **hàng là nguồn**: $L_{ij}=1$ nếu $i\to j$.
 
 HITS thực hiện hai bước luân phiên:
 
 - **Thẩm quyền thô**: $a_{\text{thô}}=L^Th$. Thành phần $i$ bằng tổng $h_j$ của mọi trang $j$ trỏ tới $i$.
 - **Trung tâm thô**: $h_{\text{thô}}=La$. Thành phần $i$ bằng tổng $a_j$ của mọi trang $j$ mà $i$ trỏ tới.
 
-Sau mỗi phép nhân, chia cho chuẩn vô cùng.
+Sau mỗi phép nhân, chia cho phần tử lớn nhất (chuẩn max).
 
 ::: derivation
-Phần tử $(L^Th)_i=\sum_jL_{ji}h_j$. Vì $L_{ji}=1$ khi $j\to i$, đây là tổng điểm hub của các trang trỏ tới $i$. Tương tự, $(La)_i=\sum_jL_{ij}a_j$ là tổng điểm authority của các trang mà $i$ trỏ tới.
+Phần tử $(L^Th)_i=\sum_jL_{ji}h_j$. Vì $L_{ji}=1$ khi $j\to i$, đây là tổng điểm trung tâm của các trang trỏ tới $i$. Tương tự, $(La)_i=\sum_jL_{ij}a_j$ là tổng điểm thẩm quyền của các trang mà $i$ trỏ tới.
 :::
 
 ::: derivation
-Về đại số, $a\propto L^TLa$ và $h\propto LL^Th$. Trong tính toán, không dựng $L^TL$ hay $LL^T$ vì tích có thể đặc. Ta giữ hai phép nhân thưa nối tiếp, mỗi vòng có chi phí $\Theta(n+m_G)$.
+Về đại số, $a\propto L^TLa$ và $h\propto LL^Th$. Trong tính toán, không dựng $L^TL$ hay $LL^T$ vì tích có thể đặc. Ta giữ hai phép nhân thưa nối tiếp, mỗi vòng có chi phí $\Theta(n_H+m_H)$.
 :::
 
 ### 5.3 Ví dụ 5.14–5.15 — Hình 5.18–5.20
@@ -345,56 +334,59 @@ Chuẩn (lớn nhất là $29/10$):
 
 $$h^{(2)}=\left(1,\frac{12}{29},\frac{1}{29},\frac{20}{29},0\right)^T.$$
 
-$A$ có điểm hub lớn nhất sau hai vòng; $B$ và $C$ có điểm authority lớn nhất.
+$A$ có điểm trung tâm lớn nhất sau hai vòng; $B$ và $C$ có điểm thẩm quyền lớn nhất.
 
 ![Đồ thị Hình 5.18 gồm năm nút A, B, C, D, E và các cạnh dùng để tính HITS.](img/lec-04/hinh-5-18.svg)
 
-### 5.4 Đặc tả làm chặt của học phần
+### 5.4 Đặc tả hình thức HITS
 
-Để minh họa tính chất hội tụ, học phần áp dụng một đặc tả bổ sung. Cho $K_{\max}\ge1$, $0<\tau<1$, khởi đầu $h=e$, $a=0$. Tại mỗi vòng:
+Trên đồ thị con $G_H$ với $n_H$ đỉnh và $m_H$ cạnh, dựng ma trận kề $L$ kích thước $n_H\times n_H$ với **hàng là nguồn**: $L_{ij}=1$ nếu có cạnh $i\to j$, ngược lại $0$ (Boolean). Khởi tạo $h_0=\mathbf{1}$ (vector toàn 1) và $a_0=\mathbf{0}$; $a_0$ chỉ dùng làm mốc đo chênh ở vòng đầu, không tham gia sinh $a_1$ theo công thức truy hồi của $a$.
 
-1. Tính $a_{\text{thô}}=L^Th$. Nếu $\|a_{\text{thô}}\|_\infty=0$, trả $(0_n,0_n)$ kèm cờ suy biến; nếu không, chuẩn hóa thành $a_{\text{mới}}$.
-2. Tính $h_{\text{thô}}=La_{\text{mới}}$. Nếu $\|h_{\text{thô}}\|_\infty=0$, trả kết quả suy biến; nếu không, chuẩn hóa thành $h_{\text{mới}}$.
-3. Nếu $\max(\|a_{\text{mới}}-a\|_\infty,\|h_{\text{mới}}-h\|_\infty)\le\tau$, trả cờ hội tụ.
-4. Hết $K_{\max}$ mà chưa đạt ngưỡng thì trả cờ hết ngân sách.
+Quy tắc cập nhật luân phiên, chuẩn hóa theo **phần tử lớn nhất** (chuẩn max của sách, khác chuẩn L2 trong một số slide):
 
-Chuẩn vô cùng, ngưỡng $\tau$, cờ suy biến và cờ hết ngân sách là phần đặc tả bổ sung của học phần.
+$$a_{\text{thô}} = L^T h_{\text{cũ}}, \qquad h_{\text{thô}} = L\, a_{\text{mới}},$$
 
-Nếu một vector thô có chuẩn vô cùng bằng $0$, thuật toán trả hai vector $0_n$ và bật cờ suy biến thay vì thực hiện phép chia cho $0$.
+chia mỗi vector cho phần tử lớn nhất của chính nó sau mỗi bước.
+
+Đầu vào yêu cầu $n_H\ge1$, $\tau>0$, $K_{\max}$ nguyên và ít nhất 1. Giả mã (chuẩn hóa bằng phần tử lớn nhất, cập nhật luân phiên):
 
 ```text
-h ← e; a ← 0_n
-cho u từ 1 đến K_max:
-    a_thô ← L^T h
-    nếu ||a_thô||_∞ = 0: trả (0_n, 0_n, sai, đúng, u)
-    a_mới ← a_thô / ||a_thô||_∞
-    h_thô ← L a_mới
-    nếu ||h_thô||_∞ = 0: trả (0_n, 0_n, sai, đúng, u)
-    h_mới ← h_thô / ||h_thô||_∞
-    nếu max(||a_mới-a||_∞, ||h_mới-h||_∞) ≤ tau:
-        trả (h_mới, a_mới, đúng, sai, u)
-    (h, a) ← (h_mới, a_mới)
-trả (h, a, sai, sai, K_max)
+h ← 1 (vector toàn 1);  a ← 0
+với u = 1 .. K_max:
+    a_thô ← Lᵀ h;   nếu max(a_thô) = 0: trả h = 0, a = 0, cờ SUY BIẾN; dừng
+    a_mới ← a_thô / max(a_thô)
+    h_thô ← L a_mới; nếu max(h_thô) = 0: trả h = 0, a = 0, cờ SUY BIẾN; dừng
+    h_mới ← h_thô / max(h_thô)
+    nếu max|a_mới − a| ≤ τ và max|h_mới − h| ≤ τ:
+        trả (h_mới, a_mới), cờ ĐẠT NGƯỠNG; dừng
+    h ← h_mới;  a ← a_mới
+hết K_max: trả (h, a), cờ CHƯA ĐẠT
 ```
 
-Qua hai phép cập nhật, ta có $a\propto L^TLa$ và $h\propto LL^Th$. Vì vậy $a$ và $h$ lần lượt tiến theo các hướng riêng trội của $L^TL$ và $LL^T$ khi các điều kiện phổ bên dưới được thỏa.
+Ba cờ trạng thái: suy biến ($L=0$, đồ thị không cạnh — cả hai nhánh đều trả cặp vector 0), đạt ngưỡng $\tau$, chưa đạt khi hết ngân sách vòng. Khi đạt ngưỡng trả cặp **mới** $(h_{\text{mới}},a_{\text{mới}})$; khi hết ngân sách trả cặp cuối. Ngưỡng $\tau$ chỉ là tiêu chí dừng tính toán, đo độ chênh giữa hai vòng liên tiếp — nó không cho biết khoảng cách tới nghiệm thật.
+
+Truy hồi: $h_{u+1}\propto LL^T h_u$ với $u\ge0$, và $a_{u+1}\propto L^T L\, a_u$ với $u\ge1$. Riêng $a_1$ sinh từ $h_0$ qua $a_1\propto L^T h_0$; không truy hồi $a_0=\mathbf{0}$ (nếu làm vậy sẽ dừng ngay ở vector 0).
+
+### 5.5 Điều kiện hội tụ và chi phí
+
+Các điều kiện sau là **đủ** bảo đảm hội tụ về hướng trội (không phải điều kiện cần):
+
+- $L\ne 0$;
+- giá trị riêng trội duy nhất: $\lambda_1 > \lambda_2 \ge 0$ cho cả $LL^T$ và $L^TL$;
+- khởi tạo có hình chiếu khác 0 lên hướng trội của $LL^T$ (điều kiện đặt trên $h_0$).
 
 ::: proof
-Đây là phác thảo có điều kiện. Phân rã vector khởi đầu theo các hướng riêng của $L^TL$ hoặc $LL^T$. Nếu trị riêng trội theo trị tuyệt đối là duy nhất và thành phần của khởi đầu trên hướng đó khác $0$, lũy thừa của toán tử khuếch đại thành phần trội nhanh hơn các thành phần còn lại. Chuẩn hóa sau mỗi vòng loại hệ số độ lớn, nên hướng của dãy tiến tới hướng riêng trội.
+**Phác thảo hội tụ theo hướng.** Đặt $B=LL^T$. Ma trận $B$ đối xứng, nửa xác định dương nên có cơ sở vector riêng trực chuẩn $v_j$ với trị riêng $\lambda_j\ge0$. Viết $h_0=\sum_j c_jv_j$, trong đó $c_1\ne0$. Khi đó
+
+$$\frac{B^u h_0}{\lambda_1^u}=c_1v_1+\sum_{j\ge2}c_j\left(\frac{\lambda_j}{\lambda_1}\right)^u v_j.$$
+
+Do $\lambda_1>\lambda_2$, các thành phần không trội tiến về 0 tương đối so với thành phần trội. Chuẩn hóa theo phần tử lớn nhất không đổi hướng của vector. Vì $\lambda_1>0$, $L^Tv_1\ne0$, nên bước cập nhật thẩm quyền cũng tiến về hướng tương ứng. Đây là phác thảo dưới các điều kiện đủ đã nêu, không phải khẳng định cho mọi ma trận liên kết.
 :::
 
-MMDS chỉ phát biểu hội tụ dưới các giả thiết phù hợp. Hướng giới hạn là duy nhất khi hướng riêng trội phù hợp tồn tại và khởi đầu $h=e$ có thành phần khác $0$ trên hướng đó.
+Phương pháp lũy thừa được đối chiếu với [Cornell INFO4300, Ginsparg, 27/10/2009, slide 10](https://courses.cit.cornell.edu/info4300_2009fa/slides/16.pdf); quy tắc HITS theo MMDS §5.5.
+Chi phí mỗi vòng: hai quét cạnh (nhân $L^Th$ và $La$) cộng số hữu hạn quét đỉnh (tìm max, chuẩn hóa, đo chênh), tổng $\Theta(n_H+m_H)$; tổng bộ nhớ $O(n_H+m_H)$ cho đồ thị thưa và các vector. Không dựng ma trận $LL^T$ hay $L^TL$ đặc trong triển khai thưa; chỉ với hệ ma trận nhỏ hợp lệ mới giải theo ma trận.
 
-### 5.5 Chi phí và giới hạn
-
-Mỗi vòng gồm hai phép nhân (thưa) và hai lần lấy cực đại (chuẩn hóa):
-
-- Công việc: $\Theta(n+m_G)$ mỗi vòng.
-- Bộ nhớ: $\Theta(n+m_G)$ trên đồ thị con.
-
-HITS chạy trên đồ thị con cố định, nên kết quả phụ thuộc cách chọn đồ thị con. Nếu hướng riêng trội không duy nhất hoặc khởi tạo không có thành phần trên hướng đó, bảo đảm hội tụ về một hướng duy nhất không áp dụng.
-
-**Tự kiểm.** Với Hình 5.18, giải thích vì sao $E$ có điểm hub bằng $0$ sau vòng đầu nhưng vẫn có điểm authority dương. Bài 7.3 kiểm tra HITS trên Hình 5.1.
+Tự kiểm: $E$ không có cạnh ra nên $h_E=0$ ngay từ vòng 1, nhưng $a_E=\tfrac12>0$ ở vòng đầu vì có cạnh C→E — hai vai trò không đồng nhất.
 
 ## 6. Bảng so sánh
 
@@ -412,22 +404,22 @@ HITS chạy trên đồ thị con cố định, nên kết quả phụ thuộc c
 | Tín hiệu | Chênh lệch tương đối | Cấu trúc liên kết Boolean |
 | Đầu ra | Tỷ số $s_p$ cho từng trang | Hai điểm $a_i,h_i$ |
 | Bảo đảm | Cần $r_p>0$; không phải xác suất | Hội tụ có điều kiện phổ |
-| Chi phí | $\Theta(n)$ | $\Theta(n+m_G)$ mỗi vòng |
+| Chi phí | $\Theta(n)$ | $\Theta(n_H+m_H)$ mỗi vòng |
 
 - PageRank theo chủ đề và TrustRank dùng cùng mô hình vòng lặp co $L_1$, chi phí mỗi vòng giống nhau; khác nhau ở đối tượng $q$ (chủ đề so với tin cậy).
 - Khối lượng rác không chạy vòng lặp mới: chỉ tính $s_p=(r_p-t_p)/r_p$ trên mỗi trang, với chi phí $\Theta(n)$ và điều kiện $r_p>0$.
-- HITS chạy trên đồ thị con, $\Theta(n+m_G)$ mỗi vòng với hai phép nhân thưa.
+- HITS chạy trên đồ thị con, $\Theta(n_H+m_H)$ mỗi vòng với hai phép nhân thưa.
 
 ## 7. Ba bài tập MMDS
 
 ### 7.1 MMDS 5.3.1 — PageRank theo chủ đề trên Hình 5.15
 
 ::: exercise
-Trên đồ thị Hình 5.15, giữ $\beta=0{,}8$ như Ví dụ 5.10. Tính PageRank theo chủ đề khi: (a) $S=\{A\}$; (b) $S=\{A,C\}$. Sản phẩm gồm hai vector điểm bất động theo thứ tự $(A,B,C,D)$ và phép kiểm tổng bằng $1$.
+Trên đồ thị Hình 5.15, giữ $\beta=0.8$ như Ví dụ 5.10. Tính PageRank theo chủ đề khi: (a) $S=\{A\}$; (b) $S=\{A,C\}$. Sản phẩm gồm hai vector điểm bất động theo thứ tự $(A,B,C,D)$ và phép kiểm tổng bằng $1$.
 :::
 
 ::: hint
-Với $S=\{A\}$, dùng $q_S=(1,0,0,0)^T$. Với $S=\{A,C\}$, dùng $q_S=(1/2,0,1/2,0)^T$. Trong từng trường hợp, giải $r=0{,}8Pr+0{,}2q_S$ cùng điều kiện $e^Tr=1$.
+Với $S=\{A\}$, dùng $q_S=(1,0,0,0)^T$. Với $S=\{A,C\}$, dùng $q_S=(1/2,0,1/2,0)^T$. Trong từng trường hợp, giải $r=0.8Pr+0.2q_S$ cùng điều kiện $e^Tr=1$.
 :::
 
 ::: solution
@@ -439,17 +431,17 @@ Tổng các thành phần bằng $3/7+3(4/21)=1$. Với $S=\{A,C\}$, nghiệm l�
 
 $$r=\left(\frac{27}{70},\frac6{35},\frac{19}{70},\frac6{35}\right)^T.$$
 
-Tổng bằng $(27+12+19+12)/70=1$. Trong cả hai trường hợp, thay vector vào $r-0{,}8Pr=0{,}2q_S$ cho đúng phần dư dịch chuyển.
+Tổng bằng $(27+12+19+12)/70=1$. Trong cả hai trường hợp, thay vector vào $r-0.8Pr=0.2q_S$ cho đúng phần dư dịch chuyển.
 :::
 
 ![Đồ thị Hình 5.15, cùng cấu trúc với Hình 5.1, gồm bốn trang A, B, C, D và không đánh dấu tập dịch chuyển.](img/lec-04/hinh-5-1-trung-tinh.svg)
 
-Nguồn: MMDS Bài 5.3.1, trang in 199, PDF trang 25.
+Nguồn: [MMDS](http://www.mmds.org), Bài 5.3.1, trang in 199, PDF trang 25.
 
 ### 7.2 MMDS 5.4.2 — TrustRank và khối lượng rác
 
 ::: exercise
-Trên đồ thị Hình 5.1 theo thứ tự $(A,B,C,D)$, giả sử chỉ $B$ là trang tin cậy và $\beta=0{,}8$. PageRank cơ sở không hệ số giảm là
+Trên đồ thị Hình 5.1 theo thứ tự $(A,B,C,D)$, giả sử chỉ $B$ là trang tin cậy và $\beta=0.8$. G4 không có nút cụt nên $P=M_0$. Ma trận chuyển và PageRank nền với $\beta=1$ là
 
 $$P=\begin{bmatrix}0&1/2&1&0\\1/3&0&0&1/2\\1/3&0&0&1/2\\1/3&1/2&0&0\end{bmatrix},
 \qquad r=\left(\frac13,\frac29,\frac29,\frac29\right)^T.$$
@@ -458,11 +450,11 @@ Tính TrustRank của mỗi trang, rồi tính khối lượng rác. Sản phẩ
 :::
 
 ::: hint
-$q_T=(0,1,0,0)^T$ vì $T=\{B\}$. Giải $t=0{,}8Pt+0{,}2q_T$. Sau đó dùng $s_p=(r_p-t_p)/r_p$; giữ nguyên mọi giá trị âm.
+$q_T=(0,1,0,0)^T$ vì $T=\{B\}$. Giải $t=0.8Pt+0.2q_T$. Sau đó dùng $s_p=(r_p-t_p)/r_p$; giữ nguyên mọi giá trị âm.
 :::
 
 ::: solution
-Nghiệm của $t=0{,}8Pt+0{,}2q_T$ là
+Nghiệm của $t=0.8Pt+0.2q_T$ là
 
 $$t=\left(\frac{66}{245},\frac{263}{735},\frac{116}{735},\frac{158}{735}\right)^T.$$
 
@@ -479,52 +471,48 @@ Do đó
 
 $$s=\left(\frac{47}{245},-\frac{299}{490},\frac{71}{245},\frac{8}{245}\right)^T.$$
 
-Giá trị $s_B<0$ phản ánh TrustRank của hạt giống $B$ lớn hơn PageRank cơ sở; không kẹp giá trị này về $0$.
+Lưu ý quy ước của đề: $P$ là ma trận chuyển và $r$ là PageRank **không suy giảm ($\beta=1$)**, trong khi $t$ được tính với $\beta=0.8$ — đúng theo nguồn MMDS. Hai đại lượng dùng quy ước khác nhau, nên tỷ số $s_p$ chỉ mang tính minh họa phép tính. Giá trị $s_B<0$ phản ánh TrustRank của hạt giống $B$ lớn hơn PageRank cơ sở ($t_B>r_B$); không kẹp giá trị này về $0$.
 :::
 
-Nguồn: MMDS Bài 5.4.2, trang in 204, PDF trang 30.
+Nguồn: [MMDS](http://www.mmds.org), Bài 5.4.2, trang in 204, PDF trang 30.
 
 ### 7.3 MMDS 5.5.1 — HITS trên Hình 5.1
 
-::: exercise
-Tính điểm hub và điểm authority của các trang trong Hình 5.1. Với thứ tự $(A,B,C,D)$, ma trận liên kết hàng nguồn là
+**Đề (Bài 5.5.1, tr. 208/PDF 34):** tính điểm trung tâm $h$ và điểm thẩm quyền $a$ cho đồ thị **G4 (Hình 5.1)** — không phải G5 của ví dụ; cạnh C→A giữ nguyên, không có đỉnh E. Đồ thị G4: A→B,C,D; B→A,D; C→A; D→B,C.
 
-$$L=\begin{bmatrix}0&1&1&1\\1&0&0&1\\1&0&0&0\\0&1&1&0\end{bmatrix}.$$
+Ma trận kề hàng nguồn:
 
-Khởi tạo $h^{(0)}=e$, chuẩn hóa theo chuẩn vô cùng sau mỗi phép nhân. Báo hai vòng đầu và hai vector khi sai khác lớn nhất giữa hai vòng liên tiếp không quá $10^{-3}$.
-:::
+$$L_4=\begin{bmatrix}0&1&1&1\\ 1&0&0&1\\ 1&0&0&0\\ 0&1&1&0\end{bmatrix}$$
+
+**Sản phẩm:** hai vector $h,a$ chuẩn hóa theo phần tử lớn nhất (max 1) và cách tính (lặp hoặc giải ma trận). Gợi ý ngưỡng $\tau=.001$.
 
 ::: hint
-Mỗi vòng tính $a_{\text{thô}}=L^Th$, chuẩn hóa thành $a_{\text{mới}}$, rồi tính $h_{\text{thô}}=La_{\text{mới}}$ và chuẩn hóa. Giữ phân số trong hai vòng đầu để kiểm phép nhân.
+Cập nhật luân phiên: $a_{\text{thô}}=L_4^T h_{\text{cũ}}$, chuẩn hóa max; rồi $h_{\text{thô}}=L_4 a_{\text{mới}}$, chuẩn hóa max. Khởi $h_0=\mathbf{1}$, $a_0=\mathbf{0}$. Dừng khi cả hai chênh $L_\infty$ giữa hai vòng liên tiếp $\le\tau$.
 :::
 
 ::: solution
-Vòng đầu cho
+Hai vòng đầu:
 
-$$a^{(1)}=(1,1,1,1)^T,\qquad
-h^{(1)}=\left(1,\frac23,\frac13,\frac23\right)^T.$$
+| Vòng | $a_{\text{thô}}$ | $a$ | $h_{\text{thô}}$ | $h$ | Trạng thái |
+|---|---|---|---|---|---|
+| 1 | $(2,2,2,2)$ | $(1,1,1,1)$ | $(3,2,1,2)$ | $(1,\tfrac23,\tfrac13,\tfrac23)$ | cũ→mới |
+| 2 | $(1,\tfrac53,\tfrac53,\tfrac53)$ | $(\tfrac35,1,1,1)$ | $(3,\tfrac85,\tfrac35,2)$ | $(1,\tfrac8{15},\tfrac15,\tfrac23)$ | cũ→mới |
 
-Ở vòng hai, $L^Th^{(1)}$ tỷ lệ với $(3,5,5,5)^T$, nên
+Tiếp tục lặp, kết quả làm tròn 4 chữ số:
 
-$$a^{(2)}=\left(\frac35,1,1,1\right)^T.$$
+$$h \approx (1,\,.3919,\,.1028,\,.7108), \qquad a \approx (.2892,\,1,\,1,\,.8136).$$
 
-Phép nhân $La^{(2)}$ cho vector tỷ lệ với $(15,8,3,10)^T$, nên
+Trạng thái lặp: với $\tau=.001$, thuật toán dừng sau 11 vòng (chênh cuối $\approx .0007450739557$), cho
 
-$$h^{(2)}=\left(1,\frac8{15},\frac15,\frac23\right)^T.$$
+$$h \approx (1,\,.392369,\,.103046,\,.710676), \qquad a \approx (.289993,\,1,\,1,\,.814221);$$
 
-Lặp tiếp cho hai hướng gần đúng
-
-$$h=(1;\ 0{,}391944;\ 0{,}102775;\ 0{,}710831),$$
-
-$$a=(0{,}289169;\ 1;\ 1;\ 0{,}813607).$$
-
-Vì vậy $A$ có điểm hub lớn nhất, còn $B$ và $C$ có điểm authority lớn nhất.
+với $\tau=10^{-12}$, cần 43 vòng để tiến tới giới hạn nêu trên. Ngưỡng $\tau$ thay đổi điều kiện dừng và do đó số vòng lặp; giá trị sau 11 vòng chưa phải khẳng định về sai số tới nghiệm chính xác. Với hệ nhỏ như này, cách kiểm tra bằng giải hệ ma trận là hợp lệ.
 :::
 
-Nguồn: MMDS Bài 5.5.1, trang in 208, PDF trang 34.
+Nguồn: [MMDS](http://www.mmds.org), Bài 5.5.1, tr. 208/PDF 34.
 
 ## 8. Chọn mô hình
 
 Dùng PageRank theo chủ đề khi cần một điểm xếp hạng theo tập trang mẫu. Dùng TrustRank và khối lượng rác khi có tập hạt giống đã thẩm định và cần một tín hiệu chẩn đoán liên kết rác. Dùng HITS khi cần tách vai trò trang trung tâm khỏi trang thẩm quyền trên một đồ thị con truy vấn. Không phương pháp nào tự nó chứng minh chất lượng nội dung của một trang.
 
-Nguồn chính: [Mining of Massive Datasets](http://www.mmds.org), Chương 5, §5.3–5.5.
+Nguồn chính: [Mining of Massive Datasets](http://www.mmds.org), Chương 5, §5.3–5.5; đối chiếu phương pháp lũy thừa: Cornell INFO4300 (Ginsparg, 27/10/2009), [slide 10](https://courses.cit.cornell.edu/info4300_2009fa/slides/16.pdf).

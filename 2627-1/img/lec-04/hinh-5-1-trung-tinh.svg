@@ -1,16 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="430" viewBox="0 0 840 430" role="img" aria-labelledby="title desc">
-  <title id="title">Đồ thị Web gốc trong Hình 5.1</title>
-  <desc id="desc">Đồ thị có hướng: A trỏ đến B, C, D; B trỏ đến A, D; C trỏ đến A; D trỏ đến B, C. Không nút nào được đánh dấu là tập dịch chuyển hoặc tập tin cậy.</desc>
-  <defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#B15A2B"/></marker></defs>
-  <g fill="none" stroke="#B15A2B" stroke-width="5" marker-end="url(#arrow)">
-    <path d="M303 125 L507 125"/><path d="M530 160 C450 225 365 225 290 160"/>
-    <path d="M255 178 L255 272"/><path d="M290 165 L530 295"/>
-    <path d="M565 178 L565 272"/><path d="M517 330 L303 330"/>
-    <path d="M255 282 L255 178"/><path d="M600 295 C660 235 660 205 600 165"/>
-  </g>
-  <g fill="#edf4ff" stroke="#2F3E7A" stroke-width="5">
-    <circle cx="255" cy="130" r="48"/><circle cx="565" cy="130" r="48"/>
-    <circle cx="255" cy="330" r="48"/><circle cx="565" cy="330" r="48"/>
-  </g>
-  <g font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#2F3E7A" text-anchor="middle"><text x="255" y="143">A</text><text x="565" y="143">B</text><text x="255" y="343">C</text><text x="565" y="343">D</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 440" width="620" height="440" role="img" aria-labelledby="h51-t h51-d">
+  <title id="h51-t">Hình 5.1: đồ thị G4</title>
+  <desc id="h51-d">Đồ thị có hướng G4 với bốn đỉnh A, B, C, D và tám cạnh; các cạnh ngược chiều được vẽ bằng hai đường riêng biệt.</desc>
+  <defs>
+    <marker id="h51-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="440" fill="#edf4ff"/>
+  <path d="M 182,90 L 438,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="A" data-target="B" />
+  <path d="M 480,48 Q 310,-20 140,48" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="B" data-target="A" />
+  <path d="M 140,132 L 140,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="A" data-target="C" />
+  <path d="M 98,350 Q 0,220 98,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="C" data-target="A" />
+  <path d="M 480,132 L 480,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="B" data-target="D" />
+  <path d="M 522,350 Q 620,220 522,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="D" data-target="B" />
+  <path d="M 173.4,115.5 L 446.6,324.5" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="A" data-target="D" />
+  <path d="M 438,350 L 182,350" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="D" data-target="C" />
+  <circle cx="140" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="140" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">A</text>
+  <circle cx="480" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="480" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">B</text>
+  <circle cx="140" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="140" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">C</text>
+  <circle cx="480" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="480" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">D</text>
 </svg>
