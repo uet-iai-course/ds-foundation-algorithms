@@ -362,3 +362,70 @@ Sai khác giữa hai nghiệm: $\tfrac{1}{N(1+\beta)}$ — đây là tác độn
 | MT4 | `lec04-s05-11` | nêu đúng hướng cập nhật luân phiên HITS |
 | MT5 | `lec04-s06-04` | chọn đúng mô hình cho tình huống tích hợp |
 | MT4 (HITS G4 riêng) | `lec04-s07-03` | chạy lặp HITS đến hội tụ trên G4 |
+
+
+## Giai đoạn ghi chú và thực hành ngày 24/09/2026
+
+### 1. Goal
+Hoàn thiện ghi chú tự học và xây dựng bài thực hành Python cho Lecture 04, giúp sinh viên năm 3 tính, kiểm chứng và so sánh PageRank theo chủ đề, TrustRank/khối lượng rác và HITS.
+
+### 2. Vấn đề trung tâm
+Đồ thị liên kết thưa cần xếp hạng theo ngữ cảnh, giảm tác động của liên kết rác và phân biệt hai vai trò trang. Người học chuyển đặc tả thành phép quét cạnh, đối chiếu vết chạy tay và diễn giải đúng kết quả; đồ thị nhỏ dùng kiểm chứng công thức, không đo hiệu năng web.
+
+### 3. Bằng chứng hoàn thành
+- Ghi chú đủ nhu cầu, đặc tả, ví dụ, lập luận đúng, chi phí, giới hạn và tự kiểm trong phạm vi MMDS §5.3–5.5; đọc độc lập với slide.
+- Ba bài nguồn giữ đúng dữ kiện và yêu cầu; hướng dẫn lập trình, thời lượng, ngưỡng dừng và mã ghi rõ do môn biên soạn.
+- Python thư viện chuẩn tái lập các nghiệm phân số, hai vòng HITS và trạng thái dừng; có khung HITS cho sinh viên và kiểm tra tự chạy.
+- Bài thực hành có dữ kiện, lệnh, sản phẩm, tiêu chí đối chiếu và hướng dẫn gập mặc định; tổng 60 phút.
+- Năm báo cáo độc lập, quyết định xử lý và kiểm định số bằng oracle độc lập được lưu trong nhật ký.
+- Viewer trên màn hình rộng/hẹp, công thức, hình, liên kết, bàn phím, in và index đạt; commit được đẩy lên origin/main.
+
+### 4. Đầu ra
+`materials/lec-04/lecture-note.md`, `materials/lec-04/exercises.md`; `materials/lec-04/code/link_analysis.py`, `hits_student.py`, `check_practice.py`, `practice-README.md`; ba tệp quy trình và tài nguyên thực hành ở `2627-1/index.html`. Dùng lại SVG Lecture 04 đã kiểm định; không cần SVG mới. Không sửa deck, CSS hay viewer nếu không phát hiện lỗi dùng chung liên quan.
+
+### 5. Đối tượng và tiên quyết
+Sinh viên năm 3 theo yêu cầu cụ thể đã áp dụng cho Lecture 04; biết Python, đồ thị có hướng, ma trận–vector, xác suất và Bài 03. Khôi phục ký hiệu $P:=S_{\text{Bài03}}$, tập $S$, hướng ma trận, chuẩn $L_1$ và chuẩn max. Không giả định biết định lý điểm bất động Banach, hệ phân tán hoặc thư viện xử lý đồ thị.
+
+### 6. Phạm vi nguồn
+| Nguồn | Phần | Vai trò |
+|---|---|---|
+| `sources/source.md` | Bài đề xuất 4, buổi gốc 5 | Phạm vi, mục tiêu, hoạt động cài HITS |
+| MMDS 3e chương 5 | §5.3–5.5; Hình 5.1/5.15/5.18 | Đặc tả, dữ kiện, ví dụ, bài tập |
+| MMDS bài tập | 5.3.1 tr.199/PDF25; 5.4.2 tr.204/PDF30; 5.5.1 tr.208/PDF34 | Ba đề gốc |
+| MMDS slide linkanalysis1/2 | Các cụm đã ánh xạ và đối chiếu ở giai đoạn deck | Trực giác, cách biểu diễn; sách chốt chuẩn max |
+| Stanford CS246 `10-spam.pdf` | Topic-sensitive PageRank, link spam, TrustRank | Đối chiếu cơ chế và giới hạn lựa chọn hạt giống |
+| Cornell INFO4300, Ginsparg, 27/10/2009 | Slide 10, phương pháp lũy thừa | Căn cứ đối chiếu cho phác thảo hội tụ HITS đã có |
+
+### 7. Bản đồ chủ đề
+| ID | Chủ đề / nhãn | Mục tiêu và đầu vào | Đầu ra / phần sau | Nguồn, quyết định |
+|---|---|---|---|---|
+| `lec04-note-01` | Mục tiêu, đường học, ký hiệu / cầu nối | PageRank Bài03 | Phân biệt $P,L,S,q_S$; vào TSP | Bài03, MMDS5.3; giữ và thêm bảng tra |
+| `lec04-note-02` | PageRank theo chủ đề / cốt lõi | Phân phối và đồ thị thưa | Tính $r$, bất biến, co, phối hợp; nền TrustRank | MMDS5.3; giữ, giải thích rõ chứng minh co |
+| `lec04-note-03` | Cụm thao túng / cốt lõi | Cân bằng PageRank | Giải $y$, phân biệt chính xác/xấp xỉ; nhu cầu hạt giống | MMDS5.4.1–2; giữ |
+| `lec04-note-04` | TrustRank và khối lượng rác / cốt lõi | TSP và mô hình thao túng | Tính $t,s$, phân biệt tín hiệu với kết luận phân loại | MMDS5.4.3–5; giữ |
+| `lec04-note-05` | HITS / cốt lõi | Đồ thị và ma trận Boolean | Hai vector, vết, hội tụ theo hướng, chi phí | MMDS5.5, Cornell slide10; giữ |
+| `lec04-note-06` | So sánh và chọn mô hình / cầu nối | Kết quả bốn cụm trên | Chọn mô hình và kiểm điều kiện áp dụng | Tổng hợp từ MMDS5.3–5.5; giữ hai bảng dễ đọc |
+| `lec04-note-07` | Ba bài tập và triển khai / cốt lõi | Đặc tả và vết chạy tay | Sản phẩm lập trình kiểm chứng đúng đề nguồn | MMDS5.3.1,5.4.2,5.5.1; thêm thực hành riêng |
+
+Đồ thị tiên quyết: 01→02→03→04; 01→05; (02,03,04,05)→06→07. Trong thực hành, đề 5.3.1→5.4.2 dùng lại bộ lặp; đề 5.5.1 thay cả hướng cộng và chuẩn hóa.
+
+### 8. Chủ đề bổ sung đề xuất
+- Đưa vào: mục tiêu/đường học/bảng ký hiệu để người học tự định hướng, nhãn phân biệt hai ma trận và các số trùng từ nguồn; vị trí sau mở đầu.
+- Đưa vào: bước bất đẳng thức tam giác theo từng phần tử và biểu diễn chuỗi hình học của nghiệm TSP, là suy diễn từ phương trình MMDS §5.3.2 với $P$ cột tổng 1 và $0<\beta<1$, để không phải giả định đã biết định lý Banach; vị trí §2.4.
+- Đưa vào: hướng dẫn lập trình và khung HITS trên ba bài nguồn; lấp khoảng trống từ giả mã đến mã thực thi trong yêu cầu mới.
+- Loại khỏi đợt này: thêm Jaccard suy luận chủ đề, mở rộng TrustRank, Perron–Frobenius đầy đủ, dữ liệu trích dẫn mới; không cần để đạt mục tiêu đã chốt. Không thêm mục đọc thêm chỉ để dài tài liệu.
+
+### 9. Khuôn trình bày
+02/04/05: nhu cầu→đặc tả→ví dụ→trực quan→phát biểu bảo đảm→thuật toán→chứng minh→chi phí/giới hạn→kiểm tra. 04 dẫn lại chứng minh 02, không lặp. 03: nhu cầu→mô hình→hình→suy diễn→giới hạn→kiểm tra; thuật toán lặp riêng không áp dụng vì đây là giải phương trình cân bằng. 01/06/07 là định hướng/tổng hợp/luyện tập nên không tạo định lý và chứng minh rỗng.
+
+### 10. Ngoài phạm vi
+Không viết lại slide, không tạo notebook, không dùng thư viện ngoài Python chuẩn, không lấy dữ liệu web mới, không đo hiệu năng và không thay dữ kiện MMDS. Không khởi tạo `quill.json`. Không sửa tài liệu bài khác, `.env` hoặc các thay đổi người dùng đang có.
+
+### 11. Rủi ro và điểm cần duyệt
+Giữ các giá trị bằng nhau có ý nghĩa trong nguồn và gắn nhãn vai trò. Đề 5.4.2 dùng PageRank nền $\beta=1$ còn TrustRank $\beta=4/5$; không âm thầm dùng baseline khác. HITS có ba trạng thái và chuẩn max; $\tau$ chỉ đo độ thay đổi. Bài thực hành 60 phút là cách triển khai ba bài nguồn, không cộng thêm 60 phút vào deck 120+60 đã có. Mọi quyết định trong phạm vi được điều phối viên chấp nhận; không còn thiếu nguồn cần hỏi người dùng.
+
+### 12. Kế hoạch tác tử
+Reader `plan` và `source` chạy song song, reader `topic` riêng; đều `z-ai/glm-5.3-flash`, OpenRouter, chế độ JSON. Điều phối viên hợp nhất trước writer. Writer note rồi writer code/thực hành chạy tuần tự trong thư mục tạm. Năm reviewer độc lập chạy song song; editor sau hợp nhất; rà lại toán và mạch nếu sửa tương ứng. Điều phối viên kiểm số/CLI/viewer, áp dụng tệp đã đạt, thêm index, commit/push.
+
+### 13. Trạng thái
+Sẵn sàng soạn: nguồn và phạm vi đã đủ; điều phối viên duyệt ngày 24/09/2026. Đây là cổng soạn, chưa phải kết luận kiểm định hay bàn giao.

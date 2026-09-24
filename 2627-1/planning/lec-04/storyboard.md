@@ -990,3 +990,30 @@ Giữ nguyên 51 ID, thứ tự, mục tiêu, thời lượng và dữ kiện ng
 | s07-01…03 | Đồ thị trái 35%, đề và bảng trả lời phải 65%; ma trận $L_4$ nằm trong notes | Đồ thị đủ dữ kiện để tự dựng ma trận, tránh quá tải đề; giữ nguyên yêu cầu và bài tập MMDS. |
 
 Hình G4/G5 được vẽ lại một lần và dùng chung, giữ ổn định vị trí đỉnh và đúng tám cạnh. Hình 5.16 vẫn có ba vùng; không tự thêm cạnh từ vùng không thể tác động sang vùng giữa. Bảng 5.17 và bài tập 5.4.2 tiếp tục giữ hai thiết lập của nguồn ($r$ với $\beta=1$, $t$ với $\beta=4/5$). Các phân số bằng nhau do cấu trúc được giữ nguyên và phân biệt bằng nhãn, không đổi dữ kiện nguồn.
+
+
+## Ghi chú và bài thực hành — 24/09/2026
+
+Giai đoạn này dùng nguyên 51 mã trang chiếu ở trên; không thêm slide. Các mã chủ đề dưới đây áp dụng cho tài liệu tự học và thực hành. Thứ tự định nghĩa trước ví dụ là chu trình của ghi chú, không phải thay đổi chu trình trực giác trước hình thức hóa của slide.
+
+| `note-topic-id` | Vị trí và vai trò | Kiến thức vào → sản phẩm ra | Thành phần áp dụng và kết nối |
+|---|---|---|---|
+| `lec04-note-01` | Mở đầu, bảng ký hiệu, §1; định hướng | PageRank Bài03 → phân biệt $P,L,S,q_S,q$ | Mục tiêu, tình huống và cầu nối; không áp dụng định lý/thuật toán riêng. Dẫn vào §2; bảng tra giúp sinh viên năm3 nhận biết ký hiệu cũ đổi vai trò. |
+| `lec04-note-02` | §2; mô hình theo chủ đề | Phân phối, đồ thị → đặc tả và cài TSP | Nhu cầu→đặc tả→G4→dòng khối lượng→bất biến/co→giả mã thưa→chứng minh→chi phí→tự kiểm. Chuỗi hình học giải thích tồn tại mà không cần tiên quyết Banach. Chuyển công cụ sang §3 và §4. |
+| `lec04-note-03` | §3; giải thích thao túng | Cân bằng PageRank → nghiệm chính xác và xấp xỉ | Mô hình→SVG5.16→phương trình $z,y$→suy diễn→giới hạn→tự kiểm; không có thuật toán lặp mới. Đầu ra là động lực dùng hạt giống tin cậy ở §4. |
+| `lec04-note-04` | §4; tín hiệu tin cậy | Công cụ §2 và nguy cơ §3 → $t,s$ | Đặc tả→chọn hạt giống→tỷ số→Ví dụ5.12→giới hạn→tự kiểm. Dẫn lại bất biến/co §2; nhãn hai $\beta$ đứng ngay cạnh dữ kiện. Chuyển sang giới hạn của một điểm và hai vai trò HITS. |
+| `lec04-note-05` | §5; hai vai trò | Ma trận kề và cộng theo cạnh → cài HITS | Vai trò→đặc tả cộng→G5 hai vòng→giả mã→điều kiện đủ/phác thảo→chi phí→tự kiểm. Giữ bảng/vết gần phép tính; chuyển sang so sánh §6. |
+| `lec04-note-06` | §6 và §8; chọn mô hình | Các kết quả §2–5 → lựa chọn có điều kiện | Hai bảng ngắn và kết luận ứng dụng; không tạo chứng minh mới. Đầu ra của §6 dùng giải bài §7; §8 thu hồi ba giới hạn mở đầu và dẫn thực hành. |
+| `lec04-note-07` | §7 và `exercises.md`; luyện tập | Đặc tả và vết → sản phẩm Python/giải thích | Ba đề nguồn, gợi ý và lời giải gập; phần thực hành tách đề gốc với hướng dẫn của môn, cung cấp lệnh và tiêu chí. G4 dùng xuyên ba nhiệm vụ; G5 chỉ là kiểm ví dụ HITS, không đổi đề5.5.1. |
+
+### Bản đồ thực hành 60 phút
+
+| Thời lượng | Nguồn / dữ kiện | Hoạt động và sản phẩm | Bố trí tài liệu và lý do |
+|---|---|---|---|
+| 5 phút | G4, MMDS Hình5.1/5.15 | Chuẩn bị Python3, lưu các tệp chung thư mục, đọc danh sách cạnh | Danh sách tệp→lệnh→dữ kiện; tránh để sinh viên tự đoán môi trường hoặc đường dẫn. |
+| 15 phút | Bài5.3.1 tr.199/PDF25: $S=\{A\}$ và $S=\{A,C\}$, $\beta=4/5$ theo ví dụ | Chạy TSP, kiểm tổng1, đối chiếu hai nghiệm, giải thích dịch chuyển | Đề→lệnh→sản phẩm→khối gợi ý/đối chiếu gập. Hai tập được đặt nhãn riêng, giữ mọi phân số nguồn. |
+| 15 phút | Bài5.4.2 tr.204/PDF30: $T=\{B\}$; baseline $\beta=1$, Trust $4/5$ | Dùng lại bộ lặp; tính/diễn giải mass âm | Bảng hai cấu hình ngay trước lệnh; tránh lẫn PageRank nền với TrustRank. Sản phẩm $t,s$ và giải thích $s_B<0$. |
+| 20 phút | Bài5.5.1 tr.208/PDF34, G4 | Tự cài `hits_step`, kiểm hai vòng, chạy HITS và đối chiếu trạng thái dừng | Khung hàm→hai phép cộng→kiểm tự chạy→kết quả. Tách HITS khỏi vector xác suất; kiểm G5 được ghi rõ là kiểm chương trình theo Ví dụ5.14. |
+| 5 phút | Tổng hợp ba bài | Nộp mã HITS và báo cáo ngắn, đọc tiêu chí kiểm | Checklist sản phẩm cụ thể; không dùng tốc độ trên G4 để kết luận khả năng mở rộng. |
+
+Tổng 60 phút là hình thức thực hành của ba bài nguồn đã có, không bổ sung một recitation 60 phút nữa vào deck. Đề gốc không đổi dữ kiện hoặc yêu cầu toán học; lệnh, mã, khung hàm, dung sai và bảng sản phẩm là cách tổ chức thực hành do môn biên soạn. Chi phí dùng cùng mô hình thưa $\Theta(n+m)$ mỗi vòng; không lập ma trận tích HITS trong mã thực hành.

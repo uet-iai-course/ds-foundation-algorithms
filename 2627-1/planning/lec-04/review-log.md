@@ -478,3 +478,97 @@ Các lượt reviewer hết thời hạn, chạm giới hạn công cụ hoặc 
 - Codex Slides project `20260827161616-b-i-4-pagerank-theo-ch-spam-li-n-k-t-v-h-urwd` đọc được bằng CLI, giữ đủ bảy nguồn/tài sản. Project vẫn ở trạng thái `draft`, workflow `clarify`, `pages=[]`, `outline=[]`; không có Browser callable nên không tuyên bố đã kiểm trực quan trong Codex Slides. Kiểm định trực quan dùng Chromium trên đúng HTML phát hành.
 
 Kết luận: không còn lỗi chặn, nghiêm trọng hoặc trung bình; bộ trang chiếu, ghi chú, planning, viewer và index Bài 04 đồng bộ và đủ điều kiện commit/push.
+
+
+## 24/09/2026 — Tiếp nhận goal ghi chú và thực hành Lecture 04
+
+Dùng `2627-1/planning/lec-04/storyboard.md` hiện hành làm căn cứ; deck đã hoàn tất được giữ nguyên. Mở đợt kiểm định riêng cho ghi chú và thực hành. Đã dùng `quill` để rà liên tục khái niệm (không tạo dự án sách) và `no-ai-slop` để biên tập; bản đồ chủ đề và Goal brief ở outline.
+
+Ba worker chỉ đọc `plan`, `source`, `topic` có `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`. Bản JSON và log nằm trong `/tmp/ds-lecture04-practical-20260924/jobs/`; các quyết định bền vững dưới đây không phụ thuộc tệp tạm.
+
+| Đề xuất / bằng chứng | Quyết định của điều phối viên |
+|---|---|
+| Planner nêu bảng so sánh bị cắt ở dòng400 | Bác: toàn bộ note có 518 dòng; bảng thứ hai ở phần6 bao phủ khối lượng rác/HITS. Giữ hai bảng để dễ đọc trên màn hình hẹp. |
+| Source reader đề nghị đổi $s_C,s_D$ thành $69/245,6/245$ | Bác bằng Fraction và đại số độc lập: phép đổi $2/9=162/735$ của reader sai. Kết quả đúng $s_C=1-(116/735)(9/2)=71/245$, $s_D=1-(158/735)(9/2)=8/245$. Giữ $s_B=-299/490$. |
+| Planner nhầm lỗi slide26 sang Cornell và một số trang bài tập sang trang mục lý thuyết | Bác nhãn nguồn sai: lỗi ma trận stochastic ở MMDS linkanalysis2; Cornell chỉ đối chiếu slide10. Trang bài tập chốt199/204/208. |
+| Mở đầu, bảng ký hiệu, phép co chi tiết và link thực hành | Giữ/thêm cục bộ; không viết lại toàn bộ note. |
+| Gộp cụm thao túng thành cầu nối thuần túy, thêm Jaccard/TrustRank sâu | Bác: phân tích cụm thao túng là cốt lõi mục tiêu bài; các mở rộng không cần cho goal này. |
+| Thực hành ba bài nguồn, khung cài HITS và mã tham chiếu | Duyệt: dùng G4; G5 chỉ kiểm ví dụ. Đề nguồn không đổi; bước lập trình và dung sai là biên soạn của môn. |
+
+Phạm vi tác động dùng chung: chỉ làm rõ chứng minh TSP, không đổi phương trình, giả thiết, số liệu hay thứ tự khái niệm của deck; rà đối chiếu phần TSP của deck khi kiểm định cuối. Giữ các ví dụ trùng số có căn cứ và phân biệt bằng nhãn đại lượng, đồ thị và vòng.
+
+
+### Năm báo cáo độc lập cho ghi chú và thực hành
+
+Cả năm báo cáo được nhận trước khi giao editor. Runtime: `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`. Báo cáo gốc: `review-student-retry`, `review-expert-retry`, `review-math-retry`, `review-teaching-retry`, `review-continuity`; một báo cáo chuyên gia bổ sung `review-expert-scope` xác nhận đủ phạm vi. Bảng dưới lưu các kết luận và bằng chứng cần thiết của từng vai, cùng quyết định điều phối; mức độ được quy về bốn mức của kho.
+
+Các lượt đầu của bốn vai sinh viên/chuyên gia/toán/giảng dạy có lỗi `model returned an empty or incomplete answer after all retries`. Không dùng các lượt lỗi làm báo cáo đạt; giữ giai đoạn phụ thuộc và chạy lại cùng mô hình với phạm vi riêng, không đổi worker mặc định. Các báo cáo hoàn tất nêu rõ chỉ kiểm tĩnh; kiểm thực thi và trình duyệt thuộc điều phối viên.
+
+| Vai | Mức độ | Vị trí | Vấn đề và bằng chứng | Quyết định sửa |
+|---|---|---|---|---|
+| Sinh viên | Nghiêm trọng | Bài thực hành, liên kết đầu/cuối và mã | Tiền tố `../../` thoát khỏi gốc viewer; kiểm HTTP thực tế trả404 | Bỏ tiền tố; dùng đường dẫn từ `2627-1/`, nhãn liên kết ngắn; kiểm lại toàn bộ |
+| Sinh viên | Trung bình | HITS, đề và vết | G4 bốn tọa độ bị gán cho Ví dụ5.14/Hình5.18 vốn làG5 | Tách đềG4 và ví dụG5; nguồn vếtG4 là lời giải do môn tính |
+| Sinh viên | Trung bình | TrustRank, hướng dẫn | Câu “thiếu lập nguồn” không có nghĩa; hint vừa bảo chạy hai lần vừa bảo baseline có sẵn | Viết một luồng lệnh `trust`, bảng hai thiết lập và sản phẩm rõ |
+| Sinh viên | Nhẹ | HITS khởi tạo; dữ kiện TSP | $h_1$ thay vì $h_0$; đáp án lộ trước nhiệm vụ | Thống nhất $h_0$; đưa nghiệm vào lời giải gập |
+| Chuyên gia giải thuật/KHDL | Nghiêm trọng | Nhãn G5 và đối chiếu HITS | G5 bị gọi Hình5.15; vết G4 bị gán cho G5 | Sửa nhãn thành Hình5.18; giữ dữ kiện số đúng |
+| Chuyên gia giải thuật/KHDL | Trung bình | TrustRank và mốc lặp HITS | Chỉ dẫn hai lệnh với hai $\beta$ mâu thuẫn với chương trình; chỉ số khởi tạo lệch | Dùng baseline cố định của nguồn và TrustRank $4/5$; thống nhất chỉ số |
+| Chuyên gia giải thuật/KHDL | Nhẹ | Bài1, đáp án | Nghiệm đặt trước nhiệm vụ làm mờ hoạt động tự kiểm | Chuyển lời giải vào khối gập; yêu cầu lập $q_S$ và một phương trình tọa độ |
+| Toán–thuật toán | Chặn bàn giao (điều phối viên nâng mức) | `check_practice.py` | Reviewer phát hiện loader không tách bộ sinh viên; chạy thật cho `Ran 0 tests`, exit5 | Chọn rõ ba TestCase tham chiếu, riêng TestCase sinh viên; bắt trạng thái chưa cài, không bỏ qua kiểm tra |
+| Toán–thuật toán | Trung bình | HITS và `spam_mass` | $h_1$ khởi tạo sai; đầu vào $r<0$, NaN/inf lọt qua dù đặc tả đòi $r>0$ hữu hạn | Sửa chỉ số, kiểm miền và hữu hạn; giữ mass âm hợp lệ |
+| Toán–thuật toán | Trung bình | `tol`, nhánh max0 | `tol=inf/True` được nhận; nhánh HITS trả một vector chưa bằng0 | Kiểm tham số, trả hai vector0 nhất quán |
+| Toán–thuật toán | Trung bình | `run_student` | Reviewer coi vòng lặp là thừa; chạy thật cho lỗi unpack tuple2 thành3 | Xóa vòng lỗi; phân biệt chưa cài với cài sai số |
+| Toán–thuật toán | Nhẹ | Helper `hits_step` | Đề nghị kiểm đầu vào lại ở mỗi lần gọi | Không áp dụng: helper ghi rõ tiền điều kiện; hàm `hits` kiểm một lần. Kiểm bộ sinh viên theo hợp đồng đó |
+| Toán–thuật toán | Nhẹ | Kiểm hết ngân sách | Reviewer đề nghị đồng nhất tol ở mọi kiểm max_iter1 | Không bắt buộc: cảhai ngưỡng kiểm cùng trạng thái; báo cáo CLI ghi đúng tham số từng lần |
+| Phản biện giảng dạy | Trung bình | Cụm thao túng §3.4 | Cụm “phương trình cân bằng” có thể bị đọc thành phương trình $z$ | Nêu rõ phương trình của $y$ tại trang đích; không đổi công thức đúng |
+| Phản biện giảng dạy | Trung bình | TSP §2.3 | Bảng ghi nghiệm giải hệ nhưng thiếu một phương trình tọa độ làm cầu nối | Thêm phương trình của B trước nghiệm; giữ hệ vector và số cũ |
+| Phản biện giảng dạy | Trung bình | Bài thực hành | Nhãn G5, chỉ số HITS, hướng dẫn Trust và đáp án sớm làm khó tự học | Hợp nhất với sửa của sinh viên/chuyên gia; giữ thời lượng5+15+15+20+5 |
+| Kết nối, nguồn và mạch viết | Chặn bàn giao | Bộ kiểm mặc định | Nhận định lỗi loader đúng hướng; giải thích “nạp cả lớp sinh viên” không khớp thực thi0test | Giữ lỗi cần sửa nhưng dùng bằng chứng chạy thật, không lưu kết luận discovery sai làm căn cứ |
+| Kết nối, nguồn và mạch viết | Trung bình | Trạng thái khung HITS | Mọi lỗi bị diễn giải “chưa hoàn thiện” dù có thể là kết quả sai | Báo riêng NotImplementedError; các lỗi số hiện qua phép kiểm tương ứng |
+| Kết nối, nguồn và mạch viết | Nhẹ | Ký hiệu $q,N$ và bảng $\beta$ | Đổi tên $m,n$ của sách chưa được nói; $\beta=1$ nằm ngoài miền co | Thêm một câu đổi ký hiệu; gọi $\beta$ là hệ số theo liên kết, ghi ngoại lệ baseline nguồn |
+| Kết nối, nguồn và mạch viết | Nhẹ | HITS G4 vòng2 | Đề nghị $a_{2,A}=2/5$ do bỏ cạnh C→A; kéo theo các điểm khác sai | Bác sau kiểm chứng; giữ $a_{2,A}=3/5$: $a_{\text{thô},A}=h_B+h_C=2/3+1/3=1$, chia $5/3$. Oracle Fraction/ma trận độc lập và reviewer toán cùng xác nhận |
+| Kết nối, nguồn và mạch viết | Nhẹ | Cornell slide10 | Tên tệp `16.pdf` bị coi là số trang10 không khớp | Bác sau đối chiếu: tên tệp là số bài, không phải số slide; giữ tham chiếu chính xác đã kiểm nguồn |
+
+Kết luận thống nhất về phạm vi: ghi chú đã phủ TSP, cụm thao túng, TrustRank/khối lượng rác, HITS, so sánh và chọn mô hình; thực hành có nhiệm vụ cài thuật toán thật ở `hits_step`. Không cần thêm dataset hay thuật toán ngoài nguồn.
+
+### Phát hiện bổ sung của điều phối viên
+
+Kiểm tĩnh và thực thi tìm thêm: công thức HITS ở bài thực hành gọi tổng thô là điểm đã chuẩn hóa; $\beta$ bị gọi là “hệ số nhảy”; hướng dẫn bài5.4.2 ghi sai “chỉ phần(b)”; kết luận mass âm bị suy thành khả năng rác dưới trung bình; gộp cạnh bằng tìm trong list và lập phân phối bằng tìm trong danh sách hạt giống có thể gây chi phí bậc hai. Các điểm này được đưa vào đặc tả editor. Giữ phương trình và số đúng trong note/deck; chỉ sửa phần minh họa triển khai và lời diễn đạt sai.
+
+Kiểm thực thi draft: oracle độc lập đạt các vết và nghiệm, lỗi ở miền `spam_mass`; bộ bổ sung đạt78/91, xác nhận13 lỗi về `tol`, `spam_mass` và bộ kiểm. Bản khung chưa làm phải thất bại có thông báo; lời giải HITS độc lập dùng ma trận Boolean phải đạt, hai bản sai dùng thẩm quyền cũ hoặc chuẩn tổng phải bị từ chối. Đây là bằng chứng trước sửa, chưa phải kết luận phát hành.
+
+### Sửa cuối và rà lại phần thay đổi
+
+- Hai editor `edit-code`, `edit-text` sửa tuần tự trong thư mục tạm, dùng `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`. Không có hai writer sửa cùng tệp đồng thời.
+- Ghi chú bổ sung mục tiêu đọc, đường học, bảng ký hiệu, phương trình tọa độ tại B và chứng minh phép co bằng chuẩn $L_1$. Chuỗi hình học chứng minh tồn tại điểm bất động; phép co chứng minh duy nhất và chặn sai số. Không đòi người đọc biết định lý Banach. Cụm thao túng ghi rõ miền của tham số, phép đổi ký hiệu của sách và phương trình của $y$ dùng trong xấp xỉ.
+- Thực hành giữ ba đề MMDS 5.3.1, 5.4.2, 5.5.1 và dữ kiện G4; G5 chỉ đối chiếu Ví dụ 5.14. Phần lập trình, thời lượng, dung sai, khung HITS và tiêu chí nộp là biên soạn của học phần. Định dạng JSON được giải thích trước lệnh đầu tiên; lời giải nằm trong khối gập; mọi liên kết dùng gốc của viewer.
+- Mã dùng danh sách kề, quét cạnh và chuẩn hóa cực đại theo từng nửa bước HITS. Bù cụt đều được tách khỏi phân bố hạt giống. Kiểm tham số hữu hạn, giá trị Boolean, hạt giống, cạnh trùng, miền của tỷ số khối lượng rác và trường hợp không cạnh. Không dùng ma trận đặc hoặc lưu toàn bộ lịch sử lặp trong mã tham chiếu.
+- Bộ kiểm chọn tường minh 15 phép thử tham chiếu và 3 phép thử khung sinh viên. Khung chưa cài trả thông báo riêng và mã thoát 1; lời giải sai phải hiện phép kiểm thất bại. Điều phối viên sửa hai dữ kiện kiểm mới bị sai: so số thực bằng dung sai thay vì bằng đúng; đồ thị hai nút không cạnh, $S=\{A\}$ và $\beta=4/5$ cho $(0.6,0.4)$ vì bù cụt đều và dịch chuyển theo hạt giống là hai phần khác nhau.
+- Reviewer `final-math` rà lại chứng minh, phương trình, HITS, các hàm và bộ kiểm: không còn lỗi trong phạm vi được giao. Reviewer `final-continuity` đọc toàn bộ bản ghi chú 590 dòng và thực hành 342 dòng: mạch, ký hiệu, nguồn, liên kết, vị trí lời giải và tổng 60 phút nhất quán. Cả hai có metadata mô hình hợp lệ như trên. Phần G5 và số vòng dừng nằm ngoài trích đoạn của lượt rà toán cuối được kiểm bằng oracle độc lập bên dưới.
+- Biên tập theo `no-ai-slop/eval.md`: không thêm mệnh đề thiếu nguồn, bỏ lời dẫn rỗng và câu kết lặp; ưu tiên động từ cụ thể. Rà theo `quill` xác nhận chuỗi TSP → cụm thao túng → TrustRank/khối lượng rác → HITS → so sánh và bài tập; không tạo `quill.json`.
+
+### Kiểm định bản công bố ngày 24/09/2026
+
+| Phạm vi | Bằng chứng cuối | Kết quả |
+|---|---|---|
+| Số liệu và thuật toán | Oracle dùng Fraction, giải hệ độc lập và ma trận Boolean; 6 nhóm kiểm API | 6/6 nhóm đạt; nghiệm, vết, khối lượng rác, G4/G5 và điều kiện dừng đúng |
+| Bộ kiểm phát cho sinh viên | `python3 check_practice.py` | 15/15 phép thử tham chiếu đạt |
+| Hành vi chương trình | CLI, đầu vào biên, tính bất biến của đầu vào, cạnh/hạt giống trùng, bộ chấm và trạng thái dừng | 90/90 kiểm tra bổ sung đạt |
+| Khả năng phân biệt bài làm | Lời giải sinh viên độc lập dùng ma trận Boolean; hai bản sai dùng thẩm quyền cũ hoặc chuẩn tổng | Lời giải đúng đạt 3/3; hai bản sai bị từ chối; khung chưa cài trả mã thoát 1 đúng thiết kế |
+| Viewer và index | Chromium tại $1440\times900$ và $390\times844$, 140 kiểm tra | 140/140 đạt; không lỗi console, trang, request, ảnh hoặc liên kết cục bộ |
+| Công thức | Ghi chú 514 phần tử KaTeX; thực hành 111 phần tử | 0 lỗi KaTeX; không sót dấu phân cách toán |
+| Màn hình hẹp | Kiểm kích thước trang và chụp phần HITS/chứng minh | Không tràn ngang trang; bảng, mã và công thức dài cuộn trong khung riêng của viewer |
+| Bàn phím và bản in | Enter mở/đóng gợi ý, lời giải; Tab và Enter mở cả ba tài nguyên Bài 04; xuất PDF hai tài liệu | Khối gập đóng mặc định, mở khi in và phục hồi sau in; điều hướng đúng tài liệu |
+
+Bản kiểm định được phục vụ tại `http://127.0.0.1:8768/2627-1/` trong thư mục tạm có cùng tài nguyên cốt lõi với kho. Chỉ sau khi đạt các kiểm tra mới chép sáu tệp tài liệu/mã và index vào kho. So byte và SHA-256 xác nhận bản công bố trùng bản đã kiểm. Hình SVG hiện có được dùng lại, không cần hình mới. Không đổi viewer, CSS chung hoặc nội dung deck; không phát sinh phạm vi kiểm hồi quy giao diện ở Lecture 02/03. Đối chiếu deck xác nhận không đổi định nghĩa, giả thiết, ví dụ số, kết luận hay thứ tự khái niệm chung; phần phép co chỉ mở rộng lập luận trong ghi chú.
+
+SHA-256 của hai nguồn Markdown: `lecture-note.md` = `0ce7643366402efff2900c8d21723604fbc94f6ad71d8ad4a5b26047c393c6b3`; `exercises.md` = `525214cdc4f000f432100281e752748904ec8ff5b62504d70e71ce630b348c9d`. Bản kiểm định chi tiết nằm tại `/tmp/ds-lecture04-practical-20260924/verify/`; các kết luận và quyết định cần lưu lâu dài đã ghi ở đây.
+
+Kết luận nội dung: đã xử lý mọi lỗi chặn bàn giao, nghiêm trọng và trung bình của đợt này. Bài thực hành có 60 phút học liệu, mã tham chiếu, khung cài HITS, bộ kiểm và tiêu chí nộp; ghi chú mở rộng đủ lập luận tự học; index có liên kết tới cả hai tài liệu.
+
+### Hoàn tất tải ảnh Codex Slides sau khi được cấp quyền
+
+Ngày 24/09/2026, người dùng cho phép tải 51 ảnh đã kiểm định vào dự án `20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu`. Đã tải đủ qua công cụ MCP chính thức: 51/51 trang có trạng thái `rendered`, tiêu đề khớp manifest; 51/51 endpoint ảnh trả HTTP 200 và SHA-256 khớp ảnh nguồn. Đây là ảnh của deck đã bàn giao trước đợt làm tài liệu, không thay nội dung deck trong goal này.
+
+Phiên bản hiện tại `v51` (`07ae3dee-6c24-4e93-94c4-504858d229e8`) có 51 trang đã dựng. Mở bằng `open_codex_slides(panel=versions, versionId=..., slideIndex=51)` rồi kiểm Chromium: chọn đủ 51 thumbnail, mỗi ảnh xem trước tải đúng ở $1280\times720$; không lỗi JavaScript/HTTP; tải lại vẫn giữ trang 51. Đã xem trực tiếp ảnh HITS cuối và lưu ảnh các trang 01/14/27/38/51. Liên kết xem: `http://127.0.0.1:4311/project/20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu?slide=51&panel=versions&version=07ae3dee-6c24-4e93-94c4-504858d229e8`.
+
+Giới hạn: không có công cụ Browser trong trình biên tập ở phiên này; kiểm hiển thị dùng Chromium headless. Workspace gốc vẫn mang trạng thái `draft`/`outline`; bảng phiên bản hiển thị đầy đủ ảnh, không cần sửa workflow. Bằng chứng nằm tại `/tmp/ds-lecture04-practical-20260924/verify/slides-upload/`, gồm trạng thái dự án, kết quả tải, hash và `version-ui-verification.json`.

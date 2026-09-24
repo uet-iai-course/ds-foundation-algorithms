@@ -1,6 +1,29 @@
 # Bài 04 — PageRank theo chủ đề, liên kết rác và HITS
 
-Tài liệu này dựa trên chương 5 của *Mining of Massive Datasets* (Leskovec, Rajaraman, Ullman), các mục §5.3–5.5; bộ slide chính thức tại [www.mmds.org](http://www.mmds.org). Bản trình chiếu của bài nằm ở [Bộ trang chiếu](lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html).
+Tài liệu này dựa trên chương 5 của *Mining of Massive Datasets* (Leskovec, Rajaraman, Ullman), các mục §5.3–5.5; bộ slide chính thức tại [www.mmds.org](http://www.mmds.org). Bản trình chiếu của bài nằm ở [Bộ trang chiếu](lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html). Bài thực hành kèm mã Python nằm ở [Bài thực hành](material-viewer.html?doc=materials/lec-04/exercises.md&deck=lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html).
+
+**Mục tiêu đọc.** Sau bài này người học có thể:
+
+1. Tính PageRank theo chủ đề: lập $q_S$, chạy vòng lặp thưa và giải hệ để lấy $r^*$ trên đồ thị nhỏ;
+2. Giải phương trình cân bằng của cụm thao túng liên kết, phân biệt nghiệm chính xác và xấp xỉ, rồi tính TrustRank và khối lượng rác $s_p$;
+3. Chạy hai vòng HITS bằng tay với chuẩn hóa max và phát biểu điều kiện hội tụ theo hướng;
+4. Chọn mô hình phù hợp và kiểm tra điều kiện áp dụng trước khi tính.
+
+**Đường học.** §1 khôi phục ký hiệu từ Bài 03 → §2 PageRank theo chủ đề (nền cho §4) → §3–4 cụm thao túng, TrustRank, khối lượng rác → §5 HITS (đọc độc lập, chỉ cần §1) → §6 so sánh → §7 ba bài tập → §8 chọn mô hình. Sau mỗi mục có tự kiểm; phần tính tay đối chiếu với bài thực hành.
+
+## Bảng ký hiệu tra nhanh
+
+| Ký hiệu | Nghĩa | Ghi chú |
+|---|---|---|
+| $P$ | Ma trận chuyển **cột nguồn** ($P:=S_{\text{Bài03}}$), cột tổng 1 | Nút cụt đã bù đều |
+| $L$ | Ma trận kề **hàng nguồn** của HITS, $L_{ij}=1$ nếu $i\to j$ | Chỉ dùng trong §5 |
+| $S$ | **Tập đỉnh** chủ đề (không phải ma trận) | Khác $S_{\text{Bài03}}$ |
+| $q_S$ | Phân bố dịch chuyển trên tập $S$, thường đều $e_S/\lvert S\rvert$ | Vector, khác $q$ ở §3 là **số** trang hỗ trợ |
+| $\beta$ | Hệ số theo liên kết: $4/5$ trong ví dụ G4 và TrustRank; $0.85$ trong Ví dụ 5.11 | Mỗi chỗ ghi rõ giá trị |
+| $\tau$ | Ngưỡng dừng lặp, đo chênh giữa hai vòng liên tiếp | Không phải sai số tới nghiệm |
+| $K_{\max}$ | Ngân sách số vòng lặp, nguyên $\ge1$ | Hết ngân sách trả trạng thái CHƯA ĐẠT |
+
+Riêng giá trị $\beta=1$ xuất hiện trong đề 5.4.2 chỉ là **quy ước riêng của PageRank nền** trong đề nguồn MMDS (không suy giảm theo liên kết); nó nằm ngoài miền $(0,1)$ mà thuật toán ở §2 đòi hỏi, và không được gọi là phép co.
 
 ## 1. Cầu nối từ Bài 03
 
@@ -50,13 +73,58 @@ Với $S=\{B,D\}$, $\beta=4/5$, $q_S=(0,\tfrac12,0,\tfrac12)$, khởi $r_0=q_S$:
 
 Ví dụ vòng 1: $\beta P r_0 = (\tfrac15,\tfrac15,\tfrac15,\tfrac15)$ và $(1-\beta)q_S=(0,\tfrac1{10},0,\tfrac1{10})$, cộng lại được $r_1$. Chú ý $r^*$ là nghiệm giải hệ, không phải kết quả vòng 3.
 
+Một phương trình mẫu theo tọa độ của $r=(\tfrac45)Pr+(\tfrac15)q_S$ (với $S=\{B,D\}$):
+
+$$r_B=\frac45\left(\frac{r_A}{3}+\frac{r_D}{2}\right)+\frac1{10}.$$
+
+Giải bốn phương trình tọa độ như vậy cho $r^*$ ở bảng trên; tổng bằng 1 là một phép kiểm nghiệm.
+
 ### 2.4 Trực giác và bất biến
 
 Mỗi vòng, khối lượng chia làm hai dòng: phần $\beta$ đi theo cạnh, phần $1-\beta$ quay về tập $S$. Vì $P$ cột tổng 1 và $q_S$ là phân bố, ánh xạ $F(r)=\beta Pr+(1-\beta)q_S$ bảo toàn bất biến xác suất: nếu $r\ge0$, $\sum r_i=1$ thì $r_{\text{mới}}\ge0$ và $\sum (r_{\text{mới}})_i = \beta + (1-\beta) = 1$. Phép co theo chuẩn L1:
 
 $$\|F(r)-F(s)\|_1 = \beta\,\|P(r-s)\|_1 \le \beta\,\|r-s\|_1,$$
 
-vì $\|Pv\|_1\le\|v\|_1$ khi $P$ cột tổng 1. Với $\beta<1$, ánh xạ co trên simplex nên $r^*$ tồn tại duy nhất và lặp hội tụ. Điểm có thể bằng 0 ở những trang không được $q_S$ hỗ trợ gián tiếp — không tuyên bố dương mọi trang.
+vì $\|Pv\|_1\le\|v\|_1$ khi $P$ cột tổng 1. Với $\beta<1$, ánh xạ co trên tập các phân phối xác suất nên $r^*$ tồn tại duy nhất và lặp hội tụ. Điểm có thể bằng 0 ở những trang không được $q_S$ hỗ trợ gián tiếp — không tuyên bố dương mọi trang.
+
+**Bất đẳng thức tam giác theo từng phần tử.** Với vector bất kỳ $v$,
+
+$$\begin{aligned}
+\|Pv\|_1
+&=\sum_i\Big|\sum_j P_{ij}v_j\Big|\\
+&\le\sum_i\sum_j P_{ij}|v_j|\\
+&=\sum_j|v_j|\sum_iP_{ij}\\
+&=\|v\|_1.
+\end{aligned}$$
+
+dùng bất đẳng thức tam giác cho từng thành phần và giả thiết cột tổng 1 của $P$. Đây là suy diễn trực tiếp từ phương trình MMDS §5.3.2.
+
+::: proof
+**Tồn tại, duy nhất, co và chặn lỗi.** Vì $0<\beta<1$, chuỗi hình học
+
+$$r^*=(1-\beta)\sum_{k\ge0}\beta^k P^k q_S$$
+
+có tổng khối lượng $(1-\beta)\sum_{k\ge0}\beta^k=1$ (mỗi $P^kq_S$ là phân bố vì $P$ cột tổng 1), nên chuỗi hội tụ và tổng của nó là một phân bố. Thay vào phương trình bất động:
+
+$$\begin{aligned}
+\beta Pr^*+(1-\beta)q_S
+&=(1-\beta)\sum_{k\ge1}\beta^kP^kq_S+(1-\beta)q_S\\
+&=(1-\beta)\sum_{k\ge0}\beta^kP^kq_S\\
+&=r^*,
+\end{aligned}$$
+
+nên $r^*$ là điểm bất động. Tính duy nhất: nếu $r,r'$ đều bất động thì
+
+$$\|r-r'\|_1=\beta\|P(r-r')\|_1\le\beta\|r-r'\|_1,$$
+
+mà $\beta<1$ nên $\|r-r'\|_1=0$. Chặn lỗi theo vòng: đặt $e_\ell=r_\ell-r^*$ với $\ell$ là chỉ số vòng lặp, thì
+
+$$\|e_{\ell+1}\|_1=\beta\|Pe_\ell\|_1\le\beta\|e_\ell\|_1,$$
+
+suy ra
+
+$$\|r_\ell-r^*\|_1\le\beta^\ell\|r_0-r^*\|_1.$$
+:::
 
 ### 2.5 Giả mã thưa
 
@@ -72,7 +140,7 @@ với vòng = 1 .. K_max:
 hết K_max:  trả r, trạng thái CHƯA ĐẠT
 ```
 
-với $u=\mathbf{1}/n$, $n\ge1$, $K_{max}$ nguyên $\ge1$, $\tau>0$. Hai trạng thái kết thúc: đạt ngưỡng (trả vector mới) hoặc hết ngân sách vòng (trả vector và trạng thái cuối).
+với $u=\mathbf{1}/n$, $n\ge1$, $K_{max}$ nguyên $\ge1$, $\tau>0$. Hai trạng thái kết thúc: đạt ngưỡng (trả vector mới) hoặc hết ngân sách vòng (trả vector và trạng thái cuối). Lưu ý $\tau$ chỉ là **điều kiện dừng tính toán**: nó đo độ thay đổi giữa hai vòng liên tiếp, không phải sai số tới nghiệm $r^*$. Không được dùng chính $\tau$ làm chặn sai số tới nghiệm. Chặn theo số vòng $\ell$ đã được chứng minh ở §2.4.
 
 ### 2.6 Chi phí và phối hợp
 
@@ -112,12 +180,12 @@ Chia toàn bộ web thành ba vùng theo mức độ truy cập của người v
 
 Các biến:
 
-- $N$: tổng số trang web.
-- $q$: số trang hỗ trợ trong spam farm.
+- $N$: tổng số trang web, với $N\ge q+1$ (cần ít nhất trang đích ngoài $q$ trang hỗ trợ).
+- $q$: số trang hỗ trợ trong spam farm, nguyên $\ge1$.
 - $x$: tổng đóng góp từ ngoài vào đích $t$, đã gồm nhân $\beta$.
 - $y$: PageRank của đích $t$.
 
-Cả $q$ và $N$ đều có thể thay đổi khi tăng $q$ (thêm trang hỗ trợ cũng tăng $N$, có thể thay cả $x$), nên cần thận trọng khi diễn dịch.
+Cả $q$ và $N$ đều có thể thay đổi khi tăng $q$ (thêm trang hỗ trợ cũng tăng $N$, có thể thay cả $x$), nên cần thận trọng khi diễn dịch. Sách MMDS dùng ký hiệu $m,n$ cho hai đại lượng này; ở đây đổi tên thành $q,N$ để phân biệt với số đỉnh/cạnh của đồ thị ví dụ. Mô hình dùng $0<\beta<1$ như §2.
 
 Cấu trúc đồ thị trong Hình 5.16: mỗi trang hỗ trợ chỉ trỏ tới $t$; $t$ trỏ tới cả $q$ trang hỗ trợ.
 
@@ -160,7 +228,7 @@ Vì $1-\beta^2=(1-\beta)(1+\beta)$, ta có:
 
 $$y=\frac{x}{1-\beta^2}+\frac{\beta q+1}{N(1+\beta)}.$$
 
-Sách (MMDS §5.4.2) đưa ra một biểu thức đơn giản hơn bằng cách bỏ số hạng phần dịch chuyển trực tiếp vào $t$ — tức bỏ $(1-\beta)/N$ **ở vế phải** của phương trình cân bằng — trước khi giải:
+Sách (MMDS §5.4.2) đưa ra một biểu thức đơn giản hơn bằng cách bỏ số hạng phần dịch chuyển trực tiếp vào trang đích $t$ — tức bỏ $(1-\beta)/N$ **trong phương trình cân bằng của $y$ tại trang đích $t$** — trước khi giải; số hạng này **không bị bỏ** trong phương trình cân bằng của $z$ ở §3.3:
 
 $$y\approx\frac{x}{1-\beta^2}+\frac{\beta}{1+\beta}\cdot\frac{q}{N}.$$
 
@@ -235,6 +303,8 @@ Hai vector trong hình dùng hai quy ước khác nhau, nên ví dụ chỉ minh
 **Tự kiểm.** Tính lại $s_B$ và giải thích vì sao kết quả âm không phải lỗi. Bài 7.2 thay tập tin cậy bằng $T=\{B\}$.
 
 ## 5. HITS — MMDS §5.5.1–5.5.2
+
+PageRank theo chủ đề và TrustRank vẫn gán cho mỗi trang **một** điểm duy nhất; HITS tách hai vai trò trang dẫn và trang được dẫn thành hai điểm riêng.
 
 ### 5.1 Vai trò
 
@@ -514,5 +584,7 @@ Nguồn: [MMDS](http://www.mmds.org), Bài 5.5.1, tr. 208/PDF 34.
 ## 8. Chọn mô hình
 
 Dùng PageRank theo chủ đề khi cần một điểm xếp hạng theo tập trang mẫu. Dùng TrustRank và khối lượng rác khi có tập hạt giống đã thẩm định và cần một tín hiệu chẩn đoán liên kết rác. Dùng HITS khi cần tách vai trò trang trung tâm khỏi trang thẩm quyền trên một đồ thị con truy vấn. Không phương pháp nào tự nó chứng minh chất lượng nội dung của một trang.
+
+**Thực hành.** Mã Python, lệnh chạy, khung cài HITS cho sinh viên và kiểm tra tự chạy nằm ở [Bài thực hành](material-viewer.html?doc=materials/lec-04/exercises.md&deck=lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html). Dùng vết tính tay ở §7 để đối chiếu kết quả chương trình.
 
 Nguồn chính: [Mining of Massive Datasets](http://www.mmds.org), Chương 5, §5.3–5.5; đối chiếu phương pháp lũy thừa: Cornell INFO4300 (Ginsparg, 27/10/2009), [slide 10](https://courses.cit.cornell.edu/info4300_2009fa/slides/16.pdf).
