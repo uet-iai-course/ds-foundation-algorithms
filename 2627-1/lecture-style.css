@@ -947,3 +947,6 @@
 .reveal.lecture-pagerank-advanced .l04-flow-stack { gap:10px; }
 .reveal.lecture-pagerank-advanced .l04-flow-figure { display:block; width:85%; height:270px; object-fit:contain; margin:0 auto; }
 .reveal.lecture-pagerank-advanced .l04-compact-stack { gap:8px; }
+
+/* Bài 04: chừa vùng dữ kiện và sản phẩm dưới sơ đồ chuỗi bài tập. */
+.reveal.lecture-pagerank-advanced .l04-chain-diagram { height:160px; }

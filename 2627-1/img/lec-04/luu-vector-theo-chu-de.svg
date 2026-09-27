@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 350" width="1100" height="350" role="img" aria-labelledby="storage-t storage-d">
+  <title id="storage-t">Hai cách lưu điểm xếp hạng</title>
+  <desc id="storage-d">Hàng đầu lưu vector toàn web cho mỗi người dùng. Hàng sau lưu vector toàn web theo chủ đề và trọng số chủ đề cho người dùng.</desc>
+  <defs>
+    <marker id="storage-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1100" height="350" fill="#edf4ff"/>
+  <rect x="30" y="30" width="280" height="95" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="170.0" y="88.0" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Mỗi người dùng</text>
+  <rect x="620" y="30" width="430" height="95" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="835.0" y="88.0" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Vector điểm toàn web</text>
+  <path d="M 310,77 L 620,77" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#storage-arw)" data-source="" data-target="" />
+  <rect x="30" y="160" width="280" height="70" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="170.0" y="205.5" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Các chủ đề</text>
+  <rect x="620" y="160" width="430" height="70" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="835.0" y="205.5" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Vector điểm toàn web</text>
+  <path d="M 310,195 L 620,195" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#storage-arw)" data-source="" data-target="" />
+  <rect x="30" y="255" width="280" height="70" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="170.0" y="300.5" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Mỗi người dùng</text>
+  <rect x="620" y="255" width="430" height="70" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="835.0" y="300.5" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trọng số chủ đề</text>
+  <path d="M 310,290 L 620,290" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#storage-arw)" data-source="" data-target="" />
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 430" width="650" height="430" role="img" aria-labelledby="trust-t trust-d">
+  <title id="trust-t">Tập tin cậy và lan truyền điểm</title>
+  <desc id="trust-d">Tập T được đánh giá bên ngoài đồ thị. Các liên kết ra từ T truyền điểm tới các trang ngoài T.</desc>
+  <defs>
+    <marker id="trust-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="650" height="430" fill="#edf4ff"/>
+<rect x="20" y="80" width="270" height="290" rx="20" fill="#fff" stroke="#2F3E7A" stroke-width="3"/>
+<rect x="29" y="89" width="252" height="272" rx="15" fill="none" stroke="#2F3E7A" stroke-width="2"/>
+  <text x="155" y="125" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Tập tin cậy T</text>
+  <text x="155" y="45" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="normal" text-anchor="middle">Đánh giá bên ngoài</text>
+  <circle cx="150" cy="205" r="30" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="150" y="217" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <circle cx="150" cy="305" r="30" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="150" y="317" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <circle cx="505" cy="130" r="30" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="505" y="142" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <circle cx="505" cy="260" r="30" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="505" y="272" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <circle cx="570" cy="370" r="30" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="570" y="382" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
+  <path d="M 180,195 L 475,138" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#trust-arw)" data-source="" data-target="" />
+  <path d="M 180,212 L 475,252" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#trust-arw)" data-source="" data-target="" />
+  <path d="M 180,310 L 540,365" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#trust-arw)" data-source="" data-target="" />
+</svg>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420" role="img" aria-labelledby="hits-t hits-d">
-  <title id="hits-t">Ví dụ 5.13: điểm trung tâm và điểm thẩm quyền</title>
-  <desc id="hits-d">Danh mục học phần là trang trung tâm; các trang học phần là trang thẩm quyền; mũi tên là liên kết từ danh mục tới trang học phần.</desc>
+  <title id="hits-t">Ví dụ 5.13: điểm trung tâm và điểm uy tín</title>
+  <desc id="hits-d">Danh mục học phần là trang trung tâm; các trang học phần là trang uy tín; mũi tên là liên kết từ danh mục tới trang học phần.</desc>
   <defs>
     <marker id="hits-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
@@ -12,10 +12,10 @@
   <text x="170.0" y="235.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang trung tâm</text>
   <rect x="580" y="60" width="280" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
   <text x="720.0" y="108.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang học phần 1</text>
-  <text x="720.0" y="140.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang thẩm quyền</text>
+  <text x="720.0" y="140.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang uy tín</text>
   <rect x="580" y="250" width="280" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
   <text x="720.0" y="298.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang học phần 2</text>
-  <text x="720.0" y="330.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang thẩm quyền</text>
+  <text x="720.0" y="330.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang uy tín</text>
   <line x1="300" y1="185" x2="580" y2="120" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-arw)"/>
   <line x1="300" y1="235" x2="580" y2="300" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-arw)"/>
   <text x="440" y="140" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">liên kết</text>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 360" width="400" height="360" role="img" aria-labelledby="variant-a-t variant-a-d">
+  <title id="variant-a-t">(a) Chỉ tự liên kết</title>
+  <desc id="variant-a-d">Đích vẫn trỏ tới mỗi hỗ trợ. Hỗ trợ có khuyên; không còn cạnh quay về đích.</desc>
+  <defs>
+    <marker id="variant-a-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="400" height="360" fill="#edf4ff"/>
+  <text x="40" y="35" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">(a)</text>
+  <circle cx="90" cy="210" r="45" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="90" y="220" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Đích</text>
+  <circle cx="305" cy="210" r="45" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="305" y="221" font-family="Arial, sans-serif" font-size="32" fill="#2F3E7A" font-weight="bold" text-anchor="middle">H</text>
+  <path d="M 130,190 Q 200,135 265,190" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#variant-a-arw)" data-source="" data-target="" />
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="normal" text-anchor="middle">m hỗ trợ</text>
+  <path d="M 280,173 C 215,65 395,65 330,173" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#variant-a-arw)" data-source="" data-target="" />
+  <text x="305" y="70" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="normal" text-anchor="middle">H → H</text>
+</svg>

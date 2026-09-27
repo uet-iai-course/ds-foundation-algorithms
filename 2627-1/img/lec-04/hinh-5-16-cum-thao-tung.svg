@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="1100" height="480" role="img" aria-labelledby="h516-t h516-d">
   <title id="h516-t">Hình 5.16: cụm thao túng</title>
-  <desc id="h516-d">Ba vùng: Không thể tác động, Có thể tác động, Trang sở hữu. Các trang vùng giữa trỏ tới t với tổng đóng góp ngoài x; t và q trang hỗ trợ H1, H2, Hq trỏ qua lại nhau trong vùng sở hữu.</desc>
+  <desc id="h516-d">Ba vùng: Không thể tác động, Có thể tác động, Trang sở hữu. Các trang vùng giữa trỏ tới t với tổng đóng góp từ ngoài; đích và m trang hỗ trợ H1, H2, Hm trỏ qua lại nhau trong vùng sở hữu.</desc>
   <defs>
     <marker id="h516-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
@@ -31,9 +31,9 @@
   <circle cx="470" cy="340" r="30" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
   <text x="470" y="352" font-family="Arial, sans-serif" font-size="20" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
   <path d="M 502,340 Q 660,340 826,260" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h516-arw)"/>
-  <text x="630" y="130" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">x đã gộp hệ số β</text>
+  <text x="630" y="130" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Đóng góp từ ngoài</text>
   <circle cx="860" cy="260" r="34" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
-  <text x="860" y="272" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">t</text>
+  <text x="860" y="272" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Đích</text>
   <circle cx="1010" cy="150" r="28" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
   <text x="1010" y="162" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">H₁</text>
   <path d="M 890,246 Q 950,136 982,150" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h516-arw)"/>
@@ -43,9 +43,9 @@
   <path d="M 894,252 L 982,252" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h516-arw)"/>
   <path d="M 982,268 L 894,268" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h516-arw)"/>
   <circle cx="1010" cy="370" r="28" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
-  <text x="1010" y="382" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">H_q</text>
+  <text x="1010" y="382" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Hₘ</text>
   <path d="M 890,246 Q 950,356 982,370" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h516-arw)"/>
   <path d="M 982,380 Q 950,380 892,274" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h516-arw)"/>
   <text x="1010" y="325" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="normal" text-anchor="middle">⋮</text>
-  <text x="920" y="430" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="normal" text-anchor="middle">q trang hỗ trợ</text>
+  <text x="920" y="430" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="normal" text-anchor="middle">m trang hỗ trợ</text>
 </svg>

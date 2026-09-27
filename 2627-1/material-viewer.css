@@ -182,6 +182,7 @@
 }
 
 .markdown-body table {
+  position: relative;
   display: block;
   width: 100%;
   overflow-x: auto;
@@ -370,12 +371,12 @@
     padding: 0;
   }
 
-  /* Bài 01: co SVG vừa giấy thay cho chiều rộng cuộn trên màn hình. */
-  .markdown-body p:has(> img[src^="img/lec-01/"]) {
+  /* Co SVG của các bài vừa giấy thay cho chiều rộng cuộn trên màn hình. */
+  .markdown-body p:has(> img[src^="img/lec-"]) {
     overflow: visible;
   }
 
-  .markdown-body img[src^="img/lec-01/"] {
+  .markdown-body img[src^="img/lec-"] {
     min-width: 0;
     max-width: 100%;
     height: auto;

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" width="1100" height="380" role="img" aria-labelledby="pipeline-t pipeline-d">
+  <title id="pipeline-t">Tiền tính và xếp hạng truy vấn</title>
+  <desc id="pipeline-d">Hàng trên chọn chủ đề, tập dịch chuyển, rồi tính và lưu vector. Hàng dưới kết hợp trọng số truy vấn với điểm đã lưu để xếp hạng các ứng viên.</desc>
+  <defs>
+    <marker id="pipeline-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1100" height="380" fill="#edf4ff"/>
+  <text x="40" y="32" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="start">Tiền tính</text>
+  <rect x="35" y="60" width="315" height="90" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="192.5" y="114.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Chọn chủ đề</text>
+  <rect x="390" y="60" width="315" height="90" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="547.5" y="114.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Tập dịch chuyển</text>
+  <rect x="745" y="60" width="315" height="90" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="902.5" y="97.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Tính và lưu</text>
+  <text x="902.5" y="131.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">vector điểm</text>
+  <path d="M 350,105 L 390,105" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#pipeline-arw)" data-source="" data-target="" />
+  <path d="M 705,105 L 745,105" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#pipeline-arw)" data-source="" data-target="" />
+  <text x="40" y="255" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="start">Truy vấn</text>
+  <rect x="35" y="280" width="315" height="80" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="192.5" y="329.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trọng số chủ đề</text>
+  <rect x="390" y="280" width="315" height="80" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="547.5" y="329.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Lấy hoặc ghép điểm</text>
+  <rect x="745" y="280" width="315" height="80" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="902.5" y="329.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Xếp hạng ứng viên</text>
+  <path d="M 350,320 L 390,320" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#pipeline-arw)" data-source="" data-target="" />
+  <path d="M 705,320 L 745,320" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#pipeline-arw)" data-source="" data-target="" />
+  <path d="M 900,150 L 900,200 L 550,200 L 550,280" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#pipeline-arw)" data-source="" data-target="" />
+  <text x="725" y="190" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="normal" text-anchor="middle">điểm đã lưu</text>
+</svg>

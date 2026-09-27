@@ -1,1019 +1,2373 @@
-# Bảng phân cảnh — Bài 04: PageRank theo chủ đề, liên kết rác và HITS
-
-> **Trạng thái:** đặc tả đã triển khai ngày 24/09/2026 thành 51 slide, 51 ghi chú diễn giả và tài liệu tự học. Các quyết định bố cục dưới đây cùng mục điều chỉnh triển khai là căn cứ của bản phát hành; kết quả kiểm định xem review-log.md.
-
-## Trạng thái kế hoạch
-
-- **Quy mô đã chốt:** 7 phần; 48 slide giảng / 120 phút + 3 slide bài tập / 60 phút = 51 slide, mã `lec04-sXX-YY`.
-- **Bảng tổng thời gian:**
-
-| Phần | Nội dung | Slide | Phút | Thời lượng từng slide (phút) | Slide kiểm tra |
-|---|---|---|---|---|---|
-| S01 | Giới thiệu bài học | 6 | 10 | 1, 1, 2, 2, 2, 2 | s01-06 |
-| S02 | PageRank theo chủ đề | 10 | 25 | 2, 2, 2, 3, 2, 3, 3, 3, 3, 2 | s02-10 |
-| S03 | Cụm thao túng liên kết | 8 | 22 | 2, 3, 2, 3, 4, 3, 3, 2 | s03-08 |
-| S04 | TrustRank và khối lượng rác | 8 | 21 | 2, 3, 3, 2, 3, 3, 3, 2 | s04-08 |
-| S05 | Hai vai trò của HITS | 11 | 30 | 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2 | s05-11 |
-| S06 | Tổng kết và kiểm tra | 5 | 12 | 2, 2, 2, 5, 1 | s06-04 |
-| S07 | Bài tập trên lớp | 3 | 60 | 18, 22, 20 | s07-03 (kiểm tra riêng phần 7; slide 01, 02 cũng là hoạt động bài tập) |
-| **Tổng** | | **51** | **180** | | |
-
-- **Kiểm tra riêng theo phần:** s01-06 (tiên quyết, hỗ trợ MT1), s02-10 (MT1), s03-08 (MT2), s04-08 (MT3), s05-11 (MT4), s06-04 (MT5), s07-03 (MT4 trên G4, đến hội tụ). Không cộng thêm thời gian ngoài bảng.
-- **Ký hiệu cần nhắc ở mở bài:** $S$ ở Bài 03 là ma trận sửa nút cụt; ở Bài 04, $S$ là **tập đỉnh** chủ đề. Cầu nối $P := S_{\text{Bài03}}$ (cùng cột nguồn, cột cụt thay bằng $u=\mathbf{1}/n$); G4 không nút cụt nên $P=M_0$. Trong phần cụm thao túng, $q$ là **số** trang hỗ trợ, khác $q_S$ là **vector** có chỉ số.
-- **Nhắc về khối lượng:** $\beta P r$ có tổng $\beta$, phần dịch chuyển $(1-\beta)q_S$ có tổng $1-\beta$; chỉ vector $r$ và $q_S$ mới có tổng 1. Không nói "betaPr có tổng 1".
-
-## Bản đồ hành trình các cụm
-
-### Cụm 1 — PageRank theo chủ đề (S02)
-
-1. **Bước ánh xạ ID:** tình huống/vấn đề jaguar ở s01-03 → so chi phí hai hướng ở s01-04 → s02-01 (trực giác nhảy về tập đại diện) → s02-02 (G4, $S=\{B,D\}$, $q_S$) → s02-03 ($\beta P r_0$ theo cạnh) → s02-04 (cộng dịch chuyển → $r_1$) → s02-05 ($r_2$ và $r^*$) → s02-06 (đặc tả tổng quát) → s02-07 (giả mã thưa) → s02-08 (bất biến + co $L_1$) → s02-09 (k chủ đề, chi phí) → s02-10 (kiểm tra).
-2. **Kiến thức đầu vào:** ma trận $P:=S_{\text{Bài03}}$ từ Bài 03 (s01-05 nhắc lại), G4 và $\beta=4/5$ từ VD5.10, khái niệm vector phân bố.
-3. **Sản phẩm:** đặc tả $r'=\beta Pr+(1-\beta)q_S$ (HT1), giả mã biểu diễn thưa với bù nút cụt đều, tính tuyến tính k chủ đề (HT3), chi phí $O(kI(n+m_G))$.
-4. **Tình huống dữ liệu/quy mô:** đồ thị Web lớn, thưa; ví dụ tính tay trên G4 ($n=4$, $m_G=8$); quy mô ký hiệu $n, m_G, k, I$ — không bịa số Web thực.
-5. **Tiên quyết/đầu ra:** tiên quyết là đóng góp theo cạnh $\beta r_j/d_j$ và $\beta$ (kiểm ở s01-06); đầu ra là nền cho TrustRank (S04 dùng lại bất biến/co) và cho MT5 (so mô hình ở S06).
-6. **Kết nối:** nhận từ s01-03/s01-04 (vấn đề chủ đề và chi phí hai hướng) và s01-06 (mỗi cạnh đóng góp $\beta r_j/d_j$); sau kiểm tra s02-10, chuyển sang s03-01 (tín hiệu liên kết vẫn có thể bị thao túng) và s04-03 (quy tắc trust cùng dạng).
-7. **Dữ kiện từ ví dụ sang đặc tả/giả mã/chứng minh:** dãy $r_0\to r_1\to r_2\to r^*$ của VD1 (s02-02..05) cung cấp dữ kiện cho đặc tả HT1 (s02-06); giả mã s02-07 khái quát đúng phép tính đã chạy tay; chứng minh s02-08 dùng chính cấu trúc $\beta Pr + (1-\beta)q_S$ vừa thấy.
-8. **Bước gộp/không áp dụng:** không có bước gộp; S01 là phần mở bài/tiên quyết (nhắc trước qua s01-06), không phải cụm thuật toán mới — chu trình 8 bước không áp dụng toàn bộ cho S01; không dựng hình mới — G4 vẽ lại theo Hình 5.1 khi dựng.
-
-### Cụm 2 — Cụm thao túng liên kết / cụm thao túng (S03)
-
-1. **Bước ánh xạ ID:** s03-01 (giới hạn tín hiệu) → s03-02 (Hình 5.16 ba vùng) → s03-03 ($N,q,x,y$) → s03-04 ($z$ mỗi trang hỗ trợ) → s03-05 (ba thành phần về đích) → s03-06 (nghiệm chính xác + xấp xỉ) → s03-07 ($\beta=.85$, hệ số, giới hạn, chi phí) → s03-08 (kiểm tra gán hạng).
-2. **Kiến thức đầu vào:** PageRank cơ sở và vai trò phần dịch chuyển (từ S02), ký hiệu $N,q,x,y,z$ của bản 5.11.
-3. **Sản phẩm:** phương trình cụm thao túng và nghiệm chính xác $y=\dfrac{x}{1-\beta^2}+\dfrac{\beta q+1}{N(1+\beta)}$, xấp xỉ sách bỏ $(1-\beta)/N$, sai khác $\dfrac{1}{N(1+\beta)}$ (HT4).
-4. **Tình huống dữ liệu/quy mô:** mô hình ba vùng (không thể tác động / có thể tác động / các trang sở hữu; đích và $q$ trang hỗ trợ cùng nằm trong vùng sở hữu, mỗi trang hỗ trợ chỉ trỏ đích, không trỏ chéo); không chọn $N,q,x$ tự bịa — dùng hệ số nguyên bản 5.11; tại $\beta=17/20$: hệ số ngoài $400/111\approx3.6036$, hệ số nhân $q/N$ là $\beta/(1+\beta)=17/37\approx.4595$.
-5. **Tiên quyết/đầu ra:** tiên quyết là hiểu dòng chảy theo cạnh và phần dịch chuyển; đầu ra là động lực cho TrustRank (S04) và hạng số cho câu hỏi s03-08, s06-04.
-6. **Kết nối:** nhận từ s02-10 (kiểm tra cuối phần 2); nhả sang s04-01 (phòng vệ sau khi hiểu tấn công).
-7. **Dữ kiện từ ví dụ sang đặc tả/chứng minh:** ba thành phần trở về đích (s03-05) là dữ kiện; s03-06 giải phương trình từng bước thành HT4; s03-07 chuyển nghiệm thành hệ số và giới hạn diễn giải.
-8. **Bước gộp/không áp dụng:** cụm này **phân tích mô hình, không có giả mã thao túng** — không áp dụng bước thuật toán; chi phí chỉ là đánh giá biểu thức $O(1)$ khi đã biết $x$; bản đồ S03 phản ánh ba vùng đúng của Hình 5.16 (đích và $q$ trang hỗ trợ cùng trong vùng sở hữu, mỗi trang hỗ trợ chỉ trỏ đích, không trỏ chéo) — minh họa lấy SVG hiện có `hinh-5-16-cum-thao-tung.svg` đúng nguồn.
-
-### Cụm 3 — TrustRank và khối lượng rác (S04)
-
-1. **Bước ánh xạ ID:** s04-01 (giả thiết cô lập gần đúng) → s04-02 (chọn $T$, cân bằng chất lượng/độ phủ) → s04-03 (quy tắc từ TSP) → s04-04 (lỗi hạt giống + thiên lệch, gộp một slide) → s04-05 (định nghĩa mass — tỷ số phụ trợ dùng lại dữ kiện đã tính, không thuộc chu trình trọng tâm của TrustRank) → s04-06 (bảng 5.17, cảnh báo hai thiết lập) → s04-07 (tính A và B) → s04-08 (kiểm tra mass âm).
-2. **Kiến thức đầu vào:** toàn bộ máy TSP từ S02 (bất biến, co, chi phí — dùng lại, không chứng minh trùng), G4 và $\beta=4/5$.
-3. **Sản phẩm:** quy tắc $t'=\beta Pt+(1-\beta)q_T$, $q_T=e_T/|T|$; spam mass $s_p=(r_p-t_p)/r_p$ là **tỷ số phụ trợ dùng lại dữ kiện $r_p$, $t_p$ đã tính**, đứng ngoài chu trình trọng tâm của TrustRank (chu trình chỉ là phép lặp của $t$), với giới hạn âm/$\le1$/không xác suất (HT5).
-4. **Tình huống dữ liệu/quy mô:** tập tin cậy $T$ là đầu vào được thẩm định; VD5.12 với **cảnh báo hai thiết lập** (PageRank nền không hệ số suy giảm, trust có $\beta=.8$).
-5. **Tiên quyết/đầu ra:** tiên quyết là TSP và ý nghĩa cụm thao túng; đầu ra là công cụ phòng vệ, nền so sánh cho phần kế tiếp S05 (HITS — mô hình khác PageRank) và dữ kiện cho câu hỏi s04-08, s06-04.
-6. **Kết nối:** nhận trực tiếp từ s02-08 (cùng bất biến) và s03-01 (nhu cầu phòng vệ); nhả sang s05-01 (HITS làm phần kế tiếp, khác PageRank toàn Web) rồi s06-01 (bảng 4 mô hình).
-7. **Dữ kiện từ ví dụ sang đặc tả/chứng minh:** bảng 5.17 và phép tỷ số tại A, B (s04-06..07) là dữ kiện; s04-05 phân tích tỷ số thành phát biểu về dấu và giới hạn; bất biến/co **không chứng minh lại** — ghi rõ dùng lại HT2.
-8. **Bước gộp:** lỗi hạt giống và thiên lệch gộp chung s04-04 vì cùng một trực giác "sai số nguồn lan theo liên kết"; không áp dụng bước giả mã riêng (thuật toán trùng TSP); S04 dùng lại **G4/S={B,D} đã tính ở S02** (VD1, s02-02..05) cho VD3 — đừng tính lại: chu trình 8 bước không áp dụng toàn bộ cho S04 vì phần lớn nội dung là dùng lại máy TSP, phần mới chỉ là chọn $T$, quy tắc trust và tỷ số mass phụ trợ.
-
-### Cụm 4 — HITS hai vai trò (S05)
-
-1. **Bước ánh xạ ID:** s05-01 (phạm vi đồ thị con) → s05-02 (VD 5.13, định nghĩa $h,a$) → s05-03 (G5, Hình 5.18, tổng theo cạnh) → s05-04 (raw $a$, $a_1$) → s05-05 (raw $h$, $h_1$) → s05-06 ($L$, hàng nguồn — hàng $i$ của $L^T$ liệt kê nguồn $j\to i$) → s05-07 (vòng 2) → s05-08 (giả mã, biên, dừng) → s05-09 (vector riêng, điều kiện đủ) → s05-10 (chi phí) → s05-11 (kiểm tra).
-2. **Kiến thức đầu vào:** đồ thị có hướng, nhân ma trận–vector, ý tưởng phương pháp lũy thừa (đối chiếu NG5 slide 10).
-3. **Sản phẩm:** quy tắc luân phiên $a_{raw}=L^Th_{old}\to$ chuẩn hóa theo phần tử lớn nhất $\to a_{new}$; $h_{raw}=La_{new}\to$ chuẩn hóa theo phần tử lớn nhất $\to h_{new}$ (HT6); điều kiện đủ hội tụ (HT7); chi phí $\Theta(n_H+m_H)$/vòng (HT8).
-4. **Tình huống dữ liệu/quy mô:** đồ thị con đã chọn theo truy vấn; ví dụ G5 ($n_H=5$, $m_H=8$); cách chọn graph nằm ngoài tuyến chính — không khẳng định HITS chỉ chạy được trên đồ thị nhỏ.
-5. **Tiên quyết/đầu ra:** tiên quyết là nhân ma trận và trực giác hai vai trò; đầu ra là nửa còn lại của bảng so sánh ở S06 và bài tập R3 (s07-03).
-6. **Kết nối:** nhận từ s05-01 (khác PageRank toàn Web); nhả hai vector chuẩn hóa theo phần tử lớn nhất 1 cho s06-01 và s07-03.
-7. **Dữ kiện từ ví dụ sang đặc tả/chứng minh:** hai vòng raw/scale của VD4 (s05-04..07) là dữ kiện; s05-08 khái quát thành thuật toán với check max 0 và cờ dừng; s05-09 nêu điều kiện đủ (hướng trội duy nhất $\lambda_1>\lambda_2\ge0$, khởi có hình chiếu khác 0) — ghi chú chứng minh, không giả thiết sinh viên biết Perron–Frobenius.
-8. **Bước gộp/không áp dụng:** không dựng $LL^T$/$L^TL$ (có thể đặc); không dùng chuẩn hóa L2 của slide 55 NG3 — chọn chuẩn hóa theo max và cập nhật luân phiên của sách; không suy hội tụ từ vài vòng; S05 là cụm thuật toán mới duy nhất trong bài — chu trình 8 bước áp dụng trọn vẹn ở đây.
-
----
-
-#### lec04-s01-01 — Trang tiêu đề bài 04
-
-- **Vai trò và mục tiêu:** mở bài; định vị bài trong chuỗi: Bài 03 đã cho PageRank cơ sở, bài này trả lời ba hạn chế của nó. Hỗ trợ CLO2, mở đường MT1–MT5.
-- **Luận điểm trung tâm:** một tín hiệu liên kết duy nhất chưa đủ — cần xếp hạng theo chủ đề, hiểu thao túng, và phân vai hub/authority.
-- **Nội dung cụ thể:** tiêu đề theo mẫu gồm tên môn, học kỳ và tên bài "Bài 04 — PageRank theo chủ đề, liên kết rác và HITS"; dòng phụ: MMDS Ch.5 §5.3–5.5; ba từ khóa: xếp hạng theo chủ đề, cụm thao túng liên kết, hai vai trò HITS.
-- **Bố cục đã chọn:** Dải trên 25% đặt tên học phần “Giải thuật nền tảng của Khoa học dữ liệu” và “Học kỳ 1, 2026–2027” theo lớp tên môn/học kỳ của mẫu; vùng giữa 60% đặt tên Bài 04 và ba từ khóa, căn giữa; dải dưới 15% đặt nguồn MMDS. Không hình.
-- **Trọng tâm và thứ tự đọc:** tiêu đề trước, rồi ba từ khóa, cuối cùng dòng nguồn.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên vừa xong Bài 03 với ma trận sửa nút cụt; nêu ngay ba từ khóa giúp họ gắn bài mới vào cái đã biết thay vì cảm thấy bắt đầu lại.
-- **Giới hạn bố cục:** Mặt slide gồm tên môn, học kỳ, tên bài, ba từ khóa và nguồn; chưa dùng ký hiệu toán. Phần giải thích ba hạn chế để các trang động lực.
-- **Ví dụ và số liệu:** không áp dụng — slide định vị, không có phép tính.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận bối cảnh từ Bài 03; nhả ba từ khóa cho s01-02 (mục lục) và s01-03 (truy vấn jaguar).
-- **Nguồn:** NG0 sources/source.md (Bài 4 đề xuất); NG1 trang đầu chương 5.
-- **Thời lượng:** 1 phút (chào, đọc tiêu đề, nêu một câu "hôm nay trả lời ba hạn chế").
-- **Ghi chú soạn:** nói chậm ba từ khóa; không giải thuật toán nào ở đây; nhắc sẽ đổi ký hiệu $S$ so với Bài 03 để tránh sốc ở s01-05.
-
-#### lec04-s01-02 — Mục lục 7 phần
-
-- **Vai trò và mục tiêu:** Định vị bảy phần; khi giảng, nêu bằng lời rằng mỗi phần có kiểm tra và cuối bài có bài tập. Mã và ánh xạ mục tiêu chỉ dùng trong tệp kế hoạch.
-- **Luận điểm trung tâm:** ba mô hình xếp hạng, mỗi mô hình một câu trả lời cho một hạn chế, khép lại bằng so sánh và bài tập.
-- **Nội dung cụ thể:** 7 tên phần, không số phút, không ID slide, không mã kiểm tra, không nhãn quy trình: 1 Giới thiệu; 2 PageRank theo chủ đề; 3 Cụm thao túng liên kết; 4 TrustRank và khối lượng rác; 5 Hai vai trò của HITS; 6 Tổng kết và kiểm tra; 7 Bài tập trên lớp.
-- **Bố cục đã chọn:** hai cột tên phần (4 + 3) chiếm 70% giữa, mỗi dòng: số thứ tự — tên phần; không tạo hộp tra ID; thời lượng và mã slide kiểm tra (s01-06, s02-10, s03-08, s04-08, s05-11, s06-04, s07-03) giữ ở tệp kế hoạch, không lên mặt.
-- **Trọng tâm và thứ tự đọc:** Đọc cột trái từ phần 1 đến 4, rồi cột phải từ phần 5 đến 7; các số thứ tự giữ hướng đọc nhất quán.
-- **Lý do phù hợp sinh viên năm 3:** Hai cột 4+3 tên ngắn giúp sinh viên đã biết PageRank nhận ra ba bước mở rộng: chủ đề, thao túng–phòng vệ, hai vai trò; phần bài tập ở cuối tách rõ bước vận dụng.
-- **Giới hạn bố cục:** Mặt slide chỉ bảy tên phần; không hiển thị mã slide, mã mục tiêu hoặc số phút. Các mã chỉ ở tệp kế hoạch; thời lượng điều phối giữ ở trường Thời lượng và ghi chú dành cho giảng viên.
-- **Ví dụ và số liệu:** không áp dụng — chỉ tổng thời gian 120' + 60' đã chốt.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận ba từ khóa từ s01-01; mỗi dòng mục lục trỏ đúng phần tương ứng, dòng 2 mở s02-01.
-- **Nguồn:** NG0 sources/source.md (thứ tự đề xuất Bài 4); bảng 7 phần đã duyệt trong đặc tả.
-- **Thời lượng:** 1 phút (đọc lướt 7 dòng, nhấn "mỗi phần có một slide kiểm tra").
-- **Ghi chú soạn:** không đọc từng dòng; chỉ chỉ 3 trụ: phần 2 (thuật toán), phần 3–4 (tấn công–phòng vệ), phần 5 (mô hình khác). Nhắc phần 7 là làm bài, mang máy tính.
-
-#### lec04-s01-03 — Truy vấn jaguar: một từ, hai chủ đề
-
-- **Vai trò và mục tiêu:** tạo nhu cầu cho PageRank theo chủ đề; MT1 được đặt lên nền động lực này.
-- **Luận điểm trung tâm:** PageRank cơ sở cho mỗi trang một điểm duy nhất, không biết trang nói về con vật hay chiếc xe.
-- **Nội dung cụ thể:** truy vấn *jaguar*; hai thẻ chủ đề của sách: "động vật" (mèo lớn châu Mỹ) và "ô tô"; PageRank cơ sở xếp theo liên kết, không theo chủ đề truy vấn; vấn đề xếp hạng cần thể hiện chủ đề. Hoạt động: **Câu hỏi:** *jaguar* gợi ý nghĩa nào — phân loại hai ý nghĩa vào hai thẻ chủ đề. (Không liệt kê dòng mô tả trang web tự tạo — chỉ dùng hai thẻ chủ đề của sách.)
-- **Bố cục đã chọn:** trái 45%: hộp truy vấn chữ *jaguar* lớn; phải 55%: hai thẻ chủ đề "động vật" và "ô tô" của sách (mỗi thẻ chỉ nhãn tên chủ đề, không liệt kê dòng mô tả trang web tự tạo); dưới cùng dải 1 dòng: "PageRank cơ sở: một điểm/trang, không phân chủ đề". Nhãn chữ hai thẻ, không chỉ màu.
-- **Trọng tâm và thứ tự đọc:** hộp truy vấn trước, rồi hai thẻ chủ đề song song, cuối dòng kết luận.
-- **Lý do phù hợp sinh viên năm 3:** ví dụ lịch sử quen thuộc (NG1 p195) giúp sinh viên thấy ngay giới hạn của công cụ mình vừa học ở Bài 03; chỗ dễ nhầm là tưởng cần đổi thuật toán hoàn toàn — bài này sẽ chỉ cần đổi vector dịch chuyển.
-- **Giới hạn bố cục:** mặt slide chỉ nêu vấn đề; lịch sử thuật ngữ và chi tiết công cụ tìm kiếm thời 2000s để ghi chú.
-- **Ví dụ và số liệu:** không áp dụng số — ví dụ định tính từ NG1 p195 (ví dụ lịch sử).
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận "một điểm/trang" từ Bài 03; nhả vấn đề "xếp hạng cần thể hiện chủ đề" cho s01-04 (bộ nhớ vector) và s02-01.
-- **Nguồn:** NG1 §5.3, p195/PDF21 (ví dụ jaguar, ví dụ lịch sử).
-- **Thời lượng:** 2 phút (hoạt động "Câu hỏi:" phân loại hai ý nghĩa của *jaguar* vào hai thẻ chủ đề, thu 2–3 câu trả lời, chốt hai thẻ).
-- **Ghi chú soạn:** bước nói: hỏi trước — cho sinh viên phân loại — mới chỉ hai thẻ chủ đề; sai lầm cần chặn: "đổi từ khóa truy vấn là xong" — vấn đề nằm ở điểm số của trang, không phải câu hỏi.
-
-#### lec04-s01-04 — Bộ nhớ: một vector riêng mỗi người hay k vector chủ đề
-
-- **Vai trò và mục tiêu:** nêu cái giá của hai hướng giải quyết; đặt $n, U, k$ làm quy mô ký hiệu. Hỗ trợ MT5 (so chi phí) từ sớm.
-- **Luận điểm trung tâm:** lưu vector riêng cho từng người dùng tốn $O(Un)$; lưu theo chủ đề chỉ tốn $O(kn)$ với $k$ nhỏ.
-- **Nội dung cụ thể:** hai ô so sánh: (a) cá nhân hóa theo người: $U$ người × vector dài $n$ → $O(Un)$; (b) theo chủ đề: $k$ chủ đề × vector dài $n$ → $O(kn)$, cộng $O(Uk)$ nếu lưu trọng số người trên chủ đề. Ký hiệu: $n$ số trang, $U$ số người, $k$ số chủ đề — chỉ ký hiệu quy mô, không bịa số thực.
-- **Bố cục đã chọn:** hai ô ngang bằng nhau mỗi ô 48% chiều rộng, giữa chừa 4%; ô trái "theo người", ô phải "theo chủ đề"; mỗi ô 3 dòng: ý tưởng, bộ nhớ, hệ quả; dòng dưới cùng: chú thích ký hiệu $n, U, k$.
-- **Trọng tâm và thứ tự đọc:** ô trái trước (cái đắt), ô phải sau (cái rẻ), chú thích ký hiệu cuối.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 đã quen đếm bộ nhớ theo biến; đặt $O(Un)$ cạnh $O(kn)$ ngay từ đầu giúp họ hiểu vì sao bài chọn hướng chủ đề, không phải vì thuật toán "hay hơn".
-- **Giới hạn bố cục:** mặt slide chỉ hai ô và dòng ký hiệu; phân tích $O(kI(n+m_G))$ đầy đủ để cho s02-09.
-- **Ví dụ và số liệu:** không áp dụng số cụ thể — dùng ký hiệu quy mô theo đặc tả, không bịa $n/U/k$ số thực.
-- **Hình thức hóa:** không áp dụng định lý; chỉ biểu thức bộ nhớ quy mô $O(Un)$ vs $O(kn+Uk)$.
-- **Kết nối vào–ra cụ thể:** nhận câu hỏi chủ đề từ s01-03; nhả ký hiệu $k$ cho s02-09 (k chủ đề) và s06-02 (so chi phí).
-- **Nguồn:** NG1 §5.3 (so sánh lưu k vector chủ đề); đặc tả đã duyệt mục chi phí.
-- **Thời lượng:** 2 phút (đọc ô trái 1', ô phải 1').
-- **Ghi chú soạn:** nhấn "lưu k vector O(kn) ngoài graph"; sai lầm dễ mắc: tưởng $k$ phải bằng $U$ — giải thích $k$ là số chủ đề chọn trước, nhỏ.
-
-#### lec04-s01-05 — Mục tiêu, tiên quyết và cầu nối ký hiệu
-
-- **Vai trò và mục tiêu:** chốt MT1–MT5 ngắn gọn; xử lý cầu nối $P:=S_{\text{Bài03}}$ và đổi ký hiệu $S$.
-- **Luận điểm trung tâm:** từ PageRank cơ sở sang PageRank theo chủ đề chỉ đổi một chi tiết — vector dịch chuyển; các phần sau (HITS) đổi mô hình sâu hơn.
-- **Nội dung cụ thể:** (1) Mục tiêu: tính PageRank theo chủ đề, giải phương trình cụm thao túng, tính TrustRank và khối lượng rác, chạy HITS và nêu điều kiện hội tụ, chọn mô hình cho tình huống. (2) Tiên quyết: đồ thị có hướng, ma trận–vector, xác suất cơ bản và ma trận sửa nút cụt của Bài 03. (3) Cầu nối: $P:=S_{\text{Bài03}}$ giữ cột nguồn và bù đều $u=\mathbf{1}/n$; $S$ ở Bài 04 là tập đỉnh chủ đề. G4 không có nút cụt nên $P=M_0$.
-- **Bố cục đã chọn:** Trái 40%: năm câu mục tiêu ngắn, không kèm nhãn MT; phải 60%: ô tiên quyết ở trên và ô cầu nối ký hiệu ở dưới. Ô cầu nối đặt $P:=S_{\text{Bài03}}$ cạnh dòng “$S$ ở bài này là tập đỉnh chủ đề”; nhấn bằng nhãn chữ, không chỉ màu.
-- **Trọng tâm và thứ tự đọc:** hộp phải trước (cầu nối ký hiệu là chỗ vấp), danh sách MT sau.
-- **Lý do phù hợp sinh viên năm 3:** kế hoạch cũ nói "P đã học" là sai — sinh viên chỉ biết $S$ ma trận của Bài 03; ghi rõ hai nghĩa của $S$ ngay từ đầu tránh nhầm khi thấy $S=\{B,D\}$ ở phần 2.
-- **Giới hạn bố cục:** mặt slide mỗi MT một dòng ngắn; phát biểu đầy đủ MT ở ghi chú; không đưa công thức TSP lên đây.
-- **Ví dụ và số liệu:** không áp dụng — slide định tuyến.
-- **Hình thức hóa:** không áp dụng; chỉ nêu quy ước ký hiệu.
-- **Kết nối vào–ra cụ thể:** nhận ma trận sửa nút cụt từ Bài 03 (NG6); nhả $P$ và cảnh báo ký hiệu cho s02-02 và toàn bộ S02–S05.
-- **Nguồn:** NG6 Lecture03 note §2–3 (ma trận thô $M_0$, ma trận sửa $S$); NG1 §5.3 p195.
-- **Thời lượng:** 2 phút (1' cầu nối, 1' đọc 5 MT).
-- **Ghi chú soạn:** nói rõ: "trong bài này khi thấy $S=\{B,D\}$ thì đó là tập đỉnh"; nhắc $q_S$ sẽ là vector, $q$ ở phần 3 là số — sẽ nhắc lại khi gặp.
-
-#### lec04-s01-06 — Kiểm tra tiên quyết: đóng góp mỗi cạnh
-
-- **Vai trò và mục tiêu:** slide kiểm tra riêng phần 1; đo năng lực tính đóng góp theo cạnh — nền của MT1.
-- **Luận điểm trung tâm:** cạnh $j\to i$ đóng góp vào đích số $\beta r_j/d_j$ (khai thác trọng số chuyển $\beta/d_j$ nhân điểm nguồn $r_j$ — hai đại lượng khác nhau); tổng điểm có $\beta$ lẫn dịch chuyển bằng 1.
-- **Nội dung cụ thể (đề trên mặt slide):** cho G4 (vẽ sẵn bên trái), trang B có điểm $r_B=\tfrac12\ge0$, bậc ra 2, $\beta=\tfrac45$, và giả thiết dữ kiện: $r\ge0$, tổng $r$ bằng 1, đồ thị không có nút cụt ($P$ đã là ma trận sửa nút cụt). Câu hỏi: (i) mỗi cạnh B→đích đóng góp bao nhiêu vào đích (theo $\beta r_B/d_B$)? (ii) vì sao tổng điểm của cả hệ vẫn bằng 1 khi có cả phần theo $\beta$ lẫn phần dịch chuyển (dựa trên dữ kiện đã cho, không tự suy từ riêng $r_B=\tfrac12$)?
-- **Bố cục đã chọn:** trái 40%: đồ thị G4 với nhãn A, B, C, D và 8 cạnh; phải 60%: hộp câu hỏi 2 dòng (i), (ii) và dòng dữ kiện "r ≥ 0, tổng r = 1, đồ thị không nút cụt; điểm B = 1/2, bậc ra 2, β = 4/5"; không có đáp án trên mặt.
-- **Trọng tâm và thứ tự đọc:** đọc dữ kiện trước (dòng dưới hộp), rồi hai câu hỏi; đồ thị chỉ để tra bậc ra.
-- **Lý do phù hợp sinh viên năm 3:** thao tác "nhân điểm nguồn $r_j$ với trọng số chuyển $\beta/d_j$" là kỹ năng Bài 03; nếu quên điểm nguồn, các phép nhân $P r$ tiếp theo sẽ sai; câu (ii) chuẩn bị trực giác cho hai khối lượng $\beta$ và $1-\beta$; cần phân biệt rõ đóng góp $\beta r_j/d_j$ với trọng số chuyển $\beta/d_j$.
-- **Giới hạn bố cục:** mặt slide chỉ đề và G4; lời giải đầy đủ và bảng đóng góp từng đỉnh để ghi chú.
-- **Ví dụ và số liệu:** dùng G4 (NG1 Hình 5.1, PDF4); giá trị: điểm B $=\tfrac12$, bậc ra của B là 2, $\beta=\tfrac45$; không dùng $q_S$.
-- **Hình thức hóa:** không áp dụng định lý; công thức đóng góp $\beta r_j/d_j$ (phân biệt với trọng số chuyển $\beta/d_j$).
-- **Kết nối vào–ra cụ thể:** nhận quy tắc đóng góp theo cạnh $\beta r_j/d_j$ (trọng số chuyển $\beta/d_j$ nhân điểm nguồn) từ Bài 03; nhả trực giác "tổng = $\beta\cdot(\text{theo cạnh}) + (1-\beta)\cdot(\text{dịch chuyển})$" cho s02-04.
-- **Nguồn:** NG1 Hình 5.1 p178/PDF4 (G4); NG6 Lecture03 (quy tắc ma trận chuyển).
-- **Câu hỏi đủ dữ kiện:** có — điểm B, bậc ra B, $\beta$ đều cho trên mặt slide; G4 vẽ sẵn.
-- **Đáp án (trong ghi chú):** (i) mỗi cạnh từ B đóng góp $\beta r_B/d_B=\tfrac45\cdot\tfrac12\cdot\tfrac12=\tfrac15$ (hai cạnh B→A, B→D; khai thác dữ kiện $r\ge0$, tổng 1, không nút cụt đã cho). (ii) phần theo cạnh có tổng $\beta=\tfrac45$, phần dịch chuyển có tổng $1-\beta=\tfrac15$; hai khối lượng cộng lại đúng 1 — nhấn rằng $\beta Pr$ có tổng $\beta$, không phải 1.
-- **Tiêu chí đánh giá:** đúng $\tfrac15$ mỗi cạnh theo công thức $\beta r_B/d_B$; giải thích được hai khối lượng bổ sung dựa trên dữ kiện đã cho; lỗi cho thấy hiểu sai: quên nhân điểm nguồn $r_B$ (chỉ dùng trọng số $\beta/d_B$), hoặc nói "betaPr có tổng 1".
-- **Thời gian hoạt động:** trong 2 phút: 1' suy nghĩ cá nhân, 30" trả lời nhanh (giơ bảng/đọc), 30" chữa.
-- **Thời lượng:** 2 phút (toàn bộ là hoạt động kiểm tra).
-- **Ghi chú soạn:** nếu nhiều sinh viên sai (ii), dừng 30 giây vẽ hai cột khối lượng $\tfrac45$ và $\tfrac15$ trước khi sang phần 2; không giới thiệu $q_S$ sớm.
-
-#### lec04-s02-01 — Trực giác: người đọc chủ đề nhảy về tập đại diện
-
-- **Vai trò và mục tiêu:** mở phần 2; chuyển từ nhu cầu "xếp hạng cần thể hiện chủ đề" (s01-03/s01-04) sang cơ chế "dịch chuyển về tập đại diện". Hỗ trợ MT1.
-- **Luận điểm trung tâm:** thay vì nhảy ngẫu nhiên khắp Web, người đọc quan tâm một chủ đề chỉ nhảy về các trang đại diện chủ đề đó.
-- **Nội dung cụ thể:** mô tả người đọc ngẫu nhiên: với xác suất $\beta$ đi theo liên kết, với xác suất $1-\beta$ "nhảy" — nhưng nhảy về đâu? Trả lời: về tập đại diện chủ đề $S$. Câu chốt: điểm số của trang giờ phụ thuộc chủ đề.
-- **Bố cục đã chọn:** giữa 55%: sơ đồ 3 lớp — hàng trên "người đọc chủ đề", hàng giữa "Web (các mũi tên theo cạnh)", hàng dưới hộp "tập đại diện $S$" với mũi tên nhảy từ người đọc xuống; phải 45%: 3 dòng trực giác: đi theo cạnh / nhảy về $S$ / điểm theo chủ đề.
-- **Trọng tâm và thứ tự đọc:** sơ đồ trước (thấy mũi tên nhảy), 3 dòng phải sau.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên đã biết phép đi ngẫu nhiên của Bài 03; chỉ cần đổi **nơi nhảy** — trực giác này tránh cảm giác học thuật toán mới hoàn toàn; chỗ dễ nhầm: tưởng nhảy về một trang duy nhất.
-- **Giới hạn bố cục:** mặt slide chỉ trực giác; công thức $r'=\beta Pr+(1-\beta)q_S$ để cho s02-06.
-- **Ví dụ và số liệu:** không áp dụng số — slide trực giác; ví dụ số bắt đầu s02-02.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận vấn đề "xếp hạng cần thể hiện chủ đề" từ s01-03/s01-04; nhả khái niệm tập đại diện $S$ cho s02-02.
-- **Nguồn:** NG1 §5.3 p195–196/PDF21–22; NG3 slide 7–11 (trực giác chủ đề).
-- **Thời lượng:** 2 phút (kể tình huống người đọc 1', chốt 3 dòng 1').
-- **Ghi chú soạn:** dùng ví dụ jaguar: người đọc chủ đề "ô tô" nhảy về các trang ô tô uy tín; sai lầm cần chặn: "nhảy về trang điểm cao nhất" — nhảy về tập đại diện do người soạn chủ đề chọn.
-
-#### lec04-s02-02 — G4, tập chủ đề S={B,D} và vector q_S
-
-- **Vai trò và mục tiêu:** thiết lập toàn bộ dữ kiện số của phần 2; định nghĩa $q_S$. Nền MT1.
-- **Luận điểm trung tâm:** $q_S$ là phân bố đều trên tập $S$; ở ví dụ này chọn luôn $r_0=q_S$ làm khởi tạo.
-- **Nội dung cụ thể:** G4: A→B,C,D; B→A,D; C→A; D→B,C; $n=4$, $m_G=8$; $P=M_0$ (không nút cụt). $S=\{B,D\}$; $q_S=(0,\tfrac12,0,\tfrac12)$, tổng 1 (vector xác suất); $\beta=\tfrac45$ (VD5.10); $r_0=q_S$.
-- **Bố cục đã chọn:** trái 45%: đồ thị G4 với 4 đỉnh nhãn A–D, 8 cạnh, hai đỉnh B, D có khung viền nhãn chữ "S"; phải 55%: bảng 3 dòng: $S=\{B,D\}$; $q_S=(0,\tfrac12,0,\tfrac12)$ tổng 1; $r_0=q_S$, $\beta=\tfrac45$. Dòng chú thích: "$\tfrac12$ ở đây là xác suất khởi trên tập $S$".
-- **Trọng tâm và thứ tự đọc:** đồ thị trước (nhìn B, D được khoanh), bảng sau; đọc $q_S$ theo thứ tự đỉnh A, B, C, D cố định.
-- **Lý do phù hợp sinh viên năm 3:** đây là lần đầu $S$ xuất hiện dạng tập — sinh viên dễ lẫn với ma trận $S$ Bài 03; khoanh viền trên đồ thị + nhãn chữ giúp gắn "tập đỉnh" với hình; thứ tự đỉnh cố định tránh lẫn vị trí phần tử $q_S$.
-- **Giới hạn bố cục:** mặt slide chỉ dữ kiện và $q_S$; phép tính $\beta Pr_0$ để cho s02-03; không hiện $r_1$ sớm.
-- **Ví dụ và số liệu:** VD1 (NG1 VD5.10, p197–199/PDF23–25): G4, $S=\{B,D\}$, $q_S=(0,\tfrac12,0,\tfrac12)$, $\beta=\tfrac45$, $r_0=q_S$.
-- **Hình thức hóa:** không áp dụng định lý; nêu điều kiện $q_S\ge0$, $\sum q_S=1$, $S\ne\emptyset$ (một phần của HT1, đầy đủ ở s02-06).
-- **Kết nối vào–ra cụ thể:** nhận $P=M_0$ và cảnh báo ký hiệu từ s01-05; nhả $r_0, \beta, P$ cho s02-03.
-- **Nguồn:** NG1 VD5.10, §5.3, p197–199/PDF23–25; Hình 5.1 p178/PDF4.
-- **Thời lượng:** 2 phút (đọc đồ thị 1', đọc $q_S$ và nhấn tổng 1 1').
-- **Ghi chú soạn:** bước nói: chỉ đỉnh B, D thuộc chủ đề → mỗi đỉnh được $\tfrac12$; sai lầm dễ mắc: viết $q_S=(\tfrac12,\tfrac12,0,0)$ theo thứ tự B, D — nhắc thứ tự đỉnh A, B, C, D luôn cố định.
-
-#### lec04-s02-03 — Tính βPr₀ theo từng cạnh
-
-- **Vai trò và mục tiêu:** chạy tay phần theo cạnh của vòng 1; thao tác nhân ma trận–vector cụ thể. Nền MT1.
-- **Luận điểm trung tâm:** mỗi đỉnh nhận tổng các đóng góp $\beta\cdot r_{0,u}/d_u$ từ các cạnh đi vào.
-- **Nội dung cụ thể:** với $r_0=q_S=(0,\tfrac12,0,\tfrac12)$, mỗi đỉnh nhận tổng các đóng góp $\beta r_j/d_j$ từ các cạnh đi vào (G4 không có cạnh D→A):
-
-  | Đích | Cạnh vào | Đóng góp $\beta r_j/d_j$ | Kết quả |
-  |---|---|---|---|
-  | A | B→A, C→A | $\beta\cdot\tfrac12\cdot\tfrac12 + \beta\cdot\tfrac{0}{1} = \tfrac15 + 0$ | $\tfrac15$ |
-  | B | A→B, D→B | $\beta\cdot\tfrac{0}{3} + \beta\cdot\tfrac12\cdot\tfrac12 = 0 + \tfrac15$ | $\tfrac15$ |
-  | C | A→C, D→C | $\beta\cdot\tfrac{0}{3} + \beta\cdot\tfrac12\cdot\tfrac12 = 0 + \tfrac15$ | $\tfrac15$ |
-  | D | A→D, B→D | $\beta\cdot\tfrac{0}{3} + \beta\cdot\tfrac12\cdot\tfrac12 = 0 + \tfrac15$ | $\tfrac15$ |
-
-  Vậy $\beta Pr_0=(\tfrac15,\tfrac15,\tfrac15,\tfrac15)$; tổng phần này $=\beta=\tfrac45$ (khối lượng, không phải phân bố).
-- **Bố cục đã chọn:** trái 45%: G4 giữ nguyên vị trí như s02-02, cạnh đi vào mỗi đỉnh được đánh số thứ tự đóng góp (nhãn ①②…, không dùng màu); phải 55%: bảng 4 hàng (A, B, C, D) × cột "cạnh vào", "đóng góp $\beta r_j/d_j$" và "kết quả", mỗi kết quả $\tfrac15$; dòng dưới: "tổng = 4/5 = β".
-- **Trọng tâm và thứ tự đọc:** bảng phải là trọng tâm; đồ thị trái để tra cạnh; đọc theo hàng A→D.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên hay nhân nhầm $P^T$; bảng "các đóng góp" theo đích giúp thấy mỗi hàng là tổng theo cạnh đi vào, đúng chiều $P$ (cột nguồn); dòng tổng $=\beta$ chuẩn bị cho s02-04.
-- **Giới hạn bố cục:** mặt slide chỉ vòng 1 phần theo cạnh; phép nhân ma trận đầy đủ $P$ hiện cả ma trận trong ghi chú, không dồn lên mặt.
-- **Ví dụ và số liệu:** VD1: $\beta Pr_0=(\tfrac15,\tfrac15,\tfrac15,\tfrac15)$, tổng $\tfrac45$ (NG1 VD5.10).
-- **Hình thức hóa:** công thức $\beta Pr$; lưu ý $\|\beta Pr\|_1=\beta$ khi $\|r\|_1=1$ (dẫn tới HT2).
-- **Kết nối vào–ra cụ thể:** nhận $r_0,\beta,P$ từ s02-02; nhả vector $(\tfrac15,\tfrac15,\tfrac15,\tfrac15)$ cho s02-04 cộng dịch chuyển.
-- **Nguồn:** NG1 VD5.10, p197–199/PDF23–25.
-- **Thời lượng:** 2 phút (tính đỉnh A cùng lớp 1', các đỉnh còn lại nhanh 1').
-- **Ghi chú soạn (thử lỗi để kiểm phân biệt số):** chọn đỉnh A, liệt kê cạnh đi vào (B→A, C→A); nếu lớp nhân $P^T$ thay $P$ với $r_0=(0,\tfrac12,0,\tfrac12)$, $\beta=\tfrac45$ thì kết quả sai là $r_{1\text{sai}}=(\tfrac4{15},\tfrac3{10},0,\tfrac3{10})$, tổng $\tfrac{13}{15}$ (đã cộng phần dịch chuyển, chỉ sai chiều nhân ma trận); nếu dùng đúng $P$ nhưng bỏ dịch chuyển, tổng là $4/5$ — dùng để phân biệt hai lỗi; đúng vẫn là $\tfrac15$ cho A.
-
-#### lec04-s02-04 — Cộng phần dịch chuyển: r₁
-
-- **Vai trò và mục tiêu:** hoàn tất vòng 1; cho thấy vai trò của $(1-\beta)q_S$. Trọng tâm MT1.
-- **Luận điểm trung tâm:** $r_1=\beta Pr_0+(1-\beta)q_S$ — phần dịch chuyển bù đúng lượng còn thiếu để tổng về 1.
-- **Nội dung cụ thể:** $(1-\beta)q_S=\tfrac15\cdot(0,\tfrac12,0,\tfrac12)=(0,\tfrac1{10},0,\tfrac1{10})$, tổng $\tfrac15$ (vector khối lượng); cộng: $r_1=(\tfrac15,\tfrac3{10},\tfrac15,\tfrac3{10})$, tổng 1 (vector xác suất). Nhãn: $\tfrac12$ trong $q_S$ là xác suất khởi; $\tfrac1{10}$ là phần bổ sung dịch chuyển $(1-\beta)\cdot\tfrac12$ — hai giá trị khác ý nghĩa.
-- **Bố cục đã chọn:** ba cột ngang: cột trái 30% lặp lại $\beta Pr_0=(\tfrac15,\tfrac15,\tfrac15,\tfrac15)$ nhãn "theo cạnh"; cột giữa 30% $(0,\tfrac1{10},0,\tfrac1{10})$ nhãn "dịch chuyển"; cột phải 40% $r_1$ nhãn "tổng", mỗi phần tử viết $\tfrac15+\tfrac1{10}=\tfrac3{10}$ kiểu; dòng dưới: hai khối lượng $\tfrac45+\tfrac15=1$.
-- **Trọng tâm và thứ tự đọc:** cột trái → giữa → phải; dòng tổng cuối cùng chốt.
-- **Lý do phù hợp sinh viên năm 3:** phép cộng theo thành phần là thao tác quen; bố cục ba cột tách rõ hai khối lượng giúp tránh lỗi "quên dịch chuyển → tổng 0.8" đã liệt kê trong kiểm số; nhãn riêng cho $\tfrac12$ và $\tfrac1{10}$ chống trộn.
-- **Giới hạn bố cục:** mặt slide chỉ vòng 1; dãy $r_2, r_3$ để cho s02-05; không hiện công thức tổng quát.
-- **Ví dụ và số liệu:** VD1: $(1-\beta)q_S=(0,\tfrac1{10},0,\tfrac1{10})$ (khối lượng, tổng $\tfrac15$); $r_1=(\tfrac15,\tfrac3{10},\tfrac15,\tfrac3{10})$ (xác suất, tổng 1) (NG1 VD5.10).
-- **Hình thức hóa:** công thức $r'=\beta Pr+(1-\beta)q_S$ xuất hiện lần đầu ở dạng cụ thể; đặc tả đầy đủ ở s02-06.
-- **Kết nối vào–ra cụ thể:** nhận $\beta Pr_0$ từ s02-03; nhả $r_1$ cho s02-05 và là đáp án slide kiểm tra s02-10.
-- **Nguồn:** NG1 VD5.10, p197–199/PDF23–25.
-- **Thời lượng:** 3 phút (1' tính $(1-\beta)q_S$, 1' cộng theo thành phần, 1' kiểm tổng và phân biệt hai nhãn).
-- **Ghi chú soạn:** sai lầm cần chặn: lấy $\tfrac12$ trong $q_S$ trộn với $\tfrac1{10}$; hỏi lớp "tổng của phần dịch chuyển là bao nhiêu?" — phải là $\tfrac15$, không phải 1.
-
-#### lec04-s02-05 — Vòng 2 và nghiệm giới hạn r*
-
-- **Vai trò và mục tiêu:** cho thấy lặp hội tụ và phân biệt nghiệm giải hệ với kết quả vòng lặp. Hoàn thành MT1 về mặt số.
-- **Luận điểm trung tâm:** lặp đủ nhiều vòng hội tụ về $r^*$; $r^*$ là nghiệm giải hệ, không phải "vòng 3".
-- **Nội dung cụ thể:** $r_2=(\tfrac{42}{150},\tfrac{41}{150},\tfrac{26}{150},\tfrac{41}{150})$; $r_3=(\tfrac{62}{250},\tfrac{71}{250},\tfrac{46}{250},\tfrac{71}{250})$; nghiệm $r^*=(\tfrac{54}{210},\tfrac{59}{210},\tfrac{38}{210},\tfrac{59}{210})$ — nhãn "giới hạn (giải hệ)", không gán là vòng 3. Giữ phân số nguồn, mẫu 150/250/210 khác nhau có lý do; $r_B=r_D=\tfrac{59}{210}$ do $r_{B,0}=r_{D,0}$ và cùng phần dịch chuyển — quan hệ được phép lặp bảo toàn.
-- **Bố cục đã chọn:** bảng 5 hàng ($r_0, r_1, r_2, r_3, r^*$) × 4 cột đỉnh A–D + cột "trạng thái" (khởi / 1 vòng / 2 vòng / 3 vòng / giới hạn); bảng chiếm 70% giữa; hàng $r^*$ có khung nhãn "giải hệ"; phải 30%: G4 thu nhỏ giữ vị trí như các slide trước.
-- **Trọng tâm và thứ tự đọc:** đọc bảng theo hàng từ $r_0$; dừng ở hàng $r^*$ và đọc nhãn "giới hạn"; không so mẫu số giữa các hàng.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên hay gán nghiệm cho vòng cuối mình thấy; nhãn "giải hệ" tách rời hai khái niệm "lặp gần đúng" và "nghiệm chính xác"; giữ phân số nguồn tránh sai số làm tròn khi đối chiếu bài tập.
-- **Giới hạn bố cục:** mặt slide chỉ bảng và nhãn; cách giải hệ để ghi chú; không nói "hội tụ sau 3 vòng".
-- **Ví dụ và số liệu:** VD1: $r_2, r_3, r^*$ như trên (NG1 VD5.10; nghiệm giải hệ bằng Fraction).
-- **Hình thức hóa:** không áp dụng định lý; nêu $r^*$ thỏa $r^*=\beta Pr^*+(1-\beta)q_S$ (dẫn tới HT1, HT2).
-- **Kết nối vào–ra cụ thể:** nhận $r_1$ từ s02-04; nhả $r^*$ cho s02-08 (bất biến) và $t$ của VD3 ở s04-06.
-- **Nguồn:** NG1 VD5.10, p197–199/PDF23–25.
-- **Thời lượng:** 2 phút (1' đọc $r_2, r_3$, 1' nhấn nhãn $r^*$).
-- **Ghi chú soạn:** nói: "$r_3$ chưa phải nghiệm; $r^*$ đến từ giải hệ"; sai lầm: quy đồng ép cùng mẫu rồi so sánh nhầm; nhắc $r_B=r_D=\tfrac{59}{210}$ do $r_{B,0}=r_{D,0}$ và cùng phần dịch chuyển — quan hệ được phép lặp bảo toàn, không gán cho đối xứng đồ thị chưa chứng minh.
-
-#### lec04-s02-06 — Đặc tả tổng quát TSP
-
-- **Vai trò và mục tiêu:** hình thức hóa từ dữ kiện vừa tính; phát biểu đầy đủ điều kiện. HT1.
-- **Luận điểm trung tâm:** mọi phép tính vừa chạy là trường hợp riêng của $r'=\beta Pr+(1-\beta)q_S$ với điều kiện chặt.
-- **Nội dung cụ thể:** đặc tả: $r'=\beta Pr+(1-\beta)q_S$ với $q_S\ge0$, $\sum q_S=1$, $S\ne\emptyset$, $\beta\in(0,1)$, $n\ge1$; $P$ không âm, cột tổng 1. Đối chiếu từng điều kiện với ví dụ: $q_S=(0,\tfrac12,0,\tfrac12)$ thỏa; $\beta=\tfrac45\in(0,1)$. Nhắc khối lượng: $\beta Pr$ tổng $\beta$, $(1-\beta)q_S$ tổng $1-\beta$; chỉ $r$ và $q_S$ tổng 1.
-- **Bố cục đã chọn:** trên 45%: khối công thức $$r'=\beta Pr+(1-\beta)q_S$$ và dòng điều kiện; dưới 55%: bảng 2 cột "điều kiện" ↔ "giá trị ở ví dụ" 5 hàng ($q_S$, $S$, $\beta$, $n$, $P$).
-- **Trọng tâm và thứ tự đọc:** công thức trước, bảng đối chiếu sau; đọc bảng theo hàng để thấy mỗi điều kiện đều có hiện thân.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 cần thấy điều kiện không phải trang trí — mỗi điều kiện dùng ở bước sau ($\beta<1$ cho phép co, $S\ne\emptyset$ để $q_S$ tồn tại); bảng đối chiếu giúp chuyển từ "nhớ công thức" sang "kiểm điều kiện".
-- **Giới hạn bố cục:** mặt slide chỉ đặc tả và bảng đối chiếu; chứng minh bất biến để s02-08; không đưa giả mã lên đây.
-- **Ví dụ và số liệu:** VD1 dùng làm cột đối chiếu; không thêm số mới.
-- **Hình thức hóa:** HT1 — đặc tả TSP (NG1 §5.3).
-- **Kết nối vào–ra cụ thể:** nhận dữ kiện từ s02-02..05; nhả đặc tả cho s02-07 (giả mã) và s04-03 (TrustRank cùng dạng).
-- **Nguồn:** NG1 §5.3, p196–199/PDF22–25.
-- **Thời lượng:** 3 phút (1' đọc công thức, 2' bảng đối chiếu).
-- **Ghi chú soạn:** hỏi nhanh lớp: "vì sao cần $S\ne\emptyset$?" — vì $q_S$ phải là phân bố; sai lầm: nói "$\beta Pr$ có tổng 1" — sửa ngay bằng hai khối lượng.
-
-#### lec04-s02-07 — Giả mã: biểu diễn thưa, bù nút cụt, dừng
-
-- **Vai trò và mục tiêu:** chuyển đặc tả thành thuật toán chạy được; chuẩn bị cho CLO3. HT1 áp dụng.
-- **Luận điểm trung tâm:** một vòng lặp = nhân thưa + bù nút cụt đều + cộng dịch chuyển; dừng theo ngưỡng hoặc số vòng.
-- **Nội dung cụ thể (giả mã 9 dòng):**
-  1. Nhận đồ thị $G$ có $n\ge1$ đỉnh, $q_S$, $\beta\in(0,1)$, $\tau>0$, $K_{max}\ge1$ nguyên; $q_S$ là phân bố xác suất.
-  2. Đặt $r\leftarrow q_S$, tính bậc ra $d_j$; $u=\mathbf{1}/n$.
-  3. Với $k=1,\ldots,K_{max}$, thực hiện các dòng 4–8:
-  4. $\delta\leftarrow\sum_{j:d_j=0}r_j$.
-  5. $r_{new}\leftarrow\beta M_0r+\beta\delta u+(1-\beta)q_S$.
-  6. $\epsilon\leftarrow\|r_{new}-r\|_1$.
-  7. Nếu $\epsilon\le\tau$, trả $(r_{new},\text{đạt ngưỡng})$.
-  8. Gán $r\leftarrow r_{new}$ để bắt đầu vòng tiếp theo.
-  9. Sau vòng lặp, trả $(r,\text{chưa đạt ngưỡng})$.
-- **Bố cục đã chọn:** Khối giả mã chiếm toàn chiều rộng và 80% vùng nội dung; thụt dòng 4–8 dưới vòng lặp. Dải dưới 20% có ba nhãn ngắn: “tính lại khối lượng nút cụt”, “ngưỡng chênh hai vòng”, “trả vector và trạng thái”. Giữ thang chữ của mẫu; giải thích dài ở ghi chú.
-- **Trọng tâm và thứ tự đọc:** Đọc từ đầu vào đến vòng lặp; theo phần thụt dòng để nhận ra khối lượng nút cụt được tính lại, rồi đọc hai lối trả kết quả.
-- **Lý do phù hợp sinh viên năm 3:** Sinh viên đã biết vòng lặp PageRank; khối thụt dòng làm rõ trạng thái nào được tính lại. Hai lối trả kết quả phân biệt đạt ngưỡng với hết số vòng, tránh gọi mọi lần dừng là hội tụ.
-- **Giới hạn bố cục:** mặt slide giữ khối 9 dòng; chứng minh $\|Pv\|_1\le\|v\|_1$ và phân tích chi phí để s02-08, s02-09; không code thật.
-- **Ví dụ và số liệu:** không chạy số mới — giả mã khái quát đúng phép tính VD1 đã chạy tay (s02-03..05).
-- **Hình thức hóa:** HT1 dạng thuật toán; điều kiện dừng $\|r_{new}-r\|_1\le\tau$ hoặc $K_{max}$.
-- **Kết nối vào–ra cụ thể:** nhận đặc tả HT1 từ s02-06; nhả cấu trúc vòng lặp cho s04-03 (TrustRank chỉ đổi $q_S\to q_T$) và s05-08 (so với HITS).
-- **Nguồn:** NG1 §5.3, p198–199/PDF24–25 (phép lặp, bù nút cụt); NG6 Lecture03 (bù nút cụt đều).
-- **Thời lượng:** 3 phút (1' dòng 1–3, 1' dòng 4–6, 1' dòng 7–9 và hai cờ).
-- **Ghi chú soạn:** Giải thích dòng 5 bằng ba phần đã học: nhân thưa $M_0r$, bù đều $\delta u$ và dịch chuyển theo $q_S$. Khối lượng $\delta$ lấy từ $r$ hiện tại; không đặt ngoài vòng lặp. $\tau$ đo chênh hai vòng, không phải sai số tuyệt đối tới nghiệm. Khi hết $K_{max}$, vector $r$ đã nhận lần cập nhật cuối.
-
-#### lec04-s02-08 — Bất biến xác suất và phép co L₁
-
-- **Vai trò và mục tiêu:** chứng minh ngắn hai tính chất bảo đảm lặp có nghiệm và hội tụ. HT2.
-- **Luận điểm trung tâm:** tổng khối lượng được giữ nguyên và phép ánh xạ $F$ co khoảng cách giữa hai điểm theo $\beta<1$, ép dãy lặp về một điểm giới hạn.
-- **Nội dung cụ thể:** (1) Bất biến: $\mathbf{1}^T(\beta Pr)=\beta\,\mathbf{1}^Tr=\beta$ (vì cột $P$ tổng 1) và $\mathbf{1}^T((1-\beta)q_S)=1-\beta$; cộng lại tổng 1; các thành phần đều không âm vì $P,r,q_S\ge0$. (2) Co $L_1$ qua hiệu hai ảnh: với $F(r)=\beta Pr+(1-\beta)q_S$, $$\|F(r)-F(s)\|_1=\beta\|P(r-s)\|_1\le\beta\|r-s\|_1,$$ trong đó $\|Pv\|_1\le\|v\|_1$ vì $\|Pv\|_1=\sum_i|\sum_jP_{ij}v_j|\le\sum_j|v_j|\sum_iP_{ij}=\|v\|_1$ (dùng $P\ge0$, cột tổng 1). Hai điểm bất kỳ cách nhau co với hệ số không quá $\beta$ mỗi vòng (phần dịch chuyển triệt tiêu khi lấy hiệu) → dãy lặp là Cauchy, $r^*$ tồn tại và duy nhất. **Giả thiết dùng:** $P\ge0$, cột $P$ tổng 1, $\beta\in(0,1)$, $q_S$ phân bố; **bất biến bảo toàn:** không âm và tổng 1. Lưu ý: $r^*$ có thể có phần tử 0 khi $q_S$ hỗ trợ con — không tuyên bố dương mọi trang.
-- **Bố cục đã chọn:** hai khối dọc: khối trên 45% "bất biến" với 2 dòng phép tính; khối dưới 55% "co L₁ qua F(r)−F(s)" với 3 dòng: chuỗi đẳng thức $\|F(r)-F(s)\|_1\le\beta\|r-s\|_1$, hệ quả co theo $\beta$, kết luận $r^*$ duy nhất; dòng cuối nhỏ: "phần tử 0 có thể xảy ra".
-- **Trọng tâm và thứ tự đọc:** khối trên trước (dễ), khối dưới sau; đọc dòng kết luận "duy nhất" cuối cùng.
-- **Lý do phù hợp sinh viên năm 3:** hai chuỗi đẳng thức–bất đẳng thức ngắn vừa sức; Bài 03 đã dạy phép co nên đây là dùng lại dạng hiệu $F(r)-F(s)$, không phải lần đầu gặp khái niệm; chỗ dễ nhầm: tưởng co nghĩa là mọi phần tử giảm — co là khoảng cách giữa hai trạng thái.
-- **Giới hạn bố cục:** mặt slide 2 khối ngắn; chi tiết dãy Cauchy và chứng minh đầy đủ để ghi chú mở rộng; không đưa định lý cố định điểm.
-- **Ví dụ và số liệu:** đối chiếu VD1: tổng $r_1=\tfrac45+\tfrac15=1$ — dữ kiện đã thấy ở s02-04 dùng làm kiểm chứng khối trên.
-- **Hình thức hóa:** HT2 — bất biến xác suất và co $L_1$; dùng lại cho TrustRank (s04-03) không chứng minh trùng.
-- **Kết nối vào–ra cụ thể:** Nhận đặc tả và phép lặp từ s02-06–07; giải thích tính đúng của phép lặp, chuyển sang chi phí ở s02-09. TrustRank ở s04-03 dùng lại kết quả này.
-- **Nguồn:** NG1 §5.3, p198/PDF24 (phép lặp); NG6 Bài 03, ghi chú §2–3 (bất biến và phép co), áp dụng cho phân bố dịch chuyển đã cố định.
-- **Thời lượng:** 3 phút (1' bất biến, 2' co và duy nhất).
-- **Ghi chú soạn:** bước nói: viết $\mathbf{1}^TP$ = vector hàng chứa tổng từng cột → nhân với $r$ cho $\mathbf{1}^Tr$; sai lầm: chứng minh "$\|Pv\|_1=\|v\|_1$" — chỉ có $\le$; giả thiết cần nêu đủ: $P\ge0$, cột $P$ tổng 1, $\beta\in(0,1)$, $q_S$ phân bố; ý Cauchy dùng cận cấp số nhân theo chênh hai vòng liên tiếp; tính duy nhất nhờ $\beta<1$.
-
-#### lec04-s02-09 — k chủ đề: tính tuyến tính, phối hợp và chi phí
-
-- **Vai trò và mục tiêu:** mở rộng từ 1 chủ đề sang k; cầu nối sang MT5. HT3, HT8 (phần TSP).
-- **Luận điểm trung tâm:** tính trước k vector, lúc truy vấn chỉ phối hợp tuyến tính với trọng số cho trước, theo chi phí đã ghi ở bảng.
-- **Nội dung cụ thể:** chạy TSP cho $k$ chủ đề với cùng $P$, cùng $\beta$: được $r_1^{(l)},\dots$; vì phương trình tuyến tính theo $q$, $r^*=\sum_l\alpha_l r^{(l)*}$ với $\alpha_l\ge0$, $\sum\alpha_l=1$ là nghiệm cho $q=\sum\alpha_l q_l$ (tính tuyến tính của vector, giải thích ngắn). Chi phí: 1 vòng $\Theta(n+m_G)$; $k$ chủ đề $I$ vòng $O(kI(n+m_G))$; lưu $O(kn)$ ngoài graph; phối hợp khi truy vấn: mỗi trang $O(k)$, toàn vector $O(kn)$ — so với cá nhân hóa $O(Un)$: $O(kn+Uk)$ nếu lưu trọng số người.
-- **Bố cục đã chọn:** trên 50%: công thức phối hợp $$r^*=\sum_{l=1}^{k}\alpha_l\, r^{(l)*},\quad \alpha_l\ge0,\ \sum_l\alpha_l=1$$ kèm dòng "cùng $P$, cùng $\beta$"; dưới 50%: bảng 3 hàng chi phí: 1 vòng / k chủ đề / so cá nhân hóa, cột "phép toán" và "độ phức tạp".
-- **Trọng tâm và thứ tự đọc:** công thức trước (ý chính), bảng chi phí sau; đọc hàng "k chủ đề" làm mốc.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên đã thấy $O(Un)$ ở s01-04; bảng này khép vòng: hướng chủ đề tính trước k vector và cho phép trộn chủ đề lúc truy vấn với chi phí $O(k)$ mỗi trang; chỗ dễ nhầm: tưởng phải chạy lại lặp cho từng người dùng.
-- **Giới hạn bố cục:** mặt slide chỉ công thức và bảng; giải thích "suy ra tuyến tính" ngắn trong ghi chú, không định lý phô trương.
-- **Ví dụ và số liệu:** không chạy số — dùng ký hiệu quy mô $n, m_G, k, I, U$; DMOZ16 chỉ là ví dụ lịch sử trong sách nếu cần nhắc, không khẳng định hệ đang hoạt động.
-- **Hình thức hóa:** HT3 — phối hợp tuyến tính; HT8 (phần TSP).
-- **Kết nối vào–ra cụ thể:** nhận giả mã từ s02-07; nhả chi phí cho s06-02 (so 4 mô hình) và ý "trộn chủ đề" cho s06-03.
-- **Nguồn:** NG1 §5.3, p199/PDF25; đặc tả đã duyệt mục chi phí.
-- **Thời lượng:** 3 phút (1' công thức phối hợp, 1' bảng chi phí, 1' so với s01-04).
-- **Ghi chú soạn:** nói: "k vector tính trước, offline; lúc truy vấn chỉ cộng có trọng số"; sai lầm: quên điều kiện cùng $P$, cùng $\beta$ — nếu đổi $\beta$ giữa các chủ đề thì phối hợp không còn nghiệm đúng.
-
-#### lec04-s02-10 — Kiểm tra phần 2: tính r₁ₐ và r₁ᵦ
-
-- **Vai trò và mục tiêu:** slide kiểm tra riêng phần 2; đo MT1 — phân biệt phần theo cạnh và phần dịch chuyển.
-- **Luận điểm trung tâm:** hai đỉnh nhận cùng khối lượng liên kết trong vòng này vẫn cho điểm khác nhau — vì phần dịch chuyển chỉ tới thành viên $S$.
-- **Nội dung cụ thể (đề trên mặt slide):** Câu hỏi: cho G4, $S=\{B,D\}$, $\beta=\tfrac45$, $r_0=q_S=(0,\tfrac12,0,\tfrac12)$. Tính $r_{1,A}$ và $r_{1,B}$; giải thích nguyên nhân hai điểm này khác nhau.
-- **Bố cục đã chọn:** Trái 40%: G4 với cùng vị trí và nhãn đỉnh; phải 60%: dữ kiện và hai yêu cầu tính, giải thích. Mặt slide không có gợi ý hay đáp án; nếu người học bế tắc, giảng viên gợi ý bằng lời việc tách phần liên kết và phần dịch chuyển.
-- **Trọng tâm và thứ tự đọc:** dữ kiện trước, câu hỏi sau, gợi ý cuối cùng chỉ đọc khi bế tắc.
-- **Lý do phù hợp sinh viên năm 3:** đúng thao tác vừa luyện ở s02-03..04; chỗ dễ nhầm: A không thuộc $S$ nên phần dịch chuyển của A bằng 0 — sinh viên hay cộng nhầm $\tfrac1{10}$ cho mọi đỉnh.
-- **Giới hạn bố cục:** mặt slide chỉ đề; lời giải từng bước để ghi chú.
-- **Ví dụ và số liệu:** VD1: $r_{1,A}=\tfrac15$, $r_{1,B}=\tfrac3{10}$ (NG1 VD5.10).
-- **Hình thức hóa:** áp dụng HT1.
-- **Kết nối vào–ra cụ thể:** nhận quy trình từ s02-04; nhả năng lực phân biệt hai khối lượng cho s04-03 (TrustRank) và s06-04.
-- **Nguồn:** NG1 VD5.10, p197–199/PDF23–25.
-- **Câu hỏi đủ dữ kiện:** có — G4, $S$, $\beta$, $r_0$ đều cho; không cần dữ kiện ngoài.
-- **Đáp án (trong ghi chú):** $r_{1,A}=\beta\cdot\tfrac12\cdot\tfrac12+\beta\cdot\tfrac0{1}+0=\tfrac15$ (A nhận B→A và C→A; phần dịch chuyển 0 vì A ∉ S). $r_{1,B}=\beta\cdot\tfrac0{3}+\beta\cdot\tfrac12\cdot\tfrac12+\tfrac15\cdot\tfrac12=\tfrac15+\tfrac1{10}=\tfrac3{10}$ (B nhận A→B và D→B). Hai đỉnh nhận cùng khối lượng liên kết $\tfrac15$; khác nhau **do phần dịch chuyển trong vòng này** (B ∈ S, A ∉ S), không do cấu trúc cạnh vào khác — hai đỉnh nhận khối lượng liên kết giống nhau.
-- **Tiêu chí đánh giá:** đúng hai giá trị ($\tfrac15$, $\tfrac3{10}$); giải thích được A ∉ S nên thiếu phần dịch chuyển trong khi khối lượng liên kết vào giống nhau; lỗi hiểu sai: cộng $\tfrac1{10}$ cho A, hoặc nhân $P^T$.
-- **Thời gian hoạt động:** trong 2 phút: 1' suy nghĩ, 30" trả lời, 30" chữa.
-- **Thời lượng:** 2 phút (toàn bộ là hoạt động kiểm tra).
-- **Ghi chú soạn:** khi chữa, viết hai cột khối lượng cho A và B cạnh nhau; nếu lớp nhầm rộng, quay lại s02-04 30 giây; không mở rộng sang $r_2$.
-
-#### lec04-s03-01 — Giới hạn của tín hiệu liên kết
-
-- **Vai trò và mục tiêu:** mở phần 3; chuyển từ "thuật toán chạy đúng" sang "kẻ xấu biết thuật toán". Đặt nền MT2.
-- **Luận điểm trung tâm:** PageRank đoán trước được — ai hiểu công thức đủ sâu có thể dựng cấu trúc liên kết để đẩy điểm trang mình.
-- **Nội dung cụ thể:** ba ý: (1) PageRank là hàm cố định của cấu trúc liên kết; (2) chủ trang web kiểm soát được liên kết ra từ trang của mình; (3) câu hỏi phần này: một cấu trúc nhỏ giá rẻ có đẩy điểm lên bao nhiêu? — trả lời bằng phương trình, không bằng phỏng đoán.
-- **Bố cục đã chọn:** giữa 60%: sơ đồ nhỏ — trang đích và cụm trang hỗ trợ nối vào, nhãn chữ "đích" / "hỗ trợ"; phải 40%: 3 dòng luận điểm đánh số; dòng dưới: "phần này phân tích mô hình, không dạy tạo spam".
-- **Trọng tâm và thứ tự đọc:** sơ đồ trước (thấy quan hệ đích↔hỗ trợ), 3 dòng sau; dòng cảnh báo đọc cuối.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 cần ranh giới đạo đức rõ: hiểu tấn công để phòng vệ; ghi dòng cảnh báo ngay trên mặt slide tránh hiểu sai mục đích bài học; chỗ dễ nhầm: tưởng bài dạy cách làm spam.
-- **Giới hạn bố cục:** mặt slide chỉ động cơ và cảnh báo; mô hình ba vùng để s03-02; không nêu tên công cụ spam thực tế.
-- **Ví dụ và số liệu:** không áp dụng — slide đặt vấn đề.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** Nhận từ s02-10 ở cuối phần 2: đã phân biệt phần liên kết và phần dịch chuyển. Tín hiệu liên kết vẫn có thể bị thao túng; chuyển sang cấu trúc ba vùng ở s03-02.
-- **Nguồn:** NG1 §5.4, p199–200/PDF25–26; NG3 slide 29–35 (động lực, giữ theo sách).
-- **Thời lượng:** 2 phút (nêu vấn đề 1', đọc cảnh báo 1').
-- **Ghi chú soạn:** nhấn: mục tiêu là phân tích và phòng vệ (phần 4 sẽ dùng); sai lầm cần chặn: "chỉ cần nhiều liên kết là điểm cao tùy ý" — sẽ chứng minh bằng phương trình rằng điểm có chặn.
-
-#### lec04-s03-02 — Hình 5.16: ba vùng của cụm thao túng
-
-- **Vai trò và mục tiêu:** thiết lập hình học mô hình; chuẩn bị ký hiệu. Nền MT2.
-- **Luận điểm trung tâm:** cụm thao túng nằm trong vùng các trang sở hữu: đích và $q$ trang hỗ trợ cùng một vùng, trang hỗ trợ chỉ trỏ đích, đích trỏ mọi trang hỗ trợ.
-- **Nội dung cụ thể:** Hình 5.16 (vẽ lại SVG `hinh-5-16-cum-thao-tung.svg` từ nguồn, giữ ba vùng và cạnh; sửa các mũi tên chồng nhau): ba vùng — **không thể tác động** (phần Web còn lại), **có thể tác động** (trang không sở hữu nhưng có thể đặt liên kết trên đó), **các trang sở hữu** (chứa cả trang đích và $q$ trang hỗ trợ); cấu trúc trong vùng sở hữu: mỗi trang hỗ trợ **chỉ trỏ đích**, đích trỏ mọi trang hỗ trợ, **không trỏ chéo giữa các trang hỗ trợ**; dòng chảy điểm: từ vùng có thể tác động vào trang đích trong vùng sở hữu, trong vùng sở hữu đi vòng đích↔hỗ trợ.
-- **Bố cục đã chọn:** giữa 65%: SVG `hinh-5-16-cum-thao-tung.svg` ba vùng — vùng không thể tác động trái, vùng có thể tác động giữa, vùng sở hữu phải (chứa cả đích và $q$ trang hỗ trợ); mũi tên có nhãn dòng chảy; phải 35%: 3 dòng chú giải vùng, mỗi dòng một nhãn.
-- **Trọng tâm và thứ tự đọc:** vùng sở hữu trước (nơi đặt đích và hỗ trợ), vùng có thể tác động sau, vùng không thể tác động cuối; theo dõi mũi tên hai chiều đích↔hỗ trợ trong vùng sở hữu.
-- **Lý do phù hợp sinh viên năm 3:** sơ đồ vùng giúp sinh viên không lạc trong đồ thị đầy đủ; chỗ dễ nhầm: tưởng trang hỗ trợ trỏ chéo nhau — trong Hình 5.16 mỗi trang hỗ trợ chỉ trỏ đích, đích trỏ mọi trang hỗ trợ; cấu trúc này mới làm phương trình $z$, $y$ đứng vững.
-- **Giới hạn bố cục:** mặt slide chỉ sơ đồ và chú giải; ký hiệu $N,q,x,y$ để s03-03; không vẽ số trang cụ thể.
-- **Ví dụ và số liệu:** không áp dụng số — hình cấu trúc từ NG1 Hình 5.16 p200/PDF26.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận động cơ từ s03-01; nhả ba vùng cho s03-03 gán ký hiệu.
-- **Nguồn:** NG1 Hình 5.16, p200/PDF26 (đọc lại nguồn; minh họa lấy SVG hiện có `hinh-5-16-cum-thao-tung.svg` đúng nguồn); NG3 slide 29–35.
-- **Thời lượng:** 3 phút (chỉ ba vùng 1', theo dòng chảy 1', kiểm mũi tên hai chiều đích↔hỗ trợ 1').
-- **Ghi chú soạn:** nói: "vùng sở hữu là các trang do người thao túng kiểm soát, trong đó đích và $q$ trang hỗ trợ cùng nằm"; sai lầm: vẽ trỏ chéo giữa các trang hỗ trợ — trong mô hình mỗi trang hỗ trợ chỉ trỏ đích; sai lầm khác: vẽ mũi tên từ vùng sở hữu ra ngoài — hỗ trợ không tương tác ra ngoài vùng.
-
-#### lec04-s03-03 — Ý nghĩa N, q, x, y
-
-- **Vai trò và mục tiêu:** chốt ký hiệu của bản 5.11; tránh trộn với $q_S$. Nền MT2.
-- **Luận điểm trung tâm:** bốn đại lượng đủ để viết phương trình điểm đích.
-- **Nội dung cụ thể:** $N$ = tổng số trang ($N\ge q+1$); $q$ = **số** trang hỗ trợ, $q\ge1$ (khác $q_S$ là vector); $x$ = đóng góp vào đích từ **ngoài** cụm, đã gồm hệ số $\beta$; $y$ = điểm đích cần đánh giá. Bảng 4 hàng ký hiệu — ý nghĩa — điều kiện.
-- **Bố cục đã chọn:** trái 55%: bảng 4 hàng ($N, q, x, y$) × 3 cột (ký hiệu, ý nghĩa, điều kiện); phải 45%: thu nhỏ sơ đồ ba vùng từ s03-02 giữ nguyên vị trí vùng, gắn nhãn $N$ phủ toàn bộ, $q$ trên vùng hỗ trợ, $x$ trên mũi tên vào, $y$ trên đích.
-- **Trọng tâm và thứ tự đọc:** sơ đồ phải trước (gắn nhãn lên hình), bảng trái sau để chốt định nghĩa.
-- **Lý do phù hợp sinh viên năm 3:** gắn ký hiệu trực tiếp lên sơ đồ giúp nhớ vai trò từng đại lượng; chỗ dễ nhầm số một: $q$ (số đếm) với $q_S$ (vector) — nhắc lại cảnh báo từ s01-05.
-- **Giới hạn bố cục:** mặt slide chỉ 4 ký hiệu; $z$ để s03-04; không chọn số $N, q, x$ cụ thể — giữ hệ số nguyên bản 5.11.
-- **Ví dụ và số liệu:** không áp dụng số cụ thể — ký hiệu theo NG1 bản 5.11, không tự bịa.
-- **Hình thức hóa:** không áp dụng; quy ước ký hiệu.
-- **Kết nối vào–ra cụ thể:** nhận ba vùng từ s03-02; nhả $N,q,x,y$ cho s03-04 (thêm $z$) và s03-06.
-- **Nguồn:** NG1 VD5.11, §5.4, p200–204/PDF26–30.
-- **Thời lượng:** 2 phút (1' bảng, 1' gắn nhãn lên sơ đồ).
-- **Ghi chú soạn:** hỏi lớp: "$q$ ở đây là gì?" — phải trả lời "số trang hỗ trợ", phân biệt $q_S$; sai lầm: tưởng $x$ gồm cả dòng từ hỗ trợ — $x$ chỉ là đóng góp ngoài.
-
-#### lec04-s03-04 — Điểm mỗi trang hỗ trợ: z
-
-- **Vai trò và mục tiêu:** viết phương trình cho $z$; bước trung gian của hệ. Nền MT2.
-- **Luận điểm trung tâm:** mỗi trang hỗ trợ nhận đều phần $\beta$ của đích, cộng phần dịch chuyển đều.
-- **Nội dung cụ thể:** mỗi trang hỗ trợ nhận $\beta y/q$ (đích chia đều cho $q$ trang hỗ trợ qua các cạnh về) cộng $(1-\beta)/N$ (dịch chuyển đều trên $N$ trang): $$z=\beta\frac{y}{q}+\frac{1-\beta}{N}.$$ Giải thích từng số hạng: $\beta y/q$ — phần theo cạnh từ đích; $(1-\beta)/N$ — phần nhảy ngẫu nhiên.
-- **Bố cục đã chọn:** trên 40%: công thức $z$ lớn giữa màn; dưới 60%: sơ đồ thu nhỏ đích↔một trang hỗ trợ với hai mũi tên nhãn $\beta y/q$ và $(1-\beta)/N$; chú thích "$q$ trang hỗ trợ, mỗi trang nhận như nhau".
-- **Trọng tâm và thứ tự đọc:** công thức trước, sơ đồ sau để giải thích hai số hạng.
-- **Lý do phù hợp sinh viên năm 3:** phương trình một ẩn vừa sức; tách hai số hạng giúp sinh viên thấy $z$ phụ thuộc $y$ — nền của việc giải hệ ở s03-06; chỗ dễ nhầm: quên chia $q$ hoặc quên nhân $\beta$.
-- **Giới hạn bố cục:** mặt slide chỉ phương trình $z$; phương trình $y$ để s03-05; không giải ở đây.
-- **Ví dụ và số liệu:** không áp dụng số — ký hiệu theo bản 5.11.
-- **Hình thức hóa:** một phần của HT4; phương trình đầy đủ ở s03-05..06.
-- **Kết nối vào–ra cụ thể:** nhận ký hiệu từ s03-03; nhả $z$ cho s03-05 thay vào phương trình đích.
-- **Nguồn:** NG1 VD5.11, p200–204/PDF26–30.
-- **Thời lượng:** 3 phút (1' hai số hạng, 1' nhấn chia đều $q$, 1' hỏi lớp kiểm tra thiếu /q).
-- **Ghi chú soạn:** sai lầm: viết $z=\beta y+(1-\beta)/N$ (quên /q) — hỏi lớp "đích trỏ tới mấy trang hỗ trợ?"; nhắc $(1-\beta)/N$ chia đều mọi trang, không chỉ vùng hỗ trợ.
-
-#### lec04-s03-05 — Ba thành phần trở về đích
-
-- **Vai trò và mục tiêu:** viết phương trình đích; hoàn thành hệ hai phương trình. Nền MT2.
-- **Luận điểm trung tâm:** điểm đích = dòng từ ngoài + dòng vòng từ hỗ trợ + phần dịch chuyển trực tiếp.
-- **Nội dung cụ thể:** $$y=x+\beta q z+\frac{1-\beta}{N}.$$ Ba thành phần: $x$ — đóng góp ngoài (đã gồm $\beta$); $\beta q z$ — mỗi trong $q$ trang hỗ trợ trỏ về đích với khối lượng $z$, nhân $\beta$; $(1-\beta)/N$ — dịch chuyển trực tiếp về đích. Hệ hai ẩn $(y,z)$ hai phương trình.
-- **Bố cục đã chọn:** giữa 50%: công thức $y$ lớn, ba số hạng được đóng khung riêng với nhãn ①②③; trái 25%: sơ đồ ba mũi tên vào đích tương ứng ba nhãn; phải 25%: dòng "hệ 2 phương trình, 2 ẩn (y, z)".
-- **Trọng tâm và thứ tự đọc:** sơ đồ trái trước (thấy ba dòng), công thức giữa sau, đối chiếu nhãn ①②③ với mũi tên.
-- **Lý do phù hợp sinh viên năm 3:** tách ba số hạng thành ba mũi tên giúp sinh viên không cộng trộn; chỗ dễ nhầm: tưởng $x$ chưa gồm $\beta$ rồi nhân thêm lần nữa — nhãn "đã gồm β" chặn lỗi này.
-- **Giới hạn bố cục:** mặt slide chỉ phương trình và sơ đồ; phép thế và giải để s03-06; không hiện nghiệm sớm.
-- **Ví dụ và số liệu:** không áp dụng số — cấu trúc phương trình theo bản 5.11.
-- **Hình thức hóa:** hệ phương trình cụm thao túng (một phần HT4).
-- **Kết nối vào–ra cụ thể:** nhận $z$ từ s03-04; nhả hệ hai phương trình cho s03-06 giải.
-- **Nguồn:** NG1 VD5.11, p200–204/PDF26–30.
-- **Thời lượng:** 4 phút (1' sơ đồ, 2' đối chiếu ba số hạng, 1' chốt hệ 2 phương trình 2 ẩn).
-- **Ghi chú soạn:** hỏi lớp: "vì sao $\beta q z$ chứ không phải $qz$?" — vì dòng từ hỗ trợ về đích cũng bị co $\beta$; sai lầm: gộp $(1-\beta)/N$ vào $x$ — $x$ là dòng theo cạnh từ ngoài, dịch chuyển là dòng riêng.
-
-#### lec04-s03-06 — Giải chính xác và xấp xỉ của sách
-
-- **Vai trò và mục tiêu:** giải hệ từng bước; tách rõ nghiệm chính xác và xấp xỉ. HT4.
-- **Luận điểm trung tâm:** thay $z$ vào phương trình đích, giải ra nghiệm chính xác; sách bỏ một hạng để được xấp xỉ.
-- **Nội dung cụ thể:** thay $z=\beta y/q+(1-\beta)/N$ vào $y=x+\beta qz+(1-\beta)/N$: $$y=x+\beta^2 y+\frac{\beta q(1-\beta)}{N}+\frac{1-\beta}{N}$$ $$\Rightarrow\quad y_{\text{chính xác}}=\frac{x}{1-\beta^2}+\frac{\beta q+1}{N(1+\beta)}.$$ Xấp xỉ sách bỏ phần dịch chuyển trực tiếp $(1-\beta)/N$: $$y_{\text{xấp xỉ}}=\frac{x}{1-\beta^2}+\frac{\beta q}{N(1+\beta)}.$$ Sai khác: $\dfrac{1}{N(1+\beta)}$ — tác động sau khi giải của hạng bị bỏ, không bằng chính hạng đó; cả hai nghiệm đều chia cho $1-\beta^2$.
-- **Bố cục đã chọn:** trái 55%: 4 dòng giải từng bước (thay → gom → chia $1-\beta^2$ → nghiệm chính xác); phải 45%: hai khối: "xấp xỉ: bỏ $(1-\beta)/N$" và "sai khác $=1/[N(1+\beta)]$"; dòng dưới: hai công thức nghiệm xếp chồng có nhãn "chính xác" / "xấp xỉ".
-- **Trọng tâm và thứ tự đọc:** dòng giải trái theo thứ tự; so hai nghiệm phải để thấy khác nhau đúng một hạng trong tử.
-- **Lý do phù hợp sinh viên năm 3:** đại số một ẩn vừa sức; chỗ dễ nhầm số một: tưởng sai khác là chính hạng bị bỏ $(1-\beta)/N$ — thực tế sau khi chia $1-\beta^2=(1-\beta)(1+\beta)$ nó thành $1/[N(1+\beta)]$; nhãn "chính xác/xấp xỉ" chống gộp hai công thức.
-- **Giới hạn bố cục:** mặt slide 4 dòng giải và 2 nghiệm; kiểm tra đại số từng bước để ghi chú; không thay số cụ thể.
-- **Ví dụ và số liệu:** không áp dụng số — nghiệm theo ký hiệu bản 5.11; hệ số số cụ thể ở s03-07.
-- **Hình thức hóa:** HT4 — nghiệm chính xác và xấp xỉ, sai khác $1/[N(1+\beta)]$.
-- **Kết nối vào–ra cụ thể:** nhận hệ từ s03-05; nhả hai nghiệm cho s03-07 (hệ số) và s03-08 (gán hạng).
-- **Nguồn:** NG1 VD5.11, §5.4, p200–204/PDF26–30.
-- **Thời lượng:** 3 phút (1' giải từng bước, 1' xấp xỉ, 1' sai khác).
-- **Ghi chú soạn:** bước nói: gom hai hạng chứa $y$ bên trái → $y(1-\beta^2)$; sai lầm: nói "xấp xỉ sai khác $(1-\beta)/N$" — sửa: sau khi chia, sai khác là $1/[N(1+\beta)]$; không nói "tăng trang hỗ trợ khiến PageRank lớn tùy ý".
-
-#### lec04-s03-07 — $\beta=0.85$: hệ số, giới hạn diễn giải và chi phí
-
-- **Vai trò và mục tiêu:** gắn số vào nghiệm; nêu cách nói đúng và chi phí. Hoàn thành MT2 về diễn giải.
-- **Luận điểm trung tâm:** tại $\beta=.85$, dòng ngoài được khuếch đại khoảng 3.6 lần; nhóm $q$ trang hỗ trợ đóng góp theo số hạng $(17/37)(q/N)$.
-- **Nội dung cụ thể:** $\beta=.85=17/20$: hệ số ngoài $1/(1-\beta^2)=400/111\approx3.6036$ — nói "gấp khoảng 3.6 lần", không nói "tăng thêm 360%"; số hạng hỗ trợ có hệ số $\beta/(1+\beta)=17/37\approx0.4595$ nhân $q/N$: $y_{\text{xấp xỉ}}$ chứa $(17/37)\cdot(q/N)$, không viết thành đẳng thức "q/N = 17/37". Chi phí: đánh giá biểu thức khi đã biết $x$ là $O(1)$; tìm PageRank nền vẫn cần lặp trên đồ thị; số trang hỗ trợ không là chi phí xử lý toàn Web.
-- **Bố cục đã chọn:** trên 45%: hai hộp hệ số cạnh nhau: "ngoài: $400/111\approx3.6036$" và "hỗ trợ: hệ số $17/37\approx0.4595$, số hạng $(17/37)(q/N)$"; dưới 55%: 3 dòng diễn giải: cách nói đúng / cách nói sai (gạch đầu dòng có nhãn "đúng"/"tránh") / chi phí 2 dòng.
-- **Trọng tâm và thứ tự đọc:** hai hộp hệ số trước, dòng diễn giải sau; dừng ở dòng "tránh" để đọc kỹ.
-- **Lý do phù hợp sinh viên năm 3:** Đặt hệ số cạnh số hạng đầy đủ giúp phân biệt “gấp 3,6 lần” với “tăng thêm 360%” và phân biệt hệ số $17/37$ với $q/N$. Phần chi phí tách việc đánh giá biểu thức khi biết $x$ khỏi việc tính PageRank trên toàn đồ thị.
-- **Giới hạn bố cục:** mặt slide chỉ hệ số và diễn giải; phạm vi mô hình (chỉ phân tích/phòng vệ) đã ghi ở s03-01, nhắc một dòng.
-- **Ví dụ và số liệu:** VD2: $\beta=17/20$, $400/111\approx3.6036$, $17/37\approx.4595$ (NG1 VD5.11; tính từ phép lặp đã kiểm).
-- **Hình thức hóa:** HT4 áp dụng số; HT8 (phần cụm thao túng: $O(1)$ khi biết $x$).
-- **Kết nối vào–ra cụ thể:** Nhận nghiệm từ s03-06; chuyển việc diễn giải các số hạng sang kiểm tra s03-08. Kết quả phân tích tạo nhu cầu phòng vệ bằng nguồn tin cậy ở s04-01.
-- **Nguồn:** NG1 VD5.11, p200–204/PDF26–30.
-- **Thời lượng:** 3 phút (1' hệ số, 1' đúng/tránh, 1' chi phí).
-- **Ghi chú soạn:** sai lầm cần chặn: "tăng thêm 360%", "PageRank lớn tùy ý" và viết đẳng thức sai "$q/N=17/37$" (17/37 là hệ số nhân $q/N$, từ $\beta/(1+\beta)$); nhắc $q$ là số trang hỗ trợ, không phải vector.
-
-#### lec04-s03-08 — Kiểm tra phần 3: gán hạng bốn số hạng
-
-- **Vai trò và mục tiêu:** slide kiểm tra riêng phần 3; đo MT2 — gán đúng nguồn và hạng bị bỏ.
-- **Luận điểm trung tâm:** bốn số hạng của phương trình mở rộng mỗi số hạng có một nguồn dòng chảy riêng.
-- **Nội dung cụ thể (đề trên mặt slide):** Câu hỏi: trong phương trình $y=x+\beta^2y+\dfrac{\beta q(1-\beta)}{N}+\dfrac{1-\beta}{N}$: (i) mỗi số hạng đến từ nguồn nào? (ii) sách bỏ hạng nào để được xấp xỉ?
-- **Bố cục đã chọn:** giữa 60%: phương trình 4 số hạng, mỗi số hạng một khung trống nhãn "nguồn?"; dưới 30%: hai câu hỏi (i), (ii). Không lộ đáp án; đáp án để trong ghi chú giảng viên, không dán nhãn quy trình lên mặt.
-- **Trọng tâm và thứ tự đọc:** phương trình trước, hai câu hỏi sau.
-- **Lý do phù hợp sinh viên năm 3:** gán nguồn từng số hạng là thao tác vừa luyện ở s03-05..06; chỗ dễ nhầm: chọn nhầm $\beta q(1-\beta)/N$ làm hạng bị bỏ — hạng bị bỏ là phần dịch chuyển trực tiếp $(1-\beta)/N$.
-- **Giới hạn bố cục:** mặt slide chỉ đề; bảng nguồn đầy đủ để ghi chú.
-- **Ví dụ và số liệu:** VD2: bốn số hạng như trên; không cần số cụ thể $N,q,x$.
-- **Hình thức hóa:** HT4.
-- **Kết nối vào–ra cụ thể:** nhận nghiệm từ s03-06; nhả năng lực gán hạng cho s06-04 (câu hỏi tích hợp "hạng nào sách bỏ").
-- **Nguồn:** NG1 VD5.11, p200–204/PDF26–30.
-- **Câu hỏi đủ dữ kiện:** có — phương trình cho đầy đủ trên mặt slide.
-- **Đáp án (trong ghi chú):** $x$ — đóng góp ngoài cụm (đã gồm $\beta$); $\beta^2y$ — vòng đích→hỗ trợ→đích; $\beta q(1-\beta)/N$ — dịch chuyển đến các trang hỗ trợ rồi vòng về đích; $(1-\beta)/N$ — dịch chuyển trực tiếp về đích. Xấp xỉ bỏ đúng $(1-\beta)/N$; sai khác sau giải là $1/[N(1+\beta)]$.
-- **Tiêu chí đánh giá:** gán đúng 4 nguồn; chỉ ra đúng hạng bị bỏ; lỗi hiểu sai: bỏ $\beta q(1-\beta)/N$, hoặc nói sai khác bằng chính hạng bị bỏ.
-- **Thời gian hoạt động:** trong 2 phút: 1' suy nghĩ, 30" trả lời, 30" chữa.
-- **Thời lượng:** 2 phút (toàn bộ là hoạt động kiểm tra).
-- **Ghi chú soạn:** chữa bằng cách chỉ từng số hạng trên công thức s03-06; nếu lớp nhầm hạng bị bỏ, viết lại hai nghiệm xếp chồng 30 giây.
-
-#### lec04-s04-01 — Giả thiết cô lập gần đúng
-
-- **Vai trò và mục tiêu:** mở phần 4; nêu rõ đây là giả thiết, không bảo đảm. Nền MT3.
-- **Luận điểm trung tâm:** "trang tốt ít trỏ tới trang rác" — nếu đúng, điểm tin cậy lan từ nguồn tốt sẽ ít chạm trang rác.
-- **Nội dung cụ thể:** phát biểu giả thiết: các trang tốt (được con người đánh giá) ít liên kết tới trang rác; hệ quả mong muốn: chạy PageRank với dịch chuyển về tập tin cậy cho điểm thấp ở vùng rác. Ghi rõ: **giả thiết, không bảo đảm** — có trang tốt bị chiếm quyền, có trang rác trỏ lẫn nhau.
-- **Bố cục đã chọn:** giữa 50%: khối phát biểu giả thiết trong khung nhãn "GIẢ THIẾT"; dưới 50%: hai cột "kỳ vọng" (điểm trust thấp ở rác) và "rủi ro" (giả thiết sai → sai lệch), mỗi cột 2 dòng.
-- **Trọng tâm và thứ tự đọc:** khung giả thiết trước, hai cột sau; nhãn "GIẢ THIẾT" đọc đầu tiên.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 cần phân biệt phát biểu định lý với giả thiết làm việc; đây là chỗ dễ nhầm số một của phần này — nhiều tài liệu trình bày như sự thật; khung nhãn giúp tách mức phát biểu.
-- **Giới hạn bố cục:** mặt slide chỉ giả thiết và hệ quả; cách chọn $T$ để s04-02; không nêu hậu tố .edu/.gov như bảo đảm sạch.
-- **Ví dụ và số liệu:** không áp dụng — slide phát biểu giả thiết.
-- **Hình thức hóa:** không áp dụng định lý; ghi nhận mức "giả thiết" trong danh mục hình thức hóa.
-- **Kết nối vào–ra cụ thể:** nhận nhu cầu phòng vệ từ s03-01; nhả giả thiết cho s04-02 (chọn $T$) và s04-04 (hệ quả khi giả thiết sai).
-- **Nguồn:** NG1 §5.4, p201–202/PDF27–28.
-- **Thời lượng:** 2 phút (đọc giả thiết 1', hai cột 1').
-- **Ghi chú soạn:** nói rõ: "đây là giả thiết làm việc, phần cuối bài sẽ khép lại giới hạn này"; sai lầm cần chặn: "trang .edu/.gov chắc chắn sạch" — không bảo đảm, chỉ là ứng viên.
-
-#### lec04-s04-02 — Chọn tập tin cậy T: cân bằng thẩm định và độ phủ
-
-- **Vai trò và mục tiêu:** chỉ ra $T$ là đầu vào được thẩm định; nêu hai cách nguồn. Nền MT3.
-- **Luận điểm trung tâm:** chất lượng của TrustRank phụ thuộc chất lượng $T$ — cân bằng giữa chất lượng tập $T$ và độ phủ.
-- **Nội dung cụ thể:** hai cách chọn nguồn: (a) chọn ứng viên từ các trang PageRank cao rồi thẩm định; (b) miền có giám quản (do tổ chức quản lý). Cân bằng giữa chất lượng tập $T$ và độ phủ; $T\ne\emptyset$.
-- **Bố cục đã chọn:** hai cột bằng nhau 48% mỗi cột: trái "chọn ứng viên PageRank cao rồi thẩm định", phải "miền có giám quản"; mỗi cột 2 dòng: cách làm / phạm vi phủ; dải dưới: dòng "cân bằng: chất lượng tập $T$ ↔ độ phủ".
-- **Trọng tâm và thứ tự đọc:** hai cột song song, trái trước; dải đánh đổi cuối cùng chốt.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên đã biết PageRank cao ≠ tin cậy (từ phần 3); hai cách nguồn cho họ thấy quyết định kỹ thuật gắn với chất lượng dữ liệu đầu vào; chỗ dễ nhầm: tưởng có bộ $T$ "chuẩn" duy nhất.
-- **Giới hạn bố cục:** mặt slide chỉ hai cách và cân bằng chất lượng/độ phủ; quy tắc tính trust để s04-03; không liệt kê danh sách tên miền cụ thể.
-- **Ví dụ và số liệu:** không áp dụng số — phân loại phương pháp.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận giả thiết từ s04-01; nhả khái niệm $T\ne\emptyset$ cho s04-03 (định nghĩa $q_T$).
-- **Nguồn:** NG1 §5.4, p202/PDF28; NG3 slide 37–45.
-- **Thời lượng:** 3 phút (1' cột trái, 1' cột phải, 1' đánh đổi).
-- **Ghi chú soạn:** hỏi lớp: "chọn cách nào để tập $T$ vừa chất lượng vừa đủ phủ?" — không có đáp án duy nhất, mục đích là thấy cân bằng; sai lầm: coi $T$ lớn luôn tốt hơn — mở rộng $T$ có thể tăng độ phủ, nhưng cần thẩm định chất lượng các trang mới.
-
-#### lec04-s04-03 — Quy tắc tính trust: dùng lại máy TSP
-
-- **Vai trò và mục tiêu:** định nghĩa TrustRank bằng chính phương trình TSP; dùng lại bất biến/co không chứng minh trùng. HT5 (phần quy tắc).
-- **Luận điểm trung tâm:** TrustRank là TSP với vector dịch chuyển phân bố đều trên tập tin cậy.
-- **Nội dung cụ thể:** $q_T=e_T/|T|$ (phân bố đều trên $T$, $|T|$ phần tử), $t_0=q_T$, $$t'=\beta Pt+(1-\beta)q_T.$$ Giống TSP mọi mặt: cùng $P$, cùng $\beta$, cùng vòng lặp, cùng bù nút cụt; bất biến xác suất và co $L_1$ dùng lại từ PageRank theo chủ đề — không chứng minh lại; chi phí như TSP: $\Theta(n+m_G)$/vòng.
-- **Bố cục đã chọn:** trên 45%: công thức $t'$ lớn, bên cạnh công thức TSP $r'=\beta Pr+(1-\beta)q_S$ xếp chồng để đối chiếu, hai nhãn "trust" / "TSP"; dưới 55%: bảng 3 hàng "giống" (P, β, vòng lặp) và 1 hàng "khác" (chỉ $q_S\to q_T$); dòng cuối: "bất biến và co: dùng lại HT2".
-- **Trọng tâm và thứ tự đọc:** hai công thức xếp chồng trước (thấy chỉ khác vector dịch chuyển), bảng sau.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên vừa chứng minh HT2; thấy máy dùng lại giúp tiết kiệm tải nhận thức và củng cố kỹ năng; chỗ dễ nhầm: tưởng TrustRank cần thuật toán mới — chỉ đổi đầu vào.
-- **Giới hạn bố cục:** mặt slide chỉ quy tắc và bảng đối chiếu; lỗi hạt giống để s04-04; không chứng minh lại bất biến.
-- **Ví dụ và số liệu:** không chạy số ở đây — số ở s04-06..07 (VD3).
-- **Hình thức hóa:** HT5 (quy tắc); HT2 dùng lại.
-- **Kết nối vào–ra cụ thể:** nhận HT1, HT2 từ s02-06..08 và $T$ từ s04-02; nhả quy tắc cho s04-06 (bảng 5.17) và bài tập R2 (s07-02).
-- **Nguồn:** NG1 §5.4, p202–203/PDF28–29.
-- **Thời lượng:** 3 phút (1' đối chiếu công thức, 1' bảng, 1' nhấn dùng lại).
-- **Ghi chú soạn:** hỏi lớp: "điều kiện nào của HT1 vẫn giữ?" — $q_T\ge0$, tổng 1, $T\ne\emptyset$, $\beta\in(0,1)$; sai lầm: tưởng cần chứng minh hội tụ mới — cùng phép co, cùng kết luận.
-
-#### lec04-s04-04 — Lỗi hạt giống và thiếu độ phủ
-
-- **Vai trò và mục tiêu:** chỉ ra hai điểm yếu của TrustRank; gộp một slide vì cùng trực giác. Hoàn thành góc nhìn phê phán MT3.
-- **Luận điểm trung tâm:** Chất lượng hạt giống và độ phủ của tập tin cậy ảnh hưởng tới điểm thu được qua liên kết; thuật toán không tự khắc phục hai giới hạn đầu vào này.
-- **Nội dung cụ thể:** (a) Lỗi hạt giống: một trang xấu lọt vào $T$ sẽ truyền trust cho vùng nó trỏ tới — sai số nguồn lan theo liên kết. (b) Thiếu độ phủ: điểm trust của một trang phụ thuộc toàn bộ đường đi và trọng số từ $T$ tới nó, không đơn điệu theo khoảng cách — trang ở xa $T$ vẫn có thể nhận điểm cao nếu đường đi qua các nguồn tốt, và trang gần $T$ không bảo đảm điểm cao. Hai hiện tượng cùng một gốc: trust lan theo cấu trúc liên kết từ $T$.
-- **Bố cục đã chọn:** hai thẻ ngang bằng nhau: thẻ trên "lỗi hạt giống" — mô tả bằng chữ tác động: sai số nguồn lan theo liên kết tới vùng đích; thẻ dưới "thiếu độ phủ" — mô tả bằng chữ giới hạn: điểm phụ thuộc toàn bộ đường đi và trọng số, không đơn điệu theo khoảng cách; dòng cuối: "hai hiện tượng: cùng gốc — trust lan theo liên kết".
-- **Trọng tâm và thứ tự đọc:** thẻ trên trước (lỗi rõ ràng hơn), thẻ dưới sau; dòng cuối gộp hai hiện tượng.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên hay tin đầu ra thuật toán là khách quan; hai thẻ cho thấy đầu ra phụ thuộc đầu vào được thẩm định và phụ thuộc toàn bộ cấu trúc liên kết — bài học về giới hạn mô hình; gộp hai hiện tượng tránh lặp trực giác hai lần.
-- **Giới hạn bố cục:** mặt slide hai thẻ ngắn, mô tả bằng chữ; ví dụ số về mass để s04-05..07; không đưa giải pháp nâng cao (truyền trust riêng đã bỏ theo spec).
-- **Ví dụ và số liệu:** không áp dụng số — phân tích định tính.
-- **Hình thức hóa:** không áp dụng định lý; ghi nhận hai giới hạn.
-- **Kết nối vào–ra cụ thể:** nhận quy tắc từ s04-03; nhả động cơ "cần thước đo bổ sung" cho s04-05 (spam mass).
-- **Nguồn:** NG1 §5.4, p202–203/PDF28–29.
-- **Thời lượng:** 2 phút (1' mỗi khối).
-- **Ghi chú soạn:** Dùng lại tình huống một trang xấu lọt vào tập tin cậy: phần dịch chuyển tới trang đó tiếp tục lan theo các liên kết. Nhắc rằng khoảng cách ngắn tới tập tin cậy không tự bảo đảm điểm cao; cần xét toàn bộ đường đi và trọng số.
-
-#### lec04-s04-05 — Spam mass: định nghĩa và giới hạn
-
-- **Vai trò và mục tiêu:** định nghĩa thước đo thứ hai; nêu rõ dấu, giới hạn, không phải xác suất. HT5.
-- **Luận điểm trung tâm:** mass đo phần điểm PageRank "vượt" so với điểm trust — tỷ số so sánh, không phải xác suất.
-- **Nội dung cụ thể:** $$s_p=\frac{r_p-t_p}{r_p},\qquad r_p>0.$$ Phân tích: có thể âm (khi $t_p>r_p$); $\le1$ khi $t\ge0$ (vì $r_p-t_p\le r_p$); **không phải xác suất**, không có ngưỡng chắc chắn "trên ngưỡng là rác"; điều kiện dùng: $r_p>0$ để chia được.
-- **Bố cục đã chọn:** trên 40%: công thức mass lớn; dưới 60%: bảng 3 hàng "khi nào dương / khi nào âm / chặn trên" × cột "điều kiện" và "ý nghĩa"; dòng cuối nhỏ: "không phải xác suất, không ngưỡng chắc chắn".
-- **Trọng tâm và thứ tự đọc:** công thức trước, bảng sau; dòng cuối đọc kỹ hai lần.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 quen tỷ số nhưng hay gán nhãn xác suất cho mọi tỷ số trong [0,1]; bảng điều kiện giúp họ diễn giải dấu đúng; chỗ dễ nhầm: mass âm = "trang tốt chắc chắn" — chỉ là $t_p>r_p$ trong thiết lập đang dùng.
-- **Giới hạn bố cục:** mặt slide chỉ định nghĩa và bảng; bảng 5.17 với cảnh báo hai thiết lập để s04-06.
-- **Ví dụ và số liệu:** không chạy số ở đây — số ở s04-06..07.
-- **Hình thức hóa:** HT5 — mass có thể âm, $\le1$ khi $t\ge0$, không xác suất.
-- **Kết nối vào–ra cụ thể:** nhận nhu cầu từ s04-04; nhả định nghĩa cho s04-06 (bảng) và s04-08 (kiểm tra).
-- **Nguồn:** NG1 §5.4, p203/PDF29.
-- **Thời lượng:** 3 phút (1' công thức, 2' bảng điều kiện).
-- **Ghi chú soạn:** hỏi lớp: "mass có thể vượt 1 không?" — không, khi $t\ge0$ thì $r_p-t_p\le r_p$; sai lầm: gọi mass là "xác suất trang là rác" — sửa ngay; nhắc cần $r_p>0$.
-
-#### lec04-s04-06 — Bảng 5.17 với cảnh báo hai thiết lập
-
-- **Vai trò và mục tiêu:** trình bày dữ kiện VD5.12; cảnh báo rõ hai thiết lập khác nhau. Nền MT3.
-- **Luận điểm trung tâm:** bảng 5.17 minh họa phép tỷ số, không cô lập riêng tác động của $T$.
-- **Nội dung cụ thể:** VD5.12 trên G4: PageRank nền $r=(\tfrac13,\tfrac29,\tfrac29,\tfrac29)$ lấy từ PageRank **không hệ số suy giảm** (bài 5.2); TrustRank $t=(\tfrac{54}{210},\tfrac{59}{210},\tfrac{38}{210},\tfrac{59}{210})$ với $\beta=.8$, $T=\{B,D\}$ — **có** hệ số suy giảm. Hai thiết lập khác nhau: bảng chỉ minh họa phép tỷ số. Mass: $s=(\tfrac8{35},-\tfrac{37}{140},\tfrac{13}{70},-\tfrac{37}{140})$.
-- **Bố cục đã chọn:** giữa 55%: bảng 4 hàng (A, B, C, D) × 3 cột ($r_p$, $t_p$, $s_p$), thứ tự cột cố định; trên bảng 1 dòng cảnh báo trong khung: "hai thiết lập khác nhau — chỉ minh họa phép tỷ số"; phải 40%: 3 dòng ghi chú nguồn từng cột.
-- **Trọng tâm và thứ tự đọc:** dòng cảnh báo trước (bắt buộc), bảng sau theo hàng A→D, cột $r_p\to t_p\to s_p$.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên dễ so sánh hai cột như cùng thiết lập rồi rút kết luận sai về $T$; cảnh báo đặt trên bảng, trước cả bảng, để đọc đầu tiên; giữ phân số nguồn tránh sai số.
-- **Giới hạn bố cục:** mặt slide chỉ bảng và cảnh báo; tính chi tiết A, B để s04-07; không đổi điểm nền để "đẹp ví dụ".
-- **Ví dụ và số liệu:** VD3 (NG1 VD5.12, p203–204/PDF29–30): $r$, $t$, $s$ như trên; giữ nguyên số nguồn.
-- **Hình thức hóa:** HT5 áp dụng; cảnh báo hai thiết lập là phần bắt buộc của phát biểu.
-- **Kết nối vào–ra cụ thể:** nhận $r^*$ từ s02-05 (chú ý: nguồn dùng $r$ không hệ số suy giảm — khác thiết lập, ghi rõ); nhả bảng cho s04-07.
-- **Nguồn:** NG1 VD5.12, §5.4, p203–204/PDF29–30.
-- **Thời lượng:** 3 phút (1' cảnh báo, 2' đọc bảng).
-- **Ghi chú soạn:** nói rõ: "$r$ ở đây không phải $r^*$ của VD1 — nguồn dùng PageRank không hệ số suy giảm"; sai lầm: so $r$ và $t$ như cùng thiết lập rồi kết luận về $T$; ứng dụng so kiểm soát cần cùng $\beta$, cùng xử lý nút cụt.
-
-#### lec04-s04-07 — Tính mass tại A và B: dấu và giới hạn
-
-- **Vai trò và mục tiêu:** chạy tay phép tỷ số; thấy mass âm xuất hiện thế nào. Hoàn thành MT3 về phép tính.
-- **Luận điểm trung tâm:** cùng một công thức cho mass dương ở A và âm ở B — dấu phản ánh quan hệ $t_p$ với $r_p$.
-- **Nội dung cụ thể:** A: $s_A=(\tfrac13-\tfrac{54}{210})/\tfrac13=\tfrac8{35}$ (dương, $r_A>t_A$); B: $s_B=(\tfrac29-\tfrac{59}{210})/\tfrac29=-\tfrac{37}{140}$ (âm, $t_B>r_B$). Giới hạn: mass $\le1$ khi $t\ge0$; giá trị âm không phải "xác suất rác âm" — chỉ nói $t_B>r_B$ trong thiết lập đang dùng.
-- **Bố cục đã chọn:** hai khối ngang: khối trên "đỉnh A" với 3 dòng: $r_A$, $t_A$, phép chia và kết quả $\tfrac8{35}$; khối dưới "đỉnh B" tương tự, kết quả $-\tfrac{37}{140}$ có khung nhãn "âm: $t_B>r_B$"; dòng cuối: "dấu = quan hệ giữa $t_p$ và $r_p$, không phải nhãn rác/sạch".
-- **Trọng tâm và thứ tự đọc:** khối A trước (dương, quen), khối B sau (âm, mới); dòng kết luận cuối.
-- **Lý do phù hợp sinh viên năm 3:** phép chia phân số vừa sức; chỗ dễ nhầm: thấy âm liền kết luận "trang tốt" hoặc "số liệu sai" — cả hai đều sai; khung nhãn "âm: $t_B>r_B$" giữ diễn giải trong phạm vi dữ kiện.
-- **Giới hạn bố cục:** mặt slide chỉ hai phép tính; diễn giải sâu và câu hỏi để s04-08; không tính C, D trên mặt (giữ trong ghi chú).
-- **Ví dụ và số liệu:** VD3: $s_A=\tfrac8{35}$, $s_B=-\tfrac{37}{140}$ (NG1 VD5.12); C: $\tfrac{13}{70}$, D: $-\tfrac{37}{140}$ (ghi chú).
-- **Hình thức hóa:** HT5 áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận bảng từ s04-06; nhả hai giá trị cho s04-08 (câu hỏi mass âm) và s06-04.
-- **Nguồn:** NG1 VD5.12, p203–204/PDF29–30.
-- **Thời lượng:** 3 phút (1' khối A, 1' khối B, 1' kết luận dấu).
-- **Ghi chú soạn:** bước nói: trừ trước, chia sau; kiểm nhanh $t_B=\tfrac{59}{210}\approx.281$ và $r_B=\tfrac29\approx.222$ để thấy $t_B>r_B$; sai lầm: đổi mẫu số tùy ý — giữ phân số nguồn.
-
-#### lec04-s04-08 — Kiểm tra phần 4: mass âm nghĩa gì
-
-- **Vai trò và mục tiêu:** slide kiểm tra riêng phần 4; đo MT3 — diễn giải mass đúng, không coi là xác suất.
-- **Luận điểm trung tâm:** dấu của mass cho biết quan hệ giữa hai điểm số, không phải nhãn nhị phân rác/sạch.
-- **Nội dung cụ thể (đề trên mặt slide):** Câu hỏi: cho $t_B=\tfrac{59}{210}$ và $r_B=\tfrac29$ (hai giá trị ghi sẵn trên mặt). (i) tính $s_B$; (ii) mass âm nghĩa gì? (iii) có được kết luận "xác suất trang B là rác" không? Vì sao?
-- **Bố cục đã chọn:** trái 40%: hai ô giá trị $t_B$, $r_B$ xếp chồng; phải 60%: hộp 3 câu hỏi (i)–(iii); dòng dưới: công thức $s_p=(r_p-t_p)/r_p$ để tra. Không có đáp án trên mặt.
-- **Trọng tâm và thứ tự đọc:** hai giá trị trước, công thức giữa, ba câu hỏi sau.
-- **Lý do phù hợp sinh viên năm 3:** đúng thao tác s04-07 nhưng đổi đỉnh; chỗ dễ nhầm: câu (iii) — sinh viên hay trả lời "được, vì mass trong [0,1]"; kiểm tra này nhắm thẳng vào hiểu sai phổ biến nhất của phần.
-- **Giới hạn bố cục:** mặt slide chỉ đề và công thức; đáp án đầy đủ để ghi chú.
-- **Ví dụ và số liệu:** VD3: $s_B=-\tfrac{37}{140}$ (NG1 VD5.12).
-- **Hình thức hóa:** HT5.
-- **Kết nối vào–ra cụ thể:** nhận định nghĩa từ s04-05 và dữ kiện từ s04-06; nhả năng lực diễn giải cho s06-04 (câu hỏi "mass âm được không").
-- **Nguồn:** NG1 VD5.12, p203–204/PDF29–30.
-- **Câu hỏi đủ dữ kiện:** có — $t_B$, $r_B$, công thức đều trên mặt slide.
-- **Đáp án (trong ghi chú):** (i) $s_B=(\tfrac29-\tfrac{59}{210})/\tfrac29=-\tfrac{37}{140}$. (ii) mass âm nghĩa là $t_B>r_B$: điểm trust của B cao hơn PageRank nền trong thiết lập đang dùng — không suy thêm "được đánh giá tin cậy hơn" vì hai cột có thiết lập khác nhau. (iii) Không — mass không phải xác suất, không có ngưỡng chắc chắn; chỉ là tỷ số so sánh.
-- **Tiêu chí đánh giá:** đúng $-\tfrac{37}{140}$; diễn giải trong phạm vi "$t_B>r_B$"; từ chối đúng câu (iii) với lý do "không phải xác suất"; lỗi hiểu sai: gọi mass là xác suất, hoặc kết luận "B chắc chắn sạch".
-- **Thời gian hoạt động:** trong 2 phút: 45" suy nghĩ, 45" trả lời, 30" chữa.
-- **Thời lượng:** 2 phút (toàn bộ là hoạt động kiểm tra).
-- **Ghi chú soạn:** khi chữa, nhấn lại cảnh báo hai thiết lập của s04-06; nếu lớp hỏi "vì sao chọn $r$ không hệ số suy giảm", trả lời: đó là thiết lập nguồn VD5.12, không đổi để đẹp ví dụ.
-
-#### lec04-s05-01 — Phạm vi: đồ thị con đã chọn, hai đầu ra
-
-- **Vai trò và mục tiêu:** mở phần 5; đặt HITS vào bối cảnh khác PageRank: chạy trên đồ thị con theo truy vấn, cho hai điểm số. Nền MT4.
-- **Luận điểm trung tâm:** HITS nhận một đồ thị con đã chọn và trả về hai điểm cho mỗi trang: trung tâm và thẩm quyền.
-- **Nội dung cụ thể:** quy trình: truy vấn → chọn đồ thị con (cách chọn nằm ngoài tuyến chính) → chạy HITS trên đồ thị cố định đó → hai vector đầu ra $h$ (hub) và $a$ (authority). Nhấn: HITS chạy trên đồ thị đã chọn cố định; không khẳng định HITS chỉ chạy được trên đồ thị nhỏ.
-- **Bố cục đã chọn:** dải ngang 4 bước: "truy vấn" → "chọn đồ thị con" → "chạy HITS" → "h, a"; dưới dải: 2 dòng: "đầu vào: graph đã chọn, cố định trong lúc chạy"; "đầu ra: hai vector, mỗi đỉnh hai điểm".
-- **Trọng tâm và thứ tự đọc:** dải 4 bước trái→phải; hai dòng dưới chốt phạm vi.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên vừa xong ba mô hình toàn Web; khác biệt phạm vi (đồ thị con) là điểm cần nêu trước để không so sánh lệch; chỗ dễ nhầm: tưởng HITS thay thế PageRank — nó trả lời câu hỏi khác.
-- **Giới hạn bố cục:** mặt slide chỉ quy trình và phạm vi; định nghĩa $h, a$ để s05-02; không thêm root/base algorithm.
-- **Ví dụ và số liệu:** không áp dụng — slide định phạm vi.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận bối cảnh từ S04; nhả khung "hai đầu ra" cho s05-02.
-- **Nguồn:** NG1 §5.5, p204–205/PDF30–31; NG5 slide 27–29 (phạm vi, đối chiếu, ≤200 từ tổng cho cả cụm Cornell).
-- **Thời lượng:** 2 phút (1' dải bước, 1' phạm vi).
-- **Ghi chú soạn:** nói: "cách chọn graph theo truy vấn là bài toán riêng, không học hôm nay"; sai lầm: khẳng định "HITS chỉ chạy được trên đồ thị nhỏ" — không có căn cứ, không nói.
-
-#### lec04-s05-02 — Ví dụ 5.13: định nghĩa hub và authority
-
-- **Vai trò và mục tiêu:** định nghĩa hai vai trò qua ví dụ khoa học; gắn từ Việt đầy đủ. Nền MT4.
-- **Luận điểm trung tâm:** hub tốt trỏ tới nhiều authority tốt; authority tốt được nhiều hub tốt trỏ tới — hai vai trò nâng nhau.
-- **Nội dung cụ thể:** VD 5.13: trang danh mục môn học của khoa (trỏ tới trang từng môn) = hub; trang từng môn học (được trang danh mục trỏ tới) = authority. Thuật ngữ: điểm trung tâm (hub), điểm thẩm quyền (authority); tên đầy đủ lần đầu: HITS — "tìm kiếm theo chủ đề dựa trên siêu liên kết" (Hyperlink-Induced Topic Search).
-- **Bố cục đã chọn:** trái 50%: sơ đồ 1 trung tâm — ô "trang danh mục môn học của khoa (hub)" ở trên, mũi tên xuống các ô "trang từng môn học (authority)" ở dưới; phải 50%: 2 hộp định nghĩa: "hub: điểm trung tâm — trỏ tới authority tốt" và "authority: điểm thẩm quyền — được hub tốt trỏ tới"; dòng dưới: tên đầy đủ HITS.
-- **Trọng tâm và thứ tự đọc:** sơ đồ trước (thấy trung tâm và các đích), hai hộp định nghĩa sau; đọc theo vòng "hub→authority→hub".
-- **Lý do phù hợp sinh viên năm 3:** ví dụ danh mục môn học/trang từng môn gần trải nghiệm sinh viên; chỗ dễ nhầm: một trang chỉ có thể là hub hoặc authority — thực tế mỗi trang có cả hai điểm.
-- **Giới hạn bố cục:** mặt slide chỉ định nghĩa; ma trận $L$ để s05-03; không đưa công thức cập nhật sớm.
-- **Ví dụ và số liệu:** không áp dụng số — định nghĩa khái niệm (NG1 VD 5.13).
-- **Hình thức hóa:** không áp dụng; định nghĩa khái niệm.
-- **Kết nối vào–ra cụ thể:** nhận phạm vi từ s05-01; nhả hai vai trò cho s05-03 (G5).
-- **Nguồn:** NG1 §5.5, VD 5.13, p205/PDF31.
-- **Thời lượng:** 2 phút (1' sơ đồ, 1' hai định nghĩa).
-- **Ghi chú soạn:** hỏi lớp: "trang danh mục môn học là hub hay authority?" — có thể cả hai; sai lầm: dùng "Selection" từ slide tham khảo — không dùng.
-
-#### lec04-s05-03 — G5 và quy tắc tổng theo cạnh
-
-- **Vai trò và mục tiêu:** thiết lập đồ thị ví dụ G5 và quy tắc đếm tổng theo cạnh. Nền MT4.
-- **Luận điểm trung tâm:** điểm mới của mỗi đỉnh là tổng điểm các đỉnh nối với nó theo cạnh — trước khi viết ma trận.
-- **Nội dung cụ thể:** G5: A→B,C,D; B→A,D; C→E; D→B,C; E không có cạnh ra; $n_H=5$, $m_H=8$. Khác G4: thay C→A bằng C→E. Quy tắc: $a_u$ mới = tổng $h_v$ cũ với $v\to u$; $h_v$ mới = tổng $a_u$ mới với $v\to u$.
-- **Bố cục đã chọn:** trái 50%: đồ thị G5 với 5 đỉnh nhãn A–E, 8 cạnh; đỉnh E có nhãn "không cạnh ra"; phải 50%: 2 dòng quy tắc tổng theo cạnh (một cho $a$, một cho $h$) + dòng "khác G4: C→A đổi thành C→E".
-- **Trọng tâm và thứ tự đọc:** đồ thị trước (đếm cạnh từng đỉnh), quy tắc sau; dừng ở đỉnh E để thấy "không cạnh ra".
-- **Lý do phù hợp sinh viên năm 3:** quy tắc tổng theo cạnh là bước trước ma trận — Cornell (NG5 slide 20–24) cũng nối theo hướng này; chỗ dễ nhầm: nhầm G5 với G4 (bài tập R3 dùng G4) — nhãn khác nhau ghi ngay.
-- **Giới hạn bố cục:** mặt slide chỉ đồ thị và quy tắc; ma trận $L$ để s05-06; không tính số ở đây.
-- **Ví dụ và số liệu:** VD4: G5, $n_H=5$, $m_H=8$ (NG1 Hình 5.18, p206/PDF32).
-- **Hình thức hóa:** không áp dụng; quy tắc đếm.
-- **Kết nối vào–ra cụ thể:** nhận hai vai trò từ s05-02; nhả G5 và quy tắc cho s05-04 (vòng 1).
-- **Nguồn:** NG1 Hình 5.18, §5.5, p206/PDF32.
-- **Thời lượng:** 3 phút (2' đọc đồ thị và đếm cạnh, 1' quy tắc).
-- **Ghi chú soạn:** cho lớp đếm: E có 0 cạnh ra, 1 cạnh vào (từ C); sai lầm: dùng G4 thay G5 — nhắc bài tập sẽ dùng G4 riêng.
-
-#### lec04-s05-04 — Vòng 1: raw a và a₁
-
-- **Vai trò và mục tiêu:** chạy nửa đầu vòng 1 (authority trước); thiết lập thói quen trước chuẩn hóa → chuẩn hóa. Nền MT4.
-- **Luận điểm trung tâm:** authority mới = tổng hub cũ theo cạnh đi vào; rồi chuẩn hóa theo phần tử lớn nhất.
-- **Nội dung cụ thể:** khởi $h_0=\mathbf{1}$, $a_0=\mathbf{0}$ ($a_0$ chỉ để đo chênh). $a_{raw,i}=\sum_{j\to i}h_{old,j}$, nên $a_{raw}=(1,2,2,2,1)$ (tổng hub của các đỉnh trỏ tới); chuẩn hóa theo phần tử lớn nhất 2: $a_1=(\tfrac12,1,1,1,\tfrac12)$.
-- **Bố cục đã chọn:** trái 45%: G5 giữ nguyên vị trí; phải 55%: 2 khối xếp dọc: khối "trước chuẩn hóa" với vector $(1,2,2,2,1)$ và chú thích "tổng theo cạnh đi vào"; khối "chuẩn hóa" với phép chia $\div 2$ và $a_1$; dòng dưới: "$h_0=\mathbf{1}$, $a_0=\mathbf{0}$ (đo chênh)".
-- **Trọng tâm và thứ tự đọc:** khối trước chuẩn hóa trước (thấy tổng), khối chuẩn hóa sau; nhãn max "2" đọc rõ.
-- **Lý do phù hợp sinh viên năm 3:** tách trước chuẩn hóa/chuẩn hóa thành hai khối giúp thao tác thành hai bước nhỏ; chỗ dễ nhầm: quên khởi $a_0=\mathbf{0}$ và tưởng $a$ tham gia vòng 1 — vòng 1 chỉ dùng $h_0$.
-- **Giới hạn bố cục:** mặt slide chỉ nửa authority của vòng 1; nửa hub để s05-05; không hiện ma trận $L$.
-- **Ví dụ và số liệu:** VD4 vòng 1: $a_{raw}=(1,2,2,2,1)$, $a_1=(\tfrac12,1,1,1,\tfrac12)$ (NG1; numbers.json HITS_5_18).
-- **Hình thức hóa:** một phần HT6.
-- **Kết nối vào–ra cụ thể:** nhận quy tắc từ s05-03; nhả $a_1$ cho s05-05.
-- **Nguồn:** NG1 §5.5, Hình 5.19–5.20, p206–207/PDF32–33.
-- **Thời lượng:** 3 phút (1' khởi tạo, 2' raw và scale).
-- **Ghi chú soạn:** bước nói: đỉnh B nhận trỏ từ A và D, mỗi đỉnh $h_0=1$ → $a_{raw,B}=2$; sai lầm: dùng $a_0$ để tính — $a_0$ chỉ đo chênh.
-
-#### lec04-s05-05 — Vòng 1: raw h và h₁
-
-- **Vai trò và mục tiêu:** hoàn tất vòng 1 với nửa hub; thấy $h_E=0$ lần đầu. Nền MT4.
-- **Luận điểm trung tâm:** hub mới = tổng authority mới theo cạnh đi ra; đỉnh không có cạnh ra cho 0.
-- **Nội dung cụ thể:** $h_{raw,i}=\sum_{i\to j}a_{new,j}$, nên $h_{raw}=(3,\tfrac32,\tfrac12,2,0)$ (tổng $a_1$ của các đỉnh mà đỉnh đó trỏ tới); chuẩn hóa theo phần tử lớn nhất 3: $h_1=(1,\tfrac12,\tfrac16,\tfrac23,0)$. $h_E=0$ vì E không có cạnh ra.
-- **Bố cục đã chọn:** trái 45%: G5 giữ nguyên; phải 55%: 2 khối "trước chuẩn hóa" và "chuẩn hóa" như s05-04, nhãn max "3"; khung nhỏ dưới: "$h_E=0$: E không cạnh ra" với mũi tên chỉ đỉnh E trên đồ thị.
-- **Trọng tâm và thứ tự đọc:** khối trước chuẩn hóa trước, khối chuẩn hóa sau; khung $h_E=0$ đọc cuối — là dữ kiện cho câu hỏi s05-11.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên hay trộn hai chiều cập nhật; khối này đối lập với s05-04 (đi vào vs đi ra) giúp phân biệt; chỗ dễ nhầm: tưởng E "vô dụng" — authority của E vẫn sẽ dương.
-- **Giới hạn bố cục:** mặt slide chỉ nửa hub vòng 1; ma trận $L$ và đối chiếu $P$ để s05-06.
-- **Ví dụ và số liệu:** VD4 vòng 1: $h_{raw}=(3,\tfrac32,\tfrac12,2,0)$, $h_1=(1,\tfrac12,\tfrac16,\tfrac23,0)$ (NG1; numbers.json).
-- **Hình thức hóa:** một phần HT6.
-- **Kết nối vào–ra cụ thể:** nhận $a_1$ từ s05-04; nhả $h_1$ cho s05-07 (vòng 2).
-- **Nguồn:** NG1 §5.5, Hình 5.19–5.20, p206–207/PDF32–33.
-- **Thời lượng:** 3 phút (1' raw, 1' scale, 1' $h_E=0$).
-- **Ghi chú soạn:** bước nói: A trỏ tới B, C, D → $h_{raw,A}=a_B+a_C+a_D=1+1+1=3$; sai lầm: tính $h$ từ $L^T$ — sai hướng; nhắc lần chuẩn hóa mỗi vòng khác nhau (2 rồi 3).
-
-#### lec04-s05-06 — Ma trận L hàng nguồn, đối chiếu với P
-
-- **Vai trò và mục tiêu:** hình thức hóa hai quy tắc tổng thành ma trận; phân biệt $L$ với $P$. HT6 (phần ma trận).
-- **Luận điểm trung tâm:** $L$ có hàng là nguồn — khác $P$ có cột là nguồn; hai phép nhân $L^Th$ và $La$ tương ứng hai quy tắc.
-- **Nội dung cụ thể:** $$L=\begin{bmatrix}0&1&1&1&0\\1&0&0&1&0\\0&0&0&0&1\\0&1&1&0&0\\0&0&0&0&0\end{bmatrix}$$ hàng = đỉnh nguồn. Hàng $i$ của $L^T$ (tức cột $i$ của $L$) liệt kê các nguồn $j\to i$: $a_{raw,i}=\sum_j L_{ji}\,h_{old,j}$; hàng $i$ của $L$ liệt kê các đích $i\to j$: $h_{raw,i}=\sum_j L_{ij}\,a_{new,j}$. Nhắc: $P$ của PageRank có cột nguồn, $L$ có hàng nguồn — hai quy ước khác nhau.
-- **Bố cục đã chọn:** trái 50%: ma trận $L$ 5×5 với nhãn hàng/cột A–E, chú thích "hàng = nguồn"; phải 50%: 2 dòng công thức $a_{raw,i}=\sum_j L_{ji}h_{old,j}$, $h_{raw,i}=\sum_j L_{ij}a_{new,j}$, dưới là 1 dòng đối chiếu "P: cột nguồn ↔ L: hàng nguồn".
-- **Trọng tâm và thứ tự đọc:** ma trận trước (kiểm hàng A có 1 ở B, C, D), công thức sau, dòng đối chiếu cuối.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên vừa quen $P$ cột nguồn ở Bài 03; đặt hai quy ước cạnh nhau ngăn lỗi nhân nhầm chiều — lỗi đã liệt kê trong kiểm số VD4; hàng 5 toàn 0 nhìn thấy ngay E không cạnh ra.
-- **Giới hạn bố cục:** mặt slide chỉ $L$ và hai công thức; vòng 2 để s05-07; không dựng $LL^T$.
-- **Ví dụ và số liệu:** VD4: $L$ như trên (NG1 Hình 5.19, p206/PDF32).
-- **Hình thức hóa:** HT6 (phần ma trận).
-- **Kết nối vào–ra cụ thể:** nhận hai quy tắc từ s05-04..05; nhả ký hiệu $L^Th$, $La$ cho s05-07..08.
-- **Nguồn:** NG1 Hình 5.19, §5.5, p206/PDF32.
-- **Thời lượng:** 3 phút (1' đọc ma trận, 2' đối chiếu hai phép nhân).
-- **Ghi chú soạn:** hỏi lớp: "hàng nào toàn 0? vì sao?" — hàng E; sai lầm: viết $L$ cột nguồn như $P$ — cho kết quả sai; không dựng $LL^T$/$L^TL$ vì có thể đặc.
-
-#### lec04-s05-07 — Vòng 2: raw và scale đủ hai vai trò
-
-- **Vai trò và mục tiêu:** chạy vòng 2 đầy đủ; thấy các đỉnh phân hóa. Hoàn thành dữ kiện VD4.
-- **Luận điểm trung tâm:** vòng 2 dùng trạng thái mới của vòng 1 — cập nhật luân phiên từ trạng thái cũ.
-- **Nội dung cụ thể:** $a_{raw}=L^Th_1=(\tfrac12,\tfrac53,\tfrac53,\tfrac32,\tfrac16)$; chuẩn hóa theo phần tử lớn nhất $\tfrac53$: $a_2=(\tfrac3{10},1,1,\tfrac9{10},\tfrac1{10})$. $h_{raw}=L\,a_2=(\tfrac{29}{10},\tfrac65,\tfrac1{10},2,0)$; chuẩn hóa theo phần tử lớn nhất $\tfrac{29}{10}$: $h_2=(1,\tfrac{12}{29},\tfrac1{29},\tfrac{20}{29},0)$. Nhãn giữa cột 1–2: "chia $\tfrac53$", giữa cột 3–4: "chia $\tfrac{29}{10}$" — bốn số chia trong hai vòng của ví dụ này khác nhau; giữ nguyên từng số chia; vòng 1 (max $2, 3$) chỉ đối chiếu trong ghi chú.
-- **Bố cục đã chọn:** bảng 5 hàng (A–E) × 4 cột ($a_{raw}$, $a_2$, $h_{raw}$, $h_2$) chiếm toàn chiều rộng; nhãn "chia $\tfrac53$" giữa cột 1–2, "chia $\tfrac{29}{10}$" giữa cột 3–4; dòng dưới: "cập nhật luân phiên: $a$ từ $h_{old}$, $h$ từ $a_{new}$".
-- **Trọng tâm và thứ tự đọc:** bảng theo hàng A→E, trong hàng đọc $a_{raw}\to a_2\to h_{raw}\to h_2$; nhãn chia giữa cột để tra lần chuẩn hóa.
-- **Lý do phù hợp sinh viên năm 3:** bảng một vòng giúp thấy phân hóa các đỉnh và các lần chuẩn hóa khác nhau; chỗ dễ nhầm: dùng $a_1$ cũ khi tính $h$ — phải dùng $a_2$ mới; giữ phân số nguồn tránh trộn lần chuẩn hóa.
-- **Giới hạn bố cục:** mặt slide chỉ bảng vòng 2; vòng 1 chỉ đối chiếu trong ghi chú; giới hạn và thuật toán đầy đủ để s05-08..09; không hiện giá trị thập phân.
-- **Ví dụ và số liệu:** VD4 vòng 2: các giá trị trên (NG1; numbers.json HITS_5_18).
-- **Hình thức hóa:** HT6 (bảng vòng).
-- **Kết nối vào–ra cụ thể:** nhận $h_1$ từ s05-05 và $L$ từ s05-06; nhả hai vòng cho s05-08 (thuật toán) và s05-11 (kiểm tra).
-- **Nguồn:** NG1 Hình 5.20, §5.5, p207/PDF33.
-- **Thời lượng:** 3 phút (1' phần a, 1' phần h, 1' nhãn chia).
-- **Ghi chú soạn:** kiểm nhanh: $a_{raw,E}=h_{1,C}=\tfrac16$ → $a_{2,E}=\tfrac1{10}$ sau chia $\tfrac53$; vòng 1 chỉ đối chiếu trong ghi chú; sai lầm: quy đồng các lần chuẩn hóa — giữ nhãn $\tfrac53, \tfrac{29}{10}$.
-
-#### lec04-s05-08 — Giả mã HITS: điều kiện biên và ba trạng thái kết thúc
-
-- **Vai trò và mục tiêu:** khái quát hai vòng thành thuật toán với trường hợp biên và điều kiện dừng. HT6.
-- **Luận điểm trung tâm:** mỗi vòng là 2 quét cạnh + 2 quét max; dừng theo ngưỡng chênh, hết số vòng, hoặc suy biến.
-- **Nội dung cụ thể (giả mã 13 dòng):**
-  1. Nhận danh sách cạnh của đồ thị $n_H\ge1$ đỉnh, $\tau>0$, $K_{max}\ge1$ nguyên; $L\in\{0,1\}^{n_H\times n_H}$ là ma trận kề tương ứng.
-  2. Đặt $h_{old}\leftarrow\mathbf{1}$, $a_{old}\leftarrow\mathbf{0}$.
-  3. Với $k=1,\ldots,K_{max}$, thực hiện các dòng 4–12:
-  4. $a_{raw}\leftarrow L^Th_{old}$; $c_a\leftarrow\max_i a_{raw,i}$.
-  5. Nếu $c_a=0$, trả $(\mathbf{0},\mathbf{0},\text{suy biến})$.
-  6. $a_{new}\leftarrow a_{raw}/c_a$.
-  7. $h_{raw}\leftarrow La_{new}$; $c_h\leftarrow\max_i h_{raw,i}$.
-  8. Nếu $c_h=0$, trả $(\mathbf{0},\mathbf{0},\text{suy biến})$.
-  9. $h_{new}\leftarrow h_{raw}/c_h$.
-  10. $\epsilon\leftarrow\max(\|h_{new}-h_{old}\|_\infty,\|a_{new}-a_{old}\|_\infty)$.
-  11. Nếu $\epsilon\le\tau$, trả $(h_{new},a_{new},\text{đạt ngưỡng})$.
-  12. Gán $(h_{old},a_{old})\leftarrow(h_{new},a_{new})$.
-  13. Sau vòng lặp, trả $(h_{old},a_{old},\text{chưa đạt})$.
-- **Bố cục đã chọn:** Giả mã chiếm toàn chiều rộng và 85% vùng nội dung, mỗi dòng là một bước ngắn; thụt dòng 4–12 dưới vòng lặp. Dải dưới 15% có ba nhãn trạng thái: “suy biến”, “đạt ngưỡng”, “chưa đạt”. Không đặt thêm cột chú giải làm hẹp công thức; giữ thang chữ của mẫu.
-- **Trọng tâm và thứ tự đọc:** Theo số dòng từ trên xuống; nhìn cặp tính–kiểm–chia cho thẩm quyền rồi cho trung tâm. Đọc điều kiện dừng và giá trị trả về sau cả hai cập nhật.
-- **Lý do phù hợp sinh viên năm 3:** Hai số chia $c_a,c_h$ có nhãn riêng để không dùng nhầm hệ số chuẩn hóa. Cấu trúc lặp giống PageRank đã học; cặp trạng thái cũ–mới và ba lối kết thúc làm rõ phần mới của HITS.
-- **Giới hạn bố cục:** Mặt slide chỉ giả mã 13 dòng ngắn và ba trạng thái; phép nhân ma trận được thực hiện bằng quét cạnh, không dựng ma trận đặc. Giải thích điều kiện hội tụ để s05-09.
-- **Ví dụ và số liệu:** không chạy số mới — giả mã khái quát đúng hai vòng VD4 đã chạy tay.
-- **Hình thức hóa:** HT6 dạng thuật toán.
-- **Kết nối vào–ra cụ thể:** nhận hai vòng từ s05-07; nhả thuật toán cho bài tập R3 (s07-03) và so sánh với s02-07 ở s06-02.
-- **Nguồn:** NG1 §5.5, p206–207/PDF32–33.
-- **Thời lượng:** 3 phút (1' dòng 1–3, 1' dòng 4–7, 1' dòng 8 và cờ).
-- **Ghi chú soạn:** $a_{old}=\mathbf{0}$ chỉ là mốc đo chênh ở vòng đầu; $a_{new}$ được tính từ $h_{old}$. Kiểm cả $c_a,c_h$ trước khi chia. Đồ thị không có cạnh trả hai vector 0 và cờ suy biến. Nhánh đạt trả cặp mới; hết số vòng trả cặp đã cập nhật cuối cùng và cờ chưa đạt. $\tau$ là ngưỡng thay đổi, không phải chứng nhận sai số tới nghiệm.
-
-#### lec04-s05-09 — Vì sao hội tụ: vector riêng với điều kiện đủ
-
-- **Vai trò và mục tiêu:** nêu cơ sở lý thuyết của lặp luân phiên; mức ghi chú chứng minh. HT7.
-- **Luận điểm trung tâm:** điểm giới hạn là vector riêng của $L^TL$ và $LL^T$; hội tụ về hướng trội khi hướng trội duy nhất.
-- **Nội dung cụ thể:** với $u\ge0$: $h_{u+1}\propto LL^Th_u$; $a_{u+1}\propto L^TL\,a_u$ chỉ với $u\ge1$ ($a_0=\mathbf{0}$ chỉ để đo chênh, không phải điểm khởi cho $a$) — lặp là phương pháp lũy thừa. **Các điều kiện sau đủ bảo đảm hội tụ về hướng trội (không phải điều kiện cần):** $L\ne0$; hướng trội duy nhất $\lambda_1>\lambda_2\ge0$ của $LL^T$ và $L^TL$; $h_0$ có hình chiếu khác 0 lên hướng trội của $LL^T$. Phác ý: sai số giảm như $(\lambda_2/\lambda_1)^u$ — không suy hội tụ từ vài vòng quan sát.
-- **Bố cục đã chọn:** trên 40%: hai dòng suy ra $LL^Th_u$, $L^TLa_u$ (chỉ $u\ge1$) với nhãn "phương pháp lũy thừa"; giữa 40%: khung 3 điều kiện đủ đánh số; dưới 20%: dòng "phác ý: sai số ~ $(\lambda_2/\lambda_1)^u$; không suy hội tụ từ vài vòng".
-- **Trọng tâm và thứ tự đọc:** hai dòng suy ra trước (thấy cấu trúc vector riêng), khung điều kiện sau, dòng phác ý cuối.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 chưa học Perron–Frobenius; nêu điều kiện đủ như "hộp kiểm" thay vì định lý trừu tượng; ý tưởng lũy thừa có khoảng cách phổ (NG5 slide 10) giúp họ tin cơ chế mà không cần chứng minh đầy đủ.
-- **Giới hạn bố cục:** mặt slide 3 khối ngắn; chứng minh đầy đủ để ghi chú mở rộng; không tuyên bố hội tụ đơn nhất không điều kiện (claim slide 56 NG3 đã loại).
-- **Ví dụ và số liệu:** đối chiếu VD4: các vòng cho thấy $h,a$ ổn định dần theo hướng; giới hạn $h\approx(1,.3583,0,.7165,0)$, $a\approx(.2087,1,1,.7913,0)$ (32 vòng để chênh hai vòng dưới $10^{-12}$) — ghi chú.
-- **Hình thức hóa:** HT7 — điều kiện đủ hội tụ, mức ghi chú chứng minh.
-- **Kết nối vào–ra cụ thể:** nhận thuật toán từ s05-08; nhả bảo đảm lý thuyết cho s05-10 (chi phí) và s06-01.
-- **Nguồn:** NG1 §5.5, p207–208/PDF33–34; NG5 slide 10 (ý tưởng phương pháp lũy thừa, đối chiếu).
-- **Thời lượng:** 3 phút (1' hai dòng suy ra, 1' ba điều kiện, 1' phác ý).
-- **Ghi chú soạn:** Nhấn đây là điều kiện đủ, không phải điều kiện cần. $a_1$ là kết quả chuẩn hóa $L^Th_0$; $a_0=\mathbf{0}$ chỉ đo chênh, không dùng làm điểm khởi cho truy hồi theo $L^TL$. Giải thích phương pháp lũy thừa bằng phân rã theo các vector riêng của ma trận đối xứng: thành phần ngoài hướng trội giảm tương đối theo $(\lambda_2/\lambda_1)^u$. Không kết luận hội tụ chỉ từ vài vòng và không dựng các tích ma trận để tính trên đồ thị lớn.
-
-#### lec04-s05-10 — Chi phí HITS: hai quét cạnh mỗi vòng
-
-- **Vai trò và mục tiêu:** đếm phép toán; hoàn thành HT8 phần HITS. Nền MT5.
-- **Luận điểm trung tâm:** mỗi vòng chỉ quét danh sách cạnh hai lần và tìm max hai lần — không cần ma trận đầy đủ.
-- **Nội dung cụ thể:** 1 vòng: $a_{raw}$ quét cạnh (mỗi cạnh 1 phép cộng), $h_{raw}$ quét cạnh lần 2, cộng 2 lần tìm max → $\Theta(n_H+m_H)$/vòng và bộ nhớ $O(n_H+m_H)$. Không dựng $LL^T$/$L^TL$ vì có thể đặc ($O(n_H^2)$). Đối chiếu TSP: $\Theta(n+m_G)$/vòng — cùng bậc, khác cấu trúc cập nhật.
-- **Bố cục đã chọn:** trên 45%: bảng 2 hàng (HITS / TSP) × 3 cột (1 vòng / bộ nhớ / cấu trúc); dưới 55%: sơ đồ 4 bước một vòng HITS: quét cạnh (a) → quét max → quét cạnh (h) → quét max, mỗi ô nhãn phép toán.
-- **Trọng tâm và thứ tự đọc:** sơ đồ 4 bước trước (đếm theo bước), bảng đối chiếu sau.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên đã đếm chi phí TSP ở s02-09; bảng đối chiếu giúp thấy hai thuật toán cùng bậc chi phí nhưng HITS cho hai vector; chỗ dễ nhầm: tưởng cần nhân ma trận 5×5 đầy đủ.
-- **Giới hạn bố cục:** mặt slide chỉ bảng và sơ đồ; so sánh 4 mô hình đầy đủ để s06-02.
-- **Ví dụ và số liệu:** VD4: $n_H=5$, $m_H=8$ — mỗi vòng 2×8 phép cộng cạnh + 2×5 phép so max; không bịa quy mô lớn.
-- **Hình thức hóa:** HT8 (phần HITS).
-- **Kết nối vào–ra cụ thể:** nhận thuật toán từ s05-08; nhả chi phí cho s06-02.
-- **Nguồn:** NG1 §5.5, p208/PDF34; đặc tả đã duyệt mục chi phí.
-- **Thời lượng:** 3 phút (1' sơ đồ, 1' bảng, 1' đối chiếu TSP).
-- **Ghi chú soạn:** sai lầm: dựng $LL^T$ — ma trận có thể đặc, tốn $O(n_H^2)$; nhắc HITS trên đồ thị đã chọn cố định, cách chọn graph ngoài tuyến chính.
-
-#### lec04-s05-11 — Kiểm tra phần 5: h_E và a_E
-
-- **Vai trò và mục tiêu:** slide kiểm tra riêng phần 5; đo MT4 — hiểu hướng cập nhật luân phiên và scale.
-- **Luận điểm trung tâm:** hai vai trò cập nhật theo hai chiều khác nhau — đỉnh có thể có một điểm bằng 0 và điểm kia dương.
-- **Nội dung cụ thể (đề trên mặt slide):** Câu hỏi: trên G5: (i) vì sao $h_E=0$ ngay vòng 1? (ii) vì sao $a_E=\tfrac12>0$ ở vòng 1? (iii) vì sao $a_E$ vòng 2 $=\tfrac1{10}$? Chỉ giải thích các thành phần tại E, không tính lại toàn bộ vòng.
-- **Bố cục đã chọn:** trái 40%: G5 giữ nguyên vị trí, đỉnh E được khoanh; phải 60%: hộp 3 câu hỏi (i)–(iii); dòng dưới: nhắc "cập nhật luân phiên, chuẩn hóa theo phần tử lớn nhất". Không có đáp án trên mặt.
-- **Trọng tâm và thứ tự đọc:** đỉnh E trên đồ thị trước, ba câu hỏi sau.
-- **Lý do phù hợp sinh viên năm 3:** ba câu bám đúng ba thao tác: đếm cạnh ra (i), đếm cạnh vào (ii), scale theo max (iii); chỗ dễ nhầm: tưởng E "bị bỏ" vì $h_E=0$ — authority của E vẫn dương vì có C→E.
-- **Giới hạn bố cục:** mặt slide chỉ đề; lời giải từng bước để ghi chú.
-- **Ví dụ và số liệu:** VD4: $h_E=0$; $a_{raw,E}$ vòng 1 $=1$ → $a_E=\tfrac12$; vòng 2: $a_{raw,E}=h_{1,C}=\tfrac16$, max $\tfrac53$ → $a_E=\tfrac1{10}$ (NG1; numbers.json).
-- **Hình thức hóa:** HT6 áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận hai vòng từ s05-07; nhả hiểu biết hướng cập nhật cho s06-04 và bài tập R3.
-- **Nguồn:** NG1 Hình 5.18–5.20, §5.5, p206–207/PDF32–33.
-- **Câu hỏi đủ dữ kiện:** có — G5 vẽ sẵn, hai vòng đã học; không cần dữ kiện ngoài.
-- **Đáp án (trong ghi chú):** (i) E không có cạnh ra → tổng authority các đỉnh E trỏ tới rỗng → $h_{raw,E}=0$. (ii) E có cạnh vào từ C, và $h_{0,C}=1$ → $a_{raw,E}=1$, chuẩn hóa theo phần tử lớn nhất 2 → $\tfrac12$. (iii) vòng 2: $a_{raw,E}=h_{1,C}=\tfrac16$; max $a_{raw}$ vòng 2 là $\tfrac53$ → $\tfrac16\div\tfrac53=\tfrac1{10}$.
-- **Tiêu chí đánh giá:** đúng cả ba lý do; phân biệt cạnh ra/cạnh vào; lỗi hiểu sai: dùng $a_0$ để tính vòng 1, hoặc quên đổi max giữa các vòng.
-- **Thời gian hoạt động:** trong 2 phút: 1' suy nghĩ, 30" trả lời, 30" chữa — tập trung giải thích, không tính toàn vòng.
-- **Thời lượng:** 2 phút (toàn bộ là hoạt động kiểm tra).
-- **Ghi chú soạn:** chữa bằng cách chỉ đỉnh E và lần lượt hai chiều mũi tên; nếu lớp nhầm (iii), viết lại phép chia $\tfrac16/\tfrac53$ 30 giây; không mở rộng sang giới hạn.
-
-#### lec04-s06-01 — Bảng bốn mô hình
-
-- **Vai trò và mục tiêu:** mở phần 6; gom bốn mô hình vào một bảng để so sánh. Hỗ trợ MT5.
-- **Luận điểm trung tâm:** bốn mô hình khác nhau ở đầu vào, đầu ra và câu hỏi mà chúng trả lời — không phải "tốt hơn" tuyệt đối.
-- **Nội dung cụ thể:** Bảng bốn hàng với các cột mô hình, đầu vào, đầu ra, cách dùng: PageRank cơ sở — đồ thị và $\beta$ — vector $r$ — xếp hạng chung; PageRank theo chủ đề — thêm tập $S$ — vector $r_S$ — xếp hạng theo chủ đề; TrustRank — thêm tập tin cậy $T$ — vector $t$ — đánh giá tín hiệu tin cậy; HITS — đồ thị con đã chọn — cặp $h,a$ — phân biệt hai vai trò. Ghi chú dưới bảng: khối lượng rác được tính thêm từ cả $r$ và $t$, không phải đầu ra riêng của TrustRank.
-- **Bố cục đã chọn:** bảng 4 hàng × 4 cột (mô hình / đầu vào thêm / đầu ra / câu hỏi trả lời) chiếm 75% giữa; cột "đầu vào thêm" được nhấn bằng khung; dòng dưới: "cùng nền: đồ thị có hướng, ma trận–vector".
-- **Trọng tâm và thứ tự đọc:** đọc theo hàng, cột "đầu vào thêm" trước để thấy mỗi mô hình thêm gì.
-- **Lý do phù hợp sinh viên năm 3:** sau ba phần thuật toán, sinh viên cần gộp lại thành bản đồ chọn mô hình; chỗ dễ nhầm: tưởng TSP thay thế PR cơ sở — bảng cho thấy TSP là PR cơ sở cộng một đầu vào.
-- **Giới hạn bố cục:** mặt slide chỉ bảng; so chi phí để s06-02; không thêm hàng RWR/SimRank/Pixie (đã bỏ).
-- **Ví dụ và số liệu:** không áp dụng số — bảng tổng hợp; các giá trị ví dụ đã thấy ở các phần.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận ba mô hình từ S02–S05; nhả bảng cho s06-02 (chi phí) và s06-04 (kiểm tra).
-- **Nguồn:** NG1 §5.3–5.5 tổng hợp; NG5 slide 34 (so PR/HITS, đối chiếu).
-- **Thời lượng:** 2 phút (đọc bảng theo hàng).
-- **Ghi chú soạn:** hỏi nhanh: "mô hình nào cần đầu vào do con người thẩm định?" — TrustRank ($T$); sai lầm: gộp $q_S$ và $T$ thành một loại — $q_S$ là chủ đề, $T$ là tập tin cậy; nhấn: TrustRank chỉ trả vector $t$, spam mass phải tính thêm từ vector PageRank $r$.
-
-#### lec04-s06-02 — So sánh chi phí trong cùng tham số
-
-- **Vai trò và mục tiêu:** so chi phí bốn mô hình trên cùng tham số; hoàn thành HT8. Hỗ trợ MT5.
-- **Luận điểm trung tâm:** so chi phí chỉ có nghĩa trong cùng mô hình và cùng tham số — không kết luận "nhanh hơn" ngoài mô hình.
-- **Nội dung cụ thể:** TSP: 1 vòng $\Theta(n+m_G)$; $k$ chủ đề $O(kI(n+m_G))$, lưu $O(kn)$. TrustRank: như TSP (dùng lại). HITS: $\Theta(n_H+m_H)$/vòng trên đồ thị con. Farm: đánh giá biểu thức $O(1)$ khi đã biết $x$; tìm PageRank nền vẫn cần lặp. Ghi dòng: "so sánh trong cùng tham số; không kết luận nhanh hơn ngoài mô hình".
-- **Bố cục đã chọn:** bảng 4 hàng (TSP / Trust / HITS / cụm thao túng) × 3 cột (chi phí chính / bộ nhớ / điều kiện áp dụng); bảng 70% giữa; dòng cảnh báo dưới cùng trong khung.
-- **Trọng tâm và thứ tự đọc:** bảng theo hàng; cột "điều kiện áp dụng" đọc kỹ — nơi chứa giới hạn.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên đã thấy từng con số ở s02-09, s05-10, s03-07; bảng gộp giúp trả lời câu hỏi thi dạng "chọn mô hình cho tình huống"; chỗ dễ nhầm: so HITS (đồ thị con nhỏ) với PR (toàn Web) rồi kết luận HITS rẻ hơn.
-- **Giới hạn bố cục:** mặt slide chỉ bảng; các dẫn chiếu chi tiết để ghi chú; không bịa quy mô Web thực.
-- **Ví dụ và số liệu:** không chạy số mới — tổng hợp các độ phức tạp đã duyệt (HT8).
-- **Hình thức hóa:** HT8.
-- **Kết nối vào–ra cụ thể:** nhận các độ phức tạp từ s02-09, s03-07, s05-10; nhả bảng cho s06-04.
-- **Nguồn:** NG1 §5.3–5.5; đặc tả đã duyệt mục chi phí.
-- **Thời lượng:** 2 phút (đọc bảng, nhấn dòng cảnh báo).
-- **Ghi chú soạn:** sai lầm cần chặn: "HITS nhanh hơn vì graph nhỏ" — đồ thị con nhỏ là lựa chọn đầu vào, không phải tính chất thuật toán; nhắc farm $O(1)$ chỉ khi đã biết $x$.
-
-#### lec04-s06-03 — Thu hồi jaguar, cụm thao túng và hai vai trò
-
-- **Vai trò và mục tiêu:** khép lại câu hỏi mở đầu; cho sinh viên biết chọn đầu vào/đầu ra nào cho từng nhu cầu. Hoàn thành MT5 về mặt nhận thức.
-- **Luận điểm trung tâm:** mỗi hạn chế nêu đầu bài giờ có một công cụ và một giới hạn tương ứng.
-- **Nội dung cụ thể:** (1) jaguar → TSP: đổi $q_S$ theo chủ đề, phối hợp $\sum\alpha_l r_l$. (2) cụm thao túng → hiểu bằng phương trình farm, phòng vệ bằng TrustRank/mass — với giới hạn giả thiết. (3) hai vai trò → HITS trên đồ thị con. Mỗi dòng kèm "đầu vào cần chuẩn bị" và "đầu ra nhận được".
-- **Bố cục đã chọn:** 3 hàng ngang, mỗi hàng 3 ô: nhu cầu (trái 30%) / công cụ (giữa 40%) / giới hạn (phải 30%); hàng 1 jaguar, hàng 2 farm–trust, hàng 3 hai vai trò.
-- **Trọng tâm và thứ tự đọc:** theo hàng; cột "giới hạn" đọc sau cùng mỗi hàng — nhắc bài không hứa quá.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên cần câu trả lời "học xong dùng khi nào"; bố cục 3 ô/hàng ép ghép nhu cầu–công cụ–giới hạn thành một câu hoàn chỉnh; chỗ dễ nhầm: quên giới hạn của giả thiết trust.
-- **Giới hạn bố cục:** mặt slide 3 hàng ngắn; khép 3 giới hạn đầy đủ để s06-05.
-- **Ví dụ và số liệu:** không áp dụng số — tổng hợp; nhắc lại $r^*=(\tfrac{54}{210},\tfrac{59}{210},\tfrac{38}{210},\tfrac{59}{210})$ nếu cần đối chiếu.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận bảng mô hình từ s06-01; nhả ba cặp nhu cầu–công cụ cho s06-04.
-- **Nguồn:** NG1 §5.3–5.5 tổng hợp.
-- **Thời lượng:** 2 phút (30" mỗi hàng, 30" chốt).
-- **Ghi chú soạn:** hỏi lớp trước khi hiện cột giới hạn: "công cụ này hứa được gì?"; sai lầm: nói "TrustRank loại bỏ rác" — chỉ giảm tin vào trang rác theo giả thiết.
-
-#### lec04-s06-04 — Kiểm tra tích hợp: bốn nhiệm vụ
-
-- **Vai trò và mục tiêu:** slide kiểm tra riêng phần 6; đo MT5 — chọn và vận dụng đúng mô hình cho từng tình huống.
-- **Luận điểm trung tâm:** mỗi mô hình có một "núm vặn" riêng — biết núm nào ở đâu là biết dùng mô hình.
-- **Nội dung cụ thể (đề trên mặt slide):** bốn câu hỏi trên các ví dụ đã học, mỗi ô nhãn **Câu hỏi:**: (1) muốn trang ô tô lên cao cho người đọc chủ đề ô tô — chọn mô hình rồi chỉ chỗ thay $q_S$ trong công thức; (2) trong phương trình farm, hạng nào bị bỏ TRONG PHƯƠNG TRÌNH trước khi giải? (3) spam mass âm — được không, nghĩa gì? (4) cần hai vai trò trung tâm/thẩm quyền — chọn mô hình rồi chỉ chiều nhân ma trận.
-- **Bố cục đã chọn:** 4 ô câu hỏi xếp lưới 2×2, mỗi ô nhãn Câu hỏi số; không lộ đáp án.
-- **Trọng tâm và thứ tự đọc:** theo số 1→4; mỗi ô tự chứa đủ dữ kiện từ ví dụ đã học.
-- **Lý do phù hợp sinh viên năm 3:** bốn câu bám đúng bốn hiểu sai đã chặn trong bài: quên chỗ thay $q_S$, nhầm hạng bị bỏ, coi mass là xác suất, nhân nhầm chiều ma trận; dạng tích hợp giúp sinh viên tự thấy mô hình nào mình còn lơ mơ.
-- **Giới hạn bố cục:** mặt slide chỉ 4 câu; đáp án và lỗi hiểu sai để ghi chú; không thêm câu mới.
-- **Ví dụ và số liệu:** dùng lại VD1 (TSP), VD2 (cụm thao túng), VD3 (mass), VD4 (HITS) — không số mới.
-- **Hình thức hóa:** HT1, HT4, HT5, HT6 áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận toàn bộ bài; củng cố kiến thức đã học; nối sang bài tập S07.
-- **Nguồn:** NG1 §5.3–5.5 (các ví dụ đã dẫn).
-- **Câu hỏi đủ dữ kiện:** có — mỗi câu dựa trên ví dụ đã học trong bài, dữ kiện đã trình bày.
-- **Đáp án (trong ghi chú):** (1) thay $q_S$ trong hạng dịch chuyển $(1-\beta)q_S$ của $r'=\beta Pr+(1-\beta)q_S$ — chọn $q_S$ phân bố trên tập trang ô tô; lỗi hiểu sai: đổi $\beta$ hoặc $P$. (2) hạng $(1-\beta)/N$ — phần dịch chuyển trực tiếp; lỗi: chọn $\beta q(1-\beta)/N$. (3) được — mass có thể âm, nghĩa là $t_p>r_p$ trong thiết lập đang dùng; không phải xác suất; lỗi: gọi là xác suất rác. (4) $L^T$ nhân với $h$ cũ: $a_{raw}=L^Th_{old}$; lỗi: nhân $L$ hoặc $L^TL$.
-- **Tiêu chí đánh giá:** đo lựa chọn mô hình và lý do kèm theo, không chỉ nhớ công thức; mỗi câu rút được lỗi hiểu sai tương ứng; sai ≥2 câu cho thấy cần ôn phần đó.
-- **Thời gian hoạt động:** trong 5 phút: 4×1' suy nghĩ–trả lời từng nhiệm vụ, 1' chữa tổng.
-- **Thời lượng:** 5 phút (toàn bộ là hoạt động kiểm tra).
-- **Ghi chú soạn:** giữ nhịp 1 phút mỗi câu; nếu câu nào lớp sai rộng, ghi lại để mở bài tập tương ứng; không chữa dài quá 1 phút.
-
-#### lec04-s06-05 — Khép ba giới hạn và nối tiếp
-
-- **Vai trò và mục tiêu:** khép bài bằng ba giới hạn; nối bài tập và đọc thêm. Không có kiểm tra riêng.
-- **Luận điểm trung tâm:** ba mô hình đều có giới hạn rõ — biết giới hạn là một phần của năng lực.
-- **Nội dung cụ thể:** (1) TSP: cần tập đại diện chủ đề do người chọn; $r^*$ có thể có phần tử 0 khi $q_S$ hỗ trợ con. (2) Trust: dựa trên giả thiết "trang tốt ít trỏ rác" — không bảo đảm; mass không phải xác suất. (3) HITS: hội tụ theo điều kiện đủ; cách chọn đồ thị con ngoài tuyến chính. Nối: bài tập 3 bài (5.3.1, 5.4.2, 5.5.1); đọc thêm MMDS §5.3–5.5; Bài 05 so sánh tài liệu gần trùng — không dạy Jaccard hôm nay.
-- **Bố cục đã chọn:** trái 55%: 3 dòng giới hạn đánh số, mỗi dòng một câu; phải 45%: hộp "tiếp theo": 3 dòng (bài tập trên lớp / đọc §5.3–5.5 / Bài 05).
-- **Trọng tâm và thứ tự đọc:** giới hạn trước, hộp tiếp theo sau.
-- **Lý do phù hợp sinh viên năm 3:** sinh viên năm 3 cần biết "thuật toán này không dùng được khi nào" trước khi làm bài tập; ba dòng khớp ba phần chính giúp ôn nhanh; hộp tiếp theo cho hành động cụ thể sau buổi học.
-- **Giới hạn bố cục:** mặt slide 3 dòng + hộp; chi tiết giới hạn đã có ở các phần, không lặp.
-- **Ví dụ và số liệu:** không áp dụng — slide khép.
-- **Hình thức hóa:** không áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận tổng kết từ s06-03..04; nối sang s07-01 và tự học §5.3–5.5.
-- **Nguồn:** NG1 §5.3–5.5 (giới hạn từng mô hình); NG0 (nối Bài 05).
-- **Thời lượng:** 1 phút (đọc nhanh 3 dòng, giao bài tập).
-- **Ghi chú soạn:** không mở chủ đề mới; nhắc mang máy tính/bảng tính cho phần 7; sai lầm: tuyên bố "đã kiểm render" — bài chỉ mới ở kế hoạch dàn bài.
-
-#### lec04-s07-01 — Bài tập 5.3.1: TSP với hai tập $S$
-
-- **Vai trò và mục tiêu:** hoạt động bài tập 1; vận dụng MT1 trên hai tập $S$ mới (Bài 5.3.1).
-- **Luận điểm trung tâm:** đổi tập $S$ là đổi vector dịch chuyển — nghiệm thay đổi theo, nhưng quy trình giữ nguyên.
-- **Nội dung cụ thể (đề đầy đủ trên mặt slide):** Câu hỏi: trên G4, dùng $\beta=0.8$ theo quy ước của Ví dụ 5.10. Tính PageRank theo chủ đề khi (a) $S=\{A\}$ và (b) $S=\{A,C\}$. Mỗi câu trình bày $q_S$, phương trình, nghiệm và phép kiểm tổng các thành phần bằng 1.
-- **Bố cục đã chọn:** trái 35%: G4 cố định ở vị trí quen; giữa 40%: đề bài 2 câu (a), (b) và dòng quy ước "$\beta=.8$ kế thừa VD5.10"; phải 25%: bảng kết quả phải trống 2 hàng (tập $S$ / $q$ / $r^*$ / tổng) để điền khi chữa. Đáp án chỉ trong ghi chú.
-- **Trọng tâm và thứ tự đọc:** đề giữa trước, quy ước ngay dưới, G4 trái để tra bậc ra; bảng phải chỉ điền khi chữa.
-- **Lý do phù hợp sinh viên năm 3:** đúng quy trình s02-07 nhưng đổi đầu vào; hai tập $S$ cho hai vector $q$ khác nhau — nhãn tập $S$ trên từng cột chống trộn nghiệm; chỗ dễ nhầm: quên kiểm tổng 1.
-- **Giới hạn bố cục:** mặt slide chỉ đề và bảng trống; lời giải từng bước để ghi chú; không tạo sổ tay mã/chương trình.
-- **Ví dụ và số liệu:** NG1 Bài 5.3.1, p199/PDF25: đáp án (a) $S=\{A\}$: $q_S=(1,0,0,0)$, $r^*=(\tfrac37,\tfrac4{21},\tfrac4{21},\tfrac4{21})$; (b) $S=\{A,C\}$: $q_S=(\tfrac12,0,\tfrac12,0)$, $r^*=(\tfrac{27}{70},\tfrac6{35},\tfrac{19}{70},\tfrac6{35})$ — chỉ trong ghi chú.
-- **Hình thức hóa:** HT1 áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận quy trình từ s02-07; củng cố s06-04 câu 1; nối s07-02.
-- **Nguồn:** NG1 Bài 5.3.1, p199/PDF25.
-- **Thời lượng:** 18 phút: 6' đọc đề và dựng $q$ + phương trình, 8' tính nghiệm (giải hệ hoặc lặp), 4' chữa và kiểm tổng 1.
-- **Ghi chú soạn:** nhắc quy ước $\beta=.8$ trước khi bắt đầu; sai lầm: trộn nghiệm hai tập $S$ — nhãn cột theo tập $S$; nếu nhóm lặp chậm, gợi ý giải hệ trực tiếp. Tiêu chí: đúng $q_S$, phương trình/giải hệ hoặc lặp, nghiệm, tổng 1.
-
-#### lec04-s07-02 — Bài tập 5.4.2: TrustRank và spam mass với $T=\\{B\\}$
-
-- **Vai trò và mục tiêu:** hoạt động bài tập 2; vận dụng MT3 trọn quy trình: trust rồi mass (Bài 5.4.2).
-- **Luận điểm trung tâm:** đổi $T$ thay đổi cả hai đầu ra — trust vector và mass — nhưng quy tắc tính không đổi.
-- **Nội dung cụ thể (đề đầy đủ trên mặt slide):** cho G4, chỉ B tin cậy ($T=\{B\}$), TrustRank dùng $\beta=4/5$ (quy ước kế thừa VD5.10). PageRank nền $r=(\tfrac13,\tfrac29,\tfrac29,\tfrac29)$ — nguồn dùng không hệ số suy giảm ($\beta=1$), quy ước thừa kế; ghi cảnh báo hai thiết lập trên mặt bài. (a) Tính TrustRank từng trang. (b) Tính spam mass từng trang.
-- **Bố cục đã chọn:** trái 35%: G4 cố định; giữa 40%: đề 2 câu + dòng dữ kiện $r_{base}$ + khung cảnh báo "hai thiết lập khác nhau"; phải 25%: bảng kết quả phải trống 2 khối (t / mass) × 4 đỉnh. Đáp án chỉ trong ghi chú.
-- **Trọng tâm và thứ tự đọc:** dữ kiện $r_{base}$ trước (cần cho câu b), đề (a) rồi (b), cảnh báo đọc trước khi tính.
-- **Lý do phù hợp sinh viên năm 3:** quy trình hai bước (trust → mass) đúng như s04-03..05; chỗ dễ nhầm: dùng $r^*$ của VD1 (có hệ số suy giảm) làm điểm nền — đề cố tình in $r_{base}$ trên mặt để tránh; mass âm tại B sẽ xuất hiện lại như VD3.
-- **Giới hạn bố cục:** mặt slide chỉ đề, dữ kiện và bảng trống; đáp án để ghi chú; không đổi điểm nền.
-- **Ví dụ và số liệu:** NG1 Bài 5.4.2, p204/PDF30: đáp án $t=(\tfrac{198}{735},\tfrac{263}{735},\tfrac{116}{735},\tfrac{158}{735})$; mass $=(\tfrac{47}{245},-\tfrac{299}{490},\tfrac{71}{245},\tfrac8{245})$ — chỉ trong ghi chú.
-- **Hình thức hóa:** HT5, HT2 (dùng lại) áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận quy tắc từ s04-03; củng cố s06-04 câu 3; nối s07-03.
-- **Nguồn:** NG1 Bài 5.4.2, p204/PDF30.
-- **Thời lượng:** 22 phút: 3' đọc dữ kiện và cảnh báo, 10' tính trust, 6' tính mass, 3' chữa.
-- **Ghi chú soạn:** nhấn: $r$ nền không hệ số suy giảm là quy ước nguồn, không phải lỗi đề; sai lầm: quên cảnh báo hai thiết lập rồi kết luận sai về $T$; mass âm tại B ($-\tfrac{299}{490}$) — cùng diễn giải VD3, không phải xác suất; không nhầm $r$ nền với $r^*$ của VD1. Tiêu chí: đúng $t$, đúng tỷ số, diễn giải âm, không nhầm $r$ nền với $r^*$ VD1.
-
-#### lec04-s07-03 — Bài tập 5.5.1: HITS trên G4 đến hội tụ
-
-- **Vai trò và mục tiêu:** hoạt động bài tập 3; vận dụng MT4 trọn quy trình HITS đến hội tụ (Bài 5.5.1).
-- **Luận điểm trung tâm:** hai vòng đầu tính tay được, nhưng đề yêu cầu đến hội tụ — phải hiểu điều kiện dừng, không dừng ở 2 vòng.
-- **Nội dung cụ thể (đề đầy đủ trên mặt slide):** Câu hỏi: trên G4 của Hình 5.1, tính điểm trung tâm $h$ và điểm thẩm quyền $a$ của HITS. Dùng $L_4=\begin{bmatrix}0&1&1&1\\1&0&0&1\\1&0&0&0\\0&1&1&0\end{bmatrix}$ theo hàng nguồn; có thể dùng máy tính hoặc bảng tính. Nếu dùng phép lặp đã học, gợi ý ngưỡng thay đổi $\tau=0.001$. Sản phẩm: hai vector chuẩn hóa theo phần tử lớn nhất bằng 1 và cách tính; nếu lặp, kèm vết lặp cùng điều kiện dừng.
-- **Bố cục đã chọn:** trái 35%: G4 cố định ở vị trí quen (nhãn "G4 — Hình 5.1"); giữa 40%: đề + ma trận $L_4$ + dòng "$\tau=.001$ gợi ý gần đúng"; phải 25%: bảng kết quả phải trống (hàng $h$, $a$ × 4 đỉnh). Đáp án chỉ trong ghi chú.
-- **Trọng tâm và thứ tự đọc:** nhãn đồ thị trước (chốt G4, không G5), đề giữa, ma trận $L_4$ để tra; bảng phải điền khi nộp.
-- **Lý do phù hợp sinh viên năm 3:** đây là bài duy nhất yêu cầu chạy đến hội tụ — kiểm đúng thao tác giả mã s05-08 (kiểm số chia, ba trạng thái kết thúc và điều kiện dừng); chỗ dễ nhầm số một: dùng G5 của ví dụ thay G4; nhầm $L_4$ với $L$ của G5.
-- **Giới hạn bố cục:** mặt slide chỉ đề, $L_4$ và bảng trống; hai vòng bảng trợ giúp để ghi chú; đề cuối phải là hội tụ, không thay đề bằng 2 vòng.
-- **Ví dụ và số liệu:** NG1 Bài 5.5.1, p208/PDF34: hai vòng đầu $a_1=(1,1,1,1)$, $h_1=(1,\tfrac23,\tfrac13,\tfrac23)$; $a_2=(\tfrac35,1,1,1)$, $h_2=(1,\tfrac8{15},\tfrac15,\tfrac23)$; với $\tau=.001$ đạt ngưỡng thay đổi sau 11 vòng, $\epsilon\approx0.0007450739557$, $h\approx(1,.392369,.103046,.710676)$, $a\approx(.289993,1,1,.814221)$; 43 vòng chỉ khi dùng ngưỡng $10^{-12}$; nghiệm giới hạn làm tròn 4 số: $h\approx(1,.3919,.1028,.7108)$, $a\approx(.2892,1,1,.8136)$ — chỉ trong ghi chú, không gán số giới hạn cho chính vòng 11.
-- **Hình thức hóa:** HT6, HT7, HT8 áp dụng.
-- **Kết nối vào–ra cụ thể:** nhận thuật toán từ s05-08; khép bài, nối Bài 05.
-- **Nguồn:** NG1 Bài 5.5.1, p208/PDF34.
-- **Câu hỏi đủ dữ kiện:** có — G4, $L_4$, quy tắc lặp, $\tau$ đều trên mặt slide.
-- **Đáp án (trong ghi chú):** hai vòng đầu như bảng trợ giúp; với $\tau=.001$: 11 vòng, $\epsilon\approx0.0007450739557$, $h\approx(1,.392369,.103046,.710676)$, $a\approx(.289993,1,1,.814221)$; 43 vòng chỉ khi ngưỡng $10^{-12}$; nghiệm giới hạn làm tròn 4 số $h\approx(1,.3919,.1028,.7108)$, $a\approx(.2892,1,1,.8136)$; cách lặp: $a_{raw}=L_4^Th_{old}$ → chuẩn hóa theo phần tử lớn nhất → $h_{raw}=L_4a_{new}$ → chuẩn hóa theo phần tử lớn nhất; ba trạng thái kết thúc: đạt ngưỡng chênh, chưa đạt khi hết số vòng cho phép, hoặc suy biến khi số chia bằng 0.
-- **Tiêu chí đánh giá:** Chấp nhận nghiệm giới hạn làm tròn bốn chữ số hoặc trạng thái vòng 11 kèm báo cáo ngưỡng thay đổi $0.001$; không coi số chữ số in ra là bảo đảm sai số tới nghiệm. Hai vector được chuẩn hóa theo phần tử lớn nhất bằng 1; trình bày được cách tính. Với phép lặp, cần đúng hướng cập nhật, dùng trạng thái mới và kiểm cả hai chênh; không dừng tùy ý sau hai vòng. Chấp nhận cách giải ma trận đúng trên đồ thị bốn đỉnh, kể cả dùng $L_4^TL_4$. Dùng nhầm G5 là sai dữ kiện.
-- **Thời gian hoạt động:** trong 20 phút: 4' dựng $L_4$ và kiểm, 10' tính lặp (máy tính/bảng tính), 3' kiểm điều kiện dừng, 3' chữa.
-- **Thời lượng:** 20 phút (toàn bộ là hoạt động bài tập/kiểm tra; không cộng thêm thời gian).
-- **Ghi chú soạn:** nhắc lại: G4 riêng, $L_4$ khác $L$ của G5 (C→A giữ nguyên, không có E); $\tau=.001$ là gợi ý gần đúng, không thay đề; nếu sinh viên hỏi "bao nhiêu vòng là đủ", trả lời: đến khi hai chênh $\le\tau$ — 11 vòng với $\tau=.001$, khoảng 43 vòng chỉ với ngưỡng $10^{-12}$; đề cuối là tính đến hội tụ, không chỉ 2 vòng.
-
----
-
-## Ánh xạ cụm mới → mã deck cũ và note-topic-id
-
-> Kế hoạch mới dùng mã `lec04-sXX-YY`; mã deck cũ P/T/S/K/H/Z/R chỉ để tra cứu, chưa dựng lại. Ánh xạ ở **cấp cụm/section** (không 1–1 từng slide); note-topic-id giữ nguyên bản đồ L04-N01…N07 đã có, không tạo note mới.
-
-| Cụm mới | Mã deck cũ | note-topic-id | Chức năng | Kết nối vào–ra | Tiên quyết | Đầu ra | Thời lượng |
-|---|---|---|---|---|---|---|---|
-| S01 Giới thiệu (s01-01…06) | P00, P01, T00 | L04-N01 | Mở bài, mục lục, động lực jaguar, quy mô $n,U,k$, mục tiêu MT1–MT5, cầu nối ký hiệu $P:=S_{\text{Bài03}}$, kiểm tra tiên quyết | Vào: Bài 03 (ma trận sửa nút cụt); Ra: s02-01, s02-02 | Đồ thị có hướng, ma trận–vector, xác suất cơ bản | Mục lục và động lực bài | 10' / 6 slide |
-| S02 PageRank theo chủ đề (s02-01…10) | T00–T07 | L04-N02 | Trực giác nhảy về tập đại diện, VD1 (G4, $S=\{B,D\}$), đặc tả HT1, giả mã thưa, HT2, k chủ đề HT3 | Vào: s01-06; Ra: s03-01, s04-03, s06-01 | Đóng góp theo cạnh, $\beta$ (kiểm ở s01-06) | Quy trình TSP và HT1–HT3 | 25' / 10 slide |
-| S03 Cụm thao túng liên kết (s03-01…08) | S00–S05 | L04-N03 | Giới hạn tín hiệu, Hình 5.16 ba vùng, ký hiệu $N,q,x,y,z$, hệ phương trình, nghiệm chính xác/xấp xỉ HT4, hệ số $\beta=.85$ | Vào: s02-10; Ra: s04-01, s03-08→s06-04 | Dòng chảy theo cạnh, phần dịch chuyển | Nghiệm farm và HT4 | 22' / 8 slide |
-| S04 TrustRank và khối lượng rác (s04-01…08) | K00–K05 | L04-N04 | Giả thiết cô lập, chọn $T$, quy tắc trust (dùng lại HT1/HT2), lỗi hạt giống/thiên lệch, mass HT5, VD3 bảng 5.17 | Vào: s02-08, s03-01; Ra: s06-01 | TSP (HT1, HT2), ý nghĩa cụm thao túng | Quy trình trust→mass và HT5 | 21' / 8 slide |
-| S05 Hai vai trò của HITS (s05-01…11) | H00–H09 | L04-N05 | Phạm vi đồ thị con, VD 5.13, G5, hai vòng raw/scale, ma trận $L$ hàng nguồn HT6, giả mã, HT7, chi phí HT8 | Vào: S04; Ra: s06-01, s07-03 | Nhân ma trận–vector, trực giác hai vai trò | Thuật toán HITS và HT6–HT8 | 30' / 11 slide |
-| S06 Tổng kết và kiểm tra (s06-01…05) | Z00–Z03 | L04-N06 | Bảng 4 mô hình, so chi phí cùng tham số, thu hồi jaguar/farm/hai vai trò, kiểm tra tích hợp MT5, khép 3 giới hạn | Vào: S02–S05 (củng cố kiến thức đã học); Ra: s07-01, Bài 05 | Toàn bộ chủ đề cốt lõi | Tổng hợp chọn mô hình | 12' / 5 slide |
-| S07 Bài tập trên lớp (s07-01…03) | R00–R04 | L04-N07 | Bài 5.3.1 TSP hai tập $S$ (18'), Bài 5.4.2 TrustRank+mass với $T=\{B\}$ (22'), Bài 5.5.1 HITS trên G4 đến hội tụ (20') | Vào: s02-07, s04-03, s05-08; Ra: khép Bài 04, nối Bài 05 | Quy trình TSP, HT5, HT6–HT8 | Sản phẩm bài tập | 60' / 3 slide |
-
-**Căn cứ khác biệt so với deck cũ (đã ghi trong phiếu, không lặp ở đây):** tách bước trực giác/đặc tả (T01–T02 cũ → s02-01/02/06), tách nghiệm chính xác khỏi xấp xỉ farm (S04–S05 cũ → s03-06), 7 kiểm tra riêng theo phần (s01-06, s02-10, s03-08, s04-08, s05-11, s06-04, s07-03) thay vì chỉ MT, bố cục cụ thể từng slide (bảng đóng góp, hai khối lượng, bảng hai vòng HITS), mở bài có cầu nối ký hiệu $P:=S_{\text{Bài03}}$ và đổi nghĩa $S$ (kế hoạch cũ nói "P đã học" là sai). Giữ nguồn và thứ tự MMDS §5.3–5.5; tổng 48 slide giảng/120' + 3 bài tập/60' = 51 slide, 7 phần chuẩn.
-
-**Tác động khi triển khai HTML/notes (chưa sửa các tệp đó ở lượt này):** mỗi phiếu cần một trang HTML theo mã `lec04-sXX-YY`; slide kiểm tra cần đáp án/rubric trong ghi chú diễn giả; bảng tổng và ánh xạ trên là căn cứ dựng; chưa chạy kiểm render — mọi kết quả kiểm bản render cũ không gán cho kế hoạch này.
-
-
-## Điều chỉnh khi triển khai và kiểm ảnh ngày 24/09/2026
-
-Giữ nguyên 51 ID, thứ tự, mục tiêu, thời lượng và dữ kiện nguồn. Các quyết định dưới đây thay phần mô tả bố cục tương ứng khi có khác biệt, để khớp bản HTML đã kiểm định. Lý do chung là làm rõ quan hệ và giảm nội dung lặp, không giảm thang chữ của học phần.
-
-| Slide | Bố cục triển khai cụ thể | Lý do phù hợp sinh viên năm 3 |
+# Storyboard mới Bài 04: PageRank theo chủ đề, liên kết rác và HITS
+
+Ngày soạn: 27/09/2026. Thay thế toàn bộ storyboard cũ; không dùng bản cũ làm nguồn nội dung, bố cục hoặc bằng chứng kiểm định.
+
+Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide MMDS, Stanford và Cambridge chỉ đối chiếu cách minh họa; không quyết định lại mạch sách. Đọc cùng [outline.md](outline.md) để tra mã NG, MT, HT, VD và bản đồ quyết định; xem [review-log.md](review-log.md) cho sai khác nguồn và các lượt rà độc lập.
+
+## Quy ước đọc phiếu
+
+- **Nội dung hiển thị dự kiến** và **Ghi chú học thuật dự kiến** là hai vùng văn bản công khai dự kiến; chỉ chứa nội dung môn học, nhiệm vụ người học và lời giải. Các trường còn lại là metadata nội bộ, không chuyển nguyên lên slide hoặc ghi chú diễn giả.
+- Mỗi trang có một bố cục được chọn, nội dung cụ thể và trọng tâm. Bố cục là đặc tả chưa dựng; không tuyên bố đã đạt kiểm định render. Khung1280×720, thành phần chung của `lecture-style.css`, không thu nhỏ chữ để chứa thêm nội dung, không dùng `fragment`.
+- Công thức hiển thị bằng KaTeX; bảng và giả mã là văn bản/HTML; sơ đồ kỹ thuật sẽ vẽ SVG từ đúng cạnh, có nhãn ngoài màu và mô tả thay thế. Chưa tạo HTML, SVG hoặc mã thực hành trong yêu cầu này.
+- Mã đầy đủ `lec04-sxx-yy` chỉ nằm ở phiếu và metadata. Tên phần, tiêu đề slide và ghi chú học thuật không chứa mã nội bộ hoặc thời lượng.
+- Các VD1–VD4 giữ số, vai trò đại lượng, trạng thái và kiểm lỗi trong outline. Từng phiếu chỉ rõ phần dữ kiện thực sự hiển thị. Tên G4/G5 là nhãn đồ thị minh họa, không là mã quy trình.
+- Bộ bài gồm48 slide giảng/120 phút và3 slide recitation/60 phút. Thời gian của câu hỏi đã nằm trong thời lượng slide; lời giải recitation thuộc ghi chú, không đưa lên mặt slide ban đầu.
+
+## Bản đồ phần và kiểm tra
+
+| Phần | Số slide | Thời lượng | Slide kiểm tra riêng |
+|---|---:|---:|---|
+| S01. Bài toán xếp hạng liên kết | 6 | 12 phút | `lec04-s01-06` |
+| S02. PageRank theo chủ đề | 12 | 30 phút | `lec04-s02-12` |
+| S03. Cơ chế liên kết rác | 8 | 20 phút | `lec04-s03-08` |
+| S04. TrustRank và Spam Mass | 7 | 18 phút | `lec04-s04-07` |
+| S05. HITS | 11 | 30 phút | `lec04-s05-11` |
+| S06. So sánh các phương pháp xếp hạng | 4 | 10 phút | `lec04-s06-04` |
+| S07. Bài tập | 3 | 60 phút | `lec04-s07-03` |
+
+## Phiếu từng trang chiếu
+
+## S01. Bài toán xếp hạng liên kết
+
+Giới thiệu và động lực. PageRank Bài 03 → truy vấn đa nghĩa và giới hạn lưu trữ → ba mục tiêu xếp hạng → kiểm tra chiều truyền điểm. Đầu ra chuyển sang S02 là nhu cầu thay phân phối dịch chuyển. Tình huống “jaguar” được dùng lại ở S02-11, S06-02.
+
+Phân bổ: 6 slide, 12 phút.
+
+### lec04-s01-01 — PageRank theo chủ đề, liên kết rác và HITS
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Mở đầu; MT1–MT5. Đầu vào: PageRank Bài 03. Sản phẩm: xác định vị trí và phạm vi Bài 04.
+
+**Luận điểm trung tâm:** Ba nhu cầu xếp hạng dẫn tới các điểm theo chủ đề, theo tập tin cậy và theo hai vai trò liên kết.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Bài 04. PageRank theo chủ đề, liên kết rác và HITS
+
+Giải thuật nền tảng của Khoa học dữ liệu
+
+Học kỳ 1, năm học 2026–2027
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Tiêu đề ở giữa phía trên, chiếm khoảng 55% chiều cao; tên học phần và học kỳ thành hai dòng dưới. Dùng thành phần trang tiêu đề chung.
+
+**Trọng tâm và thứ tự đọc:** Đọc tên ba cụm nội dung trước, sau đó tên học phần và học kỳ.
+
+**Lý do phù hợp sinh viên năm 2:** Sinh viên nhận diện đây là phần tiếp của xếp hạng liên kết; trang không đưa thêm công thức trước nhu cầu sử dụng.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ ba khối chữ đã nêu; mục tiêu cụ thể thuộc trang nội dung kế tiếp.
+
+**Ví dụ, phiếu số và hình thức hóa:** Không có ví dụ số hoặc phát biểu hình thức ở trang tiêu đề.
+
+**Kết nối vào–ra:** Bài 03 đã tạo điểm PageRank toàn cục → bài này thay mục tiêu xếp hạng.
+
+**Nguồn và vị trí:** NG0: bài đề xuất 4, buổi gốc 5; NG1 §5.3–5.5, tr.195–208.
+
+**Thời lượng:** 1 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Bài học xét ba yêu cầu trên dữ liệu liên kết: thiên lệch điểm theo chủ đề, giảm tác động của liên kết thao túng và phân biệt hai vai trò cấu trúc. Cơ chế PageRank đã học là đầu vào của hai yêu cầu đầu; HITS xây dựng hai vector điểm trên cùng kiểu dữ liệu đồ thị.
+<!-- public-notes:end -->
+
+### lec04-s01-02 — Nội dung và mục tiêu học tập
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Định vị mạch; MT1–MT5. Đầu vào: tên bài. Sản phẩm: nhận diện các năng lực và thứ tự nội dung.
+
+**Luận điểm trung tâm:** Mạch bài theo PageRank theo chủ đề, liên kết rác rồi HITS, kết thúc bằng lựa chọn và bài tập.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+1. Bài toán xếp hạng liên kết.
+2. PageRank theo chủ đề.
+3. Cơ chế liên kết rác.
+4. TrustRank và Spam Mass.
+5. HITS.
+6. So sánh các phương pháp xếp hạng.
+7. Bài tập.
+
+Mục tiêu: tính các vector điểm; giải thích cơ chế; lựa chọn phương pháp theo đầu ra và giả thiết.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Bảy mục chia hai cột 55%–45%, lần lượt 1–4 và 5–7; một dòng mục tiêu ở chân trang nội dung. Dùng thành phần mục lục chung.
+
+**Trọng tâm và thứ tự đọc:** Đọc cột trái từ trên xuống, tiếp sang cột phải; dòng mục tiêu nối các phần bằng ba thao tác.
+
+**Lý do phù hợp sinh viên năm 2:** Thứ tự chủ đề–liên kết rác–HITS theo sách giúp sinh viên nhận biết phần nào dùng lại PageRank, phần nào đổi mô hình điểm.
+
+**Giới hạn bố cục và phân chia nội dung:** Mặt slide giữ tên phần và một dòng năng lực; mã MT và thời lượng chỉ nằm trong hồ sơ này.
+
+**Ví dụ, phiếu số và hình thức hóa:** Không có dữ liệu số; danh mục phần khớp bảy section đã duyệt.
+
+**Kết nối vào–ra:** Phạm vi bài → tình huống truy vấn cần điểm theo chủ đề.
+
+**Nguồn và vị trí:** NG1 §5.3→§5.4→§5.5; NG0 sản phẩm học tập Bài 04.
+
+**Thời lượng:** 1 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+PageRank theo chủ đề thay phân phối dịch chuyển trong phép lặp. Phân tích liên kết rác xác định những cấu trúc có thể làm tăng điểm trang đích; TrustRank và Spam Mass dùng tập tin cậy để đối chiếu. HITS phân biệt điểm trung tâm và điểm uy tín. Bài tập áp dụng các phương trình trên dữ liệu của giáo trình.
+<!-- public-notes:end -->
+
+### lec04-s01-03 — Truy vấn đa nghĩa và ngữ cảnh chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng; MT1. Đầu vào: PageRank toàn cục. Sản phẩm: xác định đầu ra xếp hạng có điều kiện theo chủ đề.
+
+**Luận điểm trung tâm:** Cùng truy vấn có thể cần thứ tự trang khác nhau khi chủ đề thay đổi.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Truy vấn: “jaguar”.
+
+- Chủ đề động vật: ưu tiên các trang về loài báo đốm.
+- Chủ đề ô tô: ưu tiên các trang về hãng xe Jaguar.
+
+Dữ liệu: các trang web và liên kết. Đầu ra: thứ tự trang phù hợp với chủ đề đã xác định.
+
+Một vector PageRank toàn cục không thay đổi theo hai ngữ cảnh này.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Từ truy vấn ở dải trên; bên dưới là hai nhóm trang ngang nhau với nhãn “Động vật” và “Ô tô”. Khối đầu vào–đầu ra chiếm dải dưới. Không gán điểm minh họa.
+
+**Trọng tâm và thứ tự đọc:** Đọc cùng truy vấn, đối chiếu hai nhóm chủ đề, rồi xác định đại lượng cần thay đổi.
+
+**Lý do phù hợp sinh viên năm 2:** Ví dụ dùng hai nghĩa trong sách, không đòi kiến thức phân loại văn bản; sinh viên phân biệt truy vấn với ngữ cảnh xếp hạng.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ hai nghĩa, không thêm sản phẩm lịch sử. Các bước xác định chủ đề không thuộc mặt slide này.
+
+**Ví dụ, phiếu số và hình thức hóa:** Ví dụ định tính NG1 §5.3.1; không tạo số liệu truy vấn hay điểm trang.
+
+**Kết nối vào–ra:** PageRank toàn cục đã có → cần một họ vector theo chủ đề; trang sau xác định giới hạn lưu trữ.
+
+**Nguồn và vị trí:** NG1 §5.3.1, tr.195–196/PDF21–22.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Cùng một từ khóa có thể chỉ các nhu cầu thông tin khác nhau. Ví dụ của sách cho thấy độ quan trọng toàn cục và sự phù hợp với chủ đề là hai thông tin khác nhau. Chủ đề được coi là đầu vào đã xác định trong bài này; cách suy ra chủ đề từ nội dung không phải tiên quyết cho phép tính PageRank theo chủ đề.
+<!-- public-notes:end -->
+
+### lec04-s01-04 — Giới hạn lưu trữ của xếp hạng cá nhân
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn dữ liệu lớn; MT1, MT5. Đầu vào: nhu cầu theo ngữ cảnh. Sản phẩm: giải thích việc tiền tính số ít vector chủ đề.
+
+**Luận điểm trung tâm:** Một số ít vector chủ đề thay cho việc lưu một vector toàn web riêng cho mỗi người dùng.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần.
+
+Phương án theo chủ đề: lưu một số ít vector toàn cục; mỗi người dùng chỉ cần các trọng số quan tâm tới chủ đề.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Hai hàng so sánh theo cùng chiều ngang: hàng trên “Mỗi người dùng → vector toàn web”; hàng dưới “Các chủ đề → vector toàn web; người dùng → trọng số chủ đề”. Sơ đồ chiếm 70%, câu kết chiếm 30%.
+
+**Trọng tâm và thứ tự đọc:** So sánh đối tượng được nhân bản ở hai hàng; nhãn “toàn web” luôn gắn với vector dài.
+
+**Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết mảng một chiều; sơ đồ phân biệt số vector và độ dài vector trước khi đếm bộ nhớ bằng ký hiệu.
+
+**Giới hạn bố cục và phân chia nội dung:** Dùng quy mô minh họa có sẵn trong NG1: khoảng một tỷ người dùng, mỗi vector nhiều tỷ thành phần; không trình bày như số đo hiện hành. Phép đếm theo số chủ đề nằm ở phần chi phí.
+
+**Ví dụ, phiếu số và hình thức hóa:** Bối cảnh lưu trữ NG1 §5.3.1–2; không có phiếu số riêng.
+
+**Kết nối vào–ra:** Nhu cầu cá nhân hóa → tái sử dụng một số vector chủ đề; ba mục tiêu xếp hạng được phân biệt ở trang sau.
+
+**Nguồn và vị trí:** NG1 §5.3.1–5.3.2, tr.195–196/PDF21–22.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần. Việc lưu một vector toàn web cho từng người dùng nhân bản dữ liệu điểm theo số người dùng. Xếp hạng theo một tập chủ đề làm giảm số vector dài cần lưu. Phương án này chỉ biểu diễn các sở thích thông qua những chủ đề đã chọn, nên không đồng nhất với một vector tùy ý cho mỗi người dùng.
+<!-- public-notes:end -->
+
+### lec04-s01-05 — Ba mục tiêu của xếp hạng liên kết
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Phân biệt vấn đề; MT1, MT3–MT5. Đầu vào: điểm toàn cục. Sản phẩm: ánh xạ yêu cầu sang loại điểm cần tính.
+
+**Luận điểm trung tâm:** Ý nghĩa đầu ra xếp hạng phải được xác định trước khi chọn phương pháp.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+| Yêu cầu | Thông tin cần biểu diễn |
+|---|---|
+| Xếp hạng theo chủ đề | Mức quan trọng trong một ngữ cảnh |
+| Giảm ảnh hưởng liên kết rác | Mức điểm liên hệ với tập trang tin cậy |
+| Phân biệt vai trò liên kết | Trang cung cấp thông tin và trang dẫn tới thông tin |
+
+Đầu ra cần tạo quyết định ý nghĩa của điểm xếp hạng.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Bảng hai cột chiếm khoảng 75% diện tích; một câu kết ở dưới. Ba hàng giữ cùng độ cao, không thêm công thức.
+
+**Trọng tâm và thứ tự đọc:** Đọc yêu cầu ở trái rồi thông tin tương ứng ở phải; đối chiếu cả ba trên cùng tiêu chí.
+
+**Lý do phù hợp sinh viên năm 2:** Bảng giúp sinh viên tránh coi mọi thuật toán đều đo một khái niệm chất lượng duy nhất; chưa yêu cầu thuật ngữ sẽ học sau.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ ba yêu cầu; tên thuật toán chi tiết và ưu nhược điểm để cuối bài khi đã có cơ chế.
+
+**Ví dụ, phiếu số và hình thức hóa:** Không có số; phân loại theo NG1 §5.3–5.5.
+
+**Kết nối vào–ra:** Giới hạn của một vector → ba mục tiêu; trước khi thay mô hình cần kiểm chiều truyền điểm.
+
+**Nguồn và vị trí:** NG1 §5.3.1, tr.195; §5.4, tr.199; §5.5, tr.204–205.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Điểm theo chủ đề thay đổi ngữ cảnh ưu tiên; điểm dựa trên tập tin cậy gắn với thông tin đánh giá bên ngoài đồ thị. Hai điểm HITS mô tả hai vai trò của liên kết. Các yêu cầu này có thể cùng xuất hiện trong một hệ thống, nhưng phép tính và ý nghĩa đầu ra cần được phân biệt.
+<!-- public-notes:end -->
+
+### lec04-s01-06 — Kiểm tra chiều truyền điểm
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra tiên quyết; MT1. Đầu vào: quy tắc chia đều PageRank Bài 03. Sản phẩm: tính đúng đóng góp theo một cạnh.
+
+**Luận điểm trung tâm:** PageRank chia tại trang nguồn và cộng tại trang đích.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Trên đồ thị Hình 5.15: A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới A; D trỏ tới B, C.
+
+Giả sử $r_A=r_B=r_C=r_D=1/4$ và $\beta=4/5$.
+
+**Câu hỏi:** Tính phần điểm theo liên kết mà B chuyển tới A. Xác định phần tử tương ứng trong ma trận $M_0$ với quy ước cột là trang nguồn.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** G4 ở trái 45%, dữ kiện và hai yêu cầu ở phải 55%; cạnh B→A có nhãn bậc ra của B. Không đặt đáp án trên hình.
+
+**Trọng tâm và thứ tự đọc:** Đọc B có hai cạnh ra, theo cạnh B→A, rồi liên hệ hàng A/cột B.
+
+**Lý do phù hợp sinh viên năm 2:** Phép tính dùng kiến thức cũ và số nhỏ; tách một đóng góp khỏi toàn bộ điểm mới để phát hiện nhầm dòng/cột.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ toàn bộ tám cạnh nhìn được; chỉ yêu cầu một đóng góp. Không tính vector chủ đề chưa học.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD1: giữ G4, dùng khởi tạo đều của Bài 03; $(M_0)_{AB}$ và đóng góp $\beta r_B/d_B$.
+
+**Kết nối vào–ra:** Chiều truyền PageRank đã xác nhận → thay phân phối dịch chuyển ở S02.
+
+**Nguồn và vị trí:** NG1 Hình 5.15, tr.197; quy tắc PageRank §5.1.2; NG5 ký hiệu đã học.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Tính đóng góp B→A và xác định ô của ma trận như nội dung hiển thị.
+- Đáp án/gợi ý: $1/10$; hàng A, cột B bằng $1/2$.
+- Tiêu chí đánh giá: Đạt khi xác định đúng bậc ra2, nhân beta một lần và chọn hàng đích/cột nguồn. Lấy bậc ra của A hoặc đảo ô cho thấy nhầm chiều.
+- Phân bổ hoạt động: Suy nghĩ1 phút, trả lời1 phút, đối chiếu1 phút; nằm trong3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+B có hai liên kết ra nên $(M_0)_{AB}=1/2$. Đóng góp theo liên kết là $(4/5)(1/4)/2=1/10$. Đây chưa phải toàn bộ điểm của A vì còn các đóng góp từ trang khác và phần dịch chuyển. Bậc ra được lấy tại B là nguồn của cạnh, không lấy tại A.
+<!-- public-notes:end -->
+
+## S02. PageRank theo chủ đề
+
+Khái niệm, thuật toán và chi phí. Nhu cầu chủ đề → thay nhánh dịch chuyển → G4/VD1 → HT1 → thuật toán, bảo toàn và tính co → kết hợp chủ đề, chi phí → kiểm tra. Bù nút cụt là cầu nối từ Bài 03; chứng minh gọi lại lập luận co, không tạo phần lý thuyết phổ. Kết quả v, r được chuyển sang TrustRank. Mỗi lần đổi trang giữ vị trí và thứ tự A–D.
+
+Phân bổ: 12 slide, 30 phút.
+
+### lec04-s02-01 — Dịch chuyển ưu tiên theo chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác; MT1. Đầu vào: hai nhánh di chuyển PageRank. Sản phẩm: chỉ ra thành phần thay đổi khi ưu tiên chủ đề.
+
+**Luận điểm trung tâm:** Thiên lệch chủ đề được đưa vào nhánh dịch chuyển, không xóa các trang ngoài tập chủ đề.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.
+
+Với xác suất $1-\beta$: dịch chuyển tới một trang trong tập chủ đề $S$.
+
+Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ thị liên kết được giữ nguyên.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Sơ đồ hai nhánh từ một trang chiếm trái 60%; hai câu giải thích và kết luận ở phải40%. Nhánh dịch chuyển dùng nét đứt và nhãn để phân biệt cạnh thật.
+
+**Trọng tâm và thứ tự đọc:** Theo nhánh liên kết trước, nhánh dịch chuyển sau; đối chiếu đích được phép ở từng nhánh.
+
+**Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết hai nhánh của PageRank; chỉ thay tập đích của một nhánh để giảm số thành phần mới cùng lúc.
+
+**Giới hạn bố cục và phân chia nội dung:** Không dựng thêm cạnh dịch chuyển thành dữ liệu đồ thị. Nút cụt được đặc tả ở S02-05.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT1 ở mức trực giác; $0<\beta<1$, $S\ne\varnothing$; chưa dùng ma trận mới.
+
+**Kết nối vào–ra:** Nhu cầu chủ đề → một thay đổi trong bước nhảy; G4 cụ thể hóa ở trang sau.
+
+**Nguồn và vị trí:** NG1 §5.3.2, tr.196/PDF22; NG3 trang8 chỉ đối chiếu hình.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Dịch chuyển đưa phần điểm mới vào các trang đại diện chủ đề. Các bước theo liên kết tiếp tục chuyển điểm tới những trang có thể tới được từ tập này. Vì vậy, tập dịch chuyển không phải tập duy nhất được phép có điểm dương. Quan hệ giữa chủ đề và các trang liên kết là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.
+<!-- public-notes:end -->
+
+### lec04-s02-02 — Tập dịch chuyển trên đồ thị bốn trang
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ dẫn nhập; MT1. Đầu vào: hai nhánh di chuyển. Sản phẩm: lập vector bước nhảy từ tập S.
+
+**Luận điểm trung tâm:** Tập B,D tạo hai thành phần dịch chuyển1/10 trên đồ thị nguồn.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+G4: A→B,C,D; B→A,D; C→A; D→B,C.
+
+$\beta=4/5$, $S=\{B,D\}$; thứ tự thành phần A, B, C, D.
+
+$$v=r^0=(0,1/2,0,1/2)^\mathsf T.$$
+$$(1-\beta)v=(0,1/10,0,1/10)^\mathsf T.$$
+
+Mỗi vòng chỉ B và D nhận trực tiếp phần dịch chuyển.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** G4 trái45%, hai vector và bảng nhãn A–D phải55%; B,D viền đôi kèm nhãn thuộc S. Vị trí A trên trái,B trên phải,C dưới trái,D dưới phải giữ tới cuối ví dụ.
+
+**Trọng tâm và thứ tự đọc:** Nhận diện S trên hình → chia tổng 1 cho hai trang → nhân xác suất dịch chuyển1/5.
+
+**Lý do phù hợp sinh viên năm 2:** Nhãn chữ tách danh tính đỉnh khỏi giá trị điểm và số vòng; hai vector giúp phân biệt phân phối v với phần điểm thực sự thêm mỗi vòng.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ hai vector, không hiển thị toàn ma trận ở trang này. Không đổi dữ kiện để phá hòa B,D.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD1; giữ số nguồn. $v$ không âm, tổng 1; $(1-\beta)v$ có tổng 1/5.
+
+**Kết nối vào–ra:** Tập chủ đề → dữ liệu khởi tạo và điểm thêm; dùng nguyên các giá trị cho vòng 1.
+
+**Nguồn và vị trí:** NG1 VD5.10/Hình 5.15, tr.196–197/PDF22–23.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. Khởi tạo bằng $v$ theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.
+<!-- public-notes:end -->
+
+### lec04-s02-03 — Vòng lặp PageRank theo chủ đề thứ nhất
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT1. Đầu vào: G4, v, r0. Sản phẩm: tái tạo từng thành phần r1.
+
+**Luận điểm trung tâm:** Mỗi điểm mới là tổng phần theo liên kết và phần dịch chuyển đúng tập.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+$r^0=(0,1/2,0,1/2)^\mathsf T$, $\beta=4/5$, $S=\{B,D\}$.
+
+| Trang | Theo liên kết $\beta(M_0r^0)_i$ | Dịch chuyển $(1-\beta)v_i$ | Điểm mới $r_i^1$ |
+|---|---:|---:|---:|
+| A | $1/5$ | $0$ | $1/5$ |
+| B | $1/5$ | $1/10$ | $3/10$ |
+| C | $1/5$ | $0$ | $1/5$ |
+| D | $1/5$ | $1/10$ | $3/10$ |
+
+Tại A: $(4/5)[(1/2)(1/2)+1\cdot0]=1/5$. Tổng điểm mới bằng 1.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Bảng bốn hàng chiếm75% khung giữa; vector cũ ở dải trên, phép tính tại A và tổng điểm ở dải dưới. Không đặt thêm hình nhỏ cạnh bảng.
+
+**Trọng tâm và thứ tự đọc:** Đọc vector cũ → đóng góp qua liên kết → phần dịch chuyển → điểm mới trên cùng hàng.
+
+**Lý do phù hợp sinh viên năm 2:** Một hàng được tính đủ giúp sinh viên tái tạo ba hàng còn lại; các cột tách nguồn điểm để tránh cộng1/10 cho mọi trang.
+
+**Giới hạn bố cục và phân chia nội dung:** Bốn hàng và một phép tính mẫu; giải thích từng cạnh còn lại nằm trong ghi chú. Đáp số vòng 2 chưa xuất hiện.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD1 vòng0→1; HT1 với delta=0. Các cột trước–sau phân biệt trạng thái, không dùng màu làm tín hiệu duy nhất.
+
+**Kết nối vào–ra:** Khởi tạo theo tập S → r1; r1 là đầu vào duy nhất của vòng 2.
+
+**Nguồn và vị trí:** NG1 VD5.10, tr.197/PDF23; bảng phân rã là diễn giải phép tính nguồn.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Từ B, điểm $1/2$ chia cho A, D; từ D, điểm $1/2$ chia cho B, C. Vì vậy mỗi thành phần của $M_0r^0$ bằng $1/4$. Sau khi nhân $4/5$, mỗi trang có $1/5$; B, D nhận thêm $1/10$. Tổng là $1/5+3/10+1/5+3/10=1$. Nếu thay $v$ bằng phân phối đều, bốn điểm mới đều bằng $1/4$, khác phép tính theo tập dịch chuyển đã chọn.
+<!-- public-notes:end -->
+
+### lec04-s02-04 — Vết lặp và điểm cố định theo chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay và quan sát; MT1. Đầu vào: r1. Sản phẩm: tính r2 và phân biệt một vòng với giới hạn.
+
+**Luận điểm trung tâm:** Điểm cố định có thể ưu tiên B,D trong khi A,C ngoài tập vẫn nhận điểm dương.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Tại A ở vòng 2:
+$$r_A^2=\frac45\left(\frac12\frac3{10}+\frac15\right)=\frac7{25}.$$
+
+| Trang | $r^1$ | $r^2$ | Điểm cố định $r^*$ |
+|---|---:|---:|---:|
+| A | $1/5$ | $7/25$ | $9/35$ |
+| B | $3/10$ | $41/150$ | $59/210$ |
+| C | $1/5$ | $13/75$ | $19/105$ |
+| D | $3/10$ | $41/150$ | $59/210$ |
+
+B và D có điểm cố định lớn hơn A; các trang ngoài $S$ vẫn có điểm dương.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Phép tính tại A ở trên25%; bảng bốn hàng giữa60%; kết luận dưới15%. Cột điểm cố định có nhãn riêng và đường phân cách, không ám chỉ r2 đã hội tụ.
+
+**Trọng tâm và thứ tự đọc:** Kiểm một cập nhật từ r1 → đối chiếu r2 → đọc giới hạn và thứ hạng.
+
+**Lý do phù hợp sinh viên năm 2:** Tách giới hạn khỏi các vòng hữu hạn giúp sinh viên không coi bảng vài bước là chứng minh hội tụ; B,D hòa có nguyên nhân cấu trúc.
+
+**Giới hạn bố cục và phân chia nội dung:** Không thêm r3 trên mặt slide; giá trị r3 và phép kiểm điểm cố định trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD1 vòng 1→2 và nghiệm sách; giữ phân số thay số thập phân gần nhau.
+
+**Kết nối vào–ra:** Vết tính cụ thể → nhu cầu một đặc tả có điều kiện dừng và lập luận hội tụ.
+
+**Nguồn và vị trí:** NG1 VD5.10, tr.197/PDF23.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có số hạng $1/10$, nên được $13/75$. Vòng 3 là $(31/125,71/250,23/125,71/250)^\mathsf T$. Nghiệm trong cột cuối thỏa phương trình cố định và có tổng bằng $1$. Việc các vòng đầu tiến gần nghiệm là quan sát; bảo đảm hội tụ đòi hỏi lập luận cho mọi vòng lặp.
+<!-- public-notes:end -->
+
+### lec04-s02-05 — Đặc tả PageRank theo phân phối dịch chuyển
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa; MT1. Đầu vào: vết chạy và bù nút cụt Bài 03. Sản phẩm: xác định miền đầu vào và quy tắc tổng quát.
+
+**Luận điểm trung tâm:** Đổi v và giữ quy ước bù đều tạo đặc tả PageRank theo chủ đề nhất quán với Bài 03.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Đầu vào: đồ thị $G=(V,E)$, $n\ge1$; phân phối $v\ge0$, $\sum_i v_i=1$; $0<\beta<1$; ngưỡng $\tau>0$ và số vòng tối đa $K\ge1$.
+
+$$r^{t+1}=\underbrace{\beta M_0r^t}_{\text{theo liên kết}}+\underbrace{\beta\delta^t u}_{\text{bù nút cụt}}+\underbrace{(1-\beta)v}_{\text{dịch chuyển}}.$$
+
+$u_i=1/n$; $\delta^t=\sum_{j:d_j=0}r_j^t$. Cột $j$ của $M_0$ là trang nguồn $j$.
+
+Đầu ra: vector xấp xỉ và trạng thái đạt ngưỡng hoặc hết số vòng. Bù nút cụt vẫn phân phối đều như Bài 03.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Đầu vào thành dải trên25%; công thức ba số hạng giữa45%; ký hiệu và đầu ra dưới30%. Dùng một công thức trung tâm, không thêm ma trận số.
+
+**Trọng tâm và thứ tự đọc:** Chốt miền đầu vào → đọc ba nguồn điểm → xác định đầu ra và quy ước bù.
+
+**Lý do phù hợp sinh viên năm 2:** Ba số hạng nối trực tiếp với hai nhánh quen thuộc và trường hợp nút cụt; giữ bù đều tránh thay hai thành phần mô hình cùng lúc.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đưa chứng minh tại trang đặc tả; chi tiết M0 cột0 và tập S đều trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT1. Ví dụ VD1 có delta=0; v tổng quát bao gồm v đều trên S. Nguồn cầu nối NG5 được công khai.
+
+**Kết nối vào–ra:** Ví dụ không nút cụt → quy tắc cho đồ thị tổng quát → giả mã áp dụng nguyên quy tắc.
+
+**Nguồn và vị trí:** NG1 §5.3.2, tr.196; NG1 §5.1.5; NG5 quy ước bù nút cụt. Phần bù là cầu nối đã duyệt.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Với $d_j>0$, $(M_0)_{ij}=1/d_j$ nếu có cạnh $j\to i$; cột nút cụt bằng $0$. Điểm bị thiếu trong nhánh theo liên kết là $\beta$ lần tổng điểm nút cụt, được bù đều bằng $u$. Phân phối $v$ chỉ điều khiển nhánh dịch chuyển. Khi $S$ không rỗng và chọn đều trên $S$, $v_i=1/|S|$ trên $S$ và bằng $0$ bên ngoài. Đồ thị, $\beta$, $v$ và quy tắc bù được giữ cố định suốt phép lặp.
+<!-- public-notes:end -->
+
+### lec04-s02-06 — Thuật toán lặp PageRank theo chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Thuật toán; MT1. Đầu vào: HT1 và danh sách kề. Sản phẩm: theo dõi cập nhật đồng thời và điều kiện trả kết quả.
+
+**Luận điểm trung tâm:** Cập nhật dùng một vector cũ chung và trả trạng thái dừng rõ ràng.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+```text
+r ← v
+với t = 0, ..., K - 1:
+    delta ← tổng r[j] trên các nút cụt
+    với mỗi i: new[i] ← beta * delta / n + (1 - beta) * v[i]
+    với mỗi j có d[j] > 0:
+        với mỗi i thuộc out[j]:
+            new[i] ← new[i] + beta * r[j] / d[j]
+    Delta ← tổng |new[i] - r[i]|
+    r ← new
+    nếu Delta ≤ tau: trả về (r, đạt ngưỡng)
+trả về (r, hết số vòng)
+```
+
+Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Khối giả mã chiếm85% khung, câu bất biến đọc–ghi ở đáy15%; dùng thành phần mã chung. Hai tên r/new luôn giữ nguyên.
+
+**Trọng tâm và thứ tự đọc:** Đọc khởi tạo → phần bù và dịch chuyển → cạnh → phép đo thay đổi → thay vector và trả trạng thái.
+
+**Lý do phù hợp sinh viên năm 2:** Giả mã tách r và new phù hợp kiến thức mảng/vòng lặp năm2; sinh viên thấy rõ lúc nào dữ liệu mới được phép trở thành dữ liệu cũ.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ11 dòng điều khiển như trên; giả thiết đầu vào tham chiếu ngay trang trước, không thêm mã framework.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT1; VD1 là phép chạy của cùng thuật toán. K nguyên dương; tau dương. Ký hiệu Latin trong giả mã tương ứng ký hiệu toán đã định nghĩa.
+
+**Kết nối vào–ra:** Phương trình cập nhật → thứ tự thực thi → bất biến cần chứng minh.
+
+**Nguồn và vị trí:** NG1 §5.3.2, tr.196–197; giả mã cụ thể hóa phép lặp nguồn và quy ước NG5.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Vector `new` được khởi tạo bằng phần bù và phần dịch chuyển, không phụ thuộc từng cạnh. Mỗi cạnh $j\to i$ cộng một phần điểm cũ của $j$, nên tổng đóng góp không phụ thuộc thứ tự duyệt cạnh trong số học chính xác. Sau khi hoàn tất tất cả các đỉnh, `Delta` đo chênh lệch theo tổng trị tuyệt đối. Nếu hết $K$ vòng mà chưa đạt $\tau$, vector hiện tại vẫn là đầu ra tính được, nhưng trạng thái không xác nhận tiêu chí dừng đã đạt.
+<!-- public-notes:end -->
+
+### lec04-s02-07 — Bảo toàn phân phối điểm
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận đúng; MT1. Đầu vào: HT1. Sản phẩm: chứng minh điểm không âm và tổng 1 sau mỗi vòng.
+
+**Luận điểm trung tâm:** Ba nguồn điểm bảo toàn tính không âm và tổng 1 qua mọi vòng.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Giả sử $r^t\ge0$ và $\sum_i r_i^t=1$.
+
+| Thành phần | Tổng điểm đóng góp |
+|---|---:|
+| Theo cạnh từ các trang không cụt | $\beta(1-\delta^t)$ |
+| Bù nút cụt | $\beta\delta^t$ |
+| Dịch chuyển theo $v$ | $1-\beta$ |
+
+$$\sum_i r_i^{t+1}=\beta(1-\delta^t)+\beta\delta^t+(1-\beta)=1.$$
+
+Mọi số hạng đều không âm. Khởi tạo $r^0=v$ thỏa giả thiết.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Giả thiết ở trên20%; bảng ba dòng giữa50%; phép cộng và kết luận dưới30%. Ba nhãn trùng với HT1.
+
+**Trọng tâm và thứ tự đọc:** Đọc giả thiết → đếm từng nguồn điểm → cộng tổng → kiểm cơ sở r0.
+
+**Lý do phù hợp sinh viên năm 2:** Phép chứng minh dùng tổng hữu hạn và xác suất cơ bản; bảng giúp truy nguyên từng số hạng thay vì ghi một kết luận bảo toàn không có lý do.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ chứng minh bảo toàn; không gọi bảo toàn là hội tụ. Phép kiểm số VD1 ở ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT2 phần bất biến; VD1 tổng mỗi vòng bằng 1 là phép kiểm độc lập, không thay chứng minh.
+
+**Kết nối vào–ra:** Thuật toán → bất biến ở mọi vòng; tính co tiếp tục giải thích giới hạn.
+
+**Nguồn và vị trí:** NG1 §5.3.2 cùng mô hình §5.1.5; chứng minh từ quy tắc cập nhật đã duyệt, không trích nguyên sách.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên tổng phần điểm của trang ấy sau khi nhân $\beta$ là $\beta r_j^t$. Cộng trên mọi trang không cụt được $\beta(1-\delta^t)$. Các nút cụt trả lại $\beta\delta^t$ bằng bù đều; phân phối $v$ có tổng bằng $1$ nhận phần $1-\beta$. Mọi hệ số đều không âm và cơ sở $r^0=v$ thỏa giả thiết, hoàn thành lập luận quy nạp. Bất biến chỉ xác nhận mỗi trạng thái là phân phối hợp lệ; chưa xác nhận dãy có giới hạn.
+<!-- public-notes:end -->
+
+### lec04-s02-08 — Tính co và sai số dừng
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Hội tụ và điều kiện dừng; MT1. Đầu vào: HT2 và chuẩn1. Sản phẩm: phân biệt Delta với sai số nghiệm, nêu cơ sở duy nhất.
+
+**Luận điểm trung tâm:** Tính co bảo đảm nghiệm duy nhất và chặn sai số tới nghiệm theo chênh lệch hai vòng bằng một hệ số xác định.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+$\bar M$ là ma trận đã thay mỗi cột nút cụt bằng $u$; mọi phần tử không âm và mỗi cột có tổng bằng $1$.
+
+Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0<\beta<1$, tính co $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ bảo đảm điểm cố định duy nhất $r^*$.
+
+Đặt $\Delta=\|r^{t+1}-r^t\|_1$. Sai số của vector mới thỏa
+$$\|r^{t+1}-r^*\|_1\le\beta\Delta+\beta^2\Delta+\cdots=\frac{\beta}{1-\beta}\Delta.$$
+
+Với $\beta=4/5$, cận sai số là $4\Delta$.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Giả thiết về ma trận và một dòng nhắc tính co ở dải trên 30%; định nghĩa độ thay đổi và tổng đuôi cấp số nhân ở giữa 50%; ví dụ hệ số 4 ở dải dưới 20%. Cận sai số của vector mới là công thức trung tâm.
+
+**Trọng tâm và thứ tự đọc:** Nhận lại giả thiết ma trận đã bù → nhắc kết quả co của Bài 03 → theo các sai khác trong tổng đuôi → đọc cận sai số của vector mới.
+
+**Lý do phù hợp sinh viên năm 2:** Tính co đã có ở Bài 03; tổng đuôi cấp số nhân làm hiện bước mới nối độ thay đổi với sai số nghiệm. Ví dụ beta bằng 4/5 phân biệt hai đại lượng mà không thêm một phép tính dài.
+
+**Giới hạn bố cục và phân chia nội dung:** Mặt slide tập trung cận dừng trong 3 phút. Vector chỉ báo nút cụt và chứng minh co, tồn tại, duy nhất nằm trong ghi chú; không mở phần lý thuyết điểm cố định hoặc phổ mới.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT2. Chuẩn1 là tổng trị tuyệt đối; v có thể có thành phần0. Phiếu VD1 cung cấp beta, không tạo ngưỡng thực nghiệm.
+
+**Kết nối vào–ra:** Bảo toàn miền phân phối → co và điểm cố định → có thể kết hợp các vector chủ đề cùng mô hình.
+
+**Nguồn và vị trí:** NG1 §5.3.2; NG5 lập luận co kế thừa. Bất đẳng thức và cận đuôi là diễn giải toán học bổ sung đã duyệt.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Đặt $z_j=1$ nếu $j$ là nút cụt và $z_j=0$ nếu không. Khi đó $\bar M=M_0+uz^\mathsf T$ không âm và có tổng mỗi cột bằng $1$. Lập luận co kế thừa Bài 03: vector dịch chuyển cố định triệt tiêu trong $F(p)-F(q)$. Bất đẳng thức tam giác và việc đổi thứ tự tổng cho
+$$\|F(p)-F(q)\|_1\le\beta\sum_j|p_j-q_j|\sum_i\bar M_{ij}=\beta\|p-q\|_1.$$
+Các sai khác liên tiếp giảm theo cấp số nhân. Tổng khoảng cách từ một vòng tới mọi vòng sau hữu hạn và phần đuôi tiến về $0$, nên dãy hội tụ. Tính liên tục của $F$ cho phương trình cố định. Nếu hai điểm cố định cách nhau một khoảng $D$, thì $D\le\beta D$; vì $\beta<1$, suy ra $D=0$.
+
+Với $\Delta=\|r^{t+1}-r^t\|_1$, sai khác kế tiếp không quá $\beta\Delta$. Tổng phần đuôi các sai khác sau vector mới $r^{t+1}$ không quá $\beta\Delta/(1-\beta)$. Để cận sai số không quá $\varepsilon>0$, đủ chọn $\tau\le(1-\beta)\varepsilon/\beta$ và dừng khi $\Delta\le\tau$.
+<!-- public-notes:end -->
+
+### lec04-s02-09 — Kết hợp các vector chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và lập luận; MT1, MT5. Đầu vào: điểm cố định duy nhất. Sản phẩm: xác định điều kiện ghép tuyến tính.
+
+**Luận điểm trung tâm:** Các vector chủ đề ghép tuyến tính khi dùng cùng ma trận, beta và cách bù.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Các chủ đề dùng cùng $\bar M$ và $\beta$. Cho $w_j\ge0$, $\sum_{j=1}^k w_j=1$.
+
+$$v=\sum_{j=1}^k w_jv^{(j)}\quad\Longrightarrow\quad r^*=\sum_{j=1}^k w_jr^{(j)}.$$
+
+Thế vào phương trình:
+$$\beta\bar M\sum_jw_jr^{(j)}+(1-\beta)\sum_jw_jv^{(j)}=\sum_jw_jr^{(j)}.$$
+
+Trọng số chủ đề thay đổi; đồ thị, cách bù nút cụt và $\beta$ được giữ nguyên.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Sơ đồ k vector tới một tổng có trọng số ở trái35%; hai công thức tương ứng ở phải65%; các vector chỉ ký hiệu, không bịa điểm.
+
+**Trọng tâm và thứ tự đọc:** Đọc trọng số hợp lệ → ghép phân phối dịch chuyển → kiểm vector điểm bằng phép thế.
+
+**Lý do phù hợp sinh viên năm 2:** Phép phân phối ma trận qua tổng nối đại số tuyến tính cơ bản với giảm số lần tính; điều kiện cùng ma trận ngăn suy tuyến tính khi đổi mô hình.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ một phép thế; không thêm ví dụ số ghép mới hoặc cơ chế phân loại chủ đề.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT3; k là số chủ đề, không phải số vòng. Tính duy nhất từ HT2 kết luận tổng chính là nghiệm.
+
+**Kết nối vào–ra:** Các vector tiền tính → tổng theo sở thích → phân tích lưu trữ và thời gian ghép.
+
+**Nguồn và vị trí:** NG1 §5.3.4 cuối mục, tr.199/PDF25; phép chứng minh tuyến tính là diễn giải phương trình §5.3.2.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Mỗi $r^{(j)}$ thỏa phương trình cố định với cùng $\bar M$, $\beta$ và phân phối $v^{(j)}$ tương ứng. Nhân từng phương trình với $w_j$ rồi cộng được phương trình của tổng. Tổng trọng số bằng $1$ giữ chuẩn hóa của cả $v$ và $r^*$. Tính duy nhất xác định tổng này là điểm cố định của phân phối ghép. Nếu thay $\beta$ hoặc cách bù theo chủ đề, không còn bảo đảm có thể đưa cùng toán tử ra khỏi tổng.
+<!-- public-notes:end -->
+
+### lec04-s02-10 — Chi phí tính và lưu các vector chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Đánh giá chi phí; MT5. Đầu vào: giả mã HT1 và ghép HT3. Sản phẩm: truy nguyên số hạng thời gian và bộ nhớ.
+
+**Luận điểm trung tâm:** Chi phí mỗi vòng tuyến tính theo đỉnh/cạnh, còn lưu các kết quả tăng theo số chủ đề.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Mô hình: phép toán vô hướng chi phí đơn vị; $n$ đỉnh, $\ell$ cạnh, danh sách kề.
+
+| Công việc | Số đối tượng mỗi vòng |
+|---|---:|
+| Cộng điểm theo liên kết | $\ell$ cạnh |
+| Bù, dịch chuyển, so sánh | Số lượt cố định trên $n$ đỉnh |
+
+Một vector: mỗi vòng $\Theta(n+\ell)$; chạy đủ $K$ vòng cần $\Theta(K(n+\ell))$.
+
+Bộ nhớ đầu vào $\Theta(n+\ell)$; bộ nhớ phụ $\Theta(n)$. Lưu $k$ vector chủ đề: $\Theta(kn)$ số; ghép cho $c$ ứng viên: $\Theta(kc)$ phép nhân–cộng.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Mô hình trên20%, bảng hai hàng giữa35%, hai khối kết quả thời gian/bộ nhớ dưới45%. Không đặt đồ thị hoặc giả mã đầy đủ ở cùng trang.
+
+**Trọng tâm và thứ tự đọc:** Đọc đơn vị → truy hai bước giả mã → cộng → phân biệt chi phí một vector với lưu k kết quả.
+
+**Lý do phù hợp sinh viên năm 2:** Phép đếm theo cạnh phù hợp nền phân tích thuật toán; tách đầu vào/phụ/đầu ra ngăn gộp bộ nhớ sai.
+
+**Giới hạn bố cục và phân chia nội dung:** Không dự báo thời gian thực hoặc băng thông. Các hằng số số lượt trên đỉnh và phạm vi ứng viên giải thích trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT3, VD1 có n4/ell8 chỉ đối chiếu vai trò, không coi là dữ liệu hiệu năng.
+
+**Kết nối vào–ra:** Giả mã và ghép vector → giới hạn tài nguyên của tình huống mở đầu → quy trình sử dụng.
+
+**Nguồn và vị trí:** NG1 §5.3.1–5.3.3, tr.195–198; nhân thưa §5.2.1. Phép đếm trực tiếp từ HT1/HT3.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Mỗi cạnh tạo đúng một đóng góp; các bước khởi tạo vector, cộng bù và đo $\Delta$ duyệt mỗi đỉnh một số lần không phụ thuộc kích thước. Danh sách kề lưu đỉnh và cạnh, còn các vector $r$, $v$ cùng vector điểm mới cần bộ nhớ tuyến tính theo $n$.
+
+Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ vector cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Giới hạn tối đa $K$ vòng cho mỗi vector cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự tiết kiệm trạng thái lặp trong bộ nhớ nhưng vẫn phải thực hiện phép lặp cho từng chủ đề.
+
+Lưu $k$ kết quả cần $kn$ số. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, phân loại truy vấn hoặc toàn bộ thời gian hệ tìm kiếm.
+<!-- public-notes:end -->
+
+### lec04-s02-11 — Sử dụng điểm theo chủ đề trong xếp hạng
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và thu hồi tình huống; MT1, MT5. Đầu vào: k vector và chi phí. Sản phẩm: phân biệt tiền tính với xử lý truy vấn.
+
+**Luận điểm trung tâm:** Vector chủ đề được tiền tính và dùng lại khi người dùng chọn ngữ cảnh truy vấn.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Tiền tính: chọn chủ đề → chọn tập dịch chuyển → tính các vector điểm.
+
+Với truy vấn: người dùng chọn chủ đề hoặc cung cấp trọng số → lấy hoặc ghép điểm các trang cần xếp hạng.
+
+Truy vấn “jaguar” dùng trọng số khác nhau cho ngữ cảnh động vật và ô tô.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Hai hàng luồng ngang: tiền tính phía trên55%, truy vấn phía dưới45%; kết quả vector ở cuối hàng trên nối bằng mũi tên có nhãn “điểm đã lưu” xuống hàng dưới.
+
+**Trọng tâm và thứ tự đọc:** Theo quá trình tiền tính trước, sau đó truy vấn sử dụng kết quả; cùng đồ thị không được vẽ như tính lại ở mỗi truy vấn.
+
+**Lý do phù hợp sinh viên năm 2:** Hai hàng phân biệt tính toán dùng lại với thao tác theo ngữ cảnh, nối trực tiếp giới hạn bộ nhớ ở mở đầu.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ bốn bước của §5.3.3: chọn chủ đề, chọn tập dịch chuyển, xác định chủ đề truy vấn và sử dụng điểm. Trong bài này, chủ đề do người dùng cung cấp; lược cơ chế suy từ từ vựng và Jaccard để tránh tiên quyết ngược với Bài 05. Quyết định lược chỉ nằm trong metadata.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT3 ở mức sử dụng; ví dụ định tính jaguar của NG1, không có điểm mới.
+
+**Kết nối vào–ra:** Chi phí tiền tính → thao tác trả lời truy vấn → kiểm khả năng phân biệt đồ thị và bước nhảy.
+
+**Nguồn và vị trí:** NG1 §5.3.3–5.3.4, tr.197–199/PDF23–25.
+
+**Thời lượng:** 1 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Các chủ đề và tập dịch chuyển được chọn trước khi tính các vector điểm. Với mỗi truy vấn, chủ đề hoặc trọng số quan tâm được người dùng cung cấp; các điểm tương ứng được dùng để xếp hạng các trang ứng viên. Khi ma trận và $\beta$ cố định, có thể kết hợp các vector mà không thực hiện lại phép lặp. Chẳng hạn, người dùng chọn trực tiếp chủ đề động vật hoặc ô tô cho truy vấn “jaguar”.
+<!-- public-notes:end -->
+
+### lec04-s02-12 — Kiểm tra phép cập nhật theo chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S02; MT1. Đầu vào: HT1 và VD1. Sản phẩm: tính điểm ngoài tập dịch chuyển, giải thích ý nghĩa S.
+
+**Luận điểm trung tâm:** Một trang ngoài tập dịch chuyển vẫn nhận điểm từ các liên kết vào.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+G4: A→B,C,D; B→A,D; C→A; D→B,C.
+
+$\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.
+
+**Câu hỏi:**
+1. Tính $r_C^2$ và chỉ rõ các trang đóng góp.
+2. Xác định tính đúng sai của mệnh đề: “Một trang ngoài $S$ luôn có điểm bằng 0”. Giải thích bằng dữ kiện trên.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Đồ thị trái45%; vector cũ, tham số và hai yêu cầu phải55%. Dòng điểm C chưa điền trên mặt slide.
+
+**Trọng tâm và thứ tự đọc:** Theo các cạnh vào C → đọc điểm nguồn trong r1 → quyết định phần dịch chuyển của C.
+
+**Lý do phù hợp sinh viên năm 2:** Yêu cầu tập trung một thành phần nhưng đồng thời đo chiều cạnh, chia bậc ra và ranh giới tập dịch chuyển.
+
+**Giới hạn bố cục và phân chia nội dung:** Hai câu, không yêu cầu giải cả hệ. Đáp án và phép so sánh nằm trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD1 r1→r2; HT1; mọi dữ kiện nguồn hiện đủ để tính lại.
+
+**Kết nối vào–ra:** Phép cập nhật đã hoàn chỉnh → khả năng đồ thị liên kết bị xây có chủ đích để thay điểm.
+
+**Nguồn và vị trí:** NG1 VD5.10, tr.197; câu hỏi áp dụng trực tiếp đúng dữ kiện ví dụ.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Hai yêu cầu như nội dung hiển thị, trên toàn bộ dữ kiện G4 và r1.
+- Đáp án/gợi ý: $r_C^2=13/75$; đóng góp từ A,D. Mệnh đề sai.
+- Tiêu chí đánh giá: Đúng hai nguồn, đúng bậc ra3 và2, không cộng1/10 vào C; giải thích S điều khiển dịch chuyển. Chỉ bác mệnh đề không có phép tính chưa đạt đầy đủ.
+- Phân bổ hoạt động: Tính và lập luận1,5 phút; trả lời0,5 phút; đối chiếu1 phút; tổng3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+C nhận từ A và D. Phần theo liên kết là $(4/5)[(1/3)(1/5)+(1/2)(3/10)]=13/75$; C không nhận trực tiếp phần dịch chuyển. Mệnh đề điểm bằng $0$ là sai: điểm dương tới C qua cạnh. Tập $S$ chỉ xác định nơi nhận phần $1-\beta$; không xóa các cạnh hoặc loại đỉnh ngoài $S$ khỏi không gian trạng thái.
+<!-- public-notes:end -->
+
+## S03. Cơ chế liên kết rác
+
+Mô hình và phân tích. Liên kết có thể bị thao túng → ba vùng quyền tác động → điểm một hỗ trợ → ba nguồn điểm đích → giải phương trình và phân biệt xấp xỉ → giới hạn, kiểm tra. Đây là phân tích mô hình cân bằng, không có thuật toán thực thi riêng; giả mã không áp dụng. Đếm trang/cạnh và các giả thiết thay cho một phân tích thời gian không có đối tượng. Đầu ra là nhu cầu bổ sung thông tin tin cậy.
+
+Phân bổ: 8 slide, 20 phút.
+
+### lec04-s03-01 — Liên kết rác và điểm xếp hạng
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống và vấn đề; MT2. Đầu vào: điểm phụ thuộc cạnh. Sản phẩm: xác định mục tiêu và quyền tác động của người tạo liên kết rác.
+
+**Luận điểm trung tâm:** Liên kết có thể được tạo để tăng điểm trang đích ngoài ý nghĩa chất lượng nội dung.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Liên kết rác được tạo để làm tăng điểm xếp hạng không tương xứng với giá trị nội dung.
+
+Phân tích xét PageRank toàn cục với dịch chuyển đều; đối tượng bị thay đổi là các cạnh trong cụm.
+
+Cụm thao túng tập trung PageRank tại một trang đích. Phân tích cấu trúc và các chỉ số trên đồ thị hỗ trợ xác định trang cần rà soát.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Định nghĩa trên25%; ba khối “Dữ liệu–Quyền tác động–Mục tiêu” ở giữa55%; câu giới hạn kiểm tra ở dưới20%. Không dùng ảnh trang rác.
+
+**Trọng tâm và thứ tự đọc:** Đọc điều bị thao túng → dữ liệu có thể kiểm soát → đầu ra người thao túng muốn tăng.
+
+**Lý do phù hợp sinh viên năm 2:** Sinh viên nhìn cùng đồ thị dưới giả thiết đầu vào có chủ ý đối kháng, trước khi tiếp nhận phương trình mới.
+
+**Giới hạn bố cục và phân chia nội dung:** Không mô tả thủ thuật thao tác trên hệ thống thực; mô hình đồ thị cụ thể nằm ở trang sau. Không đưa số lượng trang rác không có nguồn.
+
+**Ví dụ, phiếu số và hình thức hóa:** Khái niệm §5.4; không có ví dụ số hoặc giả mã riêng.
+
+**Kết nối vào–ra:** S02 đã thay phân phối dịch chuyển; ở đây trở lại phân phối đều u và xét tác động của việc thay cạnh → kiến trúc cụm xác định các nguồn điểm cần phân tích.
+
+**Nguồn và vị trí:** NG1 mở §5.4 và §5.4.1, tr.199–200/PDF25–26.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Giáo trình xét các kỹ thuật tạo liên kết nhằm làm PageRank đánh giá cao một trang hơn mức đóng góp nội dung. Mô hình tiếp theo tách phần web không thể tác động, phần có thể đặt liên kết và phần sở hữu. Phân tích chỉ mô tả tác động của một cấu trúc xác định; không suy rằng mọi nhóm trang liên kết dày đều là liên kết rác.
+<!-- public-notes:end -->
+
+### lec04-s03-02 — Cấu trúc cụm thao túng liên kết
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Mô hình và trực giác; MT2. Đầu vào: quyền tạo/sửa cạnh. Sản phẩm: đọc đúng ba vùng và các giả thiết của Hình 5.16.
+
+**Luận điểm trung tâm:** Ba vùng quyền tác động và cạnh nội bộ xác định mô hình phân tích cụm thao túng.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Ba nhóm trang: không tác động được; tác động được; thuộc quyền sở hữu.
+
+Trong nhóm sở hữu, trang đích chỉ trỏ tới $m$ trang hỗ trợ; mỗi trang hỗ trợ chỉ trỏ lại đích.
+
+Mọi liên kết từ ngoài vào cụm đều tới đích; mỗi trang hỗ trợ chỉ nhận cạnh từ đích.
+
+Mô hình phân tích dùng đồ thị không có nút cụt; $m\ge1$, $n\ge m+1$.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Sơ đồ ba vùng chiếm trái65%; giả thiết thành ba dòng ngắn phải35%. Đích đặt giữa vùng sở hữu, m hỗ trợ thành cột; dấu chấm lửng có nhãn m trang.
+
+**Trọng tâm và thứ tự đọc:** Đọc ba vùng từ trái sang phải → cạnh ngoài vào đích → cặp chiều đích–hỗ trợ.
+
+**Lý do phù hợp sinh viên năm 2:** Ranh giới vùng tách quyền đặt cạnh với quyền sở hữu trang, cần trước khi gộp mọi đóng góp ngoài vào x.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ nhãn m thay số trang tự đặt. Giả thiết không nút cụt phải hiện trên mặt slide. Hình chỉ ghi “Đóng góp từ ngoài”; ký hiệu $x$ và cách gộp hệ số được định nghĩa tại S03-04.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD2/Hình 5.16; miền n,m. Các cạnh ngoài vào hỗ trợ bị loại theo mô hình đã chọn.
+
+**Kết nối vào–ra:** Mục tiêu tăng điểm → cấu trúc vòng quay điểm → điểm của một trang hỗ trợ.
+
+**Nguồn và vị trí:** NG1 §5.4.1/Hình 5.16, tr.199–200/PDF25–26; giả thiết không nút cụt làm rõ phạm vi phép tính nguồn.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Trang tác động được không đồng nghĩa trang sở hữu: một người có thể đặt liên kết ở vị trí được phép mà không điều khiển toàn bộ trang. Mô hình dùng PageRank toàn cục với dịch chuyển đều. Các liên kết ngoài đưa điểm tới đích; đích chia điểm cho mọi hỗ trợ, và các hỗ trợ trả điểm về đích. Điều kiện toàn đồ thị không có nút cụt giữ phần dịch chuyển đều bằng $b=(1-\beta)/n$, không phát sinh số hạng bù nút cụt bổ sung.
+<!-- public-notes:end -->
+
+### lec04-s03-03 — Điểm của một trang hỗ trợ
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ ký hiệu và tính đóng góp; MT2. Đầu vào: Hình 5.16. Sản phẩm: suy ra p từ hai nguồn điểm.
+
+**Luận điểm trung tâm:** Một hỗ trợ nhận phần điểm chia từ đích và phần dịch chuyển đều.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Ký hiệu: $y$ là điểm trang đích; $p$ là điểm mỗi trang hỗ trợ; $b=(1-\beta)/n$.
+
+Đích có đúng $m$ liên kết ra; mỗi hỗ trợ chỉ nhận cạnh từ đích.
+
+| Nguồn điểm tại một hỗ trợ | Đóng góp |
+|---|---:|
+| Điểm theo cạnh từ đích | $\beta y/m$ |
+| Dịch chuyển đều | $b$ |
+
+$$p=\frac{\beta y}{m}+b.$$
+
+Mọi trang hỗ trợ có cùng phương trình trong mô hình này.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Một cặp đích–hỗ trợ lớn trái40%, bảng hai nguồn điểm và công thức phải60%. Trên cạnh ghi beta y/m; nguồn dịch chuyển dùng mũi tên nét đứt b.
+
+**Trọng tâm và thứ tự đọc:** Theo điểm y rời đích → chia m → cộng b → gọi tổng p.
+
+**Lý do phù hợp sinh viên năm 2:** Một hỗ trợ đại diện làm rõ mẫu số m và giữ quan hệ với phân phối đều; bảng phân biệt n tổng web với m trang hỗ trợ.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đưa phương trình y ở cùng trang. Giả thiết đồ thị không nút cụt và cạnh như S03-02 được nhắc trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD2; HT4 điểm hỗ trợ. p,y là điểm; n,m là số trang; beta xác suất.
+
+**Kết nối vào–ra:** Kiến trúc cụm → điểm một hỗ trợ → tổng điểm quay về từ m hỗ trợ.
+
+**Nguồn và vị trí:** NG1 §5.4.2, tr.201/PDF27.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Mỗi hỗ trợ nhận cùng phần $\beta y/m$ vì đích chỉ có $m$ cạnh ra. Dịch chuyển đều đưa thêm $b$ cho mỗi trang, kể cả các hỗ trợ. Các hỗ trợ không nhận điểm theo cạnh từ bên ngoài nên không có số hạng thứ ba trong $p$. Nếu thêm cạnh ngoài vào hỗ trợ hoặc thêm cạnh ra từ đích, phương trình này phải đổi; kết quả chỉ áp dụng cho kiến trúc đã nêu.
+<!-- public-notes:end -->
+
+### lec04-s03-04 — Ba nguồn điểm tại trang đích
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Gộp đóng góp; MT2. Đầu vào: p. Sản phẩm: lập y từ ngoài, hỗ trợ và dịch chuyển.
+
+**Luận điểm trung tâm:** Điểm đích nhận ba nguồn; x đã là đóng góp theo cạnh nên không nhân beta lần nữa.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+$x$ là tổng đóng góp theo các cạnh từ ngoài tới đích, đã nhân $\beta$ và chia bậc ra tại nguồn.
+
+| Nguồn điểm tại đích | Đóng góp |
+|---|---:|
+| Liên kết từ ngoài | $x$ |
+| $m$ trang hỗ trợ, mỗi trang chỉ trỏ tới đích | $\beta mp$ |
+| Dịch chuyển đều tới đích | $b$ |
+
+$$y=x+\beta mp+b.$$
+
+Không nhân thêm $\beta$ vào $x$.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Ba mũi tên có nhãn vào đích chiếm trái45%; bảng và phương trình phải55%. Vị trí đích/hỗ trợ khớp S03-02.
+
+**Trọng tâm và thứ tự đọc:** Đọc định nghĩa x → cộng cùng một loại đóng góp beta p qua m hỗ trợ → cộng b tại đích.
+
+**Lý do phù hợp sinh viên năm 2:** Ba nhánh làm rõ nơi phát sinh từng số hạng; số m xuất hiện do cộng các trang, beta xuất hiện do nhánh đi theo cạnh.
+
+**Giới hạn bố cục và phân chia nội dung:** Mặt slide không thế p; việc thế và giải để trang sau. Chú thích x đã tính beta phải nằm cạnh nhánh ngoài.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD2; HT4 phương trình điểm đích; không có dữ kiện số mới.
+
+**Kết nối vào–ra:** Điểm từng hỗ trợ → dòng quay lại đích → phương trình tự phụ thuộc y.
+
+**Nguồn và vị trí:** NG1 §5.4.2, tr.201/PDF27.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Đối với một trang ngoài $j$ trỏ tới đích, đóng góp là $\beta r_j/d_j$. Đại lượng $x$ là tổng các đóng góp này, nên không nhân thêm $\beta$. Mỗi hỗ trợ chỉ có một cạnh ra, trả $\beta p$; $m$ hỗ trợ trả $\beta mp$. Phương trình đầy đủ còn có $b$ tại đích. Phương trình cân bằng dùng điểm cố định của hệ; ba số hạng không phải ba trạng thái thời gian khác nhau.
+<!-- public-notes:end -->
+
+### lec04-s03-05 — Phương trình khuếch đại điểm
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và giải đại số; MT2. Đầu vào: hai phương trình p,y. Sản phẩm: giải biểu thức chính xác trong mô hình.
+
+**Luận điểm trung tâm:** Vòng đích–hỗ trợ tạo số hạng beta bình phương nhân y trong phương trình cân bằng.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Thay $p=\beta y/m+b$ vào phương trình điểm đích:
+
+$$y=x+\beta m\left(\frac{\beta y}{m}+b\right)+b=x+\beta^2y+\beta mb+b.$$
+$$(1-\beta^2)y=x+\beta mb+b.$$
+$$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$
+
+Điều kiện $0<\beta<1$ bảo đảm mẫu số dương.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Chuỗi ba dòng biến đổi lớn ở giữa80%; một dòng điều kiện dưới20%. Nhãn cùng số hạng giữ vị trí, không thêm sơ đồ cạnh.
+
+**Trọng tâm và thứ tự đọc:** Thế p → rút gọn m và gom y → chia mẫu số dương.
+
+**Lý do phù hợp sinh viên năm 2:** Ba bước đại số không bỏ thao tác tạo beta bình phương; sinh viên thấy vòng đích–hỗ trợ gồm hai lần nhân beta.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ công thức chính xác của mô hình không nút cụt; xấp xỉ chỉ xuất hiện ở trang sau.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT4; VD2. Beta bình phương biểu diễn hai bước theo cạnh; không phải một tham số mới.
+
+**Kết nối vào–ra:** Ba nguồn điểm → hệ số tuần hoàn → xấp xỉ trong phân tích nguồn.
+
+**Nguồn và vị trí:** NG1 §5.4.2, tr.201; phần giữ b tại đích là diễn giải đầy đủ trước phép lược trong sách.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Tích $\beta m\cdot\beta y/m=\beta^2y$ mô tả điểm rời đích, được chia cho $m$ hỗ trợ rồi cộng lại khi trở về. Chuyển hạng này sang trái tạo hệ số $1-\beta^2$. Phương trình chính xác chỉ áp dụng cho kiến trúc đã định và toàn đồ thị không có nút cụt. Đại lượng $x$ là đóng góp ngoài ở trạng thái cân bằng, không phải một tham số tùy ý có thể tăng mà không bị ràng buộc bởi tổng điểm toàn đồ thị.
+<!-- public-notes:end -->
+
+### lec04-s03-06 — Hệ số khuếch đại trong mô hình giản lược
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Xấp xỉ và diễn giải số; MT2. Đầu vào: công thức đầy đủ. Sản phẩm: phân biệt giá trị sau nhân với phần trăm tăng.
+
+**Luận điểm trung tâm:** Hệ số khuếch đại và mức tăng phần trăm là hai đại lượng khác nhau.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Bỏ riêng phần dịch chuyển trực tiếp $b$ tới trang đích như phép phân tích của sách:
+
+$$y\approx\frac{x}{1-\beta^2}+\frac{\beta}{1+\beta}\frac mn.$$
+
+Với $\beta=0.85=17/20$:
+
+| Thành phần | Hệ số |
+|---|---:|
+| Đóng góp từ ngoài $x$ | $400/111\approx3.6036$ |
+| Tỷ lệ trang hỗ trợ $m/n$ | $17/37\approx0.45946$ |
+
+Đóng góp $x$ được nhân khoảng 3,6 lần; phần tăng so với $x$ khoảng 260,36%.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Phép xấp xỉ ở trên40%; bảng hai hệ số giữa40%; câu giải nghĩa dưới20%. Nhãn “bỏ riêng b tới đích” đặt trước công thức.
+
+**Trọng tâm và thứ tự đọc:** Xác định hạng bị bỏ → đọc hai hệ số → diễn giải “lần” và “phần tăng”.
+
+**Lý do phù hợp sinh viên năm 2:** Giữ số nguồn và phân số chính xác giúp kiểm phép tính; tách tỷ lệ m/n khỏi điểm x tránh cộng hai đại lượng khác nghĩa không có nhãn.
+
+**Giới hạn bố cục và phân chia nội dung:** Không dùng dấu bằng cho công thức lược. Không đặt n,m,x cụ thể hoặc khẳng định điểm tăng vô hạn.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD2; HT4 xấp xỉ. Bảng số giữ beta 17/20 theo VD5.11, khác beta 4/5 của G4 và có nhãn rõ.
+
+**Kết nối vào–ra:** Phương trình đầy đủ → ý nghĩa khuếch đại → giới hạn suy luận và chi phí cấu trúc.
+
+**Nguồn và vị trí:** NG1 VD5.11, tr.201/PDF27; sửa diễn đạt phần trăm để phân biệt hệ số với mức tăng.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần dịch chuyển vào $m$ hỗ trợ vẫn được giữ vì tổng của chúng tạo hạng $m/n$. Với $\beta=17/20$, hệ số của $x$ là $400/111$; trừ $1$ rồi nhân $100$ cho phần tăng khoảng $260{,}36\%$. Đây là hệ số của một mô hình đại số, không phải số đo hiệu quả trên hệ tìm kiếm hiện hành.
+<!-- public-notes:end -->
+
+### lec04-s03-07 — Giới hạn của phân tích cấu trúc liên kết
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và giới hạn; MT2, MT3. Đầu vào: hệ số khuếch đại. Sản phẩm: nêu điều kiện áp dụng và nhu cầu đánh giá tin cậy.
+
+**Luận điểm trung tâm:** Công thức gắn với đúng cấu trúc; hình dạng liên kết không tự chứng nhận nội dung rác.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Cụm mô hình cần $m$ trang hỗ trợ và $2m$ cạnh nội bộ; các cạnh từ ngoài được xét riêng.
+
+Công thức áp dụng khi giữ đúng kiến trúc, quy tắc dịch chuyển và định nghĩa $x$.
+
+Một cấu trúc liên kết dày chưa đủ xác định nội dung rác. Đánh giá dựa trên tập trang tin cậy bổ sung thông tin ngoài cấu trúc.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Hàng biểu tượng đích↔m hỗ trợ phía trên45% có nhãn2m cạnh; hai câu điều kiện và giới hạn phía dưới55%.
+
+**Trọng tâm và thứ tự đọc:** Đếm hai chiều cạnh → đọc phạm vi công thức → nhận giới hạn của chỉ kiểm cấu trúc.
+
+**Lý do phù hợp sinh viên năm 2:** Phép đếm trực tiếp từ hình nối phân tích với tài nguyên cần tạo; giới hạn không để sinh viên biến mẫu đồ thị thành quy tắc phân loại chắc chắn.
+
+**Giới hạn bố cục và phân chia nội dung:** Không xây thuật toán phát hiện cụm ngoài nguồn. Không ước lượng thời gian rà toàn web từ2m cạnh.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT4; đếm2m là suy luận từ Hình 5.16. Không có thuật toán thực thi riêng; chu trình chi phí áp dụng ở mức cấu trúc.
+
+**Kết nối vào–ra:** Mức khuếch đại → giới hạn phát hiện bằng hình dạng → kiểm tra dòng điểm, sau đó TrustRank.
+
+**Nguồn và vị trí:** NG1 Hình 5.16, tr.200; §5.4.3, tr.202.
+
+**Thời lượng:** 1 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Trang đích có $m$ cạnh ra và mỗi trang trong $m$ hỗ trợ có một cạnh quay lại, tạo $2m$ cạnh nội bộ. Sách phân biệt phát hiện cấu trúc với thay cách đánh giá điểm. Một cụm có nhiều liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng cần được đặt trong ngữ cảnh dữ liệu. Tập tin cậy cung cấp thông tin bổ sung cho việc đánh giá.
+<!-- public-notes:end -->
+
+### lec04-s03-08 — Kiểm tra nguồn điểm tại đích
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S03; MT2. Đầu vào: HT4. Sản phẩm: phát hiện đếm sai beta và phân biệt công thức đủ/xấp xỉ.
+
+**Luận điểm trung tâm:** Phương trình đầy đủ và xấp xỉ chỉ khác ở hạng được lược có chỉ rõ.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Trong mô hình không nút cụt, đích chỉ trỏ $m$ hỗ trợ; mỗi hỗ trợ chỉ trỏ lại đích và chỉ nhận cạnh từ đích. Đặt $b=(1-\beta)/n$, $p=\beta y/m+b$; $x$ đã gồm $\beta$.
+
+**Câu hỏi:**
+1. Sửa phương trình $y=\beta x+\beta mp$ để có phương trình đầy đủ.
+2. Xác định hạng của $y$ bị bỏ khi dùng công thức xấp xỉ trong sách.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Giả thiết ngắn và hai công thức đã biết ở trên45%; hai yêu cầu ở khung kiểm tra dưới55%. Không cho sẵn phương trình sửa.
+
+**Trọng tâm và thứ tự đọc:** Kiểm ý nghĩa x → tìm điểm thiếu → giải tác động của hạng bị lược lên y.
+
+**Lý do phù hợp sinh viên năm 2:** Một lỗi nhân thừa và một hạng thiếu buộc sinh viên truy nguồn thay vì chỉ nhớ công thức cuối.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ hai yêu cầu trên mô hình đã học; bài đổi liên kết được dành cho recitation.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD2/HT4; câu hỏi dùng phương trình nguồn và một phép sai để kiểm cơ chế.
+
+**Kết nối vào–ra:** Kiểm dòng điểm trong mô hình thao túng → lựa chọn tập trang đáng tin ở S04.
+
+**Nguồn và vị trí:** NG1 §5.4.2, tr.201; kiểm tra áp dụng trên cùng ký hiệu và giả thiết.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Sửa phương trình và xác định hạng bị lược như nội dung hiển thị.
+- Đáp án/gợi ý: $y=x+\beta mp+b$; hạng bỏ khỏi y là $b/(1-\beta^2)=1/[n(1+\beta)]$.
+- Tiêu chí đánh giá: Đúng định nghĩa x; giữ b tại đích trong bản đầy đủ; phân biệt b trước giải với hạng đóng góp vào nghiệm. Không lược b ở mọi hỗ trợ.
+- Phân bổ hoạt động: Suy nghĩ1,5 phút, trả lời0,5 phút, đối chiếu1 phút; tổng3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Phương trình đầy đủ là $y=x+\beta mp+b$. Đại lượng $x$ đã qua hệ số $\beta$ nên không nhân lần nữa. Thế $p$ rồi giải cho $y$ cho hạng bị lược bằng $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần $\beta mb$ vẫn được giữ vì đó là tổng phần dịch chuyển nhận bởi $m$ hỗ trợ sau khi truyền về đích.
+<!-- public-notes:end -->
+
+## S04. TrustRank và Spam Mass
+
+Thuật toán và diễn giải. Tập tin cậy → tái dùng HT1 → cùng G4/VD1 → đối chiếu r/rho cùng beta → chỉ số tương đối → chi phí và giới hạn → kiểm tra. Giả mã, bảo toàn và hội tụ kế thừa S02, không lặp lại toàn bộ. Đầu ra gồm chỉ số có dấu và giới hạn suy luận; HITS tiếp tục bằng một nhu cầu điểm khác.
+
+Phân bổ: 7 slide, 18 phút.
+
+### lec04-s04-01 — Tập trang tin cậy và TrustRank
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Vấn đề và trực giác; MT3. Đầu vào: giới hạn phát hiện cấu trúc và PageRank theo chủ đề. Sản phẩm: xác định thông tin ngoài đồ thị cần cho TrustRank.
+
+**Luận điểm trung tâm:** TrustRank cần tập tin cậy từ đánh giá bên ngoài và giả định về hướng liên kết.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+TrustRank dùng tập dịch chuyển $T$ gồm các trang được đánh giá tin cậy.
+
+Giả định của mô hình: trang tin cậy ít tạo liên kết tới trang rác.
+
+Các trang ngoài $T$ vẫn có thể nhận điểm qua liên kết. Tập $T$ cần đủ độ phủ; một trang có điểm thấp có thể nằm xa các hạt giống tin cậy.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Một nhóm T có viền đôi và các cạnh ra tới phần còn lại chiếm trái55%; giả định và giới hạn phải45%. Nhãn “đánh giá bên ngoài” gắn với T.
+
+**Trọng tâm và thứ tự đọc:** Xác định nguồn thông tin chọn T → theo chiều liên kết → đọc giới hạn của điểm thấp.
+
+**Lý do phù hợp sinh viên năm 2:** Dùng lại trực giác tập dịch chuyển thay vì giới thiệu phép lặp mới; tách tin cậy được kiểm ngoài mô hình với điểm lan truyền.
+
+**Giới hạn bố cục và phân chia nội dung:** Không gán tên miền thành bảo đảm tin cậy; không đặt ngưỡng phân loại mới.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT5; tập T không rỗng. Không có số mới, sơ đồ chỉ khái niệm.
+
+**Kết nối vào–ra:** Liên kết có thể bị thao túng → chọn nơi đưa điểm mới → đặc tả TrustRank.
+
+**Nguồn và vị trí:** NG1 §5.4.3–5.4.4, tr.202–203/PDF28–29.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+TrustRank giữ cơ chế PageRank theo chủ đề, nhưng ý nghĩa tập dịch chuyển là tin cậy thay cho lĩnh vực nội dung. Giả định về hướng liên kết không có tính tuyệt đối, nhất là khi trang cho phép người khác tạo liên kết. Chất lượng và phạm vi bao phủ của $T$ ảnh hưởng cách diễn giải điểm; vector kết quả không chứng nhận nội dung của từng trang.
+<!-- public-notes:end -->
+
+### lec04-s04-02 — Phép lặp TrustRank
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và tái dùng thuật toán; MT3. Đầu vào: HT1 và T. Sản phẩm: đặc tả rho, khởi tạo và dừng.
+
+**Luận điểm trung tâm:** TrustRank dùng cùng phép lặp PageRank theo chủ đề với phân phối tập trung trên T.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Chọn $v_T$ đều trên tập tin cậy $T\ne\varnothing$; khởi tạo $\rho^0=v_T$.
+
+$$\rho^{t+1}=\beta M_0\rho^t+\beta\delta_\rho^t u+(1-\beta)v_T,$$
+$$\delta_\rho^t=\sum_{j:d_j=0}\rho_j^t.$$
+
+Dùng thuật toán PageRank theo chủ đề với $v=v_T$; cùng cách bù đều, ngưỡng và trạng thái dừng.
+
+Đầu ra là phân phối điểm tin cậy tương đối trên đồ thị.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Đầu vào ở trên20%; công thức lớn giữa45%; hộp ánh xạ “r→rho;v→vT” và đầu ra dưới35%. Không chép lại giả mã11 dòng.
+
+**Trọng tâm và thứ tự đọc:** Tạo vT → thay tên vector điểm trong quy tắc đã biết → đọc điều kiện dừng được kế thừa.
+
+**Lý do phù hợp sinh viên năm 2:** Ánh xạ ký hiệu cho thấy tái sử dụng thuật toán; sinh viên không phải học một quy trình gần giống rồi phân biệt các chi tiết thừa.
+
+**Giới hạn bố cục và phân chia nội dung:** Mặt slide chỉ một phép lặp và delta; chọn hạt giống được giải thích trong ghi chú và trang giới hạn.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT5 dựa HT1–HT2; rho khác t là chỉ số vòng. T là tập tin cậy, không phải số vòng tối đa K.
+
+**Kết nối vào–ra:** Tập tin cậy → điểm rho → dùng lại G4 để quan sát tác động.
+
+**Nguồn và vị trí:** NG1 §5.4.4, tr.202–203; quy tắc bù và dừng là đặc tả thống nhất với HT1.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Sách định nghĩa TrustRank là PageRank theo chủ đề với chủ đề gồm các trang tin cậy. Chọn các trang này đòi hỏi thông tin ngoài phép lặp, chẳng hạn đánh giá nội dung; kết quả không tự suy ra độ tin cậy của hạt giống. Vì ma trận bù vẫn có tổng cột bằng $1$ và $0<\beta<1$, lập luận bảo toàn và tính co đã xây dựng áp dụng cho $\rho$. Dừng do hết $K$ vòng vẫn phải được phân biệt với đạt ngưỡng.
+<!-- public-notes:end -->
+
+### lec04-s04-03 — TrustRank trên đồ thị bốn trang
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ tái sử dụng; MT3. Đầu vào: VD1 và T={B,D}. Sản phẩm: liên hệ cùng phép tính với ý nghĩa tin cậy.
+
+**Luận điểm trung tâm:** Cùng tập dịch chuyển tạo cùng nghiệm số dù cách diễn giải tập thay đổi.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+G4 giữ nguyên tám cạnh; $\beta=4/5$; tập tin cậy $T=\{B,D\}$.
+
+$$v_T=(0,1/2,0,1/2)^\mathsf T.$$
+
+| Trang | TrustRank $\rho_i$ |
+|---|---:|
+| A | $9/35$ |
+| B | $59/210$ |
+| C | $19/105$ |
+| D | $59/210$ |
+
+Đây là cùng nghiệm đã tính cho tập dịch chuyển {B,D}; ý nghĩa của tập được thay bằng tin cậy.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** G4 trái50%, bảng bốn hàng phải50%; B,D có nhãn T và viền đôi, vị trí đỉnh giữ theo VD1.
+
+**Trọng tâm và thứ tự đọc:** Đọc T trên đồ thị → đối chiếu vT → nhận diện nghiệm đã có.
+
+**Lý do phù hợp sinh viên năm 2:** Tái dùng dữ kiện tiết kiệm phép tính lặp nhưng vẫn giữ quan hệ giữa seed và vector; sinh viên thấy thuật toán không đổi.
+
+**Giới hạn bố cục và phân chia nội dung:** Không lặp toàn bộ vết vòng 1/2; tham số và nghiệm phải có trên mặt slide để đọc độc lập.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD3 dùng nghiệm VD1; tổng rho=1. B,D hòa được giữ, không sửa số.
+
+**Kết nối vào–ra:** TrustRank là phép lặp quen thuộc → cần so sánh với PageRank toàn cục cùng tham số.
+
+**Nguồn và vị trí:** NG1 §5.4.4, tr.202–203; Ví dụ 5.10, tr.196–197, cung cấp G4 và tập dịch chuyển. Giữ đồ thị/tập của sách.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu tiên chúng. A, C không thuộc tập hạt giống nhưng vẫn nhận điểm qua các liên kết thật. Giá trị của hai trang này không xác nhận hoặc bác bỏ riêng lẻ tính tin cậy của nội dung. Để đánh giá phần thay đổi so với điểm toàn cục, cần tính một vector PageRank nền theo cùng $\beta$ và cùng chuẩn hóa.
+<!-- public-notes:end -->
+
+### lec04-s04-04 — So sánh PageRank và TrustRank
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Chuẩn bị chỉ số; MT3. Đầu vào: rho. Sản phẩm: đối chiếu hai vector trên cùng mô hình.
+
+**Luận điểm trung tâm:** So sánh hai vector cần cùng đồ thị, beta, cách bù và chuẩn hóa.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Cùng G4, $\beta=4/5$ và tổng điểm bằng 1. PageRank dùng $u$; TrustRank dùng $v_T$, $T=\{B,D\}$.
+
+| Trang | PageRank $r_i$ | TrustRank $\rho_i$ | Hiệu $r_i-\rho_i$ |
+|---|---:|---:|---:|
+| A | $9/28$ | $9/35$ | $9/140$ |
+| B | $19/84$ | $59/210$ | $-23/420$ |
+| C | $19/84$ | $19/105$ | $19/420$ |
+| D | $19/84$ | $59/210$ | $-23/420$ |
+
+Dấu của hiệu cho biết hướng thay đổi khi đổi phân phối dịch chuyển.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Điều kiện so sánh ở dải trên20%; bảng giữa65%; câu diễn giải dưới15%. Cột r và rho cùng độ rộng.
+
+**Trọng tâm và thứ tự đọc:** Kiểm các điều kiện giữ nguyên → đọc hai điểm trên cùng hàng → tính hiệu có dấu.
+
+**Lý do phù hợp sinh viên năm 2:** So sánh cùng beta loại nguyên nhân gây nhiễu; phân số giữ chính xác để chuẩn bị phép chia tương đối.
+
+**Giới hạn bố cục và phân chia nội dung:** Chưa hiển thị Spam Mass; giải thích sai khác Hình 5.17 nguồn ở ghi chú học thuật, không đưa chỉ dẫn biên tập lên slide.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD3: bảng tính lại đồng nhất beta; đây không phải số chép từ Hình 5.17. Hiệu B,D âm hợp lệ.
+
+**Kết nối vào–ra:** Hai vector cùng mô hình → hiệu điểm → chuẩn hóa hiệu theo r_i.
+
+**Nguồn và vị trí:** NG1 §5.4.5/VD5.12, tr.203; bảng dẫn xuất trên G4 với beta 4/5, khác bảng nguyên nguồn.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,19/84)^\mathsf T$. Vector $\rho$ đã được tính với tập tin cậy B, D. Hình 5.17 của sách dùng PageRank không dịch chuyển lấy từ Ví dụ 5.2, trong khi TrustRank dùng $\beta=0.8$; bảng này tính lại PageRank nền cùng $\beta=0.8$ để tách tác động của phân phối dịch chuyển. Tổng các hiệu bằng $0$ vì hai vector đều có tổng bằng $1$. Giá trị tuyệt đối của hiệu chưa xét quy mô điểm nền của từng trang.
+<!-- public-notes:end -->
+
+### lec04-s04-05 — Định nghĩa và giá trị Spam Mass
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và chạy phép chia; MT3. Đầu vào: r,rho. Sản phẩm: tính chỉ số tương đối, giữ giá trị âm.
+
+**Luận điểm trung tâm:** Spam Mass là chênh lệch tương đối có thể âm, không phải xác suất spam.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Với $r_i>0$, chỉ số Spam Mass là
+$$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$
+
+| Trang | Phép tính | $s_i$ |
+|---|---|---:|
+| A | $(9/140)/(9/28)$ | $1/5$ |
+| B | $(-23/420)/(19/84)$ | $-23/95$ |
+| C | $(19/420)/(19/84)$ | $1/5$ |
+| D | $(-23/420)/(19/84)$ | $-23/95$ |
+
+Chỉ số có thể âm và không phải xác suất một trang là rác.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Định nghĩa ở trên30%; bảng giữa55%; giới hạn dưới15%. Cột phép tính giữ tử và mẫu có ngoặc rõ.
+
+**Trọng tâm và thứ tự đọc:** Đọc điều kiện r_i>0 → hiệu chia điểm nền → đối chiếu kết quả dương/âm.
+
+**Lý do phù hợp sinh viên năm 2:** Bảng cùng hàng với trang trước giúp sinh viên thấy một hiệu tuyệt đối được chuyển thành thay đổi tương đối; giá trị âm không bị coi là lỗi tính.
+
+**Giới hạn bố cục và phân chia nội dung:** Không thêm ngưỡng phân loại. Chỉ phép tính A,B cần diễn giải chi tiết ở ghi chú; C,D giữ để kiểm dữ kiện.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT5/VD3. $s_i\le1$ vì rho_i không âm; không áp cận dưới0. Rho_i>r_i cho chỉ số âm.
+
+**Kết nối vào–ra:** Hiệu hai vector → Spam Mass → giới hạn diễn giải và chi phí.
+
+**Nguồn và vị trí:** NG1 §5.4.5, tr.203/PDF29; bảng số mới cùng beta theo VD3.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Tại A, $(9/140)/(9/28)=1/5$. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác.
+<!-- public-notes:end -->
+
+### lec04-s04-06 — Độ phủ hạt giống và chi phí đánh giá
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn và chi phí; MT3, MT5. Đầu vào: HT5. Sản phẩm: phân biệt chi phí phép lặp với chọn hạt giống.
+
+**Luận điểm trung tâm:** Chọn hạt giống và độ phủ ảnh hưởng kết luận ngoài chi phí phép lặp đồ thị.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Tập tin cậy cần cân đối công sức đánh giá và độ phủ của các trang hợp lệ.
+
+| Bước | Phạm vi chi phí |
+|---|---|
+| PageRank và TrustRank | Hai phép lặp thưa; mỗi vòng $\Theta(n+\ell)$ |
+| Tính Spam Mass | $\Theta(n)$ phép tính theo đỉnh |
+| Đánh giá hạt giống | Công việc ngoài mô hình phép toán đồ thị |
+
+Điểm TrustRank thấp có thể do độ phủ kém; Spam Mass chỉ là chỉ báo để rà soát.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Một câu về hạt giống phía trên20%; bảng ba dòng giữa60%; câu giới hạn phía dưới20%.
+
+**Trọng tâm và thứ tự đọc:** Đọc đánh đổi hạt giống → phân biệt ba công việc → giới hạn kết luận.
+
+**Lý do phù hợp sinh viên năm 2:** Bảng không gộp đánh giá con người với phép toán máy; sinh viên so sánh đúng phạm vi chi phí thay vì suy nhanh hơn tuyệt đối.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đưa chi phí giờ công hoặc ngưỡng không có nguồn. Không tạo thuật toán chọn hạt giống mới.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT5; nếu hai phép lặp lần lượt K_r,K_rho vòng thì thời gian tính là Theta((K_r+K_rho)(n+ell)+n).
+
+**Kết nối vào–ra:** Chỉ số đã có → nguồn sai lệch và tài nguyên → kiểm diễn giải.
+
+**Nguồn và vị trí:** NG1 §5.4.4–5, tr.202–203; phép đếm theo HT1. NG3 trang42 đối chiếu đánh đổi hạt giống.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Điểm tin cậy thấp có thể phản ánh khoảng cách liên kết hoặc thiếu hạt giống phù hợp, không chỉ liên kết rác. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Sau khi có $r$ và $\rho$, mỗi trang cần một phép trừ và một phép chia nếu $r_i>0$. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.
+<!-- public-notes:end -->
+
+### lec04-s04-07 — Kiểm tra cách diễn giải Spam Mass
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S04; MT3. Đầu vào: VD3 và định nghĩa s. Sản phẩm: tính giá trị âm, giới hạn kết luận.
+
+**Luận điểm trung tâm:** Dấu và độ lớn Spam Mass phải được đọc dưới giả định mô hình, không thành nhãn chắc chắn.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Với G4 và $\beta=4/5$, trang B có $r_B=19/84$, $\rho_B=59/210$. Trang A có $s_A=1/5$.
+
+**Câu hỏi:**
+1. Tính $s_B$ và giải thích dấu của kết quả.
+2. Từ $s_A=1/5$, có thể kết luận chắc chắn A là trang rác hay không? Nêu căn cứ.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Hai dòng dữ kiện ở trên30%; hai nhiệm vụ chiếm70% còn lại trong khung kiểm tra. Không kèm bảng đáp án trước đó.
+
+**Trọng tâm và thứ tự đọc:** Đọc cặp r/rho của B → tính hiệu có dấu → áp giới hạn diễn giải cho A.
+
+**Lý do phù hợp sinh viên năm 2:** Một tính toán và một nhận định kiểm cả cơ chế lẫn phạm vi suy luận, ngăn đồng nhất s với xác suất.
+
+**Giới hạn bố cục và phân chia nội dung:** Không hỏi xác suất hoặc ngưỡng chưa được định nghĩa; đáp án trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD3/HT5; giữ nguyên phân số đã kiểm.
+
+**Kết nối vào–ra:** Điểm tin cậy và chỉ báo thao túng → mô hình hai vai trò cấu trúc HITS.
+
+**Nguồn và vị trí:** NG1 §5.4.5, tr.203; dữ kiện VD3 tính lại đồng nhất beta.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Tính s_B, giải thích dấu và đánh giá kết luận chắc chắn về A.
+- Đáp án/gợi ý: $s_B=-23/95$; rho_B>r_B. Không thể kết luận chắc chắn A là rác chỉ từ s_A.
+- Tiêu chí đánh giá: Giữ dấu âm; phân biệt chỉ số với xác suất; nêu ít nhất một phụ thuộc vào tập tin cậy/độ phủ/giả định liên kết.
+- Phân bổ hoạt động: Tính1 phút, giải thích1 phút, đối chiếu1 phút; tổng3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+$s_B=-23/95$ vì $\rho_B>r_B$. Giá trị âm cho thấy điểm của B tăng khi ưu tiên tập tin cậy. Chỉ số $1/5$ tại A không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
+<!-- public-notes:end -->
+
+## S05. HITS
+
+Thuật toán và ví dụ. Danh sách/nội dung học phần → hai vai trò → G5/VD4 chạy hai vòng → L, phép chuẩn hóa → giả mã, quan hệ điểm ổn định → chi phí thưa → kiểm tra. Ví dụ có trước ma trận, nhưng mỗi phép cộng đã có quy tắc cạnh vào/ra. Đầu ra hai vector hỗ trợ lựa chọn phương pháp ở S06. Điều kiện phổ giải nghĩa trong ghi chú, không thành nhiệm vụ đánh giá mới.
+
+Phân bổ: 11 slide, 30 phút.
+
+### lec04-s05-01 — Hai vai trò trong mạng học phần
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng HITS; MT4. Đầu vào: đồ thị liên kết. Sản phẩm: phân biệt nội dung và đường dẫn tới nội dung.
+
+**Luận điểm trung tâm:** Trang dẫn tới nội dung và trang cung cấp nội dung cần hai vai trò điểm.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Đầu vào là đồ thị các trang và liên kết đã chọn. Trang danh sách học phần dẫn tới các trang của từng học phần.
+
+- Trang học phần cung cấp thông tin: vai trò uy tín.
+- Trang danh sách dẫn tới các nguồn thông tin: vai trò trung tâm.
+
+Thuật toán tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS) gán hai điểm cho mỗi trang. Trên đồ thị lớn, hai vector được tính bằng phép lặp khai thác các cạnh, tránh lưu ma trận đặc.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Đầu vào đồ thị ở dải trên 15%; sơ đồ trang danh sách trỏ tới các trang học phần chiếm giữa 60%, hai nhãn vai trò đặt cạnh đối tượng tương ứng; hai vector đầu ra và giới hạn tính trên đồ thị lớn ở dải dưới 25%. Không đưa ký hiệu tích ma trận vào trang mở phần.
+
+**Trọng tâm và thứ tự đọc:** Nhận đồ thị đầu vào → đối chiếu trang danh sách với trang nội dung → xác định hai điểm cần tính và nhu cầu cập nhật theo cạnh trên đồ thị lớn.
+
+**Lý do phù hợp sinh viên năm 2:** Ví dụ học phần của sách gần với kinh nghiệm sinh viên, không đòi kiến thức hệ tìm kiếm; hai nhu cầu tạo lý do cho hai vector.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ ví dụ danh sách học phần, hai vai trò và một câu về tính lặp trên đồ thị lớn. Không thêm số liệu quy mô, tập gốc/tập cơ sở hoặc tích ma trận; các phép cập nhật được xây từ G5 ở trang sau.
+
+**Ví dụ, phiếu số và hình thức hóa:** NG1 VD5.13, định tính; hai điểm h,a được định nghĩa ở trang sau.
+
+**Kết nối vào–ra:** S04 phân biệt chỉ số tin cậy với vai trò cấu trúc → đầu vào đồ thị và nhu cầu hai vector HITS → chạy tay trên G5 trước khi xây phép lặp thưa; S05-10 thu hồi giới hạn tính toán.
+
+**Nguồn và vị trí:** NG1 §5.5–5.5.2, tr.204–208/PDF30–34; Ví dụ 5.13 tr.205; phạm vi đồ thị tr.204, phép nhân thưa tr.206 và tính lặp trên web lớn tr.208.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Đồ thị trang và liên kết được coi là đầu vào đã chọn. Trang danh sách không thay thế nội dung chi tiết của một học phần, còn một trang học phần không thay thế danh sách toàn bộ học phần. Hai vai trò được đánh giá từ cấu trúc liên kết. Uy tín trong HITS không đồng nghĩa với chứng nhận tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc; ví dụ nhỏ cho phép kiểm từng phép cập nhật.
+<!-- public-notes:end -->
+
+### lec04-s05-02 — Điểm trung tâm và điểm uy tín
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác và dữ kiện chạy tay; MT4. Đầu vào: hai vai trò. Sản phẩm: đọc quy tắc cộng theo hai chiều trên G5.
+
+**Luận điểm trung tâm:** Mỗi trang có cả h và a, được cộng theo hai chiều liên kết.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Mỗi trang $i$ có điểm trung tâm $h_i$ và điểm uy tín $a_i$.
+
+Uy tín của $i$ nhận tổng điểm trung tâm của các trang trỏ tới $i$. Trung tâm của $i$ nhận tổng điểm uy tín của các trang $i$ trỏ tới.
+
+G5: A→B,C,D; B→A,D; C→E; D→B,C; E không có cạnh ra.
+
+Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,B,C,D,E.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** G5 trái55%, hai quy tắc và khởi tạo phải45%. E đặt dưới C; cạnh C→E thay cạnh C→A của ví dụ G4 và có nhãn rõ.
+
+**Trọng tâm và thứ tự đọc:** Đọc đồ thị mới → theo các cạnh vào khi tính a → theo cạnh ra khi tính h.
+
+**Lý do phù hợp sinh viên năm 2:** Nêu đầy đủ cạnh mới ngăn dùng nhầm ma trận G4; hai điểm được gắn cùng mỗi trang, tránh hiểu hub/authority là hai nhóm rời nhau.
+
+**Giới hạn bố cục và phân chia nội dung:** Không chia bậc ra và không thêm bước nhảy. Hai phép cộng được chạy trước khi viết dạng ma trận.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD4/HT6 trực giác; n5,ell8; h0 không phải phân phối xác suất.
+
+**Kết nối vào–ra:** Hai nhu cầu → hai quy tắc phụ thuộc nhau → lượt tính uy tín đầu tiên.
+
+**Nguồn và vị trí:** NG1 §5.5.2, Ví dụ 5.14, Hình 5.18, tr.205–206/PDF31–32.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+G5 có năm trang và tám cạnh, khác G4 ở việc C trỏ E thay vì A. Uy tín cộng điểm của các nguồn liên kết, còn trung tâm cộng điểm của các đích liên kết. Mỗi trang đều có cả hai điểm. Khởi tạo toàn $1$ là quy ước thuật toán sách; tổng ban đầu bằng $5$ và không mang ý nghĩa xác suất.
+<!-- public-notes:end -->
+
+### lec04-s05-03 — Lượt cập nhật uy tín thứ nhất
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT4. Đầu vào: G5,h0. Sản phẩm: cộng đúng cạnh vào và chuẩn hóa max.
+
+**Luận điểm trung tâm:** Uy tín thu điểm trung tâm từ các cạnh vào rồi chuẩn hóa toàn vector.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+$h^0=(1,1,1,1,1)^\mathsf T$; G5 giữ nguyên.
+
+| Trang | Nguồn liên kết vào | Uy tín thô $\tilde a_i$ | $a_i^1=\tilde a_i/2$ |
+|---|---|---:|---:|
+| A | B | $1$ | $1/2$ |
+| B | A,D | $2$ | $1$ |
+| C | A,D | $2$ | $1$ |
+| D | A,B | $2$ | $1$ |
+| E | C | $1$ | $1/2$ |
+
+Giá trị thô lớn nhất bằng 2; chia toàn vector cho 2.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Bảng năm hàng chiếm80%; khởi tạo phía trên10%, dòng chuẩn hóa dưới10%. Các hàng theo A–E như đồ thị.
+
+**Trọng tâm và thứ tự đọc:** Từ nguồn liên kết vào → tổng h0 → chia cùng mẫu2 trên mọi hàng.
+
+**Lý do phù hợp sinh viên năm 2:** Cột nguồn chỉ rõ phép cộng tạo mỗi điểm; cột thô/chuẩn hóa tránh nhầm việc chia max với chia bậc ra.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đưa h mới trên trang này; E có điểm uy tín dương dù không có cạnh ra phải giữ trong bảng.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD4 lượt a1; phép cộng $\tilde a_i=\sum_{j\to i}h_j^0$. Chuẩn max thao tác trực tiếp trước định nghĩa tổng quát.
+
+**Kết nối vào–ra:** Khởi tạo h → a1 → dùng ngay a1 cho cập nhật trung tâm.
+
+**Nguồn và vị trí:** NG1 VD5.15/Hình 5.20, tr.207/PDF33.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+B nhận từ A, D nên điểm thô bằng $1+1=2$; D nhận từ A, B cũng bằng $2$. E chỉ nhận từ C, điểm thô bằng $1$. Chia từng thành phần cho giá trị lớn nhất là $2$ thu được $a^1=(1/2,1,1,1,1/2)^\mathsf T$. HITS cộng điểm trung tâm theo từng cạnh vào, không lấy trung bình và không chia số cạnh ra của nguồn. E không có cạnh ra vẫn có thể có uy tín vì có cạnh vào.
+<!-- public-notes:end -->
+
+### lec04-s05-04 — Lượt cập nhật trung tâm thứ nhất
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT4. Đầu vào: a1 mới. Sản phẩm: cộng đúng uy tín mới theo cạnh ra.
+
+**Luận điểm trung tâm:** Trung tâm cộng uy tín mới của các đích rồi chuẩn hóa toàn vector.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Dùng $a^1=(1/2,1,1,1,1/2)^\mathsf T$.
+
+| Trang | Tổng uy tín theo cạnh ra | Trung tâm thô $\tilde h_i$ | $h_i^1=\tilde h_i/3$ |
+|---|---|---:|---:|
+| A | $1+1+1$ | $3$ | $1$ |
+| B | $1/2+1$ | $3/2$ | $1/2$ |
+| C | $1/2$ | $1/2$ | $1/6$ |
+| D | $1+1$ | $2$ | $2/3$ |
+| E | $0$ | $0$ | $0$ |
+
+Giá trị thô lớn nhất bằng 3. Bước trung tâm sử dụng uy tín vừa cập nhật.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Giữ bảng năm hàng chiếm80% và vị trí như S05-03; vector a1 phía trên; câu về thứ tự cập nhật phía dưới.
+
+**Trọng tâm và thứ tự đọc:** Đọc a1 → cộng uy tín ở đích cạnh ra → chia toàn vector cho3.
+
+**Lý do phù hợp sinh viên năm 2:** Bảng giữ khung nhưng đổi ý nghĩa nguồn tổng, giúp đối chiếu cạnh vào/cạnh ra; nhãn a1 mới ngăn dùng a0.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ vòng 1, không thêm công thức ma trận. Tại E hiển thị0 để tránh phép chia bậc ra0 không có trong HITS.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD4 lượt h1; $\tilde h_i=\sum_{i\to j}a_j^1$. Max 3 khác max 2 ở lượt uy tín.
+
+**Kết nối vào–ra:** a1 → h1 → lặp lại cùng hai quy tắc với điểm đã cải thiện.
+
+**Nguồn và vị trí:** NG1 VD5.15/Hình 5.20, tr.207/PDF33.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+A trỏ B, C, D, ba trang có uy tín bằng $1$ nên tổng bằng $3$. B trỏ A, D và nhận $1/2+1=3/2$. C chỉ trỏ E nên nhận $1/2$; E không có cạnh ra nên tổng rỗng bằng $0$. Chia từng thành phần của vector trung tâm thô cho $3$ thu được $h^1=(1,1/2,1/6,2/3,0)^\mathsf T$. Nếu dùng $a^0$ toàn $1$, trung tâm thô sẽ bằng $(3,2,1,2,0)^\mathsf T$, khác thuật toán luân phiên đã chọn.
+<!-- public-notes:end -->
+
+### lec04-s05-05 — Vòng lặp HITS thứ hai
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay và nhận diện trạng thái; MT4. Đầu vào: h1. Sản phẩm: tái tạo một cập nhật ở vòng 2 và đọc hai vector mới.
+
+**Luận điểm trung tâm:** Hai lượt cập nhật luân phiên dùng kết quả vừa tạo ở lượt trước.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+$h^1=(1,1/2,1/6,2/3,0)^\mathsf T$.
+
+| Trang | $\tilde a$ | $a^2$ | $h^2$ |
+|---|---:|---:|---:|
+| A | $1/2$ | $3/10$ | $1$ |
+| B | $5/3$ | $1$ | $12/29$ |
+| C | $5/3$ | $1$ | $1/29$ |
+| D | $3/2$ | $9/10$ | $20/29$ |
+| E | $1/6$ | $1/10$ | $0$ |
+
+Tại A: $\tilde h_A=a_B^2+a_C^2+a_D^2=29/10$; đây là giá trị lớn nhất của vector trung tâm thô. Hai vector thay đổi qua mỗi vòng.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Vector h1 phía trên15%; bảng năm hàng giữa65%; phép tính tại A dưới20%. Hàng/nhãn nhất quán hai trang trước.
+
+**Trọng tâm và thứ tự đọc:** Từ h1 tính a thô → chuẩn a2 theo max 5/3 → theo một tổng h thô → đọc h2.
+
+**Lý do phù hợp sinh viên năm 2:** Một bước đầy đủ ở vòng đầu cho phép rút gọn vòng 2 mà vẫn truy kết quả; cột thô duy trì phân biệt trước/sau chuẩn hóa.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đặt cả năm vector của sách trên một trang; vector trung tâm thô đầy đủ được ghi trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD4 vòng 2. Max uy tín5/3; max trung tâm29/10. Phân số giữ chính xác.
+
+**Kết nối vào–ra:** Hai vòng cụ thể → quy tắc ma trận tổng quát và định nghĩa chuẩn hóa.
+
+**Nguồn và vị trí:** NG1 VD5.15/Hình 5.20, tr.207/PDF33.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Uy tín thô tại B bằng $h_A^1+h_D^1=1+2/3=5/3$, là giá trị lớn nhất. Tại D, điểm thô bằng $1+1/2=3/2$; chia cho $5/3$ được $9/10$. Trung tâm thô tính từ $a^2$ là $(29/10,6/5,1/10,2,0)^\mathsf T$. Chia từng thành phần cho $29/10$ thu được $h^2$ trong bảng. Hai lần chuẩn hóa dùng hai mẫu khác nhau. Các giá trị nhỏ dần ở vai trò trung tâm của C và uy tín của E là quan sát của ví dụ, chưa phải chứng minh cho mọi đồ thị.
+<!-- public-notes:end -->
+
+### lec04-s05-06 — Ma trận liên kết của HITS
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa; MT4. Đầu vào: tổng theo hai chiều trên G5. Sản phẩm: lập L và nối với M0 của PageRank.
+
+**Luận điểm trung tâm:** L có hàng nguồn và trọng số cạnh1; nó khác ma trận PageRank chia theo bậc ra.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+$L_{ij}=1$ khi $i\to j$, bằng 0 nếu không; hàng là trang nguồn.
+
+$$L=\begin{pmatrix}0&1&1&1&0\\1&0&0&1&0\\0&0&0&0&1\\0&1&1&0&0\\0&0&0&0&0\end{pmatrix},\qquad
+\tilde a=L^\mathsf Th,\quad\tilde h=La.$$
+
+| Biểu diễn | Vị trí của cạnh $i\to j$ | Giá trị |
 |---|---|---|
-| s02-02 | Đồ thị 45%, bảng 55% | Đọc cùng vị trí đỉnh trước khi đối chiếu vector; sửa tổng tỷ lệ 105% trong phiếu cũ. |
-| s02-03 | G4 chung bên trái, bảng cạnh vào bên phải; không thêm số lên cạnh | Bảng đã ghi tên cạnh nên tránh thêm một lớp mã số cạnh dễ lẫn với đóng góp. |
-| s02-04 | Ba cột 30/30/40; các vector viết dọc, nhãn theo cạnh/dịch chuyển/tổng | Giữ thứ tự A–D và cho thấy hai dòng khối lượng mà không ép vector ngang dài. |
-| s02-08 | Hai thẻ dọc bất biến/phép co; giả thiết ngắn ở trên, khai triển chứng minh trong notes | Giữ bước suy luận chính trên mặt; người học đối chiếu được giả thiết mà không phải đọc cả chứng minh cùng lúc. |
-| s02-09 | Công thức phối hợp ở trên; bảng thời gian và bộ nhớ ở dưới | Phân biệt chi phí tính với chi phí lưu; thống nhất nghiệm chủ đề là $r^{(l)*}$. |
-| s03-01 | Sơ đồ ba vùng 60%, ba luận điểm 40%; bỏ câu cảnh báo quy trình | Mở đúng mô hình sẽ dùng tiếp và không đưa vào sơ đồ giản lược sai cạnh. |
-| s03-03 | Bảng đại lượng 55%, hình 45%; ý nghĩa ký hiệu ở chú thích cạnh hình | Không khẳng định hình có nhãn mà thực tế chỉ xuất hiện trong bảng. |
-| s03-04 | Công thức trên, SVG dòng tổng hợp giữa, chú thích dưới | Nhìn đồng thời luồng từ ngoài, vòng đích–hỗ trợ và dịch chuyển đều; công thức vẫn đặt trong KaTeX. |
-| s03-05 | Sơ đồ ba luồng 45%, công thức và chú giải 55% | Ghép ba luồng với ba số hạng, giữ hình trong chiều cao vùng nội dung. |
-| s03-08 | Công thức trên; bốn ô gán nguồn 2×2; yêu cầu tìm hạng bỏ ở dưới | Có vùng trả lời thực thay vì lời chỉ dẫn tạo ô trống. |
-| s04-01…04 | Giả thiết/so sánh bằng thẻ chữ thân bài; s04-03 có hai công thức xếp chồng | Dùng đúng thang chữ chung, nêu rõ TrustRank kế thừa PageRank theo chủ đề. |
-| s04-06…07 | Bảng và định nghĩa cột; sau đó hai dải A/B với phép tỷ số | Bỏ vector lặp, giữ cảnh báo hai hệ số và phân biệt dấu bằng quan hệ giữa hai điểm. |
-| s05-07 | Bảng 7 cột; hai số chia dùng ô gộp 5 hàng | Giữ rõ bốn trạng thái thô/chuẩn hóa và hai số chia riêng; không đổi các số bằng nhau của nguồn. |
-| s05-09…10 | Hai phép truy hồi cạnh nhau; điều kiện đủ trong một thẻ; chi phí tách quét cạnh và quét đỉnh | Không coi quan sát số là chứng minh; không đếm thiếu chuẩn hóa và đo chênh. |
-| s06-03 | Ba hàng nhu cầu–công cụ–giới hạn; khoảng cách gọn | Thu hồi ba vấn đề mở bài mà không gán ngữ nghĩa ô tô cho G4. |
-| s07-01…03 | Đồ thị trái 35%, đề và bảng trả lời phải 65%; ma trận $L_4$ nằm trong notes | Đồ thị đủ dữ kiện để tự dựng ma trận, tránh quá tải đề; giữ nguyên yêu cầu và bài tập MMDS. |
+| HITS: $L$ | Hàng $i$, cột $j$ | $1$ |
+| PageRank: $M_0$ | Hàng $j$, cột $i$ | $1/d_i$ |
 
-Hình G4/G5 được vẽ lại một lần và dùng chung, giữ ổn định vị trí đỉnh và đúng tám cạnh. Hình 5.16 vẫn có ba vùng; không tự thêm cạnh từ vùng không thể tác động sang vùng giữa. Bảng 5.17 và bài tập 5.4.2 tiếp tục giữ hai thiết lập của nguồn ($r$ với $\beta=1$, $t$ với $\beta=4/5$). Các phân số bằng nhau do cấu trúc được giữ nguyên và phân biệt bằng nhãn, không đổi dữ kiện nguồn.
+HITS cộng điểm qua cạnh; không chia bậc ra.
+<!-- public-slide:end -->
 
+**Bố cục đã chọn:** Ma trận có nhãn hàng/cột A–E bên trái55%; hai phép nhân và bảng đối chiếu ngắn bên phải45%. Hàng A và cột nguồn PageRank được giải thích bằng nhãn chữ.
 
-## Ghi chú và bài thực hành — 24/09/2026
+**Trọng tâm và thứ tự đọc:** Xác định hàng nguồn của L → đọc chuyển vị khi tính a → đối chiếu với M0.
 
-Giai đoạn này dùng nguyên 51 mã trang chiếu ở trên; không thêm slide. Các mã chủ đề dưới đây áp dụng cho tài liệu tự học và thực hành. Thứ tự định nghĩa trước ví dụ là chu trình của ghi chú, không phải thay đổi chu trình trực giác trước hình thức hóa của slide.
+**Lý do phù hợp sinh viên năm 2:** Cùng cạnh có vị trí đảo và trọng số khác ở hai mô hình; bảng giúp sinh viên không dùng lại ma trận xác suất cho HITS.
 
-| `note-topic-id` | Vị trí và vai trò | Kiến thức vào → sản phẩm ra | Thành phần áp dụng và kết nối |
-|---|---|---|---|
-| `lec04-note-01` | Mở đầu, bảng ký hiệu, §1; định hướng | PageRank Bài03 → phân biệt $P,L,S,q_S,q$ | Mục tiêu, tình huống và cầu nối; không áp dụng định lý/thuật toán riêng. Dẫn vào §2; bảng tra giúp sinh viên năm3 nhận biết ký hiệu cũ đổi vai trò. |
-| `lec04-note-02` | §2; mô hình theo chủ đề | Phân phối, đồ thị → đặc tả và cài TSP | Nhu cầu→đặc tả→G4→dòng khối lượng→bất biến/co→giả mã thưa→chứng minh→chi phí→tự kiểm. Chuỗi hình học giải thích tồn tại mà không cần tiên quyết Banach. Chuyển công cụ sang §3 và §4. |
-| `lec04-note-03` | §3; giải thích thao túng | Cân bằng PageRank → nghiệm chính xác và xấp xỉ | Mô hình→SVG5.16→phương trình $z,y$→suy diễn→giới hạn→tự kiểm; không có thuật toán lặp mới. Đầu ra là động lực dùng hạt giống tin cậy ở §4. |
-| `lec04-note-04` | §4; tín hiệu tin cậy | Công cụ §2 và nguy cơ §3 → $t,s$ | Đặc tả→chọn hạt giống→tỷ số→Ví dụ5.12→giới hạn→tự kiểm. Dẫn lại bất biến/co §2; nhãn hai $\beta$ đứng ngay cạnh dữ kiện. Chuyển sang giới hạn của một điểm và hai vai trò HITS. |
-| `lec04-note-05` | §5; hai vai trò | Ma trận kề và cộng theo cạnh → cài HITS | Vai trò→đặc tả cộng→G5 hai vòng→giả mã→điều kiện đủ/phác thảo→chi phí→tự kiểm. Giữ bảng/vết gần phép tính; chuyển sang so sánh §6. |
-| `lec04-note-06` | §6 và §8; chọn mô hình | Các kết quả §2–5 → lựa chọn có điều kiện | Hai bảng ngắn và kết luận ứng dụng; không tạo chứng minh mới. Đầu ra của §6 dùng giải bài §7; §8 thu hồi ba giới hạn mở đầu và dẫn thực hành. |
-| `lec04-note-07` | §7 và `exercises.md`; luyện tập | Đặc tả và vết → sản phẩm Python/giải thích | Ba đề nguồn, gợi ý và lời giải gập; phần thực hành tách đề gốc với hướng dẫn của môn, cung cấp lệnh và tiêu chí. G4 dùng xuyên ba nhiệm vụ; G5 chỉ là kiểm ví dụ HITS, không đổi đề5.5.1. |
+**Giới hạn bố cục và phân chia nội dung:** Chỉ ma trận G5; không đưa LLT lên trang này. Bảng hai hàng đủ đối chiếu, không thêm lịch sử ký hiệu nguồn.
 
-### Bản đồ thực hành 60 phút
+**Ví dụ, phiếu số và hình thức hóa:** HT6; VD4 L5×5. h,a đều vector cột5×1; hai tích cùng trả vector5×1.
 
-| Thời lượng | Nguồn / dữ kiện | Hoạt động và sản phẩm | Bố trí tài liệu và lý do |
-|---|---|---|---|
-| 5 phút | G4, MMDS Hình5.1/5.15 | Chuẩn bị Python3, lưu các tệp chung thư mục, đọc danh sách cạnh | Danh sách tệp→lệnh→dữ kiện; tránh để sinh viên tự đoán môi trường hoặc đường dẫn. |
-| 15 phút | Bài5.3.1 tr.199/PDF25: $S=\{A\}$ và $S=\{A,C\}$, $\beta=4/5$ theo ví dụ | Chạy TSP, kiểm tổng1, đối chiếu hai nghiệm, giải thích dịch chuyển | Đề→lệnh→sản phẩm→khối gợi ý/đối chiếu gập. Hai tập được đặt nhãn riêng, giữ mọi phân số nguồn. |
-| 15 phút | Bài5.4.2 tr.204/PDF30: $T=\{B\}$; baseline $\beta=1$, Trust $4/5$ | Dùng lại bộ lặp; tính/diễn giải mass âm | Bảng hai cấu hình ngay trước lệnh; tránh lẫn PageRank nền với TrustRank. Sản phẩm $t,s$ và giải thích $s_B<0$. |
-| 20 phút | Bài5.5.1 tr.208/PDF34, G4 | Tự cài `hits_step`, kiểm hai vòng, chạy HITS và đối chiếu trạng thái dừng | Khung hàm→hai phép cộng→kiểm tự chạy→kết quả. Tách HITS khỏi vector xác suất; kiểm G5 được ghi rõ là kiểm chương trình theo Ví dụ5.14. |
-| 5 phút | Tổng hợp ba bài | Nộp mã HITS và báo cáo ngắn, đọc tiêu chí kiểm | Checklist sản phẩm cụ thể; không dùng tốc độ trên G4 để kết luận khả năng mở rộng. |
+**Kết nối vào–ra:** Phép cộng vết chạy → nhân ma trận đúng kiểu → chuẩn hóa và thuật toán tổng quát.
 
-Tổng 60 phút là hình thức thực hành của ba bài nguồn đã có, không bổ sung một recitation 60 phút nữa vào deck. Đề gốc không đổi dữ kiện hoặc yêu cầu toán học; lệnh, mã, khung hàm, dung sai và bảng sản phẩm là cách tổ chức thực hành do môn biên soạn. Chi phí dùng cùng mô hình thưa $\Theta(n+m)$ mỗi vòng; không lập ma trận tích HITS trong mã thực hành.
+**Nguồn và vị trí:** NG1 §5.5.2/Hình 5.19, tr.205–206/PDF31–32.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Phần tử $(L^\mathsf T)_{ji}=L_{ij}$ biểu diễn cạnh $i\to j$; khi nhân với $h_i$, đóng góp được cộng vào $a_j$. Tích $La$ cộng uy tín của các đích ở mỗi hàng nguồn. So với PageRank, $L^\mathsf T$ có giá trị $1$ tại cạnh, còn $M_0$ dùng $1/d_i$ tại cột nguồn $i$. Dùng $M_0$ cho uy tín vòng đầu cho $(1/2,5/6,5/6,5/6,1)^\mathsf T$, khác vector thô $(1,2,2,2,1)^\mathsf T$ của HITS.
+<!-- public-notes:end -->
+
+### lec04-s05-07 — Chuẩn hóa điểm HITS
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Cầu nối và điều kiện biên; MT4. Đầu vào: hai vector thô. Sản phẩm: giải thích chuẩn max và phạm vi định nghĩa.
+
+**Luận điểm trung tâm:** Chuẩn max giữ tỷ lệ và thứ hạng, nhưng không đặt tổng điểm bằng 1.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Với vector không âm $q$ có $\max_iq_i>0$:
+$$N(q)=\frac{q}{\max_iq_i}.$$
+
+Chuẩn hóa giữ tỷ lệ và thứ hạng các thành phần; giá trị lớn nhất trở thành 1.
+
+Ví dụ: $N\big((1,2,2,2,1)^\mathsf T\big)=(1/2,1,1,1,1/2)^\mathsf T$; tổng kết quả bằng 4.
+
+Điểm HITS không là phân phối xác suất. Với đồ thị không cạnh, vector thô bằng 0 nên phép chuẩn hóa không xác định.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Định nghĩa chuẩn hóa phía trên35%; cặp vector thô/chuẩn hóa giữa40%; ý nghĩa tổng và biên dưới25%.
+
+**Trọng tâm và thứ tự đọc:** Đọc điều kiện max dương → thao tác chia cùng số → kiểm tỷ lệ và tổng.
+
+**Lý do phù hợp sinh viên năm 2:** Ví dụ tổng 4 chống nhầm điểm HITS phải tổng 1; điều kiện max dương gắn phép chia với ca biên cụ thể.
+
+**Giới hạn bố cục và phân chia nội dung:** Chỉ chuẩn max đã chọn; các chuẩn khác không cần lên slide. Đồ thị ít nhất một cạnh là giả thiết của giả mã kế tiếp.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT6/VD4 a1; giá trị 0,1 và hòa có ý nghĩa, giữ nguyên.
+
+**Kết nối vào–ra:** Hai phép nhân → phép N xác định → thuật toán lặp đủ điều kiện vào/ra.
+
+**Nguồn và vị trí:** NG1 §5.5.2, tr.205–207; ca không cạnh suy trực tiếp từ phép chuẩn hóa.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Chia tất cả thành phần cho cùng một số dương giữ mọi tỷ lệ $q_i/q_j$ khi mẫu khác $0$, đồng thời giữ thứ tự lớn nhỏ. Do đó chuẩn hóa kiểm soát độ lớn số mà không thay ý nghĩa thứ hạng trong từng vector. Sách dùng giá trị lớn nhất; chuẩn tổng bằng $1$ hoặc chuẩn Euclid tạo giá trị khác nên không thể trộn các vết số. Với đồ thị không cạnh, cả hai tích bằng $0$ và quy ước chuẩn hóa bằng giá trị lớn nhất không xác định.
+<!-- public-notes:end -->
+
+### lec04-s05-08 — Thuật toán HITS với cập nhật luân phiên
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Đặc tả và thuật toán; MT4. Đầu vào: L và N. Sản phẩm: đọc đúng trạng thái cũ/mới, ngưỡng và ca biên.
+
+**Luận điểm trung tâm:** HITS trả hai vector, dùng uy tín mới khi cập nhật trung tâm và kiểm cả hai thay đổi.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Đầu vào: đồ thị có ít nhất một cạnh; $\tau>0$, số vòng tối đa $K\ge1$.
+
+```text
+h ← vector toàn 1; a ← vector toàn 1
+với t = 0, ..., K - 1:
+    a_new ← N(L chuyển vị * h)
+    h_new ← N(L * a_new)
+    Delta_a ← max |a_new[i] - a[i]|
+    Delta_h ← max |h_new[i] - h[i]|
+    a ← a_new; h ← h_new
+    nếu max(Delta_a, Delta_h) ≤ tau:
+        trả về (h, a, đạt ngưỡng)
+trả về (h, a, hết số vòng)
+```
+
+Đầu ra gồm hai vector và trạng thái dừng; đồ thị không cạnh trả trạng thái không xác định khi chuẩn hóa bằng giá trị lớn nhất.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Dòng đầu vào trên15%; giả mã giữa70%; đầu ra và biên dưới15%. Dùng khối mã chung, a_new được nhắc rõ tại dòng tính h_new.
+
+**Trọng tâm và thứ tự đọc:** Đọc điều kiện → khởi tạo → a mới từ h cũ → h mới từ a mới → kiểm cả hai vector.
+
+**Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết vòng lặp/mảng; tên cũ/mới làm hiện phụ thuộc tuần tự khác với hai cập nhật dùng chung trạng thái cũ.
+
+**Giới hạn bố cục và phân chia nội dung:** Giữ10 dòng giả mã; chi tiết thực hiện nhân bằng cạnh thuộc S05-10. Không đưa framework hay chương trình mới.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT6, chuẩn vô cùng=max trị tuyệt đối. Khởi tạo a0=h0=1; hai ngưỡng dùng cùng tau.
+
+**Kết nối vào–ra:** Vết chạy và ma trận → quy trình có đầu ra/điều kiện dừng → lập luận đúng và giới hạn.
+
+**Nguồn và vị trí:** NG1 §5.5.2, tr.206–207; giả mã cụ thể hóa thứ tự sách, điều kiện dừng và biên được nêu tường minh.
+
+**Thời lượng:** 4 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.
+<!-- public-notes:end -->
+
+### lec04-s05-09 — Điểm ổn định và giới hạn của HITS
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận đúng và phạm vi bảo đảm; MT4. Đầu vào: HT6. Sản phẩm: giải thích quan hệ hai bước, tránh duy nhất vô điều kiện.
+
+**Luận điểm trung tâm:** Quan hệ vector riêng giải thích điểm ổn định nhưng không tự bảo đảm duy nhất trên mọi đồ thị.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Mỗi cạnh $i\to j$ đóng góp $h_i$ vào uy tín của $j$, rồi đóng góp uy tín mới $a_j$ vào trung tâm của $i$.
+
+Ở điểm ổn định:
+$$a\propto L^\mathsf Th,\qquad h\propto La,$$
+$$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$
+
+Chuẩn hóa giữ tỷ lệ trong mỗi vector. Sự tồn tại một hướng giới hạn duy nhất cần điều kiện bổ sung; không suy từ việc tính đúng vài vòng.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Sơ đồ một cạnh và hai chiều đóng góp trái35%; chuỗi hai dòng tỷ lệ phải65%; giới hạn kết luận nằm đáy. Hệ số chuẩn hóa được giải thích trong ghi chú.
+
+**Trọng tâm và thứ tự đọc:** Theo đóng góp cạnh → ghép hai quan hệ → đọc điều kiện giới hạn của mệnh đề.
+
+**Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết phép nhân ma trận; quan hệ ghép nối cơ chế với đại số mà không yêu cầu kiểm tra kiến thức phổ chưa chuẩn bị.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đặt định lý phổ hoặc đa thức trên mặt slide. Điều kiện đủ và nghiệm G5 nằm trong ghi chú học thuật; không hỏi thi thuật ngữ phổ ở đây.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT6; tỷ lệ biểu diễn cùng hướng sau nhân số dương. Không xem LLT là cấu trúc cần tạo để thực thi.
+
+**Kết nối vào–ra:** Giả mã đúng phép cộng → quan hệ điểm ổn định → cách thực thi thưa và chi phí.
+
+**Nguồn và vị trí:** NG1 §5.5.2, tr.206–208; NG3 trang56–58 chỉ đối chiếu, sửa khẳng định duy nhất quá mạnh.
+
+**Thời lượng:** 3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Ở điểm cố định, $h=\lambda La$ và $a=\mu L^\mathsf Th$, với $\lambda,\mu>0$ là các hệ số chuẩn hóa. Thế một quan hệ vào quan hệ kia cho $h=\lambda\mu LL^\mathsf Th$ và tương tự cho $a$.
+
+Một điều kiện đủ để phép lặp có hướng giới hạn duy nhất là trị riêng lớn nhất của ma trận đối xứng nửa xác định dương $LL^\mathsf T$ chỉ có một hướng riêng độc lập, và khởi tạo có thành phần khác $0$ theo hướng ấy. Trong phân tích theo các hướng riêng, phần gắn với trị riêng nhỏ hơn tăng chậm hơn, nên tỷ lệ của nó giảm sau chuẩn hóa. Nếu trị riêng lớn nhất có nhiều hướng độc lập, hướng giới hạn có thể phụ thuộc khởi tạo. Đây là phác thảo điều kiện đủ, không phải chứng minh phổ tổng quát.
+
+Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1,0.3583,0,0.7165,0)^\mathsf T$ và $a\approx(0.2087,1,1,0.7913,0)^\mathsf T$.
+<!-- public-notes:end -->
+
+### lec04-s05-10 — Chi phí HITS trên đồ thị thưa
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Đánh giá chi phí; MT5. Đầu vào: hai phép cập nhật. Sản phẩm: đếm hai lượt cạnh và lý giải không lập tích ma trận.
+
+**Luận điểm trung tâm:** Hai phép nhân thưa được thực thi bằng hai lượt cạnh, không cần tạo tích ma trận.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+Mô hình: danh sách cạnh, $n$ đỉnh, $\ell$ cạnh; phép toán vô hướng chi phí đơn vị.
+
+| Công việc mỗi vòng | Phép đếm |
+|---|---:|
+| Cộng $h$ tại nguồn vào $a$ tại đích | $\ell$ cạnh |
+| Cộng $a$ mới tại đích vào $h$ tại nguồn | $\ell$ cạnh |
+| Chuẩn hóa, so sánh các vector | Số lượt cố định trên $n$ đỉnh |
+
+Thời gian $\Theta(n+\ell)$ mỗi vòng; bộ nhớ phụ $\Theta(n)$, đầu vào $\Theta(n+\ell)$.
+
+Hai lượt cạnh đáp ứng nhu cầu tính hai vector trên đồ thị lớn. Không tạo $LL^\mathsf T$ hoặc $L^\mathsf TL$ để chạy vì chúng có thể đặc hơn $L$.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Mô hình trên15%; bảng ba hàng giữa60%; kết quả và lưu ý tích ma trận dưới25%.
+
+**Trọng tâm và thứ tự đọc:** Gắn mỗi phép nhân với một lượt cạnh → cộng phần đỉnh → tách bộ nhớ phụ/đầu vào.
+
+**Lý do phù hợp sinh viên năm 2:** Cùng mô hình chi phí PageRank giúp so sánh trực tiếp; hai lượt cạnh được đếm trước khi rút gọn bậc tiệm cận.
+
+**Giới hạn bố cục và phân chia nội dung:** Không suy cùng bậc là cùng thời gian thực hay cùng số vòng. K vòng và nguy cơ đặc hóa giải thích trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT6; VD4 n5,ell8 chỉ là kiểm số đối tượng, không số đo hiệu năng. K vòng Theta(K(n+ell)).
+
+**Kết nối vào–ra:** Quan hệ điểm ổn định → thực thi bằng hai lượt cạnh, thu hồi giới hạn đồ thị lớn ở S05-01 → kiểm một vòng HITS và lựa chọn phương pháp theo cùng mô hình chi phí.
+
+**Nguồn và vị trí:** NG1 §5.5.2, tr.206; phép đếm trực tiếp theo giả mã đã đặc tả.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Mỗi cạnh $i\to j$ được dùng một lần để cộng $h_i$ vào $a_j$, sau đó một lần để cộng $a_j$ mới vào $h_i$. Hai lượt này cần $2\ell$ phép cộng trọng số, còn chuẩn hóa và kiểm thay đổi cần số lượt cố định theo $n$. Hệ số $2$ biến mất trong bậc tiệm cận nhưng vẫn mô tả lượng công việc khác PageRank. Tích $LL^\mathsf T$ có thể nối nhiều cặp trang cùng chung đích, nên số phần tử khác $0$ có thể tăng. Hai phép nhân luân phiên khai thác cạnh trực tiếp, tránh lưu tích ấy khi tính hai vector trên đồ thị lớn.
+<!-- public-notes:end -->
+
+### lec04-s05-11 — Kiểm tra một vòng HITS
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S05; MT4. Đầu vào: G5,a1. Sản phẩm: tính h_B và bác cách chia bậc ra.
+
+**Luận điểm trung tâm:** Tổng HITS không chia bậc ra; chuẩn hóa dùng một số chung cho toàn vector.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+G5: A→B,C,D; B→A,D; C→E; D→B,C; E không có cạnh ra.
+
+$a^1=(1/2,1,1,1,1/2)^\mathsf T$; trung tâm thô lớn nhất bằng 3.
+
+**Câu hỏi:**
+1. Tính trung tâm thô và điểm chuẩn hóa của B.
+2. Giải thích vì sao không chia thêm cho hai liên kết ra của B.
+3. Xác định điểm trung tâm của E sau vòng này.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** G5 trái45%; vector, max và ba yêu cầu phải55%. Cạnh B→A,D được phân biệt bằng nét đậm và nhãn, không lộ tổng.
+
+**Trọng tâm và thứ tự đọc:** Theo hai cạnh ra của B → đọc a1 tại đích → chuẩn hóa chung; sau đó xét tổng rỗng tại E.
+
+**Lý do phù hợp sinh viên năm 2:** B có hai đích uy tín khác nhau nên lỗi đổi phép tổng thành trung bình tạo đáp số khác; E kiểm cách xử lý nút không cạnh ra.
+
+**Giới hạn bố cục và phân chia nội dung:** Ba nhiệm vụ ngắn cùng một vòng, không hỏi phổ. Giữ toàn bộ dữ kiện để không phụ thuộc trí nhớ bảng trước.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD4/HT6; không dùng M0 hoặc bước nhảy trong HITS.
+
+**Kết nối vào–ra:** Cơ chế HITS đã kiểm → đối chiếu ba mục tiêu xếp hạng ở S06.
+
+**Nguồn và vị trí:** NG1 VD5.15, tr.207; câu hỏi áp dụng trực tiếp.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Ba yêu cầu như nội dung hiển thị trên G5 và a1.
+- Đáp án/gợi ý: B: thô $3/2$, chuẩn $1/2$; không chia bậc ra vì định nghĩa HITS là tổng. E: $h_E^1=0$.
+- Tiêu chí đánh giá: Dùng a mới, cộng hai uy tín, chỉ chia max toàn vector; phân biệt điểm trung tâm0 với điểm uy tín.
+- Phân bổ hoạt động: Tính1 phút, giải thích1 phút, đối chiếu1 phút; tổng3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Trung tâm thô của B là $a_A^1+a_D^1=1/2+1=3/2$. Chia giá trị này cho giá trị lớn nhất của vector thô là $3$ thu được $h_B^1=1/2$. HITS định nghĩa trung tâm bằng tổng uy tín các đích, nên chia bậc ra là thay đổi mô hình. E không có đích liên kết, tổng rỗng bằng $0$ và điểm trung tâm vẫn bằng $0$ sau chuẩn hóa. Không suy từ $h_E=0$ rằng mọi điểm uy tín của nút cụt đều bằng $0$.
+<!-- public-notes:end -->
+
+## S06. So sánh các phương pháp xếp hạng
+
+Tổng hợp và kết luận. Đầu ra các cụm → đối chiếu cùng tiêu chí → giải quyết lại ba tình huống của sách → năm nhiệm vụ tự kiểm. Hai nhiệm vụ ở S06-03, ba nhiệm vụ ở S06-04; S06-04 là slide kiểm tra riêng. Không đưa khái niệm trọng tâm mới.
+
+Phân bổ: 4 slide, 10 phút.
+
+### lec04-s06-01 — Đối chiếu ý nghĩa các điểm xếp hạng
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Tổng hợp; MT5. Đầu vào: HT1,HT5,HT6. Sản phẩm: phân biệt đầu ra và thông tin thêm của mỗi phương pháp.
+
+**Luận điểm trung tâm:** Các phương pháp khác nhau ở ý nghĩa đầu ra và thông tin điều khiển.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+| Phương pháp | Đầu ra | Thông tin quyết định |
+|---|---|---|
+| PageRank theo chủ đề | Một phân phối điểm theo ngữ cảnh | Phân phối dịch chuyển $v$ |
+| TrustRank | Một phân phối điểm từ tập tin cậy | Hạt giống được đánh giá bên ngoài |
+| Spam Mass | Chênh lệch tương đối giữa $r$ và $\rho$ | Hai vector cùng mô hình, $r_i>0$ |
+| HITS | Hai vector trung tâm và uy tín | Tổng theo cạnh vào và cạnh ra |
+
+Điểm uy tín HITS và điểm tin cậy TrustRank có ý nghĩa khác nhau.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Bảng ba cột chiếm85%; câu phân biệt thuật ngữ ở đáy15%. Mọi hàng so cùng ba tiêu chí, không gán màu tốt/xấu.
+
+**Trọng tâm và thứ tự đọc:** Đọc đầu ra của từng phương pháp → thông tin điều khiển → phân biệt hai từ uy tín/tin cậy.
+
+**Lý do phù hợp sinh viên năm 2:** Bảng thống nhất tiêu chí sau khi học cơ chế giúp sinh viên chọn theo nhu cầu, không xếp thuật toán thành mức nâng cấp chung.
+
+**Giới hạn bố cục và phân chia nội dung:** Không thêm thuộc tính hiệu năng chưa phân tích. Chi phí và tình huống thu hồi ở trang sau.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT1,HT5,HT6; không có ví dụ số mới.
+
+**Kết nối vào–ra:** Ba cụm kiến thức → bảng đầu ra → quyết định trên tình huống mở bài.
+
+**Nguồn và vị trí:** NG1 §5.3.2,§5.4.4–5,§5.5.1–2, tr.196–207.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng nhận hai loại thông tin ưu tiên khác nhau. Spam Mass cần cặp điểm để tính chỉ số chênh lệch, không phải phép lặp riêng. HITS đổi từ một phân phối sang hai vai trò cấu trúc. Uy tín HITS có thể cao do quan hệ với các trung tâm có điểm cao, không thay thế đánh giá nội dung của hạt giống TrustRank.
+<!-- public-notes:end -->
+
+### lec04-s06-02 — Lựa chọn phương pháp theo yêu cầu dữ liệu
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Thu hồi tình huống; MT5. Đầu vào: bảng so sánh. Sản phẩm: chọn phương pháp kèm điều kiện và giới hạn tài nguyên.
+
+**Luận điểm trung tâm:** Lựa chọn phương pháp phụ thuộc yêu cầu và giả thiết, không chỉ bậc chi phí.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+| Yêu cầu đã xét | Phương pháp và điều kiện |
+|---|---|
+| “jaguar” theo động vật hoặc ô tô | PageRank theo chủ đề, khi đã có chủ đề hoặc trọng số |
+| Đánh giá ảnh hưởng liên kết thao túng | TrustRank và Spam Mass, khi có tập tin cậy phù hợp |
+| Danh sách và nội dung học phần | HITS, khi cần cả điểm trung tâm và uy tín |
+
+Các phép lặp đều khai thác đồ thị thưa. Cùng bậc chi phí mỗi vòng không bảo đảm cùng số vòng hoặc cùng thời gian thực.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Bảng hai cột ba hàng giữa80%; câu chi phí dưới20%. Tên tình huống trùng mở đầu và nguồn sách.
+
+**Trọng tâm và thứ tự đọc:** Xác định yêu cầu → chọn đầu ra → kiểm điều kiện đầu vào → đọc giới hạn chi phí.
+
+**Lý do phù hợp sinh viên năm 2:** Ba tình huống quen được dùng lại, không thêm lĩnh vực ứng dụng phải học; điều kiện kèm lựa chọn ngăn học thuộc tên thuật toán.
+
+**Giới hạn bố cục và phân chia nội dung:** Không bổ sung thuật toán mới hoặc kết luận thực nghiệm. Thời gian hoàn thành hệ tìm kiếm nằm ngoài mô hình.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT3,HT5,HT6; ví dụ định tính đã dùng. Không có phiếu số mới.
+
+**Kết nối vào–ra:** Đối chiếu các phương pháp → áp vào vấn đề đầu bài → tự kiểm khả năng tính và giải thích.
+
+**Nguồn và vị trí:** NG1 §5.3.1,§5.4.3–5,VD5.13; phép đếm đã xây ở S02 và S05.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịch chuyển hoặc trọng số. TrustRank cần hạt giống đáng tin và đủ độ phủ; Spam Mass không tự tạo nhãn đúng chắc chắn. HITS cần đầu ra hai vai trò nên không thay thế trực tiếp chỉ số tin cậy. Chi phí tuyến tính theo $n+\ell$ mỗi vòng chỉ là một tiêu chí; số vòng, độ chính xác dừng và chi phí chuẩn bị thông tin bên ngoài vẫn khác nhau.
+<!-- public-notes:end -->
+
+### lec04-s06-03 — Tự kiểm về mô hình và chi phí
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Tự kiểm tổng hợp1–2; MT1,MT5. Đầu vào: phân phối dịch chuyển và phép đếm. Sản phẩm: phân biệt thay mô hình/biểu diễn và hiểu phạm vi chi phí.
+
+**Luận điểm trung tâm:** Thay phân phối dịch chuyển không thay đồ thị; cùng chi phí tiệm cận không đồng nhất thời gian thực.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+**Câu hỏi:**
+1. Trên cùng G4, giữ $\beta=4/5$ và đổi tập dịch chuyển từ {B,D} sang {A}. Xác định đại lượng phải đổi và đại lượng được giữ nguyên trong $r'=\beta M_0r+(1-\beta)v$.
+2. PageRank theo chủ đề và HITS đều có chi phí mỗi vòng $\Theta(n+\ell)$. Đánh giá kết luận: “Hai thuật toán luôn có cùng thời gian chạy”. Nêu những đại lượng còn thiếu.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Hai khung nhiệm vụ xếp dọc, mỗi khung khoảng50%; công thức ở trong khung1. Không đặt bảng đáp án bên cạnh.
+
+**Trọng tâm và thứ tự đọc:** Nhiệm vụ1 xét mô hình điểm; nhiệm vụ2 xét phạm vi phép đếm; không ghép hai câu vào một lập luận dài.
+
+**Lý do phù hợp sinh viên năm 2:** Hai thao tác khác nhau nhưng dùng đầu vào đã học; câu2 kiểm khả năng bảo toàn giả thiết khi chuyển từ tiệm cận sang hiệu năng.
+
+**Giới hạn bố cục và phân chia nội dung:** Đây là hai trong năm nhiệm vụ tự kiểm S06; quiz riêng của phần là trang kế tiếp. Mỗi câu có lời giải trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD1/HT1 và HT3/HT6; không cần tính lại nghiệm S={A}.
+
+**Kết nối vào–ra:** Lựa chọn phương pháp → tự kiểm mô hình/chi phí → kiểm tra tổng hợp các giới hạn.
+
+**Nguồn và vị trí:** NG1 §5.3.2,§5.5.2; nhiệm vụ suy trực tiếp từ đặc tả và phép đếm đã dạy.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Nhiệm vụ tự kiểm; slide kiểm tra riêng của phần được chỉ định trong bản đồ.
+
+- Câu hỏi/đề: Hai nhiệm vụ tự kiểm như nội dung hiển thị.
+- Đáp án/gợi ý: Câu1 đổi v và khởi tạo theo v, giữ M0/beta. Câu2 kết luận không được bảo đảm, còn thiếu số vòng/hằng số/điều kiện thực thi.
+- Tiêu chí đánh giá: Nêu đúng thành phần thay đổi, không sửa cạnh; phân biệt một vòng với toàn thuật toán và tiệm cận với số đo.
+- Phân bổ hoạt động: Suy nghĩ1 phút, trao đổi lời giải1 phút, đối chiếu1 phút; tổng3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Ở câu 1, đồ thị và $M_0$ giữ nguyên, $\beta=4/5$; $v$ đổi từ $(0,1/2,0,1/2)^\mathsf T$ sang $(1,0,0,0)^\mathsf T$. Nếu khởi tạo theo $v$ thì $r^0$ cũng đổi. G4 không có nút cụt nên không có số hạng bù. Ở câu 2, hai thuật toán có thể khác số vòng, hệ số công việc, tiêu chí dừng và cách thực thi; chuẩn bị tập chủ đề hoặc tập tin cậy cũng không nằm trong chi phí một vòng. Cùng bậc tiệm cận không suy ra cùng thời gian chạy.
+<!-- public-notes:end -->
+
+### lec04-s06-04 — Kiểm tra tổng hợp các phương pháp
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S06; tự kiểm3–5; MT2–MT5. Đầu vào: ba mô hình. Sản phẩm: chọn và diễn giải điểm dưới đúng giả thiết.
+
+**Luận điểm trung tâm:** Các định nghĩa về đóng góp, chỉ số và vai trò phải được giữ khi áp dụng phương pháp.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+**Câu hỏi:**
+3. Trong cụm thao túng, $x$ đã là đóng góp từ ngoài sau nhân $\beta$. Giải thích vì sao phương trình điểm đích chứa $x$ thay vì $\beta$ $x$.
+4. Trang B có $r_B=19/84$, $\rho_B=59/210$. Xác định dấu Spam Mass; đánh giá việc thay mọi giá trị âm bằng 0.
+5. Mạng học phần cần nhận diện cả trang danh sách và trang nội dung. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Ba nhiệm vụ thành ba hàng đủ rộng, khoảng1/3 mỗi hàng; dữ kiện số chỉ ở câu4. Không có hình phụ.
+
+**Trọng tâm và thứ tự đọc:** Theo từng câu: định nghĩa đóng góp → dấu chỉ số → lựa chọn đầu ra hai vai trò.
+
+**Lý do phù hợp sinh viên năm 2:** Mỗi nhiệm vụ đo một ranh giới thường nhầm; ba câu bao phủ các mục tiêu còn lại mà không giới thiệu dữ kiện mới.
+
+**Giới hạn bố cục và phân chia nội dung:** Năm nhiệm vụ tự kiểm được phân bố giữa hai trang cuối S06, không dồn thành bảng chữ nhỏ. Đáp án chỉ trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** VD2,VD3,VD4/HT4–HT6. Không hỏi điều kiện phổ chưa được kiểm tra ở tuyến chính.
+
+**Kết nối vào–ra:** Tổng hợp ba mục tiêu → ba bài nguồn tính và chứng minh trong recitation.
+
+**Nguồn và vị trí:** NG1 §5.4.2,§5.4.5,VD5.13; câu hỏi áp dụng dữ kiện đã học.
+
+**Thời lượng:** 3 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Ba nhiệm vụ3–5 như nội dung hiển thị.
+- Đáp án/gợi ý: x không nhân beta lần nữa; Spam Mass B âm và không cắt về 0 theo định nghĩa; chọn HITS với hai vai trò trung tâm/uy tín.
+- Tiêu chí đánh giá: Một tiêu chí cho mỗi câu: truy nguồn x; bảo toàn dấu và nghĩa chỉ số; chọn HITS đồng thời mô tả đúng hai đầu ra.
+- Phân bổ hoạt động: Suy nghĩ1 phút, trả lời1 phút, đối chiếu1 phút; tổng3 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Câu 3: mỗi đóng góp từ nguồn ngoài $j$ đã là $\beta r_j/d_j$, nên nhân thêm $\beta$ làm giảm đóng góp lần nữa. Câu 4: $\rho_B>r_B$ nên $s_B<0$, cụ thể $s_B=-23/95$; thay bằng $0$ là đổi định nghĩa và mất thông tin hướng thay đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.
+<!-- public-notes:end -->
+
+## S07. Bài tập
+
+Recitation sau phần giảng, thành section dọc riêng. Ba bài nguồn, mỗi bài20 phút gồm giải và đối chiếu lời giải. Bài 5.3.1 giữ cả(a,b); Bài 5.4.1 giữ(a,c), lược(b) có lý do bù nút cụt; Bài 5.5.2 giữ khuyên Hình 5.9. S07-03 đồng thời là kiểm tra riêng của phần, thời gian chỉ tính một lần.
+
+Phân bổ: 3 slide, 60 phút.
+
+### lec04-s07-01 — Bài tập PageRank theo chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT1; MT1. Đầu vào: HT1 và G4. Sản phẩm: hai vector điểm và phép kiểm nghiệm.
+
+**Luận điểm trung tâm:** Hai tập dịch chuyển được giải bằng cùng ma trận với hai vector v khác nhau.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+**Bài 5.3.1(a, b), MMDS §5.3.5, trang 199.**
+
+G4/Hình 5.15: A→B,C,D; B→A,D; C→A; D→B,C. Dùng $\beta=0.8$ kế thừa Ví dụ 5.10.
+
+**Câu hỏi:** Tính PageRank theo chủ đề khi tập dịch chuyển là (a) chỉ A; (b) A và C.
+
+Sản phẩm: hai phân phối dịch chuyển, hai vector điểm theo thứ tự A,B,C,D, hệ phương trình và phép kiểm tổng 1/điểm cố định.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** G4 có đầy đủ tám cạnh trái45%; nguồn, hai yêu cầu và sản phẩm phải55%. Tham số beta nằm cạnh tên đồ thị. Lời giải không xuất hiện trên mặt slide.
+
+**Trọng tâm và thứ tự đọc:** Đọc nguồn dữ kiện → dựng v cho từng trường hợp → giải cùng phương trình → kiểm nghiệm.
+
+**Lý do phù hợp sinh viên năm 2:** Dùng lại G4 giảm thời gian học dữ liệu mới; hai tập dịch chuyển khác nhau cho phép kiểm việc chỉ đổi v mà giữ M0.
+
+**Giới hạn bố cục và phân chia nội dung:** Không đổi số/cạnh hoặc yêu cầu nguồn. Các bước giảm hệ và đáp án ở ghi chú; slide chỉ đủ đề và sản phẩm.
+
+**Ví dụ, phiếu số và hình thức hóa:** BT1; VD1. $r=(4/5)M_0r+(1/5)v$. Hình 5.15 có n4,ell8; không có nút cụt.
+
+**Kết nối vào–ra:** Lý thuyết theo chủ đề → bài giải độc lập → phân tích đổi cấu trúc liên kết ở BT2.
+
+**Nguồn và vị trí:** NG1 Bài 5.3.1(a,b), tr.199/PDF25; Hình 5.15 tr.197/PDF23; beta kế thừa VD5.10 tr.196–197.
+
+**Thời lượng:** 20 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Bài tập nguồn; không phải slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Giữ nguyên hai ý(a,b) của bài nguồn như nội dung hiển thị.
+- Đáp án/gợi ý: (a) $(3/7,4/21,4/21,4/21)^\mathsf T$; (b) $(27/70,6/35,19/70,6/35)^\mathsf T$.
+- Tiêu chí đánh giá: Phân phối v đúng2 điểm; hệ đúng chiều2 điểm; hai nghiệm4 điểm; kiểm tổng và phương trình2 điểm. Chấp nhận phép lặp đủ chính xác khi có tiêu chí dừng và kiểm phần dư.
+- Phân bổ hoạt động: Thiết lập3 phút, tính12 phút, đối chiếu5 phút; tổng20 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Đặt các thành phần nghiệm là $r_A,r_B,r_C,r_D$.
+
+(a) $v=(1,0,0,0)^\mathsf T$. Hệ:
+$$r_A=\frac25r_B+\frac45r_C+\frac15,\quad r_B=\frac4{15}r_A+\frac25r_D,$$
+$$r_C=\frac4{15}r_A+\frac25r_D,\quad r_D=\frac4{15}r_A+\frac25r_B.$$
+Hai phương trình tại B, D cho $r_B-r_D=(2/5)(r_D-r_B)$, nên $r_B=r_D$; hai phương trình tại B, C cho $r_B=r_C$. Đặt giá trị chung là $q$; khi đó $q=4r_A/9$. Điều kiện tổng bằng $1$ cho $r_A=3/7$ và $q=4/21$.
+
+(b) $v=(1/2,0,1/2,0)^\mathsf T$. So với (a), phần dịch chuyển tại A đổi từ $1/5$ thành $1/10$, tại C đổi từ $0$ thành $1/10$; tại B, D vẫn bằng $0$. Do đó $r_B=r_D=q$, $r_C=q+1/10$ và $q=4r_A/9$. Điều kiện $r_A+3q+1/10=1$ cho
+$$r=(27/70,6/35,19/70,6/35)^\mathsf T.$$
+
+Hai nghiệm đều có tổng bằng $1$. Phép thế vào cả bốn phương trình kiểm thêm điều kiện điểm cố định; tổng bằng $1$ riêng lẻ chưa đủ xác nhận nghiệm.
+<!-- public-notes:end -->
+
+### lec04-s07-02 — Bài tập cấu trúc liên kết hỗ trợ
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT2; MT2. Đầu vào: HT4. Sản phẩm: hai mô hình cân bằng và biểu thức y theo tham số.
+
+**Luận điểm trung tâm:** Thay liên kết của hỗ trợ đổi dòng quay lại đích và hệ số khuếch đại.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+**Bài 5.4.1(a, c), MMDS §5.4.6, trang 203–204.**
+
+Giữ mô hình Hình 5.16 trên đồ thị không nút cụt: đích vẫn chỉ trỏ tới $m$ hỗ trợ; các hỗ trợ không nhận liên kết từ ngoài cụm; mọi cạnh ngoài vào cụm tới đích. $x$ đã gồm $\beta$; $b=(1-\beta)/n$.
+
+**Câu hỏi:** Lặp lại phân tích khi mỗi trang hỗ trợ (a) chỉ trỏ tới chính nó thay vì đích; (c) trỏ tới cả chính nó và đích.
+
+Sản phẩm: phương trình điểm hỗ trợ $p$ và điểm đích $y$; biểu thức của $y$ theo $x,m,n,\beta$; chỉ rõ công thức chính xác hay xấp xỉ.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Dải giả thiết trên35%; hai sơ đồ cấu trúc(a),(c) đặt ngang ở dưới trái40% tổng khung; đề và sản phẩm ở dưới phải60%. Đích→hỗ trợ giữ nguyên; khuyên/cạnh quay lại có nhãn.
+
+**Trọng tâm và thứ tự đọc:** Đọc các điều kiện không đổi → đối chiếu đúng cạnh thay ở(a)/(c) → lập p và y.
+
+**Lý do phù hợp sinh viên năm 2:** Hình cạnh thay đổi giúp sinh viên suy mẫu số 1 hoặc2 theo từng trường hợp; vẫn dùng biến nguồn để không phát sinh bài toán mới.
+
+**Giới hạn bố cục và phân chia nội dung:** Trên mặt slide không đặt lời giải hay số beta mới. Ý(b) lược có lý do trong metadata, không biến thành đề khác.
+
+**Ví dụ, phiếu số và hình thức hóa:** BT2/VD2/HT4; n≥m+1,m≥1,0<beta<1; cả hai cấu trúc giữ không nút cụt.
+
+**Kết nối vào–ra:** BT1 đổi bước nhảy → BT2 đổi cạnh và quy tắc chia → BT3 tính hai vai trò trên chuỗi nguồn.
+
+**Nguồn và vị trí:** NG1 Bài 5.4.1(a,c), tr.203–204/PDF29–30; Hình 5.16 và §5.4.2 tr.200–201. Lược ý(b) để không mở thêm bù nút cụt trong bài20 phút.
+
+**Thời lượng:** 20 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Bài tập nguồn; không phải slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Hai ý(a,c) của bài nguồn như nội dung hiển thị.
+- Đáp án/gợi ý: (a) $y=x+b\approx x$. (c) $y=[(2-\beta)(x+b)+\beta mb]/[(1-\beta)(2+\beta)]$; xấp xỉ như ghi chú.
+- Tiêu chí đánh giá: Đúng cạnh và phương trình(a)2 điểm; chia đôi và hai phương trình(c)3 điểm; giải y3 điểm; giữ nghĩa x, b và dấu xấp xỉ2 điểm.
+- Phân bổ hoạt động: Lập mô hình4 phút, biến đổi11 phút, đối chiếu5 phút; tổng20 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Trong cả hai ý, $x$ chỉ gồm các đóng góp ngoài vào đích, đã nhân $\beta$ và chia bậc ra; không có cạnh ngoài vào hỗ trợ.
+
+(a) Hỗ trợ giữ toàn phần theo liên kết tại chính nó:
+$$p=\frac{\beta y}{m}+\beta p+b,\qquad y=x+b.$$
+Vì không còn cạnh hỗ trợ→đích, dòng quay lại bằng 0. Do đó $p=(\beta y/m+b)/(1-\beta)$; theo phép lược bước nhảy trực tiếp tới đích của sách, $y\approx x$.
+
+(c) Hỗ trợ có hai cạnh ra nên mỗi cạnh nhận một nửa:
+$$p=\frac{\beta y}{m}+\frac\beta2p+b,\qquad
+ y=x+\frac{\beta m}{2}p+b.$$
+Từ phương trình $p$, $(2-\beta)p=2\beta y/m+2b$. Thế vào $y$:
+$$(2-\beta)y=(2-\beta)(x+b)+\beta^2y+\beta mb.$$
+Vì $2-\beta-\beta^2=(1-\beta)(2+\beta)>0$,
+$$y=\frac{(2-\beta)(x+b)+\beta mb}{(1-\beta)(2+\beta)}.$$
+Bỏ riêng phần dịch chuyển trực tiếp tới đích:
+$$y\approx\frac{2-\beta}{(1-\beta)(2+\beta)}x+\frac{\beta}{2+\beta}\frac mn.$$
+Không bỏ phần $b$ nhận tại hỗ trợ, vì tổng $m$ phần ấy tạo hạng $m/n$. Hai cách chính xác/xấp xỉ đều hợp lệ nếu giả thiết và dấu quan hệ nhất quán.
+<!-- public-notes:end -->
+
+### lec04-s07-03 — Bài tập HITS trên chuỗi có khuyên
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT3 và kiểm tra riêng S07; MT4. Đầu vào: HT6. Sản phẩm: vector theo n, chứng minh giới hạn và xử lý biên.
+
+**Luận điểm trung tâm:** Khuyên tại đỉnh 1 quyết định thành phần chi phối và hai vector giới hạn của chuỗi.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+**Bài 5.5.2, MMDS §5.5.3, trang 208; Hình 5.9, trang 189.**
+
+Đồ thị có $n$ đỉnh, cạnh $1\to1$ và $i\to i+1$ với $1\le i<n$; $n\ge1$.
+
+Khởi tạo $h^0=a^0=\mathbf1$; sau mỗi phép nhân, chuẩn hóa phần tử lớn nhất bằng 1.
+
+**Câu hỏi:** Tính các vector trung tâm và uy tín theo $n$.
+
+Sản phẩm: hai vector giới hạn, lập luận từ phép lặp hoặc ma trận, và các trường hợp biên $n=1$, $n=2$.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Chuỗi ngang với khuyên tại1 chiếm dải trên40%; dữ kiện và yêu cầu dưới60%. Dấu chấm lửng chỉ các đỉnh giữa; nhãn cạnh1→1 riêng ngoài khuyên.
+
+**Trọng tâm và thứ tự đọc:** Kiểm khuyên nguồn → xác định hàng 1/hàng giữa/hàng cuối → suy công thức lặp và giới hạn.
+
+**Lý do phù hợp sinh viên năm 2:** Hình làm khuyên nổi bằng đường nét và nhãn, không chỉ màu; lời giải theo nhóm chỉ số phù hợp quy nạp, tránh nhân ma trận kích thước n bằng tay.
+
+**Giới hạn bố cục và phân chia nội dung:** Không thay chuỗi thành dạng không khuyên. Đáp án, ma trận đường chéo và công thức theo vòng nằm trong ghi chú.
+
+**Ví dụ, phiếu số và hình thức hóa:** BT3/HT6; dữ kiện giữ Hình 5.9. Không thêm tham số beta, không xử lý nút cuối bằng bước nhảy.
+
+**Kết nối vào–ra:** Ba mô hình đã học → nghiệm và chứng minh trên bài nguồn → hoàn tất sản phẩm recitation.
+
+**Nguồn và vị trí:** NG1 Bài 5.5.2, tr.208/PDF34; Hình 5.9 tr.189/PDF15 đã kiểm trực tiếp khuyên tại1.
+
+**Thời lượng:** 20 phút.
+
+**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+
+- Câu hỏi/đề: Tính hai vector giới hạn của chuỗi có khuyên theo đúng đề nguồn.
+- Đáp án/gợi ý: $n\ge2$: $h^*=(1,0,\ldots,0)^\mathsf T$, $a^*=(1,1,0,\ldots,0)^\mathsf T$; $n=1$: h=a=(1).
+- Tiêu chí đánh giá: Giữ khuyên và lập L/LLT đúng2 điểm; vết vòng đầu và công thức quy nạp3 điểm; hai giới hạn3 điểm; xử lý n1/n2 và chuẩn max 2 điểm.
+- Phân bổ hoạt động: Lập ma trận4 phút, suy luận11 phút, đối chiếu5 phút; tổng20 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Với $n\ge2$, hàng 1 của $L$ có hai số $1$ tại cột 1, 2; mỗi hàng $2\le i<n$ có một số $1$ tại cột $i+1$; hàng cuối bằng $0$. Các hàng khác nhau có tập vị trí cột khác $0$ rời nhau, nên
+$$LL^\mathsf T=\operatorname{diag}(2,\underbrace{1,\ldots,1}_{n-2},0).$$
+Khởi tạo $h^0$ toàn $1$ cho $a^1$ toàn $1$. Vector trung tâm thô đầu là $(2,1,\ldots,1,0)^\mathsf T$; chuẩn hóa bằng giá trị lớn nhất cho $h^1=(1,1/2,\ldots,1/2,0)^\mathsf T$.
+
+Quy nạp: nếu $h^t=(1,2^{-t},\ldots,2^{-t},0)^\mathsf T$, thì $a^{t+1}$ có hai thành phần đầu bằng $1$ và phần còn lại bằng $2^{-t}$, vì có hai cạnh từ đỉnh 1 tới đỉnh 1 và đỉnh 2. Trung tâm thô kế tiếp là $(2,2^{-t},\ldots,2^{-t},0)^\mathsf T$; chia từng thành phần cho $2$ thu được công thức ở vòng $t+1$. Vì vậy, với $t\ge1$:
+$$h^t=(1,\underbrace{2^{-t},\ldots,2^{-t}}_{n-2},0)^\mathsf T,$$
+$$a^t=(1,1,\underbrace{2^{-(t-1)},\ldots,2^{-(t-1)}}_{n-2})^\mathsf T.$$
+Lấy giới hạn cho $h^*=(1,0,\ldots,0)^\mathsf T$ và $a^*=(1,1,0,\ldots,0)^\mathsf T$.
+
+Khi $n=2$, phần giữa rỗng; hai vector đạt giới hạn ngay sau vòng 1. Khi $n=1$, vẫn còn khuyên $1\to1$, $L=[1]$ và $h=a=(1)$; không có phép chia cho $0$. Khuyên khiến hàng 1 có chuẩn lớn hơn các hàng giữa, nên bỏ khuyên sẽ thay bài toán và nghiệm.
+<!-- public-notes:end -->
+
+## Tự kiểm của tác tử soạn trước vòng rà độc lập và giới hạn
+
+- Đã đối chiếu51 phiếu với số trang từng phần6/12/8/7/11/4/3; phần giảng48 trang/120 phút, recitation3 trang/60 phút. Mã duy nhất, liên tiếp theo từng phần; bảy slide kiểm tra riêng đã chỉ định.
+- Mỗi phiếu có đầu vào/sản phẩm, luận điểm, nội dung hiển thị, bố cục chọn, thứ tự đọc, lý do năm2, giới hạn, nguồn, thời lượng và ghi chú học thuật. Các câu hỏi có dữ kiện, đáp án, tiêu chí và thời gian nằm trong thời lượng trang.
+- Mạch theo sách §5.3→§5.4→§5.5. G4 được giữ xuyên PageRank–TrustRank–Spam Mass; G5 được khai báo khác G4 trước HITS; chuỗi bài5.5.2 giữ khuyên. Chỉ có các bổ sung toán học/cầu nối đã duyệt trong outline.
+- Áp dụng `no-ai-slop` chế độ Edit và tự kiểm `eval.md`: loại tiêu đề tu từ, lời kể tiến trình, lời chỉ dẫn tác giả và khẳng định quá mạnh khỏi hai vùng công khai. Giữ yêu cầu Tính/Xác định/Giải thích đúng chức năng kiểm tra. Văn phong học thuật ưu tiên hơn giọng nói hay câu rời; không có điểm phát hiện AI.
+- Áp dụng `quill` để rà đồ thị tiên quyết và tính liên tục ký hiệu: M0 cột nguồn, L hàng nguồn; beta là xác suất theo cạnh; rho là TrustRank; h/a chuẩn max; b khác delta của nút cụt. Không khởi tạo dự án sách.
+- Đây là kiểm nội bộ của bản soạn để bàn giao các lượt đọc độc lập; chưa thay thế báo cáo toán học, sư phạm, nguồn và văn phong độc lập. Chưa có HTML/SVG mới nên chưa kiểm render, tràn khung, bàn phím hoặc bản in. Các kết quả ấy không được suy từ độ đầy đủ của phiếu.
+
+## Ánh xạ triển khai ngày 28/09/2026
+
+51 phiếu phía trên vẫn là sườn được duyệt. HTML giữ toàn bộ mã, tiêu đề, thứ tự và nội dung học thuật; các vùng văn bản được dựng bằng bảng, công thức, khối mã, danh sách nhiệm vụ và sơ đồ theo chức năng của từng phiếu. Tài sản do generator sinh; không có ảnh raster hoặc tài sản từ mạng trong thành phần cốt lõi.
+
+### Ánh xạ ghi chú tự học
+
+Các mã dưới đây chỉ là metadata. Mỗi chủ đề giữ thứ tự vai trò → định nghĩa → ví dụ → trực quan → mệnh đề/thuật toán/chứng minh khi áp dụng → vận dụng và kiểm tra. Nguồn đều là sách MMDS và những suy luận đã được duyệt trong bản đồ chủ đề của outline.
+
+| note-topic-id | Vị trí; vai trò và nguồn | Kiến thức đầu vào → sản phẩm học tập | Kết nối vào–ra và thành phần áp dụng | Slide liên quan |
+|---|---|---|---|---|
+| `lec04-note-01` | §1; cầu nối; §5.3.1 và Bài 03 | PageRank → phân biệt nhu cầu và chiều cạnh | Bài 03 → phân phối dịch chuyển; định nghĩa/đồ thị/kiểm tra; thuật toán và định lý mới không áp dụng | S01-01–06 |
+| `lec04-note-02` | §2.1–2.2; cốt lõi; §5.3.2, VD5.10 | Phân phối, ma trận → cập nhật và nghiệm trên G4 | Nhu cầu → dữ kiện cho thuật toán; định nghĩa trước ví dụ, hình và bảng vết chạy, giải hệ điểm cố định | S02-01–05 |
+| `lec04-note-03` | §2.3–2.4; cầu nối/bổ sung; §5.1.5, §5.3.2 | Phép cập nhật → thuật toán, bất biến, cận sai số | Ví dụ → bảo đảm cho mọi vòng; giả mã, chứng minh đầy đủ về bảo toàn/co, biên toàn nút cụt | S02-05–08 |
+| `lec04-note-04` | §2.5; cốt lõi/bổ sung; §5.3.2–3 và phép đếm | Điểm cố định → ghép điểm và đánh giá chi phí | Tính duy nhất → tổ hợp có trọng số → truy vấn; chứng minh tuyến tính và chi phí; không có thuật toán mới độc lập | S02-09–12 |
+| `lec04-note-05` | §3; cốt lõi; §5.4.1–2, Hình5.16, VD5.11 | Luồng PageRank → phương trình hỗ trợ/đích và xấp xỉ | Đổi về dịch chuyển đều → tác động cạnh → nhu cầu tin cậy; định nghĩa, hình, dẫn xuất đầy đủ, hệ số nguồn và kiểm tra; giả mã không áp dụng cho mô hình cân bằng | S03-01–08 |
+| `lec04-note-06` | §4.1–4.2; cốt lõi; §5.4.3–4 | Chủ đề và mô hình thao túng → phép lặp TrustRank | Tập hạt giống → cùng nghiệm G4 → so điểm nền; đặc tả, hình, ví dụ, tái sử dụng thuật toán và chứng minh §2 | S04-01–04 |
+| `lec04-note-07` | §4.3–4.4; cốt lõi/bổ sung; §5.4.5 | Hai vector cùng mô hình → chỉ số và giới hạn | Hiệu tuyệt đối → hiệu tương đối → phân biệt với uy tín HITS; bảng tính, giá trị âm, độ phủ, chi phí và kiểm tra; không đặt định lý phân loại chắc chắn | S04-04–07 |
+| `lec04-note-08` | §5.1–5.3; cốt lõi/cầu nối; §5.5.1–2 | Tổng theo cạnh → hai vai trò và hai vòng HITS | Ý nghĩa đầu ra → ma trận/chuẩn hóa → vết số; định nghĩa đặt trước ví dụ theo chu trình ghi chú | S05-01–07 |
+| `lec04-note-09` | §5.4–5.6; cốt lõi/bổ sung; §5.5.2 | Vết chạy → thuật toán, bất biến và chi phí | Uy tín mới → trung tâm → dừng → quan hệ ổn định; giả mã, lập luận phép chia hợp lệ, phác thảo phổ có điều kiện, hai lượt cạnh và kiểm tra | S05-08–11 |
+| `lec04-note-10` | §6; tổng hợp; §5.3–5.5 | Các đầu ra đã định nghĩa → lựa chọn theo yêu cầu | Ba tình huống mở → lựa chọn → bài tập; bảng so sánh và năm nhiệm vụ; không tạo thuật toán/định lý mới | S06-01–04 |
+| `lec04-note-11` | §7.1; bài nguồn 5.3.1(a,b), tr.199 | G4 và phương trình → hai nghiệm chính xác | Đổi bước nhảy → kiểm hệ và tổng; đề, gợi ý, lời giải gập; 20 phút | S07-01 |
+| `lec04-note-12` | §7.2; bài nguồn 5.4.1(a,c), tr.203–204 | Phương trình cụm → phân tích hai biến thể | Giữ giả thiết nền → đổi cạnh → nghiệm chính xác/xấp xỉ; hai hình, gợi ý và lời giải gập; 20 phút | S07-02 |
+| `lec04-note-13` | §7.3; bài nguồn 5.5.2, tr.208, Hình5.9 tr.189 | HITS → hai giới hạn theo $n$ | Khuyên → ma trận → quy nạp và biên; đề/hình/gợi ý/lời giải gập; 20 phút | S07-03 |
+
+### Điều chỉnh bố cục khi dựng
+
+- S01-04 và S02-11: hai hàng luồng được dựng thành SVG; câu văn trùng nhãn trong hình được gộp thành chú thích, không đổi luận điểm hoặc thêm dữ kiện.
+- S01-06, S02-02, S02-12, S04-03 và S07-01: danh sách tám cạnh được thể hiện đầy đủ bằng G4; không đặt lại một đoạn liệt kê cạnh cạnh hình. S05-02/11 tương tự với G5; S05-02 có nhãn công khai G5 trước trang gọi lại tên này.
+- S03-07: dùng `hai-nhom-canh-noi-bo.svg` để thể hiện hai nhóm $m$ cạnh. Bản dựng thử dùng hình một hỗ trợ chưa cho thấy chiều quay lại; đã thay trước bàn giao rà độc lập.
+- S05-06: ma trận có nhãn hàng/cột A–E; các phép nhân và bảng đối chiếu được tách khỏi ma trận đúng tỷ lệ 55%–45%.
+- S06-04: ba câu 3–5 dùng một khung nhiệm vụ và danh sách ba hàng. Ba khung riêng làm nguồn chạm chân trang ở bản render đầu; gộp khung giữ nguyên câu hỏi và thứ tự.
+- S07-02: chữ trong hai SVG biến thể được tăng bằng generator; giá trị nhỏ nhất trong SVG là 30px, không thu nhỏ chữ HTML. Dữ kiện và hai cấu trúc giữ nguyên.
+- S07-03: nguồn được giữ ở đầu trang và trong ghi chú; bỏ lần lặp ở chân trang. Hình chuỗi dùng lớp `.l04-chain-diagram` cao 160px để dành vùng cho dữ kiện và sản phẩm. CSS chỉ thêm quy tắc bố cục dưới `.reveal.lecture-pagerank-advanced`; không sửa thang chữ.
+- Các câu hỏi nhiều ý được dựng bằng `ol/li` trong cùng khung; không đổi số câu. Mã giả giữ ngôn ngữ plaintext và `data-trim`; hai thuật toán không bị rút bớt bước.
+
+Các chỉnh bố cục không thay 48 trang giảng/120 phút và ba bài/60 phút. Ba ghi chú bài tập có thời lượng 20 phút; mặt slide không có thời lượng. Chi tiết nguồn và lời giải nằm trong từng ghi chú diễn giả; ghi chú tự học được soạn thành mạch riêng thay vì sao chép 51 trang.
+
+### Ánh xạ SVG thực tế
+
+| Slide | Tài sản SVG trong `img/lec-04/` |
+|---|---|
+| `lec04-s01-04` | `luu-vector-theo-chu-de.svg` |
+| `lec04-s01-06` | `hinh-5-1-kiem-tra.svg` |
+| `lec04-s02-01` | `hai-nhanh-di-chuyen.svg` |
+| `lec04-s02-02` | `hinh-5-15.svg` |
+| `lec04-s02-09` | `tong-vector-chu-de.svg` |
+| `lec04-s02-11` | `tien-tinh-va-truy-van.svg` |
+| `lec04-s02-12` | `hinh-5-1-trung-tinh.svg` |
+| `lec04-s03-02` | `hinh-5-16-cum-thao-tung.svg` |
+| `lec04-s03-03` | `diem-mot-ho-tro.svg` |
+| `lec04-s03-04` | `luong-hang-trong-cum.svg` |
+| `lec04-s03-07` | `hai-nhom-canh-noi-bo.svg` |
+| `lec04-s04-01` | `tap-tin-cay.svg` |
+| `lec04-s04-03` | `hinh-5-15-tin-cay.svg` |
+| `lec04-s05-01` | `cap-vai-tro-hits.svg` |
+| `lec04-s05-02` | `hinh-5-18.svg` |
+| `lec04-s05-09` | `dong-gop-hits.svg` |
+| `lec04-s05-11` | `hinh-5-18-kiem-tra.svg` |
+| `lec04-s07-01` | `hinh-5-1-trung-tinh.svg` |
+| `lec04-s07-02` | `ho-tro-tu-khuyen.svg`, `ho-tro-khuyen-va-dich.svg` |
+| `lec04-s07-03` | `chuoi-co-khuyen.svg` |
+
+Các trang không liệt kê dùng bảng HTML, KaTeX, danh sách hoặc giả mã như phiếu đã duyệt. Toàn bộ 20 SVG có vai trò ảnh, tiêu đề và mô tả trong tệp; mỗi nơi nhúng có văn bản thay thế riêng.
+
+## Đồng bộ sau phản biện bản triển khai ngày 28/09/2026
+
+| Vị trí | Nội dung chỉnh và lý do | Kết nối được giữ |
+|---|---|---|
+| S01-04, notes; `lec04-note-01`, §1 | Thay câu mô tả chiều dài chung bằng quy mô minh họa MMDS: khoảng một tỷ người dùng, mỗi vector nhiều tỷ thành phần (§5.3.1, tr.195–196). Giữ sơ đồ, câu về vector chủ đề và trọng số; không thêm ước lượng byte hoặc thời gian. | Ngữ cảnh cá nhân → giới hạn lưu trữ → dùng lại vector chủ đề → chi phí S02-10. |
+| S02-01 | `desc` của `hai-nhanh-di-chuyen.svg` nêu đích của một cạnh ra từ trang hiện tại; không đặt điều kiện có cạnh ra cho trang đích. | Trực giác hai nhánh → G4 → mô hình có nút cụt. |
+| S03-02; `lec04-note-05`, §3.1 | Hình kiến trúc dùng “Đóng góp từ ngoài”; bỏ $x$ cả trong nhãn và mô tả thay thế. Mã sinh hình đã đồng bộ. | Kiến trúc/giả thiết → điểm hỗ trợ S03-03 → định nghĩa $x$ và phương trình ở S03-04. |
+| S04-02/03 | Nguồn HTML và notes dùng §5.4.4, tr.202–203; S04-03 giữ Ví dụ 5.10, tr.196–197 cho G4. Phiếu nguồn đã đồng bộ. | Tập tin cậy → tái sử dụng phép lặp → so hai vector cùng mô hình. |
+| S05-02/06 | S05-02 dùng §5.5.2, Ví dụ 5.14, Hình 5.18, tr.205–206; S05-06 dùng §5.5.2, Hình 5.19, tr.206. Giữ §5.5.1 tại S05-01. | Trực giác hai vai trò → G5 → vết chạy → ma trận. |
+| S05-05/07/08; §5.4 ghi chú | Sửa cách dùng “max” trong câu văn/trạng thái trả về thành “giá trị lớn nhất”; giữ toán tử `max` và công thức. | Hai mẫu số của vòng lặp → miền xác định của chuẩn hóa → giả mã. |
+
+Số trang, thứ tự, mã, thời lượng và sản phẩm học tập không thay đổi. Các quyết định trên đã được điều phối viên duyệt sau khi đọc đủ năm báo cáo triển khai; không dùng kết quả rà dàn bài cũ thay cho rà học liệu. Editor kiểm đồng bộ nội dung và cấu trúc; render cuối, hồi quy viewer, kiểm toán học/mạch sau sửa và công bố thuộc bước kiểm định tiếp theo của điều phối viên.

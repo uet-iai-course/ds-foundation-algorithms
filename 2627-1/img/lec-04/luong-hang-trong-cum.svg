@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420" role="img" aria-labelledby="flow-t flow-d">
-  <title id="flow-t">Sơ đồ luồng hạng trong cụm</title>
-  <desc id="flow-d">Bên ngoài cho vào trang đích t lượng x; t và q trang hỗ trợ trao đổi: mỗi trang hỗ trợ nhận beta*y/q và tổng beta*q*z trở về t; dải dưới ghi dịch chuyển đều (1-beta)/N cho mỗi trang.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" height="430" role="img" aria-labelledby="flow-t flow-d">
+  <title id="flow-t">Ba nguồn điểm tại trang đích</title>
+  <desc id="flow-d">Đóng góp từ ngoài x đã gồm beta, tổng beta m p từ hỗ trợ và bước dịch chuyển b cùng đi vào đích có điểm y.</desc>
   <defs>
     <marker id="flow-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="900" height="420" fill="#edf4ff"/>
-  <rect x="40" y="90" width="200" height="90" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
-  <text x="140.0" y="144.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Bên ngoài</text>
-  <rect x="340" y="80" width="220" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
-  <text x="450.0" y="128.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang đích t</text>
-  <text x="450.0" y="160.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">hạng y</text>
-  <rect x="640" y="80" width="230" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
-  <text x="755.0" y="128.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">q trang hỗ trợ,</text>
-  <text x="755.0" y="160.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">mỗi trang hạng z</text>
-  <line x1="240" y1="135" x2="340" y2="135" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#flow-arw)"/>
-  <text x="290" y="122" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">x</text>
-  <path d="M 560,115 Q 600,100 640,115" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#flow-arw)"/>
-  <text x="600" y="70" font-family="Arial, sans-serif" font-size="22" fill="#2F3E7A" font-weight="bold" text-anchor="middle">mỗi trang nhận βy/q</text>
-  <path d="M 640,155 Q 600,170 560,155" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#flow-arw)"/>
-  <text x="600" y="200" font-family="Arial, sans-serif" font-size="22" fill="#2F3E7A" font-weight="bold" text-anchor="middle">tổng βqz</text>
-  <rect x="40" y="300" width="830" height="70" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2"/>
-  <text x="455" y="343" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Dịch chuyển đều: mỗi trang nhận (1−β)/N</text>
+  <rect x="0" y="0" width="900" height="430" fill="#edf4ff"/>
+  <rect x="25" y="55" width="230" height="90" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="140.0" y="109.8" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Bên ngoài</text>
+  <rect x="620" y="55" width="255" height="90" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="747.5" y="93.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">m trang hỗ trợ</text>
+  <text x="747.5" y="125.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">mỗi trang điểm p</text>
+  <rect x="335" y="230" width="230" height="100" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="450.0" y="272.5" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang đích</text>
+  <text x="450.0" y="308.5" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">điểm y</text>
+  <rect x="25" y="310" width="230" height="85" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="140.0" y="361.95" font-family="Arial, sans-serif" font-size="27" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Dịch chuyển</text>
+  <path d="M 140,145 Q 140,250 335,260" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#flow-arw)" data-source="ngoai" data-target="dich" />
+  <path d="M 745,145 Q 745,270 565,270" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#flow-arw)" data-source="ho-tro" data-target="dich" />
+  <path d="M 255,350 L 335,305" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#flow-arw)" data-source="dich-chuyen" data-target="dich" stroke-dasharray="9 7"/>
+  <text x="240" y="215" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">x</text>
+  <text x="650" y="230" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">βmp</text>
+  <text x="295" y="370" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">b</text>
 </svg>

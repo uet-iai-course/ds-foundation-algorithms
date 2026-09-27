@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 290" width="1000" height="290" role="img" aria-labelledby="internal-edges-t internal-edges-d">
+  <title id="internal-edges-t">Hai nhóm cạnh nội bộ</title>
+  <desc id="internal-edges-d">Đích có m cạnh ra tới m hỗ trợ; mỗi hỗ trợ có một cạnh quay lại đích. Tổng là hai m cạnh nội bộ.</desc>
+  <defs>
+    <marker id="internal-edges-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="290" fill="#edf4ff"/>
+  <rect x="45" y="80" width="240" height="120" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="165.0" y="152.6" font-family="Arial, sans-serif" font-size="36" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang đích</text>
+  <rect x="675" y="80" width="280" height="120" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="815.0" y="151.9" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">m trang hỗ trợ</text>
+  <path d="M 285,105 L 675,105" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#internal-edges-arw)" data-source="" data-target="" />
+  <path d="M 675,175 L 285,175" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#internal-edges-arw)" data-source="" data-target="" />
+  <text x="480" y="70" font-family="Arial, sans-serif" font-size="32" fill="#2F3E7A" font-weight="bold" text-anchor="middle">m cạnh đi tới hỗ trợ</text>
+  <text x="480" y="230" font-family="Arial, sans-serif" font-size="32" fill="#2F3E7A" font-weight="bold" text-anchor="middle">m cạnh quay lại đích</text>
+</svg>

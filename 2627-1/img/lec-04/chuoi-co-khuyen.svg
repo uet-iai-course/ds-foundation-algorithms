@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 220" width="1100" height="220" role="img" aria-labelledby="chain-t chain-d">
+  <title id="chain-t">Chuỗi có khuyên tại đỉnh 1</title>
+  <desc id="chain-d">Cạnh 1 tới 1 và các cạnh i tới i cộng 1; n ít nhất 1. Dấu chấm lửng biểu diễn các đỉnh giữa khi có.</desc>
+  <defs>
+    <marker id="chain-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1100" height="220" fill="#edf4ff"/>
+  <circle cx="120" cy="145" r="37" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="120" y="155" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">1</text>
+  <circle cx="360" cy="145" r="37" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="360" y="155" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">2</text>
+  <circle cx="720" cy="145" r="37" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="720" y="155" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">n−1</text>
+  <circle cx="970" cy="145" r="37" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="970" y="155" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">n</text>
+  <path d="M 103,112 C 25,10 215,10 137,112" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#chain-arw)" data-source="" data-target="" />
+  <text x="120" y="32" font-family="Arial, sans-serif" font-size="28" fill="#2F3E7A" font-weight="normal" text-anchor="middle">1 → 1</text>
+  <path d="M 157,145 L 323,145" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#chain-arw)" data-source="" data-target="" />
+  <path d="M 397,145 L 485,145" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#chain-arw)" data-source="" data-target="" />
+  <text x="555" y="155" font-family="Arial, sans-serif" font-size="44" fill="#2F3E7A" font-weight="normal" text-anchor="middle">⋯</text>
+  <path d="M 625,145 L 683,145" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#chain-arw)" data-source="" data-target="" />
+  <path d="M 757,145 L 933,145" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#chain-arw)" data-source="" data-target="" />
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 440" width="440" height="440" role="img" aria-labelledby="hits-contribution-t hits-contribution-d">
+  <title id="hits-contribution-t">Hai chiều đóng góp qua một cạnh</title>
+  <desc id="hits-contribution-d">Cạnh i tới j cộng điểm trung tâm h_i vào uy tín a_j; uy tín mới a_j được cộng về trung tâm h_i.</desc>
+  <defs>
+    <marker id="hits-contribution-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="440" height="440" fill="#edf4ff"/>
+  <circle cx="85" cy="215" r="43" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="85" y="227" font-family="Arial, sans-serif" font-size="36" fill="#2F3E7A" font-weight="bold" text-anchor="middle">i</text>
+  <circle cx="355" cy="215" r="43" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="355" y="227" font-family="Arial, sans-serif" font-size="36" fill="#2F3E7A" font-weight="bold" text-anchor="middle">j</text>
+  <path d="M 128,205 L 312,205" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-contribution-arw)" data-source="" data-target="" />
+  <text x="220" y="180" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="normal" text-anchor="middle">cạnh i → j</text>
+  <path d="M 100,170 Q 220,35 340,170" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-contribution-arw)" data-source="" data-target="" stroke-dasharray="9 7"/>
+  <text x="220" y="70" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="bold" text-anchor="middle">hᵢ → aⱼ</text>
+  <path d="M 340,260 Q 220,395 100,260" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-contribution-arw)" data-source="" data-target="" stroke-dasharray="9 7"/>
+  <text x="220" y="380" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="bold" text-anchor="middle">aⱼ mới → hᵢ</text>
+</svg>

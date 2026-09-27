@@ -1,1184 +1,1192 @@
 <!doctype html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Bài 04: PageRank theo chủ đề, liên kết rác và HITS</title>
-  <link rel="stylesheet" href="revealjs/dist/reset.css"/>
-  <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
-  <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
-  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
-  <link rel="stylesheet" href="lecture-style.css"/>
-</head>
-<body>
-<div class="reveal course-deck lecture-pagerank-advanced"><div class="slides">
-<section aria-label="Phần 1">
+<html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bài 04: PageRank theo chủ đề, liên kết rác và HITS</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css">
+<link rel="stylesheet" href="revealjs/dist/reveal.css">
+<link rel="stylesheet" href="revealjs/dist/theme/white.css">
+<link rel="stylesheet" href="plugin/highlight/monokai.css">
+<link rel="stylesheet" href="lecture-style.css">
+</head><body><div class="reveal course-deck lecture-pagerank-advanced"><div class="slides">
+
+<section aria-label="Bài toán xếp hạng liên kết">
 <section id="lec04-s01-01" data-slide-id="lec04-s01-01" class="title-slide">
-<div class="l04-title-top"><p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p><p class="term-name">Học kỳ 1 · Năm học 2026–2027</p></div>
-<div class="l04-title-main"><h1 class="lecture-title">Bài 04<br>PageRank theo chủ đề,<br>liên kết rác và HITS</h1><p class="supporting-text">Chủ đề · Tin cậy · Hai vai trò liên kết</p></div>
-<p class="motivation-source l04-title-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Chương 5, §5.3–5.5.</p>
+
+<h1 class="lecture-title">Bài 04<br>PageRank theo chủ đề,<br>liên kết rác và HITS</h1><p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p><p class="term-name">Học kỳ 1, năm học 2026–2027</p>
 <aside class="notes">
-<p>Thời lượng: 1 phút. Bài 03 xây dựng PageRank cơ sở từ đồ thị liên kết. Bài này mở rộng mô hình để thể hiện chủ đề truy vấn, phân tích tác động của liên kết được tạo có chủ đích và phân biệt hai vai trò của trang web.</p>
-<p>Ba hướng này cùng dùng đồ thị và phép nhân ma trận–vector. Phân bố dịch chuyển sẽ thay đổi theo mục tiêu; HITS còn tách một điểm xếp hạng thành hai loại điểm.</p>
-<p>Nguồn: MMDS, Chương 5, §5.3–5.5.</p>
+<p>Bài học xét ba yêu cầu trên dữ liệu liên kết: thiên lệch điểm theo chủ đề, giảm tác động của liên kết thao túng và phân biệt hai vai trò cấu trúc. Cơ chế PageRank đã học là đầu vào của hai yêu cầu đầu; HITS xây dựng hai vector điểm trên cùng kiểu dữ liệu đồ thị.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
 </aside>
 </section>
-<section id="lec04-s01-02" data-slide-id="lec04-s01-02" class="agenda-slide l04-agenda">
-    <h2>Mục lục</h2>
-    <div class="ex-grid2 l04-split-55">
-      <div>
-        <ol>
-          <li>Giới thiệu</li>
-          <li>PageRank theo chủ đề</li>
-          <li>Cụm thao túng liên kết</li>
-          <li>TrustRank và khối lượng rác</li>
-        </ol>
-      </div>
-      <div>
-        <ol start="5">
-          <li>Hai vai trò của HITS</li>
-          <li>Tổng kết và kiểm tra</li>
-          <li>Bài tập trên lớp</li>
-        </ol>
-      </div>
-    </div>
-    <aside class="notes">
-      <p>Thời lượng: 1 phút. Đọc lướt 7 dòng, nhấn rằng mỗi phần có một slide kiểm tra và cuối bài có bài tập.</p>
-      <p>Không đọc từng dòng; chỉ chỉ ba trụ: phần 2 là thuật toán, phần 3–4 là tấn công–phòng vệ, phần 5 là mô hình khác. Nhấn phần 7 là làm bài, mang máy tính.</p>
-      <p>Ba từ khóa ở trang tiêu đề ứng với ba trụ này. Nguồn: <a href="http://www.mmds.org">MMDS</a> Chương 5.</p>
-    </aside>
-  </section>
-<section id="lec04-s01-03" data-slide-id="lec04-s01-03" class="example-slide slide">
-    <h2>Truy vấn jaguar: một từ, hai chủ đề</h2>
-    <div class="ex-grid2 l04-split-45 l04-vcenter">
-      <div class="l04-query l04-center">jaguar</div>
-      <div class="l04-stack">
-        <div class="ex-card l04-topic">Chủ đề: động vật</div>
-        <div class="ex-card l04-topic">Chủ đề: ô tô</div>
-      </div>
-    </div>
-    <p class="ex-takeaway">PageRank cơ sở: một điểm mỗi trang, không phân chủ đề truy vấn.</p>
-    <div class="question-box">
-      <p><strong>Câu hỏi:</strong> <em>jaguar</em> gợi ý nghĩa nào — hãy phân loại hai ý nghĩa vào hai thẻ chủ đề.</p>
-    </div>
-    <p class="ex-source">MMDS §5.3, tr.195 (ví dụ lịch sử) — <a href="http://www.mmds.org">MMDS</a></p>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút. Hoạt động: hỏi trước — cho sinh viên phân loại hai ý nghĩa vào hai thẻ chủ đề — thu 2–3 câu trả lời, rồi mới chốt hai thẻ của sách.</p>
-      <p>PageRank cơ sở cho mỗi trang một điểm duy nhất, xếp theo liên kết, không theo chủ đề truy vấn; nên trang nói về con vật hay chiếc xe không phân biệt được bằng điểm số.</p>
-      <p>Sai lầm cần chặn: "đổi từ khóa truy vấn là xong" — vấn đề nằm ở điểm số của trang, không phải câu hỏi. Cũng chặn ý tưởng phải đổi thuật toán hoàn toàn: bài này chỉ cần đổi vector dịch chuyển.</p>
-      <p>Vấn đề "xếp hạng cần thể hiện chủ đề" dẫn sang so sánh bộ nhớ ở slide sau. Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3, tr.195.</p>
-    </aside>
-  </section>
-<section id="lec04-s01-04" data-slide-id="lec04-s01-04" class="example-slide slide">
-    <h2>Bộ nhớ: vector theo người và theo chủ đề</h2>
-    <div class="ex-grid2">
-      <div class="ex-card">
-        <h3>Theo người</h3>
-        <p>Ý tưởng: mỗi người dùng một vector điểm riêng.</p>
-        <p>Bộ nhớ: $U$ người × vector dài $n$ → $O(Un)$.</p>
-        <p>Hệ quả: đắt khi số người lớn.</p>
-      </div>
-      <div class="ex-card">
-        <h3>Theo chủ đề</h3>
-        <p>Ý tưởng: mỗi chủ đề một vector điểm.</p>
-        <p>Bộ nhớ: $k$ chủ đề × vector dài $n$ → $O(kn)$, cộng $O(Uk)$ nếu lưu trọng số người trên chủ đề.</p>
-        <p>Hệ quả: rẻ vì $k$ nhỏ, chọn trước.</p>
-      </div>
-    </div>
-    <p class="ex-note">Ký hiệu quy mô: $n$ số trang, $U$ số người, $k$ số chủ đề — không gán số thực cụ thể.</p>
-    <p class="ex-source">MMDS §5.3 — <a href="http://www.mmds.org">MMDS</a></p>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút (đọc ô trái 1', ô phải 1').</p>
-      <p>Lưu vector riêng cho từng người tốn $O(Un)$; lưu theo chủ đề chỉ tốn $O(kn)$ với $k$ nhỏ, cộng $O(Uk)$ cho trọng số người–chủ đề. Đây là lý do bài chọn hướng chủ đề, không phải vì thuật toán "hay hơn".</p>
-      <p>Nhấn: lưu $k$ vector là $O(kn)$ ngoài đồ thị. Sai lầm dễ mắc: tưởng $k$ phải bằng $U$ — giải thích $k$ là số chủ đề chọn trước, nhỏ.</p>
-      <p>Phân tích chi phí đầy đủ $O(kI(n+m_G))$ sẽ đến ở phần 2; ký hiệu $k$ được dùng lại ở phần tổng kết so chi phí. Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3.</p>
-    </aside>
-  </section>
-<section id="lec04-s01-05" data-slide-id="lec04-s01-05" class="example-slide slide">
-    <h2>Mục tiêu, tiên quyết và cầu nối ký hiệu</h2>
-    <div class="ex-grid2 l04-split-40">
-      <div class="ex-card">
-        <h3>Mục tiêu</h3>
-        <ul>
-          <li>Tính PageRank theo chủ đề.</li>
-          <li>Giải phương trình cụm thao túng liên kết.</li>
-          <li>Tính TrustRank và khối lượng rác.</li>
-          <li>Chạy HITS và nêu điều kiện hội tụ.</li>
-          <li>Chọn mô hình cho tình huống.</li>
-        </ul>
-      </div>
-      <div class="l04-stack">
-        <div class="ex-card">
-          <h3>Tiên quyết</h3>
-          <p>Đồ thị có hướng, ma trận–vector, xác suất cơ bản, ma trận sửa nút cụt của Bài 03.</p>
-        </div>
-        <div class="ex-card">
-          <h3>Cầu nối ký hiệu</h3>
-          <p>$P := S_{\text{Bài03}}$ — giữ cột nguồn, bù đều $u=\mathbf{1}/n$.</p>
-          <p><strong>$S$ ở Bài 04 là tập đỉnh chủ đề</strong> (ví dụ $S=\{B,D\}$).</p>
-          <p>G4 không có nút cụt nên $P=M_0$.</p>
-        </div>
-      </div>
-    </div>
-    <p class="ex-source">Ghi chú Bài 03 §2–3; MMDS §5.3 tr.195 — <a href="http://www.mmds.org">MMDS</a></p>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút (1' cầu nối, 1' đọc 5 mục tiêu).</p>
-      <p>Đọc hộp phải trước: cầu nối ký hiệu là chỗ vấp. Trong Bài 03, $S$ là ma trận sửa nút cụt; trong bài này $P:=S_{\text{Bài03}}$ còn $S$ là tập đỉnh chủ đề. Nói rõ: "trong bài này khi thấy $S=\{B,D\}$ thì đó là tập đỉnh".</p>
-      <p>Nhắc thêm: $q_S$ sẽ là vector (phân bố dịch chuyển), còn $q$ ở phần 3 là số trang hỗ trợ — sẽ nhắc lại khi gặp.</p>
-      <p>Từ PageRank cơ sở sang PageRank theo chủ đề chỉ đổi một chi tiết — vector dịch chuyển; HITS ở phần 5 đổi mô hình sâu hơn. Nguồn: ghi chú Bài 03 §2–3 (ma trận thô $M_0$, ma trận sửa $S$); <a href="http://www.mmds.org">MMDS</a> §5.3 tr.195.</p>
-    </aside>
-  </section>
-<section id="lec04-s01-06" data-slide-id="lec04-s01-06" class="example-slide slide">
-    <h2>Kiểm tra tiên quyết: đóng góp mỗi cạnh</h2>
-    <div class="ex-grid2 l04-split-40">
-      <div class="l04-figure">
-        <img role="img" alt="Đồ thị G4 bốn đỉnh A, B, C, D với tám cạnh: A→B, A→C, A→D, B→A, B→D, C→A, D→B, D→C" class="l04-figure" src="img/lec-04/hinh-5-1-trung-tinh.svg">
-      </div>
-      <div class="question-box">
-        <p><strong>Câu hỏi:</strong></p>
-        <p>(i) Mỗi cạnh B→đích đóng góp bao nhiêu vào đích, theo $\beta r_B/d_B$?</p>
-        <p>(ii) Vì sao tổng điểm của cả hệ vẫn bằng 1 khi có cả phần theo $\beta$ lẫn phần dịch chuyển?</p>
-        <p class="ex-note">Trạng thái giả định: $r\ge0$, tổng $r=1$, đồ thị không nút cụt; $r_B=\tfrac12$, bậc ra của B là 2, $\beta=\tfrac45$.</p>
-      </div>
-    </div>
-    <p class="ex-source">MMDS Hình 5.1, tr.178 — <a href="http://www.mmds.org">MMDS</a></p>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút, toàn bộ là hoạt động kiểm tra: 1' suy nghĩ cá nhân, 30" trả lời nhanh (giơ bảng/đọc), 30" chữa.</p>
-      <p>Đáp án (i): mỗi cạnh từ B đóng góp $\beta r_B/d_B=\tfrac45\cdot\tfrac12\cdot\tfrac12=\tfrac15$ (hai cạnh B→A, B→D). Nhấn phân biệt: $\beta r_B/d_B$ là đóng góp vào đích, còn $\beta/d_B$ là trọng số chuyển — hai đại lượng khác nhau; đóng góp = trọng số chuyển × điểm nguồn.</p>
-      <p>Đáp án (ii): dựa trên dữ kiện đã cho — phần theo cạnh có tổng khối lượng $\beta=\tfrac45$, phần dịch chuyển có tổng $1-\beta=\tfrac15$; hai khối lượng cộng lại đúng 1. Nhấn: $\beta Pr$ có tổng $\beta$, không phải 1.</p>
-      <p>Tiêu chí: đúng $\tfrac15$ mỗi cạnh theo công thức; giải thích được hai khối lượng bổ sung dựa trên dữ kiện. Lỗi cho thấy hiểu sai: quên nhân điểm nguồn $r_B$ (chỉ dùng trọng số $\beta/d_B$), hoặc nói "$\beta Pr$ có tổng 1".</p>
-      <p>Nếu nhiều sinh viên sai (ii), dừng 30 giây vẽ hai cột khối lượng $\tfrac45$ và $\tfrac15$ trước khi sang phần 2; không giới thiệu $q_S$ sớm. Trực giác hai khối lượng dùng lại ở slide kiểm tra phần 2. Nguồn: <a href="http://www.mmds.org">MMDS</a> Hình 5.1 tr.178; ghi chú Bài 03 (quy tắc ma trận chuyển).</p>
-    </aside>
-  </section>
+<section id="lec04-s01-02" data-slide-id="lec04-s01-02" class="example-slide agenda-slide l04-agenda">
+<h2>Nội dung và mục tiêu học tập</h2>
+<div class="ex-grid2 l04-split-55 l04-vcenter "><div><ol><li>Bài toán xếp hạng liên kết</li><li>PageRank theo chủ đề</li><li>Cơ chế liên kết rác</li><li>TrustRank và Spam Mass</li></ol></div><div><ol start="5"><li>HITS</li><li>So sánh các phương pháp xếp hạng</li><li>Bài tập</li></ol></div></div><p class="l04-agenda-goal">Tính các vector điểm; giải thích cơ chế; lựa chọn phương pháp theo đầu ra và giả thiết.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+<aside class="notes">
+<p>PageRank theo chủ đề thay phân phối dịch chuyển trong phép lặp. Phân tích liên kết rác xác định những cấu trúc có thể làm tăng điểm trang đích; TrustRank và Spam Mass dùng tập tin cậy để đối chiếu. HITS phân biệt điểm trung tâm và điểm uy tín. Bài tập áp dụng các phương trình trên dữ liệu của giáo trình.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+</aside>
 </section>
-<section aria-label="Phần 2">
+<section id="lec04-s01-03" data-slide-id="lec04-s01-03" class="example-slide">
+<h2>Truy vấn đa nghĩa và ngữ cảnh chủ đề</h2>
+<div class="l04-data"><p>Truy vấn: <strong>“jaguar”</strong>.</p></div><div class="ex-grid2  l04-vcenter "><div><div class="l04-topic"><h3>Động vật</h3><p>Ưu tiên các trang về loài báo đốm.</p></div></div><div><div class="l04-topic"><h3>Ô tô</h3><p>Ưu tiên các trang về hãng xe Jaguar.</p></div></div></div><p>Dữ liệu: các trang web và liên kết. Đầu ra: thứ tự trang phù hợp với chủ đề đã xác định.</p>
+<p>Một vector PageRank toàn cục không thay đổi theo hai ngữ cảnh này.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1, tr.195–196.</p>
+<aside class="notes">
+<p>Cùng một từ khóa có thể chỉ các nhu cầu thông tin khác nhau. Ví dụ của sách cho thấy độ quan trọng toàn cục và sự phù hợp với chủ đề là hai thông tin khác nhau. Chủ đề được coi là đầu vào đã xác định trong bài này; cách suy ra chủ đề từ nội dung không phải tiên quyết cho phép tính PageRank theo chủ đề.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1, tr.195–196.</p>
+</aside>
+</section>
+<section id="lec04-s01-04" data-slide-id="lec04-s01-04" class="example-slide">
+<h2>Giới hạn lưu trữ của xếp hạng cá nhân</h2>
+<img class="l04-figure " src="img/lec-04/luu-vector-theo-chu-de.svg" alt="So sánh vector toàn web riêng cho mỗi người với vector theo chủ đề và trọng số mỗi người." role="img"><div class="ex-takeaway"><p>Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần. Một số ít vector chủ đề thay cho việc lưu vector toàn web riêng của từng người dùng.</p></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.2, tr.195–196.</p>
+<aside class="notes">
+<p>Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần. Việc lưu một vector toàn web cho từng người dùng nhân bản dữ liệu điểm theo số người dùng. Xếp hạng theo một tập chủ đề làm giảm số vector dài cần lưu. Phương án này chỉ biểu diễn các sở thích thông qua những chủ đề đã chọn, nên không đồng nhất với một vector tùy ý cho mỗi người dùng.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.2, tr.195–196.</p>
+</aside>
+</section>
+<section id="lec04-s01-05" data-slide-id="lec04-s01-05" class="example-slide">
+<h2>Ba mục tiêu của xếp hạng liên kết</h2>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Yêu cầu</th>
+<th scope="col">Thông tin cần biểu diễn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Xếp hạng theo chủ đề</td>
+<td>Mức quan trọng trong một ngữ cảnh</td>
+</tr>
+<tr>
+<td>Giảm ảnh hưởng liên kết rác</td>
+<td>Mức điểm liên hệ với tập trang tin cậy</td>
+</tr>
+<tr>
+<td>Phân biệt vai trò liên kết</td>
+<td>Trang cung cấp thông tin và trang dẫn tới thông tin</td>
+</tr>
+</tbody>
+</table>
+<p>Đầu ra cần tạo quyết định ý nghĩa của điểm xếp hạng.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+<aside class="notes">
+<p>Điểm theo chủ đề thay đổi ngữ cảnh ưu tiên; điểm dựa trên tập tin cậy gắn với thông tin đánh giá bên ngoài đồ thị. Hai điểm HITS mô tả hai vai trò của liên kết. Các yêu cầu này có thể cùng xuất hiện trong một hệ thống, nhưng phép tính và ý nghĩa đầu ra cần được phân biệt.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+</aside>
+</section>
+<section id="lec04-s01-06" data-slide-id="lec04-s01-06" class="example-slide">
+<h2>Kiểm tra chiều truyền điểm</h2>
+<div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-1-kiem-tra.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C. Cạnh B tới A có nét đứt; B có hai cạnh ra." role="img"></div><div><p>Giả sử $r_A=r_B=r_C=r_D=1/4$ và $\beta=4/5$.</p><div class="question-box"><p><strong>Câu hỏi:</strong> Tính phần điểm theo liên kết mà B chuyển tới A. Xác định phần tử tương ứng trong ma trận $M_0$ với quy ước cột là trang nguồn.</p></div></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.1.2; Hình 5.15, tr.197.</p>
+<aside class="notes">
+<p>B có hai liên kết ra nên $(M_0)_{AB}=1/2$. Đóng góp theo liên kết là $(4/5)(1/4)/2=1/10$. Đây chưa phải toàn bộ điểm của A vì còn các đóng góp từ trang khác và phần dịch chuyển. Bậc ra được lấy tại B là nguồn của cạnh, không lấy tại A.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.1.2; Hình 5.15, tr.197.</p>
+</aside>
+</section>
+</section>
+<section aria-label="PageRank theo chủ đề">
 <section id="lec04-s02-01" data-slide-id="lec04-s02-01" class="example-slide">
-    <h2>Trực giác: người đọc chủ đề nhảy về tập đại diện</h2>
-    <div class="ex-grid2 l04-split-55 l04-vcenter">
-      <div>
-        <div class="l04-figure-tall">
-          <svg role="img" viewBox="0 0 520 360" width="100%" style="max-height:430px">
-            <title>Sơ đồ ba lớp: người đọc chủ đề nhảy về tập đại diện S</title>
-            <desc>Hàng trên là người đọc chủ đề; hàng giữa là Web với các mũi tên theo cạnh; hàng dưới là hộp tập đại diện S với mũi tên nhảy từ người đọc xuống.</desc>
-            <rect x="150" y="20" width="220" height="46" rx="8" fill="#eef3fb" stroke="#345"/>
-            <text x="260" y="49" text-anchor="middle" font-size="20">Người đọc chủ đề</text>
-            <rect x="30" y="120" width="460" height="110" rx="8" fill="#f7f7f7" stroke="#999"/>
-            <text x="60" y="145" font-size="18">Web</text>
-            <circle cx="110" cy="200" r="20" fill="#fff" stroke="#345"/>
-            <text x="110" y="206" text-anchor="middle" font-size="16">p₁</text>
-            <circle cx="230" cy="200" r="20" fill="#fff" stroke="#345"/>
-            <text x="230" y="206" text-anchor="middle" font-size="16">p₂</text>
-            <circle cx="350" cy="200" r="20" fill="#fff" stroke="#345"/>
-            <text x="350" y="206" text-anchor="middle" font-size="16">p₃</text>
-            <circle cx="450" cy="200" r="20" fill="#fff" stroke="#345"/>
-            <text x="450" y="206" text-anchor="middle" font-size="16">p₄</text>
-            <line x1="130" y1="200" x2="208" y2="200" stroke="#345" marker-end="url(#ar1)"/>
-            <line x1="250" y1="200" x2="328" y2="200" stroke="#345" marker-end="url(#ar1)"/>
-            <line x1="370" y1="200" x2="428" y2="200" stroke="#345" marker-end="url(#ar1)"/>
-            <rect x="140" y="280" width="240" height="52" rx="8" fill="#e8f4ea" stroke="#2a7"/>
-            <text x="260" y="312" text-anchor="middle" font-size="20">Tập đại diện S</text>
-            <line x1="260" y1="66" x2="260" y2="276" stroke="#c60" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#ar2)"/>
-            <text x="272" y="180" font-size="18" fill="#c60">nhảy</text>
-            <defs>
-              <marker id="ar1" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#345"/></marker>
-              <marker id="ar2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#c60"/></marker>
-            </defs>
-          </svg>
-        </div>
-      </div>
-      <div class="l04-stack">
-        <div class="ex-card"><p>Đi theo cạnh: với xác suất $\beta$, đi theo một liên kết ngẫu nhiên.</p></div>
-        <div class="ex-card"><p>Dịch chuyển về tập đại diện chủ đề $S$ với xác suất $1-\beta$.</p></div>
-        <div class="ex-card"><p>Điểm theo chủ đề: điểm số của trang giờ phụ thuộc chủ đề.</p></div>
-      </div>
-    </div>
-    <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3, tr. 195–196.</p>
+<h2>Dịch chuyển ưu tiên theo chủ đề</h2>
+<div class="ex-grid2 l04-split-60 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hai-nhanh-di-chuyen.svg" alt="Nhánh liên kết xác suất beta và nhánh dịch chuyển vào tập S xác suất một trừ beta; nét đứt không là cạnh dữ liệu." role="img"></div><div><p>Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.</p>
+<p>Với xác suất $1-\beta$: dịch chuyển tới một trang trong tập chủ đề $S$.</p>
+<p>Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ thị liên kết được giữ nguyên.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196.</p>
 <aside class="notes">
-      <p>Thời lượng: 2 phút (kể tình huống người đọc 1 phút, chốt ba dòng 1 phút).</p>
-      <p>Mở đầu bằng tình huống: một người đọc quan tâm chủ đề "ô tô" — ví dụ jaguar: họ nhảy về các trang đại diện chủ đề ô tô, không phải trang về loài báo. Giả thiết ngầm: người đọc ngẫu nhiên của Bài 03 nhảy khắp Web; nay ta đổi nơi nhảy — thay vì phân bố đều toàn Web, nhảy về tập đại diện $S$ do người soạn chủ đề chọn.</p>
-      <p>Lỗi dễ mắc cần chặn: sinh viên tưởng "nhảy về trang điểm cao nhất" — sai; nhảy về tập đại diện $S$, chọn đều trong $S$. Cũng tránh tưởng nhảy về một trang duy nhất.</p>
-      <p>Phần 1 kết luận rằng xếp hạng cần thể hiện chủ đề; slide này trả lời bằng cơ chế dịch chuyển về $S$. Khái niệm $S$ sẽ được gán số ngay slide sau.</p>
-    </aside>
-  </section>
+<p>Dịch chuyển đưa phần điểm mới vào các trang đại diện chủ đề. Các bước theo liên kết tiếp tục chuyển điểm tới những trang có thể tới được từ tập này. Vì vậy, tập dịch chuyển không phải tập duy nhất được phép có điểm dương. Quan hệ giữa chủ đề và các trang liên kết là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196.</p>
+</aside>
+</section>
 <section id="lec04-s02-02" data-slide-id="lec04-s02-02" class="example-slide">
-    <h2>G4, tập chủ đề S và vector dịch chuyển</h2>
-    <div class="ex-grid2 l04-split-45">
-      <div>
-        <div class="l04-figure">
-          <img src="img/lec-04/hinh-5-15.svg" class="l04-figure" alt="G4 với tập chủ đề B và D; A trỏ tới B,C,D; B tới A,D; C tới A; D tới B,C">
-        </div>
-      </div>
-      <div>
-        <table class="ex-table">
-          <thead><tr><th>Đại lượng</th><th>Giá trị</th></tr></thead>
-          <tbody>
-            <tr><td>Tập chủ đề</td><td>$S=\{B,D\}$</td></tr>
-            <tr><td>Vector dịch chuyển</td><td>$q_S=(0,\tfrac12,0,\tfrac12)$, tổng $1$</td></tr>
-            <tr><td>Khởi tạo, hệ số</td><td>$r_0=q_S$; $\beta=\tfrac45$</td></tr>
-          </tbody>
-        </table>
-        <p class="ex-note">$\tfrac12$ ở đây là xác suất khởi trên tập $S$. Đọc $q_S$ theo thứ tự đỉnh A, B, C, D cố định.</p>
-        <p class="ex-source"><a href="http://www.mmds.org">MMDS</a> §5.3, Ví dụ 5.10, tr196; đồ thị G4: Hình 5.1, tr178</p>
-      </div>
-    </div>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút (đọc đồ thị 1 phút, đọc $q_S$ và nhấn tổng 1 trong 1 phút).</p>
-      <p>Đọc đồ thị trước: G4 có $n=4$ đỉnh, $m_G=8$ cạnh; A→B, C, D; B→A, D; C→A; D→B, C. Hai đỉnh B, D được khoanh viền nhãn chữ "S" — đây là tập đại diện chủ đề, không phải ma trận $S$ của Bài 03; nhắc rõ để tránh lẫn ký hiệu. G4 không có nút cụt nên $P=M_0$.</p>
-      <p>Bước nói: chỉ đỉnh B, D thuộc chủ đề, nên mỗi đỉnh trong $S$ nhận $\tfrac12$; $q_S=(0,\tfrac12,0,\tfrac12)$ là phân bố đều trên $S$, tổng bằng 1 — điều kiện $q_S\ge0$, $\sum q_S=1$, $S\ne\emptyset$ (đặc tả đầy đủ ở slide đặc tả tổng quát). Ở ví dụ này chọn luôn $r_0=q_S$ làm khởi tạo, $\beta=\tfrac45$ theo Ví dụ 5.10.</p>
-      <p>Lỗi dễ mắc: viết $q_S=(\tfrac12,\tfrac12,0,0)$ theo thứ tự B, D — nhắc thứ tự đỉnh A, B, C, D luôn cố định, vị trí phần tử ứng với đỉnh.</p>
-      <p>Từ đây chuyển sang tính vòng đầu: cần $r_0$, $\beta$ và $P$ — cả ba đã có trên màn hình.</p>
-    </aside>
-  </section>
-<section id="lec04-s02-03" data-slide-id="lec04-s02-03" class="example-slide">
-    <h2>Tính phần theo cạnh của vòng một</h2>
-    <div class="ex-grid2 l04-split-45">
-      <div>
-        <div class="l04-figure">
-          <img src="img/lec-04/hinh-5-15.svg" class="l04-figure" alt="G4 với tập chủ đề B và D; A trỏ tới B,C,D; B tới A,D; C tới A; D tới B,C">
-        </div>
-      </div>
-      <div>
-        <table class="ex-table">
-          <thead><tr><th>Đích</th><th>Cạnh vào</th><th>Đóng góp $\beta r_j/d_j$</th><th>Kết quả</th></tr></thead>
-          <tbody>
-            <tr><td>A</td><td>B→A, C→A</td><td>$\beta\cdot\tfrac12\cdot\tfrac12+\beta\cdot\tfrac{0}{1}=\tfrac15+0$</td><td>$\tfrac15$</td></tr>
-            <tr><td>B</td><td>A→B, D→B</td><td>$\beta\cdot\tfrac{0}{3}+\beta\cdot\tfrac12\cdot\tfrac12=0+\tfrac15$</td><td>$\tfrac15$</td></tr>
-            <tr><td>C</td><td>A→C, D→C</td><td>$\beta\cdot\tfrac{0}{3}+\beta\cdot\tfrac12\cdot\tfrac12=0+\tfrac15$</td><td>$\tfrac15$</td></tr>
-            <tr><td>D</td><td>A→D, B→D</td><td>$\beta\cdot\tfrac{0}{3}+\beta\cdot\tfrac12\cdot\tfrac12=0+\tfrac15$</td><td>$\tfrac15$</td></tr>
-          </tbody>
-        </table>
-        <p class="ex-takeaway">$\beta Pr_0=(\tfrac15,\tfrac15,\tfrac15,\tfrac15)$; tổng phần này $=\tfrac45=\beta$ (khối lượng, không phải phân bố).</p>
-        <p class="ex-source"><a href="http://www.mmds.org">MMDS</a> §5.3, Ví dụ 5.10, tr196</p>
-      </div>
-    </div>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút (tính đỉnh A cùng lớp 1 phút, các đỉnh còn lại nhanh 1 phút).</p>
-      <p>Với $r_0=q_S=(0,\tfrac12,0,\tfrac12)$, mỗi đỉnh nhận tổng các đóng góp $\beta r_j/d_j$ từ các cạnh đi vào. Tính đỉnh A cùng lớp: cạnh vào là B→A (đóng góp $\beta\cdot\tfrac12\cdot\tfrac12=\tfrac15$) và C→A (đóng góp $\beta\cdot\tfrac{0}{1}=0$ vì $r_{0,C}=0$). Bốn đỉnh đều nhận $\tfrac15$.</p>
-      <p>Thử lỗi để kiểm phân biệt số: nếu lớp nhân $P^T$ thay $P$ với cùng dữ kiện thì kết quả sai là $r_{1\text{sai}}=(\tfrac4{15},\tfrac3{10},0,\tfrac3{10})$, tổng $\tfrac{13}{15}$ (đã cộng phần dịch chuyển, chỉ sai chiều nhân ma trận); nếu dùng đúng $P$ nhưng bỏ dịch chuyển, tổng là $\tfrac45$. Hai lỗi cho hai tổng khác nhau — dùng để chẩn đoán. Đúng vẫn là $\tfrac15$ cho A.</p>
-      <p>Ma trận $P$ đầy đủ (cột nguồn, cột tổng 1): hàng A là $(0,\tfrac12,1,0)$, hàng B là $(\tfrac13,0,0,\tfrac12)$, hàng C là $(\tfrac13,0,0,\tfrac12)$, hàng D là $(\tfrac13,\tfrac12,0,0)$ — chỉ dùng trong ghi chú, không dồn lên mặt.</p>
-      <p>Dòng tổng $=\beta$ chuẩn bị cho slide cộng dịch chuyển.</p>
-    </aside>
-  </section>
-<section id="lec04-s02-04" data-slide-id="lec04-s02-04" class="example-slide">
-<h2>Cộng phần dịch chuyển của vòng một</h2>
-<div class="l04-thirds l04-trace-columns">
- <div class="ex-card l04-center"><h3>Theo cạnh</h3><div class="ex-equation">$\beta Pr_0=\begin{pmatrix}1/5\\1/5\\1/5\\1/5\end{pmatrix}$</div><p>Tổng $4/5$</p></div>
- <div class="ex-card l04-center"><h3>Dịch chuyển</h3><div class="ex-equation">$(1-\beta)q_S=\begin{pmatrix}0\\1/10\\0\\1/10\end{pmatrix}$</div><p>Tổng $1/5$</p></div>
- <div class="ex-card l04-center"><h3>Tổng</h3><div class="ex-equation">$r_1=\begin{pmatrix}1/5\\3/10\\1/5\\3/10\end{pmatrix}$</div><p>$1/5+1/10=3/10$ tại B, D</p></div>
-</div>
-<p class="ex-takeaway l04-center">Cùng thứ tự A, B, C, D; tổng khối lượng $4/5+1/5=1$.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, tr. 196.</p>
+<h2>Tập dịch chuyển trên đồ thị bốn trang</h2>
+<div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-15.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C. B và D có viền đôi và nhãn tập S." role="img"></div><div><p>$\beta=4/5$, $S=\{B,D\}$; thứ tự thành phần A, B, C, D.</p>
+<p>$$v=r^0=(0,1/2,0,1/2)^\mathsf T.$$
+$$(1-\beta)v=(0,1/10,0,1/10)^\mathsf T.$$</p>
+<p>Mỗi vòng chỉ B và D nhận trực tiếp phần dịch chuyển.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
 <aside class="notes">
-      <p>Thời lượng: 3 phút (1 phút tính $(1-\beta)q_S$, 1 phút cộng theo thành phần, 1 phút kiểm tổng và phân biệt hai nhãn).</p>
-      <p>Tính $(1-\beta)q_S=\tfrac15\cdot(0,\tfrac12,0,\tfrac12)=(0,\tfrac1{10},0,\tfrac1{10})$, tổng $\tfrac15$ — đây là vector khối lượng, không phải phân bố. Cộng theo thành phần với $\beta Pr_0$: $r_1=(\tfrac15,\tfrac3{10},\tfrac15,\tfrac3{10})$, tổng 1 — vector xác suất.</p>
-      <p>Hỏi lớp: "tổng của phần dịch chuyển là bao nhiêu?" — phải là $\tfrac15$, không phải 1. Sai lầm cần chặn: lấy $\tfrac12$ trong $q_S$ trộn với $\tfrac1{10}$; hai giá trị này khác ý nghĩa — $\tfrac12$ là xác suất khởi trên $S$, $\tfrac1{10}=(1-\beta)\cdot\tfrac12$ là phần bổ sung dịch chuyển.</p>
-      <p>Công thức $r'=\beta Pr+(1-\beta)q_S$ xuất hiện lần đầu ở dạng cụ thể này; đặc tả đầy đủ ở slide sau. $r_1$ sẽ dùng lại ở slide vòng 2 và là đáp án slide kiểm tra cuối phần.</p>
-    </aside>
+<p>Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. Khởi tạo bằng $v$ theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
+</aside>
+</section>
+<section id="lec04-s02-03" data-slide-id="lec04-s02-03" class="example-slide">
+<h2>Vòng lặp PageRank theo chủ đề thứ nhất</h2>
+<p>$r^0=(0,1/2,0,1/2)^\mathsf T$, $\beta=4/5$, $S=\{B,D\}$.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">Theo liên kết $\beta(M_0r^0)_i$</th>
+<th scope="col">Dịch chuyển $(1-\beta)v_i$</th>
+<th scope="col">Điểm mới $r_i^1$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$1/5$</td>
+<td>$0$</td>
+<td>$1/5$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$1/5$</td>
+<td>$1/10$</td>
+<td>$3/10$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$1/5$</td>
+<td>$0$</td>
+<td>$1/5$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$1/5$</td>
+<td>$1/10$</td>
+<td>$3/10$</td>
+</tr>
+</tbody>
+</table>
+<p>Tại A: $(4/5)[(1/2)(1/2)+1\cdot0]=1/5$. Tổng điểm mới bằng 1.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, tr.196–197.</p>
+<aside class="notes">
+<p>Từ B, điểm $1/2$ chia cho A, D; từ D, điểm $1/2$ chia cho B, C. Vì vậy mỗi thành phần của $M_0r^0$ bằng $1/4$. Sau khi nhân $4/5$, mỗi trang có $1/5$; B, D nhận thêm $1/10$. Tổng là $1/5+3/10+1/5+3/10=1$. Nếu thay $v$ bằng phân phối đều, bốn điểm mới đều bằng $1/4$, khác phép tính theo tập dịch chuyển đã chọn.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, tr.196–197.</p>
+</aside>
+</section>
+<section id="lec04-s02-04" data-slide-id="lec04-s02-04" class="example-slide">
+<h2>Vết lặp và điểm cố định theo chủ đề</h2>
+<p>Tại A ở vòng 2:
+$$r_A^2=\frac45\left(\frac12\frac3{10}+\frac15\right)=\frac7{25}.$$</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">$r^1$</th>
+<th scope="col">$r^2$</th>
+<th scope="col">Điểm cố định $r^*$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$1/5$</td>
+<td>$7/25$</td>
+<td>$9/35$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$3/10$</td>
+<td>$41/150$</td>
+<td>$59/210$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$1/5$</td>
+<td>$13/75$</td>
+<td>$19/105$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$3/10$</td>
+<td>$41/150$</td>
+<td>$59/210$</td>
+</tr>
+</tbody>
+</table>
+<p>B và D có điểm cố định lớn hơn A; các trang ngoài $S$ vẫn có điểm dương.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, tr.196–197.</p>
+<aside class="notes">
+<p>Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có số hạng $1/10$, nên được $13/75$. Vòng 3 là $(31/125,71/250,23/125,71/250)^\mathsf T$. Nghiệm trong cột cuối thỏa phương trình cố định và có tổng bằng $1$. Việc các vòng đầu tiến gần nghiệm là quan sát; bảo đảm hội tụ đòi hỏi lập luận cho mọi vòng lặp.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, tr.196–197.</p>
+</aside>
 </section>
 <section id="lec04-s02-05" data-slide-id="lec04-s02-05" class="example-slide">
-    <h2>Vòng hai và nghiệm giới hạn</h2>
-    <div class="ex-grid2 l04-split-70">
-      <div>
-        <table class="ex-table">
-          <thead><tr><th>Vòng</th><th>$r_A$</th><th>$r_B$</th><th>$r_C$</th><th>$r_D$</th><th>Trạng thái</th></tr></thead>
-          <tbody>
-            <tr><td>$r_0=q_S$</td><td>$0$</td><td>$\tfrac12$</td><td>$0$</td><td>$\tfrac12$</td><td>khởi</td></tr>
-            <tr><td>$r_1$</td><td>$\tfrac15$</td><td>$\tfrac3{10}$</td><td>$\tfrac15$</td><td>$\tfrac3{10}$</td><td>1 vòng</td></tr>
-            <tr><td>$r_2$</td><td>$\tfrac{42}{150}$</td><td>$\tfrac{41}{150}$</td><td>$\tfrac{26}{150}$</td><td>$\tfrac{41}{150}$</td><td>2 vòng</td></tr>
-            <tr><td>$r_3$</td><td>$\tfrac{62}{250}$</td><td>$\tfrac{71}{250}$</td><td>$\tfrac{46}{250}$</td><td>$\tfrac{71}{250}$</td><td>3 vòng</td></tr>
-            <tr><td><strong>$r^*$</strong></td><td>$\tfrac{54}{210}$</td><td>$\tfrac{59}{210}$</td><td>$\tfrac{38}{210}$</td><td>$\tfrac{59}{210}$</td><td><strong>giới hạn (giải hệ)</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="l04-vcenter">
-        <div class="l04-figure-short">
-          <img src="img/lec-04/hinh-5-15.svg" class="l04-figure" alt="G4 với tập chủ đề B và D; A trỏ tới B,C,D; B tới A,D; C tới A; D tới B,C">
-        </div>
-      </div>
-    </div>
-    <p class="ex-source"><a href="http://www.mmds.org">MMDS</a> §5.3, Ví dụ 5.10, tr196</p>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút (1 phút đọc $r_2$, $r_3$, 1 phút nhấn nhãn $r^*$).</p>
-      <p>Đọc bảng theo hàng từ $r_0$; dừng ở hàng $r^*$ và đọc nhãn "giới hạn". Nói rõ: "$r_3$ chưa phải nghiệm; $r^*$ đến từ giải hệ" — $r^*$ thỏa $r^*=\beta Pr^*+(1-\beta)q_S$, không gán là "vòng 3" và không nói "hội tụ sau 3 vòng".</p>
-      <p>Giữ phân số nguồn với mẫu 150, 250, 210 khác nhau có lý do; không quy đồng ép cùng mẫu rồi so sánh nhầm. $r_B=r_D=\tfrac{59}{210}$ do $r_{B,0}=r_{D,0}$ và cùng phần dịch chuyển — quan hệ được phép lặp bảo toàn ($r'_B-r'_D=-\beta(r_B-r_D)/2$, khởi bằng nhau nên giữ bằng nhau), không gán cho đối xứng đồ thị chưa chứng minh.</p>
-      <p>Cách giải hệ (ghi chú): viết $r^*=\beta Pr^*+(1-\beta)q_S$ thành $(I-\beta P)r^*=(1-\beta)q_S$ và giải hệ tuyến tính 4 phương trình.</p>
-      <p>$r^*$ sẽ dùng ở slide bất biến và cho $t$ của ví dụ khối lượng rác ở phần 4.</p>
-    </aside>
-  </section>
-<section id="lec04-s02-06" data-slide-id="lec04-s02-06" class="example-slide">
-    <h2>Đặc tả tổng quát</h2>
-    <div class="l04-stack">
-      <div class="ex-equation l04-center">$$r'=\beta Pr+(1-\beta)q_S$$</div>
-      <table class="ex-table">
-        <thead><tr><th>Điều kiện</th><th>Giá trị ở ví dụ</th></tr></thead>
-        <tbody>
-          <tr><td>$q_S=e_S/|S|$: đều trên $S$</td><td>$q_S=(0,\tfrac12,0,\tfrac12)$ — thỏa</td></tr>
-          <tr><td>$S\ne\emptyset$</td><td>$S=\{B,D\}$</td></tr>
-          <tr><td>$\beta\in(0,1)$</td><td>$\beta=\tfrac45$</td></tr>
-          <tr><td>$n\ge1$</td><td>$n=4$</td></tr>
-          <tr><td>$P$ không âm, cột tổng 1</td><td>$P=M_0$ của G4, không nút cụt</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="ex-source"><a href="http://www.mmds.org">MMDS</a> §5.3, tr195–199</p>
-    <aside class="notes">
-      <p>Thời lượng: 3 phút (1 phút đọc công thức, 2 phút bảng đối chiếu).</p>
-      <p>Mọi phép tính vừa chạy là trường hợp riêng của $r'=\beta Pr+(1-\beta)q_S$. Đọc bảng theo hàng để thấy mỗi điều kiện đều có hiện thân trong ví dụ.</p>
-      <p>Hỏi nhanh lớp: "vì sao cần $S\ne\emptyset$?" — vì $q_S$ phải là phân bố xác suất; tập rỗng không cho phân bố. Mỗi điều kiện dùng ở bước sau: $\beta<1$ cho phép co (slide bất biến), $S\ne\emptyset$ để $q_S$ tồn tại.</p>
-      <p>Nhắc khối lượng: $\beta Pr$ có tổng $\beta$, $(1-\beta)q_S$ có tổng $1-\beta$; chỉ $r$ và $q_S$ có tổng 1. Sai lầm: nói "$\beta Pr$ có tổng 1" — sửa ngay bằng hai khối lượng.</p>
-      <p>Đặc tả này dùng lại ở slide giả mã và cho TrustRank ở phần 4 (cùng dạng, chỉ đổi $q_S$).</p>
-    </aside>
-  </section>
-<section id="lec04-s02-07" data-slide-id="lec04-s02-07" class="example-slide">
-    <h2>Giả mã: biểu diễn thưa, bù nút cụt, dừng</h2>
-    <p class="ex-note">Đầu vào: đồ thị $G$ có $n\ge1$ đỉnh, phân bố $q_S$, $\beta\in(0,1)$, ngưỡng $\tau>0$, số vòng tối đa $K_{max}\ge1$ nguyên. $M_0$: cột nguồn chuẩn hóa, cột nút cụt bằng 0.</p>
-    <div class="l04-pseudocode">
-<pre class="ex-code"><code class="language-plaintext" data-trim>
-r ← q_S; tính bậc ra d_j; u ← vector toàn 1/n
-với vòng = 1 … K_max:
-  δ ← tổng r_j trên các đỉnh có d_j = 0
-  r_mới ← β·M_0·r + β·δ·u + (1−β)·q_S
-  ε ← ‖r_mới − r‖₁
-  nếu ε ≤ τ:
-    trả (r_mới, đạt ngưỡng)
-  r ← r_mới
-trả (r, chưa đạt ngưỡng)
-</code></pre>
-    </div>
-    <div class="l04-thirds">
-      <div class="ex-note l04-center">tính lại khối lượng nút cụt</div>
-      <div class="ex-note l04-center">ngưỡng chênh hai vòng</div>
-      <div class="ex-note l04-center">trả vector và trạng thái</div>
-    </div>
-    <p class="ex-source"><a href="http://www.mmds.org">MMDS</a> §5.3, tr198–199</p>
-    <aside class="notes">
-      <p>Thời lượng: 3 phút (1 phút dòng đầu vào và khởi tạo, 1 phút dòng trong vòng lặp, 1 phút hai lối trả kết quả).</p>
-      <p>Giải thích dòng cập nhật bằng ba phần đã học: nhân thưa $M_0r$ (đóng góp theo cạnh), bù đều $\delta u$ cho nút cụt (khối lượng $\delta$ lấy từ $r$ hiện tại, tính lại mỗi vòng — không đặt ngoài vòng lặp), và dịch chuyển theo $q_S$. Một vòng lặp = nhân thưa + bù nút cụt đều + cộng dịch chuyển.</p>
-      <p>$\tau$ đo chênh hai vòng liên tiếp, không phải sai số tuyệt đối tới nghiệm — không chứng nhận sai số. Khi hết $K_{max}$, vector $r$ đã nhận lần cập nhật cuối; hai cờ trả kết quả phân biệt "đạt ngưỡng" với "chưa đạt ngưỡng" — tránh gọi mọi lần dừng là hội tụ.</p>
-      <p>Chứng minh $\|Pv\|_1\le\|v\|_1$ và phân tích chi phí để ở hai slide sau; không code thật trên slide này.</p>
-      <p>Cấu trúc vòng lặp được TrustRank dùng lại (chỉ đổi $q_S\to q_T$) và so với HITS ở phần 5.</p>
-    </aside>
-  </section>
-<section id="lec04-s02-08" data-slide-id="lec04-s02-08" class="example-slide">
-<h2>Bất biến xác suất và phép co</h2>
-<p class="ex-note">$F(r)=\beta Pr+(1-\beta)q_S$; $P\ge0$, tổng cột bằng 1; $\beta\in(0,1)$; $q_S$ là phân bố.</p>
-<div class="ex-card"><h3>Bất biến</h3><div class="ex-equation">$\mathbf1^TF(r)=\beta+(1-\beta)=1$</div><p>Nếu $r$ là phân bố, $F(r)$ không âm và tổng bằng 1.</p></div>
-<div class="ex-card"><h3>Phép co</h3><div class="ex-equation">$\|F(r)-F(s)\|_1\le\beta\|r-s\|_1$</div><p>Điểm bất động tồn tại duy nhất; phép lặp hội tụ tới điểm đó.</p></div>
-<p class="ex-note">Một số thành phần của nghiệm vẫn có thể bằng 0.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3; lập luận từ tính ngẫu nhiên theo cột.</p>
+<h2>Đặc tả PageRank theo phân phối dịch chuyển</h2>
+<p>Đầu vào: đồ thị $G=(V,E)$, $n\ge1$; phân phối $v\ge0$, $\sum_i v_i=1$; $0&lt;\beta&lt;1$; ngưỡng $\tau&gt;0$ và số vòng tối đa $K\ge1$.</p>
+<div class="ex-equation">$$r^{t+1}=\underbrace{\beta M_0r^t}_{\text{theo liên kết}}+\underbrace{\beta\delta^t u}_{\text{bù nút cụt}}+\underbrace{(1-\beta)v}_{\text{dịch chuyển}}.$$</div>
+<p>$u_i=1/n$; $\delta^t=\sum_{j:d_j=0}r_j^t$. Cột $j$ của $M_0$ là trang nguồn $j$.</p>
+<p>Đầu ra: vector xấp xỉ và trạng thái đạt ngưỡng hoặc hết số vòng. Bù nút cụt vẫn phân phối đều như Bài 03.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.1.4–5.1.5, tr.183–188, 196.</p>
 <aside class="notes">
-      <p>Thời lượng: 3 phút (1 phút bất biến, 2 phút co và duy nhất).</p>
-      <p>Khối trên trước (dễ): viết $\mathbf{1}^TP$ là vector hàng chứa tổng từng cột — vì cột $P$ tổng 1 nên $\mathbf{1}^TP=\mathbf{1}^T$, nhân với $r$ cho $\mathbf{1}^Tr$. Đối chiếu ví dụ: tổng $r_1=\tfrac45+\tfrac15=1$ — dữ kiện đã thấy ở slide cộng dịch chuyển dùng làm kiểm chứng.</p>
-      <p>Khối dưới: phần dịch chuyển triệt tiêu khi lấy hiệu $F(r)-F(s)$, nên chỉ còn $\beta P(r-s)$. Khai triển tam giác (ghi chú): $\|Pv\|_1=\sum_i\bigl|\sum_jP_{ij}v_j\bigr|\le\sum_j|v_j|\sum_iP_{ij}=\|v\|_1$, dùng $P\ge0$ và cột tổng 1. Sai lầm: chứng minh "$\|Pv\|_1=\|v\|_1$" — chỉ có bất đẳng thức $\le$. Cũng tránh tưởng "co" nghĩa là mọi phần tử giảm — co là khoảng cách giữa hai trạng thái.</p>
-      <p>Giả thiết cần nêu đủ: $P\ge0$, cột $P$ tổng 1, $\beta\in(0,1)$, $q_S$ phân bố. Ý Cauchy: chênh hai vòng liên tiếp bị chặn cấp số nhân theo $\beta$, nên dãy lặp là Cauchy; tính duy nhất nhờ $\beta<1$. Chi tiết dãy Cauchy để ghi chú mở rộng.</p>
-      <p>Kết quả này giải thích tính đúng của phép lặp; slide sau tính chi phí; TrustRank dùng lại không chứng minh trùng.</p>
-    </aside>
-</section>
-<section id="lec04-s02-09" data-slide-id="lec04-s02-09" class="example-slide">
-<h2>Phối hợp các chủ đề và chi phí</h2>
-<div class="ex-equation">$r^*=\sum_{l=1}^{k}\alpha_l r^{(l)*},\quad \alpha_l\ge0,\quad \sum_l\alpha_l=1$</div>
-<p class="ex-note">Cùng $P$, cùng $\beta$; $r^{(l)*}$ là nghiệm của chủ đề $l$; $q=\sum_l\alpha_lq_l$.</p>
-<table class="ex-table"><thead><tr><th>Phép tính</th><th>Thời gian</th><th>Bộ nhớ</th></tr></thead><tbody>
-<tr><td>Một vòng</td><td>$\Theta(n+m_G)$</td><td>$O(n+m_G)$ tổng</td></tr>
-<tr><td>$k$ chủ đề, $I$ vòng</td><td>$O(kI(n+m_G))$</td><td>$O(kn+m_G)$ tổng</td></tr>
-<tr><td>Phối hợp khi truy vấn</td><td>$O(k)$/trang; $O(kn)$/vector</td><td>$O(kn)$ lưu các vector</td></tr>
-</tbody></table>
-<p class="ex-note">$n$: số trang; $m_G$: số cạnh; $k$: số chủ đề; $I$: số vòng.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3; chi phí suy ra từ phép lặp thưa.</p>
-<aside class="notes">
-      <p>Thời lượng: 3 phút (1 phút công thức phối hợp, 1 phút bảng chi phí, 1 phút so với slide cá nhân hóa phần 1).</p>
-      <p>Ký hiệu: $n$ số đỉnh, $m_G$ số cạnh, $k$ số chủ đề, $I$ số vòng lặp, $U$ số người dùng. Chạy cho $k$ chủ đề với cùng $P$, cùng $\beta$: được $r^{(1)*},\dots,r^{(k)*}$ tính trước. Vì phương trình tuyến tính theo $q$, $r^*=\sum_l\alpha_l r^{(l)*}$ là nghiệm cho $q=\sum_l\alpha_l q_l$ — suy ra từ tính tuyến tính của vector: nếu $r^{(l)*}$ thỏa phương trình với $q_l$ thì tổ hợp tuyến tính thỏa với tổ hợp $q$.</p>
-      <p>Sai lầm: quên điều kiện cùng $P$, cùng $\beta$ — nếu đổi $\beta$ giữa các chủ đề thì phối hợp không còn nghiệm đúng. Cũng tránh tưởng phải chạy lại lặp cho từng người dùng: $k$ vector tính trước, lúc truy vấn chỉ cộng có trọng số.</p>
-      <p>Khép vòng với phần 1: sinh viên đã thấy $O(Un)$ của cá nhân hóa; hướng chủ đề cho phép trộn chủ đề lúc truy vấn với chi phí $O(k)$ mỗi trang. Bộ nhớ lưu vector và trọng số người dùng là $O(kn+Uk)$; $U$ là số người.</p>
-      <p>Chi phí sẽ vào bảng so sánh 4 mô hình ở phần 6; ý "trộn chủ đề" cho slide tích hợp.</p>
-    </aside>
-</section>
-<section id="lec04-s02-10" data-slide-id="lec04-s02-10" class="example-slide">
-    <h2>Kiểm tra phần 2: tính r một vòng tại A và B</h2>
-    <div class="ex-grid2 l04-split-40">
-      <div class="l04-vcenter">
-        <div class="l04-figure">
-          <img src="img/lec-04/hinh-5-15.svg" class="l04-figure" alt="G4 với tập chủ đề B và D; A trỏ tới B,C,D; B tới A,D; C tới A; D tới B,C">
-        </div>
-      </div>
-      <div>
-        <div class="l04-data">
-          <p>G4 như hình; $S=\{B,D\}$; $\beta=\tfrac45$; $r_0=q_S=(0,\tfrac12,0,\tfrac12)$.</p>
-        </div>
-        <div class="question-box">
-          <p><strong>Câu hỏi:</strong> Tính $r_{1,A}$ và $r_{1,B}$. Giải thích nguyên nhân hai điểm này khác nhau.</p>
-        </div>
-      </div>
-    </div>
-    <p class="ex-source"><a href="http://www.mmds.org">MMDS</a> §5.3, Ví dụ 5.10, tr196</p>
-    <aside class="notes">
-      <p>Thời lượng: 2 phút, toàn bộ là hoạt động kiểm tra (1 phút suy nghĩ, 30 giây trả lời, 30 giây chữa).</p>
-      <p>Đáp án: $r_{1,A}=\beta\cdot\tfrac12\cdot\tfrac12+\beta\cdot\tfrac{0}{1}+0=\tfrac15$ — A nhận B→A và C→A; phần dịch chuyển 0 vì A ∉ S. $r_{1,B}=\beta\cdot\tfrac{0}{3}+\beta\cdot\tfrac12\cdot\tfrac12+\tfrac15\cdot\tfrac12=\tfrac15+\tfrac1{10}=\tfrac3{10}$ — B nhận A→B và D→B.</p>
-      <p>Điểm mấu chốt: hai đỉnh nhận cùng khối lượng liên kết $\tfrac15$ trong vòng này; khác nhau do phần dịch chuyển (B ∈ S, A ∉ S), không do cấu trúc cạnh vào khác.</p>
-      <p>Tiêu chí đánh giá: đúng hai giá trị ($\tfrac15$, $\tfrac3{10}$); giải thích được A ∉ S nên thiếu phần dịch chuyển trong khi khối lượng liên kết vào giống nhau. Lỗi hiểu sai: cộng $\tfrac1{10}$ cho A, hoặc nhân $P^T$ thay $P$.</p>
-      <p>Khi chữa, viết hai cột khối lượng cho A và B cạnh nhau; nếu lớp nhầm rộng, quay lại slide cộng dịch chuyển 30 giây; không mở rộng sang $r_2$. Nếu người học bế tắc, gợi ý bằng lời: tách phần liên kết và phần dịch chuyển. Sản phẩm cần nộp: hai giá trị kèm một câu giải thích.</p>
-    </aside>
-  </section>
-</section>
-<section aria-label="Phần 3">
-<section id="lec04-s03-01" data-slide-id="lec04-s03-01" class="example-slide">
-  <h2>Giới hạn của tín hiệu liên kết</h2>
-  <div class="ex-grid2 l04-split-60 l04-vcenter">
-    <div>
-      <img role="img" alt="Ba vùng của mô hình cụm thao túng; trang đích liên kết hai chiều với các trang hỗ trợ" class="l04-figure" src="img/lec-04/hinh-5-16-cum-thao-tung.svg">
-    </div>
-    <div>
-      <p><strong>1.</strong> PageRank là hàm cố định của cấu trúc liên kết.</p>
-      <p><strong>2.</strong> Chủ một trang web kiểm soát được toàn bộ liên kết ra từ trang đó.</p>
-      <p><strong>3.</strong> Ước lượng điểm trang đích từ cấu trúc liên kết được kiểm soát.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: MMDS §5.4.1, tr.199–200 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>2 phút (nêu vấn đề 1 phút, đọc luận điểm 1 phút). Qua phần 2 ta đã tách rõ hai phần của phép lặp: phần đi theo liên kết và phần dịch chuyển ngẫu nhiên. Câu hỏi bây giờ là: tín hiệu liên kết ấy có tin được không, nếu có người chủ động dựng cụm liên kết để hưởng lợi?</p>
-    <p>Ba ý bên phải là khung của cả phần: thuật toán cố định, người tạo trang kiểm soát liên kết ra của mình, nên ai hiểu đủ sâu công thức có thể thiết kế cụm liên kết để đẩy điểm trang đích. Ta sẽ ước lượng bằng phương trình rằng mức khuếch đại là có chặn, không phải tùy ý.</p>
-    <p>Lỗi dễ mắc: nhiều người tưởng "chỉ cần nhiều liên kết là điểm cao tùy ý" — phần sau sẽ cho thấy con số chính xác. Phần 4 sẽ dùng nguồn tin cậy để hạn chế ảnh hưởng của liên kết rác. Nguồn: MMDS §5.4.1, tr.199–200.</p>
-  </aside>
-</section>
-<section id="lec04-s03-02" data-slide-id="lec04-s03-02" class="example-slide">
-  <h2>Hình 5.16: ba vùng của cụm thao túng</h2>
-  <div class="ex-grid2 l04-split-65 l04-vcenter">
-    <div>
-      <img role="img" alt="Ba vùng: không thể tác động, có thể tác động, và các trang sở hữu chứa trang đích cùng các trang hỗ trợ" class="l04-figure" src="img/lec-04/hinh-5-16-cum-thao-tung.svg">
-    </div>
-    <div>
-      <p><strong>Các trang sở hữu:</strong> chứa trang đích và $q$ trang hỗ trợ, đều do người thao túng kiểm soát.</p>
-      <p><strong>Có thể tác động:</strong> trang không sở hữu nhưng có thể đặt liên kết trên đó.</p>
-      <p><strong>Không thể tác động:</strong> phần còn lại của Web.</p>
-    </div>
-  </div>
-  <p class="ex-takeaway">Trong vùng sở hữu: mỗi trang hỗ trợ chỉ trỏ đích; đích trỏ mọi trang hỗ trợ; không trỏ chéo giữa các trang hỗ trợ.</p>
-  <p class="ex-source">Nguồn: MMDS Hình 5.16, §5.4.1, tr.200 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>3 phút (chỉ ba vùng 1 phút, theo dòng chảy 1 phút, kiểm mũi tên hai chiều 1 phút). Ta nhận động cơ từ slide trước: người thao túng chỉ kiểm soát được một phần nhỏ Web, nên mô hình chia Web thành ba vùng theo mức kiểm soát.</p>
-    <p>Vùng sở hữu là các trang do người thao túng kiểm soát, trong đó trang đích và $q$ trang hỗ trợ cùng nằm. Đọc dòng chảy điểm: từ các trang có thể tác động vào trang đích trong vùng sở hữu; trong vùng sở hữu, điểm đi vòng giữa đích và các trang hỗ trợ theo các mũi tên hai chiều.</p>
-    <p>Hai lỗi vẽ hình cần chặn: thứ nhất, vẽ các trang hỗ trợ trỏ chéo nhau — sai, trong Hình 5.16 mỗi trang hỗ trợ chỉ trỏ đích và đích trỏ mọi trang hỗ trợ; chính cấu trúc này mới làm các phương trình ở các slide sau đứng vững. Thứ hai, vẽ mũi tên từ vùng sở hữu ra ngoài — các trang hỗ trợ không tương tác ra ngoài vùng. Nguồn: MMDS Hình 5.16, tr.200; bộ slide MMDS Link Analysis II, trang chiếu 29–35.</p>
-  </aside>
-</section>
-<section id="lec04-s03-03" data-slide-id="lec04-s03-03" class="example-slide">
-  <h2>Bốn đại lượng của mô hình</h2>
-  <div class="ex-grid2 l04-split-55">
-    <div>
-      <table class="ex-table">
-        <thead><tr><th>Ký hiệu</th><th>Ý nghĩa</th><th>Điều kiện</th></tr></thead>
-        <tbody>
-          <tr><td>$N$</td><td>tổng số trang</td><td>$N \ge q+1$</td></tr>
-          <tr><td>$q$</td><td>số trang hỗ trợ</td><td>$q \ge 1$ (khác vector $q_S$)</td></tr>
-          <tr><td>$x$</td><td>đóng góp vào đích từ ngoài cụm, đã gồm hệ số $\beta$</td><td>$x \ge 0$</td></tr>
-          <tr><td>$y$</td><td>điểm đích cần đánh giá</td><td>ẩn cần giải</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <img role="img" alt="Sơ đồ ba vùng: vùng không thể tác động, vùng có thể tác động, vùng sở hữu chứa trang đích và q trang hỗ trợ; mũi tên dòng chảy từ trái sang phải" class="l04-figure-short" src="img/lec-04/hinh-5-16-cum-thao-tung.svg">
-      <p class="ex-note">$N$ đếm toàn bộ Web; $q$ đếm trang hỗ trợ; $x$ là dòng vào từ ngoài; $y$ là điểm trang đích.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: MMDS Ví dụ 5.11, §5.4.2, tr.201 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>2 phút (1 phút bảng, 1 phút gắn nhãn lên sơ đồ). Bốn đại lượng này đủ để viết phương trình điểm đích; nhìn phải trước để gắn từng chữ lên vùng tương ứng, rồi quay lại bảng chốt định nghĩa.</p>
-    <p>Hỏi lớp: "$q$ ở đây là gì?" — đáp án phải là "số trang hỗ trợ", một số đếm, và cần phân biệt với $q_S$ là vector phân bố dịch chuyển trên tập chủ đề đã gặp ở phần 1. Đây là chỗ trộn ký hiệu phổ biến nhất.</p>
-    <p>Sai lầm thứ hai: tưởng $x$ đã gồm cả dòng từ các trang hỗ trợ — không, $x$ chỉ là đóng góp từ ngoài cụm theo cạnh, và đã nhân sẵn $\beta$. Giữ bốn ký hiệu này cho các slide kế tiếp, nơi thêm $z$ và giải hệ. Nguồn: MMDS Ví dụ 5.11, tr.200–201.</p>
-  </aside>
-</section>
-<section id="lec04-s03-04" data-slide-id="lec04-s03-04" class="example-slide">
-  <h2>Điểm mỗi trang hỗ trợ</h2>
-  <div class="l04-stack l04-flow-stack">
-    <p class="ex-equation l04-center">$z=\beta\,\frac{y}{q}+\frac{1-\beta}{N}$</p>
-    <div class="l04-center">
-      <img role="img" alt="Dòng theo cạnh giữa trang đích và nhóm trang hỗ trợ; dịch chuyển đều tới các trang" class="l04-flow-figure" src="img/lec-04/luong-hang-trong-cum.svg">
-      <p class="ex-note">$q$ trang hỗ trợ, mỗi trang nhận như nhau.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: MMDS Ví dụ 5.11, §5.4.2, tr.201 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>3 phút (1 phút hai số hạng, 1 phút nhấn chia đều cho $q$, 1 phút hỏi lớp). Mỗi trang hỗ trợ nhận đúng hai luồng khối lượng: phần theo cạnh từ đích và phần dịch chuyển ngẫu nhiên đều trên cả $N$ trang.</p>
-    <p>Số hạng thứ nhất $\beta y/q$: đích trỏ tới $q$ trang hỗ trợ, mỗi cạnh mang $\beta$ lần điểm của đích chia đều cho $q$. Số hạng thứ hai $(1-\beta)/N$: dịch chuyển đều, chia cho toàn bộ $N$ trang chứ không chỉ vùng hỗ trợ.</p>
-    <p>Lỗi quen thuộc: viết $z=\beta y+(1-\beta)/N$ — quên chia $q$. Hỏi lớp: "đích trỏ tới mấy trang hỗ trợ?" để tự phát hiện. Nhấn rằng $z$ phụ thuộc $y$: đây chính là nền để ở hai slide sau ta có hệ hai phương trình hai ẩn thay vì giải rời rạc. Nguồn: MMDS Ví dụ 5.11, tr.200–201.</p>
-  </aside>
-</section>
-<section id="lec04-s03-05" data-slide-id="lec04-s03-05" class="example-slide">
-  <h2>Ba thành phần trở về đích</h2>
-  <div class="ex-grid2 l04-split-45 l04-vcenter">
-    <div>
-      <svg class="l04-figure" role="img" width="100%" viewBox="0 0 240 260" aria-label="Ba mũi tên đi vào trang đích tương ứng ba số hạng">
-        <title>Ba dòng khối lượng trở về trang đích</title>
-        <desc>Ba mũi tên từ trái, từ trên và từ dưới hội tụ vào trang đích, nhãn 1, 2, 3.</desc>
-        <circle cx="160" cy="130" r="34" fill="#fde9d9" stroke="#b0561a"/>
-        <text x="160" y="137" text-anchor="middle" font-size="21" fill="#7a3c10">đích</text>
-        <path d="M30 55 L 132 110" stroke="#33415c" fill="none" marker-end="url(#ar5)"/>
-        <text x="55" y="60" font-size="18" fill="#33415c">① ngoài</text>
-        <path d="M50 215 L 130 152" stroke="#5b7a3a" fill="none" marker-end="url(#ar5)"/>
-        <text x="30" y="245" font-size="18" fill="#5b7a3a">② vòng từ hỗ trợ</text>
-        <path d="M60 130 L 124 130" stroke="#7a8aa5" fill="none" stroke-dasharray="5 4" marker-end="url(#ar5)"/>
-        <text x="18" y="120" font-size="18" fill="#55627a">③ dịch chuyển</text>
-        <defs><marker id="ar5" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#33415c"/></marker></defs>
-      </svg>
-    </div>
-    <div>
-      <p class="ex-equation">$$y=x+\beta q z+\frac{1-\beta}{N}$$</p>
-      <p class="ex-note">① $x$ — dòng theo cạnh từ ngoài cụm, đã gồm $\beta$. ② $\beta q z$ — mỗi trong $q$ trang hỗ trợ trỏ về đích với khối lượng $z$, nhân $\beta$. ③ $(1-\beta)/N$ — dịch chuyển trực tiếp về đích.</p>
-      <p class="ex-takeaway">Hệ 2 phương trình, 2 ẩn $(y,z)$.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: MMDS Ví dụ 5.11, §5.4.2, tr.201 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>4 phút (1 phút sơ đồ, 2 phút đối chiếu ba số hạng, 1 phút chốt hệ). Đọc sơ đồ trái trước để thấy ba dòng khối lượng hội tụ về đích, rồi đối chiếu từng nhãn với từng số hạng trong công thức.</p>
-    <p>Hỏi lớp: "vì sao $\beta q z$ chứ không phải $qz$?" — vì dòng từ các trang hỗ trợ trở về đích cũng là đi theo cạnh, nên bị co lại bởi $\beta$ như mọi dòng theo cạnh khác.</p>
-    <p>Sai lầm cần chặn: gộp $(1-\beta)/N$ vào $x$ — $x$ là dòng theo cạnh từ ngoài, còn dịch chuyển là dòng riêng độc lập với cấu trúc liên kết. Một lỗi nữa: tưởng $x$ chưa gồm $\beta$ rồi nhân thêm lần nữa — nhãn "đã gồm β" trên slide để chặn đúng chỗ này. Kết thúc: ta có hệ hai phương trình hai ẩn, slide sau sẽ giải. Nguồn: MMDS Ví dụ 5.11, tr.201.</p>
-  </aside>
-</section>
-<section id="lec04-s03-06" data-slide-id="lec04-s03-06" class="example-slide">
-  <h2>Giải chính xác và xấp xỉ của sách</h2>
-  <div class="ex-grid2 l04-split-55">
-    <div>
-      <p class="ex-note">① Thay $z=\beta y/q+(1-\beta)/N$ vào $y=x+\beta qz+(1-\beta)/N$:</p>
-      <p class="ex-note">② $y=x+\beta^2 y+\dfrac{\beta q(1-\beta)}{N}+\dfrac{1-\beta}{N}$</p>
-      <p class="ex-note">③ Gom: $y(1-\beta^2)=x+\dfrac{\beta q(1-\beta)}{N}+\dfrac{1-\beta}{N}$</p>
-      <p class="ex-note">④ Chia cho $1-\beta^2=(1-\beta)(1+\beta)$.</p>
-      <p class="ex-equation">$$y_{\text{chính xác}}=\frac{x}{1-\beta^2}+\frac{\beta q+1}{N(1+\beta)}$$</p>
-    </div>
-    <div>
-      <div class="ex-card">
-        <p><strong>Xấp xỉ:</strong> sách bỏ phần dịch chuyển trực tiếp $(1-\beta)/N$ rồi giải:</p>
-        <p class="ex-equation">$$y_{\text{xấp xỉ}}=\frac{x}{1-\beta^2}+\frac{\beta q}{N(1+\beta)}$$</p>
-      </div>
-      <p class="ex-takeaway">Sai khác $=\dfrac{1}{N(1+\beta)}$ — tác động sau khi giải của hạng bị bỏ, không bằng chính hạng đó.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: MMDS Ví dụ 5.11, §5.4.2, tr.201 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>3 phút (1 phút giải từng bước, 1 phút xấp xỉ, 1 phút sai khác). Đi theo bốn dòng bên trái: thay $z$ vào phương trình đích, gom hai hạng chứa $y$ về bên trái để được $y(1-\beta^2)$, rồi chia cho $1-\beta^2=(1-\beta)(1+\beta)$.</p>
-    <p>Sai lầm phổ biến nhất: nói "xấp xỉ sai khác đúng bằng hạng bị bỏ $(1-\beta)/N$". Sau khi chia cho $1-\beta^2$, tác động của hạng đó thành $\frac{1}{N(1+\beta)}$. Cả hai nghiệm đều chia cho $1-\beta^2$, khác nhau đúng một hạng trong tử: $\beta q+1$ so với $\beta q$.</p>
-    <p>Cũng chặn cách nói "tăng số trang hỗ trợ khiến PageRank lớn tùy ý" — các slide sau sẽ cho thấy con số có hệ số chặn rõ. Giữ nguyên ký hiệu, chưa thay số cụ thể. Nguồn: MMDS Ví dụ 5.11, tr.201.</p>
-  </aside>
-</section>
-<section id="lec04-s03-07" data-slide-id="lec04-s03-07" class="example-slide">
-  <h2>Hệ số khuếch đại và giới hạn</h2>
-  <div class="l04-stack">
-    <div class="ex-grid2">
-      <div class="ex-card">
-        <p><strong>Hệ số ngoài:</strong> $\beta=17/20$ nên $1/(1-\beta^2)=400/111\approx 3.6036$ — nói "gấp khoảng 3.6 lần".</p>
-      </div>
-      <div class="ex-card">
-        <p><strong>Hệ số hỗ trợ:</strong> $\beta/(1+\beta)=17/37\approx 0.4595$; số hạng đóng góp là $(17/37)\cdot(q/N)$, không phải đẳng thức $q/N=17/37$.</p>
-      </div>
-    </div>
-    <div>
-      <p><strong>Đúng:</strong> dòng từ ngoài cụm được khuếch đại khoảng 3.6 lần; nhóm $q$ trang hỗ trợ đóng góp theo tỷ lệ $q/N$ với hệ số $17/37$.</p>
-      <p><strong>Tránh:</strong> "tăng thêm 360%", "PageRank lớn tùy ý", viết đẳng thức sai "$q/N=17/37$".</p>
-      <p class="ex-note">Chi phí: đánh giá biểu thức khi đã biết $x$ là $O(1)$; tìm PageRank nền vẫn cần lặp trên toàn đồ thị. Các đại lượng $q$, $N$, $x$ phụ thuộc cùng đồ thị.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: MMDS Ví dụ 5.11, §5.4.2, tr.201 · <a href="http://www.mmds.org">MMDS</a></p>
-  <aside class="notes">
-    <p>3 phút (1 phút hệ số, 1 phút đúng/tránh, 1 phút chi phí). Ví dụ cụm thao túng dùng $\beta=0.85$ theo nguồn, khác $4/5$ của phần PageRank theo chủ đề. Nhận hai nghiệm từ slide trước và gắn số tại $\beta=0.85=17/20$: hệ số khuếch đại dòng ngoài là $400/111$, xấp xỉ $3.6036$ — cách nói đúng là "gấp khoảng 3.6 lần", không phải "tăng thêm 360%".</p>
-    <p>Về phần hỗ trợ: $17/37$ là hệ số nhân tỷ lệ $q/N$, xuất phát từ $\beta/(1+\beta)$. Đối chiếu hệ số nhân với tỷ lệ $q/N$ để tránh lẫn hai đại lượng. Nhắc lại $q$ là số trang hỗ trợ, không phải vector.</p>
-    <p>Về chi phí, tách hai việc: khi đã có $x$ (tức đã có PageRank nền), chỉ cần thay số vào biểu thức — việc này hằng số; còn việc tính PageRank nền vẫn cần vòng lặp trên toàn đồ thị. Kết quả này tạo nhu cầu về phòng vệ bằng nguồn tin cậy ở phần 4. Nguồn: MMDS Ví dụ 5.11, tr.201.</p>
-  </aside>
-</section>
-<section id="lec04-s03-08" data-slide-id="lec04-s03-08" class="example-slide">
-<h2>Kiểm tra phần 3: nguồn của bốn số hạng</h2>
-<p class="ex-equation l04-center">$y=x+\beta^2y+\dfrac{\beta q(1-\beta)}N+\dfrac{1-\beta}N$</p>
-<p>Ghi nguồn dòng chảy ứng với mỗi số hạng.</p>
-<div class="ex-grid2"><div class="ex-card">$x$: …</div><div class="ex-card">$\beta^2y$: …</div><div class="ex-card">$\beta q(1-\beta)/N$: …</div><div class="ex-card">$(1-\beta)/N$: …</div></div>
-<div class="question-box"><p>Sách bỏ số hạng nào trước khi giải để thu được công thức xấp xỉ?</p></div>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.11, tr. 201.</p>
-<aside class="notes">
-    <p>2 phút (1 phút suy nghĩ, 30 giây trả lời, 30 giây chữa). Cho sinh viên tự gán nguồn từng số hạng trước khi chữa.</p>
-    <p>Đáp án: $x$ — đóng góp theo cạnh từ ngoài cụm, đã gồm $\beta$; $\beta^2 y$ — vòng đích → hỗ trợ → đích, hai lần bị co $\beta$; $\beta q(1-\beta)/N$ — phần dịch chuyển đến các trang hỗ trợ rồi vòng về đích; $(1-\beta)/N$ — dịch chuyển trực tiếp về đích. Xấp xỉ của sách bỏ đúng $(1-\beta)/N$; sai khác sau khi giải là $1/[N(1+\beta)]$.</p>
-    <p>Tiêu chí: gán đúng cả bốn nguồn và chỉ ra đúng hạng bị bỏ. Lỗi hiểu sai hay gặp: chọn $\beta q(1-\beta)/N$ làm hạng bị bỏ, hoặc nói sai khác bằng chính hạng bị bỏ. Chữa bằng cách chỉ từng số hạng trên công thức của slide giải; nếu lớp vẫn nhầm, viết lại hai nghiệm xếp chồng trong 30 giây để thấy khác nhau đúng một hạng trong tử.</p>
-  </aside>
-</section>
-</section>
-<section aria-label="Phần 4">
-<section class="example-slide" data-slide-id="lec04-s04-01" id="lec04-s04-01">
-<h2>Giả thiết cô lập gần đúng</h2>
-<div class="l04-warning"><p><strong>Giả thiết:</strong> trang tốt ít trỏ tới trang rác.</p></div>
-<div class="ex-grid2"><div class="ex-card"><h3>Kỳ vọng</h3><p>Điểm tin cậy lan từ các trang đã được thẩm định và ít đi vào vùng rác.</p></div><div class="ex-card"><h3>Giới hạn</h3><p>Trang có nội dung tốt vẫn có thể cho người ngoài đăng bình luận chứa liên kết rác.</p></div></div>
-<p class="ex-takeaway">Điểm tin cậy cao không bảo đảm một trang hoàn toàn sạch.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4, tr. 202–203.</p>
-<aside class="notes"><p>Thời lượng: 2 phút.</p>
-    <p>Mở phần 4 bằng cách nhấn mạnh mức phát biểu: đây là giả thiết làm việc, không phải định lý — không bảo đảm trang điểm cao chắc chắn sạch. Phần cuối bài sẽ khép lại giới hạn này.</p>
-    <p>Đọc khung giả thiết trước, khoảng một phút; sau đó đi qua hai cột kỳ vọng và rủi ro, mỗi cột hai dòng, khoảng một phút. Tổng 2 phút.</p>
-    <p>Chặn ngay sai lầm phổ biến: không khẳng định trang tốt chắc chắn sạch hay điểm tin cậy cao đồng nghĩa sạch; giả thiết chỉ là cơ sở mong muốn.</p>
-  </aside>
-</section>
-<section class="example-slide" data-slide-id="lec04-s04-02" id="lec04-s04-02">
-<h2>Chọn tập tin cậy: thẩm định và độ phủ</h2>
-<div class="ex-grid2"><div class="ex-card"><h3>Ứng viên PageRank cao</h3><p>Chọn ứng viên, rồi thẩm định từng trang trước khi đưa vào $T$.</p><p>Độ phủ bị giới hạn bởi ngân sách thẩm định.</p></div><div class="ex-card"><h3>Miền có quản lý thành viên</h3><p>Dùng quy tắc quản lý miền để chọn ứng viên; tiếp tục đánh giá độ tin cậy.</p><p>Hậu tố miền không tự bảo đảm trang sạch.</p></div></div>
-<p class="ex-takeaway">Cân bằng chất lượng và độ phủ của $T$; yêu cầu $T\ne\emptyset$.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4, tr. 202–203.</p>
-<aside class="notes"><p>Thời lượng: 3 phút.</p>
-    <p>Hai cách nguồn: trái là chọn ứng viên từ PageRank cao rồi thẩm định; phải là miền có quản lý thành viên, cần đánh giá tin cậy — không được đuôi miền tự bảo đảm sạch. Đọc cột trái trước, rồi cột phải, dải dưới chốt.</p>
-    <p>Nhấn mạnh: không đưa trực tiếp mọi trang của một miền vào $T$; hậu tố miền quen thuộc không phải chứng nhận sạch.</p>
-    <p>Hỏi lớp: chọn cách nào để $T$ vừa chất lượng vừa đủ phủ? Không có đáp án duy nhất — mục tiêu là thấy sự cân bằng giữa chất lượng tập $T$ và độ phủ; mở rộng $T$ cần thẩm định thêm.</p>
-  </aside>
-</section>
-<section class="example-slide" data-slide-id="lec04-s04-03" id="lec04-s04-03">
-<h2>TrustRank dùng lại phép lặp PageRank</h2>
-<div class="ex-equation">$t'=\beta Pt+(1-\beta)q_T$</div>
-<div class="ex-equation">$r'=\beta Pr+(1-\beta)q_S$</div>
-<p class="ex-note">$q_T=e_T/|T|$, $T\ne\emptyset$, $t_0=q_T$; $e_T$ là vector chỉ báo của $T$.</p>
-<div class="ex-grid2"><div class="ex-card"><h3>Giữ nguyên</h3><p>$P$, $\beta$, xử lý nút cụt và lan truyền trên toàn đồ thị.</p></div><div class="ex-card"><h3>Thay đổi</h3><p>Tập đại diện chủ đề $S$ trở thành tập được thẩm định $T$.</p></div></div>
-<p class="ex-note">Dùng lại bất biến, phép co và chi phí của PageRank theo chủ đề.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4, tr. 202–203.</p>
-<aside class="notes">
-<p>Thời lượng: 3 phút. Hai công thức có cùng cấu trúc. TrustRank thay phân bố chủ đề bằng phân bố đều trên tập tin cậy đã được thẩm định; không giới hạn phép lan truyền trong tập ấy.</p>
-<p>Với $P\ge0$ có tổng mỗi cột bằng 1, $\beta\in(0,1)$ và $q_T$ là phân bố xác suất, phép lặp bảo toàn xác suất và co theo chuẩn $L_1$. Chi phí mỗi vòng là $\Theta(n+m_G)$ bằng cách nhân thưa và bù khối lượng nút cụt.</p>
-<p>Tập tin cậy là đầu vào cần đánh giá. Phép lặp đúng không tự sửa được một tập tin cậy chọn sai; đó là vấn đề của trang tiếp theo. Nguồn: MMDS §5.4.4, tr. 202–203.</p>
+<p>Với $d_j&gt;0$, $(M_0)_{ij}=1/d_j$ nếu có cạnh $j\to i$; cột nút cụt bằng $0$. Điểm bị thiếu trong nhánh theo liên kết là $\beta$ lần tổng điểm nút cụt, được bù đều bằng $u$. Phân phối $v$ chỉ điều khiển nhánh dịch chuyển. Khi $S$ không rỗng và chọn đều trên $S$, $v_i=1/|S|$ trên $S$ và bằng $0$ bên ngoài. Đồ thị, $\beta$, $v$ và quy tắc bù được giữ cố định suốt phép lặp.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.1.4–5.1.5, tr.183–188, 196.</p>
 </aside>
 </section>
-<section class="example-slide" data-slide-id="lec04-s04-04" id="lec04-s04-04">
-<h2>Lỗi hạt giống và thiếu độ phủ</h2>
-<div class="ex-grid2"><div class="ex-card"><h3>Lỗi hạt giống</h3><p>Trang rác lọt vào $T$ truyền điểm tin cậy tới những trang nó liên kết.</p><p>Phép lặp không tự khắc phục sai thẩm định.</p></div><div class="ex-card"><h3>Thiếu độ phủ</h3><p>Trang tốt vẫn có thể nhận ít điểm khi các đường từ $T$ tới nó có trọng số nhỏ.</p><p>Khoảng cách ngắn tới $T$ không bảo đảm điểm cao.</p></div></div>
-<p class="ex-takeaway">Cần so sánh điểm tin cậy với PageRank của cùng trang.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4–5.4.5, tr. 202–203.</p>
-<aside class="notes"><p>Thời lượng: 2 phút.</p>
-    <p>Dùng lại tình huống một trang xấu lọt vào tập tin cậy: phần dịch chuyển tới trang đó tiếp tục lan theo các liên kết, kéo điểm sai cho cả vùng đích.</p>
-    <p>Nhắc rằng khoảng cách ngắn tới tập tin cậy không tự bảo đảm điểm cao; cần xét toàn bộ đường đi và trọng số — trang ở xa vẫn có thể nhận điểm cao nếu đường đi qua các nguồn tốt.</p>
-    <p>Chốt: hai hiện tượng cùng một gốc là điểm tin cậy lan theo liên kết từ $T$; điều này mở nhu cầu thêm phép so sánh tương đối với PageRank ở slide sau.</p>
-  </aside>
+<section id="lec04-s02-06" data-slide-id="lec04-s02-06" class="example-slide">
+<h2>Thuật toán lặp PageRank theo chủ đề</h2>
+<pre class="ex-code"><code class="language-plaintext" data-trim>r ← v
+với t = 0, ..., K - 1:
+    delta ← tổng r[j] trên các nút cụt
+    với mỗi i: new[i] ← beta * delta / n + (1 - beta) * v[i]
+    với mỗi j có d[j] &gt; 0:
+        với mỗi i thuộc out[j]:
+            new[i] ← new[i] + beta * r[j] / d[j]
+    Delta ← tổng |new[i] - r[i]|
+    r ← new
+    nếu Delta ≤ tau: trả về (r, đạt ngưỡng)
+trả về (r, hết số vòng)
+</code></pre>
+<p>Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.2.1, tr.191–192, 196.</p>
+<aside class="notes">
+<p>Vector <code>new</code> được khởi tạo bằng phần bù và phần dịch chuyển, không phụ thuộc từng cạnh. Mỗi cạnh $j\to i$ cộng một phần điểm cũ của $j$, nên tổng đóng góp không phụ thuộc thứ tự duyệt cạnh trong số học chính xác. Sau khi hoàn tất tất cả các đỉnh, <code>Delta</code> đo chênh lệch theo tổng trị tuyệt đối. Nếu hết $K$ vòng mà chưa đạt $\tau$, vector hiện tại vẫn là đầu ra tính được, nhưng trạng thái không xác nhận tiêu chí dừng đã đạt.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.2.1, tr.191–192, 196.</p>
+</aside>
+</section>
+<section id="lec04-s02-07" data-slide-id="lec04-s02-07" class="example-slide">
+<h2>Bảo toàn phân phối điểm</h2>
+<p>Giả sử $r^t\ge0$ và $\sum_i r_i^t=1$.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Thành phần</th>
+<th scope="col">Tổng điểm đóng góp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theo cạnh từ các trang không cụt</td>
+<td>$\beta(1-\delta^t)$</td>
+</tr>
+<tr>
+<td>Bù nút cụt</td>
+<td>$\beta\delta^t$</td>
+</tr>
+<tr>
+<td>Dịch chuyển theo $v$</td>
+<td>$1-\beta$</td>
+</tr>
+</tbody>
+</table>
+<div class="ex-equation">$$\sum_i r_i^{t+1}=\beta(1-\delta^t)+\beta\delta^t+(1-\beta)=1.$$</div>
+<p>Mọi số hạng đều không âm. Khởi tạo $r^0=v$ thỏa giả thiết.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.1.5, tr.185–188, 196.</p>
+<aside class="notes">
+<p>Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên tổng phần điểm của trang ấy sau khi nhân $\beta$ là $\beta r_j^t$. Cộng trên mọi trang không cụt được $\beta(1-\delta^t)$. Các nút cụt trả lại $\beta\delta^t$ bằng bù đều; phân phối $v$ có tổng bằng $1$ nhận phần $1-\beta$. Mọi hệ số đều không âm và cơ sở $r^0=v$ thỏa giả thiết, hoàn thành lập luận quy nạp. Bất biến chỉ xác nhận mỗi trạng thái là phân phối hợp lệ; chưa xác nhận dãy có giới hạn.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.1.5, tr.185–188, 196.</p>
+</aside>
+</section>
+<section id="lec04-s02-08" data-slide-id="lec04-s02-08" class="example-slide">
+<h2>Tính co và sai số dừng</h2>
+<p>$\bar M$ là ma trận đã thay mỗi cột nút cụt bằng $u$; mọi phần tử không âm và mỗi cột có tổng bằng $1$.</p>
+<p>Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0&lt;\beta&lt;1$, tính co $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ bảo đảm điểm cố định duy nhất $r^*$.</p>
+<p>Đặt $\Delta=\|r^{t+1}-r^t\|_1$. Sai số của vector mới thỏa
+$$\|r^{t+1}-r^*\|_1\le\beta\Delta+\beta^2\Delta+\cdots=\frac{\beta}{1-\beta}\Delta.$$</p>
+<p>Với $\beta=4/5$, cận sai số là $4\Delta$.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.1.5 và §5.3.2, tr.185–188, 196; lập luận co từ Bài 03.</p>
+<aside class="notes">
+<p>Đặt $z_j=1$ nếu $j$ là nút cụt và $z_j=0$ nếu không. Khi đó $\bar M=M_0+uz^\mathsf T$ không âm và có tổng mỗi cột bằng $1$. Lập luận co kế thừa Bài 03: vector dịch chuyển cố định triệt tiêu trong $F(p)-F(q)$. Bất đẳng thức tam giác và việc đổi thứ tự tổng cho
+$$\|F(p)-F(q)\|_1\le\beta\sum_j|p_j-q_j|\sum_i\bar M_{ij}=\beta\|p-q\|_1.$$
+Các sai khác liên tiếp giảm theo cấp số nhân. Tổng khoảng cách từ một vòng tới mọi vòng sau hữu hạn và phần đuôi tiến về $0$, nên dãy hội tụ. Tính liên tục của $F$ cho phương trình cố định. Nếu hai điểm cố định cách nhau một khoảng $D$, thì $D\le\beta D$; vì $\beta&lt;1$, suy ra $D=0$.</p>
+<p>Với $\Delta=\|r^{t+1}-r^t\|_1$, sai khác kế tiếp không quá $\beta\Delta$. Tổng phần đuôi các sai khác sau vector mới $r^{t+1}$ không quá $\beta\Delta/(1-\beta)$. Để cận sai số không quá $\varepsilon&gt;0$, đủ chọn $\tau\le(1-\beta)\varepsilon/\beta$ và dừng khi $\Delta\le\tau$.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.1.5 và §5.3.2, tr.185–188, 196; lập luận co từ Bài 03.</p>
+</aside>
+</section>
+<section id="lec04-s02-09" data-slide-id="lec04-s02-09" class="example-slide">
+<h2>Kết hợp các vector chủ đề</h2>
+<div class="ex-grid2 l04-split-35 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/tong-vector-chu-de.svg" alt="Các vector chủ đề được ghép theo trọng số w một tới w k." role="img"></div><div><p>Các chủ đề dùng cùng $\bar M$ và $\beta$. Cho $w_j\ge0$, $\sum_{j=1}^k w_j=1$.</p>
+<div class="ex-equation">$$v=\sum_{j=1}^k w_jv^{(j)}\quad\Longrightarrow\quad r^*=\sum_{j=1}^k w_jr^{(j)}.$$</div>
+<p>Thế vào phương trình:
+$$\beta\bar M\sum_jw_jr^{(j)}+(1-\beta)\sum_jw_jv^{(j)}=\sum_jw_jr^{(j)}.$$</p>
+<p>Trọng số chủ đề thay đổi; đồ thị, cách bù nút cụt và $\beta$ được giữ nguyên.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2–5.3.3, tr.196–198; suy ra bằng tính tuyến tính.</p>
+<aside class="notes">
+<p>Mỗi $r^{(j)}$ thỏa phương trình cố định với cùng $\bar M$, $\beta$ và phân phối $v^{(j)}$ tương ứng. Nhân từng phương trình với $w_j$ rồi cộng được phương trình của tổng. Tổng trọng số bằng $1$ giữ chuẩn hóa của cả $v$ và $r^*$. Tính duy nhất xác định tổng này là điểm cố định của phân phối ghép. Nếu thay $\beta$ hoặc cách bù theo chủ đề, không còn bảo đảm có thể đưa cùng toán tử ra khỏi tổng.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2–5.3.3, tr.196–198; suy ra bằng tính tuyến tính.</p>
+</aside>
+</section>
+<section id="lec04-s02-10" data-slide-id="lec04-s02-10" class="example-slide cost-slide">
+<h2>Chi phí tính và lưu các vector chủ đề</h2>
+<p>Mô hình: phép toán vô hướng chi phí đơn vị; $n$ đỉnh, $\ell$ cạnh, danh sách kề.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Công việc</th>
+<th scope="col">Số đối tượng mỗi vòng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cộng điểm theo liên kết</td>
+<td>$\ell$ cạnh</td>
+</tr>
+<tr>
+<td>Bù, dịch chuyển, so sánh</td>
+<td>Số lượt cố định trên $n$ đỉnh</td>
+</tr>
+</tbody>
+</table><div class="ex-grid2  l04-vcenter "><div><p>Một vector: mỗi vòng $\Theta(n+\ell)$; chạy đủ $K$ vòng cần $\Theta(K(n+\ell))$.</p></div><div><p>Bộ nhớ đầu vào $\Theta(n+\ell)$; bộ nhớ phụ $\Theta(n)$. Lưu $k$ vector chủ đề: $\Theta(kn)$ số; ghép cho $c$ ứng viên: $\Theta(kc)$ phép nhân–cộng.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198.</p>
+<aside class="notes">
+<p>Mỗi cạnh tạo đúng một đóng góp; các bước khởi tạo vector, cộng bù và đo $\Delta$ duyệt mỗi đỉnh một số lần không phụ thuộc kích thước. Danh sách kề lưu đỉnh và cạnh, còn các vector $r$, $v$ cùng vector điểm mới cần bộ nhớ tuyến tính theo $n$.</p>
+<p>Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ vector cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Giới hạn tối đa $K$ vòng cho mỗi vector cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự tiết kiệm trạng thái lặp trong bộ nhớ nhưng vẫn phải thực hiện phép lặp cho từng chủ đề.</p>
+<p>Lưu $k$ kết quả cần $kn$ số. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, phân loại truy vấn hoặc toàn bộ thời gian hệ tìm kiếm.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198.</p>
+</aside>
+</section>
+<section id="lec04-s02-11" data-slide-id="lec04-s02-11" class="example-slide">
+<h2>Sử dụng điểm theo chủ đề trong xếp hạng</h2>
+<img class="l04-figure " src="img/lec-04/tien-tinh-va-truy-van.svg" alt="Quy trình tiền tính lưu vector, truy vấn lấy hoặc ghép các điểm đã lưu." role="img"><div class="ex-takeaway"><p>Truy vấn “jaguar” dùng trọng số khác nhau cho ngữ cảnh động vật và ô tô.</p></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.3, tr.197–198.</p>
+<aside class="notes">
+<p>Các chủ đề và tập dịch chuyển được chọn trước khi tính các vector điểm. Với mỗi truy vấn, chủ đề hoặc trọng số quan tâm được người dùng cung cấp; các điểm tương ứng được dùng để xếp hạng các trang ứng viên. Khi ma trận và $\beta$ cố định, có thể kết hợp các vector mà không thực hiện lại phép lặp. Chẳng hạn, người dùng chọn trực tiếp chủ đề động vật hoặc ô tô cho truy vấn “jaguar”.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.3, tr.197–198.</p>
+</aside>
+</section>
+<section id="lec04-s02-12" data-slide-id="lec04-s02-12" class="example-slide">
+<h2>Kiểm tra phép cập nhật theo chủ đề</h2>
+<div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-1-trung-tinh.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C." role="img"></div><div><p>$\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<ol>
+<li>
+<p>Tính $r_C^2$ và chỉ rõ các trang đóng góp.</p>
+</li>
+<li>
+<p>Xác định tính đúng sai của mệnh đề: “Một trang ngoài $S$ luôn có điểm bằng 0”. Giải thích bằng dữ kiện trên.</p>
+</li>
+</ol></div></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
+<aside class="notes">
+<p>C nhận từ A và D. Phần theo liên kết là $(4/5)[(1/3)(1/5)+(1/2)(3/10)]=13/75$; C không nhận trực tiếp phần dịch chuyển. Mệnh đề điểm bằng $0$ là sai: điểm dương tới C qua cạnh. Tập $S$ chỉ xác định nơi nhận phần $1-\beta$; không xóa các cạnh hoặc loại đỉnh ngoài $S$ khỏi không gian trạng thái.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
+</aside>
+</section>
+</section>
+<section aria-label="Cơ chế liên kết rác">
+<section id="lec04-s03-01" data-slide-id="lec04-s03-01" class="example-slide">
+<h2>Liên kết rác và điểm xếp hạng</h2>
+<p>Liên kết rác được tạo để làm tăng điểm xếp hạng không tương xứng với giá trị nội dung.</p><div class="l04-thirds"><div class="ex-card"><h3>Dữ liệu</h3><p>Đồ thị liên kết; PageRank dịch chuyển đều.</p></div><div class="ex-card"><h3>Quyền tác động</h3><p>Thay đổi các cạnh trong cụm.</p></div><div class="ex-card"><h3>Mục tiêu</h3><p>Tập trung điểm tại trang đích.</p></div></div><div class="ex-takeaway"><p>Phân tích cấu trúc và các chỉ số trên đồ thị hỗ trợ xác định trang cần rà soát.</p></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.1, tr.199–200.</p>
+<aside class="notes">
+<p>Giáo trình xét các kỹ thuật tạo liên kết nhằm làm PageRank đánh giá cao một trang hơn mức đóng góp nội dung. Mô hình tiếp theo tách phần web không thể tác động, phần có thể đặt liên kết và phần sở hữu. Phân tích chỉ mô tả tác động của một cấu trúc xác định; không suy rằng mọi nhóm trang liên kết dày đều là liên kết rác.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.1, tr.199–200.</p>
+</aside>
+</section>
+<section id="lec04-s03-02" data-slide-id="lec04-s03-02" class="example-slide">
+<h2>Cấu trúc cụm thao túng liên kết</h2>
+<div class="ex-grid2 l04-split-65 l04-vcenter "><div><img class="l04-figure l04-figure-tall" src="img/lec-04/hinh-5-16-cum-thao-tung.svg" alt="Ba vùng quyền tác động; đích và m hỗ trợ trỏ qua lại, mọi liên kết ngoài vào đích." role="img"></div><div><p>Trong nhóm sở hữu, trang đích chỉ trỏ tới $m$ trang hỗ trợ; mỗi trang hỗ trợ chỉ trỏ lại đích.</p>
+<p>Mọi liên kết từ ngoài vào cụm đều tới đích; mỗi trang hỗ trợ chỉ nhận cạnh từ đích.</p>
+<p>Mô hình phân tích dùng đồ thị không có nút cụt; $m\ge1$, $n\ge m+1$.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, Hình 5.16, tr.200–201.</p>
+<aside class="notes">
+<p>Trang tác động được không đồng nghĩa trang sở hữu: một người có thể đặt liên kết ở vị trí được phép mà không điều khiển toàn bộ trang. Mô hình dùng PageRank toàn cục với dịch chuyển đều. Các liên kết ngoài đưa điểm tới đích; đích chia điểm cho mọi hỗ trợ, và các hỗ trợ trả điểm về đích. Điều kiện toàn đồ thị không có nút cụt giữ phần dịch chuyển đều bằng $b=(1-\beta)/n$, không phát sinh số hạng bù nút cụt bổ sung.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, Hình 5.16, tr.200–201.</p>
+</aside>
+</section>
+<section id="lec04-s03-03" data-slide-id="lec04-s03-03" class="example-slide">
+<h2>Điểm của một trang hỗ trợ</h2>
+<p>Ký hiệu: $y$ là điểm trang đích; $p$ là điểm mỗi trang hỗ trợ; $b=(1-\beta)/n$.</p><div class="ex-grid2 l04-split-40 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/diem-mot-ho-tro.svg" alt="Một hỗ trợ nhận beta y trên m từ đích và b từ dịch chuyển." role="img"></div><div><p>Đích có đúng $m$ liên kết ra; mỗi hỗ trợ chỉ nhận cạnh từ đích.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Nguồn điểm tại một hỗ trợ</th>
+<th scope="col">Đóng góp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Điểm theo cạnh từ đích</td>
+<td>$\beta y/m$</td>
+</tr>
+<tr>
+<td>Dịch chuyển đều</td>
+<td>$b$</td>
+</tr>
+</tbody>
+</table>
+<div class="ex-equation">$$p=\frac{\beta y}{m}+b.$$</div>
+<p>Mọi trang hỗ trợ có cùng phương trình trong mô hình này.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+<aside class="notes">
+<p>Mỗi hỗ trợ nhận cùng phần $\beta y/m$ vì đích chỉ có $m$ cạnh ra. Dịch chuyển đều đưa thêm $b$ cho mỗi trang, kể cả các hỗ trợ. Các hỗ trợ không nhận điểm theo cạnh từ bên ngoài nên không có số hạng thứ ba trong $p$. Nếu thêm cạnh ngoài vào hỗ trợ hoặc thêm cạnh ra từ đích, phương trình này phải đổi; kết quả chỉ áp dụng cho kiến trúc đã nêu.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+</aside>
+</section>
+<section id="lec04-s03-04" data-slide-id="lec04-s03-04" class="example-slide">
+<h2>Ba nguồn điểm tại trang đích</h2>
+<p>$x$ là tổng đóng góp theo các cạnh từ ngoài tới đích, đã nhân $\beta$ và chia bậc ra tại nguồn.</p><div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/luong-hang-trong-cum.svg" alt="Ba nhánh x, beta m p và b cùng đi vào đích có điểm y." role="img"></div><div><table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Nguồn điểm tại đích</th>
+<th scope="col">Đóng góp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liên kết từ ngoài</td>
+<td>$x$</td>
+</tr>
+<tr>
+<td>$m$ trang hỗ trợ, mỗi trang chỉ trỏ tới đích</td>
+<td>$\beta mp$</td>
+</tr>
+<tr>
+<td>Dịch chuyển đều tới đích</td>
+<td>$b$</td>
+</tr>
+</tbody>
+</table>
+<div class="ex-equation">$$y=x+\beta mp+b.$$</div>
+<p>Không nhân thêm $\beta$ vào $x$.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+<aside class="notes">
+<p>Đối với một trang ngoài $j$ trỏ tới đích, đóng góp là $\beta r_j/d_j$. Đại lượng $x$ là tổng các đóng góp này, nên không nhân thêm $\beta$. Mỗi hỗ trợ chỉ có một cạnh ra, trả $\beta p$; $m$ hỗ trợ trả $\beta mp$. Phương trình đầy đủ còn có $b$ tại đích. Phương trình cân bằng dùng điểm cố định của hệ; ba số hạng không phải ba trạng thái thời gian khác nhau.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+</aside>
+</section>
+<section id="lec04-s03-05" data-slide-id="lec04-s03-05" class="example-slide">
+<h2>Phương trình khuếch đại điểm</h2>
+<p>Thay $p=\beta y/m+b$ vào phương trình điểm đích:</p>
+<p>$$y=x+\beta m\left(\frac{\beta y}{m}+b\right)+b=x+\beta^2y+\beta mb+b.$$
+$$(1-\beta^2)y=x+\beta mb+b.$$
+$$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
+<p>Điều kiện $0&lt;\beta&lt;1$ bảo đảm mẫu số dương.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+<aside class="notes">
+<p>Tích $\beta m\cdot\beta y/m=\beta^2y$ mô tả điểm rời đích, được chia cho $m$ hỗ trợ rồi cộng lại khi trở về. Chuyển hạng này sang trái tạo hệ số $1-\beta^2$. Phương trình chính xác chỉ áp dụng cho kiến trúc đã định và toàn đồ thị không có nút cụt. Đại lượng $x$ là đóng góp ngoài ở trạng thái cân bằng, không phải một tham số tùy ý có thể tăng mà không bị ràng buộc bởi tổng điểm toàn đồ thị.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+</aside>
+</section>
+<section id="lec04-s03-06" data-slide-id="lec04-s03-06" class="example-slide">
+<h2>Hệ số khuếch đại trong mô hình giản lược</h2>
+<p>Bỏ riêng phần dịch chuyển trực tiếp $b$ tới trang đích như phép phân tích của sách:</p>
+<div class="ex-equation">$$y\approx\frac{x}{1-\beta^2}+\frac{\beta}{1+\beta}\frac mn.$$</div>
+<p>Với $\beta=0.85=17/20$:</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Thành phần</th>
+<th scope="col">Hệ số</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Đóng góp từ ngoài $x$</td>
+<td>$400/111\approx3.6036$</td>
+</tr>
+<tr>
+<td>Tỷ lệ trang hỗ trợ $m/n$</td>
+<td>$17/37\approx0.45946$</td>
+</tr>
+</tbody>
+</table>
+<p>Đóng góp $x$ được nhân khoảng 3,6 lần; phần tăng so với $x$ khoảng 260,36%.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.11, tr.201.</p>
+<aside class="notes">
+<p>Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần dịch chuyển vào $m$ hỗ trợ vẫn được giữ vì tổng của chúng tạo hạng $m/n$. Với $\beta=17/20$, hệ số của $x$ là $400/111$; trừ $1$ rồi nhân $100$ cho phần tăng khoảng $260{,}36\%$. Đây là hệ số của một mô hình đại số, không phải số đo hiệu quả trên hệ tìm kiếm hiện hành.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.11, tr.201.</p>
+</aside>
+</section>
+<section id="lec04-s03-07" data-slide-id="lec04-s03-07" class="example-slide">
+<h2>Giới hạn của phân tích cấu trúc liên kết</h2>
+<img class="l04-figure l04-figure-short" src="img/lec-04/hai-nhom-canh-noi-bo.svg" alt="Đích tới m hỗ trợ qua m cạnh; m hỗ trợ quay lại đích qua m cạnh." role="img"><p>Cụm mô hình cần $m$ trang hỗ trợ và $2m$ cạnh nội bộ; các cạnh từ ngoài được xét riêng.</p>
+<p>Công thức áp dụng khi giữ đúng kiến trúc, quy tắc dịch chuyển và định nghĩa $x$.</p>
+<p>Một cấu trúc liên kết dày chưa đủ xác định nội dung rác. Đánh giá dựa trên tập trang tin cậy bổ sung thông tin ngoài cấu trúc.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2–5.4.4, tr.200–203.</p>
+<aside class="notes">
+<p>Trang đích có $m$ cạnh ra và mỗi trang trong $m$ hỗ trợ có một cạnh quay lại, tạo $2m$ cạnh nội bộ. Sách phân biệt phát hiện cấu trúc với thay cách đánh giá điểm. Một cụm có nhiều liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng cần được đặt trong ngữ cảnh dữ liệu. Tập tin cậy cung cấp thông tin bổ sung cho việc đánh giá.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2–5.4.4, tr.200–203.</p>
+</aside>
+</section>
+<section id="lec04-s03-08" data-slide-id="lec04-s03-08" class="example-slide">
+<h2>Kiểm tra nguồn điểm tại đích</h2>
+<p>Trong mô hình không nút cụt, đích chỉ trỏ $m$ hỗ trợ; mỗi hỗ trợ chỉ trỏ lại đích và chỉ nhận cạnh từ đích. Đặt $b=(1-\beta)/n$, $p=\beta y/m+b$; $x$ đã gồm $\beta$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<ol>
+<li>
+<p>Sửa phương trình $y=\beta x+\beta mp$ để có phương trình đầy đủ.</p>
+</li>
+<li>
+<p>Xác định hạng của $y$ bị bỏ khi dùng công thức xấp xỉ trong sách.</p>
+</li>
+</ol></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+<aside class="notes">
+<p>Phương trình đầy đủ là $y=x+\beta mp+b$. Đại lượng $x$ đã qua hệ số $\beta$ nên không nhân lần nữa. Thế $p$ rồi giải cho $y$ cho hạng bị lược bằng $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần $\beta mb$ vẫn được giữ vì đó là tổng phần dịch chuyển nhận bởi $m$ hỗ trợ sau khi truyền về đích.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2, tr.201.</p>
+</aside>
+</section>
+</section>
+<section aria-label="TrustRank và Spam Mass">
+<section id="lec04-s04-01" data-slide-id="lec04-s04-01" class="example-slide">
+<h2>Tập trang tin cậy và TrustRank</h2>
+<div class="ex-grid2 l04-split-55 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/tap-tin-cay.svg" alt="Tập T có viền đôi được đánh giá bên ngoài; cạnh thật đi từ T tới các trang khác." role="img"></div><div><p>TrustRank dùng tập dịch chuyển $T$ gồm các trang được đánh giá tin cậy.</p>
+<p>Giả định của mô hình: trang tin cậy ít tạo liên kết tới trang rác.</p>
+<p>Các trang ngoài $T$ vẫn có thể nhận điểm qua liên kết. Tập $T$ cần đủ độ phủ; một trang có điểm thấp có thể nằm xa các hạt giống tin cậy.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.3–5.4.4, tr.201–203.</p>
+<aside class="notes">
+<p>TrustRank giữ cơ chế PageRank theo chủ đề, nhưng ý nghĩa tập dịch chuyển là tin cậy thay cho lĩnh vực nội dung. Giả định về hướng liên kết không có tính tuyệt đối, nhất là khi trang cho phép người khác tạo liên kết. Chất lượng và phạm vi bao phủ của $T$ ảnh hưởng cách diễn giải điểm; vector kết quả không chứng nhận nội dung của từng trang.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.3–5.4.4, tr.201–203.</p>
+</aside>
+</section>
+<section id="lec04-s04-02" data-slide-id="lec04-s04-02" class="example-slide">
+<h2>Phép lặp TrustRank</h2>
+<p>Chọn $v_T$ đều trên tập tin cậy $T\ne\varnothing$; khởi tạo $\rho^0=v_T$.</p>
+<p>$$\rho^{t+1}=\beta M_0\rho^t+\beta\delta_\rho^t u+(1-\beta)v_T,$$
+$$\delta_\rho^t=\sum_{j:d_j=0}\rho_j^t.$$</p><div class="l04-data"><p>$r\mapsto\rho$, $v\mapsto v_T$: cùng thuật toán, cách bù đều, ngưỡng và trạng thái dừng.</p></div><p>Đầu ra là phân phối điểm tin cậy tương đối trên đồ thị.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4, tr.202–203.</p>
+<aside class="notes">
+<p>Sách định nghĩa TrustRank là PageRank theo chủ đề với chủ đề gồm các trang tin cậy. Chọn các trang này đòi hỏi thông tin ngoài phép lặp, chẳng hạn đánh giá nội dung; kết quả không tự suy ra độ tin cậy của hạt giống. Vì ma trận bù vẫn có tổng cột bằng $1$ và $0&lt;\beta&lt;1$, lập luận bảo toàn và tính co đã xây dựng áp dụng cho $\rho$. Dừng do hết $K$ vòng vẫn phải được phân biệt với đạt ngưỡng.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4, tr.202–203.</p>
+</aside>
+</section>
+<section id="lec04-s04-03" data-slide-id="lec04-s04-03" class="example-slide">
+<h2>TrustRank trên đồ thị bốn trang</h2>
+<div class="ex-grid2  l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-15-tin-cay.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C. B và D có viền đôi và nhãn tập tin cậy T." role="img"></div><div><p>G4 giữ nguyên tám cạnh; $\beta=4/5$; tập tin cậy $T=\{B,D\}$.</p>
+<div class="ex-equation">$$v_T=(0,1/2,0,1/2)^\mathsf T.$$</div>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">TrustRank $\rho_i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$9/35$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$59/210$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$19/105$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$59/210$</td>
+</tr>
+</tbody>
+</table></div></div><div class="ex-takeaway"><p>Đây là cùng nghiệm đã tính cho tập dịch chuyển {B,D}; ý nghĩa của tập được thay bằng tin cậy.</p></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4; Ví dụ 5.10, tr.196–197, 202–203.</p>
+<aside class="notes">
+<p>B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu tiên chúng. A, C không thuộc tập hạt giống nhưng vẫn nhận điểm qua các liên kết thật. Giá trị của hai trang này không xác nhận hoặc bác bỏ riêng lẻ tính tin cậy của nội dung. Để đánh giá phần thay đổi so với điểm toàn cục, cần tính một vector PageRank nền theo cùng $\beta$ và cùng chuẩn hóa.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4; Ví dụ 5.10, tr.196–197, 202–203.</p>
+</aside>
+</section>
+<section id="lec04-s04-04" data-slide-id="lec04-s04-04" class="example-slide">
+<h2>So sánh PageRank và TrustRank</h2>
+<p>Cùng G4, $\beta=4/5$ và tổng điểm bằng 1. PageRank dùng $u$; TrustRank dùng $v_T$, $T=\{B,D\}$.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">PageRank $r_i$</th>
+<th scope="col">TrustRank $\rho_i$</th>
+<th scope="col">Hiệu $r_i-\rho_i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$9/28$</td>
+<td>$9/35$</td>
+<td>$9/140$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$19/84$</td>
+<td>$59/210$</td>
+<td>$-23/420$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$19/84$</td>
+<td>$19/105$</td>
+<td>$19/420$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$19/84$</td>
+<td>$59/210$</td>
+<td>$-23/420$</td>
+</tr>
+</tbody>
+</table>
+<p>Dấu của hiệu cho biết hướng thay đổi khi đổi phân phối dịch chuyển.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại cùng β = 4/5.</p>
+<aside class="notes">
+<p>PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,19/84)^\mathsf T$. Vector $\rho$ đã được tính với tập tin cậy B, D. Hình 5.17 của sách dùng PageRank không dịch chuyển lấy từ Ví dụ 5.2, trong khi TrustRank dùng $\beta=0.8$; bảng này tính lại PageRank nền cùng $\beta=0.8$ để tách tác động của phân phối dịch chuyển. Tổng các hiệu bằng $0$ vì hai vector đều có tổng bằng $1$. Giá trị tuyệt đối của hiệu chưa xét quy mô điểm nền của từng trang.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại cùng β = 4/5.</p>
+</aside>
 </section>
 <section id="lec04-s04-05" data-slide-id="lec04-s04-05" class="example-slide">
-  <h2>Khối lượng rác: định nghĩa và giới hạn</h2>
-  <div class="ex-grid2 l04-split-40">
-    <div class="l04-vcenter">
-      <div class="ex-equation">$$s_p=\frac{r_p-t_p}{r_p},\qquad r_p>0$$</div>
-      <p class="ex-note">$r_p$: PageRank nền của trang $p$; $t_p$: điểm tin cậy (TrustRank) của $p$.</p>
-    </div>
-    <div>
-      <table class="ex-table">
-        <thead><tr><th>Trường hợp</th><th>Điều kiện</th><th>Ý nghĩa</th></tr></thead>
-        <tbody>
-          <tr><td>Dương</td><td>$r_p>t_p$</td><td>điểm nền vượt điểm tin cậy</td></tr>
-          <tr><td>Âm</td><td>$t_p>r_p$</td><td>điểm tin cậy cao hơn điểm nền</td></tr>
-          <tr><td>Chặn trên</td><td>$t_p\ge0$</td><td>$r_p-t_p\le r_p$ nên $s_p\le1$</td></tr>
-        </tbody>
-      </table>
-      <p class="ex-note">Không phải xác suất; không có ngưỡng chắc chắn "trên ngưỡng là rác".</p>
-      <p class="ex-source">Nguồn: MMDS §5.4.5, Ví dụ 5.12, tr.203 — <a href="http://www.mmds.org">MMDS</a></p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Thời lượng: 3 phút (1 phút công thức, 2 phút bảng điều kiện). Sau phần trước ta có hai điểm số cho mỗi trang: PageRank nền $r_p$ và điểm tin cậy $t_p$. Khối lượng rác là tỷ số so sánh hai điểm đó, đo phần điểm nền "vượt" so với trust.</p>
-    <p>Đáp án cho câu hỏi lớp "khối lượng rác có thể vượt 1 không?": không — khi $t_p\ge0$ thì $r_p-t_p\le r_p$, nên $s_p\le1$. Nhưng khối lượng rác có thể âm khi $t_p>r_p$; giá trị âm chỉ nói quan hệ giữa hai điểm số trong thiết lập đang dùng, không phải "trang tốt chắc chắn".</p>
-    <p>Lỗi dễ mắc: gọi khối lượng rác là "xác suất trang là rác" — sửa ngay, đây là tỷ số so sánh, không có ngưỡng chắc chắn. Cũng nhớ điều kiện dùng: cần $r_p>0$ để chia được.</p>
-    <p>Slide sau trình bày bảng ví dụ 5.12 với cảnh báo hai thiết lập; slide cuối phần này sẽ kiểm tra cách diễn giải khối lượng rác âm.</p>
-  </aside>
+<h2>Định nghĩa và giá trị Spam Mass</h2>
+<p>Với $r_i&gt;0$, chỉ số Spam Mass là
+$$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">Phép tính</th>
+<th scope="col">$s_i$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$(9/140)/(9/28)$</td>
+<td>$1/5$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$(-23/420)/(19/84)$</td>
+<td>$-23/95$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$(19/420)/(19/84)$</td>
+<td>$1/5$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$(-23/420)/(19/84)$</td>
+<td>$-23/95$</td>
+</tr>
+</tbody>
+</table>
+<p>Chỉ số có thể âm và không phải xác suất một trang là rác.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại cùng β = 4/5.</p>
+<aside class="notes">
+<p>Tại A, $(9/140)/(9/28)=1/5$. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại cùng β = 4/5.</p>
+</aside>
 </section>
-<section id="lec04-s04-06" data-slide-id="lec04-s04-06" class="example-slide">
-  <h2>Hình 5.17: khối lượng rác trên G4</h2>
-  <div class="l04-warning">Hai thiết lập khác nhau: bảng minh họa tỷ số; không đo riêng tác động của $T$.</div>
-  <div class="ex-grid2 l04-split-55">
-    <div>
-      <table class="ex-table">
-        <thead><tr><th>Đỉnh</th><th>$r_p$</th><th>$t_p$</th><th>$s_p$</th></tr></thead>
-        <tbody>
-          <tr><td>A</td><td>$\tfrac13$</td><td>$\tfrac{54}{210}$</td><td>$\tfrac8{35}$</td></tr>
-          <tr><td>B</td><td>$\tfrac29$</td><td>$\tfrac{59}{210}$</td><td>$-\tfrac{37}{140}$</td></tr>
-          <tr><td>C</td><td>$\tfrac29$</td><td>$\tfrac{38}{210}$</td><td>$\tfrac{13}{70}$</td></tr>
-          <tr><td>D</td><td>$\tfrac29$</td><td>$\tfrac{59}{210}$</td><td>$-\tfrac{37}{140}$</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <p>Cột $r_p$: PageRank nền, $\beta=1$.</p>
-      <p>Cột $t_p$: TrustRank, $\beta=4/5$, $T=\{B,D\}$.</p>
-      <p>Cột $s_p$: khối lượng rác.</p>
-      <p class="ex-source">Nguồn: MMDS §5.4.5, Ví dụ 5.12, tr.203 — <a href="http://www.mmds.org">MMDS</a></p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Thời lượng: 3 phút (1 phút cảnh báo, 2 phút đọc bảng). Đọc dòng cảnh báo trước, rồi bảng theo hàng A→D, cột $r_p\to t_p\to s_p$.</p>
-    <p>Nói rõ: $r$ ở đây không phải $r^*$ của ví dụ PageRank theo chủ đề trước đó — nguồn dùng PageRank không hệ số suy giảm, còn $t$ dùng TrustRank có hệ số suy giảm $\beta=\tfrac45$. Hai thiết lập khác nhau, nên bảng chỉ minh họa phép tỷ số; không đổi điểm nền để "đẹp ví dụ".</p>
-    <p>Lỗi dễ mắc: so hai cột như cùng thiết lập rồi rút kết luận sai về tác động của $T$. Khi tự làm ứng dụng so sánh, cần cùng $\beta$ và cùng cách xử lý nút cụt giữa điểm nền và điểm tin cậy.</p>
-    <p>Slide sau chạy tay phép tỷ số tại A và B để thấy khối lượng rác dương và âm xuất hiện thế nào.</p>
-  </aside>
+<section id="lec04-s04-06" data-slide-id="lec04-s04-06" class="example-slide cost-slide">
+<h2>Độ phủ hạt giống và chi phí đánh giá</h2>
+<p>Tập tin cậy cần cân đối công sức đánh giá và độ phủ của các trang hợp lệ.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Bước</th>
+<th scope="col">Phạm vi chi phí</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PageRank và TrustRank</td>
+<td>Hai phép lặp thưa; mỗi vòng $\Theta(n+\ell)$</td>
+</tr>
+<tr>
+<td>Tính Spam Mass</td>
+<td>$\Theta(n)$ phép tính theo đỉnh</td>
+</tr>
+<tr>
+<td>Đánh giá hạt giống</td>
+<td>Công việc ngoài mô hình phép toán đồ thị</td>
+</tr>
+</tbody>
+</table>
+<p>Điểm TrustRank thấp có thể do độ phủ kém; Spam Mass chỉ là chỉ báo để rà soát.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.3–5.4.5, tr.201–203.</p>
+<aside class="notes">
+<p>Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Điểm tin cậy thấp có thể phản ánh khoảng cách liên kết hoặc thiếu hạt giống phù hợp, không chỉ liên kết rác. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Sau khi có $r$ và $\rho$, mỗi trang cần một phép trừ và một phép chia nếu $r_i&gt;0$. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.3–5.4.5, tr.201–203.</p>
+</aside>
 </section>
 <section id="lec04-s04-07" data-slide-id="lec04-s04-07" class="example-slide">
-<h2>Tính khối lượng rác tại A và B</h2>
-<div class="l04-stack"><div class="ex-card ex-grid2 l04-split-35 l04-vcenter"><p><strong>Đỉnh A</strong><br>Điểm nền cao hơn điểm tin cậy.</p><div class="ex-equation">$s_A=\dfrac{\tfrac13-\tfrac{54}{210}}{\tfrac13}=\tfrac8{35}$</div></div><div class="ex-card ex-grid2 l04-split-35 l04-vcenter"><p><strong>Đỉnh B</strong><br>Điểm tin cậy cao hơn điểm nền.</p><div class="ex-equation">$s_B=\dfrac{\tfrac29-\tfrac{59}{210}}{\tfrac29}=-\tfrac{37}{140}$</div></div></div>
-<p class="ex-takeaway">Dấu thể hiện quan hệ giữa hai điểm số; không phải nhãn rác/sạch.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.12, tr. 203.</p>
+<h2>Kiểm tra cách diễn giải Spam Mass</h2>
+<p>Với G4 và $\beta=4/5$, trang B có $r_B=19/84$, $\rho_B=59/210$. Trang A có $s_A=1/5$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<ol>
+<li>
+<p>Tính $s_B$ và giải thích dấu của kết quả.</p>
+</li>
+<li>
+<p>Từ $s_A=1/5$, có thể kết luận chắc chắn A là trang rác hay không? Nêu căn cứ.</p>
+</li>
+</ol></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại từ G4.</p>
 <aside class="notes">
-    <p>Thời lượng: 3 phút (1 phút khối A, 1 phút khối B, 1 phút kết luận dấu). Thao tác: trừ trước, chia sau; giữ phân số nguồn, không đổi mẫu số tùy ý.</p>
-    <p>Đỉnh A quen: $r_A=\tfrac13$ lớn hơn $t_A=\tfrac{54}{210}=\tfrac9{35}$, nên khối lượng rác dương $\tfrac8{35}$. Đỉnh B mới: $t_B=\tfrac{59}{210}\approx.281$ vượt $r_B=\tfrac29\approx.222$, nên khối lượng rác âm $-\tfrac{37}{140}$.</p>
-    <p>Lỗi dễ mắc: thấy âm liền kết luận "trang tốt chắc chắn" hoặc "số liệu sai" — cả hai đều sai; giá trị âm chỉ nói $t_B>r_B$ trong thiết lập đang dùng. Trong ghi chép riêng, C cho $\tfrac{13}{70}$ và D cho $-\tfrac{37}{140}$, cùng mẫu với B vì $r_D=r_B$, $t_D=t_B$.</p>
-    <p>Slide sau là câu hỏi kiểm tra — khối lượng rác âm nghĩa gì, và có được coi là xác suất không.</p>
-  </aside>
-</section>
-<section id="lec04-s04-08" data-slide-id="lec04-s04-08" class="example-slide">
-  <h2>Kiểm tra phần 4: khối lượng rác âm nghĩa gì</h2>
-  <div class="ex-grid2 l04-split-40">
-    <div class="l04-stack l04-vcenter">
-      <div class="ex-card l04-center"><p>$t_B=\tfrac{59}{210}$</p></div>
-      <div class="ex-card l04-center"><p>$r_B=\tfrac29$</p></div>
-      <p class="ex-note">Công thức tra: $s_p=\dfrac{r_p-t_p}{r_p}$</p>
-    </div>
-    <div>
-      <div class="question-box">
-        <p><strong>Câu hỏi:</strong></p>
-        <p>(i) Tính $s_B$.</p>
-        <p>(ii) Khối lượng rác âm nghĩa gì?</p>
-        <p>(iii) Có được kết luận "xác suất trang B là rác" không? Vì sao?</p>
-      </div>
-      <p class="ex-source">Nguồn: MMDS §5.4.5, Ví dụ 5.12, tr.203 — <a href="http://www.mmds.org">MMDS</a></p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Thời lượng: 2 phút, toàn bộ là hoạt động kiểm tra — 45 giây suy nghĩ, 45 giây trả lời, 30 giây chữa. Sản phẩm cần nộp: ba câu trả lời ngắn (i)–(iii) trên giấy.</p>
-    <p>Đáp án: (i) $s_B=(\tfrac29-\tfrac{59}{210})/\tfrac29=-\tfrac{37}{140}$. (ii) Khối lượng rác âm nghĩa là $t_B>r_B$: điểm tin cậy của B cao hơn PageRank nền trong thiết lập đang dùng — không suy thêm "được đánh giá tin cậy hơn" vì hai cột có thiết lập khác nhau. (iii) Không — khối lượng rác không phải xác suất, không có ngưỡng chắc chắn; chỉ là tỷ số so sánh.</p>
-    <p>Tiêu chí: đúng $-\tfrac{37}{140}$; diễn giải trong phạm vi "$t_B>r_B$"; từ chối đúng câu (iii) với lý do "không phải xác suất". Lỗi hiểu sai: gọi khối lượng rác là xác suất, hoặc kết luận "B chắc chắn sạch".</p>
-    <p>Khi chữa, nhấn lại cảnh báo hai thiết lập của bảng 5.17. Nếu lớp hỏi vì sao chọn $r$ không hệ số suy giảm: đó là thiết lập nguồn của Ví dụ 5.12, không đổi để đẹp ví dụ.</p>
-  </aside>
+<p>$s_B=-23/95$ vì $\rho_B&gt;r_B$. Giá trị âm cho thấy điểm của B tăng khi ưu tiên tập tin cậy. Chỉ số $1/5$ tại A không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại từ G4.</p>
+</aside>
 </section>
 </section>
-<section aria-label="Phần 5">
+<section aria-label="HITS">
 <section id="lec04-s05-01" data-slide-id="lec04-s05-01" class="example-slide">
-  <h2>HITS: phạm vi chạy và hai đầu ra</h2>
-  <div class="l04-stack l04-vcenter">
-    <div class="l04-data l04-center">
-      truy vấn → chọn đồ thị con → chạy HITS trên đồ thị cố định → hai vector $h$ (trung tâm), $a$ (thẩm quyền)
-    </div>
-    <div class="ex-grid2">
-      <div class="ex-card">
-        <p><strong>Đầu vào:</strong> đồ thị con đã chọn theo truy vấn, cố định trong lúc chạy.</p>
-      </div>
-      <div class="ex-card">
-        <p><strong>Đầu ra:</strong> hai vector; mỗi đỉnh có hai điểm — trung tâm và thẩm quyền.</p>
-      </div>
-    </div>
-    <p class="ex-note">Cách chọn đồ thị con theo truy vấn là bài toán riêng, không thuộc nội dung hôm nay.</p>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.5, tr.204–205</p>
-  <aside class="notes">
-    <p>2 phút: 1 phút cho dải bốn bước, 1 phút cho phạm vi.</p>
-    <p>Sinh viên vừa học ba mô hình chạy trên toàn Web; HITS khác ở chỗ nó nhận một đồ thị con đã chọn theo truy vấn rồi chạy trên đồ thị cố định đó, trả về hai điểm cho mỗi trang thay vì một. Cách chọn đồ thị con là bài toán riêng, không học hôm nay.</p>
-    <p>Lỗi dễ mắc: tưởng HITS thay thế PageRank hoặc khẳng định HITS chỉ chạy được trên đồ thị nhỏ — không có căn cứ, không nói. HITS trả lời câu hỏi khác: xếp trang theo vai trò trong đồ thị con.</p>
-    <p>hai đầu ra $h$, $a$ nghĩa là gì? Sang ví dụ 5.13. Nguồn: MMDS §5.5, tr.204–205.</p>
-  </aside>
+<h2>Hai vai trò trong mạng học phần</h2>
+<p>Đầu vào là đồ thị các trang và liên kết đã chọn. Trang danh sách học phần dẫn tới các trang của từng học phần.</p><img class="l04-figure l04-figure-short" src="img/lec-04/cap-vai-tro-hits.svg" alt="Trang danh mục học phần giữ vai trò trung tâm và trỏ tới các trang học phần giữ vai trò uy tín." role="img"><p>Thuật toán tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS) gán hai điểm cho mỗi trang. Trên đồ thị lớn, hai vector được tính bằng phép lặp khai thác các cạnh, tránh lưu ma trận đặc.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.1, Ví dụ 5.13, tr.204–205.</p>
+<aside class="notes">
+<p>Đồ thị trang và liên kết được coi là đầu vào đã chọn. Trang danh sách không thay thế nội dung chi tiết của một học phần, còn một trang học phần không thay thế danh sách toàn bộ học phần. Hai vai trò được đánh giá từ cấu trúc liên kết. Uy tín trong HITS không đồng nghĩa với chứng nhận tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc; ví dụ nhỏ cho phép kiểm từng phép cập nhật.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.1, Ví dụ 5.13, tr.204–205.</p>
+</aside>
 </section>
 <section id="lec04-s05-02" data-slide-id="lec04-s05-02" class="example-slide">
-  <h2>Ví dụ 5.13: hai vai trò liên kết</h2>
-  <div class="ex-grid2 l04-vcenter">
-    <div class="l04-center">
-      <img role="img" alt="Sơ đồ ví dụ 5.13: trang danh mục môn học của khoa (hub) ở trên, mũi tên trỏ xuống các trang từng môn học (authority) ở dưới" class="l04-figure" src="img/lec-04/cap-vai-tro-hits.svg">
-    </div>
-    <div class="l04-stack">
-      <div class="ex-card">
-        <p><strong>Hub — điểm trung tâm:</strong> trỏ tới authority tốt.</p>
-      </div>
-      <div class="ex-card">
-        <p><strong>Authority — điểm thẩm quyền:</strong> được hub tốt trỏ tới.</p>
-      </div>
-    </div>
-  </div>
-  <p class="ex-takeaway">Hai loại điểm phụ thuộc lẫn nhau qua liên kết.</p>
-  <p class="ex-note">Tên đầy đủ: HITS — Hyperlink-Induced Topic Search (tìm kiếm theo chủ đề dựa trên siêu liên kết).</p>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.5, Ví dụ 5.13, tr.205</p>
-  <aside class="notes">
-    <p>2 phút: 1 phút sơ đồ, 1 phút hai định nghĩa.</p>
-    <p>Ví dụ 5.13: trang danh mục môn học của khoa trỏ tới trang từng môn — đó là hub; trang từng môn được danh mục trỏ tới — đó là authority. Hai vai trò phụ thuộc lẫn nhau qua vòng "hub → authority → hub": điểm hub của một trang được tính từ điểm authority của các trang nó trỏ tới, và ngược lại.</p>
-    <p>Câu hỏi: trang danh mục môn học là hub hay authority? Đáp án: có thể cả hai — mỗi trang đều có cả hai điểm, không phải chỉ một vai trò. Đây là lỗi dễ mắc nhất của slide này.</p>
-    <p>để tính hai điểm này cần một đồ thị cụ thể và quy tắc cập nhật — sang đồ thị G5. Nguồn: MMDS §5.5, Ví dụ 5.13, tr.205.</p>
-  </aside>
+<h2>Điểm trung tâm và điểm uy tín</h2>
+<div class="ex-grid2 l04-split-55 l04-vcenter "><div><img class="l04-figure l04-figure-tall" src="img/lec-04/hinh-5-18.svg" alt="Đồ thị G5: A tới B, C, D; B tới A, D; C tới E; D tới B, C; E không có cạnh ra." role="img"><p class="ex-note l04-center">Đồ thị G5</p></div><div><p>Mỗi trang $i$ có điểm trung tâm $h_i$ và điểm uy tín $a_i$.</p>
+<p>Uy tín của $i$ nhận tổng điểm trung tâm của các trang trỏ tới $i$. Trung tâm của $i$ nhận tổng điểm uy tín của các trang $i$ trỏ tới.</p><p>Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,B,C,D,E.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.14, Hình 5.18, tr.205–206.</p>
+<aside class="notes">
+<p>G5 có năm trang và tám cạnh, khác G4 ở việc C trỏ E thay vì A. Uy tín cộng điểm của các nguồn liên kết, còn trung tâm cộng điểm của các đích liên kết. Mỗi trang đều có cả hai điểm. Khởi tạo toàn $1$ là quy ước thuật toán sách; tổng ban đầu bằng $5$ và không mang ý nghĩa xác suất.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.14, Hình 5.18, tr.205–206.</p>
+</aside>
 </section>
 <section id="lec04-s05-03" data-slide-id="lec04-s05-03" class="example-slide">
-  <h2>Đồ thị G5 và quy tắc tổng theo cạnh</h2>
-  <div class="ex-grid2 l04-vcenter">
-    <div>
-      <img role="img" alt="Đồ thị G5 gồm 5 đỉnh A–E với 8 cạnh: A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới E; D trỏ tới B, C; E không có cạnh ra" class="l04-figure" src="img/lec-04/hinh-5-18.svg">
-    </div>
-    <div class="l04-stack">
-      <div class="ex-card">
-        <p>$a_u^{\text{thô}} = \sum_{v \to u} h_v^{\text{cũ}}$ — tổng trung tâm cũ của các đỉnh trỏ vào $u$.</p>
-        <p>$h_v^{\text{thô}} = \sum_{u:\, v \to u} a_u^{\text{mới}}$ — tổng thẩm quyền mới của các đỉnh mà $v$ trỏ tới.</p>
-      </div>
-      <div class="ex-card">
-        <p>Chuẩn hóa từng vector thô bằng phần tử lớn nhất trước khi dùng tiếp.</p><p>Khác G4: cạnh C→A đổi thành C→E. Đỉnh E: không có cạnh ra.</p>
-      </div>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.5, Hình 5.18, tr.206</p>
-  <aside class="notes">
-    <p>3 phút: 2 phút đọc đồ thị và đếm cạnh, 1 phút quy tắc.</p>
-    <p>G5 có 5 đỉnh, 8 cạnh: A→B,C,D; B→A,D; C→E; D→B,C; E không có cạnh ra. Cho lớp đếm: E có 0 cạnh ra và 1 cạnh vào (từ C). Quy tắc cập nhật đếm theo cạnh: điểm thẩm quyền thô của một đỉnh là tổng điểm trung tâm cũ của các đỉnh trỏ vào nó; trung tâm thô là tổng thẩm quyền mới (đã chuẩn hóa) của các đỉnh nó trỏ tới, rồi mới chuẩn hóa trung tâm.</p>
-    <p>Lỗi dễ mắc: nhầm G5 với G4 — bài tập sẽ dùng G4 riêng, ghi nhãn ngay từ đầu; và dùng giá trị "mới" cho điểm chưa chuẩn hóa — trung tâm thô phải được chuẩn hóa trước khi gọi là $h$ mới.</p>
-    <p>chạy vòng 1 trên G5, bắt đầu bằng thẩm quyền. Nguồn: MMDS §5.5, Hình 5.18, tr.206.</p>
-  </aside>
+<h2>Lượt cập nhật uy tín thứ nhất</h2>
+<p>$h^0=(1,1,1,1,1)^\mathsf T$; G5 giữ nguyên.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">Nguồn liên kết vào</th>
+<th scope="col">Uy tín thô $\tilde a_i$</th>
+<th scope="col">$a_i^1=\tilde a_i/2$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>$1$</td>
+<td>$1/2$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>A,D</td>
+<td>$2$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>A,D</td>
+<td>$2$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>A,B</td>
+<td>$2$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>E</td>
+<td>C</td>
+<td>$1$</td>
+<td>$1/2$</td>
+</tr>
+</tbody>
+</table>
+<p>Giá trị thô lớn nhất bằng 2; chia toàn vector cho 2.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.15, tr.206–207.</p>
+<aside class="notes">
+<p>B nhận từ A, D nên điểm thô bằng $1+1=2$; D nhận từ A, B cũng bằng $2$. E chỉ nhận từ C, điểm thô bằng $1$. Chia từng thành phần cho giá trị lớn nhất là $2$ thu được $a^1=(1/2,1,1,1,1/2)^\mathsf T$. HITS cộng điểm trung tâm theo từng cạnh vào, không lấy trung bình và không chia số cạnh ra của nguồn. E không có cạnh ra vẫn có thể có uy tín vì có cạnh vào.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.15, tr.206–207.</p>
+</aside>
 </section>
 <section id="lec04-s05-04" data-slide-id="lec04-s05-04" class="example-slide">
-  <h2>Vòng 1: tính điểm thẩm quyền</h2>
-  <div class="ex-grid2 l04-split-45 l04-vcenter">
-    <div>
-      <img role="img" alt="Đồ thị G5: A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới E; D trỏ tới B, C; E không có cạnh ra" class="l04-figure" src="img/lec-04/hinh-5-18.svg">
-    </div>
-    <div class="l04-stack">
-      <div class="ex-card">
-        <p><strong>Trước chuẩn hóa:</strong> $a_{\text{thô}} = (1,\,2,\,2,\,2,\,1)$ — tổng $h_{0,v}=1$ theo cạnh đi vào.</p>
-      </div>
-      <div class="ex-card">
-        <p><strong>Chuẩn hóa:</strong> chia cho phần tử lớn nhất $2$ → $a_1 = (\tfrac12,\,1,\,1,\,1,\,\tfrac12)$.</p>
-      </div>
-    </div>
-  </div>
-  <p class="ex-note">Khởi tạo: $h_0 = \mathbf{1}$, $a_0 = \mathbf{0}$ (chỉ để đo chênh).</p>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.5, Hình 5.19–5.20, tr.206–207</p>
-  <aside class="notes">
-    <p>3 phút: 1 phút khởi tạo, 2 phút thô và chuẩn hóa.</p>
-    <p>Khởi $h_0=\mathbf{1}$, $a_0=\mathbf{0}$; $a_0$ chỉ để đo chênh, không tham gia vòng 1 — vòng 1 chỉ dùng $h_0$. thẩm quyền thô của mỗi đỉnh là tổng trung tâm cũ theo cạnh đi vào: ví dụ B nhận trỏ từ A và D, mỗi đỉnh $h_{0,v}=1$, nên $a_{\text{thô},B}=2$; kết quả $a_{\text{thô}}=(1,2,2,2,1)$. Chuẩn hóa theo phần tử lớn nhất 2: $a_1=(\tfrac12,1,1,1,\tfrac12)$.</p>
-    <p>Lỗi dễ mắc: dùng $a_0$ để tính, hoặc dùng $Lh_0$ thay $L^Th_0$ — sẽ cho $a_E=0$ sai dù C→E tồn tại.</p>
-    <p>nửa trung tâm của vòng 1 dùng $a_1$ vừa tính. Nguồn: MMDS §5.5, Hình 5.19–5.20, tr.206–207.</p>
-  </aside>
+<h2>Lượt cập nhật trung tâm thứ nhất</h2>
+<p>Dùng $a^1=(1/2,1,1,1,1/2)^\mathsf T$.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">Tổng uy tín theo cạnh ra</th>
+<th scope="col">Trung tâm thô $\tilde h_i$</th>
+<th scope="col">$h_i^1=\tilde h_i/3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$1+1+1$</td>
+<td>$3$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$1/2+1$</td>
+<td>$3/2$</td>
+<td>$1/2$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$1/2$</td>
+<td>$1/2$</td>
+<td>$1/6$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$1+1$</td>
+<td>$2$</td>
+<td>$2/3$</td>
+</tr>
+<tr>
+<td>E</td>
+<td>$0$</td>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+</tbody>
+</table>
+<p>Giá trị thô lớn nhất bằng 3. Bước trung tâm sử dụng uy tín vừa cập nhật.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.15, tr.206–207.</p>
+<aside class="notes">
+<p>A trỏ B, C, D, ba trang có uy tín bằng $1$ nên tổng bằng $3$. B trỏ A, D và nhận $1/2+1=3/2$. C chỉ trỏ E nên nhận $1/2$; E không có cạnh ra nên tổng rỗng bằng $0$. Chia từng thành phần của vector trung tâm thô cho $3$ thu được $h^1=(1,1/2,1/6,2/3,0)^\mathsf T$. Nếu dùng $a^0$ toàn $1$, trung tâm thô sẽ bằng $(3,2,1,2,0)^\mathsf T$, khác thuật toán luân phiên đã chọn.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.15, tr.206–207.</p>
+</aside>
 </section>
 <section id="lec04-s05-05" data-slide-id="lec04-s05-05" class="example-slide">
-  <h2>Vòng 1: tính điểm trung tâm</h2>
-  <div class="ex-grid2 l04-split-45">
-    <div class="l04-vcenter">
-      <img role="img" alt="Đồ thị G5: A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới E; D trỏ tới B, C; E không có cạnh ra" class="l04-figure" src="img/lec-04/hinh-5-18.svg">
-      <div class="ex-note l04-center">$h_E=0$: E không có cạnh ra</div>
-    </div>
-    <div class="l04-stack">
-      <div class="ex-card">
-        <h3>Trước chuẩn hóa</h3>
-        <div class="ex-equation">$h_{\text{thô},i}=\sum_{i\to j} a_{\text{mới},j}$</div>
-        <div class="ex-equation">$h_{\text{thô}}=\left(3,\ \tfrac32,\ \tfrac12,\ 2,\ 0\right)$</div>
-      </div>
-      <div class="ex-card">
-        <h3>Chuẩn hóa: chia cho 3</h3>
-        <div class="ex-equation">$h_1=\left(1,\ \tfrac12,\ \tfrac16,\ \tfrac23,\ 0\right)$</div>
-      </div>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS §5.5, Hình 5.19–5.20, tr.206–207</a></p>
-  <aside class="notes">
-    <p>3 phút (1' thô, 1' scale, 1' $h_E=0$). Vòng 1 của trung tâm dùng đúng quy tắc đi ra: mỗi đỉnh cộng lại thẩm quyền mới của các đỉnh nó trỏ tới. Bước nói: A trỏ tới B, C, D nên $h_{\text{thô},A}=a_B+a_C+a_D=1+1+1=3$; tương tự B trỏ tới A, D cho $\tfrac32$; C chỉ trỏ tới E cho $\tfrac12$; D trỏ tới B, C cho 2.</p>
-    <p>Chuẩn hóa theo phần tử lớn nhất 3 cho $h_1=(1,\tfrac12,\tfrac16,\tfrac23,0)$. Lỗi dễ mắc: tính $h$ từ $L^T$ — sai hướng, trung tâm luôn đi qua $L$; nhắc lần chuẩn hóa mỗi vòng khác nhau (vòng 1 là 2 rồi 3).</p>
-    <p>$h_E=0$ vì E không có cạnh ra — đây là dữ kiện cho câu hỏi kiểm tra cuối phần; đừng kết luận E "vô dụng": thẩm quyền của E vẫn dương vì C trỏ tới E. Từ $h_1$ ta hình thức hóa hai quy tắc thành ma trận ở slide sau. Nguồn: MMDS §5.5, tr.206–207.</p>
-  </aside>
+<h2>Vòng lặp HITS thứ hai</h2>
+<p>$h^1=(1,1/2,1/6,2/3,0)^\mathsf T$.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Trang</th>
+<th scope="col">$\tilde a$</th>
+<th scope="col">$a^2$</th>
+<th scope="col">$h^2$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>$1/2$</td>
+<td>$3/10$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>B</td>
+<td>$5/3$</td>
+<td>$1$</td>
+<td>$12/29$</td>
+</tr>
+<tr>
+<td>C</td>
+<td>$5/3$</td>
+<td>$1$</td>
+<td>$1/29$</td>
+</tr>
+<tr>
+<td>D</td>
+<td>$3/2$</td>
+<td>$9/10$</td>
+<td>$20/29$</td>
+</tr>
+<tr>
+<td>E</td>
+<td>$1/6$</td>
+<td>$1/10$</td>
+<td>$0$</td>
+</tr>
+</tbody>
+</table>
+<p>Tại A: $\tilde h_A=a_B^2+a_C^2+a_D^2=29/10$; đây là giá trị lớn nhất của vector trung tâm thô. Hai vector thay đổi qua mỗi vòng.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.15, tr.206–207.</p>
+<aside class="notes">
+<p>Uy tín thô tại B bằng $h_A^1+h_D^1=1+2/3=5/3$, là giá trị lớn nhất. Tại D, điểm thô bằng $1+1/2=3/2$; chia cho $5/3$ được $9/10$. Trung tâm thô tính từ $a^2$ là $(29/10,6/5,1/10,2,0)^\mathsf T$. Chia từng thành phần cho $29/10$ thu được $h^2$ trong bảng. Hai lần chuẩn hóa dùng hai mẫu khác nhau. Các giá trị nhỏ dần ở vai trò trung tâm của C và uy tín của E là quan sát của ví dụ, chưa phải chứng minh cho mọi đồ thị.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Ví dụ 5.15, tr.206–207.</p>
+</aside>
 </section>
 <section id="lec04-s05-06" data-slide-id="lec04-s05-06" class="example-slide">
-  <h2>Ma trận HITS dùng hàng làm nguồn</h2>
-  <div class="ex-grid2">
-    <div>
-      <div class="ex-card">
-        <h3>$L$ — hàng = nguồn</h3>
-        <div class="ex-equation">$$L=\begin{bmatrix}0&1&1&1&0\\1&0&0&1&0\\0&0&0&0&1\\0&1&1&0&0\\0&0&0&0&0\end{bmatrix}$$</div>
-        <p class="ex-note">Hàng và cột theo A–E; hàng E toàn 0.</p>
-      </div>
-    </div>
-    <div class="l04-stack">
-      <div class="ex-equation">$a_{\text{thô},i}=\sum_j L_{ji}\,h_{\text{cũ},j}$</div>
-      <div class="ex-equation">$h_{\text{thô},i}=\sum_j L_{ij}\,a_{\text{mới},j}$</div>
-      <div class="ex-takeaway">$P$ (PageRank): cột nguồn &nbsp;↔&nbsp; $L$ (HITS): hàng nguồn</div>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS §5.5, Hình 5.19, tr.206</a></p>
-  <aside class="notes">
-    <p>3 phút (1' đọc ma trận, 2' đối chiếu hai phép nhân). Hai quy tắc tổng ở hai slide trước gói gọn thành ma trận: hàng $i$ của $L$ liệt kê các đích $i\to j$, nên nhân $L\,a$ cho trung tâm; cột $i$ của $L$ (tức hàng $i$ của $L^T$) liệt kê các nguồn $j\to i$, nên nhân $L^T h$ cho thẩm quyền.</p>
-    <p>Hỏi lớp: "hàng nào toàn 0? vì sao?" — hàng E, vì E không có cạnh ra. Kiểm hàng A có 1 ở B, C, D đúng như đồ thị.</p>
-    <p>Lỗi dễ mắc: viết $L$ theo quy ước cột nguồn như $P$ của Bài 03 — nhân sai chiều, kết quả sai. Không dựng $LL^T$ hay $L^TL$ vì có thể đặc. Ký hiệu $L^Th$, $La$ sẽ dùng cho vòng 2. Nguồn: MMDS §5.5, tr.206.</p>
-  </aside>
+<h2>Ma trận liên kết của HITS</h2>
+<p>$L_{ij}=1$ khi $i\to j$, bằng 0 nếu không; hàng là trang nguồn.</p><div class="ex-grid2 l04-split-55 l04-vcenter "><div><div class="ex-equation">$$L=\begin{array}{c|ccccc}&amp;A&amp;B&amp;C&amp;D&amp;E\\\hline A&amp;0&amp;1&amp;1&amp;1&amp;0\\B&amp;1&amp;0&amp;0&amp;1&amp;0\\C&amp;0&amp;0&amp;0&amp;0&amp;1\\D&amp;0&amp;1&amp;1&amp;0&amp;0\\E&amp;0&amp;0&amp;0&amp;0&amp;0\end{array}$$</div></div><div><div class="ex-equation">$$\tilde a=L^\mathsf Th,\qquad\tilde h=La.$$</div><table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Biểu diễn</th>
+<th scope="col">Vị trí của cạnh $i\to j$</th>
+<th scope="col">Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HITS: $L$</td>
+<td>Hàng $i$, cột $j$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>PageRank: $M_0$</td>
+<td>Hàng $j$, cột $i$</td>
+<td>$1/d_i$</td>
+</tr>
+</tbody>
+</table>
+<p>HITS cộng điểm qua cạnh; không chia bậc ra.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Hình 5.19, tr.206.</p>
+<aside class="notes">
+<p>Phần tử $(L^\mathsf T)_{ji}=L_{ij}$ biểu diễn cạnh $i\to j$; khi nhân với $h_i$, đóng góp được cộng vào $a_j$. Tích $La$ cộng uy tín của các đích ở mỗi hàng nguồn. So với PageRank, $L^\mathsf T$ có giá trị $1$ tại cạnh, còn $M_0$ dùng $1/d_i$ tại cột nguồn $i$. Dùng $M_0$ cho uy tín vòng đầu cho $(1/2,5/6,5/6,5/6,1)^\mathsf T$, khác vector thô $(1,2,2,2,1)^\mathsf T$ của HITS.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, Hình 5.19, tr.206.</p>
+</aside>
 </section>
 <section id="lec04-s05-07" data-slide-id="lec04-s05-07" class="example-slide">
-  <h2>Vòng 2: chuẩn hóa riêng từng loại điểm</h2>
-  <table class="ex-table">
-    <thead>
-      <tr><th>Đỉnh</th><th>$a_{\text{thô}}$</th><th>Chia cho</th><th>$a_2$</th><th>$h_{\text{thô}}$</th><th>Chia cho</th><th>$h_2$</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>A</td><td>$\tfrac12$</td><td rowspan="5">$\tfrac53$</td><td>$\tfrac3{10}$</td><td>$\tfrac{29}{10}$</td><td rowspan="5">$\tfrac{29}{10}$</td><td>$1$</td></tr>
-      <tr><td>B</td><td>$\tfrac53$</td><td>$1$</td><td>$\tfrac65$</td><td>$\tfrac{12}{29}$</td></tr>
-      <tr><td>C</td><td>$\tfrac53$</td><td>$1$</td><td>$\tfrac1{10}$</td><td>$\tfrac1{29}$</td></tr>
-      <tr><td>D</td><td>$\tfrac32$</td><td>$\tfrac9{10}$</td><td>$2$</td><td>$\tfrac{20}{29}$</td></tr>
-      <tr><td>E</td><td>$\tfrac16$</td><td>$\tfrac1{10}$</td><td>$0$</td><td>$0$</td></tr>
-    </tbody>
-  </table>
-  <p class="ex-takeaway l04-center">Cập nhật luân phiên: $a$ từ $h_{\text{cũ}}$, $h$ từ $a_{\text{mới}}$.</p>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS §5.5, Hình 5.20, tr.207</a></p>
-  <aside class="notes">
-    <p>3 phút (1' phần a, 1' phần h, 1' nhãn chia). Vòng 2 dùng trạng thái mới của vòng 1: $a_{\text{thô}}=L^Th_1=(\tfrac12,\tfrac53,\tfrac53,\tfrac32,\tfrac16)$, chuẩn hóa theo max $\tfrac53$; rồi $h_{\text{thô}}=L\,a_2=(\tfrac{29}{10},\tfrac65,\tfrac1{10},2,0)$, chuẩn hóa theo max $\tfrac{29}{10}$.</p>
-    <p>Kiểm nhanh: $a_{\text{thô},E}=h_{1,C}=\tfrac16$, sau chia $\tfrac53$ được $a_{2,E}=\tfrac1{10}$. Vòng 1 (max 2 rồi 3) chỉ đối chiếu trong ghi chú; bốn số chia của ví dụ này khác nhau, giữ nguyên từng số, không quy đồng.</p>
-    <p>Lỗi dễ mắc: dùng $a_1$ cũ khi tính $h$ — phải dùng $a_2$ mới; giữ phân số nguồn để không trộn lần chuẩn hóa. Hai vòng này khái quát thành thuật toán ở slide sau. Nguồn: MMDS §5.5, tr.207.</p>
-  </aside>
+<h2>Chuẩn hóa điểm HITS</h2>
+<p>Với vector không âm $q$ có $\max_iq_i&gt;0$:
+$$N(q)=\frac{q}{\max_iq_i}.$$</p>
+<p>Chuẩn hóa giữ tỷ lệ và thứ hạng các thành phần; giá trị lớn nhất trở thành 1.</p>
+<p>Ví dụ: $N\big((1,2,2,2,1)^\mathsf T\big)=(1/2,1,1,1,1/2)^\mathsf T$; tổng kết quả bằng 4.</p>
+<p>Điểm HITS không là phân phối xác suất. Với đồ thị không cạnh, vector thô bằng 0 nên phép chuẩn hóa không xác định.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207.</p>
+<aside class="notes">
+<p>Chia tất cả thành phần cho cùng một số dương giữ mọi tỷ lệ $q_i/q_j$ khi mẫu khác $0$, đồng thời giữ thứ tự lớn nhỏ. Do đó chuẩn hóa kiểm soát độ lớn số mà không thay ý nghĩa thứ hạng trong từng vector. Sách dùng giá trị lớn nhất; chuẩn tổng bằng $1$ hoặc chuẩn Euclid tạo giá trị khác nên không thể trộn các vết số. Với đồ thị không cạnh, cả hai tích bằng $0$ và quy ước chuẩn hóa bằng giá trị lớn nhất không xác định.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207.</p>
+</aside>
 </section>
 <section id="lec04-s05-08" data-slide-id="lec04-s05-08" class="example-slide">
-  <h2>Giả mã HITS và trạng thái kết thúc</h2>
-  <div class="l04-pseudocode">
-<pre class="ex-code"><code class="language-plaintext" data-trim>Đầu vào: danh sách cạnh, n_H ≥ 1 đỉnh, τ &gt; 0, K_max nguyên ≥ 1; L ∈ {0,1}^{n_H×n_H}
-h_cũ ← vector toàn 1; a_cũ ← vector toàn 0
-lặp với k = 1 .. K_max:
-  a_thô ← Lᵀ·h_cũ;  c_a ← max_i a_thô[i]
-  nếu c_a = 0: trả (vector 0, vector 0, "suy biến")
-  a_mới ← a_thô / c_a
-  h_thô ← L·a_mới;  c_h ← max_i h_thô[i]
-  nếu c_h = 0: trả (vector 0, vector 0, "suy biến")
-  h_mới ← h_thô / c_h
-  ε ← max(‖h_mới − h_cũ‖_∞, ‖a_mới − a_cũ‖_∞)
-  nếu ε ≤ τ: trả (h_mới, a_mới, "đạt ngưỡng")
-  (h_cũ, a_cũ) ← (h_mới, a_mới)
-trả (h_cũ, a_cũ, "chưa đạt")</code></pre>
-  </div>
-  <div class="l04-data l04-center">Ba trạng thái kết thúc: suy biến · đạt ngưỡng · chưa đạt</div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS §5.5, tr.206–207</a></p>
-  <aside class="notes">
-    <p>3 phút (1' dòng 1–3, 1' dòng 4–7, 1' dòng 8 và cờ). Mỗi vòng có hai lượt quét cạnh cùng các lượt quét đỉnh để khởi tạo, tìm cực đại, chuẩn hóa và đo chênh: tính $a$ rồi kiểm $c_a$, tính $h$ rồi kiểm $c_h$ — kiểm cả hai hệ số trước khi chia để tránh chia cho 0. $a_{cũ}=0$ chỉ là mốc đo chênh ở vòng đầu; $a_{mới}$ được tính từ $h_{cũ}$.</p>
-    <p>Đồ thị không có cạnh trả hai vector 0 và cờ suy biến. Nhánh đạt ngưỡng trả cặp mới; hết số vòng trả cặp đã cập nhật cuối cùng với cờ chưa đạt. $\tau$ là ngưỡng thay đổi giữa hai vòng, không phải chứng nhận sai số tới nghiệm.</p>
-    <p>Cấu trúc lặp giống PageRank đã học; phần mới của HITS là cặp trạng thái cũ–mới và ba lối kết thúc. Điều kiện hội tụ và chi phí mỗi vòng sẽ phân tích ở slide sau; thuật toán này dùng cho bài tập và so sánh với PageRank. Nguồn: MMDS §5.5, tr.206–207.</p>
-  </aside>
+<h2>Thuật toán HITS với cập nhật luân phiên</h2>
+<p>Đầu vào: đồ thị có ít nhất một cạnh; $\tau&gt;0$, số vòng tối đa $K\ge1$.</p>
+<pre class="ex-code"><code class="language-plaintext" data-trim>h ← vector toàn 1; a ← vector toàn 1
+với t = 0, ..., K - 1:
+    a_new ← N(L chuyển vị * h)
+    h_new ← N(L * a_new)
+    Delta_a ← max |a_new[i] - a[i]|
+    Delta_h ← max |h_new[i] - h[i]|
+    a ← a_new; h ← h_new
+    nếu max(Delta_a, Delta_h) ≤ tau:
+        trả về (h, a, đạt ngưỡng)
+trả về (h, a, hết số vòng)
+</code></pre>
+<p>Đầu ra gồm hai vector và trạng thái dừng; đồ thị không cạnh trả trạng thái không xác định khi chuẩn hóa bằng giá trị lớn nhất.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207.</p>
+<aside class="notes">
+<p>HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207.</p>
+</aside>
 </section>
 <section id="lec04-s05-09" data-slide-id="lec04-s05-09" class="example-slide">
-<h2>Điều kiện đủ cho HITS hội tụ</h2>
-<div class="ex-grid2"><div><div class="ex-equation">$h_{u+1}\propto LL^Th_u$</div><p>$u\ge0$: phương pháp lũy thừa.</p></div><div><div class="ex-equation">$a_{u+1}\propto L^TLa_u$</div><p>$u\ge1$; $a_0$ chỉ để đo chênh.</p></div></div>
-<div class="ex-card"><p><strong>Điều kiện đủ:</strong> $L\ne0$; trị riêng $\lambda_1>\lambda_2\ge0$ của $LL^T$; $h_0$ có hình chiếu khác 0 lên hướng riêng trội.</p></div>
-<p class="ex-takeaway">Thành phần không trội giảm tương đối theo $(\lambda_j/\lambda_1)^u$.</p>
-<p class="ex-source">Nguồn: <a href="https://courses.cit.cornell.edu/info4300_2009fa/slides/16.pdf">Cornell INFO4300, bài 16, slide 10</a>; <a href="http://www.mmds.org">MMDS</a> §5.5.</p>
+<h2>Điểm ổn định và giới hạn của HITS</h2>
+<p>Mỗi cạnh $i\to j$ đóng góp $h_i$ vào uy tín của $j$, rồi đóng góp uy tín mới $a_j$ vào trung tâm của $i$.</p><div class="ex-grid2 l04-split-35 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/dong-gop-hits.svg" alt="Cạnh i tới j: h_i cộng vào uy tín a_j; uy tín mới a_j cộng vào trung tâm h_i." role="img"></div><div><p>Ở điểm ổn định:
+$$a\propto L^\mathsf Th,\qquad h\propto La,$$
+$$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p></div></div><div class="ex-takeaway"><p>Chuẩn hóa giữ tỷ lệ trong mỗi vector. Sự tồn tại một hướng giới hạn duy nhất cần điều kiện bổ sung; không suy từ việc tính đúng vài vòng.</p></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.1–5.5.2, tr.204–207; phác thảo có điều kiện.</p>
 <aside class="notes">
-    <p>Thời lượng: 3 phút (1 phút hai dòng suy ra, 1 phút ba điều kiện, 1 phút phác ý).</p>
-    <p>Nhìn lại thuật toán luân phiên ở slide trước: thay $a_{mới}\propto L^Th_{cũ}$ vào $h_{mới}\propto La_{mới}$, ta được $h_{u+1}\propto LL^Th_u$ với $u\ge0$; tương tự với $u\ge1$, $a_{u+1}\propto L^TLa_u$. Vậy mỗi vòng chỉ là nhân một ma trận đối xứng vào vector — đúng khuôn phương pháp lũy thừa. Lưu ý quan trọng: $a_0=\mathbf{0}$ chỉ để đo chênh giữa hai vòng; $a_1$ là kết quả chuẩn hóa $L^Th_0$, không khởi động truy hồi theo $L^TL$ từ $a_0$.</p>
-    <p>Ba điều kiện trong khung là điều kiện đủ, không phải điều kiện cần: nếu thiếu một điều kiện, lặp vẫn có thể hội tụ, nhưng ta không có bảo đảm. Khi các điều kiện đủ này thỏa, hướng của $h$ và $a$ tiến về hướng riêng trội tương ứng. Cơ chế tin được nhờ phân rã phổ: viết $h_u$ theo các vector riêng của $LL^T$, thành phần theo hướng trội giữ nguyên tương đối, các thành phần không trội giảm tương đối như $(\lambda_j/\lambda_1)^u$.</p>
-    <p>Lỗi dễ mắc: kết luận hội tụ chỉ vì hai ba vòng liên tiếp gần giống nhau — với $\lambda_2/\lambda_1$ gần 1, hội tụ rất chậm. Đối chiếu ví dụ G5: phép tính đối chiếu trên G5 cho thấy sau 32 vòng chênh hai vòng dưới $10^{-12}$, giới hạn $h\approx(1,.3583,0,.7165,0)$, $a\approx(.2087,1,1,.7913,0)$. Cũng tránh dựng các tích ma trận $LL^T$ để tính trên đồ thị lớn — slide sau sẽ đếm chi phí đúng cách. biết vì sao hội tụ rồi, ta đếm xem mỗi vòng tốn bao nhiêu.</p>
-  </aside>
+<p>Ở điểm cố định, $h=\lambda La$ và $a=\mu L^\mathsf Th$, với $\lambda,\mu&gt;0$ là các hệ số chuẩn hóa. Thế một quan hệ vào quan hệ kia cho $h=\lambda\mu LL^\mathsf Th$ và tương tự cho $a$.</p>
+<p>Một điều kiện đủ để phép lặp có hướng giới hạn duy nhất là trị riêng lớn nhất của ma trận đối xứng nửa xác định dương $LL^\mathsf T$ chỉ có một hướng riêng độc lập, và khởi tạo có thành phần khác $0$ theo hướng ấy. Trong phân tích theo các hướng riêng, phần gắn với trị riêng nhỏ hơn tăng chậm hơn, nên tỷ lệ của nó giảm sau chuẩn hóa. Nếu trị riêng lớn nhất có nhiều hướng độc lập, hướng giới hạn có thể phụ thuộc khởi tạo. Đây là phác thảo điều kiện đủ, không phải chứng minh phổ tổng quát.</p>
+<p>Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1,0.3583,0,0.7165,0)^\mathsf T$ và $a\approx(0.2087,1,1,0.7913,0)^\mathsf T$.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.1–5.5.2, tr.204–207; phác thảo có điều kiện.</p>
+</aside>
 </section>
-<section id="lec04-s05-10" data-slide-id="lec04-s05-10" class="example-slide">
-<h2>Chi phí HITS: hai lượt quét cạnh mỗi vòng</h2>
-<div class="ex-grid2"><div class="ex-card"><h3>Điểm thẩm quyền</h3><p>Quét cạnh để tính $L^Th$; tìm cực đại và chuẩn hóa.</p></div><div class="ex-card"><h3>Điểm trung tâm</h3><p>Quét cạnh để tính $La$; tìm cực đại và chuẩn hóa.</p></div></div>
-<p class="ex-note">Các lượt quét đỉnh còn dùng để khởi tạo vector và đo chênh.</p>
-<table class="ex-table"><thead><tr><th>Thuật toán</th><th>Mỗi vòng</th><th>Bộ nhớ tổng</th></tr></thead><tbody><tr><td>HITS</td><td>$\Theta(n_H+m_H)$</td><td>$O(n_H+m_H)$</td></tr><tr><td>PageRank theo chủ đề</td><td>$\Theta(n+m_G)$</td><td>$O(n+m_G)$</td></tr></tbody></table>
-<p class="ex-takeaway">Không dựng $LL^T$ hay $L^TL$: tích có thể đặc, cần $O(n_H^2)$ bộ nhớ.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5; đếm phép tính từ danh sách cạnh.</p>
+<section id="lec04-s05-10" data-slide-id="lec04-s05-10" class="example-slide cost-slide">
+<h2>Chi phí HITS trên đồ thị thưa</h2>
+<p>Mô hình: danh sách cạnh, $n$ đỉnh, $\ell$ cạnh; phép toán vô hướng chi phí đơn vị.</p>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Công việc mỗi vòng</th>
+<th scope="col">Phép đếm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cộng $h$ tại nguồn vào $a$ tại đích</td>
+<td>$\ell$ cạnh</td>
+</tr>
+<tr>
+<td>Cộng $a$ mới tại đích vào $h$ tại nguồn</td>
+<td>$\ell$ cạnh</td>
+</tr>
+<tr>
+<td>Chuẩn hóa, so sánh các vector</td>
+<td>Số lượt cố định trên $n$ đỉnh</td>
+</tr>
+</tbody>
+</table>
+<p>Thời gian $\Theta(n+\ell)$ mỗi vòng; bộ nhớ phụ $\Theta(n)$, đầu vào $\Theta(n+\ell)$.</p>
+<p>Hai lượt cạnh đáp ứng nhu cầu tính hai vector trên đồ thị lớn. Không tạo $LL^\mathsf T$ hoặc $L^\mathsf TL$ để chạy vì chúng có thể đặc hơn $L$.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207; đếm theo danh sách cạnh.</p>
 <aside class="notes">
-<p>Thời lượng: 3 phút. Đếm hai lượt quét cạnh, một lượt cho mỗi loại điểm. Ngoài ra cần một số hữu hạn lượt quét đỉnh để xóa vector tạm, tìm phần tử lớn nhất, chia và đo chênh.</p>
-<p>Trên G5 có $n_H=5$, $m_H=8$, hai lượt cộng theo cạnh thực hiện $2\times8$ phép cộng. Hai lượt tìm cực đại và các lượt chuẩn hóa, đo chênh đều có chi phí $O(n_H)$. Do đó một vòng là $\Theta(n_H+m_H)$; $I_H$ vòng là $O(I_H(n_H+m_H))$.</p>
-<p>Bộ nhớ tổng $O(n_H+m_H)$ chứa danh sách cạnh và số hằng các vector độ dài $n_H$. Các tích $LL^T$, $L^TL$ có thể đặc; không cần tạo chúng để chạy phép lặp. PageRank theo chủ đề có cùng bậc chi phí mỗi vòng nhưng chỉ một lượt quét cạnh cho phần truyền điểm.</p>
-<p>Nguồn: MMDS §5.5; phép đếm suy ra từ giả mã thưa.</p>
+<p>Mỗi cạnh $i\to j$ được dùng một lần để cộng $h_i$ vào $a_j$, sau đó một lần để cộng $a_j$ mới vào $h_i$. Hai lượt này cần $2\ell$ phép cộng trọng số, còn chuẩn hóa và kiểm thay đổi cần số lượt cố định theo $n$. Hệ số $2$ biến mất trong bậc tiệm cận nhưng vẫn mô tả lượng công việc khác PageRank. Tích $LL^\mathsf T$ có thể nối nhiều cặp trang cùng chung đích, nên số phần tử khác $0$ có thể tăng. Hai phép nhân luân phiên khai thác cạnh trực tiếp, tránh lưu tích ấy khi tính hai vector trên đồ thị lớn.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207; đếm theo danh sách cạnh.</p>
 </aside>
 </section>
 <section id="lec04-s05-11" data-slide-id="lec04-s05-11" class="example-slide">
-  <h2>Kiểm tra phần 5: hai loại điểm tại E</h2>
-  <div class="ex-grid2 l04-split-40">
-    <div class="l04-figure">
-      <img role="img" alt="Đồ thị G5 với 5 đỉnh A, B, C, D, E: A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới E; D trỏ tới B, C; E không có cạnh ra" class="l04-figure" src="img/lec-04/hinh-5-18.svg">
-    </div>
-    <div>
-      <div class="question-box">
-        <h3>Câu hỏi: trên G5, chỉ xét đỉnh E</h3>
-        <ol>
-          <li>Vì sao $h_E=0$ ngay vòng 1?</li>
-          <li>Vì sao $a_E=\tfrac12>0$ ở vòng 1?</li>
-          <li>Vì sao $a_E$ vòng 2 $=\tfrac1{10}$?</li>
-        </ol>
-      </div>
-      <p class="ex-note">Nhắc: cập nhật luân phiên, chuẩn hóa theo phần tử lớn nhất. Chỉ giải thích các thành phần tại E, không tính lại toàn bộ vòng.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> Hình 5.18–5.20, §5.5, tr.206–207 (PDF 32–33).</p>
-  <aside class="notes">
-    <p>Thời lượng: 2 phút, toàn bộ là hoạt động kiểm tra: 1 phút suy nghĩ, 30 giây trả lời, 30 giây chữa. Chữa bằng cách chỉ đỉnh E trên hình và lần lượt hai chiều mũi tên.</p>
-    <p>Đáp án (i): E không có cạnh ra, nên tổng thẩm quyền của các đỉnh mà E trỏ tới là tổng rỗng, $h_{\text{thô},E}=0$ ngay từ vòng 1. Đáp án (ii): E có một cạnh vào từ C, và $h_{0,C}=1$, nên $a_{\text{thô},E}=1$; max của $a_{\text{thô}}$ vòng 1 là 2, chuẩn hóa cho $a_E=1/2>0$. Đáp án (iii): vòng 2 dùng $a_{\text{thô},E}=h_{1,C}=1/6$; max $a_{\text{thô}}$ vòng 2 là $5/3$, nên $a_E=(1/6)\div(5/3)=1/10$.</p>
-    <p>Tiêu chí chấm: đúng cả ba lý do, phân biệt rõ cạnh ra (cho trung tâm) và cạnh vào (cho thẩm quyền). Nếu lớp nhầm câu (iii), viết lại phép chia $\tfrac16/\tfrac53$ trong 30 giây và nhắc max đổi giữa các vòng: $2$, rồi $5/3$ — không dùng lại max vòng trước.</p>
-    <p>Lỗi dễ mắc: tưởng E "bị bỏ" vì $h_E=0$ — thẩm quyền của E vẫn dương vì có C→E; hoặc dùng $a_0$ để tính vòng 1. Không mở rộng sang giới hạn ở đây; hiểu biết về hướng cập nhật này sẽ dùng lại ở phần 6 và phần bài tập trên lớp.</p>
-  </aside>
+<h2>Kiểm tra một vòng HITS</h2>
+<div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure l04-figure-tall" src="img/lec-04/hinh-5-18-kiem-tra.svg" alt="Đồ thị G5: A tới B, C, D; B tới A, D; C tới E; D tới B, C; E không có cạnh ra. Hai cạnh ra của B có nét đứt." role="img"></div><div><p>$a^1=(1/2,1,1,1,1/2)^\mathsf T$; trung tâm thô lớn nhất bằng 3.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<ol>
+<li>
+<p>Tính trung tâm thô và điểm chuẩn hóa của B.</p>
+</li>
+<li>
+<p>Giải thích vì sao không chia thêm cho hai liên kết ra của B.</p>
+</li>
+<li>
+<p>Xác định điểm trung tâm của E sau vòng này.</p>
+</li>
+</ol></div></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Hình 5.18 và Ví dụ 5.15, tr.206–207.</p>
+<aside class="notes">
+<p>Trung tâm thô của B là $a_A^1+a_D^1=1/2+1=3/2$. Chia giá trị này cho giá trị lớn nhất của vector thô là $3$ thu được $h_B^1=1/2$. HITS định nghĩa trung tâm bằng tổng uy tín các đích, nên chia bậc ra là thay đổi mô hình. E không có đích liên kết, tổng rỗng bằng $0$ và điểm trung tâm vẫn bằng $0$ sau chuẩn hóa. Không suy từ $h_E=0$ rằng mọi điểm uy tín của nút cụt đều bằng $0$.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Hình 5.18 và Ví dụ 5.15, tr.206–207.</p>
+</aside>
 </section>
 </section>
-<section aria-label="Phần 6">
+<section aria-label="So sánh các phương pháp xếp hạng">
 <section id="lec04-s06-01" data-slide-id="lec04-s06-01" class="example-slide">
-  <h2>Bốn mô hình trên một bảng</h2>
-  <table class="ex-table">
-    <thead>
-      <tr><th>Mô hình</th><th>Đầu vào thêm</th><th>Đầu ra</th><th>Câu hỏi trả lời</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>PageRank cơ sở</td><td>đồ thị có hướng, $\beta$</td><td>vector $r$</td><td>xếp hạng chung</td></tr>
-      <tr><td>PageRank theo chủ đề</td><td><strong>tập $S$</strong> (chủ đề)</td><td>vector $r_S$</td><td>xếp hạng theo chủ đề</td></tr>
-      <tr><td>TrustRank</td><td><strong>tập tin cậy $T$</strong></td><td>vector $t$</td><td>đánh giá tín hiệu tin cậy</td></tr>
-      <tr><td>HITS</td><td>đồ thị con đã chọn</td><td>cặp $h, a$</td><td>phân biệt hai vai trò</td></tr>
-    </tbody>
-  </table>
-  <p class="ex-note">Khối lượng rác được tính thêm từ cả $r$ và $t$ — không phải đầu ra riêng của TrustRank.</p>
-  <p class="ex-takeaway">Cùng nền: đồ thị có hướng, ma trận–vector.</p>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3–5.5.</p>
-  <aside class="notes">
-    <p>Thời lượng: 2 phút, đọc bảng theo hàng.</p>
-    <p>Bốn mô hình cùng nền đồ thị có hướng và phép nhân ma trận–vector; khác nhau ở đầu vào thêm và câu hỏi trả lời. Đọc cột "đầu vào thêm" trước: PageRank theo chủ đề thêm tập $S$, TrustRank thêm tập tin cậy $T$, HITS thêm đồ thị con.</p>
-    <p>Hỏi nhanh: "Mô hình nào cần đầu vào do con người thẩm định?" — TrustRank, vì $T$ là tập trang tin cậy. Lỗi dễ mắc: gộp $q_S$ và $T$ thành một loại — $q_S$ là phân bố chủ đề, $T$ là tập trang được thẩm định. Nhấn: TrustRank chỉ trả vector $t$; khối lượng rác phải tính thêm từ vector PageRank $r$.</p>
-    <p>Bảng này là bản đồ chọn mô hình; slide sau so chi phí. Nguồn: MMDS §5.3–5.5.</p>
-  </aside>
+<h2>Đối chiếu ý nghĩa các điểm xếp hạng</h2>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Phương pháp</th>
+<th scope="col">Đầu ra</th>
+<th scope="col">Thông tin quyết định</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PageRank theo chủ đề</td>
+<td>Một phân phối điểm theo ngữ cảnh</td>
+<td>Phân phối dịch chuyển $v$</td>
+</tr>
+<tr>
+<td>TrustRank</td>
+<td>Một phân phối điểm từ tập tin cậy</td>
+<td>Hạt giống được đánh giá bên ngoài</td>
+</tr>
+<tr>
+<td>Spam Mass</td>
+<td>Chênh lệch tương đối giữa $r$ và $\rho$</td>
+<td>Hai vector cùng mô hình, $r_i&gt;0$</td>
+</tr>
+<tr>
+<td>HITS</td>
+<td>Hai vector trung tâm và uy tín</td>
+<td>Tổng theo cạnh vào và cạnh ra</td>
+</tr>
+</tbody>
+</table>
+<p>Điểm uy tín HITS và điểm tin cậy TrustRank có ý nghĩa khác nhau.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+<aside class="notes">
+<p>PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng nhận hai loại thông tin ưu tiên khác nhau. Spam Mass cần cặp điểm để tính chỉ số chênh lệch, không phải phép lặp riêng. HITS đổi từ một phân phối sang hai vai trò cấu trúc. Uy tín HITS có thể cao do quan hệ với các trung tâm có điểm cao, không thay thế đánh giá nội dung của hạt giống TrustRank.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+</aside>
 </section>
 <section id="lec04-s06-02" data-slide-id="lec04-s06-02" class="example-slide">
-  <h2>So sánh chi phí trong cùng tham số</h2>
-  <table class="ex-table">
-    <thead>
-      <tr><th>Mô hình</th><th>Chi phí chính</th><th>Bộ nhớ</th><th>Điều kiện áp dụng</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>PageRank cơ sở</td><td>1 vòng $\Theta(n+m_G)$</td><td>$O(n+m_G)$</td><td>đồ thị toàn bộ, $\beta\in(0,1)$</td></tr>
-      <tr><td>$k$ chủ đề</td><td>$O(kI(n+m_G))$</td><td>$O(kn+m_G)$</td><td>cần $k$ phân bố $q_S$</td></tr>
-      <tr><td>TrustRank</td><td>như PageRank cơ sở (dùng lại)</td><td>$O(n+m_G)$</td><td>cần tập tin cậy $T$</td></tr>
-      <tr><td>HITS</td><td>$\Theta(n_H+m_H)$/vòng trên đồ thị con</td><td>$O(n_H+m_H)$</td><td>đồ thị con đã chọn</td></tr>
-    </tbody>
-  </table>
-  <p class="ex-note">$I$: số vòng; $n,m_G$: số đỉnh, cạnh toàn đồ thị; $n_H,m_H$: số đỉnh, cạnh đồ thị HITS. Bảng ghi bộ nhớ tổng.</p>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3–5.5.</p>
-  <aside class="notes">
-    <p>Thời lượng: 2 phút, đọc bảng theo hàng, nhấn dòng cảnh báo.</p>
-    <p>Ký hiệu: $I$ là số vòng lặp, $n$ và $m_G$ là số đỉnh/cạnh của đồ thị toàn bộ, $n_H$ và $m_H$ là số đỉnh/cạnh của đồ thị con HITS. Một vòng PageRank là $\Theta(n+m_G)$; $k$ chủ đề nhân thêm $k$ lần lặp và bộ nhớ $O(kn+m_G)$; TrustRank dùng lại cùng chi phí; HITS chạy trên đồ thị con nên mỗi vòng là $\Theta(n_H+m_H)$.</p>
-    <p>Lỗi cần chặn: "HITS nhanh hơn vì đồ thị nhỏ" — đồ thị con nhỏ là lựa chọn đầu vào, không phải tính chất thuật toán; so HITS (đồ thị con) với PageRank (toàn Web) rồi kết luận nhanh hơn là so ngoài cùng tham số. Với cụm thao túng, đánh giá biểu thức farm là $O(1)$ khi đã biết $x$; tìm PageRank nền vẫn cần lặp.</p>
-    <p>Bảng chi phí này dùng cho bài kiểm tra hai slide sau. Nguồn: MMDS §5.3–5.5.</p>
-  </aside>
+<h2>Lựa chọn phương pháp theo yêu cầu dữ liệu</h2>
+<table class="ex-table">
+<thead>
+<tr>
+<th scope="col">Yêu cầu đã xét</th>
+<th scope="col">Phương pháp và điều kiện</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“jaguar” theo động vật hoặc ô tô</td>
+<td>PageRank theo chủ đề, khi đã có chủ đề hoặc trọng số</td>
+</tr>
+<tr>
+<td>Đánh giá ảnh hưởng liên kết thao túng</td>
+<td>TrustRank và Spam Mass, khi có tập tin cậy phù hợp</td>
+</tr>
+<tr>
+<td>Danh sách và nội dung học phần</td>
+<td>HITS, khi cần cả điểm trung tâm và uy tín</td>
+</tr>
+</tbody>
+</table>
+<p>Các phép lặp đều khai thác đồ thị thưa. Cùng bậc chi phí mỗi vòng không bảo đảm cùng số vòng hoặc cùng thời gian thực.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+<aside class="notes">
+<p>Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịch chuyển hoặc trọng số. TrustRank cần hạt giống đáng tin và đủ độ phủ; Spam Mass không tự tạo nhãn đúng chắc chắn. HITS cần đầu ra hai vai trò nên không thay thế trực tiếp chỉ số tin cậy. Chi phí tuyến tính theo $n+\ell$ mỗi vòng chỉ là một tiêu chí; số vòng, độ chính xác dừng và chi phí chuẩn bị thông tin bên ngoài vẫn khác nhau.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+</aside>
 </section>
 <section id="lec04-s06-03" data-slide-id="lec04-s06-03" class="example-slide">
-  <h2>Chọn công cụ theo nhu cầu</h2>
-  <div class="l04-stack l04-compact-stack">
-    <div class="ex-card">
-      <p><strong>Nhu cầu:</strong> truy vấn jaguar cần nghĩa ô tô &nbsp;→&nbsp; <strong>Công cụ:</strong> PageRank theo chủ đề, đổi $q_S$, phối hợp $\sum_l \alpha_l r^{(l)*}$, cùng $P$ và $\beta$ &nbsp;→&nbsp; <strong>Giới hạn:</strong> cần tập $S$ đại diện do người chọn.</p>
-    </div>
-    <div class="ex-card">
-      <p><strong>Nhu cầu:</strong> hiểu và phòng cụm thao túng &nbsp;→&nbsp; <strong>Công cụ:</strong> phương trình farm để phân tích; TrustRank/khối lượng rác để phòng vệ &nbsp;→&nbsp; <strong>Giới hạn:</strong> dựa trên giả thiết "trang tốt ít trỏ rác".</p>
-    </div>
-    <div class="ex-card">
-      <p><strong>Nhu cầu:</strong> phân biệt hai vai trò trung tâm/thẩm quyền &nbsp;→&nbsp; <strong>Công cụ:</strong> HITS trên đồ thị con, cặp $h, a$ &nbsp;→&nbsp; <strong>Giới hạn:</strong> hội tụ theo điều kiện đủ; chọn đồ thị con ngoài tuyến chính.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3–5.5.</p>
-  <aside class="notes">
-    <p>Thời lượng: 2 phút — khoảng 30 giây mỗi hàng, 30 giây chốt.</p>
-    <p>Hỏi lớp: "Công cụ này hứa được gì?" Rồi ghép nhu cầu–công cụ–giới hạn thành một câu hoàn chỉnh cho từng hàng.</p>
-    <p>Lỗi dễ mắc: nói "TrustRank loại bỏ rác" — nó chỉ giảm tin vào trang rác theo giả thiết "trang tốt ít trỏ rác", không bảo đảm. Với truy vấn jaguar, ngữ nghĩa ô tô đến từ tập đại diện chủ đề. G4 chỉ minh họa phép tính và không gán nghĩa ô tô cho các đỉnh.</p>
-    <p>Ba cặp nhu cầu–công cụ này là nền cho bài kiểm tra ngay sau đây. Nguồn: MMDS §5.3–5.5.</p>
-  </aside>
+<h2>Tự kiểm về mô hình và chi phí</h2>
+<p><strong>Câu hỏi:</strong></p><div class="l04-stack"><div class="question-box"><ol>
+<li>Trên cùng G4, giữ $\beta=4/5$ và đổi tập dịch chuyển từ {B,D} sang {A}. Xác định đại lượng phải đổi và đại lượng được giữ nguyên trong $r&#x27;=\beta M_0r+(1-\beta)v$.</li>
+</ol></div><div class="question-box"><ol start="2">
+<li>PageRank theo chủ đề và HITS đều có chi phí mỗi vòng $\Theta(n+\ell)$. Đánh giá kết luận: “Hai thuật toán luôn có cùng thời gian chạy”. Nêu những đại lượng còn thiếu.</li>
+</ol></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+<aside class="notes">
+<p>Ở câu 1, đồ thị và $M_0$ giữ nguyên, $\beta=4/5$; $v$ đổi từ $(0,1/2,0,1/2)^\mathsf T$ sang $(1,0,0,0)^\mathsf T$. Nếu khởi tạo theo $v$ thì $r^0$ cũng đổi. G4 không có nút cụt nên không có số hạng bù. Ở câu 2, hai thuật toán có thể khác số vòng, hệ số công việc, tiêu chí dừng và cách thực thi; chuẩn bị tập chủ đề hoặc tập tin cậy cũng không nằm trong chi phí một vòng. Cùng bậc tiệm cận không suy ra cùng thời gian chạy.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+</aside>
 </section>
 <section id="lec04-s06-04" data-slide-id="lec04-s06-04" class="example-slide">
-  <h2>Kiểm tra tích hợp: bốn nhiệm vụ</h2>
-  <div class="ex-grid2">
-    <div class="ex-card">
-      <p><strong>Câu hỏi 1:</strong> Muốn trang ô tô lên cao cho người đọc chủ đề ô tô. Chọn mô hình rồi chỉ chỗ thay $q_S$ trong công thức.</p>
-    </div>
-    <div class="ex-card">
-      <p><strong>Câu hỏi 2:</strong> Trong phương trình farm, hạng nào bị bỏ <strong>trong phương trình</strong> trước khi giải?</p>
-    </div>
-    <div class="ex-card">
-      <p><strong>Câu hỏi 3:</strong> Giải thích khối lượng rác âm và giới hạn của cách diễn giải.</p>
-    </div>
-    <div class="ex-card">
-      <p><strong>Câu hỏi 4:</strong> Cần hai vai trò trung tâm/thẩm quyền. Chọn mô hình rồi chỉ chiều nhân ma trận.</p>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3–5.5 (các ví dụ đã dẫn trong bài).</p>
-  <aside class="notes">
-    <p>Thời lượng: 5 phút — 4×1 phút suy nghĩ–trả lời từng nhiệm vụ, 1 phút chữa tổng. Tiêu chí: đo lựa chọn mô hình và lý do kèm theo, không chỉ nhớ công thức; sai từ 2 câu trở lên cho thấy cần ôn phần đó.</p>
-    <p>Đáp án 1: thay $q_S$ trong hạng dịch chuyển $(1-\beta)q_S$ của $r'=\beta Pr+(1-\beta)q_S$, chọn $q_S$ phân bố trên tập trang ô tô; lỗi: đổi $\beta$ hoặc $P$. Đáp án 2: hạng $(1-\beta)/N$ — phần dịch chuyển trực tiếp; lỗi: chọn $\beta q(1-\beta)/N$. Đáp án 3: khối lượng rác có thể âm, nghĩa là $t>r$ trong thiết lập đang dùng; không phải xác suất; lỗi: gọi là xác suất rác. Đáp án 4: HITS, $L^T$ nhân với $h$ cũ: $a_{\text{thô}}=L^Th_{\text{cũ}}$; lỗi: nhân $L$ hoặc $L^TL$.</p>
-    <p>Giữ nhịp 1 phút mỗi câu; nếu câu nào lớp sai rộng, ghi lại để mở bài tập tương ứng; không chữa dài quá 1 phút. Sản phẩm: câu trả lời từng nhiệm vụ kèm lý do chọn mô hình.</p>
-  </aside>
-</section>
-<section id="lec04-s06-05" data-slide-id="lec04-s06-05" class="example-slide">
-  <h2>Ba giới hạn và bước tiếp theo</h2>
-  <div class="ex-grid2 l04-split-55">
-    <div class="l04-stack">
-      <p><strong>1.</strong> PageRank theo chủ đề: cần tập đại diện chủ đề do người chọn; $r^*$ có thể có phần tử 0 khi $q_S$ hỗ trợ con.</p>
-      <p><strong>2.</strong> TrustRank: dựa trên giả thiết "trang tốt ít trỏ rác" — không bảo đảm; khối lượng rác không phải xác suất.</p>
-      <p><strong>3.</strong> HITS: hội tụ theo điều kiện đủ; cách chọn đồ thị con nằm ngoài tuyến chính.</p>
-    </div>
-    <div class="ex-card">
-      <h3>Tiếp theo</h3>
-      <ul>
-        <li>Bài tập trên lớp: 5.3.1 (tr.199), 5.4.2 (tr.204), 5.5.1 (tr.208).</li>
-        <li>Đọc thêm: <a href="http://www.mmds.org">MMDS</a> §5.3–5.5.</li>
-        <li>Bài 05: so sánh tài liệu gần trùng.</li>
-      </ul>
-    </div>
-  </div>
-  <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a> §5.3–5.5 (giới hạn từng mô hình); nối tiếp Bài 05.</p>
-  <aside class="notes">
-    <p>Thời lượng: 1 phút — đọc nhanh ba dòng giới hạn, giao bài tập.</p>
-    <p>Khép bài bằng ba giới hạn: biết thuật toán không dùng được khi nào là một phần năng lực. Ba dòng khớp ba phần chính của bài, giúp ôn nhanh trước khi làm bài tập.</p>
-    <p>Giao việc: ba bài tập 5.3.1 (tr.199), 5.4.2 (tr.204), 5.5.1 (tr.208) của MMDS; đọc thêm §5.3–5.5; nhắc mang máy tính hoặc bảng tính cho phần 7. Bài 05 sẽ dạy so sánh tài liệu gần trùng — nhắc sinh viên chuẩn bị trước.</p>
-    <p>Phần 7 làm bài tập trực tiếp trên các mô hình vừa tổng hợp. Nguồn: MMDS §5.3–5.5.</p>
-  </aside>
+<h2>Kiểm tra tổng hợp các phương pháp</h2>
+<div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<ol start="3">
+<li>
+<p>Trong cụm thao túng, $x$ đã là đóng góp từ ngoài sau nhân $\beta$. Giải thích vì sao phương trình điểm đích chứa $x$ thay vì $\beta$ $x$.</p>
+</li>
+<li>
+<p>Trang B có $r_B=19/84$, $\rho_B=59/210$. Xác định dấu Spam Mass; đánh giá việc thay mọi giá trị âm bằng 0.</p>
+</li>
+<li>
+<p>Mạng học phần cần nhận diện cả trang danh sách và trang nội dung. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.</p>
+</li>
+</ol></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+<aside class="notes">
+<p>Câu 3: mỗi đóng góp từ nguồn ngoài $j$ đã là $\beta r_j/d_j$, nên nhân thêm $\beta$ làm giảm đóng góp lần nữa. Câu 4: $\rho_B&gt;r_B$ nên $s_B&lt;0$, cụ thể $s_B=-23/95$; thay bằng $0$ là đổi định nghĩa và mất thông tin hướng thay đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
+</aside>
 </section>
 </section>
-<section aria-label="Phần 7">
+<section aria-label="Bài tập">
 <section id="lec04-s07-01" data-slide-id="lec04-s07-01" class="example-slide">
-  <h2>Bài tập 5.3.1: PageRank theo chủ đề</h2>
-  <div class="ex-grid2 l04-split-35 l04-vcenter">
-    <div>
-      <img role="img" alt="Đồ thị G4 bốn đỉnh A, B, C, D với tám cạnh như Hình 5.1" class="l04-figure-short" src="img/lec-04/hinh-5-1-trung-tinh.svg">
-      <p class="ex-note">G4 — Hình 5.15 (cùng cạnh Hình 5.1)</p>
-    </div>
-    <div class="l04-stack">
-      <div class="question-box">
-        <p><strong>Câu hỏi:</strong> trên G4, dùng $\beta=0.8$ theo quy ước của Ví dụ 5.10. Tính PageRank theo chủ đề khi (a) $S=\{A\}$ và (b) $S=\{A,C\}$. Mỗi câu trình bày $q_S$, phương trình, nghiệm và phép kiểm tổng các thành phần bằng 1.</p>
-        <p class="ex-note"></p>
-      </div>
-      <table class="ex-table">
-        <thead><tr><th>Tập $S$</th><th>$q$</th><th>$r^*$</th><th>Tổng</th></tr></thead>
-        <tbody>
-          <tr><td>(a) $S=\{A\}$</td><td></td><td></td><td></td></tr>
-          <tr><td>(b) $S=\{A,C\}$</td><td></td><td></td><td></td></tr>
-        </tbody>
-      </table>
-      <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài tập 5.3.1, tr.199 (PDF 25)</p>
-    </div>
-  </div>
-  <aside class="notes">
-    <p>Thời lượng 18 phút: 6 phút đọc đề và dựng $q$ cùng phương trình, 8 phút tính nghiệm (giải hệ hoặc lặp), 4 phút chữa và kiểm tổng bằng 1. Bài này nhận lại đúng quy trình PageRank theo chủ đề vừa học, chỉ đổi đầu vào là tập $S$.</p>
-    <p>Điểm mấu chốt: đổi tập $S$ là đổi vector dịch chuyển, nên mỗi tập cho một $q$ và một nghiệm riêng. Đáp án: (a) $q_S=(1,0,0,0)$, $r^*=(\tfrac37,\tfrac4{21},\tfrac4{21},\tfrac4{21})$; (b) $q_S=(\tfrac12,0,\tfrac12,0)$, $r^*=(\tfrac{27}{70},\tfrac6{35},\tfrac{19}{70},\tfrac6{35})$. Cả hai tổng bằng 1.</p>
-    <p>Lỗi dễ mắc: trộn nghiệm của hai tập $S$ — hãy ghi nhãn tập $S$ trên từng cột bảng; quên kiểm tổng 1. Nếu nhóm lặp chậm, gợi ý giải hệ trực tiếp. Tiêu chí chấm: đúng $q_S$, phương trình kèm giải hệ hoặc lặp, nghiệm đúng, tổng bằng 1. Sản phẩm nộp: bảng đã điền kèm một câu thuyết minh cách giải.</p>
-    <p>Nguồn: MMDS, Bài tập 5.3.1, tr.199 (PDF 25), <a href="http://www.mmds.org">mmds.org</a>. Bài này củng cố câu 1 phần tổng kết và dẫn sang bài TrustRank tiếp theo.</p>
-  </aside>
+<h2>Bài tập PageRank theo chủ đề</h2>
+<div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-1-trung-tinh.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C." role="img"></div><div><p><strong>Bài 5.3.1(a, b), MMDS §5.3.5, trang 199.</strong></p><p>$\beta=0.8$, kế thừa Ví dụ 5.10; tám cạnh của G4 giữ nguyên.</p><div class="question-box"><p><strong>Câu hỏi:</strong> Tính PageRank theo chủ đề khi tập dịch chuyển là (a) chỉ A; (b) A và C.</p></div><p>Sản phẩm: hai phân phối dịch chuyển, hai vector điểm theo thứ tự A,B,C,D, hệ phương trình và phép kiểm tổng 1/điểm cố định.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài 5.3.1(a,b), §5.3.5, tr.199.</p>
+<aside class="notes">
+<p>Thời lượng dự kiến: 20 phút.</p><p>Đặt các thành phần nghiệm là $r_A,r_B,r_C,r_D$.</p>
+<p>(a) $v=(1,0,0,0)^\mathsf T$. Hệ:
+$$r_A=\frac25r_B+\frac45r_C+\frac15,\quad r_B=\frac4{15}r_A+\frac25r_D,$$
+$$r_C=\frac4{15}r_A+\frac25r_D,\quad r_D=\frac4{15}r_A+\frac25r_B.$$
+Hai phương trình tại B, D cho $r_B-r_D=(2/5)(r_D-r_B)$, nên $r_B=r_D$; hai phương trình tại B, C cho $r_B=r_C$. Đặt giá trị chung là $q$; khi đó $q=4r_A/9$. Điều kiện tổng bằng $1$ cho $r_A=3/7$ và $q=4/21$.</p>
+<p>(b) $v=(1/2,0,1/2,0)^\mathsf T$. So với (a), phần dịch chuyển tại A đổi từ $1/5$ thành $1/10$, tại C đổi từ $0$ thành $1/10$; tại B, D vẫn bằng $0$. Do đó $r_B=r_D=q$, $r_C=q+1/10$ và $q=4r_A/9$. Điều kiện $r_A+3q+1/10=1$ cho
+$$r=(27/70,6/35,19/70,6/35)^\mathsf T.$$</p>
+<p>Hai nghiệm đều có tổng bằng $1$. Phép thế vào cả bốn phương trình kiểm thêm điều kiện điểm cố định; tổng bằng $1$ riêng lẻ chưa đủ xác nhận nghiệm.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài 5.3.1(a,b), §5.3.5, tr.199.</p>
+</aside>
 </section>
 <section id="lec04-s07-02" data-slide-id="lec04-s07-02" class="example-slide">
-<h2>Bài tập 5.4.2: TrustRank và khối lượng rác</h2>
-<div class="ex-grid2 l04-split-35 l04-vcenter"><div><img role="img" alt="Đồ thị G4 bốn đỉnh và tám cạnh của Hình 5.1" class="l04-figure" src="img/lec-04/hinh-5-1-trung-tinh.svg"><p class="ex-note">G4 — Hình 5.1</p></div><div>
-<p>Chỉ B tin cậy: $T=\{B\}$. Tính TrustRank $t$ và khối lượng rác $s$ của mỗi trang.</p>
-<div class="l04-warning"><p>$t$: dùng $\beta=4/5$; điểm nền $r$: dùng $\beta=1$.</p></div>
-<p>$r=(\tfrac13,\tfrac29,\tfrac29,\tfrac29)$ theo Ví dụ 5.12.</p>
-<table class="ex-table"><thead><tr><th>Điểm</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody><tr><td>$t$</td><td>…</td><td>…</td><td>…</td><td>…</td></tr><tr><td>$s$</td><td>…</td><td>…</td><td>…</td><td>…</td></tr></tbody></table>
-<p class="ex-note">Nộp bảng, cách tính và một câu diễn giải giá trị âm.</p></div></div>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài tập 5.4.2, tr. 204.</p>
+<h2>Bài tập cấu trúc liên kết hỗ trợ</h2>
+<p><strong>Bài 5.4.1(a, c), MMDS §5.4.6, trang 203–204.</strong></p>
+<p>Giữ mô hình Hình 5.16 trên đồ thị không nút cụt: đích vẫn chỉ trỏ tới $m$ hỗ trợ; các hỗ trợ không nhận liên kết từ ngoài cụm; mọi cạnh ngoài vào cụm tới đích. $x$ đã gồm $\beta$; $b=(1-\beta)/n$.</p><div class="ex-grid2 l04-split-40 l04-vcenter "><div><div class="ex-grid2  l04-vcenter "><div><img class="l04-figure " src="img/lec-04/ho-tro-tu-khuyen.svg" alt="Cấu trúc a: đích tới hỗ trợ, hỗ trợ chỉ có khuyên." role="img"></div><div><img class="l04-figure " src="img/lec-04/ho-tro-khuyen-va-dich.svg" alt="Cấu trúc c: đích tới hỗ trợ, hỗ trợ có khuyên và cạnh tới đích." role="img"></div></div></div><div><div class="question-box"><p><strong>Câu hỏi:</strong> Lặp lại phân tích khi mỗi trang hỗ trợ (a) chỉ trỏ tới chính nó thay vì đích; (c) trỏ tới cả chính nó và đích.</p></div><p>Sản phẩm: phương trình điểm hỗ trợ $p$ và điểm đích $y$; biểu thức của $y$ theo $x,m,n,\beta$; chỉ rõ công thức chính xác hay xấp xỉ.</p></div></div>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài 5.4.1(a,c), §5.4.6, tr.203–204.</p>
 <aside class="notes">
-    <p>Thời lượng 22 phút: 3 phút đọc dữ kiện và cảnh báo, 10 phút tính điểm tin cậy, 6 phút tính khối lượng rác, 3 phút chữa. Đây là bài hai bước trọn quy trình: trước hết chạy TrustRank với phân bố dịch chuyển về tập tin cậy, rồi lấy hiệu với PageRank nền để ra khối lượng rác.</p>
-    <p>Đáp án: $t=(\tfrac{198}{735},\tfrac{263}{735},\tfrac{116}{735},\tfrac{158}{735})$ (tổng bằng 1); khối lượng rác $=(\tfrac{47}{245},-\tfrac{299}{490},\tfrac{71}{245},\tfrac8{245})$. Lưu ý $r_{base}$ không hệ số suy giảm là quy ước của nguồn, không phải lỗi đề.</p>
-    <p>Lỗi dễ mắc: dùng $r^*$ của bài trước (có hệ số suy giảm) làm điểm nền; bỏ qua cảnh báo hai thiết lập rồi kết luận sai về tập $T$. Âm tại B ($-\tfrac{299}{490}$) là bình thường — nó không phải xác suất: vì $t_B$ CAO HƠN $r_B$, hiệu $r_B-t_B$ âm, KHÔNG phải vì B được trust đánh giá thấp hơn nền.</p>
-    <p>Tiêu chí: đúng $t$, đúng tỷ số khối lượng rác, diễn giải được giá trị âm, không nhầm $r_{base}$ với $r^*$ của bài trước. Sản phẩm: bảng điền đủ 8 ô kèm một câu diễn giải khối lượng rác âm. Nguồn: MMDS, Bài tập 5.4.2, tr.204 (PDF 30), <a href="http://www.mmds.org">mmds.org</a>. Bài này củng cố câu 3 phần tổng kết và dẫn sang bài HITS cuối.</p>
-  </aside>
+<p>Thời lượng dự kiến: 20 phút.</p><p>Trong cả hai ý, $x$ chỉ gồm các đóng góp ngoài vào đích, đã nhân $\beta$ và chia bậc ra; không có cạnh ngoài vào hỗ trợ.</p>
+<p>(a) Hỗ trợ giữ toàn phần theo liên kết tại chính nó:
+$$p=\frac{\beta y}{m}+\beta p+b,\qquad y=x+b.$$
+Vì không còn cạnh hỗ trợ→đích, dòng quay lại bằng 0. Do đó $p=(\beta y/m+b)/(1-\beta)$; theo phép lược bước nhảy trực tiếp tới đích của sách, $y\approx x$.</p>
+<p>(c) Hỗ trợ có hai cạnh ra nên mỗi cạnh nhận một nửa:
+$$p=\frac{\beta y}{m}+\frac\beta2p+b,\qquad
+ y=x+\frac{\beta m}{2}p+b.$$
+Từ phương trình $p$, $(2-\beta)p=2\beta y/m+2b$. Thế vào $y$:
+$$(2-\beta)y=(2-\beta)(x+b)+\beta^2y+\beta mb.$$
+Vì $2-\beta-\beta^2=(1-\beta)(2+\beta)&gt;0$,
+$$y=\frac{(2-\beta)(x+b)+\beta mb}{(1-\beta)(2+\beta)}.$$
+Bỏ riêng phần dịch chuyển trực tiếp tới đích:
+$$y\approx\frac{2-\beta}{(1-\beta)(2+\beta)}x+\frac{\beta}{2+\beta}\frac mn.$$
+Không bỏ phần $b$ nhận tại hỗ trợ, vì tổng $m$ phần ấy tạo hạng $m/n$. Hai cách chính xác/xấp xỉ đều hợp lệ nếu giả thiết và dấu quan hệ nhất quán.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài 5.4.1(a,c), §5.4.6, tr.203–204.</p>
+</aside>
 </section>
 <section id="lec04-s07-03" data-slide-id="lec04-s07-03" class="example-slide">
-<h2>Bài tập 5.5.1: hai điểm HITS</h2>
-<div class="ex-grid2 l04-split-35 l04-vcenter"><div><img role="img" alt="Đồ thị G4: C trỏ A; không có đỉnh E" class="l04-figure" src="img/lec-04/hinh-5-1-trung-tinh.svg"><p class="ex-note">G4 — Hình 5.1; không dùng G5.</p></div><div>
-<p>Tính điểm trung tâm $h$ và điểm thẩm quyền $a$ trên G4. Chuẩn hóa mỗi vector để phần tử lớn nhất bằng 1.</p>
-<p class="ex-note">Có thể dùng máy tính, bảng tính hoặc giải ma trận. Nếu lặp, gợi ý ngưỡng chênh $\tau=0.001$.</p>
-<table class="ex-table"><thead><tr><th>Điểm</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody><tr><td>$h$</td><td>…</td><td>…</td><td>…</td><td>…</td></tr><tr><td>$a$</td><td>…</td><td>…</td><td>…</td><td>…</td></tr></tbody></table>
-<p class="ex-note">Nộp hai vector, cách tính và tiêu chí dừng nếu dùng phép lặp.</p></div></div>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài tập 5.5.1, tr. 208.</p>
+<h2>Bài tập HITS trên chuỗi có khuyên</h2>
+<p><strong>Bài 5.5.2, MMDS §5.5.3, trang 208; Hình 5.9, trang 189.</strong></p><img class="l04-figure l04-chain-diagram" src="img/lec-04/chuoi-co-khuyen.svg" alt="Chuỗi một tới n có khuyên một tới một; các cạnh i tới i cộng một." role="img"><p>Đồ thị có $n$ đỉnh, cạnh $1\to1$ và $i\to i+1$ với $1\le i&lt;n$; $n\ge1$.</p>
+<p>Khởi tạo $h^0=a^0=\mathbf1$; sau mỗi phép nhân, chuẩn hóa phần tử lớn nhất bằng 1.</p><div class="question-box"><p><strong>Câu hỏi:</strong> Tính các vector trung tâm và uy tín theo $n$.</p></div><p>Sản phẩm: hai vector giới hạn, lập luận từ phép lặp hoặc ma trận, và các trường hợp biên $n=1$, $n=2$.</p>
 <aside class="notes">
-    <p>Thời lượng 20 phút, toàn bộ là hoạt động: 4 phút dựng $L_4$ và kiểm, 10 phút tính bằng máy tính hoặc bảng tính, 3 phút kiểm điều kiện dừng, 3 phút chữa. Ma trận chuyển tiếp (hàng nguồn): $L_4=\begin{bmatrix}0&1&1&1\\1&0&0&1\\1&0&0&0\\0&1&1&0\end{bmatrix}$ — dựng từ G4, không dùng nhầm G5 (C→A giữ nguyên, không có E).</p>
-    <p>Hai vòng đầu để đối chiếu: $a_1=(1,1,1,1)$, $h_1=(1,\tfrac23,\tfrac13,\tfrac23)$; $a_2=(\tfrac35,1,1,1)$, $h_2=(1,\tfrac8{15},\tfrac15,\tfrac23)$. Cách lặp: $a_{\text{thô}}=L_4^Th_{\text{cũ}}$, chuẩn hóa theo phần tử lớn nhất, rồi $h_{\text{thô}}=L_4a_{\text{mới}}$, chuẩn hóa tương tự; kiểm cả hai chênh, dùng trạng thái mới.</p>
-    <p>Đáp án: với $\tau=.001$ đạt ngưỡng sau 11 vòng, $\epsilon\approx0.0007450739557$, $h\approx(1,.392369,.103046,.710676)$, $a\approx(.289993,1,1,.814221)$; 43 vòng chỉ khi dùng ngưỡng $10^{-12}$. Nghiệm giới hạn làm tròn 4 số: $h\approx(1,.3919,.1028,.7108)$, $a\approx(.2892,1,1,.8136)$. Đừng gán số giới hạn cho chính vòng 11.</p>
-    <p>Tiêu chí: chấp nhận nghiệm giới hạn làm tròn bốn chữ số hoặc trạng thái vòng 11 kèm báo cáo ngưỡng $0.001$; số chữ số in ra không bảo đảm sai số tới nghiệm. Hai vector chuẩn hóa theo phần tử lớn nhất bằng 1; đúng hướng cập nhật, dùng trạng thái mới, kiểm cả hai chênh, không dừng tùy ý sau hai vòng; chấp nhận cách giải ma trận đúng (kể cả $L_4^TL_4$). Nguồn: MMDS, Bài tập 5.5.1, tr.208 (PDF 34), <a href="http://www.mmds.org">mmds.org</a>. Slide này khép bài và nối sang Bài 05.</p>
-  </aside>
+<p>Thời lượng dự kiến: 20 phút.</p><p>Với $n\ge2$, hàng 1 của $L$ có hai số $1$ tại cột 1, 2; mỗi hàng $2\le i&lt;n$ có một số $1$ tại cột $i+1$; hàng cuối bằng $0$. Các hàng khác nhau có tập vị trí cột khác $0$ rời nhau, nên
+$$LL^\mathsf T=\operatorname{diag}(2,\underbrace{1,\ldots,1}_{n-2},0).$$
+Khởi tạo $h^0$ toàn $1$ cho $a^1$ toàn $1$. Vector trung tâm thô đầu là $(2,1,\ldots,1,0)^\mathsf T$; chuẩn hóa bằng giá trị lớn nhất cho $h^1=(1,1/2,\ldots,1/2,0)^\mathsf T$.</p>
+<p>Quy nạp: nếu $h^t=(1,2^{-t},\ldots,2^{-t},0)^\mathsf T$, thì $a^{t+1}$ có hai thành phần đầu bằng $1$ và phần còn lại bằng $2^{-t}$, vì có hai cạnh từ đỉnh 1 tới đỉnh 1 và đỉnh 2. Trung tâm thô kế tiếp là $(2,2^{-t},\ldots,2^{-t},0)^\mathsf T$; chia từng thành phần cho $2$ thu được công thức ở vòng $t+1$. Vì vậy, với $t\ge1$:
+$$h^t=(1,\underbrace{2^{-t},\ldots,2^{-t}}_{n-2},0)^\mathsf T,$$
+$$a^t=(1,1,\underbrace{2^{-(t-1)},\ldots,2^{-(t-1)}}_{n-2})^\mathsf T.$$
+Lấy giới hạn cho $h^*=(1,0,\ldots,0)^\mathsf T$ và $a^*=(1,1,0,\ldots,0)^\mathsf T$.</p>
+<p>Khi $n=2$, phần giữa rỗng; hai vector đạt giới hạn ngay sau vòng 1. Khi $n=1$, vẫn còn khuyên $1\to1$, $L=[1]$ và $h=a=(1)$; không có phép chia cho $0$. Khuyên khiến hàng 1 có chuẩn lớn hơn các hàng giữa, nên bỏ khuyên sẽ thay bài toán và nghiệm.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài 5.5.2, §5.5.3, tr.208; Hình 5.9, tr.189.</p>
+</aside>
 </section>
 </section>
 <div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 04</div>
 </div></div>
 <script src="revealjs/dist/reveal.js"></script>
 <script src="plugin/notes/notes.js"></script>
-<script src="plugin/markdown/markdown.js"></script>
 <script src="plugin/highlight/highlight.js"></script>
 <script src="plugin/math/math.js"></script>
 <script>
 Reveal.initialize({
-  width:1280, height:720, margin:.04, controlsLayout:"edges",
-  slideNumber:true, hashOneBasedIndex:true, hash:true,
-  katex:{local:"vendor/katex"},
-  plugins:[RevealMarkdown,RevealHighlight,RevealNotes,RevealMath.KaTeX]
+ width:1280, height:720, margin:.04, controlsLayout:"edges",
+ slideNumber:true, hashOneBasedIndex:true, hash:true,
+ katex:{local:"vendor/katex"},
+ plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]
 });
-</script>
-</body>
-</html>
+</script></body></html>
