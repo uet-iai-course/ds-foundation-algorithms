@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 235" role="img" aria-labelledby="title desc">
+<title id="title">Từ tài liệu đến ước lượng Jaccard</title><desc id="desc">Tài liệu được chuyển thành tập shingle; tập tạo chữ ký MinHash; tỷ lệ các tọa độ tương ứng trùng nhau ước lượng Jaccard của biểu diễn tập. Quy trình không lựa chọn cặp ứng viên.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial, sans-serif" font-size="28" fill="#243247">
+<g stroke="#2f3e7a" stroke-width="2" fill="#edf4ff"><rect x="20" y="40" width="185" height="145" rx="10"/><rect x="278" y="40" width="205" height="145" rx="10"/><rect x="558" y="40" width="190" height="145" rx="10"/><rect x="820" y="40" width="260" height="145" rx="10"/></g>
+<g text-anchor="middle"><text x="112" y="106">Tài liệu</text><text x="112" y="149">Chuỗi ký tự</text><text x="380" y="106">Tập shingle</text><text x="380" y="149">Các đoạn con</text><text x="653" y="106">Chữ ký</text><text x="653" y="149">n thành phần</text><text x="950" y="106">Tỷ lệ trùng</text><text x="950" y="149">cùng tọa độ</text></g>
+<g stroke="#2f3e7a" stroke-width="3" marker-end="url(#arrow)"><path d="M217 112H263"/><path d="M495 112H543"/><path d="M760 112H805"/></g>
+</g></svg>

@@ -950,3 +950,19 @@
 
 /* Bài 04: chừa vùng dữ kiện và sản phẩm dưới sơ đồ chuỗi bài tập. */
 .reveal.lecture-pagerank-advanced .l04-chain-diagram { height:160px; }
+
+/* Bài 05: bố cục và kích thước hình; giữ thang chữ của course-deck. */
+.reveal.lecture-minhash .mh-figure { margin: 12px 0; }
+.reveal.lecture-minhash .mh-figure img { display: block; width: 100%; max-height: 340px; margin: 0 auto; object-fit: contain; }
+.reveal.lecture-minhash .mh-short img { max-height: 225px; }
+.reveal.lecture-minhash .mh-wide img { max-height: 280px; }
+.reveal.lecture-minhash .mh-matrix-split { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); align-items: center; }
+.reveal.lecture-minhash .mh-near-equal { grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr); align-items: center; }
+.reveal.lecture-minhash .ex-table th[scope="row"] { white-space: nowrap; }
+.reveal.lecture-minhash .ex-grid2 > div { min-width: 0; }
+.reveal.lecture-minhash .mh-figure + .ex-equation { margin-top: 8px; }
+
+/* Bài 05: dấu nhận diện ô đầu và vùng an toàn của điều khiển. */
+.reveal.lecture-minhash .ex-table .mh-selected { outline: 3px solid #2f3e7a; outline-offset: -3px; font-weight: 700; background: #edf4ff; }
+.reveal.lecture-minhash .mh-inset { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
+.reveal.lecture-minhash .mh-trace td { white-space: nowrap; }

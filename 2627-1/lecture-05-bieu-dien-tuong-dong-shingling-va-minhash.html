@@ -1,751 +1,407 @@
 <!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>Bài 5: Biểu diễn tương đồng — Shingling và MinHash</title>
-<link rel="stylesheet" href="revealjs/dist/reset.css"/>
-<link rel="stylesheet" href="revealjs/dist/reveal.css"/>
-<link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
-<link rel="stylesheet" href="plugin/highlight/monokai.css"/>
-<link rel="stylesheet" href="lecture-style.css"/>
-<style>
-.reveal .slides section[data-slide-id]{font-size:.82em}.reveal h1,.reveal h2{color:#2f3e7a}.reveal h3{color:#37474f}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.72em}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.55em}.card{border:2px solid #cfd8dc;border-radius:12px;padding:.42em .62em;background:#fff}.card.accent{border-left:7px solid #b15a2b;background:#fffaf5}.check{background:#edf4ff;border:2px solid #2f3e7a;border-radius:10px;padding:.35em .55em;margin-top:.45em}.formula{font-size:1.06em;text-align:center;padding:.14em}.tight li{margin:.08em 0}.muted{color:#546e7a}.big{font-size:1.13em}.trace{border-collapse:collapse;width:100%;font-size:.94em}.trace th,.trace td{border:1px solid #b0bec5;padding:.22em .28em;text-align:center}.trace th{background:#edf4ff}.trace.compact{font-size:.92em}.figure{display:block;max-height:400px;max-width:96%;margin:.12em auto}.figure.short{max-height:330px}pre{width:96%;font-size:.92em!important}.reveal .slides section.recitation{border-top:8px solid #b15a2b}.task{background:#fffaf5;border-left:7px solid #b15a2b;padding:.3em .6em}.warn{border-left:7px solid #c62828;background:#fff4f4;padding:.34em .6em}.ok{border-left:7px solid #2e7d32;background:#f2fbf3;padding:.34em .6em}
-</style>
-</head>
-<body>
-<div class="reveal">
-<div class="slides">
+<html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 05 — Biểu diễn tương đồng: Shingling và MinHash</title>
+<meta name="description" content="Jaccard, shingling, MinHash và thuật toán tính chữ ký — Giải thuật nền tảng của Khoa học dữ liệu, học kỳ 1 năm học 2026–2027.">
+<link rel="stylesheet" href="revealjs/dist/reset.css"><link rel="stylesheet" href="revealjs/dist/reveal.css">
+<link rel="stylesheet" href="revealjs/dist/theme/white.css"><link rel="stylesheet" href="plugin/highlight/monokai.css">
+<link rel="stylesheet" href="lecture-style.css">
+</head><body><div class="reveal course-deck lecture-minhash"><div class="slides">
 <section>
-<section data-slide-id="P00">
-<h1>Biểu diễn tương đồng: Shingling và MinHash</h1>
-<h3>Bài 5 · Giải thuật nền tảng của Khoa học dữ liệu</h3>
-<p>Năm học 2026–2027 · Học kỳ 1</p>
-<p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
-<aside class="notes">Bài này mở mạch tương đồng và hàng xóm gần. Ta chuyển tài liệu thành tập shingle, đo bằng Jaccard, rồi nén tập thành chữ ký MinHash. Nguồn chính: MMDS 3e, mục 3.1–3.3; slide MMDS Chương 3, http://www.mmds.org.</aside>
+<section id="lec05-s01-01" data-slide-id="lec05-s01-01" class="title-slide">
+<h1 class="lecture-title">Biểu diễn tương đồng: Shingling và MinHash</h1>
+<p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p><p class="term-name">Bài 05 · Học kỳ 1 · Năm học 2026–2027</p>
+
+<aside class="notes"><p>Bài 05 mở mạch tương đồng và hàng xóm gần. Phạm vi gồm Jaccard, shingling và MinHash theo Chương 3, mục 3.1–3.3 của Mining of Massive Datasets (MMDS). Kết quả là một biểu diễn để ước lượng tương đồng giữa hai tài liệu; lựa chọn cặp ứng viên thuộc bài kế tiếp.</p></aside>
 </section>
-<section data-slide-id="P01">
-<h2>Mục tiêu học tập</h2>
-<ul>
-<li>Tạo tập $k$-shingle từ tài liệu đã chuẩn hóa.</li>
-<li>Tính và diễn giải độ tương đồng Jaccard.</li>
-<li>Chứng minh xác suất trùng MinHash bằng Jaccard.</li>
-<li>Lập chữ ký bằng một lượt quét ma trận thưa.</li>
-<li>Phân biệt hoán vị lý tưởng với hàm băm thực hành.</li>
-</ul>
-<p class="muted">Tiên quyết: tập hợp, kỳ vọng, phương sai, độc lập, hàm băm và ma trận thưa.</p>
-<aside class="notes">Phạm vi dừng trước LSH; LSH thuộc Bài 6. Mỗi mục tiêu có một phép tính hoặc lập luận kiểm tra được.</aside>
+<section id="lec05-s01-02" data-slide-id="lec05-s01-02" class="agenda-slide">
+<h2>Nội dung</h2>
+<ul><li>Giới thiệu và tương đồng tập hợp</li><li>Shingling văn bản</li><li>MinHash theo hoán vị</li><li>Chữ ký MinHash</li><li>Tính chữ ký và giới hạn</li><li>Tổng kết</li><li>Bài tập vận dụng</li></ul>
+
+<aside class="notes"><p>Jaccard xác định đại lượng cần đo. Shingling chuyển chuỗi thành tập; MinHash liên hệ độ tương đồng tập với xác suất trùng. Nhiều thành phần tạo chữ ký, còn phép quét hàng tính chữ ký. Phần bài tập sử dụng trực tiếp năm bài trong sách.</p></aside>
 </section>
-<section data-slide-id="M00">
-<h1>Phát hiện tài liệu gần trùng ở quy mô lớn</h1>
-<img class="figure" src="img/lec-05/quy-mo-so-sanh-cap.svg" role="img" alt="Một triệu tài liệu tạo xấp xỉ năm trăm tỷ cặp, cần shingle và MinHash."/>
-<aside class="notes">Với $N=10^6$, số cặp là $N(N-1)/2=499.999.500.000$. MMDS Chương 3, trang chiếu 15 và 24, đặt bài toán hàng triệu tài liệu và nút thắt so sánh từng cặp; Stanford CS246 03, trang 14 chỉ dùng để đối chiếu cách trình bày. Đầu ra cần là các cặp gần trùng.</aside>
+<section id="lec05-s01-03" data-slide-id="lec05-s01-03" class="example-slide">
+<h2>Mục tiêu và kiến thức đầu vào</h2>
+<div class="ex-grid2 "><div><ul><li>Tạo tập shingle và tính Jaccard.</li><li>Giải thích xác suất trùng MinHash.</li><li>Tính chữ ký và phân tích chi phí.</li></ul></div><div><div class="ex-card"><p class="ex-takeaway">Kiến thức đầu vào</p><ul><li>Tập hợp và chuỗi.</li><li>Hàm băm và vector.</li><li>Xác suất, kỳ vọng và phương sai.</li></ul></div></div></div>
+
+<aside class="notes"><p>Phép giao và hợp được dùng để định nghĩa Jaccard. Thứ tự và phần tử nhỏ nhất được dùng trong MinHash. Kỳ vọng và phương sai của biến chỉ báo được nhắc lại khi đánh giá chữ ký. Thuật toán cuối bài chỉ cần vòng lặp, ma trận và phép lấy cực tiểu.</p></aside>
 </section>
-<section data-slide-id="M01">
-<h2>Bài toán và giới hạn</h2>
-<div class="grid2">
-<div class="card">
-<h3>Đầu vào</h3>
-<p>$N$ tài liệu, đọc tuần tự theo luồng.</p>
-</div>
-<div class="card accent">
-<h3>Đầu ra trung gian</h3>
-<p>Mỗi tài liệu có một biểu diễn nhỏ, giữ tương đồng từ vựng.</p>
-<p>Bài này chưa duyệt $\Theta(N^2)$ cặp.</p>
-</div>
-</div>
-<aside class="notes">Bài 5 xây biểu diễn và ước lượng tương đồng cho một cặp tài liệu đã chọn. Việc tạo tập ứng viên thuộc Bài 6. Nguồn: MMDS mục 3.1–3.3, trang in 73–91.</aside>
+<section id="lec05-s01-04" data-slide-id="lec05-s01-04" class="motivation-slide">
+<h2>Tài liệu gần trùng</h2>
+<div class="ex-grid2 mh-near-equal"><div><figure class="mh-figure "><img src="img/lec-05/tai-lieu-gan-trung.svg" alt="Hai tài liệu có phần văn bản chung và các phần riêng."></figure></div><div><p>Đầu vào: kho trang phản chiếu hoặc các bản tin cùng nguồn.</p><p>Đầu ra: độ tương đồng văn bản của các cặp tài liệu.</p><p>Các phiên bản có thể thay tên máy chủ, lược đoạn hoặc thêm nội dung.</p></div></div>
+<p class="ex-source">Mining of Massive Datasets (MMDS), ấn bản 3, Chương 3, tr. 73–76.</p>
+<aside class="notes"><p>Sách mô tả trang phản chiếu khác thông tin máy chủ và bản tin được nhiều báo đăng lại với phần nội dung cốt lõi chung. So sánh từng ký tự chỉ kiểm tra trùng hoàn toàn. Bài toán ở đây cần một đại lượng dựa trên phần văn bản chung. Đại lượng ấy không đồng nghĩa với mức giống nhau về ý nghĩa.</p><p>Nguồn: Mining of Massive Datasets (MMDS), ấn bản 3, Chương 3, tr. 73–76.</p></aside>
 </section>
-<section data-slide-id="M02">
-<h2>Luồng biểu diễn: tài liệu → shingle → chữ ký</h2>
-<div class="pipeline">
-<div class="stage">
-<div class="stage-title">Tài liệu</div>
-<div class="stage-desc">chuỗi ký tự</div>
-</div>
-<div class="arrow">→</div>
-<div class="stage">
-<div class="stage-title">$C_i$</div>
-<div class="stage-desc">tập shingle của $D_i$</div>
-</div>
-<div class="arrow">→</div>
-<div class="stage">
-<div class="stage-title">$\sigma(C_i)$</div>
-<div class="stage-desc">chữ ký MinHash</div>
-</div>
-</div>
-<p class="muted">$J(C_1,C_2)$ và tỷ lệ hàng chữ ký trùng là phép so sánh hai biểu diễn.</p>
-<aside class="notes">Luồng dữ liệu là $D_i\to C_i\to\sigma(C_i)$. Jaccard không phải đầu vào của MinHash. Ta dùng $J(C_1,C_2)$ để kiểm chứng tỷ lệ hàng trùng của hai chữ ký. Không lẫn hàm băm shingle với hàm băm hàng.</aside>
+<section id="lec05-s01-05" data-slide-id="lec05-s01-05" class="cost-slide">
+<h2>Chi phí so sánh từng cặp</h2>
+<p>Kho gồm \(C\) tài liệu; xét các cặp không thứ tự.</p><p class="ex-equation">\[\binom C2=\frac{C(C-1)}2\]</p><p class="ex-equation">\[C=10^6\quad\Longrightarrow\quad499\,999\,500\,000\text{ cặp}\]</p><figure class="mh-figure mh-short"><img src="img/lec-05/quy-mo-so-sanh-cap.svg" alt="Tổng công việc bằng số cặp nhân chi phí của một cặp."></figure>
+<p class="ex-source">MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.</p>
+<aside class="notes"><p>Mỗi tài liệu ghép với \(C-1\) tài liệu khác. Phép đếm \(C(C-1)\) đếm mỗi cặp hai lần, nên chia 2. Con số một triệu tài liệu xuất phát từ mở đầu chương; kết quả chính xác là phép tính từ dữ kiện ấy. Bài 05 giảm kích thước biểu diễn và công việc cho một cặp; số cặp chỉ giảm khi có bước lựa chọn ứng viên.</p><p>Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.</p></aside>
 </section>
-<section data-slide-id="M03">
-<h2>Ba bài toán nối tiếp</h2>
-<div class="grid3">
-<div class="card">
-<h3>Biểu diễn</h3>
-<p>Đoạn văn giống nhau tạo phần tử chung.</p>
-</div>
-<div class="card">
-<h3>Độ đo</h3>
-<p>Phần chung được chuẩn hóa theo phần xuất hiện.</p>
-</div>
-<div class="card accent">
-<h3>Nén</h3>
-<p>Một phép thử ngẫu nhiên giữ xác suất của tỷ lệ đó.</p>
-</div>
-</div>
-<aside class="notes">Câu trả lời lần lượt là shingling, Jaccard và MinHash. Với Ví dụ 3.3, theo dõi từng cửa sổ và nhấn mạnh shingle <code>ab</code> chỉ xuất hiện một lần trong tập.</aside>
+<section id="lec05-s01-06" data-slide-id="lec05-s01-06" class="example-slide">
+<h2>Phần tử chung của hai tập hợp</h2>
+<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T."></figure></div><div><p class="ex-equation">\[|S\cap T|=3\]</p><p class="ex-equation">\[|S\cup T|=2+3+3=8\]</p><p class="ex-takeaway">Mỗi phần tử chung được đếm một lần trong hợp.</p></div></div>
+<p class="ex-source">Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p>
+<aside class="notes"><p>Mỗi phần tử được đếm một lần trong hợp, kể cả khi nó thuộc cả hai tập. Số phần tử giao cho biết lượng chung; chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Hình thể hiện quan hệ thuộc tập, không dùng diện tích vùng tròn để biểu diễn số lượng.</p><p>Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p></aside>
 </section>
-</section>
-<section>
-<section data-slide-id="S00">
-<h1>Tạo tập shingle</h1>
-<p class="big">Các đoạn con chung giữ dấu vết của cụm từ chung, kể cả khi nằm ở vị trí khác nhau.</p>
-<aside class="notes">Đây là tương đồng từ vựng, không phải tương đồng ngữ nghĩa. Nguồn: MMDS mục 3.2, trang in 78.</aside>
-</section>
-<section data-slide-id="S04">
-<h2>Chuẩn hóa khoảng trắng thuộc đặc tả</h2>
-<ul>
-<li>Thay một dãy khoảng trắng bằng một dấu cách để giữ biên từ.</li>
-<li>Loại toàn bộ khoảng trắng có thể tạo shingle chung giả.</li>
-<li>Dùng một quy tắc cho toàn bộ kho tài liệu.</li>
-</ul>
-<div class="warn">
-<p>“touch down” và “touchdown” trở nên giống nhau nếu xóa khoảng trắng.</p>
-</div>
-<aside class="notes">Ta phải chốt chuỗi đầu vào trước khi quét cửa sổ. Ví dụ nguồn dùng $k=9$. Nguồn: MMDS Ví dụ 3.4, trang in 78–79.</aside>
-</section>
-<section data-slide-id="S02">
-<h2>Ví dụ 3.3: cửa sổ dài hai</h2>
-<img class="figure" src="img/lec-05/cua-so-shingle.svg" role="img" alt="Chuỗi abcdabd tạo tập 2-shingle gồm ab, bc, cd, da và bd."/>
-<aside class="notes">Quét sáu cửa sổ: ab, bc, cd, da, ab, bd. Đầu ra là tập nên ab chỉ xuất hiện một lần. Nguồn: MMDS Ví dụ 3.3, trang in 78.</aside>
-</section>
-<section data-slide-id="S01">
-<h2>Đặc tả $k$-shingle</h2>
-<div class="grid2">
-<div class="card">
-<h3>Đầu vào</h3>
-<p>Chuỗi byte $D$ đã chuẩn hóa theo quy tắc vừa chọn, dài $n$; $k\ge1$.</p>
-</div>
-<div class="card accent">
-<h3>Đầu ra</h3>
-<p>$S_k(D)=\{D[i:i+k]\mid0\le i\le n-k\}$ nếu $k\le n$.</p>
-<p>$S_k(D)=\varnothing$ nếu $k&gt;n$.</p>
-</div>
-</div>
-<p class="muted">Tập chỉ giữ một bản của mỗi đoạn con.</p>
-<aside class="notes">Miền chỉ số nửa mở. Trường hợp $k&gt;n$ được viết rõ để hoàn chỉnh đặc tả. Nguồn: MMDS mục 3.2.1.</aside>
-</section>
-<section data-slide-id="S03">
-<h2>Thuật toán quét một lượt</h2>
-<pre>
-<code class="language-text">đầu vào: D[0..n−1], k ≥ 1
-C ← tập rỗng
-nếu k &gt; n thì trả C
-cho i = 0,…,n−k:
-  thêm D[i:i+k] vào C
-trả C</code>
-</pre>
-<div class="grid2">
-<div class="card">
-<p>
-<strong>Bất biến:</strong> trước vòng $i$, $C$ chứa đúng các shingle bắt đầu trước $i$.</p>
-</div>
-<div class="card">
-<p>
-<strong>Dừng:</strong> sau $n-k+1$ cửa sổ, mọi vị trí hợp lệ đã được xét.</p>
-</div>
-</div>
-<p class="muted">Tạo hoặc băm trực tiếp: $\Theta(1+k\max(0,n-k+1))$ thời gian; bộ nhớ theo số shingle phân biệt.</p>
-<aside class="notes">Điều kiện sau là $C=S_k(D)$. Mỗi vòng tăng $i$, nên thuật toán dừng. Phép kiểm tra biên khi $k&gt;n$ tốn $\Theta(1)$. Nếu $k\le n$, tạo hoặc băm trực tiếp từng cửa sổ tốn $\Theta(k)$, nên tổng là $\Theta(k(n-k+1))$. Vết chạy ngắn: chuỗi abcdabd với $k=2$ cho sáu cửa sổ ab, bc, cd, da, ab, bd; tập kết quả có năm phần tử. Băm lăn có thể giảm phần cập nhật mã của mỗi cửa sổ, nhưng vẫn phải kiểm soát va chạm. Bộ nhớ là tổng kích thước các shingle phân biệt, hoặc số mã phân biệt khi lưu mã.</aside>
-</section>
-<section data-slide-id="S05">
-<h2>Chọn $k$ để shingle đủ phân biệt</h2>
-<div class="grid2">
-<div class="card">
-<h3>$k$ quá nhỏ</h3>
-<p>Tài liệu không liên quan vẫn chia sẻ nhiều shingle.</p>
-</div>
-<div class="card accent">
-<h3>$k$ lớn hơn</h3>
-<p>Đoạn chung mang nhiều ngữ cảnh hơn.</p>
-</div>
-</div>
-<p class="formula">$|S_k(D)|\le\max(0,n-k+1)$</p>
-<aside class="notes">Sách gợi ý $k=5$ cho email và $k=9$ cho tài liệu dài trong mô hình ký tự tiếng Anh; không coi đó là hằng số phổ quát. Nguồn: MMDS mục 3.2.2.</aside>
-</section>
-<section data-slide-id="S06">
-<h2>Băm shingle không đồng nghĩa giảm $k$</h2>
-<div class="grid2">
-<div class="card">
-<h3>Đoạn dài</h3>
-<p>Tạo 9-shingle để có sức phân biệt.</p>
-</div>
-<div class="card accent">
-<h3>Mã gọn</h3>
-<p>Băm 9-shingle về số nguyên 32 bit.</p>
-</div>
-</div>
-<p class="muted">Va chạm có thể nhập hai shingle khác nhau.</p>
-<div class="check">
-<strong>Câu hỏi:</strong> 4-shingle và mã 32 bit của 9-shingle có cùng lượng thông tin không?</div>
-<aside class="notes">Đáp án: không. Kích thước lưu có thể bằng nhau, nhưng shingle dài phân biệt tốt hơn trước khi băm. Sau khi mỗi tài liệu được biểu diễn thành một tập shingle, hệ số Jaccard đo phần chung so với phần xuất hiện của hai tập. Nguồn: MMDS mục 3.2.3.</aside>
-</section>
-</section>
-<section>
-<section data-slide-id="J02">
-<h1>Phần chung trên phần xuất hiện</h1>
-<img class="figure short" src="img/lec-05/jaccard-ba-vung.svg" role="img" alt="Hai tập chia thành vùng giao X, vùng chỉ thuộc một tập Y và vùng ngoài Z."/>
-<p class="formula">$x=|C_1\cap C_2|,\quad y=|C_1\triangle C_2|$</p>
-<aside class="notes">Hàng X có 1 ở cả hai cột; Y có đúng một số 1; Z có hai số 0. Tỷ lệ cần đo chỉ phụ thuộc X và Y. Ký hiệu $x,y$ được giữ sang chứng minh MinHash. Nguồn: MMDS mục 3.1.1 và 3.3.3.</aside>
-</section>
-<section data-slide-id="J03">
-<h2>Ví dụ 3.1: ba phần tử chung</h2>
-<div class="grid3">
-<div class="card"><h3>Phần giao</h3><p class="formula">$|S\cap T|=3$</p></div>
-<div class="card"><h3>Phần hợp</h3><p class="formula">$|S\cup T|=8$</p></div>
-<div class="card accent"><h3>Tỷ lệ</h3><p class="formula">$3/8$</p></div>
-</div>
-<aside class="notes">Đếm ba phần tử trong giao và tám phần tử trong hợp, nên tỷ lệ là $3/8$. Đây là Ví dụ 3.1 của MMDS, trang in 74. Dữ kiện Bài tập 3.1.1 chỉ xuất hiện ở phần recitation.</aside>
-</section>
-<section data-slide-id="J00">
+<section id="lec05-s01-07" data-slide-id="lec05-s01-07" class="example-slide">
 <h2>Độ tương đồng Jaccard</h2>
-<p class="formula">$J(C_1,C_2)=\frac{|C_1\cap C_2|}{|C_1\cup C_2|}=\frac{x}{x+y}$</p>
-<aside class="notes">Jaccard đo tỷ lệ phần tử chung trong các phần tử xuất hiện ở ít nhất một tập. Công thức gọi tên trực giác và ví dụ vừa dùng. Nguồn: MMDS mục 3.1.1, trang in 74.</aside>
+<p>Hai tập hữu hạn \(S,T\) với \(S\cup T\ne\varnothing\).</p><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}\]</p><div class="ex-grid2 "><div><figure class="mh-figure mh-short"><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hợp có tám phần tử; giao có ba phần tử."></figure></div><div><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac38\]</p><p class="ex-takeaway">\(0\le\mathrm{SIM}(S,T)\le1\).</p></div></div>
+<p class="ex-source">MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.</p>
+<aside class="notes"><p>Giao là tập con của hợp nên tỷ số nằm trong đoạn từ 0 đến 1. Hai tập rời có hợp khác rỗng cho giá trị 0. Hai tập bằng nhau và khác rỗng cho giá trị 1. Khi cả hai tập rỗng, biểu thức là \(0/0\); định nghĩa hiện tại không áp dụng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.</p><p>Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.</p></aside>
 </section>
-<section data-slide-id="J01">
-<h2>Miền và trường hợp biên</h2>
-<ul>
-<li>$U$ hữu hạn; $C_1,C_2\subseteq U$ và $C_1\cup C_2\ne\varnothing$.</li>
-<li>$0\le J(C_1,C_2)\le1$.</li>
-<li>$J=1$ khi hai tập bằng nhau và không rỗng.</li>
-<li>$J=0$ khi hai tập rời nhau và có ít nhất một tập không rỗng.</li>
-</ul>
-<aside class="notes">Không gán ngầm $J(\varnothing,\varnothing)$. Quy ước của bài: trả “không xác định” vì tài liệu ngắn hơn $k$ có thể cho tập shingle rỗng.</aside>
+<section id="lec05-s01-08" data-slide-id="lec05-s01-08" class="example-slide">
+<h2>Tập hợp trong ứng dụng</h2>
+<div class="ex-grid2 "><div><div class="ex-card"><p class="ex-takeaway">Văn bản</p><p>Phần tử là đặc trưng văn bản.</p></div></div><div><div class="ex-card"><p class="ex-takeaway">Khách hàng</p><p>Phần tử có thể là mặt hàng đã mua.</p></div></div></div><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}\]</p><p class="ex-takeaway">Giao và hợp được xác định trên những phần tử đã chọn.</p>
+<p class="ex-source">MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.</p>
+<aside class="notes"><p>Ví dụ mua hàng trong sách biểu diễn một khách hàng bằng tập mặt hàng. Với văn bản, phần tử phải giữ được dấu vết các đoạn chung; dùng trực tiếp độ dài tài liệu không tạo được tập phù hợp. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần. Biến thể đa tập của sách được tách thành đọc thêm với quy ước riêng.</p><p>Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.</p></aside>
 </section>
-<section data-slide-id="J04">
-<h2>Tính trực tiếp trên danh sách đã sắp</h2>
-<pre>
-<code class="language-text">đầu vào: C1,C2 tăng dần, không lặp
-(i,j,giao,hợp) ← (0,0,0,0)
-trong khi i&lt;|C1| và j&lt;|C2|:
-  nếu C1[i]=C2[j]: tăng i,j,giao,hợp
-  ngược lại nếu C1[i]&lt;C2[j]: tăng i,hợp
-  ngược lại: tăng j,hợp
-cộng phần tử còn lại vào hợp
-trả giao/hợp nếu hợp&gt;0; nếu không, trả “không xác định”</code>
-</pre>
-<p class="muted">Thời gian trường hợp xấu nhất $\Theta(|C_1|+|C_2|)$; bộ nhớ phụ $O(1)$.</p>
-<aside class="notes">Ba nhánh loại trừ nhau, nên mỗi vòng chỉ cập nhật một trường hợp. Bất biến: các biến mô tả đúng hai tiền tố đã xử lý. Mỗi vòng tăng ít nhất một chỉ số. Sau vòng lặp, cộng phần đuôi chưa xử lý. Nếu hợp rỗng, trả “không xác định”, không chia cho 0. Danh sách sắp được dựng một lần khi tạo tập shingle và dùng lại cho mọi cặp so sánh; chi phí dựng không tính vào mỗi phép so.</aside>
-</section>
-<section data-slide-id="J05">
-<h2>Đo một cặp nhanh vẫn chưa đủ</h2>
-<div class="grid2">
-<div class="card">
-<h3>Mỗi cặp</h3>
-<p>Tuyến tính theo tổng kích thước hai tập.</p>
-</div>
-<div class="card accent">
-<h3>Mọi cặp</h3>
-<p>$\binom N2$ phép so sánh, chưa kể I/O.</p>
-</div>
-</div>
-<div class="check">
-<strong>Câu hỏi:</strong> bước nào giảm kích thước, bước nào giảm số cặp?</div>
-<aside class="notes">MinHash giảm kích thước biểu diễn. Vì mỗi phép so sánh vẫn tốn thời gian tuyến tính theo độ dài hai biểu diễn, việc giảm số cặp ứng viên là nhiệm vụ của LSH ở Bài 6. Nguồn: MMDS ghi chú cuối mục 3.3.1, trang in 81.</aside>
+<section id="lec05-s01-09" data-slide-id="lec05-s01-09" class="example-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hình có ba phần tử thuộc giao và tám phần tử thuộc hợp."></figure></div><div><p class="ex-takeaway">Câu hỏi:</p><ol><li>Tính Jaccard của hai tập trong hình.</li><li>Xác định điều còn phải quy định để áp dụng công thức cho một văn bản.</li></ol></div></div>
+<p class="ex-source">Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p>
+<aside class="notes"><p>Jaccard bằng \(3/8\). Để áp dụng cho văn bản, cần quy tắc chuyển chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp dài cố định. Độ dài chuỗi tự nó không xác định giao và hợp giữa hai văn bản.</p><p>Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p></aside>
 </section>
 </section>
 <section>
-<section data-slide-id="H00">
-<h1>MinHash lý tưởng</h1>
-<p class="big">Một hoán vị đều của vũ trụ chọn phần tử đứng sớm nhất trong mỗi tập.</p>
-<p class="muted">Bước giảm kích thước: thay tập bằng chữ ký ngắn.</p>
-<aside class="notes">Nguồn chính: MMDS mục 3.3.1–3.3.3 và slide MMDS Chương 3, trang 32–35. Stanford CS246 03, trang 26–27 chỉ dùng đối chiếu hình quét; trang 28 chỉ xác nhận có thể lưu nhãn hàng hoặc hạng trong hoán vị nếu nhất quán.</aside>
+<section id="lec05-s02-01" data-slide-id="lec05-s02-01" class="example-slide">
+<h2>Shingle của văn bản</h2>
+<p>Một \(k\)-shingle là một đoạn gồm \(k\) ký tự liên tiếp.</p><figure class="mh-figure mh-wide"><img src="img/lec-05/cua-so-shingle.svg" alt="Sáu cửa sổ dài hai của chuỗi abcdabd; cửa sổ ab xuất hiện hai lần."></figure><p class="ex-takeaway">Tài liệu được biểu diễn bằng tập các \(k\)-shingle xuất hiện trong nó.</p><p class="ex-note">Quy tắc xử lý khoảng trắng được dùng nhất quán.</p>
+<p class="ex-source">MMDS 3e, §3.2.1, tr. 78–79.</p>
+<aside class="notes"><p>Các phiên bản có thể thay một phần câu hoặc đổi vị trí đoạn. Những đoạn con nằm hoàn toàn trong phần giữ nguyên vẫn có thể xuất hiện ở cả hai bản. Shingling giữ thứ tự cục bộ trong mỗi đoạn con nhưng tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.</p><p>Nguồn: MMDS 3e, §3.2.1, tr. 78–79.</p></aside>
 </section>
-<section data-slide-id="H01">
-<h2>Ma trận đặc trưng chỉ là mô hình</h2>
-<div class="grid2">
-<div class="card">
-<h3>Hàng</h3>
-<p>Mỗi phần tử của vũ trụ hữu hạn $U$ là một hàng; $u=|U|$.</p>
-</div>
-<div class="card">
-<h3>Cột</h3>
-<p>Mỗi tập $C_j$ là một cột; ô $(r,j)$ bằng 1 khi hàng $r$ thuộc $C_j$.</p>
-</div>
-</div>
-<p class="muted">Ma trận thường rất thưa; triển khai lưu vị trí các số 1.</p>
-<aside class="notes">MMDS Hình 3.2 dùng bốn tập trên năm phần tử. Nguồn: mục 3.3.1, trang in 81–82.</aside>
+<section id="lec05-s02-02" data-slide-id="lec05-s02-02" class="example-slide">
+<h2>Ví dụ tạo shingle</h2>
+<p class="ex-equation">\[D=\texttt{abcdabd},\qquad k=2\]</p><figure class="mh-figure mh-wide"><img src="img/lec-05/cua-so-shingle.svg" alt="Sáu cửa sổ ab, bc, cd, da, ab, bd tạo năm shingle phân biệt."></figure><p class="ex-equation">\[S_2(D)=\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da},\texttt{bd}\}\]</p>
+<p class="ex-source">MMDS 3e, Ví dụ 3.3, tr. 78.</p>
+<aside class="notes"><p>Chuỗi có bảy ký tự và sáu vị trí bắt đầu cho cửa sổ hai ký tự. Cửa sổ đầu và cửa sổ thứ năm cùng là <code>ab</code>, nên phép chèn vào tập ở lần thứ năm không tăng kích thước tập. Kết quả có năm phần tử phân biệt. Thứ tự liệt kê trong tập không biểu thị thứ tự xuất hiện.</p><p>Nguồn: MMDS 3e, Ví dụ 3.3, tr. 78.</p></aside>
 </section>
-<section data-slide-id="H03">
-<h2>Ví dụ 3.7: thứ tự $b,e,a,d,c$</h2>
-<img class="figure" src="img/lec-05/minhash-hoan-vi.svg" role="img" alt="Ma trận quét theo b,e,a,d,c cho MinHash lần lượt a,c,b,a."/>
-<aside class="notes">$S_3$ gặp 1 ở b; $S_1,S_4$ gặp ở a; $S_2$ gặp ở c. Các hàng này lần lượt cho giá trị MinHash $h(S)$ của bốn tập. Hình vẽ lại từ MMDS Hình 3.3, trang in 82–83.</aside>
+<section id="lec05-s02-03" data-slide-id="lec05-s02-03" class="example-slide">
+<h2>Đặc tả tập shingle</h2>
+<p>\(D\) là chuỗi dài \(\ell\); \(k\ge1\) là số nguyên. Chỉ số ký tự bắt đầu từ \(0\).</p><p class="ex-equation">\[S_k(D)=\{D[i:i+k]:0\le i\le\ell-k\}\]</p><p>\(D[i:i+k]\) chứa các vị trí \(i,i+1,\ldots,i+k-1\); không lấy vị trí \(i+k\).</p><div class="ex-card"><p>Nếu \(\ell&lt;k\), không có cửa sổ hợp lệ và \(S_k(D)=\varnothing\).</p></div>
+<p class="ex-source">MMDS 3e, §3.2.1; hình thức hóa chỉ số theo định nghĩa nguồn.</p>
+<aside class="notes"><p>Có \(\ell-k+1\) vị trí hợp lệ khi \(k\le\ell\). Với dữ liệu trước, \(\ell=7, k=2\), miền chỉ số là 0 đến 5. Một phần tử của tập là chuỗi con, không phải chỉ số vị trí. Nếu tài liệu ngắn hơn k, không có vị trí bắt đầu hợp lệ; trường hợp này cần được tách trước khi dùng định lý MinHash cho tập không rỗng.</p><p>Nguồn: MMDS 3e, §3.2.1; hình thức hóa chỉ số theo định nghĩa nguồn.</p></aside>
 </section>
-<section data-slide-id="H02">
-<h2>Đặc tả một hàm MinHash</h2>
-<p class="formula">$h_\pi(C)=\operatorname*{arg\,min}_{r\in C}\pi(r)$</p>
-<div class="grid2">
-<div class="card">
-<p>
-<strong>Điều kiện trước:</strong> $\varnothing\ne C\subseteq U$; $\pi$ là hoán vị của $U$.</p>
-</div>
-<div class="card accent">
-<p>
-<strong>Đầu ra:</strong> phần tử của $C$ xuất hiện sớm nhất theo $\pi$.</p>
-</div>
-</div>
-<aside class="notes">Có thể trả vị trí hoặc tên hàng, nhưng phép so sánh phải nhất quán. Tập rỗng không có MinHash hữu hạn. Nếu cài đặt dùng $\infty$ làm dấu canh, cột toàn $\infty$ không hợp lệ để ước lượng và không được tính $\infty=\infty$ là một hàng trùng. Nguồn: MMDS mục 3.3.2.</aside>
+<section id="lec05-s02-04" data-slide-id="lec05-s02-04" class="example-slide">
+<h2>Thuật toán tạo tập shingle</h2>
+<div class="ex-grid2 "><div><pre class="ex-code"><code class="language-plaintext" data-trim>S ← ∅
+for i = 0, …, ℓ − k:
+    chèn D[i:i+k] vào S
+return S</code></pre></div><div><p>Bất biến: tập S chứa đúng các cửa sổ đã xét.</p><p class="ex-equation">\[w=\max(0,\ell-k+1)\]</p><p>\(w\) là số cửa sổ; phần tử trùng chỉ được giữ một lần.</p></div></div><p class="ex-note">Tạo, băm và chèn khóa dài \(k\): \(O(k)\) kỳ vọng mỗi cửa sổ. Tổng: \(O(1+wk)\) kỳ vọng; lưu chuỗi: \(O(k|S|)\).</p>
+<p class="ex-source">Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.</p>
+<aside class="notes"><p>Sau i lần chèn, tập chứa đúng các chuỗi con tại i vị trí đầu đã duyệt. Bước kế tiếp thêm đúng một cửa sổ; phần tử trùng được tập giữ một lần. Khi hết miền chỉ số, tất cả cửa sổ hợp lệ đã được xét. Nếu tạo và băm trực tiếp một đoạn k ký tự tốn O(k), tổng xử lý cửa sổ là O(wk) kỳ vọng với tập băm có thao tác chèn kỳ vọng theo độ dài khóa; bộ nhớ lưu các chuỗi phân biệt là O(k|S|), chưa kể đầu vào. Không mặc định O(ℓ) nếu k thay đổi.</p><p>Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.</p></aside>
 </section>
-<section data-slide-id="H04">
-<h2>Mệnh đề bảo toàn xác suất</h2>
-<div class="ok">
-<p>Cho $C_1,C_2$ không rỗng. Nếu $\pi$ được chọn đều trên mọi hoán vị của $U$, thì</p>
-<p class="formula">$\Pr_\pi[h_\pi(C_1)=h_\pi(C_2)]=J(C_1,C_2)$</p>
-</div>
-<aside class="notes">Từ “đều” là giả thiết quyết định. Một hàm băm ngẫu nhiên bất kỳ chưa đủ. Nguồn: MMDS mục 3.3.3, trang in 83.</aside>
+<section id="lec05-s02-05" data-slide-id="lec05-s02-05" class="example-slide">
+<h2>Độ dài shingle</h2>
+<p class="ex-equation">\[27^5=14\,348\,907\]</p><p>Đó là số chuỗi dài 5 khả dĩ với 27 ký tự; văn bản tự nhiên không phân bố đều trên các chuỗi này.</p><table class="ex-table"><thead><tr><th scope="col">Kiểu tài liệu</th><th scope="col">Gợi ý của nguồn</th></tr></thead><tbody><tr><th scope="row">Thư điện tử</th><td>\(k=5\)</td></tr><tr><th scope="row">Tài liệu dài</th><td>\(k=9\)</td></tr></tbody></table><p class="ex-takeaway">Các giá trị trên là quy tắc kinh nghiệm, không phải ngưỡng bảo đảm.</p>
+<p class="ex-source">MMDS 3e, §3.2.2, tr. 79.</p>
+<aside class="notes"><p>Khi k nhỏ, vũ trụ shingle nhỏ và các tài liệu dài dễ có nhiều phần tử chung dù nội dung khác nhau. Sách dùng \(20^k\) như một ước tính thực dụng sau khi lưu ý phân bố ký tự không đều. Đây không phải mô hình xác suất đã kiểm chứng cho mọi ngôn ngữ. Việc chọn k phụ thuộc kiểu và độ dài tài liệu; các giá trị 5 và 9 không là ngưỡng định lý.</p><p>Nguồn: MMDS 3e, §3.2.2, tr. 79.</p></aside>
 </section>
-<section data-slide-id="H05">
-<h2>Bỏ hàng kiểu Z</h2>
-<p class="formula">$x=|C_1\cap C_2|,\qquad y=|C_1\triangle C_2|$</p>
-<ul>
-<li>Hàng X có 1 ở cả hai cột.</li>
-<li>Hàng Y có đúng một số 1.</li>
-<li>Hàng Z có hai số 0 và không thể là MinHash.</li>
-</ul>
-<aside class="notes">Bỏ Z khỏi thứ tự không đổi phần tử đầu tiên có 1. Chỉ còn $x+y$ hàng thuộc hợp. Nguồn: MMDS mục 3.3.3.</aside>
+<section id="lec05-s02-06" data-slide-id="lec05-s02-06" class="example-slide">
+<h2>Khoảng trắng trong shingle</h2>
+<p>Giữ \(k=9\); dấu cách là một ký tự.</p><table class="ex-table"><thead><tr><th scope="col">Chuỗi</th><th scope="col">Độ dài</th><th scope="col">Các cửa sổ</th></tr></thead><tbody><tr><th scope="row"><code>touch down</code></th><td>10</td><td><code>touch dow</code>, <code>ouch down</code></td></tr><tr><th scope="row"><code>touchdown</code></th><td>9</td><td><code>touchdown</code></td></tr></tbody></table><p class="ex-takeaway">Xử lý khoảng trắng theo cùng một quy tắc cho toàn bộ kho.</p>
+<p class="ex-source">MMDS 3e, Ví dụ 3.4, tr. 78.</p>
+<aside class="notes"><p>Dấu cách là một ký tự trong ví dụ. Chuỗi <code>touch down</code> dài mười ký tự, còn <code>touchdown</code> dài chín. Nếu xóa khoảng trắng trước khi tạo shingle, hai chuỗi trở thành như nhau. Sách đề nghị thường giữ ranh giới này và có thể chuẩn hóa nhiều ký tự trắng liên tiếp; lựa chọn phải thống nhất trước khi so sánh. Chuỗi nguồn được giữ nguyên để các phép đếm còn đúng.</p><p>Nguồn: MMDS 3e, Ví dụ 3.4, tr. 78.</p></aside>
 </section>
-<section data-slide-id="H06">
-<h2>Phần tử đầu tiên trong hợp là đều</h2>
-<p class="formula">$\Pr[\text{hàng đầu khác Z thuộc X}]=\frac{x}{x+y}$</p>
-<div class="grid2">
-<div class="card">
-<p>Thuộc X: hai cột gặp số 1 đầu tiên cùng hàng.</p>
-</div>
-<div class="card">
-<p>Thuộc Y: đúng một cột gặp số 1 và cột kia đi tiếp.</p>
-</div>
-</div>
-<aside class="notes">Vì $\pi$ đều, mỗi phần tử trong hợp có xác suất $1/(x+y)$ đứng đầu. Không cần giả định các hàng độc lập trong một hoán vị.</aside>
+<section id="lec05-s02-07" data-slide-id="lec05-s02-07" class="example-slide">
+<h2>Băm shingle</h2>
+<p class="ex-equation">\[9\text{ ký tự}\ \longrightarrow\ 32\text{ bit}=4\text{ byte}\]</p><p class="ex-takeaway">Độ dài shingle vẫn là \(k=9\).</p><div class="ex-grid2 "><div><div class="ex-card"><p>Băm shingle</p><p>Mã hóa từng chuỗi con bằng một mã ngắn.</p></div></div><div><div class="ex-card"><p>Va chạm</p><p>Hai shingle khác nhau có thể nhận cùng mã.</p></div></div></div><p class="ex-note">Jaccard của tập mã có thể khác Jaccard của tập chuỗi gốc.</p>
+<p class="ex-source">MMDS 3e, §3.2.3, tr. 79–80.</p>
+<aside class="notes"><p>Băm shingle tác động lên từng chuỗi con để giảm dung lượng một phần tử. MinHash ở phần sau tác động lên một tập để tạo chữ ký của tập; hai thao tác có miền vào khác nhau. Va chạm mã shingle gộp các phần tử vốn khác nhau. Vì vậy định lý MinHash được áp dụng trên tập phần tử đang thực sự sử dụng, không tự loại bỏ sai lệch đã xảy ra trong bước mã hóa.</p><p>Nguồn: MMDS 3e, §3.2.3, tr. 79–80.</p></aside>
 </section>
-<section data-slide-id="H07">
-<h2>Kết luận của chứng minh</h2>
-<p class="formula">$\Pr[h_\pi(C_1)=h_\pi(C_2)]=\frac{x}{x+y}=\frac{|C_1\cap C_2|}{|C_1\cup C_2|}$</p>
-<div class="check">
-<strong>Câu hỏi:</strong> hai tập rời nhau có thể cho hai MinHash bằng nhau dưới một hoán vị thật không?</div>
-<aside class="notes">Đáp án: không. Kết luận có thể hỏng với hàm băm thực hành có va chạm vì hai phần tử khác nhau có thể nhận cùng mã.</aside>
+<section id="lec05-s02-08" data-slide-id="lec05-s02-08" class="example-slide">
+<h2>Dung lượng tập shingle</h2>
+<p class="ex-equation">\[w=\max(0,\ell-k+1)\]</p><table class="ex-table"><thead><tr><th scope="col">Biểu diễn của <code>abcdabd</code>, \(k=2\)</th><th scope="col">Số lượng</th></tr></thead><tbody><tr><th scope="row">Cửa sổ</th><td>6</td></tr><tr><th scope="row">Shingle phân biệt</th><td>5</td></tr><tr><th scope="row">Mã phân biệt, nếu không có va chạm</th><td>5</td></tr></tbody></table><p class="ex-takeaway">Số mã phân biệt vẫn có thể tăng theo độ dài tài liệu.</p>
+<p class="ex-source">MMDS 3e, Ví dụ 3.3 và §3.2.3; đếm từ cửa sổ của nguồn.</p>
+<aside class="notes"><p>Mã băm ngắn xử lý độ dài của từng shingle. Hai shingle khác nhau có thể nhận cùng mã, nên số mã phân biệt không vượt số shingle phân biệt. Với năm shingle của ví dụ, tập mã có năm phần tử nếu không xảy ra va chạm. Băm từng phần tử chưa bảo đảm một kích thước tập cố định; chữ ký sẽ thay cả tập bằng một số thành phần đã chọn trước.</p><p>Nguồn: MMDS 3e, Ví dụ 3.3 và §3.2.3; đếm từ cửa sổ của nguồn.</p></aside>
 </section>
-<section data-slide-id="H08">
-<h2>Từ một phép thử đến chữ ký</h2>
-<p class="formula">$\sigma(C)=[h_{\pi_1}(C),\ldots,h_{\pi_p}(C)]^T$</p>
-<p class="formula">$\widehat J=\frac1p\sum_{i=1}^{p}\mathbf1[h_{\pi_i}(C_1)=h_{\pi_i}(C_2)]$</p>
-<aside class="notes">Dùng $p$ cho số hàng chữ ký. Các hoán vị $\pi_i$ được chọn độc lập và đều trong mô hình lý tưởng. Nguồn: MMDS mục 3.3.4.</aside>
-</section>
-<section data-slide-id="H09">
-<h2>Kỳ vọng đúng theo hai đơn vị</h2>
-<p class="formula">$X_i=\mathbf1[h_{\pi_i}(C_1)=h_{\pi_i}(C_2)]$</p>
-<div class="grid2">
-<div class="card">
-<h3>Số hàng trùng</h3>
-<p>$X=\sum_iX_i$ và $\mathbb E[X]=pJ$.</p>
-</div>
-<div class="card accent">
-<h3>Tỷ lệ hàng trùng</h3>
-<p>$\widehat J=X/p$ và $\mathbb E[\widehat J]=J$.</p>
-</div>
-</div>
-<aside class="notes">Sửa đơn vị so với một câu thiếu hệ số trong bản sách. Tuyến tính kỳ vọng không cần độc lập; độc lập cần cho phương sai. Tiên quyết ở mức vừa đủ: kỳ vọng, phương sai và độc lập của biến ngẫu nhiên Bernoulli.</aside>
-</section>
-<section data-slide-id="G07">
-<h2>Chọn $p$ theo sai số và chi phí</h2>
-<p class="formula">$\operatorname{Var}(\widehat J)=\frac{J(1-J)}p\le\frac1{4p}$</p>
-<p class="muted">Công thức cần các hoán vị độc lập và đều trong mô hình lý tưởng.</p>
-<div class="check">
-<strong>Câu hỏi:</strong> tăng $p$ làm giảm đại lượng nào và tăng chi phí nào?</div>
-<aside class="notes">Đáp án: giảm phương sai, tăng thời gian cập nhật và bộ nhớ tuyến tính theo $p$. Không áp dụng cận này cho một bộ hàm không độc lập và đều mà chưa có chứng minh riêng. Trong thực hành, một lượt quét mã băm thay cho các hoán vị tường minh.</aside>
+<section id="lec05-s02-09" data-slide-id="lec05-s02-09" class="example-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<p class="ex-takeaway">Câu hỏi:</p><ol><li>Với <code>abcdabd</code>, \(k=2\), xác định số cửa sổ và số shingle phân biệt.</li><li>Giải thích tác động của hai lần xuất hiện <code>ab</code>.</li><li>Một shingle 9 ký tự được mã hóa bằng 4 byte. Xác định \(k\) sau mã hóa.</li></ol>
+<p class="ex-source">Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3.</p>
+<aside class="notes"><p>Có sáu cửa sổ và năm shingle phân biệt. <code>ab</code> xuất hiện hai lần nhưng chỉ tạo một phần tử trong tập. Đối với dữ kiện mã hóa riêng, k vẫn là 9; bốn byte chỉ đo dung lượng mã, không đo số ký tự của đoạn gốc.</p><p>Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3.</p></aside>
 </section>
 </section>
 <section>
-<section data-slide-id="G00">
-<h1>Lập chữ ký trong thực hành</h1>
-<p class="big">Không hoán vị ma trận; quét các phần tử 1 và giữ mã băm nhỏ nhất.</p>
-<aside class="notes">Hoán vị hàng của ma trận rất lớn không khả thi. MMDS thay hoán vị bằng hàm băm trên số hàng. Nguồn: mục 3.3.5, trang in 84–86.</aside>
+<section id="lec05-s03-01" data-slide-id="lec05-s03-01" class="example-slide">
+<h2>Tập shingle và bộ nhớ</h2>
+<table class="ex-table"><thead><tr><th scope="col">Biểu diễn trong ví dụ nguồn</th><th scope="col">Dung lượng</th></tr></thead><tbody><tr><th scope="row">Tài liệu</th><td>50.000 byte</td></tr><tr><th scope="row">Tập mã shingle, mỗi mã 4 byte</th><td>Khoảng 200.000 byte</td></tr></tbody></table><p class="ex-takeaway">Nhu cầu: một chữ ký nhỏ cho phép ước lượng Jaccard giữa hai tập.</p><p class="ex-note">Dung lượng trên minh họa trường hợp phần lớn cửa sổ tạo mã khác nhau; chưa tính chi phí cấu trúc lưu trữ.</p>
+<p class="ex-source">MMDS 3e, mở §3.3, tr. 81.</p>
+<aside class="notes"><p>Nếu phần lớn cửa sổ tạo các shingle khác nhau, số mã có thể gần số byte của tài liệu. Lưu mỗi mã bằng bốn byte giải thích quy mô khoảng 200.000 byte trong nguồn, chưa tính chi phí cấu trúc lưu trữ. Đây là ví dụ dung lượng, không phải tỷ lệ đúng cho mọi tài liệu. Cơ chế cần xây dựng phải vừa giảm số mục lưu vừa giữ liên hệ với Jaccard.</p><p>Nguồn: MMDS 3e, mở §3.3, tr. 81.</p></aside>
 </section>
-<section data-slide-id="G02">
-<h2>Cập nhật chỉ trên các số 1</h2>
-<img class="figure" src="img/lec-05/quet-ma-tran-thua.svg" role="img" alt="Mỗi phần tử một tại hàng r cột c cập nhật p giá trị chữ ký của cột c."/>
-<p class="muted">$SIG[i,c]$ là ô của bảng chữ ký đang được cập nhật cho hàm $h_i$ và cột $c$.</p>
-<aside class="notes">Với mỗi số 1 tại hàng $r$, cột $c$, các giá trị $h_i(r)$ có thể hạ những ô $SIG[i,c]$ tương ứng. Các số 0 không thể hạ giá trị nhỏ nhất. Hình diễn giải MMDS mục 3.3.5.</aside>
+<section id="lec05-s03-02" data-slide-id="lec05-s03-02" class="example-slide">
+<h2>Ma trận đặc trưng</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Phần tử / \(r\)</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">a / 0</th><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><th scope="row">b / 1</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">c / 2</th><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">d / 3</th><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">e / 4</th><td>0</td><td>0</td><td>1</td><td>0</td></tr></tbody></table></div><div><p>\(U=\{a,b,c,d,e\}\); \(R=5\), \(C=4\).</p><p class="ex-equation">\[M(r,c)=\begin{cases}1&amp;\text{nếu hàng }r\text{ thuộc }S_c,\\0&amp;\text{nếu không.}\end{cases}\]</p><p class="ex-takeaway">Ma trận có kích thước \(R\times C\).</p></div></div>
+<p class="ex-source">MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.</p>
+<aside class="notes"><p>Tập thứ nhất gồm a, d; tập thứ hai gồm c; tập thứ ba gồm b, d, e; tập thứ tư gồm a, c, d. Hàng a có 1 tại hai cột 1 và 4 vì a thuộc cả hai tập đó. Ma trận là cách mô tả quan hệ hiện diện; không bắt buộc lưu toàn bộ các số 0 khi triển khai.</p><p>Nguồn: MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.</p></aside>
 </section>
-<section data-slide-id="G04">
-<h2>Vết chạy của Hình 3.4</h2>
-<p class="muted">Mỗi dòng ghi các ô $SIG$ bị hạ khi quét thêm một hàng.</p>
-<table class="trace compact">
-<thead>
-<tr>
-<th>$r$</th>
-<th>Cột có 1</th>
-<th>$h_1(r)=r+1\bmod5$</th>
-<th>$h_2(r)=3r+1\bmod5$</th>
-<th>Thay đổi</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>$S_1,S_4$</td>
-<td>1</td>
-<td>1</td>
-<td>$S_1,S_4\leftarrow(1,1)$</td>
-</tr>
-<tr>
-<td>1</td>
-<td>$S_3$</td>
-<td>2</td>
-<td>4</td>
-<td>$S_3\leftarrow(2,4)$</td>
-</tr>
-<tr>
-<td>2</td>
-<td>$S_2,S_4$</td>
-<td>3</td>
-<td>2</td>
-<td>$S_2\leftarrow(3,2)$</td>
-</tr>
-<tr>
-<td>3</td>
-<td>$S_1,S_3,S_4$</td>
-<td>4</td>
-<td>0</td>
-<td>$SIG[2,S_1],SIG[2,S_3],SIG[2,S_4]\leftarrow0$</td>
-</tr>
-<tr>
-<td>4</td>
-<td>$S_3$</td>
-<td>0</td>
-<td>3</td>
-<td>$SIG[1,S_3]\leftarrow0$</td>
-</tr>
-</tbody>
-</table>
-<aside class="notes">Ở hàng $r=2$, $S_4$ giữ $(1,1)$ vì hai giá trị mới $(3,2)$ đều lớn hơn. Kết quả cuối: hàng $h_1$ là $(1,3,0,1)$; hàng $h_2$ là $(0,2,0,0)$. Nguồn: MMDS Ví dụ 3.8, trang in 85–86.</aside>
+<section id="lec05-s03-03" data-slide-id="lec05-s03-03" class="example-slide">
+<h2>Biểu diễn thưa</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Hàng</th><th scope="col">Các cột có 1</th></tr></thead><tbody><tr><th scope="row">a</th><td>1, 4</td></tr><tr><th scope="row">b</th><td>3</td></tr><tr><th scope="row">c</th><td>2, 4</td></tr><tr><th scope="row">d</th><td>1, 3, 4</td></tr><tr><th scope="row">e</th><td>3</td></tr></tbody></table></div><div><p>Mỗi mục danh sách chỉ ra một tập chứa phần tử của hàng.</p><p class="ex-equation">\[2+1+2+3+1=9\]</p><p class="ex-takeaway">Ví dụ có 9 ô 1 trong 20 ô.</p></div></div>
+<p class="ex-source">MMDS 3e, §3.3.1 và §3.3.5; biểu diễn theo hàng của Hình 3.2.</p>
+<aside class="notes"><p>Danh sách hàng cho phép sau khi tính giá trị băm của một phần tử, chỉ đi tới những cột cần cập nhật. Tổng độ dài năm danh sách là 2+1+2+3+1=9, bằng tổng số ô 1. Ma trận nhỏ ở đây minh họa biểu diễn; nó không tự chứng minh danh sách thưa dùng ít byte hơn do mỗi chỉ số cũng có kích thước lưu trữ.</p><p>Nguồn: MMDS 3e, §3.3.1 và §3.3.5; biểu diễn theo hàng của Hình 3.2.</p></aside>
 </section>
-<section data-slide-id="G01">
-<h2>Đặc tả quét ma trận thưa</h2>
-<div class="grid2">
-<div class="card">
-<h3>Đầu vào</h3>
-<p>Vũ trụ hữu hạn $U$, $u=|U|$; $N$ cột; $p$ hàm $h_i:U\to\{0,\ldots,u-1\}$.</p>
-<p>Danh sách thưa nhóm theo hàng hoặc dòng phần tử $(r,c)$ có $A[r,c]=1$.</p>
-</div>
-<div class="card accent">
-<h3>Đầu ra</h3>
-<p>$SIG\in(\{0,\ldots,u-1\}\cup\{\infty\})^{p\times N}$.</p>
-<p>Mỗi ô là mã nhỏ nhất đã thấy.</p>
-</div>
-</div>
-<aside class="notes">Để tính $h_i(r)$ một lần cho mỗi hàng như cận vừa nêu, đầu vào phải nhóm theo hàng hoặc cung cấp luồng có dấu mốc đổi hàng. Cột rỗng giữ chữ ký toàn $\infty$; chữ ký đó không hợp lệ để ước lượng và không được tính $\infty=\infty$ là một lần trùng.</aside>
+<section id="lec05-s03-04" data-slide-id="lec05-s03-04" class="example-slide">
+<h2>Trực giác MinHash</h2>
+<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/minhash-hoan-vi.svg" alt="S1 và S4 dùng cùng thứ tự b,e,a,d,c và cùng chọn a."></figure></div><div><ul><li>Dùng cùng thứ tự trên \(U\) cho mọi tập.</li><li>Mỗi tập không rỗng giữ phần tử đầu tiên.</li><li>Phần tử đầu trong hợp thuộc giao thì hai tập chọn cùng phần tử.</li></ul></div></div>
+<p class="ex-source">MMDS 3e, §3.3.2–§3.3.3, tr. 82–83.</p>
+<aside class="notes"><p>Với hai tập đang xét, các phần tử ngoài hợp không thuộc tập nào nên không thể được chọn. Nếu phần tử đầu trong hợp thuộc cả hai tập, nó cũng là phần tử đầu của từng tập. Nếu nó chỉ thuộc một tập, tập đó chọn nó và tập kia phải chọn một phần tử khác. Quan hệ này sẽ xác định xác suất trùng.</p><p>Nguồn: MMDS 3e, §3.3.2–§3.3.3, tr. 82–83.</p></aside>
 </section>
-<section data-slide-id="G03">
-<h2>Giả mã và bất biến</h2>
-<pre>
-<code class="language-text">SIG[1..p,1..N] ← ∞
-cho từng hàng r trong luồng nhóm theo hàng:
-  tính h₁(r),…,hₚ(r)
-  cho từng c có A[r,c]=1:
-    cho i = 1,…,p:
-      SIG[i,c] ← min(SIG[i,c],hᵢ(r))
-đánh dấu cột toàn ∞ là không hợp lệ; trả SIG</code>
-</pre>
-<p class="muted">Sau một tiền tố hàng, $SIG[i,c]$ là mã nhỏ nhất của các hàng đã thấy thuộc cột $c$.</p>
-<aside class="notes">Bất biến đúng lúc đầu với min của tập rỗng là $\infty$. Mỗi cập nhật lấy min với hàng mới. Thuật toán dừng sau hữu hạn hàng và số 1. Nếu danh sách thưa không nhóm theo hàng, có thể tính mã cho từng phần tử nhưng cận thời gian đổi thành $O(pz)$ cho phần băm và cập nhật.</aside>
+<section id="lec05-s03-05" data-slide-id="lec05-s03-05" class="example-slide">
+<h2>Ví dụ hoán vị</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Thứ tự hàng</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">b</th><td>0</td><td>0</td><td class="mh-selected">1</td><td>0</td></tr><tr><th scope="row">e</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">a</th><td class="mh-selected">1</td><td>0</td><td>0</td><td class="mh-selected">1</td></tr><tr><th scope="row">d</th><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">c</th><td>0</td><td class="mh-selected">1</td><td>0</td><td>1</td></tr></tbody></table></div><div><table class="ex-table"><thead><tr><th scope="col">Đại lượng</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">Định danh</th><td>a</td><td>c</td><td>b</td><td>a</td></tr><tr><th scope="row">Vị trí</th><td>3</td><td>5</td><td>1</td><td>3</td></tr></tbody></table><p class="ex-takeaway">Ô viền đậm: ô 1 đầu tiên của mỗi cột. Giá trị MinHash là định danh phần tử.</p></div></div>
+<p class="ex-source">MMDS 3e, Ví dụ 3.7, Hình 3.3, tr. 82–83; bổ sung bảng đối chiếu định danh và vị trí.</p>
+<aside class="notes"><p>\(S_1\) không chứa b, e nên gặp a đầu tiên ở vị trí thứ ba. \(S_2\) chỉ chứa c nên gặp ở vị trí thứ năm. \(S_3\) chứa b nên dừng ngay tại vị trí thứ nhất. \(S_4\) gặp a trước c, d nên cũng chọn a. Định danh a và vị trí 3 mô tả hai đại lượng khác nhau; không trộn chúng trong cùng bảng kết quả.</p><p>Nguồn: MMDS 3e, Ví dụ 3.7, Hình 3.3, tr. 82–83; bổ sung bảng đối chiếu định danh và vị trí.</p></aside>
 </section>
-<section data-slide-id="G05">
-<h2>Chi phí phụ thuộc số phần tử 1</h2>
-<p class="formula">$z=|\{(r,c):A[r,c]=1\}|$</p>
-<div class="grid3">
-<div class="card">
-<h3>Thời gian</h3>
-<p>$O(pu+pz)$.</p>
-</div>
-<div class="card">
-<h3>Bộ nhớ chữ ký</h3>
-<p>$\Theta(pN)$ từ, tức $\Theta(pN\log(u+1))$ bit.</p>
-</div>
-<div class="card accent">
-<h3>Dữ liệu</h3>
-<p>Không lưu ma trận đặc $u\times N$.</p>
-</div>
-</div>
-<aside class="notes">Cận $O(pu+pz)$ giả sử tính một giá trị băm, lấy min và truy cập một ô tốn $O(1)$; đầu vào được nhóm theo hàng để mỗi $h_i(r)$ chỉ tính một lần. Có $u$ mã hữu hạn và một dấu canh $\infty$, nên một ô cần $\Theta(\log(u+1))$ bit. Không dùng số liệu 1 GB vì đó là Ví dụ 3.10 thuộc §3.4, ngoài phạm vi cốt lõi §§3.1–3.3.</aside>
+<section id="lec05-s03-06" data-slide-id="lec05-s03-06" class="example-slide mh-inset">
+<h2>Định nghĩa MinHash</h2>
+<p>\(U\) hữu hạn, \(S\subseteq U\), \(S\ne\varnothing\).</p><p>\(\operatorname{rank}_\pi(u)\) là vị trí của \(u\) trong hoán vị \(\pi\).</p><p class="ex-equation">\[h_\pi(S)=\arg\min_{u\in S}\operatorname{rank}_\pi(u)\]</p><p>\(\arg\min\) trả phần tử đạt vị trí nhỏ nhất. Với thứ tự \((b,e,a,d,c)\): \(h_\pi(S_1)=a\), còn \(\operatorname{rank}_\pi(a)=3\).</p><div class="ex-card"><p>Cùng \(\pi\) được dùng cho mọi tập.</p><p>Định lý xác suất dùng \(\pi\) chọn đều từ mọi hoán vị.</p></div>
+<p class="ex-source">MMDS 3e, §3.3.2–§3.3.3; quy ước trả định danh tương đương về phép so bằng.</p>
+<aside class="notes"><p>Hoán vị tạo các vị trí khác nhau nên phần tử đạt vị trí nhỏ nhất là duy nhất. Hàm nhận một tập và trả một phần tử của \(U\). Với thứ tự \((b,e,a,d,c)\), tập \(S_1=\{a,d\}\) chọn \(a\), dù vị trí của \(a\) là \(3\). Nếu lưu hạng thay định danh bằng một phép ánh xạ một-một chung, quan hệ hai giá trị bằng nhau được giữ nguyên. Điều kiện không rỗng bảo đảm có phần tử để chọn.</p><p>Nguồn: MMDS 3e, §3.3.2–§3.3.3; quy ước trả định danh tương đương về phép so bằng.</p></aside>
 </section>
-<section data-slide-id="G06">
-<h2>Hàm băm thực hành không phải hoán vị đều</h2>
-<div class="grid2">
-<div class="card">
-<h3>Mô hình lý tưởng</h3>
-<p>$\pi$ là hoán vị đều; định lý xác suất đúng chính xác.</p>
-</div>
-<div class="card accent">
-<h3>Triển khai</h3>
-<p>$h_i(r)$ có thể va chạm hoặc không cho thứ tự đều.</p>
-<p>Định lý không tự động chuyển sang dạng này.</p>
-</div>
-</div>
-<aside class="notes">MMDS chấp nhận xấp xỉ khi miền lớn và va chạm ít. Bài tập 3.3.3 cho phản ví dụ nhỏ; ngoài va chạm, bộ hàm không được lấy độc lập và đều cũng làm mất cơ sở áp dụng công thức phương sai.</aside>
+<section id="lec05-s03-07" data-slide-id="lec05-s03-07" class="example-slide">
+<h2>Các hàng chung và riêng</h2>
+<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/phan-tu-dau-hop.svg" alt="Với cặp S1,S4: a,d thuộc giao; c thuộc riêng; b,e ngoài hợp."></figure></div><div><table class="ex-table"><thead><tr><th scope="col">Loại hàng</th><th scope="col">Hai cột</th></tr></thead><tbody><tr><th scope="row">\(X\)</th><td>\((1,1)\)</td></tr><tr><th scope="row">\(Y\)</th><td>\((1,0)\) hoặc \((0,1)\)</td></tr><tr><th scope="row">\(Z\)</th><td>\((0,0)\)</td></tr></tbody></table><p>\(x=|S\cap T|\), \(x+y=|S\cup T|\).</p><p class="ex-takeaway">\(S_1,S_4\): \(x=2\), \(y=1\).</p></div></div>
+<p class="ex-source">MMDS 3e, §3.3.3, tr. 83.</p>
+<aside class="notes"><p>Những hàng Z không chứa phần tử của hai tập nên bỏ chúng khỏi thứ tự không đổi lựa chọn. Hàng đầu tiên khác Z thuộc X thì cả hai cột chọn cùng hàng; thuộc Y thì chỉ một cột có phần tử đó. Biến x đếm số hàng, không phải chỉ số của một hàng. Với cặp minh họa x=2, y=1.</p><p>Nguồn: MMDS 3e, §3.3.3, tr. 83.</p></aside>
+</section>
+<section id="lec05-s03-08" data-slide-id="lec05-s03-08" class="example-slide">
+<h2>Xác suất trùng MinHash</h2>
+<p>\(S,T\subseteq U\) không rỗng; cùng \(\pi\) chọn đều trong \(R!\) hoán vị.</p><p class="ex-equation">\[\Pr[h_\pi(S)=h_\pi(T)]=\mathrm{SIM}(S,T)\]</p><ol><li>Phần tử đầu trong hợp phân bố đều trên \(S\cup T\).</li><li>Hai MinHash trùng khi và chỉ khi phần tử đó thuộc \(S\cap T\).</li></ol><p class="ex-equation">\[\Pr[\text{trùng}]=\frac{x}{x+y}=\frac{|S\cap T|}{|S\cup T|}\]</p>
+<p class="ex-source">MMDS 3e, §3.3.3, tr. 83.</p>
+<aside class="notes"><p>Gọi u là phần tử đầu của hợp. Tính đối xứng của hoán vị đều cho mỗi phần tử của hợp cùng xác suất đứng đầu. Nếu u thuộc giao, u đứng đầu cả hai tập. Nếu u nằm trong phần riêng, chỉ một tập chọn u, còn tập kia chọn một phần tử khác. Vậy biến cố trùng tương đương u thuộc giao. Có x phần tử thuận lợi trong x+y phần tử của hợp, nên xác suất bằng x/(x+y), đúng Jaccard. Phần tử ngoài hợp không ảnh hưởng lập luận.</p><p>Nguồn: MMDS 3e, §3.3.3, tr. 83.</p></aside>
+</section>
+<section id="lec05-s03-09" data-slide-id="lec05-s03-09" class="example-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<p class="ex-equation">\[S_1=\{a,d\},\qquad S_4=\{a,c,d\}\]</p><p>\(U=\{a,b,c,d,e\}\); thứ tự đã cho: \(b,e,a,d,c\).</p><p class="ex-takeaway">Câu hỏi:</p><ol><li>Tính Jaccard của \(S_1,S_4\).</li><li>Xác định hai MinHash theo thứ tự đã cho.</li><li>Tính xác suất trùng khi chọn đều một hoán vị của \(U\).</li></ol>
+<p class="ex-source">Dữ kiện: MMDS 3e, Hình 3.2–3.3 và §3.3.3.</p>
+<aside class="notes"><p>Giao gồm a, d và hợp gồm a, c, d nên Jaccard bằng 2/3. Theo thứ tự đã cho, cả hai tập chọn a. Khi chọn đều mọi hoán vị, xác suất trùng là 2/3 vì phần tử đầu của hợp là a hoặc d trong hai trên ba khả năng đồng đều. Sự trùng trong một lần không suy ra hai tập bằng nhau.</p><p>Nguồn: Dữ kiện: MMDS 3e, Hình 3.2–3.3 và §3.3.3.</p></aside>
 </section>
 </section>
 <section>
-<section data-slide-id="C00">
-<h1>MinHash chưa giảm số cặp</h1>
-<div class="grid2">
-<div class="card">
-<h3>Đã có</h3>
-<p>Biểu diễn tập và ước lượng Jaccard từ chữ ký.</p>
-</div>
-<div class="card accent">
-<h3>Chưa có</h3>
-<p>Cách tìm các cặp đáng so trong $\binom N2$ cặp.</p>
-</div>
-</div>
-<aside class="notes">MinHash chưa loại được vòng lặp trên mọi cặp. Bài 6 dùng LSH để tạo ứng viên.</aside>
+<section id="lec05-s04-01" data-slide-id="lec05-s04-01" class="example-slide">
+<h2>Ví dụ chữ ký MinHash</h2>
+<p>\(S_1=\{a,d\}\), \(S_2=\{c\}\), \(S_3=\{b,d,e\}\), \(S_4=\{a,c,d\}\).</p><table class="ex-table"><thead><tr><th scope="col">Hai thứ tự cố định</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">\(\pi_1=(e,a,b,c,d)\)</th><td>a</td><td>c</td><td>e</td><td>a</td></tr><tr><th scope="row">\(\pi_2=(d,a,c,e,b)\)</th><td>d</td><td>c</td><td>d</td><td>d</td></tr></tbody></table><p class="ex-equation">Chữ ký của \(S_1\) và \(S_4\): \((a,d)^{\mathsf T}\).</p><p class="ex-takeaway">Tỷ lệ trùng: \(2/2=1\); Jaccard thật: \(\mathrm{SIM}(S_1,S_4)=2/3\).</p><p class="ex-note">Hai thứ tự được chọn cố định để minh họa phép tính.</p>
+<p class="ex-source">MMDS 3e, Hình 3.2 và hai thứ tự suy từ Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Hai thứ tự này được suy trực tiếp bằng cách sắp hàng theo hai hàm băm của Ví dụ 3.8. Ở đây chỉ dùng thứ tự và định danh phần tử; giá trị băm sẽ được tính ở phần sau. Chữ ký của \(S_1\), \(S_2\), \(S_3\), \(S_4\) lần lượt là (a, d), (c, c), (e, d), (a, d). Cặp 1–4 trùng cả hai tọa độ dù hai tập khác nhau. Hai thứ tự cố định minh họa phép tính, không cung cấp bằng chứng về phân phối chọn đều.</p><p>Nguồn: MMDS 3e, Hình 3.2 và hai thứ tự suy từ Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
-<section data-slide-id="C01">
-<h2>Bốn điều kiện đi cùng kết quả</h2>
-<ul>
-<li>Quy tắc chuẩn hóa và độ dài shingle $k$.</li>
-<li>Quy ước cho tập shingle rỗng.</li>
-<li>Số hàng chữ ký $p$ và cách sinh hàm băm.</li>
-<li>Đánh giá va chạm và độ phụ thuộc của họ hàm.</li>
-</ul>
-<aside class="notes">Thiếu các điều kiện này khiến kết quả khó tái lập. Danh sách tổng hợp từ các giả thiết đã dùng.</aside>
+<section id="lec05-s04-02" data-slide-id="lec05-s04-02" class="example-slide">
+<h2>Vector và ma trận chữ ký</h2>
+<p>Chọn \(\pi_1,\ldots,\pi_n\) và dùng cùng bộ thứ tự cho mọi tập.</p><p class="ex-equation">\[\sigma(S)=\bigl(h_{\pi_1}(S),\ldots,h_{\pi_n}(S)\bigr)^{\mathsf T}\]</p><table class="ex-table"><thead><tr><th scope="col">Ma trận</th><th scope="col">Hàng</th><th scope="col">Cột</th></tr></thead><tbody><tr><th scope="row">Đặc trưng</th><td>\(R\) phần tử</td><td>\(C\) tập</td></tr><tr><th scope="row">Chữ ký</th><td>\(n\) phép thử</td><td>\(C\) tập</td></tr></tbody></table><p class="ex-takeaway">Mô hình lý tưởng: các hoán vị đều và độc lập.</p>
+<p class="ex-source">MMDS 3e, §3.3.4, tr. 83–84.</p>
+<aside class="notes"><p>Ở ma trận đặc trưng, hàng biểu diễn phần tử của U; ở ma trận chữ ký, hàng biểu diễn một phép chọn MinHash. Số cột vẫn là C vì mỗi cột vẫn ứng với một tập. Ví dụ trước có n=2, C=4; ma trận gốc có R=5. Số hàng giảm chưa tự chứng minh giảm byte vì kiểu giá trị của hai ma trận có thể khác nhau.</p><p>Nguồn: MMDS 3e, §3.3.4, tr. 83–84.</p></aside>
 </section>
-<section data-slide-id="C02">
-<h2>Sơ đồ quyết định</h2>
-<p class="formula">$D\xrightarrow[\text{chuẩn hóa}]{k\text{-shingle}}C\xrightarrow[p\text{ phép thử}]{\text{MinHash}}\sigma(C)\xrightarrow{\text{tỷ lệ trùng}}\widehat J$</p>
-<div class="check">
-<strong>Câu hỏi:</strong> với một triệu tài liệu, bước nào của Bài 6 phải ngăn việc so mọi cặp chữ ký?</div>
-<aside class="notes">Đáp án: LSH tạo tập ứng viên để chỉ giữ các cặp có khả năng tương đồng.</aside>
+<section id="lec05-s04-03" data-slide-id="lec05-s04-03" class="example-slide">
+<h2>Ước lượng Jaccard</h2>
+<p class="ex-equation">\[\widehat{\mathrm{SIM}}(S,T)=\frac1n\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}\]</p><p>\(\mathbf1\{E\}=1\) khi \(E\) đúng, bằng \(0\) khi sai; so cùng chỉ số \(i\).</p><table class="ex-table"><thead><tr><th scope="col">Tọa độ</th><th scope="col">\(\sigma(S_1)\)</th><th scope="col">\(\sigma(S_4)\)</th><th scope="col">Chỉ báo</th></tr></thead><tbody><tr><th scope="row">1</th><td>a</td><td>a</td><td>\(a=a\Rightarrow1\)</td></tr><tr><th scope="row">2</th><td>d</td><td>d</td><td>\(d=d\Rightarrow1\)</td></tr></tbody></table><p class="ex-equation">\[\widehat{\mathrm{SIM}}(S_1,S_4)=\frac{1+1}{2}=1\ne\frac23\]</p>
+<p class="ex-source">MMDS 3e, §3.3.4, tr. 84.</p>
+<aside class="notes"><p>Ví dụ có \(\sigma(S_1)=\sigma(S_4)=(a,d)^{\mathsf T}\): cả \(a=a\) lẫn \(d=d\) cho chỉ báo \(1\). Jaccard thật là \(2/3\). Chữ ký là vector có thứ tự, nên tọa độ i chỉ so với tọa độ i được tạo bởi cùng hoán vị. Nếu bỏ vị trí rồi lấy Jaccard giữa hai tập giá trị chữ ký, phép tính không còn đếm các biến cố trong định lý. Dấu mũ phân biệt ước lượng hữu hạn với SIM của hai tập gốc. Một giá trị ước lượng bằng 1 không đủ suy hai tập bằng nhau.</p><p>Nguồn: MMDS 3e, §3.3.4, tr. 84.</p></aside>
+</section>
+<section id="lec05-s04-04" data-slide-id="lec05-s04-04" class="example-slide">
+<h2>Kỳ vọng số lần trùng</h2>
+<p>Đặt \(s=\mathrm{SIM}(S,T)\) và \(X_i=\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}\).</p><p>Khi mỗi \(\pi_i\) được chọn đều:</p><p class="ex-equation">\[\mathbb E[X_i]=s\]</p><div class="ex-grid2 "><div><div class="ex-card"><p>Số tọa độ trùng</p><p class="ex-equation">\[\mathbb E\!\left[\sum_{i=1}^nX_i\right]=ns\]</p></div></div><div><div class="ex-card"><p>Tỷ lệ tọa độ trùng</p><p class="ex-equation">\[\mathbb E[\widehat{\mathrm{SIM}}]=s\]</p></div></div></div>
+<p class="ex-source">MMDS 3e, §3.3.4; tính tuyến tính của kỳ vọng. Phân biệt số đếm và tỷ lệ.</p>
+<aside class="notes"><p>Mỗi chỉ báo nhận 1 với xác suất s theo định lý MinHash, nên kỳ vọng của nó là s. Tuyến tính kỳ vọng cho tổng ns; chia n được tỷ lệ kỳ vọng s. Bước tuyến tính không cần độc lập giữa các hoán vị. Kỳ vọng không khẳng định tổng quan sát ở mọi lần bằng ns và có thể không nguyên. Đây là hiệu chỉnh đơn vị của câu trên trang 84 sách: số hàng trùng và tỷ lệ hàng trùng là hai đại lượng khác nhau.</p><p>Nguồn: MMDS 3e, §3.3.4; tính tuyến tính của kỳ vọng. Phân biệt số đếm và tỷ lệ.</p></aside>
+</section>
+<section id="lec05-s04-05" data-slide-id="lec05-s04-05" class="example-slide">
+<h2>Sai số của chữ ký</h2>
+<p>Nếu các hoán vị còn độc lập, \(X_i\) là các biến Bernoulli độc lập với \(\operatorname{Var}(X_i)=s(1-s)\).</p><p class="ex-equation">\[\begin{aligned}\operatorname{Var}(\widehat{\mathrm{SIM}})&=\frac1{n^2}\operatorname{Var}\!\left(\sum_{i=1}^nX_i\right)\\&\overset{\text{độc lập}}=\frac1{n^2}\sum_{i=1}^n\operatorname{Var}(X_i)\\&=\frac{ns(1-s)}{n^2}=\frac{s(1-s)}n.\end{aligned}\]</p><p class="ex-takeaway">Tăng \(n\) làm giảm phương sai.</p><p class="ex-note">Không bảo đảm mỗi lần tăng độ dài chữ ký đều làm sai số quan sát giảm.</p>
+<p class="ex-source">Suy ra từ mô hình §3.3.4 bằng phương sai của biến chỉ báo độc lập.</p>
+<aside class="notes"><p>\(X_i\) là biến Bernoulli với tham số s, có phương sai s(1−s). Do độc lập, phương sai tổng bằng tổng phương sai. Hệ số 1/n của trung bình bình phương khi đi vào phương sai, nên kết quả là n·s(1−s)/n². Nếu các phép thử phụ thuộc, phải xét các hiệp phương sai và công thức này không tự áp dụng. Độ lệch chuẩn là \(\sqrt{s(1-s)/n}\). Đây là hệ quả được suy ra từ định lý và kiến thức xác suất, không phải phát biểu trích nguyên văn sách.</p><p>Nguồn: Suy ra từ mô hình §3.3.4 bằng phương sai của biến chỉ báo độc lập.</p></aside>
+</section>
+<section id="lec05-s04-06" data-slide-id="lec05-s04-06" class="cost-slide">
+<h2>Chi phí so sánh chữ ký</h2>
+<p>Mỗi thành phần vừa một từ máy; một phép so bằng tốn \(O(1)\).</p><div class="ex-grid2 "><div><div class="ex-card"><p>Một cặp chữ ký</p><p class="ex-equation">\[n\text{ phép so bằng}\]</p><p class="ex-equation">\[\Theta(n)\]</p></div></div><div><div class="ex-card"><p>Mọi cặp trong kho</p><p class="ex-equation">\[\frac{nC(C-1)}2\]</p><p>phép so bằng</p></div></div></div><p class="ex-takeaway">Chữ ký ngắn giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.</p>
+<p class="ex-source">Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.</p>
+<aside class="notes"><p>Trong mô hình mỗi thành phần vừa một từ máy, so bằng tốn \(O(1)\). Ước lượng duyệt tất cả \(n\) tọa độ, đếm các vị trí bằng nhau rồi chia n. Bộ nhớ chữ ký được xây một lần và được dùng lại cho nhiều cặp; chi phí xây được phân tích riêng. Phép đếm mọi cặp vẫn mang thừa số C(C−1)/2 từ đầu bài. Tăng n vừa giảm phương sai trong mô hình lý tưởng vừa tăng công việc so sánh.</p><p>Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.</p></aside>
+</section>
+<section id="lec05-s04-07" data-slide-id="lec05-s04-07" class="example-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<p>Cặp \(S_1,S_4\) có \(s=2/3\). Dùng \(n=100\) hoán vị đều và độc lập.</p><p class="ex-takeaway">Câu hỏi:</p><ol><li>Tính kỳ vọng số tọa độ trùng.</li><li>Tính kỳ vọng tỷ lệ tọa độ trùng.</li><li>Nêu tác dụng của tăng \(n\) đối với phương sai và chi phí so sánh một cặp.</li></ol>
+<p class="ex-source">Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.</p>
+<aside class="notes"><p>Kỳ vọng số tọa độ trùng là \(200/3\), còn tỷ lệ có kỳ vọng \(2/3\). Phương sai bằng \(2/(9n)\), nên ở n=100 là \(1/450\). Tăng n giảm phương sai theo 1/n và tăng số phép so sánh một cặp theo n. Kỳ vọng số đếm không cần nguyên; công thức không bảo đảm mọi mẫu dài hơn đều cho kết quả gần s hơn.</p><p>Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.</p></aside>
 </section>
 </section>
 <section>
-<section class="recitation" data-slide-id="R00">
-<h1>Bài tập thực hành</h1>
-<p>Thực hiện bốn bài trực tiếp từ MMDS 3e: 3.1.1, 3.2.3, 3.3.2 và 3.3.3.</p>
-<p class="muted">Mỗi nhóm nộp bảng tính hoặc lập luận, kèm giá trị trung gian.</p>
-<aside class="notes">Mỗi nhóm ghi rõ dữ kiện, các bước tính và kết quả trung gian. Đối chiếu lời giải trong ghi chú diễn giả khi chữa bài.</aside>
+<section id="lec05-s05-01" data-slide-id="lec05-s05-01" class="example-slide">
+<h2>Hoán vị lớn và hàm băm</h2>
+<figure class="mh-figure mh-wide"><img src="img/lec-05/quet-ma-tran-thua.svg" alt="Mỗi hàng được băm một lần cho mỗi hàm; cập nhật cực tiểu ở các cột có 1."></figure><p>Khi \(f_i\) không va chạm, thứ tự tăng dần của \(f_i(r)\) xác định hàng thắng. Lưu giá trị của hàng ấy bảo toàn phép so bằng định danh.</p><p class="ex-takeaway">Các hàm dùng chung cho mọi cột; bảo đảm xác suất còn phụ thuộc cách chọn hàm.</p>
+<p class="ex-source">MMDS 3e, §3.3.5, tr. 84–86.</p>
+<aside class="notes"><p>Sắp xếp hoặc lưu nhiều hoán vị của một vũ trụ lớn có chi phí cao. Thuật toán trong sách quét các hàng, tính giá trị băm và cập nhật cực tiểu. Nếu hàm là song ánh, thứ tự tăng giá trị xác định một hoán vị; nếu có va chạm, nhiều hàng có thể cùng giá trị. Ngay cả khi từng hàm là song ánh, phân bố chọn hàm vẫn cần điều kiện để có định lý lý tưởng.</p><p>Nguồn: MMDS 3e, §3.3.5, tr. 84–86.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R01">
-<h2>Bài 3.1.1: ba tập hợp</h2>
-<div class="task">
-<p>$A=\{1,2,3,4\}$, $B=\{2,3,5,7\}$, $C=\{2,4,6\}$.</p>
-<p>Tính độ tương đồng Jaccard của từng cặp.</p>
-</div>
-<p>
-<strong>Sản phẩm:</strong> ba giao, ba hợp và ba phân số tối giản.</p>
-<aside class="notes">Đáp án: $J(A,B)=1/3$; $J(A,C)=2/5$; $J(B,C)=1/6$. Chấm giao, hợp và tỷ số. Nguồn: MMDS Bài tập 3.1.1, trang in 78.</aside>
+<section id="lec05-s05-02" data-slide-id="lec05-s05-02" class="example-slide mh-inset">
+<h2>Đặc tả tính chữ ký</h2>
+<p>\(R,C,n\) nguyên dương; \(M\in\{0,1\}^{R\times C}\).</p><p>\(r=0,\ldots,R-1\); \(c=1,\ldots,C\); \(i=1,\ldots,n\).</p><p>\(f_i:\{0,\ldots,R-1\}\to V\), với \(V\) hữu hạn có thứ tự toàn phần; các hàm dùng chung cho mọi cột.</p><p class="ex-equation">\[\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):M(r,c)=1\}\cup\{+\infty\}\bigr)\]</p><p class="ex-takeaway">\(+\infty\) lớn hơn mọi giá trị trong \(V\). Cột rỗng trả \(+\infty\) ở mọi thành phần.</p>
+<p class="ex-source">Đặc tả phép quét trong MMDS 3e, §3.3.5; quy ước cho cột rỗng.</p>
+<aside class="notes"><p>Thuật toán có thể nhận ma trận đặc hoặc danh sách cột có 1 theo hàng. Mỗi hàm \(f_i\) nhận mã hàng và trả một giá trị hữu hạn trong miền \(V\) có thứ tự toàn phần; do đó phép lấy cực tiểu có nghĩa. Đầu ra \(n\times C\) lưu giá trị băm hoặc \(+\infty\), khác định danh phần tử trong \(h_\pi\). Nếu cột không rỗng, tập ứng viên có ít nhất một giá trị thuộc \(V\), nên cực tiểu hữu hạn. Nếu cột rỗng, tập lấy cực tiểu chỉ còn \(\{+\infty\}\) và đầu ra là \(+\infty\). Quy ước này xác định đầu ra thuật toán, không mở rộng định lý Jaccard sang hai tập rỗng.</p><p>Nguồn: Đặc tả phép quét trong MMDS 3e, §3.3.5; quy ước cho cột rỗng.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R02">
-<h2>Bài 3.2.3: số shingle lớn nhất</h2>
-<div class="task">
-<p>Một tài liệu có $n$ byte. Bảng chữ cái đủ lớn để có ít nhất $n$ chuỗi độ dài $k$.</p>
-<p>Xác định số $k$-shingle khác nhau lớn nhất.</p>
-</div>
-<p>
-<strong>Sản phẩm:</strong> công thức, trường hợp biên và lập luận đạt cận.</p>
-<aside class="notes">Đáp án $\max(0,n-k+1)$. Có nhiều nhất $n-k+1$ vị trí bắt đầu nếu $k\le n$. Cận đạt được bằng cách lấy một đoạn đủ dài của chuỗi de Bruijn bậc $k$: các cửa sổ độ dài $k$ liên tiếp trong đoạn là khác nhau; giả thiết số chuỗi độ dài $k$ ít nhất $n$ bảo đảm đủ cửa sổ. Hướng dẫn chứng minh bổ sung: $q^k\ge n$ với $q$ là cỡ bảng chữ cái là một điều kiện đủ; “đoạn tuyến tính” của chuỗi de Bruijn là đoạn liên tiếp trong đó mọi cửa sổ độ dài $k$ khác nhau. Nếu $k&gt;n$, không có cửa sổ. Nguồn: MMDS Bài tập 3.2.3, trang in 81.</aside>
+<section id="lec05-s05-03" data-slide-id="lec05-s05-03" class="example-slide">
+<h2>Ví dụ các hàm băm hàng</h2>
+<p>\(f_1(r)=(r+1)\bmod5\); \(f_2(r)=(3r+1)\bmod5\).</p><table class="ex-table"><thead><tr><th scope="col">Phần tử / \(r\)</th><th scope="col">Các cột có 1</th><th scope="col">\(f_1(r)\)</th><th scope="col">\(f_2(r)\)</th></tr></thead><tbody><tr><th scope="row">a / 0</th><td>1, 4</td><td>1</td><td>1</td></tr><tr><th scope="row">b / 1</th><td>3</td><td>2</td><td>4</td></tr><tr><th scope="row">c / 2</th><td>2, 4</td><td>3</td><td>2</td></tr><tr><th scope="row">d / 3</th><td>1, 3, 4</td><td>4</td><td>0</td></tr><tr><th scope="row">e / 4</th><td>3</td><td>0</td><td>3</td></tr></tbody></table><p class="ex-note">Sắp tăng: \(f_1\) cho \((e,a,b,c,d)\); \(f_2\) cho \((d,a,c,e,b)\), đúng hai thứ tự cố định của ví dụ chữ ký.</p>
+<p class="ex-source">MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Mã hàng r chỉ là tên số của phần tử. Với r=3 là d, hai giá trị băm là 4 và 0; chúng không phải vị trí của d trong ma trận gốc. Các giá trị của mỗi hàm đều khác nhau trong ví dụ này, nên mỗi hàm xác định một thứ tự khi sắp tăng. Hai thứ tự ấy đã dùng trong ví dụ chữ ký định danh. Với \(S_1,S_4\), tọa độ đầu chọn \(a\leftrightarrow0\), lưu \(f_1(0)=1\); tọa độ hai chọn \(d\leftrightarrow3\), lưu \(f_2(3)=0\).</p><p>Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R03">
-<h2>Bài 3.3.2: thêm hai hàng chữ ký</h2>
-<p class="formula">$S_1=\{0,3\},\ S_2=\{2\},\ S_3=\{1,3,4\},\ S_4=\{0,2,3\}$</p>
-<div class="task">
-<p>Tính $h_3(x)=2x+4\bmod5$ và $h_4(x)=3x-1\bmod5$, rồi thêm hai hàng vào chữ ký.</p>
-</div>
-<p><strong>Sản phẩm:</strong> bảng mười giá trị băm và hai hàng chữ ký mới.</p>
-<aside class="notes">Dữ liệu chép từ Hình 3.4. Nguồn: MMDS Bài tập 3.3.2, trang in 90.</aside>
+<section id="lec05-s05-04" data-slide-id="lec05-s05-04" class="example-slide">
+<h2>Khởi tạo và giá trị hữu hạn</h2>
+<div class="ex-grid2 "><div><p>Khởi tạo</p><table class="ex-table"><thead><tr><th scope="col">Thành phần</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">\(f_1\)</th><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td></tr><tr><th scope="row">\(f_2\)</th><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(+\infty\)</td></tr></tbody></table></div><div><p>Sau hàng \(r=0\)</p><table class="ex-table"><thead><tr><th scope="col">Thành phần</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">\(f_1\)</th><td class="mh-selected">1</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td class="mh-selected">1</td></tr><tr><th scope="row">\(f_2\)</th><td class="mh-selected">1</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td class="mh-selected">1</td></tr></tbody></table></div></div><p>Hàng \(0\): \(f_1(0)=f_2(0)=1\); các cột có \(1\) là \(1,4\).</p><p class="ex-equation">\[\min(+\infty,1)=1\]</p>
+<p class="ex-note">Ô viền đậm: giá trị vừa giảm từ \(+\infty\).</p><p class="ex-source">MMDS 3e, Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Hàng 0 tương ứng phần tử a. Chỉ các cột 1 và 4 chứa a nên nhận giá trị hữu hạn đầu tiên. Cột 2 và 3 không được cập nhật dù giá trị băm đã có. Phép min được thực hiện cho cả hai hàm ở mỗi cột liên quan; có bốn phép min ở bước này. Vô cực là giá trị khởi tạo của trạng thái, không là kết quả băm.</p><p>Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R04">
-<h2>Bài 3.3.2: bảng làm việc</h2>
-<table class="trace">
-<thead>
-<tr>
-<th>
-</th>
-<th>$S_1$</th>
-<th>$S_2$</th>
-<th>$S_3$</th>
-<th>$S_4$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$h_3$</td>
-<td>…</td><td>…</td><td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$h_4$</td>
-<td>…</td><td>…</td><td>…</td><td>…</td>
-</tr>
-</tbody>
-</table>
-<aside class="notes">Đáp án: $h_3(0..4)=(4,1,3,0,2)$ và hàng chữ ký $(0,3,0,0)$; $h_4(0..4)=(4,2,0,3,1)$ và hàng chữ ký $(3,0,1,0)$. Mỗi ô là min trên các hàng thuộc tập. Hướng dẫn chấm chỉ theo yêu cầu nguồn: 5 điểm cho hai bảng giá trị và 5 điểm cho hai hàng chữ ký.</aside>
+<section id="lec05-s05-05" data-slide-id="lec05-s05-05" class="example-slide">
+<h2>Cập nhật cột mới</h2>
+<p>\(r=1\): cột \(3\), ứng viên \((2,4)\); \(r=2\): cột \(2,4\), ứng viên \((3,2)\).</p><table class="ex-table mh-trace"><thead><tr><th scope="col">Trạng thái</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">Sau \(r=0\)</th><td>\((1,1)\)</td><td>\((\infty,\infty)\)</td><td>\((\infty,\infty)\)</td><td>\((1,1)\)</td></tr><tr><th scope="row">Sau \(r=1\)</th><td>\((1,1)\)</td><td>\((\infty,\infty)\)</td><td>\((\underline2,\underline4)\)</td><td>\((1,1)\)</td></tr><tr><th scope="row">Sau \(r=2\)</th><td>\((1,1)\)</td><td>\((\underline3,\underline2)\)</td><td>\((2,4)\)</td><td>\((1,1)\)</td></tr></tbody></table><p class="ex-note">Mỗi ô ghi hai thành phần chữ ký; gạch dưới đánh dấu giá trị vừa giảm. \(\infty\) viết gọn cho \(+\infty\).</p><p>Chữ ký của \(S_4\) giữ \((1,1)\): \(\min(1,3)=1\), \(\min(1,2)=1\).</p>
+<p class="ex-source">MMDS 3e, Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Hàng 1 là b, chỉ xuất hiện trong \(S_3\) nên tạo chữ ký hữu hạn đầu tiên cho cột 3. Hàng 2 là c, xuất hiện trong \(S_2\) và \(S_4\). Chữ ký của \(S_2\) nhận \((3,2)\) từ vô cực; chữ ký của \(S_4\) đã có \((1,1)\), nên hai phép min đều giữ giá trị cũ. Số lần thực hiện min vì vậy không bằng số ô thực sự đổi.</p><p>Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R05">
-<h2>Bài 3.3.3: ma trận sáu hàng</h2>
-<table class="trace">
-<thead>
-<tr>
-<th>Hàng</th>
-<th>$S_1$</th>
-<th>$S_2$</th>
-<th>$S_3$</th>
-<th>$S_4$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>4</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>5</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<aside class="notes">Đây là MMDS Hình 3.6 dựng lại bằng HTML, trang in 90. Cảnh báo: dữ kiện của Hình 3.6 khác Hình 3.4; không dùng lại kết quả đã tính ở bài tập trước.</aside>
+<section id="lec05-s05-06" data-slide-id="lec05-s05-06" class="example-slide">
+<h2>Cập nhật từng thành phần</h2>
+<p>\(r=3\): \((f_1(3),f_2(3))=(4,0)\), cột \(1,3,4\).<br>\(r=4\): \((f_1(4),f_2(4))=(0,3)\), chỉ cột \(3\).</p><table class="ex-table mh-trace"><thead><tr><th scope="col">Trạng thái</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">Sau \(r=2\)</th><td>\((1,1)\)</td><td>\((3,2)\)</td><td>\((2,4)\)</td><td>\((1,1)\)</td></tr><tr><th scope="row">Sau \(r=3\)</th><td>\((1,\underline0)\)</td><td>\((3,2)\)</td><td>\((2,\underline0)\)</td><td>\((1,\underline0)\)</td></tr><tr><th scope="row">Sau \(r=4\)</th><td>\((1,0)\)</td><td>\((3,2)\)</td><td>\((\underline0,0)\)</td><td>\((1,0)\)</td></tr></tbody></table><p class="ex-note">Gạch dưới: thành phần vừa giảm. Các thành phần khác giữ nguyên.</p><p>Với \(S_1,S_4\): \((a,d)^{\mathsf T}\mapsto(f_1(0),f_2(3))^{\mathsf T}=(1,0)^{\mathsf T}\).</p>
+<p class="ex-source">MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Hàng 3 hạ thành phần thứ hai của chữ ký của \(S_1\), \(S_3\), \(S_4\) xuống 0; các giá trị \(f_1\) đều không nhỏ hơn trạng thái đang lưu. Hàng 4 chỉ thuộc \(S_3\), hạ thành phần thứ nhất của cột này xuống 0; thành phần thứ hai giữ 0 vì min(0,3)=0. Không cập nhật các cột không chứa e. Hai tọa độ cực tiểu của một tập có thể do hai phần tử khác nhau tạo ra. Với \(S_1,S_4\), \(a\leftrightarrow0\) thắng theo \(f_1\), còn \(d\leftrightarrow3\) thắng theo \(f_2\). Vì hai hàm cố định không va chạm, chữ ký định danh \((a,d)^{\mathsf T}\) và chữ ký giá trị \((1,0)^{\mathsf T}\) giữ cùng quan hệ trùng; điều này không chứng minh các hàm được chọn đều.</p><p>Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R06">
-<h2>Bài 3.3.3: ba yêu cầu</h2>
-<p class="formula">$h_1(x)=2x+1\bmod6,\ h_2(x)=3x+2\bmod6,\ h_3(x)=5x+2\bmod6$</p>
-<ol>
-<li>Tính chữ ký cho bốn cột.</li>
-<li>Xác định hàm nào là hoán vị thật.</li>
-<li>So sánh ước lượng và Jaccard thật cho sáu cặp.</li>
-</ol>
-<p>
-<strong>Sản phẩm:</strong> ma trận chữ ký, kết luận hoán vị và bảng sáu cặp.</p>
-<aside class="notes">Nguồn: MMDS Bài tập 3.3.3, trang in 90–91. Không viện dẫn định lý hoán vị đều cho $h_1,h_2$ vì chúng có va chạm; ba hàm đã cho cũng không phải mẫu độc lập và đều từ họ mọi hoán vị.</aside>
+<section id="lec05-s05-07" data-slide-id="lec05-s05-07" class="example-slide">
+<h2>Thuật toán quét hàng</h2>
+<pre class="ex-code"><code class="language-plaintext" data-trim>SIG(i, c) ← +∞ với mọi i, c
+for r = 0, …, R − 1:
+    vᵢ ← fᵢ(r) với i = 1, …, n
+    for mỗi c có M(r, c) = 1:
+        for i = 1, …, n:
+            SIG(i, c) ← min(SIG(i, c), vᵢ)
+return SIG</code></pre><p class="ex-takeaway">Dừng sau \(R\) hàng; mỗi \(f_i(r)\) được tính một lần tại hàng \(r\).</p>
+<p class="ex-source">MMDS 3e, §3.3.5, tr. 85.</p>
+<aside class="notes"><p>Mỗi giá trị f_i(r) chỉ cần tính một lần ở hàng r rồi dùng cho mọi cột chứa phần tử đó. Nếu đầu vào là danh sách cột có 1 theo hàng, vòng lặp đi trực tiếp qua danh sách. Nếu là ma trận đặc, phải kiểm từng ô để tìm cột có 1. Thứ tự quét hàng không đổi cực tiểu cuối cùng nhưng ảnh hưởng các trạng thái trung gian.</p><p>Nguồn: MMDS 3e, §3.3.5, tr. 85.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R07">
-<h2>Bài 3.3.3: chữ ký và hoán vị</h2>
-<table class="trace">
-<thead>
-<tr>
-<th>
-</th>
-<th>$S_1$</th>
-<th>$S_2$</th>
-<th>$S_3$</th>
-<th>$S_4$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$h_1$</td>
-<td>…</td><td>…</td><td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$h_2$</td>
-<td>…</td><td>…</td><td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$h_3$</td>
-<td>…</td><td>…</td><td>…</td><td>…</td>
-</tr>
-</tbody>
-</table>
-<div class="warn">
-<p>Kiểm tra sáu giá trị đầu ra của từng hàm: có đủ $\{0,\ldots,5\}$ hay có mã lặp?</p>
-</div>
-<aside class="notes">Đáp án: $h_1=(1,3,5,1,3,5)$, $h_2=(2,5,2,5,2,5)$, $h_3=(2,1,0,5,4,3)$. Ma trận chữ ký có các hàng $(5,1,1,1)$, $(2,2,2,2)$, $(0,1,4,0)$. Chỉ $h_3$ là hoán vị. $h_1,h_2$ gây va chạm; ngoài ra bộ ba hàm cố định không được lấy độc lập và đều từ mọi hoán vị. Hướng dẫn chấm: 8 điểm ma trận chữ ký, 4 điểm kết luận hoán vị.</aside>
+<section id="lec05-s05-08" data-slide-id="lec05-s05-08" class="example-slide">
+<h2>Bất biến giá trị nhỏ nhất</h2>
+<p>Với \(A\) là tập hàng đã quét, mọi \(i,c\) thỏa:</p><p class="ex-equation">\[\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):r\in A,\ M(r,c)=1\}\cup\{+\infty\}\bigr)\]</p><ol><li>Khởi tạo: \(A=\varnothing\), chỉ có ứng viên \(+\infty\).</li><li>Duy trì: ô \(0\) giữ nguyên; ô \(1\) thêm ứng viên \(f_i(r)\).</li><li>Kết thúc: \(A\) chứa đủ \(R\) hàng, thu được đặc tả đầu ra.</li></ol>
+<p class="ex-source">Bất biến suy từ thuật toán §3.3.5; bao gồm cột rỗng.</p>
+<aside class="notes"><p>Ban đầu tập giá trị hữu hạn rỗng nên tập lấy cực tiểu chỉ có \(+\infty\), đúng trạng thái. Khi xét hàng mới, cột có 0 không thêm phần tử; cột có 1 thêm \(f_i(r)\in V\), được xử lý bằng phép min với trạng thái cũ. Bất biến được giữ với mọi \(i=1,\ldots,n\) và \(c=1,\ldots,C\). Sau \(R\) hàng, tập \(A\) gồm tất cả các mã hàng; công thức bất biến trở thành đúng hậu điều kiện ở trang đặc tả, kể cả cột rỗng trả \(+\infty\). Chứng minh này bảo đảm tính cực tiểu, không chứng minh một họ băm cụ thể là hoán vị ngẫu nhiên đều.</p><p>Nguồn: Bất biến suy từ thuật toán §3.3.5; bao gồm cột rỗng.</p></aside>
 </section>
-<section class="recitation" data-slide-id="R08">
-<h2>Bài 3.3.3: bảng so sánh</h2>
-<table class="trace compact">
-<thead>
-<tr>
-<th>Cặp</th>
-<th>$\widehat J$</th>
-<th>$J$ thật</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$S_1,S_2$</td>
-<td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$S_1,S_3$</td>
-<td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$S_1,S_4$</td>
-<td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$S_2,S_3$</td>
-<td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$S_2,S_4$</td>
-<td>…</td><td>…</td>
-</tr>
-<tr>
-<td>$S_3,S_4$</td>
-<td>…</td><td>…</td>
-</tr>
-</tbody>
-</table>
-<aside class="notes">Đáp án theo thứ tự sáu cặp: $\widehat J=(1/3,1/3,2/3,2/3,2/3,2/3)$; $J=(0,0,1/4,0,1/4,1/4)$. $h_2$ cho cùng min 2 ở mọi cột và $h_1$ gây nhiều trùng. Ví dụ không bác bỏ định lý: $h_1,h_2$ không phải hoán vị, còn cả bộ ba không được lấy độc lập và đều từ mọi hoán vị. Hướng dẫn chấm: 8 điểm sáu cặp, 2 điểm nêu đủ hai nguyên nhân sai lệch.</aside>
+<section id="lec05-s05-09" data-slide-id="lec05-s05-09" class="cost-slide">
+<h2>Số phép tính chữ ký</h2>
+<p class="cost-assumptions">Mô hình từ máy: tính hàm, kiểm ô và min tốn \(O(1)\); đầu vào đã có.</p><p class="cost-assumptions">\(L=\operatorname{nnz}(M)\) là tổng số ô \(1\) của \(M\).</p><div class="ex-grid2 "><div><table class="ex-table"><thead><tr><th scope="col">Thao tác</th><th scope="col">Số lần</th><th scope="col">Ví dụ</th></tr></thead><tbody><tr><th scope="row">Khởi tạo</th><td>\(nC\)</td><td>8</td></tr><tr><th scope="row">Tính băm</th><td>\(nR\)</td><td>10</td></tr><tr><th scope="row">Kiểm ô đặc</th><td>\(RC\)</td><td>20</td></tr><tr><th scope="row">Lấy min</th><td>\(nL\)</td><td>18</td></tr></tbody></table></div><div><p>\(R=5\), \(C=4\), \(n=2\), \(L=9\).</p><p>Ma trận đặc:</p><p>\(\Theta(nC+nR+RC+nL)\).</p><p>Danh sách cột có 1 theo hàng đã được xây sẵn:</p><p>\(\Theta(nC+nR+nL)\).</p></div></div>
+<p class="ex-source">Đếm từ giả mã §3.3.5; dữ kiện Ví dụ 3.8.</p>
+<aside class="notes"><p>Khởi tạo duyệt nC ô chữ ký. Mỗi hàng tính n giá trị nên có nR lần băm. Nếu lưu ma trận đặc, mọi RC ô được kiểm để tìm ô 1. Mỗi ô 1 gây n phép min nên tổng nL, kể cả lần min giữ nguyên. Khi danh sách các cột có 1 đã có, không cần RC phép kiểm; chi phí xây danh sách không nằm trong phạm vi hiện tại. Đây là đếm từ giả mã, không là số đo thời gian thực.</p><p>Nguồn: Đếm từ giả mã §3.3.5; dữ kiện Ví dụ 3.8.</p></aside>
+</section>
+<section id="lec05-s05-10" data-slide-id="lec05-s05-10" class="cost-slide">
+<h2>Dung lượng chữ ký</h2>
+<table class="ex-table"><thead><tr><th scope="col">Phần lưu trữ</th><th scope="col">Số từ máy</th></tr></thead><tbody><tr><th scope="row">Chữ ký của \(C\) tập</th><td>\(\Theta(nC)\)</td></tr><tr><th scope="row">Bộ đệm băm của một hàng</th><td>\(\Theta(n)\)</td></tr></tbody></table><p class="ex-note">Chưa gồm dữ liệu đầu vào.</p><p class="ex-equation">\[200.000\text{ byte}\ \longrightarrow\ 1.000\text{ byte}\]</p><p class="ex-takeaway">Ví dụ dung lượng trong sách không là bảo đảm sai số cho mọi trường hợp.</p>
+<p class="ex-source">MMDS 3e, tr. 81; phân tích bộ nhớ từ thuật toán §3.3.5.</p>
+<aside class="notes"><p>Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. Ví dụ 5 × 4 giúp theo thuật toán; so số hàng n&lt;R không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Quy mô byte trong sách minh họa tập rất lớn và chữ ký ngắn, không thay phân tích chất lượng theo n.</p><p>Nguồn: MMDS 3e, tr. 81; phân tích bộ nhớ từ thuật toán §3.3.5.</p></aside>
+</section>
+<section id="lec05-s05-11" data-slide-id="lec05-s05-11" class="example-slide">
+<h2>Hàm băm và điều kiện bảo đảm</h2>
+<ul><li>Va chạm có thể làm hai hàng khác nhau có cùng giá trị.</li><li>Hàm \((ar+b)\bmod R\) là hoán vị khi \(\gcd(a,R)=1\).</li><li>Đẳng thức xác suất đã chứng minh dùng phân phối chọn đều hoán vị.</li></ul><div class="ex-card"><p>Song ánh của từng hàm không bảo đảm phân phối chọn đều trên mọi hoán vị.</p></div>
+<p class="ex-source">MMDS 3e, §3.3.5 và Bài 3.3.3; điều kiện khả nghịch modulo \(R\).</p>
+<aside class="notes"><p>Với modulo 5, hệ số 1 và 3 trong ví dụ khả nghịch nên hai hàm là hoán vị. Tính nguyên tố của số hàng không phải điều kiện cần; Bài 3.3.3 có hàm hệ số 5 modulo 6 vẫn là hoán vị. Kiểm bảng giá trị cho biết có va chạm hay không, nhưng không cho biết phân phối lựa chọn trong cả họ hàm. Nếu băm shingle đã gây va chạm, tập đo ở đầu vào cũng đã thay đổi trước bước này.</p><p>Nguồn: MMDS 3e, §3.3.5 và Bài 3.3.3; điều kiện khả nghịch modulo \(R\).</p></aside>
+</section>
+<section id="lec05-s05-12" data-slide-id="lec05-s05-12" class="example-slide">
+<h2>Câu hỏi kiểm tra</h2>
+<div class="ex-grid2 "><div><table class="ex-table"><thead><tr><th scope="col">Thành phần</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">\(f_1\)</th><td>1</td><td>3</td><td>0</td><td>1</td></tr><tr><th scope="row">\(f_2\)</th><td>0</td><td>2</td><td>0</td><td>0</td></tr></tbody></table><p>\(R=5\), \(C=4\), \(n=2\), \(L=9\).</p></div><div><p class="ex-takeaway">Câu hỏi:</p><ol><li>Tính ước lượng cặp \(1\)–\(4\), \(1\)–\(3\); so với Jaccard thật \(2/3\), \(1/4\).</li><li>Giải thích phép min của chữ ký của \(S_4\) đang là \((1,1)\) với ứng viên \((3,2)\).</li><li>Tính tổng số phép min và nêu căn cứ.</li></ol></div></div>
+<p class="ex-source">Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Cặp 1–4 trùng hai trong hai tọa độ nên ước lượng 1, khác 2/3. Cặp 1–3 trùng tọa độ thứ hai nên ước lượng 1/2, khác 1/4. min(1,3)=1 và min(1,2)=1 nên chữ ký của \(S_4\) giữ \((1,1)\) khi xét hàng 2. Mỗi trong L=9 ô 1 thực hiện n=2 phép min, tổng 18; con số này bao gồm các lần không đổi giá trị. Kết quả cố định không phủ định phát biểu kỳ vọng dưới giả thiết lý tưởng.</p><p>Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
 </section>
-<div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 5</div>
-</div>
-</div>
-<script src="revealjs/dist/reveal.js">
+<section>
+<section id="lec05-s06-01" data-slide-id="lec05-s06-01" class="example-slide">
+<h2>Biểu diễn tài liệu gần trùng</h2>
+<figure class="mh-figure mh-wide"><img src="img/lec-05/quy-trinh-bieu-dien.svg" alt="Tài liệu đi qua tập shingle, chữ ký và tỷ lệ trùng cùng tọa độ."></figure><div class="ex-grid2 "><div><div class="ex-card"><p>Băm shingle</p><p>Mã hóa từng chuỗi con.</p></div></div><div><div class="ex-card"><p>Băm hàng</p><p>Tạo các cực tiểu của tập.</p></div></div></div><p class="ex-takeaway">Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.</p>
+<p class="ex-source">Tổng hợp MMDS 3e, §§3.1–3.3.</p>
+<aside class="notes"><p>Jaccard được chọn trước để xác định đại lượng cần bảo toàn. Shingling làm cho phần văn bản chung trở thành phần tử chung của tập. Định lý MinHash nối tỷ lệ giao/hợp với xác suất một phép thử. Nhiều thành phần tạo ước lượng; thuật toán quét tính các giá trị min. Mỗi bước đổi kiểu dữ liệu và có điều kiện riêng, đặc biệt các va chạm không tự biến mất ở bước sau.</p><p>Nguồn: Tổng hợp MMDS 3e, §§3.1–3.3.</p></aside>
+</section>
+<section id="lec05-s06-02" data-slide-id="lec05-s06-02" class="example-slide">
+<h2>Điều kiện và giới hạn</h2>
+<ul><li>Tập shingle đo tương đồng văn bản theo quy ước đã chọn.</li><li>Định lý dùng hoán vị đều; phương sai còn cần độc lập.</li><li>Nếu xét mọi cặp, số cặp vẫn là \(C(C-1)/2\).</li></ul><div class="ex-card"><p>Bài 06: tạo ứng viên bằng băm nhạy cảm cục bộ (LSH).</p></div>
+<p class="ex-source">MMDS 3e, §§3.1–3.3; phạm vi Bài 06 theo đề cương học phần.</p>
+<aside class="notes"><p>Giới hạn bộ nhớ được xử lý bằng chữ ký có n thành phần cho mỗi tập, với đánh đổi chất lượng đã nêu. Giới hạn số cặp chưa được giải quyết bởi việc thay tập lớn bằng chữ ký nhỏ. Bài tiếp theo dùng cấu trúc chữ ký để lựa chọn những cặp có khả năng tương đồng; không cần cơ chế lựa chọn ấy để hoàn thành các phép tính và bài tập của bài hiện tại.</p><p>Nguồn: MMDS 3e, §§3.1–3.3; phạm vi Bài 06 theo đề cương học phần.</p></aside>
+</section>
+<section id="lec05-s06-03" data-slide-id="lec05-s06-03" class="example-slide">
+<h2>Tự kiểm tra biểu diễn</h2>
+<p class="ex-takeaway">Câu hỏi:</p><ol><li>Giải thích vì sao hai lần <code>ab</code> trong <code>abcdabd</code> chỉ tạo một phần tử của tập.</li><li>Phân biệt 9 ký tự của shingle với 4 byte mã băm.</li><li>Xác định đối tượng ở hàng và cột của ma trận đặc trưng.</li></ol>
+<p class="ex-source">Tự kiểm theo §§3.2–3.3.1 và các ví dụ đã học.</p>
+<aside class="notes"><p>Tập hợp chỉ giữ một bản của phần tử ab, nên bỏ số lần lặp. Chín ký tự đo độ dài đoạn gốc, còn bốn byte đo dung lượng mã. Ma trận đặc trưng có hàng là phần tử của vũ trụ, cột là tập/tài liệu. Ba phân biệt này phải được giữ khi giải các bài tính chữ ký; đổi kiểu mà giữ tên biến mơ hồ có thể dẫn đến phép so sánh khác bài toán.</p><p>Nguồn: Tự kiểm theo §§3.2–3.3.1 và các ví dụ đã học.</p></aside>
+</section>
+<section id="lec05-s06-04" data-slide-id="lec05-s06-04" class="example-slide">
+<h2>Tự kiểm tra MinHash</h2>
+<p class="ex-takeaway">Câu hỏi:</p><ol><li>Nêu biến cố tương đương hai MinHash trùng.</li><li>Viết phép tính ước lượng từ \(n\) tọa độ chữ ký.</li><li>Nêu giới hạn còn lại nếu vẫn so sánh mọi cặp trong kho \(C\) tài liệu.</li></ol>
+<p class="ex-source">Tự kiểm theo §§3.3.2–3.3.5 và phép đếm cặp đầu bài.</p><p class="ex-source">Nội dung dựa trên sách Mining of Massive Datasets và slide chính thức tại <a href="http://www.mmds.org">mmds.org</a>.</p>
+<aside class="notes"><p>Hai MinHash trùng khi và chỉ khi phần tử đầu trong hợp thuộc giao, dưới cùng một thứ tự. Ước lượng là số tọa độ trùng chia n. Dù mỗi cặp chỉ cần Θ(n) phép so sánh, vẫn có C(C−1)/2 cặp nếu không chọn ứng viên. Phát biểu xác suất còn cần thứ tự lấy đều; công thức phương sai thêm độc lập giữa các thứ tự.</p><p>Nguồn: Tự kiểm theo §§3.3.2–3.3.5 và phép đếm cặp đầu bài.</p></aside>
+</section>
+</section>
+<section>
+<section id="lec05-s07-01" data-slide-id="lec05-s07-01" class="example-slide">
+<h2>Bài tập tính Jaccard</h2>
+<p>Bài 3.1.1</p><p class="ex-equation">\[S_A=\{1,2,3,4\},\quad S_B=\{2,3,5,7\},\quad S_C=\{2,4,6\}\]</p><p><strong>Câu hỏi:</strong> Tính độ tương đồng Jaccard của từng cặp tập.</p><div class="ex-card"><p>Sản phẩm: bảng ba cặp gồm giao, hợp và tỷ số.</p></div>
+<p class="ex-source">MMDS 3e, Bài 3.1.1, §3.1.4, tr. 78.</p>
+<aside class="notes"><p>Ba tập được đặt nhãn S_A, S_B, S_C; dữ kiện số giữ nguyên. Cặp S_A, S_B có giao {2,3}, hợp {1, 2, 3, 4, 5, 7}, tỷ số 1/3. Cặp S_A, S_C có giao {2,4}, hợp {1, 2, 3, 4, 6}, tỷ số 2/5. Cặp S_B, S_C có giao {2}, hợp {2, 3, 4, 5, 6, 7}, tỷ số 1/6. Mẫu số đếm phần tử hợp một lần. Nguồn: MMDS 3e, Bài 3.1.1, §3.1.4, tr. 78/PDF7. Thời lượng dự kiến 8 phút.</p></aside>
+</section>
+<section id="lec05-s07-02" data-slide-id="lec05-s07-02" class="example-slide">
+<h2>Bài tập số lượng shingle</h2>
+<p>Bài 3.2.3</p><p>Một tài liệu dài \(\ell\) byte. Giả sử bảng chữ cái đủ lớn để có ít nhất \(\ell\) chuỗi độ dài \(k\).</p><p><strong>Câu hỏi:</strong> Xác định số \(k\)-shingle lớn nhất tài liệu có thể có.</p><p class="ex-note">Quy ước tính: mỗi ký tự chiếm một byte.</p><div class="ex-card"><p>Sản phẩm: công thức theo \(\ell,k\) và lập luận theo vị trí cửa sổ.</p></div>
+<p class="ex-source">MMDS 3e, Bài 3.2.3, §3.2.5, tr. 81; đổi tên độ dài \(n\) thành \(\ell\).</p>
+<aside class="notes"><p>Đáp số và cận trên. Trong mô hình của bài này, mỗi ký tự chiếm một byte nên tài liệu có \(\ell\) vị trí ký tự. Đáp số là \(\max(0,\ell-k+1)\). Với \(1\le k\le\ell\), có \(\ell-k+1\) vị trí bắt đầu; số shingle phân biệt không vượt số cửa sổ. Với \(\ell&lt;k\), không có cửa sổ. Lập luận này chứng minh cận trên; phần tồn tại chuỗi đạt cận dưới giả thiết của đề không được chứng minh ở đây. Đề gốc gọi độ dài là \(n\), được đổi thành \(\ell\) để giữ \(n\) cho chữ ký. Nguồn: MMDS 3e, Bài 3.2.3, §3.2.5, tr. 81/PDF10. Thời lượng dự kiến 10 phút.</p></aside>
+</section>
+<section id="lec05-s07-03" data-slide-id="lec05-s07-03" class="example-slide">
+<h2>Bài tập ma trận và Jaccard</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Phần tử / \(r\)</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">a / 0</th><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><th scope="row">b / 1</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">c / 2</th><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">d / 3</th><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">e / 4</th><td>0</td><td>0</td><td>1</td><td>0</td></tr></tbody></table></div><div><p>Bài 3.3.1(a) · Hình 3.2</p><p><strong>Câu hỏi:</strong> Tính Jaccard của mọi cặp cột.</p><div class="ex-card"><p>Sản phẩm: bảng sáu cặp 12, 13, 14, 23, 24, 34 với kích thước giao, hợp và Jaccard.</p></div></div></div>
+<p class="ex-source">MMDS 3e, Bài 3.3.1(a), §3.3.8, tr. 90; Hình 3.2, tr. 81.</p>
+<aside class="notes"><p>Các tập lần lượt là {a, d}, {c}, {b, d, e}, {a, c, d}. Sáu giá trị Jaccard theo thứ tự 12, 13, 14, 23, 24, 34 là 0, 1/4, 2/3, 0, 1/3, 1/5. Kích thước giao/hợp tương ứng là 0/3, 1/4, 2/3, 0/4, 1/3, 1/5. Nhãn số bên cạnh a–e chỉ là quy ước mã hàng đã học; phép tính tập không thay đổi. Nguồn: MMDS 3e, Bài 3.3.1(a), §3.3.8, tr. 90/PDF19, Hình 3.2 tr. 81. Thời lượng dự kiến 7 phút, là phần đầu của bài 15 phút.</p></aside>
+</section>
+<section id="lec05-s07-04" data-slide-id="lec05-s07-04" class="example-slide">
+<h2>Bài tập đếm hoán vị</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Phần tử / \(r\)</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">a / 0</th><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><th scope="row">b / 1</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">c / 2</th><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">d / 3</th><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">e / 4</th><td>0</td><td>0</td><td>1</td><td>0</td></tr></tbody></table></div><div><p>Bài 3.3.1(b) · Hình 3.2</p><p><strong>Câu hỏi:</strong> Với mỗi cặp cột, tính tỷ lệ trong 120 hoán vị của năm hàng làm hai MinHash bằng nhau.</p><div class="ex-card"><p>Sản phẩm: số hoán vị trùng và tỷ lệ của sáu cặp; đối chiếu ý (a).</p></div></div></div>
+<p class="ex-source">MMDS 3e, Bài 3.3.1(b), §3.3.8, tr. 90.</p>
+<aside class="notes"><p>Với một cặp, gọi q là số phần tử của hợp. Do đối xứng, mỗi phần tử của hợp đứng đầu ở 120/q hoán vị. Mỗi phần tử giao tạo đúng từng ấy hoán vị trùng; nhân với kích thước giao. Sáu số đếm là 0, 30, 80, 0, 40, 24; chia 120 được 0, 1/4, 2/3, 0, 1/3, 1/5. Không cần liệt kê 120 thứ tự; lập luận đối xứng là căn cứ cho phép rút gọn. Nguồn: MMDS 3e, Bài 3.3.1(b), §3.3.8, tr. 90/PDF19. Thời lượng dự kiến 8 phút; cả bài 3.3.1 là 15 phút.</p></aside>
+</section>
+<section id="lec05-s07-05" data-slide-id="lec05-s07-05" class="example-slide">
+<h2>Bài tập bổ sung chữ ký</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Phần tử / \(r\)</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">a / 0</th><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><th scope="row">b / 1</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">c / 2</th><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">d / 3</th><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">e / 4</th><td>0</td><td>0</td><td>1</td><td>0</td></tr></tbody></table></div><div><p>Bài 3.3.2(a, b) · Dữ liệu Hình 3.4</p><p>\(f_3(r)=(2r+4)\bmod5\).</p><p>\(f_4(r)=(3r-1)\bmod5\).</p><p><strong>Câu hỏi:</strong> Tính hai hàng chữ ký bổ sung.</p><div class="ex-card"><p>Sản phẩm: bảng giá trị hai hàm và hai hàng chữ ký.</p></div></div></div>
+<p class="ex-source">MMDS 3e, Bài 3.3.2, tr. 90; Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.</p>
+<aside class="notes"><p>Giá trị \(f_3\) theo 0–4 là 4, 1, 3, 0, 2; \(f_4\) là 4, 2, 0, 3, 1. Chỉ xét những hàng có 1 trong từng cột. Hai hàng chữ ký mới là (0, 3, 0, 0) và (3, 0, 1, 0). Phần dư chuẩn nằm trong 0–4 nên (−1) mod 5=4. Đề sách dùng h3, h4; đổi thành \(f_3\), \(f_4\) để phân biệt băm hàng với MinHash trên tập. Nguồn: MMDS 3e, Bài 3.3.2(a, b), §3.3.8, tr. 90/PDF19; Hình 3.4 tr. 85; Ví dụ 3.8 tr. 85–86. Thời lượng dự kiến 12 phút.</p></aside>
+</section>
+<section id="lec05-s07-06" data-slide-id="lec05-s07-06" class="example-slide">
+<h2>Bài tập chữ ký và hoán vị</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">\(r\)</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">0</th><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">1</th><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><th scope="row">2</th><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><th scope="row">3</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">4</th><td>0</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">5</th><td>1</td><td>0</td><td>0</td><td>0</td></tr></tbody></table></div><div><p>Bài 3.3.3(a, b) · Hình 3.6</p><p>\(f_1(r)=(2r+1)\bmod6\).</p><p>\(f_2(r)=(3r+2)\bmod6\).</p><p>\(f_3(r)=(5r+2)\bmod6\).</p><p><strong>Câu hỏi:</strong> Tính chữ ký mỗi cột; xác định các hàm là hoán vị.</p><p class="ex-note">Sản phẩm: bảng giá trị, ma trận chữ ký và kết luận hoán vị.</p></div></div>
+<p class="ex-source">MMDS 3e, Bài 3.3.3(a, b), §3.3.8, Hình 3.6, tr. 90–91.</p>
+<aside class="notes"><p>Bảng \(f_1\) là (1, 3, 5, 1, 3, 5), \(f_2\) là (2, 5, 2, 5, 2, 5), \(f_3\) là (2, 1, 0, 5, 4, 3). Các hàng chữ ký lần lượt là (5, 1, 1, 1), (2, 2, 2, 2), (0, 1, 4, 0). Chỉ \(f_3\) nhận đủ sáu giá trị khác nhau nên là hoán vị; \(f_1\) và \(f_2\) có va chạm. Dữ kiện modulo 6 được giữ nguyên. Nguồn: MMDS 3e, Bài 3.3.3(a, b), §3.3.8, tr. 90–91/PDF19–20, Hình 3.6. Thời lượng dự kiến 8 phút; phần đầu của bài 15 phút.</p></aside>
+</section>
+<section id="lec05-s07-07" data-slide-id="lec05-s07-07" class="example-slide">
+<h2>Bài tập đánh giá ước lượng</h2>
+<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">\(r\)</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">0</th><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">1</th><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><th scope="row">2</th><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><th scope="row">3</th><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><th scope="row">4</th><td>0</td><td>0</td><td>1</td><td>1</td></tr><tr><th scope="row">5</th><td>1</td><td>0</td><td>0</td><td>0</td></tr></tbody></table></div><div><p>Bài 3.3.3(c) · Hình 3.6</p><p><strong>Câu hỏi:</strong> Dùng chữ ký đã tính ở ý (a). Với sáu cặp 12, 13, 14, 23, 24, 34, so sánh Jaccard ước lượng với giá trị đúng.</p><div class="ex-card"><p>Sản phẩm: bảng gồm cặp, ước lượng, Jaccard thật và sai lệch tuyệt đối.</p></div></div></div>
+<p class="ex-source">MMDS 3e, Bài 3.3.3(c), §3.3.8, tr. 90–91.</p>
+<aside class="notes"><p>Sáu ước lượng lần lượt 1/3, 1/3, 2/3, 2/3, 2/3, 2/3. Sáu Jaccard thật là 0, 0, 1/4, 0, 1/4, 1/4. Sai lệch tuyệt đối là 1/3, 1/3, 5/12, 2/3, 5/12, 5/12. Hai hàm đầu có va chạm nên các tập rời có thể có giá trị cực tiểu bằng nhau; bộ ba hàm này không thỏa mô hình chọn đều hoán vị. Số thành phần ít cũng không cho một ước lượng ổn định. Nguồn: MMDS 3e, Bài 3.3.3(c), §3.3.8, tr. 90–91/PDF19–20. Thời lượng dự kiến 7 phút; cả bài 15 phút.</p></aside>
+</section>
+</section>
+<div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 05</div>
+</div></div>
+<script src="revealjs/dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/math/math.js"></script>
+<script>
+Reveal.initialize({width:1280,height:720,margin:.04,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:!new URLSearchParams(location.search).has("receiver"),hash:true,
+katex:{local:"vendor/katex"},plugins:[RevealMarkdown,RevealHighlight,RevealNotes,RevealMath.KaTeX]});
+</script><script>
+window.addEventListener("message", (event) => {
+  if (event.origin !== location.origin || typeof event.data !== "string") return;
+  let message;
+  try { message = JSON.parse(event.data); } catch { return; }
+  if (message.namespace !== "reveal-notes" || message.type !== "connected") return;
+  try {
+    if (event.source.opener !== window) return;
+    const target = event.source.document;
+    if (!target.getElementById("lecture-katex-style")) {
+      const style = target.createElement("link");
+      style.id = "lecture-katex-style";
+      style.rel = "stylesheet";
+      style.href = new URL("vendor/katex/dist/katex.min.css", document.baseURI).href;
+      style.addEventListener("load", () => {
+        for (const face of document.fonts) target.fonts.add(face);
+      }, { once: true });
+      target.head.append(style);
+    }
+  } catch {}
+});
 </script>
-<script src="plugin/notes/notes.js">
-</script>
-<script src="plugin/markdown/markdown.js">
-</script>
-<script src="plugin/highlight/highlight.js">
-</script>
-<script src="plugin/math/math.js">
-</script>
-<script>Reveal.initialize({width:1280,height:720,margin:.04,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealMarkdown,RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
-</body>
-</html>
+</body></html>

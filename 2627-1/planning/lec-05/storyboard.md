@@ -1,110 +1,2026 @@
-# Storyboard Bài 5
+# Storyboard Bài 05 — Biểu diễn tương đồng: Shingling và MinHash
 
-## Bản đồ hành trình
+Bản viết mới ngày 28-09-2026. Phạm vi hiện tại: 50 trang giảng/120 phút, 7 trang cho 5 bài nguồn/60 phút; 7 phần lớn. Cửa kiểm kế hoạch đã PASS và được điều phối viên chấp nhận; đặc tả này đã được triển khai thành bản nháp để rà độc lập, chưa phải xác nhận bản render cuối. Mỗi `data-slide-id` dưới đây chỉ dùng trong HTML và tài liệu quy trình, không hiển thị trong nội dung hay ghi chú diễn giả.
 
-| Cụm | Tình huống dữ liệu lớn | Vấn đề | Trực giác | Ví dụ | Hình thức | Thuật toán, lập luận đúng | Ứng dụng, chi phí | Kiểm tra | Thời lượng |
-|---|---|---|---|---|---|---|---|---|---:|
-| Mở bài | M00 | M01 | M02 | không áp dụng: cụm định hướng | M01 | không áp dụng | M03 | M03 | 8 phút, gồm P00–P01 và M00–M03 trong cùng một section |
-| Shingling | M00 (dùng lại) | S00 | S04 | S02 | S01 | S03 | S05–S06 | S06 | 25 phút |
-| Jaccard | M00 (dùng lại) | J02 | J02 | J03 | J00–J01 | J04 | J05 | J05 | 20 phút |
-| MinHash lý tưởng | M00 (dùng lại) | H00 | H01 | H03 | H02,H04 | H05–H07 | H08–H09,G07 | H07,G07 | 35 phút |
-| Chữ ký thực hành | M00 (dùng lại) | G00 | G02 | G04 | G01 | G03 | G05–G06 | G06 | 24 phút |
-| Cầu nối | M00 | C00 | C02 | không áp dụng: trang tổng hợp | C01 | không áp dụng | C00 | C02 | 8 phút |
+## Quy ước bố cục, dữ liệu và nội dung
 
-Ở cụm Jaccard, J02 vừa nêu vấn đề đo hai tập vừa dựng trực giác ba vùng; J05 vừa phân tích chi phí so sánh mọi cặp vừa kiểm tra giới hạn của biểu diễn. Hai trang này đảm nhiệm hai vai trong chu trình, không phải mục bị lặp.
+Nền kỹ thuật là `lecture-template.html`; giao diện dùng `.reveal.course-deck.lecture-minhash` và thành phần chung đối chiếu Lecture 02. Không sao chép khối style của template: quy tắc mới của kho yêu cầu kiểu dùng lại nằm trong `lecture-style.css`. Dùng `title-slide`, `lecture-title`, `course-name`, `term-name`, `agenda-slide`, `motivation-slide`, `example-slide`, `ex-grid2`, `ex-table`, `ex-card`, `ex-equation`, `pre.ex-code`, `ex-source`, `cost-slide`. Các vùng bất đối xứng chỉ cần lớp bố cục giới hạn bằng `.lecture-minhash`; không ghi đè cỡ chữ tương ứng giữa các deck.
 
-Tình huống mở bài dùng $N=10^6$ tài liệu và $N(N-1)/2=499.999.500.000$ cặp. Con số này trở lại ở J05 và C00–C02 khi xác định phần còn thiếu là tạo ứng viên; G05 chỉ dùng tham số $N$ để phân tích kích thước chữ ký. Quy tắc chuẩn hóa S04 tạo chuỗi đầu vào cho Ví dụ 3.3 ở S02; dữ kiện đó truyền sang đặc tả S01 và bất biến S03. Ba vùng ở J02 truyền sang Ví dụ 3.1, công thức J00 và chứng minh H05–H07. G02 giới thiệu $SIG$ là bảng đang cập nhật; ma trận Hình 3.4 xuất hiện ở G04, rồi được hình thức hóa bởi G01 và bất biến G03; cùng dữ kiện trở lại ở R03–R04. Trang M00 không thuộc mọi mạch: nó nằm trong section mở bài và dữ kiện của nó được dùng lại ở các mạch sau. Toàn bộ deck có 7 section ngoài: mở bài (P00–P01, M00–M03), Shingling, Jaccard, MinHash lý tưởng, Chữ ký thực hành, Cầu nối và recitation. G07 là trang cầu thuộc cụm MinHash lý tưởng, kết thúc mạch đó trước khi sang quét thực hành.
+Tỷ lệ vùng dưới đây tính trên thân trang sau tiêu đề, trước nguồn/chân trang. Giữ khung 1280 × 720, thư viện cục bộ và font scale chung; các trang trạng thái tĩnh, không dùng `fragment`. Nội dung “Bố cục”, “Mục đích”, “Kiểm tra” là chỉ dẫn nội bộ. Chỉ “Nội dung công khai” và phần học thuật của “Ghi chú diễn giả” đi vào học liệu. Thời lượng bài tập được giữ trong notes theo yêu cầu recitation, không hiện trên mặt; dữ liệu quy trình, mã và tiêu chí nội bộ không chép vào notes.
 
-## Bảng trang chiếu phần giảng
+Nguồn `B` là `sources/textbooks/mmds-3e-ch03-finding-similar-items.pdf`; trang in=trang PDF+71. Mã MM/ST03/ST04/CM/UM và phiếu VD 1–VD 9, HT1–HT9 được định nghĩa đầy đủ trong `outline.md`. Không gọi một phép suy ra là trích nguyên văn nguồn. Mọi ma trận là bảng HTML, công thức là KaTeX, giả mã là khối mã có `data-trim`; SVG chỉ dùng cho quan hệ hình học/quy trình/cửa sổ.
 
-| Mã | Luận điểm trung tâm | Nguồn | Thời lượng |
-|---|---|---|---:|
-| P00 | Vị trí của bài trong mạch tương đồng | `source.md`, Bài 5; MMDS Ch.3 | 0 |
-| P01 | Năm sản phẩm học tập và tiên quyết | `source.md`, Bài 5 | 2 |
-| M00 | Một triệu tài liệu tạo gần năm trăm tỷ cặp | MMDS slide 15, 24; Stanford 03 tr.14 đối chiếu | 3 |
-| M01 | Bài 5 nén biểu diễn, chưa giảm số cặp | MMDS tr.73–74 | 1 |
-| M02 | Luồng biểu diễn: tài liệu → shingle → chữ ký; $D_i\to C_i\to\sigma(C_i)$; Jaccard là phép so sánh | MMDS tr.73–74 | 1 |
-| M03 | Ba bài toán biểu diễn, đo và nén | Tổng hợp từ MMDS §§3.1–3.3 | 1 |
-| S00 | Shingle giữ dấu vết cụm từ chung | MMDS tr.78 | 2 |
-| S04 | Chuẩn hóa khoảng trắng làm đổi biểu diễn | MMDS Ví dụ 3.4 | 3 |
-| S02 | Quét tay Ví dụ 3.3 và loại bản lặp | MMDS Ví dụ 3.3 | 4 |
-| S01 | Đặc tả $S_k(D)$ và trường hợp $k>n$ | MMDS §3.2.1 | 4 |
-| S03 | Quét một lượt đúng nhờ bất biến; tạo trực tiếp tốn $\Theta(1+k\max(0,n-k+1))$ | MMDS §3.2.1; đặc tả bổ sung | 4 |
-| S05 | $k$ phải đủ lớn để phân biệt | MMDS §3.2.2 | 4 |
-| S06 | Băm 9-shingle khác với dùng 4-shingle | MMDS §3.2.3 | 4 |
-| J02 | Chỉ vùng X và Y quyết định tỷ lệ | MMDS §§3.1.1, 3.3.3 | 3 |
-| J03 | Ví dụ 3.1 có ba phần tử trong giao, tám trong hợp | MMDS Ví dụ 3.1 | 4 |
-| J00 | Jaccard gọi tên tỷ lệ giao trên hợp | MMDS §3.1.1 | 3 |
-| J01 | Hợp rỗng trả “không xác định” | MMDS §3.1.1; trường hợp biên bổ sung | 3 |
-| J04 | Ba nhánh loại trừ tính Jaccard; cận trường hợp xấu nhất tuyến tính | Đặc tả cài đặt từ định nghĩa | 4 |
-| J05 | Tính mỗi cặp nhanh vẫn còn $\Theta(N^2)$ cặp | MMDS ghi chú tr.81 | 3 |
-| H00 | MinHash chọn phần tử sớm nhất theo thứ tự ngẫu nhiên | MMDS slide 32–35; Stanford 03 tr.26–27 đối chiếu | 2 |
-| H01 | Ma trận đặc trưng là mô hình, không phải lưu trữ bắt buộc | MMDS §3.3.1 | 3 |
-| H03 | Ví dụ 3.7 cho bốn giá trị MinHash | MMDS Ví dụ 3.7 | 4 |
-| H02 | MinHash lý tưởng cần vũ trụ hữu hạn, tập không rỗng và hoán vị | MMDS §3.3.2; Stanford 03 tr.28 cho quy ước nhãn/hạng | 3 |
-| H04 | Mệnh đề xác suất cần hoán vị đều | MMDS §3.3.3 | 3 |
-| H05 | Bỏ hàng Z, giữ X và Y | MMDS §3.3.3 | 3 |
-| H06 | Phần tử đầu trong hợp phân bố đều | MMDS §3.3.3 | 4 |
-| H07 | Hàng X tương đương hai MinHash trùng | MMDS §3.3.3 | 3 |
-| H08 | $p$ hoán vị độc lập tạo chữ ký | MMDS §3.3.4 | 3 |
-| H09 | Số hàng trùng có kỳ vọng $pJ$; tỷ lệ có kỳ vọng $J$ | MMDS §3.3.4, sửa đơn vị | 4 |
-| G07 | Tăng $p$ giảm phương sai nhưng tăng chi phí | Suy ra từ Bernoulli độc lập | 3 |
-| G00 | Thực hành quét mã băm thay vì hoán vị ma trận | MMDS §3.3.5 | 2 |
-| G02 | Chỉ phần tử 1 có thể hạ ô $SIG[i,c]$ của bảng chữ ký đang cập nhật | MMDS §3.3.5 | 3 |
-| G04 | Ví dụ 3.8 chạy các cập nhật $SIG$ trước khi đặc tả đầy đủ | MMDS Ví dụ 3.8 | 5 |
-| G01 | Đặc tả luồng thưa nhóm theo hàng và miền mã $0..u-1$ | MMDS §3.3.5 | 3 |
-| G03 | Phép lấy min duy trì bất biến; cột toàn $\infty$ bị đánh dấu không hợp lệ | MMDS §3.3.5 | 4 |
-| G05 | Chi phí $O(pu+pz)$ dưới giả thiết $O(1)$; bộ nhớ $\Theta(pN\log(u+1))$ bit | Phân tích từ giả mã | 4 |
-| G06 | Va chạm làm mất bảo đảm chính xác của mô hình lý tưởng | MMDS §3.3.5 | 3 |
-| C00 | MinHash chưa chọn ứng viên | MMDS chuyển §3.3→§3.4 | 3 |
-| C01 | Bốn điều kiện cần ghi để tái lập kết quả | Tổng hợp giả thiết | 3 |
-| C02 | Bài 6 thêm LSH vào sau chữ ký | MMDS §3.4 | 2 |
-| **Tổng** |  |  | **120** |
+Các tỷ lệ trạng thái và vị trí nhãn giữ nguyên qua 23–24,28–30,37–40,53–54 và 56–57. Màu đi kèm nhãn, viền hoặc kiểu nét. Đáp án kiểm tra không hiển thị trước trên mặt. Các đoạn số viết bằng lời trong notes phải chuyển sang công thức thích hợp khi dựng để tránh chuỗi ký hiệu khó đọc.
 
-## Phần bài tập dọc
+## Hành trình khái niệm và kiểm soát thời lượng
 
-| Mã | Bài nguồn và sản phẩm | Thời lượng |
-|---|---|---:|
-| R00 | Giao nhiệm vụ và quy tắc nộp | 0 |
-| R01 | Bài tập 3.1.1: ba giao, ba hợp, ba tỷ số | 15 |
-| R02 | Bài tập 3.2.3: công thức, biên, chứng minh đạt cận | 10 |
-| R03 | Bài tập 3.3.2: tính hai hàm băm và lập hai hàng chữ ký | 7 |
-| R04 | Bài tập 3.3.2: hoàn tất bảng chữ ký và trình bày kết quả | 8 |
-| R05 | Bài tập 3.3.3: ma trận sáu hàng | 4 |
-| R06 | Bài tập 3.3.3: ba yêu cầu và sản phẩm | 4 |
-| R07 | Bài tập 3.3.3: bảng chữ ký trống và kiểm tra hoán vị | 6 |
-| R08 | Bài tập 3.3.3: bảng sáu cặp trống và giải thích sai lệch | 6 |
-| **Tổng** |  | **60** |
+| Phần | Chức năng, đầu vào → đầu ra và mục tiêu | Slide | Phút | Kiểm tra |
+|---|---|---|---:|---|
+|1. Giới thiệu và tương đồng tập hợp|Kho gần trùng, tập hợp → đặc tả Jaccard; MT1|01–09|18|09|
+|2. Shingling văn bản|Chuỗi, tập và băm → tập shingle có quy ước; MT2|10–18|22|18|
+|3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–27|22|27|
+|4. Chữ ký MinHash|Một phép thử → ước lượng từ nhiều tọa độ; MT4|28–34|17|34|
+|5. Tính chữ ký và giới hạn|Chữ ký lý tưởng → quét hàng, đúng, chi phí; MT5|35–46|31|46|
+|6. Tổng kết|Các kết quả → xử lý hai giới hạn mở bài, sáu nhiệm vụ tự kiểm|47–50|10|49–50|
+|7. Bài tập vận dụng|Toàn bộ tuyến chính → sản phẩm năm bài sách|51–57|60|56–57|
 
-R00–R08 là một phần dọc riêng sau phần giảng. Lời giải và hướng dẫn chấm chỉ nằm trong ghi chú diễn giả. Dữ kiện được chép nguyên từ MMDS; việc tách mỗi bài thành trang dữ kiện và trang chữa không đổi yêu cầu toán học.
+Phần giảng cộng 120 phút. Phần bài tập: 8+10+(7+8)+12+(8+7)=60 phút; trang tách chỉ phân bổ thời lượng của cùng bài. Mục tiêu nêu ở 03; tình huống 04–05 được dùng lại ở 19, 33, 44,47–48. Mỗi phiếu có dự toán; đối với trang không kiểm tra, thời gian gồm đọc dữ kiện, thực hiện phép suy luận và đối chiếu kết quả; không quy đổi số chữ thành số phút.
 
-## Câu nối
+## Chu trình các cụm
 
-- M03 → S00: biểu diễn chuỗi thành tập trước khi chọn độ đo.
-- S00 → S04 → S02: chốt chuỗi đầu vào rồi mới quét tay cửa sổ.
-- S02 → S01 → S03: ví dụ cung cấp dữ kiện cho đặc tả và bất biến.
-- S03 → S05: sau khi biết chi phí quét một lượt, chọn $k$ để shingle đủ phân biệt trước khi băm.
-- S06 → J02 → J03 → J00: quan sát phần chung, chạy ví dụ rồi gọi tên công thức.
-- S06 → J02: đã có tập shingle cho từng tài liệu; giờ đo hai tập giống nhau đến đâu.
-- J01 → J04: quy ước hợp rỗng trả “không xác định” được cài thành nhánh cuối của thuật toán J04.
-- J04 → J05: tính một cặp trên danh sách sắp tốn tuyến tính; nhân với $\binom N2$ cặp vẫn quá tải.
-- J05 → H00: nén mỗi tập để so một cặp mà không đọc toàn bộ shingle.
-- H01 → H03 → H02: nhìn ma trận và chạy tay trước khi đặc tả MinHash.
-- H09 → G07 → G00: chốt sai số của mô hình lý tưởng rồi chuyển sang cách quét thực hành.
-- G00 → G02 → G04 → G01 → G03: quan sát cập nhật và vết chạy trước khi đặc tả, giả mã và bất biến.
-- G06 → C00: chữ ký nhỏ chưa loại được số cặp bậc hai.
+- **Jaccard:** 04–05 nêu tình huống/giới hạn;06 trực giác và ví dụ;07 đặc tả;08 ứng dụng;09 kiểm tra. Không thêm thuật toán giao–hợp riêng vì các phép tập là tiên quyết. Dữ kiện 3 và 8 đi xuyên 06–09.
+- **Shingling:** 10 nêu nhu cầu và trực giác;11 chạy tay;12 hình thức hóa;13 giả mã, bất biến và đếm cửa sổ;14–17 điều kiện/ứng dụng/dung lượng;18 kiểm tra. Dữ kiện `abcdabd`, k=2 truyền từ cửa sổ tới đặc tả và lời giải. Chi phí trực tiếp có mô hình tạo/băm chuỗi dài k, không tự giả định rolling hash.
+- **MinHash:** 19 đặt bộ nhớ;20–21 nối tập với ma trận;22 trực giác;23 chạy tay;24 định nghĩa;25–26 chứng minh;27 kiểm tra. Cặp S1, S4 và thứ tự beadc được giữ. Chi phí dựng hoán vị chuyển 35 vì gắn triển khai; không bỏ nhu cầu tính toán.
+- **Chữ ký:** 28 chạy ví dụ hai thứ tự;29–30 hình thức hóa;31–32 lập luận kỳ vọng/phương sai;33 chi phí;34 kiểm tra. Ví dụ đưa lên từ VD 3.8 để tránh ký hiệu tổng quát xuất hiện trước cơ chế, đã được điều phối viên duyệt. Thuật toán tạo chữ ký thuộc cụm kế, không là bước bị bỏ.
+- **Quét chữ ký:** 35 tình huống/trực giác;36 đặc tả;37–40 dữ kiện và vết chạy;41 giả mã;42 đúng;43–44 chi phí;45 giới hạn;46 kiểm tra. Đặc tả trước vết chạy chi tiết vì phép chọn và min đã có trực giác; việc đổi định danh sang giá trị băm được nói rõ trước khi chạy.
 
-## Bản đồ chủ đề cho ghi chú tự học
+## Ánh xạ tài liệu tự học
 
-| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày |
+`n05-01`→04–05,47–48; `n05-02`→06–09; `n05-03`→10–18; `n05-04`→19–21; `n05-05`→22–24; `n05-06`→25–27; `n05-07`→28–31,33–34; `n05-08`→32, 34; `n05-09`→35–41; `n05-10`→42–44, 46; `n05-11`→45–48; `n05-12` và `n05-13` là đọc thêm riêng trong ghi chú, không có slide bắt buộc; `n05-14`→49–57.
+
+Bản đồ vai trò, đầu vào/đầu ra, thành phần áp dụng và mục không áp dụng của từng chủ đề được khóa ở mục 8 của `outline.md`. Ghi chú theo vai trò→định nghĩa→ví dụ→trực quan→mệnh đề/thuật toán/chứng minh→ứng dụng/lỗi/kiểm tra; không dùng thứ tự “ví dụ trước định nghĩa” của slide để làm sai chu trình tài liệu tự học. Chữ ký, ma trận, bài tập và hai phép băm dùng chung hệ ký hiệu ở outline.
+
+## Phiếu từng trang
+
+### 01. Biểu diễn tương đồng: Shingling và MinHash
+
+- **Mã:** `lec05-s01-01`; **phần:** 1; **note-topic-id:** `n05-01`.
+- **Mục đích và vai trò:** Định vị bài trong học phần; nhận diện chủ đề. **Mục tiêu:** MT1, MT5.
+- **Câu chốt:** Bài 05 nghiên cứu biểu diễn tập và chữ ký để đo tương đồng văn bản.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận kiến thức băm/tập hợp; trang 02 xác định các phần sẽ xây dựng.
+- **Dữ kiện và vai trò số:** Không có dữ kiện số học; số bài/học kỳ là siêu dữ liệu.; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `title-slide`: tên bài giữa phía trên chiếm 50% thân; `course-name` và `term-name` lần lượt bên dưới, tổng 30%; khoảng trắng 20%. Không thêm hình.
+- **Trọng tâm và thứ tự đọc:** Tên chủ đề → tên học phần → học kỳ.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên năm 2 xác định phạm vi trước khi gặp ký hiệu; tên môn/học kỳ là thông tin phụ, không tranh trọng tâm với tên thuật toán.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** `sources/source.md`, Bài 05 theo thứ tự đề xuất.
+- **Thời lượng:** 0,5 phút.
+
+**Nội dung công khai dự kiến**
+
+Biểu diễn tương đồng: Shingling và MinHash
+
+Giải thuật nền tảng của Khoa học dữ liệu
+
+Bài 05 · Học kỳ 1 · Năm học 2026–2027
+
+**Ghi chú diễn giả học thuật**
+
+Bài 05 mở mạch tương đồng và hàng xóm gần. Phạm vi gồm Jaccard, shingling và MinHash theo Chương 3, mục 3.1–3.3 của Mining of Massive Datasets (MMDS). Kết quả là một biểu diễn để ước lượng tương đồng giữa hai tài liệu; lựa chọn cặp ứng viên thuộc bài kế tiếp.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 02. Nội dung
+
+- **Mã:** `lec05-s01-02`; **phần:** 1; **note-topic-id:** `n05-01`.
+- **Mục đích và vai trò:** Định hướng; nhận diện quan hệ các phần. **Mục tiêu:** MT1, MT5.
+- **Câu chốt:** Biểu diễn tập, phép thử MinHash và thuật toán tính chữ ký tạo thành một tuyến học tập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tên bài; trang 03 nêu sản phẩm kiểm tra tương ứng.
+- **Dữ kiện và vai trò số:** Không có dữ kiện số học; số bài/học kỳ là siêu dữ liệu.; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `agenda-slide`: danh sách bảy phần toàn chiều rộng, chiếm 80% thân; mỗi mục một dòng, thứ tự dọc. Không dùng thẻ hoặc hình phụ.
+- **Trọng tâm và thứ tự đọc:** Đọc từ trên xuống theo thứ tự bảy section.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên mới học chuỗi khái niệm cần thấy thứ tự trước–sau; tên phần trùng chính xác với cấu trúc deck tránh phải giải mã nhãn khác nhau.
+- **Giới hạn và xử lý tràn:** Dùng tên phần ngắn đã chốt. Nếu một mục xuống dòng, rút chữ mô tả; giữ cỡ chữ và chiều cao dòng của `agenda-slide`, không chia hai cột làm sai thứ tự.
+- **Nguồn:** B §§3.1–3.3; `sources/source.md`.
+- **Thời lượng:** 1 phút.
+
+**Nội dung công khai dự kiến**
+
+Giới thiệu và tương đồng tập hợp; Shingling văn bản; MinHash theo hoán vị; Chữ ký MinHash; Tính chữ ký và giới hạn; Tổng kết; Bài tập vận dụng.
+
+**Ghi chú diễn giả học thuật**
+
+Jaccard xác định đại lượng cần đo. Shingling chuyển chuỗi thành tập; MinHash liên hệ độ tương đồng tập với xác suất trùng. Nhiều thành phần tạo chữ ký, còn phép quét hàng tính chữ ký. Phần bài tập sử dụng trực tiếp năm bài trong sách.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 03. Mục tiêu và kiến thức đầu vào
+
+- **Mã:** `lec05-s01-03`; **phần:** 1; **note-topic-id:** `n05-01`.
+- **Mục đích và vai trò:** Đặc tả năng lực; phân biệt đầu vào học tập và đầu ra. **Mục tiêu:** MT1, MT5.
+- **Câu chốt:** Các phép tính tập hợp, băm và xác suất là nền để tạo và đánh giá chữ ký.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận bản đồ phần; trang 04 đặt các năng lực vào bài toán gần trùng.
+- **Dữ kiện và vai trò số:** Không có dữ kiện số học; số bài/học kỳ là siêu dữ liệu.; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: cột trái 50% có ba sản phẩm; cột phải 50% có nhóm tiên quyết trong `ex-card`; không thêm bảng ký hiệu.
+- **Trọng tâm và thứ tự đọc:** Đầu ra bên trái → điều kiện kiến thức bên phải.
+- **Lý do phù hợp sinh viên năm 2:** Hai nhóm tách nhiệm vụ phải học khỏi kiến thức đã có; sinh viên năm 2 không phải đọc toàn bộ hệ ký hiệu trước khi có đối tượng.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** `sources/source.md`, mục tiêu/tiên quyết Bài 05.
+- **Thời lượng:** 1,5 phút.
+
+**Nội dung công khai dự kiến**
+
+Kết quả: tạo tập shingle và tính Jaccard; giải thích xác suất trùng MinHash; tính chữ ký và phân tích chi phí. Kiến thức đầu vào: tập hợp, chuỗi, băm, vector và xác suất cơ bản.
+
+**Ghi chú diễn giả học thuật**
+
+Phép giao và hợp được dùng để định nghĩa Jaccard. Thứ tự và phần tử nhỏ nhất được dùng trong MinHash. Kỳ vọng và phương sai của biến chỉ báo được nhắc lại khi đánh giá chữ ký. Thuật toán cuối bài chỉ cần vòng lặp, ma trận và phép lấy cực tiểu.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 04. Tài liệu gần trùng
+
+- **Mã:** `lec05-s01-04`; **phần:** 1; **note-topic-id:** `n05-01`.
+- **Mục đích và vai trò:** Tình huống dữ liệu; đặc tả loại tương đồng. **Mục tiêu:** MT1, MT5.
+- **Câu chốt:** Tài liệu có thể chia sẻ phần lớn văn bản mà khác một số đoạn hoặc thông tin phụ.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận mục tiêu so sánh; trang 05 lượng hóa số cặp phải xét.
+- **Dữ kiện và vai trò số:** VD 1; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `motivation-slide motivation-grid`: hình khái niệm hai tài liệu với vùng chung có cùng nhãn chiếm 48% bên trái; đặc tả đầu vào/đầu ra và khác biệt chiếm 52% bên phải; chú thích dưới hình.
+- **Trọng tâm và thứ tự đọc:** Hai tài liệu → vùng chung/riêng → đầu ra cần đo.
+- **Lý do phù hợp sinh viên năm 2:** Hình chỉ dùng vùng ký hiệu, không bịa một văn bản dữ liệu mới. Sinh viên thấy quan hệ chung–riêng trước công thức tập hợp và hiểu loại tương đồng đang xét.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B mở Chương 3, tr. 73–74; §3.1.2 tr. 74–76; MM15.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+![Hai tài liệu có phần văn bản chung và các phần riêng.](../../img/lec-05/tai-lieu-gan-trung.svg)
+
+Đầu vào: kho trang phản chiếu hoặc các bản tin cùng nguồn.
+
+Đầu ra: độ tương đồng văn bản của các cặp tài liệu.
+
+Các phiên bản có thể thay tên máy chủ, lược đoạn hoặc thêm nội dung.
+
+**Ghi chú diễn giả học thuật**
+
+Sách mô tả trang phản chiếu khác thông tin máy chủ và bản tin được nhiều báo đăng lại với phần nội dung cốt lõi chung. So sánh từng ký tự chỉ kiểm tra trùng hoàn toàn. Bài toán ở đây cần một đại lượng dựa trên phần văn bản chung. Đại lượng ấy không đồng nghĩa với mức giống nhau về ý nghĩa.
+
+Nguồn: Mining of Massive Datasets (MMDS), ấn bản 3, Chương 3, tr. 73–76.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 05. Chi phí so sánh từng cặp
+
+- **Mã:** `lec05-s01-05`; **phần:** 1; **note-topic-id:** `n05-01`.
+- **Mục đích và vai trò:** Vấn đề và phép đếm; tách số cặp khỏi chi phí một cặp. **Mục tiêu:** MT1, MT5.
+- **Câu chốt:** Số cặp tài liệu tăng bậc hai theo quy mô kho.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận kho gần trùng; trang 06 xây một đại lượng có thể tính cho mỗi cặp.
+- **Dữ kiện và vai trò số:** VD 1; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `cost-slide`: định nghĩa $C$ và cặp không thứ tự ở trên; hai công thức đếm cặp ở giữa; hình phân tích tổng công việc bên dưới. Giữ cùng luận điểm mở bài.
+- **Trọng tâm và thứ tự đọc:** Công thức tổng quát → dữ kiện một triệu → hai nguồn chi phí.
+- **Lý do phù hợp sinh viên năm 2:** Phép chia 2 nối với kiến thức tổ hợp đã có; tách hai thừa số ngăn suy luận rằng chữ ký nhỏ tự giảm số cặp.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B tr. 73; phép đếm trực tiếp từ số tài liệu của nguồn.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Kho gồm $C$ tài liệu; xét các cặp không thứ tự.
+
+$$
+\binom C2=\frac{C(C-1)}2
+$$
+
+$$
+C=10^6\quad\Longrightarrow\quad499\,999\,500\,000\text{ cặp}
+$$
+
+![Tổng công việc bằng số cặp nhân chi phí của một cặp.](../../img/lec-05/quy-mo-so-sanh-cap.svg)
+
+**Ghi chú diễn giả học thuật**
+
+Mỗi tài liệu ghép với $C-1$ tài liệu khác. Phép đếm $C(C-1)$ đếm mỗi cặp hai lần, nên chia 2. Con số một triệu tài liệu xuất phát từ mở đầu chương; kết quả chính xác là phép tính từ dữ kiện ấy. Bài 05 giảm kích thước biểu diễn và công việc cho một cặp; số cặp chỉ giảm khi có bước lựa chọn ứng viên.
+
+Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 06. Phần tử chung của hai tập hợp
+
+- **Mã:** `lec05-s01-06`; **phần:** 1; **note-topic-id:** `n05-02`.
+- **Mục đích và vai trò:** Trực giác và ví dụ; đếm giao và hợp. **Mục tiêu:** MT1.
+- **Câu chốt:** Tỷ lệ phần tử chung phải được so với toàn bộ phần tử xuất hiện trong hai tập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu đại lượng mỗi cặp; trang 07 gọi tên và hình thức hóa tỷ lệ này.
+- **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: SVG giao–hợp chiếm 70% thân, căn giữa; hai nhãn đếm đặt sát vùng giao và mép hợp; chú thích một dòng chiếm 15% dưới.
+- **Trọng tâm và thứ tự đọc:** Vùng giao → toàn bộ hợp → hai số đếm 3 và 8.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên năm 2 đã biết tập hợp nhưng có thể đếm lặp phần giao; các chấm có vị trí cố định giúp kiểm lại mẫu số trước khi đọc tỷ số.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Ví dụ 3.1, Hình 3.1, §3.1.1 tr. 74–75.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+![Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T.](../../img/lec-05/jaccard-ba-vung.svg)
+
+$$
+|S\cap T|=3
+$$
+
+$$
+|S\cup T|=2+3+3=8
+$$
+
+Mỗi phần tử chung được đếm một lần trong hợp.
+
+**Ghi chú diễn giả học thuật**
+
+Mỗi phần tử được đếm một lần trong hợp, kể cả khi nó thuộc cả hai tập. Số phần tử giao cho biết lượng chung; chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Hình thể hiện quan hệ thuộc tập, không dùng diện tích vùng tròn để biểu diễn số lượng.
+
+Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 07. Độ tương đồng Jaccard
+
+- **Mã:** `lec05-s01-07`; **phần:** 1; **note-topic-id:** `n05-02`.
+- **Mục đích và vai trò:** Hình thức hóa; áp dụng định nghĩa có điều kiện. **Mục tiêu:** MT1.
+- **Câu chốt:** Jaccard là tỷ số kích thước giao trên kích thước hợp.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận hai số đếm; trang 08 phân biệt các ý nghĩa của phần tử tùy ứng dụng.
+- **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: công thức `ex-equation` chiếm nửa trên; hình VD 2 thu gọn có nhãn 3/8 chiếm 40% trái dưới, hai trường hợp biên chiếm 60% phải dưới.
+- **Trọng tâm và thứ tự đọc:** Điều kiện → công thức → thế 3/8 → miền giá trị.
+- **Lý do phù hợp sinh viên năm 2:** Ví dụ vừa đếm đặt cạnh ký hiệu để nối mỗi số với vai trò tử/mẫu; điều kiện hợp khác rỗng xuất hiện trước phép chia, không giấu ở notes.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.1.1 tr. 74–75; điều kiện biên làm tường minh định nghĩa.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Hai tập hữu hạn $S,T$ với $S\cup T\ne\varnothing$.
+
+$$
+\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}
+$$
+
+![Hợp có tám phần tử; giao có ba phần tử.](../../img/lec-05/jaccard-ba-vung.svg)
+
+$$
+\mathrm{SIM}(S,T)=\frac38
+$$
+
+$0\le\mathrm{SIM}(S,T)\le1$.
+
+**Ghi chú diễn giả học thuật**
+
+Giao là tập con của hợp nên tỷ số nằm trong đoạn từ 0 đến 1. Hai tập rời có hợp khác rỗng cho giá trị 0. Hai tập bằng nhau và khác rỗng cho giá trị 1. Khi cả hai tập rỗng, biểu thức là $0/0$; định nghĩa hiện tại không áp dụng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.
+
+Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 08. Tập hợp trong ứng dụng
+
+- **Mã:** `lec05-s01-08`; **phần:** 1; **note-topic-id:** `n05-02`.
+- **Mục đích và vai trò:** Ứng dụng; xác định nghĩa của phần tử. **Mục tiêu:** MT1.
+- **Câu chốt:** Ý nghĩa của Jaccard phụ thuộc vào cách chuyển đối tượng thành tập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận công thức; trang 09 kiểm tra đại lượng và nhu cầu chọn biểu diễn văn bản.
+- **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: hai thẻ bằng nhau, bên trái văn bản, bên phải khách hàng; mỗi thẻ có đối tượng → phần tử → nghĩa của giao; một câu chốt ở dưới.
+- **Trọng tâm và thứ tự đọc:** Đọc cùng tiêu chí trên hai thẻ: đối tượng, phần tử, giao.
+- **Lý do phù hợp sinh viên năm 2:** Đối chiếu cùng tiêu chí giúp sinh viên thấy công thức dùng lại được nhưng không tự quyết định nghĩa tương đồng; không đưa cơ chế lọc cộng tác ngoài phạm vi.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §§3.1.2–3.1.3 tr. 74–77.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Văn bản
+
+Phần tử là đặc trưng văn bản.
+
+Khách hàng
+
+Phần tử có thể là mặt hàng đã mua.
+
+$$
+\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}
+$$
+
+Giao và hợp được xác định trên những phần tử đã chọn.
+
+**Ghi chú diễn giả học thuật**
+
+Ví dụ mua hàng trong sách biểu diễn một khách hàng bằng tập mặt hàng. Với văn bản, phần tử phải giữ được dấu vết các đoạn chung; dùng trực tiếp độ dài tài liệu không tạo được tập phù hợp. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần. Biến thể đa tập của sách được tách thành đọc thêm với quy ước riêng.
+
+Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 09. Câu hỏi kiểm tra
+
+- **Mã:** `lec05-s01-09`; **phần:** 1; **note-topic-id:** `n05-02`.
+- **Mục đích và vai trò:** Kiểm tra MT1; tính và xác định khoảng trống biểu diễn. **Mục tiêu:** MT1.
+- **Câu chốt:** Áp dụng Jaccard cần cả phép đếm lẫn quy tắc chọn phần tử.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận định nghĩa/ứng dụng; câu trả lời tạo nhu cầu cửa sổ shingle ở 10.
+- **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: hình VD 2 ở trái 50%, `ex-card` nhiệm vụ ở phải 50%; không hiển thị kết quả tỷ số.
+- **Trọng tâm và thứ tự đọc:** Dữ kiện trong hình → nhiệm vụ tính → yêu cầu về biểu diễn.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên sử dụng hình đã quen nên phép kiểm đo đúng Jaccard và nhu cầu biểu diễn, không đưa thêm công thức chưa học.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B VD 3.1 tr. 74–75; mở §3.2 tr. 78.
+- **Thời lượng:** 4 phút.
+
+**Nội dung công khai dự kiến**
+
+![Hình có ba phần tử thuộc giao và tám phần tử thuộc hợp.](../../img/lec-05/jaccard-ba-vung.svg)
+
+Câu hỏi:
+
+- Tính Jaccard của hai tập trong hình.
+
+- Xác định điều còn phải quy định để áp dụng công thức cho một văn bản.
+
+**Ghi chú diễn giả học thuật**
+
+Jaccard bằng $3/8$. Để áp dụng cho văn bản, cần quy tắc chuyển chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp dài cố định. Độ dài chuỗi tự nó không xác định giao và hợp giữa hai văn bản.
+
+Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án: 3/8; cần quy tắc tạo tập phần tử. Chấm đủ hai ý, nhận ra mẫu số là hợp. Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
+
+### 10. Shingle của văn bản
+
+- **Mã:** `lec05-s02-01`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Tình huống, nhu cầu và trực giác; chọn đoạn con cục bộ. **Mục tiêu:** MT2.
+- **Câu chốt:** Các đoạn con liên tiếp cho phép biểu diễn những phần văn bản còn chung giữa các phiên bản.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu tạo tập từ 09; trang 11 chạy tay trên dữ liệu sách.
+- **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `motivation-slide`: dải ký tự khái niệm với cửa sổ dài k chiếm 65% thân; ba dòng đặc tả ngắn phía dưới chiếm 25%.
+- **Trọng tâm và thứ tự đọc:** Cửa sổ → đoạn con → tập các đoạn.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết chuỗi; thao tác cửa sổ quen thuộc chuẩn bị cho miền chỉ số ở 12 mà chưa đòi đọc ký hiệu tổng quát.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B mở §3.2 và §3.2.1 tr. 78.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Một k-shingle là một đoạn gồm k ký tự liên tiếp. Một tài liệu được biểu diễn bằng tập các k-shingle xuất hiện trong nó. Quy tắc xử lý khoảng trắng được dùng nhất quán.
+
+**Ghi chú diễn giả học thuật**
+
+Các phiên bản có thể thay một phần câu hoặc đổi vị trí đoạn. Những đoạn con nằm hoàn toàn trong phần giữ nguyên vẫn có thể xuất hiện ở cả hai bản. Shingling giữ thứ tự cục bộ trong mỗi đoạn con nhưng tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 11. Ví dụ tạo shingle
+
+- **Mã:** `lec05-s02-02`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Ví dụ chạy tay; phân biệt cửa sổ và tập. **Mục tiêu:** MT2.
+- **Câu chốt:** Các cửa sổ trùng nhau chỉ tạo một phần tử trong tập shingle.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận thao tác cửa sổ; trang 12 khái quát cùng cơ chế bằng chỉ số.
+- **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: SVG dải 7 ký tự/cửa sổ chiếm 45% trên; hàng 6 cửa sổ chiếm 25% giữa; tập 5 phần tử chiếm 20% cuối. Hai `ab` có cùng nhãn và nét nối tới một phần tử.
+- **Trọng tâm và thứ tự đọc:** Chuỗi → sáu vị trí → hợp nhất hai `ab` → tập kết quả.
+- **Lý do phù hợp sinh viên năm 2:** Giữ sự lặp có chủ ý của nguồn làm hiện rõ khác biệt giữa số lần và số phần tử; vị trí cửa sổ dùng nhãn riêng, không lẫn với độ dài k.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Ví dụ 3.3, §3.2.1 tr. 78.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+$D=\texttt{abcdabd}$, $k=2$. Sáu cửa sổ theo thứ tự: `ab`, `bc`, `cd`, `da`, `ab`, `bd`. $S_2(D)=\{\texttt{ab, bc, cd, da, bd}\}$.
+
+**Ghi chú diễn giả học thuật**
+
+Chuỗi có bảy ký tự và sáu vị trí bắt đầu cho cửa sổ hai ký tự. Cửa sổ đầu và cửa sổ thứ năm cùng là `ab`, nên phép chèn vào tập ở lần thứ năm không tăng kích thước tập. Kết quả có năm phần tử phân biệt. Thứ tự liệt kê trong tập không biểu thị thứ tự xuất hiện.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 12. Đặc tả tập shingle
+
+- **Mã:** `lec05-s02-03`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Hình thức hóa; xác định miền chỉ số và biên. **Mục tiêu:** MT2.
+- **Câu chốt:** Tập shingle gồm mọi đoạn con dài k tại các vị trí bắt đầu hợp lệ.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận ví dụ 11; trang 13 chuyển đặc tả thành vòng lặp.
+- **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: miền dữ liệu một dòng trên; công thức chiếm 40% giữa; ánh xạ ℓ=7, k=2, i=0…5 ở trái dưới 60%, biên rỗng ở phải 40%.
+- **Trọng tâm và thứ tự đọc:** Kiểu dữ liệu → miền chỉ số → công thức → ví dụ/biên.
+- **Lý do phù hợp sinh viên năm 2:** Giải thích rõ ký hiệu lát cắt giúp sinh viên không suy nhầm đoạn có k+1 ký tự; dữ kiện cũ kiểm lại giới hạn trên của chỉ số.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.2.1 tr. 78; làm tường minh chỉ số và biên từ định nghĩa.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+$D$ là chuỗi dài $\ell$, $k\ge1$. Dùng chỉ số bắt đầu từ 0: $$S_k(D)=\{D[i:i+k]:0\le i\le\ell-k\}.$$ Đoạn $D[i:i+k]$ chứa các vị trí $i,\ldots, i+k-1$. Nếu $\ell<k$, tập kết quả rỗng.
+
+**Ghi chú diễn giả học thuật**
+
+Có $\ell-k+1$ vị trí hợp lệ khi $k\le\ell$. Với dữ liệu trước, $\ell=7, k=2$, miền chỉ số là 0 đến 5. Một phần tử của tập là chuỗi con, không phải chỉ số vị trí. Nếu tài liệu ngắn hơn k, không có vị trí bắt đầu hợp lệ; trường hợp này cần được tách trước khi dùng định lý MinHash cho tập không rỗng.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 13. Thuật toán tạo tập shingle
+
+- **Mã:** `lec05-s02-04`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Thuật toán và đúng; đọc vòng lặp và bất biến. **Mục tiêu:** MT2.
+- **Câu chốt:** Chèn lần lượt các cửa sổ hợp lệ thu được đúng tập shingle.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận đặc tả; trang 14 dùng giới hạn số mẫu để bàn chọn k.
+- **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `ex-grid2` cân đôi: giả mã trái, bất biến và số cửa sổ phải; mô hình tạo/băm/chèn khóa và tổng $O(1+wk)$ kỳ vọng đặt ngay dưới.
+- **Trọng tâm và thứ tự đọc:** Khởi tạo → vòng lặp → chèn → trả kết quả; đối chiếu bất biến bên phải.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết vòng lặp và tập; đặt bất biến cạnh thao tác chèn cho thấy đúng không phụ thuộc việc cửa sổ lặp. Chi phí sao chép k ký tự nằm trong notes để không tranh trọng tâm thuật toán.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** Thuật toán hóa B §3.2.1 tr. 78; chi phí suy từ giả mã theo mô hình đã nêu.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+```text
+S ← ∅
+for i = 0, …, ℓ − k:
+    chèn D[i:i+k] vào S
+return S
+```
+
+Bất biến: tập S chứa đúng các cửa sổ đã xét.
+
+$$
+w=\max(0,\ell-k+1)
+$$
+
+$w$ là số cửa sổ; phần tử trùng chỉ được giữ một lần.
+
+Tạo, băm và chèn khóa dài $k$: $O(k)$ kỳ vọng mỗi cửa sổ. Tổng: $O(1+wk)$ kỳ vọng; lưu chuỗi: $O(k|S|)$.
+
+**Ghi chú diễn giả học thuật**
+
+Sau i lần chèn, tập chứa đúng các chuỗi con tại i vị trí đầu đã duyệt. Bước kế tiếp thêm đúng một cửa sổ; phần tử trùng được tập giữ một lần. Khi hết miền chỉ số, tất cả cửa sổ hợp lệ đã được xét. Nếu tạo và băm trực tiếp một đoạn k ký tự tốn O(k), tổng xử lý cửa sổ là O(wk) kỳ vọng với tập băm có thao tác chèn kỳ vọng theo độ dài khóa; bộ nhớ lưu các chuỗi phân biệt là O(k|S|), chưa kể đầu vào. Không mặc định O(ℓ) nếu k thay đổi.
+
+Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 14. Độ dài shingle
+
+- **Mã:** `lec05-s02-05`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Ứng dụng và điều kiện; giải thích tác dụng của k. **Mục tiêu:** MT2.
+- **Câu chốt:** Shingle quá ngắn có thể xuất hiện ở nhiều tài liệu không liên quan.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận số cửa sổ và k; trang 15 xác định một quy ước ký tự có thể làm đổi tập.
+- **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: công thức số chuỗi khả dĩ chiếm 35% trên; hai dòng lưu ý phân bố và quy tắc nguồn chiếm 45% dưới; không dựng đồ thị thực nghiệm.
+- **Trọng tâm và thứ tự đọc:** Số mẫu khả dĩ → giới hạn phân bố đều → cách hiểu các gợi ý k.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên dùng quy tắc nhân đã biết để hiểu k tác động tới khả năng phân biệt; nhãn “quy tắc kinh nghiệm” ngăn nhầm phép đếm với bảo đảm thống kê.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.2.2 tr. 79.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Với 27 ký tự có $27^5=14\,348\,907$ chuỗi dài 5 khả dĩ. Văn bản tự nhiên không phân bố đều trên những chuỗi đó. Các gợi ý $k=5$ cho thư điện tử, $k=9$ cho tài liệu dài là quy tắc kinh nghiệm của nguồn.
+
+**Ghi chú diễn giả học thuật**
+
+Khi k nhỏ, vũ trụ shingle nhỏ và các tài liệu dài dễ có nhiều phần tử chung dù nội dung khác nhau. Sách dùng $20^k$ như một ước tính thực dụng sau khi lưu ý phân bố ký tự không đều. Đây không phải mô hình xác suất đã kiểm chứng cho mọi ngôn ngữ. Việc chọn k phụ thuộc kiểu và độ dài tài liệu; các giá trị 5 và 9 không là ngưỡng định lý.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 15. Khoảng trắng trong shingle
+
+- **Mã:** `lec05-s02-06`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Ví dụ tiền xử lý; xác định tác động của khoảng trắng. **Mục tiêu:** MT2.
+- **Câu chốt:** Bỏ khoảng trắng có thể làm hai chuỗi khác nhau nhận cùng biểu diễn.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tác dụng k; trang 16 đổi cách lưu mỗi shingle, giữ nguyên độ dài shingle.
+- **Dữ kiện và vai trò số:** VD 4; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: hai cột bằng nhau, mỗi cột ghi chuỗi gốc trên và các cửa sổ dưới; dấu cách hiện bằng ô có nhãn “khoảng trắng”; câu quy ước ở đáy.
+- **Trọng tâm và thứ tự đọc:** So sánh chuỗi đầu → vị trí dấu cách → kết quả cửa sổ.
+- **Lý do phù hợp sinh viên năm 2:** Cùng k và cùng trục đọc làm thay đổi tiền xử lý trở thành yếu tố duy nhất; sinh viên không bị lẫn thay ngôn ngữ dữ liệu với thay quy tắc shingle.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Ví dụ 3.4, §3.2.1 tr. 78.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Giữ k=9. `touch down` có các cửa sổ `touch dow` và `ouch down`; `touchdown` có cửa sổ `touchdown`. Dùng một quy tắc xử lý khoảng trắng cho toàn bộ kho.
+
+**Ghi chú diễn giả học thuật**
+
+Dấu cách là một ký tự trong ví dụ. Chuỗi `touch down` dài mười ký tự, còn `touchdown` dài chín. Nếu xóa khoảng trắng trước khi tạo shingle, hai chuỗi trở thành như nhau. Sách đề nghị thường giữ ranh giới này và có thể chuẩn hóa nhiều ký tự trắng liên tiếp; lựa chọn phải thống nhất trước khi so sánh. Chuỗi nguồn được giữ nguyên để các phép đếm còn đúng.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 16. Băm shingle
+
+- **Mã:** `lec05-s02-07`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Biểu diễn và giới hạn; tách độ dài chuỗi với độ dài mã. **Mục tiêu:** MT2.
+- **Câu chốt:** Băm mã hóa mỗi shingle bằng một số ngắn nhưng có thể gây va chạm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập shingle đã xác định; trang 17 chỉ ra mã ngắn vẫn có nhiều phần tử.
+- **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: sơ đồ chuỗi → hàm băm → mã chiếm 50% trên; nhãn “9 ký tự” và “4 byte” sát hai đầu; hai câu điều kiện/va chạm chiếm 35% dưới.
+- **Trọng tâm và thứ tự đọc:** Kiểu vào và đơn vị → phép băm → kiểu ra → va chạm.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết băm; ghi đơn vị trực tiếp ngăn nhầm 4 byte thành 4-shingle. Hai kiểu dữ liệu chuẩn bị sự phân biệt với băm hàng ở 35.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.2.3 tr. 79–80.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Ví dụ nguồn: shingle 9 ký tự → mã băm 32 bit = 4 byte. k vẫn bằng 9. Hai shingle khác nhau có thể nhận cùng mã; tập mã có thể có Jaccard khác tập chuỗi gốc.
+
+**Ghi chú diễn giả học thuật**
+
+Băm shingle tác động lên từng chuỗi con để giảm dung lượng một phần tử. MinHash ở phần sau tác động lên một tập để tạo chữ ký của tập; hai thao tác có miền vào khác nhau. Va chạm mã shingle gộp các phần tử vốn khác nhau. Vì vậy định lý MinHash được áp dụng trên tập phần tử đang thực sự sử dụng, không tự loại bỏ sai lệch đã xảy ra trong bước mã hóa.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 17. Dung lượng tập shingle
+
+- **Mã:** `lec05-s02-08`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Giới hạn biểu diễn; tạo nhu cầu chữ ký. **Mục tiêu:** MT2.
+- **Câu chốt:** Băm rút ngắn cách lưu từng phần tử; số mã phân biệt vẫn có thể tăng theo độ dài tài liệu.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận mã ngắn; trang 18 kiểm hai loại kích thước trước khi chuyển chữ ký.
+- **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: bảng ba cột “cửa sổ / shingle phân biệt / mã phân biệt khi không va chạm” chiếm 55% thân; một câu nêu giới hạn chiếm 25% dưới.
+- **Trọng tâm và thứ tự đọc:** 6 cửa sổ → 5 shingle phân biệt → 5 mã phân biệt nếu không có va chạm.
+- **Lý do phù hợp sinh viên năm 2:** Giữ ví dụ cũ làm cầu nối ngắn; ba nhãn số tách rõ đếm vị trí với đếm phần tử để tránh nói shingling tự giảm dung lượng.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Ví dụ 3.3 tr. 78; mở §3.3 tr. 81.
+- **Thời lượng:** 1 phút.
+
+**Nội dung công khai dự kiến**
+
+Tài liệu dài $\ell$ có tối đa $\max(0,\ell-k+1)$ cửa sổ. Ví dụ `abcdabd` tạo 6 cửa sổ và 5 shingle phân biệt. Nếu không xảy ra va chạm, tập mã có 5 phần tử. Số mã phân biệt vẫn có thể tăng theo độ dài tài liệu.
+
+**Ghi chú diễn giả học thuật**
+
+Mã băm ngắn xử lý độ dài của từng shingle. Hai shingle khác nhau có thể nhận cùng mã, nên số mã phân biệt không vượt số shingle phân biệt. Với năm shingle của ví dụ, tập mã có năm phần tử nếu không xảy ra va chạm. Băm từng phần tử chưa bảo đảm một kích thước tập cố định; chữ ký sẽ thay cả tập bằng một số thành phần đã chọn trước.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 18. Câu hỏi kiểm tra
+
+- **Mã:** `lec05-s02-09`; **phần:** 2; **note-topic-id:** `n05-03`.
+- **Mục đích và vai trò:** Kiểm tra MT2; tái tạo tập và phân biệt đơn vị. **Mục tiêu:** MT2.
+- **Câu chốt:** Số cửa sổ, số shingle và kích thước mã là ba đại lượng khác nhau.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận các quy ước; 19 lượng hóa nhu cầu rút gọn cả tập.
+- **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: dữ kiện chuỗi và cặp đơn vị ở dải trên 25%; thẻ câu hỏi với ba nhiệm vụ ở dưới 65%; không hiện tập kết quả.
+- **Trọng tâm và thứ tự đọc:** Dữ kiện thứ nhất → hai phép đếm → dữ kiện mã hóa riêng.
+- **Lý do phù hợp sinh viên năm 2:** Hai bộ dữ kiện có nhãn riêng nên sinh viên không suy rằng ví dụ k=2 bị đổi thành k=9; yêu cầu giải thích buộc xác định vai trò của mỗi số.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B VD 3.3, §3.2.3 tr. 78–80.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Câu hỏi:
+
+- Với `abcdabd`, $k=2$, xác định số cửa sổ và số shingle phân biệt.
+
+- Giải thích tác động của hai lần xuất hiện `ab`.
+
+- Một shingle 9 ký tự được mã hóa bằng 4 byte. Xác định $k$ sau mã hóa.
+
+**Ghi chú diễn giả học thuật**
+
+Có sáu cửa sổ và năm shingle phân biệt. `ab` xuất hiện hai lần nhưng chỉ tạo một phần tử trong tập. Đối với dữ kiện mã hóa riêng, k vẫn là 9; bốn byte chỉ đo dung lượng mã, không đo số ký tự của đoạn gốc.
+
+Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án: 6 cửa sổ, 5 phần tử; ab chỉ giữ một lần; k=9. Chấm ba phân biệt. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+
+### 19. Tập shingle và bộ nhớ
+
+- **Mã:** `lec05-s03-01`; **phần:** 3; **note-topic-id:** `n05-04`.
+- **Mục đích và vai trò:** Tình huống và vấn đề MinHash; nhận diện dung lượng biểu diễn. **Mục tiêu:** MT3.
+- **Câu chốt:** Tập mã shingle có thể lớn hơn tài liệu gốc.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn số phần tử; trang 20 tạo biểu diễn chung cho nhiều tập.
+- **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `cost-slide`: hai khối dung lượng đặt ngang bằng 50/50, nhãn byte sát con số; một mũi tên ghi “tạo tập mã” không biểu thị nén; câu nhu cầu dưới.
+- **Trọng tâm và thứ tự đọc:** Tài liệu → tập mã lớn hơn → điều kiện của chữ ký.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên thấy shingling có thể làm dữ liệu lớn hơn, nên nhu cầu MinHash được đặt trên đúng đại lượng; tránh hình nhỏ dần ngầm hứa nén ở bước này.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B mở §3.3 tr. 81.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Minh họa trong sách: tài liệu 50.000 byte → tập mã shingle khoảng 200.000 byte. Mỗi mã dùng 4 byte. Nhu cầu: chữ ký nhỏ cho phép ước lượng Jaccard giữa hai tập.
+
+**Ghi chú diễn giả học thuật**
+
+Nếu phần lớn cửa sổ tạo các shingle khác nhau, số mã có thể gần số byte của tài liệu. Lưu mỗi mã bằng bốn byte giải thích quy mô khoảng 200.000 byte trong nguồn, chưa tính chi phí cấu trúc lưu trữ. Đây là ví dụ dung lượng, không phải tỷ lệ đúng cho mọi tài liệu. Cơ chế cần xây dựng phải vừa giảm số mục lưu vừa giữ liên hệ với Jaccard.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 20. Ma trận đặc trưng
+
+- **Mã:** `lec05-s03-02`; **phần:** 3; **note-topic-id:** `n05-04`.
+- **Mục đích và vai trò:** Cầu nối biểu diễn; đọc đúng hàng và cột. **Mục tiêu:** MT3.
+- **Câu chốt:** Mỗi cột biểu diễn một tập; mỗi hàng biểu diễn một phần tử của vũ trụ.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập cần nén; 21 đổi lưu trữ mà giữ quan hệ hiện diện.
+- **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: bảng ma trận 5 × 4 chiếm 60% trái, chú giải U, R, C và điều kiện ô 1 chiếm 40% phải; bảng dùng `ex-table`.
+- **Trọng tâm và thứ tự đọc:** Nhãn hàng/cột → hàng a → quy tắc ô 1 → kích thước.
+- **Lý do phù hợp sinh viên năm 2:** Bảng số chính xác phù hợp thao tác đọc quan hệ; giữ hàng a–e và cột S1–S4 ở vị trí cố định cho mọi vết tiếp theo giúp sinh viên không đổi vai hàng/cột.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.1, VD 3.6, Hình 3.2 tr. 81–82.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+$U=\{a, b, c, d, e\}$, $R=5$, $C=4$. Ma trận đặc trưng của bốn tập có các hàng a:(1, 0, 0, 1), b:(0, 0, 1, 0), c:(0, 1, 0, 1), d:(1, 0, 1, 1), e:(0, 0, 1, 0). $M(r, c)=1$ khi phần tử hàng r thuộc $S_c$, bằng 0 nếu không thuộc. Kích thước: $R\times C$.
+
+**Ghi chú diễn giả học thuật**
+
+Tập thứ nhất gồm a, d; tập thứ hai gồm c; tập thứ ba gồm b, d, e; tập thứ tư gồm a, c, d. Hàng a có 1 tại hai cột 1 và 4 vì a thuộc cả hai tập đó. Ma trận là cách mô tả quan hệ hiện diện; không bắt buộc lưu toàn bộ các số 0 khi triển khai.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 21. Biểu diễn thưa
+
+- **Mã:** `lec05-s03-03`; **phần:** 3; **note-topic-id:** `n05-04`.
+- **Mục đích và vai trò:** Cầu nối thuật toán; liệt kê các vị trí có 1. **Mục tiêu:** MT3.
+- **Câu chốt:** Chỉ cần lưu các vị trí hiện diện khi ma trận đặc trưng có nhiều ô 0.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận quan hệ thuộc; trang 22 chọn một phần tử bằng thứ tự chung.
+- **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: cùng ma trận bên trái 50%, danh sách năm hàng bên phải 50%; mũi liên hệ chỉ cho hàng a để tránh dây chéo.
+- **Trọng tâm và thứ tự đọc:** Hàng a và ô 1 → danh sách a → các hàng còn lại → tổng 9.
+- **Lý do phù hợp sinh viên năm 2:** Đối chiếu từng hàng giữ biểu diễn cụ thể, chuẩn bị vòng lặp theo cột có 1 ở 41 mà không cần khái niệm cơ sở dữ liệu.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.1 tr. 81–82; đếm trên Hình 3.2.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Danh sách theo hàng: a→{1,4}; b→{3}; c→{2,4}; d→{1, 3, 4}; e→{3}. Ví dụ có 9 ô 1 trong 20 ô. Mỗi mục danh sách chỉ ra một tập chứa phần tử của hàng.
+
+**Ghi chú diễn giả học thuật**
+
+Danh sách hàng cho phép sau khi tính giá trị băm của một phần tử, chỉ đi tới những cột cần cập nhật. Tổng độ dài năm danh sách là 2+1+2+3+1=9, bằng tổng số ô 1. Ma trận nhỏ ở đây minh họa biểu diễn; nó không tự chứng minh danh sách thưa dùng ít byte hơn do mỗi chỉ số cũng có kích thước lưu trữ.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 22. Trực giác MinHash
+
+- **Mã:** `lec05-s03-04`; **phần:** 3; **note-topic-id:** `n05-05`.
+- **Mục đích và vai trò:** Trực giác; theo lựa chọn chung trên hai tập. **Mục tiêu:** MT3.
+- **Câu chốt:** Một thứ tự chung cho phép mỗi tập chọn phần tử xuất hiện đầu tiên.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận phần tử/cột; 23 dùng đúng thứ tự trong ví dụ sách.
+- **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: hình một trục thứ tự ngang chiếm 55% trên, hai hàng dấu hiện diện của S1, S4 ngay dưới; hai nhãn “phần tử đầu” nối thẳng lên cùng trục; câu điều kiện ở đáy.
+- **Trọng tâm và thứ tự đọc:** Thứ tự chung → dấu thuộc từng tập → phần tử được chọn.
+- **Lý do phù hợp sinh viên năm 2:** Trục chung làm rõ vì sao không chọn thứ tự độc lập cho mỗi tập; sinh viên theo một lựa chọn cụ thể trước khi đọc argmin.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §§3.3.2–3.3.3 tr. 82–83; áp dụng trên S1, S4 của Hình 3.2.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Dùng cùng thứ tự trên U cho mọi tập. Mỗi tập không rỗng giữ phần tử đầu tiên của mình. Nếu phần tử đầu trong hợp thuộc giao, hai tập chọn cùng phần tử.
+
+**Ghi chú diễn giả học thuật**
+
+Với hai tập đang xét, các phần tử ngoài hợp không thuộc tập nào nên không thể được chọn. Nếu phần tử đầu trong hợp thuộc cả hai tập, nó cũng là phần tử đầu của từng tập. Nếu nó chỉ thuộc một tập, tập đó chọn nó và tập kia phải chọn một phần tử khác. Quan hệ này sẽ xác định xác suất trùng.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 23. Ví dụ hoán vị
+
+- **Mã:** `lec05-s03-05`; **phần:** 3; **note-topic-id:** `n05-05`.
+- **Mục đích và vai trò:** Ví dụ chạy tay; phân biệt định danh và vị trí. **Mục tiêu:** MT3.
+- **Câu chốt:** Thứ tự b, e, a, d, c cho các giá trị MinHash a, c, b, a.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận lựa chọn trực quan; 24 chốt kiểu trả về và giả thiết.
+- **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `ex-grid2 mh-matrix-split` 46/54: ma trận theo thứ tự bên trái, bảng định danh/vị trí bên phải. Bốn ô 1 đầu có viền đậm và chữ đậm; chú giải dùng viền, không chỉ màu.
+- **Trọng tâm và thứ tự đọc:** Thứ tự hàng → lần lượt từng cột → định danh → vị trí để đối chiếu.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên thường nhầm số hàng gốc với vị trí sau hoán vị; hai nhãn đầu ra tách rõ kiểu nhưng vẫn cho phép kiểm cùng một vết chạy.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B VD 3.7, Hình 3.3, §3.3.2 tr. 82–83; ST03 tr. 28 về quy ước.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+| Thứ tự hàng | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
 |---|---|---|---|---|
-| `L05-N01` | Nhận tình huống kho gần trùng; cấp bài toán biểu diễn cho `L05-N02` | phép đếm cặp, ký hiệu $N$ | tính số cặp và phân biệt nén biểu diễn với tạo ứng viên | vai trò, đặc tả, ví dụ quy mô, chi phí, kiểm tra; định lý/chứng minh không áp dụng |
-| `L05-N02` | Nhận tài liệu thô; trao tập shingle cho `L05-N03` | chuỗi, tập hợp, hàm băm | đặc tả và tạo $S_k(D)$; xử lý biên và va chạm | đủ chuỗi; lập luận bất biến thay cho chứng minh định lý |
-| `L05-N03` | Nhận hai tập shingle; trao phép so sánh chính xác cho `L05-N04` | giao, hợp, danh sách sắp | tính Jaccard và thuật toán hai con trỏ | đủ chuỗi, gồm quy ước hợp rỗng và bất biến thuật toán |
-| `L05-N04` | Nhận độ đo Jaccard; trao một phép thử không chệch cho `L05-N05` | xác suất đều, ma trận 0/1 | chạy MinHash và chứng minh định lý | đủ chuỗi, dùng X/Y/Z trong chứng minh |
-| `L05-N05` | Nhận một phép thử; trao chữ ký $p$ hàng cho `L05-N06` | Bernoulli, kỳ vọng, phương sai, độc lập | suy ra kỳ vọng, phương sai và đánh đổi theo $p$ | đủ chuỗi, ví dụ gắn với hai cột chữ ký |
-| `L05-N06` | Nhận chữ ký lý tưởng; trao cách tính thực hành cho `L05-N07` | dữ liệu thưa, phép lấy min | chạy Ví dụ 3.8, giả mã, bất biến, dừng và chi phí | đủ chuỗi; cột toàn $\infty$ là trường hợp biên |
-| `L05-N07` | Nhận cách tính thực hành; trao giới hạn và điều kiện dùng kết quả cho bài tập | va chạm băm, hoán vị | phân biệt bảo đảm lý tưởng với xấp xỉ thực hành | vai trò, đặc tả hai mô hình, phản ví dụ, kết luận có điều kiện, lỗi và kiểm tra; không có thuật toán mới |
-| `L05-N08` | Nhận toàn bộ công cụ; chốt bài và nối sang Bài 06 | `L05-N02`–`L05-N07` | lời giải bốn bài nguồn và xác định phần còn thiếu là tạo ứng viên | đặc tả đề, vết tính, kết quả, lỗi; các thành phần khác gộp vào lời giải |
+| b | 0 | 0 | 1 | 0 |
+| e | 0 | 0 | 1 | 0 |
+| a | 1 | 0 | 0 | 1 |
+| d | 1 | 0 | 1 | 1 |
+| c | 0 | 1 | 0 | 1 |
 
-Ghi chú dùng chu trình riêng: sau vai trò và nhu cầu, đặt đặc tả trước ví dụ, rồi mới trực quan, mệnh đề/thuật toán, chứng minh và kiểm tra. Thứ tự này khác có chủ ý với deck, nơi trực giác và ví dụ thường đứng trước hình thức hóa.
+| Đại lượng | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| Định danh | a | c | b | a |
+| Vị trí | 3 | 5 | 1 | 3 |
+
+Ô viền đậm: ô 1 đầu tiên của mỗi cột. Giá trị MinHash là định danh phần tử.
+
+**Ghi chú diễn giả học thuật**
+
+$S_1$ không chứa b, e nên gặp a đầu tiên ở vị trí thứ ba. $S_2$ chỉ chứa c nên gặp ở vị trí thứ năm. $S_3$ chứa b nên dừng ngay tại vị trí thứ nhất. $S_4$ gặp a trước c, d nên cũng chọn a. Định danh a và vị trí 3 mô tả hai đại lượng khác nhau; không trộn chúng trong cùng bảng kết quả.
+
+Nguồn: MMDS 3e, Ví dụ 3.7, Hình 3.3, tr. 82–83; bổ sung bảng đối chiếu định danh và vị trí.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 24. Định nghĩa MinHash
+
+- **Mã:** `lec05-s03-06`; **phần:** 3; **note-topic-id:** `n05-05`.
+- **Mục đích và vai trò:** Hình thức hóa; xác định miền/kiểu của hàm. **Mục tiêu:** MT3.
+- **Câu chốt:** MinHash theo một hoán vị trả định danh phần tử đứng đầu tập trong hoán vị đó.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận ví dụ; trang 25 tổ chức các hàng phục vụ chứng minh.
+- **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Toàn chiều rộng có vùng an toàn điều khiển hai bên 28px: miền và vị trí ở trên; công thức argmin ở giữa; giải nghĩa và cặp $a/3$ ngay dưới; hai điều kiện dùng chung/chọn đều trong thẻ cuối.
+- **Trọng tâm và thứ tự đọc:** Kiểu vào → rank → argmin trả phần tử → ví dụ định danh/hạng.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên năm 2 đã biết min nhưng có thể chưa dùng argmin; ví dụ a so với 3 giải thích ngay sự khác biệt của toán tử và kiểu đầu ra.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §§3.3.2–3.3.3 tr. 82–83; chuẩn hóa ký hiệu đã duyệt.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+$U$ hữu hạn, $S\subseteq U$, $S\ne\varnothing$.
+
+$\operatorname{rank}_\pi(u)$ là vị trí của $u$ trong hoán vị $\pi$.
+
+$$
+h_\pi(S)=\arg\min_{u\in S}\operatorname{rank}_\pi(u)
+$$
+
+$\arg\min$ trả phần tử đạt vị trí nhỏ nhất. Với thứ tự $(b,e,a,d,c)$: $h_\pi(S_1)=a$, còn $\operatorname{rank}_\pi(a)=3$.
+
+Cùng $\pi$ được dùng cho mọi tập.
+
+Định lý xác suất dùng $\pi$ chọn đều từ mọi hoán vị.
+
+**Ghi chú diễn giả học thuật**
+
+Hoán vị tạo các vị trí khác nhau nên phần tử đạt vị trí nhỏ nhất là duy nhất. Hàm nhận một tập và trả một phần tử của $U$. Với thứ tự $(b,e,a,d,c)$, tập $S_1=\{a,d\}$ chọn $a$, dù vị trí của $a$ là $3$. Nếu lưu hạng thay định danh bằng một phép ánh xạ một-một chung, quan hệ hai giá trị bằng nhau được giữ nguyên. Điều kiện không rỗng bảo đảm có phần tử để chọn.
+
+Nguồn: MMDS 3e, §3.3.2–§3.3.3; quy ước trả định danh tương đương về phép so bằng.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 25. Các hàng chung và riêng
+
+- **Mã:** `lec05-s03-07`; **phần:** 3; **note-topic-id:** `n05-06`.
+- **Mục đích và vai trò:** Chuẩn bị chứng minh; phân loại hàng theo một cặp. **Mục tiêu:** MT3.
+- **Câu chốt:** Chỉ các hàng thuộc hợp quyết định việc hai MinHash có trùng nhau.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận định nghĩa; 26 dùng tính đều để chuyển phép đếm thành xác suất.
+- **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `ex-grid2` cân đôi: SVG X/Y/Z trái có điều kiện nhìn thấy “Xét loại của phần tử đầu tiên trong hợp”; bảng loại hàng và số đếm phải.
+- **Trọng tâm và thứ tự đọc:** Mẫu ô → hàng thực của cặp → giao/hợp → loại bỏ Z.
+- **Lý do phù hợp sinh viên năm 2:** Phân loại ba trường hợp nối phép tính Jaccard quen thuộc với biến cố MinHash; tránh một công thức xác suất xuất hiện trước đối tượng cần đếm.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.3 tr. 83; áp dụng Hình 3.2.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+![Với cặp S1,S4: a,d thuộc giao; c thuộc riêng; b,e ngoài hợp.](../../img/lec-05/phan-tu-dau-hop.svg)
+
+| Loại hàng | Hai cột |
+|---|---|
+| $X$ | $(1,1)$ |
+| $Y$ | $(1,0)$ hoặc $(0,1)$ |
+| $Z$ | $(0,0)$ |
+
+$x=|S\cap T|$, $x+y=|S\cup T|$.
+
+$S_1,S_4$: $x=2$, $y=1$.
+
+**Ghi chú diễn giả học thuật**
+
+Những hàng Z không chứa phần tử của hai tập nên bỏ chúng khỏi thứ tự không đổi lựa chọn. Hàng đầu tiên khác Z thuộc X thì cả hai cột chọn cùng hàng; thuộc Y thì chỉ một cột có phần tử đó. Biến x đếm số hàng, không phải chỉ số của một hàng. Với cặp minh họa x=2, y=1.
+
+Nguồn: MMDS 3e, §3.3.3, tr. 83.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 26. Xác suất trùng MinHash
+
+- **Mã:** `lec05-s03-08`; **phần:** 3; **note-topic-id:** `n05-06`.
+- **Mục đích và vai trò:** Định lý và chứng minh; chỉ ra nơi dùng hoán vị đều. **Mục tiêu:** MT3.
+- **Câu chốt:** Xác suất hai MinHash trùng bằng Jaccard khi dùng chung một hoán vị đều.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận X/Y/Z; trang 27 phân biệt kết quả một hoán vị với xác suất.
+- **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: giả thiết ở trên 20%, công thức 25% giữa; hình ba bước “đầu hợp / thuộc giao / trùng” và trường hợp phần riêng chiếm 40% dưới.
+- **Trọng tâm và thứ tự đọc:** Giả thiết → kết luận → hai chiều biến cố → tỷ lệ giao/hợp.
+- **Lý do phù hợp sinh viên năm 2:** Giả thiết đặt cùng công thức để sinh viên không mang kết luận sang họ băm bất kỳ; hai trường hợp làm rõ tính tương đương chứ không chỉ một chiều đủ.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.3 tr. 83; MM34–35.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Giả thiết: $S, T\subseteq U$ không rỗng; π chọn đều trong $R!$ hoán vị và dùng chung. $$\Pr[h_\pi(S)=h_\pi(T)]=\mathrm{SIM}(S, T).$$ Phần tử đầu trong hợp phân bố đều; hai giá trị trùng khi và chỉ khi phần tử đó thuộc giao.
+
+**Ghi chú diễn giả học thuật**
+
+Gọi u là phần tử đầu của hợp. Tính đối xứng của hoán vị đều cho mỗi phần tử của hợp cùng xác suất đứng đầu. Nếu u thuộc giao, u đứng đầu cả hai tập. Nếu u nằm trong phần riêng, chỉ một tập chọn u, còn tập kia chọn một phần tử khác. Vậy biến cố trùng tương đương u thuộc giao. Có x phần tử thuận lợi trong x+y phần tử của hợp, nên xác suất bằng x/(x+y), đúng Jaccard. Phần tử ngoài hợp không ảnh hưởng lập luận.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 27. Câu hỏi kiểm tra
+
+- **Mã:** `lec05-s03-09`; **phần:** 3; **note-topic-id:** `n05-06`.
+- **Mục đích và vai trò:** Kiểm tra MT3; nối phép tính, vết chạy và định lý. **Mục tiêu:** MT3.
+- **Câu chốt:** Một kết quả trùng là một quan sát; xác suất trùng được xác định trên không gian hoán vị.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận định lý; 28 dùng nhiều thứ tự để tạo ước lượng.
+- **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: hai tập và thứ tự trong dải dữ kiện 30% trên; ba nhiệm vụ đánh số trong thẻ 60% dưới, đáp án chỉ ở notes.
+- **Trọng tâm và thứ tự đọc:** Đếm tập → chạy thứ tự cố định → chuyển sang phép chọn ngẫu nhiên.
+- **Lý do phù hợp sinh viên năm 2:** Thứ tự nhiệm vụ tách ba mức nhận thức trên cùng dữ liệu, giúp sinh viên không dùng kết quả cố định như một xác suất.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Hình 3.2–3.3 và §3.3.3 tr. 81–83.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+$$
+S_1=\{a,d\},\qquad S_4=\{a,c,d\}
+$$
+
+$U=\{a,b,c,d,e\}$; thứ tự đã cho: $b,e,a,d,c$.
+
+Câu hỏi:
+
+- Tính Jaccard của $S_1,S_4$.
+
+- Xác định hai MinHash theo thứ tự đã cho.
+
+- Tính xác suất trùng khi chọn đều một hoán vị của $U$.
+
+**Ghi chú diễn giả học thuật**
+
+Giao gồm a, d và hợp gồm a, c, d nên Jaccard bằng 2/3. Theo thứ tự đã cho, cả hai tập chọn a. Khi chọn đều mọi hoán vị, xác suất trùng là 2/3 vì phần tử đầu của hợp là a hoặc d trong hai trên ba khả năng đồng đều. Sự trùng trong một lần không suy ra hai tập bằng nhau.
+
+Nguồn: Dữ kiện: MMDS 3e, Hình 3.2–3.3 và §3.3.3.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án 2/3; a, a; 2/3. Chấm phép đếm, dùng cùng thứ tự, giả thiết hoán vị đều. Dự toán 1,5 phút làm và 1,5 phút đối chiếu.
+
+### 28. Ví dụ chữ ký MinHash
+
+- **Mã:** `lec05-s04-01`; **phần:** 4; **note-topic-id:** `n05-07`.
+- **Mục đích và vai trò:** Ví dụ trước hình thức hóa; đếm tọa độ trùng. **Mục tiêu:** MT4.
+- **Câu chốt:** Hai phép chọn phần tử tạo một chữ ký hai thành phần cho mỗi tập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận một phép thử ở 27; trang 29 đặt tên vector và ma trận vừa có.
+- **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Bốn tập ở trên; bảng hai thứ tự cố định và bốn cột chữ ký; vector cụ thể $(a,d)^{\mathsf T}$ cùng tỷ lệ và Jaccard ở dưới. Ký hiệu tổng quát $\sigma$ dành cho trang 29.
+- **Trọng tâm và thứ tự đọc:** Bốn tập đầu vào → thứ tự cố định thứ nhất và bốn phần tử được chọn → hàng thứ hai → so hai cột S1 và S4.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết một MinHash nên chỉ thêm một tọa độ; bảng cụ thể trước vector tổng quát giảm số đối tượng trừu tượng mới và cho thấy ngay sai khác ước lượng.
+- **Giới hạn và xử lý tràn:** Giữ cả bốn tập, hai thứ tự cố định và hai hàng định danh ngay trên mặt trang; không thay dữ kiện bằng liên kết hoặc số hình nguồn. Các bước suy ra thứ tự từ giá trị băm nằm trong ghi chú. Nếu thiếu chỗ, rút chú thích diễn giải, không bỏ dữ kiện hoặc giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.4 tr. 83–84; hai thứ tự suy từ VD 3.8 tr. 85–86; đưa ví dụ lên trước đã được điều phối viên duyệt.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+$S_1=\{a,d\}$, $S_2=\{c\}$, $S_3=\{b,d,e\}$, $S_4=\{a,c,d\}$.
+
+| Hai thứ tự cố định | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| $\pi_1=(e,a,b,c,d)$ | a | c | e | a |
+| $\pi_2=(d,a,c,e,b)$ | d | c | d | d |
+
+Chữ ký của $S_1$ và $S_4$: $(a,d)^{\mathsf T}$.
+
+Tỷ lệ trùng: $2/2=1$; Jaccard thật: $\mathrm{SIM}(S_1,S_4)=2/3$.
+
+Hai thứ tự được chọn cố định để minh họa phép tính.
+
+**Ghi chú diễn giả học thuật**
+
+Hai thứ tự này được suy trực tiếp bằng cách sắp hàng theo hai hàm băm của Ví dụ 3.8. Ở đây chỉ dùng thứ tự và định danh phần tử; giá trị băm sẽ được tính ở phần sau. Chữ ký của $S_1$, $S_2$, $S_3$, $S_4$ lần lượt là (a, d), (c, c), (e, d), (a, d). Cặp 1–4 trùng cả hai tọa độ dù hai tập khác nhau. Hai thứ tự cố định minh họa phép tính, không cung cấp bằng chứng về phân phối chọn đều.
+
+Nguồn: MMDS 3e, Hình 3.2 và hai thứ tự suy từ Ví dụ 3.8, tr. 85–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 29. Vector và ma trận chữ ký
+
+- **Mã:** `lec05-s04-02`; **phần:** 4; **note-topic-id:** `n05-07`.
+- **Mục đích và vai trò:** Hình thức hóa; đọc kiểu và kích thước chữ ký. **Mục tiêu:** MT4.
+- **Câu chốt:** Mỗi tập có vector n thành phần; C tập tạo ma trận chữ ký n×C.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận ví dụ 28; trang 30 biến việc so tọa độ thành công thức ước lượng.
+- **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Vector tổng quát phía trên; bảng vai trò hàng/cột của ma trận đặc trưng và chữ ký phía dưới. Không lặp ma trận ví dụ; dữ kiện hai chữ ký được khôi phục tại 30.
+- **Trọng tâm và thứ tự đọc:** Vector một tập → C cột → đổi ý nghĩa hàng → ví dụ n=2.
+- **Lý do phù hợp sinh viên năm 2:** Cùng cột S1–S4 giữ định danh tập ổn định; nhãn loại hàng giúp sinh viên tránh coi chữ ký là chọn một số hàng của ma trận nhị phân.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.4 tr. 83–84.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Chọn $\pi_1,\ldots,\pi_n$ và dùng cùng bộ thứ tự cho mọi tập.
+
+$$
+\sigma(S)=\bigl(h_{\pi_1}(S),\ldots,h_{\pi_n}(S)\bigr)^{\mathsf T}
+$$
+
+| Ma trận | Hàng | Cột |
+|---|---|---|
+| Đặc trưng | $R$ phần tử | $C$ tập |
+| Chữ ký | $n$ phép thử | $C$ tập |
+
+Mô hình lý tưởng: các hoán vị đều và độc lập.
+
+**Ghi chú diễn giả học thuật**
+
+Ở ma trận đặc trưng, hàng biểu diễn phần tử của U; ở ma trận chữ ký, hàng biểu diễn một phép chọn MinHash. Số cột vẫn là C vì mỗi cột vẫn ứng với một tập. Ví dụ trước có n=2, C=4; ma trận gốc có R=5. Số hàng giảm chưa tự chứng minh giảm byte vì kiểu giá trị của hai ma trận có thể khác nhau.
+
+Nguồn: MMDS 3e, §3.3.4, tr. 83–84.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 30. Ước lượng Jaccard
+
+- **Mã:** `lec05-s04-03`; **phần:** 4; **note-topic-id:** `n05-07`.
+- **Mục đích và vai trò:** Định nghĩa ước lượng; so sánh đúng tọa độ. **Mục tiêu:** MT4.
+- **Câu chốt:** Ước lượng Jaccard bằng tỷ lệ tọa độ chữ ký trùng nhau.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận cấu trúc vector; 31 xét kỳ vọng của cùng tổng chỉ báo.
+- **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Công thức ước lượng và nghĩa chỉ báo phía trên; bảng hai tọa độ của $\sigma(S_1),\sigma(S_4)$ ở giữa, kèm $a=a$ và $d=d$; phép cộng hai chỉ báo và chia 2 phía dưới.
+- **Trọng tâm và thứ tự đọc:** Công thức và nghĩa chỉ báo → bảng hai tọa độ cụ thể → tổng/chia n → đối chiếu Jaccard thật.
+- **Lý do phù hợp sinh viên năm 2:** Bảng căn theo cùng tọa độ làm rõ phép so sánh; sinh viên có thể chuyển trực tiếp phép đếm 2/2 sang ký hiệu chỉ báo.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.4 tr. 83–84; áp dụng VD 7 đã duyệt.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+$$
+\widehat{\mathrm{SIM}}(S,T)=\frac1n\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}
+$$
+
+$\mathbf1\{E\}=1$ khi $E$ đúng, bằng $0$ khi sai; so cùng chỉ số $i$.
+
+| Tọa độ | $\sigma(S_1)$ | $\sigma(S_4)$ | Chỉ báo |
+|---|---|---|---|
+| 1 | a | a | $a=a\Rightarrow1$ |
+| 2 | d | d | $d=d\Rightarrow1$ |
+
+$$
+\widehat{\mathrm{SIM}}(S_1,S_4)=\frac{1+1}{2}=1\ne\frac23
+$$
+
+**Ghi chú diễn giả học thuật**
+
+Ví dụ có $\sigma(S_1)=\sigma(S_4)=(a,d)^{\mathsf T}$: cả $a=a$ lẫn $d=d$ cho chỉ báo $1$. Jaccard thật là $2/3$. Chữ ký là vector có thứ tự, nên tọa độ i chỉ so với tọa độ i được tạo bởi cùng hoán vị. Nếu bỏ vị trí rồi lấy Jaccard giữa hai tập giá trị chữ ký, phép tính không còn đếm các biến cố trong định lý. Dấu mũ phân biệt ước lượng hữu hạn với SIM của hai tập gốc. Một giá trị ước lượng bằng 1 không đủ suy hai tập bằng nhau.
+
+Nguồn: MMDS 3e, §3.3.4, tr. 84.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 31. Kỳ vọng số lần trùng
+
+- **Mã:** `lec05-s04-04`; **phần:** 4; **note-topic-id:** `n05-07`.
+- **Mục đích và vai trò:** Suy luận xác suất; phân biệt số đếm và tỷ lệ. **Mục tiêu:** MT4.
+- **Câu chốt:** Số lần trùng có kỳ vọng ns; tỷ lệ trùng có kỳ vọng s.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tổng chỉ báo; 32 thêm giả thiết độc lập để tính độ phân tán.
+- **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: ba hàng phép suy ra có cột nhãn “một tọa độ / số lần / tỷ lệ” chiếm 75% thân; mỗi hàng một biểu thức, nhãn đơn vị đặt sát.
+- **Trọng tâm và thứ tự đọc:** Chỉ báo → cộng n kỳ vọng → chia n.
+- **Lý do phù hợp sinh viên năm 2:** Tách nhãn số đếm và tỷ lệ ngăn lỗi đơn vị của nguồn; sinh viên dùng tuyến tính kỳ vọng đã học mà không phải chấp nhận một công thức mới thiếu phép suy ra.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §§3.3.3–3.3.4 tr. 83–84; sửa lỗi đơn vị tr. 84 đã duyệt.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Đặt $s=\mathrm{SIM}(S, T)$ và $X_i=\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$. Khi mỗi $\pi_i$ đều: $$\mathbb E[X_i]=s,\quad\mathbb E\!\left[\sum_iX_i\right]=ns,\quad\mathbb E[\widehat{\mathrm{SIM}}]=s.$$
+
+**Ghi chú diễn giả học thuật**
+
+Mỗi chỉ báo nhận 1 với xác suất s theo định lý MinHash, nên kỳ vọng của nó là s. Tuyến tính kỳ vọng cho tổng ns; chia n được tỷ lệ kỳ vọng s. Bước tuyến tính không cần độc lập giữa các hoán vị. Kỳ vọng không khẳng định tổng quan sát ở mọi lần bằng ns và có thể không nguyên. Đây là hiệu chỉnh đơn vị của câu trên trang 84 sách: số hàng trùng và tỷ lệ hàng trùng là hai đại lượng khác nhau.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 32. Sai số của chữ ký
+
+- **Mã:** `lec05-s04-05`; **phần:** 4; **note-topic-id:** `n05-08`.
+- **Mục đích và vai trò:** Hệ quả và điều kiện; giải thích tác dụng độ dài chữ ký. **Mục tiêu:** MT4.
+- **Câu chốt:** Tăng n giảm phương sai của ước lượng khi các hoán vị đều và độc lập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận kỳ vọng đúng; 33 xét chi phí phải trả khi tăng n.
+- **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Giả thiết đều đã kế thừa từ 31, bổ sung độc lập ở trên. Chuỗi ba dòng phương sai là trọng tâm: hệ số $n^{-2}$, tổng phương sai có nhãn độc lập, kết quả $s(1-s)/n$. Công thức độ lệch chuẩn ở notes.
+- **Trọng tâm và thứ tự đọc:** Độc lập → phương sai tổng → chia n² → tác dụng n.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên cần thấy vị trí dùng độc lập khác với tuyến tính kỳ vọng ở 31; giữ cùng ký hiệu X_i làm cầu nối thay vì thêm một định lý sai số ngoài phạm vi.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** Hệ quả từ B §§3.3.3–3.3.4 tr. 83–84, bổ sung được điều phối viên duyệt.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Nếu các hoán vị còn độc lập, $X_i$ là các biến Bernoulli độc lập với $\operatorname{Var}(X_i)=s(1-s)$.
+
+$$
+\begin{aligned}\operatorname{Var}(\widehat{\mathrm{SIM}})&=\frac1{n^2}\operatorname{Var}\!\left(\sum_{i=1}^nX_i\right)\\&\overset{\text{độc lập}}=\frac1{n^2}\sum_{i=1}^n\operatorname{Var}(X_i)\\&=\frac{ns(1-s)}{n^2}=\frac{s(1-s)}n.\end{aligned}
+$$
+
+Tăng $n$ làm giảm phương sai.
+
+Không bảo đảm mỗi lần tăng độ dài chữ ký đều làm sai số quan sát giảm.
+
+**Ghi chú diễn giả học thuật**
+
+$X_i$ là biến Bernoulli với tham số s, có phương sai s(1−s). Do độc lập, phương sai tổng bằng tổng phương sai. Hệ số 1/n của trung bình bình phương khi đi vào phương sai, nên kết quả là n·s(1−s)/n². Nếu các phép thử phụ thuộc, phải xét các hiệp phương sai và công thức này không tự áp dụng. Độ lệch chuẩn là $\sqrt{s(1-s)/n}$. Đây là hệ quả được suy ra từ định lý và kiến thức xác suất, không phải phát biểu trích nguyên văn sách.
+
+Nguồn: Suy ra từ mô hình §3.3.4 bằng phương sai của biến chỉ báo độc lập.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 33. Chi phí so sánh chữ ký
+
+- **Mã:** `lec05-s04-06`; **phần:** 4; **note-topic-id:** `n05-07`.
+- **Mục đích và vai trò:** Chi phí; nối độ dài chữ ký với công việc. **Mục tiêu:** MT4.
+- **Câu chốt:** Chữ ký dài n cần n phép so sánh cho mỗi cặp.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tác dụng thống kê n; 34 kiểm cả kỳ vọng và điều kiện tăng n.
+- **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Mô hình từ máy và chi phí so bằng $O(1)$ trước hai thẻ: chi phí một cặp ở trái, mọi cặp ở phải. Câu chốt giữ giới hạn bậc hai.
+- **Trọng tâm và thứ tự đọc:** Mô hình → một cặp → nhân số cặp → tác dụng n.
+- **Lý do phù hợp sinh viên năm 2:** Hai hàng dùng cùng đơn vị phép so sánh giúp sinh viên phân biệt đánh đổi chất lượng với quy mô kho, thu hồi đúng câu hỏi chi phí ở 05.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.4, chú thích 3 tr. 81; phép đếm từ định nghĩa ước lượng.
+- **Thời lượng:** 1 phút.
+
+**Nội dung công khai dự kiến**
+
+Mỗi thành phần vừa một từ máy; một phép so bằng tốn $O(1)$.
+
+Một cặp chữ ký
+
+$$
+n\text{ phép so bằng}
+$$
+
+$$
+\Theta(n)
+$$
+
+Mọi cặp trong kho
+
+$$
+\frac{nC(C-1)}2
+$$
+
+phép so bằng
+
+Chữ ký ngắn giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.
+
+**Ghi chú diễn giả học thuật**
+
+Trong mô hình mỗi thành phần vừa một từ máy, so bằng tốn $O(1)$. Ước lượng duyệt tất cả $n$ tọa độ, đếm các vị trí bằng nhau rồi chia n. Bộ nhớ chữ ký được xây một lần và được dùng lại cho nhiều cặp; chi phí xây được phân tích riêng. Phép đếm mọi cặp vẫn mang thừa số C(C−1)/2 từ đầu bài. Tăng n vừa giảm phương sai trong mô hình lý tưởng vừa tăng công việc so sánh.
+
+Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 34. Câu hỏi kiểm tra
+
+- **Mã:** `lec05-s04-07`; **phần:** 4; **note-topic-id:** `n05-08`.
+- **Mục đích và vai trò:** Kiểm tra MT4; áp dụng kỳ vọng và phương sai. **Mục tiêu:** MT4.
+- **Câu chốt:** Kỳ vọng của một số đếm và một tỷ lệ phải được trả lời với đúng đơn vị.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận chi phí; 35 đặt vấn đề tính nhiều thành phần mà không lưu hoán vị lớn.
+- **Dữ kiện và vai trò số:** VD 9; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: dữ kiện s, n và giả thiết ở trên 25%; `ex-card` chứa hai nhóm nhiệm vụ ở dưới 65%; đáp án không hiện.
+- **Trọng tâm và thứ tự đọc:** Giả thiết → số đếm/tỷ lệ → đánh đổi khi tăng n.
+- **Lý do phù hợp sinh viên năm 2:** Dùng cùng cặp nguồn nên không tốn thời gian tính Jaccard mới; hai đơn vị được hỏi cạnh nhau để phát hiện nhầm ns với s.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Hình 3.2; §3.3.4 tr. 83–84; n=100 theo độ dài minh họa nguồn, áp dụng hệ quả đã duyệt.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Cặp $S_1,S_4$ có $s=2/3$. Dùng $n=100$ hoán vị đều và độc lập.
+
+Câu hỏi:
+
+- Tính kỳ vọng số tọa độ trùng.
+
+- Tính kỳ vọng tỷ lệ tọa độ trùng.
+
+- Nêu tác dụng của tăng $n$ đối với phương sai và chi phí so sánh một cặp.
+
+**Ghi chú diễn giả học thuật**
+
+Kỳ vọng số tọa độ trùng là $200/3$, còn tỷ lệ có kỳ vọng $2/3$. Phương sai bằng $2/(9n)$, nên ở n=100 là $1/450$. Tăng n giảm phương sai theo 1/n và tăng số phép so sánh một cặp theo n. Kỳ vọng số đếm không cần nguyên; công thức không bảo đảm mọi mẫu dài hơn đều cho kết quả gần s hơn.
+
+Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án: 200/3 lần, 2/3; phương sai 2/(9n), so sánh Θ(n). Chấm đúng đơn vị và điều kiện. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+
+### 35. Hoán vị lớn và hàm băm
+
+- **Mã:** `lec05-s05-01`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Vấn đề và trực giác triển khai; tách mô hình với phép tính. **Mục tiêu:** MT5.
+- **Câu chốt:** Có thể tính các giá trị nhỏ nhất theo hàng mà không dựng lại toàn bộ ma trận cho từng thứ tự.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận chữ ký lý tưởng; 36 đặc tả chính xác điều thuật toán phải trả.
+- **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Sơ đồ quét theo hàng phía trên; điều kiện không va chạm và phép đổi định danh thắng thành giá trị phía dưới. Hai mũi tên tiến có đầu mũi tên riêng, vòng lặp giữ hướng.
+- **Trọng tâm và thứ tự đọc:** Giới hạn lưu thứ tự → thay bằng giá trị hàng → điều kiện họ hàm.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết min và băm; sơ đồ chỉ thay cách tính, đồng thời ghi rõ giả thiết xác suất chưa tự chuyển theo, tránh xem công thức băm như một chứng minh.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.5 tr. 84–85.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+![Mỗi hàng được băm một lần cho mỗi hàm; cập nhật cực tiểu ở các cột có 1.](../../img/lec-05/quet-ma-tran-thua.svg)
+
+Khi $f_i$ không va chạm, thứ tự tăng dần của $f_i(r)$ xác định hàng thắng. Lưu giá trị của hàng ấy bảo toàn phép so bằng định danh.
+
+Các hàm dùng chung cho mọi cột; bảo đảm xác suất còn phụ thuộc cách chọn hàm.
+
+**Ghi chú diễn giả học thuật**
+
+Sắp xếp hoặc lưu nhiều hoán vị của một vũ trụ lớn có chi phí cao. Thuật toán trong sách quét các hàng, tính giá trị băm và cập nhật cực tiểu. Nếu hàm là song ánh, thứ tự tăng giá trị xác định một hoán vị; nếu có va chạm, nhiều hàng có thể cùng giá trị. Ngay cả khi từng hàm là song ánh, phân bố chọn hàm vẫn cần điều kiện để có định lý lý tưởng.
+
+Nguồn: MMDS 3e, §3.3.5, tr. 84–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 36. Đặc tả tính chữ ký
+
+- **Mã:** `lec05-s05-02`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Đặc tả; xác định kiểu, miền và hậu điều kiện. **Mục tiêu:** MT5.
+- **Câu chốt:** Mỗi ô chữ ký là cực tiểu giá trị băm của cột; cột rỗng trả về giá trị quy ước $+\infty$.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận trực giác; 37 cố định dữ kiện và hàm cho vết chạy.
+- **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Đặc tả toàn chiều rộng, chừa 28px hai bên bằng `.mh-inset` để tránh chevron; giữ nguyên thang chữ, miền chỉ số, $V$ và giá trị canh.
+- **Trọng tâm và thứ tự đọc:** Kích thước và ba miền chỉ số → hàm dùng chung có miền giá trị hữu hạn được sắp thứ tự → hậu điều kiện min → cột rỗng.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên có thể đối chiếu từng vòng lặp sắp học với một miền chỉ số; sự khác kiểu định danh/giá trị được nêu trước ví dụ số để tránh diễn giải ngầm.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.5 tr. 84–85; BT 3.3.8 tr. 91 cho trường hợp rỗng.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+$R,C,n$ nguyên dương; $M\in\{0,1\}^{R\times C}$.
+
+$r=0,\ldots,R-1$; $c=1,\ldots,C$; $i=1,\ldots,n$.
+
+$f_i:\{0,\ldots,R-1\}\to V$, với $V$ hữu hạn có thứ tự toàn phần; các hàm dùng chung cho mọi cột.
+
+$$
+\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):M(r,c)=1\}\cup\{+\infty\}\bigr)
+$$
+
+$+\infty$ lớn hơn mọi giá trị trong $V$. Cột rỗng trả $+\infty$ ở mọi thành phần.
+
+**Ghi chú diễn giả học thuật**
+
+Thuật toán có thể nhận ma trận đặc hoặc danh sách cột có 1 theo hàng. Mỗi hàm $f_i$ nhận mã hàng và trả một giá trị hữu hạn trong miền $V$ có thứ tự toàn phần; do đó phép lấy cực tiểu có nghĩa. Đầu ra $n\times C$ lưu giá trị băm hoặc $+\infty$, khác định danh phần tử trong $h_\pi$. Nếu cột không rỗng, tập ứng viên có ít nhất một giá trị thuộc $V$, nên cực tiểu hữu hạn. Nếu cột rỗng, tập lấy cực tiểu chỉ còn $\{+\infty\}$ và đầu ra là $+\infty$. Quy ước này xác định đầu ra thuật toán, không mở rộng định lý Jaccard sang hai tập rỗng.
+
+Nguồn: Đặc tả phép quét trong MMDS 3e, §3.3.5; quy ước cho cột rỗng.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 37. Ví dụ các hàm băm hàng
+
+- **Mã:** `lec05-s05-03`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Ví dụ chuẩn bị; đọc ánh xạ nhãn và giá trị. **Mục tiêu:** MT5.
+- **Câu chốt:** Ánh xạ hàng và giá trị băm phải được giữ cố định trong toàn bộ vết chạy.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận đặc tả; 38 thực hiện hàng đầu tiên với cả trạng thái trước và sau.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Hai hàm cố định ở trên; một bảng toàn chiều rộng, năm hàng, bốn cột: phần tử/mã hàng, các cột có 1, hai giá trị băm. Hai thứ tự tăng dần ở dưới nối ví dụ chữ ký định danh.
+- **Trọng tâm và thứ tự đọc:** Ánh xạ a–e → hàng r → f1/f2 → cột được cập nhật.
+- **Lý do phù hợp sinh viên năm 2:** Cả mã và tên phần tử có cùng hàng giúp sinh viên đối chiếu dữ liệu cũ với phần số; các giá trị 0/1 lặp được phân biệt bằng cột có tiêu đề rõ.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Hình 3.4 tr. 85; Ví dụ 3.8, §3.3.5 tr. 85–86; đổi tên h_i của sách thành f_i.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+$f_1(r)=(r+1)\bmod5$; $f_2(r)=(3r+1)\bmod5$.
+
+| Phần tử / $r$ | Các cột có 1 | $f_1(r)$ | $f_2(r)$ |
+|---|---|---|---|
+| a / 0 | 1, 4 | 1 | 1 |
+| b / 1 | 3 | 2 | 4 |
+| c / 2 | 2, 4 | 3 | 2 |
+| d / 3 | 1, 3, 4 | 4 | 0 |
+| e / 4 | 3 | 0 | 3 |
+
+Sắp tăng: $f_1$ cho $(e,a,b,c,d)$; $f_2$ cho $(d,a,c,e,b)$, đúng hai thứ tự cố định của ví dụ chữ ký.
+
+**Ghi chú diễn giả học thuật**
+
+Mã hàng r chỉ là tên số của phần tử. Với r=3 là d, hai giá trị băm là 4 và 0; chúng không phải vị trí của d trong ma trận gốc. Các giá trị của mỗi hàm đều khác nhau trong ví dụ này, nên mỗi hàm xác định một thứ tự khi sắp tăng. Hai thứ tự ấy đã dùng trong ví dụ chữ ký định danh. Với $S_1,S_4$, tọa độ đầu chọn $a\leftrightarrow0$, lưu $f_1(0)=1$; tọa độ hai chọn $d\leftrightarrow3$, lưu $f_2(3)=0$.
+
+Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 38. Khởi tạo và giá trị hữu hạn
+
+- **Mã:** `lec05-s05-04`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Vết chạy bước đầu; thực hiện min và giữ cột không thuộc. **Mục tiêu:** MT5.
+- **Câu chốt:** Hàng 0 chỉ cập nhật hai tập S1, S4 chứa phần tử a.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận bảng hàm; 39 xét min khi đã có giá trị hữu hạn.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Hai bảng trước/sau ngang hàng; bốn ô vừa giảm từ vô cực có viền đậm, chữ đậm và chú giải. Dữ kiện hàng 0 và phép min bên dưới.
+- **Trọng tâm và thứ tự đọc:** Hàng đầu vào → cột có 1 → ô trước → phép min → ô sau.
+- **Lý do phù hợp sinh viên năm 2:** Cùng vị trí S1–S4 trong hai bảng giúp sinh viên nhìn được cả phần thay đổi và phần giữ nguyên; đây là bước mẫu đầy đủ trước khi rút gọn các hàng sau.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B VD 3.8 tr. 85, Hình 3.4.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Khởi tạo
+
+| Thành phần | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| $f_1$ | $+\infty$ | $+\infty$ | $+\infty$ | $+\infty$ |
+| $f_2$ | $+\infty$ | $+\infty$ | $+\infty$ | $+\infty$ |
+
+Sau hàng $r=0$
+
+| Thành phần | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| $f_1$ | 1 | $+\infty$ | $+\infty$ | 1 |
+| $f_2$ | 1 | $+\infty$ | $+\infty$ | 1 |
+
+Hàng $0$: $f_1(0)=f_2(0)=1$; các cột có $1$ là $1,4$.
+
+$$
+\min(+\infty,1)=1
+$$
+
+Ô viền đậm: giá trị vừa giảm từ $+\infty$.
+
+**Ghi chú diễn giả học thuật**
+
+Hàng 0 tương ứng phần tử a. Chỉ các cột 1 và 4 chứa a nên nhận giá trị hữu hạn đầu tiên. Cột 2 và 3 không được cập nhật dù giá trị băm đã có. Phép min được thực hiện cho cả hai hàm ở mỗi cột liên quan; có bốn phép min ở bước này. Vô cực là giá trị khởi tạo của trạng thái, không là kết quả băm.
+
+Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 39. Cập nhật cột mới
+
+- **Mã:** `lec05-s05-05`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Vết chạy; phân biệt xét cập nhật với thực sự giảm. **Mục tiêu:** MT5.
+- **Câu chốt:** Phép min có thể giữ nguyên chữ ký ngay cả khi tập chứa phần tử đang xét.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận bước khởi tạo; 40 cho thấy các thành phần có thể giảm ở các hàng khác nhau.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Bảng vết chạy toàn chiều rộng gồm sau hàng 0, 1, 2; mỗi cột vẫn ứng với một tập và mỗi ô ghi hai thành phần. Dữ kiện hàng 1/2 ở trên; thành phần vừa giảm có gạch dưới; hai phép min giữ nguyên chữ ký cột 4 ở dưới.
+- **Trọng tâm và thứ tự đọc:** Trạng thái r0 → thêm r1 → thêm r2 → đối chiếu S2 mới và S4 giữ.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên phải theo dõi cả trường hợp cập nhật lần đầu và không giảm; bảng nhiều trạng thái cùng cột giúp kiểm phép min mà không phải nhớ màn trước.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B VD 3.8 tr. 85–86.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+$r=1$: cột $3$, ứng viên $(2,4)$; $r=2$: cột $2,4$, ứng viên $(3,2)$.
+
+| Trạng thái | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| Sau $r=0$ | $(1,1)$ | $(\infty,\infty)$ | $(\infty,\infty)$ | $(1,1)$ |
+| Sau $r=1$ | $(1,1)$ | $(\infty,\infty)$ | $(\underline2,\underline4)$ | $(1,1)$ |
+| Sau $r=2$ | $(1,1)$ | $(\underline3,\underline2)$ | $(2,4)$ | $(1,1)$ |
+
+Mỗi ô ghi hai thành phần chữ ký; gạch dưới đánh dấu giá trị vừa giảm. $\infty$ viết gọn cho $+\infty$.
+
+Chữ ký của $S_4$ giữ $(1,1)$: $\min(1,3)=1$, $\min(1,2)=1$.
+
+**Ghi chú diễn giả học thuật**
+
+Hàng 1 là b, chỉ xuất hiện trong $S_3$ nên tạo chữ ký hữu hạn đầu tiên cho cột 3. Hàng 2 là c, xuất hiện trong $S_2$ và $S_4$. Chữ ký của $S_2$ nhận $(3,2)$ từ vô cực; chữ ký của $S_4$ đã có $(1,1)$, nên hai phép min đều giữ giá trị cũ. Số lần thực hiện min vì vậy không bằng số ô thực sự đổi.
+
+Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 40. Cập nhật từng thành phần
+
+- **Mã:** `lec05-s05-06`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Vết chạy kết thúc; tách tọa độ theo hàm. **Mục tiêu:** MT5.
+- **Câu chốt:** Mỗi thành phần chữ ký giữ cực tiểu của hàm tương ứng.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận vết trung gian; 41 rút toàn bộ thao tác thành giả mã tổng quát.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Bảng vết chạy toàn chiều rộng gồm sau hàng 2, 3, 4; đầu vào mỗi hàng ghi ngay trên bảng; gạch dưới từng thành phần vừa giảm. Phía dưới nối $(a,d)^{\mathsf T}$ với $(f_1(0),f_2(3))^{\mathsf T}=(1,0)^{\mathsf T}$.
+- **Trọng tâm và thứ tự đọc:** Trạng thái r2 → r3 đổi tọa độ 2 → r4 đổi tọa độ 1 → kết quả cuối.
+- **Lý do phù hợp sinh viên năm 2:** Bố cục giữ từ 39 để tập trung vào sự độc lập của hai thành phần; đánh dấu bằng chữ/viền giúp theo cơ chế ngay cả khi không phân biệt màu.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Ví dụ 3.8 tr. 85–86; Hình 3.4 tr. 85.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+$r=3$: $(f_1(3),f_2(3))=(4,0)$, cột $1,3,4$.
+$r=4$: $(f_1(4),f_2(4))=(0,3)$, chỉ cột $3$.
+
+| Trạng thái | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| Sau $r=2$ | $(1,1)$ | $(3,2)$ | $(2,4)$ | $(1,1)$ |
+| Sau $r=3$ | $(1,\underline0)$ | $(3,2)$ | $(2,\underline0)$ | $(1,\underline0)$ |
+| Sau $r=4$ | $(1,0)$ | $(3,2)$ | $(\underline0,0)$ | $(1,0)$ |
+
+Gạch dưới: thành phần vừa giảm. Các thành phần khác giữ nguyên.
+
+Với $S_1,S_4$: $(a,d)^{\mathsf T}\mapsto(f_1(0),f_2(3))^{\mathsf T}=(1,0)^{\mathsf T}$.
+
+**Ghi chú diễn giả học thuật**
+
+Hàng 3 hạ thành phần thứ hai của chữ ký của $S_1$, $S_3$, $S_4$ xuống 0; các giá trị $f_1$ đều không nhỏ hơn trạng thái đang lưu. Hàng 4 chỉ thuộc $S_3$, hạ thành phần thứ nhất của cột này xuống 0; thành phần thứ hai giữ 0 vì min(0,3)=0. Không cập nhật các cột không chứa e. Hai tọa độ cực tiểu của một tập có thể do hai phần tử khác nhau tạo ra. Với $S_1,S_4$, $a\leftrightarrow0$ thắng theo $f_1$, còn $d\leftrightarrow3$ thắng theo $f_2$. Vì hai hàm cố định không va chạm, chữ ký định danh $(a,d)^{\mathsf T}$ và chữ ký giá trị $(1,0)^{\mathsf T}$ giữ cùng quan hệ trùng; điều này không chứng minh các hàm được chọn đều.
+
+Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 41. Thuật toán quét hàng
+
+- **Mã:** `lec05-s05-07`; **phần:** 5; **note-topic-id:** `n05-09`.
+- **Mục đích và vai trò:** Thuật toán tổng quát; đối chiếu vòng lặp với vết chạy. **Mục tiêu:** MT5.
+- **Câu chốt:** Một lượt qua các hàng cập nhật đầy đủ n thành phần cho những tập chứa phần tử của hàng.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận vết chạy hoàn chỉnh; 42 chứng minh thuật toán luôn đạt hậu điều kiện.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: `pre.ex-code` lớn chiếm 75% thân, các nhãn R/C/n đặt sát vòng tương ứng; dòng kết luận “tính băm một lần mỗi hàng, dùng cho các cột có 1” chiếm 15% đáy.
+- **Trọng tâm và thứ tự đọc:** Khởi tạo → hàng → băm → cột có 1 → thành phần → trả kết quả.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên đã chạy các thao tác ở 38–40 nên có thể ánh xạ từng vòng lặp với đối tượng; một khối mã lớn tránh chia giả mã thành các thẻ làm mất cấu trúc điều khiển.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.5 tr. 84–85; biểu diễn thưa §3.3.1 tr. 82.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Giả mã: khởi tạo mọi SIG(i, c)=∞; với r=0…R−1 tính v_i=f_i(r), i=1…n; với mỗi c có M(r, c)=1, với i=1…n đặt SIG(i, c)=min(SIG(i, c), v_i); trả SIG. Dừng sau R hàng.
+
+**Ghi chú diễn giả học thuật**
+
+Mỗi giá trị f_i(r) chỉ cần tính một lần ở hàng r rồi dùng cho mọi cột chứa phần tử đó. Nếu đầu vào là danh sách cột có 1 theo hàng, vòng lặp đi trực tiếp qua danh sách. Nếu là ma trận đặc, phải kiểm từng ô để tìm cột có 1. Thứ tự quét hàng không đổi cực tiểu cuối cùng nhưng ảnh hưởng các trạng thái trung gian.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 42. Bất biến giá trị nhỏ nhất
+
+- **Mã:** `lec05-s05-08`; **phần:** 5; **note-topic-id:** `n05-10`.
+- **Mục đích và vai trò:** Chứng minh; xác định khởi tạo, duy trì và dừng. **Mục tiêu:** MT5.
+- **Câu chốt:** Sau mỗi bước, chữ ký chứa cực tiểu trên đúng các hàng đã quét.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận giả mã; 43 đếm các thao tác của đúng vòng lặp đã chứng minh.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: công thức bất biến chiếm 35% trên; ba bước “khởi tạo / duy trì / kết thúc” theo chiều dọc chiếm 50% dưới; mỗi bước một dòng, hai trường hợp 0/1 cùng dòng duy trì.
+- **Trọng tâm và thứ tự đọc:** Tập hàng đã xét → trạng thái min → cơ sở → hai trường hợp → hậu điều kiện.
+- **Lý do phù hợp sinh viên năm 2:** Cùng phép min từ ví dụ giúp sinh viên nhận ra bất biến là diễn đạt nội dung đang giữ; cả ô0 lẫn ô 1 được xét nên không bỏ trường hợp bảo toàn trạng thái.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** Suy ra trực tiếp giả mã B §3.3.5; bổ sung tính đúng đã duyệt.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Với A là tập hàng đã quét: $$\mathrm{SIG}(i, c)=\min\bigl(\{f_i(r):r\in A, M(r, c)=1\}\cup\{+\infty\}\bigr).$$ Khởi tạo: A rỗng. Duy trì: hàng có 0 giữ nguyên, hàng có 1 thêm một ứng viên min. Kết thúc: A gồm R hàng.
+
+**Ghi chú diễn giả học thuật**
+
+Ban đầu tập giá trị hữu hạn rỗng nên tập lấy cực tiểu chỉ có $+\infty$, đúng trạng thái. Khi xét hàng mới, cột có 0 không thêm phần tử; cột có 1 thêm $f_i(r)\in V$, được xử lý bằng phép min với trạng thái cũ. Bất biến được giữ với mọi $i=1,\ldots,n$ và $c=1,\ldots,C$. Sau $R$ hàng, tập $A$ gồm tất cả các mã hàng; công thức bất biến trở thành đúng hậu điều kiện ở trang đặc tả, kể cả cột rỗng trả $+\infty$. Chứng minh này bảo đảm tính cực tiểu, không chứng minh một họ băm cụ thể là hoán vị ngẫu nhiên đều.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 43. Số phép tính chữ ký
+
+- **Mã:** `lec05-s05-09`; **phần:** 5; **note-topic-id:** `n05-10`.
+- **Mục đích và vai trò:** Chi phí; lập phép đếm trước cận tiệm cận. **Mục tiêu:** MT5.
+- **Câu chốt:** Chi phí tính chữ ký phụ thuộc cách truy cập các ô có 1.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tính đúng; 44 tách đầu ra và bộ nhớ phụ khỏi thời gian.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `cost-slide`: mô hình ở trên 15%; bảng bốn hàng “bước / số lần / ví dụ” chiếm 55%; hai cận đặc/thưa xếp hai dòng chiếm 25% dưới. Không thêm đồ thị.
+- **Trọng tâm và thứ tự đọc:** Mô hình → từng dòng giả mã trong bảng → thế số → tổng đặc/thưa.
+- **Lý do phù hợp sinh viên năm 2:** Bảng tạo nguồn gốc cụ thể cho mỗi số hạng; sinh viên mới phân tích dữ liệu thưa thấy ngay vì sao bỏ RC cần thay biểu diễn đầu vào, không chỉ bỏ ký hiệu.
+- **Giới hạn và xử lý tràn:** Bảng giữ bốn hàng ngắn, ba cột. Hai công thức tổng dùng ký hiệu đã định nghĩa, không kèm đoạn giải thích dài trên mặt; mọi giả thiết giữ ở dòng trên. Nếu cần tách để render, phải điều chỉnh storyboard và giữ tổng phút, không thu chữ.
+- **Nguồn:** Phép đếm từ B §3.3.5 tr. 84–86 và §3.3.1; đã được điều phối viên duyệt.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Mô hình từ máy: tính hàm, kiểm ô và min tốn O(1); đầu vào đã có. $L=\operatorname{nnz}(M)$ là tổng số ô 1 của $M$. Bảng: khởi tạo nC; tính băm nR; kiểm ô đặc RC; min nL. VD 3.8: R=5, C=4, n=2, L=9 → 8, 10, 20, 18. Đặc: Θ(nC+nR+RC+nL); danh sách cột có 1 theo hàng đã được xây sẵn: Θ(nC+nR+nL).
+
+**Ghi chú diễn giả học thuật**
+
+Khởi tạo duyệt nC ô chữ ký. Mỗi hàng tính n giá trị nên có nR lần băm. Nếu lưu ma trận đặc, mọi RC ô được kiểm để tìm ô 1. Mỗi ô 1 gây n phép min nên tổng nL, kể cả lần min giữ nguyên. Khi danh sách các cột có 1 đã có, không cần RC phép kiểm; chi phí xây danh sách không nằm trong phạm vi hiện tại. Đây là đếm từ giả mã, không là số đo thời gian thực.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 44. Dung lượng chữ ký
+
+- **Mã:** `lec05-s05-10`; **phần:** 5; **note-topic-id:** `n05-10`.
+- **Mục đích và vai trò:** Bộ nhớ; phân biệt đầu vào, đầu ra và đệm. **Mục tiêu:** MT5.
+- **Câu chốt:** Bộ nhớ chữ ký được quyết định bởi n và số tập C.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận phép đếm thời gian; 45 nêu giới hạn xác suất của các giá trị đang lưu.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `cost-slide`: hai thẻ 50/50 ghi đầu ra nC và đệm n chiếm 50% thân; dòng phạm vi “chưa gồm đầu vào” dưới; minh họa byte nguồn chiếm 25% cuối.
+- **Trọng tâm và thứ tự đọc:** Đầu ra → đệm → phạm vi chưa tính → quy mô byte nguồn.
+- **Lý do phù hợp sinh viên năm 2:** Tách vai trò lưu trữ ngăn sinh viên trả nC như toàn bộ bộ nhớ khi còn giữ dữ liệu; ghi đơn vị từ và byte ở vùng riêng tránh so ma trận bit với số từ.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B mở §3.3 tr. 81; §3.3.4; phép đếm bộ nhớ từ giả mã.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+SIG lưu nC giá trị: Θ(nC) từ máy. Bộ đệm giá trị băm một hàng: Θ(n) từ. Chưa gồm đầu vào. Minh họa B tr. 81: tập mã khoảng 200.000 byte → chữ ký 1.000 byte; không là bảo đảm sai số cho mọi trường hợp.
+
+**Ghi chú diễn giả học thuật**
+
+Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. Ví dụ 5 × 4 giúp theo thuật toán; so số hàng n<R không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Quy mô byte trong sách minh họa tập rất lớn và chữ ký ngắn, không thay phân tích chất lượng theo n.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 45. Hàm băm và điều kiện bảo đảm
+
+- **Mã:** `lec05-s05-11`; **phần:** 5; **note-topic-id:** `n05-11`.
+- **Mục đích và vai trò:** Giới hạn; phân biệt không va chạm và phân bố đều. **Mục tiêu:** MT3, MT4, MT5.
+- **Câu chốt:** Một hàm là hoán vị chưa đủ để họ hàm có bảo đảm MinHash lý tưởng.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận chữ ký tính được; 46 kiểm kết quả, thao tác min và chi phí.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: ba hàng tiêu chí “va chạm / song ánh / phân bố chọn hàm” trong bảng rộng toàn thân 65%; công thức điều kiện affine ở 20% dưới.
+- **Trọng tâm và thứ tự đọc:** Giá trị của một hàm → tính hoán vị → phân phối trên họ hàm.
+- **Lý do phù hợp sinh viên năm 2:** Ba cấp độ tách kiểu mệnh đề: kiểm bảng không thay phân tích xác suất; sinh viên có căn cứ đọc các hàm modulo mà không coi nguyên tố là điều kiện đủ cho mọi bảo đảm.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §3.3.5 tr. 85 và BT 3.3.3(b) tr. 90–91; hiệu chỉnh câu nguyên tố đã duyệt.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Va chạm có thể làm hai hàng khác nhau có cùng giá trị. Hàm $(ar+b)\bmod R$ là hoán vị khi $\gcd(a, R)=1$. Đẳng thức xác suất đã chứng minh dùng phân phối chọn đều hoán vị; song ánh riêng lẻ không bảo đảm phân phối ấy.
+
+**Ghi chú diễn giả học thuật**
+
+Với modulo 5, hệ số 1 và 3 trong ví dụ khả nghịch nên hai hàm là hoán vị. Tính nguyên tố của số hàng không phải điều kiện cần; Bài 3.3.3 có hàm hệ số 5 modulo 6 vẫn là hoán vị. Kiểm bảng giá trị cho biết có va chạm hay không, nhưng không cho biết phân phối lựa chọn trong cả họ hàm. Nếu băm shingle đã gây va chạm, tập đo ở đầu vào cũng đã thay đổi trước bước này.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 46. Câu hỏi kiểm tra
+
+- **Mã:** `lec05-s05-12`; **phần:** 5; **note-topic-id:** `n05-10`.
+- **Mục đích và vai trò:** Kiểm tra MT4–MT5; kết quả, cập nhật và phép đếm. **Mục tiêu:** MT4, MT5.
+- **Câu chốt:** Đánh giá chữ ký cần đối chiếu ước lượng, phép cập nhật và chi phí.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn; 47 tổng hợp kết quả cho tình huống mở bài.
+- **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Hai cột cân đôi: chữ ký kết quả và $R,C,n,L$ bên trái; nhãn Câu hỏi cùng ba nhiệm vụ bên phải. Nhiệm vụ 2 nêu chữ ký của tập, không đồng nhất tập với vector.
+- **Trọng tâm và thứ tự đọc:** Chữ ký → hai tỷ lệ → phép min cụ thể → nL.
+- **Lý do phù hợp sinh viên năm 2:** Ba nhiệm vụ dùng cùng vết nguồn để kiểm kết quả, hiểu thao tác và chi phí; mẫu số 2 không bị nhầm với kích thước hợp nhờ giá trị đúng được ghi sẵn để đối chiếu.
+- **Giới hạn và xử lý tràn:** Chỉ ba nhóm yêu cầu, mỗi nhóm một dòng hoặc hai dòng ngắn. Không đưa lời giải hay bảng nguồn 5 × 4 lên mặt; các số R, C, n, L đủ cho phép đếm. Nếu không vừa, bỏ câu giải thích không thiết yếu khỏi mặt, không bỏ nhiệm vụ chi phí.
+- **Nguồn:** B VD 3.8 tr. 85–86; phép đếm nL suy từ §3.3.5, bổ sung câu kiểm chi phí theo điều phối viên.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+| Thành phần | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| $f_1$ | 1 | 3 | 0 | 1 |
+| $f_2$ | 0 | 2 | 0 | 0 |
+
+$R=5$, $C=4$, $n=2$, $L=9$.
+
+Câu hỏi:
+
+- Tính ước lượng cặp $1$–$4$, $1$–$3$; so với Jaccard thật $2/3$, $1/4$.
+
+- Giải thích phép min của chữ ký của $S_4$ đang là $(1,1)$ với ứng viên $(3,2)$.
+
+- Tính tổng số phép min và nêu căn cứ.
+
+**Ghi chú diễn giả học thuật**
+
+Cặp 1–4 trùng hai trong hai tọa độ nên ước lượng 1, khác 2/3. Cặp 1–3 trùng tọa độ thứ hai nên ước lượng 1/2, khác 1/4. min(1,3)=1 và min(1,2)=1 nên chữ ký của $S_4$ giữ $(1,1)$ khi xét hàng 2. Mỗi trong L=9 ô 1 thực hiện n=2 phép min, tổng 18; con số này bao gồm các lần không đổi giá trị. Kết quả cố định không phủ định phát biểu kỳ vọng dưới giả thiết lý tưởng.
+
+Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án: 1 và 1/2; S4 giữ (1,1);18 phép min. Chấm rõ tỷ lệ cùng tọa độ, min không tăng, mỗi ô 1 gây n phép min. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+
+### 47. Biểu diễn tài liệu gần trùng
+
+- **Mã:** `lec05-s06-01`; **phần:** 6; **note-topic-id:** `n05-01`.
+- **Mục đích và vai trò:** Tổng hợp; ánh xạ đầu vào–đầu ra từng bước. **Mục tiêu:** MT1, MT5.
+- **Câu chốt:** Shingling xác định tập để đo; MinHash tạo chữ ký để ước lượng cho cặp đã chọn.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận toàn bộ cơ chế; 48 đối chiếu điều kiện và giới hạn còn lại.
+- **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: SVG quy trình bốn nút ngang chiếm 65% thân; mỗi nút có kiểu đầu ra; hai nhãn băm đặt đúng mũi tên tương ứng; một câu kết quả ở dưới.
+- **Trọng tâm và thứ tự đọc:** Tài liệu → tập → chữ ký → ước lượng; đối chiếu hai miền vào của băm.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên nhìn lại tuyến lý luận qua kiểu dữ liệu thay vì danh sách thuật ngữ; các nhãn phép biến đổi làm rõ bước nào tăng/giảm biểu diễn.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §§3.1–3.3 tr. 73–86.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Sơ đồ: tài liệu → tập shingle → chữ ký MinHash → tỷ lệ tọa độ trùng. Băm shingle mã hóa từng chuỗi con; băm hàng tạo các cực tiểu của tập. Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.
+
+**Ghi chú diễn giả học thuật**
+
+Jaccard được chọn trước để xác định đại lượng cần bảo toàn. Shingling làm cho phần văn bản chung trở thành phần tử chung của tập. Định lý MinHash nối tỷ lệ giao/hợp với xác suất một phép thử. Nhiều thành phần tạo ước lượng; thuật toán quét tính các giá trị min. Mỗi bước đổi kiểu dữ liệu và có điều kiện riêng, đặc biệt các va chạm không tự biến mất ở bước sau.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 48. Điều kiện và giới hạn
+
+- **Mã:** `lec05-s06-02`; **phần:** 6; **note-topic-id:** `n05-11`.
+- **Mục đích và vai trò:** Tổng kết; thu hồi hai giới hạn mở bài. **Mục tiêu:** MT3, MT4, MT5.
+- **Câu chốt:** Chữ ký nhỏ giảm công việc mỗi cặp, còn lựa chọn cặp cần một cơ chế riêng.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận quy trình 47; 49–50 đo lại sáu nhiệm vụ xuyên các mục tiêu.
+- **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: bảng ba hàng “biểu diễn / bảo đảm / số cặp” chiếm 65% thân; dòng liên hệ Bài 06 ở 20% dưới, không thêm sơ đồ banding.
+- **Trọng tâm và thứ tự đọc:** Loại tương đồng → giả thiết → giới hạn tính toán → nhu cầu bài sau.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên phải xác định phạm vi của từng kết luận; ba hàng cùng tiêu chí tránh biến tổng kết thành cam kết MinHash giải mọi phần của bài toán tìm cặp.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B mở Chương 3 tr. 73–74; §§3.3.3–3.3.5; ranh giới Bài 06 trong source.md.
+- **Thời lượng:** 2 phút.
+
+**Nội dung công khai dự kiến**
+
+Biểu diễn shingle đo tương đồng văn bản theo quy ước đã chọn. Định lý dùng hoán vị đều; phương sai còn cần độc lập. Nếu xét mọi cặp, số cặp vẫn C(C−1)/2. Bài 06 nghiên cứu tạo ứng viên bằng băm nhạy cảm cục bộ (LSH).
+
+**Ghi chú diễn giả học thuật**
+
+Giới hạn bộ nhớ được xử lý bằng chữ ký có n thành phần cho mỗi tập, với đánh đổi chất lượng đã nêu. Giới hạn số cặp chưa được giải quyết bởi việc thay tập lớn bằng chữ ký nhỏ. Bài tiếp theo dùng cấu trúc chữ ký để lựa chọn những cặp có khả năng tương đồng; không cần cơ chế lựa chọn ấy để hoàn thành các phép tính và bài tập của bài hiện tại.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+
+### 49. Tự kiểm tra biểu diễn
+
+- **Mã:** `lec05-s06-03`; **phần:** 6; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Kiểm tra tổng hợp MT2–MT3; khôi phục kiểu dữ liệu. **Mục tiêu:** MT2, MT3.
+- **Câu chốt:** Các lựa chọn biểu diễn xác định đối tượng được so sánh.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn 48; 50 kiểm phần xác suất và chi phí.
+- **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: ba nhiệm vụ đánh số trên toàn chiều rộng; mỗi nhiệm vụ chiếm 25% thân; không có hình trang trí, không có đáp án.
+- **Trọng tâm và thứ tự đọc:** Tập và lặp → đơn vị mã → hàng/cột.
+- **Lý do phù hợp sinh viên năm 2:** Các câu ngắn gọi lại đúng dữ kiện đã học; sinh viên có thể kiểm ba tiên quyết của thuật toán mà không phải đọc lại một trang công thức dày.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B VD 3.3 tr. 78, §3.2.3 tr. 79–80, §3.3.1 tr. 81–82.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Câu hỏi:
+
+- Giải thích vì sao hai lần `ab` trong `abcdabd` chỉ tạo một phần tử của tập.
+
+- Phân biệt 9 ký tự của shingle với 4 byte mã băm.
+
+- Xác định đối tượng ở hàng và cột của ma trận đặc trưng.
+
+**Ghi chú diễn giả học thuật**
+
+Tập hợp chỉ giữ một bản của phần tử ab, nên bỏ số lần lặp. Chín ký tự đo độ dài đoạn gốc, còn bốn byte đo dung lượng mã. Ma trận đặc trưng có hàng là phần tử của vũ trụ, cột là tập/tài liệu. Ba phân biệt này phải được giữ khi giải các bài tính chữ ký; đổi kiểu mà giữ tên biến mơ hồ có thể dẫn đến phép so sánh khác bài toán.
+
+Nguồn: Tự kiểm theo §§3.2–3.3.1 và các ví dụ đã học.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án trong notes: một phần tử; k và dung lượng mã khác đơn vị; hàng=phần tử, cột=tập. Chấm ba ý. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+
+### 50. Tự kiểm tra MinHash
+
+- **Mã:** `lec05-s06-04`; **phần:** 6; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Kiểm tra tổng hợp MT3–MT5; nối chứng minh với ước lượng. **Mục tiêu:** MT3, MT4, MT5.
+- **Câu chốt:** Định lý, ước lượng và số cặp giải quyết ba mức của bài toán.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tự kiểm biểu diễn; 51 bắt đầu phần bài tập riêng dùng những kết quả đã học.
+- **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** `example-slide`: ba nhiệm vụ toàn chiều rộng như 49, cùng vị trí số thứ tự; mỗi nhóm khoảng 25% thân; giữ hết công thức đáp án trong notes.
+- **Trọng tâm và thứ tự đọc:** Biến cố → tỷ lệ nhiều phép thử → giới hạn mọi cặp.
+- **Lý do phù hợp sinh viên năm 2:** Ba thao tác yêu cầu nối các phần của bài, không chỉ nhớ tên; bố cục lặp từ 49 giúp tập trung nội dung mà không thêm chi phí định hướng.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B §§3.3.3–3.3.5 tr. 83–86; mở chương tr. 73.
+- **Thời lượng:** 3 phút.
+
+**Nội dung công khai dự kiến**
+
+Câu hỏi:
+
+- Nêu biến cố tương đương hai MinHash trùng.
+
+- Viết phép tính ước lượng từ $n$ tọa độ chữ ký.
+
+- Nêu giới hạn còn lại nếu vẫn so sánh mọi cặp trong kho $C$ tài liệu.
+
+**Ghi chú diễn giả học thuật**
+
+Hai MinHash trùng khi và chỉ khi phần tử đầu trong hợp thuộc giao, dưới cùng một thứ tự. Ước lượng là số tọa độ trùng chia n. Dù mỗi cặp chỉ cần Θ(n) phép so sánh, vẫn có C(C−1)/2 cặp nếu không chọn ứng viên. Phát biểu xác suất còn cần thứ tự lấy đều; công thức phương sai thêm độc lập giữa các thứ tự.
+
+Nguồn: Tự kiểm theo §§3.3.2–3.3.5 và phép đếm cặp đầu bài.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án: đầu hợp thuộc giao; tổng chỉ báo/n; số cặp bậc hai. Chấm điều kiện cùng thứ tự, cùng tọa độ, phân biệt số cặp/chi phí. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+
+### 51. Bài tập tính Jaccard
+
+- **Mã:** `lec05-s07-01`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài tập nguồn; vận dụng MT1. **Mục tiêu:** MT1.
+- **Câu chốt:** Jaccard phải được tính trên giao và hợp của từng cặp.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận toàn bộ phần giảng; bài 52 xét số lượng phần tử của biểu diễn văn bản.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Dữ kiện ba tập phía trên; nhãn Câu hỏi trước yêu cầu; thẻ sản phẩm gồm ba cặp, giao, hợp và tỷ số phía dưới. Không dựng bảng trống; gate đã chấp nhận cách mô tả sản phẩm.
+- **Trọng tâm và thứ tự đọc:** Dữ kiện tập → yêu cầu → ba hàng sản phẩm.
+- **Lý do phù hợp sinh viên năm 2:** Bảng trống hướng thao tác đếm trước chia; sinh viên không thể bỏ mẫu số hợp mà chỉ ghi một đáp số khó kiểm chứng.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.1.1, §3.1.4, tr. 78/PDF7; chỉ dịch và đặt nhãn ba tập.
+- **Thời lượng:** 8 phút.
+
+**Nội dung công khai dự kiến**
+
+Bài 3.1.1
+
+$$
+S_A=\{1,2,3,4\},\quad S_B=\{2,3,5,7\},\quad S_C=\{2,4,6\}
+$$
+
+Câu hỏi: Tính độ tương đồng Jaccard của từng cặp tập.
+
+Sản phẩm: bảng ba cặp gồm giao, hợp và tỷ số.
+
+**Ghi chú diễn giả học thuật**
+
+Ba tập được đặt nhãn S_A, S_B, S_C; dữ kiện số giữ nguyên. Cặp S_A, S_B có giao {2,3}, hợp {1, 2, 3, 4, 5, 7}, tỷ số 1/3. Cặp S_A, S_C có giao {2,4}, hợp {1, 2, 3, 4, 6}, tỷ số 2/5. Cặp S_B, S_C có giao {2}, hợp {2, 3, 4, 5, 6, 7}, tỷ số 1/6. Mẫu số đếm phần tử hợp một lần. Nguồn: MMDS 3e, Bài 3.1.1, §3.1.4, tr. 78/PDF7. Thời lượng dự kiến 8 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Chấm ba cặp: mỗi cặp đúng giao/hợp và tỷ số; đáp án 1/3, 2/5, 1/6. Phân bổ 5 phút làm, 1 phút trình bày, 2 phút đối chiếu; tổng 8 phút.
+
+### 52. Bài tập số lượng shingle
+
+- **Mã:** `lec05-s07-02`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài tập nguồn; vận dụng MT2 và xử lý biên. **Mục tiêu:** MT2.
+- **Câu chốt:** Số vị trí bắt đầu hợp lệ giới hạn số shingle phân biệt.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận phép đếm phần tử; bài 53–54 dùng ma trận để kiểm định lý MinHash.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Đề nguồn và nhãn Câu hỏi phía trên; quy ước tính mỗi ký tự một byte ở dòng chú thích; thẻ sản phẩm dưới. Notes đặt nhãn “Đáp số và cận trên”, chỉ rõ giới hạn của phác thảo.
+- **Trọng tâm và thứ tự đọc:** Giả thiết và đơn vị byte → miền vị trí → công thức phải tìm.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên dùng kiến thức cửa sổ đã có; giữ giả thiết bảng chữ cái và biên ngắn hơn k giúp bài đo khả năng lập cận, không chỉ thế công thức nhớ sẵn.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.2.3, §3.2.5, tr. 81/PDF10; đổi n của đề thành ℓ, không đổi dữ kiện/yêu cầu.
+- **Thời lượng:** 10 phút.
+
+**Nội dung công khai dự kiến**
+
+Bài 3.2.3
+
+Một tài liệu dài $\ell$ byte. Giả sử bảng chữ cái đủ lớn để có ít nhất $\ell$ chuỗi độ dài $k$.
+
+Câu hỏi: Xác định số $k$-shingle lớn nhất tài liệu có thể có.
+
+Quy ước tính: mỗi ký tự chiếm một byte.
+
+Sản phẩm: công thức theo $\ell,k$ và lập luận theo vị trí cửa sổ.
+
+**Ghi chú diễn giả học thuật**
+
+Đáp số và cận trên. Trong mô hình của bài này, mỗi ký tự chiếm một byte nên tài liệu có $\ell$ vị trí ký tự. Đáp số là $\max(0,\ell-k+1)$. Với $1\le k\le\ell$, có $\ell-k+1$ vị trí bắt đầu; số shingle phân biệt không vượt số cửa sổ. Với $\ell<k$, không có cửa sổ. Lập luận này chứng minh cận trên; phần tồn tại chuỗi đạt cận dưới giả thiết của đề không được chứng minh ở đây. Đề gốc gọi độ dài là $n$, được đổi thành $\ell$ để giữ $n$ cho chữ ký. Nguồn: MMDS 3e, Bài 3.2.3, §3.2.5, tr. 81/PDF10. Thời lượng dự kiến 10 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Chấm số vị trí, điều kiện k≤ℓ, trường hợp ℓ<k và ý phân biệt tối đa. Đáp án max(0,ℓ−k+1). Phân bổ 6 phút làm, 2 phút trình bày, 2 phút đối chiếu.
+
+Chỉ dẫn biên soạn: giữ yêu cầu nguồn về số shingle lớn nhất; không thêm yêu cầu xây dãy de Bruijn.
+
+### 53. Bài tập ma trận và Jaccard
+
+- **Mã:** `lec05-s07-03`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài 3.3.1(a); chuẩn bị sáu giá trị thật. **Mục tiêu:** MT1, MT3.
+- **Câu chốt:** Mỗi cặp cột cho một giao và một hợp cần đối chiếu với xác suất MinHash.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận biểu diễn; trang 54 dùng đúng sáu Jaccard để đối chiếu tỷ lệ hoán vị.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Lưới 46/54: ma trận nguồn bên trái, đề 3.3.1(a), nhãn Câu hỏi và thẻ sản phẩm bên phải. Không dựng bảng đáp án trống.
+- **Trọng tâm và thứ tự đọc:** Nhãn cột → hai tập của một cặp → sáu cặp → sản phẩm.
+- **Lý do phù hợp sinh viên năm 2:** Sinh viên cần dữ liệu đầy đủ ngay trên đề; ma trận 5 × 4 và danh sách cặp cạnh nhau tránh phải lật về phần giảng hoặc bỏ sót một cặp.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.3.1(a), §3.3.8, tr. 90/PDF19; Hình 3.2, tr. 81.
+- **Thời lượng:** 7 phút.
+
+**Nội dung công khai dự kiến**
+
+| Phần tử / $r$ | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| a / 0 | 1 | 0 | 0 | 1 |
+| b / 1 | 0 | 0 | 1 | 0 |
+| c / 2 | 0 | 1 | 0 | 1 |
+| d / 3 | 1 | 0 | 1 | 1 |
+| e / 4 | 0 | 0 | 1 | 0 |
+
+Bài 3.3.1(a) · Hình 3.2
+
+Câu hỏi: Tính Jaccard của mọi cặp cột.
+
+Sản phẩm: bảng sáu cặp 12, 13, 14, 23, 24, 34 với kích thước giao, hợp và Jaccard.
+
+**Ghi chú diễn giả học thuật**
+
+Các tập lần lượt là {a, d}, {c}, {b, d, e}, {a, c, d}. Sáu giá trị Jaccard theo thứ tự 12, 13, 14, 23, 24, 34 là 0, 1/4, 2/3, 0, 1/3, 1/5. Kích thước giao/hợp tương ứng là 0/3, 1/4, 2/3, 0/4, 1/3, 1/5. Nhãn số bên cạnh a–e chỉ là quy ước mã hàng đã học; phép tính tập không thay đổi. Nguồn: MMDS 3e, Bài 3.3.1(a), §3.3.8, tr. 90/PDF19, Hình 3.2 tr. 81. Thời lượng dự kiến 7 phút, là phần đầu của bài 15 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Chấm sáu giao/hợp/tỷ số; 5 phút tính và 2 phút đối chiếu. Tổng 53+54=15 phút, không cộng thêm một lần 15 phút cho bài.
+
+### 54. Bài tập đếm hoán vị
+
+- **Mã:** `lec05-s07-04`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài 3.3.1(b); kiểm MT3 bằng phép đếm hữu hạn. **Mục tiêu:** MT3.
+- **Câu chốt:** Tỷ lệ hoán vị gây trùng được tính bằng số phần tử thuận lợi trong hợp.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận sáu giao/hợp ở 53; trang 55 chuyển sang các hàm băm cụ thể.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Lưới 46/54: ma trận nguồn bên trái; yêu cầu tỷ lệ trên 120 hoán vị và thẻ sản phẩm bên phải, có nhãn Câu hỏi.
+- **Trọng tâm và thứ tự đọc:** Cùng dữ liệu 53 → không gian 120 → biến cố trùng → bảng số đếm.
+- **Lý do phù hợp sinh viên năm 2:** Giữ khung dữ liệu qua hai trang cho sinh viên tập trung thay loại nhiệm vụ; phép đếm là kiểm cụ thể của chứng minh chứ không thay định lý bằng mô phỏng.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.3.1(b), §3.3.8, tr. 90/PDF19.
+- **Thời lượng:** 8 phút.
+
+**Nội dung công khai dự kiến**
+
+| Phần tử / $r$ | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| a / 0 | 1 | 0 | 0 | 1 |
+| b / 1 | 0 | 0 | 1 | 0 |
+| c / 2 | 0 | 1 | 0 | 1 |
+| d / 3 | 1 | 0 | 1 | 1 |
+| e / 4 | 0 | 0 | 1 | 0 |
+
+Bài 3.3.1(b) · Hình 3.2
+
+Câu hỏi: Với mỗi cặp cột, tính tỷ lệ trong 120 hoán vị của năm hàng làm hai MinHash bằng nhau.
+
+Sản phẩm: số hoán vị trùng và tỷ lệ của sáu cặp; đối chiếu ý (a).
+
+**Ghi chú diễn giả học thuật**
+
+Với một cặp, gọi q là số phần tử của hợp. Do đối xứng, mỗi phần tử của hợp đứng đầu ở 120/q hoán vị. Mỗi phần tử giao tạo đúng từng ấy hoán vị trùng; nhân với kích thước giao. Sáu số đếm là 0, 30, 80, 0, 40, 24; chia 120 được 0, 1/4, 2/3, 0, 1/3, 1/5. Không cần liệt kê 120 thứ tự; lập luận đối xứng là căn cứ cho phép rút gọn. Nguồn: MMDS 3e, Bài 3.3.1(b), §3.3.8, tr. 90/PDF19. Thời lượng dự kiến 8 phút; cả bài 3.3.1 là 15 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Đáp án số đếm 0, 30, 80, 0, 40, 24. Chấm căn cứ 120/q, số phần tử giao và tỷ lệ khớp ý (a). Phân bổ 5 phút lập luận/tính, 1 phút trình bày, 2 phút đối chiếu.
+
+### 55. Bài tập bổ sung chữ ký
+
+- **Mã:** `lec05-s07-05`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài 3.3.2(a, b); vận dụng phép min. **Mục tiêu:** MT5.
+- **Câu chốt:** Hàng chữ ký mới được tính bằng cực tiểu của hàm mới trên từng tập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận phép đếm hoán vị; trang 56 kiểm những hàm không phải hoán vị.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Lưới 46/54: ma trận bên trái; hai hàm, nhãn Câu hỏi và sản phẩm hai hàng chữ ký bên phải. Giữ nguyên hệ số và modulo.
+- **Trọng tâm và thứ tự đọc:** Mã hàng → hai công thức → min theo mỗi cột → hai hàng kết quả.
+- **Lý do phù hợp sinh viên năm 2:** Đề giữ nguyên dữ liệu đã chạy nhưng đổi hàm theo đúng sách, đo chuyển giao thao tác; hai công thức đứng cạnh nhau để nhận diện phần dư âm ở f4.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.3.2(a, b), §3.3.8, tr. 90/PDF19; Hình 3.4 tr. 85; Ví dụ 3.8 tr. 85–86; đổi h_i thành f_i.
+- **Thời lượng:** 12 phút.
+
+**Nội dung công khai dự kiến**
+
+| Phần tử / $r$ | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| a / 0 | 1 | 0 | 0 | 1 |
+| b / 1 | 0 | 0 | 1 | 0 |
+| c / 2 | 0 | 1 | 0 | 1 |
+| d / 3 | 1 | 0 | 1 | 1 |
+| e / 4 | 0 | 0 | 1 | 0 |
+
+Bài 3.3.2(a, b) · Dữ liệu Hình 3.4
+
+$f_3(r)=(2r+4)\bmod5$.
+
+$f_4(r)=(3r-1)\bmod5$.
+
+Câu hỏi: Tính hai hàng chữ ký bổ sung.
+
+Sản phẩm: bảng giá trị hai hàm và hai hàng chữ ký.
+
+**Ghi chú diễn giả học thuật**
+
+Giá trị $f_3$ theo 0–4 là 4, 1, 3, 0, 2; $f_4$ là 4, 2, 0, 3, 1. Chỉ xét những hàng có 1 trong từng cột. Hai hàng chữ ký mới là (0, 3, 0, 0) và (3, 0, 1, 0). Phần dư chuẩn nằm trong 0–4 nên (−1) mod 5=4. Đề sách dùng h3, h4; đổi thành $f_3$, $f_4$ để phân biệt băm hàng với MinHash trên tập. Nguồn: MMDS 3e, Bài 3.3.2(a, b), §3.3.8, tr. 90/PDF19; Hình 3.4 tr. 85; Ví dụ 3.8 tr. 85–86. Thời lượng dự kiến 12 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Chấm bảng hai hàm, chọn đúng hàng có 1, hai hàng 0, 3, 0, 0 và 3, 0, 1, 0. Phân bổ 8 phút làm, 2 phút trình bày, 2 phút đối chiếu.
+
+Chỉ dẫn biên soạn: không thêm nhiệm vụ tính ước lượng sau khi bổ sung hai hàng chữ ký; giữ đúng các ý (a), (b) của đề nguồn.
+
+### 56. Bài tập chữ ký và hoán vị
+
+- **Mã:** `lec05-s07-06`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài 3.3.3(a, b); kiểm phần 7, MT3 và MT5. **Mục tiêu:** MT3, MT5.
+- **Câu chốt:** Bảng giá trị cho phép tính chữ ký và nhận diện một hàm có phải hoán vị.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận thêm hàng chữ ký ở 55; 57 dùng cùng kết quả để đo sai lệch.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Lưới 46/54: ma trận Hình 3.6 bên trái; ba hàm, nhãn Câu hỏi và sản phẩm bên phải. Không thêm dữ kiện ngoài đề.
+- **Trọng tâm và thứ tự đọc:** Ma trận/mã hàng → bảng hàm → cực tiểu → kiểm sáu giá trị phân biệt.
+- **Lý do phù hợp sinh viên năm 2:** Sáu hàng giúp sinh viên kiểm trực tiếp tính song ánh thay vì áp sai quy tắc nguyên tố; việc tính bảng hàm dùng chung cho cả hai yêu cầu giảm công việc lặp.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.3.3(a, b), §3.3.8, tr. 90–91/PDF19–20, Hình 3.6.
+- **Thời lượng:** 8 phút.
+
+**Nội dung công khai dự kiến**
+
+| $r$ | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 0 | 1 |
+| 1 | 0 | 1 | 0 | 0 |
+| 2 | 1 | 0 | 0 | 1 |
+| 3 | 0 | 0 | 1 | 0 |
+| 4 | 0 | 0 | 1 | 1 |
+| 5 | 1 | 0 | 0 | 0 |
+
+Bài 3.3.3(a, b) · Hình 3.6
+
+$f_1(r)=(2r+1)\bmod6$.
+
+$f_2(r)=(3r+2)\bmod6$.
+
+$f_3(r)=(5r+2)\bmod6$.
+
+Câu hỏi: Tính chữ ký mỗi cột; xác định các hàm là hoán vị.
+
+Sản phẩm: bảng giá trị, ma trận chữ ký và kết luận hoán vị.
+
+**Ghi chú diễn giả học thuật**
+
+Bảng $f_1$ là (1, 3, 5, 1, 3, 5), $f_2$ là (2, 5, 2, 5, 2, 5), $f_3$ là (2, 1, 0, 5, 4, 3). Các hàng chữ ký lần lượt là (5, 1, 1, 1), (2, 2, 2, 2), (0, 1, 4, 0). Chỉ $f_3$ nhận đủ sáu giá trị khác nhau nên là hoán vị; $f_1$ và $f_2$ có va chạm. Dữ kiện modulo 6 được giữ nguyên. Nguồn: MMDS 3e, Bài 3.3.3(a, b), §3.3.8, tr. 90–91/PDF19–20, Hình 3.6. Thời lượng dự kiến 8 phút; phần đầu của bài 15 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Chấm ba bảng hàm, ba hàng chữ ký và chỉ f3 là hoán vị. Phân bổ 6 phút tính,2 phút đối chiếu. Tổng 56+57=15 phút.
+
+### 57. Bài tập đánh giá ước lượng
+
+- **Mã:** `lec05-s07-07`; **phần:** 7; **note-topic-id:** `n05-14`.
+- **Mục đích và vai trò:** Bài 3.3.3(c); kiểm tổng hợp MT1, MT3, MT4 và MT5. **Mục tiêu:** MT1, MT3, MT4, MT5.
+- **Câu chốt:** Ước lượng từ các hàm cụ thể cần được đối chiếu với Jaccard thật.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận chữ ký và phân loại hàm ở 56; hoàn thành kiểm tra vận dụng mà không dùng nội dung đọc thêm.
+- **Dữ kiện và vai trò số:** Đề bài nguồn trên chính trang, đáp án ở ghi chú; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
+- **Bố cục đã chọn:** Lưới 46/54: ma trận Hình 3.6 bên trái; nhãn Câu hỏi, kết quả chữ ký kế thừa ý (a) và thẻ sản phẩm bảng đối chiếu bên phải. Gate đã chấp nhận phụ thuộc giữa hai ý cùng bài.
+- **Trọng tâm và thứ tự đọc:** Tập ở ma trận → chữ ký đã tính → tỷ lệ cùng tọa độ → đối chiếu Jaccard.
+- **Lý do phù hợp sinh viên năm 2:** Giữ dữ liệu cuối bài trên mặt giúp sinh viên hoàn thành độc lập; yêu cầu so sánh trực tiếp kiểm tra việc phân biệt định lý lý tưởng và kết quả họ hàm có va chạm.
+- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
+- **Nguồn:** B Bài 3.3.3(c), §3.3.8, tr. 90–91/PDF19–20; mức sai lệch diễn đạt yêu cầu so sánh của đề.
+- **Thời lượng:** 7 phút.
+
+**Nội dung công khai dự kiến**
+
+| $r$ | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 0 | 1 |
+| 1 | 0 | 1 | 0 | 0 |
+| 2 | 1 | 0 | 0 | 1 |
+| 3 | 0 | 0 | 1 | 0 |
+| 4 | 0 | 0 | 1 | 1 |
+| 5 | 1 | 0 | 0 | 0 |
+
+Bài 3.3.3(c) · Hình 3.6
+
+Câu hỏi: Dùng chữ ký đã tính ở ý (a). Với sáu cặp 12, 13, 14, 23, 24, 34, so sánh Jaccard ước lượng với giá trị đúng.
+
+Sản phẩm: bảng gồm cặp, ước lượng, Jaccard thật và sai lệch tuyệt đối.
+
+**Ghi chú diễn giả học thuật**
+
+Sáu ước lượng lần lượt 1/3, 1/3, 2/3, 2/3, 2/3, 2/3. Sáu Jaccard thật là 0, 0, 1/4, 0, 1/4, 1/4. Sai lệch tuyệt đối là 1/3, 1/3, 5/12, 2/3, 5/12, 5/12. Hai hàm đầu có va chạm nên các tập rời có thể có giá trị cực tiểu bằng nhau; bộ ba hàm này không thỏa mô hình chọn đều hoán vị. Số thành phần ít cũng không cho một ước lượng ổn định. Nguồn: MMDS 3e, Bài 3.3.3(c), §3.3.8, tr. 90–91/PDF19–20. Thời lượng dự kiến 7 phút; cả bài 15 phút.
+
+**Kiểm tra, đáp án và tiêu chí nội bộ**
+
+Chấm sáu tỷ lệ, sáu giá trị thật, phép so sánh và không áp sai định lý cho hàm va chạm. Phân bổ 5 phút đối chiếu,2 phút chữa; bài 3.3.3 là kiểm tra riêng của phần 7.
+
+## Bảng trạng thái dùng chung để dựng
+
+Các phiếu 37–40 hiển thị đúng hàng tương ứng trong bảng này. Các giá trị là dữ liệu đã tính lại từ Ví dụ 3.8, không là số đo thực nghiệm.
+
+| Sau hàng | Hàng chữ ký $f_1$ theo $S_1, S_2, S_3, S_4$ | Hàng chữ ký $f_2$ theo $S_1, S_2, S_3, S_4$ |
+|---|---|---|
+| Khởi tạo | $\infty,\infty,\infty,\infty$ | $\infty,\infty,\infty,\infty$ |
+| 0 | $1,\infty,\infty,1$ | $1,\infty,\infty,1$ |
+| 1 | $1,\infty,2,1$ | $1,\infty,4,1$ |
+| 2 | $1,3,2,1$ | $1,2,4,1$ |
+| 3 | $1,3,2,1$ | $0,2,0,0$ |
+| 4 | $1,3,0,1$ | $0,2,0,0$ |
+
+## Quyết định sai khác và phạm vi rà tiếp
+
+1. Theo sách, Jaccard trước shingling; không giữ trật tự dàn bài cũ. Dữ liệu sách Hình 3.2–3.4 tạo một chuỗi xuyên bài; không trộn ma trận 7 hàng của slide tham khảo.
+2. Trang 28 chuyển hai thứ tự cụ thể từ VD 3.8 lên trước định nghĩa vector 29. Giá trị trên 28 là định danh phần tử thắng; các giá trị băm chỉ tính tại 37–40. Hai thứ tự cố định không được gọi là mô phỏng lấy đều. Đây là quyết định giảm mức trừu tượng trước hình thức hóa đã được điều phối viên duyệt.
+3. Thêm điều kiện không rỗng, phân phối đều, độc lập, bất biến và mô hình chi phí; sửa đơn vị kỳ vọng tr. 84 và phát biểu “chỉ nguyên tố” tr. 85. Tăng tốc/đa tập/từ dừng chỉ là đọc thêm trong ghi chú; LSH thuộc Bài 06.
+4. Recitation giữ dữ kiện/yêu cầu. Chỉ đổi n→ℓ ở 3.2.3; h_i→f_i cho băm hàng; đặt nhãn S_A, S_B, S_C cho ba tập 3.1.1; tách 3.3.1 và 3.3.3 thành hai trang mỗi bài. Không tự thêm nhiệm vụ ước lượng vào 3.3.2.
+5. Trang 46 có kiểm chi phí nL=18 theo yêu cầu điều phối viên, dùng dữ liệu Hình 3.4. Đây là kiểm tra phần giảng, không sửa đề recitation.
+6. Những ranh giới cần kiểm độc lập sau dựng:08–11;17–21;25–30;32–37;44–51. Các số, giả thiết, nguồn và bài tập phải đối chiếu lại trên bản render. Khi thay bố cục/ảnh hưởng cấu trúc, rà trang đổi và hai trang lân cận mỗi phía.
+
+Không gắn nhãn đạt hiển thị trước khi có HTML/SVG. Cửa kiểm storyboard và năm vai trò đọc bản nháp chưa hoàn thành tại thời điểm viết bản này.
+
+## Đối chiếu bố cục của bản nháp giai đoạn 2 — hồ sơ trước editor
+
+Các phiếu phía trên giữ quyết định của kế hoạch đã duyệt để cửa kiểm có thể so sánh. HTML nháp dùng các thành phần chung; những thay đổi bố trí dưới đây cần được cửa kiểm bản thực đánh giá, không được coi là đã duyệt chỉ vì kiểm hình học không tràn. Nội dung học thuật và thời lượng vẫn lấy từ từng phiếu.
+
+| Trang | Bố trí thực tế khác phiếu | Lý do triển khai và điểm cần kiểm |
+|---|---|---|
+| 06–07 | Trang 06 đặt SVG bên trái và hai phép đếm bên phải, tỷ lệ 50/50. Trang 07 giữ điều kiện/công thức trên, hình và kết quả 3/8 dưới | Đặt phép đếm cạnh vùng hình; trường hợp biên được giải thích trong notes. Cần kiểm sự hiện diện của các biên trên mặt theo phiếu 07 |
+| 10, 14–19 | Dùng `example-slide` với hình hoặc bảng rộng; trang 15 dùng bảng chuỗi/độ dài/cửa sổ; 17 chuyển bảng thành hàng cho từng biểu diễn; 19 dùng bảng dung lượng | Giữ cỡ chữ chung và đơn vị cạnh dữ kiện. Cần kiểm nhãn khoảng trắng của 15 và mức trực quan của bước mã hóa ở 16 |
+| 12–13 | Trang 12 dùng miền/công thức/quy ước lát cắt trên toàn chiều rộng, trường hợp rỗng trong thẻ. Trang 13 dùng hai cột bằng nhau | Tránh công thức trong cột hẹp; ánh xạ ví dụ của 12 nằm trong notes. Cần kiểm mức hỗ trợ ví dụ so với phiếu |
+| 20–23 | Các trang có ma trận dùng lưới 46/54; 21 dùng danh sách bên trái và phép đếm bên phải; 22 đặt hình và lời giải thích 50/50; 23 chưa đánh viền ô 1 đầu | Dùng lưới chung và tránh bảng kết quả quá hẹp. Cửa kiểm cần đánh giá việc không lặp ma trận ở 21 và tín hiệu nhận biết ô đầu ở 23 |
+| 24–26 | 24 dùng điều kiện/công thức/thẻ quy tắc; 25 hình phân loại ở trái, bảng X/Y/Z ở phải; 26 dùng các bước lập luận dạng chữ dưới định lý | Giữ thuật ngữ và chứng minh, không thêm sơ đồ quá nhỏ. Ví dụ hạng/định danh ở 24 nằm trong notes; cần kiểm mức hỗ trợ chuyển từ 23 |
+| 29–33 | 29 dùng bảng vai trò hàng/cột; 30 đặt công thức rồi quy tắc chỉ báo và phép thay số; 31 dùng hai thẻ số đếm/tỷ lệ; 32 đặt phương sai/độ lệch chuẩn, suy ra ở notes; 33 dùng hai thẻ chi phí | Bảng vai trò giữ phân biệt hai loại ma trận. Cần kiểm việc thiếu bảng hai chữ ký trực tiếp ở 29–30 và vị trí mô hình chi phí của 33 |
+| 35, 37 | 35 dùng sơ đồ quét hàng toàn chiều rộng. 37 đặt bảng r/f1/f2 ở trái, hai công thức ở phải và dẫn lại Hình 3.2 bằng chữ | Ưu tiên cơ chế quét. Trang 37 chưa lặp ma trận đầu vào và cột tên phần tử như phiếu; đây là điểm cần cửa kiểm đánh giá về tính tự đủ dữ kiện |
+| 38–40 | 38 đặt hai trạng thái trước/sau ngang hàng, dữ kiện hàng 0 ở dưới. 39 chỉ đặt sau r1 và r2; 40 chỉ đặt sau r3 và r4 | Mỗi trang có hai bảng lớn và phép cập nhật dưới/cạnh bảng. Trạng thái vào nằm ở trang ngay trước; chưa có viền/dấu giảm. Cần đánh giá tải ghi nhớ so với bảng ba trạng thái trong kế hoạch |
+| 43–46 | 43 dùng bảng ở trái và cận đặc/thưa ở phải; 44 dùng bảng bộ nhớ; 45 dùng ba dòng điều kiện và thẻ; 46 đặt dữ kiện trái, nhiệm vụ phải | Giữ đủ L, mô hình, bốn phép đếm và ba nhiệm vụ kiểm tra ở cỡ chữ chung; chỉ đổi cách chia vùng |
+| 47–48 | 47 dùng sơ đồ ngang, hai thẻ phân biệt băm và câu kết quả; 48 dùng danh sách điều kiện rồi thẻ Bài 06 | Kiểu dữ liệu vẫn trên sơ đồ, hai phép băm được giải thích ngay dưới; cần kiểm vị trí nhãn băm so với mũi tên |
+| 51–57 | Dùng thẻ nêu sản phẩm thay bảng trống của 51–54; 52 không có dải vị trí bắt đầu; 53–57 dùng lưới ma trận 46/54 | Mọi đề, dữ kiện và yêu cầu nguồn vẫn hiện. Bảng cần nộp được mô tả bằng nhãn cột trong văn bản; cần kiểm mức hỗ trợ thao tác cho sinh viên năm 2 |
+
+Các mục trong cột cuối là việc cần quyết định ở cửa kiểm sản phẩm thực, không phải chỉ dẫn đưa vào học liệu. Writer chưa tự tuyên bố các sai khác bố cục này đã được chấp nhận.
+
+
+## Chốt triển khai sau hợp nhất năm báo cáo và gate
+
+Ngày 28-09-2026, editor riêng sửa tại chỗ 57 trang, giữ 7 phần và tổng 120 + 60 phút. Các phiếu được sửa ở trên là đặc tả hiện hành; bảng bản nháp trước editor chỉ lưu lịch sử phát hiện, không thay đặc tả đã sửa.
+
+| Vùng | Quyết định hiện hành và căn cứ |
+|---|---|
+| 05 | Thêm định nghĩa $C$ và cặp không thứ tự, giữ nguyên tình huống và luận điểm hai thừa số. |
+| 13, 33 | Công khai mô hình tạo/băm/chèn khóa $O(k)$ kỳ vọng, tổng $O(1+wk)$; so bằng từ máy $O(1)$ trước cận. |
+| 23–25 | Ô 1 đầu có viền đậm; argmin trả phần tử với ví dụ $a/3$; nhãn SVG X/Y/Z nêu điều kiện phần tử đầu của hợp. |
+| 28–32 | Chữ ký cụ thể trước ký hiệu tổng quát; bảng tọa độ ở 30; chuỗi phương sai có bước cộng dùng độc lập ở 32. |
+| 35–40 | Cầu nối định danh thắng → giá trị cùng hàng dưới không va chạm; đầy đủ quan hệ hàng/cột ở 37; trạng thái vào và dấu giảm ở 38–40. Không suy chọn đều từ song ánh. |
+| 09, 18, 27, 34, 46, 49–57 | Nhãn Câu hỏi: trước nhiệm vụ; đáp án giữ trong notes. |
+| 52, n05-14 | Giữ đề byte và giả thiết ít nhất $\ell$ chuỗi dài $k$; quy ước mỗi ký tự một byte. Phác thảo gồm đáp số và chứng minh cận trên, không gọi là chứng minh tồn tại. |
+| n05-12 | Đa tập hữu hạn $B_1,B_2$, tổng bội dương; phục hồi đúng chín vị trí từ dừng và bảng chín shingle. |
+| n05-13 | Chọn đều hoán vị của $U$; $m$ nguyên, $1\le m<R$; giữ cảnh báo mẫu số hữu ích ngẫu nhiên. |
+| 21, 29, 51–57 | Giữ sai khác được root/gate chấp nhận: danh sách hàng thay ma trận lặp, bảng vai trò hàng/cột và thẻ sản phẩm thay bảng trống. |
+
+Không thêm, bớt, gộp, tách hoặc đổi thứ tự trang. Nguồn Hình 3.1 là tr. 75; ví dụ mua hàng ở §3.1.3; Ví dụ 3.4 tr. 78 và Ví dụ 3.7 tr. 82–83 đã được xác minh. Các hình vẫn là SVG; bảng trạng thái và công thức giữ dạng HTML/KaTeX.
+
+Quill continuity: định danh ở 23/24/28 đi qua bảng hai tọa độ 30 rồi ánh xạ sang giá trị của cùng hàng ở 35/37/40. Ký hiệu $S_c$ luôn chỉ tập; chữ ký là trạng thái được cập nhật. Nhánh đọc thêm không thêm tiên quyết cho bài tập. Phạm vi tái kiểm flow là các trang sửa với hai trang lân cận, ranh giới 4→5→6, cùng n05-09 đến n05-14; math/gate kiểm các điều kiện, mô hình chi phí và dấu giảm.

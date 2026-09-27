@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+<title id="title">Hai phiên bản có các đoạn văn bản chung</title><desc id="desc">Hai tài liệu chứa một vùng văn bản chung được ký hiệu bằng cùng các đường liền; vùng riêng của mỗi tài liệu được ký hiệu bằng đường đứt. Hình không biểu diễn tỷ lệ dung lượng.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial, sans-serif" font-size="28" fill="#243247">
+<rect x="80" y="25" width="330" height="350" rx="10" fill="#fff" stroke="#2f3e7a" stroke-width="3"/>
+<rect x="590" y="25" width="330" height="350" rx="10" fill="#fff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="245" y="70" text-anchor="middle">Tài liệu thứ nhất</text><text x="755" y="70" text-anchor="middle">Tài liệu thứ hai</text>
+<g stroke="#2f3e7a" stroke-width="6"><path d="M120 130H370 M120 170H370 M120 210H330 M630 130H880 M630 170H880 M630 210H840"/></g>
+<g stroke="#b15a2b" stroke-width="6" stroke-dasharray="10 6"><path d="M120 290H355 M120 325H280 M630 290H855 M630 325H900"/></g>
+<path d="M420 170H580" stroke="#2f3e7a" stroke-width="3" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="500" y="120" text-anchor="middle">Phần chung</text><text x="500" y="325" text-anchor="middle" fill="#9a4720">Phần riêng</text>
+</g></svg>

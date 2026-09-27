@@ -1,8 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 380" role="img" aria-labelledby="title desc">
-  <title id="title">Cửa sổ tạo 2-shingle</title><desc id="desc">Chuỗi abcdabd được quét bằng cửa sổ dài hai, tạo các shingle ab, bc, cd, da, ab và bd; tập kết quả loại bản lặp ab.</desc>
-  <style>.c{font:700 34px monospace;fill:#263238}.lab{font:22px sans-serif;fill:#37474F}.win{fill:#FFF4EC;stroke:#B15A2B;stroke-width:4}.tag{fill:#EDF4FF;stroke:#2F3E7A;stroke-width:2}</style>
-  <text class="lab" x="30" y="48">Tài liệu D</text><text class="c" x="260" y="65">a b c d a b d</text>
-  <g transform="translate(230,90)"><rect class="win" x="0" y="0" width="120" height="62" rx="8"/><rect class="win" x="105" y="0" width="120" height="62" rx="8"/><rect class="win" x="210" y="0" width="120" height="62" rx="8"/><rect class="win" x="315" y="0" width="120" height="62" rx="8"/><rect class="win" x="420" y="0" width="120" height="62" rx="8"/><rect class="win" x="525" y="0" width="120" height="62" rx="8"/><text class="c" x="60" y="43" text-anchor="middle">ab</text><text class="c" x="165" y="43" text-anchor="middle">bc</text><text class="c" x="270" y="43" text-anchor="middle">cd</text><text class="c" x="375" y="43" text-anchor="middle">da</text><text class="c" x="480" y="43" text-anchor="middle">ab</text><text class="c" x="585" y="43" text-anchor="middle">bd</text></g>
-  <text class="lab" x="30" y="245">Tập 2-shingle</text><g transform="translate(250,215)"><rect class="tag" x="0" y="0" width="120" height="62" rx="12"/><rect class="tag" x="135" y="0" width="120" height="62" rx="12"/><rect class="tag" x="270" y="0" width="120" height="62" rx="12"/><rect class="tag" x="405" y="0" width="120" height="62" rx="12"/><rect class="tag" x="540" y="0" width="120" height="62" rx="12"/><text class="c" x="60" y="43" text-anchor="middle">ab</text><text class="c" x="195" y="43" text-anchor="middle">bc</text><text class="c" x="330" y="43" text-anchor="middle">cd</text><text class="c" x="465" y="43" text-anchor="middle">da</text><text class="c" x="600" y="43" text-anchor="middle">bd</text></g>
-  <text class="lab" x="520" y="335" text-anchor="middle">Lần xuất hiện thứ hai của “ab” không tạo phần tử mới.</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 405" role="img" aria-labelledby="title desc">
+<title id="title">Các cửa sổ hai ký tự của abcdabd</title><desc id="desc">Chuỗi abcdabd có bảy ký tự ở vị trí 0 đến 6. Sáu cửa sổ dài hai lần lượt là ab, bc, cd, da, ab, bd. Hai cửa sổ ab cùng tạo một phần tử của tập shingle.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial, sans-serif" font-size="28" fill="#243247">
+<text x="75" y="45">Chuỗi D</text><g font-family="monospace" font-size="42" text-anchor="middle">
+<text x="275" y="60">a</text><text x="365" y="60">b</text><text x="455" y="60">c</text><text x="545" y="60">d</text><text x="635" y="60">a</text><text x="725" y="60">b</text><text x="815" y="60">d</text></g>
+<g text-anchor="middle" fill="#526070" font-size="23"><text x="275" y="95">0</text><text x="365" y="95">1</text><text x="455" y="95">2</text><text x="545" y="95">3</text><text x="635" y="95">4</text><text x="725" y="95">5</text><text x="815" y="95">6</text></g>
+<g fill="none" stroke="#2f3e7a" stroke-width="3"><rect x="240" y="15" width="160" height="55" rx="5"/><path d="M320 112V132H112V172" marker-end="url(#arrow)"/></g>
+<text x="365" y="160">Cửa sổ</text>
+<g text-anchor="middle" font-family="monospace" font-size="32">
+<rect x="50" y="185" width="125" height="65" rx="6" fill="#fff0df" stroke="#b15a2b" stroke-width="3"/><text x="112" y="229">ab</text>
+<rect x="205" y="185" width="125" height="65" rx="6" fill="#edf4ff" stroke="#2f3e7a"/><text x="267" y="229">bc</text>
+<rect x="360" y="185" width="125" height="65" rx="6" fill="#edf4ff" stroke="#2f3e7a"/><text x="422" y="229">cd</text>
+<rect x="515" y="185" width="125" height="65" rx="6" fill="#edf4ff" stroke="#2f3e7a"/><text x="577" y="229">da</text>
+<rect x="670" y="185" width="125" height="65" rx="6" fill="#fff0df" stroke="#b15a2b" stroke-width="3"/><text x="732" y="229">ab</text>
+<rect x="825" y="185" width="125" height="65" rx="6" fill="#edf4ff" stroke="#2f3e7a"/><text x="887" y="229">bd</text></g>
+<path d="M112 263V295H732V263" fill="none" stroke="#b15a2b" stroke-width="3"/>
+<text x="500" y="365" text-anchor="middle">Hai cửa sổ ab → một phần tử của tập</text>
+</g></svg>

@@ -388,3 +388,15 @@
     break-inside: avoid;
   }
 }
+
+/* Bài 05: giữ số chủ đề gốc và nhịp đọc của ghi chú. */
+body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .material-toc ol { list-style: none; padding-left: 0; }
+@media screen and (min-width: 1200px) {
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body img[src="img/lec-05/quy-trinh-bieu-dien.svg"] { min-width: 0; width: 100%; }
+}
+@media print {
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body :is(h2,h3,h4) { break-after: avoid; page-break-after: avoid; break-inside: avoid; }
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body h3 + p { break-after: avoid; page-break-after: avoid; }
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body h3 + p + .material-block,
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body :is(h2,h3,h4) + .material-block { break-before: avoid; page-break-before: avoid; }
+}
