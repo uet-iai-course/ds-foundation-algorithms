@@ -966,3 +966,14 @@
 .reveal.lecture-minhash .ex-table .mh-selected { outline: 3px solid #2f3e7a; outline-offset: -3px; font-weight: 700; background: #edf4ff; }
 .reveal.lecture-minhash .mh-inset { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
 .reveal.lecture-minhash .mh-trace td { white-space: nowrap; }
+
+/* Bài 06: chỉ bố cục và kích thước hình; dùng thang chữ course-deck. */
+.reveal.course-deck.lecture-lsh .lsh-figure { margin: 10px 0; }
+.reveal.course-deck.lecture-lsh .lsh-figure img { display: block; width: 100%; max-height: 365px; margin: 0 auto; object-fit: contain; }
+.reveal.course-deck.lecture-lsh .lsh-short img { max-height: 250px; }
+.reveal.course-deck.lecture-lsh .ex-grid2 > div { min-width: 0; }
+.reveal.course-deck.lecture-lsh .lsh-code-split { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: center; }
+.reveal.course-deck.lecture-lsh .ex-table td { overflow-wrap: normal; }
+.reveal.course-deck.lecture-lsh .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
+
+.reveal.course-deck.lecture-lsh .lsh-orientation { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 36px; align-items: center; }

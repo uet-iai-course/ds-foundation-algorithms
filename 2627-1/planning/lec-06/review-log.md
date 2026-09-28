@@ -1,200 +1,325 @@
-# Nhật ký rà soát Bài 6
+# Nhật ký rà soát Bài 06: Tìm cặp tương đồng bằng LSH
 
-## Quyết định nguồn và biên tập
+## Trạng thái và phạm vi ngày 28-09-2026
 
-- Vòng ghi chú tự học xác nhận nguồn bổ sung Datar et al., “Locality-Sensitive Hashing Scheme Based on p-Stable Distributions”, SoCG 2004, DOI `10.1145/997817.997857`; Codex chính đọc bản tác giả tại `https://immorlica.com/pubs/pstable.pdf`, §3.2. Nguồn này lấp khoảng trống của công thức chiếu–dịch Euclid đã có trong deck; không dùng để mở rộng sang kết quả truy vấn lân cận gần đúng.
-- Ba worker OpenRouter độc lập dùng `z-ai/glm-5.3-flash` đã lập kế hoạch, ánh xạ nguồn và đề xuất bản đồ chủ đề cho ghi chú. Codex chính tính lại các công thức và bác nhãn sai cho Bài 3.8.2: $0.999776$ là xác suất dương tính thật của OR 2048, còn âm tính giả là khoảng $0.000224$.
+Đây là nhật ký mới của lượt viết lại toàn bộ Bài 06 đã được người dùng xác nhận. Không kế thừa tuyên bố hoàn tất của bản cũ. Pha 1 thay `outline.md`, `storyboard.md` và tệp này từ đầu. Pha 1 chỉ sửa ba kế hoạch. Sau gate PASS và chấp nhận của điều phối viên, pha 2 đã có bản nháp HTML, ghi chú, SVG và cập nhật mục Bài 06 trong index. Chưa commit hoặc push. Đã nhận đủ năm báo cáo độc lập và hoàn tất lượt editor riêng; tái rà toán/mạch/học thuật cùng QA cuối vẫn còn.
 
-- MMDS là nguồn chính cho §3.4, các độ đo, vân tay và ba bài tập. Stanford CS246 bài 04 chỉ cung cấp cách trình bày từ họ cơ sở đến khuếch đại ở §§3.6–3.7; mọi công thức đã đối chiếu sách.
-- Sửa lỗi trên slide MMDS: giá trị dùng trong phép tính là $s=0.3=30\%$, không phải $0.3\%$. Lỗi này đã được điều phối viên xác minh trực tiếp trên slide MMDS trang 50.
-- Không dùng xấp xỉ $(1/b)^{1/r}$ như đẳng thức. Deck suy ra $s_{1/2}=(1-2^{-1/b})^{1/r}$ và xấp xỉ lớn-$b$ là $(\ln2/b)^{1/r}$.
-- Định nghĩa họ LSH dùng xác suất theo $h\sim F$, $\alpha_1>\alpha_2$; không phát biểu gì cho $d_1<d<d_2$.
-- Khóa dải là $(\ell,\text{toàn bộ vector dải})$. Nếu hiện thực bằng mã băm, phải kiểm tra hai khóa có bằng nhau hay không; không dùng giả thiết “đủ nhiều ngăn” thay cho tính đúng.
-- Cosin dùng pháp tuyến đẳng hướng, có thể lấy Gaussian; vector $\{\pm1\}^d$ chỉ là xấp xỉ. Trường hợp tích vô hướng bằng 0 có quy tắc gán cố định; với Gaussian liên tục, biến cố này có xác suất 0 cho vector khác 0 cố định.
-- Euclid dùng độ dịch độc lập $u\sim U[0,a)$ để không trùng với ngưỡng hậu kỳ $\tau$. Công thức $\max(0,1-|\delta|/a)$ chỉ là xác suất theo $u$ khi hướng chiếu đã cố định; xác suất đầy đủ còn lấy trung bình theo hướng Gaussian. Nguồn: MMDS §§3.7.4–3.7.5 và Datar et al., 2004, DOI `10.1145/997817.997857`. Gaussian là trường hợp riêng của họ phân phối ổn định dùng cho chuẩn L2; không thêm công thức Datar ngoài nguồn đã có.
-- Ví dụ vân tay được gọi là phép tính trong mô hình MMDS, dựa trên giả thiết độc lập; không mô tả là kết quả thực nghiệm hiện thời. Kết quả “không” đi vào ngăn đơn riêng, không vào một ngăn “không” chung.
-- Không tuyên bố diện tích dưới đường cong chữ S là tỷ lệ lỗi của kho dữ liệu; đó chỉ là xác suất có điều kiện theo một cặp có độ tương đồng $s$.
-- Không tuyên bố thời gian $O(1)$ hay $O(N)$ nếu thiếu mô hình ngăn. Chi phí ghi theo $A=\sum_B\binom{|B|}{2}$ và trường hợp xấu $\Theta(bN^2)$.
-- Với $p=br$ cố định, tăng $r$ và giảm $b$ làm $q(s)$ giảm với mọi $0<s<1$: va chạm sai giảm nhưng xác suất bỏ sót tăng ở mọi mức tương đồng chưa bằng 1.
+Phạm vi bài là MMDS 3e §§3.4–3.8, tr.91–122, theo thứ tự đề xuất trong `sources/source.md`; Bài 06 nhận một phần buổi gốc 12. Sách là sườn. Người học năm 2, 120 phút giảng và 60 phút bài tập. Bài 05 tại commit `5530bd6` chỉ được dùng cho ký hiệu và Ví dụ 3.8. Không đọc lại hay lấy kế hoạch, HTML, ghi chú Bài 06 cũ làm khuôn.
 
-## Sai khác có chủ ý
+## Phân công và chứng cứ quy trình
 
-- Tách thuật toán tạo ứng viên khỏi phân tích xác suất. Thứ tự đã sửa thành luồng trực giác → vết chạy → kiểu và giả mã → bất biến giai đoạn sinh cặp → chi phí, bộ nhớ và đối chiếu hậu kỳ.
-- Bài tập được dịch và chia thành nhiều trang để đủ thời lượng; dữ kiện và yêu cầu toán học giữ nguyên. Mọi đáp án và hướng dẫn chấm chỉ ở notes.
-- Chỉ đưa ba họ Hamming, cosin và Euclid có trong phạm vi; không thêm HNSW, PQ hoặc nội dung Bài 7.
-- Cấu trúc section: gộp P+M thành mở bài, gộp B+Q thành phân dải và xác suất, giữ A, giữ F, gộp D+V thành ứng dụng/độ đo, tách C00 thành section kết luận riêng, R riêng. Không đổi `data-slide-id`.
+| Tác tử/vai trò | Đầu vào và việc được giao | Đầu ra, quyết định tiếp nhận | Cấu hình mô hình được chỉ định |
+|---|---|---|---|
+| Điều phối viên `/root` | Tiếp nhận yêu cầu; xác định phạm vi; hợp nhất ba đề xuất độc lập; khóa miền và ký hiệu | Chấp nhận sườn sách, cấu trúc 7 phần, 120+60, bản đồ N01–N15, chi phí và dịch Euclid; chấp nhận dự toán 53+7 trang; kiểm định tiếp sau writer | Cơ chế native của phiên; không dùng lời tự khai làm bằng chứng model thực chạy |
+| `lec06_plan`, lập kế hoạch chỉ đọc | Source map, nguồn chi tiết, tiêu chuẩn, UI; không đọc học liệu cũ Bài 06 | Hồ sơ đề xuất mục tiêu, mạch, chủ đề, bố cục và 51 trang dự toán; root chọn cấu trúc 7 phần và thời lượng của hồ sơ này | GPT-6-Astra, reasoning xhigh theo cấu hình được điều phối viên chỉ định; chưa có metadata runtime độc lập trong hồ sơ writer |
+| `lec06_sources`, phân tích nguồn và toán chỉ đọc | Sách đầy đủ §§3.4–3.8, ba PDF slide, ký hiệu và dữ kiện Bài 05 | Kiểm kê nguồn, vết chạy, bài tập, mô hình Q/K, sửa sai giả thiết; root chấp nhận có hiệu chỉnh ghi bên dưới | GPT-6-Astra, reasoning xhigh theo cấu hình được điều phối viên chỉ định; không coi tự khai là bằng chứng runtime |
+| `lec06_external`, đối chiếu và bản đồ chủ đề độc lập, chỉ đọc | MMDS/Stanford, nguồn UMass, Datar; cùng phạm vi | Đối chiếu ba bộ slide đại học ở hai trường, đề xuất nguồn dịch biên, bản đồ chủ đề; root hợp nhất trước writer | GPT-6-Astra, reasoning xhigh theo cấu hình được điều phối viên chỉ định; không có bằng chứng runtime bổ sung trong hồ sơ writer |
+| `lec06_writer`, tác tử soạn duy nhất pha 1 | Các quyết định đã được root chấp nhận và nguồn gốc; chỉ được ghi ba tệp quy trình | Outline mới, 60 phiếu trang, kiến trúc notes N01–N16, lời giải recitation, log; dừng trước pha 2 | GPT-6-Astra, reasoning xhigh được chỉ định trong giao việc; không suy model runtime từ lời tự khai |
+| `lec06_gate`, kiểm định storyboard chỉ đọc | Ba tệp pha 1, nguồn và chín phát hiện của điều phối viên | Lượt kiểm đầu CHƯA ĐẠT; lượt tái kiểm PASS, còn bốn điểm nhẹ E01–E04 đã được writer sửa và root xác nhận | GPT-6-Astra, reasoning xhigh qua cơ chế native theo giao việc; không suy model thực chạy từ lời tự khai |
 
-## Xử lý phản biện sau bản nháp
+Các hồ sơ nguồn ban đầu ở thư mục tạm là chứng cứ tiếp nhận, không phải nơi duy nhất giữ quyết định. Danh mục nguồn, so sánh theo cụm, ví dụ, số đã kiểm, sai khác, bản đồ chủ đề và lời giải đã được chuyển vào ba tệp quy trình bền vững. Không gọi OpenRouter, API/CLI mô hình, không đọc `.env` hoặc bí mật. Không có tác tử viết song song. Script tính số và sinh tài liệu chỉ là xử lý cục bộ xác định, không là tác tử hoặc lời gọi mô hình.
 
-### Vòng ghi chú tự học 2026-09-02
+## Nguồn, mức độ kiểm kê và giới hạn truy cập
 
-- Writer được yêu cầu và quan sát đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter. Lượt đầu tạo đủ bản nháp nhưng chạm giới hạn tool-call khi tự đọc lại; lượt thử lại trên đúng bản nháp và cùng model hoàn tất thành công. Không đổi nguồn hoặc phạm vi.
-- Năm reviewer độc lập đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Các vai kiểm nguồn/phạm vi, toán–thuật toán, mạch sư phạm, thuật ngữ–liên tục và khả năng phát hành viewer.
-- Cả năm cùng phát hiện lỗi chặn bàn giao: Unicode và dấu tiếng Việt bị hỏng trên diện rộng từ mục AND/OR đến cuối bài. Codex chính viết lại các mục 6–11 bằng nội dung đã được reviewer xác nhận, đồng thời sửa các lỗi cục bộ trước đó.
-- Reviewer toán và reviewer nguồn xác nhận đúng các công thức $q(s)$, ngưỡng nửa, tính đơn điệu khi giữ $p$, bất biến và chi phí, ba họ Hamming–cosin–Euclid, mô hình vân tay và toàn bộ đáp án 3.4.4, 3.6.1, 3.8.2.
-- Đã sửa định nghĩa họ LSH để xác suất lấy theo $h\sim F$, không còn câu mâu thuẫn “với mọi $f\in F$”; sửa `\qquad`, ký tự Cyrillic trong mẫu số, `cosin`, `Euclid` và tên Ullman.
-- Đã bổ sung nhãn Ví dụ 3.11 cho ví dụ phân dải, ví dụ số ngắn cho AND/OR, trực quan tọa độ Hamming, đánh đổi FP/FN, câu nối từ thuật toán sang họ LSH và ranh giới sang Bài 07.
-- Đã sửa điều kiện hình học MMDS thành $d\le a/2$ và $d\ge2a$; không lặp chuỗi điều kiện in sai trong sách. Phần chiếu–dịch chỉ nêu xác suất theo $u$ có điều kiện trên $v$ và dẫn Datar et al. §3.2.
-- Bác đề xuất đổi đường dẫn ảnh thành `../../img/...` và đổi liên kết deck thành `DECK.html`. Reviewer phát hành chạy trên dossier tạm nên không thấy quy tắc phân giải của viewer; kho công khai yêu cầu ảnh `img/lec-06/...` và deck thật là `../../lecture-06-tim-cap-tuong-dong-bang-lsh.html` trong Markdown nguồn.
-- Bác đề xuất bắt buộc thêm liên kết chéo tới ghi chú Bài 05: tiên quyết và cầu nội dung đã rõ; một liên kết nguồn Markdown nội bộ không cần cho mục tiêu và có thể bị người đọc mở ngoài viewer. Giữ liên kết bắt buộc về deck Bài 06.
-- Hai lượt tái kiểm GLM sau sửa đều trả **GO** và xác nhận không còn lỗi từ mức trung bình. Góp ý nhẹ cuối cùng được áp dụng: thống nhất `vector_dải` và Việt hóa thao tác `sắp_xếp(loại_trùng(...))` trong giả mã.
-- `$no-ai-slop` được dùng để cắt câu gượng, lời dẫn quy trình và nhịp lặp; bản cuối qua tự kiểm `eval.md`. `$quill` được dùng để rà đồ thị tiên quyết, câu nối, thuật ngữ và ký hiệu; không tạo `quill.json`.
-- Viewer thật tải thành công ở `1280 × 720` và `390 × 844`: 82 heading khớp 82 mục lục, 362 biểu thức KaTeX không lỗi, chín SVG đều tải và có alt, 16 khối gập đóng mặc định, ba khối mã nhận `language-text`, không có lỗi console/request hoặc tràn ngang. Bàn phím mở được khối gập và liên kết bỏ qua điều hướng đưa tiêu điểm đúng chỗ.
-- Chế độ in mở toàn bộ khối gập, ẩn mục lục và thanh thao tác; PDF A4 được tạo thành 26 trang. Viewer từ chối cả đường dẫn vượt thư mục và cặp `doc`/`deck` khác số bài.
-- Sau khi mọi cổng viewer đạt, index được cập nhật. Kiểm từ `index.html` cho đúng một liên kết ghi chú Bài 06; một lần nhấp mở đúng viewer, đúng nguồn Markdown và đúng deck, không có lỗi tải.
+| Phạm vi | Bằng chứng đọc/quan sát trong hồ sơ độc lập và writer | Kết luận, giới hạn |
+|---|---|---|
+| Bài và tiên quyết | `sources/source.md`: dòng 6 mục tiêu/học liệu/thứ tự, quan hệ 05→06→07; dòng 6 `reference-slides/README.md` | Khớp bài 06, dùng Bài 05 rồi bổ sung độ đo trước họ; nguồn cục bộ đầy đủ |
+| Sách B | 63 trang PDF; toàn văn §§3.4–3.8 tr.91–122/PDF 20–51 đã được tác tử nguồn đọc; ảnh PDF 22,39,41,43,50 đối chiếu hình/bài tập. Writer mở lại §§3.4 và các trang đề 3.4.1–2,3.6.1,3.7.1–5,3.8.2/Ex 3.24 | Trang in=PDF+71; nguồn cho toàn sườn và bài tập. Không chỉ dùng slide để xác nhận định lý |
+| MMDS M | 59 trang đã kiểm kê toàn văn; ảnh 45–46,54–57; writer mở lại 44–47 | Bản cục bộ dùng cho phân dải; trang MMDS HTTP/HTTPS timeout và `/slides.html` không mở được trong lượt đối chiếu. Vẫn ghi công `http://www.mmds.org` |
+| Stanford S3/S4 | 54/60 trang đã kiểm kê toàn văn; ảnh được liệt kê trong outline; writer mở lại S3 PDF 39–40, S4 PDF 19–20 và trực tiếp ảnh PDF 19 | Chọn Stanford cho pháp tuyến/vùng góc vì quan hệ rõ hơn. Ảnh PDF 19 có ≤/≥; OCR đọc thành </> bị bác |
+| UMass U | COMPSCI 514 Lecture 9 Fall 2021,16 trang; đọc toàn bộ và xem PDF 3,5,10–14 | Đủ đối chiếu trường thứ hai. Học cách gắn xác suất với số ứng viên; không lấy ví dụ âm thanh hay bố cục PDF 13 sát mép |
+| Datar D | SoCG 2004, §3.2, PDF 3 đã đọc và xem ảnh trong hồ sơ đối chiếu, root xác nhận phạm vi | Chỉ lấy dịch đều và lượng tử hóa; chứng minh cận hai chiều của bản soạn không gán cho bài báo p-stable |
+| Kho giao diện tham khảo | Template, CSS, Lecture 02, index được đọc. Hồ sơ điều phối ghi checkout `uet-iai-course/machine-learning` không có cục bộ | Không tuyên bố đã xem checkout thiếu. Dùng nguyên tắc đã có trong tiêu chuẩn: một luận điểm, hình/công thức lớn, nhịp cơ chế–ví dụ–kiểm tra; không sao chép CSS/assets khác |
+| Render | Điều phối viên chuẩn bị kiểm local Chromium/Reveal và phương án Codex Slides nhập ảnh/notes xác định | Pha 1 chưa render học liệu mới. Nếu Codex Slides gặp giới hạn, ghi đúng fallback cục bộ; không tuyên bố đã rà Codex Slides trước bằng chứng |
 
-- **Chặn bàn giao — B02:** đổi vector dải 3 của $D_3$ từ $(6,3)$ thành $(6,9)$. Sau sửa, chỉ $D_1,D_2$ trùng trọn dải 2; hai cặp còn lại không trùng trọn dải nào. Ghi chú không còn mâu thuẫn với bảng.
-- **Nghiêm trọng — A01–A04:** A01 chuyển từ kiểu dữ liệu sang luồng trực giác; A02 giữ vết chạy; A03 gom điều kiện trước, kiểu khóa và giả mã; A04 chỉ phát biểu bất biến trên $t$ ngăn đã được gom xong. Ghi chú A04 tách rõ giai đoạn một xây ngăn và giai đoạn hai sinh cặp.
-- **Nghiêm trọng — A05:** bỏ lời giải hai công việc MapReduce khỏi phần giảng. Trang tách chi phí tạo ứng viên thực tế $\Theta(pN+A)$, kỳ vọng $\Theta(pN+\mathbb E[A])$ dưới mô hình bảng băm, bộ nhớ khóa tham chiếu $O(bN+|C|)$, khả năng $O(pN)$ khi vật hóa khóa và chi phí đối chiếu chữ ký $O(p|C|)$. Thiết kế hai công việc vẫn là nhiệm vụ của Bài tập 3.4.4.
-- **Nghiêm trọng — Q04:** chỉ gọi $q(s)$ là đường cong chữ S khi $b>1$ và $r>1$; mô tả thay thế là đường xác suất.
-- **Nghiêm trọng — F01–F05:** thêm MMDS Ví dụ 3.18 trước định nghĩa; dùng $\rho$ cho xác suất va chạm để không trùng $p=br$; F05 chỉ kiểm tra nghĩa AND/OR và không đưa chuỗi số hoặc đáp án của Bài tập 3.6.1.
-- **Nghiêm trọng — D01–D04:** dùng $m$ cho số chiều; thêm điều kiện $x,y\ne0$ và pháp tuyến bất biến quay cho công thức cosin; thay độ dịch $\tau$ bằng $u$ ở Euclid; hạ tuyên bố Euclid về xác suất có điều kiện theo hướng chiếu và bổ sung nguồn Datar et al.
-- **Trung bình — hậu kiểm:** phân biệt rõ đối chiếu chữ ký chỉ cho ước lượng MinHash, còn đối chiếu tập shingle hoặc dữ liệu gốc mới cho Jaccard chính xác; đồng bộ M00, M02, A05 và C00.
-- **Trung bình — F02, D03–D04, R07–R08:** bổ sung miền $0\le\alpha_2<\alpha_1\le1$; đưa $v\sim\mathcal N(0,I_m)$ và tính độc lập với $u$ lên mặt trang; nêu rõ độc lập giữa ô, giữa hai dấu khác ngón và giữa các hàm OR theo mô hình bài tập.
-- **Nghiêm trọng — V01:** bỏ các xác suất cơ sở, kết quả OR 1024 và AND của hai nhóm. Trang chỉ nêu chiều đánh đổi; toàn bộ phép tính vẫn thuộc Bài tập 3.8.2.
-- **Trung bình — bài tập:** R02 không chấm yêu cầu xử lý va chạm mã băm như một mục ngoài đề; R06 bỏ yêu cầu chứng minh không giao hoán và chỉ chấm hai công thức (c), (d) của nguồn. Các khung chia bước không đổi dữ kiện hoặc yêu cầu toán học.
-- **Trung bình — thuật ngữ và mạch học phần:** Việt hóa `band` thành “dải”, `bucket` thành “ngăn”, `exact` thành “đầy đủ”; P00 viết đầy đủ băm nhạy cảm cục bộ trước LSH; thêm P02 nêu hành trình; C00 nối sang Bài 7 nhưng không dạy trước HNSW hoặc PQ.
-- **Khả năng đọc:** tăng cỡ chữ và Việt hóa nhãn ở các SVG phân dải, khóa dải, đường xác suất, AND/OR, luồng ứng viên và Euclid. Không đổi dữ liệu hoặc quan hệ hình học.
-- **Không đồng nhất hai cách hậu kiểm:** chữ ký MinHash đầy đủ chỉ cho ước lượng Jaccard; tập shingle hoặc dữ liệu gốc mới cho Jaccard chính xác. LSH chỉ sinh ứng viên.
+Mục tiêu đối chiếu của skill đạt bằng S3, S4, U tại Stanford và UMass, cộng MMDS bắt buộc. Datar là bài báo gốc bổ sung giả thiết, không tính thành bộ slide đại học. Các raster/PDF tải để đọc nguồn chỉ nằm tạm, không là tài sản phát hành.
 
-## Xử lý phản biện vòng cuối (năm vai độc lập)
+## Quyết định hợp nhất chủ đề và sai khác cấu trúc
 
-- **Planner:** tái cấu trúc thành 7 section ngoài kể cả recitation theo quyết định điều phối; outline mô tả 6 mạch giảng + recitation với chức năng và kết nối vào–ra, tổng 120 + 60 phút, kết luận C00 là section riêng. Quyết định: **sửa** outline và HTML.
-- **Source analysis:** bổ sung phạm vi nguồn §§3.6–3.8; F01 thống nhất trích dẫn “MMDS §3.6.2, Ví dụ 3.18, trang 105” trong HTML và storyboard; D03 giữ Gaussian là trường hợp L2 của họ phân phối ổn định, không thêm công thức Datar ngoài nguồn đã có. Quyết định: **sửa**.
-- **Storyboard audit:** khai báo chu trình F rút gọn ở D00–D04 và V00–V01 vì là khung tổng quát đã dựng ở F00–F05 và chi phí đã ở A05; bổ sung hành trình mở bài/kết luận với đầu vào–ra; sửa tuyên bố “P01 được dùng lại ở A05” thành ghi chú phân vai (P01 mở tình huống, A05 định lượng chi phí). Quyết định: **sửa** storyboard.
-- **Rà mạch (Quill):** B01 trả lời rõ câu hỏi B00; A02 ghi rõ là ví dụ nhỏ khác ví dụ B02; P01 notes tách phép tính thành các câu ngắn; D00 đổi “cùng khoảng chiếu” thành “cùng ngăn chiếu độ rộng $a$”; Q02 notes đổi “gần 1/3000” thành “gần 1/2800”; Q06 dùng ≈0.047 hoặc 0.0475 và giữ ghi nhận lỗi slide MMDS trang 50 đã được điều phối viên xác minh trực tiếp; B06 dành định lượng $q(s)$ cho phần Q; V01 không nêu 0.2/0.8 trên mặt trang, chỉ nói “giả thiết mô hình của sách”; R00 thêm hướng dẫn làm trước rồi mới mở notes; A05/R00 nối MapReduce Bài 2 với recitation. Quyết định: **sửa** HTML. Mệnh đề đơn điệu của B06 được hiệu chỉnh ở lượt rà toán sau.
-- **Kiểm định kỹ thuật:** đồng bộ khoa-band.svg với B02 $r=2$: D1, D2 (4,1), D3 (4,9), khóa (2,(4,1)); sửa desc and-or.svg thành “một trừ (một trừ rho) mũ b”; đổi title euclid-dich.svg từ “Bucket” thành “Ngăn”; xóa thời lượng khỏi notes R04, R06, R09 (thời lượng chỉ ở storyboard). Quyết định: **sửa** SVG và HTML. Bác đề xuất thêm Jaccard distance, HNSW, PQ ngoài phạm vi.
+| Vấn đề hoặc đề xuất độc lập | Quyết định trước khi soạn | Lý do và tác động |
+|---|---|---|
+| Planner đề xuất 7 phần với 6 phần giảng riêng; source/external đề xuất gộp ứng dụng và kết luận | Giữ cấu trúc planner:8+32+30+26+16+8=120, recitation 60 | Mở đầu và kết luận có chức năng rõ; độ đo+họ được gộp hợp lý trong phần 3; vẫn đúng thứ tự sách |
+| Dự toán khoảng 51 trang | Tách thành 53 trang giảng, 7 trang bài tập | Dải 1/dải 2/xác minh tách trạng thái; các độ đo giữ trang riêng; định nghĩa/chứng minh/xác suất không chen cùng trang. Root chấp nhận 53+7; không dùng mốc 45–55 như quota |
+| N02 thiếu hợp đồng đầu ra và khử lặp trong slide tham khảo | Thêm đặc tả, bất biến, biên và kiểm gốc trực tiếp | Khép khoảng trống giữa thủ tục nhóm và kết luận đầu ra. Đây là diễn đạt/suy luận từ §3.4, không thuật toán ngoài nguồn |
+| N04 mô hình Q/K | Thêm đã duyệt | Nguồn không biểu thức hóa đủ chi phí đầu ra; chống kết luận tuyến tính vô điều kiện. Sao chép tuple để bộ nhớ khớp giả mã |
+| Các bản đồ chủ đề dùng tên/mã khác nhau | Hợp nhất N01–N15 theo planner; thêm N16 riêng cho đề/lời giải | Nguồn ngẫu nhiên của external gộp vào N06; dịch đều gộp vào N10; bất biến nguồn gộp vào N02. Không phát triển thêm nội dung chỉ để bao danh mục |
+| Cận Euclid thiếu dịch | Thêm giả thiết có nguồn và chứng minh sơ cấp | Datar cho cơ chế dịch; MMDS cho hướng hai chiều; cận giữ trong hai chiều. Không mở rộng sang p-stable |
+| N15 nhiều đề xuất | Chọn triển khai gọn Bài 3.7.5(d) và mô hình ngày §3.8.3; các mục khác chỉ là chỉ dẫn nguồn | Không làm tiên quyết cho bài tập bắt buộc; tránh kéo dài notes. Ghép 256, MapReduce, đạo hàm, mở rộng Euclid chỉ chỉ dẫn đọc |
+| Các hồ sơ đề xuất recitation khác nhau | Chọn đúng R1–R6 của root:18+10+6+10+8+8=60 | Giữ 3.4.1–2 đầy đủ; giữ 3.6.1(a–d); thêm cả 3.7.1 và 3.7.2; giữ 3.7.5(a–c); dùng 3.8.2 thay 3.8.1 |
+| Bài 3.7.5 trùng ví dụ giảng | Giảng chỉ trục 1, a=1; recitation vẫn đủ ba trục, a=1,2 | Không giải sẵn toàn bộ bài trước recitation; phần (d) chuyển đọc thêm có lý do |
+| §3.9, HNSW, PQ, RAG, notebook | Chuyển khỏi phạm vi Bài 06 | Theo source.md và yêu cầu sách làm sườn; không có mã trình diễn bắt buộc |
 
-## Năm báo cáo độc lập của vòng rà hoàn tất
+## Sai khác nguồn và sửa toán học đã khóa
 
-### Góc nhìn sinh viên
+| Vị trí nguồn/vấn đề | Bằng chứng hoặc phép kiểm | Quyết định và vị trí thực hiện |
+|---|---|---|
+| B 3.6.1 “for every f” | Hàm cố định cho kết quả xác định, còn xác suất trên lấy hàm | Cặp $x,y$ cố định;$h\sim\mathcal H$ theo phân phối. HT6, N06, s03-07 |
+| S4 PDF 19 OCR</> | Ảnh có ≤/≥, writer xem trực tiếp | Bác ghi chú OCR trong source-dossier; dùng ≤/≥ như sách, giữ miền giữa không ràng buộc |
+| Miền MinHash/góc | Xác suất phải trong [0,1] | Tổng quát MinHash chỉ $0\le d_1<d_2\le1$; họ góc radian chỉ $0\le d_1<d_2\le\pi$. Ghi chú N06, N09 |
+| “Trùng thùng” và trùng tuple | Va chạm băm khóa khác tuple có thể sinh thêm cặp | Khóa đầy đủ $(j,tuple)$, giải va chạm bằng so khóa. Không ghép cùng tuple ở dải khác. HT1 |
+| B 3.4.3 bước 6 kiểm chữ ký; bước 7 kiểm gốc được ghi tùy chọn | Lọc $\widehat s$ trước Jaccard có thể thêm bỏ sót | Biến thể đã duyệt bỏ bước 6, bắt buộc kiểm gốc trực tiếp trên mọi ứng viên duy nhất. Sửa xuất xứ theo MF07; không nhận tìm đủ cặp thật |
+| Đường xác suất và ngưỡng | Với $r=1$ đường lõm;$b=1$ đường lồi; nghiệm $P=1/2$ khác $b^{-1/r}$ | Gọi đường xác suất; chốt $t,s_{1/2},b^{-1/r}$ riêng; không trộn điểm bất động. N03 |
+| M 50 ghi 0.3% | Công thức dùng $s=.3=30\%$ | Không chép. Các đồ thị dùng công thức/số sách |
+| Vùng tô M 57/S4 PDF 33 | Không có phân bố tương đồng của kho để tính mẫu số lỗi toàn kho | Chỉ xác suất có điều kiện theo cặp và $P(s)$; không dùng diện tích như tỷ lệ lỗi |
+| B 3.5.2 “any constant r” | Chuẩn chỉ $q\ge1$; nhiều mệnh đề sai với $q<1$ | Dùng $q\ge1$; tuyến chính $L_1,L_2,L_\infty$ |
+| B 3.5.3 và lời nguồn về rỗng | Root đối chiếu Bài 05: SIM (∅, ∅) chưa định nghĩa; cột $+\infty$ chỉ kỹ thuật | Bác câu hồ sơ nguồn gán $J(\varnothing,\varnothing)=1$ cho Bài 05. Chốt mọi tập Jaccard/MinHash đều hữu hạn không rỗng; không thêm quy ước mới. HT1, HT5, N01–N06 |
+| B 3.5.4 góc trên vector | $x$ và $2x$ khác nhau nhưng góc 0 | Góc là metric trên hướng/bội dương hoặc vector đơn vị, không trên toàn vector khác 0. $1-\cos\theta$ khác góc; $\theta$ đo radian, độ có quy đổi |
+| Chỉnh sửa chuỗi | Ex 3.15 chỉ xóa/chèn; LCS cho 3 | Không thêm phép thay thế chi phí 1 hoặc DP. N05 |
+| Bài 3.5.3 “greater than” | Các chuẩn có thể bằng nhau | Nếu dẫn chỉ viết ≥; bài này không soạn thêm chứng minh bài 3.5.3 |
+| B 3.7.1 họ Hamming hữu hạn | Lấy mẫu có hoàn lại cho các lần chọn chỉ số độc lập | Không suy giới hạn số phép khuếch đại bằng $D$; nêu $D>0$. HT8 |
+| OR như equality | Quan hệ chung ít nhất một bảng nói chung không bắc cầu | Dùng quyết định cặp/hợp nhiều bảng. AND mới có phép bằng tuple trực tiếp. N07 |
+| Hai giá trị sau ghép | Công thức F/G đúng bằng giá trị khi xác suất cơ sở của cặp bằng $p$; họ chỉ có cận | Gọi cận gần/xa sau ghép, dùng tính đơn điệu. Ex 3.19–20, s03-11, N07 |
+| B 3.7.3/S4 PDF 51 pháp tuyến ±1 | V10 góc thật 38.047579°, toàn 16 pháp tuyến cho 45° | Đẳng thức $1-\theta/\pi$ chỉ với đẳng hướng. Ví dụ dấu là phép tính hữu hạn; phân biệt mẫu và phân phối. sign (0)=+1 cố định |
+| B 3.7.4 thiếu dịch biên | Cặp gần có thể luôn ở hai phía biên cố định; Datar §3.2 cho dịch đều | Chốt $u$ đều đơn vị hai chiều,$\delta\sim U[0,a)$ độc lập; xác suất theo $\delta$ là $\max(0,1-\ell/a)$. Cận gần≥1/2, cận xa≤1/3 chỉ hai chiều |
+| B 3.7.5 “d 1<4 d 2” | Ví dụ trước có $d_2=4d_1$, câu nguồn không diễn đạt ràng buộc ấy | Không chép; nhánh mở rộng định tính chỉ $d_1<d_2$, không tái dùng hằng số hai chiều |
+| Bài 3.7.5 trục cố định | Chỉ thực thi phép gán thùng | Không áp bảo đảm của hướng ngẫu nhiên cho ba trục cố định; khóa tách theo trục |
+| Vân tay: thùng không đạt | Nếu mọi ảnh thiếu ô vào một thùng chung, va chạm không còn $q_F,q_T$ nguồn | Chỉ ảnh có đủ 3 ô vào thùng chung; ảnh khác nhận thùng đơn riêng. N12, s05-02 |
+| Vân tay: nguồn chọn 3 ô từ lưới | Nếu điều kiện hóa ảnh truy vấn đã có 3 ô, xác suất sẽ khác | Chọn ba ô trước khi xét ảnh;$q_T=(.2\cdot.8)^3$,$q_F=.2^6$ là cả hai ảnh có đủ 3 ô. Nêu rõ mô hình độc lập, chưa phải thực nghiệm |
+| Vân tay: làm tròn | Sách lấy.063²=.00397; từ tham số chưa làm tròn=.004024207 | Giữ tham số gốc cho tính tiếp; ghi sai khác do làm tròn, không coi là sai công thức |
+| Ghép thực thể | Ba trường không có mô hình độc lập hoặc $p_1,p_2$ | Thuật toán sinh ứng viên và chấm điểm; không tự gán họ bốn tham số. Mô hình ngày cần giả thiết đại diện, chỉ notes đọc thêm |
+| Bản tin, Ex 3.24 | Từ dừng tiếng Anh; token kế tiếp $x$ chưa cho;75%/25% là giả định | Giữ token tiếng Anh nguồn và giải thích tiếng Việt; không bịa token sau laundry, không xem dự báo là thực nghiệm |
+| Các khẩu hiệu tốc độ trong slide | “MAGIC”, O (N), O (1) không đủ mô hình và không xử lý đầu ra bậc hai | Bỏ lời quảng bá; dùng Q, K và cận xấu nhất; không đổi thành khẳng định hiệu năng mới |
 
-| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
-|---|---|---|---|---|
-| nghiêm trọng | D00–D04 | Mục tiêu nói “áp dụng” ba họ nhưng cụm chỉ giải thích điều kiện và không có bài tập đánh giá. | Phần bài tập chỉ kiểm tra MapReduce, AND/OR và vân tay. | Hạ mục tiêu về “giải thích và so sánh điều kiện”; **đã sửa** outline và storyboard, giữ đúng sản phẩm học tập trong `sources/source.md`. |
-| trung bình | M01, B/A | Ký hiệu tập $C_i$, cột $D_i$ và tập ứng viên $C$ dễ lẫn. | Ba vai trò khác nhau dùng chữ gần nhau. | **Giữ** ký hiệu nguồn nhưng ghi rõ $C$ là tập cặp ở M00/B03 và dùng $D_i$ nhất quán trong ví dụ; không đổi ký hiệu sẽ gây sai ánh xạ nguồn. |
-| trung bình | Q05–Q06 | Khai triển ngưỡng nửa chiếm tải nhưng chưa hỗ trợ trực tiếp một quyết định tham số. | Q06 chỉ kiểm tra lại giá trị $q(0.3)$, chưa buộc chọn hướng đổi $b,r$. | Chuyển khai triển lớn-$b$ vào notes; Q06 yêu cầu quyết định tăng $r$/giảm $b$ với $p$ cố định và nêu cái giá; **đã sửa**. |
-| trung bình | A05 | Một trang đồng thời chứa nhiều cận thời gian, bộ nhớ, hậu kiểm và câu hỏi MapReduce. | Thân trang có hai biến thể bộ nhớ cùng bốn cận. | Giữ cận quyết định trên mặt trang, chuyển cận kỳ vọng và vật hóa khóa vào notes; **đã sửa**. |
-| trung bình | A05, R00–R04 | Hợp đồng MapReduce của Bài 2 được nhắc quá ngắn. | R01 đi thẳng vào hai công việc. | R00 tái kích hoạt map → trộn/nhóm → reduce; notes A05 nêu số bản ghi và dung lượng trung gian; **đã sửa**. |
-| nhẹ | R05–R06 | Công thức lồng AND/OR khó theo dõi nếu chỉ viết biểu thức cuối. | Chuỗi (d) có bốn phép biến đổi. | Yêu cầu ghi giá trị trung gian và dùng $z_1,z_2,z_3$ trong đáp án; **đã sửa**. |
+## Tự kiểm số và tính đúng trên kế hoạch
 
-### Chuyên gia giải thuật và khoa học dữ liệu
+| Đối tượng | Phép tính hoặc bằng chứng | Kết quả hiện tại |
+|---|---|---|
+| V01 | $\binom{10^6}{2}=499999500000$; giây/ngày chia 86400 | 5.78703125 ngày; dung lượng $10^9$ byte. Giữ vai trò giả định |
+| V02 | Dải 1 phát 14; dải 2 phát 13,14,34; Jaccard 13=1/4,14=2/3,34=1/5 | $Q=4,K=3$,8 lượt chèn, chỉ 14 đạt $t=2/3$. Phải giữ cặp có ngoặc khi chuyển công khai |
+| V03 | 3 × 5 số từ ảnh Hình 3.7; tuple 2=tuple 4=(0,2,1) | Chỉ kết luận dải đầu; không tạo 9 hàng thiếu |
+| V04 | $P(.3)=.047494259$;$P(.8)=.999643942$; ngưỡng chính xác.508695962 | Phân biệt xấp xỉ.549280272 và $t=.8$; so 10 × 10 cùng $n=100$ |
+| V05–08 | 4,3→7,5,4; cos 1/2→π/3; LCS4→3 phép sửa; Hamming 3/5 | Khớp từng ví dụ nguồn, đơn vị và miền |
+| V09 | AND 4→OR 4 và đảo thứ tự tại p=.8, .4 | (.878497449, .098534519) so (.993615344, .573951942); cận sau ghép |
+| V10 | Tích (10,2, -4)/(4, -2,4); góc thật arccos $40/\sqrt{2580}$ | 120° ước lượng,38.047579° thật; khác phân phối được nêu |
+| R1 | Tính 27 lũy thừa và 3 nghiệm $P=1/2$ | Bảng đủ 9 × 3, ngưỡng.406088134, .569353387, .424394480; đáp án lưu trong storyboard |
+| R2 | Các phép biến đổi A (p)=p², B (p)=1−(1−p)²/³ | Bốn chuỗi đúng nguồn, trạng thái trung gian cho (d) |
+| R3 | So 6 cặp theo 6 tọa độ | AB{3,4}, AC{1,3,5}, AD{1,5,6}, BC{2,3,6}, BD{2}, CD{1,2,4,5} |
+| R4 | 12 tích vô hướng, chuẩn bình phương 54, tích 14, -14, -54 | Dấu++++, -+-+, +-+-; góc thật 74.973886°,105.026114°,180° |
+| R5 | Hàm sàn mỗi trục với $a=1,2$ | $a=1$ chỉ 12; $a=2$ cả 3 cặp; biên trái đóng/phải mở đúng |
+| V12/R6 | $q_F=.000064,q_T=.004096$; ghép dùng số chưa làm tròn | OR 2048: (.122849062, .000223559); AND 2 OR 1024: (.004024207, .029680224) |
+| Thuật toán | I/O, tuple đầy đủ, khử lặp, kiểm gốc; khởi tạo–duy trì–kết thúc | Tính đúng theo tập ứng viên, không hứa đầy đủ mọi cặp đạt ngưỡng |
+| Chi phí | Sao chép $bC$ tuple dài $r$; phát Q; kiểm K | $O(nC+Q+\sum T_J)$ kỳ vọng, bộ nhớ phụ $O(nC+K)$ ngoài SIG; khớp giả mã |
 
-| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
-|---|---|---|---|---|
-| trung bình | D00–D04 | Ba họ độ đo chưa khép vòng từ điều kiện va chạm tới quyết định AND/OR. | Cụm dừng ở bảng điều kiện; không có kiểm tra chọn cấu hình riêng. | Hạ mục tiêu “áp dụng”; D04 nối các va chạm cơ sở sang OR–AND ở V00–V01; **đã sửa**. |
-| trung bình | A05, R00–R04 | Phân tích hệ thống thiếu chi phí truyền thông trung gian. | Chỉ có thời gian cục bộ và bộ nhớ. | Notes A05 phân biệt $bN+A$ bản ghi với $\Theta(pN+A)$ từ truyền; khóa rút gọn vẫn phải đối chiếu vector đầy đủ; **đã sửa**. |
-| trung bình | Q06, recitation | Mục tiêu chọn $b,r$ chưa được đánh giá trực tiếp. | Không bài tập nguồn nào yêu cầu một cặp số mới. | Không bịa dữ kiện; biến Q06 thành kiểm tra quyết định hướng đổi $b,r$ từ chính công thức $q(s)$; **đã sửa**. |
-| nhẹ | Q00–V01 | Phần cuối dày nếu tiếp tục giữ động từ “áp dụng” cho ba họ. | F, D và V chiếm phần cuối của 120 phút. | Dùng động từ “giải thích và so sánh điều kiện”, giữ chu trình rút gọn; **đã sửa**. |
+Các phép số đã được tác tử nguồn kiểm bằng Python thuần và bàn giao bảng kết quả; writer đối chiếu lại với công thức và bảng trong kế hoạch. Điều phối viên có thể chạy lại script tính số tạm. Đây là kiểm kế hoạch, chưa là kiểm trạng thái HTML hoặc SVG mới.
 
-### Độ chính xác toán học và thuật toán
+## Rà Quill và no-ai-slop
 
-| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
-|---|---|---|---|---|
-| trung bình | M01 | Phân bố đều của một hàm băm không đủ cho đẳng thức MinHash. | Đẳng thức chính xác cần hoán vị ngẫu nhiên đều hoặc tính chất minwise phù hợp. | Nêu đúng hoán vị ngẫu nhiên đều và tách họ băm thực hành; **đã sửa**. |
-| trung bình | A05 | $O(bN+|C|)$ chưa được gắn nhãn bộ nhớ phụ trợ. | Lưu đầu vào $\Sigma$ đã cần $\Theta(pN)$. | Gắn nhãn bộ nhớ phụ trợ và ghi riêng lưu đầu vào; **đã sửa**. |
-| trung bình | R07 | “Mỗi hàm chọn ba ô độc lập” không đủ để biện minh các tích xác suất. | Phép tính dùng độc lập giữa ba ô, giữa hai dấu khác ngón và giữa các phép băm ở tầng OR/AND. | Phát biểu từng lớp độc lập trên mặt trang và notes; **đã sửa**. |
-| nhẹ | D02 | Pháp tuyến $\{\pm1\}^m$ dễ bị hiểu là cho cùng đẳng thức góc. | Phân phối này không bất biến quay trong trường hợp tổng quát. | Nêu không có đẳng thức tổng quát, chỉ là cách xấp xỉ thực dụng dưới giả thiết; **đã sửa**. |
-| nhẹ | D01, D03 | Miền tham số chưa hiện đủ. | Hamming cần $0\le d_1<d_2\le m$; Euclid cần $a>0$. | Bổ sung miền trong notes D01 và trên mặt D03–D04; **đã sửa**. |
+Đã đọc skill lập dàn bài cục bộ và hai references; áp dụng đủ tám phần phân tích trong outline. Mặc định năm 3 của skill được thay bằng năm 2 theo chỉ dẫn học phần; lý do mỗi bố cục gắn với thao tác cụ thể, không chỉ ghi “trực quan”. Quill được dùng theo nguyên tắc Outline/Revise: kiểm thứ tự, thuật ngữ, ký hiệu, đầu vào/đầu ra giữa chủ đề; không khởi tạo `quill.json` hoặc dự án sách.
 
-### Phản biện học thuật và giảng dạy
+Kết quả Quill: SIG của Bài 05 được dùng ngay ở N02;$s$ đổi sang $d=1-s$ trước định nghĩa họ; năm loại độ đo xuất hiện trước họ tương ứng; AND/OR nhận ví dụ phân dải đã có; N12 nhắc xác suất có điều kiện trước nhân 0.2 × 0.8; kết luận thu hồi P, Q, K và kho triệu tài liệu. N15 không cấp tiên quyết bắt buộc. Ghi chú đặt định nghĩa trước ví dụ; trang chiếu đặt thao tác/trực giác trước hình thức ở cụm trọng tâm. Hai chu trình được phân biệt có chủ ý.
 
-| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
-|---|---|---|---|---|
-| nghiêm trọng | Q06 | Mục tiêu chọn $b,r$ chưa được người học thực hiện. | Câu hỏi cũ chỉ yêu cầu nhận ra $q(0.3)$. | Thay bằng quyết định hướng tăng $r$/giảm $b$ với $p$ cố định và yêu cầu nêu cái giá; **đã sửa**. |
-| trung bình | D03–D04 | Công thức Euclid xuất hiện mà không có vết chạy riêng. | Cụm độ đo là chu trình rút gọn, thời lượng không dành cho một ví dụ số mới. | **Không thêm dữ kiện** ngoài nguồn; giữ hình chiếu–ngăn làm trực giác, nêu rõ lý do chu trình rút gọn trong storyboard và hạ mục tiêu khỏi “áp dụng”. |
-| trung bình | D04→V00 | Chuyển từ điều kiện ba họ sang vân tay đột ngột. | Không có câu nối cho vai trò OR–AND. | Notes D04 nối phép va chạm cơ sở sang ghép OR–AND ở mô hình vân tay; storyboard ghi đầu ra D04 → V00; **đã sửa**. |
-| trung bình | R05–R06 | Ký hiệu $s$ đổi vai so với $\rho$ trong phần giảng. | F03–F05 dùng $\rho$ cho xác suất va chạm. | Đổi toàn bộ R05–R06 sang $\rho$; **đã sửa**. |
-| nhẹ | R00–R01 | Tiên quyết MapReduce chưa được khôi phục trước nhiệm vụ thiết kế. | Bài tập bắt đầu bằng khóa–giá trị của hai công việc. | R00 nhắc lại hợp đồng map → trộn/nhóm → reduce; **đã sửa**. |
+Phạm vi no-ai-slop: các tác tử chỉ đọc dùng Detect cho lời nguồn; writer dùng Edit cho tiêu đề, thông điệp, nội dung công khai dự kiến và diễn giải notes ở 60 phiếu, cùng kiến trúc notes. Các phát hiện nguồn có trích đoạn gồm “MAGIC”, “the magic happens”, “best S-curve”, “computation is not an issue”; quyết định thay bằng tên thao tác, xác suất và điều kiện chi phí. Không dùng điểm phát hiện AI, không suy đoán tác giả.
 
-### Kết nối và mạch viết
+| Nhóm eval.md | Bằng chứng biên tập và kết quả tự kiểm |
+|---|---|
+| Bảo toàn ý/giả thiết/dữ kiện | Giữ đủ r, b, s, miền không rỗng, độc lập, cận Euclid hai chiều, cả 6 cụm bài nguyên nguồn; không làm văn phong ngắn bằng bỏ điều kiện |
+| Câu cụ thể và trực tiếp | Tiêu đề gọi khái niệm hoặc thao tác; loại câu hỏi tu từ, câu “từ…đến…”, lời nhấn mạnh chung; giữ câu hỏi đánh giá có nhiệm vụ |
+| Không lời điều phối trong học liệu dự kiến | Các yêu cầu bố cục/cách tách nằm trường nội bộ; câu lời giải viết bằng phép tính và kết luận. Mã V/N/HT, ID không thuộc mặt trang hoặc notes công khai |
+| Khoảng trắng và ký hiệu | Lượt Edit trước còn sót các từ dính được gate ghi ở G04. Lượt sửa gate thay từng chuỗi đã nhận diện trong ba kế hoạch và các phiếu tạm, giữ nguyên đường dẫn; kết quả chờ tác tử độc lập kiểm lại. Không dùng kết quả quét từ để chứng nhận sạch tuyệt đối |
+| Tránh lặp máy móc | Mỗi trang có thao tác riêng: đọc ma trận, chèn, phát, hợp, kiểm, suy sự kiện hoặc chọn tham số; các trang không chỉ đổi tên cùng một ý |
+| Cấu trúc và mức học thuật | Giữ định nghĩa/chứng minh/câu tự kiểm có chức năng; không áp gợi ý khẩu ngữ hoặc câu rời của skill vào học liệu |
+| Đọc cuối và bản bàn giao | Toàn văn sửa nằm ba tệp mới; phần “Thay đổi trong lượt này” bên dưới nêu phạm vi. Chưa tuyên bố đạt render hoặc thay cho 5 reviewer độc lập |
 
-| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
-|---|---|---|---|---|
-| trung bình | P02 | Vai trò trong mạch: báo hành trình; kết nối vào: nút thắt P01; kết nối ra: M00. Trang chưa báo phần họ LSH, độ đo và vân tay. | Ba thẻ cũ chỉ có lọc, định lượng, đối chiếu. | Thêm chặng “Tổng quát” bao gồm họ LSH, AND/OR và ba độ đo; **đã sửa**. |
-| trung bình | D04→V00 | Vai trò trong mạch: D04 chốt điều kiện, V00 mở ví dụ; kết nối vào đúng nhưng kết nối ra chưa có. | Hai trang không giải thích vì sao vân tay theo sau ba độ đo. | Thêm câu nối phép va chạm cơ sở → OR–AND trong notes D04 và storyboard; **đã sửa**. |
-| trung bình | C00→R00 | Vai trò trong mạch: C00 thu hồi bài; kết nối vào: V01; kết nối ra cũ: Bài 7, khiến recitation thành phần phụ. | R00 nằm ngay sau C00 nhưng không được báo trước. | C00 dẫn trực tiếp vào ba bài tập rồi mới nói Bài 7; **đã sửa**. |
-| nhẹ | C00 | Kết luận chưa thu hồi các con số mở bài. | $10^6$ chữ ký và gần $5\cdot10^{11}$ cặp không trở lại. | Nối các số mở bài với $pN,A,|C|$; **đã sửa**. |
-| nhẹ | A05→F00 | Vai trò trong mạch: A05 chốt hệ thống; kết nối ra F00 mờ vì câu hỏi MapReduce hứa nội dung không đến ngay. | Phần kế tiếp tổng quát hóa họ LSH, bài MapReduce ở cuối. | Chuyển câu hỏi khỏi mặt A05; notes báo giữ thiết kế cho recitation rồi nối sang F00; **đã sửa**. |
+## Đối chiếu tiêu chuẩn slide ở mức kế hoạch
 
-Kết quả hợp nhất: không còn vấn đề `chặn bàn giao` hoặc `nghiêm trọng`. Các đề xuất trung bình đã được áp dụng, trừ yêu cầu thêm vết chạy Euclid: quyết định không thêm dữ kiện ngoài nguồn và điều chỉnh mục tiêu cùng storyboard để phản ánh chu trình rút gọn.
+| Nhóm tiêu chuẩn | Vị trí/bằng chứng | Tình trạng và việc còn lại |
+|---|---|---|
+| Đối tượng/ngôn ngữ | Outline 1,4; từng phiếu có đầu vào và lý do năm 2 | Đã đặc tả; gate rà lại mật độ của s02-12, s03-02, s04-09, s07-05/07 |
+| Mục đích/mạch | 7 phần, 53 trang giảng; bản đồ chu trình và câu nối từng trang | Tự kiểm khớp; chờ gate độc lập. 6 nhiệm vụ kết bài phủ MT1–MT6 |
+| Thuật toán | s02-01–09; N02; hàm Hamming/dấu/chiếu | I/O, bất biến, dừng, biên, chi phí có vị trí; chưa render giả mã để kiểm khả năng đọc |
+| Ví dụ | V01–12, R1–6; vết chạy/bảng vai trò trong outline/storyboard | Số đã đối chiếu; SVG/HTML phải dùng lại cùng dữ kiện khi dựng |
+| Chi phí | s02-13, s03-12, s04-10, s06-02; N04 | Mô hình trước công thức; Q/K tách; giá trị vừa từ máy/sao chép tuple đã chốt |
+| Trực quan | Bố cục từng trang và danh sách SVG; ngưỡng chữ theo CSS chung | Chỉ đặc tả; chưa xác nhận hình/chữ/công thức ở khung 1280 × 720 hoặc màn hẹp |
 
-## Rà lại toán sau chỉnh sửa
+Điều kiện pha 1 đã tự kiểm: 60 mã trang duy nhất; số phần 7; phút theo phần 8,32,30,26,16,8,60; giảng 120 và bài tập 60; mỗi phần có trang kiểm tra; bài tập có đề, sản phẩm, lời giải, tiêu chí và nguồn. Danh sách ID/tiêu đề/phút được xuất thêm ra thư mục tạm cho điều phối viên đối chiếu, không tạo tệp quy trình thứ tư trong repo.
 
-- **Mức độ: trung bình; trang chiếu: B06, Q06; vấn đề:** mô tả cũ dè dặt sai về tính đơn điệu khi $p$ cố định. **Bằng chứng:** với $q(s)=1-(1-s^r)^{p/r}$, tăng $r$ làm $q(s)$ giảm với mọi $0<s<1$. **Đề xuất sửa và quyết định:** bỏ “thường” và “không đơn điệu”; nêu rõ xác suất bỏ sót tăng ở mọi $s<1$ và phải tính $q$ tại các mức cần bảo vệ; **đã sửa** HTML, storyboard và nhật ký.
-- **Mức độ: trung bình; trang chiếu: A05; vấn đề:** số bản ghi trung gian chưa được phân biệt với dung lượng truyền. **Bằng chứng:** hai công việc phát $bN+A$ bản ghi, nhưng mỗi khóa dải đầy đủ chứa $\Theta(r)$ thành phần, nên dung lượng theo số từ là $\Theta(brN+A)=\Theta(pN+A)$. **Đề xuất sửa và quyết định:** ghi cả hai đại lượng; nếu dùng mã băm rút gọn, vẫn đối chiếu vector đầy đủ để xử lý va chạm mã; **đã sửa** HTML, outline, storyboard và nhật ký.
-- Không đổi số trang, thứ tự trang hoặc câu chuyển; phạm vi rà mạch không mở rộng.
+Kiểm cấu trúc trước khi bàn giao pha 1: 60 ID đều duy nhất và đúng thứ tự với manifest tạm; thời lượng theo phần khớp 8,32,30,26,16,8,60. Không có mã V/N/HT/R, lời viện dẫn phiếu nội bộ hoặc thời gian điều phối trong mặt trang và notes phần giảng. Dấu phân cách công thức Markdown cân bằng, không có ký tự điều khiển do escape. Thư viện KaTeX cục bộ đã phân tích 863 biểu thức trong ba tệp với `throwOnError: true`, không báo lỗi cú pháp; đây là kiểm công thức nguồn, không thay kiểm render. Các đường dẫn nguồn trong liên kết được giữ nguyên, không qua bước giãn khoảng trắng.
 
-## Giới hạn điều phối mô hình của vòng rà này
+## Thay đổi trong lượt này và các cổng còn lại
 
-- Cầu nối OpenRouter đã xác nhận bằng một smoke test chỉ đọc `AGENTS.md`: `requested_model = observed_model = z-ai/glm-5.3-flash`, nhà cung cấp `OpenRouter`.
-- Lần thử chuyển payload Bài 6 cho reviewer OpenRouter bị chính sách hạ tầng từ chối. Không đọc hoặc gửi tệp `.env`, không tìm cách vượt chính sách.
-- Vì vậy năm báo cáo ở vòng hoàn tất này do năm reviewer Codex cục bộ, chỉ đọc và độc lập thực hiện. Metadata OpenRouter ở các vòng trước vẫn được giữ riêng bên dưới; không dùng nó để mô tả sai runtime của vòng này.
+Thay toàn bộ ba kế hoạch cũ bằng bản đồ nguồn/chủ đề mới, 53 phiếu giảng, 7 phiếu bài tập, kiến trúc 16 chủ đề notes và lời giải đầy đủ. Các sửa nguồn, miền không rỗng, chi phí Q/K, dịch Euclid, phân phối pháp tuyến và mô hình vân tay đã được ghi thành quyết định bền vững.
 
-## Metadata của vòng OpenRouter trước
+Đã xử lý chín phát hiện của lượt đọc điều phối trước gate: khai báo đủ vector bốn chiều; trường kiểm chứng không tham gia tính điểm; giới hạn quy tắc từ dừng với quảng cáo; bỏ thời gian điều phối khỏi notes phần giảng; lời giải kiểm tra tự đủ; miền nguyên dương của b/r; ký hiệu hàm trục; khoảng trắng và tên tệp; trường hợp góc 0 và pi. Lượt sửa giữ nguyên 60 trang, thời lượng và mạch. Các trang lân cận đã được writer đối chiếu; gate độc lập vẫn cần kiểm.
 
-- Mô hình được yêu cầu và quan sát được: `z-ai/glm-5.3-flash`, nhà cung cấp OpenRouter.
+## Xử lý cổng storyboard G01–G05
 
-## Rà lại sau chỉnh sửa
+Điều phối viên đã chấp nhận cả năm đề xuất sửa của gate. Các sửa dưới đây chỉ tác động ba tệp kế hoạch và hai tệp phiếu/manifest tạm; không thay số trang, thứ tự, tiêu đề, thời lượng, dữ kiện nguồn hoặc phạm vi bài. Tên tác tử lập kế hoạch được sửa thành `lec06_plan` theo bằng chứng giao việc.
 
-- Hai tác tử chỉ đọc độc lập đã rà toàn bộ mạch và các cụm toán–thuật toán bị ảnh hưởng. Cả hai có metadata runtime `requested_model = observed_model = z-ai/glm-5.3-flash`, nhà cung cấp OpenRouter.
-- Rà mạch xác nhận 7 section ngoài, đủ 120 + 60 phút, kết luận thu hồi vấn đề mở đầu và không còn lỗi chặn bàn giao hoặc nghiêm trọng. Đã sửa cách mô tả đếm mạch trong outline/storyboard: sáu mạch giảng tương ứng sáu section ngoài, trong đó hai mạch ghép được tách thành tám cụm khi lập bảng.
-- Rà toán xác nhận B02 và SVG cùng dùng $r=2$; các công thức $q(s)$, ngưỡng một nửa, chi phí $A$, định nghĩa LSH, AND/OR, phép băm Euclid và toàn bộ đáp án R01–R09 đều đúng. Không cần đổi công thức hoặc dữ kiện.
-- Góp ý nhẹ về A02 được áp dụng: ghi chú nói rõ ví dụ mở rộng các vector dải đã quen sang tập chỉ số cột khác, tránh tuyên bố đây là bộ dữ liệu hoàn toàn khác.
-- Điều phối viên loại ba mã trang nội bộ còn lọt vào mặt trang hoặc ghi chú; kiểm tra lại không còn mã dạng chữ cái–hai chữ số ngoài thuộc tính `data-slide-id`.
-- Rà ảnh Playwright lần đầu phát hiện nội dung bị cắt ở trang chia dải và trang Euclid. Đã bỏ câu hiển thị lặp ở trang chia dải; rút tiêu đề Euclid, giảm chiều cao hình, thu gọn công thức và chuyển giải thích xác suất điều kiện vào ghi chú. Hai thay đổi không đổi dữ kiện hoặc kết luận toán học.
+| Mã và mức độ | Sửa đã thực hiện | Phạm vi kiểm lại của writer và cổng tiếp theo |
+|---|---|---|
+| G01 — nghiêm trọng | Sau khi sao chép tuple, đặt $k\leftarrow(j,z)$; nếu khóa chưa có thì tạo $B[k]\leftarrow[]$, sau đó thực hiện `B[k].append(c)`. Outline, s02-08, bất biến s02-09 và N02 cùng mô tả hai trường hợp khóa mới/đã có | Rà s02-06–10, N02, HT1 và chi phí s02-13/N04. Vết chạy vẫn có 8 lượt chèn, $Q=4$, $K=3$; chi phí kỳ vọng vẫn $O(nC+Q+\sum T_J)$ và bộ nhớ phụ $O(nC+K)$. Tạo tối đa $bC$ danh sách không làm đổi cận |
+| G02 — trung bình | s03-12 ghi rõ cơ chế AND_r rồi OR_b: tuple trong nhóm, hợp cặp giữa nhóm. Diễn giải và N07 nêu thứ tự OR rồi AND: hợp cặp trong mỗi nhóm OR, rồi giao các tập cặp của những nhóm OR | Rà s03-10–13 và N07. Hai thứ tự vẫn dùng 16 hàm trong Ví dụ 3.19–20; các cận gần/xa và bảng số giữ nguyên. OR không được đồng nhất với phép bằng tuple |
+| G03 — trung bình | Nhiệm vụ 2 và đáp án s06-03 thêm điều kiện Jaccard $s\ge t$. N03/N14 xác định bỏ sót theo cùng điều kiện; s06-02 cũng ghi rõ cặp đạt ngưỡng chưa được sinh | Rà s06-01–04 và N03/N14. $(1-s^r)^b$ là xác suất không được chọn; tên “bỏ sót” áp dụng cho cặp đạt ngưỡng. Không đổi phép tính hoặc phút |
+| G04 — trung bình | Sửa có mục tiêu các từ dính ở s04-03–11, s06-04, kiến trúc ghi chú và toàn bộ nhật ký; chuẩn hóa các mã HT1, MT1, S3/S4 và tên tệp `eval.md` | Rà toàn văn thay đổi, ưu tiên mặt trang và diễn giải học thuật; đối chiếu hai trang lân cận mỗi phía tại các điểm sửa. Các phép thay hữu hạn không giãn đường dẫn, tên tệp hoặc công thức bằng regex. Lượt Edit trước có sai sót; không lấy lời tự kiểm trước làm bằng chứng đạt |
+| G05 — nhẹ | Khai báo $t\in[0,1]$ tại s01-04, bảng ký hiệu, HT1, N01/N02 và đầu vào xác minh s02-07/08 | Rà s01-04–05 và s02-07–09. Bộ tạo ứng viên vẫn nhận SIG và phân dải; ngưỡng thuộc bước chấp nhận sau xác minh. Ví dụ $t=2/3$ và $t=.8$ giữ nguyên |
 
-## Tài sản và công cụ
+Writer đã đọc lại các đoạn và phạm vi lân cận được liệt kê, áp dụng no-ai-slop Edit cùng kiểm liên tục Quill. Các kết quả này là bàn giao sửa, chưa phải PASS độc lập của gate. Manifest tạm vẫn gồm 60 ID theo thứ tự cũ, 53 trang giảng và 7 trang bài tập; phút theo phần vẫn 8, 32, 30, 26, 16, 8, 60.
 
-- Mười hình được vẽ lại thành SVG cục bộ trong `img/lec-06/`; không dùng raster hoặc tài nguyên mạng.
-- Dự án Codex Slides: `20260827182308-b-i-6-t-m-c-p-t-ng-ng-b-ng-lsh-bmts`.
-- Codex Slides trong trình duyệt biên tập chưa khả dụng trong môi trường tác tử này; không tuyên bố đã rà trực quan bằng Codex Slides. Kiểm định RevealJS cục bộ được ghi sau khi chạy.
+Kiểm kỹ thuật sau sửa gate: 60 phiếu trong JSON khớp các trường tương ứng trong storyboard; ID, tiêu đề và phút khớp manifest trước sửa. Các URL và đường dẫn nguồn được đối chiếu với bản trước sửa, không thay đổi. `git diff --check` không báo lỗi khoảng trắng. KaTeX cục bộ phân tích 930 biểu thức với `throwOnError: true`, không báo lỗi cú pháp. Việc quét ID nội bộ và phút ở mặt trang/diễn giải phần giảng không phát hiện chuỗi vi phạm. Đây là kiểm văn bản nguồn; khả năng đọc của HTML và hình vẫn thuộc pha 2.
 
-## Kiểm định đã chạy
+Gate đã tái kiểm PASS G01–G05; root đã xác nhận bốn sửa nhẹ E01–E04 và cho phép dựng HTML, notes, SVG cùng mục index Bài 06. Sau bản nháp cần đủ năm báo cáo độc lập trước editor riêng; rà lại toán/mạch khi có sửa tương ứng. Kiểm cuối phải dựa trên Reveal/viewer thật, offline, notes diễn giả, bàn phím, màn rộng/hẹp, bản in, KaTeX/SVG/liên kết. Nếu sửa CSS chung, kiểm ít nhất Bài 02/03 và các deck ảnh hưởng. Codex Slides chỉ dùng nhập ảnh/notes và thay đổi trạng thái xác định, không gọi mô hình. Commit/push thuộc điều phối sau mọi PASS; không gộp thay đổi của người dùng.
 
-- Bộ kiểm tra tĩnh ban đầu xác nhận 39 trang giảng, 10 trang recitation, 49 `data-slide-id` duy nhất và 49 notes. Sau phản biện thêm P02; kết quả kiểm định lại được ghi bên dưới.
-- Storyboard khớp thứ tự HTML; tổng thời lượng tính lại là 120 + 60 phút.
-- Mười SVG đọc được bằng trình phân tích XML, có `role`, `title`, `desc`; mọi đường dẫn tài sản tồn tại.
-- Không tìm thấy ảnh raster, URL tài nguyên từ xa hoặc phụ thuộc mạng cốt lõi.
-- `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`. Điều phối viên dùng `/tmp/reloadserver.py 8765` làm máy chủ dự phòng trên đúng cổng.
-- `git diff --check` không báo lỗi ở bản nháp; không sửa `index.html`, CSS hoặc tệp ngoài phạm vi Bài 6.
+## Cổng triển khai pha 2
 
-## Kiểm định lại sau chỉnh sửa
+Điều phối viên thông báo gate tái rà PASS, không còn lỗi chặn hoặc nghiêm trọng, và cho phép dựng pha 2. Writer đã sửa bốn điểm nhẹ trước dựng: khôi phục chữ “Pha 1” ở outline và cuối storyboard; bỏ từ “hình” lặp; giới hạn bất biến theo dải đang xét; gọi đúng các nhóm OR ở bước lấy giao của cấu trúc OR rồi AND. Các phiếu tạm được đồng bộ, giữ 60 ID, tiêu đề và phút. Writer đã đọc báo cáo tái rà; root đã đối chiếu đủ bốn sửa E01–E04 trong repo và các phiếu tạm, xác nhận đạt và không yêu cầu mở lại gate.
 
-- Kiểm tra tĩnh xác nhận 40 trang giảng và 10 trang recitation; 50 `data-slide-id` duy nhất; mỗi trang có đúng một khối ghi chú; thứ tự HTML khớp storyboard.
-- Tổng thời lượng tính từ storyboard là 120 phút giảng và 60 phút recitation; thời lượng không còn xuất hiện trên mặt trang hoặc notes.
-- Mười tham chiếu SVG đều tồn tại. Mỗi SVG đọc được bằng trình phân tích XML và có `role="img"`, `title`, `desc`; không có tham chiếu raster hoặc tài nguyên mạng cốt lõi.
-- Tính lại B02 cho đúng một cặp ứng viên; đối chiếu các công thức $q(s)$, ngưỡng một nửa, AND/OR, Hamming, cosin, Euclid có độ dịch và các đáp án recitation.
-- Tự kiểm theo `no-ai-slop/eval.md`: không có từ cấm, lời dẫn rỗng, câu hỏi tu từ hoặc kết luận lặp; thuật ngữ và ký hiệu được dùng nhất quán theo rà mạch Quill.
-- `git diff --check` không báo lỗi. Không sửa `index.html`, CSS chung hoặc tệp ngoài Bài 6.
-- Hai tái kiểm độc lập xác nhận không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`; các mục trung bình về mô hình chi phí, hậu kiểm, miền xác suất, nguồn ngẫu nhiên Euclid và giả thiết độc lập đã được vá.
-- Playwright duyệt đủ 50 trang ở `1280 × 720` và `800 × 600`: không có lỗi tải hoặc lỗi JavaScript; điều hướng dọc/ngang bằng bàn phím hoạt động. Bộ dò hình học chỉ báo các dương tính giả quen thuộc ở H1/KaTeX. Điều phối viên đã xem năm contact sheet và ảnh nguyên kích thước của các trang thay đổi; sau hai vòng sửa, không còn nội dung bị cắt hoặc chồng lấn.
-- Dự án Codex Slides vẫn ở trạng thái nháp với 0 trang; `generated/outline.md` và `generated/brief.md` đọc được. Lần tải HTML cuối hiện tại vào Design Files tiếp tục trả lỗi HTTP 500. Liên kết workspace được tạo nhưng bề mặt Browser nội bộ không khả dụng trong phiên tác tử, nên không tuyên bố đã rà trực quan bằng Codex Slides. Rà trực quan RevealJS cục bộ là kiểm định hiển thị cuối.
+## Bản nháp đầy đủ pha 2
 
-## Vòng đồng bộ deck với ghi chú ngày 2026-09-02
+Writer viết mới HTML Bài 06 từ các phiếu đã duyệt: 60 trang, 60 ghi chú diễn giả, bảy phần ngoài với phân bố 5/14/13/11/6/4/7. Tiêu đề, thứ tự và ID giữ manifest; thời lượng kế hoạch vẫn 120+60 phút. Mặt trang là nội dung học thuật và nhiệm vụ cụ thể, không sao các mô tả bố cục của phiếu. Ghi chú tự học được viết độc lập, khoảng 8.000 từ, gồm định nghĩa trước ví dụ, thuật toán, tám khối chứng minh, tám khối bài tập/đáp án và sáu gợi ý; tám bài tập gồm sáu cụm nguồn cùng hai mục tự kiểm. Không thêm bài lập trình.
 
-### Điều phối và tác tử OpenRouter
+Tài sản mới gồm 11 SVG: `quy-trinh-cap.svg`, `phan-dai-chu-ky.svg`, `xac-suat-phan-dai.svg`, `mien-gan-xa.svg`, `ghep-and-or.svg`, `chuan-vector.svg`, `phap-tuyen-dau.svg`, `goc-tach-sieu-phang.svg`, `chia-khoang-dich.svg`, `khoa-thuc-the.svg`, `phep-thu-van-tay.svg`. `2627-1/img/lec-06/generate_svg.py` tái tạo chúng bằng thư viện chuẩn Python, không cần mạng. Mỗi SVG có title, desc, role và alt tại nơi dùng. Mười SVG cũ được xóa sau khi HTML và ghi chú mới không còn tham chiếu chúng. Không đọc nội dung hình cũ để làm khung.
 
-- Reader nguồn: phiên `26339`, `requested_model = observed_model = z-ai/glm-5.3-flash`, provider OpenRouter. Reader phát hiện nhãn Ví dụ 3.11 chưa nói rõ bản thu gọn, biến $f/h$ lệch nhau, tiêu đề D02 dễ gây hiểu nhầm, phần Euclid hai chiều chỉ có trong ghi chú, TP/FN/FP chưa được ánh xạ và SVG chưa hiện bước sinh cặp.
-- Reader kế hoạch: phiên `19421`, cùng model và provider. Kế hoạch giữ 50 slide, 7 section ngoài, 40 slide giảng + 10 slide thực hành, 120+60 phút và 10 SVG; không thêm, bỏ, gộp hoặc tách.
-- Writer: phiên `6992`, `requested_model = observed_model = deepseek/deepseek-v4-flash-0731`, provider OpenRouter. Điều phối viên chỉ áp dụng các đề xuất hẹp có căn cứ; các đề xuất giữ câu quy trình bị bác.
-- Năm góc reviewer hợp lệ: nguồn delta (worker hoàn tất inline, runtime không cấp mã PTY), toán `87229`, góc nhìn sinh viên `25200`, văn phong `29664`, kỹ thuật `33529`. Các phiên `85105`, `71082`, `92025`, `27547`, `64727`, `7094` bị loại vì vượt giới hạn công cụ hoặc trả lời chưa hoàn tất; phiên `43128` bị loại vì đánh giá siêu dữ liệu của dossier thay vì nội dung bài.
-- Reviewer kỹ thuật và sinh viên có một số cảnh báo do dossier tạm không chứa runtime/tên tệp thật của toàn kho. Điều phối viên đối chiếu disk và bác các đề xuất đổi liên kết deck, đổi đường dẫn ảnh hoặc bổ sung runtime. Tổng thời lượng storyboard được tính lại trực tiếp là 120, không phải 118 phút.
-- Phát hiện hợp lệ đã sửa: bỏ câu tự kiểm về ngăn “không” đặt trước khi mô hình vân tay được định nghĩa và bị lặp ở mục 10; chuẩn hóa câu chữ, TP/FN/FP, số 0 trước phần thập phân và biến trung gian $z_0,z_1$; thống nhất “đối chiếu hậu kỳ”.
-- Tái kiểm toán `87229` trả **GO**. Tái kiểm văn phong cuối trả **GO**; thay đổi sau đó chỉ chuẩn hóa định dạng số và đổi biến trung gian theo chính góp ý của reviewer, không đổi mệnh đề.
+CSS chỉ thêm các selector `.reveal.course-deck.lecture-lsh`, điều chỉnh lưới, kích thước hình và khoảng đệm 28px hai bên; giữ thang chữ chung. Index chỉ đổi mô tả mục Bài 06, giữ liên kết deck/viewer hợp lệ. Bài 05 không được sửa; chỉ kế thừa đoạn cấu hình Reveal/Notes đã kiểm: main dùng chỉ số hash từ 1, receiver từ 0, nạp CSS KaTeX cục bộ và sao FontFace sau handshake cùng origin. Không có khối style riêng, kiểu chữ nội dòng, fragment hoặc tài sản lõi phụ thuộc mạng.
 
-### Quyết định nội dung và biên tập
+### Phản hồi QA sớm của điều phối viên và sửa tương ứng
 
-- Đổi P02 từ nhãn quy trình “Hành trình của bài học” thành “Bốn thành phần của bộ lọc LSH”; bỏ các câu kiểu “phần sau”, “ngay sau trang này”, “không tính trước” và tên tệp nội bộ khỏi nội dung công khai.
-- Ghi chú gọi đúng ví dụ chạy tay là bản thu gọn theo quy tắc MMDS Ví dụ 3.11; định nghĩa họ LSH dùng nhất quán $h\sim F$ và $\Pr[h(x)=h(y)]$.
-- D02 đổi thành “Băm siêu phẳng cho khoảng cách góc”. D04 ghi rõ dựng hình Euclid hai chiều là phần mở rộng trong ghi chú, còn deck tập trung vào phép chiếu–dịch dựa trên phân phối ổn định.
-- R08–R09 ánh xạ nhãn Việt với TP/FN/FP. `luong-ung-vien.svg` hiện rõ “Sinh cặp, hợp vào C”. Index đổi nhãn Bài 06 thành “Ghi chú bài giảng”.
-- `$no-ai-slop` được dùng cho nội dung hiển thị, speaker notes và lecture note; bản cuối tự kiểm theo `eval.md`. Rà Quill giữ nguyên thứ tự khái niệm, ký hiệu và liên kết tiên quyết; không tạo `quill.json`.
+| Phát hiện trước bản nháp đầy đủ | Sửa của writer | Trạng thái tại handoff |
+|---|---|---|
+| Hình chuẩn dùng tỷ lệ hai trục khác nhau, nhãn trục bị cắt | Hai trục cùng 50 đơn vị ảnh trên một đơn vị tọa độ; chừa nhãn trong viewBox, tăng chữ để đọc khi ghép slide | Generator đã chạy lại; root cần kiểm snapshot cuối |
+| Chú giải hình góc chạm vòng tròn và che mũi tên | Tách vùng hình và chú giải, thêm cung góc giữa hai hướng và nhãn góc của hai miền tách | Giữ đúng hai miền góc; không đổi xác suất |
+| Nhãn khóa dải chạm cạnh hộp | Dùng khóa ngắn `(j, tuple)` trong hộp, số dải vẫn hiện ở cột trái | Không đổi định nghĩa khóa |
+| Nút điều hướng chạm nội dung ở mép; ba hình toàn chiều rộng có chữ nhỏ | Thêm khoảng đệm hai bên có phạm vi Bài 06; bỏ lớp hình ngắn ở s03-07, s03-12, s05-01 | Giữ font chung và số trang; cần root render lại |
+| Thiếu nhãn nhiệm vụ và đáp án chưa tự đủ | Thêm “Câu hỏi:” ở mọi trang kiểm/recitation; bổ sung lời giải s01-05, s05-06; gọi rõ các tập/cặp ở s02-05 | Notes và phiếu kế hoạch đã đồng bộ |
+| Ký hiệu chưa định nghĩa ở lần dùng | Khai triển LSH ở phần mở; giải nghĩa $V$, $u_{j,z}$, $p$ và góc nhọn $\phi$ trong nội dung/notes liên quan | Không thêm ký hiệu hoặc mệnh đề ngoài kế hoạch |
 
-### Cổng kiểm định cuối
+Root đã báo QA sơ bộ trên bản đầu: chụp 120 ảnh wide/narrow, không lỗi tràn khung/ngang/footer, KaTeX, hình, đường dẫn hoặc yêu cầu mạng lõi; kiểm Notes thật đủ 60 trang, đồng bộ hai chiều và mở lại đạt. Root cũng đã báo viewer bản đầu đạt với 519 công thức, 14 khối gập, bàn phím, in/afterprint, 38 mục lục, màn 1440/390, kiểm đường dẫn không hợp lệ và liên kết deck. Đây là kết quả của snapshot trước các sửa cuối, không được dùng thay kiểm cuối hoặc năm reviewer. Root đã đọc lại ba tệp planning qua Codex DesignFiles và giao diện ở pha 1; bản planning cuối pha 2 còn cần đồng bộ lại.
 
-- Kiểm tĩnh: 50 ID duy nhất, 50 speaker notes, 7 section ngoài, 10 SVG duy nhất, 120 phút giảng + 60 phút thực hành; `git diff --check` đạt. Cả 10 SVG có `role="img"`, `title` và `desc`.
-- Chromium duyệt đủ 50 slide ở `1280 × 720`, `800 × 600` và `720 × 900`. Lượt đầu phát hiện tràn B03, Q04, D03; đã ngắt dòng hai công thức và giảm chiều cao hình Q04. Lượt cuối không còn tràn, lỗi console, lỗi tài nguyên hoặc lỗi KaTeX. Điều hướng dọc/ngang bằng bàn phím đạt; PDF deck có 50 trang.
-- Viewer đạt ở `1280 × 720` và `390 × 844`: 81 heading, 57 liên kết mục lục, 362 biểu thức KaTeX, 9 SVG, 15 khối gập đóng mặc định, không ảnh hỏng hoặc tràn ngang. Bàn phím, liên kết bỏ qua điều hướng, chế độ in mở khối gập và PDF 26 trang đều đạt. Viewer từ chối đường dẫn vượt thư mục và cặp doc/deck khác số bài.
-- Index có đúng một liên kết Bài 06; liên kết mở đúng Markdown và deck, trạng thái viewer ẩn, không lỗi runtime.
-- Codex Slides `get` thành công cho dự án `20260827182308-b-i-6-t-m-c-p-t-ng-ng-b-ng-lsh-bmts`: trạng thái `draft`, workflow `clarify`, 7 material, `pages=[]`, `outline=[]`. Dự án chỉ là hồ sơ bền vững; kiểm định hiển thị cuối được thực hiện trên RevealJS thật.
+### Tự kiểm trước handoff
+
+Writer áp dụng no-ai-slop Edit cho tiêu đề, mặt trang, diễn giải, ghi chú và lời giải; rà theo eval để loại lời điều phối, câu dẫn rỗng, quảng bá và lối gọi cặp không rõ. Quill kiểm chuỗi ký hiệu SIG→dải→cặp→xác suất/chi phí→độ đo→họ→ghép→ứng dụng, đồng thời giữ định nghĩa trước ví dụ trong ghi chú. Các giới hạn đẳng hướng, hai chiều, tập không rỗng, độc lập và chọn ô trước ảnh được giữ rõ. Không dùng điểm phát hiện AI hoặc tự khai runtime làm chứng cứ.
+
+Kiểm tĩnh cục bộ đạt: 60 ID/title đúng thứ tự, 60 notes, bảy phần, không style nội dòng/fragment, mọi src cục bộ hợp lệ, 11 SVG đủ metadata, Markdown đúng heading đầu và dấu toán, hình/liên kết index hợp lệ. Các khối tự học không lồng. Kiểm số trực tiếp đối chiếu 27 ô của Bài 3.4.1 với công thức; hàng $s=.7$ bị chép lặp trong lượt nháp đã được sửa trước bàn giao. `git diff --check` không báo lỗi. Generator đã chạy lại và không dùng mạng. Các kiểm này không chứng nhận khả năng đọc của snapshot cuối.
+
+KaTeX cục bộ kiểm 413 biểu thức trong văn bản HTML gồm mặt trang và notes, cùng 524 biểu thức Markdown: không có lỗi cú pháp. Có thông báo thiếu dữ liệu kích thước cho một số ký tự tiếng Việt trong `text` của công thức; đây không phải lỗi phân tích cú pháp, nhưng các dòng công thức chứa nhãn tiếng Việt vẫn cần đối chiếu render cuối. Không dùng kết quả phân tích công thức thay kiểm hình thức hiển thị.
+
+Bản nháp đầy đủ chờ năm báo cáo độc lập và tác tử chỉnh sửa riêng theo quy trình. Root thực hiện render cuối, hồi quy CSS Bài 02/03, viewer, Notes và Codex Slides; writer chưa commit hoặc phát hành. Các trang mật độ cao tiếp tục ưu tiên s02-08/12/13, s03-02/03, s04-05/09 và s07-05/07. Nếu cần tách trang, phải quay lại điều phối để giữ kiểm soát manifest và thời lượng.
+
+## Năm lượt rà độc lập trên bản nháp đầy đủ
+
+Điều phối viên đã nhận, đọc và chấp nhận đủ năm báo cáo trước khi giao editor riêng. Các reviewer không đọc báo cáo của nhau và không sửa sản phẩm. Bản nháp được rà có SHA-256 HTML `fe2489327cfc6a893e4585cd9968a71fced913d66e6a55438b9bff7dfb075b91`, Markdown `8f1255f765cfc19122ce89d3033dab9c7d933fca291e7171d62773deb2e81aec`, gồm 60 trang và 11 SVG. Các kết luận dưới đây thuộc snapshot đó, chưa phải kết luận sau chỉnh sửa.
+
+| Tác tử và vai | Kết luận, phát hiện | Kiểm đạt và bằng chứng chính | Giới hạn |
+|---|---|---|---|
+| `/root/lec06_math_review`, toán và thuật toán | PASS; M01, M02, E01 đều nhẹ; không lỗi chặn/nghiêm trọng/trung bình | Đọc toàn deck/notes/plans/SVG; đối chiếu trực tiếp sách §§3.4–3.8, Ví dụ 3.8, ba slide PDF và Datar §3.2. Kiểm độc lập toàn bảng 27 xác suất, sáu cụm bài tập, 16 pháp tuyến dấu, vết $Q=4,K=3$, cận/miền/độc lập và đường SVG. Khóa đầy đủ, bất biến, dừng, chi phí, xác minh, định lý góc và Euclid đúng theo giả thiết | Xem riêng ba ảnh s04-03/05/07 để kiểm quan hệ toán; không nhận đã kiểm toàn bộ render/viewer/bàn phím/in. M01 đổi ký hiệu hình; M02 làm rõ cơ sở theo dải; E01 là lời biên soạn |
+| `/root/lec06_expert_review`, chuyên gia giải thuật và khoa học dữ liệu | CONDITIONAL; EX-01–03 trung bình, EX-04–05 nhẹ; không lỗi chặn/nghiêm trọng | Đủ năm loại độ đo, ba họ, ba ứng dụng, thuật toán–đúng–chi phí, phạm vi và sáu cụm recitation. Đối chiếu trực tiếp sách, ba PDF và dịch đều trong Datar; tính độc lập phân dải/ghép/vân tay. Xác nhận 53+7 trang, 120+60 phút thiết kế | Chỉ đọc, không xem render. Thiếu tự kiểm địa phương, định nghĩa từ dừng, nối truy hồi vân tay; lời biên soạn và phiếu s01-05 chưa khớp |
+| `/root/lec06_flow_review`, mạch và nguồn | CONDITIONAL; MF01–04 trung bình, MF05–07 nhẹ; không lỗi chặn/nghiêm trọng | Rà từng trang và bảy ranh giới phần, N01–N16; đối chiếu trực tiếp sách và ba PDF. Giữ được sườn SIG→dải→xác suất/chi phí→độ đo→họ→ghép→ứng dụng; tổng kết thu hồi triệu tài liệu, $P,Q,K$ và bỏ sót. Đề recitation khớp nguồn | Không xem render hoặc mở lại web/Datar; không dùng OCR phủ định ảnh nguồn đã xác minh. Cần mục tiêu công khai, cầu nối mở rộng độ đo, tiên quyết từ dừng, định nghĩa độ trễ; thu hồi chỉnh sửa, loại lời biên soạn, sửa xuất xứ bước 6/7 |
+| `/root/lec06_student_review`, góc nhìn sinh viên năm 2 | CONDITIONAL; S01–03 trung bình, S04–05 nhẹ; không lỗi chặn/nghiêm trọng | Đọc toàn deck/notes/plans, đối chiếu sách và ba PDF; tính lại các ví dụ/bài chính. Xem đủ 10 contact sheet/60 trang, mở riêng 13 ảnh rộng và bốn ảnh hẹp; hai ảnh đầu viewer thuộc snapshot trước. Giả mã, bảng, nhãn hình đọc được trong các ảnh đã mở; ký hiệu/mạch nhìn chung liên tục | Chưa kiểm toàn viewer hiện hành, bàn phím/in. Màn 390px thu nhỏ cả khung trình chiếu, không là bản đọc thân bài tốt. Thiếu định nghĩa $s_{1/2}$, bước chiếu Euclid, sự kiện điều kiện .8; tuple/chỉ báo cần giải nghĩa; lời biên soạn cần bỏ |
+| `/root/lec06_academic_review`, học thuật và giảng dạy | CONDITIONAL; AH01–05, AH08 trung bình, AH06–07 nhẹ; không lỗi chặn/nghiêm trọng | Đọc toàn nội dung công khai/plans, sách và ba PDF. Xem đủ 10 contact sheet, năm ảnh rộng s03-03/s04-04/07/09/s05-05. Xác nhận vết phân dải, pháp tuyến dấu và ghép vân tay. Giữ các phân biệt toán học cần thiết và hai chu trình deck/notes | Không kiểm tương tác/viewer/in/mạng; không tính lại toàn bảng 27 ô. Cần khép Jaccard→xác suất, tỷ lệ dấu→góc, hình học chiếu, định nghĩa đặc trưng; sửa metadiscourse, từ “ít nhất”, tuple và tự kiểm chi phí |
+
+Theo xác nhận của điều phối viên từ lời gọi công cụ, cả năm reviewer và `/root/lec06_editor` đều được tạo với `model: gpt-6-astra`, `reasoning_effort: xhigh`, `fork_turns: none`. Đây là cấu hình được chỉ định, không là chứng cứ độc lập về runtime hoặc tuyến xác thực. Editor là tác tử riêng sau writer, chỉ một editor ghi kho; không tạo tác tử con, không dùng OpenRouter, API/CLI mô hình, `.env` hoặc bí mật.
+
+## Quyết định hợp nhất và sửa sau năm báo cáo
+
+Mọi phát hiện dưới đây đều được điều phối viên nhận. Điểm trùng được gộp để sửa một lần trên HTML, ghi chú, hình/generator và kế hoạch liên quan. Không có phát hiện nào bị bác mà không xử lý. Bốn phát hiện bổ sung của điều phối viên được ký hiệu ĐP01–04 trong bảng này; chúng không thay các mã của năm reviewer.
+
+| Mã, mức độ | Vị trí → vấn đề và bằng chứng | Quyết định, thay đổi và phạm vi cần kiểm lại |
+|---|---|---|
+| M01 nhẹ | s04-03/N09: công thức dùng $v$ nhưng hình ghi $u$; ảnh rộng cho thấy hai ký hiệu | Nhận. Generator và SVG pháp tuyến dùng $v$ ở nhãn/mô tả; outline HT9 và bảng ký hiệu cùng dùng $v$. Giữ $u$ cho hướng chiếu. Rà s04-01–05 và N09 |
+| M02 nhẹ; ĐP04 nhẹ | s02-09/N02: “ban đầu từ điển rỗng” ngay trong quy nạp theo dải có thể hiểu sai khi $j>1$ | Gộp. Khẳng định $B$ rỗng trước dải đầu; đầu mỗi dải $j$ chưa có khóa mang $j$, còn các dải trước được giữ. Giả mã/vết chạy/chi phí không đổi. Rà toán s02-07–11, N02 |
+| E01 của vai toán nhẹ; EX-04 nhẹ; MF06 nhẹ; S05 nhẹ; AH05 trung bình; ĐP01 trung bình | s01-02/s05-05 và N05/N13 có “Phân dải được xây trước…”, “Không có căn cứ để tự tạo token…”, lý do dịch token, cảnh báo 75%/25% chưa có đầu vào | Gộp. Chuyển lý do biên soạn sang log; công khai chỉ còn quan hệ AND/OR, danh sách từ dừng, token kế tiếp chưa biết và giới hạn quy tắc. Bỏ lời về việc không triển khai chứng minh Minkowski/DP; giữ điều kiện $q\ge1$ và việc chi phí tính LCS cần một thuật toán. Rà học thuật/no-ai-slop toàn vùng |
+| EX-01 trung bình; AH08 trung bình; ĐP03 trung bình | Notes N01–N13 thiếu nhiều nhiệm vụ cuối chủ đề đã duyệt, đặc biệt N04 phân biệt $Q,K$ | Gộp. Thêm 12 khối tự kiểm/solution để cùng N03 sẵn có phủ đủ N01–N13; N07/08/09/12 có liên kết rõ đến đề/lời giải nguồn. N04 dùng đúng vết $Q=4,K=3$, giải thích phát lặp vẫn tốn công. N14 và sáu cụm N16 giữ nguyên; N15 vẫn đọc thêm. Storyboard có bảng vị trí thực hiện. Không tạo recitation mới |
+| EX-02 trung bình; MF03 trung bình; phần bản tin của AH04 trung bình | s05-05/N13 dùng từ dừng và “danh sách đang xét” trước định nghĩa/danh sách; sách tr.120 nêu trực tiếp năm token | Gộp. Định nghĩa từ dừng, liệt kê I, that, you, for, your trước vết; nêu bước that + you + buy và mật độ từ dừng trong văn xuôi của tình huống nguồn. Giữ bốn shingle xác định, $x$ chưa biết và quảng cáo dài. Tự kiểm N13 dùng nhiệm vụ s05-06 và đối tượng đầu ra; bỏ nhiệm vụ về thao tác dịch khỏi công khai. Rà s05-03–06/s06-01–02 và N12–N14 |
+| EX-03 trung bình; phần vân tay của AH04 trung bình | s05-02/04, N12 thiếu định nghĩa đặc trưng và nối cấu trúc ghép với truy hồi; sách tr.117–120 mô tả cả hai | Gộp. Đặc trưng là nơi đường vân kết thúc/nhập vào nhau. Notes mô tả truy vấn một ảnh: hợp mã trong nhóm 1, hợp trong nhóm 2, giao, so ảnh; tìm mọi cặp dùng các tập cặp từ thùng. Chi phí xử lý mã và xác minh tách rõ. Không điều kiện hóa lại ảnh truy vấn; $q_T,q_F$ giữ nguyên. Rà toàn phần 5 và N12 |
+| EX-05 nhẹ | Phiếu s01-05 còn nhiệm vụ cũ, HTML đã có ba câu dung lượng/số cặp/$s,\widehat s$ | Nhận phương án đồng bộ planning theo HTML. Giữ ba câu hiện hành và lời giải; cập nhật trường nội dung/bố cục, phiếu JSON. Tự kiểm N01 giữ nhiệm vụ tập ứng viên theo kiến trúc notes. Không đổi phút |
+| MF01 trung bình | Phần mở chỉ có mục lục, thiếu năng lực quan sát được | Nhận. s01-02 đổi thành “Nội dung và mục tiêu”, giữ bảy mục và thêm ba năng lực gộp MT1–MT6. Bố cục hai vùng; danh mục/tiêu đề giữ font agenda, mục tiêu dùng font nội dung chuẩn. CSS chỉ chia lưới trong `.reveal.course-deck.lecture-lsh`; không giảm font. Đồng bộ tiêu đề/phiếu/manifest. Vì mở bài đổi, cần tái rà mạch toàn tuyến |
+| MF02 trung bình | Ranh giới 2→3 và 3→4 chưa nói vì sao cần độ đo/họ khác; lý do chỉ có trong storyboard | Nhận. s03-01/N05 nối MinHash–Jaccard với vector/chuỗi; diễn giải s03-07/N06 tách độ đo khỏi bảo đảm tạo ứng viên; s04-01 và đầu “Ba họ…” nêu tính metric chưa bảo đảm tồn tại LSH. Không đảo ví dụ và định nghĩa. Rà mạch toàn tuyến, ưu tiên s02-12–s03-03 và s03-11–s04-02 |
+| MF04 trung bình | N15 dùng trung bình ngày trước định nghĩa đại lượng và giả thiết cho 45 | Nhận. Độ trễ = ngày tạo B − ngày tạo A; giới hạn 0–90 ngày. Nêu giả thiết đủ là độ trễ ngẫu nhiên đều để có trung bình 45; không suy từ giới hạn đơn thuần. Nhóm điểm tối đa 300 được giả định khớp đúng, có trung bình 10. Giữ $x=10f+45(1-f)$ và điều kiện đại diện. Rà toán N11/N15 và các tiểu mục lân cận |
+| MF05 nhẹ | Khái niệm chỉnh sửa chưa được thu hồi trong xác minh thực thể; sách tr.116 dùng nó cho điểm phạt | Nhận. s05-01 notes/N11 nêu khoảng cách chỉnh sửa trong phạt sai khác theo trường và hiệu chỉnh bảng tên tương đương. Không gán quy tắc điểm thành metric hoặc họ bốn tham số. Rà s03-03–07, s04-10–s05-03 và N05/N11 |
+| MF07 nhẹ | Log/notes gọi bước 6 lọc chữ ký của sách là tùy chọn, nhưng chữ “Optionally” gắn bước 7 kiểm gốc | Nhận. Ghi chính xác biến thể đã duyệt: bỏ kiểm chữ ký bước 6, bắt buộc kiểm gốc trên mọi ứng viên. Sách chỉ gọi bước 7 tùy chọn. Sửa mô tả nguồn trong cả ba planning, notes và diễn giải s02-08; không đổi thuật toán hoặc cận |
+| S01 trung bình | s02-12 chỉ có ký hiệu $s_{1/2}$ và hai số, thiếu định nghĩa ngay mặt slide | Nhận. Hiển thị $P(s_{1/2})=1/2$, tên điểm xác suất một nửa; gọi $b^{-1/r}$ là xấp xỉ vùng chuyển tiếp. Công thức đóng chuyển vào notes; giữ đồ thị lớn và phông. Rà s02-10–14/N03, R1 |
+| S02 trung bình; AH03 trung bình | s04-09 thiếu $\ell=\rho|\cos\phi|$ và bước $\phi>\pi/3$; hình cũ chỉ có trục sau chiếu | Gộp. Thêm SVG `hinh-chieu-euclid.svg` qua generator, dùng chung notes; hình đoạn nối/hình chiếu/góc nhọn có đường vuông góc nét đứt. Hiển thị quan hệ độ dài, điều kiện cần và miền góc. Giữ hình dịch một chiều ở s04-07. Hình mới không ấn định quan hệ $a$ với $\rho$ để tránh áp hình minh họa cho cả hai miền cận. Rà toán/học thuật s04-05–11/N10 và render |
+| S03 trung bình | s05-03 dùng “xác suất có điều kiện .8” trước tên sự kiện | Nhận. Mặt slide nói ảnh thứ hai có đặc trưng tại ô đã có ở ảnh thứ nhất; notes ghi $E_1,E_2$, $\Pr(E_2\mid E_1)=.8$. Giữ .16, .004096, .000064 và việc chọn ô trước ảnh. Rà s05-01–05/N12/R6 |
+| S04 nhẹ; AH07 nhẹ | Tuple, $\Sigma$, chỉ báo chưa được giải nghĩa; notes dùng tiêu đề “Metric…” | Gộp. Lần đầu giải thích bộ $r$ giá trị có thứ tự, tập ký hiệu, chỉ báo nhận 1/0; slide Hamming cũng giải nghĩa chỉ báo. Đổi tiêu đề notes thành “Độ đo khoảng cách và chuẩn vector”. Cập nhật bảng thuật ngữ. Không thay khóa hoặc ký pháp trong giả mã |
+| AH01 trung bình | s03-03 đi từ định nghĩa tập hợp sang bao hàm sự kiện, thiếu quan hệ khoảng cách–xác suất | Nhận. Thu hồi cặp (1,4): $1-2/3=1/3$; ghi $d_J(A,B)=\Pr[h(A)\ne h(B)]$ trước bao hàm, giữ cùng MinHash và không cần độc lập. Rà toán/học thuật s03-01–05/N05 |
+| AH02 trung bình | s04-04/N09 đổi tỷ lệ khác bit thành góc trước căn cứ/định nghĩa quy tắc | Nhận phương án giữ thứ tự. Trước áp dụng, nêu xác suất khác dấu $p_{\ne}=\theta/\pi$ trong mô hình đẳng hướng và quy tắc $\widehat\theta=\pi\widehat p_{\ne}$. Notes định nghĩa tỷ lệ qua chỉ báo và nêu hai miền góc làm căn cứ; chứng minh đầy đủ vẫn sau vết dấu. Pháp tuyến dấu cố định không được nhận bảo đảm đẳng hướng. Rà toán/học thuật s04-01–07/N09/R4 |
+| AH06 nhẹ | Định nghĩa chỉnh sửa ở s03-05 nêu thao tác nhưng thiếu tính tối thiểu | Nhận. Thêm “số thao tác ít nhất”, giữ chỉ chèn/xóa một ký tự. Rà s03-03–07 và phiếu |
+| ĐP02 nhẹ | Giả mã thiếu `data-trim` | Nhận. Thêm thuộc tính trên code plaintext; không thay mã, thụt dòng hoặc cỡ chữ |
+
+Các lý do biên soạn được giữ ở đây: token tiếng Anh được bảo toàn vì danh sách từ dừng của Ví dụ 3.24 là tiếng Anh; dịch token rồi áp danh sách cũ sẽ đổi dữ kiện. Không có token sau “laundry” nên chỉ bốn shingle đầy đủ được xác định. Phân tích giả định 75%/25% của sách không được triển khai trong bài, vì vậy cảnh báo riêng về hai tỷ lệ ấy cũng bỏ khỏi notes. Không bổ sung chứng minh Minkowski hoặc thuật toán quy hoạch động vì phạm vi chỉ cần metric/giá trị tối ưu chỉnh sửa; các điều kiện và phân biệt chi phí vẫn còn. Đặt vết dấu trước chứng minh hình học tạo trực giác thao tác, nhưng quy tắc ước lượng nay được định nghĩa trước phép sử dụng. Đây là các quyết định nội bộ, không phải lời hướng dẫn công khai.
+
+## Tự kiểm của editor và bàn giao tái rà
+
+Editor đã đọc hợp đồng sửa, đủ năm báo cáo cùng phát hiện của điều phối viên; đọc source map trước nguồn chi tiết, dòng ánh xạ Bài 06, AGENTS, tiêu chuẩn, template/CSS/index và toàn văn HTML/ghi chú hiện hành. Editor tự trích bốn PDF cục bộ và đối chiếu trực tiếp các đoạn được sửa: bước 6/7 ở tr.95–96; MinHash–Jaccard tr.98–99; quy tắc dấu/siêu phẳng tr.109–111; hình chiếu tr.112; điểm phạt/ngày tr.116; đặc trưng, truy hồi vân tay và từ dừng tr.117–121. Không nhận việc trích văn bản là kiểm ảnh toàn bộ nguồn, không dùng dossier thay cho những đoạn sách này.
+
+No-ai-slop **Edit** áp dụng cho các tiêu đề, mặt trang, ghi chú diễn giả và ghi chú tự học được sửa; tự đối chiếu `eval.md` trước bàn giao. Quill Outline/Revise áp dụng cho đầu vào–đầu ra, thuật ngữ và ký hiệu N01–N16; không tạo `quill.json`. Kết quả tự kiểm:
+
+| Nhóm eval/tiêu chuẩn | Bằng chứng và kết quả |
+|---|---|
+| Bảo toàn nội dung | Đạt tự kiểm: không đổi dữ kiện/vết số/đề recitation, giữ miền không rỗng, nguồn ngẫu nhiên, độc lập, cùng phép băm, dấu 0, hai chiều và chọn ô trước ảnh. Cầu nối/giả thiết thêm có nguồn và quyết định của điều phối |
+| Văn phong học thuật, câu cụ thể | Đạt tự kiểm: chuyển các lời về thứ tự biên soạn/token/chứng minh sang log; giữ câu hỏi có nhiệm vụ, định nghĩa, lập luận, giới hạn mô hình và tổng kết có chức năng. Không dùng khẩu ngữ, ca tụng, điểm phát hiện AI hoặc suy đoán tác giả |
+| Mạch Quill | Đạt tự kiểm với giới hạn cần tái rà: thêm mục tiêu và câu nối; Jaccard có phép lấy bù; góc có quy tắc trước tính; Euclid có hình chiếu trước cận; thực thể dùng lại chỉnh sửa; hai ứng dụng còn lại có dữ liệu/thuật toán truy hồi. Ký hiệu $v$ pháp tuyến tách $u$ hướng chiếu |
+| Vai trò/đầu ra | 60 phiếu và manifest khớp từng trường; tiêu đề s01-02 thay đổi để thêm mục tiêu, s04-09 được rút gọn sau QA để tránh nút điều hướng. N01–N13 đều có tự kiểm tại chỗ hoặc liên kết rõ, N14 tổng hợp và N16 recitation giữ chức năng riêng |
+| Thuật toán/chi phí | Chỉ làm rõ cơ sở bất biến và xuất xứ biến thể, không đổi giả mã ngoài `data-trim`. Tự kiểm $Q/K$ nối phép đếm với phát lặp. Cần reviewer toán tái nhận các đoạn lập luận bổ sung |
+| Cấu trúc và kỹ thuật nguồn | Kiểm tĩnh PASS: 60 ID/60 notes, bảy section phân bố 5/14/13/11/6/4/7; phút 8/32/30/26/16/8/60. Không inline style/fragment/raster; src và alt hợp lệ; index không đổi trong lượt editor |
+| Markdown và liên kết | 20 exercise, 20 solution, 8 proof, 5 example, 6 hint; không lồng khối, heading đầu H1. Bốn liên kết đến Bài 3.6.1, 3.7.1, 3.7.2, 3.8.2 khớp quy tắc slug viewer. Cần QA viewer thực để xác nhận gập/bàn phím/in |
+| Công thức và SVG | KaTeX cục bộ phân tích 456 biểu thức HTML và 577 Markdown, không lỗi cú pháp. Có cảnh báo dữ liệu kích thước vài ký tự tiếng Việt trong công thức như bản nháp, cần xem render. Cả 12 SVG tái tạo byte-identical trong thư mục tạm; phép đo tam giác xác nhận độ chiếu bằng độ dài gốc nhân cos góc |
+| Ảnh editor | Chụp 120 ảnh rộng/hẹp trên snapshot sau sửa nội dung: không lỗi bounds/horizontal/footer, không lỗi trang hoặc tải tài nguyên. Đã mở riêng ảnh rộng s01-02, s02-09/12, s03-03, s04-04/09, s05-02/03/05 và ảnh hẹp s04-09. Sau đó chỉ ngắt dòng bất đẳng thức ở s04-09 và tách câu biểu diễn ảnh khỏi gạch đầu dòng s05-02; QA cuối phải dùng snapshot sau hai sửa này |
+| CSS | Chỉ thêm lưới `.lsh-orientation` trong phạm vi `.reveal.course-deck.lecture-lsh`; giữ font, line-height và spacing của các vai chữ. Không xác nhận hồi quy bằng đọc CSS; root kiểm Bài 02/03 và các deck ảnh hưởng |
+
+Tự kiểm số mới xác nhận $P_{20,5}(s_{1/2})=1/2$ tới sai số số thực, phép chiếu của SVG, trung bình đều $(0+90)/2=45$ và hai biên của công thức hỗn hợp. Các bảng số không đổi đã có kiểm độc lập của năm reviewer; editor không dùng việc tính lại vài số để thay lượt rà toán.
+
+Phạm vi ghi của editor gồm HTML Bài 06, Markdown ghi chú, ba planning, generator, SVG pháp tuyến và SVG chiếu mới; CSS chỉ lưới nói trên. Phiếu `storyboard-cards.json`, `storyboard-manifest.json` và `draft-content.json` tạm được đồng bộ. Không sửa Bài 05, hạ tầng viewer, index, AGENTS, tiêu chuẩn, `.gitignore`, user dirt; không commit hoặc push.
+
+Bàn giao cần ba lượt tái rà độc lập: **toán** cho s02-09/N02, s03-03/N05, s04-04/N09, s04-09/N10/SVG mới, s05-03/N12 và mô hình ngày N15; **mạch** cho toàn tuyến vì mục tiêu mở đầu đổi, kể cả các ranh giới phần và tự kiểm N01–N13; **học thuật** cho các cầu nối Jaccard/góc/chiếu và định nghĩa ứng dụng. Mỗi vùng đọc thêm hai trang lân cận mỗi phía theo hợp đồng. Root còn QA Reveal/viewer/Notes/offline/bàn phím/in, hồi quy CSS và Codex Slides trên snapshot cuối. Kết quả editor là hoàn tất lượt sửa được giao, chưa phải PASS cuối hoặc phát hành.
+
+
+### Sửa sau QA cuối của điều phối viên
+
+Ba phát hiện sau đây xuất hiện sau tự kiểm editor và đã được sửa trước snapshot bàn giao. Các kết quả kiểm cú pháp/toàn trang ở trên không phát hiện đủ các lỗi này; không dùng chúng để thay QA DOM, nút điều hướng và bản in.
+
+| Phát hiện và bằng chứng QA | Sửa, phạm vi và kiểm lại |
+|---|---|
+| Chặn diễn giải: các dấu nhỏ hơn chưa escape trong notes s04-09 khiến HTML parser hiểu phần bắt đầu bằng chữ a là thẻ; văn bản DOM mất đoạn suy luận. Điều phối viên xác định đây cũng là nguyên nhân timeout font của cửa sổ Notes tại trang này | Escape ba span toán trong notes thành thực thể HTML; quét mọi span toán có cặp dấu trong HTML để bảo đảm không còn góc nhọn raw. Parser độc lập giữ đủ ba bất đẳng thức trong chuỗi suy. Đồng bộ lại diễn giải s04-09 trong storyboard, phiếu và bản nội dung tạm vì lần đồng bộ trước cũng đã mất đoạn. Không sửa hạ tầng Notes hoặc CSS. Root kiểm lại Notes thật |
+| Vừa: tiêu đề s04-09 chạm nút lên khi nội dung cao | Rút thành “Cận xác suất trong mặt phẳng”; đồng bộ tiêu đề trong outline, storyboard, phiếu và manifest. Không đổi font, thứ tự, ID, thời lượng hoặc phát biểu. Root kiểm lại nút điều hướng |
+| Vừa: bản in ghi chú trang 36 cắt công thức bỏ sót khi hai xác suất ở cùng một hàng trong lời giải Bài 3.8.2 | Tách mỗi xác suất thành một khối công thức riêng, áp dụng cho OR 2048 và AND hai nhóm OR 1024. Không đổi biểu thức hoặc số. Root kiểm lại PDF/bản in |
+
+Sau ba sửa, tự kiểm kỹ thuật đạt: 60 ID/60 notes, bảy phần; 60 phiếu khớp storyboard/manifest và tổng phút 120+60; 12 SVG tái tạo đúng từng byte; không còn tiêu đề cũ hoặc diễn giải bị nuốt. KaTeX phân tích 456 biểu thức HTML và 579 biểu thức Markdown, không lỗi cú pháp. Kiểm HTML parser xác nhận đủ các bất đẳng thức ở s04-09; đây là kiểm bổ sung tách khỏi kiểm cú pháp KaTeX. Hai công thức khối được tách làm số biểu thức Markdown tăng hai. No-ai-slop Edit/eval và Quill kiểm lại tiêu đề rút gọn cùng các đoạn liên quan; thuật ngữ và mạch suy luận giữ nguyên.
+
+Editor dừng ghi sản phẩm công khai sau ba sửa, hoàn tất log và lưu danh sách SHA-256 tại `/tmp/lec06-rebuild/editor-final-snapshot.json`. Bản snapshot này dành cho tái rà và QA cuối của root, không xác nhận PASS của các lượt độc lập chưa nhận. Không commit/push.
+
+## Tái rà độc lập và kết luận của điều phối viên
+
+Ngày 28-09-2026, điều phối viên đã đọc đầy đủ ba báo cáo tái rà trên bản cuối. HTML có SHA-256 `4c1a97bbb8a52137a6feeb1fb5a7d2d5ea4b1b1382d7720823546746db91b20a`; ghi chú có SHA-256 `63bb796770e87ea072f90bc9dec4198085219a954df3f0d22ec4d834ede9ff63`. Các hash này không đổi trong kiểm định và đồng bộ cuối.
+
+| Vai tái rà | Kết luận và phạm vi | Quyết định cuối |
+|---|---|---|
+| Toán và thuật toán — `/root/lec06_math_review` | PASS; đóng M01/M02/E01. Kiểm các bổ sung Jaccard–xác suất, ước lượng góc, bất biến theo dải, cận chiếu hai chiều, mô hình ngày, 13 tự kiểm và lời giải. Kiểm qua HTML parser chuỗi bất đẳng thức s04-09; bốn công thức Bài 3.8.2 chỉ đổi ngắt dòng | Nhận; không còn sửa toán hoặc thuật toán tồn đọng |
+| Mạch và nguồn — `/root/lec06_flow_review` | PASS; đóng MF01–MF07. Đọc đủ 60 mặt trang/60 notes, toàn tuyến bảy phần, sáu ranh giới, các vùng sửa cùng hai trang lân cận mỗi phía và N01–N16. Xác nhận mục tiêu–đầu ra, sườn sách, 120+60 phút, nguồn bài tập và đồng bộ tiêu đề/phiếu | Nhận; không đổi thứ tự hoặc phạm vi thêm |
+| Học thuật và giảng dạy — `/root/lec06_academic_review` | PASS; đóng AH01–AH08. Đọc diff và vùng phụ thuộc; đọc lại các đoạn sách; xem ảnh cuối về Jaccard, góc, hình chiếu, đặc trưng vân tay và từ dừng. Không còn lời biên soạn trong nội dung công khai được rà | Nhận; các phát hiện trùng của vai chuyên gia/sinh viên cũng đã được editor xử lý và root đối chiếu |
+
+Ba báo cáo đầy đủ nằm trong thư mục QA tạm: `recheck-math.md`, `recheck-flow.md`, `recheck-academic.md`. Bảng này lưu kết luận, phạm vi và quyết định bền vững; không phụ thuộc việc các tệp tạm còn tồn tại. Điều phối viên đã đối chiếu phần văn bản đổi, hình mới và ba sửa QA cuối. Không dùng kết quả tự kiểm của editor thay các lượt độc lập.
+
+### Phiếu kiểm sáu nhóm của tiêu chuẩn
+
+| Nhóm | Bằng chứng bản cuối | Kết luận |
+|---|---|---|
+| Đối tượng | Giải nghĩa tuple, chỉ báo, tập ký hiệu, đặc trưng và từ dừng tại nơi dùng; không giả định cơ sở dữ liệu hoặc hệ phân tán. Bài lập trình không được thêm ngoài nguồn | Đạt cho tiên quyết năm 2 đã ghi |
+| Mục đích và mạch | Ba mục tiêu công khai; 60 phiếu có chức năng/đầu vào/đầu ra; mạch sách §§3.4–3.8; tổng kết thu hồi kho triệu tài liệu và phân biệt xác suất–công việc–kết quả. N01–N13 có tự kiểm địa phương | Đạt; tái rà toàn tuyến PASS |
+| Thuật toán | Đặc tả, khóa đầy đủ, khởi tạo thùng, phát cặp, hợp tập, xác minh gốc, bất biến và dừng nhất quán. Phân biệt tính đúng trong tập ứng viên với bỏ sót do xác suất | Đạt; biến thể so với bước 6/7 của sách đã ghi rõ |
+| Ví dụ | Cùng dữ kiện truyền từ chữ ký đến thùng, $Q=4,K=3$, Jaccard và xác minh; pháp tuyến dấu cố định phân biệt với mô hình đẳng hướng; bài tập giữ dữ kiện và yêu cầu nguồn | Đạt; lời giải và bảng số được rà độc lập |
+| Chi phí | Phép đếm $Q$, số cặp duy nhất $K$, giá trị băm/khóa và xác minh được tách; có trường hợp xấu nhất, mô hình bộ nhớ và điều kiện kỳ vọng. Tự kiểm giải thích vì sao không thay $Q$ bằng $K$ | Đạt; không nhận LSH luôn tuyến tính |
+| Trực quan | 12 SVG có mô tả, nhãn và quan hệ nguồn; công thức/bảng/giả mã vẫn là nội dung văn bản. Hình chiếu mới thể hiện độ dài và chân vuông góc; glyph, khung và nhãn đã kiểm trên trình duyệt | Đạt trong các kích thước kiểm dưới đây |
+
+### Kiểm định cuối trên trình duyệt
+
+Kiểm trên máy chủ kho tại `http://[::1]:8765/`, dùng Chromium cục bộ vì phiên này không cung cấp công cụ Browser trong trình biên tập. Các yêu cầu mạng ngoài máy chủ bị chặn trong kiểm Reveal/viewer; tài sản lõi vẫn tải đủ. Không coi liên kết tham khảo ngoài kho là phụ thuộc chạy bài.
+
+| Kiểm | Kết quả và giới hạn |
+|---|---|
+| RevealJS | 60 trang × hai kích thước rộng/hẹp = 120 ảnh cuối. Không tràn khung/ngang/footer, lỗi KaTeX, hình hỏng, HTTP lỗi hoặc lỗi JavaScript. Kiểm bàn phím/hash và nút điều hướng đạt; s04-09 không còn chạm tiêu đề. Root đã xem toàn bộ 60 mặt trang ở lượt đầy đủ, xem lại các vùng sửa và ảnh s04-09 cuối |
+| Notes diễn giả thật | Mở bằng phím S từ HTML kho, đối chiếu đủ 60 notes với slide hiện hành; công thức, font, MathML ẩn, đồng bộ hai chiều và đóng/mở lại đều đạt. Root xem lại s04-09: đủ chuỗi bất đẳng thức, không còn thẻ HTML phát sinh ngoài ý muốn |
+| Ghi chú tự học | 579 công thức, không lỗi KaTeX; màn rộng 1440px và hẹp 390px không tràn trang/hỏng hình/thiếu alt. 38 mục lục và bốn liên kết tự kiểm đều có đích; 26 khối gập đóng mặc định, mở/đóng bằng bàn phím, mở khi in và phục hồi sau in. Đường dẫn sai bài và đi ngoài materials bị từ chối |
+| Bản in | PDF QA 37 trang. Root đã xem tất cả trang ở lượt kiểm đầy đủ; sau tách công thức chỉ vùng cuối thay đổi, đã in lại và xem trang 36–37. Cả bốn xác suất Bài 3.8.2 hiện trọn vẹn. Ngắt trang tự động còn có khoảng trắng và tiêu đề tài liệu tham khảo ở cuối trang 36; không mất nội dung |
+| SVG | 12 tệp có metadata và không có nhãn vượt viewBox. Root chạy generator lần cuối, SHA-256 trước/sau giống nhau cho cả 12 tệp. Hình chiếu mới có chữ nhỏ nhất khoảng 22,9px trong khung 1280×720; một số nhãn ngắn của hình dịch khoảng khoảng 19,6px đã được vai sinh viên xem và chấp nhận |
+| CSS và phạm vi ảnh hưởng | Mọi selector thêm giới hạn ở `.reveal.course-deck.lecture-lsh`; không đổi thang chữ chung. Hồi quy Bài 02/03: 144 trang, 288 ảnh rộng/hẹp không lỗi hình học/tải; đối chiếu cuối font, độ đậm, line-height, margin/padding của từng thành phần khớp baseline. Hash HTML Bài 02–05 và hạ tầng viewer giữ nguyên |
+| Kiểm tĩnh | 60 ID duy nhất/60 notes/bảy phần; thứ tự và phiếu khớp. Không thêm raster, thư viện, phông mạng hoặc CSS riêng trong HTML. Liên kết deck/viewer của mục Bài 06 hợp lệ. `git diff --check` đạt |
+
+Màn 390px thu nhỏ khung trình chiếu 1280×720, nên không dùng kết quả không tràn để khẳng định đọc tốt chữ thân bài trên điện thoại. Ghi chú qua viewer là bản đọc có bố cục thích ứng. Thời lượng 120+60 phút là thiết kế trong storyboard/notes, chưa là kết quả giảng thử có bấm giờ.
+
+### Đồng bộ và rà Codex Slides
+
+Dự án `20260827182308-b-i-6-t-m-c-p-t-ng-ng-b-ng-lsh-bmts` được cập nhật bằng 60 ảnh PNG từ bản Reveal đã kiểm và 60 ghi chú trích từ HTML. Ảnh PNG chỉ nằm trong kho dữ liệu cục bộ của công cụ và thư mục QA tạm, không đưa vào Git. Mọi thao tác là nhập nội dung tường minh; không dùng chức năng sinh ảnh, sinh deck, sinh notes, nghiên cứu hoặc mô hình qua API. Không dùng OpenRouter hoặc đọc tệp bí mật.
+
+Kiểm giao diện Codex Slides bằng Chromium ở chế độ chỉ đọc: mở lần lượt đủ 60 trang, SHA-256 ảnh phục vụ từ ứng dụng khớp ảnh nguồn, 60 trường ghi chú khớp manifest và không lỗi JavaScript. Root xem các ảnh giao diện được chọn, gồm mục tiêu mở đầu, cận Euclid và panel notes bài vân tay. Trạng thái dự án là `deck`, 60/60 trang có ảnh. Các yêu cầu tự lưu chat từ giao diện bị chặn có chủ đích; lịch sử chat/chi phí cũ của dự án không là kết quả chạy mới. Trường notes của Codex Slides giữ TeX dạng văn bản; khả năng render công thức được xác minh ở cửa sổ Reveal Notes thật. Ba Design Files cuối được đồng bộ từ outline, storyboard và nhật ký trong kho, rồi kiểm đọc lại.
+
+Kết luận kiểm định nội dung và kỹ thuật: **PASS**, không còn phát hiện chặn, nghiêm trọng hoặc trung bình chưa xử lý. Phạm vi phát hành chỉ gồm sản phẩm Bài 06, mô tả index và CSS đã giới hạn; các thay đổi riêng của người dùng được giữ ngoài commit. Commit/push do điều phối viên thực hiện sau đồng bộ Design Files; mã commit và kết quả đối chiếu `origin/main` được báo trong bàn giao.
