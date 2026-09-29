@@ -319,3 +319,103 @@ Toàn bộ tác tử của lượt triển khai dùng cơ chế native với mod
 ### Phạm vi công bố
 
 Chỉ stage HTML Bài 04, ghi chú, SVG/generator, ba tệp planning, thẻ index và hai CSS đã kiểm. Các thay đổi sẵn có tại AGENTS, tiêu chuẩn, cấu hình và công cụ khác nằm ngoài commit này. Trước công bố đã fetch `origin/main`, xác nhận không lệch lịch sử; không dùng force hoặc viết lại lịch sử. Mã commit và xác nhận push được cung cấp trong bàn giao cuối sau khi Git xác nhận thành công.
+
+## Lượt làm rõ nội dung ngày 29/09/2026 — bàn giao của tác tử soạn
+
+Phạm vi được điều phối viên duyệt: sửa cục bộ cách giải thích trong deck và ba tệp quy trình; giữ dữ kiện, công thức, bảy phần và thời lượng 120 phút giảng + 60 phút bài tập. Đã đọc tiêu chuẩn biên soạn, bản đồ nguồn Bài 04, hồ sơ hiện có và các kỹ năng `no-ai-slop` (Edit và `eval.md`), `quill`, `build-slide-deck-outline`. Phân tích nguồn độc lập và kế hoạch tách trang đã được điều phối viên hợp nhất trước khi soạn. Không tạo dự án Quill.
+
+| Vị trí | Vấn đề và bằng chứng | Quyết định đã thực hiện |
+|---|---|---|
+| S02-02 | Dòng $v=r^0$ ghép hai vai trò khác nhau | Tách phân phối đích của nhánh dịch chuyển và lựa chọn khởi tạo; nêu $v$ cố định, $r^t$ thay đổi |
+| S02-09, S02-09a | Các vector mang chỉ số chủ đề chưa được giải nghĩa trước công thức tổng | Tách trang định nghĩa $j,v^{(j)},r^{(j)},w_j$ khỏi phép chứng minh; giữ cùng $\bar M,\beta$. Bổ sung nguồn MMDS §5.3.4, tr.199 |
+| S02-10–11 | Chi phí ghép chưa gắn rõ với thao tác trên ứng viên | Định nghĩa $C,c$; tiền tính và lưu $r^{(j)}$, xác định trọng số tại truy vấn, ghép từng $r_i^*$ từ điểm đã lưu. Tách chi phí ghép khỏi tìm ứng viên, chọn trọng số và sắp xếp |
+| S03-04–06 | Hệ số $\beta^2$ và hệ số khuếch đại cần truy nguyên theo luồng điểm | Diễn đạt $x$ đã gồm $\beta$; chỉ rõ hai bước đích → hỗ trợ → đích tạo $\beta^2y$. Phân biệt hệ số $400/111$ của riêng $x$, hạng $(17/37)(m/n)$ và hạng bỏ $1/[n(1+\beta)]$. Chuyển phần tăng 260,36% vào ghi chú |
+| S04-01–03, S04-02a | Nguồn của $T$ và các ký hiệu trong phép lặp chưa đủ rõ trên mặt trang | Nêu đánh giá hạt giống ngoài phép lặp, giả định hướng liên kết và độ phủ. Tách bảng ký hiệu khỏi công thức có nhãn ba số hạng. B,D là giả thiết hạt giống đầu vào |
+| S04-04–06 | Dấu hiệu và chỉ số tương đối có thể bị diễn giải thành nhãn rác | Thêm bảng dấu theo chiều PageRank → TrustRank; giải thích A,C cùng giảm 20% so với nền riêng. Nêu ưu tiên rà soát phụ thuộc $T$, không tự gán nhãn |
+| S05-01–02 | Thuật ngữ hub/authority cần nối với ví dụ danh mục/nội dung | Mỗi trang có hai điểm; nêu vai trò trung tâm/uy tín và quan hệ hỗ trợ lẫn nhau. Phân biệt uy tín theo liên kết HITS với độ tin cậy TrustRank |
+
+Bản HTML hiện có 53 trang, gồm 50 trang giảng và 3 trang bài tập; phân bố 6/13/8/8/11/4/3. Hai mã mới `lec04-s02-09a` và `lec04-s04-02a` giữ các mã trang cũ ổn định. Trong S02, bốn trang S02-03/04/07/08 giảm từ 3 xuống 2,5 phút, S02-09 còn 1 phút, trang mới 2 phút và S02-11 tăng lên 2 phút; tổng vẫn 30 phút. S04-02 còn 2 phút, trang mới 2 phút, S04-03 còn 1 phút; tổng vẫn 18 phút. Không lấy thời gian từ bài tập.
+
+Đã cập nhật trực tiếp hai khối `public-slide` và `public-notes`, tiêu đề và metadata của các phiếu bị tác động; không chỉ thêm phần đính chính. Thuật ngữ và bảng tổng trong outline đã đồng bộ. Hai sơ đồ tổng vector và tiền tính/truy vấn không còn được dùng trên slide sau khi thay bằng bảng/thẻ có ký hiệu tường minh; giữ nguyên các SVG hiện có và mã tái tạo. Không thay CSS chung, index, mã thực hành hoặc tài sản dùng chung.
+
+### Tự kiểm văn phong và mạch suy luận
+
+- `no-ai-slop`, Edit: giữ thuật ngữ học thuật, giả thiết, ký hiệu và kết quả; sửa tối thiểu trong 17 trang. Câu “Không nhân thêm $\beta$ vào $x$” trên mặt S03-04 đã thành “Đóng góp $x$ đã bao gồm hệ số $\beta$”. Tự kiểm theo các nhóm nguyên tắc biên tập, từ rỗng, kiểu diễn đạt và đọc cuối trong `eval.md`: đạt trong phạm vi bản sửa. Không dùng điểm bộ phát hiện AI, suy đoán tác giả hoặc văn phong hội thoại.
+- Quill: kiểm đầu vào trước ký hiệu, đầu ra trước chỗ tái sử dụng và các câu nối: $v\to r$; chủ đề riêng → tổng → truy vấn; $T\to\rho\to r-\rho\to s$; danh mục/nội dung → $h,a$ → phép cập nhật. Hai trang mới chỉ tách tải kiến thức, không mở rộng chủ đề.
+- Đối chiếu ghi chú tự học §§1.1, 2.2, 2.5, 3.2–3.3, 4.1–4.3, 5.1: giữ cùng giả thiết, dữ kiện và công thức. Không có thay đổi học thuật cần sửa `lecture-note.md`; tệp này được giữ nguyên.
+
+### Kiểm tra đã chạy và giới hạn bàn giao
+
+Tác tử soạn đã chạy ba script do điều phối viên chuẩn bị trong `/tmp/lec04-clarify/`: `audit_plan.py`, `audit_static.py`, `check_math.py`. Kết quả: 53 mã duy nhất, 53 ghi chú diễn giả; thứ tự và tiêu đề khớp storyboard; 7 phần; tổng từng phần 12/30/20/18/30/10/60 phút. Các kiểm tra dữ liệu SVG, đường dẫn tài sản cục bộ và cấu trúc không báo lỗi. Kiểm tra toán xác nhận các vết G4, nghiệm PageRank/TrustRank, Spam Mass, hai vòng HITS, bài tập, công thức cụm thao túng, tính tuyến tính theo chủ đề và các hệ số khuếch đại.
+
+Đây là bằng chứng kiểm tra tĩnh và phép tính. Tác tử soạn chưa xác nhận bản render, tràn khung, hình công thức hay khả năng đọc của lượt sửa này. Bản HTML đã bàn giao điều phối viên để kiểm trực quan và rà độc lập; các kết quả đó được ghi riêng sau khi thực hiện. Không commit hoặc push trong phần việc của tác tử soạn.
+
+Trong quá trình đồng bộ, tác tử soạn đã mã hóa dấu nhỏ hơn thành `&lt;` ở các công thức HTML mới thuộc S04-02, S04-02a và S04-04, rồi tạo lại các khối Markdown tương ứng để giữ đủ điều kiện và dấu. Điều phối viên tiếp nhận các điểm cần rà tiếp: mật độ hai bảng S04-04; mức tường minh của từng phần tử $M_0$ trên mặt S04-02; cách gọi phần điểm nút cụt trước/sau nhân $\beta$ trong ghi chú; phân biệt rõ chi phí tiền tính với dung lượng lưu ở S02-10. Các điểm này chưa được tác tử soạn tự xác nhận qua render và được chuyển sang lượt rà độc lập, chỉnh sửa kế tiếp.
+
+## Năm lượt rà độc lập và chỉnh sửa cuối ngày 29/09/2026
+
+Điều phối viên chỉ định năm tác tử rà độc lập, mỗi tác tử dùng model `gpt-6-astra`. Bảng dưới ghi vai trò và báo cáo thực nhận; tên model là chỉ định của điều phối viên, không phải suy đoán tuyến thực thi. Editor riêng bắt đầu sau khi tác tử soạn và năm tác tử rà hoàn tất. Editor chỉ sửa HTML Bài 04 và ba tệp quy trình; không sửa CSS, SVG, ghi chú tự học, index hoặc mã thực hành.
+
+| Tác tử theo vai trò được giao | Model được chỉ định | Báo cáo và phạm vi | Phát hiện và quyết định |
+|---|---|---|---|
+| Rà toán học và thuật toán | `gpt-6-astra` | `review-math.md`: nội dung, notes, nguồn và phép tính các cụm sửa cùng trang lân cận; không kiểm render | Giữ mã hóa dấu nhỏ hơn; đưa quy tắc phần tử M0 lên mặt S04-02; sửa lượng bù thành beta nhân tổng điểm nút cụt. Không đổi nghiệm hoặc giả thiết |
+| Rà kết nối và mạch viết | `gpt-6-astra` | `review-flow.md`: toàn tuyến 53 trang, notes liên quan, metadata và tác động ghi chú tự học; không kiểm render | S02-10 gọi đúng dung lượng lưu k kết quả; S04-02 gọi tên ma trận liên kết. Giữ thứ tự và thời lượng; không sửa ghi chú tự học |
+| Rà học thuật và giảng dạy | `gpt-6-astra` | `review-pedagogy.md`: toàn văn HTML/notes, nhãn SVG, ba ảnh wide S03-05/S04-02/S04-04 | Thêm giới hạn điểm/thứ hạng/nhãn rác; thay bảng dấu bằng đoạn để xử lý nguồn sát chân trang; thay “chứng nhận tin cậy” bằng “điểm tin cậy” trong notes S05-01 |
+| Rà từ góc nhìn sinh viên năm 2 | `gpt-6-astra` | `review-student.md`: các cụm sửa và lân cận, mở/kết/bài tập, 16 ảnh wide và hai ảnh narrow | Chấp nhận cùng hai sửa S04-04 và định nghĩa M0. Giữ khung trình chiếu hiện có; khả năng đọc sau sửa cần điều phối viên kiểm lại |
+| Rà chuyên gia giải thuật và khoa học dữ liệu | `gpt-6-astra` | `review-expert.md`: S01–S06, nguồn MMDS/Stanford liên quan, số học phân số và thời lượng; không kiểm render | Xử lý định nghĩa M0, giới hạn dấu hiệu và cụm “chứng nhận”. Không phát hiện sai số hoặc thiếu điều kiện làm sai kết quả trong phạm vi đã kiểm |
+
+Các báo cáo đầy đủ được bàn giao trong `/tmp/lec04-clarify/`; bảng này lưu nội dung quyết định bền vững trong kho. Không dùng kết quả ngày 28/09 thay cho năm báo cáo hiện tại.
+
+### Quyết định biên tập và đồng bộ
+
+- S02-10: “Lưu k kết quả” chỉ dung lượng số cần lưu; chi phí tiền tính và mô hình phép toán giữ trong notes.
+- S04-02: gọi tên ma trận liên kết theo cột nguồn, nêu giá trị phần tử theo cạnh khi bậc ra dương và bằng 0 trong các trường hợp khác, gồm cột nút cụt. Ghi chú phân biệt tổng điểm nút cụt với lượng điểm bù sau nhân beta. S04-02a ghi phân phối hạt giống bằng nghịch đảo kích thước tập trong T, bằng 0 ngoài T.
+- S04-04: giữ nguyên bảng bốn trang và toàn bộ phân số. Thay bảng dấu bằng đoạn diễn giải ba trường hợp; bổ sung giới hạn về thay đổi thứ hạng và nhãn rác ở cả mặt trang và notes. Đây là sửa bố cục nhằm giải quyết phát hiện nguồn chạm chân trang; chưa khẳng định đã đạt qua ảnh sau sửa.
+- S04-06: nêu rõ chỉ số lớn được dùng để ưu tiên rà soát, phụ thuộc T và không tự xác định nhãn rác; không thêm ngưỡng hoặc bộ phân loại.
+- S05-01: thay hàm ý chứng nhận nội dung bằng điểm tin cậy, giữ phân biệt hai vai trò HITS.
+- Mã hóa dấu nhỏ hơn của writer được giữ; Markdown dùng dấu toán thông thường. Các khối public-slide/public-notes của sáu phiếu bị sửa được sinh lại từ HTML; metadata bố cục/luận điểm/giới hạn và bảng thuật ngữ được cập nhật tại chỗ.
+
+### Tự kiểm của editor
+
+Áp dụng `no-ai-slop` ở chế độ Edit sau khi đọc SKILL.md và eval.md: sửa tối thiểu, giữ giả thiết, dữ kiện, ký hiệu và nguồn; loại cụm có hàm ý chứng nhận không phù hợp; dùng câu học thuật trực tiếp, không thêm chỉ dẫn giảng viên. Các nhóm nguyên tắc, từ rỗng, mẫu diễn đạt và đọc cuối của eval đạt trong phạm vi sửa. Bản chỉnh đầy đủ nằm trong HTML và storyboard; danh mục thay đổi nằm ngay trên. Không dùng điểm phát hiện AI hoặc suy đoán tác giả.
+
+Áp dụng Quill để rà tính liên tục, không tạo quill.json: ký hiệu ma trận → ba hạng cập nhật → đối chiếu điểm → chuẩn hóa theo nền → ưu tiên rà soát; điểm tin cậy không trở thành chứng nhận khi chuyển sang HITS. Không đổi thứ tự khái niệm, nguồn, tổng thời lượng hoặc kết quả dùng chung với tài liệu tự học.
+
+### Bằng chứng kiểm tra sau chỉnh của editor
+
+Ba script `audit_static.py`, `audit_plan.py`, `check_math.py` đều PASS sau sửa: 53 mã/53 notes, bảy phần 6/13/8/8/11/4/3, thời lượng 12/30/20/18/30/10/60 phút; phép tính G4, Spam Mass, HITS, bài tập, cụm thao túng, bù nút cụt và ghép chủ đề giữ đúng. Trình phân tích raw HTML không nhận thẻ lạ; KaTeX cục bộ phân tích 819 biểu thức lấy từ văn bản HTML, gồm notes, không có lỗi cú pháp. KaTeX có cảnh báo thiếu thông số ký tự tiếng Việt trong nhãn văn bản; đây không phải bằng chứng về hình hiển thị, cần xem ảnh ở lượt render của điều phối viên.
+
+Các ID thay đổi ở lượt editor: `lec04-s02-10`, `lec04-s04-02`, `lec04-s04-02a`, `lec04-s04-04`, `lec04-s04-06`, `lec04-s05-01`. Chưa chạy render sau sửa, chưa commit/push; bàn giao điều phối viên kiểm hình và rà lại toán/mạch trước công bố.
+
+Rà lại mạch trong `recheck-flow.md` xác nhận nội dung và kết nối đạt; còn ba câu metadata S05-01 mô tả phiên trước. Editor đã đồng bộ Bố cục, Trọng tâm và Ví dụ theo HTML hiện hành: hai điểm được định nghĩa ngay tại S05-01, phân biệt uy tín HITS với độ tin cậy TrustRank; S05-02 diễn giải quan hệ cập nhật. Chỉ sửa metadata, không đổi HTML, thời lượng hoặc nội dung công khai.
+
+## Kiểm định bản làm rõ trước công bố ngày 29/09/2026
+
+### Tác tử và kết luận tái kiểm
+
+Các tác tử được tạo bằng cơ chế gốc với model chỉ định `gpt-6-astra`: `/root/plan_lec04` lập kế hoạch rồi rà mạch; `/root/source_lec04` phân tích nguồn rồi rà toán; `/root/write_lec04` soạn; `/root/review_pedagogy` rà học thuật và giảng dạy; `/root/review_student` rà từ góc nhìn sinh viên; `/root/review_expert` rà chuyên gia; `/root/edit_lec04` chỉnh sửa riêng. Điều phối viên hợp nhất kế hoạch và phân tích trước khi giao soạn, chờ đủ năm báo cáo trước khi giao editor, rồi tự kiểm bản cuối. Không có hai tác tử ghi kho đồng thời; không dùng API/CLI mô hình hoặc đọc tệp môi trường chứa thông tin xác thực.
+
+Tái kiểm toán trong `recheck-math.md` đạt: định nghĩa ma trận, hai phân phối, lượng bù, chi phí và diễn giải điểm đều nhất quán; không còn thẻ HTML lạ do dấu nhỏ hơn. Tái kiểm mạch trong `recheck-flow.md` đạt sau khi đồng bộ ba câu metadata S05-01. Không còn phát hiện cần sửa trong phạm vi hai lượt tái kiểm. Các kết luận này độc lập với kiểm hiển thị bên dưới.
+
+### Kiểm cấu trúc, hiển thị và phạm vi
+
+| Hạng mục | Bằng chứng bản cuối |
+|---|---|
+| Cấu trúc và thời lượng | 53 trang, 53 notes, bảy phần 6/13/8/8/11/4/3; 50 trang giảng trong 120 phút và ba bài nguồn trong 60 phút. Giữ 51 mã cũ; thêm S02-09a và S04-02a. Các phiếu và khối nội dung công khai khớp HTML. |
+| Phép tính và công thức | Kiểm phân số độc lập giữ đúng G4, TrustRank, Spam Mass, HITS, bài tập, công thức khuếch đại và ghép chủ đề, gồm trường hợp có nút cụt. KaTeX phân tích 819 biểu thức gồm notes, không lỗi cú pháp; ảnh cuối xác nhận nhãn tiếng Việt trong công thức đọc được. |
+| RevealJS | Chụp đủ 53 trang ở 1280 × 720 và 53 trang ở 390 × 844, đợi đúng mã trang. Không phát hiện tràn biên, cuộn ngang nội dung, chồng chân trang, lỗi KaTeX, ảnh hỏng, JavaScript, HTTP hoặc yêu cầu mạng ngoài cho tài sản cốt lõi. |
+| Xem trực quan | Điều phối viên đã xem 16 trang rộng và hai trang hẹp của bản nháp; sau editor xem lại các trang có thay đổi hiển thị S02-10, S04-02/02a/04/06 và ảnh hẹp S04-04. Bảng ký hiệu, công thức ba thành phần và bảng so sánh đều rõ ở khung rộng; nguồn S04-04 đã tách khỏi chân trang. |
+| Bàn phím | ArrowDown chuyển trang dọc, ArrowRight chuyển phần; PageDown ở chế độ cuộn chuyển đúng sang S01-02. Chiều rộng tài liệu bằng viewport ở cả hai kích thước. |
+| Bảo toàn phạm vi | Ba trang recitation và cấu hình script giống từng byte với bản trước. CSS, SVG, index và lecture-note không đổi. Chỉ HTML Bài 04 và ba tệp planning thuộc lượt sửa. `git diff --check` đạt. |
+
+Bằng chứng tạm của lượt này nằm trong `/tmp/lec04-clarify/`: `final-renders/report.json`, `preservation.json`, các báo cáo rà và phép kiểm tĩnh/toán. Bảng trên lưu kết quả cần thiết trong kho; ảnh và script kiểm thử không đưa vào Git. Giới hạn điện thoại giữ nguyên: deck co theo khung 16:9 nên cần phóng to để đọc bảng và công thức; không khẳng định khả năng đọc thuận tiện ở kích thước thu nhỏ.
+
+Các sửa chỉ làm rõ tám nhóm yêu cầu đã ánh xạ trong bảng quyết định, dựa trên MMDS Chương 5 và nguồn slide đã kiểm. Hai trang bổ sung tách định nghĩa khỏi lập luận hoặc cập nhật, không mở rộng chủ đề. Không vẽ thêm hình và không thay dữ kiện. Đã đối chiếu ghi chú tự học; không có thay đổi giả thiết, ký hiệu chung hoặc kết quả cần sửa tệp đó.
+
+### Đối chiếu Codex Slides và công bố
+
+Dự án `20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu` đã nhận đủ 53 PNG của bản RevealJS cuối và 53 ghi chú. Đọc lại trạng thái xác nhận 53 trang rendered, 53 tiêu đề và ghi chú khớp nguồn. Chromium cục bộ mở từng trang, so hash ảnh tải từ canvas với PNG nguồn: 53/53 khớp; nội dung ghi chú: 53/53 khớp; không lỗi JavaScript. Điều phối viên xem ảnh giao diện của S04-02a, S04-04 và bảng ghi chú trang cuối. Trường trạng thái cấp dự án vẫn là draft của luồng cũ; lượt này chỉ cập nhật dữ liệu xác định, không chạy sinh nội dung hoặc ảnh bằng mô hình.
+
+Phiên không có Browser nhúng của Codex; không tuyên bố đã kiểm trong in-editor Browser. Chromium cục bộ, trạng thái đọc lại và hash là bằng chứng thay thế. Các Design Files hiện hành là HTML cùng `uploaded/outline.md`, `uploaded/storyboard-2.md`, `uploaded/review-log.md`; bản storyboard cũ giữ vai trò lịch sử. Bằng chứng giao diện và đối chiếu nằm tại `/tmp/lec04-clarify/codex-final/report.json`. URL bản xem trước: `http://127.0.0.1:4311/project/20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu?slide=30`.
+
+Phạm vi commit của lượt này chỉ gồm HTML Bài 04 và ba tệp planning. Đã fetch `origin/main` và xác nhận hai phía không có commit lệch trước công bố. Các thay đổi sẵn có của người dùng tại cấu hình, tiêu chuẩn và công cụ giữ ngoài commit. Điều phối viên cung cấp mã commit cùng xác nhận remote trong bàn giao sau khi Git hoàn tất; không dùng force hoặc viết lại lịch sử.

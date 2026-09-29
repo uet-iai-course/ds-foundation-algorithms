@@ -1,10 +1,10 @@
 # Bài 04: PageRank theo chủ đề, liên kết rác và HITS
 
-## Phạm vi của bản dàn bài mới
+## Phạm vi và trạng thái hiện hành
 
 Ngày lập: 27/09/2026. Bản này thay thế toàn bộ dàn bài cũ theo yêu cầu của người dùng. Nội dung được xây lại từ đề cương và nguồn chi tiết; cấu trúc HTML, dàn ý, storyboard và báo cáo đạt của bản cũ không được dùng làm căn cứ thiết kế hoặc kiểm định bản mới.
 
-Sản phẩm của yêu cầu này là ba tệp `outline.md`, `storyboard.md`, `review-log.md` trong thư mục hiện tại. Đây là kế hoạch nội dung, chưa phải bộ slide đã triển khai. HTML, SVG, ghi chú bài giảng, mã thực hành và mục tài nguyên hiện có không thuộc bước viết lại này. Quan hệ của chúng với kế hoạch mới được ghi trong nhật ký.
+Bộ slide đã triển khai bằng HTML, SVG và ghi chú diễn giả. Ngày 29/09/2026, bản sửa làm rõ ký hiệu, cơ chế và cách diễn giải điểm; hồ sơ hiện hành phản ánh 53 trang. Ghi chú tự học đã được đối chiếu về giả thiết, công thức và thứ tự khái niệm; lượt này giữ nguyên tệp ghi chú, CSS chung và mục tài nguyên. Kết quả kiểm định bản sửa được ghi riêng trong nhật ký.
 
 **Nguồn nền theo chỉ dẫn bổ sung của người dùng:** sách MMDS quyết định mạch bài, khái niệm, thứ tự lập luận, ví dụ và bài tập. Theo §5.3 → §5.4 → §5.5; slide của tác giả và các trường chỉ dùng để đối chiếu cách minh họa, không dùng làm khung thay cho sách.
 
@@ -14,7 +14,7 @@ Sản phẩm của yêu cầu này là ba tệp `outline.md`, `storyboard.md`, `
 - Chuẩn đầu ra trực tiếp: so sánh các thuật toán xếp hạng nút và phân tích ứng dụng, thuộc CLO2.
 - Đối tượng: sinh viên năm 2, theo `AGENTS.md` và `slide_authoring_standard.md`; thay mặc định năm 3 của skill bằng căn cứ cụ thể này.
 - Tiên quyết: Bài 03, đồ thị có hướng, nhân ma trận–vector, phân phối xác suất và phân tích chi phí. Không giả định đã học Jaccard, phân loại văn bản, hệ tìm kiếm chuyên dụng hoặc lý thuyết phổ nâng cao.
-- Thiết kế: 48 slide giảng, 120 phút; 3 slide bài tập, 60 phút. Có 7 phần dọc; mỗi phần có một slide kiểm tra riêng.
+- Thiết kế: 50 slide giảng, 120 phút; 3 slide bài tập, 60 phút. Có 7 phần dọc; mỗi phần có một slide kiểm tra riêng.
 - Nội dung trên slide và ghi chú dự kiến dùng tiếng Việt trang trọng, học thuật. Các quyết định bố cục, thời lượng, mã slide và lý do sư phạm chỉ thuộc hồ sơ nội bộ.
 
 ## Bài toán trung tâm và mục tiêu
@@ -94,21 +94,21 @@ Giữ thứ tự §5.3 → §5.4 → §5.5. Đặt HITS ngay sau PageRank sẽ n
 | Phần | Loại chính; mục tiêu | Đầu vào → kết quả chuyển tiếp | Slide | Phút | Kiểm tra riêng |
 |---|---|---|---:|---:|---|
 | S01. Bài toán xếp hạng liên kết | Giới thiệu và động lực; MT1, MT5 | PageRank Bài03 → nhu cầu theo chủ đề/độ tin cậy/vai trò | 6 | 12 | S01-06 |
-| S02. PageRank theo chủ đề | Khái niệm, thuật toán, chi phí; MT1 | Ngữ cảnh truy vấn → vector bước nhảy và điểm ổn định | 12 | 30 | S02-12 |
+| S02. PageRank theo chủ đề | Khái niệm, thuật toán, chi phí; MT1 | Ngữ cảnh truy vấn → vector bước nhảy và điểm ổn định | 13 | 30 | S02-12 |
 | S03. Cơ chế liên kết rác | Mô hình và phân tích; MT2 | Quy tắc truyền điểm → phương trình khuếch đại | 8 | 20 | S03-08 |
-| S04. TrustRank và Spam Mass | Thuật toán và diễn giải; MT3 | Hạt giống và cơ chế thao túng → chỉ số có giới hạn | 7 | 18 | S04-07 |
+| S04. TrustRank và Spam Mass | Thuật toán và diễn giải; MT3 | Hạt giống và cơ chế thao túng → chỉ số có giới hạn | 8 | 18 | S04-07 |
 | S05. HITS | Thuật toán, ví dụ, chi phí; MT4 | Vai trò liên kết → hai vector và quy tắc cập nhật | 11 | 30 | S05-11 |
 | S06. So sánh các phương pháp xếp hạng | Tổng hợp và kết luận; MT5 | Các phương pháp → lựa chọn theo đầu ra và giả thiết | 4 | 10 | S06-04 |
 | S07. Bài tập | Luyện tập từ giáo trình; MT1, MT2, MT4 | Ba mô hình đã học → bài giải có thể kiểm chứng | 3 | 60 | S07-03 |
 
-Tổng phần giảng: 48 slide/120 phút. Recitation: 3 slide/60 phút, gồm cả trình bày và đối chiếu lời giải. S07 đặt sau phần giảng trong cùng HTML ở bước triển khai. Một bài dài20 phút dùng một slide dữ kiện và yêu cầu, lời giải thuộc ghi chú; thời lượng không xuất hiện trên slide. Mốc48 nằm trong khoảng45–55 của tiêu chuẩn, không thêm slide để đạt chỉ tiêu.
+Tổng phần giảng: 50 slide/120 phút. Recitation: 3 slide/60 phút, gồm cả trình bày và đối chiếu lời giải. S07 đặt sau phần giảng trong cùng HTML ở bước triển khai. Một bài dài20 phút dùng một slide dữ kiện và yêu cầu, lời giải thuộc ghi chú; thời lượng không xuất hiện trên slide. Mốc50 nằm trong khoảng45–55 của tiêu chuẩn, không thêm slide để đạt chỉ tiêu.
 
 ## Thuật ngữ và ký hiệu thống nhất
 
 | Ký hiệu/thuật ngữ | Nghĩa, miền và quy ước |
 |---|---|
 | $G=(V,E)$; $n=|V|$, $\ell=|E|$ | Đồ thị có hướng; đỉnh theo thứ tự đã nêu, cạnh không trọng số; khuyên chỉ khi nguồn có |
-| $d_j$; $M_0$ | Bậc ra; $(M_0)_{ij}=1/d_j$ nếu $j\to i$, bằng0 nếu không; cột nút cụt bằng0. Cột là nguồn như Bài03 |
+| $d_j$; $M_0$ | Bậc ra; ma trận liên kết $(M_0)_{ij}=1/d_j$ nếu $j\to i$ và $d_j>0$, bằng $0$ trong trường hợp khác, gồm cột nút cụt. Cột là nguồn như Bài 03 |
 | $u$; $\delta^t$ | $u_i=1/n$; $\delta^t=\sum_{j:d_j=0}r_j^t$ |
 | $\beta$ | Xác suất đi theo liên kết, $0<\beta<1$; ví dụ G4 dùng $4/5$, mô hình spam dùng $0.85$ theo nguồn |
 | $S$, $v$ | Tập dịch chuyển không rỗng; $v_i=1/|S|$ khi $i\in S$, bằng0 nếu không. Tổng quát $v\ge0$, $\sum_i v_i=1$ |
@@ -119,9 +119,13 @@ Tổng phần giảng: 48 slide/120 phút. Recitation: 3 slide/60 phút, gồm c
 | $h,a$ | Điểm trung tâm (hub) và điểm uy tín (authority); hai vector không âm, chuẩn hóa phần tử lớn nhất bằng1 |
 | $\tau,K$ | Ngưỡng thay đổi giữa hai vòng và số vòng tối đa; dừng do hết $K$ không đồng nghĩa đã đạt ngưỡng |
 | $k$; $K_j$ | Số chủ đề; số vòng thực chạy của phép tính vector chủ đề $j$, phân biệt với giới hạn vòng $K$ |
+| $j$; $v^{(j)}$; $r^{(j)}$ | Chỉ số chủ đề; phân phối dịch chuyển đầu vào; vector PageRank hội tụ của chủ đề j trên n trang. $(j)$ không phải vòng lặp t |
+| $w_j$ | Trọng số chủ đề, không âm và tổng bằng1; dùng tại truy vấn |
+| $C$; $c=\lvert C\rvert$ | Tập trang ứng viên và số ứng viên; chỉ cần ghép $r_i^*=\sum_jw_jr_i^{(j)}$ với i thuộc C |
+| $\rho^t$; $\rho_i$; $\delta_\rho^t$; $v_T$ | Trạng thái TrustRank ở vòng t; điểm hội tụ tại i; tổng điểm nút cụt; phân phối đều trên T và bằng0 bên ngoài |
 | $m,x,y$ | Số trang hỗ trợ, đóng góp từ ngoài đã nhân $\beta$, điểm trang đích; chỉ dùng trong mô hình cụm thao túng |
 
-HITS được giới thiệu là thuật toán tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS); giữ tên thuật toán ở các tiêu đề. “Uy tín” trong HITS là vai trò cấu trúc liên kết, không đồng nghĩa chứng nhận tin cậy của TrustRank.
+HITS được giới thiệu là thuật toán tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS); giữ tên thuật toán ở các tiêu đề. “Uy tín” trong HITS là vai trò cấu trúc liên kết, không đồng nghĩa với điểm tin cậy của TrustRank.
 
 ## Đặc tả và mức hình thức hóa
 
@@ -153,7 +157,7 @@ Với cùng $\bar M,\beta$, các trọng số $w_j\ge0$, $\sum_{j=1}^k w_j=1$ ch
 
 Mô hình: phép toán vô hướng chi phí đơn vị; đồ thị lưu danh sách cạnh. Một vector cần $\Theta(n+\ell)$ phép toán mỗi vòng: đọc $\ell$ cạnh, xử lý bù, dịch chuyển và kiểm tra trên $n$ đỉnh. Chạy đủ $K$ vòng cho một vector cần $\Theta(K(n+\ell))$; bộ nhớ đầu vào $\Theta(n+\ell)$, phụ $\Theta(n)$.
 
-Tiền tính độc lập $k$ vector với số vòng thực chạy $K_j$ của chủ đề $j$ cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Mỗi vector bị giới hạn $K$ vòng cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự giảm trạng thái lặp cần giữ, không loại các phép lặp của từng chủ đề. Lưu $k$ kết quả cần $\Theta(kn)$ số; ghép điểm cho $c$ ứng viên cần $\Theta(kc)$ phép nhân–cộng. Đây là phép đếm từ giả mã, không phải số đo thời gian hoặc toàn bộ chi phí hệ tìm kiếm.
+Tiền tính độc lập $k$ vector với số vòng thực chạy $K_j$ của chủ đề $j$ cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Mỗi vector bị giới hạn $K$ vòng cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự giảm trạng thái lặp cần giữ, không loại các phép lặp của từng chủ đề. Lưu $k$ kết quả cần $\Theta(kn)$ số; ghép điểm cho tập $C$ gồm $c=|C|$ ứng viên cần $\Theta(kc)$ phép nhân–cộng. Phép ghép dùng điểm đã lưu, không lặp lại PageRank và không cần dựng toàn bộ vector trên n trang; chi phí chưa gồm tìm ứng viên, xác định trọng số và sắp xếp. Đây là phép đếm từ giả mã, không phải số đo thời gian hoặc toàn bộ chi phí hệ tìm kiếm.
 
 S02-11 thu hồi §5.3.3 theo bốn bước: chọn chủ đề → chọn tập dịch chuyển → xác định chủ đề truy vấn → sử dụng điểm. Trong phạm vi bài, chủ đề hoặc trọng số do người dùng cung cấp; không đưa Jaccard thành tiên quyết.
 
@@ -351,3 +355,16 @@ Ký hiệu và đồ thị tiên quyết dùng bảng thống nhất hiện có.
 | S05-05/07/08; `lec04-note-09` | Văn xuôi dùng “giá trị lớn nhất” và “chuẩn hóa bằng giá trị lớn nhất”; giữ toán tử trong công thức/giả mã. | Giữ quy ước chuẩn hóa và trạng thái đồ thị không cạnh. |
 
 Hai sửa viewer được duyệt riêng gồm giới hạn phần tử định vị trong bảng cuộn và cho mọi hình của học phần co vừa giấy khi in. Không thay mô hình, thuật toán, dữ kiện, bài tập hoặc nội dung ngoài Bài 04. Nhật ký ghi đầy đủ từng báo cáo, quyết định và giới hạn kiểm định còn lại.
+
+## Quyết định làm rõ nội dung ngày 29/09/2026
+
+- Giữ phạm vi MMDS §5.3 → §5.4 → §5.5 và bảy phần; tổng 120 phút giảng + 60 phút bài tập. Bản hiện hành có 50 trang giảng và 3 trang bài tập, phân bố 6/13/8/8/11/4/3. Các số 51 trang trong các mục triển khai lịch sử phía trên mô tả phiên trước.
+- Tách S02-09 thành định nghĩa vector theo chủ đề và S02-09a chứng minh tổng có trọng số; nguồn §5.3.4 tr.199 xác nhận ghép theo tỷ lệ. Thêm giải thích j khác t và hai giai đoạn tiền tính/truy vấn, không thêm số liệu.
+- Tách S04-02 thành bảng ký hiệu và S04-02a phép lặp ba thành phần; giữ cùng ma trận, bù nút cụt và beta.
+- Giữ G4, G5, dữ kiện spam và mọi nghiệm số; bổ sung hai bước tạo beta², ý nghĩa hệ số 400/111, thông tin đánh giá T từ ngoài thuật toán, dấu và mức giảm tương đối Spam Mass, hai vai trò HITS.
+- Quill: rà chuỗi v đầu vào → r hội tụ → các chủ đề → ghép tại truy vấn; hạt giống T → ký hiệu rho → phép lặp → so nền → chỉ số giảm; danh mục/nội dung → h/a → cập nhật luân phiên. Không tạo quill.json.
+- Ghi chú tự học §§1.1,2.2,2.5,3.2–3.3,4.1–4.3,5.1 đã có các giả thiết và công thức tương thích. Các giải thích trên slide không đổi kết luận học thuật của tài liệu; giữ nguyên lecture-note.md.
+
+### Chỉnh cục bộ sau năm lượt rà ngày 29/09/2026
+
+Giữ 53 trang, bảy phần và 120 + 60 phút. S04-02 đưa định nghĩa phần tử ma trận lên mặt trang; S04-02a xác định đầy đủ phân phối hạt giống. S04-04 giữ bảng số, gộp bảng dấu thành đoạn và nêu giới hạn suy luận về thứ hạng, nhãn rác. S02-10 tách dung lượng lưu khỏi chi phí tiền tính; S04-06 nêu hướng ưu tiên theo chỉ số lớn; ghi chú S04-02 và S05-01 phân biệt lượng bù sau nhân beta và điểm tin cậy. Các sửa không đổi nguồn, giả thiết, ví dụ hoặc kết quả; ghi chú tự học giữ nguyên.
