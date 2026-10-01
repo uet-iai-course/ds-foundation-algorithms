@@ -154,8 +154,8 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 <aside class="notes"><p>Những hàng Z không chứa phần tử của hai tập nên bỏ chúng khỏi thứ tự không đổi lựa chọn. Hàng đầu tiên khác Z thuộc X thì cả hai cột chọn cùng hàng; thuộc Y thì chỉ một cột có phần tử đó. Biến x đếm số hàng, không phải chỉ số của một hàng. Với cặp minh họa x=2, y=1.</p><p>Nguồn: MMDS 3e, §3.3.3, tr. 83.</p></aside>
 </section>
 <section id="lec05-s03-08" data-slide-id="lec05-s03-08" class="example-slide">
-<h2>Xác suất trùng MinHash</h2>
-<p>\(S,T\subseteq U\) không rỗng; cùng \(\pi\) chọn đều trong \(R!\) hoán vị.</p><p class="ex-equation">\[\Pr[h_\pi(S)=h_\pi(T)]=\mathrm{SIM}(S,T)\]</p><ol><li>Phần tử đầu trong hợp phân bố đều trên \(S\cup T\).</li><li>Hai MinHash trùng khi và chỉ khi phần tử đó thuộc \(S\cap T\).</li></ol><p class="ex-equation">\[\Pr[\text{trùng}]=\frac{x}{x+y}=\frac{|S\cap T|}{|S\cup T|}\]</p>
+<h2>Định lý xác suất trùng MinHash</h2>
+<p>\(S,T\subseteq U\) không rỗng; cùng \(\pi\) chọn đều trong \(R!\) hoán vị.</p><p class="ex-equation">\[\Pr[h_\pi(S)=h_\pi(T)]=\mathrm{SIM}(S,T)\]</p><ol><li>Gọi \(u\) là phần tử đầu của \(S\cup T\). Mọi hoán vị đồng khả năng nên \(u\) phân bố đều trên \(S\cup T\).</li><li>\(h_\pi(S)=h_\pi(T)\) khi và chỉ khi \(u\in S\cap T\).</li></ol><p class="ex-equation">\[\Pr[h_\pi(S)=h_\pi(T)]=\Pr[u\in S\cap T]=\frac{x}{x+y}\]</p>
 <p class="ex-source">MMDS 3e, §3.3.3, tr. 83.</p>
 <aside class="notes"><p>Gọi u là phần tử đầu của hợp. Tính đối xứng của hoán vị đều cho mỗi phần tử của hợp cùng xác suất đứng đầu. Nếu u thuộc giao, u đứng đầu cả hai tập. Nếu u nằm trong phần riêng, chỉ một tập chọn u, còn tập kia chọn một phần tử khác. Vậy biến cố trùng tương đương u thuộc giao. Có x phần tử thuận lợi trong x+y phần tử của hợp, nên xác suất bằng x/(x+y), đúng Jaccard. Phần tử ngoài hợp không ảnh hưởng lập luận.</p><p>Nguồn: MMDS 3e, §3.3.3, tr. 83.</p></aside>
 </section>

@@ -853,7 +853,7 @@ Nguồn: MMDS 3e, §3.3.3, tr. 83.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 26. Xác suất trùng MinHash
+### 26. Định lý xác suất trùng MinHash
 
 - **Mã:** `lec05-s03-08`; **phần:** 3; **note-topic-id:** `n05-06`.
 - **Mục đích và vai trò:** Định lý và chứng minh; chỉ ra nơi dùng hoán vị đều. **Mục tiêu:** MT3.
@@ -869,7 +869,14 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Giả thiết: $S, T\subseteq U$ không rỗng; π chọn đều trong $R!$ hoán vị và dùng chung. $$\Pr[h_\pi(S)=h_\pi(T)]=\mathrm{SIM}(S, T).$$ Phần tử đầu trong hợp phân bố đều; hai giá trị trùng khi và chỉ khi phần tử đó thuộc giao.
+$S,T\subseteq U$ không rỗng; cùng $\pi$ chọn đều trong $R!$ hoán vị.
+
+$$\Pr[h_\pi(S)=h_\pi(T)]=\mathrm{SIM}(S,T)$$
+
+1. Gọi $u$ là phần tử đầu của $S\cup T$. Mọi hoán vị đồng khả năng nên $u$ phân bố đều trên $S\cup T$.
+2. $h_\pi(S)=h_\pi(T)$ khi và chỉ khi $u\in S\cap T$.
+
+$$\Pr[h_\pi(S)=h_\pi(T)]=\Pr[u\in S\cap T]=\frac{x}{x+y}$$
 
 **Ghi chú diễn giả học thuật**
 
