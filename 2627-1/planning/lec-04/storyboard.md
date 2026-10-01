@@ -88,7 +88,7 @@ Bài học xét ba yêu cầu trên dữ liệu liên kết: thiên lệch đi�
 6. So sánh các phương pháp xếp hạng.
 7. Bài tập.
 
-Mục tiêu: tính PageRank theo chủ đề, TrustRank, Spam Mass và điểm HITS; giải thích tác động của cụm liên kết rác; chọn phương pháp theo đầu ra cần tạo.
+Mục tiêu: tính PageRank theo chủ đề, TrustRank, Spam Mass và điểm HITS; giải thích tác động của cụm thao túng liên kết; chọn phương pháp theo đầu ra cần tạo.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Bảy mục chia hai cột 55%–45%, lần lượt 1–4 và 5–7; một dòng mục tiêu ở chân trang nội dung nêu đối tượng tính, cơ chế cần giải thích và tiêu chí chọn. Dùng thành phần mục lục chung.
@@ -110,7 +110,7 @@ Mục tiêu: tính PageRank theo chủ đề, TrustRank, Spam Mass và điểm H
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-PageRank theo chủ đề giữ phép lặp của Bài 03 và chỉ đổi nơi đến của bước nhảy ngẫu nhiên: bước nhảy tới các trang đại diện một chủ đề thay vì mọi trang. Mô hình cụm liên kết rác cho thấy một cấu trúc liên kết có thể khuếch đại điểm của trang đích. TrustRank dùng cùng phép lặp, với tập trang tin cậy làm nơi đến của bước nhảy; Spam Mass so sánh TrustRank với PageRank để chọn trang cần rà soát. HITS gán mỗi trang hai điểm, trung tâm và uy tín, thay cho một điểm duy nhất. Phần bài tập áp dụng các phương trình này trên dữ liệu của giáo trình.
+PageRank theo chủ đề giữ phép lặp của Bài 03 và chỉ đổi nơi đến của bước nhảy ngẫu nhiên: bước nhảy tới các trang đại diện một chủ đề thay vì mọi trang. Mô hình cụm thao túng liên kết cho thấy một cấu trúc liên kết có thể khuếch đại điểm của trang đích. TrustRank dùng cùng phép lặp, với tập trang tin cậy làm nơi đến của bước nhảy; Spam Mass so sánh TrustRank với PageRank để chọn trang cần rà soát. HITS gán mỗi trang hai điểm, trung tâm và uy tín, thay cho một điểm duy nhất. Phần bài tập áp dụng các phương trình này trên dữ liệu của giáo trình.
 <!-- public-notes:end -->
 
 **Quyết định duyệt trang 01/10/2026:** sửa. Giữ tiêu đề và bảy mục; thay dòng mục tiêu trừu tượng bằng động từ gắn với từng phương pháp; ghi chú nêu mạch bốn phương pháp và nối “bước nhảy ngẫu nhiên” của Bài 03.
