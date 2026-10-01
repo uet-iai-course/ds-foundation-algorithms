@@ -285,7 +285,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính ba cách đo trên cùng hai điểm.
 - **Thông điệp:** Cách định nghĩa khoảng cách quyết định ý nghĩa của gần nhau.
-- **Nội dung công khai dự kiến:** Phân dải dùng MinHash nên chỉ phục vụ Jaccard trên tập. Với vector hay chuỗi, cần một độ đo khác và một phép băm hợp với độ đo ấy. [Hình: Hai điểm (2,7) và (6,4), chênh lệch tọa độ 4 và 3; ba khoảng cách tương ứng là 7, 5, 4.] $x=(2,7),\quad y=(6,4)$ $L_1=4+3=7$ $L_2=\sqrt{4^2+3^2}=5$ $L_\infty=\max(4,3)=4$ Cùng hai điểm, ba độ đo cho ba giá trị: “gần” phụ thuộc độ đo đã chọn.
+- **Nội dung công khai dự kiến:** Phân dải dùng MinHash nên chỉ phục vụ Jaccard trên tập. Với vector hay chuỗi, cần một độ đo khác và một phép băm hợp với độ đo ấy. [Hình: Hai điểm (2,7) và (6,4), chênh lệch tọa độ 4 và 3; đoạn thẳng nối hai điểm dài L₂ = 5.] $x=(2,7),\quad y=(6,4)$ $L_1=4+3=7$ $L_2=\sqrt{4^2+3^2}=5$ $L_\infty=\max(4,3)=4$ Cùng hai điểm, ba độ đo cho ba giá trị; ngưỡng “gần” chỉ có nghĩa khi đã chọn độ đo.
 - **Đầu vào và giả thiết:** Tọa độ, hình học phẳng; Jaccard đã đo hai tập.
 - **Dữ kiện, hình thức hóa và vết chạy:** V05:$\sqrt{4^2+3^2}=5$, $4+3=7$, $\max(4,3)=4$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hình tọa độ trái 60% giữ tỷ lệ, trục $x_1,x_2$; phải 40% ba phép tính cùng thứ tự. Năm 2 đã có hình học, cần thấy cùng dữ liệu cho ba quy tắc; định nghĩa tổng quát sang trang sau.
@@ -303,7 +303,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5; không áp định nghĩa chuẩn $q<1$; $D$ số chiều, không là khoảng cách.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Khung định nghĩa ở trên 60%; dòng họ chuẩn và V05 nhãn 5/7/4 ở dưới 40%. Năm 2 chuyển số cụ thể sang miền và ký hiệu; chứng minh Minkowski không nằm tuyến chính.
 - **Kết nối vào–ra:** Ba phép đo cụ thể→tiên đề; Jaccard có khoảng cách tương ứng cho tập.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Không âm là miền giá trị của $d$; điều kiện bằng 0 tách điểm; đối xứng không phụ thuộc thứ tự cặp; bất đẳng thức tam giác chặn đường trực tiếp bằng đường qua điểm thứ ba. Tuyến bài dùng $q=1,2,\infty$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** $d$ nhận giá trị không âm; điều kiện bằng 0 tách điểm; đối xứng không phụ thuộc thứ tự cặp; bất đẳng thức tam giác chặn đường trực tiếp bằng đường qua điểm thứ ba. Với $q\ge1$, bất đẳng thức tam giác của $\|\cdot\|_q$ là bất đẳng thức Minkowski. Tuyến bài dùng $q=1,2,\infty$.
 - **Nguồn:** B §3.5.1–2 tr.97–98; bổ sung $q\ge1$ để sửa phát biểu quá rộng của nguồn.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 2 phút.
 
@@ -316,7 +316,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** Cặp S1,S4 có SIM=2/3 → d_J=1/3; d_J(A,B)=Pr[h(A)≠h(B)] bằng lấy bù định lý MinHash; cùng h cho ba tập → bao hàm sự kiện → chặn hợp → tam giác.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Một chuỗi suy luận toàn chiều rộng: ví dụ cặp đã học, nhận diện khoảng cách với xác suất khác băm, bao hàm sự kiện, rồi cận tam giác. Giữ miền không rỗng và cùng h; không thêm hình trang trí.
 - **Kết nối vào–ra:** Khái niệm metric→mô hình tập đã biết; khoảng cách góc mở miền vector theo hướng.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Nếu $h(A)\ne h(C)$ thì không thể đồng thời $h(A)=h(B)$ và $h(B)=h(C)$. Định lý MinHash cho $\Pr[h(A)=h(B)]=\mathrm{SIM}(A,B)$; lấy bù được $\Pr[h(A)\ne h(B)]=d_J(A,B)$. Cặp $S_1,S_4$ có Jaccard $2/3$ nên khoảng cách $1/3$. Lấy xác suất của bao hàm sự kiện và chặn hợp cho $d_J(A,C)\le d_J(A,B)+d_J(B,C)$. Không cần ba sự kiện độc lập. Các tiên đề còn lại theo định nghĩa giao, hợp trên tập không rỗng.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Nếu $h(A)\ne h(C)$ thì không thể đồng thời $h(A)=h(B)$ và $h(B)=h(C)$. Định lý MinHash cho $\Pr[h(A)=h(B)]=\mathrm{SIM}(A,B)$; lấy bù được $\Pr[h(A)\ne h(B)]=d_J(A,B)$. Cặp $S_1,S_4$ có Jaccard $2/3$ nên khoảng cách $1/3$. Lấy xác suất của bao hàm sự kiện và chặn hợp cho $d_J(A,C)\le d_J(A,B)+d_J(B,C)$. Các tiên đề còn lại theo định nghĩa giao, hợp trên tập không rỗng.
 - **Nguồn:** B §3.5.3 tr.98–99/PDF 27–28; P5; miền tập không rỗng.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 2.5 phút.
 
@@ -324,12 +324,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính góc và nêu miền mà góc là metric.
 - **Thông điệp:** Khoảng cách góc phân biệt các hướng, độc lập với độ dài vector.
-- **Nội dung công khai dự kiến:** Với $x,y\ne0$: $\theta(x,y)=\arccos\dfrac{x\cdot y}{\|x\|_2\|y\|_2}\in[0,\pi]$. Ví dụ $x=(1,2,-1)$, $y=(2,1,1)$. Tích và chuẩn $x\cdot y=3$ $\|x\|_2=\|y\|_2=\sqrt6$ Góc $\cos\theta=\frac{3}{6}=\frac12$ $\theta=\pi/3=60^\circ$ Góc là khoảng cách trên các hướng, hoặc các vector đơn vị. $x$ và $2x$ cùng hướng; $1-\cos\theta$ khác $\theta$. Vector 0 không có hướng.
+- **Nội dung công khai dự kiến:** Với $x,y\ne0$: $\theta(x,y)=\arccos\dfrac{x\cdot y}{\|x\|_2\|y\|_2}\in[0,\pi]$. Ví dụ $x=(1,2,-1)$, $y=(2,1,1)$. Tích và chuẩn $x\cdot y=3$ $\|x\|_2=\|y\|_2=\sqrt6$ Góc $\cos\theta=\frac{3}{6}=\frac12$ $\theta=\pi/3=60^\circ$ Góc là khoảng cách trên các hướng, hoặc các vector đơn vị. $x$ và $2x$ cùng hướng; vector 0 không có hướng. Khoảng cách góc ở ví dụ là $\pi/3$, không là $1-\cos\theta=1/2$.
 - **Đầu vào và giả thiết:** Tích vô hướng, chuẩn Euclid, và điều kiện d=0.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5, V06; góc radian $\theta=\arccos((x\cdot y)/(\|x\|\|y\|))$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 50% hai vector chuẩn hóa thành hướng; phải 50% tích/chuẩn/góc ba dòng. Năm 2 phân biệt cosin và góc bằng đơn vị; nhận xét $1-\cos\theta$ ở notes.
 - **Kết nối vào–ra:** Jaccard đo tập→góc đo hướng; chuỗi dùng phép thay đổi rời rạc.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Cosin là độ tương đồng bằng $1/2$ trong ví dụ; khoảng cách góc bằng $\pi/3$. Hai bội dương có góc 0 nên chỉ xem góc là metric sau đồng nhất hướng hoặc chuẩn hóa. Hai vector đối hướng có góc $\pi$. Phép băm dấu phần 4 sử dụng đúng góc này.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Cosin là độ tương đồng bằng $1/2$ trong ví dụ; khoảng cách góc bằng $\pi/3$. Hai bội dương có góc 0 nên chỉ xem góc là metric sau đồng nhất hướng hoặc chuẩn hóa. Hai vector đối hướng có góc $\pi$. Bất đẳng thức tam giác: trên mặt cầu đơn vị, góc là độ dài cung lớn ngắn nhất nối hai hướng, và đường đi qua hướng thứ ba không ngắn hơn cung ấy. Phép băm dấu phần 4 sử dụng đúng góc này.
 - **Nguồn:** B §3.5.4/Ex 3.14 tr.99/PDF 28; S4 PDF 45/trang in 48; đối chiếu thuật ngữ.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 2 phút.
 
@@ -342,7 +342,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5, V07; $5+6-8=3$; dãy con $acde$. Không có phép thay thế một bước.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Vết bốn trạng thái trên 70% ngang, mỗi mũi tên ghi thao tác; công thức dưới 30%. Năm 2 thấy dữ liệu còn lại trước công thức; proof hai cận và định nghĩa LCS đầy đủ trong notes.
 - **Kết nối vào–ra:** Góc đo thay hướng→chuỗi đo thao tác sửa; Hamming sẽ giữ cố định độ dài/vị trí.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Một phương án tối ưu giữ một dãy con chung và xóa/chèn các ký tự khác. Giữ $L$ ký tự cần $|x|-L$ lần xóa và $|y|-L$ lần chèn. Ngược lại, các ký tự không bị xóa tạo thành dãy con chung nên không giữ quá $L$. Đây là lập luận giá trị tối ưu, không cung cấp thuật toán quy hoạch động tính LCS.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Một phương án tối ưu giữ một dãy con chung và xóa/chèn các ký tự khác. Giữ $L$ ký tự cần $|x|-L$ lần xóa và $|y|-L$ lần chèn. Ngược lại, các ký tự không bị xóa tạo thành dãy con chung nên không giữ quá $L$. Đây là lập luận giá trị tối ưu, không cung cấp thuật toán quy hoạch động tính dãy con chung dài nhất (longest common subsequence, LCS).
 - **Nguồn:** B §3.5.5/Ex 3.15–16 tr.100/PDF 29.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 2 phút.
 
@@ -350,12 +350,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Đếm tọa độ khác nhau trên vector cùng độ dài.
 - **Thông điệp:** Hamming giữ vị trí và đếm số bất đồng.
-- **Nội dung công khai dự kiến:** Chỉ số12345 x10101 y11110 So sánhTrùngKhácTrùngKhácKhác $d_H(x,y)=\sum_{i=1}^D\mathbf1[x_i\ne y_i]=3$ $\mathbf1[E]=1$ nếu $E$ đúng, bằng 0 nếu $E$ sai. Hamming đếm vị trí khác trên hai vector cùng chiều.
+- **Nội dung công khai dự kiến:** Chỉ số 1 2 3 4 5 x 1 0 1 0 1 y 1 1 1 1 0 So sánh Trùng Khác Trùng Khác Khác $d_H(x,y)=\sum_{i=1}^D\mathbf1[x_i\ne y_i]=3$ $\mathbf1[E]=1$ nếu $E$ đúng, bằng 0 nếu $E$ sai. Hamming đếm vị trí khác trên hai vector cùng chiều.
 - **Đầu vào và giả thiết:** Vector rời rạc cùng chiều; khác với phép chèn/xóa.
 - **Dữ kiện, hình thức hóa và vết chạy:** V08, HT5; hai vị trí trùng 1,3 dùng lại trong s04-01/02.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai hàng bit thẳng cột, nhãn “trùng/khác” dưới từng vị trí; công thức dưới. Năm 2 đếm trực tiếp trước dùng mẫu số $D$; notes chứng minh tam giác theo tọa độ.
 - **Kết nối vào–ra:** Chuỗi có thể đổi chiều→vector cố định chiều; các độ đo đã đủ để diễn đạt họ gần–xa.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Nếu $x_i\ne z_i$ thì ít nhất một trong $x_i\ne y_i$ hoặc $y_i\ne z_i$ đúng. Cộng theo tọa độ cho bất đẳng thức tam giác. Khi xây họ chọn tọa độ, giả thiết $D>0$ cần để có phân phối đều.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Nếu $x_i\ne z_i$ thì ít nhất một trong $x_i\ne y_i$ hoặc $y_i\ne z_i$ đúng. Cộng theo tọa độ cho bất đẳng thức tam giác.
 - **Nguồn:** B §3.5.6/Ex 3.17 tr.101/PDF 30.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 1.5 phút.
 
@@ -363,7 +363,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Diễn giải đầy đủ bốn tham số và nguồn xác suất.
 - **Thông điệp:** Họ LSH khái quát MinHash: với hàm chọn ngẫu nhiên, cặp gần trùng với xác suất ít nhất p1, cặp xa không quá p2.
-- **Nội dung công khai dự kiến:** Khái quát MinHash: chọn ngẫu nhiên một hàm $h$ từ họ $\mathcal H$; cặp gần dễ trùng, cặp xa khó trùng. Với $0\le d_1<d_2$ và $0\le p_2<p_1\le1$, họ $\mathcal H$ là $(d_1,d_2,p_1,p_2)$-nhạy cảm nếu với mọi cặp $x,y$: [Hình: Cặp gần có xác suất trùng ít nhất p1, cặp xa có xác suất trùng không quá p2, miền giữa không được bảo đảm.] Xác suất lấy theo cách chọn $h$, cùng $h$ cho hai đối tượng; miền giữa không được bảo đảm.
+- **Nội dung công khai dự kiến:** Khái quát MinHash: chọn ngẫu nhiên một hàm $h$ từ họ $\mathcal H$; cặp gần dễ trùng, cặp xa khó trùng. Với $0\le d_1<d_2$ và $0\le p_2<p_1\le1$, họ $\mathcal H$ là $(d_1,d_2,p_1,p_2)$-nhạy cảm nếu với mọi cặp $x,y$, xác suất trùng $P=\Pr[h(x)=h(y)]$ thỏa: $d(x,y)\le d_1\ \Rightarrow\ P\ge p_1$ $d(x,y)\ge d_2\ \Rightarrow\ P\le p_2$ [Hình: Cặp gần có xác suất trùng ít nhất p1, cặp xa có xác suất trùng không quá p2, miền giữa không được bảo đảm.] Xác suất lấy theo cách chọn $h$, cùng $h$ cho hai đối tượng; miền giữa không được bảo đảm.
 - **Đầu vào và giả thiết:** Metric, sự kiện va chạm MinHash đã biết.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT6; cùng hàm $h$ áp cho hai đối tượng; không lấy xác suất trên “mỗi hàm cố định”.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trục khoảng cách chia gần/giữa/xa chiếm 45% trên; hai bất đẳng thức lớn dưới. Năm 2 cần liên kết hướng≤với≥xác suất; không vẽ đường cong cụ thể cho mọi họ.
@@ -381,7 +381,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** B Ex 3.18; phân biệt bộ tham số này với V09(.2, .6, .8, .4) sẽ dùng cho ghép.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng 2 hàng miền khoảng cách/phép trừ/cận xác suất; dòng bộ 4 dưới. Năm 2 thực hiện $1-d$ để thấy đảo hướng bất đẳng thức; không thêm đồ thị trùng chức năng.
 - **Kết nối vào–ra:** Định nghĩa→một họ có thật; phép ghép sẽ thay cận xác suất của họ cơ sở.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Từ tính đơn điệu giảm của $1-d$, miền gần cho cận dưới còn miền xa cho cận trên. Hai ngưỡng không quyết định hành vi trong miền giữa. Họ này sử dụng kết quả MinHash, không phải một chứng minh mới của định lý MinHash.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Từ tính đơn điệu giảm của $1-d$, miền gần cho cận dưới còn miền xa cho cận trên. Hai ngưỡng không quyết định hành vi trong miền giữa. Bộ tham số suy trực tiếp từ định lý MinHash.
 - **Nguồn:** B §3.6.2/Ex 3.18 tr.104–105/PDF 33–34.
 - **Ánh xạ ghi chú:** `N06`. **Thời lượng:** 2 phút.
 
@@ -389,7 +389,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Suy biến đổi xác suất AND và các cận của họ.
 - **Thông điệp:** Ghép đồng thời r hàm độc lập biến họ (d1,d2,p1,p2) thành (d1,d2,p1^r,p2^r): giảm mạnh xác suất của cặp xa nhưng cũng giảm cặp gần.
-- **Nội dung công khai dự kiến:** Một phép thử chỉ tách $p_1$ và $p_2$ một khoảng nhỏ; phép ghép khuếch đại khoảng cách này. Trùng một dải chính là ghép đồng thời $r$ MinHash. Phép ghép đồng thời (AND): chọn $r$ hàm độc lập từ họ; nhận cặp khi cả $r$ hàm trùng. $g(x)=(h_1(x),\ldots,h_r(x)),\qquad\Pr[g(x)=g(y)]=p^r$ Họ mới là $(d_1,d_2,p_1^r,p_2^r)$-nhạy cảm. $p$ $p^4$ 0,8 0,4096 0,4 0,0256 Cặp xa hiếm trùng hơn nhiều, nhưng cặp gần cũng giảm từ 0,8 xuống khoảng 0,41.
+- **Nội dung công khai dự kiến:** Một phép thử chỉ tách $p_1$ và $p_2$ một độ chênh nhỏ; phép ghép khuếch đại độ chênh này. Trùng một dải tương ứng với ghép đồng thời $r$ MinHash. Phép ghép đồng thời (AND): chọn $r$ hàm độc lập từ họ; nhận cặp khi cả $r$ hàm trùng. Với $p=\Pr[h(x)=h(y)]$ của một cặp cố định: $g(x)=(h_1(x),\ldots,h_r(x)),\qquad\Pr[g(x)=g(y)]=p^r$ Họ mới là $(d_1,d_2,p_1^r,p_2^r)$-nhạy cảm. $p$ $p^4$ 0,8 0,4096 0,4 0,0256 Cặp xa hiếm trùng hơn nhiều, nhưng cặp gần cũng giảm từ 0,8 xuống khoảng 0,41.
 - **Đầu vào và giả thiết:** Dải nhiều hàng V03, họ 4 tham số, độc lập.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT7; $p$ va chạm cặp cố định;$r=4,p=.8$ cho.4096;$p=.4$ cho.0256.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Nhóm $r$ phép thử trái 55%, ngoặc tuple; phải 45% phép nhân và cận. Năm 2 đối chiếu đúng cấu trúc một dải trước khái quát; chi tiết tính đơn điệu ở notes.
@@ -402,12 +402,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Suy biến đổi xác suất OR bằng biến cố bù.
 - **Thông điệp:** Ghép ít nhất một b hàm biến họ (d1,d2,p1,p2) thành (d1,d2,1−(1−p1)^b,1−(1−p2)^b): tăng cả hai xác suất; đặt sau AND để kéo cặp gần lên.
-- **Nội dung công khai dự kiến:** AND làm giảm cả hai xác suất. Phép ghép ít nhất một (OR) chọn $b$ hàm độc lập và nhận cặp khi ít nhất một hàm trùng; hợp các dải chính là OR. Không hàm nào trùng với xác suất $(1-p)^b$; lấy biến cố bù, cặp được nhận với xác suất $1-(1-p)^b$ Họ mới là $(d_1,d_2,1-(1-p_1)^b,1-(1-p_2)^b)$-nhạy cảm. $p$ $1-(1-p)^4$ 0,8 0,9984 0,4 0,8704 OR tăng cả hai xác suất; đặt sau AND, nó kéo xác suất của cặp gần lên lại.
+- **Nội dung công khai dự kiến:** AND làm giảm cả hai xác suất. Phép ghép ít nhất một (OR) chọn $b$ hàm độc lập và nhận cặp khi ít nhất một hàm trùng; hợp các dải tương ứng với OR. Không hàm nào trùng với xác suất $(1-p)^b$; lấy biến cố bù, cặp được nhận với xác suất $1-(1-p)^b$ Họ mới là $(d_1,d_2,1-(1-p_1)^b,1-(1-p_2)^b)$-nhạy cảm. $p$ $1-(1-p)^4$ 0,8 0,9984 0,4 0,8704 OR tăng cả hai xác suất; đặt sau AND, nó tăng lại cận gần.
 - **Đầu vào và giả thiết:** AND và phép bù; hợp dải V02.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT7;$b=4,p=.8$ cho.9984;$p=.4$ cho.8704.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** $b$ bảng trái 55% mũi tên vào phép hợp; phải 45% sự kiện không trùng và bù. Năm 2 gắn OR với hợp ứng viên đã chạy; không diễn đạt OR thành bằng một tuple.
 - **Kết nối vào–ra:** AND lọc chặt→OR bù cơ hội; hai thứ tự ghép cho hành vi khác nhau.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Do các hàm độc lập, xác suất không hàm nào trùng là $(1-p)^b$; lấy biến cố bù cho OR. Biểu thức $1-(1-p)^b$ tăng theo $p$ nên biến đổi được hai cận của họ. Với $p=0{,}4$, OR 4 cho $1-0{,}6^4=0{,}8704$: cặp xa cũng dễ được nhận hơn, nên OR thường đặt sau AND. Quan hệ “trùng ở ít nhất một bảng” có thể không bắc cầu, nên nói chung không thay được bằng phép bằng của một mã đơn.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Độc lập là điều kiện để nhân $b$ xác suất $1-p$. Biểu thức $1-(1-p)^b$ tăng theo $p$ nên biến đổi được hai cận của họ. Với $p=0{,}4$, OR 4 cho $1-0{,}6^4=0{,}8704$: cặp xa cũng dễ được nhận hơn, nên OR thường đặt sau AND. Quan hệ “trùng ở ít nhất một bảng” có thể không bắc cầu, nên nói chung không thay được bằng phép bằng của một mã đơn.
 - **Nguồn:** B §3.6.3 tr.106–107; S4 PDF 27/trang in 30.
 - **Ánh xạ ghi chú:** `N07`. **Thời lượng:** 2.5 phút.
 
@@ -415,12 +415,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** So sánh AND–OR với OR–AND trên cùng 16 phép thử.
 - **Thông điệp:** Cùng số hàm cơ sở không cho cùng đánh đổi.
-- **Nội dung công khai dự kiến:** Họ $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm, cùng 16 phép thử cơ sở độc lập. Thứ tự Biến đổi xác suất Cận gần Cận xa AND 4 → OR 4 $F(p)=1-(1-p^4)^4$ 0,878497 0,098535 OR 4 → AND 4 $G(p)=[1-(1-p)^4]^4$ 0,993615 0,573952 AND rồi OR mở rộng khoảng cách hai cận từ $0{,}8$ và $0{,}4$ thành khoảng $0{,}88$ và $0{,}10$; OR rồi AND giữ cặp gần tốt hơn nhưng nhận cặp xa tới $0{,}57$. Các số là cận biến đổi từ $p_1,p_2$, không là xác suất chính xác của mọi cặp.
+- **Nội dung công khai dự kiến:** Họ $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm, cùng 16 phép thử cơ sở độc lập. Thứ tự Biến đổi xác suất Cận gần Cận xa AND 4 → OR 4 $F(p)=1-(1-p^4)^4$ 0,878497 0,098535 OR 4 → AND 4 $G(p)=[1-(1-p)^4]^4$ 0,993615 0,573952 AND rồi OR đưa hai cận $0{,}8$ và $0{,}4$ thành $0{,}88$ và $0{,}10$, độ chênh tăng; OR rồi AND giữ cặp gần tốt hơn nhưng nhận cặp xa tới $0{,}57$. Các số là cận biến đổi từ $p_1,p_2$, không là xác suất chính xác của mọi cặp.
 - **Đầu vào và giả thiết:** HT7 và phép thế xác suất.
 - **Dữ kiện, hình thức hóa và vết chạy:** V09; trung gian $p^4$=.4096/.0256; OR 4=.9984/.8704; dùng số chưa làm tròn.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai cột 50/50 cùng hàng: cấu trúc→công thức→cận gần/xa. Năm 2 so cùng tiêu chí và giữ 16 hàm; proof đã có nên mặt trang chỉ so phép ghép và giá trị.
 - **Kết nối vào–ra:** Hai quy tắc→lựa chọn cấu trúc; cấu trúc cần được hiện thực qua bảng và có chi phí.
-- **Diễn giải học thuật, lời giải và tiêu chí:** AND–OR cho cận xa nhỏ hơn nhưng cận gần cũng nhỏ hơn. OR–AND giữ cặp gần nhiều hơn đồng thời nhận cặp xa nhiều hơn. Hai kết luận cùng được đọc từ bảng; không có thứ tự tốt hơn vô điều kiện theo cả hai loại lỗi. Các số trong bảng là cận dưới gần và cận trên xa được biến đổi từ $p_1,p_2$; chỉ một cặp có xác suất cơ sở đúng bằng $p$ mới có xác suất ghép đúng bằng $F(p)$ hoặc $G(p)$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** AND–OR cho cận xa nhỏ hơn nhưng cận gần cũng nhỏ hơn. OR–AND giữ cặp gần nhiều hơn đồng thời nhận cặp xa nhiều hơn. Hai kết luận cùng được đọc từ bảng; không có thứ tự tốt hơn vô điều kiện theo cả hai loại lỗi. Vì $F$ và $G$ tăng trên $[0,1]$, chúng biến cận dưới của cặp gần thành cận dưới và cận trên của cặp xa thành cận trên; chỉ một cặp có xác suất cơ sở đúng bằng $p$ mới có xác suất ghép đúng bằng $F(p)$ hoặc $G(p)$.
 - **Nguồn:** B Ex 3.19–20 tr.106–108/PDF 35–37.
 - **Ánh xạ ghi chú:** `N07`. **Thời lượng:** 3 phút.
 
@@ -428,7 +428,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Nối biểu thức logic với lưu trữ và số phép thử.
 - **Thông điệp:** Với AND rồi OR, mỗi nhóm AND tạo khóa tuple và bước OR hợp các tập cặp.
-- **Nội dung công khai dự kiến:** [Hình: Mười sáu phép thử chia bốn nhóm AND; phép OR hợp cặp của bốn nhóm.] AND $r$ rồi OR $b$ chính là phân dải: tính $br$ giá trị → tạo $b$ tuple → tra $b$ bảng → hợp cặp. Số phép thử đo chi phí tính hàm; kích thước thùng quyết định số lượt phát cặp.
+- **Nội dung công khai dự kiến:** [Hình: Mười sáu phép thử chia bốn nhóm AND; phép OR hợp cặp của bốn nhóm.] AND $r$ rồi OR $b$ tương ứng với phân dải: tính $br$ giá trị → tạo $b$ tuple → tra $b$ bảng → hợp cặp. Với họ MinHash, $p=s$ nên $F(s)=1-(1-s^4)^4=P_{4,4}(s)$, đường cong S với $b=r=4$. Số phép thử đo chi phí tính hàm; kích thước thùng quyết định số lượt phát cặp.
 - **Đầu vào và giả thiết:** Giả mã phân dải và hai phép ghép.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT7; sơ đồ thực hiện AND_r rồi OR_b. Với V09, đây là AND 4 rồi OR 4. Hai thứ tự đều dùng 16 giá trị, nhưng OR rồi AND phải hợp cặp trong từng nhóm OR rồi giao các tập cặp của những nhóm OR; chi phí phát và kiểm cặp vẫn phụ thuộc Q, K.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ 4 bước ngang trên; bảng nhỏ thao tác/số lượng dưới. Năm 2 chuyển ký hiệu xác suất thành thao tác lập trình quen; không tạo bảo đảm tốc độ từ số hàm.
@@ -441,12 +441,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Đọc cận họ, phân biệt miền và tính ghép.
 - **Thông điệp:** Vận dụng phép ghép để mở rộng khoảng cách hai cận, và tính hai độ đo mới trên dữ kiện nhỏ.
-- **Nội dung công khai dự kiến:** Câu hỏi: Áp dụng AND 2 rồi OR 2 cho họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$. Tính hai cận mới và so khoảng cách giữa hai cận trước và sau. Tính khoảng cách chỉnh sửa (chèn, xóa) giữa `abc` và `bca`. Tính góc giữa $(1,1,0)$ và $(1,0,0)$.
+- **Nội dung công khai dự kiến:** Câu hỏi: Áp dụng AND 2 rồi OR 2 cho họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$. Tính hai cận mới và so độ chênh $p_1-p_2$ trước và sau. Tính khoảng cách chỉnh sửa (chèn, xóa) giữa `abc` và `bca`. Tính góc giữa $(1,1,0)$ và $(1,0,0)$.
 - **Đầu vào và giả thiết:** HT5–HT7; bộ tham số Ex 3.18.
 - **Dữ kiện, hình thức hóa và vết chạy:** Đáp án: $(0{,}3;\ 0{,}6;\ 0{,}7399;\ 0{,}2944)$; khoảng cách chỉnh sửa 2; góc $45^\circ$. Câu cũ trùng s03-07/08, s03-04 và Bài 3.6.1(a) đã thay.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Một khối gồm 3 nhiệm vụ độc lập, mỗi yêu cầu tối đa 2 dòng. Năm 2 kiểm cùng ba điều kiện vừa xây; lời giải và tiêu chí trong notes, không thêm ví dụ ngoài nguồn.
 - **Kết nối vào–ra:** Cơ chế ghép→tự kiểm; các họ Hamming/góc/Euclid cung cấp phép thử cơ sở cụ thể.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: AND 2 cho $0{,}49$ và $0{,}16$; OR 2 cho $1-0{,}51^2=0{,}7399$ và $1-0{,}84^2=0{,}2944$. Họ mới là $(0{,}3;\ 0{,}6;\ 0{,}7399;\ 0{,}2944)$-nhạy cảm; khoảng cách hai cận tăng từ $0{,}3$ lên khoảng $0{,}45$, với điều kiện các hàm độc lập. Câu 2: dãy con chung dài nhất là `bc`, $L=2$, nên khoảng cách là $3+3-2\cdot2=2$ (xóa `a` đầu, chèn `a` cuối). Câu 3: tích vô hướng 1, hai chuẩn $\sqrt2$ và 1, nên $\cos\theta=1/\sqrt2$ và $\theta=\pi/4=45^\circ$. Tiêu chí: ghép đúng thứ tự và nêu độc lập, xác định đúng dãy con chung, tính đúng chuẩn.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: AND 2 cho $0{,}49$ và $0{,}16$; OR 2 cho $1-0{,}51^2=0{,}7399$ và $1-0{,}84^2=0{,}2944$. Họ mới là $(0{,}3;\ 0{,}6;\ 0{,}7399;\ 0{,}2944)$-nhạy cảm; độ chênh $p_1-p_2$ tăng từ $0{,}3$ lên $0{,}4455$, với điều kiện các hàm độc lập. Câu 2: dãy con chung dài nhất là `bc`, $L=2$, nên khoảng cách là $3+3-2\cdot2=2$ (xóa `a` đầu, chèn `a` cuối). Câu 3: tích vô hướng 1, hai chuẩn $\sqrt2$ và 1, nên $\cos\theta=1/\sqrt2$ và $\theta=\pi/4=45^\circ$. Tiêu chí: ghép đúng thứ tự và nêu độc lập, xác định đúng dãy con chung, tính đúng chuẩn.
 - **Nguồn:** B Ex 3.18 tr.105, Bài 3.6.1(a) tr.108, §3.5.4 tr.99; kiểm tra trực tiếp định nghĩa.
 - **Ánh xạ ghi chú:** `N05,N06,N07`. **Thời lượng:** 3 phút.
 

@@ -59,7 +59,7 @@ def main():
     svg('xac-suat-phan-dai.svg',w,h,'Xác suất tạo ứng viên của hai cấu hình','Hai đường P(s)=1−(1−s^r)^b với b,r bằng 20,5 và 10,10. Cùng độ dài chữ ký 100.',b)
 
     b=box(40,60,280,90,'Gần: d ≤ d₁')+box(355,60,280,90,'d₁ < d < d₂','#f8fafc','#788597')+box(670,60,280,90,'Xa: d ≥ d₂','#fff4e9',ORANGE)
-    b+=text(180,205,'P(trùng) ≥ p₁')+text(495,205,'Không có cận chung')+text(810,205,'P(trùng) ≤ p₂')
+    b+=text(180,205,'Pr[h(x)=h(y)] ≥ p₁')+text(495,205,'Không có cận chung')+text(810,205,'Pr[h(x)=h(y)] ≤ p₂')
     b+=line(40,265,950,265,arrow=True)+text(930,310,'Khoảng cách d',26,anchor='end')
     svg('mien-gan-xa.svg',1000,335,'Ba miền của họ nhạy cảm','Miền gần có cận dưới p1, miền xa có cận trên p2, miền giữa không có bảo đảm từ định nghĩa.',b)
 
@@ -70,7 +70,7 @@ def main():
         b+=line(425,y+22,480,y+22,arrow=True)+box(492,y,150,45,'AND 4')
         b+=line(651,y+22,722,148,arrow=True)
     b+=box(736,125,180,65,'OR 4','#fff4e9',ORANGE)
-    b+=text(330,342,'Mỗi hàng tạo một tuple',28)+text(800,250,'Hợp cặp',28)
+    b+=text(330,342,'Mỗi dải tạo một tuple',28)+text(800,250,'Hợp cặp',28)
     svg('ghep-and-or.svg',970,370,'AND bốn phép thử rồi OR bốn nhóm','Mười sáu hàm chia bốn nhóm. Mỗi nhóm AND bốn hàm thành tuple; hợp cặp của bốn nhóm thực hiện OR.',b)
 
     # Đồ thị tọa độ tỉ lệ đều: (2,7), (6,4), độ lệch 4 và 3.

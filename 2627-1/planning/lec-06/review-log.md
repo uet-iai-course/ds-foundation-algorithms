@@ -379,3 +379,25 @@ Cách làm như lượt Bài 05 (01/10/2026): điều phối viên (phiên Claud
 | lec06-s04-01 | Mở phần 4: họ băm chọn tọa độ $h_I(x)=x_I$ cho Hamming; trên $x,y$ của s03-06 có $D-d_H=2$ chỉ số cùng giá trị băm. | sửa | Tiêu đề “Băm bằng một tọa độ” → “Họ băm chọn tọa độ”. Câu dẫn cũ (tính metric chưa bảo đảm họ LSH) chuyển vào ghi chú làm câu nối với phần 3; câu dẫn mới nêu họ cho Hamming và giả thiết $D>0$. Công thức hàm đặt trước bảng; hàng bảng ghi $h_I(x)$, $h_I(y)$, “Cùng giá trị băm”. Bỏ hai thẻ $I=1$, $I=2$ lặp lại bảng. Câu chốt đếm $D-d_H(x,y)=2$, dẫn trực tiếp tới xác suất ở s04-02. | Ghi chú bài giảng mục “Chọn tọa độ cho Hamming” đã có cùng thứ tự và ví dụ; không đổi. |
 | lec06-s04-02 | Xác suất va chạm $1-d_H/D$ chứng minh bằng đếm chỉ số thuận lợi; họ chọn tọa độ là $(d_1,d_2,1-d_1/D,1-d_2/D)$-nhạy cảm. | sửa | Tiêu đề “Xác suất va chạm Hamming” → “Tính nhạy cảm của họ chọn tọa độ”. Câu dẫn nêu lý lẽ đếm thay cho dòng giả thiết rời. Thêm bộ tham số nhạy cảm (MMDS §3.7.1) để nối trực tiếp với định nghĩa s03-07; trước đó trang chỉ có xác suất mà không kết luận họ thuộc loại nào. Ghi chú bổ sung vì sao xác suất giảm theo $d_H$ cho hai điều kiện. | Ghi chú bài giảng mục “Chọn tọa độ cho Hamming” thêm câu về bộ tham số nhạy cảm. |
 | lec06-s04-03 | Hàm băm dấu $h_v(x)=\operatorname{sign}(v\cdot x)$: phía của siêu phẳng qua gốc chứa $x$; ví dụ $v_1$ cho $x,y$ cùng dấu. | sửa | Tiêu đề “Dấu của tích vô hướng” → “Hàm băm dấu theo siêu phẳng”. Định nghĩa từ cuối trang lên đầu, kèm câu dẫn về siêu phẳng qua gốc và pháp tuyến. Kết luận ví dụ viết bằng giá trị băm. Thêm câu chốt: giá trị băm chỉ phụ thuộc hướng, phù hợp khoảng cách góc; lý do (nhân với $c>0$) ở ghi chú. Nguồn bổ sung §3.7.2. Phát hiện thứ tự: s04-04 dùng $p_{\ne}=\theta/\pi$ trước khi s04-05 chứng minh; xử lý ở hai trang sau. | Ghi chú bài giảng mục “Siêu phẳng, chữ ký dấu và góc” thêm câu về tính chỉ phụ thuộc hướng. |
+
+### Rà lại phần 3
+
+Tác tử rà chỉ đọc: vai trò chính xác toán–thuật toán, mạch lập luận và tiếng Việt học thuật; kiểu `fork` của công cụ Agent, mô hình Claude Opus 5.5, effort `high`; phạm vi s03-01…13, hai trang biên s02-14 và s04-01, hai mục ghi chú tương ứng, phiếu storyboard. Tác tử tính lại mọi số (L₁/L₂/L∞, $d_J(S_1,S_4)$, góc $\pi/3$, khoảng cách chỉnh sửa, $p^4$, $1-(1-p)^4$, $F$, $G$, ba đáp án s03-13), tất cả đúng, và không có đáp án câu hỏi nào lộ trên trang trước. Một lần chạy đầu dừng mà không có báo cáo; một lần chạy lại bị dừng vì trùng việc với tác tử đã trả báo cáo đầy đủ.
+
+| Mức độ | Trang chiếu | Vấn đề | Quyết định |
+|---|---|---|---|
+| nghiêm trọng | s03-07 | Hai điều kiện của định nghĩa chỉ có trong SVG; nhãn hình “P(trùng)” lệch ký hiệu. | Đã sửa: thêm hai phép kéo theo bằng KaTeX với $P=\Pr[h(x)=h(y)]$, đặt cạnh hình; nhãn SVG (và `generate_svg.py`) đổi thành “Pr[h(x)=h(y)]”. |
+| trung bình | s03-09, s03-11, s03-13; ghi chú (b) | “Khoảng cách” vừa chỉ độ đo $d$, vừa chỉ hiệu $p_1-p_2$. | Đã sửa: dùng “độ chênh $p_1-p_2$”; bỏ “khoảng 0,88”; đáp án ghi $0{,}4455$. |
+| trung bình | s03-11/12 ↔ s02-14 | Không nối $F(p)$ với đường cong S $P_{b,r}(s)$. | Đã sửa: dòng phụ s03-12 “Với họ MinHash, $p=s$ nên $F(s)=P_{4,4}(s)$”. |
+| trung bình | s03-12 (SVG) | Nhãn “Mỗi hàng tạo một tuple” gọi dải là hàng. | Đã sửa: “Mỗi dải tạo một tuple” (SVG và bộ sinh). |
+| trung bình | ghi chú “Ghép đồng thời…” | Bộ tham số thập phân phân tách bằng dấu phẩy. | Đã sửa: $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$. |
+| nhẹ | s03-04 | “$1-\cos\theta$ khác $\theta$” trơ; ghi chú thiếu bất đẳng thức tam giác. | Đã sửa: dòng phụ nêu $\pi/3$ so với $1/2$; ghi chú thêm lập luận cung trên mặt cầu. |
+| nhẹ | s03-09 | $p$ chưa định nghĩa trên mặt trang. | Đã sửa: “Với $p=\Pr[h(x)=h(y)]$ của một cặp cố định”. |
+| nhẹ | s03-03, s03-10, s03-11 | Ghi chú lặp mặt trang. | Đã sửa: bỏ câu lặp; s03-10 nêu vai trò độc lập; s03-11 nêu lý do $F$, $G$ tăng bảo toàn hướng cận. |
+| nhẹ | s03-05 | LCS chưa viết đầy đủ tiếng Việt. | Đã sửa trong ghi chú. |
+| nhẹ | s03-06 | Ghi chú nhắc họ chọn tọa độ trước định nghĩa họ. | Đã sửa: bỏ câu; giả thiết $D>0$ đã có trên mặt trang s04-01. |
+| nhẹ | s03-02 | Câu vụng; thiếu căn cứ tam giác cho $q\ge1$. | Đã sửa: “$d$ nhận giá trị không âm”; thêm bất đẳng thức Minkowski. |
+| nhẹ | s03-01 | Alt nói hình có ba khoảng cách; câu chốt dạng dấu hai chấm. | Đã sửa alt theo hình (chỉ ghi $L_2=5$) và câu chốt. |
+| nhẹ | s03-08/09/10/12 | “chính là” lặp, “kéo… lên lại”, câu tương phản. | Đã sửa: “tương ứng với”, “tăng lại cận gần”; ghi chú s03-08 viết lại. |
+
+Kiểm hiển thị lại s03-01, 04, 07, 09, 11, 12 ở 1600×900 và 390×844: không lỗi KaTeX, không tràn khung 16:9, không lỗi console, không yêu cầu mạng ngoài. Ghi chú bài giảng kiểm ở 1440 màn hình, 390 và in.
