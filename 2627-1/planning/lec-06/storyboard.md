@@ -437,16 +437,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.6.3 tr.105–108; liên hệ thuật toán §3.4.1 đã duyệt.
 - **Ánh xạ ghi chú:** `N07`. **Thời lượng:** 2 phút.
 
-#### lec06-s03-13 — Kiểm tra độ đo và phép ghép
+#### lec06-s03-13 — Câu hỏi về độ đo và phép ghép
 
 - **Mục đích và vai trò:** Đọc cận họ, phân biệt miền và tính ghép.
-- **Thông điệp:** Miền dữ liệu và giả thiết độc lập quyết định kết luận.
-- **Nội dung công khai dự kiến:** Câu hỏi: Với họ $(.3,.6,.7,.4)$, nêu bảo đảm tại $d=.2$,$d=.8$ và điều có thể kết luận tại $d=.5$. Viết xác suất AND 2→OR 3 của cặp có xác suất cơ sở $p$. Hai vector $x$,$2x$ khác 0 có khoảng cách góc bằng bao nhiêu; miền metric phải hiểu thế nào?
+- **Thông điệp:** Vận dụng phép ghép để mở rộng khoảng cách hai cận, và tính hai độ đo mới trên dữ kiện nhỏ.
+- **Nội dung công khai dự kiến:** Câu hỏi: Áp dụng AND 2 rồi OR 2 cho họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$. Tính hai cận mới và so khoảng cách giữa hai cận trước và sau. Tính khoảng cách chỉnh sửa (chèn, xóa) giữa `abc` và `bca`. Tính góc giữa $(1,1,0)$ và $(1,0,0)$.
 - **Đầu vào và giả thiết:** HT5–HT7; bộ tham số Ex 3.18.
-- **Dữ kiện, hình thức hóa và vết chạy:** Tại.2: P≥.7; .8: P≤.4; .5 không có cận từ định nghĩa. $1-(1-p^2)^3$; góc 0 trên cùng hướng.
+- **Dữ kiện, hình thức hóa và vết chạy:** Đáp án: $(0{,}3;\ 0{,}6;\ 0{,}7399;\ 0{,}2944)$; khoảng cách chỉnh sửa 2; góc $45^\circ$. Câu cũ trùng s03-07/08, s03-04 và Bài 3.6.1(a) đã thay.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Một khối gồm 3 nhiệm vụ độc lập, mỗi yêu cầu tối đa 2 dòng. Năm 2 kiểm cùng ba điều kiện vừa xây; lời giải và tiêu chí trong notes, không thêm ví dụ ngoài nguồn.
 - **Kết nối vào–ra:** Cơ chế ghép→tự kiểm; các họ Hamming/góc/Euclid cung cấp phép thử cơ sở cụ thể.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Với $d=.2$, xác suất trùng ít nhất .7; với $d=.8$, xác suất trùng không quá .4. Tại $d=.5$, định nghĩa họ không đưa ra bảo đảm chung. AND 2 rồi OR 3 cho $1-(1-p^2)^3$ khi các phép thử độc lập. Hai vector $x,2x$ có góc 0; chúng biểu diễn cùng một hướng. Góc là metric trên các hướng hoặc trên vector đơn vị. Tiêu chí: giữ đúng hai cận và miền giữa, nêu độc lập, xác định đúng miền metric.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: AND 2 cho $0{,}49$ và $0{,}16$; OR 2 cho $1-0{,}51^2=0{,}7399$ và $1-0{,}84^2=0{,}2944$. Họ mới là $(0{,}3;\ 0{,}6;\ 0{,}7399;\ 0{,}2944)$-nhạy cảm; khoảng cách hai cận tăng từ $0{,}3$ lên khoảng $0{,}45$, với điều kiện các hàm độc lập. Câu 2: dãy con chung dài nhất là `bc`, $L=2$, nên khoảng cách là $3+3-2\cdot2=2$ (xóa `a` đầu, chèn `a` cuối). Câu 3: tích vô hướng 1, hai chuẩn $\sqrt2$ và 1, nên $\cos\theta=1/\sqrt2$ và $\theta=\pi/4=45^\circ$. Tiêu chí: ghép đúng thứ tự và nêu độc lập, xác định đúng dãy con chung, tính đúng chuẩn.
 - **Nguồn:** B Ex 3.18 tr.105, Bài 3.6.1(a) tr.108, §3.5.4 tr.99; kiểm tra trực tiếp định nghĩa.
 - **Ánh xạ ghi chú:** `N05,N06,N07`. **Thời lượng:** 3 phút.
 

@@ -442,11 +442,13 @@ Số hàm cơ sở bằng tích các kích thước nhóm. Tuy nhiên, chi phí 
 
 
 ::: exercise
-Câu hỏi: Viết các biểu thức của bốn chuỗi trong [Bài 3.6.1(a–d)](#nhieu-tang-and-or-bai-3-6-1-a-d). Với bảng 16 phép thử ở trên, giải thích vì sao cùng ngân sách vẫn có hai đánh đổi.
+Câu hỏi: (a) Viết các biểu thức của bốn chuỗi trong [Bài 3.6.1(a–d)](#nhieu-tang-and-or-bai-3-6-1-a-d). Với bảng 16 phép thử ở trên, giải thích vì sao cùng ngân sách vẫn có hai đánh đổi. (b) Áp dụng AND 2 rồi OR 2 cho họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$; tính hai cận mới.
 :::
 
 ::: solution
 Lời giải bốn chuỗi nằm trong khối gập của Bài 3.6.1. Với 16 phép thử, AND 4 rồi OR 4 cho $1-(1-p^4)^4$; OR 4 rồi AND 4 cho $[1-(1-p)^4]^4$. Hai phép biến đổi khác nhau nên biến đổi các cận gần/xa khác nhau. Theo bảng, cấu trúc thứ hai giữ cận gần cao hơn nhưng cũng có cận xa cao hơn.
+
+(b) AND 2 cho $0{,}49$ và $0{,}16$; OR 2 cho $1-0{,}51^2=0{,}7399$ và $1-0{,}84^2=0{,}2944$. Khoảng cách hai cận tăng từ $0{,}3$ lên khoảng $0{,}45$.
 :::
 
 
