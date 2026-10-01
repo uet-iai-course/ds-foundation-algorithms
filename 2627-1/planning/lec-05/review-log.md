@@ -1353,3 +1353,17 @@ Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) t
 | lec05-s06-04 | (nhẹ) Không nhiệm vụ tổng kết nào yêu cầu tính chữ ký (MT5). | sửa | Câu 5: tính thành phần chữ ký của tập hàng $\{0,3\}$ với $(4r+1)\bmod6$ ($\min(1,1)=1$, hai hàng va chạm), rồi xác định hàm có phải hoán vị. Ghi chú, thẻ storyboard, mục 14 của ghi chú tự học đồng bộ. |
 | ghi chú diễn giả s02-03, s03-07, s03-08, s04-02, s05-04, s05-06, s07-03 | (nhẹ) Ký hiệu viết thường. | sửa | Chuyển sang KaTeX; s05-04 bỏ câu đã lên mặt trang. Storyboard chép lại từ HTML. |
 | lec05-s01-05 | (nhẹ) Chữ “cặp” trong `\text{}` của KaTeX. | sửa | Dòng công thức thành $C=10^6\Rightarrow\tbinom C2=499\,999\,500\,000$ (dạng `\tbinom` để không đẩy dòng nguồn ra ngoài khung); “cặp” đã có ở câu dẫn. Giữ “độc lập” trong `\overset` ở s04-05 vì bản render đọc được. |
+
+### Kiểm định cuối lượt duyệt từng trang, 01/10/2026
+
+| Hạng mục | Kết quả |
+|---|---|
+| Cấu trúc | 55 trang (48 giảng, 7 bài tập), bảy phần 9/8/8/7/12/4/7; mục lục s01-02 khớp; 55 `data-slide-id` duy nhất, 55 ghi chú; không `fragment`, không style nội dòng; mã `s0x-yy` không có trên mặt trang hay ghi chú. Điều hướng phím đi qua đủ 55 trang. |
+| Hiển thị deck | Playwright Chromium, 1600 × 900 và 390 × 844, đủ 55 trang (110 ảnh): không lỗi KaTeX, console hay trang; không tải tài nguyên ngoài máy cục bộ; không cuộn ngang; cỡ chữ nhỏ nhất 18 px; không tràn khung ở 1600 × 900 (hai cảnh báo của script ở s04-05, s06-02 là đường SVG bên trong dấu căn KaTeX, đã xem ảnh). Điều phối viên xem ảnh nguyên cỡ của mọi trang đã sửa. Ảnh lưu ngoài kho. |
+| Khổ hẹp | Ở chiều rộng ≤ 435 px, Reveal tự chuyển sang chế độ cuộn; `Reveal.slide` và liên kết hash dừng ở trang liền trước. Hành vi này có ở Bài 03 và Bài 04 (kiểm cùng cách), thuộc runtime dùng chung, không do lượt này gây ra; không sửa runtime. Kiểm khổ hẹp bằng cách cuộn tới từng trang: 55/55 trang nằm trọn trong khung, nội dung thu nhỏ theo khung 16:9 như giới hạn đã ghi trước đây. |
+| Ghi chú tự học | Viewer 1440 × 900, 390 × 844 và chế độ in: 741 công thức KaTeX, không lỗi, không cuộn ngang, không lỗi console (bỏ qua thông báo CSP do máy chủ reload chèn script). Mục 1–11 và 14 cập nhật theo deck. |
+| Đồng bộ planning | 55/55 tiêu đề phiếu storyboard khớp HTML; phiếu 17, 21 ghi quyết định gộp; outline cập nhật số trang và thêm mục tóm tắt lượt duyệt. |
+| Rà lại | Sáu lượt rà chỉ đọc (phần 1, 2, 3, 4, 5, phần 6–7 kèm mạch toàn deck); không có phát hiện chặn bàn giao hoặc nghiêm trọng; mọi phát hiện trung bình đã xử lý; phát hiện nhẹ không áp dụng có lý do trong bảng tương ứng. Phép tính kiểm lại bằng phân số hoặc chương trình. |
+| no-ai-slop | Mỗi trang sửa được tự kiểm theo `eval.md` (Edit mode); các lượt rà dùng Detect mode, không còn văn nói, câu hỏi tu từ, chỉ dẫn biên soạn. |
+| Phạm vi tệp | HTML Bài 05, `lecture-note.md`, ba tệp planning. CSS, SVG, index và viewer không đổi. Thay đổi sẵn có của người dùng (`.gitignore`, `AGENTS.md`, `slide_authoring_standard.md`, các tệp chưa theo dõi) không được stage. |
+| Giới hạn | Điều phối viên trực tiếp biên tập theo tiền lệ Bài 04, bù bằng sáu lượt rà độc lập theo phần; không chạy lại đủ năm vai rà độc lập cho toàn deck. Cổng 8765 bị máy chủ của dự án khác chiếm nên kiểm trên cổng 8775. Commit 1ff2769 (s04-02) chạy trước khi kiểm khổ hẹp và ghi chú xong do máy chủ dừng; đã kiểm lại sau đó, đạt. |
