@@ -2251,9 +2251,9 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 
 <!-- public-slide:start -->
 **Câu hỏi:**
-3. Tính TrustRank cho cụm Hình 5.16 khi không trang nào của cụm thuộc $T$. Viết lại phương trình của $p$ và $y$; chỉ ra số hạng của công thức PageRank bị mất.
+3. Tính TrustRank cho cụm Hình 5.16 (đồ thị không có nút cụt) khi không trang nào của cụm thuộc $T$. Viết lại phương trình của $p$ và $y$; chỉ ra số hạng của công thức PageRank bị mất.
 4. Một hệ thống thay mọi giá trị Spam Mass âm bằng $0$. Đánh giá thay đổi này theo định nghĩa và cách đọc của chỉ số.
-5. Trang web của một khoa cần nhận diện cả trang danh sách học phần và trang học phần. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.
+5. Trên G4, tính $a^1$ từ $h^0=(1,1,1,1)^\mathsf T$ và so với PageRank nền $(9/28,19/84,19/84,19/84)^\mathsf T$; giải thích khác biệt.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Ba nhiệm vụ thành ba hàng đủ rộng, khoảng1/3 mỗi hàng; dữ kiện số chỉ ở câu4. Không có hình phụ.
@@ -2268,7 +2268,7 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 
 **Kết nối vào–ra:** Tổng hợp ba mục tiêu → ba bài nguồn tính và chứng minh trong recitation.
 
-**Quyết định 01/10/2026:** sửa — tiêu đề “Câu hỏi so sánh các phương pháp”; câu 3 cũ lặp s03-08 và câu 4 cũ lặp số liệu s04-05 (G10), nay câu 3 kết hợp cụm thao túng với TrustRank (đặt $b=0$ trong phương trình S03), câu 4 đánh giá việc cắt giá trị âm theo cách đọc của MMDS; câu 5 bỏ cụm “mạng học phần”. Sửa khoảng trắng thừa “$\beta$ $x$”.
+**Quyết định 01/10/2026:** sửa — tiêu đề “Câu hỏi so sánh các phương pháp”; câu 3 cũ lặp s03-08 và câu 4 cũ lặp số liệu s04-05 (G10), nay câu 3 kết hợp cụm thao túng với TrustRank (đặt $b=0$ trong phương trình S03), câu 4 đánh giá việc cắt giá trị âm theo cách đọc của MMDS; câu 5 bỏ cụm “mạng học phần”. Sau rà lại: câu 5 cũ có đáp án ở bảng s06-02, đổi sang so sánh HITS với PageRank trên G4; câu 3 thêm giả thiết không có nút cụt. Sửa khoảng trắng thừa “$\beta$ $x$”.
 
 **Nguồn và vị trí:** NG1 §5.4.2,§5.4.5,VD5.13; câu hỏi áp dụng dữ kiện đã học.
 
@@ -2277,8 +2277,8 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
 - Câu hỏi/đề: Ba câu 3–5 như nội dung hiển thị.
-- Đáp án/gợi ý: $p=\beta y/m$, $y=x_\rho/(1-\beta^2)$, mất số hạng $\frac{\beta}{1+\beta}\frac mn$; cắt giá trị âm về 0 đổi định nghĩa, mất thông tin trang được tập tin cậy hỗ trợ nhưng không đổi thứ tự rà soát trang gần 1; chọn HITS với hai vai trò.
-- Tiêu chí đánh giá: Đặt $b=0$ tại mọi trang của cụm và giải lại; nêu đúng ý nghĩa giá trị âm và cách đọc; chọn HITS đồng thời mô tả đúng hai đầu ra.
+- Đáp án/gợi ý: $p=\beta y/m$, $y=x_\rho/(1-\beta^2)$, mất số hạng $\frac{\beta}{1+\beta}\frac mn$; cắt giá trị âm về 0 đổi định nghĩa, mất thông tin trang được tập tin cậy hỗ trợ nhưng không đổi thứ tự rà soát trang gần 1; $a^1=(1,1,1,1)^\mathsf T$ vì mọi trang có hai cạnh vào; PageRank ưu tiên A do chia theo bậc ra.
+- Tiêu chí đánh giá: Đặt $b=0$ tại mọi trang của cụm và giải lại; nêu đúng ý nghĩa giá trị âm và cách đọc; tính đúng $a^1$ và nêu vai trò của việc chia theo bậc ra.
 - Phân bổ hoạt động: Suy nghĩ1 phút, trả lời1 phút, đối chiếu1 phút; tổng3 phút.
 
 **Ghi chú học thuật dự kiến:**
@@ -2286,7 +2286,7 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 <!-- public-notes:start -->
 Câu 3: dịch chuyển chỉ vào $T$ nên mọi trang của cụm có phần dịch chuyển bằng $0$, tức $b$ được thay bằng $0$ tại đích và tại mỗi hỗ trợ: $p=\beta y/m$, $y=x_\rho+\beta mp$, với $x_\rho$ là đóng góp TrustRank từ ngoài. Do đó $y=x_\rho/(1-\beta^2)$: cụm chỉ khuếch đại phần điểm đã tới từ liên kết ngoài, còn số hạng $\frac{\beta}{1+\beta}\frac mn$ do dịch chuyển vào các hỗ trợ bị mất. Nếu các trang ngoài trỏ vào đích ít nhận TrustRank, $\rho$ của đích nhỏ so với $r$ và Spam Mass của đích gần $1$.
 
-Câu 4: giá trị âm cho biết TrustRank lớn hơn PageRank nền, tức trang được tập tin cậy hỗ trợ. Thay bằng $0$ là đổi định nghĩa và mất thông tin này; theo cách đọc của MMDS, mọi giá trị âm hay dương nhỏ đều thuộc nhóm có lẽ không phải rác, nên thứ tự ưu tiên rà soát các trang có giá trị gần $1$ không đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.
+Câu 4: giá trị âm cho biết TrustRank lớn hơn PageRank nền, tức trang được tập tin cậy hỗ trợ. Thay bằng $0$ là đổi định nghĩa và mất thông tin này; theo cách đọc của MMDS, mọi giá trị âm hay dương nhỏ đều thuộc nhóm có lẽ không phải rác, nên thứ tự ưu tiên rà soát các trang có giá trị gần $1$ không đổi. Câu 5: mỗi trang của G4 có đúng hai cạnh vào, nên uy tín thô đều bằng $2$ và $a^1=(1,1,1,1)^\mathsf T$. PageRank xếp A cao nhất vì C có một cạnh ra duy nhất và chuyển toàn bộ điểm cho A, còn A chia điểm cho ba trang; HITS cộng điểm theo cạnh, không chia theo bậc ra, nên không phân biệt điều này ở bước đầu. Hai phương pháp đo hai khái niệm khác nhau trên cùng đồ thị.
 <!-- public-notes:end -->
 
 ## S07. Bài tập

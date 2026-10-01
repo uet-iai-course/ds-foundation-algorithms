@@ -523,3 +523,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | Trang | Phát hiện rà lại | Quyết định | Thay đổi |
 |---|---|---|---|
 | lec04-s06-02 | (nghiêm trọng, liên quan s06-03) Câu “Cùng bậc chi phí mỗi vòng không bảo đảm cùng số vòng hoặc cùng thời gian thực” là đáp án câu 2 của s06-03. | sửa | Mặt trang chỉ giữ “mỗi vòng tuyến tính theo $n+\ell$”; ý về số vòng và thời gian thực nằm trong ghi chú. |
+| lec04-s06-04 | (nghiêm trọng) Câu 5 có đáp án ở dòng 3 bảng s06-02; (trung bình) câu 3 thiếu giả thiết không có nút cụt (phần bù $\beta\delta_\rho u$ làm $p\ne\beta y/m$). | sửa | Câu 5 đổi thành tính $a^1$ trên G4 và so với PageRank nền (đáp án $a^1=(1,1,1,1)^\mathsf T$, giải thích vai trò của việc chia theo bậc ra). Câu 3 thêm “đồ thị không có nút cụt”. Ghi chú và thẻ storyboard đồng bộ. |
