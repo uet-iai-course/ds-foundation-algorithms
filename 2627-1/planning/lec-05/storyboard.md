@@ -1209,7 +1209,7 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 **Nội dung công khai dự kiến**
 
-Chọn và sắp xếp $n$ hoán vị của hàng triệu hàng tốn nhiều thời gian và bộ nhớ.
+Chọn $n$ hoán vị ngẫu nhiên của hàng triệu hàng đã tốn thời gian; sắp xếp lại các hàng còn tốn hơn.
 
 Thay $\pi_i$ bằng hàm băm $f_i$ trên mã hàng: hàng có $f_i(r)$ nhỏ nhất trong cột đóng vai phần tử đứng đầu.
 
@@ -1293,7 +1293,7 @@ Sắp tăng: $f_1$ cho $(e,a,b,c,d)$; $f_2$ cho $(d,a,c,e,b)$, đúng hai thứ 
 
 **Ghi chú diễn giả học thuật**
 
-Cột “Các cột có 1” là danh sách các cột chứa phần tử của mỗi hàng, tức vị trí các ô 1 khi lưu ma trận thưa; thuật toán duyệt danh sách này thay vì kiểm cả hàng. Mã hàng $r$ chỉ là tên số của phần tử. Với r=3 là d, hai giá trị băm là 4 và 0; chúng không phải vị trí của d trong ma trận gốc. Các giá trị của mỗi hàm đều khác nhau trong ví dụ này, nên mỗi hàm xác định một thứ tự khi sắp tăng. Hai thứ tự ấy đã dùng trong ví dụ chữ ký định danh. Với $S_1,S_4$, tọa độ đầu chọn $a\leftrightarrow0$, lưu $f_1(0)=1$; tọa độ hai chọn $d\leftrightarrow3$, lưu $f_2(3)=0$.
+Cột “Các cột có 1” là danh sách các cột chứa phần tử của mỗi hàng, tức vị trí các ô 1 khi lưu ma trận thưa; thuật toán duyệt danh sách này thay vì kiểm cả hàng. Mã hàng $r$ chỉ là tên số của phần tử. Với $r=3$ là $d$, hai giá trị băm là 4 và 0; chúng không phải vị trí của $d$ trong ma trận gốc. Các giá trị của mỗi hàm đều khác nhau trong ví dụ này, nên mỗi hàm xác định một thứ tự khi sắp tăng. Hai thứ tự ấy đã dùng trong ví dụ chữ ký định danh. Với $S_1,S_4$, tọa độ đầu chọn $a\leftrightarrow0$, lưu $f_1(0)=1$; tọa độ hai chọn $d\leftrightarrow3$, lưu $f_2(3)=0$.
 
 Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
 
@@ -1301,7 +1301,7 @@ Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 38. Khởi tạo và hàng 0
+### 38. Khởi tạo và quét hàng 0
 
 - **Mã:** `lec05-s05-04`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Vết chạy bước đầu; thực hiện min và giữ cột không thuộc. **Mục tiêu:** MT5.
@@ -1448,7 +1448,9 @@ Giả mã: khởi tạo mọi SIG(i, c)=∞; với r=0…R−1 tính v_i=f_i(r),
 
 **Ghi chú diễn giả học thuật**
 
-Mỗi giá trị f_i(r) chỉ cần tính một lần ở hàng r rồi dùng cho mọi cột chứa phần tử đó. Nếu đầu vào là danh sách cột có 1 theo hàng, vòng lặp đi trực tiếp qua danh sách. Nếu là ma trận đặc, phải kiểm từng ô để tìm cột có 1. Thứ tự quét hàng không đổi cực tiểu cuối cùng nhưng ảnh hưởng các trạng thái trung gian.
+Mỗi giá trị $f_i(r)$ chỉ cần tính một lần ở hàng $r$ rồi dùng cho mọi cột chứa phần tử đó. Nếu đầu vào là danh sách cột có 1 theo hàng, vòng lặp đi trực tiếp qua danh sách. Nếu là ma trận đặc, phải kiểm từng ô để tìm cột có 1. Thứ tự quét hàng không đổi cực tiểu cuối cùng nhưng ảnh hưởng các trạng thái trung gian.
+
+Nguồn: MMDS 3e, §3.3.5, tr. 85.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
@@ -1502,11 +1504,28 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Mô hình từ máy: tính hàm, kiểm ô và min tốn O(1); đầu vào đã có. $L=\operatorname{nnz}(M)$ là tổng số ô 1 của $M$. Bảng: khởi tạo nC; tính băm nR; kiểm ô (ma trận đặc) RC; min nL. VD 3.8: R=5, C=4, n=2, L=9 → 8, 10, 20, 18. Đặc: Θ(nC+nR+RC+nL); danh sách cột có 1 theo hàng đã được xây sẵn: Θ(nC+nR+nL).
+Mô hình từ máy: tính hàm, kiểm ô và min tốn $O(1)$; đầu vào đã có.
+
+$L=\operatorname{nnz}(M)$ là tổng số ô $1$ của $M$.
+
+| Thao tác | Số lần | Ví dụ |
+|---|---|---|
+| Khởi tạo | $nC$ | 8 |
+| Tính băm | $nR$ | 10 |
+| Kiểm ô (ma trận đặc) | $RC$ | 20 |
+| Lấy min | $nL$ | 18 |
+
+$R=5$, $C=4$, $n=2$, $L=9$.
+
+Ma trận đặc: $\Theta(nC+nR+RC+nL)$.
+
+Danh sách cột có 1 theo hàng đã được xây sẵn: $\Theta(nC+nR+nL)$.
 
 **Ghi chú diễn giả học thuật**
 
-Khởi tạo duyệt nC ô chữ ký. Mỗi hàng tính n giá trị nên có nR lần băm. Nếu lưu ma trận đặc, mọi RC ô được kiểm để tìm ô 1. Mỗi ô 1 gây n phép min nên tổng nL, kể cả lần min giữ nguyên. Khi danh sách các cột có 1 đã có, không cần RC phép kiểm; chi phí xây danh sách không nằm trong phạm vi hiện tại. Đây là đếm từ giả mã, không là số đo thời gian thực.
+Khởi tạo duyệt $nC$ ô chữ ký. Mỗi hàng tính $n$ giá trị nên có $nR$ lần băm. Nếu lưu ma trận đặc, mọi $RC$ ô được kiểm để tìm ô 1. Mỗi ô 1 gây $n$ phép min nên tổng là $nL$, kể cả lần min giữ nguyên. Khi danh sách các cột có 1 đã có, không cần $RC$ phép kiểm; chi phí xây danh sách không nằm trong phạm vi hiện tại. Đây là đếm từ giả mã, không là số đo thời gian thực.
+
+Nguồn: Đếm từ giả mã §3.3.5; dữ kiện Ví dụ 3.8.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
@@ -1519,8 +1538,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Chữ ký chiếm $\Theta(nC)$ từ máy; theo sách, 1.000 byte thường đủ cho sai lệch vài phần trăm, phù hợp cận độ lệch chuẩn $1/(2\sqrt n)$.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận phép đếm thời gian; 45 nêu giới hạn xác suất của các giá trị đang lưu.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `cost-slide`: hai thẻ 50/50 ghi đầu ra nC và đệm n chiếm 50% thân; dòng phạm vi “chưa gồm đầu vào” dưới; minh họa byte nguồn chiếm 25% cuối.
-- **Trọng tâm và thứ tự đọc:** Đầu ra → đệm → phạm vi chưa tính → quy mô byte nguồn.
+- **Bố cục đã chọn:** `cost-slide`: bảng hai hàng (chữ ký, bộ đệm) với cột số từ máy; dòng “chưa gồm đầu vào”; công thức 200.000 → 1.000 byte; câu chốt theo phát biểu của sách.
+- **Trọng tâm và thứ tự đọc:** Bộ nhớ chữ ký và bộ đệm → phần chưa tính → ví dụ dung lượng → mức sai lệch theo sách.
 - **Lý do phù hợp sinh viên năm 2:** Tách vai trò lưu trữ ngăn sinh viên trả nC như toàn bộ bộ nhớ khi còn giữ dữ liệu; ghi đơn vị từ và byte ở vùng riêng tránh so ma trận bit với số từ.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B mở §3.3 tr. 81; §3.3.4; phép đếm bộ nhớ từ giả mã.
@@ -1541,7 +1560,7 @@ Theo sách, chữ ký 1.000 byte thường cho ước lượng Jaccard lệch kh
 
 **Ghi chú diễn giả học thuật**
 
-Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. So số hàng $n<R$ không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Với mỗi thành phần 4 byte, chữ ký 1.000 byte có $n=250$; do $s(1-s)\le1/4$, độ lệch chuẩn của ước lượng không vượt $1/(2\sqrt{250})\approx0{,}032$ trong mô hình lý tưởng, phù hợp với mức “vài phần trăm” của sách. Đây là phát biểu về phân phối, không bảo đảm sai số của mọi lần chạy.
+Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. So số hàng $n<R$ không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Với mỗi thành phần 4 byte, chữ ký 1.000 byte có $n=250$; do $s(1-s)\le1/4$, độ lệch chuẩn của ước lượng không vượt $1/(2\sqrt{250})\approx0{,}032$ trong mô hình lý tưởng, phù hợp với mức “vài phần trăm” của sách, hiểu là sai lệch tuyệt đối trên thang giá trị Jaccard. Đây là phát biểu về phân phối, không bảo đảm sai số của mọi lần chạy.
 
 Nguồn: MMDS 3e, tr. 81; phân tích bộ nhớ từ thuật toán §3.3.5.
 
@@ -1556,8 +1575,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Một hàm là hoán vị chưa đủ để họ hàm có bảo đảm MinHash lý tưởng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận chữ ký tính được; 46 kiểm kết quả, thao tác min và chi phí.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: ba hàng tiêu chí “va chạm / song ánh / phân bố chọn hàm” trong bảng rộng toàn thân 65%; công thức điều kiện affine ở 20% dưới.
-- **Trọng tâm và thứ tự đọc:** Giá trị của một hàm → tính hoán vị → phân phối trên họ hàm.
+- **Bố cục đã chọn:** `example-slide`: ba gạch đầu dòng (va chạm, điều kiện gcd, giả thiết phân phối) và một thẻ cảnh báo về song ánh.
+- **Trọng tâm và thứ tự đọc:** Va chạm → điều kiện hoán vị → giả thiết của định lý → song ánh chưa đủ.
 - **Lý do phù hợp sinh viên năm 2:** Ba cấp độ tách kiểu mệnh đề: kiểm bảng không thay phân tích xác suất; sinh viên có căn cứ đọc các hàm modulo mà không coi nguyên tố là điều kiện đủ cho mọi bảo đảm.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.3.5 tr. 85 và BT 3.3.3(b) tr. 90–91; hiệu chỉnh câu nguyên tố đã duyệt.
@@ -1586,8 +1605,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Đọc ước lượng từ ma trận chữ ký, kiểm tính không phụ thuộc thứ tự quét, và đếm chi phí khi đổi $n$.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn; 47 tổng hợp kết quả cho tình huống mở bài.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** Hai cột cân đôi: chữ ký kết quả và $R,C,n,L$ bên trái; nhãn Câu hỏi cùng ba nhiệm vụ bên phải. Nhiệm vụ 2 nêu chữ ký của tập, không đồng nhất tập với vector.
-- **Trọng tâm và thứ tự đọc:** Chữ ký → hai tỷ lệ → phép min cụ thể → nL.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: bảng SIG cuối và dòng tham số bên trái; nhãn “Câu hỏi:” và ba câu bên phải; đáp án chỉ ở ghi chú.
+- **Trọng tâm và thứ tự đọc:** Ước lượng cặp $S_3,S_4$ từ bảng → quét ngược và so ma trận cuối → đếm chi phí khi $n=3$.
 - **Lý do phù hợp sinh viên năm 2:** Ba nhiệm vụ dùng cùng vết nguồn để kiểm kết quả, hiểu thao tác và chi phí; mẫu số 2 không bị nhầm với kích thước hợp nhờ giá trị đúng được ghi sẵn để đối chiếu.
 - **Giới hạn và xử lý tràn:** Chỉ ba nhóm yêu cầu, mỗi nhóm một dòng hoặc hai dòng ngắn. Không đưa lời giải hay bảng nguồn 5 × 4 lên mặt; các số R, C, n, L đủ cho phép đếm. Nếu không vừa, bỏ câu giải thích không thiết yếu khỏi mặt, không bỏ nhiệm vụ chi phí.
 - **Nguồn:** B VD 3.8 tr. 85–86; phép đếm nL suy từ §3.3.5, bổ sung câu kiểm chi phí theo điều phối viên.

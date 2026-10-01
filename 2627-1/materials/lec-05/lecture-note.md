@@ -584,7 +584,7 @@ Thuật toán đi qua các hàng một lần. Đếm trên là mô hình thao t�
 
 Đầu ra cần $nC$ giá trị, tức $\Theta(nC)$ từ máy. Bộ đệm $v_1,\ldots,v_n$ cho một hàng cần $\Theta(n)$ từ. Hai số này chưa bao gồm ma trận hoặc danh sách đầu vào nếu chúng vẫn được giữ trong bộ nhớ.
 
-Việc $n<R$ chỉ so sánh số hàng. Ma trận đặc trưng có ô nhị phân, còn chữ ký thường có giá trị nhiều bit; do đó không thể suy dung lượng bit giảm chỉ từ số hàng. Ví dụ ở tr. 81 minh họa tập mã khoảng 200.000 byte được thay bằng chữ ký 1.000 byte. Sách nêu rằng khi đó ước lượng thường lệch không quá vài phần trăm. Có thể đối chiếu với mục 8: với mã 4 byte, 1.000 byte ứng với $n=250$ thành phần; do $s(1-s)\le1/4$, độ lệch chuẩn trong mô hình lý tưởng không vượt $1/(2\sqrt{250})\approx0{,}032$. Đó là phát biểu về phân phối, không phải bảo đảm rằng mọi chữ ký 1.000 byte đạt một mức sai số định trước.
+Việc $n<R$ chỉ so sánh số hàng. Ma trận đặc trưng có ô nhị phân, còn chữ ký thường có giá trị nhiều bit; do đó không thể suy dung lượng bit giảm chỉ từ số hàng. Ví dụ ở tr. 81 minh họa tập mã khoảng 200.000 byte được thay bằng chữ ký 1.000 byte. Sách nêu rằng khi đó ước lượng thường lệch không quá vài phần trăm, tức sai lệch tuyệt đối trên thang giá trị Jaccard. Có thể đối chiếu với mục 8: với mã 4 byte, 1.000 byte ứng với $n=250$ thành phần; do $s(1-s)\le1/4$, độ lệch chuẩn trong mô hình lý tưởng không vượt $1/(2\sqrt{250})\approx0{,}032$. Đó là phát biểu về phân phối, không phải bảo đảm rằng mọi chữ ký 1.000 byte đạt một mức sai số định trước.
 
 ::: exercise Tự kiểm tra
 (a) Với dữ liệu Ví dụ 3.8, nêu số lần khởi tạo, tính hàm băm, kiểm ô khi dùng ma trận đặc và lấy min. Xác định phần nào biến mất nếu đầu vào đã là danh sách cột có $1$ theo hàng.
