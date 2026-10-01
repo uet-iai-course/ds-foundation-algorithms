@@ -69,16 +69,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B Ex 3.10 tr.92/PDF 21; M PDF 24; S3 PDF 10–14.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 2 phút.
 
-#### lec06-s01-04 — Đầu vào và cặp cần tìm
+#### lec06-s01-04 — Bài toán tìm cặp tương đồng
 
 - **Mục đích và vai trò:** Nêu dữ liệu đã có và tiêu chuẩn chấp nhận cặp.
-- **Thông điệp:** Bộ tạo ứng viên giảm phạm vi xác minh nhưng có thể bỏ sót cặp đạt ngưỡng.
-- **Nội dung công khai dự kiến:** $S_1,\ldots,S_C$ là các tập đặc trưng hữu hạn không rỗng; $\mathrm{SIG}\in V^{n\times C}$; $s=\mathrm{SIM}(S_c,S_d)$, ngưỡng $t\in[0,1]$. Đích: các cặp $c<d$ có $s\ge t$. Sơ đồ SIG→ứng viên→Jaccard gốc. Nhắc $\Pr[h(S_c)=h(S_d)]=s$ với tập không rỗng và hoán vị đều.
+- **Thông điệp:** Bài toán nhận các tập, chữ ký và ngưỡng, trả mọi cặp đạt ngưỡng; cách làm là chỉ xác minh cặp ứng viên, chấp nhận khả năng bỏ sót.
+- **Nội dung công khai dự kiến:** Đầu vào: các tập $S_1,\ldots,S_C$ hữu hạn, không rỗng; ma trận chữ ký $\mathrm{SIG}$ cỡ $n\times C$; ngưỡng $t\in[0,1]$. Đầu ra: mọi cặp $c<d$ có $\mathrm{SIM}(S_c,S_d)\ge t$. [Hình: Chữ ký tạo khóa dải, sinh cặp ứng viên duy nhất rồi xác minh trên tập gốc.] Chỉ xác minh các cặp ứng viên; đổi lại, cặp đạt ngưỡng có thể bị bỏ sót.
 - **Đầu vào và giả thiết:** Jaccard, MinHash Bài 05; cùng phép thử theo hàng.
 - **Dữ kiện, hình thức hóa và vết chạy:** Ký hiệu $C,n,\mathrm{SIG},s,\widehat s$ giữ Bài 05. Chưa dùng $b,r$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ lớn ngang phía trên 60%; hợp đồng đầu vào và ngưỡng ở dưới 40%. Năm 2 theo đối tượng đi qua từng bước trước xác suất; không nhét chứng minh MinHash vào mặt trang.
 - **Kết nối vào–ra:** Số cặp quá lớn→cặp cần tìm; kiểm tra mở đầu xác nhận phần chi phí còn thiếu.
-- **Diễn giải học thuật, lời giải và tiêu chí:** $s$ được tính trên tập gốc; $\widehat s$ là tỷ lệ trùng của một chữ ký đã lấy. Hai đại lượng khác nhau. Xác minh Jaccard cho một cặp là quyết định xác định, còn việc cặp ấy được đưa vào tập ứng viên phụ thuộc các phép thử.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đặt $s=\mathrm{SIM}(S_c,S_d)$, tính trên hai tập gốc; $\widehat s$ là tỷ lệ thành phần trùng của hai cột chữ ký, phụ thuộc các phép thử đã lấy. $V$ là miền giá trị của một thành phần chữ ký. Bài 05 cho $\Pr[h(S_c)=h(S_d)]=s$ với MinHash lý tưởng: cặp càng tương đồng thì càng dễ trùng thành phần chữ ký, và đó là cơ sở để chọn ứng viên. Xác minh Jaccard cho một cặp là quyết định xác định; việc cặp ấy có được đưa vào tập ứng viên hay không phụ thuộc các phép thử. Hình là sơ đồ của cả quy trình; cách tạo khóa dải từ chữ ký được xây dựng ở phần 2.
 - **Nguồn:** B §3.4 tr.91–92, §3.4.3 tr.95–96; P5, commit 5530bd6, đoạn ký hiệu.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 2.5 phút.
 
