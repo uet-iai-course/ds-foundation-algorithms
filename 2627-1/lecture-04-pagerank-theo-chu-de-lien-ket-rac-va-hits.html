@@ -495,11 +495,11 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
 </section>
 <section id="lec04-s03-07" data-slide-id="lec04-s03-07" class="example-slide">
 <h2>Hai hướng chống liên kết rác</h2>
-<div class="ex-grid2"><div class="ex-card"><h3>Phát hiện cấu trúc</h3><p>Tìm các cấu trúc như cụm vừa phân tích và loại các trang khỏi chỉ mục.</p><p>Giới hạn: có vô số biến thể cùng tác dụng; nhóm liên kết dày cũng có thể hợp lệ.</p></div><div class="ex-card"><h3>Đổi cách tính điểm</h3><p>Sửa định nghĩa PageRank để tự hạ điểm trang rác, không cần định vị cụm.</p><p>Dùng thêm tập trang đã được đánh giá đáng tin.</p></div></div>
+<div class="ex-grid2"><div class="ex-card"><h3>Phát hiện cấu trúc</h3><p>Tìm các cấu trúc như cụm vừa phân tích và loại các trang khỏi chỉ mục.</p><p>Giới hạn: người tạo rác chuyển sang biến thể khác có cùng tác dụng; số biến thể gần như không giới hạn.</p></div><div class="ex-card"><h3>Đổi cách tính điểm</h3><p>Sửa định nghĩa PageRank để tự hạ điểm trang rác, không cần định vị cụm.</p><p>Dùng thêm tập trang đã được đánh giá đáng tin.</p></div></div>
 <div class="ex-takeaway"><p>Hướng thứ hai dẫn tới hai công thức: TrustRank và Spam Mass.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2–5.4.4, tr.200–203.</p>
 <aside class="notes">
-<p>MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc trong đó một trang trỏ tới rất nhiều trang và các trang này trỏ ngược lại, rồi loại chúng khỏi chỉ mục. Người tạo rác khi đó chuyển sang cấu trúc khác có cùng tác dụng thu điểm cho trang đích; số biến thể của Hình 5.16 gần như không giới hạn. Ngoài ra, một nhóm trang liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng riêng lẻ chưa đủ để kết luận.</p><p>Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ điểm. Công thức phải dùng thông tin không do người tạo rác kiểm soát: một tập trang đã được đánh giá đáng tin. Kết quả của phân tích cụm vẫn được dùng: nó cho thấy vì sao không thể chỉ dựa vào điểm PageRank toàn cục.</p>
+<p>MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc trong đó một trang trỏ tới rất nhiều trang và các trang này trỏ ngược lại, rồi loại chúng khỏi chỉ mục. Người tạo rác khi đó chuyển sang cấu trúc khác có cùng tác dụng thu điểm cho trang đích; số biến thể của Hình 5.16 gần như không giới hạn.</p><p>Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ điểm. Công thức phải dùng thông tin không do người tạo rác kiểm soát: một tập trang đã được đánh giá đáng tin. Kết quả của phân tích cụm vẫn được dùng: nó cho thấy vì sao không thể chỉ dựa vào điểm PageRank toàn cục.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2–5.4.4, tr.200–203.</p>
 </aside>
 </section>

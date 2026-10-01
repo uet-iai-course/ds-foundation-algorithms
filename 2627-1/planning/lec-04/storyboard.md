@@ -1188,14 +1188,14 @@ Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\
 
 ### lec04-s03-07 — Hai hướng chống liên kết rác
 
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và giới hạn; MT2, MT3. Đầu vào: hệ số khuếch đại. Sản phẩm: nêu điều kiện áp dụng và nhu cầu đánh giá tin cậy.
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn và cầu nối; MT2, MT3. Đầu vào: mô hình cụm và hệ số khuếch đại. Sản phẩm: phân biệt hai hướng chống liên kết rác và nêu nhu cầu dùng tập trang tin cậy.
 
-**Luận điểm trung tâm:** Công thức gắn với đúng cấu trúc; hình dạng liên kết không tự chứng nhận nội dung rác.
+**Luận điểm trung tâm:** Phát hiện cấu trúc bị né bằng biến thể; đổi cách tính điểm dựa trên tập trang tin cậy không cần định vị cụm.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-**Phát hiện cấu trúc.** Tìm các cấu trúc như cụm vừa phân tích và loại các trang khỏi chỉ mục. Giới hạn: có vô số biến thể cùng tác dụng; nhóm liên kết dày cũng có thể hợp lệ.
+**Phát hiện cấu trúc.** Tìm các cấu trúc như cụm vừa phân tích và loại các trang khỏi chỉ mục. Giới hạn: người tạo rác chuyển sang biến thể khác có cùng tác dụng; số biến thể gần như không giới hạn.
 
 **Đổi cách tính điểm.** Sửa định nghĩa PageRank để tự hạ điểm trang rác, không cần định vị cụm. Dùng thêm tập trang đã được đánh giá đáng tin.
 
@@ -1204,15 +1204,15 @@ Hướng thứ hai dẫn tới hai công thức: TrustRank và Spam Mass.
 
 **Bố cục đã chọn:** Hai thẻ ngang nhau “Phát hiện cấu trúc” và “Đổi cách tính điểm”; khối kết luận nối sang TrustRank, Spam Mass. Bỏ hình $2m$ cạnh nội bộ.
 
-**Trọng tâm và thứ tự đọc:** Đếm hai chiều cạnh → đọc phạm vi công thức → nhận giới hạn của chỉ kiểm cấu trúc.
+**Trọng tâm và thứ tự đọc:** Đọc hướng phát hiện cấu trúc và giới hạn của nó → hướng đổi cách tính điểm → nhu cầu thông tin bên ngoài đồ thị.
 
-**Lý do phù hợp sinh viên năm 2:** Phép đếm trực tiếp từ hình nối phân tích với tài nguyên cần tạo; giới hạn không để sinh viên biến mẫu đồ thị thành quy tắc phân loại chắc chắn.
+**Lý do phù hợp sinh viên năm 2:** Hai hướng đặt cạnh nhau cho thấy vì sao cần một công thức mới thay cho việc tìm mẫu đồ thị; không đòi kiến thức hệ thống tìm kiếm.
 
-**Giới hạn bố cục và phân chia nội dung:** Không xây thuật toán phát hiện cụm ngoài nguồn. Không ước lượng thời gian rà toàn web từ2m cạnh.
+**Giới hạn bố cục và phân chia nội dung:** Không xây thuật toán phát hiện cụm ngoài nguồn; không thêm nhận định ngoài MMDS §5.4.3.
 
-**Ví dụ, phiếu số và hình thức hóa:** HT4; đếm2m là suy luận từ Hình 5.16. Không có thuật toán thực thi riêng; chu trình chi phí áp dụng ở mức cấu trúc.
+**Ví dụ, phiếu số và hình thức hóa:** Dùng lại cụm Hình 5.16 làm ví dụ của hướng thứ nhất; không có phép tính mới.
 
-**Kết nối vào–ra:** Mức khuếch đại → giới hạn phát hiện bằng hình dạng → kiểm tra dòng điểm, sau đó TrustRank.
+**Kết nối vào–ra:** Mức khuếch đại của cụm → hai hướng chống liên kết rác → hướng đổi cách tính điểm mở S04 (TrustRank, Spam Mass).
 
 **Quyết định 01/10/2026:** viết lại — theo MMDS §5.4.3, trang trình bày hai hướng chống liên kết rác; hướng thứ hai tạo nhu cầu cho TrustRank và Spam Mass (cầu nối S03→S04, G8). Bỏ hình và câu “$2m$ cạnh nội bộ” vì không phục vụ luận điểm; câu “công thức áp dụng khi giữ đúng kiến trúc” đã nằm ở s03-03. SVG `hai-nhom-canh-noi-bo.svg` không còn được deck dùng.
 
@@ -1223,7 +1223,7 @@ Hướng thứ hai dẫn tới hai công thức: TrustRank và Spam Mass.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc trong đó một trang trỏ tới rất nhiều trang và các trang này trỏ ngược lại, rồi loại chúng khỏi chỉ mục. Người tạo rác khi đó chuyển sang cấu trúc khác có cùng tác dụng thu điểm cho trang đích; số biến thể của Hình 5.16 gần như không giới hạn. Ngoài ra, một nhóm trang liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng riêng lẻ chưa đủ để kết luận.
+MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc trong đó một trang trỏ tới rất nhiều trang và các trang này trỏ ngược lại, rồi loại chúng khỏi chỉ mục. Người tạo rác khi đó chuyển sang cấu trúc khác có cùng tác dụng thu điểm cho trang đích; số biến thể của Hình 5.16 gần như không giới hạn.
 
 Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ điểm. Công thức phải dùng thông tin không do người tạo rác kiểm soát: một tập trang đã được đánh giá đáng tin. Kết quả của phân tích cụm vẫn được dùng: nó cho thấy vì sao không thể chỉ dựa vào điểm PageRank toàn cục.
 <!-- public-notes:end -->
@@ -2516,12 +2516,12 @@ Bản hiện hành gồm50 trang giảng/120 phút và ba bài/60 phút. Ba ghi 
 | `lec04-s03-02` | `hinh-5-16-cum-thao-tung.svg` |
 | `lec04-s03-03` | `diem-mot-ho-tro.svg` |
 | `lec04-s03-04` | `luong-hang-trong-cum.svg` |
-| `lec04-s03-07` | `hai-nhom-canh-noi-bo.svg` |
+| `lec04-s03-07` | Không dùng hình từ 01/10/2026; `hai-nhom-canh-noi-bo.svg` giữ trong kho, không được tham chiếu |
 | `lec04-s04-01` | `tap-tin-cay.svg` |
 | `lec04-s04-03` | `hinh-5-15-tin-cay.svg` |
 | `lec04-s05-01` | `cap-vai-tro-hits.svg` |
 | `lec04-s05-02` | `hinh-5-18.svg` |
-| `lec04-s05-09` | `dong-gop-hits.svg` |
+| `lec04-s05-09` | Không dùng hình từ 01/10/2026; `dong-gop-hits.svg` giữ trong kho, không được tham chiếu |
 | `lec04-s05-11` | `hinh-5-18-kiem-tra.svg` |
 | `lec04-s07-01` | `hinh-5-1-trung-tinh.svg` |
 | `lec04-s07-02` | `ho-tro-tu-khuyen.svg`, `ho-tro-khuyen-va-dich.svg` |
