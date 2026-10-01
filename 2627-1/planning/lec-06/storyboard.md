@@ -411,11 +411,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.6.3 tr.106–107; S4 PDF 27/trang in 30.
 - **Ánh xạ ghi chú:** `N07`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s03-11 — Thứ tự ghép và xác suất
+#### lec06-s03-11 — So sánh hai thứ tự ghép
 
 - **Mục đích và vai trò:** So sánh AND–OR với OR–AND trên cùng 16 phép thử.
 - **Thông điệp:** Cùng số hàm cơ sở không cho cùng đánh đổi.
-- **Nội dung công khai dự kiến:** Dữ kiện: họ $(.2,.6,.8,.4)$,16 phép thử. AND 4→OR 4:$F(p)=1-(1-p^4)^4$; cận (.878497, .098535). OR 4→AND 4:$G(p)=[1-(1-p)^4]^4$; cận (.993615, .573952).
+- **Nội dung công khai dự kiến:** Họ $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm, cùng 16 phép thử cơ sở độc lập. Thứ tự Biến đổi xác suất Cận gần Cận xa AND 4 → OR 4 $F(p)=1-(1-p^4)^4$ 0,878497 0,098535 OR 4 → AND 4 $G(p)=[1-(1-p)^4]^4$ 0,993615 0,573952 AND rồi OR mở rộng khoảng cách hai cận từ $0{,}8$ và $0{,}4$ thành khoảng $0{,}88$ và $0{,}10$; OR rồi AND giữ cặp gần tốt hơn nhưng nhận cặp xa tới $0{,}57$. Các số là cận biến đổi từ $p_1,p_2$, không là xác suất chính xác của mọi cặp.
 - **Đầu vào và giả thiết:** HT7 và phép thế xác suất.
 - **Dữ kiện, hình thức hóa và vết chạy:** V09; trung gian $p^4$=.4096/.0256; OR 4=.9984/.8704; dùng số chưa làm tròn.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai cột 50/50 cùng hàng: cấu trúc→công thức→cận gần/xa. Năm 2 so cùng tiêu chí và giữ 16 hàm; proof đã có nên mặt trang chỉ so phép ghép và giá trị.
