@@ -201,11 +201,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.1 tr.92–93, §3.4.3 tr.95–96; giả mã diễn đạt và lựa chọn baseline đã duyệt.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 3.5 phút.
 
-#### lec06-s02-09 — Bất biến và phạm vi tính đúng
+#### lec06-s02-09 — Tính đúng của phân dải
 
 - **Mục đích và vai trò:** Giải thích vì sao thuật toán trả đúng kết quả theo tập ứng viên.
 - **Thông điệp:** Tính đúng của dựng thùng không bảo đảm thu đủ mọi cặp tương đồng.
-- **Nội dung công khai dự kiến:** Bất biến: ở dải đang xét, mỗi mã đã xử lý thuộc đúng nhóm khóa của nó. BướcLập luận Khởi tạoTrước dải đầu, $B$ rỗng. Đầu dải $j$, chưa có khóa mang $j$; giữ các dải trước. Duy trìTạo danh sách nếu khóa mới, rồi nối mã vào đúng nhóm. Kết thúcPhát mọi cặp chung nhóm; hợp khử lặp; kiểm Jaccard gốc. Đầu ra gồm đúng các cặp trong $\mathcal C$ có $s\ge t$. Các vòng lặp hữu hạn; $C<2$ hoặc thùng có dưới hai phần tử không phát cặp.
+- **Nội dung công khai dự kiến:** Bất biến: ở dải đang xét, mỗi mã đã xử lý thuộc đúng nhóm khóa của nó. Bước Lập luận Khởi tạo Trước dải đầu, $B$ rỗng. Đầu dải $j$, chưa có khóa mang $j$; giữ các dải trước. Duy trì Tạo danh sách nếu khóa mới, rồi nối mã vào đúng nhóm. Kết thúc Hai mã cùng nhóm khi và chỉ khi cùng khóa; phát cặp trong mọi nhóm rồi hợp cho đúng $\mathcal C$. Đầu ra gồm đúng các cặp trong $\mathcal C$ có $s\ge t$; cặp ngoài $\mathcal C$ không được xét. Các vòng lặp hữu hạn; $C<2$ hoặc thùng có dưới hai phần tử không phát cặp.
 - **Đầu vào và giả thiết:** Giả mã và đầu ra HT1.
 - **Dữ kiện, hình thức hóa và vết chạy:** B rỗng trước dải đầu. Trước dải j chưa có khóa mang j; các dải trước giữ nguyên. Mỗi lượt chèn tạo đúng danh sách nếu cần rồi thêm đúng một mã, không di chuyển mã khác.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba bước khởi tạo/duy trì/kết thúc xếp dọc với một kết luận dưới. Năm 2 nối bất biến với dòng chèn đã thấy; proof đầy đủ và tập rỗng vào notes.
