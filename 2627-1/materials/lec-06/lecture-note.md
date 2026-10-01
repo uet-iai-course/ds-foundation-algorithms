@@ -622,6 +622,26 @@ Chưa chắc: nếu $0<\ell<a$, một biên có thể nằm giữa hai hình chi
 
 Nguồn: MMDS 3e, §§3.7.4–5, tr.111–113; cơ chế dịch: Datar–Immorlica–Indyk–Mirrokni, [*Locality-Sensitive Hashing Scheme Based on p-Stable Distributions*](https://people.csail.mit.edu/nickle/pubs/pstable.pdf), §3.2, PDF 3. Phân phối ổn định không thuộc nội dung bài này.
 
+### Chi phí tính chữ ký của ba họ
+
+Mô hình đếm: vector đặc $D$ chiều, mỗi số chiếm một từ máy, mỗi phép đọc, nhân, cộng hoặc so sánh tốn thời gian hằng. Các số dưới đây được đếm từ định nghĩa hàm, không phải số đo.
+
+| Họ | Phép tính của một hàm | Thời gian | Tham số lưu |
+|---|---|---|---|
+| Chọn tọa độ | 1 lần đọc | $O(1)$ | 1 chỉ số |
+| Siêu phẳng | $D$ nhân, $D-1$ cộng, 1 so sánh | $O(D)$ | $D$ từ |
+| Chiếu có dịch | $D$ nhân, $D$ cộng, 1 chia, 1 lấy sàn | $O(D)$ | $D+1$ từ |
+
+Chữ ký gồm $m$ hàm cho $C$ vector cần $C\cdot m$ lần tính hàm, tức $O(Cm)$ với họ chọn tọa độ và $O(CmD)$ với hai họ còn lại. Tham số của $m$ hàm được dùng chung cho cả kho; mỗi vector lưu $m$ giá trị, là $m$ bit với chữ ký dấu và $m$ số nguyên với chữ ký chiếu. Với vector thưa có $z$ thành phần khác 0, tích vô hướng chỉ duyệt $z$ thành phần nên $D$ được thay bằng $z$. Sau khi có chữ ký, dựng thùng, phát $Q$ cặp và xác minh $K$ cặp được tính như ở mục chi phí phân dải.
+
+::: exercise
+Câu hỏi: Với $x=11001$ và $y=10011$, tính xác suất trùng của một hàm chọn tọa độ và của AND 2. Với $x=(1,0)$, $y=(-1,1)$, tính xác suất cùng dấu dưới pháp tuyến đẳng hướng.
+:::
+
+::: solution
+Hai vector bit khác tại vị trí 2 và 4, nên xác suất trùng là $3/5$; AND 2 với chỉ số độc lập cho $9/25=0{,}36$. Với cặp thứ hai, $\cos\theta=-1/\sqrt2$, nên $\theta=3\pi/4$ và xác suất cùng dấu là $1/4$.
+:::
+
 ## Ba ứng dụng tìm cặp
 
 ### Đối sánh thực thể

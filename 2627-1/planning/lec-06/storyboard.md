@@ -569,29 +569,29 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.4 tr.112–113/Hình 3.14; S4 PDF 57–58; giả thiết và proof bổ sung đã duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 3 phút.
 
-#### lec06-s04-10 — Chi phí các phép băm cơ sở
+#### lec06-s04-10 — Chi phí tính chữ ký theo họ băm
 
-- **Mục đích và vai trò:** So công việc trên cùng mô hình vector đã có.
+- **Mục đích và vai trò:** Đếm phép tính và tham số lưu của một hàm trong ba họ trước khi viết tiệm cận; tách chi phí tính chữ ký khỏi chi phí phân dải đã có ở phần 2.
 - **Thông điệp:** Chi phí mỗi phép thử phụ thuộc lượng tọa độ được đọc.
-- **Nội dung công khai dự kiến:** Vector $D$ chiều, mỗi tọa độ một từ, truy cập ngẫu nhiên $O(1)$. Tọa độ Hamming: đọc 1 giá trị,$O(1)$. Dấu/chiếu với vector đặc: đọc $D$ giá trị, tích vô hướng $O(D)$. Với $m$ phép thử, lưu $m$ giá trị/đối tượng; thùng và kiểm ứng viên tính riêng.
+- **Nội dung công khai dự kiến:** Mô hình: vector đặc $D$ chiều, mỗi số một từ máy, mỗi phép đọc, nhân, cộng tốn thời gian hằng. Họ Phép tính của một hàm Thời gian Tham số lưu Chọn tọa độ 1 lần đọc $O(1)$ 1 chỉ số Siêu phẳng $D$ nhân, $D-1$ cộng, 1 so sánh $O(D)$ $D$ từ Chiếu có dịch $D$ nhân, $D$ cộng, 1 chia, 1 lấy sàn $O(D)$ $D+1$ từ Chữ ký $m$ hàm cho $C$ vector: $C\cdot m$ lần tính, tức $O(Cm)$ với họ chọn tọa độ và $O(CmD)$ với hai họ còn lại. Đây là chi phí tính chữ ký; dựng thùng, phát $Q$ cặp và xác minh $K$ cặp tính như ở phần 2.
 - **Đầu vào và giả thiết:** Các hàm cơ sở và mô hình chi phí N04.
 - **Dữ kiện, hình thức hóa và vết chạy:** Suy đếm trực tiếp từ $h_I$, $h_u$, $h_{u,\delta}$; vector đặc là điều kiện. Không gán $O(1)$ cho tích vô hướng $D$ chiều.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng 3 hàng phép thử/đọc/chi phí; dòng $m$ phía dưới. Năm 2 so cùng biểu diễn và phạm vi, không nhầm chi phí băm với toàn thuật toán; chi tiết bộ nhớ pháp tuyến ở notes.
 - **Kết nối vào–ra:** Các bảo đảm→chi phí thực hiện; kiểm tra phần yêu cầu giữ đúng giả thiết.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Lưu $m$ pháp tuyến đặc cần $O(mD)$ từ; các hàm tọa độ chỉ cần $m$ chỉ số. Tính chữ ký cho $C$ vector có chi phí $O(Cm)$ với Hamming hoặc $O(CmD)$ với dấu/chiếu đặc. Đây là phép đếm từ đặc tả hàm, còn phát cặp vẫn phụ thuộc $Q,K$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Các số trong bảng là phép đếm từ định nghĩa hàm, không phải số đo. Bộ nhớ gồm hai phần: tham số của $m$ hàm, là $m$ chỉ số hoặc $O(mD)$ từ, dùng chung cho cả kho; và chữ ký, $m$ giá trị cho mỗi vector. Chữ ký dấu chỉ cần $m$ bit cho mỗi vector, chữ ký chiếu cần $m$ số nguyên. Với vector thưa có $z$ thành phần khác 0, tích vô hướng chỉ cần duyệt $z$ thành phần, nên $D$ trong bảng được thay bằng $z$. Sau khi có chữ ký, phân dải dùng lại đúng thuật toán của phần 2 với $n=br$ hàm.
 - **Nguồn:** B §3.7.1–4 tr.109–113; suy chi phí từ công thức nguồn.
 - **Ánh xạ ghi chú:** `N08,N09,N10`. **Thời lượng:** 1.5 phút.
 
-#### lec06-s04-11 — Kiểm tra các họ theo độ đo
+#### lec06-s04-11 — Câu hỏi về các họ theo độ đo
 
-- **Mục đích và vai trò:** Tính một xác suất và xác định điều kiện của hai bảo đảm hình học.
+- **Mục đích và vai trò:** Kiểm tra phần 4 bằng dữ kiện mới: họ chọn tọa độ kèm AND 2, góc $3\pi/4$ cho họ siêu phẳng, xác suất có điều kiện và cận hai chiều của họ chiếu.
 - **Thông điệp:** Mỗi công thức va chạm gắn với một phép lấy mẫu cụ thể.
-- **Nội dung công khai dự kiến:** Câu hỏi: Với 10101 và 11110, tính xác suất trùng của tọa độ đều. Với góc $60^\circ$, tính xác suất cùng dấu dưới pháp tuyến đẳng hướng. Một phép chiếu theo trục cố định có đủ để dùng cận $(a/2,2a,1/2,1/3)$ hay không; nêu hai nguồn ngẫu nhiên cần có.
+- **Nội dung công khai dự kiến:** Câu hỏi: Với $x=11001$ và $y=10011$, tính xác suất trùng của một hàm chọn tọa độ và của AND 2 với chỉ số độc lập. Tính xác suất cùng dấu của $x=(1,0)$ và $y=(-1,1)$ dưới pháp tuyến đẳng hướng. Với $a=2$ và $u$ cố định, hai hình chiếu cách nhau $\ell=0{,}5$: tính xác suất chung thùng theo $\delta$. Xác định cận xác suất của cặp có $\|x-y\|_2=5$ trong $\mathbb R^2$.
 - **Đầu vào và giả thiết:** V08, V06, HT8–HT10.
 - **Dữ kiện, hình thức hóa và vết chạy:** Đáp án 2/5;60°=π/3→2/3; u đều hai chiều, δ đều độc lập. Không giải thêm V11 các trục còn lại.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba nhiệm vụ một cột, rộng 90%; dữ kiện tách dòng công thức. Năm 2 kiểm không chỉ phép thế mà cả điều kiện; đáp án giữ ở notes.
 - **Kết nối vào–ra:** Chi phí/họ→kiểm tra; ứng dụng sẽ chọn lại biểu diễn và quy tắc sinh cặp.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Hai vector Hamming khác tại vị trí 2,4,5 nên có hai vị trí trùng trong năm vị trí; xác suất bằng $2/5$. Góc $60^\circ=\pi/3$ cho xác suất cùng dấu $1-(\pi/3)/\pi=2/3$ khi pháp tuyến đẳng hướng. Cận Euclid đang xét cần hướng đơn vị đều trong mặt phẳng và dịch đều trên $[0,a)$ độc lập với hướng; một trục cố định không đủ. Tiêu chí: tính đúng xác suất và đơn vị góc, nêu đủ hai nguồn ngẫu nhiên cùng miền hai chiều.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: hai vector khác tại vị trí 2 và 4, nên $d_H=2$, xác suất trùng $1-2/5=3/5$; AND 2 cho $(3/5)^2=9/25=0{,}36$ khi hai chỉ số lấy độc lập, có hoàn lại. Câu 2: $x\cdot y=-1$, $\|x\|_2=1$, $\|y\|_2=\sqrt2$, nên $\cos\theta=-1/\sqrt2$, $\theta=3\pi/4$; xác suất cùng dấu $1-3/4=1/4$. Câu 3: $1-0{,}5/2=0{,}75$; vì $5\ge2a=4$ nên cặp là cặp xa và xác suất chung thùng không quá $1/3$, với $u$ đều trong mặt phẳng và $\delta$ đều độc lập. Tiêu chí: đếm đúng $d_H$ và nêu điều kiện độc lập; đổi góc sang radian trước khi dùng $1-\theta/\pi$; phân biệt xác suất có điều kiện theo $u$ với cận sau khi lấy trung bình theo $u$.
 - **Nguồn:** B Ex 3.17, Ex 3.14, §3.7.1–4; kiểm trực tiếp dữ kiện/giả thiết đã học.
 - **Ánh xạ ghi chú:** `N08,N09,N10`. **Thời lượng:** 2.5 phút.
 
