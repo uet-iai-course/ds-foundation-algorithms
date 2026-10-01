@@ -1133,7 +1133,7 @@ Trang đích chia phần theo liên kết $\beta y$ đều cho $m$ hỗ trợ, n
 Thay $p=\beta y/m+b$ vào phương trình của đích cho $y=x+\beta^2y+\beta mb+b$. Chuyển $\beta^2y$ sang trái rồi chia cho $1-\beta^2>0$ thu được nghiệm. Hạng $\beta mb$ là phần dịch chuyển nhận tại các hỗ trợ rồi truyền về đích; hạng $b$ là dịch chuyển trực tiếp tới đích. Mô hình giả định toàn đồ thị không có nút cụt và giữ đúng kiến trúc đã nêu. Đại lượng $x$ là đóng góp ngoài ở trạng thái cân bằng, chịu ràng buộc tổng điểm toàn đồ thị.
 <!-- public-notes:end -->
 
-### lec04-s03-06 — Hệ số khuếch đại trong mô hình giản lược
+### lec04-s03-06 — Hệ số khuếch đại của cụm
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Xấp xỉ và diễn giải số; MT2. Đầu vào: công thức đầy đủ. Sản phẩm: phân biệt giá trị sau nhân với phần trăm tăng.
 
@@ -1142,18 +1142,18 @@ Thay $p=\beta y/m+b$ vào phương trình của đích cho $y=x+\beta^2y+\beta m
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Bỏ riêng phần dịch chuyển trực tiếp $b$ tới trang đích như phép phân tích của sách:
+Bỏ hạng nhỏ do dịch chuyển trực tiếp $b$ tới đích (MMDS §5.4.2):
 
 $$y\approx\frac{x}{1-\beta^2}+\frac{\beta}{1+\beta}\frac mn.$$
 
-Với $\beta=0.85=17/20$:
+Với $\beta=0{,}85=17/20$:
 
 | Thành phần | Hệ số |
 | --- | --- |
-| Đóng góp từ ngoài $x$ | $400/111\approx3.6036$ |
-| Tỷ lệ trang hỗ trợ $m/n$ | $17/37\approx0.45946$ |
+| Đóng góp từ ngoài $x$ | $400/111\approx3{,}6036$ |
+| Tỷ lệ trang hỗ trợ $m/n$ | $17/37\approx0{,}45946$ |
 
-Hệ số $400/111$ chỉ nhân với $x$. Hạng từ hỗ trợ là $(17/37)(m/n)$; hạng đã bỏ là $1/[n(1+\beta)]$.
+Cụm nhân đóng góp từ ngoài khoảng $3{,}6$ lần và nhận thêm khoảng $0{,}46\,m/n$, với $m/n$ là tỷ lệ trang web thuộc cụm.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Phép xấp xỉ ở trên40%; bảng hai hệ số giữa40%; câu giải nghĩa dưới20%. Nhãn “bỏ riêng b tới đích” đặt trước công thức.
@@ -1168,6 +1168,8 @@ Hệ số $400/111$ chỉ nhân với $x$. Hạng từ hỗ trợ là $(17/37)(m
 
 **Kết nối vào–ra:** Phương trình đầy đủ → ý nghĩa khuếch đại → giới hạn suy luận và chi phí cấu trúc.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Hệ số khuếch đại của cụm”; dẫn nguồn cụ thể thay cho “như phép phân tích của sách”; dùng dấu phẩy thập phân (G11); thay dòng cuối dồn hai ý bằng khối kết luận diễn giải hai hệ số theo Ví dụ 5.11; chi tiết hạng bị bỏ và cách đọc “360%” chuyển vào ghi chú.
+
 **Nguồn và vị trí:** NG1 VD5.11, tr.201/PDF27; sửa diễn đạt phần trăm để phân biệt hệ số với mức tăng.
 
 **Thời lượng:** 3 phút.
@@ -1175,7 +1177,7 @@ Hệ số $400/111$ chỉ nhân với $x$. Hạng từ hỗ trợ là $(17/37)(m
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần dịch chuyển vào $m$ hỗ trợ vẫn được giữ vì tổng của chúng tạo hạng $m/n$. Với $\beta=17/20$, hệ số của $x$ là $400/111$; trừ $1$ rồi nhân $100$ cho phần tăng khoảng $260{,}36\%$. Đây là hệ số của một mô hình đại số, không phải số đo hiệu quả trên hệ tìm kiếm hiện hành.
+Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần dịch chuyển vào $m$ hỗ trợ vẫn được giữ vì tổng của chúng tạo hạng $m/n$. Với $\beta=17/20$, hệ số của $x$ là $400/111$; trừ $1$ rồi nhân $100$ cho phần tăng khoảng $260{,}36\%$; MMDS diễn đạt cùng hệ số này là khuếch đại đóng góp ngoài “360%”. Hệ số $400/111$ chỉ nhân với $x$; hạng từ hỗ trợ là $(17/37)(m/n)$. Đây là hệ số của một mô hình đại số, không phải số đo hiệu quả trên hệ tìm kiếm hiện hành.
 <!-- public-notes:end -->
 
 ### lec04-s03-07 — Giới hạn của phân tích cấu trúc liên kết
