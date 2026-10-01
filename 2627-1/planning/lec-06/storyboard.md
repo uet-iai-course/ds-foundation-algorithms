@@ -166,7 +166,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính Jaccard cho ba ứng viên và chọn kết quả.
 - **Thông điệp:** Xác minh loại cặp dưới ngưỡng trong tập ứng viên.
-- **Nội dung công khai dự kiến:** $t=2/3$. Bảng: cặp $(1,3)$ có giao $\{d\}$, hợp 4 phần tử, $s=1/4$; cặp $(1,4)$ có giao $\{a,d\}$, hợp 3 phần tử, $s=2/3$; cặp $(3,4)$ có giao $\{d\}$, hợp 5 phần tử, $s=1/5$. Kết quả $\{(1,4)\}$.
+- **Nội dung công khai dự kiến:** Giữ cặp có Jaccard gốc ít nhất $t=2/3$. Cặp Giao Hợp Jaccard Kết quả (1,3) {d} {a,b,d,e} $1/4$ Loại (1,4) {a,d} {a,c,d} $2/3$ Giữ (3,4) {d} {a,b,c,d,e} $1/5$ Loại Kết quả là $\{(1,4)\}$; hai cặp $(1,3)$ và $(3,4)$ là ứng viên giả. Xác minh chỉ loại ứng viên giả; nó không khôi phục cặp đạt ngưỡng chưa được sinh.
 - **Đầu vào và giả thiết:** Tập V02 và $\mathcal C$ ở trang trước.
 - **Dữ kiện, hình thức hóa và vết chạy:** V02 giữ $t$; $\widehat s_{14}=1$ nhưng $s_{14}=2/3$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng 3 hàng cặp/giao-hợp/Jaccard/kết quả ở giữa, ngưỡng trên bảng. Năm 2 tính lại tử và mẫu trước quyết định; notes giữ danh sách hợp đầy đủ.
