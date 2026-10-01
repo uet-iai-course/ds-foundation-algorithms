@@ -62,7 +62,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Dung lượng chữ ký tuyến tính không làm số cặp mất bậc hai.
 - **Nội dung công khai dự kiến:** $C=10^6$ tài liệu, chữ ký $n=250$ thành phần, 4 byte/thành phần. Dung lượng chữ ký $10^6\cdot250\cdot4=10^9$ byte Số cặp cần so $\binom{10^6}{2}=499\,999\,500\,000$ Giả sử mỗi cặp mất $1\,\mu s$: tổng thời gian khoảng $5{,}79$ ngày. Chữ ký giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.
 - **Đầu vào và giả thiết:** Tổ hợp chập 2; byte và đơn vị thời gian.
-- **Dữ kiện, hình thức hóa và vết chạy:** V01; $10^6\cdot250\cdot4$; $499999500000\cdot10^{-6}/86400=5.78703125$. Giả định thời gian, không phép đo.
+- **Dữ kiện, hình thức hóa và vết chạy:** V01; $10^6\cdot250\cdot4$; $499999500000\cdot10^{-6}/86400=5{,}78703125$. Giả định thời gian, không phép đo.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 45% là phép tính dung lượng; phải 55% là số cặp và thời gian. Đọc cùng $C$ trên hai nhánh. Năm 2 cần tách hai đại lượng có đơn vị khác; diễn giải thời gian chi tiết vào notes.
 - **Kết nối vào–ra:** Bản đồ mục 1→giới hạn số cặp; giới hạn dẫn tới đặc tả chỉ tìm cặp đạt ngưỡng.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Ví dụ 3.10 là phép tính minh họa của sách. Nếu bài toán yêu cầu xuất độ tương đồng của mọi cặp thì kích thước đầu ra đã là bậc hai. Nhu cầu ở đây chỉ gồm những cặp đủ tương đồng.
@@ -76,7 +76,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nội dung công khai dự kiến:** Đầu vào: các tập $S_1,\ldots,S_C$ hữu hạn, không rỗng; ma trận chữ ký $\mathrm{SIG}$ cỡ $n\times C$; ngưỡng $t\in[0,1]$. Đầu ra: mọi cặp $c<d$ có $\mathrm{SIM}(S_c,S_d)\ge t$. [Hình: Chữ ký tạo khóa dải, sinh cặp ứng viên duy nhất rồi xác minh trên tập gốc.] Chỉ xác minh các cặp ứng viên; đổi lại, cặp đạt ngưỡng có thể bị bỏ sót.
 - **Đầu vào và giả thiết:** Jaccard, MinHash Bài 05; cùng phép thử theo hàng.
 - **Dữ kiện, hình thức hóa và vết chạy:** Ký hiệu $C,n,\mathrm{SIG},s,\widehat s$ giữ Bài 05. Chưa dùng $b,r$.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ lớn ngang phía trên 60%; hợp đồng đầu vào và ngưỡng ở dưới 40%. Năm 2 theo đối tượng đi qua từng bước trước xác suất; không nhét chứng minh MinHash vào mặt trang.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai dòng “Đầu vào”, “Đầu ra” ở trên; sơ đồ quy trình rộng ở giữa; câu chốt về cách làm và khả năng bỏ sót ở cuối. Ký hiệu phụ ($V$, $s$, $\widehat s$, tính chất MinHash) nằm trong ghi chú để mặt trang chỉ còn bài toán.
 - **Kết nối vào–ra:** Số cặp quá lớn→cặp cần tìm; kiểm tra mở đầu xác nhận phần chi phí còn thiếu.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Đặt $s=\mathrm{SIM}(S_c,S_d)$, tính trên hai tập gốc; $\widehat s$ là tỷ lệ thành phần trùng của hai cột chữ ký, phụ thuộc các phép thử đã lấy. $V$ là miền giá trị của một thành phần chữ ký. Bài 05 cho $\Pr[h(S_c)=h(S_d)]=s$ với MinHash lý tưởng: cặp càng tương đồng thì càng dễ trùng thành phần chữ ký, và đó là cơ sở để chọn ứng viên. Xác minh Jaccard cho một cặp là quyết định xác định; việc cặp ấy có được đưa vào tập ứng viên hay không phụ thuộc các phép thử. Hình là sơ đồ của cả quy trình; cách tạo khóa dải từ chữ ký được xây dựng ở phần 2.
 - **Nguồn:** B §3.4 tr.91–92, §3.4.3 tr.95–96; P5, commit 5530bd6, đoạn ký hiệu.
@@ -88,8 +88,8 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Số cặp tăng bậc hai theo số tài liệu; tập ứng viên giảm số phép xác minh; quyết định cuối dựa trên Jaccard gốc, không dựa trên tỷ lệ trùng chữ ký.
 - **Nội dung công khai dự kiến:** Câu hỏi: Với $C=10^5$ tài liệu và $1\,\mu s$ mỗi cặp, tính số cặp và tổng thời gian. So với $C=10^6$, số cặp giảm bao nhiêu lần? Trong kho $10^6$ tài liệu, bộ tạo ứng viên trả $10^6$ cặp. Số phép xác minh giảm bao nhiêu lần so với xét mọi cặp? Cặp $S_1,S_4$ của Bài 05 có $\widehat s=1$ trên hai thành phần chữ ký và $s=2/3$. Đại lượng nào quyết định cặp có đạt ngưỡng $t$?
 - **Đầu vào và giả thiết:** V01 và hợp đồng s01-04.
-- **Dữ kiện, hình thức hóa và vết chạy:** Dữ kiện nguồn giữ nguyên; không yêu cầu công thức LSH chưa học.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Một khối nhiệm vụ với ba yêu cầu đánh số: dung lượng, số cặp, phân biệt s và tỷ lệ chữ ký. Giữ dữ kiện triệu tài liệu; đáp án trong notes. Ba yêu cầu xác nhận tiên quyết trước phân dải.
+- **Dữ kiện, hình thức hóa và vết chạy:** Câu 1–2 dùng dữ kiện luyện tập ($C=10^5$; $10^6$ ứng viên), câu 3 dùng cặp $S_1,S_4$ của Bài 05; đáp án $4\,999\,950\,000$ cặp, gần 1,4 giờ; khoảng $5\cdot10^5$ lần; quyết định theo $s$.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Nhãn “Câu hỏi:” và ba câu đánh số toàn chiều rộng; dòng nguồn ghi dữ kiện luyện tập. Không câu nào có đáp án trên mặt s01-03, s01-04.
 - **Kết nối vào–ra:** Hợp đồng→tự kiểm; nhu cầu tập ứng viên dẫn vào phân dải.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: $\binom{10^5}{2}=4\,999\,950\,000$ cặp, khoảng $5\,000$ giây, tức gần 1,4 giờ; giảm số tài liệu 10 lần làm số cặp giảm khoảng 100 lần vì số cặp tăng bậc hai. Câu 2: $499\,999\,500\,000/10^6\approx5\cdot10^5$ lần. Câu 3: quyết định dựa trên $s$, Jaccard của hai tập gốc, tính ở bước xác minh; $\widehat s$ chỉ là tỷ lệ trùng của chữ ký đã lấy, ở đây bằng 1 dù $s=2/3$. Tiêu chí: thấy tăng bậc hai, phân biệt số phép xác minh với số cặp, phân biệt tương đồng thật với ước lượng.
 - **Nguồn:** B Ex 3.10/ §3.4 tr.91–92; câu kiểm tra trực tiếp dữ kiện nguồn.
@@ -101,7 +101,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Mô tả quy tắc đưa hai cột vào cùng nhóm.
 - **Thông điệp:** Chia chữ ký thành dải; cặp trùng toàn bộ ít nhất một dải là ứng viên, và cột càng tương đồng càng dễ thành ứng viên.
-- **Nội dung công khai dự kiến:** [Hình: Chữ ký được chia thành b dải, mỗi dải r hàng; mỗi dải tạo khóa riêng.] Chia $n=br$ hàng thành $b$ dải. Phần của một cột trong dải là bộ $r$ giá trị có thứ tự (tuple); hai cột trùng dải khi hai tuple bằng nhau. Chung ít nhất một dải → cặp ứng viên. Hai cột càng tương đồng càng dễ trùng ở ít nhất một dải. Mỗi dải dùng một bảng thùng riêng; cùng bộ giá trị ở hai dải khác nhau không vào cùng thùng.
+- **Nội dung công khai dự kiến:** [Hình: Chữ ký được chia thành b dải, mỗi dải r hàng; mỗi dải tạo khóa riêng.] Chia $n=br$ hàng thành $b$ dải. Phần của một cột trong dải là bộ $r$ giá trị có thứ tự (tuple); hai cột trùng dải khi hai tuple bằng nhau. Chung ít nhất một dải → cặp ứng viên. Hai cột càng tương đồng càng dễ trùng ở ít nhất một dải. Cặp dưới ngưỡng vẫn thành ứng viên gọi là ứng viên giả. Mỗi dải dùng một bảng thùng riêng; cùng bộ giá trị ở hai dải khác nhau không vào cùng thùng.
 - **Đầu vào và giả thiết:** SIG và nhu cầu ứng viên.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT1 trực giác; chưa áp công thức xác suất.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** SVG chữ ký với ngoặc dải ở trái 60%, hai câu quy tắc ở phải 40%. Năm 2 thấy AND trong dải và OR giữa dải bằng quan hệ nhóm; ký hiệu đặt cạnh ngoặc.
@@ -142,8 +142,8 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Khóa đầy đủ giữ đúng nhóm trong một dải.
 - **Nội dung công khai dự kiến:** Tài liệu Giá trị dải 1 1 1 2 3 3 0 4 1 Khóa (dải, tuple) Danh sách mã $(1,(1))$ 1, 4 $(1,(3))$ 2 $(1,(0))$ 3 Cặp phát ở dải 1: $(1,4)$. Lần chèn tài liệu 4 tạo thùng có hai phần tử; thùng đơn không phát cặp.
 - **Đầu vào và giả thiết:** V02, tuple một thành phần.
-- **Dữ kiện, hình thức hóa và vết chạy:** Khởi tạo thùng rỗng; chèn 1→thùng 1: [1]; chèn 4→thùng 1: [1,4]; thùng đơn không phát cặp.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ma trận cố định trái 45%; bảng khóa/danh sách/cặp phải 55%. Mũi tên nhãn “chèn 4” nối ô 1 với danh sách[1,4]. Năm 2 theo được một thao tác và phần giữ nguyên; lịch chèn đủ ở notes.
+- **Dữ kiện, hình thức hóa và vết chạy:** Bốn lượt chèn ở dải 1: tài liệu 1 và 4 cùng khóa $(1,(1))$; tài liệu 2, 3 ở thùng đơn; cặp phát $(1,4)$.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng giá trị dải 1 bên trái; bảng khóa (dải, tuple) và danh sách mã bên phải; dòng cặp phát và câu chốt ở dưới.
 - **Kết nối vào–ra:** Đầu vào→nhóm dải 1; dải 2 dùng cùng phép chèn nhưng không chung miền khóa.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Sau bốn lượt chèn, mỗi tài liệu xuất hiện đúng một lần trong thùng của nó ở dải 1. Chỉ một thùng có hai phần tử nên chỉ phát cặp (1,4). Mã dải là một thành phần của khóa, khác giá trị chữ ký 1.
 - **Nguồn:** B §3.4.1 tr.92–93 trên dữ kiện Ex 3.8; V02.
@@ -170,7 +170,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Đầu vào và giả thiết:** Tập V02 và $\mathcal C$ ở trang trước.
 - **Dữ kiện, hình thức hóa và vết chạy:** V02 giữ $t$; $\widehat s_{14}=1$ nhưng $s_{14}=2/3$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng 3 hàng cặp/giao-hợp/Jaccard/kết quả ở giữa, ngưỡng trên bảng. Năm 2 tính lại tử và mẫu trước quyết định; notes giữ danh sách hợp đầy đủ.
-- **Kết nối vào–ra:** Ứng viên→kết quả trong ví dụ; dải nhiều hàng sẽ thay điều kiện trùng.
+- **Kết nối vào–ra:** Nhận $\mathcal C$ từ s02-04; trang đặc tả s02-07 hình thức hóa ứng viên và đầu ra đã chạy tay.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Hợp của $S_1$ và $S_3$ là $\{a,b,d,e\}$; hợp của $S_1$ và $S_4$ là $\{a,c,d\}$; hợp của $S_3$ và $S_4$ là $\{a,b,c,d,e\}$. Cặp $(1,3)$ và $(3,4)$ là ứng viên giả ở tầng tạo cặp. Xác minh không thể khôi phục một cặp đạt ngưỡng đã bị bỏ sót bởi phân dải.
 - **Nguồn:** B §3.4.3 tr.95–96; Ex 3.8; dữ kiện; V02.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
@@ -220,7 +220,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Một dải $r$ hàng trùng với xác suất $s^r$.
 - **Nội dung công khai dự kiến:** Tính đúng chỉ xét cặp trong $\mathcal C$; cần biết cặp tương đồng vào $\mathcal C$ với xác suất bao nhiêu. Cặp tập không rỗng cố định có Jaccard $s$; các MinHash lý tưởng được chọn đều, độc lập. Gọi $E_i$ là biến cố hai cột trùng ở hàng $i$ của dải: $\Pr(E_i)=s$. $\Pr(E_1\cap\cdots\cap E_r)=s^r$ Trùng dải $s^r$ Không trùng dải $1-s^r$ Với $s=0{,}8$ và $r=5$: $0{,}8^5=0{,}32768$ và $1-0{,}32768=0{,}67232$.
 - **Đầu vào và giả thiết:** Định lý MinHash Bài 05 và độc lập; phép trùng tuple V03.
-- **Dữ kiện, hình thức hóa và vết chạy:** HT3; V04 $s=.8,r=5$ cho $s^r=.32768$; thất bại dải=.67232.
+- **Dữ kiện, hình thức hóa và vết chạy:** HT3; V04 $s=0{,}8,r=5$ cho $s^r=0{,}32768$; thất bại dải=0,67232.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bên trái 55% ghi các sự kiện theo hàng; phải 45% công thức và thế số. Năm 2 ghép nghĩa “tất cả” với phép nhân; giả thiết hiện phía trên, còn khác mô hình V02 ở notes.
 - **Kết nối vào–ra:** Tính đúng theo ứng viên→khả năng một dải nhận cặp; nhiều dải dùng biến cố bù.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Tính độc lập thuộc các lần chọn hàm, chưa thuộc các cặp dữ liệu. Hai hàm cố định trong ví dụ đã cho không được dùng để suy công thức này. Giá trị $s=0{,}8$ là tương đồng thật, không là tỷ lệ trùng của một chữ ký quan sát.
@@ -233,7 +233,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Cặp có Jaccard s thành ứng viên với xác suất 1−(1−s^r)^b; với 20 dải 5 hàng, cặp có s=0,8 hiếm khi bị bỏ sót.
 - **Nội dung công khai dự kiến:** Các dải dùng những phép thử độc lập; cặp thành ứng viên khi ít nhất một dải trùng. Không dải nào trùng với xác suất $(1-s^r)^b$. Lấy biến cố bù: $P_{b,r}(s)=1-(1-s^r)^b$ Với $b=20$, $r=5$, $s=0{,}8$: $P_{20,5}(0{,}8)\approx0{,}999644$ Chỉ khoảng 1 trên 3 000 cặp có Jaccard $0{,}8$ bị bỏ sót.
 - **Đầu vào và giả thiết:** Sự kiện dải ở trang trước; các nhóm hàm độc lập.
-- **Dữ kiện, hình thức hóa và vết chạy:** V04, HT3; $.67232^{20}=.000356058$; cả hai xác suất theo một cặp $s=.8$.
+- **Dữ kiện, hình thức hóa và vết chạy:** V04, HT3; $0{,}67232^{20}=0{,}000356058$; cả hai xác suất theo một cặp $s=0{,}8$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai hàng sự kiện→công thức trên; thế số dưới. Năm 2 thấy phép bù sau phép nhân theo dải; chưa đưa đồ thị trước khi biết trục tung.
 - **Kết nối vào–ra:** Một dải→hợp nhiều dải; đồ thị dùng công thức để chọn tham số.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Xác suất bỏ sót tại một cặp đạt ngưỡng là $1-P(s)$. Tại $s=0{,}8$, giá trị này là $(0{,}67232)^{20}\approx0{,}000356$, khoảng 1 trên 2 800; sách làm tròn thành khoảng 1 trên 3 000. Các nhóm hàng độc lập vì toàn bộ các MinHash thành phần độc lập. Cặp dữ liệu được giữ cố định suốt phép suy. Với $r=1$, đường xác suất lõm và không có đầy đủ dạng chữ S.
@@ -246,8 +246,8 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Đường xác suất ứng viên tăng dốc quanh (1/b)^{1/r}; chọn b, r để vùng dốc nằm thấp hơn t khi cần ít bỏ sót, cao hơn t khi cần ít ứng viên giả.
 - **Nội dung công khai dự kiến:** [Hình: Xác suất ứng viên theo Jaccard thật của cấu hình 20 dải 5 hàng và 10 dải 10 hàng, cùng 100 hàng.] Cấu hình $(20,5)$: $P(s)=1/2$ tại $s\approx0{,}509$; xấp xỉ $(1/b)^{1/r}\approx0{,}549$. Tại ngưỡng $t=0{,}8$: cấu hình $(20,5)$ bỏ sót khoảng $0{,}036\%$, cấu hình $(10,10)$ khoảng $32\%$. Chọn $b,r$ với $(1/b)^{1/r}\approx t$; thấp hơn $t$ để ít bỏ sót, cao hơn $t$ để ít ứng viên giả.
 - **Đầu vào và giả thiết:** HT3; ngưỡng $t$ từ đặc tả.
-- **Dữ kiện, hình thức hóa và vết chạy:** V04, HT4; $s_{1/2}=(1-2^{-1/b})^{1/r}$ để notes/suy đại số; điểm xấp xỉ có $P=.641514$.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Đồ thị lớn toàn chiều rộng; ba dòng ngắn bên dưới phân biệt t, điểm P(s_half)=1/2 và xấp xỉ vùng chuyển tiếp. Công thức đóng và phép biến đổi nằm trong notes, không thu nhỏ chữ để giữ cả công thức dài.
+- **Dữ kiện, hình thức hóa và vết chạy:** V04, HT4; $s_{1/2}=(1-2^{-1/b})^{1/r}\approx0{,}509$ và $(1/b)^{1/r}\approx0{,}549$ cho $(20,5)$; bỏ sót tại $t=0{,}8$: $0{,}036\%$ và $32\%$.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Đồ thị lớn toàn chiều rộng; hai dòng ngắn (điểm $P=1/2$ so với xấp xỉ; bỏ sót tại $t$) và câu chốt nêu quy tắc §3.4.3. Công thức nghiệm nằm trong ghi chú.
 - **Kết nối vào–ra:** Xác suất→quyết định tham số; số ứng viên và lượt phát quyết định chi phí thực tế.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Đường $P_{b,r}(s)$ có dạng chữ S khi $r>1$: thấp ở Jaccard nhỏ, tăng dốc quanh một ngưỡng rồi gần 1. Phương trình $P(s)=1/2$ cho $s^r=1-2^{-1/b}$, nên điểm xác suất một nửa là $(1-2^{-1/b})^{1/r}$; giá trị $(1/b)^{1/r}$ chỉ xấp xỉ vùng dốc, không bằng nghiệm này và không phải ngưỡng chấp nhận $t$. Hai cấu hình trong hình cùng dùng 100 hàng. Tại $s=0{,}8$, xác suất bỏ sót của $(20,5)$ là $(1-0{,}8^5)^{20}\approx0{,}000356$, của $(10,10)$ là $(1-0{,}8^{10})^{10}\approx0{,}321$. Đây là xác suất theo từng cặp có Jaccard cho trước, không phải tỷ lệ lỗi của một kho chưa biết phân bố tương đồng. Quy tắc chọn tham số lấy từ bước 4 của §3.4.3.
 - **Nguồn:** B Ex 3.12 tr.94–95, Bài 3.4.2 tr.96; S4 PDF 34/trang in 37; so $n$ cố định.
@@ -262,7 +262,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** V02:8 chèn,4 phát,3 kiểm; V01 không tự có tỷ lệ giảm. SIG $nC$ từ là đầu vào riêng. $T_J$ không giả định hằng.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Mô hình một dòng trên; bảng 3 hàng trọng tâm; công thức tổng và xấu nhất dưới. Năm 2 truy chi phí về thao tác đã chạy. Notes chứa biểu diễn tập sắp xếp và phân rã bộ nhớ chi tiết.
 - **Kết nối vào–ra:** Tham số→lượng công việc; kiểm tra phần yêu cầu phối hợp thuật toán, xác suất và giới hạn.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Dựng thùng xử lý $bC$ tuple, mỗi tuple dài $r$, nên tốn $O(brC)=O(nC)$. Phát cặp tốn một thao tác cho mỗi trong $Q$ lượt, kể cả lượt phát lại. Nếu các tập được lưu theo thứ tự tăng, phép trộn hai dãy cho $T_J(c,d)=O(|S_c|+|S_d|)$. Khóa sao chép chiếm tối đa $nC$ từ, danh sách thùng $bC$ mã, tập cặp $K$ phần tử. Nếu mọi cột chung mỗi thùng thì $Q=b\binom C2$ và $K=\binom C2$. Trong mô hình MinHash độc lập, $\mathbb E[K]=\sum_{c<d}P_{b,r}(s_{cd})$: lượng công việc phụ thuộc phân bố tương đồng của kho.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Dựng thùng xử lý $bC$ tuple, mỗi tuple dài $r$, nên tốn $O(brC)=O(nC)$. Phát cặp tốn một thao tác cho mỗi trong $Q$ lượt, kể cả lượt phát lại. Nếu các tập được lưu theo thứ tự tăng, phép trộn hai dãy cho $T_J(c,d)=O(|S_c|+|S_d|)$. Khóa sao chép chiếm tối đa $nC$ từ, danh sách thùng $bC$ mã, tập cặp $K$ phần tử. Nếu mọi cột chung mỗi thùng thì $Q=b\binom C2$ và $K=\binom C2$. Trong mô hình MinHash độc lập, với $s_{cd}=\mathrm{SIM}(S_c,S_d)$, $\mathbb E[K]=\sum_{c<d}P_{b,r}(s_{cd})$: lượng công việc phụ thuộc phân bố tương đồng của kho.
 - **Nguồn:** B §3.4.1, 3.4.3; phân tích suy từ giả mã đã duyệt, N04; U PDF 14; đối chiếu quan hệ ứng viên–công việc.
 - **Ánh xạ ghi chú:** `N04`. **Thời lượng:** 3.5 phút.
 
@@ -272,8 +272,8 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Đổi cấu hình dải trên cùng chữ ký đổi tập ứng viên; công thức xác suất cho thấy đánh đổi giữa ứng viên giả và bỏ sót.
 - **Nội dung công khai dự kiến:** Câu hỏi: $S_1=\{a,d\},\quad S_2=\{c\}$ $S_3=\{b,d,e\},\quad S_4=\{a,c,d\}$ Hàng $S_1$ $S_2$ $S_3$ $S_4$ 1 1 3 0 1 2 0 2 0 0 Với cùng chữ ký, $b=1$, $r=2$ và $t=2/3$: tính $Q$, $K$ và tập kết quả. Viết $P_{2,1}(s)$ và $P_{1,2}(s)$; tính tại $s=1/4$ và $s=2/3$. Vì sao vết chạy với hai hàm cố định không chứng minh được các công thức xác suất ấy?
 - **Đầu vào và giả thiết:** V02 hiển thị lại SIG và ba Jaccard cần dùng; các công thức phần 2.
-- **Dữ kiện, hình thức hóa và vết chạy:** Đáp án $Q=4,K=3$, tập kết quả chỉ gồm (1,4);$P(s)=1-(1-s)^2$.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 45% ma trận 2 × 4 và tập gốc gọn; phải 55% ba nhiệm vụ. Năm 2 vận dụng lại dữ kiện đã theo dõi, cần phân biệt kết quả xác định với mô hình xác suất. Không hiện đáp án.
+- **Dữ kiện, hình thức hóa và vết chạy:** Đáp án: $b=1,r=2$ cho $Q=K=1$, kết quả $\{(1,4)\}$; $P_{2,1}(s)=1-(1-s)^2$, $P_{1,2}(s)=s^2$, tại $s=1/4$: $7/16$, $1/16$; tại $s=2/3$: $8/9$, $4/9$.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Tập gốc bên trái, ma trận chữ ký bên phải; ba câu đánh số bên dưới. Câu 1 đổi cấu hình để không lặp vết chạy đã hiện.
 - **Kết nối vào–ra:** Chi phí→kiểm phần; Jaccard là một độ đo nền, phần 3 xây các cách đo gần khác.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: một dải hai hàng cho các tuple $(1,0)$, $(3,2)$, $(0,0)$, $(1,0)$; chỉ cột 1 và 4 chung thùng, nên $Q=K=1$ và $(1,4)$ đạt ngưỡng $2/3$. So với $b=2,r=1$ ($K=3$), đòi trùng cả hai hàng đã loại hai ứng viên giả. Câu 2: $P_{2,1}(s)=1-(1-s)^2$, $P_{1,2}(s)=s^2$; tại $s=1/4$ là $7/16$ và $1/16$; tại $s=2/3$ là $8/9$ và $4/9$. Cấu hình một dải hai hàng nhận ít cặp xa hơn nhưng cũng bỏ sót cặp gần nhiều hơn. Câu 3: công thức là xác suất trên cách chọn ngẫu nhiên các MinHash; một bộ hàm cố định chỉ cho một kết quả xác định trên dữ liệu đã cho. Tiêu chí: tính đúng tuple hai hàng, phân biệt $Q$ và $K$, thấy đánh đổi giữa hai cấu hình, nêu đúng nguồn ngẫu nhiên.
 - **Nguồn:** B Ex 3.8/ §3.4; câu kiểm tra áp dụng nguyên dữ kiện nguồn, tham số đã duyệt.

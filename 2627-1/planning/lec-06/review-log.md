@@ -353,3 +353,15 @@ Cách làm như lượt Bài 05 (01/10/2026): điều phối viên (phiên Claud
 | lec06-s02-14 | Kiểm tra phân dải: đổi cấu hình trên cùng chữ ký, đánh đổi xác suất, nguồn ngẫu nhiên. | sửa | Tiêu đề “Kiểm tra phân dải và xác minh” → “Câu hỏi về phân dải”. Câu 1 cũ ($b=2,r=1$) trùng vết chạy s02-02…05 đã hiện đáp án; thay bằng $b=1,r=2$ ($Q=K=1$, loại hai ứng viên giả). Câu 2 tính $P_{2,1}$, $P_{1,2}$ tại $s=1/4$ ($7/16$, $1/16$) và $s=2/3$ ($8/9$, $4/9$), tính lại bằng phân số. Câu 3 giữ ý nguồn ngẫu nhiên. | Mục 2: bài tự kiểm thêm ý (b) với $b=1,r=2$. |
 | lec06-s03-01 | Mở phần 3: phân dải chỉ phục vụ Jaccard; ví dụ $L_1=7$, $L_2=5$, $L_\infty=4$ cho cùng hai điểm. | sửa nhẹ | Giữ tiêu đề và ví dụ. Câu dẫn nêu rõ kết quả kế thừa và giới hạn (phân dải dùng MinHash nên chỉ phục vụ Jaccard; vector, chuỗi cần độ đo và phép băm khác). Thêm câu chốt rút từ ví dụ: “gần” phụ thuộc độ đo. | Mục 5: câu nối thêm nhu cầu phép băm riêng cho mỗi độ đo; sau ví dụ thêm nhận xét ngưỡng “gần” phụ thuộc độ đo. |
 | lec06-s03-02 | Bốn tiên đề metric; chuẩn $L_q$ với $q\ge1$. | sửa nhẹ | Tiêu đề “Độ đo khoảng cách” → “Độ đo khoảng cách và chuẩn vector” (trang có hai thẻ). Câu chốt chung chung (“Miền và điều kiện tham số là một phần của định nghĩa”) thay bằng kết luận nối với ví dụ trước: $L_q$ thỏa bốn tiên đề khi $q\ge1$, $L_1,L_2,L_\infty$ là ba trường hợp. | Không đổi; mục 5 đã có định nghĩa và điều kiện $q\ge1$. |
+
+**Rà lại phần 1–2 (tác tử chỉ đọc, `subagent_type: "fork"`, kế thừa Opus 5.5).** Độ chính xác đạt: 5,787 ngày; $4\,999\,950\,000$ cặp, 1,39 giờ; $P_{20,5}(0{,}8)\approx0{,}999644$; $1/0{,}000356\approx2\,808$ (khớp “roughly one in 3000”); $s_{1/2}=0{,}50870$, $20^{-1/5}=0{,}54928$; quy tắc bước 4 §3.4.3; câu hỏi s02-14. Không câu hỏi nào có đáp án trên mặt trang trước; việc chuyển s02-06 không tạo khoảng trống. Không có phát hiện chặn bàn giao hoặc nghiêm trọng.
+
+| Trang | Phát hiện rà lại | Quyết định | Thay đổi |
+|---|---|---|---|
+| storyboard s01-04, s01-05, s02-03, s02-05, s02-12, s02-14 | (trung bình) Trường Dữ kiện, Bố cục, Kết nối còn mô tả bản cũ. | sửa | Viết lại theo HTML hiện tại. |
+| storyboard s01-03, s02-10, s02-11, s02-12 | (nhẹ) Trường Dữ kiện còn dấu chấm thập phân. | sửa | Đổi sang dấu phẩy. |
+| lec06-s02-01 → s02-05 | (nhẹ) “Ứng viên giả” dùng trên mặt s02-05 nhưng chỉ định nghĩa trong ghi chú. | sửa | Dòng phụ s02-01: “Cặp dưới ngưỡng vẫn thành ứng viên gọi là ứng viên giả.” |
+| lec06-s01-04 | (nhẹ) “Cặp ứng viên” trước định nghĩa ở s02-01. | giữ | Dùng theo nghĩa thông thường như cầu nối; ghi chú đã nói cách tạo ứng viên được xây ở phần 2. |
+| lec06-s02-12 | (nhẹ) Dòng nguồn ghi chú khác mặt trang. | sửa | Thống nhất “Ví dụ 3.12; §3.4.3”. |
+| lec06-s02-12 (SVG) | (nhẹ) Nhãn trục `xac-suat-phan-dai.svg` dùng dấu chấm thập phân. | giữ, ghi ngoại lệ | Hình sinh bằng `generate_svg.py` dùng chung cho nhiều SVG; không sửa hình trong lượt duyệt văn bản này. Nêu để xử lý trong một lượt sửa hình riêng. |
+| lec06-s02-13 | (nhẹ) $s_{cd}$ chưa định nghĩa trong ghi chú. | sửa | Thêm “với $s_{cd}=\mathrm{SIM}(S_c,S_d)$”. |
