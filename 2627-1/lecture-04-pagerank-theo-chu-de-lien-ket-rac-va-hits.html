@@ -101,15 +101,16 @@
 </aside>
 </section>
 <section id="lec04-s02-02" data-slide-id="lec04-s02-02" class="example-slide">
-<h2>Tập dịch chuyển trên đồ thị bốn trang</h2>
+<h2>Phân phối dịch chuyển trên G4</h2>
 <div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-15.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C. B và D có viền đôi và nhãn tập S." role="img"></div><div><p>$\beta=4/5$, $S=\{B,D\}$; thứ tự thành phần A, B, C, D.</p>
 <p>$v$ là phân phối chọn trang đích khi thực hiện dịch chuyển:
 $$v=(0,1/2,0,1/2)^\mathsf T.$$</p>
-<p>Khởi tạo ví dụ: $r^0=v$. Trong phép lặp, $v$ cố định, còn $r^t$ thay đổi.</p>
-<p>Mỗi vòng thêm $(1-\beta)v$: B và D nhận $1/10$, A và C nhận $0$.</p></div></div>
+<p>Cập nhật trên G4 (không có nút cụt), khởi tạo $r^0=v$:
+$$r^{t+1}=\beta M_0r^t+(1-\beta)v.$$</p>
+<p>Mỗi vòng thêm $(1-\beta)v$: B, D nhận $1/10$; A, C nhận $0$.</p></div></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
 <aside class="notes">
-<p>Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. $v_i$ là xác suất chọn trang $i$ với điều kiện đã thực hiện nhánh dịch chuyển; $v$ không phải kết quả PageRank. Khởi tạo bằng $v$ là lựa chọn theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.</p>
+<p>Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. $v_i$ là xác suất chọn trang $i$ với điều kiện đã thực hiện nhánh dịch chuyển; $v$ không phải kết quả PageRank. Phép cập nhật giữ nhánh theo liên kết $\beta M_0r^t$ của Bài 03 và thay phần dịch chuyển đều $(1-\beta)u$ bằng $(1-\beta)v$; G4 không có nút cụt nên không cần phần bù. Vector $v$ cố định qua mọi vòng, còn $r^t$ thay đổi. Khởi tạo bằng $v$ là lựa chọn theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
 </aside>
 </section>

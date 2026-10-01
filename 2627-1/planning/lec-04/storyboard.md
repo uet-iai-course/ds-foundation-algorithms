@@ -337,7 +337,7 @@ So với Bài 03, chỉ nơi đến của bước dịch chuyển thay đổi; n
 MMDS dựa trên giả định trực quan: trang được các trang của một chủ đề trỏ tới thường cũng thuộc chủ đề đó. Đây là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.
 <!-- public-notes:end -->
 
-### lec04-s02-02 — Tập dịch chuyển trên đồ thị bốn trang
+### lec04-s02-02 — Phân phối dịch chuyển trên G4
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ dẫn nhập; MT1. Đầu vào: hai nhánh di chuyển. Sản phẩm: lập vector bước nhảy từ tập S.
 
@@ -353,9 +353,10 @@ $\beta=4/5$, $S=\{B,D\}$; thứ tự thành phần A, B, C, D.
 $v$ là phân phối chọn trang đích khi thực hiện dịch chuyển:
 $$v=(0,1/2,0,1/2)^\mathsf T.$$
 
-Khởi tạo ví dụ: $r^0=v$. Trong phép lặp, $v$ cố định, còn $r^t$ thay đổi.
+Cập nhật trên G4 (không có nút cụt), khởi tạo $r^0=v$:
+$$r^{t+1}=\beta M_0r^t+(1-\beta)v.$$
 
-Mỗi vòng thêm $(1-\beta)v$: B và D nhận $1/10$, A và C nhận $0$.
+Mỗi vòng thêm $(1-\beta)v$: B, D nhận $1/10$; A, C nhận $0$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Đồ thị G4 ở trái45%; định nghĩa v, vector cụ thể và vai trò khởi tạo ở phải55%. Giữ nhãn B,D và thứ tự A–D.
@@ -370,6 +371,8 @@ Mỗi vòng thêm $(1-\beta)v$: B và D nhận $1/10$, A và C nhận $0$.
 
 **Kết nối vào–ra:** Tập chủ đề → dữ liệu khởi tạo và điểm thêm; dùng nguyên các giá trị cho vòng 1.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng đối tượng mới (phân phối $v$) và tên đồ thị; viết quy tắc cập nhật trên mặt trang vì s02-03 dùng hai số hạng của nó làm tiêu đề cột; chuyển câu “$v$ cố định, $r^t$ thay đổi” vào ghi chú.
+
 **Nguồn và vị trí:** NG1 VD5.10/Hình 5.15, tr.196–197/PDF22–23.
 
 **Thời lượng:** 2 phút.
@@ -377,7 +380,7 @@ Mỗi vòng thêm $(1-\beta)v$: B và D nhận $1/10$, A và C nhận $0$.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. $v_i$ là xác suất chọn trang $i$ với điều kiện đã thực hiện nhánh dịch chuyển; $v$ không phải kết quả PageRank. Khởi tạo bằng $v$ là lựa chọn theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.
+Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. $v_i$ là xác suất chọn trang $i$ với điều kiện đã thực hiện nhánh dịch chuyển; $v$ không phải kết quả PageRank. Phép cập nhật giữ nhánh theo liên kết $\beta M_0r^t$ của Bài 03 và thay phần dịch chuyển đều $(1-\beta)u$ bằng $(1-\beta)v$; G4 không có nút cụt nên không cần phần bù. Vector $v$ cố định qua mọi vòng, còn $r^t$ thay đổi. Khởi tạo bằng $v$ là lựa chọn theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.
 <!-- public-notes:end -->
 
 ### lec04-s02-03 — Vòng lặp PageRank theo chủ đề thứ nhất
