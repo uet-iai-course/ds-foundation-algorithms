@@ -227,16 +227,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.2 tr.93–94/PDF 22–23; Ex 3.12 tr.94.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s02-11 — Xác suất tạo ứng viên
+#### lec06-s02-11 — Xác suất thành ứng viên
 
 - **Mục đích và vai trò:** Dùng biến cố bù để suy xác suất ít nhất một dải trùng.
-- **Thông điệp:** Các dải độc lập cho $P_{b,r}(s)=1-(1-s^r)^b$.
-- **Nội dung công khai dự kiến:** Không dải nào trùng:$(1-s^r)^b$. Ít nhất một dải trùng:$P_{b,r}(s)=1-(1-s^r)^b$. Với $b=20,r=5,s=.8$: bỏ sót $.000356058$, được chọn $.999643942$.
+- **Thông điệp:** Cặp có Jaccard s thành ứng viên với xác suất 1−(1−s^r)^b; với 20 dải 5 hàng, cặp có s=0,8 hiếm khi bị bỏ sót.
+- **Nội dung công khai dự kiến:** Các dải dùng những phép thử độc lập; cặp thành ứng viên khi ít nhất một dải trùng. Không dải nào trùng với xác suất $(1-s^r)^b$. Lấy biến cố bù: $P_{b,r}(s)=1-(1-s^r)^b$ Với $b=20$, $r=5$, $s=0{,}8$: $P_{20,5}(0{,}8)\approx0{,}999644$ Chỉ khoảng 1 trên 3 000 cặp có Jaccard $0{,}8$ bị bỏ sót.
 - **Đầu vào và giả thiết:** Sự kiện dải ở trang trước; các nhóm hàm độc lập.
 - **Dữ kiện, hình thức hóa và vết chạy:** V04, HT3; $.67232^{20}=.000356058$; cả hai xác suất theo một cặp $s=.8$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai hàng sự kiện→công thức trên; thế số dưới. Năm 2 thấy phép bù sau phép nhân theo dải; chưa đưa đồ thị trước khi biết trục tung.
 - **Kết nối vào–ra:** Một dải→hợp nhiều dải; đồ thị dùng công thức để chọn tham số.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Xác suất bỏ sót tại một cặp đạt ngưỡng là $1-P(s)$. Các nhóm hàng độc lập vì toàn bộ các MinHash thành phần độc lập. Cặp dữ liệu được giữ cố định suốt phép suy. Với $r=1$, đường xác suất lõm và không có đầy đủ dạng chữ S.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Xác suất bỏ sót tại một cặp đạt ngưỡng là $1-P(s)$. Tại $s=0{,}8$, giá trị này là $(0{,}67232)^{20}\approx0{,}000356$, khoảng 1 trên 2 800; sách làm tròn thành khoảng 1 trên 3 000. Các nhóm hàng độc lập vì toàn bộ các MinHash thành phần độc lập. Cặp dữ liệu được giữ cố định suốt phép suy. Với $r=1$, đường xác suất lõm và không có đầy đủ dạng chữ S.
 - **Nguồn:** B §3.4.2 tr.93–95; M PDF 54; S3 PDF 49.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2 phút.
 
