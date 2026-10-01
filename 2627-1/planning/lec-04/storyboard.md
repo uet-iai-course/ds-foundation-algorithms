@@ -2196,7 +2196,7 @@ Các phép lặp đều khai thác đồ thị thưa. Cùng bậc chi phí mỗi
 Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịch chuyển hoặc trọng số. TrustRank cần hạt giống đáng tin và đủ độ phủ; Spam Mass không tự tạo nhãn đúng chắc chắn. HITS cần đầu ra hai vai trò nên không thay thế trực tiếp chỉ số tin cậy. Chi phí tuyến tính theo $n+\ell$ mỗi vòng chỉ là một tiêu chí; số vòng, độ chính xác dừng và chi phí chuẩn bị thông tin bên ngoài vẫn khác nhau.
 <!-- public-notes:end -->
 
-### lec04-s06-03 — Tự kiểm về mô hình và chi phí
+### lec04-s06-03 — Câu hỏi về mô hình và chi phí
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tự kiểm tổng hợp1–2; MT1,MT5. Đầu vào: phân phối dịch chuyển và phép đếm. Sản phẩm: phân biệt thay mô hình/biểu diễn và hiểu phạm vi chi phí.
 
@@ -2206,7 +2206,7 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 
 <!-- public-slide:start -->
 **Câu hỏi:**
-1. Trên cùng G4, giữ $\beta=4/5$ và đổi tập dịch chuyển từ {B,D} sang {A}. Xác định đại lượng phải đổi và đại lượng được giữ nguyên trong $r'=\beta M_0r+(1-\beta)v$.
+1. Trên cùng G4, giữ $\beta=4/5$ và đổi tập dịch chuyển từ {B,D} sang {C}. Xác định đại lượng phải đổi và đại lượng được giữ nguyên trong $r'=\beta M_0r+(1-\beta)v$.
 2. PageRank theo chủ đề và HITS đều có chi phí mỗi vòng $\Theta(n+\ell)$. Đánh giá kết luận: “Hai thuật toán luôn có cùng thời gian chạy”. Nêu những đại lượng còn thiếu.
 <!-- public-slide:end -->
 
@@ -2222,13 +2222,15 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 
 **Kết nối vào–ra:** Lựa chọn phương pháp → tự kiểm mô hình/chi phí → kiểm tra tổng hợp các giới hạn.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “Câu hỏi về mô hình và chi phí” thay nhãn quy trình “Tự kiểm”; câu 1 đổi tập dịch chuyển sang {C} để không trùng dữ kiện Bài tập 5.3.1(a) (tập {A}) ở s07-01.
+
 **Nguồn và vị trí:** NG1 §5.3.2,§5.5.2; nhiệm vụ suy trực tiếp từ đặc tả và phép đếm đã dạy.
 
 **Thời lượng:** 3 phút.
 
 **Nhiệm vụ và tiêu chí nội bộ:** Nhiệm vụ tự kiểm; slide kiểm tra riêng của phần được chỉ định trong bản đồ.
 
-- Câu hỏi/đề: Hai nhiệm vụ tự kiểm như nội dung hiển thị.
+- Câu hỏi/đề: Hai câu hỏi như nội dung hiển thị.
 - Đáp án/gợi ý: Câu1 đổi v và khởi tạo theo v, giữ M0/beta. Câu2 kết luận không được bảo đảm, còn thiếu số vòng/hằng số/điều kiện thực thi.
 - Tiêu chí đánh giá: Nêu đúng thành phần thay đổi, không sửa cạnh; phân biệt một vòng với toàn thuật toán và tiệm cận với số đo.
 - Phân bổ hoạt động: Suy nghĩ1 phút, trao đổi lời giải1 phút, đối chiếu1 phút; tổng3 phút.
@@ -2236,7 +2238,7 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Ở câu 1, đồ thị và $M_0$ giữ nguyên, $\beta=4/5$; $v$ đổi từ $(0,1/2,0,1/2)^\mathsf T$ sang $(1,0,0,0)^\mathsf T$. Nếu khởi tạo theo $v$ thì $r^0$ cũng đổi. G4 không có nút cụt nên không có số hạng bù. Ở câu 2, hai thuật toán có thể khác số vòng, hệ số công việc, tiêu chí dừng và cách thực thi; chuẩn bị tập chủ đề hoặc tập tin cậy cũng không nằm trong chi phí một vòng. Cùng bậc tiệm cận không suy ra cùng thời gian chạy.
+Ở câu 1, đồ thị và $M_0$ giữ nguyên, $\beta=4/5$; $v$ đổi từ $(0,1/2,0,1/2)^\mathsf T$ sang $(0,0,1,0)^\mathsf T$. Nếu khởi tạo theo $v$ thì $r^0$ cũng đổi. G4 không có nút cụt nên không có số hạng bù. Ở câu 2, hai thuật toán có thể khác số vòng, hệ số công việc, tiêu chí dừng và cách thực thi; chuẩn bị tập chủ đề hoặc tập tin cậy cũng không nằm trong chi phí một vòng. Cùng bậc tiệm cận không suy ra cùng thời gian chạy.
 <!-- public-notes:end -->
 
 ### lec04-s06-04 — Kiểm tra tổng hợp các phương pháp
