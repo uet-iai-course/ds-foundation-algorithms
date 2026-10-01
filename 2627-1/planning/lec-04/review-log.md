@@ -471,3 +471,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s02-01 | (nhẹ) $S$ trên mặt trang chưa được gọi tên. | sửa | “dịch chuyển tới một trang trong $S$” → “dịch chuyển tới tập chủ đề $S$”. |
 | lec04-s02-08 | (nhẹ) “thu hẹp khoảng cách ít nhất theo hệ số $\beta$” mơ hồ. | sửa | Đổi thành “Khoảng cách sau cập nhật không vượt $\beta$ lần khoảng cách trước (tính co)”. |
 | lec04-s02-09 | (nhẹ) “Vector PageRank hội tụ” dễ đọc thành tính chất của dãy lặp. | sửa | Đổi thành “Điểm cố định PageRank của chủ đề $j$ trên $n$ trang”. |
+| lec04-s02-10 | (nhẹ) Đầu cột không khớp ô; đoạn 3 ghi chú lặp mặt trang; nguồn chưa nói phép đếm do bài suy ra. | sửa | Đầu cột “Khối lượng mỗi vòng”; đoạn 3 ghi chú viết lại thành ý mới (bộ nhớ theo số chủ đề, không theo số người dùng; không dựng vector ghép trên $n$ trang); dòng nguồn trên trang và trong ghi chú thêm “phép đếm suy ra từ giả mã” (MMDS không phân tích chi phí này); storyboard đã ghi “Phép đếm từ HT1/HT3”. |
