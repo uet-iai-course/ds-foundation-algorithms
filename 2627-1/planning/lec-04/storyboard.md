@@ -475,7 +475,7 @@ B và D có điểm cố định lớn hơn A; các trang ngoài $S$ vẫn có �
 Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có số hạng $1/10$, nên được $13/75$. Vòng 3 là $(31/125,71/250,23/125,71/250)^\mathsf T$. Nghiệm trong cột cuối thu được bằng cách giải hệ bốn phương trình tuyến tính cùng điều kiện tổng bằng $1$; phép thế lại cho thấy nó thỏa phương trình cố định. Cách giải này được dùng lại trong bài tập cuối bài. Việc các vòng đầu tiến gần nghiệm là quan sát; bảo đảm hội tụ đòi hỏi lập luận cho mọi vòng lặp.
 <!-- public-notes:end -->
 
-### lec04-s02-05 — Đặc tả PageRank theo phân phối dịch chuyển
+### lec04-s02-05 — Đặc tả PageRank theo chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa; MT1. Đầu vào: vết chạy và bù nút cụt Bài 03. Sản phẩm: xác định miền đầu vào và quy tắc tổng quát.
 
@@ -488,9 +488,9 @@ Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có s
 
 $$r^{t+1}=\underbrace{\beta M_0r^t}_{\text{theo liên kết}}+\underbrace{\beta\delta^t u}_{\text{bù nút cụt}}+\underbrace{(1-\beta)v}_{\text{dịch chuyển}}.$$
 
-$u_i=1/n$; $\delta^t=\sum_{j:d_j=0}r_j^t$. Cột $j$ của $M_0$ là trang nguồn $j$.
+Khi có nút cụt, $\delta^t=\sum_{j:d_j=0}r_j^t$ được bù đều theo $u_i=1/n$ như Bài 03; G4 có $\delta^t=0$.
 
-Đầu ra: vector xấp xỉ và trạng thái đạt ngưỡng hoặc hết số vòng. Bù nút cụt vẫn phân phối đều như Bài 03.
+Đầu ra: vector xấp xỉ và trạng thái đạt ngưỡng hoặc hết số vòng.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Đầu vào thành dải trên25%; công thức ba số hạng giữa45%; ký hiệu và đầu ra dưới30%. Dùng một công thức trung tâm, không thêm ma trận số.
@@ -504,6 +504,8 @@ $u_i=1/n$; $\delta^t=\sum_{j:d_j=0}r_j^t$. Cột $j$ của $M_0$ là trang ngu�
 **Ví dụ, phiếu số và hình thức hóa:** HT1. Ví dụ VD1 có delta=0; v tổng quát bao gồm v đều trên S. Nguồn cầu nối NG5 được công khai.
 
 **Kết nối vào–ra:** Ví dụ không nút cụt → quy tắc cho đồ thị tổng quát → giả mã áp dụng nguyên quy tắc.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Đặc tả PageRank theo chủ đề”; dòng giải thích $\delta^t$, $u$ nêu lý do số hạng bù xuất hiện (đồ thị tổng quát có nút cụt, giữ quy tắc Bài 03) và ghi rõ G4 có $\delta^t=0$, nối với ví dụ vừa chạy. Quy ước cột $M_0$ đã ôn ở s01-06 và có trong ghi chú.
 
 **Nguồn và vị trí:** NG1 §5.3.2, tr.196; NG1 §5.1.5; NG5 quy ước bù nút cụt. Phần bù là cầu nối đã duyệt.
 
