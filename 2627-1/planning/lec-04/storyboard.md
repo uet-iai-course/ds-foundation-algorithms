@@ -1004,7 +1004,7 @@ Hình chia web thành ba vùng theo MMDS §5.4.1: phần lớn web không thể 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Ký hiệu: $y$ là điểm trang đích; $p$ là điểm mỗi trang hỗ trợ; $b=(1-\beta)/n$.
+Ký hiệu: $y$, $p$ là điểm cố định của đích và của mỗi trang hỗ trợ; $b=(1-\beta)/n$.
 
 Đích có đúng $m$ liên kết ra; mỗi hỗ trợ chỉ nhận cạnh từ đích.
 
@@ -1014,8 +1014,6 @@ Ký hiệu: $y$ là điểm trang đích; $p$ là điểm mỗi trang hỗ trợ
 | Dịch chuyển đều | $b$ |
 
 $$p=\frac{\beta y}{m}+b.$$
-
-Mọi trang hỗ trợ có cùng phương trình trong mô hình này.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Một cặp đích–hỗ trợ lớn trái40%, bảng hai nguồn điểm và công thức phải60%. Trên cạnh ghi beta y/m; nguồn dịch chuyển dùng mũi tên nét đứt b.
@@ -1029,6 +1027,8 @@ Mọi trang hỗ trợ có cùng phương trình trong mô hình này.
 **Ví dụ, phiếu số và hình thức hóa:** VD2; HT4 điểm hỗ trợ. p,y là điểm; n,m là số trang; beta xác suất.
 
 **Kết nối vào–ra:** Kiến trúc cụm → điểm một hỗ trợ → tổng điểm quay về từ m hỗ trợ.
+
+**Quyết định 01/10/2026:** sửa — giữ tiêu đề; dòng ký hiệu nêu $y$, $p$ là điểm cố định (phương trình cân bằng, không phải một vòng lặp); bỏ câu thừa “Mọi trang hỗ trợ có cùng phương trình”, ý này đã có trong ghi chú.
 
 **Nguồn và vị trí:** NG1 §5.4.2, tr.201/PDF27.
 
