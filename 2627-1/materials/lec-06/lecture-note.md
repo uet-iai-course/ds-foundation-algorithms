@@ -460,7 +460,7 @@ Tính metric của một độ đo chưa bảo đảm tồn tại họ LSH phù 
 
 ### Chọn tọa độ cho Hamming
 
-Cho $x,y\in\Sigma^D$, $D>0$. Chọn đều chỉ số $I\in\{1,\ldots,D\}$ và đặt $h_I(x)=x_I$. Một lần chọn $I$ xác định một hàm cho cả kho; chọn chỉ số riêng cho từng đối tượng sẽ làm thay đổi phép thử.
+Cho $x,y\in\Sigma^D$, với $\Sigma$ là một bảng chữ hữu hạn, ví dụ $\{0,1\}$, và $D>0$. Chọn đều chỉ số $I\in\{1,\ldots,D\}$ và đặt $h_I(x)=x_I$. Một lần chọn $I$ xác định một hàm cho cả kho; chọn chỉ số riêng cho từng đối tượng sẽ làm thay đổi phép thử.
 
 Với $10101$ và $11110$, các tọa độ 1 và 3 trùng, còn 2,4,5 khác. Chọn $I=1$ trả hai giá trị 1; chọn $I=2$ trả 0 và 1. Có $D-d_H(x,y)$ chỉ số thuận lợi trong $D$ chỉ số đồng khả năng, do đó
 
@@ -490,7 +490,7 @@ Với pháp tuyến $v\ne0$, siêu phẳng qua gốc là tập các điểm $x$ 
 
 $$
 h_v(x)=\operatorname{sign}(v\cdot x),\qquad
-\operatorname{sign}(z)=\begin{cases}+1,&z\ge0,\\-1,&z<0.\end{cases}
+\operatorname{sign}(t)=\begin{cases}+1,&t\ge0,\\-1,&t<0.\end{cases}
 $$
 
 Nhân $x$ với $c>0$ không đổi dấu của $v\cdot x$, nên giá trị băm chỉ phụ thuộc hướng của $x$; đó là tính chất cần cho khoảng cách góc. Một pháp tuyến phải được giữ nguyên khi băm mọi vector. Pháp tuyến vuông góc mặt phân chia; nó không phải chính đường hoặc mặt phân chia.
@@ -632,14 +632,14 @@ Mô hình đếm: vector đặc $D$ chiều, mỗi số chiếm một từ máy,
 | Siêu phẳng | $D$ nhân, $D-1$ cộng, 1 so sánh | $O(D)$ | $D$ từ |
 | Chiếu có dịch | $D$ nhân, $D$ cộng, 1 chia, 1 lấy sàn | $O(D)$ | $D+1$ từ |
 
-Chữ ký gồm $m$ hàm cho $C$ vector cần $C\cdot m$ lần tính hàm, tức $O(Cm)$ với họ chọn tọa độ và $O(CmD)$ với hai họ còn lại. Tham số của $m$ hàm được dùng chung cho cả kho; mỗi vector lưu $m$ giá trị, là $m$ bit với chữ ký dấu và $m$ số nguyên với chữ ký chiếu. Với vector thưa có $z$ thành phần khác 0, tích vô hướng chỉ duyệt $z$ thành phần nên $D$ được thay bằng $z$. Sau khi có chữ ký, dựng thùng, phát $Q$ cặp và xác minh $K$ cặp được tính như ở mục chi phí phân dải.
+Chữ ký gồm $m$ hàm cho $C$ vector cần $C\cdot m$ lần tính hàm, tức $O(Cm)$ với họ chọn tọa độ và $O(CmD)$ với hai họ còn lại. Tham số của $m$ hàm được dùng chung cho cả kho; mỗi vector lưu $m$ giá trị, là $m$ bit với chữ ký dấu và $m$ số nguyên với chữ ký chiếu. Với vector thưa có $\mathrm{nnz}(x)$ thành phần khác 0, tích vô hướng chỉ duyệt $\mathrm{nnz}(x)$ thành phần nên $D$ được thay bằng $\mathrm{nnz}(x)$. Sau khi có chữ ký, dựng thùng, phát $Q$ cặp và xác minh $K$ cặp được tính như ở mục chi phí phân dải.
 
 ::: exercise
-Câu hỏi: Với $x=11001$ và $y=10011$, tính xác suất trùng của một hàm chọn tọa độ và của AND 2. Với $x=(1,0)$, $y=(-1,1)$, tính xác suất cùng dấu dưới pháp tuyến đẳng hướng.
+Câu hỏi: Một kho có $C=10^6$ vector đặc $D=1000$ chiều. Đếm số phép nhân để tính chữ ký $m=200$ hàm siêu phẳng, số từ lưu các pháp tuyến và số bit chữ ký của cả kho.
 :::
 
 ::: solution
-Hai vector bit khác tại vị trí 2 và 4, nên xác suất trùng là $3/5$; AND 2 với chỉ số độc lập cho $9/25=0{,}36$. Với cặp thứ hai, $\cos\theta=-1/\sqrt2$, nên $\theta=3\pi/4$ và xác suất cùng dấu là $1/4$.
+Mỗi hàm cần $D$ phép nhân cho một vector, nên tổng là $C\cdot m\cdot D=10^6\cdot200\cdot1000=2\cdot10^{11}$ phép nhân. Các pháp tuyến cần $m\cdot D=2\cdot10^5$ từ, dùng chung cho cả kho. Chữ ký dấu cần $m=200$ bit mỗi vector, tức $2\cdot10^8$ bit cho cả kho.
 :::
 
 ## Ba ứng dụng tìm cặp

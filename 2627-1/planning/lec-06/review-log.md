@@ -411,3 +411,24 @@ Kiểm hiển thị lại s03-01, 04, 07, 09, 11, 12 ở 1600×900 và 390×844:
 | lec06-s04-11 | Kiểm tra phần 4 bằng dữ kiện mới. | sửa | Tiêu đề “Kiểm tra các họ theo độ đo” → “Câu hỏi về các họ theo độ đo”. Ba câu cũ có đáp án trên mặt trang trước ($10101/11110\to2/5$ ở s04-01/02; $\pi/3\to2/3$ ở s04-05; điều kiện cận Euclid ở s04-07/09). Thay bằng: $11001/10011$ cho $3/5$ và AND 2 cho $0{,}36$; $(1,0),(-1,1)$ có $\theta=3\pi/4$, xác suất cùng dấu $1/4$; $a=2$, $\ell=0{,}5$ cho $0{,}75$ và cặp $\rho=5\ge2a$ có cận trên $1/3$ (đã tính lại). Câu cuối viết dạng yêu cầu “Xác định”. | Như s04-10. |
 | lec06-s05-01 | Đối sánh thực thể: ba hàm khóa trùng hoàn toàn, OR tạo ứng viên, rồi chấm điểm; cặp không trùng khóa nào bị bỏ sót. | sửa | Giữ tiêu đề. Câu dẫn nêu đầu ra (cặp hồ sơ cùng một người) và chi phí $10^{12}$ bằng KaTeX. Thêm dòng nối với phần 3–4: ba khóa là ba hàm, ứng viên là OR (ghi chú: phân dải $b=3$, $r=1$; sách dùng ba lần sắp xếp thay bảng băm). Câu chốt nêu hệ quả bỏ sót (MMDS §3.8.2). Dòng phụ “trường phụ không tham gia tính điểm” xuất hiện đột ngột trên mặt trang, chuyển vào ghi chú cùng tên trường cụ thể (ngày tạo hồ sơ) và chỉ dẫn mục Đọc thêm. Ghi chú nêu quy tắc chấm điểm 100 mỗi trường, phạt theo bình phương khoảng cách chỉnh sửa. | Ghi chú bài giảng mục “Đối sánh thực thể” thêm câu về phép OR, phân dải $b=3,r=1$ và bỏ sót; câu hỏi tự kiểm viết dạng yêu cầu. |
 | lec06-s05-02 | Họ băm ba ô: ảnh có điểm đặc trưng ở đủ ba ô vào thùng chung, ảnh khác vào thùng đơn. | sửa | Tiêu đề “Biểu diễn và thùng vân tay” → “Họ băm ba ô cho vân tay” (gọi đúng là một họ LSH như MMDS §3.8.5). Câu dẫn định nghĩa “điểm đặc trưng” trước khi dùng (trước đây ở gạch đầu dòng sau hình). Gạch đầu dòng nêu hàm $f$ ứng với ba ô ngẫu nhiên. Ghi chú thêm lý do không dùng MinHash (lưới khoảng 1000 ô) và hai dạng bài toán một–nhiều, nhiều–nhiều. | Ghi chú bài giảng mục “Đối sánh vân tay” thêm hai câu tương ứng. |
+
+### Rà lại phần 4
+
+Tác tử rà chỉ đọc: vai trò chính xác toán–thuật toán, mạch lập luận và tiếng Việt học thuật; kiểu `fork` của công cụ Agent, mô hình Claude Opus 5.5, effort `high`; phạm vi phần 4 theo thứ tự trình chiếu (s04-05 trước s04-04), hai trang biên s03-13 và s05-01, mục ghi chú “Ba họ băm theo độ đo”, Bài 3.7.5(a–c), phiếu storyboard. Tác tử tính lại mọi số (Hamming $2/5$, $3/5$, $9/25$; sáu tích vô hướng; $120^\circ$ và $38{,}047579^\circ$; liệt kê 16 vector dấu cho $45^\circ$; $3\pi/4\to1/4$; $0{,}75$; cận $1/2$, $1/3$; phép đếm chi phí), tất cả đúng. Không còn kết quả dùng trước khi chứng minh; không còn chữ Việt trong KaTeX; đáp án s04-11 không lộ trên trang trước.
+
+| Mức độ | Trang chiếu | Vấn đề | Quyết định |
+|---|---|---|---|
+| nghiêm trọng | s04-07 (ghi chú) | Mã trang chiếu trong ghi chú diễn giả. | Đã sửa: “Trục cố định ở trang trước…”; quét lại mọi ghi chú, không còn mã trang. |
+| trung bình | storyboard s04-08, s04-10, s04-11 | Trường Bố cục/Đầu vào không khớp trang hiện tại. | Đã sửa ba trường. |
+| trung bình | ghi chú, “Chi phí tính chữ ký của ba họ” | Bài tự kiểm hỏi xác suất, không hỏi chi phí. | Đã sửa: bài đếm phép nhân, từ lưu pháp tuyến và bit chữ ký với $C=10^6$, $D=1000$, $m=200$ ($2\cdot10^{11}$; $2\cdot10^5$; $2\cdot10^8$). |
+| nhẹ | s04-03, s04-10; ghi chú | $z$ mang nhiều nghĩa. | Đã sửa: siêu phẳng viết $\{x: v\cdot x=0\}$ (khớp nhãn hình); $\operatorname{sign}(t)$ trong ghi chú; số thành phần khác 0 viết $\mathrm{nnz}(x)$. |
+| nhẹ | s04-06 | Mã viết $\lfloor x_1/a\rfloor$ khi điểm tên $z_i$. | Đã sửa bằng câu văn. |
+| nhẹ | s04-04 | $p_{\ne}$ chưa định nghĩa. | Đã sửa: $p_{\ne}=\Pr[h_v(x)\ne h_v(y)]=\theta/\pi$; câu dẫn tách hai dòng. |
+| nhẹ | s04-07 (ghi chú) | Ví dụ ba chiều, họ định nghĩa hai chiều. | Đã sửa: hàm chiếu áp dụng mọi số chiều, chỉ chứng minh cận dùng hai chiều. |
+| nhẹ | s04-04 | Câu chốt dạng dấu hai chấm. | Đã sửa: “…vì chỉ có ba bit…”. |
+| nhẹ | ghi chú s04-02, s04-03, s04-07 | Câu tương phản, câu nói về tài liệu. | Đã sửa. |
+| nhẹ | s04-05 (hình) | Nhãn nói hướng pháp tuyến đều, thực tế là hướng hình chiếu. | Đã sửa SVG và bộ sinh. |
+| nhẹ | s04-07 (hình) | Dấu trừ “-” trong nhãn $k$. | Đã sửa thành “−” trong SVG và bộ sinh. |
+| nhẹ | ghi chú, mục Hamming | $\Sigma$ chưa định nghĩa. | Đã sửa. |
+
+Kiểm hiển thị lại s04-03…07 ở 1600×900 và 390×844: không lỗi KaTeX, không tràn khung, không lỗi console, không yêu cầu mạng ngoài. Ghi chú bài giảng kiểm ở 1440, 390 và in.

@@ -103,13 +103,13 @@ def main():
     b+=f'<path d="M{cx+65},{cy} A65,65 0 0 0 {cx+65*cos(theta)},{cy-65*sin(theta)}" fill="none" stroke="{GREEN}" stroke-width="3"/>'
     b+=text(274,171,'θ',32,GREEN)
     b+=text(108,53,'θ',30,ORANGE)+text(286,377,'θ',30,ORANGE)
-    b+=text(510,115,'Hai miền tách',27)+text(510,164,'Tổng góc 2θ',28,ORANGE)+text(510,213,'trên góc 2π',27)+text(330,411,'Hướng pháp tuyến đều trên vòng tròn',26)
+    b+=text(510,115,'Hai miền tách',27)+text(510,164,'Tổng góc 2θ',28,ORANGE)+text(510,213,'trên góc 2π',27)+text(330,411,'Hướng hình chiếu pháp tuyến đều trên vòng tròn',26)
     svg('goc-tach-sieu-phang.svg',650,435,'Hai miền hướng làm khác dấu','Hai hướng x,y tạo góc theta, có cung theta giữa hai mũi tên. Hai miền hướng pháp tuyến đối nhau làm dấu khác nhau, mỗi miền có góc theta; chú giải nằm ngoài vòng tròn.',b)
 
     b=''
     for i in range(6):
         x=35+i*100;b+=f'<rect x="{x}" y="95" width="100" height="120" fill="'+('#edf4ff' if i%2==0 else '#fff4e9')+'"/>'+line(x,75,x,245)
-        if i<5:b+=text(x+50,275,f'k = {i-2}',24)
+        if i<5:b+=text(x+50,275,f'k = {i-2}'.replace('-','−'),24)
     b+=line(35,170,635,170,arrow=True)+text(315,35,'Biên: ka − δ',30)
     b+=f'<circle cx="265" cy="170" r="8" fill="{BLUE}"/><circle cx="320" cy="170" r="8" fill="{ORANGE}"/>'
     b+=text(260,140,'u·x',24)+text(312,140,'u·y',24)+line(265,305,320,305,ORANGE)+text(292,343,'ℓ',30,ORANGE)
