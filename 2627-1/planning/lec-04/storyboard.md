@@ -2055,7 +2055,7 @@ Mỗi cạnh $i\to j$ được dùng một lần để cộng $h_i$ vào $a_j$, 
 
 ### lec04-s05-11 — Kiểm tra HITS
 
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S05; MT4. Đầu vào: G5,a1. Sản phẩm: tính một vòng uy tín mới từ $h^2$, bác cách chia bậc ra, giải thích uy tín của nút cụt.
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S05; MT4. Đầu vào: G5, $h^2$. Sản phẩm: tính một bước uy tín mới, so với cách chia bậc ra, giải thích uy tín của nút cụt.
 
 **Luận điểm trung tâm:** Tổng HITS không chia bậc ra; chuẩn hóa dùng một số chung cho toàn vector.
 
@@ -2068,15 +2068,15 @@ Từ vòng thứ hai: $h^2=(1,\,12/29,\,1/29,\,20/29,\,0)^\mathsf T$.
 
 **Câu hỏi:**
 1. Tính uy tín thô $\tilde a_D$ và điểm chuẩn hóa $a_D^3$.
-2. Giải thích vì sao đóng góp của A vào $\tilde a_D$ không chia cho ba liên kết ra của A.
+2. Nếu mỗi nguồn chia $h_i$ cho số liên kết ra của nó, tính lại $\tilde a_D$ và nêu định nghĩa nào bị thay.
 3. Tính $a_E^3$; giải thích vì sao E có uy tín dương dù không có cạnh ra.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** G5 trái45%; vector, max và ba yêu cầu phải55%. Cạnh B→A,D được phân biệt bằng nét đậm và nhãn, không lộ tổng.
+**Bố cục đã chọn:** G5 trái 45%, không tô cạnh; vector $h^2$ và ba yêu cầu phải 55%.
 
-**Trọng tâm và thứ tự đọc:** Theo hai cạnh ra của B → đọc a1 tại đích → chuẩn hóa chung; sau đó xét tổng rỗng tại E.
+**Trọng tâm và thứ tự đọc:** Theo các cạnh vào D → cộng $h^2$ của nguồn → chuẩn hóa chung theo max (B, C); so với phép chia bậc ra; xét E chỉ có cạnh vào.
 
-**Lý do phù hợp sinh viên năm 2:** B có hai đích uy tín khác nhau nên lỗi đổi phép tổng thành trung bình tạo đáp số khác; E kiểm cách xử lý nút không cạnh ra.
+**Lý do phù hợp sinh viên năm 2:** Phép tính dùng lại đúng quy tắc vừa học trên dữ kiện mới; so sánh hai cách truyền điểm làm rõ khác biệt HITS–PageRank bằng số cụ thể.
 
 **Giới hạn bố cục và phân chia nội dung:** Ba nhiệm vụ ngắn cùng một vòng, không hỏi phổ. Giữ toàn bộ dữ kiện để không phụ thuộc trí nhớ bảng trước.
 
@@ -2084,7 +2084,7 @@ Từ vòng thứ hai: $h^2=(1,\,12/29,\,1/29,\,20/29,\,0)^\mathsf T$.
 
 **Kết nối vào–ra:** Cơ chế HITS đã kiểm → đối chiếu ba mục tiêu xếp hạng ở S06.
 
-**Quyết định 01/10/2026:** sửa — ba câu cũ hỏi giá trị đã hiện trong bảng s05-04 ($h_B^1$, $h_E^1$); câu mới tính bước uy tín của vòng 3 từ $h^2$ (đáp án không có trên trang nào), giữ câu “không chia bậc ra” và thêm câu uy tín của nút cụt. Dùng hình G5 không tô nét đứt (nét đứt dành cho bước không phải cạnh dữ liệu); `hinh-5-18-kiem-tra.svg` không còn được tham chiếu. Tiêu đề “Kiểm tra HITS”.
+**Quyết định 01/10/2026:** sửa — ba câu cũ hỏi giá trị đã hiện trong bảng s05-04 ($h_B^1$, $h_E^1$); câu mới tính bước uy tín của vòng 3 từ $h^2$ (đáp án không có trên trang nào), giữ câu “không chia bậc ra” và thêm câu uy tín của nút cụt. Dùng hình G5 không tô nét đứt (nét đứt dành cho bước không phải cạnh dữ liệu); `hinh-5-18-kiem-tra.svg` không còn được tham chiếu. Tiêu đề “Kiểm tra HITS”. Sau rà lại: câu 2 cũ có đáp án ở câu chốt s05-06, đổi thành tính lại $\tilde a_D$ theo cách chia bậc ra ($47/87$).
 
 **Nguồn và vị trí:** NG1 VD5.15, tr.207; câu hỏi áp dụng trực tiếp.
 
@@ -2093,7 +2093,7 @@ Từ vòng thứ hai: $h^2=(1,\,12/29,\,1/29,\,20/29,\,0)^\mathsf T$.
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
 - Câu hỏi/đề: Ba yêu cầu như nội dung hiển thị trên G5 và $h^2$.
-- Đáp án/gợi ý: $\tilde a_D=41/29$, $a_D^3=41/49$ (chia cho $49/29$); không chia bậc ra vì định nghĩa HITS là tổng; $a_E^3=1/49$.
+- Đáp án/gợi ý: $\tilde a_D=41/29$, $a_D^3=41/49$; chia bậc ra cho $47/87$, thay định nghĩa HITS; $a_E^3=1/49$.
 - Tiêu chí đánh giá: Cộng đúng hai trung tâm của nguồn, chia cho max của cả vector (B, C), phân biệt uy tín (cạnh vào) với trung tâm (cạnh ra).
 - Phân bổ hoạt động: Tính1 phút, giải thích1 phút, đối chiếu1 phút; tổng3 phút.
 
@@ -2102,7 +2102,7 @@ Từ vòng thứ hai: $h^2=(1,\,12/29,\,1/29,\,20/29,\,0)^\mathsf T$.
 <!-- public-notes:start -->
 D nhận cạnh từ A và B: $\tilde a_D=h_A^2+h_B^2=1+12/29=41/29$. Uy tín thô lớn nhất thuộc B và C, cùng bằng $h_A^2+h_D^2=49/29$, nên $a_D^3=41/49$. Vector đầy đủ là $a^3=(12/49,\,1,\,1,\,41/49,\,1/49)^\mathsf T$.
 
-HITS định nghĩa uy tín bằng tổng điểm trung tâm của các trang trỏ tới, không chia theo bậc ra như PageRank; chia cho ba là đổi sang mô hình khác. E chỉ nhận cạnh từ C nên $\tilde a_E=h_C^2=1/29$ và $a_E^3=1/49$: uy tín phụ thuộc cạnh vào, còn việc thiếu cạnh ra chỉ làm điểm trung tâm của E bằng $0$. Giá trị này tiếp tục giảm vì $h_C$ giảm qua các vòng.
+Nếu chia theo bậc ra, $\tilde a_D=h_A^2/3+h_B^2/2=1/3+6/29=47/87$, khác $41/29$. Phép chia này thay định nghĩa của HITS (uy tín là tổng điểm trung tâm của các trang trỏ tới) bằng cách truyền điểm kiểu PageRank. E chỉ nhận cạnh từ C nên $\tilde a_E=h_C^2=1/29$ và $a_E^3=1/49$: uy tín phụ thuộc cạnh vào, còn việc thiếu cạnh ra chỉ làm điểm trung tâm của E bằng $0$. Giá trị này tiếp tục giảm vì $h_C$ giảm qua các vòng.
 <!-- public-notes:end -->
 
 ## S06. So sánh các phương pháp xếp hạng
