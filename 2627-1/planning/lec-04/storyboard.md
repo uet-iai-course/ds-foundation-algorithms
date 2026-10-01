@@ -1834,11 +1834,12 @@ Uy tín thô tại B bằng $h_A^1+h_D^1=1+2/3=5/3$, là giá trị lớn nhất
 <!-- public-slide:start -->
 $L_{ij}=1$ khi $i\to j$, bằng 0 nếu không; hàng là trang nguồn.
 
-$$L=\begin{pmatrix}0&1&1&1&0\\1&0&0&1&0\\0&0&0&0&1\\0&1&1&0&0\\0&0&0&0&0\end{pmatrix},\qquad
-\tilde a=L^\mathsf Th,\quad\tilde h=La.$$
+$$L=\begin{array}{c|ccccc}&A&B&C&D&E\\\hline A&0&1&1&1&0\\B&1&0&0&1&0\\C&0&0&0&0&1\\D&0&1&1&0&0\\E&0&0&0&0&0\end{array}$$
+
+$$\tilde a=L^\mathsf Th,\qquad\tilde h=La.$$
 
 | Biểu diễn | Vị trí của cạnh $i\to j$ | Giá trị |
-|---|---|---|
+| --- | --- | --- |
 | HITS: $L$ | Hàng $i$, cột $j$ | $1$ |
 | PageRank: $M_0$ | Hàng $j$, cột $i$ | $1/d_i$ |
 
