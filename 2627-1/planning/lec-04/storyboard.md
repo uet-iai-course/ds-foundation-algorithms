@@ -517,7 +517,7 @@ Khi có nút cụt, $\delta^t=\sum_{j:d_j=0}r_j^t$ được bù đều theo $u_i
 Với $d_j>0$, $(M_0)_{ij}=1/d_j$ nếu có cạnh $j\to i$; cột nút cụt bằng $0$. Điểm bị thiếu trong nhánh theo liên kết là $\beta$ lần tổng điểm nút cụt, được bù đều bằng $u$. Phân phối $v$ chỉ điều khiển nhánh dịch chuyển. Khi $S$ không rỗng và chọn đều trên $S$, $v_i=1/|S|$ trên $S$ và bằng $0$ bên ngoài. Đồ thị, $\beta$, $v$ và quy tắc bù được giữ cố định suốt phép lặp.
 <!-- public-notes:end -->
 
-### lec04-s02-06 — Thuật toán lặp PageRank theo chủ đề
+### lec04-s02-06 — Giả mã PageRank theo chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Thuật toán; MT1. Đầu vào: HT1 và danh sách kề. Sản phẩm: theo dõi cập nhật đồng thời và điều kiện trả kết quả.
 
@@ -540,7 +540,7 @@ với t = 0, ..., K - 1:
 trả về (r, hết số vòng)
 ```
 
-Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.
+`delta` là $\delta^t$, điểm ở nút cụt; `Delta` là $\|r^{t+1}-r^t\|_1$, dùng để dừng. Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Khối giả mã chiếm85% khung, câu bất biến đọc–ghi ở đáy15%; dùng thành phần mã chung. Hai tên r/new luôn giữ nguyên.
@@ -554,6 +554,8 @@ Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.
 **Ví dụ, phiếu số và hình thức hóa:** HT1; VD1 là phép chạy của cùng thuật toán. K nguyên dương; tau dương. Ký hiệu Latin trong giả mã tương ứng ký hiệu toán đã định nghĩa.
 
 **Kết nối vào–ra:** Phương trình cập nhật → thứ tự thực thi → bất biến cần chứng minh.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng đối tượng của trang (giả mã); thêm dòng phân biệt `delta` ($\delta^t$) với `Delta` (sai khác dùng để dừng) vì hai tên gần giống nhau.
 
 **Nguồn và vị trí:** NG1 §5.3.2, tr.196–197; giả mã cụ thể hóa phép lặp nguồn và quy ước NG5.
 

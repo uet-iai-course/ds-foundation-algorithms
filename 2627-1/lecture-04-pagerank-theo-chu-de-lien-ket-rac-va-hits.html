@@ -220,7 +220,7 @@ $$r^{t+1}=\beta M_0r^t+(1-\beta)v.$$</p>
 </aside>
 </section>
 <section id="lec04-s02-06" data-slide-id="lec04-s02-06" class="example-slide">
-<h2>Thuật toán lặp PageRank theo chủ đề</h2>
+<h2>Giả mã PageRank theo chủ đề</h2>
 <pre class="ex-code"><code class="language-plaintext" data-trim>r ← v
 với t = 0, ..., K - 1:
     delta ← tổng r[j] trên các nút cụt
@@ -233,7 +233,7 @@ với t = 0, ..., K - 1:
     nếu Delta ≤ tau: trả về (r, đạt ngưỡng)
 trả về (r, hết số vòng)
 </code></pre>
-<p>Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.</p>
+<p><code>delta</code> là $\delta^t$, điểm ở nút cụt; <code>Delta</code> là $\|r^{t+1}-r^t\|_1$, dùng để dừng. Mọi đóng góp trong một vòng dùng cùng vector điểm cũ.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.2.1, tr.191–192, 196.</p>
 <aside class="notes">
 <p>Vector <code>new</code> được khởi tạo bằng phần bù và phần dịch chuyển, không phụ thuộc từng cạnh. Mỗi cạnh $j\to i$ cộng một phần điểm cũ của $j$, nên tổng đóng góp không phụ thuộc thứ tự duyệt cạnh trong số học chính xác. Sau khi hoàn tất tất cả các đỉnh, <code>Delta</code> đo chênh lệch theo tổng trị tuyệt đối. Nếu hết $K$ vòng mà chưa đạt $\tau$, vector hiện tại vẫn là đầu ra tính được, nhưng trạng thái không xác nhận tiêu chí dừng đã đạt.</p>
