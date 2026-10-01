@@ -1735,7 +1735,7 @@ Uy tín thô của mỗi trang là tổng $h^0$ của các trang trỏ tới; ch
 B nhận từ A, D nên điểm thô bằng $1+1=2$; D nhận từ A, B cũng bằng $2$. E chỉ nhận từ C, điểm thô bằng $1$. Chia từng thành phần cho giá trị lớn nhất là $2$ thu được $a^1=(1/2,1,1,1,1/2)^\mathsf T$. HITS cộng điểm trung tâm theo từng cạnh vào, không lấy trung bình và không chia số cạnh ra của nguồn. E không có cạnh ra vẫn có thể có uy tín vì có cạnh vào.
 <!-- public-notes:end -->
 
-### lec04-s05-04 — Lượt cập nhật trung tâm thứ nhất
+### lec04-s05-04 — Bước trung tâm thứ nhất
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT4. Đầu vào: a1 mới. Sản phẩm: cộng đúng uy tín mới theo cạnh ra.
 
@@ -1754,7 +1754,7 @@ Dùng $a^1=(1/2,1,1,1,1/2)^\mathsf T$.
 | D | $1+1$ | $2$ | $2/3$ |
 | E | $0$ | $0$ | $0$ |
 
-Giá trị thô lớn nhất bằng 3. Bước trung tâm sử dụng uy tín vừa cập nhật.
+Bước trung tâm dùng uy tín vừa cập nhật $a^1$; chuẩn hóa: chia cho giá trị lớn nhất, bằng $3$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Giữ bảng năm hàng chiếm80% và vị trí như S05-03; vector a1 phía trên; câu về thứ tự cập nhật phía dưới.
