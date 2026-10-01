@@ -660,7 +660,7 @@ Các sai khác liên tiếp giảm theo cấp số nhân. Tổng khoảng cách 
 Với $\Delta=\|r^{t+1}-r^t\|_1$, sai khác kế tiếp không quá $\beta\Delta$. Tổng phần đuôi các sai khác sau vector mới $r^{t+1}$ không quá $\beta\Delta/(1-\beta)$. Để cận sai số không quá $\varepsilon>0$, đủ chọn $\tau\le(1-\beta)\varepsilon/\beta$ và dừng khi $\Delta\le\tau$.
 <!-- public-notes:end -->
 
-### lec04-s02-09 — Các vector điểm theo chủ đề
+### lec04-s02-09 — Ký hiệu cho nhiều chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Định nghĩa và cầu nối; MT1, MT5. Đầu vào: điểm cố định theo v. Sản phẩm: phân biệt nhãn chủ đề j, chỉ số vòng t, đầu vào v^(j), nghiệm r^(j) và trọng số w_j.
 
@@ -669,13 +669,12 @@ Với $\Delta=\|r^{t+1}-r^t\|_1$, sai khác kế tiếp không quá $\beta\Delta
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Có $k$ chủ đề; $j=1,\ldots,k$ là chỉ số chủ đề, $t$ là chỉ số vòng lặp.
+Có $k$ chủ đề. Từ đây $j=1,\ldots,k$ chỉ chủ đề, $i$ chỉ trang, $t$ chỉ vòng lặp.
 
 | Ký hiệu | Vai trò |
 | --- | --- |
 | $v^{(j)}\in\mathbb R^n$ | Phân phối dịch chuyển đầu vào của chủ đề $j$ |
 | $r^{(j)}\in\mathbb R^n$ | Vector PageRank hội tụ của chủ đề $j$ trên $n$ trang |
-| $w_j\ge0$, $\sum_jw_j=1$ | Trọng số chủ đề trong ngữ cảnh truy vấn |
 
 Mỗi chủ đề dùng cùng $\bar M$ và $\beta$:
 $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$
@@ -693,6 +692,8 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$
 
 **Kết nối vào–ra:** Nghiệm duy nhất theo v → các nghiệm theo chủ đề → tổng có trọng số.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “Ký hiệu cho nhiều chủ đề” gọi đúng chức năng của trang; nêu rõ $j$ từ đây chỉ chủ đề vì ở đặc tả và giả mã $j$ chỉ trang nguồn; chuyển $w_j$ sang trang xử lý truy vấn, nơi nhu cầu kết hợp xuất hiện (thứ tự cụm mới: ký hiệu → quy trình tiền tính và truy vấn → tính đúng của phép ghép → chi phí).
+
 **Nguồn và vị trí:** NG1 §5.3.2 tr.196; §5.3.4 tr.199/PDF25.
 
 **Thời lượng:** 1 phút.
@@ -702,7 +703,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$
 <!-- public-notes:start -->
 Chủ đề $j$ được xác định bằng phân phối dịch chuyển $v^{(j)}$. Phép lặp PageRank với đầu vào này cho vector hội tụ $r^{(j)}$; thành phần $r_i^{(j)}$ là điểm của trang $i$ theo chủ đề $j$. Cả hai vector đều có $n$ thành phần, nhưng một vector là đầu vào, một vector là kết quả. Dấu ngoặc trong chỉ số $(j)$ phân biệt nhãn chủ đề với chỉ số vòng $t$ của $r^t$.
 
-Các trọng số $w_j$ biểu diễn mức quan tâm tới các chủ đề. Chúng không âm và có tổng bằng $1$. Điều kiện cùng $\bar M$ bao gồm cùng đồ thị và cùng quy tắc bù nút cụt. Cùng $\beta$ giữ hệ số truyền theo liên kết không đổi. Các điều kiện này cho phép kết hợp các kết quả theo trọng số.
+Trong đặc tả và giả mã trước, $j$ chỉ trang nguồn; từ đây $j$ chỉ chủ đề và trang được đánh chỉ số $i$. Điều kiện cùng $\bar M$ bao gồm cùng đồ thị và cùng quy tắc bù nút cụt. Cùng $\beta$ giữ hệ số truyền theo liên kết không đổi. Mỗi chủ đề cần một vector như vậy, tính trước khi có truy vấn, thay cho một vector riêng của từng người dùng. Khi có truy vấn, $k$ vector này phải được kết hợp theo mức quan tâm tới từng chủ đề.
 <!-- public-notes:end -->
 
 ### lec04-s02-09a — Kết hợp các vector chủ đề
