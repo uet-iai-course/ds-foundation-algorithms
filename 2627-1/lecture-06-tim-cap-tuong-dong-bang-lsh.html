@@ -54,7 +54,7 @@
 <p>Đầu vào: $\mathrm{SIG}\in V^{n\times C}$; $b,r$ nguyên dương, $n=br$; các tập $S_1,\ldots,S_C$; ngưỡng $t\in[0,1]$.</p><div class="ex-card"><h3>Khóa dải</h3><p class="ex-equation">$k_{j,c}=\bigl(j,\mathrm{SIG}_{(j-1)r+1:jr,c}\bigr)$</p></div><p>Tập ứng viên: $\mathcal C=\{(c,d):c&lt;d,\ \exists j:\ k_{j,c}=k_{j,d}\}$.</p><p>Đầu ra: $\{(c,d)\in\mathcal C:\ \mathrm{SIM}(S_c,S_d)\ge t\}$.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS 3e</a>, §3.4.1,3.4.3, tr.92–96.</p>
 <aside class="notes"><p>Hàm băm bảng chỉ định nơi tra cứu; phép bằng vẫn so cả số dải và tuple. Điều kiện tồn tại một dải giải thích phép hợp ứng viên. Đầu ra dùng thứ tự $c&lt;d$ để hai cách gọi một cặp có cùng biểu diễn. Các tập $S_c$ hữu hạn, không rỗng để Jaccard xác định. Đặc tả chưa nói mọi cặp đạt ngưỡng đều nằm trong $\mathcal C$; khả năng bỏ sót được phân tích ở các trang xác suất.</p><p>Nguồn: Mining of Massive Datasets, ấn bản 3, §3.4.1,3.4.3, tr.92–96.</p></aside></section>
-<section id="lec06-s02-08" data-slide-id="lec06-s02-08" class="example-slide"><h2>Thuật toán tạo và kiểm cặp</h2>
+<section id="lec06-s02-08" data-slide-id="lec06-s02-08" class="example-slide"><h2>Thuật toán phân dải và xác minh</h2>
 <div class="ex-grid2 lsh-code-split"><div><pre class="ex-code"><code class="language-plaintext" data-trim>B ← từ điển rỗng; CAND ← tập rỗng
 với j = 1,…,b và c = 1,…,C:
     z ← bản sao SIG[(j−1)r+1 : jr, c]
@@ -66,7 +66,7 @@ với mỗi danh sách L trong B:
 OUT ← tập rỗng
 với mỗi (c,d) trong CAND:
     nếu SIM(S_c,S_d) ≥ t: OUT.add((c,d))
-trả OUT</code></pre></div><div><div class="ex-card"><h3>Vết chạy</h3><p>8 lượt chèn tài liệu</p><p>4 lượt phát cặp</p><p>3 lần kiểm Jaccard</p><p>1 cặp kết quả</p></div></div></div>
+trả OUT</code></pre></div><div><div class="ex-card"><h3>Vết chạy $b=2,r=1$</h3><p>$bC=8$ lượt chèn</p><p>$Q=4$ lượt phát cặp</p><p>$K=3$ lần kiểm Jaccard</p><p>1 cặp kết quả</p></div></div></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS 3e</a>, §3.4.1,3.4.3, tr.92–96.</p>
 <aside class="notes"><p>Khóa được sao chép để phân tích bộ nhớ thống nhất. Khi khóa chưa có trong từ điển, thuật toán tạo danh sách rỗng rồi mới nối mã tài liệu; khi khóa đã có, thuật toán nối vào danh sách hiện tại. Các vòng lặp đều trên tập hữu hạn. Tập CAND khử lặp sau mỗi lần phát. Jaccard gốc được tính trực tiếp cho mỗi cặp duy nhất; bỏ kiểm chữ ký ở bước 6 của sách và bắt buộc kiểm gốc trên mọi ứng viên. Trong sách, bước 7 kiểm gốc mới được ghi là tùy chọn.</p><p>Nguồn: Mining of Massive Datasets, ấn bản 3, §3.4.1,3.4.3, tr.92–96.</p></aside></section>
 <section id="lec06-s02-09" data-slide-id="lec06-s02-09" class="example-slide"><h2>Bất biến và phạm vi tính đúng</h2>

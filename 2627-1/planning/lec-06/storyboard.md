@@ -188,11 +188,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.1, 3.4.3 tr.92–96; diễn đạt đặc tả đã duyệt.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 
-#### lec06-s02-08 — Thuật toán tạo và kiểm cặp
+#### lec06-s02-08 — Thuật toán phân dải và xác minh
 
 - **Mục đích và vai trò:** Theo dõi khởi tạo, vòng lặp, phát cặp và kết quả trả về.
 - **Thông điệp:** Dựng thùng trước khi phát cặp giúp tránh xét mọi cặp của kho.
-- **Nội dung công khai dự kiến:** B ← từ điển rỗng; CAND ← tập rỗng với j = 1,…,b và c = 1,…,C: z ← bản sao SIG[(j−1)r+1 : jr, c] k ← (j, z) nếu k chưa có trong B: B[k] ← [] B[k].append(c) với mỗi danh sách L trong B: với mỗi c < d thuộc L: CAND.add((c,d)) OUT ← tập rỗng với mỗi (c,d) trong CAND: nếu SIM(S_c,S_d) ≥ t: OUT.add((c,d)) trả OUT Vết chạy8 lượt chèn tài liệu 4 lượt phát cặp 3 lần kiểm Jaccard 1 cặp kết quả
+- **Nội dung công khai dự kiến:** B ← từ điển rỗng; CAND ← tập rỗng với j = 1,…,b và c = 1,…,C: z ← bản sao SIG[(j−1)r+1 : jr, c] k ← (j, z) nếu k chưa có trong B: B[k] ← [] B[k].append(c) với mỗi danh sách L trong B: với mỗi c < d thuộc L: CAND.add((c,d)) OUT ← tập rỗng với mỗi (c,d) trong CAND: nếu SIM(S_c,S_d) ≥ t: OUT.add((c,d)) trả OUT` Vết chạy $b=2,r=1$ $bC=8$ lượt chèn $Q=4$ lượt phát cặp $K=3$ lần kiểm Jaccard 1 cặp kết quả
 - **Đầu vào và giả thiết:** HT1; đọc từ điển, danh sách và tập; các tập gốc hữu hạn không rỗng sẵn có; $t\in[0,1]$.
 - **Dữ kiện, hình thức hóa và vết chạy:** V02 nối vào dòng chèn 8 lần, phát 4 lần, kiểm 3 lần; không có vòng trên mọi cặp kho.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Khối giả mã lớn trái 70%; phải 30% ba trạng thái “thùng→cặp duy nhất→kết quả” kèm 8/4/3. Năm 2 đã biết vòng lặp, cần thấy dữ liệu truyền giữa pha; notes mô tả chi tiết so khóa và Jaccard.
