@@ -253,16 +253,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B Ex 3.12 tr.94–95, Bài 3.4.2 tr.96; S4 PDF 34/trang in 37; so $n$ cố định.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s02-13 — Chi phí tạo và xác minh ứng viên
+#### lec06-s02-13 — Chi phí phân dải và xác minh
 
 - **Mục đích và vai trò:** Gắn từng số hạng chi phí với pha thuật toán.
-- **Thông điệp:** Thời gian phụ thuộc lượt phát cặp, không chỉ số tài liệu.
-- **Nội dung công khai dự kiến:** Chữ ký đã có; từ máy; sao chép tuple; bảng băm kỳ vọng. Bảng: đọc $bC$ tuple×$r$→$nC$; phát/khử lặp→$Q=\sum_{j,z}\binom{u_{j,z}}2$; kiểm→$K$ cặp. Tổng $O(nC+Q+\sum T_J)$; bộ nhớ phụ $O(nC+K)$. Xấu nhất $Q=b\binom C2$.
+- **Thông điệp:** Chi phí là O(nC+Q+ΣT_J) thời gian và O(nC+K) bộ nhớ phụ; Q và K phụ thuộc dữ liệu, xấu nhất vẫn bậc hai.
+- **Nội dung công khai dự kiến:** Mô hình: SIG đã có; mỗi mã một từ máy; xử lý tuple dài $r$ tốn $O(r)$, thao tác bảng băm kỳ vọng $O(1)$. $u_{j,z}$: số mã trong thùng $(j,z)$; $T_J(c,d)$: thời gian tính Jaccard của cặp $(c,d)$. Pha Công việc Chi phí kỳ vọng Dựng thùng $bC$ tuple, mỗi tuple dài $r$ $O(nC)$ Phát và khử lặp $Q=\sum_{j,z}\binom{u_{j,z}}2$ $O(Q)$ Kiểm tập gốc $K=|\mathcal C|$ cặp duy nhất $\sum_{(c,d)\in\mathcal C}T_J(c,d)$ Thời gian $O(nC+Q+\sum T_J)$; bộ nhớ phụ $O(nC+K)$, ngoài SIG đầu vào. Xấu nhất mọi cột chung thùng: $K=\binom C2$; phân dải không giảm bậc hai vô điều kiện.
 - **Đầu vào và giả thiết:** Giả mã, khử lặp;$u_{j,z}$ là kích thước thùng;$K=|\mathcal C|$.
 - **Dữ kiện, hình thức hóa và vết chạy:** V02:8 chèn,4 phát,3 kiểm; V01 không tự có tỷ lệ giảm. SIG $nC$ từ là đầu vào riêng. $T_J$ không giả định hằng.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Mô hình một dòng trên; bảng 3 hàng trọng tâm; công thức tổng và xấu nhất dưới. Năm 2 truy chi phí về thao tác đã chạy. Notes chứa biểu diễn tập sắp xếp và phân rã bộ nhớ chi tiết.
 - **Kết nối vào–ra:** Tham số→lượng công việc; kiểm tra phần yêu cầu phối hợp thuật toán, xác suất và giới hạn.
-- **Diễn giải học thuật, lời giải và tiêu chí:** $u_{j,z}$ là số mã tài liệu trong thùng $(j,z)$. Xử lý mỗi khóa dài $r$ tốn $O(r)$; kỳ vọng bảng băm được tính sau xử lý khóa. Các tập đã sắp xếp cho $T_J(c,d)=O(|S_c|+|S_d|)$. Khóa sao chép tối đa $nC$ từ, danh sách $bC$ mã, tập cặp $K$ phần tử. Nếu mọi cột chung mỗi thùng thì $K=\binom C2$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Dựng thùng xử lý $bC$ tuple, mỗi tuple dài $r$, nên tốn $O(brC)=O(nC)$. Phát cặp tốn một thao tác cho mỗi trong $Q$ lượt, kể cả lượt phát lại. Nếu các tập được lưu theo thứ tự tăng, phép trộn hai dãy cho $T_J(c,d)=O(|S_c|+|S_d|)$. Khóa sao chép chiếm tối đa $nC$ từ, danh sách thùng $bC$ mã, tập cặp $K$ phần tử. Nếu mọi cột chung mỗi thùng thì $Q=b\binom C2$ và $K=\binom C2$. Trong mô hình MinHash độc lập, $\mathbb E[K]=\sum_{c<d}P_{b,r}(s_{cd})$: lượng công việc phụ thuộc phân bố tương đồng của kho.
 - **Nguồn:** B §3.4.1, 3.4.3; phân tích suy từ giả mã đã duyệt, N04; U PDF 14; đối chiếu quan hệ ứng viên–công việc.
 - **Ánh xạ ghi chú:** `N04`. **Thời lượng:** 3.5 phút.
 
