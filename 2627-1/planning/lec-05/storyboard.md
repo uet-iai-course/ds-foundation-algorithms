@@ -1351,11 +1351,11 @@ Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 39. Cập nhật cột mới
+### 39. Quét hàng 1 và 2
 
 - **Mã:** `lec05-s05-05`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Vết chạy; phân biệt xét cập nhật với thực sự giảm. **Mục tiêu:** MT5.
-- **Câu chốt:** Phép min có thể giữ nguyên chữ ký ngay cả khi tập chứa phần tử đang xét.
+- **Câu chốt:** Cột nhận giá trị hữu hạn đầu tiên khi gặp hàng đầu tiên chứa phần tử của nó; phép min vẫn được thực hiện khi giá trị không đổi.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận bước khởi tạo; 40 cho thấy các thành phần có thể giảm ở các hàng khác nhau.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Bảng vết chạy toàn chiều rộng gồm sau hàng 0, 1, 2; mỗi cột vẫn ứng với một tập và mỗi ô ghi hai thành phần. Dữ kiện hàng 1/2 ở trên; thành phần vừa giảm có gạch dưới; hai phép min giữ nguyên chữ ký cột 4 ở dưới.
@@ -1377,7 +1377,7 @@ $r=1$: cột $3$, ứng viên $(2,4)$; $r=2$: cột $2,4$, ứng viên $(3,2)$.
 
 Mỗi ô ghi hai thành phần chữ ký; gạch dưới đánh dấu giá trị vừa giảm. $\infty$ viết gọn cho $+\infty$.
 
-Chữ ký của $S_4$ giữ $(1,1)$: $\min(1,3)=1$, $\min(1,2)=1$.
+Ở hàng 2, cột 4 vẫn thực hiện hai phép min dù không ô nào đổi: $\min(1,3)=1$, $\min(1,2)=1$.
 
 **Ghi chú diễn giả học thuật**
 
