@@ -329,7 +329,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 <thead>
 <tr>
 <th scope="col">Công việc</th>
-<th scope="col">Số đối tượng mỗi vòng</th>
+<th scope="col">Khối lượng mỗi vòng</th>
 </tr>
 </thead>
 <tbody>
@@ -343,12 +343,12 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </tr>
 </tbody>
 </table><div class="ex-grid2"><div class="ex-card"><h3>Tiền tính</h3><p>Mỗi vòng $\Theta(n+\ell)$; $k$ chủ đề, tối đa $K$ vòng: $O(kK(n+\ell))$.</p><p>Bộ nhớ: đầu vào $\Theta(n+\ell)$, phụ $\Theta(n)$; lưu kết quả $\Theta(kn)$ số.</p></div><div class="ex-card"><h3>Khi có truy vấn</h3><p>Mỗi $i\in C$ cần $k$ phép nhân–cộng: tổng $\Theta(kc)$, $c=|C|$.</p><p>Chưa gồm tìm ứng viên, xác định $w_j$ và sắp xếp.</p></div></div>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198; phép đếm suy ra từ giả mã.</p>
 <aside class="notes">
 <p>Mỗi cạnh tạo đúng một đóng góp; các bước khởi tạo vector, cộng bù và đo $\Delta$ duyệt mỗi đỉnh một số lần không phụ thuộc kích thước. Danh sách kề lưu đỉnh và cạnh, còn các vector $r$, $v$ cùng vector điểm mới cần bộ nhớ tuyến tính theo $n$.</p>
 <p>Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ vector cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Giới hạn tối đa $K$ vòng cho mỗi vector cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự tiết kiệm trạng thái lặp trong bộ nhớ nhưng vẫn phải thực hiện phép lặp cho từng chủ đề.</p>
-<p>Lưu $k$ kết quả $r^{(j)}$ cần $kn$ số. Tại truy vấn, xác định các trọng số $w_j$ và tập ứng viên $C$, $c=|C|$. Với mỗi $i\in C$, tính $r_i^*=\sum_jw_jr_i^{(j)}$ từ điểm đã lưu; không lặp PageRank. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, xác định trọng số chủ đề hoặc sắp xếp kết quả. Không cần tạo toàn bộ vector ghép trên $n$ trang nếu chỉ xếp hạng $C$.</p>
-<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198.</p>
+<p>Bộ nhớ lưu kết quả tăng tuyến tính theo số chủ đề, độc lập với số người dùng; đây là lợi ích so với một vector riêng cho mỗi người dùng. Khi có truy vấn, phép ghép $q_i$ chỉ đọc $k$ số đã lưu cho mỗi ứng viên, nên không cần dựng vector ghép trên toàn bộ $n$ trang.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198; phép đếm suy ra từ giả mã.</p>
 </aside>
 </section>
 <section id="lec04-s02-12" data-slide-id="lec04-s02-12" class="example-slide">

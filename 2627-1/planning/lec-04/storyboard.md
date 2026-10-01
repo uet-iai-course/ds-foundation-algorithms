@@ -818,7 +818,7 @@ Tổng có trọng số thỏa phương trình PageRank với $v$. Điểm cố 
 <!-- public-slide:start -->
 Mô hình: phép toán vô hướng chi phí đơn vị; $n$ đỉnh, $\ell$ cạnh, danh sách kề.
 
-| Công việc | Số đối tượng mỗi vòng |
+| Công việc | Khối lượng mỗi vòng |
 | --- | --- |
 | Cộng điểm theo liên kết | $\ell$ cạnh |
 | Bù, dịch chuyển, so sánh | Số lượt cố định trên $n$ đỉnh |
@@ -853,7 +853,7 @@ Mỗi cạnh tạo đúng một đóng góp; các bước khởi tạo vector, c
 
 Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ vector cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Giới hạn tối đa $K$ vòng cho mỗi vector cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự tiết kiệm trạng thái lặp trong bộ nhớ nhưng vẫn phải thực hiện phép lặp cho từng chủ đề.
 
-Lưu $k$ kết quả $r^{(j)}$ cần $kn$ số. Tại truy vấn, xác định các trọng số $w_j$ và tập ứng viên $C$, $c=|C|$. Với mỗi $i\in C$, tính $r_i^*=\sum_jw_jr_i^{(j)}$ từ điểm đã lưu; không lặp PageRank. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, xác định trọng số chủ đề hoặc sắp xếp kết quả. Không cần tạo toàn bộ vector ghép trên $n$ trang nếu chỉ xếp hạng $C$.
+Bộ nhớ lưu kết quả tăng tuyến tính theo số chủ đề, độc lập với số người dùng; đây là lợi ích so với một vector riêng cho mỗi người dùng. Khi có truy vấn, phép ghép $q_i$ chỉ đọc $k$ số đã lưu cho mỗi ứng viên, nên không cần dựng vector ghép trên toàn bộ $n$ trang.
 <!-- public-notes:end -->
 
 ### lec04-s02-12 — Kiểm tra PageRank theo chủ đề
