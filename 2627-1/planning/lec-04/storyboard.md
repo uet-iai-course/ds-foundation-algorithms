@@ -913,7 +913,7 @@ Mô hình và phân tích. Liên kết có thể bị thao túng → ba vùng qu
 
 Phân bổ: 8 slide, 20 phút.
 
-### lec04-s03-01 — Liên kết rác và điểm xếp hạng
+### lec04-s03-01 — Liên kết rác
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống và vấn đề; MT2. Đầu vào: điểm phụ thuộc cạnh. Sản phẩm: xác định mục tiêu và quyền tác động của người tạo liên kết rác.
 
@@ -922,11 +922,13 @@ Phân bổ: 8 slide, 20 phút.
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Liên kết rác được tạo để làm tăng điểm xếp hạng không tương xứng với giá trị nội dung.
+PageRank cộng điểm theo liên kết vào. Liên kết rác được tạo để làm tăng điểm một trang không tương xứng với giá trị nội dung.
 
-Phân tích xét PageRank toàn cục với dịch chuyển đều; đối tượng bị thay đổi là các cạnh trong cụm.
+- Dữ liệu: đồ thị liên kết; PageRank dịch chuyển đều.
+- Quyền tác động: thêm liên kết ở trang sở hữu hoặc được phép đăng.
+- Mục tiêu: tập trung điểm tại trang đích.
 
-Cụm thao túng tập trung PageRank tại một trang đích. Phân tích cấu trúc và các chỉ số trên đồ thị hỗ trợ xác định trang cần rà soát.
+Vấn đề: định lượng mức một cấu trúc liên kết đơn giản làm tăng điểm trang đích.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Định nghĩa trên25%; ba khối “Dữ liệu–Quyền tác động–Mục tiêu” ở giữa55%; câu giới hạn kiểm tra ở dưới20%. Không dùng ảnh trang rác.
@@ -940,6 +942,8 @@ Cụm thao túng tập trung PageRank tại một trang đích. Phân tích cấ
 **Ví dụ, phiếu số và hình thức hóa:** Khái niệm §5.4; không có ví dụ số hoặc giả mã riêng.
 
 **Kết nối vào–ra:** S02 đã thay phân phối dịch chuyển; ở đây trở lại phân phối đều u và xét tác động của việc thay cạnh → kiến trúc cụm xác định các nguồn điểm cần phân tích.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Liên kết rác”; câu mở nêu cơ chế làm liên kết rác có tác dụng (PageRank cộng điểm theo liên kết vào), nối với câu cuối S02; thẻ quyền tác động không dùng “cụm” trước khi định nghĩa; khối kết luận chung chung được thay bằng vấn đề định lượng mà S03 giải. Khối nội dung công khai được đồng bộ lại với HTML (bản trước còn lệch bố cục thẻ).
 
 **Nguồn và vị trí:** NG1 mở §5.4 và §5.4.1, tr.199–200/PDF25–26.
 
