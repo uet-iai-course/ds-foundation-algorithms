@@ -129,12 +129,6 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 <p class="ex-source">MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.</p>
 <aside class="notes"><p>Theo §3.3.1, ma trận đặc trưng là cách hình dung một họ tập: cột ứng với tập, hàng ứng với phần tử của vũ trụ. Bốn cột là \(S_1=\{a,d\}\), \(S_2=\{c\}\), \(S_3=\{b,d,e\}\), \(S_4=\{a,c,d\}\); hàng \(a\) có 1 ở cột 1 và 4 vì \(a\) thuộc hai tập này. Mã hàng \(r=0,\ldots,4\) là tên số của \(a,\ldots,e\), được dùng lại khi băm các hàng ở phần tính chữ ký. Trong dữ liệu thực, số 0 chiếm áp đảo nên dữ liệu được lưu bằng vị trí các ô 1, chẳng hạn danh sách các cột có 1 của mỗi hàng; ví dụ này có 9 ô 1 trong 20 ô. Ma trận giúp mô tả phép hoán vị các hàng ở các trang sau.</p><p>Nguồn: MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.</p></aside>
 </section>
-<section id="lec05-s03-03" data-slide-id="lec05-s03-03" class="example-slide">
-<h2>Biểu diễn thưa</h2>
-<div class="ex-grid2 mh-matrix-split"><div><table class="ex-table"><thead><tr><th scope="col">Hàng</th><th scope="col">Các cột có 1</th></tr></thead><tbody><tr><th scope="row">a</th><td>1, 4</td></tr><tr><th scope="row">b</th><td>3</td></tr><tr><th scope="row">c</th><td>2, 4</td></tr><tr><th scope="row">d</th><td>1, 3, 4</td></tr><tr><th scope="row">e</th><td>3</td></tr></tbody></table></div><div><p>Mỗi mục danh sách chỉ ra một tập chứa phần tử của hàng.</p><p class="ex-equation">\[2+1+2+3+1=9\]</p><p class="ex-takeaway">Ví dụ có 9 ô 1 trong 20 ô.</p></div></div>
-<p class="ex-source">MMDS 3e, §3.3.1 và §3.3.5; biểu diễn theo hàng của Hình 3.2.</p>
-<aside class="notes"><p>Danh sách hàng cho phép sau khi tính giá trị băm của một phần tử, chỉ đi tới những cột cần cập nhật. Tổng độ dài năm danh sách là 2+1+2+3+1=9, bằng tổng số ô 1. Ma trận nhỏ ở đây minh họa biểu diễn; nó không tự chứng minh danh sách thưa dùng ít byte hơn do mỗi chỉ số cũng có kích thước lưu trữ.</p><p>Nguồn: MMDS 3e, §3.3.1 và §3.3.5; biểu diễn theo hàng của Hình 3.2.</p></aside>
-</section>
 <section id="lec05-s03-04" data-slide-id="lec05-s03-04" class="example-slide">
 <h2>Trực giác MinHash</h2>
 <div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/minhash-hoan-vi.svg" alt="S1 và S4 dùng cùng thứ tự b,e,a,d,c và cùng chọn a."></figure></div><div><ul><li>Dùng cùng thứ tự trên \(U\) cho mọi tập.</li><li>Mỗi tập không rỗng giữ phần tử đầu tiên.</li><li>Phần tử đầu trong hợp thuộc giao thì hai tập chọn cùng phần tử.</li></ul></div></div>

@@ -1,6 +1,6 @@
 # Storyboard Bài 05 — Biểu diễn tương đồng: Shingling và MinHash
 
-Bản viết mới ngày 28-09-2026. Phạm vi hiện tại: 49 trang giảng/120 phút (trang 17 gộp vào 19 ngày 01/10/2026; số thứ tự phiếu giữ theo bản 28-09), 7 trang cho 5 bài nguồn/60 phút; 7 phần lớn. Cửa kiểm kế hoạch đã PASS và được điều phối viên chấp nhận; đặc tả này đã được triển khai thành bản nháp để rà độc lập, chưa phải xác nhận bản render cuối. Mỗi `data-slide-id` dưới đây chỉ dùng trong HTML và tài liệu quy trình, không hiển thị trong nội dung hay ghi chú diễn giả.
+Bản viết mới ngày 28-09-2026. Phạm vi hiện tại: 48 trang giảng/120 phút (trang 17 gộp vào 19, trang 21 gộp vào 20 ngày 01/10/2026; số thứ tự phiếu giữ theo bản 28-09), 7 trang cho 5 bài nguồn/60 phút; 7 phần lớn. Cửa kiểm kế hoạch đã PASS và được điều phối viên chấp nhận; đặc tả này đã được triển khai thành bản nháp để rà độc lập, chưa phải xác nhận bản render cuối. Mỗi `data-slide-id` dưới đây chỉ dùng trong HTML và tài liệu quy trình, không hiển thị trong nội dung hay ghi chú diễn giả.
 
 ## Quy ước bố cục, dữ liệu và nội dung
 
@@ -18,7 +18,7 @@ Các tỷ lệ trạng thái và vị trí nhãn giữ nguyên qua 23–24,28–
 |---|---|---|---:|---|
 |1. Tài liệu gần trùng và độ tương đồng Jaccard|Kho gần trùng, tập hợp → đặc tả Jaccard; MT1|01–09|18|09|
 |2. Shingling văn bản|Chuỗi, tập và băm → tập shingle có quy ước; MT2|10–16, 18|21|18|
-|3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–27|23|27|
+|3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–20, 22–27|23|27|
 |4. Chữ ký MinHash|Một phép thử → ước lượng từ nhiều tọa độ; MT4|28–34|17|34|
 |5. Tính chữ ký bằng hàm băm|Chữ ký lý tưởng → quét hàng, đúng, chi phí; MT5|35–46|31|46|
 |6. Tổng kết|Các kết quả → xử lý hai giới hạn mở bài, sáu nhiệm vụ tự kiểm|47–50|10|49–50|
@@ -36,7 +36,7 @@ Phần giảng cộng 120 phút. Phần bài tập: 8+10+(7+8)+12+(8+7)=60 phút
 
 ## Ánh xạ tài liệu tự học
 
-`n05-01`→04–05,47–48; `n05-02`→06–09; `n05-03`→10–16, 18; `n05-04`→19–21; `n05-05`→22–24; `n05-06`→25–27; `n05-07`→28–31,33–34; `n05-08`→32, 34; `n05-09`→35–41; `n05-10`→42–44, 46; `n05-11`→45–48; `n05-12` và `n05-13` là đọc thêm riêng trong ghi chú, không có slide bắt buộc; `n05-14`→49–57.
+`n05-01`→04–05,47–48; `n05-02`→06–09; `n05-03`→10–16, 18; `n05-04`→19–20; `n05-05`→22–24; `n05-06`→25–27; `n05-07`→28–31,33–34; `n05-08`→32, 34; `n05-09`→35–41; `n05-10`→42–44, 46; `n05-11`→45–48; `n05-12` và `n05-13` là đọc thêm riêng trong ghi chú, không có slide bắt buộc; `n05-14`→49–57.
 
 Bản đồ vai trò, đầu vào/đầu ra, thành phần áp dụng và mục không áp dụng của từng chủ đề được khóa ở mục 8 của `outline.md`. Ghi chú theo vai trò→định nghĩa→ví dụ→trực quan→mệnh đề/thuật toán/chứng minh→ứng dụng/lỗi/kiểm tra; không dùng thứ tự “ví dụ trước định nghĩa” của slide để làm sai chu trình tài liệu tự học. Chữ ký, ma trận, bài tập và hai phép băm dùng chung hệ ký hiệu ở outline.
 
@@ -697,31 +697,10 @@ Nguồn: MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 21. Biểu diễn thưa
+### 21. (Đã gộp vào trang 20)
 
-- **Mã:** `lec05-s03-03`; **phần:** 3; **note-topic-id:** `n05-04`.
-- **Mục đích và vai trò:** Cầu nối thuật toán; liệt kê các vị trí có 1. **Mục tiêu:** MT3.
-- **Câu chốt:** Chỉ cần lưu các vị trí hiện diện khi ma trận đặc trưng có nhiều ô 0.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận quan hệ thuộc; trang 22 chọn một phần tử bằng thứ tự chung.
-- **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide ex-grid2`: cùng ma trận bên trái 50%, danh sách năm hàng bên phải 50%; mũi liên hệ chỉ cho hàng a để tránh dây chéo.
-- **Trọng tâm và thứ tự đọc:** Hàng a và ô 1 → danh sách a → các hàng còn lại → tổng 9.
-- **Lý do phù hợp sinh viên năm 2:** Đối chiếu từng hàng giữ biểu diễn cụ thể, chuẩn bị vòng lặp theo cột có 1 ở 41 mà không cần khái niệm cơ sở dữ liệu.
-- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
-- **Nguồn:** B §3.3.1 tr. 81–82; đếm trên Hình 3.2.
-- **Thời lượng:** 2 phút.
-
-**Nội dung công khai dự kiến**
-
-Danh sách theo hàng: a→{1,4}; b→{3}; c→{2,4}; d→{1, 3, 4}; e→{3}. Ví dụ có 9 ô 1 trong 20 ô. Mỗi mục danh sách chỉ ra một tập chứa phần tử của hàng.
-
-**Ghi chú diễn giả học thuật**
-
-Danh sách hàng cho phép sau khi tính giá trị băm của một phần tử, chỉ đi tới những cột cần cập nhật. Tổng độ dài năm danh sách là 2+1+2+3+1=9, bằng tổng số ô 1. Ma trận nhỏ ở đây minh họa biểu diễn; nó không tự chứng minh danh sách thưa dùng ít byte hơn do mỗi chỉ số cũng có kích thước lưu trữ.
-
-**Kiểm tra, đáp án và tiêu chí nội bộ**
-
-Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+- **Mã:** `lec05-s03-03` (đã xóa khỏi deck ngày 01/10/2026); **phần:** 3; **note-topic-id:** `n05-04`.
+- **Quyết định:** gộp. Ý “ma trận thưa, chỉ lưu vị trí ô 1” chuyển thành một dòng của trang 20. Danh sách cột có 1 theo hàng chỉ cần khi quét hàng, nên xuất hiện ở trang 37 (cột “Các cột có 1”) và trang 43 ($L=\operatorname{nnz}(M)$); ghi chú cũ phải nhắc tới giá trị băm trước khi phép băm hàng được giới thiệu. Thời lượng chuyển sang trang 22 để giữ 23 phút của phần 3.
 
 ### 22. Trực giác MinHash
 
@@ -735,7 +714,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Lý do phù hợp sinh viên năm 2:** Trục chung làm rõ vì sao không chọn thứ tự độc lập cho mỗi tập; sinh viên theo một lựa chọn cụ thể trước khi đọc argmin.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §§3.3.2–3.3.3 tr. 82–83; áp dụng trên S1, S4 của Hình 3.2.
-- **Thời lượng:** 2 phút.
+- **Thời lượng:** 4 phút (gồm 2 phút của trang 21 đã gộp).
 
 **Nội dung công khai dự kiến**
 

@@ -105,7 +105,7 @@ Quy ước các hàng $a, b, c, d, e$ tương ứng mã $0,1,2,3,4$ được kha
 |---|---|---|---:|---|
 | 1. Tài liệu gần trùng và độ tương đồng Jaccard | Giới thiệu + khái niệm; kho gần trùng → Jaccard cần một biểu diễn tập | 01–09 | 18 | 09 |
 | 2. Shingling văn bản | Khái niệm + thuật toán; chuỗi → tập phần tử để nén | 10–16, 18 | 21 | 18 |
-| 3. MinHash theo hoán vị | Khái niệm + chứng minh; tập → một phép thử có xác suất trùng bằng Jaccard | 19–27 | 23 | 27 |
+| 3. MinHash theo hoán vị | Khái niệm + chứng minh; tập → một phép thử có xác suất trùng bằng Jaccard | 19–20, 22–27 | 23 | 27 |
 | 4. Chữ ký MinHash | Ước lượng; một phép thử → tỷ lệ nhiều phép thử và tác dụng của $n$ | 28–34 | 17 | 34 |
 | 5. Tính chữ ký bằng hàm băm | Thuật toán + chi phí; băm hàng → chữ ký tính được, bất biến và giới hạn | 35–46 | 31 | 46 |
 | 6. Tổng kết | Thu hồi tình huống; kết nối biểu diễn, bảo đảm và giới hạn số cặp | 47–50 | 10 | 49–50 |
@@ -117,7 +117,7 @@ Mỗi phần tương ứng một `section` ngoài. Phần bài tập có 7 trang
 |---|---|---|
 | Jaccard | Tình huống 04; vấn đề 05; trực giác/ví dụ 06; hình thức 07; ứng dụng 08; kiểm tra 09 | Giao 3, hợp 8 truyền từ hình sang công thức. Không có thuật toán riêng vì phép đếm tập là tiên quyết; chi phí mọi cặp đặt ở 05 |
 | Shingling | Tình huống/vấn đề/trực giác 10; ví dụ 11; hình thức 12; thuật toán và đúng 13; ứng dụng/chi phí 14–16 (17 gộp vào 19); kiểm tra 18 | `abcdabd`, $k=2$, sáu cửa sổ, năm phần tử giữ nguyên. 13 gộp bất biến ngắn; chứng minh đầy đủ vào ghi chú |
-| MinHash | Tình huống/vấn đề 19; biểu diễn 20–21; trực giác 22; ví dụ 23; hình thức 24; lập luận đúng 25–26; kiểm tra 27 | Cùng bốn tập Hình 3.2; thứ tự `b, e, a, d, c`. Chi phí lưu hoán vị chuyển 35 vì chỉ khi đó cần triển khai; 19 đã đặt giới hạn bộ nhớ |
+| MinHash | Tình huống/vấn đề 19; biểu diễn 20 (21 gộp vào 20); trực giác 22; ví dụ 23; hình thức 24; lập luận đúng 25–26; kiểm tra 27 | Cùng bốn tập Hình 3.2; thứ tự `b, e, a, d, c`. Chi phí lưu hoán vị chuyển 35 vì chỉ khi đó cần triển khai; 19 đã đặt giới hạn bộ nhớ |
 | Chữ ký | Nhu cầu nhiều phép thử sau 27; ví dụ 28; hình thức 29–30; chứng minh kỳ vọng/phương sai 31–32; chi phí 33; kiểm tra 34 | Hai thứ tự suy từ Ví dụ 3.8 dùng trước định nghĩa, quyết định riêng của root. Thuật toán tích lũy chữ ký thực hiện ở cụm kế; không bỏ ngầm |
 | Quét hàng | Tình huống/vấn đề/trực giác 35; đặc tả 36; ví dụ 37–40; thuật toán 41; đúng 42; chi phí 43–44; giới hạn 45; kiểm tra 46 | Đổi công khai a–e sang 0–4; giữ toàn bộ dữ kiện và vết min Hình 3.4. Đặc tả trước vết chạy đầy đủ vì MinHash và cực tiểu đã có trực giác tại 22–24 và 35 |
 
