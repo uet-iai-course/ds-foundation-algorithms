@@ -1237,11 +1237,11 @@ Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ �
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Mô hình Hình 5.16, không có nút cụt: $b=(1-\beta)/n$, $p=\beta y/m+b$; $x$ đã gồm $\beta$.
+Mô hình cụm Hình 5.16, đồ thị không có nút cụt.
 
 **Câu hỏi:**
-1. Sửa phương trình $y=\beta x+\beta mp$ để có phương trình đầy đủ.
-2. Xác định hạng của $y$ bị bỏ khi dùng công thức xấp xỉ trong sách.
+1. Với $\beta=0{,}9$, tính hệ số của $x$ và hệ số của $m/n$ trong công thức xấp xỉ của $y$; so với $\beta=0{,}85$.
+2. Mỗi trang hỗ trợ nhận thêm cạnh từ ngoài cụm. Xác định phương trình nào trong hai phương trình của $p$, $y$ phải đổi và số hạng được thêm.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Giả thiết ngắn và hai công thức đã biết ở trên45%; hai yêu cầu ở khung kiểm tra dưới55%. Không cho sẵn phương trình sửa.
@@ -1256,7 +1256,7 @@ Mô hình Hình 5.16, không có nút cụt: $b=(1-\beta)/n$, $p=\beta y/m+b$; $
 
 **Kết nối vào–ra:** Kiểm dòng điểm trong mô hình thao túng → lựa chọn tập trang đáng tin ở S04.
 
-**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng đối tượng kiểm tra của phần; rút dòng dữ kiện lặp toàn bộ giả thiết s03-02…s03-04 thành dẫn chiếu Hình 5.16 và các ký hiệu cần dùng. Đáp án câu 2 không còn trên mặt s03-06 (đã chuyển vào ghi chú).
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng đối tượng kiểm tra của phần; rút dòng dữ kiện lặp toàn bộ giả thiết s03-02…s03-04 thành dẫn chiếu Hình 5.16 và các ký hiệu cần dùng. Sau rà lại: hai câu cũ có đáp án hiển thị ở s03-04, s03-06; thay bằng câu vận dụng công thức với $\beta=0{,}9$ và câu sửa mô hình khi hỗ trợ nhận cạnh ngoài.
 
 **Nguồn và vị trí:** NG1 §5.4.2, tr.201; kiểm tra áp dụng trên cùng ký hiệu và giả thiết.
 
@@ -1272,7 +1272,9 @@ Mô hình Hình 5.16, không có nút cụt: $b=(1-\beta)/n$, $p=\beta y/m+b$; $
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Phương trình đầy đủ là $y=x+\beta mp+b$. Đại lượng $x$ đã qua hệ số $\beta$ nên không nhân lần nữa. Thế $p$ rồi giải cho $y$ cho hạng bị lược bằng $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần $\beta mb$ vẫn được giữ vì đó là tổng phần dịch chuyển nhận bởi $m$ hỗ trợ sau khi truyền về đích.
+Câu 1: hệ số của $x$ là $1/(1-\beta^2)=100/19\approx5{,}26$; hệ số của $m/n$ là $\beta/(1+\beta)=9/19\approx0{,}47$. Với $\beta=0{,}85$ hai hệ số là $3{,}60$ và $0{,}46$. Khi $\beta$ tăng, phần điểm mất ở mỗi bước theo liên kết giảm, nên vòng đích → hỗ trợ → đích giữ lại nhiều điểm hơn và đóng góp từ ngoài được nhân mạnh hơn.
+
+Câu 2: phương trình của mỗi hỗ trợ có thêm số hạng $x'$ là đóng góp từ ngoài vào hỗ trợ đó, đã nhân $\beta$ và chia bậc ra tại nguồn: $p=\beta y/m+x'+b$. Phương trình $y=x+\beta mp+b$ giữ dạng, nhưng $p$ lớn hơn nên $y$ tăng qua số hạng $\beta mp$. Lỗi thường gặp là nhân $\beta$ thêm một lần vào $x'$ hoặc quên rằng phần thêm tại hỗ trợ cũng quay về đích.
 <!-- public-notes:end -->
 
 ## S04. TrustRank và Spam Mass
