@@ -657,7 +657,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 - **Mã:** `lec05-s03-02`; **phần:** 3; **note-topic-id:** `n05-04`.
 - **Mục đích và vai trò:** Cầu nối biểu diễn; đọc đúng hàng và cột. **Mục tiêu:** MT3.
-- **Câu chốt:** Mỗi cột biểu diễn một tập; mỗi hàng biểu diễn một phần tử của vũ trụ.
+- **Câu chốt:** Ma trận đặc trưng đặt các tập thành cột trên cùng các hàng phần tử; ma trận thực tế thưa và chỉ lưu vị trí các ô 1.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập cần nén; 21 đổi lưu trữ mà giữ quan hệ hiện diện.
 - **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: bảng ma trận 5 × 4 chiếm 60% trái, chú giải U, R, C và điều kiện ô 1 chiếm 40% phải; bảng dùng `ex-table`.
@@ -669,11 +669,29 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-$U=\{a, b, c, d, e\}$, $R=5$, $C=4$. Ma trận đặc trưng của bốn tập có các hàng a:(1, 0, 0, 1), b:(0, 0, 1, 0), c:(0, 1, 0, 1), d:(1, 0, 1, 1), e:(0, 0, 1, 0). $M(r, c)=1$ khi phần tử hàng r thuộc $S_c$, bằng 0 nếu không thuộc. Kích thước: $R\times C$.
+Đặt các tập thành cột của một ma trận để mọi tập được xét trên cùng các hàng phần tử.
+
+| Phần tử / $r$ | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
+|---|---:|---:|---:|---:|
+| a / 0 | 1 | 0 | 0 | 1 |
+| b / 1 | 0 | 0 | 1 | 0 |
+| c / 2 | 0 | 1 | 0 | 1 |
+| d / 3 | 1 | 0 | 1 | 1 |
+| e / 4 | 0 | 0 | 1 | 0 |
+
+$U=\{a,b,c,d,e\}$; $R=5$, $C=4$.
+
+$M(r,c)=1$ khi phần tử ở hàng $r$ thuộc $S_c$; ngược lại $M(r,c)=0$.
+
+Hàng là phần tử của $U$, cột là tập.
+
+Ma trận thực tế rất thưa; khi lưu chỉ ghi vị trí các ô 1.
 
 **Ghi chú diễn giả học thuật**
 
-Tập thứ nhất gồm a, d; tập thứ hai gồm c; tập thứ ba gồm b, d, e; tập thứ tư gồm a, c, d. Hàng a có 1 tại hai cột 1 và 4 vì a thuộc cả hai tập đó. Ma trận là cách mô tả quan hệ hiện diện; không bắt buộc lưu toàn bộ các số 0 khi triển khai.
+Theo §3.3.1, ma trận đặc trưng là cách hình dung một họ tập: cột ứng với tập, hàng ứng với phần tử của vũ trụ. Bốn cột là $S_1=\{a,d\}$, $S_2=\{c\}$, $S_3=\{b,d,e\}$, $S_4=\{a,c,d\}$; hàng $a$ có 1 ở cột 1 và 4 vì $a$ thuộc hai tập này. Mã hàng $r=0,\ldots,4$ là tên số của $a,\ldots,e$, được dùng lại khi băm các hàng ở phần tính chữ ký. Trong dữ liệu thực, số 0 chiếm áp đảo nên dữ liệu được lưu bằng vị trí các ô 1, chẳng hạn danh sách các cột có 1 của mỗi hàng; ví dụ này có 9 ô 1 trong 20 ô. Ma trận giúp mô tả phép hoán vị các hàng ở các trang sau.
+
+Nguồn: MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
