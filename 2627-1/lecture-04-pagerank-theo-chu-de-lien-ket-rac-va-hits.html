@@ -1177,6 +1177,7 @@ Không bỏ phần $b$ nhận tại hỗ trợ, vì tổng $m$ phần ấy tạo
 <h2>Bài tập HITS trên chuỗi có khuyên</h2>
 <p><strong>Bài 5.5.2, MMDS §5.5.3, trang 208; Hình 5.9, trang 189.</strong></p><img class="l04-figure l04-chain-diagram" src="img/lec-04/chuoi-co-khuyen.svg" alt="Chuỗi một tới n có khuyên một tới một; các cạnh i tới i cộng một." role="img"><p>Đồ thị có $n$ đỉnh, cạnh $1\to1$ và $i\to i+1$ với $1\le i&lt;n$; $n\ge1$.</p>
 <p>Khởi tạo $h^0=a^0=\mathbf1$; sau mỗi phép nhân, chuẩn hóa phần tử lớn nhất bằng 1.</p><div class="question-box"><p><strong>Câu hỏi:</strong> Tính các vector trung tâm và uy tín theo $n$.</p></div><p>Sản phẩm: hai vector giới hạn, lập luận từ phép lặp hoặc ma trận, và các trường hợp biên $n=1$, $n=2$.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Bài 5.5.2, §5.5.3, tr.208; Hình 5.9, tr.189.</p>
 <aside class="notes">
 <p>Thời lượng dự kiến: 20 phút.</p><p>Với $n\ge2$, hàng 1 của $L$ có hai số $1$ tại cột 1, 2; mỗi hàng $2\le i&lt;n$ có một số $1$ tại cột $i+1$; hàng cuối bằng $0$. Các hàng khác nhau có tập vị trí cột khác $0$ rời nhau, nên
 $$LL^\mathsf T=\operatorname{diag}(2,\underbrace{1,\ldots,1}_{n-2},0).$$

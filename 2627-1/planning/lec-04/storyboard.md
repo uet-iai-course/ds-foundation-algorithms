@@ -2454,7 +2454,7 @@ Sản phẩm: hai vector giới hạn, lập luận từ phép lặp hoặc ma t
 
 **Thời lượng:** 20 phút.
 
-**Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
+**Nhiệm vụ và tiêu chí nội bộ:** Bài tập nguồn; không phải slide kiểm tra riêng của phần.
 
 - Câu hỏi/đề: Tính hai vector giới hạn của chuỗi có khuyên theo đúng đề nguồn.
 - Đáp án/gợi ý: $n\ge2$: $h^*=(1,0,\ldots,0)^\mathsf T$, $a^*=(1,1,0,\ldots,0)^\mathsf T$; $n=1$: h=a=(1).
