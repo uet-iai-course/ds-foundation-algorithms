@@ -295,7 +295,7 @@ Khái niệm, thuật toán và chi phí. Nhu cầu chủ đề → thay nhánh 
 
 Phân bổ: 13 slide, 30 phút.
 
-### lec04-s02-01 — Dịch chuyển ưu tiên theo chủ đề
+### lec04-s02-01 — Dịch chuyển vào tập chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác; MT1. Đầu vào: hai nhánh di chuyển PageRank. Sản phẩm: chỉ ra thành phần thay đổi khi ưu tiên chủ đề.
 
@@ -306,12 +306,12 @@ Phân bổ: 13 slide, 30 phút.
 <!-- public-slide:start -->
 Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.
 
-Với xác suất $1-\beta$: dịch chuyển tới một trang trong tập chủ đề $S$.
+Với xác suất $1-\beta$: dịch chuyển tới một trang trong $S$; Bài 03 chọn đều trong $n$ trang.
 
 Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ thị liên kết được giữ nguyên.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** Sơ đồ hai nhánh từ một trang chiếm trái 60%; hai câu giải thích và kết luận ở phải40%. Nhánh dịch chuyển dùng nét đứt và nhãn để phân biệt cạnh thật.
+**Bố cục đã chọn:** Sơ đồ hai nhánh từ một trang chiếm trái 55%; hai câu giải thích và kết luận ở phải 45%. Nhánh dịch chuyển dùng nét đứt và nhãn để phân biệt cạnh thật.
 
 **Trọng tâm và thứ tự đọc:** Theo nhánh liên kết trước, nhánh dịch chuyển sau; đối chiếu đích được phép ở từng nhánh.
 
@@ -323,6 +323,8 @@ Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ th�
 
 **Kết nối vào–ra:** Nhu cầu chủ đề → một thay đổi trong bước nhảy; G4 cụ thể hóa ở trang sau.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng thay đổi duy nhất (đích của bước dịch chuyển); mặt trang đối chiếu trực tiếp với bước nhảy đều của Bài 03; ghi chú đặt tên “tập dịch chuyển” trước khi trang sau dùng và nêu giả định trực quan của MMDS §5.3.2.
+
 **Nguồn và vị trí:** NG1 §5.3.2, tr.196/PDF22; NG3 trang8 chỉ đối chiếu hình.
 
 **Thời lượng:** 2 phút.
@@ -330,7 +332,9 @@ Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ th�
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Dịch chuyển đưa phần điểm mới vào các trang đại diện chủ đề. Các bước theo liên kết tiếp tục chuyển điểm tới những trang có thể tới được từ tập này. Vì vậy, tập dịch chuyển không phải tập duy nhất được phép có điểm dương. Quan hệ giữa chủ đề và các trang liên kết là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.
+So với Bài 03, chỉ nơi đến của bước dịch chuyển thay đổi; nhánh theo liên kết và đồ thị giữ nguyên. Tập $S$ gồm các trang đã được xác định là thuộc chủ đề và còn được gọi là tập dịch chuyển (teleport set). Dịch chuyển đưa phần điểm mới vào các trang này; các bước theo liên kết tiếp tục chuyển điểm tới những trang tới được từ $S$ qua đường đi ngắn. Vì vậy, $S$ không phải tập duy nhất có điểm dương.
+
+MMDS dựa trên giả định trực quan: trang được các trang của một chủ đề trỏ tới thường cũng thuộc chủ đề đó. Đây là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.
 <!-- public-notes:end -->
 
 ### lec04-s02-02 — Tập dịch chuyển trên đồ thị bốn trang

@@ -90,13 +90,13 @@
 </section>
 <section aria-label="PageRank theo chủ đề">
 <section id="lec04-s02-01" data-slide-id="lec04-s02-01" class="example-slide">
-<h2>Dịch chuyển ưu tiên theo chủ đề</h2>
-<div class="ex-grid2 l04-split-60 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hai-nhanh-di-chuyen.svg" alt="Nhánh liên kết xác suất beta và nhánh dịch chuyển vào tập S xác suất một trừ beta; nét đứt không là cạnh dữ liệu." role="img"></div><div><p>Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.</p>
-<p>Với xác suất $1-\beta$: dịch chuyển tới một trang trong tập chủ đề $S$.</p>
+<h2>Dịch chuyển vào tập chủ đề</h2>
+<div class="ex-grid2 l04-split-55 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hai-nhanh-di-chuyen.svg" alt="Nhánh liên kết xác suất beta và nhánh dịch chuyển vào tập S xác suất một trừ beta; nét đứt không là cạnh dữ liệu." role="img"></div><div><p>Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.</p>
+<p>Với xác suất $1-\beta$: dịch chuyển tới một trang trong $S$; Bài 03 chọn đều trong $n$ trang.</p>
 <p>Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ thị liên kết được giữ nguyên.</p></div></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196.</p>
 <aside class="notes">
-<p>Dịch chuyển đưa phần điểm mới vào các trang đại diện chủ đề. Các bước theo liên kết tiếp tục chuyển điểm tới những trang có thể tới được từ tập này. Vì vậy, tập dịch chuyển không phải tập duy nhất được phép có điểm dương. Quan hệ giữa chủ đề và các trang liên kết là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.</p>
+<p>So với Bài 03, chỉ nơi đến của bước dịch chuyển thay đổi; nhánh theo liên kết và đồ thị giữ nguyên. Tập $S$ gồm các trang đã được xác định là thuộc chủ đề và còn được gọi là tập dịch chuyển (teleport set). Dịch chuyển đưa phần điểm mới vào các trang này; các bước theo liên kết tiếp tục chuyển điểm tới những trang tới được từ $S$ qua đường đi ngắn. Vì vậy, $S$ không phải tập duy nhất có điểm dương.</p><p>MMDS dựa trên giả định trực quan: trang được các trang của một chủ đề trỏ tới thường cũng thuộc chủ đề đó. Đây là giả định ý nghĩa của mô hình, không phải một phép phân loại chắc chắn.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196.</p>
 </aside>
 </section>
