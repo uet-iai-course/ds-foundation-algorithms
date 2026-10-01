@@ -1549,7 +1549,7 @@ Nguồn: MMDS 3e, tr. 81; phân tích bộ nhớ từ thuật toán §3.3.5.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 45. Hàm băm và điều kiện bảo đảm
+### 45. Điều kiện đối với hàm băm hàng
 
 - **Mã:** `lec05-s05-11`; **phần:** 5; **note-topic-id:** `n05-11`.
 - **Mục đích và vai trò:** Giới hạn; phân biệt không va chạm và phân bố đều. **Mục tiêu:** MT3, MT4, MT5.
@@ -1565,7 +1565,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Va chạm có thể làm hai hàng khác nhau có cùng giá trị. Hàm $(ar+b)\bmod R$ là hoán vị khi $\gcd(a, R)=1$. Đẳng thức xác suất đã chứng minh dùng phân phối chọn đều hoán vị; song ánh riêng lẻ không bảo đảm phân phối ấy.
+- Va chạm có thể làm hai hàng khác nhau có cùng giá trị.
+- Hàm $(ar+b)\bmod R$ là hoán vị khi và chỉ khi $\gcd(a,R)=1$.
+- Đẳng thức xác suất đã chứng minh dùng phân phối chọn đều hoán vị.
+
+Song ánh của từng hàm không bảo đảm phân phối chọn đều trên mọi hoán vị.
 
 **Ghi chú diễn giả học thuật**
 

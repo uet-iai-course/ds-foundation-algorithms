@@ -278,8 +278,8 @@ return SIG</code></pre><p class="ex-takeaway">Dừng sau \(R\) hàng; mỗi \(f_
 <aside class="notes"><p>Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. So số hàng \(n&lt;R\) không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Với mỗi thành phần 4 byte, chữ ký 1.000 byte có \(n=250\); do \(s(1-s)\le1/4\), độ lệch chuẩn của ước lượng không vượt \(1/(2\sqrt{250})\approx0{,}032\) trong mô hình lý tưởng, phù hợp với mức “vài phần trăm” của sách. Đây là phát biểu về phân phối, không bảo đảm sai số của mọi lần chạy.</p><p>Nguồn: MMDS 3e, tr. 81; phân tích bộ nhớ từ thuật toán §3.3.5.</p></aside>
 </section>
 <section id="lec05-s05-11" data-slide-id="lec05-s05-11" class="example-slide">
-<h2>Hàm băm và điều kiện bảo đảm</h2>
-<ul><li>Va chạm có thể làm hai hàng khác nhau có cùng giá trị.</li><li>Hàm \((ar+b)\bmod R\) là hoán vị khi \(\gcd(a,R)=1\).</li><li>Đẳng thức xác suất đã chứng minh dùng phân phối chọn đều hoán vị.</li></ul><div class="ex-card"><p>Song ánh của từng hàm không bảo đảm phân phối chọn đều trên mọi hoán vị.</p></div>
+<h2>Điều kiện đối với hàm băm hàng</h2>
+<ul><li>Va chạm có thể làm hai hàng khác nhau có cùng giá trị.</li><li>Hàm \((ar+b)\bmod R\) là hoán vị khi và chỉ khi \(\gcd(a,R)=1\).</li><li>Đẳng thức xác suất đã chứng minh dùng phân phối chọn đều hoán vị.</li></ul><div class="ex-card"><p>Song ánh của từng hàm không bảo đảm phân phối chọn đều trên mọi hoán vị.</p></div>
 <p class="ex-source">MMDS 3e, §3.3.5 và Bài 3.3.3; điều kiện khả nghịch modulo \(R\).</p>
 <aside class="notes"><p>Với modulo 5, hệ số 1 và 3 trong ví dụ khả nghịch nên hai hàm là hoán vị. Tính nguyên tố của số hàng không phải điều kiện cần; Bài 3.3.3 có hàm hệ số 5 modulo 6 vẫn là hoán vị. Kiểm bảng giá trị cho biết có va chạm hay không, nhưng không cho biết phân phối lựa chọn trong cả họ hàm. Nếu băm shingle đã gây va chạm, tập đo ở đầu vào cũng đã thay đổi trước bước này.</p><p>Nguồn: MMDS 3e, §3.3.5 và Bài 3.3.3; điều kiện khả nghịch modulo \(R\).</p></aside>
 </section>
