@@ -294,11 +294,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.5.2/Ex 3.13 tr.97–98/PDF 26–27.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 2 phút.
 
-#### lec06-s03-02 — Độ đo khoảng cách
+#### lec06-s03-02 — Độ đo khoảng cách và chuẩn vector
 
 - **Mục đích và vai trò:** Nêu miền và bốn tiên đề trước khi dùng độ đo.
 - **Thông điệp:** Độ đo mô tả gần–xa bằng một hàm có điều kiện xác định.
-- **Nội dung công khai dự kiến:** $d:X\times X\to\mathbb R_{\ge0}$; $d(x,y)=0\Leftrightarrow x=y$; đối xứng; $d(x,z)\le d(x,y)+d(y,z)$. Với $x,y\in\mathbb R^D$, $d_q(x,y)=(\sum_i|x_i-y_i|^q)^{1/q}$,$q\ge1$; $d_\infty=\max_i|x_i-y_i|$.
+- **Nội dung công khai dự kiến:** Khoảng cách trên miền X $d(x,y)\ge0$. $d(x,y)=0\iff x=y$. $d(x,y)=d(y,x)$. $d(x,z)\le d(x,y)+d(y,z)$. Chuẩn trên vector $x,y\in\mathbb R^D,\ q\ge1$ $\|x-y\|_q=\left(\sum_{i=1}^D|x_i-y_i|^q\right)^{1/q}$ $\|x-y\|_\infty=\max_i|x_i-y_i|$ Với $q\ge1$, $\|x-y\|_q$ thỏa bốn tiên đề; $L_1$, $L_2$, $L_\infty$ ở trang trước là ba trường hợp.
 - **Đầu vào và giả thiết:** V05, kiểu hàm và bất đẳng thức.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5; không áp định nghĩa chuẩn $q<1$; $D$ số chiều, không là khoảng cách.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Khung định nghĩa ở trên 60%; dòng họ chuẩn và V05 nhãn 5/7/4 ở dưới 40%. Năm 2 chuyển số cụ thể sang miền và ký hiệu; chứng minh Minkowski không nằm tuyến chính.
