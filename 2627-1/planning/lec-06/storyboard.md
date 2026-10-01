@@ -214,16 +214,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.1, 3.4.3; chứng minh suy từ thủ tục nguồn, đã duyệt.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 
-#### lec06-s02-10 — Xác suất trùng trong một dải
+#### lec06-s02-10 — Xác suất trùng một dải
 
 - **Mục đích và vai trò:** Suy xác suất AND từ các hàng độc lập.
 - **Thông điệp:** Một dải $r$ hàng trùng với xác suất $s^r$.
-- **Nội dung công khai dự kiến:** Cặp tập không rỗng cố định có Jaccard $s$. Mỗi MinHash lý tưởng chọn đều, độc lập. Đặt $E_i=$“hai chữ ký trùng ở hàng $i$”. $\Pr(E_i)=s$, $\Pr(\cap_{i=1}^rE_i)=s^r$. Không trùng dải:$1-s^r$.
+- **Nội dung công khai dự kiến:** Tính đúng chỉ xét cặp trong $\mathcal C$; cần biết cặp tương đồng vào $\mathcal C$ với xác suất bao nhiêu. Cặp tập không rỗng cố định có Jaccard $s$; các MinHash lý tưởng được chọn đều, độc lập. Gọi $E_i$ là biến cố hai cột trùng ở hàng $i$ của dải: $\Pr(E_i)=s$. $\Pr(E_1\cap\cdots\cap E_r)=s^r$ Trùng dải $s^r$ Không trùng dải $1-s^r$ Với $s=0{,}8$ và $r=5$: $0{,}8^5=0{,}32768$ và $1-0{,}32768=0{,}67232$.
 - **Đầu vào và giả thiết:** Định lý MinHash Bài 05 và độc lập; phép trùng tuple V03.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT3; V04 $s=.8,r=5$ cho $s^r=.32768$; thất bại dải=.67232.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bên trái 55% ghi các sự kiện theo hàng; phải 45% công thức và thế số. Năm 2 ghép nghĩa “tất cả” với phép nhân; giả thiết hiện phía trên, còn khác mô hình V02 ở notes.
 - **Kết nối vào–ra:** Tính đúng theo ứng viên→khả năng một dải nhận cặp; nhiều dải dùng biến cố bù.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Tính độc lập thuộc các lần chọn hàm, chưa thuộc các cặp dữ liệu. Hai hàm cố định trong ví dụ đã cho không được dùng để suy công thức này. Giá trị $s=.8$ là tương đồng thật, không là tỷ lệ trùng của một chữ ký quan sát.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Tính độc lập thuộc các lần chọn hàm, chưa thuộc các cặp dữ liệu. Hai hàm cố định trong ví dụ đã cho không được dùng để suy công thức này. Giá trị $s=0{,}8$ là tương đồng thật, không là tỷ lệ trùng của một chữ ký quan sát.
 - **Nguồn:** B §3.4.2 tr.93–94/PDF 22–23; Ex 3.12 tr.94.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2.5 phút.
 

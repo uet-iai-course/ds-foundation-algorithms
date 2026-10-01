@@ -172,13 +172,13 @@ Cố định hai tập không rỗng có Jaccard $s$. Mỗi thành phần chữ 
 Tại tầng sinh ứng viên, một cặp dưới ngưỡng được sinh là ứng viên giả. Bỏ sót là sự kiện cặp có $s\ge t$ không được sinh. Đây là hai loại sự kiện theo một cặp có độ tương đồng xác định; chúng chưa là tỷ lệ lỗi trên toàn kho.
 
 ::: example
-Với $s=.8$, $r=5$, xác suất cả năm hàng của một dải trùng là $.8^5=.32768$. Xác suất dải này không trùng là $.67232$. Nếu có $b=20$ dải độc lập, xác suất không dải nào trùng là
+Với $s=0{,}8$, $r=5$, xác suất cả năm hàng của một dải trùng là $0{,}8^5=0{,}32768$. Xác suất dải này không trùng là $0{,}67232$. Nếu có $b=20$ dải độc lập, xác suất không dải nào trùng là
 
 $$
-(.67232)^{20}\approx .000356058.
+(0{,}67232)^{20}\approx 0{,}000356058.
 $$
 
-Xác suất cặp được chọn vì vậy xấp xỉ $.999643942$.
+Xác suất cặp được chọn vì vậy xấp xỉ $0{,}999643942$.
 :::
 
 ::: proof
