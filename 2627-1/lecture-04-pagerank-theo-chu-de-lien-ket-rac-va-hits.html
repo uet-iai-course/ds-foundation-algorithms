@@ -241,7 +241,7 @@ trả về (r, hết số vòng)
 </aside>
 </section>
 <section id="lec04-s02-07" data-slide-id="lec04-s02-07" class="example-slide">
-<h2>Bảo toàn phân phối điểm</h2>
+<h2>Bất biến tổng điểm</h2>
 <p>Giả sử $r^t\ge0$ và $\sum_i r_i^t=1$.</p>
 <table class="ex-table">
 <thead>
@@ -266,7 +266,7 @@ trả về (r, hết số vòng)
 </tbody>
 </table>
 <div class="ex-equation">$$\sum_i r_i^{t+1}=\beta(1-\delta^t)+\beta\delta^t+(1-\beta)=1.$$</div>
-<p>Mọi số hạng đều không âm. Khởi tạo $r^0=v$ thỏa giả thiết.</p>
+<p>Lập luận của Bài 03 giữ nguyên; điều kiện mới duy nhất là $v\ge0$, $\sum_iv_i=1$. Khởi tạo $r^0=v$ thỏa giả thiết.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2; §5.1.5, tr.185–188, 196.</p>
 <aside class="notes">
 <p>Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên tổng phần điểm của trang ấy sau khi nhân $\beta$ là $\beta r_j^t$. Cộng trên mọi trang không cụt được $\beta(1-\delta^t)$. Các nút cụt trả lại $\beta\delta^t$ bằng bù đều; phân phối $v$ có tổng bằng $1$ nhận phần $1-\beta$. Mọi hệ số đều không âm và cơ sở $r^0=v$ thỏa giả thiết, hoàn thành lập luận quy nạp. Bất biến chỉ xác nhận mỗi trạng thái là phân phối hợp lệ; chưa xác nhận dãy có giới hạn.</p>

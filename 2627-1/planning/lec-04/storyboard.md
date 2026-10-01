@@ -567,7 +567,7 @@ trả về (r, hết số vòng)
 Vector `new` được khởi tạo bằng phần bù và phần dịch chuyển, không phụ thuộc từng cạnh. Mỗi cạnh $j\to i$ cộng một phần điểm cũ của $j$, nên tổng đóng góp không phụ thuộc thứ tự duyệt cạnh trong số học chính xác. Sau khi hoàn tất tất cả các đỉnh, `Delta` đo chênh lệch theo tổng trị tuyệt đối. Nếu hết $K$ vòng mà chưa đạt $\tau$, vector hiện tại vẫn là đầu ra tính được, nhưng trạng thái không xác nhận tiêu chí dừng đã đạt.
 <!-- public-notes:end -->
 
-### lec04-s02-07 — Bảo toàn phân phối điểm
+### lec04-s02-07 — Bất biến tổng điểm
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận đúng; MT1. Đầu vào: HT1. Sản phẩm: chứng minh điểm không âm và tổng 1 sau mỗi vòng.
 
@@ -586,7 +586,7 @@ Giả sử $r^t\ge0$ và $\sum_i r_i^t=1$.
 
 $$\sum_i r_i^{t+1}=\beta(1-\delta^t)+\beta\delta^t+(1-\beta)=1.$$
 
-Mọi số hạng đều không âm. Khởi tạo $r^0=v$ thỏa giả thiết.
+Lập luận của Bài 03 giữ nguyên; điều kiện mới duy nhất là $v\ge0$, $\sum_iv_i=1$. Khởi tạo $r^0=v$ thỏa giả thiết.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Giả thiết ở trên20%; bảng ba dòng giữa50%; phép cộng và kết luận dưới30%. Ba nhãn trùng với HT1.
@@ -600,6 +600,8 @@ Mọi số hạng đều không âm. Khởi tạo $r^0=v$ thỏa giả thiết.
 **Ví dụ, phiếu số và hình thức hóa:** HT2 phần bất biến; VD1 tổng mỗi vòng bằng 1 là phép kiểm độc lập, không thay chứng minh.
 
 **Kết nối vào–ra:** Thuật toán → bất biến ở mọi vòng; tính co tiếp tục giải thích giới hạn.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng kết quả (bất biến tổng điểm); câu chốt chỉ ra điểm mới so với “Bảo toàn tổng điểm” của Bài 03 là điều kiện $v\ge0$, $\sum_iv_i=1$, tránh lặp lại kết quả cũ như một mệnh đề mới.
 
 **Nguồn và vị trí:** NG1 §5.3.2 cùng mô hình §5.1.5; chứng minh từ quy tắc cập nhật đã duyệt, không trích nguyên sách.
 
