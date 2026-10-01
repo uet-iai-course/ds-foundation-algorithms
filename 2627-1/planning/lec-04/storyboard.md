@@ -1517,7 +1517,7 @@ Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Độ phủ: chỉ chọn miền .edu thì $T$ gần như chỉ gồm trang của Mỹ; cần thêm các miền tương tự của nước khác (MMDS §5.4.4).
+Độ phủ: chỉ chọn .edu thì $T$ gần như chỉ gồm trang của Mỹ; cần thêm miền tương tự của nước khác.
 
 | Bước | Phạm vi chi phí |
 | --- | --- |
