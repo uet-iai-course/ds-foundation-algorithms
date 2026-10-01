@@ -490,3 +490,39 @@ Tác tử rà chỉ đọc: vai trò chính xác toán–thuật toán (phần 6
 | nhẹ | storyboard phần 2–3 | Số thập phân dấu chấm trong phiếu. | Giữ: tài liệu lập kế hoạch nội bộ, sinh viên không thấy; ghi nhận là giới hạn. |
 
 Thêm: bốn câu hỏi tự kiểm trong ghi chú bài giảng dạng “…không?”/“Vì sao…?” viết lại dạng yêu cầu (“Giải thích…”, “Xác định…”, “nêu…”).
+
+### Kiểm định cuối lượt duyệt từng trang, 02/10/2026
+
+| Hạng mục | Kết quả |
+|---|---|
+| Cấu trúc | 60 trang (53 giảng, 7 bài tập), bảy phần 5/14/13/11/6/4/7; mục lục s01-02 khớp; 60 `data-slide-id` duy nhất, 60 ghi chú; không `fragment`, không `<style>`, không style nội dòng; không mã trang hay thời lượng trong ghi chú diễn giả. Một khối mã có `data-trim` và `language-plaintext`. Không ảnh raster. Điều hướng phím (Space) đi qua đủ 60 trang theo thứ tự. |
+| Hiển thị deck | Playwright Chromium, 1600 × 900 và 390 × 844, đủ 60 trang (120 ảnh): không lỗi KaTeX, console hay trang; không tải tài nguyên ngoài máy cục bộ; không cuộn ngang; cỡ chữ nhỏ nhất 18 px; không tràn khung ở 1600 × 900. Điều phối viên xem ảnh nguyên cỡ của mọi trang đã sửa. Ảnh lưu ngoài kho. |
+| Khổ hẹp | Như Bài 03–05: ở chiều rộng ≤ 435 px Reveal chuyển sang chế độ cuộn; kiểm bằng cuộn tới từng trang, 60/60 trang nằm trọn trong khung, nội dung thu nhỏ theo khung 16:9 (giới hạn runtime dùng chung, không sửa). |
+| Ghi chú tự học | Viewer 1440 × 900, 390 × 844 và chế độ in: 705 công thức KaTeX, không lỗi, không cuộn ngang, không lỗi console (bỏ qua thông báo CSP do máy chủ reload chèn script). Mọi mục cập nhật theo deck; thêm mục “Chi phí tính chữ ký của ba họ”. Không còn số thập phân dấu chấm, không còn câu hỏi tự kiểm dạng câu hỏi. |
+| Đồng bộ planning | 60/60 tiêu đề phiếu storyboard khớp HTML; thứ tự phiếu khớp thứ tự deck (s02-06 sau s02-01, s04-05 trước s04-04); outline thêm mục tóm tắt lượt duyệt và cập nhật V11. |
+| Rà lại | Năm lượt rà chỉ đọc có báo cáo (phần 1–2, phần 3, phần 4, phần 5, phần 6–7 kèm mạch toàn deck); một lần chạy đầu của lượt phần 3 dừng không báo cáo và một lần chạy lại bị dừng vì trùng việc (đã ghi ở mục phần 3). Không có phát hiện chặn bàn giao; hai phát hiện nghiêm trọng (s03-07 điều kiện chỉ trong hình; mã trang trong ghi chú s04-07) đã sửa; mọi phát hiện trung bình đã xử lý; hai phát hiện nhẹ giữ có lý do. Phép tính kiểm lại bằng chương trình. |
+| no-ai-slop | Mỗi trang sửa được tự kiểm theo `eval.md` (Edit mode); các lượt rà dùng Detect mode. |
+| Phạm vi tệp | HTML Bài 06, `lecture-note.md`, ba tệp planning, ba SVG (`mien-gan-xa.svg`, `ghep-and-or.svg`, `chia-khoang-dich.svg`, `goc-tach-sieu-phang.svg`) và `generate_svg.py` cho nhãn hình. CSS, index và viewer không đổi. Thay đổi sẵn có của người dùng (`.gitignore`, `AGENTS.md`, `slide_authoring_standard.md`, các tệp chưa theo dõi) không được stage. |
+| Giới hạn | Điều phối viên trực tiếp biên tập theo tiền lệ Bài 04–05, bù bằng các lượt rà độc lập theo phần; không chạy lại đủ năm vai rà độc lập cho toàn deck. Cổng 8765 bị máy chủ của dự án khác chiếm nên kiểm trên cổng 8775. Nhãn trục của `xac-suat-phan-dai.svg` vẫn dùng dấu chấm thập phân (ngoại lệ đã ghi ở phần 2). Phiếu storyboard phần 2–3 còn số thập phân dấu chấm trong một số trường nội bộ. Các commit s07-01…03 và s07-04…07 gộp theo cụm vì cùng loại sửa. |
+
+#### Phiếu kiểm tra trước khi duyệt (`slide_authoring_standard.md`)
+
+| Mục | Kết quả |
+|---|---|
+| Tiêu đề ngắn, gọi đúng khái niệm/kết quả | Đạt: 43/59 tiêu đề `h2` đổi; không câu hỏi, không câu kể tiến trình. |
+| Văn phong học thuật, no-ai-slop | Đạt: Edit mode khi sửa, Detect mode ở năm lượt rà. |
+| Không văn nói, chỉ dẫn biên soạn | Đạt: đã gỡ câu điều hướng “ở trang sau”, mã trang và thời lượng trong ghi chú. |
+| Mỗi slide một mục đích, vai trò ghi ở storyboard | Đạt: 60 phiếu có “Mục đích và vai trò”, cập nhật cho mọi trang đã sửa. |
+| Mỗi phần mở nhu cầu, nối kết quả | Đạt: lượt rà mạch đánh giá đủ ở mọi ranh giới phần. |
+| Phần kết thu hồi tình huống, có tự kiểm | Đạt: s06-01 nối ba bước với các phần; s06-02 khép $C=10^6$; s06-03/04 dữ kiện mới. Thời lượng giảng và bài tập tính riêng trong storyboard. |
+| Một trọng tâm mỗi slide | Đạt: không trang nào tràn; nội dung phụ chuyển vào ghi chú. |
+| Tiên quyết và ký hiệu đặt trước nơi dùng | Đạt: đổi thứ tự s04-04/05; định nghĩa ứng viên giả, $p_{\ne}$, điểm đặc trưng, từ dừng trước khi dùng. |
+| Thuật toán đủ đặc tả, đúng, dừng, chi phí | Đạt: phân dải (s02-07…13) giữ đặc tả, giả mã, tính đúng, chi phí. |
+| Ví dụ tính lại được | Đạt: mọi số trên các trang đã sửa được tính lại bằng chương trình. |
+| Mô hình chi phí trước phép tính | Đạt: s02-13, s04-10 nêu mô hình trước bảng. |
+| Số hạng chi phí truy về bước | Đạt: s04-10 đếm phép tính của một hàm trước tiệm cận. |
+| Cùng dữ kiện, chỉ số, thuật ngữ | Đạt: thống nhất $z_i$, “độ chênh”, “nhận cặp khác ngón”, $(1/b)^{1/r}$, $P_{b,r}(s)$. |
+| Câu hỏi đo đúng mục tiêu, có đáp án | Đạt: mục tiêu s01-02 cập nhật; đáp án và tiêu chí trong ghi chú. |
+| Render đọc được, liên kết hoạt động | Đạt: xem hàng “Hiển thị deck”. |
+| Khối mã `data-trim`, công thức render, không `fragment` | Đạt. |
+| Sai khác nguồn có lý do | Đạt: đổi tên điểm Bài 3.7.5, chỉnh “một phần 200” thành $1/244{,}14$, giá trị $0{,}004024$ thay $0{,}00397$ đều ghi trong nhật ký. |
