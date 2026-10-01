@@ -745,7 +745,7 @@ Không tập nào có phần tử trong các hàng đã xét, nên chưa có ph�
 
 ### Các phân biệt cần giữ
 
-Quy trình đi từ chuỗi tới tập shingle, từ tập tới chữ ký và từ chữ ký tới tỷ lệ trùng tọa độ. Trong mô hình hoán vị đều, tỷ lệ này có kỳ vọng bằng Jaccard của tập đầu vào. Thuật toán quét hàng tính các cực tiểu; bất biến chứng minh tính đúng, còn mô hình lựa chọn hàm quyết định bảo đảm xác suất.
+Quy trình đi từ chuỗi tới tập shingle, từ tập tới chữ ký và từ chữ ký tới tỷ lệ trùng tọa độ. Trong mô hình hoán vị đều, tỷ lệ này có kỳ vọng bằng Jaccard của tập đầu vào. Thuật toán quét hàng tính các cực tiểu; bất biến chứng minh tính đúng, còn mô hình lựa chọn hàm quyết định bảo đảm xác suất. Đối chiếu với hai giới hạn ở mục 1: chữ ký đưa chi phí một cặp về $n$ phép so bằng, với độ lệch chuẩn không vượt $1/(2\sqrt n)$; số cặp vẫn là $C(C-1)/2$ nếu xét mọi cặp, và Bài 06 xử lý giới hạn này.
 
 ![Quy trình biểu diễn: tài liệu, tập shingle, chữ ký rồi tỷ lệ tọa độ trùng.](img/lec-05/quy-trinh-bieu-dien.svg)
 

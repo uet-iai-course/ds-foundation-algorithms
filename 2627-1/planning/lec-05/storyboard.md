@@ -1650,11 +1650,11 @@ Jaccard được chọn trước để xác định đại lượng cần bảo 
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 48. Điều kiện và giới hạn
+### 48. Kết quả và giới hạn còn lại
 
 - **Mã:** `lec05-s06-02`; **phần:** 6; **note-topic-id:** `n05-11`.
 - **Mục đích và vai trò:** Tổng kết; thu hồi hai giới hạn mở bài. **Mục tiêu:** MT3, MT4, MT5.
-- **Câu chốt:** Chữ ký nhỏ giảm công việc mỗi cặp, còn lựa chọn cặp cần một cơ chế riêng.
+- **Câu chốt:** Chữ ký giải quyết chi phí một cặp với sai số kiểm soát được theo $n$; số cặp vẫn bậc hai, cần bước chọn ứng viên của Bài 06.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận quy trình 47; 49–50 đo lại sáu nhiệm vụ xuyên các mục tiêu.
 - **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: bảng ba hàng “biểu diễn / bảo đảm / số cặp” chiếm 65% thân; dòng liên hệ Bài 06 ở 20% dưới, không thêm sơ đồ banding.
@@ -1666,11 +1666,20 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Biểu diễn shingle đo tương đồng văn bản theo quy ước đã chọn. Định lý dùng hoán vị đều; phương sai còn cần độc lập. Nếu xét mọi cặp, số cặp vẫn C(C−1)/2. Bài 06 nghiên cứu tạo ứng viên bằng băm nhạy cảm cục bộ (LSH).
+| Giới hạn ở đầu bài | Sau Bài 05 |
+|---|---|
+| Chi phí so sánh một cặp | $n$ phép so bằng trên chữ ký; độ lệch chuẩn $\le1/(2\sqrt n)$ |
+| Số cặp cần xét | Vẫn là $C(C-1)/2$ nếu xét mọi cặp |
+
+Bảo đảm cần hoán vị đều (kỳ vọng) và độc lập (phương sai); Jaccard đo trên tập shingle đã chọn.
+
+Bài 06: chọn cặp ứng viên bằng băm nhạy cảm cục bộ (LSH) trên chữ ký.
 
 **Ghi chú diễn giả học thuật**
 
-Giới hạn bộ nhớ được xử lý bằng chữ ký có n thành phần cho mỗi tập, với đánh đổi chất lượng đã nêu. Giới hạn số cặp chưa được giải quyết bởi việc thay tập lớn bằng chữ ký nhỏ. Bài tiếp theo dùng cấu trúc chữ ký để lựa chọn những cặp có khả năng tương đồng; không cần cơ chế lựa chọn ấy để hoàn thành các phép tính và bài tập của bài hiện tại.
+Trang mở bài tách tổng công việc thành số cặp nhân chi phí một cặp. Chữ ký giải quyết thừa số thứ hai: mỗi cặp cần $n$ phép so bằng, không phụ thuộc độ dài tài liệu, và độ lệch chuẩn không vượt $1/(2\sqrt n)$ vì $s(1-s)\le1/4$. Thừa số thứ nhất chưa đổi: với $C=10^6$, vẫn có khoảng $5\cdot10^{11}$ cặp. Bài tiếp theo dùng cấu trúc của chữ ký để chỉ so những cặp có khả năng tương đồng. Các bảo đảm xác suất đều nói về Jaccard của tập shingle sau mã hóa, dưới mô hình hoán vị đều, và thêm độc lập cho phương sai.
+
+Nguồn: MMDS 3e, §§3.1–3.3; phạm vi Bài 06 theo đề cương học phần.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
