@@ -338,27 +338,32 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 
 Đáp án: $3/10$; $5+6$ đếm giao hai lần, mẫu đúng là 8; cần quy tắc tạo tập phần tử. Chấm đủ ba ý. Câu 1 và 2 không có đáp án trên các trang trước (s01-07 chỉ hiện $3/8$). Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
 
-### 10. Shingle của văn bản
+### 10. Biểu diễn văn bản bằng tập shingle
 
 - **Mã:** `lec05-s02-01`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Tình huống, nhu cầu và trực giác; chọn đoạn con cục bộ. **Mục tiêu:** MT2.
-- **Câu chốt:** Các đoạn con liên tiếp cho phép biểu diễn những phần văn bản còn chung giữa các phiên bản.
+- **Câu chốt:** Tập các đoạn con k ký tự giữ lại phần văn bản chung: một thay đổi cục bộ chỉ ảnh hưởng nhiều nhất k cửa sổ.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu tạo tập từ 09; trang 11 chạy tay trên dữ liệu sách.
 - **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `motivation-slide`: dải ký tự khái niệm với cửa sổ dài k chiếm 65% thân; ba dòng đặc tả ngắn phía dưới chiếm 25%.
+- **Bố cục đã chọn:** `example-slide`: thẻ định nghĩa `ex-card` ở trên; hai gạch đầu dòng trực giác bên dưới. Hình cửa sổ chỉ dùng ở trang 11 để tránh hai trang cùng trọng tâm.
 - **Trọng tâm và thứ tự đọc:** Cửa sổ → đoạn con → tập các đoạn.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết chuỗi; thao tác cửa sổ quen thuộc chuẩn bị cho miền chỉ số ở 12 mà chưa đòi đọc ký hiệu tổng quát.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
-- **Nguồn:** B mở §3.2 và §3.2.1 tr. 78.
+- **Nguồn:** B mở §3.2 và §3.2.1 tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.
 - **Thời lượng:** 2 phút.
 
 **Nội dung công khai dự kiến**
 
-Một k-shingle là một đoạn gồm k ký tự liên tiếp. Một tài liệu được biểu diễn bằng tập các k-shingle xuất hiện trong nó. Quy tắc xử lý khoảng trắng được dùng nhất quán.
+Định nghĩa: một $k$-shingle là một đoạn gồm $k$ ký tự liên tiếp của tài liệu, đọc qua một cửa sổ dài $k$. Tài liệu được biểu diễn bằng tập các $k$-shingle xuất hiện trong nó.
+
+- Thay một ký tự chỉ làm đổi các cửa sổ chứa ký tự đó, nhiều nhất $k$ cửa sổ.
+- Câu hoặc cụm từ giữ nguyên ở hai phiên bản tạo shingle chung, kể cả khi thứ tự câu thay đổi.
 
 **Ghi chú diễn giả học thuật**
 
-Các phiên bản có thể thay một phần câu hoặc đổi vị trí đoạn. Những đoạn con nằm hoàn toàn trong phần giữ nguyên vẫn có thể xuất hiện ở cả hai bản. Shingling giữ thứ tự cục bộ trong mỗi đoạn con nhưng tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.
+Mở đầu §3.2, sách nêu rằng hai tài liệu chung những câu hoặc cụm từ ngắn sẽ có nhiều phần tử chung trong tập shingle, kể cả khi các câu ấy xuất hiện theo thứ tự khác. Thay ký tự ở vị trí $i$ chỉ đổi những cửa sổ bắt đầu từ $i-k+1$ đến $i$, tức nhiều nhất $k$ cửa sổ; mọi cửa sổ nằm trọn trong phần giữ nguyên vẫn chung cho hai phiên bản. Shingle giữ thứ tự ký tự bên trong mỗi đoạn con, còn tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.
+
+Nguồn: MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 

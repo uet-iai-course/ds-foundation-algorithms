@@ -108,7 +108,7 @@ $$
 
 ![Sáu cửa sổ hai ký tự của abcdabd; hai cửa sổ ab chỉ tạo một phần tử.](img/lec-05/cua-so-shingle.svg)
 
-Shingling giữ thứ tự ký tự **bên trong** mỗi đoạn con. Biểu diễn bằng tập không giữ số lần lặp hoặc toàn bộ thứ tự các đoạn trong tài liệu. Những đoạn con nằm hoàn toàn trong phần văn bản được giữ nguyên có thể vẫn xuất hiện ở cả hai phiên bản, tạo phần tử chung để Jaccard đo được.
+Shingling giữ thứ tự ký tự **bên trong** mỗi đoạn con. Biểu diễn bằng tập không giữ số lần lặp hoặc toàn bộ thứ tự các đoạn trong tài liệu. Những đoạn con nằm hoàn toàn trong phần văn bản được giữ nguyên vẫn xuất hiện ở cả hai phiên bản, tạo phần tử chung để Jaccard đo được, kể cả khi các câu đổi thứ tự (mở đầu §3.2, tr. 78). Một thay đổi cục bộ chỉ ảnh hưởng ít cửa sổ: thay ký tự ở vị trí $i$ chỉ đổi các cửa sổ bắt đầu từ $i-k+1$ đến $i$, tức nhiều nhất $k$ cửa sổ.
 
 ### Thuật toán, tính đúng và chi phí
 

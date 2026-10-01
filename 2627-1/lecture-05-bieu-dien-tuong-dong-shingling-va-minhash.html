@@ -65,10 +65,10 @@
 </section>
 <section>
 <section id="lec05-s02-01" data-slide-id="lec05-s02-01" class="example-slide">
-<h2>Shingle của văn bản</h2>
-<p>Một \(k\)-shingle là một đoạn gồm \(k\) ký tự liên tiếp.</p><figure class="mh-figure mh-wide"><img src="img/lec-05/cua-so-shingle.svg" alt="Sáu cửa sổ dài hai của chuỗi abcdabd; cửa sổ ab xuất hiện hai lần."></figure><p class="ex-takeaway">Tài liệu được biểu diễn bằng tập các \(k\)-shingle xuất hiện trong nó.</p><p class="ex-note">Quy tắc xử lý khoảng trắng được dùng nhất quán.</p>
-<p class="ex-source">MMDS 3e, §3.2.1, tr. 78–79.</p>
-<aside class="notes"><p>Các phiên bản có thể thay một phần câu hoặc đổi vị trí đoạn. Những đoạn con nằm hoàn toàn trong phần giữ nguyên vẫn có thể xuất hiện ở cả hai bản. Shingling giữ thứ tự cục bộ trong mỗi đoạn con nhưng tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.</p><p>Nguồn: MMDS 3e, §3.2.1, tr. 78–79.</p></aside>
+<h2>Biểu diễn văn bản bằng tập shingle</h2>
+<div class="ex-card"><p>Một \(k\)-shingle là một đoạn gồm \(k\) ký tự liên tiếp của tài liệu. Tài liệu được biểu diễn bằng tập các \(k\)-shingle xuất hiện trong nó.</p></div><ul><li>Thay một ký tự chỉ làm đổi các cửa sổ chứa ký tự đó, nhiều nhất \(k\) cửa sổ.</li><li>Câu hoặc cụm từ giữ nguyên ở hai phiên bản tạo shingle chung, kể cả khi thứ tự câu thay đổi.</li></ul>
+<p class="ex-source">MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.</p>
+<aside class="notes"><p>Mở đầu §3.2, sách nêu rằng hai tài liệu chung những câu hoặc cụm từ ngắn sẽ có nhiều phần tử chung trong tập shingle, kể cả khi các câu ấy xuất hiện theo thứ tự khác. Thay ký tự ở vị trí \(i\) chỉ đổi những cửa sổ bắt đầu từ \(i-k+1\) đến \(i\), tức nhiều nhất \(k\) cửa sổ; mọi cửa sổ nằm trọn trong phần giữ nguyên vẫn chung cho hai phiên bản. Shingle giữ thứ tự ký tự bên trong mỗi đoạn con, còn tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.</p><p>Nguồn: MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.</p></aside>
 </section>
 <section id="lec05-s02-02" data-slide-id="lec05-s02-02" class="example-slide">
 <h2>Ví dụ tạo shingle</h2>
