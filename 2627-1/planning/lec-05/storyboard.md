@@ -1486,7 +1486,7 @@ Ban đầu tập giá trị hữu hạn rỗng nên tập lấy cực tiểu ch�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 43. Số phép tính chữ ký
+### 43. Chi phí tính chữ ký
 
 - **Mã:** `lec05-s05-09`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Mục đích và vai trò:** Chi phí; lập phép đếm trước cận tiệm cận. **Mục tiêu:** MT5.
