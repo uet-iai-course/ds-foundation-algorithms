@@ -613,7 +613,7 @@ Lập luận của Bài 03 giữ nguyên; điều kiện mới duy nhất là $v
 Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên tổng phần điểm của trang ấy sau khi nhân $\beta$ là $\beta r_j^t$. Cộng trên mọi trang không cụt được $\beta(1-\delta^t)$. Các nút cụt trả lại $\beta\delta^t$ bằng bù đều; phân phối $v$ có tổng bằng $1$ nhận phần $1-\beta$. Mọi hệ số đều không âm và cơ sở $r^0=v$ thỏa giả thiết, hoàn thành lập luận quy nạp. Bất biến chỉ xác nhận mỗi trạng thái là phân phối hợp lệ; chưa xác nhận dãy có giới hạn.
 <!-- public-notes:end -->
 
-### lec04-s02-08 — Tính co và sai số dừng
+### lec04-s02-08 — Hội tụ và cận sai số khi dừng
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hội tụ và điều kiện dừng; MT1. Đầu vào: HT2 và chuẩn1. Sản phẩm: phân biệt Delta với sai số nghiệm, nêu cơ sở duy nhất.
 
@@ -622,11 +622,11 @@ Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên t�
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-$\bar M$ là ma trận đã thay mỗi cột nút cụt bằng $u$; mọi phần tử không âm và mỗi cột có tổng bằng $1$.
+$\bar M$: $M_0$ với mỗi cột nút cụt thay bằng $u$ (ma trận $S$ của Bài 03); $\bar M\ge0$, tổng mỗi cột bằng $1$.
 
-Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0<\beta<1$, tính co $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ bảo đảm điểm cố định duy nhất $r^*$.
+Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0<\beta<1$: $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ (Bài 03). Mỗi lần cập nhật thu hẹp khoảng cách ít nhất theo hệ số $\beta$ (tính co), nên có duy nhất một điểm cố định $r^*$.
 
-Đặt $\Delta=\|r^{t+1}-r^t\|_1$. Sai số của vector mới thỏa
+Đặt $\Delta=\|r^{t+1}-r^t\|_1$; các sai khác sau đó không quá $\beta\Delta,\beta^2\Delta,\ldots$, nên
 $$\|r^{t+1}-r^*\|_1\le\beta\Delta+\beta^2\Delta+\cdots=\frac{\beta}{1-\beta}\Delta.$$
 
 Với $\beta=4/5$, cận sai số là $4\Delta$.
@@ -644,6 +644,8 @@ Với $\beta=4/5$, cận sai số là $4\Delta$.
 
 **Kết nối vào–ra:** Bảo toàn miền phân phối → co và điểm cố định → có thể kết hợp các vector chủ đề cùng mô hình.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi hai kết quả của trang (hội tụ, cận sai số khi dừng) thay cho thuật ngữ chưa giải nghĩa; nêu $\bar M$ là ma trận $S$ của Bài 03 (G2); giải nghĩa “tính co” bằng lời và dẫn nguồn bất đẳng thức từ Bài 03 (G3); thêm bước “các sai khác sau đó không quá $\beta\Delta,\beta^2\Delta,\ldots$” trước chuỗi cấp số nhân.
+
 **Nguồn và vị trí:** NG1 §5.3.2; NG5 lập luận co kế thừa. Bất đẳng thức và cận đuôi là diễn giải toán học bổ sung đã duyệt.
 
 **Thời lượng:** 2,5 phút.
@@ -651,7 +653,7 @@ Với $\beta=4/5$, cận sai số là $4\Delta$.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Đặt $z_j=1$ nếu $j$ là nút cụt và $z_j=0$ nếu không. Khi đó $\bar M=M_0+uz^\mathsf T$ không âm và có tổng mỗi cột bằng $1$. Lập luận co kế thừa Bài 03: vector dịch chuyển cố định triệt tiêu trong $F(p)-F(q)$. Bất đẳng thức tam giác và việc đổi thứ tự tổng cho
+Bài 03 ký hiệu ma trận này là $S$; Bài 04 dùng $\bar M$ vì $S$ đã chỉ tập chủ đề. Đặt $z_j=1$ nếu $j$ là nút cụt và $z_j=0$ nếu không. Khi đó $\bar M=M_0+uz^\mathsf T$ không âm và có tổng mỗi cột bằng $1$. Lập luận co kế thừa Bài 03: vector dịch chuyển cố định triệt tiêu trong $F(p)-F(q)$. Bất đẳng thức tam giác và việc đổi thứ tự tổng cho
 $$\|F(p)-F(q)\|_1\le\beta\sum_j|p_j-q_j|\sum_i\bar M_{ij}=\beta\|p-q\|_1.$$
 Các sai khác liên tiếp giảm theo cấp số nhân. Tổng khoảng cách từ một vòng tới mọi vòng sau hữu hạn và phần đuôi tiến về $0$, nên dãy hội tụ. Tính liên tục của $F$ cho phương trình cố định. Nếu hai điểm cố định cách nhau một khoảng $D$, thì $D\le\beta D$; vì $\beta<1$, suy ra $D=0$.
 

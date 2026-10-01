@@ -274,15 +274,15 @@ trả về (r, hết số vòng)
 </aside>
 </section>
 <section id="lec04-s02-08" data-slide-id="lec04-s02-08" class="example-slide">
-<h2>Tính co và sai số dừng</h2>
-<p>$\bar M$ là ma trận đã thay mỗi cột nút cụt bằng $u$; mọi phần tử không âm và mỗi cột có tổng bằng $1$.</p>
-<p>Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0&lt;\beta&lt;1$, tính co $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ bảo đảm điểm cố định duy nhất $r^*$.</p>
-<p>Đặt $\Delta=\|r^{t+1}-r^t\|_1$. Sai số của vector mới thỏa
+<h2>Hội tụ và cận sai số khi dừng</h2>
+<p>$\bar M$: $M_0$ với mỗi cột nút cụt thay bằng $u$ (ma trận $S$ của Bài 03); $\bar M\ge0$, tổng mỗi cột bằng $1$.</p>
+<p>Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0&lt;\beta&lt;1$: $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ (Bài 03). Mỗi lần cập nhật thu hẹp khoảng cách ít nhất theo hệ số $\beta$ (tính co), nên có duy nhất một điểm cố định $r^*$.</p>
+<p>Đặt $\Delta=\|r^{t+1}-r^t\|_1$; các sai khác sau đó không quá $\beta\Delta,\beta^2\Delta,\ldots$, nên
 $$\|r^{t+1}-r^*\|_1\le\beta\Delta+\beta^2\Delta+\cdots=\frac{\beta}{1-\beta}\Delta.$$</p>
 <p>Với $\beta=4/5$, cận sai số là $4\Delta$.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.1.5 và §5.3.2, tr.185–188, 196; lập luận co từ Bài 03.</p>
 <aside class="notes">
-<p>Đặt $z_j=1$ nếu $j$ là nút cụt và $z_j=0$ nếu không. Khi đó $\bar M=M_0+uz^\mathsf T$ không âm và có tổng mỗi cột bằng $1$. Lập luận co kế thừa Bài 03: vector dịch chuyển cố định triệt tiêu trong $F(p)-F(q)$. Bất đẳng thức tam giác và việc đổi thứ tự tổng cho
+<p>Bài 03 ký hiệu ma trận này là $S$; Bài 04 dùng $\bar M$ vì $S$ đã chỉ tập chủ đề. Đặt $z_j=1$ nếu $j$ là nút cụt và $z_j=0$ nếu không. Khi đó $\bar M=M_0+uz^\mathsf T$ không âm và có tổng mỗi cột bằng $1$. Lập luận co kế thừa Bài 03: vector dịch chuyển cố định triệt tiêu trong $F(p)-F(q)$. Bất đẳng thức tam giác và việc đổi thứ tự tổng cho
 $$\|F(p)-F(q)\|_1\le\beta\sum_j|p_j-q_j|\sum_i\bar M_{ij}=\beta\|p-q\|_1.$$
 Các sai khác liên tiếp giảm theo cấp số nhân. Tổng khoảng cách từ một vòng tới mọi vòng sau hữu hạn và phần đuôi tiến về $0$, nên dãy hội tụ. Tính liên tục của $F$ cho phương trình cố định. Nếu hai điểm cố định cách nhau một khoảng $D$, thì $D\le\beta D$; vì $\beta&lt;1$, suy ra $D=0$.</p>
 <p>Với $\Delta=\|r^{t+1}-r^t\|_1$, sai khác kế tiếp không quá $\beta\Delta$. Tổng phần đuôi các sai khác sau vector mới $r^{t+1}$ không quá $\beta\Delta/(1-\beta)$. Để cận sai số không quá $\varepsilon&gt;0$, đủ chọn $\tau\le(1-\beta)\varepsilon/\beta$ và dừng khi $\Delta\le\tau$.</p>
