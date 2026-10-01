@@ -1301,11 +1301,11 @@ Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 38. Khởi tạo và giá trị hữu hạn
+### 38. Khởi tạo và hàng 0
 
 - **Mã:** `lec05-s05-04`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Vết chạy bước đầu; thực hiện min và giữ cột không thuộc. **Mục tiêu:** MT5.
-- **Câu chốt:** Hàng 0 chỉ cập nhật hai tập S1, S4 chứa phần tử a.
+- **Câu chốt:** Khởi tạo mọi ô bằng $+\infty$; hàng 0 chỉ cập nhật các cột chứa $a$, các cột khác giữ $+\infty$ dù giá trị băm đã có.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận bảng hàm; 39 xét min khi đã có giá trị hữu hạn.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Hai bảng trước/sau ngang hàng; bốn ô vừa giảm từ vô cực có viền đậm, chữ đậm và chú giải. Dữ kiện hàng 0 và phép min bên dưới.
@@ -1336,6 +1336,8 @@ Hàng $0$: $f_1(0)=f_2(0)=1$; các cột có $1$ là $1,4$.
 $$
 \min(+\infty,1)=1
 $$
+
+Chỉ các cột chứa $a$ được cập nhật; cột 2 và 3 giữ $+\infty$.
 
 Ô viền đậm: giá trị vừa giảm từ $+\infty$.
 
