@@ -736,7 +736,7 @@ Nguồn: MMDS 3e, §3.3.2–§3.3.3, tr. 82–83.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 23. Ví dụ hoán vị
+### 23. Ví dụ MinHash theo một hoán vị
 
 - **Mã:** `lec05-s03-05`; **phần:** 3; **note-topic-id:** `n05-05`.
 - **Mục đích và vai trò:** Ví dụ chạy tay; phân biệt định danh và vị trí. **Mục tiêu:** MT3.
@@ -769,7 +769,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Ghi chú diễn giả học thuật**
 
-$S_1$ không chứa b, e nên gặp a đầu tiên ở vị trí thứ ba. $S_2$ chỉ chứa c nên gặp ở vị trí thứ năm. $S_3$ chứa b nên dừng ngay tại vị trí thứ nhất. $S_4$ gặp a trước c, d nên cũng chọn a. Định danh a và vị trí 3 mô tả hai đại lượng khác nhau; không trộn chúng trong cùng bảng kết quả.
+$S_1$ không chứa b, e nên gặp a đầu tiên ở vị trí thứ ba. $S_2$ chỉ chứa c nên gặp ở vị trí thứ năm. $S_3$ chứa b nên dừng ngay tại vị trí thứ nhất. $S_4$ gặp a trước c, d nên cũng chọn a. Định danh a và vị trí 3 là hai đại lượng khác nhau; giá trị MinHash là định danh, còn vị trí chỉ cho biết phép quét dừng ở hàng nào.
 
 Nguồn: MMDS 3e, Ví dụ 3.7, Hình 3.3, tr. 82–83; bổ sung bảng đối chiếu định danh và vị trí.
 
