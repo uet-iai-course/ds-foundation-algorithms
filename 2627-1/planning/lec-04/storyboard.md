@@ -17,7 +17,7 @@ Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide M
 
 | Phần | Số slide | Thời lượng | Slide kiểm tra riêng |
 |---|---:|---:|---|
-| S01. Bài toán xếp hạng liên kết | 6 | 12 phút | `lec04-s01-06` |
+| S01. Bài toán xếp hạng liên kết | 6 | 12 phút | `lec04-s01-06` (ôn tiên quyết Bài 03; S01 là phần mở bài, không có trang kiểm đầu ra riêng) |
 | S02. PageRank theo chủ đề | 13 | 30 phút | `lec04-s02-12` |
 | S03. Cơ chế liên kết rác | 8 | 20 phút | `lec04-s03-08` |
 | S04. TrustRank và Spam Mass | 8 | 18 phút | `lec04-s04-07` |
@@ -860,33 +860,37 @@ Lưu $k$ kết quả $r^{(j)}$ cần $kn$ số. Tại truy vấn, xác định c
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S02; MT1. Đầu vào: HT1 và VD1. Sản phẩm: tính điểm ngoài tập dịch chuyển, giải thích ý nghĩa S.
 
-**Luận điểm trung tâm:** Một trang ngoài tập dịch chuyển vẫn nhận điểm từ các liên kết vào.
+**Luận điểm trung tâm:** Vận dụng phép cập nhật cho một trang ngoài tập dịch chuyển và vận dụng cận sai số khi dừng.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
 G4: A→B,C,D; B→A,D; C→A; D→B,C.
 
-$\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.
+$\beta=4/5$, $S=\{B,D\}$.
+
+$r^1=(1/5,3/10,1/5,3/10)^\mathsf T$
+
+$r^2=(7/25,41/150,13/75,41/150)^\mathsf T$
 
 **Câu hỏi:**
-1. Tính $r_C^2$ và chỉ rõ các trang đóng góp.
-2. Xác định tính đúng sai của mệnh đề: “Một trang ngoài $S$ luôn có điểm bằng 0”. Giải thích bằng dữ kiện trên.
+1. Tính $r_C^3$ và chỉ rõ các trang đóng góp.
+2. Tính $\Delta=\|r^2-r^1\|_1$ và cận $\beta\Delta/(1-\beta)$ cho sai số của $r^2$.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** Đồ thị trái45%; vector cũ, tham số và hai yêu cầu phải55%. Dòng điểm C chưa điền trên mặt slide.
+**Bố cục đã chọn:** Đồ thị trái45%; vector cũ, tham số và hai yêu cầu phải55%. Đáp án không xuất hiện trên các trang trước.
 
-**Trọng tâm và thứ tự đọc:** Theo các cạnh vào C → đọc điểm nguồn trong r1 → quyết định phần dịch chuyển của C.
+**Trọng tâm và thứ tự đọc:** Theo các cạnh vào C → đọc điểm nguồn trong $r^2$ → quyết định phần dịch chuyển của C; sau đó tính $\Delta$ và áp dụng cận dừng.
 
 **Lý do phù hợp sinh viên năm 2:** Yêu cầu tập trung một thành phần nhưng đồng thời đo chiều cạnh, chia bậc ra và ranh giới tập dịch chuyển.
 
 **Giới hạn bố cục và phân chia nội dung:** Hai câu, không yêu cầu giải cả hệ. Đáp án và phép so sánh nằm trong ghi chú.
 
-**Ví dụ, phiếu số và hình thức hóa:** VD1 r1→r2; HT1; mọi dữ kiện nguồn hiện đủ để tính lại.
+**Ví dụ, phiếu số và hình thức hóa:** VD1 $r^2\to r^3$ (MMDS tr.197); cận dừng s02-08; mọi dữ kiện hiện đủ để tính lại.
 
 **Kết nối vào–ra:** Phép cập nhật đã hoàn chỉnh → khả năng đồ thị liên kết bị xây có chủ đích để thay điểm.
 
-**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Kiểm tra PageRank theo chủ đề”; ghi chú thêm câu nối ranh giới S02→S03 (điểm do cấu trúc liên kết quyết định nên có thể bị tác động bằng cạnh mới). Câu hỏi giữ nguyên.
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Kiểm tra PageRank theo chủ đề”; ghi chú thêm câu nối ranh giới S02→S03 (điểm do cấu trúc liên kết quyết định nên có thể bị tác động bằng cạnh mới). Sau rà lại: đổi câu hỏi vì đáp án cũ ($r_C^2=13/75$, “trang ngoài $S$ có điểm dương”) đã hiển thị ở s02-01, s02-04; câu mới kiểm vòng 3 và cận sai số khi dừng.
 
 **Nguồn và vị trí:** NG1 VD5.10, tr.197; câu hỏi áp dụng trực tiếp đúng dữ kiện ví dụ.
 
@@ -895,16 +899,18 @@ $\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
 - Câu hỏi/đề: Hai yêu cầu như nội dung hiển thị, trên toàn bộ dữ kiện G4 và r1.
-- Đáp án/gợi ý: $r_C^2=13/75$; đóng góp từ A,D. Mệnh đề sai.
-- Tiêu chí đánh giá: Đúng hai nguồn, đúng bậc ra3 và2, không cộng1/10 vào C; giải thích S điều khiển dịch chuyển. Chỉ bác mệnh đề không có phép tính chưa đạt đầy đủ.
+- Đáp án/gợi ý: $r_C^3=23/125$; đóng góp từ A, D. $\Delta=4/25$, cận $16/25$; sai số thật $8/175$.
+- Tiêu chí đánh giá: Đúng hai nguồn, đúng bậc ra 3 và 2, không cộng $1/10$ vào C; tính đúng $\Delta$ theo chuẩn tổng trị tuyệt đối và hệ số $\beta/(1-\beta)=4$.
 - Phân bổ hoạt động: Tính và lập luận1,5 phút; trả lời0,5 phút; đối chiếu1 phút; tổng3 phút.
 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-C nhận từ A và D. Phần theo liên kết là $(4/5)[(1/3)(1/5)+(1/2)(3/10)]=13/75$; C không nhận trực tiếp phần dịch chuyển. Mệnh đề điểm bằng $0$ là sai: điểm dương tới C qua cạnh. Tập $S$ chỉ xác định nơi nhận phần $1-\beta$; không xóa các cạnh hoặc loại đỉnh ngoài $S$ khỏi không gian trạng thái.
+C nhận điểm qua các cạnh A→C (A có ba cạnh ra) và D→C (D có hai cạnh ra); C không thuộc $S$ nên không nhận phần dịch chuyển: $r_C^3=(4/5)[(1/3)(7/25)+(1/2)(41/150)]=23/125$, khớp vòng 3 của MMDS. Trang ngoài $S$ vẫn có điểm dương nhờ các cạnh tới nó.
 
-Điểm PageRank, kể cả theo chủ đề, do cấu trúc liên kết quyết định. Người kiểm soát một phần đồ thị có thể thêm cạnh để làm tăng điểm của một trang; cơ chế này được phân tích với PageRank dịch chuyển đều.
+$r^2-r^1=(2/25,-2/75,-2/75,-2/75)^\mathsf T$, nên $\Delta=4/25$. Với $\beta=4/5$, cận sai số là $4\Delta=16/25$. Sai số thật $\|r^2-r^*\|_1=8/175$ nhỏ hơn nhiều: cận bảo đảm sai số không vượt quá nó, không cho giá trị sai số.
+
+Điểm PageRank, kể cả theo chủ đề, do cấu trúc liên kết và phân phối dịch chuyển quyết định; khi $v$ cố định, chỉ còn các cạnh thay đổi được. Người kiểm soát một phần đồ thị có thể thêm cạnh để làm tăng điểm của một trang; cơ chế này được phân tích với PageRank dịch chuyển đều.
 <!-- public-notes:end -->
 
 ## S03. Cơ chế liên kết rác
