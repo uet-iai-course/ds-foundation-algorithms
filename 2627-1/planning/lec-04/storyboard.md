@@ -1086,7 +1086,7 @@ $$y=x+\beta mp+b.$$
 Đối với một trang ngoài $j$ trỏ tới đích, đóng góp là $\beta r_j/d_j$. Đại lượng $x$ là tổng các đóng góp này, nên không nhân thêm $\beta$. Mỗi hỗ trợ chỉ có một cạnh ra, trả $\beta p$; $m$ hỗ trợ trả $\beta mp$. Phương trình đầy đủ còn có $b$ tại đích. Phương trình cân bằng dùng điểm cố định của hệ; ba số hạng không phải ba trạng thái thời gian khác nhau.
 <!-- public-notes:end -->
 
-### lec04-s03-05 — Vòng truyền điểm qua các trang hỗ trợ
+### lec04-s03-05 — Điểm cân bằng của trang đích
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và giải đại số; MT2. Đầu vào: hai phương trình p,y. Sản phẩm: giải biểu thức chính xác trong mô hình.
 
@@ -1118,6 +1118,8 @@ Hai bước tạo $\beta^2$; số hỗ trợ $m$ triệt tiêu trong phần đi�
 **Ví dụ, phiếu số và hình thức hóa:** HT4; VD2. Beta bình phương biểu diễn hai bước theo cạnh; không phải một tham số mới.
 
 **Kết nối vào–ra:** Ba nguồn điểm → hệ số tuần hoàn → xấp xỉ trong phân tích nguồn.
+
+**Quyết định 01/10/2026:** sửa tiêu đề — trang dùng vòng truyền $\beta^2$ làm trực giác để giải ra $y$; tiêu đề gọi kết quả (điểm cân bằng của đích) thay vì chỉ cơ chế. Nội dung giữ nguyên.
 
 **Nguồn và vị trí:** NG1 §5.4.2, tr.201; phần giữ b tại đích là diễn giải đầy đủ trước phép lược trong sách.
 
