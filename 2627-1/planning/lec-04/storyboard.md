@@ -240,16 +240,16 @@ Hạn chế thứ nhất đã xuất hiện ở truy vấn “jaguar”; PageRan
 
 **Quyết định duyệt trang 01/10/2026:** sửa. Hai yêu cầu liên kết rác và hai vai trò trước đây thiếu động cơ, cụm “tập trang tin cậy” xuất hiện trước khái niệm và câu kết tối nghĩa. Bảng mới đặt hạn chế của PageRank toàn cục cạnh yêu cầu, theo MMDS §5.3.1, §5.4.1 (spam farm) và §5.5.1 (một chiều quan trọng); bỏ “tập trang tin cậy”; ghi chú ánh xạ từng hạn chế sang phần tương ứng.
 
-### lec04-s01-06 — Kiểm tra chiều truyền điểm
+### lec04-s01-06 — Ôn tập phép truyền điểm
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra tiên quyết; MT1. Đầu vào: quy tắc chia đều PageRank Bài 03. Sản phẩm: tính đúng đóng góp theo một cạnh.
 
-**Luận điểm trung tâm:** PageRank chia tại trang nguồn và cộng tại trang đích.
+**Luận điểm trung tâm:** PageRank chia tại trang nguồn và cộng tại trang đích; đây là nhánh theo liên kết mà PageRank theo chủ đề giữ nguyên.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Trên đồ thị Hình 5.15: A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới A; D trỏ tới B, C.
+Đồ thị G4 (Hình 5.15): A trỏ tới B, C, D; B trỏ tới A, D; C trỏ tới A; D trỏ tới B, C.
 
 Giả sử $r_A=r_B=r_C=r_D=1/4$ và $\beta=4/5$.
 
@@ -266,7 +266,9 @@ Giả sử $r_A=r_B=r_C=r_D=1/4$ và $\beta=4/5$.
 
 **Ví dụ, phiếu số và hình thức hóa:** VD1: giữ G4, dùng khởi tạo đều của Bài 03; $(M_0)_{AB}$ và đóng góp $\beta r_B/d_B$.
 
-**Kết nối vào–ra:** Chiều truyền PageRank đã xác nhận → thay phân phối dịch chuyển ở S02.
+**Kết nối vào–ra:** Chiều truyền PageRank đã xác nhận → thay phân phối dịch chuyển ở S02. Ghi chú nối “bước nhảy ngẫu nhiên” của Bài 03 với thuật ngữ “dịch chuyển” của Bài 04; nhãn “Đồ thị G4” đặt tên đồ thị dùng lại ở S02, S04, S06.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề “Kiểm tra chiều truyền điểm” thành “Ôn tập phép truyền điểm” vì trang kiểm tiên quyết Bài 03, không kiểm đầu ra S01; thêm nhãn G4; thêm cầu nối thuật ngữ.
 
 **Nguồn và vị trí:** NG1 Hình 5.15, tr.197; quy tắc PageRank §5.1.2; NG5 ký hiệu đã học.
 
@@ -282,7 +284,9 @@ Giả sử $r_A=r_B=r_C=r_D=1/4$ và $\beta=4/5$.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-B có hai liên kết ra nên $(M_0)_{AB}=1/2$. Đóng góp theo liên kết là $(4/5)(1/4)/2=1/10$. Đây chưa phải toàn bộ điểm của A vì còn các đóng góp từ trang khác và phần dịch chuyển. Bậc ra được lấy tại B là nguồn của cạnh, không lấy tại A.
+B có hai liên kết ra nên $(M_0)_{AB}=1/2$. Đóng góp theo liên kết là $(4/5)(1/4)/2=1/10$. Bậc ra được lấy tại B là nguồn của cạnh, không lấy tại A. Đây chưa phải toàn bộ điểm của A vì còn các đóng góp từ trang khác và phần bước nhảy ngẫu nhiên.
+
+Phép cập nhật của Bài 03 có hai nhánh: theo liên kết với xác suất $\beta$ và bước nhảy ngẫu nhiên với xác suất $1-\beta$. Bài 04 gọi bước nhảy này là dịch chuyển (teleport). PageRank theo chủ đề giữ nguyên nhánh theo liên kết vừa tính và chỉ đổi nơi đến của bước dịch chuyển.
 <!-- public-notes:end -->
 
 ## S02. PageRank theo chủ đề
