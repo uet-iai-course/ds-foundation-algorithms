@@ -701,10 +701,10 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
 </section>
 <section id="lec04-s04-07" data-slide-id="lec04-s04-07" class="example-slide">
 <h2>Kiểm tra Spam Mass</h2>
-<p>MMDS Ví dụ 5.12 dùng PageRank không dịch chuyển trên G4: $r_C=2/9$; TrustRank với $T=\{B,D\}$: $\rho_C=38/210$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<p>MMDS Ví dụ 5.12 trên G4: $r_C=2/9$ (PageRank của Ví dụ 5.2); TrustRank với $T=\{B,D\}$: $\rho_C=38/210$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
 <ol>
 <li>
-<p>Tính $s_C$ và giải thích vì sao kết quả khác $1/5$ tính ở trang trước.</p>
+<p>Tính $s_C$ và chỉ ra đại lượng làm kết quả khác $s_C=1/5$ ở trang Chỉ số Spam Mass.</p>
 </li>
 <li>
 <p>Từ $s_A=1/5$, xác định có thể kết luận chắc chắn A là trang rác không và nêu căn cứ.</p>
@@ -712,7 +712,7 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
 </ol></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại từ G4.</p>
 <aside class="notes">
-<p>$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: sách dùng PageRank không dịch chuyển, trang trước dùng cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác. Dù giá trị lớn hay nhỏ, chỉ số chỉ mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết; nó không chứng minh hay bác bỏ chắc chắn nhãn rác. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.</p>
+<p>$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: Ví dụ 5.2 của sách là PageRank không dịch chuyển, còn trang Chỉ số Spam Mass dùng PageRank nền cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác. Dù giá trị lớn hay nhỏ, chỉ số chỉ mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết; nó không chứng minh hay bác bỏ chắc chắn nhãn rác. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại từ G4.</p>
 </aside>
 </section>

@@ -1540,7 +1540,7 @@ Trang có $s_i$ gần $1$ được ưu tiên rà soát hoặc hạ điểm, khô
 
 **Kết nối vào–ra:** Chỉ số đã có → nguồn sai lệch và tài nguyên → kiểm diễn giải.
 
-**Quyết định 01/10/2026:** sửa — tiêu đề “Chi phí và độ phủ tập tin cậy”; dòng mở thay câu chung chung bằng ví dụ độ phủ của MMDS §5.4.4 (.edu chủ yếu là trang Mỹ); câu chốt nêu cách dùng chỉ số theo MMDS §5.4.5 (hạ điểm trang có $s_i$ gần 1 mà không cần định vị cụm), nối lại hướng thứ hai ở s03-07; bỏ câu lặp “phụ thuộc $T$, không tự xác định nhãn rác” và câu lặp trong ghi chú.
+**Quyết định 01/10/2026:** sửa — tiêu đề “Chi phí và độ phủ tập tin cậy”; dòng mở thay câu chung chung bằng ví dụ độ phủ của MMDS §5.4.4 (.edu chủ yếu là trang Mỹ); câu chốt nêu cách dùng chỉ số theo MMDS §5.4.5 (hạ điểm trang có $s_i$ gần 1 mà không cần định vị cụm), nối lại hướng thứ hai ở s03-07; bỏ câu lặp “phụ thuộc $T$, không tự xác định nhãn rác” và câu lặp trong ghi chú. Sau rà lại: tiêu đề đổi thành “Chi phí tính Spam Mass”, dòng độ phủ chuyển vào ghi chú s04-01 để trang giữ một luận điểm.
 
 **Nguồn và vị trí:** NG1 §5.4.4–5, tr.202–203; phép đếm theo HT1. NG3 trang42 đối chiếu đánh đổi hạt giống.
 
@@ -1561,10 +1561,10 @@ Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương �
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-MMDS Ví dụ 5.12 dùng PageRank không dịch chuyển trên G4: $r_C=2/9$; TrustRank với $T=\{B,D\}$: $\rho_C=38/210$.
+MMDS Ví dụ 5.12 trên G4: $r_C=2/9$ (PageRank của Ví dụ 5.2); TrustRank với $T=\{B,D\}$: $\rho_C=38/210$.
 
 **Câu hỏi:**
-1. Tính $s_C$ và giải thích vì sao kết quả khác $1/5$ tính ở trang trước.
+1. Tính $s_C$ và chỉ ra đại lượng làm kết quả khác $s_C=1/5$ ở trang Chỉ số Spam Mass.
 2. Từ $s_A=1/5$, xác định có thể kết luận chắc chắn A là trang rác không và nêu căn cứ.
 <!-- public-slide:end -->
 
@@ -1588,15 +1588,15 @@ MMDS Ví dụ 5.12 dùng PageRank không dịch chuyển trên G4: $r_C=2/9$; Tr
 
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
-- Câu hỏi/đề: Tính s_B, giải thích dấu và đánh giá kết luận chắc chắn về A.
-- Đáp án/gợi ý: $s_B=-23/95$; rho_B>r_B. Không thể kết luận chắc chắn A là rác chỉ từ s_A.
-- Tiêu chí đánh giá: Giữ dấu âm; phân biệt chỉ số với xác suất; nêu ít nhất một phụ thuộc vào tập tin cậy/độ phủ/giả định liên kết.
+- Câu hỏi/đề: Tính $s_C$ theo dữ kiện MMDS Ví dụ 5.12, chỉ ra đại lượng khác so với phép tính cùng $\beta$; đánh giá kết luận chắc chắn về A.
+- Đáp án/gợi ý: $s_C=13/70\approx0{,}186$; khác vì PageRank nền khác (không dịch chuyển so với cùng $\beta=4/5$). $s_A=1/5$ gần 0 hơn 1: theo MMDS có lẽ không phải rác; không thể kết luận chắc chắn.
+- Tiêu chí đánh giá: Tính đúng tỷ lệ; nêu đúng đại lượng khác nhau là vector PageRank nền; áp dụng cách đọc của MMDS và phân biệt chỉ số với xác suất.
 - Phân bổ hoạt động: Tính1 phút, giải thích1 phút, đối chiếu1 phút; tổng3 phút.
 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: sách dùng PageRank không dịch chuyển, trang trước dùng cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác. Dù giá trị lớn hay nhỏ, chỉ số chỉ mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết; nó không chứng minh hay bác bỏ chắc chắn nhãn rác. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
+$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: Ví dụ 5.2 của sách là PageRank không dịch chuyển, còn trang Chỉ số Spam Mass dùng PageRank nền cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác. Dù giá trị lớn hay nhỏ, chỉ số chỉ mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết; nó không chứng minh hay bác bỏ chắc chắn nhãn rác. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
 <!-- public-notes:end -->
 
 ## S05. HITS
