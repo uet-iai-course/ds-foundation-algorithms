@@ -758,7 +758,7 @@ Quy trình theo MMDS §5.3.3 gồm bốn bước: chọn các chủ đề; chọ
 Trọng số $w_j$ biểu diễn mức quan tâm của truy vấn hoặc người dùng tới chủ đề $j$; mỗi người dùng chỉ cần lưu $k$ số này. $C$ là tập trang ứng viên đã được xác định cho truy vấn. Với mỗi $i\in C$, phép ghép nhân $k$ điểm đã lưu với các trọng số rồi cộng. Ví dụ “jaguar” chỉ minh họa hai ngữ cảnh, không ấn định trọng số số học. Phép ghép này chỉ hợp lệ nếu tổng có trọng số của các nghiệm chủ đề trùng với nghiệm PageRank khi phân phối dịch chuyển là $\sum_jw_jv^{(j)}$; điều này cần được chứng minh.
 <!-- public-notes:end -->
 
-### lec04-s02-09a — Kết hợp các vector chủ đề
+### lec04-s02-09a — Tính tuyến tính theo phân phối dịch chuyển
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận và ứng dụng; MT1, MT5. Đầu vào: các đại lượng của S02-09 và tính duy nhất. Sản phẩm: chứng minh đẳng thức ghép và nêu đủ điều kiện.
 
@@ -776,6 +776,8 @@ Nhân phương trình của chủ đề $j$ với $w_j$, rồi cộng:
 $$\sum_jw_jr^{(j)}=\beta\bar M\sum_jw_jr^{(j)}+(1-\beta)\sum_jw_jv^{(j)}.$$
 
 Tổng có trọng số thỏa phương trình PageRank với $v$. Tính duy nhất xác định đó là nghiệm $r^*$.
+
+Phép ghép khi có truy vấn cho đúng PageRank với $v=\sum_jw_jv^{(j)}$; mỗi người dùng chỉ cần $k$ trọng số.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Giả thiết ở trên; công thức ghép lớn giữa; một dòng cộng phương trình và kết luận duy nhất ở dưới.
@@ -789,6 +791,8 @@ Tổng có trọng số thỏa phương trình PageRank với $v$. Tính duy nh�
 **Ví dụ, phiếu số và hình thức hóa:** HT3; giữ w không âm, tổng1; không đưa tỷ lệ số tự tạo.
 
 **Kết nối vào–ra:** Các nghiệm riêng → nghiệm cho ngữ cảnh ghép → chi phí tiền tính và chi phí truy vấn.
+
+**Quyết định 01/10/2026:** sửa — đứng sau s02-11 nên chứng minh trả lời nhu cầu vừa nêu; tiêu đề gọi tên kết quả (tính tuyến tính theo $v$); thêm khối kết luận thu hồi nhu cầu lưu trữ ở s01-04 (mỗi người dùng chỉ cần $k$ trọng số).
 
 **Nguồn và vị trí:** NG1 §5.3.2 tr.196; §5.3.4 tr.199/PDF25; diễn giải đại số từ phương trình cố định.
 

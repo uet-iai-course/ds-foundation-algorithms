@@ -310,12 +310,12 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </aside>
 </section>
 <section id="lec04-s02-09a" data-slide-id="lec04-s02-09a" class="example-slide">
-<h2>Kết hợp các vector chủ đề</h2>
+<h2>Tính tuyến tính theo phân phối dịch chuyển</h2>
 <p>Giữ cùng $\bar M$, $\beta$; $w_j\ge0$ và $\sum_jw_j=1$.</p>
 <div class="ex-equation">$$v=\sum_{j=1}^k w_jv^{(j)}\quad\Longrightarrow\quad r^*=\sum_{j=1}^k w_jr^{(j)}.$$</div>
 <p>Nhân phương trình của chủ đề $j$ với $w_j$, rồi cộng:</p>
 <p>$$\sum_jw_jr^{(j)}=\beta\bar M\sum_jw_jr^{(j)}+(1-\beta)\sum_jw_jv^{(j)}.$$</p>
-<p>Tổng có trọng số thỏa phương trình PageRank với $v$. Tính duy nhất xác định đó là nghiệm $r^*$.</p>
+<p>Tổng có trọng số thỏa phương trình PageRank với $v$. Tính duy nhất xác định đó là nghiệm $r^*$.</p><div class="ex-takeaway"><p>Phép ghép khi có truy vấn cho đúng PageRank với $v=\sum_jw_jv^{(j)}$; mỗi người dùng chỉ cần $k$ trọng số.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196; §5.3.4, tr.199; suy ra từ phương trình cố định.</p>
 <aside class="notes">
 <p>Đặt $q=\sum_jw_jr^{(j)}$. Mỗi $r^{(j)}$ thỏa phương trình cố định của chủ đề tương ứng. Nhân với $w_j$ rồi cộng cho $q=\beta\bar Mq+(1-\beta)v$, với $v=\sum_jw_jv^{(j)}$. Vì mọi trọng số không âm và có tổng bằng $1$, cả $q$ và $v$ đều là phân phối xác suất. Tính duy nhất của điểm cố định suy ra $q=r^*$.</p><p>Đẳng thức này áp dụng cho các nghiệm hội tụ. Khi lưu các xấp xỉ $\hat r^{(j)}$, tổng ghép cũng là xấp xỉ; sai số thỏa $\|\sum_jw_j\hat r^{(j)}-r^*\|_1\le\sum_jw_j\|\hat r^{(j)}-r^{(j)}\|_1$. Nếu đổi $\beta$ hoặc cách bù nút cụt theo chủ đề, không thể dùng chung toán tử trong phép chứng minh này. Khi các điều kiện được giữ nguyên, xử lý truy vấn chỉ cần ghép các điểm đã tiền tính.</p>
