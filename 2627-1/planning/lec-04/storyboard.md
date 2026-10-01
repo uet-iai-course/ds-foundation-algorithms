@@ -1662,7 +1662,7 @@ Uy tín cộng trung tâm của các trang trỏ tới; trung tâm cộng uy tí
 
 $$\tilde a_j=\sum_{i\to j}h_i,\qquad \tilde h_i=\sum_{i\to j}a_j.$$
 
-Chỉ cộng thì giá trị tăng không giới hạn; sau mỗi bước chia cho thành phần lớn nhất.
+Chỉ cộng thì giá trị thường tăng không giới hạn; sau mỗi bước chia cho thành phần lớn nhất.
 
 E là nút cụt nhưng không cần dịch chuyển. Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,…,E.
 <!-- public-slide:end -->
