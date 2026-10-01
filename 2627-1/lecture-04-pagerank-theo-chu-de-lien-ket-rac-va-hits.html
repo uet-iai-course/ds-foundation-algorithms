@@ -301,7 +301,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </section>
 <section id="lec04-s02-11" data-slide-id="lec04-s02-11" class="example-slide">
 <h2>Tiền tính và xử lý truy vấn</h2>
-<div class="ex-grid2"><div class="ex-card"><h3>Trước truy vấn</h3><p>Chọn các phân phối $v^{(j)}$.</p><p>Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.</p></div><div class="ex-card"><h3>Khi có truy vấn</h3><p>Xác định trọng số $w_j\ge0$, $\sum_jw_j=1$, theo ngữ cảnh và tập trang ứng viên $C$.</p><p>Với từng $i\in C$, tính:</p><p>$$r_i^*=\sum_{j=1}^k w_jr_i^{(j)}.$$</p></div></div>
+<div class="ex-grid2"><div class="ex-card"><h3>Trước truy vấn</h3><p>Chọn các phân phối $v^{(j)}$.</p><p>Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.</p></div><div class="ex-card"><h3>Khi có truy vấn</h3><p>Xác định trọng số $w_j\ge0$, $\sum_jw_j=1$, theo ngữ cảnh và tập trang ứng viên $C$.</p><p>Với từng $i\in C$, ghép:</p><p>$$q_i=\sum_{j=1}^k w_jr_i^{(j)}.$$</p></div></div>
 <p>Với “jaguar”: trọng số lớn cho chủ đề động vật hoặc ô tô, tùy ngữ cảnh. Khi có truy vấn chỉ ghép điểm đã lưu, không lặp lại PageRank.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.4, tr.195–199.</p>
 <aside class="notes">
@@ -315,7 +315,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 <div class="ex-equation">$$v=\sum_{j=1}^k w_jv^{(j)}\quad\Longrightarrow\quad r^*=\sum_{j=1}^k w_jr^{(j)}.$$</div>
 <p>Nhân phương trình của chủ đề $j$ với $w_j$, rồi cộng:</p>
 <p>$$\sum_jw_jr^{(j)}=\beta\bar M\sum_jw_jr^{(j)}+(1-\beta)\sum_jw_jv^{(j)}.$$</p>
-<p>Tổng có trọng số thỏa phương trình PageRank với $v$. Tính duy nhất xác định đó là nghiệm $r^*$.</p><div class="ex-takeaway"><p>Phép ghép khi có truy vấn cho đúng PageRank với $v=\sum_jw_jv^{(j)}$; mỗi người dùng chỉ cần $k$ trọng số.</p></div>
+<p>Tổng có trọng số thỏa phương trình PageRank với $v$. Điểm cố định là duy nhất, nên tổng này bằng $r^*$.</p><div class="ex-takeaway"><p>Điểm ghép $q_i$ khi có truy vấn bằng đúng $r_i^*$ với $v=\sum_jw_jv^{(j)}$; mỗi người dùng chỉ cần $k$ trọng số.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196; §5.3.4, tr.199; suy ra từ phương trình cố định.</p>
 <aside class="notes">
 <p>Đặt $q=\sum_jw_jr^{(j)}$. Mỗi $r^{(j)}$ thỏa phương trình cố định của chủ đề tương ứng. Nhân với $w_j$ rồi cộng cho $q=\beta\bar Mq+(1-\beta)v$, với $v=\sum_jw_jv^{(j)}$. Vì mọi trọng số không âm và có tổng bằng $1$, cả $q$ và $v$ đều là phân phối xác suất. Tính duy nhất của điểm cố định suy ra $q=r^*$.</p><p>Đẳng thức này áp dụng cho các nghiệm hội tụ. Khi lưu các xấp xỉ $\hat r^{(j)}$, tổng ghép cũng là xấp xỉ; sai số thỏa $\|\sum_jw_j\hat r^{(j)}-r^*\|_1\le\sum_jw_j\|\hat r^{(j)}-r^{(j)}\|_1$. Nếu đổi $\beta$ hoặc cách bù nút cụt theo chủ đề, không thể dùng chung toán tử trong phép chứng minh này. Khi các điều kiện được giữ nguyên, xử lý truy vấn chỉ cần ghép các điểm đã tiền tính.</p>

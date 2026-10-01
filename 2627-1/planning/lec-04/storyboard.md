@@ -725,9 +725,9 @@ Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.
 
 Xác định trọng số $w_j\ge0$, $\sum_jw_j=1$, theo ngữ cảnh và tập trang ứng viên $C$.
 
-Với từng $i\in C$, tính:
+Với từng $i\in C$, ghép:
 
-$$r_i^*=\sum_{j=1}^k w_jr_i^{(j)}.$$
+$$q_i=\sum_{j=1}^k w_jr_i^{(j)}.$$
 
 Với “jaguar”: trọng số lớn cho chủ đề động vật hoặc ô tô, tùy ngữ cảnh. Khi có truy vấn chỉ ghép điểm đã lưu, không lặp lại PageRank.
 <!-- public-slide:end -->
@@ -775,9 +775,9 @@ Nhân phương trình của chủ đề $j$ với $w_j$, rồi cộng:
 
 $$\sum_jw_jr^{(j)}=\beta\bar M\sum_jw_jr^{(j)}+(1-\beta)\sum_jw_jv^{(j)}.$$
 
-Tổng có trọng số thỏa phương trình PageRank với $v$. Tính duy nhất xác định đó là nghiệm $r^*$.
+Tổng có trọng số thỏa phương trình PageRank với $v$. Điểm cố định là duy nhất, nên tổng này bằng $r^*$.
 
-Phép ghép khi có truy vấn cho đúng PageRank với $v=\sum_jw_jv^{(j)}$; mỗi người dùng chỉ cần $k$ trọng số.
+Điểm ghép $q_i$ khi có truy vấn bằng đúng $r_i^*$ với $v=\sum_jw_jv^{(j)}$; mỗi người dùng chỉ cần $k$ trọng số.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Giả thiết ở trên; công thức ghép lớn giữa; một dòng cộng phương trình và kết luận duy nhất ở dưới.
