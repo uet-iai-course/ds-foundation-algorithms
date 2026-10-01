@@ -584,11 +584,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Mã:** `lec05-s02-08` (đã xóa khỏi deck ngày 01/10/2026); **phần:** 2; **note-topic-id:** `n05-03`.
 - **Quyết định:** gộp. Luận điểm “băm rút ngắn từng phần tử nhưng không giới hạn số phần tử” trùng với trang 19; bảng `abcdabd` 6/5/5 lặp số liệu của trang 11 và 13. Cận $|S_k(D)|\le w$ và câu về băm chuyển sang trang 19. Thời lượng 1 phút chuyển sang trang 19.
 
-### 18. Câu hỏi kiểm tra
+### 18. Câu hỏi về shingling
 
 - **Mã:** `lec05-s02-09`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Kiểm tra MT2; tái tạo tập và phân biệt đơn vị. **Mục tiêu:** MT2.
-- **Câu chốt:** Số cửa sổ, số shingle và kích thước mã là ba đại lượng khác nhau.
+- **Câu chốt:** Tính tập shingle với $k$ mới, đo Jaccard của hai chuỗi khác một ký tự, và phân biệt 4-shingle với mã của 9-shingle.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận các quy ước; 19 lượng hóa nhu cầu rút gọn cả tập.
 - **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: dữ kiện chuỗi và cặp đơn vị ở dải trên 25%; thẻ câu hỏi với ba nhiệm vụ ở dưới 65%; không hiện tập kết quả.
@@ -602,21 +602,19 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 Câu hỏi:
 
-- Với `abcdabd`, $k=2$, xác định số cửa sổ và số shingle phân biệt.
-
-- Giải thích tác động của hai lần xuất hiện `ab`.
-
-- Một shingle 9 ký tự được mã hóa bằng 4 byte. Xác định $k$ sau mã hóa.
+1. Với `abcdabd` và $k=3$, liệt kê các cửa sổ và tập $S_3(D)$.
+2. Chuỗi `abcdabc` chỉ khác `abcdabd` ở ký tự cuối. Với $k=2$, tính Jaccard của hai tập shingle.
+3. 4-shingle và mã của 9-shingle cùng dùng 4 byte. Giải thích vì sao chúng không phân biệt tài liệu như nhau.
 
 **Ghi chú diễn giả học thuật**
 
-Có sáu cửa sổ và năm shingle phân biệt. `ab` xuất hiện hai lần nhưng chỉ tạo một phần tử trong tập. Đối với dữ kiện mã hóa riêng, k vẫn là 9; bốn byte chỉ đo dung lượng mã, không đo số ký tự của đoạn gốc.
+Câu 1: có $\ell-k+1=5$ cửa sổ `abc`, `bcd`, `cda`, `dab`, `abd`; cả năm khác nhau nên $|S_3(D)|=5$. Câu 2: `abcdabc` có các cửa sổ `ab`, `bc`, `cd`, `da`, `ab`, `bc`, nên tập là $\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da}\}$. Giao với $S_2(D)$ có 4 phần tử, hợp có 5 (thêm `bd`), nên Jaccard bằng $4/5$. Ký tự cuối chỉ thuộc một cửa sổ, nên thay nó chỉ đổi một cửa sổ. Câu 3: với khoảng 20 ký tự thường gặp, chỉ cỡ $20^4=160\,000$ 4-shingle có khả năng xuất hiện, nên các tài liệu không liên quan dễ chung phần tử; số 9-shingle có khả năng xuất hiện vượt xa $2^{32}$, và mã của chúng phủ gần như mọi giá trị 4 byte.
 
-Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3.
+Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3; chuỗi `abcdabc` là biến thể của Ví dụ 3.3, đổi ký tự cuối.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: 6 cửa sổ, 5 phần tử; ab chỉ giữ một lần; k=9. Chấm ba phân biệt. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+Đáp án: năm cửa sổ `abc, bcd, cda, dab, abd`, $|S_3(D)|=5$; Jaccard $4/5$; 4-shingle chỉ có cỡ $20^4$ giá trị thường gặp, mã của 9-shingle phủ gần như $2^{32}$. Không câu nào có đáp án trên mặt các trang trước. Chuỗi `abcdabc` là dữ kiện do người soạn tạo, ghi rõ ở dòng nguồn.
 
 ### 19. Kích thước tập shingle
 
