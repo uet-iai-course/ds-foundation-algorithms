@@ -1414,7 +1414,7 @@ Cùng $v$ nên cùng nghiệm với ví dụ theo chủ đề; chỉ ý nghĩa c
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu tiên chúng. A, C không thuộc tập hạt giống nhưng vẫn nhận điểm qua các liên kết thật. Giá trị của hai trang này không xác nhận hoặc bác bỏ riêng lẻ tính tin cậy của nội dung. Để đánh giá phần thay đổi so với điểm toàn cục, cần tính một vector PageRank nền theo cùng $\beta$ và cùng chuẩn hóa.
+B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu tiên chúng. A, C không thuộc tập hạt giống nhưng vẫn nhận điểm qua các liên kết thật. Để đánh giá phần thay đổi so với điểm toàn cục, cần tính một vector PageRank nền theo cùng $\beta$ và cùng chuẩn hóa.
 <!-- public-notes:end -->
 
 ### lec04-s04-04 — Hiệu giữa PageRank và TrustRank
