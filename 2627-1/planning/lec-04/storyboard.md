@@ -856,7 +856,7 @@ Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ v
 Lưu $k$ kết quả $r^{(j)}$ cần $kn$ số. Tại truy vấn, xác định các trọng số $w_j$ và tập ứng viên $C$, $c=|C|$. Với mỗi $i\in C$, tính $r_i^*=\sum_jw_jr_i^{(j)}$ từ điểm đã lưu; không lặp PageRank. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, xác định trọng số chủ đề hoặc sắp xếp kết quả. Không cần tạo toàn bộ vector ghép trên $n$ trang nếu chỉ xếp hạng $C$.
 <!-- public-notes:end -->
 
-### lec04-s02-12 — Kiểm tra phép cập nhật theo chủ đề
+### lec04-s02-12 — Kiểm tra PageRank theo chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S02; MT1. Đầu vào: HT1 và VD1. Sản phẩm: tính điểm ngoài tập dịch chuyển, giải thích ý nghĩa S.
 
@@ -886,6 +886,8 @@ $\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.
 
 **Kết nối vào–ra:** Phép cập nhật đã hoàn chỉnh → khả năng đồ thị liên kết bị xây có chủ đích để thay điểm.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Kiểm tra PageRank theo chủ đề”; ghi chú thêm câu nối ranh giới S02→S03 (điểm do cấu trúc liên kết quyết định nên có thể bị tác động bằng cạnh mới). Câu hỏi giữ nguyên.
+
 **Nguồn và vị trí:** NG1 VD5.10, tr.197; câu hỏi áp dụng trực tiếp đúng dữ kiện ví dụ.
 
 **Thời lượng:** 3 phút.
@@ -901,6 +903,8 @@ $\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.
 
 <!-- public-notes:start -->
 C nhận từ A và D. Phần theo liên kết là $(4/5)[(1/3)(1/5)+(1/2)(3/10)]=13/75$; C không nhận trực tiếp phần dịch chuyển. Mệnh đề điểm bằng $0$ là sai: điểm dương tới C qua cạnh. Tập $S$ chỉ xác định nơi nhận phần $1-\beta$; không xóa các cạnh hoặc loại đỉnh ngoài $S$ khỏi không gian trạng thái.
+
+Điểm PageRank, kể cả theo chủ đề, do cấu trúc liên kết quyết định. Người kiểm soát một phần đồ thị có thể thêm cạnh để làm tăng điểm của một trang; cơ chế này được phân tích với PageRank dịch chuyển đều.
 <!-- public-notes:end -->
 
 ## S03. Cơ chế liên kết rác

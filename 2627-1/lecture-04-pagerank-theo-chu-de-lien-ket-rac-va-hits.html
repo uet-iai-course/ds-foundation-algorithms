@@ -352,7 +352,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </aside>
 </section>
 <section id="lec04-s02-12" data-slide-id="lec04-s02-12" class="example-slide">
-<h2>Kiểm tra phép cập nhật theo chủ đề</h2>
+<h2>Kiểm tra PageRank theo chủ đề</h2>
 <div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-1-trung-tinh.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C." role="img"></div><div><p>$\beta=4/5$, $S=\{B,D\}$, $r^1=(1/5,3/10,1/5,3/10)^\mathsf T$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
 <ol>
 <li>
@@ -364,7 +364,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </ol></div></div></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
 <aside class="notes">
-<p>C nhận từ A và D. Phần theo liên kết là $(4/5)[(1/3)(1/5)+(1/2)(3/10)]=13/75$; C không nhận trực tiếp phần dịch chuyển. Mệnh đề điểm bằng $0$ là sai: điểm dương tới C qua cạnh. Tập $S$ chỉ xác định nơi nhận phần $1-\beta$; không xóa các cạnh hoặc loại đỉnh ngoài $S$ khỏi không gian trạng thái.</p>
+<p>C nhận từ A và D. Phần theo liên kết là $(4/5)[(1/3)(1/5)+(1/2)(3/10)]=13/75$; C không nhận trực tiếp phần dịch chuyển. Mệnh đề điểm bằng $0$ là sai: điểm dương tới C qua cạnh. Tập $S$ chỉ xác định nơi nhận phần $1-\beta$; không xóa các cạnh hoặc loại đỉnh ngoài $S$ khỏi không gian trạng thái.</p><p>Điểm PageRank, kể cả theo chủ đề, do cấu trúc liên kết quyết định. Người kiểm soát một phần đồ thị có thể thêm cạnh để làm tăng điểm của một trang; cơ chế này được phân tích với PageRank dịch chuyển đều.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, Ví dụ 5.10, Hình 5.15, tr.196–197.</p>
 </aside>
 </section>
