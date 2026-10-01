@@ -419,3 +419,17 @@ Dự án `20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu` đã nh�
 Phiên không có Browser nhúng của Codex; không tuyên bố đã kiểm trong in-editor Browser. Chromium cục bộ, trạng thái đọc lại và hash là bằng chứng thay thế. Các Design Files hiện hành là HTML cùng `uploaded/outline.md`, `uploaded/storyboard-2.md`, `uploaded/review-log.md`; bản storyboard cũ giữ vai trò lịch sử. Bằng chứng giao diện và đối chiếu nằm tại `/tmp/lec04-clarify/codex-final/report.json`. URL bản xem trước: `http://127.0.0.1:4311/project/20260924100856-lecture-04-pagerank-theo-ch-li-n-k-t-r-c-3vgu?slide=30`.
 
 Phạm vi commit của lượt này chỉ gồm HTML Bài 04 và ba tệp planning. Đã fetch `origin/main` và xác nhận hai phía không có commit lệch trước công bố. Các thay đổi sẵn có của người dùng tại cấu hình, tiêu chuẩn và công cụ giữ ngoài commit. Điều phối viên cung cấp mã commit cùng xác nhận remote trong bàn giao sau khi Git hoàn tất; không dùng force hoặc viết lại lịch sử.
+
+## Duyệt từng trang theo yêu cầu người dùng ngày 01/10/2026
+
+Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói gì, đề xuất rồi sửa để tiêu đề ngắn gọn và học thuật, mạch lập luận chặt, khái niệm không xuất hiện đột ngột; commit và push sau mỗi trang.
+
+**Tác tử.** Điều phối viên là phiên Claude Code (Claude Opus 5.5, `claude-opus-5-5`). Hai tác tử chỉ đọc tạo bằng công cụ `Agent`, loại `fork` (kế thừa mô hình điều phối viên): (1) góc nhìn sinh viên năm 2 và phản biện học thuật, giảng dạy, no-ai-slop chế độ Detect; (2) kết nối, mạch viết và độ chính xác toán học. Một tác tử chỉnh sửa loại `fork` sửa tuần tự từng trang; không có hai tác tử ghi đồng thời. Báo cáo tạm nằm ngoài kho trong thư mục scratchpad của phiên.
+
+**Kết quả chung của hai báo cáo.** Tính lại toàn bộ phân số: không có lỗi số học. Các vấn đề xuyên suốt được duyệt: (G1) Bài 03 gọi teleport là “bước nhảy ngẫu nhiên”, Bài 04 dùng “dịch chuyển” không có cầu nối; (G2) Bài 03 dùng $S$ cho ma trận đã bù nút cụt, Bài 04 dùng $\bar M$ và để $S$ cho tập chủ đề; (G3) “điểm cố định”, “tính co” chưa được nối với “phân phối không đổi” của Bài 03; (G4) tên G4 chỉ có trong văn bản thay thế; (G5) chuẩn hóa HITS dùng trước khi định nghĩa; (G6) tập ứng viên $C$ dùng trước khi định nghĩa; (G7) Spam Mass thiếu ý tưởng trước công thức; (G8) cầu nối S03→S04 lệch lập luận MMDS §5.4.3; (G9) liên kết rác và HITS thiếu động cơ ở S01, S05 thiếu câu vào; (G10) một số trang lặp nội dung đã học; (G11) dấu thập phân không thống nhất.
+
+**Quyết định thuật ngữ.** Giữ “dịch chuyển” trong Bài 04 vì thuật ngữ này đã dùng trong ghi chú tự học và các trang sau; nêu cầu nối tại lần đầu: bước nhảy ngẫu nhiên của Bài 03, trong bài này gọi là dịch chuyển (teleport). Giữ $\bar M$ và nêu tương ứng với ma trận $S$ của Bài 03. Nối “điểm cố định” với “phân phối không đổi” của Bài 03 tại lần đầu dùng.
+
+| Trang | Trang muốn nói | Quyết định | Thay đổi |
+|---|---|---|---|
+| lec04-s01-01 | Tên bài, học phần, học kỳ; ghi chú nêu ba yêu cầu và PageRank Bài 03 là đầu vào. | giữ | Không đổi; hai báo cáo không nêu vấn đề. |
