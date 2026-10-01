@@ -468,7 +468,7 @@ $$
 \Pr[h_I(x)=h_I(y)]=1-\frac{d_H(x,y)}D.
 $$
 
-Đây là chứng minh bằng đếm, không cần xấp xỉ. Với ví dụ, xác suất bằng $2/5$. Khi ghép nhiều lần, lấy chỉ số độc lập có hoàn lại; số hàm phân biệt hữu hạn không giới hạn số lần lấy mẫu độc lập.
+Đây là chứng minh bằng đếm, không cần xấp xỉ. Với ví dụ, xác suất bằng $2/5$. Xác suất giảm tuyến tính theo $d_H$, nên với $d_1<d_2$ họ chọn tọa độ là $(d_1,d_2,1-d_1/D,1-d_2/D)$-nhạy cảm. Khi ghép nhiều lần, lấy chỉ số độc lập có hoàn lại; số hàm phân biệt hữu hạn không giới hạn số lần lấy mẫu độc lập.
 
 Thuật toán mỗi phép thử chỉ đọc một phần tử mảng và trả giá trị đó, nên dừng sau một lần đọc, tốn $O(1)$ thời gian và lưu một chỉ số. Với $m$ phép thử, lưu $m$ chỉ số cùng $m$ giá trị mỗi đối tượng. Các cặp ứng viên vẫn được tổ chức bằng khung ghép và thùng đã xây.
 

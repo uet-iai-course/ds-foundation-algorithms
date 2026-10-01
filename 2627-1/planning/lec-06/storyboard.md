@@ -465,16 +465,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.1 tr.109/PDF 38; dữ kiện Ex 3.17 tr.101.
 - **Ánh xạ ghi chú:** `N08`. **Thời lượng:** 2 phút.
 
-#### lec06-s04-02 — Xác suất va chạm Hamming
+#### lec06-s04-02 — Tính nhạy cảm của họ chọn tọa độ
 
-- **Mục đích và vai trò:** Chứng minh xác suất bằng đếm tọa độ.
-- **Thông điệp:** Tọa độ đều cho xác suất $1-d_H/D$.
-- **Nội dung công khai dự kiến:** $D>0$;$I$ đều trong $\{1,\ldots,D\}$. Có $D-d_H(x,y)$ chỉ số trùng nên $\Pr[h_I(x)=h_I(y)]=(D-d_H)/D$. Dữ kiện: $2/5$. Nhiều phép thử lấy $I$ độc lập, có hoàn lại.
+- **Mục đích và vai trò:** Chứng minh bằng đếm xác suất va chạm của họ chọn tọa độ và nêu bộ tham số nhạy cảm theo định nghĩa ở phần 3.
+- **Thông điệp:** Họ chọn tọa độ là $(d_1,d_2,1-d_1/D,1-d_2/D)$-nhạy cảm; ghép cần chỉ số độc lập.
+- **Nội dung công khai dự kiến:** Chọn $I$ đều trong $D$ chỉ số; có đúng $D-d_H(x,y)$ chỉ số thuận lợi. $\Pr[h_I(x)=h_I(y)]=\frac{D-d_H(x,y)}D=1-\frac{d_H(x,y)}D$ $D=5,\quad d_H(x,y)=3\quad\Rightarrow\quad \Pr=2/5$ Với $d_1<d_2$, họ chọn tọa độ là $(d_1,d_2,1-d_1/D,1-d_2/D)$-nhạy cảm. Ghép AND hoặc OR cần các chỉ số độc lập, lấy có hoàn lại.
 - **Đầu vào và giả thiết:** Số chỉ số trùng ở s04-01, phân phối đều.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT8; V08 trùng 2 trên 5. Họ hữu hạn không giới hạn số lần lấy mẫu độc lập.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng đếm tổng/khác/trùng bên trái 45%; phân số và giả thiết bên phải 55%. Năm 2 dùng xác suất hữu hạn để chứng minh; tránh đưa thêm đường cong.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Câu dẫn nêu phép đếm; hai dòng công thức (tổng quát, ví dụ); dòng bộ tham số nhạy cảm; câu chốt về ghép. Năm 2 dùng xác suất hữu hạn để chứng minh; không đưa thêm đường cong.
 - **Kết nối vào–ra:** Phép thử→bảo đảm; dữ liệu theo hướng cần một phép thử dùng tích vô hướng.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Mỗi chỉ số có xác suất $1/D$, nên cộng trên $D-d_H$ chỉ số cho kết quả. Khi ghép, lấy có hoàn lại giúp các chỉ số độc lập. Chọn các chỉ số khác nhau không tự cho công thức $p^r$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Mỗi chỉ số có xác suất $1/D$, nên cộng trên $D-d_H$ chỉ số thuận lợi cho công thức; đây là phép đếm chính xác, không xấp xỉ. Xác suất giảm tuyến tính theo $d_H$, nên $d_H\le d_1$ cho xác suất ít nhất $1-d_1/D$ và $d_H\ge d_2$ cho xác suất nhiều nhất $1-d_2/D$; đó là hai điều kiện của định nghĩa họ nhạy cảm. Họ chỉ có $D$ hàm phân biệt, nhưng điều đó không giới hạn số phép thử: lấy có hoàn lại thì các chỉ số độc lập và công thức $p^r$ của phép AND áp dụng được. Chọn $r$ chỉ số khác nhau không cho công thức $p^r$.
 - **Nguồn:** B §3.7.1 tr.109; sửa diễn giải giới hạn số hàm độc lập của nguồn.
 - **Ánh xạ ghi chú:** `N08`. **Thời lượng:** 2 phút.
 
