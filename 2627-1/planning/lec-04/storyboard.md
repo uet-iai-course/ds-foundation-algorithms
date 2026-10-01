@@ -1508,7 +1508,7 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$
 Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i=(4/5)r_i$, tức giảm $20\%$ so với điểm nền riêng. Mức giảm tuyệt đối khác nhau: $9/140$ tại A và $19/420$ tại C. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác; chỉ số cũng không phải xác suất trang rác. MMDS Ví dụ 5.12 tính với PageRank không dịch chuyển nên được $s_A\approx0{,}229$; ở đây PageRank nền dùng cùng $\beta=4/5$ nên $s_A=1/5$, kết luận định tính không đổi.
 <!-- public-notes:end -->
 
-### lec04-s04-06 — Độ phủ hạt giống và chi phí đánh giá
+### lec04-s04-06 — Chi phí và độ phủ tập tin cậy
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn và chi phí; MT3, MT5. Đầu vào: HT5. Sản phẩm: phân biệt chi phí phép lặp với chọn hạt giống.
 
@@ -1517,7 +1517,7 @@ Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Tập tin cậy cần cân đối công sức đánh giá và độ phủ của các trang hợp lệ.
+Độ phủ: chỉ chọn miền .edu thì $T$ gần như chỉ gồm trang của Mỹ; cần thêm các miền tương tự của nước khác (MMDS §5.4.4).
 
 | Bước | Phạm vi chi phí |
 | --- | --- |
@@ -1525,7 +1525,7 @@ Tập tin cậy cần cân đối công sức đánh giá và độ phủ của 
 | Tính Spam Mass | $\Theta(n)$ phép tính theo đỉnh |
 | Đánh giá hạt giống | Công việc ngoài mô hình phép toán đồ thị |
 
-Các trang có chỉ số $s_i$ lớn được ưu tiên rà soát. Chỉ số phụ thuộc $T$ và không tự xác định nhãn rác.
+Trang có $s_i$ gần $1$ được ưu tiên rà soát hoặc hạ điểm, không cần định vị cụm thao túng.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Một câu về hạt giống phía trên20%; bảng ba dòng giữa60%; câu giới hạn phía dưới20%.
@@ -1540,6 +1540,8 @@ Các trang có chỉ số $s_i$ lớn được ưu tiên rà soát. Chỉ số p
 
 **Kết nối vào–ra:** Chỉ số đã có → nguồn sai lệch và tài nguyên → kiểm diễn giải.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “Chi phí và độ phủ tập tin cậy”; dòng mở thay câu chung chung bằng ví dụ độ phủ của MMDS §5.4.4 (.edu chủ yếu là trang Mỹ); câu chốt nêu cách dùng chỉ số theo MMDS §5.4.5 (hạ điểm trang có $s_i$ gần 1 mà không cần định vị cụm), nối lại hướng thứ hai ở s03-07; bỏ câu lặp “phụ thuộc $T$, không tự xác định nhãn rác” và câu lặp trong ghi chú.
+
 **Nguồn và vị trí:** NG1 §5.4.4–5, tr.202–203; phép đếm theo HT1. NG3 trang42 đối chiếu đánh đổi hạt giống.
 
 **Thời lượng:** 2 phút.
@@ -1547,7 +1549,7 @@ Các trang có chỉ số $s_i$ lớn được ưu tiên rà soát. Chỉ số p
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương đối khi chuyển sang ưu tiên hạt giống tin cậy. Giá trị dương lớn có thể được dùng để ưu tiên trang cần rà soát; chỉ số không tự xác định nhãn rác. Đổi tập $T$ có thể đổi $\rho$ và thứ tự ưu tiên. Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Điểm tin cậy thấp có thể phản ánh khoảng cách liên kết hoặc thiếu hạt giống phù hợp, không chỉ liên kết rác. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Sau khi có $r$ và $\rho$, mỗi trang cần một phép trừ và một phép chia nếu $r_i>0$. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.
+Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương đối khi chuyển sang ưu tiên hạt giống tin cậy. Giá trị dương lớn có thể được dùng để ưu tiên trang cần rà soát; chỉ số không tự xác định nhãn rác. Đổi tập $T$ có thể đổi $\rho$ và thứ tự ưu tiên. Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Điểm tin cậy thấp có thể phản ánh khoảng cách liên kết hoặc thiếu hạt giống phù hợp, không chỉ liên kết rác. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.
 <!-- public-notes:end -->
 
 ### lec04-s04-07 — Kiểm tra cách diễn giải Spam Mass
