@@ -648,7 +648,7 @@ Mỗi hàm cần $D$ phép nhân cho một vector, nên tổng là $C\cdot m\cdo
 
 Hai hồ sơ có thể mô tả cùng người hoặc cùng thực thể dù một số trường khác nhau. Đầu vào là hai nguồn hồ sơ; đầu ra mong muốn là các cặp cùng thực thể. Nếu mỗi nguồn có một triệu bản ghi, xét mọi cặp giữa hai nguồn cần $10^{12}$ phép đối chiếu.
 
-Một quy tắc tạo ứng viên dùng ba trường tên, địa chỉ và điện thoại. Mỗi trường tạo một bảng khóa. Các cặp khớp ít nhất một trường được hợp và khử lặp, rồi chấm điểm bằng thông tin đầy đủ hơn. Đây là phép OR của ba hàm khóa, tức phân dải với $b=3$ dải, mỗi dải một hàm ($r=1$); ví dụ của sách thay bảng băm bằng ba lần sắp xếp theo từng trường. Cặp không khớp hoàn toàn trường nào bị bỏ sót. Ví dụ ở §3.8.2 dùng khoảng cách chỉnh sửa để tính điểm phạt theo từng trường, với hiệu chỉnh từ các bảng tên tương đương. Khóa khớp hoàn toàn tạo ứng viên, còn độ sai khác giữa chuỗi tham gia bước xác minh. Quy tắc chỉ bảo đảm rằng cặp khớp một trường được đưa vào tập ứng viên; khớp điện thoại chưa chứng minh hai hồ sơ cùng người.
+Một quy tắc tạo ứng viên dùng ba trường tên, địa chỉ và điện thoại. Mỗi trường tạo một bảng khóa. Các cặp khớp ít nhất một trường được hợp và khử lặp, rồi chấm điểm bằng thông tin đầy đủ hơn. Đây là phép OR của ba hàm khóa, tức phân dải với $b=3$ dải, mỗi dải một hàm ($r=1$); ví dụ của sách thay bảng băm bằng ba lần sắp xếp theo từng trường. Cặp không khớp hoàn toàn trường nào bị bỏ sót. Ví dụ ở §3.8.2 dùng khoảng cách chỉnh sửa để tính điểm phạt theo từng trường, với hiệu chỉnh từ các bảng tên tương đương. Khóa khớp hoàn toàn chỉ tạo ứng viên; độ sai khác giữa chuỗi tham gia bước xác minh. Ba hàm khóa cố định, không lấy ngẫu nhiên từ một họ, nên không áp được công thức $1-(1-p)^b$ của phép OR.
 
 ![Ba bảng khóa tên, địa chỉ và điện thoại sinh ứng viên trước bước chấm điểm.](img/lec-06/khoa-thuc-the.svg)
 
@@ -656,11 +656,11 @@ Không có mô hình phân phối cho ba trường thì chưa thể gán các x�
 
 
 ::: exercise
-Câu hỏi: Giải thích vì sao khớp số điện thoại chưa đủ xác nhận hai hồ sơ cùng một thực thể.
+Câu hỏi: Hai hồ sơ có tên “Bob S. Jomes” và “Robert Jones Jr.”, cùng địa chỉ, khác điện thoại. Xác định cặp có thành ứng viên không, qua khóa nào, và bước nào quyết định hai hồ sơ cùng người.
 :::
 
 ::: solution
-Một số điện thoại có thể được nhiều người dùng chung. Khớp trường tạo ứng viên; xác minh còn cần điểm đánh giá các trường và tiêu chuẩn chấp nhận cặp.
+Tên không trùng hoàn toàn và điện thoại khác, nhưng địa chỉ trùng, nên cặp thành ứng viên qua khóa địa chỉ. Bước chấm điểm theo ba trường và ngưỡng điểm quyết định; nhiều người có thể chung một địa chỉ.
 :::
 
 
@@ -682,7 +682,7 @@ $$
 
 Đây là xác suất cả hai ảnh có đủ ba ô; không điều kiện hóa ảnh truy vấn đã có sẵn ba ô đó. Hai ảnh cùng ngón hoặc khác ngón có vai trò tương ứng cặp cần tìm hoặc cặp giả trong ứng dụng này. Một hàm nhận cặp cùng ngón với xác suất chỉ khoảng $1/244$, dù gấp 64 lần cặp khác ngón; vì vậy cần ghép nhiều hàm.
 
-OR 1024 phép thử cho xác suất ứng viên giả $1-(1-q_F)^{1024}\approx0{,}063436634$ và bỏ sót $(1-q_T)^{1024}\approx0{,}014951892$. Ghép AND hai nhóm OR 1024 độc lập cho
+OR 1024 phép thử cho xác suất nhận cặp khác ngón (ứng viên giả) $1-(1-q_F)^{1024}\approx0{,}063436634$ và xác suất bỏ sót cặp cùng ngón $(1-q_T)^{1024}\approx0{,}014951892$. Ghép AND hai nhóm OR 1024 độc lập cho
 
 $$
 P_F=[1-(1-q_F)^{1024}]^2\approx0{,}004024207,
@@ -692,7 +692,7 @@ $$
 P_{\rm miss}=1-[1-(1-q_T)^{1024}]^2\approx0{,}029680224.
 $$
 
-Cấu trúc AND giảm ứng viên giả khoảng 16 lần nhưng bỏ sót tăng gấp đôi. Với bài toán một–nhiều, xác suất nhận cặp khác ngón cũng là tỷ lệ kho phải so với ảnh truy vấn: khoảng $6{,}3\%$ với OR 1024 và khoảng $1/250$ với AND hai nhóm. Hai phương án ở đoạn này dùng 1024 và 2048 phép thử, nên chưa là so sánh cùng ngân sách. Bài 3.8.2 ở cuối tài liệu so OR 2048 với AND hai nhóm OR 1024. Các phép tính dùng giá trị chưa làm tròn; lấy $0{,}063^2$ sẽ cho số khác vì đã làm tròn trung gian. Những xác suất này thuộc mô hình, không là tỷ lệ đo trên một hệ nhận dạng vân tay.
+Cấu trúc AND giảm xác suất nhận cặp khác ngón khoảng 16 lần nhưng bỏ sót tăng gấp đôi. Với bài toán một–nhiều, xác suất nhận cặp khác ngón cũng là tỷ lệ kho phải so với ảnh truy vấn: khoảng $6{,}3\%$ với OR 1024 và khoảng $1/250$ với AND hai nhóm. Hai phương án ở đoạn này dùng 1024 và 2048 phép thử, nên chưa là so sánh cùng ngân sách. Bài 3.8.2 ở cuối tài liệu so OR 2048 với AND hai nhóm OR 1024. Các phép tính dùng giá trị chưa làm tròn; lấy $0{,}063^2$ sẽ cho số khác vì đã làm tròn trung gian. Những xác suất này thuộc mô hình, không là tỷ lệ đo trên một hệ nhận dạng vân tay.
 
 Với một ảnh truy vấn, cấu trúc AND hai nhóm OR thực hiện bốn thao tác: hợp các mã ảnh trong những thùng phù hợp của nhóm thứ nhất; hợp tương tự ở nhóm thứ hai; lấy giao hai hợp; rồi so ảnh truy vấn với các ứng viên còn lại. Hợp và giao chỉ xử lý mã ảnh. Phép so vân tay được thực hiện sau đó và có chi phí riêng.
 
@@ -728,11 +728,11 @@ Sau khi tạo tập shingle mới, có thể dùng lại MinHash, phân dải v�
 
 
 ::: exercise
-Câu hỏi: Xác định đầu ra cần tìm ở bài toán bản tin (cùng văn bản hay cùng chủ đề). Giải thích vì sao câu quảng cáo dài đã cho vẫn có thể tạo shingle.
+Câu hỏi: Với từ dừng I, that, you, for, your, liệt kê các shingle có đủ hai từ theo sau trong câu “The report said that you should wait for your turn.”
 :::
 
 ::: solution
-Mục tiêu là các trang xuất phát từ cùng văn bản. Câu dài chứa các từ dừng I, that, you, for, your nên quy tắc vẫn tạo shingle, dù câu đó có thể là quảng cáo. Quy tắc chỉ ưu tiên biểu diễn văn xuôi, không xác định hoàn hảo ranh giới quảng cáo.
+“that you should”, “you should wait”, “for your turn”. Shingle bắt đầu bằng “your” chỉ có một từ theo sau trong câu nên chưa xác định. “The” và “report” không thuộc danh sách từ dừng của ví dụ.
 :::
 
 

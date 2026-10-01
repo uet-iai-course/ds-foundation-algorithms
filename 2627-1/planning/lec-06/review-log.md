@@ -438,3 +438,22 @@ Kiểm hiển thị lại s04-03…07 ở 1600×900 và 390×844: không lỗi K
 | lec06-s05-06 | Kiểm tra phần 5: khóa địa chỉ tạo ứng viên, chấm điểm quyết định; OR 512 cho $0{,}0322$ và bỏ sót $0{,}1223$; ba shingle từ dừng. | sửa | Tiêu đề “Kiểm tra điều kiện của ứng dụng” → “Câu hỏi về các ứng dụng”. Ba câu cũ dạng “Vì sao…”, câu 3 có đáp án trên mặt trang s05-05 cũ và câu 1 trùng bài tự kiểm của ghi chú. Thay bằng ba yêu cầu tính/xác định: cặp tên MMDS §3.8.1 (“Bob S. Jomes”/“Robert Jones Jr.”) cùng địa chỉ; OR 512 với $q_F,q_T$ (tính lại: $0{,}0322$, $0{,}1223$); câu mới cho shingle từ dừng. | Ghi chú bài giảng không có mục tương ứng; không đổi. |
 | lec06-s06-01 | Ba bước của quy trình gắn với kết quả từng phần; ba ứng dụng chỉ thay bước 1 hoặc 2. | sửa | Giữ tiêu đề. Ba bước viết lại để nêu kết quả kế thừa (các độ đo của phần 3; họ $(d_1,d_2,p_1,p_2)$ và AND–OR là phân dải; $Q$, $K$ và xác minh của phần 2). Câu chốt cũ về “kho triệu tài liệu” lặp ý s06-02 nên thay bằng nhận xét tổng hợp phần 5: ứng dụng nào đổi bước nào. Ghi chú nêu vai trò của từng bước. | Ghi chú bài giảng mục “Tổng hợp và tự kiểm” thêm câu về ba ứng dụng. |
 | lec06-s06-02 | $P_{b,r}(s)$, $Q$, $K$ và hệ quả; xác minh loại ứng viên giả nhưng không lấy lại cặp bỏ sót. | sửa | Tiêu đề “Giới hạn chi phí và sai số” → “Chi phí và hai loại sai số”. Bảng thêm cột “Hệ quả”; $P(s)$ viết đúng ký hiệu $P_{b,r}(s)$ của phần 2 và nêu xác suất bỏ sót $1-P_{b,r}(s)$. Trường hợp xấu nhất nêu hệ quả “không nhanh hơn so mọi cặp”. Câu chốt cũ chỉ là lời báo trước Bài 07, thay bằng kết luận về hai loại sai số; nội dung nối sang Bài 07 chuyển vào ghi chú cùng lý do (bảo đảm theo cặp, chi phí theo phân bố thùng). | Ghi chú bài giảng mục “Tổng hợp và tự kiểm” thêm câu về hai loại sai số và trường hợp xấu nhất. |
+
+### Rà lại phần 5
+
+Tác tử rà chỉ đọc: vai trò chính xác toán–thuật toán, mạch lập luận và tiếng Việt học thuật; kiểu `fork` của công cụ Agent, mô hình Claude Opus 5.5, effort `high`; phạm vi s05-01…06, hai trang biên s04-11 và s06-01, mục ghi chú “Ba ứng dụng tìm cặp”, phiếu storyboard. Tác tử tính lại mọi số ($q_F$, $q_T$, $1/244{,}14$, tỷ số 64; OR 1024; AND hai nhóm; $15{,}76$ lần và $1{,}985$ lần; $1/248{,}5$; OR 512; $0{,}75$/$0{,}25$/$1/3$; các danh sách shingle), tất cả đúng; không có chữ Việt trong KaTeX, mã trang hay thời lượng trong ghi chú; đáp án s05-06 không lộ trước.
+
+| Mức độ | Trang chiếu | Vấn đề | Quyết định |
+|---|---|---|---|
+| trung bình | s05-04 ↔ ghi chú | Thuật ngữ lệch: deck “nhận cặp khác ngón”, ghi chú “ứng viên giả”. | Đã sửa: ghi chú dùng “xác suất nhận cặp khác ngón (ứng viên giả)” và “bỏ sót cặp cùng ngón”. |
+| trung bình | storyboard s05-04, s05-05, s05-06 | Trường Bố cục/Dữ kiện không khớp trang. | Đã sửa ba trường. |
+| nhẹ | s05-01 | “OR của ba hàm” có thể gợi áp công thức $1-(1-p)^b$ cho ba hàm cố định. | Đã sửa: “cấu trúc của phép OR”; ghi chú (deck và bài giảng) nêu ba hàm cố định nên không áp công thức. |
+| nhẹ | s05-04 | Công thức không nhãn, chỉ ứng với hàng AND. | Đã sửa: “Với AND 2 nhóm: …”. |
+| nhẹ | s05-05 | Không báo shingle thứ năm. | Đã sửa: thêm “your laundry …”. |
+| nhẹ | s05-05 | Phần chèn giữa câu vụng. | Đã sửa bằng ngoặc đơn. |
+| nhẹ | s05-03, s05-04 (ghi chú) | Câu lặp mặt trang. | Đã bỏ. |
+| nhẹ | ghi chú “Đối sánh thực thể”, “Bản tin gần trùng” | Đáp án bài tự kiểm nằm ngay trong đoạn trước. | Đã sửa: hai bài tự kiểm dùng dữ kiện mới (cặp tên MMDS §3.8.1; câu “The report said…”) kèm lời giải. |
+| nhẹ | ghi chú “Đối sánh thực thể” | Một ý nói ba lần. | Đã gộp. |
+| nhẹ | storyboard s05-02, s05-03 | Số thập phân dấu chấm. | Đã sửa. |
+
+Phát hiện ngoài phạm vi về ghi chú s06-01 đã được xử lý trong commit s06-01. Kiểm hiển thị lại s05-01, 03, 04, 05 ở 1600×900 và 390×844; ghi chú bài giảng ở 1440, 390 và in.
