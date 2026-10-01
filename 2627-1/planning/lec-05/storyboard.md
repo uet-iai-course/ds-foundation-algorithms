@@ -1916,7 +1916,7 @@ Với một cặp, gọi $q$ là số phần tử của hợp. Do đối xứng,
 
 Đáp án số đếm 0, 30, 80, 0, 40, 24. Chấm căn cứ 120/q, số phần tử giao và tỷ lệ khớp ý (a). Phân bổ 5 phút lập luận/tính, 1 phút trình bày, 2 phút đối chiếu.
 
-### 55. Bài tập bổ sung chữ ký
+### 55. Bài tập bổ sung hàng chữ ký
 
 - **Mã:** `lec05-s07-05`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Mục đích và vai trò:** Bài 3.3.2(a, b); vận dụng phép min. **Mục tiêu:** MT5.
@@ -1952,7 +1952,7 @@ Sản phẩm: bảng giá trị hai hàm và hai hàng chữ ký.
 
 **Ghi chú diễn giả học thuật**
 
-Giá trị $f_3$ theo 0–4 là 4, 1, 3, 0, 2; $f_4$ là 4, 2, 0, 3, 1. Chỉ xét những hàng có 1 trong từng cột. Hai hàng chữ ký mới là (0, 3, 0, 0) và (3, 0, 1, 0). Phần dư chuẩn nằm trong 0–4 nên (−1) mod 5=4. Đề sách dùng h3, h4; đổi thành $f_3$, $f_4$ để phân biệt băm hàng với MinHash trên tập. Nguồn: MMDS 3e, Bài 3.3.2(a, b), §3.3.8, tr. 90/PDF19; Hình 3.4 tr. 85; Ví dụ 3.8 tr. 85–86. Thời lượng dự kiến 12 phút.
+Giá trị $f_3$ theo $r=0,\ldots,4$ là 4, 1, 3, 0, 2; $f_4$ là 4, 2, 0, 3, 1. Chỉ xét những hàng có 1 trong từng cột. Hai hàng chữ ký mới là $(0,3,0,0)$ và $(3,0,1,0)$. Phần dư chuẩn nằm trong $\{0,\ldots,4\}$ nên $(-1)\bmod5=4$. Đề sách dùng $h_3,h_4$; đổi thành $f_3,f_4$ để phân biệt băm hàng với MinHash trên tập. Nguồn: MMDS 3e, Bài 3.3.2(a, b), §3.3.8, tr. 90/PDF19; Hình 3.4 tr. 85; Ví dụ 3.8 tr. 85–86. Thời lượng dự kiến 12 phút.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
