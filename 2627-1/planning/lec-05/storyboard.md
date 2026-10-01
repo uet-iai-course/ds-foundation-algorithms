@@ -815,7 +815,7 @@ Nguồn: MMDS 3e, §3.3.2–§3.3.3; quy ước trả định danh tương đư�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 25. Các hàng chung và riêng
+### 25. Ba loại hàng của một cặp cột
 
 - **Mã:** `lec05-s03-07`; **phần:** 3; **note-topic-id:** `n05-06`.
 - **Mục đích và vai trò:** Chuẩn bị chứng minh; phân loại hàng theo một cặp. **Mục tiêu:** MT3.
