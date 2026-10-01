@@ -2125,7 +2125,7 @@ Phân bổ: 4 slide, 10 phút.
 | PageRank theo chủ đề | Một phân phối điểm theo ngữ cảnh | Phân phối dịch chuyển $v$ |
 | TrustRank | Một phân phối điểm từ tập tin cậy | Hạt giống được đánh giá bên ngoài |
 | Spam Mass | Chênh lệch tương đối giữa $r$ và $\rho$ | Hai vector cùng mô hình, $r_i>0$ |
-| HITS | Hai vector trung tâm và uy tín | Tổng theo cạnh vào và cạnh ra |
+| HITS | Hai vector trung tâm và uy tín | Không cần; chỉ dùng cấu trúc liên kết |
 
 Điểm uy tín HITS và điểm tin cậy TrustRank có ý nghĩa khác nhau.
 <!-- public-slide:end -->
@@ -2151,7 +2151,7 @@ Phân bổ: 4 slide, 10 phút.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng nhận hai loại thông tin ưu tiên khác nhau. Spam Mass cần cặp điểm để tính chỉ số chênh lệch, không phải phép lặp riêng. HITS đổi từ một phân phối sang hai vai trò cấu trúc. Uy tín HITS có thể cao do quan hệ với các trung tâm có điểm cao, không thay thế đánh giá nội dung của hạt giống TrustRank.
+PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng nhận hai loại thông tin ưu tiên khác nhau. Spam Mass cần cặp điểm để tính chỉ số chênh lệch, không phải phép lặp riêng. HITS đổi từ một phân phối sang hai vai trò cấu trúc.
 <!-- public-notes:end -->
 
 ### lec04-s06-02 — Chọn phương pháp xếp hạng

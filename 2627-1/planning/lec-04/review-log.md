@@ -529,3 +529,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s05-08 | (trung bình) Điều kiện trước “ít nhất một cạnh” mâu thuẫn với câu đầu ra nói đồ thị không cạnh trả trạng thái không xác định; giả mã không có nhánh đó. | sửa | Câu đầu ra: “Đồ thị không cạnh nằm ngoài điều kiện trước vì $N(0)$ không xác định.” Tên `tau` trong giả mã giữ như giả mã PageRank ở S02 (tên ASCII của $\tau$). |
 | lec04-s05-07 | (nhẹ) Câu cuối ghi chú lặp trường hợp đồ thị không cạnh trên mặt trang. | sửa ghi chú | Bỏ câu lặp. |
 | lec04-s05-01 | (nhẹ) Vế “ví dụ nhỏ cho phép kiểm từng phép cập nhật” mang tính siêu văn bản. | sửa ghi chú | Bỏ vế này. |
+| lec04-s06-01 | (nhẹ) Ô “Thông tin bổ sung cần có” của HITS ghi cơ chế; câu cuối ghi chú lặp câu chốt. | sửa | Ô HITS → “Không cần; chỉ dùng cấu trúc liên kết”; bỏ câu lặp trong ghi chú. |
