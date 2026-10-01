@@ -417,7 +417,7 @@ Tại $0{,}2$, xác suất trùng ít nhất $0{,}7$. Tại $0{,}8$, xác suất
 
 ### Ghép đồng thời và ghép ít nhất một
 
-Cố định một cặp có xác suất trùng cơ sở đúng bằng $p$. Ghép đồng thời (AND) $r$ phép thử độc lập nhận cặp khi cả $r$ phép đều trùng. Có thể lưu khóa tuple $g(x)=(h_1(x),\ldots,h_r(x))$. Ghép ít nhất một (OR) $b$ phép thử độc lập nhận cặp khi có ít nhất một phép trùng, bằng nhiều bảng hoặc các quyết định cặp.
+Cố định một cặp có xác suất trùng cơ sở đúng bằng $p$. Ghép đồng thời (AND) $r$ phép thử độc lập nhận cặp khi cả $r$ phép đều trùng. Có thể lưu khóa tuple $g(x)=(h_1(x),\ldots,h_r(x))$. Ghép ít nhất một (OR) $b$ phép thử độc lập nhận cặp khi có ít nhất một phép trùng, bằng nhiều bảng hoặc các quyết định cặp. Theo §3.6.3, một dải của phần phân dải chính là ghép đồng thời $r$ MinHash, còn việc nhận cặp khi trùng ít nhất một trong $b$ dải là ghép ít nhất một; phân dải là AND rồi OR trên họ MinHash.
 
 ::: proof
 AND là giao của $r$ biến cố độc lập, nên xác suất bằng $p^r$. Biến cố đối của OR là tất cả $b$ phép không trùng, có xác suất $(1-p)^b$, nên xác suất OR bằng $1-(1-p)^b$.
@@ -425,14 +425,14 @@ AND là giao của $r$ biến cố độc lập, nên xác suất bằng $p^r$. 
 Hai hàm $p\mapsto p^r$ và $p\mapsto1-(1-p)^b$ đều tăng trên $[0,1]$. Bởi vậy, cận dưới gần và cận trên xa được biến đổi theo cùng công thức. Đây là phép biến đổi các cận của họ; chỉ khi cặp có xác suất cơ sở đúng bằng $p$ mới có đẳng thức xác suất sau ghép tại $p$.
 :::
 
-Với họ $(.2,.6,.8,.4)$ và 16 phép thử, Ví dụ 3.19–20 so hai cấu trúc:
+Với họ $(0{,}2,0{,}6,0{,}8,0{,}4)$ và 16 phép thử, Ví dụ 3.19–20 so hai cấu trúc:
 
 | Thứ tự | Phép biến đổi | Cận gần | Cận xa |
 |---|---|---:|---:|
-| AND 4 rồi OR 4 | $F(p)=1-(1-p^4)^4$ | .878497449 | .098534519 |
-| OR 4 rồi AND 4 | $G(p)=[1-(1-p)^4]^4$ | .993615344 | .573951942 |
+| AND 4 rồi OR 4 | $F(p)=1-(1-p^4)^4$ | 0,878497449 | 0,098534519 |
+| OR 4 rồi AND 4 | $G(p)=[1-(1-p)^4]^4$ | 0,993615344 | 0,573951942 |
 
-Trạng thái trung gian ở AND là $.8^4=.4096$ và $.4^4=.0256$; ở OR là $1-.2^4=.9984$ và $1-.6^4=.8704$. Thứ tự ghép làm thay đổi đánh đổi dù số phép thử bằng nhau.
+Trạng thái trung gian ở AND là $0{,}8^4=0{,}4096$ và $0{,}4^4=0{,}0256$; ở OR là $1-0{,}2^4=0{,}9984$ và $1-0{,}6^4=0{,}8704$. Thứ tự ghép làm thay đổi đánh đổi dù số phép thử bằng nhau.
 
 ![Bốn nhóm AND, mỗi nhóm bốn hàm cơ sở, được ghép OR bằng hợp cặp.](img/lec-06/ghep-and-or.svg)
 

@@ -388,8 +388,8 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 #### lec06-s03-09 — Phép ghép đồng thời
 
 - **Mục đích và vai trò:** Suy biến đổi xác suất AND và các cận của họ.
-- **Thông điệp:** Ghép AND làm giảm cả xác suất trùng của cặp gần lẫn cặp xa.
-- **Nội dung công khai dự kiến:** Phép ghép đồng thời (AND). Chọn $h_1,\ldots,h_r$ độc lập; cùng các hàm cho mọi đối tượng. Tuple $g(x)=(h_1(x),\ldots,h_r(x))$. $\Pr[g(x)=g(y)]=p^r$. Họ mới $(d_1,d_2,p_1^r,p_2^r)$.
+- **Thông điệp:** Ghép đồng thời r hàm độc lập biến họ (d1,d2,p1,p2) thành (d1,d2,p1^r,p2^r): giảm mạnh xác suất của cặp xa nhưng cũng giảm cặp gần.
+- **Nội dung công khai dự kiến:** Một phép thử chỉ tách $p_1$ và $p_2$ một khoảng nhỏ; phép ghép khuếch đại khoảng cách này. Trùng một dải chính là ghép đồng thời $r$ MinHash. Phép ghép đồng thời (AND): chọn $r$ hàm độc lập từ họ; nhận cặp khi cả $r$ hàm trùng. $g(x)=(h_1(x),\ldots,h_r(x)),\qquad\Pr[g(x)=g(y)]=p^r$ Họ mới là $(d_1,d_2,p_1^r,p_2^r)$-nhạy cảm. $p$ $p^4$ 0,8 0,4096 0,4 0,0256 Cặp xa hiếm trùng hơn nhiều, nhưng cặp gần cũng giảm từ 0,8 xuống khoảng 0,41.
 - **Đầu vào và giả thiết:** Dải nhiều hàng V03, họ 4 tham số, độc lập.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT7; $p$ va chạm cặp cố định;$r=4,p=.8$ cho.4096;$p=.4$ cho.0256.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Nhóm $r$ phép thử trái 55%, ngoặc tuple; phải 45% phép nhân và cận. Năm 2 đối chiếu đúng cấu trúc một dải trước khái quát; chi tiết tính đơn điệu ở notes.
