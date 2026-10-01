@@ -56,11 +56,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B § §3.4–3.8 tr.91–122; outline mục 5.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 1 phút.
 
-#### lec06-s01-03 — Số cặp sau khi tạo chữ ký
+#### lec06-s01-03 — Chi phí so sánh mọi cặp chữ ký
 
 - **Mục đích và vai trò:** Tính riêng dung lượng chữ ký và số phép so cặp.
 - **Thông điệp:** Dung lượng chữ ký tuyến tính không làm số cặp mất bậc hai.
-- **Nội dung công khai dự kiến:** $C=10^6$, $n=250$,4 byte/thành phần: dung lượng $10^9$ byte. Số cặp $\binom C2=499999500000$. Với giả định $1\,\mu s$/cặp: khoảng 5.79 ngày.
+- **Nội dung công khai dự kiến:** $C=10^6$ tài liệu, chữ ký $n=250$ thành phần, 4 byte/thành phần. Dung lượng chữ ký $10^6\cdot250\cdot4=10^9$ byte Số cặp cần so $\binom{10^6}{2}=499\,999\,500\,000$ Giả sử mỗi cặp mất $1\,\mu s$: tổng thời gian khoảng $5{,}79$ ngày. Chữ ký giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.
 - **Đầu vào và giả thiết:** Tổ hợp chập 2; byte và đơn vị thời gian.
 - **Dữ kiện, hình thức hóa và vết chạy:** V01; $10^6\cdot250\cdot4$; $499999500000\cdot10^{-6}/86400=5.78703125$. Giả định thời gian, không phép đo.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 45% là phép tính dung lượng; phải 55% là số cặp và thời gian. Đọc cùng $C$ trên hai nhánh. Năm 2 cần tách hai đại lượng có đơn vị khác; diễn giải thời gian chi tiết vào notes.

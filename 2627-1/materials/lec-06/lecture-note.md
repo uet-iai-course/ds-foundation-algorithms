@@ -24,10 +24,10 @@ Với ngưỡng chấp nhận $t\in[0,1]$, đích tìm kiếm là các cặp kh�
 Ví dụ 3.10 của MMDS xét một triệu tài liệu, mỗi chữ ký có 250 số nguyên, mỗi số chiếm 4 byte. Dung lượng chữ ký là $10^6\cdot250\cdot4=10^9$ byte. Số cặp vẫn là
 
 $$
-\binom{10^6}{2}=499999500000.
+\binom{10^6}{2}=499\,999\,500\,000.
 $$
 
-Nếu giả sử mỗi lần so cặp mất $1\,\mu s$, tổng thời gian là $499999.5$ giây, xấp xỉ $5.787$ ngày. Đây là phép tính dưới giả định thời gian mỗi cặp, không phải kết quả đo một hệ thống. Giới hạn còn lại nằm ở số cặp, ngay cả khi chữ ký vừa bộ nhớ.
+Nếu giả sử mỗi lần so cặp mất $1\,\mu s$, tổng thời gian là $499\,999{,}5$ giây, xấp xỉ $5{,}787$ ngày. Đây là phép tính dưới giả định thời gian mỗi cặp, không phải kết quả đo một hệ thống. Giới hạn còn lại nằm ở số cặp, ngay cả khi chữ ký vừa bộ nhớ.
 :::
 
 Băm nhạy cảm theo tính cục bộ (LSH) tổ chức các phép thử sao cho cặp tương đồng có khả năng được sinh cao hơn. Phân dải MinHash là trường hợp đầu tiên: dữ liệu đã được biểu diễn và lấy chữ ký; nhiệm vụ mới là tổ chức các cột thành nhóm để sinh cặp.
