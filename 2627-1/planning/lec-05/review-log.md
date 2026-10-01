@@ -1221,3 +1221,13 @@ Lượt tự động đầu bị hộp thiết lập Codex xuất hiện muộn 
 Giới hạn công cụ: phiên này không cung cấp Browser tích hợp trong trình soạn thảo Codex. Đã mở handoff qua công cụ plugin và kiểm ứng dụng bằng Chromium cục bộ, nhưng không tuyên bố đã xem trong Browser tích hợp. Không xuất PPTX/PDF từ Codex Slides và không tuyên bố một durable render run đã chạy. HTML, Markdown, outline, storyboard, nhật ký và hai CSS được lưu thêm làm Design Files; bản nguồn có thể chỉnh sửa vẫn ở kho.
 
 Điều phối viên chấp nhận bản công khai sau năm báo cáo độc lập, editor, ba lượt tái kiểm cuối và QA kỹ thuật ở trên. Không còn phát hiện bắt buộc sửa. Chỉ 16 tệp sản phẩm Bài 05 và hạ tầng liên quan được đưa vào commit; giữ nguyên thay đổi riêng của người dùng trong AGENTS, tiêu chuẩn, cấu hình và các thư mục ngoài phạm vi. `git diff --check` sạch trước phát hành. Commit và push `origin main` là bước cuối; kết quả cùng mã commit được đối chiếu từ Git khi bàn giao, không suy từ trạng thái của Codex Slides.
+
+## Duyệt từng trang ngày 01/10/2026
+
+Yêu cầu của người dùng: duyệt lần lượt từng trang, xác định trang muốn nói gì, đề xuất rồi sửa để tiêu đề ngắn gọn, học thuật; lập luận chặt; khái niệm không xuất hiện đột ngột. Sau mỗi trang, sửa mục tương ứng của `lecture-note.md` (theo `note-topic-id`), commit và push.
+
+Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) trực tiếp biên tập từng trang theo tiền lệ lượt duyệt Bài 04, tự kiểm theo `no-ai-slop`/`eval.md`, tính lại phép tính bằng phân số. Sau mỗi phần, một tác tử rà chỉ đọc (loại `fork`, kế thừa Opus 5.5) kiểm độ chính xác và mạch trên các trang đã sửa; phát hiện và quyết định ghi ở bảng rà lại cuối mục. Kiểm hiển thị: Playwright Chromium, 1600 × 900 và 390 × 844 cho deck; 1440 × 900, 390 × 844 và in cho ghi chú. Cổng 8765 đang bị máy chủ của dự án khác chiếm nên máy chủ của kho chạy ở cổng 8775 từ gốc kho.
+
+| Trang | Trang muốn nói | Quyết định | Thay đổi deck và storyboard | Ghi chú tự học |
+|---|---|---|---|---|
+| lec05-s01-01 | Tên bài, học phần và học kỳ; phạm vi MMDS §§3.1–3.3. | giữ | Tiêu đề và ghi chú đạt. | Không đổi; phần mở đầu ghi chú đã nêu cùng phạm vi. |
