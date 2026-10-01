@@ -2038,7 +2038,7 @@ Sản phẩm: bảng gồm cặp, ước lượng, Jaccard thật và sai lệch
 
 **Ghi chú diễn giả học thuật**
 
-Sáu ước lượng lần lượt 1/3, 1/3, 2/3, 2/3, 2/3, 2/3. Sáu Jaccard thật là 0, 0, 1/4, 0, 1/4, 1/4. Sai lệch tuyệt đối là 1/3, 1/3, 5/12, 2/3, 5/12, 5/12. Hai hàm đầu có va chạm nên các tập rời có thể có giá trị cực tiểu bằng nhau; bộ ba hàm này không thỏa mô hình chọn đều hoán vị. Số thành phần ít cũng không cho một ước lượng ổn định. Nguồn: MMDS 3e, Bài 3.3.3(c), §3.3.8, tr. 90–91/PDF19–20. Thời lượng dự kiến 7 phút; cả bài 15 phút.
+Sáu ước lượng theo thứ tự 12, 13, 14, 23, 24, 34 là $1/3$, $1/3$, $2/3$, $2/3$, $2/3$, $2/3$. Sáu Jaccard thật là $0$, $0$, $1/4$, $0$, $1/4$, $1/4$. Sai lệch tuyệt đối là $1/3$, $1/3$, $5/12$, $2/3$, $5/12$, $5/12$. Hai hàm đầu có va chạm nên các tập rời vẫn có thể có giá trị cực tiểu bằng nhau; bộ ba hàm này không thỏa mô hình chọn đều hoán vị. Ba thành phần cũng là một chữ ký ngắn, nên không cho ước lượng ổn định. Nguồn: MMDS 3e, Bài 3.3.3(c), §3.3.8, tr. 90–91/PDF19–20. Thời lượng dự kiến 7 phút; cả bài 15 phút.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
