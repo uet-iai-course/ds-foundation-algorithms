@@ -662,16 +662,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.8.6/Ex 3.24 tr.120–121/PDF 49–50.
 - **Ánh xạ ghi chú:** `N13`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s05-06 — Kiểm tra điều kiện của ứng dụng
+#### lec06-s05-06 — Câu hỏi về các ứng dụng
 
-- **Mục đích và vai trò:** Phát hiện điều kiện thiếu trong việc diễn giải ứng viên.
+- **Mục đích và vai trò:** Kiểm tra phần 5 bằng dữ kiện mới: tạo ứng viên và xác minh trong đối sánh thực thể, OR 512 cho vân tay, shingle từ dừng trên câu mới.
 - **Thông điệp:** Biểu diễn và bước kiểm cuối xác định ý nghĩa của kết quả.
-- **Nội dung công khai dự kiến:** Câu hỏi: Nêu bước còn thiếu sau khi hai hồ sơ khớp số điện thoại. Với phép thử ba ô vân tay, các ảnh thiếu ô được gán thùng thế nào. Quy tắc shingle theo từ dừng ở ví dụ bản tin nhằm tìm cùng văn bản hay mọi bài về cùng sự kiện?
+- **Nội dung công khai dự kiến:** Câu hỏi: Hai hồ sơ có tên “Bob S. Jomes” và “Robert Jones Jr.”, cùng địa chỉ, khác điện thoại. Xác định cặp có thành ứng viên không, qua hàm khóa nào, và bước nào quyết định hai hồ sơ cùng người. Dùng OR 512 thay cho OR 1024 với $q_F,q_T$ đã có. Tính xác suất nhận cặp khác ngón và xác suất bỏ sót cặp cùng ngón. Với từ dừng I, that, you, for, your, liệt kê các shingle có đủ hai từ theo sau trong câu “The report said that you should wait for your turn.”
 - **Đầu vào và giả thiết:** Ba cơ chế s05-01–05.
 - **Dữ kiện, hình thức hóa và vết chạy:** Không thêm dữ kiện; đối chiếu quy tắc nguyên nguồn.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba nhiệm vụ trong một khối; mỗi nhiệm vụ ghi tên miền để tránh đổi ngữ cảnh ngầm. Năm 2 phân biệt đối tượng/ứng viên/kết quả, đáp án ở notes.
 - **Kết nối vào–ra:** Ba ứng dụng→kiểm tra; tổng kết thu hồi toàn quy trình chọn và kiểm cặp.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: một số điện thoại có thể được nhiều người dùng chung, nên khớp điện thoại chỉ tạo ứng viên và cần chấm điểm hoặc xác minh hồ sơ. Nếu gom mọi ảnh thiếu ô vào một thùng, các ảnh ấy cũng va chạm dù không cùng có đủ ba ô, trái với sự kiện đang được tính xác suất. Quảng cáo dài vẫn có thể chứa từ dừng và tạo shingle; câu “I recommend that you buy Sudzo for your laundry.” là một ví dụ. Tiêu chí: phân biệt khớp khóa với cùng thực thể, giữ đúng mô hình thùng và không coi từ dừng là bộ lọc mọi quảng cáo.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: tên không trùng hoàn toàn, điện thoại khác, địa chỉ trùng, nên cặp thành ứng viên qua khóa địa chỉ. Bước chấm điểm theo ba trường và ngưỡng điểm quyết định hai hồ sơ cùng người; trùng địa chỉ không đủ. Câu 2: $1-(1-0{,}000064)^{512}\approx0{,}0322$ và $(1-0{,}004096)^{512}\approx0{,}1223$; so với OR 1024, cặp khác ngón giảm khoảng một nửa nhưng bỏ sót tăng khoảng tám lần. Câu 3: “that you should”, “you should wait”, “for your turn”; shingle bắt đầu bằng “your” chỉ có một từ theo sau trong câu. Tiêu chí: phân biệt tạo ứng viên với xác minh; dùng giá trị $q_F,q_T$ chưa làm tròn và đúng chiều của bỏ sót; chỉ bắt đầu shingle tại từ dừng.
 - **Nguồn:** B §3.8.1–6 tr.114–121; kiểm quy tắc nguồn.
 - **Ánh xạ ghi chú:** `N11,N12,N13`. **Thời lượng:** 2 phút.
 
