@@ -1389,7 +1389,7 @@ Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 40. Cập nhật từng thành phần
+### 40. Quét hàng 3 và 4
 
 - **Mã:** `lec05-s05-06`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Vết chạy kết thúc; tách tọa độ theo hàm. **Mục tiêu:** MT5.
@@ -1416,7 +1416,7 @@ $r=4$: $(f_1(4),f_2(4))=(0,3)$, chỉ cột $3$.
 
 Gạch dưới: thành phần vừa giảm. Các thành phần khác giữ nguyên.
 
-Với $S_1,S_4$: $(a,d)^{\mathsf T}\mapsto(f_1(0),f_2(3))^{\mathsf T}=(1,0)^{\mathsf T}$.
+Chữ ký của $S_1$ và $S_4$ là $(f_1(0),f_2(3))^{\mathsf T}=(1,0)^{\mathsf T}$, ứng với chữ ký định danh $(a,d)^{\mathsf T}$.
 
 **Ghi chú diễn giả học thuật**
 
