@@ -204,10 +204,10 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 <aside class="notes"><p>Trong mô hình mỗi thành phần vừa một từ máy, so bằng tốn \(O(1)\). Ước lượng duyệt tất cả \(n\) tọa độ, đếm các vị trí bằng nhau rồi chia n. Bộ nhớ chữ ký được xây một lần và được dùng lại cho nhiều cặp; chi phí xây được phân tích riêng. Phép đếm mọi cặp vẫn mang thừa số C(C−1)/2 từ đầu bài. Tăng n vừa giảm phương sai trong mô hình lý tưởng vừa tăng công việc so sánh.</p><p>Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.</p></aside>
 </section>
 <section id="lec05-s04-07" data-slide-id="lec05-s04-07" class="example-slide">
-<h2>Câu hỏi kiểm tra</h2>
-<p>Cặp \(S_1,S_4\) có \(s=2/3\). Dùng \(n=100\) hoán vị đều và độc lập.</p><p class="ex-takeaway">Câu hỏi:</p><ol><li>Tính kỳ vọng số tọa độ trùng.</li><li>Tính kỳ vọng tỷ lệ tọa độ trùng.</li><li>Nêu tác dụng của tăng \(n\) đối với phương sai và chi phí so sánh một cặp.</li></ol>
+<h2>Câu hỏi về chữ ký MinHash</h2>
+<p>Cặp \(S_1,S_4\) có \(s=2/3\). Các hoán vị chọn đều và độc lập.</p><p class="ex-takeaway">Câu hỏi:</p><ol><li>Với \(n=100\), tính kỳ vọng số tọa độ trùng.</li><li>Với \(n=100\), tính độ lệch chuẩn của \(\widehat{\mathrm{SIM}}(S_1,S_4)\).</li><li>Xác định \(n\) nhỏ nhất để độ lệch chuẩn không vượt \(0{,}02\); nêu số phép so bằng cho cặp này.</li></ol>
 <p class="ex-source">Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.</p>
-<aside class="notes"><p>Kỳ vọng số tọa độ trùng là \(200/3\), còn tỷ lệ có kỳ vọng \(2/3\). Phương sai bằng \(2/(9n)\), nên ở n=100 là \(1/450\). Tăng n giảm phương sai theo 1/n và tăng số phép so sánh một cặp theo n. Kỳ vọng số đếm không cần nguyên; công thức không bảo đảm mọi mẫu dài hơn đều cho kết quả gần s hơn.</p><p>Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.</p></aside>
+<aside class="notes"><p>Câu 1: \(ns=100\cdot2/3=200/3\); kỳ vọng của một số đếm có thể không nguyên. Câu 2: \(s(1-s)=2/9\), nên phương sai là \(2/(9\cdot100)=1/450\) và độ lệch chuẩn \(\sqrt{1/450}\approx0{,}047\). Câu 3: cần \(\sqrt{2/(9n)}\le0{,}02\), tức \(n\ge(2/9)/0{,}0004\approx555{,}6\), nên \(n=556\); so một cặp cần 556 phép so bằng. Giảm độ lệch chuẩn từ khoảng \(0{,}047\) xuống \(0{,}02\) làm số tọa độ tăng hơn năm lần. Kết luận về độ lệch chuẩn là phát biểu trên phân phối; một chữ ký dài hơn trong một lần chạy cụ thể không bảo đảm sai số nhỏ hơn.</p><p>Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.</p></aside>
 </section>
 </section>
 <section>

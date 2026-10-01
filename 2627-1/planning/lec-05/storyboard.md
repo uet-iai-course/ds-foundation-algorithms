@@ -1159,11 +1159,11 @@ Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 34. Câu hỏi kiểm tra
+### 34. Câu hỏi về chữ ký MinHash
 
 - **Mã:** `lec05-s04-07`; **phần:** 4; **note-topic-id:** `n05-08`.
 - **Mục đích và vai trò:** Kiểm tra MT4; áp dụng kỳ vọng và phương sai. **Mục tiêu:** MT4.
-- **Câu chốt:** Kỳ vọng của một số đếm và một tỷ lệ phải được trả lời với đúng đơn vị.
+- **Câu chốt:** Kỳ vọng số lần trùng là $ns$; độ lệch chuẩn $\sqrt{s(1-s)/n}$ quyết định $n$ cần chọn và chi phí so sánh tương ứng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận chi phí; 35 đặt vấn đề tính nhiều thành phần mà không lưu hoán vị lớn.
 - **Dữ kiện và vai trò số:** VD 9; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: dữ kiện s, n và giả thiết ở trên 25%; `ex-card` chứa hai nhóm nhiệm vụ ở dưới 65%; đáp án không hiện.
@@ -1175,25 +1175,23 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Cặp $S_1,S_4$ có $s=2/3$. Dùng $n=100$ hoán vị đều và độc lập.
+Cặp $S_1,S_4$ có $s=2/3$. Các hoán vị chọn đều và độc lập.
 
 Câu hỏi:
 
-- Tính kỳ vọng số tọa độ trùng.
-
-- Tính kỳ vọng tỷ lệ tọa độ trùng.
-
-- Nêu tác dụng của tăng $n$ đối với phương sai và chi phí so sánh một cặp.
+1. Với $n=100$, tính kỳ vọng số tọa độ trùng.
+2. Với $n=100$, tính độ lệch chuẩn của $\widehat{\mathrm{SIM}}(S_1,S_4)$.
+3. Xác định $n$ nhỏ nhất để độ lệch chuẩn không vượt $0{,}02$; nêu số phép so bằng cho cặp này.
 
 **Ghi chú diễn giả học thuật**
 
-Kỳ vọng số tọa độ trùng là $200/3$, còn tỷ lệ có kỳ vọng $2/3$. Phương sai bằng $2/(9n)$, nên ở n=100 là $1/450$. Tăng n giảm phương sai theo 1/n và tăng số phép so sánh một cặp theo n. Kỳ vọng số đếm không cần nguyên; công thức không bảo đảm mọi mẫu dài hơn đều cho kết quả gần s hơn.
+Câu 1: $ns=100\cdot2/3=200/3$; kỳ vọng của một số đếm có thể không nguyên. Câu 2: $s(1-s)=2/9$, nên phương sai là $2/(9\cdot100)=1/450$ và độ lệch chuẩn $\sqrt{1/450}\approx0{,}047$. Câu 3: cần $\sqrt{2/(9n)}\le0{,}02$, tức $n\ge(2/9)/0{,}0004\approx555{,}6$, nên $n=556$; so một cặp cần 556 phép so bằng. Giảm độ lệch chuẩn từ khoảng $0{,}047$ xuống $0{,}02$ làm số tọa độ tăng hơn năm lần. Kết luận về độ lệch chuẩn là phát biểu trên phân phối; một chữ ký dài hơn trong một lần chạy cụ thể không bảo đảm sai số nhỏ hơn.
 
 Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: 200/3 lần, 2/3; phương sai 2/(9n), so sánh Θ(n). Chấm đúng đơn vị và điều kiện. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+Đáp án: $200/3$; $\sqrt{1/450}pprox0{,}047$; $n=556$, 556 phép so bằng (tính lại bằng phân số). Không câu nào có đáp án trên mặt trang 31–33.
 
 ### 35. Hoán vị lớn và hàm băm
 

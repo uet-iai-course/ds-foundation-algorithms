@@ -418,11 +418,15 @@ Với $s=2/3$, phương sai là $2/(9n)$. Khi $n=100$, phương sai bằng $1/45
 Kết quả về phương sai không khẳng định rằng một chữ ký dài hơn trong một lần chạy cụ thể luôn có sai số nhỏ hơn. Các tọa độ mới vẫn là kết quả ngẫu nhiên. Cũng không được áp dụng phép cộng phương sai như trên khi các phép thử có phụ thuộc mà chưa xét các số hạng hiệp phương sai.
 
 ::: exercise Tự kiểm tra
-Nêu giả thiết thêm cần có để chuyển từ kết quả về kỳ vọng sang công thức phương sai trên. Phân biệt tác dụng của tăng $n$ đối với sai số quan sát và phương sai.
+(a) Nêu giả thiết thêm cần có để chuyển từ kết quả về kỳ vọng sang công thức phương sai trên. Phân biệt tác dụng của tăng $n$ đối với sai số quan sát và phương sai.
+
+(b) Với $s=2/3$, xác định $n$ nhỏ nhất để độ lệch chuẩn của ước lượng không vượt $0{,}02$.
 :::
 
 ::: solution Lời giải
-Công thức phương sai dùng tính độc lập của các hoán vị, ngoài tính đều của mỗi hoán vị. Tăng $n$ giảm phương sai của ước lượng trong mô hình; nó không bảo đảm sai số tuyệt đối của từng mẫu cụ thể giảm sau mỗi lần bổ sung tọa độ.
+(a) Công thức phương sai dùng tính độc lập của các hoán vị, ngoài tính đều của mỗi hoán vị. Tăng $n$ giảm phương sai của ước lượng trong mô hình; nó không bảo đảm sai số tuyệt đối của từng mẫu cụ thể giảm sau mỗi lần bổ sung tọa độ.
+
+(b) Cần $\sqrt{2/(9n)}\le0{,}02$, tức $n\ge(2/9)/0{,}0004\approx555{,}6$. Vậy $n=556$; khi đó so một cặp cần 556 phép so bằng.
 :::
 
 ## 9. Tính chữ ký bằng cách quét các hàng
