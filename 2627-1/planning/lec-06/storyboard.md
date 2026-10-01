@@ -337,7 +337,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Theo dõi phép chèn/xóa và tính khoảng cách theo LCS.
 - **Thông điệp:** Khoảng cách chỉnh sửa trong bài đếm phép chèn và xóa.
-- **Nội dung công khai dự kiến:** Khoảng cách chỉnh sửa là số thao tác ít nhất để biến chuỗi này thành chuỗi kia; mỗi bước chèn hoặc xóa một ký tự. $abcde\to acde\to acfde\to acfdeg$ Thao tácChuỗi sau thao tác Xóa bacde Chèn facfde Chèn gacfdeg $d_{\rm edit}(x,y)=|x|+|y|-2L=5+6-2\cdot4=3$ Dãy con chung dài nhất là acde, dài L=4; dãy con không cần liên tiếp.
+- **Nội dung công khai dự kiến:** Khoảng cách chỉnh sửa là số thao tác ít nhất để biến chuỗi này thành chuỗi kia; mỗi bước chèn hoặc xóa một ký tự. Biến $x=$ `abcde` thành $y=$ `acfdeg`: Thao tác Chuỗi sau thao tác Xóa b `acde` Chèn f `acfde` Chèn g `acfdeg` $L$ là độ dài dãy con chung dài nhất (không cần liên tiếp); ở đây là `acde`, $L=4$. $d_{\rm edit}(x,y)=|x|+|y|-2L=5+6-2\cdot4=3$
 - **Đầu vào và giả thiết:** Chuỗi, dãy con, độ dài; chỉ chèn/xóa.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5, V07; $5+6-8=3$; dãy con $acde$. Không có phép thay thế một bước.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Vết bốn trạng thái trên 70% ngang, mỗi mũi tên ghi thao tác; công thức dưới 30%. Năm 2 thấy dữ liệu còn lại trước công thức; proof hai cận và định nghĩa LCS đầy đủ trong notes.
