@@ -114,7 +114,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Kết quả: tạo tập shingle và tính Jaccard; giải thích xác suất trùng MinHash; tính chữ ký và phân tích chi phí. Kiến thức đầu vào: tập hợp, chuỗi, băm, vector và xác suất cơ bản.
+Kết quả: tạo tập shingle và tính Jaccard; chứng minh xác suất trùng MinHash bằng Jaccard; ước lượng Jaccard từ chữ ký; tính chữ ký và đếm chi phí. Kiến thức đầu vào: tập hợp, chuỗi, băm, vector và xác suất cơ bản.
 
 **Ghi chú diễn giả học thuật**
 
