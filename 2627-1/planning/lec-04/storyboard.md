@@ -1876,7 +1876,7 @@ Phần tử $(L^\mathsf T)_{ji}=L_{ij}$ biểu diễn cạnh $i\to j$; khi nhân
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Với vector không âm $q$ có $\max_iq_i>0$:
+Phép chia trong các vết trên là chuẩn hóa theo thành phần lớn nhất. Với vector không âm $q$ có $\max_iq_i>0$:
 $$N(q)=\frac{q}{\max_iq_i}.$$
 
 Chuẩn hóa giữ tỷ lệ và thứ hạng các thành phần; giá trị lớn nhất trở thành 1.
@@ -1897,6 +1897,8 @@ Ví dụ: $N\big((1,2,2,2,1)^\mathsf T\big)=(1/2,1,1,1,1/2)^\mathsf T$; tổng k
 **Ví dụ, phiếu số và hình thức hóa:** HT6/VD4 a1; giá trị 0,1 và hòa có ý nghĩa, giữ nguyên.
 
 **Kết nối vào–ra:** Hai phép nhân → phép N xác định → thuật toán lặp đủ điều kiện vào/ra.
+
+**Quyết định 01/10/2026:** sửa nhẹ — giữ vị trí vì quy tắc chuẩn hóa đã nêu ở s05-02; trang này hình thức hóa $N(q)$, tính chất và trường hợp biên. Câu mở nối với các phép chia đã dùng trong vết chạy.
 
 **Nguồn và vị trí:** NG1 §5.5.2, tr.205–207; ca không cạnh suy trực tiếp từ phép chuẩn hóa.
 
