@@ -1646,7 +1646,7 @@ Trang uy tín cung cấp thông tin về một chủ đề; trang trung tâm ch�
 Đồ thị trang và liên kết được coi là đầu vào đã chọn; hai vai trò được đánh giá từ cấu trúc liên kết. Một mức quan trọng duy nhất không phân biệt được hai vai trò này: trang danh sách không thay thế nội dung một học phần, còn trang học phần không thay thế danh sách. Uy tín trong HITS không đồng nghĩa với điểm tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc; ví dụ nhỏ cho phép kiểm từng phép cập nhật.
 <!-- public-notes:end -->
 
-### lec04-s05-02 — Điểm trung tâm và điểm uy tín
+### lec04-s05-02 — Định nghĩa tương hỗ của hai điểm
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác và dữ kiện chạy tay; MT4. Đầu vào: hai vai trò. Sản phẩm: đọc quy tắc cộng theo hai chiều trên G5.
 
@@ -1658,11 +1658,13 @@ Trang uy tín cung cấp thông tin về một chủ đề; trang trung tâm ch�
 [Hình: Đồ thị G5: A tới B, C, D; B tới A, D; C tới E; D tới B, C; E không có cạnh ra.]
 Đồ thị G5
 
-Mỗi trang $i$ có điểm trung tâm $h_i$ và điểm uy tín $a_i$.
+Uy tín cộng trung tâm của các trang trỏ tới; trung tâm cộng uy tín của các trang được trỏ tới:
 
-Hai điểm hỗ trợ lẫn nhau: trang nhận liên kết từ các trung tâm có điểm cao sẽ có uy tín cao; trang trỏ tới các trang uy tín cao sẽ có điểm trung tâm cao.
+$$\tilde a_j=\sum_{i\to j}h_i,\qquad \tilde h_i=\sum_{i\to j}a_j.$$
 
-Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,B,C,D,E.
+Chỉ cộng thì giá trị tăng không giới hạn; sau mỗi bước chia cho thành phần lớn nhất.
+
+E là nút cụt nhưng không cần dịch chuyển. Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,…,E.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** G5 trái55%, hai quy tắc và khởi tạo phải45%. E đặt dưới C; cạnh C→E thay cạnh C→A của ví dụ G4 và có nhãn rõ.
@@ -1677,6 +1679,8 @@ Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,B,C,D,E.
 
 **Kết nối vào–ra:** Vai trò danh mục/nội dung → quan hệ hai điểm → phép cộng uy tín từ h ở vòng đầu.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “Định nghĩa tương hỗ của hai điểm” (không trùng s05-01); thay câu chữ “hỗ trợ lẫn nhau” bằng hai công thức cộng và quy tắc chuẩn hóa kèm lý do của MMDS §5.5.2 trước khi chạy tay (G5); nêu E là nút cụt nhưng không cần dịch chuyển (MMDS Ví dụ 5.14).
+
 **Nguồn và vị trí:** NG1 §5.5.2, Ví dụ 5.14, Hình 5.18, tr.205–206/PDF31–32.
 
 **Thời lượng:** 2 phút.
@@ -1684,7 +1688,7 @@ Khởi tạo $h^0=(1,1,1,1,1)^\mathsf T$ theo thứ tự A,B,C,D,E.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-G5 có năm trang và tám cạnh, khác G4 ở việc C trỏ E thay vì A. Uy tín cộng điểm của các nguồn liên kết, còn trung tâm cộng điểm của các đích liên kết. Mỗi trang đều có cả hai điểm; hub và authority là hai vai trò, không phải hai tập trang loại trừ nhau. Phép cập nhật luân phiên hiện thực hóa quan hệ hỗ trợ lẫn nhau: $h$ quyết định $a$, rồi $a$ mới quyết định $h$ mới. Khởi tạo toàn $1$ là quy ước thuật toán sách; tổng ban đầu bằng $5$ và không mang ý nghĩa xác suất.
+G5 có năm trang và tám cạnh, khác G4 ở việc C trỏ E thay vì A. Uy tín cộng điểm của các nguồn liên kết, còn trung tâm cộng điểm của các đích liên kết. Mỗi trang đều có cả hai điểm; hub và authority là hai vai trò, không phải hai tập trang loại trừ nhau. Phép cập nhật luân phiên hiện thực hóa quan hệ hỗ trợ lẫn nhau: $h$ quyết định $a$, rồi $a$ mới quyết định $h$ mới. Khởi tạo toàn $1$ là quy ước thuật toán sách; tổng ban đầu bằng $5$ và không mang ý nghĩa xác suất. Theo MMDS Ví dụ 5.14, nút cụt và bẫy liên kết không ngăn phép lặp HITS hội tụ tới một cặp vector có nghĩa, nên không cần dịch chuyển hay sửa đồ thị. Sách cũng nêu phương án chuẩn hóa để tổng bằng $1$; bài dùng chuẩn hóa theo thành phần lớn nhất như các ví dụ của sách.
 <!-- public-notes:end -->
 
 ### lec04-s05-03 — Lượt cập nhật uy tín thứ nhất
