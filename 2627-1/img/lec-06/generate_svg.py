@@ -112,7 +112,7 @@ def main():
         if i<5:b+=text(x+50,275,f'k = {i-2}',24)
     b+=line(35,170,635,170,arrow=True)+text(315,35,'Biên: ka − δ',30)
     b+=f'<circle cx="265" cy="170" r="8" fill="{BLUE}"/><circle cx="320" cy="170" r="8" fill="{ORANGE}"/>'
-    b+=text(265,140,'u · x',26)+text(335,140,'u · y',26)+line(265,305,320,305,ORANGE)+text(292,343,'ℓ',30,ORANGE)
+    b+=text(260,140,'u·x',24)+text(312,140,'u·y',24)+line(265,305,320,305,ORANGE)+text(292,343,'ℓ',30,ORANGE)
     svg('chia-khoang-dich.svg',670,365,'Chia khoảng trên trục hình chiếu','Các khoảng nửa mở có độ rộng a; biên có dạng ka−delta. Hai hình chiếu cách nhau ell, có thể bị biên tách.',b)
 
     # Quan hệ hình chiếu trong mặt phẳng, vẽ lại Hình 3.14 MMDS.

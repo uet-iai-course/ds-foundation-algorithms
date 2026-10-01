@@ -530,16 +530,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.4 tr.111–113; Bài 3.7.5(a) tr.114/PDF 43, phần minh họa đã duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 2 phút.
 
-#### lec06-s04-07 — Họ chiếu với dịch ngẫu nhiên
+#### lec06-s04-07 — Họ chiếu có dịch ngẫu nhiên
 
-- **Mục đích và vai trò:** Đặc tả nguồn ngẫu nhiên và mã thùng Euclid.
+- **Mục đích và vai trò:** Định nghĩa họ chiếu có dịch ngẫu nhiên cho khoảng cách Euclid trong mặt phẳng, xuất phát từ hạn chế của biên cố định ở s04-06.
 - **Thông điệp:** Dịch đều của biên khoảng cho xác suất theo khoảng cách hình chiếu.
-- **Nội dung công khai dự kiến:** Trong $\mathbb R^2$:$u$ đều hướng đơn vị;$a>0$;$\delta\sim\operatorname{Unif}[0,a)$ độc lập. $h_{u,\delta}(x)=\lfloor(u\cdot x+\delta)/a\rfloor$. Cùng $(u,\delta)$ cho mọi điểm. Biên trên trục hình chiếu:$ka-\delta$.
+- **Nội dung công khai dự kiến:** Biên cố định luôn tách hai điểm gần nằm hai phía biên; họ chiếu chọn ngẫu nhiên cả hướng chiếu và vị trí biên. [Hình: Trục hình chiếu chia khoảng độ rộng a, biên ka trừ delta; hai hình chiếu có khoảng cách ell.] Trong $\mathbb R^2$: $u$ là hướng đơn vị chọn đều; $a>0$. $\delta$ chọn đều trên $[0,a)$, độc lập với $u$. $h_{u,\delta}(x)=\left\lfloor\frac{u\cdot x+\delta}{a}\right\rfloor$ Mã $k$ ứng với khoảng $[ka-\delta,(k+1)a-\delta)$ trên trục $u$; cùng $(u,\delta)$ cho mọi điểm.
 - **Đầu vào và giả thiết:** Phép chiếu chia khoảng, hàm sàn; nguồn ngẫu nhiên của họ.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT10; u, hướng; δ, dịch; a, độ rộng; D=2. Không dùng t cho dịch.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hình trục chiếu với biên dịch ở trên 60%; công thức và ba tham số dưới 40%. Năm 2 phân biệt đổi hướng với dời lưới; phần attribution Datar ở notes, không đưa p-stable.
 - **Kết nối vào–ra:** Thực thi một trục→họ ngẫu nhiên; cố định hướng để tính xác suất theo dịch.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Phép dịch tránh việc một biên cố định luôn tách một cặp gần nằm hai phía biên ấy. Công thức lượng tử hóa với dịch đều được đối chiếu Datar §3.2; hướng đơn vị đều trong mặt phẳng và cận hai chiều là mô hình MMDS được hoàn thiện giả thiết.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Trục cố định của s04-06 là trường hợp $u$ bằng một vector cơ sở và $\delta=0$. Chọn $\delta$ đều làm vị trí biên trên trục không ưu tiên điểm nào, nên một cặp gần chỉ bị tách với xác suất nhỏ. Hàm vẫn dùng chung một cặp $(u,\delta)$ cho mọi điểm; nếu mỗi điểm có phép dịch riêng thì so mã không còn ý nghĩa. Công thức lượng tử hóa với dịch đều đối chiếu Datar §3.2; hướng đơn vị đều trong mặt phẳng và cận hai chiều theo mô hình MMDS, với giả thiết được nêu đầy đủ.
 - **Nguồn:** B §3.7.4 tr.111–113; D §3.2PDF 3; bổ sung đã được điều phối viên duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 2.5 phút.
 
