@@ -424,11 +424,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B Ex 3.19–20 tr.106–108/PDF 35–37.
 - **Ánh xạ ghi chú:** `N07`. **Thời lượng:** 3 phút.
 
-#### lec06-s03-12 — Cơ chế thực hiện phép ghép
+#### lec06-s03-12 — Thực hiện AND rồi OR bằng phân dải
 
 - **Mục đích và vai trò:** Nối biểu thức logic với lưu trữ và số phép thử.
 - **Thông điệp:** Với AND rồi OR, mỗi nhóm AND tạo khóa tuple và bước OR hợp các tập cặp.
-- **Nội dung công khai dự kiến:** Trường hợp AND rồi OR: ghép đồng thời $r$ phép thử trong mỗi nhóm, rồi nhận khi ít nhất một trong $b$ nhóm trùng. Tính $br$ giá trị cơ sở; tạo $b$ tuple; tra $b$ bảng; hợp cặp và xác minh. Ngân sách tính và lưu tăng theo số phép thử; số ứng viên vẫn phụ thuộc kích thước thùng.
+- **Nội dung công khai dự kiến:** [Hình: Mười sáu phép thử chia bốn nhóm AND; phép OR hợp cặp của bốn nhóm.] AND $r$ rồi OR $b$ chính là phân dải: tính $br$ giá trị → tạo $b$ tuple → tra $b$ bảng → hợp cặp. Số phép thử đo chi phí tính hàm; kích thước thùng quyết định số lượt phát cặp.
 - **Đầu vào và giả thiết:** Giả mã phân dải và hai phép ghép.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT7; sơ đồ thực hiện AND_r rồi OR_b. Với V09, đây là AND 4 rồi OR 4. Hai thứ tự đều dùng 16 giá trị, nhưng OR rồi AND phải hợp cặp trong từng nhóm OR rồi giao các tập cặp của những nhóm OR; chi phí phát và kiểm cặp vẫn phụ thuộc Q, K.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ 4 bước ngang trên; bảng nhỏ thao tác/số lượng dưới. Năm 2 chuyển ký hiệu xác suất thành thao tác lập trình quen; không tạo bảo đảm tốc độ từ số hàm.
