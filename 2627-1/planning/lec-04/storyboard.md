@@ -1415,7 +1415,7 @@ Cùng $v$ nên cùng nghiệm với ví dụ theo chủ đề; chỉ ý nghĩa c
 B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu tiên chúng. A, C không thuộc tập hạt giống nhưng vẫn nhận điểm qua các liên kết thật. Giá trị của hai trang này không xác nhận hoặc bác bỏ riêng lẻ tính tin cậy của nội dung. Để đánh giá phần thay đổi so với điểm toàn cục, cần tính một vector PageRank nền theo cùng $\beta$ và cùng chuẩn hóa.
 <!-- public-notes:end -->
 
-### lec04-s04-04 — So sánh PageRank và TrustRank
+### lec04-s04-04 — Hiệu giữa PageRank và TrustRank
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chuẩn bị chỉ số; MT3. Đầu vào: rho. Sản phẩm: đối chiếu hai vector trên cùng mô hình.
 
@@ -1424,7 +1424,7 @@ B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Cùng G4, $\beta=4/5$ và tổng điểm bằng 1. PageRank dùng $u$; TrustRank dùng $v_T$, $T=\{B,D\}$.
+Ý tưởng: đo phần PageRank của trang không đến từ tập tin cậy. Cùng G4, $\beta=4/5$: $r$ dùng dịch chuyển đều $u$, $\rho$ dùng $v_T$.
 
 | Trang | PageRank $r_i$ | TrustRank $\rho_i$ | Hiệu $r_i-\rho_i$ |
 | --- | --- | --- | --- |
@@ -1433,9 +1433,7 @@ Cùng G4, $\beta=4/5$ và tổng điểm bằng 1. PageRank dùng $u$; TrustRank
 | C | $19/84$ | $19/105$ | $19/420$ |
 | D | $19/84$ | $59/210$ | $-23/420$ |
 
-Khi chuyển PageRank → TrustRank, hiệu dương ứng với điểm giảm; hiệu âm ứng với điểm tăng; hiệu bằng $0$ ứng với điểm không đổi.
-
-Hiệu điểm không xác định thay đổi thứ hạng hoặc nhãn rác.
+A, C giảm điểm khi chuyển sang TrustRank ($r_i-\rho_i>0$); B, D tăng điểm ($r_i-\rho_i<0$).
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Bảng bốn trang giữ các giá trị chính xác; đoạn dưới diễn giải ba dấu theo chiều PageRank → TrustRank và giới hạn kết luận về thứ hạng, nhãn rác. Bỏ bảng dấu riêng để dành khoảng cho nguồn và chân trang, giữ thang chữ chung.
@@ -1449,6 +1447,8 @@ Hiệu điểm không xác định thay đổi thứ hạng hoặc nhãn rác.
 **Ví dụ, phiếu số và hình thức hóa:** VD3: bảng tính lại đồng nhất beta; đây không phải số chép từ Hình 5.17. Hiệu B,D âm hợp lệ.
 
 **Kết nối vào–ra:** Hai vector cùng mô hình → hiệu điểm → chuẩn hóa hiệu theo r_i.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng đại lượng mới (hiệu); dòng mở nêu ý tưởng MMDS §5.4.5 (phần PageRank không đến từ tập tin cậy) để cột hiệu có nhu cầu; câu chốt đọc thẳng kết quả trên G4; câu “hiệu không xác định thứ hạng hoặc nhãn rác” chuyển vào ghi chú.
 
 **Nguồn và vị trí:** NG1 §5.4.5/VD5.12, tr.203; bảng dẫn xuất trên G4 với beta 4/5, khác bảng nguyên nguồn.
 
