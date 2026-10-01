@@ -236,7 +236,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 - **Mã:** `lec05-s01-07`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Mục đích và vai trò:** Hình thức hóa; áp dụng định nghĩa có điều kiện. **Mục tiêu:** MT1.
-- **Câu chốt:** Jaccard là tỷ số kích thước giao trên kích thước hợp.
+- **Câu chốt:** Jaccard là tỷ số kích thước giao trên kích thước hợp; giá trị 0 ứng với hai tập rời, giá trị 1 ứng với hai tập bằng nhau.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận hai số đếm; trang 08 phân biệt các ý nghĩa của phần tử tùy ứng dụng.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: công thức `ex-equation` chiếm nửa trên; hình VD 2 thu gọn có nhãn 3/8 chiếm 40% trái dưới, hai trường hợp biên chiếm 60% phải dưới.
@@ -260,11 +260,11 @@ $$
 \mathrm{SIM}(S,T)=\frac38
 $$
 
-$0\le\mathrm{SIM}(S,T)\le1$.
+$0\le\mathrm{SIM}(S,T)\le1$: bằng 0 khi hai tập rời nhau, bằng 1 khi $S=T$.
 
 **Ghi chú diễn giả học thuật**
 
-Giao là tập con của hợp nên tỷ số nằm trong đoạn từ 0 đến 1. Hai tập rời có hợp khác rỗng cho giá trị 0. Hai tập bằng nhau và khác rỗng cho giá trị 1. Khi cả hai tập rỗng, biểu thức là $0/0$; định nghĩa hiện tại không áp dụng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.
+Giao là tập con của hợp nên tỷ số không vượt 1. Hai tập rời có tử số bằng 0; khi $S=T\ne\varnothing$, tử và mẫu bằng nhau. Khi cả hai tập rỗng, biểu thức là $0/0$, nên định nghĩa đòi hợp khác rỗng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.
 
 Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.
 

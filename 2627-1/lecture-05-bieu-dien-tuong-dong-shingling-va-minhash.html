@@ -46,9 +46,9 @@
 </section>
 <section id="lec05-s01-07" data-slide-id="lec05-s01-07" class="example-slide">
 <h2>Độ tương đồng Jaccard</h2>
-<p>Hai tập hữu hạn \(S,T\) với \(S\cup T\ne\varnothing\).</p><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}\]</p><div class="ex-grid2 "><div><figure class="mh-figure mh-short"><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hợp có tám phần tử; giao có ba phần tử."></figure></div><div><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac38\]</p><p class="ex-takeaway">\(0\le\mathrm{SIM}(S,T)\le1\).</p></div></div>
+<p>Hai tập hữu hạn \(S,T\) với \(S\cup T\ne\varnothing\).</p><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}\]</p><div class="ex-grid2 "><div><figure class="mh-figure mh-short"><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hợp có tám phần tử; giao có ba phần tử."></figure></div><div><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac38\]</p><p class="ex-takeaway">\(0\le\mathrm{SIM}(S,T)\le1\): bằng 0 khi hai tập rời nhau, bằng 1 khi \(S=T\).</p></div></div>
 <p class="ex-source">MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.</p>
-<aside class="notes"><p>Giao là tập con của hợp nên tỷ số nằm trong đoạn từ 0 đến 1. Hai tập rời có hợp khác rỗng cho giá trị 0. Hai tập bằng nhau và khác rỗng cho giá trị 1. Khi cả hai tập rỗng, biểu thức là \(0/0\); định nghĩa hiện tại không áp dụng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.</p><p>Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.</p></aside>
+<aside class="notes"><p>Giao là tập con của hợp nên tỷ số không vượt 1. Hai tập rời có tử số bằng 0; khi \(S=T\ne\varnothing\), tử và mẫu bằng nhau. Khi cả hai tập rỗng, biểu thức là \(0/0\), nên định nghĩa đòi hợp khác rỗng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.</p><p>Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.</p></aside>
 </section>
 <section id="lec05-s01-08" data-slide-id="lec05-s01-08" class="example-slide">
 <h2>Tập hợp trong ứng dụng</h2>
