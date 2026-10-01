@@ -82,16 +82,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4 tr.91–92, §3.4.3 tr.95–96; P5, commit 5530bd6, đoạn ký hiệu.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s01-05 — Kiểm tra bài toán tìm cặp
+#### lec06-s01-05 — Câu hỏi về bài toán tìm cặp
 
 - **Mục đích và vai trò:** Phân biệt giảm kích thước từng đối tượng với giảm số cặp.
-- **Thông điệp:** Cần chọn cặp trước bước xác minh chính xác.
-- **Nội dung công khai dự kiến:** Câu hỏi: Với $10^6$ tài liệu và chữ ký 250 thành phần, 4 byte/thành phần, tính dung lượng chữ ký. Tính số cặp không thứ tự. Chữ ký ngắn đã loại được giới hạn này chưa? Phân biệt Jaccard thật $s$ và tỷ lệ trùng chữ ký $\widehat s$.
+- **Thông điệp:** Số cặp tăng bậc hai theo số tài liệu; tập ứng viên giảm số phép xác minh; quyết định cuối dựa trên Jaccard gốc, không dựa trên tỷ lệ trùng chữ ký.
+- **Nội dung công khai dự kiến:** Câu hỏi: Với $C=10^5$ tài liệu và $1\,\mu s$ mỗi cặp, tính số cặp và tổng thời gian. So với $C=10^6$, số cặp giảm bao nhiêu lần? Trong kho $10^6$ tài liệu, bộ tạo ứng viên trả $10^6$ cặp. Số phép xác minh giảm bao nhiêu lần so với xét mọi cặp? Cặp $S_1,S_4$ của Bài 05 có $\widehat s=1$ trên hai thành phần chữ ký và $s=2/3$. Đại lượng nào quyết định cặp có đạt ngưỡng $t$?
 - **Đầu vào và giả thiết:** V01 và hợp đồng s01-04.
 - **Dữ kiện, hình thức hóa và vết chạy:** Dữ kiện nguồn giữ nguyên; không yêu cầu công thức LSH chưa học.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Một khối nhiệm vụ với ba yêu cầu đánh số: dung lượng, số cặp, phân biệt s và tỷ lệ chữ ký. Giữ dữ kiện triệu tài liệu; đáp án trong notes. Ba yêu cầu xác nhận tiên quyết trước phân dải.
 - **Kết nối vào–ra:** Hợp đồng→tự kiểm; nhu cầu tập ứng viên dẫn vào phân dải.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: dung lượng chữ ký là $10^6\cdot250\cdot4=10^9$ byte. Số cặp vẫn là $\binom{10^6}{2}=499999500000$; chữ ký ngắn giảm dữ liệu mỗi cặp nhưng chưa giảm số cặp. $s$ là Jaccard tính trên tập gốc; $\widehat s$ là tỷ lệ thành phần trùng của chữ ký quan sát được, nên phụ thuộc các phép thử đã lấy. Tiêu chí: phân biệt dung lượng với số cặp và phân biệt tương đồng thật với ước lượng.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: $\binom{10^5}{2}=4\,999\,950\,000$ cặp, khoảng $5\,000$ giây, tức gần 1,4 giờ; giảm số tài liệu 10 lần làm số cặp giảm khoảng 100 lần vì số cặp tăng bậc hai. Câu 2: $499\,999\,500\,000/10^6\approx5\cdot10^5$ lần. Câu 3: quyết định dựa trên $s$, Jaccard của hai tập gốc, tính ở bước xác minh; $\widehat s$ chỉ là tỷ lệ trùng của chữ ký đã lấy, ở đây bằng 1 dù $s=2/3$. Tiêu chí: thấy tăng bậc hai, phân biệt số phép xác minh với số cặp, phân biệt tương đồng thật với ước lượng.
 - **Nguồn:** B Ex 3.10/ §3.4 tr.91–92; câu kiểm tra trực tiếp dữ kiện nguồn.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 2 phút.
 

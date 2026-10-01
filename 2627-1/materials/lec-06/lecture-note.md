@@ -36,11 +36,13 @@ Băm nhạy cảm theo tính cục bộ (LSH) tổ chức các phép thử sao c
 
 
 ::: exercise
-Câu hỏi: Với kho một triệu tài liệu và chữ ký đã vừa bộ nhớ, giới hạn nào vẫn còn? Nêu tập trung gian cần tạo trước khi kiểm Jaccard gốc.
+Câu hỏi: (a) Với kho một triệu tài liệu và chữ ký đã vừa bộ nhớ, giới hạn nào vẫn còn? Nêu tập trung gian cần tạo trước khi kiểm Jaccard gốc. (b) Với $C=10^5$ tài liệu và $1\,\mu s$ mỗi cặp, tính số cặp và tổng thời gian.
 :::
 
 ::: solution
-Số cặp vẫn là $\binom{10^6}{2}=499999500000$. Cần tạo tập ứng viên $\mathcal C$, rồi chỉ kiểm Jaccard gốc trên các cặp trong tập này. Chữ ký ngắn giảm dữ liệu mỗi cặp nhưng chưa giảm số cặp.
+(a) Số cặp vẫn là $\binom{10^6}{2}=499\,999\,500\,000$. Cần tạo tập ứng viên $\mathcal C$, rồi chỉ kiểm Jaccard gốc trên các cặp trong tập này. Chữ ký ngắn giảm dữ liệu mỗi cặp nhưng chưa giảm số cặp.
+
+(b) $\binom{10^5}{2}=4\,999\,950\,000$ cặp, khoảng $5\,000$ giây, gần 1,4 giờ. Giảm số tài liệu 10 lần làm số cặp giảm khoảng 100 lần.
 :::
 
 
