@@ -534,3 +534,15 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s07-03 | (nhẹ) Thiếu dòng nguồn trên mặt trang; thẻ storyboard ghi nhầm “Slide kiểm tra riêng của phần”. | sửa | Thêm dòng nguồn MMDS Bài 5.5.2 như s07-01, s07-02; sửa thẻ thành “Bài tập nguồn”. |
 | lec04-s05-06 (storyboard) | (nhẹ) Khối công khai dùng `pmatrix` không nhãn, gộp công thức; khác HTML. | sửa storyboard | Chép lại khối công khai theo HTML (ma trận có nhãn A–E, hai công thức, bảng đối chiếu). |
 | lec04-s07-01…03 (ghi chú) | Báo riêng: ghi chú ba trang bài tập có “Thời lượng dự kiến: 20 phút”; AGENTS.md vừa yêu cầu ghi thời lượng bài tập “trong storyboard và ghi chú” vừa cấm thời lượng trong ghi chú diễn giả. | giữ | Giữ theo quy định riêng cho phần bài tập (mục “Đối tượng và thời lượng”), là quy định cụ thể hơn; thời lượng không hiển thị trên mặt trang. Nêu điểm mâu thuẫn để người dùng quyết định nếu muốn bỏ. |
+
+### Kiểm định cuối lượt duyệt từng trang, 01/10/2026
+
+| Hạng mục | Kết quả |
+|---|---|
+| Cấu trúc | 52 trang (49 giảng, 3 bài tập), bảy phần 6/13/8/7/11/4/3; mục lục s01-02 khớp bảy phần; điều hướng phím mũi tên đúng. |
+| Hiển thị | Playwright Chromium chụp đủ 52 trang ở 1600 × 900 và 390 × 844: không tràn khung, không cuộn ngang, không lỗi KaTeX, không lỗi console; cỡ chữ nhỏ nhất 18 px. Điều phối viên xem ảnh các trang đã sửa. Ảnh lưu ngoài kho. |
+| Mã nội bộ | `s0x-yy` chỉ còn trong `id` và `data-slide-id`; không có trên mặt trang hay ghi chú. |
+| Rà lại | Ba lượt rà chỉ đọc (S01–S02, S03–S04, S05–S07 và toàn deck); mọi phát hiện nghiêm trọng và trung bình đã xử lý, phát hiện nhẹ không áp dụng có lý do trong bảng trên. Phép tính được tính lại bằng phân số. |
+| Phạm vi tệp | Chỉ HTML Bài 04, ba tệp planning, `luu-vector-theo-chu-de.svg`, `hinh-5-16-cum-thao-tung.svg`, `hinh-5-1-kiem-tra.svg`. CSS, index và `lecture-note.md` không đổi. `hai-nhom-canh-noi-bo.svg`, `dong-gop-hits.svg`, `hinh-5-18-kiem-tra.svg` không còn được deck tham chiếu, giữ trong kho. |
+| Ghi chú tự học | Ký hiệu và thứ tự khái niệm tương thích; chưa có câu nối “bước nhảy ngẫu nhiên” của Bài 03 và các câu hỏi kiểm tra mới chỉ có trong deck. Cần một lượt sửa ghi chú riêng nếu muốn đồng bộ. |
+| Giới hạn | Từ s01-06, các trang được điều phối viên sửa trực tiếp sau khi tác tử chỉnh sửa bị người dùng dừng; bù lại bằng ba lượt rà lại độc lập theo phần. Không chạy lại đủ năm vai rà độc lập cho toàn deck. |
