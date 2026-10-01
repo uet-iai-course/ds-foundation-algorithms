@@ -311,7 +311,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Chuyển tương đồng tập sang khoảng cách và đọc bước chứng minh tam giác.
 - **Thông điệp:** MinHash biểu diễn khoảng cách Jaccard bằng xác suất khác nhau.
-- **Nội dung công khai dự kiến:** Các tập hữu hạn không rỗng; cặp đã có: $d_J(S_1,S_4)=1-2/3=1/3$. $d_J(A,B)=1-\frac{|A\cap B|}{|A\cup B|}=\Pr[h(A)\ne h(B)]$ Dùng cùng một MinHash lý tưởng $h$ cho cả ba tập: $\{h(A)\ne h(C)\}\subseteq\{h(A)\ne h(B)\}\cup\{h(B)\ne h(C)\}$ $d_J(A,C)\le d_J(A,B)+d_J(B,C)$ Lấy xác suất rồi chặn hợp; không cần độc lập giữa hai biến cố.
+- **Nội dung công khai dự kiến:** $d_J(A,B)=1-\mathrm{SIM}(A,B)=\Pr[h(A)\ne h(B)]$ Các tập hữu hạn, không rỗng. Ví dụ: $d_J(S_1,S_4)=1-2/3=1/3$. Bất đẳng thức tam giác, dùng cùng một MinHash lý tưởng $h$ cho ba tập: $\{h(A)\ne h(C)\}\subseteq\{h(A)\ne h(B)\}\cup\{h(B)\ne h(C)\}$ $d_J(A,C)\le d_J(A,B)+d_J(B,C)$ Nếu $h(A)=h(B)$ và $h(B)=h(C)$ thì $h(A)=h(C)$; lấy xác suất và chặn hợp, không cần độc lập.
 - **Đầu vào và giả thiết:** Tiên đề metric; định lý MinHash Bài 05 và chặn hợp.
 - **Dữ kiện, hình thức hóa và vết chạy:** Cặp S1,S4 có SIM=2/3 → d_J=1/3; d_J(A,B)=Pr[h(A)≠h(B)] bằng lấy bù định lý MinHash; cùng h cho ba tập → bao hàm sự kiện → chặn hợp → tam giác.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Một chuỗi suy luận toàn chiều rộng: ví dụ cặp đã học, nhận diện khoảng cách với xác suất khác băm, bao hàm sự kiện, rồi cận tam giác. Giữ miền không rỗng và cùng h; không thêm hình trang trí.

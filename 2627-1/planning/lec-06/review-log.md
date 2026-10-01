@@ -365,3 +365,4 @@ Cách làm như lượt Bài 05 (01/10/2026): điều phối viên (phiên Claud
 | lec06-s02-12 | (nhẹ) Dòng nguồn ghi chú khác mặt trang. | sửa | Thống nhất “Ví dụ 3.12; §3.4.3”. |
 | lec06-s02-12 (SVG) | (nhẹ) Nhãn trục `xac-suat-phan-dai.svg` dùng dấu chấm thập phân. | giữ, ghi ngoại lệ | Hình sinh bằng `generate_svg.py` dùng chung cho nhiều SVG; không sửa hình trong lượt duyệt văn bản này. Nêu để xử lý trong một lượt sửa hình riêng. |
 | lec06-s02-13 | (nhẹ) $s_{cd}$ chưa định nghĩa trong ghi chú. | sửa | Thêm “với $s_{cd}=\mathrm{SIM}(S_c,S_d)$”. |
+| lec06-s03-03 | $d_J=1-\mathrm{SIM}=\Pr[h(A)\ne h(B)]$; bất đẳng thức tam giác qua bao hàm biến cố và chặn hợp. | sửa nhẹ | Giữ tiêu đề. Sắp lại thứ tự định nghĩa → ví dụ $d_J(S_1,S_4)=1/3$ → chứng minh (trước đó ví dụ đứng trước định nghĩa). Câu chốt nêu lý do của phép bao hàm (trước chỉ trong ghi chú). | Không đổi; mục 5 có cùng lập luận. |
