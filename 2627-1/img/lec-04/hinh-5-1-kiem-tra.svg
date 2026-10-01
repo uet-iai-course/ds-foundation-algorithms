@@ -8,7 +8,7 @@
   </defs>
   <rect x="0" y="0" width="620" height="440" fill="#edf4ff"/>
   <path d="M 182,90 L 438,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="A" data-target="B" />
-  <path d="M 480,48 Q 310,-20 140,48" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="B" data-target="A" stroke-dasharray="8 3" />
+  <path d="M 480,48 Q 310,-20 140,48" fill="none" stroke="#B15A2B" stroke-width="6" marker-end="url(#h51-arw)" data-source="B" data-target="A" />
   <path d="M 140,132 L 140,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="A" data-target="C" />
   <path d="M 98,350 Q 0,220 98,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="C" data-target="A" />
   <path d="M 480,132 L 480,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#h51-arw)" data-source="B" data-target="D" />
