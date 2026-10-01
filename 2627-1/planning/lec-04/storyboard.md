@@ -198,27 +198,27 @@ Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector 
 
 **Quyết định duyệt trang 01/10/2026:** sửa. Tiêu đề cũ dùng “xếp hạng cá nhân” trước khi khái niệm được nêu; thêm dòng phương án trực tiếp ở đầu trang rồi mới nêu quy mô và phương án thay thế. Khối kết luận nêu cái giá mất một phần độ chính xác theo MMDS §5.3.1. Dùng “$k$ vector”, chưa đưa ký hiệu trọng số $w_j$.
 
-### lec04-s01-05 — Ba mục tiêu của xếp hạng liên kết
+### lec04-s01-05 — Ba yêu cầu xếp hạng liên kết
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Phân biệt vấn đề; MT1, MT3–MT5. Đầu vào: điểm toàn cục. Sản phẩm: ánh xạ yêu cầu sang loại điểm cần tính.
 
-**Luận điểm trung tâm:** Ý nghĩa đầu ra xếp hạng phải được xác định trước khi chọn phương pháp.
+**Luận điểm trung tâm:** Mỗi yêu cầu xuất phát từ một hạn chế của PageRank toàn cục và cho điểm xếp hạng một ý nghĩa khác.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-| Yêu cầu | Thông tin cần biểu diễn |
+| Hạn chế của PageRank toàn cục | Yêu cầu đối với điểm |
 |---|---|
-| Xếp hạng theo chủ đề | Mức quan trọng trong một ngữ cảnh |
-| Giảm ảnh hưởng liên kết rác | Mức điểm liên hệ với tập trang tin cậy |
-| Phân biệt vai trò liên kết | Trang cung cấp thông tin và trang dẫn tới thông tin |
+| Cùng truy vấn ở hai ngữ cảnh nhận cùng một thứ tự | Điểm phụ thuộc chủ đề |
+| Liên kết có thể được tạo ra để làm tăng điểm một trang | Điểm ít chịu tác động của liên kết thao túng |
+| Một điểm duy nhất không tách trang dẫn tới thông tin khỏi trang cung cấp thông tin | Hai điểm cho hai vai trò |
 
-Đầu ra cần tạo quyết định ý nghĩa của điểm xếp hạng.
+Mỗi yêu cầu cho điểm xếp hạng một ý nghĩa riêng và cần một phép tính riêng.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Bảng hai cột chiếm khoảng 75% diện tích; một câu kết ở dưới. Ba hàng giữ cùng độ cao, không thêm công thức.
 
-**Trọng tâm và thứ tự đọc:** Đọc yêu cầu ở trái rồi thông tin tương ứng ở phải; đối chiếu cả ba trên cùng tiêu chí.
+**Trọng tâm và thứ tự đọc:** Đọc hạn chế ở trái rồi yêu cầu tương ứng ở phải; mỗi hàng là động cơ của một phần sau.
 
 **Lý do phù hợp sinh viên năm 2:** Bảng giúp sinh viên tránh coi mọi thuật toán đều đo một khái niệm chất lượng duy nhất; chưa yêu cầu thuật ngữ sẽ học sau.
 
@@ -226,17 +226,19 @@ Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector 
 
 **Ví dụ, phiếu số và hình thức hóa:** Không có số; phân loại theo NG1 §5.3–5.5.
 
-**Kết nối vào–ra:** Giới hạn của một vector → ba mục tiêu; trước khi thay mô hình cần kiểm chiều truyền điểm.
+**Kết nối vào–ra:** Giới hạn của một vector toàn cục → ba yêu cầu, ánh xạ sang S02, S03–S04, S05; hai yêu cầu đầu dùng lại phép lặp với $M_0$ nên trang sau ôn phép truyền điểm.
 
-**Nguồn và vị trí:** NG1 §5.3.1, tr.195; §5.4, tr.199; §5.5, tr.204–205.
+**Nguồn và vị trí:** NG1 §5.3.1, tr.195; §5.4.1, tr.199–200; §5.5.1, tr.204–205.
 
 **Thời lượng:** 2 phút.
 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Điểm theo chủ đề thay đổi ngữ cảnh ưu tiên; điểm dựa trên tập tin cậy gắn với thông tin đánh giá bên ngoài đồ thị. Hai điểm HITS mô tả hai vai trò của liên kết. Các yêu cầu này có thể cùng xuất hiện trong một hệ thống, nhưng phép tính và ý nghĩa đầu ra cần được phân biệt.
+Hạn chế thứ nhất đã xuất hiện ở truy vấn “jaguar”; PageRank theo chủ đề đổi nơi đến của bước nhảy ngẫu nhiên để điểm phụ thuộc chủ đề. Hạn chế thứ hai nằm ngay trong cơ chế truyền điểm: MMDS gọi một tập trang được lập ra để tăng PageRank của một trang là cụm thao túng liên kết (spam farm). Phần cơ chế liên kết rác tính mức khuếch đại của cụm này; phần TrustRank và Spam Mass dùng đánh giá bên ngoài đồ thị để hạn chế tác động đó. Hạn chế thứ ba là PageRank chỉ có một chiều quan trọng: trang danh sách học phần có giá trị vì dẫn tới các trang học phần, còn trang học phần có giá trị vì chứa nội dung. HITS gán mỗi trang hai điểm cho hai vai trò này. Ba yêu cầu có thể cùng xuất hiện trong một hệ thống; phép tính và ý nghĩa đầu ra của chúng vẫn khác nhau. Hai yêu cầu đầu dùng lại phép lặp PageRank với ma trận $M_0$ của Bài 03; HITS dùng cùng đồ thị nhưng cộng điểm theo cạnh.
 <!-- public-notes:end -->
+
+**Quyết định duyệt trang 01/10/2026:** sửa. Hai yêu cầu liên kết rác và hai vai trò trước đây thiếu động cơ, cụm “tập trang tin cậy” xuất hiện trước khái niệm và câu kết tối nghĩa. Bảng mới đặt hạn chế của PageRank toàn cục cạnh yêu cầu, theo MMDS §5.3.1, §5.4.1 (spam farm) và §5.5.1 (một chiều quan trọng); bỏ “tập trang tin cậy”; ghi chú ánh xạ từng hạn chế sang phần tương ứng.
 
 ### lec04-s01-06 — Kiểm tra chiều truyền điểm
 
