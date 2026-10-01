@@ -429,7 +429,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 - **Mã:** `lec05-s02-04`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Thuật toán và đúng; đọc vòng lặp và bất biến. **Mục tiêu:** MT2.
-- **Câu chốt:** Chèn lần lượt các cửa sổ hợp lệ thu được đúng tập shingle.
+- **Câu chốt:** Một lượt qua các vị trí bắt đầu, chèn từng cửa sổ vào tập băm, cho đúng $S_k(D)$ với $O(1+wk)$ thời gian kỳ vọng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận đặc tả; trang 14 dùng giới hạn số mẫu để bàn chọn k.
 - **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `ex-grid2` cân đôi: giả mã trái, bất biến và số cửa sổ phải; mô hình tạo/băm/chèn khóa và tổng $O(1+wk)$ kỳ vọng đặt ngay dưới.
@@ -448,19 +448,19 @@ for i = 0, …, ℓ − k:
 return S
 ```
 
-Bất biến: tập S chứa đúng các cửa sổ đã xét.
+Đầu vào: chuỗi $D$ dài $\ell$, số nguyên $k\ge1$. Đầu ra: $S_k(D)$.
 
-$$
-w=\max(0,\ell-k+1)
-$$
+Bất biến sau $t$ lần lặp:
 
-$w$ là số cửa sổ; phần tử trùng chỉ được giữ một lần.
+$$S=\{D[j:j+k]:0\le j<t\}$$
+
+Vòng lặp chạy $w=\max(0,\ell-k+1)$ lần; nếu $\ell<k$, kết quả là $\varnothing$.
 
 Tạo, băm và chèn khóa dài $k$: $O(k)$ kỳ vọng mỗi cửa sổ. Tổng: $O(1+wk)$ kỳ vọng; lưu chuỗi: $O(k|S|)$.
 
 **Ghi chú diễn giả học thuật**
 
-Sau i lần chèn, tập chứa đúng các chuỗi con tại i vị trí đầu đã duyệt. Bước kế tiếp thêm đúng một cửa sổ; phần tử trùng được tập giữ một lần. Khi hết miền chỉ số, tất cả cửa sổ hợp lệ đã được xét. Nếu tạo và băm trực tiếp một đoạn k ký tự tốn O(k), tổng xử lý cửa sổ là O(wk) kỳ vọng với tập băm có thao tác chèn kỳ vọng theo độ dài khóa; bộ nhớ lưu các chuỗi phân biệt là O(k|S|), chưa kể đầu vào. Không mặc định O(ℓ) nếu k thay đổi.
+Khi $t=0$, hai vế của bất biến đều rỗng. Mỗi lần lặp thêm đúng cửa sổ bắt đầu tại $t$; phép chèn vào tập giữ một bản của chuỗi trùng, nên bất biến được giữ. Sau $w$ lần lặp, vế phải trùng với định nghĩa $S_k(D)$; khi $\ell<k$, miền lặp rỗng nên kết quả là $\varnothing$. Tạo và băm một đoạn $k$ ký tự tốn $O(k)$; với tập băm có thao tác chèn kỳ vọng tỷ lệ với độ dài khóa, tổng là $O(1+wk)$ kỳ vọng. Bộ nhớ lưu các chuỗi phân biệt là $O(k|S|)$, chưa kể đầu vào. Hệ số $k$ không bỏ được khi $k$ là tham số thay đổi.
 
 Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.
 

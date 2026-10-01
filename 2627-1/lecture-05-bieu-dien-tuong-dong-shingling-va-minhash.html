@@ -87,9 +87,9 @@
 <div class="ex-grid2 "><div><pre class="ex-code"><code class="language-plaintext" data-trim>S ← ∅
 for i = 0, …, ℓ − k:
     chèn D[i:i+k] vào S
-return S</code></pre></div><div><p>Bất biến: tập S chứa đúng các cửa sổ đã xét.</p><p class="ex-equation">\[w=\max(0,\ell-k+1)\]</p><p>\(w\) là số cửa sổ; phần tử trùng chỉ được giữ một lần.</p></div></div><p class="ex-note">Tạo, băm và chèn khóa dài \(k\): \(O(k)\) kỳ vọng mỗi cửa sổ. Tổng: \(O(1+wk)\) kỳ vọng; lưu chuỗi: \(O(k|S|)\).</p>
+return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), số nguyên \(k\ge1\). Đầu ra: \(S_k(D)\).</p><p>Bất biến sau \(t\) lần lặp:</p><p class="ex-equation">\[S=\{D[j:j+k]:0\le j&lt;t\}\]</p><p>Vòng lặp chạy \(w=\max(0,\ell-k+1)\) lần; nếu \(\ell&lt;k\), kết quả là \(\varnothing\).</p></div></div><p class="ex-note">Tạo, băm và chèn khóa dài \(k\): \(O(k)\) kỳ vọng mỗi cửa sổ. Tổng: \(O(1+wk)\) kỳ vọng; lưu chuỗi: \(O(k|S|)\).</p>
 <p class="ex-source">Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.</p>
-<aside class="notes"><p>Sau i lần chèn, tập chứa đúng các chuỗi con tại i vị trí đầu đã duyệt. Bước kế tiếp thêm đúng một cửa sổ; phần tử trùng được tập giữ một lần. Khi hết miền chỉ số, tất cả cửa sổ hợp lệ đã được xét. Nếu tạo và băm trực tiếp một đoạn k ký tự tốn O(k), tổng xử lý cửa sổ là O(wk) kỳ vọng với tập băm có thao tác chèn kỳ vọng theo độ dài khóa; bộ nhớ lưu các chuỗi phân biệt là O(k|S|), chưa kể đầu vào. Không mặc định O(ℓ) nếu k thay đổi.</p><p>Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.</p></aside>
+<aside class="notes"><p>Khi \(t=0\), hai vế của bất biến đều rỗng. Mỗi lần lặp thêm đúng cửa sổ bắt đầu tại \(t\); phép chèn vào tập giữ một bản của chuỗi trùng, nên bất biến được giữ. Sau \(w\) lần lặp, vế phải trùng với định nghĩa \(S_k(D)\); khi \(\ell&lt;k\), miền lặp rỗng nên kết quả là \(\varnothing\). Tạo và băm một đoạn \(k\) ký tự tốn \(O(k)\); với tập băm có thao tác chèn kỳ vọng tỷ lệ với độ dài khóa, tổng là \(O(1+wk)\) kỳ vọng. Bộ nhớ lưu các chuỗi phân biệt là \(O(k|S|)\), chưa kể đầu vào. Hệ số \(k\) không bỏ được khi \(k\) là tham số thay đổi.</p><p>Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.</p></aside>
 </section>
 <section id="lec05-s02-05" data-slide-id="lec05-s02-05" class="example-slide">
 <h2>Độ dài shingle</h2>
