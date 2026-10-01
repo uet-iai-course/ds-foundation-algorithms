@@ -920,11 +920,11 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến th
 
 Đáp án: một thứ tự có $c$ trước $a$ và $d$; xác suất $1/2$ (kiểm lại bằng liệt kê 120 hoán vị); $b$ thuộc loại $Z$. Không câu nào có đáp án trên mặt trang 23–26 (trang 23 chỉ có thứ tự $(b,e,a,d,c)$, trang 25 chỉ có $x=2,y=1$ của $S_1,S_4$). Tập $S_1'$ là dữ kiện biến thể, ghi ở dòng nguồn.
 
-### 28. Ví dụ chữ ký MinHash
+### 28. Chữ ký từ nhiều thứ tự
 
 - **Mã:** `lec05-s04-01`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Mục đích và vai trò:** Ví dụ trước hình thức hóa; đếm tọa độ trùng. **Mục tiêu:** MT4.
-- **Câu chốt:** Hai phép chọn phần tử tạo một chữ ký hai thành phần cho mỗi tập.
+- **Câu chốt:** Một phép thử chỉ cho trùng hoặc không; hai phép chọn phần tử tạo chữ ký hai thành phần và một tỷ lệ trùng để so với Jaccard.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận một phép thử ở 27; trang 29 đặt tên vector và ma trận vừa có.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Bốn tập ở trên; bảng hai thứ tự cố định và bốn cột chữ ký; vector cụ thể $(a,d)^{\mathsf T}$ cùng tỷ lệ và Jaccard ở dưới. Ký hiệu tổng quát $\sigma$ dành cho trang 29.
@@ -935,6 +935,8 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến th
 - **Thời lượng:** 2 phút.
 
 **Nội dung công khai dự kiến**
+
+Một MinHash chỉ cho kết quả trùng hoặc không trùng; lặp với nhiều thứ tự rồi đếm tỷ lệ trùng.
 
 $S_1=\{a,d\}$, $S_2=\{c\}$, $S_3=\{b,d,e\}$, $S_4=\{a,c,d\}$.
 
