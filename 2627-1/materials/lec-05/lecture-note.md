@@ -587,11 +587,15 @@ Thuật toán đi qua các hàng một lần. Đếm trên là mô hình thao t�
 Việc $n<R$ chỉ so sánh số hàng. Ma trận đặc trưng có ô nhị phân, còn chữ ký thường có giá trị nhiều bit; do đó không thể suy dung lượng bit giảm chỉ từ số hàng. Ví dụ ở tr. 81 minh họa tập mã khoảng 200.000 byte được thay bằng chữ ký 1.000 byte. Sách nêu rằng khi đó ước lượng thường lệch không quá vài phần trăm. Có thể đối chiếu với mục 8: với mã 4 byte, 1.000 byte ứng với $n=250$ thành phần; do $s(1-s)\le1/4$, độ lệch chuẩn trong mô hình lý tưởng không vượt $1/(2\sqrt{250})\approx0{,}032$. Đó là phát biểu về phân phối, không phải bảo đảm rằng mọi chữ ký 1.000 byte đạt một mức sai số định trước.
 
 ::: exercise Tự kiểm tra
-Với dữ liệu Ví dụ 3.8, nêu số lần khởi tạo, tính hàm băm, kiểm ô khi dùng ma trận đặc và lấy min. Xác định phần nào biến mất nếu đầu vào đã là danh sách cột có $1$ theo hàng.
+(a) Với dữ liệu Ví dụ 3.8, nêu số lần khởi tạo, tính hàm băm, kiểm ô khi dùng ma trận đặc và lấy min. Xác định phần nào biến mất nếu đầu vào đã là danh sách cột có $1$ theo hàng.
+
+(b) Quét các hàng của Ví dụ 3.8 theo thứ tự ngược $r=4,3,\ldots,0$. Ghi trạng thái chữ ký sau $r=4$ và $r=3$, rồi giải thích vì sao ma trận cuối không đổi.
 :::
 
 ::: solution Lời giải
-Các số lần lần lượt là $nC=8$, $nR=10$, $RC=20$ và $nL=18$. Với danh sách đã xây sẵn, không cần 20 phép kiểm ô của ma trận đặc; vẫn cần khởi tạo, tính băm và cập nhật các ô $1$.
+(a) Các số lần lần lượt là $nC=8$, $nR=10$, $RC=20$ và $nL=18$. Với danh sách đã xây sẵn, không cần 20 phép kiểm ô của ma trận đặc; vẫn cần khởi tạo, tính băm và cập nhật các ô $1$.
+
+(b) Hàng $4$ ($e$) chỉ thuộc $S_3$ và cho $(0,3)$, nên sau $r=4$ chỉ cột 3 có $(0,3)$. Hàng $3$ ($d$) cho $(4,0)$ ở các cột 1, 3, 4, nên sau $r=3$ bốn cột là $(4,0)$, $(+\infty,+\infty)$, $(0,0)$, $(4,0)$. Sau cả năm hàng, ma trận vẫn là $\begin{pmatrix}1&3&0&1\\0&2&0&0\end{pmatrix}$. Mỗi ô là cực tiểu của cùng một tập ứng viên; phép min giao hoán và kết hợp nên thứ tự quét chỉ đổi trạng thái trung gian.
 :::
 
 ## 11. Giới hạn của hàm băm và trường hợp biên

@@ -1579,11 +1579,11 @@ Với modulo 5, hệ số 1 và 3 trong ví dụ khả nghịch nên hai hàm l�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 46. Câu hỏi kiểm tra
+### 46. Câu hỏi về tính chữ ký
 
 - **Mã:** `lec05-s05-12`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Mục đích và vai trò:** Kiểm tra MT4–MT5; kết quả, cập nhật và phép đếm. **Mục tiêu:** MT4, MT5.
-- **Câu chốt:** Đánh giá chữ ký cần đối chiếu ước lượng, phép cập nhật và chi phí.
+- **Câu chốt:** Đọc ước lượng từ ma trận chữ ký, kiểm tính không phụ thuộc thứ tự quét, và đếm chi phí khi đổi $n$.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn; 47 tổng hợp kết quả cho tình huống mở bài.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Hai cột cân đôi: chữ ký kết quả và $R,C,n,L$ bên trái; nhãn Câu hỏi cùng ba nhiệm vụ bên phải. Nhiệm vụ 2 nêu chữ ký của tập, không đồng nhất tập với vector.
@@ -1604,21 +1604,19 @@ $R=5$, $C=4$, $n=2$, $L=9$.
 
 Câu hỏi:
 
-- Tính ước lượng cặp $1$–$4$, $1$–$3$; so với Jaccard thật $2/3$, $1/4$.
-
-- Giải thích phép min của chữ ký của $S_4$ đang là $(1,1)$ với ứng viên $(3,2)$.
-
-- Tính tổng số phép min và nêu căn cứ.
+1. Từ bảng, tính ước lượng của cặp $S_3,S_4$ và Jaccard thật của cặp này.
+2. Quét ngược $r=4,3,\ldots,0$. Ghi trạng thái sau $r=4$ và $r=3$; so sánh ma trận cuối.
+3. Thêm một hàm thứ ba ($n=3$), dùng danh sách cột có 1. Đếm số lần khởi tạo, tính băm và lấy min.
 
 **Ghi chú diễn giả học thuật**
 
-Cặp 1–4 trùng hai trong hai tọa độ nên ước lượng 1, khác 2/3. Cặp 1–3 trùng tọa độ thứ hai nên ước lượng 1/2, khác 1/4. min(1,3)=1 và min(1,2)=1 nên chữ ký của $S_4$ giữ $(1,1)$ khi xét hàng 2. Mỗi trong L=9 ô 1 thực hiện n=2 phép min, tổng 18; con số này bao gồm các lần không đổi giá trị. Kết quả cố định không phủ định phát biểu kỳ vọng dưới giả thiết lý tưởng.
+Câu 1: $\sigma(S_3)=(0,0)^{\mathsf T}$, $\sigma(S_4)=(1,0)^{\mathsf T}$ trùng tọa độ thứ hai nên ước lượng là $1/2$; $S_3\cap S_4=\{d\}$, $S_3\cup S_4=\{a,b,c,d,e\}$, nên Jaccard thật là $1/5$. Câu 2: hàng 4 ($e$) chỉ thuộc $S_3$ và cho $(0,3)$, nên sau $r=4$ chỉ cột 3 có $(0,3)$; hàng 3 ($d$) cho $(4,0)$ ở cột 1, 3, 4, nên sau $r=3$ các cột 1, 3, 4 là $(4,0)$, $(0,0)$, $(4,0)$, cột 2 còn $(+\infty,+\infty)$. Kết thúc vẫn là $(1,0)$, $(3,2)$, $(0,0)$, $(1,0)$: trạng thái trung gian khác nhưng cực tiểu cuối không đổi vì phép min giao hoán và kết hợp. Câu 3: khởi tạo $nC=12$, tính băm $nR=15$, lấy min $nL=3\cdot9=27$; không có phép kiểm ô vì danh sách đã có.
 
 Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: 1 và 1/2; S4 giữ (1,1);18 phép min. Chấm rõ tỷ lệ cùng tọa độ, min không tăng, mỗi ô 1 gây n phép min. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+Đáp án: $1/2$ so với $1/5$; sau $r=4$: cột 3 là $(0,3)$; sau $r=3$: $(4,0),(+\infty,+\infty),(0,0),(4,0)$; ma trận cuối không đổi (kiểm bằng chương trình); 12, 15, 27. Không câu nào có đáp án trên mặt trang 38–45 (trang 40 chỉ nêu cặp $S_1,S_4$, trang 43 chỉ có $n=2$).
 
 ### 47. Biểu diễn tài liệu gần trùng
 
