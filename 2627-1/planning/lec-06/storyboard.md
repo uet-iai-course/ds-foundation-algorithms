@@ -136,11 +136,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B Ex 3.8 tr.85–86/PDF 14–15; áp dụng §3.4.1 tr.92–93; P5, commit 5530bd6.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 
-#### lec06-s02-03 — Thùng của dải thứ nhất
+#### lec06-s02-03 — Thùng của dải 1
 
 - **Mục đích và vai trò:** Chèn bốn mã tài liệu theo khóa dải đầu.
 - **Thông điệp:** Khóa đầy đủ giữ đúng nhóm trong một dải.
-- **Nội dung công khai dự kiến:** Dải 1 có $(1,3,0,1)$. Bảng:$(1,(1))\mapsto[1,4]$;$(1,(3))\mapsto[2]$;$(1,(0))\mapsto[3]$. Cặp phát:$(1,4)$.
+- **Nội dung công khai dự kiến:** Tài liệu Giá trị dải 1 1 1 2 3 3 0 4 1 Khóa (dải, tuple) Danh sách mã $(1,(1))$ 1, 4 $(1,(3))$ 2 $(1,(0))$ 3 Cặp phát ở dải 1: $(1,4)$. Lần chèn tài liệu 4 tạo thùng có hai phần tử; thùng đơn không phát cặp.
 - **Đầu vào và giả thiết:** V02, tuple một thành phần.
 - **Dữ kiện, hình thức hóa và vết chạy:** Khởi tạo thùng rỗng; chèn 1→thùng 1: [1]; chèn 4→thùng 1: [1,4]; thùng đơn không phát cặp.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ma trận cố định trái 45%; bảng khóa/danh sách/cặp phải 55%. Mũi tên nhãn “chèn 4” nối ô 1 với danh sách[1,4]. Năm 2 theo được một thao tác và phần giữ nguyên; lịch chèn đủ ở notes.
