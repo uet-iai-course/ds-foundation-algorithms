@@ -674,7 +674,7 @@ Có $k$ chủ đề. Từ đây $j=1,\ldots,k$ chỉ chủ đề, $i$ chỉ tran
 | Ký hiệu | Vai trò |
 | --- | --- |
 | $v^{(j)}\in\mathbb R^n$ | Phân phối dịch chuyển đầu vào của chủ đề $j$ |
-| $r^{(j)}\in\mathbb R^n$ | Vector PageRank hội tụ của chủ đề $j$ trên $n$ trang |
+| $r^{(j)}\in\mathbb R^n$ | Điểm cố định PageRank của chủ đề $j$ trên $n$ trang |
 
 Mỗi chủ đề dùng cùng $\bar M$ và $\beta$:
 $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$

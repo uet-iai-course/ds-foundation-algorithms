@@ -470,3 +470,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s01-06 | (nhẹ) Nét đứt mang hai nghĩa: tô sáng cạnh dữ liệu B→A ở trang này nhưng chỉ bước không phải cạnh dữ liệu ở s02-01. | sửa SVG | `hinh-5-1-kiem-tra.svg`: cạnh B→A đổi từ nét đứt sang nét đậm; văn bản thay thế cập nhật. Nét đứt từ đây chỉ dùng cho bước không phải cạnh dữ liệu. |
 | lec04-s02-01 | (nhẹ) $S$ trên mặt trang chưa được gọi tên. | sửa | “dịch chuyển tới một trang trong $S$” → “dịch chuyển tới tập chủ đề $S$”. |
 | lec04-s02-08 | (nhẹ) “thu hẹp khoảng cách ít nhất theo hệ số $\beta$” mơ hồ. | sửa | Đổi thành “Khoảng cách sau cập nhật không vượt $\beta$ lần khoảng cách trước (tính co)”. |
+| lec04-s02-09 | (nhẹ) “Vector PageRank hội tụ” dễ đọc thành tính chất của dãy lặp. | sửa | Đổi thành “Điểm cố định PageRank của chủ đề $j$ trên $n$ trang”. |
