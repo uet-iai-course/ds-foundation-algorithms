@@ -64,7 +64,7 @@ Tập hợp phải gắn với một cách chọn phần tử cụ thể. Trong 
 Tuyến chính dùng tập hợp, vì vậy số lần một phần tử xuất hiện không được lưu. Biến thể đa tập của sách có quy ước khác và được trình bày riêng ở mục 12.
 
 ::: exercise Tự kiểm tra
-(a) Với hai tập của Hình 3.1, thêm vào $T$ hai phần tử không thuộc $S$. Tính lại Jaccard.
+(a) Với hai tập của Hình 3.1, thêm vào $T$ hai phần tử mới, không thuộc $S$. Tính lại Jaccard.
 
 (b) Giải thích vì sao độ dài của hai chuỗi chưa đủ để xác định Jaccard giữa hai văn bản.
 :::

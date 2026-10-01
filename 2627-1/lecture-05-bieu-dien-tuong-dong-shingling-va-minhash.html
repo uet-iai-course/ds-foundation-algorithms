@@ -18,7 +18,7 @@
 <h2>Nội dung</h2>
 <ul><li>Tài liệu gần trùng và độ tương đồng Jaccard</li><li>Shingling văn bản</li><li>MinHash theo hoán vị</li><li>Chữ ký MinHash</li><li>Tính chữ ký bằng hàm băm</li><li>Tổng kết</li><li>Bài tập vận dụng</li></ul>
 
-<aside class="notes"><p>Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các hàng. Phần bài tập dùng năm bài của sách.</p></aside>
+<aside class="notes"><p>Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các phần tử. Phần bài tập dùng năm bài của sách.</p></aside>
 </section>
 <section id="lec05-s01-03" data-slide-id="lec05-s01-03" class="example-slide">
 <h2>Mục tiêu và kiến thức đầu vào</h2>
@@ -40,9 +40,9 @@
 </section>
 <section id="lec05-s01-06" data-slide-id="lec05-s01-06" class="example-slide">
 <h2>Giao và hợp của hai tập</h2>
-<p>Khi mỗi tài liệu được biểu diễn bằng một tập phần tử, phần văn bản chung trở thành phần tử chung.</p><div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T."></figure></div><div><p class="ex-equation">\[|S\cap T|=3\]</p><p class="ex-equation">\[|S\cup T|=2+3+3=8\]</p><p class="ex-takeaway">Lượng chung cần được so với kích thước hợp.</p></div></div>
+<p>Khi mỗi tài liệu được biểu diễn bằng một tập phần tử, phần văn bản chung trở thành phần tử chung.</p><div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T."></figure></div><div><p class="ex-equation">\[|S\cap T|=3\]</p><p class="ex-equation">\[|S\cup T|=2+3+3=8\]</p><p class="ex-takeaway">Jaccard đặt lượng chung trong quy mô của hợp.</p></div></div>
 <p class="ex-source">Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p>
-<aside class="notes"><p>Hình vẽ lại Hình 3.1: hai phần tử chỉ thuộc \(S\), ba phần tử thuộc cả hai tập, ba phần tử chỉ thuộc \(T\). Hợp đếm mỗi phần tử một lần, nên \(|S\cup T|=2+3+3=8\); tổng \(|S|+|T|=5+6=11\) đếm ba phần tử giao hai lần. Kích thước giao một mình chưa đủ: ba phần tử chung trong hai tập nhỏ khác với ba phần tử chung trong hai tập rất lớn. Chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Cách chọn phần tử cho văn bản được xây dựng ở phần shingling. Diện tích vùng tròn không biểu diễn số lượng.</p><p>Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p></aside>
+<aside class="notes"><p>Hình vẽ lại Hình 3.1: hai phần tử chỉ thuộc \(S\), ba phần tử thuộc cả hai tập, ba phần tử chỉ thuộc \(T\). Hợp đếm mỗi phần tử một lần, nên \(|S\cup T|=2+3+3=8\); tổng \(|S|+|T|=5+6=11\) đếm ba phần tử giao hai lần. Kích thước giao một mình chưa đủ, vì ba phần tử chung trong hai tập nhỏ khác với ba phần tử chung trong hai tập rất lớn. Chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Cách chọn phần tử cho văn bản được xây dựng ở phần shingling. Diện tích vùng tròn không biểu diễn số lượng.</p><p>Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p></aside>
 </section>
 <section id="lec05-s01-07" data-slide-id="lec05-s01-07" class="example-slide">
 <h2>Độ tương đồng Jaccard</h2>
@@ -58,15 +58,15 @@
 </section>
 <section id="lec05-s01-09" data-slide-id="lec05-s01-09" class="example-slide">
 <h2>Câu hỏi về độ tương đồng Jaccard</h2>
-<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hình có ba phần tử thuộc giao và tám phần tử thuộc hợp."></figure></div><div><p class="ex-takeaway">Câu hỏi:</p><ol><li>Thêm vào \(T\) hai phần tử không thuộc \(S\). Tính lại \(\mathrm{SIM}(S,T)\).</li><li>Một cách tính cho \(3/(5+6)\). Chỉ ra đại lượng bị đếm sai.</li><li>Xác định điều còn phải quy định để áp dụng công thức cho hai văn bản.</li></ol></div></div>
+<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hình có ba phần tử thuộc giao và tám phần tử thuộc hợp."></figure></div><div><p class="ex-takeaway">Câu hỏi:</p><ol><li>Thêm vào \(T\) hai phần tử mới, không thuộc \(S\). Tính lại \(\mathrm{SIM}(S,T)\).</li><li>Một lời giải lấy mẫu số \(5+6\) và cho \(3/11\). Chỉ ra đại lượng bị đếm sai.</li><li>Hai văn bản cùng dài 1000 ký tự. Giải thích vì sao dữ kiện này chưa xác định được Jaccard của chúng.</li></ol></div></div>
 <p class="ex-source">Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p>
-<aside class="notes"><p>Câu 1: giao vẫn có 3 phần tử, hợp có 10, nên \(\mathrm{SIM}=3/10\); giá trị giảm vì mẫu số tăng còn tử số giữ nguyên. Câu 2: \(5+6\) là \(|S|+|T|\), đếm ba phần tử giao hai lần; mẫu số đúng là \(|S\cup T|=8\). Câu 3: cần quy tắc chuyển mỗi chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp có độ dài cố định; độ dài chuỗi tự nó không xác định giao và hợp.</p><p>Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p></aside>
+<aside class="notes"><p>Câu 1: giao vẫn có 3 phần tử, hợp có 10, nên \(\mathrm{SIM}=3/10\); giá trị giảm vì mẫu số tăng còn tử số giữ nguyên. Câu 2: \(5+6\) là \(|S|+|T|\), đếm ba phần tử giao hai lần; mẫu số đúng là \(|S\cup T|=8\). Câu 3: độ dài chuỗi không cho biết phần tử nào thuộc giao hay hợp; cần quy tắc chuyển mỗi chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp có độ dài cố định.</p><p>Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p></aside>
 </section>
 </section>
 <section>
 <section id="lec05-s02-01" data-slide-id="lec05-s02-01" class="example-slide">
 <h2>Biểu diễn văn bản bằng tập shingle</h2>
-<div class="ex-card"><p>Một \(k\)-shingle là một đoạn gồm \(k\) ký tự liên tiếp của tài liệu. Tài liệu được biểu diễn bằng tập các \(k\)-shingle xuất hiện trong nó.</p></div><ul><li>Thay một ký tự chỉ làm đổi các cửa sổ chứa ký tự đó, nhiều nhất \(k\) cửa sổ.</li><li>Câu hoặc cụm từ giữ nguyên ở hai phiên bản tạo shingle chung, kể cả khi thứ tự câu thay đổi.</li></ul>
+<div class="ex-card"><p>Một \(k\)-shingle là một đoạn gồm \(k\) ký tự liên tiếp của tài liệu, đọc qua một cửa sổ dài \(k\). Tài liệu được biểu diễn bằng tập các \(k\)-shingle xuất hiện trong nó.</p></div><ul><li>Thay một ký tự chỉ làm đổi các cửa sổ chứa ký tự đó, nhiều nhất \(k\) cửa sổ.</li><li>Câu hoặc cụm từ giữ nguyên ở hai phiên bản tạo shingle chung, kể cả khi thứ tự câu thay đổi.</li></ul>
 <p class="ex-source">MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.</p>
 <aside class="notes"><p>Mở đầu §3.2, sách nêu rằng hai tài liệu chung những câu hoặc cụm từ ngắn sẽ có nhiều phần tử chung trong tập shingle, kể cả khi các câu ấy xuất hiện theo thứ tự khác. Thay ký tự ở vị trí \(i\) chỉ đổi những cửa sổ bắt đầu từ \(i-k+1\) đến \(i\), tức nhiều nhất \(k\) cửa sổ; mọi cửa sổ nằm trọn trong phần giữ nguyên vẫn chung cho hai phiên bản. Shingle giữ thứ tự ký tự bên trong mỗi đoạn con, còn tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.</p><p>Nguồn: MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.</p></aside>
 </section>

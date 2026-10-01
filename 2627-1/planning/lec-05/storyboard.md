@@ -92,7 +92,7 @@ Tài liệu gần trùng và độ tương đồng Jaccard; Shingling văn bản
 
 **Ghi chú diễn giả học thuật**
 
-Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các hàng. Phần bài tập dùng năm bài của sách.
+Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các phần tử. Phần bài tập dùng năm bài của sách.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
@@ -199,12 +199,12 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 ### 06. Giao và hợp của hai tập
 
 - **Mã:** `lec05-s01-06`; **phần:** 1; **note-topic-id:** `n05-02`.
-- **Mục đích và vai trò:** Trực giác và ví dụ; đếm giao và hợp. **Mục tiêu:** MT1.
+- **Mục đích và vai trò:** Nối tài liệu với tập phần tử; trực giác và ví dụ đếm giao, hợp trước định nghĩa. **Mục tiêu:** MT1.
 - **Câu chốt:** Khi tài liệu là tập phần tử, phần văn bản chung là giao; lượng chung cần được so với kích thước hợp.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu đại lượng mỗi cặp; trang 07 gọi tên và hình thức hóa tỷ lệ này.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: SVG giao–hợp chiếm 70% thân, căn giữa; hai nhãn đếm đặt sát vùng giao và mép hợp; chú thích một dòng chiếm 15% dưới.
-- **Trọng tâm và thứ tự đọc:** Vùng giao → toàn bộ hợp → hai số đếm 3 và 8.
+- **Bố cục đã chọn:** `example-slide`: câu nối tài liệu → tập ở đầu trang; `ex-grid2` với SVG Hình 3.1 bên trái, hai phép đếm và câu chốt bên phải.
+- **Trọng tâm và thứ tự đọc:** Câu nối → ba vùng của hình → giao 3, hợp 8 → nhu cầu chia cho hợp.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên năm 2 đã biết tập hợp nhưng có thể đếm lặp phần giao; các chấm có vị trí cố định giúp kiểm lại mẫu số trước khi đọc tỷ số.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B Ví dụ 3.1, Hình 3.1, §3.1.1 tr. 74–75.
@@ -220,11 +220,11 @@ $$|S\cap T|=3$$
 
 $$|S\cup T|=2+3+3=8$$
 
-Lượng chung cần được so với kích thước hợp.
+Jaccard đặt lượng chung trong quy mô của hợp.
 
 **Ghi chú diễn giả học thuật**
 
-Hình vẽ lại Hình 3.1: hai phần tử chỉ thuộc $S$, ba phần tử thuộc cả hai tập, ba phần tử chỉ thuộc $T$. Hợp đếm mỗi phần tử một lần, nên $|S\cup T|=2+3+3=8$; tổng $|S|+|T|=5+6=11$ đếm ba phần tử giao hai lần. Kích thước giao một mình chưa đủ: ba phần tử chung trong hai tập nhỏ khác với ba phần tử chung trong hai tập rất lớn. Chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Cách chọn phần tử cho văn bản được xây dựng ở phần shingling. Diện tích vùng tròn không biểu diễn số lượng.
+Hình vẽ lại Hình 3.1: hai phần tử chỉ thuộc $S$, ba phần tử thuộc cả hai tập, ba phần tử chỉ thuộc $T$. Hợp đếm mỗi phần tử một lần, nên $|S\cup T|=2+3+3=8$; tổng $|S|+|T|=5+6=11$ đếm ba phần tử giao hai lần. Kích thước giao một mình chưa đủ, vì ba phần tử chung trong hai tập nhỏ khác với ba phần tử chung trong hai tập rất lớn. Chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Cách chọn phần tử cho văn bản được xây dựng ở phần shingling. Diện tích vùng tròn không biểu diễn số lượng.
 
 Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.
 
@@ -275,12 +275,12 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 ### 08. Ứng dụng của độ tương đồng Jaccard
 
 - **Mã:** `lec05-s01-08`; **phần:** 1; **note-topic-id:** `n05-02`.
-- **Mục đích và vai trò:** Ứng dụng; xác định nghĩa của phần tử. **Mục tiêu:** MT1.
+- **Mục đích và vai trò:** Ứng dụng; nhận ra ý nghĩa giá trị Jaccard phụ thuộc cách chọn phần tử. **Mục tiêu:** MT1.
 - **Câu chốt:** Jaccard áp dụng cho mọi dữ liệu biểu diễn được bằng tập; ý nghĩa của một giá trị phụ thuộc cách chọn phần tử và ứng dụng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận công thức; trang 09 kiểm tra đại lượng và nhu cầu chọn biểu diễn văn bản.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide ex-grid2`: hai thẻ bằng nhau, bên trái văn bản, bên phải khách hàng; mỗi thẻ có đối tượng → phần tử → nghĩa của giao; một câu chốt ở dưới.
-- **Trọng tâm và thứ tự đọc:** Đọc cùng tiêu chí trên hai thẻ: đối tượng, phần tử, giao.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: hai thẻ cùng cấu trúc (đối tượng → phần tử của tập → ngưỡng theo nguồn); câu chốt toàn chiều rộng bên dưới.
+- **Trọng tâm và thứ tự đọc:** Thẻ văn bản (90%) → thẻ khách hàng (20%) → kết luận về cách chọn phần tử.
 - **Lý do phù hợp sinh viên năm 2:** Đối chiếu cùng tiêu chí giúp sinh viên thấy công thức dùng lại được nhưng không tự quyết định nghĩa tương đồng; không đưa cơ chế lọc cộng tác ngoài phạm vi.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §§3.1.2–3.1.3 tr. 74–77.
@@ -311,8 +311,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Jaccard đổi khi hợp đổi dù giao giữ nguyên; mẫu số là hợp, không phải tổng kích thước; văn bản cần quy tắc tạo tập.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận định nghĩa/ứng dụng; câu trả lời tạo nhu cầu cửa sổ shingle ở 10.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide ex-grid2`: hình VD 2 ở trái 50%, `ex-card` nhiệm vụ ở phải 50%; không hiển thị kết quả tỷ số.
-- **Trọng tâm và thứ tự đọc:** Dữ kiện trong hình → nhiệm vụ tính → yêu cầu về biểu diễn.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: SVG Hình 3.1 bên trái; nhãn “Câu hỏi:” và ba câu bên phải.
+- **Trọng tâm và thứ tự đọc:** Tính lại khi hợp đổi → chẩn đoán lỗi mẫu số $5+6$ → nhu cầu quy tắc tạo tập cho văn bản.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên sử dụng hình đã quen nên phép kiểm đo đúng Jaccard và nhu cầu biểu diễn, không đưa thêm công thức chưa học.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B VD 3.1 tr. 74–75; mở §3.2 tr. 78.
@@ -324,19 +324,19 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 Câu hỏi:
 
-1. Thêm vào $T$ hai phần tử không thuộc $S$. Tính lại $\mathrm{SIM}(S,T)$.
-2. Một cách tính cho $3/(5+6)$. Chỉ ra đại lượng bị đếm sai.
-3. Xác định điều còn phải quy định để áp dụng công thức cho hai văn bản.
+1. Thêm vào $T$ hai phần tử mới, không thuộc $S$. Tính lại $\mathrm{SIM}(S,T)$.
+2. Một lời giải lấy mẫu số $5+6$ và cho $3/11$. Chỉ ra đại lượng bị đếm sai.
+3. Hai văn bản cùng dài 1000 ký tự. Giải thích vì sao dữ kiện này chưa xác định được Jaccard của chúng.
 
 **Ghi chú diễn giả học thuật**
 
-Câu 1: giao vẫn có 3 phần tử, hợp có 10, nên $\mathrm{SIM}=3/10$; giá trị giảm vì mẫu số tăng còn tử số giữ nguyên. Câu 2: $5+6$ là $|S|+|T|$, đếm ba phần tử giao hai lần; mẫu số đúng là $|S\cup T|=8$. Câu 3: cần quy tắc chuyển mỗi chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp có độ dài cố định; độ dài chuỗi tự nó không xác định giao và hợp.
+Câu 1: giao vẫn có 3 phần tử, hợp có 10, nên $\mathrm{SIM}=3/10$; giá trị giảm vì mẫu số tăng còn tử số giữ nguyên. Câu 2: $5+6$ là $|S|+|T|$, đếm ba phần tử giao hai lần; mẫu số đúng là $|S\cup T|=8$. Câu 3: độ dài chuỗi không cho biết phần tử nào thuộc giao hay hợp; cần quy tắc chuyển mỗi chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp có độ dài cố định.
 
 Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: $3/10$; $5+6$ đếm giao hai lần, mẫu đúng là 8; cần quy tắc tạo tập phần tử. Chấm đủ ba ý. Câu 1 và 2 không có đáp án trên các trang trước (s01-07 chỉ hiện $3/8$). Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
+Đáp án: $3/10$; $5+6$ đếm giao hai lần, mẫu đúng là 8; độ dài không xác định giao, hợp nên cần quy tắc tạo tập phần tử. Chấm đủ ba ý. Câu 1 và 2 không có đáp án trên các trang trước (s01-07 chỉ hiện $3/8$). Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
 
 ### 10. Biểu diễn văn bản bằng tập shingle
 
