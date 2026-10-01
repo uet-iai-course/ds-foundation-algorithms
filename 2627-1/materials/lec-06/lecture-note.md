@@ -692,7 +692,7 @@ $$
 P_{\rm miss}=1-[1-(1-q_T)^{1024}]^2\approx0{,}029680224.
 $$
 
-Cấu trúc AND giảm ứng viên giả nhưng tăng bỏ sót. Hai phương án ở đoạn này dùng 1024 và 2048 phép thử, nên chưa là so sánh cùng ngân sách. Bài 3.8.2 ở cuối tài liệu so OR 2048 với AND hai nhóm OR 1024. Các phép tính dùng giá trị chưa làm tròn; lấy $0{,}063^2$ sẽ cho số khác vì đã làm tròn trung gian. Những xác suất này thuộc mô hình, không là tỷ lệ đo trên một hệ nhận dạng vân tay.
+Cấu trúc AND giảm ứng viên giả khoảng 16 lần nhưng bỏ sót tăng gấp đôi. Với bài toán một–nhiều, xác suất nhận cặp khác ngón cũng là tỷ lệ kho phải so với ảnh truy vấn: khoảng $6{,}3\%$ với OR 1024 và khoảng $1/250$ với AND hai nhóm. Hai phương án ở đoạn này dùng 1024 và 2048 phép thử, nên chưa là so sánh cùng ngân sách. Bài 3.8.2 ở cuối tài liệu so OR 2048 với AND hai nhóm OR 1024. Các phép tính dùng giá trị chưa làm tròn; lấy $0{,}063^2$ sẽ cho số khác vì đã làm tròn trung gian. Những xác suất này thuộc mô hình, không là tỷ lệ đo trên một hệ nhận dạng vân tay.
 
 Với một ảnh truy vấn, cấu trúc AND hai nhóm OR thực hiện bốn thao tác: hợp các mã ảnh trong những thùng phù hợp của nhóm thứ nhất; hợp tương tự ở nhóm thứ hai; lấy giao hai hợp; rồi so ảnh truy vấn với các ứng viên còn lại. Hợp và giao chỉ xử lý mã ảnh. Phép so vân tay được thực hiện sau đó và có chi phí riêng.
 
