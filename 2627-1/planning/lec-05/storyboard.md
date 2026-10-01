@@ -124,11 +124,11 @@ Phép giao và hợp được dùng để định nghĩa Jaccard. Thứ tự và
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 04. Tài liệu gần trùng
+### 04. Bài toán tài liệu gần trùng
 
 - **Mã:** `lec05-s01-04`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Mục đích và vai trò:** Tình huống dữ liệu; đặc tả loại tương đồng. **Mục tiêu:** MT1, MT5.
-- **Câu chốt:** Tài liệu có thể chia sẻ phần lớn văn bản mà khác một số đoạn hoặc thông tin phụ.
+- **Câu chốt:** Tài liệu gần trùng chia sẻ phần lớn văn bản nhưng khác ở một số đoạn, nên phép so từng ký tự không đo được mức giống nhau.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận mục tiêu so sánh; trang 05 lượng hóa số cặp phải xét.
 - **Dữ kiện và vai trò số:** VD 1; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `motivation-slide motivation-grid`: hình khái niệm hai tài liệu với vùng chung có cùng nhãn chiếm 48% bên trái; đặc tả đầu vào/đầu ra và khác biệt chiếm 52% bên phải; chú thích dưới hình.
@@ -142,15 +142,17 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 ![Hai tài liệu có phần văn bản chung và các phần riêng.](../../img/lec-05/tai-lieu-gan-trung.svg)
 
-Đầu vào: kho trang phản chiếu hoặc các bản tin cùng nguồn.
+Đầu vào: kho văn bản lớn như trang Web hoặc bản tin.
 
-Đầu ra: độ tương đồng văn bản của các cặp tài liệu.
+Đầu ra: độ tương đồng văn bản của từng cặp tài liệu.
 
-Các phiên bản có thể thay tên máy chủ, lược đoạn hoặc thêm nội dung.
+Trang phản chiếu, bản tin đăng lại và bài đạo văn giữ phần lớn văn bản gốc nhưng khác ở một số đoạn.
+
+So sánh từng ký tự chỉ phát hiện hai tài liệu trùng hoàn toàn.
 
 **Ghi chú diễn giả học thuật**
 
-Sách mô tả trang phản chiếu khác thông tin máy chủ và bản tin được nhiều báo đăng lại với phần nội dung cốt lõi chung. So sánh từng ký tự chỉ kiểm tra trùng hoàn toàn. Bài toán ở đây cần một đại lượng dựa trên phần văn bản chung. Đại lượng ấy không đồng nghĩa với mức giống nhau về ý nghĩa.
+Mục 3.1.2 của sách nêu ba tình huống: trang phản chiếu khác thông tin máy chủ và liên kết; bản tin được nhiều báo đăng lại, có cắt đoạn hoặc thêm nội dung; bài đạo văn đổi vài từ hoặc thứ tự câu. Phép so từng ký tự dừng ở vị trí khác đầu tiên và chỉ cho biết hai tài liệu có trùng hoàn toàn hay không, không cho biết lượng văn bản chung. Bài toán cần một đại lượng đo phần văn bản chung ở mức ký tự. Đại lượng ấy không đo mức giống nhau về ý nghĩa; tương đồng ngữ nghĩa cần kỹ thuật khác.
 
 Nguồn: Mining of Massive Datasets (MMDS), ấn bản 3, Chương 3, tr. 73–76.
 

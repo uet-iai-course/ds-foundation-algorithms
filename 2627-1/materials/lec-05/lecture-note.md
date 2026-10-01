@@ -8,9 +8,9 @@ Sau bài học, người học có thể chuyển văn bản thành tập shingl
 
 ## 1. Tài liệu gần trùng và hai giới hạn tính toán
 
-Một trang phản chiếu có thể giữ phần lớn nội dung của trang gốc nhưng thay thông tin máy chủ. Một bản tin có thể được đăng lại ở nhiều nơi, với một số đoạn bị lược hoặc thêm vào. Kiểm tra hai chuỗi bằng nhau chỉ nhận ra trường hợp trùng hoàn toàn; bài toán gần trùng cần định lượng phần văn bản chung giữa những tài liệu còn có khác biệt. Các tình huống này xuất hiện ở phần mở đầu Chương 3 và §3.1.2, tr. 73–76.
+Một trang phản chiếu có thể giữ phần lớn nội dung của trang gốc nhưng thay thông tin máy chủ. Một bản tin có thể được đăng lại ở nhiều nơi, với một số đoạn bị lược hoặc thêm vào. Một bài đạo văn có thể đổi vài từ hoặc đổi thứ tự câu nhưng vẫn giữ phần lớn văn bản gốc. Kiểm tra hai chuỗi bằng nhau chỉ nhận ra trường hợp trùng hoàn toàn; bài toán gần trùng cần định lượng phần văn bản chung giữa những tài liệu còn có khác biệt. Các tình huống này xuất hiện ở phần mở đầu Chương 3 và §3.1.2, tr. 73–76.
 
-Đầu vào là một kho gồm $C$ tài liệu. Đối với một cặp đã chọn, đầu ra cần có là một số đo tương đồng trên biểu diễn văn bản. Số đo trong bài dựa trên các đoạn con chung, không phải một định nghĩa về tương đồng ngữ nghĩa. Cách biểu diễn và quy tắc xử lý văn bản phải được xác định trước khi tính số đo.
+Đầu vào là một kho gồm $C$ tài liệu. Đối với một cặp đã chọn, đầu ra cần có là một số đo tương đồng trên biểu diễn văn bản. Số đo trong bài dựa trên các đoạn con chung ở mức ký tự; tương đồng về ý nghĩa cần những kỹ thuật khác. Cách biểu diễn và quy tắc xử lý văn bản phải được xác định trước khi tính số đo.
 
 ![Hai tài liệu có các vùng văn bản chung và riêng; diện tích vùng không biểu diễn dung lượng.](img/lec-05/tai-lieu-gan-trung.svg)
 
