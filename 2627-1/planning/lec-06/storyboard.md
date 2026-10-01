@@ -731,42 +731,42 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 ### Phần 7. Bài tập vận dụng
 
-#### lec06-s07-01 — Bảng xác suất tạo ứng viên
+#### lec06-s07-01 — Bảng giá trị đường cong S
 
 - **Mục đích và vai trò:** Tính đủ bảng xác suất của Bài 3.4.1.
 - **Thông điệp:** Tham số dải quyết định đường xác suất cho từng giá trị tương đồng.
-- **Nội dung công khai dự kiến:** Câu hỏi: Với $s=0.1,0.2,\ldots,0.9$, tính $P(s)=1-(1-s^r)^b$ cho ba cấu hình $(r,b)=(3,10),(6,20),(5,50)$. Sản phẩm: bảng 9 hàng × 3 cột xác suất. Có thể dùng máy tính cho lũy thừa.
+- **Nội dung công khai dự kiến:** Câu hỏi: Tính $P(s)=1-(1-s^r)^b$ với $s=0{,}1;\ 0{,}2;\ \ldots;\ 0{,}9$ cho ba cấu hình: Cấu hình $r$ $b$ 1 3 10 2 6 20 3 5 50 Sản phẩm: bảng 9 hàng × 3 cột xác suất. Có thể dùng máy tính cho lũy thừa; chỉ làm tròn kết quả cuối.
 - **Đầu vào và giả thiết:** HT3; giữ nguyên cả ba cấu hình và chín giá trị $s$.
 - **Dữ kiện, hình thức hóa và vết chạy:** R1 phần đầu; đáp án 27 giá trị ở bảng lời giải phía sau trong storyboard; không đổi thứ tự (r, b).
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trên là công thức/dữ kiện; dưới bảng trống 9 hàng × 3 cột chỉ chứa nhãn để làm bài. Năm 2 tính có hệ thống, không cần chép số nguồn dài; đáp án trong notes/ghi chú.
 - **Kết nối vào–ra:** Tự kiểm→tính đường xác suất; bảng dẫn tới điểm xác suất một nửa.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 12 phút. Với $s=0.1,\ldots,0.9$, cấu hình $(r,b)=(3,10)$ cho $0.009955120,0.077180588,0.239448893,0.483870732,0.736924424,0.912267475,0.985015105,0.999234054,0.999997864$. Cấu hình $(6,20)$ cho $0.000020000,0.001279222,0.014479467,0.078809323,0.270187144,0.615414636,0.918185997,0.997712125,0.999999740$. Cấu hình $(5,50)$ cho $0.000499878,0.015875200,0.114539882,0.402283952,0.795550630,0.982533828,0.999898996,0.999999998$ và xấp xỉ 1. Kết quả cuối được làm tròn, không bằng 1 chính xác. Tiêu chí: giữ đúng $r,b$, tính đủ 27 giá trị và chỉ làm tròn sau lũy thừa. Nguồn: Bài 3.4.1, MMDS 3e, §3.4.4, tr.96.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án theo $s=0{,}1;\ldots;0{,}9$. Cấu hình $(r,b)=(3;10)$: $0{,}009955$; $0{,}077181$; $0{,}239449$; $0{,}483871$; $0{,}736924$; $0{,}912267$; $0{,}985015$; $0{,}999234$; $0{,}999998$. Cấu hình $(6,20)$: $0{,}000020$; $0{,}001279$; $0{,}014479$; $0{,}078809$; $0{,}270187$; $0{,}615415$; $0{,}918186$; $0{,}997712$; $0{,}9999997$. Cấu hình $(5,50)$: $0{,}000500$; $0{,}015875$; $0{,}114540$; $0{,}402284$; $0{,}795551$; $0{,}982534$; $0{,}999899$; $0{,}999999998$; giá trị cuối làm tròn thành 1 nhưng không bằng 1 chính xác. Tiêu chí: giữ đúng $r$ và $b$, tính đủ 27 giá trị, chỉ làm tròn sau lũy thừa.
 - **Nguồn:** B Bài 3.4.1, §3.4.4, tr.96/PDF 25; dịch nguyên yêu cầu, không lược cấu hình.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 12 phút.
 
-#### lec06-s07-02 — Điểm xác suất một nửa
+#### lec06-s07-02 — Ngưỡng của đường cong S
 
 - **Mục đích và vai trò:** Giải ngưỡng chính xác và so xấp xỉ cho ba cấu hình nguồn.
 - **Thông điệp:** Nghiệm $P(s)=1/2$ khác xấp xỉ $b^{-1/r}$.
-- **Nội dung công khai dự kiến:** Câu hỏi: Với từng cấu hình $(r,b)=(3,10),(6,20),(5,50)$ của bài trước, tìm $s$ để xác suất tạo ứng viên bằng 1/2. So với xấp xỉ $b^{-1/r}$. Sản phẩm: phép biến đổi và bảng ba cặp giá trị.
+- **Nội dung công khai dự kiến:** Câu hỏi: Với ba cấu hình của bài trước, tìm $s$ sao cho $P(s)=1/2$ và so với xấp xỉ $(1/b)^{1/r}$. $(r,b)$ Nghiệm của $P(s)=1/2$ $(1/b)^{1/r}$ $(3,10)$ $(6,20)$ $(5,50)$ Sản phẩm: phép biến đổi giải $s$ và bảng ba cặp giá trị.
 - **Đầu vào và giả thiết:** Bảng xác suất, biến đổi lũy thừa; không thêm điểm bất động.
 - **Dữ kiện, hình thức hóa và vết chạy:** R1 phần hai; nghiệm (.406088134, .569353387, .424394480); xấp xỉ (.464158883, .606962231, .457305052).
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Khối đề trên; bảng trống 3 hàng cấu hình/chính xác/xấp xỉ dưới. Năm 2 thực hiện đại số thay vì đọc đồ thị; hai giá trị đặt cạnh để không đồng nhất.
 - **Kết nối vào–ra:** Bảng P →ngưỡng; phép ghép tổng quát tiếp tục thao tác xác suất.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 6 phút. Từ $(1-s^r)^b=1/2$ suy $s=(1-2^{-1/b})^{1/r}$. Với $(r,b)=(3,10),(6,20),(5,50)$, nghiệm chính xác lần lượt là $0.406088134,0.569353387,0.424394480$; xấp xỉ $b^{-1/r}$ là $0.464158883,0.606962231,0.457305052$. Tiêu chí: có bước biến đổi, tính đủ ba cấu hình và nhận ra cả ba xấp xỉ lớn hơn nghiệm chính xác. Nguồn: Bài 3.4.2, tr.96.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Từ $(1-s^r)^b=1/2$ suy ra $s=(1-2^{-1/b})^{1/r}$. Nghiệm chính xác: $0{,}406088$; $0{,}569353$; $0{,}424394$. Xấp xỉ $(1/b)^{1/r}$: $0{,}464159$; $0{,}606962$; $0{,}457305$. Cả ba xấp xỉ đều lớn hơn nghiệm chính xác, nên dùng xấp xỉ sẽ ước lượng ngưỡng hơi cao. Tiêu chí: có bước biến đổi, tính đủ ba cấu hình và nêu chiều sai lệch của xấp xỉ.
 - **Nguồn:** B Bài 3.4.2, §3.4.4, tr.96/PDF 25; giữ yêu cầu và toàn cấu hình bài 3.4.1.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 6 phút.
 
-#### lec06-s07-03 — Xác suất sau nhiều phép ghép
+#### lec06-s07-03 — Xác suất qua nhiều tầng ghép
 
 - **Mục đích và vai trò:** Viết xác suất cho bốn chuỗi AND/OR của Bài 3.6.1.
 - **Thông điệp:** Thứ tự phép ghép được giữ trong từng trạng thái trung gian.
-- **Nội dung công khai dự kiến:** Câu hỏi: Gọi $p$ là xác suất trùng của một MinHash cơ sở. Biểu diễn xác suất sau các phép ghép: (a) AND 2 rồi OR 3; (b) OR 3 rồi AND 2; (c) AND 2, rồi OR 2, rồi AND 2; (d) OR 2, rồi AND 2, rồi OR 2, rồi AND 2. Sản phẩm: bốn biểu thức; các phép thử độc lập.
+- **Nội dung công khai dự kiến:** Câu hỏi: Bắt đầu từ họ MinHash với xác suất trùng $p$ của một hàm; các hàm độc lập. Viết xác suất trùng sau mỗi chuỗi ghép: Ý Thứ tự ghép (a) AND 2 → OR 3 (b) OR 3 → AND 2 (c) AND 2 → OR 2 → AND 2 (d) OR 2 → AND 2 → OR 2 → AND 2 Sản phẩm: bốn biểu thức xác suất, ghi rõ từng tầng trung gian.
 - **Đầu vào và giả thiết:** HT7; các cấu hình nguyên nguồn.
 - **Dữ kiện, hình thức hóa và vết chạy:** R2; lời giải các trạng tháiq 1, q 2, q 3 ở mục đáp án. Không thêm yêu cầu mã.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bốn hàng chuỗi thao tác, mỗi hàng mũi tên bằng chữ; cột kết quả để trống. Năm 2 theo thứ tự từ trái sang phải trước mở ngoặc lồng; notes ghi từng trạng thái.
 - **Kết nối vào–ra:** Ngưỡng→hợp phép biến đổi; họ Hamming cho vết chạy cụ thể của hàm cơ sở.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 10 phút. Đáp án: (a) $1-(1-p^2)^3$; (b) $[1-(1-p)^3]^2$; (c) $[1-(1-p^2)^2]^2$; (d) đặt $q_1=1-(1-p)^2,q_2=q_1^2,q_3=1-(1-q_2)^2$, kết quả $q_3^2$. Tiêu chí: bảo toàn thứ tự, bù đúng ở OR, nhân đúng ở AND. Nguồn Bài 3.6.1(a–d), tr.108.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: (a) $1-(1-p^2)^3$; (b) $[1-(1-p)^3]^2$; (c) $[1-(1-p^2)^2]^2$; (d) đặt $q_1=1-(1-p)^2$, $q_2=q_1^2$, $q_3=1-(1-q_2)^2$, kết quả là $q_3^2$. Mỗi tầng AND nâng xác suất của tầng trước lên lũy thừa, mỗi tầng OR lấy bù của tích các bù. Tiêu chí: giữ đúng thứ tự ghép, lấy bù đúng ở OR, nhân đúng ở AND.
 - **Nguồn:** B Bài 3.6.1(a–d), §3.6.4, tr.108/PDF 37.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 10 phút.
 
