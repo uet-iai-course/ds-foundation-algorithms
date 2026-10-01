@@ -754,9 +754,9 @@ Sáu nhiệm vụ tự kiểm bao quát tuyến chính:
 1. Với $k=2$, tính Jaccard của tập shingle của `abab` và `baba`, rồi nhận xét kết quả.
 2. Nêu điều kiện để hai tài liệu không chung shingle nào vẫn có Jaccard dương trên tập mã 4 byte.
 3. Cho $|S\cap T|=3$, $|S\cup T|=12$ và $n=200$ hoán vị đều. Tính xác suất hai MinHash trùng và kỳ vọng số tọa độ trùng.
-4. Nêu biến cố tương đương hai MinHash trùng dưới cùng một thứ tự.
-5. Viết công thức tỷ lệ trùng của $n$ tọa độ tương ứng.
-6. Nêu giới hạn còn lại khi vẫn so sánh mọi cặp trong kho $C$ tài liệu.
+4. Với dữ kiện của nhiệm vụ 3, tính độ lệch chuẩn của ước lượng, giả sử các hoán vị độc lập.
+5. Xác định hàm $f(r)=(4r+1)\bmod6$ có phải hoán vị của $\{0,\ldots,5\}$ không; nếu không, chỉ ra một cặp va chạm.
+6. Kho có $C=10^4$ tài liệu, chữ ký dài $n=200$. Đếm số phép so bằng khi so mọi cặp và nêu thừa số còn cần giảm.
 
 ::: solution Đáp án tự kiểm
 (1) Cả hai chuỗi có tập $\{\texttt{ab},\texttt{ba}\}$, nên Jaccard bằng 1 dù hai chuỗi khác nhau; tập shingle không giữ toàn bộ thứ tự và số lần xuất hiện.
@@ -765,7 +765,11 @@ Sáu nhiệm vụ tự kiểm bao quát tuyến chính:
 
 (3) Xác suất trùng bằng $3/12=1/4$; kỳ vọng số tọa độ trùng là $200\cdot1/4=50$.
 
-Hai MinHash trùng khi phần tử đầu trong hợp thuộc giao. Ước lượng là $\widehat{\mathrm{SIM}}=n^{-1}\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$. Nếu chưa chọn ứng viên thì vẫn có $C(C-1)/2$ cặp; chữ ký chỉ thay chi phí một cặp.
+(4) Với $s=1/4$, độ lệch chuẩn là $\sqrt{(3/16)/200}=\sqrt{3/3200}\approx0{,}031$.
+
+(5) $\gcd(4,6)=2\ne1$ nên hàm không là hoán vị; chẳng hạn $f(0)=f(3)=1$. Các giá trị chỉ phủ ba phần dư $1,5,3$.
+
+(6) Có $C(C-1)/2=49\,995\,000$ cặp, nhân $n=200$ được $9\,999\,000\,000$ phép so bằng. Chữ ký đã giảm chi phí mỗi cặp; thừa số còn lại là số cặp, được xử lý bằng bước chọn cặp ứng viên ở Bài 06.
 :::
 
 ### Bài 3.1.1 — Tính Jaccard

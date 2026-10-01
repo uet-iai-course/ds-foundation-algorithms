@@ -1736,11 +1736,11 @@ Nguồn: Tự kiểm theo §§3.2–3.3.4; chuỗi và số liệu là dữ ki�
 
 Đáp án: 1; va chạm giữa hai shingle khác nhau của hai tài liệu; $1/4$ và 50. Ba câu đòi vận dụng, không nhắc lại kết luận đã hiện trên mặt trang trước.
 
-### 50. Tự kiểm tra MinHash
+### 50. Câu hỏi tổng kết về chữ ký
 
 - **Mã:** `lec05-s06-04`; **phần:** 6; **note-topic-id:** `n05-14`.
 - **Mục đích và vai trò:** Kiểm tra tổng hợp MT3–MT5; nối chứng minh với ước lượng. **Mục tiêu:** MT3, MT4, MT5.
-- **Câu chốt:** Định lý, ước lượng và số cặp giải quyết ba mức của bài toán.
+- **Câu chốt:** Chọn $n$ theo độ lệch chuẩn, kiểm điều kiện hoán vị của hàm băm, và đếm chi phí mọi cặp để thấy giới hạn còn lại.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tự kiểm biểu diễn; 51 bắt đầu phần bài tập riêng dùng những kết quả đã học.
 - **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: ba nhiệm vụ toàn chiều rộng như 49, cùng vị trí số thứ tự; mỗi nhóm khoảng 25% thân; giữ hết công thức đáp án trong notes.
@@ -1754,21 +1754,21 @@ Nguồn: Tự kiểm theo §§3.2–3.3.4; chuỗi và số liệu là dữ ki�
 
 Câu hỏi:
 
-- Nêu biến cố tương đương hai MinHash trùng.
+4. Với dữ kiện của câu 3, tính độ lệch chuẩn của ước lượng, giả sử các hoán vị độc lập.
+5. Xác định hàm $f(r)=(4r+1)\bmod6$ có phải hoán vị của $\{0,\ldots,5\}$ không; nếu không, chỉ ra một cặp va chạm.
+6. Kho có $C=10^4$ tài liệu, chữ ký dài $n=200$. Đếm số phép so bằng khi so mọi cặp và nêu thừa số Bài 06 cần giảm.
 
-- Viết phép tính ước lượng từ $n$ tọa độ chữ ký.
-
-- Nêu giới hạn còn lại nếu vẫn so sánh mọi cặp trong kho $C$ tài liệu.
+Nội dung dựa trên sách Mining of Massive Datasets và slide chính thức tại mmds.org.
 
 **Ghi chú diễn giả học thuật**
 
-Hai MinHash trùng khi và chỉ khi phần tử đầu trong hợp thuộc giao, dưới cùng một thứ tự. Ước lượng là số tọa độ trùng chia n. Dù mỗi cặp chỉ cần Θ(n) phép so sánh, vẫn có C(C−1)/2 cặp nếu không chọn ứng viên. Phát biểu xác suất còn cần thứ tự lấy đều; công thức phương sai thêm độc lập giữa các thứ tự.
+Câu 4: $s=1/4$, nên $\sqrt{s(1-s)/n}=\sqrt{(3/16)/200}=\sqrt{3/3200}\approx0{,}031$. Câu 5: $\gcd(4,6)=2\ne1$, nên hàm không là hoán vị; chẳng hạn $f(0)=f(3)=1$. Các giá trị là $1,5,3,1,5,3$, chỉ phủ ba phần dư. Câu 6: $C(C-1)/2=49\,995\,000$ cặp, nhân $n=200$ được $9\,999\,000\,000$ phép so bằng. Chữ ký đã giảm chi phí mỗi cặp; thừa số còn lại là số cặp, và Bài 06 chỉ so những cặp ứng viên.
 
-Nguồn: Tự kiểm theo §§3.3.2–3.3.5 và phép đếm cặp đầu bài.
+Nguồn: Tự kiểm theo §§3.3.4–3.3.5 và phép đếm cặp đầu bài; số liệu là dữ kiện luyện tập.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: đầu hợp thuộc giao; tổng chỉ báo/n; số cặp bậc hai. Chấm điều kiện cùng thứ tự, cùng tọa độ, phân biệt số cặp/chi phí. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+Đáp án: $\sqrt{3/3200}\approx0{,}031$; không, $f(0)=f(3)=1$; $9\,999\,000\,000$ phép so bằng, thừa số số cặp. Ba câu đòi thay số hoặc kiểm điều kiện, không nhắc lại kết luận trên mặt trang trước.
 
 ### 51. Bài tập tính Jaccard
 
