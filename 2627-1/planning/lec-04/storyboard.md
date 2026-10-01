@@ -1483,7 +1483,7 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$
 | C | $(19/420)/(19/84)$ | $1/5$ |
 | D | $(-23/420)/(19/84)$ | $-23/95$ |
 
-Âm hoặc dương nhỏ: có lẽ không phải rác; gần $1$: có lẽ là rác (MMDS §5.4.5). A, C có $s_i=1/5$, gần $0$ hơn $1$.
+$s_i<0$ khi $\rho_i>r_i$. Cách đọc (MMDS §5.4.5): âm hoặc dương nhỏ thì có lẽ không phải rác; gần $1$ thì có lẽ là rác.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Định nghĩa ở trên30%; bảng giữa55%; giới hạn dưới15%. Cột phép tính giữ tử và mẫu có ngoặc rõ.
