@@ -1643,7 +1643,7 @@ Trang uy tín cung cấp thông tin về một chủ đề; trang trung tâm ch�
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Đồ thị trang và liên kết được coi là đầu vào đã chọn; hai vai trò được đánh giá từ cấu trúc liên kết. Một mức quan trọng duy nhất không phân biệt được hai vai trò này: trang danh sách không thay thế nội dung một học phần, còn trang học phần không thay thế danh sách. Uy tín trong HITS không đồng nghĩa với điểm tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc; ví dụ nhỏ cho phép kiểm từng phép cập nhật.
+Đồ thị trang và liên kết được coi là đầu vào đã chọn; hai vai trò được đánh giá từ cấu trúc liên kết. Một mức quan trọng duy nhất không phân biệt được hai vai trò này: trang danh sách không thay thế nội dung một học phần, còn trang học phần không thay thế danh sách. Uy tín trong HITS không đồng nghĩa với điểm tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc.
 <!-- public-notes:end -->
 
 ### lec04-s05-02 — Định nghĩa tương hỗ của hai điểm
