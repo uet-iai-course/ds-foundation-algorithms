@@ -1089,7 +1089,7 @@ $$y=x+\beta mp+b.$$
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Đối với một trang ngoài $j$ trỏ tới đích, đóng góp là $\beta r_j/d_j$. Đại lượng $x$ là tổng các đóng góp này, nên không nhân thêm $\beta$. Mỗi hỗ trợ chỉ có một cạnh ra, trả $\beta p$; $m$ hỗ trợ trả $\beta mp$. Phương trình đầy đủ còn có $b$ tại đích. Phương trình cân bằng dùng điểm cố định của hệ; ba số hạng không phải ba trạng thái thời gian khác nhau.
+Đối với một trang ngoài $j$ trỏ tới đích, đóng góp là $\beta r_j/d_j$. Đại lượng $x$ là tổng các đóng góp này, nên không nhân thêm $\beta$. Mỗi hỗ trợ chỉ có một cạnh ra, trả $\beta p$; $m$ hỗ trợ trả $\beta mp$. Phương trình dùng điểm cố định của hệ; ba số hạng không phải ba trạng thái thời gian khác nhau.
 <!-- public-notes:end -->
 
 ### lec04-s03-05 — Điểm cố định của trang đích
