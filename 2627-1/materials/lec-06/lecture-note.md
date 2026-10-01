@@ -153,11 +153,13 @@ Kết luận này không nói rằng mọi cặp thật đều có mặt trong $
 
 
 ::: exercise
-Câu hỏi: Trong vết chạy hai dải, giải thích vì sao cặp $(1,4)$ được phát hai lần nhưng chỉ kiểm Jaccard một lần.
+Câu hỏi: (a) Trong vết chạy hai dải, giải thích vì sao cặp $(1,4)$ được phát hai lần nhưng chỉ kiểm Jaccard một lần. (b) Với cùng chữ ký, dùng $b=1$, $r=2$: xác định các thùng, $Q$, $K$ và tập kết quả khi $t=2/3$.
 :::
 
 ::: solution
-Hai cột 1 và 4 trùng ở cả dải 1 và dải 2 nên mỗi dải phát cặp một lần. Tập $\mathcal C$ khử lặp; vòng xác minh duyệt từng phần tử của tập nên chỉ kiểm cặp này một lần.
+(a) Hai cột 1 và 4 trùng ở cả dải 1 và dải 2 nên mỗi dải phát cặp một lần. Tập $\mathcal C$ khử lặp; vòng xác minh duyệt từng phần tử của tập nên chỉ kiểm cặp này một lần.
+
+(b) Các tuple là $(1,0)$, $(3,2)$, $(0,0)$, $(1,0)$; chỉ cột 1 và 4 chung thùng, nên $Q=K=1$ và kết quả vẫn là $\{(1,4)\}$. Đòi trùng cả hai hàng đã loại hai ứng viên giả $(1,3)$ và $(3,4)$.
 :::
 
 

@@ -266,16 +266,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.1, 3.4.3; phân tích suy từ giả mã đã duyệt, N04; U PDF 14; đối chiếu quan hệ ứng viên–công việc.
 - **Ánh xạ ghi chú:** `N04`. **Thời lượng:** 3.5 phút.
 
-#### lec06-s02-14 — Kiểm tra phân dải và xác minh
+#### lec06-s02-14 — Câu hỏi về phân dải
 
 - **Mục đích và vai trò:** Giải thích vai trò khử lặp, xác minh và độc lập.
-- **Thông điệp:** Ba bước xử lý có ba hợp đồng khác nhau.
-- **Nội dung công khai dự kiến:** Câu hỏi: Dùng ma trận và các tập đã cho với $b=2,r=1,t=2/3$: xác định $Q,K$ và kết quả sau kiểm gốc. Với mô hình MinHash lý tưởng độc lập, viết xác suất được chọn của cặp có Jaccard $s$. Nêu giả thiết dùng để nhân xác suất.
+- **Thông điệp:** Đổi cấu hình dải trên cùng chữ ký đổi tập ứng viên; công thức xác suất cho thấy đánh đổi giữa ứng viên giả và bỏ sót.
+- **Nội dung công khai dự kiến:** Câu hỏi: $S_1=\{a,d\},\quad S_2=\{c\}$ $S_3=\{b,d,e\},\quad S_4=\{a,c,d\}$ Hàng $S_1$ $S_2$ $S_3$ $S_4$ 1 1 3 0 1 2 0 2 0 0 Với cùng chữ ký, $b=1$, $r=2$ và $t=2/3$: tính $Q$, $K$ và tập kết quả. Viết $P_{2,1}(s)$ và $P_{1,2}(s)$; tính tại $s=1/4$ và $s=2/3$. Vì sao vết chạy với hai hàm cố định không chứng minh được các công thức xác suất ấy?
 - **Đầu vào và giả thiết:** V02 hiển thị lại SIG và ba Jaccard cần dùng; các công thức phần 2.
 - **Dữ kiện, hình thức hóa và vết chạy:** Đáp án $Q=4,K=3$, tập kết quả chỉ gồm (1,4);$P(s)=1-(1-s)^2$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 45% ma trận 2 × 4 và tập gốc gọn; phải 55% ba nhiệm vụ. Năm 2 vận dụng lại dữ kiện đã theo dõi, cần phân biệt kết quả xác định với mô hình xác suất. Không hiện đáp án.
 - **Kết nối vào–ra:** Chi phí→kiểm phần; Jaccard là một độ đo nền, phần 3 xây các cách đo gần khác.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: cặp $(1,4)$ được phát hai lần; tập ứng viên là $\{(1,3),(1,4),(3,4)\}$; chỉ cặp $(1,4)$ đạt ngưỡng. Do đó $Q=4,K=3$. Trong mô hình hai thành phần MinHash lý tưởng độc lập, xác suất được chọn của cặp có Jaccard $s$ là $1-(1-s)^2$. Tiêu chí: phân biệt lượt phát và cặp duy nhất, kiểm Jaccard trên tập gốc và nêu đúng nguồn ngẫu nhiên.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: một dải hai hàng cho các tuple $(1,0)$, $(3,2)$, $(0,0)$, $(1,0)$; chỉ cột 1 và 4 chung thùng, nên $Q=K=1$ và $(1,4)$ đạt ngưỡng $2/3$. So với $b=2,r=1$ ($K=3$), đòi trùng cả hai hàng đã loại hai ứng viên giả. Câu 2: $P_{2,1}(s)=1-(1-s)^2$, $P_{1,2}(s)=s^2$; tại $s=1/4$ là $7/16$ và $1/16$; tại $s=2/3$ là $8/9$ và $4/9$. Cấu hình một dải hai hàng nhận ít cặp xa hơn nhưng cũng bỏ sót cặp gần nhiều hơn. Câu 3: công thức là xác suất trên cách chọn ngẫu nhiên các MinHash; một bộ hàm cố định chỉ cho một kết quả xác định trên dữ liệu đã cho. Tiêu chí: tính đúng tuple hai hàng, phân biệt $Q$ và $K$, thấy đánh đổi giữa hai cấu hình, nêu đúng nguồn ngẫu nhiên.
 - **Nguồn:** B Ex 3.8/ §3.4; câu kiểm tra áp dụng nguyên dữ kiện nguồn, tham số đã duyệt.
 - **Ánh xạ ghi chú:** `N02,N03,N04`. **Thời lượng:** 3 phút.
 
