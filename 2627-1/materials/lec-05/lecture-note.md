@@ -205,7 +205,7 @@ Dữ liệu xuyên suốt lấy từ Hình 3.2, tr. 81. Vũ trụ là $U=\{a,b,c
 Các cột lần lượt là $S_1=\{a,d\}$, $S_2=\{c\}$, $S_3=\{b,d,e\}$ và $S_4=\{a,c,d\}$. Chẳng hạn, $\mathrm{SIM}(S_1,S_4)=2/3$ vì giao là $\{a,d\}$ và hợp là $\{a,c,d\}$.
 :::
 
-Ma trận đặc là cách mô tả dữ liệu, không bắt buộc phải lưu toàn bộ các số $0$. Danh sách cột có $1$ theo từng hàng của ví dụ là:
+Ma trận đặc trưng là cách mô tả dữ liệu; thực tế nó hầu như luôn thưa, nên không lưu ma trận đặc đủ $RC$ ô mà chỉ lưu vị trí các ô $1$. Danh sách cột có $1$ theo từng hàng của ví dụ là:
 
 | Hàng | Danh sách cột |
 |---|---|
@@ -215,14 +215,14 @@ Ma trận đặc là cách mô tả dữ liệu, không bắt buộc phải lưu
 | d / 3 | 1, 3, 4 |
 | e / 4 | 3 |
 
-Đặt $L=\operatorname{nnz}(M)$ là tổng số ô $1$. Tổng độ dài các danh sách bằng $L$; ở đây $L=2+1+2+3+1=9$, còn ma trận có $RC=20$ ô. Biểu diễn theo hàng sẽ cho phép tính các giá trị băm một lần cho phần tử rồi cập nhật đúng những tập chứa nó. Ví dụ nhỏ không tự chứng minh danh sách dùng ít byte hơn: mỗi chỉ số cột cũng có chi phí lưu trữ.
+Đặt $L=\operatorname{nnz}(M)$ là tổng số ô $1$. Tổng độ dài các danh sách bằng $L$; ở đây $L=2+1+2+3+1=9$, còn ma trận có $RC=20$ ô. Biểu diễn theo hàng sẽ cho phép tính các giá trị băm một lần cho phần tử rồi cập nhật đúng những tập chứa nó (xem mục 9). Ví dụ nhỏ không tự chứng minh danh sách dùng ít byte hơn: mỗi chỉ số cột cũng có chi phí lưu trữ.
 
 ::: exercise Tự kiểm tra
-Giải thích vì sao hàng $d$ cần cập nhật ba cột khi tính chữ ký và xác định ba cột đó.
+Xác định các cột có $1$ ở hàng $d$ và giải thích vì sao danh sách của hàng này có ba phần tử.
 :::
 
 ::: solution Lời giải
-Phần tử $d$ thuộc $S_1,S_3,S_4$, nên hàng $d$ có ba ô $1$. Chỉ chữ ký của các cột 1, 3 và 4 cần nhận ứng viên từ hàng này; cột 2 không chứa $d$.
+Phần tử $d$ thuộc $S_1,S_3,S_4$, nên hàng $d$ có ba ô $1$ ở các cột 1, 3 và 4; cột 2 không chứa $d$. Khi tính chữ ký ở mục 9, chỉ ba cột này nhận ứng viên từ hàng $d$.
 :::
 
 ## 5. MinHash theo một hoán vị

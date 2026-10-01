@@ -656,12 +656,12 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 ### 20. Ma trận đặc trưng
 
 - **Mã:** `lec05-s03-02`; **phần:** 3; **note-topic-id:** `n05-04`.
-- **Mục đích và vai trò:** Cầu nối biểu diễn; đọc đúng hàng và cột. **Mục tiêu:** MT3.
+- **Mục đích và vai trò:** Cầu nối biểu diễn; đọc đúng hàng và cột; nhận ra tính thưa. **Mục tiêu:** MT3. **Mục tiêu:** MT3.
 - **Câu chốt:** Ma trận đặc trưng đặt các tập thành cột trên cùng các hàng phần tử; ma trận thực tế thưa và chỉ lưu vị trí các ô 1.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập cần nén; 21 đổi lưu trữ mà giữ quan hệ hiện diện.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu chữ ký từ 19; trang 22 chọn đại diện cho mỗi cột theo thứ tự các hàng.
 - **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: bảng ma trận 5 × 4 chiếm 60% trái, chú giải U, R, C và điều kiện ô 1 chiếm 40% phải; bảng dùng `ex-table`.
-- **Trọng tâm và thứ tự đọc:** Nhãn hàng/cột → hàng a → quy tắc ô 1 → kích thước.
+- **Bố cục đã chọn:** `example-slide`: câu dẫn ở đầu; bảng ma trận 5 × 4 chiếm 55% trái; chú giải $U,R,C$, câu định nghĩa ô 1, câu chốt và dòng về tính thưa bên phải.
+- **Trọng tâm và thứ tự đọc:** Câu dẫn → nhãn hàng/cột → hàng a → quy tắc ô 1 → tính thưa.
 - **Lý do phù hợp sinh viên năm 2:** Bảng số chính xác phù hợp thao tác đọc quan hệ; giữ hàng a–e và cột S1–S4 ở vị trí cố định cho mọi vết tiếp theo giúp sinh viên không đổi vai hàng/cột.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.3.1, VD 3.6, Hình 3.2 tr. 81–82.
@@ -685,7 +685,7 @@ $M(r,c)=1$ khi phần tử ở hàng $r$ thuộc $S_c$; ngược lại $M(r,c)=0
 
 Hàng là phần tử của $U$, cột là tập.
 
-Ma trận thực tế rất thưa; khi lưu chỉ ghi vị trí các ô 1.
+Ma trận thực tế hầu như luôn thưa; thay vì lưu ma trận đặc đủ $RC$ ô, chỉ ghi vị trí các ô 1.
 
 **Ghi chú diễn giả học thuật**
 
@@ -707,10 +707,10 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Mã:** `lec05-s03-04`; **phần:** 3; **note-topic-id:** `n05-05`.
 - **Mục đích và vai trò:** Trực giác; theo lựa chọn chung trên hai tập. **Mục tiêu:** MT3.
 - **Câu chốt:** Mỗi tập giữ phần tử đứng đầu theo một thứ tự chung; hai tập chọn trùng đúng khi phần tử đầu của hợp thuộc giao.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận phần tử/cột; 23 dùng đúng thứ tự trong ví dụ sách.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận ma trận hàng/cột từ 20 và nhu cầu chữ ký từ 19; 23 dùng đúng thứ tự trong ví dụ sách.
 - **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: hình một trục thứ tự ngang chiếm 55% trên, hai hàng dấu hiện diện của S1, S4 ngay dưới; hai nhãn “phần tử đầu” nối thẳng lên cùng trục; câu điều kiện ở đáy.
-- **Trọng tâm và thứ tự đọc:** Thứ tự chung → dấu thuộc từng tập → phần tử được chọn.
+- **Bố cục đã chọn:** `example-slide ex-grid2`: câu dẫn ở đầu; hình trục thứ tự với S1, S4 bên trái; ba gạch đầu dòng bên phải.
+- **Trọng tâm và thứ tự đọc:** Nhu cầu một đại diện → thứ tự chung → phần tử đứng đầu → điều kiện trùng.
 - **Lý do phù hợp sinh viên năm 2:** Trục chung làm rõ vì sao không chọn thứ tự độc lập cho mỗi tập; sinh viên theo một lựa chọn cụ thể trước khi đọc argmin.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §§3.3.2–3.3.3 tr. 82–83; áp dụng trên S1, S4 của Hình 3.2.
@@ -724,7 +724,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 - Xếp $U$ theo một thứ tự chung cho mọi tập.
 - Mỗi tập không rỗng giữ phần tử đứng đầu của nó.
-- Hai tập chọn cùng phần tử đúng khi phần tử đầu của hợp thuộc giao.
+- Hai tập chọn cùng phần tử khi và chỉ khi phần tử đầu của hợp thuộc giao.
 
 **Ghi chú diễn giả học thuật**
 
@@ -795,13 +795,13 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 $U$ hữu hạn, $S\subseteq U$, $S\ne\varnothing$.
 
-$\operatorname{rank}_\pi(u)$ là vị trí của $u$ trong hoán vị $\pi$.
+$\operatorname{rank}_\pi(u)$ là hạng, tức vị trí, của $u$ trong hoán vị $\pi$.
 
 $$
 h_\pi(S)=\arg\min_{u\in S}\operatorname{rank}_\pi(u)
 $$
 
-$\arg\min$ trả phần tử đạt vị trí nhỏ nhất. Với thứ tự $(b,e,a,d,c)$: $h_\pi(S_1)=a$, còn $\operatorname{rank}_\pi(a)=3$.
+$\arg\min$ trả phần tử đạt hạng nhỏ nhất. Với thứ tự $(b,e,a,d,c)$: $h_\pi(S_1)=a$, còn $\operatorname{rank}_\pi(a)=3$.
 
 Cùng $\pi$ được dùng cho mọi tập. Các hạng khác nhau nên phần tử đạt hạng nhỏ nhất là duy nhất.
 
@@ -845,7 +845,7 @@ $S_1,S_4$: $x=2$, $y=1$.
 
 **Ghi chú diễn giả học thuật**
 
-Những hàng Z không chứa phần tử của hai tập nên bỏ chúng khỏi thứ tự không đổi lựa chọn. Hàng đầu tiên khác Z thuộc X thì cả hai cột chọn cùng hàng; thuộc Y thì chỉ một cột có phần tử đó. Biến x đếm số hàng, không phải chỉ số của một hàng. Với cặp minh họa x=2, y=1.
+Những hàng Z không chứa phần tử của hai tập nên bỏ chúng khỏi thứ tự không làm đổi phần tử được chọn. Hàng đầu tiên khác Z thuộc X thì cả hai cột chọn cùng hàng; thuộc Y thì chỉ một cột có phần tử đó. Biến x đếm số hàng, không phải chỉ số của một hàng. Với cặp minh họa x=2, y=1.
 
 Nguồn: MMDS 3e, §3.3.3, tr. 83.
 
@@ -860,7 +860,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Xác suất hai MinHash trùng bằng Jaccard khi dùng chung một hoán vị đều.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận X/Y/Z; trang 27 phân biệt kết quả một hoán vị với xác suất.
 - **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: giả thiết ở trên 20%, công thức 25% giữa; hình ba bước “đầu hợp / thuộc giao / trùng” và trường hợp phần riêng chiếm 40% dưới.
+- **Bố cục đã chọn:** `example-slide`: giả thiết ở trên; công thức định lý; hai bước chứng minh đánh số; dòng kết luận $\Pr[u\in S\cap T]=x/(x+y)$.
 - **Trọng tâm và thứ tự đọc:** Giả thiết → kết luận → hai chiều biến cố → tỷ lệ giao/hợp.
 - **Lý do phù hợp sinh viên năm 2:** Giả thiết đặt cùng công thức để sinh viên không mang kết luận sang họ băm bất kỳ; hai trường hợp làm rõ tính tương đương chứ không chỉ một chiều đủ.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
@@ -882,6 +882,8 @@ $$\Pr[h_\pi(S)=h_\pi(T)]=\Pr[u\in S\cap T]=\frac{x}{x+y}$$
 
 Gọi u là phần tử đầu của hợp. Tính đối xứng của hoán vị đều cho mỗi phần tử của hợp cùng xác suất đứng đầu. Nếu u thuộc giao, u đứng đầu cả hai tập. Nếu u nằm trong phần riêng, chỉ một tập chọn u, còn tập kia chọn một phần tử khác. Vậy biến cố trùng tương đương u thuộc giao. Có x phần tử thuận lợi trong x+y phần tử của hợp, nên xác suất bằng x/(x+y), đúng Jaccard. Phần tử ngoài hợp không ảnh hưởng lập luận.
 
+Nguồn: MMDS 3e, §3.3.3, tr. 83.
+
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
@@ -893,11 +895,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Hai MinHash khác nhau khi phần tử đầu của hợp nằm ở phần riêng; xác suất trùng đổi theo Jaccard; hàng ngoài hợp không ảnh hưởng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận định lý; 28 dùng nhiều thứ tự để tạo ước lượng.
 - **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: hai tập và thứ tự trong dải dữ kiện 30% trên; ba nhiệm vụ đánh số trong thẻ 60% dưới, đáp án chỉ ở notes.
-- **Trọng tâm và thứ tự đọc:** Đếm tập → chạy thứ tự cố định → chuyển sang phép chọn ngẫu nhiên.
-- **Lý do phù hợp sinh viên năm 2:** Thứ tự nhiệm vụ tách ba mức nhận thức trên cùng dữ liệu, giúp sinh viên không dùng kết quả cố định như một xác suất.
+- **Bố cục đã chọn:** `example-slide`: dòng dữ kiện $S_1,S_4,U$ ở trên; nhãn “Câu hỏi:” và ba nhiệm vụ đánh số; đáp án chỉ ở ghi chú.
+- **Trọng tâm và thứ tự đọc:** Dựng thứ tự làm hai MinHash khác nhau → áp dụng định lý cho cặp mới → vai trò hàng loại Z.
+- **Lý do phù hợp sinh viên năm 2:** Ba nhiệm vụ đi từ một thứ tự cụ thể tới xác suất và tới điều kiện của chứng minh; không câu nào lặp kết quả đã hiện trên mặt trang trước.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
-- **Nguồn:** B Hình 3.2–3.3 và §3.3.3 tr. 81–83.
+- **Nguồn:** B Hình 3.2 và §3.3.3 tr. 81–83; $S_1'$ là biến thể của $S_1$.
 - **Thời lượng:** 3 phút.
 
 **Nội dung công khai dự kiến**
@@ -908,17 +910,17 @@ Câu hỏi:
 
 1. Nêu một thứ tự của $U$ làm $h_\pi(S_1)\ne h_\pi(S_4)$; chỉ ra phần tử đứng đầu hợp.
 2. Đặt $S_1'=S_1\cup\{e\}$. Tính $\Pr[h_\pi(S_1')=h_\pi(S_4)]$ khi $\pi$ chọn đều.
-3. Giải thích vì sao vị trí của $b$ trong thứ tự không ảnh hưởng tới biến cố $h_\pi(S_1)=h_\pi(S_4)$.
+3. Giải thích vì sao vị trí của $c$ trong thứ tự không ảnh hưởng tới biến cố $h_\pi(S_1)=h_\pi(S_3)$, với $S_3=\{b,d,e\}$.
 
 **Ghi chú diễn giả học thuật**
 
-Câu 1: cần $c$ đứng trước cả $a$ và $d$, chẳng hạn $(c,a,b,d,e)$; khi đó $h_\pi(S_1)=a$ còn $h_\pi(S_4)=c$. Phần tử đứng đầu hợp $\{a,c,d\}$ là $c$, thuộc phần riêng của $S_4$. Câu 2: $S_1'\cap S_4=\{a,d\}$, $S_1'\cup S_4=\{a,c,d,e\}$, nên xác suất bằng $2/4=1/2$; thêm $e$ làm hợp lớn hơn mà giao giữ nguyên. Câu 3: $b$ không thuộc $S_1$ hay $S_4$, tức là hàng loại $Z$; phần tử ngoài hợp không thể được chọn, nên vị trí của nó không đổi phần tử đầu của hợp.
+Câu 1: cần $c$ đứng trước cả $a$ và $d$, chẳng hạn $(c,a,b,d,e)$; khi đó $h_\pi(S_1)=a$ còn $h_\pi(S_4)=c$. Phần tử đứng đầu hợp $\{a,c,d\}$ là $c$, thuộc phần riêng của $S_4$. Câu 2: $S_1'\cap S_4=\{a,d\}$, $S_1'\cup S_4=\{a,c,d,e\}$, nên xác suất bằng $2/4=1/2$; thêm $e$ làm hợp lớn hơn mà giao giữ nguyên. Câu 3: $S_1\cup S_3=\{a,b,d,e\}$ không chứa $c$, nên với cặp này $c$ là hàng loại $Z$; phần tử ngoài hợp không thể được chọn, nên vị trí của nó không đổi phần tử đầu của hợp.
 
 Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến thể của $S_1$.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: một thứ tự có $c$ trước $a$ và $d$; xác suất $1/2$ (kiểm lại bằng liệt kê 120 hoán vị); $b$ thuộc loại $Z$. Không câu nào có đáp án trên mặt trang 23–26 (trang 23 chỉ có thứ tự $(b,e,a,d,c)$, trang 25 chỉ có $x=2,y=1$ của $S_1,S_4$). Tập $S_1'$ là dữ kiện biến thể, ghi ở dòng nguồn.
+Đáp án: một thứ tự có $c$ trước $a$ và $d$; xác suất $1/2$ (kiểm lại bằng liệt kê 120 hoán vị); $c$ thuộc loại $Z$ của cặp $S_1,S_3$. Không câu nào có đáp án trên mặt trang 23–26 (trang 23 chỉ có thứ tự $(b,e,a,d,c)$, trang 25 chỉ có $x=2,y=1$ của $S_1,S_4$). Tập $S_1'$ là dữ kiện biến thể, ghi ở dòng nguồn.
 
 ### 28. Chữ ký từ nhiều thứ tự
 
