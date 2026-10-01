@@ -886,11 +886,11 @@ Gọi u là phần tử đầu của hợp. Tính đối xứng của hoán vị
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 27. Câu hỏi kiểm tra
+### 27. Câu hỏi về MinHash
 
 - **Mã:** `lec05-s03-09`; **phần:** 3; **note-topic-id:** `n05-06`.
 - **Mục đích và vai trò:** Kiểm tra MT3; nối phép tính, vết chạy và định lý. **Mục tiêu:** MT3.
-- **Câu chốt:** Một kết quả trùng là một quan sát; xác suất trùng được xác định trên không gian hoán vị.
+- **Câu chốt:** Hai MinHash khác nhau khi phần tử đầu của hợp nằm ở phần riêng; xác suất trùng đổi theo Jaccard; hàng ngoài hợp không ảnh hưởng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận định lý; 28 dùng nhiều thứ tự để tạo ước lượng.
 - **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: hai tập và thứ tự trong dải dữ kiện 30% trên; ba nhiệm vụ đánh số trong thẻ 60% dưới, đáp án chỉ ở notes.
@@ -902,29 +902,23 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-$$
-S_1=\{a,d\},\qquad S_4=\{a,c,d\}
-$$
-
-$U=\{a,b,c,d,e\}$; thứ tự đã cho: $b,e,a,d,c$.
+$$S_1=\{a,d\},\qquad S_4=\{a,c,d\},\qquad U=\{a,b,c,d,e\}$$
 
 Câu hỏi:
 
-- Tính Jaccard của $S_1,S_4$.
-
-- Xác định hai MinHash theo thứ tự đã cho.
-
-- Tính xác suất trùng khi chọn đều một hoán vị của $U$.
+1. Nêu một thứ tự của $U$ làm $h_\pi(S_1)\ne h_\pi(S_4)$; chỉ ra phần tử đứng đầu hợp.
+2. Đặt $S_1'=S_1\cup\{e\}$. Tính $\Pr[h_\pi(S_1')=h_\pi(S_4)]$ khi $\pi$ chọn đều.
+3. Giải thích vì sao vị trí của $b$ trong thứ tự không ảnh hưởng tới biến cố $h_\pi(S_1)=h_\pi(S_4)$.
 
 **Ghi chú diễn giả học thuật**
 
-Giao gồm a, d và hợp gồm a, c, d nên Jaccard bằng 2/3. Theo thứ tự đã cho, cả hai tập chọn a. Khi chọn đều mọi hoán vị, xác suất trùng là 2/3 vì phần tử đầu của hợp là a hoặc d trong hai trên ba khả năng đồng đều. Sự trùng trong một lần không suy ra hai tập bằng nhau.
+Câu 1: cần $c$ đứng trước cả $a$ và $d$, chẳng hạn $(c,a,b,d,e)$; khi đó $h_\pi(S_1)=a$ còn $h_\pi(S_4)=c$. Phần tử đứng đầu hợp $\{a,c,d\}$ là $c$, thuộc phần riêng của $S_4$. Câu 2: $S_1'\cap S_4=\{a,d\}$, $S_1'\cup S_4=\{a,c,d,e\}$, nên xác suất bằng $2/4=1/2$; thêm $e$ làm hợp lớn hơn mà giao giữ nguyên. Câu 3: $b$ không thuộc $S_1$ hay $S_4$, tức là hàng loại $Z$; phần tử ngoài hợp không thể được chọn, nên vị trí của nó không đổi phần tử đầu của hợp.
 
-Nguồn: Dữ kiện: MMDS 3e, Hình 3.2–3.3 và §3.3.3.
+Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến thể của $S_1$.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án 2/3; a, a; 2/3. Chấm phép đếm, dùng cùng thứ tự, giả thiết hoán vị đều. Dự toán 1,5 phút làm và 1,5 phút đối chiếu.
+Đáp án: một thứ tự có $c$ trước $a$ và $d$; xác suất $1/2$ (kiểm lại bằng liệt kê 120 hoán vị); $b$ thuộc loại $Z$. Không câu nào có đáp án trên mặt trang 23–26 (trang 23 chỉ có thứ tự $(b,e,a,d,c)$, trang 25 chỉ có $x=2,y=1$ của $S_1,S_4$). Tập $S_1'$ là dữ kiện biến thể, ghi ở dòng nguồn.
 
 ### 28. Ví dụ chữ ký MinHash
 

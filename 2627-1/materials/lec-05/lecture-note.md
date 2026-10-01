@@ -315,11 +315,15 @@ Có $x$ phần tử thuận lợi trong $x+y$ phần tử đồng khả năng, n
 Chứng minh theo §3.3.3, tr. 83. Nó bao gồm trường hợp hai tập rời, khi $x=0$, và hai tập bằng nhau, khi $y=0$. Tập không rỗng là điều kiện để mỗi MinHash được xác định. Một quy ước kỹ thuật cho cột rỗng ở thuật toán sau không thay điều kiện này.
 
 ::: exercise Tự kiểm tra
-Với $S_1,S_4$, tính xác suất trùng dưới hoán vị đều và giải thích bằng phần tử đầu của hợp.
+(a) Với $S_1,S_4$, tính xác suất trùng dưới hoán vị đều và giải thích bằng phần tử đầu của hợp.
+
+(b) Đặt $S_1'=S_1\cup\{e\}$. Tính $\Pr[h_\pi(S_1')=h_\pi(S_4)]$ và giải thích vì sao giá trị giảm so với ý (a).
 :::
 
 ::: solution Lời giải
-Hợp là $\{a,c,d\}$. Mỗi phần tử có xác suất $1/3$ đứng đầu. Các trường hợp đứng đầu là $a$ hoặc $d$ làm hai MinHash trùng, nên xác suất bằng $2/3$, đúng Jaccard của hai tập.
+(a) Hợp là $\{a,c,d\}$. Mỗi phần tử có xác suất $1/3$ đứng đầu. Các trường hợp đứng đầu là $a$ hoặc $d$ làm hai MinHash trùng, nên xác suất bằng $2/3$, đúng Jaccard của hai tập.
+
+(b) Giao vẫn là $\{a,d\}$, hợp thành $\{a,c,d,e\}$. Xác suất bằng $2/4=1/2$. Phần tử $e$ mở rộng hợp nhưng không thuộc giao, nên làm tăng khả năng phần tử đầu của hợp rơi vào phần riêng.
 :::
 
 ## 7. Chữ ký và ước lượng Jaccard
