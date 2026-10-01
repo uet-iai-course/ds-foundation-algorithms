@@ -323,7 +323,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </aside>
 </section>
 <section id="lec04-s02-10" data-slide-id="lec04-s02-10" class="example-slide cost-slide">
-<h2>Chi phí tính và lưu các vector chủ đề</h2>
+<h2>Chi phí tiền tính và truy vấn</h2>
 <p>Mô hình: phép toán vô hướng chi phí đơn vị; $n$ đỉnh, $\ell$ cạnh, danh sách kề.</p>
 <table class="ex-table">
 <thead>
@@ -342,7 +342,7 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 <td>Số lượt cố định trên $n$ đỉnh</td>
 </tr>
 </tbody>
-</table><div class="ex-grid2  l04-vcenter "><div><p>Một vector: mỗi vòng $\Theta(n+\ell)$; chạy đủ $K$ vòng cần $\Theta(K(n+\ell))$.</p></div><div><p>Bộ nhớ đầu vào $\Theta(n+\ell)$; bộ nhớ phụ $\Theta(n)$. Lưu $k$ kết quả $r^{(j)}$ cần $\Theta(kn)$ số. Ghép điểm trên tập ứng viên $C$, $c=|C|$: $\Theta(kc)$ phép nhân–cộng, chưa gồm sắp xếp.</p></div></div>
+</table><div class="ex-grid2"><div class="ex-card"><h3>Tiền tính</h3><p>Mỗi vòng $\Theta(n+\ell)$; $k$ chủ đề, tối đa $K$ vòng: $O(kK(n+\ell))$.</p><p>Bộ nhớ: đầu vào $\Theta(n+\ell)$, phụ $\Theta(n)$; lưu kết quả $\Theta(kn)$ số.</p></div><div class="ex-card"><h3>Khi có truy vấn</h3><p>Mỗi $i\in C$ cần $k$ phép nhân–cộng: tổng $\Theta(kc)$, $c=|C|$.</p><p>Chưa gồm tìm ứng viên, xác định $w_j$ và sắp xếp.</p></div></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198.</p>
 <aside class="notes">
 <p>Mỗi cạnh tạo đúng một đóng góp; các bước khởi tạo vector, cộng bù và đo $\Delta$ duyệt mỗi đỉnh một số lần không phụ thuộc kích thước. Danh sách kề lưu đỉnh và cạnh, còn các vector $r$, $v$ cùng vector điểm mới cần bộ nhớ tuyến tính theo $n$.</p>

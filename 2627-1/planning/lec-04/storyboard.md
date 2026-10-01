@@ -807,7 +807,7 @@ Phép ghép khi có truy vấn cho đúng PageRank với $v=\sum_jw_jv^{(j)}$; m
 <!-- public-notes:end -->
 
 
-### lec04-s02-10 — Chi phí tính và lưu các vector chủ đề
+### lec04-s02-10 — Chi phí tiền tính và truy vấn
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Đánh giá chi phí; MT5. Đầu vào: giả mã HT1 và ghép HT3. Sản phẩm: truy nguyên số hạng thời gian và bộ nhớ.
 
@@ -823,9 +823,9 @@ Mô hình: phép toán vô hướng chi phí đơn vị; $n$ đỉnh, $\ell$ c�
 | Cộng điểm theo liên kết | $\ell$ cạnh |
 | Bù, dịch chuyển, so sánh | Số lượt cố định trên $n$ đỉnh |
 
-Một vector: mỗi vòng $\Theta(n+\ell)$; chạy đủ $K$ vòng cần $\Theta(K(n+\ell))$.
+**Tiền tính.** Mỗi vòng $\Theta(n+\ell)$; $k$ chủ đề, tối đa $K$ vòng: $O(kK(n+\ell))$. Bộ nhớ: đầu vào $\Theta(n+\ell)$, phụ $\Theta(n)$; lưu kết quả $\Theta(kn)$ số.
 
-Bộ nhớ đầu vào $\Theta(n+\ell)$; bộ nhớ phụ $\Theta(n)$. Lưu $k$ kết quả $r^{(j)}$ cần $\Theta(kn)$ số. Ghép điểm trên tập ứng viên $C$, $c=|C|$: $\Theta(kc)$ phép nhân–cộng, chưa gồm sắp xếp.
+**Khi có truy vấn.** Mỗi $i\in C$ cần $k$ phép nhân–cộng: tổng $\Theta(kc)$, $c=|C|$. Chưa gồm tìm ứng viên, xác định $w_j$ và sắp xếp.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Mô hình trên20%, bảng hai hàng giữa35%, hai khối kết quả thời gian/bộ nhớ dưới45%. Không đặt đồ thị hoặc giả mã đầy đủ ở cùng trang.
@@ -839,6 +839,8 @@ Bộ nhớ đầu vào $\Theta(n+\ell)$; bộ nhớ phụ $\Theta(n)$. Lưu $k$ 
 **Ví dụ, phiếu số và hình thức hóa:** HT3, VD1 có n4/ell8 chỉ đối chiếu vai trò, không coi là dữ liệu hiệu năng.
 
 **Kết nối vào–ra:** Giả mã và ghép vector → giới hạn tài nguyên của tình huống mở đầu → quy trình sử dụng.
+
+**Quyết định 01/10/2026:** sửa — nay đứng sau s02-11 nên $C$, $w_j$ đã được định nghĩa (G6); tiêu đề gọi hai giai đoạn được đếm; thay đoạn văn bốn số đo bằng hai thẻ “Tiền tính”, “Khi có truy vấn” khớp bố cục s02-11; giữ bảng đếm mỗi vòng để số hạng truy được về giả mã.
 
 **Nguồn và vị trí:** NG1 §5.2.1 tr.191–192; §5.3.2–5.3.4 tr.196–199. Phép đếm từ HT1/HT3.
 
