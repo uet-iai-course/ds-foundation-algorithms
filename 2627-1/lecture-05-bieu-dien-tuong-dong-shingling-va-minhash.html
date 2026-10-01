@@ -199,7 +199,7 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 </section>
 <section id="lec05-s04-06" data-slide-id="lec05-s04-06" class="cost-slide">
 <h2>Chi phí so sánh chữ ký</h2>
-<p>Mỗi thành phần vừa một từ máy; một phép so bằng tốn \(O(1)\).</p><div class="ex-grid2 "><div><div class="ex-card"><p>Một cặp chữ ký</p><p class="ex-equation">\[n\text{ phép so bằng}\]</p><p class="ex-equation">\[\Theta(n)\]</p></div></div><div><div class="ex-card"><p>Mọi cặp trong kho</p><p class="ex-equation">\[\frac{nC(C-1)}2\]</p><p>phép so bằng</p></div></div></div><p class="ex-takeaway">Chữ ký ngắn giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.</p>
+<p>Mỗi thành phần vừa một từ máy; một phép so bằng tốn \(O(1)\).</p><div class="ex-grid2 "><div><div class="ex-card"><p>Một cặp chữ ký</p><p>\(n\) phép so bằng</p><p class="ex-equation">\[\Theta(n)\]</p><p>không phụ thuộc độ dài tài liệu</p></div></div><div><div class="ex-card"><p>Mọi cặp trong kho</p><p class="ex-equation">\[\frac{nC(C-1)}2\]</p><p>phép so bằng</p></div></div></div><p class="ex-takeaway">Chữ ký ngắn giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.</p>
 <p class="ex-source">Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.</p>
 <aside class="notes"><p>Trong mô hình mỗi thành phần vừa một từ máy, so bằng tốn \(O(1)\). Ước lượng duyệt tất cả \(n\) tọa độ, đếm các vị trí bằng nhau rồi chia n. Bộ nhớ chữ ký được xây một lần và được dùng lại cho nhiều cặp; chi phí xây được phân tích riêng. Phép đếm mọi cặp vẫn mang thừa số C(C−1)/2 từ đầu bài. Tăng n vừa giảm phương sai trong mô hình lý tưởng vừa tăng công việc so sánh.</p><p>Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.</p></aside>
 </section>

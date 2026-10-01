@@ -382,7 +382,7 @@ Do đó ước lượng không chệch trong mô hình trên. Kỳ vọng **số
 
 ### Chi phí so sánh
 
-Nếu mỗi thành phần vừa một từ máy và phép so bằng tốn $O(1)$, hai chữ ký cần $n$ phép so bằng, tức $\Theta(n)$ thời gian. Nếu làm cho mọi cặp trong kho, số phép so bằng là $nC(C-1)/2$. Chi phí tạo chữ ký là một bước riêng và được phân tích ở mục 10.
+Nếu mỗi thành phần vừa một từ máy và phép so bằng tốn $O(1)$, hai chữ ký cần $n$ phép so bằng, tức $\Theta(n)$ thời gian, không phụ thuộc độ dài hai tài liệu hay kích thước hai tập shingle. Nếu làm cho mọi cặp trong kho, số phép so bằng là $nC(C-1)/2$. Chi phí tạo chữ ký là một bước riêng và được phân tích ở mục 10.
 
 ::: exercise Tự kiểm tra
 Với cặp $S_1,S_4$ và $n=100$ hoán vị đều, tính kỳ vọng số tọa độ trùng và kỳ vọng tỷ lệ trùng.

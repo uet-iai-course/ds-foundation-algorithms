@@ -1115,7 +1115,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 - **Mã:** `lec05-s04-06`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Mục đích và vai trò:** Chi phí; nối độ dài chữ ký với công việc. **Mục tiêu:** MT4.
-- **Câu chốt:** Chữ ký dài n cần n phép so sánh cho mỗi cặp.
+- **Câu chốt:** Một cặp chữ ký cần $n$ phép so bằng, không phụ thuộc độ dài tài liệu; số cặp vẫn tăng bậc hai.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tác dụng thống kê n; 34 kiểm cả kỳ vọng và điều kiện tăng n.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Mô hình từ máy và chi phí so bằng $O(1)$ trước hai thẻ: chi phí một cặp ở trái, mọi cặp ở phải. Câu chốt giữ giới hạn bậc hai.
@@ -1131,13 +1131,13 @@ Mỗi thành phần vừa một từ máy; một phép so bằng tốn $O(1)$.
 
 Một cặp chữ ký
 
-$$
-n\text{ phép so bằng}
-$$
+$n$ phép so bằng
 
 $$
 \Theta(n)
 $$
+
+không phụ thuộc độ dài tài liệu
 
 Mọi cặp trong kho
 
