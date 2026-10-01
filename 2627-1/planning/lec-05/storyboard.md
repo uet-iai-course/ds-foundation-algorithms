@@ -1039,14 +1039,14 @@ Nguồn: MMDS 3e, §3.3.4, tr. 84.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 31. Kỳ vọng số lần trùng
+### 31. Kỳ vọng của ước lượng
 
 - **Mã:** `lec05-s04-04`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Mục đích và vai trò:** Suy luận xác suất; phân biệt số đếm và tỷ lệ. **Mục tiêu:** MT4.
-- **Câu chốt:** Số lần trùng có kỳ vọng ns; tỷ lệ trùng có kỳ vọng s.
+- **Câu chốt:** Ước lượng không chệch: số lần trùng có kỳ vọng $ns$, tỷ lệ trùng có kỳ vọng $s$; bước này không cần độc lập.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tổng chỉ báo; 32 thêm giả thiết độc lập để tính độ phân tán.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: ba hàng phép suy ra có cột nhãn “một tọa độ / số lần / tỷ lệ” chiếm 75% thân; mỗi hàng một biểu thức, nhãn đơn vị đặt sát.
+- **Bố cục đã chọn:** `example-slide`: dòng định nghĩa $s$, $X_i$; dòng căn cứ từ định lý và $\mathbb E[X_i]=s$; hai thẻ “số tọa độ trùng / tỷ lệ tọa độ trùng”; câu chốt về tính không chệch.
 - **Trọng tâm và thứ tự đọc:** Chỉ báo → cộng n kỳ vọng → chia n.
 - **Lý do phù hợp sinh viên năm 2:** Tách nhãn số đếm và tỷ lệ ngăn lỗi đơn vị của nguồn; sinh viên dùng tuyến tính kỳ vọng đã học mà không phải chấp nhận một công thức mới thiếu phép suy ra.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
@@ -1055,11 +1055,21 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Đặt $s=\mathrm{SIM}(S, T)$ và $X_i=\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$. Khi mỗi $\pi_i$ đều: $$\mathbb E[X_i]=s,\quad\mathbb E\!\left[\sum_iX_i\right]=ns,\quad\mathbb E[\widehat{\mathrm{SIM}}]=s.$$
+Đặt $s=\mathrm{SIM}(S,T)$ và $X_i=\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$.
+
+Khi mỗi $\pi_i$ được chọn đều, định lý MinHash cho:
+
+$$\mathbb E[X_i]=\Pr[X_i=1]=s$$
+
+Số tọa độ trùng: $\mathbb E\!\left[\sum_{i=1}^nX_i\right]=ns$. Tỷ lệ tọa độ trùng: $\mathbb E[\widehat{\mathrm{SIM}}]=s$.
+
+Ước lượng không chệch; tính tuyến tính của kỳ vọng không cần các hoán vị độc lập.
 
 **Ghi chú diễn giả học thuật**
 
-Mỗi chỉ báo nhận 1 với xác suất s theo định lý MinHash, nên kỳ vọng của nó là s. Tuyến tính kỳ vọng cho tổng ns; chia n được tỷ lệ kỳ vọng s. Bước tuyến tính không cần độc lập giữa các hoán vị. Kỳ vọng không khẳng định tổng quan sát ở mọi lần bằng ns và có thể không nguyên. Đây là hiệu chỉnh đơn vị của câu trên trang 84 sách: số hàng trùng và tỷ lệ hàng trùng là hai đại lượng khác nhau.
+Mỗi chỉ báo nhận 1 với xác suất $s$ theo định lý MinHash, nên kỳ vọng của nó là $s$. Tuyến tính kỳ vọng cho tổng $ns$; chia $n$ được tỷ lệ kỳ vọng $s$. Kỳ vọng không khẳng định tổng quan sát ở mọi lần bằng $ns$ và có thể không nguyên. Đây là hiệu chỉnh đơn vị của câu trên trang 84 sách: số hàng trùng và tỷ lệ hàng trùng là hai đại lượng khác nhau.
+
+Nguồn: MMDS 3e, §3.3.4; tính tuyến tính của kỳ vọng. Phân biệt số đếm và tỷ lệ.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
