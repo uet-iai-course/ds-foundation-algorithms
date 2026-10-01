@@ -745,16 +745,21 @@ Một quy trình tìm cặp cần quyết định biểu diễn, độ đo, họ
 ::: exercise
 Câu hỏi:
 
-1. Với hai hàng SIG $(1,3,0,1)$ và $(0,2,0,0)$, $b=2,r=1$, xác định cặp phát lặp và $K$.
-2. Với cặp có Jaccard $s\ge t$, viết xác suất bỏ sót trong mô hình MinHash độc lập.
-3. Với họ $(.3,.6,.7,.4)$, nêu bảo đảm khi $d\ge.6$.
-4. Phân biệt cấu trúc $1-(1-p^4)^4$ và $[1-(1-p)^4]^4$.
-5. Nêu điều kiện để xác suất cùng dấu bằng $1-\theta/\pi$.
-6. Giải thích vì sao cặp vân tay chung thùng vẫn cần xác minh.
+1. SIG có hai hàng $(2,1,2,0)$ và $(1,1,1,1)$, $b=2$, $r=1$. Tính $Q$, $K$ và nêu cặp được phát lặp.
+2. Với $b=10$, $r=4$, tính ngưỡng xấp xỉ $(1/b)^{1/r}$ và xác suất thành ứng viên của cặp có $s=0{,}8$ và $s=0{,}3$.
+3. Viết bộ tham số của họ MinHash với $d_1=0{,}2$, $d_2=0{,}5$, rồi của họ sau AND 2.
+4. Họ siêu phẳng với cặp gần $\theta\le\pi/6$ và cặp xa $\theta\ge\pi/2$: tính $p_1$, $p_2$ và hai cận sau AND 2 rồi OR 2.
+5. Kho $C$ ảnh, mỗi ảnh một vector đặc trưng thực 128 chiều, cần cặp có góc nhỏ. Chọn họ cơ sở và nêu chi phí tính chữ ký $m$ bit.
+6. Giữ $r$ và tăng $b$: xác định ảnh hưởng tới số cặp bỏ sót và tới $K$.
 :::
 
 ::: solution
-Cặp $(1,4)$ phát hai lần; hợp có ba cặp nên $K=3$. Xác suất bỏ sót của cặp đạt ngưỡng là $(1-s^r)^b$. Khi $d\ge.6$, xác suất trùng không quá .4. Công thức thứ nhất là AND 4 rồi OR 4; công thức thứ hai là OR 4 rồi AND 4, với các phép thử độc lập. Công thức góc cần vector khác 0, cùng phép băm, pháp tuyến đẳng hướng và góc đo radian. Cặp vân tay khác ngón vẫn có xác suất trùng trong mô hình, nên chung thùng chưa xác nhận cùng ngón.
+1. Dải 1 cho thùng $\{1,3\}$, dải 2 cho thùng $\{1,2,3,4\}$; $Q=1+6=7$, $K=6$, cặp $(1,3)$ phát hai lần.
+2. Ngưỡng $0{,}1^{1/4}\approx0{,}562$; $1-(1-0{,}4096)^{10}\approx0{,}9949$ và $1-(1-0{,}0081)^{10}\approx0{,}0781$.
+3. $(0{,}2;\ 0{,}5;\ 0{,}8;\ 0{,}5)$; sau AND 2 với hai hàm độc lập là $(0{,}2;\ 0{,}5;\ 0{,}64;\ 0{,}25)$.
+4. $p_1=5/6$, $p_2=1/2$; $F(p)=1-(1-p^2)^2$ cho $F(5/6)\approx0{,}9066$ và $F(1/2)=0{,}4375$.
+5. Họ siêu phẳng, vì góc chỉ phụ thuộc hướng; cần $128\,Cm$ phép nhân, $m$ bit mỗi ảnh và $128m$ số cho các pháp tuyến.
+6. $P_{b,r}(s)$ tăng với mọi $s$: ít cặp bỏ sót hơn, nhưng nhiều cặp xa thành ứng viên hơn nên $K$ và thời gian xác minh tăng.
 :::
 
 ## Đọc thêm có giới hạn

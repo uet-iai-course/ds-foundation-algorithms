@@ -703,29 +703,29 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.2–3, §3.6.3; sources/source.md, Bài 07.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 1.5 phút.
 
-#### lec06-s06-03 — Tự kiểm tra thuật toán và mô hình
+#### lec06-s06-03 — Câu hỏi tổng hợp về phân dải
 
-- **Mục đích và vai trò:** Phối hợp MT1–MT3 trên dữ kiện đã học.
+- **Mục đích và vai trò:** Kiểm tra tổng hợp MT1–MT3 bằng dữ kiện mới: đếm $Q$, $K$; ngưỡng và xác suất với $b=10$, $r=4$; bộ tham số MinHash và AND 2.
 - **Thông điệp:** Hợp đồng đầu ra và mô hình xác suất cần được phân biệt.
-- **Nội dung công khai dự kiến:** Câu hỏi: (1) Với SIG hai hàng $(1,3,0,1)$,$(0,2,0,0)$ và $b=2,r=1$, nêu cặp phát lặp và $K$. (2) Viết xác suất bỏ sót của một cặp có Jaccard $s\ge t$ trong mô hình MinHash độc lập. (3) Với họ $(.3,.6,.7,.4)$, nêu cận được bảo đảm khi $d\ge.6$.
-- **Đầu vào và giả thiết:** V02, HT3, HT6; toàn dữ kiện hiện trên trang.
-- **Dữ kiện, hình thức hóa và vết chạy:** Nhiệm vụ 1→MT1;2→MT2;3→MT3.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba yêu cầu một cột, ma trận nhỏ kề yêu cầu 1. Năm 2 gọi lại thao tác trước công thức và cận; không để đáp án gợi ngay dưới câu hỏi.
+- **Nội dung công khai dự kiến:** Câu hỏi: SIG có hai hàng $(2,1,2,0)$ và $(1,1,1,1)$; $b=2$, $r=1$. Tính $Q$, $K$ và nêu cặp được phát lặp. Với $b=10$, $r=4$, tính ngưỡng xấp xỉ $(1/b)^{1/r}$ và xác suất thành ứng viên của cặp có $s=0{,}8$ và $s=0{,}3$. Viết bộ tham số của họ MinHash với $d_1=0{,}2$, $d_2=0{,}5$, rồi của họ sau AND 2.
+- **Đầu vào và giả thiết:** Thuật toán phân dải, $P_{b,r}(s)$, định nghĩa họ nhạy cảm và phép AND; dữ kiện luyện tập không trùng các vết chạy đã giải.
+- **Dữ kiện, hình thức hóa và vết chạy:** Câu 1→MT1; câu 2→MT2; câu 3→MT3. Đáp án đã tính lại: $Q=7$, $K=6$; $0{,}562$, $0{,}9949$, $0{,}0781$; $(0{,}2;\ 0{,}5;\ 0{,}64;\ 0{,}25)$.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba yêu cầu một cột; đáp án và tiêu chí chỉ ở ghi chú.
 - **Kết nối vào–ra:** Giới hạn→tự kiểm nửa đầu; trang sau kiểm phép ghép/họ/ứng dụng.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: cặp $(1,4)$ phát hai lần, $K=3$. Với cặp đạt ngưỡng $s\ge t$, xác suất bỏ sót là $(1-s^r)^b$. Khi $d\ge0.6$, xác suất trùng không quá $0.4$. Tiêu chí: đếm cặp duy nhất, giữ giả thiết độc lập và điều kiện đạt ngưỡng, giữ chiều cận xa.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: dải 1 cho thùng $\{1,3\}$, dải 2 cho thùng $\{1,2,3,4\}$; $Q=1+6=7$, $K=6$, cặp $(1,3)$ phát hai lần. Câu 2: ngưỡng $0{,}1^{1/4}\approx0{,}562$; $P(0{,}8)=1-(1-0{,}4096)^{10}\approx0{,}9949$, $P(0{,}3)=1-(1-0{,}0081)^{10}\approx0{,}0781$. Câu 3: $(0{,}2;\ 0{,}5;\ 0{,}8;\ 0{,}5)$, sau AND 2 là $(0{,}2;\ 0{,}5;\ 0{,}64;\ 0{,}25)$ với hai hàm độc lập. Tiêu chí: đếm cả lượt phát lặp trong $Q$ và chỉ đếm một lần trong $K$; dùng đúng thứ tự AND trong dải rồi OR giữa các dải; giữ nguyên $d_1$, $d_2$ khi ghép.
 - **Nguồn:** B Ex 3.8, §3.4.2, Ex 3.18 tr.105; tổng hợp mục tiêu MT1–MT3.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s06-04 — Tự kiểm tra phép ghép và ứng dụng
+#### lec06-s06-04 — Câu hỏi tổng hợp về họ băm và ứng dụng
 
-- **Mục đích và vai trò:** Phối hợp MT4–MT6 và nhận diện giới hạn của kết luận.
+- **Mục đích và vai trò:** Kiểm tra tổng hợp MT4–MT6: AND–OR trên họ siêu phẳng, chọn họ và chi phí cho một ứng dụng mới, đánh đổi hai loại sai số khi tăng $b$.
 - **Thông điệp:** Kết quả số chỉ có ý nghĩa trong mô hình đã nêu.
-- **Nội dung công khai dự kiến:** Câu hỏi: (4) Nêu sự khác nhau giữa $1-(1-p^4)^4$ và $[1-(1-p)^4]^4$. (5) Nêu điều kiện để xác suất cùng dấu bằng $1-\theta/\pi$. (6) Giải thích vì sao chung thùng ở phép thử vân tay vẫn cần xác minh.
-- **Đầu vào và giả thiết:** V09, HT9, HT11.
-- **Dữ kiện, hình thức hóa và vết chạy:** Nhiệm vụ 4→MT4;5→MT5;6→MT6. Sáu nhiệm vụ cuối bài phủ đủ mục tiêu.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba yêu cầu một cột; hai công thức đặt cùng dòng nếu đọc được, nếu không hai dòng cùng cỡ chữ. Năm 2 nối cấu trúc, phép lấy mẫu và ứng dụng; giữ lời giải ở notes.
+- **Nội dung công khai dự kiến:** Câu hỏi: Họ siêu phẳng với cặp gần $\theta\le\pi/6$, cặp xa $\theta\ge\pi/2$. Tính $p_1$, $p_2$ và hai cận sau AND 2 rồi OR 2. Kho $C$ ảnh, mỗi ảnh một vector đặc trưng thực 128 chiều; cặp cần tìm có góc nhỏ. Chọn họ cơ sở và nêu chi phí tính chữ ký $m$ bit. Giữ $r$, tăng $b$: xác định ảnh hưởng tới số cặp bỏ sót và tới $K$.
+- **Đầu vào và giả thiết:** Họ siêu phẳng, công thức AND/OR, bảng chi phí ba họ, $P_{b,r}(s)$ và hai loại sai số.
+- **Dữ kiện, hình thức hóa và vết chạy:** Câu 1→MT4; câu 2→MT5–MT6; câu 3→MT2, MT6. Đáp án đã tính lại: $5/6$, $1/2$, $0{,}9066$, $0{,}4375$; $128\,Cm$ phép nhân.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba yêu cầu một cột; đáp án và tiêu chí chỉ ở ghi chú.
 - **Kết nối vào–ra:** Tự kiểm nửa đầu→nửa sau; bài tập nguồn cung cấp vết chạy đầy đủ hơn.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: công thức thứ nhất AND 4 rồi OR 4, công thức thứ hai đảo thứ tự; các phép thử độc lập. Công thức góc cần vector khác 0, pháp tuyến đẳng hướng, cùng hàm và $\theta$ đo bằng radian. Cặp khác ngón vẫn có xác suất chung thùng theo mô hình nên cần so ảnh. Tiêu chí: nêu đủ cấu trúc/giả thiết và tầng quyết định.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: $p_1=1-1/6=5/6$, $p_2=1/2$; $F(p)=1-(1-p^2)^2$ cho $F(5/6)\approx0{,}9066$ và $F(1/2)=0{,}4375$. Câu 2: họ siêu phẳng, vì góc chỉ phụ thuộc hướng; tính chữ ký cần $C\cdot m\cdot128$ phép nhân, tức $O(128\,Cm)$, và lưu $m$ bit mỗi ảnh cùng $128m$ số cho các pháp tuyến. Câu 3: $P_{b,r}(s)$ tăng với mọi $s$, nên ít cặp bỏ sót hơn nhưng nhiều cặp xa thành ứng viên hơn, $K$ và thời gian xác minh tăng. Tiêu chí: đổi góc sang radian trước khi dùng $1-\theta/\pi$; tách chi phí tính chữ ký khỏi chi phí phân dải; nêu đủ hai chiều của đánh đổi.
 - **Nguồn:** B Ex 3.19–20, §3.7.2, §3.8.5; tổng hợp MT4–MT6.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 2 phút.
 
