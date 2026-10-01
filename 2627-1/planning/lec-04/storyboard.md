@@ -115,11 +115,11 @@ PageRank theo chủ đề giữ phép lặp của Bài 03 và chỉ đổi nơi 
 
 **Quyết định duyệt trang 01/10/2026:** sửa. Giữ tiêu đề và bảy mục; thay dòng mục tiêu trừu tượng bằng động từ gắn với từng phương pháp; ghi chú nêu mạch bốn phương pháp và nối “bước nhảy ngẫu nhiên” của Bài 03.
 
-### lec04-s01-03 — Truy vấn đa nghĩa và ngữ cảnh chủ đề
+### lec04-s01-03 — Truy vấn đa nghĩa
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng; MT1. Đầu vào: PageRank toàn cục. Sản phẩm: xác định đầu ra xếp hạng có điều kiện theo chủ đề.
 
-**Luận điểm trung tâm:** Cùng truy vấn có thể cần thứ tự trang khác nhau khi chủ đề thay đổi.
+**Luận điểm trung tâm:** Cùng truy vấn có thể cần thứ tự trang khác nhau khi chủ đề thay đổi; PageRank toàn cục chỉ cho một thứ tự, nên cần điểm phụ thuộc chủ đề.
 
 **Nội dung hiển thị dự kiến:**
 
@@ -129,12 +129,12 @@ Truy vấn: “jaguar”.
 - Chủ đề động vật: ưu tiên các trang về loài báo đốm.
 - Chủ đề ô tô: ưu tiên các trang về hãng xe Jaguar.
 
-Dữ liệu: các trang web và liên kết. Đầu ra: thứ tự trang phù hợp với chủ đề đã xác định.
+Dữ liệu: trang web và liên kết. Đầu ra: thứ tự trang theo chủ đề đã xác định.
 
-Một vector PageRank toàn cục không thay đổi theo hai ngữ cảnh này.
+PageRank toàn cục cho cùng một thứ tự trong cả hai ngữ cảnh. Khi biết chủ đề người dùng quan tâm, điểm xếp hạng cần phụ thuộc chủ đề đó.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** Từ truy vấn ở dải trên; bên dưới là hai nhóm trang ngang nhau với nhãn “Động vật” và “Ô tô”. Khối đầu vào–đầu ra chiếm dải dưới. Không gán điểm minh họa.
+**Bố cục đã chọn:** Từ truy vấn ở dải trên; bên dưới là hai nhóm trang ngang nhau với nhãn “Động vật” và “Ô tô”. Dòng đầu vào–đầu ra nằm dưới hai thẻ; giới hạn của PageRank toàn cục đặt trong khối kết luận cuối trang. Không gán điểm minh họa.
 
 **Trọng tâm và thứ tự đọc:** Đọc cùng truy vấn, đối chiếu hai nhóm chủ đề, rồi xác định đại lượng cần thay đổi.
 
@@ -144,7 +144,7 @@ Một vector PageRank toàn cục không thay đổi theo hai ngữ cảnh này.
 
 **Ví dụ, phiếu số và hình thức hóa:** Ví dụ định tính NG1 §5.3.1; không tạo số liệu truy vấn hay điểm trang.
 
-**Kết nối vào–ra:** PageRank toàn cục đã có → cần một họ vector theo chủ đề; trang sau xác định giới hạn lưu trữ.
+**Kết nối vào–ra:** PageRank toàn cục đã có → cần điểm phụ thuộc chủ đề; ghi chú nêu phương án trực tiếp (một vector cho mỗi người dùng) mà trang sau xét chi phí lưu trữ.
 
 **Nguồn và vị trí:** NG1 §5.3.1, tr.195–196/PDF21–22.
 
@@ -153,8 +153,10 @@ Một vector PageRank toàn cục không thay đổi theo hai ngữ cảnh này.
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Cùng một từ khóa có thể chỉ các nhu cầu thông tin khác nhau. Ví dụ của sách cho thấy độ quan trọng toàn cục và sự phù hợp với chủ đề là hai thông tin khác nhau. Chủ đề được coi là đầu vào đã xác định trong bài này; cách suy ra chủ đề từ nội dung không phải tiên quyết cho phép tính PageRank theo chủ đề.
+Từ “jaguar” có thể chỉ loài vật, hãng ô tô hoặc một số đối tượng khác. MMDS nêu rằng nếu suy ra được người dùng quan tâm tới ô tô, máy tìm kiếm có thể trả các trang phù hợp hơn. Điểm PageRank toàn cục đo độ quan trọng của trang trên toàn đồ thị và không chứa thông tin về chủ đề đó. Trong bài này, chủ đề là đầu vào đã biết; cách suy ra chủ đề từ truy vấn hay lịch sử người dùng nằm ngoài phép tính PageRank theo chủ đề. Phương án trực tiếp để phản ánh sở thích là lưu một vector PageRank riêng cho mỗi người dùng; chi phí lưu trữ của phương án này quyết định cách làm được chọn.
 <!-- public-notes:end -->
+
+**Quyết định duyệt trang 01/10/2026:** sửa. Rút tiêu đề còn “Truy vấn đa nghĩa”; đưa giới hạn của PageRank toàn cục thành khối kết luận vì đây là nhu cầu dẫn sang PageRank theo chủ đề; ghi chú nêu căn cứ MMDS §5.3.1, chủ đề là đầu vào và câu nối sang phương án một vector cho mỗi người dùng.
 
 ### lec04-s01-04 — Giới hạn lưu trữ của xếp hạng cá nhân
 

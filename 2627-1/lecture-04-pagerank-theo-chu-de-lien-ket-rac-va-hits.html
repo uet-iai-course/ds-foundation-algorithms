@@ -28,12 +28,12 @@
 </aside>
 </section>
 <section id="lec04-s01-03" data-slide-id="lec04-s01-03" class="example-slide">
-<h2>Truy vấn đa nghĩa và ngữ cảnh chủ đề</h2>
-<div class="l04-data"><p>Truy vấn: <strong>“jaguar”</strong>.</p></div><div class="ex-grid2  l04-vcenter "><div><div class="l04-topic"><h3>Động vật</h3><p>Ưu tiên các trang về loài báo đốm.</p></div></div><div><div class="l04-topic"><h3>Ô tô</h3><p>Ưu tiên các trang về hãng xe Jaguar.</p></div></div></div><p>Dữ liệu: các trang web và liên kết. Đầu ra: thứ tự trang phù hợp với chủ đề đã xác định.</p>
-<p>Một vector PageRank toàn cục không thay đổi theo hai ngữ cảnh này.</p>
+<h2>Truy vấn đa nghĩa</h2>
+<div class="l04-data"><p>Truy vấn: <strong>“jaguar”</strong>.</p></div><div class="ex-grid2  l04-vcenter "><div><div class="l04-topic"><h3>Động vật</h3><p>Ưu tiên các trang về loài báo đốm.</p></div></div><div><div class="l04-topic"><h3>Ô tô</h3><p>Ưu tiên các trang về hãng xe Jaguar.</p></div></div></div><p>Dữ liệu: trang web và liên kết. Đầu ra: thứ tự trang theo chủ đề đã xác định.</p>
+<div class="ex-takeaway"><p>PageRank toàn cục cho cùng một thứ tự trong cả hai ngữ cảnh. Khi biết chủ đề người dùng quan tâm, điểm xếp hạng cần phụ thuộc chủ đề đó.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1, tr.195–196.</p>
 <aside class="notes">
-<p>Cùng một từ khóa có thể chỉ các nhu cầu thông tin khác nhau. Ví dụ của sách cho thấy độ quan trọng toàn cục và sự phù hợp với chủ đề là hai thông tin khác nhau. Chủ đề được coi là đầu vào đã xác định trong bài này; cách suy ra chủ đề từ nội dung không phải tiên quyết cho phép tính PageRank theo chủ đề.</p>
+<p>Từ “jaguar” có thể chỉ loài vật, hãng ô tô hoặc một số đối tượng khác. MMDS nêu rằng nếu suy ra được người dùng quan tâm tới ô tô, máy tìm kiếm có thể trả các trang phù hợp hơn. Điểm PageRank toàn cục đo độ quan trọng của trang trên toàn đồ thị và không chứa thông tin về chủ đề đó. Trong bài này, chủ đề là đầu vào đã biết; cách suy ra chủ đề từ truy vấn hay lịch sử người dùng nằm ngoài phép tính PageRank theo chủ đề. Phương án trực tiếp để phản ánh sở thích là lưu một vector PageRank riêng cho mỗi người dùng; chi phí lưu trữ của phương án này quyết định cách làm được chọn.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1, tr.195–196.</p>
 </aside>
 </section>
