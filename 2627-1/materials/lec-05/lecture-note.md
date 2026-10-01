@@ -57,7 +57,7 @@ $$
 
 ![Hình vẽ lại theo Hình 3.1: hai phần tử riêng của S, ba phần tử giao và ba phần tử riêng của T.](img/lec-05/jaccard-ba-vung.svg)
 
-Hình biểu diễn quan hệ thuộc tập; diện tích hai miền tròn không mã hóa số lượng phần tử. Mẫu số dùng toàn bộ hợp để đặt lượng chung trong quy mô của cặp. Chỉ dùng kích thước giao sẽ không phân biệt một lượng chung trong hai tập nhỏ với cùng lượng chung trong hai tập rất lớn.
+Tổng $|S|+|T|=5+6=11$ lớn hơn $|S\cup T|$ vì ba phần tử giao bị đếm hai lần. Hình biểu diễn quan hệ thuộc tập; diện tích hai miền tròn không mã hóa số lượng phần tử. Mẫu số dùng toàn bộ hợp để đặt lượng chung trong quy mô của cặp. Chỉ dùng kích thước giao sẽ không phân biệt một lượng chung trong hai tập nhỏ với cùng lượng chung trong hai tập rất lớn.
 
 Tập hợp phải gắn với một cách chọn phần tử cụ thể. Trong ví dụ khách hàng của §3.1.3, tr. 76, phần tử có thể là mặt hàng đã mua. Với văn bản, phần tử sẽ là những đoạn con liên tiếp có độ dài cố định. Khi các phần tử được chọn khác đi, đại lượng Jaccard cũng có thể thay đổi.
 

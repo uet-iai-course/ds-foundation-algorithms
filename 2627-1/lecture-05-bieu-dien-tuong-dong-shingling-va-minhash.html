@@ -39,10 +39,10 @@
 <aside class="notes"><p>Mỗi tài liệu ghép với \(C-1\) tài liệu khác; tích \(C(C-1)\) đếm mỗi cặp hai lần nên chia 2. Sách nêu một triệu mục cho khoảng nửa nghìn tỷ cặp; phép tính chính xác cho \(499\,999\,500\,000\). Tổng công việc là tích của số cặp và chi phí so sánh một cặp. Biểu diễn ngắn của bài này giảm thừa số thứ hai. Thừa số thứ nhất giữ bậc hai theo \(C\) cho tới khi có bước chọn cặp ứng viên ở Bài 06.</p><p>Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.</p></aside>
 </section>
 <section id="lec05-s01-06" data-slide-id="lec05-s01-06" class="example-slide">
-<h2>Phần tử chung của hai tập hợp</h2>
-<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T."></figure></div><div><p class="ex-equation">\[|S\cap T|=3\]</p><p class="ex-equation">\[|S\cup T|=2+3+3=8\]</p><p class="ex-takeaway">Mỗi phần tử chung được đếm một lần trong hợp.</p></div></div>
+<h2>Giao và hợp của hai tập</h2>
+<p>Khi mỗi tài liệu được biểu diễn bằng một tập phần tử, phần văn bản chung trở thành phần tử chung.</p><div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T."></figure></div><div><p class="ex-equation">\[|S\cap T|=3\]</p><p class="ex-equation">\[|S\cup T|=2+3+3=8\]</p><p class="ex-takeaway">Lượng chung cần được so với kích thước hợp.</p></div></div>
 <p class="ex-source">Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p>
-<aside class="notes"><p>Mỗi phần tử được đếm một lần trong hợp, kể cả khi nó thuộc cả hai tập. Số phần tử giao cho biết lượng chung; chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Hình thể hiện quan hệ thuộc tập, không dùng diện tích vùng tròn để biểu diễn số lượng.</p><p>Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p></aside>
+<aside class="notes"><p>Hình vẽ lại Hình 3.1: hai phần tử chỉ thuộc \(S\), ba phần tử thuộc cả hai tập, ba phần tử chỉ thuộc \(T\). Hợp đếm mỗi phần tử một lần, nên \(|S\cup T|=2+3+3=8\); tổng \(|S|+|T|=5+6=11\) đếm ba phần tử giao hai lần. Kích thước giao một mình chưa đủ: ba phần tử chung trong hai tập nhỏ khác với ba phần tử chung trong hai tập rất lớn. Chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Cách chọn phần tử cho văn bản được xây dựng ở phần shingling. Diện tích vùng tròn không biểu diễn số lượng.</p><p>Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.</p></aside>
 </section>
 <section id="lec05-s01-07" data-slide-id="lec05-s01-07" class="example-slide">
 <h2>Độ tương đồng Jaccard</h2>

@@ -196,11 +196,11 @@ Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 06. Phần tử chung của hai tập hợp
+### 06. Giao và hợp của hai tập
 
 - **Mã:** `lec05-s01-06`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Mục đích và vai trò:** Trực giác và ví dụ; đếm giao và hợp. **Mục tiêu:** MT1.
-- **Câu chốt:** Tỷ lệ phần tử chung phải được so với toàn bộ phần tử xuất hiện trong hai tập.
+- **Câu chốt:** Khi tài liệu là tập phần tử, phần văn bản chung là giao; lượng chung cần được so với kích thước hợp.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu đại lượng mỗi cặp; trang 07 gọi tên và hình thức hóa tỷ lệ này.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: SVG giao–hợp chiếm 70% thân, căn giữa; hai nhãn đếm đặt sát vùng giao và mép hợp; chú thích một dòng chiếm 15% dưới.
@@ -212,21 +212,19 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
+Khi mỗi tài liệu được biểu diễn bằng một tập phần tử, phần văn bản chung trở thành phần tử chung.
+
 ![Hai phần tử riêng của S, ba phần tử giao, ba phần tử riêng của T.](../../img/lec-05/jaccard-ba-vung.svg)
 
-$$
-|S\cap T|=3
-$$
+$$|S\cap T|=3$$
 
-$$
-|S\cup T|=2+3+3=8
-$$
+$$|S\cup T|=2+3+3=8$$
 
-Mỗi phần tử chung được đếm một lần trong hợp.
+Lượng chung cần được so với kích thước hợp.
 
 **Ghi chú diễn giả học thuật**
 
-Mỗi phần tử được đếm một lần trong hợp, kể cả khi nó thuộc cả hai tập. Số phần tử giao cho biết lượng chung; chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Hình thể hiện quan hệ thuộc tập, không dùng diện tích vùng tròn để biểu diễn số lượng.
+Hình vẽ lại Hình 3.1: hai phần tử chỉ thuộc $S$, ba phần tử thuộc cả hai tập, ba phần tử chỉ thuộc $T$. Hợp đếm mỗi phần tử một lần, nên $|S\cup T|=2+3+3=8$; tổng $|S|+|T|=5+6=11$ đếm ba phần tử giao hai lần. Kích thước giao một mình chưa đủ: ba phần tử chung trong hai tập nhỏ khác với ba phần tử chung trong hai tập rất lớn. Chia cho kích thước hợp đặt lượng chung trong quy mô của cặp. Cách chọn phần tử cho văn bản được xây dựng ở phần shingling. Diện tích vùng tròn không biểu diễn số lượng.
 
 Nguồn: Vẽ lại theo MMDS 3e, Hình 3.1, tr. 75.
 
