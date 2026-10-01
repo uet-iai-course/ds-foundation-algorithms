@@ -174,10 +174,10 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 <aside class="notes"><p>Hai thứ tự này được suy trực tiếp bằng cách sắp hàng theo hai hàm băm của Ví dụ 3.8. Ở đây chỉ dùng thứ tự và định danh phần tử; giá trị băm sẽ được tính ở phần sau. Chữ ký của \(S_1\), \(S_2\), \(S_3\), \(S_4\) lần lượt là (a, d), (c, c), (e, d), (a, d). Cặp 1–4 trùng cả hai tọa độ dù hai tập khác nhau. Hai thứ tự cố định minh họa phép tính, không cung cấp bằng chứng về phân phối chọn đều.</p><p>Nguồn: MMDS 3e, Hình 3.2 và hai thứ tự suy từ Ví dụ 3.8, tr. 85–86.</p></aside>
 </section>
 <section id="lec05-s04-02" data-slide-id="lec05-s04-02" class="example-slide">
-<h2>Vector và ma trận chữ ký</h2>
+<h2>Định nghĩa chữ ký MinHash</h2>
 <p>Chọn \(\pi_1,\ldots,\pi_n\) và dùng cùng bộ thứ tự cho mọi tập.</p><p class="ex-equation">\[\sigma(S)=\bigl(h_{\pi_1}(S),\ldots,h_{\pi_n}(S)\bigr)^{\mathsf T}\]</p><table class="ex-table"><thead><tr><th scope="col">Ma trận</th><th scope="col">Hàng</th><th scope="col">Cột</th></tr></thead><tbody><tr><th scope="row">Đặc trưng</th><td>\(R\) phần tử</td><td>\(C\) tập</td></tr><tr><th scope="row">Chữ ký</th><td>\(n\) phép thử</td><td>\(C\) tập</td></tr></tbody></table><p class="ex-takeaway">Mô hình lý tưởng: các hoán vị đều và độc lập.</p>
 <p class="ex-source">MMDS 3e, §3.3.4, tr. 83–84.</p>
-<aside class="notes"><p>Ở ma trận đặc trưng, hàng biểu diễn phần tử của U; ở ma trận chữ ký, hàng biểu diễn một phép chọn MinHash. Số cột vẫn là C vì mỗi cột vẫn ứng với một tập. Ví dụ trước có n=2, C=4; ma trận gốc có R=5. Số hàng giảm chưa tự chứng minh giảm byte vì kiểu giá trị của hai ma trận có thể khác nhau.</p><p>Nguồn: MMDS 3e, §3.3.4, tr. 83–84.</p></aside>
+<aside class="notes"><p>Ở ma trận đặc trưng, hàng biểu diễn phần tử của U; ở ma trận chữ ký, hàng biểu diễn một phép chọn MinHash. Số cột vẫn là C vì mỗi cột vẫn ứng với một tập. Ví dụ trước có \(n=2\), \(C=4\); ma trận gốc có \(R=5\). Sách gợi ý \(n\) khoảng 100 đến vài trăm, trong khi \(R\) là số shingle khác nhau của cả kho. Số hàng giảm chưa tự chứng minh giảm byte vì kiểu giá trị của hai ma trận có thể khác nhau.</p><p>Nguồn: MMDS 3e, §3.3.4, tr. 83–84.</p></aside>
 </section>
 <section id="lec05-s04-03" data-slide-id="lec05-s04-03" class="example-slide">
 <h2>Ước lượng Jaccard</h2>

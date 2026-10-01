@@ -961,7 +961,7 @@ Nguồn: MMDS 3e, Hình 3.2 và hai thứ tự suy từ Ví dụ 3.8, tr. 85–8
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 29. Vector và ma trận chữ ký
+### 29. Định nghĩa chữ ký MinHash
 
 - **Mã:** `lec05-s04-02`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Mục đích và vai trò:** Hình thức hóa; đọc kiểu và kích thước chữ ký. **Mục tiêu:** MT4.
@@ -992,7 +992,7 @@ Mô hình lý tưởng: các hoán vị đều và độc lập.
 
 **Ghi chú diễn giả học thuật**
 
-Ở ma trận đặc trưng, hàng biểu diễn phần tử của U; ở ma trận chữ ký, hàng biểu diễn một phép chọn MinHash. Số cột vẫn là C vì mỗi cột vẫn ứng với một tập. Ví dụ trước có n=2, C=4; ma trận gốc có R=5. Số hàng giảm chưa tự chứng minh giảm byte vì kiểu giá trị của hai ma trận có thể khác nhau.
+Ở ma trận đặc trưng, hàng biểu diễn phần tử của U; ở ma trận chữ ký, hàng biểu diễn một phép chọn MinHash. Số cột vẫn là C vì mỗi cột vẫn ứng với một tập. Ví dụ trước có $n=2$, $C=4$; ma trận gốc có $R=5$. Sách gợi ý $n$ khoảng 100 đến vài trăm, trong khi $R$ là số shingle khác nhau của cả kho. Số hàng giảm chưa tự chứng minh giảm byte vì kiểu giá trị của hai ma trận có thể khác nhau.
 
 Nguồn: MMDS 3e, §3.3.4, tr. 83–84.
 
