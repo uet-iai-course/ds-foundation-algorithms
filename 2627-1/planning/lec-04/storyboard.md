@@ -1934,7 +1934,7 @@ với t = 0, ..., K - 1:
 trả về (h, a, hết số vòng)
 ```
 
-Đầu ra gồm hai vector và trạng thái dừng; đồ thị không cạnh trả trạng thái không xác định khi chuẩn hóa bằng giá trị lớn nhất.
+Đầu ra gồm hai vector và trạng thái dừng. Đồ thị không cạnh nằm ngoài điều kiện trước vì $N(0)$ không xác định.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Dòng đầu vào trên15%; giả mã giữa70%; đầu ra và biên dưới15%. Dùng khối mã chung, a_new được nhắc rõ tại dòng tính h_new.
