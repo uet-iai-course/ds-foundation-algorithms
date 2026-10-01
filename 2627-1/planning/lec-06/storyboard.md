@@ -324,7 +324,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính góc và nêu miền mà góc là metric.
 - **Thông điệp:** Khoảng cách góc phân biệt các hướng, độc lập với độ dài vector.
-- **Nội dung công khai dự kiến:** Dữ kiện: $x=(1,2,-1),y=(2,1,1)$; $x\cdot y=3$, $\|x\|=\|y\|=\sqrt6$; $\cos\theta=1/2$, $\theta=\pi/3=60^\circ$. Miền: vector đơn vị hoặc hướng, bội dương được đồng nhất; vector 0 không có hướng.
+- **Nội dung công khai dự kiến:** Với $x,y\ne0$: $\theta(x,y)=\arccos\dfrac{x\cdot y}{\|x\|_2\|y\|_2}\in[0,\pi]$. Ví dụ $x=(1,2,-1)$, $y=(2,1,1)$. Tích và chuẩn $x\cdot y=3$ $\|x\|_2=\|y\|_2=\sqrt6$ Góc $\cos\theta=\frac{3}{6}=\frac12$ $\theta=\pi/3=60^\circ$ Góc là khoảng cách trên các hướng, hoặc các vector đơn vị. $x$ và $2x$ cùng hướng; $1-\cos\theta$ khác $\theta$. Vector 0 không có hướng.
 - **Đầu vào và giả thiết:** Tích vô hướng, chuẩn Euclid, và điều kiện d=0.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5, V06; góc radian $\theta=\arccos((x\cdot y)/(\|x\|\|y\|))$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 50% hai vector chuẩn hóa thành hướng; phải 50% tích/chuẩn/góc ba dòng. Năm 2 phân biệt cosin và góc bằng đơn vị; nhận xét $1-\cos\theta$ ở notes.
