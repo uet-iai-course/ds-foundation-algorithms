@@ -227,7 +227,7 @@ Phần tử $d$ thuộc $S_1,S_3,S_4$, nên hàng $d$ có ba ô $1$. Chỉ chữ
 
 ## 5. MinHash theo một hoán vị
 
-Một thứ tự chung trên vũ trụ cho phép mỗi tập giữ đúng một đại diện: phần tử của tập xuất hiện đầu tiên. Quan hệ “chung thứ tự” là thiết yếu, vì hai tập phải được so dưới cùng một phép thử.
+Chữ ký cần ngắn nhưng vẫn giữ liên hệ với Jaccard. MinHash thay cả tập bằng một phần tử đại diện, chọn bằng cùng một quy tắc cho mọi tập. Một thứ tự chung trên vũ trụ cho phép mỗi tập giữ đúng một đại diện: phần tử của tập xuất hiện đầu tiên. Quan hệ “chung thứ tự” là thiết yếu, vì hai tập phải được so dưới cùng một phép thử.
 
 Cho hoán vị $\pi$ của $U$. Với $u\in U$, $\operatorname{rank}_\pi(u)$ là vị trí từ $1$ đến $R$ của $u$ trong thứ tự ấy. Với $S\subseteq U$, $S\ne\varnothing$, định nghĩa
 

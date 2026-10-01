@@ -702,11 +702,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Mã:** `lec05-s03-03` (đã xóa khỏi deck ngày 01/10/2026); **phần:** 3; **note-topic-id:** `n05-04`.
 - **Quyết định:** gộp. Ý “ma trận thưa, chỉ lưu vị trí ô 1” chuyển thành một dòng của trang 20. Danh sách cột có 1 theo hàng chỉ cần khi quét hàng, nên xuất hiện ở trang 37 (cột “Các cột có 1”) và trang 43 ($L=\operatorname{nnz}(M)$); ghi chú cũ phải nhắc tới giá trị băm trước khi phép băm hàng được giới thiệu. Thời lượng chuyển sang trang 22 để giữ 23 phút của phần 3.
 
-### 22. Trực giác MinHash
+### 22. Ý tưởng của MinHash
 
 - **Mã:** `lec05-s03-04`; **phần:** 3; **note-topic-id:** `n05-05`.
 - **Mục đích và vai trò:** Trực giác; theo lựa chọn chung trên hai tập. **Mục tiêu:** MT3.
-- **Câu chốt:** Một thứ tự chung cho phép mỗi tập chọn phần tử xuất hiện đầu tiên.
+- **Câu chốt:** Mỗi tập giữ phần tử đứng đầu theo một thứ tự chung; hai tập chọn trùng đúng khi phần tử đầu của hợp thuộc giao.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận phần tử/cột; 23 dùng đúng thứ tự trong ví dụ sách.
 - **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: hình một trục thứ tự ngang chiếm 55% trên, hai hàng dấu hiện diện của S1, S4 ngay dưới; hai nhãn “phần tử đầu” nối thẳng lên cùng trục; câu điều kiện ở đáy.
@@ -718,11 +718,19 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Dùng cùng thứ tự trên U cho mọi tập. Mỗi tập không rỗng giữ phần tử đầu tiên của mình. Nếu phần tử đầu trong hợp thuộc giao, hai tập chọn cùng phần tử.
+Đại diện mỗi tập bằng một phần tử, chọn theo cùng một quy tắc cho mọi tập.
+
+![S1 và S4 dùng cùng thứ tự b,e,a,d,c và cùng chọn a.](../../img/lec-05/minhash-hoan-vi.svg)
+
+- Xếp $U$ theo một thứ tự chung cho mọi tập.
+- Mỗi tập không rỗng giữ phần tử đứng đầu của nó.
+- Hai tập chọn cùng phần tử đúng khi phần tử đầu của hợp thuộc giao.
 
 **Ghi chú diễn giả học thuật**
 
-Với hai tập đang xét, các phần tử ngoài hợp không thuộc tập nào nên không thể được chọn. Nếu phần tử đầu trong hợp thuộc cả hai tập, nó cũng là phần tử đầu của từng tập. Nếu nó chỉ thuộc một tập, tập đó chọn nó và tập kia phải chọn một phần tử khác. Quan hệ này sẽ xác định xác suất trùng.
+Chữ ký cần ngắn và vẫn giữ liên hệ với Jaccard. MinHash thay cả tập bằng một phần tử đại diện, chọn bằng cùng một quy tắc: xếp $U$ theo một thứ tự rồi lấy phần tử đứng đầu của tập. Với hai tập, phần tử ngoài hợp không thuộc tập nào nên không thể được chọn. Nếu phần tử đầu của hợp thuộc giao, nó cũng đứng đầu từng tập. Nếu nó chỉ thuộc một tập, tập đó chọn nó còn tập kia chọn phần tử khác. Khi thứ tự được chọn ngẫu nhiên, giao càng lớn so với hợp thì hai tập càng dễ chọn trùng; định lý xác suất trùng lượng hóa quan hệ này.
+
+Nguồn: MMDS 3e, §3.3.2–§3.3.3, tr. 82–83.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
