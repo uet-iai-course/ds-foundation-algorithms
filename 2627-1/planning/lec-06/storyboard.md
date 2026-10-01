@@ -681,12 +681,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Ghép các thành phần thành một quy trình có điều kiện.
 - **Thông điệp:** Biểu diễn, phép thử và xác minh phải cùng thực hiện một đặc tả.
-- **Nội dung công khai dự kiến:** Sơ đồ: đối tượng→biểu diễn và độ đo→họ cơ sở→phép ghép→thùng→cặp duy nhất→xác minh. Kho triệu tài liệu nhận lại SIG ở đầu bước chọn cặp. Đầu ra được kiểm theo ngưỡng trên biểu diễn gốc.
+- **Nội dung công khai dự kiến:** [Hình: Chữ ký tạo khóa, hợp cặp ứng viên rồi kiểm tập gốc.] Biểu diễn và độ đo: Jaccard trên tập, góc, Euclid, Hamming. Họ $(d_1,d_2,p_1,p_2)$-nhạy cảm và cấu trúc ghép: AND $r$ rồi OR $b$ là phân dải. Dựng thùng, khử lặp $Q$ lượt phát thành $K$ cặp, xác minh trên dữ liệu gốc. Ba ứng dụng chỉ thay bước 1 hoặc 2: bản tin đổi biểu diễn, vân tay và thực thể đổi họ hàm; bước 3 giữ nguyên.
 - **Đầu vào và giả thiết:** N01–N13; không có khái niệm mới.
 - **Dữ kiện, hình thức hóa và vết chạy:** V01 gợi lại C=10^6; không đưa con số K cho kho chưa có phân bố.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ một hàng hai tầng để nhãn đọc được; mỗi bước một danh từ/thao tác. Năm 2 cần nhận ra các quyết định nối nhau; ví dụ chi tiết không lặp trên mặt trang.
 - **Kết nối vào–ra:** Ứng dụng→mẫu chung; chi phí và sai số quyết định tính phù hợp.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Minh họa tài liệu dùng tập shingle, MinHash và phân dải; vân tay thay phép thử cơ sở; bản tin điều chỉnh biểu diễn. Cùng một khung ứng viên không khiến các bài toán có cùng tiêu chuẩn đúng.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Bước 1 xác định tiêu chuẩn đúng của bài toán; bước 2 chỉ quyết định cặp nào được đưa vào tập ứng viên và với xác suất nào; bước 3 bảo đảm mọi cặp trả về đều đạt tiêu chuẩn. Cùng một khung ứng viên không khiến các bài toán có cùng tiêu chuẩn đúng: khớp khóa trong đối sánh thực thể hay chung thùng trong đối sánh vân tay đều phải qua bước xác minh.
 - **Nguồn:** B §3.4.3 và §3.8, tr.95–96, 114–121.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 2 phút.
 

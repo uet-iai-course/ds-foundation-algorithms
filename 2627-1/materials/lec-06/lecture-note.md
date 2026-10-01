@@ -740,7 +740,7 @@ Nguồn: MMDS 3e, §3.8.6, Ví dụ 3.24, tr.120–121.
 
 ## Tổng hợp và tự kiểm
 
-Một quy trình tìm cặp cần quyết định biểu diễn, độ đo, họ cơ sở, cấu trúc ghép, cách tổ chức thùng và phép xác minh. $P(s)$ mô tả một xác suất theo cặp; $Q$ và $K$ đếm công việc. Kiểm chính xác trên tập gốc bảo đảm kết quả trong tập ứng viên, còn cặp đạt ngưỡng chưa sinh vẫn có thể bị bỏ sót. Với kho một triệu tài liệu ở mở bài, hiệu quả phụ thuộc lượng cặp thực tế được sinh, không chỉ dung lượng chữ ký.
+Một quy trình tìm cặp cần quyết định biểu diễn, độ đo, họ cơ sở, cấu trúc ghép, cách tổ chức thùng và phép xác minh. Ba ứng dụng chỉ thay phần đầu của quy trình: bản tin đổi biểu diễn, vân tay và đối sánh thực thể đổi họ hàm; dựng thùng, khử lặp và xác minh giữ nguyên. $P(s)$ mô tả một xác suất theo cặp; $Q$ và $K$ đếm công việc. Kiểm chính xác trên tập gốc bảo đảm kết quả trong tập ứng viên, còn cặp đạt ngưỡng chưa sinh vẫn có thể bị bỏ sót. Với kho một triệu tài liệu ở mở bài, hiệu quả phụ thuộc lượng cặp thực tế được sinh, không chỉ dung lượng chữ ký.
 
 ::: exercise
 Câu hỏi:
