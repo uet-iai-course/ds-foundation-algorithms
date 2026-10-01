@@ -690,16 +690,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.3 và §3.8, tr.95–96, 114–121.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 2 phút.
 
-#### lec06-s06-02 — Giới hạn chi phí và sai số
+#### lec06-s06-02 — Chi phí và hai loại sai số
 
 - **Mục đích và vai trò:** Thu hồi hai điều kiện làm quy trình có ích.
 - **Thông điệp:** Số cặp sinh và xác suất bỏ sót phải được đánh giá cùng nhau.
-- **Nội dung công khai dự kiến:** $P(s)$ mô tả khả năng sinh một cặp; $Q$ đếm lượt phát; $K$ đếm cặp xác minh. Xấu nhất $K=\binom C2$. Kiểm gốc loại ứng viên dưới ngưỡng, còn cặp đạt ngưỡng chưa sinh vẫn bị bỏ sót. Bài 07 so chỉ mục theo chất lượng, thời gian và bộ nhớ.
+- **Nội dung công khai dự kiến:** Đại lượng Ý nghĩa Hệ quả $P_{b,r}(s)$ Xác suất cặp Jaccard $s$ thành ứng viên Cặp đạt ngưỡng bị bỏ sót với xác suất $1-P_{b,r}(s)$ $Q$ Lượt phát cặp trước khử lặp Thời gian phát cặp $O(Q)$ $K$ Cặp duy nhất phải xác minh Ứng viên giả bị loại, nhưng tốn thời gian xác minh Trường hợp xấu nhất, mọi đối tượng chung thùng: $K=\tbinom C2$, không nhanh hơn so mọi cặp. Xác minh loại được ứng viên giả nhưng không lấy lại cặp bị bỏ sót.
 - **Đầu vào và giả thiết:** HT2, HT3, mô hình chi phí N04.
 - **Dữ kiện, hình thức hóa và vết chạy:** V01 và V02 giữ vai trò; không tự tuyên bố giảm cặp tuyến tính.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba ô P/Q/K cùng kích thước ở trên; giới hạn xấu nhất và xác minh dưới. Năm 2 phân biệt đại lượng xác suất với số đếm, không thêm công thức mới.
 - **Kết nối vào–ra:** Quy trình→điều kiện sử dụng; sáu nhiệm vụ sau đo lại từng mục tiêu.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Chi phí băm nhỏ chưa đủ nếu một số thùng chứa quá nhiều đối tượng. Thay tham số có thể giảm số cặp xa được nhận nhưng làm mất thêm cặp gần. Bài tiếp theo xét cách tổ chức chỉ mục với các tiêu chí đánh giá này.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Hai loại sai số có bản chất khác nhau. Ứng viên giả là chi phí: chúng làm tăng $K$ và thời gian xác minh, nhưng không xuất hiện trong kết quả. Cặp bị bỏ sót là mất mát: không bước nào sau đó tìm lại được. Đổi $b$, $r$ dịch ngưỡng của đường cong S, nên giảm một loại sai số thường làm tăng loại kia. Bảo đảm của LSH là bảo đảm xác suất theo cặp; chi phí thực tế phụ thuộc phân bố kích thước thùng của dữ liệu, không chỉ dung lượng chữ ký. Bài 07 dùng ba tiêu chí chất lượng, thời gian và bộ nhớ để so các cấu trúc chỉ mục.
 - **Nguồn:** B §3.4.2–3, §3.6.3; sources/source.md, Bài 07.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 1.5 phút.
 
