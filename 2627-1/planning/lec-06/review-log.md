@@ -333,3 +333,4 @@ Cách làm như lượt Bài 05 (01/10/2026): điều phối viên (phiên Claud
 | Trang | Trang muốn nói | Quyết định | Thay đổi deck và storyboard | Ghi chú tự học |
 |---|---|---|---|---|
 | lec06-s01-01 | Tên bài; LSH được diễn giải ở dòng phụ; nối từ chữ ký Bài 05. | giữ | Tiêu đề, dòng phụ và ghi chú đạt. | Không đổi. |
+| lec06-s01-02 | Bảy phần và ba mục tiêu học tập. | sửa | Ba mục tiêu viết lại theo sản phẩm cụ thể: tạo và xác minh tập ứng viên bằng phân dải; tính xác suất một cặp thành ứng viên và chọn số dải, số hàng; chọn họ băm theo độ đo (trước: “Suy xác suất…”, “Chọn phép thử…” chưa nói đối tượng). Ghi chú bỏ thuật ngữ AND/OR (định nghĩa ở phần 3), thay bằng chuỗi quan hệ giữa các phần. Storyboard đồng bộ. | Không đổi; phần mở đầu ghi chú nêu cùng phạm vi. |

@@ -46,13 +46,13 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 #### lec06-s01-02 — Nội dung và mục tiêu
 
 - **Mục đích và vai trò:** Nhận diện thứ tự bảy phần và ba năng lực quan sát được của bài học.
-- **Thông điệp:** Lập ứng viên, phân tích xác suất–chi phí và chọn phép thử là ba đầu ra học tập.
-- **Nội dung công khai dự kiến:** Bài toán tìm cặp tương đồng Phân dải chữ ký MinHash Khoảng cách và họ nhạy cảm Các họ băm theo độ đo Ứng dụng tìm cặp tương đồng Tổng kết và tự kiểm tra Bài tập vận dụng Mục tiêu học tậpLập và xác minh tập ứng viên. Suy xác suất, phân tích chi phí và đánh đổi tham số. Chọn phép thử theo độ đo và điều kiện áp dụng.
+- **Thông điệp:** Tạo và xác minh tập ứng viên, tính xác suất để chọn tham số, và chọn họ băm theo độ đo là ba đầu ra học tập.
+- **Nội dung công khai dự kiến:** Bài toán tìm cặp tương đồng Phân dải chữ ký MinHash Khoảng cách và họ nhạy cảm Các họ băm theo độ đo Ứng dụng tìm cặp tương đồng Tổng kết và tự kiểm tra Bài tập vận dụng Mục tiêu học tập Tạo và xác minh tập cặp ứng viên bằng phân dải chữ ký. Tính xác suất một cặp thành ứng viên; chọn số dải và số hàng. Chọn họ băm phù hợp với độ đo khoảng cách.
 - **Đầu vào và giả thiết:** Tên bài và chữ ký.
 - **Dữ kiện, hình thức hóa và vết chạy:** Không áp dụng ví dụ số.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai vùng: danh mục bảy phần 60% bên trái; ba mục tiêu 40% bên phải. Tiêu đề và mục lục giữ cỡ chữ agenda-slide; mục tiêu dùng cỡ chữ nội dung của example-slide. CSS chỉ chia lưới, không đổi font. Đọc mục tiêu rồi liên hệ từng phần; ba mục tiêu gộp MT1–MT6, được kiểm ở phần kết.
 - **Kết nối vào–ra:** Chữ ký Bài 05 → ba sản phẩm học tập; số cặp của kho triệu tài liệu tạo nhu cầu đầu tiên. Kết bài s06-03/04 kiểm lại ba năng lực.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Trùng toàn bộ một dải là phép ghép đồng thời (AND); nhận cặp khi trùng ít nhất một dải là phép ghép ít nhất một (OR). Một độ đo xác định ý nghĩa của hai ngưỡng gần và xa. Ba mục tiêu học tập được kiểm bằng vết chạy, phép tính xác suất và các lựa chọn có điều kiện ở cuối bài.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Phần 1 đặt bài toán: sau khi có chữ ký, số cặp vẫn tăng bậc hai. Phần 2 chia chữ ký thành dải để sinh cặp ứng viên, xác minh chúng, rồi tính xác suất và chi phí. Phần 3 và 4 mở rộng cách làm từ Jaccard sang các độ đo khác qua khái niệm họ băm nhạy cảm. Phần 5 áp dụng vào ba bài toán của sách. Ba mục tiêu được kiểm ở các trang câu hỏi cuối mỗi phần và ở phần tổng kết.
 - **Nguồn:** B § §3.4–3.8 tr.91–122; outline mục 5.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 1 phút.
 
