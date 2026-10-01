@@ -1193,15 +1193,15 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 Đáp án: $200/3$; $\sqrt{1/450}pprox0{,}047$; $n=556$, 556 phép so bằng (tính lại bằng phân số). Không câu nào có đáp án trên mặt trang 31–33.
 
-### 35. Hoán vị lớn và hàm băm
+### 35. Mô phỏng hoán vị bằng hàm băm
 
 - **Mã:** `lec05-s05-01`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Vấn đề và trực giác triển khai; tách mô hình với phép tính. **Mục tiêu:** MT5.
-- **Câu chốt:** Có thể tính các giá trị nhỏ nhất theo hàng mà không dựng lại toàn bộ ma trận cho từng thứ tự.
+- **Câu chốt:** Không thể hoán vị thật hàng triệu hàng; hàm băm trên mã hàng đóng vai hoán vị, hàng có giá trị nhỏ nhất trong cột đóng vai phần tử đứng đầu.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận chữ ký lý tưởng; 36 đặc tả chính xác điều thuật toán phải trả.
 - **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** Sơ đồ quét theo hàng phía trên; điều kiện không va chạm và phép đổi định danh thắng thành giá trị phía dưới. Hai mũi tên tiến có đầu mũi tên riêng, vòng lặp giữ hướng.
-- **Trọng tâm và thứ tự đọc:** Giới hạn lưu thứ tự → thay bằng giá trị hàng → điều kiện họ hàm.
+- **Bố cục đã chọn:** `example-slide`: hai dòng nhu cầu và cách thay ở đầu; hình quy trình quét rộng ở giữa; câu chốt ở cuối.
+- **Trọng tâm và thứ tự đọc:** Nhu cầu → vai trò của $f_i$ → quy trình quét một hàng → điều kiện của bảo đảm xác suất.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết min và băm; sơ đồ chỉ thay cách tính, đồng thời ghi rõ giả thiết xác suất chưa tự chuyển theo, tránh xem công thức băm như một chứng minh.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.3.5 tr. 84–85.
@@ -1209,15 +1209,17 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 **Nội dung công khai dự kiến**
 
-![Mỗi hàng được băm một lần cho mỗi hàm; cập nhật cực tiểu ở các cột có 1.](../../img/lec-05/quet-ma-tran-thua.svg)
+Chọn và sắp xếp $n$ hoán vị của hàng triệu hàng tốn nhiều thời gian và bộ nhớ.
 
-Khi $f_i$ không va chạm, thứ tự tăng dần của $f_i(r)$ xác định hàng thắng. Lưu giá trị của hàng ấy bảo toàn phép so bằng định danh.
+Thay $\pi_i$ bằng hàm băm $f_i$ trên mã hàng: hàng có $f_i(r)$ nhỏ nhất trong cột đóng vai phần tử đứng đầu.
+
+![Mỗi hàng được băm một lần cho mỗi hàm; cập nhật cực tiểu ở các cột có 1.](../../img/lec-05/quet-ma-tran-thua.svg)
 
 Các hàm dùng chung cho mọi cột; bảo đảm xác suất còn phụ thuộc cách chọn hàm.
 
 **Ghi chú diễn giả học thuật**
 
-Sắp xếp hoặc lưu nhiều hoán vị của một vũ trụ lớn có chi phí cao. Thuật toán trong sách quét các hàng, tính giá trị băm và cập nhật cực tiểu. Nếu hàm là song ánh, thứ tự tăng giá trị xác định một hoán vị; nếu có va chạm, nhiều hàng có thể cùng giá trị. Ngay cả khi từng hàm là song ánh, phân bố chọn hàm vẫn cần điều kiện để có định lý lý tưởng.
+Theo §3.3.5, chọn ngẫu nhiên một hoán vị của hàng triệu hoặc hàng tỷ hàng đã tốn thời gian, còn sắp xếp lại các hàng tốn hơn nữa. Sách mô phỏng hoán vị bằng một hàm băm ánh xạ mã hàng vào cùng số thùng: xem như hàng $r$ được đưa tới vị trí $f_i(r)$ trong thứ tự. Thuật toán quét các hàng một lần, tính các giá trị băm và cập nhật cực tiểu của những cột có 1. Nếu $f_i$ là song ánh, thứ tự tăng của $f_i(r)$ là một hoán vị và hàng đạt cực tiểu là phần tử đứng đầu; nếu có va chạm, nhiều hàng có thể cùng giá trị. Ngay cả khi từng hàm là song ánh, cách chọn ngẫu nhiên các hàm vẫn quyết định định lý lý tưởng có áp dụng hay không.
 
 Nguồn: MMDS 3e, §3.3.5, tr. 84–86.
 

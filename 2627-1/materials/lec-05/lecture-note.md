@@ -433,7 +433,7 @@ Kết quả về phương sai không khẳng định rằng một chữ ký dài
 
 ### Từ hoán vị sang giá trị băm
 
-Lưu hoặc sắp xếp nhiều hoán vị của một vũ trụ lớn có thể tốn nhiều công việc. §3.3.5, tr. 84–86, thay việc duyệt riêng từng hoán vị bằng tính giá trị băm của từng hàng và cập nhật các cực tiểu. Các hàm phải dùng chung cho mọi cột.
+Lưu hoặc sắp xếp nhiều hoán vị của một vũ trụ lớn có thể tốn nhiều công việc. §3.3.5, tr. 84–86, mô phỏng mỗi hoán vị bằng một hàm băm $f_i$ trên mã hàng: xem như hàng $r$ được đưa tới vị trí $f_i(r)$, nên hàng có giá trị nhỏ nhất trong một cột đóng vai phần tử đứng đầu. Thuật toán tính giá trị băm của từng hàng và cập nhật các cực tiểu. Các hàm phải dùng chung cho mọi cột.
 
 Phép quét có một đặc tả xác định, kể cả khi các hàm được chọn chưa đáp ứng mô hình xác suất lý tưởng. Cho các số nguyên dương $R,C,n$, ma trận $M\in\{0,1\}^{R\times C}$ và các hàm
 

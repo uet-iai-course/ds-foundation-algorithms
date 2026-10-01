@@ -212,10 +212,10 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 </section>
 <section>
 <section id="lec05-s05-01" data-slide-id="lec05-s05-01" class="example-slide">
-<h2>Hoán vị lớn và hàm băm</h2>
-<figure class="mh-figure mh-wide"><img src="img/lec-05/quet-ma-tran-thua.svg" alt="Mỗi hàng được băm một lần cho mỗi hàm; cập nhật cực tiểu ở các cột có 1."></figure><p>Khi \(f_i\) không va chạm, thứ tự tăng dần của \(f_i(r)\) xác định hàng thắng. Lưu giá trị của hàng ấy bảo toàn phép so bằng định danh.</p><p class="ex-takeaway">Các hàm dùng chung cho mọi cột; bảo đảm xác suất còn phụ thuộc cách chọn hàm.</p>
+<h2>Mô phỏng hoán vị bằng hàm băm</h2>
+<p>Chọn và sắp xếp \(n\) hoán vị của hàng triệu hàng tốn nhiều thời gian và bộ nhớ.</p><p>Thay \(\pi_i\) bằng hàm băm \(f_i\) trên mã hàng: hàng có \(f_i(r)\) nhỏ nhất trong cột đóng vai phần tử đứng đầu.</p><figure class="mh-figure mh-wide"><img src="img/lec-05/quet-ma-tran-thua.svg" alt="Mỗi hàng được băm một lần cho mỗi hàm; cập nhật cực tiểu ở các cột có 1."></figure><p class="ex-takeaway">Các hàm dùng chung cho mọi cột; bảo đảm xác suất còn phụ thuộc cách chọn hàm.</p>
 <p class="ex-source">MMDS 3e, §3.3.5, tr. 84–86.</p>
-<aside class="notes"><p>Sắp xếp hoặc lưu nhiều hoán vị của một vũ trụ lớn có chi phí cao. Thuật toán trong sách quét các hàng, tính giá trị băm và cập nhật cực tiểu. Nếu hàm là song ánh, thứ tự tăng giá trị xác định một hoán vị; nếu có va chạm, nhiều hàng có thể cùng giá trị. Ngay cả khi từng hàm là song ánh, phân bố chọn hàm vẫn cần điều kiện để có định lý lý tưởng.</p><p>Nguồn: MMDS 3e, §3.3.5, tr. 84–86.</p></aside>
+<aside class="notes"><p>Theo §3.3.5, chọn ngẫu nhiên một hoán vị của hàng triệu hoặc hàng tỷ hàng đã tốn thời gian, còn sắp xếp lại các hàng tốn hơn nữa. Sách mô phỏng hoán vị bằng một hàm băm ánh xạ mã hàng vào cùng số thùng: xem như hàng \(r\) được đưa tới vị trí \(f_i(r)\) trong thứ tự. Thuật toán quét các hàng một lần, tính các giá trị băm và cập nhật cực tiểu của những cột có 1. Nếu \(f_i\) là song ánh, thứ tự tăng của \(f_i(r)\) là một hoán vị và hàng đạt cực tiểu là phần tử đứng đầu; nếu có va chạm, nhiều hàng có thể cùng giá trị. Ngay cả khi từng hàm là song ánh, cách chọn ngẫu nhiên các hàm vẫn quyết định định lý lý tưởng có áp dụng hay không.</p><p>Nguồn: MMDS 3e, §3.3.5, tr. 84–86.</p></aside>
 </section>
 <section id="lec05-s05-02" data-slide-id="lec05-s05-02" class="example-slide mh-inset">
 <h2>Đặc tả tính chữ ký</h2>
