@@ -1798,7 +1798,7 @@ Sản phẩm: bảng ba cặp gồm giao, hợp và tỷ số.
 
 **Ghi chú diễn giả học thuật**
 
-Ba tập được đặt nhãn S_A, S_B, S_C; dữ kiện số giữ nguyên. Cặp S_A, S_B có giao {2,3}, hợp {1, 2, 3, 4, 5, 7}, tỷ số 1/3. Cặp S_A, S_C có giao {2,4}, hợp {1, 2, 3, 4, 6}, tỷ số 2/5. Cặp S_B, S_C có giao {2}, hợp {2, 3, 4, 5, 6, 7}, tỷ số 1/6. Mẫu số đếm phần tử hợp một lần. Nguồn: MMDS 3e, Bài 3.1.1, §3.1.4, tr. 78/PDF7. Thời lượng dự kiến 8 phút.
+Ba tập được đặt nhãn $S_A,S_B,S_C$; dữ kiện số giữ nguyên. Cặp $S_A,S_B$ có giao $\{2,3\}$, hợp $\{1,2,3,4,5,7\}$, tỷ số $1/3$. Cặp $S_A,S_C$ có giao $\{2,4\}$, hợp $\{1,2,3,4,6\}$, tỷ số $2/5$. Cặp $S_B,S_C$ có giao $\{2\}$, hợp $\{2,3,4,5,6,7\}$, tỷ số $1/6$. Mẫu số đếm mỗi phần tử của hợp một lần. Nguồn: MMDS 3e, Bài 3.1.1, §3.1.4, tr. 78/PDF7. Thời lượng dự kiến 8 phút.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
