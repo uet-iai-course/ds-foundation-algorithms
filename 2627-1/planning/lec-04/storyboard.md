@@ -1461,7 +1461,7 @@ A, C giảm điểm khi chuyển sang TrustRank ($r_i-\rho_i>0$); B, D tăng đi
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,19/84)^\mathsf T$. Vector $\rho$ đã được tính với tập tin cậy B, D. Hình 5.17 của sách dùng PageRank không dịch chuyển lấy từ Ví dụ 5.2, trong khi TrustRank dùng $\beta=0.8$; bảng này tính lại PageRank nền cùng $\beta=0.8$ để tách tác động của phân phối dịch chuyển. Hiệu $r_i-\rho_i>0$ nghĩa là $\rho_i<r_i$, nên điểm giảm khi chuyển từ PageRank sang TrustRank. Hiệu âm nghĩa là điểm tăng; hiệu bằng $0$ nghĩa là điểm không đổi. Dấu của hiệu mô tả thay đổi điểm, không xác định thay đổi thứ hạng hoặc nhãn rác. Tổng các hiệu bằng $0$ vì hai vector đều có tổng bằng $1$. Giá trị tuyệt đối của hiệu chưa xét quy mô điểm nền của từng trang.
+PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,19/84)^\mathsf T$. Vector $\rho$ đã được tính với tập tin cậy B, D. Hình 5.17 của sách dùng PageRank không dịch chuyển lấy từ Ví dụ 5.2, trong khi TrustRank dùng $\beta=4/5$; bảng này tính lại PageRank nền cùng $\beta=4/5$ để tách tác động của phân phối dịch chuyển. Tổng các hiệu bằng $0$ vì hai vector đều có tổng bằng $1$. Giá trị tuyệt đối của hiệu chưa xét quy mô điểm nền của từng trang.
 <!-- public-notes:end -->
 
 ### lec04-s04-05 — Chỉ số Spam Mass
