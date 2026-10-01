@@ -1910,7 +1910,7 @@ Sản phẩm: số hoán vị trùng và tỷ lệ của sáu cặp; đối chi�
 
 **Ghi chú diễn giả học thuật**
 
-Với một cặp, gọi q là số phần tử của hợp. Do đối xứng, mỗi phần tử của hợp đứng đầu ở 120/q hoán vị. Mỗi phần tử giao tạo đúng từng ấy hoán vị trùng; nhân với kích thước giao. Sáu số đếm là 0, 30, 80, 0, 40, 24; chia 120 được 0, 1/4, 2/3, 0, 1/3, 1/5. Không cần liệt kê 120 thứ tự; lập luận đối xứng là căn cứ cho phép rút gọn. Nguồn: MMDS 3e, Bài 3.3.1(b), §3.3.8, tr. 90/PDF19. Thời lượng dự kiến 8 phút; cả bài 3.3.1 là 15 phút.
+Với một cặp, gọi $q$ là số phần tử của hợp. Do đối xứng, mỗi phần tử của hợp đứng đầu ở $120/q$ hoán vị. Mỗi phần tử giao tạo đúng từng ấy hoán vị trùng; nhân với kích thước giao. Sáu số đếm là 0, 30, 80, 0, 40, 24; chia 120 được $0$, $1/4$, $2/3$, $0$, $1/3$, $1/5$. Không cần liệt kê 120 thứ tự; lập luận đối xứng là căn cứ cho phép rút gọn. Nguồn: MMDS 3e, Bài 3.3.1(b), §3.3.8, tr. 90/PDF19. Thời lượng dự kiến 8 phút; cả bài 3.3.1 là 15 phút.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
