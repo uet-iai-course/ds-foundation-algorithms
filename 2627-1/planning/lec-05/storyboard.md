@@ -1075,11 +1075,11 @@ Nguồn: MMDS 3e, §3.3.4; tính tuyến tính của kỳ vọng. Phân biệt s
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 32. Sai số của chữ ký
+### 32. Phương sai của ước lượng
 
 - **Mã:** `lec05-s04-05`; **phần:** 4; **note-topic-id:** `n05-08`.
 - **Mục đích và vai trò:** Hệ quả và điều kiện; giải thích tác dụng độ dài chữ ký. **Mục tiêu:** MT4.
-- **Câu chốt:** Tăng n giảm phương sai của ước lượng khi các hoán vị đều và độc lập.
+- **Câu chốt:** Nếu các hoán vị độc lập, $\operatorname{Var}(\widehat{\mathrm{SIM}})=s(1-s)/n$; độ lệch chuẩn giảm theo $1/\sqrt n$.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận kỳ vọng đúng; 33 xét chi phí phải trả khi tăng n.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Giả thiết đều đã kế thừa từ 31, bổ sung độc lập ở trên. Chuỗi ba dòng phương sai là trọng tâm: hệ số $n^{-2}$, tổng phương sai có nhãn độc lập, kết quả $s(1-s)/n$. Công thức độ lệch chuẩn ở notes.
@@ -1097,7 +1097,7 @@ $$
 \begin{aligned}\operatorname{Var}(\widehat{\mathrm{SIM}})&=\frac1{n^2}\operatorname{Var}\!\left(\sum_{i=1}^nX_i\right)\\&\overset{\text{độc lập}}=\frac1{n^2}\sum_{i=1}^n\operatorname{Var}(X_i)\\&=\frac{ns(1-s)}{n^2}=\frac{s(1-s)}n.\end{aligned}
 $$
 
-Tăng $n$ làm giảm phương sai.
+Độ lệch chuẩn $\sqrt{s(1-s)/n}$: giảm một nửa cần tăng $n$ gấp bốn.
 
 Không bảo đảm mỗi lần tăng độ dài chữ ký đều làm sai số quan sát giảm.
 

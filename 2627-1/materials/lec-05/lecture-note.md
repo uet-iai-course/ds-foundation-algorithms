@@ -411,7 +411,7 @@ $$
 =\frac{s(1-s)}n.
 $$
 
-Độ lệch chuẩn tương ứng là $\sqrt{s(1-s)/n}$. Lập luận dùng mô hình chữ ký §3.3.4 và kiến thức phương sai cơ bản; không giả định công thức này cho một bộ hàm băm cố định bất kỳ.
+Độ lệch chuẩn tương ứng là $\sqrt{s(1-s)/n}$, giảm theo $1/\sqrt n$: muốn giảm độ lệch chuẩn một nửa phải tăng $n$ gấp bốn. Lập luận dùng mô hình chữ ký §3.3.4 và kiến thức phương sai cơ bản; không giả định công thức này cho một bộ hàm băm cố định bất kỳ.
 
 Với $s=2/3$, phương sai là $2/(9n)$. Khi $n=100$, phương sai bằng $1/450$. Tăng $n$ giảm phương sai theo $1/n$, nhưng đồng thời tăng tuyến tính số thành phần cần lưu và số phép so bằng cho một cặp. Nếu $s=0$ hoặc $s=1$, phương sai bằng $0$ trong mô hình lý tưởng, phù hợp với việc mọi phép thử lần lượt luôn khác hoặc luôn trùng.
 
