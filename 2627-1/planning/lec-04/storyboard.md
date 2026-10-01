@@ -1,6 +1,6 @@
 # Storyboard mới Bài 04: PageRank theo chủ đề, liên kết rác và HITS
 
-Ngày soạn: 27/09/2026; cập nhật làm rõ nội dung: 29/09/2026. Các phiếu dưới đây phản ánh bản HTML hiện tại gồm53 trang. Kết quả kiểm định từng phiên được lưu trong review-log.md.
+Ngày soạn: 27/09/2026; cập nhật làm rõ nội dung: 29/09/2026; duyệt từng trang: 01/10/2026. Các phiếu dưới đây phản ánh bản HTML hiện tại gồm 52 trang (49 trang giảng, 3 trang bài tập). Kết quả kiểm định từng phiên được lưu trong review-log.md.
 
 Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide MMDS, Stanford và Cambridge chỉ đối chiếu cách minh họa; không quyết định lại mạch sách. Đọc cùng [outline.md](outline.md) để tra mã NG, MT, HT, VD và bản đồ quyết định; xem [review-log.md](review-log.md) cho sai khác nguồn và các lượt rà độc lập.
 
@@ -1281,7 +1281,7 @@ Câu 2: phương trình của mỗi hỗ trợ có thêm số hạng $x'$ là đ
 
 Thuật toán và diễn giải. Tập tin cậy → tái dùng HT1 → cùng G4/VD1 → đối chiếu r/rho cùng beta → chỉ số tương đối → chi phí và giới hạn → kiểm tra. Giả mã, bảo toàn và hội tụ kế thừa S02, không lặp lại toàn bộ. Đầu ra gồm chỉ số có dấu và giới hạn suy luận; HITS tiếp tục bằng một nhu cầu điểm khác.
 
-Phân bổ: 8 slide, 18 phút.
+Phân bổ: 7 slide, 18 phút (từ 01/10/2026, s04-02 gộp vào s04-02a).
 
 ### lec04-s04-01 — TrustRank
 
