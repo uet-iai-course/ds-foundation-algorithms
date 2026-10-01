@@ -20,7 +20,7 @@ Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide M
 | S01. Bài toán xếp hạng liên kết | 6 | 12 phút | `lec04-s01-06` (ôn tiên quyết Bài 03; S01 là phần mở bài, không có trang kiểm đầu ra riêng) |
 | S02. PageRank theo chủ đề | 13 | 30 phút | `lec04-s02-12` |
 | S03. Cơ chế liên kết rác | 8 | 20 phút | `lec04-s03-08` |
-| S04. TrustRank và Spam Mass | 8 | 18 phút | `lec04-s04-07` |
+| S04. TrustRank và Spam Mass | 7 | 18 phút | `lec04-s04-07` |
 | S05. HITS | 11 | 30 phút | `lec04-s05-11` |
 | S06. So sánh các phương pháp xếp hạng | 4 | 10 phút | `lec04-s06-04` |
 | S07. Bài tập | 3 | 60 phút | `lec04-s07-03` |
@@ -1323,53 +1323,7 @@ Chọn $T$ ngoài thuật toán: người xem xét các trang PageRank cao, ho�
 Các hạt giống được đánh giá từ bên ngoài trước khi chạy thuật toán; TrustRank không tự chọn hay chứng nhận chúng từ điểm đầu ra. Cách chọn theo các trang PageRank cao dựa trên nhận định của MMDS: liên kết rác có thể đưa một trang từ cuối lên giữa bảng xếp hạng nhưng gần như không đưa được lên đầu. Cách chọn theo miền dựa trên việc người tạo rác khó đưa trang vào các miền có kiểm soát. Các trang ngoài $T$ vẫn có thể nhận điểm qua liên kết. TrustRank giữ cơ chế PageRank theo chủ đề, nhưng ý nghĩa tập dịch chuyển là tin cậy thay cho lĩnh vực nội dung. Giả định về hướng liên kết không có tính tuyệt đối: trang cho phép người khác đăng liên kết, như trang báo có mục bình luận, không được coi là tin cậy dù nội dung chính đáng tin. Chất lượng và phạm vi bao phủ của $T$ ảnh hưởng cách diễn giải điểm; vector kết quả không chứng nhận nội dung của từng trang.
 <!-- public-notes:end -->
 
-### lec04-s04-02 — Các đại lượng trong phép lặp TrustRank
-
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Định nghĩa ký hiệu; MT3. Đầu vào: tập T, PageRank có nút cụt. Sản phẩm: đọc đúng n,rho,t,M0,dj,delta,u,vT,beta.
-
-**Luận điểm trung tâm:** TrustRank tái dùng các đối tượng PageRank với vector điểm rho và phân phối dịch chuyển vT.
-
-**Nội dung hiển thị dự kiến:**
-
-<!-- public-slide:start -->
-Đồ thị có $n$ trang; $T\ne\varnothing$ là tập hạt giống tin cậy.
-
-| Ký hiệu | Ý nghĩa |
-| --- | --- |
-| $\rho^t\in\mathbb R^n$; $\rho_i^t$ | Vector TrustRank ở vòng $t$; điểm của trang $i$ |
-| $d_j$; $M_0$ | Bậc ra của trang $j$; ma trận liên kết với cột $j$ là nguồn |
-| $\delta_\rho^t=\sum_{j:d_j=0}\rho_j^t$ | Tổng điểm tại các nút cụt ở vòng $t$ |
-| $u_i=1/n$; $v_T$ | Phân phối đều trên toàn bộ trang; phân phối đều trên $T$ |
-| $0<\beta<1$ | Xác suất thực hiện bước theo liên kết |
-
-$(M_0)_{ij}=1/d_j$ nếu $j\to i$ và $d_j>0$; bằng $0$ trong các trường hợp khác, gồm cột nút cụt.
-<!-- public-slide:end -->
-
-**Bố cục đã chọn:** Dòng đầu xác định n,T; bảng năm hàng ánh xạ ký hiệu–vai trò; dòng cuối định nghĩa phần tử ma trận liên kết và cột nút cụt.
-
-**Trọng tâm và thứ tự đọc:** Vector điểm → cấu trúc liên kết → điểm nút cụt → hai phân phối → beta.
-
-**Lý do phù hợp sinh viên năm 2:** Bảng gắn mỗi ký hiệu với đối tượng trước khi đọc công thức ba số hạng; tránh nhầm t với T.
-
-**Giới hạn bố cục và phân chia nội dung:** Mặt trang định nghĩa phần tử M0; giá trị từng thành phần vT và phương trình cập nhật nằm ở S04-02a. Ghi chú phân biệt tổng điểm nút cụt với lượng bù sau nhân beta.
-
-**Ví dụ, phiếu số và hình thức hóa:** HT5 kế thừa HT1; rho có n thành phần, delta là tổng vô hướng.
-
-**Kết nối vào–ra:** Hạt giống ngoài thuật toán → ký hiệu → công thức ba thành phần.
-
-**Nguồn và vị trí:** NG1 §5.4.4, tr.202–203; quy tắc bù và dừng là đặc tả thống nhất với HT1.
-
-**Thời lượng:** 2 phút.
-
-**Ghi chú học thuật dự kiến:**
-
-<!-- public-notes:start -->
-Vector $\rho^t$ chứa $n$ điểm không âm, tổng bằng $1$, ở vòng lặp $t$. Thành phần $\rho_i^t$ thuộc trang $i$; khi hội tụ, ký hiệu $\rho_i$ chỉ thành phần tương ứng của vector giới hạn. Với $d_j>0$, $(M_0)_{ij}=1/d_j$ nếu có cạnh $j\to i$, bằng $0$ nếu không có cạnh. Cột của nút cụt bằng $0$.
-
-Tổng điểm tại nút cụt là $\delta_\rho^t$; lượng điểm phải bù trong nhánh theo liên kết là $\beta\delta_\rho^t$. Phân phối $u$ đều trên toàn bộ $n$ trang dùng để phân phối lượng điểm bù này. Phân phối $v_T$ có thành phần $1/|T|$ với trang trong $T$ và bằng $0$ ngoài $T$, dùng cho nhánh dịch chuyển. Hai phân phối có vai trò khác nhau dù đều có tổng bằng $1$. Tham số $\beta$ được giữ như trong phép tính PageRank nền để so sánh.
-<!-- public-notes:end -->
-
-### lec04-s04-02a — Ba thành phần cập nhật TrustRank
+### lec04-s04-02a — Phép lặp TrustRank
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và tái dùng thuật toán; MT3. Đầu vào: bảng ký hiệu S04-02. Sản phẩm: phân biệt ba số hạng và điều kiện dừng.
 
@@ -1378,17 +1332,13 @@ Tổng điểm tại nút cụt là $\delta_\rho^t$; lượng điểm phải bù
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-$(v_T)_i=1/|T|$ nếu $i\in T$, bằng $0$ ngoài $T$; khởi tạo $\rho^0=v_T$.
+Dùng lại thuật toán PageRank theo chủ đề với $r\mapsto\rho$, $v\mapsto v_T$; các thành phần khác giữ nguyên.
+
+$T\ne\varnothing$; $(v_T)_i=1/|T|$ nếu $i\in T$, bằng $0$ ngoài $T$; khởi tạo $\rho^0=v_T$.
 
 $$\rho^{t+1}=\underbrace{\beta M_0\rho^t}_{\text{theo liên kết}}+\underbrace{\beta\delta_\rho^t u}_{\text{bù nút cụt}}+\underbrace{(1-\beta)v_T}_{\text{dịch chuyển}}.$$
 
-| Thành phần | Nơi nhận điểm |
-| --- | --- |
-| Theo liên kết | Các trang đích của cạnh thật |
-| Bù nút cụt | Toàn bộ $n$ trang, chia đều |
-| Dịch chuyển | Các trang trong $T$, chia đều |
-
-Dùng thuật toán PageRank theo chủ đề với $r\mapsto\rho$, $v\mapsto v_T$; giữ quy tắc bù và điều kiện dừng.
+$\rho_i^t$: điểm TrustRank của trang $i$ ở vòng $t$; $\delta_\rho^t=\sum_{j:d_j=0}\rho_j^t$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Phân phối vT và khởi tạo ở trên; công thức có ba nhãn ở giữa; bảng ba hàng xác định nơi nhận điểm ở dưới.
@@ -1403,16 +1353,18 @@ Dùng thuật toán PageRank theo chủ đề với $r\mapsto\rho$, $v\mapsto v_
 
 **Kết nối vào–ra:** Các đối tượng → cập nhật rho → nghiệm cụ thể trên G4.
 
+**Quyết định 01/10/2026:** gộp — s04-02 (bảng năm ký hiệu, bốn ký hiệu đã có ở S02) được gộp vào trang này. Luận điểm “TrustRank dùng lại thuật toán PageRank theo chủ đề với $v\mapsto v_T$” đặt lên đầu; bỏ bảng “nơi nhận điểm” lặp S02; định nghĩa $\rho$, $\delta_\rho$, $v_T$ giữ trên mặt trang, còn vai trò từng thành phần và lập luận hội tụ nằm trong ghi chú.
+
 **Nguồn và vị trí:** NG1 §5.4.4 tr.202–203; quy tắc bù và dừng thống nhất với HT1.
 
-**Thời lượng:** 2 phút.
+**Thời lượng:** 4 phút (gộp thời lượng của s04-02).
 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Thành phần $\beta M_0\rho^t$ truyền điểm từ các trang không cụt theo cạnh. Thành phần $\beta\delta_\rho^t u$ bù phần điểm ở các nút cụt lên toàn bộ trang. Thành phần $(1-\beta)v_T$ đưa điểm dịch chuyển vào các hạt giống tin cậy. Tổng ba thành phần bằng $\beta(1-\delta_\rho^t)+\beta\delta_\rho^t+(1-\beta)=1$.
+TrustRank không cần thuật toán mới: chỉ phân phối dịch chuyển thay đổi. Thành phần $\beta M_0\rho^t$ truyền điểm từ các trang không cụt theo cạnh thật; $\beta\delta_\rho^t u$ bù phần điểm ở các nút cụt lên toàn bộ $n$ trang; $(1-\beta)v_T$ đưa điểm dịch chuyển vào các hạt giống. Hai phân phối $u$ và $v_T$ đều có tổng bằng $1$ nhưng có vai trò khác nhau. Tổng ba thành phần bằng $\beta(1-\delta_\rho^t)+\beta\delta_\rho^t+(1-\beta)=1$.
 
-Đây là phép lặp PageRank theo chủ đề với tập tin cậy làm tập dịch chuyển. Ma trận bù $\bar M$ vẫn không âm và có tổng mỗi cột bằng $1$; với $0<\beta<1$, lập luận co cho điểm cố định duy nhất $\rho$. Thuật toán trả vector xấp xỉ cùng trạng thái đạt ngưỡng hoặc hết $K$ vòng. Đánh giá hạt giống thuộc đầu vào bên ngoài; phương trình không chứng nhận độ tin cậy tuyệt đối của từng trang.
+Vì $v_T\ge0$ và có tổng bằng $1$, bất biến tổng điểm và lập luận co của PageRank theo chủ đề áp dụng nguyên vẹn: với $0<\beta<1$, phép lặp có điểm cố định duy nhất $\rho$, và thuật toán trả vector xấp xỉ cùng trạng thái đạt ngưỡng hoặc hết $K$ vòng. Tham số $\beta$ được giữ như trong phép tính PageRank nền để hai vector so sánh được. Việc đánh giá hạt giống thuộc đầu vào bên ngoài; phương trình không chứng nhận độ tin cậy tuyệt đối của từng trang.
 <!-- public-notes:end -->
 
 
