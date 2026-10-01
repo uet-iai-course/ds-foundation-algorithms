@@ -123,11 +123,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B Ex 3.11/Hình 3.7 tr.92–93/PDF 21–22; M 45–46.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 
-#### lec06-s02-02 — Chữ ký của bốn tập
+#### lec06-s02-02 — Phân dải chữ ký của bốn tập
 
 - **Mục đích và vai trò:** Đọc đúng hàng, cột và tham số của vết chạy.
 - **Thông điệp:** Cùng dữ kiện tập gốc và chữ ký cho phép kiểm kết quả sau phân dải.
-- **Nội dung công khai dự kiến:** Dữ kiện: $S_1=\{a,d\},S_2=\{c\},S_3=\{b,d,e\},S_4=\{a,c,d\}$. SIG hai hàng $(1,3,0,1)$,$(0,2,0,0)$. $b=2,r=1,t=2/3$.
+- **Nội dung công khai dự kiến:** $S_1=\{a,d\},\quad S_2=\{c\}$ $S_3=\{b,d,e\},\quad S_4=\{a,c,d\}$ Dữ kiện Ví dụ 3.8, MMDS; giữ chữ ký từ Bài 05. Hàng $S_1$ $S_2$ $S_3$ $S_4$ 1 1 3 0 1 2 0 2 0 0 $b=2,\quad r=1,\quad t=2/3$ Với $r=1$, mỗi hàng là một dải. Khóa của cột $c$ ở dải $j$ là cặp $(j,\text{tuple})$.
 - **Đầu vào và giả thiết:** Ký hiệu từ s01-04 và quy tắc dải.
 - **Dữ kiện, hình thức hóa và vết chạy:** V02; các số 1,3,0,1 là giá trị chữ ký, cột 1–4 là mã tài liệu. Phân dải là phép áp dụng mới đã duyệt.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng tập gốc ở trái 45%; ma trận có nhãn cột/hàng/dải ở phải 55%. Giữ vị trí ma trận ở hai trang sau. Năm 2 đọc đồng thời đối tượng và biểu diễn; không lặp cách tính MinHash.

@@ -92,7 +92,7 @@ $$
 | 1 | 1 | 3 | 0 | 1 |
 | 2 | 0 | 2 | 0 | 0 |
 
-Áp dụng phân dải với $b=2,r=1,t=2/3$. Ở dải 1, chèn tài liệu 1 tạo danh sách tại khóa $(1,(1))$; chèn tài liệu 4 nối vào chính danh sách đó. Các thùng cuối cùng là:
+Áp dụng phân dải với $b=2,r=1,t=2/3$: mỗi hàng là một dải, và khóa của một cột ở dải $j$ là cặp gồm số dải và tuple một phần tử. Ở dải 1, chèn tài liệu 1 tạo danh sách tại khóa $(1,(1))$; chèn tài liệu 4 nối vào chính danh sách đó. Các thùng cuối cùng là:
 
 | Dải | Khóa | Danh sách mã | Cặp phát |
 |---|---|---|---|
