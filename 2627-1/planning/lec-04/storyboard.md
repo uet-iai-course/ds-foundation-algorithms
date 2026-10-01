@@ -2053,23 +2053,23 @@ Không dựng $LL^\mathsf T$ hoặc $L^\mathsf TL$ để chạy vì chúng có t
 Mỗi cạnh $i\to j$ được dùng một lần để cộng $h_i$ vào $a_j$, sau đó một lần để cộng $a_j$ mới vào $h_i$. Hai lượt này cần $2\ell$ phép cộng trọng số, còn chuẩn hóa và kiểm thay đổi cần số lượt cố định theo $n$. Hệ số $2$ biến mất trong bậc tiệm cận nhưng vẫn mô tả lượng công việc khác PageRank. Tích $LL^\mathsf T$ có thể nối nhiều cặp trang cùng chung đích, nên số phần tử khác $0$ có thể tăng. Hai phép nhân luân phiên khai thác cạnh trực tiếp, tránh lưu tích ấy khi tính hai vector trên đồ thị lớn.
 <!-- public-notes:end -->
 
-### lec04-s05-11 — Kiểm tra một vòng HITS
+### lec04-s05-11 — Kiểm tra HITS
 
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S05; MT4. Đầu vào: G5,a1. Sản phẩm: tính h_B và bác cách chia bậc ra.
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S05; MT4. Đầu vào: G5,a1. Sản phẩm: tính một vòng uy tín mới từ $h^2$, bác cách chia bậc ra, giải thích uy tín của nút cụt.
 
 **Luận điểm trung tâm:** Tổng HITS không chia bậc ra; chuẩn hóa dùng một số chung cho toàn vector.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-G5: A→B,C,D; B→A,D; C→E; D→B,C; E không có cạnh ra.
+[Hình: Đồ thị G5.]
 
-$a^1=(1/2,1,1,1,1/2)^\mathsf T$; trung tâm thô lớn nhất bằng 3.
+Từ vòng thứ hai: $h^2=(1,\,12/29,\,1/29,\,20/29,\,0)^\mathsf T$.
 
 **Câu hỏi:**
-1. Tính trung tâm thô và điểm chuẩn hóa của B.
-2. Giải thích vì sao không chia thêm cho hai liên kết ra của B.
-3. Xác định điểm trung tâm của E sau vòng này.
+1. Tính uy tín thô $\tilde a_D$ và điểm chuẩn hóa $a_D^3$.
+2. Giải thích vì sao đóng góp của A vào $\tilde a_D$ không chia cho ba liên kết ra của A.
+3. Tính $a_E^3$; giải thích vì sao E có uy tín dương dù không có cạnh ra.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** G5 trái45%; vector, max và ba yêu cầu phải55%. Cạnh B→A,D được phân biệt bằng nét đậm và nhãn, không lộ tổng.
@@ -2084,21 +2084,25 @@ $a^1=(1/2,1,1,1,1/2)^\mathsf T$; trung tâm thô lớn nhất bằng 3.
 
 **Kết nối vào–ra:** Cơ chế HITS đã kiểm → đối chiếu ba mục tiêu xếp hạng ở S06.
 
+**Quyết định 01/10/2026:** sửa — ba câu cũ hỏi giá trị đã hiện trong bảng s05-04 ($h_B^1$, $h_E^1$); câu mới tính bước uy tín của vòng 3 từ $h^2$ (đáp án không có trên trang nào), giữ câu “không chia bậc ra” và thêm câu uy tín của nút cụt. Dùng hình G5 không tô nét đứt (nét đứt dành cho bước không phải cạnh dữ liệu); `hinh-5-18-kiem-tra.svg` không còn được tham chiếu. Tiêu đề “Kiểm tra HITS”.
+
 **Nguồn và vị trí:** NG1 VD5.15, tr.207; câu hỏi áp dụng trực tiếp.
 
 **Thời lượng:** 3 phút.
 
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
-- Câu hỏi/đề: Ba yêu cầu như nội dung hiển thị trên G5 và a1.
-- Đáp án/gợi ý: B: thô $3/2$, chuẩn $1/2$; không chia bậc ra vì định nghĩa HITS là tổng. E: $h_E^1=0$.
-- Tiêu chí đánh giá: Dùng a mới, cộng hai uy tín, chỉ chia max toàn vector; phân biệt điểm trung tâm0 với điểm uy tín.
+- Câu hỏi/đề: Ba yêu cầu như nội dung hiển thị trên G5 và $h^2$.
+- Đáp án/gợi ý: $\tilde a_D=41/29$, $a_D^3=41/49$ (chia cho $49/29$); không chia bậc ra vì định nghĩa HITS là tổng; $a_E^3=1/49$.
+- Tiêu chí đánh giá: Cộng đúng hai trung tâm của nguồn, chia cho max của cả vector (B, C), phân biệt uy tín (cạnh vào) với trung tâm (cạnh ra).
 - Phân bổ hoạt động: Tính1 phút, giải thích1 phút, đối chiếu1 phút; tổng3 phút.
 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Trung tâm thô của B là $a_A^1+a_D^1=1/2+1=3/2$. Chia giá trị này cho giá trị lớn nhất của vector thô là $3$ thu được $h_B^1=1/2$. HITS định nghĩa trung tâm bằng tổng uy tín các đích, nên chia bậc ra là thay đổi mô hình. E không có đích liên kết, tổng rỗng bằng $0$ và điểm trung tâm vẫn bằng $0$ sau chuẩn hóa. Không suy từ $h_E=0$ rằng mọi điểm uy tín của nút cụt đều bằng $0$.
+D nhận cạnh từ A và B: $\tilde a_D=h_A^2+h_B^2=1+12/29=41/29$. Uy tín thô lớn nhất thuộc B và C, cùng bằng $h_A^2+h_D^2=49/29$, nên $a_D^3=41/49$. Vector đầy đủ là $a^3=(12/49,\,1,\,1,\,41/49,\,1/49)^\mathsf T$.
+
+HITS định nghĩa uy tín bằng tổng điểm trung tâm của các trang trỏ tới, không chia theo bậc ra như PageRank; chia cho ba là đổi sang mô hình khác. E chỉ nhận cạnh từ C nên $\tilde a_E=h_C^2=1/29$ và $a_E^3=1/49$: uy tín phụ thuộc cạnh vào, còn việc thiếu cạnh ra chỉ làm điểm trung tâm của E bằng $0$. Giá trị này tiếp tục giảm vì $h_C$ giảm qua các vòng.
 <!-- public-notes:end -->
 
 ## S06. So sánh các phương pháp xếp hạng
@@ -2524,7 +2528,7 @@ Bản hiện hành gồm50 trang giảng/120 phút và ba bài/60 phút. Ba ghi 
 | `lec04-s05-01` | `cap-vai-tro-hits.svg` |
 | `lec04-s05-02` | `hinh-5-18.svg` |
 | `lec04-s05-09` | Không dùng hình từ 01/10/2026; `dong-gop-hits.svg` giữ trong kho, không được tham chiếu |
-| `lec04-s05-11` | `hinh-5-18-kiem-tra.svg` |
+| `lec04-s05-11` | `hinh-5-18.svg` (từ 01/10/2026; `hinh-5-18-kiem-tra.svg` không còn được tham chiếu) |
 | `lec04-s07-01` | `hinh-5-1-trung-tinh.svg` |
 | `lec04-s07-02` | `ho-tro-tu-khuyen.svg`, `ho-tro-khuyen-va-dich.svg` |
 | `lec04-s07-03` | `chuoi-co-khuyen.svg` |
