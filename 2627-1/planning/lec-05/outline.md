@@ -103,11 +103,11 @@ Quy ước các hàng $a, b, c, d, e$ tương ứng mã $0,1,2,3,4$ được kha
 
 | Phần | Loại, sản phẩm và kết nối | Trang | Phút | Kiểm tra |
 |---|---|---|---:|---|
-| 1. Giới thiệu và tương đồng tập hợp | Giới thiệu + khái niệm; kho gần trùng → Jaccard cần một biểu diễn tập | 01–09 | 18 | 09 |
+| 1. Tài liệu gần trùng và độ tương đồng Jaccard | Giới thiệu + khái niệm; kho gần trùng → Jaccard cần một biểu diễn tập | 01–09 | 18 | 09 |
 | 2. Shingling văn bản | Khái niệm + thuật toán; chuỗi → tập phần tử để nén | 10–18 | 22 | 18 |
 | 3. MinHash theo hoán vị | Khái niệm + chứng minh; tập → một phép thử có xác suất trùng bằng Jaccard | 19–27 | 22 | 27 |
 | 4. Chữ ký MinHash | Ước lượng; một phép thử → tỷ lệ nhiều phép thử và tác dụng của $n$ | 28–34 | 17 | 34 |
-| 5. Tính chữ ký và giới hạn | Thuật toán + chi phí; băm hàng → chữ ký tính được, bất biến và giới hạn | 35–46 | 31 | 46 |
+| 5. Tính chữ ký bằng hàm băm | Thuật toán + chi phí; băm hàng → chữ ký tính được, bất biến và giới hạn | 35–46 | 31 | 46 |
 | 6. Tổng kết | Thu hồi tình huống; kết nối biểu diễn, bảo đảm và giới hạn số cặp | 47–50 | 10 | 49–50 |
 | 7. Bài tập vận dụng | 5 bài nguồn, riêng sau phần giảng | 51–57 | 60 | 56–57, Bài 3.3.3 |
 

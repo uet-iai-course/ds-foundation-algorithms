@@ -16,11 +16,11 @@ Các tỷ lệ trạng thái và vị trí nhãn giữ nguyên qua 23–24,28–
 
 | Phần | Chức năng, đầu vào → đầu ra và mục tiêu | Slide | Phút | Kiểm tra |
 |---|---|---|---:|---|
-|1. Giới thiệu và tương đồng tập hợp|Kho gần trùng, tập hợp → đặc tả Jaccard; MT1|01–09|18|09|
+|1. Tài liệu gần trùng và độ tương đồng Jaccard|Kho gần trùng, tập hợp → đặc tả Jaccard; MT1|01–09|18|09|
 |2. Shingling văn bản|Chuỗi, tập và băm → tập shingle có quy ước; MT2|10–18|22|18|
 |3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–27|22|27|
 |4. Chữ ký MinHash|Một phép thử → ước lượng từ nhiều tọa độ; MT4|28–34|17|34|
-|5. Tính chữ ký và giới hạn|Chữ ký lý tưởng → quét hàng, đúng, chi phí; MT5|35–46|31|46|
+|5. Tính chữ ký bằng hàm băm|Chữ ký lý tưởng → quét hàng, đúng, chi phí; MT5|35–46|31|46|
 |6. Tổng kết|Các kết quả → xử lý hai giới hạn mở bài, sáu nhiệm vụ tự kiểm|47–50|10|49–50|
 |7. Bài tập vận dụng|Toàn bộ tuyến chính → sản phẩm năm bài sách|51–57|60|56–57|
 
@@ -88,11 +88,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Giới thiệu và tương đồng tập hợp; Shingling văn bản; MinHash theo hoán vị; Chữ ký MinHash; Tính chữ ký và giới hạn; Tổng kết; Bài tập vận dụng.
+Tài liệu gần trùng và độ tương đồng Jaccard; Shingling văn bản; MinHash theo hoán vị; Chữ ký MinHash; Tính chữ ký bằng hàm băm; Tổng kết; Bài tập vận dụng.
 
 **Ghi chú diễn giả học thuật**
 
-Jaccard xác định đại lượng cần đo. Shingling chuyển chuỗi thành tập; MinHash liên hệ độ tương đồng tập với xác suất trùng. Nhiều thành phần tạo chữ ký, còn phép quét hàng tính chữ ký. Phần bài tập sử dụng trực tiếp năm bài trong sách.
+Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các hàng. Phần bài tập dùng năm bài của sách.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 

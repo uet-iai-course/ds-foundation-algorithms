@@ -1231,3 +1231,4 @@ Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) t
 | Trang | Trang muốn nói | Quyết định | Thay đổi deck và storyboard | Ghi chú tự học |
 |---|---|---|---|---|
 | lec05-s01-01 | Tên bài, học phần và học kỳ; phạm vi MMDS §§3.1–3.3. | giữ | Tiêu đề và ghi chú đạt. | Không đổi; phần mở đầu ghi chú đã nêu cùng phạm vi. |
+| lec05-s01-02 | Bảy phần và quan hệ giữa chúng. | sửa | Mục 1 “Giới thiệu và tương đồng tập hợp” → “Tài liệu gần trùng và độ tương đồng Jaccard”; mục 5 “Tính chữ ký và giới hạn” → “Tính chữ ký bằng hàm băm”. Ghi chú viết lại thành chuỗi quan hệ giữa các phần (Jaccard → tập shingle → MinHash → chữ ký → tính bằng hàm băm). Tên phần đồng bộ trong storyboard và outline. | Không đổi; ghi chú không có mục lục theo phần của deck. |
