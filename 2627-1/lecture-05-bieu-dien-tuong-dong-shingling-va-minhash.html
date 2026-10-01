@@ -292,8 +292,8 @@ return SIG</code></pre><p class="ex-takeaway">Dừng sau \(R\) hàng; mỗi \(f_
 </section>
 <section>
 <section id="lec05-s06-01" data-slide-id="lec05-s06-01" class="example-slide">
-<h2>Biểu diễn tài liệu gần trùng</h2>
-<figure class="mh-figure mh-wide"><img src="img/lec-05/quy-trinh-bieu-dien.svg" alt="Tài liệu đi qua tập shingle, chữ ký và tỷ lệ trùng cùng tọa độ."></figure><div class="ex-grid2 "><div><div class="ex-card"><p>Băm shingle</p><p>Mã hóa từng chuỗi con.</p></div></div><div><div class="ex-card"><p>Băm hàng</p><p>Tạo các cực tiểu của tập.</p></div></div></div><p class="ex-takeaway">Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.</p>
+<h2>Quy trình biểu diễn tài liệu</h2>
+<figure class="mh-figure mh-wide"><img src="img/lec-05/quy-trinh-bieu-dien.svg" alt="Tài liệu đi qua tập shingle, chữ ký và tỷ lệ trùng cùng tọa độ."></figure><div class="ex-grid2 "><div><div class="ex-card"><p>Băm shingle</p><p>Mỗi chuỗi con thành mã 4 byte; va chạm có thể đổi tập.</p></div></div><div><div class="ex-card"><p>Băm hàng</p><p>Mô phỏng hoán vị; mỗi giá trị nhỏ nhất là một thành phần chữ ký.</p></div></div></div><p class="ex-takeaway">Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.</p>
 <p class="ex-source">Tổng hợp MMDS 3e, §§3.1–3.3.</p>
 <aside class="notes"><p>Jaccard được chọn trước để xác định đại lượng cần bảo toàn. Shingling làm cho phần văn bản chung trở thành phần tử chung của tập. Định lý MinHash nối tỷ lệ giao/hợp với xác suất một phép thử. Nhiều thành phần tạo ước lượng; thuật toán quét tính các giá trị min. Mỗi bước đổi kiểu dữ liệu và có điều kiện riêng, đặc biệt các va chạm không tự biến mất ở bước sau.</p><p>Nguồn: Tổng hợp MMDS 3e, §§3.1–3.3.</p></aside>
 </section>

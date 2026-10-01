@@ -1618,11 +1618,11 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Đáp án: $1/2$ so với $1/5$; sau $r=4$: cột 3 là $(0,3)$; sau $r=3$: $(4,0),(+\infty,+\infty),(0,0),(4,0)$; ma trận cuối không đổi (kiểm bằng chương trình); 12, 15, 27. Không câu nào có đáp án trên mặt trang 38–45 (trang 40 chỉ nêu cặp $S_1,S_4$, trang 43 chỉ có $n=2$).
 
-### 47. Biểu diễn tài liệu gần trùng
+### 47. Quy trình biểu diễn tài liệu
 
 - **Mã:** `lec05-s06-01`; **phần:** 6; **note-topic-id:** `n05-01`.
 - **Mục đích và vai trò:** Tổng hợp; ánh xạ đầu vào–đầu ra từng bước. **Mục tiêu:** MT1, MT5.
-- **Câu chốt:** Shingling xác định tập để đo; MinHash tạo chữ ký để ước lượng cho cặp đã chọn.
+- **Câu chốt:** Tài liệu → tập shingle → chữ ký $n$ thành phần → tỷ lệ trùng; hai phép băm có vai trò và giới hạn khác nhau.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận toàn bộ cơ chế; 48 đối chiếu điều kiện và giới hạn còn lại.
 - **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: SVG quy trình bốn nút ngang chiếm 65% thân; mỗi nút có kiểu đầu ra; hai nhãn băm đặt đúng mũi tên tương ứng; một câu kết quả ở dưới.
@@ -1634,7 +1634,13 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 **Nội dung công khai dự kiến**
 
-Sơ đồ: tài liệu → tập shingle → chữ ký MinHash → tỷ lệ tọa độ trùng. Băm shingle mã hóa từng chuỗi con; băm hàng tạo các cực tiểu của tập. Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.
+![Tài liệu đi qua tập shingle, chữ ký và tỷ lệ trùng cùng tọa độ.](../../img/lec-05/quy-trinh-bieu-dien.svg)
+
+Băm shingle: mỗi chuỗi con thành mã 4 byte; va chạm có thể đổi tập.
+
+Băm hàng: mô phỏng hoán vị; mỗi giá trị nhỏ nhất là một thành phần chữ ký.
+
+Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.
 
 **Ghi chú diễn giả học thuật**
 
