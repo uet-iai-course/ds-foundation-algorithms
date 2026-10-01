@@ -2154,7 +2154,7 @@ Phân bổ: 4 slide, 10 phút.
 PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng nhận hai loại thông tin ưu tiên khác nhau. Spam Mass cần cặp điểm để tính chỉ số chênh lệch, không phải phép lặp riêng. HITS đổi từ một phân phối sang hai vai trò cấu trúc. Uy tín HITS có thể cao do quan hệ với các trung tâm có điểm cao, không thay thế đánh giá nội dung của hạt giống TrustRank.
 <!-- public-notes:end -->
 
-### lec04-s06-02 — Lựa chọn phương pháp theo yêu cầu dữ liệu
+### lec04-s06-02 — Chọn phương pháp xếp hạng
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Thu hồi tình huống; MT5. Đầu vào: bảng so sánh. Sản phẩm: chọn phương pháp kèm điều kiện và giới hạn tài nguyên.
 
@@ -2183,6 +2183,8 @@ Các phép lặp đều khai thác đồ thị thưa. Cùng bậc chi phí mỗi
 **Ví dụ, phiếu số và hình thức hóa:** HT3,HT5,HT6; ví dụ định tính đã dùng. Không có phiếu số mới.
 
 **Kết nối vào–ra:** Đối chiếu các phương pháp → áp vào vấn đề đầu bài → tự kiểm khả năng tính và giải thích.
+
+**Quyết định 01/10/2026:** sửa tiêu đề — “yêu cầu dữ liệu” không khớp nội dung (yêu cầu về đầu ra); tiêu đề mới ngắn và gọi đúng thao tác của trang. Nội dung giữ: bảng thu hồi ba tình huống mở bài.
 
 **Nguồn và vị trí:** NG1 §5.3.1,§5.4.3–5,VD5.13; phép đếm đã xây ở S02 và S05.
 
