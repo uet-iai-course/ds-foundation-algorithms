@@ -383,7 +383,7 @@ Mỗi vòng thêm $(1-\beta)v$: B, D nhận $1/10$; A, C nhận $0$.
 Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước dịch chuyển là $1/2$. Xác suất thực hiện nhánh dịch chuyển là $1/5$, vì thế phần điểm thêm vào mỗi trang B, D là $1/10$. $v_i$ là xác suất chọn trang $i$ với điều kiện đã thực hiện nhánh dịch chuyển; $v$ không phải kết quả PageRank. Phép cập nhật giữ nhánh theo liên kết $\beta M_0r^t$ của Bài 03 và thay phần dịch chuyển đều $(1-\beta)u$ bằng $(1-\beta)v$; G4 không có nút cụt nên không cần phần bù. Vector $v$ cố định qua mọi vòng, còn $r^t$ thay đổi. Khởi tạo bằng $v$ là lựa chọn theo ví dụ sách; trạng thái khởi tạo $r^0$ và vector $(1-\beta)v$ được thêm mỗi vòng có vai trò khác nhau.
 <!-- public-notes:end -->
 
-### lec04-s02-03 — Vòng lặp PageRank theo chủ đề thứ nhất
+### lec04-s02-03 — Vòng lặp thứ nhất trên G4
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT1. Đầu vào: G4, v, r0. Sản phẩm: tái tạo từng thành phần r1.
 
@@ -392,7 +392,7 @@ Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-$r^0=(0,1/2,0,1/2)^\mathsf T$, $\beta=4/5$, $S=\{B,D\}$.
+$r^0=(0,1/2,0,1/2)^\mathsf T$, $\beta=4/5$, $S=\{B,D\}$. G4: A→B, C, D; B→A, D; C→A; D→B, C.
 
 | Trang | Theo liên kết $\beta(M_0r^0)_i$ | Dịch chuyển $(1-\beta)v_i$ | Điểm mới $r_i^1$ |
 |---|---:|---:|---:|
@@ -415,6 +415,8 @@ Tại A: $(4/5)[(1/2)(1/2)+1\cdot0]=1/5$. Tổng điểm mới bằng 1.
 **Ví dụ, phiếu số và hình thức hóa:** VD1 vòng0→1; HT1 với delta=0. Các cột trước–sau phân biệt trạng thái, không dùng màu làm tín hiệu duy nhất.
 
 **Kết nối vào–ra:** Khởi tạo theo tập S → r1; r1 là đầu vào duy nhất của vòng 2.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề bỏ cụm “PageRank theo chủ đề” trùng tên phần và tránh mơ hồ “chủ đề thứ nhất”; thêm danh sách cạnh G4 để kiểm phép tính tại từng trang khi trang không có hình.
 
 **Nguồn và vị trí:** NG1 VD5.10, tr.197/PDF23; bảng phân rã là diễn giải phép tính nguồn.
 
