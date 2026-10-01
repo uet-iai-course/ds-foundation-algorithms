@@ -672,27 +672,27 @@ Nguồn: MMDS 3e, §§3.8.1–3, tr.114–117.
 
 ![Ba ô được chọn trước ảnh; chỉ ảnh có đủ ba ô vào thùng chung.](img/lec-06/phep-thu-van-tay.svg)
 
-Mô hình nguồn dùng xác suất một ô có đặc trưng bằng .2. Với hai bản cùng ngón, xác suất ảnh thứ hai có đặc trưng tại một ô đã có của ảnh thứ nhất bằng .8. Các biến cố cần nhân và các phép thử được giả định độc lập theo mô hình.
+Mô hình nguồn dùng xác suất một ô có đặc trưng bằng 0,2. Với hai bản cùng ngón, xác suất ảnh thứ hai có đặc trưng tại một ô đã có của ảnh thứ nhất bằng 0,8. Các biến cố cần nhân và các phép thử được giả định độc lập theo mô hình.
 
-Với hai ảnh khác ngón, xác suất cả hai cùng có một ô là $.2^2=.04$. Với hai ảnh cùng ngón, xác suất cả hai cùng có một ô là $.2\cdot.8=.16$. Cho ba ô:
-
-$$
-q_F=.2^6=.000064,\qquad q_T=(.2\cdot.8)^3=.004096.
-$$
-
-Đây là xác suất cả hai ảnh có đủ ba ô; không điều kiện hóa ảnh truy vấn đã có sẵn ba ô đó. Hai ảnh cùng ngón hoặc khác ngón có vai trò tương ứng cặp cần tìm hoặc cặp giả trong ứng dụng này.
-
-OR 1024 phép thử cho xác suất ứng viên giả $1-(1-q_F)^{1024}\approx.063436634$ và bỏ sót $(1-q_T)^{1024}\approx.014951892$. Ghép AND hai nhóm OR 1024 độc lập cho
+Với hai ảnh khác ngón, xác suất cả hai cùng có một ô là $0{,}2^2=0{,}04$. Với hai ảnh cùng ngón, xác suất cả hai cùng có một ô là $0{,}2\cdot0{,}8=0{,}16$. Cho ba ô:
 
 $$
-P_F=[1-(1-q_F)^{1024}]^2\approx.004024207,
+q_F=0{,}2^6=0{,}000064,\qquad q_T=(0{,}2\cdot0{,}8)^3=0{,}004096.
+$$
+
+Đây là xác suất cả hai ảnh có đủ ba ô; không điều kiện hóa ảnh truy vấn đã có sẵn ba ô đó. Hai ảnh cùng ngón hoặc khác ngón có vai trò tương ứng cặp cần tìm hoặc cặp giả trong ứng dụng này. Một hàm nhận cặp cùng ngón với xác suất chỉ khoảng $1/244$, dù gấp 64 lần cặp khác ngón; vì vậy cần ghép nhiều hàm.
+
+OR 1024 phép thử cho xác suất ứng viên giả $1-(1-q_F)^{1024}\approx0{,}063436634$ và bỏ sót $(1-q_T)^{1024}\approx0{,}014951892$. Ghép AND hai nhóm OR 1024 độc lập cho
+
+$$
+P_F=[1-(1-q_F)^{1024}]^2\approx0{,}004024207,
 $$
 
 $$
-P_{\rm miss}=1-[1-(1-q_T)^{1024}]^2\approx.029680224.
+P_{\rm miss}=1-[1-(1-q_T)^{1024}]^2\approx0{,}029680224.
 $$
 
-Cấu trúc AND giảm ứng viên giả nhưng tăng bỏ sót. Hai phương án ở đoạn này dùng 1024 và 2048 phép thử, nên chưa là so sánh cùng ngân sách. Bài 3.8.2 ở cuối tài liệu so OR 2048 với AND hai nhóm OR 1024. Các phép tính dùng giá trị chưa làm tròn; lấy $.063^2$ sẽ cho số khác vì đã làm tròn trung gian. Những xác suất này thuộc mô hình, không là tỷ lệ đo trên một hệ nhận dạng vân tay.
+Cấu trúc AND giảm ứng viên giả nhưng tăng bỏ sót. Hai phương án ở đoạn này dùng 1024 và 2048 phép thử, nên chưa là so sánh cùng ngân sách. Bài 3.8.2 ở cuối tài liệu so OR 2048 với AND hai nhóm OR 1024. Các phép tính dùng giá trị chưa làm tròn; lấy $0{,}063^2$ sẽ cho số khác vì đã làm tròn trung gian. Những xác suất này thuộc mô hình, không là tỷ lệ đo trên một hệ nhận dạng vân tay.
 
 Với một ảnh truy vấn, cấu trúc AND hai nhóm OR thực hiện bốn thao tác: hợp các mã ảnh trong những thùng phù hợp của nhóm thứ nhất; hợp tương tự ở nhóm thứ hai; lấy giao hai hợp; rồi so ảnh truy vấn với các ứng viên còn lại. Hợp và giao chỉ xử lý mã ảnh. Phép so vân tay được thực hiện sau đó và có chi phí riêng.
 

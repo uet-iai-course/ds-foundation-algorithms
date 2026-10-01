@@ -623,16 +623,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.8.4–5 tr.117–118/PDF 46–47.
 - **Ánh xạ ghi chú:** `N12`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s05-03 — Xác suất cơ sở của mô hình vân tay
+#### lec06-s05-03 — Xác suất va chạm của hàm ba ô
 
-- **Mục đích và vai trò:** Tính xác suất một phép thử nhận hai loại cặp.
+- **Mục đích và vai trò:** Tính $q_F$, $q_T$ của một hàm ba ô theo mô hình MMDS và cho thấy một hàm chưa đủ, dẫn tới phép ghép ở trang sau.
 - **Thông điệp:** Mô hình xác suất cho hai xác suất cơ sở khác nhau.
-- **Nội dung công khai dự kiến:** Mô hình: mỗi ô có đặc trưng với xác suất 0.2. Với hai ảnh cùng ngón, xác suất ảnh thứ hai có đặc trưng tại ô đã có ở ảnh thứ nhất là 0.8. Cặp ảnhCùng có một ôCùng có đủ ba ô Khác ngón$.2^2=.04$$q_F=.04^3=.000064$ Cùng ngón$.2\cdot.8=.16$$q_T=.16^3=.004096$ Các ô và phép thử độc lập theo mô hình; đây không phải số đo thực nghiệm. Ba ô được chọn từ lưới trước khi xét ảnh; không điều kiện hóa ảnh truy vấn đã có ba ô.
+- **Nội dung công khai dự kiến:** Mô hình: một ô có điểm đặc trưng với xác suất $0{,}2$; với hai ảnh cùng ngón, nếu ảnh thứ nhất có đặc trưng ở một ô thì ảnh thứ hai có đặc trưng ở ô đó với xác suất $0{,}8$. Các ô độc lập. Cặp ảnh Cùng có đặc trưng ở một ô Cùng có đủ ba ô Khác ngón $0{,}2^2=0{,}04$ $q_F=0{,}04^3=0{,}000064$ Cùng ngón $0{,}2\cdot0{,}8=0{,}16$ $q_T=0{,}16^3=0{,}004096$ Một hàm nhận cặp cùng ngón với xác suất chỉ khoảng $1/244$; cần ghép nhiều hàm. Các số là xác suất theo mô hình của sách, không phải số đo trên dữ liệu vân tay.
 - **Đầu vào và giả thiết:** Xác suất có điều kiện, ba ô cùng đạt; quy tắc thùng s05-02.
 - **Dữ kiện, hình thức hóa và vết chạy:** V12; một ô cùng ngón=.16, khác ngón=.04; rồi lũy thừa 3. Không đổi 0.8 thành xác suất vô điều kiện.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng hai hàng loại cặp/xác suất một ô/xác suất ba ô. Giả thiết trên bảng. Năm 2 theo hai tầng nhân, phân biệt điều kiện 0.8 và xác suất chung 0.16; notes ghi phạm vi mô hình.
 - **Kết nối vào–ra:** Quy tắc thùng→xác suất cơ sở; xác suất nhỏ cần ghép nhiều phép thử để giảm bỏ sót.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Gọi $E_1,E_2$ là sự kiện ảnh thứ nhất, thứ hai có đặc trưng tại ô đang xét. Với hai ảnh cùng ngón, Ví dụ 3.23 giả định $\Pr(E_1)=.2$ và $\Pr(E_2\mid E_1)=.8$, nên $\Pr(E_1\cap E_2)=.16$. Phép nhân ba ô và phép ghép nhiều thử tiếp theo dựa trên mô hình độc lập của sách. Dùng chung ảnh hoặc chọn các bộ ba khác nhau không tự chứng minh độc lập trong dữ liệu thực. Ba ô được chọn từ lưới trước khi xét ảnh; không điều kiện hóa rằng ảnh truy vấn đã chứa cả ba ô ấy. Xác suất $q_T,q_F$ là xác suất cả hai ảnh cùng chứa đủ ba ô được chọn.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Gọi $E_1,E_2$ là sự kiện ảnh thứ nhất, thứ hai có đặc trưng tại ô đang xét. Với hai ảnh cùng ngón, $\Pr(E_1\cap E_2)=\Pr(E_1)\Pr(E_2\mid E_1)=0{,}2\cdot0{,}8=0{,}16$; với hai ảnh khác ngón, hai ảnh độc lập nên được $0{,}2^2$. Lũy thừa ba dựa trên giả thiết các ô độc lập. $q_T$ và $q_F$ là xác suất cả hai ảnh cùng có đủ ba ô được chọn; ba ô chọn trước khi xét ảnh, nên không điều kiện hóa rằng ảnh truy vấn đã chứa cả ba ô. Tỷ số $q_T/q_F=64$ cho thấy một hàm đã phân biệt hai loại cặp, nhưng $q_T$ quá nhỏ để dùng một mình. MMDS viết “khoảng một phần 200”; giá trị đúng là $1/244{,}14$.
 - **Nguồn:** B Ex 3.23/ §3.8.5 tr.118–120/PDF 47–49.
 - **Ánh xạ ghi chú:** `N12`. **Thời lượng:** 3 phút.
 
