@@ -668,7 +668,7 @@ Nguồn: MMDS 3e, §§3.8.1–3, tr.114–117.
 
 ### Đối sánh vân tay
 
-Đặc trưng vân tay là vị trí đường vân kết thúc hoặc các đường vân nhập vào nhau. Sau chuẩn hóa kích thước và hướng, một ảnh được biểu diễn bằng tập ô trên lưới chứa các đặc trưng ấy. Một phép thử chọn ba ô từ lưới trước khi xét các ảnh. Mọi ảnh chứa đủ ba ô vào một thùng chung; mỗi ảnh thiếu ít nhất một ô nhận một thùng đơn riêng. Vì vậy, hai ảnh trùng phép thử khi cả hai cùng chứa đủ ba ô đã chọn. Nếu gom mọi ảnh thiếu ô vào một thùng, chúng cũng va chạm và công thức xác suất dưới đây sẽ không còn đúng.
+Đặc trưng vân tay là vị trí đường vân kết thúc hoặc các đường vân nhập vào nhau. Sau chuẩn hóa kích thước và hướng, một ảnh được biểu diễn bằng tập ô trên lưới chứa các đặc trưng ấy. Tập ô có thể so bằng Jaccard, nhưng lưới chỉ khoảng 1000 ô nên tập đã nhỏ; MMDS dùng một họ khác thay vì rút gọn bằng MinHash. Có hai bài toán: một–nhiều, so một ảnh truy vấn với cả kho, và nhiều–nhiều, tìm mọi cặp trong kho. Một phép thử chọn ba ô từ lưới trước khi xét các ảnh. Mọi ảnh chứa đủ ba ô vào một thùng chung; mỗi ảnh thiếu ít nhất một ô nhận một thùng đơn riêng. Vì vậy, hai ảnh trùng phép thử khi cả hai cùng chứa đủ ba ô đã chọn. Nếu gom mọi ảnh thiếu ô vào một thùng, chúng cũng va chạm và công thức xác suất dưới đây sẽ không còn đúng.
 
 ![Ba ô được chọn trước ảnh; chỉ ảnh có đủ ba ô vào thùng chung.](img/lec-06/phep-thu-van-tay.svg)
 

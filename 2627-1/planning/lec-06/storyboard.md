@@ -610,16 +610,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.8.1–3 tr.114–117/PDF 43–46.
 - **Ánh xạ ghi chú:** `N11`. **Thời lượng:** 3 phút.
 
-#### lec06-s05-02 — Biểu diễn và thùng vân tay
+#### lec06-s05-02 — Họ băm ba ô cho vân tay
 
-- **Mục đích và vai trò:** Nêu quy tắc băm bằng ba ô đã chọn.
+- **Mục đích và vai trò:** Định nghĩa biểu diễn vân tay bằng tập ô và họ băm ba ô; nêu vì sao MMDS không dùng MinHash ở đây.
 - **Thông điệp:** Chỉ ảnh chứa đặc trưng ở cả ba ô mới vào thùng chung.
-- **Nội dung công khai dự kiến:** Ảnh đã chuẩn hóa được biểu diễn bằng tập ô có đặc trưng. Đặc trưng: nơi đường vân kết thúc hoặc các đường vân nhập vào nhau. Chọn ba ô từ lưới trước khi xét ảnh. Ảnh có đủ ba ô vào thùng chung. Mỗi ảnh thiếu ô nhận thùng đơn riêng. Một cặp trùng phép thử khi cả hai ảnh cùng chứa đủ ba ô.
+- **Nội dung công khai dự kiến:** Ảnh vân tay đã chuẩn hóa kích thước và hướng được biểu diễn bằng tập ô lưới chứa điểm đặc trưng, tức nơi đường vân kết thúc hoặc nhập vào nhau. [Hình: Ba ô được chọn trước khi xét ảnh; ảnh có đủ ba ô vào thùng chung, mỗi ảnh thiếu ô có thùng riêng.] Mỗi hàm $f$ ứng với ba ô chọn ngẫu nhiên trước khi xét ảnh. Ảnh có điểm đặc trưng ở cả ba ô vào thùng chung của $f$. Mỗi ảnh còn lại vào một thùng đơn riêng. Hai ảnh va chạm theo $f$ khi cả hai có điểm đặc trưng ở đủ ba ô.
 - **Đầu vào và giả thiết:** Đặc trưng vân tay là nơi đường vân kết thúc hoặc nhập vào nhau; chuẩn hóa kích thước và hướng trước biểu diễn bằng tập ô. Không giả định sinh viên biết xử lý ảnh.
 - **Dữ kiện, hình thức hóa và vết chạy:** V12; lưới chỉ là sơ đồ khái niệm, không là dữ liệu ảnh thực. Singleton cho ảnh thiếu ô bảo đảm không va chạm với nhau.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Lưới ba ô đánh dấu bằng số/viền trái 50%; quy tắc hai nhánh thùng chung/thùng đơn phải 50%. Năm 2 tránh nhầm “không đạt” là một thùng 0 chung; không dùng ảnh raster.
 - **Kết nối vào–ra:** Ứng dụng thực thể thiếu mô hình→họ vân tay cụ thể; các giả thiết 0.2/0.8 cho xác suất cơ sở.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Một đặc trưng vân tay là vị trí đường vân kết thúc hoặc các đường vân nhập vào nhau. Chuẩn hóa kích thước và hướng khiến cùng ô có ý nghĩa so sánh giữa ảnh. Phép băm của sách gom những ảnh chứa cả ba đặc trưng; các ảnh khác được tách thành các thùng đơn. Nếu gộp tất cả ảnh thiếu ô vào cùng thùng, xác suất va chạm sẽ khác mô hình được tính sau đó.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Tập ô có thể so bằng Jaccard, nhưng lưới chỉ khoảng 1000 ô nên tập đã nhỏ; MMDS dùng một họ khác thay vì rút gọn bằng MinHash. Chuẩn hóa kích thước và hướng làm cùng một ô có ý nghĩa so sánh giữa các ảnh. Có hai bài toán: một–nhiều, so một ảnh truy vấn với cả kho; nhiều–nhiều, tìm mọi cặp trong kho. Với bài toán thứ nhất, các thùng của nhiều hàm được dựng trước và ảnh truy vấn chỉ được so với ảnh trong các thùng chứa nó. Nếu gom mọi ảnh thiếu ô vào cùng một thùng, chúng sẽ va chạm với nhau và xác suất va chạm khác mô hình ở trang sau.
 - **Nguồn:** B §3.8.4–5 tr.117–118/PDF 46–47.
 - **Ánh xạ ghi chú:** `N12`. **Thời lượng:** 2.5 phút.
 
