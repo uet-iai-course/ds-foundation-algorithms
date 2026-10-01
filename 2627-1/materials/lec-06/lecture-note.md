@@ -70,6 +70,14 @@ Trong một dải, mọi thành phần phải trùng: đó là phép ghép đồ
 
 ![Mỗi dải tạo một khóa gồm số dải và tuple, với n bằng b nhân r.](img/lec-06/phan-dai-chu-ky.svg)
 
+Với nhiều hàng trong một dải, chỉ trùng một hàng là chưa đủ. Dải đầu trong Hình 3.7, Ví dụ 3.11, có các cột
+
+$$
+(1,3,0),\ (0,2,1),\ (0,1,3),\ (0,2,1),\ (2,2,1).
+$$
+
+Cột 2 và 4 trùng tuple nên thành ứng viên; cột 2 và 3 chỉ trùng thành phần đầu. Sách giả định có rất nhiều thùng, nên xem hai cột cùng thùng khi và chỉ khi tuple bằng nhau. Chữ ký nguồn có 12 hàng và 4 dải, nhưng hình chỉ cho dải đầu. Vì vậy, khác tuple ở dải này chưa đủ kết luận hai cột không là ứng viên ở một dải khác.
+
 ### Vết chạy trên dữ kiện MinHash đã có
 
 ::: example
@@ -110,14 +118,6 @@ $$
 
 Chỉ $(1,4)$ đạt ngưỡng. Hai cột 1 và 4 trùng cả hai hàng, nên $\widehat s=1$, trong khi Jaccard gốc bằng $2/3$. Ví dụ này phân biệt việc thực thi trên chữ ký cố định với phân tích xác suất của chữ ký ngẫu nhiên.
 :::
-
-Với nhiều hàng trong một dải, chỉ trùng một hàng là chưa đủ. Dải đầu trong Hình 3.7, Ví dụ 3.11, có các cột
-
-$$
-(1,3,0),\ (0,2,1),\ (0,1,3),\ (0,2,1),\ (2,2,1).
-$$
-
-Cột 2 và 4 trùng tuple; cột 2 và 3 chỉ trùng thành phần đầu. Chữ ký nguồn có 12 hàng và 4 dải, nhưng hình chỉ cho dải đầu. Vì vậy, khác tuple ở dải này chưa đủ kết luận hai cột không là ứng viên ở một dải khác.
 
 ### Thuật toán và tính đúng
 

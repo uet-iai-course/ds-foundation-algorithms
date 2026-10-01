@@ -110,6 +110,19 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.1 tr.92–93/PDF 21–22; M PDF 44–46.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 1 phút.
 
+#### lec06-s02-06 — Ví dụ trùng dải với ba hàng
+
+- **Mục đích và vai trò:** Phân biệt trùng một thành phần với trùng tuple nhiều hàng.
+- **Thông điệp:** Trùng dải đòi trùng cả r thành phần; trùng một hàng chưa đủ. Cột cùng thùng khi và chỉ khi tuple bằng nhau.
+- **Nội dung công khai dự kiến:** Chữ ký có $n=12$ hàng, chia $b=4$ dải, mỗi dải $r=3$ hàng. Dải đầu Cột 1 Cột 2 Cột 3 Cột 4 Cột 5 Hàng 1 1 0 0 0 2 Hàng 2 3 2 1 2 2 Hàng 3 0 1 3 1 1 Tuple ở dải đầu: cột 2 và cột 4 cùng là $(0,2,1)$; cột 3 là $(0,1,3)$. Cột 2 và 4 thành ứng viên; cột 2 và 3 chỉ trùng một hàng nên chưa trùng dải. Chỉ dải đầu được cho trong Hình 3.7; chín hàng còn lại chưa có dữ kiện.
+- **Đầu vào và giả thiết:** V02 đã có $r=1$; nay thay dữ kiện sang V03.
+- **Dữ kiện, hình thức hóa và vết chạy:** V03; cặp 2,3 trùng hàng đầu nhưng khác tuple; cặp 2,4 là ứng viên bất kể dải còn lại.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ma trận 3 × 5 chiếm 60% trên; hai tuple so sánh ở dưới. Phần 9 hàng thiếu chỉ ghi “các dải khác chưa có dữ kiện”. Năm 2 thấy điều kiện AND thất bại tại hàng 2; không dựng tổng ứng viên từ dữ liệu thiếu.
+- **Kết nối vào–ra:** Nhận định nghĩa dải từ s02-01; vết chạy s02-02–05 áp dụng phân dải trên chữ ký của Bài 05.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Ví dụ 3.11: cột 2 và 4 có cùng tuple $(0,2,1)$ ở dải đầu nên chắc chắn vào cùng thùng của dải này và thành cặp ứng viên, bất kể ba dải còn lại. Sách giả định có rất nhiều thùng, nên hai tuple khác nhau như $(1,3,0)$ và $(0,2,1)$ gần như không va chạm; từ đây xem hai cột cùng thùng khi và chỉ khi tuple bằng nhau. Cột 2 và 3 chỉ trùng hàng đầu nên chưa trùng dải đầu, nhưng vẫn có thể thành ứng viên nếu trùng một trong ba dải chưa được cho.
+- **Nguồn:** B Ex 3.11/Hình 3.7 tr.92–93/PDF 21–22; M 45–46.
+- **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
+
 #### lec06-s02-02 — Chữ ký của bốn tập
 
 - **Mục đích và vai trò:** Đọc đúng hàng, cột và tham số của vết chạy.
@@ -160,19 +173,6 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Kết nối vào–ra:** Ứng viên→kết quả trong ví dụ; dải nhiều hàng sẽ thay điều kiện trùng.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Hợp của $S_1$ và $S_3$ là $\{a,b,d,e\}$; hợp của $S_1$ và $S_4$ là $\{a,c,d\}$; hợp của $S_3$ và $S_4$ là $\{a,b,c,d,e\}$. Cặp $(1,3)$ và $(3,4)$ là ứng viên giả ở tầng tạo cặp. Xác minh không thể khôi phục một cặp đạt ngưỡng đã bị bỏ sót bởi phân dải.
 - **Nguồn:** B §3.4.3 tr.95–96; Ex 3.8; dữ kiện; V02.
-- **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
-
-#### lec06-s02-06 — Điều kiện trùng một dải
-
-- **Mục đích và vai trò:** Phân biệt trùng một thành phần với trùng tuple nhiều hàng.
-- **Thông điệp:** Một dải $r=3$ đòi cả ba thành phần trùng.
-- **Nội dung công khai dự kiến:** Dải đầu Hình 3.7: hàng $(1,0,0,0,2),(3,2,1,2,2),(0,1,3,1,1)$. Cột 2 và 4 đều $(0,2,1)$; cột 3 là $(0,1,3)$. Chữ ký nguồn có 12 hàng nhưng chỉ dải đầu được cho.
-- **Đầu vào và giả thiết:** V02 đã có $r=1$; nay thay dữ kiện sang V03.
-- **Dữ kiện, hình thức hóa và vết chạy:** V03; cặp 2,3 trùng hàng đầu nhưng khác tuple; cặp 2,4 là ứng viên bất kể dải còn lại.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ma trận 3 × 5 chiếm 60% trên; hai tuple so sánh ở dưới. Phần 9 hàng thiếu chỉ ghi “các dải khác chưa có dữ kiện”. Năm 2 thấy điều kiện AND thất bại tại hàng 2; không dựng tổng ứng viên từ dữ liệu thiếu.
-- **Kết nối vào–ra:** Vết một hàng→điều kiện tổng quát; ký hiệu tuple đủ để viết đặc tả.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Kết luận được giới hạn ở dải đầu. Cột 2 và 3 vẫn có thể thành ứng viên nếu trùng một dải khác chưa được cho. Việc khác thùng ở một dải chưa kết luận Jaccard thấp.
-- **Nguồn:** B Ex 3.11/Hình 3.7 tr.92–93/PDF 21–22; M 45–46.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 
 #### lec06-s02-07 — Đặc tả bộ tạo ứng viên
