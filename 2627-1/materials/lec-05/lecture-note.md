@@ -755,7 +755,7 @@ Sáu nhiệm vụ tự kiểm bao quát tuyến chính:
 2. Nêu điều kiện để hai tài liệu không chung shingle nào vẫn có Jaccard dương trên tập mã 4 byte.
 3. Cho $|S\cap T|=3$, $|S\cup T|=12$ và $n=200$ hoán vị đều. Tính xác suất hai MinHash trùng và kỳ vọng số tọa độ trùng.
 4. Với dữ kiện của nhiệm vụ 3, tính độ lệch chuẩn của ước lượng, giả sử các hoán vị độc lập.
-5. Xác định hàm $f(r)=(4r+1)\bmod6$ có phải hoán vị của $\{0,\ldots,5\}$ không; nếu không, chỉ ra một cặp va chạm.
+5. Với $f(r)=(4r+1)\bmod6$, tính thành phần chữ ký của tập hàng $\{0,3\}$; xác định $f$ có phải hoán vị của $\{0,\ldots,5\}$ không.
 6. Kho có $C=10^4$ tài liệu, chữ ký dài $n=200$. Đếm số phép so bằng khi so mọi cặp và nêu thừa số còn cần giảm.
 
 ::: solution Đáp án tự kiểm
@@ -767,7 +767,7 @@ Sáu nhiệm vụ tự kiểm bao quát tuyến chính:
 
 (4) Với $s=1/4$, độ lệch chuẩn là $\sqrt{(3/16)/200}=\sqrt{3/3200}\approx0{,}031$.
 
-(5) $\gcd(4,6)=2\ne1$ nên hàm không là hoán vị; chẳng hạn $f(0)=f(3)=1$. Các giá trị chỉ phủ ba phần dư $1,5,3$.
+(5) $f(0)=1$ và $f(3)=13\bmod6=1$, nên thành phần chữ ký là $\min(1,1)=1$; hai hàng của tập va chạm. $\gcd(4,6)=2\ne1$ nên hàm không là hoán vị; các giá trị chỉ phủ ba phần dư $1,5,3$.
 
 (6) Có $C(C-1)/2=49\,995\,000$ cặp, nhân $n=200$ được $9\,999\,000\,000$ phép so bằng. Chữ ký đã giảm chi phí mỗi cặp; thừa số còn lại là số cặp, được xử lý bằng bước chọn cặp ứng viên ở Bài 06.
 :::

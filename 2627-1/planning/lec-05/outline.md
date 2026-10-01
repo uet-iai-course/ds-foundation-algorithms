@@ -16,7 +16,7 @@ Bài 05 theo bảng thứ tự đề xuất trong `sources/source.md`, ánh xạ
 | MT4 | Tính tỷ lệ tọa độ trùng; phân biệt một ước lượng với kỳ vọng và phương sai | 34, 46, 50, 57 |
 | MT5 | Truy vết thuật toán quét hàng, giải thích bất biến, đếm thời gian và bộ nhớ | 46, 50, 55, 56, 57 |
 
-50 trang phần giảng gồm cả mở đầu và kiểm tra, tổng 120 phút; 7 trang bài tập cho 5 bài nguồn, tổng 60 phút. Số trang cho phép giữ ví dụ, chứng minh và vết cập nhật ở cỡ chữ chung, không dùng trang trang trí. Không có phần cài môi trường hoặc notebook vì phạm vi nguồn không yêu cầu. Tăng tốc ở §§3.3.6–3.3.7 chỉ thuộc ghi chú đọc thêm, ngoài 120 phút.
+48 trang phần giảng gồm cả mở đầu và kiểm tra, tổng 120 phút (từ 01/10/2026; trước đó 50 trang, trang 17 gộp vào 19 và trang 21 gộp vào 20); 7 trang bài tập cho 5 bài nguồn, tổng 60 phút; deck có 55 trang. Số trang cho phép giữ ví dụ, chứng minh và vết cập nhật ở cỡ chữ chung, không dùng trang trang trí. Không có phần cài môi trường hoặc notebook vì phạm vi nguồn không yêu cầu. Tăng tốc ở §§3.3.6–3.3.7 chỉ thuộc ghi chú đọc thêm, ngoài 120 phút.
 
 ## 2. Phân tích học liệu và kiểm kê nguồn
 
@@ -223,3 +223,14 @@ Các hiệu chỉnh không thay sườn sách, 57 trang hoặc thời lượng 1
 | n05-14 | giữ, ghi mức chứng minh | Bài 3.2.3 giữ byte và giả thiết ít nhất $\ell$ chuỗi độ dài $k$. Quy ước tính mỗi ký tự một byte; đáp số $\max(0,\ell-k+1)$ kèm chứng minh cận trên. Không chứng minh phần đạt cận, không thêm de Bruijn hay giả thiết $\ell$ ký tự khác nhau. |
 
 No-ai-slop Edit/eval giữ nguyên phát biểu có điều kiện, nguồn và phân biệt toán học; chỉ sửa câu/nhãn liên quan phát hiện. Quill áp dụng cho tính liên tục theo bảng này, không tạo `quill.json`. Năm báo cáo và quyết định từng phát hiện được lưu bền vững trong review-log; kết luận kiểm định cuối vẫn thuộc điều phối viên sau tái kiểm.
+
+
+## Duyệt từng trang ngày 01/10/2026
+
+Lượt duyệt theo yêu cầu người dùng: với mỗi trang, xác định trang muốn nói gì, đề xuất rồi sửa để tiêu đề ngắn gọn, học thuật, lập luận chặt và khái niệm không xuất hiện đột ngột; sau mỗi trang sửa mục tương ứng của ghi chú tự học, commit và push. Chi tiết từng trang và các lượt rà lại theo phần nằm trong `review-log.md`, mục cùng tên.
+
+- **Cấu trúc.** Deck còn 55 trang (48 giảng, 7 bài tập), bảy phần 9/8/8/7/12/4/7. Trang 17 (dung lượng tập shingle) gộp vào trang 19 vì cùng luận điểm; trang 21 (biểu diễn thưa) gộp vào trang 20 vì ghi chú phải nhắc giá trị băm trước khi giới thiệu và danh sách cột theo hàng đã xuất hiện đúng lúc ở trang 37, 43. Thời lượng chuyển sang trang 19 và 22; phần 2 còn 21 phút, phần 3 có 23 phút.
+- **Câu nối mới.** Tài liệu → tập (trang 06); trực giác “một thay đổi ảnh hưởng nhiều nhất $k$ cửa sổ” (trang 10); tiêu chí chọn $k$ (14); so sánh 4-shingle với mã 9-shingle (16); nhu cầu một đại diện (22); một phép thử chỉ cho 0/1 (28); nhu cầu mô phỏng hoán vị (35); thu hồi hai thừa số của trang 05 ở trang 48.
+- **Câu hỏi kiểm tra.** Các trang 09, 18, 27, 34, 46, 49, 50 thay câu có đáp án trên mặt trang trước bằng câu vận dụng; dữ kiện biến thể ghi rõ ở dòng nguồn.
+- **Tiêu đề.** 40 trong 54 tiêu đề `h2` đổi theo khái niệm hoặc kết quả trung tâm; không đặt ký hiệu trong tiêu đề viết hoa.
+- **Ghi chú tự học.** Mục 1–11 và 14 cập nhật theo các câu nối và câu hỏi mới; thứ tự khái niệm của ghi chú giữ nguyên.
