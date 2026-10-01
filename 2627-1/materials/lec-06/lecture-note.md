@@ -575,7 +575,7 @@ $$
 Cùng cặp $(u,\delta)$ được dùng cho mọi điểm. Trên trục hình chiếu, thùng mã $k$ là khoảng $[ka-\delta,(k+1)a-\delta)$, đóng bên trái và mở bên phải.
 
 ::: example
-Bài 3.7.5 cho $p_1=(1,2,3)$, $p_2=(0,2,4)$ và $p_3=(4,3,2)$. Đây là ví dụ thực thi trên các trục cố định, không phải lấy hướng ngẫu nhiên trong mặt phẳng. Với trục thứ nhất, độ rộng $a=1$ và biên không dịch, các mã $\lfloor x_1/a\rfloor$ lần lượt là 1,0,4. Ba điểm thuộc các khoảng $[1,2),[0,1),[4,5)$, nên trục này chưa tạo cặp. Kết quả trên ba trục và hai độ rộng được tính đầy đủ ở phần bài tập.
+Bài 3.7.5 cho ba điểm, ở đây ký hiệu $z_1=(1,2,3)$, $z_2=(0,2,4)$ và $z_3=(4,3,2)$ để không trùng với hai cận $p_1,p_2$ của họ nhạy cảm. Đây là ví dụ thực thi trên các trục cố định, không phải lấy hướng ngẫu nhiên trong mặt phẳng. Với trục thứ nhất, độ rộng $a=1$ và biên không dịch, các mã $\lfloor x_1/a\rfloor$ lần lượt là 1,0,4. Ba điểm thuộc các khoảng $[1,2),[0,1),[4,5)$, nên trục này chưa tạo cặp. Kết quả trên ba trục và hai độ rộng được tính đầy đủ ở phần bài tập.
 :::
 
 ![Các khoảng có biên ka trừ delta trên trục hình chiếu.](img/lec-06/chia-khoang-dich.svg)
@@ -920,7 +920,7 @@ Bốn pháp tuyến là dữ kiện cố định. Vết tính không bảo đả
 Nguồn: §3.7.6, tr.114.
 
 ::: exercise
-Câu hỏi: Cho $p_1=(1,2,3)$, $p_2=(0,2,4)$, $p_3=(4,3,2)$. Ba hàm là phép chiếu theo ba trục tọa độ; các khoảng có dạng $[ja,(j+1)a)$ với $j\in\mathbb Z$.
+Câu hỏi: Cho $z_1=(1,2,3)$, $z_2=(0,2,4)$, $z_3=(4,3,2)$ (sách ký hiệu $p_1,p_2,p_3$). Ba hàm là phép chiếu theo ba trục tọa độ; các khoảng có dạng $[ja,(j+1)a)$ với $j\in\mathbb Z$.
 
 - (a) Gán thùng với $a=1$.
 - (b) Lặp lại với $a=2$.
@@ -934,12 +934,12 @@ Mã ở trục $i$ là $\lfloor x_i/a\rfloor$. Chỉ so mã trong cùng trục; 
 :::
 
 ::: solution
-| $a$ | Mã của $p_1$ theo ba trục | Mã của $p_2$ | Mã của $p_3$ | Tập cặp |
+| $a$ | Mã của $z_1$ theo ba trục | Mã của $z_2$ | Mã của $z_3$ | Tập cặp |
 |---:|---|---|---|---|
 | 1 | $(1,2,3)$ | $(0,2,4)$ | $(4,3,2)$ | $\{(1,2)\}$ |
 | 2 | $(0,1,1)$ | $(0,1,2)$ | $(2,1,1)$ | $\{(1,2),(1,3),(2,3)\}$ |
 
-Với $a=1$, chỉ $p_1,p_2$ trùng ở trục 2. Với $a=2$, cặp $(1,2)$ trùng ở trục 1 và 2; cặp $(1,3)$ trùng ở trục 2 và 3; cặp $(2,3)$ trùng ở trục 2. Hợp các cặp theo trục và khử lặp cho tập kết quả. Một tọa độ bằng $a$ thuộc $[a,2a)$, không thuộc $[0,a)$.
+Với $a=1$, chỉ $z_1,z_2$ trùng ở trục 2. Với $a=2$, cặp $(1,2)$ trùng ở trục 1 và 2; cặp $(1,3)$ trùng ở trục 2 và 3; cặp $(2,3)$ trùng ở trục 2. Hợp các cặp theo trục và khử lặp cho tập kết quả. Một tọa độ bằng $a$ thuộc $[a,2a)$, không thuộc $[0,a)$.
 :::
 
 ### Hai cấu trúc vân tay — Bài 3.8.2(a,b)

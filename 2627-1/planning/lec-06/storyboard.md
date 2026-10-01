@@ -517,16 +517,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.3/Ex 3.22 tr.111/PDF 40.
 - **Ánh xạ ghi chú:** `N09`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s04-06 — Chiếu điểm vào các khoảng
+#### lec06-s04-06 — Chia trục chiếu thành khoảng
 
-- **Mục đích và vai trò:** Gán thùng theo một trục cố định bằng hàm sàn.
-- **Thông điệp:** Phép chiếu biến vector thành một tọa độ để chia khoảng.
-- **Nội dung công khai dự kiến:** Dữ kiện: $p_1=(1,2,3),p_2=(0,2,4),p_3=(4,3,2)$. Chỉ xét trục thứ nhất và $a=1$: các tọa độ 1,0,4; thùng [1,2), [0,1), [4,5); mã 1,0,4. Biên trái đóng, phải mở.
+- **Mục đích và vai trò:** Mở cụm Euclid: nêu vì sao cần giữ độ lớn tọa độ chiếu và chạy phép chia khoảng trên trục cố định của Bài 3.7.5.
+- **Thông điệp:** Mã là chỉ số khoảng rộng $a$ chứa tọa độ chiếu; trục cố định có biên cố định có thể tách cặp gần.
+- **Nội dung công khai dự kiến:** Khoảng cách Euclid phụ thuộc độ lớn, nên phép băm giữ tọa độ chiếu thay vì chỉ giữ dấu: chia trục thành các khoảng rộng $a$ và trả chỉ số khoảng. $z_1=(1,2,3),\ z_2=(0,2,4),\ z_3=(4,3,2)$; trục thứ nhất, $a=1$, mã $\lfloor x_1/a\rfloor$. Điểm Tọa độ chiếu Khoảng chứa Mã $z_1$ 1 $[1,2)$ 1 $z_2$ 0 $[0,1)$ 0 $z_3$ 4 $[4,5)$ 4 Ba mã khác nhau nên trục này chưa tạo cặp; khoảng đóng bên trái, mở bên phải.
 - **Đầu vào và giả thiết:** Chuẩn Euclid, phép chiếu và hàm sàn.
 - **Dữ kiện, hình thức hóa và vết chạy:** Bài 3.7.5 giữ dữ kiện; chỉ minh họa một trục, a=1. Chưa giải hai trục khác/a=2.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Đường số có khoảng rộng 1 chiếm 60% trên, bảng điểm/tọa độ/mã dưới. Năm 2 thấy điểm đúng biên thuộc khoảng nào; notes phân biệt trục cố định với hướng ngẫu nhiên.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Câu dẫn nêu nhu cầu giữ độ lớn; dòng dữ kiện; bảng điểm/tọa độ chiếu/khoảng/mã; câu chốt. Năm 2 thấy điểm đúng biên thuộc khoảng nào; ghi chú phân biệt trục cố định với hướng ngẫu nhiên.
 - **Kết nối vào–ra:** Góc bỏ độ dài→lượng tử hóa hình chiếu; biên khoảng đòi đặc tả dịch ngẫu nhiên.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Hàm theo trục thứ nhất là $h_1(x)=\lfloor x_1/a\rfloor$. Với ba điểm đã cho và $a=1$, các mã ở trục thứ nhất là 1,0,4 nên chưa tạo cặp. Đây là thực thi trên trục cố định của bài tập nguồn, không là phép kiểm bảo đảm xác suất của họ hướng ngẫu nhiên.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Hàm dấu chỉ giữ phía của siêu phẳng nên mất thông tin độ lớn; hai điểm cùng hướng nhưng cách xa vẫn cùng dấu. Chiếu lên một trục rồi chia khoảng giữ được độ lớn của hiệu hình chiếu. Bài 3.7.5 ký hiệu ba điểm là $p_1,p_2,p_3$; tài liệu đổi thành $z_1,z_2,z_3$ để không trùng với hai cận xác suất $p_1,p_2$ của họ nhạy cảm. Đây là thực thi trên trục cố định của bài tập nguồn, không là bảo đảm xác suất của họ hướng ngẫu nhiên. Với trục cố định, hai điểm rất gần nhưng nằm hai phía một biên luôn bị tách; điều này dẫn tới phép dịch ngẫu nhiên.
 - **Nguồn:** B §3.7.4 tr.111–113; Bài 3.7.5(a) tr.114/PDF 43, phần minh họa đã duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 2 phút.
 
@@ -800,12 +800,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Gán thùng ở hai độ rộng và hợp đúng theo cùng trục.
 - **Thông điệp:** Độ rộng khoảng thay tập cặp ứng viên ngay cả với trục cố định.
-- **Nội dung công khai dự kiến:** Câu hỏi: $p_1=(1,2,3),p_2=(0,2,4),p_3=(4,3,2)$. Ba hàm là phép chiếu trên ba trục tọa độ; các khoảng $[ja,(j+1)a)$,$j\in\mathbb Z$. (a) Gán thùng khi $a=1$; (b) lặp lại với $a=2$; (c) tìm cặp ứng viên cho mỗi trường hợp. Sản phẩm: hai bảng mã thùng và hai tập cặp.
+- **Nội dung công khai dự kiến:** Câu hỏi: $z_1=(1,2,3),\ z_2=(0,2,4),\ z_3=(4,3,2)$ Ba hàm chiếu trên ba trục; khoảng $[ja,(j+1)a)$, $j\in\mathbb Z$. Gán thùng khi $a=1$. Lặp lại khi $a=2$. Tìm các cặp ứng viên trong mỗi trường hợp. Sản phẩm: hai bảng mã theo trục và hai tập cặp.
 - **Đầu vào và giả thiết:** Phần giảng chỉ minh họa trục thứ nhất với a=1; hàm sàn và thùng tách theo trục đã được định nghĩa.
 - **Dữ kiện, hình thức hóa và vết chạy:** R5 giữ nguyên (a–c); phần (d) chuyển sang N15. Các biên khoảng giữ nguyên sách.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba điểm và quy ước biên ở trên; hai bảng trống có cùng cột trục 1,2,3 ở dưới. Sinh viên năm 2 so hai độ rộng trên cùng dữ kiện; đáp án tập cặp thuộc notes.
 - **Kết nối vào–ra:** Phép băm dấu dùng hướng; phép chiếu chia khoảng dùng tọa độ và độ rộng. Bài vân tay kế tiếp dùng lại phép ghép để so sai số.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 8 phút. Với $a=1$, mã của ba điểm lần lượt là $(1,2,3),(0,2,4),(4,3,2)$, chỉ có cặp $(1,2)$. Với $a=2$, các mã là $(0,1,1),(0,1,2),(2,1,1)$, cả ba cặp đều là ứng viên. Tiêu chí: dùng hàm sàn đúng tại biên, chỉ so trong cùng trục, hợp và khử lặp đúng. Ba trục cố định không tự cho bảo đảm xác suất của họ hướng ngẫu nhiên. Nguồn: Bài 3.7.5(a–c), tr.114.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 8 phút. Với $a=1$, mã của ba điểm lần lượt là $(1,2,3),(0,2,4),(4,3,2)$, chỉ có cặp $(1,2)$. Với $a=2$, các mã là $(0,1,1),(0,1,2),(2,1,1)$, cả ba cặp đều là ứng viên. Tiêu chí: dùng hàm sàn đúng tại biên, chỉ so trong cùng trục, hợp và khử lặp đúng. Ba trục cố định không tự cho bảo đảm xác suất của họ hướng ngẫu nhiên. Sách ký hiệu ba điểm là $p_1,p_2,p_3$. Nguồn: Bài 3.7.5(a–c), tr.114.
 - **Nguồn:** B Bài 3.7.5(a–c), §3.7.6, tr.114/PDF 43; chuyển (d) sang đọc thêm.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 8 phút.
 
