@@ -784,7 +784,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** MinHash theo một hoán vị trả định danh phần tử đứng đầu tập trong hoán vị đó.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận ví dụ; trang 25 tổ chức các hàng phục vụ chứng minh.
 - **Dữ kiện và vai trò số:** VD 5–VD 6; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** Toàn chiều rộng có vùng an toàn điều khiển hai bên 28px: miền và vị trí ở trên; công thức argmin ở giữa; giải nghĩa và cặp $a/3$ ngay dưới; hai điều kiện dùng chung/chọn đều trong thẻ cuối.
+- **Bố cục đã chọn:** Toàn chiều rộng có vùng an toàn điều khiển hai bên 28px: miền và vị trí ở trên; công thức argmin ở giữa; giải nghĩa và cặp $a/3$ ngay dưới; thẻ cuối nêu dùng chung $\pi$ và tính duy nhất của cực tiểu.
 - **Trọng tâm và thứ tự đọc:** Kiểu vào → rank → argmin trả phần tử → ví dụ định danh/hạng.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên năm 2 đã biết min nhưng có thể chưa dùng argmin; ví dụ a so với 3 giải thích ngay sự khác biệt của toán tử và kiểu đầu ra.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
@@ -803,13 +803,11 @@ $$
 
 $\arg\min$ trả phần tử đạt vị trí nhỏ nhất. Với thứ tự $(b,e,a,d,c)$: $h_\pi(S_1)=a$, còn $\operatorname{rank}_\pi(a)=3$.
 
-Cùng $\pi$ được dùng cho mọi tập.
-
-Định lý xác suất dùng $\pi$ chọn đều từ mọi hoán vị.
+Cùng $\pi$ được dùng cho mọi tập. Các hạng khác nhau nên phần tử đạt hạng nhỏ nhất là duy nhất.
 
 **Ghi chú diễn giả học thuật**
 
-Hoán vị tạo các vị trí khác nhau nên phần tử đạt vị trí nhỏ nhất là duy nhất. Hàm nhận một tập và trả một phần tử của $U$. Với thứ tự $(b,e,a,d,c)$, tập $S_1=\{a,d\}$ chọn $a$, dù vị trí của $a$ là $3$. Nếu lưu hạng thay định danh bằng một phép ánh xạ một-một chung, quan hệ hai giá trị bằng nhau được giữ nguyên. Điều kiện không rỗng bảo đảm có phần tử để chọn.
+Hàm $h_\pi$ nhận một tập và trả một phần tử của $U$. Điều kiện $S\ne\varnothing$ bảo đảm có phần tử để chọn; hoán vị gán các hạng khác nhau nên không có hai phần tử cùng đạt cực tiểu. MinHash là định danh phần tử, không phải hạng: trong ví dụ, $h_\pi(S_1)=a$ còn hạng của $a$ là 3. Nếu lưu hạng thay định danh, quan hệ hai giá trị bằng nhau vẫn giữ vì hạng và định danh tương ứng một-một. Định lý ở các trang sau chọn $\pi$ đều từ $R!$ hoán vị.
 
 Nguồn: MMDS 3e, §3.3.2–§3.3.3; quy ước trả định danh tương đương về phép so bằng.
 
