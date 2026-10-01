@@ -701,19 +701,19 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
 </aside>
 </section>
 <section id="lec04-s04-07" data-slide-id="lec04-s04-07" class="example-slide">
-<h2>Kiểm tra cách diễn giải Spam Mass</h2>
-<p>Với G4 và $\beta=4/5$, trang B có $r_B=19/84$, $\rho_B=59/210$. Trang A có $s_A=1/5$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
+<h2>Kiểm tra Spam Mass</h2>
+<p>MMDS Ví dụ 5.12 dùng PageRank không dịch chuyển trên G4: $r_C=2/9$; TrustRank với $T=\{B,D\}$: $\rho_C=38/210$.</p><div class="question-box"><p><strong>Câu hỏi:</strong></p>
 <ol>
 <li>
-<p>Tính $s_B$ và giải thích dấu của kết quả.</p>
+<p>Tính $s_C$ và giải thích vì sao kết quả khác $1/5$ tính ở trang trước.</p>
 </li>
 <li>
-<p>Từ $s_A=1/5$, có thể kết luận chắc chắn A là trang rác hay không? Nêu căn cứ.</p>
+<p>Từ $s_A=1/5$, xác định có thể kết luận chắc chắn A là trang rác không và nêu căn cứ.</p>
 </li>
 </ol></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại từ G4.</p>
 <aside class="notes">
-<p>$s_B=-23/95$ vì $\rho_B&gt;r_B$. Giá trị âm cho thấy điểm của B tăng khi ưu tiên tập tin cậy. Chỉ số $1/5$ tại A không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.</p>
+<p>$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: sách dùng PageRank không dịch chuyển, trang trước dùng cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác; chỉ số không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại từ G4.</p>
 </aside>
 </section>

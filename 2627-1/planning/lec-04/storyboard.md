@@ -1552,7 +1552,7 @@ Trang có $s_i$ gần $1$ được ưu tiên rà soát hoặc hạ điểm, khô
 Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương đối khi chuyển sang ưu tiên hạt giống tin cậy. Giá trị dương lớn có thể được dùng để ưu tiên trang cần rà soát; chỉ số không tự xác định nhãn rác. Đổi tập $T$ có thể đổi $\rho$ và thứ tự ưu tiên. Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Điểm tin cậy thấp có thể phản ánh khoảng cách liên kết hoặc thiếu hạt giống phù hợp, không chỉ liên kết rác. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.
 <!-- public-notes:end -->
 
-### lec04-s04-07 — Kiểm tra cách diễn giải Spam Mass
+### lec04-s04-07 — Kiểm tra Spam Mass
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S04; MT3. Đầu vào: VD3 và định nghĩa s. Sản phẩm: tính giá trị âm, giới hạn kết luận.
 
@@ -1561,11 +1561,11 @@ Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương �
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Với G4 và $\beta=4/5$, trang B có $r_B=19/84$, $\rho_B=59/210$. Trang A có $s_A=1/5$.
+MMDS Ví dụ 5.12 dùng PageRank không dịch chuyển trên G4: $r_C=2/9$; TrustRank với $T=\{B,D\}$: $\rho_C=38/210$.
 
 **Câu hỏi:**
-1. Tính $s_B$ và giải thích dấu của kết quả.
-2. Từ $s_A=1/5$, có thể kết luận chắc chắn A là trang rác hay không? Nêu căn cứ.
+1. Tính $s_C$ và giải thích vì sao kết quả khác $1/5$ tính ở trang trước.
+2. Từ $s_A=1/5$, xác định có thể kết luận chắc chắn A là trang rác không và nêu căn cứ.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Hai dòng dữ kiện ở trên30%; hai nhiệm vụ chiếm70% còn lại trong khung kiểm tra. Không kèm bảng đáp án trước đó.
@@ -1579,6 +1579,8 @@ Với G4 và $\beta=4/5$, trang B có $r_B=19/84$, $\rho_B=59/210$. Trang A có 
 **Ví dụ, phiếu số và hình thức hóa:** VD3/HT5; giữ nguyên phân số đã kiểm.
 
 **Kết nối vào–ra:** Điểm tin cậy và chỉ báo thao túng → mô hình hai vai trò cấu trúc HITS.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề “Kiểm tra Spam Mass”; câu 1 cũ có đáp án ($s_B=-23/95$) hiển thị ở s04-05, đổi sang tính $s_C$ từ dữ kiện MMDS Ví dụ 5.12 (đáp án $13/70$ đối chiếu được với Hình 5.17) và giải thích chênh lệch với $1/5$; câu 2 viết dạng yêu cầu.
 
 **Nguồn và vị trí:** NG1 §5.4.5, tr.203; dữ kiện VD3 tính lại đồng nhất beta.
 
@@ -1594,7 +1596,7 @@ Với G4 và $\beta=4/5$, trang B có $r_B=19/84$, $\rho_B=59/210$. Trang A có 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-$s_B=-23/95$ vì $\rho_B>r_B$. Giá trị âm cho thấy điểm của B tăng khi ưu tiên tập tin cậy. Chỉ số $1/5$ tại A không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
+$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: sách dùng PageRank không dịch chuyển, trang trước dùng cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác; chỉ số không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
 <!-- public-notes:end -->
 
 ## S05. HITS
