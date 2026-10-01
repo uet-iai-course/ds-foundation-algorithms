@@ -401,13 +401,13 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 #### lec06-s03-10 — Phép ghép ít nhất một
 
 - **Mục đích và vai trò:** Suy biến đổi xác suất OR bằng biến cố bù.
-- **Thông điệp:** Ghép OR tăng cơ hội nhận cặp và số ứng viên có thể phải kiểm.
-- **Nội dung công khai dự kiến:** Phép ghép ít nhất một (OR). Chọn $b$ phép thử độc lập. Cặp được nhận nếu ít nhất một phép thử trùng. Xác suất $1-(1-p)^b$; cận mới $1-(1-p_1)^b$,$1-(1-p_2)^b$. OR là quyết định cặp qua nhiều bảng.
+- **Thông điệp:** Ghép ít nhất một b hàm biến họ (d1,d2,p1,p2) thành (d1,d2,1−(1−p1)^b,1−(1−p2)^b): tăng cả hai xác suất; đặt sau AND để kéo cặp gần lên.
+- **Nội dung công khai dự kiến:** AND làm giảm cả hai xác suất. Phép ghép ít nhất một (OR) chọn $b$ hàm độc lập và nhận cặp khi ít nhất một hàm trùng; hợp các dải chính là OR. Không hàm nào trùng với xác suất $(1-p)^b$; lấy biến cố bù, cặp được nhận với xác suất $1-(1-p)^b$ Họ mới là $(d_1,d_2,1-(1-p_1)^b,1-(1-p_2)^b)$-nhạy cảm. $p$ $1-(1-p)^4$ 0,8 0,9984 0,4 0,8704 OR tăng cả hai xác suất; đặt sau AND, nó kéo xác suất của cặp gần lên lại.
 - **Đầu vào và giả thiết:** AND và phép bù; hợp dải V02.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT7;$b=4,p=.8$ cho.9984;$p=.4$ cho.8704.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** $b$ bảng trái 55% mũi tên vào phép hợp; phải 45% sự kiện không trùng và bù. Năm 2 gắn OR với hợp ứng viên đã chạy; không diễn đạt OR thành bằng một tuple.
 - **Kết nối vào–ra:** AND lọc chặt→OR bù cơ hội; hai thứ tự ghép cho hành vi khác nhau.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Không có phép thử trùng có xác suất $(1-p)^b$. Lấy bù cho OR; biểu thức tăng theo $p$ nên chuyển hai cận được. Quan hệ “trùng ở ít nhất một bảng” có thể không bắc cầu; nói chung nó không là phép bằng của một mã đơn.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Do các hàm độc lập, xác suất không hàm nào trùng là $(1-p)^b$; lấy biến cố bù cho OR. Biểu thức $1-(1-p)^b$ tăng theo $p$ nên biến đổi được hai cận của họ. Với $p=0{,}4$, OR 4 cho $1-0{,}6^4=0{,}8704$: cặp xa cũng dễ được nhận hơn, nên OR thường đặt sau AND. Quan hệ “trùng ở ít nhất một bảng” có thể không bắc cầu, nên nói chung không thay được bằng phép bằng của một mã đơn.
 - **Nguồn:** B §3.6.3 tr.106–107; S4 PDF 27/trang in 30.
 - **Ánh xạ ghi chú:** `N07`. **Thời lượng:** 2.5 phút.
 
