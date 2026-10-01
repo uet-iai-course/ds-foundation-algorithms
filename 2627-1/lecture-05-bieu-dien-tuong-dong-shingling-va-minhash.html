@@ -57,10 +57,10 @@
 <aside class="notes"><p>Mục 3.1.3 dùng Jaccard trong lọc cộng tác: một khách hàng là tập mặt hàng đã mua, một mặt hàng là tập người đã mua nó. Sách dự đoán hai trang phản chiếu có Jaccard trên 90%, trong khi hai khách hàng hiếm khi đạt mức này; Jaccard 20% đã có thể đủ bất thường để xem hai người có sở thích tương tự. Vì vậy một ngưỡng tương đồng không chuyển nguyên từ ứng dụng này sang ứng dụng khác. Với văn bản, phần tử phải giữ dấu vết các đoạn chung; phần shingling xác định các phần tử ấy. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần; biến thể đa tập của sách thuộc phần đọc thêm của tài liệu tự học.</p><p>Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.</p></aside>
 </section>
 <section id="lec05-s01-09" data-slide-id="lec05-s01-09" class="example-slide">
-<h2>Câu hỏi kiểm tra</h2>
-<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hình có ba phần tử thuộc giao và tám phần tử thuộc hợp."></figure></div><div><p class="ex-takeaway">Câu hỏi:</p><ol><li>Tính Jaccard của hai tập trong hình.</li><li>Xác định điều còn phải quy định để áp dụng công thức cho một văn bản.</li></ol></div></div>
+<h2>Câu hỏi về độ tương đồng Jaccard</h2>
+<div class="ex-grid2 "><div><figure class="mh-figure "><img src="img/lec-05/jaccard-ba-vung.svg" alt="Hình có ba phần tử thuộc giao và tám phần tử thuộc hợp."></figure></div><div><p class="ex-takeaway">Câu hỏi:</p><ol><li>Thêm vào \(T\) hai phần tử không thuộc \(S\). Tính lại \(\mathrm{SIM}(S,T)\).</li><li>Một cách tính cho \(3/(5+6)\). Chỉ ra đại lượng bị đếm sai.</li><li>Xác định điều còn phải quy định để áp dụng công thức cho hai văn bản.</li></ol></div></div>
 <p class="ex-source">Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p>
-<aside class="notes"><p>Jaccard bằng \(3/8\). Để áp dụng cho văn bản, cần quy tắc chuyển chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp dài cố định. Độ dài chuỗi tự nó không xác định giao và hợp giữa hai văn bản.</p><p>Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p></aside>
+<aside class="notes"><p>Câu 1: giao vẫn có 3 phần tử, hợp có 10, nên \(\mathrm{SIM}=3/10\); giá trị giảm vì mẫu số tăng còn tử số giữ nguyên. Câu 2: \(5+6\) là \(|S|+|T|\), đếm ba phần tử giao hai lần; mẫu số đúng là \(|S\cup T|=8\). Câu 3: cần quy tắc chuyển mỗi chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp có độ dài cố định; độ dài chuỗi tự nó không xác định giao và hợp.</p><p>Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.</p></aside>
 </section>
 </section>
 <section>

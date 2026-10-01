@@ -64,11 +64,15 @@ Tập hợp phải gắn với một cách chọn phần tử cụ thể. Trong 
 Tuyến chính dùng tập hợp, vì vậy số lần một phần tử xuất hiện không được lưu. Biến thể đa tập của sách có quy ước khác và được trình bày riêng ở mục 12.
 
 ::: exercise Tự kiểm tra
-Giải thích vì sao độ dài của hai chuỗi chưa đủ để xác định Jaccard giữa hai văn bản.
+(a) Với hai tập của Hình 3.1, thêm vào $T$ hai phần tử không thuộc $S$. Tính lại Jaccard.
+
+(b) Giải thích vì sao độ dài của hai chuỗi chưa đủ để xác định Jaccard giữa hai văn bản.
 :::
 
 ::: solution Lời giải
-Jaccard cần biết các phần tử của hai tập để xác định giao và hợp. Độ dài chuỗi chỉ cho số ký tự, không xác định tập đặc trưng hoặc phần tử nào chung. Cần chọn quy tắc chuyển mỗi chuỗi thành tập, chẳng hạn quy tắc shingling ở mục tiếp theo.
+(a) Giao vẫn có 3 phần tử, hợp tăng lên 10, nên Jaccard bằng $3/10$. Giá trị giảm vì mẫu số tăng còn tử số giữ nguyên.
+
+(b) Jaccard cần biết các phần tử của hai tập để xác định giao và hợp. Độ dài chuỗi chỉ cho số ký tự, không xác định tập đặc trưng hoặc phần tử nào chung. Cần chọn quy tắc chuyển mỗi chuỗi thành tập, chẳng hạn quy tắc shingling ở mục tiếp theo.
 :::
 
 ## 3. Shingling: chuyển chuỗi thành tập

@@ -288,7 +288,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Văn bản: tài liệu là tập các đoạn văn bản; hai trang phản chiếu thường có Jaccard trên 90%.
+Văn bản: tài liệu là tập các đoạn văn bản; hai trang phản chiếu được dự kiến có Jaccard trên 90%.
 
 Khách hàng: khách hàng là tập mặt hàng đã mua; Jaccard 20% đã có thể cho thấy hai khách hàng có sở thích gần nhau.
 
@@ -304,11 +304,11 @@ Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 09. Câu hỏi kiểm tra
+### 09. Câu hỏi về độ tương đồng Jaccard
 
 - **Mã:** `lec05-s01-09`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Mục đích và vai trò:** Kiểm tra MT1; tính và xác định khoảng trống biểu diễn. **Mục tiêu:** MT1.
-- **Câu chốt:** Áp dụng Jaccard cần cả phép đếm lẫn quy tắc chọn phần tử.
+- **Câu chốt:** Jaccard đổi khi hợp đổi dù giao giữ nguyên; mẫu số là hợp, không phải tổng kích thước; văn bản cần quy tắc tạo tập.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận định nghĩa/ứng dụng; câu trả lời tạo nhu cầu cửa sổ shingle ở 10.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide ex-grid2`: hình VD 2 ở trái 50%, `ex-card` nhiệm vụ ở phải 50%; không hiển thị kết quả tỷ số.
@@ -324,19 +324,19 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 Câu hỏi:
 
-- Tính Jaccard của hai tập trong hình.
-
-- Xác định điều còn phải quy định để áp dụng công thức cho một văn bản.
+1. Thêm vào $T$ hai phần tử không thuộc $S$. Tính lại $\mathrm{SIM}(S,T)$.
+2. Một cách tính cho $3/(5+6)$. Chỉ ra đại lượng bị đếm sai.
+3. Xác định điều còn phải quy định để áp dụng công thức cho hai văn bản.
 
 **Ghi chú diễn giả học thuật**
 
-Jaccard bằng $3/8$. Để áp dụng cho văn bản, cần quy tắc chuyển chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp dài cố định. Độ dài chuỗi tự nó không xác định giao và hợp giữa hai văn bản.
+Câu 1: giao vẫn có 3 phần tử, hợp có 10, nên $\mathrm{SIM}=3/10$; giá trị giảm vì mẫu số tăng còn tử số giữ nguyên. Câu 2: $5+6$ là $|S|+|T|$, đếm ba phần tử giao hai lần; mẫu số đúng là $|S\cup T|=8$. Câu 3: cần quy tắc chuyển mỗi chuỗi thành một tập phần tử. Bài này dùng các đoạn con liên tiếp có độ dài cố định; độ dài chuỗi tự nó không xác định giao và hợp.
 
 Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: 3/8; cần quy tắc tạo tập phần tử. Chấm đủ hai ý, nhận ra mẫu số là hợp. Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
+Đáp án: $3/10$; $5+6$ đếm giao hai lần, mẫu đúng là 8; cần quy tắc tạo tập phần tử. Chấm đủ ba ý. Câu 1 và 2 không có đáp án trên các trang trước (s01-07 chỉ hiện $3/8$). Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
 
 ### 10. Shingle của văn bản
 
