@@ -1009,8 +1009,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Ước lượng là tỷ lệ tọa độ trùng theo cùng chỉ số; với $n$ nhỏ nó có thể lệch Jaccard về cả hai phía.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận cấu trúc vector; 31 xét kỳ vọng của cùng tổng chỉ báo.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** Công thức ước lượng và nghĩa chỉ báo phía trên; bảng hai tọa độ của $\sigma(S_1),\sigma(S_4)$ ở giữa, kèm $a=a$ và $d=d$; phép cộng hai chỉ báo và chia 2 phía dưới.
-- **Trọng tâm và thứ tự đọc:** Công thức và nghĩa chỉ báo → bảng hai tọa độ cụ thể → tổng/chia n → đối chiếu Jaccard thật.
+- **Bố cục đã chọn:** `example-slide`: công thức ước lượng ở đầu; dòng định nghĩa chỉ báo; bảng hai tọa độ của $\sigma(S_2),\sigma(S_4)$ với cột chỉ báo $c\ne a$, $c\ne d$; dòng kết quả $0\ne1/3$.
+- **Trọng tâm và thứ tự đọc:** Công thức → cùng chỉ số → hai chỉ báo 0 → so với Jaccard $1/3$ và với cặp $S_1,S_4$ ở trang trước.
 - **Lý do phù hợp sinh viên năm 2:** Bảng căn theo cùng tọa độ làm rõ phép so sánh; sinh viên có thể chuyển trực tiếp phép đếm 2/2 sang ký hiệu chỉ báo.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.3.4 tr. 83–84; áp dụng VD 7 đã duyệt.
@@ -1082,7 +1082,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Nếu các hoán vị độc lập, $\operatorname{Var}(\widehat{\mathrm{SIM}})=s(1-s)/n$; độ lệch chuẩn giảm theo $1/\sqrt n$.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận kỳ vọng đúng; 33 xét chi phí phải trả khi tăng n.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** Giả thiết đều đã kế thừa từ 31, bổ sung độc lập ở trên. Chuỗi ba dòng phương sai là trọng tâm: hệ số $n^{-2}$, tổng phương sai có nhãn độc lập, kết quả $s(1-s)/n$. Công thức độ lệch chuẩn ở notes.
+- **Bố cục đã chọn:** `example-slide`: dòng giả thiết độc lập ở đầu; chuỗi biến đổi phương sai ba dòng ở giữa; câu chốt về độ lệch chuẩn và dòng cảnh báo về sai số quan sát ở cuối.
 - **Trọng tâm và thứ tự đọc:** Độc lập → phương sai tổng → chia n² → tác dụng n.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên cần thấy vị trí dùng độc lập khác với tuyến tính kỳ vọng ở 31; giữ cùng ký hiệu X_i làm cầu nối thay vì thêm một định lý sai số ngoài phạm vi.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
@@ -1091,7 +1091,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Nếu các hoán vị còn độc lập, $X_i$ là các biến Bernoulli độc lập với $\operatorname{Var}(X_i)=s(1-s)$.
+Thêm giả thiết các hoán vị độc lập: $X_i$ là các biến Bernoulli độc lập với $\operatorname{Var}(X_i)=s(1-s)$.
 
 $$
 \begin{aligned}\operatorname{Var}(\widehat{\mathrm{SIM}})&=\frac1{n^2}\operatorname{Var}\!\left(\sum_{i=1}^nX_i\right)\\&\overset{\text{độc lập}}=\frac1{n^2}\sum_{i=1}^n\operatorname{Var}(X_i)\\&=\frac{ns(1-s)}{n^2}=\frac{s(1-s)}n.\end{aligned}
@@ -1103,7 +1103,7 @@ Không bảo đảm mỗi lần tăng độ dài chữ ký đều làm sai số 
 
 **Ghi chú diễn giả học thuật**
 
-$X_i$ là biến Bernoulli với tham số s, có phương sai s(1−s). Do độc lập, phương sai tổng bằng tổng phương sai. Hệ số 1/n của trung bình bình phương khi đi vào phương sai, nên kết quả là n·s(1−s)/n². Nếu các phép thử phụ thuộc, phải xét các hiệp phương sai và công thức này không tự áp dụng. Độ lệch chuẩn là $\sqrt{s(1-s)/n}$. Đây là hệ quả được suy ra từ định lý và kiến thức xác suất, không phải phát biểu trích nguyên văn sách.
+$X_i$ là biến Bernoulli với tham số $s$, có phương sai $s(1-s)$. Do độc lập, phương sai của tổng bằng tổng các phương sai. Hệ số $1/n$ của trung bình được bình phương khi đưa ra ngoài phương sai, nên kết quả là $ns(1-s)/n^2$. Nếu các phép thử phụ thuộc, phải xét các hiệp phương sai và công thức này không tự áp dụng. Đây là hệ quả suy ra từ định lý và kiến thức xác suất, không phải phát biểu trích nguyên văn sách.
 
 Nguồn: Suy ra từ mô hình §3.3.4 bằng phương sai của biến chỉ báo độc lập.
 
@@ -1151,7 +1151,7 @@ Chữ ký ngắn giảm chi phí mỗi cặp; số cặp vẫn tăng bậc hai.
 
 **Ghi chú diễn giả học thuật**
 
-Trong mô hình mỗi thành phần vừa một từ máy, so bằng tốn $O(1)$. Ước lượng duyệt tất cả $n$ tọa độ, đếm các vị trí bằng nhau rồi chia n. Bộ nhớ chữ ký được xây một lần và được dùng lại cho nhiều cặp; chi phí xây được phân tích riêng. Phép đếm mọi cặp vẫn mang thừa số C(C−1)/2 từ đầu bài. Tăng n vừa giảm phương sai trong mô hình lý tưởng vừa tăng công việc so sánh.
+Trong mô hình mỗi thành phần vừa một từ máy, so bằng tốn $O(1)$. Ước lượng duyệt tất cả $n$ tọa độ, đếm các vị trí bằng nhau rồi chia cho $n$. Chữ ký được xây một lần và dùng lại cho nhiều cặp; chi phí xây được phân tích riêng. Phép đếm mọi cặp vẫn mang thừa số $C(C-1)/2$ từ đầu bài. Tăng $n$ vừa giảm phương sai trong mô hình lý tưởng vừa tăng công việc so sánh.
 
 Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.
 
@@ -1166,9 +1166,9 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Kỳ vọng số lần trùng là $ns$; độ lệch chuẩn $\sqrt{s(1-s)/n}$ quyết định $n$ cần chọn và chi phí so sánh tương ứng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận chi phí; 35 đặt vấn đề tính nhiều thành phần mà không lưu hoán vị lớn.
 - **Dữ kiện và vai trò số:** VD 9; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: dữ kiện s, n và giả thiết ở trên 25%; `ex-card` chứa hai nhóm nhiệm vụ ở dưới 65%; đáp án không hiện.
-- **Trọng tâm và thứ tự đọc:** Giả thiết → số đếm/tỷ lệ → đánh đổi khi tăng n.
-- **Lý do phù hợp sinh viên năm 2:** Dùng cùng cặp nguồn nên không tốn thời gian tính Jaccard mới; hai đơn vị được hỏi cạnh nhau để phát hiện nhầm ns với s.
+- **Bố cục đã chọn:** `example-slide`: dòng dữ kiện $s=2/3$, hoán vị đều và độc lập; nhãn “Câu hỏi:” và ba nhiệm vụ đánh số; đáp án chỉ ở ghi chú.
+- **Trọng tâm và thứ tự đọc:** Kỳ vọng số đếm → độ lệch chuẩn với $n=100$ → chọn $n$ cho độ lệch chuẩn cho trước và chi phí tương ứng.
+- **Lý do phù hợp sinh viên năm 2:** Ba câu đòi thay số vào các công thức của trang 31–33 thay vì nhắc lại kết luận; câu 3 nối chất lượng ước lượng với chi phí so sánh.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B Hình 3.2; §3.3.4 tr. 83–84; n=100 theo độ dài minh họa nguồn, áp dụng hệ quả đã duyệt.
 - **Thời lượng:** 3 phút.
@@ -1191,7 +1191,7 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: $200/3$; $\sqrt{1/450}pprox0{,}047$; $n=556$, 556 phép so bằng (tính lại bằng phân số). Không câu nào có đáp án trên mặt trang 31–33.
+Đáp án: $200/3$; $\sqrt{1/450}\approx0{,}047$; $n=556$, 556 phép so bằng (tính lại bằng phân số). Không câu nào có đáp án trên mặt trang 31–33.
 
 ### 35. Mô phỏng hoán vị bằng hàm băm
 

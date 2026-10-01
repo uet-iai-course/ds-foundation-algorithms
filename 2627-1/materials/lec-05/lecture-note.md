@@ -336,7 +336,7 @@ $$
 \sigma(S)=\bigl(h_{\pi_1}(S),\ldots,h_{\pi_n}(S)\bigr)^{\mathsf T}.
 $$
 
-Đặt các chữ ký thành cột tạo ma trận có $n$ hàng phép thử và $C$ cột tập. §3.3.4, tr. 83, gợi ý $n$ khoảng 100 đến vài trăm, trong khi số hàng $R$ của ma trận đặc trưng là số phần tử khác nhau của cả kho. Đây là một kiểu hàng khác với ma trận đặc trưng, nơi mỗi hàng là một phần tử của $U$. Trong mô hình lý tưởng dùng để phân tích, mỗi hoán vị đều; giả thiết độc lập giữa các hoán vị sẽ cần thêm khi tính phương sai.
+Đặt các chữ ký thành cột tạo ma trận có $n$ hàng phép thử và $C$ cột tập. Đây là một kiểu hàng khác với ma trận đặc trưng, nơi mỗi hàng là một phần tử của $U$. §3.3.4, tr. 83, gợi ý $n$ khoảng 100 đến vài trăm, trong khi số hàng $R$ của ma trận đặc trưng là số phần tử khác nhau của cả kho. Trong mô hình lý tưởng dùng để phân tích, mỗi hoán vị đều; giả thiết độc lập giữa các hoán vị sẽ cần thêm khi tính phương sai.
 
 Ước lượng Jaccard là tỷ lệ các tọa độ tương ứng bằng nhau:
 
