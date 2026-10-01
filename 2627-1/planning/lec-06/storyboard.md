@@ -770,16 +770,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B Bài 3.6.1(a–d), §3.6.4, tr.108/PDF 37.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 10 phút.
 
-#### lec06-s07-04 — Các hàm tọa độ tạo ứng viên
+#### lec06-s07-04 — Hàm chọn tọa độ trên bốn vector
 
 - **Mục đích và vai trò:** Liệt kê hàm Hamming nhận từng cặp của bốn vector.
 - **Thông điệp:** Mỗi cặp được nhận bởi đúng các tọa độ mà nó trùng.
-- **Nội dung công khai dự kiến:** Câu hỏi: Họ gồm sáu hàm $h_i(x)=x_i$ cho vector độ dài 6. Với bốn vector $A=000000,B=110011,C=010101,D=011100$, xác định những hàm làm từng cặp trở thành ứng viên. Sản phẩm: sáu tập chỉ số.
+- **Nội dung công khai dự kiến:** Câu hỏi: Họ gồm sáu hàm $h_i(x)=x_i$, $i=1,\ldots,6$. Vector 1 2 3 4 5 6 A 0 0 0 0 0 0 B 1 1 0 0 1 1 C 0 1 0 1 0 1 D 0 1 1 1 0 0 Xác định các hàm làm từng cặp thành ứng viên: AB, AC, AD, BC, BD, CD. Sản phẩm: sáu tập chỉ số.
 - **Đầu vào và giả thiết:** HT8; chỉ số 1–6; cùng $i$ ở hai vector.
 - **Dữ kiện, hình thức hóa và vết chạy:** R3; giữ 4 vector nguồn, đổi tên nhãn A–D để phân biệt mã đối tượng và giá trị.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 45% bảng 4 × 6 bit; phải 55% danh sách 6 cặp có chỗ ghi tập chỉ số. Năm 2 đối chiếu thẳng cột, tránh chỉ đếm Hamming mà thiếu tên hàm.
 - **Kết nối vào–ra:** Biểu thức ghép→phép thử hữu hạn; chữ ký dấu thay phép đọc tọa độ bằng tích vô hướng.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 6 phút. Đáp án: AB={3,4}; AC={1,3,5}; AD={1,5,6}; BC={2,3,6}; BD={2}; CD={1,2,4,5}. Tiêu chí: đủ sáu cặp, đúng chỉ số từ 1 và so cùng vị trí. Nguồn Bài 3.7.1, tr.113.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án: AB: $\{3,4\}$; AC: $\{1,3,5\}$; AD: $\{1,5,6\}$; BC: $\{2,3,6\}$; BD: $\{2\}$; CD: $\{1,2,4,5\}$. Hàm $h_i$ làm một cặp thành ứng viên khi hai vector trùng ở vị trí $i$; số hàm của mỗi cặp bằng $6-d_H$. Sách cho bốn vector dạng chuỗi 000000, 110011, 010101, 011100; tên A–D chỉ để gọi cặp. Tiêu chí: đủ sáu cặp, đánh chỉ số từ 1 và so cùng vị trí.
 - **Nguồn:** B Bài 3.7.1, §3.7.6, tr.113/PDF 42; nhãn A–D chỉ thay cách gọi.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 6 phút.
 
@@ -787,12 +787,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính đủ chữ ký và đối chiếu góc thật cho Bài 3.7.2.
 - **Thông điệp:** Bốn phép thử cố định cho một ước lượng góc có thể sai lệch.
-- **Nội dung công khai dự kiến:** Câu hỏi: $v_1=(1,1,1,-1),v_2=(1,1,-1,1),v_3=(1,-1,1,1),v_4=(-1,1,1,1)$. Với $x=(2,3,4,5),y=(-2,3,-4,5),z=(2,-3,4,-5)$, tính chữ ký dấu. Với từng cặp, tính góc ước lượng từ chữ ký và góc thật. Sản phẩm: bảng tích/dấu và bảng ba cặp góc.
+- **Nội dung công khai dự kiến:** Câu hỏi: $v_1=(1,1,1,-1)$ $v_2=(1,1,-1,1)$ $v_3=(1,-1,1,1)$ $v_4=(-1,1,1,1)$ $x=(2,3,4,5),\ y=(-2,3,-4,5),\ z=(2,-3,4,-5)$ Tính chữ ký dấu của cả ba vector. Với mỗi cặp, tính góc ước lượng từ chữ ký và góc thật. Sản phẩm: bảng tích/dấu và bảng ba cặp góc; $\operatorname{sign}(0)=+1$.
 - **Đầu vào và giả thiết:** Cơ chế chữ ký dấu; quy tắc dấu tại 0 là +1; máy tính hỗ trợ arccos.
 - **Dữ kiện, hình thức hóa và vết chạy:** R4 giữ nguyên ba vector và bốn pháp tuyến. Đây là mẫu dấu cố định, không được gán phân phối đẳng hướng.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Dữ kiện bốn pháp tuyến ở trên theo nhóm 2 × 2; ba vector ở giữa; nhiệm vụ ở đáy. Sinh viên năm 2 cần đủ dữ kiện trên một trang; các bảng kết quả thuộc notes để giữ khả năng đọc.
 - **Kết nối vào–ra:** Băm tọa độ cung cấp chữ ký rời rạc; tích vô hướng cung cấp chữ ký dấu; bài kế tiếp dùng phép chiếu để gán thùng Euclid.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 10 phút. Tích của $x$ là $(4,6,8,10)$, của $y$ là $(-8,10,-4,6)$, của $z$ là $(8,-10,4,-6)$. Chữ ký lần lượt là $(+,+,+,+)$, $(-,+,-,+)$ và $(+,-,+,-)$. Góc ước lượng của các cặp $xy,xz,yz$ là $90^\circ,90^\circ,180^\circ$; góc thật xấp xỉ $74.973886^\circ,105.026114^\circ,180^\circ$. Tiêu chí: tính đúng tích và dấu, dùng cùng bốn pháp tuyến, chuẩn bình phương bằng 54 và đổi radian sang độ rõ ràng. Nguồn: Bài 3.7.2, tr.113–114.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Tích với $v_1,\ldots,v_4$: $x$ cho $(4,6,8,10)$, $y$ cho $(-8,10,-4,6)$, $z$ cho $(8,-10,4,-6)$. Chữ ký lần lượt là $(+,+,+,+)$, $(-,+,-,+)$ và $(+,-,+,-)$. Góc ước lượng của các cặp $xy$, $xz$, $yz$: $90^\circ$; $90^\circ$; $180^\circ$. Góc thật: $\cos\theta=14/54$, $-14/54$, $-1$, tức xấp xỉ $74{,}97^\circ$; $105{,}03^\circ$; $180^\circ$. Tiêu chí: tính đúng tích và dấu, dùng cùng bốn pháp tuyến, chuẩn bình phương bằng 54 và đổi radian sang độ rõ ràng.
 - **Nguồn:** B Bài 3.7.2(a–c) và câu hỏi chung, §3.7.6, tr.113–114/PDF 42–43.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 10 phút.
 
@@ -805,20 +805,20 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** R5 giữ nguyên (a–c); phần (d) chuyển sang N15. Các biên khoảng giữ nguyên sách.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba điểm và quy ước biên ở trên; hai bảng trống có cùng cột trục 1,2,3 ở dưới. Sinh viên năm 2 so hai độ rộng trên cùng dữ kiện; đáp án tập cặp thuộc notes.
 - **Kết nối vào–ra:** Phép băm dấu dùng hướng; phép chiếu chia khoảng dùng tọa độ và độ rộng. Bài vân tay kế tiếp dùng lại phép ghép để so sai số.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 8 phút. Với $a=1$, mã của ba điểm lần lượt là $(1,2,3),(0,2,4),(4,3,2)$, chỉ có cặp $(1,2)$. Với $a=2$, các mã là $(0,1,1),(0,1,2),(2,1,1)$, cả ba cặp đều là ứng viên. Tiêu chí: dùng hàm sàn đúng tại biên, chỉ so trong cùng trục, hợp và khử lặp đúng. Ba trục cố định không tự cho bảo đảm xác suất của họ hướng ngẫu nhiên. Sách ký hiệu ba điểm là $p_1,p_2,p_3$. Nguồn: Bài 3.7.5(a–c), tr.114.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Với $a=1$, mã của ba điểm lần lượt là $(1,2,3),(0,2,4),(4,3,2)$, chỉ có cặp $(1,2)$. Với $a=2$, các mã là $(0,1,1),(0,1,2),(2,1,1)$, cả ba cặp đều là ứng viên. Tiêu chí: dùng hàm sàn đúng tại biên, chỉ so trong cùng trục, hợp và khử lặp đúng. Ba trục cố định không tự cho bảo đảm xác suất của họ hướng ngẫu nhiên. Sách ký hiệu ba điểm là $p_1,p_2,p_3$. Nguồn: Bài 3.7.5(a–c), tr.114.
 - **Nguồn:** B Bài 3.7.5(a–c), §3.7.6, tr.114/PDF 43; chuyển (d) sang đọc thêm.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 8 phút.
 
-#### lec06-s07-07 — So sánh hai phép ghép vân tay
+#### lec06-s07-07 — So sánh hai cấu trúc ghép cho vân tay
 
 - **Mục đích và vai trò:** Tính hai loại lỗi với cùng 2048 hàm cơ sở.
 - **Thông điệp:** Cùng ngân sách hàm có thể ưu tiên giảm bỏ sót hoặc giảm ứng viên giả.
-- **Nội dung công khai dự kiến:** Câu hỏi: Mỗi ô có đặc trưng với xác suất 0.2. Với hai bản cùng ngón, ảnh thứ hai có đặc trưng tại ô đã có của ảnh thứ nhất với xác suất 0.8. Mỗi phép thử chọn ba ô từ lưới; các phép thử độc lập theo mô hình. $F_1$ là OR 1024, $F_2$ là OR 2048. (a) Tính xác suất ứng viên giả và bỏ sót của $F_2$. (b) So với AND hai nhóm OR 1024 độc lập. Sản phẩm: bảng hai xác suất cho hai cấu trúc.
+- **Nội dung công khai dự kiến:** Câu hỏi: Mỗi ô có điểm đặc trưng với xác suất $0{,}2$. Với hai ảnh cùng ngón, xác suất ảnh thứ hai có đặc trưng tại ô đã có của ảnh thứ nhất là $0{,}8$. Mỗi phép thử chọn ba ô từ lưới trước khi xét ảnh; các phép thử độc lập theo mô hình. Tính xác suất nhận cặp khác ngón (ứng viên giả) và bỏ sót cặp cùng ngón của OR 2048. So với AND hai nhóm OR 1024 độc lập. Sản phẩm: bảng hai xác suất cho hai cấu trúc cùng 2048 phép thử.
 - **Đầu vào và giả thiết:** Mô hình vân tay, xác suất cơ sở và AND/OR đã học; không dùng tiên quyết từ phần đọc thêm.
 - **Dữ kiện, hình thức hóa và vết chạy:** R6 giữ nguyên Bài 3.8.2(a, b). Hai cấu trúc cùng 2048 phép thử; đây là trang kiểm tra tổng hợp của phần 7.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Giả thiết mô hình ở trên; hai sơ đồ nhóm ở giữa; hai nhiệm vụ dưới. Sinh viên năm 2 cần suy xác suất cơ sở rồi áp dụng phép ghép; không dùng giá trị đã làm tròn làm đầu vào.
 - **Kết nối vào–ra:** Các phép băm cơ sở dẫn đến việc chọn cách khuếch đại; bài kết thúc bằng đánh đổi có điều kiện giữa hai loại lỗi.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Thời lượng học tập dự kiến 8 phút. $q_F=0.000064,q_T=0.004096$. OR 2048 cho xác suất ứng viên giả $0.122849062$ và bỏ sót $0.000223559$. AND hai nhóm OR 1024 cho xác suất ứng viên giả $0.004024207$ và bỏ sót $0.029680224$. Tiêu chí: suy đúng hai xác suất cơ sở, nêu độc lập, ghép đúng thứ tự, dùng giá trị chưa làm tròn và so cùng 2048 hàm. Nguồn: Bài 3.8.2(a, b), tr.121.
+- **Diễn giải học thuật, lời giải và tiêu chí:** $q_F=0{,}000064$, $q_T=0{,}004096$. OR 2048 cho xác suất nhận cặp khác ngón $1-(1-q_F)^{2048}\approx0{,}122849$ và bỏ sót $(1-q_T)^{2048}\approx0{,}000224$. AND hai nhóm OR 1024 cho $0{,}004024$ và $0{,}029680$. Cùng 2048 hàm, OR 2048 gần như không bỏ sót nhưng nhận khoảng $12\%$ cặp khác ngón; AND hai nhóm nhận khoảng 30 lần ít hơn, đổi lại bỏ sót khoảng $3\%$. Tiêu chí: suy đúng hai xác suất cơ sở, nêu độc lập, ghép đúng thứ tự, dùng giá trị chưa làm tròn và so cùng 2048 hàm. Nguồn: Bài 3.8.2(a, b), tr.121.
 - **Nguồn:** B Bài 3.8.2(a, b), §3.8.7, tr.121/PDF 50; kiểm tra tổng hợp.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 8 phút.
 

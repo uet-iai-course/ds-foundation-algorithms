@@ -933,8 +933,8 @@ Bình phương các chuẩn đều bằng 54; $x\cdot y=14$, $x\cdot z=-14$, $y\
 
 | Cặp | Tỷ lệ khác dấu | Góc ước lượng | Góc thật |
 |---|---:|---|---|
-| $x,y$ | $2/4$ | $\pi/2=90^\circ$ | $\arccos(7/27)\approx74.973886^\circ$ |
-| $x,z$ | $2/4$ | $\pi/2=90^\circ$ | $\arccos(-7/27)\approx105.026114^\circ$ |
+| $x,y$ | $2/4$ | $\pi/2=90^\circ$ | $\arccos(7/27)\approx74{,}973886^\circ$ |
+| $x,z$ | $2/4$ | $\pi/2=90^\circ$ | $\arccos(-7/27)\approx105{,}026114^\circ$ |
 | $y,z$ | $4/4$ | $\pi=180^\circ$ | $\pi=180^\circ$ |
 
 Bốn pháp tuyến là dữ kiện cố định. Vết tính không bảo đảm góc ước lượng bằng góc thật cho mọi cặp vector.
@@ -972,39 +972,39 @@ Với $a=1$, chỉ $z_1,z_2$ trùng ở trục 2. Với $a=2$, cặp $(1,2)$ tr�
 Nguồn: §3.8.7, tr.121.
 
 ::: exercise
-Câu hỏi: Mỗi ô có đặc trưng với xác suất .2. Với hai bản cùng ngón, ảnh thứ hai có đặc trưng tại một ô đã có ở ảnh thứ nhất với xác suất .8. Mỗi phép thử chọn ba ô từ lưới trước khi xét ảnh; các phép thử độc lập theo mô hình. Gọi $F_1$ là OR 1024 phép thử và $F_2$ là OR 2048 phép thử.
+Câu hỏi: Mỗi ô có điểm đặc trưng với xác suất 0,2. Với hai bản cùng ngón, ảnh thứ hai có đặc trưng tại một ô đã có ở ảnh thứ nhất với xác suất 0,8. Mỗi phép thử chọn ba ô từ lưới trước khi xét ảnh; các phép thử độc lập theo mô hình. Gọi $F_1$ là OR 1024 phép thử và $F_2$ là OR 2048 phép thử.
 
-- (a) Tính xác suất ứng viên giả và bỏ sót của $F_2$.
+- (a) Tính xác suất nhận cặp khác ngón (ứng viên giả) và bỏ sót cặp cùng ngón của $F_2$.
 - (b) So với AND hai nhóm $F_1$ độc lập.
 
 Sản phẩm: bảng hai xác suất cho hai cấu trúc cùng 2048 phép thử.
 :::
 
 ::: hint
-Tính $q_F$ và $q_T$ từ mô hình một ô rồi ba ô. Với cặp cùng ngón, bỏ sót là biến cố bù của được nhận. Không dùng .063 hoặc .985 đã làm tròn làm đầu vào ghép tiếp.
+Tính $q_F$ và $q_T$ từ mô hình một ô rồi ba ô. Với cặp cùng ngón, bỏ sót là biến cố bù của được nhận. Không dùng 0,063 hoặc 0,985 đã làm tròn làm đầu vào ghép tiếp.
 :::
 
 ::: solution
-Xác suất cơ sở là $q_F=.2^6=.000064$ và $q_T=(.2\cdot.8)^3=.004096$.
+Xác suất cơ sở là $q_F=0{,}2^6=0{,}000064$ và $q_T=(0{,}2\cdot0{,}8)^3=0{,}004096$.
 
 Với OR 2048:
 
 $$
-P_F=1-(1-q_F)^{2048}\approx.122849062.
+P_F=1-(1-q_F)^{2048}\approx0{,}122849062.
 $$
 
 $$
-P_{\rm miss}=(1-q_T)^{2048}\approx.000223559.
+P_{\rm miss}=(1-q_T)^{2048}\approx0{,}000223559.
 $$
 
 Với AND hai nhóm OR 1024 độc lập:
 
 $$
-P_F=[1-(1-q_F)^{1024}]^2\approx.004024207.
+P_F=[1-(1-q_F)^{1024}]^2\approx0{,}004024207.
 $$
 
 $$
-P_{\rm miss}=1-[1-(1-q_T)^{1024}]^2\approx.029680224.
+P_{\rm miss}=1-[1-(1-q_T)^{1024}]^2\approx0{,}029680224.
 $$
 
 OR 2048 giảm bỏ sót nhưng nhận nhiều cặp khác ngón hơn. AND hai nhóm OR 1024 giảm ứng viên giả và tăng bỏ sót. Hai phương án cùng ngân sách 2048 phép thử, nên khác biệt đến từ cấu trúc ghép. Đáp án phải giữ giả thiết độc lập và phân biệt xác suất cả hai ảnh có ba ô với xác suất có điều kiện khi một ảnh đã có ba ô.
