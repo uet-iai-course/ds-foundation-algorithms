@@ -47,12 +47,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Nhận diện thứ tự bảy phần và ba năng lực quan sát được của bài học.
 - **Thông điệp:** Tạo và xác minh tập ứng viên, tính xác suất để chọn tham số, và chọn họ băm theo độ đo là ba đầu ra học tập.
-- **Nội dung công khai dự kiến:** Bài toán tìm cặp tương đồng Phân dải chữ ký MinHash Khoảng cách và họ nhạy cảm Các họ băm theo độ đo Ứng dụng tìm cặp tương đồng Tổng kết và tự kiểm tra Bài tập vận dụng Mục tiêu học tập Tạo và xác minh tập cặp ứng viên bằng phân dải chữ ký. Tính xác suất một cặp thành ứng viên; chọn số dải và số hàng. Chọn họ băm phù hợp với độ đo khoảng cách.
+- **Nội dung công khai dự kiến:** Bài toán tìm cặp tương đồng Phân dải chữ ký MinHash Khoảng cách và họ nhạy cảm Các họ băm theo độ đo Ứng dụng tìm cặp tương đồng Tổng kết và tự kiểm tra Bài tập vận dụng Mục tiêu học tập Tạo và xác minh tập cặp ứng viên bằng phân dải chữ ký. Tính xác suất một cặp thành ứng viên; chọn số dải, số hàng và cách ghép AND/OR. Chọn họ băm theo độ đo và áp dụng cho thực thể, vân tay, bản tin.
 - **Đầu vào và giả thiết:** Tên bài và chữ ký.
 - **Dữ kiện, hình thức hóa và vết chạy:** Không áp dụng ví dụ số.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai vùng: danh mục bảy phần 60% bên trái; ba mục tiêu 40% bên phải. Tiêu đề và mục lục giữ cỡ chữ agenda-slide; mục tiêu dùng cỡ chữ nội dung của example-slide. CSS chỉ chia lưới, không đổi font. Đọc mục tiêu rồi liên hệ từng phần; ba mục tiêu gộp MT1–MT6, được kiểm ở phần kết.
 - **Kết nối vào–ra:** Chữ ký Bài 05 → ba sản phẩm học tập; số cặp của kho triệu tài liệu tạo nhu cầu đầu tiên. Kết bài s06-03/04 kiểm lại ba năng lực.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Phần 1 đặt bài toán: sau khi có chữ ký, số cặp vẫn tăng bậc hai. Phần 2 chia chữ ký thành dải để sinh cặp ứng viên, xác minh chúng, rồi tính xác suất và chi phí. Phần 3 và 4 mở rộng cách làm từ Jaccard sang các độ đo khác qua khái niệm họ băm nhạy cảm. Phần 5 áp dụng vào ba bài toán của sách. Ba mục tiêu được kiểm ở các trang câu hỏi cuối mỗi phần và ở phần tổng kết.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Phần 1 đặt bài toán: sau khi có chữ ký, số cặp vẫn tăng bậc hai. Phần 2 chia chữ ký thành dải để sinh cặp ứng viên, xác minh chúng, rồi tính xác suất và chi phí. Phần 3 và 4 mở rộng cách làm từ Jaccard sang các độ đo khác qua khái niệm họ băm nhạy cảm. Phần 5 áp dụng vào ba bài toán của sách. Ba mục tiêu được kiểm ở các trang câu hỏi cuối mỗi phần và ở phần tổng kết; mục tiêu 2 bao gồm phép ghép AND/OR của phần 3, mục tiêu 3 bao gồm ba ứng dụng của phần 5.
 - **Nguồn:** B § §3.4–3.8 tr.91–122; outline mục 5.
 - **Ánh xạ ghi chú:** `N01`. **Thời lượng:** 1 phút.
 
@@ -244,12 +244,12 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Phân biệt ba đại lượng ngưỡng và so cấu hình cùng $n$.
 - **Thông điệp:** Đường xác suất ứng viên tăng dốc quanh (1/b)^{1/r}; chọn b, r để vùng dốc nằm thấp hơn t khi cần ít bỏ sót, cao hơn t khi cần ít ứng viên giả.
-- **Nội dung công khai dự kiến:** [Hình: Xác suất ứng viên theo Jaccard thật của cấu hình 20 dải 5 hàng và 10 dải 10 hàng, cùng 100 hàng.] Cấu hình $(20,5)$: $P(s)=1/2$ tại $s\approx0{,}509$; xấp xỉ $(1/b)^{1/r}\approx0{,}549$. Tại ngưỡng $t=0{,}8$: cấu hình $(20,5)$ bỏ sót khoảng $0{,}036\%$, cấu hình $(10,10)$ khoảng $32\%$. Chọn $b,r$ với $(1/b)^{1/r}\approx t$; thấp hơn $t$ để ít bỏ sót, cao hơn $t$ để ít ứng viên giả.
+- **Nội dung công khai dự kiến:** [Hình: Xác suất ứng viên theo Jaccard thật của cấu hình 20 dải 5 hàng và 10 dải 10 hàng, cùng 100 hàng.] $b=20$, $r=5$: $P(s)=1/2$ tại $s\approx0{,}509$; xấp xỉ $(1/b)^{1/r}\approx0{,}549$. Tại ngưỡng $t=0{,}8$: cấu hình $b=20$, $r=5$ bỏ sót khoảng $0{,}036\%$, cấu hình $b=r=10$ khoảng $32\%$. Chọn $b,r$ với $(1/b)^{1/r}\approx t$; thấp hơn $t$ để ít bỏ sót, cao hơn $t$ để ít ứng viên giả.
 - **Đầu vào và giả thiết:** HT3; ngưỡng $t$ từ đặc tả.
 - **Dữ kiện, hình thức hóa và vết chạy:** V04, HT4; $s_{1/2}=(1-2^{-1/b})^{1/r}\approx0{,}509$ và $(1/b)^{1/r}\approx0{,}549$ cho $(20,5)$; bỏ sót tại $t=0{,}8$: $0{,}036\%$ và $32\%$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Đồ thị lớn toàn chiều rộng; hai dòng ngắn (điểm $P=1/2$ so với xấp xỉ; bỏ sót tại $t$) và câu chốt nêu quy tắc §3.4.3. Công thức nghiệm nằm trong ghi chú.
 - **Kết nối vào–ra:** Xác suất→quyết định tham số; số ứng viên và lượt phát quyết định chi phí thực tế.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đường $P_{b,r}(s)$ có dạng chữ S khi $r>1$: thấp ở Jaccard nhỏ, tăng dốc quanh một ngưỡng rồi gần 1. Phương trình $P(s)=1/2$ cho $s^r=1-2^{-1/b}$, nên điểm xác suất một nửa là $(1-2^{-1/b})^{1/r}$; giá trị $(1/b)^{1/r}$ chỉ xấp xỉ vùng dốc, không bằng nghiệm này và không phải ngưỡng chấp nhận $t$. Hai cấu hình trong hình cùng dùng 100 hàng. Tại $s=0{,}8$, xác suất bỏ sót của $(20,5)$ là $(1-0{,}8^5)^{20}\approx0{,}000356$, của $(10,10)$ là $(1-0{,}8^{10})^{10}\approx0{,}321$. Đây là xác suất theo từng cặp có Jaccard cho trước, không phải tỷ lệ lỗi của một kho chưa biết phân bố tương đồng. Quy tắc chọn tham số lấy từ bước 4 của §3.4.3.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đường $P_{b,r}(s)$ có dạng chữ S khi $r>1$: thấp ở Jaccard nhỏ, tăng dốc quanh một ngưỡng rồi gần 1. Phương trình $P(s)=1/2$ cho $s^r=1-2^{-1/b}$, nên điểm xác suất một nửa là $(1-2^{-1/b})^{1/r}$; giá trị $(1/b)^{1/r}$ chỉ xấp xỉ vùng dốc, không bằng nghiệm này và không phải ngưỡng chấp nhận $t$. Hai cấu hình trong hình cùng dùng 100 hàng. Tại $s=0{,}8$, xác suất bỏ sót của cấu hình $b=20$, $r=5$ là $(1-0{,}8^5)^{20}\approx0{,}000356$, của cấu hình $b=r=10$ là $(1-0{,}8^{10})^{10}\approx0{,}321$. Đây là xác suất theo từng cặp có Jaccard cho trước, không phải tỷ lệ lỗi của một kho chưa biết phân bố tương đồng. Quy tắc chọn tham số lấy từ bước 4 của §3.4.3.
 - **Nguồn:** B Ex 3.12 tr.94–95, Bài 3.4.2 tr.96; S4 PDF 34/trang in 37; so $n$ cố định.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2.5 phút.
 
@@ -342,7 +342,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** HT5, V07; $5+6-8=3$; dãy con $acde$. Không có phép thay thế một bước.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Vết bốn trạng thái trên 70% ngang, mỗi mũi tên ghi thao tác; công thức dưới 30%. Năm 2 thấy dữ liệu còn lại trước công thức; proof hai cận và định nghĩa LCS đầy đủ trong notes.
 - **Kết nối vào–ra:** Góc đo thay hướng→chuỗi đo thao tác sửa; Hamming sẽ giữ cố định độ dài/vị trí.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Một phương án tối ưu giữ một dãy con chung và xóa/chèn các ký tự khác. Giữ $L$ ký tự cần $|x|-L$ lần xóa và $|y|-L$ lần chèn. Ngược lại, các ký tự không bị xóa tạo thành dãy con chung nên không giữ quá $L$. Đây là lập luận giá trị tối ưu, không cung cấp thuật toán quy hoạch động tính dãy con chung dài nhất (longest common subsequence, LCS).
+- **Diễn giải học thuật, lời giải và tiêu chí:** Một phương án tối ưu giữ một dãy con chung và xóa/chèn các ký tự khác. Giữ $L$ ký tự cần $|x|-L$ lần xóa và $|y|-L$ lần chèn. Ngược lại, các ký tự không bị xóa tạo thành dãy con chung nên không giữ quá $L$. Đây là lập luận giá trị tối ưu, không cung cấp thuật toán quy hoạch động tính dãy con chung dài nhất (longest common subsequence, LCS). Chương 3 của MMDS không xây họ LSH riêng cho khoảng cách chỉnh sửa; bài này dùng nó để so với Hamming và minh họa tiên đề metric.
 - **Nguồn:** B §3.5.5/Ex 3.15–16 tr.100/PDF 29.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 2 phút.
 
@@ -619,7 +619,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** V12; lưới chỉ là sơ đồ khái niệm, không là dữ liệu ảnh thực. Singleton cho ảnh thiếu ô bảo đảm không va chạm với nhau.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Lưới ba ô đánh dấu bằng số/viền trái 50%; quy tắc hai nhánh thùng chung/thùng đơn phải 50%. Năm 2 tránh nhầm “không đạt” là một thùng 0 chung; không dùng ảnh raster.
 - **Kết nối vào–ra:** Ứng dụng thực thể thiếu mô hình xác suất → họ vân tay có mô hình cụ thể; các giả thiết $0{,}2$ và $0{,}8$ cho xác suất va chạm ở s05-03.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Tập ô có thể so bằng Jaccard, nhưng lưới chỉ khoảng 1000 ô nên tập đã nhỏ; MMDS dùng một họ khác thay vì rút gọn bằng MinHash. Chuẩn hóa kích thước và hướng làm cùng một ô có ý nghĩa so sánh giữa các ảnh. Có hai bài toán: một–nhiều, so một ảnh truy vấn với cả kho; nhiều–nhiều, tìm mọi cặp trong kho. Với bài toán thứ nhất, các thùng của nhiều hàm được dựng trước và ảnh truy vấn chỉ được so với ảnh trong các thùng chứa nó. Nếu gom mọi ảnh thiếu ô vào cùng một thùng, chúng sẽ va chạm với nhau và xác suất va chạm khác mô hình ở trang sau.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Tập ô có thể so bằng Jaccard, nhưng lưới chỉ khoảng 1000 ô nên tập đã nhỏ; MMDS dùng một họ khác thay vì rút gọn bằng MinHash. Chuẩn hóa kích thước và hướng làm cùng một ô có ý nghĩa so sánh giữa các ảnh. Có hai bài toán: một–nhiều, so một ảnh truy vấn với cả kho; nhiều–nhiều, tìm mọi cặp trong kho. Với bài toán thứ nhất, các thùng của nhiều hàm được dựng trước và ảnh truy vấn chỉ được so với ảnh trong các thùng chứa nó. Nếu gom mọi ảnh thiếu ô vào cùng một thùng, chúng sẽ va chạm với nhau và xác suất va chạm khác mô hình $q_T$, $q_F$.
 - **Nguồn:** B §3.8.4–5 tr.117–118/PDF 46–47.
 - **Ánh xạ ghi chú:** `N12`. **Thời lượng:** 2.5 phút.
 
@@ -683,7 +683,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Thông điệp:** Biểu diễn, phép thử và xác minh phải cùng thực hiện một đặc tả.
 - **Nội dung công khai dự kiến:** [Hình: Chữ ký tạo khóa, hợp cặp ứng viên rồi kiểm tập gốc.] Biểu diễn và độ đo: Jaccard trên tập, góc, Euclid, Hamming. Họ $(d_1,d_2,p_1,p_2)$-nhạy cảm và cấu trúc ghép: AND $r$ rồi OR $b$ là phân dải. Dựng thùng, khử lặp $Q$ lượt phát thành $K$ cặp, xác minh trên dữ liệu gốc. Ba ứng dụng chỉ thay bước 1 hoặc 2: bản tin đổi biểu diễn, vân tay và thực thể đổi họ hàm; bước 3 giữ nguyên.
 - **Đầu vào và giả thiết:** N01–N13; không có khái niệm mới.
-- **Dữ kiện, hình thức hóa và vết chạy:** V01 gợi lại C=10^6; không đưa con số K cho kho chưa có phân bố.
+- **Dữ kiện, hình thức hóa và vết chạy:** Ba bước gắn với kết quả từng phần (độ đo của phần 3; họ và AND–OR của phần 3–4; $Q$, $K$ và xác minh của phần 2); câu chốt nêu ứng dụng nào đổi bước nào.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ một hàng hai tầng để nhãn đọc được; mỗi bước một danh từ/thao tác. Năm 2 cần nhận ra các quyết định nối nhau; ví dụ chi tiết không lặp trên mặt trang.
 - **Kết nối vào–ra:** Ứng dụng→mẫu chung; chi phí và sai số quyết định tính phù hợp.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Bước 1 xác định tiêu chuẩn đúng của bài toán; bước 2 chỉ quyết định cặp nào được đưa vào tập ứng viên và với xác suất nào; bước 3 bảo đảm mọi cặp trả về đều đạt tiêu chuẩn. Cùng một khung ứng viên không khiến các bài toán có cùng tiêu chuẩn đúng: khớp khóa trong đối sánh thực thể hay chung thùng trong đối sánh vân tay đều phải qua bước xác minh.
@@ -699,7 +699,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** V01 và V02 giữ vai trò; không tự tuyên bố giảm cặp tuyến tính.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba ô P/Q/K cùng kích thước ở trên; giới hạn xấu nhất và xác minh dưới. Năm 2 phân biệt đại lượng xác suất với số đếm, không thêm công thức mới.
 - **Kết nối vào–ra:** Quy trình→điều kiện sử dụng; sáu nhiệm vụ sau đo lại từng mục tiêu.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Hai loại sai số có bản chất khác nhau. Ứng viên giả là chi phí: chúng làm tăng $K$ và thời gian xác minh, nhưng không xuất hiện trong kết quả. Cặp bị bỏ sót là mất mát: không bước nào sau đó tìm lại được. Đổi $b$, $r$ dịch ngưỡng của đường cong S, nên giảm một loại sai số thường làm tăng loại kia. Bảo đảm của LSH là bảo đảm xác suất theo cặp; chi phí thực tế phụ thuộc phân bố kích thước thùng của dữ liệu, không chỉ dung lượng chữ ký. Bài 07 dùng ba tiêu chí chất lượng, thời gian và bộ nhớ để so các cấu trúc chỉ mục.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Hai loại sai số có bản chất khác nhau. Ứng viên giả là chi phí: chúng làm tăng $K$ và thời gian xác minh, nhưng không xuất hiện trong kết quả. Cặp bị bỏ sót là mất mát: không bước nào sau đó tìm lại được. Đổi $b$, $r$ dịch ngưỡng của đường cong S, nên giảm một loại sai số thường làm tăng loại kia. Bảo đảm của LSH là bảo đảm xác suất theo cặp; chi phí thực tế phụ thuộc phân bố kích thước thùng của dữ liệu, không chỉ dung lượng chữ ký. Với kho $C=10^6$ của mở bài, trường hợp xấu nhất cho $K\approx5\cdot10^{11}$, đúng số cặp ban đầu. Bài 07 dùng ba tiêu chí chất lượng, thời gian và bộ nhớ để so các cấu trúc chỉ mục.
 - **Nguồn:** B §3.4.2–3, §3.6.3; sources/source.md, Bài 07.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 1.5 phút.
 
@@ -725,7 +725,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** Câu 1→MT4; câu 2→MT5–MT6; câu 3→MT2, MT6. Đáp án đã tính lại: $5/6$, $1/2$, $0{,}9066$, $0{,}4375$; $128\,Cm$ phép nhân.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba yêu cầu một cột; đáp án và tiêu chí chỉ ở ghi chú.
 - **Kết nối vào–ra:** Tự kiểm nửa đầu→nửa sau; bài tập nguồn cung cấp vết chạy đầy đủ hơn.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: $p_1=1-1/6=5/6$, $p_2=1/2$; $F(p)=1-(1-p^2)^2$ cho $F(5/6)\approx0{,}9066$ và $F(1/2)=0{,}4375$. Câu 2: họ siêu phẳng, vì góc chỉ phụ thuộc hướng; tính chữ ký cần $C\cdot m\cdot128$ phép nhân, tức $O(128\,Cm)$, và lưu $m$ bit mỗi ảnh cùng $128m$ số cho các pháp tuyến. Câu 3: $P_{b,r}(s)$ tăng với mọi $s$, nên ít cặp bỏ sót hơn nhưng nhiều cặp xa thành ứng viên hơn, $K$ và thời gian xác minh tăng. Tiêu chí: đổi góc sang radian trước khi dùng $1-\theta/\pi$; tách chi phí tính chữ ký khỏi chi phí phân dải; nêu đủ hai chiều của đánh đổi.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: $p_1=1-1/6=5/6$, $p_2=1/2$; $F(p)=1-(1-p^2)^2$ cho $F(5/6)\approx0{,}9066$ và $F(1/2)=0{,}4375$. Câu 2: họ siêu phẳng, vì góc chỉ phụ thuộc hướng; tính chữ ký cần $C\cdot m\cdot128$ phép nhân, tức $O(CmD)$ với $D=128$, và lưu $m$ bit mỗi ảnh cùng $128m$ số cho các pháp tuyến. Câu 3: $P_{b,r}(s)$ tăng với mọi $s$, nên ít cặp bỏ sót hơn nhưng nhiều cặp xa thành ứng viên hơn, $K$ và thời gian xác minh tăng. Tiêu chí: đổi góc sang radian trước khi dùng $1-\theta/\pi$; tách chi phí tính chữ ký khỏi chi phí phân dải; nêu đủ hai chiều của đánh đổi.
 - **Nguồn:** B Ex 3.19–20, §3.7.2, §3.8.5; tổng hợp MT4–MT6.
 - **Ánh xạ ghi chú:** `N14`. **Thời lượng:** 2 phút.
 
@@ -740,7 +740,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** R1 phần đầu; đáp án 27 giá trị ở bảng lời giải phía sau trong storyboard; không đổi thứ tự (r, b).
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trên là công thức/dữ kiện; dưới bảng trống 9 hàng × 3 cột chỉ chứa nhãn để làm bài. Năm 2 tính có hệ thống, không cần chép số nguồn dài; đáp án trong notes/ghi chú.
 - **Kết nối vào–ra:** Tự kiểm→tính đường xác suất; bảng dẫn tới điểm xác suất một nửa.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án theo $s=0{,}1;\ldots;0{,}9$. Cấu hình $(r,b)=(3;10)$: $0{,}009955$; $0{,}077181$; $0{,}239449$; $0{,}483871$; $0{,}736924$; $0{,}912267$; $0{,}985015$; $0{,}999234$; $0{,}999998$. Cấu hình $(6,20)$: $0{,}000020$; $0{,}001279$; $0{,}014479$; $0{,}078809$; $0{,}270187$; $0{,}615415$; $0{,}918186$; $0{,}997712$; $0{,}9999997$. Cấu hình $(5,50)$: $0{,}000500$; $0{,}015875$; $0{,}114540$; $0{,}402284$; $0{,}795551$; $0{,}982534$; $0{,}999899$; $0{,}999999998$; giá trị cuối làm tròn thành 1 nhưng không bằng 1 chính xác. Tiêu chí: giữ đúng $r$ và $b$, tính đủ 27 giá trị, chỉ làm tròn sau lũy thừa.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đáp án theo $s=0{,}1;\ldots;0{,}9$. Cấu hình $(r,b)=(3,10)$: $0{,}009955$; $0{,}077181$; $0{,}239449$; $0{,}483871$; $0{,}736924$; $0{,}912267$; $0{,}985015$; $0{,}999234$; $0{,}999998$. Cấu hình $(6,20)$: $0{,}000020$; $0{,}001279$; $0{,}014479$; $0{,}078809$; $0{,}270187$; $0{,}615415$; $0{,}918186$; $0{,}997712$; $0{,}9999997$. Cấu hình $(5,50)$: $0{,}000500$; $0{,}015875$; $0{,}114540$; $0{,}402284$; $0{,}795551$; $0{,}982534$; $0{,}999899$; $0{,}999999998$; giá trị cuối làm tròn thành 1 nhưng không bằng 1 chính xác. Tiêu chí: giữ đúng $r$ và $b$, tính đủ 27 giá trị, chỉ làm tròn sau lũy thừa.
 - **Nguồn:** B Bài 3.4.1, §3.4.4, tr.96/PDF 25; dịch nguyên yêu cầu, không lược cấu hình.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 12 phút.
 
@@ -787,7 +787,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính đủ chữ ký và đối chiếu góc thật cho Bài 3.7.2.
 - **Thông điệp:** Bốn phép thử cố định cho một ước lượng góc có thể sai lệch.
-- **Nội dung công khai dự kiến:** Câu hỏi: $v_1=(1,1,1,-1)$ $v_2=(1,1,-1,1)$ $v_3=(1,-1,1,1)$ $v_4=(-1,1,1,1)$ $x=(2,3,4,5),\ y=(-2,3,-4,5),\ z=(2,-3,4,-5)$ Tính chữ ký dấu của cả ba vector. Với mỗi cặp, tính góc ước lượng từ chữ ký và góc thật. Sản phẩm: bảng tích/dấu và bảng ba cặp góc; $\operatorname{sign}(0)=+1$.
+- **Nội dung công khai dự kiến:** Câu hỏi: $v_1=(1,1,1,-1)$ $v_2=(1,1,-1,1)$ $v_3=(1,-1,1,1)$ $v_4=(-1,1,1,1)$ $x=(2,3,4,5),\ y=(-2,3,-4,5),\ z=(2,-3,4,-5)$ Tính chữ ký dấu của cả ba vector. Với mỗi cặp, tính góc ước lượng từ chữ ký và góc thật. Quy ước $\operatorname{sign}(0)=+1$. Sản phẩm: bảng tích/dấu và bảng ba cặp góc.
 - **Đầu vào và giả thiết:** Cơ chế chữ ký dấu; quy tắc dấu tại 0 là +1; máy tính hỗ trợ arccos.
 - **Dữ kiện, hình thức hóa và vết chạy:** R4 giữ nguyên ba vector và bốn pháp tuyến. Đây là mẫu dấu cố định, không được gán phân phối đẳng hướng.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Dữ kiện bốn pháp tuyến ở trên theo nhóm 2 × 2; ba vector ở giữa; nhiệm vụ ở đáy. Sinh viên năm 2 cần đủ dữ kiện trên một trang; các bảng kết quả thuộc notes để giữ khả năng đọc.
@@ -805,7 +805,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** R5 giữ nguyên (a–c); phần (d) chuyển sang N15. Các biên khoảng giữ nguyên sách.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba điểm và quy ước biên ở trên; hai bảng trống có cùng cột trục 1,2,3 ở dưới. Sinh viên năm 2 so hai độ rộng trên cùng dữ kiện; đáp án tập cặp thuộc notes.
 - **Kết nối vào–ra:** Phép băm dấu dùng hướng; phép chiếu chia khoảng dùng tọa độ và độ rộng. Bài vân tay kế tiếp dùng lại phép ghép để so sai số.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Với $a=1$, mã của ba điểm lần lượt là $(1,2,3),(0,2,4),(4,3,2)$, chỉ có cặp $(1,2)$. Với $a=2$, các mã là $(0,1,1),(0,1,2),(2,1,1)$, cả ba cặp đều là ứng viên. Tiêu chí: dùng hàm sàn đúng tại biên, chỉ so trong cùng trục, hợp và khử lặp đúng. Ba trục cố định không tự cho bảo đảm xác suất của họ hướng ngẫu nhiên. Sách ký hiệu ba điểm là $p_1,p_2,p_3$. Nguồn: Bài 3.7.5(a–c), tr.114.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Với $a=1$, mã của ba điểm lần lượt là $(1,2,3),(0,2,4),(4,3,2)$, chỉ có cặp $(1,2)$. Với $a=2$, các mã là $(0,1,1),(0,1,2),(2,1,1)$, cả ba cặp đều là ứng viên. Tiêu chí: dùng hàm sàn đúng tại biên, chỉ so trong cùng trục, hợp và khử lặp đúng. Ba trục cố định không tự cho bảo đảm xác suất của họ hướng ngẫu nhiên. Sách ký hiệu ba điểm là $p_1,p_2,p_3$.
 - **Nguồn:** B Bài 3.7.5(a–c), §3.7.6, tr.114/PDF 43; chuyển (d) sang đọc thêm.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 8 phút.
 
@@ -818,7 +818,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Dữ kiện, hình thức hóa và vết chạy:** R6 giữ nguyên Bài 3.8.2(a, b). Hai cấu trúc cùng 2048 phép thử; đây là trang kiểm tra tổng hợp của phần 7.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Giả thiết mô hình ở trên; hai sơ đồ nhóm ở giữa; hai nhiệm vụ dưới. Sinh viên năm 2 cần suy xác suất cơ sở rồi áp dụng phép ghép; không dùng giá trị đã làm tròn làm đầu vào.
 - **Kết nối vào–ra:** Các phép băm cơ sở dẫn đến việc chọn cách khuếch đại; bài kết thúc bằng đánh đổi có điều kiện giữa hai loại lỗi.
-- **Diễn giải học thuật, lời giải và tiêu chí:** $q_F=0{,}000064$, $q_T=0{,}004096$. OR 2048 cho xác suất nhận cặp khác ngón $1-(1-q_F)^{2048}\approx0{,}122849$ và bỏ sót $(1-q_T)^{2048}\approx0{,}000224$. AND hai nhóm OR 1024 cho $0{,}004024$ và $0{,}029680$. Cùng 2048 hàm, OR 2048 gần như không bỏ sót nhưng nhận khoảng $12\%$ cặp khác ngón; AND hai nhóm nhận khoảng 30 lần ít hơn, đổi lại bỏ sót khoảng $3\%$. Tiêu chí: suy đúng hai xác suất cơ sở, nêu độc lập, ghép đúng thứ tự, dùng giá trị chưa làm tròn và so cùng 2048 hàm. Nguồn: Bài 3.8.2(a, b), tr.121.
+- **Diễn giải học thuật, lời giải và tiêu chí:** $q_F=0{,}000064$, $q_T=0{,}004096$. OR 2048 cho xác suất nhận cặp khác ngón $1-(1-q_F)^{2048}\approx0{,}122849$ và bỏ sót $(1-q_T)^{2048}\approx0{,}000224$. AND hai nhóm OR 1024 cho $0{,}004024$ và $0{,}029680$. Cùng 2048 hàm, OR 2048 gần như không bỏ sót nhưng nhận khoảng $12\%$ cặp khác ngón; AND hai nhóm nhận khoảng 30 lần ít hơn, đổi lại bỏ sót khoảng $3\%$. Tiêu chí: suy đúng hai xác suất cơ sở, nêu độc lập, ghép đúng thứ tự, dùng giá trị chưa làm tròn và so cùng 2048 hàm.
 - **Nguồn:** B Bài 3.8.2(a, b), §3.8.7, tr.121/PDF 50; kiểm tra tổng hợp.
 - **Ánh xạ ghi chú:** `N16`. **Thời lượng:** 8 phút.
 

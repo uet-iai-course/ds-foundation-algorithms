@@ -466,3 +466,27 @@ Phát hiện ngoài phạm vi về ghi chú s06-01 đã được xử lý trong 
 | lec06-s07-05 | Bài 3.7.2: chữ ký dấu của ba vector và góc ước lượng/góc thật. | sửa nhẹ | Giữ tiêu đề và mặt trang. Ghi chú bỏ thời lượng; danh sách góc phân tách bằng dấu chấm phẩy; góc thật $74{,}97^\circ$; $105{,}03^\circ$ (đã tính lại: $\cos\theta=\pm14/54$). | Ghi chú bài giảng Bài 3.7.2: số thập phân dấu phẩy. |
 | lec06-s07-06 | Bài 3.7.5(a–c): thùng chiếu trên ba trục. | sửa nhẹ | Ghi chú bỏ thời lượng. Tên điểm đã đổi $z_1,z_2,z_3$ ở commit s04-06. | Không đổi thêm. |
 | lec06-s07-07 | Bài 3.8.2(a,b): OR 2048 so với AND hai nhóm OR 1024. | sửa | Tiêu đề “So sánh hai phép ghép vân tay” → “So sánh hai cấu trúc ghép cho vân tay”. Số thập phân dấu phẩy trên mặt trang; “ứng viên giả và bỏ sót” viết theo thuật ngữ s05-04 (“nhận cặp khác ngón”, “bỏ sót cặp cùng ngón”). Ghi chú bỏ thời lượng, số dấu phẩy, thêm nhận xét định lượng cùng ngân sách (khoảng 30 lần; $12\%$ so với $3\%$, đã tính lại). Dữ kiện và yêu cầu giữ nguyên. | Ghi chú bài giảng Bài 3.8.2: số thập phân dấu phẩy, thống nhất thuật ngữ. |
+
+### Rà lại phần 6–7 và mạch toàn deck
+
+Tác tử rà chỉ đọc: vai trò chính xác toán–thuật toán (phần 6–7) và mạch lập luận toàn deck (60 trang theo thứ tự trình chiếu); kiểu `fork` của công cụ Agent, mô hình Claude Opus 5.5, effort `high`. Tác tử tính lại mọi đáp án của s06-03/04 và sáu cụm bài tập (27 giá trị Bài 3.4.1, ba ngưỡng Bài 3.4.2, bốn biểu thức Bài 3.6.1, sáu tập chỉ số Bài 3.7.1, chữ ký và góc Bài 3.7.2, mã thùng Bài 3.7.5, xác suất Bài 3.8.2) và đối chiếu thêm s02-12; tất cả đúng. Dữ kiện bài tập giữ nguyên; không còn thời lượng hay mã trang trong ghi chú diễn giả; không còn số thập phân dấu chấm trên deck và ghi chú; tiêu đề phiếu khớp h2 cả 60 trang. Các ranh giới phần 1→2, 2→3, 3→4, 4→5, 5→6 được đánh giá liên kết đủ.
+
+| Mức độ | Trang chiếu | Vấn đề | Quyết định |
+|---|---|---|---|
+| trung bình | s01-02 | Mục tiêu không nói tới AND/OR và ba ứng dụng, nên không đối chiếu được với câu hỏi tổng hợp. | Đã sửa: mục 2 thêm “cách ghép AND/OR”, mục 3 thêm “áp dụng cho thực thể, vân tay, bản tin”; ghi chú nêu ánh xạ. |
+| trung bình | s02-12 ↔ s07-01/02 | $(20,5)$ nghĩa $(b,r)$ ngược với $(r,b)$ của bài tập. | Đã sửa: s02-12 ghi “$b=20$, $r=5$”, “$b=r=10$” trên mặt trang và ghi chú. Bảng ghi chú bài giảng có tiêu đề cột $(b,r)$ nên giữ. |
+| nhẹ | s07-01 (ghi chú) | $(3;10)$ khác $(6,20)$. | Đã sửa thành $(3,10)$. |
+| nhẹ | s07-06, s07-07 (ghi chú) | Dòng nguồn lặp. | Đã bỏ câu nguồn trong đoạn đầu. |
+| nhẹ | s05-02 (ghi chú) | Câu điều hướng “ở trang sau”. | Đã sửa: “khác mô hình $q_T$, $q_F$”. |
+| nhẹ | s06-04 (ghi chú) | Hằng số trong ký hiệu $O$. | Đã sửa: $O(CmD)$ với $D=128$. |
+| nhẹ | ghi chú Bài 3.4.1–2, mục ngưỡng | $b^{-1/r}$ khác $(1/b)^{1/r}$ của deck. | Đã thống nhất $(1/b)^{1/r}$ trong toàn bộ ghi chú. |
+| nhẹ | ghi chú “Tổng hợp và tự kiểm” | $P(s)$ thiếu chỉ số. | Đã sửa thành $P_{b,r}(s)$. |
+| nhẹ | ghi chú, gợi ý Bài 3.7.5 | $x_i$ không khớp tên điểm $z_j$. | Đã sửa bằng câu văn. |
+| nhẹ | s07-05 | “Sản phẩm” nằm trong `ex-note`. | Đã tách: quy ước dấu ở `ex-note`, sản phẩm ở `ex-takeaway`. |
+| nhẹ | storyboard s06-01 | Trường Dữ kiện mô tả bản cũ. | Đã sửa. |
+| nhẹ | s03-05 | Khoảng cách chỉnh sửa không có họ LSH, khái niệm treo. | Đã sửa: ghi chú nêu MMDS chương 3 không xây họ riêng cho độ đo này và vai trò của nó trong bài (so với Hamming, minh họa tiên đề). |
+| nhẹ | s06-02 ↔ s01-03 | Kết bài chưa khép con số $C=10^6$. | Đã sửa: ghi chú s06-02 nêu $K\approx5\cdot10^{11}$ trong trường hợp xấu nhất. |
+| nhẹ | s06-04 → s07-01 | Phần bài tập vào thẳng câu hỏi. | Giữ: phần 7 là phần thực hành tách riêng, có nhãn phần và tiêu đề bài nguồn trên từng trang. |
+| nhẹ | storyboard phần 2–3 | Số thập phân dấu chấm trong phiếu. | Giữ: tài liệu lập kế hoạch nội bộ, sinh viên không thấy; ghi nhận là giới hạn. |
+
+Thêm: bốn câu hỏi tự kiểm trong ghi chú bài giảng dạng “…không?”/“Vì sao…?” viết lại dạng yêu cầu (“Giải thích…”, “Xác định…”, “nêu…”).

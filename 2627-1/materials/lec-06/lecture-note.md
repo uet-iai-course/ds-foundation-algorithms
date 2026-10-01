@@ -36,7 +36,7 @@ Băm nhạy cảm theo tính cục bộ (LSH) tổ chức các phép thử sao c
 
 
 ::: exercise
-Câu hỏi: (a) Với kho một triệu tài liệu và chữ ký đã vừa bộ nhớ, giới hạn nào vẫn còn? Nêu tập trung gian cần tạo trước khi kiểm Jaccard gốc. (b) Với $C=10^5$ tài liệu và $1\,\mu s$ mỗi cặp, tính số cặp và tổng thời gian.
+Câu hỏi: (a) Với kho một triệu tài liệu và chữ ký đã vừa bộ nhớ, nêu giới hạn còn lại. Nêu tập trung gian cần tạo trước khi kiểm Jaccard gốc. (b) Với $C=10^5$ tài liệu và $1\,\mu s$ mỗi cặp, tính số cặp và tổng thời gian.
 :::
 
 ::: solution
@@ -211,7 +211,7 @@ $$
 s_{1/2}=(1-2^{-1/b})^{1/r}.
 $$
 
-Giá trị $b^{-1/r}$ là xấp xỉ thường dùng cho vùng chuyển tiếp, không phải đẳng thức trên. Với $b=20,r=5$, ba số có thể là $t=0{,}8$, $s_{1/2}\approx0{,}508695962$ và $b^{-1/r}\approx0{,}549280272$. Chúng có vai trò khác nhau. Bước 4 của §3.4.3 chọn $b,r$ sao cho $(1/b)^{1/r}\approx t$; nếu cần tránh bỏ sót thì đặt giá trị này thấp hơn $t$, nếu cần hạn chế ứng viên giả để chạy nhanh thì đặt cao hơn $t$.
+Giá trị $(1/b)^{1/r}$ là xấp xỉ thường dùng cho vùng chuyển tiếp, không phải đẳng thức trên. Với $b=20,r=5$, ba số có thể là $t=0{,}8$, $s_{1/2}\approx0{,}508695962$ và $(1/b)^{1/r}\approx0{,}549280272$. Chúng có vai trò khác nhau. Bước 4 của §3.4.3 chọn $b,r$ sao cho $(1/b)^{1/r}\approx t$; nếu cần tránh bỏ sót thì đặt giá trị này thấp hơn $t$, nếu cần hạn chế ứng viên giả để chạy nhanh thì đặt cao hơn $t$.
 
 ![Hai cấu hình cùng 100 hàng tạo các đường xác suất ứng viên khác nhau.](img/lec-06/xac-suat-phan-dai.svg)
 
@@ -223,7 +223,7 @@ Giá trị $b^{-1/r}$ là xấp xỉ thường dùng cho vùng chuyển tiếp, 
 Cấu hình thứ hai giảm cơ hội nhận cặp có Jaccard 0,3 nhưng cũng giảm mạnh cơ hội nhận cặp có Jaccard 0,8. Với $r=1$, đường xác suất không có hình chữ S; tên “đường xác suất ứng viên” áp dụng mà không cần giả định hình dạng ấy. Diện tích tô dưới hoặc trên đường cũng không là tỷ lệ lỗi toàn kho khi chưa biết phân bố độ tương đồng của các cặp.
 
 ::: exercise
-Câu hỏi: Với hai cấu hình trong bảng, cấu hình nào phù hợp hơn nếu ưu tiên giảm bỏ sót ở $s=0{,}8$? Cấu hình nào giảm số cặp được chọn ở $s=0{,}3$?
+Câu hỏi: Với hai cấu hình trong bảng, xác định cấu hình phù hợp hơn khi ưu tiên giảm bỏ sót ở $s=0{,}8$, và cấu hình giảm số cặp được chọn ở $s=0{,}3$.
 :::
 
 ::: solution
@@ -277,7 +277,7 @@ Mỗi số hạng là kỳ vọng của một biến chỉ báo cho cặp hoặc
 
 
 ::: exercise
-Câu hỏi: Vì sao thay $Q$ bằng $K$ trong chi phí phát cặp là sai? Dùng vết chạy $Q=4,K=3$ để giải thích.
+Câu hỏi: Giải thích vì sao thay $Q$ bằng $K$ trong chi phí phát cặp là sai. Dùng vết chạy $Q=4,K=3$ để giải thích.
 :::
 
 ::: solution
@@ -371,7 +371,7 @@ Trên vector đặc, chuẩn, góc và Hamming đều tính được bằng mộ
 
 
 ::: exercise
-Câu hỏi: Với $x=(1,2,-1)$ và $y=(2,1,1)$, phân biệt cosin với góc. Vì sao Hamming của hai vector $10101,11110$ đếm vị trí khác, còn chỉnh sửa chuỗi cho phép thay đổi cách căn chỉnh?
+Câu hỏi: Với $x=(1,2,-1)$ và $y=(2,1,1)$, phân biệt cosin với góc. Giải thích vì sao Hamming của hai vector $10101,11110$ đếm vị trí khác, còn chỉnh sửa chuỗi cho phép thay đổi cách căn chỉnh.
 :::
 
 ::: solution
@@ -612,7 +612,7 @@ Một phép băm tính tích vô hướng, cộng dịch, chia cho $a$ rồi l�
 
 
 ::: exercise
-Câu hỏi: Khi $\ell<a$, hai hình chiếu có chắc chung thùng không? Nêu nguồn ngẫu nhiên và điều kiện số chiều của bộ $(a/2,2a,1/2,1/3)$.
+Câu hỏi: Khi $\ell<a$, xác định hai hình chiếu có chắc chung thùng hay không. Nêu nguồn ngẫu nhiên và điều kiện số chiều của bộ $(a/2,2a,1/2,1/3)$.
 :::
 
 ::: solution
@@ -740,7 +740,7 @@ Nguồn: MMDS 3e, §3.8.6, Ví dụ 3.24, tr.120–121.
 
 ## Tổng hợp và tự kiểm
 
-Một quy trình tìm cặp cần quyết định biểu diễn, độ đo, họ cơ sở, cấu trúc ghép, cách tổ chức thùng và phép xác minh. Ba ứng dụng chỉ thay phần đầu của quy trình: bản tin đổi biểu diễn, vân tay và đối sánh thực thể đổi họ hàm; dựng thùng, khử lặp và xác minh giữ nguyên. $P(s)$ mô tả một xác suất theo cặp; $Q$ và $K$ đếm công việc. Kiểm chính xác trên tập gốc bảo đảm kết quả trong tập ứng viên, còn cặp đạt ngưỡng chưa sinh vẫn có thể bị bỏ sót. Hai loại sai số vì vậy khác bản chất: ứng viên giả là chi phí, làm tăng $K$ và thời gian xác minh; cặp bỏ sót là mất mát, không bước nào sau đó tìm lại được. Trường hợp xấu nhất mọi đối tượng chung thùng cho $K=\binom C2$. Với kho một triệu tài liệu ở mở bài, hiệu quả phụ thuộc lượng cặp thực tế được sinh, không chỉ dung lượng chữ ký.
+Một quy trình tìm cặp cần quyết định biểu diễn, độ đo, họ cơ sở, cấu trúc ghép, cách tổ chức thùng và phép xác minh. Ba ứng dụng chỉ thay phần đầu của quy trình: bản tin đổi biểu diễn, vân tay và đối sánh thực thể đổi họ hàm; dựng thùng, khử lặp và xác minh giữ nguyên. $P_{b,r}(s)$ mô tả một xác suất theo cặp; $Q$ và $K$ đếm công việc. Kiểm chính xác trên tập gốc bảo đảm kết quả trong tập ứng viên, còn cặp đạt ngưỡng chưa sinh vẫn có thể bị bỏ sót. Hai loại sai số vì vậy khác bản chất: ứng viên giả là chi phí, làm tăng $K$ và thời gian xác minh; cặp bỏ sót là mất mát, không bước nào sau đó tìm lại được. Trường hợp xấu nhất mọi đối tượng chung thùng cho $K=\binom C2$. Với kho một triệu tài liệu ở mở bài, hiệu quả phụ thuộc lượng cặp thực tế được sinh, không chỉ dung lượng chữ ký.
 
 ::: exercise
 Câu hỏi:
@@ -810,7 +810,7 @@ Nguồn: §3.4.4, tr.96.
 Câu hỏi:
 
 1. Tính $P(s)=1-(1-s^r)^b$ cho $s=0{,}1;\ 0{,}2;\ \ldots;\ 0{,}9$ với ba cấu hình $(r,b)=(3,10),(6,20),(5,50)$.
-2. Với từng cấu hình, tìm $s$ để $P(s)=1/2$ và so với xấp xỉ $b^{-1/r}$.
+2. Với từng cấu hình, tìm $s$ để $P(s)=1/2$ và so với xấp xỉ $(1/b)^{1/r}$.
 
 Sản phẩm: bảng 27 xác suất; phép biến đổi và bảng ba cặp ngưỡng.
 :::
@@ -834,7 +834,7 @@ Giữ thứ tự $(r,b)$ của đề. Tính lũy thừa trước khi làm tròn.
 
 Biến đổi $1-(1-s^r)^b=1/2$ cho $s=(1-2^{-1/b})^{1/r}$. Các kết quả:
 
-| $(r,b)$ | Nghiệm chính xác | Xấp xỉ $b^{-1/r}$ |
+| $(r,b)$ | Nghiệm chính xác | Xấp xỉ $(1/b)^{1/r}$ |
 |---|---:|---:|
 | $(3,10)$ | 0,406088134 | 0,464158883 |
 | $(6,20)$ | 0,569353387 | 0,606962231 |
@@ -955,7 +955,7 @@ Sản phẩm: hai bảng mã theo trục và hai tập cặp. Phần (d) đượ
 :::
 
 ::: hint
-Mã ở trục $i$ là $\lfloor x_i/a\rfloor$. Chỉ so mã trong cùng trục; số dải hoặc trục là một phần của khóa.
+Mã của một điểm ở trục $i$ là phần nguyên của tọa độ thứ $i$ chia cho $a$. Chỉ so mã trong cùng trục; số dải hoặc trục là một phần của khóa.
 :::
 
 ::: solution

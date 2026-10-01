@@ -207,3 +207,15 @@ Quill được áp dụng ở mức Outline/Revise để kiểm thứ tự và l
 - N15: độ trễ là ngày tạo B trừ ngày tạo A, lọc 0–90 ngày. Trung bình ngẫu nhiên 45 dùng giả thiết đủ là độ trễ đều; đây là phần làm rõ mô hình đã được điều phối duyệt. Nhóm điểm tối đa 300 được giả định khớp đúng và có trung bình 10 ngày. Công thức hỗn hợp giữ nguyên.
 
 Mục tiêu mở đầu thay đổi đòi tái rà mạch toàn tuyến. Bất biến, nhận diện khoảng cách–xác suất, quy tắc góc, hình học Euclid và giả thiết mô hình ngày cần tái rà toán. Cầu nối hình thức hóa cần tái rà học thuật. Không coi tự kiểm editor hoặc snapshot render trước sửa là PASS cuối.
+
+## Duyệt từng trang ngày 02/10/2026
+
+Lượt duyệt theo yêu cầu người dùng: với mỗi trang, xác định trang muốn nói gì, đề xuất rồi sửa để tiêu đề ngắn gọn, học thuật, lập luận chặt và khái niệm không xuất hiện đột ngột; sau mỗi trang sửa mục tương ứng của ghi chú tự học, commit và push. Chi tiết từng trang và các lượt rà lại theo phần nằm trong `review-log.md`, mục cùng tên.
+
+- **Cấu trúc.** Deck giữ 60 trang (53 giảng, 7 bài tập), bảy phần 5/14/13/11/6/4/7. Hai thay đổi thứ tự: s02-06 (ví dụ trùng dải) đặt ngay sau s02-01 để trực giác có ví dụ trước đặc tả; s04-05 (xác suất cùng phía siêu phẳng) đặt trước s04-04 (chữ ký dấu) vì quy tắc ước lượng góc dùng kết quả $p_{\ne}=\theta/\pi$, khớp thứ tự MMDS §3.7.2 rồi §3.7.3. Thời lượng không đổi.
+- **Câu nối mới.** Bài toán tìm cặp có đầu vào/đầu ra (s01-04); định nghĩa ứng viên giả trước khi đếm (s02-01, s02-05); quy tắc chọn ngưỡng §3.4.3 (s02-12); nhu cầu khuếch đại độ chênh $p_1-p_2$ (s03-09); $F(s)=P_{4,4}(s)$ nối phép ghép với đường cong S (s03-12); bộ tham số nhạy cảm của cả ba họ theo độ đo (s04-02, s04-05, s04-09); lý do cần độ lớn và phép dịch (s04-06, s04-07); OR của ba khóa trong đối sánh thực thể (s05-01); lý do không dùng MinHash cho vân tay (s05-02); bài toán bản tin trước định nghĩa từ dừng (s05-05); ba bước quy trình gắn với kết quả từng phần và hai loại sai số (s06-01, s06-02).
+- **Câu hỏi kiểm tra.** Các trang s01-05, s02-14, s03-13, s04-11, s05-06, s06-03, s06-04 thay câu có đáp án trên mặt trang trước bằng câu vận dụng với dữ kiện mới; đáp án đã tính lại bằng chương trình.
+- **Ký hiệu.** Số thập phân dùng dấu phẩy trên deck và ghi chú, bộ tham số thập phân dùng dấu chấm phẩy; không còn chữ Việt trong `\text` của KaTeX; ba điểm của Bài 3.7.5 đổi $p_i\to z_i$ để không trùng hai cận $p_1,p_2$ (dữ kiện V11 ở bảng trên đã cập nhật); “khoảng cách” chỉ dùng cho độ đo, hiệu hai cận gọi là “độ chênh”.
+- **Tiêu đề.** 43 trong 59 tiêu đề `h2` đổi theo khái niệm hoặc kết quả trung tâm.
+- **Bài tập.** Dữ kiện và yêu cầu của sáu cụm recitation giữ nguyên; ghi chú diễn giả bỏ dòng thời lượng (thời lượng chỉ còn trong storyboard).
+- **Ghi chú tự học.** Mọi mục được cập nhật theo các câu nối mới; thêm mục “Chi phí tính chữ ký của ba họ”; mục siêu phẳng sắp lại theo thứ tự định nghĩa → xác suất → chữ ký → ví dụ; các bài tự kiểm có đáp án trong đoạn ngay trước được thay bằng dữ kiện mới.
