@@ -1263,7 +1263,7 @@ Nguồn: Đặc tả phép quét trong MMDS 3e, §3.3.5; quy ước cho cột r�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 37. Ví dụ các hàm băm hàng
+### 37. Hai hàm băm hàng
 
 - **Mã:** `lec05-s05-03`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Ví dụ chuẩn bị; đọc ánh xạ nhãn và giá trị. **Mục tiêu:** MT5.
@@ -1293,7 +1293,7 @@ Sắp tăng: $f_1$ cho $(e,a,b,c,d)$; $f_2$ cho $(d,a,c,e,b)$, đúng hai thứ 
 
 **Ghi chú diễn giả học thuật**
 
-Mã hàng r chỉ là tên số của phần tử. Với r=3 là d, hai giá trị băm là 4 và 0; chúng không phải vị trí của d trong ma trận gốc. Các giá trị của mỗi hàm đều khác nhau trong ví dụ này, nên mỗi hàm xác định một thứ tự khi sắp tăng. Hai thứ tự ấy đã dùng trong ví dụ chữ ký định danh. Với $S_1,S_4$, tọa độ đầu chọn $a\leftrightarrow0$, lưu $f_1(0)=1$; tọa độ hai chọn $d\leftrightarrow3$, lưu $f_2(3)=0$.
+Cột “Các cột có 1” là danh sách các cột chứa phần tử của mỗi hàng, tức vị trí các ô 1 khi lưu ma trận thưa; thuật toán duyệt danh sách này thay vì kiểm cả hàng. Mã hàng $r$ chỉ là tên số của phần tử. Với r=3 là d, hai giá trị băm là 4 và 0; chúng không phải vị trí của d trong ma trận gốc. Các giá trị của mỗi hàm đều khác nhau trong ví dụ này, nên mỗi hàm xác định một thứ tự khi sắp tăng. Hai thứ tự ấy đã dùng trong ví dụ chữ ký định danh. Với $S_1,S_4$, tọa độ đầu chọn $a\leftrightarrow0$, lưu $f_1(0)=1$; tọa độ hai chọn $d\leftrightarrow3$, lưu $f_2(3)=0$.
 
 Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
 
