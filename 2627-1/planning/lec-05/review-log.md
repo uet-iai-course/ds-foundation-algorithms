@@ -1310,3 +1310,4 @@ Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) t
 | lec05-s04-06 | (nhẹ) Ghi chú viết công thức thường. | sửa | Dùng $C(C-1)/2$, $n$ trong KaTeX. |
 | ghi chú mục 7 | (nhẹ) Câu chèn làm “Đây” chỉ sai đối tượng. | sửa | Đưa câu về cỡ $n$ ra sau câu “Đây là một kiểu hàng khác…”. |
 | lec05-s05-01 | (nhẹ, ngoài phạm vi) Ranh giới s04-07 → s05-01 đột ngột. | đã xử lý | Sửa ở commit 1a450cc (nhu cầu và vai trò $f_i$ lên mặt trang). |
+| lec05-s05-02 | Đặc tả: đầu vào $M$, $f_1,\ldots,f_n$ dùng chung; đầu ra $\mathrm{SIG}(i,c)$ là cực tiểu trên các hàng có 1, cột rỗng nhận $+\infty$. | sửa | Tiêu đề “Đặc tả tính chữ ký” → “Đặc tả bài toán tính chữ ký”. Ba dòng rời (tham số, miền chỉ số, hàm) gộp thành hai dòng có nhãn “Đầu vào”, “Đầu ra” theo mục 3 của tiêu chuẩn soạn slide. Công thức và quy ước $+\infty$ giữ. | Không đổi; mục 9 đã có đặc tả với cùng miền, hàm và quy ước. |

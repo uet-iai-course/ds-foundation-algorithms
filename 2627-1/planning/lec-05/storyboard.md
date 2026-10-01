@@ -1227,7 +1227,7 @@ Nguồn: MMDS 3e, §3.3.5, tr. 84–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 36. Đặc tả tính chữ ký
+### 36. Đặc tả bài toán tính chữ ký
 
 - **Mã:** `lec05-s05-02`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Mục đích và vai trò:** Đặc tả; xác định kiểu, miền và hậu điều kiện. **Mục tiêu:** MT5.
@@ -1243,17 +1243,15 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-$R,C,n$ nguyên dương; $M\in\{0,1\}^{R\times C}$.
+Đầu vào: $M\in\{0,1\}^{R\times C}$, hàng $r=0,\ldots,R-1$, cột $c=1,\ldots,C$.
 
-$r=0,\ldots,R-1$; $c=1,\ldots,C$; $i=1,\ldots,n$.
+Các hàm $f_i:\{0,\ldots,R-1\}\to V$, $i=1,\ldots,n$, dùng chung cho mọi cột; $V$ hữu hạn, có thứ tự toàn phần.
 
-$f_i:\{0,\ldots,R-1\}\to V$, với $V$ hữu hạn có thứ tự toàn phần; các hàm dùng chung cho mọi cột.
+Đầu ra: ma trận $\mathrm{SIG}$ kích thước $n\times C$ với
 
-$$
-\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):M(r,c)=1\}\cup\{+\infty\}\bigr)
-$$
+$$\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):M(r,c)=1\}\cup\{+\infty\}\bigr)$$
 
-$+\infty$ lớn hơn mọi giá trị trong $V$. Cột rỗng trả $+\infty$ ở mọi thành phần.
+$+\infty$ lớn hơn mọi giá trị trong $V$. Cột rỗng nhận $+\infty$ ở mọi thành phần.
 
 **Ghi chú diễn giả học thuật**
 
