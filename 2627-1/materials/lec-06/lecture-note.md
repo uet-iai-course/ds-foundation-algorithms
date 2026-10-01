@@ -497,14 +497,34 @@ Nhân $x$ với $c>0$ không đổi dấu của $v\cdot x$, nên giá trị băm
 
 ![Pháp tuyến vuông góc mặt phân chia; hai phía nhận hai dấu.](img/lec-06/phap-tuyen-dau.svg)
 
-Trong mô hình pháp tuyến đẳng hướng, hướng được chọn không ưu tiên hướng nào. Với hai vector khác 0 tạo góc $\theta\in[0,\pi]$ đo radian, xác suất khác dấu là $p_{\ne}=\theta/\pi$. Vì thế, với $m>0$ phép thử, quy tắc ước lượng góc thay xác suất bằng tỷ lệ bit khác quan sát được:
+Trong mô hình pháp tuyến đẳng hướng, mọi hướng của $v$ đồng khả năng. Với hai vector khác 0 tạo góc $\theta\in[0,\pi]$ đo radian, xác suất khác dấu là $\Pr[h_v(x)\ne h_v(y)]=\theta/\pi$, nên xác suất cùng dấu là $1-\theta/\pi$.
+
+::: proof
+Nếu $\theta=0$, hai vector cùng hướng nên có cùng dấu với xác suất 1. Nếu $\theta=\pi$, chúng đối hướng nên khác dấu với xác suất 1; tích vô hướng bằng 0 có xác suất 0 dưới phân phối liên tục đẳng hướng.
+
+Với $0<\theta<\pi$, hai vector không cùng phương và sinh một mặt phẳng. Dấu tích vô hướng chỉ phụ thuộc hình chiếu của pháp tuyến vào mặt phẳng này. Tính đẳng hướng làm hướng chiếu có phân phối đều trên vòng tròn; trường hợp hình chiếu bằng 0 có xác suất 0. Có hai miền hướng pháp tuyến làm khác dấu, mỗi miền có góc $\theta$. Do đó,
+
+$$
+\Pr[h(x)\ne h(y)]=\frac{2\theta}{2\pi}=\frac\theta\pi,
+\qquad
+\Pr[h(x)=h(y)]=1-\frac\theta\pi.
+$$
+
+Kết luận cũng khớp hai trường hợp biên đã xét riêng.
+:::
+
+![Cung góc theta giữa hai vector và hai miền hướng pháp tuyến làm khác dấu.](img/lec-06/goc-tach-sieu-phang.svg)
+
+Với $\theta=\pi/3=60^\circ$, xác suất cùng dấu bằng $2/3$. Tổng quát, họ siêu phẳng là $(d_1,d_2,1-d_1/\pi,1-d_2/\pi)$-nhạy cảm khi $0\le d_1<d_2\le\pi$; MMDS viết cùng bộ tham số theo độ, $(180-d)/180$. Dùng số độ trực tiếp trong $1-\theta/\pi$ sẽ sai đơn vị.
+
+Chữ ký dấu gồm $m>0$ bit từ $m$ pháp tuyến. Đặt $p_{\ne}=\theta/\pi$; quy tắc ước lượng góc thay xác suất bằng tỷ lệ bit khác quan sát được:
 
 $$
 \widehat p_{\ne}=\frac1m\sum_{i=1}^m\mathbf1[h_{v_i}(x)\ne h_{v_i}(y)],\qquad
 \widehat\theta=\pi\widehat p_{\ne}.
 $$
 
-Căn cứ hình học của quan hệ xác suất là hai miền hướng pháp tuyến tách cặp vector, tổng góc $2\theta$ trên vòng tròn $2\pi$. Ví dụ dưới đây áp dụng quy tắc tính góc cho ba pháp tuyến dấu cố định. Các pháp tuyến ấy không có phân phối đẳng hướng, nên vết tính không nhận bảo đảm của mô hình này.
+Ví dụ dưới đây áp dụng quy tắc cho ba pháp tuyến dấu cố định. Các pháp tuyến ấy không có phân phối đẳng hướng, nên vết tính không nhận bảo đảm của mệnh đề trên.
 
 
 ::: example
@@ -523,37 +543,18 @@ x\cdot y=40,\quad\|x\|_2^2=86,\quad\|y\|_2^2=30,
 $$
 
 $$
-\theta=\arccos\frac{40}{\sqrt{2580}}\approx38.047579^\circ.
+\theta=\arccos\frac{40}{\sqrt{2580}}\approx38{,}047579^\circ.
 $$
 
 Hai góc khác xa nhau. Có hai vấn đề cần phân biệt: dùng ít phép thử và chọn pháp tuyến dấu $\pm1$ không có phân phối đẳng hướng. Với quy tắc dấu tại 0 đã nêu, ngay cả xét đủ 16 pháp tuyến dấu trong bốn chiều cũng chỉ có 4 trường hợp trái dấu, cho ước lượng $45^\circ$, không bằng góc thật.
 :::
 
-Mệnh đề xác suất trong mô hình đẳng hướng được chứng minh như sau; vết pháp tuyến dấu cố định không được dùng làm giả thiết của chứng minh.
-
-::: proof
-Nếu $\theta=0$, hai vector cùng hướng nên có cùng dấu với xác suất 1. Nếu $\theta=\pi$, chúng đối hướng nên khác dấu với xác suất 1; tích vô hướng bằng 0 có xác suất 0 dưới phân phối liên tục đẳng hướng.
-
-Với $0<\theta<\pi$, hai vector không cùng phương và sinh một mặt phẳng. Dấu tích vô hướng chỉ phụ thuộc hình chiếu của pháp tuyến vào mặt phẳng này. Tính đẳng hướng làm hướng chiếu có phân phối đều trên vòng tròn; trường hợp hình chiếu bằng 0 có xác suất 0. Có hai miền hướng pháp tuyến làm khác dấu, mỗi miền có góc $\theta$. Do đó,
-
-$$
-\Pr[h(x)\ne h(y)]=\frac{2\theta}{2\pi}=\frac\theta\pi,
-\qquad
-\Pr[h(x)=h(y)]=1-\frac\theta\pi.
-$$
-
-Kết luận cũng khớp hai trường hợp biên đã xét riêng.
-:::
-
-![Cung góc theta giữa hai vector và hai miền hướng pháp tuyến làm khác dấu.](img/lec-06/goc-tach-sieu-phang.svg)
-
-Với $\theta=\pi/3=60^\circ$, xác suất cùng dấu bằng $2/3$. Tổng quát, họ góc có tham số $(d_1,d_2,1-d_1/\pi,1-d_2/\pi)$ khi $0\le d_1<d_2\le\pi$. Dùng số độ trực tiếp trong $1-\theta/\pi$ sẽ sai đơn vị.
 
 Để tạo chữ ký $m$ bit, chọn $m$ pháp tuyến độc lập theo phân phối đã nêu; tính $m$ tích vô hướng và dấu cho mỗi đối tượng. Với vector đặc $D$ chiều, chi phí là $O(mD)$, lưu $m$ bit mỗi đối tượng và $O(mD)$ từ cho các pháp tuyến. Các vòng tính hữu hạn, nên thuật toán dừng. Đây là chi phí lấy chữ ký; chi phí thùng và xác minh được tính thêm.
 
 
 ::: exercise
-Câu hỏi: Tính chữ ký và hai loại góc trong [Bài 3.7.2](#chu-ky-dau-bai-3-7-2). Nêu điều kiện để dùng đẳng thức $\Pr(\text{cùng dấu})=1-\theta/\pi$.
+Câu hỏi: Tính chữ ký và hai loại góc trong [Bài 3.7.2](#chu-ky-dau-bai-3-7-2). Nêu điều kiện để dùng đẳng thức $\Pr[h_v(x)=h_v(y)]=1-\theta/\pi$.
 :::
 
 ::: solution

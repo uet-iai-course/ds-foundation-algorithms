@@ -491,31 +491,31 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.2–3/Ex 3.22 tr.109–111; S4 PDF 48/trang in 51; hình pháp tuyến.
 - **Ánh xạ ghi chú:** `N09`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s04-04 — Chữ ký dấu và góc ước lượng
+#### lec06-s04-05 — Tính nhạy cảm của họ siêu phẳng
 
-- **Mục đích và vai trò:** Tính chữ ký nhiều bit và đối chiếu góc thật.
-- **Thông điệp:** Chữ ký ngắn có thể cho góc ước lượng khác xa góc thật.
-- **Nội dung công khai dự kiến:** $x=(3,4,5,6),\quad y=(4,3,2,1)$ Pháp tuyếnTích với xTích với yHai dấu $v_1=(1,-1,1,1)$104+, + $v_2=(-1,1,-1,1)$2-2+, − $v_3=(1,1,-1,-1)$-44−, + Đẳng hướng cho $p_{\ne}=\theta/\pi$; quy tắc ước lượng là $\widehat\theta=\pi\widehat p_{\ne}$, với $\widehat p_{\ne}$ là tỷ lệ bit khác. $\widehat\theta=\pi\cdot\frac23=120^\circ,\qquad\theta\approx38.05^\circ$ Ba pháp tuyến dấu cố định minh họa phép tính; chúng không có phân phối đẳng hướng.
-- **Đầu vào và giả thiết:** Hàm dấu và tích vô hướng đã có. Nêu quan hệ p_khác=theta/pi dưới pháp tuyến đẳng hướng và quy tắc theta_hat=pi nhân tỷ lệ bit khác trước phép đổi 2/3 thành 120 độ. Các pháp tuyến dấu trong bảng vẫn là dữ kiện cố định.
-- **Dữ kiện, hình thức hóa và vết chạy:** V10; $x\cdot y=40$, chuẩn bình phương 86 và 30. Ba pháp tuyến là mẫu cố định dấu ±1.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng 3 hàng pháp tuyến/tích x/tích y/dấu trùng ở giữa; so hai góc dưới. Năm 2 theo đủ trung gian rồi đối chiếu; góc thật bằng arccos và toàn 16 pháp tuyến vào notes.
-- **Kết nối vào–ra:** Vết một dấu → ba dấu và quy tắc ước lượng có phạm vi xác định → chứng minh hình học của mô hình đẳng hướng ở s04-05. Giữ thứ tự trang.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Với pháp tuyến đẳng hướng, xác suất khác dấu $p_{\ne}=\theta/\pi$. Thay xác suất bằng tỷ lệ bit khác quan sát được cho quy tắc $\widehat\theta=\pi\widehat p_{\ne}$. Ba pháp tuyến dấu ở bảng là dữ kiện cố định; áp quy tắc này chỉ tạo một giá trị ước lượng, không nhận bảo đảm của mô hình đẳng hướng. Quan hệ xác suất được chứng minh bằng hình học ở phần siêu phẳng. $\theta=\arccos(40/\sqrt{86\cdot30})\approx38.047579^\circ$. Có hai nguồn khác biệt: mẫu hữu hạn và pháp tuyến dấu ±1 không đẳng hướng. Nếu xét đủ 16 vector dấu với sign (0)=+1, có 4 trường hợp trái dấu nên góc ước lượng 45°, vẫn khác góc thật.
-- **Nguồn:** B §3.7.3/Ex 3.22 tr.111/PDF 40.
-- **Ánh xạ ghi chú:** `N09`. **Thời lượng:** 2.5 phút.
-
-#### lec06-s04-05 — Xác suất cùng phía siêu phẳng
-
-- **Mục đích và vai trò:** Nêu điều kiện và bước hình học của xác suất góc.
-- **Thông điệp:** Pháp tuyến đẳng hướng cho xác suất cùng dấu $1-\theta/\pi$.
-- **Nội dung công khai dự kiến:** $x,y\ne0$; hướng pháp tuyến ngẫu nhiên đẳng hướng; cùng $h$ cho mọi vector. Góc $\theta\in[0,\pi]$ đo radian. Hai miền pháp tuyến làm khác dấu có tổng góc $2\theta$ trên $2\pi$. $\Pr[h(x)=h(y)]=1-\theta/\pi$. Với $\theta=\pi/3$:2/3.
+- **Mục đích và vai trò:** Chứng minh xác suất cùng dấu $1-\theta/\pi$ dưới pháp tuyến đẳng hướng và nêu bộ tham số nhạy cảm; đặt trước chữ ký dấu vì s04-04 dùng kết quả này.
+- **Thông điệp:** Họ siêu phẳng là $(d_1,d_2,1-d_1/\pi,1-d_2/\pi)$-nhạy cảm.
+- **Nội dung công khai dự kiến:** $x,y\ne0$ tạo góc $\theta\in[0,\pi]$ (radian); pháp tuyến $v$ đẳng hướng, tức mọi hướng đồng khả năng. [Hình: Hai miền pháp tuyến tách hai vector, tổng góc 2 theta trên vòng tròn 2 pi.] Hai cung hướng tách $x$ và $y$, mỗi cung rộng $\theta$: $\Pr[h_v(x)\ne h_v(y)]=\frac{2\theta}{2\pi}=\frac\theta\pi$ $\Pr[h_v(x)=h_v(y)]=1-\frac\theta\pi$ $\theta=\pi/3\Rightarrow\Pr[h_v(x)=h_v(y)]=2/3$. Với $0\le d_1<d_2\le\pi$, họ siêu phẳng là $(d_1,d_2,1-d_1/\pi,1-d_2/\pi)$-nhạy cảm.
 - **Đầu vào và giả thiết:** Khoảng cách góc N05; dấu, pháp tuyến và siêu phẳng.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT9; V06 đổi 60° thành $\pi/3$; V10 là phân phối khác được ghi rõ.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hình lớn 70% trên: hai vector cố định, hai vùng tách dùng nét gạch và nhãn; công thức/giả thiết dưới 30%. Năm 2 thấy tỷ phần góc trước xác suất; proof chiếu về mặt phẳng trong notes.
-- **Kết nối vào–ra:** Chữ ký dấu hữu hạn→mô hình bảo đảm; Euclid cần thêm thông tin độ dài.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Nếu $\theta=0$, hai vector cùng hướng và cùng dấu với xác suất 1. Nếu $\theta=\pi$, chúng đối hướng và khác dấu với xác suất 1, nên xác suất trùng bằng 0; trường hợp tích vô hướng bằng 0 có xác suất 0 dưới phân phối liên tục đẳng hướng. Khi $0<\theta<\pi$, hai vector không cùng phương và sinh một mặt phẳng. Tính đẳng hướng làm hướng pháp tuyến chiếu vào mặt phẳng này có phân phối đều. Các hướng tách hai vector chiếm tỷ lệ $\theta/\pi$; lấy bù được xác suất cùng dấu. Quy tắc dấu tại 0 vẫn được cố định để hàm xác định.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Câu dẫn nêu giả thiết; hình hai cung tách bên trái; hai đẳng thức xác suất và ví dụ $\pi/3$ bên phải; câu chốt bộ tham số. Năm 2 thấy tỷ phần góc trước công thức; chứng minh chiếu về mặt phẳng ở ghi chú.
+- **Kết nối vào–ra:** Hàm băm dấu ở s04-03 → xác suất va chạm và bộ tham số; quan hệ $p_{\ne}=\theta/\pi$ cho quy tắc ước lượng góc ở s04-04.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Khi $0<\theta<\pi$, hai vector sinh một mặt phẳng và dấu của $v\cdot x$, $v\cdot y$ chỉ phụ thuộc hình chiếu của $v$ lên mặt phẳng đó. Tính đẳng hướng làm hướng của hình chiếu phân phối đều trên vòng tròn; hình chiếu bằng 0 có xác suất 0. Hai dấu khác nhau đúng khi hướng chiếu rơi vào một trong hai cung rộng $\theta$. Hai trường hợp biên khớp công thức: $\theta=0$ cho cùng dấu với xác suất 1, $\theta=\pi$ cho khác dấu với xác suất 1 vì tích vô hướng bằng 0 có xác suất 0. Góc phải đo bằng radian; thay số độ vào $1-\theta/\pi$ cho kết quả sai. MMDS viết cùng bộ tham số theo độ: $(180-d)/180$.
 - **Nguồn:** B §3.7.2/Hình 3.13 tr.109–110; S4 PDF 49/trang in 52.
 - **Ánh xạ ghi chú:** `N09`. **Thời lượng:** 3 phút.
+
+#### lec06-s04-04 — Chữ ký dấu và ước lượng góc
+
+- **Mục đích và vai trò:** Ghép $m$ hàm dấu thành chữ ký và áp quy tắc $\widehat\theta=\pi\widehat p_{\ne}$ trên Ví dụ 3.22; phân biệt sai lệch do mẫu nhỏ và do pháp tuyến không đẳng hướng.
+- **Thông điệp:** Quy tắc ước lượng chỉ có bảo đảm khi pháp tuyến đẳng hướng và đủ nhiều; ba pháp tuyến dấu $\pm1$ cho $120^\circ$ so với góc thật $38{,}05^\circ$.
+- **Nội dung công khai dự kiến:** $m$ pháp tuyến cho chữ ký $m$ bit. Từ $p_{\ne}=\theta/\pi$, quy tắc ước lượng là $\widehat\theta=\pi\widehat p_{\ne}$, với $\widehat p_{\ne}$ là tỷ lệ bit khác. Pháp tuyến $v_i\cdot x$ $v_i\cdot y$ Dấu của $x$, $y$ $v_1=(1,-1,1,1)$ 10 4 +, + $v_2=(-1,1,-1,1)$ 2 −2 +, − $v_3=(1,1,-1,-1)$ −4 4 −, + $\widehat p_{\ne}=\frac23,\qquad\widehat\theta=\pi\cdot\frac23=120^\circ,\qquad\theta\approx38{,}05^\circ$ Ba pháp tuyến dấu $\pm1$ cố định chỉ minh họa phép tính; chúng không có phân phối đẳng hướng. Ước lượng lệch xa góc thật: ba bit quá ít và pháp tuyến không đẳng hướng.
+- **Đầu vào và giả thiết:** Hàm dấu (s04-03) và quan hệ $p_{\ne}=\theta/\pi$ dưới pháp tuyến đẳng hướng (s04-05). Ba pháp tuyến dấu trong bảng là dữ kiện cố định của Ví dụ 3.22.
+- **Dữ kiện, hình thức hóa và vết chạy:** V10; $x\cdot y=40$, chuẩn bình phương 86 và 30. Ba pháp tuyến là mẫu cố định dấu ±1.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Câu dẫn nêu chữ ký và quy tắc ước lượng; bảng ba pháp tuyến với hai tích và hai dấu; dòng công thức ước lượng và góc thật; dòng phụ và câu chốt về hai nguồn sai lệch. Góc thật bằng arccos và trường hợp 16 pháp tuyến vào ghi chú.
+- **Kết nối vào–ra:** Quan hệ $p_{\ne}=\theta/\pi$ đã chứng minh ở s04-05 → quy tắc ước lượng; giới hạn của ví dụ dẫn sang họ cho khoảng cách Euclid ở s04-06.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Chữ ký dấu thay xác suất khác dấu bằng tỷ lệ bit khác quan sát được trên $m$ pháp tuyến độc lập. Góc thật: $x\cdot y=40$, $\|x\|_2^2=86$, $\|y\|_2^2=30$, nên $\theta=\arccos(40/\sqrt{2580})\approx38{,}047579^\circ$. Có hai nguồn sai lệch tách biệt. Mẫu ba bit có phương sai lớn. Ngay cả khi dùng đủ 16 vector dấu $\pm1$ trong bốn chiều với quy tắc dấu tại 0 đã nêu, chỉ 4 vector cho hai dấu khác nhau, nên ước lượng là $45^\circ$, vẫn khác góc thật; đó là sai lệch do phân phối không đẳng hướng.
+- **Nguồn:** B §3.7.3/Ex 3.22 tr.111/PDF 40.
+- **Ánh xạ ghi chú:** `N09`. **Thời lượng:** 2.5 phút.
 
 #### lec06-s04-06 — Chiếu điểm vào các khoảng
 
