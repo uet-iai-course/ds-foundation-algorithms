@@ -1840,7 +1840,7 @@ Chấm số vị trí, điều kiện k≤ℓ, trường hợp ℓ<k và ý phâ
 
 Chỉ dẫn biên soạn: giữ yêu cầu nguồn về số shingle lớn nhất; không thêm yêu cầu xây dãy de Bruijn.
 
-### 53. Bài tập ma trận và Jaccard
+### 53. Bài tập Jaccard từ ma trận đặc trưng
 
 - **Mã:** `lec05-s07-03`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Mục đích và vai trò:** Bài 3.3.1(a); chuẩn bị sáu giá trị thật. **Mục tiêu:** MT1, MT3.
