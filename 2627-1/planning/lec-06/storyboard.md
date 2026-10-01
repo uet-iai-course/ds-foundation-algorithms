@@ -452,16 +452,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 ### Phần 4. Các họ băm theo độ đo
 
-#### lec06-s04-01 — Băm bằng một tọa độ
+#### lec06-s04-01 — Họ băm chọn tọa độ
 
-- **Mục đích và vai trò:** Chạy một hàm tọa độ trên vector cùng chiều.
-- **Thông điệp:** Tọa độ được chọn quyết định hai vector có trùng giá trị băm.
-- **Nội dung công khai dự kiến:** Tính metric chưa bảo đảm có họ LSH; mỗi độ đo cần một phép thử và chứng minh riêng. Chỉ số I12345 x10101 y11110 Trùng?CóKhôngCóKhôngKhông $h_I(x)=x_I$ I = 1Hai giá trị 1 và 1: trùng. I = 2Hai giá trị 0 và 1: khác. Cùng một chỉ số được dùng để băm mọi vector.
+- **Mục đích và vai trò:** Mở phần 4: định nghĩa họ băm chọn tọa độ cho Hamming và chạy trên cặp $x,y$ của định nghĩa $d_H$.
+- **Thông điệp:** Có đúng $D-d_H(x,y)$ chỉ số cho hai vector cùng giá trị băm.
+- **Nội dung công khai dự kiến:** Họ LSH cho khoảng cách Hamming trên vector $D$ chiều, $D>0$: $h_I(x)=x_I,\qquad I\in\{1,\ldots,D\}$ Chỉ số $I$ 1 2 3 4 5 $h_I(x)$ 1 0 1 0 1 $h_I(y)$ 1 1 1 1 0 Cùng giá trị băm Có Không Có Không Không Một lần chọn $I$ cho một hàm; cùng hàm đó băm mọi vector của kho. Có $D-d_H(x,y)=5-3=2$ chỉ số cho $x,y$ cùng giá trị băm.
 - **Đầu vào và giả thiết:** Hamming và khung họ; phép đọc phần tử mảng.
 - **Dữ kiện, hình thức hóa và vết chạy:** V08; $D=5,d_H=3$; cùng $I$ cho cả hai vector.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai hàng bit trên 65% khung; các ô I=1, I=2 được đóng khung kèm chữ; dưới là hàm đọc tọa độ. Năm 2 thấy đầu vào/hàm/đầu ra trước công thức xác suất.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Câu dẫn và công thức hàm ở trên; bảng giá trị băm theo từng chỉ số; dòng phụ về một hàm chung; câu chốt đếm chỉ số thuận lợi. Năm 2 thấy hàm và đầu ra trước công thức xác suất.
 - **Kết nối vào–ra:** Định nghĩa metric chưa tự cung cấp họ LSH. Bắt đầu xây và kiểm riêng phép thử tọa độ cho Hamming; số vị trí trùng dẫn tới chứng minh đếm ở s04-02.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Một lần chọn $I$ định nghĩa một hàm cho toàn bộ dữ liệu. Mỗi lần tính chỉ đọc một tọa độ nếu truy cập mảng mất thời gian hằng. Chọn chỉ số riêng cho từng vector sẽ không tạo cùng một phép thử.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Tính metric chưa bảo đảm có họ LSH; với mỗi độ đo cần chỉ ra nguồn ngẫu nhiên và chứng minh xác suất va chạm riêng. Hamming cho họ đơn giản nhất: hàm chỉ đọc một tọa độ. Cặp $x,y$ là cặp đã dùng khi định nghĩa $d_H$. Nếu mỗi vector dùng một chỉ số riêng thì không còn một hàm chung, và việc hai giá trị băm bằng nhau không nói gì về khoảng cách. Mỗi lần tính chỉ đọc một tọa độ, tốn $O(1)$ khi truy cập mảng mất thời gian hằng.
 - **Nguồn:** B §3.7.1 tr.109/PDF 38; dữ kiện Ex 3.17 tr.101.
 - **Ánh xạ ghi chú:** `N08`. **Thời lượng:** 2 phút.
 
