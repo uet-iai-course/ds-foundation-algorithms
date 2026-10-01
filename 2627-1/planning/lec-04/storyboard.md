@@ -1281,7 +1281,7 @@ Thuật toán và diễn giải. Tập tin cậy → tái dùng HT1 → cùng G4
 
 Phân bổ: 8 slide, 18 phút.
 
-### lec04-s04-01 — Tập trang tin cậy và TrustRank
+### lec04-s04-01 — TrustRank
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Vấn đề và trực giác; MT3. Đầu vào: giới hạn phát hiện cấu trúc và PageRank theo chủ đề. Sản phẩm: xác định thông tin ngoài đồ thị cần cho TrustRank.
 
@@ -1292,11 +1292,11 @@ Phân bổ: 8 slide, 18 phút.
 <!-- public-slide:start -->
 [Hình: Tập T có viền đôi được đánh giá bên ngoài; cạnh thật đi từ T tới các trang khác.]
 
-Tập hạt giống $T$ gồm các trang được đánh giá đáng tin bằng thông tin ngoài phép lặp TrustRank.
+TrustRank: PageRank theo chủ đề, tập dịch chuyển $T$ là các trang tin cậy (tập hạt giống, seed set).
 
-TrustRank dịch chuyển tới $T$. Tập này biểu diễn độ tin cậy; tập chủ đề biểu diễn lĩnh vực nội dung.
+Cơ sở: trang rác dễ đặt liên kết tới trang tin cậy, nhưng trang tin cậy hiếm khi trỏ tới trang rác.
 
-Giả định: trang tin cậy ít trỏ tới trang rác. Độ phủ của $T$ ảnh hưởng điểm của các trang ngoài tập.
+Chọn $T$ ngoài thuật toán: người xem xét các trang PageRank cao, hoặc lấy miền có kiểm soát (.edu, .gov).
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Một nhóm T có viền đôi và các cạnh ra tới phần còn lại chiếm trái55%; giả định và giới hạn phải45%. Nhãn “đánh giá bên ngoài” gắn với T.
@@ -1311,6 +1311,8 @@ Giả định: trang tin cậy ít trỏ tới trang rác. Độ phủ của $T$
 
 **Kết nối vào–ra:** Liên kết có thể bị thao túng → chọn nơi đưa điểm mới → đặc tả TrustRank.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “TrustRank”; câu chính đặt đầu: TrustRank là PageRank theo chủ đề với tập dịch chuyển tin cậy (MMDS §5.4.4); nêu đủ lý do về hướng liên kết; thêm hai cách chọn $T$ của nguồn (trang PageRank cao; miền có kiểm soát) để “thông tin ngoài phép lặp” có nội dung cụ thể; đặt tên “tập hạt giống (seed set)” lần đầu; đổi tỷ lệ cột thành hình 45%, chữ 55% để mỗi dòng không quá hai dòng.
+
 **Nguồn và vị trí:** NG1 §5.4.3–5.4.4, tr.202–203/PDF28–29.
 
 **Thời lượng:** 2 phút.
@@ -1318,7 +1320,7 @@ Giả định: trang tin cậy ít trỏ tới trang rác. Độ phủ của $T$
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Các hạt giống được đánh giá nội dung từ bên ngoài trước khi chạy thuật toán. TrustRank không tự lựa chọn và chứng nhận chúng từ điểm đầu ra. Các trang ngoài $T$ vẫn có thể nhận điểm qua liên kết. TrustRank giữ cơ chế PageRank theo chủ đề, nhưng ý nghĩa tập dịch chuyển là tin cậy thay cho lĩnh vực nội dung. Giả định về hướng liên kết không có tính tuyệt đối, nhất là khi trang cho phép người khác tạo liên kết. Chất lượng và phạm vi bao phủ của $T$ ảnh hưởng cách diễn giải điểm; vector kết quả không chứng nhận nội dung của từng trang.
+Các hạt giống được đánh giá từ bên ngoài trước khi chạy thuật toán; TrustRank không tự chọn hay chứng nhận chúng từ điểm đầu ra. Cách chọn theo các trang PageRank cao dựa trên nhận định của MMDS: liên kết rác có thể đưa một trang từ cuối lên giữa bảng xếp hạng nhưng gần như không đưa được lên đầu. Cách chọn theo miền dựa trên việc người tạo rác khó đưa trang vào các miền có kiểm soát. Các trang ngoài $T$ vẫn có thể nhận điểm qua liên kết. TrustRank giữ cơ chế PageRank theo chủ đề, nhưng ý nghĩa tập dịch chuyển là tin cậy thay cho lĩnh vực nội dung. Giả định về hướng liên kết không có tính tuyệt đối: trang cho phép người khác đăng liên kết, như trang báo có mục bình luận, không được coi là tin cậy dù nội dung chính đáng tin. Chất lượng và phạm vi bao phủ của $T$ ảnh hưởng cách diễn giải điểm; vector kết quả không chứng nhận nội dung của từng trang.
 <!-- public-notes:end -->
 
 ### lec04-s04-02 — Các đại lượng trong phép lặp TrustRank
