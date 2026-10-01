@@ -507,11 +507,11 @@ Nguồn: MMDS 3e, §3.2.2, tr. 79.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 15. Khoảng trắng trong shingle
+### 15. Xử lý khoảng trắng
 
 - **Mã:** `lec05-s02-06`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Ví dụ tiền xử lý; xác định tác động của khoảng trắng. **Mục tiêu:** MT2.
-- **Câu chốt:** Bỏ khoảng trắng có thể làm hai chuỗi khác nhau nhận cùng biểu diễn.
+- **Câu chốt:** Quy tắc xử lý khoảng trắng thay đổi tập shingle; sách đề nghị thay mỗi dãy ký tự trắng bằng một dấu cách và áp dụng thống nhất.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tác dụng k; trang 16 đổi cách lưu mỗi shingle, giữ nguyên độ dài shingle.
 - **Dữ kiện và vai trò số:** VD 4; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide ex-grid2`: hai cột bằng nhau, mỗi cột ghi chuỗi gốc trên và các cửa sổ dưới; dấu cách hiện bằng ô có nhãn “khoảng trắng”; câu quy ước ở đáy.
@@ -523,11 +523,20 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Giữ k=9. `touch down` có các cửa sổ `touch dow` và `ouch down`; `touchdown` có cửa sổ `touchdown`. Dùng một quy tắc xử lý khoảng trắng cho toàn bộ kho.
+Thay mỗi dãy ký tự trắng liên tiếp bằng một dấu cách; dấu cách là một ký tự. Giữ $k=9$.
+
+| Chuỗi | Độ dài | Các cửa sổ |
+|---|---:|---|
+| `touch down` | 10 | `touch dow`, `ouch down` |
+| `touchdown` | 9 | `touchdown` |
+
+Nếu xóa hết khoảng trắng, cả hai chuỗi cùng tạo shingle `touchdown`.
 
 **Ghi chú diễn giả học thuật**
 
-Dấu cách là một ký tự trong ví dụ. Chuỗi `touch down` dài mười ký tự, còn `touchdown` dài chín. Nếu xóa khoảng trắng trước khi tạo shingle, hai chuỗi trở thành như nhau. Sách đề nghị thường giữ ranh giới này và có thể chuẩn hóa nhiều ký tự trắng liên tiếp; lựa chọn phải thống nhất trước khi so sánh. Chuỗi nguồn được giữ nguyên để các phép đếm còn đúng.
+Ví dụ 3.4 so hai câu “The plane was ready for touch down” và “The quarterback scored a touchdown”. Khi giữ dấu cách, câu đầu có `touch dow`, `ouch down`, câu sau có `touchdown`, nên hai tập không chung các shingle này. Khi xóa khoảng trắng, hai câu có shingle chung dù nội dung khác nhau. Thay một dãy ký tự trắng bằng một dấu cách vẫn phân biệt shingle phủ hai từ với shingle nằm trong một từ, đồng thời bỏ khác biệt về số dấu cách, tab hay xuống dòng. Quy tắc phải áp dụng giống nhau cho toàn bộ kho trước khi tạo shingle.
+
+Nguồn: MMDS 3e, Ví dụ 3.4, tr. 78.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 

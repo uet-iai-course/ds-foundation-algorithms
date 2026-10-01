@@ -142,7 +142,7 @@ Khoảng trắng cũng là một phần của quy ước. Ví dụ 3.4, tr. 78, 
 | `touch down` | 10 | `touch dow`, `ouch down` |
 | `touchdown` | 9 | `touchdown` |
 
-Nếu xóa dấu cách trước khi tạo shingle thì hai chuỗi trở thành giống nhau. Việc giữ dấu cách hoặc chuẩn hóa các ký tự trắng phải được thực hiện nhất quán trong toàn bộ kho. Các chuỗi gốc trong ví dụ được giữ nguyên vì thay từ sẽ thay phép đếm ký tự.
+Nếu xóa dấu cách trước khi tạo shingle thì hai chuỗi trở thành giống nhau. §3.2.1 đề nghị thay mỗi dãy ký tự trắng (dấu cách, tab, xuống dòng) bằng một dấu cách; cách này vẫn phân biệt shingle phủ hai từ với shingle nằm trong một từ. Quy tắc đã chọn phải được áp dụng nhất quán trong toàn bộ kho. Các chuỗi gốc trong ví dụ được giữ nguyên vì thay từ sẽ thay phép đếm ký tự.
 
 ### Băm shingle và giới hạn dung lượng
 
