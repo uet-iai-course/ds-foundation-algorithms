@@ -1230,9 +1230,9 @@ Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ �
 
 ### lec04-s03-08 — Kiểm tra cụm thao túng liên kết
 
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S03; MT2. Đầu vào: HT4. Sản phẩm: phát hiện đếm sai beta và phân biệt công thức đủ/xấp xỉ.
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S03; MT2. Đầu vào: HT4. Sản phẩm: vận dụng công thức khuếch đại với tham số mới và sửa mô hình khi cấu trúc cụm thay đổi.
 
-**Luận điểm trung tâm:** Phương trình đầy đủ và xấp xỉ chỉ khác ở hạng được lược có chỉ rõ.
+**Luận điểm trung tâm:** Hệ số khuếch đại phụ thuộc $\beta$; phương trình điểm phụ thuộc đúng cấu trúc cạnh của cụm.
 
 **Nội dung hiển thị dự kiến:**
 
@@ -1264,9 +1264,9 @@ Mô hình cụm Hình 5.16, đồ thị không có nút cụt.
 
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
-- Câu hỏi/đề: Sửa phương trình và xác định hạng bị lược như nội dung hiển thị.
-- Đáp án/gợi ý: $y=x+\beta mp+b$; hạng bỏ khỏi y là $b/(1-\beta^2)=1/[n(1+\beta)]$.
-- Tiêu chí đánh giá: Đúng định nghĩa x; giữ b tại đích trong bản đầy đủ; phân biệt b trước giải với hạng đóng góp vào nghiệm. Không lược b ở mọi hỗ trợ.
+- Câu hỏi/đề: Hai yêu cầu như nội dung hiển thị.
+- Đáp án/gợi ý: $100/19\approx5{,}26$ và $9/19\approx0{,}47$ (so với $3{,}60$ và $0{,}46$); phương trình của $p$ thêm $x'$, phương trình của $y$ giữ dạng.
+- Tiêu chí đánh giá: Thay đúng $\beta$ vào hai hệ số; giải thích chiều thay đổi theo $\beta$; đặt $x'$ vào phương trình hỗ trợ, không nhân $\beta$ lần nữa.
 - Phân bổ hoạt động: Suy nghĩ1,5 phút, trả lời0,5 phút, đối chiếu1 phút; tổng3 phút.
 
 **Ghi chú học thuật dự kiến:**
