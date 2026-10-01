@@ -469,3 +469,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s01-05 | (nhẹ) Ghi chú lặp câu tổng kết trên mặt trang; câu về HITS chưa phân biệt với PageRank. | sửa | Bỏ vế lặp trong ghi chú; câu HITS thêm “không chia theo bậc ra, rồi chuẩn hóa” (MMDS §5.5.2). |
 | lec04-s01-06 | (nhẹ) Nét đứt mang hai nghĩa: tô sáng cạnh dữ liệu B→A ở trang này nhưng chỉ bước không phải cạnh dữ liệu ở s02-01. | sửa SVG | `hinh-5-1-kiem-tra.svg`: cạnh B→A đổi từ nét đứt sang nét đậm; văn bản thay thế cập nhật. Nét đứt từ đây chỉ dùng cho bước không phải cạnh dữ liệu. |
 | lec04-s02-01 | (nhẹ) $S$ trên mặt trang chưa được gọi tên. | sửa | “dịch chuyển tới một trang trong $S$” → “dịch chuyển tới tập chủ đề $S$”. |
+| lec04-s02-08 | (nhẹ) “thu hẹp khoảng cách ít nhất theo hệ số $\beta$” mơ hồ. | sửa | Đổi thành “Khoảng cách sau cập nhật không vượt $\beta$ lần khoảng cách trước (tính co)”. |

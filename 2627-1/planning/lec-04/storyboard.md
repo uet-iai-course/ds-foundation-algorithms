@@ -624,7 +624,7 @@ Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên t�
 <!-- public-slide:start -->
 $\bar M$: $M_0$ với mỗi cột nút cụt thay bằng $u$ (ma trận $S$ của Bài 03); $\bar M\ge0$, tổng mỗi cột bằng $1$.
 
-Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0<\beta<1$: $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ (Bài 03). Mỗi lần cập nhật thu hẹp khoảng cách ít nhất theo hệ số $\beta$ (tính co), nên có duy nhất một điểm cố định $r^*$.
+Với $F(r)=\beta\bar Mr+(1-\beta)v$ và $0<\beta<1$: $\|F(p)-F(q)\|_1\le\beta\|p-q\|_1$ (Bài 03). Khoảng cách sau cập nhật không vượt $\beta$ lần khoảng cách trước (tính co), nên có duy nhất một điểm cố định $r^*$.
 
 Đặt $\Delta=\|r^{t+1}-r^t\|_1$; các sai khác sau đó không quá $\beta\Delta,\beta^2\Delta,\ldots$, nên
 $$\|r^{t+1}-r^*\|_1\le\beta\Delta+\beta^2\Delta+\cdots=\frac{\beta}{1-\beta}\Delta.$$
