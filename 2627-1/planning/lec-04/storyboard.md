@@ -955,7 +955,7 @@ Vấn đề: định lượng mức một cấu trúc liên kết đơn giản l
 Giáo trình xét các kỹ thuật tạo liên kết nhằm làm PageRank đánh giá cao một trang hơn mức đóng góp nội dung. Mô hình tiếp theo tách phần web không thể tác động, phần có thể đặt liên kết và phần sở hữu. Phân tích chỉ mô tả tác động của một cấu trúc xác định; không suy rằng mọi nhóm trang liên kết dày đều là liên kết rác.
 <!-- public-notes:end -->
 
-### lec04-s03-02 — Cấu trúc cụm thao túng liên kết
+### lec04-s03-02 — Cụm thao túng liên kết
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Mô hình và trực giác; MT2. Đầu vào: quyền tạo/sửa cạnh. Sản phẩm: đọc đúng ba vùng và các giả thiết của Hình 5.16.
 
@@ -964,13 +964,11 @@ Giáo trình xét các kỹ thuật tạo liên kết nhằm làm PageRank đán
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Ba nhóm trang: không tác động được; tác động được; thuộc quyền sở hữu.
+Đích trỏ tới $m$ trang hỗ trợ; mỗi hỗ trợ chỉ trỏ lại đích.
 
-Trong nhóm sở hữu, trang đích chỉ trỏ tới $m$ trang hỗ trợ; mỗi trang hỗ trợ chỉ trỏ lại đích.
+Liên kết từ ngoài cụm chỉ vào đích.
 
-Mọi liên kết từ ngoài vào cụm đều tới đích; mỗi trang hỗ trợ chỉ nhận cạnh từ đích.
-
-Mô hình phân tích dùng đồ thị không có nút cụt; $m\ge1$, $n\ge m+1$.
+Giả thiết: đồ thị không có nút cụt; $m\ge1$, $n\ge m+1$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Sơ đồ ba vùng chiếm trái65%; giả thiết thành ba dòng ngắn phải35%. Đích đặt giữa vùng sở hữu, m hỗ trợ thành cột; dấu chấm lửng có nhãn m trang.
@@ -985,6 +983,8 @@ Mô hình phân tích dùng đồ thị không có nút cụt; $m\ge1$, $n\ge m+
 
 **Kết nối vào–ra:** Mục tiêu tăng điểm → cấu trúc vòng quay điểm → điểm của một trang hỗ trợ.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Cụm thao túng liên kết”; bỏ cụm “nhóm sở hữu” chưa định nghĩa; ba vùng do hình thể hiện, ghi chú giải thích theo MMDS §5.4.1; tách mô tả cạnh thành hai dòng ngắn, bỏ ý lặp “hỗ trợ chỉ nhận cạnh từ đích”; sửa SVG để nhãn “đóng góp từ ngoài vào đích” không đè tiêu đề vùng giữa (SVG dùng chung với ghi chú tự học).
+
 **Nguồn và vị trí:** NG1 §5.4.1/Hình 5.16, tr.199–200/PDF25–26; giả thiết không nút cụt làm rõ phạm vi phép tính nguồn.
 
 **Thời lượng:** 2 phút.
@@ -992,7 +992,7 @@ Mô hình phân tích dùng đồ thị không có nút cụt; $m\ge1$, $n\ge m+
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Trang tác động được không đồng nghĩa trang sở hữu: một người có thể đặt liên kết ở vị trí được phép mà không điều khiển toàn bộ trang. Mô hình dùng PageRank toàn cục với dịch chuyển đều. Các liên kết ngoài đưa điểm tới đích; đích chia điểm cho mọi hỗ trợ, và các hỗ trợ trả điểm về đích. Điều kiện toàn đồ thị không có nút cụt giữ phần dịch chuyển đều bằng $b=(1-\beta)/n$, không phát sinh số hạng bù nút cụt bổ sung.
+Hình chia web thành ba vùng theo MMDS §5.4.1: phần lớn web không thể tác động; vùng có thể tác động gồm các trang cho phép người khác đăng nội dung, như bình luận; vùng sở hữu do người tạo cụm điều khiển. Trang tác động được không đồng nghĩa trang sở hữu: một người có thể đặt liên kết ở vị trí được phép mà không điều khiển toàn bộ trang. Mô hình dùng PageRank toàn cục với dịch chuyển đều. Các liên kết ngoài đưa điểm tới đích; đích chia điểm cho mọi hỗ trợ, và các hỗ trợ trả điểm về đích. Điều kiện toàn đồ thị không có nút cụt giữ phần dịch chuyển đều bằng $b=(1-\beta)/n$, không phát sinh số hạng bù nút cụt bổ sung.
 <!-- public-notes:end -->
 
 ### lec04-s03-03 — Điểm của một trang hỗ trợ
