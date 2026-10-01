@@ -1510,7 +1510,7 @@ $s_i<0$ khi $\rho_i>r_i$. Cách đọc (MMDS §5.4.5): âm hoặc dương nhỏ 
 Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i=(4/5)r_i$, tức giảm $20\%$ so với điểm nền riêng. Mức giảm tuyệt đối khác nhau: $9/140$ tại A và $19/420$ tại C. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác; chỉ số cũng không phải xác suất trang rác. MMDS Ví dụ 5.12 tính với PageRank không dịch chuyển nên được $s_A\approx0{,}229$; ở đây PageRank nền dùng cùng $\beta=4/5$ nên $s_A=1/5$, kết luận định tính không đổi.
 <!-- public-notes:end -->
 
-### lec04-s04-06 — Chi phí và độ phủ tập tin cậy
+### lec04-s04-06 — Chi phí tính Spam Mass
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn và chi phí; MT3, MT5. Đầu vào: HT5. Sản phẩm: phân biệt chi phí phép lặp với chọn hạt giống.
 
@@ -1519,8 +1519,6 @@ Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Độ phủ: chỉ chọn .edu thì $T$ gần như chỉ gồm trang của Mỹ; cần thêm miền tương tự của nước khác.
-
 | Bước | Phạm vi chi phí |
 | --- | --- |
 | PageRank và TrustRank | Hai phép lặp thưa; mỗi vòng $\Theta(n+\ell)$ |
@@ -1551,7 +1549,7 @@ Trang có $s_i$ gần $1$ được ưu tiên rà soát hoặc hạ điểm, khô
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương đối khi chuyển sang ưu tiên hạt giống tin cậy. Giá trị dương lớn có thể được dùng để ưu tiên trang cần rà soát; chỉ số không tự xác định nhãn rác. Đổi tập $T$ có thể đổi $\rho$ và thứ tự ưu tiên. Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Điểm tin cậy thấp có thể phản ánh khoảng cách liên kết hoặc thiếu hạt giống phù hợp, không chỉ liên kết rác. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.
+Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương đối khi chuyển sang ưu tiên hạt giống tin cậy. Đổi tập $T$ có thể đổi $\rho$ và thứ tự ưu tiên. Tập nhỏ giảm số trang phải đánh giá nhưng có thể bỏ sót các vùng nội dung. Hai phép lặp có thể cần số vòng khác nhau; chỉ bậc chi phí mỗi vòng giống nhau. Chi phí đánh giá hạt giống không được suy ra từ số cạnh hoặc số vòng.
 <!-- public-notes:end -->
 
 ### lec04-s04-07 — Kiểm tra Spam Mass
