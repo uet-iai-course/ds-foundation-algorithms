@@ -1691,7 +1691,7 @@ E là nút cụt nhưng không cần dịch chuyển. Khởi tạo $h^0=(1,1,1,1
 G5 có năm trang và tám cạnh, khác G4 ở việc C trỏ E thay vì A. Uy tín cộng điểm của các nguồn liên kết, còn trung tâm cộng điểm của các đích liên kết. Mỗi trang đều có cả hai điểm; hub và authority là hai vai trò, không phải hai tập trang loại trừ nhau. Phép cập nhật luân phiên hiện thực hóa quan hệ hỗ trợ lẫn nhau: $h$ quyết định $a$, rồi $a$ mới quyết định $h$ mới. Khởi tạo toàn $1$ là quy ước thuật toán sách; tổng ban đầu bằng $5$ và không mang ý nghĩa xác suất. Theo MMDS Ví dụ 5.14, nút cụt và bẫy liên kết không ngăn phép lặp HITS hội tụ tới một cặp vector có nghĩa, nên không cần dịch chuyển hay sửa đồ thị. Sách cũng nêu phương án chuẩn hóa để tổng bằng $1$; bài dùng chuẩn hóa theo thành phần lớn nhất như các ví dụ của sách.
 <!-- public-notes:end -->
 
-### lec04-s05-03 — Lượt cập nhật uy tín thứ nhất
+### lec04-s05-03 — Bước uy tín thứ nhất
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT4. Đầu vào: G5,h0. Sản phẩm: cộng đúng cạnh vào và chuẩn hóa max.
 
@@ -1710,7 +1710,7 @@ $h^0=(1,1,1,1,1)^\mathsf T$; G5 giữ nguyên.
 | D | A,B | $2$ | $1$ |
 | E | C | $1$ | $1/2$ |
 
-Giá trị thô lớn nhất bằng 2; chia toàn vector cho 2.
+Uy tín thô của mỗi trang là tổng $h^0$ của các trang trỏ tới; chuẩn hóa: chia cho giá trị lớn nhất, bằng $2$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Bảng năm hàng chiếm80%; khởi tạo phía trên10%, dòng chuẩn hóa dưới10%. Các hàng theo A–E như đồ thị.
