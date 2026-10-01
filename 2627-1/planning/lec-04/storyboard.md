@@ -2007,7 +2007,7 @@ Một điều kiện đủ để phép lặp có hướng giới hạn duy nhấ
 Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1;\,0{,}3583;\,0;\,0{,}7165;\,0)^\mathsf T$ và $a\approx(0{,}2087;\,1;\,1;\,0{,}7913;\,0)^\mathsf T$.
 <!-- public-notes:end -->
 
-### lec04-s05-10 — Chi phí HITS trên đồ thị thưa
+### lec04-s05-10 — Chi phí HITS
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Đánh giá chi phí; MT5. Đầu vào: hai phép cập nhật. Sản phẩm: đếm hai lượt cạnh và lý giải không lập tích ma trận.
 
@@ -2026,7 +2026,7 @@ Mô hình: danh sách cạnh, $n$ đỉnh, $\ell$ cạnh; phép toán vô hướ
 
 Thời gian $\Theta(n+\ell)$ mỗi vòng; bộ nhớ phụ $\Theta(n)$, đầu vào $\Theta(n+\ell)$.
 
-Hai lượt cạnh đáp ứng nhu cầu tính hai vector trên đồ thị lớn. Không tạo $LL^\mathsf T$ hoặc $L^\mathsf TL$ để chạy vì chúng có thể đặc hơn $L$.
+Không dựng $LL^\mathsf T$ hoặc $L^\mathsf TL$ để chạy vì chúng có thể đặc hơn $L$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Mô hình trên15%; bảng ba hàng giữa60%; kết quả và lưu ý tích ma trận dưới25%.
@@ -2040,6 +2040,8 @@ Hai lượt cạnh đáp ứng nhu cầu tính hai vector trên đồ thị lớ
 **Ví dụ, phiếu số và hình thức hóa:** HT6; VD4 n5,ell8 chỉ là kiểm số đối tượng, không số đo hiệu năng. K vòng Theta(K(n+ell)).
 
 **Kết nối vào–ra:** Quan hệ điểm ổn định → thực thi bằng hai lượt cạnh, thu hồi giới hạn đồ thị lớn ở S05-01 → kiểm một vòng HITS và lựa chọn phương pháp theo cùng mô hình chi phí.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Chi phí HITS” (mô hình danh sách cạnh đã ghi trên mặt trang); bỏ vế rỗng nghĩa “hai lượt cạnh đáp ứng nhu cầu…”.
 
 **Nguồn và vị trí:** NG1 §5.5.2, tr.206; phép đếm trực tiếp theo giả mã đã đặc tả.
 
