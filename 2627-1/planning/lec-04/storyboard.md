@@ -2111,7 +2111,7 @@ Tổng hợp và kết luận. Đầu ra các cụm → đối chiếu cùng ti�
 
 Phân bổ: 4 slide, 10 phút.
 
-### lec04-s06-01 — Đối chiếu ý nghĩa các điểm xếp hạng
+### lec04-s06-01 — Ý nghĩa của các điểm xếp hạng
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tổng hợp; MT5. Đầu vào: HT1,HT5,HT6. Sản phẩm: phân biệt đầu ra và thông tin thêm của mỗi phương pháp.
 
@@ -2120,7 +2120,7 @@ Phân bổ: 4 slide, 10 phút.
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-| Phương pháp | Đầu ra | Thông tin quyết định |
+| Phương pháp | Đầu ra | Thông tin bổ sung cần có |
 |---|---|---|
 | PageRank theo chủ đề | Một phân phối điểm theo ngữ cảnh | Phân phối dịch chuyển $v$ |
 | TrustRank | Một phân phối điểm từ tập tin cậy | Hạt giống được đánh giá bên ngoài |
@@ -2141,6 +2141,8 @@ Phân bổ: 4 slide, 10 phút.
 **Ví dụ, phiếu số và hình thức hóa:** HT1,HT5,HT6; không có ví dụ số mới.
 
 **Kết nối vào–ra:** Ba cụm kiến thức → bảng đầu ra → quyết định trên tình huống mở bài.
+
+**Quyết định 01/10/2026:** sửa nhẹ — tiêu đề “Ý nghĩa của các điểm xếp hạng”; đổi tên cột “Thông tin quyết định” (mơ hồ) thành “Thông tin bổ sung cần có”.
 
 **Nguồn và vị trí:** NG1 §5.3.2,§5.4.4–5,§5.5.1–2, tr.196–207.
 
