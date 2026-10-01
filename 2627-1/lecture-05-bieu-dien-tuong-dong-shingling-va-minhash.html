@@ -77,7 +77,7 @@
 <aside class="notes"><p>Chuỗi có bảy ký tự và sáu vị trí bắt đầu cho cửa sổ hai ký tự. Cửa sổ đầu và cửa sổ thứ năm cùng là <code>ab</code>, nên phép chèn vào tập ở lần thứ năm không tăng kích thước tập. Kết quả có năm phần tử phân biệt. Thứ tự liệt kê trong tập không biểu thị thứ tự xuất hiện.</p><p>Nguồn: MMDS 3e, Ví dụ 3.3, tr. 78.</p></aside>
 </section>
 <section id="lec05-s02-03" data-slide-id="lec05-s02-03" class="example-slide">
-<h2>Định nghĩa tập k-shingle</h2>
+<h2>Định nghĩa tập shingle</h2>
 <p>\(D\) là chuỗi dài \(\ell\); \(k\ge1\) là số nguyên. Chỉ số ký tự bắt đầu từ \(0\).</p><p class="ex-equation">\[S_k(D)=\{D[i:i+k]:0\le i\le\ell-k\}\]</p><p>\(D[i:i+k]\) chứa các vị trí \(i,i+1,\ldots,i+k-1\); không lấy vị trí \(i+k\).</p><div class="ex-card"><p>Nếu \(\ell&lt;k\), không có cửa sổ hợp lệ và \(S_k(D)=\varnothing\).</p></div>
 <p class="ex-source">MMDS 3e, §3.2.1; hình thức hóa chỉ số theo định nghĩa nguồn.</p>
 <aside class="notes"><p>Có \(\ell-k+1\) vị trí hợp lệ khi \(k\le\ell\). Với dữ liệu trước, \(\ell=7, k=2\), miền chỉ số là 0 đến 5. Một phần tử của tập là chuỗi con, không phải chỉ số vị trí. Nếu tài liệu ngắn hơn k, không có vị trí bắt đầu hợp lệ; trường hợp này cần được tách trước khi dùng định lý MinHash cho tập không rỗng.</p><p>Nguồn: MMDS 3e, §3.2.1; hình thức hóa chỉ số theo định nghĩa nguồn.</p></aside>

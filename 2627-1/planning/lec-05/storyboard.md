@@ -399,7 +399,7 @@ Chuỗi có bảy ký tự và sáu vị trí bắt đầu cho cửa sổ hai k�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 12. Định nghĩa tập k-shingle
+### 12. Định nghĩa tập shingle
 
 - **Mã:** `lec05-s02-03`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Hình thức hóa; xác định miền chỉ số và biên. **Mục tiêu:** MT2.
