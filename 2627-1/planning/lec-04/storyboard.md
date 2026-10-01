@@ -1596,7 +1596,7 @@ MMDS Ví dụ 5.12 dùng PageRank không dịch chuyển trên G4: $r_C=2/9$; Tr
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: sách dùng PageRank không dịch chuyển, trang trước dùng cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác; chỉ số không chứng minh A là rác; nó mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
+$s_C=(2/9-38/210)/(2/9)=13/70\approx0{,}186$, khớp Hình 5.17 của MMDS. Kết quả khác $1/5$ vì PageRank nền khác: sách dùng PageRank không dịch chuyển, trang trước dùng cùng $\beta=4/5$. Spam Mass chỉ có nghĩa khi ghi rõ cách tính $r$ và $\rho$. Chỉ số $1/5$ tại A gần $0$ hơn $1$ nên theo cách đọc của MMDS, A có lẽ không phải rác. Dù giá trị lớn hay nhỏ, chỉ số chỉ mô tả chênh lệch tương đối giữa hai mô hình điểm, phụ thuộc $T$ và giả định liên kết; nó không chứng minh hay bác bỏ chắc chắn nhãn rác. HITS đánh giá một quan hệ cấu trúc khác: một trang cung cấp nội dung hay dẫn tới các trang cung cấp nội dung.
 <!-- public-notes:end -->
 
 ## S05. HITS
