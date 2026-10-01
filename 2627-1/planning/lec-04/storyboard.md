@@ -1910,7 +1910,7 @@ Ví dụ: $N\big((1,2,2,2,1)^\mathsf T\big)=(1/2,1,1,1,1/2)^\mathsf T$; tổng k
 Chia tất cả thành phần cho cùng một số dương giữ mọi tỷ lệ $q_i/q_j$ khi mẫu khác $0$, đồng thời giữ thứ tự lớn nhỏ. Do đó chuẩn hóa kiểm soát độ lớn số mà không thay ý nghĩa thứ hạng trong từng vector. Sách dùng giá trị lớn nhất; chuẩn tổng bằng $1$ hoặc chuẩn Euclid tạo giá trị khác nên không thể trộn các vết số. Với đồ thị không cạnh, cả hai tích bằng $0$ và quy ước chuẩn hóa bằng giá trị lớn nhất không xác định.
 <!-- public-notes:end -->
 
-### lec04-s05-08 — Thuật toán HITS với cập nhật luân phiên
+### lec04-s05-08 — Thuật toán HITS
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Đặc tả và thuật toán; MT4. Đầu vào: L và N. Sản phẩm: đọc đúng trạng thái cũ/mới, ngưỡng và ca biên.
 
@@ -1949,6 +1949,8 @@ trả về (h, a, hết số vòng)
 
 **Kết nối vào–ra:** Vết chạy và ma trận → quy trình có đầu ra/điều kiện dừng → lập luận đúng và giới hạn.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn “Thuật toán HITS” (cập nhật luân phiên đã thể hiện trong giả mã); ghi chú giải thích vì sao khởi tạo cả `a` dù vết chạy chỉ cần $h^0$.
+
 **Nguồn và vị trí:** NG1 §5.5.2, tr.206–207; giả mã cụ thể hóa thứ tự sách, điều kiện dừng và biên được nêu tường minh.
 
 **Thời lượng:** 4 phút.
@@ -1956,7 +1958,7 @@ trả về (h, a, hết số vòng)
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.
+HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Vector `a` khởi tạo toàn $1$ chỉ dùng để đo thay đổi ở vòng đầu; giá trị của nó không đi vào phép tính $a^1$. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.
 <!-- public-notes:end -->
 
 ### lec04-s05-09 — Điểm ổn định và giới hạn của HITS

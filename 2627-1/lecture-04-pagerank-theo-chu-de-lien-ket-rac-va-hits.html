@@ -939,7 +939,7 @@ $$N(q)=\frac{q}{\max_iq_i}.$$</p>
 </aside>
 </section>
 <section id="lec04-s05-08" data-slide-id="lec04-s05-08" class="example-slide">
-<h2>Thuật toán HITS với cập nhật luân phiên</h2>
+<h2>Thuật toán HITS</h2>
 <p>Đầu vào: đồ thị có ít nhất một cạnh; $\tau&gt;0$, số vòng tối đa $K\ge1$.</p>
 <pre class="ex-code"><code class="language-plaintext" data-trim>h ← vector toàn 1; a ← vector toàn 1
 với t = 0, ..., K - 1:
@@ -955,7 +955,7 @@ trả về (h, a, hết số vòng)
 <p>Đầu ra gồm hai vector và trạng thái dừng; đồ thị không cạnh trả trạng thái không xác định khi chuẩn hóa bằng giá trị lớn nhất.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207.</p>
 <aside class="notes">
-<p>HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.</p>
+<p>HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Vector <code>a</code> khởi tạo toàn $1$ chỉ dùng để đo thay đổi ở vòng đầu; giá trị của nó không đi vào phép tính $a^1$. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.2, tr.206–207.</p>
 </aside>
 </section>
