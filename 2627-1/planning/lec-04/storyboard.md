@@ -1060,8 +1060,6 @@ $x$ là tổng đóng góp theo các cạnh từ ngoài tới đích, đã nhân
 | Dịch chuyển đều tới đích | $b$ |
 
 $$y=x+\beta mp+b.$$
-
-Đóng góp $x$ đã bao gồm hệ số $\beta$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Ba mũi tên có nhãn vào đích chiếm trái45%; bảng và phương trình phải55%. Vị trí đích/hỗ trợ khớp S03-02.
@@ -1075,6 +1073,8 @@ $$y=x+\beta mp+b.$$
 **Ví dụ, phiếu số và hình thức hóa:** VD2; HT4 phương trình điểm đích; không có dữ kiện số mới.
 
 **Kết nối vào–ra:** Điểm từng hỗ trợ → dòng quay lại đích → phương trình tự phụ thuộc y.
+
+**Quyết định 01/10/2026:** sửa nhẹ — giữ tiêu đề và bảng; bỏ câu cuối lặp định nghĩa $x$ ở dòng mở đầu.
 
 **Nguồn và vị trí:** NG1 §5.4.2, tr.201/PDF27.
 
