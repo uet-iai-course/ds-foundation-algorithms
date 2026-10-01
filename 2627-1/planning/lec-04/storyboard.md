@@ -1605,7 +1605,7 @@ Thuật toán và ví dụ. Danh sách/nội dung học phần → hai vai trò 
 
 Phân bổ: 11 slide, 30 phút.
 
-### lec04-s05-01 — Hai vai trò trong mạng học phần
+### lec04-s05-01 — Trang trung tâm và trang uy tín
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng HITS; MT4. Đầu vào: đồ thị liên kết. Sản phẩm: phân biệt nội dung và đường dẫn tới nội dung.
 
@@ -1614,12 +1614,12 @@ Phân bổ: 11 slide, 30 phút.
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Đầu vào là đồ thị các trang và liên kết đã chọn. Trang danh sách học phần dẫn tới các trang của từng học phần.
+PageRank và TrustRank gán mỗi trang một mức quan trọng. Ví dụ MMDS §5.5.1: trang danh sách học phần của một khoa có giá trị vì dẫn tới các trang học phần.
 
 [Hình: Trang danh mục học phần giữ vai trò trung tâm và trỏ tới các trang học phần giữ vai trò uy tín.]
 Thuật toán tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS) gán mỗi trang hai điểm: trung tâm (hub) $h_i$ và uy tín (authority) $a_i$.
 
-Trang danh mục minh họa vai trò trung tâm; trang cung cấp nội dung minh họa vai trò uy tín. Uy tín HITS biểu thị quan hệ liên kết, khác độ tin cậy của TrustRank.
+Trang uy tín cung cấp thông tin về một chủ đề; trang trung tâm chỉ ra nơi tìm thông tin đó.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Đầu vào đồ thị ở trên; sơ đồ trang danh mục trỏ tới các trang học phần ở giữa; phần dưới định nghĩa hai điểm $h_i,a_i$, gắn với hai vai trò và phân biệt uy tín HITS với độ tin cậy TrustRank. Không đưa ký hiệu tích ma trận vào trang mở phần.
@@ -1634,6 +1634,8 @@ Trang danh mục minh họa vai trò trung tâm; trang cung cấp nội dung min
 
 **Kết nối vào–ra:** S04 phân biệt chỉ số tin cậy với vai trò cấu trúc → đầu vào đồ thị và nhu cầu hai vector HITS → chạy tay trên G5 trước khi xây phép lặp thưa; S05-10 thu hồi giới hạn tính toán.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi hai vai trò thay cho cụm “mạng học phần”; câu mở nêu giới hạn tạo nhu cầu (PageRank, TrustRank cho một mức quan trọng) và nối từ S04 (G9); định nghĩa hai vai trò theo MMDS §5.5.1; câu “uy tín HITS khác độ tin cậy TrustRank” chuyển vào ghi chú và s06-01.
+
 **Nguồn và vị trí:** NG1 §5.5–5.5.2, tr.204–208/PDF30–34; Ví dụ 5.13 tr.205; phạm vi đồ thị tr.204, phép nhân thưa tr.206 và tính lặp trên web lớn tr.208.
 
 **Thời lượng:** 2 phút.
@@ -1641,7 +1643,7 @@ Trang danh mục minh họa vai trò trung tâm; trang cung cấp nội dung min
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Đồ thị trang và liên kết được coi là đầu vào đã chọn. Trang danh sách không thay thế nội dung chi tiết của một học phần, còn một trang học phần không thay thế danh sách toàn bộ học phần. Hai vai trò được đánh giá từ cấu trúc liên kết. Uy tín trong HITS không đồng nghĩa với điểm tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc; ví dụ nhỏ cho phép kiểm từng phép cập nhật.
+Đồ thị trang và liên kết được coi là đầu vào đã chọn; hai vai trò được đánh giá từ cấu trúc liên kết. Một mức quan trọng duy nhất không phân biệt được hai vai trò này: trang danh sách không thay thế nội dung một học phần, còn trang học phần không thay thế danh sách. Uy tín trong HITS không đồng nghĩa với điểm tin cậy của TrustRank; nó biểu diễn vai trò nhận liên kết từ các trang trung tâm có điểm cao. Trên đồ thị lớn, phép lặp tính hai vector cần khai thác các cạnh hiện có thay vì lưu ma trận đặc; ví dụ nhỏ cho phép kiểm từng phép cập nhật.
 <!-- public-notes:end -->
 
 ### lec04-s05-02 — Điểm trung tâm và điểm uy tín
