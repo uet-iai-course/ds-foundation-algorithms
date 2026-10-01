@@ -428,7 +428,7 @@ Tại A: $(4/5)[(1/2)(1/2)+1\cdot0]=1/5$. Tổng điểm mới bằng 1.
 Từ B, điểm $1/2$ chia cho A, D; từ D, điểm $1/2$ chia cho B, C. Vì vậy mỗi thành phần của $M_0r^0$ bằng $1/4$. Sau khi nhân $4/5$, mỗi trang có $1/5$; B, D nhận thêm $1/10$. Tổng là $1/5+3/10+1/5+3/10=1$. Nếu thay $v$ bằng phân phối đều, bốn điểm mới đều bằng $1/4$, khác phép tính theo tập dịch chuyển đã chọn.
 <!-- public-notes:end -->
 
-### lec04-s02-04 — Vết lặp và điểm cố định theo chủ đề
+### lec04-s02-04 — Vòng thứ hai và điểm cố định
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay và quan sát; MT1. Đầu vào: r1. Sản phẩm: tính r2 và phân biệt một vòng với giới hạn.
 
@@ -437,8 +437,7 @@ Từ B, điểm $1/2$ chia cho A, D; từ D, điểm $1/2$ chia cho B, C. Vì v�
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Tại A ở vòng 2:
-$$r_A^2=\frac45\left(\frac12\frac3{10}+\frac15\right)=\frac7{25}.$$
+Tại A ở vòng 2: $r_A^2=\tfrac45\big(\tfrac12\cdot\tfrac3{10}+\tfrac15\big)=\tfrac7{25}$.
 
 | Trang | $r^1$ | $r^2$ | Điểm cố định $r^*$ |
 |---|---:|---:|---:|
@@ -446,6 +445,8 @@ $$r_A^2=\frac45\left(\frac12\frac3{10}+\frac15\right)=\frac7{25}.$$
 | B | $3/10$ | $41/150$ | $59/210$ |
 | C | $1/5$ | $13/75$ | $19/105$ |
 | D | $3/10$ | $41/150$ | $59/210$ |
+
+$r^*$ là nghiệm của $r=\beta M_0r+(1-\beta)v$, $\sum_ir_i=1$: phân phối không đổi (Bài 03).
 
 B và D có điểm cố định lớn hơn A; các trang ngoài $S$ vẫn có điểm dương.
 <!-- public-slide:end -->
@@ -462,6 +463,8 @@ B và D có điểm cố định lớn hơn A; các trang ngoài $S$ vẫn có �
 
 **Kết nối vào–ra:** Vết tính cụ thể → nhu cầu một đặc tả có điều kiện dừng và lập luận hội tụ.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề ngắn, gọi hai đối tượng của trang; định nghĩa “điểm cố định” một dòng và nối với “phân phối không đổi” của Bài 03 (G3); ghi chú nêu cách thu nghiệm (giải hệ, thế lại) làm cầu nối sang bài tập s07-01.
+
 **Nguồn và vị trí:** NG1 VD5.10, tr.197/PDF23.
 
 **Thời lượng:** 2,5 phút.
@@ -469,7 +472,7 @@ B và D có điểm cố định lớn hơn A; các trang ngoài $S$ vẫn có �
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có số hạng $1/10$, nên được $13/75$. Vòng 3 là $(31/125,71/250,23/125,71/250)^\mathsf T$. Nghiệm trong cột cuối thỏa phương trình cố định và có tổng bằng $1$. Việc các vòng đầu tiến gần nghiệm là quan sát; bảo đảm hội tụ đòi hỏi lập luận cho mọi vòng lặp.
+Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có số hạng $1/10$, nên được $13/75$. Vòng 3 là $(31/125,71/250,23/125,71/250)^\mathsf T$. Nghiệm trong cột cuối thu được bằng cách giải hệ bốn phương trình tuyến tính cùng điều kiện tổng bằng $1$; phép thế lại cho thấy nó thỏa phương trình cố định. Cách giải này được dùng lại trong bài tập cuối bài. Việc các vòng đầu tiến gần nghiệm là quan sát; bảo đảm hội tụ đòi hỏi lập luận cho mọi vòng lặp.
 <!-- public-notes:end -->
 
 ### lec04-s02-05 — Đặc tả PageRank theo phân phối dịch chuyển
