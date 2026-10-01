@@ -2354,7 +2354,7 @@ $$r=(27/70,6/35,19/70,6/35)^\mathsf T.$$
 Hai nghiệm đều có tổng bằng $1$. Phép thế vào cả bốn phương trình kiểm thêm điều kiện điểm cố định; tổng bằng $1$ riêng lẻ chưa đủ xác nhận nghiệm.
 <!-- public-notes:end -->
 
-### lec04-s07-02 — Bài tập cấu trúc liên kết hỗ trợ
+### lec04-s07-02 — Bài tập biến thể cụm thao túng
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT2; MT2. Đầu vào: HT4. Sản phẩm: hai mô hình cân bằng và biểu thức y theo tham số.
 
@@ -2365,7 +2365,7 @@ Hai nghiệm đều có tổng bằng $1$. Phép thế vào cả bốn phương 
 <!-- public-slide:start -->
 **Bài 5.4.1(a, c), MMDS §5.4.6, trang 203–204.**
 
-Giữ mô hình Hình 5.16 trên đồ thị không nút cụt: đích vẫn chỉ trỏ tới $m$ hỗ trợ; các hỗ trợ không nhận liên kết từ ngoài cụm; mọi cạnh ngoài vào cụm tới đích. $x$ đã gồm $\beta$; $b=(1-\beta)/n$.
+Giữ mô hình Hình 5.16, trừ cạnh ra của các hỗ trợ; $x$ đã gồm $\beta$; $b=(1-\beta)/n$.
 
 **Câu hỏi:** Lặp lại phân tích khi mỗi trang hỗ trợ (a) chỉ trỏ tới chính nó thay vì đích; (c) trỏ tới cả chính nó và đích.
 
@@ -2383,6 +2383,8 @@ Sản phẩm: phương trình điểm hỗ trợ $p$ và điểm đích $y$; bi�
 **Ví dụ, phiếu số và hình thức hóa:** BT2/VD2/HT4; n≥m+1,m≥1,0<beta<1; cả hai cấu trúc giữ không nút cụt.
 
 **Kết nối vào–ra:** BT1 đổi bước nhảy → BT2 đổi cạnh và quy tắc chia → BT3 tính hai vai trò trên chuỗi nguồn.
+
+**Quyết định 01/10/2026:** sửa nhẹ — tiêu đề dùng thuật ngữ “cụm thao túng” thống nhất với S03; dòng giả thiết lặp toàn bộ mô hình được rút còn phần khác biệt (cạnh ra của hỗ trợ). Bài nguồn, dữ kiện và lời giải giữ nguyên.
 
 **Nguồn và vị trí:** NG1 Bài 5.4.1(a,c), tr.203–204/PDF29–30; Hình 5.16 và §5.4.2 tr.200–201. Lược ý(b) để không mở thêm bù nút cụt trong bài20 phút.
 
