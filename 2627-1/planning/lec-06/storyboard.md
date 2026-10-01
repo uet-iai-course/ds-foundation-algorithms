@@ -649,16 +649,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.8.5/Ex 3.23 tr.118–120/PDF 47–49.
 - **Ánh xạ ghi chú:** `N12`. **Thời lượng:** 3 phút.
 
-#### lec06-s05-05 — Shingle cho bản tin gần trùng
+#### lec06-s05-05 — Shingle theo từ dừng cho bản tin
 
-- **Mục đích và vai trò:** Áp dụng quy tắc từ dừng để chọn đặc trưng văn bản chính.
+- **Mục đích và vai trò:** Nêu bài toán bản tin gần trùng, quy tắc shingle theo từ dừng (Ví dụ 3.24) và hệ quả: Jaccard phản ánh phần văn xuôi, khác shingle ký tự.
 - **Thông điệp:** Biểu diễn phải phù hợp với tiêu chuẩn cùng văn bản.
-- **Nội dung công khai dự kiến:** Từ dừng là từ xuất hiện rất thường xuyên. Ví dụ dùng: I, that, you, for, your. Mỗi shingle gồm một từ dừng và hai token tiếp theo. Buy Sudzo.Không có token từ dừng → không có shingle. I recommend that you buy Sudzo for your laundry.“I recommend that” · “that you buy” “you buy Sudzo” · “for your laundry” Quy tắc ưu tiên văn xuôi; câu dài cũng có thể là quảng cáo. “your laundry x” còn phụ thuộc token tiếp theo x chưa được cho. Mục tiêu là cùng văn bản, không chỉ cùng chủ đề.
+- **Nội dung công khai dự kiến:** Một bản tin được nhiều báo đăng lại kèm quảng cáo khác nhau; cần cặp trang cùng văn bản gốc. Văn xuôi có nhiều từ dừng, tức từ rất thường gặp, hơn quảng cáo. Shingle: một từ dừng và hai từ tiếp theo. Từ dừng của ví dụ: I, that, you, for, your. Buy Sudzo. Không có từ dừng nên không có shingle. I recommend that you buy Sudzo for your laundry. “I recommend that” · “that you buy” “you buy Sudzo” · “for your laundry” Shingle tập trung ở văn xuôi, nên Jaccard phản ánh phần bản tin hơn phần quảng cáo.
 - **Đầu vào và giả thiết:** Từ dừng là từ rất thường gặp; danh sách ví dụ I, that, you, for, your. Shingle lấy từ dừng và hai token kế tiếp. Token sau laundry chưa được cho.
 - **Dữ kiện, hình thức hóa và vết chạy:** that + you + buy → that you buy. Buy Sudzo không có từ dừng trong danh sách. Câu dài có bốn shingle xác định và your laundry x chưa xác định x. Mật độ từ dừng cao hơn trong văn xuôi của tình huống nguồn giải thích mục đích biểu diễn.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trên là hai đoạn nguồn, dưới là bảng vị trí từ dừng/shingle; phân biệt quảng cáo 0 shingle và câu văn bằng nhãn. Năm 2 chạy đúng quy tắc trên token; không dịch dữ kiện rồi dùng danh sách từ dừng tiếng Anh.
 - **Kết nối vào–ra:** Ứng dụng phép ghép→lựa chọn đặc trưng; kiểm tra phần nối biểu diễn với ý nghĩa kết quả.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Danh sách từ dừng của ví dụ gồm I, that, you, for, your. Từ “that” và hai token theo sau tạo shingle “that you buy”. Câu ngắn “Buy Sudzo.” không có từ dừng trong danh sách này nên không tạo shingle. Câu dài “I recommend that you buy Sudzo for your laundry.” cũng có thể dùng làm lời quảng cáo và vẫn tạo các shingle đã liệt kê. Trong tình huống nguồn, văn xuôi có mật độ từ dừng cao hơn quảng cáo hoặc tiêu đề, nên đóng góp nhiều shingle hơn. Quy tắc không bảo đảm loại mọi quảng cáo. Các tập shingle ở đây chỉ thuộc những đoạn minh họa được cho. Sách còn ghi “your laundry x”, trong đó $x$ là từ theo sau câu, chưa được cung cấp.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Câu thứ hai còn shingle thứ năm “your laundry x”, với $x$ là từ đứng sau câu, chưa được cho. MMDS so sánh hai trang, mỗi trang nửa bản tin, nửa quảng cáo: nếu chung bản tin mà khác quảng cáo, Jaccard theo shingle từ dừng có thể khoảng $0{,}75$; nếu chung quảng cáo mà khác bản tin, khoảng $0{,}25$. Với shingle 10 ký tự liên tiếp, hai trường hợp đều cho khoảng $1/3$, nên không phân biệt được. Quy tắc chỉ ưu tiên văn xuôi; một câu quảng cáo viết dạng văn xuôi vẫn tạo shingle. Mục tiêu là cùng văn bản, không phải cùng chủ đề; bài toán cùng chủ đề cần kỹ thuật khác. Sau khi có tập shingle mới, MinHash, phân dải và xác minh Jaccard được dùng lại nguyên vẹn.
 - **Nguồn:** B §3.8.6/Ex 3.24 tr.120–121/PDF 49–50.
 - **Ánh xạ ghi chú:** `N13`. **Thời lượng:** 2.5 phút.
 

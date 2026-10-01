@@ -722,13 +722,13 @@ Ví dụ 3.24 dùng các từ dừng I, that, you, for, your. Chẳng hạn, t�
 - “I recommend that you buy Sudzo for your laundry.” cho bốn shingle xác định: “I recommend that”, “that you buy”, “you buy Sudzo”, “for your laundry”.
 - Shingle bắt đầu bằng “your” có dạng “your laundry x”, còn phụ thuộc token kế tiếp $x$ chưa được cho.
 
-Câu dài cũng có thể là quảng cáo. Quy tắc ưu tiên những chuỗi mang dạng văn xuôi, không bảo đảm loại mọi quảng cáo.
+Hệ quả cho Jaccard được MMDS minh họa bằng hai trang, mỗi trang nửa bản tin, nửa quảng cáo. Nếu hai trang chung bản tin mà khác quảng cáo, Jaccard theo shingle từ dừng có thể khoảng $0{,}75$; nếu chung quảng cáo mà khác bản tin, chỉ khoảng $0{,}25$. Với shingle 10 ký tự liên tiếp, cả hai trường hợp đều cho khoảng $1/3$, nên không phân biệt được. Câu dài cũng có thể là quảng cáo: quy tắc ưu tiên những chuỗi mang dạng văn xuôi, không bảo đảm loại mọi quảng cáo.
 
 Sau khi tạo tập shingle mới, có thể dùng lại MinHash, phân dải và xác minh Jaccard. Chi phí bao gồm đọc token, tạo đặc trưng và xử lý ứng viên.
 
 
 ::: exercise
-Câu hỏi: Đầu ra cần tìm ở bài toán bản tin là cùng văn bản hay cùng chủ đề? Vì sao câu quảng cáo dài đã cho vẫn có thể tạo shingle?
+Câu hỏi: Xác định đầu ra cần tìm ở bài toán bản tin (cùng văn bản hay cùng chủ đề). Giải thích vì sao câu quảng cáo dài đã cho vẫn có thể tạo shingle.
 :::
 
 ::: solution
