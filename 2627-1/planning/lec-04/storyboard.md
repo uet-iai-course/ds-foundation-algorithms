@@ -2306,7 +2306,7 @@ Phân bổ: 3 slide, 60 phút.
 <!-- public-slide:start -->
 **Bài 5.3.1(a, b), MMDS §5.3.5, trang 199.**
 
-G4/Hình 5.15: A→B,C,D; B→A,D; C→A; D→B,C. Dùng $\beta=0.8$ kế thừa Ví dụ 5.10.
+$\beta=0{,}8$, kế thừa Ví dụ 5.10; tám cạnh của G4 giữ nguyên.
 
 **Câu hỏi:** Tính PageRank theo chủ đề khi tập dịch chuyển là (a) chỉ A; (b) A và C.
 

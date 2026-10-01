@@ -530,3 +530,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s05-07 | (nhẹ) Câu cuối ghi chú lặp trường hợp đồ thị không cạnh trên mặt trang. | sửa ghi chú | Bỏ câu lặp. |
 | lec04-s05-01 | (nhẹ) Vế “ví dụ nhỏ cho phép kiểm từng phép cập nhật” mang tính siêu văn bản. | sửa ghi chú | Bỏ vế này. |
 | lec04-s06-01 | (nhẹ) Ô “Thông tin bổ sung cần có” của HITS ghi cơ chế; câu cuối ghi chú lặp câu chốt. | sửa | Ô HITS → “Không cần; chỉ dùng cấu trúc liên kết”; bỏ câu lặp trong ghi chú. |
+| lec04-s07-01 | (nhẹ) “$\beta=0.8$” dùng dấu chấm thập phân; khối công khai trong storyboard khác HTML. | sửa | Đổi thành $\beta=0{,}8$; đồng bộ khối công khai. |
