@@ -323,3 +323,13 @@ Dự án `20260827182308-b-i-6-t-m-c-p-t-ng-ng-b-ng-lsh-bmts` được cập nh�
 Kiểm giao diện Codex Slides bằng Chromium ở chế độ chỉ đọc: mở lần lượt đủ 60 trang, SHA-256 ảnh phục vụ từ ứng dụng khớp ảnh nguồn, 60 trường ghi chú khớp manifest và không lỗi JavaScript. Root xem các ảnh giao diện được chọn, gồm mục tiêu mở đầu, cận Euclid và panel notes bài vân tay. Trạng thái dự án là `deck`, 60/60 trang có ảnh. Các yêu cầu tự lưu chat từ giao diện bị chặn có chủ đích; lịch sử chat/chi phí cũ của dự án không là kết quả chạy mới. Trường notes của Codex Slides giữ TeX dạng văn bản; khả năng render công thức được xác minh ở cửa sổ Reveal Notes thật. Ba Design Files cuối được đồng bộ từ outline, storyboard và nhật ký trong kho, rồi kiểm đọc lại.
 
 Kết luận kiểm định nội dung và kỹ thuật: **PASS**, không còn phát hiện chặn, nghiêm trọng hoặc trung bình chưa xử lý. Phạm vi phát hành chỉ gồm sản phẩm Bài 06, mô tả index và CSS đã giới hạn; các thay đổi riêng của người dùng được giữ ngoài commit. Commit/push do điều phối viên thực hiện sau đồng bộ Design Files; mã commit và kết quả đối chiếu `origin/main` được báo trong bàn giao.
+
+## Duyệt từng trang ngày 02/10/2026
+
+Yêu cầu của người dùng: duyệt lần lượt từng trang, xác định trang muốn nói gì, đề xuất rồi sửa để tiêu đề ngắn gọn, học thuật; lập luận chặt; khái niệm không xuất hiện đột ngột. Sau mỗi trang, sửa phần tương ứng của `lecture-note.md`, commit và push.
+
+Cách làm như lượt Bài 05 (01/10/2026): điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) biên tập từng trang, tự kiểm theo `no-ai-slop`/`eval.md`, tính lại phép tính bằng chương trình; sau mỗi phần, một tác tử rà chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5) kiểm độ chính xác và mạch. Kiểm hiển thị bằng Playwright Chromium ở 1600 × 900 và 390 × 844 (khổ hẹp kiểm bằng cuộn tới trang vì chế độ cuộn của Reveal), ghi chú ở 1440 × 900, 390 × 844 và in; máy chủ chạy ở cổng 8775 từ gốc kho. Quy ước số thập phân: trang nào được sửa thì đổi dấu chấm thập phân sang dấu phẩy (`0{,}8`) theo cách viết tiếng Việt đã dùng ở Bài 04–05.
+
+| Trang | Trang muốn nói | Quyết định | Thay đổi deck và storyboard | Ghi chú tự học |
+|---|---|---|---|---|
+| lec06-s01-01 | Tên bài; LSH được diễn giải ở dòng phụ; nối từ chữ ký Bài 05. | giữ | Tiêu đề, dòng phụ và ghi chú đạt. | Không đổi. |
