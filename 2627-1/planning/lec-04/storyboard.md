@@ -88,12 +88,12 @@ Bài học xét ba yêu cầu trên dữ liệu liên kết: thiên lệch đi�
 6. So sánh các phương pháp xếp hạng.
 7. Bài tập.
 
-Mục tiêu: tính các vector điểm; giải thích cơ chế; lựa chọn phương pháp theo đầu ra và giả thiết.
+Mục tiêu: tính PageRank theo chủ đề, TrustRank, Spam Mass và điểm HITS; giải thích tác động của cụm liên kết rác; chọn phương pháp theo đầu ra cần tạo.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** Bảy mục chia hai cột 55%–45%, lần lượt 1–4 và 5–7; một dòng mục tiêu ở chân trang nội dung. Dùng thành phần mục lục chung.
+**Bố cục đã chọn:** Bảy mục chia hai cột 55%–45%, lần lượt 1–4 và 5–7; một dòng mục tiêu ở chân trang nội dung nêu đối tượng tính, cơ chế cần giải thích và tiêu chí chọn. Dùng thành phần mục lục chung.
 
-**Trọng tâm và thứ tự đọc:** Đọc cột trái từ trên xuống, tiếp sang cột phải; dòng mục tiêu nối các phần bằng ba thao tác.
+**Trọng tâm và thứ tự đọc:** Đọc cột trái từ trên xuống, tiếp sang cột phải; dòng mục tiêu nối các phần bằng ba thao tác gắn với từng phương pháp.
 
 **Lý do phù hợp sinh viên năm 2:** Thứ tự chủ đề–liên kết rác–HITS theo sách giúp sinh viên nhận biết phần nào dùng lại PageRank, phần nào đổi mô hình điểm.
 
@@ -110,8 +110,10 @@ Mục tiêu: tính các vector điểm; giải thích cơ chế; lựa chọn ph
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-PageRank theo chủ đề thay phân phối dịch chuyển trong phép lặp. Phân tích liên kết rác xác định những cấu trúc có thể làm tăng điểm trang đích; TrustRank và Spam Mass dùng tập tin cậy để đối chiếu. HITS phân biệt điểm trung tâm và điểm uy tín. Bài tập áp dụng các phương trình trên dữ liệu của giáo trình.
+PageRank theo chủ đề giữ phép lặp của Bài 03 và chỉ đổi nơi đến của bước nhảy ngẫu nhiên: bước nhảy tới các trang đại diện một chủ đề thay vì mọi trang. Mô hình cụm liên kết rác cho thấy một cấu trúc liên kết có thể khuếch đại điểm của trang đích. TrustRank dùng cùng phép lặp, với tập trang tin cậy làm nơi đến của bước nhảy; Spam Mass so sánh TrustRank với PageRank để chọn trang cần rà soát. HITS gán mỗi trang hai điểm, trung tâm và uy tín, thay cho một điểm duy nhất. Phần bài tập áp dụng các phương trình này trên dữ liệu của giáo trình.
 <!-- public-notes:end -->
+
+**Quyết định duyệt trang 01/10/2026:** sửa. Giữ tiêu đề và bảy mục; thay dòng mục tiêu trừu tượng bằng động từ gắn với từng phương pháp; ghi chú nêu mạch bốn phương pháp và nối “bước nhảy ngẫu nhiên” của Bài 03.
 
 ### lec04-s01-03 — Truy vấn đa nghĩa và ngữ cảnh chủ đề
 

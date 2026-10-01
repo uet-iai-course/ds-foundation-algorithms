@@ -433,3 +433,4 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | Trang | Trang muốn nói | Quyết định | Thay đổi |
 |---|---|---|---|
 | lec04-s01-01 | Tên bài, học phần, học kỳ; ghi chú nêu ba yêu cầu và PageRank Bài 03 là đầu vào. | giữ | Không đổi; hai báo cáo không nêu vấn đề. |
+| lec04-s01-02 | Bài gồm bảy phần; người học tính bốn loại điểm, giải thích cụm liên kết rác và chọn phương pháp. | sửa | Giữ tiêu đề và mục lục. Dòng mục tiêu nêu cụ thể đối tượng tính (PageRank theo chủ đề, TrustRank, Spam Mass, HITS), cơ chế cần giải thích và tiêu chí chọn. Ghi chú viết lại thành mạch bốn phương pháp, nối với bước nhảy ngẫu nhiên của Bài 03, không lặp mặt trang. |
