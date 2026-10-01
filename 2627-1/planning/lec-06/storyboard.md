@@ -97,16 +97,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 ### Phần 2. Phân dải chữ ký MinHash
 
-#### lec06-s02-01 — Phân dải chữ ký
+#### lec06-s02-01 — Ý tưởng phân dải chữ ký
 
 - **Mục đích và vai trò:** Mô tả quy tắc đưa hai cột vào cùng nhóm.
-- **Thông điệp:** Trùng toàn bộ một dải đủ để tạo một cặp ứng viên.
-- **Nội dung công khai dự kiến:** Chia $n=br$ hàng thành $b$ dải. Hai cột trùng một dải khi cả $r$ thành phần của dải đều trùng. Chung ít nhất một dải → cặp ứng viên. Mỗi dải cho một bộ $r$ giá trị có thứ tự (tuple); so trong cùng dải, rồi hợp cặp.
+- **Thông điệp:** Chia chữ ký thành dải; cặp trùng toàn bộ ít nhất một dải là ứng viên, và cột càng tương đồng càng dễ thành ứng viên.
+- **Nội dung công khai dự kiến:** [Hình: Chữ ký được chia thành b dải, mỗi dải r hàng; mỗi dải tạo khóa riêng.] Chia $n=br$ hàng thành $b$ dải. Phần của một cột trong dải là bộ $r$ giá trị có thứ tự (tuple); hai cột trùng dải khi hai tuple bằng nhau. Chung ít nhất một dải → cặp ứng viên. Hai cột càng tương đồng càng dễ trùng ở ít nhất một dải. Mỗi dải dùng một bảng thùng riêng; cùng bộ giá trị ở hai dải khác nhau không vào cùng thùng.
 - **Đầu vào và giả thiết:** SIG và nhu cầu ứng viên.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT1 trực giác; chưa áp công thức xác suất.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** SVG chữ ký với ngoặc dải ở trái 60%, hai câu quy tắc ở phải 40%. Năm 2 thấy AND trong dải và OR giữa dải bằng quan hệ nhóm; ký hiệu đặt cạnh ngoặc.
 - **Kết nối vào–ra:** Ứng viên cần được tạo→nhóm các đoạn bằng nhau; SIG nhỏ cho phép chạy từng bước.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Mỗi dải là một phép thử khác. Cùng tuple ở hai vị trí dải khác nhau không phải cùng khóa. So bằng tuple là phép kiểm rẻ hơn việc đọc hai tập gốc lớn.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Theo §3.4.1, cách tiếp cận chung là băm mỗi đối tượng nhiều lần sao cho đối tượng tương đồng dễ vào cùng thùng hơn; cặp vào cùng thùng ở ít nhất một lần băm là cặp ứng viên. Với chữ ký MinHash, mỗi dải là một lần băm: phần $r$ giá trị của một cột trong dải tạo thành một bộ có thứ tự (tuple). Cột càng giống nhau thì từng thành phần càng dễ trùng, nên càng dễ trùng toàn bộ một dải. Cặp không tương đồng mà vẫn thành ứng viên là ứng viên giả; cặp tương đồng không thành ứng viên là cặp bị bỏ sót. So hai tuple rẻ hơn nhiều so với đọc hai tập gốc.
 - **Nguồn:** B §3.4.1 tr.92–93/PDF 21–22; M PDF 44–46.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 1 phút.
 

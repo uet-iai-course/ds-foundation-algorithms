@@ -52,6 +52,8 @@ Nguồn: MMDS 3e, §3.4 và Ví dụ 3.10, tr.91–92.
 
 ### Đặc tả phép phân dải
 
+§3.4.1 nêu cách tiếp cận chung của LSH: băm mỗi đối tượng nhiều lần sao cho đối tượng tương đồng dễ vào cùng thùng hơn, rồi xem mọi cặp cùng thùng ở ít nhất một lần băm là cặp ứng viên. Cặp không tương đồng mà vẫn thành ứng viên là ứng viên giả; cặp tương đồng không thành ứng viên là cặp bị bỏ sót. Với chữ ký MinHash, mỗi lần băm là một dải của chữ ký: cột càng giống nhau thì từng thành phần càng dễ trùng, nên càng dễ trùng toàn bộ một dải.
+
 Chọn $b,r\in\mathbb N_{>0}$ sao cho $n=br$. Chia $n$ hàng chữ ký thành $b$ dải, mỗi dải gồm $r$ hàng liên tiếp. Với dải $j$ và tài liệu $c$, bộ $r$ giá trị có thứ tự (tuple) của dải là
 
 $$
