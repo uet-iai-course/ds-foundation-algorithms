@@ -1186,7 +1186,7 @@ Cụm nhân đóng góp từ ngoài khoảng $3{,}6$ lần và nhận thêm kho�
 Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\beta)]$. Phần dịch chuyển vào $m$ hỗ trợ vẫn được giữ vì tổng của chúng tạo hạng $m/n$. Với $\beta=17/20$, hệ số của $x$ là $400/111$; trừ $1$ rồi nhân $100$ cho phần tăng khoảng $260{,}36\%$; MMDS diễn đạt cùng hệ số này là khuếch đại đóng góp ngoài “360%”. Hệ số $400/111$ chỉ nhân với $x$; hạng từ hỗ trợ là $(17/37)(m/n)$. Đây là hệ số của một mô hình đại số, không phải số đo hiệu quả trên hệ tìm kiếm hiện hành.
 <!-- public-notes:end -->
 
-### lec04-s03-07 — Giới hạn của phân tích cấu trúc liên kết
+### lec04-s03-07 — Hai hướng chống liên kết rác
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và giới hạn; MT2, MT3. Đầu vào: hệ số khuếch đại. Sản phẩm: nêu điều kiện áp dụng và nhu cầu đánh giá tin cậy.
 
@@ -1195,14 +1195,14 @@ Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Cụm mô hình cần $m$ trang hỗ trợ và $2m$ cạnh nội bộ; các cạnh từ ngoài được xét riêng.
+**Phát hiện cấu trúc.** Tìm các cấu trúc như cụm vừa phân tích và loại các trang khỏi chỉ mục. Giới hạn: có vô số biến thể cùng tác dụng; nhóm liên kết dày cũng có thể hợp lệ.
 
-Công thức áp dụng khi giữ đúng kiến trúc, quy tắc dịch chuyển và định nghĩa $x$.
+**Đổi cách tính điểm.** Sửa định nghĩa PageRank để tự hạ điểm trang rác, không cần định vị cụm. Dùng thêm tập trang đã được đánh giá đáng tin.
 
-Một cấu trúc liên kết dày chưa đủ xác định nội dung rác. Đánh giá dựa trên tập trang tin cậy bổ sung thông tin ngoài cấu trúc.
+Hướng thứ hai dẫn tới hai công thức: TrustRank và Spam Mass.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** Hàng biểu tượng đích↔m hỗ trợ phía trên45% có nhãn2m cạnh; hai câu điều kiện và giới hạn phía dưới55%.
+**Bố cục đã chọn:** Hai thẻ ngang nhau “Phát hiện cấu trúc” và “Đổi cách tính điểm”; khối kết luận nối sang TrustRank, Spam Mass. Bỏ hình $2m$ cạnh nội bộ.
 
 **Trọng tâm và thứ tự đọc:** Đếm hai chiều cạnh → đọc phạm vi công thức → nhận giới hạn của chỉ kiểm cấu trúc.
 
@@ -1214,6 +1214,8 @@ Một cấu trúc liên kết dày chưa đủ xác định nội dung rác. Đ�
 
 **Kết nối vào–ra:** Mức khuếch đại → giới hạn phát hiện bằng hình dạng → kiểm tra dòng điểm, sau đó TrustRank.
 
+**Quyết định 01/10/2026:** viết lại — theo MMDS §5.4.3, trang trình bày hai hướng chống liên kết rác; hướng thứ hai tạo nhu cầu cho TrustRank và Spam Mass (cầu nối S03→S04, G8). Bỏ hình và câu “$2m$ cạnh nội bộ” vì không phục vụ luận điểm; câu “công thức áp dụng khi giữ đúng kiến trúc” đã nằm ở s03-03. SVG `hai-nhom-canh-noi-bo.svg` không còn được deck dùng.
+
 **Nguồn và vị trí:** NG1 Hình 5.16, tr.200; §5.4.3, tr.202.
 
 **Thời lượng:** 1 phút.
@@ -1221,7 +1223,9 @@ Một cấu trúc liên kết dày chưa đủ xác định nội dung rác. Đ�
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Trang đích có $m$ cạnh ra và mỗi trang trong $m$ hỗ trợ có một cạnh quay lại, tạo $2m$ cạnh nội bộ. Sách phân biệt phát hiện cấu trúc với thay cách đánh giá điểm. Một cụm có nhiều liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng cần được đặt trong ngữ cảnh dữ liệu. Tập tin cậy cung cấp thông tin bổ sung cho việc đánh giá.
+MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc trong đó một trang trỏ tới rất nhiều trang và các trang này trỏ ngược lại, rồi loại chúng khỏi chỉ mục. Người tạo rác khi đó chuyển sang cấu trúc khác có cùng tác dụng thu điểm cho trang đích; số biến thể của Hình 5.16 gần như không giới hạn. Ngoài ra, một nhóm trang liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng riêng lẻ chưa đủ để kết luận.
+
+Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ điểm. Công thức phải dùng thông tin không do người tạo rác kiểm soát: một tập trang đã được đánh giá đáng tin. Kết quả của phân tích cụm vẫn được dùng: nó cho thấy vì sao không thể chỉ dựa vào điểm PageRank toàn cục.
 <!-- public-notes:end -->
 
 ### lec04-s03-08 — Kiểm tra nguồn điểm tại đích

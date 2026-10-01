@@ -494,13 +494,12 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
 </aside>
 </section>
 <section id="lec04-s03-07" data-slide-id="lec04-s03-07" class="example-slide">
-<h2>Giới hạn của phân tích cấu trúc liên kết</h2>
-<img class="l04-figure l04-figure-short" src="img/lec-04/hai-nhom-canh-noi-bo.svg" alt="Đích tới m hỗ trợ qua m cạnh; m hỗ trợ quay lại đích qua m cạnh." role="img"><p>Cụm mô hình cần $m$ trang hỗ trợ và $2m$ cạnh nội bộ; các cạnh từ ngoài được xét riêng.</p>
-<p>Công thức áp dụng khi giữ đúng kiến trúc, quy tắc dịch chuyển và định nghĩa $x$.</p>
-<p>Một cấu trúc liên kết dày chưa đủ xác định nội dung rác. Đánh giá dựa trên tập trang tin cậy bổ sung thông tin ngoài cấu trúc.</p>
+<h2>Hai hướng chống liên kết rác</h2>
+<div class="ex-grid2"><div class="ex-card"><h3>Phát hiện cấu trúc</h3><p>Tìm các cấu trúc như cụm vừa phân tích và loại các trang khỏi chỉ mục.</p><p>Giới hạn: có vô số biến thể cùng tác dụng; nhóm liên kết dày cũng có thể hợp lệ.</p></div><div class="ex-card"><h3>Đổi cách tính điểm</h3><p>Sửa định nghĩa PageRank để tự hạ điểm trang rác, không cần định vị cụm.</p><p>Dùng thêm tập trang đã được đánh giá đáng tin.</p></div></div>
+<div class="ex-takeaway"><p>Hướng thứ hai dẫn tới hai công thức: TrustRank và Spam Mass.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2–5.4.4, tr.200–203.</p>
 <aside class="notes">
-<p>Trang đích có $m$ cạnh ra và mỗi trang trong $m$ hỗ trợ có một cạnh quay lại, tạo $2m$ cạnh nội bộ. Sách phân biệt phát hiện cấu trúc với thay cách đánh giá điểm. Một cụm có nhiều liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng cần được đặt trong ngữ cảnh dữ liệu. Tập tin cậy cung cấp thông tin bổ sung cho việc đánh giá.</p>
+<p>MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc trong đó một trang trỏ tới rất nhiều trang và các trang này trỏ ngược lại, rồi loại chúng khỏi chỉ mục. Người tạo rác khi đó chuyển sang cấu trúc khác có cùng tác dụng thu điểm cho trang đích; số biến thể của Hình 5.16 gần như không giới hạn. Ngoài ra, một nhóm trang liên kết qua lại có thể xuất hiện vì chức năng hợp lệ, nên hình dạng riêng lẻ chưa đủ để kết luận.</p><p>Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ điểm. Công thức phải dùng thông tin không do người tạo rác kiểm soát: một tập trang đã được đánh giá đáng tin. Kết quả của phân tích cụm vẫn được dùng: nó cho thấy vì sao không thể chỉ dựa vào điểm PageRank toàn cục.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.2–5.4.4, tr.200–203.</p>
 </aside>
 </section>
