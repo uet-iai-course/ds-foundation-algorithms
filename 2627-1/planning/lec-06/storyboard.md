@@ -175,16 +175,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.3 tr.95–96; Ex 3.8; dữ kiện; V02.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 
-#### lec06-s02-07 — Đặc tả bộ tạo ứng viên
+#### lec06-s02-07 — Đặc tả phân dải và xác minh
 
 - **Mục đích và vai trò:** Viết điều kiện trước và sau của phân dải.
-- **Thông điệp:** Tập ứng viên là hợp của các cặp trùng khóa dải đầy đủ.
-- **Nội dung công khai dự kiến:** Các tập nguồn hữu hạn không rỗng. Vào:$\mathrm{SIG}\in V^{n\times C}$,$n=br$,$b,r\in\mathbb N_{>0}$. Khóa $k_{j,c}=(j,\mathrm{SIG}_{(j-1)r+1:jr,c})$. Ra:$\mathcal C=\{(c,d):c<d,\exists j:k_{j,c}=k_{j,d}\}$. Bảng băm so khóa đầy đủ để giải va chạm.
+- **Thông điệp:** Đầu ra là các cặp ứng viên — cùng khóa ở ít nhất một dải — có Jaccard gốc đạt ngưỡng.
+- **Nội dung công khai dự kiến:** Đầu vào: $\mathrm{SIG}\in V^{n\times C}$; $b,r$ nguyên dương, $n=br$; các tập $S_1,\ldots,S_C$; ngưỡng $t\in[0,1]$. Khóa dải $k_{j,c}=\bigl(j,\mathrm{SIG}_{(j-1)r+1:jr,c}\bigr)$ Tập ứng viên: $\mathcal C=\{(c,d):c<d,\ \exists j:\ k_{j,c}=k_{j,d}\}$. Đầu ra: $\{(c,d)\in\mathcal C:\ \mathrm{SIM}(S_c,S_d)\ge t\}$.
 - **Đầu vào và giả thiết:** Ví dụ tuple và cùng dải.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT1; $j=1,\ldots,b$;$c=1,\ldots,C$; V02 khóa $(2,(0))$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ba dòng vào/khóa/ra toàn chiều ngang; khóa ở khung giữa. Năm 2 ánh xạ (j, tuple) của vết chạy sang ký hiệu lát ma trận; diễn giải chỉ số ở notes, không thêm chứng minh trên cùng trang.
 - **Kết nối vào–ra:** Tuple đã thấy→hợp đồng; giả mã thực hiện đúng hợp đồng này.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Hàm băm bảng chỉ định nơi tra cứu; phép bằng vẫn so cả số dải và tuple. Điều kiện tồn tại một dải giải thích phép hợp ứng viên. Đầu ra dùng thứ tự $c<d$ để hai cách gọi một cặp có cùng biểu diễn. Bước xác minh tiếp theo nhận ngưỡng Jaccard $t\in[0,1]$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Hàm băm bảng chỉ định nơi tra cứu; phép bằng vẫn so cả số dải và tuple. Điều kiện tồn tại một dải giải thích phép hợp ứng viên. Đầu ra dùng thứ tự $c<d$ để hai cách gọi một cặp có cùng biểu diễn. Các tập $S_c$ hữu hạn, không rỗng để Jaccard xác định. Đặc tả chưa nói mọi cặp đạt ngưỡng đều nằm trong $\mathcal C$; khả năng bỏ sót được phân tích ở các trang xác suất.
 - **Nguồn:** B §3.4.1, 3.4.3 tr.92–96; diễn đạt đặc tả đã duyệt.
 - **Ánh xạ ghi chú:** `N02`. **Thời lượng:** 2 phút.
 

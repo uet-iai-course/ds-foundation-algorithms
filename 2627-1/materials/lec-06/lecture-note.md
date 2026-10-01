@@ -66,6 +66,8 @@ $$
 \mathcal C=\{(c,d):1\le c<d\le C,\ \exists j:\ k_{j,c}=k_{j,d}\}.
 $$
 
+Đầu ra sau xác minh là $\{(c,d)\in\mathcal C:\ \mathrm{SIM}(S_c,S_d)\ge t\}$.
+
 Trong một dải, mọi thành phần phải trùng: đó là phép ghép đồng thời. Giữa các dải, chỉ cần một dải trùng: đó là phép ghép ít nhất một. Khi dùng bảng băm để lưu khóa, va chạm của hàm băm lưu trữ phải được giải bằng so sánh khóa đầy đủ; vị trí bảng trùng chưa thay thế phép bằng tuple.
 
 ![Mỗi dải tạo một khóa gồm số dải và tuple, với n bằng b nhân r.](img/lec-06/phan-dai-chu-ky.svg)
