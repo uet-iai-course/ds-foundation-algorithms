@@ -556,16 +556,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.4; điều kiện dịch từ D §3.2; chứng minh hình học của bản soạn, đã duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s04-09 — Cận xác suất trong mặt phẳng
+#### lec06-s04-09 — Tính nhạy cảm của họ chiếu hai chiều
 
 - **Mục đích và vai trò:** Suy hai cận với đúng miền hai chiều.
-- **Thông điệp:** Họ chiếu hai chiều có bộ tham số $(a/2,2a,1/2,1/3)$.
-- **Nội dung công khai dự kiến:** Trong $\mathbb R^2$, $u$ đều hướng; $\delta$ đều trên $[0,a)$, độc lập với $u$. Cặp gần: $\rho=\|x-y\|_2\le a/2$, $\ell\le\rho$. $P\ge1-\rho/a\ge1/2$ Cặp xa: ρ ≥ 2a$\phi\in[0,\pi/2]$ là góc nhọn với trục chiếu. $\ell=\rho|\cos\phi|$ Chung thùng cần $\ell<a$, nên $|\cos\phi|<a/\rho\le1/2$. Do đó $\phi>\pi/3$; $\phi$ đều trên $[0,\pi/2]$. $P\le\frac{\pi/2-\pi/3}{\pi/2}=1/3$ Họ chiếu hai chiều: (a/2, 2a, 1/2, 1/3).
+- **Thông điệp:** Họ chiếu trong $\mathbb R^2$ là $(a/2,2a,1/2,1/3)$-nhạy cảm; hằng số $1/3$ chỉ đúng cho hai chiều.
+- **Nội dung công khai dự kiến:** $\rho=\|x-y\|_2$; $P=\Pr[h(x)=h(y)]$ là trung bình theo $u$ của $\max(0,1-\ell/a)$. [Hình: Đoạn nối hai điểm dài rho tạo góc nhọn phi với trục u; hình chiếu dài ell bằng rho nhân trị tuyệt đối cos phi.] Cặp gần, $\rho\le a/2$ $\ell\le\rho\ \Rightarrow\ P\ge1-\rho/a\ge1/2$ Cặp xa, $\rho\ge2a$ $\phi$: góc nhọn giữa $x-y$ và trục chiếu. Chung thùng cần $\ell=\rho|\cos\phi|<a$: $|\cos\phi|<a/\rho\le\tfrac12\ \Rightarrow\ \phi>\tfrac\pi3$ $u$ đều trong $\mathbb R^2$ nên $\phi$ đều trên $[0,\pi/2]$: $P\le\frac{\pi/2-\pi/3}{\pi/2}=1/3$ Họ chiếu trong $\mathbb R^2$ là $(a/2,\,2a,\,1/2,\,1/3)$-nhạy cảm.
 - **Đầu vào và giả thiết:** Công thức va chạm theo độ dài chiếu ell ở s04-08; u đều trong mặt phẳng và delta đều độc lập. Quan hệ ell=rho|cos phi| được thiết lập trực tiếp trên trang này.
 - **Dữ kiện, hình thức hóa và vết chạy:** Hình tam giác nối rho, ell và phi. Gần dùng ell≤rho. Xa cần ell<a; rho≥2a suy |cos phi|<1/2 và phi>pi/3, rồi chặn bằng tỷ lệ miền góc đều. Không dùng điều kiện cần như điều kiện đủ.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hai cột: trái là SVG hinh-chieu-euclid.svg và cận gần; phải là chuỗi cận xa. Hình ghi rho, ell, phi, trục u, đường vuông góc nét đứt; không ấn định tỷ lệ rho với độ rộng a. Nhãn font 32–38 trong viewBox 610×335; giữ thang chữ chung.
 - **Kết nối vào–ra:** Xác suất theo $\ell$→bảo đảm theo $\rho$; cùng khung họ cho phép so chi phí ba phép thử.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Với cặp xa $\rho\ge2a>0$, $\phi\in[0,\pi/2]$ là góc nhọn giữa trục chiếu $u$ và đường thẳng theo $x-y$. Cận gần đúng với mọi hướng nên cũng đúng khi lấy trung bình theo $u$. Với cặp xa, hình chiếu có độ dài $\ell=\rho|\cos\phi|$. Chung thùng cần $\ell<a$, nên $|\cos\phi|<a/\rho\le1/2$, tức $\phi>\pi/3$. Điều kiện góc là cần, chưa đủ cho chung thùng, vì vậy kết quả là cận trên. Hình tam giác chỉ biểu diễn quan hệ chiếu; nó không đặt một tỷ lệ cố định giữa $\rho$ và $a$. Tính đều của góc nhọn dùng đúng hai chiều; không chuyển hằng số 1/3 sang mọi chiều.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Cận gần đúng với mọi hướng nên vẫn đúng sau khi lấy trung bình theo $u$. Với cặp xa, điều kiện $\phi>\pi/3$ là cần nhưng chưa đủ để chung thùng, nên kết quả là cận trên. Hình tam giác chỉ biểu diễn quan hệ chiếu; nó không đặt tỷ lệ cố định giữa $\rho$ và $a$. Tính đều của góc nhọn dùng đúng hai chiều; trong số chiều lớn hơn, hướng ngẫu nhiên tập trung gần vuông góc với $x-y$, nên hằng số $1/3$ không chuyển sang mọi chiều. Giống các họ trước, độ chênh giữa $1/2$ và $1/3$ được khuếch đại bằng AND và OR.
 - **Nguồn:** B §3.7.4 tr.112–113/Hình 3.14; S4 PDF 57–58; giả thiết và proof bổ sung đã duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 3 phút.
 
