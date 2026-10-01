@@ -706,6 +706,58 @@ Chủ đề $j$ được xác định bằng phân phối dịch chuyển $v^{(j
 Trong đặc tả và giả mã trước, $j$ chỉ trang nguồn; từ đây $j$ chỉ chủ đề và trang được đánh chỉ số $i$. Điều kiện cùng $\bar M$ bao gồm cùng đồ thị và cùng quy tắc bù nút cụt. Cùng $\beta$ giữ hệ số truyền theo liên kết không đổi. Mỗi chủ đề cần một vector như vậy, tính trước khi có truy vấn, thay cho một vector riêng của từng người dùng. Khi có truy vấn, $k$ vector này phải được kết hợp theo mức quan tâm tới từng chủ đề.
 <!-- public-notes:end -->
 
+### lec04-s02-11 — Tiền tính và xử lý truy vấn
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và thu hồi tình huống; MT1, MT5. Đầu vào: k vector và chi phí. Sản phẩm: phân biệt tiền tính với xử lý truy vấn.
+
+**Luận điểm trung tâm:** Vector chủ đề được tiền tính và dùng lại khi người dùng chọn ngữ cảnh truy vấn.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+**Trước truy vấn**
+
+Chọn các phân phối $v^{(j)}$.
+
+Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.
+
+**Khi có truy vấn**
+
+Xác định trọng số $w_j\ge0$, $\sum_jw_j=1$, theo ngữ cảnh và tập trang ứng viên $C$.
+
+Với từng $i\in C$, tính:
+
+$$r_i^*=\sum_{j=1}^k w_jr_i^{(j)}.$$
+
+Với “jaguar”: trọng số lớn cho chủ đề động vật hoặc ô tô, tùy ngữ cảnh. Khi có truy vấn chỉ ghép điểm đã lưu, không lặp lại PageRank.
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** Hai thẻ bằng nhau: tiền tính bên trái, truy vấn bên phải; công thức theo thành phần i trong C đặt ở thẻ phải. Dòng dưới thu hồi ngữ cảnh jaguar.
+
+**Trọng tâm và thứ tự đọc:** Đọc các vector đã lưu → xác định trọng số và ứng viên → lấy từng điểm và cộng → giới hạn công việc.
+
+**Lý do phù hợp sinh viên năm 2:** Hai hàng phân biệt tính toán dùng lại với thao tác theo ngữ cảnh, nối trực tiếp giới hạn bộ nhớ ở mở đầu.
+
+**Giới hạn bố cục và phân chia nội dung:** Không dùng sơ đồ SVG cũ để tránh lặp chữ; không tạo ví dụ trọng số số học. Sắp xếp và xác định ứng viên nằm ngoài phép ghép.
+
+**Ví dụ, phiếu số và hình thức hóa:** HT3 ở mức sử dụng; ví dụ định tính jaguar của NG1, không có điểm mới.
+
+**Kết nối vào–ra:** Ký hiệu nhiều chủ đề → quy trình hai giai đoạn, đưa vào $w_j$ và $C$ → nhu cầu chứng minh phép ghép (s02-09a) → đếm chi phí (s02-10).
+
+**Quyết định 01/10/2026:** sửa và chuyển vị trí — đặt ngay sau s02-09, trước s02-09a, theo trình tự bốn bước MMDS §5.3.3; trang tạo nhu cầu kết hợp trước khi chứng minh tính đúng của phép kết hợp. Định nghĩa $w_j$ và $C$ tại đây (G6). Chi phí $\Theta(kc)$ chỉ còn ở s02-10. Tiêu đề “Tiền tính và xử lý truy vấn”.
+
+**Nguồn và vị trí:** NG1 §5.3.1–5.3.4 tr.195–199; đặc biệt phép ghép theo tỷ lệ ở §5.3.4 tr.199.
+
+**Thời lượng:** 2 phút.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Quy trình theo MMDS §5.3.3 gồm bốn bước: chọn các chủ đề; chọn tập dịch chuyển cho từng chủ đề và tính vector PageRank tương ứng; xác định chủ đề liên quan tới truy vấn; dùng các vector của chủ đề đó để sắp thứ tự kết quả. Hai bước đầu chạy trước khi có truy vấn, trên toàn bộ $n$ trang. Bước thứ ba có thể dựa vào lựa chọn của người dùng, từ ngữ trong các truy vấn gần đây hoặc thông tin về người dùng; cách suy ra chủ đề nằm ngoài phạm vi phép tính của bài.
+
+Trọng số $w_j$ biểu diễn mức quan tâm của truy vấn hoặc người dùng tới chủ đề $j$; mỗi người dùng chỉ cần lưu $k$ số này. $C$ là tập trang ứng viên đã được xác định cho truy vấn. Với mỗi $i\in C$, phép ghép nhân $k$ điểm đã lưu với các trọng số rồi cộng. Ví dụ “jaguar” chỉ minh họa hai ngữ cảnh, không ấn định trọng số số học. Phép ghép này chỉ hợp lệ nếu tổng có trọng số của các nghiệm chủ đề trùng với nghiệm PageRank khi phân phối dịch chuyển là $\sum_jw_jv^{(j)}$; điều này cần được chứng minh.
+<!-- public-notes:end -->
+
 ### lec04-s02-09a — Kết hợp các vector chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận và ứng dụng; MT1, MT5. Đầu vào: các đại lượng của S02-09 và tính duy nhất. Sản phẩm: chứng minh đẳng thức ghép và nêu đủ điều kiện.
@@ -796,58 +848,6 @@ Mỗi cạnh tạo đúng một đóng góp; các bước khởi tạo vector, c
 Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ vector cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Giới hạn tối đa $K$ vòng cho mỗi vector cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự tiết kiệm trạng thái lặp trong bộ nhớ nhưng vẫn phải thực hiện phép lặp cho từng chủ đề.
 
 Lưu $k$ kết quả $r^{(j)}$ cần $kn$ số. Tại truy vấn, xác định các trọng số $w_j$ và tập ứng viên $C$, $c=|C|$. Với mỗi $i\in C$, tính $r_i^*=\sum_jw_jr_i^{(j)}$ từ điểm đã lưu; không lặp PageRank. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, xác định trọng số chủ đề hoặc sắp xếp kết quả. Không cần tạo toàn bộ vector ghép trên $n$ trang nếu chỉ xếp hạng $C$.
-<!-- public-notes:end -->
-
-### lec04-s02-11 — Sử dụng điểm đã lưu khi có truy vấn
-
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và thu hồi tình huống; MT1, MT5. Đầu vào: k vector và chi phí. Sản phẩm: phân biệt tiền tính với xử lý truy vấn.
-
-**Luận điểm trung tâm:** Vector chủ đề được tiền tính và dùng lại khi người dùng chọn ngữ cảnh truy vấn.
-
-**Nội dung hiển thị dự kiến:**
-
-<!-- public-slide:start -->
-**Trước truy vấn**
-
-Chọn các phân phối $v^{(j)}$.
-
-Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.
-
-**Khi có truy vấn**
-
-Xác định $w_j$ theo ngữ cảnh và tập trang ứng viên $C$.
-
-Với từng $i\in C$, tính:
-
-$$r_i^*=\sum_{j=1}^k w_jr_i^{(j)}.$$
-
-Ghép các điểm đã lưu, không lặp lại PageRank. Chỉ cần điểm của các trang trong $C$.
-
-Truy vấn “jaguar” có trọng số chủ đề động vật và ô tô khác nhau theo ngữ cảnh.
-<!-- public-slide:end -->
-
-**Bố cục đã chọn:** Hai thẻ bằng nhau: tiền tính bên trái, truy vấn bên phải; công thức theo thành phần i trong C đặt ở thẻ phải. Dòng dưới thu hồi ngữ cảnh jaguar.
-
-**Trọng tâm và thứ tự đọc:** Đọc các vector đã lưu → xác định trọng số và ứng viên → lấy từng điểm và cộng → giới hạn công việc.
-
-**Lý do phù hợp sinh viên năm 2:** Hai hàng phân biệt tính toán dùng lại với thao tác theo ngữ cảnh, nối trực tiếp giới hạn bộ nhớ ở mở đầu.
-
-**Giới hạn bố cục và phân chia nội dung:** Không dùng sơ đồ SVG cũ để tránh lặp chữ; không tạo ví dụ trọng số số học. Sắp xếp và xác định ứng viên nằm ngoài phép ghép.
-
-**Ví dụ, phiếu số và hình thức hóa:** HT3 ở mức sử dụng; ví dụ định tính jaguar của NG1, không có điểm mới.
-
-**Kết nối vào–ra:** Chi phí tiền tính → thao tác trả lời truy vấn → kiểm khả năng phân biệt đồ thị và bước nhảy.
-
-**Nguồn và vị trí:** NG1 §5.3.1–5.3.4 tr.195–199; đặc biệt phép ghép theo tỷ lệ ở §5.3.4 tr.199.
-
-**Thời lượng:** 2 phút.
-
-**Ghi chú học thuật dự kiến:**
-
-<!-- public-notes:start -->
-Giai đoạn tiền tính chọn chủ đề và các phân phối dịch chuyển, sau đó chạy PageRank để lưu các vector điểm. Mỗi vector chứa điểm của toàn bộ $n$ trang theo một chủ đề. Tại truy vấn, người dùng có thể chọn chủ đề hoặc cung cấp trọng số quan tâm; cách suy ra chủ đề tự động nằm ngoài phạm vi phép tính này.
-
-Gọi $C$ là tập trang ứng viên đã được xác định, $c=|C|$. Với mỗi trang $i\in C$, lấy $k$ điểm $r_i^{(j)}$ đã lưu, nhân từng điểm với $w_j$ và cộng. Phép ghép cần $\Theta(kc)$ phép nhân–cộng, không cần một phép lặp PageRank mới và không cần dựng vector dài $n$ nếu chỉ dùng các điểm trong $C$. Tìm ứng viên, xác định trọng số và sắp xếp kết quả là các công việc riêng. Ví dụ “jaguar” chỉ minh họa hai ngữ cảnh, không ấn định trọng số số học.
 <!-- public-notes:end -->
 
 ### lec04-s02-12 — Kiểm tra phép cập nhật theo chủ đề

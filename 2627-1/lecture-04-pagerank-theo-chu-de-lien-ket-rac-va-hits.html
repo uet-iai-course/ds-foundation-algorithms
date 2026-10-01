@@ -299,6 +299,16 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.2, tr.196; §5.3.4, tr.199.</p>
 </aside>
 </section>
+<section id="lec04-s02-11" data-slide-id="lec04-s02-11" class="example-slide">
+<h2>Tiền tính và xử lý truy vấn</h2>
+<div class="ex-grid2"><div class="ex-card"><h3>Trước truy vấn</h3><p>Chọn các phân phối $v^{(j)}$.</p><p>Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.</p></div><div class="ex-card"><h3>Khi có truy vấn</h3><p>Xác định trọng số $w_j\ge0$, $\sum_jw_j=1$, theo ngữ cảnh và tập trang ứng viên $C$.</p><p>Với từng $i\in C$, tính:</p><p>$$r_i^*=\sum_{j=1}^k w_jr_i^{(j)}.$$</p></div></div>
+<p>Với “jaguar”: trọng số lớn cho chủ đề động vật hoặc ô tô, tùy ngữ cảnh. Khi có truy vấn chỉ ghép điểm đã lưu, không lặp lại PageRank.</p>
+<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.4, tr.195–199.</p>
+<aside class="notes">
+<p>Quy trình theo MMDS §5.3.3 gồm bốn bước: chọn các chủ đề; chọn tập dịch chuyển cho từng chủ đề và tính vector PageRank tương ứng; xác định chủ đề liên quan tới truy vấn; dùng các vector của chủ đề đó để sắp thứ tự kết quả. Hai bước đầu chạy trước khi có truy vấn, trên toàn bộ $n$ trang. Bước thứ ba có thể dựa vào lựa chọn của người dùng, từ ngữ trong các truy vấn gần đây hoặc thông tin về người dùng; cách suy ra chủ đề nằm ngoài phạm vi phép tính của bài.</p><p>Trọng số $w_j$ biểu diễn mức quan tâm của truy vấn hoặc người dùng tới chủ đề $j$; mỗi người dùng chỉ cần lưu $k$ số này. $C$ là tập trang ứng viên đã được xác định cho truy vấn. Với mỗi $i\in C$, phép ghép nhân $k$ điểm đã lưu với các trọng số rồi cộng. Ví dụ “jaguar” chỉ minh họa hai ngữ cảnh, không ấn định trọng số số học. Phép ghép này chỉ hợp lệ nếu tổng có trọng số của các nghiệm chủ đề trùng với nghiệm PageRank khi phân phối dịch chuyển là $\sum_jw_jv^{(j)}$; điều này cần được chứng minh.</p>
+<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.4, tr.195–199.</p>
+</aside>
+</section>
 <section id="lec04-s02-09a" data-slide-id="lec04-s02-09a" class="example-slide">
 <h2>Kết hợp các vector chủ đề</h2>
 <p>Giữ cùng $\bar M$, $\beta$; $w_j\ge0$ và $\sum_jw_j=1$.</p>
@@ -339,17 +349,6 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 <p>Nếu chủ đề $j$ thực chạy $K_j$ vòng, tiền tính độc lập $k$ vector cần $\Theta((\sum_{j=1}^kK_j)(n+\ell))$ phép toán. Giới hạn tối đa $K$ vòng cho mỗi vector cho cận $O(kK(n+\ell))$. Nếu mọi vector đều chạy đủ $K$ vòng thì chi phí là $\Theta(kK(n+\ell))$. Tính tuần tự tiết kiệm trạng thái lặp trong bộ nhớ nhưng vẫn phải thực hiện phép lặp cho từng chủ đề.</p>
 <p>Lưu $k$ kết quả $r^{(j)}$ cần $kn$ số. Tại truy vấn, xác định các trọng số $w_j$ và tập ứng viên $C$, $c=|C|$. Với mỗi $i\in C$, tính $r_i^*=\sum_jw_jr_i^{(j)}$ từ điểm đã lưu; không lặp PageRank. Ghép điểm cho $c$ ứng viên cần $k$ đóng góp mỗi ứng viên, tức $\Theta(kc)$ phép nhân–cộng. Chi phí này không bao gồm tìm ứng viên, xác định trọng số chủ đề hoặc sắp xếp kết quả. Không cần tạo toàn bộ vector ghép trên $n$ trang nếu chỉ xếp hạng $C$.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.2.1; §5.3.2–5.3.3, tr.191–192, 196–198.</p>
-</aside>
-</section>
-<section id="lec04-s02-11" data-slide-id="lec04-s02-11" class="example-slide">
-<h2>Sử dụng điểm đã lưu khi có truy vấn</h2>
-<div class="ex-grid2"><div class="ex-card"><h3>Trước truy vấn</h3><p>Chọn các phân phối $v^{(j)}$.</p><p>Tính và lưu các vector $r^{(j)}$ trên toàn bộ $n$ trang.</p></div><div class="ex-card"><h3>Khi có truy vấn</h3><p>Xác định $w_j$ theo ngữ cảnh và tập trang ứng viên $C$.</p><p>Với từng $i\in C$, tính:</p><p>$$r_i^*=\sum_{j=1}^k w_jr_i^{(j)}.$$</p></div></div>
-<p>Ghép các điểm đã lưu, không lặp lại PageRank. Chỉ cần điểm của các trang trong $C$.</p>
-<p>Truy vấn “jaguar” có trọng số chủ đề động vật và ô tô khác nhau theo ngữ cảnh.</p>
-<p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.4, tr.195–199.</p>
-<aside class="notes">
-<p>Giai đoạn tiền tính chọn chủ đề và các phân phối dịch chuyển, sau đó chạy PageRank để lưu các vector điểm. Mỗi vector chứa điểm của toàn bộ $n$ trang theo một chủ đề. Tại truy vấn, người dùng có thể chọn chủ đề hoặc cung cấp trọng số quan tâm; cách suy ra chủ đề tự động nằm ngoài phạm vi phép tính này.</p><p>Gọi $C$ là tập trang ứng viên đã được xác định, $c=|C|$. Với mỗi trang $i\in C$, lấy $k$ điểm $r_i^{(j)}$ đã lưu, nhân từng điểm với $w_j$ và cộng. Phép ghép cần $\Theta(kc)$ phép nhân–cộng, không cần một phép lặp PageRank mới và không cần dựng vector dài $n$ nếu chỉ dùng các điểm trong $C$. Tìm ứng viên, xác định trọng số và sắp xếp kết quả là các công việc riêng. Ví dụ “jaguar” chỉ minh họa hai ngữ cảnh, không ấn định trọng số số học.</p>
-<p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3.1–5.3.4, tr.195–199.</p>
 </aside>
 </section>
 <section id="lec04-s02-12" data-slide-id="lec04-s02-12" class="example-slide">
