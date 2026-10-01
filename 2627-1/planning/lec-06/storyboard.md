@@ -376,7 +376,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Chuyển cận khoảng cách thành cận va chạm.
 - **Thông điệp:** MinHash cho một trường hợp cụ thể của họ nhạy cảm.
-- **Nội dung công khai dự kiến:** $d_J=1-s$; $\Pr[h(A)=h(B)]=1-d_J(A,B)$. Gần:$d_J\le.3\Rightarrow P\ge.7$; xa:$d_J\ge.6\Rightarrow P\le.4$. Họ $(.3,.6,.7,.4)$.
+- **Nội dung công khai dự kiến:** Định lý MinHash: $\Pr[h(A)=h(B)]=\mathrm{SIM}(A,B)=1-d_J(A,B)$. Cặp gần $d_J\le0{,}3$ thì xác suất trùng $\ge0{,}7$. Cặp xa $d_J\ge0{,}6$ thì xác suất trùng $\le0{,}4$. Vậy họ MinHash là $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$-nhạy cảm. Tổng quát: họ MinHash là $(d_1,d_2,1-d_1,1-d_2)$-nhạy cảm với mọi $0\le d_1<d_2\le1$.
 - **Đầu vào và giả thiết:** HT6; tập hữu hạn không rỗng, MinHash lý tưởng.
 - **Dữ kiện, hình thức hóa và vết chạy:** B Ex 3.18; phân biệt bộ tham số này với V09(.2, .6, .8, .4) sẽ dùng cho ghép.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Bảng 2 hàng miền khoảng cách/phép trừ/cận xác suất; dòng bộ 4 dưới. Năm 2 thực hiện $1-d$ để thấy đảo hướng bất đẳng thức; không thêm đồ thị trùng chức năng.

@@ -403,15 +403,15 @@ Cùng hàm $h$ được áp dụng cho hai đối tượng. Nguồn ngẫu nhiê
 
 ![Ba miền gần, giữa và xa cùng hai chiều bất đẳng thức xác suất.](img/lec-06/mien-gan-xa.svg)
 
-MinHash có xác suất trùng $1-d_J$. Vì vậy, với $0\le d_1<d_2\le1$, họ là $(d_1,d_2,1-d_1,1-d_2)$-nhạy cảm. Ví dụ 3.18 dùng $(.3,.6,.7,.4)$. Hai cận tổng quát này chỉ phân biệt miền $d\le.3$ và $d\ge.6$.
+MinHash có xác suất trùng $1-d_J$. Vì vậy, với $0\le d_1<d_2\le1$, họ là $(d_1,d_2,1-d_1,1-d_2)$-nhạy cảm. Ví dụ 3.18 dùng $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$. Hai cận tổng quát này chỉ phân biệt miền $d\le0{,}3$ và $d\ge0{,}6$.
 
 
 ::: exercise
-Câu hỏi: Chỉ từ định nghĩa họ $(.3,.6,.7,.4)$, nêu bảo đảm tại $d=.2,.5,.8$.
+Câu hỏi: Chỉ từ định nghĩa họ $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$, nêu bảo đảm tại $d=0{,}2$, $d=0{,}5$ và $d=0{,}8$.
 :::
 
 ::: solution
-Tại $.2$, xác suất trùng ít nhất $.7$. Tại $.8$, xác suất không quá $.4$. Tại $.5$, định nghĩa họ không cho cận chung vì khoảng cách nằm giữa hai ngưỡng.
+Tại $0{,}2$, xác suất trùng ít nhất $0{,}7$. Tại $0{,}8$, xác suất không quá $0{,}4$. Tại $0{,}5$, định nghĩa họ không cho cận chung vì khoảng cách nằm giữa hai ngưỡng.
 :::
 
 
