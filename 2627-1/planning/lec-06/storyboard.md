@@ -240,16 +240,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.4.2 tr.93–95; M PDF 54; S3 PDF 49.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2 phút.
 
-#### lec06-s02-12 — Ngưỡng và lựa chọn số dải
+#### lec06-s02-12 — Đường cong S và chọn số dải
 
 - **Mục đích và vai trò:** Phân biệt ba đại lượng ngưỡng và so cấu hình cùng $n$.
-- **Thông điệp:** Ngưỡng chấp nhận do bài toán đặt; đường xác suất do $b,r$ quyết định.
-- **Nội dung công khai dự kiến:** Ngưỡng chấp nhận $t=.8$; xét $(b,r)=(20,5)$. Điểm xác suất một nửa: $P(s_{1/2})=1/2$, $s_{1/2}\approx.508696$. Xấp xỉ điểm chuyển tiếp: $b^{-1/r}\approx.549280$.
+- **Thông điệp:** Đường xác suất ứng viên tăng dốc quanh (1/b)^{1/r}; chọn b, r để vùng dốc nằm thấp hơn t khi cần ít bỏ sót, cao hơn t khi cần ít ứng viên giả.
+- **Nội dung công khai dự kiến:** [Hình: Xác suất ứng viên theo Jaccard thật của cấu hình 20 dải 5 hàng và 10 dải 10 hàng, cùng 100 hàng.] Cấu hình $(20,5)$: $P(s)=1/2$ tại $s\approx0{,}509$; xấp xỉ $(1/b)^{1/r}\approx0{,}549$. Tại ngưỡng $t=0{,}8$: cấu hình $(20,5)$ bỏ sót khoảng $0{,}036\%$, cấu hình $(10,10)$ khoảng $32\%$. Chọn $b,r$ với $(1/b)^{1/r}\approx t$; thấp hơn $t$ để ít bỏ sót, cao hơn $t$ để ít ứng viên giả.
 - **Đầu vào và giả thiết:** HT3; ngưỡng $t$ từ đặc tả.
 - **Dữ kiện, hình thức hóa và vết chạy:** V04, HT4; $s_{1/2}=(1-2^{-1/b})^{1/r}$ để notes/suy đại số; điểm xấp xỉ có $P=.641514$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Đồ thị lớn toàn chiều rộng; ba dòng ngắn bên dưới phân biệt t, điểm P(s_half)=1/2 và xấp xỉ vùng chuyển tiếp. Công thức đóng và phép biến đổi nằm trong notes, không thu nhỏ chữ để giữ cả công thức dài.
 - **Kết nối vào–ra:** Xác suất→quyết định tham số; số ứng viên và lượt phát quyết định chi phí thực tế.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Tại $s=.8$, cấu hình 20 × 5 bỏ sót khoảng .035606%; 10 × 10 khoảng 32.114003%. Đây là xác suất có điều kiện theo $s$, không là tỷ lệ lỗi của một kho chưa biết phân bố tương đồng. Phương trình $P(s)=1/2$ cho $s^r=1-2^{-1/b}$, nên $s_{1/2}=(1-2^{-1/b})^{1/r}$. Giá trị $b^{-1/r}$ xấp xỉ vùng chuyển tiếp; nó không bằng nghiệm xác suất một nửa hoặc ngưỡng chấp nhận $t$.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Đường $P_{b,r}(s)$ có dạng chữ S khi $r>1$: thấp ở Jaccard nhỏ, tăng dốc quanh một ngưỡng rồi gần 1. Phương trình $P(s)=1/2$ cho $s^r=1-2^{-1/b}$, nên điểm xác suất một nửa là $(1-2^{-1/b})^{1/r}$; giá trị $(1/b)^{1/r}$ chỉ xấp xỉ vùng dốc, không bằng nghiệm này và không phải ngưỡng chấp nhận $t$. Hai cấu hình trong hình cùng dùng 100 hàng. Tại $s=0{,}8$, xác suất bỏ sót của $(20,5)$ là $(1-0{,}8^5)^{20}\approx0{,}000356$, của $(10,10)$ là $(1-0{,}8^{10})^{10}\approx0{,}321$. Đây là xác suất theo từng cặp có Jaccard cho trước, không phải tỷ lệ lỗi của một kho chưa biết phân bố tương đồng. Quy tắc chọn tham số lấy từ bước 4 của §3.4.3.
 - **Nguồn:** B Ex 3.12 tr.94–95, Bài 3.4.2 tr.96; S4 PDF 34/trang in 37; so $n$ cố định.
 - **Ánh xạ ghi chú:** `N03`. **Thời lượng:** 2.5 phút.
 

@@ -209,23 +209,23 @@ $$
 s_{1/2}=(1-2^{-1/b})^{1/r}.
 $$
 
-Giá trị $b^{-1/r}$ là xấp xỉ thường dùng cho vùng chuyển tiếp, không phải đẳng thức trên. Với $b=20,r=5$, ba số có thể là $t=.8$, $s_{1/2}\approx.508695962$ và $b^{-1/r}\approx.549280272$. Chúng có vai trò khác nhau.
+Giá trị $b^{-1/r}$ là xấp xỉ thường dùng cho vùng chuyển tiếp, không phải đẳng thức trên. Với $b=20,r=5$, ba số có thể là $t=0{,}8$, $s_{1/2}\approx0{,}508695962$ và $b^{-1/r}\approx0{,}549280272$. Chúng có vai trò khác nhau. Bước 4 của §3.4.3 chọn $b,r$ sao cho $(1/b)^{1/r}\approx t$; nếu cần tránh bỏ sót thì đặt giá trị này thấp hơn $t$, nếu cần hạn chế ứng viên giả để chạy nhanh thì đặt cao hơn $t$.
 
 ![Hai cấu hình cùng 100 hàng tạo các đường xác suất ứng viên khác nhau.](img/lec-06/xac-suat-phan-dai.svg)
 
-| Cấu hình $(b,r)$ | $P(.3)$ | $P(.8)$ |
+| Cấu hình $(b,r)$ | $P(0{,}3)$ | $P(0{,}8)$ |
 |---|---:|---:|
-| $(20,5)$ | .047494259 | .999643942 |
-| $(10,10)$ | .000059047 | .678859974 |
+| $(20,5)$ | 0,047494259 | 0,999643942 |
+| $(10,10)$ | 0,000059047 | 0,678859974 |
 
-Cấu hình thứ hai giảm cơ hội nhận cặp có Jaccard .3 nhưng cũng giảm mạnh cơ hội nhận cặp có Jaccard .8. Với $r=1$, đường xác suất không có hình chữ S; tên “đường xác suất ứng viên” áp dụng mà không cần giả định hình dạng ấy. Diện tích tô dưới hoặc trên đường cũng không là tỷ lệ lỗi toàn kho khi chưa biết phân bố độ tương đồng của các cặp.
+Cấu hình thứ hai giảm cơ hội nhận cặp có Jaccard 0,3 nhưng cũng giảm mạnh cơ hội nhận cặp có Jaccard 0,8. Với $r=1$, đường xác suất không có hình chữ S; tên “đường xác suất ứng viên” áp dụng mà không cần giả định hình dạng ấy. Diện tích tô dưới hoặc trên đường cũng không là tỷ lệ lỗi toàn kho khi chưa biết phân bố độ tương đồng của các cặp.
 
 ::: exercise
-Câu hỏi: Với hai cấu hình trong bảng, cấu hình nào phù hợp hơn nếu ưu tiên giảm bỏ sót ở $s=.8$? Cấu hình nào giảm số cặp được chọn ở $s=.3$?
+Câu hỏi: Với hai cấu hình trong bảng, cấu hình nào phù hợp hơn nếu ưu tiên giảm bỏ sót ở $s=0{,}8$? Cấu hình nào giảm số cặp được chọn ở $s=0{,}3$?
 :::
 
 ::: solution
-Ưu tiên giảm bỏ sót tại .8 chọn $(20,5)$ vì $1-P(.8)\approx.000356058$, so với $.321140026$ của $(10,10)$. Ưu tiên giảm ứng viên tại .3 chọn $(10,10)$. Kết luận chỉ so đúng các độ tương đồng và mục tiêu đã nêu.
+Ưu tiên giảm bỏ sót tại 0,8 chọn $(20,5)$ vì $1-P(0{,}8)\approx0{,}000356058$, so với $0{,}321140026$ của $(10,10)$. Ưu tiên giảm ứng viên tại 0,3 chọn $(10,10)$. Kết luận chỉ so đúng các độ tương đồng và mục tiêu đã nêu.
 :::
 
 Nguồn: MMDS 3e, §§3.4.2–3, tr.93–96; Bài 3.4.2, tr.96.
