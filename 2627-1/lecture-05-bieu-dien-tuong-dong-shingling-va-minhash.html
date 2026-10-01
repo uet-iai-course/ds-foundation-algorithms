@@ -33,10 +33,10 @@
 <aside class="notes"><p>Mục 3.1.2 của sách nêu ba tình huống: trang phản chiếu khác thông tin máy chủ và liên kết; bản tin được nhiều báo đăng lại, có cắt đoạn hoặc thêm nội dung; bài đạo văn đổi vài từ hoặc thứ tự câu. Phép so từng ký tự dừng ở vị trí khác đầu tiên và chỉ cho biết hai tài liệu có trùng hoàn toàn hay không, không cho biết lượng văn bản chung. Bài toán cần một đại lượng đo phần văn bản chung ở mức ký tự. Đại lượng ấy không đo mức giống nhau về ý nghĩa; tương đồng ngữ nghĩa cần kỹ thuật khác.</p><p>Nguồn: Mining of Massive Datasets (MMDS), ấn bản 3, Chương 3, tr. 73–76.</p></aside>
 </section>
 <section id="lec05-s01-05" data-slide-id="lec05-s01-05" class="cost-slide">
-<h2>Chi phí so sánh từng cặp</h2>
-<p>Kho gồm \(C\) tài liệu; xét các cặp không thứ tự.</p><p class="ex-equation">\[\binom C2=\frac{C(C-1)}2\]</p><p class="ex-equation">\[C=10^6\quad\Longrightarrow\quad499\,999\,500\,000\text{ cặp}\]</p><figure class="mh-figure mh-short"><img src="img/lec-05/quy-mo-so-sanh-cap.svg" alt="Tổng công việc bằng số cặp nhân chi phí của một cặp."></figure>
+<h2>Chi phí so sánh mọi cặp</h2>
+<p>Kho gồm \(C\) tài liệu; xét các cặp không thứ tự.</p><p class="ex-equation">\[\binom C2=\frac{C(C-1)}2\]</p><p class="ex-equation">\[C=10^6\quad\Longrightarrow\quad499\,999\,500\,000\text{ cặp}\]</p><figure class="mh-figure mh-short"><img src="img/lec-05/quy-mo-so-sanh-cap.svg" alt="Tổng công việc bằng số cặp nhân chi phí của một cặp."></figure><p class="ex-takeaway">Bài này giảm chi phí một cặp; số cặp chỉ giảm khi có bước chọn cặp ứng viên.</p>
 <p class="ex-source">MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.</p>
-<aside class="notes"><p>Mỗi tài liệu ghép với \(C-1\) tài liệu khác. Phép đếm \(C(C-1)\) đếm mỗi cặp hai lần, nên chia 2. Con số một triệu tài liệu xuất phát từ mở đầu chương; kết quả chính xác là phép tính từ dữ kiện ấy. Bài 05 giảm kích thước biểu diễn và công việc cho một cặp; số cặp chỉ giảm khi có bước lựa chọn ứng viên.</p><p>Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.</p></aside>
+<aside class="notes"><p>Mỗi tài liệu ghép với \(C-1\) tài liệu khác; tích \(C(C-1)\) đếm mỗi cặp hai lần nên chia 2. Sách nêu một triệu mục cho khoảng nửa nghìn tỷ cặp; phép tính chính xác cho \(499\,999\,500\,000\). Tổng công việc là tích của số cặp và chi phí so sánh một cặp. Biểu diễn ngắn của bài này giảm thừa số thứ hai. Thừa số thứ nhất giữ bậc hai theo \(C\) cho tới khi có bước chọn cặp ứng viên ở Bài 06.</p><p>Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.</p></aside>
 </section>
 <section id="lec05-s01-06" data-slide-id="lec05-s01-06" class="example-slide">
 <h2>Phần tử chung của hai tập hợp</h2>

@@ -160,11 +160,11 @@ Nguồn: Mining of Massive Datasets (MMDS), ấn bản 3, Chương 3, tr. 73–7
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 05. Chi phí so sánh từng cặp
+### 05. Chi phí so sánh mọi cặp
 
 - **Mã:** `lec05-s01-05`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Mục đích và vai trò:** Vấn đề và phép đếm; tách số cặp khỏi chi phí một cặp. **Mục tiêu:** MT1, MT5.
-- **Câu chốt:** Số cặp tài liệu tăng bậc hai theo quy mô kho.
+- **Câu chốt:** Tổng công việc bằng số cặp nhân chi phí một cặp; bài này giảm thừa số thứ hai, số cặp vẫn tăng bậc hai.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận kho gần trùng; trang 06 xây một đại lượng có thể tính cho mỗi cặp.
 - **Dữ kiện và vai trò số:** VD 1; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `cost-slide`: định nghĩa $C$ và cặp không thứ tự ở trên; hai công thức đếm cặp ở giữa; hình phân tích tổng công việc bên dưới. Giữ cùng luận điểm mở bài.
@@ -178,19 +178,17 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 Kho gồm $C$ tài liệu; xét các cặp không thứ tự.
 
-$$
-\binom C2=\frac{C(C-1)}2
-$$
+$$\binom C2=\frac{C(C-1)}2$$
 
-$$
-C=10^6\quad\Longrightarrow\quad499\,999\,500\,000\text{ cặp}
-$$
+$$C=10^6\quad\Longrightarrow\quad499\,999\,500\,000\text{ cặp}$$
 
 ![Tổng công việc bằng số cặp nhân chi phí của một cặp.](../../img/lec-05/quy-mo-so-sanh-cap.svg)
 
+Bài này giảm chi phí một cặp; số cặp chỉ giảm khi có bước chọn cặp ứng viên.
+
 **Ghi chú diễn giả học thuật**
 
-Mỗi tài liệu ghép với $C-1$ tài liệu khác. Phép đếm $C(C-1)$ đếm mỗi cặp hai lần, nên chia 2. Con số một triệu tài liệu xuất phát từ mở đầu chương; kết quả chính xác là phép tính từ dữ kiện ấy. Bài 05 giảm kích thước biểu diễn và công việc cho một cặp; số cặp chỉ giảm khi có bước lựa chọn ứng viên.
+Mỗi tài liệu ghép với $C-1$ tài liệu khác; tích $C(C-1)$ đếm mỗi cặp hai lần nên chia 2. Sách nêu một triệu mục cho khoảng nửa nghìn tỷ cặp; phép tính chính xác cho $499\,999\,500\,000$. Tổng công việc là tích của số cặp và chi phí so sánh một cặp. Biểu diễn ngắn của bài này giảm thừa số thứ hai. Thừa số thứ nhất giữ bậc hai theo $C$ cho tới khi có bước chọn cặp ứng viên ở Bài 06.
 
 Nguồn: MMDS 3e, tr. 73; phép đếm từ quy mô một triệu tài liệu.
 
