@@ -306,7 +306,7 @@ Phân bổ: 13 slide, 30 phút.
 <!-- public-slide:start -->
 Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.
 
-Với xác suất $1-\beta$: dịch chuyển tới một trang trong $S$; Bài 03 chọn đều trong $n$ trang.
+Với xác suất $1-\beta$: dịch chuyển tới tập chủ đề $S$; Bài 03 chọn đều trong $n$ trang.
 
 Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ thị liên kết được giữ nguyên.
 <!-- public-slide:end -->
