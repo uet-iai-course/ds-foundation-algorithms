@@ -1999,7 +1999,7 @@ Sản phẩm: bảng giá trị, ma trận chữ ký và kết luận hoán vị
 
 **Ghi chú diễn giả học thuật**
 
-Bảng $f_1$ là (1, 3, 5, 1, 3, 5), $f_2$ là (2, 5, 2, 5, 2, 5), $f_3$ là (2, 1, 0, 5, 4, 3). Các hàng chữ ký lần lượt là (5, 1, 1, 1), (2, 2, 2, 2), (0, 1, 4, 0). Chỉ $f_3$ nhận đủ sáu giá trị khác nhau nên là hoán vị; $f_1$ và $f_2$ có va chạm. Dữ kiện modulo 6 được giữ nguyên. Nguồn: MMDS 3e, Bài 3.3.3(a, b), §3.3.8, tr. 90–91/PDF19–20, Hình 3.6. Thời lượng dự kiến 8 phút; phần đầu của bài 15 phút.
+Bảng $f_1$ là $(1,3,5,1,3,5)$, $f_2$ là $(2,5,2,5,2,5)$, $f_3$ là $(2,1,0,5,4,3)$. Các hàng chữ ký lần lượt là $(5,1,1,1)$, $(2,2,2,2)$, $(0,1,4,0)$. Chỉ $f_3$ nhận đủ sáu giá trị khác nhau nên là hoán vị; $f_1$ và $f_2$ có va chạm, phù hợp $\gcd(2,6)=2$, $\gcd(3,6)=3$, $\gcd(5,6)=1$. Dữ kiện modulo 6 được giữ nguyên; đề sách dùng $h_1,h_2,h_3$, đổi thành $f_1,f_2,f_3$ như ở bài trước. Nguồn: MMDS 3e, Bài 3.3.3(a, b), §3.3.8, tr. 90–91/PDF19–20, Hình 3.6. Thời lượng dự kiến 8 phút; phần đầu của bài 15 phút.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
