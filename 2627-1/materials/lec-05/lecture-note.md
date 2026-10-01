@@ -356,7 +356,7 @@ Các tập vẫn là $S_1=\{a,d\}$, $S_2=\{c\}$, $S_3=\{b,d,e\}$, $S_4=\{a,c,d\}
 | $\pi_1=(e,a,b,c,d)$ | a | c | e | a |
 | $\pi_2=(d,a,c,e,b)$ | d | c | d | d |
 
-Chữ ký của $S_1,S_4$ đều là $(a,d)^{\mathsf T}$. Hai tọa độ trùng cho ước lượng $2/2=1$, trong khi $\mathrm{SIM}(S_1,S_4)=2/3$. Ví dụ cố định này minh họa sai khác giữa một tỷ lệ hữu hạn và Jaccard thật; nó không là bằng chứng về phân phối chọn đều của hoán vị.
+Chữ ký của $S_1,S_4$ đều là $(a,d)^{\mathsf T}$. Hai tọa độ trùng cho ước lượng $2/2=1$, trong khi $\mathrm{SIM}(S_1,S_4)=2/3$. Ngược lại, $\sigma(S_2)=(c,c)^{\mathsf T}$ và $\sigma(S_4)=(a,d)^{\mathsf T}$ không trùng tọa độ nào, nên ước lượng bằng $0$ trong khi $\mathrm{SIM}(S_2,S_4)=1/3$. Với $n$ nhỏ, ước lượng có thể lệch về cả hai phía. Ví dụ cố định này minh họa sai khác giữa một tỷ lệ hữu hạn và Jaccard thật; nó không là bằng chứng về phân phối chọn đều của hoán vị.
 
 ### Kỳ vọng số đếm và kỳ vọng tỷ lệ
 

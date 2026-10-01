@@ -1002,11 +1002,11 @@ Nguồn: MMDS 3e, §3.3.4, tr. 83–84.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 30. Ước lượng Jaccard
+### 30. Ước lượng Jaccard từ chữ ký
 
 - **Mã:** `lec05-s04-03`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Mục đích và vai trò:** Định nghĩa ước lượng; so sánh đúng tọa độ. **Mục tiêu:** MT4.
-- **Câu chốt:** Ước lượng Jaccard bằng tỷ lệ tọa độ chữ ký trùng nhau.
+- **Câu chốt:** Ước lượng là tỷ lệ tọa độ trùng theo cùng chỉ số; với $n$ nhỏ nó có thể lệch Jaccard về cả hai phía.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận cấu trúc vector; 31 xét kỳ vọng của cùng tổng chỉ báo.
 - **Dữ kiện và vai trò số:** VD 7; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** Công thức ước lượng và nghĩa chỉ báo phía trên; bảng hai tọa độ của $\sigma(S_1),\sigma(S_4)$ ở giữa, kèm $a=a$ và $d=d$; phép cộng hai chỉ báo và chia 2 phía dưới.
@@ -1018,24 +1018,20 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-$$
-\widehat{\mathrm{SIM}}(S,T)=\frac1n\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}
-$$
+$$\widehat{\mathrm{SIM}}(S,T)=\frac1n\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$$
 
 $\mathbf1\{E\}=1$ khi $E$ đúng, bằng $0$ khi sai; so cùng chỉ số $i$.
 
-| Tọa độ | $\sigma(S_1)$ | $\sigma(S_4)$ | Chỉ báo |
+| Tọa độ | $\sigma(S_2)$ | $\sigma(S_4)$ | Chỉ báo |
 |---|---|---|---|
-| 1 | a | a | $a=a\Rightarrow1$ |
-| 2 | d | d | $d=d\Rightarrow1$ |
+| 1 | c | a | $c\ne a\Rightarrow0$ |
+| 2 | c | d | $c\ne d\Rightarrow0$ |
 
-$$
-\widehat{\mathrm{SIM}}(S_1,S_4)=\frac{1+1}{2}=1\ne\frac23
-$$
+$$\widehat{\mathrm{SIM}}(S_2,S_4)=\frac{0+0}{2}=0\ne\frac13=\mathrm{SIM}(S_2,S_4)$$
 
 **Ghi chú diễn giả học thuật**
 
-Ví dụ có $\sigma(S_1)=\sigma(S_4)=(a,d)^{\mathsf T}$: cả $a=a$ lẫn $d=d$ cho chỉ báo $1$. Jaccard thật là $2/3$. Chữ ký là vector có thứ tự, nên tọa độ i chỉ so với tọa độ i được tạo bởi cùng hoán vị. Nếu bỏ vị trí rồi lấy Jaccard giữa hai tập giá trị chữ ký, phép tính không còn đếm các biến cố trong định lý. Dấu mũ phân biệt ước lượng hữu hạn với SIM của hai tập gốc. Một giá trị ước lượng bằng 1 không đủ suy hai tập bằng nhau.
+Với hai thứ tự của trang trước, $\sigma(S_2)=(c,c)^{\mathsf T}$ và $\sigma(S_4)=(a,d)^{\mathsf T}$; không tọa độ nào trùng nên ước lượng bằng 0, trong khi $S_2\cap S_4=\{c\}$ và $S_2\cup S_4=\{a,c,d\}$ cho Jaccard $1/3$. Cặp $S_1,S_4$ ở trang trước cho ước lượng 1 so với $2/3$: với $n$ nhỏ, ước lượng có thể lệch về cả hai phía. Chữ ký là vector có thứ tự, nên tọa độ $i$ chỉ so với tọa độ $i$ được tạo bởi cùng hoán vị. Lấy Jaccard giữa hai tập giá trị chữ ký sẽ bỏ vị trí và không còn đếm các biến cố của định lý. Dấu mũ phân biệt ước lượng từ $n$ phép thử với $\mathrm{SIM}$ của hai tập gốc.
 
 Nguồn: MMDS 3e, §3.3.4, tr. 84.
 
