@@ -1424,7 +1424,9 @@ B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Ý tưởng: đo phần PageRank của trang không đến từ tập tin cậy. Cùng G4, $\beta=4/5$: $r$ dùng dịch chuyển đều $u$, $\rho$ dùng $v_T$.
+Ý tưởng: đo phần PageRank của trang không đến từ tập tin cậy.
+
+Cùng G4, $\beta=4/5$: $r$ dùng dịch chuyển đều $u$; $\rho$ dùng $v_T$.
 
 | Trang | PageRank $r_i$ | TrustRank $\rho_i$ | Hiệu $r_i-\rho_i$ |
 | --- | --- | --- | --- |
