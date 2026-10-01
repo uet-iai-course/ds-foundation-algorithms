@@ -543,16 +543,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.4 tr.111–113; D §3.2PDF 3; bổ sung đã được điều phối viên duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 2.5 phút.
 
-#### lec06-s04-08 — Xác suất chung khoảng chiếu
+#### lec06-s04-08 — Xác suất chung thùng khi cố định hướng
 
 - **Mục đích và vai trò:** Tính xác suất theo dịch bằng độ dài phần biên chia cặp.
 - **Thông điệp:** Khoảng cách hình chiếu quyết định phần dịch làm hai điểm khác thùng.
-- **Nội dung công khai dự kiến:** Cố định $u$, đặt $\ell=|u\cdot(x-y)|$. Nếu $0\le\ell<a$, biên tách hai hình chiếu chiếm độ dài $\ell$ trong chu kỳ $a$. $\Pr_\delta[h(x)=h(y)\mid u]=\max(0,1-\ell/a)$.
+- **Nội dung công khai dự kiến:** Cố định $u$; đặt $\ell=|u\cdot(x-y)|$ là khoảng cách giữa hai hình chiếu. Chỉ $\delta$ còn ngẫu nhiên. $0\le\ell<a$ Trong một chu kỳ dài $a$, các vị trí biên nằm giữa hai hình chiếu chiếm độ dài $\ell$; khi đó hai điểm khác thùng. $\ell\ge a$ Hai hình chiếu không thể cùng nằm trong một khoảng nửa mở rộng $a$. $\Pr_\delta[h(x)=h(y)\mid u]=\max(0,\,1-\ell/a)$ Hình chiếu càng gần, xác suất chung thùng càng lớn; còn phải lấy trung bình theo $u$.
 - **Đầu vào và giả thiết:** HT10, phân phối đều của $\delta$, độ dài chu kỳ.
 - **Dữ kiện, hình thức hóa và vết chạy:** Trường hợp $\ell=0$ cho 1; $\ell\ge a$ cho 0; chiều dài không âm. Không tự thêm dữ kiện thực nghiệm.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hình một chu kỳ $a$, chỉ đoạn $\ell$ có biên tách ở trên 65%; công thức dưới 35%. Năm 2 chuyển độ dài sang xác suất bằng chia $a$; proof và trường biên trong notes.
 - **Kết nối vào–ra:** Đặc tả ngẫu nhiên→xác suất có điều kiện; cận chiếu nối tới khoảng cách Euclid.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Khi $\ell<a$, vị trí biên modulo $a$ đều trên một chu kỳ; hai điểm khác thùng đúng khi biên rơi giữa chúng, trừ điểm biên xác suất 0. Khi $\ell\ge a$, hai điểm không thể chung một khoảng nửa mở rộng $a$. Công thức thống nhất cả hai trường hợp.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Vì $\delta$ đều trên $[0,a)$, vị trí biên modulo $a$ đều trên một chu kỳ. Khi $0<\ell<a$, hai điểm khác thùng đúng khi một biên rơi giữa hai hình chiếu, với xác suất $\ell/a$; điểm biên có xác suất 0. Khi $\ell=0$, hai hình chiếu trùng nhau nên luôn chung thùng, khớp công thức. Khi $\ell\ge a$, xác suất bằng 0. Kết quả mới có điều kiện theo $u$. Bước tiếp theo dùng quan hệ $\ell\le\|x-y\|_2$ và phân phối của hướng để chuyển sang cận theo khoảng cách Euclid.
 - **Nguồn:** B §3.7.4; điều kiện dịch từ D §3.2; chứng minh hình học của bản soạn, đã duyệt.
 - **Ánh xạ ghi chú:** `N10`. **Thời lượng:** 2.5 phút.
 
