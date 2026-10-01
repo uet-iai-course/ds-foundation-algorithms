@@ -385,7 +385,7 @@ Nguồn: MMDS 3e, §3.5, tr.96–103, Ví dụ 3.13–17.
 
 ### Hai bảo đảm gần và xa
 
-Độ đo xác định cặp gần và xa. Bảo đảm tạo ứng viên còn cần một họ phép thử cùng phân phối lấy mẫu.
+Độ đo xác định cặp gần và xa. Bảo đảm tạo ứng viên còn cần một họ phép thử cùng phân phối lấy mẫu. MinHash là ví dụ đầu tiên: mỗi hoán vị ngẫu nhiên là một phép thử, và cặp có Jaccard cao dễ trùng hơn. Định nghĩa dưới đây giữ lại đúng tính chất ấy cho một độ đo bất kỳ.
 
 Cho metric $d$ trên miền $X$ và một họ hàm $\mathcal H$ kèm phân phối lấy mẫu. Với $0\le d_1<d_2$ và $0\le p_2<p_1\le1$, họ là $(d_1,d_2,p_1,p_2)$-nhạy cảm nếu với mọi cặp cố định $x,y$:
 

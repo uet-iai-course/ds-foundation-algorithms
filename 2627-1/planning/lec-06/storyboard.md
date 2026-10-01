@@ -359,11 +359,11 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.5.6/Ex 3.17 tr.101/PDF 30.
 - **Ánh xạ ghi chú:** `N05`. **Thời lượng:** 1.5 phút.
 
-#### lec06-s03-07 — Họ băm nhạy cảm
+#### lec06-s03-07 — Họ băm nhạy cảm theo tính cục bộ
 
 - **Mục đích và vai trò:** Diễn giải đầy đủ bốn tham số và nguồn xác suất.
-- **Thông điệp:** Họ nhạy cảm chặn xác suất trùng ở hai miền khoảng cách.
-- **Nội dung công khai dự kiến:** $0\le d_1<d_2,\quad0\le p_2<p_1\le1$; $\mathcal H$ là họ hàm kèm phân phối. Cặp $x,y$ cố định; xác suất theo $h\sim\mathcal H$, cùng $h$ băm hai đối tượng. Họ (d₁,d₂,p₁,p₂)-nhạy cảm được xác định bởi hai cận.
+- **Thông điệp:** Họ LSH khái quát MinHash: với hàm chọn ngẫu nhiên, cặp gần trùng với xác suất ít nhất p1, cặp xa không quá p2.
+- **Nội dung công khai dự kiến:** Khái quát MinHash: chọn ngẫu nhiên một hàm $h$ từ họ $\mathcal H$; cặp gần dễ trùng, cặp xa khó trùng. Với $0\le d_1<d_2$ và $0\le p_2<p_1\le1$, họ $\mathcal H$ là $(d_1,d_2,p_1,p_2)$-nhạy cảm nếu với mọi cặp $x,y$: [Hình: Cặp gần có xác suất trùng ít nhất p1, cặp xa có xác suất trùng không quá p2, miền giữa không được bảo đảm.] Xác suất lấy theo cách chọn $h$, cùng $h$ cho hai đối tượng; miền giữa không được bảo đảm.
 - **Đầu vào và giả thiết:** Metric, sự kiện va chạm MinHash đã biết.
 - **Dữ kiện, hình thức hóa và vết chạy:** HT6; cùng hàm $h$ áp cho hai đối tượng; không lấy xác suất trên “mỗi hàm cố định”.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trục khoảng cách chia gần/giữa/xa chiếm 45% trên; hai bất đẳng thức lớn dưới. Năm 2 cần liên kết hướng≤với≥xác suất; không vẽ đường cong cụ thể cho mọi họ.
