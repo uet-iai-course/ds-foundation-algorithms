@@ -166,7 +166,7 @@ Có 6 cửa sổ và 5 shingle phân biệt. Có 5 mã phân biệt nếu năm s
 
 ## 4. Ma trận đặc trưng và biểu diễn theo hàng
 
-Tập shingle có thể lớn dù từng mã đã ngắn. Ở tr. 81, sách minh họa một tài liệu dài 50.000 byte có tập mã shingle khoảng 200.000 byte khi mỗi mã dùng 4 byte. Lập luận giả sử phần lớn cửa sổ tạo phần tử khác nhau; con số chưa bao gồm chi phí cấu trúc lưu trữ. Cần một chữ ký có số thành phần được chọn trước để biểu diễn cả tập.
+Tập shingle có thể lớn dù từng mã đã ngắn. Mỗi cửa sổ tạo nhiều nhất một phần tử, nên $|S_k(D)|\le\max(0,\ell-k+1)$: số phần tử có thể gần bằng số ký tự của tài liệu. Ở tr. 81, sách minh họa một tài liệu dài 50.000 byte có tập mã shingle khoảng 200.000 byte khi mỗi mã dùng 4 byte. Lập luận giả sử phần lớn cửa sổ tạo phần tử khác nhau; con số chưa bao gồm chi phí cấu trúc lưu trữ. Với hàng triệu tài liệu, các tập này có thể không vừa bộ nhớ chính. Cần một chữ ký có số thành phần được chọn trước để biểu diễn cả tập.
 
 Trước hết, một biểu diễn ma trận làm rõ quan hệ phần tử–tập. Cho vũ trụ hữu hạn $U$ có $R$ phần tử và $C$ tập $S_1,\ldots,S_C\subseteq U$. Gán cho mỗi phần tử một mã hàng $r\in\{0,\ldots,R-1\}$. Ma trận đặc trưng $M\in\{0,1\}^{R\times C}$ có
 

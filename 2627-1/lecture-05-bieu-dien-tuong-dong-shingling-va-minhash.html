@@ -109,12 +109,6 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 <p class="ex-source">MMDS 3e, §3.2.3, tr. 79–80.</p>
 <aside class="notes"><p>Theo §3.2.3, thay vì dùng chuỗi con làm phần tử, chọn một hàm băm ánh xạ chuỗi dài \(k\) vào các thùng và dùng số thùng làm phần tử. Với 9-shingle và \(2^{32}\) thùng, mỗi phần tử chiếm 4 byte thay vì 9 và được xử lý bằng phép toán trên một từ máy; độ dài shingle vẫn là \(k=9\). Nếu dùng trực tiếp 4-shingle, mỗi phần tử cũng chiếm 4 byte, nhưng với khoảng 20 ký tự thông dụng chỉ có cỡ \(20^4\) chuỗi có khả năng xuất hiện, nên tài liệu không liên quan dễ chung phần tử. Số 9-shingle có khả năng xuất hiện vượt xa \(2^{32}\); sau khi băm, gần như mọi mã 4 byte đều có thể gặp. Va chạm gộp hai shingle khác nhau thành một mã. MinHash ở các phần sau làm việc trên tập mã đã chọn và không khôi phục sai lệch do va chạm.</p><p>Nguồn: MMDS 3e, §3.2.3, tr. 79–80.</p></aside>
 </section>
-<section id="lec05-s02-08" data-slide-id="lec05-s02-08" class="example-slide">
-<h2>Dung lượng tập shingle</h2>
-<p class="ex-equation">\[w=\max(0,\ell-k+1)\]</p><table class="ex-table"><thead><tr><th scope="col">Biểu diễn của <code>abcdabd</code>, \(k=2\)</th><th scope="col">Số lượng</th></tr></thead><tbody><tr><th scope="row">Cửa sổ</th><td>6</td></tr><tr><th scope="row">Shingle phân biệt</th><td>5</td></tr><tr><th scope="row">Mã phân biệt, nếu không có va chạm</th><td>5</td></tr></tbody></table><p class="ex-takeaway">Số mã phân biệt vẫn có thể tăng theo độ dài tài liệu.</p>
-<p class="ex-source">MMDS 3e, Ví dụ 3.3 và §3.2.3; đếm từ cửa sổ của nguồn.</p>
-<aside class="notes"><p>Mã băm ngắn xử lý độ dài của từng shingle. Hai shingle khác nhau có thể nhận cùng mã, nên số mã phân biệt không vượt số shingle phân biệt. Với năm shingle của ví dụ, tập mã có năm phần tử nếu không xảy ra va chạm. Băm từng phần tử chưa bảo đảm một kích thước tập cố định; chữ ký sẽ thay cả tập bằng một số thành phần đã chọn trước.</p><p>Nguồn: MMDS 3e, Ví dụ 3.3 và §3.2.3; đếm từ cửa sổ của nguồn.</p></aside>
-</section>
 <section id="lec05-s02-09" data-slide-id="lec05-s02-09" class="example-slide">
 <h2>Câu hỏi kiểm tra</h2>
 <p class="ex-takeaway">Câu hỏi:</p><ol><li>Với <code>abcdabd</code>, \(k=2\), xác định số cửa sổ và số shingle phân biệt.</li><li>Giải thích tác động của hai lần xuất hiện <code>ab</code>.</li><li>Một shingle 9 ký tự được mã hóa bằng 4 byte. Xác định \(k\) sau mã hóa.</li></ol>
@@ -124,10 +118,10 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\), s�
 </section>
 <section>
 <section id="lec05-s03-01" data-slide-id="lec05-s03-01" class="example-slide">
-<h2>Tập shingle và bộ nhớ</h2>
-<table class="ex-table"><thead><tr><th scope="col">Biểu diễn trong ví dụ nguồn</th><th scope="col">Dung lượng</th></tr></thead><tbody><tr><th scope="row">Tài liệu</th><td>50.000 byte</td></tr><tr><th scope="row">Tập mã shingle, mỗi mã 4 byte</th><td>Khoảng 200.000 byte</td></tr></tbody></table><p class="ex-takeaway">Nhu cầu: một chữ ký nhỏ cho phép ước lượng Jaccard giữa hai tập.</p><p class="ex-note">Dung lượng trên minh họa trường hợp phần lớn cửa sổ tạo mã khác nhau; chưa tính chi phí cấu trúc lưu trữ.</p>
-<p class="ex-source">MMDS 3e, mở §3.3, tr. 81.</p>
-<aside class="notes"><p>Nếu phần lớn cửa sổ tạo các shingle khác nhau, số mã có thể gần số byte của tài liệu. Lưu mỗi mã bằng bốn byte giải thích quy mô khoảng 200.000 byte trong nguồn, chưa tính chi phí cấu trúc lưu trữ. Đây là ví dụ dung lượng, không phải tỷ lệ đúng cho mọi tài liệu. Cơ chế cần xây dựng phải vừa giảm số mục lưu vừa giữ liên hệ với Jaccard.</p><p>Nguồn: MMDS 3e, mở §3.3, tr. 81.</p></aside>
+<h2>Kích thước tập shingle</h2>
+<p class="ex-equation">\[|S_k(D)|\le w=\max(0,\ell-k+1)\]</p><p>Băm làm mỗi phần tử còn 4 byte, nhưng số phần tử vẫn có thể gần bằng số ký tự của tài liệu.</p><table class="ex-table"><thead><tr><th scope="col">Biểu diễn trong ví dụ nguồn</th><th scope="col">Dung lượng</th></tr></thead><tbody><tr><th scope="row">Tài liệu</th><td>50.000 byte</td></tr><tr><th scope="row">Tập mã shingle, mỗi mã 4 byte</th><td>Khoảng 200.000 byte</td></tr></tbody></table><p class="ex-takeaway">Cần thay mỗi tập bằng một chữ ký ngắn mà vẫn ước lượng được Jaccard.</p>
+<p class="ex-source">MMDS 3e, mở §3.3, tr. 81; cận số phần tử từ §3.2.1.</p>
+<aside class="notes"><p>Mỗi cửa sổ tạo nhiều nhất một phần tử, nên tập shingle có không quá \(w\) phần tử, và va chạm khi băm chỉ có thể làm số mã ít đi. Băm giải quyết độ dài của từng phần tử, không giới hạn số phần tử. Mở đầu §3.3, sách nêu rằng ngay cả khi băm thành 4 byte, tập shingle vẫn chiếm khoảng bốn lần dung lượng tài liệu; tài liệu 50.000 byte cho tập mã khoảng 200.000 byte, chưa tính chi phí cấu trúc lưu trữ. Với hàng triệu tài liệu, các tập này có thể không vừa bộ nhớ chính. Chữ ký cần có độ dài chọn trước, không phụ thuộc độ dài tài liệu, và cho phép ước lượng Jaccard chỉ từ hai chữ ký.</p><p>Nguồn: MMDS 3e, mở §3.3, tr. 81; cận số phần tử từ §3.2.1.</p></aside>
 </section>
 <section id="lec05-s03-02" data-slide-id="lec05-s03-02" class="example-slide">
 <h2>Ma trận đặc trưng</h2>

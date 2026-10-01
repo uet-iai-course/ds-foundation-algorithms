@@ -1,6 +1,6 @@
 # Storyboard Bài 05 — Biểu diễn tương đồng: Shingling và MinHash
 
-Bản viết mới ngày 28-09-2026. Phạm vi hiện tại: 50 trang giảng/120 phút, 7 trang cho 5 bài nguồn/60 phút; 7 phần lớn. Cửa kiểm kế hoạch đã PASS và được điều phối viên chấp nhận; đặc tả này đã được triển khai thành bản nháp để rà độc lập, chưa phải xác nhận bản render cuối. Mỗi `data-slide-id` dưới đây chỉ dùng trong HTML và tài liệu quy trình, không hiển thị trong nội dung hay ghi chú diễn giả.
+Bản viết mới ngày 28-09-2026. Phạm vi hiện tại: 49 trang giảng/120 phút (trang 17 gộp vào 19 ngày 01/10/2026; số thứ tự phiếu giữ theo bản 28-09), 7 trang cho 5 bài nguồn/60 phút; 7 phần lớn. Cửa kiểm kế hoạch đã PASS và được điều phối viên chấp nhận; đặc tả này đã được triển khai thành bản nháp để rà độc lập, chưa phải xác nhận bản render cuối. Mỗi `data-slide-id` dưới đây chỉ dùng trong HTML và tài liệu quy trình, không hiển thị trong nội dung hay ghi chú diễn giả.
 
 ## Quy ước bố cục, dữ liệu và nội dung
 
@@ -17,8 +17,8 @@ Các tỷ lệ trạng thái và vị trí nhãn giữ nguyên qua 23–24,28–
 | Phần | Chức năng, đầu vào → đầu ra và mục tiêu | Slide | Phút | Kiểm tra |
 |---|---|---|---:|---|
 |1. Tài liệu gần trùng và độ tương đồng Jaccard|Kho gần trùng, tập hợp → đặc tả Jaccard; MT1|01–09|18|09|
-|2. Shingling văn bản|Chuỗi, tập và băm → tập shingle có quy ước; MT2|10–18|22|18|
-|3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–27|22|27|
+|2. Shingling văn bản|Chuỗi, tập và băm → tập shingle có quy ước; MT2|10–16, 18|21|18|
+|3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–27|23|27|
 |4. Chữ ký MinHash|Một phép thử → ước lượng từ nhiều tọa độ; MT4|28–34|17|34|
 |5. Tính chữ ký bằng hàm băm|Chữ ký lý tưởng → quét hàng, đúng, chi phí; MT5|35–46|31|46|
 |6. Tổng kết|Các kết quả → xử lý hai giới hạn mở bài, sáu nhiệm vụ tự kiểm|47–50|10|49–50|
@@ -36,7 +36,7 @@ Phần giảng cộng 120 phút. Phần bài tập: 8+10+(7+8)+12+(8+7)=60 phút
 
 ## Ánh xạ tài liệu tự học
 
-`n05-01`→04–05,47–48; `n05-02`→06–09; `n05-03`→10–18; `n05-04`→19–21; `n05-05`→22–24; `n05-06`→25–27; `n05-07`→28–31,33–34; `n05-08`→32, 34; `n05-09`→35–41; `n05-10`→42–44, 46; `n05-11`→45–48; `n05-12` và `n05-13` là đọc thêm riêng trong ghi chú, không có slide bắt buộc; `n05-14`→49–57.
+`n05-01`→04–05,47–48; `n05-02`→06–09; `n05-03`→10–16, 18; `n05-04`→19–21; `n05-05`→22–24; `n05-06`→25–27; `n05-07`→28–31,33–34; `n05-08`→32, 34; `n05-09`→35–41; `n05-10`→42–44, 46; `n05-11`→45–48; `n05-12` và `n05-13` là đọc thêm riêng trong ghi chú, không có slide bắt buộc; `n05-14`→49–57.
 
 Bản đồ vai trò, đầu vào/đầu ra, thành phần áp dụng và mục không áp dụng của từng chủ đề được khóa ở mục 8 của `outline.md`. Ghi chú theo vai trò→định nghĩa→ví dụ→trực quan→mệnh đề/thuật toán/chứng minh→ứng dụng/lỗi/kiểm tra; không dùng thứ tự “ví dụ trước định nghĩa” của slide để làm sai chu trình tài liệu tự học. Chữ ký, ma trận, bài tập và hai phép băm dùng chung hệ ký hiệu ở outline.
 
@@ -579,31 +579,10 @@ Nguồn: MMDS 3e, §3.2.3, tr. 79–80.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 17. Dung lượng tập shingle
+### 17. (Đã gộp vào trang 19)
 
-- **Mã:** `lec05-s02-08`; **phần:** 2; **note-topic-id:** `n05-03`.
-- **Mục đích và vai trò:** Giới hạn biểu diễn; tạo nhu cầu chữ ký. **Mục tiêu:** MT2.
-- **Câu chốt:** Băm rút ngắn cách lưu từng phần tử; số mã phân biệt vẫn có thể tăng theo độ dài tài liệu.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận mã ngắn; trang 18 kiểm hai loại kích thước trước khi chuyển chữ ký.
-- **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: bảng ba cột “cửa sổ / shingle phân biệt / mã phân biệt khi không va chạm” chiếm 55% thân; một câu nêu giới hạn chiếm 25% dưới.
-- **Trọng tâm và thứ tự đọc:** 6 cửa sổ → 5 shingle phân biệt → 5 mã phân biệt nếu không có va chạm.
-- **Lý do phù hợp sinh viên năm 2:** Giữ ví dụ cũ làm cầu nối ngắn; ba nhãn số tách rõ đếm vị trí với đếm phần tử để tránh nói shingling tự giảm dung lượng.
-- **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
-- **Nguồn:** B Ví dụ 3.3 tr. 78; mở §3.3 tr. 81.
-- **Thời lượng:** 1 phút.
-
-**Nội dung công khai dự kiến**
-
-Tài liệu dài $\ell$ có tối đa $\max(0,\ell-k+1)$ cửa sổ. Ví dụ `abcdabd` tạo 6 cửa sổ và 5 shingle phân biệt. Nếu không xảy ra va chạm, tập mã có 5 phần tử. Số mã phân biệt vẫn có thể tăng theo độ dài tài liệu.
-
-**Ghi chú diễn giả học thuật**
-
-Mã băm ngắn xử lý độ dài của từng shingle. Hai shingle khác nhau có thể nhận cùng mã, nên số mã phân biệt không vượt số shingle phân biệt. Với năm shingle của ví dụ, tập mã có năm phần tử nếu không xảy ra va chạm. Băm từng phần tử chưa bảo đảm một kích thước tập cố định; chữ ký sẽ thay cả tập bằng một số thành phần đã chọn trước.
-
-**Kiểm tra, đáp án và tiêu chí nội bộ**
-
-Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
+- **Mã:** `lec05-s02-08` (đã xóa khỏi deck ngày 01/10/2026); **phần:** 2; **note-topic-id:** `n05-03`.
+- **Quyết định:** gộp. Luận điểm “băm rút ngắn từng phần tử nhưng không giới hạn số phần tử” trùng với trang 19; bảng `abcdabd` 6/5/5 lặp số liệu của trang 11 và 13. Cận $|S_k(D)|\le w$ và câu về băm chuyển sang trang 19. Thời lượng 1 phút chuyển sang trang 19.
 
 ### 18. Câu hỏi kiểm tra
 
@@ -639,27 +618,38 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3.
 
 Đáp án: 6 cửa sổ, 5 phần tử; ab chỉ giữ một lần; k=9. Chấm ba phân biệt. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
 
-### 19. Tập shingle và bộ nhớ
+### 19. Kích thước tập shingle
 
 - **Mã:** `lec05-s03-01`; **phần:** 3; **note-topic-id:** `n05-04`.
 - **Mục đích và vai trò:** Tình huống và vấn đề MinHash; nhận diện dung lượng biểu diễn. **Mục tiêu:** MT3.
-- **Câu chốt:** Tập mã shingle có thể lớn hơn tài liệu gốc.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn số phần tử; trang 20 tạo biểu diễn chung cho nhiều tập.
+- **Câu chốt:** Băm giới hạn độ dài mỗi phần tử nhưng tập shingle vẫn có tới $w$ phần tử, cỡ bốn lần dung lượng tài liệu; cần chữ ký có độ dài cố định.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận mã 4 byte từ trang 16 và số cửa sổ $w$ từ trang 13; trang 20 tạo biểu diễn chung cho nhiều tập.
 - **Dữ kiện và vai trò số:** VD 5; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `cost-slide`: hai khối dung lượng đặt ngang bằng 50/50, nhãn byte sát con số; một mũi tên ghi “tạo tập mã” không biểu thị nén; câu nhu cầu dưới.
-- **Trọng tâm và thứ tự đọc:** Tài liệu → tập mã lớn hơn → điều kiện của chữ ký.
+- **Bố cục đã chọn:** `example-slide`: cận $|S_k(D)|\le w$ ở đầu; một câu về băm; bảng dung lượng của nguồn; câu nhu cầu cuối trang.
+- **Trọng tâm và thứ tự đọc:** Cận số phần tử → băm không giới hạn số phần tử → ví dụ 50.000/200.000 byte → nhu cầu chữ ký.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên thấy shingling có thể làm dữ liệu lớn hơn, nên nhu cầu MinHash được đặt trên đúng đại lượng; tránh hình nhỏ dần ngầm hứa nén ở bước này.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
-- **Nguồn:** B mở §3.3 tr. 81.
-- **Thời lượng:** 2 phút.
+- **Nguồn:** B mở §3.3 tr. 81; cận số phần tử từ §3.2.1.
+- **Thời lượng:** 3 phút (gồm 1 phút của trang 17 đã gộp).
 
 **Nội dung công khai dự kiến**
 
-Minh họa trong sách: tài liệu 50.000 byte → tập mã shingle khoảng 200.000 byte. Mỗi mã dùng 4 byte. Nhu cầu: chữ ký nhỏ cho phép ước lượng Jaccard giữa hai tập.
+$$|S_k(D)|\le w=\max(0,\ell-k+1)$$
+
+Băm làm mỗi phần tử còn 4 byte, nhưng số phần tử vẫn có thể gần bằng số ký tự của tài liệu.
+
+| Biểu diễn trong ví dụ nguồn | Dung lượng |
+|---|---|
+| Tài liệu | 50.000 byte |
+| Tập mã shingle, mỗi mã 4 byte | Khoảng 200.000 byte |
+
+Cần thay mỗi tập bằng một chữ ký ngắn mà vẫn ước lượng được Jaccard.
 
 **Ghi chú diễn giả học thuật**
 
-Nếu phần lớn cửa sổ tạo các shingle khác nhau, số mã có thể gần số byte của tài liệu. Lưu mỗi mã bằng bốn byte giải thích quy mô khoảng 200.000 byte trong nguồn, chưa tính chi phí cấu trúc lưu trữ. Đây là ví dụ dung lượng, không phải tỷ lệ đúng cho mọi tài liệu. Cơ chế cần xây dựng phải vừa giảm số mục lưu vừa giữ liên hệ với Jaccard.
+Mỗi cửa sổ tạo nhiều nhất một phần tử, nên tập shingle có không quá $w$ phần tử, và va chạm khi băm chỉ có thể làm số mã ít đi. Băm giải quyết độ dài của từng phần tử, không giới hạn số phần tử. Mở đầu §3.3, sách nêu rằng ngay cả khi băm thành 4 byte, tập shingle vẫn chiếm khoảng bốn lần dung lượng tài liệu; tài liệu 50.000 byte cho tập mã khoảng 200.000 byte, chưa tính chi phí cấu trúc lưu trữ. Với hàng triệu tài liệu, các tập này có thể không vừa bộ nhớ chính. Chữ ký cần có độ dài chọn trước, không phụ thuộc độ dài tài liệu, và cho phép ước lượng Jaccard chỉ từ hai chữ ký.
+
+Nguồn: MMDS 3e, mở §3.3, tr. 81; cận số phần tử từ §3.2.1.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
