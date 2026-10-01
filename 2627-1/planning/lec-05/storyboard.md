@@ -546,7 +546,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 - **Mã:** `lec05-s02-07`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Biểu diễn và giới hạn; tách độ dài chuỗi với độ dài mã. **Mục tiêu:** MT2.
-- **Câu chốt:** Băm mã hóa mỗi shingle bằng một số ngắn nhưng có thể gây va chạm.
+- **Câu chốt:** Băm 9-shingle thành mã 4 byte giảm dung lượng mỗi phần tử mà vẫn phân biệt tài liệu tốt hơn 4-shingle; va chạm có thể làm lệch Jaccard.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập shingle đã xác định; trang 17 chỉ ra mã ngắn vẫn có nhiều phần tử.
 - **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: sơ đồ chuỗi → hàm băm → mã chiếm 50% trên; nhãn “9 ký tự” và “4 byte” sát hai đầu; hai câu điều kiện/va chạm chiếm 35% dưới.
@@ -558,11 +558,22 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Ví dụ nguồn: shingle 9 ký tự → mã băm 32 bit = 4 byte. k vẫn bằng 9. Hai shingle khác nhau có thể nhận cùng mã; tập mã có thể có Jaccard khác tập chuỗi gốc.
+Băm mỗi 9-shingle vào $2^{32}$ thùng; số thùng, dài 4 byte, thay cho chuỗi trong tập.
+
+| Phần tử của tập | Dung lượng | Số giá trị có khả năng xuất hiện |
+|---|---|---|
+| 4-shingle | 4 byte | khoảng $20^4=160\,000$ |
+| Mã của 9-shingle | 4 byte | gần như mọi giá trị trong $2^{32}$ |
+
+Cùng 4 byte, mã của 9-shingle phân biệt tài liệu tốt hơn 4-shingle.
+
+Va chạm: hai shingle khác nhau có thể nhận cùng mã, nên Jaccard của tập mã có thể khác Jaccard của tập chuỗi.
 
 **Ghi chú diễn giả học thuật**
 
-Băm shingle tác động lên từng chuỗi con để giảm dung lượng một phần tử. MinHash ở phần sau tác động lên một tập để tạo chữ ký của tập; hai thao tác có miền vào khác nhau. Va chạm mã shingle gộp các phần tử vốn khác nhau. Vì vậy định lý MinHash được áp dụng trên tập phần tử đang thực sự sử dụng, không tự loại bỏ sai lệch đã xảy ra trong bước mã hóa.
+Theo §3.2.3, thay vì dùng chuỗi con làm phần tử, chọn một hàm băm ánh xạ chuỗi dài $k$ vào các thùng và dùng số thùng làm phần tử. Với 9-shingle và $2^{32}$ thùng, mỗi phần tử chiếm 4 byte thay vì 9 và được xử lý bằng phép toán trên một từ máy; độ dài shingle vẫn là $k=9$. Nếu dùng trực tiếp 4-shingle, mỗi phần tử cũng chiếm 4 byte, nhưng với khoảng 20 ký tự thông dụng chỉ có cỡ $20^4$ chuỗi có khả năng xuất hiện, nên tài liệu không liên quan dễ chung phần tử. Số 9-shingle có khả năng xuất hiện vượt xa $2^{32}$; sau khi băm, gần như mọi mã 4 byte đều có thể gặp. Va chạm gộp hai shingle khác nhau thành một mã. MinHash ở các phần sau làm việc trên tập mã đã chọn và không khôi phục sai lệch do va chạm.
+
+Nguồn: MMDS 3e, §3.2.3, tr. 79–80.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 

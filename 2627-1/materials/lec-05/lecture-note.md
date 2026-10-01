@@ -146,7 +146,11 @@ Nếu xóa dấu cách trước khi tạo shingle thì hai chuỗi trở thành 
 
 ### Băm shingle và giới hạn dung lượng
 
-§3.2.3, tr. 79–80, mô tả mã hóa một shingle 9 ký tự bằng mã băm 32 bit, tức 4 byte. Số $9$ đo độ dài đoạn gốc, còn số $4$ đo dung lượng mã; $k$ vẫn là $9$. Hai shingle khác nhau có thể nhận cùng mã. Khi đó tập mã gộp những phần tử vốn phân biệt, nên Jaccard của tập mã có thể khác Jaccard của tập chuỗi.
+§3.2.3, tr. 79–80, mô tả mã hóa một shingle 9 ký tự bằng mã băm 32 bit, tức 4 byte. Số $9$ đo độ dài đoạn gốc, còn số $4$ đo dung lượng mã; $k$ vẫn là $9$. Mỗi mã vừa một từ máy nên các phép so sánh trên phần tử chỉ cần một thao tác.
+
+Sách so sánh cách này với việc dùng trực tiếp 4-shingle, cũng chiếm 4 byte mỗi phần tử. Nếu chỉ khoảng 20 ký tự thường gặp, số 4-shingle có khả năng xuất hiện chỉ cỡ $20^4=160\,000$, nhỏ hơn nhiều so với $2^{32}$ giá trị của 4 byte; các tài liệu không liên quan dễ chung phần tử. Số 9-shingle có khả năng xuất hiện vượt xa $2^{32}$, nên sau khi băm, gần như mọi mã 4 byte đều có thể gặp. Với cùng dung lượng, mã của 9-shingle phân biệt tài liệu tốt hơn.
+
+Hai shingle khác nhau có thể nhận cùng mã. Khi đó tập mã gộp những phần tử vốn phân biệt, nên Jaccard của tập mã có thể khác Jaccard của tập chuỗi.
 
 Trong ví dụ `abcdabd`, số shingle là 5. Tập mã có đúng 5 phần tử **nếu không xảy ra va chạm**; nói chung số mã phân biệt không vượt số shingle phân biệt. Mã ngắn làm giảm dung lượng mỗi phần tử nhưng số phần tử vẫn có thể tăng theo độ dài tài liệu.
 
