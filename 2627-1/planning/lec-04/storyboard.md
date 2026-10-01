@@ -1379,9 +1379,7 @@ Vì $v_T\ge0$ và có tổng bằng $1$, bất biến tổng điểm và lập l
 <!-- public-slide:start -->
 [Hình: Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C. B và D có viền đôi và nhãn tập tin cậy T.]
 
-G4 giữ nguyên tám cạnh; $\beta=4/5$. Giả sử B và D đã được đánh giá đáng tin: $T=\{B,D\}$.
-
-$$v_T=(0,1/2,0,1/2)^\mathsf T.$$
+$\beta=4/5$. Giả sử B, D đã được đánh giá đáng tin: $T=\{B,D\}$, $v_T=(0,1/2,0,1/2)^\mathsf T$.
 
 | Trang | TrustRank $\rho_i$ |
 | --- | --- |
@@ -1390,7 +1388,7 @@ $$v_T=(0,1/2,0,1/2)^\mathsf T.$$
 | C | $19/105$ |
 | D | $59/210$ |
 
-Cùng phân phối dịch chuyển nên nghiệm trùng ví dụ PageRank theo chủ đề; chỉ ý nghĩa của tập đổi từ chủ đề sang độ tin cậy.
+Cùng $v$ nên cùng nghiệm với ví dụ theo chủ đề; chỉ ý nghĩa của tập đổi sang độ tin cậy.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** G4 trái50%, bảng bốn hàng phải50%; B,D có nhãn T và viền đôi, vị trí đỉnh giữ theo VD1.
