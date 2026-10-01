@@ -1779,7 +1779,7 @@ Bước trung tâm dùng uy tín vừa cập nhật $a^1$; chuẩn hóa: chia ch
 A trỏ B, C, D, ba trang có uy tín bằng $1$ nên tổng bằng $3$. B trỏ A, D và nhận $1/2+1=3/2$. C chỉ trỏ E nên nhận $1/2$; E không có cạnh ra nên tổng rỗng bằng $0$. Chia từng thành phần của vector trung tâm thô cho $3$ thu được $h^1=(1,1/2,1/6,2/3,0)^\mathsf T$. Nếu dùng $a^0$ toàn $1$, trung tâm thô sẽ bằng $(3,2,1,2,0)^\mathsf T$, khác thuật toán luân phiên đã chọn.
 <!-- public-notes:end -->
 
-### lec04-s05-05 — Vòng lặp HITS thứ hai
+### lec04-s05-05 — Vòng thứ hai trên G5
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay và nhận diện trạng thái; MT4. Đầu vào: h1. Sản phẩm: tái tạo một cập nhật ở vòng 2 và đọc hai vector mới.
 
@@ -1798,7 +1798,7 @@ $h^1=(1,1/2,1/6,2/3,0)^\mathsf T$.
 | D | $3/2$ | $9/10$ | $20/29$ |
 | E | $1/6$ | $1/10$ | $0$ |
 
-Tại A: $\tilde h_A=a_B^2+a_C^2+a_D^2=29/10$; đây là giá trị lớn nhất của vector trung tâm thô. Hai vector thay đổi qua mỗi vòng.
+Tại A: $\tilde h_A=a_B^2+a_C^2+a_D^2=29/10$, trung tâm thô lớn nhất. Trung tâm của C và uy tín của E giảm dần; hai vector chưa ổn định.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Vector h1 phía trên15%; bảng năm hàng giữa65%; phép tính tại A dưới20%. Hàng/nhãn nhất quán hai trang trước.
