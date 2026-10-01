@@ -96,7 +96,7 @@ Giữ thứ tự §5.3 → §5.4 → §5.5. Đặt HITS ngay sau PageRank sẽ n
 | S01. Bài toán xếp hạng liên kết | Giới thiệu và động lực; MT1, MT5 | PageRank Bài03 → nhu cầu theo chủ đề/độ tin cậy/vai trò | 6 | 12 | S01-06 |
 | S02. PageRank theo chủ đề | Khái niệm, thuật toán, chi phí; MT1 | Ngữ cảnh truy vấn → vector bước nhảy và điểm ổn định | 13 | 30 | S02-12 |
 | S03. Cơ chế liên kết rác | Mô hình và phân tích; MT2 | Quy tắc truyền điểm → phương trình khuếch đại | 8 | 20 | S03-08 |
-| S04. TrustRank và Spam Mass | Thuật toán và diễn giải; MT3 | Hạt giống và cơ chế thao túng → chỉ số có giới hạn | 8 | 18 | S04-07 |
+| S04. TrustRank và Spam Mass | Thuật toán và diễn giải; MT3 | Hạt giống và cơ chế thao túng → chỉ số có giới hạn | 7 | 18 | S04-07 |
 | S05. HITS | Thuật toán, ví dụ, chi phí; MT4 | Vai trò liên kết → hai vector và quy tắc cập nhật | 11 | 30 | S05-11 |
 | S06. So sánh các phương pháp xếp hạng | Tổng hợp và kết luận; MT5 | Các phương pháp → lựa chọn theo đầu ra và giả thiết | 4 | 10 | S06-04 |
 | S07. Bài tập | Luyện tập từ giáo trình; MT1, MT2, MT4 | Ba mô hình đã học → bài giải có thể kiểm chứng | 3 | 60 | S07-03 |
@@ -368,3 +368,14 @@ Hai sửa viewer được duyệt riêng gồm giới hạn phần tử định 
 ### Chỉnh cục bộ sau năm lượt rà ngày 29/09/2026
 
 Giữ 53 trang, bảy phần và 120 + 60 phút. S04-02 đưa định nghĩa phần tử ma trận lên mặt trang; S04-02a xác định đầy đủ phân phối hạt giống. S04-04 giữ bảng số, gộp bảng dấu thành đoạn và nêu giới hạn suy luận về thứ hạng, nhãn rác. S02-10 tách dung lượng lưu khỏi chi phí tiền tính; S04-06 nêu hướng ưu tiên theo chỉ số lớn; ghi chú S04-02 và S05-01 phân biệt lượng bù sau nhân beta và điểm tin cậy. Các sửa không đổi nguồn, giả thiết, ví dụ hoặc kết quả; ghi chú tự học giữ nguyên.
+
+## Duyệt từng trang ngày 01/10/2026
+
+- Giữ phạm vi MMDS §5.3 → §5.4 → §5.5, bảy phần và 120 + 60 phút. Bản hiện hành có 52 trang: 49 trang giảng, 3 trang bài tập, phân bố 6/13/8/7/11/4/3.
+- Thứ tự cụm nhiều chủ đề ở S02 theo bốn bước MMDS §5.3.3: ký hiệu (S02-09) → tiền tính và xử lý truy vấn, đưa vào $w_j$, $C$ (S02-11) → tính tuyến tính theo phân phối dịch chuyển (S02-09a) → chi phí (S02-10). Điểm ghép khi truy vấn ký hiệu $q_i$; S02-09a chứng minh $q=r^*$.
+- S03-07 trình bày hai hướng chống liên kết rác của MMDS §5.4.3; hướng đổi cách tính điểm là cầu nối sang S04.
+- S04-02 (bảng ký hiệu trùng S02) được gộp vào S04-02a “Phép lặp TrustRank”. S04-01 nêu TrustRank là PageRank theo chủ đề với tập dịch chuyển tin cậy và hai cách chọn hạt giống của §5.4.4. Spam Mass có ý tưởng trước công thức và cách đọc của §5.4.5 trên mặt trang.
+- S05-02 nêu hai công thức cộng và quy tắc chuẩn hóa trước vết chạy; S05-09 gọi tên vector riêng của $LL^\mathsf T$, $L^\mathsf TL$.
+- Thuật ngữ với Bài 03: “dịch chuyển” là bước nhảy ngẫu nhiên của Bài 03 (cầu nối ở S01-06, S02-01); $\bar M$ là ma trận $S$ của Bài 03; “điểm cố định” là phân phối không đổi của Bài 03.
+- Các câu hỏi kiểm tra S02-12, S03-08, S04-07, S05-11, S06-04 được đổi để đáp án không hiển thị trên các trang trước.
+- Ghi chú tự học `lecture-note.md` không đổi trong lượt này: ký hiệu ($\bar M$, $q_i$, điểm cố định, cụm thao túng) và thứ tự khái niệm tương thích; ghi chú chưa có câu nối “bước nhảy ngẫu nhiên” của Bài 03, ghi nhận để xử lý ở lượt sửa ghi chú.
