@@ -493,7 +493,7 @@ h_v(x)=\operatorname{sign}(v\cdot x),\qquad
 \operatorname{sign}(z)=\begin{cases}+1,&z\ge0,\\-1,&z<0.\end{cases}
 $$
 
-Một pháp tuyến phải được giữ nguyên khi băm mọi vector. Pháp tuyến vuông góc mặt phân chia; nó không phải chính đường hoặc mặt phân chia.
+Nhân $x$ với $c>0$ không đổi dấu của $v\cdot x$, nên giá trị băm chỉ phụ thuộc hướng của $x$; đó là tính chất cần cho khoảng cách góc. Một pháp tuyến phải được giữ nguyên khi băm mọi vector. Pháp tuyến vuông góc mặt phân chia; nó không phải chính đường hoặc mặt phân chia.
 
 ![Pháp tuyến vuông góc mặt phân chia; hai phía nhận hai dấu.](img/lec-06/phap-tuyen-dau.svg)
 

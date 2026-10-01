@@ -478,16 +478,16 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 - **Nguồn:** B §3.7.1 tr.109; sửa diễn giải giới hạn số hàm độc lập của nguồn.
 - **Ánh xạ ghi chú:** `N08`. **Thời lượng:** 2 phút.
 
-#### lec06-s04-03 — Dấu của tích vô hướng
+#### lec06-s04-03 — Hàm băm dấu theo siêu phẳng
 
-- **Mục đích và vai trò:** Tạo một bit bằng một pháp tuyến cố định.
-- **Thông điệp:** Siêu phẳng qua gốc phân đối tượng theo dấu tích vô hướng.
-- **Nội dung công khai dự kiến:** $x=(3,4,5,6)$ và $y=(4,3,2,1)$. $h_v(x)=\operatorname{sign}(v\cdot x)$, với $\operatorname{sign}(0)=+1$. Cho $v_1=(1,-1,1,1)$: $v_1\cdot x=3-4+5+6=10$, $v_1\cdot y=4-3+2+1=4$; hai vector cùng dấu $+$.
+- **Mục đích và vai trò:** Định nghĩa hàm băm dấu theo siêu phẳng qua gốc cho khoảng cách góc và chạy một pháp tuyến trên dữ kiện Ví dụ 3.22.
+- **Thông điệp:** Giá trị băm là phía của siêu phẳng chứa vector; chỉ phụ thuộc hướng.
+- **Nội dung công khai dự kiến:** Pháp tuyến $v\ne0$ xác định siêu phẳng qua gốc $v\cdot z=0$; hàm băm ghi phía chứa vector: $h_v(x)=\operatorname{sign}(v\cdot x),\qquad \operatorname{sign}(0)=+1$ [Hình: Pháp tuyến vuông góc mặt phân chia, hướng vào nửa không gian có dấu dương.] $x=(3,4,5,6),\ y=(4,3,2,1)$ $v_1=(1,-1,1,1)$ $v_1\cdot x=3-4+5+6=10$ $v_1\cdot y=4-3+2+1=4$ $h_{v_1}(x)=h_{v_1}(y)=+1$: cùng phía siêu phẳng. Giá trị băm chỉ phụ thuộc hướng của $x$, phù hợp khoảng cách góc.
 - **Đầu vào và giả thiết:** Tích vô hướng, vector V10 hiển thị đầy đủ; x=(3,4,5,6), y=(4,3,2,1).
 - **Dữ kiện, hình thức hóa và vết chạy:** V10, HT9 cơ chế; pháp tuyến vuông góc siêu phẳng, khác đường chia trong hình hai chiều.
-- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Trái 55% hình siêu phẳng/pháp tuyến và hai miền dấu; phải 45% hai phép tính. Hình là lát hai chiều khái niệm, không gán tọa độ bốn chiều cho ảnh. Năm 2 tách đường chia với pháp tuyến; định lý ngẫu nhiên chờ s04-05.
+- **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Câu dẫn và định nghĩa ở trên; hình pháp tuyến bên trái; phép tính $v_1\cdot x$, $v_1\cdot y$ bên phải; câu chốt về hướng. Năm 2 đã có tích vô hướng từ đại số tuyến tính.
 - **Kết nối vào–ra:** Tọa độ đơn→phép thử theo hướng; nhiều pháp tuyến tạo chữ ký dấu.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Một pháp tuyến $v$ phải được giữ cố định khi băm mọi vector. Dấu bằng 0 có quy tắc thống nhất để hàm xác định. Vết số dùng pháp tuyến dấu của sách và chỉ minh họa phép tính, chưa thể hiện phân phối đẳng hướng.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Khoảng cách góc không đổi khi nhân vector với một số dương, nên phép thử phù hợp phải chỉ phụ thuộc hướng. Dấu của $v\cdot x$ có tính chất này: nhân $x$ với $c>0$ không đổi dấu. Pháp tuyến vuông góc mặt phân chia, không phải chính mặt phân chia. Một pháp tuyến $v$ được giữ cố định khi băm mọi vector; quy tắc dấu tại 0 làm hàm xác định. Pháp tuyến $v_1$ lấy từ Ví dụ 3.22 chỉ minh họa phép tính; phân phối của pháp tuyến ngẫu nhiên được nêu cùng chứng minh xác suất.
 - **Nguồn:** B §3.7.2–3/Ex 3.22 tr.109–111; S4 PDF 48/trang in 51; hình pháp tuyến.
 - **Ánh xạ ghi chú:** `N09`. **Thời lượng:** 2.5 phút.
 
