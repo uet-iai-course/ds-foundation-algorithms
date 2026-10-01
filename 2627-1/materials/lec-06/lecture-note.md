@@ -648,7 +648,7 @@ Hai vector bit khác tại vị trí 2 và 4, nên xác suất trùng là $3/5$;
 
 Hai hồ sơ có thể mô tả cùng người hoặc cùng thực thể dù một số trường khác nhau. Đầu vào là hai nguồn hồ sơ; đầu ra mong muốn là các cặp cùng thực thể. Nếu mỗi nguồn có một triệu bản ghi, xét mọi cặp giữa hai nguồn cần $10^{12}$ phép đối chiếu.
 
-Một quy tắc tạo ứng viên dùng ba trường tên, địa chỉ và điện thoại. Mỗi trường tạo một bảng khóa. Các cặp khớp ít nhất một trường được hợp và khử lặp, rồi chấm điểm bằng thông tin đầy đủ hơn. Ví dụ ở §3.8.2 dùng khoảng cách chỉnh sửa để tính điểm phạt theo từng trường, với hiệu chỉnh từ các bảng tên tương đương. Khóa khớp hoàn toàn tạo ứng viên, còn độ sai khác giữa chuỗi tham gia bước xác minh. Quy tắc chỉ bảo đảm rằng cặp khớp một trường được đưa vào tập ứng viên; khớp điện thoại chưa chứng minh hai hồ sơ cùng người.
+Một quy tắc tạo ứng viên dùng ba trường tên, địa chỉ và điện thoại. Mỗi trường tạo một bảng khóa. Các cặp khớp ít nhất một trường được hợp và khử lặp, rồi chấm điểm bằng thông tin đầy đủ hơn. Đây là phép OR của ba hàm khóa, tức phân dải với $b=3$ dải, mỗi dải một hàm ($r=1$); ví dụ của sách thay bảng băm bằng ba lần sắp xếp theo từng trường. Cặp không khớp hoàn toàn trường nào bị bỏ sót. Ví dụ ở §3.8.2 dùng khoảng cách chỉnh sửa để tính điểm phạt theo từng trường, với hiệu chỉnh từ các bảng tên tương đương. Khóa khớp hoàn toàn tạo ứng viên, còn độ sai khác giữa chuỗi tham gia bước xác minh. Quy tắc chỉ bảo đảm rằng cặp khớp một trường được đưa vào tập ứng viên; khớp điện thoại chưa chứng minh hai hồ sơ cùng người.
 
 ![Ba bảng khóa tên, địa chỉ và điện thoại sinh ứng viên trước bước chấm điểm.](img/lec-06/khoa-thuc-the.svg)
 
@@ -656,7 +656,7 @@ Không có mô hình phân phối cho ba trường thì chưa thể gán các x�
 
 
 ::: exercise
-Câu hỏi: Vì sao khớp số điện thoại chưa đủ xác nhận hai hồ sơ cùng một thực thể?
+Câu hỏi: Giải thích vì sao khớp số điện thoại chưa đủ xác nhận hai hồ sơ cùng một thực thể.
 :::
 
 ::: solution

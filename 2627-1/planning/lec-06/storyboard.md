@@ -599,14 +599,14 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 #### lec06-s05-01 — Đối sánh thực thể
 
-- **Mục đích và vai trò:** Tách tạo ứng viên theo trường với quyết định cùng thực thể.
+- **Mục đích và vai trò:** Mở phần 5: nhận ra phép OR của ba hàm khóa (phân dải $b=3$, $r=1$) trong bài toán đối sánh thực thể và hệ quả bỏ sót.
 - **Thông điệp:** Khớp một trường tạo cặp cần xét, chưa xác nhận cùng người.
-- **Nội dung công khai dự kiến:** Hai nguồn, mỗi nguồn một triệu hồ sơ; đối chiếu trực tiếp cần 10¹² cặp. Khớp ít nhất một trường tạo ứng viên; điểm tổng hợp quyết định tập kết quả. Trường phụ không tham gia tính điểm có thể dùng kiểm chứng chất lượng kết quả.
+- **Nội dung công khai dự kiến:** Tìm cặp hồ sơ cùng một người giữa hai nguồn, mỗi nguồn $10^6$ hồ sơ: chấm điểm mọi cặp cần $10^{12}$ lần. [Hình: Khớp tên, địa chỉ hoặc điện thoại sinh ứng viên; hợp cặp trước khi chấm điểm và xác minh.] Ba hàm khóa: tên, địa chỉ, điện thoại trùng hoàn toàn. Cặp thành ứng viên khi trùng ít nhất một khóa, tức OR của ba hàm. Chỉ ứng viên được chấm điểm; cặp không trùng hoàn toàn khóa nào bị bỏ sót.
 - **Đầu vào và giả thiết:** OR, khử lặp, xác minh; không giả định ba trường độc lập xác suất.
 - **Dữ kiện, hình thức hóa và vết chạy:** B §3.8: quy mô và tên trường nguồn; không tự tạo hồ sơ người. Mô hình điểm/ngày chỉ đọc thêm.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Sơ đồ hai nguồn→ba nhánh khóa→hợp ứng viên→chấm điểm chiếm 75%; câu giới hạn dưới. Năm 2 nhận cấu trúc OR đã biết trong miền mới; không đưa bảng hồ sơ tự đặt.
 - **Kết nối vào–ra:** Họ cơ sở→ứng dụng có quy tắc khớp riêng; vân tay cung cấp mô hình xác suất cụ thể.
-- **Diễn giải học thuật, lời giải và tiêu chí:** Tên hoặc địa chỉ có thể trùng ở các người khác nhau. Ví dụ sách dùng khoảng cách chỉnh sửa để tính điểm phạt sai khác ở từng trường, rồi hiệu chỉnh theo các bảng tên tương đương. Như vậy, khóa khớp hoàn toàn tạo ứng viên; độ sai khác giữa chuỗi tham gia chấm điểm để xác minh. Một trường phụ không tham gia điểm có thể được dùng kiểm chất lượng tập cặp theo mô hình phù hợp; nó không xác nhận từng cặp. Chưa có phân phối các hồ sơ nên chưa gán bốn tham số LSH cho ba trường.
+- **Diễn giải học thuật, lời giải và tiêu chí:** Ba hàm khóa đóng vai trò ba dải, mỗi dải một hàm: phân dải với $b=3$, $r=1$. Trong ví dụ của sách, thay cho bảng băm, hồ sơ được sắp lần lượt theo tên, địa chỉ, điện thoại và chỉ các hồ sơ liền nhau có cùng khóa được chấm điểm; kết quả như dùng bảng băm. Điểm của một cặp là 100 cho mỗi trường, trừ điểm phạt tăng theo bình phương khoảng cách chỉnh sửa, có hiệu chỉnh bằng bảng tên tương đương như Bill và William. Khớp một khóa chưa đủ kết luận cùng người, vì nhiều người có thể chung địa chỉ hoặc điện thoại. Ngưỡng điểm được kiểm bằng trường ngày tạo hồ sơ, không tham gia điểm; cách kiểm này ở mục Đọc thêm. Chưa có phân phối của các trường nên chưa gán được bốn tham số của họ nhạy cảm.
 - **Nguồn:** B §3.8.1–3 tr.114–117/PDF 43–46.
 - **Ánh xạ ghi chú:** `N11`. **Thời lượng:** 3 phút.
 
