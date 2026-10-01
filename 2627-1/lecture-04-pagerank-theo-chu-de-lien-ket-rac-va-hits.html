@@ -960,15 +960,17 @@ trả về (h, a, hết số vòng)
 </aside>
 </section>
 <section id="lec04-s05-09" data-slide-id="lec04-s05-09" class="example-slide">
-<h2>Điểm ổn định và giới hạn của HITS</h2>
-<p>Mỗi cạnh $i\to j$ đóng góp $h_i$ vào uy tín của $j$, rồi đóng góp uy tín mới $a_j$ vào trung tâm của $i$.</p><div class="ex-grid2 l04-split-35 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/dong-gop-hits.svg" alt="Cạnh i tới j: h_i cộng vào uy tín a_j; uy tín mới a_j cộng vào trung tâm h_i." role="img"></div><div><p>Ở điểm ổn định:
-$$a\propto L^\mathsf Th,\qquad h\propto La,$$
-$$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p></div></div><div class="ex-takeaway"><p>Chuẩn hóa giữ tỷ lệ trong mỗi vector. Sự tồn tại một hướng giới hạn duy nhất cần điều kiện bổ sung; không suy từ việc tính đúng vài vòng.</p></div>
+<h2>Điểm ổn định của HITS</h2>
+<p>Ở điểm ổn định, chuẩn hóa chỉ đổi độ lớn ($\propto$: tỷ lệ với, hệ số dương):
+$$a\propto L^\mathsf Th,\qquad h\propto La.$$</p>
+<p>Thế quan hệ này vào quan hệ kia:
+$$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p>
+<div class="ex-takeaway"><p>$h$ là vector riêng của $LL^\mathsf T$, $a$ là vector riêng của $L^\mathsf TL$. Giới hạn duy nhất khi trị riêng lớn nhất chỉ có một hướng riêng và khởi tạo có thành phần theo hướng ấy.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.1–5.5.2, tr.204–207; phác thảo có điều kiện.</p>
 <aside class="notes">
 <p>Ở điểm cố định, $h=\lambda La$ và $a=\mu L^\mathsf Th$, với $\lambda,\mu&gt;0$ là các hệ số chuẩn hóa. Thế một quan hệ vào quan hệ kia cho $h=\lambda\mu LL^\mathsf Th$ và tương tự cho $a$.</p>
 <p>Một điều kiện đủ để phép lặp có hướng giới hạn duy nhất là trị riêng lớn nhất của ma trận đối xứng nửa xác định dương $LL^\mathsf T$ chỉ có một hướng riêng độc lập, và khởi tạo có thành phần khác $0$ theo hướng ấy. Trong phân tích theo các hướng riêng, phần gắn với trị riêng nhỏ hơn tăng chậm hơn, nên tỷ lệ của nó giảm sau chuẩn hóa. Nếu trị riêng lớn nhất có nhiều hướng độc lập, hướng giới hạn có thể phụ thuộc khởi tạo. Đây là phác thảo điều kiện đủ, không phải chứng minh phổ tổng quát.</p>
-<p>Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1,0.3583,0,0.7165,0)^\mathsf T$ và $a\approx(0.2087,1,1,0.7913,0)^\mathsf T$.</p>
+<p>Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1;\,0{,}3583;\,0;\,0{,}7165;\,0)^\mathsf T$ và $a\approx(0{,}2087;\,1;\,1;\,0{,}7913;\,0)^\mathsf T$.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.5.1–5.5.2, tr.204–207; phác thảo có điều kiện.</p>
 </aside>
 </section>

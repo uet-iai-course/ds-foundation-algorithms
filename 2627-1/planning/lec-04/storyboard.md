@@ -1961,7 +1961,7 @@ trả về (h, a, hết số vòng)
 HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa cập nhật. Vector `a` khởi tạo toàn $1$ chỉ dùng để đo thay đổi ở vòng đầu; giá trị của nó không đi vào phép tính $a^1$. Chuẩn hóa sau từng phép nhân tạo đúng vết chạy của Ví dụ 5.15. Với ít nhất một cạnh và khởi tạo dương, mỗi trang có cạnh ra đóng góp dương cho ít nhất một đích, rồi nhận lại một giá trị dương qua cạnh ấy. Lập luận này tiếp tục ở mọi vòng, nên các vector thô không bằng $0$ và phép chuẩn hóa hợp lệ. Mỗi vòng giữ $h$, $a$ không âm và có giá trị lớn nhất bằng $1$. Điều kiện dừng kiểm tra thay đổi của cả hai vector; hết $K$ vòng không đồng nghĩa đã đạt ngưỡng hoặc có chứng nhận sai số tới giới hạn.
 <!-- public-notes:end -->
 
-### lec04-s05-09 — Điểm ổn định và giới hạn của HITS
+### lec04-s05-09 — Điểm ổn định của HITS
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận đúng và phạm vi bảo đảm; MT4. Đầu vào: HT6. Sản phẩm: giải thích quan hệ hai bước, tránh duy nhất vô điều kiện.
 
@@ -1970,13 +1970,13 @@ HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa c�
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Mỗi cạnh $i\to j$ đóng góp $h_i$ vào uy tín của $j$, rồi đóng góp uy tín mới $a_j$ vào trung tâm của $i$.
+Ở điểm ổn định, chuẩn hóa chỉ đổi độ lớn ($\propto$: tỷ lệ với, hệ số dương):
+$$a\propto L^\mathsf Th,\qquad h\propto La.$$
 
-Ở điểm ổn định:
-$$a\propto L^\mathsf Th,\qquad h\propto La,$$
+Thế quan hệ này vào quan hệ kia:
 $$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$
 
-Chuẩn hóa giữ tỷ lệ trong mỗi vector. Sự tồn tại một hướng giới hạn duy nhất cần điều kiện bổ sung; không suy từ việc tính đúng vài vòng.
+$h$ là vector riêng của $LL^\mathsf T$, $a$ là vector riêng của $L^\mathsf TL$. Giới hạn duy nhất khi trị riêng lớn nhất chỉ có một hướng riêng và khởi tạo có thành phần theo hướng ấy.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Sơ đồ một cạnh và hai chiều đóng góp trái35%; chuỗi hai dòng tỷ lệ phải65%; giới hạn kết luận nằm đáy. Hệ số chuẩn hóa được giải thích trong ghi chú.
@@ -1991,6 +1991,8 @@ Chuẩn hóa giữ tỷ lệ trong mỗi vector. Sự tồn tại một hướng
 
 **Kết nối vào–ra:** Giả mã đúng phép cộng → quan hệ điểm ổn định → cách thực thi thưa và chi phí.
 
+**Quyết định 01/10/2026:** viết lại — tiêu đề “Điểm ổn định của HITS”; bỏ câu mở và hình đóng góp theo cạnh (cơ chế đã có ở s05-02, s05-06; `dong-gop-hits.svg` không còn được deck dùng); định nghĩa $\propto$; gọi tên vector riêng (đại số tuyến tính là tiên quyết) và nêu điều kiện giới hạn duy nhất trên mặt trang; dấu phẩy thập phân trong ghi chú.
+
 **Nguồn và vị trí:** NG1 §5.5.2, tr.206–208; NG3 trang56–58 chỉ đối chiếu, sửa khẳng định duy nhất quá mạnh.
 
 **Thời lượng:** 3 phút.
@@ -2002,7 +2004,7 @@ Chuẩn hóa giữ tỷ lệ trong mỗi vector. Sự tồn tại một hướng
 
 Một điều kiện đủ để phép lặp có hướng giới hạn duy nhất là trị riêng lớn nhất của ma trận đối xứng nửa xác định dương $LL^\mathsf T$ chỉ có một hướng riêng độc lập, và khởi tạo có thành phần khác $0$ theo hướng ấy. Trong phân tích theo các hướng riêng, phần gắn với trị riêng nhỏ hơn tăng chậm hơn, nên tỷ lệ của nó giảm sau chuẩn hóa. Nếu trị riêng lớn nhất có nhiều hướng độc lập, hướng giới hạn có thể phụ thuộc khởi tạo. Đây là phác thảo điều kiện đủ, không phải chứng minh phổ tổng quát.
 
-Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1,0.3583,0,0.7165,0)^\mathsf T$ và $a\approx(0.2087,1,1,0.7913,0)^\mathsf T$.
+Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1;\,0{,}3583;\,0;\,0{,}7165;\,0)^\mathsf T$ và $a\approx(0{,}2087;\,1;\,1;\,0{,}7913;\,0)^\mathsf T$.
 <!-- public-notes:end -->
 
 ### lec04-s05-10 — Chi phí HITS trên đồ thị thưa
