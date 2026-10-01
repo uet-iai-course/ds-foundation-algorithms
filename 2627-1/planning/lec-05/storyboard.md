@@ -1502,7 +1502,7 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Mô hình từ máy: tính hàm, kiểm ô và min tốn O(1); đầu vào đã có. $L=\operatorname{nnz}(M)$ là tổng số ô 1 của $M$. Bảng: khởi tạo nC; tính băm nR; kiểm ô đặc RC; min nL. VD 3.8: R=5, C=4, n=2, L=9 → 8, 10, 20, 18. Đặc: Θ(nC+nR+RC+nL); danh sách cột có 1 theo hàng đã được xây sẵn: Θ(nC+nR+nL).
+Mô hình từ máy: tính hàm, kiểm ô và min tốn O(1); đầu vào đã có. $L=\operatorname{nnz}(M)$ là tổng số ô 1 của $M$. Bảng: khởi tạo nC; tính băm nR; kiểm ô (ma trận đặc) RC; min nL. VD 3.8: R=5, C=4, n=2, L=9 → 8, 10, 20, 18. Đặc: Θ(nC+nR+RC+nL); danh sách cột có 1 theo hàng đã được xây sẵn: Θ(nC+nR+nL).
 
 **Ghi chú diễn giả học thuật**
 
@@ -1512,11 +1512,11 @@ Khởi tạo duyệt nC ô chữ ký. Mỗi hàng tính n giá trị nên có nR
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 44. Dung lượng chữ ký
+### 44. Bộ nhớ của chữ ký
 
 - **Mã:** `lec05-s05-10`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Mục đích và vai trò:** Bộ nhớ; phân biệt đầu vào, đầu ra và đệm. **Mục tiêu:** MT5.
-- **Câu chốt:** Bộ nhớ chữ ký được quyết định bởi n và số tập C.
+- **Câu chốt:** Chữ ký chiếm $\Theta(nC)$ từ máy; theo sách, 1.000 byte thường đủ cho sai lệch vài phần trăm, phù hợp cận độ lệch chuẩn $1/(2\sqrt n)$.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận phép đếm thời gian; 45 nêu giới hạn xác suất của các giá trị đang lưu.
 - **Dữ kiện và vai trò số:** VD 8; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `cost-slide`: hai thẻ 50/50 ghi đầu ra nC và đệm n chiếm 50% thân; dòng phạm vi “chưa gồm đầu vào” dưới; minh họa byte nguồn chiếm 25% cuối.
@@ -1528,11 +1528,22 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-SIG lưu nC giá trị: Θ(nC) từ máy. Bộ đệm giá trị băm một hàng: Θ(n) từ. Chưa gồm đầu vào. Minh họa B tr. 81: tập mã khoảng 200.000 byte → chữ ký 1.000 byte; không là bảo đảm sai số cho mọi trường hợp.
+| Phần lưu trữ | Số từ máy |
+|---|---|
+| Chữ ký của $C$ tập | $\Theta(nC)$ |
+| Bộ đệm băm của một hàng | $\Theta(n)$ |
+
+Chưa gồm dữ liệu đầu vào.
+
+$$200.000\text{ byte}\ \longrightarrow\ 1.000\text{ byte}$$
+
+Theo sách, chữ ký 1.000 byte thường cho ước lượng Jaccard lệch không quá vài phần trăm.
 
 **Ghi chú diễn giả học thuật**
 
-Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. Ví dụ 5 × 4 giúp theo thuật toán; so số hàng n<R không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Quy mô byte trong sách minh họa tập rất lớn và chữ ký ngắn, không thay phân tích chất lượng theo n.
+Một giá trị chữ ký được giả sử vừa một từ máy. Nếu vẫn giữ ma trận hoặc danh sách đầu vào thì phải cộng dung lượng cấu trúc đó. So số hàng $n<R$ không đủ kết luận ít bit hơn vì ô nhị phân và từ máy có kích thước khác nhau. Với mỗi thành phần 4 byte, chữ ký 1.000 byte có $n=250$; do $s(1-s)\le1/4$, độ lệch chuẩn của ước lượng không vượt $1/(2\sqrt{250})\approx0{,}032$ trong mô hình lý tưởng, phù hợp với mức “vài phần trăm” của sách. Đây là phát biểu về phân phối, không bảo đảm sai số của mọi lần chạy.
+
+Nguồn: MMDS 3e, tr. 81; phân tích bộ nhớ từ thuật toán §3.3.5.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
