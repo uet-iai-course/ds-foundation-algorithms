@@ -2310,7 +2310,7 @@ G4/Hình 5.15: A→B,C,D; B→A,D; C→A; D→B,C. Dùng $\beta=0.8$ kế thừa
 
 **Câu hỏi:** Tính PageRank theo chủ đề khi tập dịch chuyển là (a) chỉ A; (b) A và C.
 
-Sản phẩm: hai phân phối dịch chuyển, hai vector điểm theo thứ tự A,B,C,D, hệ phương trình và phép kiểm tổng 1/điểm cố định.
+Sản phẩm: hai phân phối dịch chuyển, hệ phương trình, hai vector điểm theo thứ tự A, B, C, D; kiểm tra tổng bằng 1 và nghiệm thỏa phương trình cố định.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** G4 có đầy đủ tám cạnh trái45%; nguồn, hai yêu cầu và sản phẩm phải55%. Tham số beta nằm cạnh tên đồ thị. Lời giải không xuất hiện trên mặt slide.
@@ -2324,6 +2324,8 @@ Sản phẩm: hai phân phối dịch chuyển, hai vector điểm theo thứ t�
 **Ví dụ, phiếu số và hình thức hóa:** BT1; VD1. $r=(4/5)M_0r+(1/5)v$. Hình 5.15 có n4,ell8; không có nút cụt.
 
 **Kết nối vào–ra:** Lý thuyết theo chủ đề → bài giải độc lập → phân tích đổi cấu trúc liên kết ở BT2.
+
+**Quyết định 01/10/2026:** sửa nhẹ — giữ tiêu đề và bài nguồn; dòng sản phẩm thay cụm “tổng 1/điểm cố định” (dấu gạch chéo mơ hồ) bằng hai phép kiểm tách rời.
 
 **Nguồn và vị trí:** NG1 Bài 5.3.1(a,b), tr.199/PDF25; Hình 5.15 tr.197/PDF23; beta kế thừa VD5.10 tr.196–197.
 
