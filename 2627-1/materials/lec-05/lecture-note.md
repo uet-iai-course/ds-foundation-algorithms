@@ -751,15 +751,21 @@ Quy trình đi từ chuỗi tới tập shingle, từ tập tới chữ ký và 
 
 Sáu nhiệm vụ tự kiểm bao quát tuyến chính:
 
-1. Giải thích vì sao hai lần `ab` trong `abcdabd` chỉ tạo một phần tử của tập shingle.
-2. Phân biệt 9 ký tự của đoạn gốc với 4 byte của mã băm.
-3. Xác định đối tượng ở hàng và cột của ma trận đặc trưng.
+1. Với $k=2$, tính Jaccard của tập shingle của `abab` và `baba`, rồi nhận xét kết quả.
+2. Nêu điều kiện để hai tài liệu không chung shingle nào vẫn có Jaccard dương trên tập mã 4 byte.
+3. Cho $|S\cap T|=3$, $|S\cup T|=12$ và $n=200$ hoán vị đều. Tính xác suất hai MinHash trùng và kỳ vọng số tọa độ trùng.
 4. Nêu biến cố tương đương hai MinHash trùng dưới cùng một thứ tự.
 5. Viết công thức tỷ lệ trùng của $n$ tọa độ tương ứng.
 6. Nêu giới hạn còn lại khi vẫn so sánh mọi cặp trong kho $C$ tài liệu.
 
 ::: solution Đáp án tự kiểm
-Tập hợp giữ một bản của mỗi phần tử nên hai cửa sổ `ab` chỉ tạo một shingle. Số ký tự xác định độ dài shingle, còn số byte xác định dung lượng mã. Ma trận đặc trưng có hàng là phần tử và cột là tập. Hai MinHash trùng khi phần tử đầu trong hợp thuộc giao. Ước lượng là $\widehat{\mathrm{SIM}}=n^{-1}\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$. Nếu chưa chọn ứng viên thì vẫn có $C(C-1)/2$ cặp; chữ ký chỉ thay chi phí một cặp.
+(1) Cả hai chuỗi có tập $\{\texttt{ab},\texttt{ba}\}$, nên Jaccard bằng 1 dù hai chuỗi khác nhau; tập shingle không giữ toàn bộ thứ tự và số lần xuất hiện.
+
+(2) Một shingle của tài liệu thứ nhất và một shingle khác của tài liệu thứ hai nhận cùng mã; mã chung ấy thuộc giao của hai tập mã.
+
+(3) Xác suất trùng bằng $3/12=1/4$; kỳ vọng số tọa độ trùng là $200\cdot1/4=50$.
+
+Hai MinHash trùng khi phần tử đầu trong hợp thuộc giao. Ước lượng là $\widehat{\mathrm{SIM}}=n^{-1}\sum_{i=1}^n\mathbf1\{h_{\pi_i}(S)=h_{\pi_i}(T)\}$. Nếu chưa chọn ứng viên thì vẫn có $C(C-1)/2$ cặp; chữ ký chỉ thay chi phí một cặp.
 :::
 
 ### Bài 3.1.1 — Tính Jaccard

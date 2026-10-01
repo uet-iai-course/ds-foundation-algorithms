@@ -1704,11 +1704,11 @@ Nguồn: MMDS 3e, §§3.1–3.3; phạm vi Bài 06 theo đề cương học ph�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 49. Tự kiểm tra biểu diễn
+### 49. Câu hỏi tổng kết về biểu diễn
 
 - **Mã:** `lec05-s06-03`; **phần:** 6; **note-topic-id:** `n05-14`.
 - **Mục đích và vai trò:** Kiểm tra tổng hợp MT2–MT3; khôi phục kiểu dữ liệu. **Mục tiêu:** MT2, MT3.
-- **Câu chốt:** Các lựa chọn biểu diễn xác định đối tượng được so sánh.
+- **Câu chốt:** Tập shingle có thể đồng nhất hai chuỗi khác nhau; va chạm mã tạo phần tử chung giả; định lý MinHash cho xác suất và kỳ vọng từ giao và hợp.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận giới hạn 48; 50 kiểm phần xác suất và chi phí.
 - **Dữ kiện và vai trò số:** VD 1–VD 8; chỉ tổng hợp dữ kiện đã học; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: ba nhiệm vụ đánh số trên toàn chiều rộng; mỗi nhiệm vụ chiếm 25% thân; không có hình trang trí, không có đáp án.
@@ -1722,21 +1722,19 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 Câu hỏi:
 
-- Giải thích vì sao hai lần `ab` trong `abcdabd` chỉ tạo một phần tử của tập.
-
-- Phân biệt 9 ký tự của shingle với 4 byte mã băm.
-
-- Xác định đối tượng ở hàng và cột của ma trận đặc trưng.
+1. Với $k=2$, tính Jaccard của tập shingle của `abab` và `baba`. Nhận xét kết quả.
+2. Nêu điều kiện để hai tài liệu không chung shingle nào vẫn có Jaccard dương trên tập mã 4 byte.
+3. Cho $|S\cap T|=3$, $|S\cup T|=12$ và $n=200$ hoán vị đều. Tính xác suất hai MinHash trùng và kỳ vọng số tọa độ trùng.
 
 **Ghi chú diễn giả học thuật**
 
-Tập hợp chỉ giữ một bản của phần tử ab, nên bỏ số lần lặp. Chín ký tự đo độ dài đoạn gốc, còn bốn byte đo dung lượng mã. Ma trận đặc trưng có hàng là phần tử của vũ trụ, cột là tập/tài liệu. Ba phân biệt này phải được giữ khi giải các bài tính chữ ký; đổi kiểu mà giữ tên biến mơ hồ có thể dẫn đến phép so sánh khác bài toán.
+Câu 1: `abab` có các cửa sổ `ab`, `ba`, `ab`; `baba` có `ba`, `ab`, `ba`. Hai tập cùng là $\{\texttt{ab},\texttt{ba}\}$, nên Jaccard bằng 1 dù hai chuỗi khác nhau: tập shingle không giữ toàn bộ thứ tự và số lần xuất hiện. Câu 2: một shingle của tài liệu thứ nhất và một shingle khác của tài liệu thứ hai nhận cùng mã; mã chung ấy nằm trong giao của hai tập mã. Câu 3: theo định lý, xác suất trùng bằng $3/12=1/4$; kỳ vọng số tọa độ trùng là $200\cdot1/4=50$.
 
-Nguồn: Tự kiểm theo §§3.2–3.3.1 và các ví dụ đã học.
+Nguồn: Tự kiểm theo §§3.2–3.3.4; chuỗi và số liệu là dữ kiện luyện tập.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án trong notes: một phần tử; k và dung lượng mã khác đơn vị; hàng=phần tử, cột=tập. Chấm ba ý. Dự toán 1,5 phút làm, 1,5 phút đối chiếu.
+Đáp án: 1; va chạm giữa hai shingle khác nhau của hai tài liệu; $1/4$ và 50. Ba câu đòi vận dụng, không nhắc lại kết luận đã hiện trên mặt trang trước.
 
 ### 50. Tự kiểm tra MinHash
 
