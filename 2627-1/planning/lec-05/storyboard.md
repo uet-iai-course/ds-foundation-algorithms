@@ -468,11 +468,11 @@ Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 14. Độ dài shingle
+### 14. Chọn độ dài shingle
 
 - **Mã:** `lec05-s02-05`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Ứng dụng và điều kiện; giải thích tác dụng của k. **Mục tiêu:** MT2.
-- **Câu chốt:** Shingle quá ngắn có thể xuất hiện ở nhiều tài liệu không liên quan.
+- **Câu chốt:** Chọn $k$ đủ lớn để một shingle cho trước ít xuất hiện trong một tài liệu cho trước; 5 và 9 là quy tắc kinh nghiệm.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận số cửa sổ và k; trang 15 xác định một quy ước ký tự có thể làm đổi tập.
 - **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: công thức số chuỗi khả dĩ chiếm 35% trên; hai dòng lưu ý phân bố và quy tắc nguồn chiếm 45% dưới; không dựng đồ thị thực nghiệm.
@@ -484,11 +484,24 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Với 27 ký tự có $27^5=14\,348\,907$ chuỗi dài 5 khả dĩ. Văn bản tự nhiên không phân bố đều trên những chuỗi đó. Các gợi ý $k=5$ cho thư điện tử, $k=9$ cho tài liệu dài là quy tắc kinh nghiệm của nguồn.
+Chọn $k$ đủ lớn để một shingle cho trước ít có khả năng xuất hiện trong một tài liệu cho trước.
+
+Với $k=1$, hầu hết trang Web chứa hầu hết ký tự thông dụng, nên gần như mọi cặp có Jaccard cao.
+
+Với 27 ký tự, có $27^5=14\,348\,907$ chuỗi dài 5, lớn hơn nhiều độ dài một thư điện tử.
+
+| Kiểu tài liệu | Gợi ý của nguồn |
+|---|---|
+| Thư điện tử | $k=5$ |
+| Tài liệu dài | $k=9$ |
+
+Các giá trị trên là quy tắc kinh nghiệm, không phải ngưỡng có chứng minh.
 
 **Ghi chú diễn giả học thuật**
 
-Khi k nhỏ, vũ trụ shingle nhỏ và các tài liệu dài dễ có nhiều phần tử chung dù nội dung khác nhau. Sách dùng $20^k$ như một ước tính thực dụng sau khi lưu ý phân bố ký tự không đều. Đây không phải mô hình xác suất đã kiểm chứng cho mọi ngôn ngữ. Việc chọn k phụ thuộc kiểu và độ dài tài liệu; các giá trị 5 và 9 không là ngưỡng định lý.
+Nếu $k$ quá nhỏ, phần lớn chuỗi $k$ ký tự xuất hiện trong phần lớn tài liệu, nên hai tài liệu không chung câu nào vẫn có Jaccard cao. Với 26 chữ cái và một ký tự trắng, có $27^5$ chuỗi dài 5, lớn hơn nhiều độ dài một thư điện tử thông thường. Ký tự không phân bố đều: chữ thông dụng và dấu cách chiếm ưu thế, nên sách đề nghị ước lượng số shingle thực tế bằng $20^k$ thay cho $27^k$. Giá trị 5 và 9 là quy tắc kinh nghiệm theo kiểu và độ dài tài liệu.
+
+Nguồn: MMDS 3e, §3.2.2, tr. 79.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 

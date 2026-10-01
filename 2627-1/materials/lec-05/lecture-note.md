@@ -133,7 +133,7 @@ Mô hình trực tiếp tạo và băm một cửa sổ dài $k$ trong $O(k)$ th
 
 ### Chọn độ dài và xử lý khoảng trắng
 
-Nếu bảng chữ cái có 27 ký tự thì có $27^5=14\,348\,907$ chuỗi dài 5 khả dĩ. Tuy nhiên, văn bản tự nhiên không phân bố đều trên các chuỗi. Khi $k$ quá nhỏ so với độ dài tài liệu, nhiều shingle phổ biến có thể cùng xuất hiện ở các tài liệu khác nhau. Sách dùng $20^k$ như một ước tính thực dụng và gợi ý $k=5$ cho thư điện tử, $k=9$ cho tài liệu dài (§3.2.2, tr. 79). Đây là quy tắc kinh nghiệm theo kiểu dữ liệu, không phải ngưỡng có bảo đảm cho mọi ngôn ngữ.
+§3.2.2, tr. 79, nêu tiêu chí: chọn $k$ đủ lớn để xác suất một shingle cho trước xuất hiện trong một tài liệu cho trước là thấp. Ở cực đoan $k=1$, hầu hết trang Web chứa hầu hết ký tự thông dụng, nên gần như mọi cặp trang đều có Jaccard cao. Nếu bảng chữ cái có 27 ký tự thì có $27^5=14\,348\,907$ chuỗi dài 5 khả dĩ, lớn hơn nhiều độ dài một thư điện tử thông thường. Tuy nhiên, văn bản tự nhiên không phân bố đều trên các chuỗi. Khi $k$ quá nhỏ so với độ dài tài liệu, nhiều shingle phổ biến có thể cùng xuất hiện ở các tài liệu khác nhau. Sách dùng $20^k$ như một ước tính thực dụng và gợi ý $k=5$ cho thư điện tử, $k=9$ cho tài liệu dài (§3.2.2, tr. 79). Đây là quy tắc kinh nghiệm theo kiểu dữ liệu, không phải ngưỡng có bảo đảm cho mọi ngôn ngữ.
 
 Khoảng trắng cũng là một phần của quy ước. Ví dụ 3.4, tr. 78, giữ $k=9$:
 
