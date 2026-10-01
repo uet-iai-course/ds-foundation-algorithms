@@ -546,7 +546,7 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
 </aside>
 </section>
 <section id="lec04-s04-03" data-slide-id="lec04-s04-03" class="example-slide">
-<h2>TrustRank trên đồ thị bốn trang</h2>
+<h2>TrustRank trên G4</h2>
 <div class="ex-grid2  l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-15-tin-cay.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C. B và D có viền đôi và nhãn tập tin cậy T." role="img"></div><div><p>G4 giữ nguyên tám cạnh; $\beta=4/5$. Giả sử B và D đã được đánh giá đáng tin: $T=\{B,D\}$.</p>
 <div class="ex-equation">$$v_T=(0,1/2,0,1/2)^\mathsf T.$$</div>
 <table class="ex-table">
@@ -574,7 +574,7 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
 <td>$59/210$</td>
 </tr>
 </tbody>
-</table></div></div><div class="ex-takeaway"><p>Nghiệm trùng với ví dụ chủ đề vì cùng phân phối dịch chuyển. B và D là hạt giống giả thiết từ đầu vào.</p></div>
+</table></div></div><div class="ex-takeaway"><p>Cùng phân phối dịch chuyển nên nghiệm trùng ví dụ PageRank theo chủ đề; chỉ ý nghĩa của tập đổi từ chủ đề sang độ tin cậy.</p></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.4; Ví dụ 5.10, tr.196–197, 202–203.</p>
 <aside class="notes">
 <p>B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu tiên chúng. A, C không thuộc tập hạt giống nhưng vẫn nhận điểm qua các liên kết thật. Giá trị của hai trang này không xác nhận hoặc bác bỏ riêng lẻ tính tin cậy của nội dung. Để đánh giá phần thay đổi so với điểm toàn cục, cần tính một vector PageRank nền theo cùng $\beta$ và cùng chuẩn hóa.</p>

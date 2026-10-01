@@ -1368,7 +1368,7 @@ Vì $v_T\ge0$ và có tổng bằng $1$, bất biến tổng điểm và lập l
 <!-- public-notes:end -->
 
 
-### lec04-s04-03 — TrustRank trên đồ thị bốn trang
+### lec04-s04-03 — TrustRank trên G4
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ tái sử dụng; MT3. Đầu vào: VD1 và T={B,D}. Sản phẩm: liên hệ cùng phép tính với ý nghĩa tin cậy.
 
@@ -1390,7 +1390,7 @@ $$v_T=(0,1/2,0,1/2)^\mathsf T.$$
 | C | $19/105$ |
 | D | $59/210$ |
 
-Nghiệm trùng với ví dụ chủ đề vì cùng phân phối dịch chuyển. B và D là hạt giống giả thiết từ đầu vào.
+Cùng phân phối dịch chuyển nên nghiệm trùng ví dụ PageRank theo chủ đề; chỉ ý nghĩa của tập đổi từ chủ đề sang độ tin cậy.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** G4 trái50%, bảng bốn hàng phải50%; B,D có nhãn T và viền đôi, vị trí đỉnh giữ theo VD1.
@@ -1404,6 +1404,8 @@ Nghiệm trùng với ví dụ chủ đề vì cùng phân phối dịch chuyể
 **Ví dụ, phiếu số và hình thức hóa:** VD3 dùng nghiệm VD1; tổng rho=1. B,D hòa được giữ, không sửa số.
 
 **Kết nối vào–ra:** TrustRank là phép lặp quen thuộc → cần so sánh với PageRank toàn cục cùng tham số.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề dùng tên đồ thị đã đặt (G4); khối kết luận bỏ vế lặp dòng dữ kiện và nêu điểm sư phạm: cùng phép tính, khác ý nghĩa của tập dịch chuyển.
 
 **Nguồn và vị trí:** NG1 §5.4.4, tr.202–203; Ví dụ 5.10, tr.196–197, cung cấp G4 và tập dịch chuyển. Giữ đồ thị/tập của sách.
 
