@@ -369,7 +369,7 @@ Nguồn: MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hư
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 11. Ví dụ tạo shingle
+### 11. Tập 2-shingle của một chuỗi
 
 - **Mã:** `lec05-s02-02`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Mục đích và vai trò:** Ví dụ chạy tay; phân biệt cửa sổ và tập. **Mục tiêu:** MT2.
@@ -385,7 +385,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-$D=\texttt{abcdabd}$, $k=2$. Sáu cửa sổ theo thứ tự: `ab`, `bc`, `cd`, `da`, `ab`, `bd`. $S_2(D)=\{\texttt{ab, bc, cd, da, bd}\}$.
+$$D=\texttt{abcdabd},\qquad k=2$$
+
+![Sáu cửa sổ ab, bc, cd, da, ab, bd tạo năm shingle phân biệt.](../../img/lec-05/cua-so-shingle.svg)
+
+$$S_2(D)=\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da},\texttt{bd}\}$$
 
 **Ghi chú diễn giả học thuật**
 

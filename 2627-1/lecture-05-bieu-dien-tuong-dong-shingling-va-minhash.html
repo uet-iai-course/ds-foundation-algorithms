@@ -71,7 +71,7 @@
 <aside class="notes"><p>Mở đầu §3.2, sách nêu rằng hai tài liệu chung những câu hoặc cụm từ ngắn sẽ có nhiều phần tử chung trong tập shingle, kể cả khi các câu ấy xuất hiện theo thứ tự khác. Thay ký tự ở vị trí \(i\) chỉ đổi những cửa sổ bắt đầu từ \(i-k+1\) đến \(i\), tức nhiều nhất \(k\) cửa sổ; mọi cửa sổ nằm trọn trong phần giữ nguyên vẫn chung cho hai phiên bản. Shingle giữ thứ tự ký tự bên trong mỗi đoạn con, còn tập shingle không giữ toàn bộ thứ tự tài liệu hay số lần xuất hiện.</p><p>Nguồn: MMDS 3e, mở §3.2 và §3.2.1, tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.</p></aside>
 </section>
 <section id="lec05-s02-02" data-slide-id="lec05-s02-02" class="example-slide">
-<h2>Ví dụ tạo shingle</h2>
+<h2>Tập 2-shingle của một chuỗi</h2>
 <p class="ex-equation">\[D=\texttt{abcdabd},\qquad k=2\]</p><figure class="mh-figure mh-wide"><img src="img/lec-05/cua-so-shingle.svg" alt="Sáu cửa sổ ab, bc, cd, da, ab, bd tạo năm shingle phân biệt."></figure><p class="ex-equation">\[S_2(D)=\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da},\texttt{bd}\}\]</p>
 <p class="ex-source">MMDS 3e, Ví dụ 3.3, tr. 78.</p>
 <aside class="notes"><p>Chuỗi có bảy ký tự và sáu vị trí bắt đầu cho cửa sổ hai ký tự. Cửa sổ đầu và cửa sổ thứ năm cùng là <code>ab</code>, nên phép chèn vào tập ở lần thứ năm không tăng kích thước tập. Kết quả có năm phần tử phân biệt. Thứ tự liệt kê trong tập không biểu thị thứ tự xuất hiện.</p><p>Nguồn: MMDS 3e, Ví dụ 3.3, tr. 78.</p></aside>
