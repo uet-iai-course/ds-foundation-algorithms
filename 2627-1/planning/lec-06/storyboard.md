@@ -285,7 +285,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Tính ba cách đo trên cùng hai điểm.
 - **Thông điệp:** Cách định nghĩa khoảng cách quyết định ý nghĩa của gần nhau.
-- **Nội dung công khai dự kiến:** MinHash gắn với Jaccard; tìm cặp vector hoặc chuỗi cần xác định độ đo phù hợp. $x=(2,7),\quad y=(6,4)$ $L_1=4+3=7$ $L_2=\sqrt{4^2+3^2}=5$ $L_\infty=\max(4,3)=4$
+- **Nội dung công khai dự kiến:** Phân dải dùng MinHash nên chỉ phục vụ Jaccard trên tập. Với vector hay chuỗi, cần một độ đo khác và một phép băm hợp với độ đo ấy. [Hình: Hai điểm (2,7) và (6,4), chênh lệch tọa độ 4 và 3; ba khoảng cách tương ứng là 7, 5, 4.] $x=(2,7),\quad y=(6,4)$ $L_1=4+3=7$ $L_2=\sqrt{4^2+3^2}=5$ $L_\infty=\max(4,3)=4$ Cùng hai điểm, ba độ đo cho ba giá trị: “gần” phụ thuộc độ đo đã chọn.
 - **Đầu vào và giả thiết:** Tọa độ, hình học phẳng; Jaccard đã đo hai tập.
 - **Dữ kiện, hình thức hóa và vết chạy:** V05:$\sqrt{4^2+3^2}=5$, $4+3=7$, $\max(4,3)=4$.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Hình tọa độ trái 60% giữ tỷ lệ, trục $x_1,x_2$; phải 40% ba phép tính cùng thứ tự. Năm 2 đã có hình học, cần thấy cùng dữ liệu cho ba quy tắc; định nghĩa tổng quát sang trang sau.

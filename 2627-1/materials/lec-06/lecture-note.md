@@ -291,7 +291,7 @@ Nguồn: phân tích phép đếm từ thuật toán MMDS 3e, §§3.4.1,3.4.3. P
 
 ### Độ đo khoảng cách và chuẩn vector
 
-Phân dải MinHash đã gắn xác suất với Jaccard trên tập. Khi đối tượng là vector hoặc chuỗi, bước chọn cặp cần một độ đo xác định ý nghĩa của “gần”.
+Phân dải MinHash đã gắn xác suất với Jaccard trên tập. Khi đối tượng là vector hoặc chuỗi, bước chọn cặp cần một độ đo xác định ý nghĩa của “gần”. Mỗi độ đo lại cần một phép băm riêng để cặp gần dễ va chạm hơn cặp xa; phần tiếp theo xây khái niệm chung cho các phép băm này.
 
 Trên miền $X$, một độ đo khoảng cách (metric) là hàm $d:X\times X\to\mathbb R_{\ge0}$ thỏa: $d(x,y)=0$ khi và chỉ khi $x=y$; đối xứng; và bất đẳng thức tam giác $d(x,z)\le d(x,y)+d(y,z)$.
 
@@ -304,7 +304,7 @@ $$
 
 Các trường hợp $q=1,2$ và $\infty$ lần lượt cộng độ lệch tuyệt đối, đo độ dài Euclid và lấy độ lệch lớn nhất. Điều kiện $q\ge1$ bảo đảm các biểu thức này là chuẩn và sinh metric.
 
-Với $x=(2,7),y=(6,4)$, độ lệch hai tọa độ là 4 và 3. Do đó $L_1=7,L_2=5,L_\infty=4$.
+Với $x=(2,7),y=(6,4)$, độ lệch hai tọa độ là 4 và 3. Do đó $L_1=7,L_2=5,L_\infty=4$. Cùng một cặp điểm nhận ba giá trị khác nhau; vì vậy ngưỡng “gần” chỉ có nghĩa khi đã chọn độ đo.
 
 ![Hai điểm với độ lệch tọa độ 4 và 3 trên hai trục cùng tỷ lệ.](img/lec-06/chuan-vector.svg)
 

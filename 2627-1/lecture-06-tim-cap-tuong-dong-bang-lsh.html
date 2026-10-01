@@ -96,7 +96,8 @@ trả OUT</code></pre></div><div><div class="ex-card"><h3>Vết chạy $b=2,r=1$
 </section>
 <section aria-label="Khoảng cách và họ nhạy cảm">
 <section id="lec06-s03-01" data-slide-id="lec06-s03-01" class="example-slide"><h2>Khoảng cách giữa hai điểm</h2>
-<p>MinHash gắn với Jaccard; tìm cặp vector hoặc chuỗi cần xác định độ đo phù hợp.</p><div class="ex-grid2 "><div><figure class="lsh-figure"><img src="img/lec-06/chuan-vector.svg" alt="Hai điểm (2,7) và (6,4), chênh lệch tọa độ 4 và 3; ba khoảng cách tương ứng là 7, 5, 4."></figure></div><div><p>$x=(2,7),\quad y=(6,4)$</p><p class="ex-equation">$L_1=4+3=7$</p><p class="ex-equation">$L_2=\sqrt{4^2+3^2}=5$</p><p class="ex-equation">$L_\infty=\max(4,3)=4$</p></div></div>
+<p>Phân dải dùng MinHash nên chỉ phục vụ Jaccard trên tập. Với vector hay chuỗi, cần một độ đo khác và một phép băm hợp với độ đo ấy.</p><div class="ex-grid2 "><div><figure class="lsh-figure"><img src="img/lec-06/chuan-vector.svg" alt="Hai điểm (2,7) và (6,4), chênh lệch tọa độ 4 và 3; ba khoảng cách tương ứng là 7, 5, 4."></figure></div><div><p>$x=(2,7),\quad y=(6,4)$</p><p class="ex-equation">$L_1=4+3=7$</p><p class="ex-equation">$L_2=\sqrt{4^2+3^2}=5$</p><p class="ex-equation">$L_\infty=\max(4,3)=4$</p></div></div>
+<p class="ex-takeaway">Cùng hai điểm, ba độ đo cho ba giá trị: “gần” phụ thuộc độ đo đã chọn.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS 3e</a>, Ví dụ 3.13, tr.98.</p>
 <aside class="notes"><p>Đoạn thẳng nối hai điểm cho khoảng cách Euclid. Đường đi theo hai trục có tổng độ dài 7. Độ lệch lớn nhất bằng 4. Các giá trị mô tả ba cách đo, không phải ba ước lượng của cùng một đại lượng.</p><p>Nguồn: Mining of Massive Datasets, ấn bản 3, Ví dụ 3.13, tr.98.</p></aside></section>
 <section id="lec06-s03-02" data-slide-id="lec06-s03-02" class="example-slide"><h2>Độ đo khoảng cách</h2>
