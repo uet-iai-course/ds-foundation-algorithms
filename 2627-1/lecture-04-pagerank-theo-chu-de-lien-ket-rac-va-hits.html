@@ -1113,22 +1113,22 @@ $$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p>
 </aside>
 </section>
 <section id="lec04-s06-04" data-slide-id="lec04-s06-04" class="example-slide">
-<h2>Kiểm tra tổng hợp các phương pháp</h2>
+<h2>Câu hỏi so sánh các phương pháp</h2>
 <div class="question-box"><p><strong>Câu hỏi:</strong></p>
 <ol start="3">
 <li>
-<p>Trong cụm thao túng, $x$ đã là đóng góp từ ngoài sau nhân $\beta$. Giải thích vì sao phương trình điểm đích chứa $x$ thay vì $\beta$ $x$.</p>
+<p>Tính TrustRank cho cụm Hình 5.16 khi không trang nào của cụm thuộc $T$. Viết lại phương trình của $p$ và $y$; chỉ ra số hạng của công thức PageRank bị mất.</p>
 </li>
 <li>
-<p>Trang B có $r_B=19/84$, $\rho_B=59/210$. Xác định dấu Spam Mass; đánh giá việc thay mọi giá trị âm bằng 0.</p>
+<p>Một hệ thống thay mọi giá trị Spam Mass âm bằng $0$. Đánh giá thay đổi này theo định nghĩa và cách đọc của chỉ số.</p>
 </li>
 <li>
-<p>Mạng học phần cần nhận diện cả trang danh sách và trang nội dung. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.</p>
+<p>Trang web của một khoa cần nhận diện cả trang danh sách học phần và trang học phần. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.</p>
 </li>
 </ol></div>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
 <aside class="notes">
-<p>Câu 3: mỗi đóng góp từ nguồn ngoài $j$ đã là $\beta r_j/d_j$, nên nhân thêm $\beta$ làm giảm đóng góp lần nữa. Câu 4: $\rho_B&gt;r_B$ nên $s_B&lt;0$, cụ thể $s_B=-23/95$; thay bằng $0$ là đổi định nghĩa và mất thông tin hướng thay đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.</p>
+<p>Câu 3: dịch chuyển chỉ vào $T$ nên mọi trang của cụm có phần dịch chuyển bằng $0$, tức $b$ được thay bằng $0$ tại đích và tại mỗi hỗ trợ: $p=\beta y/m$, $y=x_\rho+\beta mp$, với $x_\rho$ là đóng góp TrustRank từ ngoài. Do đó $y=x_\rho/(1-\beta^2)$: cụm chỉ khuếch đại phần điểm đã tới từ liên kết ngoài, còn số hạng $\frac{\beta}{1+\beta}\frac mn$ do dịch chuyển vào các hỗ trợ bị mất. Nếu các trang ngoài trỏ vào đích ít nhận TrustRank, $\rho$ của đích nhỏ so với $r$ và Spam Mass của đích gần $1$.</p><p>Câu 4: giá trị âm cho biết TrustRank lớn hơn PageRank nền, tức trang được tập tin cậy hỗ trợ. Thay bằng $0$ là đổi định nghĩa và mất thông tin này; theo cách đọc của MMDS, mọi giá trị âm hay dương nhỏ đều thuộc nhóm có lẽ không phải rác, nên thứ tự ưu tiên rà soát các trang có giá trị gần $1$ không đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.3–5.5, tr.195–208.</p>
 </aside>
 </section>

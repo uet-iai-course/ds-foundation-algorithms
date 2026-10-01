@@ -2241,19 +2241,19 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 Ở câu 1, đồ thị và $M_0$ giữ nguyên, $\beta=4/5$; $v$ đổi từ $(0,1/2,0,1/2)^\mathsf T$ sang $(0,0,1,0)^\mathsf T$. Nếu khởi tạo theo $v$ thì $r^0$ cũng đổi. G4 không có nút cụt nên không có số hạng bù. Ở câu 2, hai thuật toán có thể khác số vòng, hệ số công việc, tiêu chí dừng và cách thực thi; chuẩn bị tập chủ đề hoặc tập tin cậy cũng không nằm trong chi phí một vòng. Cùng bậc tiệm cận không suy ra cùng thời gian chạy.
 <!-- public-notes:end -->
 
-### lec04-s06-04 — Kiểm tra tổng hợp các phương pháp
+### lec04-s06-04 — Câu hỏi so sánh các phương pháp
 
-**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S06; tự kiểm3–5; MT2–MT5. Đầu vào: ba mô hình. Sản phẩm: chọn và diễn giải điểm dưới đúng giả thiết.
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S06; câu 3–5; MT2–MT5. Đầu vào: ba mô hình. Sản phẩm: chọn và diễn giải điểm dưới đúng giả thiết.
 
-**Luận điểm trung tâm:** Các định nghĩa về đóng góp, chỉ số và vai trò phải được giữ khi áp dụng phương pháp.
+**Luận điểm trung tâm:** Kết hợp hai phần đã học (cụm thao túng với TrustRank; định nghĩa Spam Mass với cách đọc) và chọn phương pháp theo đầu ra.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
 **Câu hỏi:**
-3. Trong cụm thao túng, $x$ đã là đóng góp từ ngoài sau nhân $\beta$. Giải thích vì sao phương trình điểm đích chứa $x$ thay vì $\beta$ $x$.
-4. Trang B có $r_B=19/84$, $\rho_B=59/210$. Xác định dấu Spam Mass; đánh giá việc thay mọi giá trị âm bằng 0.
-5. Mạng học phần cần nhận diện cả trang danh sách và trang nội dung. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.
+3. Tính TrustRank cho cụm Hình 5.16 khi không trang nào của cụm thuộc $T$. Viết lại phương trình của $p$ và $y$; chỉ ra số hạng của công thức PageRank bị mất.
+4. Một hệ thống thay mọi giá trị Spam Mass âm bằng $0$. Đánh giá thay đổi này theo định nghĩa và cách đọc của chỉ số.
+5. Trang web của một khoa cần nhận diện cả trang danh sách học phần và trang học phần. Chọn phương pháp đã học; nêu ý nghĩa của hai đầu ra.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Ba nhiệm vụ thành ba hàng đủ rộng, khoảng1/3 mỗi hàng; dữ kiện số chỉ ở câu4. Không có hình phụ.
@@ -2268,21 +2268,25 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 
 **Kết nối vào–ra:** Tổng hợp ba mục tiêu → ba bài nguồn tính và chứng minh trong recitation.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “Câu hỏi so sánh các phương pháp”; câu 3 cũ lặp s03-08 và câu 4 cũ lặp số liệu s04-05 (G10), nay câu 3 kết hợp cụm thao túng với TrustRank (đặt $b=0$ trong phương trình S03), câu 4 đánh giá việc cắt giá trị âm theo cách đọc của MMDS; câu 5 bỏ cụm “mạng học phần”. Sửa khoảng trắng thừa “$\beta$ $x$”.
+
 **Nguồn và vị trí:** NG1 §5.4.2,§5.4.5,VD5.13; câu hỏi áp dụng dữ kiện đã học.
 
 **Thời lượng:** 3 phút.
 
 **Nhiệm vụ và tiêu chí nội bộ:** Slide kiểm tra riêng của phần.
 
-- Câu hỏi/đề: Ba nhiệm vụ3–5 như nội dung hiển thị.
-- Đáp án/gợi ý: x không nhân beta lần nữa; Spam Mass B âm và không cắt về 0 theo định nghĩa; chọn HITS với hai vai trò trung tâm/uy tín.
-- Tiêu chí đánh giá: Một tiêu chí cho mỗi câu: truy nguồn x; bảo toàn dấu và nghĩa chỉ số; chọn HITS đồng thời mô tả đúng hai đầu ra.
+- Câu hỏi/đề: Ba câu 3–5 như nội dung hiển thị.
+- Đáp án/gợi ý: $p=\beta y/m$, $y=x_\rho/(1-\beta^2)$, mất số hạng $\frac{\beta}{1+\beta}\frac mn$; cắt giá trị âm về 0 đổi định nghĩa, mất thông tin trang được tập tin cậy hỗ trợ nhưng không đổi thứ tự rà soát trang gần 1; chọn HITS với hai vai trò.
+- Tiêu chí đánh giá: Đặt $b=0$ tại mọi trang của cụm và giải lại; nêu đúng ý nghĩa giá trị âm và cách đọc; chọn HITS đồng thời mô tả đúng hai đầu ra.
 - Phân bổ hoạt động: Suy nghĩ1 phút, trả lời1 phút, đối chiếu1 phút; tổng3 phút.
 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Câu 3: mỗi đóng góp từ nguồn ngoài $j$ đã là $\beta r_j/d_j$, nên nhân thêm $\beta$ làm giảm đóng góp lần nữa. Câu 4: $\rho_B>r_B$ nên $s_B<0$, cụ thể $s_B=-23/95$; thay bằng $0$ là đổi định nghĩa và mất thông tin hướng thay đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.
+Câu 3: dịch chuyển chỉ vào $T$ nên mọi trang của cụm có phần dịch chuyển bằng $0$, tức $b$ được thay bằng $0$ tại đích và tại mỗi hỗ trợ: $p=\beta y/m$, $y=x_\rho+\beta mp$, với $x_\rho$ là đóng góp TrustRank từ ngoài. Do đó $y=x_\rho/(1-\beta^2)$: cụm chỉ khuếch đại phần điểm đã tới từ liên kết ngoài, còn số hạng $\frac{\beta}{1+\beta}\frac mn$ do dịch chuyển vào các hỗ trợ bị mất. Nếu các trang ngoài trỏ vào đích ít nhận TrustRank, $\rho$ của đích nhỏ so với $r$ và Spam Mass của đích gần $1$.
+
+Câu 4: giá trị âm cho biết TrustRank lớn hơn PageRank nền, tức trang được tập tin cậy hỗ trợ. Thay bằng $0$ là đổi định nghĩa và mất thông tin này; theo cách đọc của MMDS, mọi giá trị âm hay dương nhỏ đều thuộc nhóm có lẽ không phải rác, nên thứ tự ưu tiên rà soát các trang có giá trị gần $1$ không đổi. Câu 5: HITS cho điểm trung tâm của trang dẫn tới nguồn và điểm uy tín của trang được các trung tâm trỏ tới; mỗi trang có cả hai điểm. Các câu trả lời phải gắn với đặc tả, không chỉ nêu tên.
 <!-- public-notes:end -->
 
 ## S07. Bài tập
