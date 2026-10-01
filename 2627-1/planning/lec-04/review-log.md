@@ -517,3 +517,9 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | lec04-s07-02 | Bài tập 5.4.1(a, c): phân tích lại cụm khi hỗ trợ chỉ có khuyên, hoặc có khuyên và cạnh về đích. | sửa nhẹ | Tiêu đề “Bài tập cấu trúc liên kết hỗ trợ” → “Bài tập biến thể cụm thao túng”. Dòng giả thiết rút còn phần khác với Hình 5.16. Lời giải (a) $y\approx x$; (c) $y=[(2-\beta)(x+b)+\beta mb]/[(1-\beta)(2+\beta)]$ giữ nguyên. |
 | lec04-s07-03 | Bài tập 5.5.2: điểm HITS giới hạn trên chuỗi có khuyên, với biên $n=1$, $n=2$. | giữ | Tiêu đề, dữ kiện và lời giải đạt; hai báo cáo không nêu vấn đề. Quy nạp $h^t$, $a^t$ và giới hạn $h^*=(1,0,\ldots,0)^\mathsf T$, $a^*=(1,1,0,\ldots,0)^\mathsf T$ kiểm lại đúng. |
 | outline | Đồng bộ cấu trúc sau lượt duyệt. | sửa | Bảng phần ghi S04 có 7 trang; thêm mục “Duyệt từng trang ngày 01/10/2026” tóm tắt thứ tự mới ở S02, cầu nối S03→S04, gộp S04-02, thuật ngữ với Bài 03, các câu hỏi kiểm tra đã đổi và tác động tới ghi chú tự học. |
+
+**Rà lại S05–S07 và toàn deck (tác tử chỉ đọc loại `general-purpose`, kế thừa mô hình điều phối viên).** Độ chính xác đạt (vết G5, $a^3$, phổ $LL^\mathsf T$, chi phí, ba bài tập). 52 tiêu đề đạt; mục lục khớp 7 phần; không còn mã trang nội bộ. Hai phát hiện nghiêm trọng (đáp án s06-03 câu 2 và s06-04 câu 5 hiển thị ở s06-02) và các phát hiện trung bình, nhẹ; xử lý như sau.
+
+| Trang | Phát hiện rà lại | Quyết định | Thay đổi |
+|---|---|---|---|
+| lec04-s06-02 | (nghiêm trọng, liên quan s06-03) Câu “Cùng bậc chi phí mỗi vòng không bảo đảm cùng số vòng hoặc cùng thời gian thực” là đáp án câu 2 của s06-03. | sửa | Mặt trang chỉ giữ “mỗi vòng tuyến tính theo $n+\ell$”; ý về số vòng và thời gian thực nằm trong ghi chú. |

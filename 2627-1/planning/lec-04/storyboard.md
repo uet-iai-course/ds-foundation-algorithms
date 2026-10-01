@@ -2169,7 +2169,7 @@ PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng 
 | Đánh giá ảnh hưởng liên kết thao túng | TrustRank và Spam Mass, khi có tập tin cậy phù hợp |
 | Danh sách và nội dung học phần | HITS, khi cần cả điểm trung tâm và uy tín |
 
-Các phép lặp đều khai thác đồ thị thưa. Cùng bậc chi phí mỗi vòng không bảo đảm cùng số vòng hoặc cùng thời gian thực.
+Các phép lặp đều khai thác đồ thị thưa, mỗi vòng tuyến tính theo $n+\ell$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Bảng hai cột ba hàng giữa80%; câu chi phí dưới20%. Tên tình huống trùng mở đầu và nguồn sách.
