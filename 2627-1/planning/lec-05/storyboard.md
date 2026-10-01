@@ -346,7 +346,7 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận nhu cầu tạo tập từ 09; trang 11 chạy tay trên dữ liệu sách.
 - **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide`: thẻ định nghĩa `ex-card` ở trên; hai gạch đầu dòng trực giác bên dưới. Hình cửa sổ chỉ dùng ở trang 11 để tránh hai trang cùng trọng tâm.
-- **Trọng tâm và thứ tự đọc:** Cửa sổ → đoạn con → tập các đoạn.
+- **Trọng tâm và thứ tự đọc:** Định nghĩa (cửa sổ, $k$-shingle, tập) → một thay đổi ảnh hưởng nhiều nhất $k$ cửa sổ → câu giữ nguyên tạo shingle chung.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết chuỗi; thao tác cửa sổ quen thuộc chuẩn bị cho miền chỉ số ở 12 mà chưa đòi đọc ký hiệu tổng quát.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B mở §3.2 và §3.2.1 tr. 78; số cửa sổ bị ảnh hưởng suy từ định nghĩa.
@@ -406,8 +406,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Tập shingle gồm mọi đoạn con dài k tại các vị trí bắt đầu hợp lệ.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận ví dụ 11; trang 13 chuyển đặc tả thành vòng lặp.
 - **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: miền dữ liệu một dòng trên; công thức chiếm 40% giữa; ánh xạ ℓ=7, k=2, i=0…5 ở trái dưới 60%, biên rỗng ở phải 40%.
-- **Trọng tâm và thứ tự đọc:** Kiểu dữ liệu → miền chỉ số → công thức → ví dụ/biên.
+- **Bố cục đã chọn:** `example-slide`: miền dữ liệu một dòng trên; công thức $S_k(D)$ ở giữa; dòng quy ước nửa mở; thẻ trường hợp $\ell<k$ ở dưới.
+- **Trọng tâm và thứ tự đọc:** Kiểu dữ liệu → công thức → quy ước nửa mở → biên rỗng.
 - **Lý do phù hợp sinh viên năm 2:** Giải thích rõ ký hiệu lát cắt giúp sinh viên không suy nhầm đoạn có k+1 ký tự; dữ kiện cũ kiểm lại giới hạn trên của chỉ số.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.2.1 tr. 78; làm tường minh chỉ số và biên từ định nghĩa.
@@ -475,8 +475,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Chọn $k$ đủ lớn để một shingle cho trước ít xuất hiện trong một tài liệu cho trước; 5 và 9 là quy tắc kinh nghiệm.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận số cửa sổ và k; trang 15 xác định một quy ước ký tự có thể làm đổi tập.
 - **Dữ kiện và vai trò số:** VD 3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: công thức số chuỗi khả dĩ chiếm 35% trên; hai dòng lưu ý phân bố và quy tắc nguồn chiếm 45% dưới; không dựng đồ thị thực nghiệm.
-- **Trọng tâm và thứ tự đọc:** Số mẫu khả dĩ → giới hạn phân bố đều → cách hiểu các gợi ý k.
+- **Bố cục đã chọn:** `example-slide`: thẻ tiêu chí chọn $k$ ở trên; dòng trường hợp $k=1$; dòng $27^5$; bảng gợi ý 5/9; dòng “quy tắc kinh nghiệm”.
+- **Trọng tâm và thứ tự đọc:** Tiêu chí → cực đoan $k=1$ → phép kiểm $27^5$ cho thư điện tử → gợi ý của nguồn.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên dùng quy tắc nhân đã biết để hiểu k tác động tới khả năng phân biệt; nhãn “quy tắc kinh nghiệm” ngăn nhầm phép đếm với bảo đảm thống kê.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.2.2 tr. 79.
@@ -514,8 +514,8 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 - **Câu chốt:** Quy tắc xử lý khoảng trắng thay đổi tập shingle; sách đề nghị thay mỗi dãy ký tự trắng bằng một dấu cách và áp dụng thống nhất.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận tác dụng k; trang 16 đổi cách lưu mỗi shingle, giữ nguyên độ dài shingle.
 - **Dữ kiện và vai trò số:** VD 4; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide ex-grid2`: hai cột bằng nhau, mỗi cột ghi chuỗi gốc trên và các cửa sổ dưới; dấu cách hiện bằng ô có nhãn “khoảng trắng”; câu quy ước ở đáy.
-- **Trọng tâm và thứ tự đọc:** So sánh chuỗi đầu → vị trí dấu cách → kết quả cửa sổ.
+- **Bố cục đã chọn:** `example-slide`: dòng quy tắc khoảng trắng; bảng ba cột chuỗi / độ dài / cửa sổ cho hai chuỗi; câu chốt về việc xóa khoảng trắng.
+- **Trọng tâm và thứ tự đọc:** Quy tắc → hai chuỗi và cửa sổ của chúng → hệ quả khi xóa khoảng trắng.
 - **Lý do phù hợp sinh viên năm 2:** Cùng k và cùng trục đọc làm thay đổi tiền xử lý trở thành yếu tố duy nhất; sinh viên không bị lẫn thay ngôn ngữ dữ liệu với thay quy tắc shingle.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B Ví dụ 3.4, §3.2.1 tr. 78.
@@ -545,12 +545,12 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 ### 16. Băm shingle
 
 - **Mã:** `lec05-s02-07`; **phần:** 2; **note-topic-id:** `n05-03`.
-- **Mục đích và vai trò:** Biểu diễn và giới hạn; tách độ dài chuỗi với độ dài mã. **Mục tiêu:** MT2.
+- **Mục đích và vai trò:** Biểu diễn phần tử và giới hạn; so sánh mã của 9-shingle với 4-shingle cùng dung lượng. **Mục tiêu:** MT2. **Mục tiêu:** MT2.
 - **Câu chốt:** Băm 9-shingle thành mã 4 byte giảm dung lượng mỗi phần tử mà vẫn phân biệt tài liệu tốt hơn 4-shingle; va chạm có thể làm lệch Jaccard.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập shingle đã xác định; trang 17 chỉ ra mã ngắn vẫn có nhiều phần tử.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận tập shingle và tiêu chí chọn $k$; trang 18 kiểm tra; trang 19 chỉ ra mã ngắn vẫn có nhiều phần tử.
 - **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: sơ đồ chuỗi → hàm băm → mã chiếm 50% trên; nhãn “9 ký tự” và “4 byte” sát hai đầu; hai câu điều kiện/va chạm chiếm 35% dưới.
-- **Trọng tâm và thứ tự đọc:** Kiểu vào và đơn vị → phép băm → kiểu ra → va chạm.
+- **Bố cục đã chọn:** `example-slide`: câu băm vào $2^{32}$ thùng; bảng ba cột (phần tử / dung lượng / số giá trị có khả năng xuất hiện); câu chốt; dòng va chạm.
+- **Trọng tâm và thứ tự đọc:** Phép băm → bảng so sánh hai biểu diễn 4 byte → kết luận → va chạm.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết băm; ghi đơn vị trực tiếp ngăn nhầm 4 byte thành 4-shingle. Hai kiểu dữ liệu chuẩn bị sự phân biệt với băm hàng ở 35.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.2.3 tr. 79–80.
@@ -563,7 +563,7 @@ Băm mỗi 9-shingle vào $2^{32}$ thùng; số thùng, dài 4 byte, thay cho ch
 | Phần tử của tập | Dung lượng | Số giá trị có khả năng xuất hiện |
 |---|---|---|
 | 4-shingle | 4 byte | khoảng $20^4=160\,000$ |
-| Mã của 9-shingle | 4 byte | gần như mọi giá trị trong $2^{32}$ |
+| Mã của 9-shingle | 4 byte | gần như mọi giá trị trong $2^{32}$ mã |
 
 Cùng 4 byte, mã của 9-shingle phân biệt tài liệu tốt hơn 4-shingle.
 
@@ -587,12 +587,12 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 ### 18. Câu hỏi về shingling
 
 - **Mã:** `lec05-s02-09`; **phần:** 2; **note-topic-id:** `n05-03`.
-- **Mục đích và vai trò:** Kiểm tra MT2; tái tạo tập và phân biệt đơn vị. **Mục tiêu:** MT2.
+- **Mục đích và vai trò:** Kiểm tra MT2: tạo tập shingle, đo ảnh hưởng của một thay đổi cục bộ, ước lượng kích thước tập mã. **Mục tiêu:** MT2. **Mục tiêu:** MT2.
 - **Câu chốt:** Tính tập shingle với $k$ mới, đo Jaccard của hai chuỗi khác một ký tự, và phân biệt 4-shingle với mã của 9-shingle.
-- **Kiến thức đầu vào, kết nối vào–ra:** Nhận các quy ước; 19 lượng hóa nhu cầu rút gọn cả tập.
+- **Kiến thức đầu vào, kết nối vào–ra:** Nhận các định nghĩa và quy ước 10–16; câu 3 chuẩn bị con số của trang 19.
 - **Dữ kiện và vai trò số:** VD 3; mô hình mã 32 bit của §3.2.3; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
-- **Bố cục đã chọn:** `example-slide`: dữ kiện chuỗi và cặp đơn vị ở dải trên 25%; thẻ câu hỏi với ba nhiệm vụ ở dưới 65%; không hiện tập kết quả.
-- **Trọng tâm và thứ tự đọc:** Dữ kiện thứ nhất → hai phép đếm → dữ kiện mã hóa riêng.
+- **Bố cục đã chọn:** `example-slide`: nhãn “Câu hỏi:” và ba nhiệm vụ toàn chiều rộng; không hiện kết quả.
+- **Trọng tâm và thứ tự đọc:** Tập $S_3$ → Jaccard của hai chuỗi khác một ký tự → kích thước tập mã của tài liệu 50.000 ký tự.
 - **Lý do phù hợp sinh viên năm 2:** Hai bộ dữ kiện có nhãn riêng nên sinh viên không suy rằng ví dụ k=2 bị đổi thành k=9; yêu cầu giải thích buộc xác định vai trò của mỗi số.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B VD 3.3, §3.2.3 tr. 78–80.
@@ -604,17 +604,17 @@ Câu hỏi:
 
 1. Với `abcdabd` và $k=3$, liệt kê các cửa sổ và tập $S_3(D)$.
 2. Chuỗi `abcdabc` chỉ khác `abcdabd` ở ký tự cuối. Với $k=2$, tính Jaccard của hai tập shingle.
-3. 4-shingle và mã của 9-shingle cùng dùng 4 byte. Giải thích vì sao chúng không phân biệt tài liệu như nhau.
+3. Một tài liệu dài 50.000 ký tự, $k=9$, mỗi mã 4 byte. Giả sử mọi cửa sổ cho mã khác nhau; tính số phần tử và dung lượng tập mã.
 
 **Ghi chú diễn giả học thuật**
 
-Câu 1: có $\ell-k+1=5$ cửa sổ `abc`, `bcd`, `cda`, `dab`, `abd`; cả năm khác nhau nên $|S_3(D)|=5$. Câu 2: `abcdabc` có các cửa sổ `ab`, `bc`, `cd`, `da`, `ab`, `bc`, nên tập là $\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da}\}$. Giao với $S_2(D)$ có 4 phần tử, hợp có 5 (thêm `bd`), nên Jaccard bằng $4/5$. Ký tự cuối chỉ thuộc một cửa sổ, nên thay nó chỉ đổi một cửa sổ. Câu 3: với khoảng 20 ký tự thường gặp, chỉ cỡ $20^4=160\,000$ 4-shingle có khả năng xuất hiện, nên các tài liệu không liên quan dễ chung phần tử; số 9-shingle có khả năng xuất hiện vượt xa $2^{32}$, và mã của chúng phủ gần như mọi giá trị 4 byte.
+Câu 1: có $\ell-k+1=5$ cửa sổ `abc`, `bcd`, `cda`, `dab`, `abd`; cả năm khác nhau nên $|S_3(D)|=5$. Câu 2: `abcdabc` có các cửa sổ `ab`, `bc`, `cd`, `da`, `ab`, `bc`, nên tập là $\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da}\}$. Giao với $S_2(D)$ có 4 phần tử, hợp có 5 (thêm `bd`), nên Jaccard bằng $4/5$. Ký tự cuối chỉ thuộc một cửa sổ, nên thay nó chỉ đổi một cửa sổ. Câu 3: có $w=50\,000-9+1=49\,992$ cửa sổ, nên tập có $49\,992$ mã và chiếm $199\,968$ byte, cỡ bốn lần dung lượng tài liệu. Kết quả này là cận trên; cửa sổ lặp hoặc va chạm làm tập nhỏ hơn.
 
-Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3 và §3.2.3; chuỗi `abcdabc` là biến thể của Ví dụ 3.3, đổi ký tự cuối.
+Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3, §3.2.3 và mở §3.3; chuỗi `abcdabc` là biến thể của Ví dụ 3.3, đổi ký tự cuối.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
-Đáp án: năm cửa sổ `abc, bcd, cda, dab, abd`, $|S_3(D)|=5$; Jaccard $4/5$; 4-shingle chỉ có cỡ $20^4$ giá trị thường gặp, mã của 9-shingle phủ gần như $2^{32}$. Không câu nào có đáp án trên mặt các trang trước. Chuỗi `abcdabc` là dữ kiện do người soạn tạo, ghi rõ ở dòng nguồn.
+Đáp án: năm cửa sổ `abc, bcd, cda, dab, abd`, $|S_3(D)|=5$; Jaccard $4/5$; $49\,992$ mã, $199\,968$ byte (cận trên). Không câu nào có đáp án trên mặt các trang trước. Chuỗi `abcdabc` là dữ kiện do người soạn tạo, ghi rõ ở dòng nguồn.
 
 ### 19. Kích thước tập shingle
 
@@ -645,7 +645,7 @@ Cần thay mỗi tập bằng một chữ ký ngắn mà vẫn ước lượng �
 
 **Ghi chú diễn giả học thuật**
 
-Mỗi cửa sổ tạo nhiều nhất một phần tử, nên tập shingle có không quá $w$ phần tử, và va chạm khi băm chỉ có thể làm số mã ít đi. Băm giải quyết độ dài của từng phần tử, không giới hạn số phần tử. Mở đầu §3.3, sách nêu rằng ngay cả khi băm thành 4 byte, tập shingle vẫn chiếm khoảng bốn lần dung lượng tài liệu; tài liệu 50.000 byte cho tập mã khoảng 200.000 byte, chưa tính chi phí cấu trúc lưu trữ. Với hàng triệu tài liệu, các tập này có thể không vừa bộ nhớ chính. Chữ ký cần có độ dài chọn trước, không phụ thuộc độ dài tài liệu, và cho phép ước lượng Jaccard chỉ từ hai chữ ký.
+Phần 2 cho mỗi tài liệu một tập mã 4 byte; giới hạn còn lại là số phần tử của tập. Mỗi cửa sổ tạo nhiều nhất một phần tử, nên tập shingle có không quá $w$ phần tử, và va chạm khi băm chỉ có thể làm số mã ít đi. Băm giải quyết độ dài của từng phần tử, không giới hạn số phần tử. Mở đầu §3.3, sách nêu rằng ngay cả khi băm thành 4 byte, tập shingle vẫn chiếm khoảng bốn lần dung lượng tài liệu; tài liệu 50.000 byte cho tập mã khoảng 200.000 byte, chưa tính chi phí cấu trúc lưu trữ. Với hàng triệu tài liệu, các tập này có thể không vừa bộ nhớ chính. Chữ ký cần có độ dài chọn trước, không phụ thuộc độ dài tài liệu, và cho phép ước lượng Jaccard chỉ từ hai chữ ký.
 
 Nguồn: MMDS 3e, mở §3.3, tr. 81; cận số phần tử từ §3.2.1.
 

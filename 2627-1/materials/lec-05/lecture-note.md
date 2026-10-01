@@ -162,6 +162,8 @@ Băm shingle nhận một chuỗi con và trả một mã. MinHash ở các mụ
 (b) Chuỗi `abcdabc` chỉ khác `abcdabd` ở ký tự cuối. Với $k=2$, tính Jaccard của hai tập shingle và giải thích vì sao giá trị gần 1.
 
 (c) Giải thích vì sao 4-shingle và mã 4 byte của 9-shingle dùng cùng dung lượng nhưng không phân biệt tài liệu như nhau.
+
+(d) Một tài liệu dài 50.000 ký tự, $k=9$, mỗi mã 4 byte. Giả sử mọi cửa sổ cho mã khác nhau; tính số phần tử và dung lượng tập mã.
 :::
 
 ::: solution Lời giải
@@ -170,6 +172,8 @@ Băm shingle nhận một chuỗi con và trả một mã. MinHash ở các mụ
 (b) Tập của `abcdabc` là $\{\texttt{ab},\texttt{bc},\texttt{cd},\texttt{da}\}$. Giao với $S_2(\texttt{abcdabd})$ có 4 phần tử, hợp có 5, nên Jaccard bằng $4/5$. Ký tự cuối chỉ thuộc một cửa sổ, nên thay nó chỉ đổi một cửa sổ.
 
 (c) Với khoảng 20 ký tự thường gặp, chỉ cỡ $20^4=160\,000$ 4-shingle có khả năng xuất hiện, nên tài liệu không liên quan dễ chung phần tử. Mã của 9-shingle phủ gần như mọi giá trị 4 byte.
+
+(d) Có $50\,000-9+1=49\,992$ cửa sổ, nên tập có $49\,992$ mã và chiếm $199\,968$ byte, cỡ bốn lần dung lượng tài liệu. Đây là cận trên; cửa sổ lặp hoặc va chạm làm tập nhỏ hơn.
 :::
 
 ## 4. Ma trận đặc trưng và biểu diễn theo hàng
