@@ -102,7 +102,7 @@ $$
 | 2 | $(2,(0))$ | 1, 3, 4 | $(1,3),(1,4),(3,4)$ |
 | 2 | $(2,(2))$ | 2 | Không có |
 
-Có 8 lượt chèn tài liệu vào thùng và 4 lượt phát cặp. Sau khử lặp,
+Có 8 lượt chèn tài liệu vào thùng và $Q=4$ lượt phát cặp; $Q$ đếm cả các lần một cặp được phát lại. Sau khử lặp, tập ứng viên có $K=|\mathcal C|=3$ cặp phân biệt:
 
 $$
 \mathcal C=\{(1,3),(1,4),(3,4)\}.

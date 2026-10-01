@@ -153,7 +153,7 @@ Mỗi phiếu chỉ định một trọng tâm và thứ tự đọc. Dữ kiệ
 
 - **Mục đích và vai trò:** Phát cặp dải 2 và khử lặp qua các dải.
 - **Thông điệp:** Tổng lượt phát cặp có thể lớn hơn số ứng viên duy nhất.
-- **Nội dung công khai dự kiến:** Dải 2:$(2,(0))\mapsto[1,3,4]$;$(2,(2))\mapsto[2]$. Phát $(1,3),(1,4),(3,4)$. Hợp với dải 1:$\mathcal C=\{(1,3),(1,4),(3,4)\}$;$Q=4,K=3$.
+- **Nội dung công khai dự kiến:** Khóa dải 2 Mã Cặp phát $(2,(0))$ 1, 3, 4 (1,3), (1,4), (3,4) $(2,(2))$ 2 ∅ Dải 1 đã phát $(1,4)$. Số lượt phát trước khử lặp: $Q=1+3=4$. Tập ứng viên sau khử lặp: $\mathcal C=\{(1,3),(1,4),(3,4)\}$ Số cặp phân biệt: $K=|\mathcal C|=3$. Cặp (1,4) phát hai lần nhưng chỉ được xác minh một lần.
 - **Đầu vào và giả thiết:** Thùng dải 1; mọi cặp không thứ tự trong danh sách.
 - **Dữ kiện, hình thức hóa và vết chạy:** V02;$\binom32=3$; cặp 14 được phát ở cả hai dải.8 lượt chèn cho toàn vết chạy.
 - **Bố cục, thứ tự đọc, lý do phù hợp năm 2 và giới hạn:** Ma trận trái 45% giữ nguyên; bảng dải 2 và dòng hợp cặp phải 55%. Cặp 14 lặp có nhãn “đã có”. Năm 2 phân biệt lượt xử lý và phần tử của tập; không chỉ dùng màu.
