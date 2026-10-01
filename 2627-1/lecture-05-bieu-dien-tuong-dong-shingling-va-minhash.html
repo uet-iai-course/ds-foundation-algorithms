@@ -260,8 +260,8 @@ return SIG</code></pre><p class="ex-takeaway">Dừng sau \(R\) hàng; mỗi \(f_
 <aside class="notes"><p>Mỗi giá trị f_i(r) chỉ cần tính một lần ở hàng r rồi dùng cho mọi cột chứa phần tử đó. Nếu đầu vào là danh sách cột có 1 theo hàng, vòng lặp đi trực tiếp qua danh sách. Nếu là ma trận đặc, phải kiểm từng ô để tìm cột có 1. Thứ tự quét hàng không đổi cực tiểu cuối cùng nhưng ảnh hưởng các trạng thái trung gian.</p><p>Nguồn: MMDS 3e, §3.3.5, tr. 85.</p></aside>
 </section>
 <section id="lec05-s05-08" data-slide-id="lec05-s05-08" class="example-slide">
-<h2>Bất biến giá trị nhỏ nhất</h2>
-<p>Với \(A\) là tập hàng đã quét, mọi \(i,c\) thỏa:</p><p class="ex-equation">\[\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):r\in A,\ M(r,c)=1\}\cup\{+\infty\}\bigr)\]</p><ol><li>Khởi tạo: \(A=\varnothing\), chỉ có ứng viên \(+\infty\).</li><li>Duy trì: ô \(0\) giữ nguyên; ô \(1\) thêm ứng viên \(f_i(r)\).</li><li>Kết thúc: \(A\) chứa đủ \(R\) hàng, thu được đặc tả đầu ra.</li></ol>
+<h2>Tính đúng của phép quét hàng</h2>
+<p>Với \(A\) là tập hàng đã quét, mọi \(i,c\) thỏa:</p><p class="ex-equation">\[\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):r\in A,\ M(r,c)=1\}\cup\{+\infty\}\bigr)\]</p><ol><li>Khởi tạo: \(A=\varnothing\), chỉ có ứng viên \(+\infty\).</li><li>Duy trì: nếu \(M(r,c)=0\), tập ứng viên không đổi; nếu \(M(r,c)=1\), cực tiểu mới bằng \(\min(\mathrm{SIG}(i,c),f_i(r))\).</li><li>Kết thúc: \(A\) chứa đủ \(R\) hàng, thu được đặc tả đầu ra.</li></ol>
 <p class="ex-source">Bất biến suy từ thuật toán §3.3.5; bao gồm cột rỗng.</p>
 <aside class="notes"><p>Ban đầu tập giá trị hữu hạn rỗng nên tập lấy cực tiểu chỉ có \(+\infty\), đúng trạng thái. Khi xét hàng mới, cột có 0 không thêm phần tử; cột có 1 thêm \(f_i(r)\in V\), được xử lý bằng phép min với trạng thái cũ. Bất biến được giữ với mọi \(i=1,\ldots,n\) và \(c=1,\ldots,C\). Sau \(R\) hàng, tập \(A\) gồm tất cả các mã hàng; công thức bất biến trở thành đúng hậu điều kiện ở trang đặc tả, kể cả cột rỗng trả \(+\infty\). Chứng minh này bảo đảm tính cực tiểu, không chứng minh một họ băm cụ thể là hoán vị ngẫu nhiên đều.</p><p>Nguồn: Bất biến suy từ thuật toán §3.3.5; bao gồm cột rỗng.</p></aside>
 </section>

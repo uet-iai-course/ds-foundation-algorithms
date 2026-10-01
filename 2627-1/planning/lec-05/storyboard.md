@@ -1454,7 +1454,7 @@ Mỗi giá trị f_i(r) chỉ cần tính một lần ở hàng r rồi dùng ch
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 42. Bất biến giá trị nhỏ nhất
+### 42. Tính đúng của phép quét hàng
 
 - **Mã:** `lec05-s05-08`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Mục đích và vai trò:** Chứng minh; xác định khởi tạo, duy trì và dừng. **Mục tiêu:** MT5.
@@ -1470,7 +1470,13 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Với A là tập hàng đã quét: $$\mathrm{SIG}(i, c)=\min\bigl(\{f_i(r):r\in A, M(r, c)=1\}\cup\{+\infty\}\bigr).$$ Khởi tạo: A rỗng. Duy trì: hàng có 0 giữ nguyên, hàng có 1 thêm một ứng viên min. Kết thúc: A gồm R hàng.
+Với $A$ là tập hàng đã quét, mọi $i,c$ thỏa:
+
+$$\mathrm{SIG}(i,c)=\min\bigl(\{f_i(r):r\in A,\ M(r,c)=1\}\cup\{+\infty\}\bigr)$$
+
+1. Khởi tạo: $A=\varnothing$, chỉ có ứng viên $+\infty$.
+2. Duy trì: nếu $M(r,c)=0$, tập ứng viên không đổi; nếu $M(r,c)=1$, cực tiểu mới bằng $\min(\mathrm{SIG}(i,c),f_i(r))$.
+3. Kết thúc: $A$ chứa đủ $R$ hàng, thu được đặc tả đầu ra.
 
 **Ghi chú diễn giả học thuật**
 
