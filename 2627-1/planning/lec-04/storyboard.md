@@ -1228,7 +1228,7 @@ MMDS §5.4.3 nêu hai hướng. Hướng thứ nhất tìm các cấu trúc tron
 Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ điểm. Công thức phải dùng thông tin không do người tạo rác kiểm soát: một tập trang đã được đánh giá đáng tin. Kết quả của phân tích cụm vẫn được dùng: nó cho thấy vì sao không thể chỉ dựa vào điểm PageRank toàn cục.
 <!-- public-notes:end -->
 
-### lec04-s03-08 — Kiểm tra nguồn điểm tại đích
+### lec04-s03-08 — Kiểm tra cụm thao túng liên kết
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S03; MT2. Đầu vào: HT4. Sản phẩm: phát hiện đếm sai beta và phân biệt công thức đủ/xấp xỉ.
 
@@ -1237,7 +1237,7 @@ Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ �
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Trong mô hình không nút cụt, đích chỉ trỏ $m$ hỗ trợ; mỗi hỗ trợ chỉ trỏ lại đích và chỉ nhận cạnh từ đích. Đặt $b=(1-\beta)/n$, $p=\beta y/m+b$; $x$ đã gồm $\beta$.
+Mô hình Hình 5.16, không có nút cụt: $b=(1-\beta)/n$, $p=\beta y/m+b$; $x$ đã gồm $\beta$.
 
 **Câu hỏi:**
 1. Sửa phương trình $y=\beta x+\beta mp$ để có phương trình đầy đủ.
@@ -1255,6 +1255,8 @@ Trong mô hình không nút cụt, đích chỉ trỏ $m$ hỗ trợ; mỗi hỗ
 **Ví dụ, phiếu số và hình thức hóa:** VD2/HT4; câu hỏi dùng phương trình nguồn và một phép sai để kiểm cơ chế.
 
 **Kết nối vào–ra:** Kiểm dòng điểm trong mô hình thao túng → lựa chọn tập trang đáng tin ở S04.
+
+**Quyết định 01/10/2026:** sửa — tiêu đề gọi đúng đối tượng kiểm tra của phần; rút dòng dữ kiện lặp toàn bộ giả thiết s03-02…s03-04 thành dẫn chiếu Hình 5.16 và các ký hiệu cần dùng. Đáp án câu 2 không còn trên mặt s03-06 (đã chuyển vào ghi chú).
 
 **Nguồn và vị trí:** NG1 §5.4.2, tr.201; kiểm tra áp dụng trên cùng ký hiệu và giả thiết.
 
