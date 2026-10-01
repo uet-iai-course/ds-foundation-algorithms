@@ -1462,7 +1462,7 @@ A, C giảm điểm khi chuyển sang TrustRank ($r_i-\rho_i>0$); B, D tăng đi
 PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,19/84)^\mathsf T$. Vector $\rho$ đã được tính với tập tin cậy B, D. Hình 5.17 của sách dùng PageRank không dịch chuyển lấy từ Ví dụ 5.2, trong khi TrustRank dùng $\beta=0.8$; bảng này tính lại PageRank nền cùng $\beta=0.8$ để tách tác động của phân phối dịch chuyển. Hiệu $r_i-\rho_i>0$ nghĩa là $\rho_i<r_i$, nên điểm giảm khi chuyển từ PageRank sang TrustRank. Hiệu âm nghĩa là điểm tăng; hiệu bằng $0$ nghĩa là điểm không đổi. Dấu của hiệu mô tả thay đổi điểm, không xác định thay đổi thứ hạng hoặc nhãn rác. Tổng các hiệu bằng $0$ vì hai vector đều có tổng bằng $1$. Giá trị tuyệt đối của hiệu chưa xét quy mô điểm nền của từng trang.
 <!-- public-notes:end -->
 
-### lec04-s04-05 — Định nghĩa và giá trị Spam Mass
+### lec04-s04-05 — Chỉ số Spam Mass
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và chạy phép chia; MT3. Đầu vào: r,rho. Sản phẩm: tính chỉ số tương đối, giữ giá trị âm.
 
@@ -1471,7 +1471,7 @@ PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Với $r_i>0$, chỉ số Spam Mass là
+Với $r_i>0$, Spam Mass là tỷ lệ của $r_i$ không được tập tin cậy giải thích:
 $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$
 
 | Trang | Phép tính | $s_i$ |
@@ -1481,7 +1481,7 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$
 | C | $(19/420)/(19/84)$ | $1/5$ |
 | D | $(-23/420)/(19/84)$ | $-23/95$ |
 
-A và C có $s_i=1/5$: TrustRank giảm $20\%$ so với PageRank nền của từng trang. Chỉ số không phải xác suất trang rác.
+Âm hoặc dương nhỏ: có lẽ không phải rác; gần $1$: có lẽ là rác (MMDS §5.4.5). A, C có $s_i=1/5$, gần $0$ hơn $1$.
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Định nghĩa ở trên30%; bảng giữa55%; giới hạn dưới15%. Cột phép tính giữ tử và mẫu có ngoặc rõ.
@@ -1496,6 +1496,8 @@ A và C có $s_i=1/5$: TrustRank giảm $20\%$ so với PageRank nền của t�
 
 **Kết nối vào–ra:** Hiệu hai vector → Spam Mass → giới hạn diễn giải và chi phí.
 
+**Quyết định 01/10/2026:** sửa — tiêu đề “Chỉ số Spam Mass”; câu định nghĩa nêu ý tưởng trước công thức (G7); câu chốt đưa cách đọc của MMDS §5.4.5 lên mặt trang (âm hoặc nhỏ: có lẽ không rác; gần 1: có lẽ rác); “không phải xác suất” và đối chiếu với Ví dụ 5.12 chuyển vào ghi chú.
+
 **Nguồn và vị trí:** NG1 §5.4.5, tr.203/PDF29; bảng số mới cùng beta theo VD3.
 
 **Thời lượng:** 3 phút.
@@ -1503,7 +1505,7 @@ A và C có $s_i=1/5$: TrustRank giảm $20\%$ so với PageRank nền của t�
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i=(4/5)r_i$, tức giảm $20\%$ so với điểm nền riêng. Mức giảm tuyệt đối khác nhau: $9/140$ tại A và $19/420$ tại C. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác.
+Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i=(4/5)r_i$, tức giảm $20\%$ so với điểm nền riêng. Mức giảm tuyệt đối khác nhau: $9/140$ tại A và $19/420$ tại C. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác; chỉ số cũng không phải xác suất trang rác. MMDS Ví dụ 5.12 tính với PageRank không dịch chuyển nên được $s_A\approx0{,}229$; ở đây PageRank nền dùng cùng $\beta=4/5$ nên $s_A=1/5$, kết luận định tính không đổi.
 <!-- public-notes:end -->
 
 ### lec04-s04-06 — Độ phủ hạt giống và chi phí đánh giá

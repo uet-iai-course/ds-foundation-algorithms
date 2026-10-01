@@ -627,8 +627,8 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
 </aside>
 </section>
 <section id="lec04-s04-05" data-slide-id="lec04-s04-05" class="example-slide">
-<h2>Định nghĩa và giá trị Spam Mass</h2>
-<p>Với $r_i&gt;0$, chỉ số Spam Mass là
+<h2>Chỉ số Spam Mass</h2>
+<p>Với $r_i&gt;0$, Spam Mass là tỷ lệ của $r_i$ không được tập tin cậy giải thích:
 $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
 <table class="ex-table">
 <thead>
@@ -661,10 +661,10 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
 </tr>
 </tbody>
 </table>
-<p>A và C có $s_i=1/5$: TrustRank giảm $20\%$ so với PageRank nền của từng trang. Chỉ số không phải xác suất trang rác.</p>
+<p>Âm hoặc dương nhỏ: có lẽ không phải rác; gần $1$: có lẽ là rác (MMDS §5.4.5). A, C có $s_i=1/5$, gần $0$ hơn $1$.</p>
 <p class="ex-source">Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại cùng β = 4/5.</p>
 <aside class="notes">
-<p>Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i=(4/5)r_i$, tức giảm $20\%$ so với điểm nền riêng. Mức giảm tuyệt đối khác nhau: $9/140$ tại A và $19/420$ tại C. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác.</p>
+<p>Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i=(4/5)r_i$, tức giảm $20\%$ so với điểm nền riêng. Mức giảm tuyệt đối khác nhau: $9/140$ tại A và $19/420$ tại C. Tại B, $(-23/420)/(19/84)=-23/95$. Chỉ số âm có nghĩa TrustRank vượt PageRank nền ở trang đó; đó là quan hệ giữa hai phép xếp hạng, không phải xác suất âm. Giá trị gần $1$ tương ứng $\rho_i$ nhỏ so với $r_i$ và gợi ý cần rà soát dưới giả định của mô hình. Cùng một chỉ số dương không đủ chứng minh các trang A, C là rác; chỉ số cũng không phải xác suất trang rác. MMDS Ví dụ 5.12 tính với PageRank không dịch chuyển nên được $s_A\approx0{,}229$; ở đây PageRank nền dùng cùng $\beta=4/5$ nên $s_A=1/5$, kết luận định tính không đổi.</p>
 <p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, §5.4.5, tr.203; tính lại cùng β = 4/5.</p>
 </aside>
 </section>
