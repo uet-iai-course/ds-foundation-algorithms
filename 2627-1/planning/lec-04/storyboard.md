@@ -1338,9 +1338,9 @@ Dùng lại thuật toán PageRank theo chủ đề với $r\mapsto\rho$, $v\map
 
 $T\ne\varnothing$; $(v_T)_i=1/|T|$ nếu $i\in T$, bằng $0$ ngoài $T$; khởi tạo $\rho^0=v_T$.
 
-$$\rho^{t+1}=\underbrace{\beta M_0\rho^t}_{\text{theo liên kết}}+\underbrace{\beta\delta_\rho^t u}_{\text{bù nút cụt}}+\underbrace{(1-\beta)v_T}_{\text{dịch chuyển}}.$$
+$\rho_i^t$: điểm TrustRank của trang $i$ ở vòng $t$; $\delta_\rho^t=\sum_{j:d_j=0}\rho_j^t$; $u$ đều trên $n$ trang.
 
-$\rho_i^t$: điểm TrustRank của trang $i$ ở vòng $t$; $\delta_\rho^t=\sum_{j:d_j=0}\rho_j^t$.
+$$\rho^{t+1}=\underbrace{\beta M_0\rho^t}_{\text{theo liên kết}}+\underbrace{\beta\delta_\rho^t u}_{\text{bù nút cụt}}+\underbrace{(1-\beta)v_T}_{\text{dịch chuyển}}.$$
 <!-- public-slide:end -->
 
 **Bố cục đã chọn:** Phân phối vT và khởi tạo ở trên; công thức có ba nhãn ở giữa; bảng ba hàng xác định nơi nhận điểm ở dưới.
@@ -1364,9 +1364,9 @@ $\rho_i^t$: điểm TrustRank của trang $i$ ở vòng $t$; $\delta_\rho^t=\sum
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-TrustRank không cần thuật toán mới: chỉ phân phối dịch chuyển thay đổi. Thành phần $\beta M_0\rho^t$ truyền điểm từ các trang không cụt theo cạnh thật; $\beta\delta_\rho^t u$ bù phần điểm ở các nút cụt lên toàn bộ $n$ trang; $(1-\beta)v_T$ đưa điểm dịch chuyển vào các hạt giống. Hai phân phối $u$ và $v_T$ đều có tổng bằng $1$ nhưng có vai trò khác nhau. Tổng ba thành phần bằng $\beta(1-\delta_\rho^t)+\beta\delta_\rho^t+(1-\beta)=1$.
+Thành phần $\beta M_0\rho^t$ truyền điểm từ các trang không cụt theo cạnh thật; $\beta\delta_\rho^t u$ bù phần điểm ở các nút cụt lên toàn bộ $n$ trang; $(1-\beta)v_T$ đưa điểm dịch chuyển vào các hạt giống. Hai phân phối $u$ và $v_T$ đều có tổng bằng $1$ nhưng có vai trò khác nhau. Tổng ba thành phần bằng $\beta(1-\delta_\rho^t)+\beta\delta_\rho^t+(1-\beta)=1$.
 
-Vì $v_T\ge0$ và có tổng bằng $1$, bất biến tổng điểm và lập luận co của PageRank theo chủ đề áp dụng nguyên vẹn: với $0<\beta<1$, phép lặp có điểm cố định duy nhất $\rho$, và thuật toán trả vector xấp xỉ cùng trạng thái đạt ngưỡng hoặc hết $K$ vòng. Tham số $\beta$ được giữ như trong phép tính PageRank nền để hai vector so sánh được. Việc đánh giá hạt giống thuộc đầu vào bên ngoài; phương trình không chứng nhận độ tin cậy tuyệt đối của từng trang.
+Vì $v_T\ge0$ và có tổng bằng $1$, bất biến tổng điểm và lập luận co của PageRank theo chủ đề áp dụng nguyên vẹn: với $0<\beta<1$, phép lặp có điểm cố định duy nhất $\rho$, và thuật toán trả vector xấp xỉ cùng trạng thái đạt ngưỡng hoặc hết $K$ vòng. Tham số $\beta$ được giữ như trong phép tính PageRank nền để hai vector so sánh được.
 <!-- public-notes:end -->
 
 
