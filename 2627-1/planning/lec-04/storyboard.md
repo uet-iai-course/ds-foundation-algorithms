@@ -158,21 +158,23 @@ Từ “jaguar” có thể chỉ loài vật, hãng ô tô hoặc một số đ
 
 **Quyết định duyệt trang 01/10/2026:** sửa. Rút tiêu đề còn “Truy vấn đa nghĩa”; đưa giới hạn của PageRank toàn cục thành khối kết luận vì đây là nhu cầu dẫn sang PageRank theo chủ đề; ghi chú nêu căn cứ MMDS §5.3.1, chủ đề là đầu vào và câu nối sang phương án một vector cho mỗi người dùng.
 
-### lec04-s01-04 — Giới hạn lưu trữ của xếp hạng cá nhân
+### lec04-s01-04 — Chi phí lưu PageRank riêng
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn dữ liệu lớn; MT1, MT5. Đầu vào: nhu cầu theo ngữ cảnh. Sản phẩm: giải thích việc tiền tính số ít vector chủ đề.
 
-**Luận điểm trung tâm:** Một số ít vector chủ đề thay cho việc lưu một vector toàn web riêng cho mỗi người dùng.
+**Luận điểm trung tâm:** Phương án trực tiếp, mỗi người dùng một vector PageRank toàn web, không lưu được ở quy mô web; $k$ vector chủ đề và $k$ trọng số cho mỗi người dùng thay thế, đổi lại mất một phần độ chính xác.
 
 **Nội dung hiển thị dự kiến:**
 
 <!-- public-slide:start -->
-Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần.
+Phương án trực tiếp: mỗi người dùng có một vector PageRank riêng trên toàn web.
 
-Phương án theo chủ đề: lưu một số ít vector toàn cục; mỗi người dùng chỉ cần các trọng số quan tâm tới chủ đề.
+[Hình: mỗi người dùng → vector điểm toàn web; các chủ đề → vector điểm toàn web, mỗi người dùng → trọng số chủ đề.]
+
+Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần. Phương án theo chủ đề lưu $k$ vector toàn web; mỗi người dùng chỉ cần $k$ trọng số, đổi lại mất một phần độ chính xác.
 <!-- public-slide:end -->
 
-**Bố cục đã chọn:** Hai hàng so sánh theo cùng chiều ngang: hàng trên “Mỗi người dùng → vector toàn web”; hàng dưới “Các chủ đề → vector toàn web; người dùng → trọng số chủ đề”. Sơ đồ chiếm 70%, câu kết chiếm 30%.
+**Bố cục đã chọn:** Một dòng nêu phương án trực tiếp ở đầu trang, trước khi nêu giới hạn. Hai hàng so sánh theo cùng chiều ngang: hàng trên “Mỗi người dùng → vector toàn web”; hàng dưới “Các chủ đề → vector toàn web; người dùng → trọng số chủ đề”. Sơ đồ chiếm 70%, câu kết chiếm 30%.
 
 **Trọng tâm và thứ tự đọc:** So sánh đối tượng được nhân bản ở hai hàng; nhãn “toàn web” luôn gắn với vector dài.
 
@@ -182,7 +184,7 @@ Phương án theo chủ đề: lưu một số ít vector toàn cục; mỗi ng�
 
 **Ví dụ, phiếu số và hình thức hóa:** Bối cảnh lưu trữ NG1 §5.3.1–2; không có phiếu số riêng.
 
-**Kết nối vào–ra:** Nhu cầu cá nhân hóa → tái sử dụng một số vector chủ đề; ba mục tiêu xếp hạng được phân biệt ở trang sau.
+**Kết nối vào–ra:** Phương án một vector cho mỗi người dùng nêu ở ghi chú trang trước → $k$ vector chủ đề; ghi chú nối sang ba nhu cầu xếp hạng ở trang sau.
 
 **Nguồn và vị trí:** NG1 §5.3.1–5.3.2, tr.195–196/PDF21–22.
 
@@ -191,8 +193,10 @@ Phương án theo chủ đề: lưu một số ít vector toàn cục; mỗi ng�
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector có nhiều tỷ thành phần. Việc lưu một vector toàn web cho từng người dùng nhân bản dữ liệu điểm theo số người dùng. Xếp hạng theo một tập chủ đề làm giảm số vector dài cần lưu. Phương án này chỉ biểu diễn các sở thích thông qua những chủ đề đã chọn, nên không đồng nhất với một vector tùy ý cho mỗi người dùng.
+Ở phương án trực tiếp, số vector dài cần lưu bằng số người dùng; ở phương án theo chủ đề, số này bằng số chủ đề $k$. Độ dài mỗi vector vẫn là số trang. Phần lưu riêng cho mỗi người dùng giảm từ một vector có nhiều tỷ thành phần xuống $k$ trọng số. Sở thích khi đó chỉ được biểu diễn qua các chủ đề đã chọn, nên một vector riêng tùy ý không còn được tái tạo đúng; MMDS ghi nhận đây là phần độ chính xác bị mất. Xếp hạng theo chủ đề là một trong ba nhu cầu mà điểm dựa trên liên kết phải đáp ứng trong bài.
 <!-- public-notes:end -->
+
+**Quyết định duyệt trang 01/10/2026:** sửa. Tiêu đề cũ dùng “xếp hạng cá nhân” trước khi khái niệm được nêu; thêm dòng phương án trực tiếp ở đầu trang rồi mới nêu quy mô và phương án thay thế. Khối kết luận nêu cái giá mất một phần độ chính xác theo MMDS §5.3.1. Dùng “$k$ vector”, chưa đưa ký hiệu trọng số $w_j$.
 
 ### lec04-s01-05 — Ba mục tiêu của xếp hạng liên kết
 
