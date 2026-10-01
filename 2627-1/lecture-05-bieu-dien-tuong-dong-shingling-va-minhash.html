@@ -51,10 +51,10 @@
 <aside class="notes"><p>Giao là tập con của hợp nên tỷ số không vượt 1. Hai tập rời có tử số bằng 0; khi \(S=T\ne\varnothing\), tử và mẫu bằng nhau. Khi cả hai tập rỗng, biểu thức là \(0/0\), nên định nghĩa đòi hợp khác rỗng. Các phát biểu MinHash phía sau dùng hai tập không rỗng.</p><p>Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.</p></aside>
 </section>
 <section id="lec05-s01-08" data-slide-id="lec05-s01-08" class="example-slide">
-<h2>Tập hợp trong ứng dụng</h2>
-<div class="ex-grid2 "><div><div class="ex-card"><p class="ex-takeaway">Văn bản</p><p>Phần tử là đặc trưng văn bản.</p></div></div><div><div class="ex-card"><p class="ex-takeaway">Khách hàng</p><p>Phần tử có thể là mặt hàng đã mua.</p></div></div></div><p class="ex-equation">\[\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}\]</p><p class="ex-takeaway">Giao và hợp được xác định trên những phần tử đã chọn.</p>
+<h2>Ứng dụng của độ tương đồng Jaccard</h2>
+<div class="ex-grid2 "><div><div class="ex-card"><p class="ex-takeaway">Văn bản</p><p>Tài liệu là tập các đoạn văn bản.</p><p>Hai trang phản chiếu được dự kiến có Jaccard trên 90%.</p></div></div><div><div class="ex-card"><p class="ex-takeaway">Khách hàng</p><p>Khách hàng là tập mặt hàng đã mua.</p><p>Jaccard 20% đã có thể cho thấy hai khách hàng có sở thích gần nhau.</p></div></div></div><p class="ex-takeaway">Ý nghĩa của một giá trị Jaccard phụ thuộc cách chọn phần tử và ứng dụng.</p>
 <p class="ex-source">MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.</p>
-<aside class="notes"><p>Ví dụ mua hàng trong sách biểu diễn một khách hàng bằng tập mặt hàng. Với văn bản, phần tử phải giữ được dấu vết các đoạn chung; dùng trực tiếp độ dài tài liệu không tạo được tập phù hợp. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần. Biến thể đa tập của sách được tách thành đọc thêm với quy ước riêng.</p><p>Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.</p></aside>
+<aside class="notes"><p>Mục 3.1.3 dùng Jaccard trong lọc cộng tác: một khách hàng là tập mặt hàng đã mua, một mặt hàng là tập người đã mua nó. Sách dự đoán hai trang phản chiếu có Jaccard trên 90%, trong khi hai khách hàng hiếm khi đạt mức này; Jaccard 20% đã có thể đủ bất thường để xem hai người có sở thích tương tự. Vì vậy một ngưỡng tương đồng không chuyển nguyên từ ứng dụng này sang ứng dụng khác. Với văn bản, phần tử phải giữ dấu vết các đoạn chung; phần shingling xác định các phần tử ấy. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần; biến thể đa tập của sách thuộc phần đọc thêm của tài liệu tự học.</p><p>Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.</p></aside>
 </section>
 <section id="lec05-s01-09" data-slide-id="lec05-s01-09" class="example-slide">
 <h2>Câu hỏi kiểm tra</h2>

@@ -59,7 +59,7 @@ $$
 
 Tổng $|S|+|T|=5+6=11$ lớn hơn $|S\cup T|$ vì ba phần tử giao bị đếm hai lần. Hình biểu diễn quan hệ thuộc tập; diện tích hai miền tròn không mã hóa số lượng phần tử. Mẫu số dùng toàn bộ hợp để đặt lượng chung trong quy mô của cặp. Chỉ dùng kích thước giao sẽ không phân biệt một lượng chung trong hai tập nhỏ với cùng lượng chung trong hai tập rất lớn.
 
-Tập hợp phải gắn với một cách chọn phần tử cụ thể. Trong ví dụ khách hàng của §3.1.3, tr. 76, phần tử có thể là mặt hàng đã mua. Với văn bản, phần tử sẽ là những đoạn con liên tiếp có độ dài cố định. Khi các phần tử được chọn khác đi, đại lượng Jaccard cũng có thể thay đổi.
+Tập hợp phải gắn với một cách chọn phần tử cụ thể. Trong ví dụ khách hàng của §3.1.3, tr. 76, phần tử có thể là mặt hàng đã mua. Ngưỡng có ý nghĩa cũng khác nhau giữa các ứng dụng: sách dự đoán hai trang phản chiếu có Jaccard trên 90%, còn với hai khách hàng, Jaccard 20% đã có thể đủ để xem hai người có sở thích tương tự. Với văn bản, phần tử sẽ là những đoạn con liên tiếp có độ dài cố định. Khi các phần tử được chọn khác đi, đại lượng Jaccard cũng có thể thay đổi.
 
 Tuyến chính dùng tập hợp, vì vậy số lần một phần tử xuất hiện không được lưu. Biến thể đa tập của sách có quy ước khác và được trình bày riêng ở mục 12.
 

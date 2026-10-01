@@ -272,11 +272,11 @@ Nguồn: MMDS 3e, §3.1.1, tr. 74; Hình 3.1, tr. 75.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 08. Tập hợp trong ứng dụng
+### 08. Ứng dụng của độ tương đồng Jaccard
 
 - **Mã:** `lec05-s01-08`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Mục đích và vai trò:** Ứng dụng; xác định nghĩa của phần tử. **Mục tiêu:** MT1.
-- **Câu chốt:** Ý nghĩa của Jaccard phụ thuộc vào cách chuyển đối tượng thành tập.
+- **Câu chốt:** Jaccard áp dụng cho mọi dữ liệu biểu diễn được bằng tập; ý nghĩa của một giá trị phụ thuộc cách chọn phần tử và ứng dụng.
 - **Kiến thức đầu vào, kết nối vào–ra:** Nhận công thức; trang 09 kiểm tra đại lượng và nhu cầu chọn biểu diễn văn bản.
 - **Dữ kiện và vai trò số:** VD 2; giữ quy ước, nhãn, đơn vị và kết quả của phiếu tương ứng trong outline. Kết quả tính trên trang được nêu ở nội dung/notes dưới đây.
 - **Bố cục đã chọn:** `example-slide ex-grid2`: hai thẻ bằng nhau, bên trái văn bản, bên phải khách hàng; mỗi thẻ có đối tượng → phần tử → nghĩa của giao; một câu chốt ở dưới.
@@ -288,23 +288,15 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Văn bản
+Văn bản: tài liệu là tập các đoạn văn bản; hai trang phản chiếu thường có Jaccard trên 90%.
 
-Phần tử là đặc trưng văn bản.
+Khách hàng: khách hàng là tập mặt hàng đã mua; Jaccard 20% đã có thể cho thấy hai khách hàng có sở thích gần nhau.
 
-Khách hàng
-
-Phần tử có thể là mặt hàng đã mua.
-
-$$
-\mathrm{SIM}(S,T)=\frac{|S\cap T|}{|S\cup T|}
-$$
-
-Giao và hợp được xác định trên những phần tử đã chọn.
+Ý nghĩa của một giá trị Jaccard phụ thuộc cách chọn phần tử và ứng dụng.
 
 **Ghi chú diễn giả học thuật**
 
-Ví dụ mua hàng trong sách biểu diễn một khách hàng bằng tập mặt hàng. Với văn bản, phần tử phải giữ được dấu vết các đoạn chung; dùng trực tiếp độ dài tài liệu không tạo được tập phù hợp. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần. Biến thể đa tập của sách được tách thành đọc thêm với quy ước riêng.
+Mục 3.1.3 dùng Jaccard trong lọc cộng tác: một khách hàng là tập mặt hàng đã mua, một mặt hàng là tập người đã mua nó. Sách dự đoán hai trang phản chiếu có Jaccard trên 90%, trong khi hai khách hàng hiếm khi đạt mức này; Jaccard 20% đã có thể đủ bất thường để xem hai người có sở thích tương tự. Vì vậy một ngưỡng tương đồng không chuyển nguyên từ ứng dụng này sang ứng dụng khác. Với văn bản, phần tử phải giữ dấu vết các đoạn chung; phần shingling xác định các phần tử ấy. Tuyến chính chỉ xét tập hợp, mỗi phần tử xuất hiện một lần; biến thể đa tập của sách thuộc phần đọc thêm của tài liệu tự học.
 
 Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.
 
