@@ -23,7 +23,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H00 | 3 | Định nghĩa đồ thị lân cận trên đồ thị ví dụ bảy đỉnh; nêu dữ liệu lưu và ý tưởng đi tới đỉnh gần $q$ hơn. | véc-tơ → đỉnh, cạnh, điểm vào | Princeton 09 tr.7–8 |
 | H01 | 7 | Chạy tay tham lam trên đồ thị ví dụ (hình và bảng vết cùng trang); định nghĩa cực tiểu cục bộ. Gộp H02 cũ. | $e:9\to a:7\to b:5$ → dừng ở cực tiểu cục bộ, bỏ $z:1$ | Princeton 09 tr.8, 11–13; ví dụ dựng từ cơ chế nguồn |
 | H03 | 5 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
-| H04 | 3 | Đặc tả tầng hữu hạn, $ef\ge1$, $1\le|ep|\le ef$ và kiểu đầu ra của `SEARCH-LAYER`. | tập điểm vào không rỗng → W khởi tạo hợp lệ | HNSW paper tr.4 |
+| H04 | 3 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
 | H05 | 5 | Đưa giả mã và tính lại phần tử xa nhất của $W$ sau mỗi cập nhật. | $V,C,W$ → thuật toán tầng có ngưỡng hiện thời | HNSW paper alg.2, tr.4 |
 | H06 | 4 | Phát biểu bất biến đúng phạm vi; dùng vết H03 để thấy ngưỡng đổi 8→7. | tiền tố duyệt → trạng thái hợp lệ, không lặp đỉnh | suy ra từ alg.2 |
 | H07 | 4 | Truyền điểm vào từ tầng cao xuống tầng thấp trước khi mở rộng ở tầng đáy. | $ep_2\to ep_1\to ep_0\to W$ | HNSW paper Fig.1, tr.3; Princeton 09 tr.17–18 |
@@ -193,3 +193,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** $ef=2$; đáp án: dừng khi đỉnh kế tiếp $s{:}8$ xa hơn $a{:}7$, trả $\{b,a\}$ (mô phỏng lại theo Thuật toán 2).
 - **Nguồn:** Princeton lớp 9 tr.9; Malkov–Yashunin Thuật toán 2 tr.4.
 - **Quyết định:** sửa. Bản cũ dùng $C$, $W$, “hàng đợi” trước khi định nghĩa; không có hình; vết dừng ở $s$, phần còn lại chỉ ở ghi chú; câu chốt dài hai dòng.
+
+### H04 — Đặc tả SEARCH-LAYER
+
+- **Phần:** 3. **Vai trò:** hình thức hóa. **Thời lượng:** 3 phút.
+- **Mục đích:** nêu đầu vào, đầu ra, điều kiện trước và ba tập trạng thái của `SEARCH-LAYER`; nhận ra tìm kiếm chùm vừa chạy là một lời gọi của nó.
+- **Câu chốt:** `SEARCH-LAYER` trả tối đa $ef$ đỉnh gần $q$ nhất trong các đỉnh đã thấy, không phải trong toàn tầng.
+- **Đầu vào:** vết chùm $ef=3$ (H03), nhắc lại bằng hình `search-layer-trang-thai.svg` (V = {e, a, b, s}, C = {s}, W = {b, a, s}). **Thể hiện:** hình bên trái; ba dòng đầu vào/đầu ra/trạng thái bên phải.
+- **Kết nối vào–ra:** hình thức hóa H03; giao đặc tả cho giả mã H05 và bất biến H06; tham số $\ell_c$ được dùng lại khi có nhiều tầng (H07–H10).
+- **Ghi chú diễn giả:** $\ell_c=0$ khi chỉ có một đồ thị; vì sao $1\le|ep|\le ef$; đầu ra chỉ về đỉnh đã thấy; đọc hình.
+- **Nguồn:** Malkov–Yashunin Thuật toán 2 tr.4.
+- **Quyết định:** sửa. Tiêu đề cũ “Hợp đồng của SEARCH-LAYER” dịch sát “contract”, học phần dùng “đặc tả”; “tầng hữu hạn $\ell_c$” xuất hiện trước khái niệm tầng mà không giải thích; hình cũ `search-layer.svg` chữ nhỏ, không gắn với ví dụ; $V$ xuất hiện lần đầu không định nghĩa.

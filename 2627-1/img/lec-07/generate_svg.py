@@ -142,12 +142,29 @@ def do_thi_vi_du(name, mode):
     svg(name, 910, 590, titles[mode][0], titles[mode][1], b)
 
 
+def trang_thai_search_layer():
+    # H04: trạng thái của SEARCH-LAYER trên đồ thị ví dụ sau khi mở b, ef = 3.
+    b = rect(20, 20, 820, 380, PALE_GRAY, INK)
+    b += text(45, 66, 'V: đỉnh đã thấy', 30, INK, 'start', weight='bold')
+    b += rect(230, 90, 300, 290, PALE_ORANGE, ORANGE, '12 7')
+    b += rect(410, 150, 410, 210, PALE_BLUE, BLUE)
+    b += text(250, 130, 'C: chưa mở', 28, ORANGE, 'start', weight='bold')
+    b += text(800, 190, 'W: ef đỉnh gần q nhất', 28, BLUE, 'end', weight='bold')
+    b += text(125, 270, 'e : 9', 34, INK, weight='bold')
+    b += text(470, 270, 's : 8', 34, INK, weight='bold')
+    b += text(670, 255, 'b : 5', 34, INK, weight='bold') + text(670, 320, 'a : 7', 34, INK, weight='bold')
+    svg('search-layer-trang-thai.svg', 860, 420, 'Ba tập của SEARCH-LAYER',
+        'Sau khi mở b với ef bằng 3: V gồm e, a, b, s; C gồm s; W gồm b, a, s. '
+        'C và W là hai tập con của V; s thuộc cả C và W; e chỉ thuộc V.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
     do_thi_vi_du('do-thi-vi-du.svg', 'base')
     do_thi_vi_du('do-thi-tham-lam.svg', 'greedy')
     do_thi_vi_du('do-thi-chum.svg', 'beam')
+    trang_thai_search_layer()
 
 
 if __name__ == '__main__':

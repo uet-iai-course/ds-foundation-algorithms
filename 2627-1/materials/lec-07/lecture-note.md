@@ -164,7 +164,16 @@ Chạy lại tìm kiếm chùm trên đồ thị ví dụ với $ef=2$. Thuật 
 Sau khi mở $e$, $W=\{a{:}7,s{:}8\}$ ($e$ bị bỏ vì xa nhất). Mở $a$ thêm $b{:}5$ và bỏ $s$, nên $W=\{b{:}5,a{:}7\}$. Mở $b$ không thêm gì. Đỉnh kế tiếp trong $C$ là $s{:}8$, xa hơn phần tử xa nhất $a{:}7$ của $W$, nên thuật toán dừng và trả $\{b,a\}$. Chùm phải đủ rộng để giữ $s$ trong $W$ thì mới đi tiếp qua nhánh $s$.
 :::
 
-`SEARCH-LAYER(q,ep,ef,ℓ)` dùng tập điểm vào $ep$ với $1\le |ep|\le ef$. Ba tập trạng thái gồm $C$, hàng đợi ứng viên chưa mở; $W$, tối đa $ef$ đỉnh tốt nhất đã gặp; và $V$, các đỉnh đã thăm.
+**Đặc tả `SEARCH-LAYER`.** Tìm kiếm chùm trên đồ thị ví dụ là trường hợp $ep=\{e\}$, $ef=3$ của thủ tục `SEARCH-LAYER(q, ep, ef, ℓ)` trong bài báo HNSW.
+
+- Đầu vào: truy vấn $q$; bề rộng $ef\ge1$; tập điểm vào $ep$ với $1\le|ep|\le ef$, mọi phần tử thuộc tầng $\ell$; tầng $\ell$ của đồ thị. Khi chỉ có một đồ thị, $\ell=0$; đồ thị nhiều tầng được xét ở mục 5.
+- Đầu ra: $W$, tối đa $ef$ đỉnh gần $q$ nhất trong các đỉnh đã thấy.
+- Trạng thái: $V$ gồm các đỉnh đã thấy; $C\subseteq V$ gồm các đỉnh chưa mở; $W\subseteq V$.
+
+Điều kiện $1\le|ep|\le ef$ làm phép khởi tạo $W\leftarrow ep$ hợp lệ: $W$ không rỗng nên luôn có phần tử xa nhất, và không vượt $ef$. Đầu ra chỉ nói về các đỉnh đã thấy; vùng chưa phát hiện có thể chứa đỉnh gần $q$ hơn.
+
+![Trạng thái sau khi mở b với ef bằng 3: V gồm e, a, b, s; C gồm s; W gồm b, a, s; C và W là tập con của V.](img/lec-07/search-layer-trang-thai.svg)
+
 
 ```text
 SEARCH-LAYER(q, ep, ef, tầng ℓ)
@@ -184,8 +193,6 @@ SEARCH-LAYER(q, ep, ef, tầng ℓ)
 ```
 
 Khi $|W|<ef$, đỉnh mới luôn được thêm. Khi $W$ đã đầy, chỉ đỉnh tốt hơn phần tử xa nhất mới được giữ.
-
-![SEARCH-LAYER duy trì tập ứng viên C, tập kết quả động W và tập đã thăm V.](img/lec-07/search-layer.svg)
 
 Trong vòng lặp, $W$ chứa không quá $ef$ đỉnh tốt nhất trong số các đỉnh được chấp nhận vào vùng khám phá. Mỗi đỉnh vào $V$ nhiều nhất một lần. Thuật toán dừng khi $C$ rỗng hoặc ứng viên tốt nhất chưa mở xa hơn phần tử xa nhất trong $W$.
 
