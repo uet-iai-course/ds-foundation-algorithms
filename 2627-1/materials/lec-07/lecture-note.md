@@ -218,6 +218,12 @@ $W$ lớn hơn giữ được nhiều hướng, giảm khả năng cắt sớm m
 
 ## 5. HNSW: tầng, truy vấn và chèn
 
+**Cạnh dài và cạnh ngắn.** Số phép đo của một lần tìm kiếm xấp xỉ bằng số bước nhân với bậc trung bình của các đỉnh trên đường đi. Trên $N$ điểm của một đường thẳng, nếu chỉ có cạnh giữa hai điểm liền kề thì tham lam từ đầu dãy có thể cần khoảng $N$ bước. Ở ví dụ dưới đây, $q$ nằm giữa $p6$ và $p7$, gần $p6$ hơn: chỉ với cạnh ngắn, tham lam từ $s$ cần 6 bước; thêm cạnh dài $s$–$p4$, $p4$–$p8$, $p8$–$p11$ thì chỉ cần 3 bước $s\to p4\to p5\to p6$. Cạnh dài phải đặt đúng chỗ: nếu chỉ có $p4$–$p8$, tham lam từ $s$ vẫn cần 6 bước.
+
+![Mười hai điểm s, p1 đến p11 trên một đường thẳng, q nằm giữa p6 và p7 gần p6 hơn; chỉ có cạnh ngắn thì tham lam từ s cần 6 bước, thêm cạnh dài s–p4, p4–p8, p8–p11 thì cần 3 bước.](img/lec-07/canh-dai-mot-chieu.svg)
+
+Cạnh dài đưa tìm kiếm tới gần $q$ nhanh; cạnh ngắn tinh chỉnh quanh $q$. Đây là ý tưởng của danh sách nhảy (skip list). HNSW tách cạnh theo thang độ dài vào các tầng khác nhau. Ví dụ một chiều được dựng lại theo slide Princeton lớp 9, tr.11–13.
+
 Hierarchical Navigable Small World (HNSW) chồng nhiều đồ thị lân cận. Tầng cao thưa để đi xa; tầng 0 dày hơn để tinh chỉnh quanh truy vấn.
 
 Khi chèn một đỉnh, lấy $U\sim\mathrm{Uniform}(0,1]$ và gán mức cao nhất

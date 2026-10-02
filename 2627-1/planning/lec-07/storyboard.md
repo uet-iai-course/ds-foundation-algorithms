@@ -26,6 +26,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H04 | 3 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
 | H05 | 5 | Giả mã `SEARCH-LAYER` theo Thuật toán 2; nối dòng tính lại ngưỡng $f$ với bước mở $s$ của ví dụ. | $V,C,W$ → thuật toán; ngưỡng $8\to7$ | HNSW paper alg.2, tr.4 |
 | H06 | 4 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
+| H06B | 3 | Thêm trang: ví dụ một chiều cho thấy cạnh dài giảm số bước tham lam từ 6 xuống 3; động cơ của các tầng HNSW. | chỉ cạnh ngắn → thêm cạnh dài | Princeton 09 tr.11–13; HNSW paper §3 tr.3 |
 | H07 | 4 | Truyền điểm vào từ tầng cao xuống tầng thấp trước khi mở rộng ở tầng đáy. | $ep_2\to ep_1\to ep_0\to W$ | HNSW paper Fig.1, tr.3; Princeton 09 tr.17–18 |
 | H08 | 2 | Hình thức hóa $U\in(0,1]$, $m_L>0$ và ý nghĩa hệ số mức. | $U,m_L$ → tầng tối đa và độ thưa | HNSW paper alg.1, §4.1, tr.4–5 |
 | H09 | 4 | Đặc tả truy vấn HNSW và điều kiện $efSearch\ge K$. | tìm tầng → K kết quả | HNSW paper alg.5, tr.5 |
@@ -226,3 +227,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** chứng minh bước duy trì; xử lý hòa; ví dụ $ef=2$; tính dừng; trường hợp xấu.
 - **Nguồn:** suy ra từ Thuật toán 2, Malkov–Yashunin tr.4; bất biến kiểm bằng chương trình trên đồ thị ví dụ và 3000 đồ thị ngẫu nhiên.
 - **Quyết định:** sửa. Bản cũ chỉ liệt kê tính chất của $V$, $C$, $W$, thiếu khởi tạo–duy trì–kết luận (tiêu chuẩn mục 3); phát biểu về $W$ yếu (“trong số đỉnh đã được chấp nhận”); ví dụ chỉ ở ghi chú và dẫn chiếu “ví dụ tìm kiếm chùm”.
+
+### H06B — Cạnh dài rút ngắn đường đi (trang mới)
+
+- **Phần:** 3. **Vai trò:** nêu vấn đề và trực giác cho cấu trúc nhiều tầng. **Thời lượng:** 3 phút.
+- **Mục đích:** chạy tham lam trên ví dụ một chiều có và không có cạnh dài; giải thích vì sao HNSW tách cạnh theo thang độ dài.
+- **Câu chốt:** cạnh dài đưa tìm kiếm tới gần $q$ nhanh, cạnh ngắn tinh chỉnh; HNSW đặt hai loại cạnh vào các tầng khác nhau.
+- **Đầu vào:** tìm kiếm tham lam (H01). **Thể hiện:** hình `canh-dai-mot-chieu.svg` (hai dãy 12 điểm, $q$ ở tọa độ 6,4; đường tham lam tô cam: 6 bước và 3 bước); câu chốt.
+- **Kết nối vào–ra:** sau khi đã có tìm kiếm trên một tầng (H01–H06), nêu giới hạn còn lại là số bước; tạo nhu cầu cho cấu trúc nhiều tầng H07.
+- **Ghi chú diễn giả:** khoảng $N$ bước khi chỉ có cạnh ngắn; ý tưởng skip list; cạnh dài phải đặt đúng chỗ (chỉ có $p4$–$p8$ vẫn 6 bước); “zoom-out/zoom-in” của bài báo.
+- **Nguồn:** Princeton lớp 9 tr.11–13; Malkov–Yashunin mục 3 tr.3. Ví dụ dựng lại, vết tính lại bằng chương trình.
+- **Quyết định:** thêm. Bản cũ chuyển từ bất biến một tầng sang “điểm vào truyền từ tầng cao xuống thấp” mà không nêu vì sao cần nhiều tầng; khái niệm tầng xuất hiện đột ngột.

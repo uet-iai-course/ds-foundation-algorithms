@@ -171,6 +171,41 @@ def trang_thai_search_layer():
         'C và W là hai tập con của V; s thuộc cả C và W; e chỉ thuộc V.', b)
 
 
+def canh_dai_mot_chieu():
+    # H06B: ví dụ một chiều dựng lại theo Princeton lớp 9 tr.12–13; q ở tọa độ 6,4.
+    names = ['s'] + [f'p{i}' for i in range(1, 12)]
+    X = lambda i: 70 + 78 * i
+    q = 6.4
+    b = ''
+    rows = [(150, 'Chỉ cạnh ngắn: s → p1 → … → p6, 6 bước', [], ['s', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6']),
+            (400, 'Thêm cạnh dài: s → p4 → p5 → p6, 3 bước', [(0, 4), (4, 8), (8, 11)], ['s', 'p4', 'p5', 'p6'])]
+    for y, title, longs, path in rows:
+        b += text(40, y - 95, title, 30, INK, 'start', weight='bold')
+        hop = set(zip(path, path[1:]))
+        for i in range(11):
+            on = (names[i], names[i + 1]) in hop
+            b += line(X(i) + 18, y, X(i + 1) - 18, y, ORANGE if on else '#9aa6b8', width=6 if on else 3)
+        for i, j in longs:
+            on = (names[i], names[j]) in hop
+            mid, r = (X(i) + X(j)) / 2, (X(j) - X(i)) / 2
+            b += (f'<path d="M{X(i)},{y - 18} A{r},{r * 0.42} 0 0 1 {X(j)},{y - 18}" fill="none" '
+                  f'stroke="{ORANGE if on else "#9aa6b8"}" stroke-width="{6 if on else 3}"'
+                  + ('' if on else ' stroke-dasharray="10 7"') + '/>')
+        for i, v in enumerate(names):
+            stroke = ORANGE if v in path else BLUE
+            b += f'<circle cx="{X(i)}" cy="{y}" r="18" fill="#ffffff" stroke="{stroke}" stroke-width="4"/>'
+            b += text(X(i), y + 52, v, 24, INK)
+        qx = 70 + 78 * q
+        b += line(qx, y - 38, qx, y - 4, ORANGE, '4 4', width=2)
+        b += f'<rect x="{qx - 11}" y="{y - 59}" width="22" height="22" fill="{ORANGE}" transform="rotate(45 {qx} {y - 48})"/>'
+        b += text(qx + 26, y - 38, 'q', 28, ORANGE, 'start', weight='bold', italic=True)
+    b += line(560, 520, 612, 520, ORANGE, width=6) + text(624, 530, 'đường tham lam từ s', 26, INK, 'start')
+    svg('canh-dai-mot-chieu.svg', 1000, 545, 'Cạnh dài rút ngắn đường đi',
+        'Mười hai điểm s, p1 đến p11 trên một đường thẳng, q nằm giữa p6 và p7, gần p6 hơn. '
+        'Chỉ có cạnh giữa hai điểm liền kề thì tham lam từ s cần 6 bước tới p6; '
+        'thêm cạnh dài s–p4, p4–p8, p8–p11 thì chỉ cần 3 bước s, p4, p5, p6.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -179,6 +214,7 @@ def main():
     do_thi_vi_du('do-thi-chum.svg', 'beam')
     trang_thai_search_layer()
     do_thi_vi_du('do-thi-ef2.svg', 'seen2')
+    canh_dai_mot_chieu()
 
 
 if __name__ == '__main__':
