@@ -190,3 +190,9 @@ Cách làm như lượt Bài 05–06: điều phối viên (phiên Claude Code, 
 | `index.html` | Bài 07 chưa có mục. | Index dừng ở Bài 6. | Thêm thẻ Bài 7 với liên kết deck và ghi chú theo yêu cầu của người dùng trong lượt này. |
 
 Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`, cỡ chữ nhỏ nhất ngoài KaTeX 23,7 px; 390 × 844 không tràn ngang; không lỗi console, không yêu cầu mạng ngoài máy chủ cục bộ; điều hướng bàn phím hoạt động. Ghi chú render được ở 1440 × 900, 390 × 844 và in, không lỗi KaTeX. Phạm vi CSS chung: chỉ thêm khối `.lecture-ann`; đã mở Bài 02 và Bài 03 ở hai khổ, không lỗi và không phần tử nào khớp `.lecture-ann`.
+
+### Duyệt từng trang
+
+| Trang | Trang muốn nói | Vấn đề | Quyết định và thay đổi deck, storyboard | Ghi chú tự học |
+|---|---|---|---|---|
+| P00 | Tên bài; ba cấu trúc HNSW, PQ, IVF-PQ; nối từ Bài 06. | Dòng phụ chưa diễn giải PQ, IVF-PQ; ghi chú gọi PQ là “nén khoảng cách”; mã học phần nguồn ghi sai “COS579A”. | sửa nhẹ. Dòng phụ “Đồ thị HNSW, lượng tử hóa tích (PQ) và tệp đảo IVF-PQ”. Ghi chú nêu khác biệt tìm cặp và truy vấn, vai trò từng cấu trúc, nguồn đúng “Princeton COS 597A”. Storyboard thêm mục chi tiết. | Thêm đoạn mở đầu nêu bài toán truy vấn và ba cấu trúc. Sửa liên kết deck `../../lecture-07-…` (trình xem phân giải thành `/lecture-07-…`, lỗi 404) thành đường dẫn tương đối như Bài 06. Tài liệu tham khảo: “COS 597G” → “COS 597A”. |

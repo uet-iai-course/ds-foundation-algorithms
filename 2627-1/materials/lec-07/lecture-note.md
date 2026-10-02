@@ -1,6 +1,8 @@
 # Bài 07 — Chỉ mục hàng xóm gần đúng
 
-Xem bộ trang chiếu tại [Bài 07 — Chỉ mục hàng xóm gần đúng](../../lecture-07-chi-muc-hang-xom-gan-dung.html).
+Xem bộ trang chiếu tại [Bài 07 — Chỉ mục hàng xóm gần đúng](lecture-07-chi-muc-hang-xom-gan-dung.html).
+
+Bài 06 tìm các cặp tương đồng bên trong một tập. Bài này xét bài toán truy vấn: cho một véc-tơ mới $q$, tìm $K$ véc-tơ gần $q$ nhất trong một kho rất lớn. Ba cấu trúc được trình bày: đồ thị HNSW giảm số véc-tơ phải đo, lượng tử hóa tích (PQ) thay mỗi véc-tơ bằng một mã ngắn, và tệp đảo IVF-PQ chỉ mở một phần kho rồi chấm điểm bằng mã ngắn.
 
 ## Mục tiêu và kiến thức tiên quyết
 
@@ -352,8 +354,8 @@ Với mỗi giá trị, báo cáo `nok/|xq|` và tổng thời gian tìm kiếm 
 ## Tài liệu tham khảo
 
 - Stanford BIODS 271, bài 12, *Approximate Nearest Neighbor Search*.
-- Princeton COS 597G, lớp 8, *Quantization*, và notebook thực hành đi kèm.
-- Princeton COS 597G, lớp 9, *Graph Indexes*.
+- Princeton COS 597A, lớp 8, *Quantization*, và notebook thực hành đi kèm.
+- Princeton COS 597A, lớp 9, *Graph Indexes*.
 - Yu. A. Malkov và D. A. Yashunin, *Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs*.
 - H. Jégou, M. Douze và C. Schmid, *Product Quantization for Nearest Neighbor Search*.
 - J. Leskovec, A. Rajaraman và J. D. Ullman, *Mining of Massive Datasets*, Chương 3.

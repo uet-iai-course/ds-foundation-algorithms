@@ -13,7 +13,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 
 | ID | Phút | Lý do tồn tại và bước tiến | Đầu vào → sản phẩm | Nguồn |
 |---|---:|---|---|---|
-| P00 | 0 | Nhận diện bài, thuật ngữ và cầu nối từ Bài 6. | LSH → HNSW, PQ, IVF-PQ | `sources/source.md`; MMDS Ch.3 |
+| P00 | 0 | Nhận diện bài, ba cấu trúc và cầu nối từ bài toán tìm cặp của Bài 6 sang bài toán truy vấn. | LSH → HNSW, PQ, IVF-PQ | BIODS tr.16–18; Princeton 08–09 |
 | P01 | 4 | Mở bằng tình huống truy hồi dữ liệu lớn, nêu đầu vào, đầu ra, bộ nhớ và câu kiểm tra nút thắt. | $10^{10},3072$ → 122,88 TB thô, 5,12 TB mã, vẫn cần chỉ mục | BIODS tr.17; tình huống dựng từ cấu hình nguồn |
 | P02 | 3 | Nêu ba sản phẩm quan sát được và mạch bài. | tình huống → đặc tả, giải thích, lựa chọn | `sources/source.md` |
 | A00 | 4 | Hình thức hóa $1\le K\le N$, mã định danh phân biệt, phá hòa và chi phí Euclid. | $Y,q,d,K$ → bài toán ANN; $\Theta(ND)$ khi một khoảng cách là $\Theta(D)$ | PQ paper tr.1; HNSW paper tr.1 |
@@ -81,3 +81,18 @@ Ghi chú dùng `L07-N01`–`L07-N11` trong outline. Mỗi chủ đề cốt lõi
 - `N11` giữ đúng trạng thái notebook và ba nhiệm vụ nguồn; không thêm bài HNSW hoặc kết quả số cố định.
 
 Các ví dụ đồ thị, ADC và chi phí IVF-PQ do học phần dựng lại hoặc suy ra phải ghi rõ. Mã trang nội bộ và thời lượng không xuất hiện trong ghi chú công khai.
+
+## Chi tiết từng trang (duyệt 03/10/2026)
+
+Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh viên làm được); câu chốt; vai trò trong mạch; kiến thức đầu vào; nội dung và cách thể hiện; kết nối vào–ra; kiểm tra và ghi chú; nguồn; thời lượng; quyết định và lý do. Bảng tóm tắt ở trên giữ thời lượng; khi hai nơi khác nhau, mục chi tiết là bản hiện hành.
+
+### P00 — Chỉ mục hàng xóm gần đúng
+
+- **Phần:** 1, mở đầu. **Vai trò:** nhận diện bài. **Thời lượng:** 0 phút.
+- **Mục đích:** gọi đúng tên ba cấu trúc của bài và quan hệ với Bài 06.
+- **Câu chốt:** bài xét truy vấn tìm véc-tơ gần nhất trong kho lớn bằng ba cấu trúc HNSW, PQ, IVF-PQ.
+- **Đầu vào:** Bài 06 (LSH tìm cặp tương đồng trong một tập). **Thể hiện:** trang tiêu đề; dòng phụ viết đủ tên ba cấu trúc, PQ có diễn giải.
+- **Kết nối vào–ra:** từ bài toán tìm cặp của Bài 06 sang bài toán truy vấn; P01 đưa tình huống dữ liệu.
+- **Ghi chú diễn giả:** phân biệt tìm cặp và truy vấn; vai trò của ba cấu trúc; nguồn.
+- **Nguồn:** BIODS 271 bài 12 tr.16–18; Princeton COS 597A lớp 8–9; hai bài báo gốc.
+- **Quyết định:** sửa nhẹ. Dòng phụ cũ “HNSW, lượng tử hóa tích và IVF-PQ” chưa giải thích PQ; ghi chú cũ gọi PQ là “nén khoảng cách” (PQ nén véc-tơ) và ghi sai mã học phần “COS579A”.
