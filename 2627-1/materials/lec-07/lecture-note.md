@@ -32,23 +32,19 @@ Kiến thức tiên quyết gồm khoảng cách Euclid, đồ thị có hướn
 | $k_c$ | số tâm thô của IVF |
 | $nprobe$ | số danh sách đảo được mở khi truy vấn |
 
-## 1. Từ quy mô dữ liệu đến đặc tả ANN
+## 1. Truy hồi ngữ nghĩa và bài toán hàng xóm gần nhất
 
-Nguồn BIODS 271 xét $N=10^{10}$ véc-tơ, mỗi véc-tơ có $D=3072$ số thực 32 bit. Dữ liệu thô chiếm
+Trong truy hồi ngữ nghĩa, kho văn bản được chia thành các đoạn. Một mô hình nhúng biến mỗi đoạn thành một véc-tơ số thực sao cho hai đoạn có nội dung gần nhau cho hai véc-tơ gần nhau theo một độ đo như tích vô hướng, cosin hoặc khoảng cách Euclid. Câu truy vấn đi qua cùng mô hình để thành véc-tơ $q$. Tìm đoạn liên quan khi đó là tìm các véc-tơ gần $q$ nhất trong kho.
 
-$$
-N D\cdot4=10^{10}\cdot3072\cdot4=122{,}88\ \text{TB}.
-$$
+![Mười tỷ đoạn văn bản và câu truy vấn đi qua cùng một mô hình nhúng thành véc-tơ 3072 chiều; kết quả là K đoạn có véc-tơ gần véc-tơ truy vấn q nhất.](img/lec-07/truy-hoi-ngu-nghia.svg)
 
-Nếu mỗi đoạn có 6 chiều thì có $m=3072/6=512$ đoạn. Vì mỗi đoạn có $k^*=256$ tâm nên chỉ số tâm cần $P_c=8$ bit; mã PQ dài 512 byte. Toàn bộ mã chiếm
+Nguồn BIODS 271 xét $N=10^{10}$ véc-tơ, mỗi véc-tơ có $D=3072$ tọa độ là số thực 32 bit. Theo hệ thập phân, kho chiếm
 
 $$
-N\frac{mb}{8}=10^{10}\cdot512=5{,}12\ \text{TB}.
+N D\cdot4=10^{10}\cdot3072\cdot4\ \text{byte}=122{,}88\ \text{TB},
 $$
 
-Đây là phép suy ra từ cấu hình nguồn, chưa tính định danh, bộ mã, chỉ mục hoặc véc-tơ gốc. Nén giảm mạnh bộ nhớ, nhưng quét đủ vẫn phải chấm điểm $N$ mã.
-
-![Kho mười tỷ véc-tơ 3072 chiều: dữ liệu số thực cần 122,88 TB, còn mã PQ gồm 512 đoạn 8 bit cần 5,12 TB.](img/lec-07/quy-mo-vector.svg)
+chưa kể mã định danh. Quét toàn kho cho một truy vấn phải xử lý $ND\approx3{,}07\cdot10^{13}$ tọa độ. Giả sử một máy xử lý $10^{12}$ tọa độ mỗi giây, một truy vấn mất khoảng 30,7 giây, chưa tính thời gian đọc 122,88 TB từ bộ nhớ. Bài này xây các chỉ mục để tránh lượt quét đó.
 
 Đầu vào bài toán là $Y$, truy vấn $q$, hàm khoảng cách $d$ và số nguyên $K$. Đầu ra gồm $K$ mã định danh phân biệt. Khi hai điểm cách $q$ bằng nhau, ta phá hòa theo $(d(q,y),\operatorname{id}(y))$. Nhờ đó tập đúng $N_K(q)$ được xác định duy nhất.
 
@@ -228,6 +224,16 @@ $$
 ![PQ chia véc-tơ thành các đoạn và thay mỗi đoạn bằng chỉ số của một tâm con.](img/lec-07/pq-split.svg)
 
 PQ giảm bộ nhớ nhưng tạo sai số tái dựng $\|y-\widehat y\|^2$. Tăng $m$ hoặc $b$ thường giảm sai số, đồng thời làm mã, bảng tra hoặc thời gian huấn luyện lớn hơn.
+
+Áp dụng vào kho mười tỷ véc-tơ ở mục 1: nếu mỗi đoạn có 6 chiều thì có $m=3072/6=512$ đoạn. Vì mỗi đoạn có $k^*=256$ tâm nên chỉ số tâm cần $b=8$ bit; mã PQ dài $512\cdot8$ bit, tức 512 byte. Toàn bộ mã chiếm
+
+$$
+N\frac{mb}{8}=10^{10}\cdot512=5{,}12\ \text{TB}.
+$$
+
+Đây là phép suy ra từ cấu hình nguồn, chưa tính định danh, bộ mã, chỉ mục hoặc véc-tơ gốc. Nén giảm mạnh bộ nhớ, nhưng quét đủ vẫn phải chấm điểm $N$ mã.
+
+![Kho mười tỷ véc-tơ 3072 chiều: dữ liệu số thực cần 122,88 TB, còn mã PQ gồm 512 đoạn 8 bit cần 5,12 TB.](img/lec-07/quy-mo-vector.svg)
 
 ::: exercise Tự kiểm
 Với $m=4$ và $b=8$, một mã dài bao nhiêu byte và biểu diễn bao nhiêu tổ hợp tâm?
