@@ -206,6 +206,43 @@ def canh_dai_mot_chieu():
         'thêm cạnh dài s–p4, p4–p8, p8–p11 thì chỉ cần 3 bước s, p4, p5, p6.', b)
 
 
+def do_thi_nhieu_tang():
+    # H07: ba tầng trên cùng 12 điểm của ví dụ một chiều; q ở tọa độ 6,4.
+    names = ['s'] + [f'p{i}' for i in range(1, 12)]
+    X = lambda v: 150 + 72 * names.index(v)
+    layers = [(2, 70, ['s', 'p4', 'p8']), (1, 215, ['s', 'p2', 'p4', 'p6', 'p8', 'p10']), (0, 360, names)]
+    path = {2: ['s', 'p4', 'p8'], 1: ['p8', 'p6'], 0: ['p6']}
+    Y = {lv: y for lv, y, _ in layers}
+    b = ''
+    for v in names:  # đường dọc nối cùng một điểm qua các tầng
+        top = min(y for lv, y, nodes in layers if v in nodes)
+        b += line(X(v), top, X(v), 360, '#d5dae2', '3 6', width=2)
+    for lv, y, nodes in layers:
+        b += text(20, y + 9, f'tầng {lv}', 28, INK, 'start', weight='bold')
+        hop = set(zip(path[lv], path[lv][1:]))
+        for a, c in zip(nodes, nodes[1:]):
+            on = (a, c) in hop or (c, a) in hop
+            b += line(X(a) + 17, y, X(c) - 17, y, ORANGE if on else '#9aa6b8', width=6 if on else 3)
+        for v in nodes:
+            on = v in path[lv]
+            b += f'<circle cx="{X(v)}" cy="{y}" r="17" fill="#ffffff" stroke="{ORANGE if on else BLUE}" stroke-width="4"/>'
+    for v in names:
+        b += text(X(v), 410, v, 24, INK)
+    for v, a, c in [('p8', 2, 1), ('p6', 1, 0)]:
+        x = X(v) - 30
+        b += line(x, Y[a] + 12, x, Y[c] - 34, ORANGE, width=5)
+        b += f'<path d="M{x - 11},{Y[c] - 36} L{x + 11},{Y[c] - 36} L{x},{Y[c] - 16} Z" fill="{ORANGE}"/>'
+    qx = 150 + 72 * 6.4
+    b += line(qx, 335, qx, 357, ORANGE, '4 4', width=2)
+    b += f'<rect x="{qx - 10}" y="{316 - 10}" width="20" height="20" fill="{ORANGE}" transform="rotate(45 {qx} 316)"/>'
+    b += text(qx + 22, 324, 'q', 26, ORANGE, 'start', weight='bold', italic=True)
+    b += text(990, 70 + 9, 's → p4 → p8', 26, ORANGE, 'start') + text(990, 215 + 9, 'p8 → p6', 26, ORANGE, 'start')
+    b += text(990, 360 + 9, 'tìm quanh p6', 26, ORANGE, 'start')
+    svg('do-thi-nhieu-tang.svg', 1180, 430, 'Đồ thị nhiều tầng',
+        'Tầng 0 chứa mười hai điểm s, p1 đến p11 với cạnh ngắn; tầng 1 chứa s, p2, p4, p6, p8, p10; tầng 2 chứa s, p4, p8. '
+        'Truy vấn q ở giữa p6 và p7: ở tầng 2 tham lam đi s, p4, p8; xuống tầng 1 từ p8 sang p6; xuống tầng 0 tìm quanh p6.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -215,6 +252,7 @@ def main():
     trang_thai_search_layer()
     do_thi_vi_du('do-thi-ef2.svg', 'seen2')
     canh_dai_mot_chieu()
+    do_thi_nhieu_tang()
 
 
 if __name__ == '__main__':

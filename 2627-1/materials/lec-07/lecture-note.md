@@ -224,7 +224,13 @@ $W$ lớn hơn giữ được nhiều hướng, giảm khả năng cắt sớm m
 
 Cạnh dài đưa tìm kiếm tới gần $q$ nhanh; cạnh ngắn tinh chỉnh quanh $q$. Đây là ý tưởng của danh sách nhảy (skip list). HNSW tách cạnh theo thang độ dài vào các tầng khác nhau. Ví dụ một chiều được dựng lại theo slide Princeton lớp 9, tr.11–13.
 
-Hierarchical Navigable Small World (HNSW) chồng nhiều đồ thị lân cận. Tầng cao thưa để đi xa; tầng 0 dày hơn để tinh chỉnh quanh truy vấn.
+**Đồ thị nhiều tầng.** Hierarchical Navigable Small World (HNSW) chồng nhiều đồ thị lân cận lên nhau. Tầng 0 chứa mọi điểm với cạnh ngắn; mỗi tầng trên chứa một tập con thưa hơn với cạnh dài hơn. Một điểm có tầng tối đa $\ell$ thì xuất hiện ở mọi tầng $0,\ldots,\ell$. Truy vấn tìm với $ef=1$, tức tìm kiếm tham lam, từ tầng cao nhất; điểm dừng ở mỗi tầng là điểm vào của tầng ngay dưới; ở tầng 0, chùm rộng $efSearch$ được dùng để có nhiều ứng viên tốt.
+
+Trên mười hai điểm của ví dụ một chiều, lấy tầng 1 gồm $s,p2,p4,p6,p8,p10$ và tầng 2 gồm $s,p4,p8$ (do học phần chọn để minh họa). Tầng 2 đi $s\to p4\to p8$; tầng 1 bắt đầu từ $p8$ và sang $p6$; tầng 0 bắt đầu từ $p6$. Tổng cộng 3 bước di chuyển, so với 6 bước khi chỉ có tầng 0.
+
+![Tầng 0 chứa mười hai điểm s, p1 đến p11; tầng 1 chứa s, p2, p4, p6, p8, p10; tầng 2 chứa s, p4, p8. Truy vấn ở tầng 2 đi s, p4, p8; xuống tầng 1 đi từ p8 sang p6; xuống tầng 0 tìm quanh p6.](img/lec-07/do-thi-nhieu-tang.svg)
+
+Giả sử điểm vào nằm ở tầng cao nhất $L$. Từ tầng $L$ xuống tầng 1, truy vấn gọi `SEARCH-LAYER` với $ef=1$; kết quả trở thành điểm vào cho tầng kế tiếp. Ở tầng 0, thuật toán gọi với `efSearch` và trả $K$ phần tử gần nhất. Cần `efSearch` $\ge K$ để tập động có đủ chỗ, nhưng đồ thị được tiếp cận vẫn có thể chứa ít hơn $K$ đỉnh.
 
 Khi chèn một đỉnh, lấy $U\sim\mathrm{Uniform}(0,1]$ và gán mức cao nhất
 
@@ -233,10 +239,6 @@ $$
 $$
 
 Đỉnh xuất hiện ở mọi tầng từ 0 đến $\ell$. Xác suất đạt tầng cao giảm theo hàm mũ. Lựa chọn thực nghiệm $m_L=1/\ln M$ chỉ có nghĩa khi $M>1$; đây không phải điều kiện bắt buộc để thuật toán đúng.
-
-![HNSW có ít đỉnh ở tầng cao và nhiều đỉnh ở tầng thấp; truy vấn đi từ lối vào trên xuống tầng 0.](img/lec-07/hnsw-layers.svg)
-
-Giả sử điểm vào nằm ở tầng cao nhất $L$. Từ tầng $L$ xuống tầng 1, truy vấn gọi `SEARCH-LAYER` với $ef=1$; kết quả trở thành điểm vào cho tầng kế tiếp. Ở tầng 0, thuật toán gọi với `efSearch` và trả $K$ phần tử gần nhất. Cần `efSearch` $\ge K$ để tập động có đủ chỗ, nhưng đồ thị được tiếp cận vẫn có thể chứa ít hơn $K$ đỉnh.
 
 Nếu chỉ mục rỗng, đỉnh mới trở thành điểm vào và tạo các tầng $0,\dots,\ell$. Nếu không rỗng, việc chèn gồm hai pha.
 
