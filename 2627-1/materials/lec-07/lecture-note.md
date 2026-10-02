@@ -74,21 +74,21 @@ Với cùng tập đúng, chỉ mục trả $\{a,c,f,g,h\}$. Tính $\operatornam
 Giao là $\{a,c\}$, nên $\operatorname{recall@5}=2/5$.
 :::
 
-Một phép so sánh chỉ mục cần giữ cố định tập truy vấn, chuẩn đúng, phần cứng, số luồng và chính sách lưu véc-tơ gốc, rồi đo ít nhất bốn trục.
+Các chỉ mục gần đúng đánh đổi chất lượng lấy thời gian và bộ nhớ, nên một con số đơn lẻ không xếp hạng được hai chỉ mục. Phép so sánh đo đồng thời bốn trục và giữ cố định các điều kiện đo.
 
-| Trục | Đại lượng tiêu biểu |
-|---|---|
-| Chất lượng | recall@K |
-| Truy vấn | độ trễ, số phép tính khoảng cách |
-| Xây dựng | thời gian và dữ liệu huấn luyện |
-| Bộ nhớ | byte mỗi véc-tơ và phụ phí chỉ mục |
+| Trục | Đại lượng đo | Giữ cố định khi so sánh |
+|---|---|---|
+| Chất lượng | $\operatorname{recall@K}$ trung bình | tập truy vấn, $K$, tập đúng |
+| Truy vấn | độ trễ, số khoảng cách | phần cứng, số luồng |
+| Xây dựng | thời gian, dữ liệu huấn luyện | tham số chỉ mục |
+| Bộ nhớ | byte mỗi véc-tơ, phụ phí | có lưu véc-tơ gốc hay không |
 
 ::: exercise Tự kiểm
-Chỉ mục A đạt recall@10 bằng 0,9 với độ trễ 5 ms; B đạt 0,7 với độ trễ 2 ms. Có thể kết luận B tốt hơn không?
+Chỉ mục A đạt $\operatorname{recall@10}=0{,}9$ với độ trễ 5 ms; B đạt $0{,}7$ với 2 ms. Có thể kết luận B tốt hơn không?
 :::
 
 ::: solution
-Không. B nhanh hơn nhưng thu hồi thấp hơn. Chưa thể xếp hạng khi chưa nêu yêu cầu chất lượng và điều kiện đo.
+Không. B nhanh hơn nhưng tìm lại ít hàng xóm thật hơn. Chỉ chọn được khi biết yêu cầu: với yêu cầu độ thu hồi ít nhất $0{,}85$ thì chọn A; với yêu cầu độ trễ dưới 3 ms thì chọn B.
 :::
 
 ## 2. Ba cách cắt chi phí

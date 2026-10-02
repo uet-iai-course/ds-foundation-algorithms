@@ -18,7 +18,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | P02 | 3 | Nêu sáu phần của bài và ba mục tiêu học tập có sản phẩm cụ thể. | tình huống → dàn bài, mục tiêu | `sources/source.md` |
 | A00 | 4 | Đặc tả tìm đúng ($K$-NN, phá hòa theo mã định danh), chi phí quét $\Theta(ND)$ và nới điều kiện thành tìm gần đúng (ANN). | $Y,q,d,K$ → $N_K(q)$, $\widehat N_K(q)$; $3{,}07\cdot10^{13}$ tọa độ | HNSW paper tr.1; PQ paper tr.1 |
 | A01 | 3 | Định nghĩa độ thu hồi tại $K$, tính trên ví dụ năm phần tử và kiểm tra bằng một câu hỏi. | hai tập $K$ phần tử → recall@K; $3/5$, câu hỏi $2/5$ | HNSW paper tr.1 |
-| A02 | 3 | Ngăn so sánh một chiều bằng bốn trục đo. | recall → chất lượng, độ trễ, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
+| A02 | 3 | Nêu bốn trục đánh giá, điều kiện giữ cố định và kiểm tra bằng so sánh A/B. | recall → chất lượng, truy vấn, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
 | A03 | 3 | Phân biệt ba cơ chế và giữ LSH làm cầu nối. | Bài 6 → ngăn, đường, mã | MMDS Ch.3; Stanford 04; Princeton 09 tr.4–6 |
 | H00 | 3 | Nêu biểu diễn đồ thị, trạng thái và phép tiến. | véc-tơ → đỉnh và cạnh | Princeton 09 tr.7–10 |
 | H01 | 4 | Chạy tay tham lam trên đồ thị có khoảng cách nhất quán. | $e:9\to a:7\to b:5$ → dừng cục bộ, bỏ $z:1$ | Princeton 09 tr.8,11–13; ví dụ dựng từ cơ chế nguồn |
@@ -139,3 +139,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** chỉ mục trả $\{a,c,f,g,h\}$; đáp án $2/5$ trong ghi chú.
 - **Nguồn:** Malkov–Yashunin tr.1; PQ paper tr.7 (quy ước recall@R khác, chỉ ghi ở ghi chú).
 - **Quyết định:** sửa. Tiêu đề cũ là câu dài; hình cũ `ann-recall.svg` chữ quá nhỏ khi chiếu; phép tính $3/5$ chỉ có trong hình; chưa có câu hỏi.
+
+### A02 — Bốn trục đánh giá chỉ mục
+
+- **Phần:** 2. **Vai trò:** khung đánh giá, kiểm tra. **Thời lượng:** 3 phút.
+- **Mục đích:** nêu bốn trục và điều kiện phải giữ cố định; giải thích vì sao một số đo đơn lẻ không xếp hạng được chỉ mục.
+- **Câu chốt:** chỉ mục gần đúng đánh đổi chất lượng lấy thời gian và bộ nhớ, nên phải đo đủ bốn trục trong cùng điều kiện.
+- **Đầu vào:** $\operatorname{recall@K}$ (A01). **Thể hiện:** bảng ba cột; hộp câu hỏi A/B.
+- **Kết nối vào–ra:** dùng độ thu hồi của A01; bốn trục được dùng lại ở H12–H13, Q10, I03 và bảng so sánh C00.
+- **Kiểm tra:** A ($0{,}9$; 5 ms) và B ($0{,}7$; 2 ms); đáp án: chưa xếp hạng được khi chưa có yêu cầu.
+- **Nguồn:** Princeton COS 597A lớp 8 tr.2–5; lớp 9 tr.2.
+- **Quyết định:** sửa. Tiêu đề cũ “Bốn trục phải đo cùng nhau” mang giọng mệnh lệnh; cột điều kiện có “thứ tự chèn” của HNSW khi HNSW chưa được giới thiệu; lý do cần bốn trục chỉ nằm trong ghi chú.
