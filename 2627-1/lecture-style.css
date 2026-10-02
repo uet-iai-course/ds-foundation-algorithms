@@ -992,3 +992,4 @@
 .reveal.course-deck.lecture-ann .ann-question { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: 10px 16px; margin-top: 16px; }
 .reveal.course-deck.lecture-ann .ann-blank { height: 1.2em; border-bottom: 2px dotted #777; }
 .reveal.course-deck.lecture-ann .ann-code-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
+.reveal.course-deck.lecture-ann .ann-orientation { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; }

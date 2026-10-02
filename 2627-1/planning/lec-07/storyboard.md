@@ -15,7 +15,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 |---|---:|---|---|---|
 | P00 | 0 | Nhận diện bài, ba cấu trúc và cầu nối từ bài toán tìm cặp của Bài 6 sang bài toán truy vấn. | LSH → HNSW, PQ, IVF-PQ | BIODS tr.16–18; Princeton 08–09 |
 | P01 | 4 | Mở bằng tình huống truy hồi ngữ nghĩa: quy trình nhúng, dung lượng kho và chi phí quét một truy vấn. | $10^{10},3072$ → 122,88 TB, $3{,}07\cdot10^{13}$ tọa độ mỗi truy vấn | BIODS tr.16–17; tình huống dựng từ cấu hình nguồn |
-| P02 | 3 | Nêu ba sản phẩm quan sát được và mạch bài. | tình huống → đặc tả, giải thích, lựa chọn | `sources/source.md` |
+| P02 | 3 | Nêu sáu phần của bài và ba mục tiêu học tập có sản phẩm cụ thể. | tình huống → dàn bài, mục tiêu | `sources/source.md` |
 | A00 | 4 | Hình thức hóa $1\le K\le N$, mã định danh phân biệt, phá hòa và chi phí Euclid. | $Y,q,d,K$ → bài toán ANN; $\Theta(ND)$ khi một khoảng cách là $\Theta(D)$ | PQ paper tr.1; HNSW paper tr.1 |
 | A01 | 3 | Khóa phép đo chất lượng trước khi so thuật toán. | hai tập K phần tử → recall@K | HNSW paper tr.1 |
 | A02 | 3 | Ngăn so sánh một chiều bằng bốn trục đo. | recall → chất lượng, độ trễ, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
@@ -107,3 +107,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** thời gian một lượt quét với giả định $10^{12}$ tọa độ/giây; đáp án 30,7 giây trong ghi chú, ghi rõ tốc độ là giả định.
 - **Nguồn:** BIODS 271 bài 12 tr.16 (quy trình truy hồi dày đặc), tr.17 (cấu hình $N$, $D$, 32 bit).
 - **Quyết định:** sửa. Hình cũ `quy-mo-vector.svg` đưa mã PQ, 512 đoạn, 8 bit và 5,12 TB trước khi PQ được định nghĩa; câu hỏi cũ giả định sẵn khái niệm “mã”; chưa giải thích véc-tơ từ đâu ra; thiếu chi phí quét. Hình cũ được giữ trong ghi chú tự học ở mục PQ, chờ quyết định ở Q07/Q10.
+
+### P02 — Nội dung và mục tiêu
+
+- **Phần:** 1, mở đầu. **Vai trò:** định hướng. **Thời lượng:** 3 phút.
+- **Mục đích:** nêu được thứ tự sáu phần và ba việc phải làm được sau buổi học.
+- **Câu chốt:** đồ thị giảm số véc-tơ phải đo, PQ giảm chi phí mỗi phép đo, IVF-PQ ghép hai cách; ba mục tiêu là đặc tả và đo, chạy tay, tính chi phí và chọn chỉ mục.
+- **Đầu vào:** tình huống P01. **Thể hiện:** bố cục `agenda-slide` như Bài 06: danh sách phần bên trái, ba mục tiêu đánh số bên phải.
+- **Kết nối vào–ra:** nhận bài toán truy vấn từ P01; mở phần 2 (A00).
+- **Ghi chú diễn giả:** vai trò từng phần; mục tiêu nào được kiểm ở phần nào.
+- **Nguồn:** `sources/source.md` (LLO1 Bài 7). **Quyết định:** viết lại. Ba thẻ cũ “Đặc tả / Giải thích / Lựa chọn” không có dàn bài; “chạy tay tìm kiếm” chưa nói tìm trên cấu trúc nào; “PQ đầy đủ”, “bốn trục” dùng trước khi định nghĩa.
