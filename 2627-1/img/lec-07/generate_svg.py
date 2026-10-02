@@ -67,8 +67,23 @@ def truy_hoi_ngu_nghia():
         'Kết quả là K đoạn có véc-tơ gần véc-tơ truy vấn q nhất.', b)
 
 
+def do_thu_hoi():
+    # A01: ví dụ độ thu hồi tại 5; tập đúng {a,b,c,d,e}, tập trả về {c,d,e,f,g}.
+    b = ''
+    b += f'<circle cx="250" cy="230" r="170" fill="{PALE_BLUE}" fill-opacity="0.85" stroke="{BLUE}" stroke-width="4"/>'
+    b += f'<circle cx="470" cy="230" r="170" fill="{PALE_ORANGE}" fill-opacity="0.6" stroke="{ORANGE}" stroke-width="4" stroke-dasharray="14 8"/>'
+    b += text(190, 40, 'Tập đúng', 32, BLUE, weight='bold') + text(530, 40, 'Tập trả về', 32, ORANGE, weight='bold')
+    for label, x, y in [('a', 165, 195), ('b', 165, 275), ('c', 360, 165), ('d', 360, 235), ('e', 360, 305),
+                        ('f', 555, 195), ('g', 555, 275)]:
+        b += text(x, y, label, 40, INK, weight='bold')
+    b += text(360, 440, 'giao gồm c, d, e', 30, INK)
+    svg('do-thu-hoi.svg', 720, 460, 'Độ thu hồi tại 5',
+        'Tập đúng gồm a, b, c, d, e; tập chỉ mục trả về gồm c, d, e, f, g. Phần giao có ba phần tử c, d, e.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
+    do_thu_hoi()
 
 
 if __name__ == '__main__':

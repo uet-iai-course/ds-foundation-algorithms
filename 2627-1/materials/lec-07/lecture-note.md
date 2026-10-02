@@ -58,9 +58,21 @@ $$
 \operatorname{recall@K}(q)=\frac{|\widehat N_K(q)\cap N_K(q)|}{K}.
 $$
 
-Nếu hai tập có năm phần tử và ba phần tử chung thì $\operatorname{recall@5}=3/5$.
+Đây là tỷ lệ hàng xóm thật mà chỉ mục tìm lại được. Vì hai tập đều có $K$ phần tử, độ thu hồi bằng 1 khi và chỉ khi chỉ mục trả đúng tập hàng xóm thật. Trên một tập truy vấn, độ thu hồi được lấy trung bình.
 
-![Hai tập năm phần tử có ba phần tử chung nên độ thu hồi tại năm bằng ba phần năm.](img/lec-07/ann-recall.svg)
+::: example Độ thu hồi tại 5
+Tập đúng là $\{a,b,c,d,e\}$, chỉ mục trả $\{c,d,e,f,g\}$. Giao có ba phần tử nên $\operatorname{recall@5}=3/5$.
+:::
+
+![Tập đúng gồm a, b, c, d, e; tập chỉ mục trả về gồm c, d, e, f, g; phần giao gồm c, d, e.](img/lec-07/do-thu-hoi.svg)
+
+::: exercise Tự kiểm
+Với cùng tập đúng, chỉ mục trả $\{a,c,f,g,h\}$. Tính $\operatorname{recall@5}$.
+:::
+
+::: solution
+Giao là $\{a,c\}$, nên $\operatorname{recall@5}=2/5$.
+:::
 
 Một phép so sánh chỉ mục cần giữ cố định tập truy vấn, chuẩn đúng, phần cứng, số luồng và chính sách lưu véc-tơ gốc, rồi đo ít nhất bốn trục.
 

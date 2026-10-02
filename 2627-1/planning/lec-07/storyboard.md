@@ -17,7 +17,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | P01 | 4 | Mở bằng tình huống truy hồi ngữ nghĩa: quy trình nhúng, dung lượng kho và chi phí quét một truy vấn. | $10^{10},3072$ → 122,88 TB, $3{,}07\cdot10^{13}$ tọa độ mỗi truy vấn | BIODS tr.16–17; tình huống dựng từ cấu hình nguồn |
 | P02 | 3 | Nêu sáu phần của bài và ba mục tiêu học tập có sản phẩm cụ thể. | tình huống → dàn bài, mục tiêu | `sources/source.md` |
 | A00 | 4 | Đặc tả tìm đúng ($K$-NN, phá hòa theo mã định danh), chi phí quét $\Theta(ND)$ và nới điều kiện thành tìm gần đúng (ANN). | $Y,q,d,K$ → $N_K(q)$, $\widehat N_K(q)$; $3{,}07\cdot10^{13}$ tọa độ | HNSW paper tr.1; PQ paper tr.1 |
-| A01 | 3 | Khóa phép đo chất lượng trước khi so thuật toán. | hai tập K phần tử → recall@K | HNSW paper tr.1 |
+| A01 | 3 | Định nghĩa độ thu hồi tại $K$, tính trên ví dụ năm phần tử và kiểm tra bằng một câu hỏi. | hai tập $K$ phần tử → recall@K; $3/5$, câu hỏi $2/5$ | HNSW paper tr.1 |
 | A02 | 3 | Ngăn so sánh một chiều bằng bốn trục đo. | recall → chất lượng, độ trễ, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
 | A03 | 3 | Phân biệt ba cơ chế và giữ LSH làm cầu nối. | Bài 6 → ngăn, đường, mã | MMDS Ch.3; Stanford 04; Princeton 09 tr.4–6 |
 | H00 | 3 | Nêu biểu diễn đồ thị, trạng thái và phép tiến. | véc-tơ → đỉnh và cạnh | Princeton 09 tr.7–10 |
@@ -128,3 +128,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** ý nghĩa phá hòa; mô hình chi phí đếm tọa độ; HNSW dùng khoảng cách tổng quát, PQ dùng Euclid bình phương; nguồn.
 - **Nguồn:** Malkov–Yashunin tr.1 (K-NNS, K-ANNS “cho phép một số ít sai sót”); Jégou–Douze–Schmid tr.1.
 - **Quyết định:** sửa. Tiêu đề cũ “Từ tìm đúng sang tìm gần đúng” là câu kể tiến trình; mặt trang cũ chỉ đặc tả tìm đúng, khái niệm gần đúng nằm trong ghi chú; chi phí chưa thay số quy mô.
+
+### A01 — Độ thu hồi tại $K$
+
+- **Phần:** 2. **Vai trò:** định nghĩa, ví dụ, kiểm tra. **Thời lượng:** 3 phút.
+- **Mục đích:** tính $\operatorname{recall@K}$ từ tập đúng và tập trả về.
+- **Câu chốt:** độ thu hồi là tỷ lệ hàng xóm thật tìm lại được trong $K$ kết quả.
+- **Đầu vào:** $N_K(q)$, $\widehat N_K(q)$ từ A00. **Thể hiện:** hình `do-thu-hoi.svg` (hai tập năm phần tử, nét liền/nét đứt) bên trái; công thức, phép thay số và hộp câu hỏi bên phải.
+- **Kết nối vào–ra:** đo chất lượng của tập gần đúng ở A00; trục “chất lượng” của A02.
+- **Kiểm tra:** chỉ mục trả $\{a,c,f,g,h\}$; đáp án $2/5$ trong ghi chú.
+- **Nguồn:** Malkov–Yashunin tr.1; PQ paper tr.7 (quy ước recall@R khác, chỉ ghi ở ghi chú).
+- **Quyết định:** sửa. Tiêu đề cũ là câu dài; hình cũ `ann-recall.svg` chữ quá nhỏ khi chiếu; phép tính $3/5$ chỉ có trong hình; chưa có câu hỏi.
