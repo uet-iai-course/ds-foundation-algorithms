@@ -232,13 +232,25 @@ Trên mười hai điểm của ví dụ một chiều, lấy tầng 1 gồm $s,
 
 Giả sử điểm vào nằm ở tầng cao nhất $L$. Từ tầng $L$ xuống tầng 1, truy vấn gọi `SEARCH-LAYER` với $ef=1$; kết quả trở thành điểm vào cho tầng kế tiếp. Ở tầng 0, thuật toán gọi với `efSearch` và trả $K$ phần tử gần nhất. Cần `efSearch` $\ge K$ để tập động có đủ chỗ, nhưng đồ thị được tiếp cận vẫn có thể chứa ít hơn $K$ đỉnh.
 
-Khi chèn một đỉnh, lấy $U\sim\mathrm{Uniform}(0,1]$ và gán mức cao nhất
+**Rút ngẫu nhiên tầng.** Khi chèn một điểm, HNSW lấy $U\sim\mathrm{Uniform}(0,1]$ và gán tầng tối đa
 
 $$
 \ell=\left\lfloor-\ln(U)\,m_L\right\rfloor,\qquad m_L>0.
 $$
 
-Đỉnh xuất hiện ở mọi tầng từ 0 đến $\ell$. Xác suất đạt tầng cao giảm theo hàm mũ. Lựa chọn thực nghiệm $m_L=1/\ln M$ chỉ có nghĩa khi $M>1$; đây không phải điều kiện bắt buộc để thuật toán đúng.
+Với số nguyên $k\ge0$, $\ell\ge k$ khi và chỉ khi $U\le e^{-k/m_L}$, nên
+
+$$
+\Pr[\ell\ge k]=e^{-k/m_L}=p^k,\qquad p=e^{-1/m_L}.
+$$
+
+Đây là phân phối hình học như trong danh sách nhảy: mỗi tầng giữ khoảng tỷ lệ $p$ số điểm của tầng ngay dưới. Kỳ vọng số điểm có $\ell\ge k$ là $Np^k$, bằng 1 khi $k=\log_{1/p}N$, nên tầng cao nhất xấp xỉ $\log_{1/p}N$. Miền $(0,1]$ tránh $\ln 0$; mọi điểm thuộc tầng 0 vì $\ell\ge0$.
+
+::: example Tầng với $m_L=1/\ln 16$
+Khi đó $p=1/16$: khoảng $1/16$ số điểm có tầng $\ge1$ và $1/256$ có tầng $\ge2$. Với $N=10^{10}$, tầng cao nhất xấp xỉ $\log_{16}10^{10}\approx8{,}3$.
+:::
+
+Bài báo chọn $m_L=1/\ln M$, với $M$ là số lân cận được nối cho mỗi điểm mới (định nghĩa ở thao tác chèn); khi đó $p=1/M$. Đây là lựa chọn thực nghiệm, không phải điều kiện để thuật toán đúng.
 
 Nếu chỉ mục rỗng, đỉnh mới trở thành điểm vào và tạo các tầng $0,\dots,\ell$. Nếu không rỗng, việc chèn gồm hai pha.
 

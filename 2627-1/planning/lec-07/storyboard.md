@@ -28,8 +28,8 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H06 | 4 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
 | H06B | 3 | Thêm trang: ví dụ một chiều cho thấy cạnh dài giảm số bước tham lam từ 6 xuống 3; động cơ của các tầng HNSW. | chỉ cạnh ngắn → thêm cạnh dài | Princeton 09 tr.11–13; HNSW paper §3 tr.3 |
 | H07 | 4 | Cấu trúc tầng (tầng 0 chứa mọi điểm, tầng trên là tập con thưa) và cách truy vấn đi xuống, trên cùng 12 điểm của H06B. | $s\to p4\to p8$ ↓ $p8\to p6$ ↓ $p6$ | HNSW paper Fig.1, §3, tr.3; Princeton 09 tr.17 |
-| H08 | 2 | Hình thức hóa $U\in(0,1]$, $m_L>0$ và ý nghĩa hệ số mức. | $U,m_L$ → tầng tối đa và độ thưa | HNSW paper alg.1, §4.1, tr.4–5 |
 | H09 | 4 | Đặc tả truy vấn HNSW và điều kiện $efSearch\ge K$. | tìm tầng → K kết quả | HNSW paper alg.5, tr.5 |
+| H08 | 3 | Chuyển xuống sau H09. Rút tầng ngẫu nhiên; suy ra $\Pr[\ell\ge k]=p^k$, $p=e^{-1/m_L}$; ví dụ $p=1/16$, tầng cao nhất khoảng 8 khi $N=10^{10}$. | $U,m_L$ → phân phối hình học, $\log_{1/p}N$ tầng | HNSW paper alg.1 dòng 4; §3; §4.1 |
 | H10 | 4 | Đặc tả chỉ mục rỗng, pha tầng trên $ef=1$, pha cập nhật `efConstruction`, chọn ≤M, nối, cắt bằng $M_{max,0}/M_{max}$, truyền $ep\leftarrow W$ và đổi điểm vào khi $\ell>L$. | điểm mới → HNSW cập nhật; danh sách kề sau cắt có thể không đối xứng | HNSW paper alg.1, tr.4–5 |
 | H11 | 3 | Nêu quy tắc đa dạng và lý do không chỉ chọn gần nhất. | ứng viên → tối đa M cạnh nhiều hướng | HNSW paper alg.4, tr.5 |
 | H12 | 2 | Ánh xạ ba tham số sang ba chi phí. | M, efConstruction, efSearch → núm điều khiển | HNSW paper §4.1, tr.5–7 |
@@ -249,3 +249,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** điểm có tầng $\ell$ thuộc tầng $0..\ell$; vì sao $ef=1$ ở tầng trên; vết có số khoảng cách; tầng do học phần chọn, HNSW rút ngẫu nhiên.
 - **Nguồn:** Malkov–Yashunin Hình 1, mục 3 tr.3; Princeton lớp 9 tr.17.
 - **Quyết định:** sửa. Tiêu đề cũ “Điểm vào truyền từ tầng cao xuống thấp” là câu mô tả; hình cũ `hnsw-layers.svg` chữ nhỏ, không gắn với ví dụ; chuỗi $ep_2\to ep_1\to ep_0$ dùng ký hiệu chưa giải thích; trang không nói tầng nào chứa điểm nào.
+
+### H08 — Rút ngẫu nhiên tầng của điểm mới (chuyển sau H09)
+
+- **Phần:** 3. **Vai trò:** hình thức hóa và suy luận xác suất. **Thời lượng:** 3 phút.
+- **Mục đích:** tính $\Pr[\ell\ge k]$ từ công thức rút tầng và giải thích vì sao tầng trên thưa dần, số tầng tăng theo $\log N$.
+- **Câu chốt:** mỗi tầng giữ khoảng tỷ lệ $p=e^{-1/m_L}$ số điểm của tầng dưới; tầng cao nhất xấp xỉ $\log_{1/p}N$.
+- **Đầu vào:** cấu trúc tầng (H07), truy vấn đi qua các tầng (H09); xác suất cơ bản. **Thể hiện:** công thức; dòng suy luận; hai thẻ “Ý nghĩa” và “Ví dụ $m_L=1/\ln16$”; câu chốt thay số $N=10^{10}$.
+- **Kết nối vào–ra:** cho biết tập điểm mỗi tầng hình thành thế nào (bổ sung H07); giao $\ell$ cho thao tác chèn H10.
+- **Ghi chú diễn giả:** từng bước suy luận; phân phối hình học như skip list; $m_L=1/\ln M$ của bài báo với $M$ định nghĩa ở H10; số liệu mô phỏng.
+- **Nguồn:** Malkov–Yashunin Thuật toán 1 dòng 4 tr.4; mục 3 tr.3; mục 4.1 tr.5.
+- **Quyết định:** sửa và chuyển vị trí. Bản cũ chỉ có công thức và bảng ký hiệu, không cho thấy công thức sinh phân phối nào; ghi chú dùng $M$ chưa định nghĩa và dẫn chiếu “trang sau”. Rút tầng chỉ dùng khi chèn nên đặt sau giả mã truy vấn, ngay trước H10.
