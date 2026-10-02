@@ -291,6 +291,31 @@ def chen_vi_du():
         'Pha 2 nối x với p2 và p4 ở tầng 1, với p3 và p2 ở tầng 0.', b)
 
 
+def lan_can_da_dang():
+    # H11: x tại gốc; c1, c2, c3 cùng một phía, c4 phía đối diện; M = 2.
+    pts = {'c1': (2, 0.3), 'c2': (2.6, 0.9), 'c3': (2.4, -0.6), 'c4': (-3, 0.5)}
+    panels = [(0, 'Chọn 2 đỉnh gần nhất', ['c1', 'c3'], ORANGE, ''),
+              (470, 'Quy tắc đa dạng', ['c1', 'c4'], GREEN, '')]
+    b = ''
+    for ox, title, chosen, color, dash in panels:
+        X = lambda v: ox + 225 + 62 * (0 if v == 'x' else pts[v][0])
+        Y = lambda v: 210 - 62 * (0 if v == 'x' else pts[v][1])
+        b += rect(ox + 10, 20, 440, 330, '#ffffff', '#c5ccd8')
+        b += text(ox + 230, 60, title, 28, color, weight='bold')
+        for v in chosen:
+            b += line(X('x'), Y('x'), X(v), Y(v), color, width=6)
+        for v in pts:
+            b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="16" fill="#ffffff" stroke="{BLUE}" stroke-width="4"/>'
+            dy = -26 if v != 'c3' else 46
+            b += text(f'{X(v):.1f}', f'{Y(v) + dy:.1f}', v, 26, INK, weight='bold')
+        b += f'<circle cx="{X("x"):.1f}" cy="{Y("x"):.1f}" r="18" fill="{PALE_GREEN}" stroke="{GREEN}" stroke-width="4"/>'
+        b += text(f'{X("x"):.1f}', f'{Y("x") + 9:.1f}', 'x', 26, GREEN, weight='bold')
+        b += text(ox + 230, 325, '{' + ', '.join(chosen) + '}', 28, INK)
+    svg('lan-can-da-dang.svg', 920, 370, 'Chọn lân cận gần nhất và chọn đa dạng',
+        'Điểm mới x có bốn ứng viên: c1, c2, c3 cùng một phía, c4 ở phía đối diện. '
+        'Chọn hai đỉnh gần nhất cho c1 và c3 cùng phía; quy tắc đa dạng cho c1 và c4 ở hai phía.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -303,6 +328,7 @@ def main():
     do_thi_nhieu_tang()
     do_thi_nhieu_tang('do-thi-nhieu-tang-gon.svg', compact=True)
     chen_vi_du()
+    lan_can_da_dang()
 
 
 if __name__ == '__main__':
