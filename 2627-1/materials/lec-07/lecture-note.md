@@ -91,15 +91,20 @@ Chỉ mục A đạt $\operatorname{recall@10}=0{,}9$ với độ trễ 5 ms; B 
 Không. B nhanh hơn nhưng tìm lại ít hàng xóm thật hơn. Chỉ chọn được khi biết yêu cầu: với yêu cầu độ thu hồi ít nhất $0{,}85$ thì chọn A; với yêu cầu độ trễ dưới 3 ms thì chọn B.
 :::
 
-## 2. Ba cách cắt chi phí
+## 2. Hai cách giảm chi phí truy vấn
 
-LSH, đồ thị lân cận và lượng tử hóa tác động vào ba phần khác nhau của phép tìm kiếm.
+Chi phí của một truy vấn xấp xỉ bằng tích hai thừa số:
 
-- LSH tạo ngăn ứng viên bằng hàm băm nhạy cảm cục bộ, sau đó hậu kiểm.
-- HNSW tạo đường đi trên đồ thị để tránh thăm phần lớn đỉnh.
-- PQ thay véc-tơ cơ sở dữ liệu bằng dãy chỉ số tâm để giảm bộ nhớ và chi phí chấm điểm.
+$$
+\text{chi phí}\approx(\text{số véc-tơ được đo})\times(\text{chi phí một phép đo}).
+$$
 
-Ba cơ chế đều đánh đổi độ chính xác lấy tài nguyên, nhưng không thay thế nhau theo một thứ tự cố định. IVF-PQ còn ghép lọc ứng viên với mã nén.
+Quét đầy đủ có thừa số thứ nhất bằng $N$ và thừa số thứ hai bằng $\Theta(D)$. Các chỉ mục trong bài giảm một hoặc cả hai thừa số.
+
+- **Giảm số véc-tơ được đo.** LSH (Bài 06) băm $q$ bằng cùng các hàm và chỉ kiểm các véc-tơ cùng thùng. Đồ thị HNSW đi theo cạnh tới vùng gần $q$ và chỉ đo các đỉnh trên đường đi.
+- **Giảm chi phí một phép đo và bộ nhớ.** PQ thay mỗi véc-tơ $D$ số thực bằng một mã ngắn vài chục đến vài trăm byte; khoảng cách được tính bằng tra bảng.
+
+Hai hướng không loại trừ nhau. Đồ thị và LSH thường vẫn lưu véc-tơ gốc; PQ dùng một mình vẫn chấm điểm cả $N$ mã. IVF-PQ giảm cả hai thừa số: chỉ mở một phần kho rồi chấm điểm bằng mã PQ. Cả ba đều đổi một phần độ chính xác lấy thời gian hoặc bộ nhớ.
 
 ## 3. Tìm kiếm tham lam và cực tiểu cục bộ
 
