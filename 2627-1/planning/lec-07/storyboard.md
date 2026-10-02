@@ -28,7 +28,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H06 | 4 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
 | H06B | 3 | Thêm trang: ví dụ một chiều cho thấy cạnh dài giảm số bước tham lam từ 6 xuống 3; động cơ của các tầng HNSW. | chỉ cạnh ngắn → thêm cạnh dài | Princeton 09 tr.11–13; HNSW paper §3 tr.3 |
 | H07 | 4 | Cấu trúc tầng (tầng 0 chứa mọi điểm, tầng trên là tập con thưa) và cách truy vấn đi xuống, trên cùng 12 điểm của H06B. | $s\to p4\to p8$ ↓ $p8\to p6$ ↓ $p6$ | HNSW paper Fig.1, §3, tr.3; Princeton 09 tr.17 |
-| H09 | 4 | Đặc tả truy vấn HNSW và điều kiện $efSearch\ge K$. | tìm tầng → K kết quả | HNSW paper alg.5, tr.5 |
+| H09 | 4 | Đặc tả và giả mã truy vấn HNSW; hình gọn ba tầng nhắc lại vết $ep=p8$, $p6$. | tìm tầng → $K$ kết quả; $efSearch\ge K$ | HNSW paper alg.5, tr.5 |
 | H08 | 3 | Chuyển xuống sau H09. Rút tầng ngẫu nhiên; suy ra $\Pr[\ell\ge k]=p^k$, $p=e^{-1/m_L}$; ví dụ $p=1/16$, tầng cao nhất khoảng 8 khi $N=10^{10}$. | $U,m_L$ → phân phối hình học, $\log_{1/p}N$ tầng | HNSW paper alg.1 dòng 4; §3; §4.1 |
 | H10 | 4 | Đặc tả chỉ mục rỗng, pha tầng trên $ef=1$, pha cập nhật `efConstruction`, chọn ≤M, nối, cắt bằng $M_{max,0}/M_{max}$, truyền $ep\leftarrow W$ và đổi điểm vào khi $\ell>L$. | điểm mới → HNSW cập nhật; danh sách kề sau cắt có thể không đối xứng | HNSW paper alg.1, tr.4–5 |
 | H11 | 3 | Nêu quy tắc đa dạng và lý do không chỉ chọn gần nhất. | ứng viên → tối đa M cạnh nhiều hướng | HNSW paper alg.4, tr.5 |
@@ -260,3 +260,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** từng bước suy luận; phân phối hình học như skip list; $m_L=1/\ln M$ của bài báo với $M$ định nghĩa ở H10; số liệu mô phỏng.
 - **Nguồn:** Malkov–Yashunin Thuật toán 1 dòng 4 tr.4; mục 3 tr.3; mục 4.1 tr.5.
 - **Quyết định:** sửa và chuyển vị trí. Bản cũ chỉ có công thức và bảng ký hiệu, không cho thấy công thức sinh phân phối nào; ghi chú dùng $M$ chưa định nghĩa và dẫn chiếu “trang sau”. Rút tầng chỉ dùng khi chèn nên đặt sau giả mã truy vấn, ngay trước H10.
+
+### H09 — Giả mã truy vấn HNSW
+
+- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 4 phút.
+- **Mục đích:** đọc giả mã truy vấn; chỉ ra lời gọi $ef=1$ ở tầng trên và $efSearch$ ở tầng 0; nêu điều kiện $efSearch\ge K$.
+- **Câu chốt:** truy vấn là chuỗi lời gọi SEARCH-LAYER: tham lam ở tầng trên để có điểm vào, chùm $efSearch$ ở tầng 0 để có $K$ kết quả.
+- **Đầu vào:** SEARCH-LAYER (H04–H06), cấu trúc tầng (H07), nhắc lại bằng hình `do-thi-nhieu-tang-gon.svg`. **Thể hiện:** dòng đầu vào/đầu ra; giả mã 6 dòng bên trái; hình gọn và dòng vết bên phải.
+- **Kết nối vào–ra:** hình thức hóa H07; lời gọi tương tự được dùng trong pha chèn H10; $efSearch$ là núm điều khiển ở H12.
+- **Ghi chú diễn giả:** dữ kiện ví dụ; $ef=1$ là tham lam; trả ít hơn $K$ khi đồ thị tới được nhỏ; tính dừng; kết quả gần đúng theo bất biến.
+- **Nguồn:** Malkov–Yashunin Thuật toán 5 tr.5.
+- **Quyết định:** sửa. Tiêu đề cũ “Truy vấn HNSW dùng hai chế độ” mơ hồ; giả mã cũ dùng tên `điểm_vào`, `phần_tử_gần_nhất`; thiếu đầu vào/đầu ra trên mặt trang; không nối với ví dụ.

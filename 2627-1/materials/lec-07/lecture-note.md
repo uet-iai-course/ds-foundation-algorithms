@@ -230,7 +230,18 @@ Trên mười hai điểm của ví dụ một chiều, lấy tầng 1 gồm $s,
 
 ![Tầng 0 chứa mười hai điểm s, p1 đến p11; tầng 1 chứa s, p2, p4, p6, p8, p10; tầng 2 chứa s, p4, p8. Truy vấn ở tầng 2 đi s, p4, p8; xuống tầng 1 đi từ p8 sang p6; xuống tầng 0 tìm quanh p6.](img/lec-07/do-thi-nhieu-tang.svg)
 
-Giả sử điểm vào nằm ở tầng cao nhất $L$. Từ tầng $L$ xuống tầng 1, truy vấn gọi `SEARCH-LAYER` với $ef=1$; kết quả trở thành điểm vào cho tầng kế tiếp. Ở tầng 0, thuật toán gọi với `efSearch` và trả $K$ phần tử gần nhất. Cần `efSearch` $\ge K$ để tập động có đủ chỗ, nhưng đồ thị được tiếp cận vẫn có thể chứa ít hơn $K$ đỉnh.
+**Truy vấn HNSW.** Đầu vào gồm $q$, $K$ và bề rộng $efSearch\ge K$; đầu ra là tối đa $K$ đỉnh gần $q$ nhất trong các đỉnh đã thấy ở tầng 0. Điểm vào nằm ở tầng cao nhất $L$.
+
+```text
+ep ← điểm vào;  L ← tầng của ep
+for ℓc = L, L−1, …, 1:
+    W ← SEARCH-LAYER(q, {ep}, 1, ℓc)
+    ep ← đỉnh duy nhất của W
+W ← SEARCH-LAYER(q, {ep}, efSearch, 0)
+return K đỉnh gần q nhất trong W
+```
+
+Ở tầng trên, $ef=1$ biến `SEARCH-LAYER` thành tìm kiếm tham lam và $W$ có đúng một đỉnh. Trong ví dụ ba tầng, $ep$ lần lượt là $p8$ (sau tầng 2) và $p6$ (sau tầng 1); tầng 0 tìm quanh $p6$. Điều kiện $efSearch\ge K$ để $W$ có chỗ cho $K$ kết quả; nếu phần đồ thị tới được có ít hơn $K$ đỉnh thì thuật toán trả ít hơn $K$. Thuật toán kết thúc vì có hữu hạn tầng và mỗi lời gọi `SEARCH-LAYER` kết thúc; theo bất biến của `SEARCH-LAYER`, kết quả đúng trên các đỉnh đã thấy ở tầng 0.
 
 **Rút ngẫu nhiên tầng.** Khi chèn một điểm, HNSW lấy $U\sim\mathrm{Uniform}(0,1]$ và gán tầng tối đa
 
