@@ -114,17 +114,19 @@ Ví dụ dưới đây dùng một đồ thị bảy đỉnh do học phần d�
 
 ![Đồ thị bảy đỉnh e, a, b, s, t, u, z có khoảng cách tới q lần lượt 9, 7, 5, 8, 4, 2, 1; cạnh e–a, a–b, e–s, s–t, t–u, u–z; điểm vào là e.](img/lec-07/do-thi-vi-du.svg)
 
-Xét khoảng cách đến $q$. Từ $e:9$, hai lân cận là $a:7$ và $s:8$. Thuật toán tham lam luôn đi đến lân cận gần $q$ nhất nếu lân cận đó tốt hơn đỉnh hiện tại.
+**Tìm kiếm tham lam.** Ở mỗi bước, thuật toán đo các lân cận của đỉnh hiện tại và sang lân cận gần $q$ nhất nếu lân cận đó gần $q$ hơn đỉnh hiện tại; nếu không, thuật toán dừng. Ký hiệu $e:9$ nghĩa là $d(e,q)=9$.
 
-| Bước | Đỉnh hiện tại | Lân cận | Quyết định |
-|---|---|---|---|
-| 0 | $e:9$ | $a:7, s:8$ | sang $a$ |
-| 1 | $a:7$ | $b:5$ | sang $b$ |
-| 2 | $b:5$ | $a:7$ | dừng |
+| Đỉnh hiện tại | Lân cận | Quyết định |
+|---|---|---|
+| $e:9$ | $a:7,\ s:8$ | sang $a$ |
+| $a:7$ | $e:9,\ b:5$ | sang $b$ |
+| $b:5$ | $a:7$ | dừng |
 
-Điều kiện dừng chỉ nói không có lân cận trực tiếp nào tốt hơn $b$. Nó không chứng minh $b$ gần $q$ nhất toàn cục. Nhánh qua $s$ có thể dẫn đến $t:4$, $u:2$ rồi $z:1$, nhưng tìm kiếm tham lam không mở nhánh đó. Ví dụ này được dựng lại từ cơ chế trong slide Princeton lớp 9.
+![Tìm kiếm tham lam đi từ e qua a tới b có khoảng cách 5 rồi dừng; z có khoảng cách 1 nằm trên nhánh e, s, t, u.](img/lec-07/do-thi-tham-lam.svg)
 
-![Tìm kiếm tham lam đi từ e qua a đến b và bỏ lỡ nhánh s, t, u dẫn đến z gần truy vấn hơn.](img/lec-07/greedy-beam.svg)
+Đỉnh không có lân cận nào gần $q$ hơn chính nó gọi là **cực tiểu cục bộ**. Điều kiện dừng chỉ kiểm các lân cận trực tiếp, nên tham lam bảo đảm kết quả là cực tiểu cục bộ, không bảo đảm là đỉnh gần $q$ nhất. Ở ví dụ, $b:5$ là cực tiểu cục bộ trong khi $d(z,q)=1$. Nhánh $e\to s$ bị bỏ ngay ở bước đầu vì $s:8$ xa hơn $a:7$, dù chính nhánh này dẫn tới $t:4$, $u:2$, $z:1$.
+
+Thuật toán dừng vì khoảng cách giảm nghiêm ngặt sau mỗi bước và đồ thị hữu hạn. Nếu khoảng cách đã đo được ghi nhớ, ví dụ cần 4 phép đo ($e$; $a$ và $s$; $b$) và không đo $t,u,z$. Đồ thị và khoảng cách do học phần dựng từ cơ chế trong slide Princeton lớp 9, tr.8.
 
 ::: exercise Tự kiểm
 Điều kiện dừng ở $b$ chứng minh được kết luận nào?

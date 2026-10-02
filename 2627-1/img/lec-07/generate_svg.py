@@ -125,9 +125,9 @@ def do_thi_vi_du(name, mode):
     if mode == 'base':
         pass
     elif mode == 'greedy':
-        b += line(590, 176, 642, 176, ORANGE, width=7) + text(900, 186, 'tham lam', 28, INK, 'end')
+        b += line(716, 176, 768, 176, ORANGE, width=7) + text(900, 186, 'tham lam', 28, INK, 'end')
     else:
-        b += line(590, 176, 642, 176, GREEN, '14 8', width=7) + text(900, 186, 'tìm kiếm chùm', 28, INK, 'end')
+        b += line(640, 176, 692, 176, GREEN, '14 8', width=7) + text(900, 186, 'tìm kiếm chùm', 28, INK, 'end')
     titles = {
         'base': ('Đồ thị lân cận ví dụ',
                  'Bảy đỉnh e, a, b, s, t, u, z có khoảng cách tới q lần lượt 9, 7, 5, 8, 4, 2, 1; '
