@@ -977,3 +977,18 @@
 .reveal.course-deck.lecture-lsh .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
 
 .reveal.course-deck.lecture-lsh .lsh-orientation { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 36px; align-items: center; }
+
+/* Bài 07: bố cục, hình và hộp câu hỏi; dùng thang chữ course-deck. */
+.reveal.course-deck.lecture-ann .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
+.reveal.course-deck.lecture-ann .ann-figure { margin: 10px 0; }
+.reveal.course-deck.lecture-ann .ann-figure img { display: block; width: 100%; max-height: 360px; margin: 0 auto; object-fit: contain; }
+.reveal.course-deck.lecture-ann .ann-short img { max-height: 270px; }
+.reveal.course-deck.lecture-ann .ex-grid2 > div { min-width: 0; }
+.reveal.course-deck.lecture-ann .ann-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.reveal.course-deck.lecture-ann .ann-grid3 h3,
+.reveal.course-deck.lecture-ann .ex-card h3 { font-size: 1em; color: #2f3e7a; text-transform: none; margin: 0 0 .25em; }
+.reveal.course-deck.lecture-ann .ex-card.ann-accent { border-left-color: #b15a2b; background: #fdf6ef; }
+.reveal.course-deck.lecture-ann .ex-card.ann-good { border-left-color: #2f7d5b; background: #f0f8f4; }
+.reveal.course-deck.lecture-ann .ann-question { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: 10px 16px; margin-top: 16px; }
+.reveal.course-deck.lecture-ann .ann-blank { height: 1.2em; border-bottom: 2px dotted #777; }
+.reveal.course-deck.lecture-ann .ann-code-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }

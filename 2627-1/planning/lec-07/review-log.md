@@ -170,3 +170,23 @@ Phạm vi rà lại: các trang vừa sửa (A00, A01, H05, H06, Q06, Q07, I01, 
 - Viewer ở 1280×720 và 390×844: 26 heading, 19 mục lục, 193 công thức KaTeX, 9 SVG và 6 khối gập; không lỗi, không ảnh hỏng, không tràn ngang. Khối gập mở bằng bàn phím, mở khi in; PDF viewer có 16 trang. Traversal và cặp `doc`/`deck` lệch số bài đều bị từ chối.
 - `index.html` có đúng một liên kết Bài 07 với nhãn “Ghi chú bài giảng”; một lần nhấp mở đúng note và deck.
 - Dự án Codex Slides `20260827193022-b-i-7-ch-m-c-h-ng-x-m-g-n-ng-4lo7` truy xuất thành công nhưng vẫn ở checkpoint `clarify`, trạng thái draft, 0 slide. Vì vậy kiểm định trực quan cuối dựa trên RevealJS/Chromium thật; không tuyên bố Codex Slides đã render 47 trang.
+
+## Duyệt từng trang ngày 03/10/2026
+
+Yêu cầu của người dùng: duyệt lần lượt từng trang Bài 07; với mỗi trang xác định trang muốn nói gì, vấn đề còn lại và đề xuất sửa; sửa để tiêu đề ngắn gọn, học thuật, lập luận chặt, khái niệm không xuất hiện đột ngột; giảm chữ và giải thích dài; không dẫn chiếu ví dụ ở trang trước mà dùng hình để nhắc lại dữ kiện; sau mỗi trang sửa phần tương ứng của `lecture-note.md`, cập nhật mục Bài 07 trong `index.html`, commit và push. Sau cùng rà lại toàn bài từ góc nhìn sinh viên.
+
+Cách làm như lượt Bài 05–06: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) biên tập từng trang, tự kiểm theo `no-ai-slop`/`eval.md`, tính lại phép tính bằng chương trình; sau mỗi phần, một tác tử rà chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5) kiểm độ chính xác, mạch và góc nhìn sinh viên. Kiểm hiển thị bằng Playwright Chromium ở 1600 × 900 và 390 × 844 (chế độ cuộn của Reveal), ghi chú ở 1440 × 900, 390 × 844 và in; máy chủ `python3 -m reloadserver 8775` chạy từ gốc kho. Lỗi CSP trong trình xem ghi chú do máy chủ phát triển chèn một script nội tuyến vào trang; tệp `material-viewer.html` trong kho không có script này, nên lỗi được loại khỏi kết quả kiểm. Ảnh chụp lưu ngoài kho tại `/tmp/lec07-work/shots/` vì thư mục scratchpad của phiên không còn dùng được. Quy ước số thập phân: trang nào được sửa thì dùng dấu phẩy (`0{,}25`) như Bài 04–06.
+
+### Bước chuẩn bị: chuyển sang CSS dùng chung và mục index
+
+| Vị trí | Vấn đề | Bằng chứng | Quyết định |
+|---|---|---|---|
+| `<head>` của deck | (nghiêm trọng) Deck có khối `<style>` riêng, đặt cỡ chữ `.9em`, `.small` `.82em`, `.tiny` `.72em`; vi phạm quy định chỉ dùng `lecture-style.css`. | Khối `<style>` dòng 8–10 bản trước. | Bỏ khối `<style>`. Gốc deck mang `.course-deck.lecture-ann`; trang nội dung dùng `example-slide` và các lớp chung `ex-grid2`, `ex-card`, `ex-equation`, `ex-table`, `ex-code`, `ex-takeaway`. Bố cục riêng (`ann-figure`, `ann-short`, `ann-grid3`, thẻ nhấn `ann-accent`/`ann-good`, hộp `ann-question`, ô trống `ann-blank`, `ann-code-split`) thêm vào `lecture-style.css` trong phạm vi `.reveal.course-deck.lecture-ann`. Nội dung chữ chưa đổi; sửa nội dung làm theo từng trang ở dưới. |
+| Giả mã H05, H09, R00, R02, R06 | (trung bình) Giả mã đặt trong `<div class="code">`, không có `data-trim`. | Tiêu chuẩn mục 3, khối mã. | Đổi sang `<pre class="ex-code"><code class="language-plaintext" data-trim>`. |
+| P00 | (nhẹ) Trang tiêu đề không theo mẫu chung. | So với Bài 06. | Dùng `title-slide`, `lecture-title`, `supporting-text`, `course-name`, `term-name`, `institution-name`. |
+| Mở phần A00, H00, Q00, I00, R00 | (nhẹ) Dùng `<h1>` có cỡ chữ của theme, khác các trang cùng phần. | Bản render. | Đổi sang `<h2>`. |
+| I01 | (nghiêm trọng) Công thức miền argmin không render: ký tự `<` thô trong `\min_{0\le i<k_c}` cắt HTML. | Ảnh chụp hiện chuỗi `$$a(y)\in\arg\min_{0\le i`. | Đổi thành `&lt;`. Script kiểm thêm phép dò ký tự `$` còn sót ngoài KaTeX. |
+| Cấu hình Reveal | (nhẹ) Thiếu đoạn nạp KaTeX cho cửa sổ ghi chú diễn giả. | So với Bài 06. | Dùng cùng khối script của Bài 06. |
+| `index.html` | Bài 07 chưa có mục. | Index dừng ở Bài 6. | Thêm thẻ Bài 7 với liên kết deck và ghi chú theo yêu cầu của người dùng trong lượt này. |
+
+Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`, cỡ chữ nhỏ nhất ngoài KaTeX 23,7 px; 390 × 844 không tràn ngang; không lỗi console, không yêu cầu mạng ngoài máy chủ cục bộ; điều hướng bàn phím hoạt động. Ghi chú render được ở 1440 × 900, 390 × 844 và in, không lỗi KaTeX. Phạm vi CSS chung: chỉ thêm khối `.lecture-ann`; đã mở Bài 02 và Bài 03 ở hai khổ, không lỗi và không phần tử nào khớp `.lecture-ann`.
