@@ -196,9 +196,17 @@ Phần tử xa nhất $f$ của $W$ là ngưỡng chấp nhận. Khi $|W|<ef$, �
 
 Lệnh `break` chạy khi đỉnh gần nhất còn trong $C$ đã xa $q$ hơn $f$. Khi đó mọi đỉnh của $W$ đều đã được mở, vì một đỉnh của $W$ còn trong $C$ sẽ gần $q$ hơn $c$, trái với cách chọn $c$. Mở tiếp các ứng viên xa hơn vẫn có thể gặp đỉnh tốt hơn; dừng ở đây là đánh đổi để giới hạn số phép đo, nên kết quả là gần đúng. Thuật toán kết thúc vì mỗi đỉnh vào $V$ và $C$ nhiều nhất một lần và tầng hữu hạn.
 
-Trong vòng lặp, $W$ chứa không quá $ef$ đỉnh tốt nhất trong số các đỉnh được chấp nhận vào vùng khám phá. Mỗi đỉnh vào $V$ nhiều nhất một lần. Thuật toán dừng khi $C$ rỗng hoặc ứng viên tốt nhất chưa mở xa hơn phần tử xa nhất trong $W$.
+**Bất biến.** Sau mỗi lần một đỉnh mới vào $V$, $W$ là một tập gồm $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất.
 
-Bất biến này không bảo đảm tìm được hàng xóm toàn cục: vùng tốt có thể không nối với phần đã khám phá bằng một đường đủ hấp dẫn. Trường hợp xấu vẫn có thể phải thăm tuyến tính theo số đỉnh và cạnh của tầng.
+- *Khởi tạo:* $V=W=ep$ và $|ep|\le ef$.
+- *Duy trì:* khi $|W|<ef$, mọi đỉnh mới đều vào $W$, nên $W=V$. Khi $|W|=ef$, đỉnh mới $e$ hoặc gần $q$ hơn đỉnh xa nhất $f$ của $W$, khi đó $e$ thay $f$ và $W$ là $ef$ đỉnh gần nhất của $V\cup\{e\}$; hoặc không gần hơn, khi đó $e$ không thuộc $ef$ đỉnh gần nhất và $W$ giữ nguyên. Chữ “một tập” xử lý trường hợp hòa khoảng cách.
+- *Khi dừng:* $W$ đúng trên $V$, nhưng đỉnh ngoài $V$ không được xét.
+
+Ở lần chạy $ef=2$, thuật toán dừng với $V=\{e,a,s,b\}$ và $W=\{b{:}5,a{:}7\}$, đúng là hai đỉnh gần nhất trong bốn đỉnh đã thấy; $z{:}1$ chưa bao giờ được thấy vì $s$ không được mở.
+
+![Với ef bằng 2 và điểm vào e, thuật toán dừng khi đã thấy e, a, s, b; W gồm b và a; t, u, z chưa được thấy.](img/lec-07/do-thi-ef2.svg)
+
+Bất biến vì vậy không bảo đảm tìm được hàng xóm toàn cục: vùng tốt có thể không nối với phần đã thấy bằng một đường mà thuật toán chọn mở. Trường hợp xấu, thuật toán thăm mọi đỉnh và cạnh của tầng.
 
 ::: exercise Tự kiểm
 Vì sao tăng $ef$ thường giúp recall nhưng làm truy vấn tốn hơn?

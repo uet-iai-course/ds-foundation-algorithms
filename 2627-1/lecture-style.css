@@ -996,3 +996,5 @@
 .reveal.course-deck.lecture-ann .ann-figure-split { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; }
 .reveal.course-deck.lecture-ann .ann-trace-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
 .reveal.course-deck.lecture-ann .example-slide .ann-compact th, .reveal.course-deck.lecture-ann .example-slide .ann-compact td { padding: 5px 10px; }
+.reveal.course-deck.lecture-ann .ann-mini img { max-height: 210px; }
+.reveal.course-deck.lecture-ann .ex-table th[scope="row"] { white-space: nowrap; }

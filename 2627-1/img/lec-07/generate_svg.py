@@ -106,13 +106,19 @@ def do_thi_vi_du(name, mode):
         if mode == 'beam' and (u, v) in beam:
             color, width, dash = GREEN, 7, '14 8'
         b += line(X(u), Y(u), X(v), Y(v), color, dash, width=width)
+    seen2, w2 = {'e', 'a', 's', 'b'}, {'a', 'b'}
     for v in GRAPH_POS:
         fill, stroke = '#ffffff', BLUE
+        if mode == 'seen2':
+            if v in w2:
+                b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="34" fill="none" stroke="{BLUE}" stroke-width="5"/>'
+            fill, stroke = (PALE_BLUE, BLUE) if v in seen2 else ('#ffffff', '#9aa6b8')
         if mode == 'greedy' and v == 'b':
             fill, stroke = PALE_ORANGE, ORANGE
         if mode == 'beam' and v == 'z':
             fill, stroke = PALE_GREEN, GREEN
-        b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="25" fill="{fill}" stroke="{stroke}" stroke-width="4"/>'
+        dash_attr = ' stroke-dasharray="6 5"' if mode == 'seen2' and v not in seen2 else ''
+        b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="25" fill="{fill}" stroke="{stroke}" stroke-width="4"{dash_attr}/>'
         b += text(f'{X(v):.1f}', f'{Y(v) + 11:.1f}', v, 32, INK, weight='bold')
         dx, dy = GRAPH_LABEL[v]
         b += text(f'{X(v) + dx:.1f}', f'{Y(v) + dy:.1f}', GRAPH_DIST[v], 30, BLUE)
@@ -122,7 +128,11 @@ def do_thi_vi_du(name, mode):
     b += text(900, 40, 'số màu xanh:', 28, BLUE, 'end')
     b += text(900, 78, 'khoảng cách tới q', 28, BLUE, 'end')
     b += text(900, 116, 'điểm vào: e', 28, INK, 'end')
-    if mode == 'base':
+    if mode == 'seen2':
+        b += f'<circle cx="680" cy="168" r="16" fill="{PALE_BLUE}" stroke="{BLUE}" stroke-width="4"/>' + text(900, 178, 'đã thấy (V)', 28, INK, 'end')
+        b += f'<circle cx="680" cy="226" r="16" fill="#ffffff" stroke="#9aa6b8" stroke-width="4" stroke-dasharray="6 5"/>' + text(900, 236, 'chưa thấy', 28, INK, 'end')
+        b += f'<circle cx="680" cy="284" r="20" fill="none" stroke="{BLUE}" stroke-width="5"/>' + text(900, 294, 'W, ef = 2', 28, INK, 'end')
+    if mode in ('base', 'seen2'):
         pass
     elif mode == 'greedy':
         b += line(716, 176, 768, 176, ORANGE, width=7) + text(900, 186, 'tham lam', 28, INK, 'end')
@@ -135,6 +145,9 @@ def do_thi_vi_du(name, mode):
         'greedy': ('Tìm kiếm tham lam dừng ở b',
                    'Từ e, tham lam đi qua a tới b (khoảng cách 5) rồi dừng vì lân cận duy nhất của b là a; '
                    'z ở khoảng cách 1 nằm trên nhánh s, t, u.'),
+        'seen2': ('SEARCH-LAYER với ef bằng 2 dừng sớm',
+                  'Với ef bằng 2 và điểm vào e, thuật toán dừng khi đã thấy e, a, s, b; W gồm b và a; '
+                  't, u, z chưa được thấy.'),
         'beam': ('Tìm kiếm chùm đi tới z',
                  'Tìm kiếm chùm với ef bằng 3 giữ s trong hàng đợi, sau khi b không còn lân cận mới thì mở s, '
                  'rồi đi qua t, u tới z ở khoảng cách 1.'),
@@ -165,6 +178,7 @@ def main():
     do_thi_vi_du('do-thi-tham-lam.svg', 'greedy')
     do_thi_vi_du('do-thi-chum.svg', 'beam')
     trang_thai_search_layer()
+    do_thi_vi_du('do-thi-ef2.svg', 'seen2')
 
 
 if __name__ == '__main__':

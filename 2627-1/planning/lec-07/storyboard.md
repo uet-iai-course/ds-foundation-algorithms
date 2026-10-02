@@ -25,7 +25,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H03 | 5 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
 | H04 | 3 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
 | H05 | 5 | Giả mã `SEARCH-LAYER` theo Thuật toán 2; nối dòng tính lại ngưỡng $f$ với bước mở $s$ của ví dụ. | $V,C,W$ → thuật toán; ngưỡng $8\to7$ | HNSW paper alg.2, tr.4 |
-| H06 | 4 | Phát biểu bất biến đúng phạm vi; dùng vết H03 để thấy ngưỡng đổi 8→7. | tiền tố duyệt → trạng thái hợp lệ, không lặp đỉnh | suy ra từ alg.2 |
+| H06 | 4 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
 | H07 | 4 | Truyền điểm vào từ tầng cao xuống tầng thấp trước khi mở rộng ở tầng đáy. | $ep_2\to ep_1\to ep_0\to W$ | HNSW paper Fig.1, tr.3; Princeton 09 tr.17–18 |
 | H08 | 2 | Hình thức hóa $U\in(0,1]$, $m_L>0$ và ý nghĩa hệ số mức. | $U,m_L$ → tầng tối đa và độ thưa | HNSW paper alg.1, §4.1, tr.4–5 |
 | H09 | 4 | Đặc tả truy vấn HNSW và điều kiện $efSearch\ge K$. | tìm tầng → K kết quả | HNSW paper alg.5, tr.5 |
@@ -215,3 +215,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** vì sao tính lại $f$; lập luận khi `break` mọi đỉnh của $W$ đã mở; dừng ở đó là đánh đổi; tính dừng.
 - **Nguồn:** Malkov–Yashunin Thuật toán 2 tr.4.
 - **Quyết định:** sửa. Tiêu đề cũ “SEARCH-LAYER cập nhật ngưỡng sau mỗi điểm” là câu mô tả; giả mã cũ dùng tên `hàng_đợi_gần_nhất`, `lân_cận` và dồn hai thao tác vào một dòng; không có liên hệ với ví dụ.
+
+### H06 — Bất biến của SEARCH-LAYER
+
+- **Phần:** 3. **Vai trò:** lập luận đúng và giới hạn. **Thời lượng:** 4 phút.
+- **Mục đích:** phát biểu bất biến, chứng minh bằng khởi tạo–duy trì–khi dừng, và chỉ ra kết luận chỉ đúng trên tập đỉnh đã thấy.
+- **Câu chốt:** $W$ luôn là $\min(ef,|V|)$ đỉnh gần $q$ nhất trong $V$; đỉnh ngoài $V$ không được bảo đảm.
+- **Đầu vào:** giả mã H05; câu hỏi $ef=2$ ở H03, nhắc lại bằng hình `do-thi-ef2.svg` (đỉnh đã thấy tô xanh, đỉnh chưa thấy viền đứt, $W$ viền kép). **Thể hiện:** mệnh đề ở dòng đầu; hình bên trái, bảng ba hàng bên phải; câu chốt ví dụ.
+- **Kết nối vào–ra:** chứng minh tính đúng của H05; giới hạn “ngoài $V$” tạo nhu cầu điểm vào tốt (H07).
+- **Ghi chú diễn giả:** chứng minh bước duy trì; xử lý hòa; ví dụ $ef=2$; tính dừng; trường hợp xấu.
+- **Nguồn:** suy ra từ Thuật toán 2, Malkov–Yashunin tr.4; bất biến kiểm bằng chương trình trên đồ thị ví dụ và 3000 đồ thị ngẫu nhiên.
+- **Quyết định:** sửa. Bản cũ chỉ liệt kê tính chất của $V$, $C$, $W$, thiếu khởi tạo–duy trì–kết luận (tiêu chuẩn mục 3); phát biểu về $W$ yếu (“trong số đỉnh đã được chấp nhận”); ví dụ chỉ ở ghi chú và dẫn chiếu “ví dụ tìm kiếm chùm”.
