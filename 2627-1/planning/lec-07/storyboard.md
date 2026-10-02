@@ -22,7 +22,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | A03 | 3 | Tách chi phí truy vấn thành số véc-tơ được đo nhân chi phí một phép đo; gắn LSH, HNSW, PQ, IVF-PQ vào thừa số mỗi cấu trúc giảm. | $\Theta(ND)$ → hai thừa số → bản đồ cấu trúc | MMDS Ch.3; Princeton 09 tr.4,5,7; Princeton 08 tr.2 |
 | H00 | 3 | Định nghĩa đồ thị lân cận trên đồ thị ví dụ bảy đỉnh; nêu dữ liệu lưu và ý tưởng đi tới đỉnh gần $q$ hơn. | véc-tơ → đỉnh, cạnh, điểm vào | Princeton 09 tr.7–8 |
 | H01 | 7 | Chạy tay tham lam trên đồ thị ví dụ (hình và bảng vết cùng trang); định nghĩa cực tiểu cục bộ. Gộp H02 cũ. | $e:9\to a:7\to b:5$ → dừng ở cực tiểu cục bộ, bỏ $z:1$ | Princeton 09 tr.8, 11–13; ví dụ dựng từ cơ chế nguồn |
-| H03 | 3 | Theo vết $C,W$ với $ef=3$ để giữ nhánh s và thoát cực tiểu. | $e,a,b,s$ → mở $t$, rồi $u,z$ | Princeton 09 tr.9; HNSW paper alg.2 |
+| H03 | 5 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
 | H04 | 3 | Đặc tả tầng hữu hạn, $ef\ge1$, $1\le|ep|\le ef$ và kiểu đầu ra của `SEARCH-LAYER`. | tập điểm vào không rỗng → W khởi tạo hợp lệ | HNSW paper tr.4 |
 | H05 | 5 | Đưa giả mã và tính lại phần tử xa nhất của $W$ sau mỗi cập nhật. | $V,C,W$ → thuật toán tầng có ngưỡng hiện thời | HNSW paper alg.2, tr.4 |
 | H06 | 4 | Phát biểu bất biến đúng phạm vi; dùng vết H03 để thấy ngưỡng đổi 8→7. | tiền tố duyệt → trạng thái hợp lệ, không lặp đỉnh | suy ra từ alg.2 |
@@ -182,3 +182,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** định nghĩa cực tiểu cục bộ; vì sao điều kiện dừng không bảo đảm toàn cục; dừng do khoảng cách giảm nghiêm ngặt; 4 phép đo.
 - **Nguồn:** Princeton lớp 9 tr.8 (tham lam, cực tiểu cục bộ, không quay lui), tr.11–13.
 - **Quyết định:** gộp. H01 cũ (hình + một câu) và H02 cũ (bảng vết) cùng một luận điểm; tách hai trang buộc H02 dựa vào hình ở trang trước. Bảng cũ ghi lân cận của $a$ chỉ là $b:5$, thiếu $e:9$; bảng mới liệt kê đủ. Hình cũ `greedy-beam.svg` (vị trí không theo tỷ lệ khoảng cách, gộp hai thuật toán trong một hình) được thay bằng hai biến thể của đồ thị ví dụ.
+
+### H03 — Tìm kiếm chùm
+
+- **Phần:** 3. **Vai trò:** trực giác và ví dụ chạy tay trước khi hình thức hóa. **Thời lượng:** 5 phút.
+- **Mục đích:** chạy tay tìm kiếm chùm, theo dõi $C$ và $W$, giải thích vì sao giữ nhánh dự phòng giúp thoát cực tiểu cục bộ.
+- **Câu chốt:** $s$ còn trong $C$ khi nhánh $b$ hết lân cận mới, nên tìm kiếm chùm $ef=3$ đi tiếp tới $z$; $ef=1$ trùng tham lam.
+- **Đầu vào:** đồ thị ví dụ, vẽ lại bằng `do-thi-chum.svg`; khái niệm cực tiểu cục bộ (H01). **Thể hiện:** dòng định nghĩa $C$, $W$, $ef$; hình cạnh bảng vết 7 hàng (lớp `ann-compact`); hộp câu hỏi.
+- **Kết nối vào–ra:** giải quyết giới hạn của H01; giao vết $C$, $W$ cho đặc tả H04, giả mã H05 và bất biến H06.
+- **Kiểm tra:** $ef=2$; đáp án: dừng khi đỉnh kế tiếp $s{:}8$ xa hơn $a{:}7$, trả $\{b,a\}$ (mô phỏng lại theo Thuật toán 2).
+- **Nguồn:** Princeton lớp 9 tr.9; Malkov–Yashunin Thuật toán 2 tr.4.
+- **Quyết định:** sửa. Bản cũ dùng $C$, $W$, “hàng đợi” trước khi định nghĩa; không có hình; vết dừng ở $s$, phần còn lại chỉ ở ghi chú; câu chốt dài hai dòng.

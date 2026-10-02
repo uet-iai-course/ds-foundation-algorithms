@@ -995,3 +995,4 @@
 .reveal.course-deck.lecture-ann .ann-orientation { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; }
 .reveal.course-deck.lecture-ann .ann-figure-split { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: center; }
 .reveal.course-deck.lecture-ann .ann-trace-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+.reveal.course-deck.lecture-ann .example-slide .ann-compact th, .reveal.course-deck.lecture-ann .example-slide .ann-compact td { padding: 5px 10px; }

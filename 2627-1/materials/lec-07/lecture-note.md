@@ -138,7 +138,31 @@ $b$ là cực tiểu cục bộ đối với các cạnh đã cho. Điều kiệ
 
 ## 4. Tìm kiếm chùm và `SEARCH-LAYER`
 
-Tìm kiếm chùm giữ nhiều hướng có triển vọng. Với ví dụ trên và $ef=3$, tập làm việc lần lượt là $\{e:9\}$; $\{a:7,s:8,e:9\}$ sau khi mở $e$; $\{b:5,a:7,s:8\}$ sau khi mở $a$; rồi $\{t:4,b:5,a:7\}$ sau khi mở $s$. Nhờ giữ nhánh $s$, thuật toán còn đường đến $u$ và $z$.
+**Tìm kiếm chùm** giữ nhiều hướng thay vì một. Thuật toán duy trì hai tập: $C$ gồm các đỉnh đã thấy nhưng chưa mở, và $W$ gồm tối đa $ef$ đỉnh gần $q$ nhất đã thấy. Mỗi bước mở đỉnh gần $q$ nhất trong $C$. Một lân cận chưa thấy được thêm vào $C$ và $W$ khi $W$ chưa đủ $ef$ phần tử hoặc lân cận đó gần $q$ hơn phần tử xa nhất của $W$; nếu $W$ vượt $ef$ thì bỏ phần tử xa nhất. Thuật toán dừng khi $C$ rỗng hoặc đỉnh sắp mở xa $q$ hơn phần tử xa nhất của $W$.
+
+Trên đồ thị ví dụ với điểm vào $e$ và $ef=3$:
+
+| Mở | $C$ sau bước | $W$ sau bước |
+|---|---|---|
+| $e$ | $a{:}7,\ s{:}8$ | $a{:}7,\ s{:}8,\ e{:}9$ |
+| $a$ | $b{:}5,\ s{:}8$ | $b{:}5,\ a{:}7,\ s{:}8$ |
+| $b$ | $s{:}8$ | $b{:}5,\ a{:}7,\ s{:}8$ |
+| $s$ | $t{:}4$ | $t{:}4,\ b{:}5,\ a{:}7$ |
+| $t$ | $u{:}2$ | $u{:}2,\ t{:}4,\ b{:}5$ |
+| $u$ | $z{:}1$ | $z{:}1,\ u{:}2,\ t{:}4$ |
+| $z$ | rỗng | $z{:}1,\ u{:}2,\ t{:}4$ |
+
+![Tìm kiếm chùm với ef bằng 3 giữ s trong hàng đợi; khi b không còn lân cận mới, thuật toán mở s rồi đi qua t, u tới z có khoảng cách 1.](img/lec-07/do-thi-chum.svg)
+
+Khi mở $b$, lân cận duy nhất $a$ đã thấy, nhưng $s{:}8$ vẫn nằm trong $C$; đó là nhánh dự phòng mà tham lam đã bỏ. Với $ef=1$, quy tắc trùng tìm kiếm tham lam và dừng ở $b$.
+
+::: exercise Tự kiểm
+Chạy lại tìm kiếm chùm trên đồ thị ví dụ với $ef=2$. Thuật toán dừng ở bước nào và trả $W$ nào?
+:::
+
+::: solution
+Sau khi mở $e$, $W=\{a{:}7,s{:}8\}$ ($e$ bị bỏ vì xa nhất). Mở $a$ thêm $b{:}5$ và bỏ $s$, nên $W=\{b{:}5,a{:}7\}$. Mở $b$ không thêm gì. Đỉnh kế tiếp trong $C$ là $s{:}8$, xa hơn phần tử xa nhất $a{:}7$ của $W$, nên thuật toán dừng và trả $\{b,a\}$. Chùm phải đủ rộng để giữ $s$ trong $W$ thì mới đi tiếp qua nhánh $s$.
+:::
 
 `SEARCH-LAYER(q,ep,ef,ℓ)` dùng tập điểm vào $ep$ với $1\le |ep|\le ef$. Ba tập trạng thái gồm $C$, hàng đợi ứng viên chưa mở; $W$, tối đa $ef$ đỉnh tốt nhất đã gặp; và $V$, các đỉnh đã thăm.
 
