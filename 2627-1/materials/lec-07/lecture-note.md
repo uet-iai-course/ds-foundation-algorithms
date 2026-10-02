@@ -46,11 +46,13 @@ $$
 
 chưa kể mã định danh. Quét toàn kho cho một truy vấn phải xử lý $ND\approx3{,}07\cdot10^{13}$ tọa độ. Giả sử một máy xử lý $10^{12}$ tọa độ mỗi giây, một truy vấn mất khoảng 30,7 giây, chưa tính thời gian đọc 122,88 TB từ bộ nhớ. Bài này xây các chỉ mục để tránh lượt quét đó.
 
-Đầu vào bài toán là $Y$, truy vấn $q$, hàm khoảng cách $d$ và số nguyên $K$. Đầu ra gồm $K$ mã định danh phân biệt. Khi hai điểm cách $q$ bằng nhau, ta phá hòa theo $(d(q,y),\operatorname{id}(y))$. Nhờ đó tập đúng $N_K(q)$ được xác định duy nhất.
+**Bài toán $K$ hàng xóm gần nhất.** Cho kho $Y=\{y_1,\dots,y_N\}\subset\mathbb R^D$, truy vấn $q\in\mathbb R^D$, hàm khoảng cách $d$ và số nguyên $1\le K\le N$. Tìm đúng trả tập $N_K(q)$ gồm $K$ điểm có $d(q,y)$ nhỏ nhất. Khi hai điểm cách $q$ bằng nhau, điểm có mã định danh nhỏ hơn đứng trước, tức thứ tự xét theo cặp $(d(q,y),\operatorname{id}(y))$; nhờ đó $N_K(q)$ xác định duy nhất.
 
-Quét đầy đủ tính khoảng cách từ $q$ đến mọi điểm. Với khoảng cách Euclid tốn $\Theta(D)$ cho mỗi điểm, tổng chi phí là $\Theta(ND)$.
+Quét đầy đủ tính $N$ khoảng cách. Một khoảng cách Euclid xử lý $D$ cặp tọa độ, nên tổng chi phí là $\Theta(ND)$ phép toán trên tọa độ; với $N=10^{10}$ và $D=3072$ là $3{,}07\cdot10^{13}$. Chi phí tuyến tính theo $N$ làm cách này không dùng được cho kho rất lớn.
 
-Chỉ mục gần đúng trả về $\widehat N_K(q)$, không nhất thiết trùng với $N_K(q)$. Độ thu hồi tại $K$ là
+**Tìm hàng xóm gần đúng (Approximate Nearest Neighbor, ANN)** nới điều kiện của tìm đúng: chỉ mục trả một tập $\widehat N_K(q)$ gồm $K$ điểm, có thể thiếu một số điểm của $N_K(q)$, đổi lại chỉ phải đo một phần kho.
+
+Chất lượng của $\widehat N_K(q)$ được đo bằng độ thu hồi tại $K$:
 
 $$
 \operatorname{recall@K}(q)=\frac{|\widehat N_K(q)\cap N_K(q)|}{K}.
