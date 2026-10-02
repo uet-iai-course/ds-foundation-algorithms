@@ -81,7 +81,7 @@ Các chỉ mục gần đúng đánh đổi chất lượng lấy thời gian v�
 | Chất lượng | $\operatorname{recall@K}$ trung bình | tập truy vấn, $K$, tập đúng |
 | Truy vấn | độ trễ, số khoảng cách | phần cứng, số luồng |
 | Xây dựng | thời gian, dữ liệu huấn luyện | tham số chỉ mục |
-| Bộ nhớ | byte mỗi véc-tơ, phụ phí | có lưu véc-tơ gốc hay không |
+| Bộ nhớ | byte mỗi véc-tơ, kể cả cấu trúc chỉ mục | có lưu véc-tơ gốc hay không |
 
 ::: exercise Tự kiểm
 Chỉ mục A đạt $\operatorname{recall@10}=0{,}9$ với độ trễ 5 ms; B đạt $0{,}7$ với 2 ms. Có thể kết luận B tốt hơn không?
@@ -104,7 +104,7 @@ Quét đầy đủ có thừa số thứ nhất bằng $N$ và thừa số thứ
 - **Giảm số véc-tơ được đo.** LSH (Bài 06) băm $q$ bằng cùng các hàm và chỉ kiểm các véc-tơ cùng thùng. Đồ thị HNSW đi theo cạnh tới vùng gần $q$ và chỉ đo các đỉnh trên đường đi.
 - **Giảm chi phí một phép đo và bộ nhớ.** PQ thay mỗi véc-tơ $D$ số thực bằng một mã ngắn vài chục đến vài trăm byte; khoảng cách được tính bằng tra bảng.
 
-Hai hướng không loại trừ nhau. Đồ thị và LSH thường vẫn lưu véc-tơ gốc; PQ dùng một mình vẫn chấm điểm cả $N$ mã. IVF-PQ giảm cả hai thừa số: chỉ mở một phần kho rồi chấm điểm bằng mã PQ. Cả ba đều đổi một phần độ chính xác lấy thời gian hoặc bộ nhớ.
+Hai hướng không loại trừ nhau. Đồ thị và LSH thường vẫn lưu véc-tơ gốc; PQ dùng một mình vẫn chấm điểm cả $N$ mã. IVF-PQ giảm cả hai thừa số: chỉ mở một phần kho rồi chấm điểm bằng mã PQ. Mọi cấu trúc trên đều đổi một phần độ chính xác lấy thời gian hoặc bộ nhớ.
 
 ## 3. Đồ thị lân cận và tìm kiếm tham lam
 
