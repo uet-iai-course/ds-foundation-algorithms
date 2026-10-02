@@ -106,9 +106,13 @@ Quét đầy đủ có thừa số thứ nhất bằng $N$ và thừa số thứ
 
 Hai hướng không loại trừ nhau. Đồ thị và LSH thường vẫn lưu véc-tơ gốc; PQ dùng một mình vẫn chấm điểm cả $N$ mã. IVF-PQ giảm cả hai thừa số: chỉ mở một phần kho rồi chấm điểm bằng mã PQ. Cả ba đều đổi một phần độ chính xác lấy thời gian hoặc bộ nhớ.
 
-## 3. Tìm kiếm tham lam và cực tiểu cục bộ
+## 3. Đồ thị lân cận và tìm kiếm tham lam
 
-Đồ thị lân cận giữ nguyên hàm khoảng cách; nó chỉ thay cách chọn véc-tơ cần đo. Mỗi đỉnh là một véc-tơ và cạnh dẫn đến các đỉnh lân cận hữu ích.
+**Đồ thị lân cận** biểu diễn mỗi véc-tơ bằng một đỉnh; mỗi đỉnh có cạnh có hướng tới một số đỉnh gần nó. Chỉ mục lưu các véc-tơ, danh sách lân cận của mỗi đỉnh và một điểm vào cố định. Khi mỗi mã định danh chiếm 4 byte, bộ nhớ khoảng $N\cdot(\text{kích thước véc-tơ}+4\ \text{byte}\times\text{bậc})$. Đồ thị không thay đổi hàm khoảng cách; nó chỉ quyết định véc-tơ nào được đo. Tìm kiếm bắt đầu từ điểm vào, đo khoảng cách từ $q$ tới các lân cận rồi đi tới đỉnh gần $q$ hơn, nên chỉ các đỉnh trên đường đi được đo.
+
+Ví dụ dưới đây dùng một đồ thị bảy đỉnh do học phần dựng để chạy tay. Vị trí các đỉnh giữ đúng tỷ lệ khoảng cách tới $q$; mỗi đoạn thẳng là hai cạnh có hướng ngược nhau.
+
+![Đồ thị bảy đỉnh e, a, b, s, t, u, z có khoảng cách tới q lần lượt 9, 7, 5, 8, 4, 2, 1; cạnh e–a, a–b, e–s, s–t, t–u, u–z; điểm vào là e.](img/lec-07/do-thi-vi-du.svg)
 
 Xét khoảng cách đến $q$. Từ $e:9$, hai lân cận là $a:7$ và $s:8$. Thuật toán tham lam luôn đi đến lân cận gần $q$ nhất nếu lân cận đó tốt hơn đỉnh hiện tại.
 

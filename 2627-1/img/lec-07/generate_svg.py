@@ -81,9 +81,73 @@ def do_thu_hoi():
         'Tập đúng gồm a, b, c, d, e; tập chỉ mục trả về gồm c, d, e, f, g. Phần giao có ba phần tử c, d, e.', b)
 
 
+# Đồ thị ví dụ H00–H06: tọa độ thật, khoảng cách tới q (gốc) là 9, 7, 5, 8, 4, 2, 1.
+GRAPH_POS = {'e': (-9, 0), 'a': (-4.9, 5), 'b': (-1.5, 4.77), 's': (-6, -5.29),
+             't': (-2, -3.46), 'u': (0.6, -1.9), 'z': (1, 0)}
+GRAPH_DIST = {'e': 9, 'a': 7, 'b': 5, 's': 8, 't': 4, 'u': 2, 'z': 1}
+GRAPH_EDGES = [('e', 'a'), ('a', 'b'), ('e', 's'), ('s', 't'), ('t', 'u'), ('u', 'z')]
+# Vị trí nhãn so với tâm đỉnh, tránh đè cạnh.
+GRAPH_LABEL = {'e': (-14, -40), 'a': (0, -42), 'b': (0, -42), 's': (0, 62),
+               't': (-10, 62), 'u': (40, 52), 'z': (66, 10)}
+
+
+def do_thi_vi_du(name, mode):
+    """mode: 'base' (cấu trúc), 'greedy' (đường tham lam), 'beam' (đường của tìm kiếm chùm)."""
+    sc, ox, oy = 40, 410, 290
+    X = lambda v: ox + sc * GRAPH_POS[v][0]
+    Y = lambda v: oy - sc * GRAPH_POS[v][1]
+    greedy = {('e', 'a'), ('a', 'b')}
+    beam = {('e', 's'), ('s', 't'), ('t', 'u'), ('u', 'z')}
+    b = ''
+    for u, v in GRAPH_EDGES:
+        color, width, dash = '#9aa6b8', 4, ''
+        if mode == 'greedy' and (u, v) in greedy:
+            color, width = ORANGE, 7
+        if mode == 'beam' and (u, v) in beam:
+            color, width, dash = GREEN, 7, '14 8'
+        b += line(X(u), Y(u), X(v), Y(v), color, dash, width=width)
+    for v in GRAPH_POS:
+        fill, stroke = '#ffffff', BLUE
+        if mode == 'greedy' and v == 'b':
+            fill, stroke = PALE_ORANGE, ORANGE
+        if mode == 'beam' and v == 'z':
+            fill, stroke = PALE_GREEN, GREEN
+        b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="25" fill="{fill}" stroke="{stroke}" stroke-width="4"/>'
+        b += text(f'{X(v):.1f}', f'{Y(v) + 11:.1f}', v, 32, INK, weight='bold')
+        dx, dy = GRAPH_LABEL[v]
+        b += text(f'{X(v) + dx:.1f}', f'{Y(v) + dy:.1f}', GRAPH_DIST[v], 30, BLUE)
+    qx, qy = ox, oy
+    b += f'<rect x="{qx - 15}" y="{qy - 15}" width="30" height="30" fill="{ORANGE}" transform="rotate(45 {qx} {qy})"/>'
+    b += text(qx - 42, qy + 12, 'q', 34, ORANGE, weight='bold', italic=True)
+    b += text(900, 40, 'số màu xanh:', 28, BLUE, 'end')
+    b += text(900, 78, 'khoảng cách tới q', 28, BLUE, 'end')
+    b += text(900, 116, 'điểm vào: e', 28, INK, 'end')
+    if mode == 'base':
+        pass
+    elif mode == 'greedy':
+        b += line(590, 176, 642, 176, ORANGE, width=7) + text(900, 186, 'tham lam', 28, INK, 'end')
+    else:
+        b += line(590, 176, 642, 176, GREEN, '14 8', width=7) + text(900, 186, 'tìm kiếm chùm', 28, INK, 'end')
+    titles = {
+        'base': ('Đồ thị lân cận ví dụ',
+                 'Bảy đỉnh e, a, b, s, t, u, z có khoảng cách tới q lần lượt 9, 7, 5, 8, 4, 2, 1; '
+                 'cạnh e–a, a–b, e–s, s–t, t–u, u–z; điểm vào là e.'),
+        'greedy': ('Tìm kiếm tham lam dừng ở b',
+                   'Từ e, tham lam đi qua a tới b (khoảng cách 5) rồi dừng vì lân cận duy nhất của b là a; '
+                   'z ở khoảng cách 1 nằm trên nhánh s, t, u.'),
+        'beam': ('Tìm kiếm chùm đi tới z',
+                 'Tìm kiếm chùm với ef bằng 3 giữ s trong hàng đợi, sau khi b không còn lân cận mới thì mở s, '
+                 'rồi đi qua t, u tới z ở khoảng cách 1.'),
+    }
+    svg(name, 910, 590, titles[mode][0], titles[mode][1], b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
+    do_thi_vi_du('do-thi-vi-du.svg', 'base')
+    do_thi_vi_du('do-thi-tham-lam.svg', 'greedy')
+    do_thi_vi_du('do-thi-chum.svg', 'beam')
 
 
 if __name__ == '__main__':

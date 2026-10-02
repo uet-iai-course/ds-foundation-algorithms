@@ -20,7 +20,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | A01 | 3 | Định nghĩa độ thu hồi tại $K$, tính trên ví dụ năm phần tử và kiểm tra bằng một câu hỏi. | hai tập $K$ phần tử → recall@K; $3/5$, câu hỏi $2/5$ | HNSW paper tr.1 |
 | A02 | 3 | Nêu bốn trục đánh giá, điều kiện giữ cố định và kiểm tra bằng so sánh A/B. | recall → chất lượng, truy vấn, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
 | A03 | 3 | Tách chi phí truy vấn thành số véc-tơ được đo nhân chi phí một phép đo; gắn LSH, HNSW, PQ, IVF-PQ vào thừa số mỗi cấu trúc giảm. | $\Theta(ND)$ → hai thừa số → bản đồ cấu trúc | MMDS Ch.3; Princeton 09 tr.4,5,7; Princeton 08 tr.2 |
-| H00 | 3 | Nêu biểu diễn đồ thị, trạng thái và phép tiến. | véc-tơ → đỉnh và cạnh | Princeton 09 tr.7–10 |
+| H00 | 3 | Định nghĩa đồ thị lân cận trên đồ thị ví dụ bảy đỉnh; nêu dữ liệu lưu và ý tưởng đi tới đỉnh gần $q$ hơn. | véc-tơ → đỉnh, cạnh, điểm vào | Princeton 09 tr.7–8 |
 | H01 | 4 | Chạy tay tham lam trên đồ thị có khoảng cách nhất quán. | $e:9\to a:7\to b:5$ → dừng cục bộ, bỏ $z:1$ | Princeton 09 tr.8,11–13; ví dụ dựng từ cơ chế nguồn |
 | H02 | 3 | Ghi từng trạng thái để tách điều kiện dừng cục bộ khỏi tối ưu toàn cục. | lân cận từng bước → cực tiểu cục bộ | Princeton 09 tr.8–13 |
 | H03 | 3 | Theo vết $C,W$ với $ef=3$ để giữ nhánh s và thoát cực tiểu. | $e,a,b,s$ → mở $t$, rồi $u,z$ | Princeton 09 tr.9; HNSW paper alg.2 |
@@ -161,3 +161,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** LSH cho truy vấn; giới hạn của từng hướng; LSH không giảng lại.
 - **Nguồn:** MMDS Ch.3; Princeton lớp 9 tr.4 (LSH cho truy vấn), tr.5 (phân cụm kèm PQ), tr.7 (đồ thị); lớp 8 tr.2.
 - **Quyết định:** viết lại. Tiêu đề cũ “LSH tạo ngăn, HNSW tạo đường, PQ tạo mã” là khẩu hiệu; ba thẻ đưa tên HNSW, PQ mà không nối với chi phí $\Theta(ND)$ vừa tính nên khái niệm xuất hiện đột ngột.
+
+### H00 — Đồ thị lân cận
+
+- **Phần:** 3, tìm kiếm trên đồ thị HNSW (thuật toán). **Vai trò:** mở phần, trực giác. **Thời lượng:** 3 phút.
+- **Mục đích:** mô tả đồ thị lân cận (đỉnh, cạnh, điểm vào, dữ liệu lưu) và ý tưởng tìm bằng cách đi tới đỉnh gần $q$ hơn.
+- **Câu chốt:** chỉ các đỉnh trên đường đi được đo, nên đồ thị giảm thừa số “số véc-tơ được đo” của A03.
+- **Đầu vào:** hai thừa số chi phí (A03). **Thể hiện:** hình `do-thi-vi-du.svg` (tọa độ thật; khoảng cách tới $q$: e 9, a 7, b 5, s 8, t 4, u 2, z 1; cạnh e–a, a–b, e–s, s–t, t–u, u–z) và ba gạch đầu dòng.
+- **Kết nối vào–ra:** nhận thừa số thứ nhất từ A03; giao đồ thị ví dụ cho H01–H06 (mỗi trang vẽ lại hình, không dẫn chiếu trang trước).
+- **Ghi chú diễn giả:** hướng cạnh, tỷ lệ hình; bộ nhớ $N\cdot(\text{véc-tơ}+4\ \text{byte}\times\text{bậc})$; đồ thị do học phần dựng.
+- **Nguồn:** Princeton lớp 9 tr.7 (cấu trúc dữ liệu), tr.8 (tìm tham lam); Malkov–Yashunin tr.2.
+- **Quyết định:** viết lại. Bản cũ không có hình; thẻ “Trạng thái: đỉnh đã thăm, ứng viên chưa mở…” đưa trạng thái của SEARCH-LAYER trước cả thuật toán tham lam (khái niệm đột ngột, rà phần 1–2 cũng nêu); không nối với A03.
