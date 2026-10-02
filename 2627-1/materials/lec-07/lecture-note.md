@@ -176,23 +176,25 @@ Sau khi mở $e$, $W=\{a{:}7,s{:}8\}$ ($e$ bị bỏ vì xa nhất). Mở $a$ th
 
 
 ```text
-SEARCH-LAYER(q, ep, ef, tầng ℓ)
-    V ← ep; C ← ep; W ← ep
-    while C không rỗng
-        c ← đỉnh gần q nhất trong C; bỏ c khỏi C
-        f ← đỉnh xa q nhất trong W
-        if d(c,q) > d(f,q): break
-        for mỗi e thuộc lân cận của c ở tầng ℓ
-            if e chưa thuộc V
-                thêm e vào V
-                f ← đỉnh xa q nhất trong W
-                if |W| < ef hoặc d(e,q) < d(f,q)
-                    thêm e vào C và W
-                    nếu |W| > ef, bỏ đỉnh xa q nhất khỏi W
-    return W
+SEARCH-LAYER(q, ep, ef, ℓc)
+V ← ep;  C ← ep;  W ← ep
+while C khác rỗng:
+    c ← lấy ra đỉnh gần q nhất trong C
+    f ← đỉnh xa q nhất trong W
+    if d(c,q) > d(f,q): break
+    for e in lân cận của c ở tầng ℓc:
+        if e ∉ V:
+            thêm e vào V
+            f ← đỉnh xa q nhất trong W
+            if |W| < ef or d(e,q) < d(f,q):
+                thêm e vào C và W
+                if |W| > ef: bỏ đỉnh xa q nhất khỏi W
+return W
 ```
 
-Khi $|W|<ef$, đỉnh mới luôn được thêm. Khi $W$ đã đầy, chỉ đỉnh tốt hơn phần tử xa nhất mới được giữ.
+Phần tử xa nhất $f$ của $W$ là ngưỡng chấp nhận. Khi $|W|<ef$, đỉnh mới luôn được thêm; khi $W$ đã đủ, chỉ đỉnh gần $q$ hơn $f$ mới được giữ. Ngưỡng phải tính lại trong vòng lặp lân cận vì $W$ có thể đổi sau mỗi lần thêm và bỏ. Ở ví dụ $ef=3$, khi mở $s$ với $W=\{b,a,s\}$: $f=s{:}8$; $t{:}4$ được thêm, $s$ bị bỏ và ngưỡng mới là $f=a{:}7$.
+
+Lệnh `break` chạy khi đỉnh gần nhất còn trong $C$ đã xa $q$ hơn $f$. Khi đó mọi đỉnh của $W$ đều đã được mở, vì một đỉnh của $W$ còn trong $C$ sẽ gần $q$ hơn $c$, trái với cách chọn $c$. Mở tiếp các ứng viên xa hơn vẫn có thể gặp đỉnh tốt hơn; dừng ở đây là đánh đổi để giới hạn số phép đo, nên kết quả là gần đúng. Thuật toán kết thúc vì mỗi đỉnh vào $V$ và $C$ nhiều nhất một lần và tầng hữu hạn.
 
 Trong vòng lặp, $W$ chứa không quá $ef$ đỉnh tốt nhất trong số các đỉnh được chấp nhận vào vùng khám phá. Mỗi đỉnh vào $V$ nhiều nhất một lần. Thuật toán dừng khi $C$ rỗng hoặc ứng viên tốt nhất chưa mở xa hơn phần tử xa nhất trong $W$.
 

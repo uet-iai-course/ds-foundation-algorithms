@@ -24,7 +24,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H01 | 7 | Chạy tay tham lam trên đồ thị ví dụ (hình và bảng vết cùng trang); định nghĩa cực tiểu cục bộ. Gộp H02 cũ. | $e:9\to a:7\to b:5$ → dừng ở cực tiểu cục bộ, bỏ $z:1$ | Princeton 09 tr.8, 11–13; ví dụ dựng từ cơ chế nguồn |
 | H03 | 5 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
 | H04 | 3 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
-| H05 | 5 | Đưa giả mã và tính lại phần tử xa nhất của $W$ sau mỗi cập nhật. | $V,C,W$ → thuật toán tầng có ngưỡng hiện thời | HNSW paper alg.2, tr.4 |
+| H05 | 5 | Giả mã `SEARCH-LAYER` theo Thuật toán 2; nối dòng tính lại ngưỡng $f$ với bước mở $s$ của ví dụ. | $V,C,W$ → thuật toán; ngưỡng $8\to7$ | HNSW paper alg.2, tr.4 |
 | H06 | 4 | Phát biểu bất biến đúng phạm vi; dùng vết H03 để thấy ngưỡng đổi 8→7. | tiền tố duyệt → trạng thái hợp lệ, không lặp đỉnh | suy ra từ alg.2 |
 | H07 | 4 | Truyền điểm vào từ tầng cao xuống tầng thấp trước khi mở rộng ở tầng đáy. | $ep_2\to ep_1\to ep_0\to W$ | HNSW paper Fig.1, tr.3; Princeton 09 tr.17–18 |
 | H08 | 2 | Hình thức hóa $U\in(0,1]$, $m_L>0$ và ý nghĩa hệ số mức. | $U,m_L$ → tầng tối đa và độ thưa | HNSW paper alg.1, §4.1, tr.4–5 |
@@ -204,3 +204,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** $\ell_c=0$ khi chỉ có một đồ thị; vì sao $1\le|ep|\le ef$; đầu ra chỉ về đỉnh đã thấy; đọc hình.
 - **Nguồn:** Malkov–Yashunin Thuật toán 2 tr.4.
 - **Quyết định:** sửa. Tiêu đề cũ “Hợp đồng của SEARCH-LAYER” dịch sát “contract”, học phần dùng “đặc tả”; “tầng hữu hạn $\ell_c$” xuất hiện trước khái niệm tầng mà không giải thích; hình cũ `search-layer.svg` chữ nhỏ, không gắn với ví dụ; $V$ xuất hiện lần đầu không định nghĩa.
+
+### H05 — Giả mã SEARCH-LAYER
+
+- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 5 phút.
+- **Mục đích:** đọc giả mã, chỉ ra dòng khởi tạo, điều kiện dừng, điều kiện chấp nhận và vì sao tính lại ngưỡng $f$.
+- **Câu chốt:** $f$ là ngưỡng chấp nhận và phải tính lại sau mỗi thay đổi của $W$; ở ví dụ ngưỡng đổi từ $s{:}8$ sang $a{:}7$ khi mở $s$.
+- **Đầu vào:** đặc tả và ba tập (H04). **Thể hiện:** một khối giả mã 13 dòng (`data-trim`); câu chốt nối một bước của ví dụ với dòng tính lại $f$ (nhắc lại $W=\{b,a,s\}$ bằng giá trị, không dẫn chiếu trang).
+- **Kết nối vào–ra:** cài đặt đặc tả H04; giao các dòng giả mã cho bất biến H06 và cho lời gọi trong truy vấn H09, chèn H10.
+- **Ghi chú diễn giả:** vì sao tính lại $f$; lập luận khi `break` mọi đỉnh của $W$ đã mở; dừng ở đó là đánh đổi; tính dừng.
+- **Nguồn:** Malkov–Yashunin Thuật toán 2 tr.4.
+- **Quyết định:** sửa. Tiêu đề cũ “SEARCH-LAYER cập nhật ngưỡng sau mỗi điểm” là câu mô tả; giả mã cũ dùng tên `hàng_đợi_gần_nhất`, `lân_cận` và dồn hai thao tác vào một dòng; không có liên hệ với ví dụ.
