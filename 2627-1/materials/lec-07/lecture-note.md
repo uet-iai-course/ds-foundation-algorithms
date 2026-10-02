@@ -263,14 +263,32 @@ Khi đó $p=1/16$: khoảng $1/16$ số điểm có tầng $\ge1$ và $1/256$ c�
 
 Bài báo chọn $m_L=1/\ln M$, với $M$ là số lân cận được nối cho mỗi điểm mới (định nghĩa ở thao tác chèn); khi đó $p=1/M$. Đây là lựa chọn thực nghiệm, không phải điều kiện để thuật toán đúng.
 
-Nếu chỉ mục rỗng, đỉnh mới trở thành điểm vào và tạo các tầng $0,\dots,\ell$. Nếu không rỗng, việc chèn gồm hai pha.
+**Chèn một điểm.** Chèn điểm mới $x$ là truy vấn chính $x$, rồi nối $x$ với các đỉnh gần nó ở từng tầng mà $x$ thuộc về. Ví dụ: chèn $x$ ở tọa độ $2{,}6$ vào đồ thị ba tầng ở trên, với tầng rút được $\ell=1$, nối $M=2$ lân cận và bề rộng chùm khi chèn bằng 3. Khoảng cách tới $x$: $p3$ 0,4; $p2$ 0,6; $p4$ 1,4; $p1$ 1,6; $s$ 2,6.
 
-1. Từ $L$ xuống $\ell+1$, định tuyến với $ef=1$.
-2. Từ $\min(L,\ell)$ xuống 0, tìm ứng viên với `efConstruction`, chọn không quá $M$ lân cận, nối hai chiều rồi cắt danh sách ở mỗi đầu nếu vượt giới hạn.
+| Tầng | Tìm từ | Kết quả |
+|---|---|---|
+| 2 | $s$, $ef=1$ | $ep=p4$; không thêm cạnh |
+| 1 | $p4$, $ef=3$ | $W=\{p2,p4,s\}$; nối $x$ với $p2,p4$ |
+| 0 | $p2,p4,s$, $ef=3$ | $W=\{p3,p2,p4\}$; nối $x$ với $p3,p2$ |
 
-Tầng 0 dùng $M_{\max,0}$; các tầng trên dùng $M_{\max}$. Nếu $\ell>L$, đỉnh mới trở thành điểm vào ở các tầng mới.
+![Điểm mới x ở tọa độ 2,6 có tầng 1, M bằng 2; pha 1 ở tầng 2 đi từ s tới p4; pha 2 nối x với p2 và p4 ở tầng 1, với p3 và p2 ở tầng 0.](img/lec-07/chen-vi-du.svg)
 
-![Khi chèn, HNSW định tuyến ở tầng cao rồi tìm ứng viên, nối và cắt cạnh ở từng tầng thấp hơn.](img/lec-07/hnsw-insert.svg)
+Giả mã chèn theo Thuật toán 1 của bài báo:
+
+```text
+ℓ ← ⌊−ln(U)·mL⌋;  ep ← điểm vào;  L ← tầng của ep
+for ℓc = L, L−1, …, ℓ+1:                      // pha 1
+    ep ← đỉnh gần x nhất trong SEARCH-LAYER(x, {ep}, 1, ℓc)
+for ℓc = min(L,ℓ), …, 0:                      // pha 2
+    W ← SEARCH-LAYER(x, ep, efConstruction, ℓc)
+    R ← chọn M lân cận cho x từ W
+    nối x với mỗi đỉnh của R theo hai chiều ở tầng ℓc
+    với mỗi e ∈ R có bậc vượt Mmax(ℓc): cắt lân cận của e
+    ep ← W
+if ℓ > L: đặt x làm điểm vào
+```
+
+Tham số: $M$ là số lân cận nối cho $x$; $efConstruction\ge M$ là bề rộng chùm khi chèn; $M_{\max}$ ở các tầng trên và $M_{\max,0}$ ở tầng 0 là bậc tối đa, cả hai ít nhất bằng $M$; bài báo đề xuất $M_{\max,0}=2M$. Nếu chỉ mục rỗng, $x$ được tạo ở các tầng $0,\ldots,\ell$ và trở thành điểm vào. Pha 1 chạy ở các tầng cao hơn $\ell$, nơi $x$ không xuất hiện, nên chỉ tìm điểm vào. Pha 2 dùng kết quả $W$ của tầng trên làm tập điểm vào của tầng dưới. Mỗi đầu mút tự cắt danh sách của mình, nên quan hệ kề có thể không còn đối xứng dù bước nối là hai chiều. Ở ví dụ, sau khi nối, $p2,p4$ ở tầng 1 và $p3,p2$ ở tầng 0 đều có bậc 3, nên với $M_{\max}=3$, $M_{\max,0}=4$ không có cắt.
 
 Chọn đúng $M$ điểm gần nhất có thể tạo một cụm cạnh cùng hướng. Heuristic đa dạng chỉ nhận ứng viên $e$ khi
 

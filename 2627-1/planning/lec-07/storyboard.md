@@ -30,7 +30,8 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H07 | 4 | Cấu trúc tầng (tầng 0 chứa mọi điểm, tầng trên là tập con thưa) và cách truy vấn đi xuống, trên cùng 12 điểm của H06B. | $s\to p4\to p8$ ↓ $p8\to p6$ ↓ $p6$ | HNSW paper Fig.1, §3, tr.3; Princeton 09 tr.17 |
 | H09 | 4 | Đặc tả và giả mã truy vấn HNSW; hình gọn ba tầng nhắc lại vết $ep=p8$, $p6$. | tìm tầng → $K$ kết quả; $efSearch\ge K$ | HNSW paper alg.5, tr.5 |
 | H08 | 3 | Chuyển xuống sau H09. Rút tầng ngẫu nhiên; suy ra $\Pr[\ell\ge k]=p^k$, $p=e^{-1/m_L}$; ví dụ $p=1/16$, tầng cao nhất khoảng 8 khi $N=10^{10}$. | $U,m_L$ → phân phối hình học, $\log_{1/p}N$ tầng | HNSW paper alg.1 dòng 4; §3; §4.1 |
-| H10 | 4 | Đặc tả chỉ mục rỗng, pha tầng trên $ef=1$, pha cập nhật `efConstruction`, chọn ≤M, nối, cắt bằng $M_{max,0}/M_{max}$, truyền $ep\leftarrow W$ và đổi điểm vào khi $\ell>L$. | điểm mới → HNSW cập nhật; danh sách kề sau cắt có thể không đối xứng | HNSW paper alg.1, tr.4–5 |
+| H10 | 4 | Tách: ví dụ chèn $x=2{,}6$, $\ell=1$, $M=2$ vào đồ thị ba tầng; bảng ba tầng và hình. | pha 1 → $ep=p4$; pha 2 → nối $p2,p4$ (tầng 1), $p3,p2$ (tầng 0) | HNSW paper alg.1, tr.4 |
+| H10B | 3 | Tách: giả mã chèn hai pha và định nghĩa $M$, $efConstruction$, $M_{max}$, $M_{max,0}$. | điểm mới → HNSW cập nhật | HNSW paper alg.1, tr.4; §4.1 |
 | H11 | 3 | Nêu quy tắc đa dạng và lý do không chỉ chọn gần nhất. | ứng viên → tối đa M cạnh nhiều hướng | HNSW paper alg.4, tr.5 |
 | H12 | 2 | Ánh xạ ba tham số sang ba chi phí. | M, efConstruction, efSearch → núm điều khiển | HNSW paper §4.1, tr.5–7 |
 | H13 | 4 | Tách $O(ND)$ lưu véc-tơ, kỳ vọng $O(NM)$ liên kết — suy luận mục 4.2.3 dưới giả thiết bậc trung bình bị chặn theo $M$ — và giới hạn kết luận log. | thuật toán → điều kiện áp dụng; trường hợp xấu tuyến tính | HNSW paper §4.2.3, tr.7; Princeton 09 tr.2 |
@@ -271,3 +272,24 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** dữ kiện ví dụ; $ef=1$ là tham lam; trả ít hơn $K$ khi đồ thị tới được nhỏ; tính dừng; kết quả gần đúng theo bất biến.
 - **Nguồn:** Malkov–Yashunin Thuật toán 5 tr.5.
 - **Quyết định:** sửa. Tiêu đề cũ “Truy vấn HNSW dùng hai chế độ” mơ hồ; giả mã cũ dùng tên `điểm_vào`, `phần_tử_gần_nhất`; thiếu đầu vào/đầu ra trên mặt trang; không nối với ví dụ.
+
+### H10 — Chèn một điểm mới (tách từ H10 cũ)
+
+- **Phần:** 3. **Vai trò:** ví dụ chạy tay trước giả mã. **Thời lượng:** 4 phút.
+- **Mục đích:** chạy tay chèn một điểm qua hai pha trên đồ thị ba tầng.
+- **Câu chốt:** chèn là truy vấn chính $x$, rồi nối $x$ với các đỉnh gần nó ở từng tầng $\le\ell$.
+- **Đầu vào:** đồ thị ba tầng (H07), truy vấn (H09), tầng $\ell$ (H08). **Thể hiện:** dòng dữ kiện; hình `chen-vi-du.svg` (pha 1 cam, cạnh mới xanh đứt) cạnh bảng ba tầng; câu chốt.
+- **Kết nối vào–ra:** dùng truy vấn và rút tầng; giao vết cho giả mã H10B và cho câu hỏi chọn lân cận ở H11.
+- **Ghi chú diễn giả:** dữ kiện đồ thị, khoảng cách tới $x$; vai trò hai pha; bậc sau khi nối và vì sao không cắt.
+- **Nguồn:** Malkov–Yashunin Thuật toán 1–3; vết mô phỏng lại bằng chương trình.
+
+### H10B — Giả mã chèn HNSW (tách từ H10 cũ)
+
+- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 3 phút.
+- **Mục đích:** đọc giả mã chèn và gọi đúng tên, vai trò của $M$, $efConstruction$, $M_{max}$, $M_{max,0}$.
+- **Câu chốt:** pha 1 chỉ tìm điểm vào ở tầng cao hơn $\ell$; pha 2 tìm, chọn $M$ lân cận, nối hai chiều và cắt bậc ở tầng $\le\ell$.
+- **Đầu vào:** ví dụ H10. **Thể hiện:** khối giả mã 10 dòng có chú thích pha; một dòng định nghĩa tham số.
+- **Kết nối vào–ra:** hình thức hóa H10; dòng “chọn $M$ lân cận” được cụ thể hóa ở H11; các tham số dùng ở H12–H13.
+- **Ghi chú diễn giả:** chỉ mục rỗng; mất đối xứng sau cắt; Thuật toán 3 và 4; ràng buộc tham số; $M_{max,0}=2M$ theo mục 4.1.
+- **Nguồn:** Malkov–Yashunin Thuật toán 1 tr.4; mục 4.1 tr.5–8.
+- **Quyết định (H10 cũ):** tách. Bản cũ có tiêu đề câu mô tả, hình bốn hộp chữ rất nhỏ, một dòng đưa cùng lúc bốn tham số mới; ghi chú diễn giả dài, chứa toàn bộ thuật toán. Ví dụ đặt trước giả mã theo chu trình học.

@@ -253,6 +253,44 @@ def do_thi_nhieu_tang(name='do-thi-nhieu-tang.svg', compact=False):
         'Truy vấn q ở giữa p6 và p7: ở tầng 2 tham lam đi s, p4, p8; xuống tầng 1 từ p8 sang p6; xuống tầng 0 tìm quanh p6.', b)
 
 
+def chen_vi_du():
+    # H10: chèn x ở tọa độ 2,6 với tầng l = 1, M = 2 vào đồ thị ba tầng của H07.
+    names = ['s'] + [f'p{i}' for i in range(1, 12)]
+    x0, dx, ys, r, fs = 105, 58, (115, 245, 375), 15, 30
+    X = lambda v: x0 + dx * names.index(v)
+    layers = [(2, ys[0], ['s', 'p4', 'p8']), (1, ys[1], ['s', 'p2', 'p4', 'p6', 'p8', 'p10']), (0, ys[2], names)]
+    Y = {lv: y for lv, y, _ in layers}
+    b = ''
+    for v in names:
+        top = min(y for lv, y, nodes in layers if v in nodes)
+        b += line(X(v), top, X(v), ys[2], '#d5dae2', '3 6', width=2)
+    for lv, y, nodes in layers:
+        b += text(10, y + 9, f'{lv}', fs, INK, 'start', weight='bold')
+        for a, c in zip(nodes, nodes[1:]):
+            on = lv == 2 and (a, c) == ('s', 'p4')
+            b += line(X(a) + r, y, X(c) - r, y, ORANGE if on else '#9aa6b8', width=6 if on else 3)
+        for v in nodes:
+            on = lv == 2 and v in ('s', 'p4')
+            b += f'<circle cx="{X(v)}" cy="{y}" r="{r}" fill="#ffffff" stroke="{ORANGE if on else BLUE}" stroke-width="4"/>'
+    xx = x0 + dx * 2.6
+    for lv, nbrs in [(1, ['p2', 'p4']), (0, ['p3', 'p2'])]:
+        y = Y[lv] - 48
+        for v in nbrs:
+            b += line(xx, y, X(v), Y[lv] - r, GREEN, '9 6', width=4)
+        b += f'<circle cx="{xx}" cy="{y}" r="{r + 2}" fill="{PALE_GREEN}" stroke="{GREEN}" stroke-width="4"/>'
+        b += text(xx, y + 10, 'x', fs - 4, GREEN, weight='bold')
+    x = X('p4') + 24
+    b += line(x, Y[2] + 14, x, Y[1] - 70, ORANGE, width=5)
+    b += f'<path d="M{x - 10},{Y[1] - 72} L{x + 10},{Y[1] - 72} L{x},{Y[1] - 54} Z" fill="{ORANGE}"/>'
+    for v in ('s', 'p2', 'p3', 'p4', 'p8'):
+        b += text(X(v), ys[2] + 50, v, fs, INK)
+    b += line(30, 30, 72, 30, ORANGE, width=6) + text(84, 40, 'pha 1: tìm điểm vào', 26, INK, 'start')
+    b += line(430, 30, 472, 30, GREEN, '9 6', width=4) + text(484, 40, 'pha 2: cạnh mới', 26, INK, 'start')
+    svg('chen-vi-du.svg', 780, 440, 'Chèn x vào đồ thị ba tầng',
+        'Điểm mới x ở tọa độ 2,6 có tầng 1, M bằng 2. Pha 1 ở tầng 2 đi từ s tới p4. '
+        'Pha 2 nối x với p2 và p4 ở tầng 1, với p3 và p2 ở tầng 0.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -264,6 +302,7 @@ def main():
     canh_dai_mot_chieu()
     do_thi_nhieu_tang()
     do_thi_nhieu_tang('do-thi-nhieu-tang-gon.svg', compact=True)
+    chen_vi_du()
 
 
 if __name__ == '__main__':
