@@ -42,7 +42,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q05 | 3 | Chạy tay mã PQ hai đoạn: khoảng cách từng đoạn, mã, tái dựng, sai số; hình hai mặt phẳng con. | hai bộ mã → mã $(0,1)$, sai số 0,18 | suy ra từ định nghĩa nguồn |
 | Q07 | 4 | Kích thước mã và bộ mã PQ; so với VQ cùng mã 64 bit; thay số cho kho $10^{10}$ véc-tơ (512 byte, 5,12 TB). | $m,k^*,D,b$ → $k^*D$ số, $\lceil mb/8\rceil$ byte | PQ paper §II-B tr.3; Princeton 08 tr.32–33; BIODS tr.17 |
 | Q06 | 3 | Chuyển sau Q07. Ví dụ ADC: định nghĩa bằng lời, hình hai đoạn có $q$, bảng hai số hạng, so 0,31 với giá trị đúng 0,07. | mã $(0,1)$ + $q$ → 0,31 | PQ paper eq.13, tr.4; Princeton 08 tr.25–26 |
-| Q08 | 3 | Hình thức hóa ADC và phân biệt phía truy vấn với cơ sở dữ liệu. | truy vấn đầy đủ + mã → khoảng cách gần đúng | PQ paper eq.13, tr.4 |
+| Q08 | 3 | Công thức ADC; mỗi số hạng chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j$, nên mỗi đoạn có $k^*$ giá trị tính trước được. | truy vấn đầy đủ + mã → tổng $m$ số hạng | PQ paper §III-A eq.13, tr.4; Princeton 08 tr.26–27 |
 | Q09 | 2 | Nêu chi phí lập bảng, lưu bảng và chấm mã. | $\Theta(k^*D)$, $\Theta(mk^*)$, $\Theta(m)$ | PQ paper tr.4; Princeton 08 tr.27,31–32 |
 | Q10 | 2 | Chỉ ra chi phí tuyến tính và byte mã còn lại ở quy mô P01. | PQ quét đủ → $\Theta(Nm)$, $N\lceil mb/8\rceil$ byte | PQ paper tr.2,6 |
 | I00 | 3 | Đặt IVF và PQ vào đúng vai trò. | quét N mã → phân vùng + nén | Princeton 08 tr.20–22,54–55 |
@@ -402,3 +402,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** suy ra $k^*D$; tích không gian; phép tính 512 byte, 5,12 TB, tỷ lệ 24; phần chưa tính.
 - **Nguồn:** PQ paper mục II-B tr.3; Princeton lớp 8 tr.32–33; BIODS bài 12 tr.17.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; bản cũ không so với VQ nên không thấy PQ giải quyết Q03 thế nào; số liệu tình huống mở đầu chỉ trong ghi chú.
+
+### Q08 — Khoảng cách bất đối xứng (ADC)
+
+- **Phần:** 4. **Vai trò:** hình thức hóa. **Thời lượng:** 3 phút.
+- **Mục đích:** viết công thức ADC và chỉ ra vì sao số hạng mỗi đoạn tính trước được.
+- **Câu chốt:** với một truy vấn, số hạng đoạn $j$ chỉ có $k^*$ giá trị khác nhau.
+- **Đầu vào:** ví dụ ADC (Q06), định nghĩa PQ (Q04). **Thể hiện:** công thức; hai gạch đầu dòng; câu chốt.
+- **Kết nối vào–ra:** hình thức hóa Q06; giao ý “tính trước” cho bảng tra Q09.
+- **Ghi chú diễn giả:** vì sao tổng theo đoạn; số hạng của ví dụ; SDC và nhận định của bài báo.
+- **Nguồn:** PQ paper mục III-A pt.13 tr.4; Princeton lớp 8 tr.26–27.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; hai thẻ “Truy vấn: không lượng tử hóa / Cơ sở dữ liệu: chỉ giữ mã PQ” lặp định nghĩa; ý dẫn tới bảng tra chưa có.

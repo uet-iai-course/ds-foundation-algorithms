@@ -401,11 +401,13 @@ Mã dài 4 byte và biểu diễn $(2^8)^4=2^{32}$ tổ hợp tâm.
 
 ## 8. ADC, bảng tra và chi phí PQ
 
-Trong tính khoảng cách bất đối xứng (ADC), truy vấn giữ nguyên độ chính xác còn véc-tơ cơ sở dữ liệu chỉ tồn tại dưới dạng mã PQ. Với $q=(q_1,\dots,q_m)$ và mã $(i_1,\dots,i_m)$,
+**Khoảng cách bất đối xứng (Asymmetric Distance Computation, ADC)** giữ truy vấn $q$ ở dạng đầy đủ, còn véc-tơ $y$ trong kho chỉ có mã $(i_1(y),\ldots,i_m(y))$. Khoảng cách được ước lượng bằng khoảng cách tới véc-tơ tái dựng:
 
 $$
-\widehat d_{\mathrm{ADC}}^2(q,y)=\sum_{j=1}^{m}\|q_j-c_{j,i_j}\|^2.
+\widetilde d(q,y)^2=\|q-\widehat y\|^2=\sum_{j=1}^{m}\big\|q^{(j)}-c^{(j)}_{i_j(y)}\big\|^2.
 $$
+
+Đẳng thức thứ hai đúng vì bình phương khoảng cách Euclid là tổng theo tọa độ và các đoạn chia tọa độ thành các nhóm rời nhau. Số hạng đoạn $j$ chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j(y)\in\{0,\ldots,k^*-1\}$, nên với một truy vấn, mỗi đoạn chỉ có $k^*$ giá trị số hạng khác nhau.
 
 Trước khi quét, lập bảng $T[j,i]=\|q_j-c_{j,i}\|^2$. Chấm điểm một mã chỉ cần $m$ lần tra bảng và cộng.
 
@@ -419,7 +421,7 @@ Véc-tơ $x=(0{,}2;\ 1{,}8\mid 2{,}7;\ 0{,}1)$ chỉ còn mã $(0,1)$: tâm $(0;
 
 Lập bảng tốn $\Theta(k^*D)$ phép toán và lưu $\Theta(mk^*)$ số. Chấm một mã tốn $\Theta(m)$; quét đủ tốn $\Theta(Nm)$, chưa kể chọn top-$K$. Bộ mã chiếm $\Theta(k^*D)$ số và mã cơ sở dữ liệu chiếm $Nmb$ bit khi $mb$ chia hết cho 8.
 
-Tính khoảng cách đối xứng (SDC) lượng tử hóa cả truy vấn lẫn dữ liệu rồi tra khoảng cách giữa hai tâm con. SDC có thể giảm tính toán nhưng thêm sai số do lượng tử hóa truy vấn. Bài này dùng ADC làm cơ chế chính.
+Phép tính khoảng cách đối xứng (Symmetric Distance Computation, SDC) lượng tử hóa cả truy vấn rồi tra khoảng cách giữa hai tâm con, nên thêm sai số do lượng tử hóa truy vấn. Theo bài báo PQ, ưu điểm duy nhất của SDC là truy vấn cũng được lưu ở dạng mã; ADC có sai lệch khoảng cách thấp hơn với độ phức tạp tương tự. Bài này dùng ADC.
 
 ## 9. IVF-PQ: lọc danh sách rồi chấm mã phần dư
 
