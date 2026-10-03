@@ -357,6 +357,8 @@ Bình phương khoảng cách: $2{,}61$; $4{,}21$; $0{,}61$. Mã 2, $\widehat y=
 
 **Đặc tả và chi phí.** Đầu vào là $x\in\mathbb R^D$ và bộ mã $C$ đã học; khi hòa, chọn chỉ số nhỏ hơn. Đầu ra là mã $i(x)$ dài $\lceil\log_2 k\rceil$ bit, với điều kiện sau: không tâm nào gần $x$ hơn $c_{i(x)}$. Bộ mã thường được học bằng k-means trên một tập huấn luyện: xen kẽ gán mỗi điểm cho tâm gần nhất và dời mỗi tâm về trọng tâm các điểm được gán. Hai điều kiện Lloyd này là cần, không đủ, nên k-means chỉ cho cực tiểu cục bộ của sai số bình phương trung bình. Mã hóa một véc-tơ cần $k$ khoảng cách, tức $\Theta(kD)$ phép toán; lưu bộ mã cần $kD$ số. Cả hai tỷ lệ với $k$.
 
+**Giới hạn của một bộ mã lớn.** Sai số tái dựng giảm khi tăng số tâm $k$, nên véc-tơ nhiều chiều cần mã dài. Bài báo PQ xét véc-tơ SIFT $D=128$ chiều với mã 64 bit, tức chỉ 0,5 bit mỗi tọa độ: một bộ mã duy nhất cần $k=2^{64}\approx1{,}8\cdot10^{19}$ tâm. Lưu bộ mã cần $kD\cdot4\approx9{,}4\cdot10^{21}$ byte, mã hóa một véc-tơ cần khoảng $2{,}4\cdot10^{21}$ phép toán, và k-means cần nhiều hơn $k$ điểm huấn luyện. Thêm 1 bit mã làm $k$ gấp đôi, nên mã dài với một bộ mã duy nhất là không khả thi; cần cách tạo mã dài từ các bộ mã nhỏ.
+
 PQ chia $D$ chiều thành $m$ đoạn bằng nhau, nên cần $m\mid D$. Mỗi đoạn dùng một bộ mã con gồm $k^*=2^b$ tâm. Mã của $y$ là $(i_1(y),\dots,i_m(y))$; véc-tơ tái dựng là phép ghép các tâm con tương ứng.
 
 Số tổ hợp mã là $(k^*)^m$, nhưng các bộ mã chỉ lưu $mk^*(D/m)=k^*D$ số. Cơ sở dữ liệu mã cần

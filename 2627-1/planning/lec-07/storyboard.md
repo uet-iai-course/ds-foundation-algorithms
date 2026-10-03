@@ -37,7 +37,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H13 | 4 | Chi phí bộ nhớ thay số cho $10^{10}$ véc-tơ (véc-tơ 122,88 TB, cạnh khoảng 2,65 TB); chi phí truy vấn và giới hạn $\log N$; nối sang PQ. | giả định $M=16$ → 98% bộ nhớ là véc-tơ gốc | HNSW paper §4.2 tr.7, §4.2.3 tr.8; Princeton 09 tr.2, 7 |
 | Q00 | 6 | Gộp Q01: mở phần 4 từ nhu cầu giảm bộ nhớ; lượng tử hóa véc-tơ trên hình ba tâm, phép tính mã và tái dựng, câu hỏi điểm $y$. | $x=(1{,}7;0{,}4)$ → mã 1, sai số 0,25; $y$ → mã 2, 0,61 | Princeton 08 tr.8–9; PQ paper §II-A tr.2 |
 | Q02 | 3 | Đặc tả VQ: đầu vào (bộ mã học bằng k-means), đầu ra và điều kiện sau, chi phí mã hóa $\Theta(kD)$ và lưu $kD$ số. | ví dụ Q00 → $i(x),\widehat x$, chi phí theo $k$ | PQ paper eq.2–5, tr.2; Princeton 08 tr.9–10, 32 |
-| Q03 | 2 | Chỉ ra bộ mã đơn không mở rộng tới mã 64 bit. | $2^{64}$ tâm → bất khả thi | PQ paper tr.3 |
+| Q03 | 2 | Thay số chi phí của một bộ mã $k=2^{64}$, $D=128$: lưu, mã hóa, học. | $9{,}4\cdot10^{21}$ byte → cần bộ mã nhỏ cho mã dài | PQ paper §II-B tr.3; Princeton 08 tr.18 |
 | Q04 | 2 | Cho trực giác chia véc-tơ thành m đoạn và m bộ mã. | $D$ → m không gian con | PQ paper eq.8–9, tr.3; Princeton 08 tr.28–31 |
 | Q05 | 3 | Chạy tay mã PQ hai đoạn. | hai bộ mã → mã $(0,1)$ | suy ra từ định nghĩa nguồn |
 | Q06 | 3 | Tính ADC số với mã $(0,1)$ từ Q05 và truy vấn đầy đủ. | hai ô tra 0,02 và 0,29 → ADC 0,31 | PQ paper eq.13, tr.4; ví dụ dựng từ cơ chế nguồn |
@@ -347,3 +347,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** k-means và điều kiện Lloyd chỉ cho cực tiểu cục bộ; điều kiện sau từ argmin.
 - **Nguồn:** PQ paper mục II-A, pt.2–5 tr.2; Princeton lớp 8 tr.9–10, 32.
 - **Quyết định:** sửa. Bản cũ thiếu chi phí nên Q03 phải tự đưa công thức bộ nhớ; tên k-means chỉ có trong ghi chú; cấu trúc ba dòng văn xuôi khó quét.
+
+### Q03 — Giới hạn của một bộ mã lớn
+
+- **Phần:** 4. **Vai trò:** nêu giới hạn tạo nhu cầu. **Thời lượng:** 2 phút.
+- **Mục đích:** tính chi phí lưu, mã hóa, học của một bộ mã cho mã 64 bit và kết luận cần cấu trúc khác.
+- **Câu chốt:** mã dài với một bộ mã duy nhất đòi hỏi bộ mã khổng lồ; cần tạo mã dài từ các bộ mã nhỏ.
+- **Đầu vào:** chi phí theo $k$ (Q02). **Thể hiện:** dòng dẫn (sai số giảm khi tăng $k$; ví dụ SIFT của nguồn); bảng ba dòng thay số; câu chốt.
+- **Kết nối vào–ra:** dùng chi phí Q02; tạo nhu cầu chia đoạn ở Q04.
+- **Ghi chú diễn giả:** tăng tuyến tính theo $k$ nhưng hàm mũ theo độ dài mã; phép tính; nhận định của bài báo.
+- **Nguồn:** PQ paper mục II-B tr.3; Princeton lớp 8 tr.18.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; không nói vì sao cần mã 64 bit; công thức không thay số nên “không khả thi” chỉ là khẳng định.
