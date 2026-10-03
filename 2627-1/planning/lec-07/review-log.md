@@ -278,3 +278,4 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | Q08 ghi chú | (nhẹ) Câu SDC/ADC dài ba mệnh đề. | sửa | Tách hai câu. |
 | Q10 ghi chú | (nhẹ) Giả định một lần tra ngang một lượt tọa độ chưa nói ra; “Ý tiếp theo là…” gần lời chuyển trang. | sửa | Nêu giả định; viết lại câu nối. |
 | I00 | (nhẹ, ngoài phạm vi) Dạng cũ. | đã sửa | Commit I00 (`bc6f106`). |
+| I01 | Gán vào tâm thô và chọn danh sách cần mở. | Tiêu đề câu; ví dụ hai tâm rời rạc, không cho thấy tác dụng của $nprobe$. | sửa. Tiêu đề “Chọn danh sách cần mở”; công thức; hình biến thể `tep-dao-o.svg` (không đánh dấu “mở”, vì câu hỏi dùng $nprobe=1$); bảng bốn tâm; câu hỏi $y_3$ (tính lại 9,49; 15,49; $\|q-y_3\|^2=2{,}34$; $\|q-y_8\|^2=1{,}25$). | Mục 9: đoạn chọn danh sách, công thức, bài tự kiểm có lời giải. |

@@ -462,6 +462,22 @@ Bốn tâm thô $\mu_0=(2;2)$, $\mu_1=(8;2)$, $\mu_2=(2;8)$, $\mu_3=(8;8)$ chia 
 
 ![Bốn tâm thô μ0 đến μ3 chia mặt phẳng thành bốn ô ứng với bốn danh sách đảo; truy vấn q gần μ1 nhất rồi đến μ0; với nprobe bằng 2 chỉ L1 và L0 được mở.](img/lec-07/tep-dao.svg)
 
+**Chọn danh sách cần mở.** Khi xây chỉ mục, mỗi véc-tơ được gán cho tâm thô gần nhất, phá hòa theo chỉ số nhỏ hơn:
+
+$$
+a(y)\in\arg\min_{0\le i<k_c}\|y-\mu_i\|^2,\qquad L_i=\{y: a(y)=i\}.
+$$
+
+Khi truy vấn, sắp các tâm theo khoảng cách tới $q$ và mở $nprobe$ danh sách đầu; chọn tâm bằng quét đủ $k_c$ tâm tốn $\Theta(k_cD)$. Ở ví dụ, bình phương khoảng cách từ $q$ tới $\mu_1,\mu_0,\mu_3,\mu_2$ là $6{,}25$; $18{,}25$; $24{,}25$; $36{,}25$, nên $nprobe=2$ mở $L_1$ và $L_0$.
+
+::: exercise Tự kiểm
+Với $nprobe=1$, điểm $y_3=(4{,}5;\ 3{,}8)$ có được chấm không? $y_3$ là hàng xóm gần thứ mấy của $q$?
+:::
+
+::: solution
+Không. $\|y_3-\mu_0\|^2=9{,}49<\|y_3-\mu_1\|^2=15{,}49$ nên $y_3\in L_0$, mà $nprobe=1$ chỉ mở $L_1$. Vì $\|q-y_3\|^2=2{,}34$, $y_3$ là hàng xóm gần thứ hai của $q$, sau $y_8=(6{,}5;2{,}5)$ với $1{,}25$. Hàng xóm thật có thể nằm ở ô bên cạnh khi $q$ gần ranh giới; mở thêm danh sách (gán đa, multiple assignment) tăng khả năng tìm thấy, đổi lại chấm nhiều mã hơn.
+:::
+
 Quy trình IVF-PQ:
 
 1. Học $k_c$ tâm thô $\mu_0,\dots,\mu_{k_c-1}$.

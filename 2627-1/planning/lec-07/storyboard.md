@@ -46,7 +46,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q09 | 3 | Bảng tra trên ví dụ hai đoạn (ô của mã $(0,1)$ đánh dấu); chi phí lập bảng, chấm mã so với tính trực tiếp. | $T$ 2×2 → 0,31 và 13,51; $\Theta(k^*D)$, $m$ lần tra | PQ paper §III-A tr.4; Princeton 08 tr.27, 31–32 |
 | Q10 | 3 | Thay số quét mã PQ so với quét véc-tơ gốc cho $10^{10}$ véc-tơ; câu hỏi thời gian; nối sang chỉ mở một phần kho. | 5,12 TB, $5{,}12\cdot10^{12}$ lần tra, 5,12 s | PQ paper tr.2, §IV tr.6; Princeton 08 tr.20–22 |
 | I00 | 4 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
-| I01 | 3 | Hình thức hóa miền argmin và chạy ví dụ chọn danh sách gần nhất. | $\mu_0,\mu_1,q$ → mở $L_1$ trước | Princeton 08 tr.21–22; PQ paper tr.6; ví dụ dựng từ cơ chế nguồn |
+| I01 | 3 | Công thức gán vào tâm thô; xếp bốn tâm theo khoảng cách tới $q$; câu hỏi $nprobe=1$ bỏ sót $y_3$. | $q$ → thứ tự $\mu_1,\mu_0,\mu_3,\mu_2$ | Princeton 08 tr.21–22; PQ paper §IV-A, IV-C tr.6–7 |
 | I02 | 3 | Dùng truy vấn dư và bảng ADC riêng cho từng danh sách. | $\widetilde q_i=q-\mu_i$, $r(y)=y-\mu_i$ → chấm mã trong $L_i$ | PQ paper §IV-A, tr.6 |
 | I03 | 2 | Tách chi phí tâm thô, nprobe bảng ADC và tổng kích thước danh sách; tách riêng phụ phí top-K. | $\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta(m\sum_{i\in P}|L_i|)$ | PQ paper tr.6–8 |
 | I04 | 3 | Gom thuật toán, điều kiện dừng và trường hợp thiếu K ứng viên. | $q$ → $\min(K,\sum|L_i|)$ mã định danh; đủ K khi tổng ứng viên ≥K | PQ paper §IV, tr.6; Princeton 08 tr.54–55 |
@@ -446,3 +446,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** tên đầy đủ; IVF là VQ thô; tọa độ ví dụ; tương ứng ký hiệu $k'$, $w$ của bài báo và `nlist`, `nprobe` của Faiss.
 - **Nguồn:** Princeton lớp 8 tr.21–22; PQ paper mục IV tr.6–7. Ví dụ do học phần dựng.
 - **Quyết định:** viết lại. Bản cũ (tiêu đề câu “IVF-PQ định tuyến rồi chấm mã nén”) chỉ có hai thẻ chữ, không hình; dùng “định tuyến”, “véc-tơ dư” chưa giải thích.
+
+### I01 — Chọn danh sách cần mở
+
+- **Phần:** 5. **Vai trò:** hình thức hóa phép gán, ví dụ, kiểm tra. **Thời lượng:** 3 phút.
+- **Mục đích:** gán véc-tơ vào danh sách, chọn $nprobe$ danh sách cho một truy vấn; thấy giới hạn khi hàng xóm nằm ở ô bên cạnh.
+- **Câu chốt:** mở danh sách theo khoảng cách từ $q$ tới tâm thô; hàng xóm thật gần ranh giới có thể nằm ở danh sách chưa mở.
+- **Đầu vào:** ví dụ bốn ô (I00), nhắc lại bằng hình `tep-dao-o.svg` (không đánh dấu danh sách mở để khớp câu hỏi). **Thể hiện:** công thức $a(y)$, $L_i$; hình; bảng bốn tâm và thứ tự; hộp câu hỏi.
+- **Kết nối vào–ra:** cụ thể hóa I00; hiện tượng bỏ sót dẫn tới tham số $nprobe$ trong chi phí I03.
+- **Kiểm tra:** $y_3$ không được chấm với $nprobe=1$ (9,49 < 15,49 nên $y_3\in L_0$), dù là hàng xóm gần thứ hai ($2{,}34$).
+- **Nguồn:** Princeton lớp 8 tr.21–22; PQ paper mục IV-A, IV-C tr.6–7.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; ví dụ cũ hai tâm $\mu_0=(0,0)$, $\mu_1=(8,0)$ rời rạc với các ví dụ khác và không cho thấy tác dụng của $nprobe$; ký tự “<” thô từng làm hỏng công thức (đã sửa ở bước chuẩn bị).

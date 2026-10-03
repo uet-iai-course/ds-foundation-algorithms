@@ -418,18 +418,18 @@ def tep_dao(name, mode):
     X = lambda u: ox + sc * u
     Y = lambda v: oy - sc * v
     b = ''
-    opened = {1, 0}
-    fills = {0: PALE_ORANGE, 1: PALE_BLUE, 2: '#ffffff', 3: '#ffffff'}
+    opened = {1, 0} if mode != 'plain' else set()
+    fills = {0: PALE_ORANGE, 1: PALE_BLUE, 2: '#ffffff', 3: '#ffffff'} if mode != 'plain' else {i: '#ffffff' for i in range(4)}
     cells = {0: (0, 0, 5, 5), 1: (5, 0, 10, 5), 2: (0, 5, 5, 10), 3: (5, 5, 10, 10)}
     for i, (u0, v0, u1, v1) in cells.items():
-        b += f'<rect x="{X(u0)}" y="{Y(v1)}" width="{sc * (u1 - u0)}" height="{sc * (v1 - v0)}" fill="{fills[i]}" stroke="{INK}" stroke-width="2" stroke-dasharray="{"" if i in opened else "8 6"}"/>'
+        b += f'<rect x="{X(u0)}" y="{Y(v1)}" width="{sc * (u1 - u0)}" height="{sc * (v1 - v0)}" fill="{fills[i]}" stroke="{INK}" stroke-width="2" stroke-dasharray="{"" if (i in opened or mode == 'plain') else "8 6"}"/>'
         b += text(X(u1) - 10, Y(v1) + 34, f'L{i}' + (' (mở)' if i in opened else ''), 28, INK, 'end', weight='bold')
     for i, (u, v) in enumerate(IVF_MU):
         b += f'<rect x="{X(u) - 11}" y="{Y(v) - 11}" width="22" height="22" fill="{BLUE}"/>'
         b += text(X(u) - 16, Y(v) - 14, f'μ{i}', 28, BLUE, 'end', weight='bold')
     for k, (u, v) in enumerate(IVF_PTS):
         b += f'<circle cx="{X(u)}" cy="{Y(v)}" r="7" fill="{INK}"/>'
-    if mode == 'cells':
+    if mode in ('cells', 'plain'):
         b += text(X(4.5) - 12, Y(3.8) + 8, 'y3', 26, INK, 'end', weight='bold')
         b += text(X(6.5) - 4, Y(2.5) + 34, 'y8', 26, INK, 'end', weight='bold')
     qu, qv = IVF_Q
@@ -441,10 +441,10 @@ def tep_dao(name, mode):
         b += f'<line x1="{X(IVF_MU[0][0])}" y1="{Y(IVF_MU[0][1])}" x2="{X(qu)}" y2="{Y(qv)}" stroke="{ORANGE}" stroke-width="4" stroke-dasharray="9 6"/>'
     b += f'<rect x="{X(qu) - 11}" y="{Y(qv) - 11}" width="22" height="22" fill="{ORANGE}" transform="rotate(45 {X(qu)} {Y(qv)})"/>'
     b += text(X(qu) + 16, Y(qv) - 12, 'q', 34, ORANGE, 'start', weight='bold', italic=True)
-    if mode == 'cells':
+    if mode in ('cells', 'plain'):
         w, title = 540, 'Tệp đảo với bốn danh sách'
         desc = ('Bốn tâm thô μ0 đến μ3 chia mặt phẳng thành bốn ô; mỗi ô ứng với một danh sách đảo L0 đến L3 gồm bốn điểm. '
-                'Truy vấn q ở (6; 3,5) gần μ1 nhất rồi đến μ0; với nprobe bằng 2, chỉ L1 và L0 được mở.')
+                'Truy vấn q ở (6; 3,5) gần μ1 nhất rồi đến μ0' + ('; với nprobe bằng 2, chỉ L1 và L0 được mở.' if mode == 'cells' else '; điểm y3 thuộc ô của μ0, sát ranh giới với ô của μ1.'))
     else:
         w, title = 540, 'Véc-tơ dư trong tệp đảo'
         desc = ('Mũi tên xanh từ μ1 tới y8 là phần dư r(y8) được mã hóa bằng PQ. '
@@ -471,6 +471,7 @@ def main():
     pq_vi_du('pq-vi-du-adc.svg', with_query=True)
     tep_dao('tep-dao.svg', 'cells')
     tep_dao('tep-dao-du.svg', 'residual')
+    tep_dao('tep-dao-o.svg', 'plain')
 
 
 if __name__ == '__main__':
