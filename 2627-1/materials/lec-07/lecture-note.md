@@ -629,6 +629,14 @@ Ghép sai thứ tự đặt tâm con của đoạn $j$ vào vị trí tọa đ�
 Với $D=64$: $D/m=16, 8, 4$ và $k^*=2^b=4096, 64, 8$; cả ba có `code_size` 6 byte. MSE và thời gian phụ thuộc dữ liệu, phần cứng, số luồng và phiên bản Faiss nên không có đáp án số cố định; thời gian trong ô 99 không gồm huấn luyện.
 :::
 
+Phân tích bảng kết quả:
+
+1. Xác nhận ba cấu hình có cùng `code_size`.
+2. Xếp hạng MSE; so với nhận định của nguồn (Princeton lớp 8, tr.33): với cùng độ dài mã, $k^*$ lớn hơn và $m$ nhỏ hơn thường chính xác hơn nhưng chậm hơn; khi $m=1$, PQ trở thành k-means đầy đủ.
+3. So sánh thời gian; giải thích bằng chi phí mã hóa $\Theta(k^*D)$, lần lượt $262\,144$; $4\,096$; $512$ phép toán trên tọa độ mỗi véc-tơ. Giải mã chỉ sao chép tâm con nên ít phụ thuộc $k^*$.
+
+Viết một đoạn kết luận chỉ dựa trên số đo của mình, không khái quát thành quy luật cho mọi dữ liệu.
+
 ### Nhiệm vụ 3: điều chỉnh IVF-PQ
 
 Làm các ô 148–155 với chuỗi nguồn `IVF200,PQ16x8np` và thử $nprobe\in\{2,5,10,20,50\}$. Không diễn giải hậu tố `np` thành giá trị `nprobe`; notebook đặt `nprobe` riêng sau khi tạo chỉ mục.

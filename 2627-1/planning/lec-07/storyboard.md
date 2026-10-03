@@ -65,7 +65,7 @@ Tổng phần giảng: **120 phút**.
 | R02 | 9 | Hoàn thiện ô 96 (tái dựng véc-tơ 123 không gọi `decode`) với gợi ý công thức tái dựng; ô 97 in `True`. | ghép `pq_centroids[j, xb_codes[123,j]]` theo $j$ | ô 96–97 |
 | R03 | 5 | Với ba điều kiện khớp, nêu hậu quả khi vi phạm, gắn với ký hiệu của $\widehat x$. | đáp án mẫu và rubric 10 điểm trong ghi chú | ô 96–97 |
 | R04 | 10 | Ô 99: ba cấu hình 6 byte; dự đoán $D/m$, $k^*$; ghi MSE và thời gian mã hóa–giải mã. | $D/m=16,8,4$; $k^*=4096,64,8$ | ô 98–99 |
-| R05 | 10 | So sánh MSE, thời gian, dsub và ksub mà không khái quát quá mức. | rubric 10 điểm; không có số cố định | ô 98–99 |
+| R05 | 10 | Phân tích bảng nhiệm vụ 2: `code_size`, xếp hạng MSE so với nhận định của nguồn, thời gian giải thích bằng $k^*D$. | rubric 10 điểm; không có số cố định | ô 98–99; Princeton 08 tr.32–33 |
 | R06 | 6 | Đọc mục “IVFPQ index”; xây hoặc dùng trạng thái ô 149–151 với `d,xt,xb` đã chuẩn bị. | giải thích cấu hình; thời gian `train` báo riêng | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
 | R07 | 9 | Tiếp tục “IVFPQ index” ở ô 152–155 với `xq,gt` từ ô 17,21–24. | $nok/|xq|$; tổng ms, không gắn nhãn độ trễ mỗi truy vấn | ô 152–155 |
 | R08 | 5 | Hoàn thiện phiếu báo cáo năm dòng và giải thích xu hướng của phép quét nguồn. | không thêm mục tiêu vận hành hoặc $nprobe$ mới | ô 149–155 |
@@ -565,3 +565,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** đáp án dự đoán; không có số đo cố định; thời gian trong ô 99 không gồm huấn luyện; chạy trước nếu máy chậm.
 - **Nguồn:** sổ thực hành ô 98–99.
 - **Quyết định:** sửa. Bản cũ điền sẵn `dsub`, `ksub` (phần sinh viên nên tự suy ra), không có cột cho MSE và thời gian; ký hiệu $M_{PQ}$ mới, khác $m$ của bài. Ghi chú tự học cũ gọi thời gian là “huấn luyện/mã hóa”, sai so với ô 99 (chỉ đo mã hóa và giải mã).
+
+### R05 — Phân tích đánh đổi cùng ngân sách
+
+- **Phần:** 7. **Vai trò:** phân tích số đo bằng mô hình chi phí của bài. **Thời lượng:** 10 phút.
+- **Mục đích:** giải thích khác biệt MSE và thời gian của ba cấu hình bằng $D/m$, $k^*$, $k^*D$.
+- **Thể hiện:** ba yêu cầu đánh số; dòng sản phẩm.
+- **Kết nối vào–ra:** dùng bảng R04 và chi phí mã hóa Q02, Q04; khép nhiệm vụ 2, mở nhiệm vụ 3 (R06).
+- **Ghi chú diễn giả:** nhận định của nguồn; $262\,144$, $4\,096$, $512$; giải mã ít phụ thuộc $k^*$; rubric.
+- **Nguồn:** sổ thực hành ô 98–99; Princeton lớp 8 tr.32–33.
+- **Quyết định:** sửa. Bản cũ có bốn yêu cầu chung, chưa đưa công cụ của bài ($k^*D$) và nhận định của nguồn để đối chiếu với số đo; tiêu đề “Đọc đánh đổi…” không học thuật.
