@@ -164,16 +164,15 @@ Chạy lại tìm kiếm chùm trên đồ thị ví dụ với $ef=2$. Thuật 
 Sau khi mở $e$, $W=\{a{:}7,s{:}8\}$ ($e$ bị bỏ vì xa nhất). Mở $a$ thêm $b{:}5$ và bỏ $s$, nên $W=\{b{:}5,a{:}7\}$. Mở $b$ không thêm gì. Đỉnh kế tiếp trong $C$ là $s{:}8$, xa hơn phần tử xa nhất $a{:}7$ của $W$, nên thuật toán dừng và trả $\{b,a\}$. Chùm phải đủ rộng để giữ $s$ trong $W$ thì mới đi tiếp qua nhánh $s$.
 :::
 
-**Đặc tả `SEARCH-LAYER`.** Tìm kiếm chùm trên đồ thị ví dụ là trường hợp $ep=\{e\}$, $ef=3$ của thủ tục `SEARCH-LAYER(q, ep, ef, ℓ)` trong bài báo HNSW.
+**Đặc tả `SEARCH-LAYER`.** Tìm kiếm chùm trên đồ thị ví dụ là trường hợp $ep=\{e\}$, $ef=3$ của thủ tục `SEARCH-LAYER(q, ep, ef, ℓc)` trong bài báo HNSW.
 
-- Đầu vào: truy vấn $q$; bề rộng $ef\ge1$; tập điểm vào $ep$ với $1\le|ep|\le ef$, mọi phần tử thuộc tầng $\ell$; tầng $\ell$ của đồ thị. Khi chỉ có một đồ thị, $\ell=0$; đồ thị nhiều tầng được xét ở mục 5.
+- Đầu vào: truy vấn $q$; bề rộng $ef\ge1$; tập điểm vào $ep$ với $1\le|ep|\le ef$, mọi phần tử thuộc tầng $\ell_c$; tầng $\ell_c$ của đồ thị. Khi chỉ có một đồ thị, $\ell_c=0$; đồ thị nhiều tầng được xét ở mục 5.
 - Đầu ra: $W$, tối đa $ef$ đỉnh gần $q$ nhất trong các đỉnh đã thấy.
 - Trạng thái: $V$ gồm các đỉnh đã thấy; $C\subseteq V$ gồm các đỉnh chưa mở; $W\subseteq V$.
 
 Điều kiện $1\le|ep|\le ef$ làm phép khởi tạo $W\leftarrow ep$ hợp lệ: $W$ không rỗng nên luôn có phần tử xa nhất, và không vượt $ef$. Đầu ra chỉ nói về các đỉnh đã thấy; vùng chưa phát hiện có thể chứa đỉnh gần $q$ hơn.
 
 ![Trạng thái sau khi mở b với ef bằng 3: V gồm e, a, b, s; C gồm s; W gồm b, a, s; C và W là tập con của V.](img/lec-07/search-layer-trang-thai.svg)
-
 
 ```text
 SEARCH-LAYER(q, ep, ef, ℓc)
@@ -182,12 +181,12 @@ while C khác rỗng:
     c ← lấy ra đỉnh gần q nhất trong C
     f ← đỉnh xa q nhất trong W
     if d(c,q) > d(f,q): break
-    for e in lân cận của c ở tầng ℓc:
-        if e ∉ V:
-            thêm e vào V
+    for y in lân cận của c ở tầng ℓc:
+        if y ∉ V:
+            thêm y vào V
             f ← đỉnh xa q nhất trong W
-            if |W| < ef or d(e,q) < d(f,q):
-                thêm e vào C và W
+            if |W| < ef or d(y,q) < d(f,q):
+                thêm y vào C và W
                 if |W| > ef: bỏ đỉnh xa q nhất khỏi W
 return W
 ```
@@ -199,7 +198,7 @@ Lệnh `break` chạy khi đỉnh gần nhất còn trong $C$ đã xa $q$ hơn $
 **Bất biến.** Sau mỗi lần một đỉnh mới vào $V$, $W$ là một tập gồm $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất.
 
 - *Khởi tạo:* $V=W=ep$ và $|ep|\le ef$.
-- *Duy trì:* khi $|W|<ef$, mọi đỉnh mới đều vào $W$, nên $W=V$. Khi $|W|=ef$, đỉnh mới $e$ hoặc gần $q$ hơn đỉnh xa nhất $f$ của $W$, khi đó $e$ thay $f$ và $W$ là $ef$ đỉnh gần nhất của $V\cup\{e\}$; hoặc không gần hơn, khi đó $e$ không thuộc $ef$ đỉnh gần nhất và $W$ giữ nguyên. Chữ “một tập” xử lý trường hợp hòa khoảng cách.
+- *Duy trì:* khi $|W|<ef$, mọi đỉnh mới đều vào $W$, nên $W=V$. Khi $|W|=ef$, đỉnh mới $y$ hoặc gần $q$ hơn đỉnh xa nhất $f$ của $W$, khi đó $y$ thay $f$ và $W$ là $ef$ đỉnh gần nhất của $V\cup\{y\}$; hoặc không gần hơn, khi đó $y$ không thuộc $ef$ đỉnh gần nhất và $W$ giữ nguyên. Chữ “một tập” xử lý trường hợp hòa khoảng cách.
 - *Khi dừng:* $W$ đúng trên $V$, nhưng đỉnh ngoài $V$ không được xét.
 
 Ở lần chạy $ef=2$, thuật toán dừng với $V=\{e,a,s,b\}$ và $W=\{b{:}5,a{:}7\}$, đúng là hai đỉnh gần nhất trong bốn đỉnh đã thấy; $z{:}1$ chưa bao giờ được thấy vì $s$ không được mở.
@@ -209,7 +208,7 @@ Lệnh `break` chạy khi đỉnh gần nhất còn trong $C$ đã xa $q$ hơn $
 Bất biến vì vậy không bảo đảm tìm được hàng xóm toàn cục: vùng tốt có thể không nối với phần đã thấy bằng một đường mà thuật toán chọn mở. Trường hợp xấu, thuật toán thăm mọi đỉnh và cạnh của tầng.
 
 ::: exercise Tự kiểm
-Vì sao tăng $ef$ thường giúp recall nhưng làm truy vấn tốn hơn?
+Vì sao tăng $ef$ thường làm tăng độ thu hồi nhưng làm truy vấn tốn hơn?
 :::
 
 ::: solution
@@ -252,18 +251,18 @@ $$
 Với số nguyên $k\ge0$, $\ell\ge k$ khi và chỉ khi $U\le e^{-k/m_L}$, nên
 
 $$
-\Pr[\ell\ge k]=e^{-k/m_L}=p^k,\qquad p=e^{-1/m_L}.
+\Pr[\ell\ge k]=e^{-k/m_L}=\rho^k,\qquad \rho=e^{-1/m_L}.
 $$
 
-Đây là phân phối hình học như trong danh sách nhảy: mỗi tầng giữ khoảng tỷ lệ $p$ số điểm của tầng ngay dưới. Kỳ vọng số điểm có $\ell\ge k$ là $Np^k$, bằng 1 khi $k=\log_{1/p}N$, nên tầng cao nhất xấp xỉ $\log_{1/p}N$. Miền $(0,1]$ tránh $\ln 0$; mọi điểm thuộc tầng 0 vì $\ell\ge0$.
+Đây là phân phối hình học như trong danh sách nhảy: mỗi tầng giữ khoảng tỷ lệ $\rho$ số điểm của tầng ngay dưới. Kỳ vọng số điểm có $\ell\ge k$ là $N\rho^k$, bằng 1 khi $k=\log_{1/\rho}N$, nên tầng cao nhất xấp xỉ $\log_{1/\rho}N$. Ký hiệu $\rho$ thay cho $p$ của bài báo để khỏi trùng tên điểm $p1,\ldots,p11$. Miền $(0,1]$ tránh $\ln 0$; mọi điểm thuộc tầng 0 vì $\ell\ge0$.
 
 ::: example Tầng với $m_L=1/\ln 16$
-Khi đó $p=1/16$: khoảng $1/16$ số điểm có tầng $\ge1$ và $1/256$ có tầng $\ge2$. Với $N=10^{10}$, tầng cao nhất xấp xỉ $\log_{16}10^{10}\approx8{,}3$.
+Khi đó $\rho=1/16$: tầng 1 chứa khoảng $1/16$ số điểm, tầng 2 khoảng $1/256$. Với $N=10^{10}$, tầng cao nhất xấp xỉ $\log_{16}10^{10}\approx8{,}3$.
 :::
 
-Bài báo chọn $m_L=1/\ln M$, với $M$ là số lân cận được nối cho mỗi điểm mới (định nghĩa ở thao tác chèn); khi đó $p=1/M$. Đây là lựa chọn thực nghiệm, không phải điều kiện để thuật toán đúng.
+Bài báo chọn $m_L=1/\ln M$, với $M$ là số lân cận được nối cho mỗi điểm mới (định nghĩa ở thao tác chèn); khi đó $\rho=1/M$. Đây là lựa chọn thực nghiệm, không phải điều kiện để thuật toán đúng.
 
-**Chèn một điểm.** Chèn điểm mới $x$ là truy vấn chính $x$, rồi nối $x$ với các đỉnh gần nó ở từng tầng mà $x$ thuộc về. Ví dụ: chèn $x$ ở tọa độ $2{,}6$ vào đồ thị ba tầng ở trên, với tầng rút được $\ell=1$, nối $M=2$ lân cận và bề rộng chùm khi chèn bằng 3. Khoảng cách tới $x$: $p3$ 0,4; $p2$ 0,6; $p4$ 1,4; $p1$ 1,6; $s$ 2,6.
+**Chèn một điểm.** Chèn điểm mới $x$ là truy vấn chính $x$, rồi nối $x$ với các đỉnh gần nó ở từng tầng mà $x$ thuộc về. Ví dụ: chèn $x$ ở tọa độ $2{,}6$ vào đồ thị ba tầng ở trên, với tầng rút được $\ell=1$, nối $M=2$ lân cận và bề rộng chùm khi chèn `efConstruction` bằng 3. Khoảng cách tới $x$: $p3$ 0,4; $p2$ 0,6; $p4$ 1,4; $p1$ 1,6; $s$ 2,6.
 
 | Tầng | Tìm từ | Kết quả |
 |---|---|---|
@@ -288,16 +287,16 @@ for ℓc = min(L,ℓ), …, 0:                      // pha 2
 if ℓ > L: đặt x làm điểm vào
 ```
 
-Tham số: $M$ là số lân cận nối cho $x$; $efConstruction\ge M$ là bề rộng chùm khi chèn; $M_{\max}$ ở các tầng trên và $M_{\max,0}$ ở tầng 0 là bậc tối đa, cả hai ít nhất bằng $M$; bài báo đề xuất $M_{\max,0}=2M$. Nếu chỉ mục rỗng, $x$ được tạo ở các tầng $0,\ldots,\ell$ và trở thành điểm vào. Pha 1 chạy ở các tầng cao hơn $\ell$, nơi $x$ không xuất hiện, nên chỉ tìm điểm vào. Pha 2 dùng kết quả $W$ của tầng trên làm tập điểm vào của tầng dưới. Mỗi đầu mút tự cắt danh sách của mình, nên quan hệ kề có thể không còn đối xứng dù bước nối là hai chiều. Ở ví dụ, sau khi nối, $p2,p4$ ở tầng 1 và $p3,p2$ ở tầng 0 đều có bậc 3, nên với $M_{\max}=3$, $M_{\max,0}=4$ không có cắt.
+Tham số: $M$ là số lân cận nối cho $x$; `efConstruction` là bề rộng chùm khi chèn, chọn $\ge M$; $M_{\max}$ ở các tầng trên và $M_{\max,0}$ ở tầng 0 là bậc tối đa, cả hai ít nhất bằng $M$; bài báo đề xuất $M_{\max,0}=2M$. Nếu chỉ mục rỗng, $x$ được tạo ở các tầng $0,\ldots,\ell$ và trở thành điểm vào. Pha 1 chạy ở các tầng cao hơn $\ell$, nơi $x$ không xuất hiện, nên chỉ tìm điểm vào. Ở pha 2, $ep$ là một tập: kết quả $W$ của tầng trên làm tập điểm vào của tầng dưới. Mỗi đầu mút tự cắt danh sách của mình, nên quan hệ kề có thể không còn đối xứng dù bước nối là hai chiều. Ở ví dụ, sau khi nối, $p2,p4$ ở tầng 1 và $p3,p2$ ở tầng 0 đều có bậc 3, nên với $M_{\max}=3$, $M_{\max,0}=4$ không có cắt.
 
-**Chọn lân cận đa dạng.** Chọn đúng $M$ đỉnh gần $x$ nhất có thể tạo nhiều cạnh cùng một hướng. Quy tắc đa dạng của bài báo (Thuật toán 4) xét ứng viên $e$ theo $d(e,x)$ tăng dần và chỉ nhận $e$ khi
+**Chọn lân cận đa dạng.** Chọn đúng $M$ đỉnh gần $x$ nhất có thể tạo nhiều cạnh cùng một hướng. Quy tắc đa dạng của bài báo (Thuật toán 4) xét ứng viên $y$ theo $d(y,x)$ tăng dần và chỉ nhận $y$ khi
 
 $$
-d(e,x)<d(e,r)\qquad\text{với mọi lân cận }r\text{ đã chọn}.
+d(y,x)<d(y,r)\qquad\text{với mọi lân cận }r\text{ đã chọn}.
 $$
 
 ::: example Chọn hai lân cận cho $x$
-Ví dụ hai chiều: $x=(0;0)$, $c1=(2;0{,}3)$, $c2=(2{,}6;0{,}9)$, $c3=(2{,}4;-0{,}6)$, $c4=(-3;0{,}5)$, $M=2$. Ví dụ một chiều ở trên không dùng được vì hai cách chọn cho cùng kết quả. Theo thứ tự $d(\cdot,x)$: $c1$ 2,0; $c3$ 2,5; $c2$ 2,8; $c4$ 3,0. Quy tắc nhận $c1$; loại $c3$ vì $d(c3,c1)\approx1{,}0<2{,}5$; loại $c2$ vì $d(c2,c1)\approx0{,}8<2{,}8$; nhận $c4$ vì $d(c4,c1)\approx5{,}0>3{,}0$. Kết quả $\{c1,c4\}$ ở hai phía của $x$, trong khi chọn hai đỉnh gần nhất cho $\{c1,c3\}$ cùng một phía.
+Ví dụ hai chiều: $x=(0;0)$, $c1=(2;0{,}3)$, $c2=(2{,}6;0{,}9)$, $c3=(2{,}4;-0{,}6)$, $c4=(-3;0{,}5)$, $M=2$. Trên ví dụ một chiều, hai cách chọn cho cùng kết quả nên ví dụ được đổi sang hai chiều. Theo thứ tự $d(\cdot,x)$: $c1$ 2,0; $c3$ 2,5; $c2$ 2,8; $c4$ 3,0. Quy tắc nhận $c1$; loại $c3$ vì $d(c3,c1)\approx1{,}0<2{,}5$; loại $c2$ vì $d(c2,c1)\approx0{,}8<2{,}8$; nhận $c4$ vì $d(c4,c1)\approx5{,}0>3{,}0$. Kết quả $\{c1,c4\}$ ở hai phía của $x$, trong khi chọn hai đỉnh gần nhất cho $\{c1,c3\}$ cùng một phía.
 :::
 
 ![Điểm mới x có bốn ứng viên: c1, c2, c3 cùng một phía, c4 ở phía đối diện; chọn hai đỉnh gần nhất cho c1 và c3, quy tắc đa dạng cho c1 và c4.](img/lec-07/lan-can-da-dang.svg)
@@ -314,13 +313,13 @@ Một ứng viên gần một lân cận đã chọn hơn gần $x$ thì cạnh 
 
 $M$ và `efConstruction` quyết định đồ thị khi xây, nên đổi chúng phải xây lại chỉ mục; `efSearch` đổi được cho từng truy vấn. Các xu hướng trong bảng là quan sát thực nghiệm của bài báo HNSW (mục 4.1), không phải bảo đảm đơn điệu cho mọi dữ liệu. Bài báo cho biết $M$ gần tối ưu thường nằm trong khoảng 6–48.
 
-**Bộ nhớ.** Mỗi điểm lưu véc-tơ $D$ số thực 4 byte và danh sách lân cận ở mỗi tầng nó thuộc về: tối đa $M_{\max,0}$ lân cận ở tầng 0 và $M_{\max}$ ở mỗi tầng trên. Theo phân phối tầng, kỳ vọng số tầng trên của một điểm là $\sum_{k\ge1}p^k=p/(1-p)$. Bài báo HNSW ước lượng phần cạnh bằng $(M_{\max,0}+m_L M_{\max})$ nhân số byte mỗi liên kết; hai cách cho cùng cỡ vài trăm byte mỗi điểm.
+**Bộ nhớ.** Mỗi điểm lưu véc-tơ $D$ số thực 4 byte và danh sách lân cận ở mỗi tầng nó thuộc về: tối đa $M_{\max,0}$ lân cận ở tầng 0 và $M_{\max}$ ở mỗi tầng trên. Theo phân phối tầng, kỳ vọng số tầng trên của một điểm là $\sum_{k\ge1}\rho^k=\rho/(1-\rho)$. Bài báo HNSW ước lượng phần cạnh bằng $(M_{\max,0}+m_L M_{\max})$ nhân số byte mỗi liên kết; hai cách cho cùng cỡ vài trăm byte mỗi điểm.
 
 ::: example Bộ nhớ cho mười tỷ véc-tơ
-Giả định $N=10^{10}$, $D=3072$, $M=16$, $M_{\max,0}=32$, $M_{\max}=16$, $p=1/16$. Vì $10^{10}>2^{32}$, mã định danh cần 8 byte. Véc-tơ gốc: $4\cdot3072=12\,288$ byte mỗi điểm, $122{,}88$ TB toàn kho. Cạnh: kỳ vọng tối đa $32+16\cdot\tfrac{1/16}{15/16}\approx33{,}1$ liên kết, khoảng 265 byte mỗi điểm, $2{,}65$ TB toàn kho. Véc-tơ gốc chiếm khoảng 98% bộ nhớ.
+Giả định $N=10^{10}$, $D=3072$, $M=16$, $M_{\max,0}=32$, $M_{\max}=16$, $\rho=1/16$. Vì $10^{10}>2^{32}$, mã định danh cần 8 byte. Véc-tơ gốc: $4\cdot3072=12\,288$ byte mỗi điểm, $122{,}88$ TB toàn kho. Cạnh: kỳ vọng tối đa $32+16\cdot\tfrac{1/16}{15/16}\approx33{,}1$ liên kết, khoảng 265 byte mỗi điểm, $2{,}65$ TB toàn kho. Véc-tơ gốc chiếm khoảng 98% bộ nhớ.
 :::
 
-**Truy vấn và xây dựng.** Số phép đo của một truy vấn xấp xỉ số bước nhân bậc trung bình trên đường đi. Bài báo phân tích số phép đo tăng theo $\log N$ dưới giả thiết về khả năng điều hướng và số chiều thấp; đó không là cận cho mọi dữ liệu. Đồ thị kém, tham số nhỏ hoặc dữ liệu bất lợi có thể làm tìm kiếm thăm cả tầng. Xây chỉ mục gồm $N$ lần chèn, mỗi lần một lượt tìm với bề rộng `efConstruction`.
+**Truy vấn và xây dựng.** Số phép đo của một truy vấn xấp xỉ số bước nhân bậc trung bình trên đường đi. Bài báo chứng minh số phép đo tăng theo $\log N$ dưới giả thiết mỗi tầng là đồ thị Delaunay chính xác và bậc trung bình bị chặn bởi hằng số (mục 4.2.1); điều này đúng với dữ liệu Euclid ngẫu nhiên số chiều thấp, còn bậc của đồ thị Delaunay tăng nhanh theo số chiều. Đồ thị thực tế chỉ xấp xỉ, nên kết luận không là cận cho mọi dữ liệu. Đồ thị kém, tham số nhỏ hoặc dữ liệu bất lợi có thể làm tìm kiếm thăm cả tầng. Xây chỉ mục gồm $N$ lần chèn, mỗi lần một lượt tìm với bề rộng `efConstruction`.
 
 HNSW giảm số phép đo nhưng vẫn giữ toàn bộ véc-tơ gốc. Giảm bộ nhớ đòi hỏi biểu diễn véc-tơ gọn hơn; đó là nội dung của lượng tử hóa ở mục sau.
 
@@ -329,7 +328,7 @@ Muốn giảm độ trễ mà không xây lại chỉ mục, nên điều chỉn
 :::
 
 ::: solution
-Giảm `efSearch`. Truy vấn mở ít đỉnh hơn nhưng có thể bỏ lỡ hàng xóm đúng, làm recall giảm.
+Giảm `efSearch`. Truy vấn mở ít đỉnh hơn nhưng có thể bỏ lỡ hàng xóm đúng, làm độ thu hồi giảm.
 :::
 
 ## 7. Lượng tử hóa véc-tơ và lượng tử hóa tích
