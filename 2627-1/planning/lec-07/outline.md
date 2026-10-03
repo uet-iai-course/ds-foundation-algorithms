@@ -50,12 +50,12 @@ Cập nhật sau lượt duyệt từng trang ngày 03/10/2026; thứ tự là t
 |---|---|---:|---|
 | 1. Mở đầu | P00–P02 | 6 | tình huống truy hồi ngữ nghĩa $10^{10}$ véc-tơ, chi phí quét; dàn bài và ba mục tiêu |
 | 2. Bài toán và phép đo | A00–A03 | 11 | đặc tả tìm đúng/ANN, recall@K, bốn trục đánh giá, hai thừa số chi phí |
-| 3. Tìm kiếm trên đồ thị HNSW | H00, H01, H03–H06, H06B, H07, H09, H08, H10, H10B, H11–H13 | 44 | đồ thị lân cận, tham lam, chùm, SEARCH-LAYER và bất biến, cạnh dài, nhiều tầng, truy vấn, rút tầng, chèn, lân cận đa dạng, tham số, chi phí |
+| 3. Tìm kiếm trên đồ thị HNSW | H00, H01, H03, H03B, H04–H06, H06B, H07, H09, H08, H10, H10B, H11–H13 | 44 | đồ thị lân cận, tham lam, chùm, SEARCH-LAYER và bất biến, cạnh dài, nhiều tầng, truy vấn, rút tầng, chèn, lân cận đa dạng, tham số, chi phí |
 | 4. Lượng tử hóa tích | Q00, Q02–Q05, Q07, Q06, Q08–Q10 | 28 | VQ, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ |
 | 5. IVF-PQ | I00–I02, I04, I03 | 16 | tệp đảo, chọn danh sách, phần dư, thuật toán, chi phí thay số |
 | 6. Tổng kết | C00–C02 | 15 | so sánh bốn cấu trúc trên tình huống mở đầu; sáu câu tự kiểm |
 
-Gộp: H02 vào H01; Q01 vào Q00. Tách: H10 thành H10 và H10B. Thêm: H06B, C01, C02. Chuyển: H08 sau H09; Q06 sau Q07; I03 sau I04.
+Gộp: H02 vào H01; Q01 vào Q00. Tách: H03 thành H03 và H03B; H10 thành H10 và H10B. Thêm: H06B, C01, C02. Chuyển: H08 sau H09; Q06 sau Q07; I03 sau I04.
 
 Ghi chú nhất quán: kết luận $\log N$ của HNSW giả thiết mỗi tầng là đồ thị Delaunay chính xác và bậc trung bình bị chặn (mục 4.2.1 bài báo HNSW); bộ nhớ cạnh tính theo kỳ vọng số tầng trên $\rho/(1-\rho)$.
 

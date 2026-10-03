@@ -355,3 +355,35 @@ Tác tử chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `h
 | H13 ghi chú diễn giả, ghi chú tự học mục 6 | (nhẹ) “số chiều thấp”, “tăng nhanh” lệch nguồn (tr.7: dữ liệu Euclid ngẫu nhiên; bậc Delaunay tăng theo hàm mũ của số chiều). | sửa | Viết lại theo đúng nguồn. |
 | R08 ghi chú | (nhẹ) “nhiệm vụ 3 2 điểm” khó đọc. | sửa | “bảng cấu hình (2 điểm)”. |
 | Q09 ghi chú | (nhẹ) Lặp dữ kiện đã có trên trang. | sửa | Bỏ câu lặp. |
+
+### Kiểm định cuối lượt duyệt từng trang, 03/10/2026
+
+**Kiểm hiển thị (Playwright Chromium, máy chủ `python3 -m reloadserver 8775`).** Deck 50 trang (41 giảng, 9 bài tập): 1600 × 900 không tràn khung (đáy nội dung lớn nhất 638/720), không `.katex-error`, không ký tự `$` sót ngoài KaTeX, cỡ chữ nhỏ nhất ngoài KaTeX 24 px (khối mã và bảng gọn), không phần tử tràn ngang; 390 × 844 (chế độ cuộn của Reveal) không tràn ngang; không lỗi console hay lỗi trang; không yêu cầu mạng ngoài máy chủ cục bộ; phím mũi tên chuyển trang. Mọi ảnh là SVG có `role="img"` và mô tả; không ảnh raster. Ghi chú tự học ở 1440 × 900, 390 × 844 và in: không lỗi KaTeX, không tràn ngang, ảnh tải đủ, liên kết deck trả 200. Index: hai liên kết Bài 7 trả 200 ở hai khổ. Đã xem ảnh chụp từng trang sau mỗi lần sửa; ảnh lưu ngoài kho tại `/tmp/lec07-work/shots/`.
+
+**Kiểm tĩnh.** Không còn khối `<style>`, không `style=""` nội tuyến, không `fragment`; `data-slide-id` duy nhất (50) và không xuất hiện trên mặt trang hay trong ghi chú diễn giả; khối mã có `data-trim`, ngôn ngữ `plaintext` cho giả mã và `python` cho ô sổ thực hành; `git diff --check` sạch ở mọi commit.
+
+**Phiếu kiểm tra của `slide_authoring_standard.md`.**
+
+| Mục | Kết quả |
+|---|---|
+| Tiêu đề ngắn, gọi đúng khái niệm; không câu hỏi, không câu kể tiến trình | đạt; đã bỏ “Từ … sang …”, các tiêu đề câu và tiêu đề có ký hiệu bị viết hoa |
+| Văn phong học thuật; biên tập và tự kiểm theo `no-ai-slop`/`eval.md` | đạt; đã bỏ mẫu dấu hai chấm kịch tính, lời nhấn “sai hoàn toàn”, dẫn chiếu trang trong ghi chú diễn giả |
+| Không văn nói, chỉ dẫn biên soạn hoặc điều phối trên trang và trong ghi chú diễn giả | đạt; chỉ dẫn điều phối phần bài tập chuyển vào storyboard |
+| Mỗi trang một mục đích, có vai trò trong storyboard | đạt; mục “Chi tiết từng trang” có đủ 50 trang |
+| Mỗi phần mở rõ nhu cầu và nối sang phần sau | đạt; hai thừa số chi phí ở A03 xuyên suốt; H13 → Q00, Q10 → I00 |
+| Phần kết thu hồi tình huống ban đầu, có 4–6 nhiệm vụ tự kiểm; thời lượng tách riêng | đạt; C00 thay số, C01–C02 sáu câu; 120 + 60 phút |
+| Một trọng tâm mỗi trang; chú thích khớp hình, bảng, mã | đạt |
+| Tiên quyết và ký hiệu được thiết lập trước nơi dùng | đạt; $x$/$y$, $\rho$, $\ell_c$, ký hiệu IVF có trong outline và bảng ký hiệu ghi chú |
+| Cụm thuật toán đủ đặc tả, ví dụ, giả mã, lập luận đúng, dừng, biên, chi phí | đạt cho SEARCH-LAYER (H03–H06), truy vấn và chèn HNSW (H07–H11, H13), VQ/PQ/ADC (Q00–Q10), IVF-PQ (I00–I03) |
+| Ví dụ tính lại được; phân biệt nguồn và phần dựng | đạt; mọi vết và số tính lại bằng chương trình; ví dụ dựng ghi rõ |
+| Mô hình chi phí, đơn vị, giả thiết trước phép tính | đạt (P01, A00, H13, Q03, Q07, Q10, I03) |
+| Mỗi số hạng chi phí truy được về một bước | đạt (I03 theo các bước của I04) |
+| Hình, giả mã, bảng, lời giải dùng cùng dữ kiện và ký hiệu | đạt; không còn dẫn chiếu “ví dụ trước” bằng lời, mỗi trang dùng lại ví dụ có hình hoặc dữ kiện trên trang |
+| Câu hỏi đo đúng mục tiêu, có đáp án trong ghi chú | đạt |
+| Bản render đọc được, không tràn hay chồng lấn | đạt |
+| Khối mã có `data-trim`; công thức render đúng; không `fragment` | đạt |
+| Sai khác nguồn và ngoại lệ có lý do trong nhật ký | đạt; xem các bảng duyệt và rà lại ở trên |
+
+**Phân công vai trò trong lượt này.** Điều phối và biên tập: phiên Claude Code, Opus 5.5, effort `high`. Tác tử rà chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5): phần 1–2; phần 3; phần 4; phần 5–6; phần 7; góc nhìn sinh viên toàn bài; tái rà sau lượt góc nhìn sinh viên. Bằng chứng: các lệnh gọi Agent trong phiên. Chỉ một tác nhân ghi tệp (điều phối viên).
+
+**Giới hạn còn lại.** Phần bài tập không có nhiệm vụ HNSW vì sổ nguồn không có (giữ quyết định cũ). Thời gian chạy máy của sổ thực hành phụ thuộc môi trường, không có đáp án số cố định.
