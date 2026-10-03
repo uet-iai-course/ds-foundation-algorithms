@@ -50,7 +50,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | I02 | 3 | Phần dư $r(y)$, đẳng thức $\|q-y\|=\|(q-\mu_i)-r(y)\|$, một bảng tra cho mỗi danh sách mở; ví dụ $y_8$. | $r(y_8)$, $\widetilde q_1$, $\widetilde q_0$ → 1,25 | PQ paper §IV-A, IV-B tr.6, eq.31 |
 | I04 | 4 | Giả mã truy vấn IVF-PQ; vết trên bốn danh sách ($nprobe=2$, $K=3$); câu hỏi $nprobe=1$. | $y_8,y_3,y_7$; $nprobe=1$ → recall@3 $=2/3$ | PQ paper §IV-C tr.7; Princeton 08 tr.21 |
 | I03 | 3 | Chuyển sau I04. Đếm chi phí truy vấn theo ba bước, thay số cho $10^{10}$ véc-tơ với $k_c=10^5$, $nprobe=64$. | $\approx3{,}6\cdot10^9$, ít hơn 1400 lần quét đủ | PQ paper §IV-C tr.7; Princeton 08 tr.22; 09 tr.5 |
-| C00 | 8 | So sánh LSH, HNSW, PQ đầy đủ và IVF-PQ theo lưu/xây, phạm vi quét, núm truy vấn và bốn trục A02. | bốn cơ chế → lựa chọn có điều kiện, không xếp hạng phổ quát | tổng hợp các nguồn |
+| C00 | 5 | So sánh LSH, HNSW, PQ quét đủ, IVF-PQ theo thừa số được giảm, bộ nhớ, truy vấn, tham số; thu hồi tình huống mở đầu bằng số. | 125 TB và 5,2 TB; $3{,}6\cdot10^9$ thao tác | tổng hợp các nguồn; số liệu suy ra từ H13, Q07, Q10, I03 |
 
 Tổng phần giảng: **120 phút**.
 
@@ -490,3 +490,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** đặc tả đầu vào/đầu ra; trường hợp ít hơn $K$; dừng; trả mã định danh; giả định ADC đúng; đáp án $2/3$.
 - **Nguồn:** PQ paper mục IV-C tr.7; Princeton lớp 8 tr.21.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; hình `ivfpq-flow.svg` chữ rất nhỏ; danh sách bốn bước thiếu khởi tạo, vòng lặp, cấu trúc giữ $K$ kết quả; không có vết chạy hay kiểm tra.
+
+### C00 — So sánh bốn cấu trúc
+
+- **Phần:** 6, tổng kết. **Vai trò:** đối chiếu, thu hồi tình huống. **Thời lượng:** 5 phút.
+- **Mục đích:** so sánh bốn cấu trúc trên cùng bảng và trả lời bài toán mở đầu bằng số liệu bộ nhớ, chi phí truy vấn.
+- **Câu chốt:** với kho mở đầu, HNSW cần khoảng 125 TB; IVF-PQ khoảng 5,2 TB và $3{,}6\cdot10^9$ thao tác mỗi truy vấn, đổi lại độ thu hồi phụ thuộc $nprobe$ và sai số mã hóa.
+- **Đầu vào:** hai thừa số (A03), bốn trục (A02), số liệu H13, Q07, Q10, I03 (ghi lại bằng số trên trang). **Thể hiện:** dòng giả định; bảng năm cột; câu chốt.
+- **Kết nối vào–ra:** thu hồi P01; chuyển sang câu hỏi tự kiểm C01.
+- **Ghi chú diễn giả:** không xếp hạng phổ quát; chất lượng phải đo; khi nào HNSW phù hợp; kết hợp hai hướng; phép tính; LSH không thay số.
+- **Nguồn:** tổng hợp; MMDS Ch.3; Princeton lớp 8 tr.2–5, lớp 9 tr.2–7; hai bài báo.
+- **Quyết định:** sửa. Tiêu đề cũ “Bốn cơ chế trên cùng bốn trục”; bảng chỉ có ký hiệu; câu “Trả lời bài toán mở đầu” là lời khuyên chung, không thu hồi tình huống bằng số.

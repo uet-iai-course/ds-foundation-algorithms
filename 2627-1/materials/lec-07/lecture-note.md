@@ -539,18 +539,18 @@ Một truy vấn mở hai danh sách có 3 và 4 phần tử, còn $K=10$. Số 
 Tối đa $\min(10,3+4)=7$. Muốn có thể trả đủ 10, cần mở thêm danh sách hoặc xử lý trường hợp thiếu ứng viên.
 :::
 
-## 10. So sánh bốn cơ chế
+## 10. So sánh bốn cấu trúc
 
-Không có cấu trúc thắng trên mọi khối lượng công việc.
+Không có cấu trúc thắng trên mọi khối lượng công việc. Bảng dưới thay số cho kho mở đầu ($10^{10}$ véc-tơ, $D=3072$) với các giả định đã dùng: $M=16$ cho HNSW; $m=512$, $b=8$ cho PQ; $k_c=10^5$, $nprobe=64$ cho IVF-PQ.
 
-| Cơ chế | Nguồn ứng viên | Chi phí chính | Bộ nhớ nổi bật | Rủi ro chất lượng |
-|---|---|---|---|---|
-| LSH | ngăn băm | số bảng, ngăn và hậu kiểm | bảng băm, định danh | điểm gần không va chạm |
-| HNSW | đường đi đồ thị | số đỉnh và cạnh được thăm | véc-tơ, liên kết | kẹt ở vùng đồ thị kém |
-| PQ quét đủ | toàn bộ mã | $\Theta(Nm)$ | mã $Nmb$ bit, bộ mã | sai số lượng tử hóa |
-| IVF-PQ | danh sách được mở | tâm thô, bảng ADC, mã ứng viên | danh sách và mã | bỏ sót danh sách đúng |
+| Cấu trúc | Giảm thừa số | Bộ nhớ mỗi véc-tơ | Một truy vấn | Tham số chất lượng | Rủi ro chất lượng |
+|---|---|---|---|---|---|
+| LSH | số véc-tơ được đo | véc-tơ gốc và các bảng băm | đo véc-tơ cùng thùng | số bảng, số hàm mỗi bảng | điểm gần không chung thùng |
+| HNSW | số véc-tơ được đo | $12\,288+{\approx}265$ byte | số bước × bậc | `efSearch`, $M$ | kẹt ở vùng đồ thị kém |
+| PQ quét đủ | chi phí mỗi phép đo | 512 byte | $5{,}12\cdot10^{12}$ lần tra | $m$, $b$ | sai số mã hóa |
+| IVF-PQ | cả hai | $512+8$ byte | $\approx3{,}6\cdot10^9$ thao tác | $nprobe$, $m$, $b$ | sai số mã hóa; hàng xóm ở danh sách chưa mở |
 
-Khối lượng công việc ưu tiên recall có thể chấp nhận `efSearch` hoặc $nprobe$ lớn. Khi bộ nhớ bị giới hạn, PQ có thể phù hợp hơn, nhưng phải tính cả định danh, bộ mã và khả năng giữ véc-tơ gốc. Quyết định chỉ có ý nghĩa khi nêu rõ ngưỡng chất lượng và ngân sách.
+Với kho mở đầu, HNSW cần khoảng $(12\,288+265)\cdot10^{10}\approx125$ TB; IVF-PQ khoảng $(512+8)\cdot10^{10}=5{,}2$ TB (chưa gồm bộ mã và tâm thô) và khoảng $3{,}6\cdot10^9$ thao tác mỗi truy vấn, đổi lại độ thu hồi phụ thuộc $nprobe$ và sai số mã hóa. Bảng chỉ so bộ nhớ và số thao tác theo mô hình đếm; chất lượng phải đo bằng $\operatorname{recall@K}$ trên cùng tập truy vấn, cùng $K$ và cùng phần cứng. HNSW giữ véc-tơ gốc nên thường đạt độ thu hồi cao với độ trễ thấp khi kho nằm vừa bộ nhớ. Hai hướng có thể kết hợp, ví dụ dùng đồ thị để chọn tâm thô thay cho quét đủ $k_c$ tâm. Quyết định chỉ có ý nghĩa khi nêu rõ ngưỡng chất lượng và ngân sách bộ nhớ, độ trễ.
 
 ## 11. Thực hành với runbook Princeton
 
