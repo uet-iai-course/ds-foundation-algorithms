@@ -411,15 +411,11 @@ $$
 
 Trước khi quét, lập bảng $T[j,i]=\|q_j-c_{j,i}\|^2$. Chấm điểm một mã chỉ cần $m$ lần tra bảng và cộng.
 
-::: example Ví dụ ADC dựng lại
-Cho $D=4$, $m=2$, $q=((0,0),(0,0))$. Một mã chọn $c_{1,2}=(0.1,0.1)$ và $c_{2,4}=(0.2,0.5)$. Khi đó
-
-$$
-T[1,2]=0.1^2+0.1^2=0.02,\qquad T[2,4]=0.2^2+0.5^2=0.29.
-$$
-
-Khoảng cách ADC bình phương là $0.02+0.29=0.31$. Các số minh họa đúng cơ chế bảng tra, không phải kết quả thực nghiệm từ nguồn.
+::: example Khoảng cách bất đối xứng trên ví dụ PQ hai đoạn
+Véc-tơ $x=(0{,}2;\ 1{,}8\mid 2{,}7;\ 0{,}1)$ chỉ còn mã $(0,1)$: tâm $(0;2)$ ở đoạn 1 và $(3;0)$ ở đoạn 2. Với $q=(0{,}1;\ 1{,}9\mid 2{,}5;\ 0{,}2)$, hai số hạng là $0{,}1^2+(-0{,}1)^2=0{,}02$ và $(-0{,}5)^2+0{,}2^2=0{,}29$, nên ước lượng là $0{,}31$. Giá trị đúng $\|q-x\|^2=0{,}02+0{,}05=0{,}07$: ADC đo khoảng cách tới véc-tơ tái dựng, nên sai lệch phụ thuộc sai số tái dựng của $x$. Phép tính chỉ cần mã của $x$ và các bộ mã con.
 :::
+
+![Hai mặt phẳng con của ví dụ PQ: x gần tâm 0 ở đoạn 1 và tâm 1 ở đoạn 2; truy vấn q ở (0,1; 1,9) và (2,5; 0,2).](img/lec-07/pq-vi-du-adc.svg)
 
 ![ADC lập bảng khoảng cách từ từng đoạn truy vấn đến các tâm con rồi cộng các ô theo mã PQ.](img/lec-07/pq-lut.svg)
 

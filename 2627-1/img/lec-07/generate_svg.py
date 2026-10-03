@@ -391,13 +391,13 @@ def pq_vi_du(name='pq-vi-du.svg', with_query=False):
         if code == 0:
             b += text(X(xp[0]) + 18, Y(xp[1]) + 26, 'x', 32, GREEN, 'start', weight='bold', italic=True)
         else:
-            b += text(X(xp[0]) - 18, Y(xp[1]) - 14, 'x', 32, GREEN, 'end', weight='bold', italic=True)
+            b += text(X(xp[0]) + 2, Y(xp[1]) - 20, 'x', 32, GREEN, 'start', weight='bold', italic=True)
         if with_query:
             b += f'<rect x="{X(qp[0]) - 9}" y="{Y(qp[1]) - 9}" width="18" height="18" fill="{ORANGE}" transform="rotate(45 {X(qp[0])} {Y(qp[1])})"/>'
             if code == 0:
                 b += text(X(qp[0]) + 18, Y(qp[1]) - 10, 'q', 32, ORANGE, 'start', weight='bold', italic=True)
             else:
-                b += text(X(qp[0]) - 14, Y(qp[1]) - 22, 'q', 32, ORANGE, 'end', weight='bold', italic=True)
+                b += text(X(qp[0]) - 10, Y(qp[1]) - 24, 'q', 32, ORANGE, 'end', weight='bold', italic=True)
     desc = ('Đoạn 1 có tâm 0 tại (0; 2) và tâm 1 tại (2; 0); x ở (0,2; 1,8) gần tâm 0. '
             'Đoạn 2 có tâm 0 tại (0; 0) và tâm 1 tại (3; 0); x ở (2,7; 0,1) gần tâm 1. Mã của x là (0, 1).')
     if with_query:

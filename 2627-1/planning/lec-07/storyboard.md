@@ -40,8 +40,8 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q03 | 2 | Thay số chi phí của một bộ mã $k=2^{64}$, $D=128$: lưu, mã hóa, học. | $9{,}4\cdot10^{21}$ byte → cần bộ mã nhỏ cho mã dài | PQ paper §II-B tr.3; Princeton 08 tr.18 |
 | Q04 | 3 | Định nghĩa PQ: chia đoạn, bộ mã con, mã $m\log_2k^*$ bit, tái dựng bằng ghép tâm con; hình $D=8$, $m=4$. | $D$ → $m$ đoạn → mã 32 bit | PQ paper §II-B eq.8–9, tr.3; Princeton 08 tr.29–31 |
 | Q05 | 3 | Chạy tay mã PQ hai đoạn: khoảng cách từng đoạn, mã, tái dựng, sai số; hình hai mặt phẳng con. | hai bộ mã → mã $(0,1)$, sai số 0,18 | suy ra từ định nghĩa nguồn |
-| Q06 | 3 | Tính ADC số với mã $(0,1)$ từ Q05 và truy vấn đầy đủ. | hai ô tra 0,02 và 0,29 → ADC 0,31 | PQ paper eq.13, tr.4; ví dụ dựng từ cơ chế nguồn |
 | Q07 | 4 | Khóa không gian mã, số tâm con, số vô hướng và byte làm tròn. | $m,k^*,D,b$ → $(k^*)^m$, $mk^*$, $k^*D$, $\lceil mb/8\rceil$ | PQ paper tr.3; Princeton 08 tr.32–33 |
+| Q06 | 3 | Chuyển sau Q07. Ví dụ ADC: định nghĩa bằng lời, hình hai đoạn có $q$, bảng hai số hạng, so 0,31 với giá trị đúng 0,07. | mã $(0,1)$ + $q$ → 0,31 | PQ paper eq.13, tr.4; Princeton 08 tr.25–26 |
 | Q08 | 3 | Hình thức hóa ADC và phân biệt phía truy vấn với cơ sở dữ liệu. | truy vấn đầy đủ + mã → khoảng cách gần đúng | PQ paper eq.13, tr.4 |
 | Q09 | 2 | Nêu chi phí lập bảng, lưu bảng và chấm mã. | $\Theta(k^*D)$, $\Theta(mk^*)$, $\Theta(m)$ | PQ paper tr.4; Princeton 08 tr.27,31–32 |
 | Q10 | 2 | Chỉ ra chi phí tuyến tính và byte mã còn lại ở quy mô P01. | PQ quét đủ → $\Theta(Nm)$, $N\lceil mb/8\rceil$ byte | PQ paper tr.2,6 |
@@ -380,3 +380,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** tọa độ các tâm; một phép tính mẫu; vì sao sai số cộng theo đoạn; so với VQ bốn chiều.
 - **Nguồn:** dựng từ định nghĩa, PQ paper mục II-B tr.3.
 - **Quyết định:** sửa. Bản cũ để các khoảng cách (phép tính cần học) và sai số trong ghi chú; không có hình; số thập phân dùng dấu chấm; tiêu đề “Ví dụ PQ ghép hai chỉ số” không nói thao tác.
+
+### Q06 — Ví dụ khoảng cách bất đối xứng (chuyển sau Q07)
+
+- **Phần:** 4. **Vai trò:** ví dụ chạy tay trước hình thức hóa ADC. **Thời lượng:** 3 phút.
+- **Mục đích:** tính khoảng cách bất đối xứng từ truy vấn đầy đủ tới một véc-tơ chỉ còn mã; so với khoảng cách thật.
+- **Câu chốt:** ADC ước lượng $\|q-x\|^2$ bằng $\|q-\widehat x\|^2$, cộng theo đoạn; sai lệch đến từ sai số tái dựng.
+- **Đầu vào:** mã $(0,1)$ và hai bộ mã của Q05, nhắc lại bằng hình `pq-vi-du-adc.svg` và ghi chú. **Thể hiện:** dòng định nghĩa bằng lời; hình bên trái; $q$, bảng hai đoạn và dòng so sánh bên phải.
+- **Kết nối vào–ra:** dùng ví dụ Q05; giao số hạng từng đoạn cho công thức ADC Q08 và bảng tra Q09.
+- **Ghi chú diễn giả:** dữ kiện bộ mã; phép tính; tên đầy đủ ADC; vì sao gọi là bất đối xứng; không cần $x$.
+- **Nguồn:** PQ paper mục III-A pt.13 tr.4; Princeton lớp 8 tr.25–26.
+- **Quyết định:** sửa và chuyển vị trí. Bản cũ mở bằng “Giữ mã … từ ví dụ PQ trước” (dẫn chiếu trang trước, không nhắc lại bộ mã); “khoảng cách bất đối xứng” chưa được giải thích; giá trị đúng 0,07 chỉ ở ghi chú. Chuyển sau Q07 để mạch mã hóa → bộ nhớ → khoảng cách liền nhau.
