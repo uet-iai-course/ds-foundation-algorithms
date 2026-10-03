@@ -537,7 +537,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Nguồn:** sổ thực hành ô 82–95 (đọc trực tiếp nội dung ô).
 - **Quyết định:** sửa. Bản cũ yêu cầu “bảng kích thước” mà không nói điền gì; chưa nối tham số Faiss với ký hiệu bài giảng; dòng “Dữ kiện” liệt kê tên biến không giải thích.
 
-### R02 — Tái dựng véc-tơ 123 bằng tay
+### R02 — Tái dựng thủ công véc-tơ 123
 
 - **Phần:** 7. **Vai trò:** bài tập lập trình nối công thức với mảng. **Thời lượng:** 9 phút.
 - **Mục đích:** viết biểu thức tái dựng PQ từ mã và bộ mã con.
