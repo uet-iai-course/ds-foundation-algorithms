@@ -332,15 +332,31 @@ Muốn giảm độ trễ mà không xây lại chỉ mục, nên điều chỉn
 Giảm `efSearch`. Truy vấn mở ít đỉnh hơn nhưng có thể bỏ lỡ hàng xóm đúng, làm recall giảm.
 :::
 
-## 7. Từ lượng tử hóa véc-tơ đến lượng tử hóa tích
+## 7. Lượng tử hóa véc-tơ và lượng tử hóa tích
 
-Lượng tử hóa véc-tơ (VQ) học bộ mã $C=\{c_0,\dots,c_{k^*-1}\}\subset\mathbb R^D$. Mỗi $y$ nhận chỉ số tâm gần nhất và được tái dựng bằng tâm đó:
+**Lượng tử hóa véc-tơ (VQ)** thay mỗi véc-tơ bằng chỉ số của tâm gần nó nhất trong một bộ mã $C=\{c_0,\dots,c_{k-1}\}\subset\mathbb R^D$; mã dài $\lceil\log_2 k\rceil$ bit. Khi cần, véc-tơ được tái dựng bằng tâm tương ứng:
 
 $$
-i(y)=\arg\min_{0\le i<k^*}\|y-c_i\|^2,\qquad \widehat y=c_{i(y)}.
+i(y)=\arg\min_{0\le i<k}\|y-c_i\|^2,\qquad \widehat y=c_{i(y)}.
 $$
 
-Ví dụ một chiều: với $c_0=0$ và $c_1=4$, điểm $y=3$ nhận mã 1, tái dựng thành 4 và có sai số bình phương 1. Một bộ mã cho toàn không gian cần lưu $k^*D$ số; muốn biểu diễn rất nhiều mã thì số tâm tăng quá nhanh.
+Đây là nén mất dữ liệu: sai số tái dựng $\|y-\widehat y\|^2$ đo mức mất thông tin, và không đồng nhất với độ thu hồi của truy vấn. Các điểm cùng mã tạo thành một ô của không gian.
+
+::: example Ba tâm trong mặt phẳng
+$C=\{(0;0),(2;0),(0;2)\}$, $x=(1{,}7;\ 0{,}4)$. Bình phương khoảng cách tới ba tâm là $3{,}05$; $0{,}25$; $5{,}45$, nên mã là 1 (2 bit), $\widehat x=c_1=(2;0)$ và sai số $0{,}25$. Ba ô được phân cách bởi các đường $x_1=1$, $x_2=1$ và $x_1=x_2$.
+:::
+
+![Ba tâm c0 tại (0, 0), c1 tại (2, 0), c2 tại (0, 2) chia mặt phẳng thành ba ô; điểm x tại (1,7; 0,4) nằm trong ô của c1.](img/lec-07/luong-tu-hoa-vec-to.svg)
+
+::: exercise Tự kiểm
+Với cùng bộ mã, tính mã và sai số tái dựng của $y=(0{,}6;\ 1{,}5)$.
+:::
+
+::: solution
+Bình phương khoảng cách: $2{,}61$; $4{,}21$; $0{,}61$. Mã 2, $\widehat y=c_2=(0;2)$, sai số $0{,}61$.
+:::
+
+Một bộ mã cho toàn không gian cần lưu $kD$ số; muốn có rất nhiều mã khác nhau thì số tâm tăng quá nhanh.
 
 PQ chia $D$ chiều thành $m$ đoạn bằng nhau, nên cần $m\mid D$. Mỗi đoạn dùng một bộ mã con gồm $k^*=2^b$ tâm. Mã của $y$ là $(i_1(y),\dots,i_m(y))$; véc-tơ tái dựng là phép ghép các tâm con tương ứng.
 

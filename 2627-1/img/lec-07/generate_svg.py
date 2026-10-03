@@ -316,6 +316,34 @@ def lan_can_da_dang():
         'Chọn hai đỉnh gần nhất cho c1 và c3 cùng phía; quy tắc đa dạng cho c1 và c4 ở hai phía.', b)
 
 
+def luong_tu_hoa_vec_to():
+    # Q00: ba tâm c0=(0,0), c1=(2,0), c2=(0,2); ranh giới ô: x=1 (c0|c1), y=1 (c0|c2), y=x (c1|c2).
+    sc, ox, oy = 140, 110, 450
+    X = lambda u: ox + sc * u
+    Y = lambda v: oy - sc * v
+    lo, hi = -0.6, 2.7
+    b = ''
+    # ô của c0: u<1, v<1; ô của c1: u>1, v<u; ô của c2: v>1, v>u
+    b += f'<polygon points="{X(lo)},{Y(lo)} {X(1)},{Y(lo)} {X(1)},{Y(1)} {X(lo)},{Y(1)}" fill="{PALE_GRAY}"/>'
+    b += f'<polygon points="{X(1)},{Y(lo)} {X(hi)},{Y(lo)} {X(hi)},{Y(hi)} {X(1)},{Y(1)}" fill="{PALE_BLUE}"/>'
+    b += f'<polygon points="{X(lo)},{Y(1)} {X(1)},{Y(1)} {X(hi)},{Y(hi)} {X(lo)},{Y(hi)}" fill="{PALE_ORANGE}"/>'
+    b += line(X(1), Y(lo), X(1), Y(1), INK, '8 6', width=2) + line(X(lo), Y(1), X(1), Y(1), INK, '8 6', width=2)
+    b += line(X(1), Y(1), X(hi), Y(hi), INK, '8 6', width=2)
+    for (u, v), name in [((0, 0), 'c0'), ((2, 0), 'c1'), ((0, 2), 'c2')]:
+        b += f'<rect x="{X(u) - 11}" y="{Y(v) - 11}" width="22" height="22" fill="{BLUE}"/>'
+        b += text(X(u) + 18, Y(v) + 40, name, 30, BLUE, 'start', weight='bold')
+    b += text(X(-0.45), Y(0.75), 'ô của c0', 26, INK, 'start')
+    b += text(X(1.75), Y(-0.45), 'ô của c1', 26, INK, 'middle')
+    b += text(X(0.25), Y(2.45), 'ô của c2', 26, INK, 'start')
+    xu, xv = 1.7, 0.4
+    b += line(X(xu), Y(xv), X(2) - 8, Y(0) - 6, GREEN, width=4)
+    b += f'<circle cx="{X(xu)}" cy="{Y(xv)}" r="11" fill="{GREEN}"/>'
+    b += text(X(xu) - 14, Y(xv) - 18, 'x', 32, GREEN, 'end', weight='bold', italic=True)
+    svg('luong-tu-hoa-vec-to.svg', 520, 560, 'Lượng tử hóa véc-tơ với ba tâm',
+        'Ba tâm c0 tại (0, 0), c1 tại (2, 0), c2 tại (0, 2) chia mặt phẳng thành ba ô bởi các đường x = 1, y = 1 và y = x. '
+        'Điểm x tại (1,7; 0,4) nằm trong ô của c1 nên được thay bằng c1.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -329,6 +357,7 @@ def main():
     do_thi_nhieu_tang('do-thi-nhieu-tang-gon.svg', compact=True)
     chen_vi_du()
     lan_can_da_dang()
+    luong_tu_hoa_vec_to()
 
 
 if __name__ == '__main__':

@@ -35,8 +35,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H11 | 3 | Quy tắc chọn lân cận đa dạng; ví dụ hai chiều bốn ứng viên so với chọn gần nhất. | $\{c1,c3\}$ → $\{c1,c4\}$ | HNSW paper alg.4, tr.4–5; Princeton 09 tr.18 |
 | H12 | 3 | Ba tham số, thời điểm dùng và đánh đổi; câu hỏi giảm độ trễ không xây lại. | $M$, $efConstruction$, $efSearch$ → chọn tham số | HNSW paper §4.1 tr.5–6; §4.2.3 tr.8 |
 | H13 | 4 | Chi phí bộ nhớ thay số cho $10^{10}$ véc-tơ (véc-tơ 122,88 TB, cạnh khoảng 2,65 TB); chi phí truy vấn và giới hạn $\log N$; nối sang PQ. | giả định $M=16$ → 98% bộ nhớ là véc-tơ gốc | HNSW paper §4.2 tr.7, §4.2.3 tr.8; Princeton 09 tr.2, 7 |
-| Q00 | 3 | Đặt bài toán nén mất dữ liệu trước PQ. | véc-tơ → mã và tâm tái dựng | Princeton 08 tr.8–10; PQ paper tr.2 |
-| Q01 | 3 | Chạy tay lượng tử hóa véc-tơ với ba tâm. | ba khoảng cách → mã 1, sai số 0,25 | suy ra từ định nghĩa nguồn |
+| Q00 | 6 | Gộp Q01: mở phần 4 từ nhu cầu giảm bộ nhớ; lượng tử hóa véc-tơ trên hình ba tâm, phép tính mã và tái dựng, câu hỏi điểm $y$. | $x=(1{,}7;0{,}4)$ → mã 1, sai số 0,25; $y$ → mã 2, 0,61 | Princeton 08 tr.8–9; PQ paper §II-A tr.2 |
 | Q02 | 3 | Hình thức hóa phép gán tâm, điều kiện trước/sau và phá hòa. | Q01 → $i(x),\widehat x$ | PQ paper eq.2–5, tr.2 |
 | Q03 | 2 | Chỉ ra bộ mã đơn không mở rộng tới mã 64 bit. | $2^{64}$ tâm → bất khả thi | PQ paper tr.3 |
 | Q04 | 2 | Cho trực giác chia véc-tơ thành m đoạn và m bộ mã. | $D$ → m không gian con | PQ paper eq.8–9, tr.3; Princeton 08 tr.28–31 |
@@ -326,3 +325,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** mô hình bộ nhớ; kỳ vọng số tầng trên $p/(1-p)$ và so với ước lượng của bài báo (302 byte); 8 byte mỗi mã định danh; giả thiết của $\log N$; chi phí xây.
 - **Nguồn:** Malkov–Yashunin mục 4.2 tr.7, mục 4.2.3 tr.8; Princeton lớp 9 tr.2, tr.7. Số liệu tính lại bằng chương trình (mô phỏng $E[\ell]=0{,}0664$).
 - **Quyết định:** sửa. Tiêu đề cũ là câu dài; bản cũ chỉ có $O(ND)$, $O(NM)$, không thay số nên không thấy véc-tơ gốc chiếm phần lớn bộ nhớ; không có câu nối sang PQ.
+
+### Q00 — Lượng tử hóa véc-tơ (gộp Q01 cũ)
+
+- **Phần:** 4, lượng tử hóa tích (khái niệm/thuật toán). **Vai trò:** mở phần, trực giác, ví dụ chạy tay, kiểm tra. **Thời lượng:** 6 phút.
+- **Mục đích:** mã hóa và tái dựng một véc-tơ bằng bộ mã cho trước, tính sai số.
+- **Câu chốt:** mã ngắn ($\log_2 k$ bit) đổi lấy sai số tái dựng.
+- **Đầu vào:** véc-tơ gốc chiếm phần lớn bộ nhớ (H13). **Thể hiện:** dòng định nghĩa; hình `luong-tu-hoa-vec-to.svg` (ba tâm, ba ô, $x$ nối tới $c_1$); phép tính bên phải; câu hỏi.
+- **Kết nối vào–ra:** đáp nhu cầu giảm bộ nhớ của H13; giao định nghĩa cho đặc tả Q02.
+- **Kiểm tra:** $y=(0{,}6;1{,}5)$: $2{,}61$; $4{,}21$; $0{,}61$ → mã 2, sai số 0,61 (tính lại).
+- **Nguồn:** Princeton lớp 8 tr.8–9; PQ paper mục II-A tr.2. Ví dụ dựng từ định nghĩa.
+- **Quyết định:** gộp. Q00 cũ chỉ có hai thẻ ký hiệu, không hình, không nói nhu cầu; Q01 cũ là ví dụ của cùng khái niệm và câu hỏi của nó có đáp án hiện sẵn trên trang ($0{,}25$).
