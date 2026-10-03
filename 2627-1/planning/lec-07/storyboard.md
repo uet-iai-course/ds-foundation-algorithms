@@ -62,7 +62,7 @@ Tổng phần giảng: **120 phút**.
 |---|---:|---|---|---|
 | R00 | 0 | Nêu sổ thực hành, ô chuẩn bị, bốn mảng dữ liệu (kích thước, vai trò, ánh xạ ký hiệu) và ba nhiệm vụ với ô nguồn. | `xt` $10^6$, `xb` $10^4$, `xq` 100, `gt` 10 hàng xóm | Princeton runbook lớp 8, ô 0–4, 17, 21–24 |
 | R01 | 6 | Chạy ô 83–95; dự đoán rồi đối chiếu `code_size`, dạng `pq_centroids`, `xb_codes` với công thức của bài. | 4 byte; $(4,256,16)$; $(10\,000,4)$ | ô 82–95 |
-| R02 | 9 | Hoàn thiện dòng mã tái dựng, không gọi hàm giải mã. | ghép `pq_centroids[j, xb_codes[123,j]]` theo j | ô 96–97 |
+| R02 | 9 | Hoàn thiện ô 96 (tái dựng véc-tơ 123 không gọi `decode`) với gợi ý công thức tái dựng; ô 97 in `True`. | ghép `pq_centroids[j, xb_codes[123,j]]` theo $j$ | ô 96–97 |
 | R03 | 5 | Giải thích ba điều kiện để khớp với giải mã. | đúng thứ tự đoạn, tâm và đủ D tọa độ; rubric 10 điểm | ô 96–97 |
 | R04 | 10 | Đọc mục “Compare options for fixed code_size”; dùng kết quả ô 99 đã chạy trước trên cùng kernel. | ba cấu hình 6 byte với d=64; thời gian huấn luyện báo riêng | ô 98–99 |
 | R05 | 10 | So sánh MSE, thời gian, dsub và ksub mà không khái quát quá mức. | rubric 10 điểm; không có số cố định | ô 98–99 |
@@ -535,3 +535,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** đáp án; ý nghĩa ô 94; ô 88–89; hướng dẫn chấm.
 - **Nguồn:** sổ thực hành ô 82–95 (đọc trực tiếp nội dung ô).
 - **Quyết định:** sửa. Bản cũ yêu cầu “bảng kích thước” mà không nói điền gì; chưa nối tham số Faiss với ký hiệu bài giảng; dòng “Dữ kiện” liệt kê tên biến không giải thích.
+
+### R02 — Tái dựng véc-tơ 123 bằng tay
+
+- **Phần:** 7. **Vai trò:** bài tập lập trình nối công thức với mảng. **Thời lượng:** 9 phút.
+- **Mục đích:** viết biểu thức tái dựng PQ từ mã và bộ mã con.
+- **Thể hiện:** dòng gợi ý công thức; khối mã chép đúng ô 96–97 (`language-python`, `data-trim`); dòng yêu cầu.
+- **Kết nối vào–ra:** dùng cấu trúc mảng của R01 và công thức Q04; R03 yêu cầu giải thích điều kiện khớp.
+- **Ghi chú diễn giả:** lời giải; vì sao so sánh chính xác đúng; hướng dẫn chấm.
+- **Nguồn:** sổ thực hành ô 96–97.
+- **Quyết định:** sửa. Bản cũ ghi `assert np.all(...)` khác ô 97 của nguồn; không nhắc công thức tái dựng; tiêu đề “Hoàn thiện ô tái dựng còn trống” mô tả thao tác thay vì nội dung.

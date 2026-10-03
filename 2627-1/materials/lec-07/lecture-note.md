@@ -589,7 +589,19 @@ Trong Faiss, số đoạn PQ gọi là `M` (khác $M$ của HNSW) và số bit m
 `code_size` $=\lceil mb/8\rceil=4$ byte. `pq_centroids` có dạng $(m,k^*,D/m)=(4,256,16)$: số đoạn, số tâm mỗi đoạn, số chiều mỗi đoạn. `xb_codes` có dạng $(N,\ \text{code\_size})=(10\,000,4)$; phần tử `xb_codes[i, j]` là chỉ số $i_j$ của véc-tơ thứ $i$.
 :::
 
-Tiếp theo, tại chỉ số 123, dùng bốn chỉ số mã để lấy bốn tâm con rồi ghép thành véc-tơ tái dựng; không gọi `decode` (ô 96–97).
+Tiếp theo, tái dựng véc-tơ 123 bằng tay theo công thức $\widehat x=\big(c^{(1)}_{i_1},\ldots,c^{(m)}_{i_m}\big)$, không gọi `decode`. Ô 96 của sổ để trống vế phải; ô 97 phải in `True`.
+
+```python
+# ô 96: reconstruct vector no 123 -- TODO implement the re-construction!
+xb123_recons = ...
+
+# ô 97
+np.all(pq_reconstruction[123] == xb123_recons)
+```
+
+::: solution
+`xb123_recons = np.hstack([pq_centroids[j, xb_codes[123, j]] for j in range(pq.M)])`, hoặc `np.concatenate` tương đương. Với mỗi đoạn $j$, biểu thức lấy tâm con có chỉ số `xb_codes[123, j]` trong bộ mã con $j$ rồi ghép theo thứ tự đoạn. Phép so sánh bằng nhau chính xác đúng vì `decode` cũng chỉ sao chép các tâm con.
+:::
 
 ### Nhiệm vụ 2: cùng ngân sách 6 byte
 

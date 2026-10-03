@@ -302,3 +302,4 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | I02 ghi chú | (nhẹ) Lời nhấn “sai hoàn toàn”. | sửa | “31,25 thay vì 1,25” (deck và ghi chú). |
 | C00 | (nhẹ) Câu chốt chưa nêu kết luận lựa chọn. | sửa | “trong bộ nhớ một máy, IVF-PQ khả thi, với $nprobe$ chọn theo ngưỡng độ thu hồi”. |
 | R00 | (ngoài phạm vi) Dạng cũ. | đã sửa | Commit R00 (`b93a48e`). |
+| R02 | Hoàn thiện ô tái dựng 96–97. | Khối mã ghi `assert np.all(...)` trong khi ô 97 của nguồn không có `assert`; không nhắc công thức tái dựng; tiêu đề mô tả thao tác. | sửa. Tiêu đề “Tái dựng véc-tơ 123 bằng tay”; chép đúng ô 96–97 (đối chiếu sổ nguồn); dòng gợi ý công thức $\widehat x$; dòng yêu cầu. | Mục 11, nhiệm vụ 1: khối mã ô 96–97 và lời giải. |
