@@ -492,23 +492,30 @@ $y_8=(6{,}5;2{,}5)\in L_1$, $\mu_1=(8;2)$, nên $r(y_8)=(-1{,}5;\ 0{,}5)$. Truy 
 
 ![Hai ô dưới của ví dụ tệp đảo: mũi tên xanh từ μ1 tới y8 là phần dư r(y8); hai đoạn nét đứt từ μ1 và μ0 tới q là truy vấn dư dùng khi quét L1 và L0.](img/lec-07/tep-dao-du.svg)
 
-Quy trình IVF-PQ:
+**Thuật toán truy vấn.** Khi xây chỉ mục: học $k_c$ tâm thô, gán mỗi $y$ vào $L_{a(y)}$ và lưu mã PQ của $r(y)$. Khi truy vấn, với $K\ge1$ và $nprobe\ge1$:
 
-1. Học $k_c$ tâm thô $\mu_0,\dots,\mu_{k_c-1}$.
-2. Gán $y$ vào tâm gần nhất $i(y)$ và lưu mã PQ của phần dư $r(y)=y-\mu_{i(y)}$ trong $L_{i(y)}$.
-3. Với $q$, chọn tập $P$ gồm $nprobe$ tâm thô gần nhất.
-4. Với mỗi $i\in P$, lập bảng ADC riêng cho $\widetilde q_i=q-\mu_i$, rồi chấm các mã trong $L_i$.
-5. Gộp ứng viên và trả về tối đa $K$ phần tử có điểm nhỏ nhất.
+```text
+P ← nprobe tâm thô gần q nhất
+H ← rỗng      // giữ K cặp (d, id) nhỏ nhất
+for i in P:
+    T ← bảng tra của q − μi
+    for (id, mã) in Li:
+        d ← Σj T[j, mãj]
+        cập nhật H bằng (d, id)
+return id trong H theo d tăng dần
+```
 
-![IVF-PQ chọn các tâm thô gần truy vấn, mở các danh sách tương ứng và chấm mã phần dư bằng ADC.](img/lec-07/ivfpq-flow.svg)
-
-Số kết quả không thể vượt
+Thuật toán dừng sau khi duyệt hết các phần tử của $nprobe$ danh sách. Kết quả là mã định danh, không phải mã PQ; nếu còn véc-tơ gốc ở bộ nhớ ngoài, có thể tính lại khoảng cách đúng cho vài ứng viên đầu. Số kết quả không thể vượt
 
 $$
-\min\left(K,\sum_{i\in P}|L_i|\right).
+\min\Big(K,\sum_{i\in P}|L_i|\Big);
 $$
 
-Nếu danh sách được mở chứa ít hơn $K$ véc-tơ, thuật toán không thể trả đủ $K$ định danh phân biệt.
+nếu các danh sách được mở có tổng ít hơn $K$ phần tử, thuật toán không thể trả đủ $K$ mã định danh.
+
+::: example Truy vấn trên bốn danh sách
+Với $q=(6;3{,}5)$, $K=3$ và giả sử ADC không sai số (để tách tác dụng của $nprobe$ khỏi sai số mã hóa), bình phương khoảng cách trong $L_1$ là $y_8$ 1,25; $y_7$ 6,5; $y_5$ 7,25; $y_6$ 13, trong $L_0$ là $y_3$ 2,34; $y_2$ 18,5; $y_4$ 20,34; $y_1$ 29. Với $nprobe=2$, thuật toán trả $y_8,y_3,y_7$, đúng ba hàng xóm thật. Với $nprobe=1$, chỉ $L_1$ được mở, kết quả $y_8,y_7,y_5$ và $\operatorname{recall@3}=2/3$.
+:::
 
 **Chi phí truy vấn.** Đếm thao tác trên tọa độ hoặc ô bảng tra theo từng bước, chưa kể việc giữ $K$ kết quả tốt nhất (thêm hệ số $\log K$ mỗi phần tử với đống nhị phân):
 

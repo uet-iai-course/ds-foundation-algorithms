@@ -48,7 +48,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | I00 | 4 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
 | I01 | 3 | Công thức gán vào tâm thô; xếp bốn tâm theo khoảng cách tới $q$; câu hỏi $nprobe=1$ bỏ sót $y_3$. | $q$ → thứ tự $\mu_1,\mu_0,\mu_3,\mu_2$ | Princeton 08 tr.21–22; PQ paper §IV-A, IV-C tr.6–7 |
 | I02 | 3 | Phần dư $r(y)$, đẳng thức $\|q-y\|=\|(q-\mu_i)-r(y)\|$, một bảng tra cho mỗi danh sách mở; ví dụ $y_8$. | $r(y_8)$, $\widetilde q_1$, $\widetilde q_0$ → 1,25 | PQ paper §IV-A, IV-B tr.6, eq.31 |
-| I04 | 3 | Gom thuật toán, điều kiện dừng và trường hợp thiếu K ứng viên. | $q$ → $\min(K,\sum|L_i|)$ mã định danh; đủ K khi tổng ứng viên ≥K | PQ paper §IV, tr.6; Princeton 08 tr.54–55 |
+| I04 | 4 | Giả mã truy vấn IVF-PQ; vết trên bốn danh sách ($nprobe=2$, $K=3$); câu hỏi $nprobe=1$. | $y_8,y_3,y_7$; $nprobe=1$ → recall@3 $=2/3$ | PQ paper §IV-C tr.7; Princeton 08 tr.21 |
 | I03 | 3 | Chuyển sau I04. Đếm chi phí truy vấn theo ba bước, thay số cho $10^{10}$ véc-tơ với $k_c=10^5$, $nprobe=64$. | $\approx3{,}6\cdot10^9$, ít hơn 1400 lần quét đủ | PQ paper §IV-C tr.7; Princeton 08 tr.22; 09 tr.5 |
 | C00 | 8 | So sánh LSH, HNSW, PQ đầy đủ và IVF-PQ theo lưu/xây, phạm vi quét, núm truy vấn và bốn trục A02. | bốn cơ chế → lựa chọn có điều kiện, không xếp hạng phổ quát | tổng hợp các nguồn |
 
@@ -479,3 +479,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** mô hình đếm; bỏ qua top-$K$; giả thiết cân bằng; phép tính; 3,6 ms; giả định minh họa; tác động của $nprobe$.
 - **Nguồn:** PQ paper mục IV-C tr.7; Princeton lớp 8 tr.22, lớp 9 tr.5.
 - **Quyết định:** sửa và chuyển vị trí. Tiêu đề cũ là câu; chưa theo mạch đếm bước × số lần × chi phí; không thay số nên không thấy IVF-PQ đáp ứng bài toán; giả thiết cân bằng chỉ ở ghi chú; đứng trước trang thuật toán.
+
+### I04 — Thuật toán truy vấn IVF-PQ
+
+- **Phần:** 5. **Vai trò:** thuật toán, ví dụ, kiểm tra. **Thời lượng:** 4 phút.
+- **Mục đích:** đọc giả mã truy vấn IVF-PQ, chạy trên ví dụ, tính độ thu hồi khi đổi $nprobe$.
+- **Câu chốt:** chỉ phần tử của $nprobe$ danh sách được chấm; hàng xóm ở danh sách chưa mở bị bỏ sót.
+- **Đầu vào:** chọn danh sách (I01), phần dư và bảng tra riêng (I02), độ thu hồi (A01). **Thể hiện:** giả mã 8 dòng bên trái; bảng khoảng cách hai danh sách (tự chứa dữ kiện, ghi “ADC giả sử đúng”) và dòng kết quả bên phải; hộp câu hỏi.
+- **Kết nối vào–ra:** tổng hợp I01–I02; các bước giả mã là cơ sở đếm chi phí I03.
+- **Ghi chú diễn giả:** đặc tả đầu vào/đầu ra; trường hợp ít hơn $K$; dừng; trả mã định danh; giả định ADC đúng; đáp án $2/3$.
+- **Nguồn:** PQ paper mục IV-C tr.7; Princeton lớp 8 tr.21.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; hình `ivfpq-flow.svg` chữ rất nhỏ; danh sách bốn bước thiếu khởi tạo, vòng lặp, cấu trúc giữ $K$ kết quả; không có vết chạy hay kiểm tra.
