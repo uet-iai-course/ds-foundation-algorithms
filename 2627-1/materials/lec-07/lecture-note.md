@@ -639,7 +639,21 @@ Viết một đoạn kết luận chỉ dựa trên số đo của mình, không
 
 ### Nhiệm vụ 3: điều chỉnh IVF-PQ
 
-Làm các ô 148–155 với chuỗi nguồn `IVF200,PQ16x8np` và thử $nprobe\in\{2,5,10,20,50\}$. Không diễn giải hậu tố `np` thành giá trị `nprobe`; notebook đặt `nprobe` riêng sau khi tạo chỉ mục.
+Ô 149–151 xây chỉ mục:
+
+```python
+index = faiss.index_factory(d, "IVF200,PQ16x8np")   # ô 149
+index.train(xt)                                     # ô 150
+index.add(xb)                                       # ô 151
+```
+
+Đọc từ chuỗi cấu hình và dữ liệu: $k_c$, $m$, $b$, số byte mã mỗi véc-tơ và kích thước danh sách trung bình; viết một câu cho mỗi ô 150, 151.
+
+::: solution
+`IVF200` cho $k_c=200$; `PQ16x8` cho $m=16$, $b=8$, mã 16 byte cho phần dư mỗi véc-tơ; $N/k_c=10^4/200=50$. Hậu tố `np` tắt bước huấn luyện hoán vị Polysemous, không phải giá trị `nprobe`; sổ đặt `nprobe` riêng sau khi tạo chỉ mục. Ô 150 học tâm thô và bộ mã PQ của phần dư trên `xt`; ô 151 gán mỗi véc-tơ của `xb` vào danh sách và lưu mã phần dư.
+:::
+
+Ô 152–155 truy vấn và thử $nprobe\in\{2,5,10,20,50\}$.
 
 Với mỗi giá trị, báo cáo `nok/|xq|` và tổng thời gian tìm kiếm theo mili giây. Trong notebook, `nok/|xq|` đo độ chính xác hạng 1: kết quả đầu tiên có trùng chuẩn đúng đầu tiên hay không. Nó không tự động bằng recall@K tổng quát. Không gọi tổng thời gian của cả lô là độ trễ mỗi truy vấn.
 

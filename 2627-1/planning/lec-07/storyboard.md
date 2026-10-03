@@ -66,7 +66,7 @@ Tổng phần giảng: **120 phút**.
 | R03 | 5 | Với ba điều kiện khớp, nêu hậu quả khi vi phạm, gắn với ký hiệu của $\widehat x$. | đáp án mẫu và rubric 10 điểm trong ghi chú | ô 96–97 |
 | R04 | 10 | Ô 99: ba cấu hình 6 byte; dự đoán $D/m$, $k^*$; ghi MSE và thời gian mã hóa–giải mã. | $D/m=16,8,4$; $k^*=4096,64,8$ | ô 98–99 |
 | R05 | 10 | Phân tích bảng nhiệm vụ 2: `code_size`, xếp hạng MSE so với nhận định của nguồn, thời gian giải thích bằng $k^*D$. | rubric 10 điểm; không có số cố định | ô 98–99; Princeton 08 tr.32–33 |
-| R06 | 6 | Đọc mục “IVFPQ index”; xây hoặc dùng trạng thái ô 149–151 với `d,xt,xb` đã chuẩn bị. | giải thích cấu hình; thời gian `train` báo riêng | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
+| R06 | 6 | Chạy ô 149–151; đọc $k_c$, $m$, $b$, byte mã, $N/k_c$ từ `IVF200,PQ16x8np`; nêu vai trò ô 150, 151. | 200; 16; 8; 16 byte; 50 | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
 | R07 | 9 | Tiếp tục “IVFPQ index” ở ô 152–155 với `xq,gt` từ ô 17,21–24. | $nok/|xq|$; tổng ms, không gắn nhãn độ trễ mỗi truy vấn | ô 152–155 |
 | R08 | 5 | Hoàn thiện phiếu báo cáo năm dòng và giải thích xu hướng của phép quét nguồn. | không thêm mục tiêu vận hành hoặc $nprobe$ mới | ô 149–155 |
 
@@ -575,3 +575,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** nhận định của nguồn; $262\,144$, $4\,096$, $512$; giải mã ít phụ thuộc $k^*$; rubric.
 - **Nguồn:** sổ thực hành ô 98–99; Princeton lớp 8 tr.32–33.
 - **Quyết định:** sửa. Bản cũ có bốn yêu cầu chung, chưa đưa công cụ của bài ($k^*D$) và nhận định của nguồn để đối chiếu với số đo; tiêu đề “Đọc đánh đổi…” không học thuật.
+
+### R06 — Nhiệm vụ 3: xây dựng IVF-PQ
+
+- **Phần:** 7. **Vai trò:** bài tập nối cấu hình thư viện với ký hiệu bài giảng. **Thời lượng:** 6 phút.
+- **Mục đích:** đọc chuỗi cấu hình Faiss thành $k_c$, $m$, $b$; tính byte mã và kích thước danh sách trung bình; nêu vai trò huấn luyện và thêm dữ liệu.
+- **Thể hiện:** khối mã ô 149–151 (`language-python`); dòng nhiệm vụ; bảng năm ô trống; dòng sản phẩm.
+- **Kết nối vào–ra:** dùng I00–I02 và Q07; chỉ mục dùng cho truy vấn R07.
+- **Ghi chú diễn giả:** đáp án; ý nghĩa `np`; ô 150, 151 làm gì; chạy trước nếu máy chậm.
+- **Nguồn:** sổ thực hành ô 148–151; tài liệu Faiss “The index factory”.
+- **Quyết định:** sửa. Bản cũ yêu cầu “giải thích chuỗi cấu hình” mà không nói giải thích thành phần nào; không nối với ký hiệu của bài.
