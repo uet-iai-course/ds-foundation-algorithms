@@ -375,23 +375,21 @@ $D=4$, $m=2$, $k^*=2$. Bộ mã đoạn 1 gồm tâm 0 $=(0;2)$ và tâm 1 $=(2;
 
 ![Đoạn 1 có tâm 0 tại (0; 2) và tâm 1 tại (2; 0), x gần tâm 0; đoạn 2 có tâm 0 tại (0; 0) và tâm 1 tại (3; 0), x gần tâm 1; mã của x là (0, 1).](img/lec-07/pq-vi-du.svg)
 
-Số tổ hợp mã là $(k^*)^m$, nhưng các bộ mã chỉ lưu $mk^*(D/m)=k^*D$ số. Cơ sở dữ liệu mã cần
+**Kích thước mã và bộ mã.** Mã PQ dài $mb$ bit, tức $\lceil mb/8\rceil$ byte. Số véc-tơ tái dựng khác nhau là $(k^*)^m$, nhưng $m$ bộ mã con chỉ chứa $m\cdot k^*\cdot D/m=k^*D$ số. So với VQ cùng độ dài mã 64 bit và $D=128$:
 
-$$
-N\left\lceil\frac{mb}{8}\right\rceil\ \text{byte}.
-$$
+| | VQ, $k=2^{64}$ | PQ, $m=8$, $k^*=256$ |
+|---|---|---|
+| Số mã khác nhau | $2^{64}$ | $256^8=2^{64}$ |
+| Bộ mã | $2^{64}\cdot128$ số | $256\cdot128=32\,768$ số |
+| Mã hóa một véc-tơ | $\Theta(2^{64}\cdot128)$ | $\Theta(32\,768)$ |
 
-PQ giảm bộ nhớ nhưng tạo sai số tái dựng $\|y-\widehat y\|^2$. Tăng $m$ hoặc $b$ thường giảm sai số, đồng thời làm mã, bảng tra hoặc thời gian huấn luyện lớn hơn.
+PQ đạt cùng số mã với bộ mã nhỏ hơn rất nhiều lần, vì không gian mã là tích của $m$ không gian nhỏ. Cơ sở dữ liệu $N$ mã cần $N\lceil mb/8\rceil$ byte.
 
-Áp dụng vào kho mười tỷ véc-tơ ở mục 1: nếu mỗi đoạn có 6 chiều thì có $m=3072/6=512$ đoạn. Vì mỗi đoạn có $k^*=256$ tâm nên chỉ số tâm cần $b=8$ bit; mã PQ dài $512\cdot8$ bit, tức 512 byte. Toàn bộ mã chiếm
+::: example Kho mười tỷ véc-tơ
+Cấu hình của nguồn BIODS: $D=3072$, đoạn 6 chiều nên $m=512$; $k^*=256$ nên $b=8$. Mỗi mã dài $512\cdot8$ bit $=512$ byte và $10^{10}$ mã chiếm $5{,}12$ TB, nhỏ hơn 24 lần so với $122{,}88$ TB dữ liệu gốc. Chưa tính mã định danh, bộ mã ($256\cdot3072$ số) và cấu trúc chỉ mục.
+:::
 
-$$
-N\frac{mb}{8}=10^{10}\cdot512=5{,}12\ \text{TB}.
-$$
-
-Đây là phép suy ra từ cấu hình nguồn, chưa tính định danh, bộ mã, chỉ mục hoặc véc-tơ gốc. Nén giảm mạnh bộ nhớ, nhưng quét đủ vẫn phải chấm điểm $N$ mã.
-
-![Kho mười tỷ véc-tơ 3072 chiều: dữ liệu số thực cần 122,88 TB, còn mã PQ gồm 512 đoạn 8 bit cần 5,12 TB.](img/lec-07/quy-mo-vector.svg)
+PQ tạo sai số tái dựng $\|y-\widehat y\|^2$. Tăng $m$ hoặc $b$ thường giảm sai số, đồng thời làm mã, bảng tra hoặc thời gian huấn luyện lớn hơn.
 
 ::: exercise Tự kiểm
 Với $m=4$ và $b=8$, một mã dài bao nhiêu byte và biểu diễn bao nhiêu tổ hợp tâm?
