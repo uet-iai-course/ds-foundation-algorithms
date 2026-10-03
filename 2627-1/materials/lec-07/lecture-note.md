@@ -409,17 +409,28 @@ $$
 
 Đẳng thức thứ hai đúng vì bình phương khoảng cách Euclid là tổng theo tọa độ và các đoạn chia tọa độ thành các nhóm rời nhau. Số hạng đoạn $j$ chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j(y)\in\{0,\ldots,k^*-1\}$, nên với một truy vấn, mỗi đoạn chỉ có $k^*$ giá trị số hạng khác nhau.
 
-Trước khi quét, lập bảng $T[j,i]=\|q_j-c_{j,i}\|^2$. Chấm điểm một mã chỉ cần $m$ lần tra bảng và cộng.
-
 ::: example Khoảng cách bất đối xứng trên ví dụ PQ hai đoạn
 Véc-tơ $x=(0{,}2;\ 1{,}8\mid 2{,}7;\ 0{,}1)$ chỉ còn mã $(0,1)$: tâm $(0;2)$ ở đoạn 1 và $(3;0)$ ở đoạn 2. Với $q=(0{,}1;\ 1{,}9\mid 2{,}5;\ 0{,}2)$, hai số hạng là $0{,}1^2+(-0{,}1)^2=0{,}02$ và $(-0{,}5)^2+0{,}2^2=0{,}29$, nên ước lượng là $0{,}31$. Giá trị đúng $\|q-x\|^2=0{,}02+0{,}05=0{,}07$: ADC đo khoảng cách tới véc-tơ tái dựng, nên sai lệch phụ thuộc sai số tái dựng của $x$. Phép tính chỉ cần mã của $x$ và các bộ mã con.
 :::
 
 ![Hai mặt phẳng con của ví dụ PQ: x gần tâm 0 ở đoạn 1 và tâm 1 ở đoạn 2; truy vấn q ở (0,1; 1,9) và (2,5; 0,2).](img/lec-07/pq-vi-du-adc.svg)
 
-![ADC lập bảng khoảng cách từ từng đoạn truy vấn đến các tâm con rồi cộng các ô theo mã PQ.](img/lec-07/pq-lut.svg)
+**Bảng tra khoảng cách.** Vì mỗi đoạn chỉ có $k^*$ giá trị số hạng, với một truy vấn ta lập trước bảng $T[j,i]=\|q^{(j)}-c^{(j)}_i\|^2$ gồm $m\times k^*$ ô; chấm mã $(i_1,\ldots,i_m)$ bằng $\sum_j T[j,i_j]$. Trên ví dụ hai đoạn:
 
-Lập bảng tốn $\Theta(k^*D)$ phép toán và lưu $\Theta(mk^*)$ số. Chấm một mã tốn $\Theta(m)$; quét đủ tốn $\Theta(Nm)$, chưa kể chọn top-$K$. Bộ mã chiếm $\Theta(k^*D)$ số và mã cơ sở dữ liệu chiếm $Nmb$ bit khi $mb$ chia hết cho 8.
+| $T$ | tâm 0 | tâm 1 |
+|---|---|---|
+| đoạn 1 | **0,02** | 7,22 |
+| đoạn 2 | 6,29 | **0,29** |
+
+Mã $(0,1)$ chọn hai ô in đậm, cho $0{,}02+0{,}29=0{,}31$; mã $(1,0)$ cho $7{,}22+6{,}29=13{,}51$.
+
+| Việc | Chi phí |
+|---|---|
+| Lập bảng, mỗi truy vấn | $m\cdot k^*\cdot D/m=k^*D$ phép toán trên tọa độ; lưu $mk^*$ số |
+| Chấm một mã | $m$ lần tra, $m-1$ phép cộng |
+| Tính trực tiếp | $\Theta(D)$ mỗi véc-tơ |
+
+Bảng được dùng lại cho mọi mã trong kho, nên đáng lập khi số mã cần chấm lớn hơn nhiều $k^*$. Với $D=3072$, $m=512$, chấm một mã cần 512 lần tra thay vì xử lý 3072 tọa độ. Quét đủ $N$ mã tốn $\Theta(Nm)$, chưa kể chọn $K$ kết quả tốt nhất.
 
 Phép tính khoảng cách đối xứng (Symmetric Distance Computation, SDC) lượng tử hóa cả truy vấn rồi tra khoảng cách giữa hai tâm con, nên thêm sai số do lượng tử hóa truy vấn. Theo bài báo PQ, ưu điểm duy nhất của SDC là truy vấn cũng được lưu ở dạng mã; ADC có sai lệch khoảng cách thấp hơn với độ phức tạp tương tự. Bài này dùng ADC.
 

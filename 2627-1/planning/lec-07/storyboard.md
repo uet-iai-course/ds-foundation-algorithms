@@ -43,7 +43,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q07 | 4 | Kích thước mã và bộ mã PQ; so với VQ cùng mã 64 bit; thay số cho kho $10^{10}$ véc-tơ (512 byte, 5,12 TB). | $m,k^*,D,b$ → $k^*D$ số, $\lceil mb/8\rceil$ byte | PQ paper §II-B tr.3; Princeton 08 tr.32–33; BIODS tr.17 |
 | Q06 | 3 | Chuyển sau Q07. Ví dụ ADC: định nghĩa bằng lời, hình hai đoạn có $q$, bảng hai số hạng, so 0,31 với giá trị đúng 0,07. | mã $(0,1)$ + $q$ → 0,31 | PQ paper eq.13, tr.4; Princeton 08 tr.25–26 |
 | Q08 | 3 | Công thức ADC; mỗi số hạng chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j$, nên mỗi đoạn có $k^*$ giá trị tính trước được. | truy vấn đầy đủ + mã → tổng $m$ số hạng | PQ paper §III-A eq.13, tr.4; Princeton 08 tr.26–27 |
-| Q09 | 2 | Nêu chi phí lập bảng, lưu bảng và chấm mã. | $\Theta(k^*D)$, $\Theta(mk^*)$, $\Theta(m)$ | PQ paper tr.4; Princeton 08 tr.27,31–32 |
+| Q09 | 3 | Bảng tra trên ví dụ hai đoạn (ô của mã $(0,1)$ đánh dấu); chi phí lập bảng, chấm mã so với tính trực tiếp. | $T$ 2×2 → 0,31 và 13,51; $\Theta(k^*D)$, $m$ lần tra | PQ paper §III-A tr.4; Princeton 08 tr.27, 31–32 |
 | Q10 | 2 | Chỉ ra chi phí tuyến tính và byte mã còn lại ở quy mô P01. | PQ quét đủ → $\Theta(Nm)$, $N\lceil mb/8\rceil$ byte | PQ paper tr.2,6 |
 | I00 | 3 | Đặt IVF và PQ vào đúng vai trò. | quét N mã → phân vùng + nén | Princeton 08 tr.20–22,54–55 |
 | I01 | 3 | Hình thức hóa miền argmin và chạy ví dụ chọn danh sách gần nhất. | $\mu_0,\mu_1,q$ → mở $L_1$ trước | Princeton 08 tr.21–22; PQ paper tr.6; ví dụ dựng từ cơ chế nguồn |
@@ -413,3 +413,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** vì sao tổng theo đoạn; số hạng của ví dụ; SDC và nhận định của bài báo.
 - **Nguồn:** PQ paper mục III-A pt.13 tr.4; Princeton lớp 8 tr.26–27.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; hai thẻ “Truy vấn: không lượng tử hóa / Cơ sở dữ liệu: chỉ giữ mã PQ” lặp định nghĩa; ý dẫn tới bảng tra chưa có.
+
+### Q09 — Bảng tra khoảng cách
+
+- **Phần:** 4. **Vai trò:** thuật toán và chi phí. **Thời lượng:** 3 phút.
+- **Mục đích:** lập bảng tra cho một truy vấn, chấm mã bằng tra và cộng, so chi phí với tính trực tiếp.
+- **Câu chốt:** lập bảng một lần $\Theta(k^*D)$, sau đó mỗi mã chỉ cần $m$ lần tra.
+- **Đầu vào:** công thức ADC (Q08), ví dụ hai đoạn (Q05–Q06; dữ kiện ghi trong ghi chú, các ô của bảng hiện trên trang). **Thể hiện:** dòng định nghĩa $T$; bảng HTML 2×2 với hai ô viền đậm cho mã $(0,1)$ (không chỉ bằng màu); dòng chấm hai mã; bảng chi phí.
+- **Kết nối vào–ra:** hiện thực Q08; chi phí chấm một mã giao cho Q10 (quét $N$ mã) và I03.
+- **Ghi chú diễn giả:** dữ kiện; một ô mẫu; phép đếm $k^*D$; khi nào đáng lập bảng; 512 lần tra so với 3072 tọa độ.
+- **Nguồn:** PQ paper mục III-A tr.4; Princeton lớp 8 tr.27, 31–32.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; hình cũ `pq-lut.svg` chữ rất nhỏ, không có số; chi phí chỉ ở một dòng ký hiệu. Bảng tra dựng bằng HTML theo quy định bảng không dùng ảnh.

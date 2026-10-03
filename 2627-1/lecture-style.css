@@ -998,3 +998,4 @@
 .reveal.course-deck.lecture-ann .example-slide .ann-compact th, .reveal.course-deck.lecture-ann .example-slide .ann-compact td { padding: 5px 10px; }
 .reveal.course-deck.lecture-ann .ann-mini img { max-height: 210px; }
 .reveal.course-deck.lecture-ann .ex-table th[scope="row"] { white-space: nowrap; }
+.reveal.course-deck.lecture-ann .ex-table .ann-selected { outline: 3px solid #2f3e7a; outline-offset: -3px; font-weight: 700; background: #edf4ff; }
