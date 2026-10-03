@@ -346,3 +346,9 @@ Tác tử chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `h
 | R02; ghi chú C01, C02, R02, R08, P02 | (nhẹ) Tiêu đề “bằng tay” mang sắc thái khẩu ngữ; còn dẫn chiếu trang trong ghi chú diễn giả; P02 đánh số phần khác số phần trong deck. | sửa | Tiêu đề “Tái dựng thủ công véc-tơ 123”; “mục tiêu học tập của bài”, “phần giải thích điều kiện khớp”, “bảng cấu hình của nhiệm vụ 3”; ghi chú P02 gọi phần theo tên. |
 | Ghi chú tự học, mục tiêu và ký hiệu | (trung bình, nhẹ) Bảng ký hiệu còn bản cũ, thiếu $m_L$, $\rho$, $\ell,\ell_c$, `efSearch`, `efConstruction`, $M_{\max},M_{\max,0}$, $k$, $b$, ký hiệu IVF và quy ước $x$/$y$; sáu mục tiêu không ánh xạ sang ba mục tiêu của deck; “Bài 05–06 đã trình bày LSH và phân dải”. | sửa | Mục tiêu gom thành ba mục khớp P02; bảng ký hiệu 15 dòng theo outline; “Bài 06 đã trình bày LSH”. |
 | H09, Q05, Q06 (hình) | (nhẹ) Nhãn trong hình khoảng 18–19 px ở 1600 × 900, sát ngưỡng khi chiếu. | sửa | `generate_svg.py`: chữ hình ba tầng gọn 30 → 36; nhãn “tâm” và tiêu đề khung trong hình ví dụ PQ 28 → 32. Đã chụp lại, không chồng chữ. |
+
+**Tái rà sau lượt góc nhìn sinh viên (tác tử chỉ đọc, `subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`).** Quy tắc H03 khớp Thuật toán 2 và đủ để tái tạo H03B, trả lời câu $ef=2$; tọa độ, mệnh đề Delaunay, $\rho/(1-\rho)$, bảng tra Q09 đúng; ranh giới các trang đã sửa nối tự nhiên. Không có phát hiện chặn bàn giao, nghiêm trọng hay trung bình; 5 phát hiện nhẹ, xử lý như sau.
+
+| Trang/vị trí | Phát hiện | Quyết định | Thay đổi |
+|---|---|---|---|
+| H03 | (nhẹ) Chưa nói vì sao cần chùm; chưa nêu khởi tạo. | sửa | Gạch đầu thêm “ban đầu $C=W=\{\text{điểm vào}\}$”; câu chốt “Giữ nhiều hướng để không kẹt ở cực tiểu cục bộ; …”. |
