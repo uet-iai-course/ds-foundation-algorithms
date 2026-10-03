@@ -48,8 +48,8 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | I00 | 4 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
 | I01 | 3 | Công thức gán vào tâm thô; xếp bốn tâm theo khoảng cách tới $q$; câu hỏi $nprobe=1$ bỏ sót $y_3$. | $q$ → thứ tự $\mu_1,\mu_0,\mu_3,\mu_2$ | Princeton 08 tr.21–22; PQ paper §IV-A, IV-C tr.6–7 |
 | I02 | 3 | Phần dư $r(y)$, đẳng thức $\|q-y\|=\|(q-\mu_i)-r(y)\|$, một bảng tra cho mỗi danh sách mở; ví dụ $y_8$. | $r(y_8)$, $\widetilde q_1$, $\widetilde q_0$ → 1,25 | PQ paper §IV-A, IV-B tr.6, eq.31 |
-| I03 | 2 | Tách chi phí tâm thô, nprobe bảng ADC và tổng kích thước danh sách; tách riêng phụ phí top-K. | $\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta(m\sum_{i\in P}|L_i|)$ | PQ paper tr.6–8 |
 | I04 | 3 | Gom thuật toán, điều kiện dừng và trường hợp thiếu K ứng viên. | $q$ → $\min(K,\sum|L_i|)$ mã định danh; đủ K khi tổng ứng viên ≥K | PQ paper §IV, tr.6; Princeton 08 tr.54–55 |
+| I03 | 3 | Chuyển sau I04. Đếm chi phí truy vấn theo ba bước, thay số cho $10^{10}$ véc-tơ với $k_c=10^5$, $nprobe=64$. | $\approx3{,}6\cdot10^9$, ít hơn 1400 lần quét đủ | PQ paper §IV-C tr.7; Princeton 08 tr.22; 09 tr.5 |
 | C00 | 8 | So sánh LSH, HNSW, PQ đầy đủ và IVF-PQ theo lưu/xây, phạm vi quét, núm truy vấn và bốn trục A02. | bốn cơ chế → lựa chọn có điều kiện, không xếp hạng phổ quát | tổng hợp các nguồn |
 
 Tổng phần giảng: **120 phút**.
@@ -468,3 +468,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** vì sao phần dư mã hóa tốt hơn; đẳng thức; kiểm tra 1,25; dùng nhầm bảng cho 31,25; một PQ chung cho mọi ô.
 - **Nguồn:** PQ paper mục IV-A, IV-B tr.6, pt.31.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; không có lý do cho truy vấn dư riêng; dẫn chiếu “ví dụ ngay trước” bằng lời.
+
+### I03 — Chi phí truy vấn IVF-PQ (chuyển sau I04)
+
+- **Phần:** 5. **Vai trò:** chi phí và ứng dụng vào tình huống mở đầu. **Thời lượng:** 3 phút.
+- **Mục đích:** đếm chi phí truy vấn theo từng bước của thuật toán, thay số cho kho $10^{10}$ véc-tơ.
+- **Câu chốt:** với $k_c=10^5$, $nprobe=64$, một truy vấn cần khoảng $3{,}6\cdot10^9$ thao tác, ít hơn khoảng 1400 lần so với quét đủ mã PQ.
+- **Đầu vào:** thuật toán I04, chi phí lập bảng và chấm mã (Q09), số liệu kho (nhắc lại bằng số). **Thể hiện:** dòng giả định; bảng bước × số lần × chi phí × thay số; câu chốt so với Q10.
+- **Kết nối vào–ra:** đếm theo các bước của I04; giao số liệu cho bảng so sánh C00.
+- **Ghi chú diễn giả:** mô hình đếm; bỏ qua top-$K$; giả thiết cân bằng; phép tính; 3,6 ms; giả định minh họa; tác động của $nprobe$.
+- **Nguồn:** PQ paper mục IV-C tr.7; Princeton lớp 8 tr.22, lớp 9 tr.5.
+- **Quyết định:** sửa và chuyển vị trí. Tiêu đề cũ là câu; chưa theo mạch đếm bước × số lần × chi phí; không thay số nên không thấy IVF-PQ đáp ứng bài toán; giả thiết cân bằng chỉ ở ghi chú; đứng trước trang thuật toán.

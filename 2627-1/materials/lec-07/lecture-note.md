@@ -510,19 +510,19 @@ $$
 
 Nếu danh sách được mở chứa ít hơn $K$ véc-tơ, thuật toán không thể trả đủ $K$ định danh phân biệt.
 
-Chi phí truy vấn, chưa kể duy trì top-$K$, gồm
+**Chi phí truy vấn.** Đếm thao tác trên tọa độ hoặc ô bảng tra theo từng bước, chưa kể việc giữ $K$ kết quả tốt nhất (thêm hệ số $\log K$ mỗi phần tử với đống nhị phân):
 
 $$
-\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta\left(m\sum_{i\in P}|L_i|\right).
+\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta\Big(m\sum_{i\in P}|L_i|\Big).
 $$
 
-Ba số hạng lần lượt là tìm tâm thô, lập bảng ADC và chấm mã. Chỉ khi các danh sách tương đối cân bằng mới có thể xấp xỉ
+Ba số hạng lần lượt là chọn tâm thô, lập $nprobe$ bảng tra và chấm các mã trong danh sách mở. Chỉ khi các danh sách tương đối cân bằng mới có thể xấp xỉ $\sum_{i\in P}|L_i|\approx nprobe\,N/k_c$; danh sách lệch có thể làm số mã được chấm lớn hơn nhiều.
 
-$$
-\sum_{i\in P}|L_i|\approx nprobe\frac{N}{k_c}.
-$$
+::: example Chi phí cho kho mười tỷ véc-tơ
+Giả định $N=10^{10}$, $D=3072$, $m=512$, $k^*=256$, $k_c=10^5\approx\sqrt N$ (theo gợi ý của nguồn), $nprobe=64$ và danh sách cân bằng. Chọn tâm thô: $10^5\cdot3072\approx3{,}1\cdot10^8$. Lập bảng: $64\cdot256\cdot3072\approx5{,}0\cdot10^7$. Chấm mã: $64\cdot10^{10}/10^5=6{,}4\cdot10^6$ mã, mỗi mã 512 lần tra, tổng $3{,}3\cdot10^9$. Tổng khoảng $3{,}6\cdot10^9$, ít hơn khoảng 1400 lần so với $5{,}12\cdot10^{12}$ lần tra khi quét đủ mã PQ; với $10^{12}$ thao tác mỗi giây là khoảng 3,6 ms. $k_c$ và $nprobe$ là giả định minh họa.
+:::
 
-Tăng $nprobe$ thường tăng recall và độ trễ. $nprobe$ là số danh sách, không phải số ứng viên.
+Tăng $nprobe$ tăng tuyến tính số mã được chấm và thường tăng độ thu hồi. $nprobe$ là số danh sách, không phải số ứng viên.
 
 ::: exercise Tự kiểm
 Một truy vấn mở hai danh sách có 3 và 4 phần tử, còn $K=10$. Số kết quả tối đa là bao nhiêu?
