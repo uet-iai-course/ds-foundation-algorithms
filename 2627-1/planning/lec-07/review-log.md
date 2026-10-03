@@ -329,3 +329,4 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | R02, R08 ghi chú | (nhẹ) Câu biện minh của người soạn. | sửa | Bỏ khỏi ghi chú diễn giả; ghi trong storyboard. |
 | R00, R01, R06, ghi chú mục 11 | (nhẹ) Tên nhiệm vụ không thống nhất. | sửa | “Nhiệm vụ 1: mã và tái dựng PQ”; “Nhiệm vụ 2: cùng ngân sách 6 byte”; “Nhiệm vụ 3: chỉ mục IVF-PQ” ở R00, tiêu đề trang và ghi chú. |
 | R00 ghi chú | (nhẹ) Không nhắc số luồng ô 1. | sửa | Thêm câu về 32 luồng và việc ghi lại số luồng. |
+| `index.html` | (nhẹ) Mô tả Bài 7 dùng từ “runbook”. | sửa | “sổ thực hành Princeton”; thêm “tệp đảo” trước IVF-PQ. Kiểm: hai liên kết trả 200 ở 1440 và 390 px, không tràn ngang. |
