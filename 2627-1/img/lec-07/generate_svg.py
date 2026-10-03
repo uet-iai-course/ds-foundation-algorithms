@@ -210,7 +210,7 @@ def do_thi_nhieu_tang(name='do-thi-nhieu-tang.svg', compact=False):
     # H07 (đầy đủ) và H09 (gọn): ba tầng trên cùng 12 điểm của ví dụ một chiều; q ở tọa độ 6,4.
     names = ['s'] + [f'p{i}' for i in range(1, 12)]
     if compact:
-        x0, dx, ys, r, fs, left = 105, 58, (55, 175, 295), 15, 30, 10
+        x0, dx, ys, r, fs, left = 105, 58, (55, 175, 295), 15, 36, 10
     else:
         x0, dx, ys, r, fs, left = 150, 72, (70, 215, 360), 17, 28, 20
     X = lambda v: x0 + dx * names.index(v)
@@ -378,13 +378,13 @@ def pq_vi_du(name='pq-vi-du.svg', with_query=False):
         X = lambda u: ox + 70 + sc * u
         Y = lambda v: 300 - sc * v
         b += rect(ox + 10, 15, 440, 345, '#ffffff', '#c5ccd8')
-        b += text(ox + 230, 52, title, 28, INK, weight='bold')
+        b += text(ox + 230, 52, title, 32, INK, weight='bold')
         b += line(X(-0.3), Y(0), X(3.4), Y(0), '#c5ccd8', width=2) + line(X(0), Y(-0.3), X(0), Y(2.4), '#c5ccd8', width=2)
         for t, (u, v) in enumerate(cents):
             chosen = t == code
             b += f'<rect x="{X(u) - 12}" y="{Y(v) - 12}" width="24" height="24" fill="{BLUE if chosen else "#ffffff"}" stroke="{BLUE}" stroke-width="4"/>'
             ly = Y(v) - 26 if v > 1 else Y(v) + 46
-            b += text(X(u), ly, f'tâm {t}', 28, BLUE, 'middle', weight='bold' if chosen else 'normal')
+            b += text(X(u), ly, f'tâm {t}', 32, BLUE, 'middle', weight='bold' if chosen else 'normal')
         cu, cv = cents[code]
         b += line(X(xp[0]), Y(xp[1]), X(cu), Y(cv), GREEN, '6 5', width=3)
         b += f'<circle cx="{X(xp[0])}" cy="{Y(xp[1])}" r="10" fill="{GREEN}"/>'
