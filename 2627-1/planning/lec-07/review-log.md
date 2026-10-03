@@ -338,3 +338,4 @@ Tác tử chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `h
 | Trang/vị trí | Phát hiện | Quyết định | Thay đổi |
 |---|---|---|---|
 | H01 | (nhẹ) Ký hiệu $e{:}9$ trong bảng chưa giải thích trên trang. | sửa | Câu đầu thêm “Ký hiệu $e{:}9$ nghĩa là $d(e,q)=9$.” Ghi chú tự học đã có câu tương ứng. |
+| H03 → H03, H03B | (nghiêm trọng) Quy tắc thêm/bỏ khỏi $W$, nghĩa của “mở” và điều kiện dừng chỉ ở ghi chú; sinh viên không tự tái tạo được vết hay trả lời câu hỏi $ef=2$. | tách | H03 “Tìm kiếm chùm”: ba gạch quy tắc cạnh hình đồ thị ví dụ, câu chốt $ef=1$ trùng tham lam. H03B “Vết tìm kiếm chùm”: dòng điểm vào và ký hiệu, hình đường chùm, bảng (ba lần mở cuối gộp một hàng), câu hỏi. Bản nháp đặt cả quy tắc và bảng trên một trang tràn khung (đáy 774/720). Thời lượng 4 phút chia 2 + 2. Ghi chú tự học đã có quy tắc và bảng đủ bảy lần mở. |

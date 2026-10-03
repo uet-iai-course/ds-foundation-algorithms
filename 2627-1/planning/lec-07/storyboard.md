@@ -22,7 +22,8 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | A03 | 2 | Tách chi phí truy vấn thành số véc-tơ được đo nhân chi phí một phép đo; gắn LSH, HNSW, PQ, IVF-PQ vào thừa số mỗi cấu trúc giảm. | $\Theta(ND)$ → hai thừa số → bản đồ cấu trúc | MMDS Ch.3; Princeton 09 tr.4,5,7; Princeton 08 tr.2 |
 | H00 | 2 | Định nghĩa đồ thị lân cận trên đồ thị ví dụ bảy đỉnh; nêu dữ liệu lưu và ý tưởng đi tới đỉnh gần $q$ hơn. | véc-tơ → đỉnh, cạnh, điểm vào | Princeton 09 tr.7–8 |
 | H01 | 4 | Chạy tay tham lam trên đồ thị ví dụ (hình và bảng vết cùng trang); định nghĩa cực tiểu cục bộ. Gộp H02 cũ. | $e:9\to a:7\to b:5$ → dừng ở cực tiểu cục bộ, bỏ $z:1$ | Princeton 09 tr.8, 11–13; ví dụ dựng từ cơ chế nguồn |
-| H03 | 4 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
+| H03 | 2 | Tách (duyệt lại): quy tắc tìm kiếm chùm trên mặt trang ($C$, $W$, mở đỉnh, thêm/bỏ, dừng) cạnh hình đồ thị ví dụ; $ef=1$ trùng tham lam. | đồ thị H00 → quy tắc chùm | Princeton 09 tr.9; HNSW paper alg.2 |
+| H03B | 2 | Tách (duyệt lại): vết $ef=3$ (bảng gộp ba lần mở cuối) cạnh hình đường chùm; câu hỏi $ef=2$. | $e,a,b,s,\{t,u,z\}$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
 | H04 | 2 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
 | H05 | 4 | Giả mã `SEARCH-LAYER` theo Thuật toán 2; nối dòng tính lại ngưỡng $f$ với bước mở $s$ của ví dụ. | $V,C,W$ → thuật toán; ngưỡng $8\to7$ | HNSW paper alg.2, tr.4 |
 | H06 | 3 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
@@ -612,3 +613,9 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - Sinh viên cài Python, NumPy, Matplotlib, Faiss CPU và chạy các ô nền 0–4, 17, 21–24 trước buổi học trên chính kernel sẽ dùng.
 - Thời gian chạy máy (ô 85, 99, 150, 155) không tính vào 60 phút làm bài; nếu máy chậm, chạy trước ô 99 và 150 trên cùng kernel.
 - R02 là TODO của chính sổ nguồn; R08 chỉ là phiếu ghi kết quả của vòng đo trong nguồn, không thêm mục tiêu vận hành hay giá trị $nprobe$ mới.
+
+### H03, H03B — Tìm kiếm chùm và vết (tách sau lượt duyệt góc nhìn sinh viên)
+
+- **H03 (2 phút):** quy tắc trên mặt trang: $C$, $W$; mở đỉnh gần $q$ nhất trong $C$; lân cận chưa thấy vào $C$, $W$ nếu $|W|<ef$ hoặc gần hơn phần tử xa nhất, thừa thì bỏ phần tử xa nhất; dừng khi $C$ rỗng hoặc đỉnh sắp mở xa hơn phần tử xa nhất. Hình `do-thi-vi-du.svg`. Câu chốt: $ef=1$ trùng tham lam.
+- **H03B (2 phút):** vết $ef=3$ với hình `do-thi-chum.svg`, bảng gộp ba lần mở cuối thành một hàng; câu hỏi $ef=2$; đáp án và giải thích các lần mở $t$, $u$, $z$ trong ghi chú.
+- **Quyết định:** tách. Lượt duyệt góc nhìn sinh viên (nghiêm trọng): quy tắc thêm/bỏ và điều kiện dừng chỉ ở ghi chú nên không tự tái tạo được vết hay trả lời câu hỏi; đưa quy tắc lên cùng trang với bảng thì tràn khung (đáy 774/720).
