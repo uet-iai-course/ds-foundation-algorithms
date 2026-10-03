@@ -452,9 +452,17 @@ Với $10^{12}$ lần tra mỗi giây, quét mã PQ cho một truy vấn mất b
 $5{,}12\cdot10^{12}/10^{12}=5{,}12$ giây, so với khoảng 30,7 giây khi quét véc-tơ gốc. Vẫn quá chậm vì cả $10^{10}$ mã đều được chấm; cần chỉ mở một phần kho.
 :::
 
-## 9. IVF-PQ: lọc danh sách rồi chấm mã phần dư
+## 9. Tệp đảo và IVF-PQ
 
-PQ quét đầy đủ vẫn xét mọi mã. Inverted File with Product Quantization (IVF-PQ) thêm một lượng tử hóa thô để chỉ mở vài danh sách.
+**Tệp đảo (Inverted File, IVF)** là một lượng tử hóa thô với $k_c$ tâm $\mu_0,\ldots,\mu_{k_c-1}$ dùng để chia kho thành $k_c$ ô; danh sách đảo $L_i$ chứa mã định danh của các véc-tơ gần $\mu_i$ nhất. Truy vấn chỉ mở $nprobe$ danh sách có tâm gần $q$ nhất và chỉ chấm các phần tử trong đó. IVF giảm số véc-tơ được chấm; ghép với PQ thành IVF-PQ, trong đó mỗi phần tử của danh sách lưu mã định danh và một mã PQ ngắn, nên mỗi lần chấm cũng rẻ. Bài báo PQ gọi $k_c$ là $k'$ và $nprobe$ là $w$; Faiss dùng `nlist` và `nprobe`.
+
+::: example Bốn danh sách đảo
+Bốn tâm thô $\mu_0=(2;2)$, $\mu_1=(8;2)$, $\mu_2=(2;8)$, $\mu_3=(8;8)$ chia mười sáu điểm $y_1,\ldots,y_{16}$ thành bốn danh sách, mỗi danh sách bốn điểm: $L_0=\{y_1,\ldots,y_4\}$, $L_1=\{y_5,\ldots,y_8\}$, $L_2=\{y_9,\ldots,y_{12}\}$, $L_3=\{y_{13},\ldots,y_{16}\}$. Truy vấn $q=(6;3{,}5)$ gần $\mu_1$ nhất rồi đến $\mu_0$; với $nprobe=2$, chỉ 8 trên 16 phần tử được chấm.
+:::
+
+![Bốn tâm thô μ0 đến μ3 chia mặt phẳng thành bốn ô ứng với bốn danh sách đảo; truy vấn q gần μ1 nhất rồi đến μ0; với nprobe bằng 2 chỉ L1 và L0 được mở.](img/lec-07/tep-dao.svg)
+
+Quy trình IVF-PQ:
 
 1. Học $k_c$ tâm thô $\mu_0,\dots,\mu_{k_c-1}$.
 2. Gán $y$ vào tâm gần nhất $i(y)$ và lưu mã PQ của phần dư $r(y)=y-\mu_{i(y)}$ trong $L_{i(y)}$.

@@ -45,7 +45,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q08 | 3 | Công thức ADC; mỗi số hạng chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j$, nên mỗi đoạn có $k^*$ giá trị tính trước được. | truy vấn đầy đủ + mã → tổng $m$ số hạng | PQ paper §III-A eq.13, tr.4; Princeton 08 tr.26–27 |
 | Q09 | 3 | Bảng tra trên ví dụ hai đoạn (ô của mã $(0,1)$ đánh dấu); chi phí lập bảng, chấm mã so với tính trực tiếp. | $T$ 2×2 → 0,31 và 13,51; $\Theta(k^*D)$, $m$ lần tra | PQ paper §III-A tr.4; Princeton 08 tr.27, 31–32 |
 | Q10 | 3 | Thay số quét mã PQ so với quét véc-tơ gốc cho $10^{10}$ véc-tơ; câu hỏi thời gian; nối sang chỉ mở một phần kho. | 5,12 TB, $5{,}12\cdot10^{12}$ lần tra, 5,12 s | PQ paper tr.2, §IV tr.6; Princeton 08 tr.20–22 |
-| I00 | 3 | Đặt IVF và PQ vào đúng vai trò. | quét N mã → phân vùng + nén | Princeton 08 tr.20–22,54–55 |
+| I00 | 4 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
 | I01 | 3 | Hình thức hóa miền argmin và chạy ví dụ chọn danh sách gần nhất. | $\mu_0,\mu_1,q$ → mở $L_1$ trước | Princeton 08 tr.21–22; PQ paper tr.6; ví dụ dựng từ cơ chế nguồn |
 | I02 | 3 | Dùng truy vấn dư và bảng ADC riêng cho từng danh sách. | $\widetilde q_i=q-\mu_i$, $r(y)=y-\mu_i$ → chấm mã trong $L_i$ | PQ paper §IV-A, tr.6 |
 | I03 | 2 | Tách chi phí tâm thô, nprobe bảng ADC và tổng kích thước danh sách; tách riêng phụ phí top-K. | $\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta(m\sum_{i\in P}|L_i|)$ | PQ paper tr.6–8 |
@@ -435,3 +435,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** $5{,}12$ giây với $10^{12}$ lần tra/giây (giả định), so với 30,7 giây ở P01.
 - **Nguồn:** PQ paper tr.2, mục IV tr.6; Princeton lớp 8 tr.20–22.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; chi phí chỉ ký hiệu, không so được với lượt quét gốc; “tầng định tuyến” xuất hiện đột ngột.
+
+### I00 — Tệp đảo (IVF)
+
+- **Phần:** 5, IVF-PQ (thuật toán). **Vai trò:** mở phần, trực giác, ví dụ. **Thời lượng:** 4 phút.
+- **Mục đích:** mô tả tệp đảo, xác định danh sách được mở với $nprobe$ cho trước trên ví dụ.
+- **Câu chốt:** IVF giảm số véc-tơ được chấm; mã PQ trong mỗi danh sách giảm chi phí mỗi lần chấm.
+- **Đầu vào:** giới hạn PQ quét đầy đủ (Q10), VQ (Q00–Q02). **Thể hiện:** dòng định nghĩa; hình `tep-dao.svg` (bốn ô, hai ô mở tô màu và viền liền, nhãn “(mở)”; nhãn $y_3$, $y_8$); bảng HTML bốn danh sách; dòng 8/16.
+- **Kết nối vào–ra:** nhận thừa số “số véc-tơ được chấm” từ Q10; ví dụ dùng tiếp ở I01–I04.
+- **Ghi chú diễn giả:** tên đầy đủ; IVF là VQ thô; tọa độ ví dụ; tương ứng ký hiệu $k'$, $w$ của bài báo và `nlist`, `nprobe` của Faiss.
+- **Nguồn:** Princeton lớp 8 tr.21–22; PQ paper mục IV tr.6–7. Ví dụ do học phần dựng.
+- **Quyết định:** viết lại. Bản cũ (tiêu đề câu “IVF-PQ định tuyến rồi chấm mã nén”) chỉ có hai thẻ chữ, không hình; dùng “định tuyến”, “véc-tơ dư” chưa giải thích.
