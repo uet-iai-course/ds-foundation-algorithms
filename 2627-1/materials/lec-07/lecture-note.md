@@ -434,6 +434,24 @@ Bảng được dùng lại cho mọi mã trong kho, nên đáng lập khi số 
 
 Phép tính khoảng cách đối xứng (Symmetric Distance Computation, SDC) lượng tử hóa cả truy vấn rồi tra khoảng cách giữa hai tâm con, nên thêm sai số do lượng tử hóa truy vấn. Theo bài báo PQ, ưu điểm duy nhất của SDC là truy vấn cũng được lưu ở dạng mã; ADC có sai lệch khoảng cách thấp hơn với độ phức tạp tương tự. Bài này dùng ADC.
 
+**Giới hạn của PQ quét đầy đủ.** Với kho mười tỷ véc-tơ và mã 512 đoạn, mỗi truy vấn vẫn chấm cả $10^{10}$ mã:
+
+| Một truy vấn | Quét véc-tơ gốc | Quét mã PQ |
+|---|---|---|
+| Dữ liệu đọc | $122{,}88$ TB | $5{,}12$ TB |
+| Phép toán | $ND\approx3{,}07\cdot10^{13}$ lượt tọa độ | $Nm=5{,}12\cdot10^{12}$ lần tra |
+| Số véc-tơ được chấm | $10^{10}$ | $10^{10}$ |
+
+Bảng bỏ qua chi phí lập bảng tra ($k^*D\approx7{,}9\cdot10^5$ phép toán) và việc giữ $K$ kết quả tốt nhất; các số là phép suy ra từ cấu hình, không phải số đo. PQ giảm chi phí mỗi phép đo, không giảm số véc-tơ được chấm.
+
+::: exercise Tự kiểm
+Với $10^{12}$ lần tra mỗi giây, quét mã PQ cho một truy vấn mất bao lâu? So với quét véc-tơ gốc ở cùng tốc độ.
+:::
+
+::: solution
+$5{,}12\cdot10^{12}/10^{12}=5{,}12$ giây, so với khoảng 30,7 giây khi quét véc-tơ gốc. Vẫn quá chậm vì cả $10^{10}$ mã đều được chấm; cần chỉ mở một phần kho.
+:::
+
 ## 9. IVF-PQ: lọc danh sách rồi chấm mã phần dư
 
 PQ quét đầy đủ vẫn xét mọi mã. Inverted File with Product Quantization (IVF-PQ) thêm một lượng tử hóa thô để chỉ mở vài danh sách.

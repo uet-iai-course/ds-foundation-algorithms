@@ -44,7 +44,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q06 | 3 | Chuyển sau Q07. Ví dụ ADC: định nghĩa bằng lời, hình hai đoạn có $q$, bảng hai số hạng, so 0,31 với giá trị đúng 0,07. | mã $(0,1)$ + $q$ → 0,31 | PQ paper eq.13, tr.4; Princeton 08 tr.25–26 |
 | Q08 | 3 | Công thức ADC; mỗi số hạng chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j$, nên mỗi đoạn có $k^*$ giá trị tính trước được. | truy vấn đầy đủ + mã → tổng $m$ số hạng | PQ paper §III-A eq.13, tr.4; Princeton 08 tr.26–27 |
 | Q09 | 3 | Bảng tra trên ví dụ hai đoạn (ô của mã $(0,1)$ đánh dấu); chi phí lập bảng, chấm mã so với tính trực tiếp. | $T$ 2×2 → 0,31 và 13,51; $\Theta(k^*D)$, $m$ lần tra | PQ paper §III-A tr.4; Princeton 08 tr.27, 31–32 |
-| Q10 | 2 | Chỉ ra chi phí tuyến tính và byte mã còn lại ở quy mô P01. | PQ quét đủ → $\Theta(Nm)$, $N\lceil mb/8\rceil$ byte | PQ paper tr.2,6 |
+| Q10 | 3 | Thay số quét mã PQ so với quét véc-tơ gốc cho $10^{10}$ véc-tơ; câu hỏi thời gian; nối sang chỉ mở một phần kho. | 5,12 TB, $5{,}12\cdot10^{12}$ lần tra, 5,12 s | PQ paper tr.2, §IV tr.6; Princeton 08 tr.20–22 |
 | I00 | 3 | Đặt IVF và PQ vào đúng vai trò. | quét N mã → phân vùng + nén | Princeton 08 tr.20–22,54–55 |
 | I01 | 3 | Hình thức hóa miền argmin và chạy ví dụ chọn danh sách gần nhất. | $\mu_0,\mu_1,q$ → mở $L_1$ trước | Princeton 08 tr.21–22; PQ paper tr.6; ví dụ dựng từ cơ chế nguồn |
 | I02 | 3 | Dùng truy vấn dư và bảng ADC riêng cho từng danh sách. | $\widetilde q_i=q-\mu_i$, $r(y)=y-\mu_i$ → chấm mã trong $L_i$ | PQ paper §IV-A, tr.6 |
@@ -424,3 +424,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** dữ kiện; một ô mẫu; phép đếm $k^*D$; khi nào đáng lập bảng; 512 lần tra so với 3072 tọa độ.
 - **Nguồn:** PQ paper mục III-A tr.4; Princeton lớp 8 tr.27, 31–32.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; hình cũ `pq-lut.svg` chữ rất nhỏ, không có số; chi phí chỉ ở một dòng ký hiệu. Bảng tra dựng bằng HTML theo quy định bảng không dùng ảnh.
+
+### Q10 — Giới hạn của PQ quét đầy đủ
+
+- **Phần:** 4 (kết phần). **Vai trò:** chi phí, giới hạn, kiểm tra, câu nối. **Thời lượng:** 3 phút.
+- **Mục đích:** tính dữ liệu đọc và số lần tra khi quét mã PQ; so với quét véc-tơ gốc; chỉ ra thừa số còn lại.
+- **Câu chốt:** PQ giảm chi phí mỗi phép đo, không giảm số véc-tơ được chấm.
+- **Đầu vào:** kích thước mã (Q07), chi phí chấm một mã (Q09), số liệu kho (nhắc lại bằng số). **Thể hiện:** dòng dữ kiện; bảng hai cột; hộp câu hỏi; câu chốt.
+- **Kết nối vào–ra:** đóng phần 4; nối A03 (hai thừa số) sang phần 5: chỉ mở một phần kho.
+- **Kiểm tra:** $5{,}12$ giây với $10^{12}$ lần tra/giây (giả định), so với 30,7 giây ở P01.
+- **Nguồn:** PQ paper tr.2, mục IV tr.6; Princeton lớp 8 tr.20–22.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; chi phí chỉ ký hiệu, không so được với lượt quét gốc; “tầng định tuyến” xuất hiện đột ngột.
