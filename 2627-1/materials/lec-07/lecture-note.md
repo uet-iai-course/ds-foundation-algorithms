@@ -454,7 +454,7 @@ $5{,}12\cdot10^{12}/10^{12}=5{,}12$ giây, so với khoảng 30,7 giây khi qué
 
 ## 9. Tệp đảo và IVF-PQ
 
-**Tệp đảo (Inverted File, IVF)** là một lượng tử hóa thô với $k_c$ tâm $\mu_0,\ldots,\mu_{k_c-1}$ dùng để chia kho thành $k_c$ ô; danh sách đảo $L_i$ chứa mã định danh của các véc-tơ gần $\mu_i$ nhất. Truy vấn chỉ mở $nprobe$ danh sách có tâm gần $q$ nhất và chỉ chấm các phần tử trong đó. IVF giảm số véc-tơ được chấm; ghép với PQ thành IVF-PQ, trong đó mỗi phần tử của danh sách lưu mã định danh và một mã PQ ngắn, nên mỗi lần chấm cũng rẻ. Bài báo PQ gọi $k_c$ là $k'$ và $nprobe$ là $w$; Faiss dùng `nlist` và `nprobe`.
+**Tệp đảo (Inverted File, IVF)** là một lượng tử hóa thô, tức VQ với ít tâm, gồm $k_c$ tâm $\mu_0,\ldots,\mu_{k_c-1}$ dùng để chia kho thành $k_c$ ô; danh sách đảo $L_i$ chứa mã định danh của các véc-tơ gần $\mu_i$ nhất. Truy vấn chỉ mở $nprobe$ danh sách có tâm gần $q$ nhất và chỉ chấm các phần tử trong đó. IVF giảm số véc-tơ được chấm; ghép với PQ thành IVF-PQ, trong đó mỗi phần tử của danh sách lưu mã định danh và một mã PQ ngắn, nên mỗi lần chấm cũng rẻ. Bài báo PQ gọi $k_c$ là $k'$ và $nprobe$ là $w$; Faiss dùng `nlist` và `nprobe`.
 
 ::: example Bốn danh sách đảo
 Bốn tâm thô $\mu_0=(2;2)$, $\mu_1=(8;2)$, $\mu_2=(2;8)$, $\mu_3=(8;8)$ chia mười sáu điểm $y_1,\ldots,y_{16}$ thành bốn danh sách, mỗi danh sách bốn điểm: $L_0=\{y_1,\ldots,y_4\}$, $L_1=\{y_5,\ldots,y_8\}$, $L_2=\{y_9,\ldots,y_{12}\}$, $L_3=\{y_{13},\ldots,y_{16}\}$. Truy vấn $q=(6;3{,}5)$ gần $\mu_1$ nhất rồi đến $\mu_0$; với $nprobe=2$, chỉ 8 trên 16 phần tử được chấm.
@@ -487,7 +487,7 @@ $$
 Do đó các phần tử của $L_i$ được chấm bằng ADC giữa truy vấn dư $\widetilde q_i$ và mã của phần dư. Mỗi danh sách có tâm riêng nên cần bảng tra riêng, tổng $nprobe$ bảng.
 
 ::: example Phần dư của $y_8$
-$y_8=(6{,}5;2{,}5)\in L_1$, $\mu_1=(8;2)$, nên $r(y_8)=(-1{,}5;\ 0{,}5)$. Truy vấn dư $\widetilde q_1=(-2;\ 1{,}5)$ và $\widetilde q_0=(4;\ 1{,}5)$. Kiểm tra: $\|\widetilde q_1-r(y_8)\|^2=(-0{,}5)^2+1^2=1{,}25=\|q-y_8\|^2$. Dùng nhầm $\widetilde q_0$ cho phần tử của $L_1$ cho $5{,}5^2+1^2=31{,}25$, sai hoàn toàn.
+$y_8=(6{,}5;2{,}5)\in L_1$, $\mu_1=(8;2)$, nên $r(y_8)=(-1{,}5;\ 0{,}5)$. Truy vấn dư $\widetilde q_1=(-2;\ 1{,}5)$ và $\widetilde q_0=(4;\ 1{,}5)$. Kiểm tra: $\|\widetilde q_1-r(y_8)\|^2=(-0{,}5)^2+1^2=1{,}25=\|q-y_8\|^2$. Dùng nhầm $\widetilde q_0$ cho phần tử của $L_1$ cho $5{,}5^2+1^2=31{,}25$ thay vì $1{,}25$.
 :::
 
 ![Hai ô dưới của ví dụ tệp đảo: mũi tên xanh từ μ1 tới y8 là phần dư r(y8); hai đoạn nét đứt từ μ1 và μ0 tới q là truy vấn dư dùng khi quét L1 và L0.](img/lec-07/tep-dao-du.svg)
@@ -517,7 +517,7 @@ nếu các danh sách được mở có tổng ít hơn $K$ phần tử, thuật
 Với $q=(6;3{,}5)$, $K=3$ và giả sử ADC không sai số (để tách tác dụng của $nprobe$ khỏi sai số mã hóa), bình phương khoảng cách trong $L_1$ là $y_8$ 1,25; $y_7$ 6,5; $y_5$ 7,25; $y_6$ 13, trong $L_0$ là $y_3$ 2,34; $y_2$ 18,5; $y_4$ 20,34; $y_1$ 29. Với $nprobe=2$, thuật toán trả $y_8,y_3,y_7$, đúng ba hàng xóm thật. Với $nprobe=1$, chỉ $L_1$ được mở, kết quả $y_8,y_7,y_5$ và $\operatorname{recall@3}=2/3$.
 :::
 
-**Chi phí truy vấn.** Đếm thao tác trên tọa độ hoặc ô bảng tra theo từng bước, chưa kể việc giữ $K$ kết quả tốt nhất (thêm hệ số $\log K$ mỗi phần tử với đống nhị phân):
+**Chi phí truy vấn.** Đếm thao tác trên tọa độ hoặc ô bảng tra theo từng bước, coi một lần tra ngang một lượt xử lý tọa độ, chưa kể việc giữ $K$ kết quả tốt nhất (thêm hệ số $\log K$ mỗi phần tử với đống nhị phân):
 
 $$
 \Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta\Big(m\sum_{i\in P}|L_i|\Big).
@@ -550,7 +550,7 @@ Không có cấu trúc thắng trên mọi khối lượng công việc. Bảng 
 | PQ quét đủ | chi phí mỗi phép đo | 512 byte | $5{,}12\cdot10^{12}$ lần tra | $m$, $b$ | sai số mã hóa |
 | IVF-PQ | cả hai | $512+8$ byte | $\approx3{,}6\cdot10^9$ thao tác | $nprobe$, $m$, $b$ | sai số mã hóa; hàng xóm ở danh sách chưa mở |
 
-Với kho mở đầu, HNSW cần khoảng $(12\,288+265)\cdot10^{10}\approx125$ TB; IVF-PQ khoảng $(512+8)\cdot10^{10}=5{,}2$ TB (chưa gồm bộ mã và tâm thô) và khoảng $3{,}6\cdot10^9$ thao tác mỗi truy vấn, đổi lại độ thu hồi phụ thuộc $nprobe$ và sai số mã hóa. Bảng chỉ so bộ nhớ và số thao tác theo mô hình đếm; chất lượng phải đo bằng $\operatorname{recall@K}$ trên cùng tập truy vấn, cùng $K$ và cùng phần cứng. HNSW giữ véc-tơ gốc nên thường đạt độ thu hồi cao với độ trễ thấp khi kho nằm vừa bộ nhớ. Hai hướng có thể kết hợp, ví dụ dùng đồ thị để chọn tâm thô thay cho quét đủ $k_c$ tâm. Quyết định chỉ có ý nghĩa khi nêu rõ ngưỡng chất lượng và ngân sách bộ nhớ, độ trễ.
+Với kho mở đầu, HNSW cần khoảng $(12\,288+265)\cdot10^{10}\approx125$ TB; IVF-PQ khoảng $(512+8)\cdot10^{10}=5{,}2$ TB (chưa gồm bộ mã và tâm thô) và khoảng $3{,}6\cdot10^9$ thao tác mỗi truy vấn, đổi lại độ thu hồi phụ thuộc $nprobe$ và sai số mã hóa. Bảng chỉ so bộ nhớ và số thao tác theo mô hình đếm; chất lượng phải đo bằng $\operatorname{recall@K}$ trên cùng tập truy vấn, cùng $K$ và cùng phần cứng. HNSW giữ véc-tơ gốc nên thường đạt độ thu hồi cao với độ trễ thấp khi kho nằm vừa bộ nhớ. Quyết định chỉ có ý nghĩa khi nêu rõ ngưỡng chất lượng và ngân sách bộ nhớ, độ trễ.
 
 ## 11. Thực hành với sổ thực hành Princeton
 
@@ -620,7 +620,7 @@ Với $ef=2$: khi mở $u$, $v{:}6$ được thêm, còn $w{:}9$ bị loại vì
 :::
 
 ::: exercise Câu 3
-Kho $10^8$ véc-tơ 128 chiều, số thực 4 byte; cạnh HNSW khoảng 265 byte mỗi véc-tơ. Chỉ mục có vừa 64 GB bộ nhớ không?
+Kho $10^8$ véc-tơ 128 chiều, số thực 4 byte; cạnh HNSW khoảng 265 byte mỗi véc-tơ (mã định danh 8 byte). Với $1$ GB $=10^9$ byte, chỉ mục có vừa 64 GB bộ nhớ không?
 :::
 
 ::: solution

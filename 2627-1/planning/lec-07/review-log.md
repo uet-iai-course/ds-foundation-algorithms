@@ -286,3 +286,19 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | C01, C02 (mới) | Tự kiểm cuối bài. | Phần kết thiếu nhiệm vụ tự kiểm (tiêu chuẩn mục 2; việc mở từ lượt rà phần 1–2). | thêm. Hai trang “Tự kiểm tra: độ thu hồi và đồ thị”, “Tự kiểm tra: PQ và IVF-PQ”, mỗi trang ba câu với dữ kiện mới; đáp án trong ghi chú diễn giả, kiểm bằng chương trình (mô phỏng Thuật toán 2 cho câu chùm). Đóng việc mở của P02. | Mục 12: thay danh sách 8 câu không đáp án bằng sáu bài tự kiểm có lời giải, khớp hai trang. |
 | R00 | Mở phần bài tập: sổ thực hành, dữ liệu, ba nhiệm vụ. | Không nêu dữ liệu (kích thước, vai trò của `xt`, `xb`, `xq`, `gt`); đường dẫn nội bộ `sources/…` trên mặt trang; dòng điều phối “Thời gian máy được báo riêng”. | sửa. Tiêu đề “Sổ thực hành và dữ liệu”; bảng bốn mảng (đối chiếu ô 2: `SyntheticDataset(64, 1000000, 10000, 100)`, ô 21: `faiss.knn` với $k=10$); bảng ba nhiệm vụ. Hướng dẫn chuẩn bị chuyển vào ghi chú diễn giả. | Mục 11 đổi tiêu đề “Thực hành với sổ thực hành Princeton”; phần chuẩn bị có bảng dữ liệu, ánh xạ ký hiệu Faiss, bảng nhiệm vụ. |
 | R01 | Nhiệm vụ 1: cấu trúc mã PQ trên dữ liệu thật. | “Sản phẩm: bảng kích thước” không nói điền gì; tham số Faiss không nối với $m$, $b$, $k^*$; liệt kê tên biến không giải thích. | sửa. Tiêu đề “Nhiệm vụ 1: cấu trúc mã PQ”; dòng ô 83 và ánh xạ $D=64$, $m=4$, $b=8$; bảng dự đoán/giá trị in ra cho `code_size`, `pq_centroids.shape`, `xb_codes.shape` (đáp án 4; $(4,256,16)$ theo chú thích ô 94; $(10\,000,4)$). Không đổi dữ kiện hay nhiệm vụ của nguồn; chỉ chia bước. | Mục 11, nhiệm vụ 1: bảng điền và lời giải; câu nối sang ô 96–97. |
+
+**Rà lại phần 5–6 (tác tử chỉ đọc, `subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`; bằng chứng: lệnh gọi Agent trong phiên ngày 03/10/2026).** Độ chính xác đạt: ví dụ bốn ô, $y_3$, $y_8$, phần dư, 1,25/31,25, recall@3 $=2/3$; chi phí I03 ($3{,}634\cdot10^9$, tỷ lệ 1409); C00 (125,53 TB; 5,2 TB); đáp án C01–C02 (mô phỏng); giả mã I04 khớp mục IV-C; số trang đúng. Không có phát hiện chặn bàn giao hoặc nghiêm trọng. Sáu câu tự kiểm phủ ba mục tiêu của P02.
+
+| Trang/vị trí | Phát hiện rà lại | Quyết định | Thay đổi |
+|---|---|---|---|
+| I02 | (trung bình) Lý do mã hóa phần dư chỉ ở ghi chú. | sửa | Gạch đầu: “Phần dư nhỏ hơn $y$ nên mã PQ cùng số bit chính xác hơn”. |
+| I04 | (trung bình) Đầu ra và trường hợp ít hơn $K$ chỉ ở ghi chú. | sửa | Dòng đầu ra dưới khối giả mã. |
+| storyboard “Hành trình khái niệm” | (trung bình) Dòng IVF-PQ còn thứ tự cũ. | sửa | Viết lại theo thứ tự hiện hành. |
+| C01, C02 ghi chú | (nhẹ) Ánh xạ câu hỏi sang mục tiêu lẫn số. | sửa | “câu 1 → mục tiêu 1…” theo P02. |
+| C01 câu 3 | (nhẹ) 265 byte giả định mã định danh 8 byte; đáp án sát ngưỡng phụ thuộc GB/GiB. | sửa | Đề ghi “mã định danh 8 byte” và “1 GB $=10^9$ byte” (deck và ghi chú). |
+| I03 ghi chú | (nhẹ) Giả định một lần tra ngang một lượt tọa độ chưa nhắc lại. | sửa | Nêu trong ghi chú diễn giả và ghi chú tự học. |
+| I00 | (nhẹ) “thô” chưa giải thích. | sửa | “Lượng tử hóa thô (VQ với ít tâm, $k_c$ tâm)”. |
+| C00 ghi chú | (nhẹ) Câu “dùng đồ thị để chọn tâm thô” không có trong nguồn đã đối chiếu; dẫn chiếu “các trang chi phí”. | sửa | Bỏ câu (deck và ghi chú tự học); “phần chi phí HNSW, PQ và IVF-PQ”. |
+| I02 ghi chú | (nhẹ) Lời nhấn “sai hoàn toàn”. | sửa | “31,25 thay vì 1,25” (deck và ghi chú). |
+| C00 | (nhẹ) Câu chốt chưa nêu kết luận lựa chọn. | sửa | “trong bộ nhớ một máy, IVF-PQ khả thi, với $nprobe$ chọn theo ngưỡng độ thu hồi”. |
+| R00 | (ngoài phạm vi) Dạng cũ. | đã sửa | Commit R00 (`b93a48e`). |
