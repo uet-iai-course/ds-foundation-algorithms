@@ -552,13 +552,28 @@ Không có cấu trúc thắng trên mọi khối lượng công việc. Bảng 
 
 Với kho mở đầu, HNSW cần khoảng $(12\,288+265)\cdot10^{10}\approx125$ TB; IVF-PQ khoảng $(512+8)\cdot10^{10}=5{,}2$ TB (chưa gồm bộ mã và tâm thô) và khoảng $3{,}6\cdot10^9$ thao tác mỗi truy vấn, đổi lại độ thu hồi phụ thuộc $nprobe$ và sai số mã hóa. Bảng chỉ so bộ nhớ và số thao tác theo mô hình đếm; chất lượng phải đo bằng $\operatorname{recall@K}$ trên cùng tập truy vấn, cùng $K$ và cùng phần cứng. HNSW giữ véc-tơ gốc nên thường đạt độ thu hồi cao với độ trễ thấp khi kho nằm vừa bộ nhớ. Hai hướng có thể kết hợp, ví dụ dùng đồ thị để chọn tâm thô thay cho quét đủ $k_c$ tâm. Quyết định chỉ có ý nghĩa khi nêu rõ ngưỡng chất lượng và ngân sách bộ nhớ, độ trễ.
 
-## 11. Thực hành với runbook Princeton
+## 11. Thực hành với sổ thực hành Princeton
 
-Ba nhiệm vụ dưới đây dùng trực tiếp notebook `class-08-runbook-for-students.ipynb`. Không điền sẵn kết quả chạy vì số đo phụ thuộc môi trường.
+Ba nhiệm vụ dưới đây dùng trực tiếp sổ `class-08-runbook-for-students.ipynb` của Princeton COS 597A, lớp 8. Không điền sẵn kết quả chạy vì số đo phụ thuộc môi trường.
 
-### Chuẩn bị
+### Chuẩn bị và dữ liệu
 
-Chạy các ô 0–4, 17 và 21–24 để tạo `d=64`, tập huấn luyện `xt`, cơ sở dữ liệu `xb`, truy vấn `xq` và chuẩn đúng `gt`. Ghi lại seed và môi trường.
+Chạy các ô 0–4, 17 và 21–24. Ô 2 tạo dữ liệu tổng hợp `SyntheticDataset(64, 1000000, 10000, 100)`; ô 21 tính tập đúng bằng quét đầy đủ.
+
+| Mảng | Kích thước | Vai trò |
+|---|---|---|
+| `xt` | $10^6\times64$ | huấn luyện bộ mã |
+| `xb` | $10^4\times64$ | kho, $N=10^4$ |
+| `xq` | $100\times64$ | truy vấn |
+| `gt` | $100\times10$ | chỉ số 10 hàng xóm đúng, tức $N_{10}(q)$ |
+
+Trong Faiss, số đoạn PQ gọi là `M` (khác $M$ của HNSW) và số bit mỗi chỉ số gọi là `nbits`, tức $b$. Ghi lại phiên bản Faiss, số luồng và phần cứng.
+
+| Nhiệm vụ | Ô |
+|---|---|
+| 1. Tái dựng PQ thủ công | 82–97 |
+| 2. Cùng ngân sách 6 byte | 98–99 |
+| 3. IVF-PQ và $nprobe$ | 148–155 |
 
 ### Nhiệm vụ 1: tái dựng PQ thủ công
 

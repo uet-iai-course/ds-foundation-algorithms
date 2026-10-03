@@ -60,7 +60,7 @@ Tổng phần giảng: **120 phút**.
 
 | ID | Phút | Vai trò và sản phẩm hiển thị | Đáp án hoặc hướng dẫn chấm trong notes | Nguồn trực tiếp |
 |---|---:|---|---|---|
-| R00 | 0 | Nêu notebook, chuỗi ô nền 0–4,17,21–24, trạng thái `d,xt,xb,xq,gt` và quy ước tách thời gian máy. | mỗi sinh viên chạy trước trên chính kernel sẽ dùng; không tạo checkpoint mới | Princeton runbook lớp 8 |
+| R00 | 0 | Nêu sổ thực hành, ô chuẩn bị, bốn mảng dữ liệu (kích thước, vai trò, ánh xạ ký hiệu) và ba nhiệm vụ với ô nguồn. | `xt` $10^6$, `xb` $10^4$, `xq` 100, `gt` 10 hàng xóm | Princeton runbook lớp 8, ô 0–4, 17, 21–24 |
 | R01 | 6 | Đọc hai mục “Product Quantization” và “Manual reconstruction”; lập công thức tái dựng véc-tơ tại chỉ số 123. | chỉ số mã chọn tâm ở từng đoạn; `xb` đã có từ ô 17 | ô 82–97 |
 | R02 | 9 | Hoàn thiện dòng mã tái dựng, không gọi hàm giải mã. | ghép `pq_centroids[j, xb_codes[123,j]]` theo j | ô 96–97 |
 | R03 | 5 | Giải thích ba điều kiện để khớp với giải mã. | đúng thứ tự đoạn, tâm và đủ D tọa độ; rubric 10 điểm | ô 96–97 |
@@ -514,3 +514,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra (tính lại bằng chương trình):** C01: $1/2$; $ef=2$ không tới $z$, $ef=3$ tới $z$; 77,7 GB > 64 GB. C02: 8 byte, 245 760 số; 3,6; 500 000 mã, $4\cdot10^6$ lần tra.
 - **Nguồn:** dữ kiện học phần dựng; $D=960$ là số chiều GIST trong bài báo PQ; $k_c=32\,000$ cho $N=10^9$ theo Princeton lớp 9 tr.5.
 - **Quyết định:** thêm. Phần kết cũ chỉ có C00, thiếu 4–6 nhiệm vụ tự kiểm theo tiêu chuẩn mục 2; P02 đã cam kết “So sánh và tự kiểm tra” (việc mở từ lượt rà phần 1–2).
+
+### R00 — Sổ thực hành và dữ liệu
+
+- **Phần:** 7, bài tập. **Vai trò:** mở phần thực hành. **Thời lượng:** 0 phút (đọc trước).
+- **Mục đích:** biết dữ liệu dùng trong ba nhiệm vụ và ô nguồn của từng nhiệm vụ.
+- **Câu chốt:** `xb` là kho $N=10^4$ véc-tơ 64 chiều, `gt` là tập đúng 10 hàng xóm từ quét đầy đủ.
+- **Thể hiện:** dòng tên sổ và ô chuẩn bị; bảng bốn mảng; bảng ba nhiệm vụ.
+- **Kết nối vào–ra:** sau phần tự kiểm; mở R01–R08. Ánh xạ `M`, `nbits` của Faiss sang $m$, $b$.
+- **Ghi chú diễn giả:** tham số `SyntheticDataset`; `gt` từ `faiss.knn`; ký hiệu Faiss; hướng dẫn chuẩn bị máy; thời gian chạy máy không tính vào thời lượng tại lớp.
+- **Nguồn:** sổ Princeton lớp 8, ô 0–4, 17, 21–24.
+- **Quyết định:** sửa. Bản cũ không nói dữ liệu gồm gì, đặt đường dẫn nội bộ `sources/…` trên mặt trang và dòng chỉ dẫn điều phối “Thời gian máy được báo riêng”.
