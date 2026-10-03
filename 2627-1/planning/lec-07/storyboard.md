@@ -32,7 +32,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H08 | 3 | Chuyển xuống sau H09. Rút tầng ngẫu nhiên; suy ra $\Pr[\ell\ge k]=p^k$, $p=e^{-1/m_L}$; ví dụ $p=1/16$, tầng cao nhất khoảng 8 khi $N=10^{10}$. | $U,m_L$ → phân phối hình học, $\log_{1/p}N$ tầng | HNSW paper alg.1 dòng 4; §3; §4.1 |
 | H10 | 4 | Tách: ví dụ chèn $x=2{,}6$, $\ell=1$, $M=2$ vào đồ thị ba tầng; bảng ba tầng và hình. | pha 1 → $ep=p4$; pha 2 → nối $p2,p4$ (tầng 1), $p3,p2$ (tầng 0) | HNSW paper alg.1, tr.4 |
 | H10B | 3 | Tách: giả mã chèn hai pha và định nghĩa $M$, $efConstruction$, $M_{max}$, $M_{max,0}$. | điểm mới → HNSW cập nhật | HNSW paper alg.1, tr.4; §4.1 |
-| H11 | 3 | Nêu quy tắc đa dạng và lý do không chỉ chọn gần nhất. | ứng viên → tối đa M cạnh nhiều hướng | HNSW paper alg.4, tr.5 |
+| H11 | 3 | Quy tắc chọn lân cận đa dạng; ví dụ hai chiều bốn ứng viên so với chọn gần nhất. | $\{c1,c3\}$ → $\{c1,c4\}$ | HNSW paper alg.4, tr.4–5; Princeton 09 tr.18 |
 | H12 | 2 | Ánh xạ ba tham số sang ba chi phí. | M, efConstruction, efSearch → núm điều khiển | HNSW paper §4.1, tr.5–7 |
 | H13 | 4 | Tách $O(ND)$ lưu véc-tơ, kỳ vọng $O(NM)$ liên kết — suy luận mục 4.2.3 dưới giả thiết bậc trung bình bị chặn theo $M$ — và giới hạn kết luận log. | thuật toán → điều kiện áp dụng; trường hợp xấu tuyến tính | HNSW paper §4.2.3, tr.7; Princeton 09 tr.2 |
 | Q00 | 3 | Đặt bài toán nén mất dữ liệu trước PQ. | véc-tơ → mã và tâm tái dựng | Princeton 08 tr.8–10; PQ paper tr.2 |
@@ -293,3 +293,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** chỉ mục rỗng; mất đối xứng sau cắt; Thuật toán 3 và 4; ràng buộc tham số; $M_{max,0}=2M$ theo mục 4.1.
 - **Nguồn:** Malkov–Yashunin Thuật toán 1 tr.4; mục 4.1 tr.5–8.
 - **Quyết định (H10 cũ):** tách. Bản cũ có tiêu đề câu mô tả, hình bốn hộp chữ rất nhỏ, một dòng đưa cùng lúc bốn tham số mới; ghi chú diễn giả dài, chứa toàn bộ thuật toán. Ví dụ đặt trước giả mã theo chu trình học.
+
+### H11 — Chọn lân cận đa dạng
+
+- **Phần:** 3. **Vai trò:** cơ chế, ví dụ chạy tay. **Thời lượng:** 3 phút.
+- **Mục đích:** áp dụng quy tắc đa dạng để chọn $M$ lân cận và so sánh với chọn gần nhất.
+- **Câu chốt:** ứng viên gần một lân cận đã chọn hơn gần $x$ bị loại, nên các cạnh được chọn trải ra nhiều hướng.
+- **Đầu vào:** dòng “chọn $M$ lân cận” của giả mã chèn (H10B). **Thể hiện:** dòng quy tắc; hình hai khung `lan-can-da-dang.svg`; bảng quyết định bốn ứng viên.
+- **Kết nối vào–ra:** cụ thể hóa H10B; $M$ là núm điều khiển ở H12.
+- **Ghi chú diễn giả:** tọa độ ví dụ và lý do đổi sang ví dụ hai chiều; ý nghĩa hình học; hai tùy chọn của Thuật toán 4 nằm ngoài phạm vi; dùng cả khi cắt bậc.
+- **Nguồn:** Malkov–Yashunin mục 3, Thuật toán 4 tr.4–5; Princeton lớp 9 tr.18. Phép tính kiểm bằng chương trình.
+- **Quyết định:** sửa. Bản cũ dùng $q$ cho điểm mới (xung đột với $q$ là truy vấn); không có hình hay ví dụ; “hướng thoát” là ẩn dụ chưa gắn đối tượng; tiêu đề câu dài.

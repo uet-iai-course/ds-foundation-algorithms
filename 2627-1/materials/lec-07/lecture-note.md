@@ -290,13 +290,19 @@ if ℓ > L: đặt x làm điểm vào
 
 Tham số: $M$ là số lân cận nối cho $x$; $efConstruction\ge M$ là bề rộng chùm khi chèn; $M_{\max}$ ở các tầng trên và $M_{\max,0}$ ở tầng 0 là bậc tối đa, cả hai ít nhất bằng $M$; bài báo đề xuất $M_{\max,0}=2M$. Nếu chỉ mục rỗng, $x$ được tạo ở các tầng $0,\ldots,\ell$ và trở thành điểm vào. Pha 1 chạy ở các tầng cao hơn $\ell$, nơi $x$ không xuất hiện, nên chỉ tìm điểm vào. Pha 2 dùng kết quả $W$ của tầng trên làm tập điểm vào của tầng dưới. Mỗi đầu mút tự cắt danh sách của mình, nên quan hệ kề có thể không còn đối xứng dù bước nối là hai chiều. Ở ví dụ, sau khi nối, $p2,p4$ ở tầng 1 và $p3,p2$ ở tầng 0 đều có bậc 3, nên với $M_{\max}=3$, $M_{\max,0}=4$ không có cắt.
 
-Chọn đúng $M$ điểm gần nhất có thể tạo một cụm cạnh cùng hướng. Heuristic đa dạng chỉ nhận ứng viên $e$ khi
+**Chọn lân cận đa dạng.** Chọn đúng $M$ đỉnh gần $x$ nhất có thể tạo nhiều cạnh cùng một hướng. Quy tắc đa dạng của bài báo (Thuật toán 4) xét ứng viên $e$ theo $d(e,x)$ tăng dần và chỉ nhận $e$ khi
 
 $$
-d(e,q)<d(e,r)\qquad\text{với mọi lân cận }r\text{ đã chọn}.
+d(e,x)<d(e,r)\qquad\text{với mọi lân cận }r\text{ đã chọn}.
 $$
 
-Đây là tiêu chí cục bộ nhằm giữ các hướng khác nhau, không phải chứng minh tối ưu toàn cục. Sau khi mỗi đầu mút tự cắt danh sách, quan hệ kề có thể không còn đối xứng dù bước nối ban đầu là hai chiều. Phần mở rộng ứng viên của bài báo HNSW nằm ngoài phạm vi bài này.
+::: example Chọn hai lân cận cho $x$
+Ví dụ hai chiều: $x=(0;0)$, $c1=(2;0{,}3)$, $c2=(2{,}6;0{,}9)$, $c3=(2{,}4;-0{,}6)$, $c4=(-3;0{,}5)$, $M=2$. Ví dụ một chiều ở trên không dùng được vì hai cách chọn cho cùng kết quả. Theo thứ tự $d(\cdot,x)$: $c1$ 2,0; $c3$ 2,5; $c2$ 2,8; $c4$ 3,0. Quy tắc nhận $c1$; loại $c3$ vì $d(c3,c1)\approx1{,}0<2{,}5$; loại $c2$ vì $d(c2,c1)\approx0{,}8<2{,}8$; nhận $c4$ vì $d(c4,c1)\approx5{,}0>3{,}0$. Kết quả $\{c1,c4\}$ ở hai phía của $x$, trong khi chọn hai đỉnh gần nhất cho $\{c1,c3\}$ cùng một phía.
+:::
+
+![Điểm mới x có bốn ứng viên: c1, c2, c3 cùng một phía, c4 ở phía đối diện; chọn hai đỉnh gần nhất cho c1 và c3, quy tắc đa dạng cho c1 và c4.](img/lec-07/lan-can-da-dang.svg)
+
+Một ứng viên gần một lân cận đã chọn hơn gần $x$ thì cạnh tới nó không mở hướng mới. Quy tắc giữ cạnh tới nhiều hướng, giúp đồ thị liên thông giữa các cụm. Đây là tiêu chí cục bộ, không phải tối ưu toàn cục. Quy tắc thay cho dòng “chọn $M$ lân cận” trong giả mã chèn và cũng được dùng khi cắt bậc. Hai tùy chọn của Thuật toán 4 (mở rộng ứng viên bằng lân cận của chúng; bổ sung ứng viên bị loại khi chưa đủ $M$) nằm ngoài phạm vi bài này.
 
 ## 6. Tham số, bộ nhớ và giới hạn HNSW
 
