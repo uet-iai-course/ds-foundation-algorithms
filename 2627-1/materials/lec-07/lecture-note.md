@@ -577,7 +577,19 @@ Trong Faiss, số đoạn PQ gọi là `M` (khác $M$ của HNSW) và số bit m
 
 ### Nhiệm vụ 1: tái dựng PQ thủ công
 
-Làm các ô 82–97 với bộ lượng tử hóa tích có $d=64$, $m=4$, $b=8$. Tại chỉ số 123, dùng bốn chỉ số mã để lấy bốn tâm con rồi ghép thành véc-tơ tái dựng; không gọi `decode`. Nộp mã, véc-tơ tái dựng, sai số bình phương và đoạn mã ghép.
+Ô 83 tạo `pq = faiss.ProductQuantizer(d, 4, 8)`, tức $D=64$, $m=4$, $b=8$. Chạy các ô 83–95, rồi điền bảng: dự đoán từ $D$, $m$, $b$ trước, sau đó so với giá trị in ra.
+
+| Đại lượng | Dự đoán từ $D,m,b$ | Giá trị in ra |
+|---|---|---|
+| `pq.code_size` (byte) | | |
+| `pq_centroids.shape` | | |
+| `xb_codes.shape` | | |
+
+::: solution
+`code_size` $=\lceil mb/8\rceil=4$ byte. `pq_centroids` có dạng $(m,k^*,D/m)=(4,256,16)$: số đoạn, số tâm mỗi đoạn, số chiều mỗi đoạn. `xb_codes` có dạng $(N,\ \text{code\_size})=(10\,000,4)$; phần tử `xb_codes[i, j]` là chỉ số $i_j$ của véc-tơ thứ $i$.
+:::
+
+Tiếp theo, tại chỉ số 123, dùng bốn chỉ số mã để lấy bốn tâm con rồi ghép thành véc-tơ tái dựng; không gọi `decode` (ô 96–97).
 
 ### Nhiệm vụ 2: cùng ngân sách 6 byte
 

@@ -61,7 +61,7 @@ Tổng phần giảng: **120 phút**.
 | ID | Phút | Vai trò và sản phẩm hiển thị | Đáp án hoặc hướng dẫn chấm trong notes | Nguồn trực tiếp |
 |---|---:|---|---|---|
 | R00 | 0 | Nêu sổ thực hành, ô chuẩn bị, bốn mảng dữ liệu (kích thước, vai trò, ánh xạ ký hiệu) và ba nhiệm vụ với ô nguồn. | `xt` $10^6$, `xb` $10^4$, `xq` 100, `gt` 10 hàng xóm | Princeton runbook lớp 8, ô 0–4, 17, 21–24 |
-| R01 | 6 | Đọc hai mục “Product Quantization” và “Manual reconstruction”; lập công thức tái dựng véc-tơ tại chỉ số 123. | chỉ số mã chọn tâm ở từng đoạn; `xb` đã có từ ô 17 | ô 82–97 |
+| R01 | 6 | Chạy ô 83–95; dự đoán rồi đối chiếu `code_size`, dạng `pq_centroids`, `xb_codes` với công thức của bài. | 4 byte; $(4,256,16)$; $(10\,000,4)$ | ô 82–95 |
 | R02 | 9 | Hoàn thiện dòng mã tái dựng, không gọi hàm giải mã. | ghép `pq_centroids[j, xb_codes[123,j]]` theo j | ô 96–97 |
 | R03 | 5 | Giải thích ba điều kiện để khớp với giải mã. | đúng thứ tự đoạn, tâm và đủ D tọa độ; rubric 10 điểm | ô 96–97 |
 | R04 | 10 | Đọc mục “Compare options for fixed code_size”; dùng kết quả ô 99 đã chạy trước trên cùng kernel. | ba cấu hình 6 byte với d=64; thời gian huấn luyện báo riêng | ô 98–99 |
@@ -525,3 +525,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** tham số `SyntheticDataset`; `gt` từ `faiss.knn`; ký hiệu Faiss; hướng dẫn chuẩn bị máy; thời gian chạy máy không tính vào thời lượng tại lớp.
 - **Nguồn:** sổ Princeton lớp 8, ô 0–4, 17, 21–24.
 - **Quyết định:** sửa. Bản cũ không nói dữ liệu gồm gì, đặt đường dẫn nội bộ `sources/…` trên mặt trang và dòng chỉ dẫn điều phối “Thời gian máy được báo riêng”.
+
+### R01 — Nhiệm vụ 1: cấu trúc mã PQ
+
+- **Phần:** 7. **Vai trò:** bài tập vận dụng công thức kích thước PQ. **Thời lượng:** 6 phút.
+- **Mục đích:** nối tham số Faiss với $D$, $m$, $b$, $k^*$; dự đoán kích thước mã và bộ mã rồi kiểm bằng số in ra.
+- **Thể hiện:** dòng ô 83; bảng ba đại lượng với cột dự đoán và giá trị in ra; dòng sản phẩm.
+- **Kết nối vào–ra:** dùng Q04, Q07; giao cấu trúc `pq_centroids`, `xb_codes` cho R02.
+- **Ghi chú diễn giả:** đáp án; ý nghĩa ô 94; ô 88–89; hướng dẫn chấm.
+- **Nguồn:** sổ thực hành ô 82–95 (đọc trực tiếp nội dung ô).
+- **Quyết định:** sửa. Bản cũ yêu cầu “bảng kích thước” mà không nói điền gì; chưa nối tham số Faiss với ký hiệu bài giảng; dòng “Dữ kiện” liệt kê tên biến không giải thích.
