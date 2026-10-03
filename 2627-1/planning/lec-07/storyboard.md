@@ -63,7 +63,7 @@ Tổng phần giảng: **120 phút**.
 | R00 | 0 | Nêu sổ thực hành, ô chuẩn bị, bốn mảng dữ liệu (kích thước, vai trò, ánh xạ ký hiệu) và ba nhiệm vụ với ô nguồn. | `xt` $10^6$, `xb` $10^4$, `xq` 100, `gt` 10 hàng xóm | Princeton runbook lớp 8, ô 0–4, 17, 21–24 |
 | R01 | 6 | Chạy ô 83–95; dự đoán rồi đối chiếu `code_size`, dạng `pq_centroids`, `xb_codes` với công thức của bài. | 4 byte; $(4,256,16)$; $(10\,000,4)$ | ô 82–95 |
 | R02 | 9 | Hoàn thiện ô 96 (tái dựng véc-tơ 123 không gọi `decode`) với gợi ý công thức tái dựng; ô 97 in `True`. | ghép `pq_centroids[j, xb_codes[123,j]]` theo $j$ | ô 96–97 |
-| R03 | 5 | Giải thích ba điều kiện để khớp với giải mã. | đúng thứ tự đoạn, tâm và đủ D tọa độ; rubric 10 điểm | ô 96–97 |
+| R03 | 5 | Với ba điều kiện khớp, nêu hậu quả khi vi phạm, gắn với ký hiệu của $\widehat x$. | đáp án mẫu và rubric 10 điểm trong ghi chú | ô 96–97 |
 | R04 | 10 | Đọc mục “Compare options for fixed code_size”; dùng kết quả ô 99 đã chạy trước trên cùng kernel. | ba cấu hình 6 byte với d=64; thời gian huấn luyện báo riêng | ô 98–99 |
 | R05 | 10 | So sánh MSE, thời gian, dsub và ksub mà không khái quát quá mức. | rubric 10 điểm; không có số cố định | ô 98–99 |
 | R06 | 6 | Đọc mục “IVFPQ index”; xây hoặc dùng trạng thái ô 149–151 với `d,xt,xb` đã chuẩn bị. | giải thích cấu hình; thời gian `train` báo riêng | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
@@ -545,3 +545,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** lời giải; vì sao so sánh chính xác đúng; hướng dẫn chấm.
 - **Nguồn:** sổ thực hành ô 96–97.
 - **Quyết định:** sửa. Bản cũ ghi `assert np.all(...)` khác ô 97 của nguồn; không nhắc công thức tái dựng; tiêu đề “Hoàn thiện ô tái dựng còn trống” mô tả thao tác thay vì nội dung.
+
+### R03 — Điều kiện để tái dựng khớp
+
+- **Phần:** 7. **Vai trò:** giải thích, lập luận. **Thời lượng:** 5 phút.
+- **Mục đích:** giải thích vì sao biểu thức tái dựng bằng kết quả `decode` qua ba điều kiện.
+- **Thể hiện:** dòng nhiệm vụ; bảng ba điều kiện với cột “Nếu vi phạm thì”; dòng sản phẩm.
+- **Kết nối vào–ra:** hoàn tất nhiệm vụ 1 (R01–R02); mở nhiệm vụ 2 (R04).
+- **Ghi chú diễn giả:** đáp án mẫu; rubric 10 điểm của nhiệm vụ 1.
+- **Nguồn:** sổ thực hành ô 96–97; Princeton lớp 8 tr.30–31.
+- **Quyết định:** sửa. Bản cũ chỉ có cột “Giải thích của nhóm” để trống, không nói phải lập luận gì; ghi chú thiếu đáp án mẫu; tiêu đề “Giải thích điều kiện khớp” chưa nói khớp với gì.

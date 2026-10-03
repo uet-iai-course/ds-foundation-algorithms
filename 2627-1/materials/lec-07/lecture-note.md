@@ -603,6 +603,18 @@ np.all(pq_reconstruction[123] == xb123_recons)
 `xb123_recons = np.hstack([pq_centroids[j, xb_codes[123, j]] for j in range(pq.M)])`, hoặc `np.concatenate` tương đương. Với mỗi đoạn $j$, biểu thức lấy tâm con có chỉ số `xb_codes[123, j]` trong bộ mã con $j$ rồi ghép theo thứ tự đoạn. Phép so sánh bằng nhau chính xác đúng vì `decode` cũng chỉ sao chép các tâm con.
 :::
 
+Cuối cùng, với mỗi điều kiện dưới đây, nêu điều xảy ra nếu vi phạm; mỗi câu gắn với một ký hiệu của công thức $\widehat x$.
+
+| Điều kiện | Nếu vi phạm thì |
+|---|---|
+| ghép các đoạn theo thứ tự (chỉ số Python $j=0,\ldots,m-1$) | |
+| đoạn $j$ lấy tâm số `xb_codes[123, j]` trong bộ mã con $j$ | |
+| kết quả có đủ $D=64$ tọa độ | |
+
+::: solution
+Ghép sai thứ tự đặt tâm con của đoạn $j$ vào vị trí tọa độ của đoạn khác, nên so sánh trả `False`. Lấy tâm theo chỉ số của véc-tơ khác hoặc tra nhầm bộ mã con cho ra $c^{(j)}_{i}$ với $i\ne i_j$. Thiếu hoặc thừa đoạn làm hai mảng khác kích thước; phải ghép đủ $m$ đoạn, mỗi đoạn $D/m=16$ tọa độ.
+:::
+
 ### Nhiệm vụ 2: cùng ngân sách 6 byte
 
 Làm các ô 98–99 với $M\in\{4,8,16\}$ và `nbits=48/M`. Ba cấu hình lần lượt là $4\times12$, $8\times6$ và $16\times3$ bit; tất cả đều dùng 48 bit, tức 6 byte mỗi véc-tơ. Báo cáo `dsub`, `ksub`, sai số tái dựng trung bình và thời gian huấn luyện/mã hóa. Không trộn phần này với cấu hình $4\times8$ bit ở nhiệm vụ 1.
