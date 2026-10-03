@@ -36,7 +36,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H12 | 3 | Ba tham số, thời điểm dùng và đánh đổi; câu hỏi giảm độ trễ không xây lại. | $M$, $efConstruction$, $efSearch$ → chọn tham số | HNSW paper §4.1 tr.5–6; §4.2.3 tr.8 |
 | H13 | 4 | Chi phí bộ nhớ thay số cho $10^{10}$ véc-tơ (véc-tơ 122,88 TB, cạnh khoảng 2,65 TB); chi phí truy vấn và giới hạn $\log N$; nối sang PQ. | giả định $M=16$ → 98% bộ nhớ là véc-tơ gốc | HNSW paper §4.2 tr.7, §4.2.3 tr.8; Princeton 09 tr.2, 7 |
 | Q00 | 6 | Gộp Q01: mở phần 4 từ nhu cầu giảm bộ nhớ; lượng tử hóa véc-tơ trên hình ba tâm, phép tính mã và tái dựng, câu hỏi điểm $y$. | $x=(1{,}7;0{,}4)$ → mã 1, sai số 0,25; $y$ → mã 2, 0,61 | Princeton 08 tr.8–9; PQ paper §II-A tr.2 |
-| Q02 | 3 | Hình thức hóa phép gán tâm, điều kiện trước/sau và phá hòa. | Q01 → $i(x),\widehat x$ | PQ paper eq.2–5, tr.2 |
+| Q02 | 3 | Đặc tả VQ: đầu vào (bộ mã học bằng k-means), đầu ra và điều kiện sau, chi phí mã hóa $\Theta(kD)$ và lưu $kD$ số. | ví dụ Q00 → $i(x),\widehat x$, chi phí theo $k$ | PQ paper eq.2–5, tr.2; Princeton 08 tr.9–10, 32 |
 | Q03 | 2 | Chỉ ra bộ mã đơn không mở rộng tới mã 64 bit. | $2^{64}$ tâm → bất khả thi | PQ paper tr.3 |
 | Q04 | 2 | Cho trực giác chia véc-tơ thành m đoạn và m bộ mã. | $D$ → m không gian con | PQ paper eq.8–9, tr.3; Princeton 08 tr.28–31 |
 | Q05 | 3 | Chạy tay mã PQ hai đoạn. | hai bộ mã → mã $(0,1)$ | suy ra từ định nghĩa nguồn |
@@ -336,3 +336,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** $y=(0{,}6;1{,}5)$: $2{,}61$; $4{,}21$; $0{,}61$ → mã 2, sai số 0,61 (tính lại).
 - **Nguồn:** Princeton lớp 8 tr.8–9; PQ paper mục II-A tr.2. Ví dụ dựng từ định nghĩa.
 - **Quyết định:** gộp. Q00 cũ chỉ có hai thẻ ký hiệu, không hình, không nói nhu cầu; Q01 cũ là ví dụ của cùng khái niệm và câu hỏi của nó có đáp án hiện sẵn trên trang ($0{,}25$).
+
+### Q02 — Đặc tả lượng tử hóa véc-tơ
+
+- **Phần:** 4. **Vai trò:** hình thức hóa, chi phí. **Thời lượng:** 3 phút.
+- **Mục đích:** viết đặc tả VQ và tính chi phí mã hóa, lưu bộ mã theo $k$, $D$.
+- **Câu chốt:** mã hóa tốn $\Theta(kD)$ và bộ mã chiếm $kD$ số; cả hai tỷ lệ với số tâm $k$.
+- **Đầu vào:** định nghĩa và ví dụ Q00. **Thể hiện:** công thức argmin; bảng đầu vào/đầu ra/chi phí.
+- **Kết nối vào–ra:** hình thức hóa Q00; chi phí theo $k$ dẫn tới giới hạn bộ mã lớn ở Q03.
+- **Ghi chú diễn giả:** k-means và điều kiện Lloyd chỉ cho cực tiểu cục bộ; điều kiện sau từ argmin.
+- **Nguồn:** PQ paper mục II-A, pt.2–5 tr.2; Princeton lớp 8 tr.9–10, 32.
+- **Quyết định:** sửa. Bản cũ thiếu chi phí nên Q03 phải tự đưa công thức bộ nhớ; tên k-means chỉ có trong ghi chú; cấu trúc ba dòng văn xuôi khó quét.

@@ -356,7 +356,7 @@ Với cùng bộ mã, tính mã và sai số tái dựng của $y=(0{,}6;\ 1{,}5
 Bình phương khoảng cách: $2{,}61$; $4{,}21$; $0{,}61$. Mã 2, $\widehat y=c_2=(0;2)$, sai số $0{,}61$.
 :::
 
-Một bộ mã cho toàn không gian cần lưu $kD$ số; muốn có rất nhiều mã khác nhau thì số tâm tăng quá nhanh.
+**Đặc tả và chi phí.** Đầu vào là $x\in\mathbb R^D$ và bộ mã $C$ đã học; khi hòa, chọn chỉ số nhỏ hơn. Đầu ra là mã $i(x)$ dài $\lceil\log_2 k\rceil$ bit, với điều kiện sau: không tâm nào gần $x$ hơn $c_{i(x)}$. Bộ mã thường được học bằng k-means trên một tập huấn luyện: xen kẽ gán mỗi điểm cho tâm gần nhất và dời mỗi tâm về trọng tâm các điểm được gán. Hai điều kiện Lloyd này là cần, không đủ, nên k-means chỉ cho cực tiểu cục bộ của sai số bình phương trung bình. Mã hóa một véc-tơ cần $k$ khoảng cách, tức $\Theta(kD)$ phép toán; lưu bộ mã cần $kD$ số. Cả hai tỷ lệ với $k$.
 
 PQ chia $D$ chiều thành $m$ đoạn bằng nhau, nên cần $m\mid D$. Mỗi đoạn dùng một bộ mã con gồm $k^*=2^b$ tâm. Mã của $y$ là $(i_1(y),\dots,i_m(y))$; véc-tơ tái dựng là phép ghép các tâm con tương ứng.
 
