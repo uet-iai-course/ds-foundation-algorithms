@@ -352,3 +352,6 @@ Tác tử chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `h
 | Trang/vị trí | Phát hiện | Quyết định | Thay đổi |
 |---|---|---|---|
 | H03 | (nhẹ) Chưa nói vì sao cần chùm; chưa nêu khởi tạo. | sửa | Gạch đầu thêm “ban đầu $C=W=\{\text{điểm vào}\}$”; câu chốt “Giữ nhiều hướng để không kẹt ở cực tiểu cục bộ; …”. |
+| H13 ghi chú diễn giả, ghi chú tự học mục 6 | (nhẹ) “số chiều thấp”, “tăng nhanh” lệch nguồn (tr.7: dữ liệu Euclid ngẫu nhiên; bậc Delaunay tăng theo hàm mũ của số chiều). | sửa | Viết lại theo đúng nguồn. |
+| R08 ghi chú | (nhẹ) “nhiệm vụ 3 2 điểm” khó đọc. | sửa | “bảng cấu hình (2 điểm)”. |
+| Q09 ghi chú | (nhẹ) Lặp dữ kiện đã có trên trang. | sửa | Bỏ câu lặp. |
