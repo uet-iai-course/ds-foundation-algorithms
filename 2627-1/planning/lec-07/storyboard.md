@@ -64,7 +64,7 @@ Tổng phần giảng: **120 phút**.
 | R01 | 6 | Chạy ô 83–95; dự đoán rồi đối chiếu `code_size`, dạng `pq_centroids`, `xb_codes` với công thức của bài. | 4 byte; $(4,256,16)$; $(10\,000,4)$ | ô 82–95 |
 | R02 | 9 | Hoàn thiện ô 96 (tái dựng véc-tơ 123 không gọi `decode`) với gợi ý công thức tái dựng; ô 97 in `True`. | ghép `pq_centroids[j, xb_codes[123,j]]` theo $j$ | ô 96–97 |
 | R03 | 5 | Với ba điều kiện khớp, nêu hậu quả khi vi phạm, gắn với ký hiệu của $\widehat x$. | đáp án mẫu và rubric 10 điểm trong ghi chú | ô 96–97 |
-| R04 | 10 | Đọc mục “Compare options for fixed code_size”; dùng kết quả ô 99 đã chạy trước trên cùng kernel. | ba cấu hình 6 byte với d=64; thời gian huấn luyện báo riêng | ô 98–99 |
+| R04 | 10 | Ô 99: ba cấu hình 6 byte; dự đoán $D/m$, $k^*$; ghi MSE và thời gian mã hóa–giải mã. | $D/m=16,8,4$; $k^*=4096,64,8$ | ô 98–99 |
 | R05 | 10 | So sánh MSE, thời gian, dsub và ksub mà không khái quát quá mức. | rubric 10 điểm; không có số cố định | ô 98–99 |
 | R06 | 6 | Đọc mục “IVFPQ index”; xây hoặc dùng trạng thái ô 149–151 với `d,xt,xb` đã chuẩn bị. | giải thích cấu hình; thời gian `train` báo riêng | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
 | R07 | 9 | Tiếp tục “IVFPQ index” ở ô 152–155 với `xq,gt` từ ô 17,21–24. | $nok/|xq|$; tổng ms, không gắn nhãn độ trễ mỗi truy vấn | ô 152–155 |
@@ -555,3 +555,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** đáp án mẫu; rubric 10 điểm của nhiệm vụ 1.
 - **Nguồn:** sổ thực hành ô 96–97; Princeton lớp 8 tr.30–31.
 - **Quyết định:** sửa. Bản cũ chỉ có cột “Giải thích của nhóm” để trống, không nói phải lập luận gì; ghi chú thiếu đáp án mẫu; tiêu đề “Giải thích điều kiện khớp” chưa nói khớp với gì.
+
+### R04 — Nhiệm vụ 2: cùng ngân sách 6 byte
+
+- **Phần:** 7. **Vai trò:** thực nghiệm có dự đoán. **Thời lượng:** 10 phút.
+- **Mục đích:** áp dụng $D/m$, $k^*=2^b$ cho ba cấu hình cùng độ dài mã; thu số đo MSE và thời gian.
+- **Thể hiện:** dòng mô tả ô 99 với ánh xạ `M`, `nbits`; bảng sáu cột ($m$, $b$ cho sẵn; bốn cột để điền); dòng hướng dẫn.
+- **Kết nối vào–ra:** dùng Q04, Q07; số liệu dùng ở phân tích R05.
+- **Ghi chú diễn giả:** đáp án dự đoán; không có số đo cố định; thời gian trong ô 99 không gồm huấn luyện; chạy trước nếu máy chậm.
+- **Nguồn:** sổ thực hành ô 98–99.
+- **Quyết định:** sửa. Bản cũ điền sẵn `dsub`, `ksub` (phần sinh viên nên tự suy ra), không có cột cho MSE và thời gian; ký hiệu $M_{PQ}$ mới, khác $m$ của bài. Ghi chú tự học cũ gọi thời gian là “huấn luyện/mã hóa”, sai so với ô 99 (chỉ đo mã hóa và giải mã).

@@ -617,7 +617,17 @@ Ghép sai thứ tự đặt tâm con của đoạn $j$ vào vị trí tọa đ�
 
 ### Nhiệm vụ 2: cùng ngân sách 6 byte
 
-Làm các ô 98–99 với $M\in\{4,8,16\}$ và `nbits=48/M`. Ba cấu hình lần lượt là $4\times12$, $8\times6$ và $16\times3$ bit; tất cả đều dùng 48 bit, tức 6 byte mỗi véc-tơ. Báo cáo `dsub`, `ksub`, sai số tái dựng trung bình và thời gian huấn luyện/mã hóa. Không trộn phần này với cấu hình $4\times8$ bit ở nhiệm vụ 1.
+Ô 99 thử $m\in\{4,8,16\}$ (Faiss `M`) với $b=48/m$ (`nbits`), tức ba cấu hình $4\times12$, $8\times6$, $16\times3$ bit, cùng 48 bit hay 6 byte mỗi véc-tơ. Với mỗi cấu hình, ô huấn luyện bộ mã, mã hóa rồi giải mã `xb`, in sai số tái dựng trung bình (MSE) và thời gian mã hóa cộng giải mã. Dự đoán $D/m$ và $k^*$ trước khi chạy, rồi ghi MSE và thời gian từ kết quả in ra. Không trộn phần này với cấu hình $4\times8$ bit ở nhiệm vụ 1.
+
+| $m$ | $b$ | $D/m$ (`dsub`) | $k^*$ (`ksub`) | MSE | mã hóa–giải mã (ms) |
+|---|---|---|---|---|---|
+| 4 | 12 | | | | |
+| 8 | 6 | | | | |
+| 16 | 3 | | | | |
+
+::: solution
+Với $D=64$: $D/m=16, 8, 4$ và $k^*=2^b=4096, 64, 8$; cả ba có `code_size` 6 byte. MSE và thời gian phụ thuộc dữ liệu, phần cứng, số luồng và phiên bản Faiss nên không có đáp án số cố định; thời gian trong ô 99 không gồm huấn luyện.
+:::
 
 ### Nhiệm vụ 3: điều chỉnh IVF-PQ
 
