@@ -478,6 +478,20 @@ Với $nprobe=1$, điểm $y_3=(4{,}5;\ 3{,}8)$ có được chấm không? $y_3
 Không. $\|y_3-\mu_0\|^2=9{,}49<\|y_3-\mu_1\|^2=15{,}49$ nên $y_3\in L_0$, mà $nprobe=1$ chỉ mở $L_1$. Vì $\|q-y_3\|^2=2{,}34$, $y_3$ là hàng xóm gần thứ hai của $q$, sau $y_8=(6{,}5;2{,}5)$ với $1{,}25$. Hàng xóm thật có thể nằm ở ô bên cạnh khi $q$ gần ranh giới; mở thêm danh sách (gán đa, multiple assignment) tăng khả năng tìm thấy, đổi lại chấm nhiều mã hơn.
 :::
 
+**Mã hóa phần dư.** IVF-PQ không mã hóa véc-tơ gốc mà mã hóa phần dư so với tâm thô của ô chứa nó, $r(y)=y-\mu_{a(y)}$; danh sách $L_i$ lưu cặp (mã định danh của $y$, mã PQ của $r(y)$). Phần dư nhỏ hơn véc-tơ gốc nên mã hóa chính xác hơn với cùng số bit; bài báo dùng một bộ lượng tử hóa tích chung cho phần dư của mọi ô. Với $y\in L_i$,
+
+$$
+q-y=(q-\mu_i)-(y-\mu_i)\quad\Longrightarrow\quad \|q-y\|=\big\|\widetilde q_i-r(y)\big\|,\qquad \widetilde q_i=q-\mu_i.
+$$
+
+Do đó các phần tử của $L_i$ được chấm bằng ADC giữa truy vấn dư $\widetilde q_i$ và mã của phần dư. Mỗi danh sách có tâm riêng nên cần bảng tra riêng, tổng $nprobe$ bảng.
+
+::: example Phần dư của $y_8$
+$y_8=(6{,}5;2{,}5)\in L_1$, $\mu_1=(8;2)$, nên $r(y_8)=(-1{,}5;\ 0{,}5)$. Truy vấn dư $\widetilde q_1=(-2;\ 1{,}5)$ và $\widetilde q_0=(4;\ 1{,}5)$. Kiểm tra: $\|\widetilde q_1-r(y_8)\|^2=(-0{,}5)^2+1^2=1{,}25=\|q-y_8\|^2$. Dùng nhầm $\widetilde q_0$ cho phần tử của $L_1$ cho $5{,}5^2+1^2=31{,}25$, sai hoàn toàn.
+:::
+
+![Hai ô dưới của ví dụ tệp đảo: mũi tên xanh từ μ1 tới y8 là phần dư r(y8); hai đoạn nét đứt từ μ1 và μ0 tới q là truy vấn dư dùng khi quét L1 và L0.](img/lec-07/tep-dao-du.svg)
+
 Quy trình IVF-PQ:
 
 1. Học $k_c$ tâm thô $\mu_0,\dots,\mu_{k_c-1}$.

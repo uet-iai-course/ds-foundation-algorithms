@@ -47,7 +47,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q10 | 3 | Thay số quét mã PQ so với quét véc-tơ gốc cho $10^{10}$ véc-tơ; câu hỏi thời gian; nối sang chỉ mở một phần kho. | 5,12 TB, $5{,}12\cdot10^{12}$ lần tra, 5,12 s | PQ paper tr.2, §IV tr.6; Princeton 08 tr.20–22 |
 | I00 | 4 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
 | I01 | 3 | Công thức gán vào tâm thô; xếp bốn tâm theo khoảng cách tới $q$; câu hỏi $nprobe=1$ bỏ sót $y_3$. | $q$ → thứ tự $\mu_1,\mu_0,\mu_3,\mu_2$ | Princeton 08 tr.21–22; PQ paper §IV-A, IV-C tr.6–7 |
-| I02 | 3 | Dùng truy vấn dư và bảng ADC riêng cho từng danh sách. | $\widetilde q_i=q-\mu_i$, $r(y)=y-\mu_i$ → chấm mã trong $L_i$ | PQ paper §IV-A, tr.6 |
+| I02 | 3 | Phần dư $r(y)$, đẳng thức $\|q-y\|=\|(q-\mu_i)-r(y)\|$, một bảng tra cho mỗi danh sách mở; ví dụ $y_8$. | $r(y_8)$, $\widetilde q_1$, $\widetilde q_0$ → 1,25 | PQ paper §IV-A, IV-B tr.6, eq.31 |
 | I03 | 2 | Tách chi phí tâm thô, nprobe bảng ADC và tổng kích thước danh sách; tách riêng phụ phí top-K. | $\Theta(k_cD)+\Theta(nprobe\,k^*D)+\Theta(m\sum_{i\in P}|L_i|)$ | PQ paper tr.6–8 |
 | I04 | 3 | Gom thuật toán, điều kiện dừng và trường hợp thiếu K ứng viên. | $q$ → $\min(K,\sum|L_i|)$ mã định danh; đủ K khi tổng ứng viên ≥K | PQ paper §IV, tr.6; Princeton 08 tr.54–55 |
 | C00 | 8 | So sánh LSH, HNSW, PQ đầy đủ và IVF-PQ theo lưu/xây, phạm vi quét, núm truy vấn và bốn trục A02. | bốn cơ chế → lựa chọn có điều kiện, không xếp hạng phổ quát | tổng hợp các nguồn |
@@ -457,3 +457,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** $y_3$ không được chấm với $nprobe=1$ (9,49 < 15,49 nên $y_3\in L_0$), dù là hàng xóm gần thứ hai ($2{,}34$).
 - **Nguồn:** Princeton lớp 8 tr.21–22; PQ paper mục IV-A, IV-C tr.6–7.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; ví dụ cũ hai tâm $\mu_0=(0,0)$, $\mu_1=(8,0)$ rời rạc với các ví dụ khác và không cho thấy tác dụng của $nprobe$; ký tự “<” thô từng làm hỏng công thức (đã sửa ở bước chuẩn bị).
+
+### I02 — Mã hóa phần dư
+
+- **Phần:** 5. **Vai trò:** cơ chế và lập luận đúng. **Thời lượng:** 3 phút.
+- **Mục đích:** tính phần dư và truy vấn dư; giải thích vì sao mỗi danh sách mở cần một bảng tra riêng.
+- **Câu chốt:** $\|q-y\|=\|\widetilde q_i-r(y)\|$ với $y\in L_i$, nên quét $L_i$ bằng ADC với truy vấn dư $\widetilde q_i$.
+- **Đầu vào:** ví dụ bốn ô (I00–I01), nhắc lại bằng hình phóng to hai ô dưới `tep-dao-du.svg`; ADC (Q06–Q09). **Thể hiện:** hai công thức; hình; hai gạch đầu dòng; dòng số liệu ví dụ.
+- **Kết nối vào–ra:** cụ thể hóa cách chấm trong danh sách; số bảng tra $nprobe$ giao cho chi phí I03 và thuật toán I04.
+- **Ghi chú diễn giả:** vì sao phần dư mã hóa tốt hơn; đẳng thức; kiểm tra 1,25; dùng nhầm bảng cho 31,25; một PQ chung cho mọi ô.
+- **Nguồn:** PQ paper mục IV-A, IV-B tr.6, pt.31.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; không có lý do cho truy vấn dư riêng; dẫn chiếu “ví dụ ngay trước” bằng lời.
