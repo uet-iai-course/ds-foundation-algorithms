@@ -344,6 +344,29 @@ def luong_tu_hoa_vec_to():
         'Điểm x tại (1,7; 0,4) nằm trong ô của c1 nên được thay bằng c1.', b)
 
 
+def pq_tach_doan():
+    # Q04: D = 8, m = 4 đoạn 2 chiều, mỗi đoạn một bộ mã con 256 tâm, mã 4 × 8 = 32 bit.
+    fills = [PALE_BLUE, PALE_ORANGE, PALE_GREEN, PALE_GRAY]
+    strokes = [BLUE, ORANGE, GREEN, INK]
+    b = text(20, 52, 'x ∈ ℝ⁸', 30, INK, 'start', weight='bold')
+    for j in range(4):
+        x0 = 150 + j * 200
+        for t in range(2):
+            b += rect(x0 + t * 90, 20, 86, 56, fills[j], strokes[j])
+            b += text(x0 + t * 90 + 43, 58, f'x{2 * j + t + 1}', 26, INK)
+        b += text(x0 + 88, 112, f'đoạn {j + 1}', 26, strokes[j], weight='bold')
+        b += line(x0 + 88, 124, x0 + 88, 160, strokes[j], arrow=True)
+        b += box(x0 + 8, 168, 160, 74, [f'bộ mã {j + 1}', '256 tâm'], fills[j], strokes[j], size=24)
+        b += line(x0 + 88, 248, x0 + 88, 284, strokes[j], arrow=True)
+        b += box(x0 + 38, 290, 100, 56, [f'i{j + 1}'], '#ffffff', strokes[j], size=28)
+        b += text(x0 + 88, 376, '8 bit', 24, INK)
+    b += text(20, 326, 'mã PQ', 28, INK, 'start', weight='bold')
+    b += text(550, 418, 'mã (i1, i2, i3, i4) dài 4 × 8 = 32 bit', 28, INK)
+    svg('pq-tach-doan.svg', 980, 435, 'Lượng tử hóa tích với bốn đoạn',
+        'Véc-tơ tám chiều chia thành bốn đoạn hai chiều. Mỗi đoạn được mã hóa bằng bộ mã con riêng 256 tâm thành một chỉ số 8 bit; '
+        'mã PQ là bộ bốn chỉ số, dài 32 bit.', b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -358,6 +381,7 @@ def main():
     chen_vi_du()
     lan_can_da_dang()
     luong_tu_hoa_vec_to()
+    pq_tach_doan()
 
 
 if __name__ == '__main__':

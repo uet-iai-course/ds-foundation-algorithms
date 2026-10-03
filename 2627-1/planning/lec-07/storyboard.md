@@ -38,7 +38,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q00 | 6 | Gộp Q01: mở phần 4 từ nhu cầu giảm bộ nhớ; lượng tử hóa véc-tơ trên hình ba tâm, phép tính mã và tái dựng, câu hỏi điểm $y$. | $x=(1{,}7;0{,}4)$ → mã 1, sai số 0,25; $y$ → mã 2, 0,61 | Princeton 08 tr.8–9; PQ paper §II-A tr.2 |
 | Q02 | 3 | Đặc tả VQ: đầu vào (bộ mã học bằng k-means), đầu ra và điều kiện sau, chi phí mã hóa $\Theta(kD)$ và lưu $kD$ số. | ví dụ Q00 → $i(x),\widehat x$, chi phí theo $k$ | PQ paper eq.2–5, tr.2; Princeton 08 tr.9–10, 32 |
 | Q03 | 2 | Thay số chi phí của một bộ mã $k=2^{64}$, $D=128$: lưu, mã hóa, học. | $9{,}4\cdot10^{21}$ byte → cần bộ mã nhỏ cho mã dài | PQ paper §II-B tr.3; Princeton 08 tr.18 |
-| Q04 | 2 | Cho trực giác chia véc-tơ thành m đoạn và m bộ mã. | $D$ → m không gian con | PQ paper eq.8–9, tr.3; Princeton 08 tr.28–31 |
+| Q04 | 3 | Định nghĩa PQ: chia đoạn, bộ mã con, mã $m\log_2k^*$ bit, tái dựng bằng ghép tâm con; hình $D=8$, $m=4$. | $D$ → $m$ đoạn → mã 32 bit | PQ paper §II-B eq.8–9, tr.3; Princeton 08 tr.29–31 |
 | Q05 | 3 | Chạy tay mã PQ hai đoạn. | hai bộ mã → mã $(0,1)$ | suy ra từ định nghĩa nguồn |
 | Q06 | 3 | Tính ADC số với mã $(0,1)$ từ Q05 và truy vấn đầy đủ. | hai ô tra 0,02 và 0,29 → ADC 0,31 | PQ paper eq.13, tr.4; ví dụ dựng từ cơ chế nguồn |
 | Q07 | 4 | Khóa không gian mã, số tâm con, số vô hướng và byte làm tròn. | $m,k^*,D,b$ → $(k^*)^m$, $mk^*$, $k^*D$, $\lceil mb/8\rceil$ | PQ paper tr.3; Princeton 08 tr.32–33 |
@@ -358,3 +358,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** tăng tuyến tính theo $k$ nhưng hàm mũ theo độ dài mã; phép tính; nhận định của bài báo.
 - **Nguồn:** PQ paper mục II-B tr.3; Princeton lớp 8 tr.18.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; không nói vì sao cần mã 64 bit; công thức không thay số nên “không khả thi” chỉ là khẳng định.
+
+### Q04 — Lượng tử hóa tích (PQ)
+
+- **Phần:** 4. **Vai trò:** trực giác và định nghĩa. **Thời lượng:** 3 phút.
+- **Mục đích:** mô tả cách PQ tạo mã dài từ $m$ bộ mã con; tính độ dài mã.
+- **Câu chốt:** chia véc-tơ thành $m$ đoạn, mỗi đoạn một bộ mã con nhỏ; mã là bộ $m$ chỉ số, tái dựng bằng ghép các tâm con.
+- **Đầu vào:** VQ (Q00–Q02), giới hạn bộ mã lớn (Q03). **Thể hiện:** hình `pq-tach-doan.svg` (tám tọa độ, bốn đoạn, bốn bộ mã 256 tâm, mã 32 bit; màu kèm nhãn “đoạn $j$”); ba gạch đầu dòng.
+- **Kết nối vào–ra:** đáp nhu cầu Q03; giao định nghĩa cho ví dụ Q05 và công thức kích thước Q07.
+- **Ghi chú diễn giả:** tên đầy đủ; $m\mid D$; học từng bộ mã con; chi phí mã hóa $\Theta(k^*D)$; ký hiệu `M` của Faiss.
+- **Nguồn:** PQ paper mục II-B pt.8–9 tr.3; Princeton lớp 8 tr.29–31.
+- **Quyết định:** sửa. Tiêu đề cũ là câu; hình cũ `pq-split.svg` chữ rất nhỏ; mặt trang không có độ dài mã, cách tái dựng và tên đầy đủ của PQ.

@@ -359,15 +359,21 @@ Bình phương khoảng cách: $2{,}61$; $4{,}21$; $0{,}61$. Mã 2, $\widehat y=
 
 **Giới hạn của một bộ mã lớn.** Sai số tái dựng giảm khi tăng số tâm $k$, nên véc-tơ nhiều chiều cần mã dài. Bài báo PQ xét véc-tơ SIFT $D=128$ chiều với mã 64 bit, tức chỉ 0,5 bit mỗi tọa độ: một bộ mã duy nhất cần $k=2^{64}\approx1{,}8\cdot10^{19}$ tâm. Lưu bộ mã cần $kD\cdot4\approx9{,}4\cdot10^{21}$ byte, mã hóa một véc-tơ cần khoảng $2{,}4\cdot10^{21}$ phép toán, và k-means cần nhiều hơn $k$ điểm huấn luyện. Thêm 1 bit mã làm $k$ gấp đôi, nên mã dài với một bộ mã duy nhất là không khả thi; cần cách tạo mã dài từ các bộ mã nhỏ.
 
-PQ chia $D$ chiều thành $m$ đoạn bằng nhau, nên cần $m\mid D$. Mỗi đoạn dùng một bộ mã con gồm $k^*=2^b$ tâm. Mã của $y$ là $(i_1(y),\dots,i_m(y))$; véc-tơ tái dựng là phép ghép các tâm con tương ứng.
+**Lượng tử hóa tích (Product Quantization, PQ)** tạo mã dài từ $m$ bộ mã nhỏ. Véc-tơ $x\in\mathbb R^D$ được chia thành $m$ đoạn $x^{(1)},\ldots,x^{(m)}$ bằng nhau, mỗi đoạn $D/m$ chiều, nên cần $m\mid D$. Đoạn $j$ có bộ mã con riêng gồm $k^*=2^b$ tâm, học bằng k-means trên đoạn tương ứng của tập huấn luyện. Mã PQ là $(i_1,\ldots,i_m)$, dài $mb$ bit; véc-tơ tái dựng ghép các tâm con:
+
+$$
+\widehat x=\big(c^{(1)}_{i_1},\ldots,c^{(m)}_{i_m}\big).
+$$
+
+Mã hóa là $m$ phép gán tâm độc lập, mỗi phép $\Theta(k^*D/m)$, tổng $\Theta(k^*D)$. Ví dụ $D=8$, $m=4$, $k^*=256$: mỗi chỉ số 8 bit, mã 32 bit. Bài báo dùng $m$ cho số đoạn; Faiss gọi tham số này là `M`, khác $M$ của HNSW.
+
+![Véc-tơ tám chiều chia thành bốn đoạn hai chiều; mỗi đoạn được mã hóa bằng bộ mã con 256 tâm thành một chỉ số 8 bit; mã PQ là bộ bốn chỉ số, dài 32 bit.](img/lec-07/pq-tach-doan.svg)
 
 Số tổ hợp mã là $(k^*)^m$, nhưng các bộ mã chỉ lưu $mk^*(D/m)=k^*D$ số. Cơ sở dữ liệu mã cần
 
 $$
 N\left\lceil\frac{mb}{8}\right\rceil\ \text{byte}.
 $$
-
-![PQ chia véc-tơ thành các đoạn và thay mỗi đoạn bằng chỉ số của một tâm con.](img/lec-07/pq-split.svg)
 
 PQ giảm bộ nhớ nhưng tạo sai số tái dựng $\|y-\widehat y\|^2$. Tăng $m$ hoặc $b$ thường giảm sai số, đồng thời làm mã, bảng tra hoặc thời gian huấn luyện lớn hơn.
 
