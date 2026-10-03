@@ -330,3 +330,11 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | R00, R01, R06, ghi chú mục 11 | (nhẹ) Tên nhiệm vụ không thống nhất. | sửa | “Nhiệm vụ 1: mã và tái dựng PQ”; “Nhiệm vụ 2: cùng ngân sách 6 byte”; “Nhiệm vụ 3: chỉ mục IVF-PQ” ở R00, tiêu đề trang và ghi chú. |
 | R00 ghi chú | (nhẹ) Không nhắc số luồng ô 1. | sửa | Thêm câu về 32 luồng và việc ghi lại số luồng. |
 | `index.html` | (nhẹ) Mô tả Bài 7 dùng từ “runbook”. | sửa | “sổ thực hành Princeton”; thêm “tệp đảo” trước IVF-PQ. Kiểm: hai liên kết trả 200 ở 1440 và 390 px, không tràn ngang. |
+
+### Duyệt lại toàn bài từ góc nhìn sinh viên
+
+Tác tử chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`; bằng chứng: lệnh gọi Agent trong phiên ngày 03/10/2026) đóng vai sinh viên năm 2, đọc 49 trang, ghi chú diễn giả, ảnh chụp và ghi chú tự học. Không có phát hiện chặn bàn giao; 1 nghiêm trọng, 4 trung bình, 9 nhẹ. Mạch toàn bài được đánh giá chặt: hai thừa số chi phí ở A03 xuyên suốt; mỗi phần kết bằng giới hạn tạo nhu cầu cho phần sau; C00 thu hồi tình huống bằng số; C01–C02 phủ ba mục tiêu. Mỗi dòng dưới đây là một commit riêng.
+
+| Trang/vị trí | Phát hiện | Quyết định | Thay đổi |
+|---|---|---|---|
+| H01 | (nhẹ) Ký hiệu $e{:}9$ trong bảng chưa giải thích trên trang. | sửa | Câu đầu thêm “Ký hiệu $e{:}9$ nghĩa là $d(e,q)=9$.” Ghi chú tự học đã có câu tương ứng. |
