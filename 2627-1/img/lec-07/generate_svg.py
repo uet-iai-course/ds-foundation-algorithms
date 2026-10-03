@@ -367,6 +367,44 @@ def pq_tach_doan():
         'mã PQ là bộ bốn chỉ số, dài 32 bit.', b)
 
 
+def pq_vi_du(name='pq-vi-du.svg', with_query=False):
+    # Q05/Q06: hai đoạn hai chiều; bộ mã đoạn 1 {(0,2),(2,0)}, đoạn 2 {(0,0),(3,0)};
+    # x = (0,2; 1,8 | 2,7; 0,1); q = (0,1; 1,9 | 2,5; 0,2).
+    panels = [(0, 'đoạn 1', [(0, 2), (2, 0)], (0.2, 1.8), (0.1, 1.9), 0),
+              (470, 'đoạn 2', [(0, 0), (3, 0)], (2.7, 0.1), (2.5, 0.2), 1)]
+    sc = 95
+    b = ''
+    for ox, title, cents, xp, qp, code in panels:
+        X = lambda u: ox + 70 + sc * u
+        Y = lambda v: 300 - sc * v
+        b += rect(ox + 10, 15, 440, 345, '#ffffff', '#c5ccd8')
+        b += text(ox + 230, 52, title, 28, INK, weight='bold')
+        b += line(X(-0.3), Y(0), X(3.4), Y(0), '#c5ccd8', width=2) + line(X(0), Y(-0.3), X(0), Y(2.4), '#c5ccd8', width=2)
+        for t, (u, v) in enumerate(cents):
+            chosen = t == code
+            b += f'<rect x="{X(u) - 12}" y="{Y(v) - 12}" width="24" height="24" fill="{BLUE if chosen else "#ffffff"}" stroke="{BLUE}" stroke-width="4"/>'
+            ly = Y(v) - 26 if v > 1 else Y(v) + 46
+            b += text(X(u), ly, f'tâm {t}', 28, BLUE, 'middle', weight='bold' if chosen else 'normal')
+        cu, cv = cents[code]
+        b += line(X(xp[0]), Y(xp[1]), X(cu), Y(cv), GREEN, '6 5', width=3)
+        b += f'<circle cx="{X(xp[0])}" cy="{Y(xp[1])}" r="10" fill="{GREEN}"/>'
+        if code == 0:
+            b += text(X(xp[0]) + 18, Y(xp[1]) + 26, 'x', 32, GREEN, 'start', weight='bold', italic=True)
+        else:
+            b += text(X(xp[0]) - 18, Y(xp[1]) - 14, 'x', 32, GREEN, 'end', weight='bold', italic=True)
+        if with_query:
+            b += f'<rect x="{X(qp[0]) - 9}" y="{Y(qp[1]) - 9}" width="18" height="18" fill="{ORANGE}" transform="rotate(45 {X(qp[0])} {Y(qp[1])})"/>'
+            if code == 0:
+                b += text(X(qp[0]) + 18, Y(qp[1]) - 10, 'q', 32, ORANGE, 'start', weight='bold', italic=True)
+            else:
+                b += text(X(qp[0]) - 14, Y(qp[1]) - 22, 'q', 32, ORANGE, 'end', weight='bold', italic=True)
+    desc = ('Đoạn 1 có tâm 0 tại (0; 2) và tâm 1 tại (2; 0); x ở (0,2; 1,8) gần tâm 0. '
+            'Đoạn 2 có tâm 0 tại (0; 0) và tâm 1 tại (3; 0); x ở (2,7; 0,1) gần tâm 1. Mã của x là (0, 1).')
+    if with_query:
+        desc += ' Truy vấn q ở (0,1; 1,9) trong đoạn 1 và (2,5; 0,2) trong đoạn 2.'
+    svg(name, 920, 375, 'Mã hóa PQ với hai đoạn', desc, b)
+
+
 def main():
     truy_hoi_ngu_nghia()
     do_thu_hoi()
@@ -382,6 +420,8 @@ def main():
     lan_can_da_dang()
     luong_tu_hoa_vec_to()
     pq_tach_doan()
+    pq_vi_du()
+    pq_vi_du('pq-vi-du-adc.svg', with_query=True)
 
 
 if __name__ == '__main__':

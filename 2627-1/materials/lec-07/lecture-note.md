@@ -369,6 +369,12 @@ Mã hóa là $m$ phép gán tâm độc lập, mỗi phép $\Theta(k^*D/m)$, t�
 
 ![Véc-tơ tám chiều chia thành bốn đoạn hai chiều; mỗi đoạn được mã hóa bằng bộ mã con 256 tâm thành một chỉ số 8 bit; mã PQ là bộ bốn chỉ số, dài 32 bit.](img/lec-07/pq-tach-doan.svg)
 
+::: example Mã hóa PQ với hai đoạn
+$D=4$, $m=2$, $k^*=2$. Bộ mã đoạn 1 gồm tâm 0 $=(0;2)$ và tâm 1 $=(2;0)$; bộ mã đoạn 2 gồm tâm 0 $=(0;0)$ và tâm 1 $=(3;0)$. Với $x=(0{,}2;\ 1{,}8\mid 2{,}7;\ 0{,}1)$, bình phương khoảng cách ở đoạn 1 là $0{,}08$ và $6{,}48$, ở đoạn 2 là $7{,}30$ và $0{,}10$. Mã là $(0,1)$, dài 2 bit; $\widehat x=(0;\ 2\mid 3;\ 0)$ và sai số tái dựng $0{,}08+0{,}10=0{,}18$, vì bình phương khoảng cách cộng theo đoạn.
+:::
+
+![Đoạn 1 có tâm 0 tại (0; 2) và tâm 1 tại (2; 0), x gần tâm 0; đoạn 2 có tâm 0 tại (0; 0) và tâm 1 tại (3; 0), x gần tâm 1; mã của x là (0, 1).](img/lec-07/pq-vi-du.svg)
+
 Số tổ hợp mã là $(k^*)^m$, nhưng các bộ mã chỉ lưu $mk^*(D/m)=k^*D$ số. Cơ sở dữ liệu mã cần
 
 $$

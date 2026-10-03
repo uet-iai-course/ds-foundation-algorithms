@@ -39,7 +39,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | Q02 | 3 | Đặc tả VQ: đầu vào (bộ mã học bằng k-means), đầu ra và điều kiện sau, chi phí mã hóa $\Theta(kD)$ và lưu $kD$ số. | ví dụ Q00 → $i(x),\widehat x$, chi phí theo $k$ | PQ paper eq.2–5, tr.2; Princeton 08 tr.9–10, 32 |
 | Q03 | 2 | Thay số chi phí của một bộ mã $k=2^{64}$, $D=128$: lưu, mã hóa, học. | $9{,}4\cdot10^{21}$ byte → cần bộ mã nhỏ cho mã dài | PQ paper §II-B tr.3; Princeton 08 tr.18 |
 | Q04 | 3 | Định nghĩa PQ: chia đoạn, bộ mã con, mã $m\log_2k^*$ bit, tái dựng bằng ghép tâm con; hình $D=8$, $m=4$. | $D$ → $m$ đoạn → mã 32 bit | PQ paper §II-B eq.8–9, tr.3; Princeton 08 tr.29–31 |
-| Q05 | 3 | Chạy tay mã PQ hai đoạn. | hai bộ mã → mã $(0,1)$ | suy ra từ định nghĩa nguồn |
+| Q05 | 3 | Chạy tay mã PQ hai đoạn: khoảng cách từng đoạn, mã, tái dựng, sai số; hình hai mặt phẳng con. | hai bộ mã → mã $(0,1)$, sai số 0,18 | suy ra từ định nghĩa nguồn |
 | Q06 | 3 | Tính ADC số với mã $(0,1)$ từ Q05 và truy vấn đầy đủ. | hai ô tra 0,02 và 0,29 → ADC 0,31 | PQ paper eq.13, tr.4; ví dụ dựng từ cơ chế nguồn |
 | Q07 | 4 | Khóa không gian mã, số tâm con, số vô hướng và byte làm tròn. | $m,k^*,D,b$ → $(k^*)^m$, $mk^*$, $k^*D$, $\lceil mb/8\rceil$ | PQ paper tr.3; Princeton 08 tr.32–33 |
 | Q08 | 3 | Hình thức hóa ADC và phân biệt phía truy vấn với cơ sở dữ liệu. | truy vấn đầy đủ + mã → khoảng cách gần đúng | PQ paper eq.13, tr.4 |
@@ -369,3 +369,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** tên đầy đủ; $m\mid D$; học từng bộ mã con; chi phí mã hóa $\Theta(k^*D)$; ký hiệu `M` của Faiss.
 - **Nguồn:** PQ paper mục II-B pt.8–9 tr.3; Princeton lớp 8 tr.29–31.
 - **Quyết định:** sửa. Tiêu đề cũ là câu; hình cũ `pq-split.svg` chữ rất nhỏ; mặt trang không có độ dài mã, cách tái dựng và tên đầy đủ của PQ.
+
+### Q05 — Ví dụ mã hóa PQ
+
+- **Phần:** 4. **Vai trò:** ví dụ chạy tay. **Thời lượng:** 3 phút.
+- **Mục đích:** mã hóa một véc-tơ bằng PQ hai đoạn, tái dựng và tính sai số.
+- **Câu chốt:** mỗi đoạn mã hóa độc lập; sai số tái dựng là tổng sai số các đoạn.
+- **Đầu vào:** định nghĩa PQ (Q04). **Thể hiện:** dòng dữ kiện; hình `pq-vi-du.svg` (hai mặt phẳng con, tâm được chọn tô đặc); bảng khoảng cách và chỉ số; dòng kết quả.
+- **Kết nối vào–ra:** cụ thể hóa Q04; mã $(0,1)$ và hai bộ mã được dùng lại ở ví dụ ADC (Q06, có hình biến thể kèm $q$).
+- **Ghi chú diễn giả:** tọa độ các tâm; một phép tính mẫu; vì sao sai số cộng theo đoạn; so với VQ bốn chiều.
+- **Nguồn:** dựng từ định nghĩa, PQ paper mục II-B tr.3.
+- **Quyết định:** sửa. Bản cũ để các khoảng cách (phép tính cần học) và sai số trong ghi chú; không có hình; số thập phân dùng dấu chấm; tiêu đề “Ví dụ PQ ghép hai chỉ số” không nói thao tác.
