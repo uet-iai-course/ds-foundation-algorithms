@@ -314,9 +314,15 @@ Một ứng viên gần một lân cận đã chọn hơn gần $x$ thì cạnh 
 
 $M$ và `efConstruction` quyết định đồ thị khi xây, nên đổi chúng phải xây lại chỉ mục; `efSearch` đổi được cho từng truy vấn. Các xu hướng trong bảng là quan sát thực nghiệm của bài báo HNSW (mục 4.1), không phải bảo đảm đơn điệu cho mọi dữ liệu. Bài báo cho biết $M$ gần tối ưu thường nằm trong khoảng 6–48.
 
-Nếu lưu véc-tơ gốc, dữ liệu cần $O(ND)$ số. Nếu bậc trung bình được chặn bởi một hằng số tỷ lệ với $M$, số liên kết kỳ vọng là $O(NM)$. Đây là suy luận dưới giả thiết về bậc, không phải cận cho mọi trạng thái hay mọi cài đặt.
+**Bộ nhớ.** Mỗi điểm lưu véc-tơ $D$ số thực 4 byte và danh sách lân cận ở mỗi tầng nó thuộc về: tối đa $M_{\max,0}$ lân cận ở tầng 0 và $M_{\max}$ ở mỗi tầng trên. Theo phân phối tầng, kỳ vọng số tầng trên của một điểm là $\sum_{k\ge1}p^k=p/(1-p)$. Bài báo HNSW ước lượng phần cạnh bằng $(M_{\max,0}+m_L M_{\max})$ nhân số byte mỗi liên kết; hai cách cho cùng cỡ vài trăm byte mỗi điểm.
 
-HNSW không bảo đảm phổ quát rằng mọi truy vấn đều mất thời gian logarit. Đồ thị kém, tham số nhỏ hoặc dữ liệu bất lợi có thể làm tìm kiếm thăm nhiều đỉnh, đến mức tuyến tính trong trường hợp xấu.
+::: example Bộ nhớ cho mười tỷ véc-tơ
+Giả định $N=10^{10}$, $D=3072$, $M=16$, $M_{\max,0}=32$, $M_{\max}=16$, $p=1/16$. Vì $10^{10}>2^{32}$, mã định danh cần 8 byte. Véc-tơ gốc: $4\cdot3072=12\,288$ byte mỗi điểm, $122{,}88$ TB toàn kho. Cạnh: kỳ vọng tối đa $32+16\cdot\tfrac{1/16}{15/16}\approx33{,}1$ liên kết, khoảng 265 byte mỗi điểm, $2{,}65$ TB toàn kho. Véc-tơ gốc chiếm khoảng 98% bộ nhớ.
+:::
+
+**Truy vấn và xây dựng.** Số phép đo của một truy vấn xấp xỉ số bước nhân bậc trung bình trên đường đi. Bài báo phân tích số phép đo tăng theo $\log N$ dưới giả thiết về khả năng điều hướng và số chiều thấp; đó không là cận cho mọi dữ liệu. Đồ thị kém, tham số nhỏ hoặc dữ liệu bất lợi có thể làm tìm kiếm thăm cả tầng. Xây chỉ mục gồm $N$ lần chèn, mỗi lần một lượt tìm với bề rộng `efConstruction`.
+
+HNSW giảm số phép đo nhưng vẫn giữ toàn bộ véc-tơ gốc. Giảm bộ nhớ đòi hỏi biểu diễn véc-tơ gọn hơn; đó là nội dung của lượng tử hóa ở mục sau.
 
 ::: exercise Tự kiểm
 Muốn giảm độ trễ mà không xây lại chỉ mục, nên điều chỉnh tham số nào? Rủi ro là gì?

@@ -34,7 +34,7 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H10B | 3 | Tách: giả mã chèn hai pha và định nghĩa $M$, $efConstruction$, $M_{max}$, $M_{max,0}$. | điểm mới → HNSW cập nhật | HNSW paper alg.1, tr.4; §4.1 tr.5–6 |
 | H11 | 3 | Quy tắc chọn lân cận đa dạng; ví dụ hai chiều bốn ứng viên so với chọn gần nhất. | $\{c1,c3\}$ → $\{c1,c4\}$ | HNSW paper alg.4, tr.4–5; Princeton 09 tr.18 |
 | H12 | 3 | Ba tham số, thời điểm dùng và đánh đổi; câu hỏi giảm độ trễ không xây lại. | $M$, $efConstruction$, $efSearch$ → chọn tham số | HNSW paper §4.1 tr.5–6; §4.2.3 tr.8 |
-| H13 | 4 | Tách $O(ND)$ lưu véc-tơ, kỳ vọng $O(NM)$ liên kết — suy luận mục 4.2.3 dưới giả thiết bậc trung bình bị chặn theo $M$ — và giới hạn kết luận log. | thuật toán → điều kiện áp dụng; trường hợp xấu tuyến tính | HNSW paper §4.2.3, tr.7; Princeton 09 tr.2 |
+| H13 | 4 | Chi phí bộ nhớ thay số cho $10^{10}$ véc-tơ (véc-tơ 122,88 TB, cạnh khoảng 2,65 TB); chi phí truy vấn và giới hạn $\log N$; nối sang PQ. | giả định $M=16$ → 98% bộ nhớ là véc-tơ gốc | HNSW paper §4.2 tr.7, §4.2.3 tr.8; Princeton 09 tr.2, 7 |
 | Q00 | 3 | Đặt bài toán nén mất dữ liệu trước PQ. | véc-tơ → mã và tâm tái dựng | Princeton 08 tr.8–10; PQ paper tr.2 |
 | Q01 | 3 | Chạy tay lượng tử hóa véc-tơ với ba tâm. | ba khoảng cách → mã 1, sai số 0,25 | suy ra từ định nghĩa nguồn |
 | Q02 | 3 | Hình thức hóa phép gán tâm, điều kiện trước/sau và phá hòa. | Q01 → $i(x),\widehat x$ | PQ paper eq.2–5, tr.2 |
@@ -315,3 +315,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Kiểm tra:** giảm $efSearch$ (giữ $\ge K$); mất độ thu hồi. Đáp án trong ghi chú.
 - **Nguồn:** Malkov–Yashunin mục 4.1 tr.5–6, mục 4.2.3 tr.8; Princeton lớp 9 tr.19.
 - **Quyết định:** sửa. Tiêu đề cũ “Ba núm điều khiển ba loại chi phí” dùng ẩn dụ; bảng không nói tham số dùng lúc xây hay lúc truy vấn; thiếu câu hỏi kiểm tra cho phần HNSW.
+
+### H13 — Chi phí của HNSW
+
+- **Phần:** 3 (kết phần). **Vai trò:** chi phí, giới hạn, câu nối. **Thời lượng:** 4 phút.
+- **Mục đích:** tính bộ nhớ của HNSW cho tình huống mở đầu, tách phần véc-tơ và phần cạnh; nêu điều kiện của kết luận $\log N$.
+- **Câu chốt:** HNSW giảm số phép đo nhưng vẫn giữ 122,88 TB véc-tơ gốc, khoảng 98% bộ nhớ.
+- **Đầu vào:** $N$, $D$ (P01, nhắc lại bằng số), $M_{max}$, $M_{max,0}$ (H10B), $p$ (H08). **Thể hiện:** dòng giả định; bảng hai thành phần (mỗi điểm, toàn kho); dòng chi phí truy vấn; câu chốt.
+- **Kết nối vào–ra:** kết phần 3; tạo nhu cầu biểu diễn gọn (phần 4, Q00); số liệu dùng lại ở bảng so sánh C00.
+- **Ghi chú diễn giả:** mô hình bộ nhớ; kỳ vọng số tầng trên $p/(1-p)$ và so với ước lượng của bài báo (302 byte); 8 byte mỗi mã định danh; giả thiết của $\log N$; chi phí xây.
+- **Nguồn:** Malkov–Yashunin mục 4.2 tr.7, mục 4.2.3 tr.8; Princeton lớp 9 tr.2, tr.7. Số liệu tính lại bằng chương trình (mô phỏng $E[\ell]=0{,}0664$).
+- **Quyết định:** sửa. Tiêu đề cũ là câu dài; bản cũ chỉ có $O(ND)$, $O(NM)$, không thay số nên không thấy véc-tơ gốc chiếm phần lớn bộ nhớ; không có câu nối sang PQ.
