@@ -526,7 +526,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Nguồn:** sổ Princeton lớp 8, ô 0–4, 17, 21–24.
 - **Quyết định:** sửa. Bản cũ không nói dữ liệu gồm gì, đặt đường dẫn nội bộ `sources/…` trên mặt trang và dòng chỉ dẫn điều phối “Thời gian máy được báo riêng”.
 
-### R01 — Nhiệm vụ 1: cấu trúc mã PQ
+### R01 — Nhiệm vụ 1: mã và tái dựng PQ
 
 - **Phần:** 7. **Vai trò:** bài tập vận dụng công thức kích thước PQ. **Thời lượng:** 6 phút.
 - **Mục đích:** nối tham số Faiss với $D$, $m$, $b$, $k^*$; dự đoán kích thước mã và bộ mã rồi kiểm bằng số in ra.
@@ -576,7 +576,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Nguồn:** sổ thực hành ô 98–99; Princeton lớp 8 tr.32–33.
 - **Quyết định:** sửa. Bản cũ có bốn yêu cầu chung, chưa đưa công cụ của bài ($k^*D$) và nhận định của nguồn để đối chiếu với số đo; tiêu đề “Đọc đánh đổi…” không học thuật.
 
-### R06 — Nhiệm vụ 3: xây dựng IVF-PQ
+### R06 — Nhiệm vụ 3: chỉ mục IVF-PQ
 
 - **Phần:** 7. **Vai trò:** bài tập nối cấu hình thư viện với ký hiệu bài giảng. **Thời lượng:** 6 phút.
 - **Mục đích:** đọc chuỗi cấu hình Faiss thành $k_c$, $m$, $b$; tính byte mã và kích thước danh sách trung bình; nêu vai trò huấn luyện và thêm dữ liệu.
@@ -606,3 +606,9 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** số mã được chấm 100–2500; cách tính ms mỗi truy vấn; xu hướng thường thấy nhưng chỉ kết luận theo số đo; rubric 10 điểm.
 - **Nguồn:** sổ thực hành ô 149–155.
 - **Quyết định:** sửa. Bản cũ chỉ có một hàng trống cho năm giá trị; thiếu cột thời gian mỗi truy vấn và số mã được chấm; tiêu đề “Báo cáo phép quét của nguồn” khó hiểu.
+
+### Ghi chú điều phối phần bài tập (không đưa lên trang hay ghi chú diễn giả)
+
+- Sinh viên cài Python, NumPy, Matplotlib, Faiss CPU và chạy các ô nền 0–4, 17, 21–24 trước buổi học trên chính kernel sẽ dùng.
+- Thời gian chạy máy (ô 85, 99, 150, 155) không tính vào 60 phút làm bài; nếu máy chậm, chạy trước ô 99 và 150 trên cùng kernel.
+- R02 là TODO của chính sổ nguồn; R08 chỉ là phiếu ghi kết quả của vòng đo trong nguồn, không thêm mục tiêu vận hành hay giá trị $nprobe$ mới.

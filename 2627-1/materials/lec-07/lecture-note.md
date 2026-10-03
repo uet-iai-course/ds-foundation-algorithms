@@ -567,19 +567,21 @@ Chạy các ô 0–4, 17 và 21–24. Ô 2 tạo dữ liệu tổng hợp `Synth
 | `xq` | $100\times64$ | truy vấn |
 | `gt` | $100\times10$ | chỉ số 10 hàng xóm đúng, tức $N_{10}(q)$ |
 
-Trong Faiss, số đoạn PQ gọi là `M` (khác $M$ của HNSW) và số bit mỗi chỉ số gọi là `nbits`, tức $b$. Ghi lại phiên bản Faiss, số luồng và phần cứng.
+Trong Faiss, số đoạn PQ gọi là `M` (khác $M$ của HNSW) và số bit mỗi chỉ số gọi là `nbits`, tức $b$.
+
+Yêu cầu kỹ thuật: Python, NumPy, Matplotlib và Faiss bản CPU. Ô 1 đặt 32 luồng cho máy của tác giả sổ; đặt lại theo máy của mình. Ghi lại phiên bản Faiss, số luồng và phần cứng, vì các số đo thời gian ở nhiệm vụ 2 và 3 phụ thuộc vào chúng. Nếu ô 99 hoặc 150 chạy chậm, có thể chạy trước trên cùng kernel; không tạo sổ hay dữ kiện mới.
 
 | Nhiệm vụ | Ô |
 |---|---|
-| 1. Tái dựng PQ thủ công | 82–97 |
+| 1. Mã và tái dựng PQ | 82–97 |
 | 2. Cùng ngân sách 6 byte | 98–99 |
-| 3. IVF-PQ và $nprobe$ | 148–155 |
+| 3. Chỉ mục IVF-PQ | 148–155 |
 
-### Nhiệm vụ 1: tái dựng PQ thủ công
+### Nhiệm vụ 1: mã và tái dựng PQ
 
 Ô 83 tạo `pq = faiss.ProductQuantizer(d, 4, 8)`, tức $D=64$, $m=4$, $b=8$. Chạy các ô 83–95, rồi điền bảng: dự đoán từ $D$, $m$, $b$ trước, sau đó so với giá trị in ra.
 
-| Đại lượng | Dự đoán từ $D,m,b$ | Giá trị in ra |
+| Đại lượng | Dự đoán từ $D,m,b$ | Giá trị kiểm bằng mã |
 |---|---|---|
 | `pq.code_size` (byte) | | |
 | `pq_centroids.shape` | | |
@@ -637,7 +639,7 @@ Phân tích bảng kết quả:
 
 Viết một đoạn kết luận chỉ dựa trên số đo của mình, không khái quát thành quy luật cho mọi dữ liệu.
 
-### Nhiệm vụ 3: điều chỉnh IVF-PQ
+### Nhiệm vụ 3: chỉ mục IVF-PQ
 
 Ô 149–151 xây chỉ mục:
 
@@ -663,6 +665,7 @@ for nprobe in 2, 5, 10, 20, 50:                     # ô 155
         D, I = index.search(xq, 10)
     t1 = time.time()
     nok = (I[:, 0] == gt[:, 0]).sum()
+    print(f"{nprobe=:} {nok=:} {(t1 - t0)*1000:.3f} ms")
 ```
 
 | Đại lượng | Ý nghĩa |
@@ -671,11 +674,11 @@ for nprobe in 2, 5, 10, 20, 50:                     # ô 155
 | $(t_1-t_0)\cdot1000$ | tổng mili giây của $50\times100$ lượt truy vấn |
 | $nprobe/200$ | tỷ lệ danh sách mở; khoảng $50\,nprobe$ mã được chấm |
 
-Với $K=1$, định nghĩa độ thu hồi ở mục 1 so kết quả đầu tiên với hàng xóm gần nhất thật, nên `nok/100` là $\operatorname{recall@1}$ trung bình; nó không cho biết độ thu hồi tại $K=10$ dù lời gọi `search` trả 10 kết quả. Thời gian mỗi truy vấn bằng tổng thời gian chia cho 5000. Không đổi số lần lặp hay kích thước lô của nguồn, và không gọi tổng thời gian của cả lô là độ trễ mỗi truy vấn.
+Với $K=1$, định nghĩa độ thu hồi ở mục 1 so kết quả đầu tiên với hàng xóm gần nhất thật, nên `nok/100` là $\operatorname{recall@1}$ trung bình; nó không cho biết độ thu hồi tại $K=10$ dù lời gọi `search` trả 10 kết quả. Tổng thời gian chia cho 5000 là thời gian trung bình mỗi truy vấn khi chạy theo lô với nhiều luồng, không phải độ trễ của một truy vấn đơn lẻ, và phụ thuộc số luồng. Không đổi số lần lặp hay kích thước lô của nguồn.
 
-Ghi kết quả vào phiếu, vẽ $\operatorname{recall@1}$ theo mili giây mỗi truy vấn, rồi mô tả xu hướng và giải thích bằng số mã được chấm, chỉ trong phạm vi năm phép đo.
+Ghi kết quả vào phiếu, vẽ $\operatorname{recall@1}$ theo thời gian trung bình mỗi truy vấn, rồi mô tả xu hướng và giải thích bằng số mã được chấm, chỉ trong phạm vi năm phép đo.
 
-| $nprobe$ | $\operatorname{recall@1}$ | tổng ms | ms mỗi truy vấn | số mã được chấm |
+| $nprobe$ | $\operatorname{recall@1}$ | tổng ms | ms trung bình mỗi truy vấn trong lô | số mã được chấm |
 |---|---|---|---|---|
 | 2 | | | | |
 | 5 | | | | |
@@ -684,7 +687,7 @@ Ghi kết quả vào phiếu, vẽ $\operatorname{recall@1}$ theo mili giây m�
 | 50 | | | | |
 
 ::: solution
-Cột “số mã được chấm” theo giả thiết danh sách cân bằng là $50\,nprobe$: 100; 250; 500; 1000; 2500 trên $N=10^4$. Cột “ms mỗi truy vấn” bằng tổng ms chia 5000. Xu hướng thường thấy là độ thu hồi và thời gian cùng tăng khi $nprobe$ tăng, vì nhiều danh sách hơn được mở; kết luận chỉ dựa trên số đo của máy đã chạy.
+Cột “số mã được chấm” theo giả thiết danh sách cân bằng là $50\,nprobe$: 100; 250; 500; 1000; 2500 trên $N=10^4$. Cột thời gian trung bình bằng tổng ms chia 5000; đây không phải độ trễ của một truy vấn đơn lẻ. Xu hướng thường thấy là độ thu hồi và thời gian cùng tăng khi $nprobe$ tăng, vì nhiều danh sách hơn được mở; kết luận chỉ dựa trên số đo của máy đã chạy.
 :::
 
 ## 12. Tự kiểm cuối bài

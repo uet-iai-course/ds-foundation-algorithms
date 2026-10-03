@@ -315,3 +315,17 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | Vị trí | Phát hiện | Quyết định | Thay đổi |
 |---|---|---|---|
 | storyboard, outline | (nghiêm trọng, mở từ lượt rà phần 3) Tổng phần giảng 141 phút sau khi thêm, gộp, tách trang; outline còn dải trang và phút cũ. | sửa, đóng | Cân lại từng trang: mở đầu 6, bài toán 11, HNSW 44, PQ 28, IVF-PQ 16, tổng kết 15 phút; tổng 120 (40 trang giảng). Bài tập giữ 60 phút (R01–R08: 6+9+5+10+10+6+9+5). Bảng storyboard và mục “Thời lượng” của từng trang khớp nhau. Outline: bảng mạch theo thứ tự deck, ghi gộp/tách/thêm/chuyển; ký hiệu mới ($k$, $x$, $y$, $\rho$, ký hiệu IVF); kiểm kê 19 SVG sinh bằng `generate_svg.py`; bảng nguồn thêm H06B, C00–C02. |
+
+**Rà lại phần 7 (tác tử chỉ đọc, `subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`; bằng chứng: lệnh gọi Agent trong phiên ngày 03/10/2026).** Trung thành với nguồn: mọi mã, số ô, tham số và đáp án khớp sổ thực hành (ô 1, 2, 21, 83, 94–97, 99, 149–151, 155); `nok/100` đúng là recall@1 theo A01; ô 99 đo mã hóa cộng giải mã, không gồm huấn luyện; bài tập tổng 60 phút. Không có phát hiện chặn bàn giao hoặc nghiêm trọng.
+
+| Trang/vị trí | Phát hiện rà lại | Quyết định | Thay đổi |
+|---|---|---|---|
+| R07, R08, ghi chú mục 11 | (trung bình) “ms mỗi truy vấn = tổng/5000” là trung bình theo lô nhiều luồng, không phải độ trễ một truy vấn; ghi chú tự học tự mâu thuẫn. | sửa | Cột “ms trung bình mỗi truy vấn trong lô”; câu nêu không phải độ trễ một truy vấn, phụ thuộc số luồng ô 1. |
+| Ghi chú diễn giả R00, R01, R04, R06, R07 | (trung bình) Chỉ dẫn điều phối và thời lượng trong ghi chú diễn giả. | sửa | Bỏ khỏi ghi chú diễn giả; chuyển vào storyboard (mục “Ghi chú điều phối phần bài tập”); yêu cầu kỹ thuật cho sinh viên đưa vào mục 11 ghi chú tự học. |
+| R07 ghi chú | (nhẹ) Trích Princeton lớp 8 tr.4 sai; “trang tradeoff”. | sửa | “tr.3 và tr.5”; “trang đánh đổi”. |
+| R07 | (nhẹ) Khối mã bỏ dòng `print` của ô 155; thiếu dòng yêu cầu. | sửa | Thêm dòng `print`; “Chạy ô 152–155; ghi kết quả vào phiếu báo cáo.” (deck và ghi chú). |
+| R01 | (nhẹ) Ô 95 không in `xb_codes.shape`. | sửa | Cột “Giá trị kiểm bằng mã”; ghi chú nêu cách kiểm. |
+| R01, R03 ghi chú | (nhẹ) Thang điểm lệch. | sửa | R01: bảng kèm giải thích 3 điểm, khớp rubric 10 điểm ở R03. |
+| R02, R08 ghi chú | (nhẹ) Câu biện minh của người soạn. | sửa | Bỏ khỏi ghi chú diễn giả; ghi trong storyboard. |
+| R00, R01, R06, ghi chú mục 11 | (nhẹ) Tên nhiệm vụ không thống nhất. | sửa | “Nhiệm vụ 1: mã và tái dựng PQ”; “Nhiệm vụ 2: cùng ngân sách 6 byte”; “Nhiệm vụ 3: chỉ mục IVF-PQ” ở R00, tiêu đề trang và ghi chú. |
+| R00 ghi chú | (nhẹ) Không nhắc số luồng ô 1. | sửa | Thêm câu về 32 luồng và việc ghi lại số luồng. |
