@@ -340,7 +340,7 @@ def luong_tu_hoa_vec_to():
     b += f'<circle cx="{X(xu)}" cy="{Y(xv)}" r="11" fill="{GREEN}"/>'
     b += text(X(xu) - 14, Y(xv) - 18, 'x', 32, GREEN, 'end', weight='bold', italic=True)
     svg('luong-tu-hoa-vec-to.svg', 520, 560, 'Lượng tử hóa véc-tơ với ba tâm',
-        'Ba tâm c0 tại (0, 0), c1 tại (2, 0), c2 tại (0, 2) chia mặt phẳng thành ba ô bởi các đường x = 1, y = 1 và y = x. '
+        'Ba tâm c0 tại (0, 0), c1 tại (2, 0), c2 tại (0, 2) chia mặt phẳng thành ba ô; ranh giới là các đường tọa độ thứ nhất bằng 1, tọa độ thứ hai bằng 1 và hai tọa độ bằng nhau. '
         'Điểm x tại (1,7; 0,4) nằm trong ô của c1 nên được thay bằng c1.', b)
 
 

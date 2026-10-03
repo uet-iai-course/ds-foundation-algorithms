@@ -2,8 +2,8 @@
 
 ## Hành trình khái niệm
 
-- **HNSW:** tình huống P01 → vấn đề A00, H00 → ví dụ tham lam và vết chạy chùm H01–H03 → hợp đồng H04 → thuật toán H05 → bất biến và ngưỡng thay đổi H06 → truyền điểm vào qua tầng H07–H09 → đặc tả chèn tổng quát H10 → chọn cạnh H11 → tham số, chi phí và giới hạn H12–H13 → đối chiếu C00.
-- **Lượng tử hóa tích:** tình huống P01 → vấn đề Q00 → ví dụ chạy tay VQ Q01 → hình thức hóa Q02 → giới hạn bộ mã Q03 → trực giác chia đoạn Q04 → mã PQ Q05 → ví dụ ADC số Q06 → không gian mã và bộ nhớ Q07 → ADC hình thức và bảng tra Q08–Q09 → giới hạn quét Q10 → ứng dụng IVF-PQ I00–I04 → đối chiếu C00.
+- **HNSW (thứ tự hiện hành, 03/10/2026):** thừa số “số véc-tơ được đo” A03 → đồ thị lân cận H00 → tham lam, cực tiểu cục bộ H01 (gộp H02) → tìm kiếm chùm H03 → đặc tả H04 → giả mã H05 → bất biến H06 → cạnh dài H06B → đồ thị nhiều tầng H07 → giả mã truy vấn H09 → rút tầng H08 → ví dụ chèn H10 → giả mã chèn H10B → lân cận đa dạng H11 → tham số H12 → chi phí H13 → đối chiếu C00.
+- **Lượng tử hóa tích (thứ tự hiện hành, 03/10/2026):** nhu cầu từ H13 → VQ, ví dụ ba tâm và câu hỏi Q00 (gộp Q01) → đặc tả và chi phí Q02 → giới hạn bộ mã lớn Q03 → định nghĩa PQ Q04 → ví dụ mã hóa Q05 → kích thước, so với VQ, kho $10^{10}$ véc-tơ Q07 → ví dụ ADC Q06 → công thức ADC Q08 → bảng tra Q09 → giới hạn quét đầy đủ Q10 → IVF-PQ I00–I04 → đối chiếu C00.
 - **IVF-PQ:** vấn đề Q10, I00 → phân vùng và ví dụ chọn tâm I01 → truy vấn dư riêng từng danh sách I02 → chi phí I03 → thuật toán trả mã định danh I04 → thực nghiệm R06–R08.
 - **LSH:** chu trình đã hoàn tất ở Bài 6; A03 chỉ nhắc cơ chế và C00 dùng lại để so sánh. Không áp dụng chạy tay hoặc chứng minh lại trong Bài 7 vì sẽ lặp nguồn.
 

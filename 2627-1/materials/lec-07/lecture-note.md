@@ -336,13 +336,13 @@ Giảm `efSearch`. Truy vấn mở ít đỉnh hơn nhưng có thể bỏ lỡ h
 **Lượng tử hóa véc-tơ (VQ)** thay mỗi véc-tơ bằng chỉ số của tâm gần nó nhất trong một bộ mã $C=\{c_0,\dots,c_{k-1}\}\subset\mathbb R^D$; mã dài $\lceil\log_2 k\rceil$ bit. Khi cần, véc-tơ được tái dựng bằng tâm tương ứng:
 
 $$
-i(y)=\arg\min_{0\le i<k}\|y-c_i\|^2,\qquad \widehat y=c_{i(y)}.
+i(x)=\arg\min_{0\le i<k}\|x-c_i\|^2,\qquad \widehat x=c_{i(x)}.
 $$
 
-Đây là nén mất dữ liệu: sai số tái dựng $\|y-\widehat y\|^2$ đo mức mất thông tin, và không đồng nhất với độ thu hồi của truy vấn. Các điểm cùng mã tạo thành một ô của không gian.
+Đây là nén mất dữ liệu: sai số tái dựng $\|x-\widehat x\|^2$ đo mức mất thông tin, và không đồng nhất với độ thu hồi của truy vấn. Các điểm cùng mã tạo thành một ô của không gian.
 
 ::: example Ba tâm trong mặt phẳng
-$C=\{(0;0),(2;0),(0;2)\}$, $x=(1{,}7;\ 0{,}4)$. Bình phương khoảng cách tới ba tâm là $3{,}05$; $0{,}25$; $5{,}45$, nên mã là 1 (2 bit), $\widehat x=c_1=(2;0)$ và sai số $0{,}25$. Ba ô được phân cách bởi các đường $x_1=1$, $x_2=1$ và $x_1=x_2$.
+$C=\{(0;0),(2;0),(0;2)\}$, $x=(1{,}7;\ 0{,}4)$. Bình phương khoảng cách tới ba tâm là $3{,}05$; $0{,}25$; $5{,}45$, nên mã là 1 (2 bit), $\widehat x=c_1=(2;0)$ và sai số $0{,}25$. Ranh giới các ô là các đường “tọa độ thứ nhất bằng 1”, “tọa độ thứ hai bằng 1” và “hai tọa độ bằng nhau”.
 :::
 
 ![Ba tâm c0 tại (0, 0), c1 tại (2, 0), c2 tại (0, 2) chia mặt phẳng thành ba ô; điểm x tại (1,7; 0,4) nằm trong ô của c1.](img/lec-07/luong-tu-hoa-vec-to.svg)
@@ -389,7 +389,7 @@ PQ đạt cùng số mã với bộ mã nhỏ hơn rất nhiều lần, vì khô
 Cấu hình của nguồn BIODS: $D=3072$, đoạn 6 chiều nên $m=512$; $k^*=256$ nên $b=8$. Mỗi mã dài $512\cdot8$ bit $=512$ byte và $10^{10}$ mã chiếm $5{,}12$ TB, nhỏ hơn 24 lần so với $122{,}88$ TB dữ liệu gốc. Chưa tính mã định danh, bộ mã ($256\cdot3072$ số) và cấu trúc chỉ mục.
 :::
 
-PQ tạo sai số tái dựng $\|y-\widehat y\|^2$. Tăng $m$ hoặc $b$ thường giảm sai số, đồng thời làm mã, bảng tra hoặc thời gian huấn luyện lớn hơn.
+PQ tạo sai số tái dựng $\|x-\widehat x\|^2$. Tăng $m$ hoặc $b$ thường giảm sai số, đồng thời làm mã, bảng tra hoặc thời gian huấn luyện lớn hơn.
 
 ::: exercise Tự kiểm
 Với $m=4$ và $b=8$, một mã dài bao nhiêu byte và biểu diễn bao nhiêu tổ hợp tâm?
@@ -401,7 +401,7 @@ Mã dài 4 byte và biểu diễn $(2^8)^4=2^{32}$ tổ hợp tâm.
 
 ## 8. ADC, bảng tra và chi phí PQ
 
-**Khoảng cách bất đối xứng (Asymmetric Distance Computation, ADC)** giữ truy vấn $q$ ở dạng đầy đủ, còn véc-tơ $y$ trong kho chỉ có mã $(i_1(y),\ldots,i_m(y))$. Khoảng cách được ước lượng bằng khoảng cách tới véc-tơ tái dựng:
+**Khoảng cách bất đối xứng (Asymmetric Distance Computation, ADC)** giữ truy vấn $q$ ở dạng đầy đủ, còn véc-tơ $y$ trong kho (ở ví dụ dưới đây là $x$) chỉ có mã $(i_1(y),\ldots,i_m(y))$. Khoảng cách được ước lượng bằng khoảng cách tới véc-tơ tái dựng:
 
 $$
 \widetilde d(q,y)^2=\|q-\widehat y\|^2=\sum_{j=1}^{m}\big\|q^{(j)}-c^{(j)}_{i_j(y)}\big\|^2.

@@ -262,3 +262,19 @@ Kiểm định: 47 trang, 1600 × 900 không tràn khung, không `.katex-error`,
 | Q09 | Bảng tra khoảng cách và chi phí. | Tiêu đề câu “Bảng tra biến khoảng cách thành phép cộng”; hình `pq-lut.svg` chữ nhỏ, không có số; chi phí một dòng ký hiệu. | sửa. Tiêu đề “Bảng tra khoảng cách”; bảng HTML 2×2 của ví dụ (tính lại 0,02; 7,22; 6,29; 0,29), ô của mã $(0,1)$ viền đậm (CSS `.ann-selected`); chấm hai mã (0,31; 13,51); bảng chi phí. Xóa `pq-lut.svg`. | Mục 8: đoạn bảng tra với bảng ví dụ, bảng chi phí, câu về quét $\Theta(Nm)$; ký hiệu $q_j$, $c_{j,i}$ cũ đổi sang $q^{(j)}$, $c^{(j)}_i$. |
 | Q10 | Giới hạn của PQ quét đầy đủ, nối sang IVF. | Tiêu đề câu; chi phí chỉ ký hiệu; “tầng định tuyến” là thuật ngữ mới không giải thích. | sửa. Tiêu đề “Giới hạn của PQ quét đầy đủ”; bảng quét véc-tơ gốc và quét mã PQ cho $10^{10}$ véc-tơ (tính lại $Nm=5{,}12\cdot10^{12}$; lập bảng $256\cdot3072=786\,432$); câu hỏi thời gian (5,12 s, giả định $10^{12}$ lần tra/giây); câu chốt hai thừa số. | Mục 8: đoạn giới hạn có bảng và bài tự kiểm. |
 | I00 | Mở phần 5: tệp đảo và vai trò trong IVF-PQ. | Tiêu đề câu; hai thẻ chữ không hình; “định tuyến”, “véc-tơ dư” chưa giải thích. | viết lại. Tiêu đề “Tệp đảo (IVF)”; ví dụ hai chiều mới dùng cho cả phần 5 (bốn tâm thô, 16 điểm, $q=(6;3{,}5)$; tính lại bình phương khoảng cách tới tâm: 18,25; 6,25; 36,25; 24,25); hình `tep-dao.svg` và `tep-dao-du.svg` (sinh bằng `generate_svg.py`); danh sách đảo là bảng HTML. Bản nháp đặt danh sách trong hình nên chữ khoảng 12 px, đã tách ra trước commit. | Mục 9 đổi tiêu đề thành “Tệp đảo và IVF-PQ”; đoạn định nghĩa, khối ví dụ, hình. |
+
+**Rà lại phần 4 (tác tử chỉ đọc, `subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`; bằng chứng: lệnh gọi Agent trong phiên ngày 03/10/2026).** Độ chính xác đạt: mọi số tính lại khớp (VQ 3,05/0,25/5,45 và 2,61/4,21/0,61; $9{,}44\cdot10^{21}$ byte; $256^8=2^{64}$; 5,12 TB, tỷ lệ 24; PQ 0,08/6,48/7,30/0,10, sai số 0,18; ADC 0,31 và 0,07; bảng tra; $5{,}12\cdot10^{12}$, 5,12 s); số trang trích dẫn khớp nguồn. Không có phát hiện chặn bàn giao hoặc nghiêm trọng.
+
+| Trang/vị trí | Phát hiện rà lại | Quyết định | Thay đổi |
+|---|---|---|---|
+| Q00 | (trung bình) Trang mở phần không nêu nhu cầu trên mặt trang. | sửa | Dòng đầu: “Véc-tơ gốc chiếm 122,88 TB. Lượng tử hóa thay…”. |
+| storyboard “Hành trình khái niệm” | (trung bình) Còn mô tả thứ tự cũ (Q01; Q06 trước Q07); dòng HNSW cũng cũ. | sửa | Viết lại hai dòng HNSW và lượng tử hóa tích theo thứ tự hiện hành. |
+| Q00 | (nhẹ) “$\log_2 k$ bit” không khớp ví dụ 2 bit và Q02. | sửa | $\lceil\log_2 k\rceil$. |
+| Q00 ghi chú, mô tả SVG, ghi chú mục 7 | (nhẹ) Ranh giới ô viết $x_1$, $x_2$ hoặc “x = 1, y = 1” trùng tên điểm $x$, $y$. | sửa | Viết bằng lời “tọa độ thứ nhất bằng 1…”. |
+| Q04 | (nhẹ) Giả thiết $m\mid D$ chỉ ở ghi chú. | sửa | “($m$ chia hết $D$)” trên mặt trang. |
+| Q05 | (nhẹ) Cột không nói là bình phương khoảng cách. | sửa | Tiêu đề cột “$\|x^{(j)}-c\|^2$, tâm 0”. |
+| Q06→Q08, ghi chú mục 7–8 | (nhẹ) Véc-tơ trong kho đổi tên $x$ → $y$ không nói tương ứng; công thức VQ trong ghi chú dùng $y$ trùng điểm câu hỏi. | sửa | Ghi chú Q08: “$y$ chính là véc-tơ $x$”; ghi chú tự học: công thức VQ dùng $x$, đoạn ADC ghi “ở ví dụ dưới đây là $x$”. |
+| Q07 | (nhẹ) Nhãn hàng “Mã hóa” thiếu đối tượng. | sửa | “Mã hóa một véc-tơ”. |
+| Q08 ghi chú | (nhẹ) Câu SDC/ADC dài ba mệnh đề. | sửa | Tách hai câu. |
+| Q10 ghi chú | (nhẹ) Giả định một lần tra ngang một lượt tọa độ chưa nói ra; “Ý tiếp theo là…” gần lời chuyển trang. | sửa | Nêu giả định; viết lại câu nối. |
+| I00 | (nhẹ, ngoài phạm vi) Dạng cũ. | đã sửa | Commit I00 (`bc6f106`). |
