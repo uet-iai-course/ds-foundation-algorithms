@@ -306,11 +306,13 @@ Một ứng viên gần một lân cận đã chọn hơn gần $x$ thì cạnh 
 
 ## 6. Tham số, bộ nhớ và giới hạn HNSW
 
-| Tham số | Khi tăng tham số |
-|---|---|
-| $M$ | nhiều cạnh hơn; bộ nhớ và thời gian xây dựng tăng; khả năng điều hướng thường tốt hơn |
-| `efConstruction` | xét nhiều ứng viên khi chèn; xây dựng chậm hơn và đồ thị thường tốt hơn |
-| `efSearch` | mở rộng truy vấn; độ trễ tăng và recall thường tăng |
+| Tham số | Dùng khi | Tăng tham số thì |
+|---|---|---|
+| $M$ | chèn | nhiều cạnh hơn: tốn bộ nhớ, mỗi lần mở đỉnh đo nhiều lân cận hơn; điều hướng thường tốt hơn |
+| `efConstruction` | chèn | xây chậm hơn; lân cận được chọn từ nhiều ứng viên hơn |
+| `efSearch` | truy vấn | độ trễ tăng; độ thu hồi thường tăng |
+
+$M$ và `efConstruction` quyết định đồ thị khi xây, nên đổi chúng phải xây lại chỉ mục; `efSearch` đổi được cho từng truy vấn. Các xu hướng trong bảng là quan sát thực nghiệm của bài báo HNSW (mục 4.1), không phải bảo đảm đơn điệu cho mọi dữ liệu. Bài báo cho biết $M$ gần tối ưu thường nằm trong khoảng 6–48.
 
 Nếu lưu véc-tơ gốc, dữ liệu cần $O(ND)$ số. Nếu bậc trung bình được chặn bởi một hằng số tỷ lệ với $M$, số liên kết kỳ vọng là $O(NM)$. Đây là suy luận dưới giả thiết về bậc, không phải cận cho mọi trạng thái hay mọi cài đặt.
 

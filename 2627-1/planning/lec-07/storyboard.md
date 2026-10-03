@@ -31,9 +31,9 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | H09 | 4 | Đặc tả và giả mã truy vấn HNSW; hình gọn ba tầng nhắc lại vết $ep=p8$, $p6$. | tìm tầng → $K$ kết quả; $efSearch\ge K$ | HNSW paper alg.5, tr.5 |
 | H08 | 3 | Chuyển xuống sau H09. Rút tầng ngẫu nhiên; suy ra $\Pr[\ell\ge k]=p^k$, $p=e^{-1/m_L}$; ví dụ $p=1/16$, tầng cao nhất khoảng 8 khi $N=10^{10}$. | $U,m_L$ → phân phối hình học, $\log_{1/p}N$ tầng | HNSW paper alg.1 dòng 4; §3; §4.1 |
 | H10 | 4 | Tách: ví dụ chèn $x=2{,}6$, $\ell=1$, $M=2$ vào đồ thị ba tầng; bảng ba tầng và hình. | pha 1 → $ep=p4$; pha 2 → nối $p2,p4$ (tầng 1), $p3,p2$ (tầng 0) | HNSW paper alg.1, tr.4 |
-| H10B | 3 | Tách: giả mã chèn hai pha và định nghĩa $M$, $efConstruction$, $M_{max}$, $M_{max,0}$. | điểm mới → HNSW cập nhật | HNSW paper alg.1, tr.4; §4.1 |
+| H10B | 3 | Tách: giả mã chèn hai pha và định nghĩa $M$, $efConstruction$, $M_{max}$, $M_{max,0}$. | điểm mới → HNSW cập nhật | HNSW paper alg.1, tr.4; §4.1 tr.5–6 |
 | H11 | 3 | Quy tắc chọn lân cận đa dạng; ví dụ hai chiều bốn ứng viên so với chọn gần nhất. | $\{c1,c3\}$ → $\{c1,c4\}$ | HNSW paper alg.4, tr.4–5; Princeton 09 tr.18 |
-| H12 | 2 | Ánh xạ ba tham số sang ba chi phí. | M, efConstruction, efSearch → núm điều khiển | HNSW paper §4.1, tr.5–7 |
+| H12 | 3 | Ba tham số, thời điểm dùng và đánh đổi; câu hỏi giảm độ trễ không xây lại. | $M$, $efConstruction$, $efSearch$ → chọn tham số | HNSW paper §4.1 tr.5–6; §4.2.3 tr.8 |
 | H13 | 4 | Tách $O(ND)$ lưu véc-tơ, kỳ vọng $O(NM)$ liên kết — suy luận mục 4.2.3 dưới giả thiết bậc trung bình bị chặn theo $M$ — và giới hạn kết luận log. | thuật toán → điều kiện áp dụng; trường hợp xấu tuyến tính | HNSW paper §4.2.3, tr.7; Princeton 09 tr.2 |
 | Q00 | 3 | Đặt bài toán nén mất dữ liệu trước PQ. | véc-tơ → mã và tâm tái dựng | Princeton 08 tr.8–10; PQ paper tr.2 |
 | Q01 | 3 | Chạy tay lượng tử hóa véc-tơ với ba tâm. | ba khoảng cách → mã 1, sai số 0,25 | suy ra từ định nghĩa nguồn |
@@ -291,7 +291,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Đầu vào:** ví dụ H10. **Thể hiện:** khối giả mã 10 dòng có chú thích pha; một dòng định nghĩa tham số.
 - **Kết nối vào–ra:** hình thức hóa H10; dòng “chọn $M$ lân cận” được cụ thể hóa ở H11; các tham số dùng ở H12–H13.
 - **Ghi chú diễn giả:** chỉ mục rỗng; mất đối xứng sau cắt; Thuật toán 3 và 4; ràng buộc tham số; $M_{max,0}=2M$ theo mục 4.1.
-- **Nguồn:** Malkov–Yashunin Thuật toán 1 tr.4; mục 4.1 tr.5–8.
+- **Nguồn:** Malkov–Yashunin Thuật toán 1 tr.4; mục 4.1 tr.5–6.
 - **Quyết định (H10 cũ):** tách. Bản cũ có tiêu đề câu mô tả, hình bốn hộp chữ rất nhỏ, một dòng đưa cùng lúc bốn tham số mới; ghi chú diễn giả dài, chứa toàn bộ thuật toán. Ví dụ đặt trước giả mã theo chu trình học.
 
 ### H11 — Chọn lân cận đa dạng
@@ -304,3 +304,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** tọa độ ví dụ và lý do đổi sang ví dụ hai chiều; ý nghĩa hình học; hai tùy chọn của Thuật toán 4 nằm ngoài phạm vi; dùng cả khi cắt bậc.
 - **Nguồn:** Malkov–Yashunin mục 3, Thuật toán 4 tr.4–5; Princeton lớp 9 tr.18. Phép tính kiểm bằng chương trình.
 - **Quyết định:** sửa. Bản cũ dùng $q$ cho điểm mới (xung đột với $q$ là truy vấn); không có hình hay ví dụ; “hướng thoát” là ẩn dụ chưa gắn đối tượng; tiêu đề câu dài.
+
+### H12 — Ba tham số của HNSW
+
+- **Phần:** 3. **Vai trò:** ứng dụng, kiểm tra. **Thời lượng:** 3 phút.
+- **Mục đích:** gọi đúng tham số dùng khi chèn và khi truy vấn; chọn tham số để giảm độ trễ không xây lại.
+- **Câu chốt:** $M$ và $efConstruction$ cố định khi xây; $efSearch$ đổi theo truy vấn và đánh đổi độ trễ với độ thu hồi.
+- **Đầu vào:** giả mã truy vấn (H09) và chèn (H10B). **Thể hiện:** bảng ba cột; hộp câu hỏi.
+- **Kết nối vào–ra:** tổng hợp tham số của H09–H11; giao $M$ cho chi phí bộ nhớ H13 và cho bảng so sánh C00.
+- **Kiểm tra:** giảm $efSearch$ (giữ $\ge K$); mất độ thu hồi. Đáp án trong ghi chú.
+- **Nguồn:** Malkov–Yashunin mục 4.1 tr.5–6, mục 4.2.3 tr.8; Princeton lớp 9 tr.19.
+- **Quyết định:** sửa. Tiêu đề cũ “Ba núm điều khiển ba loại chi phí” dùng ẩn dụ; bảng không nói tham số dùng lúc xây hay lúc truy vấn; thiếu câu hỏi kiểm tra cho phần HNSW.
