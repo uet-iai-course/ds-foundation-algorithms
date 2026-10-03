@@ -67,7 +67,7 @@ Tổng phần giảng: **120 phút**.
 | R04 | 10 | Ô 99: ba cấu hình 6 byte; dự đoán $D/m$, $k^*$; ghi MSE và thời gian mã hóa–giải mã. | $D/m=16,8,4$; $k^*=4096,64,8$ | ô 98–99 |
 | R05 | 10 | Phân tích bảng nhiệm vụ 2: `code_size`, xếp hạng MSE so với nhận định của nguồn, thời gian giải thích bằng $k^*D$. | rubric 10 điểm; không có số cố định | ô 98–99; Princeton 08 tr.32–33 |
 | R06 | 6 | Chạy ô 149–151; đọc $k_c$, $m$, $b$, byte mã, $N/k_c$ từ `IVF200,PQ16x8np`; nêu vai trò ô 150, 151. | 200; 16; 8; 16 byte; 50 | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
-| R07 | 9 | Tiếp tục “IVFPQ index” ở ô 152–155 với `xq,gt` từ ô 17,21–24. | $nok/|xq|$; tổng ms, không gắn nhãn độ trễ mỗi truy vấn | ô 152–155 |
+| R07 | 9 | Chạy ô 152–155; hiểu ba đại lượng đo: $nok/100=\operatorname{recall@1}$, tổng ms của $50\times100$ truy vấn, $nprobe/200$ và số mã được chấm. | đại lượng đo → phiếu R08 | ô 152–155; Princeton 08 tr.4 |
 | R08 | 5 | Hoàn thiện phiếu báo cáo năm dòng và giải thích xu hướng của phép quét nguồn. | không thêm mục tiêu vận hành hoặc $nprobe$ mới | ô 149–155 |
 
 Tổng recitation: **60 phút**. Bài tập giữ dữ kiện và yêu cầu nguồn; các trang chỉ chia bước và thêm mẫu sản phẩm.
@@ -585,3 +585,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** đáp án; ý nghĩa `np`; ô 150, 151 làm gì; chạy trước nếu máy chậm.
 - **Nguồn:** sổ thực hành ô 148–151; tài liệu Faiss “The index factory”.
 - **Quyết định:** sửa. Bản cũ yêu cầu “giải thích chuỗi cấu hình” mà không nói giải thích thành phần nào; không nối với ký hiệu của bài.
+
+### R07 — Độ thu hồi và thời gian theo số danh sách mở
+
+- **Phần:** 7. **Vai trò:** thực nghiệm, đọc đúng đại lượng đo. **Thời lượng:** 9 phút.
+- **Mục đích:** chạy vòng đo của nguồn và diễn giải từng đại lượng bằng khái niệm của bài.
+- **Câu chốt:** $nok/100$ là $\operatorname{recall@1}$ trung bình; thời gian in ra là tổng của $5000$ truy vấn; mở $nprobe$ danh sách chấm khoảng $50\,nprobe$ mã.
+- **Thể hiện:** khối mã ô 155 (`language-python`); bảng ba đại lượng.
+- **Kết nối vào–ra:** dùng A01 (độ thu hồi), I03 (số mã được chấm), R06 ($N/k_c=50$); số liệu ghi vào R08.
+- **Ghi chú diễn giả:** vì sao là recall@1 và không phải recall@10; thời gian mỗi truy vấn; không đổi số lần lặp, kích thước lô.
+- **Nguồn:** sổ thực hành ô 152–155; Princeton lớp 8 tr.4 (trục “1-recall@1”).
+- **Quyết định:** sửa. Bản cũ không có ô 155; định nghĩa $nok/|xq|$ không nối với độ thu hồi của bài (và ghi chú cũ tránh gọi nó là độ thu hồi, trong khi với $K=1$ đó chính là $\operatorname{recall@1}$); tiêu đề chứa ký hiệu bị viết hoa thành “NPROBE”.

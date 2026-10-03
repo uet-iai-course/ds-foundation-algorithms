@@ -655,7 +655,23 @@ index.add(xb)                                       # ô 151
 
 Ô 152–155 truy vấn và thử $nprobe\in\{2,5,10,20,50\}$.
 
-Với mỗi giá trị, báo cáo `nok/|xq|` và tổng thời gian tìm kiếm theo mili giây. Trong notebook, `nok/|xq|` đo độ chính xác hạng 1: kết quả đầu tiên có trùng chuẩn đúng đầu tiên hay không. Nó không tự động bằng recall@K tổng quát. Không gọi tổng thời gian của cả lô là độ trễ mỗi truy vấn.
+```python
+for nprobe in 2, 5, 10, 20, 50:                     # ô 155
+    index.nprobe = nprobe
+    t0 = time.time()
+    for _ in range(50):
+        D, I = index.search(xq, 10)
+    t1 = time.time()
+    nok = (I[:, 0] == gt[:, 0]).sum()
+```
+
+| Đại lượng | Ý nghĩa |
+|---|---|
+| $nok/100$ | $\operatorname{recall@1}$ trung bình trên 100 truy vấn |
+| $(t_1-t_0)\cdot1000$ | tổng mili giây của $50\times100$ lượt truy vấn |
+| $nprobe/200$ | tỷ lệ danh sách mở; khoảng $50\,nprobe$ mã được chấm |
+
+Với $K=1$, định nghĩa độ thu hồi ở mục 1 so kết quả đầu tiên với hàng xóm gần nhất thật, nên `nok/100` là $\operatorname{recall@1}$ trung bình; nó không cho biết độ thu hồi tại $K=10$ dù lời gọi `search` trả 10 kết quả. Thời gian mỗi truy vấn bằng tổng thời gian chia cho 5000. Không đổi số lần lặp hay kích thước lô của nguồn, và không gọi tổng thời gian của cả lô là độ trễ mỗi truy vấn.
 
 ## 12. Tự kiểm cuối bài
 
