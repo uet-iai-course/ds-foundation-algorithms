@@ -8,29 +8,31 @@ Bài 06 tìm các cặp tương đồng bên trong một tập. Bài này xét b
 
 Sau bài này, người học có thể:
 
-- đặc tả bài toán tìm $K$ hàng xóm gần đúng và tính độ thu hồi tại $K$;
-- chạy tìm kiếm tham lam, tìm kiếm chùm và `SEARCH-LAYER` trên đồ thị;
-- giải thích cách HNSW tổ chức tầng, truy vấn, chèn và cắt cạnh;
-- mã hóa véc-tơ bằng lượng tử hóa tích (PQ) và tính khoảng cách bất đối xứng (ADC);
-- mô tả IVF-PQ, phân tích chi phí và nhận ra trường hợp thiếu ứng viên;
-- so sánh LSH, HNSW, PQ quét đầy đủ và IVF-PQ theo bốn trục chi phí–chất lượng.
+1. đặc tả bài toán $K$ hàng xóm gần đúng và tính độ thu hồi tại $K$;
+2. chạy tay tìm kiếm tham lam, tìm kiếm chùm và `SEARCH-LAYER` trên đồ thị, giải thích truy vấn và chèn HNSW; mã hóa véc-tơ bằng lượng tử hóa tích (PQ) và tính khoảng cách bất đối xứng (ADC) bằng bảng tra;
+3. tính bộ nhớ và chi phí truy vấn của HNSW, PQ và IVF-PQ, rồi chọn chỉ mục theo ngân sách bộ nhớ, độ trễ và ngưỡng độ thu hồi.
 
-Kiến thức tiên quyết gồm khoảng cách Euclid, đồ thị có hướng, hàng đợi ưu tiên, xác suất và $k$-means cơ bản. Bài 05–06 đã trình bày LSH và phân dải; bài này chỉ dùng lại vai trò lọc ứng viên của LSH.
+Kiến thức tiên quyết gồm khoảng cách Euclid, đồ thị có hướng, hàng đợi ưu tiên, xác suất cơ bản và $k$-means. Bài 06 đã trình bày LSH; bài này chỉ dùng lại vai trò lọc ứng viên của LSH.
 
 ## Ký hiệu
 
 | Ký hiệu | Nghĩa |
 |---|---|
-| $Y=\{y_1,\dots,y_N\}\subset\mathbb R^D$ | cơ sở dữ liệu véc-tơ |
+| $Y=\{y_1,\dots,y_N\}\subset\mathbb R^D$ | kho véc-tơ; $y$ cũng là biến chạy trên phần tử của kho hoặc lân cận trong giả mã |
 | $q$ | véc-tơ truy vấn |
+| $x$ | điểm mới khi chèn HNSW; véc-tơ trong ví dụ VQ và PQ |
 | $K$ | số hàng xóm cần trả về, $1\le K\le N$ |
 | $N_K(q),\widehat N_K(q)$ | tập đúng và tập gần đúng gồm $K$ hàng xóm |
-| $ef$ | giới hạn kích thước tập kết quả động của `SEARCH-LAYER` |
-| $M$ | tham số số liên kết của HNSW |
-| $m$ | số lượng tử hóa con của PQ; Faiss gọi tham số này là `M` |
-| $k^*=2^b$ | số tâm trong mỗi bộ mã con |
-| $k_c$ | số tâm thô của IVF |
-| $nprobe$ | số danh sách đảo được mở khi truy vấn |
+| $V$, $C$, $W$, $ef$ | tập đã thấy, hàng đợi chưa mở, tập kết quả tạm và bề rộng chùm của `SEARCH-LAYER` |
+| $\ell$, $\ell_c$, $L$ | tầng tối đa của một điểm, tầng đang xét, tầng cao nhất của chỉ mục |
+| $m_L$, $\rho=e^{-1/m_L}$ | hệ số rút tầng và tỷ lệ điểm giữ lại ở tầng trên |
+| $M$, $M_{\max}$, $M_{\max,0}$ | số lân cận nối cho điểm mới; bậc tối đa ở tầng trên và tầng 0 |
+| `efConstruction`, `efSearch` | bề rộng chùm khi chèn và khi truy vấn ở tầng 0 |
+| $k$, $C=\{c_0,\ldots,c_{k-1}\}$ | số tâm và bộ mã của lượng tử hóa véc-tơ (VQ) |
+| $m$, $b$, $k^*=2^b$ | số đoạn PQ (Faiss gọi là `M`), số bit mỗi chỉ số, số tâm mỗi bộ mã con |
+| $q^{(j)}$, $c^{(j)}_i$, $T[j,i]$ | đoạn $j$ của truy vấn, tâm con $i$ của đoạn $j$, ô bảng tra ADC |
+| $k_c$, $\mu_i$, $L_i$, $a(y)$ | số tâm thô, tâm thô, danh sách đảo, tâm thô được gán cho $y$ |
+| $r(y)$, $\widetilde q_i$, $P$, $nprobe$ | phần dư, truy vấn dư, tập danh sách được mở và số danh sách được mở |
 
 ## 1. Truy hồi ngữ nghĩa và bài toán hàng xóm gần nhất
 
