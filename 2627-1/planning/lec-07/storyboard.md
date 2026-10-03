@@ -68,7 +68,7 @@ Tổng phần giảng: **120 phút**.
 | R05 | 10 | Phân tích bảng nhiệm vụ 2: `code_size`, xếp hạng MSE so với nhận định của nguồn, thời gian giải thích bằng $k^*D$. | rubric 10 điểm; không có số cố định | ô 98–99; Princeton 08 tr.32–33 |
 | R06 | 6 | Chạy ô 149–151; đọc $k_c$, $m$, $b$, byte mã, $N/k_c$ từ `IVF200,PQ16x8np`; nêu vai trò ô 150, 151. | 200; 16; 8; 16 byte; 50 | ô 148–151; tài liệu Faiss index factory chỉ kiểm chứng `np` |
 | R07 | 9 | Chạy ô 152–155; hiểu ba đại lượng đo: $nok/100=\operatorname{recall@1}$, tổng ms của $50\times100$ truy vấn, $nprobe/200$ và số mã được chấm. | đại lượng đo → phiếu R08 | ô 152–155; Princeton 08 tr.4 |
-| R08 | 5 | Hoàn thiện phiếu báo cáo năm dòng và giải thích xu hướng của phép quét nguồn. | không thêm mục tiêu vận hành hoặc $nprobe$ mới | ô 149–155 |
+| R08 | 5 | Phiếu năm dòng ($nprobe$ cho sẵn): recall@1, tổng ms, ms mỗi truy vấn, số mã được chấm; đồ thị và giải thích. | $50\,nprobe$ mã; rubric 10 điểm | ô 149–155 |
 
 Tổng recitation: **60 phút**. Bài tập giữ dữ kiện và yêu cầu nguồn; các trang chỉ chia bước và thêm mẫu sản phẩm.
 
@@ -596,3 +596,13 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** vì sao là recall@1 và không phải recall@10; thời gian mỗi truy vấn; không đổi số lần lặp, kích thước lô.
 - **Nguồn:** sổ thực hành ô 152–155; Princeton lớp 8 tr.4 (trục “1-recall@1”).
 - **Quyết định:** sửa. Bản cũ không có ô 155; định nghĩa $nok/|xq|$ không nối với độ thu hồi của bài (và ghi chú cũ tránh gọi nó là độ thu hồi, trong khi với $K=1$ đó chính là $\operatorname{recall@1}$); tiêu đề chứa ký hiệu bị viết hoa thành “NPROBE”.
+
+### R08 — Phiếu báo cáo nhiệm vụ 3
+
+- **Phần:** 7. **Vai trò:** tổng hợp số đo, giải thích bằng cơ chế. **Thời lượng:** 5 phút.
+- **Mục đích:** ghi kết quả vòng đo, vẽ đường độ thu hồi–thời gian và giải thích bằng số mã được chấm.
+- **Thể hiện:** bảng năm hàng, cột $nprobe$ cho sẵn, bốn cột để điền; dòng yêu cầu.
+- **Kết nối vào–ra:** dùng R07 và I03; khép phần thực hành và bài.
+- **Ghi chú diễn giả:** số mã được chấm 100–2500; cách tính ms mỗi truy vấn; xu hướng thường thấy nhưng chỉ kết luận theo số đo; rubric 10 điểm.
+- **Nguồn:** sổ thực hành ô 149–155.
+- **Quyết định:** sửa. Bản cũ chỉ có một hàng trống cho năm giá trị; thiếu cột thời gian mỗi truy vấn và số mã được chấm; tiêu đề “Báo cáo phép quét của nguồn” khó hiểu.

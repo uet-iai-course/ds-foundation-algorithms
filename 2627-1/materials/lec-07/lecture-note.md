@@ -673,6 +673,20 @@ for nprobe in 2, 5, 10, 20, 50:                     # ô 155
 
 Với $K=1$, định nghĩa độ thu hồi ở mục 1 so kết quả đầu tiên với hàng xóm gần nhất thật, nên `nok/100` là $\operatorname{recall@1}$ trung bình; nó không cho biết độ thu hồi tại $K=10$ dù lời gọi `search` trả 10 kết quả. Thời gian mỗi truy vấn bằng tổng thời gian chia cho 5000. Không đổi số lần lặp hay kích thước lô của nguồn, và không gọi tổng thời gian của cả lô là độ trễ mỗi truy vấn.
 
+Ghi kết quả vào phiếu, vẽ $\operatorname{recall@1}$ theo mili giây mỗi truy vấn, rồi mô tả xu hướng và giải thích bằng số mã được chấm, chỉ trong phạm vi năm phép đo.
+
+| $nprobe$ | $\operatorname{recall@1}$ | tổng ms | ms mỗi truy vấn | số mã được chấm |
+|---|---|---|---|---|
+| 2 | | | | |
+| 5 | | | | |
+| 10 | | | | |
+| 20 | | | | |
+| 50 | | | | |
+
+::: solution
+Cột “số mã được chấm” theo giả thiết danh sách cân bằng là $50\,nprobe$: 100; 250; 500; 1000; 2500 trên $N=10^4$. Cột “ms mỗi truy vấn” bằng tổng ms chia 5000. Xu hướng thường thấy là độ thu hồi và thời gian cùng tăng khi $nprobe$ tăng, vì nhiều danh sách hơn được mở; kết luận chỉ dựa trên số đo của máy đã chạy.
+:::
+
 ## 12. Tự kiểm cuối bài
 
 ::: exercise Câu 1
