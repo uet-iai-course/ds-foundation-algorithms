@@ -15,46 +15,46 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 |---|---:|---|---|---|
 | P00 | 0 | Nhận diện bài, ba cấu trúc và cầu nối từ bài toán tìm cặp của Bài 6 sang bài toán truy vấn. | LSH → HNSW, PQ, IVF-PQ | BIODS tr.16–18; Princeton 08–09 |
 | P01 | 4 | Mở bằng tình huống truy hồi ngữ nghĩa: quy trình nhúng, dung lượng kho và chi phí quét một truy vấn. | $10^{10},3072$ → 122,88 TB, $3{,}07\cdot10^{13}$ tọa độ mỗi truy vấn | BIODS tr.16–17; tình huống dựng từ cấu hình nguồn |
-| P02 | 3 | Nêu sáu phần của bài và ba mục tiêu học tập có sản phẩm cụ thể. | tình huống → dàn bài, mục tiêu | `sources/source.md` |
+| P02 | 2 | Nêu sáu phần của bài và ba mục tiêu học tập có sản phẩm cụ thể. | tình huống → dàn bài, mục tiêu | `sources/source.md` |
 | A00 | 4 | Đặc tả tìm đúng ($K$-NN, phá hòa theo mã định danh), chi phí quét $\Theta(ND)$ và nới điều kiện thành tìm gần đúng (ANN). | $Y,q,d,K$ → $N_K(q)$, $\widehat N_K(q)$; $3{,}07\cdot10^{13}$ tọa độ | HNSW paper tr.1; PQ paper tr.1 |
 | A01 | 3 | Định nghĩa độ thu hồi tại $K$, tính trên ví dụ năm phần tử và kiểm tra bằng một câu hỏi. | hai tập $K$ phần tử → recall@K; $3/5$, câu hỏi $2/5$ | HNSW paper tr.1 |
-| A02 | 3 | Nêu bốn trục đánh giá, điều kiện giữ cố định và kiểm tra bằng so sánh A/B. | recall → chất lượng, truy vấn, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
-| A03 | 3 | Tách chi phí truy vấn thành số véc-tơ được đo nhân chi phí một phép đo; gắn LSH, HNSW, PQ, IVF-PQ vào thừa số mỗi cấu trúc giảm. | $\Theta(ND)$ → hai thừa số → bản đồ cấu trúc | MMDS Ch.3; Princeton 09 tr.4,5,7; Princeton 08 tr.2 |
-| H00 | 3 | Định nghĩa đồ thị lân cận trên đồ thị ví dụ bảy đỉnh; nêu dữ liệu lưu và ý tưởng đi tới đỉnh gần $q$ hơn. | véc-tơ → đỉnh, cạnh, điểm vào | Princeton 09 tr.7–8 |
-| H01 | 7 | Chạy tay tham lam trên đồ thị ví dụ (hình và bảng vết cùng trang); định nghĩa cực tiểu cục bộ. Gộp H02 cũ. | $e:9\to a:7\to b:5$ → dừng ở cực tiểu cục bộ, bỏ $z:1$ | Princeton 09 tr.8, 11–13; ví dụ dựng từ cơ chế nguồn |
-| H03 | 5 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
-| H04 | 3 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
-| H05 | 5 | Giả mã `SEARCH-LAYER` theo Thuật toán 2; nối dòng tính lại ngưỡng $f$ với bước mở $s$ của ví dụ. | $V,C,W$ → thuật toán; ngưỡng $8\to7$ | HNSW paper alg.2, tr.4 |
-| H06 | 4 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
-| H06B | 3 | Thêm trang: ví dụ một chiều cho thấy cạnh dài giảm số bước tham lam từ 6 xuống 3; động cơ của các tầng HNSW. | chỉ cạnh ngắn → thêm cạnh dài | Princeton 09 tr.11–13; HNSW paper §3 tr.3 |
-| H07 | 4 | Cấu trúc tầng (tầng 0 chứa mọi điểm, tầng trên là tập con thưa) và cách truy vấn đi xuống, trên cùng 12 điểm của H06B. | $s\to p4\to p8$ ↓ $p8\to p6$ ↓ $p6$ | HNSW paper Fig.1, §3, tr.3; Princeton 09 tr.17 |
-| H09 | 4 | Đặc tả và giả mã truy vấn HNSW; hình gọn ba tầng nhắc lại vết $ep=p8$, $p6$. | tìm tầng → $K$ kết quả; $efSearch\ge K$ | HNSW paper alg.5, tr.5 |
+| A02 | 2 | Nêu bốn trục đánh giá, điều kiện giữ cố định và kiểm tra bằng so sánh A/B. | recall → chất lượng, truy vấn, xây dựng, bộ nhớ | Princeton 08 tr.2–5; Princeton 09 tr.2 |
+| A03 | 2 | Tách chi phí truy vấn thành số véc-tơ được đo nhân chi phí một phép đo; gắn LSH, HNSW, PQ, IVF-PQ vào thừa số mỗi cấu trúc giảm. | $\Theta(ND)$ → hai thừa số → bản đồ cấu trúc | MMDS Ch.3; Princeton 09 tr.4,5,7; Princeton 08 tr.2 |
+| H00 | 2 | Định nghĩa đồ thị lân cận trên đồ thị ví dụ bảy đỉnh; nêu dữ liệu lưu và ý tưởng đi tới đỉnh gần $q$ hơn. | véc-tơ → đỉnh, cạnh, điểm vào | Princeton 09 tr.7–8 |
+| H01 | 4 | Chạy tay tham lam trên đồ thị ví dụ (hình và bảng vết cùng trang); định nghĩa cực tiểu cục bộ. Gộp H02 cũ. | $e:9\to a:7\to b:5$ → dừng ở cực tiểu cục bộ, bỏ $z:1$ | Princeton 09 tr.8, 11–13; ví dụ dựng từ cơ chế nguồn |
+| H03 | 4 | Định nghĩa ngắn $C$, $W$, $ef$; chạy tay tìm kiếm chùm $ef=3$ đủ 7 lần mở trên đồ thị ví dụ; câu hỏi $ef=2$. | $e,a,b,s,t,u,z$ → $W=\{z,u,t\}$ | Princeton 09 tr.9; HNSW paper alg.2 |
+| H04 | 2 | Đặc tả đầu vào, đầu ra và ba tập trạng thái của `SEARCH-LAYER`; hình trạng thái thật của ví dụ sau khi mở $b$. | $ep$, $ef$, $\ell_c$ → $W$; $C,W\subseteq V$ | HNSW paper tr.4 |
+| H05 | 4 | Giả mã `SEARCH-LAYER` theo Thuật toán 2; nối dòng tính lại ngưỡng $f$ với bước mở $s$ của ví dụ. | $V,C,W$ → thuật toán; ngưỡng $8\to7$ | HNSW paper alg.2, tr.4 |
+| H06 | 3 | Phát biểu và chứng minh bất biến “$W$ là $\min(ef,|V|)$ đỉnh của $V$ gần $q$ nhất” (khởi tạo, duy trì, khi dừng); minh họa giới hạn bằng lần chạy $ef=2$. | vết $ef=2$ → $W$ đúng trên $V$, $z\notin V$ | suy ra từ alg.2 |
+| H06B | 2 | Thêm trang: ví dụ một chiều cho thấy cạnh dài giảm số bước tham lam từ 6 xuống 3; động cơ của các tầng HNSW. | chỉ cạnh ngắn → thêm cạnh dài | Princeton 09 tr.11–13; HNSW paper §3 tr.3 |
+| H07 | 3 | Cấu trúc tầng (tầng 0 chứa mọi điểm, tầng trên là tập con thưa) và cách truy vấn đi xuống, trên cùng 12 điểm của H06B. | $s\to p4\to p8$ ↓ $p8\to p6$ ↓ $p6$ | HNSW paper Fig.1, §3, tr.3; Princeton 09 tr.17 |
+| H09 | 3 | Đặc tả và giả mã truy vấn HNSW; hình gọn ba tầng nhắc lại vết $ep=p8$, $p6$. | tìm tầng → $K$ kết quả; $efSearch\ge K$ | HNSW paper alg.5, tr.5 |
 | H08 | 3 | Chuyển xuống sau H09. Rút tầng ngẫu nhiên; suy ra $\Pr[\ell\ge k]=p^k$, $p=e^{-1/m_L}$; ví dụ $p=1/16$, tầng cao nhất khoảng 8 khi $N=10^{10}$. | $U,m_L$ → phân phối hình học, $\log_{1/p}N$ tầng | HNSW paper alg.1 dòng 4; §3; §4.1 |
-| H10 | 4 | Tách: ví dụ chèn $x=2{,}6$, $\ell=1$, $M=2$ vào đồ thị ba tầng; bảng ba tầng và hình. | pha 1 → $ep=p4$; pha 2 → nối $p2,p4$ (tầng 1), $p3,p2$ (tầng 0) | HNSW paper alg.1, tr.4 |
+| H10 | 3 | Tách: ví dụ chèn $x=2{,}6$, $\ell=1$, $M=2$ vào đồ thị ba tầng; bảng ba tầng và hình. | pha 1 → $ep=p4$; pha 2 → nối $p2,p4$ (tầng 1), $p3,p2$ (tầng 0) | HNSW paper alg.1, tr.4 |
 | H10B | 3 | Tách: giả mã chèn hai pha và định nghĩa $M$, $efConstruction$, $M_{max}$, $M_{max,0}$. | điểm mới → HNSW cập nhật | HNSW paper alg.1, tr.4; §4.1 tr.5–6 |
 | H11 | 3 | Quy tắc chọn lân cận đa dạng; ví dụ hai chiều bốn ứng viên so với chọn gần nhất. | $\{c1,c3\}$ → $\{c1,c4\}$ | HNSW paper alg.4, tr.4–5; Princeton 09 tr.18 |
-| H12 | 3 | Ba tham số, thời điểm dùng và đánh đổi; câu hỏi giảm độ trễ không xây lại. | $M$, $efConstruction$, $efSearch$ → chọn tham số | HNSW paper §4.1 tr.5–6; §4.2.3 tr.8 |
-| H13 | 4 | Chi phí bộ nhớ thay số cho $10^{10}$ véc-tơ (véc-tơ 122,88 TB, cạnh khoảng 2,65 TB); chi phí truy vấn và giới hạn $\log N$; nối sang PQ. | giả định $M=16$ → 98% bộ nhớ là véc-tơ gốc | HNSW paper §4.2 tr.7, §4.2.3 tr.8; Princeton 09 tr.2, 7 |
-| Q00 | 6 | Gộp Q01: mở phần 4 từ nhu cầu giảm bộ nhớ; lượng tử hóa véc-tơ trên hình ba tâm, phép tính mã và tái dựng, câu hỏi điểm $y$. | $x=(1{,}7;0{,}4)$ → mã 1, sai số 0,25; $y$ → mã 2, 0,61 | Princeton 08 tr.8–9; PQ paper §II-A tr.2 |
-| Q02 | 3 | Đặc tả VQ: đầu vào (bộ mã học bằng k-means), đầu ra và điều kiện sau, chi phí mã hóa $\Theta(kD)$ và lưu $kD$ số. | ví dụ Q00 → $i(x),\widehat x$, chi phí theo $k$ | PQ paper eq.2–5, tr.2; Princeton 08 tr.9–10, 32 |
+| H12 | 2 | Ba tham số, thời điểm dùng và đánh đổi; câu hỏi giảm độ trễ không xây lại. | $M$, $efConstruction$, $efSearch$ → chọn tham số | HNSW paper §4.1 tr.5–6; §4.2.3 tr.8 |
+| H13 | 3 | Chi phí bộ nhớ thay số cho $10^{10}$ véc-tơ (véc-tơ 122,88 TB, cạnh khoảng 2,65 TB); chi phí truy vấn và giới hạn $\log N$; nối sang PQ. | giả định $M=16$ → 98% bộ nhớ là véc-tơ gốc | HNSW paper §4.2 tr.7, §4.2.3 tr.8; Princeton 09 tr.2, 7 |
+| Q00 | 4 | Gộp Q01: mở phần 4 từ nhu cầu giảm bộ nhớ; lượng tử hóa véc-tơ trên hình ba tâm, phép tính mã và tái dựng, câu hỏi điểm $y$. | $x=(1{,}7;0{,}4)$ → mã 1, sai số 0,25; $y$ → mã 2, 0,61 | Princeton 08 tr.8–9; PQ paper §II-A tr.2 |
+| Q02 | 2 | Đặc tả VQ: đầu vào (bộ mã học bằng k-means), đầu ra và điều kiện sau, chi phí mã hóa $\Theta(kD)$ và lưu $kD$ số. | ví dụ Q00 → $i(x),\widehat x$, chi phí theo $k$ | PQ paper eq.2–5, tr.2; Princeton 08 tr.9–10, 32 |
 | Q03 | 2 | Thay số chi phí của một bộ mã $k=2^{64}$, $D=128$: lưu, mã hóa, học. | $9{,}4\cdot10^{21}$ byte → cần bộ mã nhỏ cho mã dài | PQ paper §II-B tr.3; Princeton 08 tr.18 |
 | Q04 | 3 | Định nghĩa PQ: chia đoạn, bộ mã con, mã $m\log_2k^*$ bit, tái dựng bằng ghép tâm con; hình $D=8$, $m=4$. | $D$ → $m$ đoạn → mã 32 bit | PQ paper §II-B eq.8–9, tr.3; Princeton 08 tr.29–31 |
 | Q05 | 3 | Chạy tay mã PQ hai đoạn: khoảng cách từng đoạn, mã, tái dựng, sai số; hình hai mặt phẳng con. | hai bộ mã → mã $(0,1)$, sai số 0,18 | suy ra từ định nghĩa nguồn |
-| Q07 | 4 | Kích thước mã và bộ mã PQ; so với VQ cùng mã 64 bit; thay số cho kho $10^{10}$ véc-tơ (512 byte, 5,12 TB). | $m,k^*,D,b$ → $k^*D$ số, $\lceil mb/8\rceil$ byte | PQ paper §II-B tr.3; Princeton 08 tr.32–33; BIODS tr.17 |
+| Q07 | 3 | Kích thước mã và bộ mã PQ; so với VQ cùng mã 64 bit; thay số cho kho $10^{10}$ véc-tơ (512 byte, 5,12 TB). | $m,k^*,D,b$ → $k^*D$ số, $\lceil mb/8\rceil$ byte | PQ paper §II-B tr.3; Princeton 08 tr.32–33; BIODS tr.17 |
 | Q06 | 3 | Chuyển sau Q07. Ví dụ ADC: định nghĩa bằng lời, hình hai đoạn có $q$, bảng hai số hạng, so 0,31 với giá trị đúng 0,07. | mã $(0,1)$ + $q$ → 0,31 | PQ paper eq.13, tr.4; Princeton 08 tr.25–26 |
-| Q08 | 3 | Công thức ADC; mỗi số hạng chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j$, nên mỗi đoạn có $k^*$ giá trị tính trước được. | truy vấn đầy đủ + mã → tổng $m$ số hạng | PQ paper §III-A eq.13, tr.4; Princeton 08 tr.26–27 |
+| Q08 | 2 | Công thức ADC; mỗi số hạng chỉ phụ thuộc $q^{(j)}$ và chỉ số $i_j$, nên mỗi đoạn có $k^*$ giá trị tính trước được. | truy vấn đầy đủ + mã → tổng $m$ số hạng | PQ paper §III-A eq.13, tr.4; Princeton 08 tr.26–27 |
 | Q09 | 3 | Bảng tra trên ví dụ hai đoạn (ô của mã $(0,1)$ đánh dấu); chi phí lập bảng, chấm mã so với tính trực tiếp. | $T$ 2×2 → 0,31 và 13,51; $\Theta(k^*D)$, $m$ lần tra | PQ paper §III-A tr.4; Princeton 08 tr.27, 31–32 |
 | Q10 | 3 | Thay số quét mã PQ so với quét véc-tơ gốc cho $10^{10}$ véc-tơ; câu hỏi thời gian; nối sang chỉ mở một phần kho. | 5,12 TB, $5{,}12\cdot10^{12}$ lần tra, 5,12 s | PQ paper tr.2, §IV tr.6; Princeton 08 tr.20–22 |
-| I00 | 4 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
+| I00 | 3 | Định nghĩa tệp đảo trên ví dụ bốn ô, mười sáu điểm; vai trò của IVF và PQ trong IVF-PQ. | $q=(6;3{,}5)$, $nprobe=2$ → mở $L_1,L_0$, chấm 8/16 | Princeton 08 tr.21–22; PQ paper §IV tr.6–7 |
 | I01 | 3 | Công thức gán vào tâm thô; xếp bốn tâm theo khoảng cách tới $q$; câu hỏi $nprobe=1$ bỏ sót $y_3$. | $q$ → thứ tự $\mu_1,\mu_0,\mu_3,\mu_2$ | Princeton 08 tr.21–22; PQ paper §IV-A, IV-C tr.6–7 |
 | I02 | 3 | Phần dư $r(y)$, đẳng thức $\|q-y\|=\|(q-\mu_i)-r(y)\|$, một bảng tra cho mỗi danh sách mở; ví dụ $y_8$. | $r(y_8)$, $\widetilde q_1$, $\widetilde q_0$ → 1,25 | PQ paper §IV-A, IV-B tr.6, eq.31 |
 | I04 | 4 | Giả mã truy vấn IVF-PQ; vết trên bốn danh sách ($nprobe=2$, $K=3$); câu hỏi $nprobe=1$. | $y_8,y_3,y_7$; $nprobe=1$ → recall@3 $=2/3$ | PQ paper §IV-C tr.7; Princeton 08 tr.21 |
 | I03 | 3 | Chuyển sau I04. Đếm chi phí truy vấn theo ba bước, thay số cho $10^{10}$ véc-tơ với $k_c=10^5$, $nprobe=64$. | $\approx3{,}6\cdot10^9$, ít hơn 1400 lần quét đủ | PQ paper §IV-C tr.7; Princeton 08 tr.22; 09 tr.5 |
 | C00 | 5 | So sánh LSH, HNSW, PQ quét đủ, IVF-PQ theo thừa số được giảm, bộ nhớ, truy vấn, tham số; thu hồi tình huống mở đầu bằng số. | 125 TB và 5,2 TB; $3{,}6\cdot10^9$ thao tác | tổng hợp các nguồn; số liệu suy ra từ H13, Q07, Q10, I03 |
-| C01 | 4 | Thêm: ba câu tự kiểm (độ thu hồi; tìm kiếm chùm $ef=2$/$ef=3$; bộ nhớ HNSW so 64 GB). | đáp án $1/2$; không/có; 77,7 GB | dữ kiện học phần dựng |
-| C02 | 4 | Thêm: ba câu tự kiểm (kích thước PQ $D=960$; ADC bằng bảng tra; số mã IVF-PQ). | 8 byte, 245 760 số; 3,6; 500 000 mã | PQ paper (GIST $D=960$); Princeton 09 tr.5 |
+| C01 | 5 | Thêm: ba câu tự kiểm (độ thu hồi; tìm kiếm chùm $ef=2$/$ef=3$; bộ nhớ HNSW so 64 GB). | đáp án $1/2$; không/có; 77,7 GB | dữ kiện học phần dựng |
+| C02 | 5 | Thêm: ba câu tự kiểm (kích thước PQ $D=960$; ADC bằng bảng tra; số mã IVF-PQ). | 8 byte, 245 760 số; 3,6; 500 000 mã | PQ paper (GIST $D=960$); Princeton 09 tr.5 |
 
-Tổng phần giảng: **120 phút**.
+Tổng phần giảng: **120 phút** (cân lại ngày 03/10/2026: 40 trang; mở đầu 6, bài toán 11, HNSW 44, PQ 28, IVF-PQ 16, tổng kết 15 phút).
 
 ## Từng trang bài tập
 
@@ -112,7 +112,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### P02 — Nội dung và mục tiêu
 
-- **Phần:** 1, mở đầu. **Vai trò:** định hướng. **Thời lượng:** 3 phút.
+- **Phần:** 1, mở đầu. **Vai trò:** định hướng. **Thời lượng:** 2 phút.
 - **Mục đích:** nêu được thứ tự sáu phần và ba việc phải làm được sau buổi học.
 - **Câu chốt:** đồ thị giảm số véc-tơ phải đo, PQ giảm chi phí mỗi phép đo, IVF-PQ ghép hai cách; ba mục tiêu là đặc tả và đo, chạy tay, tính chi phí và chọn chỉ mục.
 - **Đầu vào:** tình huống P01. **Thể hiện:** bố cục `agenda-slide` như Bài 06: danh sách phần bên trái, ba mục tiêu đánh số bên phải.
@@ -144,7 +144,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### A02 — Bốn trục đánh giá chỉ mục
 
-- **Phần:** 2. **Vai trò:** khung đánh giá, kiểm tra. **Thời lượng:** 3 phút.
+- **Phần:** 2. **Vai trò:** khung đánh giá, kiểm tra. **Thời lượng:** 2 phút.
 - **Mục đích:** nêu bốn trục và điều kiện phải giữ cố định; giải thích vì sao một số đo đơn lẻ không xếp hạng được chỉ mục.
 - **Câu chốt:** chỉ mục gần đúng đánh đổi chất lượng lấy thời gian và bộ nhớ, nên phải đo đủ bốn trục trong cùng điều kiện.
 - **Đầu vào:** $\operatorname{recall@K}$ (A01). **Thể hiện:** bảng ba cột; hộp câu hỏi A/B.
@@ -155,7 +155,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### A03 — Hai cách giảm chi phí truy vấn
 
-- **Phần:** 2 (kết phần). **Vai trò:** trực giác, bản đồ cơ chế. **Thời lượng:** 3 phút.
+- **Phần:** 2 (kết phần). **Vai trò:** trực giác, bản đồ cơ chế. **Thời lượng:** 2 phút.
 - **Mục đích:** chỉ ra mỗi cấu trúc giảm thừa số nào của chi phí truy vấn.
 - **Câu chốt:** LSH và HNSW giảm số véc-tơ được đo; PQ giảm chi phí một phép đo và bộ nhớ; IVF-PQ giảm cả hai.
 - **Đầu vào:** $\Theta(ND)$ (A00), LSH (Bài 06). **Thể hiện:** đẳng thức chữ chi phí ≈ (số véc-tơ được đo) × (chi phí một phép đo); hai thẻ theo hai thừa số; câu chốt IVF-PQ.
@@ -166,7 +166,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H00 — Đồ thị lân cận
 
-- **Phần:** 3, tìm kiếm trên đồ thị HNSW (thuật toán). **Vai trò:** mở phần, trực giác. **Thời lượng:** 3 phút.
+- **Phần:** 3, tìm kiếm trên đồ thị HNSW (thuật toán). **Vai trò:** mở phần, trực giác. **Thời lượng:** 2 phút.
 - **Mục đích:** mô tả đồ thị lân cận (đỉnh, cạnh, điểm vào, dữ liệu lưu) và ý tưởng tìm bằng cách đi tới đỉnh gần $q$ hơn.
 - **Câu chốt:** chỉ các đỉnh trên đường đi được đo, nên đồ thị giảm thừa số “số véc-tơ được đo” của A03.
 - **Đầu vào:** hai thừa số chi phí (A03). **Thể hiện:** hình `do-thi-vi-du.svg` (tọa độ thật; khoảng cách tới $q$: e 9, a 7, b 5, s 8, t 4, u 2, z 1; cạnh e–a, a–b, e–s, s–t, t–u, u–z) và ba gạch đầu dòng.
@@ -177,7 +177,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H01 — Tìm kiếm tham lam (gộp H02 cũ)
 
-- **Phần:** 3. **Vai trò:** ví dụ chạy tay, nêu giới hạn. **Thời lượng:** 7 phút (gộp 4 + 3 của H01, H02 cũ).
+- **Phần:** 3. **Vai trò:** ví dụ chạy tay, nêu giới hạn. **Thời lượng:** 4 phút.
 - **Mục đích:** chạy tay tham lam trên đồ thị ví dụ và giải thích vì sao điểm dừng chỉ là cực tiểu cục bộ.
 - **Câu chốt:** tham lam dừng ở cực tiểu cục bộ $b:5$ vì không quay lui; $z:1$ nằm trên nhánh $s$ đã bị bỏ ở bước đầu.
 - **Đầu vào:** đồ thị lân cận (H00), vẽ lại trên trang bằng `do-thi-tham-lam.svg`. **Thể hiện:** câu quy tắc một bước; hình (đường e→a→b tô cam, đỉnh b viền cam) cạnh bảng vết ba hàng; câu chốt định nghĩa cực tiểu cục bộ.
@@ -188,7 +188,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H03 — Tìm kiếm chùm
 
-- **Phần:** 3. **Vai trò:** trực giác và ví dụ chạy tay trước khi hình thức hóa. **Thời lượng:** 5 phút.
+- **Phần:** 3. **Vai trò:** trực giác và ví dụ chạy tay trước khi hình thức hóa. **Thời lượng:** 4 phút.
 - **Mục đích:** chạy tay tìm kiếm chùm, theo dõi $C$ và $W$, giải thích vì sao giữ nhánh dự phòng giúp thoát cực tiểu cục bộ.
 - **Câu chốt:** $s$ còn trong $C$ khi nhánh $b$ hết lân cận mới, nên tìm kiếm chùm $ef=3$ đi tiếp tới $z$; $ef=1$ trùng tham lam.
 - **Đầu vào:** đồ thị ví dụ, vẽ lại bằng `do-thi-chum.svg`; khái niệm cực tiểu cục bộ (H01). **Thể hiện:** dòng định nghĩa $C$, $W$, $ef$; hình cạnh bảng vết 7 hàng (lớp `ann-compact`); hộp câu hỏi.
@@ -199,7 +199,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H04 — Đặc tả SEARCH-LAYER
 
-- **Phần:** 3. **Vai trò:** hình thức hóa. **Thời lượng:** 3 phút.
+- **Phần:** 3. **Vai trò:** hình thức hóa. **Thời lượng:** 2 phút.
 - **Mục đích:** nêu đầu vào, đầu ra, điều kiện trước và ba tập trạng thái của `SEARCH-LAYER`; nhận ra tìm kiếm chùm vừa chạy là một lời gọi của nó.
 - **Câu chốt:** `SEARCH-LAYER` trả tối đa $ef$ đỉnh gần $q$ nhất trong các đỉnh đã thấy, không phải trong toàn tầng.
 - **Đầu vào:** vết chùm $ef=3$ (H03), nhắc lại bằng hình `search-layer-trang-thai.svg` (V = {e, a, b, s}, C = {s}, W = {b, a, s}). **Thể hiện:** hình bên trái; ba dòng đầu vào/đầu ra/trạng thái bên phải.
@@ -210,7 +210,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H05 — Giả mã SEARCH-LAYER
 
-- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 5 phút.
+- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 4 phút.
 - **Mục đích:** đọc giả mã, chỉ ra dòng khởi tạo, điều kiện dừng, điều kiện chấp nhận và vì sao tính lại ngưỡng $f$.
 - **Câu chốt:** $f$ là ngưỡng chấp nhận và phải tính lại sau mỗi thay đổi của $W$; ở ví dụ ngưỡng đổi từ $s{:}8$ sang $a{:}7$ khi mở $s$.
 - **Đầu vào:** đặc tả và ba tập (H04). **Thể hiện:** một khối giả mã 13 dòng (`data-trim`); câu chốt nối một bước của ví dụ với dòng tính lại $f$ (nhắc lại $W=\{b,a,s\}$ bằng giá trị, không dẫn chiếu trang).
@@ -221,7 +221,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H06 — Bất biến của SEARCH-LAYER
 
-- **Phần:** 3. **Vai trò:** lập luận đúng và giới hạn. **Thời lượng:** 4 phút.
+- **Phần:** 3. **Vai trò:** lập luận đúng và giới hạn. **Thời lượng:** 3 phút.
 - **Mục đích:** phát biểu bất biến, chứng minh bằng khởi tạo–duy trì–khi dừng, và chỉ ra kết luận chỉ đúng trên tập đỉnh đã thấy.
 - **Câu chốt:** $W$ luôn là $\min(ef,|V|)$ đỉnh gần $q$ nhất trong $V$; đỉnh ngoài $V$ không được bảo đảm.
 - **Đầu vào:** giả mã H05; câu hỏi $ef=2$ ở H03, nhắc lại bằng hình `do-thi-ef2.svg` (đỉnh đã thấy tô xanh, đỉnh chưa thấy viền đứt, $W$ viền kép). **Thể hiện:** mệnh đề ở dòng đầu; hình bên trái, bảng ba hàng bên phải; câu chốt ví dụ.
@@ -232,7 +232,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H06B — Cạnh dài rút ngắn đường đi (trang mới)
 
-- **Phần:** 3. **Vai trò:** nêu vấn đề và trực giác cho cấu trúc nhiều tầng. **Thời lượng:** 3 phút.
+- **Phần:** 3. **Vai trò:** nêu vấn đề và trực giác cho cấu trúc nhiều tầng. **Thời lượng:** 2 phút.
 - **Mục đích:** chạy tham lam trên ví dụ một chiều có và không có cạnh dài; giải thích vì sao HNSW tách cạnh theo thang độ dài.
 - **Câu chốt:** cạnh dài đưa tìm kiếm tới gần $q$ nhanh, cạnh ngắn tinh chỉnh; HNSW đặt hai loại cạnh vào các tầng khác nhau.
 - **Đầu vào:** tìm kiếm tham lam (H01). **Thể hiện:** hình `canh-dai-mot-chieu.svg` (hai dãy 12 điểm, $q$ ở tọa độ 6,4; đường tham lam tô cam: 6 bước và 3 bước); câu chốt.
@@ -243,7 +243,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H07 — Đồ thị nhiều tầng
 
-- **Phần:** 3. **Vai trò:** mô hình cấu trúc và trực giác truy vấn. **Thời lượng:** 4 phút.
+- **Phần:** 3. **Vai trò:** mô hình cấu trúc và trực giác truy vấn. **Thời lượng:** 3 phút.
 - **Mục đích:** mô tả tập điểm của từng tầng và lần theo truy vấn từ tầng cao xuống tầng 0.
 - **Câu chốt:** tầng trên dùng $ef=1$ để đưa điểm vào tới gần $q$; tầng 0 dùng chùm $efSearch$.
 - **Đầu vào:** ví dụ một chiều và ý tưởng cạnh dài (H06B), SEARCH-LAYER (H04–H05). **Thể hiện:** hình `do-thi-nhieu-tang.svg` (ba tầng trên cùng 12 điểm, đường cam, mũi tên xuống tại $p8$ và $p6$; vết tính lại bằng chương trình); hai gạch đầu dòng.
@@ -265,7 +265,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H09 — Giả mã truy vấn HNSW
 
-- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 4 phút.
+- **Phần:** 3. **Vai trò:** thuật toán. **Thời lượng:** 3 phút.
 - **Mục đích:** đọc giả mã truy vấn; chỉ ra lời gọi $ef=1$ ở tầng trên và $efSearch$ ở tầng 0; nêu điều kiện $efSearch\ge K$.
 - **Câu chốt:** truy vấn là chuỗi lời gọi SEARCH-LAYER: tham lam ở tầng trên để có điểm vào, chùm $efSearch$ ở tầng 0 để có $K$ kết quả.
 - **Đầu vào:** SEARCH-LAYER (H04–H06), cấu trúc tầng (H07), nhắc lại bằng hình `do-thi-nhieu-tang-gon.svg`. **Thể hiện:** dòng đầu vào/đầu ra; giả mã 6 dòng bên trái; hình gọn và dòng vết bên phải.
@@ -276,7 +276,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H10 — Chèn một điểm mới (tách từ H10 cũ)
 
-- **Phần:** 3. **Vai trò:** ví dụ chạy tay trước giả mã. **Thời lượng:** 4 phút.
+- **Phần:** 3. **Vai trò:** ví dụ chạy tay trước giả mã. **Thời lượng:** 3 phút.
 - **Mục đích:** chạy tay chèn một điểm qua hai pha trên đồ thị ba tầng.
 - **Câu chốt:** chèn là truy vấn chính $x$, rồi nối $x$ với các đỉnh gần nó ở từng tầng $\le\ell$.
 - **Đầu vào:** đồ thị ba tầng (H07), truy vấn (H09), tầng $\ell$ (H08). **Thể hiện:** dòng dữ kiện; hình `chen-vi-du.svg` (pha 1 cam, cạnh mới xanh đứt) cạnh bảng ba tầng; câu chốt.
@@ -308,7 +308,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H12 — Ba tham số của HNSW
 
-- **Phần:** 3. **Vai trò:** ứng dụng, kiểm tra. **Thời lượng:** 3 phút.
+- **Phần:** 3. **Vai trò:** ứng dụng, kiểm tra. **Thời lượng:** 2 phút.
 - **Mục đích:** gọi đúng tham số dùng khi chèn và khi truy vấn; chọn tham số để giảm độ trễ không xây lại.
 - **Câu chốt:** $M$ và $efConstruction$ cố định khi xây; $efSearch$ đổi theo truy vấn và đánh đổi độ trễ với độ thu hồi.
 - **Đầu vào:** giả mã truy vấn (H09) và chèn (H10B). **Thể hiện:** bảng ba cột; hộp câu hỏi.
@@ -319,7 +319,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### H13 — Chi phí của HNSW
 
-- **Phần:** 3 (kết phần). **Vai trò:** chi phí, giới hạn, câu nối. **Thời lượng:** 4 phút.
+- **Phần:** 3 (kết phần). **Vai trò:** chi phí, giới hạn, câu nối. **Thời lượng:** 3 phút.
 - **Mục đích:** tính bộ nhớ của HNSW cho tình huống mở đầu, tách phần véc-tơ và phần cạnh; nêu điều kiện của kết luận $\log N$.
 - **Câu chốt:** HNSW giảm số phép đo nhưng vẫn giữ 122,88 TB véc-tơ gốc, khoảng 98% bộ nhớ.
 - **Đầu vào:** $N$, $D$ (P01, nhắc lại bằng số), $M_{max}$, $M_{max,0}$ (H10B), $p$ (H08). **Thể hiện:** dòng giả định; bảng hai thành phần (mỗi điểm, toàn kho); dòng chi phí truy vấn; câu chốt.
@@ -330,7 +330,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### Q00 — Lượng tử hóa véc-tơ (gộp Q01 cũ)
 
-- **Phần:** 4, lượng tử hóa tích (khái niệm/thuật toán). **Vai trò:** mở phần, trực giác, ví dụ chạy tay, kiểm tra. **Thời lượng:** 6 phút.
+- **Phần:** 4, lượng tử hóa tích (khái niệm/thuật toán). **Vai trò:** mở phần, trực giác, ví dụ chạy tay, kiểm tra. **Thời lượng:** 4 phút.
 - **Mục đích:** mã hóa và tái dựng một véc-tơ bằng bộ mã cho trước, tính sai số.
 - **Câu chốt:** mã ngắn ($\log_2 k$ bit) đổi lấy sai số tái dựng.
 - **Đầu vào:** véc-tơ gốc chiếm phần lớn bộ nhớ (H13). **Thể hiện:** dòng định nghĩa; hình `luong-tu-hoa-vec-to.svg` (ba tâm, ba ô, $x$ nối tới $c_1$); phép tính bên phải; câu hỏi.
@@ -341,7 +341,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### Q02 — Đặc tả lượng tử hóa véc-tơ
 
-- **Phần:** 4. **Vai trò:** hình thức hóa, chi phí. **Thời lượng:** 3 phút.
+- **Phần:** 4. **Vai trò:** hình thức hóa, chi phí. **Thời lượng:** 2 phút.
 - **Mục đích:** viết đặc tả VQ và tính chi phí mã hóa, lưu bộ mã theo $k$, $D$.
 - **Câu chốt:** mã hóa tốn $\Theta(kD)$ và bộ mã chiếm $kD$ số; cả hai tỷ lệ với số tâm $k$.
 - **Đầu vào:** định nghĩa và ví dụ Q00. **Thể hiện:** công thức argmin; bảng đầu vào/đầu ra/chi phí.
@@ -396,7 +396,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### Q07 — Kích thước mã và bộ mã PQ
 
-- **Phần:** 4. **Vai trò:** chi phí bộ nhớ, ứng dụng vào tình huống mở đầu. **Thời lượng:** 4 phút.
+- **Phần:** 4. **Vai trò:** chi phí bộ nhớ, ứng dụng vào tình huống mở đầu. **Thời lượng:** 3 phút.
 - **Mục đích:** tính độ dài mã, kích thước bộ mã PQ; so với VQ; tính bộ nhớ mã cho kho $10^{10}$ véc-tơ.
 - **Câu chốt:** PQ có $2^{64}$ mã với bộ mã chỉ $32\,768$ số; kho mở đầu còn 5,12 TB mã thay vì 122,88 TB.
 - **Đầu vào:** định nghĩa PQ (Q04), giới hạn VQ (Q03), số liệu $N$, $D$ (nhắc lại bằng số). **Thể hiện:** dòng công thức; bảng VQ/PQ ba hàng; câu chốt thay số.
@@ -407,7 +407,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### Q08 — Khoảng cách bất đối xứng (ADC)
 
-- **Phần:** 4. **Vai trò:** hình thức hóa. **Thời lượng:** 3 phút.
+- **Phần:** 4. **Vai trò:** hình thức hóa. **Thời lượng:** 2 phút.
 - **Mục đích:** viết công thức ADC và chỉ ra vì sao số hạng mỗi đoạn tính trước được.
 - **Câu chốt:** với một truy vấn, số hạng đoạn $j$ chỉ có $k^*$ giá trị khác nhau.
 - **Đầu vào:** ví dụ ADC (Q06), định nghĩa PQ (Q04). **Thể hiện:** công thức; hai gạch đầu dòng; câu chốt.
@@ -440,7 +440,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### I00 — Tệp đảo (IVF)
 
-- **Phần:** 5, IVF-PQ (thuật toán). **Vai trò:** mở phần, trực giác, ví dụ. **Thời lượng:** 4 phút.
+- **Phần:** 5, IVF-PQ (thuật toán). **Vai trò:** mở phần, trực giác, ví dụ. **Thời lượng:** 3 phút.
 - **Mục đích:** mô tả tệp đảo, xác định danh sách được mở với $nprobe$ cho trước trên ví dụ.
 - **Câu chốt:** IVF giảm số véc-tơ được chấm; mã PQ trong mỗi danh sách giảm chi phí mỗi lần chấm.
 - **Đầu vào:** giới hạn PQ quét đầy đủ (Q10), VQ (Q00–Q02). **Thể hiện:** dòng định nghĩa; hình `tep-dao.svg` (bốn ô, hai ô mở tô màu và viền liền, nhãn “(mở)”; nhãn $y_3$, $y_8$); bảng HTML bốn danh sách; dòng 8/16.
@@ -506,7 +506,7 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 
 ### C01, C02 — Tự kiểm tra (trang mới)
 
-- **Phần:** 6, tổng kết. **Vai trò:** kiểm tra cuối bài. **Thời lượng:** 4 + 4 phút.
+- **Phần:** 6, tổng kết. **Vai trò:** kiểm tra cuối bài. **Thời lượng:** 5 phút.
 - **Mục đích:** tự kiểm ba mục tiêu của P02 bằng sáu câu ngắn có dữ kiện mới.
 - **Câu chốt:** mỗi câu dùng lại một phép tính hoặc thuật toán của bài trên dữ kiện chưa xuất hiện.
 - **Thể hiện:** nhãn “Câu hỏi:” và danh sách đánh số ba câu mỗi trang; đáp án và mục tiêu được kiểm trong ghi chú diễn giả.

@@ -36,25 +36,35 @@ Phạm vi không gồm DiskANN, NSG, Vamana, huấn luyện bộ mã tối ưu, 
 | $k^*=2^b$ | số tâm trong mỗi bộ mã con |
 | $k_c$ | số tâm thô của IVF |
 | $nprobe$ | số danh sách đảo được mở cho một truy vấn |
+| $k$ | số tâm của một bộ mã VQ (Q00–Q03) |
+| $x$ | điểm mới khi chèn HNSW (H10–H11); véc-tơ trong ví dụ VQ/PQ (Q00–Q06) |
+| $y$ | phần tử của kho; biến lân cận/ứng viên trong giả mã (H05, H06, H11) |
+| $\rho=e^{-1/m_L}$ | tỷ lệ điểm giữ lại ở tầng trên (H08, H13); thay $p$ của bài báo để khỏi trùng tên điểm $p1,\ldots,p11$ |
+| $a(y)$, $L_i$, $r(y)$, $\widetilde q_i$, $P$ | tâm thô được gán, danh sách đảo, phần dư, truy vấn dư, tập danh sách được mở (I01–I04) |
 
 ## Mạch phần giảng — 120 phút
 
-| Cụm | Trang | Phút | Sản phẩm học tập |
-|---|---:|---:|---|
-| Tình huống và đặc tả ANN | P00–A03 | 20 | chuyển truy hồi trên 10 tỷ véc-tơ thành bài toán, phép đo và khung so sánh |
-| HNSW | H00–H13 | 48 | chạy tìm kiếm, phát biểu bất biến, truy vấn, chèn, tham số và giới hạn |
-| Lượng tử hóa tích | Q00–Q10 | 30 | mã hóa, tái dựng, ví dụ ADC số, công thức bộ nhớ và giới hạn quét tuyến tính |
-| IVF-PQ | I00–I04 | 14 | phân vùng, mã hóa phần dư, $nprobe$ và luồng truy vấn |
-| Kết luận | C00 | 8 | đối chiếu bốn cơ chế bằng cùng bốn trục đo; trả lời trực tiếp bài toán mở đầu bằng lựa chọn theo chất lượng truy vấn, chi phí dựng và bộ nhớ |
+Cập nhật sau lượt duyệt từng trang ngày 03/10/2026; thứ tự là thứ tự trong deck.
 
-Ghi chú nhất quán: cận kỳ vọng $O(NM)$ cạnh của HNSW là suy luận ở mục 4.2.3 bài báo HNSW dưới giả thiết bậc trung bình bị chặn theo $M$, không phải kết quả trực tiếp cho mọi đồ thị.
+| Phần | Trang | Phút | Sản phẩm học tập |
+|---|---|---:|---|
+| 1. Mở đầu | P00–P02 | 6 | tình huống truy hồi ngữ nghĩa $10^{10}$ véc-tơ, chi phí quét; dàn bài và ba mục tiêu |
+| 2. Bài toán và phép đo | A00–A03 | 11 | đặc tả tìm đúng/ANN, recall@K, bốn trục đánh giá, hai thừa số chi phí |
+| 3. Tìm kiếm trên đồ thị HNSW | H00, H01, H03–H06, H06B, H07, H09, H08, H10, H10B, H11–H13 | 44 | đồ thị lân cận, tham lam, chùm, SEARCH-LAYER và bất biến, cạnh dài, nhiều tầng, truy vấn, rút tầng, chèn, lân cận đa dạng, tham số, chi phí |
+| 4. Lượng tử hóa tích | Q00, Q02–Q05, Q07, Q06, Q08–Q10 | 28 | VQ, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ |
+| 5. IVF-PQ | I00–I02, I04, I03 | 16 | tệp đảo, chọn danh sách, phần dư, thuật toán, chi phí thay số |
+| 6. Tổng kết | C00–C02 | 15 | so sánh bốn cấu trúc trên tình huống mở đầu; sáu câu tự kiểm |
+
+Gộp: H02 vào H01; Q01 vào Q00. Tách: H10 thành H10 và H10B. Thêm: H06B, C01, C02. Chuyển: H08 sau H09; Q06 sau Q07; I03 sau I04.
+
+Ghi chú nhất quán: kết luận $\log N$ của HNSW giả thiết mỗi tầng là đồ thị Delaunay chính xác và bậc trung bình bị chặn (mục 4.2.1 bài báo HNSW); bộ nhớ cạnh tính theo kỳ vọng số tầng trên $\rho/(1-\rho)$.
 
 ## Bài tập — 60 phút
 
 | Nguồn trực tiếp | Trang | Phút | Điều chỉnh |
 |---|---:|---:|---|
 | Princeton runbook lớp 8, ô nền 0–4, 17, 21–24; “Product Quantization” và “Manual reconstruction”, ô 82–97 | R00–R03 | 20 | mỗi sinh viên chuẩn bị `d,xt,xb,xq,gt` trên chính kernel sẽ dùng; đọc và làm PQ ở ô 82–97 (có thể chạy 83–95 rồi hoàn thiện 96–97); thời gian máy được báo riêng |
-| “Compare options for fixed code_size”, ô 98–99 | R04–R05 | 20 | giữ ngân sách 6 byte và ba giá trị $M_{PQ}$; chạy trước ô 99 trên cùng kernel nếu huấn luyện chậm |
+| “Compare options for fixed code_size”, ô 98–99 | R04–R05 | 20 | giữ ngân sách 6 byte và ba giá trị $m\in\{4,8,16\}$ (Faiss `M`); dự đoán $D/m$, $k^*$ trước khi chạy; chạy trước ô 99 trên cùng kernel nếu huấn luyện chậm |
 | “IVFPQ index”, ô 148–155 | R06–R08 | 20 | tách xây dựng ở ô 149–151 khỏi truy vấn ở ô 152–155; dùng `xt,xb,xq,gt` từ trạng thái nền |
 
 R00 chỉ mở phần, không tính thời lượng. Lời giải và hướng dẫn chấm nằm trong ghi chú diễn giả.
@@ -65,16 +75,17 @@ R00 chỉ mở phần, không tính thời lượng. Lời giải và hướng d
 |---|---|---|
 | P01–A02 | Stanford BIODS 271 trang 17–18; Princeton lớp 8 trang 2–5; hai bài báo gốc | BIODS chỉ cung cấp cấu hình 10 tỷ véc-tơ và danh mục chỉ mục; Princeton cho khung đánh đổi; bài báo chốt đặc tả và recall. Không dùng tuyên bố giảm độ chính xác 20–30% của BIODS vì thiếu điều kiện. |
 | A03 | MMDS Chương 3; Stanford CS246 bài 04; Princeton lớp 9 trang 4–6 | MMDS/CS246 chỉ làm cầu nối LSH từ Bài 6; không lặp lại chứng minh hoặc tham số banding. |
-| H00–H13 | Princeton lớp 9 trang 7–19; Malkov–Yashunin trang 1–7 | Princeton được chọn cho trực giác đồ thị; ví dụ chạy tay được dựng lại từ cơ chế và ghi rõ. Bài báo gốc chốt `SEARCH-LAYER`, truy vấn, chèn, chọn cạnh, giả thiết và giới hạn. |
+| H00–H13 (gồm H06B, H10B) | Princeton lớp 9 trang 7–19 (tr.11–13 cho ví dụ một chiều H06B); Malkov–Yashunin trang 1–8 | Princeton được chọn cho trực giác đồ thị; ví dụ chạy tay được dựng lại từ cơ chế và ghi rõ. Bài báo gốc chốt `SEARCH-LAYER`, truy vấn, chèn, chọn cạnh, giả thiết và giới hạn. |
 | Q00–Q10 | Princeton lớp 8 trang 8–33; Jégou–Douze–Schmid trang 1–4 | Princeton được chọn cho chuỗi VQ → PQ → ADC và hình dễ Việt hóa; bài báo gốc chốt định nghĩa, công thức mã, tái dựng và khoảng cách. |
-| I00–I04 | Princeton lớp 8 trang 20–22, 54–55; bài báo PQ trang 6 | Princeton cho luồng; bài báo chốt lượng tử hóa thô, mã phần dư và IVFADC. |
+| I00–I04 | Princeton lớp 8 trang 20–22; lớp 9 trang 5; bài báo PQ trang 6–7 | Princeton cho luồng và gợi ý $k_c\approx\sqrt N$; bài báo chốt lượng tử hóa thô, mã phần dư, gán đa và thuật toán tìm kiếm IVFADC. Ví dụ bốn ô do học phần dựng. |
+| C00–C02 | tổng hợp các nguồn trên | Số liệu so sánh suy ra từ H13, Q07, Q10, I03; câu tự kiểm dùng dữ kiện học phần dựng, $D=960$ (GIST, bài báo PQ) và $k_c=32\,000$ (Princeton lớp 9 tr.5). |
 | R01–R08 | Princeton runbook lớp 8; tài liệu Faiss về cú pháp factory | Dùng trực tiếp ba nhiệm vụ của notebook; tài liệu Faiss chỉ kiểm chứng hậu tố `np`. Không thay dữ kiện hoặc dùng kết quả cố định làm đáp án; trạng thái chạy trước phải đến từ đúng notebook và kernel của sinh viên. |
 
 Stanford BIODS 271 không được dùng làm nguồn thuật toán vì chỉ tóm tắt và có mệnh đề hiệu năng thiếu điều kiện. Slide Princeton rõ hơn cho giảng dạy, còn hai bài báo gốc là nguồn chuẩn cho giả mã và điều kiện. MMDS và Stanford CS246 chỉ xuất hiện ở cầu nối LSH.
 
 ## Kiểm kê hình
 
-Chín SVG được dùng trong HTML: quy mô véc-tơ, độ thu hồi tại K, tham lam so với chùm, các tầng HNSW, trạng thái `SEARCH-LAYER`, luồng chèn, phép chia PQ, bảng tra ADC và luồng IVF-PQ. Bảng bốn cơ chế ở C00 được dựng bằng HTML để giữ cỡ chữ máy chiếu. Không dùng ảnh raster.
+Mười chín SVG, tất cả sinh bằng `2627-1/img/lec-07/generate_svg.py` (lượt duyệt 03/10/2026 thay toàn bộ chín SVG viết tay cũ): `truy-hoi-ngu-nghia` (P01), `do-thu-hoi` (A01), `do-thi-vi-du`, `do-thi-tham-lam`, `do-thi-chum`, `do-thi-ef2` (đồ thị bảy đỉnh H00–H06), `search-layer-trang-thai` (H04), `canh-dai-mot-chieu` (H06B), `do-thi-nhieu-tang`, `do-thi-nhieu-tang-gon` (H07, H09), `chen-vi-du` (H10), `lan-can-da-dang` (H11), `luong-tu-hoa-vec-to` (Q00), `pq-tach-doan` (Q04), `pq-vi-du`, `pq-vi-du-adc` (Q05, Q06), `tep-dao`, `tep-dao-o`, `tep-dao-du` (I00–I02). Mỗi trang dùng lại ví dụ đều có hình hoặc dữ kiện trên trang. Bảng (bốn trục, bảng tra, so sánh, phiếu bài tập) dựng bằng HTML. Không dùng ảnh raster.
 
 ## Giới hạn nguồn bài tập
 
