@@ -576,14 +576,53 @@ Với mỗi giá trị, báo cáo `nok/|xq|` và tổng thời gian tìm kiếm 
 
 ## 12. Tự kiểm cuối bài
 
-1. Viết đặc tả ANN sao cho tập đúng vẫn xác định khi hòa khoảng cách.
-2. Phân biệt điều kiện dừng tham lam với bảo đảm tối ưu toàn cục.
-3. Nêu bất biến của `SEARCH-LAYER` và giới hạn của nó.
-4. Giải thích vai trò riêng của $M$, `efConstruction` và `efSearch`.
-5. Tính độ dài mã PQ khi biết $m$ và $b$; phân biệt mã với bộ mã.
-6. Giải thích vì sao IVF-PQ cần bảng ADC riêng cho mỗi danh sách được mở.
-7. Nêu điều kiện để dùng xấp xỉ $nprobe\,N/k_c$.
-8. Lập bảng đo bốn trục để so sánh hai cấu hình trên cùng khối lượng công việc.
+::: exercise Câu 1
+Tập đúng $\{a,b,c,d\}$, chỉ mục trả $\{a,c,e,f\}$. Tính $\operatorname{recall@4}$.
+:::
+
+::: solution
+Giao $\{a,c\}$, nên $\operatorname{recall@4}=2/4=1/2$.
+:::
+
+::: exercise Câu 2
+Đồ thị: $u{:}8$ nối $v{:}6$ và $w{:}9$; $v$ chỉ nối $u$; $w$ nối $z{:}2$ (số là khoảng cách tới $q$), điểm vào $u$. Tìm kiếm chùm với $ef=2$ và $ef=3$ có tới $z$ không?
+:::
+
+::: solution
+Với $ef=2$: khi mở $u$, $v{:}6$ được thêm, còn $w{:}9$ bị loại vì $W=\{u{:}8,v{:}6\}$ đã đủ và $9>8$; mở $v$ không thêm gì, thuật toán dừng với $W=\{v,u\}$, không tới $z$. Với $ef=3$: $w$ được thêm vì $W$ chưa đủ; mở $w$ phát hiện $z{:}2$, kết quả $\{z,v,u\}$.
+:::
+
+::: exercise Câu 3
+Kho $10^8$ véc-tơ 128 chiều, số thực 4 byte; cạnh HNSW khoảng 265 byte mỗi véc-tơ. Chỉ mục có vừa 64 GB bộ nhớ không?
+:::
+
+::: solution
+$(128\cdot4+265)\cdot10^8\approx77{,}7$ GB, không vừa; riêng véc-tơ gốc đã chiếm 51,2 GB.
+:::
+
+::: exercise Câu 4
+Véc-tơ $D=960$ chiều, PQ với $m=8$, $b=8$. Mã dài bao nhiêu byte? Bộ mã gồm bao nhiêu số?
+:::
+
+::: solution
+$mb=64$ bit, tức 8 byte; bộ mã $k^*D=256\cdot960=245\,760$ số.
+:::
+
+::: exercise Câu 5
+Bảng tra $m=3$, $k^*=4$: hàng 1 $(1;\ 4;\ 0{,}5;\ 2)$, hàng 2 $(3;\ 0{,}2;\ 1;\ 5)$, hàng 3 $(0{,}7;\ 2;\ 3;\ 0{,}1)$. Tính khoảng cách ADC của mã $(2,0,3)$, chỉ số tính từ 0.
+:::
+
+::: solution
+$T[1,2]+T[2,0]+T[3,3]=0{,}5+3+0{,}1=3{,}6$.
+:::
+
+::: exercise Câu 6
+IVF-PQ với $N=10^9$, $k_c=32\,000$, $nprobe=16$, $m=8$, danh sách cân bằng. Mỗi truy vấn chấm bao nhiêu mã và cần bao nhiêu lần tra?
+:::
+
+::: solution
+$16\cdot10^9/32\,000=500\,000$ mã, mỗi mã 8 lần tra, tổng $4\cdot10^6$ lần tra, so với $8\cdot10^9$ khi quét đủ mã PQ.
+:::
 
 ## Tài liệu tham khảo
 

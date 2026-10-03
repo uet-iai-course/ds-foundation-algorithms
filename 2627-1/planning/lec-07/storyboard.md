@@ -51,6 +51,8 @@ Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, 
 | I04 | 4 | Giả mã truy vấn IVF-PQ; vết trên bốn danh sách ($nprobe=2$, $K=3$); câu hỏi $nprobe=1$. | $y_8,y_3,y_7$; $nprobe=1$ → recall@3 $=2/3$ | PQ paper §IV-C tr.7; Princeton 08 tr.21 |
 | I03 | 3 | Chuyển sau I04. Đếm chi phí truy vấn theo ba bước, thay số cho $10^{10}$ véc-tơ với $k_c=10^5$, $nprobe=64$. | $\approx3{,}6\cdot10^9$, ít hơn 1400 lần quét đủ | PQ paper §IV-C tr.7; Princeton 08 tr.22; 09 tr.5 |
 | C00 | 5 | So sánh LSH, HNSW, PQ quét đủ, IVF-PQ theo thừa số được giảm, bộ nhớ, truy vấn, tham số; thu hồi tình huống mở đầu bằng số. | 125 TB và 5,2 TB; $3{,}6\cdot10^9$ thao tác | tổng hợp các nguồn; số liệu suy ra từ H13, Q07, Q10, I03 |
+| C01 | 4 | Thêm: ba câu tự kiểm (độ thu hồi; tìm kiếm chùm $ef=2$/$ef=3$; bộ nhớ HNSW so 64 GB). | đáp án $1/2$; không/có; 77,7 GB | dữ kiện học phần dựng |
+| C02 | 4 | Thêm: ba câu tự kiểm (kích thước PQ $D=960$; ADC bằng bảng tra; số mã IVF-PQ). | 8 byte, 245 760 số; 3,6; 500 000 mã | PQ paper (GIST $D=960$); Princeton 09 tr.5 |
 
 Tổng phần giảng: **120 phút**.
 
@@ -501,3 +503,14 @@ Mỗi mục ghi: tiêu đề hiện tại; phần; mục đích (việc sinh vi�
 - **Ghi chú diễn giả:** không xếp hạng phổ quát; chất lượng phải đo; khi nào HNSW phù hợp; kết hợp hai hướng; phép tính; LSH không thay số.
 - **Nguồn:** tổng hợp; MMDS Ch.3; Princeton lớp 8 tr.2–5, lớp 9 tr.2–7; hai bài báo.
 - **Quyết định:** sửa. Tiêu đề cũ “Bốn cơ chế trên cùng bốn trục”; bảng chỉ có ký hiệu; câu “Trả lời bài toán mở đầu” là lời khuyên chung, không thu hồi tình huống bằng số.
+
+### C01, C02 — Tự kiểm tra (trang mới)
+
+- **Phần:** 6, tổng kết. **Vai trò:** kiểm tra cuối bài. **Thời lượng:** 4 + 4 phút.
+- **Mục đích:** tự kiểm ba mục tiêu của P02 bằng sáu câu ngắn có dữ kiện mới.
+- **Câu chốt:** mỗi câu dùng lại một phép tính hoặc thuật toán của bài trên dữ kiện chưa xuất hiện.
+- **Thể hiện:** nhãn “Câu hỏi:” và danh sách đánh số ba câu mỗi trang; đáp án và mục tiêu được kiểm trong ghi chú diễn giả.
+- **Kết nối vào–ra:** sau C00; mở phần thực hành R00.
+- **Kiểm tra (tính lại bằng chương trình):** C01: $1/2$; $ef=2$ không tới $z$, $ef=3$ tới $z$; 77,7 GB > 64 GB. C02: 8 byte, 245 760 số; 3,6; 500 000 mã, $4\cdot10^6$ lần tra.
+- **Nguồn:** dữ kiện học phần dựng; $D=960$ là số chiều GIST trong bài báo PQ; $k_c=32\,000$ cho $N=10^9$ theo Princeton lớp 9 tr.5.
+- **Quyết định:** thêm. Phần kết cũ chỉ có C00, thiếu 4–6 nhiệm vụ tự kiểm theo tiêu chuẩn mục 2; P02 đã cam kết “So sánh và tự kiểm tra” (việc mở từ lượt rà phần 1–2).
