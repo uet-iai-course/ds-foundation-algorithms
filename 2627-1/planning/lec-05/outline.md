@@ -35,8 +35,8 @@ Ba PDF cục bộ trong dòng Bài 05 của `sources/reference-slides/README.md`
 
 | Thành phần học thuật | Nguồn | Quyết định và vị trí |
 |---|---|---|
-| Bài toán gần trùng, phép đếm cặp | B tr. 73–76 | Giữ, 04–05; thu hồi tại 33,47–48 |
-| Jaccard, Hình 3.1 | B §3.1.1 tr. 74–75 | Giữ và vẽ lại SVG, 06–09 |
+| Bài toán gần trùng, phép đếm cặp | B tr. 73–76; Ví dụ 3.10 tr. 92 (giả định một micro giây mỗi cặp, chữ ký 1.000 byte, 1 GB) | Giữ, 04–05; thu hồi tại 33, 47–48; hai bản tin ở 04 là ví dụ dựng |
+| Jaccard, Hình 3.1 | B §3.1.1 tr. 74–75 | Giữ và vẽ lại SVG, 07–09 (06 gộp vào 07 ngày 07/10/2026) |
 | Shingle, Ví dụ 3.3–3.4 | B §3.2.1 tr. 78 | Giữ chuỗi nguồn, 10–15; thuật toán hóa định nghĩa có ghi rõ |
 | Chọn độ dài và mã hóa shingle | B §§3.2.2–3.2.3 tr. 79–80 | Giữ mức quy tắc kinh nghiệm, 14,16–18 |
 | Ma trận và hoán vị, Hình 3.2–3.3 | B §§3.3.1–3.3.2 tr. 81–83 | Giữ cùng 5 hàng, 4 tập; 20–24 |
@@ -234,3 +234,12 @@ Lượt duyệt theo yêu cầu người dùng: với mỗi trang, xác định 
 - **Câu hỏi kiểm tra.** Các trang 09, 18, 27, 34, 46, 49, 50 thay câu có đáp án trên mặt trang trước bằng câu vận dụng; dữ kiện biến thể ghi rõ ở dòng nguồn.
 - **Tiêu đề.** 40 trong 54 tiêu đề `h2` đổi theo khái niệm hoặc kết quả trung tâm; không đặt ký hiệu trong tiêu đề viết hoa.
 - **Ghi chú tự học.** Mục 1–11 và 14 cập nhật theo các câu nối và câu hỏi mới; thứ tự khái niệm của ghi chú giữ nguyên.
+
+## Duyệt từng trang lần hai ngày 07/10/2026
+
+Lượt duyệt theo yêu cầu người dùng: với mỗi trang, xác định trang muốn nói gì, vấn đề còn lại và cách thể hiện tốt hơn; xong thì commit và push. Chi tiết từng trang nằm trong `review-log.md`, mục cùng tên.
+
+- **Cấu trúc.** Deck còn 54 trang (47 giảng, 7 bài tập), bảy phần 8/8/8/7/12/4/7. Trang 06 (đếm giao, hợp) gộp vào trang 07 vì hai trang dùng cùng Hình 3.1 cho một luận điểm; thời lượng 2 phút chuyển sang trang 07. Tổng 120 + 60 phút giữ nguyên.
+- **Hình.** Thêm `ban-tin-dang-lai.svg` (trang 04, ví dụ dựng hai bản tin) và `bam-thay-hoan-vi.svg` (trang 35, $f_1$ tạo thứ tự $(e,a,b,c,d)$). Xóa `tai-lieu-gan-trung.svg` và `quy-mo-so-sanh-cap.svg`. `quet-ma-tran-thua.svg` chỉ còn dùng trong ghi chú tự học. Bộ hình hiện có tám SVG.
+- **Số liệu thu hồi.** Ví dụ 3.10 (tr. 92) cung cấp giả định một micro giây mỗi cặp và quy mô 1 GB cho $10^6$ chữ ký 1.000 byte; trang 05 dùng thời gian gần 6 ngày, trang 48 thu hồi bộ nhớ, độ lệch chuẩn và thời gian.
+- **Dữ kiện trên mặt trang.** Trang 10 (bảng cửa sổ `abcdabd`/`abcxabd`), 12, 20, 30 (hai tập và hai thứ tự), 44 ($n=250$) đưa dữ kiện lên trang thay cho dẫn chiếu bằng lời.

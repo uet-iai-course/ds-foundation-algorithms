@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc">
+<title id="title">Hàm băm thay cho hoán vị</title><desc id="desc">Bảng giá trị f1(r) = (r + 1) mod 5: a/0 cho 1, b/1 cho 2, c/2 cho 3, d/3 cho 4, e/4 cho 0. Sắp các hàng theo f1 tăng được thứ tự e, a, b, c, d. Hai phần tử a và d của S1 có nền xanh; a đứng trước trong thứ tự và có giá trị băm nhỏ nhất của S1: min(f1(0), f1(3)) = min(1, 4) = 1.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial, sans-serif" font-size="26" fill="#243247">
+<text x="185" y="36" font-weight="700" text-anchor="middle">f₁(r) = (r + 1) mod 5</text>
+<path d="M30 50H340" stroke="#2f3e7a" stroke-width="2"/>
+<g><rect x="30" y="56" width="310" height="44" fill="#edf4ff"/><text x="40" y="87">a / 0</text><text x="290" y="87" text-anchor="middle">1</text>
+<text x="40" y="131">b / 1</text><text x="290" y="131" text-anchor="middle">2</text>
+<text x="40" y="175">c / 2</text><text x="290" y="175" text-anchor="middle">3</text>
+<rect x="30" y="188" width="310" height="44" fill="#edf4ff"/><text x="40" y="219">d / 3</text><text x="290" y="219" text-anchor="middle">4</text>
+<text x="40" y="263">e / 4</text><text x="290" y="263" text-anchor="middle">0</text></g>
+<path d="M30 276H340" stroke="#2f3e7a" stroke-width="2"/>
+<path d="M370 160H540" stroke="#2f3e7a" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="455" y="140" text-anchor="middle" font-size="24">sắp theo f₁ tăng</text>
+<text x="880" y="36" text-anchor="middle" font-weight="700">Thứ tự hàng do f₁ tạo ra</text>
+<g text-anchor="middle">
+<rect x="580" y="110" width="96" height="70" rx="8" fill="#fff" stroke="#2f3e7a" stroke-width="2.5"/><text x="628" y="155" font-size="30">e</text><text x="628" y="215">0</text>
+<rect x="702" y="110" width="96" height="70" rx="8" fill="#edf4ff" stroke="#b15a2b" stroke-width="5"/><text x="750" y="155" font-size="30" font-weight="700">a</text><text x="750" y="215">1</text>
+<rect x="824" y="110" width="96" height="70" rx="8" fill="#fff" stroke="#2f3e7a" stroke-width="2.5"/><text x="872" y="155" font-size="30">b</text><text x="872" y="215">2</text>
+<rect x="946" y="110" width="96" height="70" rx="8" fill="#fff" stroke="#2f3e7a" stroke-width="2.5"/><text x="994" y="155" font-size="30">c</text><text x="994" y="215">3</text>
+<rect x="1068" y="110" width="96" height="70" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2.5"/><text x="1116" y="155" font-size="30">d</text><text x="1116" y="215">4</text>
+<text x="750" y="92" fill="#9a4720" font-size="24">đứng đầu S₁</text>
+</g>
+<text x="560" y="215" text-anchor="end" font-size="24">f₁:</text>
+<text x="580" y="268">Nền xanh: phần tử của S₁ = {a, d}</text>
+<text x="580" y="310">min(f₁(0), f₁(3)) = min(1, 4) = 1, ứng với a</text>
+</g></svg>

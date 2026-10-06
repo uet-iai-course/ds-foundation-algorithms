@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+<title id="title">Bản tin gốc và bản đăng lại</title><desc id="desc">Ví dụ dựng: bản tin gốc có hai câu; bản đăng lại giữ nguyên hai câu đó và chèn thêm một câu ở giữa. Câu chung có nền xanh, viền liền; câu thêm có viền đứt và nhãn “thêm”. Hai chuỗi khác nhau từ đầu câu thứ hai.</desc>
+<g font-family="Arial, sans-serif" font-size="27" fill="#243247">
+<text x="290" y="34" text-anchor="middle" font-size="29" font-weight="700">Bản tin gốc</text>
+<text x="910" y="34" text-anchor="middle" font-size="29" font-weight="700">Bản đăng lại</text>
+<rect x="10" y="52" width="560" height="236" rx="10" fill="#fff" stroke="#2f3e7a" stroke-width="3"/>
+<rect x="630" y="52" width="560" height="236" rx="10" fill="#fff" stroke="#2f3e7a" stroke-width="3"/>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2.5">
+<rect x="26" y="70" width="528" height="58" rx="6"/><rect x="26" y="146" width="528" height="58" rx="6"/>
+<rect x="646" y="70" width="528" height="58" rx="6"/><rect x="646" y="214" width="528" height="58" rx="6"/></g>
+<rect x="646" y="142" width="528" height="58" rx="6" fill="#fff5e9" stroke="#b15a2b" stroke-width="3" stroke-dasharray="12 7"/>
+<text x="40" y="108">Mưa lớn kéo dài ở Hà Nội từ đêm qua.</text>
+<text x="40" y="184">Nhiều tuyến phố bị ngập sâu.</text>
+<text x="660" y="108">Mưa lớn kéo dài ở Hà Nội từ đêm qua.</text>
+<text x="660" y="180" fill="#9a4720">Giao thông ùn tắc giờ cao điểm.</text>
+<text x="1160" y="180" text-anchor="end" fill="#9a4720" font-size="24">(thêm)</text>
+<text x="660" y="252">Nhiều tuyến phố bị ngập sâu.</text>
+<g fill="none" stroke="#2f3e7a" stroke-width="2" stroke-dasharray="4 5"><path d="M554 99H646 M554 175Q600 175 600 210Q600 243 646 243"/></g>
+</g></svg>

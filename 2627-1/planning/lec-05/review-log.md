@@ -1367,3 +1367,122 @@ Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) t
 | no-ai-slop | Mỗi trang sửa được tự kiểm theo `eval.md` (Edit mode); các lượt rà dùng Detect mode, không còn văn nói, câu hỏi tu từ, chỉ dẫn biên soạn. |
 | Phạm vi tệp | HTML Bài 05, `lecture-note.md`, ba tệp planning. CSS, SVG, index và viewer không đổi. Thay đổi sẵn có của người dùng (`.gitignore`, `AGENTS.md`, `slide_authoring_standard.md`, các tệp chưa theo dõi) không được stage. |
 | Giới hạn | Điều phối viên trực tiếp biên tập theo tiền lệ Bài 04, bù bằng sáu lượt rà độc lập theo phần; không chạy lại đủ năm vai rà độc lập cho toàn deck. Cổng 8765 bị máy chủ của dự án khác chiếm nên kiểm trên cổng 8775. Commit 1ff2769 (s04-02) chạy trước khi kiểm khổ hẹp và ghi chú xong do máy chủ dừng; đã kiểm lại sau đó, đạt. |
+
+## Duyệt từng trang lần hai ngày 07/10/2026
+
+Yêu cầu của người dùng: chạy quy trình sửa từng trang của deck Bài 05; với mỗi trang xác định trang muốn nói gì, đang có vấn đề gì và cách thể hiện tốt hơn; xong thì commit và push.
+
+Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) biên tập trực tiếp như lượt 01/10 và lượt Bài 07, áp thêm các tiêu chí của lượt Bài 07: giảm chữ, không dẫn chiếu “trang trước/ví dụ trước” bằng lời mà đưa dữ kiện lên mặt trang hoặc hình, thay hình khái niệm chung chung bằng hình có dữ kiện cụ thể. Tự kiểm theo `no-ai-slop`/`eval.md`; tính lại mọi số mới bằng chương trình. Sau khi sửa, hai tác tử rà chỉ đọc chạy song song (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`): độ chính xác toán học–thuật toán; mạch viết và góc nhìn sinh viên. Bằng chứng: các lệnh gọi Agent trong phiên ngày 07/10/2026. Chỉ điều phối viên ghi tệp. Kiểm hiển thị bằng Playwright Chromium ở 1600 × 900 và 390 × 844, ghi chú ở 1440 × 900, 390 × 844 và in; máy chủ `python3 -m reloadserver 8775` chạy từ gốc kho (cổng 8765 bị một tiến trình khác chiếm). Ảnh chụp lưu trong scratchpad của phiên, ngoài kho. Phần lớn storyboard được đồng bộ bằng một script sinh lại mục “Nội dung công khai dự kiến” và “Ghi chú diễn giả học thuật” từ HTML; các trường bố cục, dữ kiện, lý do được sửa tay.
+
+### Duyệt từng trang
+
+| Trang | Trang muốn nói | Vấn đề | Quyết định và thay đổi | Ghi chú tự học |
+|---|---|---|---|---|
+| s01-01 | Tên bài, học phần, học kỳ. | Không có. | giữ | — |
+| s01-02 | Bảy phần của bài. | Không có; tên phần khớp tiêu đề các trang mở phần. | giữ | — |
+| s01-03 | Bốn mục tiêu và kiến thức đầu vào. | Không có. | giữ | — |
+| s01-04 | Tình huống tài liệu gần trùng; phép so từng ký tự không đủ. | (trung bình) Hình chỉ có đường kẻ trừu tượng, nhãn khoảng 14 px khi chiếu; “phần chung” không quan sát được. (trung bình) Lớp `motivation-slide` không định dạng `.ex-source`, dòng nguồn hiện bằng cỡ chữ thân bài. (nhẹ) “Đầu ra: độ tương đồng của từng cặp” lệch đầu ra của bài toán nguồn (tìm các cặp có nhiều văn bản chung). Bốn đoạn chữ cạnh hình. | sửa. Hình mới `ban-tin-dang-lai.svg`: bản tin gốc hai câu và bản đăng lại chèn một câu; câu chung nền xanh viền liền, câu thêm viền đứt có nhãn “thêm”. Đổi sang `example-slide`. Hai dòng đầu vào/đầu ra và một câu chốt; ba tình huống nguồn chuyển vào ghi chú. Hai bản tin là ví dụ dựng, ghi rõ ở dòng nguồn. Quyết định cũ “không bịa một văn bản” được thay: văn bản dựng chỉ minh họa quan hệ chung–riêng, không mang số liệu hay bằng chứng. `tai-lieu-gan-trung.svg` bị xóa. | Mục 1: thay hình cũ bằng hình mới và đoạn giải thích ví dụ dựng. |
+| s01-05 | Số cặp tăng bậc hai; tổng công việc = số cặp × chi phí một cặp. | (trung bình) Hình hai hộp “số cặp × chi phí một cặp” chỉ lặp lại câu chữ; con số $499\,999\,500\,000$ chưa gắn với thời gian, khó cảm nhận quy mô. | sửa. Bỏ hình `quy-mo-so-sanh-cap.svg` (xóa tệp). Mô hình tổng công việc bằng chữ; bảng hai hàng: số cặp $\approx5\cdot10^{11}$; thời gian $\approx5\cdot10^5$ giây $\approx5{,}8$ ngày nếu một cặp tốn 1 micro giây (Ví dụ 3.10, tr. 92; tính lại $499\,999{,}5$ s $=5{,}787$ ngày). | Mục 1: thay hình bằng đoạn ước lượng thời gian theo Ví dụ 3.10. |
+| s01-06 | Đếm giao và hợp trên Hình 3.1. | (trung bình) Trang mỏng; trang s01-07 dùng lại đúng hình để định nghĩa tỷ số, hai trang chia một luận điểm. | gộp vào s01-07. | — |
+| s01-07 | Jaccard là giao chia hợp; miền giá trị. | Sau gộp: phép đếm, công thức và điều kiện cùng trên một hình. Bản nháp đặt hai phép đếm trên một dòng bị tràn cột; đã đổi sang khối `aligned` trước khi kiểm. | sửa. Câu nối tài liệu → tập; hình bên trái; $|S\cap T|=3$, $|S\cup T|=8$, $\mathrm{SIM}=3/8$, điều kiện bên phải; miền giá trị làm câu chốt. Ghi chú gộp lý do chia cho hợp và trường hợp biên. Thời lượng 5 phút (3 + 2). | Không đổi (mục 2 đã trình bày theo thứ tự này). |
+| s01-08 | Ý nghĩa ngưỡng Jaccard phụ thuộc ứng dụng. | Không có. | giữ | — |
+| s01-09 | Kiểm tra Jaccard trên Hình 3.1. | Không có; hình nhắc lại dữ kiện. | giữ | — |
+| s02-01 | Định nghĩa $k$-shingle; một thay đổi cục bộ chỉ đổi nhiều nhất $k$ cửa sổ. | (trung bình) Trang chỉ có chữ; hai gạch đầu dòng khẳng định tính ổn định mà không có bằng chứng quan sát được. | sửa. Bảng `mh-trace` hai hàng `abcdabd` và `abcxabd` (biến thể Ví dụ 3.3, đổi ký tự ở vị trí 3), $k=2$; hai cửa sổ bị đổi viền đậm; câu chốt nhiều nhất $k$ cửa sổ. Ý “thứ tự câu thay đổi” chuyển vào ghi chú. Tính lại: cửa sổ khác tại vị trí 2 và 3. | Mục 3: thêm câu ví dụ `abcxabd`. |
+| s02-02 | Cửa sổ trùng chỉ tạo một phần tử. | Không có. | giữ | — |
+| s02-03 | Định nghĩa hình thức $S_k(D)$. | (nhẹ) Ghi chú dẫn chiếu “dữ liệu trước”. | sửa. Dòng thay số trên mặt trang: $\ell=7$, $k=2$, $i=0,\ldots,5$, $D[3:5]=\texttt{da}$; ghi chú giải thích phép cắt. | — |
+| s02-04 | Giả mã, bất biến, chi phí tạo tập shingle. | (nhẹ) Đầu vào và đầu ra chung một dòng, ngắt giữa “Đầu ra”. | sửa nhẹ. Tách hai dòng. | — |
+| s02-05 | Tiêu chí chọn $k$. | (nhẹ) Con số 27 chưa giải thích trên mặt trang. | sửa nhẹ. “27 ký tự (26 chữ cái và dấu cách)”. | — |
+| s02-06 | Quy tắc khoảng trắng. | Không có. | giữ | — |
+| s02-07 | Băm 9-shingle vào 4 byte. | Không có. | giữ | — |
+| s02-09 | Kiểm tra shingling. | Không có. | giữ | — |
+| s03-01 | Băm không giới hạn số phần tử; cần chữ ký. | Không có. | giữ | — |
+| s03-02 | Ma trận đặc trưng: hàng là phần tử, cột là tập. | (nhẹ) Cách đọc một cột thành tập chỉ có trong ghi chú; ghi chú dùng “các trang sau”. | sửa nhẹ. Thêm dòng “Cột $S_1$ có 1 ở hàng a và d: $S_1=\{a,d\}$”; ghi chú viết lại câu nối. | — |
+| s03-04 | Ý tưởng MinHash: một đại diện theo thứ tự chung. | Không có; nhãn hình đọc được. | giữ | — |
+| s03-05 | Vết MinHash theo $(b,e,a,d,c)$. | Không có. | giữ | — |
+| s03-06 | Định nghĩa $h_\pi$. | (nhẹ) Ghi chú dùng “các trang sau”. | sửa ghi chú. | — |
+| s03-07 | Ba loại hàng X, Y, Z. | Không có. | giữ | — |
+| s03-08 | Định lý xác suất trùng. | Không có. | giữ | — |
+| s03-09 | Kiểm tra MinHash. | Không có. | giữ | — |
+| s04-01 | Một MinHash chỉ cho 0/1; nhiều thứ tự tạo chữ ký. | Không có. | giữ | — |
+| s04-02 | Định nghĩa chữ ký. | Không có. | giữ | — |
+| s04-03 | Ước lượng Jaccard bằng tỷ lệ tọa độ trùng. | (trung bình) Bảng giá trị $\sigma(S_2)$, $\sigma(S_4)$ không kèm hai tập và hai thứ tự tạo ra chúng; ghi chú dẫn chiếu “trang trước”. | sửa. Dữ kiện $S_2$, $S_4$, $\pi_1$, $\pi_2$ lên mặt trang ở cột trái, bảng ở cột phải (bản nháp một cột tràn đáy 713/720, đã đổi bố cục); ghi chú giải thích cách đọc chữ ký từ hai thứ tự. | — |
+| s04-04 | Kỳ vọng của ước lượng. | Không có. | giữ | — |
+| s04-05 | Phương sai và đánh đổi độ dài. | Không có. | giữ | — |
+| s04-06 | Chi phí so sánh chữ ký. | Không có. | giữ | — |
+| s04-07 | Kiểm tra chữ ký. | Không có. | giữ | — |
+| s05-01 | Hàm băm mô phỏng hoán vị; hàng có giá trị nhỏ nhất đóng vai phần tử đầu. | (trung bình) Hình hộp–mũi tên chỉ lặp vòng lặp của giả mã s05-07; ý chính “không cần sắp xếp” không thấy được. | sửa. Hình mới `bam-thay-hoan-vi.svg`: bảng $f_1(r)=(r+1)\bmod5$, thứ tự $(e,a,b,c,d)$, $S_1=\{a,d\}$ tô nền, $\min(1,4)=1$ ứng với $a$. Câu chốt nêu không cần sắp xếp; điều kiện xác suất thành ghi chú nhỏ. Hình cũ `quet-ma-tran-thua.svg` vẫn dùng trong ghi chú tự học. | Mục 9: thêm hình mới sau bảng Ví dụ 3.8. |
+| s05-02 | Đặc tả bài toán tính chữ ký. | Không có. | giữ | — |
+| s05-03 | Dữ kiện hai hàm băm của Ví dụ 3.8. | (nhẹ) “hai thứ tự cố định của ví dụ chữ ký” là dẫn chiếu bằng lời. | sửa nhẹ. Gọi tên $\pi_1$, $\pi_2$ trên trang và trong ghi chú. | — |
+| s05-04 | Khởi tạo và hàng 0. | Không có. | giữ | — |
+| s05-05 | Hàng 1 và 2. | Không có. | giữ | — |
+| s05-06 | Hàng 3 và 4. | Không có. | giữ | — |
+| s05-07 | Giả mã quét hàng. | Không có. | giữ | — |
+| s05-08 | Bất biến của phép quét. | (nhẹ) Ghi chú dẫn chiếu “trang đặc tả”. | sửa ghi chú. | — |
+| s05-09 | Đếm chi phí. | Không có. | giữ | — |
+| s05-10 | Bộ nhớ chữ ký; 200.000 byte → 1.000 byte. | (trung bình) Con số 1.000 byte không có nguồn gốc trên trang; liên hệ với $n$ chỉ nằm trong ghi chú. | sửa. Dòng dữ kiện: tài liệu 50.000 byte, tập mã 200.000 byte, $n=250$ thành phần 4 byte; công thức $250\cdot4=1.000$ byte. Đối chiếu câu “vài phần trăm” với tr. 81: khớp. | Không đổi; mục 10 đã có $n=250$. |
+| s05-11 | Điều kiện đối với hàm băm hàng. | Không có. | giữ | — |
+| s05-12 | Kiểm tra tính chữ ký. | Không có. | giữ | — |
+| s06-01 | Quy trình tài liệu → shingle → chữ ký → tỷ lệ trùng. | Không có. | giữ | — |
+| s06-02 | Kết quả và giới hạn còn lại. | (trung bình) Phần kết chưa thu hồi con số của tình huống mở bài; thiếu hàng bộ nhớ. | sửa. Dòng quy mô $C=10^6$, $n=250$; bảng ba hàng: bộ nhớ 1.000 byte mỗi tài liệu, khoảng 1 GB; so sánh một cặp, độ lệch chuẩn $\le0{,}032$; số cặp $\approx5\cdot10^{11}$, gần 6 ngày. Nguồn Ví dụ 3.10, tr. 92. | Mục 14: thêm câu thu hồi cùng ba con số. |
+| s06-03 | Tự kiểm phần biểu diễn. | Không có. | giữ | — |
+| s06-04 | Tự kiểm phần chữ ký. | Không có. | giữ | — |
+| s07-01…07 | Năm bài tập nguồn. | (nhẹ) Ghi chú có dấu trang PDF nội bộ “/PDF7”, “/PDF19–20”. | sửa ghi chú: bỏ dấu trang PDF, giữ số bài, mục, trang in và thời lượng (AGENTS.md mục bài tập yêu cầu thời lượng trong ghi chú). Lời giải 3.3.2 và 3.3.3 tính lại bằng chương trình: khớp. | — |
+
+### Rà lại sau khi sửa
+
+**Hai báo cáo chỉ đọc chạy song song** (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`; bằng chứng: hai lệnh gọi Agent trong phiên ngày 07/10/2026). Vai trò độ chính xác: tính lại $\binom{10^6}2$, $499\,999{,}5$ s $\approx5{,}787$ ngày, $10^9$ byte, $1/(2\sqrt{250})\approx0{,}0316$, $250\cdot4$, các cửa sổ `abcdabd`/`abcxabd`, $f_1$ và thứ tự $(e,a,b,c,d)$, $\sigma(S_2)$, $\sigma(S_4)$, lời giải 3.3.2 và 3.3.3; đối chiếu Ví dụ 3.10 tr. 92 và câu “vài phần trăm” tr. 81. Vai trò mạch viết và góc nhìn sinh viên: kiểm ±2 trang lân cận, ranh giới phần 1→2, 4→5, 5→6, việc gộp s01-06, sự thu hồi tình huống ở s06-02 và độ khớp storyboard. Không có phát hiện chặn bàn giao hoặc nghiêm trọng.
+
+| Trang/vị trí | Phát hiện | Nguồn phát hiện | Quyết định | Thay đổi |
+|---|---|---|---|---|
+| s05-01, ghi chú tự học mục 9 | (trung bình) Câu chốt bỏ giả thiết không va chạm: khi có va chạm, hàng đạt cực tiểu không duy nhất. | cả hai | sửa, đóng | “Khi $f_i$ không va chạm, phần tử đứng đầu … ”; câu tương ứng trong mục 9. |
+| s02-01 | (trung bình) “Vị trí 3” và chỉ số 0–5 dùng trước quy ước đánh số từ 0 (nêu ở s02-03). | cả hai | sửa, đóng | Chú thích “vị trí đánh số từ 0 … (`d` thành `x`)”. |
+| s05-10 | (nhẹ) $n=250$ lấy từ Ví dụ 3.10 nhưng dòng nguồn chỉ ghi tr. 81; dòng dẫn lặp dữ kiện của công thức. | cả hai | sửa, đóng | Dòng nguồn thêm “$n=250$: Ví dụ 3.10, tr. 92”; dòng dẫn rút còn tài liệu 50.000 byte, $n=250$, 4 byte. |
+| s01-04 | (nhẹ) Chữ viết tắt MMDS xuất hiện lần đầu trên mặt trang chưa giải nghĩa. | độ chính xác | sửa, đóng | Dòng nguồn viết đủ tên sách. |
+| s01-05, ghi chú tự học mục 1 | (nhẹ) Giả định một micro giây là cho cặp chữ ký; câu “văn bản dài còn tốn hơn” không có cơ chế. | cả hai | sửa, đóng | Dòng nguồn ghi giả định của Ví dụ 3.10; ghi chú nêu thời gian so tỷ lệ với độ dài nên con số là cận dưới cho cách so trực tiếp. |
+| s03-02 | (nhẹ) Dòng đọc cột đứng trước định nghĩa $M(r,c)$; ghi chú gọi tên MinHash trước trang giới thiệu. | cả hai | sửa, đóng | Đổi thứ tự; ghi chú nói “phép chọn đại diện ở phần tiếp theo”. |
+| s01-07 | (nhẹ) Câu dẫn khẳng định cách biểu diễn như sự thật; ghi chú dùng mẫu dấu hai chấm tiết lộ. | cả hai | sửa, đóng | “Biểu diễn mỗi tài liệu bằng một tập phần tử …”; câu ghi chú dùng “vì”. |
+| s01-05/s06-02 | (nhẹ) Làm tròn khác nhau: “5,8 ngày” và “gần 6 ngày”. | mạch viết | sửa, đóng | s06-02 dùng “$\approx5{,}8$ ngày”; ghi chú giữ “gần sáu ngày” theo chữ của sách. |
+| s06-02 | (nhẹ) Hàng bộ nhớ thiếu giá trị trước để so. | mạch viết | sửa, đóng | “1.000 byte thay cho khoảng 200.000 byte mỗi tài liệu; cả kho khoảng 1 GB”. |
+| s05-01 | (nhẹ) Câu đầu lặp “hàng”; “rất” mạnh hơn “time-consuming” của sách. | mạch viết | sửa, đóng | “Với hàng triệu hàng, chọn ngẫu nhiên $n$ hoán vị rồi sắp xếp lại các hàng theo từng hoán vị tốn nhiều thời gian.” |
+| s02-01 → s02-02 | (nhẹ) Hai trang liền nhau cùng liệt kê sáu cửa sổ của `abcdabd`. | mạch viết | giữ trang, sửa storyboard | Trọng tâm khác nhau: s02-01 so hai chuỗi theo vị trí, s02-02 chuyển từ cửa sổ sang tập (hai `ab` → một phần tử); tiêu đề s02-02 đã nêu “tập”. Phiếu 11 ghi rõ kiến thức đầu vào từ trang 10. |
+| Storyboard phiếu 20, 30, 35, 44, 48 | (nhẹ) Trường mô tả chưa nhắc dòng mới hoặc còn tả hình cũ, còn “ở trang trước”. | mạch viết | sửa, đóng | Cập nhật “Bố cục”, “Trọng tâm”, “Lý do”. |
+
+**Tái kiểm sau sửa** (tác tử chỉ đọc thứ ba, `subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`; bằng chứng: lệnh gọi Agent trong phiên). Xác nhận đóng mọi phát hiện ở bảng trên; nêu thêm ba phát hiện nhẹ, đều đã sửa:
+
+| Trang/vị trí | Phát hiện | Quyết định | Thay đổi |
+|---|---|---|---|
+| s05-10 | (nhẹ) Sau khi rút dòng dẫn, con số 200.000 byte mất nhãn đại lượng. | sửa, đóng | Dòng dẫn: “Tài liệu 50.000 byte, tập mã shingle khoảng 200.000 byte; chữ ký $n=250$ thành phần, mỗi thành phần 4 byte”. |
+| Ghi chú s01-05, ghi chú tự học mục 1 | (nhẹ) “cận dưới” khẳng định mạnh hơn lập luận cho phép. | sửa, đóng | “với văn bản dài hơn nhiều so với $n$, so trực tiếp thường tốn hơn con số này”. |
+| Storyboard phiếu 30 | (nhẹ) Trường “Lý do” còn nhắc phép đếm 2/2 của cặp cũ. | sửa, đóng | “phép đếm 0/2 của cặp $S_2,S_4$”. |
+
+### Kiểm định cuối lượt duyệt lần hai, 07/10/2026
+
+**Kiểm hiển thị (Playwright Chromium, máy chủ `python3 -m reloadserver 8775`).** Deck 54 trang (47 giảng, 7 bài tập): ở 1600 × 900 không tràn khung, không `.katex-error`, không ký tự `$` sót ngoài KaTeX, không phần tử tràn ngang; chữ nhỏ nhất ngoài KaTeX là dòng nguồn 18 px theo lớp chung `.ex-source` (chú thích ngắn, như các bài khác), thân bài từ 24 px. Ở 390 × 844 (chế độ cuộn của Reveal) không tràn ngang; đã chụp riêng s01-04, s02-01, s05-01. Không lỗi console hay lỗi trang; không yêu cầu mạng ngoài máy chủ cục bộ; phím mũi tên chuyển trang. Ghi chú tự học ở 1440 × 900, 390 × 844 và in: không lỗi KaTeX, không tràn ngang, ảnh tải đủ. Đã xem ảnh chụp mọi trang đã sửa sau mỗi lần sửa.
+
+**Kiểm tĩnh.** Không khối `<style>`, không `style=""`, không `fragment`; 54 `data-slide-id` duy nhất, không xuất hiện trên mặt trang hay trong ghi chú diễn giả; khối mã có `data-trim`; mọi ảnh là SVG có `role="img"` và mô tả; không ảnh raster. Không sửa `lecture-style.css`, nên không cần kiểm lại Bài 02, 03. `git diff --check` sạch. Mục Bài 5 của `index.html` vẫn đúng tên, mô tả và đường dẫn, không đổi.
+
+**Phiếu kiểm tra của `slide_authoring_standard.md`.**
+
+| Mục | Kết quả |
+|---|---|
+| Tiêu đề ngắn, gọi đúng khái niệm; không câu hỏi, không câu kể tiến trình | đạt; không đổi tiêu đề nào trong lượt này |
+| Văn phong học thuật; biên tập và tự kiểm theo `no-ai-slop`/`eval.md` | đạt; các mẫu dấu hai chấm tiết lộ, từ nhấn “rất”, khẳng định quá mức “cận dưới” đã sửa |
+| Không văn nói, chỉ dẫn biên soạn hoặc điều phối trên trang, trong SVG, ghi chú | đạt; bỏ dấu trang PDF nội bộ trong ghi chú bài tập |
+| Mỗi trang một mục đích, có vai trò trong storyboard | đạt; s01-06 gộp vào s01-07; phiếu 06 ghi quyết định gộp |
+| Mỗi phần mở rõ nhu cầu và nối sang phần sau | đạt; ranh giới 1→2, 4→5, 5→6 được tác tử mạch viết kiểm |
+| Phần kết thu hồi tình huống ban đầu, có nhiệm vụ tự kiểm; thời lượng tách riêng | đạt; s06-02 thu hồi bộ nhớ, chi phí một cặp, số cặp và thời gian của s01-05; 120 + 60 phút |
+| Một trọng tâm mỗi trang; chú thích khớp hình, bảng, mã | đạt |
+| Tiên quyết và ký hiệu thiết lập trước nơi dùng | đạt; quy ước đánh số từ 0 nêu ngay trên s02-01 |
+| Cụm thuật toán đủ đặc tả, ví dụ, giả mã, lập luận đúng, dừng, biên, chi phí | đạt; không đổi cấu trúc các cụm thuật toán |
+| Ví dụ tính lại được; phân biệt nguồn và phần dựng | đạt; hai bản tin và `abcxabd` ghi rõ là ví dụ dựng hoặc biến thể |
+| Mô hình chi phí, đơn vị, giả thiết trước phép tính | đạt; giả định một micro giây mỗi cặp chữ ký ghi nguồn Ví dụ 3.10 |
+| Mỗi số hạng chi phí truy được về một bước | đạt |
+| Hình, giả mã, bảng, lời giải dùng cùng dữ kiện và ký hiệu | đạt; không còn dẫn chiếu “trang trước/ví dụ trước” bằng lời trong deck |
+| Câu hỏi đo đúng mục tiêu, có đáp án trong ghi chú | đạt; không đổi câu hỏi |
+| Bản render đọc được, không tràn hoặc chồng lấn | đạt |
+| Khối mã có `data-trim`; công thức render đúng; không `fragment` | đạt |
+| Sai khác nguồn và ngoại lệ có lý do trong nhật ký | đạt; thay quyết định “không bịa văn bản” ở s01-04 có lý do trong bảng duyệt từng trang |
+
+**Phân công vai trò trong lượt này.** Điều phối và biên tập: phiên Claude Code, Opus 5.5, effort `high`. Tác tử rà chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`): độ chính xác toán học–thuật toán; mạch viết và góc nhìn sinh viên; tái kiểm sau sửa. Bằng chứng: ba lệnh gọi Agent trong phiên. Chỉ một tác nhân ghi tệp (điều phối viên).
+
+**Giới hạn còn lại.** Hai bản tin ở s01-04 là văn bản dựng, không lấy từ nguồn; sách không cung cấp một cặp văn bản gần trùng cụ thể. Lượt này không đổi các câu hỏi kiểm tra và bài tập.
