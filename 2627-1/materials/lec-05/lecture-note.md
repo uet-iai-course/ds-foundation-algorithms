@@ -12,7 +12,9 @@ Một trang phản chiếu có thể giữ phần lớn nội dung của trang g
 
 Đầu vào là một kho gồm $C$ tài liệu. Đối với một cặp đã chọn, đầu ra cần có là một số đo tương đồng trên biểu diễn văn bản. Số đo trong bài dựa trên các đoạn con chung ở mức ký tự; tương đồng về ý nghĩa cần những kỹ thuật khác. Cách biểu diễn và quy tắc xử lý văn bản phải được xác định trước khi tính số đo.
 
-![Hai tài liệu có các vùng văn bản chung và riêng; diện tích vùng không biểu diễn dung lượng.](img/lec-05/tai-lieu-gan-trung.svg)
+Hình dưới là một ví dụ dựng cho tình huống bản tin đăng lại. Bản đăng lại giữ nguyên hai câu của bản gốc và chèn một câu ở giữa. Hai chuỗi khác nhau từ ký tự đầu của câu thứ hai, nên phép so từng ký tự kết luận hai tài liệu khác nhau, dù hai trong ba câu là chung.
+
+![Bản tin gốc có hai câu; bản đăng lại giữ nguyên hai câu ấy và chèn thêm một câu ở giữa. Câu chung có nền xanh, viền liền; câu thêm có viền đứt và nhãn “thêm”.](img/lec-05/ban-tin-dang-lai.svg)
 
 Hai giới hạn cần phân biệt là kích thước biểu diễn của mỗi tài liệu và số cặp trong kho. Nếu so sánh mọi cặp không thứ tự của $C$ tài liệu phân biệt thì có
 
@@ -22,7 +24,7 @@ $$
 
 cặp. Mỗi tài liệu ghép với $C-1$ tài liệu khác, nhưng cách đếm có thứ tự đếm mỗi cặp hai lần. Với một triệu tài liệu như quy mô nêu ở đầu chương, số cặp chính xác là $499\,999\,500\,000$.
 
-![Tổng công việc gồm số cặp nhân với chi phí so sánh một cặp.](img/lec-05/quy-mo-so-sanh-cap.svg)
+Tổng công việc bằng số cặp nhân chi phí so sánh một cặp. Ví dụ 3.10 (§3.4, tr. 92) giả định so một cặp chữ ký mất một micro giây; khi đó $499\,999\,500\,000$ cặp cần $499\,999{,}5$ giây, gần sáu ngày trên một máy. So hai chữ ký tốn thời gian tỷ lệ với độ dài chữ ký; so trực tiếp hai văn bản tốn thời gian tỷ lệ với độ dài văn bản, nên với văn bản dài hơn nhiều so với độ dài chữ ký, so trực tiếp thường tốn hơn con số này.
 
 Bài 05 xây một biểu diễn ngắn để giảm dung lượng và chi phí so sánh **một cặp**. Việc thay biểu diễn không tự làm giảm số cặp. Bài 06 tiếp tục từ chữ ký để tạo các cặp ứng viên bằng băm nhạy cảm cục bộ (LSH).
 
@@ -108,7 +110,7 @@ $$
 
 ![Sáu cửa sổ hai ký tự của abcdabd; hai cửa sổ ab chỉ tạo một phần tử.](img/lec-05/cua-so-shingle.svg)
 
-Shingling giữ thứ tự ký tự **bên trong** mỗi đoạn con. Biểu diễn bằng tập không giữ số lần lặp hoặc toàn bộ thứ tự các đoạn trong tài liệu. Những đoạn con nằm hoàn toàn trong phần văn bản được giữ nguyên vẫn xuất hiện ở cả hai phiên bản, tạo phần tử chung để Jaccard đo được, kể cả khi các câu đổi thứ tự (mở đầu §3.2, tr. 78). Một thay đổi cục bộ chỉ ảnh hưởng ít cửa sổ: thay ký tự ở vị trí $i$ chỉ đổi các cửa sổ bắt đầu từ $i-k+1$ đến $i$, tức nhiều nhất $k$ cửa sổ.
+Shingling giữ thứ tự ký tự **bên trong** mỗi đoạn con. Biểu diễn bằng tập không giữ số lần lặp hoặc toàn bộ thứ tự các đoạn trong tài liệu. Những đoạn con nằm hoàn toàn trong phần văn bản được giữ nguyên vẫn xuất hiện ở cả hai phiên bản, tạo phần tử chung để Jaccard đo được, kể cả khi các câu đổi thứ tự (mở đầu §3.2, tr. 78). Một thay đổi cục bộ chỉ ảnh hưởng ít cửa sổ: thay ký tự ở vị trí $i$ chỉ đổi các cửa sổ bắt đầu từ $i-k+1$ đến $i$, tức nhiều nhất $k$ cửa sổ. Chẳng hạn, `abcxabd` chỉ khác `abcdabd` ở vị trí $3$; với $k=2$, chỉ hai cửa sổ bắt đầu tại $2$ và $3$ đổi (`cd`, `da` thành `cx`, `xa`), bốn cửa sổ còn lại trùng nhau.
 
 ### Thuật toán, tính đúng và chi phí
 
@@ -470,7 +472,11 @@ Phần dư được lấy trong $\{0,1,2,3,4\}$.
 | 3 | d | 1, 3, 4 | 4 | 0 |
 | 4 | e | 3 | 0 | 3 |
 
-Sắp tăng cột $f_1$ cho thứ tự $(e,a,b,c,d)$; sắp tăng cột $f_2$ cho thứ tự $(d,a,c,e,b)$. Đó chính là hai thứ tự đã dùng để minh họa chữ ký định danh ở mục 7. Với $S_1,S_4$, tọa độ thứ nhất chọn $a\leftrightarrow r=0$, có $f_1(0)=1$; tọa độ thứ hai chọn $d\leftrightarrow r=3$, có $f_2(3)=0$. Vì vậy chữ ký định danh $(a,d)^{\mathsf T}$ được lưu bằng chữ ký giá trị $(1,0)^{\mathsf T}$. Hai hàm cố định này không va chạm, nên phép so bằng được bảo toàn; tính không va chạm không chứng minh phân phối chọn đều hoán vị.
+Sắp tăng cột $f_1$ cho thứ tự $(e,a,b,c,d)$; sắp tăng cột $f_2$ cho thứ tự $(d,a,c,e,b)$. Đó chính là hai thứ tự đã dùng để minh họa chữ ký định danh ở mục 7. Hình dưới minh họa với $f_1$. Khi hàm không va chạm trên các hàng đang xét, phần tử đứng đầu của một tập là hàng có giá trị băm nhỏ nhất trong tập, nên không cần sắp xếp các hàng.
+
+![Bảng f1 của năm hàng a đến e cho 1, 2, 3, 4, 0; sắp theo f1 tăng được thứ tự e, a, b, c, d. Trong S1 = {a, d}, a đứng đầu và có giá trị băm nhỏ nhất: min(f1(0), f1(3)) = min(1, 4) = 1.](img/lec-05/bam-thay-hoan-vi.svg)
+
+Với $S_1,S_4$, tọa độ thứ nhất chọn $a\leftrightarrow r=0$, có $f_1(0)=1$; tọa độ thứ hai chọn $d\leftrightarrow r=3$, có $f_2(3)=0$. Vì vậy chữ ký định danh $(a,d)^{\mathsf T}$ được lưu bằng chữ ký giá trị $(1,0)^{\mathsf T}$. Hai hàm cố định này không va chạm, nên phép so bằng được bảo toàn; tính không va chạm không chứng minh phân phối chọn đều hoán vị.
 
 ### Vết chạy đầy đủ
 
@@ -745,7 +751,7 @@ Không tập nào có phần tử trong các hàng đã xét, nên chưa có ph�
 
 ### Các phân biệt cần giữ
 
-Quy trình đi từ chuỗi tới tập shingle, từ tập tới chữ ký và từ chữ ký tới tỷ lệ trùng tọa độ. Trong mô hình hoán vị đều, tỷ lệ này có kỳ vọng bằng Jaccard của tập đầu vào. Thuật toán quét hàng tính các cực tiểu; bất biến chứng minh tính đúng, còn mô hình lựa chọn hàm quyết định bảo đảm xác suất. Đối chiếu với hai giới hạn ở mục 1: chữ ký đưa chi phí một cặp về $n$ phép so bằng, với độ lệch chuẩn không vượt $1/(2\sqrt n)$; số cặp vẫn là $C(C-1)/2$ nếu xét mọi cặp, và Bài 06 xử lý giới hạn này.
+Quy trình đi từ chuỗi tới tập shingle, từ tập tới chữ ký và từ chữ ký tới tỷ lệ trùng tọa độ. Trong mô hình hoán vị đều, tỷ lệ này có kỳ vọng bằng Jaccard của tập đầu vào. Thuật toán quét hàng tính các cực tiểu; bất biến chứng minh tính đúng, còn mô hình lựa chọn hàm quyết định bảo đảm xác suất. Đối chiếu với hai giới hạn ở mục 1: chữ ký đưa chi phí một cặp về $n$ phép so bằng, với độ lệch chuẩn không vượt $1/(2\sqrt n)$; số cặp vẫn là $C(C-1)/2$ nếu xét mọi cặp, và Bài 06 xử lý giới hạn này. Với quy mô của Ví dụ 3.10 (tr. 92), $10^6$ chữ ký 1.000 byte chiếm khoảng 1 GB, vừa bộ nhớ chính; độ lệch chuẩn với $n=250$ không vượt khoảng $0{,}032$; nhưng $499\,999\,500\,000$ cặp vẫn cần gần sáu ngày nếu mỗi cặp tốn một micro giây.
 
 ![Quy trình biểu diễn: tài liệu, tập shingle, chữ ký rồi tỷ lệ tọa độ trùng.](img/lec-05/quy-trinh-bieu-dien.svg)
 
