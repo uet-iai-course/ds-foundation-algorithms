@@ -21,7 +21,8 @@
         </section>
         <section id="lec02-s01-02" data-slide-id="lec02-s01-02" class="agenda-slide">
           <h2>Nội dung</h2>
-          <ul><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce (đọc thêm)</li><li>Thực hành Hadoop với Docker Compose</li><li>Tổng kết và bài tập vận dụng</li></ul>
+          <ol><li>Giới thiệu</li><li>Mô hình tính toán Map-Reduce</li><li>Các ví dụ Map-Reduce</li><li>Chi phí và lợi ích của song song hóa</li><li>Hệ thống thực thi Map-Reduce <span class="self-study-badge">Đọc thêm</span></li><li>Thực hành Hadoop với Docker Compose</li><li>Tổng kết và bài tập vận dụng</li></ol>
+          <aside class="notes"><p>Giới thiệu nêu nhu cầu xử lý dữ liệu nằm trên nhiều máy. Mô hình tính toán Map-Reduce đáp ứng nhu cầu ấy bằng hai hàm và phép nhóm theo khóa. Các ví dụ Map-Reduce áp mô hình cho ba bài toán có giá trị trung gian khác nhau. Chi phí và lợi ích của song song hóa đo công việc, thời gian và lượng truyền của các thiết kế đó. Hệ thống thực thi Map-Reduce, phần đọc thêm, giải thích cơ chế tạo ra các chi phí ấy. Thực hành Hadoop với Docker Compose chạy lại bài đếm từ trên một cụm thật. Tổng kết và bài tập vận dụng thu lại quy tắc chọn khóa và giá trị.</p></aside>
         </section>
 <section id="lec02-s01-03" data-slide-id="lec02-s01-03" class="motivation-slide">
   <h2>Dữ liệu lớn trên nhiều máy</h2>
@@ -121,8 +122,16 @@
 
       </section>
       <section aria-label="Mô hình tính toán Map-Reduce">
+<section id="mach-2" data-slide-id="lec02-s02-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Mô hình tính toán Map-Reduce</h2>
+    <p class="strand-lead">Muốn đếm từ trên kho nằm ở nhiều máy, phải đặc tả hai hàm Map, Reduce và phép nhóm theo khóa.</p>
+    <p class="strand-keys">Map · Reduce · Nhóm theo khóa · Các pha · Combine</p>
+  </div>
+  <aside class="notes"><p>Dữ liệu đã nằm trên nhiều máy của cụm và HDFS; ví dụ cộng dãy số cho thấy phép tính có thể chia thành phần cục bộ rồi gộp. Bài toán đếm từ được dùng để định nghĩa hàm Map, hàm Reduce, phép phân phối và nhóm theo khóa, các pha của một công việc và hàm Combine gộp cục bộ. Mô hình hình thức cùng điều kiện dùng Combine được áp vào ba ví dụ của phần sau.</p></aside>
+</section>
 <section id="lec02-s02-01" data-slide-id="lec02-s02-01" class="motivation-slide model-slide">
-  <h1>2 · Mô hình tính toán Map-Reduce</h1>
+  <h1>Bốn khả năng của Map-Reduce</h1>
   <p class="lead">Map-Reduce đáp ứng các nhu cầu tính toán trên cụm máy.</p>
   <div class="cards">
     <div class="card">
@@ -433,8 +442,16 @@ trả về Y = gom_giữ_lặp(O_0, ..., O_{r−1})</code></pre>
 
       </section>
 <section id="examples">
+<section id="mach-3" data-slide-id="lec02-s03-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Các ví dụ Map-Reduce</h2>
+    <p class="strand-lead">Muốn áp mô hình cho bài toán mới, phải chọn khóa và giá trị trung gian đủ để gộp đúng.</p>
+    <p class="strand-keys">Nhân ma trận–véc tơ · Đếm từ phân biệt · Trung bình cộng · Tính đúng</p>
+  </div>
+  <aside class="notes"><p>Khung Map-Reduce và điều kiện dùng Combine đã có. Ba bài toán nhân ma trận–véc tơ, đếm từ phân biệt và trung bình cộng lần lượt được đặc tả, gắn với một ứng dụng trên kho web, viết hàm, chạy tay và chứng minh tính đúng. Ba kiểu giá trị trung gian là tích phần tử, dấu hiệu hiện diện và cặp tổng, số lượng. Cộng dãy số và đếm từ được dùng lại để đo chi phí khi chạy trên nhiều máy.</p></aside>
+</section>
   <section class="motivation-slide example-slide" id="lec02-s03-01" data-slide-id="lec02-s03-01">
-<h1>3 · Các ví dụ Map-Reduce</h1>
+<h1>Khóa và giá trị trong ba ví dụ</h1>
 <p>Từ mô hình chung đến cách chọn khóa và giá trị trung gian.</p>
 <div class="ex-card"><strong>Nhân ma trận–véc tơ:</strong> gom các tích theo hàng.</div>
 <div class="ex-card"><strong>Đếm từ phân biệt:</strong> loại trùng rồi đếm.</div>
@@ -763,8 +780,16 @@ Reduce(i, L):  yield(i, sum(L))
 
 <section id="parallel-cost" aria-label="Chi phí và lợi ích của song song hóa">
 
+<section id="mach-4" data-slide-id="lec02-s04-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Chi phí và lợi ích của song song hóa</h2>
+    <p class="strand-lead">Muốn biết thêm máy có rút ngắn thời gian hay không, phải đếm công việc, thời gian từng pha và lượng truyền.</p>
+    <p class="strand-keys">Tổng công việc · Thời gian hoàn thành · Lượng truyền · Combine · Mức tăng tốc</p>
+  </div>
+  <aside class="notes"><p>Các hàm của ba ví dụ đã được đặc tả và chứng minh đúng. Phần này đếm tổng công việc khi cộng 16 số, thời gian của một pha và của cả công việc trên $P$ máy, chi phí đầu vào tác vụ, thời gian truyền với băng thông riêng và dùng chung, lượng truyền giảm nhờ Combine, rồi mức tăng tốc. Chi phí tính toán, truyền và điều phối được tách riêng để phần hệ thống thực thi giải thích cơ chế tạo ra chúng.</p></aside>
+</section>
 <section id="lec02-s04-01" data-slide-id="lec02-s04-01" class="motivation-slide example-slide cost-slide cost-open">
-  <h1>4 · Chi phí và lợi ích của song song hóa</h1>
+  <h1>Ba đại lượng chi phí</h1>
   <p class="cost-lead">Các hàm đã được đặc tả; phần này đánh giá công việc, thời gian và lượng truyền khi chạy trên nhiều máy.</p>
   <div class="cost-icons">
     <div class="cost-icon-card">
@@ -971,8 +996,16 @@ Reduce(i, L):  yield(i, sum(L))
 </section>
 <section id="system-execution" aria-label="Hệ thống thực thi Map-Reduce">
 
+<section id="mach-5" data-slide-id="lec02-s05-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Hệ thống thực thi Map-Reduce</h2>
+    <p class="strand-lead">Muốn hiểu thời gian chạy và cách phục hồi, phải theo dữ liệu từ phần đầu vào qua Shuffle tới Reduce.</p>
+    <p class="strand-keys">Phần đầu vào · HDFS · Hàm phân phối · Shuffle · Phục hồi khi máy hỏng</p>
+  </div>
+  <aside class="notes"><p>Phần chi phí đã tách thời gian tính toán, truyền và điều phối. Phần đọc thêm này giải thích cơ chế tạo ra các chi phí ấy: phần đầu vào sinh tác vụ Map, HDFS cho vị trí bản sao, hàm phân phối chia đầu ra Map, Shuffle và nhóm theo khóa đưa dữ liệu tới Reduce, bộ điều phối theo dõi trạng thái và chạy lại tác vụ khi máy hỏng. HDFS và bộ điều phối được gặp lại trên cụm Hadoop của phần thực hành, nhưng phần thực hành không đòi hỏi phần này.</p></aside>
+</section>
   <section id="lec02-s05-01" data-slide-id="lec02-s05-01" class="motivation-slide example-slide cost-slide system-slide">
-<h1>5 · Hệ thống thực thi Map-Reduce</h1>
+<h1>Giao việc, chuyển dữ liệu và phục hồi</h1>
 <div class="slide-badge-row"><span class="self-study-badge">Đọc thêm</span></div>
 <p>Thời gian chạy phụ thuộc vào cách giao tác vụ và chuyển dữ liệu giữa các máy.</p>
 <table class="ex-table"><tbody><tr><td>Giao việc</td><td>Chọn máy và tận dụng vị trí dữ liệu.</td></tr><tr><td>Chuyển dữ liệu</td><td>Đưa các phần trung gian tới đúng Reduce.</td></tr><tr><td>Phục hồi</td><td>Phát hiện lỗi và làm lại phần kết quả bị mất.</td></tr></tbody></table>
@@ -1111,8 +1144,16 @@ Reduce(i, L):  yield(i, sum(L))
 
 <section id="practical-hadoop" aria-label="Thực hành Hadoop với Docker Compose">
 
+<section id="mach-6" data-slide-id="lec02-s06-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Thực hành Hadoop với Docker Compose</h2>
+    <p class="strand-lead">Muốn chạy đếm từ trên cụm thật, phải dựng cụm Hadoop, viết Map, Reduce bằng Python và đối chiếu kết quả.</p>
+    <p class="strand-keys">Docker Compose · HDFS · Hadoop Streaming · Bộ đếm</p>
+  </div>
+  <aside class="notes"><p>Mô hình Map-Reduce và lần chạy tay bài đếm từ đã cho kết quả chim 1, chó 2, mèo 2. Cụm sáu container gồm NameNode, hai DataNode, ResourceManager và hai NodeManager được dựng trên một máy; hai văn bản được đưa lên HDFS; hàm Map, Reduce và Combine viết bằng Python chạy qua Hadoop Streaming. Kết quả và các bộ đếm của công việc được đối chiếu với phép tính tay, làm căn cứ cho phần tổng kết.</p></aside>
+</section>
   <section id="lec02-s06-01" data-slide-id="lec02-s06-01" class="motivation-slide example-slide cost-slide practical-slide">
-<h1>6 · Thực hành Hadoop với Docker Compose</h1>
+<h1>Mục đích và chuẩn bị thực hành</h1>
 <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
 <p>Biến mô hình Map-Reduce thành một chương trình chạy thật trên cụm nhỏ.</p>
 <table class="ex-table"><tbody><tr><td>Mục đích</td><td>Chạy bài đếm từ trên cụm Hadoop 6 container, một máy.</td></tr><tr><td>Kết quả mong đợi</td><td>chim 1 · chó 2 · mèo 2 — đúng như đã tính trên giấy.</td></tr><tr><td>Chuẩn bị</td><td>Cài Docker trước lớp; phần 5 là Đọc thêm, không tiên quyết.</td></tr></tbody></table>
@@ -1247,8 +1288,16 @@ mèo	2</code></pre>
 </section>
 <section id="summary-exercises" aria-label="Tổng kết và bài tập vận dụng">
 
+<section id="mach-7" data-slide-id="lec02-s07-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết và bài tập vận dụng</h2>
+    <p class="strand-lead">Muốn dùng Map-Reduce cho bài toán khác, phải chọn khóa và thông tin giữ lại theo đầu ra cần tính.</p>
+    <p class="strand-keys">Ba cách gộp · Câu hỏi kiểm tra · Số nguyên lớn nhất · Trung bình cộng · Số giá trị phân biệt</p>
+  </div>
+  <aside class="notes"><p>Mô hình, ba ví dụ, chi phí và lần chạy trên cụm Hadoop cho một quy tắc thiết kế: khóa quyết định nhóm nào vào cùng một Reduce, giá trị trung gian phải giữ đủ thông tin cho phép gộp. Phần cuối đối chiếu ba cách gộp, kiểm tra bằng câu hỏi, rồi giao ba bài tập số nguyên lớn nhất, trung bình cộng và số giá trị phân biệt theo cùng quy tắc.</p></aside>
+</section>
   <section id="lec02-s07-01" data-slide-id="lec02-s07-01" class="motivation-slide example-slide cost-slide summary-slide">
-<h1>7 · Tổng kết và bài tập vận dụng</h1>
+<h1>Ba nhu cầu và cách Map-Reduce đáp ứng</h1>
 <table class="ex-table"><tbody>
 <tr><td>Dữ liệu nằm trên nhiều máy</td><td>Map xử lý từng phần; ưu tiên gần dữ liệu.</td></tr>
 <tr><td>Kết quả cần liên kết với nhau</td><td>Khóa quy định nhóm nào vào cùng một Reduce.</td></tr>

@@ -5,15 +5,30 @@
 | Phần | Vai trò | Số slide | Thời lượng |
 |---|---|---:|---:|
 | 1. Giới thiệu | Nhu cầu dữ liệu lớn, song song và cục bộ | 6 | 10 phút |
-| 2. Mô hình | Từ đếm từ đến Map/Reduce/Combine hình thức | 12 | 22 phút |
-| 3. Ví dụ | Thiết kế, chạy tay và lập luận đúng | 20 | 30 phút |
-| 4. Chi phí | Công việc, thời gian, băng thông, lợi ích | 11 | 25 phút |
-| 5. Hệ thống | Đọc thêm: phân phối, shuffle, phục hồi | 14 | 25 phút ngoài lớp |
-| 6. Thực hành | Compose, Python, thực thi và kiểm chứng | 12 | 25 phút |
-| 7. Tổng kết | Thu hồi vấn đề, đối chiếu, tự kiểm | 3 | 8 phút |
+| 2. Mô hình (mở bằng `lec02-s02-00`) | Từ đếm từ đến Map/Reduce/Combine hình thức | 13 | 22 phút |
+| 3. Ví dụ (mở bằng `lec02-s03-00`) | Thiết kế, chạy tay và lập luận đúng | 21 | 30 phút |
+| 4. Chi phí (mở bằng `lec02-s04-00`) | Công việc, thời gian, băng thông, lợi ích | 12 | 25 phút |
+| 5. Hệ thống (mở bằng `lec02-s05-00`) | Đọc thêm: phân phối, shuffle, phục hồi | 15 | 25 phút ngoài lớp |
+| 6. Thực hành (mở bằng `lec02-s06-00`) | Compose, Python, thực thi và kiểm chứng | 13 | 25 phút |
+| 7. Tổng kết (mở bằng `lec02-s07-00`) | Thu hồi vấn đề, đối chiếu, tự kiểm | 4 | 8 phút |
 | 7. Bài tập vận dụng | MMDS 2.3.1(a), (b), (d) | 3 | 60 phút recitation |
 
-Tổng giảng chính: 120 phút, không gồm phần 5; bài tập: 60 phút. Docker và image được chuẩn bị trước lớp. Bảy phần ngoài; ba bài tập là nhóm trang dọc cuối phần 7, sau tổng kết. Đây là ngoại lệ tổ chức recitation chung với phần kết theo yêu cầu ba phần chính mới. Tổng 81 slide; 64 trang giảng gồm 12 trang từng bước trình diễn nên không dành thời lượng bằng nhau cho mọi trang. Các mốc cũ bên dưới là lịch sử xây dựng từng phần; dùng lịch này cho bản hiện tại.
+Tổng giảng chính: 120 phút, không gồm phần 5; bài tập: 60 phút. Docker và image được chuẩn bị trước lớp. Bảy phần ngoài; ba bài tập là nhóm trang dọc cuối phần 7, sau tổng kết. Đây là ngoại lệ tổ chức recitation chung với phần kết theo yêu cầu ba phần chính mới. Tổng 87 slide sau khi thêm sáu trang tiêu đề mạch ngày 2026-10-14 (trước đó 81); ngoài 6 trang tiêu đề mạch (5 trong phần giảng, 1 ở phần đọc thêm) có 64 trang giảng, trong đó 12 trang từng bước trình diễn nên không dành thời lượng bằng nhau cho mọi trang. Các mốc cũ bên dưới là lịch sử xây dựng từng phần; dùng lịch này cho bản hiện tại.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài từ 2 đến 7 mở bằng một trang `class="strand-title"`, `id="mach-N"`, mã `lec02-s0N-00` (chưa có mã này trong bài). Trang mở phần cũ `lec02-s0N-01` có tiêu đề dạng "N · tên phần" trùng tên mạch; theo quy tắc tên mạch khác tiêu đề trang nội dung đầu tiên, tiêu đề các trang này được đổi theo nội dung thật của trang, bỏ tiền tố số; nội dung, notes, thứ tự giữ nguyên. Thời lượng 0,5 phút mỗi trang tiêu đề mạch lấy từ trang mở phần cũ; tổng 120 + 60 phút và 25 phút đọc thêm không đổi.
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| `lec02-s02-00` | Mô hình tính toán Map-Reduce | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước `lec02-s02-01` | Nhu cầu cụm máy, ví dụ cộng dãy số, HDFS của mạch 1 | Map, Reduce, nhóm theo khóa, các pha, Combine | ngoài chu trình khái niệm; `lec02-s02-01` đổi tiêu đề thành "Bốn khả năng của Map-Reduce" | 0,5 (từ `lec02-s02-01`) | thêm |
+| `lec02-s03-00` | Các ví dụ Map-Reduce | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước `lec02-s03-01` | Khung Map-Reduce và điều kiện dùng Combine | Ba thuật toán có hàm, chạy tay, chứng minh đúng | ngoài chu trình khái niệm; `lec02-s03-01` đổi tiêu đề thành "Khóa và giá trị trong ba ví dụ" | 0,5 (từ `lec02-s03-01`) | thêm |
+| `lec02-s04-00` | Chi phí và lợi ích của song song hóa | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước `lec02-s04-01` | Ba thuật toán và bài đếm từ, cộng dãy số | Công việc, thời gian, lượng truyền, mức tăng tốc | ngoài chu trình khái niệm; `lec02-s04-01` đổi tiêu đề thành "Ba đại lượng chi phí" | 0,5 (từ `lec02-s04-01`) | thêm |
+| `lec02-s05-00` | Hệ thống thực thi Map-Reduce | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước `lec02-s05-01` | Tách chi phí tính toán, truyền, điều phối của mạch 4 | Cơ chế phân phối, Shuffle và phục hồi (đọc thêm) | ngoài chu trình khái niệm; `lec02-s05-01` đổi tiêu đề thành "Giao việc, chuyển dữ liệu và phục hồi" | 0,5 (từ `lec02-s05-01`) | thêm |
+| `lec02-s06-00` | Thực hành Hadoop với Docker Compose | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước `lec02-s06-01` | Mô hình mạch 2 và kết quả tính tay đếm từ | Kết quả và bộ đếm của công việc Hadoop Streaming thật | ngoài chu trình khái niệm; `lec02-s06-01` đổi tiêu đề thành "Mục đích và chuẩn bị thực hành" | 0,5 (từ `lec02-s06-01`) | thêm |
+| `lec02-s07-00` | Tổng kết và bài tập vận dụng | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước `lec02-s07-01` | Mô hình, ba ví dụ, chi phí và lần chạy thật | Quy tắc chọn khóa và giá trị; ba bài tập MMDS 2.3.1 | ngoài chu trình khái niệm; `lec02-s07-01` đổi tiêu đề thành "Ba nhu cầu và cách Map-Reduce đáp ứng" | 0,5 (từ `lec02-s07-01`) | thêm |
+
+`lec02-s01-02` "Nội dung": danh sách `ul` thành `ol` 1–7, tên trùng từng chữ với tên mạch; "(đọc thêm)" ở mục 5 thay bằng nhãn `self-study-badge` "Đọc thêm" của CSS chung; thêm notes một câu cho mỗi mạch. Quyết định: sửa.
 
 ## Section 1 — Giới thiệu bài học
 
@@ -29,7 +44,7 @@ Tổng giảng chính: 120 phút, không gồm phần 5; bài tập: 60 phút. D
 ### `lec02-s01-02` — Nội dung
 
 - **Mục đích:** Giới thiệu các phần của bài học sau slide tiêu đề.
-- **Hiện trạng:** Bốn mục “Giới thiệu”, “Mô hình tính toán Map-Reduce”, “Các ví dụ Map-Reduce”, “Chi phí và lợi ích của song song hóa”.
+- **Hiện trạng (2026-10-14):** Danh sách đánh số bảy mạch, tên trùng trang tiêu đề mạch; mục 5 mang nhãn Đọc thêm; notes một câu cho mỗi mạch.
 - **Quy tắc cập nhật:** Khi thêm section mới, thêm tên phần tương ứng vào slide “Nội dung”.
 - **Nguồn:** Chỉ dẫn trực tiếp của người dùng.
 
@@ -78,7 +93,7 @@ Theo yêu cầu người dùng, mỗi bài toán có số liệu và năm công 
 
 Người dùng duyệt phần Giới thiệu và yêu cầu mở section mới với đúng hai slide ban đầu. Bài toán đếm từ là ví dụ xuyên suốt section này, không là một phần độc lập. Mạch dự kiến: khả năng của mô hình → đặc tả đếm từ → dùng chính bài toán này giải thích Map, nhóm theo khóa và Reduce ở các slide sẽ soạn sau theo chỉ dẫn. Hiện chưa thêm các slide giải thuật hoặc phân tích chi phí. Ngoại lệ: bài đang xây từng bước, mới có hai section, chưa áp dụng số phần/thời lượng của deck hoàn chỉnh.
 
-### `lec02-s02-01` — 2 · Mô hình tính toán Map-Reduce
+### `lec02-s02-01` — Bốn khả năng của Map-Reduce (trước 2026-10-14: "2 · Mô hình tính toán Map-Reduce")
 
 - Mục đích: nêu khả năng Map-Reduce đáp ứng các nhu cầu ở phần Giới thiệu; theo điều chỉnh trực tiếp của người dùng, không mô tả cách làm ở đây.
 - Nối vào: nhu cầu xử lý trên cụm máy, tính toán gần dữ liệu và chịu lỗi ở phần trước.
@@ -193,13 +208,13 @@ Chức năng: vận dụng mô hình đã học để chọn khóa, giá trị t
 
 Theo chỉ dẫn cụ thể, mỗi bài giữ đúng thứ tự: bài toán hình thức → ứng dụng → đặc điểm và ý tưởng → các hàm → ví dụ → chứng minh. Đây là ngoại lệ có chủ đích so với chu trình mặc định. Ví dụ số tự chọn theo yêu cầu, không phải số liệu thực nghiệm hoặc bài recitation nguyên văn. Thời lượng dự kiến 49 phút cho section (gồm ba slide ứng dụng mới); bài vẫn đang được xây từng phần, chưa chốt tổng 120+60 phút.
 
-### `lec02-s03-01` — Mở phần: Các ví dụ Map-Reduce
+### `lec02-s03-01` — Khóa và giá trị trong ba ví dụ (trước 2026-10-14: "3 · Các ví dụ Map-Reduce")
 
 - Mục đích: Chọn khóa và giá trị theo đầu ra cần tính.
 - Câu chốt và kết nối: Mô hình chung → ba kiểu gộp: tổng theo hàng, hiện diện theo từ, tổng và số lượng.
 - Nội dung, cách thể hiện: Ba hàng giới thiệu, chưa thêm đặc tả.
 - Nguồn: MMDS 2.3.1; bài 2.3.1(b,d), tr.40.
-- Thời lượng dự kiến: 1 phút.
+- Thời lượng dự kiến: 0,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 2026-10-14).
 
 ### `lec02-s03-02` — Bài toán nhân ma trận–véc tơ
 
@@ -369,7 +384,7 @@ Dữ kiện số là minh họa mô hình theo yêu cầu giảng viên, không 
 
 Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn section chính. Đây là ngoại lệ theo yêu cầu xây bài từng phần, chưa tuyên bố đủ toàn bài 120 phút và recitation 60 phút; câu hỏi cuối phần là tương tác tại lớp. Sáu SVG chính có mã tái tạo tại `img/lec-02/scripts/render-cost-figures.py`; hình nhỏ còn lại là SVG nội dòng.
 
-### `lec02-s04-01` — Chi phí và lợi ích của song song hóa
+### `lec02-s04-01` — Ba đại lượng chi phí (trước 2026-10-14: "4 · Chi phí và lợi ích của song song hóa")
 
 - **Mục đích / sản phẩm:** Phân biệt đại lượng và đơn vị trước khi so sánh hai cách thực hiện.
 - **Câu chốt:** $W$ đếm phép toán, $T_P$ đo thời gian, $V$ đếm byte qua mạng.
@@ -379,7 +394,7 @@ Thời lượng: 27,5 phút cho 11 slide. Toàn deck hiện 49 slide, bốn sect
 - **Kết nối vào–ra:** Từ cách viết các hàm sang cách đánh giá; tạo ba góc nhìn cho các slide tiếp theo.
 - **Kiểm tra và ghi chú:** Notes giải thích không cộng trực tiếp đại lượng khác đơn vị.
 - **Nguồn:** MMDS 2.5, trang 53–56; cách chia ba góc nhìn theo yêu cầu.
-- **Thời lượng:** 2 phút
+- **Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 2026-10-14)
 
 ### `lec02-s04-02` — Tổng công việc: cộng 16 số
 
@@ -523,14 +538,14 @@ Cách thể hiện: câu dẫn nêu nhu cầu đo, ký hiệu được giải ng
 - `lec02-s04-09`: ghi trên mặt slide rằng thời gian 1/4/3/2 giây là dữ kiện cho trước của ví dụ giả định trên bốn máy. Không suy ra những số này từ ví dụ cộng 16 số; không phải số đo thực nghiệm. Mục đích là tập ghép thời gian các pha; bài tập phải cung cấp thời gian pha hoặc dữ kiện để tính chúng.
 - Giữ thứ tự, số trang, các giả thiết và nguồn của phần chi phí. Hai trang dùng cùng ký hiệu pha nhưng hai bộ dữ kiện riêng.
 
-# Storyboard — Phần 5: Hệ thống thực thi Map-Reduce (14 slide đọc thêm, 25 phút tự đọc)
+# Storyboard — Phần 5: Hệ thống thực thi Map-Reduce (14 slide đọc thêm và trang tiêu đề mạch `lec02-s05-00` thêm 2026-10-14, 25 phút tự đọc)
 
 Đối tượng: sinh viên năm 2. Mở từ chi phí (phần 4), kết bằng câu hỏi kiểm tra cơ chế. Theo yêu cầu mới của giảng viên, toàn phần gắn nhãn Đọc thêm; phần thực hành không giả định đã đọc hết phần này.
 Nguồn chính: MMDS 2.2.5 (tr.28–29), 2.2.6 (tr.30), slide MMDS 23–27; bài báo MapReduce (OSDI 2004); Apache Hadoop Tutorial (mục Job Input, Shuffle and Sort). Lưu ý dẫn nguồn: split/record do Apache Hadoop tutorial (mục Job Input), không phải paper 3.3; semantics/retry/commit là paper 3.3 (tr.4–5); locality 3.4; backup 3.6; streaming/external sort paper 3.1 tr.4.
 
 | # | Slide | Mục đích | Câu chốt | Vai trò | Kiến thức đầu | Cách thể hiện | Kết nối | Nguồn | Notes (tóm tắt lời giảng) | Thời lượng |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `lec02-s05-01` | 5 · Hệ thống thực thi Map-Reduce | Mở phần, đặt khung | Thời gian thực tế phụ thuộc cách giao tác vụ và chuyển dữ liệu | Mở đầu | Phần 4: mô hình chi phí lý tưởng | H1, nhãn Đọc thêm và bảng ba nhiệm vụ với mô tả ngắn | Dẫn vào 02 | MMDS 2.2.5–2.2.6 | Từ mô hình lý tưởng sang hệ thống thật; ba nhiệm vụ là ba mạch của cả phần | 1' |
+| `lec02-s05-01` | Giao việc, chuyển dữ liệu và phục hồi (trước 2026-10-14: 5 · Hệ thống thực thi Map-Reduce) | Mở phần, đặt khung | Thời gian thực tế phụ thuộc cách giao tác vụ và chuyển dữ liệu | Mở đầu | Phần 4: mô hình chi phí lý tưởng | H1, nhãn Đọc thêm và bảng ba nhiệm vụ với mô tả ngắn | Dẫn vào 02 | MMDS 2.2.5–2.2.6 | Từ mô hình lý tưởng sang hệ thống thật; ba nhiệm vụ là ba mạch của cả phần | 0,5' (trước 2026-10-14: 1') |
 | `lec02-s05-02` | Từ phần dữ liệu đến tác vụ | Định nghĩa InputSplit | Split là phần đọc logic của một tác vụ Map | Khái niệm nền | Biết Map/Reduce là gì | sys-02.svg: 6 split → M1..M6, 3 máy nhận nhiều lượt, R=2 | Sang 03 (giao ở đâu) | Hadoop tutorial Job Input; MMDS 2.2.5 | Split ≠ block; số máy ≠ số tác vụ; R do cấu hình | 2' |
 | `lec02-s05-02a` | HDFS hỗ trợ Map-Reduce | Nối lưu trữ với tính toán | Vị trí bản sao giúp giao gần dữ liệu; đầu vào cho phép đọc lại; HDFS giữ kết quả Reduce | Cầu nối theo góp ý giảng viên | InputSplit, khối và bản sao đã học | sys-02a.svg: HDFS phía trên, ba vai trò bên dưới; phân biệt NameNode và DataNode | Từ chia việc sang chọn nơi chạy và phục hồi | MMDS 2.1.2/2.2.5; HDFS Architecture | HDFS quản dữ liệu; MapReduce lập lịch và chạy lại tác vụ; trung gian Map cục bộ không tự là tệp HDFS | 2 phút |
 | `lec02-s05-03` | Giao Map gần nơi lưu dữ liệu | Giải thích locality | Ưu tiên local → cùng rack → khác rack | Ví dụ | Biết DFS có bản sao | sys-03.svg: A và D chứa B1, B cùng rack A, C ở rack khác; đường đọc 3 mức | Sang 04 (đầu ra Map) | MMDS 2.1.2, 2.2.5; paper 3.4 | A và D có bản sao nên Map ở cả hai đều đọc cục bộ; B cùng rack A, C đọc A qua hai rack; bản sao không làm tăng dữ liệu logic | 1.5' |
@@ -554,14 +569,14 @@ Nguồn chính: MMDS 2.2.5 (tr.28–29), 2.2.6 (tr.30), slide MMDS 23–27; bài
 
 ## Storyboard phần 6 — Thực hành Hadoop với Docker Compose (lec02)
 
-- Outer section: `id="practical-hadoop"`, 12 inner slides `lec02-s06-01` … `lec02-s06-12`, class `motivation-slide example-slide cost-slide practical-slide`.
+- Outer section: `id="practical-hadoop"`, 13 inner slides: trang tiêu đề mạch `lec02-s06-00` (thêm 2026-10-14) và `lec02-s06-01` … `lec02-s06-12`, class `motivation-slide example-slide cost-slide practical-slide`.
 - H1 ở slide 01, H2 ở các slide còn lại. Không fragment, không inline font-size nhỏ.
 - Tổng thời lượng: **25 phút** (cài đặt Docker và tải ZIP **trước lớp**).
 - Số liệu runtime đã kiểm chứng: image `apache/hadoop:3.4.2-lean` (digest `27eb85…cb790`), Python 3.10.12 có sẵn; 6 Docker container (NN, RM, DN1, DN2, NM1, NM2), mỗi service 1 vai trò trên 1 bridge network, 1 host; 2 DN Live, 2 NM Running; replication 2. Job Hadoop Streaming thật: SUCCEEDED, kết quả chim 1, chó 2, mèo 2. minsplit 134217728 → 2 tệp nhỏ → 2 Map; `-D job.reduces=2` → 2 Reduce. Combine 5 input → 4 output; reduce 3 nhóm/output 3. Counters là của một lần chạy; Combine có thể chạy số lần khác nhau. DN và NM là container khác nhau — không claim data-local hay hai rack thật; mô phỏng cùng host không chứng minh speedup/HA. YARN container = đơn vị tài nguyên chạy AM/Map/Reduce trong NM, khác Docker container.
 
 | # | Tiêu đề | Purpose / knowledge | Input | Output / trung tâm | Nối vào–ra | Nguồn | Thời lượng |
 |---|---------|--------------------|-------|--------------------|-----------|-------|-----------|
-| `lec02-s06-01` | 6 · Thực hành Hadoop với Docker Compose | Mở phần: chuyển Map/Reduce thành chương trình chạy thật | Mô hình phần 2, chi phí phần 4 (phần 5 Đọc thêm, không tiên quyết) | Kết quả mong đợi: chim 1, chó 2, mèo 2; liên kết mã `examples/lec-02/hadoop-compose/README.md` và ZIP | Vào: từ phần 2/4. Ra: toàn phần 6 | MMDS 2.2 (chung) | 2′ |
+| `lec02-s06-01` | Mục đích và chuẩn bị thực hành (trước 2026-10-14: 6 · Thực hành Hadoop với Docker Compose) | Mở phần: chuyển Map/Reduce thành chương trình chạy thật | Mô hình phần 2, chi phí phần 4 (phần 5 Đọc thêm, không tiên quyết) | Kết quả mong đợi: chim 1, chó 2, mèo 2; liên kết mã `examples/lec-02/hadoop-compose/README.md` và ZIP | Vào: từ phần 2/4. Ra: toàn phần 6 | MMDS 2.2 (chung) | 1,5′ (trước 2026-10-14: 2′) |
 | `lec02-s06-02` | Cụm Hadoop trên một máy | Kiến trúc lab: HDFS + YARN trên 6 container | compose.yaml, hình `lab-cluster.svg` | NN lưu vị trí → 2 DN lưu khối/bản sao; RM cấp tài nguyên → 2 NM chạy MapReduce; 1 bridge | Ra: slide 03 khởi động | Apache Hadoop docker-compose chính thức | 2′ |
 | `lec02-s06-03` | Khởi động bằng Docker Compose | Ba lệnh cơ bản | Docker đã cài trước lớp, bộ mã giải nén | `pull` / `up -d` / `ps`; image version ngắn trên mặt, digest trong file | Ra: slide 04 kiểm tra | Docker Hub apache/hadoop; Docker Compose docs | 2′ |
 | `lec02-s06-04` | Kiểm tra cụm đã sẵn sàng | Tiêu chí sẵn sàng | Cụm đang chạy | 2 DN Live, 2 NM RUNNING; UI 19870 / 18088 | Ra: slide 05 nạp dữ liệu | Hadoop dfsadmin / yarn node | 2′ |
@@ -582,13 +597,13 @@ Ghi chú viết:
 
 ## Storyboard phần 7 — Tổng kết và bài tập vận dụng (lec02)
 
-- Outer section: `id="summary-exercises"`, 6 inner slides `lec02-s07-01` … `lec02-s07-06`, class `motivation-slide example-slide cost-slide summary-slide`.
+- Outer section: `id="summary-exercises"`, 7 inner slides: trang tiêu đề mạch `lec02-s07-00` (thêm 2026-10-14) và `lec02-s07-01` … `lec02-s07-06`, class `motivation-slide example-slide cost-slide summary-slide`.
 - H1 ở slide 01, H2 ở các slide 02–06. Không fragment, không raster, không hình mới.
 - Tổng thời lượng: tổng kết 2+3+3 = 8 phút; mỗi bài tập 20 phút (chỉ storyboard, không hiện trên mặt).
 
 | # | Tiêu đề | Purpose / kiến thức | Trung tâm | Nối vào–ra | Nguồn | Thời lượng |
 |---|---------|--------------------|-----------|-----------|-------|-----------|
-| `lec02-s07-01` | 7 · Tổng kết và bài tập vận dụng | Ghép 3 hàng quan hệ nhu cầu Google ở intro → mô hình | Dữ liệu nhiều máy → Map xử lý phần đầu vào; kết quả cần liên kết → khóa quy định nhóm Reduce; lập trình viên cần tập trung vào hàm → hệ thống phân chia/lập lịch/phục hồi. Caption chốt đường đi dữ liệu qua Map và Reduce; phần 5 hệ thống chỉ Đọc thêm | Vào: phần 1–6. Ra: slide 02 | MMDS Ch.2 | 2′ |
+| `lec02-s07-01` | Ba nhu cầu và cách Map-Reduce đáp ứng (trước 2026-10-14: 7 · Tổng kết và bài tập vận dụng) | Ghép 3 hàng quan hệ nhu cầu Google ở intro → mô hình | Dữ liệu nhiều máy → Map xử lý phần đầu vào; kết quả cần liên kết → khóa quy định nhóm Reduce; lập trình viên cần tập trung vào hàm → hệ thống phân chia/lập lịch/phục hồi. Caption chốt đường đi dữ liệu qua Map và Reduce; phần 5 hệ thống chỉ Đọc thêm | Vào: phần 1–6. Ra: slide 02 | MMDS Ch.2 | 1,5′ (trước 2026-10-14: 2′) |
 | `lec02-s07-02` | Ba bài toán, ba cách gộp | Chọn khóa theo đầu ra, giữ đủ thông tin để gộp | Bảng 3 cột: matvec (A p×q, v q; key i; sum a_ij·v_j), distinct (key giá trị x; giữ sự hiện diện; bỏ trùng, rồi đếm), average (key chung; giữ (S,C); cộng từng thành phần rồi S/C cuối) | Ra: slide 03 | MMDS 2.2–2.3 | 3′ |
 | `lec02-s07-03` | Câu hỏi kiểm tra | Đo đúng 4 mục tiêu | 4 câu: trách nhiệm Map/Reduce trong đếm từ; điều kiện Combine giữ kết quả; tăng máy có luôn giảm thời gian; bằng chứng bài thực hành job chạy và đúng | Ra: slide 04 | MMDS 2.2; lab phần 6 | 3′ |
 | `lec02-s07-04` | Bài tập: Số nguyên lớn nhất | Thiết kế Map/Combine/Reduce + luận chứng đúng | Đề MMDS 2.3.1(a) p.40: tệp rất lớn chứa các số nguyên; đầu ra số nguyên lớn nhất; khóa đầu ra bỏ qua. Sản phẩm: đặc tả Map/Combine/Reduce và lập luận đúng. KHÔNG hiện lời giải trên mặt | Ra: slide 05 | MMDS 2.3.1(a) p.40 | 20′ |

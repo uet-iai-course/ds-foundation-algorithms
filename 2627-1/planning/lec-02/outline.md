@@ -2,7 +2,21 @@
 
 ## Dàn ý hiện tại — đủ bảy phần
 
-Bản hiện tại có 81 slide: 64 trang giảng/trình diễn, 14 trang hệ thống đọc thêm và 3 trang bài tập. Giảng chính 120 phút; tự đọc hệ thống 25 phút ngoài lớp; recitation 60 phút. Các quyết định theo giai đoạn bên dưới được cập nhật bởi trạng thái này; bảng thời lượng cuối thay các ước lượng cũ.
+Bản hiện tại có 87 slide (81 trước khi thêm sáu trang tiêu đề mạch ngày 2026-10-14): 64 trang giảng/trình diễn, 14 trang hệ thống đọc thêm và 3 trang bài tập. Giảng chính 120 phút; tự đọc hệ thống 25 phút ngoài lớp; recitation 60 phút. Các quyết định theo giai đoạn bên dưới được cập nhật bởi trạng thái này; bảng thời lượng cuối thay các ước lượng cũ.
+
+### Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Tên trên trang "Nội dung" và trên trang tiêu đề mạch trùng từng chữ. Mạch 1 mở bằng trang bìa; các mạch khác mở bằng trang `class="strand-title"`, `id="mach-N"`. Deck 87 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang mở phần cũ, tiêu đề mới |
+|---:|---|---|---|
+| 1 | Giới thiệu | `lec02-s01-01` (trang bìa) | — |
+| 2 | Mô hình tính toán Map-Reduce | `lec02-s02-00` | `lec02-s02-01`: Bốn khả năng của Map-Reduce |
+| 3 | Các ví dụ Map-Reduce | `lec02-s03-00` | `lec02-s03-01`: Khóa và giá trị trong ba ví dụ |
+| 4 | Chi phí và lợi ích của song song hóa | `lec02-s04-00` | `lec02-s04-01`: Ba đại lượng chi phí |
+| 5 | Hệ thống thực thi Map-Reduce | `lec02-s05-00` | `lec02-s05-01`: Giao việc, chuyển dữ liệu và phục hồi |
+| 6 | Thực hành Hadoop với Docker Compose | `lec02-s06-00` | `lec02-s06-01`: Mục đích và chuẩn bị thực hành |
+| 7 | Tổng kết và bài tập vận dụng | `lec02-s07-00` | `lec02-s07-01`: Ba nhu cầu và cách Map-Reduce đáp ứng |
 
 ## 1. Giới thiệu bài học
 

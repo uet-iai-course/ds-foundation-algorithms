@@ -250,3 +250,32 @@ Bản cuối đã thêm giả thiết hiển thị, giải thích khóa mã văn
 - OpenRouter chỉ nhận Lecture 03 theo phạm vi được cho phép: reader kiểm kê/kế hoạch, writer tách component CSS, sáu reviewer độc lập và editor tổng hợp đều hoàn tất; requested_model = observed_model = z-ai/glm-5.3-flash, provider = OpenRouter. Tác tử không được dùng để xác nhận hiển thị thay cho Chromium. Yêu cầu gửi kèm Lecture 02 bị tự động từ chối; sau đó chỉ so sánh và di chuyển style Lecture 02 cục bộ, không gửi nó hoặc CSS của nó sang OpenRouter.
 - Kiểm hiển thị: 81 slide Lecture 02 và 63 slide Lecture 03 không tràn khung, không lỗi KaTeX, không thiếu hình/JavaScript. Xem trực quan trang tiêu đề, mục lục, mở phần và nội dung tiêu biểu; đối chiếu cỡ chữ thực. Bàn phím đạt; bản in 81/63 trang; khung hẹp 390px không tràn trang. Script kiểm cũ chứa ID cố định lec03 được sửa riêng để kiểm Lecture 02, không phải lỗi deck.
 - AGENTS.md bổ sung nguyên tắc CSS chung là nguồn duy nhất cho các thành phần lặp lại, scope cho bố cục riêng và kiểm hồi quy cả hai deck khi sửa CSS chung.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 1 gồm Bài 01–05; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | lec02-s02-00 | Mô hình tính toán Map-Reduce | Muốn đếm từ trên kho nằm ở nhiều máy, phải đặc tả hai hàm Map, Reduce và phép nhóm theo khóa. |
+| 3 | lec02-s03-00 | Các ví dụ Map-Reduce | Muốn áp mô hình cho bài toán mới, phải chọn khóa và giá trị trung gian đủ để gộp đúng. |
+| 4 | lec02-s04-00 | Chi phí và lợi ích của song song hóa | Muốn biết thêm máy có rút ngắn thời gian hay không, phải đếm công việc, thời gian từng pha và lượng truyền. |
+| 5 | lec02-s05-00 | Hệ thống thực thi Map-Reduce | Muốn hiểu thời gian chạy và cách phục hồi, phải theo dữ liệu từ phần đầu vào qua Shuffle tới Reduce. |
+| 6 | lec02-s06-00 | Thực hành Hadoop với Docker Compose | Muốn chạy đếm từ trên cụm thật, phải dựng cụm Hadoop, viết Map, Reduce bằng Python và đối chiếu kết quả. |
+| 7 | lec02-s07-00 | Tổng kết và bài tập vận dụng | Muốn dùng Map-Reduce cho bài toán khác, phải chọn khóa và thông tin giữ lại theo đầu ra cần tính. |
+
+Dòng dẫn 20–22 âm tiết; từ khóa 4–5 cụm; ghi chú diễn giả 74–96 âm tiết, viết từ nội dung các trang trong mạch. Số trang 81 → 87.
+
+Trang đổi: sáu trang mở phần `lec02-s0N-01` có tiêu đề `<h1>N · tên phần</h1>` kèm thẻ, bảng, hình; chúng không phải trang một dòng nên được giữ, nhưng tiêu đề trùng tên mạch. Tiêu đề được đổi theo nội dung thật của trang, bỏ tiền tố số: s02-01 "Bốn khả năng của Map-Reduce", s03-01 "Khóa và giá trị trong ba ví dụ", s04-01 "Ba đại lượng chi phí", s05-01 "Giao việc, chuyển dữ liệu và phục hồi", s06-01 "Mục đích và chuẩn bị thực hành", s07-01 "Ba nhu cầu và cách Map-Reduce đáp ứng". Giữ thẻ `h1`, nội dung, notes và thứ tự.
+
+Trang Nội dung: `lec02-s01-02` đã có; `ul` đổi thành `ol` 1–7, tên trùng từng chữ với tên mạch, mạch 1 giữ tên "Giới thiệu". "(đọc thêm)" ở mục 5 được thay bằng nhãn `self-study-badge` "Đọc thêm" của CSS chung để tên mạch giữ nguyên chữ. Thêm notes một câu cho mỗi mạch. Mặt trang khoảng 45 âm tiết.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, mục tiêu học tập, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc) và tách bài tập recitation thành section ngoài riêng có trang tiêu đề mạch. Mạch 1 vẫn tên "Giới thiệu". Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 94/94; 87 `data-slide-id` và 102 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch 2–7; khối tiêu đề nằm trong khung (đáy lớn nhất 775 px trên 900 px, ở mạch 4 có tên hai dòng), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng bảy tên mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 1
+
+Sau rà lại độc lập, sửa storyboard (mức nhẹ): các phiếu trang mở phần cũ giờ trừ 0,5 phút cho trang tiêu đề mạch: lec02-s03-01 1 → 0,5 phút, lec02-s04-01 2 → 1,5 phút, lec02-s05-01 1′ → 0,5′, lec02-s06-01 2′ → 1,5′, lec02-s07-01 2′ → 1,5′. Lec02-s02-01 không có dòng thời lượng riêng, phút của mạch 2 tính ở bảng lịch giảng. Số trang trong mô tả section được cập nhật: phần 5 thêm `lec02-s05-00`, phần 6 thành 13 trang, phần 7 thành 7 trang. Tổng phút theo mạch không đổi. Gợi ý thêm nhãn "Đọc thêm" lên lec02-s05-00 chưa làm: markup trang tiêu đề mạch theo `AGENTS.md` không có chỗ cho nhãn, và nhãn đã có trên trang Nội dung và trên mọi trang nội dung của phần 5.
