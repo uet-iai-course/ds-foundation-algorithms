@@ -752,3 +752,7 @@ Căn cứ: báo cáo rà lại chỉ đọc các trang đổi (`recheck-d04.md`)
 | rà lại | nhẹ | s01-05 (ghi chú) | còn câu mô tả cấu trúc trang | sửa | thay bằng nội dung bốn câu trả lời có điều kiện và chi phí cùng bậc |
 
 **Kiểm.** `git diff --check` sạch. Mật độ: s03-05 30/60, 6 dòng; s06-02 77/80, mọi dòng ≤ 20 âm tiết. Playwright 1600×900 và 390×844 trên cả 63 trang: 0 lỗi, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn. Ảnh đã tự xem: s03-05, s06-02 (1600×900; công thức $s_B=s_D=-23/95$ không còn ngắt dòng).
+
+## Đồng bộ ký hiệu $\bar M$ với Bài 03 (2026-10-14)
+
+Bài 03 đổi tên ma trận trong chứng minh hội tụ từ $S$ thành $\bar M$ (lượt sửa sau rà ba vai của Bài 03). Theo giao việc của điều phối viên (tác tử soạn, `fork`, Opus 5.5, effort `high`; không commit), ghi chú diễn giả trang hội tụ của deck 04 sửa một câu: "Bài 03 ký hiệu ma trận này là $S$; Bài 04 dùng $\bar M$ vì $S$ đã chỉ tập chủ đề." thành "Bài 03 cũng ký hiệu ma trận này là $\bar M$, định nghĩa là $M_0$ có cột nút cụt thay bằng $u$; trong Bài 04, $S$ chỉ tập chủ đề." Dạng $\bar M=M_0+uz^{\mathsf T}$ ở câu sau giữ nguyên. Mặt trang không đổi. Kiểm: deck 04 trên cổng 8771 ở 1600×900, 0 lỗi console, 0 `.katex-error`, không cuộn ngang; `git diff --check` sạch. Nếu bộ dựng deck 04 trong scratchpad được chạy lại, cần mang theo câu này.
