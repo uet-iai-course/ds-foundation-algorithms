@@ -21,9 +21,11 @@ Khi rà nhanh một slide, kiểm tra bốn điều: có một ý chính; có m�
 
 Ưu tiên thiết kế là **dễ giảng trên lớp → đúng bản chất kiến thức → dễ tự đọc lại**. Độ chính xác là điều kiện bắt buộc: giảm nội dung hoặc chia bước khi quá tải, không bỏ giả thiết quyết định tính đúng để làm slide ngắn hơn.
 
-Slide phục vụ nhịp giảng. Giữ trên mặt slide những gì sinh viên cần quan sát, suy luận và ghi nhớ tại thời điểm đó. Chuyển lời dẫn, diễn giải phụ và chứng minh chi tiết sang ghi chú; tài liệu tự học cung cấp lập luận đầy đủ. Mỗi slide cần có một câu chốt dự kiến trong storyboard, nhưng không nhất thiết thêm một hộp kết luận trên mặt slide nếu tiêu đề hoặc chú thích đã nói đủ.
+Slide phục vụ nhịp giảng. Giữ trên mặt slide những gì sinh viên cần quan sát, suy luận và ghi nhớ tại thời điểm đó. Chuyển diễn giải học thuật bổ sung và chứng minh chi tiết sang ghi chú; tài liệu tự học cung cấp lập luận đầy đủ. Chỉ dẫn biên soạn và điều phối lớp chỉ nằm trong tài liệu quy trình nội bộ. Mỗi slide cần có một câu chốt dự kiến trong storyboard, nhưng không nhất thiết thêm một hộp kết luận trên mặt slide nếu tiêu đề hoặc chú thích đã nói đủ.
 
 Các nguyên tắc dưới đây được chọn lọc từ *Slide Style Guide* cho môn Phương pháp luận lập trình do giảng viên cung cấp và điều chỉnh cho học phần này. Quy ước riêng về ngôn ngữ lập trình, bảng màu, nhãn nâng cao và cấu trúc phần của môn tham khảo không trở thành quy định của học phần này.
+
+Từ 2026-10-14, văn phong mặt trang, mật độ chữ, trang tiêu đề mạch, cách mở một khái niệm và các nhãn dẫn dắt tuân theo các mục "Văn phong và mật độ mặt trang chiếu", "Trang tiêu đề mạch" và "Mẫu RevealJS bắt buộc" của `AGENTS.md`, lấy mẫu từ bộ trang chiếu MAT1101 của giảng viên tại `../MAT1101/`. Tiêu chuẩn này quy định cách xây dựng kiến thức; khi cần số đo cụ thể (số âm tiết, số dòng, số khối công thức), dùng số của `AGENTS.md`.
 
 ## 1. Đối tượng xem là sinh viên năm 2
 
@@ -47,13 +49,25 @@ Giữ độ chính xác của định nghĩa và thuật toán, nhưng chia bư�
 
 ### Ngôn ngữ và ký hiệu
 
-- Viết tiếng Việt ngắn, trực tiếp; dùng nhất quán một thuật ngữ cho một khái niệm.
+- Tiêu đề, nội dung, nhãn hình và bảng, ghi chú diễn giả, ghi chú bài giảng và lời giải phải dùng tiếng Việt trang trọng, học thuật. Viết ngắn, trực tiếp, chính xác; dùng nhất quán một thuật ngữ cho một khái niệm.
 - Giải thích viết tắt khi xuất hiện lần đầu. Chỉ giữ tiếng Anh khi cần cho tên riêng, tên thuật toán hoặc thuật ngữ chưa có cách dịch ổn định.
 - Định nghĩa ký hiệu ngay nơi dùng: ý nghĩa, miền giá trị, kích thước và đơn vị khi có.
 - Dùng cùng tên biến, chỉ số và dữ kiện qua hình, ví dụ, giả mã và phân tích chi phí. Nếu đổi ký hiệu, nói rõ sự tương ứng.
 - Câu hỏi tương tác phải có nhiệm vụ cụ thể, dùng nhãn **“Câu hỏi:”**; đáp án hoặc hướng giải đặt trong ghi chú diễn giả.
-- Viết câu chủ động, tự nhiên như khi giảng; mỗi gạch đầu dòng diễn đạt một ý đủ rõ, tránh các nhãn cụt khiến sinh viên phải đoán nghĩa.
+- Viết câu chủ động, nêu rõ đối tượng, giả thiết, phép suy luận và kết luận; mỗi gạch đầu dòng diễn đạt một ý đủ rõ. Không dùng văn nói mô phỏng, lời trò chuyện, câu hỏi tu từ hoặc lời nhấn mạnh không có căn cứ.
+- Mặt trang viết theo lối văn bản toán ngắn ("Đặt …", "Suy ra …", "Với mỗi dải $j$, tạo khóa …"); không dùng "ta thấy", "rõ ràng", "chúng ta". Định nghĩa viết bằng "là" hoặc "gọi là", không dùng dấu "=" thay động từ. Chỉ dùng các nhãn dẫn dắt được liệt kê trong `AGENTS.md` ("Nhu cầu:", "Ý nghĩa:", "Diễn giải:", "Nhắc lại:", "Đầu vào:", "Đầu ra:", "Bất biến:", "Câu hỏi:", "Lời giải:" …), viết đậm.
+- Thuật ngữ tiếng Anh đặt trong ngoặc ở lần đầu; "X (còn gọi là Y)" rồi chỉ dùng X. Mọi ký hiệu hoặc kết quả của bài trước được nhắc lại bằng dòng "Nhắc lại:" trước lần dùng đầu. Dùng "Lời giải", không dùng "Đáp án".
 - Giữ đúng mức độ khẳng định của nguồn. Các từ “luôn”, “tối ưu”, “nhanh hơn” phải có điều kiện hoặc căn cứ tương ứng; tránh lời đánh giá chung không chỉ ra cơ chế.
+
+### Tiêu đề, nội dung công khai và chỉ dẫn nội bộ
+
+- Tiêu đề gọi đúng khái niệm, thuật toán hoặc kết quả trung tâm. Không dùng câu hỏi như “Tại sao...?”, “Vì sao...?”, câu kể tiến trình như “Từ ... đến ...” hoặc lời hướng dẫn người viết. Chẳng hạn, dùng “Chi phí truyền dữ liệu” thay cho “Hãy giải thích chi phí ở đây”. Được dùng tiền tố chức năng trước cụm danh từ: “Ví dụ: <đối tượng>”, “Bài tập: <chủ đề>”, “Chứng minh: <kết quả>”, “Tính đúng: <thuật toán>”, “Thuật toán: <tên>”, “Chi phí: <đối tượng>”; tiền tố không đứng một mình. Tiêu đề lặp qua nhiều trang khi một ví dụ kéo dài, thêm tên bước sau dấu phẩy.
+- Mặt slide, nhãn SVG, chú thích và ghi chú không chứa chỉ dẫn như “người viết cần bổ sung hình”, “nhấn mạnh với sinh viên” hay “đến đây chuyển sang trang sau”. Đặt yêu cầu về bố cục, biên tập, điều phối lớp và việc chưa hoàn tất trong `outline.md`, `storyboard.md` hoặc `review-log.md`.
+- Ghi chú diễn giả mở rộng giả thiết, lập luận, cách đọc công thức hoặc hình và lời giải bằng văn phong học thuật. Câu nối nêu kết quả được kế thừa, giả thiết thay đổi hoặc giới hạn còn lại; không dùng “tiếp theo chúng ta…” thay cho quan hệ suy luận.
+- Phân biệt chỉ dẫn cho người soạn với nhiệm vụ cho người học. Các yêu cầu “Tính”, “Xác định”, “Chứng minh”, các bước thuật toán và thao tác thực hành vẫn được dùng đúng chức năng. Giữ mục tiêu học tập và các nhãn “Câu hỏi:”, “Đọc thêm”, “Thực hành” theo quy định của học phần.
+- Biên tập bằng kỹ năng `no-ai-slop`, tự kiểm theo `eval.md` và ghi kết quả trong `review-log.md`. Giữ giả thiết, ký hiệu, nguồn và lập luận; ưu tiên văn phong học thuật hơn gợi ý giữ giọng nói hoặc câu rời của kỹ năng.
+
+**Điều kiện đạt:** tiêu đề xác định nội dung học thuật; nội dung và ghi chú không có văn nói hay chỉ dẫn dành cho người soạn; các yêu cầu học tập và thuật toán vẫn rõ nghĩa, đúng chức năng.
 
 ## 2. Mỗi slide có mục đích rõ ràng trong mạch xây dựng kiến thức
 
@@ -73,7 +87,7 @@ Nếu một trang chỉ đổi cách diễn đạt mà không tạo bước ti�
 
 ### Mạch của phần lớn và cụm khái niệm
 
-Phần mở đầu gồm tiêu đề bài giảng, nội dung bài và mục tiêu học tập. Các phần lớn sau đó đi theo mạch của nguồn đã chọn và yêu cầu cụ thể của giảng viên. Mỗi phần có điểm vào, sản phẩm học tập và câu nối sang phần sau. Phần kết luận thu hồi bài toán mở đầu và cho sinh viên sử dụng kết quả đã xây dựng.
+Phần mở đầu gồm, theo thứ tự của `AGENTS.md`: trang bìa có một câu luận đề; trang "Tiên quyết và quy ước" ("Nhắc lại:", "Ký hiệu:"); mục tiêu học tập; trang "Nội dung" đánh số các mạch; trang "Vấn đề trung tâm". Các phần lớn sau đó đi theo mạch của nguồn đã chọn và yêu cầu cụ thể của giảng viên; mỗi phần, trừ phần mở đầu, bắt đầu bằng một trang tiêu đề mạch (số thứ tự, tên mạch là cụm danh từ, một dòng dẫn "Muốn …" hoặc "Nhu cầu:", tùy chọn một dòng từ khóa; không định nghĩa, công thức hay hình). Mỗi phần có điểm vào, sản phẩm học tập và câu nối sang phần sau. Phần kết luận thu hồi bài toán mở đầu và cho sinh viên sử dụng kết quả đã xây dựng: bảng `Kết quả | Giả thiết không được bỏ | Công thức hoặc thuật toán`, trang trả lời vấn đề trung tâm, trang "Câu hỏi tự kiểm tra", trang "Nguồn và tài liệu đọc".
 
 Với khái niệm hoặc thuật toán trọng tâm, dùng mạch:
 
@@ -81,11 +95,13 @@ Với khái niệm hoặc thuật toán trọng tâm, dùng mạch:
 
 Tình huống phải nêu dữ liệu, đầu ra cần tạo và giới hạn tính toán có liên quan. Dùng lại tình huống trong ví dụ, lựa chọn thuật toán hoặc đánh giá chi phí; chỉ dùng con số quy mô có nguồn.
 
+Trang vấn đề của một khái niệm hoặc thuật toán mở bằng "Muốn …" hoặc "Nhu cầu:" rồi một đến ba ví dụ dẫn nhập có số (cách MAT1101 mở "Khái niệm xác suất có điều kiện"). Một phương pháp mới mở bằng giới hạn của phương pháp trước trong một dòng cụ thể, không bằng tên hay giả mã; trước giả mã luôn có một bước chạy tay. Thứ tự đầy đủ của một cụm thuật toán nằm ở mục "Mở một khái niệm hoặc một thuật toán" của `AGENTS.md`.
+
 Tám bước trên không đồng nghĩa tám slide. Có thể gộp những bước phục vụ cùng một luận điểm nếu vẫn đọc được. Với khái niệm phụ, ghi rõ chu trình rút gọn và lý do. Với một hệ thống hoặc cơ chế lưu trữ, có thể giải thích bằng vai trò, trạng thái và điều kiện hoạt động; không tạo giả mã hoặc định lý khi không áp dụng.
 
 ### Nhịp của bài giảng và cách mở rộng một phần
 
-- Slide mở phần nêu chủ đề, nhu cầu và vị trí trong mạch bài; không chỉ hiển thị số phần. Khi chuyển hướng rõ, dùng một đoạn hoặc slide nối ngắn: **kết quả đã có → giới hạn còn lại → nội dung phần tiếp theo**. Đặt slide nối trong phần thích hợp, giữ cấu trúc phần theo AGENTS.md và yêu cầu nguồn của bài.
+- Slide mở phần là trang tiêu đề mạch theo `AGENTS.md`: số thứ tự, tên mạch, dòng dẫn nêu nhu cầu; ghi chú diễn giả của trang này nêu kết quả kế thừa, nhiệm vụ của mạch và kết quả giao cho mạch sau. Khi chuyển hướng rõ bên trong một phần, dùng một đoạn hoặc slide nối ngắn: **kết quả đã có → giới hạn còn lại → nội dung tiếp theo**. Giữ cấu trúc phần theo AGENTS.md và yêu cầu nguồn của bài.
 - Với chủ đề kỹ thuật quan trọng, slide tổng quan chỉ mở đầu. Tách các thành phần quyết định hành vi thành những trang giải thích cơ chế, dùng dữ kiện và trạng thái cụ thể. Nếu cách tiếp cận mới thay đổi giả thiết hoặc cách giải bài toán, phải chỉ rõ bước thay đổi đó.
 - Kết phần bằng kết quả đã đạt, điều kiện áp dụng hoặc đánh đổi cần nhớ, rồi nối tới nhu cầu của phần sau. Tránh lặp lại toàn bộ danh sách thuật ngữ.
 - Phần kết bài thu hồi tình huống ban đầu và có 4–6 nhiệm vụ tự kiểm tra ngắn, phân bố qua các mục tiêu chính. Có thể chia thành nhiều slide để giữ khả năng đọc; đáp án nằm trong ghi chú. Phần bài tập 60 phút vẫn tuân nguồn và cấu trúc trong AGENTS.md.
@@ -143,7 +159,7 @@ Các giả thiết quyết định kết luận phải hiện trên mặt slide 
 Mặc định dùng một khối giả mã lớn với một câu giải thích thao tác quyết định. Dùng hai cột khi cần đối chiếu hai phiên bản hoặc liên hệ trực tiếp mã với trạng thái; cả hai phải cùng phục vụ một luận điểm.
 
 - Khối `<pre><code>` dùng `data-trim`; khai báo lớp ngôn ngữ đúng khi bộ tô màu cục bộ hỗ trợ. Không chọn ngôn ngữ gần giống chỉ để có màu.
-- Đoạn mã trên 30 dòng là tín hiệu cần tách. Có thể lược chi tiết phụ bằng chú thích rõ, nhưng không giấu khởi tạo, điều kiện dừng hoặc thao tác đang phân tích chi phí.
+- Giả mã trên 8 dòng đứng một mình trên trang với nhiều nhất một câu dẫn và một bảng trạng thái nhỏ; trên 20 dòng phải tách theo chức năng. Có thể lược chi tiết phụ bằng chú thích rõ, nhưng không giấu khởi tạo, điều kiện dừng hoặc thao tác đang phân tích chi phí.
 - Dùng bộ tô màu và giao diện khối mã của mẫu học phần. Không đưa quy ước giả mã hoặc thư viện riêng của môn tham khảo vào bài.
 - Nếu dùng lớp `.inline-code`, chỉ gắn cho `<span>`; khối mã dùng `<pre><code>`, không dùng `<p class="inline-code">`.
 
@@ -286,9 +302,9 @@ Không dùng hiệu ứng `class="fragment"`. Mỗi slide hiển thị đầy đ
 
 Bố cục thường phù hợp là một hình lớn cùng chú thích, một khối giả mã cùng câu chốt, hoặc 2–3 gạch đầu dòng ngắn. Một hình và công thức có thể đi cùng khi công thức giải thích trực tiếp quan hệ trong hình.
 
-Cần rà lại cấu trúc nếu có hơn ba gạch đầu dòng chính, trên 10–12 dòng văn bản liên tục, nhiều công thức độc lập, hình nhỏ ở góc hoặc chữ phải thu nhỏ để vừa khung. Đây là dấu hiệu cần xem xét, không phải quy tắc đếm máy móc áp cho bảng vết chạy và giả mã.
+Trần mật độ theo `AGENTS.md`, mục "Mật độ chữ": nhắm tới không quá 40 âm tiết chữ mỗi trang nội dung, trần cứng 60 (80 cho trang mục tiêu, nội dung, tổng kết, bảng so sánh, bảng chi phí và đề bài recitation); không quá sáu dòng; không quá 20 âm tiết mỗi dòng; không quá ba khối công thức hiển thị; nhiều nhất một khung nhấn chứa câu văn. Vượt trần thì tách trang hoặc chuyển diễn giải sang ghi chú, không thu nhỏ chữ; ngoại lệ ghi trong storyboard kèm lý do.
 
-Thử bỏ 20–30% chữ bằng cách cắt lời dẫn rỗng, chú thích lặp tiêu đề và ý không phục vụ mục đích. Không cắt dữ kiện cần tính lại, giả thiết, đơn vị hoặc bước chứng minh quyết định chỉ để đạt tỷ lệ này.
+Ngoài các trần trên, cần rà lại cấu trúc nếu có hơn ba gạch đầu dòng chính, nhiều công thức độc lập, hình nhỏ ở góc hoặc chữ phải thu nhỏ để vừa khung. Thử bỏ 20–30% chữ bằng cách cắt lời dẫn rỗng, chú thích lặp tiêu đề, dòng nguồn ở chân trang và ý không phục vụ mục đích. Không cắt dữ kiện cần tính lại, giả thiết, đơn vị hoặc bước chứng minh quyết định chỉ để đạt tỷ lệ này.
 
 ### Bảng, hộp nhấn và hệ thống trình bày
 
@@ -317,7 +333,7 @@ Thử bỏ 20–30% chữ bằng cách cắt lời dẫn rỗng, chú thích l�
 1. Đọc mạch trước đó; xác định mục đích, kiến thức đầu vào và câu chốt trong storyboard.
 2. Chọn trọng tâm thể hiện: hình, công thức, giả mã, bảng hoặc vết chạy. Chọn bố cục theo quan hệ cần giải thích.
 3. Với chủ đề mới, lập đủ chuỗi giải thích cơ chế theo mục 2–5 trước khi viết chi tiết từng slide.
-4. Viết ngắn bằng tiếng Việt, giữ dữ kiện và ký hiệu nhất quán; bỏ nội dung không phục vụ câu chốt.
+4. Viết tiêu đề, nội dung và ghi chú bằng tiếng Việt học thuật, giữ dữ kiện và ký hiệu nhất quán; biên tập theo kỹ năng `no-ai-slop`, loại văn nói, chỉ dẫn nội bộ và nội dung không phục vụ câu chốt.
 5. Tự tính lại ví dụ và chi phí, rà lập luận đúng, rồi kiểm tra bản render theo mục 6.
 
 ### Khi sửa slide quá tải hoặc tràn khung
@@ -330,8 +346,14 @@ Thử bỏ 20–30% chữ bằng cách cắt lời dẫn rỗng, chú thích l�
 
 ## Phiếu kiểm tra trước khi duyệt
 
+- [ ] Tiêu đề ngắn, gọi đúng khái niệm, thuật toán hoặc kết quả; không là câu hỏi tu từ, câu kể tiến trình hay lời chỉ dẫn.
+- [ ] Nội dung, nhãn hình và bảng, ghi chú và lời giải dùng văn phong trang trọng, học thuật; đã biên tập và tự kiểm theo kỹ năng `no-ai-slop`.
+- [ ] Không có văn nói, chỉ dẫn biên soạn hoặc điều phối lớp trên slide, trong SVG hay ghi chú; nhiệm vụ cho người học và các bước thuật toán vẫn rõ nghĩa.
 - [ ] Mỗi slide có một mục đích học tập và vai trò trong mạch được ghi ở storyboard.
 - [ ] Mỗi phần mở rõ nhu cầu, giải thích đủ cơ chế và nối được kết quả sang phần sau.
+- [ ] Mỗi mạch trừ mạch mở đầu có trang tiêu đề mạch đúng mẫu; số và tên khớp trang "Nội dung" và `#/N`; mạch mở đầu và mạch kết luận có đủ các trang quy định.
+- [ ] Không trang nào vượt trần mật độ (40/60/80 âm tiết, 6 dòng, 20 âm tiết mỗi dòng, 3 khối công thức) mà không có ngoại lệ trong storyboard; không dùng lớp thu nhỏ chữ.
+- [ ] Trang vấn đề của mỗi khái niệm mở bằng "Muốn …" hoặc "Nhu cầu:" với ví dụ dẫn nhập có số; mỗi thuật toán có bước chạy tay trước giả mã.
 - [ ] Phần kết thu hồi tình huống ban đầu, có nhiệm vụ tự kiểm tra; thời lượng giảng và bài tập được tính riêng.
 - [ ] Mỗi slide có một trọng tâm; chú thích khớp với hình, bảng hoặc mã; chữ được lược mà không mất điều kiện thiết yếu.
 - [ ] Mọi tiên quyết và ký hiệu đã được thiết lập trước nơi dùng.
