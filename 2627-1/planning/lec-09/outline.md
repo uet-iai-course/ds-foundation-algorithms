@@ -85,3 +85,17 @@ Tổng phần bài tập: **60 phút**. X00 chỉ mở phần, không tính th�
 | `L09-N10` | cốt lõi | Giải năm bài tập trực tiếp từ MMDS. | MMDS 4.4.1, 4.5.1, 4.5.3, 4.6.1, 4.6.3 |
 
 Đồ thị tiên quyết của ghi chú là `N01→N02→N03`, `N01→N04→N05` và `N01→N06→N07→N08`; ba nhánh hội tụ tại `N09` rồi dẫn sang `N10`. Không thêm chủ đề ngoài nguồn. `N08` được giữ làm cầu nối vì nếu thiếu nó, khái niệm dữ liệu gần đây chỉ còn cửa sổ cứng và mạch kết luận của deck không được thu hồi trong tài liệu tự học.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 53 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Đếm khóa phân biệt bằng Flajolet–Martin | FT | F00 |
+| 3 | Ước lượng tần suất bằng Count-Min Sketch | CT | C00 |
+| 4 | Mômen và ước lượng AMS | MT | M00 |
+| 5 | Đếm bit 1 trong cửa sổ bằng DGIM | DT | D00 |
+| 6 | Cửa sổ suy giảm và tổng kết | ET | E00 |
+| 7 | Bài tập vận dụng | XT | X00 |

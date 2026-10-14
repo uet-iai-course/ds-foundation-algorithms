@@ -136,3 +136,32 @@
 - Index có đúng một liên kết ghi chú Bài 09 và mở đúng deck/note, không có lỗi console.
 - Đã xem trực tiếp các trang C03, T00, X05 và bản viewer hẹp; công thức, bảng và SVG đều rõ, không chồng hoặc cắt.
 - Codex Slides project `20260827213434-b-i-9-d-ng-d-li-u-m-moment-v-c-a-s-unoi` vẫn ở trạng thái draft với 0 slide. Không tuyên bố đã kiểm canvas; bằng chứng hiển thị cuối là RevealJS và viewer cục bộ bằng Chromium.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 2 gồm Bài 07–15; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`. Mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch nên dùng `<tiền tố>T`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | FT | Đếm khóa phân biệt bằng Flajolet–Martin | Muốn đếm người dùng phân biệt với bộ nhớ cố định, phải đọc quy mô từ đuôi dài nhất của giá trị băm. |
+| 3 | CT | Ước lượng tần suất bằng Count-Min Sketch | Muốn trả tần suất một khóa mà không giữ bộ đếm cho mọi khóa, phải chấp nhận nhiễu va chạm một phía. |
+| 4 | MT | Mômen và ước lượng AMS | Muốn đo độ lệch của phân phối khóa, phải ước lượng mômen bậc hai từ các vị trí ngẫu nhiên. |
+| 5 | DT | Đếm bit 1 trong cửa sổ bằng DGIM | Muốn đếm bit 1 gần đây với ít hơn N bit, phải gộp bit 1 thành bucket có kích thước lũy thừa của 2. |
+| 6 | ET | Cửa sổ suy giảm và tổng kết | Muốn chọn cấu trúc cho dữ liệu gần đây, phải so cửa sổ suy giảm với các phác thảo đã học. |
+| 7 | XT | Bài tập vận dụng | Muốn kiểm các phác thảo bằng tính tay, phải chạy chúng trên dòng ngắn và trạng thái bucket của giáo trình. |
+
+Dòng dẫn 20–24 âm tiết; từ khóa 4–5 cụm; ghi chú diễn giả 81–100 âm tiết, viết từ nội dung các trang trong mạch. Số trang 46 → 53. Các trang nội dung đầu mạch (F00, C00, M00, D00, E00, X00) đều có nội dung, không phải trang tiêu đề phần một dòng, và tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang bìa P00, tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 43 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Mạch 6 gộp cửa sổ suy giảm (E00–E01) với bảng tổng kết (T00–T01) như cấu trúc hiện có; tên mạch "Cửa sổ suy giảm và tổng kết" nêu cả hai.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc). Bài 09 còn khối `<style>` riêng và không mang lớp `.course-deck` (có từ trước, ngoài phạm vi). Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 60/60; 53 `data-slide-id` và 6 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch tương ứng (`id`, số thứ tự khớp); khối tiêu đề nằm trong khung (đáy lớn nhất 729 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng tên các mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 6 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Ghi chú ET và ghi chú trang Nội dung P03 nay nêu đúng ba phác thảo được bài tập kiểm (Flajolet–Martin, AMS, DGIM) thay cho "từng phác thảo"; ghi chú XT nói "kiểm lại ba phác thảo". Lý do đặt P03 ngay sau bìa: P01 là trang tình huống "Một dòng, bốn quyết định", không phải trang mục tiêu; sắp lại mạch mở đầu để đợt sau. Mở: dòng dẫn mạch 6 chỉ nêu nửa đầu của mạch gộp (cửa sổ suy giảm), chưa nêu bảng tổng kết; chấp nhận tạm vì tên mạch đã nêu cả hai. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.

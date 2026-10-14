@@ -10,6 +10,26 @@
 
 Tình huống xuyên suốt là dòng sự kiện có khóa và thời gian đến, với bộ nhớ nhỏ hơn lịch sử. Dữ liệu và đầu ra cụ thể được lấy lại theo cụm: lượt đăng nhập và số người dùng phân biệt ở FM; yêu cầu mạng và tần suất khóa ở Count-Min; phân phối tần suất ở AMS; vé phim mã hóa bit và số sự kiện gần đây ở DGIM/cửa sổ suy giảm.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 46 → 53 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Đếm khóa phân biệt bằng Flajolet–Martin (`FT`); 3. Ước lượng tần suất bằng Count-Min Sketch (`CT`); 4. Mômen và ước lượng AMS (`MT`); 5. Đếm bit 1 trong cửa sổ bằng DGIM (`DT`); 6. Cửa sổ suy giảm và tổng kết (`ET`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P00 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| FT | Đếm khóa phân biệt bằng Flajolet–Martin | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước F00 | Bốn hợp đồng trên một dòng (A00–A02) | Flajolet–Martin, gộp trung bình rồi trung vị | ngoài chu trình khái niệm; tên khác tiêu đề F00 | 0,5 (từ F00) | thêm |
+| CT | Ước lượng tần suất bằng Count-Min Sketch | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước C00 | Số khóa phân biệt; dòng chỉ tăng | Count-Min Sketch và bảo đảm một phía | ngoài chu trình khái niệm; tên khác tiêu đề C00 | 0,5 (từ C00) | thêm |
+| MT | Mômen và ước lượng AMS | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước M00 | Tần suất từng khóa | Biến AMS không chệch cho $F_2$ | ngoài chu trình khái niệm; tên khác tiêu đề M00 | 0,5 (từ M00) | thêm |
+| DT | Đếm bit 1 trong cửa sổ bằng DGIM | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước D00 | Các phác thảo trên toàn dòng | DGIM, sáu bất biến, cận sai số | ngoài chu trình khái niệm; tên khác tiêu đề D00 | 0,5 (từ D00) | thêm |
+| ET | Cửa sổ suy giảm và tổng kết | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước E00 | Cửa sổ biên cứng của DGIM | Cửa sổ suy giảm, bảng chọn cấu trúc, năm giới hạn | ngoài chu trình khái niệm; tên khác tiêu đề E00 | 0,5 (từ E00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | FM, AMS, DGIM | Năm bài MMDS 4.4.1, 4.5.1, 4.5.3, 4.6.1, 4.6.3 | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang bìa P00, tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 43 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Mạch 6 gộp cửa sổ suy giảm (E00–E01) với bảng tổng kết (T00–T01) như cấu trúc hiện có; tên mạch "Cửa sổ suy giảm và tổng kết" nêu cả hai.
+
 ## Bản đồ chu trình và thời lượng
 
 | Cụm | Mã thực hiện chu trình | Đầu vào → sản phẩm | Dữ kiện truyền | Bước gộp hoặc rút gọn | Câu nối | Phút |
