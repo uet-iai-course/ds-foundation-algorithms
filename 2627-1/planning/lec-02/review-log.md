@@ -418,3 +418,7 @@ Theo `recheck-d02.md` (vai recheck, `fork` Opus 5.5; kết luận đạt điều
 | nhẹ | ghi chú s04-02 | khái quát $n-1$ trùng s04-12 | sửa: bỏ câu khái quát và câu khởi tạo bằng 0 |
 
 Kiểm: `cap02.py` không trang vượt trần (s02-01 60, s07-01 76, s07-02 80); Playwright cổng 8771 ở 1600×900 và 390×844, toàn deck: 0 lỗi, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn; đã xem ảnh s07-01, s07-02, s04-04, s02-01, s03-16a; `git diff --check` sạch.
+
+### Đồng bộ liên bài với Bài 01 (2026-10-14)
+
+Theo lượt sửa Bài 01 sau rà ba vai (phát hiện M5 của vai mạch viết Bài 01) và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit. Ghi chú diễn giả `lec02-s01-07` dẫn hai tên trang không còn trong deck 01 ("Tính đúng của thuật toán", "Chuẩn bị cho Bài 02"): sửa thành các trang hiện hành "Các tiêu chí đánh giá", "Tính đúng: khởi tạo, duy trì, kết thúc" và "Nguồn và tài liệu đọc". Mặt trang không đổi. Deck 01 trang "Nguồn và tài liệu đọc" nay ghi "tính kết hợp và giao hoán của phép cộng", khớp dòng Nhắc lại của `lec02-s01-07`. Kiểm: Playwright cổng 8771 ở 1600×900 và 390×844 trên toàn deck 02: 0 lỗi, 0 `.katex-error`; `git diff --check` sạch.

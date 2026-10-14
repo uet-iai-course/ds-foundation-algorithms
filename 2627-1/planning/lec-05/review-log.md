@@ -1699,3 +1699,7 @@ Căn cứ: ba báo cáo rà chỉ đọc (toán và thuật toán; kết nối v
 **Mật độ sau lượt sửa** (`python3 -I <scratchpad>/p05/m05.py`): không trang trần 60 nào vượt 60 (s01-10 56, s01-11 60, s02-05 60, s02-06 59, s02-07 59); trang trần 80: s06-02 77, s06-05 78, s01-03 70; không dòng nào quá 20 âm tiết ngoài câu luận đề (23) và dòng dẫn s05-00, s06-00 (≤ 23, trần 25); dòng từ khóa s06-00 19.
 
 **Kiểm:** `git diff --check` sạch. Chromium Playwright cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang: 1600×900 duyệt đủ 65 trang, 0 lỗi console, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không phần tử nào vượt khung; 390×844: không tràn ngang, 0 `.katex-error`. Đã tự xem ảnh 1600×900 của s01-10, s02-06, s06-02.
+
+### Đồng bộ liên bài với Bài 01 (2026-10-14)
+
+Theo lượt sửa Bài 01 sau rà ba vai (phát hiện M19 của vai mạch viết Bài 01) và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit. Ghi chú diễn giả trang Tiên quyết và quy ước dẫn trang "Thuật toán xét mọi cặp" của Bài 01; sửa thành tiêu đề hiện hành "Thuật toán: xét mọi cặp". Chỉ đổi ghi chú; mặt trang và số liệu không đổi. `git diff --check` sạch.
