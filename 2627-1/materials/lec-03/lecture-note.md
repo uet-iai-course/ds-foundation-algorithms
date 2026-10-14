@@ -77,11 +77,11 @@ $$r^{t+1}=\beta M_0 r^t+\bigl((1-\beta)+\beta\delta^t\bigr)u.$$
 
 **Bảo toàn khối lượng.** Nếu $r^t$ không âm, tổng 1 thì $r^{t+1}$ cũng vậy: nguồn không cụt cộng lại góp $\beta(1-\delta)$, phần bù trả lại $\beta\delta$, bước nhảy góp $1-\beta$; tổng ba phần bằng 1 và mọi hệ số không âm. Đây là bất biến dùng để kiểm chương trình ở phần 6.
 
-**Hội tụ.** Đặt $S$ là $M_0$ với mỗi cột nút cụt thay bằng $u$; $S\ge 0$ và mỗi cột tổng 1, và phép cập nhật viết được $F(r)=\beta Sr+(1-\beta)u$. Đo khoảng cách bằng $\|x-y\|_1=\sum_i|x_i-y_i|$. Với mọi véc tơ thực $v$:
+**Hội tụ.** Đặt $\bar M$ là $M_0$ với mỗi cột nút cụt thay bằng $u$; $\bar M\ge 0$ và mỗi cột tổng 1, và phép cập nhật viết được $F(r)=\beta\bar Mr+(1-\beta)u$. Đo khoảng cách bằng $\|x-y\|_1=\sum_i|x_i-y_i|$. Với mọi véc tơ thực $v$:
 
-$$\|Sv\|_1\;\le\;\sum_i\sum_j S_{ij}|v_j|\;=\;\|v\|_1,$$
+$$\|\bar Mv\|_1\;\le\;\sum_i\sum_j \bar M_{ij}|v_j|\;=\;\|v\|_1,$$
 
-vì mỗi cột của $S$ có tổng 1. Suy ra $\|F(x)-F(y)\|_1\le\beta\|x-y\|_1$ (phần bước nhảy triệt tiêu trong hiệu), nên với $\Delta_t=\|r^{t+1}-r^t\|_1$ ta có $\Delta_t\le\beta^t\Delta_0$. Với $q>p$: $\|r^q-r^p\|_1\le\sum_{j=p}^{q-1}\Delta_j\le \beta^p\Delta_0/(1-\beta)\to 0$, tức dãy lặp là dãy Cauchy; giới hạn $r^*$ vẫn không âm và có tổng bằng 1 (các điều kiện này được giữ khi lấy giới hạn), $F$ liên tục nên $r^*=F(r^*)$. Hai điểm bất động bất kỳ phải cách nhau $d$ thỏa $d\le\beta d$, tức $d=0$: nghiệm duy nhất.
+vì mỗi cột của $\bar M$ có tổng 1. Suy ra $\|F(x)-F(y)\|_1\le\beta\|x-y\|_1$ (phần bước nhảy triệt tiêu trong hiệu), nên với $\Delta_t=\|r^{t+1}-r^t\|_1$ ta có $\Delta_t\le\beta^t\Delta_0$. Với $q>p$: $\|r^q-r^p\|_1\le\sum_{j=p}^{q-1}\Delta_j\le \beta^p\Delta_0/(1-\beta)\to 0$, tức dãy lặp là dãy Cauchy; giới hạn $r^*$ vẫn không âm và có tổng bằng 1 (các điều kiện này được giữ khi lấy giới hạn), $F$ liên tục nên $r^*=F(r^*)$. Hai điểm bất động bất kỳ phải cách nhau $d$ thỏa $d\le\beta d$, tức $d=0$: nghiệm duy nhất.
 
 **Cận hậu nghiệm (đọc thêm).** Sai số so với nghiệm bị chặn bởi $\|r^{t+1}-r^*\|_1\le\sum_{j=t+1}^{\infty}\Delta_j\le\frac{\beta}{1-\beta}\Delta_t$. Lưu ý $\Delta_t=\|r^{t+1}-r^t\|_1$ đo vòng *sau*, còn cận nói về $r^{t+1}$; và trên máy tính số dấu phẩy động, kết luận đúng cho số thực lý tưởng còn phép so sánh cần dung sai.
 

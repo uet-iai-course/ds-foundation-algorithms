@@ -532,3 +532,130 @@ Sau rà lại độc lập, sửa notes của lec03-s03-00 (mức nhẹ): "thêm
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Phân loại phần lớn", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06; kế hoạch sửa `plan-lec03.md`; quyết định của điều phối viên (mục "Bài 03" và "Chung cho mọi bài").
+
+**Phân công.** Điều phối viên: phiên Claude Code, Opus 5.5, effort `high`. Tác tử lập kế hoạch: chỉ đọc, `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`). Tác tử soạn: `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`), tác tử ghi duy nhất; bằng chứng là lời gọi Agent của điều phối viên. Không commit. Phạm vi ghi: deck 03 và ba tệp planning; không sửa CSS, SVG, index, ghi chú bài giảng, deck khác.
+
+**Quyết định của điều phối viên đã áp dụng.**
+
+1. Phương án A: gộp mạch 1 cũ với mạch 2 cũ; tách tổng kết (mạch 6, section `pagerank-summary`) và bài tập (mạch 7, section `summary-exercises`); giữ 7 mạch; không sửa CSS. `id` trang tiêu đề mạch đổi theo số mới (`mach-2` … `mach-7`); đã kiểm `index.html` (dòng 114, 116 chỉ liên kết tệp, không có `#/h/v`), `materials/lec-03/lecture-note.md` và các deck khác: không có liên kết sâu vào deck 03.
+2. Quy ước đếm: trang có bảng dữ liệu tối đa 8 dòng kể cả hàng bảng; khối thẻ HTML chỉ chứa công thức hoặc nhãn ngắn tính như một hình (s03-08, s03-15, s05-01, s05-08; ghi trong storyboard).
+3. Luận đề: "Mỗi vòng PageRank là một phép nhân ma trận thưa với véc tơ; bước nhảy và bù nút cụt bảo đảm phép lặp hội tụ." (25 token).
+4. s03-11 thêm dòng "Trường hợp biên: mọi trang là nút cụt (kể cả $n=1$) cho $r^1=u$ ngay vòng đầu." Suy luận: $\delta=1$ nên phần chung $(1-\beta+\beta\cdot1)/n=1/n$, không có cạnh nên $r^1=u=r^0$ và $\Delta=0$. Chờ tác tử rà toán kiểm.
+5. s03-14: hai dòng "Chứng minh." trên mặt trang ($F(x)=\beta Sx+(1-\beta)u$; phần nhảy triệt tiêu, cột của $S$ có tổng 1 nên co theo hệ số $\beta$); chứng minh đầy đủ ở ghi chú (194 âm tiết, ≤ 250).
+6. s05-04 đổi sang khuôn `Bước | Số lần | Chi phí mỗi lần | Đóng góp`: 7 × 8 = 56; 8 × 4 = 32; $k^2=4$ × 16 = 64; tổng 152; $S_{\text{blocks}}=56+32=88$. Bảng theo tác vụ cũ (24, 24, 28, 12; dải 16 byte) chuyển vào ghi chú làm phép kiểm.
+7. "véc tơ" thống nhất trong bài (11 chỗ "vector" đổi); "MapReduce" theo `sources/source.md`; Bài 02 viết "Map-Reduce", không sửa Bài 02 trong đợt này.
+8. `h1` → `h2` ở s03-01, s04-01, s05-01, s06-01, s07-01 (s02-01 bị bỏ); `role="img"` thêm cho `cost-memory.svg`, `cost-combine.svg`, `cost-timeline.svg`; bỏ hai `style` nội dòng ở s02-03, s02-04 (lớp `.main-figure` có sẵn đặt 320 px; đã xem ảnh, bảng cạnh hình không tràn).
+9. Năm Stanford CS246: 2026 (tệp `stanford-cs246/09-pagerank.pdf`, Leskovec và Kanatsoulis, PDF tạo tháng 2/2026).
+10. Rà rút gọn ba vai: chờ điều phối viên giao.
+
+Chung: "Đáp án" → "Lời giải" (5 chỗ); bỏ "ta", "Ta sẽ", "Hãy", "phần N" (đổi thành "mạch N" theo số mới hoặc gọi tên kết quả); trang bài tập giữ dòng "Nguồn:" lớp `ex-note`; thuật ngữ nút cụt (dead end), bẫy liên kết (spider trap), bước nhảy ngẫu nhiên (teleport), bộ nhớ chính (RAM) giải nghĩa ở lần đầu trên mặt trang; mọi trang nội dung có đoạn "Nguồn:" trong ghi chú (trừ Nội dung, trang nguồn và đề recitation có dòng nguồn trên mặt trang).
+
+**Thay đổi cấu trúc.** 69 → 72 trang (67 giảng + 5 bài tập); bảy mạch 14/17/12/10/8/6/5; 120 + 60 phút (26,5/28/22,5/15/20/8 + 60). Thêm s01-07, s04-11 (tách từ s04-03), s07-08, s07-09, s07-T; bỏ s02-00, s02-01; đổi vai trò s01-06, s07-02, s07-01, s07-03. Bảng từng trang (quyết định, âm tiết trước → sau, dòng, phút, lý do) ở `storyboard.md`, mục cùng tên.
+
+**Con số mới.** Không có số liệu mới về đồ thị; mọi số trên trang mới lấy từ deck hoặc ghi chú đã kiểm. Phép tính mới đưa lên mặt trang: $\beta\delta/n=(4/5)(1/4)/4=1/20$ (s03-07); trường hợp biên $r^1=u$ (s03-11); $56+32=88$, $4\cdot16=64$ (s05-04); tổng kiểm $9/28+3\cdot19/84=27/84+57/84=1$ và $(4/5)(19/168+19/84)+1/20=9/28$ (ghi chú s07-01); $10^9&lt;2^{31}$ cho mã 4 byte.
+
+**Mật độ trước → sau** (`python3 -I scratchpad/p03/dens03.py 2627-1/lecture-03-pagerank-mo-hinh-va-tinh-toan.html`; trang nội dung, không tính trang tiêu đề mạch).
+
+| Chỉ số | Trước (69 trang) | Sau (72 trang) |
+|---|---:|---:|
+| Trung vị âm tiết | 46 | 43 |
+| Số trang > 40 | 41 | 40 |
+| Số trang > 60 | 16 | 4 (đều trần 80: s01-03 71, s07-02 71, s07-08 71, s07-01 80) |
+| Số trang > 80 | 2 | 0 |
+| Trang trần 60 vượt 60 | 10 | 0 |
+| Dòng > 20 âm tiết (trừ dòng dẫn tiêu đề mạch và luận đề) | 11 | 0 |
+| Ghi chú diễn giả > 150 âm tiết | 13 | 7 (s03-14 194 và s04-08 191 là chứng minh; s07-03 179 là lời giải; s06-04 165, s06-05 163, s06-07 161, s06-06 158) |
+
+**Tự kiểm no-ai-slop (Edit, đối chiếu `eval.md`).** Văn bản mới: luận đề (của điều phối viên), s01-07, s01-03, s01-02, s01-06, s02-02, s04-11, s07-02, s07-08, s07-01, s07-03, s07-09, s07-T, các dòng nhãn và ghi chú diễn giả viết lại. Đạt: không lời nói mô phỏng ("ta", "Ta sẽ", "Hãy"), không câu chỉ đường ("Phần sau: …", "Tổng kết phần: …"), không câu hỏi tu từ, không khẩu hiệu (câu "Biểu diễn thưa giảm lưu trữ, …" ở s05-09 bỏ), không gạch ngang dài; định nghĩa viết bằng "là"/"gọi là". Liên tục và thuật ngữ kiểm bằng rà tay và tìm kiếm chuỗi ("vector", "phần N", "Đáp án", `\text{}` có chữ Việt); chưa chạy kỹ năng `quill` trong lượt soạn này.
+
+**Kiểm kỹ thuật.** `git diff --check` sạch cho deck và ba tệp planning. HTML cân bằng (`html.parser`: 0 thẻ chưa đóng, 0 thẻ đóng sai); 72 `data-slide-id` duy nhất; mọi `id` duy nhất; 0 `<style>`, 0 thuộc tính `style=`, 0 `fragment`, 0 lớp `.dense`; mọi `img` có `role="img"`; 0 chữ có dấu trong `\text{}`. Playwright Chromium, máy chủ cổng 8771, `wait_until="load"`, tắt chuyển cảnh, bộ lọc console bắt `error` và cảnh báo KaTeX:
+- 1600×900: cả 72 trang qua `Reveal.getIndices` + `Reveal.slide(h, v, 99)`; 0 lỗi console, 0 cảnh báo KaTeX, 0 lỗi trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung. Trang sát đáy nhất: s03-14 (839/864 px, chân trang 845).
+- 390×844: 0 phần tử vượt mép phải, `scrollWidth` = `clientWidth` = 390, 0 lỗi, 0 `.katex-error`.
+- Ảnh đã tự xem ở 1600×900: cả 72 trang (ghép 9 trang mỗi ảnh); đã sửa ba công thức bị ngắt dòng (s07-01, s07-02, s07-08) bằng nhóm KaTeX.
+
+**Tác động tới ghi chú bài giảng `materials/lec-03/lecture-note.md`.** Không sửa. Ký hiệu, ví dụ, con số và kết luận không đổi. Điểm để đợt sửa ghi chú xử lý: (a) dòng trường hợp biên mọi trang là nút cụt (nếu tác tử rà toán duyệt); (b) bảng đầu vào các tác vụ theo khuôn mới (số giữ nguyên); (c) cấu trúc: ghi chú có bảy mục khớp bảy phần cũ, nay mục 1–2 ứng với mạch 1, mục 3–6 với mạch 2–5, mục 7 với mạch 7; (d) thuật ngữ "véc tơ" và "MapReduce".
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Trạng thái |
+|---|---|---|---|---|---|
+| trung bình | s03-11 | Dòng "Trường hợp biên" là suy luận mới từ công thức | quyết định 4 | Tác tử rà toán kiểm $\delta=1\Rightarrow r^1=u$ | đã xác nhận (rà toán 2026-10-14: đúng, kể cả $n=1$) |
+| nhẹ | toàn deck | Chữ $B$ có bốn nghĩa (trang B, khối $B_{ab}$, $B_{\text{task}}$, $B_{\text{buf}}$) | quill | Giữ (đổi là sửa nội dung toán và ghi chú); chỉ số phân biệt | đóng ở lượt sửa sau rà ba vai: bỏ $B_{ab}$, quy ước $B$ nêu ở s05-01 |
+| nhẹ | s01-xx, s02-xx | Chân trang ẩn trên cả mạch 1 vì quy tắc CSS chung ẩn chân trang khi section đầu đang hiện | `lecture-style.css` dòng 78–79 | Ngoài phạm vi (CSS chung); mạch 1 nay dài 14 trang | mở |
+| nhẹ | s03-11, s04-05, s04-06 | Phông đơn cách của giả mã đặt dấu thanh lệch trên Chromium Linux | ảnh 1600×900 | Kiểm phông ở đợt CSS chung | mở |
+| nhẹ | Bài 02 ↔ Bài 03 | "Map-Reduce" (Bài 02) và "MapReduce" (Bài 03) | quyết định 7 | Thống nhất ở đợt thuật ngữ chung | đóng: deck Bài 02 nay viết "MapReduce" ở mọi chỗ (đợt sửa Bài 02, 2026-10-14); câu biên soạn về chính tả bỏ khỏi ghi chú s01-07 |
+| nhẹ | 7 ghi chú | Ghi chú > 150 âm tiết | bảng mật độ | Rút ở lượt sửa sau rà nếu không mất giả thiết hay lời giải | mở |
+
+## Lượt sửa sau rà ba vai (2026-10-14)
+
+**Giao việc.** Điều phối viên giao tác tử soạn (loại `fork`, Claude Opus 5.5, effort `high`, theo lệnh gọi Agent của điều phối viên) sửa theo `fix-d03.md`, hợp nhất ba báo cáo rà chỉ đọc: rà toán (`review-d03-math.md`), kết nối và mạch viết (`review-d03-storyline.md`), sinh viên kèm mật độ (`review-d03-student.md`); ba tác tử rà là `fork` Opus 5.5 theo lệnh gọi của điều phối viên. Phạm vi ghi: deck 03 và ba tệp `planning/lec-03/`. Không commit. Skill `no-ai-slop` nạp ở chế độ Edit trước khi sửa chữ. Thay đổi được áp bằng một tệp đặc tả bổ sung trên bộ dựng deck (`scratchpad/w03/spec/s9fix.py`).
+
+**Quyết định cho từng phát hiện.** Mã: T = rà toán, M = mạch viết, S = sinh viên.
+
+| Mã | Mức độ | Trang chiếu | Phát hiện | Quyết định |
+|---|---|---|---|---|
+| M1, S1 | nghiêm trọng | s03-08, s03-03, s03-14, s03-11, s07-02 | $u$ và phương trình điểm bất động không có trên mặt trang | sửa: s03-08 "khởi tạo $r^0=u$, với $u_i=1/n$" và dòng "Dạng khác: $r^{t+1}=\beta M_0r^t+((1-\beta)+\beta\delta^t)u$"; s03-03 "phép lặp tìm $r^*=M_0r^*$"; s03-14 "hội tụ tới phân phối duy nhất $r^*=F(r^*)$", "$\bar M$ không âm"; ghi chú s03-08 bỏ câu định nghĩa $u$ đã lên mặt trang. Đây là giao diện ký hiệu với Bài 04 |
+| M2 | trung bình | s03-14 | $S$ vừa là ma trận vừa là dung lượng | sửa: $S\to\bar M$ (khớp Bài 04). Mặt trang định nghĩa bằng lời "$M_0$ có cột nút cụt thay bằng $u$"; dạng $\bar M=M_0+uz^{\mathsf T}$ chỉ ở ghi chú, vì trên mặt trang $z$ đã là $z=M_0r$ của mạch 3 (lệch có chủ ý so với `fix-d03.md` mục 2) |
+| M3, S8 | trung bình | s03-15 | trang Map/Reduce nằm cuối mạch mô hình, trùng s04-07 | sửa: chuyển sang mạch 3 sau s04-01 làm bước trực giác; câu kết thành "Một vòng là phép nhân ma trận–véc tơ của Bài 02: Map phát (đích, đóng góp), Reduce cộng theo đích"; ghi chú s04-07 nêu điểm mới (hai khối cùng phát khóa A). Phút mạch 2/3: 28 → 27, 22,5 → 23,5 |
+| M4 | trung bình | s07-03 | câu tự kiểm tra trùng s03-16, s05-09 và có lời giải trên s07-01, s07-02 | sửa: bốn câu vận dụng mới (bỏ phần bù trên biến thể nút cụt C, đáp $4/5$; $\beta=1$ trên biến thể bẫy; tác vụ đọc $r$ đang đổi; xếp bốn tác vụ trên hai máy, đáp $4c_e$); lời giải trong ghi chú; ghi chú s07-02 bỏ các câu là lời giải của bốn câu này |
+| M5 | trung bình | s07-09 | thiếu dòng nối Bài 04 | sửa: "Bài 04 giữ phép lặp, đổi nơi đến của bước nhảy theo chủ đề hoặc tập tin cậy." Giữ thuật ngữ "bước nhảy" của Bài 03 thay "bước dịch chuyển" trong `fix-d03.md`; ghi chú nêu Bài 04 gọi là bước dịch chuyển |
+| M6, T1, T2, S4, M13 | trung bình | s01-06, s07-01 | đối ứng dòng, thiếu điều kiện, thiếu ≈, 7 dòng, Kết luận là câu phạm vi | sửa: năm mục s07-01 theo đúng năm dòng s01-06 (dòng 3 gộp $n=10^9$, liên kết ra $\approx4(10^9+m)$ so với $8\cdot10^{18}$, $k^2$ khối); "đồ thị bốn trang gốc" cho $9/28$, $19/84$; "chỉ pha Map, ví dụ bốn khối $2,2,3,1\,c_e$" cho $8/3$; Kết luận có điều kiện ($0<\beta<1$, $m\ll n^2$); câu phạm vi vào ghi chú; 6 dòng, 72 âm tiết |
+| S2 | trung bình | s04-04 | thiếu bản ghi $M_{12}$, $M_{22}$ | sửa: dòng "$M_{12}$: (C, 1, [A]), (D, 2, [B]); $M_{22}$: (D, 2, [C])" theo định dạng bản ghi của trang; 8 dòng kể cả hàng bảng; câu kết rút để giữ trần 60 (56) |
+| S3 | trung bình | s04-05, s04-11, s05-01 | trùng ký hiệu $B$, $r_b$/$r_i$, $z_a$/$z_A$ | sửa: bỏ $B_{ab}$ (khối viết $M_{ab}$, cả giả mã); dòng "Ký hiệu:" ở s04-11, trang đầu dùng dải; quy ước $B$ nghiêng (bộ nhớ), B đứng (trang) ở s05-01. Không đổi tên dải vì hình `cost-memory.svg` ghi $r_b$, $z_a$ (tệp SVG ngoài phạm vi) |
+| T3 | nhẹ | s03-14 | thiếu "không âm" | sửa (cùng M1) |
+| T4 | nhẹ | s07-02 | công thức chia khối thiếu số hạng | sửa: $\sum_b\sum_{j\in V_b,\,j\to i}r_j/d_j=\sum_{j\to i}r_j/d_j$ |
+| T5 | nhẹ | s07-08 | cột chi phí trộn đại lượng; thiếu $B_{\text{buf}}$; ghi chú lệch s05-02 | sửa: hàng 1 "$O(n+m)$ mỗi vòng; bộ nhớ $16n$ byte"; hàng 2 "$16n/k+B_{\text{buf}}$ byte một tác vụ"; ghi chú theo đề xuất |
+| T6 | nhẹ | s01-06 | "chuyển nhiều hơn", "một nghiệm" | sửa: "liên kết của nguồn ít đích mang nhiều điểm hơn", "nghiệm duy nhất"; dòng Nhu cầu và dòng 3 rút để giữ 60 |
+| T7 | nhẹ | ghi chú s05-05 | lý do bỏ bản ghi $(i,0)$ mâu thuẫn s04-06 | sửa: "ví dụ không đếm $n$ bản ghi khởi tạo $(i,0)$, nếu đếm thì $H$ tăng thêm $4\cdot12=48$ byte ở cả hai phương án" |
+| T8 | nhẹ | s01-02, s07-09 | tr.176 → tr.175 | sửa |
+| T9 | nhẹ | ghi chú s04-04 | Hình 5.14 ở tr.194 | sửa: tr.192–194 |
+| M7 | nhẹ | 12 ghi chú | gọi "mạch N"; "bốn mạch trước" | sửa: gọi bằng tên kết quả (bảng một vòng có bước nhảy, quy tắc cập nhật đầy đủ, thuật toán PageRank lặp, danh sách liên kết ra…); s07-00 "năm mạch trước" |
+| M8 | nhẹ | s03-01 | "bước đi ngẫu nhiên" và "bước nhảy ngẫu nhiên" dễ lẫn | sửa: câu kết "Bước đi ngẫu nhiên (random walk): $r_i$ là xác suất…" |
+| M9 | nhẹ | s01-03, s03-11 | $M_0$, $\tau$, $T_{\max}$ chưa gọi tên | sửa: "Lập ma trận liên kết"; "ngưỡng $\tau>0$, giới hạn vòng $T_{\max}$" |
+| M10 | nhẹ | ghi chú s02-02 | thiếu câu vì sao xác định đầu ra trước | bác bỏ: ghi chú s02-02 đã nêu đầu ra không âm, tổng một để so sánh được; thêm câu sẽ lặp |
+| M11 | nhẹ | s07-T, s07-00 | dòng dẫn tự quy chiếu; từ khóa "Câu trả lời" | sửa: dòng dẫn mạch 7 theo đề xuất (24 âm tiết); từ khóa "Một tỷ trang" |
+| M12 | nhẹ | s02-03 ↔ s04-02 | tên cột khác nhau | sửa bằng ghi chú s04-02 (cột theo thứ tự trường bản ghi); giữ bảng s02-03 vì đọc trực tiếp từ hình |
+| S5 | nhẹ | s01-06 | thuật ngữ dùng trước định nghĩa | giữ: khuôn trang Vấn đề trung tâm của deck mẫu 06; ghi chú nói các câu trả lời có điều kiện được xây ở các mạch sau |
+| S6 | nhẹ | s03-01 | $d_j$ trước định nghĩa | sửa: "(bậc ra)" sau $d_j$ |
+| S7 | nhẹ | s02-08 | câu 2 có đáp án trên s02-07 | sửa: $r^0=(1/2,1/6,1/6,1/6)$, D nhận $1/6+1/12=1/4$; cần tác tử rà toán xác nhận ở recheck |
+| S9 | nhẹ | s03-11, s04-05, s04-06 | phông đơn cách lệch dấu tiếng Việt | mở: CSS chung (`lecture-style.css`, phông đơn cách), ngoài phạm vi; kiểm trên máy chiếu |
+| S10 | nhẹ | s04-05 | "Map yield", "Combine yield" | sửa: "Map phát", "Combine phát" |
+| S11 | nhẹ | s06-02 | $\tau$, $T_{\max}$ khác tên tham số | sửa: "$\tau$ (`tol`)", "$T_{\max}$ (`max_iter`)" |
+| S12 | nhẹ | s01-05 | "EB" chưa giải nghĩa | sửa: "(1 EB là $10^{18}$ byte)" |
+| S13 | nhẹ | s03-14 | sát đáy | giữ: không thêm dòng; đáy 839/864 px, trên chân trang 845 |
+| S14 | nhẹ | bìa, trang tiêu đề mạch | mẩu một từ khi xuống dòng | giữ (vai sinh viên đánh giá chấp nhận được) |
+| S15 | nhẹ | s03-01, s05-03, s05-06 | chú giải SVG nhỏ, chỉ số gõ thô | mở: tệp SVG ngoài phạm vi |
+| S16 | nhẹ | s04-10 | câu 3 để ngỏ | sửa: "Nêu một cách phân bổ." |
+| S17 | nhẹ | ghi chú s01-07 | câu biên soạn về "MapReduce" | sửa: bỏ khỏi ghi chú; ghi ở đây và ở dòng chính tả phía trên |
+| S18 | nhẹ | ghi chú s06-05, s06-06 | lặp số trên mặt trang | mở: câu thay thế đề xuất ("$\Delta$ giảm khoảng hệ số $\beta$ mỗi vòng") không đúng với đồ thị này ($\Delta$ từ 0,2 xuống $5{,}5\cdot10^{-9}$ sau 20 vòng, tỉ số trung bình khoảng 0,4 < $\beta$); cần câu khác đã kiểm |
+| S19 | nhẹ | storyboard | âm tiết, dòng lệch deck | sửa cho các trang đổi trong lượt này (bảng storyboard đánh dấu "lượt sửa"); trang không đổi giữ số của công cụ đếm `dens03.py`, khác quy ước đếm của vai sinh viên |
+
+**Mật độ sau sửa** (`scratchpad/p03/dens03.py`, `w03/capcheck.py`): không trang trần 60 nào vượt 60 (s01-06, s07-03 bằng 60); trang trần 80 cao nhất s07-08 74, s07-01 72; không dòng nào vượt 20 âm tiết (dòng dẫn trang tiêu đề mạch tối đa 25). Ngoại lệ dòng giữ như storyboard; s03-08 thêm một dòng (khối thẻ tính như hình), s04-04 8 dòng kể cả hàng bảng.
+
+**Kiểm tra.** `git diff --check` sạch (deck và ba tệp kế hoạch). Thẻ HTML cân bằng; 72 `data-slide-id` duy nhất; không `style`, `fragment`; 0 "Map-Reduce". Chromium Playwright, cổng 8771, 27 trang đổi (s01-02, s01-03, s01-05, s01-06, s02-08, s03-01, s03-03, s03-08, s03-11, s03-14, s03-15, s03-16, s04-01, s04-02, s04-04, s04-05, s04-10, s04-11, s05-01, s06-02, s07-00, s07-01, s07-02, s07-03, s07-08, s07-09, s07-T) và lượt toàn deck do công cụ kiểm: 1600×900 0 lỗi console, 0 cảnh báo KaTeX, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung; đáy thấp nhất s03-14 839/864 px (chân trang 845). 390×844: 0 lỗi, không tràn phải. Đã tự xem ảnh 1600×900 của 18 trang đổi chính (hai ảnh ghép).
+
+**Tác động.** Deck Bài 04 (ghi chú trang hội tụ, dòng "Bài 03 ký hiệu ma trận này là $S$") nay lệch vì Bài 03 dùng $\bar M$; cần sửa câu đó ở đợt Bài 04 (ngoài phạm vi). Ghi chú bài giảng `materials/lec-03/lecture-note.md` (mục chứng minh hội tụ dùng $S$) cần đổi sang $\bar M$ ở đợt sửa ghi chú; con số và kết luận không đổi. `index.html` không đổi.
+
+**Recheck cần chạy** (CLAUDE.md, "Recheck"): rà toán trên s02-08 câu 2, s03-14, s07-01, s07-02, s07-03 (lời giải), s07-08, ghi chú s05-05; mạch viết trên s03-03…s03-16, ranh giới mạch 2/3 quanh s03-15, s04-01…s04-07, s07-00…s07-T.
+
+### Đồng bộ ký hiệu $\bar M$ sau lượt sửa (2026-10-14)
+
+Theo giao việc của điều phối viên (tác tử soạn, `fork`, Opus 5.5, effort `high`; không commit): ghi chú bài giảng `materials/lec-03/lecture-note.md`, đoạn **Hội tụ** của chứng minh hội tụ, đổi $S$ thành $\bar M$ ở ba chỗ (định nghĩa, $F(r)=\beta\bar Mr+(1-\beta)u$, bất đẳng thức $\|\bar Mv\|_1\le\|v\|_1$); nội dung, con số và kết luận không đổi; $S$ ở phần 5 của ghi chú vẫn là dung lượng. Ghi chú diễn giả trang hội tụ của deck 04 sửa câu "Bài 03 ký hiệu ma trận này là $S$" thành "Bài 03 cũng ký hiệu ma trận này là $\bar M$…" (ghi ở review-log Bài 04). Kiểm: `material-viewer.html?doc=materials/lec-03/lecture-note.md&deck=lecture-03-pagerank-mo-hinh-va-tinh-toan.html` trên cổng 8771, 1600×900 và 390×844: 352 khối KaTeX, 0 `.katex-error`, không tràn ngang; một thông báo console về chính sách bảo mật nội dung (CSP) do máy chủ phát triển chèn script tự nạp lại (không có trong `material-viewer.html`), không liên quan ghi chú. Đã tự xem ảnh đoạn Hội tụ. Mục tác động "ghi chú bài giảng dùng $S$" của lượt sửa sau rà ba vai: đóng.
+
+### Sửa sau recheck (2026-10-14)
+
+Theo `recheck-d03.md` (vai recheck toán và mạch viết, `fork` Opus 5.5; không phát hiện chặn bàn giao hay nghiêm trọng) và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit.
+
+| Mã | Mức độ | Trang chiếu | Quyết định |
+|---|---|---|---|
+| T1 | trung bình | s04-01 → s03-15 → s04-02 | sửa: s03-15 chuyển xuống sau s04-02 (trước s04-03); ghi chú mở bằng bản ghi $(B,2,[A,D])$ của danh sách liên kết ra và câu cuối dẫn vào chia khối; phút không đổi; storyboard đánh số lại, outline cập nhật thứ tự |
+| N1 | nhẹ | s03-15 | sửa: thẻ Reduce ghi $1/8+1/4$ và $=3/8$, không dùng $z_A$; ghi chú gọi "tổng đóng góp về A" |
+| N2 | nhẹ | s05-01 | sửa: bỏ quy ước nghiêng/đứng; dòng Ký hiệu viết "$B$ là bộ nhớ, khác trang B" |
+| N3 | nhẹ | s03-08 | sửa: "với $u_i=1/n$" ở cuối dòng "Dạng khác" (lần dùng đầu); chú thích còn "khởi tạo $r^0=u$" |
+| N4 | nhẹ | ghi chú s07-09 | sửa: bỏ câu biên soạn; còn "Bài 04 dùng lại ký hiệu PageRank của bài này và gọi bước nhảy là bước dịch chuyển." |
+| N5 | nhẹ | s07-01 | sửa: "$k^2$ khối, cùng điểm cũ: như một máy" (75/80 âm tiết, 6 dòng) |
+| — | nhẹ | s03-14, s05-01 (390×844) | giữ như recheck đề xuất (đáy sát chân trang; chế độ cuộn ở cỡ hẹp do CSS chung) |
+
+Mật độ sau sửa (`p03/dens03.py`): s03-08 30, s03-15 47, s04-01 58, s04-02 43, s04-03 37, s05-01 53, s07-01 75, s07-09 54; không dòng nào vượt 20 âm tiết.
