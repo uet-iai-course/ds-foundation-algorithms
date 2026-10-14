@@ -387,3 +387,30 @@ Tác tử chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `h
 **Phân công vai trò trong lượt này.** Điều phối và biên tập: phiên Claude Code, Opus 5.5, effort `high`. Tác tử rà chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5): phần 1–2; phần 3; phần 4; phần 5–6; phần 7; góc nhìn sinh viên toàn bài; tái rà sau lượt góc nhìn sinh viên. Bằng chứng: các lệnh gọi Agent trong phiên. Chỉ một tác nhân ghi tệp (điều phối viên).
 
 **Giới hạn còn lại.** Phần bài tập không có nhiệm vụ HNSW vì sổ nguồn không có (giữ quyết định cũ). Thời gian chạy máy của sổ thực hành phụ thuộc môi trường, không có đáp án số cố định.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 2 gồm Bài 07–15; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`. Mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch nên dùng `<tiền tố>T`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | AT | Bài toán hàng xóm gần đúng | Muốn tránh quét mười tỷ véc-tơ cho mỗi truy vấn, phải đặc tả đầu ra gần đúng và cách đo chất lượng. |
+| 3 | HT | Tìm kiếm trên đồ thị HNSW | Muốn đo ít véc-tơ mà vẫn tìm được điểm gần, phải đi trên đồ thị lân cận nhiều tầng. |
+| 4 | QT | Lượng tử hóa tích (PQ) | Muốn giảm bộ nhớ và chi phí mỗi phép đo, phải thay véc-tơ bằng mã ngắn và tính khoảng cách qua bảng tra. |
+| 5 | IT | Tệp đảo kết hợp PQ (IVF-PQ) | Muốn chỉ chấm một phần kho bằng mã ngắn, phải chia kho thành danh sách đảo và mã hóa phần dư. |
+| 6 | CT | So sánh và tự kiểm tra | Muốn chọn chỉ mục cho kho mở đầu, phải đối chiếu thừa số được giảm, bộ nhớ và chi phí truy vấn. |
+| 7 | RT | Bài tập thực hành | Muốn kiểm các công thức PQ và IVF-PQ bằng số đo, phải chạy sổ thực hành trên dữ liệu tổng hợp. |
+
+Dòng dẫn 20–24 âm tiết; từ khóa 4–5 cụm; ghi chú diễn giả 86–97 âm tiết, viết từ nội dung các trang trong mạch. Số trang 50 → 56. Các trang nội dung đầu mạch (A00, H00, Q00, I00, C00, R00) đều có nội dung, không phải trang tiêu đề phần một dòng, và tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung (P02 "Nội dung và mục tiêu"): danh sách `ul` sáu mục thiếu mạch mở đầu; đổi thành `ol` 1–7, thêm mục 1 "Mở đầu", các mục 2–7 trùng từng chữ với tên mạch. Notes thêm một câu cho mạch mở đầu. Trang gộp với ba mục tiêu, mặt trang khoảng 95 âm tiết, vượt trần 80; theo phạm vi đợt này chỉ đánh số, chưa tách. Quyết định: sửa.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc). Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 63/63; 56 `data-slide-id` và 6 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/N` mở đúng trang tiêu đề mạch tương ứng (`id`, số thứ tự khớp); khối tiêu đề nằm trong khung (đáy lớn nhất 720 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng tên các mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.

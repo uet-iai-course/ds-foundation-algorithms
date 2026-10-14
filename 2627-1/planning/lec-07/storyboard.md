@@ -9,6 +9,23 @@
 
 Tình huống mở bài là truy hồi ngữ nghĩa với $N=10^{10}$ véc-tơ, $D=3072$, số thực 32 bit, đoạn 6 chiều và mã tâm 8 bit từ cấu hình BIODS trang 17. Đầu vào là véc-tơ truy vấn; đầu ra là $K$ mục gần truy vấn trong giới hạn bộ nhớ và độ trễ. Dữ kiện truyền sang A00 để nêu chi phí quét, Q07 để tính bộ nhớ mã, Q10 để chỉ ra quét mã vẫn tuyến tính, I00–I04 để cần phân vùng và C00 để đối chiếu cấu trúc. Đầu ra được đo bằng $\operatorname{recall@K}$ cùng độ trễ, chi phí xây dựng và bộ nhớ.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 50 → 56 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Bài toán hàng xóm gần đúng (`AT`); 3. Tìm kiếm trên đồ thị HNSW (`HT`); 4. Lượng tử hóa tích (PQ) (`QT`); 5. Tệp đảo kết hợp PQ (IVF-PQ) (`IT`); 6. So sánh và tự kiểm tra (`CT`); 7. Bài tập thực hành (`RT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| AT | Bài toán hàng xóm gần đúng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước A00 | Kho $10^{10}$ véc-tơ và chi phí quét đầy đủ (P01) | Đặc tả ANN, độ thu hồi tại $K$, hai thừa số chi phí | ngoài chu trình khái niệm; tên khác tiêu đề A00 | 0,5 (từ A00) | thêm |
+| HT | Tìm kiếm trên đồ thị HNSW | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước H00 | Hai thừa số chi phí truy vấn | SEARCH-LAYER, truy vấn và chèn HNSW, chi phí | ngoài chu trình khái niệm; tên khác tiêu đề H00 | 0,5 (từ H00) | thêm |
+| QT | Lượng tử hóa tích (PQ) | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước Q00 | HNSW còn giữ véc-tơ gốc | Mã PQ, khoảng cách bất đối xứng, bảng tra | ngoài chu trình khái niệm; tên khác tiêu đề Q00 | 0,5 (từ Q00) | thêm |
+| IT | Tệp đảo kết hợp PQ (IVF-PQ) | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước I00 | PQ quét đủ vẫn chấm mọi mã | Truy vấn IVF-PQ và chi phí | ngoài chu trình khái niệm; tên khác tiêu đề I00 | 0,5 (từ I00) | thêm |
+| CT | So sánh và tự kiểm tra | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước C00 | Bốn cấu trúc và mô hình đếm | Bảng so sánh, hai trang tự kiểm tra | ngoài chu trình khái niệm; tên khác tiêu đề C00 | 0,5 (từ C00) | thêm |
+| RT | Bài tập thực hành | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước R00 | Công thức PQ và IVF-PQ | Ba nhiệm vụ đo trên sổ thực hành | ngoài chu trình khái niệm; tên khác tiêu đề R00 | 0,5 (từ R00) | thêm |
+
+Trang Nội dung (P02 "Nội dung và mục tiêu"): danh sách `ul` sáu mục thiếu mạch mở đầu; đổi thành `ol` 1–7, thêm mục 1 "Mở đầu", các mục 2–7 trùng từng chữ với tên mạch. Notes thêm một câu cho mạch mở đầu. Trang gộp với ba mục tiêu, mặt trang khoảng 95 âm tiết, vượt trần 80; theo phạm vi đợt này chỉ đánh số, chưa tách. Quyết định: sửa.
+
 ## Từng trang phần giảng
 
 | ID | Phút | Lý do tồn tại và bước tiến | Đầu vào → sản phẩm | Nguồn |

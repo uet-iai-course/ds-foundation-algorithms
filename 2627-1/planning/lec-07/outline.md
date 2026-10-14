@@ -108,3 +108,17 @@ Runbook lớp 8 có bài trực tiếp cho PQ và IVF-PQ nhưng không có bài 
 | `L07-N11` | cầu nối | Ba nhiệm vụ runbook | sản phẩm thực hành truy nguyên được |
 
 Đồ thị tiên quyết tách thành nhánh đồ thị `N03→N06` và nhánh nén `N07→N09`, rồi hội tụ ở `N10`. `N11` chỉ phụ thuộc nhánh PQ/IVF-PQ vì nguồn không có bài HNSW.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 56 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Bài toán hàng xóm gần đúng | AT | A00 |
+| 3 | Tìm kiếm trên đồ thị HNSW | HT | H00 |
+| 4 | Lượng tử hóa tích (PQ) | QT | Q00 |
+| 5 | Tệp đảo kết hợp PQ (IVF-PQ) | IT | I00 |
+| 6 | So sánh và tự kiểm tra | CT | C00 |
+| 7 | Bài tập thực hành | RT | R00 |
