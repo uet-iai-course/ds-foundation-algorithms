@@ -326,7 +326,7 @@ Tập dịch chuyển · Điểm cố định · Bất biến tổng điểm · 
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho một điểm chung cho mọi truy vấn; truy vấn đa nghĩa và chi phí lưu điểm riêng đặt nhu cầu điểm theo chủ đề. Phần này thay nơi dịch chuyển bằng tập chủ đề $S$, chạy hai vòng trên G4, đặc tả, viết giả mã, chứng minh bất biến tổng điểm và cận sai số khi dừng, rồi tính chi phí tiền tính và truy vấn. Phép lặp với tập dịch chuyển được dùng lại cho TrustRank.
+Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho một điểm chung cho mọi truy vấn; truy vấn đa nghĩa và chi phí lưu điểm riêng đặt nhu cầu điểm theo chủ đề. Nơi dịch chuyển được thay bằng tập chủ đề $S$; hai vòng trên G4, đặc tả, giả mã, chứng minh bất biến tổng điểm và cận sai số khi dừng dẫn tới chi phí tiền tính và truy vấn. Phép lặp với tập dịch chuyển được dùng lại cho TrustRank.
 <!-- public-notes:end -->
 
 ### lec04-s02-01 — Dịch chuyển vào tập chủ đề
@@ -982,7 +982,7 @@ Cụm thao túng liên kết · Trang hỗ trợ · Ba nguồn điểm · Hệ s
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên người sở hữu trang có thể thêm liên kết để đẩy điểm một trang. Phần này mô hình cụm thao túng gồm trang đích và các trang hỗ trợ, tính điểm một trang hỗ trợ, tách ba nguồn điểm tại trang đích, giải điểm cố định và suy ra hệ số khuếch đại. Hai hướng chống liên kết rác dẫn tới TrustRank, cách tính điểm dựa trên thông tin người tạo rác không kiểm soát.
+PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên người sở hữu trang có thể thêm liên kết để đẩy điểm một trang. Mô hình cụm thao túng gồm trang đích và các trang hỗ trợ; từ điểm một trang hỗ trợ và ba nguồn điểm tại trang đích, phương trình điểm cố định cho hệ số khuếch đại. Hai hướng chống liên kết rác dẫn tới TrustRank, cách tính điểm dựa trên thông tin người tạo rác không kiểm soát.
 <!-- public-notes:end -->
 
 ### lec04-s03-01 — Liên kết rác
@@ -1378,7 +1378,7 @@ Tập trang tin cậy · Phép lặp TrustRank · Hiệu hai điểm · Spam Mas
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm trang đích nhiều lần. TrustRank là PageRank theo chủ đề với tập dịch chuyển $T$ gồm các trang tin cậy chọn ngoài thuật toán. Phần này chạy phép lặp trên G4, lấy hiệu giữa PageRank và TrustRank, định nghĩa chỉ số Spam Mass và đếm chi phí của hai lần lặp. Hai phương pháp này vẫn gán mỗi trang một điểm; HITS tách hai vai trò của một trang.
+Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm trang đích nhiều lần. TrustRank là PageRank theo chủ đề với tập dịch chuyển $T$ gồm các trang tin cậy chọn ngoài thuật toán. Phép lặp TrustRank chạy trên G4; hiệu giữa PageRank và TrustRank dẫn tới chỉ số Spam Mass, với chi phí là hai phép lặp PageRank và TrustRank. Hai phương pháp này vẫn gán mỗi trang một điểm; HITS tách hai vai trò của một trang.
 <!-- public-notes:end -->
 
 ### lec04-s04-01 — TrustRank
@@ -1732,7 +1732,7 @@ Trang trung tâm · Trang uy tín · Ma trận liên kết · Chuẩn hóa · Đ
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho mỗi trang. HITS gán điểm trung tâm $h$ và điểm uy tín $a$: uy tín cộng điểm trung tâm của các trang trỏ tới, trung tâm cộng điểm uy tín của các trang được trỏ tới. Phần này chạy hai vòng trên G5, viết phép lặp bằng ma trận liên kết, chuẩn hóa, phát biểu thuật toán, xét điểm ổn định và chi phí. Các phương pháp được đặt cạnh nhau ở phần so sánh.
+PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho mỗi trang. HITS gán điểm trung tâm $h$ và điểm uy tín $a$: uy tín cộng điểm trung tâm của các trang trỏ tới, trung tâm cộng điểm uy tín của các trang được trỏ tới. Hai vòng trên G5 cụ thể hóa định nghĩa; phép lặp viết bằng ma trận liên kết, được chuẩn hóa thành thuật toán, rồi xét điểm ổn định và chi phí. Các phương pháp còn phải được đặt cạnh nhau theo đầu ra và thông tin bổ sung.
 <!-- public-notes:end -->
 
 ### lec04-s05-01 — Trang trung tâm và trang uy tín
@@ -2271,7 +2271,7 @@ Muốn chọn phương pháp xếp hạng, phải đối chiếu đầu ra, thô
 **Ghi chú học thuật dự kiến:**
 
 <!-- public-notes:start -->
-Các phương pháp đã học dùng cùng một khung lặp trên đồ thị liên kết nhưng khác nơi dịch chuyển hoặc số điểm của mỗi trang. Phần này đặt PageRank theo chủ đề, TrustRank, Spam Mass và HITS vào một bảng theo đầu ra và thông tin bổ sung cần có, nêu cách chọn theo đầu ra cần tạo, rồi kiểm tra bằng câu hỏi về mô hình, chi phí và so sánh. Phương trình của từng phương pháp được dùng trực tiếp trong phần bài tập.
+Các phương pháp đã học dùng cùng một khung lặp trên đồ thị liên kết nhưng khác nơi dịch chuyển hoặc số điểm của mỗi trang. Bảng đối chiếu đặt PageRank theo chủ đề, TrustRank, Spam Mass và HITS theo đầu ra và thông tin bổ sung cần có; cách chọn đi theo đầu ra cần tạo, và câu hỏi tự kiểm tra xét mô hình, chi phí và so sánh. Phương trình của từng phương pháp được dùng trực tiếp trong ba bài tập.
 <!-- public-notes:end -->
 
 ### lec04-s06-01 — Ý nghĩa của các điểm xếp hạng

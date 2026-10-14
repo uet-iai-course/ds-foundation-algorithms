@@ -93,9 +93,9 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">2.</span>PageRank theo chủ đề</h2>
     <p class="strand-lead">Muốn ưu tiên trang thuộc một chủ đề, phải đổi nơi đến của bước dịch chuyển mà giữ nguyên phép lặp.</p>
-    <p class="strand-keys">Tập dịch chuyển · Điểm cố định · Bất biến tổng điểm · Tiền tính theo chủ đề</p>
+    <p class="strand-keys">Tập&nbsp;dịch&nbsp;chuyển&nbsp;· Điểm&nbsp;cố&nbsp;định&nbsp;· Bất&nbsp;biến&nbsp;tổng&nbsp;điểm&nbsp;· Tiền&nbsp;tính&nbsp;theo&nbsp;chủ&nbsp;đề</p>
   </div>
-  <aside class="notes"><p>Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho một điểm chung cho mọi truy vấn; truy vấn đa nghĩa và chi phí lưu điểm riêng đặt nhu cầu điểm theo chủ đề. Phần này thay nơi dịch chuyển bằng tập chủ đề $S$, chạy hai vòng trên G4, đặc tả, viết giả mã, chứng minh bất biến tổng điểm và cận sai số khi dừng, rồi tính chi phí tiền tính và truy vấn. Phép lặp với tập dịch chuyển được dùng lại cho TrustRank.</p></aside>
+  <aside class="notes"><p>Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho một điểm chung cho mọi truy vấn; truy vấn đa nghĩa và chi phí lưu điểm riêng đặt nhu cầu điểm theo chủ đề. Nơi dịch chuyển được thay bằng tập chủ đề $S$; hai vòng trên G4, đặc tả, giả mã, chứng minh bất biến tổng điểm và cận sai số khi dừng dẫn tới chi phí tiền tính và truy vấn. Phép lặp với tập dịch chuyển được dùng lại cho TrustRank.</p></aside>
 </section>
 <section id="lec04-s02-01" data-slide-id="lec04-s02-01" class="example-slide">
 <h2>Dịch chuyển vào tập chủ đề</h2>
@@ -382,9 +382,9 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
   <div class="strand-title-body">
     <h2><span class="strand-number">3.</span>Cơ chế liên kết rác</h2>
     <p class="strand-lead">Muốn biết liên kết rác làm tăng điểm đến đâu, phải tính điểm cố định của trang đích trong một cụm thao túng.</p>
-    <p class="strand-keys">Cụm thao túng liên kết · Trang hỗ trợ · Ba nguồn điểm · Hệ số khuếch đại</p>
+    <p class="strand-keys">Cụm&nbsp;thao&nbsp;túng&nbsp;liên&nbsp;kết&nbsp;· Trang&nbsp;hỗ&nbsp;trợ&nbsp;· Ba&nbsp;nguồn&nbsp;điểm&nbsp;· Hệ&nbsp;số&nbsp;khuếch&nbsp;đại</p>
   </div>
-  <aside class="notes"><p>PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên người sở hữu trang có thể thêm liên kết để đẩy điểm một trang. Phần này mô hình cụm thao túng gồm trang đích và các trang hỗ trợ, tính điểm một trang hỗ trợ, tách ba nguồn điểm tại trang đích, giải điểm cố định và suy ra hệ số khuếch đại. Hai hướng chống liên kết rác dẫn tới TrustRank, cách tính điểm dựa trên thông tin người tạo rác không kiểm soát.</p></aside>
+  <aside class="notes"><p>PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên người sở hữu trang có thể thêm liên kết để đẩy điểm một trang. Mô hình cụm thao túng gồm trang đích và các trang hỗ trợ; từ điểm một trang hỗ trợ và ba nguồn điểm tại trang đích, phương trình điểm cố định cho hệ số khuếch đại. Hai hướng chống liên kết rác dẫn tới TrustRank, cách tính điểm dựa trên thông tin người tạo rác không kiểm soát.</p></aside>
 </section>
 <section id="lec04-s03-01" data-slide-id="lec04-s03-01" class="example-slide">
 <h2>Liên kết rác</h2>
@@ -542,9 +542,9 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
   <div class="strand-title-body">
     <h2><span class="strand-number">4.</span>TrustRank và Spam Mass</h2>
     <p class="strand-lead">Muốn tìm trang có điểm do liên kết rác, phải so PageRank với điểm lan từ tập trang tin cậy.</p>
-    <p class="strand-keys">Tập trang tin cậy · Phép lặp TrustRank · Hiệu hai điểm · Spam Mass · Chi phí</p>
+    <p class="strand-keys">Tập&nbsp;trang&nbsp;tin&nbsp;cậy&nbsp;· Phép&nbsp;lặp&nbsp;TrustRank&nbsp;· Hiệu&nbsp;hai&nbsp;điểm&nbsp;· Spam&nbsp;Mass&nbsp;· Chi&nbsp;phí</p>
   </div>
-  <aside class="notes"><p>Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm trang đích nhiều lần. TrustRank là PageRank theo chủ đề với tập dịch chuyển $T$ gồm các trang tin cậy chọn ngoài thuật toán. Phần này chạy phép lặp trên G4, lấy hiệu giữa PageRank và TrustRank, định nghĩa chỉ số Spam Mass và đếm chi phí của hai phép lặp PageRank và TrustRank. Hai phương pháp này vẫn gán mỗi trang một điểm; HITS tách hai vai trò của một trang.</p></aside>
+  <aside class="notes"><p>Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm trang đích nhiều lần. TrustRank là PageRank theo chủ đề với tập dịch chuyển $T$ gồm các trang tin cậy chọn ngoài thuật toán. Phép lặp TrustRank chạy trên G4; hiệu giữa PageRank và TrustRank dẫn tới chỉ số Spam Mass, với chi phí là hai phép lặp PageRank và TrustRank. Hai phương pháp này vẫn gán mỗi trang một điểm; HITS tách hai vai trò của một trang.</p></aside>
 </section>
 <section id="lec04-s04-01" data-slide-id="lec04-s04-01" class="example-slide">
 <h2>TrustRank</h2>
@@ -746,9 +746,9 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
   <div class="strand-title-body">
     <h2><span class="strand-number">5.</span>HITS</h2>
     <p class="strand-lead">Muốn phân biệt trang dẫn đường với trang cung cấp thông tin, phải gán mỗi trang hai điểm định nghĩa lẫn nhau.</p>
-    <p class="strand-keys">Trang trung tâm · Trang uy tín · Ma trận liên kết · Chuẩn hóa · Điểm ổn định</p>
+    <p class="strand-keys">Trang&nbsp;trung&nbsp;tâm&nbsp;· Trang&nbsp;uy&nbsp;tín&nbsp;· Ma&nbsp;trận&nbsp;liên&nbsp;kết&nbsp;· Chuẩn&nbsp;hóa&nbsp;· Điểm&nbsp;ổn&nbsp;định</p>
   </div>
-  <aside class="notes"><p>PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho mỗi trang. HITS gán điểm trung tâm $h$ và điểm uy tín $a$: uy tín cộng điểm trung tâm của các trang trỏ tới, trung tâm cộng điểm uy tín của các trang được trỏ tới. Phần này chạy hai vòng trên G5, viết phép lặp bằng ma trận liên kết, chuẩn hóa, phát biểu thuật toán, xét điểm ổn định và chi phí. Các phương pháp được đặt cạnh nhau ở phần so sánh.</p></aside>
+  <aside class="notes"><p>PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho mỗi trang. HITS gán điểm trung tâm $h$ và điểm uy tín $a$: uy tín cộng điểm trung tâm của các trang trỏ tới, trung tâm cộng điểm uy tín của các trang được trỏ tới. Hai vòng trên G5 cụ thể hóa định nghĩa; phép lặp viết bằng ma trận liên kết, được chuẩn hóa thành thuật toán, rồi xét điểm ổn định và chi phí. Các phương pháp còn phải được đặt cạnh nhau theo đầu ra và thông tin bổ sung.</p></aside>
 </section>
 <section id="lec04-s05-01" data-slide-id="lec04-s05-01" class="example-slide">
 <h2>Trang trung tâm và trang uy tín</h2>
@@ -1064,9 +1064,9 @@ $$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p>
   <div class="strand-title-body">
     <h2><span class="strand-number">6.</span>So sánh các phương pháp xếp hạng</h2>
     <p class="strand-lead">Muốn chọn phương pháp xếp hạng, phải đối chiếu đầu ra, thông tin bổ sung và chi phí của từng phương pháp.</p>
-    <p class="strand-keys">Ý nghĩa của điểm · Thông tin bổ sung · Chọn phương pháp · Câu hỏi kiểm tra</p>
+    <p class="strand-keys">Ý&nbsp;nghĩa&nbsp;của&nbsp;điểm&nbsp;· Thông&nbsp;tin&nbsp;bổ&nbsp;sung&nbsp;· Chọn&nbsp;phương&nbsp;pháp&nbsp;· Câu&nbsp;hỏi&nbsp;kiểm&nbsp;tra</p>
   </div>
-  <aside class="notes"><p>Các phương pháp đã học dùng cùng một khung lặp trên đồ thị liên kết nhưng khác nơi dịch chuyển hoặc số điểm của mỗi trang. Phần này đặt PageRank theo chủ đề, TrustRank, Spam Mass và HITS vào một bảng theo đầu ra và thông tin bổ sung cần có, nêu cách chọn theo đầu ra cần tạo, rồi kiểm tra bằng câu hỏi về mô hình, chi phí và so sánh. Phương trình của từng phương pháp được dùng trực tiếp trong phần bài tập.</p></aside>
+  <aside class="notes"><p>Các phương pháp đã học dùng cùng một khung lặp trên đồ thị liên kết nhưng khác nơi dịch chuyển hoặc số điểm của mỗi trang. Bảng đối chiếu đặt PageRank theo chủ đề, TrustRank, Spam Mass và HITS theo đầu ra và thông tin bổ sung cần có; cách chọn đi theo đầu ra cần tạo, và câu hỏi tự kiểm tra xét mô hình, chi phí và so sánh. Phương trình của từng phương pháp được dùng trực tiếp trong ba bài tập.</p></aside>
 </section>
 <section id="lec04-s06-01" data-slide-id="lec04-s06-01" class="example-slide">
 <h2>Ý nghĩa của các điểm xếp hạng</h2>
@@ -1178,7 +1178,7 @@ $$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p>
   <div class="strand-title-body">
     <h2><span class="strand-number">7.</span>Bài tập</h2>
     <p class="strand-lead">Muốn kiểm các phương trình đã học, phải giải lại chúng trên dữ liệu và biến thể của giáo trình.</p>
-    <p class="strand-keys">Bài 5.3.1 · Bài 5.4.1 · Bài 5.5.2</p>
+    <p class="strand-keys">Bài&nbsp;5.3.1&nbsp;· Bài&nbsp;5.4.1&nbsp;· Bài&nbsp;5.5.2</p>
   </div>
   <aside class="notes"><p>Phương trình điểm cố định của PageRank theo chủ đề, mô hình cụm thao túng và phép lặp HITS đã có. Ba bài của MMDS kiểm lại từng kết quả: Bài 5.3.1(a, b) tính PageRank theo chủ đề trên G4 với hai tập dịch chuyển; Bài 5.4.1(a, c) giải điểm trang đích khi đổi cạnh ra của trang hỗ trợ; Bài 5.5.2 tính hai vector trung tâm và uy tín trên chuỗi có khuyên. Mỗi lời giải nêu hệ phương trình, nghiệm và phép kiểm.</p></aside>
 </section>

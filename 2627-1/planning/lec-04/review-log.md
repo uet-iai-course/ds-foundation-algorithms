@@ -573,3 +573,7 @@ Kiểm tra: section mở/đóng 65/65; 58 `data-slide-id` và 58 `id` duy nhất
 ### Sửa sau rà lại đợt 1
 
 Sau rà lại độc lập, sửa notes của lec04-s04-00 (mức nhẹ): "đếm chi phí của hai lần lặp" thành "đếm chi phí của hai phép lặp PageRank và TrustRank", khớp trang lec04-s04-06, tránh hiểu nhầm thành hai vòng của một phép lặp. Dòng dẫn mạch 6 còn cụm "đầu ra" ở dạng văn xuôi, không phải nhãn; giữ nguyên. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
