@@ -283,3 +283,138 @@ Sau rà lại độc lập, sửa storyboard (mức nhẹ): các phiếu trang m
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+**Giao việc.** Điều phối viên giao vai tác tử soạn (một tác tử ghi tệp duy nhất; loại `fork`, mô hình Claude Opus 5.5, effort `high`, theo lệnh gọi Agent của điều phối viên). Phạm vi ghi: deck Bài 02 và ba tệp `planning/lec-02/`. Không sửa CSS, tệp SVG, viewer, `index.html`, ghi chú bài giảng hay deck khác; không commit. Căn cứ: `AGENTS.md`, `slide_authoring_standard.md`, deck mẫu Bài 06, `plan-lec02.md`, mục "Bài 02" và "Chung cho mọi bài" của `decisions-decks.md`. Skill `no-ai-slop` được nạp (Edit mode) trước khi sửa chữ.
+
+**Quyết định đã áp dụng.**
+
+| # | Quyết định | Thực hiện |
+|---:|---|---|
+| 1 | Tên mạch 1 "Xử lý dữ liệu trên cụm máy" | trang Nội dung, `aria-label`, bìa |
+| 2 | Phương án F | mạch 7 = cụm tổng kết (6 trang) + cụm bài tập mở bằng `lec02-s07-09` (4 trang) trong một section ngoài; ngoại lệ ghi dưới đây |
+| 3 | Giữ giả mã trước vết chạy | thêm ví dụ số ở "Nhu cầu:" của s03-07, s03-12; s03-03, s03-08 không thêm bước chạy tay |
+| 4 | Bỏ s03-01, s05-01 | nội dung vào ghi chú s03-00, s05-00 và dòng "Nhu cầu:" của s05-02 |
+| 5 | Cột Chi phí của s07-02 chỉ chép số mạch 4 | 5 cặp/80 byte, Combine 4 cặp/64 byte (s04-08); $C=I+H$ (s04-05); $W_P=n-1$, $6\tau$ so với $15\tau$ (s04-12, s04-04); không có phép đếm mới. Chờ tác tử rà toán kiểm |
+| 6 | Mạch 5: 24 phút | sửa dòng tổng; cụm tổng kết mạch 7 10 phút; tổng giảng 120, recitation 60 |
+| 7 | Chữ trùng giữa các mạch | dòng "Ký hiệu:" của s01-07: chữ trùng chỉ có nghĩa trong mạch dùng |
+| 8 | Luận đề | bìa: "MapReduce đưa mọi cặp cùng khóa về một tác vụ Reduce; đổi lại, dữ liệu trung gian phải được chuyển đi." |
+| 9 | Quét ghi chú diễn giả | xem mục ghi chú dưới đây |
+| 10 | Bỏ khung, biểu tượng trang trí ở trang ý tưởng | s03-03, s03-08, s03-13 đổi ba khung thành `ol`; s03-06, s03-11 đổi khung thành danh sách bước; chỉ dùng lớp sẵn có |
+| 11 | Rà ba vai | chưa chạy; điều phối viên giao sau |
+
+**Ngoại lệ cấu trúc.** Recitation chưa là section riêng vì giữ 7 mạch với mạch Thực hành (quyết định 2). Trạng thái: chấp nhận, ghi cả ở `storyboard.md`.
+
+**Chính tả MapReduce.** `sources/source.md`, MMDS và deck Bài 03 viết "MapReduce"; deck Bài 02 cũ trộn 29 "Map-Reduce" với 21 "MapReduce". Đổi thống nhất sang "MapReduce" trên mặt trang, ghi chú, `aria-label` và `title` (0 "Map-Reduce" còn lại). Tên tệp deck và các phiếu lịch sử trong ba tệp kế hoạch giữ nguyên. Hệ quả: chỗ lệch chính tả Bài 02–Bài 03 mà review-log Bài 03 ghi "mở" đã được xử lý phía Bài 02; review-log Bài 03 không sửa trong đợt này (ngoài phạm vi ghi), điều phối viên cập nhật trạng thái khi gộp.
+
+**Mặt trang.**
+- 87 → 93 trang. Thêm s01-07 Tiên quyết và quy ước, s01-08 Mục tiêu học tập, s01-09 Vấn đề trung tâm, s02-13 Tính đúng (tách từ s02-10), s04-12 bảng chi phí $n$ số (tách từ s04-02), s07-07 Kết quả và giả thiết không được bỏ, s07-08 Nguồn và tài liệu đọc, s07-09 Bài tập vận dụng; bỏ s03-01, s05-01. s07-01, s07-02 đổi vai trò theo khuôn kết luận.
+- `h1` → `h2` ở s02-01, s04-01, s06-01, s07-01; `role="img"` cho mọi `img`; bốn thuộc tính `style` trên SVG nội dòng đổi thành thuộc tính SVG (`width`, `height`, `font-size`); không còn `style`, `fragment`, `.dense`. Chuỗi tiếng Việt trong `\text{}` bỏ ở s03-10, s03-11a, s03-16a, s04-06, s04-08, s04-09 (dùng ký hiệu hoặc đưa ra ngoài công thức). "cosine" → "cosin". Section `examples` thêm `aria-label`.
+- Bỏ mọi dòng nguồn trên mặt trang (`p.ex-source`, `p.motivation-source`), nội dung chuyển vào câu "Nguồn:" cuối ghi chú. Tám dòng chân trang không phải nguồn giữ nội dung: s01-05 thành dòng "Giả thiết:"; s06-01 giữ dòng liên kết bộ mã; s06-04, s06-05, s06-06, s06-08, s06-09, s06-10 thành dòng `ex-note` giải thích lệnh hoặc kết quả. Ba trang bài tập giữ một dòng "Nguồn: MMDS, Bài 2.3.1(x), tr.40" lớp `ex-note`.
+- `lec02-s07-09`: danh sách ba bài dùng nhãn "(a)", "(b)", "(d)" trong chữ, vì `ol type="a"` với `value` bị CSS chung hiển thị thành 1, 2, 4.
+- s05-02a: "Hệ tệp phân tán" → "Hệ thống tệp phân tán Hadoop (HDFS)", thống nhất với s01-06.
+- Giữ các `id` được CSS chung tham chiếu: `lec02-s03-03`, `-s03-05`, `-s03-08`, `-s03-13`, `-s04-04`, `-s04-11`. Sau khi bỏ khung, các quy tắc `#lec02-s03-03 .ex-grid2`, `#lec02-s03-13 .ex-grid2` và `#lec02-s03-03/08/13 .ex-card svg` trong `lecture-style.css` (dòng 756–761) không còn phần tử khớp; không xóa vì ngoài phạm vi ghi, để dọn ở đợt CSS sau.
+
+**Ghi chú diễn giả.** Quét toàn bộ 93 ghi chú: bỏ "chúng ta/ta", "slide", "hãy", "đừng", "Đáp án" (→ "Lời giải"), câu dẫn "trang sau/trang trước", câu tác giả ("Theo yêu cầu", "người viết", "lựa chọn của người viết", "chi tiết … không giảng ở đây"), câu nguồn trùng lặp và các câu lặp do dòng mặt trang cũ dồn vào ghi chú (s03-00, s03-04, s05-02, s05-11, s06-07, s06-09). Viết lại chín ghi chú dài (s01-03 308, s02-02 272, s02-04 433, s02-07 315, s02-08 419, s02-09 381, s02-10 501, s02-11 384, s04-09 256 âm tiết) về 133–171 âm tiết; rút ba lời giải bài tập về ≤ 250. Câu "Nguồn:" có ở mọi ghi chú trừ sáu trang tiêu đề mạch, trang Nội dung và trang Nguồn và tài liệu đọc. Không còn thời lượng trong ghi chú. Mọi ghi chú bọc trong `<p>`.
+
+**Mật độ (trước → sau).** Đếm bằng `scratchpad/w02/cap02.py`; số trước lấy từ `scratchpad/w02/before.txt`.
+
+| Chỉ số | Trước (87 trang) | Sau (93 trang) |
+|---|---:|---:|
+| Trang nội dung > 60 âm tiết | 38 | 9 (đều thuộc nhóm trần 80) |
+| Trang vượt trần | 38 | 0 |
+| Mặt trang dài nhất | 116 | 78 |
+| Trang có dòng > 20 âm tiết (ngoài dòng dẫn mạch) | 40 | 0 |
+| Ghi chú > 250 âm tiết | 9 (dài nhất 493) | 0 |
+| Ghi chú 150–250 âm tiết | 18 | 28 |
+| Ghi chú < 40 âm tiết | — | 0 |
+
+**Kiểm tra đã chạy.** `git diff --check` sạch cho deck và ba tệp kế hoạch. Thẻ HTML cân bằng (trình phân tích `html.parser`, 0 lỗi); 93 `data-slide-id` duy nhất, không `id` trùng; bảy section ngoài có `aria-label`. Chromium Playwright qua máy chủ cục bộ cổng 8771: 1600×900 trên cả 93 trang (mọi phân mảnh hiện): 0 lỗi console, 0 cảnh báo KaTeX, 0 lỗi trang, 0 `.katex-error`, không yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung; đáy nội dung thấp nhất 819 px (s04-07) và 807 px (s07-02) trên khung 864 px, trên chân trang 845 px; cỡ chữ nhỏ nhất trên mặt trang 24 px ở chữ thường; nhãn trong khối hình HTML nhỏ hơn ở s02-04 (21 px), s02-02 (22 px), bảng s03-05 (23 px), đều theo CSS chung không đổi. 390×844: 0 lỗi, 0 `.katex-error`, không tràn phải. Đã tự xem ảnh 1600×900 của cả 93 trang (11 ảnh ghép) và ảnh hẹp của s07-02, s07-09. Ảnh nằm trong scratchpad.
+
+**Vấn đề mở.**
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Trạng thái |
+|---|---|---|---|---|---|
+| nhẹ | `lec02-s05-03` | Nhãn "Nếu Map chạy ở B: đọc từ A." và "C đọc từ A: đi qua đường nối hai rack" đè lên đường mũi tên trong hình | ảnh 1600×900; hình là tệp `img/lec-02/sys-03.svg` | dời nhãn trong SVG ở đợt sửa hình | mở (ngoài phạm vi ghi) |
+| nhẹ | nhiều trang | 28 ghi chú dài 150–250 âm tiết, phần lớn là chứng minh, lời giải hoặc trang thực hành | `cap02.py` | rút tiếp khi rà ba vai nếu vai sinh viên đề nghị | mở |
+| nhẹ | s01-02, s01-05, s02-02, s02-05, s02-06, s02-08, s03-05, s04-11 | Số phần tử dòng > 6 (đếm thô gồm nhãn trong khối hình; s04-11 bảng 6 hàng cùng ba câu hỏi) | bảng storyboard | ngoại lệ ghi ở storyboard | chấp nhận |
+| nhẹ | `lecture-style.css` | Quy tắc chết cho `#lec02-s03-03/08/13` | dòng 756–761 | xóa ở đợt CSS sau, kiểm Bài 02, 03 | mở (ngoài phạm vi ghi) |
+| — | toàn bài | Rà ba vai (sinh viên kèm mật độ; độ chính xác toán; kết nối và mạch viết) | quyết định 11 | điều phối viên giao | chờ |
+
+**Tác động.** Bài 02 chưa có ghi chú bài giảng, nên không có tác động lên `materials/`. `index.html` không đổi. Deck Bài 03 dẫn lại MapReduce và phép nhân ma trận–véc tơ của Bài 02; chính tả nay khớp.
+
+## Lượt sửa sau rà ba vai (2026-10-14)
+
+**Giao việc.** Điều phối viên giao tác tử soạn (loại `fork`, Claude Opus 5.5, effort `high`, theo lệnh gọi Agent của điều phối viên) sửa theo `fix-d02.md`, hợp nhất ba báo cáo rà chỉ đọc: rà toán (`review-d02-math.md`), kết nối và mạch viết (`review-d02-storyline.md`), sinh viên kèm mật độ (`review-d02-student.md`); ba tác tử rà là `fork` Opus 5.5 theo lệnh gọi của điều phối viên. Phạm vi ghi: deck 02 và ba tệp `planning/lec-02/`. Không commit. Skill `no-ai-slop` nạp ở chế độ Edit. Thay đổi áp bằng tệp đặc tả bổ sung `scratchpad/w02/spec/s9z.py`.
+
+**Quyết định cho từng phát hiện.** Mã: T = rà toán, M = mạch viết, S = sinh viên.
+
+| Mã | Mức độ | Trang chiếu | Phát hiện | Quyết định |
+|---|---|---|---|---|
+| T1 | nghiêm trọng | s07-02 | $C$ vừa là số lượng vừa là chi phí trong cùng hàng | sửa: ô Bảo đảm "$\mu=\sum s/\sum c$ (tổng chia số lượng)"; trang không còn $C$ |
+| M8, T7 | trung bình, nhẹ | s07-02 | cột Chi phí "$C=I+H$" giống nhau ở ba hàng; trộn số ví dụ với số tổng quát | sửa: cột "Chi phí trên ví dụ" chép số cặp đã có trên vết chạy mạch 3 (16 → 8; 5 → 4 rồi 3; 3 → 2) và "5 cặp × 16 byte = 80; Combine: 4 cặp, 64 byte"; không phép đếm mới; hàng cuối "Đầu vào" thành $n\ge P$. Cần rà toán kiểm |
+| M1 | trung bình | s07-01 | thiếu điều kiện ở dòng mạch 2 và mạch 4 | sửa: "Reduce cộng nên không phụ thuộc thứ tự"; "Ví dụ giả định bốn pha: $T_4=10$ s, truyền và nhóm 3 s, nên $S_4=2{,}4<4$"; ghi chú nêu $6\tau$ là ví dụ hai pha khác; bỏ câu dẫn (5 dòng, 73 âm tiết) |
+| T2 | trung bình | s07-07 | "cùng phép gộp với Reduce" mâu thuẫn trung bình | sửa: "gộp kết hợp, giao hoán; trạng thái đủ, như $(s,c)$" và "dạng khóa–giá trị như Reduce; chia chỉ ở Reduce" |
+| T8 | nhẹ | s07-07 | thiếu công thức cả công việc | sửa: $T_P=\sum T_{\text{pha}}$, $T_{\text{pha}}=\max_m t_m$; công thức bọc nhóm KaTeX nên không ngắt (S nhẹ) |
+| T3 | trung bình | s02-13 | mệnh đề không nêu $Y$; giả thiết thứ tự không dùng | sửa: "$Y$ gồm đúng các cặp $\mathrm{Reduce}(k,L_k)$, mỗi khóa $k$ của $I$ một lần"; bước 3 "Không phụ thuộc thứ tự: $\mathrm{Reduce}(k,L_k)$ xác định"; ghi chú thêm lập luận hoán vị; điều kiện dừng gộp vào dòng Trường hợp biên (6 dòng, 59) |
+| T4 | trung bình | s01-09 | điều kiện chưa đủ | sửa: "hàm xác định"; "phép gộp kết hợp, giao hoán"; Nhu cầu rút, "vượt bộ nhớ một máy" vào ghi chú (60) |
+| M3 | trung bình | s02-01 | lặp s01-04 | sửa: bốn thẻ giữ tên yêu cầu, thân thẻ là cơ chế (phần đầu vào cho mỗi Map; nhiều tác vụ cùng lúc; giao Map cho máy giữ khối; chạy lại tác vụ của máy hỏng); tiêu đề "Bốn cơ chế của MapReduce" |
+| M4, S1, S2 | trung bình | s03-12, s03-16a, s03-13, ghi chú s03-06a | cụm trung bình cộng lặp và dùng cặp trước định nghĩa | sửa: Nhu cầu s03-12 nêu [2, 4], [9]; s03-16a hình "3 từ và 2 từ", câu kết thành câu nối, ghi chú viết lại; s03-13 bỏ dòng lặp; ghi chú s03-06a không nhắc Map(B) |
+| M5, S5 | trung bình | s02-04, s03-09, s03-11, s05-07, s05-09, s05-12, s07-06 | bốn tên cho một vai; "chương trình điều phối" | sửa: một tên "tiến trình điều phối (Master)", giải nghĩa ở s02-04; "chương trình chính (driver)" ở s03-09, giải thích trong ghi chú s03-09; bảng thuật ngữ outline cập nhật |
+| M6, S6, T6 | trung bình | s05-04, s01-07 | $f$/$p$, $R$/$r$; phạm vi ký hiệu chưa đủ | sửa: ghi chú s05-04 dùng $p$, $r$ và nói hình ghi $f$; dòng Ký hiệu s01-07 "$n$ cỡ đầu vào"; ghi chú s01-07 thêm $n$, $S$, $B_j$, $m$, $V_1$–$V_3$, tên máy A–D. Nhãn $f$ trong `sys-04.svg`: mở (tệp SVG ngoài phạm vi) |
+| S3 | trung bình | s04-12 | tiêu đề in hoa biến $n$ thành N | sửa: "Chi phí: cộng một dãy số" |
+| T5, S7 | trung bình | s05-03 | ví dụ C đọc liên rack trái quy tắc; nhãn chồng mũi tên | sửa ghi chú theo quy tắc ưu tiên cùng rack (C đọc bản ở D; nhãn trong hình là trường hợp bản ở D không dùng được); nhãn và đường trong `sys-03.svg`: mở (ngoài phạm vi) |
+| S4 | trung bình | ghi chú s07-03 | lời giải câu 1 thiếu phần hệ thống | sửa |
+| M7, S8 | trung bình, nhẹ | ghi chú s01-04, s03-06a, s03-16a, s04-05, s04-07, s04-08, s04-10, s04-11, s05-04, s05-08, s06-10, s06-12 | câu báo trước, nhãn nhấn, chỉ dẫn giảng viên | sửa từng câu; s04-08 bỏ câu lặp cuối; s04-10 bỏ câu lặp mặt trang |
+| M9 | trung bình | storyboard | thiếu phiếu cho 8 trang mới và 2 trang đổi vai | sửa: mục "Phiếu trang mới và trang đổi vai" đủ trường, có bảng đối ứng s01-09 ↔ s07-01; outline nhắc mã tám trang |
+| M10 | nhẹ | s04-02, s04-04 | tiêu đề gần trùng | sửa: "Ví dụ: số phép cộng khi cộng 16 số", "Ví dụ: thời gian cộng 16 số trên bốn máy" |
+| M11 | nhẹ | s04-04 | cộng hai pha trước khi nêu mô hình | sửa: "Mô hình: hai pha nối tiếp; …" |
+| M12 | nhẹ | s03-07, s03-08, s03-10 | "loại từ" và "từ phân biệt" | sửa: một thuật ngữ "từ phân biệt" (mặt trang và ghi chú); nhãn "Từ duy nhất (đại diện)" trong hình s03-11a: mở (SVG nội dòng giữ theo phạm vi đợt hình) |
+| M13 | nhẹ | s06-12, ghi chú s03-09, s06-02, s06-04, s06-09, s06-11 | "job", "value" | sửa: "công việc", "giá trị" |
+| M14, S nhẹ | nhẹ | s05-03, s05-09 | chữ A, B vừa là khối vừa là máy | mở: tên máy nằm trong `sys-03.svg`, `sys-09.svg`; ghi chú s01-07 khai báo A–D ở mạch 5 là tên máy |
+| M15 | nhẹ | s05-12 | "tủ rack" | sửa: "Một rack" |
+| M16 | nhẹ | ghi chú s07-04…s07-06 | khóa `*` khác $g$ | sửa: "Dấu * là khóa chung, đóng vai $g$ ở mạch ví dụ" (s07-04; s07-05, s07-06 dùng cùng khóa) |
+| M17 | nhẹ | ghi chú s02-03, s07-04 | "từ máy" | sửa: "ô nhớ" |
+| M18 | nhẹ | ghi chú s02-05, s02-06, s03-05, s03-08, s04-08, s04-10, s06-11 | câu lặp | sửa ở s03-05 (ghi chú viết lại, thêm khoảng trắng, bỏ câu lặp $B_{12}$), s04-08, s04-10; s02-05, s02-06, s03-08, s06-11: mở, rút ở lượt sau nếu vai sinh viên còn đề nghị |
+| M19 | nhẹ | s04-01 | gạch dài | sửa: dấu hai chấm |
+| M20 | nhẹ | storyboard hàng s01-02 | nhãn Thực hành không có trên trang Nội dung | sửa hàng storyboard |
+| M21 | nhẹ | ghi chú s07-01 | "Dòng đầu" mơ hồ | sửa: gọi dòng theo nội dung |
+| T9 | nhẹ | s01-07 | thiếu "không tràn" | sửa |
+| T10 | nhẹ | ghi chú s03-06a | "9,8,9,11" lẫn với dấu phẩy thập phân | sửa: $(9, 8, 9, 11)$ |
+| T11 | nhẹ | ghi chú s04-05 | thiếu tên gốc "communication cost" | sửa |
+| T12, S nhẹ | nhẹ | ghi chú s06-05, s06-09 | lập luận minsplit | sửa: "Mỗi tệp tạo ít nhất một phần đầu vào; ngưỡng `split.minsize` 128 MiB giữ mỗi tệp nhỏ trong một phần" |
+| T13 | nhẹ | ghi chú s01-05, s03-05 | tr.27–29; chữ dính | sửa: tr.27–28; ghi chú s03-05 viết lại |
+| T14 | nhẹ | hình `cost-04.svg` | glyph τ | mở (tệp SVG ngoài phạm vi) |
+| S nhẹ | nhẹ | ghi chú s02-12 | `ul` trong `p` | sửa: ghi chú viết thành đoạn |
+| S nhẹ | nhẹ | s03-05 | $y$ chưa chuẩn hóa | sửa: "ma trận chưa chuẩn hóa" trên dòng mô tả |
+| S nhẹ | nhẹ | s03-05 (bảng), s03-04 (giả mã) | "yield" và "phát" | sửa tiêu đề cột "Map phát", "Combine phát"; giả mã giữ `yield` vì là cú pháp mã: mở nếu cần thống nhất giả mã |
+| S nhẹ | nhẹ | s02-12 câu 1 | lời giải có trong hình trang trước | mở: đổi dữ kiện cần tác tử rà toán kiểm vết chạy mới; câu vẫn kiểm việc đọc Combine theo từng Map |
+| S nhẹ | nhẹ | s07-04…s07-06 | "khóa đầu ra bỏ qua" | sửa: "không cần khóa ở đầu ra" |
+| S nhẹ | nhẹ | s05-09 | dấu gạch đỏ đè chữ trong `sys-09.svg` | mở (ngoài phạm vi) |
+| S nhẹ | nhẹ | s01-02 | nhãn Đọc thêm 17,6 px | mở: cỡ do CSS chung `.self-study-badge` trong danh sách; không sửa CSS trong đợt này |
+| S nhẹ | nhẹ | ghi chú s07-08 | câu trạng thái "Bài 02 chưa có ghi chú bài giảng" | sửa: bỏ |
+| M2 (T2 của vai mạch viết) | trung bình | deck 03 ghi chú s01-07; review-log 03 | câu lỗi thời về "Map-Reduce" | đã xử lý ở lượt sửa Bài 03 (câu bỏ khỏi ghi chú s01-07 của deck 03; mục review-log 03 đóng) |
+
+**Mật độ sau sửa** (`scratchpad/w02/cap02.py`): không trang trần 60 nào vượt 60 (s01-07, s01-09, s02-01 bằng 60); trang trần 80: s07-02 80, s07-07 80, s07-01 73; không dòng nào vượt 20 âm tiết (dòng dẫn trang tiêu đề mạch ≤ 25); không ghi chú nào vượt 250 âm tiết.
+
+**Kiểm tra.** `git diff --check` sạch (deck và ba tệp kế hoạch). Thẻ HTML cân bằng; 93 `data-slide-id` duy nhất; không `style`, `fragment`; không `ul` trong `p`. Chromium Playwright, cổng 8771, toàn deck ở 1600×900 (công cụ duyệt cả 93 trang): 0 lỗi console, 0 cảnh báo KaTeX, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung; đáy thấp nhất s04-07 819/864 px (chân trang 845). 390×844: 0 lỗi, không tràn phải. Đã tự xem ảnh 1600×900 của 15 trang đổi chính (hai ảnh ghép: s01-07, s01-09, s02-01, s02-13, s03-12, s03-13, s03-16a, s04-04, s04-12, s07-01, s07-02, s07-07, s02-12, s03-05, s05-12).
+
+**Recheck cần chạy:** rà toán trên s07-02 (cột chi phí mới), s02-13 (mệnh đề và bước 3), s07-07, s07-01; mạch viết trên s01-09 ↔ s07-01, s02-01 cạnh s01-04, cụm s03-12…s03-14, s04-02/s04-04/s04-12 và các trang đổi thuật ngữ điều phối.
+
+### Sửa sau recheck (2026-10-14)
+
+Theo `recheck-d02.md` (vai recheck, `fork` Opus 5.5; kết luận đạt điều kiện commit, không phát hiện chặn bàn giao hay nghiêm trọng) và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit.
+
+| Mức độ | Trang chiếu | Phát hiện | Quyết định |
+|---|---|---|---|
+| trung bình | s07-01 | "nên $S_4=2{,}4<4$" suy chỉ từ phần truyền | sửa: "$T_4=10$ s, gồm điều phối 1 s, truyền và nhóm 3 s; $S_4=2{,}4<4$" (không còn quan hệ "nên"; 76/80 âm tiết) |
+| nhẹ | s04-04 | dòng "Mô hình:" đứng sau phép cộng (M11 ghi đã sửa nhưng chưa đúng vị trí) | sửa: dòng "Mô hình: hai pha nối tiếp…" chuyển lên ngay sau dòng $\tau>0$; M11 nay đúng là đã sửa |
+| nhẹ | ghi chú s01-07 | $p$ dùng ở cả mạch 5 | sửa: "hàm phân phối ở mạch 2 và 5" |
+| nhẹ | ghi chú s01-09 | câu điều hướng "ở trang kế tiếp" | sửa: "Quy mô dữ liệu Google ở mạch 1 là công bố lịch sử…" |
+| nhẹ | s07-02 | "= 80" thiếu đơn vị | sửa: "= 80 byte"; "Trung bình cộng" rút thành "Trung bình" để giữ 80 âm tiết; giả thiết $P$ chia hết $n$ giữ ở ghi chú và s04-12 |
+| nhẹ | s02-01 | thẻ 2 gần lặp s01-04; ghi chú lặp ý | sửa: thẻ 2 "Map độc lập; Reduce chạy theo khóa."; thẻ 4 "Chạy lại tác vụ máy hỏng."; bỏ câu lặp cuối ghi chú (60/60) |
+| nhẹ | s03-16a | "$a_i$ là số lần từ xuất hiện…" dễ hiểu nhầm | sửa: "$a_i$ là số từ của trang $i$, tính cả từ lặp." |
+| nhẹ | ghi chú s04-02 | khái quát $n-1$ trùng s04-12 | sửa: bỏ câu khái quát và câu khởi tạo bằng 0 |
+
+Kiểm: `cap02.py` không trang vượt trần (s02-01 60, s07-01 76, s07-02 80); Playwright cổng 8771 ở 1600×900 và 390×844, toàn deck: 0 lỗi, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn; đã xem ảnh s07-01, s07-02, s04-04, s02-01, s03-16a; `git diff --check` sạch.

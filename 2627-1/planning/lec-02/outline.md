@@ -1,5 +1,8 @@
 # Dàn ý Bài 02: Mô hình tính toán Map-Reduce
 
+**Bản hiện hành (2026-10-14).** Dàn ý hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp: 93 trang, mạch 1 đổi tên "Xử lý dữ liệu trên cụm máy", chính tả "MapReduce". Các mục bên dưới là lịch sử xây dựng bài, giữ để đối chiếu.
+
+
 ## Dàn ý hiện tại — đủ bảy phần
 
 Bản hiện tại có 87 slide (81 trước khi thêm sáu trang tiêu đề mạch ngày 2026-10-14): 64 trang giảng/trình diễn, 14 trang hệ thống đọc thêm và 3 trang bài tập. Giảng chính 120 phút; tự đọc hệ thống 25 phút ngoài lớp; recitation 60 phút. Các quyết định theo giai đoạn bên dưới được cập nhật bởi trạng thái này; bảng thời lượng cuối thay các ước lượng cũ.
@@ -178,3 +181,45 @@ Theo yêu cầu mới, dùng image Docker Hub `apache/hadoop:3.4.2-lean` khóa d
 ### Nhãn phần 6 (2026-09-17)
 
 Theo yêu cầu giảng viên, cả 12 slide phần 6 có nhãn **Thực hành** dưới tiêu đề; phần 5 giữ nhãn **Đọc thêm**. Không đổi nội dung, thứ tự hoặc thời lượng.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md`, `slide_authoring_standard.md`, deck mẫu Bài 06; kế hoạch `plan-lec02.md` và quyết định của điều phối viên (mục "Bài 02", "Chung cho mọi bài" trong `decisions-decks.md`).
+
+**Luận đề (trang bìa).** MapReduce đưa mọi cặp cùng khóa về một tác vụ Reduce; đổi lại, dữ liệu trung gian phải được chuyển đi.
+
+**Vấn đề trung tâm (s01-09) và câu trả lời (s07-01).** Đếm từ trên kho nằm ở nhiều máy, vượt bộ nhớ một máy. Câu trả lời có điều kiện theo mạch: Map, nhóm theo khóa, Reduce cho kết quả đúng khi Reduce không phụ thuộc thứ tự (mạch 2); gộp cục bộ đúng khi giá trị giữ đủ thông tin (mạch 3); thêm máy rút ngắn thời gian khi truyền và gộp không lấn át (mạch 4); cụm Hadoop cho đúng số đếm đã tính tay (mạch 6).
+
+**Bảy mạch (93 trang).**
+
+| N | Tên mạch | Loại | Trang | Đầu vào từ mạch trước | Đầu ra cho mạch sau |
+|---:|---|---|---:|---|---|
+| 1 | Xử lý dữ liệu trên cụm máy | giới thiệu | 9 | tiên quyết: chi phí, bất biến, tính kết hợp | bốn yêu cầu của mô hình; ví dụ cộng sáu số; HDFS |
+| 2 | Mô hình tính toán MapReduce | khái niệm/mô hình, thuật toán | 14 | bốn yêu cầu, cộng dãy số | Map, Reduce, $p$, nhóm $L_k$, giả mã một công việc và tính đúng, Combine |
+| 3 | Các ví dụ MapReduce | thuật toán | 20 | khung MapReduce, điều kiện Combine | ba thuật toán (nhân ma trận–véc tơ, đếm từ phân biệt, trung bình cộng) có vết chạy và chứng minh |
+| 4 | Chi phí và lợi ích của song song hóa | chi phí | 13 | ba thuật toán, cộng 16 số, đếm từ | $W_P$, $T_{\text{pha}}$, $C=I+H$, $T\approx\lambda+V/B$, $T_P$, $S_P$ |
+| 5 | Hệ thống thực thi MapReduce (Đọc thêm) | hệ thống | 14 | các chi phí truyền, điều phối của mạch 4 | phân phối, Shuffle, phục hồi khi máy hỏng |
+| 6 | Thực hành Hadoop với Docker Compose | thực hành | 13 | mô hình mạch 2, kết quả tính tay đếm từ | kết quả và bộ đếm của lần chạy thật |
+| 7 | Tổng kết và bài tập vận dụng | tổng kết; recitation | 10 | toàn bộ kết quả | bảng kết quả–giả thiết, bảng thuật toán–chi phí, câu trả lời, tự kiểm tra, nguồn; MMDS Bài 2.3.1(a), (b), (d) |
+
+Mạch 7 theo phương án F: cụm tổng kết rồi cụm bài tập trong cùng một section ngoài; ngoại lệ "recitation chưa là section riêng vì giữ 7 mạch với mạch Thực hành" ghi ở `storyboard.md` và `review-log.md`.
+
+**Quyết định áp dụng.** (1) tên mạch 1; (2) phương án F; (3) giữ giả mã trước vết chạy, thêm ví dụ số ở dòng "Nhu cầu:", không thêm bước chạy tay vào s03-03, s03-08; (4) bỏ s03-01, s05-01, nội dung còn giá trị vào ghi chú trang tiêu đề mạch; (5) cột "Chi phí" của s07-02 chỉ chép số của mạch 4 (80/64 byte, $C=I+H$, $W_P=n-1$, $6\tau$ so với $15\tau$); (6) mạch 5 tự đọc 24 phút, cụm tổng kết 10 phút; (7) chữ trùng giữa các mạch giữ, khai báo phạm vi ở dòng "Ký hiệu:" của s01-07; (8) luận đề như trên, chính tả MapReduce; (9) quét toàn bộ ghi chú diễn giả, thêm câu "Nguồn:"; (10) bỏ khung, biểu tượng trang trí ở trang ý tưởng bằng lớp sẵn có; (11) rà ba vai do điều phối viên giao sau.
+
+**Chính tả.** "MapReduce" thay "Map-Reduce" trên toàn deck (mặt trang, ghi chú, `aria-label`, `title`): `sources/source.md`, MMDS và deck Bài 03 viết "MapReduce"; deck cũ trộn 29 "Map-Reduce" với 21 "MapReduce". Tên tệp deck không đổi.
+
+**Thuật ngữ Việt–Anh (giải nghĩa ở lần đầu trên mặt trang).**
+
+| Tiếng Việt | Tiếng Anh | Trang đầu |
+|---|---|---|
+| hàm Combine | combiner | s02-11 |
+| hệ thống tệp phân tán Hadoop | Hadoop Distributed File System (HDFS) | s01-06 (nhắc lại ở s05-02a) |
+| phần đầu vào | InputSplit | s05-02 |
+| chuyển dữ liệu trung gian | Shuffle | s05-05 |
+| tiến trình điều phối | Master | s02-04 (một tên trong toàn bài; nhắc lại ở s05-07) |
+| chương trình chính | driver | s03-09 (chương trình gọi lần lượt hai công việc; khác tiến trình điều phối) |
+| véc tơ | vector | toàn bài |
+
+Phạm vi không đổi: CSS, tệp SVG, viewer, `index.html`; Bài 02 chưa có ghi chú bài giảng.
+
+**Lượt sửa sau rà ba vai (2026-10-14).** Tám trang mới: `lec02-s01-07` Tiên quyết và quy ước, `lec02-s01-08` Mục tiêu học tập, `lec02-s01-09` Vấn đề trung tâm, `lec02-s02-13` Tính đúng: một công việc MapReduce, `lec02-s04-12` Chi phí: cộng một dãy số, `lec02-s07-07` Kết quả và giả thiết không được bỏ, `lec02-s07-08` Nguồn và tài liệu đọc, `lec02-s07-09` Bài tập vận dụng; hai trang đổi vai: `lec02-s07-02`, `lec02-s07-01`. Phiếu đầy đủ ở `storyboard.md`. Thay đổi nội dung: s07-02 hàng trung bình viết $\mu=\sum s/\sum c$, cột chi phí dùng số cặp trên ví dụ; mệnh đề s02-13 nêu $Y$; s02-01 thành bốn cặp yêu cầu–cơ chế; cụm trung bình cộng s03-12, s03-16a, s03-13 không lặp nhau; một tên "tiến trình điều phối (Master)"; "chương trình chính (driver)"; hàm phân phối $p$ và số Reduce $r$ thống nhất (hình `sys-04.svg` còn ghi $f$, ghi chú nêu tương ứng).

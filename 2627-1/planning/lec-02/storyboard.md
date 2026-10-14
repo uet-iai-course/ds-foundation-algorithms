@@ -1,5 +1,7 @@
 # Storyboard Bài 02
 
+**Bản hiện hành (2026-10-14).** Deck có 93 trang: 75 trang giảng (120 phút), 14 trang Đọc thêm của mạch 5 (tự đọc 24 phút) và 4 trang bài tập (60 phút); bảy mạch 9/14/20/13/14/13/10 trang. Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp. Bảng "Lịch giảng hiện tại", mục "Bổ sung trang tiêu đề mạch 2026-10-14" và các phiếu theo section bên dưới là bản trước đợt sửa, giữ để đối chiếu; chính tả "Map-Reduce" trong các phiếu cũ là chính tả lịch sử, deck hiện dùng "MapReduce". `lec02-s03-01` và `lec02-s05-01` đã bỏ.
+
 ## Lịch giảng hiện tại
 
 | Phần | Vai trò | Số slide | Thời lượng |
@@ -622,3 +624,147 @@ Ghi chú viết:
 ### Nhãn phần 6 (2026-09-17)
 
 Theo yêu cầu giảng viên, cả 12 slide phần 6 có nhãn **Thực hành** dưới tiêu đề; phần 5 giữ nhãn **Đọc thêm**. Không đổi nội dung, thứ tự hoặc thời lượng.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Phân loại phần lớn", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06; kế hoạch `plan-lec02.md` (tác tử lập kế hoạch) và quyết định của điều phối viên (mục "Bài 02" và "Chung cho mọi bài" trong `decisions-decks.md`). Một tác tử soạn ghi tệp; không commit.
+
+**Cấu trúc (phương án F).** Giữ bảy section ngoài. Mạch 1 đổi tên "Xử lý dữ liệu trên cụm máy" và nhận bốn trang mở đầu (Tiên quyết và quy ước, Mục tiêu học tập, Nội dung, Vấn đề trung tâm). Mạch 7 "Tổng kết và bài tập vận dụng" gồm hai cụm dọc trong cùng một section ngoài (`id="summary-exercises"`): cụm tổng kết (s07-00, s07-07, s07-02, s07-01, s07-03, s07-08) rồi cụm bài tập mở bằng trang `lec02-s07-09` "Bài tập vận dụng" (trang mở cụm, không đổi số mạch).
+
+**Ngoại lệ được ghi.** Recitation chưa là section riêng vì giữ 7 mạch với mạch Thực hành: tách bài tập thành section thứ tám sẽ vượt trần 5–7 mạch, còn gộp mạch Thực hành vào mạch khác làm mất vai trò hệ thống–thực hành của nó. Quyết định 2 của điều phối viên; ghi cả ở `review-log.md`.
+
+| Mạch | Tên (khớp trang Nội dung) | Số trang | Phút | Vai trò chu trình của trang mở mạch |
+|---|---|---:|---:|---|
+| 1 | Xử lý dữ liệu trên cụm máy | 9 | 11 | bìa là trang tiêu đề mạch mở đầu |
+| 2 | Mô hình tính toán MapReduce | 14 | 22 | s02-00 ngoài chu trình khái niệm |
+| 3 | Các ví dụ MapReduce | 20 | 28 | s03-00 ngoài chu trình; nhận nội dung s03-01 đã bỏ |
+| 4 | Chi phí và lợi ích của song song hóa | 13 | 24 | s04-00 ngoài chu trình khái niệm |
+| 5 | Hệ thống thực thi MapReduce (Đọc thêm) | 14 | 24 tự đọc | s05-00 ngoài chu trình; nhận nội dung s05-01 đã bỏ |
+| 6 | Thực hành Hadoop với Docker Compose | 13 | 25 | s06-00 ngoài chu trình khái niệm |
+| 7 | Tổng kết và bài tập vận dụng: cụm tổng kết | 6 | 10 | s07-00 ngoài chu trình khái niệm |
+| 7 | Tổng kết và bài tập vận dụng: cụm bài tập | 4 | 60 | s07-09 ngoài chu trình; 1 phút lấy từ bài (a) |
+
+Tổng giảng: 11 + 22 + 28 + 24 + 25 + 10 = 120 phút; recitation: 1 + 19 + 20 + 20 = 60 phút. Mạch 5 tự đọc 24 phút: con số 25 cũ không khớp tổng các ô (22 + 2 = 24), sửa theo quyết định 6; phút bù được tính vào cụm tổng kết mạch 7 (10 phút, trước 8).
+
+**Phân bổ thời gian khi phần giảng vượt 60 trang.** 75 trang giảng trong 120 phút, trung bình 1,6 phút mỗi trang; không phần nào chuyển sang đọc thêm và không rút ví dụ, chứng minh cốt lõi. Sáu trang tiêu đề mạch và trang Nội dung lấy 0,5 phút; 12 trang thao tác của mạch 6 là bước trình diễn ngắn 1,5–2 phút; trang tăng so với bản trước (s01-07, s01-08, s01-09, s02-13, s04-12, s07-07, s07-08) dùng thời gian của hai trang bỏ (s03-01, s05-01), phần rút của mạch 3 (30 → 28) và mạch 4 (25 → 24).
+
+**Thứ tự trong mạch 2 và 3.** Giữ giả mã trước vết chạy theo chỉ dẫn trước của giảng viên (quyết định 3); trang "Bài toán …" có dòng "Nhu cầu:" chứa một ví dụ số (s03-07: 2 + 2 = 4 khác 3; s03-12: trung bình của 3 và 9 khác của 2, 4, 9); không thêm bước chạy tay vào s03-03, s03-08.
+
+Âm tiết đếm bằng `scratchpad/w02/cap02.py` (bỏ tiêu đề, công thức, giả mã, SVG nội dòng; cột "trước" lấy từ `scratchpad/w02/before.txt`, kể cả dòng nguồn cũ). Cột "Dòng" đếm thô mọi phần tử `p`, `li`, `tr` và khối công thức trên mặt trang, kể cả nhãn trong các khối hình HTML; theo quy ước đã dùng ở Bài 03, một khối hình HTML chỉ chứa nhãn, công thức hoặc số tính như một hình.
+
+| # | Mạch | Mã | Tiêu đề hiện hành | Quyết định | Âm tiết trước → sau | Trần | Dòng | Phút | Lý do |
+|---:|---:|---|---|---|---|---:|---:|---:|---|
+| 1 | 1 | `lec02-s01-01` | Mô hình tính toán MapReduce | `sửa` | 13 → 45 | — | 4 | 0,5 | thêm câu luận đề; tách học kỳ; chính tả MapReduce |
+| 2 | 1 | `lec02-s01-07` | Tiên quyết và quy ước | `thêm` | — → 60 | 60 | 5 | 1 | ba dòng Nhắc lại (đơn vị chi phí, đặc tả và bất biến, tính kết hợp); dòng "Ký hiệu:" khai báo phạm vi chữ trùng (quyết định 7); Quy ước số; lượt sửa: "(không tràn)"; Ký hiệu "$n$ cỡ đầu vào"; ghi chú khai báo phạm vi $n$, $S$, $B_j$, $m$, $V_1$–$V_3$, máy A–D |
+| 3 | 1 | `lec02-s01-08` | Mục tiêu học tập | `thêm` | — → 75 | 80 | 5 | 1 | năm mục tiêu đánh số, mỗi mục một sản phẩm kiểm được; trần 80 |
+| 4 | 1 | `lec02-s01-02` | Nội dung | `sửa` | 40 → 58 | 80 | 8 | 0,5 | bảy mục khớp tên mạch; mạch 1 đổi tên "Xử lý dữ liệu trên cụm máy"; nhãn Đọc thêm ở mục 5 bằng lớp chung (mục 6 không có nhãn) |
+| 5 | 1 | `lec02-s01-09` | Vấn đề trung tâm | `thêm` | — → 60 | 60 | 5 | 1,5 | Nhu cầu và bốn câu trả lời có điều kiện theo mạch 2, 3, 4, 6; được trả lời ở s07-01; lượt sửa: điều kiện "hàm xác định", "phép gộp kết hợp, giao hoán"; Nhu cầu rút để giữ 60 |
+| 6 | 1 | `lec02-s01-03` | Dữ liệu lớn trên nhiều máy | `sửa` | 92 → 60 | 60 | 6 | 1,5 | bảng ba bài toán có số; bỏ dòng nguồn vào ghi chú; ghi chú rút còn ba công bố |
+| 7 | 1 | `lec02-s01-04` | Bốn yêu cầu của mô hình tính toán | `sửa` | 98 → 49 | 60 | 4 | 1,5 | tiêu đề "Bốn yêu cầu…"; mỗi yêu cầu một dòng ≤ 20 âm tiết |
+| 8 | 1 | `lec02-s01-05` | Ví dụ: cộng sáu số trên ba máy | `sửa` | 58 → 59 | 60 | 9 | 2 | tiêu đề ví dụ có số; dòng giả thiết giữ trên mặt (dòng không phải nguồn) |
+| 9 | 1 | `lec02-s01-06` | Cụm máy và lưu trữ phân tán HDFS | `sửa` | 83 → 55 | 60 | 3 | 1,5 | bỏ dòng nguồn; câu kết một câu |
+| 10 | 2 | `lec02-s02-00` | 2. Mô hình tính toán MapReduce | `sửa` | 29 → 29 | — | 2 | 0,5 | trang tiêu đề mạch; chính tả MapReduce |
+| 11 | 2 | `lec02-s02-01` | Bốn cơ chế của MapReduce | `sửa` | 102 → 60 | 60 | 5 | 1 | `h1`→`h2`; bỏ `p.lead`; thẻ chỉ còn cụm danh từ; lượt sửa: đổi vai trò thành bốn cặp yêu cầu–cơ chế ("Bốn cơ chế của MapReduce"), không lặp s01-04 |
+| 12 | 2 | `lec02-s02-02` | Bài toán đếm từ | `sửa` | 92 → 56 | 60 | 9 | 1,5 | tiêu đề "Bài toán đếm từ"; Nhu cầu, Đầu vào, Đầu ra; ghi chú viết lại ≤ 150 âm tiết |
+| 13 | 2 | `lec02-s02-03` | Thuật toán: Map và Reduce cho đếm từ | `sửa` | 72 → 43 | 60 | 3 | 2 | khuôn "Thuật toán:"; Đầu vào/Đầu ra trong mỗi thẻ; giữ giả mã |
+| 14 | 2 | `lec02-s02-04` | Phân phối tác vụ trên cụm máy | `sửa` | 109 → 55 | 60 | 2 | 1,5 | câu dẫn ngắn; nhãn mũi tên; ghi chú viết lại, bỏ câu lặp; lượt sửa: "Tiến trình điều phối (Master)" ở lần đầu |
+| 15 | 2 | `lec02-s02-05` | Ví dụ: đếm từ trong hai văn bản | `sửa` | 30 → 29 | 60 | 14 | 1,5 | khuôn ví dụ; giữ vết chạy ba cột (ngoại lệ dòng); giữ vị trí sau giả mã (quyết định 3) |
+| 16 | 2 | `lec02-s02-06` | Hàm Map | `sửa` | 83 → 60 | 60 | 8 | 1,5 | "Định nghĩa." + công thức; miền khóa, giá trị một dòng |
+| 17 | 2 | `lec02-s02-07` | Hàm Reduce | `sửa` | 80 → 57 | 60 | 6 | 1,5 | "Định nghĩa."; Giả thiết thứ tự; ghi chú viết lại, bỏ câu tác giả |
+| 18 | 2 | `lec02-s02-08` | Phân phối và nhóm theo khóa | `sửa` | 89 → 58 | 60 | 7 | 2 | một Kết luận; ghi chú viết lại, bỏ hai câu "Nguồn" trùng |
+| 19 | 2 | `lec02-s02-09` | Các pha của một công việc MapReduce | `sửa` | 116 → 49 | 60 | 5 | 1,5 | thẻ pha chỉ còn tên, sản phẩm, vai; ghi chú viết lại |
+| 20 | 2 | `lec02-s02-10` | Thuật toán: một công việc MapReduce | `tách` | 63 → 32 | 60 | 3 | 2 | giả mã giữ; mệnh đề và chứng minh chuyển sang s02-13; ghi chú viết lại ≤ 150 âm tiết |
+| 21 | 2 | `lec02-s02-13` | Tính đúng: một công việc MapReduce | `thêm` | — → 59 | 60 | 6 | 1,5 | tách từ s02-10: Giả thiết, Mệnh đề, ba bước, Điều kiện dừng, Trường hợp biên; chứng minh trong ghi chú; lượt sửa: Mệnh đề nêu $Y$ gồm đúng các cặp $\mathrm{Reduce}(k,L_k)$; bước 3 dùng giả thiết không phụ thuộc thứ tự; điều kiện dừng gộp vào dòng Trường hợp biên |
+| 22 | 2 | `lec02-s02-11` | Gộp cục bộ bằng hàm Combine | `sửa` | 68 → 60 | 60 | 5 | 2 | Nhu cầu có số; Giả thiết và Kết luận; ghi chú viết lại |
+| 23 | 2 | `lec02-s02-12` | Câu hỏi về mô hình MapReduce | `sửa` | 71 → 58 | 60 | 6 | 2 | tiêu đề "Câu hỏi về mô hình MapReduce"; "Câu hỏi:" + danh sách; Lời giải trong ghi chú; lượt sửa: ghi chú bỏ `ul` trong `p` |
+| 24 | 3 | `lec02-s03-00` | 3. Các ví dụ MapReduce | `sửa` | 33 → 33 | — | 2 | 0,5 | trang tiêu đề mạch nhận nội dung s03-01; thêm aria-label cho section `examples` |
+| 25 | 3 | `lec02-s03-02` | Bài toán nhân ma trận–véc tơ | `sửa` | 57 → 32 | 60 | 5 | 1,5 | Đầu vào, Đầu ra, Giả thiết; bỏ dòng nguồn |
+| 26 | 3 | `lec02-s03-06a` | Điểm tương đồng của trang web với truy vấn | `sửa` | 68 → 51 | 60 | 5 | 1,5 | tiêu đề danh từ; hai khung câu thành hai dòng; "cosin"; lượt sửa: ghi chú không nhắc Map(B) trước định nghĩa |
+| 27 | 3 | `lec02-s03-03` | Nhân ma trận–véc tơ theo khối | `sửa` | 51 → 50 | 60 | 4 | 1,5 | ba khung thành `ol`; giữ `id` (CSS); không thêm bước chạy tay (quyết định 3) |
+| 28 | 3 | `lec02-s03-04` | Thuật toán: nhân ma trận–véc tơ | `sửa` | 47 → 34 | 60 | 2 | 1,5 | khuôn "Thuật toán:"; giả mã giữ |
+| 29 | 3 | `lec02-s03-05` | Ví dụ: ma trận 4×4 chia bốn khối | `sửa` | 37 → 27 | 60 | 9 | 2 | khuôn ví dụ; một Kết luận; ngoại lệ dòng (bảng vết chạy 4 hàng); giữ `id`; lượt sửa: "ma trận chưa chuẩn hóa"; cột "Map phát", "Combine phát"; ghi chú viết lại |
+| 30 | 3 | `lec02-s03-06` | Tính đúng: nhân ma trận–véc tơ | `sửa` | 66 → 50 | 60 | 5 | 1,5 | "Mệnh đề." + `ol` ba bước; Kết luận |
+| 31 | 3 | `lec02-s03-07` | Bài toán đếm từ phân biệt | `sửa` | 63 → 51 | 60 | 5 | 1 | Nhu cầu có số (2 + 2 = 4 khác 3); Đầu vào, Đầu ra, Trường hợp biên; lượt sửa: "từ phân biệt" thay "loại từ" (một thuật ngữ) |
+| 32 | 3 | `lec02-s03-11a` | Kích thước từ vựng của kho trang web | `sửa` | 51 → 44 | 60 | 3 | 1 | tiêu đề danh từ; bỏ mũi tên trong khung; `\text{}` không chứa tiếng Việt |
+| 33 | 3 | `lec02-s03-08` | Đếm từ phân biệt bằng hai công việc | `sửa` | 77 → 53 | 60 | 4 | 1,5 | Nhu cầu; `ol` hai công việc; giữ `id` (CSS); không thêm bước chạy tay; lượt sửa: "từ phân biệt" |
+| 34 | 3 | `lec02-s03-09` | Thuật toán: đếm từ phân biệt | `sửa` | 75 → 67 | 80 | 7 | 1,5 | khuôn "Thuật toán:"; bảng ba hàng; trần 80; lượt sửa: "chương trình chính (driver)" |
+| 35 | 3 | `lec02-s03-10` | Ví dụ: đếm từ phân biệt trong hai văn bản | `sửa` | 70 → 60 | 60 | 7 | 1,5 | khuôn ví dụ; bảng vết chạy; Kết luận có số; `\text{}` không chứa tiếng Việt; lượt sửa: "từ phân biệt"; ô "Công việc 1 Reduce" rút để giữ 60 |
+| 36 | 3 | `lec02-s03-11` | Tính đúng: đếm từ phân biệt | `sửa` | 90 → 51 | 60 | 5 | 1,5 | "Mệnh đề." + `ol` ba bước; Trường hợp biên |
+| 37 | 3 | `lec02-s03-12` | Bài toán trung bình cộng | `sửa` | 55 → 42 | 60 | 5 | 1 | Nhu cầu có số (trung bình của 3 và 9 khác của 2, 4, 9); Đầu vào, Đầu ra, Giả thiết; lượt sửa: Nhu cầu nêu hai nhóm [2, 4] và [9] |
+| 38 | 3 | `lec02-s03-16a` | Số từ trung bình mỗi trang | `sửa` | 49 → 38 | 60 | 4 | 1 | tiêu đề danh từ; một Kết luận; `style` SVG thành thuộc tính; lượt sửa: hình ghi "3 từ và 2 từ"; câu kết thành câu nối; ghi chú viết lại |
+| 39 | 3 | `lec02-s03-13` | Trạng thái tổng và số lượng | `sửa` | 43 → 21 | 60 | 2 | 1,5 | ba khung thành `ol`; giữ `id` (CSS); lượt sửa: bỏ dòng lặp s03-12; 2 dòng |
+| 40 | 3 | `lec02-s03-14` | Thuật toán: trung bình cộng | `sửa` | 55 → 54 | 60 | 8 | 1,5 | khuôn "Thuật toán:"; định nghĩa $S$, $C$; bảng ba hàng |
+| 41 | 3 | `lec02-s03-15` | Ví dụ: trung bình của 2, 4, 9 | `sửa` | 40 → 38 | 60 | 6 | 1,5 | khuôn ví dụ; Kết luận có số |
+| 42 | 3 | `lec02-s03-16` | Tính đúng: trung bình cộng | `sửa` | 81 → 45 | 60 | 4 | 1,5 | Bất biến; ba khung thành bảng Khởi tạo, Duy trì, Kết thúc |
+| 43 | 3 | `lec02-s03-17` | Câu hỏi về ba ví dụ | `sửa` | 62 → 52 | 60 | 4 | 2 | "Câu hỏi:" + `ol`; Lời giải trong ghi chú |
+| 44 | 4 | `lec02-s04-00` | 4. Chi phí và lợi ích của song song hóa | `sửa` | 35 → 35 | — | 2 | 0,5 | trang tiêu đề mạch; bỏ "tiếp theo là" |
+| 45 | 4 | `lec02-s04-01` | Ba đại lượng chi phí | `sửa` | 53 → 36 | 60 | 5 | 1 | `h1`→`h2`; Nhu cầu; Ký hiệu $P$, $p$; lượt sửa: bỏ gạch dài |
+| 46 | 4 | `lec02-s04-02` | Ví dụ: số phép cộng khi cộng 16 số | `tách` | 40 → 22 | 60 | 2 | 1,5 | giữ hai hình 16 số; phần tổng quát $n$ số chuyển sang s04-12; lượt sửa: tiêu đề "Ví dụ: số phép cộng khi cộng 16 số" |
+| 47 | 4 | `lec02-s04-12` | Chi phí: cộng một dãy số | `thêm` | — → 39 | 60 | 6 | 1,5 | tách từ s04-02: bảng Bước, Số lần, Chi phí mỗi lần, Đóng góp; $W_P=n-1$; lượt sửa: tiêu đề không chứa biến |
+| 48 | 4 | `lec02-s04-03` | Chi phí: thời gian của một pha | `sửa` | 27 → 28 | 60 | 3 | 2 | "Mô hình:" thay câu dẫn; công thức giữ |
+| 49 | 4 | `lec02-s04-04` | Ví dụ: thời gian cộng 16 số trên bốn máy | `sửa` | 40 → 39 | 60 | 4 | 2 | tiêu đề ví dụ; hai dòng giả thiết, mô hình tách; giữ `id` (CSS); lượt sửa: tiêu đề "Ví dụ: thời gian cộng 16 số trên bốn máy"; Mô hình "hai pha nối tiếp" |
+| 50 | 4 | `lec02-s04-05` | Chi phí: tổng đầu vào tác vụ | `sửa` | 86 → 59 | 60 | 5 | 2,5 | Nhu cầu, Mô hình; $C=I+H$; Giả thiết |
+| 51 | 4 | `lec02-s04-06` | Chi phí: thời gian truyền một thông điệp | `sửa` | 70 → 43 | 60 | 4 | 2 | Mô hình ký hiệu $V$, $B$, $\lambda$; Giả thiết; `\text{}` thay bằng ký hiệu |
+| 52 | 4 | `lec02-s04-07` | Chi phí: đường nối dùng chung | `sửa` | 55 → 47 | 60 | 4 | 2 | một Kết luận |
+| 53 | 4 | `lec02-s04-08` | Chi phí: lượng truyền khi có Combine | `sửa` | 111 → 67 | 80 | 6 | 2,5 | bỏ câu dẫn trùng; bảng hai phương án; Kết luận 80 → 64 byte; trần 80 |
+| 54 | 4 | `lec02-s04-09` | Chi phí: thời gian của cả công việc | `sửa` | 68 → 45 | 60 | 4 | 2 | định nghĩa $T_P$; $T_P=1+4+3+2$; Mô hình; ghi chú viết lại |
+| 55 | 4 | `lec02-s04-10` | Mức tăng tốc | `sửa` | 55 → 40 | 60 | 4 | 1,5 | định nghĩa $S_P$; Kết luận và Giả thiết |
+| 56 | 4 | `lec02-s04-11` | Câu hỏi về thời gian và mức tăng tốc | `sửa` | 93 → 72 | 80 | 12 | 3 | bảng dữ kiện 6 hàng + Câu hỏi; ngoại lệ trần 80; giữ `id` (CSS) |
+| 57 | 5 | `lec02-s05-00` | 5. Hệ thống thực thi MapReduce | `sửa` | 34 → 34 | — | 2 | 1 | trang tiêu đề mạch nhận nội dung s05-01 (0,5 + 0,5) |
+| 58 | 5 | `lec02-s05-02` | Phần đầu vào và tác vụ Map | `sửa` | 59 → 48 | 60 | 3 | 2 | tiêu đề cũ dạng "Từ … đến …" bỏ; thêm Nhu cầu |
+| 59 | 5 | `lec02-s05-02a` | Vai trò của HDFS trong MapReduce | `sửa` | 42 → 37 | 60 | 2 | 2 | tiêu đề danh từ |
+| 60 | 5 | `lec02-s05-03` | Giao tác vụ Map gần dữ liệu | `sửa` | 54 → 38 | 60 | 2 | 1,5 | tiêu đề; "rack" thống nhất với s01-06; hình `sys-03.svg` giữ (ngoài phạm vi ghi); lượt sửa: ghi chú theo quy tắc ưu tiên cùng rack (C đọc bản ở D) |
+| 61 | 5 | `lec02-s05-04` | Chia đầu ra Map theo hàm phân phối | `sửa` | 50 → 27 | 60 | 2 | 2 | bỏ dòng nguồn; lượt sửa: ghi chú $f\to p$, $R\to r$ |
+| 62 | 5 | `lec02-s05-05` | Chuyển dữ liệu trung gian (Shuffle) | `sửa` | 54 → 31 | 60 | 2 | 2 | câu dẫn định nghĩa bằng "gọi là"; thuật ngữ Shuffle giải nghĩa |
+| 63 | 5 | `lec02-s05-06` | Nhóm theo khóa và đọc lần lượt | `sửa` | 60 → 47 | 60 | 3 | 2 | tiêu đề danh từ; Lưu ý một dòng |
+| 64 | 5 | `lec02-s05-07` | Theo dõi trạng thái tác vụ | `sửa` | 57 → 35 | 60 | 2 | 1,5 | tiêu đề danh từ; Master giải nghĩa "Tiến trình điều phối" |
+| 65 | 5 | `lec02-s05-08` | Nơi lưu dữ liệu và cách phục hồi | `sửa` | 69 → 64 | 80 | 5 | 1,5 | bảng ba hàng; Giả thiết; trần 80 |
+| 66 | 5 | `lec02-s05-09` | Phục hồi khi máy chạy Map hỏng | `sửa` | 63 → 57 | 60 | 3 | 2 | tiêu đề; Lưu ý một dòng; lượt sửa: "Tiến trình điều phối" |
+| 67 | 5 | `lec02-s05-10` | Phục hồi khi máy chạy Reduce hỏng | `sửa` | 58 → 33 | 60 | 2 | 2 | tiêu đề; câu chú thích hình giữ |
+| 68 | 5 | `lec02-s05-11` | Nhiều lần thực thi của một tác vụ | `sửa` | 88 → 54 | 60 | 5 | 1,5 | bảng hai hàng; một Kết luận; một Giả thiết |
+| 69 | 5 | `lec02-s05-12` | Phạm vi chống chịu lỗi | `sửa` | 84 → 68 | 80 | 5 | 1 | bảng ba hàng; hai giả thiết thành một; trần 80; lượt sửa: "Tiến trình điều phối hỏng", "Một rack" |
+| 70 | 5 | `lec02-s05-13` | Câu hỏi về phục hồi khi máy hỏng | `sửa` | 75 → 60 | 60 | 4 | 2 | tiêu đề "Câu hỏi về phục hồi khi máy hỏng"; ghi chú thêm Nguồn |
+| 71 | 6 | `lec02-s06-00` | 6. Thực hành Hadoop với Docker Compose | `sửa` | 28 → 28 | — | 2 | 0,5 | trang tiêu đề mạch |
+| 72 | 6 | `lec02-s06-01` | Mục đích và chuẩn bị thực hành | `sửa` | 63 → 48 | 60 | 4 | 1,5 | `h1`→`h2`; liên kết bộ mã giữ (dòng không phải nguồn) |
+| 73 | 6 | `lec02-s06-02` | Cụm Hadoop trên một máy | `sửa` | 30 → 20 | 60 | 1 | 2 | bỏ dòng nguồn vào ghi chú |
+| 74 | 6 | `lec02-s06-03` | Khởi động bằng Docker Compose | `sửa` | 45 → 35 | 60 | 2 | 2 | bỏ dòng nguồn vào ghi chú |
+| 75 | 6 | `lec02-s06-04` | Kiểm tra cụm đã sẵn sàng | `sửa` | 23 → 25 | 60 | 2 | 2 | giữ dòng dấu hiệu sẵn sàng (không phải nguồn); ghi chú thêm Nguồn |
+| 76 | 6 | `lec02-s06-05` | Hai văn bản trên HDFS | `sửa` | 36 → 36 | 60 | 4 | 2 | giữ dòng giải thích dạng `ex-note` (không phải nguồn); ghi chú thêm Nguồn |
+| 77 | 6 | `lec02-s06-06` | Hàm Map bằng Python | `sửa` | 22 → 24 | 60 | 2 | 2 | giữ dòng giải thích dạng `ex-note`; ghi chú bỏ câu dẫn trang sau, thêm Nguồn |
+| 78 | 6 | `lec02-s06-07` | Giao diện giữa Python và Hadoop | `sửa` | 33 → 20 | 60 | 1 | 2 | bỏ dòng nguồn vào ghi chú |
+| 79 | 6 | `lec02-s06-08` | Hàm Reduce và Combine bằng Python | `sửa` | 24 → 26 | 60 | 2 | 2 | giữ dòng giải thích dạng `ex-note`; ghi chú thêm Nguồn |
+| 80 | 6 | `lec02-s06-09` | Nộp công việc MapReduce | `sửa` | 41 → 42 | 60 | 2 | 2 | giữ dòng giải thích lệnh dạng `ex-note` |
+| 81 | 6 | `lec02-s06-10` | Đối chiếu kết quả | `sửa` | 31 → 27 | 60 | 2 | 2 | giữ dòng giải thích dạng `ex-note`; ghi chú bỏ câu mệnh lệnh, thêm Nguồn |
+| 82 | 6 | `lec02-s06-11` | Quan sát các bộ đếm | `sửa` | 37 → 17 | 60 | 1 | 2 | bỏ dòng nguồn vào ghi chú |
+| 83 | 6 | `lec02-s06-12` | Câu hỏi về lần chạy trên Hadoop | `sửa` | 64 → 54 | 60 | 4 | 3 | tiêu đề "Câu hỏi về lần chạy trên Hadoop"; Lời giải trong ghi chú; lượt sửa: "job" → "công việc" |
+| 84 | 7 | `lec02-s07-00` | 7. Tổng kết và bài tập vận dụng | `sửa` | 39 → 37 | — | 2 | 0,5 | trang tiêu đề mạch; từ khóa theo hai cụm của mạch 7 |
+| 85 | 7 | `lec02-s07-07` | Kết quả và giả thiết không được bỏ | `thêm` | — → 80 | 80 | 6 | 2 | bảng kết quả, giả thiết không được bỏ, công thức hoặc thuật toán; lượt sửa: hàng Combine "trạng thái đủ, như $(s,c)$; chia chỉ ở Reduce"; $T_P=\sum T_{\text{pha}}$ |
+| 86 | 7 | `lec02-s07-02` | Thuật toán, bảo đảm và chi phí | `sửa` | 69 → 80 | 80 | 6 | 2 | đổi vai trò thành bảng Thuật toán, Đầu vào, Bảo đảm, Chi phí; cột Chi phí chỉ chép số của mạch 4 (quyết định 5); lượt sửa: hàng trung bình $\mu=\sum s/\sum c$ (không dùng $C$); cột "Chi phí trên ví dụ" chép số cặp của vết chạy mạch 3 (16→8; 5→4 rồi 3; 3→2) và 5 × 16 = 80 byte |
+| 87 | 7 | `lec02-s07-01` | Câu trả lời cho vấn đề trung tâm | `sửa` | 89 → 73 | 80 | 5 | 2 | đổi vai trò thành "Câu trả lời cho vấn đề trung tâm"; `h1`→`h2`; lượt sửa: dòng mạch 2 thêm "không phụ thuộc thứ tự"; dòng mạch 4 nêu ví dụ bốn pha, truyền và nhóm 3 s, $S_4=2{,}4<4$; bỏ câu dẫn; 5 dòng |
+| 88 | 7 | `lec02-s07-03` | Câu hỏi tự kiểm tra | `sửa` | 79 → 56 | 60 | 5 | 3 | tiêu đề "Câu hỏi tự kiểm tra"; Lời giải trong ghi chú; lượt sửa: lời giải câu 1 thêm việc của hệ thống |
+| 89 | 7 | `lec02-s07-08` | Nguồn và tài liệu đọc | `thêm` | — → 58 | 80 | 5 | 0,5 | nguồn chính, ghi công mmds.org; câu nối Bài 03 theo `sources/source.md` |
+| 90 | 7 | `lec02-s07-09` | Bài tập vận dụng | `thêm` | — → 57 | 80 | 5 | 1 | trang mở cụm bài tập (phương án F); 1 phút lấy từ bài (a) |
+| 91 | 7 | `lec02-s07-04` | Bài tập: số nguyên lớn nhất | `sửa` | 49 → 47 | 80 | 5 | 19 | tiêu đề chữ thường; dòng Nguồn lớp `ex-note`; ghi chú rút về ≤ 250 âm tiết; lượt sửa: "không cần khóa ở đầu ra" |
+| 92 | 7 | `lec02-s07-05` | Bài tập: trung bình cộng của tệp số nguyên | `sửa` | 50 → 47 | 80 | 5 | 20 | tiêu đề "…của tệp số nguyên"; dòng Nguồn lớp `ex-note`; lượt sửa: "không cần khóa ở đầu ra" |
+| 93 | 7 | `lec02-s07-06` | Bài tập: số giá trị phân biệt | `sửa` | 48 → 46 | 80 | 5 | 20 | tiêu đề chữ thường; dòng Nguồn lớp `ex-note`; ghi chú rút về ≤ 250 âm tiết; lượt sửa: "không cần khóa ở đầu ra" |
+
+Trang bỏ: `lec02-s03-01` "Khóa và giá trị trong ba ví dụ" (`bỏ`, trùng dòng dẫn và từ khóa của s03-00; bảng ba kiểu giá trị chuyển vào ghi chú s03-00; 0,5 phút trả lại) và `lec02-s05-01` "Giao việc, chuyển dữ liệu và phục hồi" (`bỏ`, trang lộ trình trùng từ khóa mạch; câu nhu cầu thành "Nhu cầu:" của s05-02, bảng ba nhiệm vụ vào ghi chú s05-00; 0,5 phút chuyển cho s05-00).
+
+**Ngoại lệ dòng.** Các trang có cột "Dòng" lớn hơn 6: s01-02 (Nội dung: 7 mục mạch và dòng Đọc trước, trần trang mục lục); s01-05, s02-02, s02-06, s02-08 (số thô gồm nhãn trong khối hình HTML; dòng chữ ngoài hình ≤ 6); s02-05 (vết chạy ba cột, mỗi nhãn là một phần tử; ngoài hình chỉ một dòng Kiểm tra); s03-05, s03-09, s03-10, s03-14 (trang bảng, ≤ 8 trừ s03-05 có thêm khối ma trận được tính như hình); s04-11 (bảng dữ kiện 6 hàng cùng ba câu hỏi; ngoại lệ trần 80 theo kế hoạch, bảng giữ để sinh viên tính trên cùng một trang).
+
+**Ánh xạ trang mới.** s01-07, s01-08, s01-09 (mở đầu theo khuôn deck 06); s02-13 tách từ s02-10 (mệnh đề và chứng minh); s04-12 tách từ s04-02 (bảng chi phí tổng quát); s07-07, s07-08 (khuôn kết luận); s07-09 (mở cụm bài tập). Các `id` được CSS chung tham chiếu (`lec02-s03-03`, `-s03-05`, `-s03-08`, `-s03-13`, `-s04-04`, `-s04-11`) giữ nguyên. Bài 02 chưa có ghi chú bài giảng, nên không có cột `note-topic-id`.
+
+### Phiếu trang mới và trang đổi vai (lượt sửa sau rà ba vai, 2026-10-14)
+
+Mỗi phiếu: mạch; mục đích; hành động của sinh viên; đối tượng trung tâm; dữ kiện, ký hiệu kế thừa; kiến thức đầu vào; sản phẩm học tập; bằng chứng kiểm; quyết định và lý do.
+
+- `lec02-s01-07` Tiên quyết và quy ước — mạch 1; mục đích: nêu ba kết quả Bài 01 dùng trong bài và phạm vi ký hiệu; sinh viên đối chiếu ba dòng nhắc lại với Bài 01; đối tượng: đơn vị chi phí, đặc tả và bất biến, tính kết hợp–giao hoán của phép cộng không tràn; kế thừa: Bài 01 ("Các tiêu chí đánh giá", "Tính đúng của thuật toán", "Chuẩn bị cho Bài 02"); đầu vào: Bài 01; sản phẩm: quy ước $n$ (cỡ đầu vào), $P$, dấu phẩy thập phân, 1 MB; bằng chứng: s02-11 (Combine dùng tính kết hợp), s02-13 (tính đúng), mạch chi phí (đơn vị riêng); `thêm` theo khuôn mở đầu của deck 06.
+- `lec02-s01-08` Mục tiêu học tập — mạch 1; mục đích: năm mục tiêu kiểm được; sinh viên đọc và ghi nhận sản phẩm cần nộp; đối tượng: năm năng lực (viết Map, Reduce; điều kiện Combine; chọn khóa và chứng minh; tính chi phí; chạy Hadoop); kế thừa: s01-07; đầu vào: không; sản phẩm: danh sách mục tiêu; bằng chứng: s02-12, s03-17, s04-11, s06-12, s07-03 và ba bài tập; `thêm`.
+- `lec02-s01-09` Vấn đề trung tâm — mạch 1; mục đích: nêu nhu cầu và bốn câu trả lời có điều kiện; sinh viên ghi bốn điều kiện để kiểm ở cuối bài; đối tượng: đếm từ trên kho nằm ở nhiều máy; kế thừa: bài toán đếm từ của Bài 01; đầu vào: s01-07; sản phẩm: bốn điều kiện (hàm xác định, Reduce không phụ thuộc thứ tự; phép gộp kết hợp, giao hoán, giữ đủ thông tin; truyền, gộp không lấn át; khớp tính tay); bằng chứng: s07-01 trả lời đúng thứ tự; `thêm`.
+- `lec02-s02-13` Tính đúng: một công việc MapReduce — mạch 2; mục đích: chứng minh giả mã s02-10 cho đúng đầu ra; sinh viên theo ba bước phân hoạch, nhóm, không phụ thuộc thứ tự; đối tượng: mệnh đề "$Y$ gồm đúng các cặp $\mathrm{Reduce}(k,L_k)$, mỗi khóa một lần"; kế thừa: $X$, $B_j$, $I$, $p$, $L_k$, `gom_giữ_lặp` của s02-08…s02-10; đầu vào: bất biến (Bài 01); sản phẩm: lập luận ba bước và trường hợp biên; bằng chứng: s03-06, s03-11, s03-16 dùng cùng khuôn; `thêm` (tách từ s02-10 để mỗi trang một điểm trung tâm).
+- `lec02-s04-12` Chi phí: cộng một dãy số — mạch 4; mục đích: tổng quát hóa số phép cộng từ ví dụ 16 số; sinh viên điền bảng bước × số lần × chi phí mỗi lần; đối tượng: $W_P=n-1$; kế thừa: ví dụ s04-02 (15 phép cộng); đầu vào: s04-01 ($W$, $P$); sản phẩm: bảng chi phí và kết luận song song hóa không giảm tổng công việc; bằng chứng: s07-02 hàng cuối; `thêm` (tách từ s04-02).
+- `lec02-s07-07` Kết quả và giả thiết không được bỏ — mạch 7; mục đích: đặt năm kết quả cạnh giả thiết; sinh viên nêu phản ví dụ khi bỏ từng giả thiết; đối tượng: bảng kết quả–giả thiết–công thức; kế thừa: s02-13, s02-11, s03-14, s04-05, s04-09, s04-06, s04-10; đầu vào: mạch 2–4; sản phẩm: danh sách giả thiết; bằng chứng: s07-03 câu 2, 3; `thêm`.
+- `lec02-s07-02` Thuật toán, bảo đảm và chi phí — mạch 7 (đổi vai từ "Ba bài toán, ba cách gộp"); mục đích: so năm thuật toán theo đầu vào, bảo đảm, chi phí trên ví dụ; sinh viên đối chiếu số cặp trước và sau Combine; đối tượng: bảng bốn cột; kế thừa: vết chạy s02-05, s03-05, s03-10, s03-15, s04-08, s04-04, s04-12; đầu vào: mạch 3, 4; sản phẩm: so sánh có số; bằng chứng: bài tập s07-04…s07-06 (chọn khóa và trạng thái); `sửa` (đổi vai trò; quyết định 5 và mục 1 của lượt sửa: không phép đếm mới).
+- `lec02-s07-01` Câu trả lời cho vấn đề trung tâm — mạch 7 (đổi vai từ "Ba nhu cầu và cách MapReduce đáp ứng"); mục đích: trả lời bốn dòng s01-09 bằng số của bài; sinh viên kiểm từng điều kiện; đối tượng: bốn câu trả lời có số; kế thừa: s02-05, s03-05, s03-10, s03-15, s04-08, s04-09, s04-10, s06-10, s06-11; đầu vào: mạch 2–6; sản phẩm: kết luận "chọn khóa theo đầu ra, giữ đủ thông tin; truyền là chi phí phải đo"; bằng chứng: s07-03; `sửa` (đổi vai trò). Đối ứng: dòng 1 s01-09 (Map, nhóm, Reduce; không phụ thuộc thứ tự) ↔ dòng 1 s07-01 (chim 1, chó 2, mèo 2; Reduce cộng); dòng 2 (giữ đủ thông tin) ↔ dòng 2 ($y$, $D$, $\mu=5$ so với 6); dòng 3 (thêm máy khi truyền, gộp không lấn át) ↔ dòng 3 (ví dụ bốn pha: $T_4=10$ s, truyền và nhóm 3 s, $S_4=2{,}4<4$; Combine 80 còn 64 byte); dòng 4 (Hadoop khớp tính tay) ↔ dòng 4 (5, 4, 3 cặp).
+- `lec02-s07-08` Nguồn và tài liệu đọc — mạch 7; mục đích: liệt kê nguồn, ghi công mmds.org, câu nối Bài 03; sinh viên chọn tài liệu đọc thêm; đối tượng: danh sách nguồn; kế thừa: dòng "Nguồn:" của mọi ghi chú; đầu vào: không; sản phẩm: danh mục đọc; bằng chứng: không có câu hỏi (trang nguồn); `thêm`.
+- `lec02-s07-09` Bài tập vận dụng — mạch 7, mở cụm bài tập (phương án F); mục đích: nêu yêu cầu nộp chung cho ba bài MMDS 2.3.1(a), (b), (d); sinh viên đọc yêu cầu nộp; đối tượng: danh sách ba bài; kế thừa: khuôn đặc tả và chứng minh của mạch 3; đầu vào: s07-02; sản phẩm: yêu cầu nộp; bằng chứng: s07-04…s07-06; `thêm`.
