@@ -1513,3 +1513,189 @@ Kiểm tra: section mở/đóng 67/67; 60 `data-slide-id` và 60 `id` duy nhất
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` các mục "Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; `slide_authoring_standard.md`; deck mẫu đã hoàn thiện `lecture-06-tim-cap-tuong-dong-bang-lsh.html`; kế hoạch sửa toàn diện Bài 05 do tác tử lập kế hoạch nộp (tệp tạm trong scratchpad của phiên, không đưa vào kho), mục B–F.
+
+**Phân công.** Điều phối viên: phiên Claude Code, Opus 5.5, effort `high`. Tác tử lập kế hoạch: chỉ đọc, `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`), bằng chứng là lời gọi Agent của điều phối viên và đầu tệp kế hoạch. Tác tử soạn (writer): `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`), tác tử duy nhất được ghi tệp, phạm vi ghi là deck Bài 05 và ba tệp planning; không commit. Rà soát sau soạn: điều phối viên giao ba vai rút gọn (quyết định 7 dưới đây), chưa chạy tại thời điểm ghi mục này.
+
+**Quyết định của điều phối viên cho các điểm mở (G5 của kế hoạch).**
+
+1. Câu luận đề: phương án A, "Với hoán vị chọn đều, hai tập trùng MinHash với xác suất bằng Jaccard; chữ ký ngắn nhờ đó ước lượng được Jaccard." (23 âm tiết, trần 25 của bìa).
+2. Tách s05-09: bảng thay số sang `lec05-s05-13`; hai tổng mới được tính lại và ghi phép tính trong ghi chú diễn giả.
+3. Bỏ s06-01; hai khung nhấn chuyển vào bảng `lec05-s06-05`, câu kết vào `lec05-s06-02`.
+4. Trang đề recitation giữ một dòng `p.ex-note` "Nguồn: MMDS, Bài …".
+5. Tiêu đề trang trả lời: "Câu trả lời cho vấn đề trung tâm" (như Bài 06).
+6. Bỏ "Bài 05 ·" khỏi `term-name` (như Bài 06).
+7. Rà rút gọn ba vai sau khi soạn, do điều phối viên giao.
+8. Giữ dấu ngăn hàng nghìn hiện có ("50.000", "1.000 byte" cạnh \(499\,999\,500\,000\)); đồng bộ ở đợt sửa ghi chú.
+9. Bỏ mọi câu thời lượng khỏi ghi chú diễn giả; thời lượng chỉ ở storyboard.
+10. Trang nguồn ghi MMDS và Stanford CS246 trên mặt trang; CMU 15-853 và UMass COMPSCI 514 trong ghi chú diễn giả.
+
+**Thay đổi cấu trúc.** 60 → 65 trang (57 giảng + 8 bài tập); bảy mạch 10/9/9/8/14/7/8; 120 + 60 phút (19/20/22/16,5/30,5/12 + 60). Thêm `lec05-s01-10` (Tiên quyết và quy ước), `lec05-s01-11` (Vấn đề trung tâm), `lec05-s05-13` (tách từ s05-09), `lec05-s06-05` (Kết quả và giả thiết không được bỏ), `lec05-s06-06` (Thuật toán, bảo đảm và chi phí), `lec05-s06-07` (Nguồn và tài liệu đọc). Bỏ `lec05-s06-01`; `quy-trinh-bieu-dien.svg` vẫn dùng trong ghi chú bài giảng, không xóa tệp. Đổi chỗ s01-02 (Nội dung) và s01-03 (Mục tiêu học tập). Không dùng lại mã đã bỏ `lec05-s01-06`, `lec05-s02-08`, `lec05-s03-03`. Thêm `aria-label` cho bảy section ngoài. Bỏ 52 dòng `p.ex-source` trên 51 trang (đoạn "Nguồn:" cuối ghi chú diễn giả đã có ở mọi trang; dòng ghi công mmds.org của s06-04 chuyển sang trang nguồn); bảy trang đề recitation có dòng "Nguồn: MMDS, Bài …". Bỏ bảy câu "Thời lượng dự kiến …" khỏi ghi chú mạch 7. Thuật ngữ LSH thống nhất với Bài 06: "băm nhạy cảm theo tính cục bộ (locality-sensitive hashing, LSH)". CSS không đổi; không thêm `<style>`, `style=""`, `.dense`, `fragment`; không thêm hay sửa SVG.
+
+**Con số mới.** Chỉ có hai tổng ở `lec05-s05-13`, cộng từ các số đã kiểm của s05-09: ma trận đặc \(nC+nR+RC+nL=2\cdot4+2\cdot5+5\cdot4+2\cdot9=8+10+20+18=56\); danh sách cột có 1 \(nC+nR+nL=8+10+18=36\). Kiểm chéo: \(L=2+1+2+3+1=9\) ô 1 theo năm hàng của Hình 3.2; số phép min theo vết chạy s05-04 … s05-06 là \(4+2+4+6+2=18=nL\). Phép tính ghi trong ghi chú diễn giả của s05-13. Mọi con số khác giữ nguyên (G4 của kế hoạch).
+
+**Mật độ trước → sau.** Lệnh: `python3 -I <scratchpad>/p05/m05.py 2627-1/lecture-05-bieu-dien-tuong-dong-shingling-va-minhash.html` (bản sửa của `tools/density.py`; `tools/density.py` gốc bỏ sót trang đầu mỗi section ngoài nên được cộng các trang này). Script đếm token có chữ, bỏ tiêu đề, công thức KaTeX, giả mã và ghi chú; vẫn đếm chuỗi trong `<code>` và chữ trong ô bảng. Cột "trước" ghi hai số: gồm dòng nguồn / bỏ dòng nguồn.
+
+| Chỉ số | Trước (60 trang, gồm nguồn) | Trước (bỏ nguồn) | Sau (65 trang) |
+|---|---:|---:|---:|
+| Trung vị âm tiết | 49,5 | 40,5 | 44 |
+| Số trang > 40 | 39 | 30 | 39 |
+| Số trang > 60 | 16 | 7 | 6 (đều là trang trần 80) |
+| Số trang > 80 | 4 | 3 | 0 |
+| Trang trần 60 vượt 60 | — | — | 0 |
+| Dòng > 20 âm tiết | 13 dòng trên 10 trang | | 0 (trừ câu luận đề 23 và dòng dẫn s05-00 22, s06-00 23, trần 25) |
+| Ghi chú diễn giả > 150 âm tiết | | | 0 |
+
+Trung vị tăng vì sáu trang mới là trang tổng kết, tiên quyết và vấn đề trung tâm; số trang > 40 phần lớn là trang có bảng (script đếm chữ trong ô) hoặc trang trần 80.
+
+| # | Mã | Trước (gồm / bỏ nguồn) | Sau | Trần | Dòng | Dòng dài nhất | Âm tiết ghi chú | Quyết định |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | `lec05-s01-01` | 14 / 14 | 47 | — | 4 | 23 | 102 | `sửa` |
+| 2 | `lec05-s01-10` | — | 58 | 60 | 5 | 18 | 135 | `thêm` |
+| 3 | `lec05-s01-03` | 46 / 46 | 67 | 80 | 5 | 16 | 132 | `sửa` |
+| 4 | `lec05-s01-02` | 35 / 35 | 49 | 80 | 8 | 14 | 107 | `sửa` |
+| 5 | `lec05-s01-11` | — | 60 | 60 | 6 | 13 | 120 | `thêm` |
+| 6 | `lec05-s01-04` | 63 / 45 | 50 | 60 | 4 | 15 | 149 | `sửa` |
+| 7 | `lec05-s01-05` | 72 / 57 | 52 | 60 | 6 | 20 | 149 | `sửa` |
+| 8 | `lec05-s01-07` | 39 / 30 | 43 | 60 | 3 | 20 | 146 | `sửa` |
+| 9 | `lec05-s01-08` | 63 / 60 | 65 | 80 | 5 | 18 | 127 | `sửa` |
+| 10 | `lec05-s01-09` | 54 / 48 | 45 | 60 | 4 | 18 | 94 | `sửa` |
+| 11 | `lec05-s02-00` | 33 / 33 | 33 | — | 2 | 20 | 88 | `giữ` |
+| 12 | `lec05-s02-01` | 107 / 89 | 58 | 60 | 6 | 17 | 150 | `sửa` |
+| 13 | `lec05-s02-02` | 5 / 0 | 24 | 60 | 2 | 13 | 69 | `sửa` |
+| 14 | `lec05-s02-03` | 41 / 30 | 33 | 60 | 4 | 12 | 83 | `sửa` |
+| 15 | `lec05-s02-04` | 49 / 37 | 33 | 60 | 5 | 14 | 125 | `sửa` |
+| 16 | `lec05-s02-05` | 91 / 88 | 60 | 60 | 6 | 18 | 132 | `sửa` |
+| 17 | `lec05-s02-06` | 50 / 45 | 46 | 60 | 5 | 18 | 113 | `sửa` |
+| 18 | `lec05-s02-07` | 80 / 77 | 60 | 60 | 6 | 19 | 145 | `sửa` |
+| 19 | `lec05-s02-09` | 75 / 55 | 46 | 60 | 4 | 18 | 118 | `sửa` |
+| 20 | `lec05-s03-00` | 32 / 32 | 32 | — | 2 | 19 | 79 | `giữ` |
+| 21 | `lec05-s03-01` | 65 / 56 | 51 | 60 | 5 | 16 | 142 | `sửa` |
+| 22 | `lec05-s03-02` | 78 / 74 | 52 | 60 | 10 | 17 | 136 | `sửa` |
+| 23 | `lec05-s03-04` | 57 / 54 | 57 | 60 | 4 | 19 | 130 | `sửa` |
+| 24 | `lec05-s03-05` | 51 / 35 | 43 | 60 | 11 | 14 | 106 | `sửa` |
+| 25 | `lec05-s03-06` | 55 / 42 | 41 | 60 | 4 | 20 | 119 | `sửa` |
+| 26 | `lec05-s03-07` | 8 / 5 | 8 | 60 | 3 | 4 | 69 | `sửa` |
+| 27 | `lec05-s03-08` | 32 / 29 | 31 | 60 | 3 | 12 | 96 | `sửa` |
+| 28 | `lec05-s03-09` | 48 / 37 | 34 | 60 | 4 | 14 | 99 | `sửa` |
+| 29 | `lec05-s04-00` | 34 / 34 | 34 | — | 2 | 19 | 76 | `giữ` |
+| 30 | `lec05-s04-01` | 66 / 54 | 36 | 60 | 6 | 12 | 110 | `sửa` |
+| 31 | `lec05-s04-02` | 38 / 35 | 40 | 60 | 5 | 15 | 92 | `sửa` |
+| 32 | `lec05-s04-03` | 20 / 17 | 29 | 60 | 5 | 11 | 134 | `sửa` |
+| 33 | `lec05-s04-04` | 52 / 37 | 41 | 60 | 5 | 19 | 96 | `sửa` |
+| 34 | `lec05-s04-05` | 56 / 42 | 31 | 60 | 3 | 12 | 127 | `sửa` |
+| 35 | `lec05-s04-06` | 57 / 47 | 54 | 80 | 5 | 15 | 101 | `sửa` |
+| 36 | `lec05-s04-07` | 53 / 44 | 44 | 60 | 5 | 18 | 96 | `sửa` |
+| 37 | `lec05-s05-00` | 38 / 38 | 38 | — | 2 | 22 | 85 | `giữ` |
+| 38 | `lec05-s05-01` | 76 / 73 | 51 | 60 | 3 | 19 | 119 | `sửa` |
+| 39 | `lec05-s05-02` | 50 / 38 | 39 | 60 | 4 | 14 | 128 | `sửa` |
+| 40 | `lec05-s05-03` | 29 / 22 | 25 | 60 | 8 | 8 | 128 | `sửa` |
+| 41 | `lec05-s05-04` | 36 / 31 | 31 | 60 | 6 | 18 | 66 | `sửa` |
+| 42 | `lec05-s05-05` | 49 / 44 | 44 | 60 | 7 | 17 | 73 | `sửa` |
+| 43 | `lec05-s05-06` | 38 / 31 | 36 | 60 | 7 | 15 | 135 | `sửa` |
+| 44 | `lec05-s05-07` | 13 / 10 | 34 | 60 | 4 | 10 | 101 | `sửa` |
+| 45 | `lec05-s05-08` | 48 / 38 | 40 | 60 | 4 | 13 | 118 | `sửa` |
+| 46 | `lec05-s05-09` | 58 / 50 | 48 | 80 | 7 | 19 | 107 | `tách` |
+| 47 | `lec05-s05-13` | — | 43 | 80 | 7 | 15 | 124 | `thêm` |
+| 48 | `lec05-s05-10` | 67 / 54 | 64 | 80 | 6 | 18 | 138 | `sửa` |
+| 49 | `lec05-s05-11` | 60 / 51 | 53 | 60 | 4 | 18 | 90 | `sửa` |
+| 50 | `lec05-s05-12` | 56 / 49 | 49 | 60 | 5 | 20 | 102 | `sửa` |
+| 51 | `lec05-s06-00` | 37 / 37 | 45 | — | 2 | 23 | 96 | `sửa` |
+| 52 | `lec05-s06-05` | — | 70 | 80 | 7 | 19 | 150 | `thêm` |
+| 53 | `lec05-s06-06` | — | 61 | 80 | 5 | 16 | 125 | `thêm` |
+| 54 | `lec05-s06-02` | 98 / 84 | 76 | 80 | 6 | 17 | 128 | `sửa` |
+| 55 | `lec05-s06-03` | 65 / 53 | 51 | 60 | 4 | 17 | 139 | `sửa` |
+| 56 | `lec05-s06-04` | 92 / 61 | 54 | 60 | 4 | 15 | 124 | `sửa` |
+| 57 | `lec05-s06-07` | — | 57 | 80 | 5 | 19 | 90 | `thêm` |
+| 58 | `lec05-s07-00` | 23 / 23 | 23 | — | 2 | 18 | 73 | `giữ` |
+| 59 | `lec05-s07-01` | 27 / 23 | 25 | 80 | 3 | 11 | 77 | `sửa` |
+| 60 | `lec05-s07-02` | 64 / 55 | 53 | 80 | 5 | 16 | 133 | `sửa` |
+| 61 | `lec05-s07-03` | 37 / 30 | 32 | 80 | 9 | 11 | 81 | `sửa` |
+| 62 | `lec05-s07-04` | 51 / 46 | 51 | 80 | 10 | 16 | 102 | `sửa` |
+| 63 | `lec05-s07-05` | 43 / 34 | 38 | 80 | 9 | 13 | 97 | `sửa` |
+| 64 | `lec05-s07-06` | 39 / 32 | 35 | 80 | 3 | 14 | 90 | `sửa` |
+| 65 | `lec05-s07-07` | 44 / 39 | 40 | 80 | 4 | 13 | 111 | `sửa` |
+| — | `lec05-s06-01` | 46 / 42 | — | — | — | — | — | `bỏ` |
+
+Ngoại lệ dòng (bảng dữ kiện ma trận, bảng vết chạy, bảng chi phí, bảng tổng kết, trang Nội dung) ghi trong `storyboard.md`, mục "Bản đồ mạch và quyết định sửa toàn diện 2026-10-14". Không có ngoại lệ âm tiết.
+
+**Tự kiểm no-ai-slop (chế độ Edit, đối chiếu `eval.md`).** Văn bản mới và văn bản viết lại: câu luận đề, năm dòng vấn đề trung tâm, năm mục tiêu, bảng kết quả–giả thiết, bảng thuật toán, trang trả lời, trang nguồn, các câu kết luận có nhãn và ghi chú diễn giả của sáu trang mới. Đạt: không từ cấm, không đối lập nhị phân, không câu mở dọn đường, không bình luận về tầm quan trọng, không câu kết kiểu châm ngôn, không gạch ngang dài trong câu mới; mỗi câu kết luận là một kết luận có điều kiện hoặc một con số. Đã sửa khi tự kiểm: năm ghi chú mở bằng tài liệu làm chủ ngữ ("Phần mở đầu Chương 3 … nêu", "Mục 3.1.3 dùng", "Ví dụ 3.4 so", "Mở đầu §3.3 nêu", "Phần Jaccard dựa trên") viết lại với đối tượng làm chủ ngữ; "Câu luận đề có hai giả thiết" (bình luận về trang) thành "Kết quả trung tâm của bài cần hai giả thiết"; "phần tử thắng" thành "phần tử đạt hạng nhỏ nhất"; ký hiệu \(s\), \(n\), \(ns\) trong ghi chú s04-04 đưa vào KaTeX. Văn phong học thuật và độ chính xác thuật toán được ưu tiên hơn lời khuyên về giọng của kỹ năng. Rà "chúng ta", "ta thấy", "rõ ràng", "Trang này", "phần sau", "Phần 2", "Sản phẩm", "Đáp số", "Thời lượng", "MT", mã trang trong mặt trang và ghi chú: 0 kết quả.
+
+**Kiểm kỹ thuật.** `git diff --check` sạch cho deck và ba tệp planning. HTML cân bằng (trình phân tích `html.parser`: 0 thẻ chưa đóng, 0 thẻ đóng sai); section mở/đóng 72/72; 65 `data-slide-id` và 65 `id` duy nhất. Chromium Playwright, máy chủ cục bộ cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang (`Reveal.configure({transition:"none"})`):
+
+- 1600×900: duyệt cả 65 trang bằng `Reveal.getIndices` + `Reveal.slide(h, v, 99)`; trang hiện hành đúng mã ở cả 65 lần; 0 lỗi console, 0 lỗi trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang; không phần tử nào (trừ `.katex-mathml` ẩn và SVG nội bộ của KaTeX) vượt khung `.slides`; đáy nội dung thấp nhất 840/864 px (s04-03), trên mép chân trang 845 px; cỡ chữ thân nhỏ nhất 24 px (bảng đề recitation) trên khung 1280×720 nhân hệ số 1,2.
+- 390×844: RevealJS chuyển sang chế độ cuộn; cuộn tới từng trang: 0 phần tử vượt mép phải, `scrollWidth` = `clientWidth` = 390, 0 lỗi console, 0 `.katex-error`.
+- Ảnh chụp được chụp cho 20 trang ở cả hai cỡ (lưu trong scratchpad của phiên, không đưa vào kho). Đã tự xem ở 1600×900: mạch mở đầu s01-01, s01-10, s01-03, s01-02, s01-11 cùng s01-07, s01-08; mạch kết luận s06-00, s06-05, s06-06, s06-02, s06-04, s06-07; trang tách s05-09, s05-13; và s02-04, s03-02, s04-03 (trang sát chân trang nhất). Đã tự xem ở 390×844: s01-02, s06-05, s05-13. Không thấy chồng lấn, cắt chữ hay công thức tràn.
+
+**Tác động tới ghi chú bài giảng `materials/lec-05/lecture-note.md`.** Không sửa trong đợt này. Ký hiệu không đổi (\(D,\ell,k,S_k(D),w\); \(U,R,C,S_c,M(r,c)\); \(\pi,\operatorname{rank}_\pi,h_\pi\); \(n,\sigma(S)\); \(\mathrm{SIM},s,X_i,\widehat{\mathrm{SIM}}\); \(f_i,V,+\infty,\mathrm{SIG}(i,c)\); \(L\); \(a,\ldots,e\leftrightarrow0,\ldots,4\)); dữ kiện và kết luận không đổi; hai tổng 56 và 36 là phép cộng mới, không mâu thuẫn ghi chú. Bài 06 không bị ảnh hưởng. Điểm để đợt sửa ghi chú xử lý: (a) ghi chú viết "băm nhạy cảm cục bộ (LSH)", khác thuật ngữ của Bài 06 và trang nguồn mới; (b) ghi chú chưa đánh số kết quả nên deck chưa dẫn số hiệu "(Định lý 05.k)"; (c) đồng bộ dấu ngăn hàng nghìn; (d) tên gọi "bốn tập đặc trưng" có thể đồng bộ với "Ma trận Hình 3.2" của ghi chú. `index.html` không đổi.
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Trạng thái |
+|---|---|---|---|---|---|
+| nhẹ | `lec05-s01-08`, `lec05-s02-05`, `lec05-s02-07` | Script đếm chữ trong ô bảng; số đếm sau sửa 65, 60, 59 | bảng mật độ trên | Bảng so sánh s01-08 dùng trần 80; hai trang còn lại đã rút về ≤ 60 | đã xử lý |
+| nhẹ | toàn deck | Trung vị 44 vẫn trên mức nhắm 40 | bảng mật độ trên | Không rút thêm ví dụ, chứng minh hay vết chạy; để tác tử rà sư phạm đánh giá | mở, chờ rà |
+| nhẹ | toàn deck | Dấu ngăn hàng nghìn trộn hai cách viết | "50.000", \(499\,999\,500\,000\) | Đồng bộ cùng ghi chú ở đợt sau (quyết định 8) | hoãn có lý do |
+
+## Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+Căn cứ: ba báo cáo rà chỉ đọc (toán và thuật toán; kết nối và mạch viết; sinh viên kèm mật độ), mỗi vai là tác tử `fork` kế thừa Opus 5.5, effort `high`, do điều phối viên giao; quyết định hợp nhất của điều phối viên (tệp tạm `fix-d05.md` trong scratchpad của phiên). Kết luận của ba vai: 0 `chặn bàn giao`, 0 `nghiêm trọng`; toán 2 trung bình, 10 nhẹ; mạch viết 3 trung bình, 10 nhẹ; sinh viên 5 trung bình, 17 nhẹ. Tác tử soạn (fork, Opus 5.5, effort `high`) sửa; không commit.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Cách xử lý, lý do |
+|---|---|---|---|---|---|
+| math | trung bình | `s02-05` | "mọi cặp có Jaccard cao" mạnh hơn nguồn | **sửa** | trả "gần như mọi cặp" (MMDS tr. 79); bù âm tiết bằng rút tiêu đề cột và câu kết luận; trang 60 |
+| math | trung bình | `s06-05` | hàng "Tập mã shingle" ghép giả thiết với cận không cần giả thiết | **sửa** | ô công thức thành "SIM trên tập mã bằng SIM trên tập shingle"; giả thiết còn "cùng quy ước khoảng trắng; mã không va chạm"; cận \(|S_k(D)|\le w\) sang ô Bảo đảm của s06-06 |
+| math | nhẹ | `s05-13` | dòng Mô hình mơ hồ | **sửa** | "chỉ đếm bốn loại thao tác của bảng đếm"; ghi chú nêu 9 lần đọc danh sách không tính riêng, \(L\le nL\) |
+| math | nhẹ | `s05-13 (ghi chú)` | điều kiện số hạng chi phối thiếu | **sửa** | "\(RC\) lớn hơn \(nL+nR+nC\) rất nhiều (mật độ ô 1 nhỏ hơn \(1/n\))" |
+| math | nhẹ | `s05-09` | giả thiết danh sách sẵn có bị bỏ | **sửa** | "danh sách cột có 1 (đã có sẵn)" |
+| math | nhẹ | `s01-11` | bỏ "khoảng" | **sửa** | "gấp khoảng bốn lần tài liệu" |
+| math | nhẹ | `s03-05, s03-06` | hạng đếm từ 1, khác quy ước từ 0 | **sửa** | ghi tại chỗ "đếm từ 1" (định nghĩa) và "Vị trí (từ 1)" (bảng); ghi chú s01-10 nêu hạng khác mã hàng; kết quả không đổi |
+| math | nhẹ | `s05-07` | "hạ" sai khi min giữ nguyên | **sửa** | "cập nhật" |
+| math | nhẹ | `s02-09 (ghi chú)` | câu "cận trên" mâu thuẫn giả thiết đề | **sửa** | "Bỏ giả thiết không trùng mã thì 49 992 chỉ là cận trên" |
+| math | nhẹ | `s04-05` | `\overset{\text{độc lập}}` gây 4 cảnh báo KaTeX | **sửa** | bỏ chữ trên dấu "=", ghi chú nêu đẳng thức thứ hai dùng độc lập; dòng Chứng minh đã nêu các \(X_i\) độc lập |
+| math | nhẹ | `s01-10 (ghi chú)` | không nêu Bài 01 dùng \(C_i\) cho tập | **sửa** | ghi chú nêu \(C_i\) (Bài 01) ↔ \(S_i\), \(C\) là số tài liệu |
+| math | nhẹ | `s01-11, s06-02` | `ol start="2"` không có mục 1 | **sửa** | đổi thành danh sách không đánh số như Bài 06; ghi chú gọi dòng theo nội dung |
+| storyline | trung bình | `s01-11 ↔ s06-02, ghi chú s06-00` | câu trả lời không đối từng dòng | **sửa** | viết lại bốn dòng cuối s06-02 theo đề xuất (2/3; không chệch rồi 0,032 dưới độc lập; thứ tự của \(f_i\) là hoán vị đều, một lượt quét; 1 GB và số cặp, 5,8 ngày); ghi chú s06-00, s06-02 theo thứ tự trang; s06-02 77 âm tiết (trần 80) |
+| storyline | trung bình | `s01-10, s01-04, s01-05, s01-07` | kết quả Bài 01 trình bày như mới | **sửa** | s01-10 thêm "Nhắc lại:" Jaccard \(J(S,T)\) (viết \(\mathrm{SIM}\)) và \(499\,999\,500\,000\) cặp; "Ký hiệu:" \(C\) (Bài 01 viết \(N\)); ghi chú s01-04, s01-05, s01-07 mở bằng kết quả kế thừa |
+| storyline | trung bình | `s06-05` | hàng tự mâu thuẫn | **sửa** | như phát hiện math cùng trang |
+| storyline | nhẹ | `s01-05 → s01-07` | thiếu câu nối | **sửa** | câu nối ở đầu ghi chú s01-07 |
+| storyline | nhẹ | `s01-11, s04-01` | \(n\), "tọa độ" dùng trước định nghĩa | **sửa** | "Nhiều hoán vị"; "trùng ở cả hai thứ tự" |
+| storyline | nhẹ | `s04-02 → s04-05` | thứ tự giả thiết độc lập | **sửa** | s04-02 "mỗi hoán vị được chọn đều; cùng bộ hoán vị cho mọi tập"; độc lập chỉ từ s04-05 |
+| storyline | nhẹ | `ghi chú s05-11, s06-05` | phản ví dụ trích từ trang sau như đã gặp | **sửa** | gọi tên chỗ: "câu tự kiểm tra 5", "Bài 3.3.3 trong phần bài tập vận dụng" |
+| storyline | nhẹ | `s04-03, s05-02; liên bài 06` | \(\widehat s\) chưa định nghĩa; tọa độ/thành phần/hàng | **sửa một phần** | ghi chú s04-03 nêu \(\widehat s\) và "tọa độ \(i\) là hàng \(i\) của ma trận chữ ký"; thống nhất một từ trên mặt trang: mở, để đợt đồng bộ với ghi chú bài giảng (ghi chú dùng cả ba từ) |
+| storyline | nhẹ | `ghi chú s05-06, s05-13, s05-10` | lặp câu cảnh báo | **sửa** | bỏ ở s05-06, s05-13, s05-10; giữ ở s05-11, s06-05, s04-05, s05-09 |
+| storyline | nhẹ | `ghi chú s05-07` | "Khung còn để ngỏ" | **sửa** | "Còn hai câu hỏi: …" |
+| storyline | nhẹ | `ghi chú s01-03` | nhịp lặp năm câu | **bác bỏ** | ghi chú là bảng ánh xạ mục tiêu → bằng chứng viết bằng lời; khuôn lặp giúp tra cứu |
+| storyline | nhẹ | `storyboard` | mục cũ chưa đánh dấu lịch sử | **sửa** | thêm dòng đánh dấu ở "Hành trình khái niệm", "Chu trình các cụm", "Ánh xạ tài liệu tự học"; ghi phiếu T6 hiện hành (s05-12 → T6 → s06-05) |
+| storyline | nhẹ | `liên bài 01 → 05` | Bài 01 hứa "Bài 05 phân tích hai con trỏ"; lộ trình Bài 01 ghi "Bài 05–06 giảm số cặp" | **mở** | ngoài phạm vi đợt này; đưa vào hàng đợi sửa Bài 01: bỏ lời hứa hoặc trỏ về chính Bài 01; lộ trình "Bài 05: giảm chi phí một cặp; Bài 06: giảm số cặp" |
+| student | trung bình | `s01-10, s01-07` | đổi ký hiệu Bài 01 không nêu trên mặt trang | **sửa** | như phát hiện storyline cùng trang |
+| student | trung bình | `s02-06` | thiếu dữ kiện hai câu Ví dụ 3.4 | **sửa** | thêm dòng "Hai câu khác nội dung: …ready for touch down, …scored a touchdown"; Kết luận có điều kiện; 59 âm tiết |
+| student | trung bình | `s02-07` | \(20^4\) không có căn cứ trên mặt trang | **sửa** | ô "\(\approx20^4=160\,000\) (20 ký tự thông dụng)"; rút hai cụm khác, 59 âm tiết |
+| student | trung bình | `s06-05` | hàng "Tập mã shingle" | **sửa** | như phát hiện math cùng trang |
+| student | trung bình | `s06-00` | dòng từ khóa 22 > 20 | **sửa** | "Giả thiết · Thuật toán và chi phí · Vấn đề trung tâm · Câu hỏi tự kiểm tra · Tài liệu đọc" (19) |
+| student | nhẹ | `s02-01` | "cửa sổ" chưa định nghĩa | **sửa** | "Một \(k\)-shingle là đoạn \(k\) ký tự liên tiếp, nằm trong một cửa sổ dài \(k\)" |
+| student | nhẹ | `s02-05` | "27 ký tự" chưa giải thích | **sửa** | "26 chữ cái và dấu cách" |
+| student | nhẹ | `s02-04` | "băm" dễ nhầm | **sửa** | "tạo và chèn vào tập băm" |
+| student | nhẹ | `s03-07` | \(x,y\) định nghĩa gián tiếp | **sửa** | "\(x\), \(y\) là số hàng loại \(X\), \(Y\)"; bỏ câu lặp trong ghi chú |
+| student | nhẹ | `s04-01` | "tọa độ" trước định nghĩa | **sửa** | như phát hiện storyline |
+| student | nhẹ | `s05-11` | \(a,b\) trùng tên phần tử | **sửa** | ghi rõ "hệ số nguyên \(a,b\)"; giữ chữ cái như công thức hàm băm tuyến tính quen dùng |
+| student | nhẹ | `s05-04 → s05-05, s05-06` | hai khuôn bảng vết | **bác bỏ** | s05-04 cần đủ hai trạng thái theo từng hàm để đọc khởi tạo; s05-05, s05-06 dùng khuôn "Trạng thái" gọn cho các hàng sau; cùng một vết, nội dung đúng |
+| student | nhẹ | `s05-05` | "ứng viên" trùng thuật ngữ Bài 06 | **sửa** | "giá trị băm" |
+| student | nhẹ | `s05-10` | "Bộ đệm băm" không khớp giả mã | **sửa** | "Các giá trị \(v_1,\ldots,v_n\) của một hàng" |
+| student | nhẹ | `s05-09` | hai dấu hai chấm | **sửa** | "ghi ô, tính hàm, kiểm ô, lấy min tốn một đơn vị mỗi lần" |
+| student | nhẹ | `s06-04` | câu 6 đòi biết vai trò Bài 06 | **sửa** | "xác định thừa số chữ ký không giảm được" |
+| student | nhẹ | `s06-05` | \(s\) chưa định nghĩa | **sửa** | "với \(s=\mathrm{SIM}(S,T)\)" |
+| student | nhẹ | `s01-03` | mục tiêu 5 khó đọc | **sửa** | "Tách chi phí thành số cặp nhân chi phí một cặp; chỉ ra thừa số chữ ký giảm được" |
+| student | nhẹ | `s01-11` | thuật ngữ dùng trước định nghĩa | **sửa một phần** | bỏ \(n\); giữ "tập mã shingle", "MinHash", "hoán vị đều" vì là bản đồ mở bài |
+| student | nhẹ | `s04-05` | cảnh báo KaTeX | **sửa** | như phát hiện math |
+| student | nhẹ | `s07-05` | \(f_4\) bị ngắt dòng | **sửa** | hai hàm thành khối `aligned` |
+| student | nhẹ | `s01-07, s03-04, s03-07, s05-01` | nhãn SVG nhỏ | **bác bỏ** | đọc được ở 1600×900 theo chính báo cáo; SVG ngoài phạm vi đợt này |
+| student | nhẹ | `storyboard` | số dòng thấp hơn hiển thị ở s01-05, s04-03, s05-10, s05-12 | **sửa** | bảng storyboard cập nhật; bốn trang vào danh sách ngoại lệ dòng (có bảng, ≤ 8 hàng hiển thị) |
+| student | nhẹ | `ghi chú` | (a) > 150 âm tiết; (b) dẫn chiếu vị trí; (c) câu siêu dữ liệu s04-05; (d) câu lặp mặt trang s03-07, s05-04 | **sửa (b)(c)(d); mở (a)** | (b) s04-02 "Ví dụ bốn tập đặc trưng", s01-08 "shingling xác định", s01-10, s01-11 "mạch tổng kết"; (c) chuyển vào đoạn Nguồn; (d) bỏ; (a) sau lượt sửa còn s01-04 165, s01-05 169, s01-07 205, s01-10 165, s04-03 159, s06-02 181, s06-05 168, do thêm câu kế thừa và câu nối theo yêu cầu, mức nhẹ |
+
+**Con số:** không đổi con số đã kiểm; số mới trên mặt trang chỉ là số đã có ở trang khác (\(2/3\) của \(S_1,S_4\); \(499\,999\,500\,000\) trên s01-10; \(10^6\cdot1.000\) byte trên s06-02).
+
+**Mật độ sau lượt sửa** (`python3 -I <scratchpad>/p05/m05.py`): không trang trần 60 nào vượt 60 (s01-10 56, s01-11 60, s02-05 60, s02-06 59, s02-07 59); trang trần 80: s06-02 77, s06-05 78, s01-03 70; không dòng nào quá 20 âm tiết ngoài câu luận đề (23) và dòng dẫn s05-00, s06-00 (≤ 23, trần 25); dòng từ khóa s06-00 19.
+
+**Kiểm:** `git diff --check` sạch. Chromium Playwright cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang: 1600×900 duyệt đủ 65 trang, 0 lỗi console, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không phần tử nào vượt khung; 390×844: không tràn ngang, 0 `.katex-error`. Đã tự xem ảnh 1600×900 của s01-10, s02-06, s06-02.

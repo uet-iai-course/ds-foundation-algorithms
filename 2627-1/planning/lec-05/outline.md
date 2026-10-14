@@ -18,6 +18,16 @@ Bài 05 theo bảng thứ tự đề xuất trong `sources/source.md`, ánh xạ
 
 48 trang phần giảng gồm cả mở đầu và kiểm tra, tổng 120 phút (từ 01/10/2026; trước đó 50 trang, trang 17 gộp vào 19 và trang 21 gộp vào 20); 7 trang bài tập cho 5 bài nguồn, tổng 60 phút; deck có 55 trang. Số trang cho phép giữ ví dụ, chứng minh và vết cập nhật ở cỡ chữ chung, không dùng trang trang trí. Không có phần cài môi trường hoặc notebook vì phạm vi nguồn không yêu cầu. Tăng tốc ở §§3.3.6–3.3.7 chỉ thuộc ghi chú đọc thêm, ngoài 120 phút.
 
+**Cập nhật 2026-10-14 (sửa toàn diện theo chuẩn trình bày).** Deck có 65 trang: 57 trang giảng (120 phút) và 8 trang bài tập (60 phút). Câu luận đề trên trang bìa: "Với hoán vị chọn đều, hai tập trùng MinHash với xác suất bằng Jaccard; chữ ký ngắn nhờ đó ước lượng được Jaccard." Trang "Mục tiêu học tập" (`lec05-s01-03`) hiển thị năm mục tiêu quan sát được, ánh xạ vào bảng trên như sau; mã MT chỉ dùng trong hồ sơ, không trên mặt trang hay trong ghi chú diễn giả.
+
+| Mục tiêu hiển thị | MT | Kiểm tra trực tiếp (mã trang) |
+|---|---|---|
+| 1. Tạo tập shingle của một chuỗi và tính Jaccard của hai tập | MT1, MT2 | `lec05-s01-09`, `lec05-s02-09`, `lec05-s07-01`, `lec05-s07-02` |
+| 2. Chứng minh hai tập trùng MinHash với xác suất bằng Jaccard | MT3 | `lec05-s03-09`, `lec05-s07-03`, `lec05-s07-04` |
+| 3. Ước lượng Jaccard từ chữ ký; tính kỳ vọng và phương sai của ước lượng | MT4 | `lec05-s04-07`, `lec05-s06-03`, `lec05-s06-04`, `lec05-s07-07` |
+| 4. Chạy phép quét hàng, nêu bất biến, đếm thời gian và bộ nhớ | MT5 | `lec05-s05-12`, `lec05-s07-05`, `lec05-s07-06` |
+| 5. Xác định thừa số chi phí chữ ký giảm được và thừa số còn bậc hai | MT5 (thu hồi) | `lec05-s06-04` câu 6 |
+
 ## 2. Phân tích học liệu và kiểm kê nguồn
 
 Quy ước trích dẫn: `B` là sách; số trang là trang in, trang PDF bằng trang in trừ 71. `MM`, `ST03`, `ST04`, `CM`, `UM` dùng số trang PDF. Các tệp tạm phục vụ kiểm chứng không phải học liệu phát hành.
@@ -99,6 +109,22 @@ Các nhận xét bố cục dựa trên ảnh đã xem trong hồ sơ đối chi
 
 Quy ước các hàng $a, b, c, d, e$ tương ứng mã $0,1,2,3,4$ được khai báo ở trang 37. Đây là đổi nhãn đã công khai; không viết ngầm $a=1$. Chữ ký lý tưởng lưu định danh; chữ ký thực hành lưu giá trị băm. Khi một hàm là song ánh, hai cách lưu cho cùng quan hệ bằng nhau nhưng không cùng giá trị số.
 
+**Thuật ngữ Việt–Anh (bổ sung 2026-10-14, thống nhất với Bài 06).** Thuật ngữ tiếng Anh đặt trong ngoặc ở lần xuất hiện đầu trên mặt trang.
+
+| Thuật ngữ | Tiếng Anh | Lần đầu trên mặt trang |
+|---|---|---|
+| độ tương đồng Jaccard | Jaccard similarity (tên riêng, giữ "Jaccard") | `lec05-s01-07` |
+| shingle | shingle (giữ tiếng Anh, chưa có bản dịch ổn định) | `lec05-s02-01` |
+| va chạm | collision | `lec05-s02-07` |
+| ma trận đặc trưng | characteristic matrix | `lec05-s03-02` |
+| hoán vị | permutation | `lec05-s03-04` |
+| chữ ký MinHash | MinHash signature | `lec05-s04-02` |
+| ma trận chữ ký | signature matrix | `lec05-s05-02` |
+| băm nhạy cảm theo tính cục bộ | locality-sensitive hashing, LSH | `lec05-s06-07` |
+| từ dừng | stop word | chỉ trong ghi chú bài giảng |
+
+Bảng ký hiệu trên không đổi trong đợt sửa 2026-10-14.
+
 ## 5. Mạch giảng và bản đồ bảy phần
 
 | Phần | Loại, sản phẩm và kết nối | Trang | Phút | Kiểm tra |
@@ -120,6 +146,20 @@ Mỗi phần tương ứng một `section` ngoài. Từ 14/10/2026, phần 2–7
 | MinHash | Tình huống/vấn đề 19; biểu diễn 20 (21 gộp vào 20); trực giác 22; ví dụ 23; hình thức 24; lập luận đúng 25–26; kiểm tra 27 | Cùng bốn tập Hình 3.2; thứ tự `b, e, a, d, c`. Chi phí lưu hoán vị chuyển 35 vì chỉ khi đó cần triển khai; 19 đã đặt giới hạn bộ nhớ |
 | Chữ ký | Nhu cầu nhiều phép thử sau 27; ví dụ 28; hình thức 29–30; chứng minh kỳ vọng/phương sai 31–32; chi phí 33; kiểm tra 34 | Hai thứ tự suy từ Ví dụ 3.8 dùng trước định nghĩa, quyết định riêng của root. Thuật toán tích lũy chữ ký thực hiện ở cụm kế; không bỏ ngầm |
 | Quét hàng | Tình huống/vấn đề/trực giác 35; đặc tả 36; ví dụ 37–40; thuật toán 41; đúng 42; chi phí 43–44; giới hạn 45; kiểm tra 46 | Đổi công khai a–e sang 0–4; giữ toàn bộ dữ kiện và vết min Hình 3.4. Đặc tả trước vết chạy đầy đủ vì MinHash và cực tiểu đã có trực giác tại 22–24 và 35 |
+
+**Bản đồ mạch sau sửa 2026-10-14.** Bảng trên giữ số phiếu cũ; bảng dưới là trạng thái hiện hành theo mã trang (thứ tự trang và phút từng trang ở `storyboard.md`, mục "Bản đồ mạch và quyết định sửa toàn diện 2026-10-14").
+
+| Mạch | Tên | Trang | Số trang | Phút |
+|---|---|---|---:|---:|
+| 1 | Tài liệu gần trùng và độ tương đồng Jaccard | s01-01, s01-10, s01-03, s01-02, s01-11, s01-04, s01-05, s01-07, s01-08, s01-09 | 10 | 19 |
+| 2 | Shingling văn bản | s02-00 … s02-07, s02-09 | 9 | 20 |
+| 3 | MinHash theo hoán vị | s03-00 … s03-02, s03-04 … s03-09 | 9 | 22 |
+| 4 | Chữ ký MinHash | s04-00 … s04-07 | 8 | 16,5 |
+| 5 | Tính chữ ký bằng hàm băm | s05-00 … s05-09, s05-13, s05-10 … s05-12 | 14 | 30,5 |
+| 6 | Tổng kết và tự kiểm tra | s06-00, s06-05, s06-06, s06-02, s06-03, s06-04, s06-07 | 7 | 12 |
+| 7 | Bài tập vận dụng | s07-00 … s07-07 | 8 | 60 |
+
+Ví dụ xuyên suốt được gọi bằng tên: "kho một triệu tài liệu" (mở ở s01-05, thu hồi ở s06-02; cùng tên với ví dụ mở đầu Bài 06) và "bốn tập đặc trưng" (Hình 3.2; s03-02 → s05-13, s07-05).
 
 Câu nối chính: Jaccard cần phần tử của tập; shingling tạo phần tử nhưng biểu diễn có thể lớn; MinHash cho một biến cố xác suất; nhiều thành phần tạo ước lượng; tính cực tiểu hiện thực hóa chữ ký; số cặp vẫn cần cơ chế ứng viên của Bài 06.
 
@@ -243,3 +283,20 @@ Lượt duyệt theo yêu cầu người dùng: với mỗi trang, xác định 
 - **Hình.** Thêm `ban-tin-dang-lai.svg` (trang 04, ví dụ dựng hai bản tin) và `bam-thay-hoan-vi.svg` (trang 35, $f_1$ tạo thứ tự $(e,a,b,c,d)$). Xóa `tai-lieu-gan-trung.svg` và `quy-mo-so-sanh-cap.svg`. `quet-ma-tran-thua.svg` chỉ còn dùng trong ghi chú tự học. Bộ hình hiện có tám SVG.
 - **Số liệu thu hồi.** Ví dụ 3.10 (tr. 92) cung cấp giả định một micro giây mỗi cặp và quy mô 1 GB cho $10^6$ chữ ký 1.000 byte; trang 05 dùng thời gian gần 6 ngày, trang 48 thu hồi bộ nhớ, độ lệch chuẩn và thời gian.
 - **Dữ kiện trên mặt trang.** Trang 10 (bảng cửa sổ `abcdabd`/`abcxabd`), 12, 20, 30 (hai tập và hai thứ tự), 44 ($n=250$) đưa dữ kiện lên trang thay cho dẫn chiếu bằng lời.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06. Tóm tắt quyết định (chi tiết ở `storyboard.md` và `review-log.md`, mục cùng tên):
+
+- **Mạch mở đầu** (8 → 10 trang): bìa có câu luận đề và dòng đơn vị; thêm "Tiên quyết và quy ước" (`lec05-s01-10`) và "Vấn đề trung tâm" (`lec05-s01-11`); "Mục tiêu học tập" đứng trước "Nội dung"; "Nội dung" có dòng "Đọc trước:"; s01-05 thành "Ví dụ: kho một triệu tài liệu".
+- **Mạch kết luận** (5 → 7 trang): thêm "Kết quả và giả thiết không được bỏ" (`lec05-s06-05`), "Thuật toán, bảo đảm và chi phí" (`lec05-s06-06`), "Nguồn và tài liệu đọc" (`lec05-s06-07`); s06-02 thành "Câu trả lời cho vấn đề trung tâm"; bỏ s06-01 "Quy trình biểu diễn tài liệu" (hình vẫn dùng trong ghi chú bài giảng); hai trang câu hỏi thành "Câu hỏi tự kiểm tra".
+- **Mạch 5** (13 → 14 trang): s05-09 tách bảng thay số sang `lec05-s05-13`.
+- **Mặt trang**: bỏ 52 dòng `p.ex-source` (ghi công mmds.org chuyển sang trang nguồn); bảy trang đề recitation giữ một dòng "Nguồn: MMDS, Bài …"; mỗi trang nhiều nhất một câu kết luận có nhãn; nhãn chỉ trong danh sách cho phép; tiêu đề có tiền tố "Ví dụ:", "Thuật toán:", "Tính đúng:", "Chi phí:", "Bài tập:" theo `AGENTS.md`.
+- **Ghi chú diễn giả**: bỏ bảy câu thời lượng của mạch 7; trang đề recitation có năng lực kiểm, "Gợi ý:", "Lời giải:"; bỏ câu lấy tài liệu làm chủ ngữ và dẫn chiếu "phần sau/Phần 2".
+- **Ký hiệu, dữ kiện, kết luận toán học**: không đổi. Hai số mới là tổng thay số ở s05-13: $8+10+20+18=56$ và $8+10+18=36$.
+
+### Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+- Bảng kết quả–giả thiết (s06-05): hàng "Tập mã shingle" nêu kết quả "SIM trên tập mã bằng SIM trên tập shingle" dưới giả thiết cùng quy ước khoảng trắng, mã không va chạm; cận \(|S_k(D)|\le w\) thuộc bảo đảm của thuật toán tạo tập shingle (s06-06).
+- Quy ước: hạng trong hoán vị đếm từ 1, vị trí ký tự và mã hàng đếm từ 0 (ghi tại s03-05, s03-06 và ghi chú s01-10). Ký hiệu Bài 01 \(J\), \(N\), \(C_i\) ứng với \(\mathrm{SIM}\), \(C\), \(S_i\) của bài này, nêu trên trang Tiên quyết và quy ước.
+- Trang vấn đề trung tâm và trang câu trả lời dùng danh sách không đánh số, sáu dòng theo thứ tự mạch, như Bài 06.
