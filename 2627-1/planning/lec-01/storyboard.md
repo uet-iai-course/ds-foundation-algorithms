@@ -2,8 +2,23 @@
 
 ## Trạng thái hiện hành
 
-ER-004 hoàn tất: D/E/F/R đã kiểm định và commit/push riêng lên origin/main. 71 trang, 7 phần; A23/B24/C31/D17/E9/F16 = 120 phút và R60 phút. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
+ER-004 hoàn tất: D/E/F/R đã kiểm định và commit/push riêng lên origin/main. 77 trang, 7 phần (thêm sáu trang tiêu đề mạch ngày 2026-10-14); A23/B24/C31/D17/E9/F16 = 120 phút và R60 phút; thời lượng trang tiêu đề mạch lấy từ trang đầu mạch. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
 
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và yêu cầu người dùng 2026-10-14. Mã `<tiền tố mạch>00` (L01-B00, …, L01-R00) đã thuộc các trang mở phần có nội dung, nên trang tiêu đề mạch dùng mã `<tiền tố mạch>T`, theo cách viết liền chữ cái và số của bài này. Các trang mở phần cũ giữ nguyên nội dung và đứng thứ hai trong mạch. Mỗi trang tiêu đề mạch ngoài chu trình khái niệm; thời lượng 0,5 phút lấy từ trang đầu mạch, tổng 120 + 60 phút không đổi.
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| L01-BT | Dòng dữ liệu, nén và truy vấn trên đĩa | Nêu nhu cầu của mạch và từ khóa; notes nối kết quả kế thừa với kết quả giao cho mạch sau | điểm vào mạch 2, `id="mach-2"`, trước L01-B00 | Bảy nhiệm vụ trên kho web của mạch 1 | Ba loại giới hạn: bộ nhớ trước dòng dữ liệu, dung lượng, khối đọc ghi | ngoài chu trình khái niệm; tên khác tiêu đề L01-B00 | 0,5 (từ L01-B00) | thêm |
+| L01-CT | Đặc tả và đánh giá thuật toán | Nêu nhu cầu của mạch và từ khóa; notes nối kết quả kế thừa với kết quả giao cho mạch sau | điểm vào mạch 3, `id="mach-3"`, trước L01-C00 | Giới hạn tài nguyên của mạch 1–2 | Bài toán mẫu tìm cặp gần trùng và khung đặc tả, tính đúng, chi phí | ngoài chu trình khái niệm; tên khác tiêu đề L01-C00 | 0,5 (từ L01-C00) | thêm |
+| L01-DT | Năm nhóm thuật toán của học phần | Nêu nhu cầu của mạch và từ khóa; notes nối kết quả kế thừa với kết quả giao cho mạch sau | điểm vào mạch 4, `id="mach-4"`, trước L01-D00 | Khung đánh giá của mạch 3 | Năm nhóm Bài 02–15 với nhu cầu và phương pháp đại diện | ngoài chu trình khái niệm; tên khác tiêu đề L01-D00 | 0,5 (từ L01-D00) | thêm |
+| L01-ET | Chuẩn bị và cách học | Nêu nhu cầu của mạch và từ khóa; notes nối kết quả kế thừa với kết quả giao cho mạch sau | điểm vào mạch 5, `id="mach-5"`, trước L01-E00 | Bản đồ năm nhóm của mạch 4 | Kiến thức nền cần ôn, sản phẩm học tập, trách nhiệm dữ liệu | ngoài chu trình khái niệm; tên khác tiêu đề L01-E00 | 0,5 (từ L01-E00) | thêm |
+| L01-FT | Mẫu trùng ngẫu nhiên và suy luận | Nêu nhu cầu của mạch và từ khóa; notes nối kết quả kế thừa với kết quả giao cho mạch sau | điểm vào mạch 6, `id="mach-6"`, trước L01-F00 | Trách nhiệm báo cáo có giả thiết của mạch 5 | Mô hình lưu trú $P,T,H,q$, kỳ vọng nền và giới hạn kết luận | ngoài chu trình khái niệm; tên khác tiêu đề L01-F00 | 0,5 (từ L01-F00) | thêm |
+| L01-RT | Bài tập vận dụng | Nêu nhu cầu của mạch và từ khóa; notes nối kết quả kế thừa với kết quả giao cho mạch sau | điểm vào mạch 7, `id="mach-7"`, trước L01-R00 | Mô hình lưu trú và kỳ vọng của mạch 6 | Hai bài MMDS 1.2.1–1.2.2 với bốn thành phần lời giải | ngoài chu trình khái niệm; tên khác tiêu đề L01-R00 | 0,5 (từ L01-R00) | thêm |
+
+L01-P01 "Nội dung buổi học": ba thẻ nhóm được thay bằng danh sách đánh số 1–7 trùng từng chữ với tên mạch (mạch 1 "Tổng hợp và tìm kiếm dữ liệu web" mở bằng trang bìa L01-P00); giữ ba mục tiêu "Sau buổi học"; notes viết lại thành một câu cho mỗi mạch. Quyết định: sửa. Ngoại lệ tạm thời về mật độ: mặt trang L01-P01 khoảng 89–95 âm tiết, vượt trần 80 vì trang gộp danh sách bảy mạch với ba mục tiêu; đợt này chỉ đánh số theo phạm vi đã giao, đợt sau tách mục tiêu sang trang riêng.
 
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
 
@@ -79,13 +94,13 @@ Bản ER-001: 45 trang giảng, 120 phút; sáu trang bài tập kể cả trang
 
 | Mạch | Kiến thức đầu vào | Vai trò và sản phẩm | Kết nối vào → ra |
 |---|---|---|---|
-| A | Tệp, bản ghi, liên kết web; véc-tơ được giải thích là dãy số | P00/P01 định vị buổi học; bảy nhiệm vụ phân biệt đầu vào, đầu ra và khó khăn | Mục tiêu học → thống kê kho web → sắp kết quả và tìm tương đồng → dòng yêu cầu |
-| B | Tệp, bản ghi, truy vấn cơ bản | Nhận diện trạng thái dòng, khôi phục và truy cập chọn lọc | Từ tìm kiếm kho tĩnh → danh mục giới hạn cần phân tích trong C |
-| C | Tập hợp, vòng lặp, độ phức tạp | Đặc tả cặp gần trùng; xét mọi cặp và đánh giá mười khía cạnh | Từ giới hạn của A/B → ngôn ngữ để đọc bản đồ học phần |
-| D | Khung đánh giá của C | Xác định năm mạch, tên phương pháp và lý do học | Từ nhu cầu → nội dung sẽ học → kiến thức phải chuẩn bị |
-| E | Bản đồ chương trình, nền tảng cá nhân | Tự nhận diện phần cần ôn; nêu sản phẩm và trách nhiệm học tập | Từ danh mục thuật toán → cách học và kiểm chứng kết luận |
-| F | Tổ hợp, xác suất độc lập, tuyến tính kỳ vọng | Phân biệt đúng theo mô hình với suy luận có căn cứ; áp lại khung chọn giải thuật | Từ trách nhiệm dữ liệu → bài tập kiểm tra mô hình |
-| R | F02–F03, gợi ý công thức và dữ kiện nguồn | Giải các biến thể và giải thích giới hạn của phép tìm mẫu trùng | Dùng mô hình đã có → sản phẩm có thể chấm |
+| A | Tệp, bản ghi, liên kết web; véc-tơ được giải thích là dãy số | P00 là trang tiêu đề mạch 1; P01 liệt kê đánh số bảy mạch và mục tiêu; bảy nhiệm vụ phân biệt đầu vào, đầu ra và khó khăn | Mục tiêu học → thống kê kho web → sắp kết quả và tìm tương đồng → dòng yêu cầu |
+| B (mở bằng L01-BT) | Tệp, bản ghi, truy vấn cơ bản | Nhận diện trạng thái dòng, khôi phục và truy cập chọn lọc | Từ tìm kiếm kho tĩnh → danh mục giới hạn cần phân tích trong C |
+| C (mở bằng L01-CT) | Tập hợp, vòng lặp, độ phức tạp | Đặc tả cặp gần trùng; xét mọi cặp và đánh giá mười khía cạnh | Từ giới hạn của A/B → ngôn ngữ để đọc bản đồ học phần |
+| D (mở bằng L01-DT) | Khung đánh giá của C | Xác định năm mạch, tên phương pháp và lý do học | Từ nhu cầu → nội dung sẽ học → kiến thức phải chuẩn bị |
+| E (mở bằng L01-ET) | Bản đồ chương trình, nền tảng cá nhân | Tự nhận diện phần cần ôn; nêu sản phẩm và trách nhiệm học tập | Từ danh mục thuật toán → cách học và kiểm chứng kết luận |
+| F (mở bằng L01-FT) | Tổ hợp, xác suất độc lập, tuyến tính kỳ vọng | Phân biệt đúng theo mô hình với suy luận có căn cứ; áp lại khung chọn giải thuật | Từ trách nhiệm dữ liệu → bài tập kiểm tra mô hình |
+| R (mở bằng L01-RT) | F02–F03, gợi ý công thức và dữ kiện nguồn | Giải các biến thể và giải thích giới hạn của phép tìm mẫu trùng | Dùng mô hình đã có → sản phẩm có thể chấm |
 
 Câu nối giữa các mạch được thể hiện cả trên trang mở phần và trong lời giảng:
 
@@ -103,7 +118,7 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | Mã trang | Tiêu đề trang chiếu | Luận điểm, hoạt động và sản phẩm | Nguồn/hình | Phút | Nối sang trang sau |
 |---|---|---|---|---:|---|
 | L01-P00 | Bài toán dữ liệu lớn và mô hình thuật toán | Nhận diện bài, học phần và học kỳ | source.md | 1 | Nội dung buổi học |
-| L01-P01 | Nội dung buổi học | Ứng dụng → phân tích thuật toán → nội dung và cách học; mục tiêu khái quát trước ví dụ | source.md | 2 | Nhiệm vụ thống kê kho web |
+| L01-P01 | Nội dung buổi học | Danh sách đánh số bảy mạch, trùng tên trang tiêu đề mạch; ba mục tiêu quan sát được (ngoại lệ tạm thời: vượt trần 80 âm tiết, tách ở đợt sau) | source.md | 2 | Nhiệm vụ thống kê kho web |
 | L01-A01 | Tính tổng kích thước trang web theo máy chủ | Bốn bản ghi → tổng 55/25/0; hình tệp vượt bộ nhớ; phân biệt kích thước trang và lưu lượng | V01; bảng HTML minh họa đầu ra | 3 | Kho có thể chia trên nhiều máy |
 | L01-A02 | Đếm số lần xuất hiện của từng từ | Cùng từ ở nhiều phần kho → tổng toàn kho; gom dữ liệu qua mạng gây nút thắt, lỗi máy cần tránh đếm trùng | V02 | 3 | Kho tìm kiếm còn cần sắp kết quả |
 | L01-A03 | Tính điểm quan trọng của trang web | Trang và liên kết → điểm hỗ trợ sắp kết quả; phụ thuộc điểm buộc đọc/cập nhật nhiều vòng | V03 | 3 | Điểm chung chưa phân biệt chủ đề |
@@ -111,7 +126,8 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-A05 | Hạn chế liên kết rác trong xếp hạng | Cụm cùng bên kiểm soát đẩy điểm t; cần hạn chế ảnh hưởng lên kết quả | V05 | 3 | Kết quả tìm kiếm còn có bản sao |
 | L01-A06 | Tìm các cặp tài liệu gần trùng | Nội dung chung và phần sửa; một triệu tài liệu sinh $499\,999\,500\,000$ cặp cần xét nếu so tất cả | V06 | 3 | Đổi từ mọi cặp sang một truy vấn |
 | L01-A07 | Tìm đoạn tài liệu bằng véc-tơ truy vấn | Truy vấn và đoạn tài liệu mã hóa cùng cách → k đoạn gần theo khoảng cách; mỗi truy vấn quét lại kho lớn | V07 | 2 | Truy vấn đến nối tiếp tạo dòng |
-| L01-B00 | Xử lý dòng dữ liệu, lưu trữ và truy vấn | Giới thiệu ba nhóm: dòng, nén, xử lý và truy vấn trên đĩa; mỗi nhóm gắn đầu ra và giới hạn | V07–V09; MMDS4.1 | 1 | Dòng truy vấn và dòng thư có nhiệm vụ khác nhau |
+| L01-BT | Dòng dữ liệu, nén và truy vấn trên đĩa | Trang tiêu đề mạch 2: tên mạch, dòng dẫn nêu nhu cầu, từ khóa; notes nêu kết quả kế thừa, nhiệm vụ và kết quả giao | AGENTS.md "Trang tiêu đề mạch" | 0,5 | Xử lý dòng dữ liệu, lưu trữ và truy vấn |
+| L01-B00 | Xử lý dòng dữ liệu, lưu trữ và truy vấn | Giới thiệu ba nhóm: dòng, nén, xử lý và truy vấn trên đĩa; mỗi nhóm gắn đầu ra và giới hạn | V07–V09; MMDS4.1 | 0,5 | Dòng truy vấn và dòng thư có nhiệm vụ khác nhau |
 | L01-B01 | Giữ mẫu truy vấn và lọc thư đến | Lưu hết lịch sử tốn bộ nhớ. Tra danh sách lớn trên đĩa cho từng thư làm tăng thời gian xử lý. | V08 | 3 | Đếm người dùng và lượt truy cập |
 | L01-B02 | Đếm người dùng và lượt truy cập gần đây | Đếm người dùng cần nhận ra lần quay lại. Thống kê gần đây phải bỏ ảnh hưởng của bản ghi hết hạn mà vẫn cập nhật kịp. | V09 | 3 | Dữ liệu cần giữ lại còn chiếm dung lượng |
 | L01-B10 | Nén dữ liệu để lưu và khôi phục | Một số đếm không khôi phục dữ liệu; nén văn bản và ảnh có yêu cầu khác nhau | V09–V11; MMDS4; Nelson–Gailly3,11 | 1 | Nén văn bản khôi phục nguyên vẹn |
@@ -123,7 +139,8 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-B07 | Tìm tài liệu chứa đồng thời hai từ khóa | Đọc từng tài liệu cho mỗi truy vấn lặp lại công việc trên cả kho. Cần tìm được nơi xuất hiện của từng từ mà không quét lại hết. | V14 | 2 | Vùng không gian không phải danh sách từ |
 | L01-B08 | Tìm đối tượng giao vùng trên bản đồ | Kiểm mọi hình trên bản đồ tốn công. Lọc theo hộp bao giảm ứng viên, nhưng hộp bao giao vùng chưa đủ kết luận về hình thật. | V15 | 2 | Truy vấn cũng có thể kết hợp hai bảng |
 | L01-B09 | Ghép sinh viên với các môn đã đăng ký | Hai bảng chiếm 100 và 400 khối; bộ nhớ chỉ có 20 khối. Quét bảng đăng ký lại cho từng sinh viên sẽ đọc cùng dữ liệu nhiều lần. | V16 | 2 | Gom các giới hạn thành khung phân tích |
-| L01-C00 | Phân tích thuật toán xử lý dữ liệu lớn | Phân biệt đặc tả và đánh giá; gọi đúng bài toán dùng xuyên suốt | MMDS3 tr.73–75; BHK1 | 1 | Tìm cặp gần trùng trên kho web |
+| L01-CT | Đặc tả và đánh giá thuật toán | Trang tiêu đề mạch 3: tên mạch, dòng dẫn nêu nhu cầu, từ khóa; notes nêu kết quả kế thừa, nhiệm vụ và kết quả giao | AGENTS.md "Trang tiêu đề mạch" | 0,5 | Phân tích thuật toán xử lý dữ liệu lớn |
+| L01-C00 | Phân tích thuật toán xử lý dữ liệu lớn | Phân biệt đặc tả và đánh giá; gọi đúng bài toán dùng xuyên suốt | MMDS3 tr.73–75; BHK1 | 0,5 | Tìm cặp gần trùng trên kho web |
 | L01-C01 | Bài toán tìm cặp tài liệu gần trùng | Phân biệt bản sao khác tên máy chủ/liên kết với giống hệt từng ký tự; độ đo/ngưỡng chốt đầu ra | V06; MMDS3.1.2; Stanford03-lsh14 | 2 | Biểu diễn để tính tương đồng |
 | L01-C02 | Độ tương đồng của hai tài liệu | Tập đoạn ký tự; giao3/hợp8; kết luận đạt ngưỡng khi τ≤3/8 | MMDS Ví dụ3.1/Hình3.1; H20 | 2 | Đặc tả toàn bộ tập kết quả |
 | L01-C03 | Đặc tả tìm cặp gần trùng | Miền hữu hạn, tập không rỗng, ngưỡng; đúng/đủ/mỗi cặp một lần, biên N<2 | MMDS3.1–3.4 | 3 | Thuật toán thực hiện đặc tả |
@@ -140,7 +157,8 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-C14 | Dung lượng lưu trữ | Mã văn bản và thông tin giải mã cần lưu; khôi phục đúng, khác RAM | Nelson–Gailly3,8–9,11; H28 | 1 | Khi cho phép gần đúng cần đo chất lượng |
 | L01-C15 | Chất lượng kết quả gần đúng | Hai tập5phần tử giao3; recall@5=3/5; chuẩn đúng, phá hòa và điều kiện đo | Bài07 mục1; H29 | 2 | Bỏ sót cặp tài liệu cũng không sửa bằng hậu kiểm |
 | L01-C16 | Giảm ứng viên và nguy cơ bỏ sót | Ứng viên→kiểm chính xác; trả đúng từng cặp chưa bảo đảm đủ; câu kiểm tra | MMDS3.4; H30 | 2 | Yêu cầu xác định nhóm phương pháp D |
-| L01-D00 | Nội dung học phần và các nhóm thuật toán | Nhu cầu đã phân tích → chương trình và năng lực; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | chương trình và năng lực |
+| L01-DT | Năm nhóm thuật toán của học phần | Trang tiêu đề mạch 4: tên mạch, dòng dẫn nêu nhu cầu, từ khóa; notes nêu kết quả kế thừa, nhiệm vụ và kết quả giao | AGENTS.md "Trang tiêu đề mạch" | 0,5 | Nội dung học phần và các nhóm thuật toán |
+| L01-D00 | Nội dung học phần và các nhóm thuật toán | Nhu cầu đã phân tích → chương trình và năng lực; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 0,5 | chương trình và năng lực |
 | L01-D01 | Học phần và năng lực cần đạt | Bốn năng lực → năm nhóm bài; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | năm nhóm bài |
 | L01-D02 | Năm nhóm bài của học phần | Bản đồ → đếm từ phân tán; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 1 | đếm từ phân tán |
 | L01-D03 | MapReduce: gom kết quả theo khóa | Gom một lượt → tính lặp trên đồ thị; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | tính lặp trên đồ thị |
@@ -151,13 +169,15 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-D10 | Cấu trúc gọn cho thống kê dòng | Tóm tắt truy vấn → khôi phục dữ liệu; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | khôi phục dữ liệu |
 | L01-D06 | Nén theo ký hiệu, mẫu lặp và ảnh | Dung lượng mã → truy cập dữ liệu đã lưu; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | truy cập dữ liệu đã lưu |
 | L01-D07 | Tổ chức dữ liệu để giảm đọc ghi | Các phương pháp → kiến thức và cách học; ý tưởng và ví dụ đã gặp, không giảng trước cơ chế đầy đủ | Đề cương; nguồn cụ thể trong notes; SVG cùng bài | 2 | kiến thức và cách học |
-| L01-E00 | Kiến thức, kỹ năng và cách học | Xác định ba nội dung chuẩn bị: kiến thức, kỹ năng và cách học | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | nền cần ôn |
+| L01-ET | Chuẩn bị và cách học | Trang tiêu đề mạch 5: tên mạch, dòng dẫn nêu nhu cầu, từ khóa; notes nêu kết quả kế thừa, nhiệm vụ và kết quả giao | AGENTS.md "Trang tiêu đề mạch" | 0,5 | Kiến thức, kỹ năng và cách học |
+| L01-E00 | Kiến thức, kỹ năng và cách học | Xác định ba nội dung chuẩn bị: kiến thức, kỹ năng và cách học | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 0,5 | nền cần ôn |
 | L01-E01 | Kiến thức nền dùng ở từng nhóm bài | Gắn mỗi phần kiến thức nền với một công việc trong nhóm bài | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | vận dụng tập hợp |
 | L01-E05 | Tập hợp, Jaccard và điều kiện chọn | Tính giao/hợp và giải điều kiện ngưỡng của cặp Jaccard3/8 | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | sản phẩm thuật toán |
 | L01-E02 | Sản phẩm khi phân tích thuật toán | Phân biệt đặc tả, vết chạy, chứng minh và kiểm thử | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | đo kết quả |
 | L01-E06 | Báo cáo chất lượng và hiệu năng | Đọc độ thu hồi3/5 và nêu điều kiện so hiệu năng | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 1 | báo cáo có trách nhiệm |
 | L01-E03 | Tự học, hợp tác và trách nhiệm dữ liệu | Nêu hành vi tự học/hợp tác và giới hạn suy luận từ độ tương đồng | CLO1–CLO4; MMDS Ví dụ3.1; Bài07 | 2 | mô hình ngẫu nhiên và suy luận |
-| L01-F00 | Mô hình ngẫu nhiên và giới hạn suy luận | Trách nhiệm dữ liệu → bài toán lưu trú; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | bài toán lưu trú |
+| L01-FT | Mẫu trùng ngẫu nhiên và suy luận | Trang tiêu đề mạch 6: tên mạch, dòng dẫn nêu nhu cầu, từ khóa; notes nêu kết quả kế thừa, nhiệm vụ và kết quả giao | AGENTS.md "Trang tiêu đề mạch" | 0,5 | Mô hình ngẫu nhiên và giới hạn suy luận |
+| L01-F00 | Mô hình ngẫu nhiên và giới hạn suy luận | Trách nhiệm dữ liệu → bài toán lưu trú; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 0,5 | bài toán lưu trú |
 | L01-F01 | Tìm mẫu trùng trong hồ sơ lưu trú | Mẫu trùng → cách dữ liệu phát sinh; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | cách dữ liệu phát sinh |
 | L01-F02 | Mô hình lưu trú không phối hợp | Giả thiết → xác suất một và hai ngày; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 2 | xác suất một và hai ngày |
 | L01-F05 | Xác suất trùng một ngày và hai ngày | Xác suất một phép thử → số phép thử; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 2 | số phép thử |
@@ -166,7 +186,8 @@ Mã V trỏ tới danh mục hình bên dưới, đồng thời cung cấp ngu�
 | L01-F07 | Mẫu trùng và căn cứ suy luận | Giới hạn suy luận → thu hồi bài toán gần trùng; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 3 | thu hồi bài toán gần trùng |
 | L01-F04 | Đặc tả, chi phí và giới hạn kết luận | Khung toàn bài → chuẩn bị MapReduce; giải thích và tính theo mô hình nguồn | MMDS1.2.1–1.2.3 tr.6–8; hình lưu trú | 1 | chuẩn bị MapReduce |
 | L01-E04 | Chuẩn bị cho Bài 02: MapReduce | Chuẩn bị bài sau → bài tập mô hình lưu trú; giải thích và tính theo mô hình nguồn | MMDS2.2; hình đếm từ | 1 | bài tập mô hình lưu trú |
-| L01-R00 | Bài tập về phép đếm và suy luận | Nhận diện hai bài tập và bốn thành phần của lời giải | MMDS1.2.4 tr.8 | 3 | hai bài tập nguồn |
+| L01-RT | Bài tập vận dụng | Trang tiêu đề mạch 7: tên mạch, dòng dẫn nêu nhu cầu, từ khóa; notes nêu kết quả kế thừa, nhiệm vụ và kết quả giao | AGENTS.md "Trang tiêu đề mạch" | 0,5 | Bài tập về phép đếm và suy luận |
+| L01-R00 | Bài tập về phép đếm và suy luận | Nhận diện hai bài tập và bốn thành phần của lời giải | MMDS1.2.4 tr.8 | 2,5 | hai bài tập nguồn |
 | L01-R01 | Ba biến thể của bài toán lưu trú | Lập bảng tham số thay đổi riêng cho từng biến thể | MMDS Bài1.2.1(a–c) tr.8 | 7 | thay riêng từng điều kiện |
 | L01-R02 | Ảnh hưởng của số ngày và số người | Tính kỳ vọng và tỷ lệ thay đổi ở hai biến thể quy mô | MMDS Bài 1.2.1(a,b), tr. 8 | 15 | thay tiêu chuẩn trùng |
 | L01-R03 | Mẫu lưu trú trùng trong ba ngày | Đổi đơn vị đếm sang bộ ba ngày và tính kỳ vọng | MMDS Bài 1.2.1(c), tr. 8; mô hình 1.2.3, tr. 7 | 10 | cặp lượt mua |

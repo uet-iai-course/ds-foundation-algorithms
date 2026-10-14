@@ -50,14 +50,10 @@
     </section>
     <section data-slide-id="L01-P01">
       <h2>Nội dung buổi học</h2>
-      <div class="grid3">
-        <div class="card"><h3>Bài toán dữ liệu lớn</h3><p>Dữ liệu cần xử lý, kết quả cần trả và giới hạn tài nguyên.</p></div>
-        <div class="card"><h3>Phân tích thuật toán</h3><p>Đặc tả bài toán, tính đúng và chi phí của lời giải.</p></div>
-        <div class="card"><h3>Nội dung và cách học</h3><p>Các nhóm phương pháp; kiến thức, kỹ năng cần chuẩn bị.</p></div>
-      </div>
+      <div class="grid2"><ol><li>Tổng hợp và tìm kiếm dữ liệu web</li><li>Dòng dữ liệu, nén và truy vấn trên đĩa</li><li>Đặc tả và đánh giá thuật toán</li><li>Năm nhóm thuật toán của học phần</li></ol><ol start="5"><li>Chuẩn bị và cách học</li><li>Mẫu trùng ngẫu nhiên và suy luận</li><li>Bài tập vận dụng</li></ol></div>
       <p>Sau buổi học:</p>
       <ul><li>Nêu được đầu vào, đầu ra và trở ngại của một bài toán.</li><li>Giải thích được tính đúng và điều kiện chi phí của một thuật toán.</li><li>Phân biệt kết quả tính toán với kết luận rút ra về dữ liệu.</li></ul>
-      <aside class="notes">Phần đầu khảo sát các công việc tổng hợp và tìm kiếm trên kho web. Các giới hạn gặp ở đó được dùng để phân tích một thuật toán cụ thể, rồi xác định vai trò của các phương pháp trong học phần. Phần cuối xét các giả thiết cần có khi suy luận từ kết quả tính toán. Nguồn: mục tiêu Bài 01 và chuẩn đầu ra học phần; MMDS mục 1.2.</aside>
+      <aside class="notes">Tổng hợp và tìm kiếm trên kho web cho bảy bài toán với đầu vào, đầu ra và trở ngại riêng. Dòng dữ liệu, nén và truy vấn trên đĩa thêm giới hạn về bộ nhớ, dung lượng và số lần đọc ghi. Đặc tả và đánh giá thuật toán gom các giới hạn ấy thành khung phân tích trên bài toán tìm cặp gần trùng. Năm nhóm thuật toán của học phần được đọc bằng khung này. Chuẩn bị và cách học nối mỗi nhóm với kiến thức nền và sản phẩm học tập. Mẫu trùng ngẫu nhiên và suy luận xét giả thiết cần có trước khi kết luận từ kết quả tính toán; bài tập vận dụng kiểm lại mô hình đó. Nguồn: mục tiêu Bài 01 và chuẩn đầu ra học phần; MMDS mục 1.2.</aside>
     </section>
     <section data-slide-id="L01-A01">
       <h2>Tính tổng kích thước trang web theo máy chủ</h2>
@@ -114,6 +110,14 @@
   </section>
 
   <section>
+    <section id="mach-2" data-slide-id="L01-BT" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">2.</span>Dòng dữ liệu, nén và truy vấn trên đĩa</h2>
+        <p class="strand-lead">Muốn tiếp nhận, lưu và khai thác dữ liệu lớn, phải tính đến bộ nhớ hữu hạn và chi phí đọc đĩa.</p>
+        <p class="strand-keys">Dòng dữ liệu · Nén văn bản và ảnh · Sắp xếp tệp lớn · Chỉ mục · Nối bảng</p>
+      </div>
+      <aside class="notes">Bảy nhiệm vụ trên kho web đã cho đầu vào, đầu ra và trở ngại của tổng hợp, xếp hạng và tìm tương đồng. Nhật ký truy vấn, thư đến, văn bản, ảnh và bảng trên đĩa thêm ba loại giới hạn: bộ nhớ hữu hạn trước dữ liệu đến liên tục, dung lượng khi lưu, số khối đọc ghi khi truy vấn. Danh sách giới hạn này là đầu vào của khung đặc tả và đánh giá ở phần sau.</aside>
+    </section>
     <section data-slide-id="L01-B00">
       <h2>Xử lý dòng dữ liệu, lưu trữ và truy vấn</h2>
       <p>Ngoài tìm kiếm và xếp hạng, hệ thống dữ liệu còn phải tiếp nhận, lưu lại và khai thác dữ liệu.</p>
@@ -210,6 +214,14 @@
   </section>
 
   <section>
+    <section id="mach-3" data-slide-id="L01-CT" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">3.</span>Đặc tả và đánh giá thuật toán</h2>
+        <p class="strand-lead">Muốn chọn lời giải cho bài toán tìm cặp gần trùng, phải đặc tả đầu ra rồi xét tính đúng và chi phí.</p>
+        <p class="strand-keys">Độ tương đồng Jaccard · Đặc tả · Xét mọi cặp · Tính đúng · Tiêu chí chi phí</p>
+      </div>
+      <aside class="notes">Các tình huống ở hai phần trước khác nhau về đầu ra và giới hạn tài nguyên. Tìm cặp tài liệu gần trùng là bài toán mẫu: đặc tả bằng độ tương đồng Jaccard và ngưỡng, giải bằng thuật toán xét mọi cặp, chứng minh tính đúng, rồi đánh giá khối lượng tính, bộ nhớ, đọc ghi, truyền mạng, độ trễ, chỉ mục, cập nhật và chất lượng gần đúng. Khung đặc tả và đánh giá này được dùng để đọc bản đồ học phần.</aside>
+    </section>
     <section data-slide-id="L01-C00">
       <h2>Phân tích thuật toán xử lý dữ liệu lớn</h2>
       <p>Các bài toán vừa gặp khác nhau về đầu ra và giới hạn tài nguyên.<br/>Phân tích một lời giải gồm hai việc:</p>
@@ -340,6 +352,14 @@ cho i = 1,...,N−1:
   </section>
 
   <section>
+    <section id="mach-4" data-slide-id="L01-DT" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">4.</span>Năm nhóm thuật toán của học phần</h2>
+        <p class="strand-lead">Muốn biết mỗi bài sau giải nhu cầu nào, phải đối chiếu phương pháp với các bài toán đã gặp.</p>
+        <p class="strand-keys">Phân tán và xếp hạng · Tương đồng và tìm gần · Dòng và cửa sổ · Nén và khôi phục · Lưu trữ và truy vấn</p>
+      </div>
+      <aside class="notes">Khung đánh giá đã nêu các thuộc tính phải xét ở một lời giải: tính đúng, sai số và tài nguyên. Phần này xếp Bài 02–15 thành năm nhóm và nêu ý tưởng của phương pháp đại diện qua các bài toán đã gặp: gom theo khóa, tính điểm theo liên kết, chọn cặp cần đối chiếu, chỉ mục véc-tơ, lấy mẫu và thống kê dòng, nén, tổ chức dữ liệu để giảm đọc ghi. Mỗi nhóm cần một phần kiến thức nền riêng.</aside>
+    </section>
     <section data-slide-id="L01-D00">
       <h2>Nội dung học phần và các nhóm thuật toán</h2>
 <p>Học phần xây dựng lời giải cho các bài toán đã gặp, từ kho phân tán đến truy vấn trên đĩa.</p><table class="trace"><thead><tr><th>Nội dung phần này</th><th>Kết quả cần nắm</th></tr></thead><tbody><tr><td>Năm nhóm bài 02–15</td><td>Mỗi nhóm giải quyết nhu cầu nào</td></tr><tr><td>Các phương pháp đại diện</td><td>Ý tưởng xử lý và đầu ra cần giữ</td></tr><tr><td>Các thuộc tính phải đánh giá</td><td>Tính đúng, sai số và tài nguyên</td></tr></tbody></table>
@@ -398,6 +418,14 @@ cho i = 1,...,N−1:
   </section>
 
   <section>
+    <section id="mach-5" data-slide-id="L01-ET" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">5.</span>Chuẩn bị và cách học</h2>
+        <p class="strand-lead">Muốn học các nhóm thuật toán, phải biết phần kiến thức nền cần ôn và sản phẩm chứng tỏ đã hiểu.</p>
+        <p class="strand-keys">Kiến thức nền · Tập hợp và Jaccard · Sản phẩm phân tích · Báo cáo · Trách nhiệm dữ liệu</p>
+      </div>
+      <aside class="notes">Bản đồ năm nhóm đã nêu phương pháp sẽ học và nhu cầu mà mỗi phương pháp giải quyết. Phần này nối từng nhóm với kiến thức nền cần ôn, vận dụng tập hợp và Jaccard trên ví dụ cặp gần trùng, rồi nêu sản phẩm khi phân tích thuật toán, cách báo cáo chất lượng và hiệu năng, trách nhiệm khi dùng dữ liệu. Yêu cầu báo cáo có giả thiết dẫn tới giới hạn của kết luận rút ra từ kết quả tính toán.</aside>
+    </section>
     <section data-slide-id="L01-E00">
       <h2>Kiến thức, kỹ năng và cách học</h2>
 <p>Mỗi nhóm thuật toán dùng một phần kiến thức nền và tạo ra những sản phẩm học tập cụ thể.</p><div class="grid3"><div class="card"><h3>Kiến thức</h3><p>Lập trình, cấu trúc dữ liệu và phần toán cần ôn theo bài.</p></div><div class="card"><h3>Kỹ năng</h3><p>Đặc tả, chạy tay, lập luận, triển khai và đo kết quả.</p></div><div class="card"><h3>Cách học</h3><p>Tự kiểm, ghi nguồn, hợp tác và báo cáo có căn cứ.</p></div></div>
@@ -431,6 +459,14 @@ cho i = 1,...,N−1:
   </section>
 
   <section>
+    <section id="mach-6" data-slide-id="L01-FT" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">6.</span>Mẫu trùng ngẫu nhiên và suy luận</h2>
+        <p class="strand-lead">Muốn dùng mẫu trùng tìm được làm căn cứ, phải ước lượng số trùng ngẫu nhiên theo mô hình nền.</p>
+        <p class="strand-keys">Hồ sơ lưu trú · Mô hình độc lập · Đơn vị đếm · Kỳ vọng · Giới hạn kết luận</p>
+      </div>
+      <aside class="notes">Trách nhiệm dữ liệu đòi hỏi nêu giả thiết khi diễn giải kết quả. Bài toán hồ sơ lưu trú của MMDS mục 1.2 được dùng để dựng mô hình lưu trú độc lập, tính xác suất trùng một ngày và hai ngày, chọn đơn vị đếm, tính kỳ vọng số biến cố trùng, rồi phân biệt mẫu tìm được với căn cứ về hoạt động phối hợp. Các tham số $P,T,H,q$ và cách đếm được dùng lại ở phần bài tập; trang cuối nối sang MapReduce.</aside>
+    </section>
     <section data-slide-id="L01-F00">
       <h2>Mô hình ngẫu nhiên và giới hạn suy luận</h2>
 <p>Mẫu trùng trong hồ sơ có thể xuất hiện ngẫu nhiên. Cần ước lượng số trùng theo mô hình nền trước khi dùng kết quả tìm kiếm để suy luận.</p><div class="grid3"><div class="card"><h3>Bài toán và mô hình</h3><p>Tìm mẫu trùng trong hồ sơ lưu trú; giả sử mọi người chọn độc lập.</p></div><div class="card"><h3>Xác suất và kỳ vọng</h3><p>Tính xác suất một mẫu, rồi số trùng trung bình trên mọi phép so sánh.</p></div><div class="card"><h3>Giới hạn kết luận</h3><p>Phân biệt mẫu tìm được với căn cứ về hoạt động phối hợp.</p></div></div>
@@ -479,6 +515,14 @@ cho i = 1,...,N−1:
   </section>
 
   <section class="recitation">
+    <section id="mach-7" data-slide-id="L01-RT" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
+        <p class="strand-lead">Muốn kiểm mô hình lưu trú, phải đổi quy mô, tiêu chuẩn trùng và đơn vị đếm rồi tính lại kỳ vọng.</p>
+        <p class="strand-keys">Bài 1.2.1 · Bài 1.2.2 · Số phép thử · Kỳ vọng · Kết luận có điều kiện</p>
+      </div>
+      <aside class="notes">Mô hình lưu trú với $P,T,H,q$ và phép tính kỳ vọng đã có từ phần trước. Hai bài của MMDS mục 1.2.4 kiểm lại mô hình: Bài 1.2.1 đổi số ngày, số người, số khách sạn và tiêu chuẩn trùng; Bài 1.2.2 chuyển sang tập mặt hàng của hai lượt mua. Mỗi lời giải gồm số phép thử, xác suất một phép thử, kỳ vọng và kết luận kèm giả thiết.</aside>
+    </section>
     <section data-slide-id="L01-R00">
       <h2>Bài tập về phép đếm và suy luận</h2>
 <p>Hai bài tập từ MMDS dùng mô hình ngẫu nhiên để đánh giá số mẫu trùng trong dữ liệu.</p><table class="trace"><thead><tr><th>Bài tập</th><th>Mạch giải quyết</th></tr></thead><tbody><tr><td>1.2.1 · Hồ sơ lưu trú</td><td>Dựng mô hình gốc → thay quy mô → đổi sang ba ngày</td></tr><tr><td>1.2.2 · Tập mặt hàng</td><td>Đổi đơn vị đếm → tính trùng ngẫu nhiên → giới hạn kết luận</td></tr></tbody></table><p>Sản phẩm: số phép thử, xác suất, kỳ vọng và kết luận kèm giả thiết.</p><p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, mục 1.2.4, trang 8.</p>

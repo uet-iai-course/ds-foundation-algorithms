@@ -133,6 +133,20 @@ Mục tiêu 1–4 thực hiện sản phẩm Bài 01 trong nguồn cấp học p
 
 R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả trang chuyển phần không tính thời lượng. Tổng 60 trang, bảy phần ngoài. Hai mạch A–B giữ 16 tình huống ngắn, mỗi tình huống làm rõ dữ liệu → kết quả → giới hạn. Cơ chế chi tiết của các thuật toán chuyên biệt thuộc Bài 02–15.
 
+### Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Tên trên trang "Nội dung buổi học" (L01-P01) và trên trang tiêu đề mạch trùng từng chữ. Mạch 1 mở bằng trang bìa L01-P00; các mạch khác mở bằng trang `class="strand-title"` có `id="mach-N"`.
+
+| N | Nhãn nội bộ | Tên mạch | Trang tiêu đề mạch |
+|---:|---|---|---|
+| 1 | A | Tổng hợp và tìm kiếm dữ liệu web | L01-P00 (trang bìa) |
+| 2 | B | Dòng dữ liệu, nén và truy vấn trên đĩa | L01-BT |
+| 3 | C | Đặc tả và đánh giá thuật toán | L01-CT |
+| 4 | D | Năm nhóm thuật toán của học phần | L01-DT |
+| 5 | E | Chuẩn bị và cách học | L01-ET |
+| 6 | F | Mẫu trùng ngẫu nhiên và suy luận | L01-FT |
+| 7 | R | Bài tập vận dụng | L01-RT |
+
 ## Bản đồ nguồn từ Bài 02–15
 
 Các ví dụ V01–V18 và hình tương ứng được đặc tả trong storyboard. Bảng sau là danh mục nội dung để soạn; không đưa nguyên bảng 14 hàng lên một trang chiếu.

@@ -1,5 +1,33 @@
 # Nhật ký rà soát Bài 1
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 1 gồm Bài 01–05; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | L01-BT | Dòng dữ liệu, nén và truy vấn trên đĩa | Muốn tiếp nhận, lưu và khai thác dữ liệu lớn, phải tính đến bộ nhớ hữu hạn và chi phí đọc đĩa. |
+| 3 | L01-CT | Đặc tả và đánh giá thuật toán | Muốn chọn lời giải cho bài toán tìm cặp gần trùng, phải đặc tả đầu ra rồi xét tính đúng và chi phí. |
+| 4 | L01-DT | Năm nhóm thuật toán của học phần | Muốn biết mỗi bài sau giải nhu cầu nào, phải đối chiếu phương pháp với các bài toán đã gặp. |
+| 5 | L01-ET | Chuẩn bị và cách học | Muốn học các nhóm thuật toán, phải biết phần kiến thức nền cần ôn và sản phẩm chứng tỏ đã hiểu. |
+| 6 | L01-FT | Mẫu trùng ngẫu nhiên và suy luận | Muốn dùng mẫu trùng tìm được làm căn cứ, phải ước lượng số trùng ngẫu nhiên theo mô hình nền. |
+| 7 | L01-RT | Bài tập vận dụng | Muốn kiểm mô hình lưu trú, phải đổi quy mô, tiêu chuẩn trùng và đơn vị đếm rồi tính lại kỳ vọng. |
+
+Mã `-00` không dùng được vì L01-B00 … L01-R00 đã là các trang mở phần có nội dung (thẻ, bảng); các trang này không phải trang một dòng "A. Tên phần" nên được giữ nguyên và đứng thứ hai trong mạch. Mã mới viết `L01-<chữ>T` theo cách viết liền của bài. Dòng dẫn 20–23 âm tiết; từ khóa đúng năm cụm; ghi chú diễn giả 71–87 âm tiết, nêu kết quả kế thừa, nhiệm vụ và kết quả giao, viết từ nội dung các trang trong mạch. Số trang: 71 → 77.
+
+Trang Nội dung: L01-P01 "Nội dung buổi học" đã có nhưng là ba thẻ nhóm không khớp các mạch; ba thẻ được thay bằng danh sách đánh số 1–7 (hai cột `ol`, `ol start="5"`), tên trùng từng chữ với tên mạch, mạch 1 là "Tổng hợp và tìm kiếm dữ liệu web". Trang gộp mục tiêu và nội dung, mặt trang khoảng 95 âm tiết, vượt trần 80; theo phạm vi đợt này chỉ đánh số danh sách, chưa tách. Notes viết lại thành một câu cho mỗi mạch, nêu quan hệ suy luận. Không đổi tiêu đề trang.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (trang Tiên quyết và quy ước, trang Vấn đề trung tâm, câu luận đề trên trang bìa); tách trang L01-P01 về trần 80 âm tiết; chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết, câu hỏi tự kiểm tra, nguồn và tài liệu đọc). Bài 01 còn khối `<style>` riêng và không mang lớp `.course-deck`; đây là sai lệch có từ trước, ngoài phạm vi đợt này. Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 84/84; 77 `data-slide-id` và 6 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch 2–7 (`id`, số thứ tự khớp); khối tiêu đề nằm trong khung (đáy lớn nhất 716 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; danh sách trang Nội dung đọc ra đúng bảy tên mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang tiêu đề mạch và trang Nội dung được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+
+### Sửa sau rà lại đợt 1
+
+Sau rà lại độc lập (báo cáo đọc lại đợt 1, không có phát hiện chặn bàn giao hoặc nghiêm trọng), sửa hai điểm. (1) Mức trung bình: từ khóa của L01-DT là "MapReduce · PageRank · MinHash và LSH · Dòng dữ liệu · Nén và đọc ghi", năm cụm dưới tên "Năm nhóm thuật toán của học phần" nhưng không khớp năm nhóm. Đổi thành "Phân tán và xếp hạng · Tương đồng và tìm gần · Dòng và cửa sổ · Nén và khôi phục · Lưu trữ và truy vấn", đúng từng chữ với năm nhãn nhóm trên hình của L01-D02 (`ban-do-hoc-phan.svg`). Notes của L01-D02 dùng tên ngắn hơn (tương đồng; dòng dữ liệu; nén); chọn tên trên mặt hình vì đó là chữ sinh viên thấy trên trang. (2) Mức nhẹ: ghi ngoại lệ tạm thời về mật độ của L01-P01 (89–95 âm tiết, trần 80) vào storyboard, cả mục bổ sung và hàng L01-P01; tách trang ở đợt sau. Kiểm lại: `#/4` vẫn mở `mach-4`, khối tiêu đề không tràn khung ở 1600×900; `git diff --check` sạch.
+
 ## ER-004 — R, bài tập về phép đếm và suy luận
 
 ER-004 hoàn tất. Bốn commit nội dung đã push riêng và xác nhận bằng git ls-remote: D `9ca7a455a9738a170a28906a8216a4d36458ed04`, E `b2ab434932e073702fdc7a4981aff3a07d5dc19a`, F `ea364a09a64718cdbdd309eb88111d9495c4719a`, R `7cb48d523e3d22b0e70769c51edd9668ddc3aa23`. Lượt Chromium cuối sau bổ sung nguồn trong Markdown vẫn đạt toàn bộ 71 trang và viewer; sáu khối bài tập giữ nguyên. Checklist chỉ được tick sau xác nhận push. Bản cập nhật trạng thái không thay học liệu đã kiểm định.
