@@ -89,6 +89,14 @@
 </section>
 </section>
 <section aria-label="PageRank theo chủ đề">
+<section id="mach-2" data-slide-id="lec04-s02-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>PageRank theo chủ đề</h2>
+    <p class="strand-lead">Muốn ưu tiên trang thuộc một chủ đề, phải đổi nơi đến của bước dịch chuyển mà giữ nguyên phép lặp.</p>
+    <p class="strand-keys">Tập dịch chuyển · Điểm cố định · Bất biến tổng điểm · Tiền tính theo chủ đề</p>
+  </div>
+  <aside class="notes"><p>Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho một điểm chung cho mọi truy vấn; truy vấn đa nghĩa và chi phí lưu điểm riêng đặt nhu cầu điểm theo chủ đề. Phần này thay nơi dịch chuyển bằng tập chủ đề $S$, chạy hai vòng trên G4, đặc tả, viết giả mã, chứng minh bất biến tổng điểm và cận sai số khi dừng, rồi tính chi phí tiền tính và truy vấn. Phép lặp với tập dịch chuyển được dùng lại cho TrustRank.</p></aside>
+</section>
 <section id="lec04-s02-01" data-slide-id="lec04-s02-01" class="example-slide">
 <h2>Dịch chuyển vào tập chủ đề</h2>
 <div class="ex-grid2 l04-split-55 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hai-nhanh-di-chuyen.svg" alt="Nhánh liên kết xác suất beta và nhánh dịch chuyển vào tập S xác suất một trừ beta; nét đứt không là cạnh dữ liệu." role="img"></div><div><p>Với xác suất $\beta$: đi theo một liên kết ra, chia đều giữa các liên kết.</p>
@@ -370,6 +378,14 @@ $$r^{(j)}=\beta\bar Mr^{(j)}+(1-\beta)v^{(j)}.$$</p>
 </section>
 </section>
 <section aria-label="Cơ chế liên kết rác">
+<section id="mach-3" data-slide-id="lec04-s03-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Cơ chế liên kết rác</h2>
+    <p class="strand-lead">Muốn biết liên kết rác làm tăng điểm đến đâu, phải tính điểm cố định của trang đích trong một cụm thao túng.</p>
+    <p class="strand-keys">Cụm thao túng liên kết · Trang hỗ trợ · Ba nguồn điểm · Hệ số khuếch đại</p>
+  </div>
+  <aside class="notes"><p>PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên người sở hữu trang có thể thêm liên kết để đẩy điểm một trang. Phần này mô hình cụm thao túng gồm trang đích và các trang hỗ trợ, tính điểm một trang hỗ trợ, tách ba nguồn điểm tại trang đích, giải điểm cố định và suy ra hệ số khuếch đại. Hai hướng chống liên kết rác dẫn tới TrustRank, cách tính điểm dựa trên thông tin người tạo rác không kiểm soát.</p></aside>
+</section>
 <section id="lec04-s03-01" data-slide-id="lec04-s03-01" class="example-slide">
 <h2>Liên kết rác</h2>
 <p>PageRank cộng điểm theo liên kết vào. Liên kết rác được tạo để làm tăng điểm một trang không tương xứng với giá trị nội dung.</p><div class="l04-thirds"><div class="ex-card"><h3>Dữ liệu</h3><p>Đồ thị liên kết; PageRank dịch chuyển đều.</p></div><div class="ex-card"><h3>Quyền tác động</h3><p>Thêm liên kết ở trang sở hữu hoặc được phép đăng.</p></div><div class="ex-card"><h3>Mục tiêu</h3><p>Tập trung điểm tại trang đích.</p></div></div><div class="ex-takeaway"><p>Vấn đề: định lượng mức một cấu trúc liên kết đơn giản làm tăng điểm trang đích.</p></div>
@@ -522,6 +538,14 @@ $$y=\frac{x+\beta mb+b}{1-\beta^2},\qquad b=\frac{1-\beta}{n}.$$</p>
 </section>
 </section>
 <section aria-label="TrustRank và Spam Mass">
+<section id="mach-4" data-slide-id="lec04-s04-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>TrustRank và Spam Mass</h2>
+    <p class="strand-lead">Muốn tìm trang có điểm do liên kết rác, phải so PageRank với điểm lan từ tập trang tin cậy.</p>
+    <p class="strand-keys">Tập trang tin cậy · Phép lặp TrustRank · Hiệu hai điểm · Spam Mass · Chi phí</p>
+  </div>
+  <aside class="notes"><p>Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm trang đích nhiều lần. TrustRank là PageRank theo chủ đề với tập dịch chuyển $T$ gồm các trang tin cậy chọn ngoài thuật toán. Phần này chạy phép lặp trên G4, lấy hiệu giữa PageRank và TrustRank, định nghĩa chỉ số Spam Mass và đếm chi phí của hai phép lặp PageRank và TrustRank. Hai phương pháp này vẫn gán mỗi trang một điểm; HITS tách hai vai trò của một trang.</p></aside>
+</section>
 <section id="lec04-s04-01" data-slide-id="lec04-s04-01" class="example-slide">
 <h2>TrustRank</h2>
 <div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/tap-tin-cay.svg" alt="Tập T có viền đôi được đánh giá bên ngoài; cạnh thật đi từ T tới các trang khác." role="img"></div><div><p>TrustRank: PageRank theo chủ đề, tập dịch chuyển $T$ là các trang tin cậy (tập hạt giống, seed set).</p>
@@ -718,6 +742,14 @@ $$s_i=\frac{r_i-\rho_i}{r_i}=1-\frac{\rho_i}{r_i}.$$</p>
 </section>
 </section>
 <section aria-label="HITS">
+<section id="mach-5" data-slide-id="lec04-s05-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>HITS</h2>
+    <p class="strand-lead">Muốn phân biệt trang dẫn đường với trang cung cấp thông tin, phải gán mỗi trang hai điểm định nghĩa lẫn nhau.</p>
+    <p class="strand-keys">Trang trung tâm · Trang uy tín · Ma trận liên kết · Chuẩn hóa · Điểm ổn định</p>
+  </div>
+  <aside class="notes"><p>PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho mỗi trang. HITS gán điểm trung tâm $h$ và điểm uy tín $a$: uy tín cộng điểm trung tâm của các trang trỏ tới, trung tâm cộng điểm uy tín của các trang được trỏ tới. Phần này chạy hai vòng trên G5, viết phép lặp bằng ma trận liên kết, chuẩn hóa, phát biểu thuật toán, xét điểm ổn định và chi phí. Các phương pháp được đặt cạnh nhau ở phần so sánh.</p></aside>
+</section>
 <section id="lec04-s05-01" data-slide-id="lec04-s05-01" class="example-slide">
 <h2>Trang trung tâm và trang uy tín</h2>
 <p>PageRank và TrustRank gán mỗi trang một mức quan trọng. Ví dụ MMDS §5.5.1: trang danh sách học phần của một khoa có giá trị vì dẫn tới các trang học phần.</p><img class="l04-figure l04-figure-short" src="img/lec-04/cap-vai-tro-hits.svg" alt="Trang danh mục học phần giữ vai trò trung tâm và trỏ tới các trang học phần giữ vai trò uy tín." role="img"><p>Thuật toán tìm kiếm theo chủ đề dựa trên siêu liên kết (HITS) gán mỗi trang hai điểm: trung tâm (hub) $h_i$ và uy tín (authority) $a_i$.</p>
@@ -1028,6 +1060,14 @@ $$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p>
 </section>
 </section>
 <section aria-label="So sánh các phương pháp xếp hạng">
+<section id="mach-6" data-slide-id="lec04-s06-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>So sánh các phương pháp xếp hạng</h2>
+    <p class="strand-lead">Muốn chọn phương pháp xếp hạng, phải đối chiếu đầu ra, thông tin bổ sung và chi phí của từng phương pháp.</p>
+    <p class="strand-keys">Ý nghĩa của điểm · Thông tin bổ sung · Chọn phương pháp · Câu hỏi kiểm tra</p>
+  </div>
+  <aside class="notes"><p>Các phương pháp đã học dùng cùng một khung lặp trên đồ thị liên kết nhưng khác nơi dịch chuyển hoặc số điểm của mỗi trang. Phần này đặt PageRank theo chủ đề, TrustRank, Spam Mass và HITS vào một bảng theo đầu ra và thông tin bổ sung cần có, nêu cách chọn theo đầu ra cần tạo, rồi kiểm tra bằng câu hỏi về mô hình, chi phí và so sánh. Phương trình của từng phương pháp được dùng trực tiếp trong phần bài tập.</p></aside>
+</section>
 <section id="lec04-s06-01" data-slide-id="lec04-s06-01" class="example-slide">
 <h2>Ý nghĩa của các điểm xếp hạng</h2>
 <table class="ex-table">
@@ -1134,6 +1174,14 @@ $$h\propto LL^\mathsf Th,\qquad a\propto L^\mathsf TLa.$$</p>
 </section>
 </section>
 <section aria-label="Bài tập">
+<section id="mach-7" data-slide-id="lec04-s07-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Bài tập</h2>
+    <p class="strand-lead">Muốn kiểm các phương trình đã học, phải giải lại chúng trên dữ liệu và biến thể của giáo trình.</p>
+    <p class="strand-keys">Bài 5.3.1 · Bài 5.4.1 · Bài 5.5.2</p>
+  </div>
+  <aside class="notes"><p>Phương trình điểm cố định của PageRank theo chủ đề, mô hình cụm thao túng và phép lặp HITS đã có. Ba bài của MMDS kiểm lại từng kết quả: Bài 5.3.1(a, b) tính PageRank theo chủ đề trên G4 với hai tập dịch chuyển; Bài 5.4.1(a, c) giải điểm trang đích khi đổi cạnh ra của trang hỗ trợ; Bài 5.5.2 tính hai vector trung tâm và uy tín trên chuỗi có khuyên. Mỗi lời giải nêu hệ phương trình, nghiệm và phép kiểm.</p></aside>
+</section>
 <section id="lec04-s07-01" data-slide-id="lec04-s07-01" class="example-slide">
 <h2>Bài tập PageRank theo chủ đề</h2>
 <div class="ex-grid2 l04-split-45 l04-vcenter "><div><img class="l04-figure " src="img/lec-04/hinh-5-1-trung-tinh.svg" alt="Đồ thị G4: A tới B, C, D; B tới A, D; C tới A; D tới B, C." role="img"></div><div><p><strong>Bài 5.3.1(a, b), MMDS §5.3.5, trang 199.</strong></p><p>$\beta=0{,}8$, kế thừa Ví dụ 5.10; tám cạnh của G4 giữ nguyên.</p><div class="question-box"><p><strong>Câu hỏi:</strong> Tính PageRank theo chủ đề khi tập dịch chuyển là (a) chỉ A; (b) A và C.</p></div><p>Sản phẩm: hai phân phối dịch chuyển, hệ phương trình, hai vector điểm theo thứ tự A, B, C, D; kiểm tra tổng bằng 1 và nghiệm thỏa phương trình cố định.</p></div></div>

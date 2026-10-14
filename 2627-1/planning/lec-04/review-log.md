@@ -546,3 +546,30 @@ Yêu cầu: duyệt lần lượt từng trang, xác định trang muốn nói g
 | Phạm vi tệp | Chỉ HTML Bài 04, ba tệp planning, `luu-vector-theo-chu-de.svg`, `hinh-5-16-cum-thao-tung.svg`, `hinh-5-1-kiem-tra.svg`. CSS, index và `lecture-note.md` không đổi. `hai-nhom-canh-noi-bo.svg`, `dong-gop-hits.svg`, `hinh-5-18-kiem-tra.svg` không còn được deck tham chiếu, giữ trong kho. |
 | Ghi chú tự học | Ký hiệu và thứ tự khái niệm tương thích; chưa có câu nối “bước nhảy ngẫu nhiên” của Bài 03 và các câu hỏi kiểm tra mới chỉ có trong deck. Cần một lượt sửa ghi chú riêng nếu muốn đồng bộ. |
 | Giới hạn | Từ s01-06, các trang được điều phối viên sửa trực tiếp sau khi tác tử chỉnh sửa bị người dùng dừng; bù lại bằng ba lượt rà lại độc lập theo phần. Không chạy lại đủ năm vai rà độc lập cho toàn deck. |
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 1 gồm Bài 01–05; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | lec04-s02-00 | PageRank theo chủ đề | Muốn ưu tiên trang thuộc một chủ đề, phải đổi nơi đến của bước dịch chuyển mà giữ nguyên phép lặp. |
+| 3 | lec04-s03-00 | Cơ chế liên kết rác | Muốn biết liên kết rác làm tăng điểm đến đâu, phải tính điểm cố định của trang đích trong một cụm thao túng. |
+| 4 | lec04-s04-00 | TrustRank và Spam Mass | Muốn tìm trang có điểm do liên kết rác, phải so PageRank với điểm lan từ tập trang tin cậy. |
+| 5 | lec04-s05-00 | HITS | Muốn phân biệt trang dẫn đường với trang cung cấp thông tin, phải gán mỗi trang hai điểm định nghĩa lẫn nhau. |
+| 6 | lec04-s06-00 | So sánh các phương pháp xếp hạng | Muốn chọn phương pháp xếp hạng, phải đối chiếu đầu ra, thông tin bổ sung và chi phí của từng phương pháp. |
+| 7 | lec04-s07-00 | Bài tập | Muốn kiểm các phương trình đã học, phải giải lại chúng trên dữ liệu và biến thể của giáo trình. |
+
+Dòng dẫn 20–23 âm tiết; từ khóa 3–5 cụm; ghi chú diễn giả 82–90 âm tiết, viết từ nội dung các trang trong mạch. Số trang 52 → 58. Trang nội dung đầu mạch (Dịch chuyển vào tập chủ đề, Liên kết rác, TrustRank, Trang trung tâm và trang uy tín, Ý nghĩa của các điểm xếp hạng, Bài tập PageRank theo chủ đề) đều là trang nội dung, không phải trang tiêu đề phần một dòng, và tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung: lec04-s01-02 "Nội dung và mục tiêu học tập" đã là danh sách đánh số 1–7, tên trùng từng chữ với tên mạch; không sửa. Mặt trang khoảng 71 âm tiết, dưới trần 80.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (mạch "Tổng kết và tự kiểm tra" với bảng tổng kết, trả lời vấn đề trung tâm, nguồn và tài liệu đọc). Ghi chú diễn giả của lec04-s07-01 còn dòng thời lượng, là sai lệch có từ trước, chưa sửa trong đợt này. Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 65/65; 58 `data-slide-id` và 58 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch 2–7; khối tiêu đề nằm trong khung (đáy lớn nhất 775 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng bảy tên mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 1
+
+Sau rà lại độc lập, sửa notes của lec04-s04-00 (mức nhẹ): "đếm chi phí của hai lần lặp" thành "đếm chi phí của hai phép lặp PageRank và TrustRank", khớp trang lec04-s04-06, tránh hiểu nhầm thành hai vòng của một phép lặp. Dòng dẫn mạch 6 còn cụm "đầu ra" ở dạng văn xuôi, không phải nhãn; giữ nguyên. `git diff --check` sạch.

@@ -1,6 +1,6 @@
 # Storyboard mới Bài 04: PageRank theo chủ đề, liên kết rác và HITS
 
-Ngày soạn: 27/09/2026; cập nhật làm rõ nội dung: 29/09/2026; duyệt từng trang: 01/10/2026. Các phiếu dưới đây phản ánh bản HTML hiện tại gồm 52 trang (49 trang giảng, 3 trang bài tập). Kết quả kiểm định từng phiên được lưu trong review-log.md.
+Ngày soạn: 27/09/2026; cập nhật làm rõ nội dung: 29/09/2026; duyệt từng trang: 01/10/2026. Các phiếu dưới đây phản ánh bản HTML hiện tại gồm 58 trang: 52 trang nội dung (49 trang giảng, 3 trang bài tập) và 6 trang tiêu đề mạch thêm ngày 14/10/2026. Kết quả kiểm định từng phiên được lưu trong review-log.md.
 
 Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide MMDS, Stanford và Cambridge chỉ đối chiếu cách minh họa; không quyết định lại mạch sách. Đọc cùng [outline.md](outline.md) để tra mã NG, MT, HT, VD và bản đồ quyết định; xem [review-log.md](review-log.md) cho sai khác nguồn và các lượt rà độc lập.
 
@@ -18,12 +18,14 @@ Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide M
 | Phần | Số slide | Thời lượng | Slide kiểm tra riêng |
 |---|---:|---:|---|
 | S01. Bài toán xếp hạng liên kết | 6 | 12 phút | `lec04-s01-06` (ôn tiên quyết Bài 03; S01 là phần mở bài, không có trang kiểm đầu ra riêng) |
-| S02. PageRank theo chủ đề | 13 | 30 phút | `lec04-s02-12` |
-| S03. Cơ chế liên kết rác | 8 | 20 phút | `lec04-s03-08` |
-| S04. TrustRank và Spam Mass | 7 | 18 phút | `lec04-s04-07` |
-| S05. HITS | 11 | 30 phút | `lec04-s05-11` |
-| S06. So sánh các phương pháp xếp hạng | 4 | 10 phút | `lec04-s06-04` |
-| S07. Bài tập | 3 | 60 phút | `lec04-s07-03` |
+| S02. PageRank theo chủ đề (mở bằng `lec04-s02-00`) | 14 | 30 phút | `lec04-s02-12` |
+| S03. Cơ chế liên kết rác (mở bằng `lec04-s03-00`) | 9 | 20 phút | `lec04-s03-08` |
+| S04. TrustRank và Spam Mass (mở bằng `lec04-s04-00`) | 8 | 18 phút | `lec04-s04-07` |
+| S05. HITS (mở bằng `lec04-s05-00`) | 12 | 30 phút | `lec04-s05-11` |
+| S06. So sánh các phương pháp xếp hạng (mở bằng `lec04-s06-00`) | 5 | 10 phút | `lec04-s06-04` |
+| S07. Bài tập (mở bằng `lec04-s07-00`) | 4 | 60 phút | `lec04-s07-03` |
+
+Từ 14/10/2026, mỗi phần S02–S07 mở bằng trang tiêu đề mạch `lec04-s0N-00` (`class="strand-title"`, `id="mach-N"`; mã `-00` chưa có trong bài). Tên mạch trùng từng chữ với danh sách trên lec04-s01-02, đã đánh số từ trước nên không sửa. Thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch; tổng 120 + 60 phút không đổi. Phiếu của sáu trang nằm ở đầu từng phần.
 
 ## Phiếu từng trang chiếu
 
@@ -295,6 +297,38 @@ Khái niệm, thuật toán và chi phí. Nhu cầu chủ đề → thay nhánh 
 
 Phân bổ: 13 slide, 30 phút.
 
+### lec04-s02-00 — PageRank theo chủ đề
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 2 (`id="mach-2"`); ngoài chu trình khái niệm. Đầu vào: Phép lặp PageRank Bài 03, truy vấn đa nghĩa, chi phí lưu điểm riêng (S01). Sản phẩm: Nhu cầu đổi nơi đến của bước dịch chuyển.
+
+**Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s02-01.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+2. PageRank theo chủ đề
+
+Muốn ưu tiên trang thuộc một chủ đề, phải đổi nơi đến của bước dịch chuyển mà giữ nguyên phép lặp.
+
+Tập dịch chuyển · Điểm cố định · Bất biến tổng điểm · Tiền tính theo chủ đề
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; kiểu trong `lecture-style.css`.
+
+**Kết nối vào–ra:** Mạch 1 → nhu cầu của mạch 2; trang lec04-s02-01 mở nội dung.
+
+**Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+
+**Nguồn và vị trí:** Tổng hợp từ các trang của mạch; không thêm dữ kiện nguồn mới.
+
+**Thời lượng:** 0,5 phút, lấy từ lec04-s02-01.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho một điểm chung cho mọi truy vấn; truy vấn đa nghĩa và chi phí lưu điểm riêng đặt nhu cầu điểm theo chủ đề. Phần này thay nơi dịch chuyển bằng tập chủ đề $S$, chạy hai vòng trên G4, đặc tả, viết giả mã, chứng minh bất biến tổng điểm và cận sai số khi dừng, rồi tính chi phí tiền tính và truy vấn. Phép lặp với tập dịch chuyển được dùng lại cho TrustRank.
+<!-- public-notes:end -->
+
 ### lec04-s02-01 — Dịch chuyển vào tập chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác; MT1. Đầu vào: hai nhánh di chuyển PageRank. Sản phẩm: chỉ ra thành phần thay đổi khi ưu tiên chủ đề.
@@ -327,7 +361,7 @@ Các trang ngoài $S$ vẫn có thể nhận điểm qua liên kết. Đồ th�
 
 **Nguồn và vị trí:** NG1 §5.3.2, tr.196/PDF22; NG3 trang8 chỉ đối chiếu hình.
 
-**Thời lượng:** 2 phút.
+**Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch lec04-s02-00 ngày 14/10/2026).
 
 **Ghi chú học thuật dự kiến:**
 
@@ -919,6 +953,38 @@ Mô hình và phân tích. Liên kết có thể bị thao túng → ba vùng qu
 
 Phân bổ: 8 slide, 20 phút.
 
+### lec04-s03-00 — Cơ chế liên kết rác
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 3 (`id="mach-3"`); ngoài chu trình khái niệm. Đầu vào: PageRank theo chủ đề vẫn cộng điểm theo liên kết vào (S02). Sản phẩm: Nhu cầu định lượng mức khuếch đại của cụm thao túng.
+
+**Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s03-01.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+3. Cơ chế liên kết rác
+
+Muốn biết liên kết rác làm tăng điểm đến đâu, phải tính điểm cố định của trang đích trong một cụm thao túng.
+
+Cụm thao túng liên kết · Trang hỗ trợ · Ba nguồn điểm · Hệ số khuếch đại
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; kiểu trong `lecture-style.css`.
+
+**Kết nối vào–ra:** Mạch 2 → nhu cầu của mạch 3; trang lec04-s03-01 mở nội dung.
+
+**Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+
+**Nguồn và vị trí:** Tổng hợp từ các trang của mạch; không thêm dữ kiện nguồn mới.
+
+**Thời lượng:** 0,5 phút, lấy từ lec04-s03-01.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên người sở hữu trang có thể thêm liên kết để đẩy điểm một trang. Phần này mô hình cụm thao túng gồm trang đích và các trang hỗ trợ, tính điểm một trang hỗ trợ, tách ba nguồn điểm tại trang đích, giải điểm cố định và suy ra hệ số khuếch đại. Hai hướng chống liên kết rác dẫn tới TrustRank, cách tính điểm dựa trên thông tin người tạo rác không kiểm soát.
+<!-- public-notes:end -->
+
 ### lec04-s03-01 — Liên kết rác
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống và vấn đề; MT2. Đầu vào: điểm phụ thuộc cạnh. Sản phẩm: xác định mục tiêu và quyền tác động của người tạo liên kết rác.
@@ -953,7 +1019,7 @@ Vấn đề: định lượng mức một cấu trúc liên kết đơn giản l
 
 **Nguồn và vị trí:** NG1 mở §5.4 và §5.4.1, tr.199–200/PDF25–26.
 
-**Thời lượng:** 2 phút.
+**Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch lec04-s03-00 ngày 14/10/2026).
 
 **Ghi chú học thuật dự kiến:**
 
@@ -1283,6 +1349,38 @@ Thuật toán và diễn giải. Tập tin cậy → tái dùng HT1 → cùng G4
 
 Phân bổ: 7 slide, 18 phút (từ 01/10/2026, s04-02 gộp vào s04-02a).
 
+### lec04-s04-00 — TrustRank và Spam Mass
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 4 (`id="mach-4"`); ngoài chu trình khái niệm. Đầu vào: Hệ số khuếch đại, hai hướng chống liên kết rác (S03). Sản phẩm: Nhu cầu so PageRank với điểm lan từ tập tin cậy.
+
+**Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s04-01.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+4. TrustRank và Spam Mass
+
+Muốn tìm trang có điểm do liên kết rác, phải so PageRank với điểm lan từ tập trang tin cậy.
+
+Tập trang tin cậy · Phép lặp TrustRank · Hiệu hai điểm · Spam Mass · Chi phí
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; kiểu trong `lecture-style.css`.
+
+**Kết nối vào–ra:** Mạch 3 → nhu cầu của mạch 4; trang lec04-s04-01 mở nội dung.
+
+**Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+
+**Nguồn và vị trí:** Tổng hợp từ các trang của mạch; không thêm dữ kiện nguồn mới.
+
+**Thời lượng:** 0,5 phút, lấy từ lec04-s04-01.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm trang đích nhiều lần. TrustRank là PageRank theo chủ đề với tập dịch chuyển $T$ gồm các trang tin cậy chọn ngoài thuật toán. Phần này chạy phép lặp trên G4, lấy hiệu giữa PageRank và TrustRank, định nghĩa chỉ số Spam Mass và đếm chi phí của hai lần lặp. Hai phương pháp này vẫn gán mỗi trang một điểm; HITS tách hai vai trò của một trang.
+<!-- public-notes:end -->
+
 ### lec04-s04-01 — TrustRank
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Vấn đề và trực giác; MT3. Đầu vào: giới hạn phát hiện cấu trúc và PageRank theo chủ đề. Sản phẩm: xác định thông tin ngoài đồ thị cần cho TrustRank.
@@ -1317,7 +1415,7 @@ Chọn $T$ ngoài thuật toán: người xem xét các trang PageRank cao, ho�
 
 **Nguồn và vị trí:** NG1 §5.4.3–5.4.4, tr.202–203/PDF28–29.
 
-**Thời lượng:** 2 phút.
+**Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch lec04-s04-00 ngày 14/10/2026).
 
 **Ghi chú học thuật dự kiến:**
 
@@ -1605,6 +1703,38 @@ Thuật toán và ví dụ. Danh sách/nội dung học phần → hai vai trò 
 
 Phân bổ: 11 slide, 30 phút.
 
+### lec04-s05-00 — HITS
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 5 (`id="mach-5"`); ngoài chu trình khái niệm. Đầu vào: Các phương pháp một điểm mỗi trang (S02–S04). Sản phẩm: Nhu cầu hai điểm trung tâm, uy tín.
+
+**Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s05-01.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+5. HITS
+
+Muốn phân biệt trang dẫn đường với trang cung cấp thông tin, phải gán mỗi trang hai điểm định nghĩa lẫn nhau.
+
+Trang trung tâm · Trang uy tín · Ma trận liên kết · Chuẩn hóa · Điểm ổn định
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; kiểu trong `lecture-style.css`.
+
+**Kết nối vào–ra:** Mạch 4 → nhu cầu của mạch 5; trang lec04-s05-01 mở nội dung.
+
+**Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+
+**Nguồn và vị trí:** Tổng hợp từ các trang của mạch; không thêm dữ kiện nguồn mới.
+
+**Thời lượng:** 0,5 phút, lấy từ lec04-s05-01.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho mỗi trang. HITS gán điểm trung tâm $h$ và điểm uy tín $a$: uy tín cộng điểm trung tâm của các trang trỏ tới, trung tâm cộng điểm uy tín của các trang được trỏ tới. Phần này chạy hai vòng trên G5, viết phép lặp bằng ma trận liên kết, chuẩn hóa, phát biểu thuật toán, xét điểm ổn định và chi phí. Các phương pháp được đặt cạnh nhau ở phần so sánh.
+<!-- public-notes:end -->
+
 ### lec04-s05-01 — Trang trung tâm và trang uy tín
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng HITS; MT4. Đầu vào: đồ thị liên kết. Sản phẩm: phân biệt nội dung và đường dẫn tới nội dung.
@@ -1638,7 +1768,7 @@ Trang uy tín cung cấp thông tin về một chủ đề; trang trung tâm ch�
 
 **Nguồn và vị trí:** NG1 §5.5–5.5.2, tr.204–208/PDF30–34; Ví dụ 5.13 tr.205; phạm vi đồ thị tr.204, phép nhân thưa tr.206 và tính lặp trên web lớn tr.208.
 
-**Thời lượng:** 2 phút.
+**Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch lec04-s05-00 ngày 14/10/2026).
 
 **Ghi chú học thuật dự kiến:**
 
@@ -2112,6 +2242,38 @@ Tổng hợp và kết luận. Đầu ra các cụm → đối chiếu cùng ti�
 
 Phân bổ: 4 slide, 10 phút.
 
+### lec04-s06-00 — So sánh các phương pháp xếp hạng
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 6 (`id="mach-6"`); ngoài chu trình khái niệm. Đầu vào: Bốn phương pháp cùng khung lặp (S02–S05). Sản phẩm: Nhu cầu chọn phương pháp theo đầu ra và thông tin bổ sung.
+
+**Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s06-01.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+6. So sánh các phương pháp xếp hạng
+
+Muốn chọn phương pháp xếp hạng, phải đối chiếu đầu ra, thông tin bổ sung và chi phí của từng phương pháp.
+
+Ý nghĩa của điểm · Thông tin bổ sung · Chọn phương pháp · Câu hỏi kiểm tra
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; kiểu trong `lecture-style.css`.
+
+**Kết nối vào–ra:** Mạch 5 → nhu cầu của mạch 6; trang lec04-s06-01 mở nội dung.
+
+**Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+
+**Nguồn và vị trí:** Tổng hợp từ các trang của mạch; không thêm dữ kiện nguồn mới.
+
+**Thời lượng:** 0,5 phút, lấy từ lec04-s06-01.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Các phương pháp đã học dùng cùng một khung lặp trên đồ thị liên kết nhưng khác nơi dịch chuyển hoặc số điểm của mỗi trang. Phần này đặt PageRank theo chủ đề, TrustRank, Spam Mass và HITS vào một bảng theo đầu ra và thông tin bổ sung cần có, nêu cách chọn theo đầu ra cần tạo, rồi kiểm tra bằng câu hỏi về mô hình, chi phí và so sánh. Phương trình của từng phương pháp được dùng trực tiếp trong phần bài tập.
+<!-- public-notes:end -->
+
 ### lec04-s06-01 — Ý nghĩa của các điểm xếp hạng
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tổng hợp; MT5. Đầu vào: HT1,HT5,HT6. Sản phẩm: phân biệt đầu ra và thông tin thêm của mỗi phương pháp.
@@ -2147,7 +2309,7 @@ Phân bổ: 4 slide, 10 phút.
 
 **Nguồn và vị trí:** NG1 §5.3.2,§5.4.4–5,§5.5.1–2, tr.196–207.
 
-**Thời lượng:** 2 phút.
+**Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch lec04-s06-00 ngày 14/10/2026).
 
 **Ghi chú học thuật dự kiến:**
 
@@ -2296,6 +2458,38 @@ Recitation sau phần giảng, thành section dọc riêng. Ba bài nguồn, m�
 
 Phân bổ: 3 slide, 60 phút.
 
+### lec04-s07-00 — Bài tập
+
+**Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 7 (`id="mach-7"`); ngoài chu trình khái niệm. Đầu vào: Phương trình PageRank theo chủ đề, cụm thao túng, HITS. Sản phẩm: Ba bài MMDS 5.3.1, 5.4.1, 5.5.2 cần giải.
+
+**Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s07-01.
+
+**Nội dung hiển thị dự kiến:**
+
+<!-- public-slide:start -->
+7. Bài tập
+
+Muốn kiểm các phương trình đã học, phải giải lại chúng trên dữ liệu và biến thể của giáo trình.
+
+Bài 5.3.1 · Bài 5.4.1 · Bài 5.5.2
+<!-- public-slide:end -->
+
+**Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; kiểu trong `lecture-style.css`.
+
+**Kết nối vào–ra:** Mạch 6 → nhu cầu của mạch 7; trang lec04-s07-01 mở nội dung.
+
+**Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+
+**Nguồn và vị trí:** Tổng hợp từ các trang của mạch; không thêm dữ kiện nguồn mới.
+
+**Thời lượng:** 0,5 phút, lấy từ lec04-s07-01.
+
+**Ghi chú học thuật dự kiến:**
+
+<!-- public-notes:start -->
+Phương trình điểm cố định của PageRank theo chủ đề, mô hình cụm thao túng và phép lặp HITS đã có. Ba bài của MMDS kiểm lại từng kết quả: Bài 5.3.1(a, b) tính PageRank theo chủ đề trên G4 với hai tập dịch chuyển; Bài 5.4.1(a, c) giải điểm trang đích khi đổi cạnh ra của trang hỗ trợ; Bài 5.5.2 tính hai vector trung tâm và uy tín trên chuỗi có khuyên. Mỗi lời giải nêu hệ phương trình, nghiệm và phép kiểm.
+<!-- public-notes:end -->
+
 ### lec04-s07-01 — Bài tập PageRank theo chủ đề
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT1; MT1. Đầu vào: HT1 và G4. Sản phẩm: hai vector điểm và phép kiểm nghiệm.
@@ -2330,7 +2524,7 @@ Sản phẩm: hai phân phối dịch chuyển, hệ phương trình, hai vector
 
 **Nguồn và vị trí:** NG1 Bài 5.3.1(a,b), tr.199/PDF25; Hình 5.15 tr.197/PDF23; beta kế thừa VD5.10 tr.196–197.
 
-**Thời lượng:** 20 phút.
+**Thời lượng:** 19,5 phút (0,5 phút chuyển cho trang tiêu đề mạch lec04-s07-00 ngày 14/10/2026).
 
 **Nhiệm vụ và tiêu chí nội bộ:** Bài tập nguồn; không phải slide kiểm tra riêng của phần.
 

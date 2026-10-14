@@ -94,14 +94,14 @@ Giữ thứ tự §5.3 → §5.4 → §5.5. Đặt HITS ngay sau PageRank sẽ n
 | Phần | Loại chính; mục tiêu | Đầu vào → kết quả chuyển tiếp | Slide | Phút | Kiểm tra riêng |
 |---|---|---|---:|---:|---|
 | S01. Bài toán xếp hạng liên kết | Giới thiệu và động lực; MT1, MT5 | PageRank Bài03 → nhu cầu theo chủ đề/độ tin cậy/vai trò | 6 | 12 | S01-06 |
-| S02. PageRank theo chủ đề | Khái niệm, thuật toán, chi phí; MT1 | Ngữ cảnh truy vấn → vector bước nhảy và điểm ổn định | 13 | 30 | S02-12 |
-| S03. Cơ chế liên kết rác | Mô hình và phân tích; MT2 | Quy tắc truyền điểm → phương trình khuếch đại | 8 | 20 | S03-08 |
-| S04. TrustRank và Spam Mass | Thuật toán và diễn giải; MT3 | Hạt giống và cơ chế thao túng → chỉ số có giới hạn | 7 | 18 | S04-07 |
-| S05. HITS | Thuật toán, ví dụ, chi phí; MT4 | Vai trò liên kết → hai vector và quy tắc cập nhật | 11 | 30 | S05-11 |
-| S06. So sánh các phương pháp xếp hạng | Tổng hợp và kết luận; MT5 | Các phương pháp → lựa chọn theo đầu ra và giả thiết | 4 | 10 | S06-04 |
-| S07. Bài tập | Luyện tập từ giáo trình; MT1, MT2, MT4 | Ba mô hình đã học → bài giải có thể kiểm chứng | 3 | 60 | S07-03 |
+| S02. PageRank theo chủ đề (mở bằng `lec04-s02-00`) | Khái niệm, thuật toán, chi phí; MT1 | Ngữ cảnh truy vấn → vector bước nhảy và điểm ổn định | 14 | 30 | S02-12 |
+| S03. Cơ chế liên kết rác (mở bằng `lec04-s03-00`) | Mô hình và phân tích; MT2 | Quy tắc truyền điểm → phương trình khuếch đại | 9 | 20 | S03-08 |
+| S04. TrustRank và Spam Mass (mở bằng `lec04-s04-00`) | Thuật toán và diễn giải; MT3 | Hạt giống và cơ chế thao túng → chỉ số có giới hạn | 8 | 18 | S04-07 |
+| S05. HITS (mở bằng `lec04-s05-00`) | Thuật toán, ví dụ, chi phí; MT4 | Vai trò liên kết → hai vector và quy tắc cập nhật | 12 | 30 | S05-11 |
+| S06. So sánh các phương pháp xếp hạng (mở bằng `lec04-s06-00`) | Tổng hợp và kết luận; MT5 | Các phương pháp → lựa chọn theo đầu ra và giả thiết | 5 | 10 | S06-04 |
+| S07. Bài tập (mở bằng `lec04-s07-00`) | Luyện tập từ giáo trình; MT1, MT2, MT4 | Ba mô hình đã học → bài giải có thể kiểm chứng | 4 | 60 | S07-03 |
 
-Tổng phần giảng: 50 slide/120 phút. Recitation: 3 slide/60 phút, gồm cả trình bày và đối chiếu lời giải. S07 đặt sau phần giảng trong cùng HTML ở bước triển khai. Một bài dài20 phút dùng một slide dữ kiện và yêu cầu, lời giải thuộc ghi chú; thời lượng không xuất hiện trên slide. Mốc50 nằm trong khoảng45–55 của tiêu chuẩn, không thêm slide để đạt chỉ tiêu.
+Từ 14/10/2026, mỗi phần S02–S07 có thêm một trang tiêu đề mạch (0,5 phút lấy từ trang đầu phần); cột Slide đã tính các trang này, deck 58 trang. Tổng phần giảng: 50 slide/120 phút (trước khi thêm trang tiêu đề mạch). Recitation: 3 slide/60 phút, gồm cả trình bày và đối chiếu lời giải. S07 đặt sau phần giảng trong cùng HTML ở bước triển khai. Một bài dài20 phút dùng một slide dữ kiện và yêu cầu, lời giải thuộc ghi chú; thời lượng không xuất hiện trên slide. Mốc50 nằm trong khoảng45–55 của tiêu chuẩn, không thêm slide để đạt chỉ tiêu.
 
 ## Thuật ngữ và ký hiệu thống nhất
 
