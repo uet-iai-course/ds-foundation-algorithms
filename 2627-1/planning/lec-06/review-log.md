@@ -526,3 +526,518 @@ Thêm: bốn câu hỏi tự kiểm trong ghi chú bài giảng dạng “…kh�
 | Render đọc được, liên kết hoạt động | Đạt: xem hàng “Hiển thị deck”. |
 | Khối mã `data-trim`, công thức render, không `fragment` | Đạt. |
 | Sai khác nguồn có lý do | Đạt: đổi tên điểm Bài 3.7.5, chỉnh “một phần 200” thành $1/244{,}14$, giá trị $0{,}004024$ thay $0{,}00397$ đều ghi trong nhật ký. |
+
+## Căn chỉnh văn phong 2026-10-14
+
+### Lý do, căn cứ và phạm vi giai đoạn 1
+
+- **Lý do.** Yêu cầu người dùng ngày 2026-10-14: đưa Bài 06 về chuẩn mới của `AGENTS.md` (bản đang sửa, chưa commit), gồm "Tiêu chuẩn giáo trình cho ghi chú bài giảng" (ghi chú là một chương tự chứa có số hiệu, giọng kể "chúng ta/ta", mẫu tám bước, tình huống áp dụng), "Trang tiêu đề mạch" và "Văn phong và mật độ mặt trang chiếu", cùng `slide_authoring_standard.md`. Mẫu tham chiếu: ghi chú Bài 05 của `../rl-plan` (cấu trúc và giọng, không lấy nội dung).
+- **Kế hoạch.** `/tmp/claude-1000/-data-tqlong-ds-foundation-algorithms/120f1262-3ea0-45af-8c12-2dcf2a1526d1/scratchpad/plan-lec06.md` (tác tử lập kế hoạch chỉ đọc, lập ngày 2026-10-14), được điều phối viên duyệt. Giai đoạn 1 thực hiện mục E (ghi chú), phần F1 liên quan mục 5 của outline và phần F2 liên quan kiến trúc ghi chú của storyboard.
+- **Phân công.** Tác tử soạn giai đoạn 1, vai trò writer, là tác tử duy nhất được ghi tệp trong lượt này, theo giao việc của điều phối viên. Loại tác tử, mô hình và effort được điều phối viên ghi theo bằng chứng tool call; mục này không dùng lời tự khai làm bằng chứng.
+- **Tệp đã sửa.** `materials/lec-06/lecture-note.md` (viết lại toàn bộ); `planning/lec-06/outline.md` (thuật ngữ Việt–Anh, bảng `note-topic-id` ↔ mục ghi chú, mục 5 thành bảng mạch mới); `planning/lec-06/storyboard.md` (chỉ phần "Kiến trúc ghi chú bài giảng tự học"); tệp này. Không sửa deck HTML, SVG, CSS, viewer, index. Không commit.
+
+### Quyết định của điều phối viên cho các điểm mở (G5 của kế hoạch)
+
+1. Tên mạch 1 giữ "Bài toán tìm cặp tương đồng"; ghi chú `## 1. Bài toán tìm cặp tương đồng`.
+2. Thu hồi kho một triệu tài liệu bằng $\binom{10^6}{2}=499\,999\,500\,000$ và câu "nếu bộ tạo ứng viên trả $10^6$ cặp (giả định luyện tập) thì số phép xác minh giảm khoảng $5\cdot10^5$ lần"; ghi rõ là giả định, không ghép $n=250$ với $(b,r)=(20,5)$. Đã thực hiện ở đoạn mở của "Tóm tắt chương".
+3. (deck) Giữ số bài sách trên trang recitation.
+4. Hình cấu trúc chương ở Mục 1 dùng lại `img/lec-06/quy-trinh-cap.svg` kèm đoạn đọc hình nối tới Mục 2–5. Đã thực hiện; không tạo hình mới.
+5. Đánh số `## 1.`–`## 5.`; "Tình huống áp dụng và ứng dụng", "Tóm tắt chương", "Bài tập củng cố", "Hướng dẫn đọc thêm và tài liệu tham khảo" không đánh số. Đã thực hiện.
+6. Giữ cả bốn tình huống, kể cả Tình huống 06.4 (pháp tuyến $\pm1$ cố định), chỉ dùng số đã có. Đã thực hiện.
+7. (deck) Nhãn "Quy tắc:" thay bằng "Thuật toán.".
+8. Rà đủ năm vai sau khi deck xong; ghi chú được rà toán và rà mạch viết ngay sau giai đoạn này.
+
+### Cấu trúc ghi chú mới và số hiệu cuối cùng
+
+Thứ tự: tiêu đề, một đoạn giới thiệu, dòng liên kết deck, Mục tiêu học tập (5), Kiến thức tiên quyết (`lec-06-topic-18`), Bảng ký hiệu (23 dòng), Bản đồ chủ đề (19 chủ đề), `## 1.`–`## 5.`, Tình huống áp dụng và ứng dụng (`-19`), Tóm tắt chương (`-14`), Bài tập củng cố (`-16`, ba tiểu mục mức), Hướng dẫn đọc thêm và tài liệu tham khảo (`-15`). Ánh xạ N01–N16 sang `lec-06-topic-k` nằm ở outline mục 4 và storyboard phần kiến trúc ghi chú. Bỏ 18 dòng "Nguồn:" cuối mục, nhãn "Câu hỏi:" đầu khối bài tập, mục "Tổng hợp và tự kiểm" và "Đọc thêm có giới hạn" (tách ba nơi), bốn liên kết neo cũ tới bài sách.
+
+**Bộ đếm chung (Định nghĩa, Định lý, Mệnh đề, Bổ đề, Hệ quả, Nhận xét, Thuật toán).**
+
+- Mục 1: Định nghĩa 06.1 (Bài toán tìm cặp tương đồng); Nhận xét 06.2 (Hai đại lượng $s$ và $\widehat s$).
+- Mục 2: Định nghĩa 06.3 (Dải, khóa dải và tập ứng viên); Thuật toán 06.4 (Phân dải và xác minh); Mệnh đề 06.5 (Tính đúng của phân dải và xác minh); Nhận xét 06.6 (Trường hợp biên và bước lọc theo $\widehat s$); Định lý 06.7 (Xác suất thành ứng viên); Hệ quả 06.8 (Xác suất bỏ sót); Mệnh đề 06.9 (Nghiệm một nửa); Nhận xét 06.10 (Ba đại lượng ngưỡng và quy tắc chọn $b$, $r$); Mệnh đề 06.11 (Chi phí của Thuật toán 06.4); Nhận xét 06.12 (Trường hợp xấu nhất); Mệnh đề 06.13 (Kỳ vọng của $K$ và $Q$).
+- Mục 3: Định nghĩa 06.14 (Độ đo khoảng cách; chuẩn $L_q$); Mệnh đề 06.15 (Khoảng cách Jaccard); Định nghĩa 06.16 (Khoảng cách góc); Nhận xét 06.17 (Góc và cosin); Định nghĩa 06.18 (Khoảng cách chỉnh sửa; dãy con chung dài nhất); Mệnh đề 06.19 (Khoảng cách chỉnh sửa qua dãy con chung); Định nghĩa 06.20 (Khoảng cách Hamming); Nhận xét 06.21 (Hamming là độ đo; chi phí tính độ đo); Định nghĩa 06.22 (Họ nhạy cảm theo tính cục bộ); Hệ quả 06.23 (Họ MinHash); Định nghĩa 06.24 (Phép ghép AND và OR); Mệnh đề 06.25 (Xác suất sau phép ghép); Nhận xét 06.26 (Phân dải là AND rồi OR).
+- Mục 4: Định nghĩa 06.27 (Họ chọn tọa độ); Mệnh đề 06.28 (Xác suất trùng của họ chọn tọa độ); Nhận xét 06.29 (Ghép nhiều hàm chọn tọa độ); Định nghĩa 06.30 (Hàm băm dấu và họ siêu phẳng); Định lý 06.31 (Xác suất cùng dấu); Thuật toán 06.32 (Chữ ký dấu và ước lượng góc); Định nghĩa 06.33 (Họ chiếu có dịch trong mặt phẳng); Bổ đề 06.34 (Xác suất chung thùng khi cố định hướng); Định lý 06.35 (Họ chiếu có dịch trong hai chiều); Nhận xét 06.36 (Trục cố định, số chiều và chi phí); Mệnh đề 06.37 (Chi phí tính chữ ký của ba họ).
+- Mục 5: Định nghĩa 06.38 (Hàm khóa và quy tắc ứng viên theo trường); Nhận xét 06.39 (Hàm khóa cố định không cho cận xác suất); Định nghĩa 06.40 (Hàm ba ô cho vân tay); Mệnh đề 06.41 (Xác suất va chạm của hàm ba ô); Định nghĩa 06.42 (Từ dừng và shingle theo từ dừng).
+
+Số hiệu khớp danh sách tạm tính E2 của kế hoạch ở mọi vị trí.
+
+**Ví dụ.** 06.1 Kho một triệu tài liệu (Ví dụ 3.10); 06.2 Năm cột, dải ba hàng (Ví dụ 3.11, Hình 3.7); 06.3 Bốn tập đặc trưng (Ví dụ 3.8, $b=2$, $r=1$, $t=2/3$); 06.4 Cặp $s=0{,}8$ qua 20 dải năm hàng (Ví dụ 3.12); 06.5 Hai cấu hình cùng 100 hàng; 06.6 Công việc trên bốn tập đặc trưng; 06.7 Ba độ đo trên hai điểm (Ví dụ 3.13); 06.8 Góc giữa hai vector (Ví dụ 3.14); 06.9 Sửa abcde thành acfdeg (Ví dụ 3.15–3.16); 06.10 Hai vector bit (Ví dụ 3.17); 06.11 Họ MinHash với hai ngưỡng $0{,}3$ và $0{,}6$ (Ví dụ 3.18); 06.12 Hai thứ tự ghép trên 16 phép thử (Ví dụ 3.19–3.20); 06.13 Hai vector bit theo từng chỉ số; 06.14 Dấu theo hai pháp tuyến (Ví dụ 3.22); 06.15 Chữ ký dấu với ba pháp tuyến cố định (Ví dụ 3.22); 06.16 Ba điểm trên trục thứ nhất (Bài 3.7.5); 06.17 Hai cấu trúc ghép cho vân tay (Ví dụ 3.23); 06.18 Shingle theo từ dừng trên hai câu (Ví dụ 3.24).
+
+**Tình huống.** 06.1 Đối sánh hồ sơ hai nguồn và kiểm bằng trường ngày (giả thiết không thỏa: hàm khóa cố định); 06.2 Truy vấn vân tay một–nhiều; 06.3 Bản tin gần trùng; 06.4 Ước lượng góc bằng pháp tuyến có tọa độ $\pm1$ (giả thiết đẳng hướng không thỏa).
+
+**Bài tập.** Trong các mục: 06.1 (Mục 1), 06.2 (2.2), 06.3 (2.4), 06.4 (2.5), 06.5 (3.5), 06.6 (3.6), 06.7 (3.7), 06.8 (4.1), 06.9 (4.2), 06.10 (4.3), 06.11 (4.4), 06.12 (5.1), 06.13 (5.2), 06.14 (5.3). Bài tập củng cố: mức nhận biết 06.15 (họ MinHash $d_1=0{,}2$, $d_2=0{,}5$, AND 2), 06.16 (giữ $r$, tăng $b$); mức tính toán hoặc chứng minh 06.17 ($Q$, $K$ trên SIG hai hàng), 06.18 ($b=10$, $r=4$), 06.19 (họ siêu phẳng, AND 2 rồi OR 2), 06.20 (Bài 3.4.1), 06.21 (Bài 3.4.2), 06.22 (Bài 3.6.1(a–d)), 06.23 (Bài 3.7.1), 06.24 (Bài 3.7.2), 06.25 (Bài 3.7.5(a–c)), 06.26 (Bài 3.7.5(d)); mức vận dụng 06.27 (kho ảnh 128 chiều), 06.28 (Bài 3.8.2(a,b)). Số hiệu bài tập khác danh sách tạm tính E2 vì bộ đếm theo thứ tự xuất hiện; các trang recitation s07-01…s07-07 ứng với Bài tập 06.20, 06.21, 06.22, 06.23, 06.24, 06.25, 06.28. Sáu nhiệm vụ tự kiểm cũ là Bài tập 06.15–06.19 và 06.27; các câu hỏi trên trang s02-14, s03-13, s04-11, s05-06 (đã có lời giải kiểm bằng chương trình trong ghi chú diễn giả) được dùng làm dữ kiện cho Bài tập 06.3(b,c), 06.5(c,d), 06.8, 06.9, 06.10(a,c), 06.13.
+
+**Mục tiêu ↔ bài tập.** Mục tiêu 1: 06.2, 06.4, 06.17; mục tiêu 2: 06.3, 06.16, 06.18, 06.20, 06.21; mục tiêu 3: 06.6, 06.7, 06.15, 06.19, 06.22; mục tiêu 4: 06.8–06.11, 06.23–06.26; mục tiêu 5: 06.12–06.14, 06.27, 06.28.
+
+### Giáo trình và mục đã tham khảo cho từng mục chương
+
+| Mục ghi chú | Nguồn và mục đã đối chiếu trong lượt này | Điều lấy làm cách diễn giải |
+|---|---|---|
+| Kiến thức tiên quyết | Ghi chú Bài 05 của học phần, danh sách mục 1–14 (đọc tiêu đề và Mục 11) | Dẫn theo mục vì Bài 05 chưa đánh số; nhắc lại "hai tầng va chạm", "hoán vị affine" |
+| 1 | MMDS §3.4, Ví dụ 3.10, tr.91–92 (qua ghi chú cũ đã rà và bảng V01 của outline) | Mở bằng số cặp còn lại sau chữ ký; tách bộ nhớ khỏi số cặp |
+| 2.1–2.2 | MMDS §3.4.1 và §3.4.3 (đọc lại văn bản bảy bước, bước 4, 6, 7, tr.95–96); Ví dụ 3.11/Hình 3.7; Cormen và cộng sự (2022) §2.1 cho khuôn bất biến khởi tạo–duy trì–kết thúc (dẫn theo khuôn chuẩn của sách, không mở bản sách trong lượt này) | Ví dụ Hình 3.7 trước định nghĩa; bất biến chia bước; bước lọc theo $\widehat s$ của sách được nêu và bỏ có lý do |
+| 2.3–2.4 | MMDS §3.4.2–3.4.3, Ví dụ 3.12 ("khoảng 1 trên 3000"), Bài 3.4.2 | Chuỗi một dải → không dải → bù; quy tắc chọn $(1/b)^{1/r}$ thấp hơn hoặc cao hơn $t$ theo bước 4 của sách |
+| 2.5 | Suy từ thủ tục §3.4 (chủ đề bổ sung đã duyệt); khuôn bảng đếm của học phần | Bảng Bước–Số lần–Chi phí mỗi lần–Đóng góp |
+| 3.1–3.5 | MMDS §3.5, Ví dụ 3.13–3.17 (qua ghi chú cũ và bảng V05–V08) | Giữ thứ tự chuẩn, Jaccard, góc, chỉnh sửa, Hamming; ví dụ đặt trước định nghĩa |
+| 3.6–3.7 | MMDS §3.6.1–3.6.3, Ví dụ 3.18–3.20; Stanford CS246 LSH II (qua outline mục 3) | Hai bảo đảm và miền giữa; hai thứ tự ghép cùng 16 hàm |
+| 4.1 | MMDS §3.7.1 (đọc lại văn bản trong lượt này) | Họ $\{f_1,\ldots,f_d\}$ và bộ $(d_1,d_2,1-d_1/d,1-d_2/d)$; khác MinHash ở số hàm hữu hạn |
+| 4.2 | MMDS §3.7.2–3.7.3 (đọc lại §3.7.3 về vector $\pm1$ và quy ước số 0), Ví dụ 3.22 | Sách coi vector $\pm1$ "đủ ngẫu nhiên"; ghi chú nêu đây là vi phạm giả thiết đẳng hướng (Tình huống 06.4), đúng như ghi chú cũ đã rà |
+| 4.3 | MMDS §3.7.4–3.7.5; Datar và cộng sự (2004) §3.2 (qua outline mục 2–3) | Dịch đều là chủ đề bổ sung; cận chỉ hai chiều |
+| 4.4 | Đếm từ định nghĩa hàm (chủ đề bổ sung ngày 02/10) | Bảng đếm phép tính |
+| 5.1, Tình huống 06.1 | MMDS §3.8.1–3.8.3 (đọc lại văn bản §3.8.2–3.8.3 trong lượt này: 100 điểm mỗi trường, tổng 300, ba lần sắp xếp, trễ 0–90 ngày, trung bình 45 và 10, $f=(45-x)/35$) | Giữ đúng số của sách; nêu hàm khóa cố định là giả thiết không thỏa |
+| 5.2, Tình huống 06.2 | MMDS §3.8.4–3.8.5, Ví dụ 3.23 (đọc lại định nghĩa điểm đặc trưng, lưới khoảng 1000 ô, thùng chung và thùng đơn) | Mô hình $0{,}2$, $0{,}8$ là giả định; truy vấn một–nhiều |
+| 5.3, Tình huống 06.3 | MMDS §3.8.6, Ví dụ 3.24 (đọc lại các giá trị 75%, 25%, 1/3 và năm shingle) | Đổi biểu diễn, giữ MinHash và phân dải |
+| Giọng kể, "Trong thực hành", tình huống | Ghi chú Bài 05 của `../rl-plan` (mẫu đã áp chuẩn từ giáo trình *Học máy thống kê*); không mở `../SML-textbook-main.zip` trong lượt này | Giọng "chúng ta/ta", đoạn kết mục văn xuôi, danh sách "Bỏ <giả thiết>", khối tình huống có "Dẫn ngược lý thuyết" |
+
+Không có đoạn dịch hoặc chép từ giáo trình; các số của sách được dẫn kèm số ví dụ, mục và trang.
+
+### Lập luận mới cần tác tử rà toán kiểm
+
+Các đoạn sau là lập luận mới so với ghi chú đã rà ngày 02/10; mọi số khác giữ nguyên giá trị đã kiểm.
+
+- Mệnh đề 06.5, ba phản ví dụ: hai khóa $(1,(1))$, $(1,(3))$ chung ô làm phát cặp $(1,2)$ và $\mathrm{CAND}\ne\mathcal C$, với $t=0$ cặp vào đầu ra; khóa không chứa số dải với hai cột $(1,2)$, $(2,1)$; tập rỗng cho $0/0$.
+- Định lý 06.7, năm phản ví dụ: thứ tự cố định đặt $a$ đầu cho xác suất $1$ với $S_1$, $S_4$; cùng hoán vị trong dải cho $s$ ($0{,}8$ thay $0{,}32768$); cùng $r$ hoán vị cho mọi dải cho $s^r$ ($0{,}32768$ thay $0{,}999643942$); va chạm ô làm (2.1) thành $\ge$ với cặp $(1,2)$, $s=0$; hai tập rỗng có cột toàn $+\infty$.
+- Định lý 06.7, "Trong thực hành": số cặp bỏ sót kỳ vọng bằng $\sum(1-s_{cd}^r)^b$ trên các cặp đạt ngưỡng (tuyến tính kỳ vọng).
+- Mệnh đề 06.9: chứng minh tồn tại và duy nhất nghiệm bằng tính tăng chặt và liên tục.
+- Mệnh đề 06.11: hai hàng $O(bC)$ thêm vào bảng đếm (tạo danh sách, duyệt danh sách).
+- Mệnh đề 06.13, "Trong thực hành": phát biểu định tính về nhóm bản sao làm $Q$ tăng theo bình phương cỡ nhóm.
+- Định nghĩa 06.14: phản ví dụ $q=1/2$ với $(0,0)$, $(1,0)$, $(1,1)$ cho $4>1+1$.
+- Mệnh đề 06.25, hai phản ví dụ: dùng lại một hàm bốn lần cho $0{,}8$ thay $0{,}4096$ và thay $0{,}9984$; băm hai đối tượng bằng hai hàm khác nhau.
+- Mệnh đề 06.28, hai phản ví dụ: $I\equiv1$ cho xác suất $1$ thay $2/5$; chỉ số riêng cho $x=y=10101$ với cặp chỉ số $(1,2)$.
+- Định lý 06.31: chứng minh Bước 1–3 viết lại chi tiết hơn ($y=\pm\lambda x$; phân tích $v=v_\Pi+v_\perp$); bốn phản ví dụ: 16 vector $\pm1$ cho $4/16$ khác dấu, ứng với $45^\circ$ (đã có trong ghi chú cũ, nay thành phản ví dụ); $\theta=60$ độ cho số âm; $x=0$; hai pháp tuyến độc lập cho $x=y$ trùng với xác suất $1/2$.
+- Thuật toán 06.32: $\mathbb E[\widehat p_{\ne}]=\theta/\pi$ theo tuyến tính kỳ vọng.
+- Bổ đề 06.34: phản ví dụ $\delta=0$, hình chiếu $1\pm\varepsilon$ với $a=1$.
+- Định lý 06.35: chứng minh cận gần dùng Cauchy–Schwarz $\ell\le\rho$; hai phản ví dụ: $\delta=0$ với hai điểm $(\pm\varepsilon,0)$, $0<\varepsilon\le a/4$, xác suất $0$; $u$ luôn vuông góc với $x-y$ cho xác suất $1$. Giới hạn hai chiều được nêu là chưa có phản ví dụ trong chương, không khẳng định cận thay thế.
+- Mệnh đề 06.37: ví dụ đếm $2\cdot3\cdot4=24$ phép nhân cho Ví dụ 06.15. Bài tập 06.11 thêm dòng kiểm $2\cdot10^8$ bit $=2{,}5\cdot10^7$ byte.
+- Mệnh đề 06.41, hai phản ví dụ: ba ô luôn cùng có hoặc cùng không cho $0{,}04$; chọn ô theo ảnh truy vấn cho $0{,}8^3=0{,}512$.
+- Tình huống 06.2: tỷ phần kỳ vọng ảnh khác ngón phải so bằng $P_F$ theo tuyến tính kỳ vọng. Tình huống 06.4: hàm $\pm1$ tốn khoảng $D-1$ phép cộng, trừ.
+- Các dòng "Kiểm tra lại" mới: Ví dụ 06.5 ($0{,}8^{10}\approx0{,}107374$), Bài tập 06.13 ($0{,}1223^2\approx0{,}0150$), Bài tập 06.16 ($0{,}67232^{20}\approx0{,}000356$), Bài tập 06.18 ($0{,}562^4\approx0{,}0998$), Bài tập 06.19 ($(11/36)^2\approx0{,}0934$), Bài tập 06.20 (tại $s=0{,}1$, $r=3$, $b=10$), Bài tập 06.21 ($0{,}406088134^3\approx0{,}066967$), Bài tập 06.26 (các biên $3/2$, $2$, $3$).
+
+Tác tử soạn đã tính lại bằng chương trình: $0{,}67232^{20}=0{,}000356058$, $(1-0{,}8^{10})^{10}=0{,}321140026$, $P_{20,5}(0{,}549280272)=0{,}641514078$, 16 vector $\pm1$ cho 4 vector khác dấu ($45^\circ$), $\arccos(40/\sqrt{2580})=38{,}047579^\circ$.
+
+Không phát hiện mâu thuẫn số liệu giữa ghi chú cũ và bảng V01–V12, HT1–HT11 của outline.
+
+### Kiểm tra đã chạy
+
+- **Script kiểm cấu trúc** (`python3 -I` trong scratchpad của tác tử soạn): 27 451 từ theo cách đếm khoảng trắng, 25 740 từ khi bỏ công thức khối và mã; 164 khối `:::`, 164 dòng đóng, không lồng; bộ đếm chung 06.1–06.42, Ví dụ 06.1–06.18, Tình huống 06.1–06.4, Bài tập 06.1–06.28, đều liên tục và không trùng; mọi `proof` đi ngay sau kết quả, có tiêu đề cùng số hiệu và kết thúc bằng $\square$; mọi `exercise` có `hint` và `solution`; mọi định lý, mệnh đề, bổ đề, hệ quả có đủ bốn phần; 19 `note-topic-id` duy nhất, đúng dạng `lec-06-topic-NN`, mỗi mã ngay trước một tiêu đề; không còn "Mục này", "Tài liệu này", "xem trang chiếu", "dễ thấy", "Đáp án", "Câu hỏi:", dòng mở bằng "Nguồn:" hay "hãy"; 12 SVG được dùng; số lượng `$$` chẵn; không có số thập phân dấu chấm trong công thức; mọi tham chiếu "Định nghĩa/Định lý/…/Bài tập 06.k" trỏ đúng loại khối.
+- **Viewer** (Playwright Chromium, máy chủ của kho tại cổng 8771, `wait_until="load"`), 1440 × 900 và 390 × 844: 164 `.material-block` khớp số khối Markdown; 2 123 công thức KaTeX, 0 `.katex-error`; mục lục 35 liên kết; không cuộn ngang; 12 ảnh tải được; không lỗi console ngoài thông báo CSP về script nội dòng của reloadserver; 8 cảnh báo KaTeX chế độ strict do chữ Việt trong `\text{…}` của các dòng căn cứ (cảnh báo, không phải lỗi). Chế độ in: 72/72 khối `proof`, `hint`, `solution` mở. Ảnh chụp: `/tmp/claude-1000/-data-tqlong-ds-foundation-algorithms/120f1262-3ea0-45af-8c12-2dcf2a1526d1/scratchpad/shots/note06new-*.png`, đã xem trực tiếp.
+- **`git diff --check`**: không lỗi.
+
+### Tự kiểm `no-ai-slop` (chế độ Edit, theo `eval.md`)
+
+| Nhóm kiểm | Kết quả |
+|---|---|
+| Giữ ý, không thêm khẳng định, ví dụ, số liệu, nguồn | Đạt có ghi chú: các lập luận mới chỉ nằm ở danh sách phản ví dụ và đoạn "Trong thực hành", liệt kê ở mục trên để rà toán; mọi số khác lấy từ ghi chú cũ, outline hoặc lời giải đã kiểm trong ghi chú diễn giả. |
+| Giọng và mức trang trọng | Đạt: giữ văn phong học thuật của học phần; "chúng ta" cho kế hoạch và lựa chọn, "ta" trong tính toán, câu khách quan trong khối hình thức; tài liệu không làm chủ ngữ. |
+| Từ cấm, trạng từ rỗng, cụm rỗng | Đạt: đã bỏ "thực sự", "chính là", "đáng kể", "một cách hiển nhiên"; không có từ quảng bá. |
+| Tương phản nhị phân, câu hỏi tu từ, mở đầu rỗng | Đạt có ghi chú: các cặp "X, không phải Y" còn lại là phân biệt toán học bắt buộc ($\widehat s$ với $s$, xác suất theo cặp với tỷ lệ kho, mô hình với số đo); câu hỏi trong văn bản là câu hỏi nghiên cứu được trả lời ngay (đầu Mục 2.3, trước Mệnh đề 06.5). |
+| Siêu bình luận, câu kết sáo, tóm lược thừa | Đạt: không có "điểm mấu chốt", "cần lưu ý"; đoạn kết mục là yêu cầu của chuẩn và dẫn số hiệu. |
+| Định dạng | Đạt: danh sách chỉ dùng cho mục song song (giả thiết, trường hợp, bước); in đậm chỉ ở nhãn bước, nhãn phần; một gạch ngang dài duy nhất ở tiêu đề theo mẫu. |
+| Nhịp câu | Đạt có ghi chú: các khối lặp cùng khuôn (Dữ kiện, Tính, Kiểm tra lại; bốn phần của định lý) do chuẩn quy định; văn xuôi giữa các khối đổi độ dài câu. |
+
+### Sai lệch, giới hạn và việc còn lại
+
+- **Độ dài vượt đích.** Đích của giao việc là 11 000–16 000 từ; bản hiện tại 27 451 từ theo cách đếm khoảng trắng (25 740 khi bỏ công thức khối và mã), vượt cả khoảng thường gặp 8 000–20 000 của `AGENTS.md`. Nguyên nhân: tám bước cho mười hai khái niệm và thuật toán trọng tâm, bốn tình huống, 28 bài tập có gợi ý và lời giải (riêng các bài sách khoảng 2 000 từ), bảng ký hiệu và bản đồ chủ đề, danh sách "Bỏ giả thiết"; tiếng Việt đếm theo âm tiết. Ghi chú mẫu Bài 05 của `../rl-plan` theo cùng chuẩn có 26 226 từ theo cùng cách đếm. Cần điều phối viên quyết định có rút gọn hay không; các chỗ có thể rút mà không bỏ yêu cầu: bảng chi phí lặp trong Thuật toán 06.4 (đã có ở Mệnh đề 06.11), Ví dụ 06.14 (trùng một phần Ví dụ 06.15), đoạn mở Mục 3.7 (trùng số của Ví dụ 06.12), câu (a) của Bài tập 06.1.
+- **Cảnh báo KaTeX.** 8 cảnh báo strict do chữ Việt trong `\text{…}` của cột căn cứ, theo đúng dạng `&&\text{(...)}` mà `AGENTS.md` yêu cầu; hiển thị đúng.
+- **Định nghĩa MinHash.** Ghi chú giữ cách viết của ghi chú cũ, $h_\pi(A)=\min_{a\in A}\pi(a)$ là thứ hạng; outline Bài 05 viết $h_\pi$ là định danh phần tử đầu. Hai cách cho cùng biến cố trùng vì $\pi$ là song ánh; cần thống nhất khi rà mạch liên bài.
+- **Thuật ngữ liên bài.** Outline Bài 07 viết "băm nhạy cảm cục bộ (LSH)"; Bài 06 dùng "băm nhạy cảm theo tính cục bộ (locality-sensitive hashing, LSH)" như `AGENTS.md`.
+- **Storyboard.** Bảng N01–N16 ở mục "Đồng bộ sau năm báo cáo độc lập" và các phiếu trang deck là bản lịch sử; ánh xạ hiện hành nằm ở phần "Kiến trúc ghi chú bài giảng tự học" và outline mục 4. Phiếu trang, bảng `data-slide-id` ↔ `note-topic-id`, mục phân bổ thời gian thuộc giai đoạn 2.
+- **Deck.** Chưa sửa. Số hiệu trên deck phải lấy từ danh sách cuối ở trên; kế hoạch mục D có các số bài tập tạm tính khác (06.21–06.28 cho recitation), cần thay bằng 06.20–06.25 và 06.28.
+- **Rà soát.** Ghi chú chờ tác tử rà toán (tính lại mọi số, kiểm các phản ví dụ mục trên) và tác tử rà mạch viết (tám bước, đoạn kết mục, giọng kể, tính tự chứa). Chưa có phát hiện nào trong lượt này.
+
+### Giai đoạn 2: bộ trang chiếu (2026-10-14)
+
+**Phạm vi.** Giai đoạn 1 được điều phối viên chấp nhận, kể cả ngoại lệ độ dài của ghi chú. Giai đoạn 2 do tác tử soạn thực hiện, vẫn là tác tử duy nhất được ghi tệp; hai tác tử rà toán và rà mạch viết rà ghi chú song song, chỉ đọc. Tệp đã sửa: `lecture-06-tim-cap-tuong-dong-bang-lsh.html` (viết lại theo kế hoạch mục A–D), `outline.md` (mục 1, 5, 8), `storyboard.md` (bản đồ hành trình, phân bổ thời gian, ngoại lệ mật độ, 77 phiếu trang, bảng ánh xạ `data-slide-id` ↔ `note-topic-id`) và tệp này. `lecture-note.md`, CSS, SVG, viewer, index không đổi. Không commit.
+
+**Quyết định cấu trúc.**
+
+- Giữ 7 `<section>` ngoài, lớp gốc `.reveal.course-deck.lecture-lsh`, `lang="vi"`, 1280 × 720, cấu hình Reveal và chân trang cũ; không `<style>`, không style nội dòng, không `.dense`, không `fragment`.
+- 77 trang (69 giảng, 8 bài tập), phân bố 8/17/14/14/9/7/8. Thêm 6 trang tiêu đề mạch `lec06-s0N-00` với `id="mach-N"` (N = 2…7), 4 trang mới (s01-06 Tiên quyết và quy ước, s01-08 Vấn đề trung tâm, s06-05 Kết quả và giả thiết không được bỏ, s06-08 Nguồn và tài liệu đọc), 7 trang tách (s01-07 từ s01-02; s02-15 từ s02-09; s02-16 từ s02-13; s04-12 từ s04-04; s04-13 từ s04-08; s05-07 từ s05-05; s05-08 từ s05-06). Các trang cũ giữ mã; `id` của trang cũ không đổi.
+- Mạch mở đầu theo đúng thứ tự: bìa (câu luận đề ở `p.supporting-text`) → Tiên quyết và quy ước → Mục tiêu học tập → Nội dung (ol 1–7 + "Đọc trước:") → Vấn đề trung tâm → Ví dụ: kho một triệu tài liệu → Bài toán tìm cặp tương đồng → Câu hỏi.
+- Mạch kết luận: tiêu đề mạch → bảng kết quả–giả thiết → bảng thuật toán–bảo đảm–chi phí (s06-02 đổi vai trò) → Trả lời vấn đề trung tâm (gộp nội dung s06-01 và s06-02 cũ; bỏ hình `quy-trinh-cap.svg` khỏi trang này) → hai trang Câu hỏi tự kiểm tra → Nguồn và tài liệu đọc (ghi công `http://www.mmds.org`, liên kết viewer, nối Bài 07).
+- Thu hồi kho một triệu tài liệu theo quyết định 2 của điều phối viên: dòng cuối s06-01 nêu $\binom{10^6}{2}=499\,999\,500\,000$ và giả định luyện tập $10^6$ cặp ứng viên, số phép xác minh giảm khoảng $5\cdot10^5$ lần; lời giải câu 2 cũ của s01-05 chuyển vào ghi chú diễn giả của s06-01.
+- Bỏ toàn bộ 58 dòng `p.ex-source`; nguồn giữ trong ghi chú diễn giả. Bảy trang đề recitation giữ một dòng "Nguồn: MMDS 3e, Bài …, tr.…" dùng lớp `ex-note` (quyết định 3).
+- Nhãn "Quy tắc:" ở trang ước lượng góc đổi thành "Thuật toán." (quyết định 7). Mọi nhãn trên mặt trang thuộc danh sách của `AGENTS.md` (kiểm bằng grep: Nhu cầu, Nhắc lại, Ký hiệu, Giả thiết, Định nghĩa., Định lý., Mệnh đề., Bổ đề., Chứng minh., Thuật toán., Ví dụ., Đầu vào, Đầu ra, Bất biến, Điều kiện dừng, Trường hợp biên, Mô hình, Ý nghĩa, Kết luận, Lưu ý, Quy ước, Câu hỏi, Đọc trước, Nguồn).
+- Mỗi trang có nhiều nhất một câu kết luận cuối trang; mọi `ex-note` chứa câu văn được chuyển thành dòng có nhãn hoặc vào ghi chú diễn giả. Trang ví dụ, thuật toán, tính đúng, chứng minh, chi phí, bài tập mang tiền tố tương ứng.
+- Trang Nội dung dùng `agenda-slide` với danh sách chia hai cột (`ex-grid2`, lớp dùng chung) vì bảy mục ở cỡ chữ 42 px tràn khung; không thu nhỏ chữ. Trang bài tập 3.6.1 và 3.8.2 dùng các dòng "(a)…(d)" thay `ol type="a"` vì CSS chung hiển thị số.
+- CSS: không sửa. Lớp `.lsh-orientation` không còn được dùng trong deck. Deck phụ thuộc các lớp `strand-title`, `strand-title-body`, `strand-number`, `strand-lead`, `strand-keys` hiện nằm trong thay đổi chưa commit của `lecture-style.css`; cần commit CSS chung trước hoặc cùng deck (điểm G5.9 của kế hoạch).
+
+**Số hiệu ghi chú trên mặt trang** (tối đa một lần mỗi trang): s02-11 Định lý 06.7; s02-12 Mệnh đề 06.9; s02-13 Mệnh đề 06.11; s02-15 Mệnh đề 06.5; s03-03 Mệnh đề 06.15; s03-07 Định nghĩa 06.22; s03-08 Hệ quả 06.23; s03-10 Mệnh đề 06.25; s03-12 Nhận xét 06.26; s04-02 Mệnh đề 06.28; s04-05 Định lý 06.31; s04-08 Bổ đề 06.34; s04-09 Định lý 06.35; s04-10 Mệnh đề 06.37; s04-12 Thuật toán 06.32; s05-03 Mệnh đề 06.41. Ghi chú diễn giả của các trang câu hỏi, recitation và tổng kết dẫn số Bài tập 06.k tương ứng (06.1–06.3, 06.5, 06.7–06.10, 06.12–06.28).
+
+**Mật độ trước → sau.** Script cũ `tools/density.py` (bỏ sót trang đầu mỗi section): trước 53 trang, trung vị 53, lớn nhất 108, 23 trang > 60, 35 trang > 40; sau 70 trang, trung vị 39,5, lớn nhất 78, 5 trang > 60, 33 trang > 40. Script sửa `w06/dens.py` trong scratchpad (tính mọi trang, đếm âm tiết có chữ cái, bỏ tiêu đề, công thức, giả mã và ghi chú; đếm dòng `p`, `li`, hàng `tbody`, `h3`; đếm khối `ex-equation` và `$$`): trước 60 trang, trung vị 53, lớn nhất 108, 26 trang > 60, 11 trang > 80; sau 77 trang, trang nội dung trung vị 40, lớn nhất 78, 34 trang > 40, 5 trang > 60, 0 trang > 80. Năm trang > 60 đều thuộc loại trần 80: s01-02 mục tiêu (76), s06-01 tổng kết (78), s06-05 bảng kết quả (63), s04-10 bảng chi phí (69), s07-07 đề recitation (71). Không trang nội dung nào vượt trần 60; không trang nào vượt 1,5 lần trần. Trang > 6 dòng: chỉ s01-07 (8 dòng, ngoại lệ ghi trong storyboard). Dòng > 20 âm tiết: chỉ câu luận đề của bìa (25) và dòng dẫn trang tiêu đề mạch 3–7 (21–23, trong trần 25 của dòng dẫn). Không trang nào quá 3 khối công thức hay quá một câu kết luận. Ghi chú diễn giả mọi trang trong khoảng 59–142 âm tiết; trang tiêu đề mạch 70–102.
+
+Bảng mật độ từng trang (cột "Trần": 60 cho trang nội dung, 80 cho mục tiêu, nội dung, tổng kết, bảng, chi phí, đề recitation; "—" cho bìa và trang tiêu đề mạch):
+
+| `data-slide-id` | Tiêu đề | Quyết định | Âm tiết trước → sau | Trần | Dòng | Dòng dài nhất | Khối công thức | Âm tiết ghi chú |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| `lec06-s01-01` | Tìm cặp tương đồng bằng LSH | `sửa` | 32 → 49 | — | 4 | 25 | 0 | 83 |
+| `lec06-s01-06` | Tiên quyết và quy ước | `thêm` | — → 58 | 60 | 5 | 13 | 0 | 91 |
+| `lec06-s01-02` | Mục tiêu học tập | `tách` | 89 → 76 | 80 | 5 | 20 | 0 | 82 |
+| `lec06-s01-07` | Nội dung | `thêm` | — → 45 | 80 | 8 | 6 | 0 | 97 |
+| `lec06-s01-08` | Vấn đề trung tâm | `thêm` | — → 59 | 60 | 6 | 13 | 0 | 107 |
+| `lec06-s01-03` | Ví dụ: kho một triệu tài liệu | `sửa` | 46 → 51 | 60 | 6 | 15 | 2 | 89 |
+| `lec06-s01-04` | Bài toán tìm cặp tương đồng | `sửa` | 40 → 28 | 60 | 3 | 13 | 0 | 96 |
+| `lec06-s01-05` | Câu hỏi về bài toán tìm cặp | `sửa` | 80 → 42 | 60 | 5 | 13 | 0 | 85 |
+| `lec06-s02-00` | 2. Phân dải chữ ký MinHash | `thêm` | — → 32 | — | 2 | 18 | 0 | 86 |
+| `lec06-s02-01` | Dải, khóa dải và cặp ứng viên | `sửa` | 84 → 59 | 60 | 5 | 14 | 0 | 119 |
+| `lec06-s02-06` | Ví dụ: năm cột, dải ba hàng | `sửa` | 67 → 43 | 60 | 6 | 13 | 0 | 103 |
+| `lec06-s02-02` | Ví dụ: bốn tập đặc trưng | `sửa` | 32 → 22 | 60 | 6 | 11 | 1 | 87 |
+| `lec06-s02-03` | Ví dụ: bốn tập đặc trưng, thùng của dải 1 | `sửa` | 38 → 29 | 60 | 6 | 12 | 0 | 70 |
+| `lec06-s02-04` | Ví dụ: bốn tập đặc trưng, hợp qua hai dải | `sửa` | 39 → 34 | 60 | 6 | 12 | 1 | 59 |
+| `lec06-s02-05` | Ví dụ: bốn tập đặc trưng, xác minh | `sửa` | 53 → 38 | 60 | 6 | 12 | 0 | 64 |
+| `lec06-s02-07` | Thuật toán: phân dải và xác minh | `sửa` | 18 → 15 | 60 | 5 | 7 | 1 | 86 |
+| `lec06-s02-08` | Thuật toán: phân dải và xác minh | `sửa` | 17 → 13 | 60 | 5 | 3 | 0 | 127 |
+| `lec06-s02-09` | Tính đúng: phân dải và xác minh | `tách` | 103 → 59 | 60 | 5 | 13 | 0 | 134 |
+| `lec06-s02-15` | Tính đúng: phân dải và xác minh | `thêm` | — → 59 | 60 | 5 | 14 | 0 | 99 |
+| `lec06-s02-10` | Xác suất trùng một dải | `sửa` | 57 → 49 | 60 | 5 | 16 | 1 | 89 |
+| `lec06-s02-11` | Xác suất thành ứng viên | `sửa` | 43 → 46 | 60 | 4 | 20 | 1 | 72 |
+| `lec06-s02-12` | Đường cong S và chọn số dải | `giữ` | 35 → 31 | 60 | 3 | 17 | 0 | 109 |
+| `lec06-s02-13` | Chi phí: phân dải và xác minh | `tách` | 90 → 53 | 80 | 6 | 16 | 0 | 91 |
+| `lec06-s02-16` | Chi phí: bộ nhớ và trường hợp xấu nhất | `thêm` | — → 38 | 80 | 5 | 17 | 1 | 87 |
+| `lec06-s02-14` | Câu hỏi về phân dải | `sửa` | 42 → 32 | 60 | 6 | 19 | 0 | 117 |
+| `lec06-s03-00` | 3. Khoảng cách và họ nhạy cảm | `thêm` | — → 38 | — | 2 | 22 | 0 | 79 |
+| `lec06-s03-01` | Độ đo khoảng cách | `sửa` | 55 → 32 | 60 | 6 | 13 | 3 | 90 |
+| `lec06-s03-02` | Độ đo khoảng cách và chuẩn vector | `sửa` | 24 → 25 | 60 | 6 | 11 | 1 | 74 |
+| `lec06-s03-03` | Khoảng cách Jaccard | `sửa` | 39 → 33 | 60 | 5 | 15 | 2 | 97 |
+| `lec06-s03-04` | Khoảng cách góc | `sửa` | 41 → 27 | 60 | 5 | 8 | 0 | 101 |
+| `lec06-s03-05` | Khoảng cách chỉnh sửa | `sửa` | 66 → 40 | 60 | 4 | 19 | 1 | 117 |
+| `lec06-s03-06` | Khoảng cách Hamming | `giữ` | 32 → 31 | 60 | 6 | 14 | 1 | 80 |
+| `lec06-s03-07` | Họ băm nhạy cảm theo tính cục bộ | `sửa` | 53 → 40 | 60 | 5 | 19 | 2 | 93 |
+| `lec06-s03-08` | Ví dụ: họ MinHash theo Jaccard | `sửa` | 36 → 35 | 60 | 5 | 11 | 0 | 83 |
+| `lec06-s03-09` | Phép ghép đồng thời | `sửa` | 73 → 45 | 60 | 5 | 17 | 1 | 87 |
+| `lec06-s03-10` | Phép ghép ít nhất một | `sửa` | 73 → 53 | 60 | 6 | 20 | 1 | 87 |
+| `lec06-s03-11` | Ví dụ: hai thứ tự ghép trên 16 phép thử | `sửa` | 71 → 52 | 60 | 5 | 15 | 0 | 95 |
+| `lec06-s03-12` | Phân dải như phép ghép AND rồi OR | `sửa` | 46 → 33 | 60 | 3 | 15 | 0 | 113 |
+| `lec06-s03-13` | Câu hỏi về độ đo và phép ghép | `giữ` | 48 → 36 | 60 | 4 | 19 | 0 | 93 |
+| `lec06-s04-00` | 4. Các họ băm theo độ đo | `thêm` | — → 40 | — | 2 | 21 | 0 | 100 |
+| `lec06-s04-01` | Họ băm chọn tọa độ | `sửa` | 46 → 32 | 60 | 6 | 11 | 1 | 97 |
+| `lec06-s04-02` | Tính nhạy cảm của họ chọn tọa độ | `sửa` | 37 → 39 | 60 | 6 | 15 | 2 | 89 |
+| `lec06-s04-03` | Hàm băm dấu theo siêu phẳng | `giữ` | 38 → 29 | 60 | 6 | 15 | 2 | 114 |
+| `lec06-s04-05` | Tính nhạy cảm của họ siêu phẳng | `giữ` | 32 → 28 | 60 | 6 | 11 | 2 | 103 |
+| `lec06-s04-04` | Ví dụ: chữ ký dấu của hai vector, ba pháp tuyến | `tách` | 66 → 31 | 60 | 6 | 13 | 0 | 73 |
+| `lec06-s04-12` | Ước lượng góc từ chữ ký dấu | `thêm` | — → 42 | 60 | 4 | 15 | 0 | 114 |
+| `lec06-s04-06` | Ví dụ: ba điểm trên trục thứ nhất | `sửa` | 78 → 38 | 60 | 6 | 15 | 0 | 120 |
+| `lec06-s04-07` | Họ chiếu có dịch ngẫu nhiên | `sửa` | 57 → 37 | 60 | 5 | 14 | 1 | 115 |
+| `lec06-s04-08` | Xác suất chung thùng khi cố định hướng | `tách` | 77 → 28 | 60 | 3 | 18 | 1 | 90 |
+| `lec06-s04-13` | Chứng minh: xác suất chung thùng khi cố định hướng | `thêm` | — → 44 | 60 | 4 | 16 | 0 | 116 |
+| `lec06-s04-09` | Tính nhạy cảm của họ chiếu hai chiều | `sửa` | 37 → 38 | 60 | 6 | 13 | 1 | 95 |
+| `lec06-s04-10` | Chi phí: chữ ký theo ba họ | `sửa` | 102 → 69 | 80 | 6 | 17 | 0 | 110 |
+| `lec06-s04-11` | Câu hỏi về các họ theo độ đo | `sửa` | 68 → 50 | 60 | 5 | 18 | 0 | 103 |
+| `lec06-s05-00` | 5. Ứng dụng tìm cặp tương đồng | `thêm` | — → 36 | — | 2 | 22 | 0 | 93 |
+| `lec06-s05-01` | Đối sánh thực thể | `sửa` | 69 → 52 | 60 | 4 | 15 | 0 | 142 |
+| `lec06-s05-02` | Họ băm ba ô cho vân tay | `sửa` | 86 → 59 | 60 | 5 | 16 | 0 | 116 |
+| `lec06-s05-03` | Ví dụ: xác suất va chạm của hàm ba ô | `sửa` | 99 → 55 | 60 | 5 | 17 | 0 | 117 |
+| `lec06-s05-04` | Phép ghép trong đối sánh vân tay | `sửa` | 69 → 54 | 60 | 5 | 19 | 1 | 110 |
+| `lec06-s05-05` | Bản tin gần trùng | `tách` | 108 → 58 | 60 | 5 | 15 | 0 | 126 |
+| `lec06-s05-07` | Ví dụ: shingle theo từ dừng | `thêm` | — → 57 | 60 | 5 | 16 | 0 | 66 |
+| `lec06-s05-06` | Câu hỏi về đối sánh thực thể và vân tay | `tách` | 107 → 50 | 60 | 4 | 18 | 0 | 106 |
+| `lec06-s05-08` | Câu hỏi về shingle theo từ dừng | `thêm` | — → 30 | 60 | 2 | 20 | 0 | 79 |
+| `lec06-s06-00` | 6. Tổng kết và tự kiểm tra | `thêm` | — → 39 | — | 2 | 23 | 0 | 102 |
+| `lec06-s06-05` | Kết quả và giả thiết không được bỏ | `thêm` | — → 63 | 80 | 4 | 15 | 0 | 94 |
+| `lec06-s06-02` | Thuật toán, bảo đảm và chi phí | `sửa` | 82 → 53 | 80 | 4 | 14 | 0 | 109 |
+| `lec06-s06-01` | Trả lời vấn đề trung tâm | `sửa` | 64 → 78 | 80 | 6 | 19 | 0 | 122 |
+| `lec06-s06-03` | Câu hỏi tự kiểm tra | `sửa` | 52 → 34 | 60 | 4 | 13 | 0 | 92 |
+| `lec06-s06-04` | Câu hỏi tự kiểm tra | `sửa` | 69 → 51 | 60 | 4 | 20 | 0 | 93 |
+| `lec06-s06-08` | Nguồn và tài liệu đọc | `thêm` | — → 56 | 60 | 5 | 18 | 0 | 81 |
+| `lec06-s07-00` | 7. Bài tập vận dụng | `thêm` | — → 40 | — | 2 | 23 | 0 | 70 |
+| `lec06-s07-01` | Bài tập: bảng giá trị đường cong S | `sửa` | 37 → 34 | 80 | 5 | 14 | 1 | 68 |
+| `lec06-s07-02` | Bài tập: ngưỡng của đường cong S | `sửa` | 36 → 30 | 80 | 6 | 15 | 0 | 82 |
+| `lec06-s07-03` | Bài tập: xác suất qua nhiều tầng ghép | `sửa` | 64 → 43 | 80 | 6 | 20 | 0 | 73 |
+| `lec06-s07-04` | Bài tập: hàm chọn tọa độ trên bốn vector | `sửa` | 38 → 32 | 80 | 5 | 16 | 1 | 77 |
+| `lec06-s07-05` | Bài tập: chữ ký dấu của ba vector | `sửa` | 39 → 29 | 80 | 6 | 13 | 0 | 91 |
+| `lec06-s07-06` | Bài tập: thùng chiếu trên ba trục | `sửa` | 41 → 30 | 80 | 5 | 9 | 0 | 97 |
+| `lec06-s07-07` | Bài tập: hai cấu trúc ghép cho vân tay | `sửa` | 98 → 73 | 80 | 6 | 17 | 0 | 109 |
+
+**Kiểm trình duyệt.** Playwright Chromium (`w06/deckcheck.py`), máy chủ của kho tại cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang bằng `Reveal.configure`, duyệt cả 77 trang bằng `Reveal.getIndices` và `Reveal.slide(h, v, 99)` ở 1600 × 900 và 390 × 844:
+
+- không lỗi console, kể cả thông báo CSP; không phản hồi lỗi, không tài nguyên ngoài máy cục bộ; 0 `.katex-error`;
+- ở 1600 × 900, không phần tử nào (trừ phần nội bộ của KaTeX) vượt khung `.slides`; mọi ảnh tải được; cỡ chữ đo được ở khung 1280 × 720: 28 px cho đoạn văn và danh sách, 25 px trong bảng, 24 px chỉ ở bảy dòng nguồn của trang recitation (`ex-note`, chú thích ngắn theo lớp dùng chung);
+- `#/1`…`#/7` mở đúng `lec06-s01-01`, `lec06-s02-00`, …, `lec06-s07-00`; phím Space đi qua đủ 77 trang theo đúng thứ tự HTML;
+- ở 390 × 844, Reveal thu nhỏ khung 16:9 như các bài trước (giới hạn runtime dùng chung đã ghi ở lượt 02/10), không lỗi;
+- lượt đầu phát hiện trang Nội dung tràn khung với danh sách một cột và ảnh chụp giữa hiệu ứng chuyển trang; đã sửa bố cục hai cột và tắt hiệu ứng khi chụp; lượt sau sạch.
+- Ảnh chụp: `/tmp/claude-1000/-data-tqlong-ds-foundation-algorithms/120f1262-3ea0-45af-8c12-2dcf2a1526d1/scratchpad/shots/deck06-*.png` (mạch mở đầu, mọi trang tiêu đề mạch, mạch kết luận, các trang tách và các trang có hình, ở cả hai cỡ) và các tấm ghép `sheet-deck06-*.png`; tác tử soạn đã xem toàn bộ tấm ghép.
+- `git diff --check`: không lỗi. Kiểm cân bằng thẻ HTML bằng `html.parser`: không thẻ lệch hay thiếu đóng; 77 `data-slide-id` duy nhất, không trùng `id`.
+
+**Tự kiểm `no-ai-slop` (Edit) cho mặt trang và ghi chú diễn giả.**
+
+| Nhóm kiểm | Kết quả |
+|---|---|
+| Không thêm khẳng định, số liệu | Đạt: mọi số lấy từ deck cũ, ghi chú hoặc outline (G6 của kế hoạch); câu mới chỉ sắp lại hoặc rút gọn. |
+| Văn phong mặt trang | Đạt: không "chúng ta", "ta thấy", "rõ ràng", câu hỏi tu từ hay lời chỉ đường; định nghĩa dùng "là", "gọi là"; không mã nội bộ trên mặt trang và trong ghi chú. |
+| Ghi chú diễn giả | Đạt có ghi chú: không mở bằng "Trang này"; đã bỏ các cụm điều hướng "trang sau", "trang trước", "ví dụ trước", "bài trước" và "Đáp án"; ghi chú trang tiêu đề mạch còn nhắc "mạch" theo số, không phải mã nội bộ. |
+| Lặp và câu rỗng | Đạt: câu kết luận cuối trang là con số hoặc kết luận có điều kiện; không khẩu hiệu, không chuỗi mũi tên. |
+| Định dạng | Đạt: nhãn in đậm chỉ ở đầu dòng; không gạch ngang dài trên mặt trang. |
+
+**Việc còn lại.** Rà đủ năm vai trên deck (quyết định 8 của điều phối viên); rà `quill` về thuật ngữ và liên tục giữa deck và ghi chú; phiếu kiểm `slide_authoring_standard.md` ở bước kiểm định cuối; đồng bộ phần "Đồng bộ sau năm báo cáo độc lập" của storyboard (bảng N01–N16 lịch sử) nếu điều phối viên muốn xóa dấu vết cũ; thứ tự commit với CSS chung.
+
+### Lượt sửa ghi chú theo hai báo cáo rà (2026-10-14)
+
+**Phạm vi.** Tác tử soạn thảo (fork, Opus 5.5, effort `high`, là tác tử ghi duy nhất) sửa `materials/lec-06/lecture-note.md` theo hai báo cáo rà độc lập chỉ đọc: `review-note06-math.md` (độ chính xác toán và thuật toán: 1 nghiêm trọng, 5 trung bình, 11 nhẹ) và `review-note06-storyline.md` (mạch và liên kết: T1–T16 trung bình, N1–N24 nhẹ), cùng 19 quyết định của điều phối viên. Deck không sửa trong lượt này. Chưa commit.
+
+**Quyết định cho báo cáo toán.**
+
+| Mức | Vị trí (số hiệu cũ) | Quyết định | Cách xử lý |
+|---|---|---|---|
+| nghiêm trọng | Ví dụ 06.17, Tình huống 06.2, Bài tập 06.13, 06.28: độc lập của 1024 phép thử gán cho Mệnh đề 06.25 | sửa | Nêu "giả thiết độc lập thêm của MMDS" (va chạm qua các hàm và giữa hai nhóm AND coi là độc lập), không suy từ mệnh đề phép ghép; giữ số của sách. Thêm vào Giới hạn của Tình huống 06.2 và lời giải 06.28: theo Jensen, xác suất bỏ sót thật $\mathbb E[(1-p)^{1024}]\ge(1-q_T)^{1024}$, số của sách là cận dưới; tương tự $0{,}0634$ là cận trên của xác suất nhận ảnh khác ngón dưới OR 1024. Thêm bất đẳng thức Jensen vào Kiến thức tiên quyết. Không dùng số mô phỏng. |
+| trung bình | Tóm tắt và lời giải 06.10(c): cận $1/3$ "cần dịch đều" | sửa | Bước 2 của định lý chỉ dùng "chung thùng cần $\ell<a$", đúng với mọi $\delta$; ghi rõ ở Điều kiện áp dụng, cuối Bước 2, đoạn vai trò giả thiết, Tóm tắt và 06.10(c). |
+| trung bình | Nhận xét 06.36: "ghép nhiều hàm để phân biệt hai khoảng cách gần nhau" | sửa | Thay bằng lập luận định tính của MMDS §3.7.5 (tr.113): $d_1<d_2\Rightarrow p_1>p_2$ rồi khuếch đại; nói rõ sách không tính $p_1,p_2$, không chứng minh đơn điệu, không có độ dịch. Sửa "Trong thực hành" của Mục 4.3 tương ứng. |
+| trung bình | $L_q$ là độ đo khi $q\ge1$ | sửa (lượt trước trong cùng vòng) | Ghi MMDS §3.5.2 (tr.97–98) định nghĩa $L_r$ cho mọi $r$; điều kiện $q\ge1$ là Minkowski, dùng không chứng minh. |
+| trung bình | Tiên quyết MinHash gán định nghĩa thứ hạng cho Bài 05 | sửa | Phát biểu lại theo ghi chú Bài 05 Mục 5 (phần tử đầu tiên theo hoán vị); phản ví dụ của Định lý 06.7 dùng "bằng $a$". |
+| trung bình | Tóm tắt gạch 4 dẫn sai kỳ vọng của Mệnh đề 06.11 | sửa | Kỳ vọng của $K$, $Q$ ở Mệnh đề 06.13 theo hoán vị; Nhận xét 06.12 cho $K=\binom C2$; kỳ vọng ở 06.11 chỉ theo hàm băm của bảng. |
+| nhẹ | Phản ví dụ tập rỗng (quy ước $+\infty$) | sửa | "theo quy ước đầu ra của thuật toán quét (ghi chú Bài 05, Mục 9 và 11)". |
+| nhẹ | Va chạm ô "thêm cặp vào $\mathcal C$" | sửa | Đổi thành $\mathrm{CAND}\supseteq\mathcal C$, $\Pr[(c,d)\in\mathrm{CAND}]\ge P_{b,r}(s)$. |
+| nhẹ | Mệnh đề 06.25: gạch "bỏ cùng hàm" thiếu phản ví dụ | sửa | Phản ví dụ $S_1$ với hai hoán vị độc lập cho xác suất $1/2$ thay cho $1$. |
+| nhẹ | Bước 2 chứng minh 06.15 "ba tiên đề đầu" | sửa | Đổi tên bước theo Định nghĩa 06.14. |
+| nhẹ | Dạng chữ S chỉ cần $r\ge2$ | sửa | Cần $b\ge2$ và $r\ge2$ (Mục 2.4 và Nhận xét 06.10). |
+| nhẹ | Tóm tắt gạch 1 trộn hai mức dùng lại hàm | sửa | Trong dải: $s$ thay $s^r$; giữa các dải: $s^r$ thay $P_{b,r}(s)$. |
+| nhẹ | Mục 3.7 gán cách nhìn "quyết định trên từng cặp" cho Ví dụ 3.20 | sửa | Dẫn §3.6.1 cho cách nhìn này. |
+| nhẹ | Mục 4.3 "ý tưởng chiếu có dịch" ở §3.7.5 | sửa | "phép chiếu lên đường thẳng ngẫu nhiên và chia khoảng". |
+| nhẹ | Lời giải 06.16 viết như khẳng định xác định | sửa | Nói về kỳ vọng của số cặp bỏ sót, $K$, $Q$ (Mệnh đề 06.13). |
+| nhẹ | Định lý 06.31 "mọi $D\ge2$" | sửa | "Mọi $D\ge1$", với $D=1$ thuộc Bước 1. |
+| nhẹ | "1 trên 3 000"; trang Ví dụ 3.11, 3.24 | sửa | Khoảng 1 trên 2 800 (sách làm tròn 3 000); Ví dụ 3.11 tr.92–93; Ví dụ 3.24 tr.120–121. |
+
+**Quyết định cho báo cáo mạch.**
+
+| Mã | Quyết định | Cách xử lý |
+|---|---|---|
+| T1 | sửa | Kế hoạch mục sau chỉ nêu ở đoạn kết mục trước; đoạn mở Mục 2–5 viết lại thành nhu cầu và dữ kiện kế thừa. |
+| T2 | sửa | Bài 07 dùng LSH làm bộ lọc ứng viên cho truy vấn và so với đồ thị thế giới nhỏ phân tầng (HNSW), lượng tử hóa tích (PQ), viết đủ tên; sửa ở "Ứng dụng trong các bài sau" và câu cuối Tóm tắt. |
+| T3 | sửa | Mục 5.3 dẫn "ghi chú Bài 05, Mục 12" (MMDS §3.2.4, tr.80) trước Định nghĩa 06.43 và nói định nghĩa được nhắc lại; "shingle ký tự như Bài 05" thành "$k$-shingle ký tự (ghi chú Bài 05, Mục 3)"; bỏ gạch trỏ ngược trong danh sách ứng dụng. |
+| T4 | sửa | Như mục "dạng chữ S" của báo cáo toán. |
+| T5 | sửa | Định nghĩa 06.34 (cũ 06.33) trên $\mathbb R^D$, $u$ đều trên mặt cầu đơn vị, không nêu cách sinh; tiêu đề "Họ chiếu có dịch"; Ví dụ 06.16 là hàm cùng dạng trên $\mathbb R^3$ với $u=e_1$, $\delta=0$; Bổ đề 06.35 đúng mọi $D$; Định lý 06.36 phát biểu và chứng minh cho $D=2$, dẫn MMDS §3.7.4 (tr.111–113). |
+| T6 | sửa | Như mục Tóm tắt gạch 4 của báo cáo toán. |
+| T7 | sửa | Thêm Bài tập 06.29 (chọn $(b,r)$ cho $t=0{,}6$, kiểm mục tiêu 2) và 06.30 (chứng minh biến thể $b$ bảng cho $\mathrm{CAND}=\mathcal C$, phản ví dụ một bảng thiếu số dải, kiểm mục tiêu 1) ở cuối Mức vận dụng để không đánh số lại bài tập; câu ánh xạ mục tiêu và số bài "mười sáu" cập nhật. |
+| T8 | sửa | 06.3 chép bốn tập và hai hàng chữ ký; 06.21 nhắc lại $P(s)$; 06.26 chép ba điểm. |
+| T9 | sửa | Bước 1 Thuật toán 06.33 (cũ 06.32): pháp tuyến độc lập, đẳng hướng, ví dụ tọa độ chuẩn tắc độc lập, chứng minh đẳng hướng ngoài phạm vi; vector $\pm1$ không đẳng hướng. |
+| T10 | sửa | Thuật ngữ gốc ở lần đầu: banding, band, bucket, hash table, hyperplane, isotropic, S-curve, cosine similarity; thêm vào bảng thuật ngữ của `outline.md`. |
+| T11 | sửa | Thêm $q_F$, $q_T$, $\ell$ vào bảng ký hiệu; quy ước cho $d$, $\pi$, $L$, $k$; Bài tập 06.25–06.26 dùng $[ka,(k+1)a)$, ghi sách viết $j$. |
+| T12 | sửa | "Trong thực hành" sau Mệnh đề 06.29, Thuật toán 06.33, Mệnh đề 06.38; đoạn so kết quả với kết quả sau 06.29 và 06.32; Nhận xét 06.24 mới ở Mục 3.6; Ví dụ 06.17 mới ở Mục 5.1 (thang 300 điểm, Bill/William có khoảng cách chỉnh sửa $5=4+7-2\cdot3$). |
+| T13 | sửa | Tách các đoạn dài ở Mục 1, 2.2–2.5, 3.1, 3.5, 3.7, Nhận xét 06.37, Tình huống 06.3, Tóm tắt; không còn dòng văn xuôi quá khoảng bốn câu ở các vị trí báo cáo nêu. |
+| T14 | sửa | Tình huống 06.1 thêm kết luận theo khung tr.117 (185 điểm: $x\approx10$, $f\approx1$; 115 điểm: $x<45$, $f>0$, không xác định giá trị). Tình huống 06.3 chọn $(b,r)=(20,5)$, $s_{1/2}\approx0{,}509$; theo đơn điệu: $P(0{,}25)\le P(0{,}3)=0{,}047494259$, $P(0{,}75)\ge P(0{,}6)=0{,}801902454$; shingle 10 ký tự cho cả hai loại cặp cùng xác suất trong $[P(0{,}3),P(0{,}4)]=[0{,}047494259;\ 0{,}186049552]$. Câu mở phần tình huống sửa: 06.2 cần giả thiết độc lập thêm, 06.3 cần mô hình MinHash lý tưởng. |
+| T15 | sửa | Bỏ giọng người chấm ở lời giải 06.20, 06.21, 06.23, 06.28, thay bằng nhận xét toán học (ví dụ đổi chỗ $(r,b)=(10,3)$ cho $P(0{,}5)\approx0{,}002927$). |
+| T16 | sửa | Ví dụ 06.3 đặt tên $B$, CAND, OUT. |
+| N1–N5, N7 | sửa | Hình 3.7 của sách; tiêu đề Nhận xét 06.6; bỏ số bước của quy trình §3.4.3; tách "bước thuật toán" và "Bước chứng minh"; 1 trên 2 800; tên bước của 06.15. |
+| N6 | sửa | Trang cho $L_q$ (tr.97–98) và Nhận xét 06.17 (MMDS §3.5.4, tr.99). |
+| N8 | sửa | Nhận xét 06.21 viết đủ hai tiên đề. |
+| N9 | sửa | Định lý 06.32 Bước 2: lập luận phép quay trong $\Pi$; Định lý 06.36 Bước 2: $\gamma=(\alpha-\beta)\bmod\pi$ đều, $\phi=\min(\gamma,\pi-\gamma)$ có $\Pr[\phi\le\psi]=2\psi/\pi$. |
+| N10 | sửa | "chữ ký dấu" in đậm tại câu định nghĩa, ngay trước Ví dụ 06.15; đầu ra của Thuật toán 06.33 dùng cùng tên. |
+| N11 | sửa | Câu đếm $6$ tích vô hướng × $4$ phép nhân $=24=CmD$; Bài tập 06.11 so số bit với số bit ($64$ bit mỗi từ, gấp 320 lần). |
+| N12–N14 | sửa | Vai cặp ảnh theo Định nghĩa 06.1; Kiểm tra lại của Ví dụ 06.18 bằng $0{,}063436634^2$; tuyến tính kỳ vọng dẫn Kiến thức tiên quyết. |
+| N15 | sửa | Bỏ lặp "dự đoán của mô hình" ở "Trong thực hành" sau Ví dụ 06.18 và ở Giới hạn của Tình huống 06.2; giữ ở Phạm vi của Mệnh đề 06.42 và một lần ở Tóm tắt. |
+| N16 | sửa | Bỏ tài liệu làm chủ ngữ ("Bản soạn", "ghi chú dùng"). |
+| N17 | sửa một phần | Câu 5 Tóm tắt có chủ ngữ; giữ giả định $10^6$ cặp vì đã ghi rõ là giả định luyện tập, không là số đo. |
+| N18 | sửa | Một câu nhắc lại mô hình khóa–giá trị của Bài 02 cho Bài 3.4.4. |
+| N19 | sửa | Ví dụ 3.19 (tr.106). |
+| N20 | bác bỏ trong lượt này | Chính tả "vector"/"véc-tơ" là quyết định cấp học phần, ngoài phạm vi chỉ sửa ghi chú 06; chuyển cho điều phối viên. |
+| N21 | sửa | Đoạn trực quan Mục 3.6 nêu vì sao chỉ cần hai cận và liên hệ đường xác suất. |
+| N22 | sửa | Giải thích bảng tên tương đương (Bill là tên gọi tắt của William) và mô hình hỗn hợp hai thành phần (tỷ phần $f$ trễ 10 ngày, $1-f$ trễ 45 ngày). |
+| N23 | bác bỏ | Bài tập 06.2, 06.3, 06.5 đặt ở cuối cụm 2.1–2.3 và 3.1–3.4 theo Bản đồ chủ đề; Bài tập 06.29 mới có thêm phép tính $P_{b,r}$ tại một điểm. |
+| N24 | sửa | Định lý 06.36 dẫn MMDS §3.7.4 (tr.111–113); mục tài liệu tham khảo nói rõ bộ tham số và lập luận góc theo MMDS, dịch đều theo Datar và cộng sự. Báo cáo ghi tr.112–113; mục 3.7.4 bắt đầu ở tr.111 theo bản pdftotext. |
+
+**Đánh số lại.** Nhận xét mới chèn sau Hệ quả 06.23 nên dãy số dùng chung từ 06.24 tăng một: Nhận xét 06.24 (mới); Định nghĩa 06.24→06.25, Mệnh đề 06.25→06.26, Nhận xét 06.26→06.27, Định nghĩa 06.27→06.28, Mệnh đề 06.28→06.29, Nhận xét 06.29→06.30, Định nghĩa 06.30→06.31, Định lý 06.31→06.32, Thuật toán 06.32→06.33, Định nghĩa 06.33→06.34, Bổ đề 06.34→06.35, Định lý 06.35→06.36, Nhận xét 06.36→06.37, Mệnh đề 06.37→06.38, Định nghĩa 06.38→06.39, Nhận xét 06.39→06.40, Định nghĩa 06.40→06.41, Mệnh đề 06.41→06.42, Định nghĩa 06.42→06.43. Ví dụ mới chèn sau Ví dụ 06.16: Ví dụ 06.17 (mới), Ví dụ 06.17→06.18, 06.18→06.19. Bài tập 06.1–06.28 và Tình huống 06.1–06.4 giữ số; thêm Bài tập 06.29–06.30. Danh sách số hiệu ở mục "Cấu trúc ghi chú mới và số hiệu cuối cùng" phía trên giữ nguyên như lịch sử và được thay bằng danh sách này. `outline.md` (bảng thuật ngữ, bảng `note-topic-id`) và `storyboard.md` (dòng "Ánh xạ ghi chú", bảng kiến trúc ghi chú, bảng ánh xạ trang–chủ đề) đã đổi theo. Deck chưa đổi; mười tham chiếu số hiệu ghi chú trong deck cần đổi ở lượt sửa deck: `lec06-s03-10` Mệnh đề 06.25→06.26; `lec06-s03-12` Nhận xét 06.26→06.27; `lec06-s04-02` Mệnh đề 06.28→06.29; `lec06-s04-05` Định lý 06.31→06.32; `lec06-s04-12` Thuật toán 06.32→06.33; `lec06-s04-08` Bổ đề 06.34→06.35; `lec06-s04-09` Định lý 06.35→06.36; `lec06-s04-10` Mệnh đề 06.37→06.38; `lec06-s05-03` Mệnh đề 06.41→06.42; `lec06-s06-05` Mệnh đề 06.25→06.26.
+
+**Lập luận mới cần tác tử rà toán kiểm lại.** (1) Phương sai $(\theta/\pi)(1-\theta/\pi)/m$ của $\widehat p_{\ne}$ (sau Thuật toán 06.33). (2) Lập luận phép quay trong $\Pi$ cho Bước 2 của Định lý 06.32. (3) Phản ví dụ $S_1$ với hai hoán vị độc lập cho xác suất $1/2$ (Mệnh đề 06.26). (4) Cận Jensen cho xác suất bỏ sót và xác suất nhận cặp khác ngón (Tình huống 06.2, Bài tập 06.28). (5) Cận đơn điệu trong Tình huống 06.3. (6) Khoảng cách chỉnh sửa Bill/William bằng 5 và tỷ lệ 25 dưới giả định mức trừ $c\,d^2$ (Ví dụ 06.17). (7) Bước 2 Định lý 06.36: $\phi$ đều và cận xa không cần dịch đều. (8) Bài tập 06.29: $s_{1/2}$, $(1/b)^{1/r}$, $P_{b,r}(0{,}3)$ cho bốn cấu hình, bỏ sót $0{,}025219456$ tại $s=0{,}7$. (9) Bài tập 06.30: chứng minh biến thể $b$ bảng và phản ví dụ ba cột. (10) Bài tập 06.11: $6{,}4\cdot10^{10}/(2\cdot10^8)=320$. Mọi số mới được tính lại bằng Python trong phiên.
+
+**Kiểm tra đã chạy.**
+
+- `w06/check.py`: 172 khối mở và đóng khớp, không lồng; dãy số dùng chung 06.1–06.43, ví dụ 06.1–06.19, tình huống 06.1–06.4, bài tập 06.1–06.30 liên tục; 30 bài tập đều có `hint` và `solution`; 19 `note-topic-id` duy nhất; 12 ảnh; số `$$` chẵn; không chuỗi cấm.
+- `w06/xref.py`: mọi tham chiếu "loại + số" trỏ đúng một khối cùng loại (0 lỗi trên 96 khối có số).
+- Trình xem (`w06/viewer.py`, Playwright Chromium, cổng 8771): 1440 × 900 và 390 × 844 đều render 172 `.material-block`, 0 `.katex-error`, 12 ảnh tải được, không tràn ngang, không yêu cầu mạng ngoài; chế độ in mở 76/76 khối gập. Một lỗi CSP về script nội tuyến của `material-viewer.html` và cảnh báo KaTeX về chữ Việt trong `\text{}` ở hai công thức Mục 2.3–2.4 có từ trước lượt này. Ảnh chụp Mục 4.3, Ví dụ 06.17, Bài tập 06.30 và Tình huống 06.2 ở cả hai cỡ đã xem trực tiếp.
+- `git diff --check`: không lỗi.
+- Tự kiểm `no-ai-slop` (Edit, theo `eval.md`) cho đoạn mới: không thêm số ngoài nguồn và phép tính kiểm lại; không câu hỏi tu từ, không lời chỉ dẫn người chấm; đoạn mới mở bằng dữ kiện hoặc kết quả.
+
+### Lượt sửa deck theo năm báo cáo rà độc lập (2026-10-14)
+
+**Phạm vi và vai trò.** Tác tử soạn thảo (fork, Opus 5.5, effort `high`, tác tử ghi duy nhất) sửa `lecture-06-tim-cap-tuong-dong-bang-lsh.html`, `storyboard.md`, `outline.md` và tệp này theo danh sách hợp nhất của điều phối viên (`deck06-edit-list.md`, mục A bắt buộc, B sửa, C sửa khi tiện, D bác bỏ) và năm báo cáo chỉ đọc: vai sinh viên, chuyên gia giải thuật và khoa học dữ liệu, độ chính xác toán và thuật toán, phản biện học thuật–sư phạm, kết nối và mạch viết. Ghi chú bài giảng không sửa trong lượt này. Không commit. Tự kiểm `no-ai-slop` (Edit) theo `eval.md` cho mọi câu mới trên mặt trang và trong ghi chú diễn giả: không câu hỏi tu từ, không "chúng ta", không lời chỉ đường hay nhãn quy trình, không thêm số ngoài nguồn và phép tính kiểm lại; mẫu "…, không phải …" chỉ giữ ở chỗ phân biệt hai đối tượng dễ nhầm.
+
+**Quyết định của điều phối viên bị thay.** Quyết định 2 của "Căn chỉnh văn phong 2026-10-14" (thu hồi kho một triệu tài liệu bằng giả định bộ tạo trả $10^6$ cặp) được thay theo A3: trang `lec06-s06-01` dùng giả định trên dữ liệu (mọi cặp ngoài $N$ cặp gần có $s\le0{,}1$), $P_{20,5}(0{,}1)=1-(1-10^{-5})^{20}=1{,}9998\cdot10^{-4}$, $\mathbb E[K]\le N+10^8$, và khoảng 100 giây xác minh thay cho $5{,}79$ ngày. Số $10^6$ cặp cũ giữ trong ghi chú diễn giả như số liệu luyện tập.
+
+**Kết quả chính.** Deck có 78 trang (70 giảng, 8 bài tập); trang mới `lec06-s04-14` "Thuật toán: tìm cặp với họ nhạy cảm" đứng sau trang tiêu đề mạch 4 (A4), 1,5 phút lấy từ s04-01, s04-04, s04-06. Tiêu đề đổi: s06-01 "Câu trả lời cho vấn đề trung tâm"; s07-02 "Bài tập: nghiệm một nửa của đường cong S". Mười số hiệu ghi chú trên deck đã cập nhật theo ghi chú mới: s03-10 Mệnh đề 06.26; s03-12 Nhận xét 06.27; s04-02 Mệnh đề 06.29; s04-05 Định lý 06.32; s04-12 Thuật toán 06.33; s04-08 Bổ đề 06.35; s04-09 Định lý 06.36; s04-10 Mệnh đề 06.38; s05-03 Mệnh đề 06.42; s06-05 Mệnh đề 06.26 (cùng danh sách số hiệu mới trong ghi chú diễn giả). Deck không dẫn Ví dụ 06.17–06.19 hay Tình huống nào khác Tình huống 06.1, nên không có số Ví dụ hay Tình huống cần đổi.
+
+**Quyết định cho từng phát hiện.** Mã: M = toán, E = chuyên gia, P = sư phạm, S = sinh viên, L = mạch. "sửa (A1)" nghĩa là sửa theo mục A1 của danh sách hợp nhất.
+
+| Mã | Mức | Trang | Phát hiện | Quyết định và cách xử lý |
+|---|---|---|---|---|
+| M1 | nghiêm trọng | s01-08 | "AND, OR tăng $p_1-p_2$" sai với từng phép ghép riêng | sửa (A1): dòng viết bằng lời "AND rồi OR, hàm độc lập: cặp gần trùng xác suất gần 1, cặp xa gần 0"; ghi chú nêu từng phép ghép riêng không làm được |
+| M2 | nghiêm trọng | s05-04, s05-06, s07-07 | độc lập của các phép thử vân tay là giả định riêng | sửa (A2): dòng Giả thiết trên s05-04, nhắc ở s05-06, s07-07; ghi chú: chỉ độc lập có điều kiện, số bỏ sót là cận dưới theo Jensen. Bác bỏ phần đề xuất đưa số mô phỏng $\approx2{,}2\%$: điều phối viên không dùng số mô phỏng |
+| M3 | trung bình | s02-12 | chữ S cần $b\ge2$, $r\ge2$ | sửa (B7) trong ghi chú |
+| M4 | trung bình | s04-07, s04-06, s06-02 | họ định nghĩa trên $\mathbb R^2$, ví dụ trên $\mathbb R^3$ | sửa (B7): hàm trên $\mathbb R^D$, $u$ đều trên mặt cầu; cận chỉ cho $D=2$; ví dụ ba điểm là hàm cố định trong $\mathbb R^3$ |
+| M5 | trung bình | s07-01 | thiếu giá trị $s=0{,}9$ của $(5,50)$ | sửa (B8): $1-4{,}1\cdot10^{-20}$, làm tròn thành 1 |
+| M6 | nhẹ | s04-11 | cận $1/3$ gắn thừa điều kiện dịch đều | sửa trong ghi chú |
+| M7 | nhẹ | s04-09 | "tức" chỉ là kéo theo | sửa: "nên" |
+| M8 | nhẹ | s04-02 | thiếu miền $0\le d_1<d_2\le D$ | sửa |
+| M9 | nhẹ | s06-03 | gọi $0{,}1^{1/4}$ là ngưỡng | sửa: "xấp xỉ", thêm nghiệm một nửa $\approx0{,}509$ |
+| M10 | nhẹ | s01-08, s02-07, s03-09, s04-12 | thiếu giả thiết trên mặt trang; trộn radian và độ | sửa: điều kiện độc lập trong ghi chú s01-08 và trên s06-01; "hữu hạn, không rỗng"; "mỗi hàm trùng với xác suất $p$"; "$2\pi/3$, tức $120^\circ$" |
+| E1 | nghiêm trọng | s01-08, s03-09 | như M1 | sửa (A1); s03-09 Nhu cầu "cần hạ $p_2$ về gần 0", ghi chú nêu AND tăng tỷ số $2\to16$, giảm hiệu $0{,}4\to0{,}384$ |
+| E2 | nghiêm trọng | mạch 4 | thiếu trang đặc tả và giả mã cho thuật toán tổng quát | sửa (A4): trang `lec06-s04-14`, Đầu vào, Đầu ra, giả mã 7 dòng, bảo đảm theo cặp (Mệnh đề 06.26), ghi chú nêu biến thể truy vấn cho Bài 07; s04-12 đổi nhãn "Quy tắc ước lượng." |
+| E3 | nghiêm trọng | s02-13, s02-16 | mô hình chi phí bỏ qua nơi lưu tập gốc và bước 6 | sửa (A5): "tập gốc đã sắp xếp nằm trong bộ nhớ chính"; ghi chú: $2K$ lần đọc ngẫu nhiên nếu trên đĩa, bước 6 lọc theo $\widehat s$ đổi lại thêm bỏ sót |
+| E4 | trung bình | s03-04 | điều kiện "trên các hướng" chỉ còn trong ghi chú | sửa (B9) |
+| E5 | trung bình | s05-04, s07-07 | giả thiết độc lập không có trên mặt trang | sửa (A2); bác bỏ số $0{,}0216$ (số mô phỏng) |
+| E6 | trung bình | s05-01 | OR trên ba hàm không nói là hàm cố định | sửa (B10) |
+| E7 | trung bình | toàn deck | thiếu thuật ngữ tiếng Anh ở lần đầu | sửa (B11): locality-sensitive hashing, bucket (s01-01); band (s01-02); false negative (s01-04); candidate pair (s02-01); false positive (s02-05); S-curve (s02-12); cosine similarity (s03-04); edit distance, longest common subsequence (s03-05); locality-sensitive family (s03-07); hyperplane (s04-03); sketch (s04-04); isotropic (s04-05); entity resolution (s05-01); minutia (s05-02); stop word (s05-05). Thuật ngữ đã có ở mục tiêu hoặc tiêu đề mạch được chú giải ở trang định nghĩa khi trần âm tiết không cho phép, chẳng hạn "cặp ứng viên" |
+| E8 | trung bình | s04-09, s06-02, s06-05 | bỏ §3.7.5 về nhiều chiều | sửa một phần: ghi chú s04-09 nêu lập luận định tính của §3.7.5; s06-02 ghi $\mathbb R^D$, bảo đảm khi $D=2$. Không phát biểu tính đơn điệu trong nhiều chiều như một kết quả vì ghi chú bài giảng không chứng minh |
+| E9 | trung bình | s06-01, s02-16 | câu trả lời dựa trên giả định đầu ra $10^6$ cặp | sửa (A3) |
+| E10 | trung bình | s01-08 | ký hiệu trước khi định nghĩa | sửa (B1) |
+| E11 | trung bình | storyboard, các trang câu hỏi | thời gian làm câu hỏi trên lớp không thực tế | bác bỏ trong lượt này: tổng 120 phút và số câu giữ theo storyboard đã duyệt; mỗi trang câu hỏi có lời giải và tiêu chí trong ghi chú diễn giả để giảng viên chọn câu; điều phối viên không đưa mục này vào danh sách sửa |
+| E12 | nhẹ | s04-02 | lệch MMDS về giới hạn $D$ hàm; thiếu $d_2\le D$ | sửa: ghi chú nêu giới hạn của MMDS, lấy có hoàn lại cho $p^r$, không hoàn lại thì không; miền trên mặt trang |
+| E13 | nhẹ | s06-02 | $\mathbb R^2$ với $O(CmD)$; $\Sigma^D$ chưa định nghĩa | sửa |
+| E14 | nhẹ | s02-12 | khuyến nghị theo xấp xỉ; nhãn SVG dấu chấm | sửa câu kết luận ($s_{1/2}\approx(1/b)^{1/r}$); hình giữ ngoại lệ đã ghi (B20), `img/` ngoài phạm vi ghi của lượt này |
+| E15 | nhẹ | s03-05 | không phân biệt Levenshtein | sửa trong ghi chú |
+| E16 | nhẹ | s04-12 | thiếu độ lệch chuẩn | sửa trong ghi chú: $\pi\sqrt{p(1-p)/m}$, khoảng $42^\circ$ với $m=3$ và góc thật |
+| E17 | nhẹ | s01-03 | lặp phép tính của Bài 05 | bác bỏ: trang tính số của vấn đề trung tâm của bài này; ghi chú nói rõ vai trò |
+| E18 | nhẹ | Bài 05/06/07 | thuật ngữ liên bài (LSH, vector/véc-tơ) | bác bỏ trong lượt này: quyết định cấp học phần, chuyển điều phối viên |
+| E19 | nhẹ | ghi chú s01-07, s02-00, s03-00, s04-00, s05-00, s06-08, s01-08 | ngôn ngữ lập kế hoạch, câu chỉ đường | sửa |
+| E20 | nhẹ | s01-04 | $\mathrm{SIG}$ trong đầu vào của bài toán | bác bỏ: bài toán được đặt sau Bài 05, chữ ký là dữ liệu đã có; đặc tả thuật toán ở s02-07 tách riêng |
+| E21 | nhẹ | mạch 7 | không có dự phòng; không có MapReduce | bác bỏ phần dự phòng (D); ghi chú s07-00 nêu Bài 3.4.4 là đọc thêm |
+| P1 | nghiêm trọng | s01-08, s03-09 | như M1 | sửa (A1) |
+| P2 | trung bình | s02-01 | thiếu ví dụ dẫn nhập; "Ý nghĩa" thay trực giác | sửa (B12) |
+| P3 | trung bình | s03-07 | định nghĩa trước ví dụ có số | sửa (B12): Nhu cầu mang số của MinHash |
+| P4 | trung bình | s03-09, s03-10 | công thức trước ví dụ | sửa (B12) |
+| P5 | trung bình | s04-03 | thiếu Nhu cầu | sửa (B12) |
+| P6 | trung bình | s04-06, s04-07 | thiếu ví dụ cực đoan cho biên cố định | sửa: Nhu cầu s04-07 "hình chiếu $0{,}99$ và $1{,}01$ có mã thùng 0 và 1" |
+| P7 | trung bình | s04-09 | phát biểu sau chứng minh | sửa (B12): "Định lý." đầu trang; không tách trang vì trang vừa khung và giữ 78 trang |
+| P8 | trung bình | s05-01 | không có ví dụ chạy tay | bác bỏ thêm trang (số trang cố định 78 theo điều phối viên); chu trình rút gọn được ghi trong ghi chú diễn giả và storyboard; cặp hồ sơ cụ thể ở s05-06 |
+| P9 | trung bình | s02-13, s04-10 | ký hiệu tiệm cận không có biểu thức đếm | sửa (B12) |
+| P10 | trung bình | s01-05 | dùng $S_1$, $S_4$ trước khi nêu | sửa (B12): "Nhắc lại:" |
+| P11 | trung bình | s01-08 | như E10 | sửa (B1) |
+| P12 | trung bình | s06-01 | thiếu giả thiết từng dòng | sửa (A3) |
+| P13 | trung bình | s06-05 | thiếu hàng mạch 4–5 | sửa (B3): 8 hàng bảng, trần 80 |
+| P14 | trung bình | s02-12 | nhãn SVG dấu chấm; câu biên soạn trong ghi chú | sửa phần ghi chú (B20); hình giữ ngoại lệ |
+| P15 | trung bình | s07-01 | như M5 | sửa (B8) |
+| P16 | trung bình | s01-07, s06-08, s07-0x | viết tắt chưa viết đầy đủ | sửa: s01-07 tên đầy đủ và "(MMDS), ấn bản 3"; nguồn trang bài tập "MMDS"; HNSW, PQ ở s06-08 |
+| P17 | trung bình | toàn deck | thuật ngữ tiếng Anh | sửa (như E7) |
+| P18 | nhẹ | s02-11 | "Ý nghĩa" chứa con số | sửa: "Ví dụ." |
+| P19 | nhẹ | s03-02 | "Ý nghĩa" không đọc kết quả | sửa: "Nhận xét." |
+| P20 | nhẹ | s03-01 | $L_q$ dùng trước định nghĩa | sửa: viết bằng lời |
+| P21 | nhẹ | s03-05 | công thức không thành mệnh đề | sửa |
+| P22 | nhẹ | s02-10 | ví dụ sau công thức | sửa |
+| P23 | nhẹ | s04-05 | phát biểu ở dòng Kết luận | bác bỏ: dòng Giả thiết đứng đầu, kết luận đánh số đứng cuối như mẫu trang kết quả có chứng minh ngắn; trần 6 dòng không cho thêm dòng Định lý |
+| P24 | nhẹ | s03-11, s05-03, s05-07 | thiếu động từ yêu cầu | sửa s03-11, s05-07; bác bỏ s05-03 vì trần 6 dòng, nhiệm vụ nằm ở tiêu đề và bảng |
+| P25 | nhẹ | s02-04 | cột "Mã" | sửa (B18) |
+| P26 | nhẹ | s02-06 | hai câu kết luận | sửa |
+| P27 | nhẹ | s01-03 | thiếu bước trung gian; kết luận | sửa |
+| P28 | nhẹ | s05-06 | mục 1 là dữ kiện | sửa |
+| P29 | nhẹ | s05-02, s05-05 | Nhu cầu không có số | bác bỏ: hai trang ở 60 và 56 âm tiết, thêm dòng số vượt trần 60; số Jaccard và lý do bỏ MinHash ở ghi chú diễn giả |
+| P30 | nhẹ | s04-12 | nhãn "Thuật toán." chỉ có công thức | sửa: "Quy tắc ước lượng." |
+| P31 | nhẹ | s04-01, s04-03 | hàm chỉ định nghĩa bằng dấu bằng | sửa: câu "là" |
+| P32 | nhẹ | s06-01 | tiêu đề là cụm động từ | sửa |
+| P33 | nhẹ | s07-00, s03-00 | nhãn không in đậm; "sáu cụm"; từ khóa gộp | sửa |
+| P34 | nhẹ | s06-00 | ghi chú 103 âm tiết | sửa: 92 |
+| P35 | nhẹ | ghi chú s01-07, s07-00, s06-08 | mở bằng tài liệu hoặc mạch làm chủ ngữ | sửa |
+| P36 | nhẹ | ghi chú s01-03, s05-08, s01-08 | "bản soạn", câu chỉ đường | sửa |
+| P37 | nhẹ | s06-08 | trích dẫn thiếu thông tin | sửa Datar và cộng sự (bốn tác giả, SoCG 2004); bác bỏ số trang chiếu CS246 vì outline chưa ghi số trang đã đối chiếu |
+| P38 | nhẹ | ghi chú s01-01, s06-02 và nhiều trang | dấu hai chấm báo kịch tính; cặp khẩu hiệu; lặp "…, không phải …" | sửa (1), (2); (3) giảm ở s03-04, s04-06, giữ ở chỗ phân biệt hai đối tượng |
+| S1 | trung bình | s06-08 | 64 âm tiết, vượt trần 60 | sửa (B17): trang nguồn theo trần 80, ngoại lệ ghi storyboard; hiện 65 |
+| S2 | trung bình | s03-13, s05-04, s06-04 | dòng 21 âm tiết | sửa (B17) |
+| S3 | trung bình | s01-08, s01-02 | ký hiệu trước định nghĩa | sửa (B1, B2) |
+| S4 | trung bình | s02-04, s02-13, s04-06, s04-07 | "mã" hai nghĩa | sửa (B18): "mã tài liệu", "mã thùng" |
+| S5 | trung bình | s02-09 | bất biến thiếu một chiều | sửa (B13) |
+| S6 | trung bình | s03-03 | không phát biểu mệnh đề | sửa (B14) |
+| S7 | trung bình | s03-07 | công thức ngắt giữa biểu thức; nhãn SVG nhỏ | sửa phần công thức (B15); nhãn SVG giữ, `img/` ngoài phạm vi ghi của lượt này, câu bên hình nêu cùng nội dung |
+| S8 | trung bình | s04-09 | thứ tự đọc, công thức ngắt dòng | sửa (B15) |
+| S9 | trung bình | s04-11 | câu 4 thiếu $a$ | sửa (B16) |
+| S10 | trung bình | s06-02 | $\Sigma^D$ | sửa (B7) |
+| S11 | nhẹ | 25 trang | trên mức đích 40 | ghi nhận; mọi trang trần 60 ≤ 60 |
+| S12 | nhẹ | trang có bảng dữ liệu | 7 dòng | sửa: storyboard ghi quy ước hàng bảng |
+| S13 | nhẹ | s02-08 | công thức ngắt trong thẻ | sửa |
+| S14 | nhẹ | s02-07 | ký hiệu cắt lát | sửa trong ghi chú |
+| S15 | nhẹ | s02-01 | "thùng" chưa định nghĩa trên mặt trang | bác bỏ: trang ở 59 âm tiết; "thùng (bucket)" có chú giải ở bìa, bảng s02-03 nêu tài liệu theo khóa |
+| S16 | nhẹ | s01-06 | $V$ chỉ trong ghi chú | sửa |
+| S17 | nhẹ | s02-11 | nhãn "Ý nghĩa" | sửa |
+| S18 | nhẹ | s03-05 | công thức không ghi mệnh đề | sửa |
+| S19 | nhẹ | s04-05 | ví dụ không nêu cặp | sửa |
+| S20 | nhẹ | s04-06 | ký hiệu $x_1$ lẫn $z_i$ | sửa: viết bằng lời |
+| S21 | nhẹ | s07-04 | tên A–D trùng $C$, $D$ | bác bỏ: tên theo đề sách, chữ đứng; ghi chú bài giảng có quy ước |
+| S22 | nhẹ | s05-04 | $P_{\rm miss}$ | sửa: $1-P_T$ |
+| S23 | nhẹ | s06-08 | nhãn "Đối chiếu"; HNSW, PQ | sửa |
+| S24 | nhẹ | s01-05 | mục 3 là dữ kiện | sửa |
+| S25 | nhẹ | s01-02 | ghi chú chứa ánh xạ điều phối | sửa |
+| S26 | nhẹ | mạch 1 | chân trang ẩn do CSS chung | bác bỏ trong lượt này (D) |
+| S27 | nhẹ | s03-00, s04-00, s07-00, s03-01, s07-06 | từ khóa xuống dòng, ngắt dòng mồ côi | sửa |
+| S28 | nhẹ | s02-12 | dấu chấm thập phân của hình | giữ ngoại lệ (B20) |
+| S29 | nhẹ | s06-00 | ghi chú 103 âm tiết | sửa |
+| L1 | nghiêm trọng | s06-01 | thu hồi bằng giả định đầu ra | sửa (A3) |
+| L2 | trung bình | s01-08 | ký hiệu chưa định nghĩa | sửa (B1) |
+| L3 | trung bình | s01-08 ↔ s03-09–11 | lời hứa AND, OR mâu thuẫn ví dụ | sửa (A1); ghi chú s03-10 nêu từng phép ghép riêng không tăng độ chênh |
+| L4 | trung bình | s01-08, s06-01 | dòng 6 ép khớp mạch | sửa: danh sách không đánh số theo mạch, dòng cuối là giới hạn chung; mạch 7 là recitation nên không có dòng riêng |
+| L5 | trung bình | s06-01 | dòng 4–5 thiếu số và giả thiết | sửa (A3) |
+| L6 | trung bình | s06-05 | thiếu hàng mạch 4–5 | sửa (B3) |
+| L7 | trung bình | s06-00 | dòng dẫn hứa việc không làm | sửa (B4) |
+| L8 | trung bình | s04-00 → s05-00 | mạch 4 không giao cho mạch 5 | sửa (B4): ghi chú s04-00, s05-00 nêu hai nhánh song song |
+| L9 | trung bình | s03-08 → s03-10 | đổi ví dụ không báo | sửa (B5) |
+| L10 | trung bình | s02-12, s06-03, s07-02, s01-02 | "ngưỡng" ba nghĩa | sửa (B6) |
+| L11 | trung bình | storyboard | phiếu s06-01, s06-02, s01-05 lỗi thời | sửa (B19) |
+| L12 | nhẹ | s03-00 | dòng dẫn trùng chức năng s04-00 | sửa |
+| L13 | nhẹ | s02-06 → s02-02 | đổi dữ kiện đột ngột | sửa trong ghi chú s02-02 |
+| L14 | nhẹ | s04-04 → s04-12 | "chữ ký dấu" dùng trước định nghĩa | sửa |
+| L15 | nhẹ | s05-06 | câu hỏi tách khỏi nội dung | bác bỏ: giữ kiểu câu hỏi cuối mạch |
+| L16 | nhẹ | s02-16, mạch 6 | lặp bộ số | bác bỏ: lặp do khuôn, mỗi trang có chức năng riêng |
+| L17 | nhẹ | s06-02 | đầu vào $\mathbb R^2$ | sửa |
+| L18 | nhẹ | toàn deck | $P$ nhiều nghĩa; $n$ và $m$; họ/hàm ba ô; $L_2$ Euclid | sửa: $\Pr[h(x)=h(y)]$ ở s06-05, $1-P_T$ ở s05-04; ghi chú s04-10, s04-12 nêu $m$ đóng vai $n$; "$L_2$ (Euclid)" ở s03-02; "họ" chỉ họ, "hàm" chỉ một hàm, đã nhất quán |
+| L19 | nhẹ | s01-03 | ghi chú không nói tính số của trang trước | sửa |
+
+**Mật độ sau sửa** (`density.py` của vai sinh viên, token có chữ hoặc chữ số; công thức, tiêu đề, giả mã, ô chỉ có số bị bỏ). 78 trang; 71 trang nội dung, trung vị 46 âm tiết, lớn nhất 79 (s01-02, trần 80); 0 trang trần 60 vượt 60; dòng dài nhất 20 âm tiết; tối đa 2 khối công thức và 1 khung nhấn mỗi trang; ghi chú diễn giả 65–150 âm tiết; ghi chú trang tiêu đề mạch 86–96 âm tiết; dòng dẫn trang tiêu đề mạch ≤ 24 âm tiết. Trang trần 80: s01-02 (79), s01-07 (56), s02-13 (67), s02-16 (41), s04-10 (76), s06-05 (78), s06-02 (74), s06-01 (73), s06-08 (65, ngoại lệ trang nguồn), bảy trang đề (29–77). Số âm tiết trước → sau của từng trang sửa ghi trong phiếu storyboard, dòng "Lượt sửa deck 2026-10-14 (năm báo cáo)".
+
+**Kiểm tra đã chạy.**
+
+- `git diff --check`: không lỗi. Kiểm HTML bằng `html.parser`: không thẻ lệch hay thiếu đóng; 78 `data-slide-id` duy nhất; 78 `id` duy nhất; 0 thuộc tính `style`, 0 khối `<style>`, 0 lớp `dense`.
+- Playwright Chromium (`w06/deckcheck2.py`, máy chủ cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang, nhảy bằng `Reveal.getIndices` và `Reveal.slide(h,v,99)`), duyệt cả 78 trang ở 1600 × 900 và 390 × 844: 0 lỗi console (kể cả CSP), 0 phản hồi lỗi, 0 yêu cầu ra ngoài máy cục bộ, 0 `.katex-error`, không phần tử nào vượt khung `.slides` ở 1600 × 900, không công thức nội dòng nào bị ngắt giữa biểu thức (kiểm `getClientRects` của mọi `.katex` nội dòng; lượt đầu phát hiện s02-08, s03-04, s04-03, s06-01 và tràn ngang ở s03-07, đã sửa bằng cách bọc công thức và tách hai công thức của s03-07). `#/1`…`#/7` mở đúng trang tiêu đề mạch; phím Space đi qua đủ 78 trang theo thứ tự HTML.
+- Ảnh chụp các trang sửa: `scratchpad/shots/deck06r-<id>-{wide,narrow}.png`, ghép xem tại `scratchpad/mont/r-*.png`; đã xem toàn bộ ảnh rộng. Lượt xem đầu thấy s04-03, s04-09 và s02-12 sát mép trên, mép dưới; đã thu hình, chuyển phần chứng minh xa sang cột hình và rút dòng đầu của s02-12. Ở 390 × 844, Reveal thu khung 16:9 như các bài trước; ảnh hẹp chụp ngay sau chuyển mạch đôi khi còn hiện trang trước do chế độ cuộn, không phải lỗi deck.
+
+**Chưa làm.** Sinh lại SVG (`xac-suat-phan-dai.svg` dấu chấm thập phân, nhãn nhỏ của `mien-gan-xa.svg`) vì `img/lec-06/` ngoài phạm vi ghi của lượt này; sửa CSS chung về chân trang (D); thống nhất thuật ngữ liên bài (cấp học phần). Cần rà lại: độ chính xác của s04-14, s06-01, s05-04, s02-13; mạch của s01-08, s06-00 → s06-08 và hai trang lân cận mỗi phía, và mạch toàn deck vì câu trả lời vấn đề trung tâm thay đổi.
+
+### Sửa nhỏ ghi chú theo lượt rà lại toán (2026-10-14)
+
+Tác tử soạn thảo (fork, Opus 5.5, effort `high`) sửa `materials/lec-06/lecture-note.md` theo `recheck-note06-math.md` và chỉ đạo của điều phối viên. Deck không đổi. Chưa commit.
+
+| Phát hiện | Quyết định | Cách xử lý |
+|---|---|---|
+| Lập luận Jensen bị dùng cho cả cấu trúc AND hai nhóm | sửa | Tình huống 06.2 (Giới hạn), gạch cuối "Giả thiết hay bị bỏ quên" ở Tóm tắt và lời giải Bài tập 06.28: Jensen chỉ áp cho cấu trúc OR, nơi $0{,}0150$ (OR 1024) và $0{,}000223559$ ($F_2$, OR 2048) là cận dưới của bỏ sót. Với AND hai nhóm, $t\mapsto[1-(1-t)^{1024}]^2$ không lồi cũng không lõm trên $[0,1]$ (lồi gần $0$, lõm gần $1$), nên ghi chú chỉ nói số của sách dựa trên giả định độc lập và không có bất đẳng thức một chiều. Không dùng số mô phỏng |
+| Ví dụ 06.17: "25 lần" ngầm đọc "khác một chữ cái" là $d=1$ | sửa | Nêu cả hai trường hợp trong câu điều kiện: đọc là $d=1$ thì giảm $25$ lần; theo Định nghĩa 06.18 (chỉ chèn, xóa) một phép thay là $d=2$, giảm $25/4$ lần |
+| Bài tập 06.29(b): mốc $s=0{,}3$ chưa giải thích | sửa | Ghi $s=0{,}3$ là cặp xa đại diện như Ví dụ 06.5 |
+
+Kiểm tra: `w06/check.py` (172 khối khớp, số hiệu liên tục, 30 bài tập có gợi ý và lời giải), `w06/xref.py` (0 lỗi), trình xem cổng 8771 ở 1440 × 900 và 390 × 844 (172 khối, 0 `.katex-error`, không tràn ngang, in mở 76/76 khối gập), `git diff --check` không lỗi.
+
+### Lượt sửa cuối sau hai lượt rà lại deck (2026-10-14)
+
+Tác tử soạn thảo (fork, Opus 5.5, effort `high`, tác tử ghi duy nhất) sửa deck, `lecture-note.md`, `storyboard.md` và tệp này theo `recheck-deck06-math.md`, `recheck-deck06-storyline.md` và chỉ đạo của điều phối viên. Chưa commit.
+
+**Tác động deck ↔ ghi chú.** Lượt sửa deck trước đổi kết luận dùng chung của vấn đề trung tâm (s06-01, theo A3) nhưng ghi chú bài giảng vẫn giữ kết luận cũ "bộ tạo trả $10^6$ cặp, giảm $5\cdot10^5$ lần" ở Tóm tắt chương. Lượt này sửa ghi chú cho khớp: thêm hai đoạn ngay sau đoạn "Trong thực hành" của Mệnh đề 06.13 (giả định ngoài $N$ cặp gần mọi cặp có $s\le0{,}1$; $P_{20,5}(0{,}1)\approx1{,}9998\cdot10^{-4}$; $\mathbb E[K]\le N+10^8$, $\mathbb E[Q]\le20N+10^8$, không cần các cặp độc lập; thời gian xác minh kỳ vọng không quá khoảng 100 giây với $1\,\mu\mathrm{s}$ mỗi lần so cặp của Ví dụ 06.1 và $N\ll10^8$, so với khoảng $5{,}79$ ngày) và viết lại đoạn 4 của Tóm tắt chương theo cùng số. Không thêm khối Ví dụ mới, nên không đổi số hiệu nào. Số $10^6$ cặp chỉ còn trong ghi chú diễn giả s06-01 như số liệu luyện tập. Ghi chú cũng thống nhất đơn vị $1\,\mu\mathrm{s}$ và nêu "chỉ số khoảng, trên trang chiếu gọi là mã thùng".
+
+**Quyết định cho từng phát hiện.**
+
+| Báo cáo | Mức | Trang | Phát hiện | Quyết định và cách xử lý |
+|---|---|---|---|---|
+| Toán | nhẹ | s06-01, s01-03 | `$1\,\mu s$` hiển thị s nghiêng | sửa: `$1\,\mu\mathrm{s}$` trên deck và trong ghi chú bài giảng |
+| Toán | nhẹ | s06-01 | 100 giây là cận của kỳ vọng; ghi chú thiếu "không cần độc lập"; 1 µs cùng giả định | sửa: "thời gian xác minh kỳ vọng không quá khoảng 100 giây"; ghi chú dẫn Mệnh đề 06.13 và nêu cùng giả định với trang kho một triệu tài liệu |
+| Toán | nhẹ | s06-01 dòng 3 | chi phí đọc như phụ thuộc $D=2$ | sửa: dòng 3 nêu bảo đảm và giả thiết của ba họ, chi phí $O(Cm)$, $O(CmD)$ tách riêng |
+| Toán | nhẹ | ghi chú s03-10 | "; Từng" | sửa |
+| Toán | nhẹ | ghi chú s06-08 | bài về nhà chồng bài trên lớp | sửa: về nhà 06.15–06.19, 06.26, 06.27, 06.29, 06.30; trên lớp 06.20–06.25, 06.28 |
+| Mạch | nghiêm trọng (ngoài deck) | ghi chú, Tóm tắt chương | kết luận cũ $10^6$ cặp | sửa như mục tác động ở trên |
+| Mạch | trung bình | s02-16 → s06-01 | $\mathbb E[K]$ chỉ có trong ghi chú diễn giả | sửa: công thức $\mathbb E[K]$, $\mathbb E[Q]$ (Mệnh đề 06.13) lên mặt s02-16, thay dòng bộ số bốn tập (chuyển vào ghi chú) |
+| Mạch | trung bình | s06-01 dòng 3 | không có bảo đảm, câu khó đọc | sửa (như dòng toán ở trên) |
+| Mạch | trung bình | s04-14 → s04-01, s04-10; s05-00, s05-04 | thuật toán tổng quát không được dùng lại; "hai nhánh song song" sai phạm vi | sửa: ghi chú s04-01 mở bằng câu nối; kết luận s04-10 "thùng, $Q$, $K$ như thuật toán tổng quát, $m=br$"; ghi chú s05-00, s05-04 nêu OR 1024 là thuật toán tổng quát với họ hàm ba ô, $r=1$, $b=1024$, còn AND hai nhóm OR lấy giao hai tập cặp; ghi chú s01-07, s04-00 nêu ba họ cơ sở song song với ứng dụng, ứng dụng dùng lại thuật toán tổng quát |
+| Mạch | trung bình | storyboard s01-08, s06-05, s04-00 | trường chức năng lỗi thời | sửa |
+| Mạch | nhẹ | s06-01 dòng 5–6 | thiếu công việc phát cặp, dựng thùng | sửa trong ghi chú: $\mathbb E[Q]\le20N+10^8$, dựng thùng $nC=10^8$ thao tác với $n=100$. Bác bỏ thêm "$t=0{,}8$" vào dòng 1: trang đã ở 76 âm tiết, dòng 1 nêu cặp $s=0{,}8$ của Ví dụ 3.12 |
+| Mạch | nhẹ | s01-08 dòng cuối | giới hạn, chưa là câu trả lời có điều kiện | sửa: "Chưa giả thiết phân bố tương đồng: xấu nhất xét mọi cặp"; dòng 1–2 rút để giữ 60 âm tiết |
+| Mạch | nhẹ | s06-01 dòng 4 | chỉ có vân tay, thiếu khóa thực thể và bản tin | bác bỏ: trần âm tiết; khóa thực thể có ở s06-05, bản tin không có bảo đảm riêng |
+| Mạch | nhẹ | s06-05 → s06-01 | lặp bảo đảm của ba họ | bác bỏ: mỗi trang có chức năng riêng (L16) |
+| Mạch | nhẹ | s04-14, s04-10, s06-02 | chỉ số $e$; $m=br$; "$Cbr$ hàm cộng phân dải" | sửa: ghi chú s04-14 giải thích $e$; s04-10 nêu $m=br$; s06-02 "$Cbr$ lần tính hàm, cộng phân dải" |
+| Mạch | nhẹ | s05-01 → s05-02 | thiếu câu nối về họ ngẫu nhiên | sửa trong ghi chú s05-02 |
+| Mạch | nhẹ | ghi chú s02-15, s07-06; ghi chú bài giảng Mục 4.3 | "mã" trơn; "mã thùng" và "chỉ số khoảng" | sửa: "mã tài liệu", "mã thùng" trong ghi chú diễn giả; ghi chú bài giảng nêu hai tên cùng một đại lượng |
+| Mạch | nhẹ | ghi chú s03-10, s05-01 | dấu câu | sửa |
+| Mạch | nhẹ | storyboard đầu tệp, bảng ánh xạ | tổng cũ 69, 77 trang; "năm câu trả lời"; hàng s06-05 thiếu số hiệu | sửa |
+
+**Mật độ và kiểm tra.** `density.py` của vai sinh viên: 78 trang, 0 trang trần 60 vượt 60 (s01-08 đúng 60), dòng dài nhất 20 âm tiết, ghi chú diễn giả ≤ 150 âm tiết, ghi chú trang tiêu đề mạch ≤ 96. HTML cân bằng, 78 `data-slide-id` và 78 `id` duy nhất, 0 thuộc tính `style`. Playwright cổng 8771 duyệt cả 78 trang ở 1600 × 900 và 390 × 844, chụp s01-03, s01-08, s02-16, s04-01, s04-10, s04-14, s05-00, s05-04, s06-01, s06-02, s06-08 (đã xem ảnh rộng s01-08, s02-16, s06-01): 0 lỗi console, 0 `.katex-error`, không tràn khung, không công thức nội dòng ngắt dòng, `#/1–7` đúng, phím Space đủ 78 trang. Ghi chú bài giảng: `w06/check.py` (172 khối, số hiệu liên tục), `w06/xref.py` 0 lỗi, trình xem 172 khối, 0 `.katex-error`, không tràn, in mở 76/76. `git diff --check` không lỗi.
+
+## Ghi nhận của điều phối viên về đợt căn chỉnh 2026-10-14
+
+**Mô hình và tác tử (bằng chứng từ lời gọi công cụ `Agent`, không phải lời tự khai).** Phiên điều phối chạy Claude Fable 5.1. Tác tử phân tích nguồn văn phong (MAT1101, giáo trình Học máy thống kê) là loại `fork`, kế thừa mô hình Fable 5.1 của điều phối viên; đây là tác tử duy nhất không chạy Opus 5.5, được giao trước khi quy ước mô hình của dự án được cập nhật và chỉ làm việc đọc nguồn ngoài kho. Mọi tác tử còn lại được tạo bằng `Agent` với `subagent_type: "general-purpose"`, `model: "opus"` (Claude Opus 5.5), `effort: "high"`: lập kế hoạch (chỉ đọc); soạn thảo (một tác tử, tiếp tục bằng `SendMessage` qua các lượt: ghi chú, deck, sửa ghi chú, sửa deck, sửa cuối); rà ghi chú (toán; mạch viết và chuẩn giáo trình kiêm góc nhìn sinh viên và no-ai-slop Detect); rà deck năm vai (sinh viên kèm đo mật độ; chuyên gia giải thuật và khoa học dữ liệu; độ chính xác toán học; phản biện học thuật kèm no-ai-slop Detect; kết nối và mạch viết); rà lại toán ghi chú; rà lại toán deck; rà lại mạch deck. Các mục trên trong tệp này ghi tác tử soạn là `fork` là ghi nhầm của chính tác tử; loại thực tế là `general-purpose` Opus 5.5 `high`.
+
+**Quyết định của điều phối viên.** Chấp nhận kế hoạch `plan-lec06.md` với các quyết định đã ghi ở đầu mục "Căn chỉnh văn phong 2026-10-14"; quyết định 2 (thu hồi bằng giả định $10^6$ cặp) được thay sau lượt rà mạch deck bằng kết luận suy từ Mệnh đề 06.13 (giả định ngoài $N$ cặp gần mọi cặp có $s\le0{,}1$; $\mathbb E[K]\le N+10^8$; xác minh kỳ vọng không quá khoảng 100 giây), điều phối viên đã tính lại: $1-(1-10^{-5})^{20}=1{,}9998\cdot10^{-4}$, $5\cdot10^{11}\cdot2\cdot10^{-4}=10^8$, $20\cdot5\cdot10^{11}\cdot10^{-5}=10^8$. Chấp nhận ngoại lệ độ dài ghi chú: 30 799 từ theo khoảng trắng, vượt khoảng 8 000–20 000 của `AGENTS.md`; lý do: tiếng Việt đếm theo âm tiết, ghi chú mẫu Bài 05 của `../rl-plan` có 26 226 từ theo cùng cách đếm, phần Bài tập củng cố gồm 30 bài có lời giải (trong đó 7 bài sách của recitation) chiếm khoảng 2 500 từ. Mọi đầu ra của tác tử đều được điều phối viên đọc báo cáo, đối chiếu một phần với tệp và chấp nhận; các phát hiện bị bác bỏ có lý do trong các mục trên.
+
+**Kiểm định cuối do điều phối viên tự chạy (máy chủ `python3 -m reloadserver 8771` tại gốc kho; cổng 8765 và 8766 đang do `../math-4-AI` và `../rl-plan` chiếm).** `git diff --check` sạch. Deck: 78 `data-slide-id` duy nhất; 7 `<section>` ngoài; 6 trang tiêu đề mạch `id="mach-2"`…`mach-7`; không `<style>`, `style=`, `.dense`, `fragment`; `density.py`: 71 trang nội dung, trung vị 45 âm tiết, lớn nhất 79, 7 trang trên 60 đều thuộc nhóm trần 80 có ngoại lệ trong storyboard (s01-02, s02-13, s04-10, s06-05, s06-02, s06-01, s07-07). Playwright Chromium 1600×900 và 390×844 trên s01-01, s01-08, s02-00, s02-16, s03-00, s04-00, s04-10, s04-14, s05-00, s06-00, s06-01, s06-05, s07-00: 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; đã xem ảnh s01-08, s02-16, s04-14, s06-01, s06-05 (hẹp), các trang tiêu đề mạch. Ghi chú trong viewer: 172 khối `.material-block` khớp 172 khối `:::`, 0 `.katex-error`, không tràn ngang ở hai cỡ, khối gập mở được bằng bàn phím (Enter trên `summary`), viewer mở khối khi in qua `beforeprint`. Bài 02 và 03 mở không lỗi console sau khi thêm `.strand-title` vào CSS chung. `index.html` đã có liên kết ghi chú Bài 06, không đổi.
+
+**Phạm vi commit.** Hai commit: ghi chú (`lecture-note.md`, `material-viewer.js`, `material-viewer.css`, `materials/_templates/lecture-note.md`) và deck (deck HTML, `lecture-style.css`, `lecture-template.html`, ba tệp planning). `AGENTS.md`, `CLAUDE.md`, `slide_authoring_standard.md`, `.gitignore` không được commit trong đợt này vì quy ước chỉ commit tệp quy định khi người dùng yêu cầu và vì `AGENTS.md` còn chứa thay đổi chưa commit của người dùng từ trước phiên.
+
+**Giới hạn còn lại.** Hai SVG (`xac-suat-phan-dai.svg` dấu chấm thập phân, `mien-gan-xa.svg` nhãn nhỏ) giữ ngoại lệ cũ; CSS chung ẩn chân trang ở các trang mạch 1 (ảnh hưởng mọi deck, cần đợt sửa riêng); thuật ngữ liên bài ("băm nhạy cảm cục bộ" ở Bài 05, "véc-tơ" ở Bài 07) chưa thống nhất.

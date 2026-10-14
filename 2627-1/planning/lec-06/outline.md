@@ -19,7 +19,7 @@ Vấn đề trung tâm: chữ ký đã vừa bộ nhớ nhưng số cặp vẫn 
 | MT5 | Chạy băm tọa độ, băm dấu và phép chiếu chia khoảng; nêu điều kiện bảo đảm | Bài 3.7.1, 3.7.2, 3.7.5(a–c) |
 | MT6 | Chọn biểu diễn và bước xác minh cho thực thể, vân tay, bản tin | Tính mô hình vân tay; phân biệt cùng văn bản với cùng chủ đề; Bài 3.8.2 |
 
-Phần giảng gồm 53 trang dự kiến, 120 phút. Số trang xuất phát từ việc tách trạng thái, định nghĩa, chứng minh và kiểm tra; không phải chỉ tiêu số lượng. Recitation có 7 trang thuộc 6 cụm bài sách, 60 phút. Không có phần viết mã vì mục tiêu và nguồn không yêu cầu một chương trình trình diễn. Không tạo notebook. §3.9, HNSW, PQ và RAG nằm ngoài Bài 06; Bài 07 tiếp nhận độ đo, xác suất ứng viên và đánh đổi chi phí.
+Phần giảng gồm 53 trang dự kiến, 120 phút (cập nhật 2026-10-14: 69 trang giảng và 8 trang bài tập sau căn chỉnh văn phong; 70 trang giảng sau lượt sửa deck theo năm báo cáo, xem mục 5). Số trang xuất phát từ việc tách trạng thái, định nghĩa, chứng minh và kiểm tra; không phải chỉ tiêu số lượng. Recitation có 7 trang thuộc 6 cụm bài sách, 60 phút. Không có phần viết mã vì mục tiêu và nguồn không yêu cầu một chương trình trình diễn. Không tạo notebook. §3.9, HNSW, PQ và RAG nằm ngoài Bài 06; Bài 07 tiếp nhận độ đo, xác suất ứng viên và đánh đổi chi phí.
 
 ## 2. Học liệu, kiểm kê và ánh xạ nguồn
 
@@ -100,25 +100,66 @@ Ba đề xuất độc lập đã được điều phối viên hợp nhất tr�
 | $\mathcal H,h$ | Họ hàm kèm phân phối và một hàm được chọn; cùng $h$ áp dụng cho mọi đối tượng |
 | $v$ | Pháp tuyến của siêu phẳng và hàm dấu; dùng cùng ký hiệu trong SVG, deck và notes |
 | Tuple, $\Sigma$, $\mathbf1[E]$ | Bộ giá trị có thứ tự; tập ký hiệu; chỉ báo nhận 1 nếu E đúng, 0 nếu E sai |
-| $u,\delta,a$ | Hướng đơn vị, dịch biên độc lập đều trên $[0,a)$, độ rộng khoảng $a>0$ |
+| $u,\delta,a$ | Vector đơn vị đều trên mặt cầu đơn vị của $\mathbb R^D$ (Định nghĩa 06.34; Định lý 06.36 chỉ cho $D=2$), dịch biên độc lập đều trên $[0,a)$, độ rộng khoảng $a>0$ |
 | $\theta$ | Góc đo radian trong $1-\theta/\pi$; $60^\circ=\pi/3$, $120^\circ=2\pi/3$; giá trị độ chỉ dùng khi ghi rõ quy đổi |
 | Ứng viên giả / bỏ sót | Cặp dưới ngưỡng được sinh / cặp đạt ngưỡng không được sinh; luôn chỉ rõ tầng tạo ứng viên và mẫu số nếu dùng tỷ lệ |
 | AND / OR | Phép ghép đồng thời (AND) / ít nhất một (OR); tên tiếng Việt đi trước lần đầu; OR là quan hệ cặp qua nhiều bảng |
 | Khoảng cách góc | Góc trên các hướng, hay vector đơn vị; khác độ tương đồng cosin $\cos\theta$ và khác $1-\cos\theta$ |
+| Băm nhạy cảm theo tính cục bộ (locality-sensitive hashing, LSH) | Tên chung của các bộ tạo ứng viên dùng hàm băm sao cho cặp càng giống càng dễ chung thùng; viết đầy đủ ở lần đầu mỗi tài liệu, sau đó dùng LSH. Bổ sung 2026-10-14; outline Bài 07 đang viết "băm nhạy cảm cục bộ (LSH)", cần thống nhất khi rà Bài 07 |
+| Họ nhạy cảm theo tính cục bộ (locality-sensitive family) | Họ $(d_1,d_2,p_1,p_2)$-nhạy cảm, Định nghĩa 06.22 của ghi chú |
+| Cặp ứng viên (candidate pair); ứng viên giả (false positive); cặp bỏ sót (false negative) | Định nghĩa 06.1 của ghi chú; thuật ngữ tiếng Anh chỉ ghi ở lần đầu |
+| Độ đo khoảng cách (metric) | Hàm thỏa ba tiên đề, Định nghĩa 06.14 |
+| Khoảng cách chỉnh sửa (edit distance); dãy con chung dài nhất (longest common subsequence) | Chỉ chèn và xóa; Định nghĩa 06.18, Mệnh đề 06.19 |
+| Phép ghép đồng thời (AND-construction); phép ghép ít nhất một (OR-construction) | Định nghĩa 06.25; sau lần đầu được gọi tắt AND, OR |
+| Pháp tuyến (normal vector); chữ ký dấu (sketch) | Định nghĩa 06.31; chữ ký dấu là dãy $m$ bit dấu, Thuật toán 06.33 |
+| Điểm đặc trưng vân tay (minutia) | Vị trí đường vân kết thúc hoặc hai đường vân nhập vào nhau, MMDS §3.8.4; Mục 5.2 |
+| Từ dừng (stop word) | Danh sách cho trước; Định nghĩa 06.43 |
+| Phân dải (banding); dải (band); thùng (bucket); bảng băm (hash table) | Định nghĩa 06.3, Thuật toán 06.4; thuật ngữ tiếng Anh ghi ở lần đầu trong ghi chú (bổ sung 2026-10-14) |
+| Siêu phẳng (hyperplane); đẳng hướng (isotropic) | Định nghĩa 06.31; thuật ngữ tiếng Anh ghi ở lần đầu (bổ sung 2026-10-14) |
+| Đường chữ S (S-curve); độ tương đồng cosin (cosine similarity) | Mục 2.4 (cần $b\ge2$, $r\ge2$); Mục 3.3 (bổ sung 2026-10-14) |
+| Giả thiết độc lập thêm của MMDS (vân tay) | Ví dụ 06.18, Tình huống 06.2: các biến cố va chạm qua nhiều hàm và giữa hai nhóm AND được coi là độc lập; không suy ra từ Mệnh đề 06.26; số bỏ sót của sách là cận dưới theo Jensen (bổ sung 2026-10-14) |
+
+### Ánh xạ `note-topic-id` sang mục ghi chú (căn chỉnh 2026-10-14)
+
+Ghi chú bài giảng được viết lại theo cấu trúc chương của `AGENTS.md`. Mỗi chủ đề mang một chú thích `<!-- note-topic-id: lec-06-topic-k -->` ngay trước tiêu đề mục tương ứng; $k$ giữ số thứ tự của mã N cũ để truy nguyên, ba chủ đề 17–19 được thêm. Số hiệu là số đã chốt trong ghi chú.
+
+| `note-topic-id` | Mã cũ | Chủ đề; nhóm | Mục ghi chú | Số hiệu chính | Mạch deck |
+|---|---|---|---|---|---|
+| `lec-06-topic-18` | — | Kiến thức tiên quyết; cầu nối | Kiến thức tiên quyết | Dẫn ghi chú Bài 05, Mục 2–3, 5–7, 9, 11 | 1 (trang Tiên quyết và quy ước) |
+| `lec-06-topic-01` | N01 | Bài toán tìm cặp; cốt lõi | 1 | Ví dụ 06.1; Định nghĩa 06.1; Nhận xét 06.2; Bài tập 06.1 | 1 |
+| `lec-06-topic-02` | N02 | Phân dải, khử lặp, xác minh; cốt lõi | 2.1–2.2 | Ví dụ 06.2–06.3; Định nghĩa 06.3; Thuật toán 06.4; Mệnh đề 06.5; Nhận xét 06.6; Bài tập 06.2 | 2 |
+| `lec-06-topic-03` | N03 | Xác suất, ngưỡng, hai loại sai số; cốt lõi | 2.3–2.4 | Ví dụ 06.4–06.5; Định lý 06.7; Hệ quả 06.8; Mệnh đề 06.9; Nhận xét 06.10; Bài tập 06.3 | 2 |
+| `lec-06-topic-04` | N04 | Chi phí tạo và kiểm cặp; bổ sung | 2.5 | Ví dụ 06.6; Mệnh đề 06.11, 06.13; Nhận xét 06.12; Bài tập 06.4 | 2 |
+| `lec-06-topic-05` | N05 | Độ đo khoảng cách; cốt lõi, chu trình rút gọn | 3.1–3.5 | Ví dụ 06.7–06.10; Định nghĩa 06.14, 06.16, 06.18, 06.20; Mệnh đề 06.15, 06.19; Nhận xét 06.17, 06.21; Bài tập 06.5 | 3 |
+| `lec-06-topic-06` | N06 | Họ nhạy cảm theo tính cục bộ; cốt lõi | 3.6 | Định nghĩa 06.22; Hệ quả 06.23; Ví dụ 06.11; Nhận xét 06.24; Bài tập 06.6 | 3 |
+| `lec-06-topic-07` | N07 | Phép ghép AND, OR; cốt lõi | 3.7 | Định nghĩa 06.25; Mệnh đề 06.26; Ví dụ 06.12; Nhận xét 06.27; Bài tập 06.7 | 3 |
+| `lec-06-topic-08` | N08 | Họ chọn tọa độ; cốt lõi | 4.1 | Ví dụ 06.13; Định nghĩa 06.28; Mệnh đề 06.29; Nhận xét 06.30; Bài tập 06.8 | 4 |
+| `lec-06-topic-09` | N09 | Siêu phẳng, chữ ký dấu; cốt lõi | 4.2 | Ví dụ 06.14–06.15; Định nghĩa 06.31; Định lý 06.32; Thuật toán 06.33; Bài tập 06.9 | 4 |
+| `lec-06-topic-10` | N10 | Chiếu có dịch ngẫu nhiên; cốt lõi, dịch đều là bổ sung | 4.3 | Ví dụ 06.16; Định nghĩa 06.34; Bổ đề 06.35; Định lý 06.36; Nhận xét 06.37; Bài tập 06.10 | 4 |
+| `lec-06-topic-17` | thêm 02/10 | Chi phí tính chữ ký ba họ; bổ sung | 4.4 | Mệnh đề 06.38; Bài tập 06.11 | 4 |
+| `lec-06-topic-11` | N11 | Đối sánh thực thể; cốt lõi | 5.1 | Định nghĩa 06.39; Nhận xét 06.40; Ví dụ 06.17; Bài tập 06.12 | 5 |
+| `lec-06-topic-12` | N12 | Đối sánh vân tay; cốt lõi | 5.2 | Định nghĩa 06.41; Mệnh đề 06.42; Ví dụ 06.18; Bài tập 06.13 | 5 |
+| `lec-06-topic-13` | N13 | Bản tin gần trùng; cốt lõi | 5.3 | Định nghĩa 06.43; Ví dụ 06.19; Bài tập 06.14 | 5 |
+| `lec-06-topic-19` | — | Tình huống áp dụng; cốt lõi | Tình huống áp dụng và ứng dụng | Tình huống 06.1–06.4 (06.1 và 06.4 giả thiết không thỏa) | 5, 6 |
+| `lec-06-topic-14` | N14 | Tóm tắt chương; cốt lõi | Tóm tắt chương | Thu hồi kho một triệu tài liệu | 6 |
+| `lec-06-topic-16` | N16 | Bài tập củng cố; cốt lõi | Bài tập củng cố | Bài tập 06.15–06.30; bài sách 06.20–06.26, 06.28 | 6 (06.15–06.19, 06.27), 7 (bài sách); 06.29–06.30 chỉ ở ghi chú |
+| `lec-06-topic-15` | N15 | Đọc thêm; đọc thêm | Hướng dẫn đọc thêm và tài liệu tham khảo | Bài 3.7.5(d) chuyển thành Bài tập 06.26; mô hình trường ngày chuyển thành Tình huống 06.1; các chỉ dẫn đọc tiếp ở mục tham khảo | 6 (trang Nguồn và tài liệu đọc) |
 
 ## 5. Mạch giảng và chu trình theo cụm
 
-| Phần ngoài | Vai trò; kết nối vào → đầu ra | Trang | Phút | Kiểm tra riêng |
-|---|---|---:|---:|---|
-| 1. Bài toán tìm cặp tương đồng | Động lực: chữ ký Bài 05 → nhu cầu giảm số cặp | 5 | 8 | lec06-s01-05 |
-| 2. Phân dải chữ ký MinHash | Thuật toán và chi phí: SIG → thùng → cặp → xác suất/chi phí | 14 | 32 | lec06-s02-14 |
-| 3. Khoảng cách và họ nhạy cảm | Mô hình: Jaccard → năm độ đo → họ → khuếch đại | 13 | 30 | lec06-s03-13 |
-| 4. Các họ băm theo độ đo | Thuật toán cơ sở: tọa độ/góc/độ dài → phép thử có điều kiện | 11 | 26 | lec06-s04-11 |
-| 5. Ứng dụng tìm cặp tương đồng | Vận dụng: thay biểu diễn/phép thử/xác minh theo bài toán | 6 | 16 | lec06-s05-06 |
-| 6. Tổng kết và tự kiểm tra | Thu hồi kho triệu tài liệu; 6 nhiệm vụ phủ mục tiêu | 4 | 8 | lec06-s06-03 và lec06-s06-04 |
-| 7. Bài tập vận dụng | Bài sách, sản phẩm và lời giải; kiểm tra tổng hợp | 7 | 60 | lec06-s07-07, Bài 3.8.2 |
+Bảng mạch dưới đây thay bảng bảy phần cũ (5/14/13/11/6/4/7 trang, 53 + 7 trang) theo kế hoạch căn chỉnh văn phong 2026-10-14. Mạch 1 mở bằng trang bìa; mạch 2–7 mở bằng trang tiêu đề mạch `section.strand-title` theo `lecture-template.html`, mã `lec06-s0N-00`, `id="mach-N"`, nên mạch N mở tại `#/N` khi `hashOneBasedIndex: true`. Tên bảy mạch trùng từng chữ với trang "Nội dung" `lec06-s01-07`. Số trang và phút trong bảng đã được thực hiện ở giai đoạn 2 (deck sửa ngày 2026-10-14); storyboard có mục phân bổ thời gian vì phần giảng vượt 60 trang, và mục ngoại lệ mật độ. Có 34 trong 60 trang cũ đổi tiêu đề, chủ yếu thêm tiền tố "Ví dụ:", "Thuật toán:", "Tính đúng:", "Chi phí:", "Bài tập:" hoặc gọi tên theo khái niệm trung tâm; tiêu đề hiện hành của mọi `data-slide-id` nằm ở bảng ánh xạ cuối `storyboard.md`.
 
-Tổng 7 phần ngoài, 53 trang giảng/120 phút và 7 trang bài tập/60 phút. Gộp §§3.5–3.6 trong phần 3 vì độ đo là đầu vào của họ; cụm con vẫn giữ thứ tự sách. Cụm thuật toán phân dải có đầy đủ tình huống, vấn đề, trực giác, vết chạy, hình thức hóa, giả mã/bất biến, ứng dụng/chi phí, kiểm tra. Các độ đo là khái niệm phụ nên rút gọn thuật toán/chi phí khi không có thuật toán mới; không tạo giả mã cho định nghĩa metric. Chi tiết tám bước của từng cụm và câu nối nằm trong storyboard.
+| Mạch | Trang mở mạch | Tên mạch | Dòng dẫn của trang tiêu đề mạch | Vai trò; kết nối vào → đầu ra | Mục ghi chú | Trang | Phút | Kiểm tra riêng |
+|---|---|---|---|---|---|---:|---:|---|
+| 1 | Trang bìa `lec06-s01-01` | Bài toán tìm cặp tương đồng | Không có trang tiêu đề mạch; bìa mang câu luận đề | Mở đầu: chữ ký Bài 05 → bài toán tìm cặp, vấn đề trung tâm, kho một triệu tài liệu | 1 | 8 | 10 | lec06-s01-05 |
+| 2 | `lec06-s02-00` | Phân dải chữ ký MinHash | Muốn chỉ xác minh một phần nhỏ các cặp, phải gom các cột giống nhau vào cùng thùng. | Thuật toán, xác suất và chi phí: SIG → khóa dải → $\mathcal C$ → $P_{b,r}(s)$, $Q$, $K$ | 2 | 17 | 30 | lec06-s02-14 |
+| 3 | `lec06-s03-00` | Khoảng cách và họ nhạy cảm | Muốn dùng phân dải ngoài Jaccard, phải có độ đo, họ băm hợp với độ đo và phép ghép tách cặp gần, cặp xa. | Mô hình: Jaccard → năm độ đo → họ $(d_1,d_2,p_1,p_2)$ → AND, OR | 3 | 14 | 28 | lec06-s03-13 |
+| 4 | `lec06-s04-00` | Các họ băm theo độ đo | Muốn tìm cặp gần theo Hamming, góc hoặc Euclid, phải có họ băm mà xác suất trùng giảm theo khoảng cách. | Ba họ cơ sở, giả thiết của từng bảo đảm, chi phí chữ ký → khung của mạch 2 dùng lại | 4 | 15 | 25,5 | lec06-s04-11 |
+| 5 | `lec06-s05-00` | Ứng dụng tìm cặp tương đồng | Muốn áp dụng khung tìm cặp cho hồ sơ, vân tay và bản tin, phải chọn lại biểu diễn hoặc họ hàm. | Vận dụng: đổi biểu diễn hoặc họ hàm, giữ thùng và xác minh | 5; Tình huống 06.1–06.3 | 9 | 15,5 | lec06-s05-06, lec06-s05-08 |
+| 6 | `lec06-s06-00` | Tổng kết và tự kiểm tra | Muốn trả lời bài toán kho một triệu tài liệu, phải nêu giả thiết, bảo đảm và chi phí của từng kết quả. | Bảng kết quả–giả thiết, bảng thuật toán–bảo đảm–chi phí, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn | Tóm tắt chương; Tình huống 06.4 | 7 | 11 | lec06-s06-03, lec06-s06-04 |
+| 7 | `lec06-s07-00` | Bài tập vận dụng | Nhu cầu: áp dụng phân dải, phép ghép, ba họ băm và mô hình vân tay vào bảy bài của MMDS Chương 3. | Bài sách, sản phẩm và lời giải | Bài tập 06.20–06.25, 06.28 | 8 | 60 | lec06-s07-07 |
+
+Tổng 7 mạch, 70 trang giảng/120 phút và 8 trang bài tập/60 phút, 78 trang (lượt sửa deck sau năm báo cáo thêm `lec06-s04-14`, thuật toán tìm cặp với họ nhạy cảm, mạch 4 thành 15 trang, 25,5 phút). Gộp §§3.5–3.6 trong mạch 3 vì độ đo là đầu vào của họ; cụm con vẫn giữ thứ tự sách. Cụm thuật toán phân dải có đầy đủ tình huống, vấn đề, trực giác, vết chạy, hình thức hóa, giả mã/bất biến, ứng dụng/chi phí, kiểm tra. Các độ đo là khái niệm phụ nên rút gọn thuật toán/chi phí khi không có thuật toán mới; không tạo giả mã cho định nghĩa metric. Ghi chú bài giảng đánh số `## 1.`–`## 5.` ứng với mạch 1–5; mạch 6 ứng với "Tóm tắt chương" (cùng Tình huống 06.4), mạch 7 ứng với các bài sách trong "Bài tập củng cố". Chi tiết tám bước của từng cụm và câu nối nằm trong storyboard.
 
 ## 6. Ví dụ, dữ kiện và hình trực quan
 
@@ -189,7 +230,7 @@ Phiếu từng trang, ánh xạ note-topic, chu trình cụm, nội dung công k
 | R5 | 3.7.5(a–c), tr.114/PDF 43 | Ba điểm, ba trục, rộng 1 và 2; bảng thùng/cặp. Chuyển (d) sang đọc thêm | 8 |
 | R6 | 3.8.2(a, b), tr.121/PDF 50 | OR 2048 so AND hai nhóm OR 1024; hai xác suất lỗi | 8 |
 
-Máy tính chỉ hỗ trợ lũy thừa/arccos. Dịch đề, chia R1 thành hai trang, lược 3.7.5(d) khỏi recitation; không đổi dữ kiện hoặc yêu cầu toán học. Phút thuộc storyboard và ghi chú học tập theo yêu cầu recitation, không hiển thị trên mặt trang. Lời giải không chứa hướng dẫn giảng viên hay mã nội bộ.
+Cập nhật 2026-10-14: phần bài tập có 8 trang, gồm trang tiêu đề mạch `lec06-s07-00` và bảy trang đề `lec06-s07-01`…`07` mang tiêu đề "Bài tập: …"; mỗi trang đề giữ một dòng nguồn số bài sách; lời giải là Bài tập 06.20–06.25 và 06.28 của ghi chú. Máy tính chỉ hỗ trợ lũy thừa/arccos. Dịch đề, chia R1 thành hai trang, lược 3.7.5(d) khỏi recitation; không đổi dữ kiện hoặc yêu cầu toán học. Phút thuộc storyboard và ghi chú học tập theo yêu cầu recitation, không hiển thị trên mặt trang. Lời giải không chứa hướng dẫn giảng viên hay mã nội bộ.
 
 Pha 2 dùng `.reveal.course-deck.lecture-lsh`, CSS chung, mẫu trang tiêu đề/mục lục/`example-slide`/`cost-slide`; không sao chép khối style mẫu. Giữ `lang="vi"`, 1280 × 720, controls ở mép, slideNumber, hashOneBasedIndex và hash; thư viện Reveal, notes, highlight, KaTeX cục bộ. Không có `fragment`. Mọi hình kỹ thuật vẽ SVG, đường dẫn tương đối. Ghi chú bắt đầu H1, dùng `$...$`/`$$...$$`, khối tự học không lồng, hint/solution gập mặc định và mở khi in.
 

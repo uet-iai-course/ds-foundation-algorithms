@@ -4,64 +4,144 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
   <title>Bài NN: Tên bài</title>
+  <meta name="description" content="Một câu mô tả nội dung bài; nguồn trục của bài."/>
   <link rel="stylesheet" href="revealjs/dist/reset.css"/>
   <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
   <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
-  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
   <link rel="stylesheet" href="lecture-style.css"/>
-  <style>
-    .reveal .slides section[data-slide-id] { font-size: .82em; }
-    .reveal h1, .reveal h2 { color: #2f3e7a; }
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8em; }
-    .card { border: 1px solid #ddd; border-radius: 8px; padding: .5em .65em; }
-    .math-large { font-size: 1.16em; text-align: center; }
-    .check { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: .35em .55em; }
-    .note-source { font-size: .9em; color: #444; }
-  </style>
+  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
 </head>
 <body>
-  <div class="reveal">
+  <div class="reveal course-deck lecture-ten-bai">
     <div class="slides">
-      <section>
-        <section data-slide-id="P00">
-          <h1>Tên bài</h1>
-          <h3>Bài NN · Giải thuật nền tảng của Khoa học dữ liệu</h3>
-          <p>Năm học 2026–2027 · Học kỳ 1</p>
-          <p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
-          <aside class="notes">Nêu vị trí của bài trong học phần và câu nối vào nội dung đầu tiên.</aside>
+      <!-- Mạch 1: mở đầu. Trang bìa là trang tiêu đề của mạch này. -->
+      <section aria-label="Mở đầu">
+        <section id="lecNN-s01-01" data-slide-id="lecNN-s01-01" class="title-slide">
+          <h1 class="lecture-title">Tên bài</h1>
+          <p class="supporting-text">Một câu luận đề: kết quả hoặc cơ chế trung tâm của bài.</p>
+          <p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p>
+          <p class="term-name">Học kỳ 1 · Năm học 2026–2027</p>
+          <p class="institution-name">Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
+          <aside class="notes"><p>Kết quả của bài trước được dùng lại và giới hạn của nó dẫn tới bài này. Nguồn trục của bài.</p></aside>
         </section>
 
-        <section data-slide-id="P01">
-          <h2>Mục tiêu học tập</h2>
+        <section id="lecNN-s01-02" data-slide-id="lecNN-s01-02" class="example-slide">
+          <h2>Tiên quyết và quy ước</h2>
+          <p><strong>Nhắc lại:</strong> kết quả của bài trước được dùng lại, phát biểu trong một câu.</p>
+          <p><strong>Ký hiệu:</strong> miền, kiểu, kích thước và quy ước chỉ số của bài.</p>
+          <aside class="notes"><p>Giải thích vì sao từng kết quả nhắc lại là cần thiết cho bài.</p></aside>
+        </section>
+
+        <section id="lecNN-s01-03" data-slide-id="lecNN-s01-03" class="agenda-slide">
+          <h2>Nội dung</h2>
+          <ol>
+            <li>Mở đầu</li>
+            <li>Tên mạch 2</li>
+            <li>Tên mạch 3</li>
+            <li>Tổng kết và tự kiểm tra</li>
+            <li>Bài tập vận dụng</li>
+          </ol>
+          <p><strong>Đọc trước:</strong> giáo trình, chương, mục.</p>
+          <aside class="notes"><p>Mục tiêu học tập quan sát được, mỗi mục tiêu ứng với một sản phẩm kiểm tra được.</p></aside>
+        </section>
+
+        <section id="lecNN-s01-04" data-slide-id="lecNN-s01-04" class="example-slide">
+          <h2>Vấn đề trung tâm</h2>
+          <p><strong>Nhu cầu:</strong> bài toán dữ liệu lớn của bài trong một dòng: dữ liệu, đầu ra, giới hạn tài nguyên.</p>
           <ul>
-            <li>Mục tiêu quan sát được thứ nhất.</li>
-            <li>Mục tiêu quan sát được thứ hai.</li>
+            <li>Mạch 2 trả lời: câu trả lời có điều kiện, một dòng.</li>
+            <li>Mạch 3 trả lời: câu trả lời có điều kiện, một dòng.</li>
           </ul>
-          <aside class="notes">Nêu sản phẩm học tập có thể kiểm tra sau buổi học.</aside>
+          <aside class="notes"><p>Con số quy mô có nguồn; giới hạn của cách làm quen thuộc.</p></aside>
         </section>
       </section>
 
-      <section>
-        <section data-slide-id="A00">
-          <h1>A. Tên phần</h1>
-          <p>Một luận điểm trung tâm mở phần.</p>
-          <aside class="notes">Nêu câu nối từ mục tiêu sang vấn đề của phần.</aside>
+      <!-- Mạch 2: mỗi mạch (trừ mạch mở đầu) mở bằng một trang tiêu đề mạch. -->
+      <section aria-label="Tên mạch 2">
+        <section id="lecNN-s02-00" data-slide-id="lecNN-s02-00" class="strand-title">
+          <div class="strand-title-body">
+            <h2><span class="strand-number">2.</span>Tên mạch 2</h2>
+            <p class="strand-lead">Muốn đạt đích của mạch, phải làm việc mà mạch này làm.</p>
+            <p class="strand-keys">Từ khóa 1 · Từ khóa 2 · Từ khóa 3</p>
+          </div>
+          <aside class="notes"><p>Kết quả kế thừa từ mạch trước; nhiệm vụ của mạch; kết quả giao cho mạch sau.</p></aside>
         </section>
 
-        <section data-slide-id="A01">
-          <h2>Tên khái niệm hoặc thuật toán</h2>
-          <div class="grid2">
-            <div class="card">
-              <h3>Đầu vào</h3>
-              <p>Kiểu, kích thước và điều kiện trước.</p>
-            </div>
-            <div class="card">
-              <h3>Đầu ra</h3>
-              <p>Kết quả và điều kiện bảo đảm.</p>
-            </div>
+        <section id="lecNN-s02-01" data-slide-id="lecNN-s02-01" class="example-slide">
+          <h2>Tên khái niệm</h2>
+          <p><strong>Nhu cầu:</strong> điều chưa tính được bằng công cụ đã có.</p>
+          <p>Ví dụ dẫn nhập có số: dữ kiện nhỏ tính tay được.</p>
+          <aside class="notes"><p>Trực giác, giả thiết, lỗi dễ mắc và nguồn của trang.</p></aside>
+        </section>
+
+        <section id="lecNN-s02-02" data-slide-id="lecNN-s02-02" class="example-slide">
+          <h2>Thuật toán: tên thuật toán</h2>
+          <p><strong>Đầu vào:</strong> kiểu, kích thước và điều kiện trước.</p>
+          <p><strong>Đầu ra:</strong> kết quả và điều kiện bảo đảm.</p>
+          <pre class="ex-code"><code class="language-plaintext" data-trim>khởi tạo
+với mỗi phần tử: thao tác quyết định
+trả kết quả</code></pre>
+          <aside class="notes"><p>Thao tác quyết định; chỗ khung còn để ngỏ mà trang sau lấp; nguồn.</p></aside>
+        </section>
+
+        <section id="lecNN-s02-03" data-slide-id="lecNN-s02-03" class="example-slide">
+          <h2>Câu hỏi về tên mạch 2</h2>
+          <p><strong>Câu hỏi:</strong> yêu cầu người học tính, giải thích, chứng minh hoặc áp dụng.</p>
+          <aside class="notes"><p>Lời giải và tiêu chí đánh giá.</p></aside>
+        </section>
+      </section>
+
+      <!-- Mạch kết luận. -->
+      <section aria-label="Tổng kết và tự kiểm tra">
+        <section id="lecNN-s04-00" data-slide-id="lecNN-s04-00" class="strand-title">
+          <div class="strand-title-body">
+            <h2><span class="strand-number">4.</span>Tổng kết và tự kiểm tra</h2>
+            <p class="strand-lead">Muốn chọn phương pháp cho bài toán mở đầu, phải nêu giả thiết, bảo đảm và chi phí của từng kết quả.</p>
           </div>
-          <div class="check"><strong>Câu hỏi:</strong> yêu cầu người học tính, giải thích, chứng minh hoặc áp dụng.</div>
-          <aside class="notes">Giải thích trực giác, bất biến, lỗi dễ mắc và nguồn của trang.</aside>
+          <aside class="notes"><p>Các kết quả được thu hồi và cách chúng trả lời vấn đề trung tâm.</p></aside>
+        </section>
+
+        <section id="lecNN-s04-01" data-slide-id="lecNN-s04-01" class="example-slide">
+          <h2>Các kết quả của bài</h2>
+          <table class="ex-table">
+            <thead><tr><th scope="col">Kết quả</th><th scope="col">Giả thiết không được bỏ</th><th scope="col">Công thức hoặc thuật toán</th></tr></thead>
+            <tbody><tr><td>Kết quả 1</td><td>Giả thiết</td><td>Công thức</td></tr></tbody>
+          </table>
+          <aside class="notes"><p>Điều kiện áp dụng và giới hạn của từng kết quả.</p></aside>
+        </section>
+
+        <section id="lecNN-s04-02" data-slide-id="lecNN-s04-02" class="example-slide">
+          <h2>Câu hỏi tự kiểm tra</h2>
+          <p><strong>Câu hỏi:</strong> trả lời và nêu kết quả đã dùng.</p>
+          <ol>
+            <li>Câu kiểm một giả thiết.</li>
+            <li>Câu kiểm một phân biệt.</li>
+          </ol>
+          <aside class="notes"><p>Lời giải từng câu.</p></aside>
+        </section>
+
+        <section id="lecNN-s04-03" data-slide-id="lecNN-s04-03" class="example-slide">
+          <h2>Nguồn và tài liệu đọc</h2>
+          <p><strong>Nguồn:</strong> tác giả, năm, chương, mục, trang.</p>
+          <p><a href="material-viewer.html?doc=materials/lec-NN/lecture-note.md&amp;deck=lecture-NN-ten-bai.html">Ghi chú bài giảng</a></p>
+          <aside class="notes"><p>Bài kế tiếp dùng kết quả nào của bài này.</p></aside>
+        </section>
+      </section>
+
+      <!-- Phần bài tập recitation: một section ngoài riêng, cũng mở bằng trang tiêu đề mạch. -->
+      <section aria-label="Bài tập vận dụng">
+        <section id="lecNN-s05-00" data-slide-id="lecNN-s05-00" class="strand-title">
+          <div class="strand-title-body">
+            <h2><span class="strand-number">5.</span>Bài tập vận dụng</h2>
+            <p class="strand-lead">Nhu cầu: áp dụng các kết quả của bài lên bài tập của giáo trình.</p>
+          </div>
+          <aside class="notes"><p>Các cụm bài, bài sách và năng lực được kiểm.</p></aside>
+        </section>
+
+        <section id="lecNN-s05-01" data-slide-id="lecNN-s05-01" class="example-slide">
+          <h2>Bài tập: chủ đề</h2>
+          <p><strong>Câu hỏi:</strong> đề bài gõ bằng chữ và KaTeX, nguyên dữ kiện của sách.</p>
+          <aside class="notes"><p>Số bài, mục và trang sách; gợi ý bước mở đầu; lời giải và tiêu chí chấm.</p></aside>
         </section>
       </section>
 
@@ -71,7 +151,6 @@
 
   <script src="revealjs/dist/reveal.js"></script>
   <script src="plugin/notes/notes.js"></script>
-  <script src="plugin/markdown/markdown.js"></script>
   <script src="plugin/highlight/highlight.js"></script>
   <script src="plugin/math/math.js"></script>
   <script>
@@ -84,7 +163,7 @@
       hashOneBasedIndex: true,
       hash: true,
       katex: { local: "vendor/katex" },
-      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+      plugins: [RevealHighlight, RevealNotes, RevealMath.KaTeX]
     });
   </script>
 </body>
