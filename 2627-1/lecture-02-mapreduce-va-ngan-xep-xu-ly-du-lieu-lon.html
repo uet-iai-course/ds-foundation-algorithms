@@ -126,9 +126,9 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">2.</span>Mô hình tính toán Map-Reduce</h2>
     <p class="strand-lead">Muốn đếm từ trên kho nằm ở nhiều máy, phải đặc tả hai hàm Map, Reduce và phép nhóm theo khóa.</p>
-    <p class="strand-keys">Map · Reduce · Nhóm theo khóa · Các pha · Combine</p>
+    <p class="strand-keys">Map&nbsp;· Reduce&nbsp;· Nhóm&nbsp;theo&nbsp;khóa&nbsp;· Các&nbsp;pha&nbsp;· Combine</p>
   </div>
-  <aside class="notes"><p>Dữ liệu đã nằm trên nhiều máy của cụm và HDFS; ví dụ cộng dãy số cho thấy phép tính có thể chia thành phần cục bộ rồi gộp. Bài toán đếm từ được dùng để định nghĩa hàm Map, hàm Reduce, phép phân phối và nhóm theo khóa, các pha của một công việc và hàm Combine gộp cục bộ. Mô hình hình thức cùng điều kiện dùng Combine được áp vào ba ví dụ của phần sau.</p></aside>
+  <aside class="notes"><p>Dữ liệu đã nằm trên nhiều máy của cụm và HDFS; ví dụ cộng dãy số cho thấy phép tính có thể chia thành phần cục bộ rồi gộp. Bài toán đếm từ được dùng để định nghĩa hàm Map, hàm Reduce, phép phân phối và nhóm theo khóa, các pha của một công việc và hàm Combine gộp cục bộ. Mô hình hình thức cùng điều kiện dùng Combine được áp vào nhân ma trận–véc tơ, đếm từ phân biệt và trung bình cộng.</p></aside>
 </section>
 <section id="lec02-s02-01" data-slide-id="lec02-s02-01" class="motivation-slide model-slide">
   <h1>Bốn khả năng của Map-Reduce</h1>
@@ -446,7 +446,7 @@ trả về Y = gom_giữ_lặp(O_0, ..., O_{r−1})</code></pre>
   <div class="strand-title-body">
     <h2><span class="strand-number">3.</span>Các ví dụ Map-Reduce</h2>
     <p class="strand-lead">Muốn áp mô hình cho bài toán mới, phải chọn khóa và giá trị trung gian đủ để gộp đúng.</p>
-    <p class="strand-keys">Nhân ma trận–véc tơ · Đếm từ phân biệt · Trung bình cộng · Tính đúng</p>
+    <p class="strand-keys">Nhân&nbsp;ma&nbsp;trận–véc&nbsp;tơ&nbsp;· Đếm&nbsp;từ&nbsp;phân&nbsp;biệt&nbsp;· Trung&nbsp;bình&nbsp;cộng&nbsp;· Tính&nbsp;đúng</p>
   </div>
   <aside class="notes"><p>Khung Map-Reduce và điều kiện dùng Combine đã có. Ba bài toán nhân ma trận–véc tơ, đếm từ phân biệt và trung bình cộng lần lượt được đặc tả, gắn với một ứng dụng trên kho web, viết hàm, chạy tay và chứng minh tính đúng. Ba kiểu giá trị trung gian là tích phần tử, dấu hiệu hiện diện và cặp tổng, số lượng. Cộng dãy số và đếm từ được dùng lại để đo chi phí khi chạy trên nhiều máy.</p></aside>
 </section>
@@ -784,9 +784,9 @@ Reduce(i, L):  yield(i, sum(L))
   <div class="strand-title-body">
     <h2><span class="strand-number">4.</span>Chi phí và lợi ích của song song hóa</h2>
     <p class="strand-lead">Muốn biết thêm máy có rút ngắn thời gian hay không, phải đếm công việc, thời gian từng pha và lượng truyền.</p>
-    <p class="strand-keys">Tổng công việc · Thời gian hoàn thành · Lượng truyền · Combine · Mức tăng tốc</p>
+    <p class="strand-keys">Tổng&nbsp;công&nbsp;việc&nbsp;· Thời&nbsp;gian&nbsp;hoàn&nbsp;thành&nbsp;· Lượng&nbsp;truyền&nbsp;· Combine&nbsp;· Mức&nbsp;tăng&nbsp;tốc</p>
   </div>
-  <aside class="notes"><p>Các hàm của ba ví dụ đã được đặc tả và chứng minh đúng. Phần này đếm tổng công việc khi cộng 16 số, thời gian của một pha và của cả công việc trên $P$ máy, chi phí đầu vào tác vụ, thời gian truyền với băng thông riêng và dùng chung, lượng truyền giảm nhờ Combine, rồi mức tăng tốc. Chi phí tính toán, truyền và điều phối được tách riêng để phần hệ thống thực thi giải thích cơ chế tạo ra chúng.</p></aside>
+  <aside class="notes"><p>Các hàm của ba ví dụ đã được đặc tả và chứng minh đúng. Tổng công việc được đếm trên phép cộng 16 số; tiếp theo là thời gian của một pha và của cả công việc trên $P$ máy, chi phí đầu vào tác vụ, thời gian truyền với băng thông riêng và dùng chung, lượng truyền giảm nhờ Combine, rồi mức tăng tốc. Chi phí tính toán, truyền và điều phối được tách riêng; cơ chế tạo ra chúng nằm ở hệ thống thực thi.</p></aside>
 </section>
 <section id="lec02-s04-01" data-slide-id="lec02-s04-01" class="motivation-slide example-slide cost-slide cost-open">
   <h1>Ba đại lượng chi phí</h1>
@@ -1000,9 +1000,9 @@ Reduce(i, L):  yield(i, sum(L))
   <div class="strand-title-body">
     <h2><span class="strand-number">5.</span>Hệ thống thực thi Map-Reduce</h2>
     <p class="strand-lead">Muốn hiểu thời gian chạy và cách phục hồi, phải theo dữ liệu từ phần đầu vào qua Shuffle tới Reduce.</p>
-    <p class="strand-keys">Phần đầu vào · HDFS · Hàm phân phối · Shuffle · Phục hồi khi máy hỏng</p>
+    <p class="strand-keys">Phần&nbsp;đầu&nbsp;vào&nbsp;· HDFS&nbsp;· Hàm&nbsp;phân&nbsp;phối&nbsp;· Shuffle&nbsp;· Phục&nbsp;hồi&nbsp;khi&nbsp;máy&nbsp;hỏng</p>
   </div>
-  <aside class="notes"><p>Phần chi phí đã tách thời gian tính toán, truyền và điều phối. Phần đọc thêm này giải thích cơ chế tạo ra các chi phí ấy: phần đầu vào sinh tác vụ Map, HDFS cho vị trí bản sao, hàm phân phối chia đầu ra Map, Shuffle và nhóm theo khóa đưa dữ liệu tới Reduce, bộ điều phối theo dõi trạng thái và chạy lại tác vụ khi máy hỏng. HDFS và bộ điều phối được gặp lại trên cụm Hadoop của phần thực hành, nhưng phần thực hành không đòi hỏi phần này.</p></aside>
+  <aside class="notes"><p>Mô hình chi phí đã tách thời gian tính toán, truyền và điều phối. Các chi phí ấy sinh ra từ cơ chế thực thi: phần đầu vào sinh tác vụ Map, HDFS cho vị trí bản sao, hàm phân phối chia đầu ra Map, Shuffle và nhóm theo khóa đưa dữ liệu tới Reduce, bộ điều phối theo dõi trạng thái và chạy lại tác vụ khi máy hỏng. HDFS và bộ điều phối xuất hiện lại trên cụm Hadoop thực hành, nhưng bài thực hành không đòi hỏi các cơ chế này.</p></aside>
 </section>
   <section id="lec02-s05-01" data-slide-id="lec02-s05-01" class="motivation-slide example-slide cost-slide system-slide">
 <h1>Giao việc, chuyển dữ liệu và phục hồi</h1>
@@ -1148,9 +1148,9 @@ Reduce(i, L):  yield(i, sum(L))
   <div class="strand-title-body">
     <h2><span class="strand-number">6.</span>Thực hành Hadoop với Docker Compose</h2>
     <p class="strand-lead">Muốn chạy đếm từ trên cụm thật, phải dựng cụm Hadoop, viết Map, Reduce bằng Python và đối chiếu kết quả.</p>
-    <p class="strand-keys">Docker Compose · HDFS · Hadoop Streaming · Bộ đếm</p>
+    <p class="strand-keys">Docker&nbsp;Compose&nbsp;· HDFS&nbsp;· Hadoop&nbsp;Streaming&nbsp;· Bộ&nbsp;đếm</p>
   </div>
-  <aside class="notes"><p>Mô hình Map-Reduce và lần chạy tay bài đếm từ đã cho kết quả chim 1, chó 2, mèo 2. Cụm sáu container gồm NameNode, hai DataNode, ResourceManager và hai NodeManager được dựng trên một máy; hai văn bản được đưa lên HDFS; hàm Map, Reduce và Combine viết bằng Python chạy qua Hadoop Streaming. Kết quả và các bộ đếm của công việc được đối chiếu với phép tính tay, làm căn cứ cho phần tổng kết.</p></aside>
+  <aside class="notes"><p>Mô hình Map-Reduce và lần chạy tay bài đếm từ đã cho kết quả chim 1, chó 2, mèo 2. Cụm sáu container gồm NameNode, hai DataNode, ResourceManager và hai NodeManager được dựng trên một máy; hai văn bản được đưa lên HDFS; hàm Map, Reduce và Combine viết bằng Python chạy qua Hadoop Streaming. Kết quả và các bộ đếm của công việc được đối chiếu với phép tính tay, làm căn cứ cho quy tắc chọn khóa và giá trị.</p></aside>
 </section>
   <section id="lec02-s06-01" data-slide-id="lec02-s06-01" class="motivation-slide example-slide cost-slide practical-slide">
 <h1>Mục đích và chuẩn bị thực hành</h1>
@@ -1292,9 +1292,9 @@ mèo	2</code></pre>
   <div class="strand-title-body">
     <h2><span class="strand-number">7.</span>Tổng kết và bài tập vận dụng</h2>
     <p class="strand-lead">Muốn dùng Map-Reduce cho bài toán khác, phải chọn khóa và thông tin giữ lại theo đầu ra cần tính.</p>
-    <p class="strand-keys">Ba cách gộp · Câu hỏi kiểm tra · Số nguyên lớn nhất · Trung bình cộng · Số giá trị phân biệt</p>
+    <p class="strand-keys">Ba&nbsp;cách&nbsp;gộp&nbsp;· Câu&nbsp;hỏi&nbsp;kiểm&nbsp;tra&nbsp;· Số&nbsp;nguyên&nbsp;lớn&nbsp;nhất&nbsp;· Trung&nbsp;bình&nbsp;cộng&nbsp;· Số&nbsp;giá&nbsp;trị&nbsp;phân&nbsp;biệt</p>
   </div>
-  <aside class="notes"><p>Mô hình, ba ví dụ, chi phí và lần chạy trên cụm Hadoop cho một quy tắc thiết kế: khóa quyết định nhóm nào vào cùng một Reduce, giá trị trung gian phải giữ đủ thông tin cho phép gộp. Phần cuối đối chiếu ba cách gộp, kiểm tra bằng câu hỏi, rồi giao ba bài tập số nguyên lớn nhất, trung bình cộng và số giá trị phân biệt theo cùng quy tắc.</p></aside>
+  <aside class="notes"><p>Mô hình, ba ví dụ, chi phí và lần chạy trên cụm Hadoop cho một quy tắc thiết kế: khóa quyết định nhóm nào vào cùng một Reduce, giá trị trung gian phải giữ đủ thông tin cho phép gộp. Ba cách gộp được đối chiếu, câu hỏi tự kiểm tra kiểm lại quy tắc, rồi ba bài tập số nguyên lớn nhất, trung bình cộng và số giá trị phân biệt áp cùng quy tắc.</p></aside>
 </section>
   <section id="lec02-s07-01" data-slide-id="lec02-s07-01" class="motivation-slide example-slide cost-slide summary-slide">
 <h1>Ba nhu cầu và cách Map-Reduce đáp ứng</h1>
