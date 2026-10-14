@@ -180,3 +180,32 @@ Hai lần sửa bằng selector `.z-interval-figure` ở 300 px rồi 240 px đ�
 - Viewer rộng/hẹp có 28 heading, 16 liên kết mục lục, 466 biểu thức KaTeX, 10 hình và 24 khối gập đóng mặc định; bàn phím, in 29 trang, path traversal và ghép sai số bài đều đạt.
 - Index có đúng một liên kết Bài 14, mở đúng cặp doc/deck và không lỗi runtime.
 - Dự án Codex Slides `20260830170505-b-i-14-ch-m-c-v-n-b-n-v-ch-m-c-kh-ng-gia-qpmz` truy cập được nhưng vẫn là draft 0 slide; không có canvas để đối chiếu nên không tuyên bố đã kiểm canvas.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 2 gồm Bài 07–15; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`. Mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch nên dùng `<tiền tố>T`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | IT | Chỉ mục đảo cho văn bản | Muốn trả tài liệu thỏa biểu thức từ khóa mà không quét kho, phải trộn các danh sách đảo đã sắp. |
+| 3 | ST | Truy vấn vùng và R-tree | Muốn tìm vật thể giao một vùng hỏi, phải lọc theo hộp bao trên cây rồi tinh lọc hình thật. |
+| 4 | KT | Tìm 1-NN bằng kd-tree | Muốn tìm điểm gần nhất mà không đo tới mọi điểm, phải cắt nhánh có cận dưới lớn hơn bán kính hiện tại. |
+| 5 | BT | Tìm 1-NN bằng ball tree | Muốn cắt nhánh khi chỉ có một metric, phải bao mỗi cây con bằng một ball có tâm và bán kính. |
+| 6 | ZT | Z-order và chọn chỉ mục | Muốn dùng B+-Tree cho điểm trong mặt phẳng, phải xen bit tọa độ thành khóa tuyến tính rồi tinh lọc ứng viên. |
+| 7 | XT | Bài tập vận dụng | Muốn kiểm các chỉ mục bằng bài cụ thể, phải giải ba bài của giáo trình về danh sách đảo và truy vấn không gian. |
+
+Dòng dẫn 20–25 âm tiết; từ khóa 3–5 cụm; ghi chú diễn giả 88–99 âm tiết, viết từ nội dung các trang trong mạch. Số trang 58 → 65. Các trang nội dung đầu mạch (I00, S00, K00, B00, Z00, X00) đều có nội dung, không phải trang tiêu đề phần một dòng, và tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang mục tiêu P01 (đứng ngay sau trang bìa), tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 38 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Trang P02 "Mạch của bài" giữ nguyên; nó mô tả các chủ đề bằng thẻ, không đánh số và không khớp các mạch, nên không thay được trang Nội dung. Việc gộp P02 để đợt sau. Mạch 3 gồm phần mở chỉ mục không gian (S00–S02) và R-tree (R00–R03) nên tên là "Truy vấn vùng và R-tree"; mạch 6 gồm Z-order (Z00–Z04) và phần so sánh (C00–C02) nên tên là "Z-order và chọn chỉ mục". Bài không có section tổng kết riêng; phần so sánh nằm trong mạch 6.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc). Bài 14 còn khối `<style>` riêng và không mang lớp `.course-deck` (có từ trước, ngoài phạm vi). Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 72/72; 65 `data-slide-id` và 6 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch tương ứng (`id`, số thứ tự khớp); khối tiêu đề nằm trong khung (đáy lớn nhất 693 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng tên các mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Mở: trang P02 "Mạch của bài" trùng chức năng một phần với P03; gộp ở đợt sau. Mở: dòng dẫn mạch 6 chỉ nêu Z-order, chưa nêu phần chọn chỉ mục C00–C02; chấp nhận tạm vì tên mạch đã nêu cả hai. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.

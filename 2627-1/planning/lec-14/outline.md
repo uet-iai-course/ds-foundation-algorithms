@@ -140,3 +140,17 @@ Ma trận đúng, từ hàng trên xuống: `6,8,14,16`; `5,7,13,15`; `2,4,10,12
 | `L14-N12` | cốt lõi | Recitation 25.2–25.3 | Ch25 Bài 25.2–25.3 |
 
 Đồ thị tiên quyết của ghi chú: `N01→N02→N03→N04→N05→N06→N07→N08→N09→N10→{N11,N12}`. Truy vấn ball theo metric và phép dựng Euclid được tách để giữ đúng giả thiết. Mỗi chủ đề có câu kiểm tra hoặc bài ngắn; ghi chú không hiển thị mã chủ đề.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 65 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Chỉ mục đảo cho văn bản | IT | I00 |
+| 3 | Truy vấn vùng và R-tree | ST | S00 |
+| 4 | Tìm 1-NN bằng kd-tree | KT | K00 |
+| 5 | Tìm 1-NN bằng ball tree | BT | B00 |
+| 6 | Z-order và chọn chỉ mục | ZT | Z00 |
+| 7 | Bài tập vận dụng | XT | X00 |

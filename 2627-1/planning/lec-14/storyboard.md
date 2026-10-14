@@ -4,6 +4,26 @@
 
 Kho tài liệu web (`I00`) → danh sách đảo và phép trộn (`I01–I06→I08`) → bố trí trên đĩa (`I07`) → vị trí/tần suất và đánh giá (`I09–I12`) → ảnh vệ tinh và truy vấn không gian (`S00–S02`) → R-tree lọc rồi tinh lọc (`R00→R02→R01→R03`) → 1-NN chính xác trên kd-tree (`K00→K01→K02→K03→K06→K04→K05→K07→K08→K09`) → ball tree (`B00→B02→B01→B03→B04→B05→B06→B07`) → Z-order và tổng hợp (`Z00–C02`) → recitation (`X00–X08`).
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 58 → 65 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Chỉ mục đảo cho văn bản (`IT`); 3. Truy vấn vùng và R-tree (`ST`); 4. Tìm 1-NN bằng kd-tree (`KT`); 5. Tìm 1-NN bằng ball tree (`BT`); 6. Z-order và chọn chỉ mục (`ZT`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P01 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| IT | Chỉ mục đảo cho văn bản | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước I00 | Mục tiêu và mạch của bài (P01–P02) | Trộn danh sách đảo, độ chính xác, độ bao phủ | ngoài chu trình khái niệm; tên khác tiêu đề I00 | 0,5 (từ I00) | thêm |
+| ST | Truy vấn vùng và R-tree | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước S00 | Chỉ mục đảo xử lý thuật ngữ | Lọc hộp bao, R-tree, hộp chồng lấn | ngoài chu trình khái niệm; tên khác tiêu đề S00 | 0,5 (từ S00) | thêm |
+| KT | Tìm 1-NN bằng kd-tree | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước K00 | Truy vấn vùng bằng giao hộp | kd-tree, cận dưới, điều kiện hòa, trường hợp xấu | ngoài chu trình khái niệm; tên khác tiêu đề K00 | 0,5 (từ K00) | thêm |
+| BT | Tìm 1-NN bằng ball tree | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước B00 | Cận dưới theo hộp tọa độ | Ball tree, cận theo metric, dựng cây | ngoài chu trình khái niệm; tên khác tiêu đề B00 | 0,5 (từ B00) | thêm |
+| ZT | Z-order và chọn chỉ mục | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước Z00 | Các chỉ mục không gian dạng cây | Z-order, đoạn khóa, bảng chọn chỉ mục | ngoài chu trình khái niệm; tên khác tiêu đề Z00 | 0,5 (từ Z00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | Danh sách đảo và chỉ mục không gian | Bài 31.2, 25.2, 25.3 | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang mục tiêu P01 (đứng ngay sau trang bìa), tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 38 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Trang P02 "Mạch của bài" giữ nguyên; nó mô tả các chủ đề bằng thẻ, không đánh số và không khớp các mạch, nên không thay được trang Nội dung. Việc gộp P02 để đợt sau. Mạch 3 gồm phần mở chỉ mục không gian (S00–S02) và R-tree (R00–R03) nên tên là "Truy vấn vùng và R-tree"; mạch 6 gồm Z-order (Z00–Z04) và phần so sánh (C00–C02) nên tên là "Z-order và chọn chỉ mục". Bài không có section tổng kết riêng; phần so sánh nằm trong mạch 6.
+
 ## Bảy mạch trình bày
 
 | Mạch | Trang | Chức năng | Kết nối vào | Kết nối ra | Đóng góp mục tiêu |

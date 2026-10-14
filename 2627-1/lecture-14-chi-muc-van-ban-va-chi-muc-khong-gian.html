@@ -25,10 +25,19 @@
 <section>
   <section data-slide-id="P00"><h1>Chỉ mục văn bản và chỉ mục không gian</h1><h3>Bài 14 · Giải thuật nền tảng của Khoa học dữ liệu</h3><p>Năm học 2026–2027 · Học kỳ 1</p><aside class="notes">Bài 13 đặt khóa có thứ tự vào B+-Tree hoặc ngăn băm. Bài này xử lý hai miền không có một khóa tuyến tính tự nhiên: thuật ngữ trong tài liệu và vị trí trong không gian. Nguồn: đặc tả Bài 14 trong sources/source.md.</aside></section>
   <section data-slide-id="P01"><h2>Mục tiêu học tập</h2><ul><li>Trộn danh sách đảo cho AND, OR và NOT.</li><li>Chạy tìm kiếm 1-NN chính xác trên kd-tree và ball tree.</li><li>Giải thích cận dưới, điều kiện cắt nhánh và trường hợp xấu.</li><li>Ánh xạ điểm bằng Z-order rồi tinh lọc ứng viên.</li><li>Chọn chỉ mục theo loại truy vấn và giả thiết.</li></ul><aside class="notes">Sản phẩm quan sát được gồm danh sách mã tài liệu, nhánh cây đã thăm, điều kiện cắt và các đoạn khóa Z-order. Bài 31.2 về ít nhất $k$ từ khóa được làm chi tiết ở cuối bài. Nguồn: Chương 31 trang 13–15; Chương 24 slide 17–24; Cornell PDF 1–5; Auburn PDF 12–13.</aside></section>
+<section data-slide-id="P03" class="agenda-slide"><h2>Nội dung</h2><ol><li>Mở đầu</li><li>Chỉ mục đảo cho văn bản</li><li>Truy vấn vùng và R-tree</li><li>Tìm 1-NN bằng kd-tree</li><li>Tìm 1-NN bằng ball tree</li><li>Z-order và chọn chỉ mục</li><li>Bài tập vận dụng</li></ol><aside class="notes"><p>Mở đầu nêu các truy vấn văn bản và không gian của bài. Chỉ mục đảo cho văn bản trả lời truy vấn từ khóa bằng phép trộn danh sách. Truy vấn vùng và R-tree chuyển sang dữ liệu có vị trí bằng lọc hộp bao. Tìm 1-NN bằng kd-tree thay phép giao hộp bằng cận dưới. Tìm 1-NN bằng ball tree chỉ cần metric để cắt nhánh. Z-order và chọn chỉ mục đưa điểm về khóa tuyến tính rồi đối chiếu mọi cấu trúc; bài tập vận dụng giải ba bài của giáo trình.</p></aside></section>
   <section data-slide-id="P02"><h2>Mạch của bài</h2><div class="g2"><div class="card accent"><h3>Văn bản</h3><p>Thuật ngữ → danh sách đảo → phép trộn.</p></div><div class="card"><h3>Vật thể không gian</h3><p>Hộp bao → lọc → tinh lọc.</p></div><div class="card good"><h3>Hàng xóm gần</h3><p>Miền hoặc ball → cận dưới.</p></div><div class="card"><h3>Khóa tuyến tính</h3><p>Z-order → B+-Tree → tinh lọc.</p></div></div><p class="flow">Có cấu trúc trả đáp án chính xác; có cấu trúc chỉ tạo ứng viên để tinh lọc.</p><aside class="notes">Phép Boolean trên danh sách đảo đầy đủ trả đáp án chính xác. R-tree và Z-order thường tạo ứng viên; kd-tree và ball tree trả 1-NN chính xác khi cận dưới và điều kiện cắt hợp lệ.</aside></section>
 </section>
 
 <section>
+<section id="mach-2" data-slide-id="IT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Chỉ mục đảo cho văn bản</h2>
+    <p class="strand-lead">Muốn trả tài liệu thỏa biểu thức từ khóa mà không quét kho, phải trộn các danh sách đảo đã sắp.</p>
+    <p class="strand-keys">Danh&nbsp;sách&nbsp;đảo&nbsp;· AND,&nbsp;OR,&nbsp;NOT&nbsp;· Độ&nbsp;chính&nbsp;xác&nbsp;· Độ&nbsp;bao&nbsp;phủ</p>
+  </div>
+  <aside class="notes"><p>Quét mọi tài liệu cho mỗi truy vấn không đáp ứng quy mô web. Chỉ mục đảo đổi ánh xạ tài liệu→từ thành từ→tài liệu; mỗi thuật ngữ có một danh sách docID tăng dần. Danh sách đảo được đặc tả; AND trộn bằng hai con trỏ, OR và NOT dùng tập nền đã chốt; danh sách lưu liên tiếp giảm số lần định vị, còn độ chính xác và độ bao phủ đo kết quả khi đổi ngưỡng. Dữ liệu có vị trí cần chỉ mục theo vùng.</p></aside>
+</section>
   <section data-slide-id="I00"><h1>Chỉ mục đảo tránh quét toàn kho tài liệu</h1><div class="g2"><div><p>Đầu vào: kho tài liệu web lớn trên bộ nhớ phụ.</p><p>Truy vấn: từ khóa hoặc biểu thức Boolean.</p><p>Đầu ra: mã tài liệu (docID) thỏa điều kiện.</p></div><div class="card accent">Quét mọi tài liệu cho mỗi truy vấn không đáp ứng quy mô web.</div></div><aside class="notes">Chương 31 dùng web làm trường hợp quy mô lớn và nêu một truy vấn có thể khớp rất nhiều tài liệu. Không gắn một con số cụ thể ngoài nguồn. Chỉ mục đảo đổi hướng ánh xạ từ tài liệu→từ sang từ→tài liệu. Nguồn: Chương 31 trang 1–3; slide 3–5.</aside></section>
   <section data-slide-id="I01"><h2>Từ tài liệu đến danh sách đảo</h2><img class="figure" src="img/lec-14/text-index.svg" alt="Quy trình từ tài liệu qua tách thuật ngữ đến từ điển và danh sách tài liệu đảo"/><aside class="notes">Lần đầu dùng thuật ngữ: danh sách đảo (posting list). Luồng Bài 12–14: sinh các cặp (thuật ngữ, docID), sắp xếp ngoài theo cặp khóa, gom thành từng danh sách, rồi dùng B+-Tree định vị đầu danh sách. Vị trí và tần suất có thể đi kèm mỗi docID. Nguồn: Chương 31 trang 13–14; slide 14; phép sắp xếp ngoài và B+-Tree từ Bài 12–13.</aside></section>
   <section data-slide-id="I02"><h2>Danh sách đảo tăng dần theo docID</h2><div class="g2"><div class="card"><h3>cây</h3><p class="bits">[1, 3, 4, 8]</p></div><div class="card good"><h3>tìm</h3><p class="bits">[2, 3, 6, 8]</p></div></div><p>Mỗi docID xuất hiện nhiều nhất một lần trong một danh sách.</p><aside class="notes">Ví dụ nhỏ giữ cấu trúc của nguồn nhưng dùng docID ngắn để chạy hai con trỏ. Nếu một thuật ngữ xuất hiện nhiều lần trong tài liệu, số lần xuất hiện là dữ liệu kèm theo, không phải docID lặp. Nguồn: Chương 31 trang 13–14.</aside></section>
@@ -50,6 +59,14 @@ trả A</code></pre><aside class="notes">Bất biến: A chứa đúng giao củ
 </section>
 
 <section>
+<section id="mach-3" data-slide-id="ST" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Truy vấn vùng và R-tree</h2>
+    <p class="strand-lead">Muốn tìm vật thể giao một vùng hỏi, phải lọc theo hộp bao trên cây rồi tinh lọc hình thật.</p>
+    <p class="strand-keys">Hộp&nbsp;bao&nbsp;· Lọc&nbsp;rồi&nbsp;tinh&nbsp;lọc&nbsp;· R-tree&nbsp;· Hộp&nbsp;chồng&nbsp;lấn</p>
+  </div>
+  <aside class="notes"><p>Chỉ mục đảo xử lý thuật ngữ; ảnh vệ tinh lớn và trạm xăng gần nhất cần truy cập theo vị trí. Đầu ra quyết định cấu trúc; nguyên tắc chung là lọc theo hộp bao rồi tinh lọc hình thật; R-tree lưu hộp bao của từng cây con, và khi hộp chồng lấn, truy vấn phải đi hai nhánh nên R-tree không bảo đảm một đường tìm. Truy vấn điểm gần nhất cần cận dưới thay cho phép giao hộp.</p></aside>
+</section>
   <section data-slide-id="S00"><h1>Ảnh vệ tinh lớn cần truy cập theo vùng</h1><div class="g2"><div><p>Dữ liệu: ảnh vệ tinh dung lượng lớn và các đối tượng có vị trí.</p><p>Đầu ra: vật thể giao vùng hỏi hoặc trạm xăng gần nhất.</p></div><div class="card accent">Quét toàn bộ dữ liệu cho mỗi cửa sổ hoặc điểm hỏi không khai thác vị trí.</div></div><aside class="notes">Auburn dùng ảnh vệ tinh dung lượng lớn và truy vấn trạm xăng gần nhất để thúc đẩy chỉ mục không gian. Cụm R-tree dùng cửa sổ trên ảnh; cụm kd-tree dùng điểm gần nhất; cụm Z-order đưa các ô ảnh về khóa tuyến tính. Không thêm quy mô số vì nguồn không cung cấp. Nguồn: Auburn PDF trang 2–3, 12; Chương 24 slide 17.</aside></section>
   <section data-slide-id="S01"><h2>Đầu ra quyết định cấu trúc</h2><img class="figure" src="img/lec-14/spatial-queries.svg" alt="Ba loại truy vấn không gian gồm điểm, phạm vi và hàng xóm gần nhất"/><aside class="notes">Truy vấn đúng điểm có thể dùng B-tree trên khóa ghép (x,y) nếu so sánh tọa độ chính xác. Truy vấn phạm vi cần tìm mọi vật thể giao vùng. Tìm kiếm 1-NN chính xác trả điểm có khoảng cách nhỏ nhất và có thể có nhiều điểm đồng hạng. Nguồn: Chương 24 slide 17; Bài 25.2–25.3 ấn bản 6.</aside></section>
   <section data-slide-id="S02"><h2>Lọc hộp bao rồi tinh lọc hình thật</h2><img class="figure" src="img/lec-14/filter-refine.svg" alt="Bước lọc bằng hộp bao tạo ứng viên rồi bước tinh lọc kiểm hình học thật"/><aside class="notes">Bước lọc dùng hình chữ nhật bao nhỏ nhất (MBR) để loại nhanh vật thể chắc chắn không giao. Mọi nghiệm thật phải còn trong tập ứng viên. Bước tinh lọc kiểm hình thật và loại dương tính giả. Nguồn: Auburn PDF 10–11, slide nguồn 20–21.</aside></section>
@@ -65,6 +82,14 @@ tinh_lọc(A,Q): trả các vật thể thật sự giao Q</code></pre><aside cl
 </section>
 
 <section>
+<section id="mach-4" data-slide-id="KT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Tìm 1-NN bằng kd-tree</h2>
+    <p class="strand-lead">Muốn tìm điểm gần nhất mà không đo tới mọi điểm, phải cắt nhánh có cận dưới lớn hơn bán kính hiện tại.</p>
+    <p class="strand-keys">Phép&nbsp;chia&nbsp;và&nbsp;hộp&nbsp;miền&nbsp;· Nhánh&nbsp;gần&nbsp;trước&nbsp;· Cận&nbsp;dưới&nbsp;· Điều&nbsp;kiện&nbsp;hòa&nbsp;· Trường&nbsp;hợp&nbsp;xấu</p>
+  </div>
+  <aside class="notes"><p>R-tree trả lời truy vấn vùng bằng giao hộp. Với tìm kiếm 1-NN chính xác trên $n$ điểm huấn luyện, quét tuyến tính đo $n$ khoảng cách. kd-tree lưu phép chia và hộp miền ở nút trong; tìm kiếm đi nhánh gần trước để thu nhỏ bán kính $\tau$, rồi cắt nhánh có cận dưới lớn hơn $\tau$. Cận dưới không bỏ nghiệm; điều kiện hòa buộc giữ nhánh khi cần mọi hàng xóm gần nhất, và trường hợp xấu vẫn là $O(n)$. Hộp miền dựa trên tọa độ; ball tree chỉ cần metric.</p></aside>
+</section>
   <section data-slide-id="K00"><h1>kd-tree giảm phép đo trên tập huấn luyện lớn</h1><div class="g2"><div><p>Đầu vào: $n$ điểm huấn luyện và điểm hỏi $q$.</p><p>Đầu ra: mọi điểm gần $q$ nhất.</p></div><div class="card accent">Tìm kiếm 1-NN chính xác bằng quét tuyến tính cần đo $n$ khoảng cách cho mỗi truy vấn.</div></div><aside class="notes">Cornell mở bằng k-NN trên tập huấn luyện lớn: dự đoán chậm nếu đo khoảng cách tới mọi điểm. Deck xét 1-NN chính xác và giữ tất cả nghiệm đồng hạng. Nguồn: Cornell PDF trang 1–2.</aside></section>
   <section data-slide-id="K01"><h2>Nút trong chỉ lưu phép chia và hộp miền</h2><ul><li>Mỗi nút trong lưu chiều chia, ngưỡng và hộp của hai cây con.</li><li>Mọi điểm dữ liệu nằm ở lá; nút trong không giữ điểm.</li></ul><aside class="notes">Mô hình dùng xuyên suốt K01–K05: nút trong chỉ định tuyến bằng phép chia hoặc hộp; lá giữ toàn bộ điểm. Khi xây, sắp theo (tọa độ ở chiều chia, mã điểm) để phá hòa; cắt theo hạng sao cho hai tập con không rỗng và nhỏ hơn tập cha. Cornell cũng nêu chiều có phương sai lớn như một kinh nghiệm. Nguồn: Cornell PDF trang 1 và 4.</aside></section>
   <section data-slide-id="K02"><h2>Đường cắt tạo hộp cho từng cây con</h2><img class="figure" src="img/lec-14/kd-partition-tree.svg" alt="kd-tree có nút trong lưu phép chia và hộp miền; mọi điểm dữ liệu nằm ở các lá"/><aside class="notes">Mỗi đường cắt tạo hai miền và một nút trong nhị phân. Đường từ gốc tới lá là giao của các nửa không gian, tức một hộp thẳng trục. Các điểm vẽ trong miền minh họa dữ liệu sẽ được chứa ở lá tương ứng, không phải mục của nút trong. Nguồn: Cornell PDF trang 3–4.</aside></section>
@@ -90,6 +115,14 @@ search(U,q,best,τ):
 </section>
 
 <section>
+<section id="mach-5" data-slide-id="BT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Tìm 1-NN bằng ball tree</h2>
+    <p class="strand-lead">Muốn cắt nhánh khi chỉ có một metric, phải bao mỗi cây con bằng một ball có tâm và bán kính.</p>
+    <p class="strand-keys">Bất&nbsp;đẳng&nbsp;thức&nbsp;tam&nbsp;giác&nbsp;· Cận&nbsp;ball&nbsp;· Truy&nbsp;vấn&nbsp;· Dựng&nbsp;cây&nbsp;· Chi&nbsp;phí</p>
+  </div>
+  <aside class="notes"><p>Cận dưới của kd-tree dựa trên hộp tọa độ. Ball tree thay hộp bằng ball $B(c,r)$; theo bất đẳng thức tam giác, cận dưới là $\max(0,\delta(q,c)-r)$ và truy vấn chỉ cần $\delta$ là metric. Cận được tính trên ví dụ; thuật toán truy vấn dùng cùng khung với kd-tree; vết dựng một nút trên bốn điểm thẳng hàng, phép chia theo hạng bảo đảm đệ quy tiến triển, và chi phí dựng, truy vấn đếm được. Muốn dùng B+-Tree, điểm phải được đưa về khóa tuyến tính.</p></aside>
+</section>
   <section data-slide-id="B00"><h1>ball tree phục vụ 1-NN trong không gian metric</h1><div class="g2"><div class="card"><h3>Truy vấn</h3><p>Ball $B(c,r)$ và cận dưới chỉ cần metric.</p></div><div class="card accent"><h3>Dựng trong bài</h3><p>Dùng $\mathcal X\subseteq\mathbb R^p$ và khoảng cách Euclid.</p></div></div><aside class="notes">Cần phân biệt hai mức giả thiết. Truy vấn ở B01–B03 chỉ cần một metric và mỗi ball chứa đúng các điểm của cây con. Phép dựng ở B04–B07 dùng tập hữu hạn $\mathcal X\subseteq\mathbb R^p$, tâm trung bình, phép chiếu và khoảng cách Euclid. Nguồn cơ chế: Cornell PDF trang 4–5.</aside></section>
   <section data-slide-id="B02"><h2>Đi tới tâm rồi trừ bán kính</h2><p>Mọi điểm trong ball gần $q$ nhất cũng phải cách ít nhất “tới tâm trừ bán kính”.</p><table class="trace"><tr><th>Ball</th><th>$\delta(q,c)$</th><th>$r$</th><th>LB</th><th>Với $\tau=2{,}5$</th></tr><tr><td>$B_1$</td><td>3</td><td>1</td><td>2</td><td>thăm</td></tr><tr><td>$B_2$</td><td>5</td><td>2</td><td>3</td><td>cắt</td></tr><tr><td>$B_3$</td><td>4</td><td>1,5</td><td>2,5</td><td>thăm</td></tr></table><aside class="notes">Ví dụ dựng từ cơ chế Cornell với q=(0,0), các tâm nằm trên trục x. LB lần lượt là 2, 3 và 2,5. B3 vẫn được thăm để giữ nghiệm hòa. Trực giác đi tới tâm rồi trừ bán kính chuẩn bị cho bất đẳng thức ở B01.</aside></section>
   <section data-slide-id="B01"><h2>Bất đẳng thức tam giác cho cận ball</h2><img class="figure short ball-bound-figure" src="img/lec-14/ball-bound-tree.svg" alt="Ball tree dùng cận dưới khoảng cách từ truy vấn đến tâm trừ bán kính"/><div class="formula">$$\operatorname{LB}(q,B)=\max(0,\delta(q,c)-r)$$</div><p class="small">Cận truy vấn chỉ cần $\delta$ là metric.</p><aside class="notes">Với mọi x trong ball, delta(q,c)≤delta(q,x)+delta(x,c)≤delta(q,x)+r. Suy ra delta(q,x)≥delta(q,c)−r; lấy max với 0. Lập luận này không cần tọa độ Euclid. Dữ kiện B02 dùng trực tiếp công thức. Nguồn: Cornell PDF trang 3–5.</aside></section>
@@ -120,6 +153,14 @@ search(U,q,best,τ):
 </section>
 
 <section>
+<section id="mach-6" data-slide-id="ZT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Z-order và chọn chỉ mục</h2>
+    <p class="strand-lead">Muốn dùng B+-Tree cho điểm trong mặt phẳng, phải xen bit tọa độ thành khóa tuyến tính rồi tinh lọc ứng viên.</p>
+    <p class="strand-keys">Lưới&nbsp;Morton&nbsp;· Mã&nbsp;xen&nbsp;bit&nbsp;· Đoạn&nbsp;khóa&nbsp;· Chọn&nbsp;chỉ&nbsp;mục</p>
+  </div>
+  <aside class="notes"><p>B+-Tree cần khóa có thứ tự, còn điểm $(x,y)$ không có thứ tự tuyến tính bảo toàn mọi lân cận. Z-order gán mỗi ô lưới một mã Morton bằng cách xen bit; một vùng hỏi thành các đoạn khóa chính xác hoặc một đoạn gộp phải lọc thêm. Mã được tính trên lưới mười sáu ô, hai cách quét đoạn được đối chiếu; bảng tổng kết đặt chỉ mục đảo, R-tree, kd-tree, ball tree và Z-order vào một bảng theo truy vấn, điều kiện đúng và đơn vị chi phí, kèm quy trình chọn.</p></aside>
+</section>
   <section data-slide-id="Z00"><h1>Z-order đưa điểm về khóa tuyến tính</h1><div class="g2"><div><p>B+-Tree cần khóa có thứ tự.</p><p>Điểm $(x,y)$ không có một thứ tự tuyến tính duy nhất bảo toàn mọi lân cận.</p></div><div class="card accent">Z-order gán một mã cho mỗi ô lưới.</div></div><aside class="notes">Auburn nêu nhiều phương pháp tìm kiếm dựa trên dữ liệu đã sắp, trong khi dữ liệu không gian không có thứ tự tự nhiên. Đường phủ không gian (space-filling curve) áp một thứ tự để dùng B-tree. Nguồn: Auburn PDF trang 12–13, slide 23–24.</aside></section>
   <section data-slide-id="Z01"><h2>Lưới Morton dùng mã từ 1 đến 16</h2><img class="figure z-grid-figure" src="img/lec-14/zorder-grid.svg" alt="Lưới bốn nhân bốn đánh số Morton từ 1 đến 16 với gốc ở góc dưới trái"/><aside class="notes">Deck giữ quy ước Morton xen bit ở Z02. Theo đó, hàng dưới là 1,3,9,11; hàng trên là 6,8,14,16. Deck sửa vị trí mã 6 và 7 so với hình trong Auburn PDF trang 13 để khớp công thức.</aside></section>
   <section data-slide-id="Z02"><h2>Mã xen bit theo một quy ước cố định</h2><p>Đổi sang tọa độ 0-based: $u=x-1$, $v=y-1$.</p><div class="formula">$$z=1+\sum_{j\ge0}(2u_j+v_j)4^j$$</div><p>Bit của $u$ đứng trước bit của $v$ trong mỗi cặp.</p><aside class="notes">Công thức cho (1,1)→1, (1,2)→2, (2,1)→3, (2,2)→4, (1,4)→6 và (2,3)→7. Đã chạy lại đủ 16 ô. Auburn PDF trang 13 hoán vị 6/7; deck ưu tiên công thức Morton nhất quán.</aside></section>
@@ -131,6 +172,14 @@ search(U,q,best,τ):
 </section>
 
 <section>
+<section id="mach-7" data-slide-id="XT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
+    <p class="strand-lead">Muốn kiểm các chỉ mục bằng bài cụ thể, phải giải ba bài của giáo trình về danh sách đảo và truy vấn không gian.</p>
+    <p class="strand-keys">Bài&nbsp;31.2&nbsp;· Bài&nbsp;25.2&nbsp;· Bài&nbsp;25.3</p>
+  </div>
+  <aside class="notes"><p>Phép trộn danh sách đảo, chỉ mục không gian và điều kiện cắt đã có. Bài 31.2 tìm tài liệu chứa ít nhất $k$ trong $n$ từ khóa bằng đống tối thiểu trên các đầu danh sách; Bài 25.2 chọn chỉ mục cho truy vấn đúng tọa độ nhà hàng; Bài 25.3 tìm hàng xóm gần nhất bằng chuỗi truy vấn vùng tròn có bán kính tăng dần, kèm điều kiện dừng, đồng hạng và tinh lọc. Mỗi lời giải nêu đặc tả, thuật toán và chi phí.</p></aside>
+</section>
   <section data-slide-id="X00"><h1>Bài tập trên lớp</h1><ul><li>31.2: tài liệu chứa ít nhất $k$ trong $n$ từ khóa.</li><li>25.2: chỉ mục cho truy vấn đúng tọa độ.</li><li>25.3: hàng xóm gần nhất bằng nhiều truy vấn vùng tròn.</li></ul><aside class="notes">Bài 31.2 thuộc Chương 31 ấn bản 7, trang in 25. Bài 25.2–25.3 thuộc Practice Solutions Chương 25 ấn bản 6, PDF trang 1–2.</aside></section>
   <section data-slide-id="X01"><h2>Bài 31.2 — Đặc tả</h2><p>Có $n\ge1$ từ khóa và $1\le k\le n$. Mỗi từ khóa có một danh sách docID tăng dần, có thể rỗng và không lặp docID.</p><div class="check"><strong>Yêu cầu:</strong> tìm mọi tài liệu chứa ít nhất $k$ từ khóa.</div><p>$T=\sum_{i=1}^{n}|P_i|$. Sản phẩm: giả mã, bất biến, dừng, thời gian và bộ nhớ.</p><aside class="notes">Giữ nguyên bài toán của Practice Exercise 31.2 và làm rõ miền hợp lệ. Không giả sử các danh sách có cùng độ dài. Nguồn: Database System Concepts 7e, Chương 31, Practice Exercise 31.2, trang in 25 của PDF chương trực tuyến.</aside></section>
   <section data-slide-id="X02"><h2>Bài 31.2 — Thiết kế đống tối thiểu</h2><div class="check"><strong>Câu hỏi:</strong> Đống tối thiểu (min-heap) giữ gì của mỗi danh sách? Khi docID nhỏ nhất xuất hiện ở nhiều đầu, xử lý ra sao?</div><p>Sản phẩm: vòng lặp quyết định mỗi docID một lần và bất biến chứng minh kết quả.</p><aside class="notes">Gợi ý nếu nhóm kẹt: giữ đầu chưa xử lý của mỗi danh sách. Nguồn: Database System Concepts 7e, Chương 31, Practice Exercise 31.2, trang in 25.</aside></section>
