@@ -6,6 +6,26 @@ Quan hệ lớn và chi phí duy trì (`A00–A03`) → B+-Tree cho điểm và 
 
 Kiến thức đầu vào từ Bài 12 là một nút chỉ mục thường vừa một khối, nên chiều sâu cây chi phối số lần đọc. Vết $m=6$ của bài 14.3(b) truyền từ cấu trúc `B01` sang ví dụ `B03`, hình thức hóa `B02`, tìm kiếm `B04–B08`, cập nhật `C01–C11` và recitation `X02–X06`. Dữ liệu giảng viên truyền từ ví dụ ba hàng `M00A` sang đặc tả `M01`, vết 12 hàng `M02–M03` và bài tự chứa `X07D–X08`.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 59 → 66 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Tìm kiếm trên B+-Tree (`BT`); 3. Cập nhật B+-Tree và B-Tree (`CT`); 4. Băm tĩnh (`HT`); 5. Bitmap Index (`MT`); 6. Tổng kết và chuyển tiếp (`TT`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P01 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| BT | Tìm kiếm trên B+-Tree | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước B00 | Đánh đổi quét và duy trì chỉ mục (A00–A03) | Tìm điểm, quét khoảng, bất biến định tuyến, chi phí theo chiều sâu | ngoài chu trình khái niệm; tên khác tiêu đề B00 | 0,5 (từ B00) | thêm |
+| CT | Cập nhật B+-Tree và B-Tree | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước C00 | Bất biến hình dạng và định tuyến | Chèn, tách, xóa, gộp; so B-Tree | ngoài chu trình khái niệm; tên khác tiêu đề C00 | 0,5 (từ C00) | thêm |
+| HT | Băm tĩnh | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước H00 | B+-Tree phục vụ điểm và khoảng | Băm tĩnh, ngăn tràn, chi phí $1+t+D$ | ngoài chu trình khái niệm; tên khác tiêu đề H00 | 0,5 (từ H00) | thêm |
+| MT | Bitmap Index | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước M00 | Chỉ mục trên một khóa | Bitmap, AND, NOT với NULL, bất biến bit | ngoài chu trình khái niệm; tên khác tiêu đề M00 | 0,5 (từ M00) | thêm |
+| TT | Tổng kết và chuyển tiếp | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước T00 | Bốn cấu trúc | Hai bảng đường I/O, cập nhật và dung lượng | ngoài chu trình khái niệm; tên khác tiêu đề T00 | 0,5 (từ T00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | Thao tác B+-Tree và bitmap | Bài 14.1, 14.3(b), 14.4, 14.13 | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang mục tiêu P01 (đứng ngay sau trang bìa), tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 29 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Trang P02 "Mạch của bài" giữ nguyên; nó mô tả bốn chủ đề bằng thẻ, không đánh số, không khớp các mạch, nên không thay được trang Nội dung. Việc gộp P02 để đợt sau. Mạch 3 gồm cả D00–D01 về B-Tree nên tên là "Cập nhật B+-Tree và B-Tree". Mạch 6 đặt tên "Tổng kết và chuyển tiếp" theo `AGENTS.md`, vì T00–T01 là hai bảng đối chiếu, chưa có câu hỏi tự kiểm tra.
+
 ## Bảy mạch trình bày
 
 | Mạch | Trang | Chức năng | Kết nối vào | Kết nối ra |

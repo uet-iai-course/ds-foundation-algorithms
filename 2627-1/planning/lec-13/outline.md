@@ -108,3 +108,17 @@ Không dùng $B$ làm biến vì Bài 12 đã dùng $B$ cho tổng số khung đ
 | `L13-N11` | cốt lõi | Bốn bài nguồn có lời giải | N01–N10 | Dựng cây, cập nhật và tính bitmap | Bài 14.1, 14.3(b), 14.4, 14.13 |
 
 Đồ thị tiên quyết: `N01→N02→N03→N04→N05→N06→N07→N08→N09→N10→N11`. Nhắc tiên quyết được gộp vào N01; các lỗi dễ mắc nằm cạnh thuật toán tương ứng thay vì tạo một chủ đề lặp. Không có mục đọc thêm ngoài phạm vi.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 66 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Tìm kiếm trên B+-Tree | BT | B00 |
+| 3 | Cập nhật B+-Tree và B-Tree | CT | C00 |
+| 4 | Băm tĩnh | HT | H00 |
+| 5 | Bitmap Index | MT | M00 |
+| 6 | Tổng kết và chuyển tiếp | TT | T00 |
+| 7 | Bài tập vận dụng | XT | X00 |

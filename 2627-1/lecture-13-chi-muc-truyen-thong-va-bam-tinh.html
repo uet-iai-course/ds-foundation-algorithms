@@ -25,6 +25,7 @@
 <section>
   <section data-slide-id="P00"><h1>Chỉ mục truyền thống và băm tĩnh</h1><h3>Bài 13 · Giải thuật nền tảng của Khoa học dữ liệu</h3><p>Năm học 2026–2027 · Học kỳ 1</p><aside class="notes">Một lần truy cập nút thường tương ứng một lần đọc khối. Bài này tổ chức các khối để tránh quét toàn bộ tệp. Nguồn: Chương 14, trang chiếu 3–4. </aside></section>
   <section data-slide-id="P01"><h2>Mục tiêu học tập</h2><ul><li>Tìm, chèn và xóa trên B+-Tree.</li><li>Giải thích bất biến và chi phí vào/ra (I/O) theo chiều sâu.</li><li>Đối chiếu B+-Tree, B-Tree và băm tĩnh.</li><li>Kết hợp Bitmap Index đúng với phép phủ định và giá trị không xác định (NULL).</li></ul><p class="small">Cần nhớ: cây tìm kiếm cân bằng, hàm băm, phép toán bit và mô hình I/O theo khối.</p><aside class="notes">Một nút chỉ mục thường vừa một khối; logarit đo số mức cây; AND, OR và NOT tác động độc lập lên từng vị trí bit. Nguồn: Chương 14, trang chiếu 17–59, 71–75; Chương 24, trang chiếu 11–15. </aside></section>
+<section data-slide-id="P03" class="agenda-slide"><h2>Nội dung</h2><ol><li>Mở đầu</li><li>Tìm kiếm trên B+-Tree</li><li>Cập nhật B+-Tree và B-Tree</li><li>Băm tĩnh</li><li>Bitmap Index</li><li>Tổng kết và chuyển tiếp</li><li>Bài tập vận dụng</li></ol><aside class="notes"><p>Mở đầu nêu đánh đổi giữa chi phí quét và chi phí duy trì chỉ mục. Tìm kiếm trên B+-Tree giảm số khối phải đọc cho điểm và khoảng. Cập nhật B+-Tree và B-Tree giữ cây cân bằng bằng thay đổi cục bộ. Băm tĩnh trả lời truy vấn bằng với chi phí thấp hơn khi không cần thứ tự. Bitmap Index kết hợp nhiều bộ lọc bằng phép toán bit. Tổng kết và chuyển tiếp đối chiếu bốn cấu trúc; bài tập vận dụng chạy lại các thao tác trên dữ kiện của giáo trình.</p></aside></section>
   <section data-slide-id="P02"><h2>Mạch của bài</h2><div class="g2"><div class="card"><h3>Chọn chỉ mục</h3><p>Truy vấn và chi phí cập nhật.</p></div><div class="card accent"><h3>B+-Tree</h3><p>Điểm, khoảng và cập nhật.</p></div><div class="card"><h3>Băm tĩnh</h3><p>Tra cứu đúng bằng khóa.</p></div><div class="card good"><h3>Bitmap Index</h3><p>Lọc nhiều điều kiện.</p></div></div><aside class="notes">Ký hiệu của bài: m là hệ số phân nhánh tối đa, K là số mục khóa ở lá, J là số khối danh sách RID ngoài lá và M là số ngăn băm. Không dùng B làm biến vì Bài 12 dành B cho tổng khung đệm. </aside></section>
   <section data-slide-id="A00"><h1>Chỉ mục đổi chi phí quét lấy chi phí duy trì</h1><img class="figure" src="img/lec-13/index-cost.svg" alt="Một tệp dữ liệu lớn được truy cập qua chỉ mục nhỏ hơn nhưng mọi cập nhật phải sửa cả dữ liệu và chỉ mục"/><aside class="notes">Tình huống: quan hệ lớn có truy vấn điểm và khoảng lặp lại. Chỉ mục tránh quét toàn bộ nhưng thêm I/O, thời gian bộ xử lý trung tâm (CPU) và dung lượng khi cập nhật. Nguồn: Chương 14, trang chiếu 3–4, 11. </aside></section>
   <section data-slide-id="A01"><h2>Đặc tả một chỉ mục</h2><div class="g2"><div class="card"><h3>Khóa tìm kiếm</h3><p>Một hoặc nhiều thuộc tính.</p></div><div class="card good"><h3>Kết quả</h3><p>Con trỏ tới bản ghi hoặc nhóm bản ghi.</p></div></div><p>Khóa tìm kiếm không nhất thiết là khóa chính.</p><aside class="notes">Phân biệt khóa tìm kiếm của chỉ mục với ràng buộc khóa của quan hệ. Nguồn: Chương 14, trang chiếu 3, 16. </aside></section>
@@ -33,6 +34,14 @@
 </section>
 
 <section>
+<section id="mach-2" data-slide-id="BT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Tìm kiếm trên B+-Tree</h2>
+    <p class="strand-lead">Muốn tìm một khóa hoặc một khoảng trong tệp lớn, phải đi một đường gốc–lá qua các nút vừa một khối.</p>
+    <p class="strand-keys">Lá&nbsp;và&nbsp;nút&nbsp;trong&nbsp;· Bất&nbsp;biến&nbsp;hình&nbsp;dạng&nbsp;· Tìm&nbsp;điểm&nbsp;· Quét&nbsp;khoảng&nbsp;· Chiều&nbsp;sâu&nbsp;và&nbsp;I/O</p>
+  </div>
+  <aside class="notes"><p>Chỉ mục đổi chi phí quét lấy chi phí duy trì, và loại truy vấn quyết định cấu trúc. Với tệp một triệu khóa, hệ số phân nhánh khoảng 100 cho đường gốc–lá khoảng bốn nút. Lá giữ dữ liệu, nút trong định tuyến; vết tìm khóa 23 đi cùng bất biến hình dạng; thuật toán tìm điểm và quét khoảng đúng nhờ bất biến định tuyến, và chi phí I/O tăng theo chiều sâu. Cây phải giữ các bất biến này khi dữ liệu thay đổi.</p></aside>
+</section>
   <section data-slide-id="B00"><h1>B+-Tree giảm số khối phải đọc</h1><div class="g2"><div><p>Tệp một triệu khóa không vừa bộ nhớ.</p><p>Đầu ra: một khóa hoặc một khoảng đã sắp.</p><p>Quét toàn tệp là đường cơ sở.</p></div><div class="card accent">Mỗi nút vừa một khối; hệ số phân nhánh khoảng 100 cho đường gốc–lá khoảng bốn nút.</div></div><aside class="notes">Quy mô và hệ số phân nhánh lấy từ ví dụ nguồn. Nguồn: Chương 14, trang chiếu 17, 24, 27. </aside></section>
   <section data-slide-id="B01"><h2>Lá giữ dữ liệu, nút trong định tuyến</h2><img class="figure" src="img/lec-13/bplus-layout.svg" alt="B+-Tree m bằng 6 có gốc chứa 7 và 19, ba lá liên kết chứa các khóa từ 2 đến 31"/><aside class="notes">Ví dụ từ bài 14.3(b): m=6. Lá giữ khóa và con trỏ bản ghi; nút trong là chỉ mục thưa trên các lá; con trỏ cuối lá nối sang lá kế tiếp. Nguồn: Chương 14, trang chiếu 20–23; bài 14.3(b), tệp lời giải PDF trang 2/trang in 100. </aside></section>
   <section data-slide-id="B03"><h2>Vết tìm khóa 23 đi qua hai nút</h2><img class="figure" src="img/lec-13/bplus-search.svg" alt="Đường tìm khóa 23 qua khóa phân cách 19"/><aside class="notes">Khóa bằng khóa phân cách đi sang cây con bên phải. Gốc [7,19] đưa 23 vào con thứ ba. Nguồn: Chương 14, trang chiếu 22, 25; bài 14.3(b). </aside></section>
@@ -49,6 +58,14 @@ trả mục khóa v, danh sách mã bản ghi của nó, hoặc rỗng</code></p
 </section>
 
 <section>
+<section id="mach-3" data-slide-id="CT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Cập nhật B+-Tree và B-Tree</h2>
+    <p class="strand-lead">Muốn cập nhật chỉ mục mà không xây lại, phải tách, mượn hoặc gộp nút trên một đường gốc–lá.</p>
+    <p class="strand-keys">Tách&nbsp;lá&nbsp;· Tách&nbsp;nút&nbsp;trong&nbsp;· Gộp&nbsp;và&nbsp;phân&nbsp;phối&nbsp;lại&nbsp;· B-Tree</p>
+  </div>
+  <aside class="notes"><p>Tìm kiếm trên B+-Tree đúng nhờ bất biến hình dạng và định tuyến. Dữ liệu là cây $m=6$ của bài 14.3(b): chèn 9, 10 chưa tràn, chèn 8 tách lá và sao chép khóa phân cách lên cha, xét gốc trong bị tràn, chứng minh tách bảo toàn ba bất biến; rồi xóa 23 và 19, gộp hoặc phân phối lại và chứng minh xóa đúng. B-Tree, đặt khóa dữ liệu ở cả nút trong, được so với B+-Tree. Truy vấn bằng một khóa có cách rẻ hơn.</p></aside>
+</section>
   <section data-slide-id="C00"><h1>Cập nhật phải giữ cây cân bằng trực tuyến</h1><div class="g2"><div><p>Dòng bản ghi mới liên tục thêm khóa.</p><p>Không thể xây lại toàn bộ chỉ mục sau mỗi cập nhật.</p></div><div class="card accent">Tách, mượn và gộp chỉ sửa một đường gốc–lá.</div></div><aside class="notes">Tình huống dùng lại cây m=6 của bài 14.3(b). B+-Tree tự tổ chức bằng thay đổi cục bộ. Nguồn: Chương 14, trang chiếu 17, 29–39. </aside></section>
   <section data-slide-id="C01"><h2>Chèn 9 và 10 chưa làm tràn lá</h2><table class="trace"><tr><th>Thao tác</th><th>Lá giữa</th><th>Khóa phân cách ở gốc</th></tr><tr><td>ban đầu</td><td>7, 11, 17</td><td>7, 19</td></tr><tr><td>chèn 9</td><td>7, 9, 11, 17</td><td>7, 19</td></tr><tr><td>chèn 10</td><td>7, 9, 10, 11, 17</td><td>7, 19</td></tr></table><aside class="notes">Mỗi lá chứa tối đa m−1=5 khóa. Hai lần chèn đầu chỉ sắp khóa trong lá; khóa phân cách không đổi. Nguồn: bài 14.4(a,b) trên cây 14.3(b), tệp lời giải PDF trang 4/trang in 102. </aside></section>
   <section data-slide-id="C02"><h2>Chèn 8 tạo sáu khóa trong một lá</h2><div class="formula">$[7,8,9,10,11,17]\rightarrow[7,8,9]\;|\;[10,11,17]$</div><p>Khóa nhỏ nhất của lá phải là 10.</p><aside class="notes">Với m=6, lá tràn có sáu khóa sau chèn và được chia 3–3. Lỗi nguồn ở hình sau Insert 8 ghi lá phải là [9,23,29,31]; giá trị đúng là [19,23,29,31]. Nguồn: bài 14.4(c), tệp lời giải PDF trang 4/trang in 102; sửa bằng cách bảo toàn khóa 19. </aside></section>
@@ -80,6 +97,14 @@ nếu gốc trong chỉ còn một con: thay gốc bằng con</code></pre><p cla
 </section>
 
 <section>
+<section id="mach-4" data-slide-id="HT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Băm tĩnh</h2>
+    <p class="strand-lead">Muốn trả mọi bản ghi có một khóa cho trước, phải băm khóa vào một ngăn và kiểm khóa thật trên chuỗi tràn.</p>
+    <p class="strand-keys">Hàm&nbsp;băm&nbsp;và&nbsp;ngăn&nbsp;· Hệ&nbsp;số&nbsp;tải&nbsp;· Ngăn&nbsp;tràn&nbsp;· Chi&nbsp;phí&nbsp;I/O</p>
+  </div>
+  <aside class="notes"><p>B+-Tree hỗ trợ cả điểm và khoảng với chi phí theo chiều sâu. Khi chỉ cần truy vấn bằng, như tìm giảng viên theo khoa, băm tĩnh chọn một trong $M$ ngăn bằng hàm $h$. Băm tĩnh được đặc tả với hệ số tải $\alpha$; ví dụ sức chứa $c=1$ tạo ngăn tràn, thủ tục tra cứu luôn kiểm khóa thật, chèn và xóa giữ bất biến ngăn nhà, và chi phí là $1+t+D$ khối. Truy vấn nhiều điều kiện cần cấu trúc khác.</p></aside>
+</section>
   <section data-slide-id="H00"><h1>Băm tĩnh tránh quét toàn tệp cho truy vấn bằng</h1><div class="g2"><div><p>Quan hệ không vừa bộ nhớ; quét $N$ khối là đường cơ sở.</p><p>Đầu ra: mọi bản ghi có khóa $v$.</p></div><div class="card accent">Hàm băm chọn một trong $M$ ngăn băm.</div></div><aside class="notes">Tình huống nguồn: tìm giảng viên theo dept_name. Không cần thứ tự hay khoảng. Nguồn: Chương 14, trang chiếu 51–59. </aside></section>
   <section data-slide-id="H02"><h2>Với sức chứa $c=1$, va chạm tạo ngăn tràn</h2><img class="figure" src="img/lec-13/static-hash.svg" alt="Trích các ngăn 1 đến 3 trong tổng 10 ngăn; với sức chứa một mục mỗi ngăn, Physics ở ngăn nhà 3 và Elec Eng ở một ngăn tràn"/><p class="small">Ví dụ dẫn xuất: mỗi ngăn giữ một mục nên tìm Elec. Eng. đọc $t=1$ ngăn tràn.</p><aside class="notes">Nguồn cho h(Music)=1, h(History)=2, h(Physics)=3 và h(Elec. Eng.)=3 trong bảng có 10 ngăn. Hình chỉ trích ngăn 1–3. Phần c=1 là giả thiết dẫn xuất của bài giảng để biến va chạm thành vết tràn: Physics chiếm ngăn nhà 3, Elec. Eng. vào một ngăn tràn, nên t=1 khi phải đọc ngăn đó. Nguồn: Chương 14, trang chiếu 53–56. </aside></section>
   <section data-slide-id="H01"><h2>Đặc tả băm tĩnh</h2><div class="formula">$$h:\mathcal K\rightarrow\{0,1,\ldots,M-1\},\qquad \alpha=\frac{N_e}{Mc}$$</div><p><strong>Mô hình chi phí:</strong> một ngăn băm bằng một khối; không tính bộ nhớ đệm.</p><div class="g2"><div class="card">Đầu vào: khóa $v$, $M$ cố định.</div><div class="card good">Đầu ra: mọi mục khóa $v$.</div></div><aside class="notes">c là số mục tối đa trong một ngăn; Ne là số mục đang lưu. Chỉ mục băm lưu con trỏ; tổ chức tệp băm lưu bản ghi. Bài giảng suy ra hệ số tải alpha=Ne/(Mc) từ số mục và tổng sức chứa; nguồn không phát biểu công thức này tại trang được dẫn. Mô hình một bucket bằng một khối và không bộ nhớ đệm được dùng để đếm I/O ở H05. Nguồn đặc tả băm: Chương 14, trang chiếu 52. </aside></section>
@@ -94,6 +119,14 @@ while C tồn tại:
 </section>
 
 <section>
+<section id="mach-5" data-slide-id="MT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Bitmap Index</h2>
+    <p class="strand-lead">Muốn lọc nhiều điều kiện mà không quét toàn quan hệ, phải mã mỗi giá trị bằng một chuỗi bit theo bản ghi.</p>
+    <p class="strand-keys">Bitmap&nbsp;theo&nbsp;giá&nbsp;trị&nbsp;· Bitmap&nbsp;theo&nbsp;dải&nbsp;· Phép&nbsp;AND&nbsp;· NOT&nbsp;và&nbsp;NULL&nbsp;· Bất&nbsp;biến&nbsp;bit</p>
+  </div>
+  <aside class="notes"><p>Băm tĩnh và B+-Tree trả lời một điều kiện trên một khóa. Bitmap Index gán mỗi giá trị hoặc dải một chuỗi bit, mỗi bit ứng với một bản ghi. Bitmap khoa và bốn dải lương được dựng cho mười hai giảng viên; Finance AND dải lương cao nhất cho tập ứng viên rồi lọc dư; chi phí tính theo từ máy và dung lượng, NOT cần mặt nạ tồn tại và bitmap NULL, và bất biến bit bảo toàn tập kết quả. Bốn cấu trúc còn phải được đối chiếu theo đường I/O.</p></aside>
+</section>
   <section data-slide-id="M00"><h1>Bitmap Index tránh quét $N$ khối cho nhiều bộ lọc</h1><div class="g2"><div><p>Quan hệ $R$ bản ghi không vừa bộ nhớ.</p><p>Đầu ra: bitmap ứng viên cho nhiều điều kiện.</p></div><div class="card accent">Mỗi giá trị hoặc dải không NULL trong $q$ nhóm có một bit trên mỗi vị trí bản ghi.</div></div><aside class="notes">q là số giá trị hoặc dải không NULL được mã hóa. Đường cơ sở là quét toàn quan hệ; bitmap đọc trang bit liên quan rồi lấy D trang dữ liệu ứng viên. Nguồn: Chương 14, trang chiếu 71–75; Chương 24, trang chiếu 11–15. </aside></section>
   <section data-slide-id="M00A"><h2>Ba hàng đầu tạo hai bitmap ngắn</h2><table class="trace"><tr><th>Chỉ số</th><th>Tên</th><th>Khoa</th><th>Lương</th></tr><tr><td>0</td><td>Srinivasan</td><td>Comp. Sci.</td><td>65.000</td></tr><tr><td>1</td><td>Wu</td><td>Finance</td><td>90.000</td></tr><tr><td>2</td><td>Mozart</td><td>Music</td><td>40.000</td></tr></table><p>Finance = <span class="bits">010</span> · $S_4$ = <span class="bits">010</span></p><aside class="notes">Ba hàng lấy trực tiếp từ quan hệ instructor trong lời giải 14.13; $S_4$ là lương từ 70.000. Nguồn: tệp lời giải PDF trang 10/trang in 108. </aside></section>
   <section data-slide-id="M01"><h2>Mỗi vị trí bit ánh xạ một bản ghi</h2><p>Đánh số $R$ bản ghi từ 0 đến $R-1$.</p><div class="formula">$V_v[i]=1\iff$ bản ghi chỉ số $i$ có giá trị $v$.</div><p>Dải $S_4$ là lương từ 70.000, không phải từ 80.000.</p><aside class="notes">Ba hàng trước cho Finance=010 và S4=010. Nguồn: Chương 14, trang chiếu 71–72; bài 14.13. </aside></section>
@@ -106,11 +139,27 @@ while C tồn tại:
 </section>
 
 <section>
+<section id="mach-6" data-slide-id="TT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Tổng kết và chuyển tiếp</h2>
+    <p class="strand-lead">Muốn chọn chỉ mục, phải đối chiếu đường I/O của từng loại truy vấn với chi phí cập nhật và dung lượng.</p>
+    <p class="strand-keys">Truy&nbsp;vấn&nbsp;điểm&nbsp;· Truy&nbsp;vấn&nbsp;khoảng&nbsp;· Cập&nbsp;nhật&nbsp;· Dung&nbsp;lượng&nbsp;phụ</p>
+  </div>
+  <aside class="notes"><p>B+-Tree, B-Tree, băm tĩnh và Bitmap Index đã có thuật toán và chi phí. Bảng thứ nhất đặt bốn cấu trúc theo truy vấn điểm, truy vấn khoảng hoặc nhiều bộ lọc và công thức I/O; bảng thứ hai theo chi phí cập nhật và dung lượng phụ. Không cấu trúc nào ít I/O hơn trong mọi trường hợp. Bốn bài tập của Database System Concepts dựng, cập nhật cây và dựng bitmap trên cùng dữ kiện.</p></aside>
+</section>
   <section data-slide-id="T00"><h2>Truy vấn quyết định đường I/O</h2><table class="trace"><tr><th>Cấu trúc</th><th>Điểm</th><th>Khoảng / nhiều lọc</th><th>I/O chỉ mục rồi dữ liệu</th></tr><tr><td>B+-Tree</td><td>trực tiếp</td><td>trực tiếp theo thứ tự</td><td>$d+1+L+J+D$</td></tr><tr><td>B-Tree</td><td>trực tiếp</td><td>duyệt theo thứ tự cây</td><td>nút đến khi thấy $+D$; tối đa $d+1+D$</td></tr><tr><td>Băm tĩnh</td><td>trực tiếp nếu chuỗi ngắn</td><td>không trực tiếp</td><td>$1+t+D$</td></tr><tr><td>Bitmap Index</td><td>theo tập</td><td>trực tiếp nếu đã mã hóa</td><td>trang bitmap + $D$</td></tr></table><aside class="notes">Với B+-Tree điểm đặt L=0; J=0 nếu không có danh sách RID ngoài lá. Dòng B-Tree đếm các nút đã đọc đến mức chứa khóa rồi cộng D, và không vượt d+1+D nếu cây so sánh có cùng chiều sâu d. Dòng băm dùng mô hình một bucket bằng một khối, không tính bộ nhớ đệm; 1+t+D là suy ra của bài giảng. Không tuyên bố B+-Tree luôn ít I/O hơn B-Tree. </aside></section>
   <section data-slide-id="T01"><h2>Cập nhật và dung lượng hoàn tất lựa chọn</h2><table class="trace"><tr><th>Cấu trúc</th><th>Cập nhật</th><th>Dung lượng phụ</th></tr><tr><td>B+-Tree</td><td>đọc/ghi $O(d+1)$ khối</td><td>nút trong + lá</td></tr><tr><td>B-Tree</td><td>cân bằng cây</td><td>con trỏ dữ liệu ở mọi mức</td></tr><tr><td>Băm tĩnh</td><td>cục bộ; tái băm đắt</td><td>$M$ ngăn + chuỗi tràn</td></tr><tr><td>Bitmap Index</td><td>sửa bit, $E$ và NULL khi cần</td><td>$qR$; tối đa $(q+2)R$ bit</td></tr></table><p>Chọn theo truy vấn, I/O, cập nhật và dung lượng.</p><aside class="notes">$q$ đếm các giá trị hoặc dải không NULL. Hai bitmap phụ $E$ và NULL mỗi bitmap cộng $R$ bit khi mô hình cần chúng, nên tổng tối đa là $(q+2)R$. Ba bài recitation tiếp theo dùng lại các đánh đổi chỉ mục, cây $m=6$, cập nhật và bitmap Finance–$S_4$. </aside></section>
 </section>
 
 <section>
+<section id="mach-7" data-slide-id="XT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
+    <p class="strand-lead">Muốn kiểm các thao tác chỉ mục bằng tính tay, phải dựng, cập nhật cây và bitmap trên dữ kiện của giáo trình.</p>
+    <p class="strand-keys">Bài&nbsp;14.1&nbsp;· Bài&nbsp;14.3(b)&nbsp;· Bài&nbsp;14.4&nbsp;· Bài&nbsp;14.13</p>
+  </div>
+  <aside class="notes"><p>Thao tác B+-Tree và Bitmap Index đã có. Bài 14.1 giải thích chi phí khi tạo quá nhiều chỉ mục; Bài 14.3(b) dựng B+-Tree $m=6$ từ mười khóa tăng dần; Bài 14.4 chèn 9, 10, 8 rồi xóa 23, 19 trên chính cây đó; Bài 14.13 dựng bitmap lương cho mười hai giảng viên và tìm giảng viên Finance có lương từ 80.000. Lời giải ghi trạng thái sau mỗi lần tách, gộp và mỗi phép toán bit.</p></aside>
+</section>
   <section data-slide-id="X00"><h1>Bài tập trên lớp</h1><ul><li>14.1: chi phí của quá nhiều chỉ mục.</li><li>14.3(b): dựng B+-Tree với $m=6$.</li><li>14.4: cập nhật chính cây vừa dựng.</li><li>14.13: bitmap lương và khoa.</li></ul><aside class="notes">Nguồn: Database System Concepts 7e, Practice Exercises Chương 14, tệp đề PDF trang 1–3/trang in 43–45.</aside></section>
   <section data-slide-id="X01"><h2>Bài 14.1 — Chọn chỉ mục có đánh đổi</h2><div class="check"><strong>Yêu cầu:</strong> giải thích vì sao không nên tạo chỉ mục cho mọi thuộc tính và mọi tổ hợp thuộc tính.</div><p>Sản phẩm: ít nhất ba loại chi phí và một nhận xét về lợi ích biên.</p><aside class="notes">Đáp án: CPU/I/O khi chèn xóa; cập nhật chỉ mục khi thuộc tính đổi; dung lượng; một số truy vấn vẫn hiệu quả với chỉ một phần khóa có chỉ mục nên thêm chỉ mục dần ít lợi. Chấm 1 điểm mỗi loại chi phí và 1 điểm cho lợi ích biên. Nguồn: bài 14.1, tệp đề PDF trang 1/trang in 43; tệp lời giải PDF trang 1/trang in 99.</aside></section>
   <section data-slide-id="X02"><h2>Bài 14.3(b) — Dữ kiện dựng cây</h2><p>$m=6$; chèn tăng dần:</p><p class="bits">2, 3, 5, 7, 11, 17, 19, 23, 29, 31</p><div class="check"><strong>Yêu cầu:</strong> ghi trạng thái sau mỗi lần tách lá hoặc tách gốc.</div><aside class="notes">Sản phẩm: vết chèn có vị trí tách và khóa phân cách được sao chép. Chỉ làm trường hợp b, không làm m=4 hoặc m=8. Nguồn: bài 14.3(b), tệp đề PDF trang 1/trang in 43.</aside></section>
