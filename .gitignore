@@ -4,8 +4,20 @@
 __pycache__/
 *.py[cod]
 .agents/
-.codex/
+.codex/*
+!.codex/config.toml
+!.codex/README.md
+!.codex/open-router-smoke.md
+!.codex/lecture-note-goal-prompt.md
+!.codex/prompt_lecture_note_*.md
+!.codex/goal_lecture_*.md
+!.codex/prompt_lecture_notes_2_15.md
 screenshot/
+
+# Khóa và cấu hình cục bộ không được đưa vào Git hoặc gửi cho worker.
+.env
+.env.*
+!.env.example
 
 # Tài liệu nguồn nhị phân chỉ lưu cục bộ; không phát hành lại qua Git.
 sources/**/*.docx
