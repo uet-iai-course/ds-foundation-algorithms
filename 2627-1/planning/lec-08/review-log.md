@@ -118,3 +118,32 @@ Các phiên source/style `65709`, `42264` bị loại vì chạm giới hạn c�
 - Viewer thật ở 1280×720 và 390×844: 48 heading, 37 mục lục, 325 công thức KaTeX, 6 SVG, 11 khối gập; không lỗi hay tràn. Bàn phím, in và hai cổng an toàn đường dẫn đều đạt; PDF viewer có 20 trang.
 - Index có đúng một liên kết note Bài 08 và mở đúng deck/note.
 - Dự án Codex Slides `20260827204905-b-i-8-d-ng-d-li-u-m-h-nh-l-y-m-u-v-l-c-skiv` truy xuất thành công nhưng vẫn draft 0 slide ở checkpoint `clarify`; không tuyên bố đã rà canvas Codex Slides.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 2 gồm Bài 07–15; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`. Mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch nên dùng `<tiền tố>T`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | AT | Mô hình tính toán trên dòng | Muốn xử lý dòng không biết độ dài, phải đặc tả trạng thái hữu hạn cập nhật sau mỗi bộ đến. |
+| 3 | KT | Lấy mẫu theo khóa | Muốn ước lượng tỷ lệ truy vấn lặp của mỗi người dùng, phải giữ hoặc bỏ mọi bộ của cùng một khóa. |
+| 4 | RT | Lấy mẫu hồ chứa | Muốn giữ đúng một số bộ cố định khi chưa biết độ dài dòng, phải thay ngẫu nhiên theo vị trí. |
+| 5 | BT | Lọc thành viên bằng Bloom filter | Muốn loại sớm khóa không thuộc tập cho phép, phải đổi một mảng bit hữu hạn lấy một tỷ lệ dương giả. |
+| 6 | CT | Tổng kết và chuyển tiếp | Muốn chọn cấu trúc cho dòng truy vấn, phải đối chiếu đơn vị, bảo đảm và giới hạn của ba cấu trúc. |
+| 7 | XT | Bài tập vận dụng | Muốn kiểm cách chọn khóa và định cỡ Bloom filter, phải giải bốn bài của giáo trình với dữ kiện giữ nguyên. |
+
+Dòng dẫn 21–22 âm tiết; từ khóa 4 cụm; ghi chú diễn giả 82–98 âm tiết, viết từ nội dung các trang trong mạch. Số trang 48 → 55. Các trang nội dung đầu mạch (A00, K00, R00, B00, C00, X00) đều có nội dung, không phải trang tiêu đề phần một dòng, và tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang bìa P00, tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 33 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Mạch 6 đặt tên "Tổng kết và chuyển tiếp" theo `AGENTS.md`, vì phần C gồm bảng đối chiếu, áp lại vào dòng truy vấn và nguồn, chưa có câu hỏi tự kiểm tra.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc). Bài 08 còn khối `<style>` riêng và không mang lớp `.course-deck` (có từ trước, ngoài phạm vi). Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 62/62; 55 `data-slide-id` và 6 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch tương ứng (`id`, số thứ tự khớp); khối tiêu đề nằm trong khung (đáy lớn nhất 709 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng tên các mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 6 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Câu "Mỗi nhóm nộp một phiếu…" ở ghi chú XT thay bằng sản phẩm của lời giải: khóa đã chọn, phép tính xác suất và lập luận tối ưu. Từ khóa "Ba sản phẩm" ở AT đổi thành "Mẫu, hồ chứa, bộ lọc". Lý do đặt trang Nội dung P03 ngay sau bìa: bài không có trang mục tiêu đứng ngay sau bìa (P01 là trang tình huống dòng truy vấn, P02 là kết quả học tập), nên theo brief đặt P03 sau P00; sắp lại mạch mở đầu theo thứ tự mục tiêu → Nội dung → vấn đề trung tâm là việc của đợt sau. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.

@@ -72,3 +72,17 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 | `L08-N11` | cốt lõi | Bốn bài tập MMDS | sản phẩm recitation truy nguyên được |
 
 Đồ thị tiên quyết: `N01→N02→N03→N04`; `N01→N05`; `N01→N06→N07→N08→N09`; ba nhánh hội tụ tại `N10`, rồi sang `N11`. Ghi chú dùng $r$ cho số phần tử đã thấy ở hồ chứa để không xung đột với $n$ bit của Bloom.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 55 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Mô hình tính toán trên dòng | AT | A00 |
+| 3 | Lấy mẫu theo khóa | KT | K00 |
+| 4 | Lấy mẫu hồ chứa | RT | R00 |
+| 5 | Lọc thành viên bằng Bloom filter | BT | B00 |
+| 6 | Tổng kết và chuyển tiếp | CT | C00 |
+| 7 | Bài tập vận dụng | XT | X00 |

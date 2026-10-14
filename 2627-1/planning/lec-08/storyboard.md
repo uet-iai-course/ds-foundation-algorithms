@@ -8,6 +8,26 @@
 
 Tình huống xuyên suốt là dòng truy vấn `(người dùng, truy vấn, thời gian)` không biết trước độ dài và không thể giữ toàn bộ lịch sử. Đầu ra cần có là mẫu phục vụ thống kê truy vấn lặp hoặc quyết định loại sớm khóa không thuộc tập. Tình huống trở lại ở K00–K08 để bảo toàn nhóm theo người dùng, R00–R08 để giữ đúng số vị trí và C01 để chọn cấu trúc. Bloom dùng thêm tình huống một tỷ địa chỉ cho phép và một gigabyte từ MMDS trang 139.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 48 → 55 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Mô hình tính toán trên dòng (`AT`); 3. Lấy mẫu theo khóa (`KT`); 4. Lấy mẫu hồ chứa (`RT`); 5. Lọc thành viên bằng Bloom filter (`BT`); 6. Tổng kết và chuyển tiếp (`CT`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P00 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| AT | Mô hình tính toán trên dòng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước A00 | Dòng truy vấn không có điểm kết thúc (P01) | Hợp đồng thuật toán dòng, ba sản phẩm | ngoài chu trình khái niệm; tên khác tiêu đề A00 | 0,5 (từ A00) | thêm |
+| KT | Lấy mẫu theo khóa | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước K00 | Hợp đồng một lượt, trạng thái hữu hạn | Mẫu tỷ lệ theo khóa, tính nhất quán | ngoài chu trình khái niệm; tên khác tiêu đề K00 | 0,5 (từ K00) | thêm |
+| RT | Lấy mẫu hồ chứa | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước R00 | Mẫu theo khóa không cố định kích thước | Hồ chứa và bất biến $s/r$ | ngoài chu trình khái niệm; tên khác tiêu đề R00 | 0,5 (từ R00) | thêm |
+| BT | Lọc thành viên bằng Bloom filter | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước B00 | Câu hỏi thành viên với bộ nhớ cố định | Bloom filter, dương giả, số hàm băm tối ưu | ngoài chu trình khái niệm; tên khác tiêu đề B00 | 0,5 (từ B00) | thêm |
+| CT | Tổng kết và chuyển tiếp | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước C00 | Ba cấu trúc đã chứng minh | Bảng đối chiếu và áp lại vào dòng truy vấn | ngoài chu trình khái niệm; tên khác tiêu đề C00 | 0,5 (từ C00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | Tính nhất quán, công thức dương giả | Bốn bài MMDS 4.2.1, 4.3.1–4.3.3 | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang bìa P00, tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 33 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Mạch 6 đặt tên "Tổng kết và chuyển tiếp" theo `AGENTS.md`, vì phần C gồm bảng đối chiếu, áp lại vào dòng truy vấn và nguồn, chưa có câu hỏi tự kiểm tra.
+
 ## Bản đồ chu trình theo cụm
 
 | Cụm | Bước và mã trang | Đầu vào → sản phẩm | Dữ kiện truyền | Gộp hoặc không áp dụng | Câu nối | Phút |
