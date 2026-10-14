@@ -4,6 +4,26 @@
 
 Hai bảng lớn hơn bộ nhớ (`P00–P02`) → phép nối và mô hình I/O (`M00–M03`) → tái sử dụng phía trong theo tuple, nhóm khối hoặc chỉ mục (`N00–N11`) → tái sử dụng thứ tự bằng Sort-Merge (`S00–S09`) → tái sử dụng phân hoạch bằng Hash Join và Grace Hash Join (`H00–H15`) → chọn thuật toán theo điều kiện và trạng thái dữ liệu (`C00–C04`) → ba bài trực tiếp từ giáo trình (`X00–X09`).
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 60 → 67 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Mô hình chi phí của phép nối (`MT`); 3. Các biến thể Nested-Loop Join (`NT`); 4. Sort-Merge Join (`ST`); 5. Hash Join và Grace Hash Join (`HT`); 6. Tổng kết và tự kiểm tra (`CT`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P00 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| MT | Mô hình chi phí của phép nối | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước M00 | student–takes với $M=20$ (P01) | Đặc tả đa tập, $C=b\,t_T+S\,t_S$, giả thiết chi phí | ngoài chu trình khái niệm; tên khác tiêu đề M00 | 0,5 (từ M00) | thêm |
+| NT | Các biến thể Nested-Loop Join | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước N00 | Mô hình chi phí | Nested, Block Nested, Indexed Nested và chi phí | ngoài chu trình khái niệm; tên khác tiêu đề N00 | 0,5 (từ N00) | thêm |
+| ST | Sort-Merge Join | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước S00 | Nested-Loop quét lại phía trong | Sort-Merge, bất biến hai con trỏ, chi phí sắp | ngoài chu trình khái niệm; tên khác tiêu đề S00 | 0,5 (từ S00) | thêm |
+| HT | Hash Join và Grace Hash Join | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước H00 | Sort-Merge cần bước sắp | Hash Join, Grace Hash Join, phân hoạch lệch | ngoài chu trình khái niệm; tên khác tiêu đề H00 | 0,5 (từ H00) | thêm |
+| CT | Tổng kết và tự kiểm tra | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước C00 | Sáu thuật toán | Bảng so sánh, quy trình chọn, câu hỏi kiểm tra | ngoài chu trình khái niệm; tên khác tiêu đề C00 | 0,5 (từ C00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | Quy trình chọn | Bài 15.3, 15.4, 15.5 | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang bìa P00, tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 36 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Mạch 6 đặt tên "Tổng kết và tự kiểm tra" theo `AGENTS.md`, vì phần C gồm bảng so sánh, quy trình chọn và trang câu hỏi C04.
+
 ## Chu trình trọng tâm
 
 ### Nested, Block Nested và Indexed Nested

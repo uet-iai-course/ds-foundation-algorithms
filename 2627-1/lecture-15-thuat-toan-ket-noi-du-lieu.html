@@ -23,11 +23,20 @@
 
 <section>
   <section data-slide-id="P00"><h1>Thuật toán kết nối dữ liệu</h1><h3>Bài 15 · Giải thuật nền tảng của Khoa học dữ liệu</h3><p>Năm học 2026–2027 · Học kỳ 1</p><aside class="notes">Bài 12 cung cấp sắp xếp ngoài bộ nhớ; Bài 13 cung cấp B+-Tree và băm. Bài cuối dùng lại ba công cụ đó để tính phép nối.</aside></section>
+<section data-slide-id="P03" class="agenda-slide"><h2>Nội dung</h2><ol><li>Mở đầu</li><li>Mô hình chi phí của phép nối</li><li>Các biến thể Nested-Loop Join</li><li>Sort-Merge Join</li><li>Hash Join và Grace Hash Join</li><li>Tổng kết và tự kiểm tra</li><li>Bài tập vận dụng</li></ol><aside class="notes"><p>Mở đầu nêu bảng sự kiện gặp bảng thực thể khi cả hai lớn hơn bộ nhớ. Mô hình chi phí của phép nối chốt đặc tả và đơn vị đếm cho mọi thuật toán. Các biến thể Nested-Loop Join áp dụng cho mọi điều kiện và giảm dần số lượt quét. Sort-Merge Join dùng thứ tự của nối bằng để đọc mỗi khối một lần. Hash Join và Grace Hash Join bỏ bước sắp bằng bảng băm và phân hoạch. Tổng kết và tự kiểm tra đối chiếu sáu thuật toán; bài tập vận dụng tính chi phí trên ba bài của giáo trình.</p></aside></section>
   <section data-slide-id="P01"><h2>Bảng sự kiện gặp bảng thực thể</h2><img class="figure" src="img/lec-15/join-usecase.svg" alt="Kết nối bảng takes bốn trăm khối với bảng student một trăm khối theo ID"/><p>Ví dụ nguồn: $M=20$ khối; cả hai quan hệ đều lớn hơn bộ nhớ.</p><aside class="notes">Nguồn dùng 5.000 tuple, 100 khối cho student và 10.000 tuple, 400 khối cho takes. Với kịch bản $M=20$ dùng xuyên suốt, không quan hệ nào vừa bộ nhớ; đầu ra là mọi cặp có cùng ID. Nguồn: Ch15 slide 24, 28, 40.</aside></section>
   <section data-slide-id="P02"><h2>Mục tiêu học tập</h2><ul><li>Chạy sáu thuật toán nối trên ví dụ nhỏ.</li><li>Giải thích bất biến giữ đủ mọi cặp trùng khóa.</li><li>Tính riêng truyền khối, seek và bộ nhớ.</li><li>Chọn thuật toán khi $M=20$ không chứa trọn quan hệ nào.</li></ul><p class="flow">Tái sử dụng phía trong theo tuple → khối → chỉ mục → thứ tự → phân hoạch.</p><aside class="notes">Sáu thuật toán là Nested, Block Nested, Indexed Nested, Sort-Merge, Hash trong bộ nhớ và Grace Hash. Kịch bản $M=20$ buộc phân biệt trạng thái giả định với dữ kiện gốc. Nguồn: Ch15 slide 24–41.</aside></section>
 </section>
 
 <section>
+<section id="mach-2" data-slide-id="MT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Mô hình chi phí của phép nối</h2>
+    <p class="strand-lead">Muốn so sánh các thuật toán nối, phải chốt đặc tả đa tập và đếm riêng truyền khối, seek, bộ nhớ.</p>
+    <p class="strand-keys">Ngữ&nbsp;nghĩa&nbsp;đa&nbsp;tập&nbsp;· Số&nbsp;tuple&nbsp;và&nbsp;số&nbsp;khối&nbsp;· Truyền&nbsp;khối&nbsp;và&nbsp;seek&nbsp;· Giả&nbsp;thiết&nbsp;chi&nbsp;phí</p>
+  </div>
+  <aside class="notes"><p>Bảng student 100 khối và takes 400 khối đều lớn hơn bộ nhớ $M=20$ khối. Phép nối được đặc tả theo ngữ nghĩa đa tập, mọi cặp thỏa $\theta$ đều phải xuất; các đại lượng $n_r$, $n_s$, $b_r$, $b_s$, $M$ và chi phí $b\,t_T+S\,t_S$ đi kèm giả thiết: không có khối sẵn trong đệm, không tính ghi kết quả cuối, bỏ qua CPU và mạng. Mô hình này áp cho mọi thuật toán nối của bài.</p></aside>
+</section>
   <section data-slide-id="M00"><h1>Phép nối phải giữ đủ bản sao</h1><div class="g2"><div class="card"><h3>Đầu vào</h3><p>Hai quan hệ $r,s$ và điều kiện $θ$.</p></div><div class="card good"><h3>Đầu ra</h3><p>Mọi cặp $(t_r,t_s)$ thỏa $θ$.</p></div></div><p>Với nối bằng, mọi tuple cùng khóa ở hai phía tạo thành một cặp kết quả.</p><aside class="notes">Bài này dùng ngữ nghĩa đa tập. Khóa nối được giả thiết khác NULL; ngữ nghĩa ba trị của SQL nằm ngoài phạm vi. Nested Loop áp dụng nối theta; Sort-Merge và Hash tập trung nối bằng hoặc nối tự nhiên. Nguồn: slide 24–25, 29, 31, 33.</aside></section>
   <section data-slide-id="M01"><h2>Ba đại lượng chung của mô hình I/O</h2><div class="g3"><div class="card"><strong>$n_r,n_s$</strong><br/>số tuple</div><div class="card"><strong>$b_r,b_s$</strong><br/>số khối</div><div class="card accent"><strong>$M$</strong><br/>khối bộ nhớ</div></div><p>$q$, $b_b$, $p_h$ và $\alpha$ được giới thiệu tại thuật toán cần chúng.</p><aside class="notes">Block Nested sẽ định nghĩa $q$; Sort-Merge và Grace mới dùng $b_b$; Grace mới dùng $p_h,\alpha$. Không có vùng $M-2$ dùng chung cho mọi thuật toán. Nguồn: slide 7–9, 24, 28, 37–40.</aside></section>
   <section data-slide-id="M02"><h2>Truyền khối và seek là hai chi phí khác nhau</h2><div class="formula">$$C=b\,t_T+S\,t_S$$</div><div class="g2"><div class="card"><h3>Truyền khối $b$</h3><p>Đọc hoặc ghi một khối.</p></div><div class="card accent"><h3>Seek $S$</h3><p>Định vị một đoạn đọc hoặc ghi.</p></div></div><p>Đọc tuần tự nhiều khối giảm seek, không giảm số khối phải truyền.</p><aside class="notes">Nguồn tách số lần truyền và seek vì chi phí định vị khác chi phí truyền. Không cộng hai số thành một “số I/O” khi so chi tiết. Nguồn: slide 7–8.</aside></section>
@@ -35,6 +44,14 @@
 </section>
 
 <section>
+<section id="mach-3" data-slide-id="NT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Các biến thể Nested-Loop Join</h2>
+    <p class="strand-lead">Muốn nối với điều kiện bất kỳ, phải xét mọi cặp và giảm số lượt quét phía trong.</p>
+    <p class="strand-keys">Nested-Loop&nbsp;· Chọn&nbsp;phía&nbsp;ngoài&nbsp;· Block&nbsp;Nested&nbsp;· Indexed&nbsp;Nested</p>
+  </div>
+  <aside class="notes"><p>Mô hình chi phí đã tách truyền khối và seek. Nested-Loop Join là đường cơ sở duy nhất trong bài áp dụng cho điều kiện theta bất kỳ, nhưng quét toàn phía trong cho mỗi tuple ngoài: 2.000.100 hay 1.000.400 lần truyền tùy phía ngoài. Vết chạy và chứng minh cho thấy mỗi cặp được quyết định đúng một lần; Block Nested giảm số lượt quét theo nhóm $q$ khối, Indexed Nested tra chỉ mục theo khóa. Với nối bằng, thứ tự khóa cho một cách khác.</p></aside>
+</section>
   <section data-slide-id="N00"><h1>Nested-Loop Join là đường cơ sở tổng quát</h1><p>Không cần thứ tự, hàm băm hoặc chỉ mục.</p><div class="formula">$$r\bowtie_\theta s=\{t_r\bullet t_s:\theta(t_r,t_s)\}$$</div><p>Đổi lại, thuật toán xét mọi cặp tuple.</p><aside class="notes">Đây là thuật toán duy nhất trong phạm vi bài áp dụng trực tiếp cho điều kiện theta bất kỳ. Tình huống student/takes dùng equi-join nhưng vẫn chạy được bằng đường cơ sở này. Nguồn: slide 25.</aside></section>
   <section data-slide-id="N01"><h2>Mỗi tuple ngoài quét toàn bộ phía trong</h2><ol><li>Chọn một tuple $t_r$ từ quan hệ ngoài.</li><li>Quét mọi $t_s$ trong quan hệ trong.</li><li>Kiểm $θ(t_r,t_s)$ và xuất cặp thỏa.</li><li>Lặp đến khi quan hệ ngoài cạn.</li></ol><aside class="notes">Tên “ngoài” và “trong” mô tả vị trí vòng lặp, không phải vai trò khóa ngoại. Hoán đổi hai phía không đổi kết quả nhưng đổi chi phí. Nguồn: slide 25.</aside></section>
   <section data-slide-id="N02"><h2>Vết quét theo tuple</h2><img class="figure" src="img/lec-15/tuple-nested-trace.svg" alt="Ba tuple ngoài lần lượt quét bốn tuple trong và xuất các cặp trùng khóa"/><aside class="notes">Tuple khóa 1 xuất hai cặp vì phía trong có hai bản sao. Tuple khóa 2 không xuất. Tuple khóa 4 xuất một cặp. Nguồn thuật toán: slide 25; dữ liệu nhỏ minh họa đúng cấu trúc đa tập.</aside></section>
@@ -60,6 +77,14 @@
 </section>
 
 <section>
+<section id="mach-4" data-slide-id="ST" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Sort-Merge Join</h2>
+    <p class="strand-lead">Muốn nối bằng mà đọc mỗi khối một lần, phải sắp hai quan hệ rồi tiến hai con trỏ theo nhóm khóa.</p>
+    <p class="strand-keys">Hai&nbsp;con&nbsp;trỏ&nbsp;· Nhóm&nbsp;khóa&nbsp;trùng&nbsp;· Bất&nbsp;biến&nbsp;· Nhóm&nbsp;vượt&nbsp;bộ&nbsp;nhớ&nbsp;· Chi&nbsp;phí&nbsp;sắp</p>
+  </div>
+  <aside class="notes"><p>Các biến thể Nested-Loop vẫn quét lại phía trong. Sort-Merge Join dùng thứ tự của khóa: hai con trỏ chỉ tiến, bỏ nhóm khóa nhỏ hơn và xuất tích hai nhóm bằng nhau. Vết trên hai dãy khóa cho thấy nhóm khóa 2 tạo sáu cặp; giả mã theo nhóm đúng nhờ bất biến hai con trỏ; nhóm khóa lớn hơn bộ nhớ phá giả thiết quét một lần, và chi phí vật chất hóa hai dãy dùng sắp xếp ngoài của Bài 12. Băm tránh được bước sắp khi không cần thứ tự.</p></aside>
+</section>
   <section data-slide-id="S00"><h1>Sort-Merge Join dùng thứ tự của equi-join</h1><p>Nếu khóa nhỏ hơn, bỏ qua cả nhóm khóa đó; nếu bằng nhau, ghép hai nhóm.</p><p>Quan hệ chưa sắp phải trả chi phí External Merge Sort trước khi nối.</p><aside class="notes">Thuật toán áp dụng cho equi-join và natural join. Bài 12 đã dạy cách sắp ngoài bộ nhớ; bước nối và nhóm khóa trùng tiếp nối từ đó. Nguồn: slide 31–32.</aside></section>
   <section data-slide-id="S01"><h2>Hai con trỏ chỉ tiến về trước</h2><div class="g2"><div class="card"><h3>$k_r&lt;k_s$</h3><p>Bỏ nhóm $k_r$.</p></div><div class="card"><h3>$k_r&gt;k_s$</h3><p>Bỏ nhóm $k_s$.</p></div><div class="card good"><h3>$k_r=k_s$</h3><p>Lấy trọn hai nhóm.</p></div><div class="card accent"><h3>Đầu ra</h3><p>Tích hai nhóm.</p></div></div><aside class="notes">Nếu khóa nhỏ hơn khóa hiện tại phía kia, nó không thể khớp với bất kỳ tuple chưa đọc nào vì dãy đã sắp. Nguồn: slide 31.</aside></section>
   <section data-slide-id="S02"><h2>Vết tiến đến khóa chung</h2><p class="bits">r: [1, 2, 2, 4]</p><p class="bits">s: [2, 2, 2, 3, 4]</p><ol><li>$1&lt;2$: bỏ nhóm khóa 1 của $r$.</li><li>$2=2$: dừng cả hai con trỏ tại đầu nhóm.</li><li>Không tiến sang khóa mới trước khi ghép hết nhóm.</li></ol><aside class="notes">Dữ liệu nhỏ minh họa cơ chế slide 31. Trạng thái quan trọng là vị trí đầu nhóm khóa 2 ở cả hai phía.</aside></section>
@@ -80,6 +105,14 @@
 </section>
 
 <section>
+<section id="mach-5" data-slide-id="HT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Hash Join và Grace Hash Join</h2>
+    <p class="strand-lead">Muốn nối bằng mà không sắp, phải băm phía nhỏ thành bảng trong bộ nhớ hoặc phân hoạch cả hai phía ra đĩa.</p>
+    <p class="strand-keys">Xây&nbsp;và&nbsp;dò&nbsp;· Va&nbsp;chạm&nbsp;và&nbsp;bản&nbsp;sao&nbsp;· Phân&nbsp;hoạch&nbsp;· Phân&nbsp;hoạch&nbsp;lệch&nbsp;· Chi&nbsp;phí&nbsp;ba&nbsp;lượt</p>
+  </div>
+  <aside class="notes"><p>Sort-Merge Join phải trả chi phí sắp khi đầu vào chưa có thứ tự. Hash Join xây bảng băm trên phía nhỏ rồi dò bằng phía còn lại, đọc mỗi đầu vào một lần khi bảng vừa bộ nhớ. Khi không vừa, Grace Hash Join dùng cùng hàm $h$ chia hai quan hệ, rồi xây và dò từng cặp phân hoạch. Vết chạy và bất biến cho thấy không bỏ cặp trùng khóa; bộ đệm phân hoạch tính được với $M=20$, phân hoạch lệch cần đường lui hữu hạn, và chi phí khoảng 1.500 lần truyền khối.</p></aside>
+</section>
   <section data-slide-id="H00"><h1>Hash Join trong bộ nhớ xây trên phía nhỏ</h1><p>Áp dụng cho nối bằng và nối tự nhiên.</p><div class="formula">$$\alpha b_s+b_{in}+b_{out}\le M,\qquad b_{in}=b_{out}=1$$</div><p>Đọc tuần tự phía dò $r$; không phân hoạch ra đĩa.</p><aside class="notes">Điều kiện “vừa RAM” tính cả phụ trội bảng băm và hai bộ đệm của pha xây–dò. Chọn phía có bảng băm nhỏ hơn làm phía xây. Nguồn: slide 36 và cuối slide 39; $\alpha$ là mô hình phụ trội triển khai.</aside></section>
   <section data-slide-id="H01"><h2>Xây một lần, dò một lần</h2><ol><li>Đọc $s$ và xây bảng băm theo khóa nối.</li><li>Đọc từng tuple $t_r$ của $r$.</li><li>Dò ngăn $h(t_r.key)$.</li><li>Kiểm khóa thật và xuất mọi tuple khớp.</li></ol><aside class="notes">Hàm băm thu hẹp ứng viên; phép so sánh khóa quyết định kết quả. Mỗi khóa trong bảng băm ánh xạ đến danh sách tuple, không phải một tuple duy nhất. Nguồn: bước build–probe slide 36.</aside></section>
   <section data-slide-id="H02"><h2>Va chạm và bản sao là hai việc khác nhau</h2><img class="figure" src="img/lec-15/hash-build-probe.svg" alt="Bảng băm lưu danh sách bản sao rồi kiểm khóa thật khi dò"/><aside class="notes">Hai khóa khác nhau có thể va chạm cùng ngăn, nên phải kiểm equality. Nhiều tuple cùng khóa là bản sao hợp lệ của quan hệ và đều phải được giữ để tạo đủ cặp nối. Nguồn: slide 36.</aside></section>
@@ -111,6 +144,14 @@ while Q không rỗng:
 </section>
 
 <section>
+<section id="mach-6" data-slide-id="CT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Tổng kết và tự kiểm tra</h2>
+    <p class="strand-lead">Muốn chọn thuật toán nối, phải xét loại điều kiện, trạng thái sắp, chỉ mục và chi phí theo cùng mô hình.</p>
+    <p class="strand-keys">Theta&nbsp;và&nbsp;nối&nbsp;bằng&nbsp;· Bảng&nbsp;so&nbsp;sánh&nbsp;· Ba&nbsp;trạng&nbsp;thái&nbsp;student–takes&nbsp;· Quy&nbsp;trình&nbsp;chọn</p>
+  </div>
+  <aside class="notes"><p>Sáu thuật toán nối đã có điều kiện áp dụng, bất biến và chi phí. Với theta tổng quát chỉ còn Nested và Block Nested; nối bằng mở thêm Indexed Nested, Sort-Merge và Hash. Bảng so sánh xếp các biến thể theo điều kiện, khả năng tái sử dụng và rủi ro chính; ba trạng thái giả định của student–takes, quy trình chọn và câu hỏi tự kiểm tra hoàn tất việc chọn. Ba bài của Database System Concepts áp lại quy trình.</p></aside>
+</section>
   <section data-slide-id="C00"><h1>Điều kiện nối thu hẹp các biến thể trong bài</h1><img class="figure" src="img/lec-15/join-cost-map.svg" alt="Nối theta dùng vòng lặp; nối bằng có thể dùng chỉ mục, sắp xếp hoặc băm"/><aside class="notes">Trong các biến thể được dạy ở bài này, theta tổng quát giữ Nested hoặc Block Nested; equi-join mở thêm Indexed Nested, Sort-Merge và Hash. Nguồn: slide 24–41.</aside></section>
   <section data-slide-id="C01"><h2>So sánh các biến thể trong bài</h2><table class="trace"><tr><th>Thuật toán</th><th>Điều kiện</th><th>Tái sử dụng</th><th>Rủi ro chính</th></tr><tr><td>Nested</td><td>theta</td><td>không</td><td>$n_r b_s$</td></tr><tr><td>Block Nested</td><td>theta</td><td>$q$ khối</td><td>nhiều lượt quét</td></tr><tr><td>Indexed Nested</td><td>nối bằng + chỉ mục</td><td>tra cứu</td><td>I/O ngẫu nhiên</td></tr><tr><td>Sort-Merge</td><td>nối bằng + thứ tự</td><td>nhóm khóa</td><td>sắp, nhóm lớn</td></tr><tr><td>Hash/Grace</td><td>nối bằng</td><td>ngăn/phân hoạch</td><td>lệch, tràn</td></tr></table><aside class="notes">Dòng Indexed dùng chi phí thời gian có tra chỉ mục; không thể so trực tiếp con số đó với số lần truyền khối nếu chưa đổi về cùng đơn vị. Nguồn: slide 24–41.</aside></section>
   <section data-slide-id="C02"><h2>Ba trạng thái giả định của student–takes</h2><div class="g3"><div class="card"><h3>takes có chỉ mục ID</h3><p>Ước lượng Indexed Nested.</p></div><div class="card"><h3>Hai phía đã sắp ID</h3><p>Sort-Merge quét 500 khối nếu nhóm trùng không gây đọc lại.</p></div><div class="card"><h3>student đủ vùng xây</h3><p>Hash đọc 500 khối nếu $\alpha\cdot100+b_{in}+b_{out}\le M$.</p></div></div><p>Ba giả định thay thế; kịch bản gốc $M=20$ không thỏa giả định thứ ba.</p><aside class="notes">Con số 500 bỏ chi phí ghi kết quả. Sort-Merge còn cần một nhóm trùng vừa RAM hoặc cơ chế ngoài bộ nhớ không phát sinh đọc lại. Với Indexed Nested phải đổi $c$ và seek về cùng đơn vị trước khi so. Nguồn: slide 24, 28–32, 39.</aside></section>
@@ -119,6 +160,14 @@ while Q không rỗng:
 </section>
 
 <section>
+<section id="mach-7" data-slide-id="XT" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
+    <p class="strand-lead">Muốn kiểm quy trình chọn thuật toán nối, phải tính chi phí trên ba bài của giáo trình.</p>
+    <p class="strand-keys">Bài&nbsp;15.3&nbsp;· Bài&nbsp;15.4&nbsp;· Bài&nbsp;15.5</p>
+  </div>
+  <aside class="notes"><p>Công thức truyền khối và seek của sáu thuật toán đã có. Bài 15.3 ước lượng chi phí Nested, Block Nested, Merge Join và Grace Hash Join cho $r_1$ có 20.000 tuple và $r_2$ có 45.000 tuple theo cả hai hướng; Bài 15.4 giảm đọc ngẫu nhiên của chỉ mục thứ cấp bằng cách hoãn đọc tuple trong; Bài 15.5 tìm cách nối ít I/O nhất khi bộ nhớ vô hạn. Lời giải đối chiếu với Practice Exercises Chương 15.</p></aside>
+</section>
   <section data-slide-id="X00"><h1>Bài tập trên lớp</h1><ul><li>15.3: ước lượng chi phí bốn chiến lược nối.</li><li>15.4: giảm đọc ngẫu nhiên của chỉ mục thứ cấp.</li><li>15.5: đạt chi phí I/O thấp nhất khi bộ nhớ vô hạn.</li></ul><aside class="notes">Cả ba bài lấy trực tiếp từ Practice Exercises Chương 15, PDF trang 2; lời giải ở PDF trang in 112–114.</aside></section>
   <section data-slide-id="X01"><h2>Bài 15.3 — Dữ kiện và số khối</h2><p>$r_1(A,B,C)$ có 20.000 tuple, 25 tuple/khối.</p><p>$r_2(C,D,E)$ có 45.000 tuple, 30 tuple/khối.</p><div class="check"><strong>Yêu cầu:</strong> ước lượng truyền khối và seek cho Nested, Block Nested, Merge và Hash Join của $r_1\bowtie r_2$.</div><p>Sản phẩm đầu tiên: tính $b_{r_1},b_{r_2}$ và nêu giả thiết về $M$.</p><aside class="notes">Dữ kiện giữ nguyên Bài 15.3. Kết quả đầu: b_r1=800, b_r2=1500. Lời giải xét M≤800; nếu M>800, quan hệ nhỏ vừa bộ nhớ. Nguồn: Practice Exercise 15.3, đề PDF 2; lời giải trang in 112–113.</aside></section>
   <section data-slide-id="X02"><h2>Bài 15.3 — Tính cả hai hướng vòng lặp</h2><div class="check"><strong>Yêu cầu:</strong> với mỗi hướng chọn quan hệ ngoài, tính Nested và Block Nested.</div><p>Gọi $q$ là số khối ngoài giữ mỗi nhóm:</p><div class="formula">$$T_{BNL}=b_o+\left\lceil\frac{b_o}{q}\right\rceil b_i$$</div><p>Sản phẩm: bốn chi phí truyền, hai biểu thức seek và giải thích chọn hướng.</p><aside class="notes">Đáp án Nested: r1 ngoài 30.000.800 truyền, 20.800 seek; r2 ngoài 36.001.500 truyền, 46.500 seek. Block Nested: r1 ngoài $800+\lceil800/q\rceil1500$; r2 ngoài $1500+\lceil1500/q\rceil800$; seek xấp xỉ $2\lceil b_o/q\rceil$. Lời giải dùng $q=M-1$ vì không giữ riêng đầu ra; nếu vật chất hóa đầu ra bằng một bộ đệm riêng thì $q=M-2$. Nguồn: lời giải 15.3 trang 113; slide 26, 28.</aside></section>

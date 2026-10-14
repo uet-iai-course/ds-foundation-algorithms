@@ -172,3 +172,32 @@
 - Viewer rộng/hẹp có 27 heading, 15 liên kết mục lục, 262 biểu thức KaTeX, 10 hình và 24 khối gập đóng mặc định; bàn phím, in 24 trang, chặn path traversal và ghép sai số bài đều đạt.
 - Index có đúng một liên kết Bài 15, mở đúng doc/deck và không lỗi runtime.
 - Dự án Codex Slides `20260830180051-b-i-15-thu-t-to-n-k-t-n-i-d-li-u-ssuw` truy cập được nhưng vẫn là draft 0 slide; không có canvas để đối chiếu nên không tuyên bố đã kiểm canvas.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 2 gồm Bài 07–15; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`. Mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch nên dùng `<tiền tố>T`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | MT | Mô hình chi phí của phép nối | Muốn so sánh các thuật toán nối, phải chốt đặc tả đa tập và đếm riêng truyền khối, seek, bộ nhớ. |
+| 3 | NT | Các biến thể Nested-Loop Join | Muốn nối với điều kiện bất kỳ, phải xét mọi cặp và giảm số lượt quét phía trong. |
+| 4 | ST | Sort-Merge Join | Muốn nối bằng mà đọc mỗi khối một lần, phải sắp hai quan hệ rồi tiến hai con trỏ theo nhóm khóa. |
+| 5 | HT | Hash Join và Grace Hash Join | Muốn nối bằng mà không sắp, phải băm phía nhỏ thành bảng trong bộ nhớ hoặc phân hoạch cả hai phía ra đĩa. |
+| 6 | CT | Tổng kết và tự kiểm tra | Muốn chọn thuật toán nối, phải xét loại điều kiện, trạng thái sắp, chỉ mục và chi phí theo cùng mô hình. |
+| 7 | XT | Bài tập vận dụng | Muốn kiểm quy trình chọn thuật toán nối, phải tính chi phí trên ba bài của giáo trình. |
+
+Dòng dẫn 18–23 âm tiết; từ khóa 3–5 cụm; ghi chú diễn giả 81–96 âm tiết, viết từ nội dung các trang trong mạch. Số trang 60 → 67. Các trang nội dung đầu mạch (M00, N00, S00, H00, C00, X00) đều có nội dung, không phải trang tiêu đề phần một dòng, và tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang bìa P00, tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 36 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Mạch 6 đặt tên "Tổng kết và tự kiểm tra" theo `AGENTS.md`, vì phần C gồm bảng so sánh, quy trình chọn và trang câu hỏi C04.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc). Bài 15 còn khối `<style>` riêng và không mang lớp `.course-deck` (có từ trước, ngoài phạm vi). Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 74/74; 67 `data-slide-id` và 6 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch tương ứng (`id`, số thứ tự khớp); khối tiêu đề nằm trong khung (đáy lớn nhất 693 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng tên các mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Lý do đặt P03 ngay sau bìa: P01 là trang tình huống "Bảng sự kiện gặp bảng thực thể", trang mục tiêu P02 đứng sau nó; sắp lại mạch mở đầu để đợt sau. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.

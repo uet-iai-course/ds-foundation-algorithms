@@ -126,3 +126,17 @@ và xấp xỉ $2\left\lceil b_r/q\right\rceil$ seek.
 | `L15-N11` | cốt lõi | Đạt cận đọc một lần và bộ nhớ tối thiểu của Bài 15.5 | Practice Exercises/Solutions 15.5 |
 
 Đồ thị tiên quyết của ghi chú là `N01→N02→N03→N04→N05→N06→N07→N08→N09→{N10,N11}`. Mỗi chủ đề cốt lõi có đặc tả, ví dụ kiểm được, thuật toán hoặc lập luận đúng, chi phí và bài tự kiểm; không bổ sung chủ đề ngoài nguồn.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 67 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Mô hình chi phí của phép nối | MT | M00 |
+| 3 | Các biến thể Nested-Loop Join | NT | N00 |
+| 4 | Sort-Merge Join | ST | S00 |
+| 5 | Hash Join và Grace Hash Join | HT | H00 |
+| 6 | Tổng kết và tự kiểm tra | CT | C00 |
+| 7 | Bài tập vận dụng | XT | X00 |
