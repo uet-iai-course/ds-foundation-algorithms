@@ -21,10 +21,10 @@ Các tỷ lệ trạng thái và vị trí nhãn giữ nguyên qua 23–24,28–
 |3. MinHash theo hoán vị|Tập đã xác định → một phép thử bảo toàn xác suất; MT3|19–20, 22–27|23|27|
 |4. Chữ ký MinHash|Một phép thử → ước lượng từ nhiều tọa độ; MT4|28–34|17|34|
 |5. Tính chữ ký bằng hàm băm|Chữ ký lý tưởng → quét hàng, đúng, chi phí; MT5|35–46|31|46|
-|6. Tổng kết|Các kết quả → xử lý hai giới hạn mở bài, sáu nhiệm vụ tự kiểm|47–50|10|49–50|
+|6. Tổng kết và tự kiểm tra|Các kết quả → xử lý hai giới hạn mở bài, sáu nhiệm vụ tự kiểm|47–50|10|49–50|
 |7. Bài tập vận dụng|Toàn bộ tuyến chính → sản phẩm năm bài sách|51–57|60|56–57|
 
-Phần giảng cộng 120 phút. Phần bài tập: 8+10+(7+8)+12+(8+7)=60 phút; trang tách chỉ phân bổ thời lượng của cùng bài. Mục tiêu nêu ở 03; tình huống 04–05 được dùng lại ở 19, 33, 44,47–48. Mỗi phiếu có dự toán; đối với trang không kiểm tra, thời gian gồm đọc dữ kiện, thực hiện phép suy luận và đối chiếu kết quả; không quy đổi số chữ thành số phút.
+Từ 14/10/2026, mỗi phần 2–7 mở bằng trang tiêu đề mạch `lec05-s0N-00` (phiếu T2–T7, đặt trước trang đầu phần); 0,5 phút mỗi trang lấy từ trang đầu phần, deck 60 trang. Phần giảng cộng 120 phút. Phần bài tập: 8+10+(7+8)+12+(8+7)=60 phút; trang tách chỉ phân bổ thời lượng của cùng bài. Mục tiêu nêu ở 03; tình huống 04–05 được dùng lại ở 19, 33, 44,47–48. Mỗi phiếu có dự toán; đối với trang không kiểm tra, thời gian gồm đọc dữ kiện, thực hiện phép suy luận và đối chiếu kết quả; không quy đổi số chữ thành số phút.
 
 ## Chu trình các cụm
 
@@ -88,11 +88,11 @@ Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối ph�
 
 **Nội dung công khai dự kiến**
 
-Tài liệu gần trùng và độ tương đồng Jaccard; Shingling văn bản; MinHash theo hoán vị; Chữ ký MinHash; Tính chữ ký bằng hàm băm; Tổng kết; Bài tập vận dụng.
+Danh sách đánh số 1–7 (từ 14/10/2026): Tài liệu gần trùng và độ tương đồng Jaccard; Shingling văn bản; MinHash theo hoán vị; Chữ ký MinHash; Tính chữ ký bằng hàm băm; Tổng kết và tự kiểm tra; Bài tập vận dụng.
 
 **Ghi chú diễn giả học thuật**
 
-Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các phần tử. Phần bài tập dùng năm bài của sách.
+Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các phần tử. Tổng kết đối chiếu chữ ký với kho một triệu tài liệu: bộ nhớ đã giảm, số cặp vẫn bậc hai. Phần bài tập dùng năm bài của sách.
 
 **Kiểm tra, đáp án và tiêu chí nội bộ**
 
@@ -306,6 +306,28 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 
 Đáp án: $3/10$; $5+6$ đếm giao hai lần, mẫu đúng là 8; độ dài không xác định giao, hợp nên cần quy tắc tạo tập phần tử. Chấm đủ ba ý. Câu 1 và 2 không có đáp án trên các trang trước (s01-07 chỉ hiện $3/8$). Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
 
+### T2. Shingling văn bản (trang tiêu đề mạch)
+
+- **Mã:** `lec05-s02-00`; **phần:** 2; **note-topic-id:** `n05-03` (cùng chủ đề với trang 10).
+- **Mục đích và vai trò:** Trang tiêu đề mạch, điểm vào mạch 2 (`id="mach-2"`); ngoài chu trình khái niệm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Jaccard trên hai tập; nhu cầu tạo tập từ văn bản (trang 09) → Nhu cầu biểu diễn văn bản bằng tập shingle; trang 10 mở nội dung.
+- **Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; tên mạch trùng mục 2 trên trang 02 và khác tiêu đề trang 10.
+- **Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+- **Nguồn:** Tổng hợp từ các trang của phần; không thêm dữ kiện nguồn.
+- **Thời lượng:** 0,5 phút, lấy từ trang 10.
+
+**Nội dung công khai dự kiến**
+
+2. Shingling văn bản
+
+Muốn đo Jaccard giữa hai văn bản, phải biến mỗi văn bản thành tập các đoạn ký tự liên tiếp.
+
+Tập shingle · Thuật toán tạo tập · Độ dài shingle · Khoảng trắng · Băm shingle
+
+**Ghi chú diễn giả học thuật**
+
+Jaccard đã được định nghĩa trên hai tập; bài toán tài liệu gần trùng cần so nội dung chứ không so từng ký tự. Phần này biểu diễn tài liệu bằng tập các $k$-shingle, tính ví dụ abcdabd với $k=2$, định nghĩa tập shingle và thuật toán tạo tập, rồi chọn độ dài $k$, xử lý khoảng trắng và băm mỗi 9-shingle thành mã 4 byte. Số mã shingle vẫn gần bằng số ký tự của tài liệu, dẫn tới nhu cầu chữ ký ngắn.
+
 ### 10. Biểu diễn văn bản bằng tập shingle
 
 - **Mã:** `lec05-s02-01`; **phần:** 2; **note-topic-id:** `n05-03`.
@@ -318,7 +340,7 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết chuỗi; đếm được trực tiếp số cửa sổ bị đổi trên dữ kiện nhỏ trước khi đọc phát biểu tổng quát và miền chỉ số ở 12.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B mở §3.2 và §3.2.1 tr. 78; `abcxabd` là biến thể của Ví dụ 3.3; số cửa sổ bị ảnh hưởng suy từ định nghĩa.
-- **Thời lượng:** 2 phút.
+- **Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 14/10/2026).
 
 **Nội dung công khai dự kiến**
 
@@ -604,6 +626,28 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3, §3.2.3 và mở §3.3; chuỗi `ab
 
 Đáp án: năm cửa sổ `abc, bcd, cda, dab, abd`, $|S_3(D)|=5$; Jaccard $4/5$; $49\,992$ mã, $199\,968$ byte (cận trên). Không câu nào có đáp án trên mặt các trang trước. Chuỗi `abcdabc` là dữ kiện do người soạn tạo, ghi rõ ở dòng nguồn.
 
+### T3. MinHash theo hoán vị (trang tiêu đề mạch)
+
+- **Mã:** `lec05-s03-00`; **phần:** 3; **note-topic-id:** `n05-04` (cùng chủ đề với trang 19).
+- **Mục đích và vai trò:** Trang tiêu đề mạch, điểm vào mạch 3 (`id="mach-3"`); ngoài chu trình khái niệm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Tập mã shingle và băm shingle (trang 16, 18) → Nhu cầu một đại lượng ngắn có xác suất trùng bằng Jaccard; trang 19 mở nội dung.
+- **Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; tên mạch trùng mục 3 trên trang 02 và khác tiêu đề trang 19.
+- **Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+- **Nguồn:** Tổng hợp từ các trang của phần; không thêm dữ kiện nguồn.
+- **Thời lượng:** 0,5 phút, lấy từ trang 19.
+
+**Nội dung công khai dự kiến**
+
+3. MinHash theo hoán vị
+
+Muốn thay mỗi tập bằng một đại lượng ngắn, phải tìm giá trị mà xác suất trùng bằng Jaccard.
+
+Ma trận đặc trưng · Hoán vị hàng · Ba loại hàng · Xác suất trùng
+
+**Ghi chú diễn giả học thuật**
+
+Tập mã shingle của tài liệu 50.000 byte vẫn chiếm khoảng 200.000 byte. Phần này xếp các tập thành cột của ma trận đặc trưng, định nghĩa MinHash là phần tử đứng đầu của tập theo một hoán vị hàng, tính trên ví dụ bốn tập, phân ba loại hàng của một cặp cột và chứng minh xác suất hai MinHash trùng bằng độ tương đồng Jaccard. Một MinHash chỉ cho trùng hoặc không trùng; phần sau ghép nhiều MinHash thành chữ ký.
+
 ### 19. Kích thước tập shingle
 
 - **Mã:** `lec05-s03-01`; **phần:** 3; **note-topic-id:** `n05-04`.
@@ -616,7 +660,7 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3, §3.2.3 và mở §3.3; chuỗi `ab
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên thấy shingling có thể làm dữ liệu lớn hơn, nên nhu cầu MinHash được đặt trên đúng đại lượng; tránh hình nhỏ dần ngầm hứa nén ở bước này.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B mở §3.3 tr. 81; cận số phần tử từ §3.2.1.
-- **Thời lượng:** 3 phút (gồm 1 phút của trang 17 đã gộp).
+- **Thời lượng:** 2,5 phút (gồm 1 phút của trang 17 đã gộp; 0,5 phút chuyển cho trang tiêu đề mạch ngày 14/10/2026).
 
 **Nội dung công khai dự kiến**
 
@@ -910,6 +954,28 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến th
 
 Đáp án: một thứ tự có $c$ trước $a$ và $d$; xác suất $1/2$ (kiểm lại bằng liệt kê 120 hoán vị); $c$ thuộc loại $Z$ của cặp $S_1,S_3$. Không câu nào có đáp án trên mặt trang 23–26 (trang 23 chỉ có thứ tự $(b,e,a,d,c)$, trang 25 chỉ có $x=2,y=1$ của $S_1,S_4$). Tập $S_1'$ là dữ kiện biến thể, ghi ở dòng nguồn.
 
+### T4. Chữ ký MinHash (trang tiêu đề mạch)
+
+- **Mã:** `lec05-s04-00`; **phần:** 4; **note-topic-id:** `n05-07` (cùng chủ đề với trang 28).
+- **Mục đích và vai trò:** Trang tiêu đề mạch, điểm vào mạch 4 (`id="mach-4"`); ngoài chu trình khái niệm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Định lý xác suất trùng MinHash (trang 26–27) → Nhu cầu lặp nhiều MinHash để ước lượng; trang 28 mở nội dung.
+- **Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; tên mạch trùng mục 4 trên trang 02 và khác tiêu đề trang 28.
+- **Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+- **Nguồn:** Tổng hợp từ các trang của phần; không thêm dữ kiện nguồn.
+- **Thời lượng:** 0,5 phút, lấy từ trang 28.
+
+**Nội dung công khai dự kiến**
+
+4. Chữ ký MinHash
+
+Muốn ước lượng Jaccard đủ chính xác, phải lặp MinHash với nhiều hoán vị và đếm tỷ lệ trùng.
+
+Ma trận chữ ký · Tỷ lệ trùng · Kỳ vọng · Phương sai · Chi phí so sánh
+
+**Ghi chú diễn giả học thuật**
+
+Định lý xác suất trùng cho một phép thử với kết quả trùng hoặc không trùng. Phần này ghép $n$ MinHash theo cùng bộ hoán vị thành chữ ký, ước lượng Jaccard bằng tỷ lệ tọa độ trùng, chứng minh ước lượng không chệch, tính phương sai khi các hoán vị độc lập và đếm chi phí so hai chữ ký. Mô hình vẫn cần $n$ hoán vị thật của hàng triệu hàng, nên phần sau thay hoán vị bằng hàm băm.
+
 ### 28. Chữ ký từ nhiều thứ tự
 
 - **Mã:** `lec05-s04-01`; **phần:** 4; **note-topic-id:** `n05-07`.
@@ -922,7 +988,7 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến th
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết một MinHash nên chỉ thêm một tọa độ; bảng cụ thể trước vector tổng quát giảm số đối tượng trừu tượng mới và cho thấy ngay sai khác ước lượng.
 - **Giới hạn và xử lý tràn:** Giữ cả bốn tập, hai thứ tự cố định và hai hàng định danh ngay trên mặt trang; không thay dữ kiện bằng liên kết hoặc số hình nguồn. Các bước suy ra thứ tự từ giá trị băm nằm trong ghi chú. Nếu thiếu chỗ, rút chú thích diễn giải, không bỏ dữ kiện hoặc giảm cỡ chữ chung.
 - **Nguồn:** B §3.3.4 tr. 83–84; hai thứ tự suy từ VD 3.8 tr. 85–86; đưa ví dụ lên trước đã được điều phối viên duyệt.
-- **Thời lượng:** 2 phút.
+- **Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 14/10/2026).
 
 **Nội dung công khai dự kiến**
 
@@ -1187,6 +1253,28 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 Đáp án: $200/3$; $\sqrt{1/450}\approx0{,}047$; $n=556$, 556 phép so bằng (tính lại bằng phân số). Không câu nào có đáp án trên mặt trang 31–33.
 
+### T5. Tính chữ ký bằng hàm băm (trang tiêu đề mạch)
+
+- **Mã:** `lec05-s05-00`; **phần:** 5; **note-topic-id:** `n05-09` (cùng chủ đề với trang 35).
+- **Mục đích và vai trò:** Trang tiêu đề mạch, điểm vào mạch 5 (`id="mach-5"`); ngoài chu trình khái niệm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Chữ ký, kỳ vọng, phương sai, chi phí so sánh (trang 29–34) → Nhu cầu thay hoán vị bằng hàm băm và quét hàng; trang 35 mở nội dung.
+- **Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; tên mạch trùng mục 5 trên trang 02 và khác tiêu đề trang 35.
+- **Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+- **Nguồn:** Tổng hợp từ các trang của phần; không thêm dữ kiện nguồn.
+- **Thời lượng:** 0,5 phút, lấy từ trang 35.
+
+**Nội dung công khai dự kiến**
+
+5. Tính chữ ký bằng hàm băm
+
+Muốn tính chữ ký khi có hàng triệu hàng, phải thay hoán vị bằng hàm băm và quét mỗi hàng một lần.
+
+Hàm băm hàng · Quét hàng · Tính đúng · Chi phí và bộ nhớ · Điều kiện hàm băm
+
+**Ghi chú diễn giả học thuật**
+
+Chữ ký và ước lượng không chệch đã có dưới giả thiết hoán vị đều, độc lập. Phần này thay mỗi hoán vị bằng một hàm băm trên mã hàng, đặc tả ma trận $\mathrm{SIG}$, chạy tay phép quét với hai hàm băm trên năm hàng, phát biểu thuật toán quét hàng, chứng minh tính đúng, đếm thời gian và bộ nhớ, rồi nêu điều kiện để $(ar+b)\bmod R$ là hoán vị. Ma trận $\mathrm{SIG}$ là đầu vào của phần tổng kết và của Bài 06.
+
 ### 35. Mô phỏng hoán vị bằng hàm băm
 
 - **Mã:** `lec05-s05-01`; **phần:** 5; **note-topic-id:** `n05-09`.
@@ -1199,7 +1287,7 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên đã biết min và băm; hình cho thấy trên dữ kiện thật rằng giá trị băm nhỏ nhất trong tập chỉ ra đúng phần tử đứng đầu theo thứ tự do hàm tạo ra, nên không cần sắp xếp. Câu chốt nêu điều kiện không va chạm; dòng ghi chú nêu giả thiết xác suất chưa tự chuyển theo.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §3.3.5 tr. 84–85.
-- **Thời lượng:** 2 phút.
+- **Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 14/10/2026).
 
 **Nội dung công khai dự kiến**
 
@@ -1637,6 +1725,28 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Đáp án: $1/2$ so với $1/5$; sau $r=4$: cột 3 là $(0,3)$; sau $r=3$: $(4,0),(+\infty,+\infty),(0,0),(4,0)$; ma trận cuối không đổi (kiểm bằng chương trình); 12, 15, 27. Không câu nào có đáp án trên mặt trang 38–45 (trang 40 chỉ nêu cặp $S_1,S_4$, trang 43 chỉ có $n=2$).
 
+### T6. Tổng kết và tự kiểm tra (trang tiêu đề mạch)
+
+- **Mã:** `lec05-s06-00`; **phần:** 6; **note-topic-id:** `n05-11` (cùng chủ đề với trang 47).
+- **Mục đích và vai trò:** Trang tiêu đề mạch, điểm vào mạch 6 (`id="mach-6"`); ngoài chu trình khái niệm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Quy trình shingling → MinHash → chữ ký → quét hàng (phần 2–5) → Đối chiếu kết quả với kho một triệu tài liệu và giới hạn số cặp; trang 47 mở nội dung.
+- **Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; tên mạch trùng mục 6 trên trang 02 và khác tiêu đề trang 47.
+- **Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+- **Nguồn:** Tổng hợp từ các trang của phần; không thêm dữ kiện nguồn.
+- **Thời lượng:** 0,5 phút, lấy từ trang 47.
+
+**Nội dung công khai dự kiến**
+
+6. Tổng kết và tự kiểm tra
+
+Muốn dùng chữ ký cho kho một triệu tài liệu, phải biết bộ nhớ đã giảm và số cặp vẫn còn bậc hai.
+
+Quy trình biểu diễn · Kết quả và giới hạn · Câu hỏi tự kiểm tra
+
+**Ghi chú diễn giả học thuật**
+
+Shingling, MinHash, chữ ký và phép quét hàng tạo thành quy trình biến tài liệu thành chữ ký ngắn. Phần này nêu quy trình với hai bước băm, rồi đối chiếu với kho $10^6$ tài liệu: chữ ký cả kho khoảng 1 GB, độ lệch chuẩn của ước lượng không quá khoảng 0,032, nhưng số cặp vẫn khoảng $5\cdot10^{11}$. Hai trang câu hỏi kiểm lại biểu diễn và chữ ký. Số cặp bậc hai là giới hạn Bài 06 xử lý.
+
 ### 47. Quy trình biểu diễn tài liệu
 
 - **Mã:** `lec05-s06-01`; **phần:** 6; **note-topic-id:** `n05-01`.
@@ -1649,7 +1759,7 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 - **Lý do phù hợp sinh viên năm 2:** Sinh viên nhìn lại tuyến lý luận qua kiểu dữ liệu thay vì danh sách thuật ngữ; các nhãn phép biến đổi làm rõ bước nào tăng/giảm biểu diễn.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B §§3.1–3.3 tr. 73–86.
-- **Thời lượng:** 2 phút.
+- **Thời lượng:** 1,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 14/10/2026).
 
 **Nội dung công khai dự kiến**
 
@@ -1775,6 +1885,28 @@ Nguồn: Tự kiểm theo §§3.3.4–3.3.5 và phép đếm cặp đầu bài; 
 
 Đáp án: $\sqrt{3/3200}\approx0{,}031$; thành phần chữ ký $\min(f(0),f(3))=\min(1,1)=1$, $f$ không là hoán vị vì $\gcd(4,6)=2$; $9\,999\,000\,000$ phép so bằng, thừa số số cặp. Ba câu đòi thay số hoặc kiểm điều kiện, không nhắc lại kết luận trên mặt trang trước.
 
+### T7. Bài tập vận dụng (trang tiêu đề mạch)
+
+- **Mã:** `lec05-s07-00`; **phần:** 7; **note-topic-id:** `n05-14` (cùng chủ đề với trang 51).
+- **Mục đích và vai trò:** Trang tiêu đề mạch, điểm vào mạch 7 (`id="mach-7"`); ngoài chu trình khái niệm.
+- **Kiến thức đầu vào, kết nối vào–ra:** Toàn bộ tuyến chính → Năm bài nguồn 3.1.1, 3.2.3, 3.3.1–3.3.3; trang 51 mở nội dung.
+- **Bố cục đã chọn:** `section.strand-title` theo `AGENTS.md` mục "Trang tiêu đề mạch"; tên mạch trùng mục 7 trên trang 02 và khác tiêu đề trang 51.
+- **Quyết định 14/10/2026:** thêm — bổ sung trang tiêu đề mạch theo yêu cầu người dùng 2026-10-14.
+- **Nguồn:** Tổng hợp từ các trang của phần; không thêm dữ kiện nguồn.
+- **Thời lượng:** 0,5 phút, lấy từ trang 51.
+
+**Nội dung công khai dự kiến**
+
+7. Bài tập vận dụng
+
+Muốn kiểm các định nghĩa và định lý của bài, phải giải lại năm bài của giáo trình.
+
+Bài 3.1.1 · Bài 3.2.3 · Bài 3.3.1 · Bài 3.3.2 · Bài 3.3.3
+
+**Ghi chú diễn giả học thuật**
+
+Jaccard, tập shingle, ma trận đặc trưng, MinHash và phép quét hàng đã có. Năm bài của MMDS kiểm lại từng kết quả: Bài 3.1.1 tính Jaccard, Bài 3.2.3 đếm số shingle lớn nhất, Bài 3.3.1 đọc Jaccard từ ma trận đặc trưng và đếm hoán vị, Bài 3.3.2 bổ sung hàng chữ ký, Bài 3.3.3 so chữ ký với hoán vị và đánh giá ước lượng. Mỗi lời giải nêu dữ kiện, phép tính và kết luận.
+
 ### 51. Bài tập tính Jaccard
 
 - **Mã:** `lec05-s07-01`; **phần:** 7; **note-topic-id:** `n05-14`.
@@ -1787,7 +1919,7 @@ Nguồn: Tự kiểm theo §§3.3.4–3.3.5 và phép đếm cặp đầu bài; 
 - **Lý do phù hợp sinh viên năm 2:** Bảng trống hướng thao tác đếm trước chia; sinh viên không thể bỏ mẫu số hợp mà chỉ ghi một đáp số khó kiểm chứng.
 - **Giới hạn và xử lý tràn:** Giữ dữ kiện và kết luận trên mặt trang; diễn giải đầy đủ nằm trong ghi chú. Nếu vượt khung, chuyển câu giải thích phụ sang ghi chú, không giảm cỡ chữ chung.
 - **Nguồn:** B Bài 3.1.1, §3.1.4, tr. 78/PDF7; chỉ dịch và đặt nhãn ba tập.
-- **Thời lượng:** 8 phút.
+- **Thời lượng:** 7,5 phút (0,5 phút chuyển cho trang tiêu đề mạch ngày 14/10/2026).
 
 **Nội dung công khai dự kiến**
 

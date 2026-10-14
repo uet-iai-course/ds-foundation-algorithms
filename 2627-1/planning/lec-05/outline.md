@@ -108,10 +108,10 @@ Quy ước các hàng $a, b, c, d, e$ tương ứng mã $0,1,2,3,4$ được kha
 | 3. MinHash theo hoán vị | Khái niệm + chứng minh; tập → một phép thử có xác suất trùng bằng Jaccard | 19–20, 22–27 | 23 | 27 |
 | 4. Chữ ký MinHash | Ước lượng; một phép thử → tỷ lệ nhiều phép thử và tác dụng của $n$ | 28–34 | 17 | 34 |
 | 5. Tính chữ ký bằng hàm băm | Thuật toán + chi phí; băm hàng → chữ ký tính được, bất biến và giới hạn | 35–46 | 31 | 46 |
-| 6. Tổng kết | Thu hồi tình huống; kết nối biểu diễn, bảo đảm và giới hạn số cặp | 47–50 | 10 | 49–50 |
+| 6. Tổng kết và tự kiểm tra | Thu hồi tình huống; kết nối biểu diễn, bảo đảm và giới hạn số cặp | 47–50 | 10 | 49–50 |
 | 7. Bài tập vận dụng | 5 bài nguồn, riêng sau phần giảng | 51–57 | 60 | 56–57, Bài 3.3.3 |
 
-Mỗi phần tương ứng một `section` ngoài. Phần bài tập có 7 trang nhưng chỉ 5 bài; việc tách Bài 3.3.1 và 3.3.3 không nhân thời lượng. Không có phần đọc thêm trên mặt deck; ghi chú tự học đánh dấu nhánh đọc thêm riêng.
+Mỗi phần tương ứng một `section` ngoài. Từ 14/10/2026, phần 2–7 mở bằng trang tiêu đề mạch `lec05-s02-00` … `lec05-s07-00` (`class="strand-title"`, `id="mach-N"`), tên trùng từng chữ với cột Phần; phần 6 đổi tên từ "Tổng kết" thành "Tổng kết và tự kiểm tra" theo `AGENTS.md`. Cột Trang giữ số phiếu cũ; deck 60 trang. Phần bài tập có 7 trang nhưng chỉ 5 bài; việc tách Bài 3.3.1 và 3.3.3 không nhân thời lượng. Không có phần đọc thêm trên mặt deck; ghi chú tự học đánh dấu nhánh đọc thêm riêng.
 
 | Cụm trọng tâm | Tám bước học tập và trang thực hiện | Dữ liệu được truyền và quyết định gộp |
 |---|---|---|

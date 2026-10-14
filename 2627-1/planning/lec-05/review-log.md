@@ -1486,3 +1486,26 @@ Cách làm: điều phối viên (phiên Claude Code, Opus 5.5, effort `high`) b
 **Phân công vai trò trong lượt này.** Điều phối và biên tập: phiên Claude Code, Opus 5.5, effort `high`. Tác tử rà chỉ đọc (`subagent_type: "fork"`, kế thừa Opus 5.5, effort `high`): độ chính xác toán học–thuật toán; mạch viết và góc nhìn sinh viên; tái kiểm sau sửa. Bằng chứng: ba lệnh gọi Agent trong phiên. Chỉ một tác nhân ghi tệp (điều phối viên).
 
 **Giới hạn còn lại.** Hai bản tin ở s01-04 là văn bản dựng, không lấy từ nguồn; sách không cung cấp một cặp văn bản gần trùng cụ thể. Lượt này không đổi các câu hỏi kiểm tra và bài tập.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 1 gồm Bài 01–05; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`; phiếu T2–T7 trong storyboard:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | lec05-s02-00 | Shingling văn bản | Muốn đo Jaccard giữa hai văn bản, phải biến mỗi văn bản thành tập các đoạn ký tự liên tiếp. |
+| 3 | lec05-s03-00 | MinHash theo hoán vị | Muốn thay mỗi tập bằng một đại lượng ngắn, phải tìm giá trị mà xác suất trùng bằng Jaccard. |
+| 4 | lec05-s04-00 | Chữ ký MinHash | Muốn ước lượng Jaccard đủ chính xác, phải lặp MinHash với nhiều hoán vị và đếm tỷ lệ trùng. |
+| 5 | lec05-s05-00 | Tính chữ ký bằng hàm băm | Muốn tính chữ ký khi có hàng triệu hàng, phải thay hoán vị bằng hàm băm và quét mỗi hàng một lần. |
+| 6 | lec05-s06-00 | Tổng kết và tự kiểm tra | Muốn dùng chữ ký cho kho một triệu tài liệu, phải biết bộ nhớ đã giảm và số cặp vẫn còn bậc hai. |
+| 7 | lec05-s07-00 | Bài tập vận dụng | Muốn kiểm các định nghĩa và định lý của bài, phải giải lại năm bài của giáo trình. |
+
+Dòng dẫn 18–23 âm tiết; từ khóa 3–5 cụm; ghi chú diễn giả 78–87 âm tiết, công thức trong notes viết bằng `\(...\)` như phần còn lại của bài. Số trang 54 → 60. Trang nội dung đầu mạch đều là trang nội dung có dữ kiện, tiêu đề khác tên mạch; giữ nguyên.
+
+Trang Nội dung: lec05-s01-02 đã có; `ul` đổi thành `ol` 1–7, tên trùng từng chữ với tên mạch. Mục 6 đổi từ "Tổng kết" thành "Tổng kết và tự kiểm tra", tên mạch kết luận do `AGENTS.md` quy định, khớp nội dung phần 6 (quy trình, kết quả và giới hạn, hai trang câu hỏi). Notes thêm một câu cho mạch 6; các câu khác giữ nguyên. Mặt trang khoảng 37 âm tiết.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, nguồn và tài liệu đọc). Section ngoài chưa có `aria-label`; không thêm trong đợt này. Không sửa CSS, SVG, ghi chú bài giảng, index.
+
+Kiểm tra: section mở/đóng 67/67; 60 `data-slide-id` và 60 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch 2–7; khối tiêu đề nằm trong khung (đáy lớn nhất 720 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng bảy tên mạch. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.

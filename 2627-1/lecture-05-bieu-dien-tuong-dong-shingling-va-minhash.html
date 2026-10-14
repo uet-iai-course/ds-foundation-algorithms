@@ -16,9 +16,9 @@
 </section>
 <section id="lec05-s01-02" data-slide-id="lec05-s01-02" class="agenda-slide">
 <h2>Nội dung</h2>
-<ul><li>Tài liệu gần trùng và độ tương đồng Jaccard</li><li>Shingling văn bản</li><li>MinHash theo hoán vị</li><li>Chữ ký MinHash</li><li>Tính chữ ký bằng hàm băm</li><li>Tổng kết</li><li>Bài tập vận dụng</li></ul>
+<ol><li>Tài liệu gần trùng và độ tương đồng Jaccard</li><li>Shingling văn bản</li><li>MinHash theo hoán vị</li><li>Chữ ký MinHash</li><li>Tính chữ ký bằng hàm băm</li><li>Tổng kết và tự kiểm tra</li><li>Bài tập vận dụng</li></ol>
 
-<aside class="notes"><p>Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các phần tử. Phần bài tập dùng năm bài của sách.</p></aside>
+<aside class="notes"><p>Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi văn bản thành một tập để áp dụng đại lượng ấy. MinHash nối Jaccard với xác suất hai tập chọn cùng một phần tử; nhiều MinHash ghép thành chữ ký ngắn. Phần thứ năm tính chữ ký bằng hàm băm thay cho hoán vị thật của các phần tử. Tổng kết đối chiếu chữ ký với kho một triệu tài liệu: bộ nhớ đã giảm, số cặp vẫn bậc hai. Phần bài tập dùng năm bài của sách.</p></aside>
 </section>
 <section id="lec05-s01-03" data-slide-id="lec05-s01-03" class="example-slide">
 <h2>Mục tiêu và kiến thức đầu vào</h2>
@@ -58,6 +58,14 @@
 </section>
 </section>
 <section>
+<section id="mach-2" data-slide-id="lec05-s02-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Shingling văn bản</h2>
+    <p class="strand-lead">Muốn đo Jaccard giữa hai văn bản, phải biến mỗi văn bản thành tập các đoạn ký tự liên tiếp.</p>
+    <p class="strand-keys">Tập shingle · Thuật toán tạo tập · Độ dài shingle · Khoảng trắng · Băm shingle</p>
+  </div>
+  <aside class="notes"><p>Jaccard đã được định nghĩa trên hai tập; bài toán tài liệu gần trùng cần so nội dung chứ không so từng ký tự. Phần này biểu diễn tài liệu bằng tập các \(k\)-shingle, tính ví dụ abcdabd với \(k=2\), định nghĩa tập shingle và thuật toán tạo tập, rồi chọn độ dài \(k\), xử lý khoảng trắng và băm mỗi 9-shingle thành mã 4 byte. Số mã shingle vẫn gần bằng số ký tự của tài liệu, dẫn tới nhu cầu chữ ký ngắn.</p></aside>
+</section>
 <section id="lec05-s02-01" data-slide-id="lec05-s02-01" class="example-slide">
 <h2>Biểu diễn văn bản bằng tập shingle</h2>
 <div class="ex-card"><p>Một \(k\)-shingle là đoạn \(k\) ký tự liên tiếp, đọc qua một cửa sổ dài \(k\). Tài liệu được biểu diễn bằng tập các \(k\)-shingle xuất hiện trong nó.</p></div><table class="ex-table mh-trace"><thead><tr><th scope="col">Cửa sổ bắt đầu tại</th><th scope="col">0</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th></tr></thead><tbody><tr><th scope="row"><code>abcdabd</code></th><td><code>ab</code></td><td><code>bc</code></td><td class="mh-selected"><code>cd</code></td><td class="mh-selected"><code>da</code></td><td><code>ab</code></td><td><code>bd</code></td></tr><tr><th scope="row"><code>abcxabd</code></th><td><code>ab</code></td><td><code>bc</code></td><td class="mh-selected"><code>cx</code></td><td class="mh-selected"><code>xa</code></td><td><code>ab</code></td><td><code>bd</code></td></tr></tbody></table><p class="ex-note">\(k=2\); vị trí đánh số từ 0. Ô viền đậm: cửa sổ chứa vị trí 3 (<code>d</code> thành <code>x</code>), ký tự duy nhất bị đổi.</p><p class="ex-takeaway">Đổi một ký tự chỉ đổi các cửa sổ chứa nó, nhiều nhất \(k\) cửa sổ; các cửa sổ khác vẫn chung.</p>
@@ -111,6 +119,14 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\); s�
 </section>
 </section>
 <section>
+<section id="mach-3" data-slide-id="lec05-s03-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>MinHash theo hoán vị</h2>
+    <p class="strand-lead">Muốn thay mỗi tập bằng một đại lượng ngắn, phải tìm giá trị mà xác suất trùng bằng Jaccard.</p>
+    <p class="strand-keys">Ma trận đặc trưng · Hoán vị hàng · Ba loại hàng · Xác suất trùng</p>
+  </div>
+  <aside class="notes"><p>Tập mã shingle của tài liệu 50.000 byte vẫn chiếm khoảng 200.000 byte. Phần này xếp các tập thành cột của ma trận đặc trưng, định nghĩa MinHash là phần tử đứng đầu của tập theo một hoán vị hàng, tính trên ví dụ bốn tập, phân ba loại hàng của một cặp cột và chứng minh xác suất hai MinHash trùng bằng độ tương đồng Jaccard. Một MinHash chỉ cho trùng hoặc không trùng; phần sau ghép nhiều MinHash thành chữ ký.</p></aside>
+</section>
 <section id="lec05-s03-01" data-slide-id="lec05-s03-01" class="example-slide">
 <h2>Kích thước tập shingle</h2>
 <p class="ex-equation">\[|S_k(D)|\le w=\max(0,\ell-k+1)\]</p><p>Băm làm mỗi phần tử còn 4 byte, nhưng số phần tử vẫn có thể gần bằng số ký tự của tài liệu.</p><table class="ex-table"><thead><tr><th scope="col">Biểu diễn trong ví dụ nguồn</th><th scope="col">Dung lượng</th></tr></thead><tbody><tr><th scope="row">Tài liệu</th><td>50.000 byte</td></tr><tr><th scope="row">Tập mã shingle, mỗi mã 4 byte</th><td>Khoảng 200.000 byte</td></tr></tbody></table><p class="ex-takeaway">Cần thay mỗi tập bằng một chữ ký ngắn mà vẫn ước lượng được Jaccard.</p>
@@ -161,6 +177,14 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\); s�
 </section>
 </section>
 <section>
+<section id="mach-4" data-slide-id="lec05-s04-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Chữ ký MinHash</h2>
+    <p class="strand-lead">Muốn ước lượng Jaccard đủ chính xác, phải lặp MinHash với nhiều hoán vị và đếm tỷ lệ trùng.</p>
+    <p class="strand-keys">Ma trận chữ ký · Tỷ lệ trùng · Kỳ vọng · Phương sai · Chi phí so sánh</p>
+  </div>
+  <aside class="notes"><p>Định lý xác suất trùng cho một phép thử với kết quả trùng hoặc không trùng. Phần này ghép \(n\) MinHash theo cùng bộ hoán vị thành chữ ký, ước lượng Jaccard bằng tỷ lệ tọa độ trùng, chứng minh ước lượng không chệch, tính phương sai khi các hoán vị độc lập và đếm chi phí so hai chữ ký. Mô hình vẫn cần \(n\) hoán vị thật của hàng triệu hàng, nên phần sau thay hoán vị bằng hàm băm.</p></aside>
+</section>
 <section id="lec05-s04-01" data-slide-id="lec05-s04-01" class="example-slide">
 <h2>Chữ ký từ nhiều thứ tự</h2>
 <p>Một MinHash chỉ cho kết quả trùng hoặc không trùng; lặp với nhiều thứ tự rồi đếm tỷ lệ trùng.</p><p>\(S_1=\{a,d\}\), \(S_2=\{c\}\), \(S_3=\{b,d,e\}\), \(S_4=\{a,c,d\}\).</p><table class="ex-table"><thead><tr><th scope="col">Hai thứ tự cố định</th><th scope="col">\(S_1\)</th><th scope="col">\(S_2\)</th><th scope="col">\(S_3\)</th><th scope="col">\(S_4\)</th></tr></thead><tbody><tr><th scope="row">\(\pi_1=(e,a,b,c,d)\)</th><td>a</td><td>c</td><td>e</td><td>a</td></tr><tr><th scope="row">\(\pi_2=(d,a,c,e,b)\)</th><td>d</td><td>c</td><td>d</td><td>d</td></tr></tbody></table><p class="ex-equation">Chữ ký của \(S_1\) và \(S_4\): \((a,d)^{\mathsf T}\).</p><p class="ex-takeaway">Tỷ lệ trùng: \(2/2=1\); Jaccard thật: \(\mathrm{SIM}(S_1,S_4)=2/3\).</p><p class="ex-note">Hai thứ tự được chọn cố định để minh họa phép tính.</p>
@@ -205,6 +229,14 @@ return S</code></pre></div><div><p>Đầu vào: chuỗi \(D\) dài \(\ell\); s�
 </section>
 </section>
 <section>
+<section id="mach-5" data-slide-id="lec05-s05-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Tính chữ ký bằng hàm băm</h2>
+    <p class="strand-lead">Muốn tính chữ ký khi có hàng triệu hàng, phải thay hoán vị bằng hàm băm và quét mỗi hàng một lần.</p>
+    <p class="strand-keys">Hàm băm hàng · Quét hàng · Tính đúng · Chi phí và bộ nhớ · Điều kiện hàm băm</p>
+  </div>
+  <aside class="notes"><p>Chữ ký và ước lượng không chệch đã có dưới giả thiết hoán vị đều, độc lập. Phần này thay mỗi hoán vị bằng một hàm băm trên mã hàng, đặc tả ma trận \(\mathrm{SIG}\), chạy tay phép quét với hai hàm băm trên năm hàng, phát biểu thuật toán quét hàng, chứng minh tính đúng, đếm thời gian và bộ nhớ, rồi nêu điều kiện để \((ar+b)\bmod R\) là hoán vị. Ma trận \(\mathrm{SIG}\) là đầu vào của phần tổng kết và của Bài 06.</p></aside>
+</section>
 <section id="lec05-s05-01" data-slide-id="lec05-s05-01" class="example-slide">
 <h2>Mô phỏng hoán vị bằng hàm băm</h2>
 <p>Với hàng triệu hàng, chọn ngẫu nhiên \(n\) hoán vị rồi sắp xếp lại các hàng theo từng hoán vị tốn nhiều thời gian.</p><p>Thay \(\pi_i\) bằng hàm băm \(f_i\) trên mã hàng; thứ tự tăng của \(f_i(r)\) đóng vai hoán vị.</p><figure class="mh-figure mh-wide"><img src="img/lec-05/bam-thay-hoan-vi.svg" alt="Bảng f1 của năm hàng a đến e cho 1, 2, 3, 4, 0; sắp theo f1 tăng được thứ tự e, a, b, c, d. Trong S1 = {a, d}, a đứng đầu và có giá trị băm nhỏ nhất 1."></figure><p class="ex-takeaway">Khi \(f_i\) không va chạm, phần tử đứng đầu của một tập là hàng có \(f_i(r)\) nhỏ nhất trong tập; không cần sắp xếp các hàng.</p><p class="ex-note">Bảo đảm xác suất còn phụ thuộc cách chọn các hàm.</p>
@@ -285,6 +317,14 @@ return SIG</code></pre><p class="ex-takeaway">Dừng sau \(R\) hàng; mỗi \(f_
 </section>
 </section>
 <section>
+<section id="mach-6" data-slide-id="lec05-s06-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Tổng kết và tự kiểm tra</h2>
+    <p class="strand-lead">Muốn dùng chữ ký cho kho một triệu tài liệu, phải biết bộ nhớ đã giảm và số cặp vẫn còn bậc hai.</p>
+    <p class="strand-keys">Quy trình biểu diễn · Kết quả và giới hạn · Câu hỏi tự kiểm tra</p>
+  </div>
+  <aside class="notes"><p>Shingling, MinHash, chữ ký và phép quét hàng tạo thành quy trình biến tài liệu thành chữ ký ngắn. Phần này nêu quy trình với hai bước băm, rồi đối chiếu với kho \(10^6\) tài liệu: chữ ký cả kho khoảng 1 GB, độ lệch chuẩn của ước lượng không quá khoảng 0,032, nhưng số cặp vẫn khoảng \(5\cdot10^{11}\). Hai trang câu hỏi kiểm lại biểu diễn và chữ ký. Số cặp bậc hai là giới hạn Bài 06 xử lý.</p></aside>
+</section>
 <section id="lec05-s06-01" data-slide-id="lec05-s06-01" class="example-slide">
 <h2>Quy trình biểu diễn tài liệu</h2>
 <figure class="mh-figure mh-wide"><img src="img/lec-05/quy-trinh-bieu-dien.svg" alt="Tài liệu đi qua tập shingle, chữ ký và tỷ lệ trùng cùng tọa độ."></figure><div class="ex-grid2 "><div><div class="ex-card"><p>Băm shingle</p><p>Mỗi chuỗi con thành mã 4 byte; va chạm có thể đổi tập.</p></div></div><div><div class="ex-card"><p>Băm hàng</p><p>Mô phỏng hoán vị; mỗi giá trị nhỏ nhất là một thành phần chữ ký.</p></div></div></div><p class="ex-takeaway">Kết quả là ước lượng Jaccard trên biểu diễn đã chọn.</p>
@@ -311,6 +351,14 @@ return SIG</code></pre><p class="ex-takeaway">Dừng sau \(R\) hàng; mỗi \(f_
 </section>
 </section>
 <section>
+<section id="mach-7" data-slide-id="lec05-s07-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
+    <p class="strand-lead">Muốn kiểm các định nghĩa và định lý của bài, phải giải lại năm bài của giáo trình.</p>
+    <p class="strand-keys">Bài 3.1.1 · Bài 3.2.3 · Bài 3.3.1 · Bài 3.3.2 · Bài 3.3.3</p>
+  </div>
+  <aside class="notes"><p>Jaccard, tập shingle, ma trận đặc trưng, MinHash và phép quét hàng đã có. Năm bài của MMDS kiểm lại từng kết quả: Bài 3.1.1 tính Jaccard, Bài 3.2.3 đếm số shingle lớn nhất, Bài 3.3.1 đọc Jaccard từ ma trận đặc trưng và đếm hoán vị, Bài 3.3.2 bổ sung hàng chữ ký, Bài 3.3.3 so chữ ký với hoán vị và đánh giá ước lượng. Mỗi lời giải nêu dữ kiện, phép tính và kết luận.</p></aside>
+</section>
 <section id="lec05-s07-01" data-slide-id="lec05-s07-01" class="example-slide">
 <h2>Bài tập tính Jaccard</h2>
 <p>Bài 3.1.1</p><p class="ex-equation">\[S_A=\{1,2,3,4\},\quad S_B=\{2,3,5,7\},\quad S_C=\{2,4,6\}\]</p><p><strong>Câu hỏi:</strong> Tính độ tương đồng Jaccard của từng cặp tập.</p><div class="ex-card"><p>Sản phẩm: bảng ba cặp gồm giao, hợp và tỷ số.</p></div>
