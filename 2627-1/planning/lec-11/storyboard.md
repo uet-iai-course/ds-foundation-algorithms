@@ -4,6 +4,26 @@
 
 P02 tách hai đặc tả. LZ77, LZ78 và LZW phải khôi phục đúng chuỗi; chúng khác nhau ở trạng thái dùng để biểu diễn cụm lặp. JPEG mất dữ liệu dựa trên DCT chấp nhận sai số từ lấy mẫu thưa sai màu tùy chọn và lượng tử hóa để giảm tốc độ bit. S00 đặt bốn phương pháp cạnh nhau theo điều kiện tiết kiệm bit, trạng thái và tiêu chí đầu ra.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 48 → 55 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Nén LZ77 với cửa sổ trượt (`LT`); 3. Nén LZ78 với từ điển tăng dần (`ZT`); 4. Nén LZW (`WT`); 5. Nén ảnh mất dữ liệu bằng JPEG (`JT`); 6. Tổng kết và tự kiểm tra (`ST`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P01 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| LT | Nén LZ77 với cửa sổ trượt | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước L00 | Hai đặc tả khôi phục (P02) | Bộ ba LZ77, sao chép chồng lấn, bất biến cửa sổ | ngoài chu trình khái niệm; tên khác tiêu đề L00 | 0,5 (từ L00) | thêm |
+| ZT | Nén LZ78 với từ điển tăng dần | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước Z00 | Cửa sổ LZ77 quên cụm cũ | Từ điển LZ78 và quy nạp theo số cặp | ngoài chu trình khái niệm; tên khác tiêu đề Z00 | 0,5 (từ Z00) | thêm |
+| WT | Nén LZW | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước W00 | Cặp LZ78 mang ký tự thô | Mã LZW, độ trễ một mục, định dạng bit | ngoài chu trình khái niệm; tên khác tiêu đề W00 | 0,5 (từ W00) | thêm |
+| JT | Nén ảnh mất dữ liệu bằng JPEG | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước J00 | Ba phương pháp LZ khôi phục đúng | Đường ống JPEG dựa trên DCT, chi phí | ngoài chu trình khái niệm; tên khác tiêu đề J00 | 0,5 (từ J00) | thêm |
+| ST | Tổng kết và tự kiểm tra | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước S00 | Bốn phương pháp đã có | Bảng đối chiếu, câu hỏi chọn phương án | ngoài chu trình khái niệm; tên khác tiêu đề S00 | 0,5 (từ S00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | Thuật toán LZ và JPEG | Năm nhiệm vụ CMU 15-499 | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X00) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang mục tiêu P01 (đứng ngay sau trang bìa), tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 36 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Tên mạch 5 là "Nén ảnh mất dữ liệu bằng JPEG" để khác tiêu đề trang J00 "JPEG mất dữ liệu dựa trên DCT". Mạch 6 đặt tên "Tổng kết và tự kiểm tra" theo `AGENTS.md`, vì phần S gồm bảng đối chiếu và câu hỏi chọn phương án.
+
 ## Bản đồ bảy mạch
 
 | Mạch | Chức năng | Kết nối vào | Kết nối ra | Đóng góp mục tiêu |

@@ -83,3 +83,17 @@ Ghi chú giữ nguyên mục tiêu, ký hiệu và thứ tự khái niệm của
 | `L11-N11` | cốt lõi | Năm bài tập có lời giải | N02–N10 | Mô phỏng, chứng minh và giải thích bằng dữ kiện nguồn | Năm bài CMU đã chọn |
 
 Đồ thị tiên quyết: `N01→N02→N03→N04→N05→N06`; `N01→N07→N08→N09`; hai nhánh hội tụ ở `N10`, rồi sang `N11`. Không có chủ đề bổ sung ngoài nguồn; MIT 15.564 chỉ dùng để đối chiếu tổng quan.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 55 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Nén LZ77 với cửa sổ trượt | LT | L00 |
+| 3 | Nén LZ78 với từ điển tăng dần | ZT | Z00 |
+| 4 | Nén LZW | WT | W00 |
+| 5 | Nén ảnh mất dữ liệu bằng JPEG | JT | J00 |
+| 6 | Tổng kết và tự kiểm tra | ST | S00 |
+| 7 | Bài tập vận dụng | XT | X00 |
