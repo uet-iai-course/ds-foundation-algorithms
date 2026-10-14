@@ -122,3 +122,35 @@ Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`cla
 | 5 | Tệp đảo kết hợp PQ (IVF-PQ) | IT | I00 |
 | 6 | So sánh và tự kiểm tra | CT | C00 |
 | 7 | Bài tập thực hành | RT | R00 |
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Câu luận đề trên trang bìa (quyết định của điều phối viên): "HNSW giảm số véc-tơ được đo, lượng tử hóa tích (PQ) giảm chi phí mỗi phép đo; đổi lại, có thể bỏ lỡ hàng xóm thật." Ba mục tiêu học tập giữ nguyên chữ, khớp ghi chú bài giảng.
+
+| Mạch | Tên | Trang (thứ tự deck) | Số trang | Phút |
+|---|---|---|---:|---:|
+| 1 | Mở đầu | P00, P03, P02, P04, P05, P01 | 6 | 8 |
+| 2 | Bài toán hàng xóm gần đúng | AT, A00–A03 | 5 | 11 |
+| 3 | Tìm kiếm trên đồ thị HNSW | HT, H00, H01, H03, H03B, H04–H06, H06B, H07, H09, H08, H10, H10B, H11–H14 | 18 | 42 |
+| 4 | Lượng tử hóa tích (PQ) | QT, Q00, Q02–Q05, Q07, Q06, Q08, Q09, Q11, Q10 | 12 | 28 |
+| 5 | Tệp đảo kết hợp PQ (IVF-PQ) | IT, I00–I02, I04, I05, I03 | 7 | 16 |
+| 6 | Tổng kết và tự kiểm tra | CT, C03, C00, C04, C01, C02, C05 | 7 | 15 |
+| 7 | Bài tập thực hành | RT, R00–R08 | 10 | 60 |
+
+Deck 65 trang (55 giảng + 10 bài tập). Mạch 6 đổi tên từ "So sánh và tự kiểm tra" (trang Nội dung P04 và trang tiêu đề mạch CT đã cập nhật); bảng "Tên mạch và trang tiêu đề mạch" phía trên là bản trước đợt sửa.
+
+- **Mạch mở đầu:** thêm P03 "Tiên quyết và quy ước" (ánh xạ mục "Tiên quyết": LSH của Bài 06, tính cộng theo tọa độ; đồ thị có hướng, hàng đợi ưu tiên và k-means ở ghi chú diễn giả), P05 "Vấn đề trung tâm"; tách P02 thành "Mục tiêu học tập" và P04 "Nội dung"; P01 thành trang ví dụ.
+- **Mạch kết luận:** thêm C03 "Kết quả và giả thiết không được bỏ", C04 "Câu trả lời cho vấn đề trung tâm", C05 "Nguồn và tài liệu đọc"; C00 đổi sang khuôn `Thuật toán | Đầu vào | Bảo đảm | Chi phí`; C01, C02 thành "Câu hỏi tự kiểm tra". Không ghi công mmds.org vì bài không neo MMDS; không dòng nối Bài 08 vì `sources/source.md` chỉ nêu thứ tự (Bài 8 mở mạch "Dòng dữ liệu và cửa sổ"), không nêu quan hệ nội dung.
+- **Tách:** H13 → H13 + H14; Q09 → Q09 + Q11; I04 → I04 + I05.
+- **Bảng ký hiệu (bổ sung):** 1 TB là $10^{12}$ byte, 1 GB là $10^9$ byte; tọa độ viết bằng dấu chấm phẩy, ví dụ $(1{,}7;\ 0{,}4)$; $n_c$ là số véc-tơ được chấm (chỉ dùng ở Q11).
+- **Thuật ngữ giải nghĩa ở lần đầu trên mặt trang:** HNSW (P03), ANN (A00), độ thu hồi (recall) (A01), tìm kiếm chùm (beam search) (H03), VQ (Q00), ADC (Q08), IVF (I00), MSE (R04); LSH viết "băm nhạy cảm theo tính cục bộ (LSH)" như Bài 06.
+- **Mạch 7:** nhãn Thực hành (`practice-badge`, lớp có sẵn); RT 0,5 phút lấy từ R01.
+
+## Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+- **Luận đề:** bỏ "(PQ)": "HNSW giảm số véc-tơ được đo, lượng tử hóa tích giảm chi phí mỗi phép đo; đổi lại, có thể bỏ lỡ hàng xóm thật." (25 token). Tên đầy đủ kèm "(PQ)" chuyển sang mục tiêu 2 ở P02 (lần đầu PQ xuất hiện sau bìa).
+- **Vấn đề trung tâm và câu trả lời:** P05 nêu 122,88 TB, ≈30,7 giây mỗi truy vấn và ngân sách giả định của học phần 6 TB bộ nhớ, 10 ms mỗi truy vấn; C04 trả lời bằng TB và giây (HNSW ≈125,5 TB; PQ quét đủ 5,12 TB, ≈5,12 giây; IVF-PQ 5,2 TB, ≈3,6 ms). PQ bị loại vì thời gian, không vì bộ nhớ.
+- **Đặc tả ANN (A00):** trả tối đa $K$ điểm; hai nguồn sai số tương ứng hai thừa số chi phí: đo một phần kho, đo bằng khoảng cách xấp xỉ.
+- **Thuật ngữ:** "chấm một mã" là phép đo xấp xỉ qua bảng tra (Q11); $n_c$ dùng ở Q11, Q10 ($n_c=N$), I03 ($n_c\approx nprobe\,N/k_c$). Đồ thị Delaunay giải nghĩa trên mặt trang H14. Mục "Thuật ngữ giải nghĩa" ở trên đổi hai điểm: A00 giữ "(approximate nearest neighbor)" nhưng không dùng chữ viết tắt ANN trên mặt trang; P03 viết "LSH" theo câu của điều phối viên, tên đầy đủ "băm nhạy cảm theo tính cục bộ" nằm trong ghi chú P00, P03 và đã giải nghĩa ở Bài 06.
+- **Bộ nhớ IVF-PQ** $(512+8)\cdot10^{10}$ byte $=5{,}2$ TB tính ở I03 (mạch 5), trước C00 và C04.
+- **Ghi chú bài giảng:** không sửa trong lượt này. Điểm cần đồng bộ khi sửa ghi chú: ngân sách giả định 6 TB và 10 ms; bảo đảm LSH $1-(1-p_1^r)^b$ trong bảng so sánh; "phần dư thường nhỏ hơn" (năng lượng trung bình).

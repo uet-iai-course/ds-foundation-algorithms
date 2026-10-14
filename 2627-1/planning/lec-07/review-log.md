@@ -414,3 +414,238 @@ Kiểm tra: section mở/đóng 63/63; 56 `data-slide-id` và 6 `id` duy nhất.
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06; kế hoạch sửa toàn diện Bài 07 do tác tử lập kế hoạch nộp (tệp tạm trong scratchpad của phiên), mục B–F; quyết định của điều phối viên, mục "Bài 07" và "Chung cho mọi bài".
+
+**Phân công.** Điều phối viên: phiên Claude Code, Opus 5.5, effort `high`. Tác tử lập kế hoạch: chỉ đọc, `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`). Tác tử soạn: `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`), tác tử duy nhất được ghi; phạm vi ghi là deck Bài 07 và ba tệp planning; không commit. Bằng chứng là lời gọi Agent và tin nhắn giao việc của điều phối viên. Rà rút gọn ba vai (sinh viên kèm mật độ; độ chính xác toán; kết nối và mạch viết) do điều phối viên giao sau, chưa chạy khi ghi mục này.
+
+**Quyết định của điều phối viên đã áp dụng.**
+
+1. Luận đề: "HNSW giảm số véc-tơ được đo, lượng tử hóa tích (PQ) giảm chi phí mỗi phép đo; đổi lại, có thể bỏ lỡ hàng xóm thật." Câu có 26 token theo script (trần 25 của bìa, kế hoạch ghi 25); giữ nguyên chữ vì là quyết định của điều phối viên, chờ điều phối viên xác nhận hoặc rút (ví dụ bỏ "(PQ)" và giải nghĩa PQ ở P03).
+2. Mạch 6 đổi tên "Tổng kết và tự kiểm tra" (P04 và CT).
+3. C00 đổi sang khuôn `Thuật toán | Đầu vào | Bảo đảm | Chi phí`.
+4. Ba mục tiêu học tập giữ nguyên chữ.
+5. Không ghi công mmds.org; C05 ghi Malkov–Yashunin (arXiv 1603.09320, bản 2018 theo PDF cục bộ), Jégou–Douze–Schmid (IEEE TPAMI 2011, 33(1)), Princeton COS 597A (2023, lớp 8 Liberty–Douze, lớp 9 Simhadri, sổ thực hành), Stanford BIODS 271 (2025, bài 12) và liên kết viewer ghi chú. Năm và ấn bản kiểm trên trang đầu các PDF cục bộ; không ghi IEEE TPAMI 2020 cho HNSW vì PDF cục bộ là bản arXiv.
+6. Bỏ dòng nối Bài 08: `sources/source.md` chỉ nêu thứ tự (Bài 8 mở mạch "Dòng dữ liệu và cửa sổ"), không nêu quan hệ nội dung giữa Bài 7 và Bài 8.
+7. Nhãn Thực hành trên R00–R08 bằng `div.slide-badge-row` + `span.practice-badge`, lớp đã có trong `lecture-style.css` (Bài 03 dùng); không thêm CSS.
+8. k-means và hàng đợi ưu tiên nằm trong ghi chú diễn giả của P03.
+9. Rà rút gọn ba vai: chờ điều phối viên.
+10. RT 0,5 phút lấy từ R01 (6 → 5,5); recitation đúng 60 phút.
+
+Chung: "Đáp án" → "Lời giải" (15 chỗ, kể cả "đáp án số cố định"); "Sản phẩm:", "Yêu cầu:", "Trạng thái:", "Giả định:", "Ví dụ:" (dấu hai chấm), "Gợi ý:" không đậm trên mặt trang thay bằng "Câu hỏi:", "Ký hiệu:", "Giả thiết:", "Ví dụ.", "Nhắc lại:"; thuật ngữ và viết tắt giải nghĩa ở lần đầu (HNSW, ANN, recall, beam search, VQ, ADC, IVF, MSE); trang bài tập có một dòng `ex-note` "Nguồn: sổ thực hành Princeton COS 597A lớp 8, ô …" (R07 ghi ô trong dòng Câu hỏi vì trang chật). Ghi chú diễn giả không chứa thời lượng (deck cũ đã không có).
+
+**Thay đổi cấu trúc.** 56 → 65 trang (55 giảng + 10 bài tập); bảy mạch 6/5/18/12/7/7/10; 120 + 60 phút (8/11/42/28/16/15 + 60). Thêm P03, P05, C03, C04, C05; tách P02 → P02 + P04, H13 → H13 + H14, Q09 → Q09 + Q11, I04 → I04 + I05; C00 đổi khuôn. Thêm `aria-label` cho bảy section ngoài. Lớp `.lecture-ann .ann-orientation` không còn được deck dùng; không xóa khỏi CSS chung trong đợt này (sửa CSS chung đòi kiểm Bài 02, 03), để dọn ở đợt CSS. CSS, SVG, viewer, `index.html`, ghi chú bài giảng không sửa.
+
+**Con số mới.** Không có. Mọi số trên trang mới và trang tách lấy từ deck hoặc ghi chú đã kiểm; cột "Đóng góp" của I03 giữ $3{,}1\cdot10^8$, $5{,}0\cdot10^7$, $3{,}3\cdot10^9$, tổng $\approx3{,}6\cdot10^9$ (kiểm lại: $10^5\cdot3072=3{,}072\cdot10^8$; $64\cdot256\cdot3072=5{,}03\cdot10^7$; $64\cdot10^{10}/10^5\cdot512=3{,}28\cdot10^9$; tổng $3{,}63\cdot10^9$; $5{,}12\cdot10^{12}/3{,}63\cdot10^9\approx1410$). Bảng Q11 dùng ký hiệu đếm $n_c$ (số véc-tơ được chấm), định nghĩa trên dòng Mô hình. Ghi chú H14 dẫn đúng mục 4.2.1 của bài báo HNSW cho kết luận số bước mỗi tầng bị chặn (kiểm trên PDF cục bộ); ghi chú H13 dẫn mục 4.2.3 cho bộ nhớ.
+
+**Mật độ trước → sau.** Lệnh: biến thể `m07.py` của `tools/density.py` (cộng trang đầu mỗi section ngoài, bỏ công thức `$...$`), chạy `python3 -I m07.py 2627-1/lecture-07-chi-muc-hang-xom-gan-dung.html`. Deck cũ không có dòng `ex-source` nên cột "trước" không tách nguồn.
+
+| Chỉ số | Trước (56 trang) | Sau (65 trang) |
+|---|---:|---:|
+| Trung vị âm tiết | 38,5 | 45 |
+| Số trang > 40 | 25 | 41 |
+| Số trang > 60 | 11 | 9 (đều trần 80) |
+| Số trang > 80 | 3 | 0 |
+| Trang vượt trần (60 hoặc 80 theo loại trang) | 6 (P02 86/80, A00 76/60, A03 75/60, H03 75/60, H13 83/80, C00 99/80) | 0 |
+| Dòng > 20 âm tiết (trừ dòng dẫn tiêu đề mạch) | 17 dòng trên 13 trang | 1 (câu luận đề, 26 token, trần 25 của bìa) |
+| Ghi chú diễn giả > 150 âm tiết | 14 | 18 |
+
+Trung vị và số trang > 40 tăng vì nhãn dẫn ("Nhu cầu:", "Đầu vào:", "Kết luận:"…) được thêm, ba trang tổng kết mới có bảng, và các trang tách giữ dữ kiện; không trang nào vượt trần. Ghi chú > 150 âm tiết (mức `nhẹ`) phần lớn là trang tính đúng, chứng minh hoặc lời giải (H05, H06, H08, H10B, I03, R05), trần khuyến nghị 250.
+
+| # | Mã | Trước | Sau | Trần | Dòng | Dòng dài nhất | Âm tiết ghi chú | Quyết định |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | P00 | 36 | 50 | — | 4 | 26 | 139 | `sửa` |
+| 2 | P03 | — | 57 | 60 | 5 | 18 | 164 | `thêm` |
+| 3 | P02 | 86 | 47 | 80 | 3 | 17 | 125 | `tách` |
+| 4 | P04 | — | 51 | 80 | 8 | 16 | 134 | `thêm` |
+| 5 | P05 | — | 60 | 60 | 6 | 12 | 131 | `thêm` |
+| 6 | P01 | 34 | 40 | 60 | 3 | 8 | 157 | `sửa` |
+| 7 | AT | 41 | 41 | — | 2 | 22 | 82 | `giữ` |
+| 8 | A00 | 76 | 56 | 60 | 4 | 18 | 140 | `sửa` |
+| 9 | A01 | 26 | 33 | 60 | 2 | 17 | 98 | `sửa` |
+| 10 | A02 | 79 | 77 | 80 | 5 | 15 | 115 | `sửa` |
+| 11 | A03 | 75 | 57 | 80 | 6 | 13 | 146 | `sửa` |
+| 12 | HT | 33 | 33 | — | 2 | 19 | 102 | `sửa` |
+| 13 | H00 | 56 | 48 | 60 | 3 | 20 | 135 | `sửa` |
+| 14 | H01 | 49 | 40 | 60 | 7 | 20 | 157 | `sửa` |
+| 15 | H03 | 75 | 53 | 60 | 4 | 19 | 174 | `sửa` |
+| 16 | H03B | 26 | 28 | 60 | 3 | 8 | 150 | `sửa` |
+| 17 | H04 | 38 | 43 | 60 | 4 | 14 | 115 | `sửa` |
+| 18 | H05 | 8 | 8 | 60 | 1 | 8 | 189 | `sửa` |
+| 19 | H06 | 39 | 54 | 60 | 6 | 15 | 172 | `sửa` |
+| 20 | H06B | 47 | 34 | 60 | 3 | 17 | 152 | `sửa` |
+| 21 | H07 | 37 | 45 | 60 | 4 | 16 | 176 | `sửa` |
+| 22 | H09 | 26 | 26 | 60 | 3 | 14 | 115 | `sửa` |
+| 23 | H08 | 36 | 53 | 60 | 5 | 16 | 167 | `sửa` |
+| 24 | H10 | 46 | 36 | 60 | 5 | 16 | 167 | `sửa` |
+| 25 | H10B | 19 | 15 | 60 | 2 | 8 | 196 | `sửa` |
+| 26 | H11 | 22 | 36 | 60 | 5 | 14 | 179 | `sửa` |
+| 27 | H12 | 71 | 69 | 80 | 4 | 14 | 125 | `sửa` |
+| 28 | H13 | 83 | 50 | 80 | 6 | 19 | 137 | `tách` |
+| 29 | H14 | — | 58 | 60 | 5 | 15 | 166 | `thêm` |
+| 30 | QT | 39 | 39 | — | 2 | 23 | 80 | `giữ` |
+| 31 | Q00 | 38 | 45 | 60 | 4 | 20 | 129 | `sửa` |
+| 32 | Q02 | 34 | 36 | 60 | 3 | 17 | 119 | `sửa` |
+| 33 | Q03 | 76 | 67 | 80 | 7 | 15 | 123 | `sửa` |
+| 34 | Q04 | 26 | 44 | 60 | 4 | 17 | 120 | `sửa` |
+| 35 | Q05 | 11 | 18 | 60 | 3 | 7 | 92 | `sửa` |
+| 36 | Q07 | 41 | 43 | 80 | 6 | 15 | 123 | `sửa` |
+| 37 | Q06 | 22 | 22 | 60 | 3 | 13 | 114 | `sửa` |
+| 38 | Q08 | 34 | 51 | 60 | 4 | 19 | 141 | `sửa` |
+| 39 | Q09 | 44 | 20 | 60 | 6 | 10 | 63 | `tách` |
+| 40 | Q11 | — | 53 | 80 | 6 | 16 | 101 | `thêm` |
+| 41 | Q10 | 59 | 61 | 80 | 6 | 15 | 138 | `sửa` |
+| 42 | IT | 36 | 36 | — | 2 | 21 | 90 | `giữ` |
+| 43 | I00 | 54 | 46 | 60 | 4 | 15 | 132 | `sửa` |
+| 44 | I01 | 13 | 13 | 60 | 1 | 3 | 147 | `sửa` |
+| 45 | I02 | 27 | 31 | 60 | 4 | 13 | 142 | `sửa` |
+| 46 | I04 | 32 | 32 | 60 | 2 | 19 | 130 | `tách` |
+| 47 | I05 | — | 24 | 60 | 3 | 12 | 83 | `thêm` |
+| 48 | I03 | 43 | 55 | 80 | 8 | 15 | 172 | `sửa` |
+| 49 | CT | 31 | 44 | — | 2 | 22 | 95 | `sửa` |
+| 50 | C03 | — | 80 | 80 | 8 | 17 | 111 | `thêm` |
+| 51 | C00 | 99 | 67 | 80 | 6 | 15 | 159 | `sửa` |
+| 52 | C04 | — | 65 | 80 | 6 | 16 | 134 | `thêm` |
+| 53 | C01 | 53 | 50 | 60 | 4 | 17 | 138 | `sửa` |
+| 54 | C02 | 48 | 53 | 60 | 4 | 16 | 89 | `sửa` |
+| 55 | C05 | — | 50 | 80 | 4 | 19 | 109 | `thêm` |
+| 56 | RT | 40 | 40 | — | 2 | 21 | 84 | `giữ` |
+| 57 | R00 | 45 | 47 | 80 | 10 | 11 | 96 | `sửa` |
+| 58 | R01 | 34 | 44 | 80 | 7 | 13 | 141 | `sửa` |
+| 59 | R02 | 26 | 37 | 80 | 3 | 13 | 115 | `sửa` |
+| 60 | R03 | 69 | 72 | 80 | 7 | 19 | 152 | `sửa` |
+| 61 | R04 | 37 | 48 | 80 | 4 | 17 | 103 | `sửa` |
+| 62 | R05 | 63 | 66 | 80 | 5 | 17 | 168 | `sửa` |
+| 63 | R06 | 33 | 38 | 80 | 4 | 11 | 138 | `sửa` |
+| 64 | R07 | 33 | 42 | 80 | 5 | 16 | 157 | `sửa` |
+| 65 | R08 | 44 | 52 | 80 | 4 | 16 | 141 | `sửa` |
+
+Ngoại lệ dòng ghi trong `storyboard.md`, mục "Sửa toàn diện theo chuẩn 2026-10-14".
+
+**Tự kiểm no-ai-slop (Edit, đối chiếu `eval.md`).** Văn bản mới: câu luận đề (của điều phối viên), P03, P05, mục tiêu (giữ chữ), C03, C00, C04, C05, H14, Q11, I05, các dòng nhãn và ghi chú diễn giả mới. Đạt: không từ cấm, không đối lập nhị phân, không câu mở dọn đường, không bình luận về tầm quan trọng, không câu kết châm ngôn; mỗi câu kết luận là kết luận có điều kiện hoặc con số. Đã sửa khi tự kiểm: ghi chú P00, A03, Q08 lấy "Bài này" làm chủ ngữ; "bài này dùng định nghĩa" (A01), "phần PQ và IVF-PQ của bài" (A00), "bài này không dùng hai tùy chọn" (H11) viết lại; "theo giả định ở phần mở đầu" (I03) thành "theo giả định của ví dụ truy hồi ngữ nghĩa"; ánh xạ câu → mục tiêu (siêu dữ liệu) chuyển khỏi ghi chú C01, C02. Rà "chúng ta", "ta thấy", "Trang này", "Bài này", "phần sau", "Sản phẩm", "Đáp án", "Yêu cầu", "Trạng thái:", "Giả định:", mã nội bộ, thời lượng trong mặt trang và ghi chú: 0 kết quả.
+
+**Kiểm kỹ thuật.** `git diff --check` sạch cho deck và ba tệp planning. HTML cân bằng (`html.parser`: 0 thẻ chưa đóng, 0 thẻ đóng sai); section mở/đóng 72/72; 65 `data-slide-id` duy nhất; `id` chỉ ở sáu trang tiêu đề mạch `mach-2` … `mach-7`, không đổi. Chromium Playwright trên máy chủ cục bộ cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang:
+
+- 1600×900: duyệt cả 65 trang bằng `Reveal.getIndices` + `Reveal.slide(h, v, 99)`; 0 lỗi console, 0 lỗi trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang; không phần tử (trừ `.katex-mathml` ẩn và SVG nội bộ KaTeX) vượt khung `.slides`. Lượt đầu phát hiện Q04 (đáy 915/864) và R07 (894/864) tràn; đã sửa (hình Q04 dùng lớp sẵn có `ann-short`; R07 bỏ dòng Nguồn riêng, ghi ô trong dòng Câu hỏi); lượt sau đáy thấp nhất là P01 852/864 (mạch mở đầu không có chân trang), Q04 830, R07 837, dưới mép chân trang 845. Cỡ chữ thân nhỏ nhất 24 px (bảng đề recitation) trên khung 1280×720 nhân 1,2.
+- 390×844: chế độ cuộn; cuộn tới từng trang, 0 phần tử vượt mép phải, `scrollWidth` = `clientWidth` = 390, 0 lỗi console, 0 `.katex-error`.
+- Ảnh đã tự xem ở 1600×900: P01, P03, P04, Q04, H14, I03, I05, C03, C00, C04, C05, R07. Ảnh lưu trong scratchpad của phiên, không đưa vào kho.
+
+**Tác động tới ghi chú bài giảng `materials/lec-07/lecture-note.md`.** Không sửa. Ký hiệu, ví dụ, con số và kết luận không đổi; ba mục tiêu giữ nguyên chữ. Điểm để đợt sửa ghi chú xử lý: (a) quy ước 1 TB $=10^{12}$ byte, 1 GB $=10^9$ byte và tọa độ dùng dấu chấm phẩy được ghi chú dùng ngầm, có thể thêm vào bảng ký hiệu; (b) tên mạch 6 mới không có mục tương ứng (ghi chú có mục So sánh và mục Tự kiểm), không bắt buộc đổi; (c) ký hiệu $n_c$ chỉ có trên Q11; (d) ghi chú chưa đánh số kết quả nên deck không dẫn "(Định lý 07.k)". `index.html` không đổi.
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Trạng thái |
+|---|---|---|---|---|---|
+| trung bình | P00 | Câu luận đề 26 token, trần 25 của bìa | đếm script | Bỏ "(PQ)" (PQ đã có ở tên mạch 4 và Q04) hoặc điều phối viên chấp nhận ngoại lệ | chờ điều phối viên |
+| nhẹ | toàn deck | Trung vị 45 trên mức nhắm 40 | bảng mật độ | Để vai sinh viên kèm mật độ đánh giá; không rút ví dụ, chứng minh, vết chạy | mở, chờ rà |
+| nhẹ | 18 trang | Ghi chú diễn giả > 150 âm tiết | bảng mật độ | Rút ở lượt sửa sau rà nếu không mất giả thiết hay lời giải | mở |
+| nhẹ | R07, P01, R03 | Trang sát chân trang (đáy 837–852/864) | Playwright | Theo dõi khi đổi chữ | đã kiểm, không tràn |
+
+## Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+Căn cứ: ba báo cáo rà deck 07 sau đợt sửa toàn diện (vai toán và thuật toán, vai mạch truyện và liên kết, vai sinh viên; tác tử chỉ đọc do điều phối viên tạo) và quyết định hợp nhất của điều phối viên `fix-d07.md` (mục 1 nghiêm trọng, bắt buộc). Vai sửa: tác tử `fork` kế thừa Opus 5.5, effort `high` (bằng chứng: lời gọi Agent của điều phối viên), là tác tử ghi duy nhất. Phạm vi ghi: deck 07 và ba tệp planning; không sửa CSS, SVG, index, ghi chú bài giảng, deck khác. Không commit. Số trang (65), thứ tự, thời lượng 120 + 60 phút không đổi.
+
+**Đính chính bản trước.** Đoạn "Con số mới. Không có" của mục "Sửa toàn diện theo chuẩn 2026-10-14" bỏ sót câu mới trong ghi chú C04 "với ngân sách bộ nhớ một máy, chỉ IVF-PQ trong bốn cấu trúc vừa". Câu đó sai: PQ quét đủ chiếm 5,12 TB, ít hơn IVF-PQ 5,2 TB, nên mọi ngân sách chứa IVF-PQ cũng chứa PQ; PQ bị loại vì thời gian (≈5,12 giây so với ≈3,6 ms). Câu thay thế trong ghi chú C04: "HNSW và LSH vượt ngân sách bộ nhớ. PQ quét đủ chiếm 5,12 TB, ít hơn IVF-PQ, nên bị loại vì thời gian chứ không vì bộ nhớ."
+
+**Phép tính các con số mới hoặc mới đưa lên mặt trang.** 1 TB $=10^{12}$ byte, 1 GB $=10^9$ byte, 1 MB $=10^6$ byte; tốc độ $10^{12}$ thao tác (lượt tọa độ hoặc lần tra) mỗi giây là giả định của ví dụ P01; một lần tra ngang một lượt tọa độ. Mọi phép tính chạy lại bằng Python.
+
+| Con số | Trang (mặt trang / ghi chú) | Phép tính | Loại |
+|---|---|---|---|
+| 122,88 TB | P05, C04 (ghi chú), P01 | $10^{10}\cdot3072\cdot4=1{,}2288\cdot10^{14}$ byte | suy ra từ cấu hình BIODS tr.17 |
+| ≈30,7 giây | P05; ghi chú P05, P01 | $3{,}072\cdot10^{13}/10^{12}=30{,}72$ s | suy ra, dưới giả định tốc độ |
+| 3072 lần | ghi chú P01 (lời giải câu hỏi mới) | $30{,}72/0{,}01=3072$ | suy ra |
+| 6 TB, 10 ms | P05, C04; ghi chú P05, C04, CT | — | giả định của học phần, ghi "(giả định)" trên mặt trang; không lấy từ nguồn |
+| ≈125,5 TB | C04; ghi chú C04, C00, HT | $(12\,288+265)\cdot10^{10}=1{,}2553\cdot10^{14}$ byte; 265 byte cạnh từ H13 | suy ra |
+| ≈12 553 byte mỗi véc-tơ | C00 | $4\cdot3072+265=12\,553$ | suy ra |
+| 5,12 TB | C04 | $10^{10}\cdot512=5{,}12\cdot10^{12}$ byte | suy ra (Q07) |
+| ≈5,12 giây | C04 | $10^{10}\cdot512=5{,}12\cdot10^{12}$ lần tra; $/10^{12}=5{,}12$ s | suy ra (lời giải Q10) |
+| 5,2 TB | I03, C04 | $(512+8)\cdot10^{10}=5{,}2\cdot10^{12}$ byte; 8 byte mã định danh vì $10^{10}>2^{32}$ | suy ra |
+| 1,23 GB tâm thô; 3,1 MB bộ mã | ghi chú I03, C04 | $10^5\cdot3072\cdot4=1{,}2288\cdot10^9$; $256\cdot3072\cdot4=3\,145\,728$ | suy ra; tổng IVF-PQ ≈5,2012 TB < 6 TB |
+| $3{,}07\cdot10^8$; $5{,}03\cdot10^7$; $3{,}28\cdot10^9$; tổng $3{,}63\cdot10^9$ | I03, C00 | $10^5\cdot3072=307\,200\,000$; $64\cdot256\cdot3072=50\,331\,648$; $64\cdot10^{10}/10^5\cdot512=3{,}2768\cdot10^9$; tổng $3\,634\,331\,648$ | suy ra (thay cột cũ hai chữ số có tổng cột 3,66·10⁹) |
+| ≈1410 lần (mặt trang "khoảng 1400") | ghi chú I03 | $5{,}12\cdot10^{12}/3{,}6343\cdot10^9=1408{,}8$ | suy ra |
+| ≈3,6 ms | C04 | $3{,}6343\cdot10^9/10^{12}=3{,}63\cdot10^{-3}$ s | suy ra |
+| $12\,288+8b$ byte mỗi véc-tơ (LSH) | C00 | véc-tơ gốc $4D$ byte và $b$ mã định danh 8 byte, một trong mỗi bảng băm | công thức, không thay số vì bài không chọn $b$, $r$ |
+
+**Quyết định cho từng phát hiện.** Quyết định: `sửa` | `bác bỏ` | `mở`.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Cách xử lý, lý do |
+|---|---|---|---|---|---|
+| toán | nghiêm trọng | C04 (ghi chú) | "chỉ IVF-PQ trong bốn cấu trúc vừa" sai; PQ 5,12 TB < IVF-PQ 5,2 TB | sửa | ghi chú C04 viết lại với phép tính từng số; PQ bị loại vì thời gian; HNSW, LSH vượt bộ nhớ; thêm điều kiện "nếu một máy có hơn 125,5 TB, HNSW lại thành lựa chọn" |
+| toán | trung bình | C04 dòng 6, P05 dòng 6 | "bộ nhớ một máy" không có con số | sửa | ngân sách giả định 6 TB và 10 ms trên P05 dòng 6 và C04 dòng 6, ghi "(giả định)"; ghi chú P05 nêu nguồn gốc giả định |
+| toán | nhẹ | I03 | cột Đóng góp hai chữ số cộng ra 3,66·10⁹ | sửa | ba chữ số: 3,07·10⁸; 5,03·10⁷; 3,28·10⁹; tổng ≈3,63·10⁹; C00 cũng ghi 3,63·10⁹ |
+| toán | nhẹ | I02 | "Phần dư nhỏ hơn $y$" không điều kiện | sửa | mặt trang "thường nhỏ hơn"; ghi chú: năng lượng (bình phương chuẩn trung bình) của phần dư thường nhỏ hơn, véc-tơ gần gốc tọa độ có thể có phần dư dài hơn |
+| toán | nhẹ | I02; ghi chú H00, H03, H13 | chữ Việt trong `\text{}` gây cảnh báo KaTeX | sửa | I02: "với $y\in L_i$" và "mã PQ của $r(y)$" ra ngoài công thức; H00, H13: $N\cdot(s+4g)$ byte kèm lời định nghĩa $s$, $g$; H03: "Ban đầu $C$ và $W$ chỉ chứa điểm vào"; Playwright 0 cảnh báo KaTeX |
+| toán | nhẹ | Q11, Q10, I03 | $n_c$ không được dùng lại | sửa | Q10 hàng "Số véc-tơ được chấm, $n_c=N$"; I03 "$n_c\approx nprobe\,N/k_c$ mã"; ghi chú Q11 nêu hai trường hợp. Trùng chữ $c$ với $k_c$: giữ, ghi chú phân biệt (chỉ số $c$ của $n_c$ là "chấm") — mở cho đợt sửa ký hiệu chung |
+| toán | nhẹ | C00 | cột Chi phí không ghi "mỗi véc-tơ" | sửa | "byte mỗi véc-tơ" ở cả bốn hàng |
+| toán | nhẹ | A00 | "trả $K$ điểm" lệch "tối đa $K$" của H09, I04 | sửa | A00 "trả tối đa $K$ điểm"; ghi chú A01: nếu trả ít hơn $K$ điểm, mẫu số vẫn là $K$ |
+| mạch | nghiêm trọng | C04, P05 | điều kiện chọn IVF-PQ không có ở vấn đề trung tâm; ghi chú sai; dòng 3–5 chép cột C00 | sửa | P05 Nhu cầu: 122,88 TB, ≈30,7 giây; dòng 6: 6 TB, 10 ms (giả định). C04 dòng 3–5 nêu điều kiện và con số trả lời (TB, giây, ms), dòng 6 nêu cả hai điều kiện; P01 câu hỏi đổi vì P05 đã nêu 30,7 giây |
+| mạch | trung bình | P03, A03, C00 (LSH) | kết nối Bài 06 chưa khớp: thiếu "ứng viên", "xác minh", bảo đảm xác suất; hàng LSH khác mô hình chi phí | sửa | P03 "LSH chỉ xác minh ứng viên cùng thùng với $q$; hàng xóm gần có thể bị bỏ sót (Bài 06)"; ghi chú P03 nêu biến thể truy vấn và $1-(1-p_1^r)^b$; C00 hàng LSH: $d(q,y)\le d_1$ được xác minh với xác suất $\ge1-(1-p_1^r)^b$; chi phí "số ứng viên × $D$; $12\,288+8b$ byte mỗi véc-tơ" |
+| mạch | trung bình | P05 dòng 3 ↔ C04 dòng 3 | dòng HNSW của P05 nói cực tiểu cục bộ, C04 trả lời bằng bộ nhớ | sửa | P05 "HNSW: đo ít đỉnh, đúng trên đỉnh đã thấy; giữ véc-tơ gốc."; C04 "HNSW, $M=16$: giữ véc-tơ gốc, khoảng 125,5 TB, vượt 6 TB." |
+| mạch | trung bình | A00 ↔ Q10 | đặc tả ANN chỉ nêu "đo một phần kho" | sửa | A00 "đo một phần kho hoặc đo xấp xỉ"; ghi chú nêu hai nguồn sai số tương ứng hai thừa số |
+| mạch | trung bình | toàn deck | "được đo" / "được chấm" đổi tên giữa các mạch | sửa | Q11 dòng Mô hình: "chấm một mã là phép đo xấp xỉ qua bảng tra"; trước Q11 dùng "đo" (P05, A03); từ Q11 trở đi "chấm" đã được định nghĩa |
+| mạch | trung bình | IT, mạch 5, C00/C04 | bộ nhớ IVF-PQ chưa tính trong mạch 5 | sửa | I03 dòng Mô hình nêu 8 + 512 byte mỗi phần tử, Kết luận có $(512+8)\cdot10^{10}$ byte $=5{,}2$ TB; ghi chú I03 thêm tâm thô và bộ mã; ghi chú IT nêu $(512+8)$ byte mỗi véc-tơ |
+| mạch | trung bình | storyboard | "Hành trình khái niệm", bản đồ mạch, hàng CT, mục C01–C02 chưa khớp | sửa | thêm thứ tự hiện hành (có H14, I05, C03–C05), đánh dấu bốn gạch cũ là bản 03/10/2026; bản đồ và hàng CT "Tổng kết và tự kiểm tra", trước C03; C01, C02 thêm dòng "Sửa 2026-10-14" và kết nối mới |
+| mạch | nhẹ | P03 dòng 4 | tên đầy đủ HNSW đặt ở trang tiên quyết | bác bỏ | P03 là trang đầu tiên sau bìa; bìa đã dùng "HNSW", nên tên đầy đủ phải xuất hiện ở trang kế tiếp; lý do đã ghi trong storyboard (hàng P03) |
+| mạch | nhẹ | P03, A03 (ghi chú) | câu phạm vi soạn bài | sửa | P03 thay bằng biến thể truy vấn và bảo đảm của LSH; A03 thay bằng "chỉ các ứng viên cùng thùng được xác minh, nên LSH giảm thừa số thứ nhất" |
+| mạch | nhẹ | C04, CT, P05 (ghi chú) | câu siêu dữ liệu về cách trình bày | sửa | bỏ ở C04 và P05; CT thay bằng câu về hai giả định ngân sách |
+| mạch | nhẹ | P00 (ghi chú) | "Cả hai cách" sau ba cấu trúc; "LSH chỉ đo phần tử cùng thùng" | sửa | "Cả ba cấu trúc"; "chỉ xác minh cặp cùng thùng" |
+| mạch | nhẹ | HT (ghi chú) | chữ hoa "Đồ"; "khoảng 125 TB" dễ hiểu là véc-tơ gốc | sửa | chữ thường; "vẫn giữ 122,88 TB véc-tơ gốc, toàn chỉ mục khoảng 125,5 TB" |
+| mạch | nhẹ | QT (ghi chú) | câu "mã hóa được ví dụ bốn chiều" tối nghĩa | sửa | "ví dụ bốn chiều được mã hóa bằng tay" |
+| mạch | nhẹ | I01, I05 | hai câu hỏi cùng kiểm việc bỏ lỡ $y_3$ | sửa | I01 hỏi "Với $nprobe=3$, danh sách nào được mở, danh sách nào không?" (lời giải $L_1$, $L_0$, $L_3$; $L_2$ không mở); giải thích $y_3$ giữ trong ghi chú I01 |
+| mạch | nhẹ | Q07 → Q06 | thiếu câu nối sang khoảng cách tính từ mã | sửa | ghi chú Q07 thêm "Kho chỉ còn mã, nên khoảng cách tới $q$ phải tính từ mã và bộ mã con." |
+| mạch | nhẹ | Q04 → Q05 | thứ tự định nghĩa/ví dụ khác cặp ADC | bác bỏ | Q05 dùng ký hiệu đoạn $x^{(j)}$, $k^*$ do Q04 định nghĩa; ghi lý do trong storyboard |
+| mạch | nhẹ | P03, toàn deck (quill) | một chữ cái nhiều nghĩa ($C$, $L$, $b$, $e$, $s$, $k$) | sửa một phần, mở | ghi chú Q00 phân biệt bộ mã $C$ với tập ứng viên $C$, số tâm $k$ với $K$; đổi $C$ thành $\mathcal C$ chạm nhiều trang và SVG nên để đợt sửa ký hiệu chung |
+| mạch | nhẹ | C05 | thiếu trang, năm, dòng MMDS | sửa | HNSW "(2018), mục 3–4, tr.1–8"; PQ "mục II–IV, tr.2–7"; thêm dòng Leskovec, Rajaraman, Ullman, ấn bản 3 (2020), Chương 3 |
+| mạch | nhẹ | RT | không có nhãn Thực hành | bác bỏ | trang tiêu đề mạch có khuôn riêng, không có ô nhãn; thêm `slide-badge-row` sẽ lệch khuôn chung của sáu trang tiêu đề mạch; R00–R08 có nhãn. Ghi trong storyboard |
+| mạch | nhẹ | toàn deck so với Bài 06 | "véc-tơ" (Bài 07) và "vector" (Bài 06) | mở | ngoài phạm vi lượt này theo quyết định chung; cần thống nhất giữa các bài trong đợt thuật ngữ |
+| sinh viên | trung bình | H10 | tiêu đề in hoa biến $x$ thành $X$ | sửa | tiêu đề "Ví dụ: chèn một điểm vào đồ thị ba tầng"; dòng dữ kiện "Điểm $x=2{,}6$, …" |
+| sinh viên | trung bình | Q00 | thiếu tọa độ $c_0$, $c_2$ trên mặt trang | sửa | thêm dòng "Tâm: $c_0=(0;\ 0)$, $c_1=(2;\ 0)$, $c_2=(0;\ 2)$." |
+| sinh viên | trung bình | Q05 | thiếu bốn tâm con | sửa | thêm dòng "Tâm con: đoạn 1 $(0;\ 2)$, $(2;\ 0)$; đoạn 2 $(0;\ 0)$, $(3;\ 0)$." |
+| sinh viên | trung bình | I05 | thiếu tập đúng $N_3(q)$ | sửa | dòng dữ kiện thêm "tập đúng $N_3(q)=\{y_8,y_3,y_7\}$" |
+| sinh viên | trung bình | H14, C03 | "đồ thị Delaunay" chưa giải nghĩa trên mặt trang | sửa | H14 (lần đầu): "đồ thị Delaunay chính xác (tham lam luôn tới điểm gần $q$ nhất)"; C03 dùng lại sau H14, trang ở trần 80 nên không thêm chữ |
+| sinh viên | trung bình | C04 | ngân sách không có số; ghi chú sai | sửa | như hai phát hiện của vai toán và mạch |
+| sinh viên | trung bình | CT | từ khóa 22 âm tiết | sửa | "Giả thiết · Bảo đảm và chi phí · Vấn đề trung tâm · Câu hỏi tự kiểm tra · Tài liệu đọc" (19) |
+| sinh viên | trung bình | H12 | hộp câu hỏi 22 âm tiết | sửa | "Giảm độ trễ mà không xây lại chỉ mục: chỉnh tham số nào, theo chiều nào, mất gì?" (17) |
+| sinh viên | trung bình | R08 | 9 dòng | sửa | gộp thành "Câu hỏi: vẽ recall@1 theo thời gian trung bình; giải thích xu hướng bằng số mã được chấm." (8 dòng); "năm phép đo" chuyển vào ghi chú |
+| sinh viên | nhẹ | P00 | luận đề 26 token | sửa | bỏ "(PQ)" (25); "(PQ)" chuyển sang mục tiêu 2 ở P02 |
+| sinh viên | nhẹ | Q04, H10 | mẩu dòng mồ côi | sửa | Q04 bỏ "($m$ chia hết $D$)" khỏi mặt trang (ghi chú đã có điều kiện $m\mid D$); H10 "ở các tầng $0,\ldots,\ell$" |
+| sinh viên | nhẹ | I02 | cảnh báo KaTeX chữ Việt | sửa | như phát hiện của vai toán |
+| sinh viên | nhẹ | Q00, Q02 ↔ H03–H06 | $C$ và $k$ trùng nghĩa | sửa một phần | câu phân biệt trong ghi chú Q00; đổi ký hiệu để đợt sửa chung |
+| sinh viên | nhẹ | H03B | hàng cuối gộp ba lần mở | sửa | dòng yêu cầu "… sau mỗi lần mở (ba lần mở cuối gộp một hàng)"; tách ba hàng sẽ vượt trần 8 dòng |
+| sinh viên | nhẹ | H03 (ghi chú) | khẳng định quá mạnh "không kẹt … khi chùm đủ rộng" | sửa | "ít kẹt ở cực tiểu cục bộ hơn tham lam; trên đồ thị ví dụ, $ef=3$ đủ để tới $z$" |
+| sinh viên | nhẹ | H11 | nhãn "So với $c1$" | sửa | "$d(\cdot,c1)$ so với $d(\cdot,x)$", đúng thứ tự hai vế trong ô |
+| sinh viên | nhẹ | C00 | "$12\,288+{\approx}265$ byte" khó đọc | sửa | "$\approx12\,553$ byte mỗi véc-tơ"; ghi chú nêu $12\,288+265$ |
+| sinh viên | nhẹ | I02 | "Phần dư nhỏ hơn $y$" | sửa | như phát hiện của vai toán |
+| sinh viên | nhẹ | R01–R08 | tiêu đề in hoa hiện "(A)" trong khi R05 nói "câu (a)" | sửa | R05 "dùng bảng ở trang (a)"; giữ nhãn (a)/(b)/(c) trong tiêu đề |
+| sinh viên | nhẹ | R07 | sát chân trang | sửa | bỏ hàng $nprobe/200$ của bảng (ghi chú đã có số mã được chấm); đáy nội dung 807/864 px ở 1600×900 |
+| sinh viên | nhẹ | H00, H01, H03, H03B, H06 (SVG) | chú giải SVG khoảng 11 px | bác bỏ | không sửa SVG trong lượt này (phạm vi); đọc được ở 1600×900; để đợt sửa hình |
+| sinh viên | nhẹ | H05, I04 (ghi chú) | "Khung để ngỏ …" lấy bố cục làm chủ ngữ | sửa | H05 "Giả mã chưa cho biết $W$ đúng theo nghĩa nào; bất biến SEARCH-LAYER trả lời điều đó."; I04 "Số mã được chấm phụ thuộc kích thước các danh sách mở." |
+| sinh viên | nhẹ | ghi chú diễn giả | nhiều ghi chú > 150 âm tiết | mở | các ghi chú được sửa trong lượt này đã rút phần nhắc lại (bản nháp C00 197 → 174, P03 197 → 167; H14 166 → 160, I03 172 → 158); còn 20 ghi chú trên 150, dài nhất H10B 196, H03 188, H05 187 (trang thuật toán và vết), C00 174 (tăng từ 159 vì thêm bảo đảm LSH); đều dưới 250; rút thêm có thể mất giả thiết hoặc lời giải |
+| sinh viên | nhẹ | C01 câu 3 | quy ước GB chỉ ở ghi chú | bác bỏ | suy ra được từ "1 TB là $10^{12}$ byte" ở P03; thêm vào dòng Quy ước làm P03 vượt trần 60 |
+| sinh viên | nhẹ | storyboard (mật độ) | số dòng thấp hơn hiển thị; câu "không dòng nào vượt 20" sai | sửa | đếm lại cột Dòng cho cả 65 trang bằng quy tắc mới (đoạn, mục, hàng bảng, hộp câu hỏi, đoạn chỉ có công thức); viết lại câu tổng hợp mật độ và mục ngoại lệ dòng |
+
+**Mật độ sau lượt sửa** (`python3 -I m07.py`). Trang trần 60: không trang nào vượt 60 (P05, A00, H14 bằng 60). Trang trần 80: không trang nào vượt 80 (C03 80, C00 77, C04 69, C05 64, I03 64). Dòng dài nhất ≤ 20 âm tiết trên mọi trang nội dung; câu luận đề 25 token; dòng dẫn tiêu đề mạch 21–23 (trần 25); từ khóa CT 19. Âm tiết các trang đổi: P00 50 → 49; P03 57 → 59; P02 47 → 50; P01 40 → 35; A00 56 → 60; H03B 28 → 35; H10 36 → 37; H12 69 → 65; H14 58 → 60; Q00 45 → 46; Q04 44 → 42; Q05 18 → 22; Q11 53 → 55; I01 13 → 15; I02 31 → 37; I05 24 → 26; I03 55 → 64; CT 44 → 41; C00 67 → 77; C04 65 → 69; C05 50 → 64; R07 42 → 33; R08 52 → 42; P05 60 → 60.
+
+**Tự kiểm no-ai-slop (Edit, đối chiếu `eval.md`).** Đạt: không câu siêu dữ liệu ("Các mục được đánh số theo mạch", "Phần tổng kết trả lời từng mục", "Khung để ngỏ"), không lời nói mô phỏng, không câu hỏi tu từ, không cường điệu; câu mới nêu con số, giả thiết hoặc phép tính cụ thể; không gạch ngang dài.
+
+**Kiểm kỹ thuật.** `git diff --check` sạch cho deck và ba tệp planning. HTML cân bằng (`html.parser`: 0 thẻ chưa đóng, 0 thẻ đóng sai); 65 `data-slide-id` duy nhất; 0 `<style>`, 0 thuộc tính `style=`, 0 `fragment`, 0 `.dense`; số dấu `$` chẵn trong mọi đoạn. Playwright Chromium, máy chủ cổng 8771, `wait_until="load"`, tắt chuyển cảnh; bộ lọc console bắt cả `error` và `warning` của KaTeX (đã thử: một lệnh `katex.renderToString('\\text{với}')` sinh hai cảnh báo và bộ lọc bắt được).
+- 1600×900: duyệt cả 65 trang; 0 lỗi console, 0 cảnh báo KaTeX, 0 lỗi trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung. Trang sát đáy: P01 852/864 px (câu hỏi mới, không tràn), H07 828, R07 807.
+- 390×844: 0 phần tử vượt mép phải, `scrollWidth` = `clientWidth` = 390, 0 lỗi, 0 `.katex-error`.
+- Ảnh đã tự xem (1600×900): P01, P03, P05, A00, H10, H11, H12, H14, Q00, Q05, Q10, Q11, I01, I02, I03, I05, C00, C03, C04, C05, CT, R07, R08; 390×844: P05, C04, Q00, I03, C00, H14. Ảnh trong scratchpad của phiên.
+
+**Tác động tới ghi chú bài giảng.** Không sửa trong lượt này. Cần đồng bộ ở đợt sửa ghi chú: ngân sách giả định 6 TB, 10 ms và câu trả lời bằng TB, giây; bảo đảm LSH trong bảng so sánh; "phần dư thường nhỏ hơn"; định nghĩa "chấm một mã".
+
+### Sửa nhỏ cuối sau rà lại (2026-10-14)
+
+Căn cứ: báo cáo rà lại chỉ đọc các trang đổi (`recheck-d07.md`) và quyết định của điều phối viên `fix-d07b.md`. Cùng vai sửa (tác tử `fork`, Opus 5.5, effort `high`); không commit.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Cách xử lý, lý do |
+|---|---|---|---|---|---|
+| rà lại | trung bình | C00 | $b=8$ (bit PQ) trùng $b$ (số dải LSH) trên cùng trang | sửa | bỏ $b=8$, ghi "mã PQ 512 byte"; ô IVF-PQ "$k_c$, $nprobe$, mã PQ"; giữ $b$ cho LSH như Bài 06; rút ô PQ và ô Bảo đảm HNSW để giữ 79/80 |
+| rà lại | trung bình | P05 | 30,7 giây phụ thuộc giả định $10^{12}$ lượt/giây chưa nêu trên trang | sửa | dòng cuối nêu đủ "$10^{12}$ lượt/giây, 6 TB, dưới 10 ms (giả định)"; dòng 2 rút; 59/60 |
+| rà lại | nhẹ | H14 | ngoặc nêu tính chất, không nêu định nghĩa Delaunay | sửa | "(nối điểm có ô Voronoi kề nhau)"; tính chất ở ghi chú |
+| rà lại | nhẹ | ghi chú C04, P05 | còn câu tả bố cục | sửa | C04 "Kết luận chọn IVF-PQ có điều kiện."; P05 "Đặc tả gần đúng cho phép chỉ mục thiếu hàng xóm thật…", "Lựa chọn chỉ mục đổi theo…" |
+| rà lại | nhẹ | Q09 | "chấm" trên mặt trang trước định nghĩa ở Q11 | bác bỏ | Q09 định nghĩa phép chấm bằng công thức $\sum_jT[j,i_j]$ ngay trên trang; Q11 nêu thêm rằng chấm một mã là phép đo xấp xỉ |
+| rà lại | nhẹ | storyboard | câu dẫn "Hành trình khái niệm" nói sai vị trí bản cũ | sửa | "Sáu gạch … thứ tự hiện hành; bốn gạch dưới nhãn "Bản 03/10/2026" giữ để đối chiếu." |
+
+**Kiểm.** `git diff --check` sạch. Mật độ: P05 59/60, C00 79/80, H14 60/60, C04 69/80; mọi dòng ≤ 20 âm tiết. Playwright 1600×900 và 390×844 trên cả 65 trang: 0 lỗi console, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn khung. Ảnh đã tự xem: C00, P05, H14, C04 (1600×900).
