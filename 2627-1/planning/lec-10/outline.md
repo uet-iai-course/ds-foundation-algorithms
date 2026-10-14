@@ -91,3 +91,16 @@ Tất cả hình được vẽ lại bằng SVG trong `2627-1/img/lec-10/`: cây
 | `L10-N10` | cốt lõi | Bài tập củng cố | Hai ví dụ Nelson–Gailly chuyển thành bài luyện và CMU Assignment 1a P3; tạo vết có thể tự kiểm. |
 
 Không thêm chủ đề `bổ sung` hoặc `đọc thêm`. `L10-N08` được giữ làm `cầu nối` vì thiếu nó thì độ rộng khoảng chưa giải thích được số bit và bài CMU chưa có đại lượng để đối chiếu. Ghi chú dùng cùng ký hiệu, giả thiết và thứ tự khái niệm với deck; không có thay đổi nội dung dùng chung buộc phải sửa deck.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 54 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Mã Huffman tĩnh | HT | H00 |
+| 3 | Huffman thích nghi | AT | A00 |
+| 4 | Mã hóa số học | RT | R00 |
+| 5 | Tổng kết và tự kiểm tra | ST | S00 |
+| 6 | Bài tập vận dụng | XT | X00 |
