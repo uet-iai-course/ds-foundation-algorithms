@@ -98,3 +98,17 @@ Ghi chú giữ cùng ký hiệu và tuyến lập luận với bộ trang chiế
 | `L12-N12` | cốt lõi | Ba bài từ giáo trình | N03–N11 | Trình bày vết, đánh đổi và cấu trúc tra cứu | Bài 15.1, 15.9, 13.5 |
 
 Đồ thị tiên quyết: `N01→N02→N03→N04→N05→N06→N07`; từ N07 tách thành `N08` và `N09→N10`, rồi hội tụ ở `N11→N12`. Không thêm chủ đề ngoài nguồn. Hai công thức đệm dài là hệ quả của phân bổ khung; lịch ba khung ở Bài 15.1 chỉ là biến thể nguồn trong đúng trường hợp một bản ghi mỗi khối.
+
+## Tên mạch và trang tiêu đề mạch (2026-10-14)
+
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 60 trang.
+
+| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
+|---:|---|---|---|
+| 1 | Mở đầu | P00 (trang bìa) | — |
+| 2 | Mô hình I/O theo khối | IT | I00 |
+| 3 | Sắp xếp trộn ngoài | ST | S00 |
+| 4 | Ghi tệp, truyền dòng và chi phí I/O | QT | Q00 |
+| 5 | Tạo dãy dài hơn bằng chọn thay thế | RT | R00 |
+| 6 | Tổng kết và chuyển tiếp | TT | T00 |
+| 7 | Bài tập vận dụng | XT | X00 |

@@ -6,6 +6,26 @@ Quan hệ cần `ORDER BY` (`I00`) → khối và khung (`I01–I05`) → hai th
 
 Đầu vào xuyên suốt là bảng $N$ khối cần sắp theo khóa. Vết chính dùng nguyên 12 bản ghi của bài 15.1, một bản ghi mỗi khối, $N=12$, $B=3$, $k=2$, $r_0=4$, $p=2$. Bốn dãy ở `S02` đi vào ví dụ trộn `S06`, cây `S10`, hai công thức `S12–S14` và recitation `X01–X04`. Ký hiệu $H$ là số bản ghi vừa vùng heap; chỉ trong vết một bản ghi/khối mới có cùng giá trị số $H=B=3$.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 53 → 60 trang.
+
+Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Mô hình I/O theo khối (`IT`); 3. Sắp xếp trộn ngoài (`ST`); 4. Ghi tệp, truyền dòng và chi phí I/O (`QT`); 5. Tạo dãy dài hơn bằng chọn thay thế (`RT`); 6. Tổng kết và chuyển tiếp (`TT`); 7. Bài tập vận dụng (`XT`).
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P01 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
+| IT | Mô hình I/O theo khối | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước I00 | ORDER BY trên bảng lớn hơn RAM | Đơn vị $N$, $B$, chi phí theo lần truyền khối | ngoài chu trình khái niệm; tên khác tiêu đề I00 | 0,5 (từ I00) | thêm |
+| ST | Sắp xếp trộn ngoài | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước S00 | Mô hình I/O, một khung đầu ra | $r_0$, $k$, bất biến trộn, số lượt $p$ | ngoài chu trình khái niệm; tên khác tiêu đề S00 | 0,5 (từ S00) | thêm |
+| QT | Ghi tệp, truyền dòng và chi phí I/O | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước Q00 | $r_0$, $k$, $p$ | $C_{\mathrm{mat}}$, $C_{\mathrm{pipe}}$, chi phí CPU và bộ nhớ | ngoài chu trình khái niệm; tên khác tiêu đề Q00 | 0,5 (từ Q00) | thêm |
+| RT | Tạo dãy dài hơn bằng chọn thay thế | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước R00 | Muốn giảm $r_0$ | Chọn thay thế, bất biến dãy không giảm | ngoài chu trình khái niệm; tên khác tiêu đề R00 | 0,5 (từ R00) | thêm |
+| TT | Tổng kết và chuyển tiếp | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước T00 | Bốn phần trước | Chuỗi $B\to(r_0,k)\to p\to C$ và bản đồ giải bài | ngoài chu trình khái niệm; tên khác tiêu đề T00 | 0,5 (từ T00) | thêm |
+| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước X00 | Bản đồ giải bài | Bài 15.1, 15.9, 13.5 của Database System Concepts | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+
+Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–7) ngay sau trang mục tiêu P01 (đứng ngay sau trang bìa), tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 38 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+
+Trang P02 "Mạch của bài" giữ nguyên; nó mô tả bốn phần nội dung bằng thẻ, không đánh số, không gồm mạch mở đầu, tổng kết và bài tập nên không thay được trang Nội dung. Hai trang chồng chức năng một phần; việc gộp P02 vào trang Nội dung hoặc vào trang Vấn đề trung tâm để đợt sau. Mạch 6 đặt tên "Tổng kết và chuyển tiếp" theo `AGENTS.md`, vì T00–T01 thu hồi tình huống và nêu bản đồ giải bài, chưa có câu hỏi tự kiểm tra.
+
 ## Bảy mạch trình bày
 
 | Mạch | Trang | Chức năng | Kết nối vào | Kết nối ra | Đóng góp mục tiêu |
