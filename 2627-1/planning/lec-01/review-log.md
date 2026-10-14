@@ -28,6 +28,11 @@ Kiểm tra: section mở/đóng 84/84; 77 `data-slide-id` và 6 `id` duy nhất.
 
 Sau rà lại độc lập (báo cáo đọc lại đợt 1, không có phát hiện chặn bàn giao hoặc nghiêm trọng), sửa hai điểm. (1) Mức trung bình: từ khóa của L01-DT là "MapReduce · PageRank · MinHash và LSH · Dòng dữ liệu · Nén và đọc ghi", năm cụm dưới tên "Năm nhóm thuật toán của học phần" nhưng không khớp năm nhóm. Đổi thành "Phân tán và xếp hạng · Tương đồng và tìm gần · Dòng và cửa sổ · Nén và khôi phục · Lưu trữ và truy vấn", đúng từng chữ với năm nhãn nhóm trên hình của L01-D02 (`ban-do-hoc-phan.svg`). Notes của L01-D02 dùng tên ngắn hơn (tương đồng; dòng dữ liệu; nén); chọn tên trên mặt hình vì đó là chữ sinh viên thấy trên trang. (2) Mức nhẹ: ghi ngoại lệ tạm thời về mật độ của L01-P01 (89–95 âm tiết, trần 80) vào storyboard, cả mục bổ sung và hàng L01-P01; tách trang ở đợt sau. Kiểm lại: `#/4` vẫn mở `mach-4`, khối tiêu đề không tràn khung ở 1600×900; `git diff --check` sạch.
 
+
+### Sửa sau rà lại đợt 2 (2026-10-14)
+
+Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 6 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
 ## ER-004 — R, bài tập về phép đếm và suy luận
 
 ER-004 hoàn tất. Bốn commit nội dung đã push riêng và xác nhận bằng git ls-remote: D `9ca7a455a9738a170a28906a8216a4d36458ed04`, E `b2ab434932e073702fdc7a4981aff3a07d5dc19a`, F `ea364a09a64718cdbdd309eb88111d9495c4719a`, R `7cb48d523e3d22b0e70769c51edd9668ddc3aa23`. Lượt Chromium cuối sau bổ sung nguồn trong Markdown vẫn đạt toàn bộ 71 trang và viewer; sáu khối bài tập giữ nguyên. Checklist chỉ được tick sau xác nhận push. Bản cập nhật trạng thái không thay học liệu đã kiểm định.
