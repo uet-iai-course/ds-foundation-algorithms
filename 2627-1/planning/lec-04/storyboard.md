@@ -1,5 +1,7 @@
 # Storyboard mới Bài 04: PageRank theo chủ đề, liên kết rác và HITS
 
+**Bản hiện hành (2026-10-14).** Deck có 63 trang: 59 trang giảng (120 phút) và 4 trang bài tập (60 phút); bảy mạch 8/15/9/8/12/7/4 trang, 12/30/19/17/29/13 + 60 phút; mạch 6 tên "Tổng kết và tự kiểm tra", mạch 7 "Bài tập vận dụng"; trang Nội dung là `lec04-s01-08`. Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" và mục "Lượt sửa sau ba báo cáo rà (2026-10-14)". Đoạn ngày soạn ("58 trang"), quy ước "50 slide giảng … 3 slide recitation", bảng "Bản đồ phần và kiểm tra" và các phiếu chi tiết phía dưới là bản trước đợt sửa, giữ để đối chiếu.
+
 Ngày soạn: 27/09/2026; cập nhật làm rõ nội dung: 29/09/2026; duyệt từng trang: 01/10/2026. Các phiếu dưới đây phản ánh bản HTML hiện tại gồm 58 trang: 52 trang nội dung (49 trang giảng, 3 trang bài tập) và 6 trang tiêu đề mạch thêm ngày 14/10/2026. Kết quả kiểm định từng phiên được lưu trong review-log.md.
 
 Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide MMDS, Stanford và Cambridge chỉ đối chiếu cách minh họa; không quyết định lại mạch sách. Đọc cùng [outline.md](outline.md) để tra mã NG, MT, HT, VD và bản đồ quyết định; xem [review-log.md](review-log.md) cho sai khác nguồn và các lượt rà độc lập.
@@ -27,6 +29,165 @@ Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide M
 
 Từ 14/10/2026, mỗi phần S02–S07 mở bằng trang tiêu đề mạch `lec04-s0N-00` (`class="strand-title"`, `id="mach-N"`; mã `-00` chưa có trong bài). Tên mạch trùng từng chữ với danh sách trên lec04-s01-02, đã đánh số từ trước nên không sửa. Thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch; tổng 120 + 60 phút không đổi. Phiếu của sáu trang nằm ở đầu từng phần.
 
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06; quyết định của điều phối viên (mục "Bài 04" và "Chung cho mọi bài"). Deck 58 → 63 trang: 59 trang giảng (120 phút), 4 trang bài tập (60 phút); bảy mạch 8/15/9/8/12/7/4. Bảng dưới là thứ tự, quyết định, âm tiết và thời lượng hiện hành; các phiếu "Phiếu từng trang chiếu" phía dưới là bản kế hoạch trước đợt sửa, mỗi phiếu cũ có thêm dòng **Sửa 2026-10-14**. Mặt trang và ghi chú hiện hành nằm trong tệp HTML. Thời lượng chỉ ghi ở storyboard, không trong ghi chú diễn giả.
+
+| Mạch | Tên (khớp trang Nội dung) | Số trang | Phút | Vai trò chu trình của trang mở mạch |
+|---|---|---:|---:|---|
+| 1 | Bài toán xếp hạng liên kết | 8 | 12 | bìa là trang tiêu đề mạch mở đầu |
+| 2 | PageRank theo chủ đề | 15 | 30 | trang tiêu đề mạch là bước `vấn đề` của PageRank theo chủ đề |
+| 3 | Cơ chế liên kết rác | 9 | 19 | bước `vấn đề` của mô hình cụm thao túng |
+| 4 | TrustRank và Spam Mass | 8 | 17 | bước `vấn đề` của TrustRank |
+| 5 | HITS | 12 | 29 | bước `vấn đề` của HITS |
+| 6 | Tổng kết và tự kiểm tra (cũ: So sánh các phương pháp xếp hạng) | 7 | 13 | ngoài chu trình khái niệm |
+| 7 | Bài tập vận dụng (cũ: Bài tập) | 4 | 60 | ngoài chu trình khái niệm |
+
+**Phân bổ thời gian.** Phần giảng 59 trang trong 120 phút, khoảng 2 phút mỗi trang; không phần nào chuyển sang đọc thêm. Tổng 12 + 30 + 19 + 17 + 29 + 13 = 120 phút; so với trước (12/30/20/18/30/10), mạch 6 thêm 3 phút cho ba trang tổng kết, bù bằng một phút ở mỗi mạch 3, 4, 5 (rút ở trang vấn đề và trang câu hỏi, không rút ví dụ, vết chạy hay chứng minh). Bài tập 0,5 + 19,5 + 20 + 20 = 60 phút.
+
+Âm tiết đếm bằng biến thể của `scratchpad/tools/density.py` có tính trang đầu mỗi section ngoài và bỏ công thức `$…$` (`python3 -I m04.py 2627-1/lecture-04-pagerank-theo-chu-de-lien-ket-rac-va-hits.html`). Cột "trước" ghi số gồm dòng nguồn / bỏ dòng nguồn.
+
+| # | Mã | Tiêu đề hiện hành | Quyết định | Âm tiết trước → sau | Trần | Dòng | Phút | Lý do |
+|---:|---|---|---|---|---:|---:|---:|---|
+| 1 | `lec04-s01-01` | Bài 04PageRank theo chủ đề,liên kết rác và HITS | `sửa` | 13 / 13 → 45 | — | 4 | 0,5 | câu luận đề bản ngắn (quyết định 7); dòng đơn vị; học kỳ theo Bài 06; giữ "Bài 04" trong h1 vì bìa không tràn |
+| 2 | `lec04-s01-07` | Tiên quyết và quy ước | `thêm` | — → 57 | 60 | 5 | 1,5 | mạch mở đầu bắt buộc có Tiên quyết và quy ước; đổi tên bước nhảy thành dịch chuyển; \(\ell\) thay \(m\); sửa sau rà: ghi chú $T_{\max}\to K$ |
+| 3 | `lec04-s01-02` | Mục tiêu học tập | `tách` | 61 / 58 → 78 | 80 | 5 | 1 | trang gộp Nội dung và mục tiêu; năm mục tiêu quan sát được |
+| 4 | `lec04-s01-08` | Nội dung | `thêm` | — → 44 | 80 | 8 | 0,5 | Nội dung tách từ s01-02; mạch 6, 7 đổi tên; Đọc trước |
+| 5 | `lec04-s01-05` | Vấn đề trung tâm | `gộp` | 94 / 91 → 60 | 60 | 6 | 1,5 | "Ba yêu cầu xếp hạng liên kết" (91 âm tiết, nghiêm trọng) gộp vào Vấn đề trung tâm, dùng lại mã (quyết định 1); danh sách không đánh số như Bài 05, 06; sửa sau rà: Nhu cầu phủ ba giới hạn |
+| 6 | `lec04-s01-03` | Truy vấn đa nghĩa | `sửa` | 74 / 71 → 58 | 60 | 5 | 2 | bỏ bốn khung nhấn; Nhu cầu, Đầu vào, Đầu ra, một Kết luận |
+| 7 | `lec04-s01-04` | Lưu PageRank riêng cho từng người dùng | `sửa` | 60 / 57 → 47 | 60 | 3 | 2 | đổi tiêu đề vì trang không có mô hình đếm; bỏ nhãn "Phương án trực tiếp:"; khung kết luận ba câu thành một dòng; sửa sau rà: Kết luận không lặp s01-05; câu nối sang s01-06 |
+| 8 | `lec04-s01-06` | Câu hỏi về phép truyền điểm | `sửa` | 39 / 35 → 30 | 60 | 5 | 3 | tiêu đề "Câu hỏi về …"; câu hỏi tách hai ý; câu đổi tên dịch chuyển chuyển lên s01-07; sửa sau rà: ghi chú "dịch chuyển", Hình 5.1 tr.178 |
+| 9 | `lec04-s02-00` | 2.PageRank theo chủ đề | `giữ` | 36 / 36 → 36 | — | 2 | 0,5 | dòng dẫn và từ khóa đạt chuẩn; sửa sau rà: ghi chú giao đầu ra cho mạch 3 |
+| 10 | `lec04-s02-01` | Dịch chuyển vào tập chủ đề | `sửa` | 50 / 47 → 58 | 60 | 4 | 1,5 | dòng Nhu cầu có số; "Lưu ý:" có nhãn |
+| 11 | `lec04-s02-02` | Ví dụ: đồ thị bốn trang, tập chủ đề {B, D} | `sửa` | 44 / 38 → 40 | 60 | 4 | 2 | tiêu đề "Ví dụ: đồ thị bốn trang, …" (quyết định 3); "Diễn giải:" |
+| 12 | `lec04-s02-03` | Ví dụ: đồ thị bốn trang, vòng 1 | `sửa` | 32 / 27 → 27 | 60 | 7 | 2,5 | tiêu đề ví dụ; ngoại lệ bảng vết 4 hàng |
+| 13 | `lec04-s02-04` | Ví dụ: đồ thị bốn trang, vòng 2 và điểm cố định | `sửa` | 42 / 37 → 29 | 60 | 7 | 2,5 | tiêu đề ví dụ; một Kết luận; dòng $r^*$ sang ghi chú |
+| 14 | `lec04-s02-05` | Thuật toán: PageRank theo chủ đề | `sửa` | 41 / 38 → 46 | 60 | 5 | 2,5 | tiêu đề "Thuật toán: …"; Đầu vào/Đầu ra in đậm; sửa sau rà: nhãn số hạng ra ngoài công thức |
+| 15 | `lec04-s02-06` | Thuật toán: PageRank theo chủ đề | `sửa` | 25 / 22 → 12 | 60 | 1 | 3 | tiêu đề "Thuật toán: …"; câu dẫn một câu; ghi chú đọc giả mã; sửa sau rà: ghi chú giải thích out[j] |
+| 16 | `lec04-s02-07` | Tính đúng: PageRank theo chủ đề | `sửa` | 42 / 39 → 34 | 60 | 7 | 2,5 | tiêu đề "Tính đúng: …"; Bất biến; hàng Tổng; một Kết luận |
+| 17 | `lec04-s02-08` | Hội tụ và cận sai số khi dừng | `sửa` | 62 / 53 → 50 | 60 | 5 | 2,5 | khuôn trang kết quả: Nhắc lại, Mệnh đề., Chứng minh., Ý nghĩa:; tách hai dòng > 20; sửa sau rà: "Ký hiệu:" cho $\bar M$ |
+| 18 | `lec04-s02-09` | Ký hiệu cho nhiều chủ đề | `sửa` | 45 / 41 → 41 | 60 | 5 | 1 | nhãn Ký hiệu: |
+| 19 | `lec04-s02-11` | Tiền tính và xử lý truy vấn | `sửa` | 67 / 64 → 51 | 60 | 5 | 2 | Nhu cầu; hai thẻ có chữ thành cột thường; một Kết luận |
+| 20 | `lec04-s02-09a` | Tính tuyến tính theo phân phối dịch chuyển | `sửa` | 58 / 47 → 27 | 60 | 6 | 2 | Mệnh đề., Chứng minh., Ý nghĩa:; bỏ khung kết luận |
+| 21 | `lec04-s02-10` | Chi phí: tiền tính theo chủ đề | `tách` | 85 / 75 → 56 | 80 | 7 | 1,5 | bảng không theo khuôn, 10 dòng, hai thẻ có chữ; tách thành tiền tính (s02-10) và truy vấn (s02-14) (quyết định 6) |
+| 22 | `lec04-s02-14` | Chi phí: xử lý truy vấn | `thêm` | — → 53 | 80 | 5 | 1 | tách từ s02-10: bảng Bước | Số lần | Chi phí mỗi lần | Đóng góp cho xử lý truy vấn |
+| 23 | `lec04-s02-12` | Câu hỏi về PageRank theo chủ đề | `sửa` | 23 / 17 → 17 | 60 | 6 | 3 | tiêu đề "Câu hỏi về …" |
+| 24 | `lec04-s03-00` | 3.Cơ chế liên kết rác | `giữ` | 38 / 38 → 38 | — | 2 | 0,5 | dòng dẫn và từ khóa đạt chuẩn |
+| 25 | `lec04-s03-01` | Liên kết rác | `sửa` | 78 / 75 → 59 | 60 | 4 | 1,5 | 78 → ≤ 60; bỏ ba thẻ và khung "Vấn đề:"; định nghĩa liên kết rác (link spam) bằng "là" |
+| 26 | `lec04-s03-02` | Cụm thao túng liên kết | `sửa` | 33 / 29 → 44 | 60 | 4 | 2 | định nghĩa cụm thao túng liên kết (spam farm); Giả thiết in đậm |
+| 27 | `lec04-s03-03` | Điểm của một trang hỗ trợ | `sửa` | 47 / 44 → 44 | 60 | 6 | 2,5 | Ký hiệu in đậm |
+| 28 | `lec04-s03-04` | Ba nguồn điểm tại trang đích | `sửa` | 46 / 43 → 38 | 60 | 6 | 2,5 | dòng định nghĩa $x$ rút ≤ 20 |
+| 29 | `lec04-s03-05` | Điểm cố định của trang đích | `sửa` | 33 / 30 → 43 | 60 | 6 | 3 | Ý nghĩa: có nhãn; sửa sau rà: chữ ra ngoài công thức; dòng "Bước 1…; bước 2…" chuyển vào ghi chú (sửa cuối 2026-10-14); 6 dòng theo `AGENTS.md`: đoạn dẫn, khối mũi tên, đoạn "Với…", hai khối $y=\dots$, Ý nghĩa |
+| 30 | `lec04-s03-06` | Hệ số khuếch đại của cụm | `sửa` | 50 / 45 → 36 | 60 | 7 | 3 | khung kết luận thành một dòng Kết luận |
+| 31 | `lec04-s03-07` | Hai hướng chống liên kết rác | `sửa` | 86 / 83 → 56 | 60 | 4 | 1,5 | 83 → ≤ 60; thẻ có chữ thành cột thường; "Giới hạn:" thành "Lưu ý:"; sửa sau rà: "MMDS Hình 5.16" |
+| 32 | `lec04-s03-08` | Câu hỏi về cụm thao túng liên kết | `sửa` | 59 / 56 → 42 | 60 | 4 | 2,5 | tiêu đề "Câu hỏi về …"; hai câu ≤ 20 âm tiết; sửa sau rà: "của MMDS"; câu nối ra |
+| 33 | `lec04-s04-00` | 4.TrustRank và Spam Mass | `giữ` | 34 / 34 → 34 | — | 2 | 0,5 | dòng dẫn và từ khóa đạt chuẩn |
+| 34 | `lec04-s04-01` | TrustRank | `sửa` | 62 / 59 → 59 | 60 | 4 | 1,5 | Nhu cầu; định nghĩa bằng "là"; "Cơ sở:" thành "Giả thiết:"; ghi chú rút 241 → khoảng 160 |
+| 35 | `lec04-s04-02a` | Thuật toán: TrustRank | `sửa` | 40 / 29 → 40 | 60 | 5 | 3,5 | tiêu đề "Thuật toán: TrustRank"; Đầu vào/Đầu ra; chu trình rút gọn (vết dùng lại mạch 2); sửa sau rà: nhãn số hạng ra ngoài công thức |
+| 36 | `lec04-s04-03` | Ví dụ: TrustRank trên đồ thị bốn trang | `sửa` | 41 / 36 → 34 | 60 | 7 | 1 | tiêu đề "Ví dụ: …"; Kết luận ≤ 20; sửa sau rà: Kết luận viết rõ vai trò tập tin cậy |
+| 37 | `lec04-s04-04` | Ví dụ: hiệu PageRank và TrustRank trên đồ thị bốn trang | `sửa` | 47 / 40 → 35 | 60 | 7 | 2,5 | tiêu đề "Ví dụ: …"; "Ý tưởng:" thành "Nhu cầu:"; Kết luận; sửa sau rà: cột "PageRank nền (Bài 03)" |
+| 38 | `lec04-s04-05` | Chỉ số Spam Mass | `sửa` | 48 / 41 → 41 | 60 | 6 | 3 | Định nghĩa.; bảng gộp hàng B, D; Diễn giải: |
+| 39 | `lec04-s04-06` | Chi phí: Spam Mass | `sửa` | 55 / 52 → 46 | 80 | 7 | 2 | tiêu đề "Chi phí: …"; Mô hình; bảng khuôn bốn cột với $K_r$, $K_\rho$ |
+| 40 | `lec04-s04-07` | Câu hỏi về Spam Mass | `sửa` | 54 / 47 → 46 | 60 | 4 | 3 | tiêu đề "Câu hỏi về …"; tách câu > 20; sửa sau rà: $\rho_C=19/105$; "MMDS Ví dụ 5.2" |
+| 41 | `lec04-s05-00` | 5.HITS | `giữ` | 37 / 37 → 37 | — | 2 | 0,5 | dòng dẫn và từ khóa đạt chuẩn |
+| 42 | `lec04-s05-01` | Trang trung tâm và trang uy tín | `sửa` | 82 / 77 → 57 | 60 | 4 | 1,5 | 82 → ≤ 60; Nhu cầu; định nghĩa uy tín, trung tâm bằng "là"; tách ba dòng > 20 |
+| 43 | `lec04-s05-02` | Định nghĩa tương hỗ của hai điểm | `sửa` | 64 / 58 → 47 | 60 | 5 | 2 | rút dòng 21; câu nút cụt sang ghi chú |
+| 44 | `lec04-s05-03` | Ví dụ: đồ thị năm trang, bước uy tín thứ nhất | `sửa` | 48 / 43 → 36 | 60 | 8 | 3 | tiêu đề "Ví dụ: đồ thị năm trang, …"; dòng cuối ≤ 20; ngoại lệ bảng vết |
+| 45 | `lec04-s05-04` | Ví dụ: đồ thị năm trang, bước trung tâm thứ nhất | `sửa` | 39 / 34 → 34 | 60 | 8 | 3 | tiêu đề ví dụ; ngoại lệ bảng vết |
+| 46 | `lec04-s05-05` | Ví dụ: đồ thị năm trang, vòng thứ hai | `sửa` | 34 / 29 → 28 | 60 | 8 | 2,5 | tiêu đề ví dụ; một Kết luận; sửa sau rà: gộp hai dòng, 8 dòng |
+| 47 | `lec04-s05-06` | Ma trận liên kết của HITS | `sửa` | 35 / 31 → 35 | 60 | 7 | 3 | định nghĩa $L$ bằng "là"; sửa sau rà: ghi chú lý do dùng ma trận |
+| 48 | `lec04-s05-07` | Chuẩn hóa điểm HITS | `sửa` | 68 / 65 → 43 | 60 | 4 | 2 | 68 → ≤ 60; Định nghĩa., Ý nghĩa:, Ví dụ., Lưu ý: |
+| 49 | `lec04-s05-08` | Thuật toán: HITS | `sửa` | 38 / 35 → 15 | 60 | 2 | 3,5 | tiêu đề "Thuật toán: HITS"; Đầu vào/Đầu ra trước giả mã; sửa sau rà: ghi chú chuẩn cực đại |
+| 50 | `lec04-s05-09` | Điểm ổn định của HITS | `sửa` | 63 / 55 → 57 | 60 | 4 | 3 | Giả thiết rồi một Kết luận; tách dòng 35 âm tiết; sửa sau rà: vector riêng ứng với trị riêng lớn nhất; không gian riêng một chiều |
+| 51 | `lec04-s05-10` | Chi phí: HITS mỗi vòng | `sửa` | 76 / 68 → 54 | 80 | 8 | 2 | tiêu đề "Chi phí: HITS mỗi vòng"; Mô hình; bảng bốn cột với hàng Tổng $2\ell+\Theta(n)$ |
+| 52 | `lec04-s05-11` | Câu hỏi về HITS | `sửa` | 56 / 49 → 45 | 60 | 5 | 3 | tiêu đề "Câu hỏi về HITS"; câu 2 ≤ 20; sửa sau rà: câu nối ra |
+| 53 | `lec04-s06-00` | 6.Tổng kết và tự kiểm tra | `sửa` | 37 / 37 → 40 | — | 2 | 0,5 | tên mạch "Tổng kết và tự kiểm tra"; dòng dẫn, từ khóa, ghi chú; sửa sau rà: từ khóa có "Câu trả lời" |
+| 54 | `lec04-s06-05` | Kết quả và giả thiết không được bỏ | `thêm` | — → 75 | 80 | 7 | 2,5 | bảng Kết quả | Giả thiết không được bỏ | Công thức hoặc thuật toán bắt buộc; không chứa lời giải câu tự kiểm tra; sửa sau rà: $r^0$ phân phối; $v=\sum_jw_jv^{(j)}$; dịch chuyển đều $b$; HITS trị riêng lớn nhất |
+| 55 | `lec04-s06-01` | Thuật toán, bảo đảm và chi phí | `sửa` | 87 / 84 → 69 | 80 | 5 | 2 | đổi vai trò thành "Thuật toán, bảo đảm và chi phí" (bảng bốn cột); sửa sau rà: cận sai số dạng phân số |
+| 56 | `lec04-s06-02` | Câu trả lời cho vấn đề trung tâm | `sửa` | 81 / 78 → 76 | 80 | 6 | 2,5 | đổi vai trò thành "Câu trả lời cho vấn đề trung tâm"; ghi chú bỏ câu về số vòng và thời gian (lời giải câu tự kiểm tra 2); sửa sau rà: $r^*$ của $v=\sum_jw_jv^{(j)}$; đọc Spam Mass so với 1; Kết luận thu hồi các mạch |
+| 57 | `lec04-s06-03` | Câu hỏi tự kiểm tra | `sửa` | 62 / 59 → 47 | 60 | 3 | 2,5 | "Câu hỏi tự kiểm tra"; bỏ hai khung; câu ≤ 20; lời giải nêu kết quả đã dùng; sửa sau rà: câu 1 không ngắt công thức |
+| 58 | `lec04-s06-04` | Câu hỏi tự kiểm tra | `sửa` | 77 / 74 → 59 | 60 | 4 | 2,5 | như s06-03; ol start=3; sửa sau rà: "MMDS Hình 5.16"; ghi chú số hạng $b$ |
+| 59 | `lec04-s06-06` | Nguồn và tài liệu đọc | `thêm` | — → 41 | 80 | 4 | 0,5 | trang nguồn: MMDS, mmds.org, CS246, Teufel, liên kết viewer; không dòng nối Bài 05 vì `sources/source.md` không nêu quan hệ |
+| 60 | `lec04-s07-00` | 7.Bài tập vận dụng | `sửa` | 23 / 23 → 34 | — | 2 | 0,5 | tên "Bài tập vận dụng"; từ khóa là cụm danh từ chủ đề (quyết định 2) |
+| 61 | `lec04-s07-01` | Bài tập: PageRank với hai tập dịch chuyển | `sửa` | 70 / 65 → 65 | 80 | 5 | 19,5 | tiêu đề "Bài tập: …"; bỏ dòng số bài đầu trang; "Sản phẩm:" thành câu mệnh lệnh; dòng Nguồn; bỏ thời lượng; sửa sau rà: $\beta=4/5$; "MMDS Ví dụ 5.10" |
+| 62 | `lec04-s07-02` | Bài tập: biến thể cụm thao túng | `sửa` | 74 / 69 → 56 | 80 | 4 | 20 | như s07-01; sửa sau rà: "MMDS Hình 5.16"; ghi chú "dịch chuyển" |
+| 63 | `lec04-s07-03` | Bài tập: HITS trên chuỗi có khuyên | `sửa` | 61 / 55 → 55 | 80 | 5 | 20 | như s07-01 |
+
+**Mật độ (sau lượt sửa theo ba báo cáo rà, 2026-10-14).** Không trang trần 60 nào vượt 60 (s01-05 bằng 60); không trang trần 80 nào vượt 80 (s06-02 76, s06-05 75). Trang trên 60 đều có trần 80: s01-02 (mục tiêu), s06-05, s06-01, s06-02 (tổng kết), s07-01 (đề recitation). Không dòng chữ nào vượt 20 âm tiết ngoài câu luận đề (21, trần 25 của bìa) và dòng dẫn tiêu đề mạch (≤ 23). Cột "Âm tiết" ghi số trước đợt sửa → số hiện hành; cột "Dòng" đếm lại sau lượt sửa bằng `scratchpad/w07/dong.py` (đoạn, mục, hàng bảng kể cả hàng tiêu đề, hộp câu hỏi, đoạn chỉ có công thức; giả mã đếm riêng), nên số dòng đổi ở 11 trang: s02-05 3 → 5, s02-11 4 → 5, s02-09a 4 → 6, s02-12 3 → 6, s03-03 5 → 6, s03-04 5 → 6, s03-05 3 → 6, s03-06 6 → 7, s04-02a 3 → 5, s05-02 4 → 5, s05-06 5 → 7. s05-05 hiển thị 9 dòng trước lượt sửa (bản trước ghi 8), nay 8 sau khi gộp; không trang nào vượt trần dòng.
+
+**Ngoại lệ dòng (không phải ngoại lệ âm tiết), đếm lại 2026-10-14.** Trần 6 dòng chữ; trang có bảng tới 8 dòng kể cả hàng tiêu đề. Trang 7–8 dòng vì có bảng: s02-03, s02-04 (vết 4 hàng, 7), s02-07 (hàng Tổng, 7), s02-10 (7), s04-03, s04-04 (7), s04-06 (7), s05-03, s05-04 (8), s05-05 (8: dòng dữ kiện gộp với dòng "Tại A", bảng 6 hàng, Kết luận), s05-10 (8), s06-05 (7), s01-08 (8, trang Nội dung). Giả mã đứng riêng: s02-06 (12 dòng mã, một dòng giải thích), s05-08 (11 dòng mã, Đầu vào/Đầu ra). s03-05 có ba khối công thức (trần 3); s03-06 (7) và s05-06 (7) có bảng hoặc ma trận hiển thị.
+
+**Chu trình rút gọn có lý do.** Cụm thao túng: nguồn không có ví dụ dẫn nhập số; đối tượng đếm được (một đích, $m$ hỗ trợ) ở s03-02, con số ở s03-06 (Ví dụ 5.11). TrustRank: vết chạy tay trùng vết của PageRank theo chủ đề khi cùng phân phối dịch chuyển, nên "Thuật toán: TrustRank" không lặp giả mã.
+
+**Loại kiểm tra theo mạch.** Mạch 1: s01-06 (câu hỏi, lời giải trong ghi chú). Mạch 2: s02-12. Mạch 3: s03-08. Mạch 4: s04-07. Mạch 5: s05-11. Mạch 6: hai trang "Câu hỏi tự kiểm tra" s06-03, s06-04 (năm câu, lời giải trong ghi chú; ba trang tổng kết đứng trước không chứa lời giải). Mạch 7: ba trang đề recitation lấy nguyên Bài 5.3.1, 5.4.1, 5.5.2 của MMDS, gợi ý và lời giải trong ghi chú.
+
+**Ánh xạ trang mới ↔ chủ đề ghi chú.** s01-07, s01-05 ↔ `lec04-note-01`; s02-14 ↔ `lec04-note-04`; s06-05, s06-01, s06-02 ↔ `lec04-note-10` và các mục §2.4, §2.5, §3.2, §4.3, §5.5; s06-06 ↔ mục Tài liệu tham khảo.
+
+### lec04-s01-07 — Tiên quyết và quy ước (thêm 2026-10-14)
+
+- **Loại phần và mục đích:** mở đầu; nhắc lại $M_0$ và phép cập nhật của Bài 03, ký hiệu $G$, $n$, $\ell$, G4, quy ước.
+- **Dữ kiện, ký hiệu kế thừa:** Bài 03: $M_0$, $u$, $\delta^t$, điểm cố định.
+- **Thao tác của sinh viên và sản phẩm:** nhận ra phép lặp sẽ được giữ và nhánh dịch chuyển sẽ đổi.
+- **Đối tượng trung tâm:** năm dòng nhãn.
+- **Kiến thức đầu vào:** Bài 03.
+- **Bằng chứng kiểm:** dùng đúng $(M_0)_{AB}=1/2$ ở câu hỏi s01-06.
+- **Kết nối vào–ra:** s01-01 → s01-07 → s01-02.
+- **Nguồn:** MMDS §5.1.2, §5.1.5; Bài 03.
+- **Thời lượng:** 1,5 phút.
+- **Quyết định:** `thêm`: mạch mở đầu bắt buộc có Tiên quyết và quy ước; đổi tên bước nhảy thành dịch chuyển; \(\ell\) thay \(m\); âm tiết — → 57.
+
+### lec04-s01-08 — Nội dung (thêm 2026-10-14)
+
+- **Loại phần và mục đích:** mở đầu; bảy mạch và Đọc trước.
+- **Dữ kiện, ký hiệu kế thừa:** tên mạch.
+- **Thao tác của sinh viên và sản phẩm:** đọc trước MMDS §§5.3–5.5.
+- **Đối tượng trung tâm:** hai `ol`, dòng Đọc trước.
+- **Kiến thức đầu vào:** —.
+- **Bằng chứng kiểm:** —.
+- **Kết nối vào–ra:** s01-02 → s01-08 → s01-05.
+- **Nguồn:** MMDS §§5.3–5.5.
+- **Thời lượng:** 0,5 phút.
+- **Quyết định:** `thêm`: Nội dung tách từ s01-02; mạch 6, 7 đổi tên; Đọc trước; âm tiết — → 44.
+
+### lec04-s02-14 — Chi phí: xử lý truy vấn (thêm 2026-10-14)
+
+- **Loại phần và mục đích:** chi phí; ghép $q_i$ trên $c$ ứng viên.
+- **Dữ kiện, ký hiệu kế thừa:** s02-11 (công thức ghép), s02-10 (mô hình).
+- **Thao tác của sinh viên và sản phẩm:** đếm $k$ phép nhân–cộng mỗi ứng viên.
+- **Đối tượng trung tâm:** bảng Bước | Số lần | Chi phí mỗi lần | Đóng góp.
+- **Kiến thức đầu vào:** s02-09a.
+- **Bằng chứng kiểm:** dòng 1 của s06-02 (mỗi người $k$ trọng số).
+- **Kết nối vào–ra:** s02-10 → s02-14 → s02-12.
+- **Nguồn:** MMDS §5.3.3–5.3.4.
+- **Thời lượng:** 1 phút.
+- **Quyết định:** `thêm`: tách từ s02-10: bảng Bước | Số lần | Chi phí mỗi lần | Đóng góp cho xử lý truy vấn; âm tiết — → 53.
+
+### lec04-s06-05 — Kết quả và giả thiết không được bỏ (thêm 2026-10-14)
+
+- **Loại phần và mục đích:** tổng kết; sáu kết quả cạnh giả thiết quyết định.
+- **Dữ kiện, ký hiệu kế thừa:** mọi kết quả mạch 2–5.
+- **Thao tác của sinh viên và sản phẩm:** nêu phản ví dụ khi bỏ giả thiết (ghi chú).
+- **Đối tượng trung tâm:** bảng ba cột sáu hàng.
+- **Kiến thức đầu vào:** mạch 2–5.
+- **Bằng chứng kiểm:** câu tự kiểm tra 1, 3 (không chứa lời giải).
+- **Kết nối vào–ra:** s06-00 → s06-05 → s06-01.
+- **Nguồn:** MMDS §§5.3–5.5; §5.1.5.
+- **Thời lượng:** 2,5 phút.
+- **Quyết định:** `thêm`: bảng Kết quả | Giả thiết không được bỏ | Công thức hoặc thuật toán bắt buộc; không chứa lời giải câu tự kiểm tra; âm tiết — → 64.
+
+### lec04-s06-06 — Nguồn và tài liệu đọc (thêm 2026-10-14)
+
+- **Loại phần và mục đích:** tổng kết; nguồn, ghi công mmds.org, liên kết ghi chú.
+- **Dữ kiện, ký hiệu kế thừa:** —.
+- **Thao tác của sinh viên và sản phẩm:** mở ghi chú bài giảng.
+- **Đối tượng trung tâm:** hai dòng Nguồn, ghi công, liên kết viewer.
+- **Kiến thức đầu vào:** —.
+- **Bằng chứng kiểm:** liên kết viewer mở được.
+- **Kết nối vào–ra:** s06-04 → s06-06 → s07-00.
+- **Nguồn:** outline mục nguồn (NG4, NG6).
+- **Thời lượng:** 0,5 phút.
+- **Quyết định:** `thêm`: trang nguồn: MMDS, mmds.org, CS246, Teufel, liên kết viewer; không dòng nối Bài 05 vì `sources/source.md` không nêu quan hệ; âm tiết — → 41.
+
 ## Phiếu từng trang chiếu
 
 ## S01. Bài toán xếp hạng liên kết
@@ -36,6 +197,8 @@ Giới thiệu và động lực. PageRank Bài 03 → truy vấn đa nghĩa và
 Phân bổ: 6 slide, 12 phút.
 
 ### lec04-s01-01 — PageRank theo chủ đề, liên kết rác và HITS
+
+- **Sửa 2026-10-14:** quyết định `sửa`: câu luận đề bản ngắn (quyết định 7); dòng đơn vị; học kỳ theo Bài 06; giữ "Bài 04" trong h1 vì bìa không tràn. Âm tiết mặt trang 13 / 13 → 45. Thời lượng mới: 0,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Mở đầu; MT1–MT5. Đầu vào: PageRank Bài 03. Sản phẩm: xác định vị trí và phạm vi Bài 04.
 
@@ -74,6 +237,8 @@ Bài học xét ba yêu cầu trên dữ liệu liên kết: thiên lệch đi�
 <!-- public-notes:end -->
 
 ### lec04-s01-02 — Nội dung và mục tiêu học tập
+
+- **Sửa 2026-10-14:** quyết định `tách`: trang gộp Nội dung và mục tiêu; năm mục tiêu quan sát được. Âm tiết mặt trang 61 / 58 → 78. Tiêu đề hiện hành: “Mục tiêu học tập”. Thời lượng mới: 1 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Định vị mạch; MT1–MT5. Đầu vào: tên bài. Sản phẩm: nhận diện các năng lực và thứ tự nội dung.
 
@@ -119,6 +284,8 @@ PageRank theo chủ đề giữ phép lặp của Bài 03 và chỉ đổi nơi 
 
 ### lec04-s01-03 — Truy vấn đa nghĩa
 
+- **Sửa 2026-10-14:** quyết định `sửa`: bỏ bốn khung nhấn; Nhu cầu, Đầu vào, Đầu ra, một Kết luận. Âm tiết mặt trang 74 / 71 → 58. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng; MT1. Đầu vào: PageRank toàn cục. Sản phẩm: xác định đầu ra xếp hạng có điều kiện theo chủ đề.
 
 **Luận điểm trung tâm:** Cùng truy vấn có thể cần thứ tự trang khác nhau khi chủ đề thay đổi; PageRank toàn cục chỉ cho một thứ tự, nên cần điểm phụ thuộc chủ đề.
@@ -162,6 +329,8 @@ Từ “jaguar” có thể chỉ loài vật, hãng ô tô hoặc một số đ
 
 ### lec04-s01-04 — Chi phí lưu PageRank riêng
 
+- **Sửa 2026-10-14:** quyết định `sửa`: đổi tiêu đề vì trang không có mô hình đếm; bỏ nhãn "Phương án trực tiếp:"; khung kết luận ba câu thành một dòng. Âm tiết mặt trang 60 / 57 → 42. Tiêu đề hiện hành: “Lưu PageRank riêng cho từng người dùng”. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn dữ liệu lớn; MT1, MT5. Đầu vào: nhu cầu theo ngữ cảnh. Sản phẩm: giải thích việc tiền tính số ít vector chủ đề.
 
 **Luận điểm trung tâm:** Phương án trực tiếp, mỗi người dùng một vector PageRank toàn web, không lưu được ở quy mô web; $k$ vector chủ đề và $k$ trọng số cho mỗi người dùng thay thế, đổi lại mất một phần độ chính xác.
@@ -201,6 +370,8 @@ Quy mô minh họa trong MMDS: khoảng một tỷ người dùng, mỗi vector 
 **Quyết định duyệt trang 01/10/2026:** sửa. Tiêu đề cũ dùng “xếp hạng cá nhân” trước khi khái niệm được nêu; thêm dòng phương án trực tiếp ở đầu trang rồi mới nêu quy mô và phương án thay thế. Khối kết luận nêu cái giá mất một phần độ chính xác theo MMDS §5.3.1. Dùng “$k$ vector”, chưa đưa ký hiệu trọng số $w_j$.
 
 ### lec04-s01-05 — Ba yêu cầu xếp hạng liên kết
+
+- **Sửa 2026-10-14:** quyết định `gộp`: "Ba yêu cầu xếp hạng liên kết" (91 âm tiết, nghiêm trọng) gộp vào Vấn đề trung tâm, dùng lại mã (quyết định 1); danh sách không đánh số như Bài 05, 06. Âm tiết mặt trang 94 / 91 → 60. Tiêu đề hiện hành: “Vấn đề trung tâm”. Thời lượng mới: 1,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Phân biệt vấn đề; MT1, MT3–MT5. Đầu vào: điểm toàn cục. Sản phẩm: ánh xạ yêu cầu sang loại điểm cần tính.
 
@@ -243,6 +414,8 @@ Hạn chế thứ nhất đã xuất hiện ở truy vấn “jaguar”; PageRan
 **Quyết định duyệt trang 01/10/2026:** sửa. Hai yêu cầu liên kết rác và hai vai trò trước đây thiếu động cơ, cụm “tập trang tin cậy” xuất hiện trước khái niệm và câu kết tối nghĩa. Bảng mới đặt hạn chế của PageRank toàn cục cạnh yêu cầu, theo MMDS §5.3.1, §5.4.1 (spam farm) và §5.5.1 (một chiều quan trọng); bỏ “tập trang tin cậy”; ghi chú ánh xạ từng hạn chế sang phần tương ứng.
 
 ### lec04-s01-06 — Ôn tập phép truyền điểm
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Câu hỏi về …"; câu hỏi tách hai ý; câu đổi tên dịch chuyển chuyển lên s01-07. Âm tiết mặt trang 39 / 35 → 30. Tiêu đề hiện hành: “Câu hỏi về phép truyền điểm”. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra tiên quyết; MT1. Đầu vào: quy tắc chia đều PageRank Bài 03. Sản phẩm: tính đúng đóng góp theo một cạnh.
 
@@ -299,6 +472,8 @@ Phân bổ: 13 slide, 30 phút.
 
 ### lec04-s02-00 — PageRank theo chủ đề
 
+- **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 36 / 36 → 36. Thời lượng mới: 0,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 2 (`id="mach-2"`); ngoài chu trình khái niệm. Đầu vào: Phép lặp PageRank Bài 03, truy vấn đa nghĩa, chi phí lưu điểm riêng (S01). Sản phẩm: Nhu cầu đổi nơi đến của bước dịch chuyển.
 
 **Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s02-01.
@@ -330,6 +505,8 @@ Phép lặp của Bài 03 dịch chuyển đều tới mọi trang nên cho mộ
 <!-- public-notes:end -->
 
 ### lec04-s02-01 — Dịch chuyển vào tập chủ đề
+
+- **Sửa 2026-10-14:** quyết định `sửa`: dòng Nhu cầu có số; "Lưu ý:" có nhãn. Âm tiết mặt trang 50 / 47 → 58. Thời lượng mới: 1,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác; MT1. Đầu vào: hai nhánh di chuyển PageRank. Sản phẩm: chỉ ra thành phần thay đổi khi ưu tiên chủ đề.
 
@@ -372,6 +549,8 @@ MMDS dựa trên giả định trực quan: trang được các trang của mộ
 <!-- public-notes:end -->
 
 ### lec04-s02-02 — Phân phối dịch chuyển trên G4
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Ví dụ: đồ thị bốn trang, …" (quyết định 3); "Diễn giải:". Âm tiết mặt trang 44 / 38 → 40. Tiêu đề hiện hành: “Ví dụ: đồ thị bốn trang, tập chủ đề {B, D}”. Thời lượng mới: 2 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ dẫn nhập; MT1. Đầu vào: hai nhánh di chuyển. Sản phẩm: lập vector bước nhảy từ tập S.
 
@@ -419,6 +598,8 @@ Tập $S$ có hai phần tử, nên xác suất chọn một trang trong bước
 
 ### lec04-s02-03 — Vòng lặp thứ nhất trên G4
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ; ngoại lệ bảng vết 4 hàng. Âm tiết mặt trang 32 / 27 → 27. Tiêu đề hiện hành: “Ví dụ: đồ thị bốn trang, vòng 1”. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT1. Đầu vào: G4, v, r0. Sản phẩm: tái tạo từng thành phần r1.
 
 **Luận điểm trung tâm:** Mỗi điểm mới là tổng phần theo liên kết và phần dịch chuyển đúng tập.
@@ -463,6 +644,8 @@ Từ B, điểm $1/2$ chia cho A, D; từ D, điểm $1/2$ chia cho B, C. Vì v�
 <!-- public-notes:end -->
 
 ### lec04-s02-04 — Vòng thứ hai và điểm cố định
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ; một Kết luận; dòng $r^*$ sang ghi chú. Âm tiết mặt trang 42 / 37 → 29. Tiêu đề hiện hành: “Ví dụ: đồ thị bốn trang, vòng 2 và điểm cố định”. Thời lượng mới: 2,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay và quan sát; MT1. Đầu vào: r1. Sản phẩm: tính r2 và phân biệt một vòng với giới hạn.
 
@@ -511,6 +694,8 @@ Tại B, $r_B^2=(4/5)[(1/3)(1/5)+(1/2)(3/10)]+1/10=41/150$; tại C không có s
 
 ### lec04-s02-05 — Đặc tả PageRank theo chủ đề
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Thuật toán: …"; Đầu vào/Đầu ra in đậm. Âm tiết mặt trang 41 / 38 → 38. Tiêu đề hiện hành: “Thuật toán: PageRank theo chủ đề”. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa; MT1. Đầu vào: vết chạy và bù nút cụt Bài 03. Sản phẩm: xác định miền đầu vào và quy tắc tổng quát.
 
 **Luận điểm trung tâm:** Đổi v và giữ quy ước bù đều tạo đặc tả PageRank theo chủ đề nhất quán với Bài 03.
@@ -552,6 +737,8 @@ Với $d_j>0$, $(M_0)_{ij}=1/d_j$ nếu có cạnh $j\to i$; cột nút cụt b�
 <!-- public-notes:end -->
 
 ### lec04-s02-06 — Giả mã PageRank theo chủ đề
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Thuật toán: …"; câu dẫn một câu; ghi chú đọc giả mã. Âm tiết mặt trang 25 / 22 → 12. Tiêu đề hiện hành: “Thuật toán: PageRank theo chủ đề”. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Thuật toán; MT1. Đầu vào: HT1 và danh sách kề. Sản phẩm: theo dõi cập nhật đồng thời và điều kiện trả kết quả.
 
@@ -603,6 +790,8 @@ Vector `new` được khởi tạo bằng phần bù và phần dịch chuyển,
 
 ### lec04-s02-07 — Bất biến tổng điểm
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Tính đúng: …"; Bất biến; hàng Tổng; một Kết luận. Âm tiết mặt trang 42 / 39 → 34. Tiêu đề hiện hành: “Tính đúng: PageRank theo chủ đề”. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận đúng; MT1. Đầu vào: HT1. Sản phẩm: chứng minh điểm không âm và tổng 1 sau mỗi vòng.
 
 **Luận điểm trung tâm:** Ba nguồn điểm bảo toàn tính không âm và tổng 1 qua mọi vòng.
@@ -648,6 +837,8 @@ Một trang không cụt chia đều điểm cho đúng $d_j$ cạnh ra, nên t�
 <!-- public-notes:end -->
 
 ### lec04-s02-08 — Hội tụ và cận sai số khi dừng
+
+- **Sửa 2026-10-14:** quyết định `sửa`: khuôn trang kết quả: Nhắc lại, Mệnh đề., Chứng minh., Ý nghĩa:; tách hai dòng > 20. Âm tiết mặt trang 62 / 53 → 50. Thời lượng mới: 2,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hội tụ và điều kiện dừng; MT1. Đầu vào: HT2 và chuẩn1. Sản phẩm: phân biệt Delta với sai số nghiệm, nêu cơ sở duy nhất.
 
@@ -696,6 +887,8 @@ Với $\Delta=\|r^{t+1}-r^t\|_1$, sai khác kế tiếp không quá $\beta\Delta
 
 ### lec04-s02-09 — Ký hiệu cho nhiều chủ đề
 
+- **Sửa 2026-10-14:** quyết định `sửa`: nhãn Ký hiệu:. Âm tiết mặt trang 45 / 41 → 41. Thời lượng mới: 1 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Định nghĩa và cầu nối; MT1, MT5. Đầu vào: điểm cố định theo v. Sản phẩm: phân biệt nhãn chủ đề j, chỉ số vòng t, đầu vào v^(j), nghiệm r^(j) và trọng số w_j.
 
 **Luận điểm trung tâm:** Mỗi chủ đề có một phân phối dịch chuyển đầu vào và một vector PageRank hội tụ trên cùng n trang.
@@ -741,6 +934,8 @@ Trong đặc tả và giả mã trước, $j$ chỉ trang nguồn; từ đây $j
 <!-- public-notes:end -->
 
 ### lec04-s02-11 — Tiền tính và xử lý truy vấn
+
+- **Sửa 2026-10-14:** quyết định `sửa`: Nhu cầu; hai thẻ có chữ thành cột thường; một Kết luận. Âm tiết mặt trang 67 / 64 → 51. Thời lượng mới: 2 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ứng dụng và thu hồi tình huống; MT1, MT5. Đầu vào: k vector và chi phí. Sản phẩm: phân biệt tiền tính với xử lý truy vấn.
 
@@ -794,6 +989,8 @@ Trọng số $w_j$ biểu diễn mức quan tâm của truy vấn hoặc ngườ
 
 ### lec04-s02-09a — Tính tuyến tính theo phân phối dịch chuyển
 
+- **Sửa 2026-10-14:** quyết định `sửa`: Mệnh đề., Chứng minh., Ý nghĩa:; bỏ khung kết luận. Âm tiết mặt trang 58 / 47 → 27. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận và ứng dụng; MT1, MT5. Đầu vào: các đại lượng của S02-09 và tính duy nhất. Sản phẩm: chứng minh đẳng thức ghép và nêu đủ điều kiện.
 
 **Luận điểm trung tâm:** Cùng toán tử và beta cho phép ghép các nghiệm PageRank theo trọng số của phân phối dịch chuyển.
@@ -843,6 +1040,8 @@ Tổng có trọng số thỏa phương trình PageRank với $v$. Điểm cố 
 
 ### lec04-s02-10 — Chi phí tiền tính và truy vấn
 
+- **Sửa 2026-10-14:** quyết định `tách`: bảng không theo khuôn, 10 dòng, hai thẻ có chữ; tách thành tiền tính (s02-10) và truy vấn (s02-14) (quyết định 6). Âm tiết mặt trang 85 / 75 → 56. Tiêu đề hiện hành: “Chi phí: tiền tính theo chủ đề”. Thời lượng mới: 1,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Đánh giá chi phí; MT5. Đầu vào: giả mã HT1 và ghép HT3. Sản phẩm: truy nguyên số hạng thời gian và bộ nhớ.
 
 **Luận điểm trung tâm:** Chi phí mỗi vòng tuyến tính theo đỉnh/cạnh, còn lưu các kết quả tăng theo số chủ đề.
@@ -891,6 +1090,8 @@ Bộ nhớ lưu kết quả tăng tuyến tính theo số chủ đề, độc l�
 <!-- public-notes:end -->
 
 ### lec04-s02-12 — Kiểm tra PageRank theo chủ đề
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Câu hỏi về …". Âm tiết mặt trang 23 / 17 → 17. Tiêu đề hiện hành: “Câu hỏi về PageRank theo chủ đề”. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S02; MT1. Đầu vào: HT1 và VD1. Sản phẩm: tính điểm ngoài tập dịch chuyển, giải thích ý nghĩa S.
 
@@ -955,6 +1156,8 @@ Phân bổ: 8 slide, 20 phút.
 
 ### lec04-s03-00 — Cơ chế liên kết rác
 
+- **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 38 / 38 → 38. Thời lượng mới: 0,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 3 (`id="mach-3"`); ngoài chu trình khái niệm. Đầu vào: PageRank theo chủ đề vẫn cộng điểm theo liên kết vào (S02). Sản phẩm: Nhu cầu định lượng mức khuếch đại của cụm thao túng.
 
 **Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s03-01.
@@ -986,6 +1189,8 @@ PageRank, kể cả theo chủ đề, cộng điểm theo liên kết vào, nên
 <!-- public-notes:end -->
 
 ### lec04-s03-01 — Liên kết rác
+
+- **Sửa 2026-10-14:** quyết định `sửa`: 78 → ≤ 60; bỏ ba thẻ và khung "Vấn đề:"; định nghĩa liên kết rác (link spam) bằng "là". Âm tiết mặt trang 78 / 75 → 59. Thời lượng mới: 1,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống và vấn đề; MT2. Đầu vào: điểm phụ thuộc cạnh. Sản phẩm: xác định mục tiêu và quyền tác động của người tạo liên kết rác.
 
@@ -1029,6 +1234,8 @@ Giáo trình xét các kỹ thuật tạo liên kết nhằm làm PageRank đán
 
 ### lec04-s03-02 — Cụm thao túng liên kết
 
+- **Sửa 2026-10-14:** quyết định `sửa`: định nghĩa cụm thao túng liên kết (spam farm); Giả thiết in đậm. Âm tiết mặt trang 33 / 29 → 44. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Mô hình và trực giác; MT2. Đầu vào: quyền tạo/sửa cạnh. Sản phẩm: đọc đúng ba vùng và các giả thiết của Hình 5.16.
 
 **Luận điểm trung tâm:** Ba vùng quyền tác động và cạnh nội bộ xác định mô hình phân tích cụm thao túng.
@@ -1068,6 +1275,8 @@ Hình chia web thành ba vùng theo MMDS §5.4.1: phần lớn web không thể 
 <!-- public-notes:end -->
 
 ### lec04-s03-03 — Điểm của một trang hỗ trợ
+
+- **Sửa 2026-10-14:** quyết định `sửa`: Ký hiệu in đậm. Âm tiết mặt trang 47 / 44 → 44. Thời lượng mới: 2,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ ký hiệu và tính đóng góp; MT2. Đầu vào: Hình 5.16. Sản phẩm: suy ra p từ hai nguồn điểm.
 
@@ -1114,6 +1323,8 @@ Mỗi hỗ trợ nhận cùng phần $\beta y/m$ vì đích chỉ có $m$ cạnh
 
 ### lec04-s03-04 — Ba nguồn điểm tại trang đích
 
+- **Sửa 2026-10-14:** quyết định `sửa`: dòng định nghĩa $x$ rút ≤ 20. Âm tiết mặt trang 46 / 43 → 38. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Gộp đóng góp; MT2. Đầu vào: p. Sản phẩm: lập y từ ngoài, hỗ trợ và dịch chuyển.
 
 **Luận điểm trung tâm:** Điểm đích nhận ba nguồn; x đã là đóng góp theo cạnh nên không nhân beta lần nữa.
@@ -1159,6 +1370,8 @@ $$y=x+\beta mp+b.$$
 <!-- public-notes:end -->
 
 ### lec04-s03-05 — Điểm cố định của trang đích
+
+- **Sửa 2026-10-14:** quyết định `sửa`: Ý nghĩa: có nhãn. Âm tiết mặt trang 33 / 30 → 30. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và giải đại số; MT2. Đầu vào: hai phương trình p,y. Sản phẩm: giải biểu thức chính xác trong mô hình.
 
@@ -1207,6 +1420,8 @@ Thay $p=\beta y/m+b$ vào phương trình của đích cho $y=x+\beta^2y+\beta m
 
 ### lec04-s03-06 — Hệ số khuếch đại của cụm
 
+- **Sửa 2026-10-14:** quyết định `sửa`: khung kết luận thành một dòng Kết luận. Âm tiết mặt trang 50 / 45 → 36. Thời lượng mới: 3 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Xấp xỉ và diễn giải số; MT2. Đầu vào: công thức đầy đủ. Sản phẩm: phân biệt giá trị sau nhân với phần trăm tăng.
 
 **Luận điểm trung tâm:** Hệ số khuếch đại và mức tăng phần trăm là hai đại lượng khác nhau.
@@ -1254,6 +1469,8 @@ Hạng chính xác bị bỏ trong biểu thức $y$ là $b/(1-\beta^2)=1/[n(1+\
 
 ### lec04-s03-07 — Hai hướng chống liên kết rác
 
+- **Sửa 2026-10-14:** quyết định `sửa`: 83 → ≤ 60; thẻ có chữ thành cột thường; "Giới hạn:" thành "Lưu ý:". Âm tiết mặt trang 86 / 83 → 55. Thời lượng mới: 1,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn và cầu nối; MT2, MT3. Đầu vào: mô hình cụm và hệ số khuếch đại. Sản phẩm: phân biệt hai hướng chống liên kết rác và nêu nhu cầu dùng tập trang tin cậy.
 
 **Luận điểm trung tâm:** Phát hiện cấu trúc bị né bằng biến thể; đổi cách tính điểm dựa trên tập trang tin cậy không cần định vị cụm.
@@ -1295,6 +1512,8 @@ Hướng thứ hai thay định nghĩa điểm để trang rác tự bị hạ �
 <!-- public-notes:end -->
 
 ### lec04-s03-08 — Kiểm tra cụm thao túng liên kết
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Câu hỏi về …"; hai câu ≤ 20 âm tiết. Âm tiết mặt trang 59 / 56 → 40. Tiêu đề hiện hành: “Câu hỏi về cụm thao túng liên kết”. Thời lượng mới: 2,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S03; MT2. Đầu vào: HT4. Sản phẩm: vận dụng công thức khuếch đại với tham số mới và sửa mô hình khi cấu trúc cụm thay đổi.
 
@@ -1351,6 +1570,8 @@ Phân bổ: 7 slide, 18 phút (từ 01/10/2026, s04-02 gộp vào s04-02a).
 
 ### lec04-s04-00 — TrustRank và Spam Mass
 
+- **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 34 / 34 → 34. Thời lượng mới: 0,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 4 (`id="mach-4"`); ngoài chu trình khái niệm. Đầu vào: Hệ số khuếch đại, hai hướng chống liên kết rác (S03). Sản phẩm: Nhu cầu so PageRank với điểm lan từ tập tin cậy.
 
 **Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s04-01.
@@ -1382,6 +1603,8 @@ Hệ số khuếch đại cho thấy cụm thao túng có thể tăng điểm tr
 <!-- public-notes:end -->
 
 ### lec04-s04-01 — TrustRank
+
+- **Sửa 2026-10-14:** quyết định `sửa`: Nhu cầu; định nghĩa bằng "là"; "Cơ sở:" thành "Giả thiết:"; ghi chú rút 241 → khoảng 160. Âm tiết mặt trang 62 / 59 → 59. Thời lượng mới: 1,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Vấn đề và trực giác; MT3. Đầu vào: giới hạn phát hiện cấu trúc và PageRank theo chủ đề. Sản phẩm: xác định thông tin ngoài đồ thị cần cho TrustRank.
 
@@ -1424,6 +1647,8 @@ TrustRank hiện thực hướng thứ hai chống liên kết rác: đổi các
 <!-- public-notes:end -->
 
 ### lec04-s04-02a — Phép lặp TrustRank
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Thuật toán: TrustRank"; Đầu vào/Đầu ra; chu trình rút gọn (vết dùng lại mạch 2). Âm tiết mặt trang 40 / 29 → 31. Tiêu đề hiện hành: “Thuật toán: TrustRank”. Thời lượng mới: 3,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và tái dùng thuật toán; MT3. Đầu vào: bảng ký hiệu S04-02. Sản phẩm: phân biệt ba số hạng và điều kiện dừng.
 
@@ -1469,6 +1694,8 @@ Vì $v_T\ge0$ và có tổng bằng $1$, bất biến tổng điểm và lập l
 
 
 ### lec04-s04-03 — TrustRank trên G4
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Ví dụ: …"; Kết luận ≤ 20. Âm tiết mặt trang 41 / 36 → 33. Tiêu đề hiện hành: “Ví dụ: TrustRank trên đồ thị bốn trang”. Thời lượng mới: 1 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Ví dụ tái sử dụng; MT3. Đầu vào: VD1 và T={B,D}. Sản phẩm: liên hệ cùng phép tính với ý nghĩa tin cậy.
 
@@ -1517,6 +1744,8 @@ B, D đã được coi là tin cậy từ đầu, nên phép dịch chuyển ưu
 
 ### lec04-s04-04 — Hiệu giữa PageRank và TrustRank
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Ví dụ: …"; "Ý tưởng:" thành "Nhu cầu:"; Kết luận. Âm tiết mặt trang 47 / 40 → 35. Tiêu đề hiện hành: “Ví dụ: hiệu PageRank và TrustRank trên đồ thị bốn trang”. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chuẩn bị chỉ số; MT3. Đầu vào: rho. Sản phẩm: đối chiếu hai vector trên cùng mô hình.
 
 **Luận điểm trung tâm:** Hiệu của hai vector cùng mô hình mô tả thay đổi điểm; dấu hiệu không xác định thay đổi thứ hạng hoặc nhãn rác.
@@ -1564,6 +1793,8 @@ PageRank đều thỏa $r=(4/5)M_0r+(1/5)u$ và có nghiệm $(9/28,19/84,19/84,
 
 ### lec04-s04-05 — Chỉ số Spam Mass
 
+- **Sửa 2026-10-14:** quyết định `sửa`: Định nghĩa.; bảng gộp hàng B, D; Diễn giải:. Âm tiết mặt trang 48 / 41 → 41. Thời lượng mới: 3 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa và chạy phép chia; MT3. Đầu vào: r,rho. Sản phẩm: tính chỉ số tương đối, giữ giá trị âm.
 
 **Luận điểm trung tâm:** Spam Mass là mức giảm tương đối so với PageRank nền; A,C cùng giảm20% dù hiệu tuyệt đối khác nhau.
@@ -1610,6 +1841,8 @@ Tại A, $(9/140)/(9/28)=1/5$; tại C cũng có $s_C=1/5$. Cả hai có $\rho_i
 
 ### lec04-s04-06 — Chi phí tính Spam Mass
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Chi phí: …"; Mô hình; bảng khuôn bốn cột với $K_r$, $K_\rho$. Âm tiết mặt trang 55 / 52 → 46. Tiêu đề hiện hành: “Chi phí: Spam Mass”. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Giới hạn và chi phí; MT3, MT5. Đầu vào: HT5. Sản phẩm: phân biệt chi phí phép lặp với chọn hạt giống.
 
 **Luận điểm trung tâm:** Chỉ số Spam Mass lớn được dùng để ưu tiên rà soát; chỉ số phụ thuộc tập hạt giống và không tự xác định nhãn rác.
@@ -1651,6 +1884,8 @@ Sau khi có $r$ và $\rho$, chỉ số $s_i$ đo phần điểm giảm tương �
 <!-- public-notes:end -->
 
 ### lec04-s04-07 — Kiểm tra Spam Mass
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Câu hỏi về …"; tách câu > 20. Âm tiết mặt trang 54 / 47 → 43. Tiêu đề hiện hành: “Câu hỏi về Spam Mass”. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S04; MT3. Đầu vào: VD3 và định nghĩa s. Sản phẩm: tính giá trị âm, giới hạn kết luận.
 
@@ -1705,6 +1940,8 @@ Phân bổ: 11 slide, 30 phút.
 
 ### lec04-s05-00 — HITS
 
+- **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 37 / 37 → 37. Thời lượng mới: 0,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 5 (`id="mach-5"`); ngoài chu trình khái niệm. Đầu vào: Các phương pháp một điểm mỗi trang (S02–S04). Sản phẩm: Nhu cầu hai điểm trung tâm, uy tín.
 
 **Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s05-01.
@@ -1736,6 +1973,8 @@ PageRank, PageRank theo chủ đề và TrustRank đều gán một điểm cho 
 <!-- public-notes:end -->
 
 ### lec04-s05-01 — Trang trung tâm và trang uy tín
+
+- **Sửa 2026-10-14:** quyết định `sửa`: 82 → ≤ 60; Nhu cầu; định nghĩa uy tín, trung tâm bằng "là"; tách ba dòng > 20. Âm tiết mặt trang 82 / 77 → 57. Thời lượng mới: 1,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tình huống sử dụng HITS; MT4. Đầu vào: đồ thị liên kết. Sản phẩm: phân biệt nội dung và đường dẫn tới nội dung.
 
@@ -1777,6 +2016,8 @@ Trang uy tín cung cấp thông tin về một chủ đề; trang trung tâm ch�
 <!-- public-notes:end -->
 
 ### lec04-s05-02 — Định nghĩa tương hỗ của hai điểm
+
+- **Sửa 2026-10-14:** quyết định `sửa`: rút dòng 21; câu nút cụt sang ghi chú. Âm tiết mặt trang 64 / 58 → 47. Thời lượng mới: 2 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trực giác và dữ kiện chạy tay; MT4. Đầu vào: hai vai trò. Sản phẩm: đọc quy tắc cộng theo hai chiều trên G5.
 
@@ -1823,6 +2064,8 @@ G5 có năm trang và tám cạnh, khác G4 ở việc C trỏ E thay vì A. Uy 
 
 ### lec04-s05-03 — Bước uy tín thứ nhất
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Ví dụ: đồ thị năm trang, …"; dòng cuối ≤ 20; ngoại lệ bảng vết. Âm tiết mặt trang 48 / 43 → 36. Tiêu đề hiện hành: “Ví dụ: đồ thị năm trang, bước uy tín thứ nhất”. Thời lượng mới: 3 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT4. Đầu vào: G5,h0. Sản phẩm: cộng đúng cạnh vào và chuẩn hóa max.
 
 **Luận điểm trung tâm:** Uy tín thu điểm trung tâm từ các cạnh vào rồi chuẩn hóa toàn vector.
@@ -1866,6 +2109,8 @@ B nhận từ A, D nên điểm thô bằng $1+1=2$; D nhận từ A, B cũng b�
 <!-- public-notes:end -->
 
 ### lec04-s05-04 — Bước trung tâm thứ nhất
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ; ngoại lệ bảng vết. Âm tiết mặt trang 39 / 34 → 34. Tiêu đề hiện hành: “Ví dụ: đồ thị năm trang, bước trung tâm thứ nhất”. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay; MT4. Đầu vào: a1 mới. Sản phẩm: cộng đúng uy tín mới theo cạnh ra.
 
@@ -1911,6 +2156,8 @@ A trỏ B, C, D, ba trang có uy tín bằng $1$ nên tổng bằng $3$. B trỏ
 
 ### lec04-s05-05 — Vòng thứ hai trên G5
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ; một Kết luận. Âm tiết mặt trang 34 / 29 → 31. Tiêu đề hiện hành: “Ví dụ: đồ thị năm trang, vòng thứ hai”. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Chạy tay và nhận diện trạng thái; MT4. Đầu vào: h1. Sản phẩm: tái tạo một cập nhật ở vòng 2 và đọc hai vector mới.
 
 **Luận điểm trung tâm:** Hai lượt cập nhật luân phiên dùng kết quả vừa tạo ở lượt trước.
@@ -1954,6 +2201,8 @@ Uy tín thô tại B bằng $h_A^1+h_D^1=1+2/3=5/3$, là giá trị lớn nhất
 <!-- public-notes:end -->
 
 ### lec04-s05-06 — Ma trận liên kết của HITS
+
+- **Sửa 2026-10-14:** quyết định `sửa`: định nghĩa $L$ bằng "là". Âm tiết mặt trang 35 / 31 → 35. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Hình thức hóa; MT4. Đầu vào: tổng theo hai chiều trên G5. Sản phẩm: lập L và nối với M0 của PageRank.
 
@@ -2000,6 +2249,8 @@ Phần tử $(L^\mathsf T)_{ji}=L_{ij}$ biểu diễn cạnh $i\to j$; khi nhân
 
 ### lec04-s05-07 — Chuẩn hóa điểm HITS
 
+- **Sửa 2026-10-14:** quyết định `sửa`: 68 → ≤ 60; Định nghĩa., Ý nghĩa:, Ví dụ., Lưu ý:. Âm tiết mặt trang 68 / 65 → 43. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Cầu nối và điều kiện biên; MT4. Đầu vào: hai vector thô. Sản phẩm: giải thích chuẩn max và phạm vi định nghĩa.
 
 **Luận điểm trung tâm:** Chuẩn max giữ tỷ lệ và thứ hạng, nhưng không đặt tổng điểm bằng 1.
@@ -2042,6 +2293,8 @@ Chia tất cả thành phần cho cùng một số dương giữ mọi tỷ lệ
 <!-- public-notes:end -->
 
 ### lec04-s05-08 — Thuật toán HITS
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Thuật toán: HITS"; Đầu vào/Đầu ra trước giả mã. Âm tiết mặt trang 38 / 35 → 15. Tiêu đề hiện hành: “Thuật toán: HITS”. Thời lượng mới: 3,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Đặc tả và thuật toán; MT4. Đầu vào: L và N. Sản phẩm: đọc đúng trạng thái cũ/mới, ngưỡng và ca biên.
 
@@ -2094,6 +2347,8 @@ HITS cập nhật uy tín trước, rồi tính trung tâm từ uy tín vừa c�
 
 ### lec04-s05-09 — Điểm ổn định của HITS
 
+- **Sửa 2026-10-14:** quyết định `sửa`: Giả thiết rồi một Kết luận; tách dòng 35 âm tiết. Âm tiết mặt trang 63 / 55 → 53. Thời lượng mới: 3 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Lập luận đúng và phạm vi bảo đảm; MT4. Đầu vào: HT6. Sản phẩm: giải thích quan hệ hai bước, tránh duy nhất vô điều kiện.
 
 **Luận điểm trung tâm:** Quan hệ vector riêng giải thích điểm ổn định nhưng không tự bảo đảm duy nhất trên mọi đồ thị.
@@ -2140,6 +2395,8 @@ Trên G5, giới hạn theo thứ tự A, B, C, D, E là $h\approx(1;\,0{,}3583;
 
 ### lec04-s05-10 — Chi phí HITS
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Chi phí: HITS mỗi vòng"; Mô hình; bảng bốn cột với hàng Tổng $2\ell+\Theta(n)$. Âm tiết mặt trang 76 / 68 → 54. Tiêu đề hiện hành: “Chi phí: HITS mỗi vòng”. Thời lượng mới: 2 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Đánh giá chi phí; MT5. Đầu vào: hai phép cập nhật. Sản phẩm: đếm hai lượt cạnh và lý giải không lập tích ma trận.
 
 **Luận điểm trung tâm:** Hai phép nhân thưa được thực thi bằng hai lượt cạnh, không cần tạo tích ma trận.
@@ -2185,6 +2442,8 @@ Mỗi cạnh $i\to j$ được dùng một lần để cộng $h_i$ vào $a_j$, 
 <!-- public-notes:end -->
 
 ### lec04-s05-11 — Kiểm tra HITS
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Câu hỏi về HITS"; câu 2 ≤ 20. Âm tiết mặt trang 56 / 49 → 45. Tiêu đề hiện hành: “Câu hỏi về HITS”. Thời lượng mới: 3 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S05; MT4. Đầu vào: G5, $h^2$. Sản phẩm: tính một bước uy tín mới, so với cách chia bậc ra, giải thích uy tín của nút cụt.
 
@@ -2244,6 +2503,8 @@ Phân bổ: 4 slide, 10 phút.
 
 ### lec04-s06-00 — So sánh các phương pháp xếp hạng
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tên mạch "Tổng kết và tự kiểm tra"; dòng dẫn, từ khóa, ghi chú. Âm tiết mặt trang 37 / 37 → 40. Tiêu đề hiện hành: “6.Tổng kết và tự kiểm tra”. Thời lượng mới: 0,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 6 (`id="mach-6"`); ngoài chu trình khái niệm. Đầu vào: Bốn phương pháp cùng khung lặp (S02–S05). Sản phẩm: Nhu cầu chọn phương pháp theo đầu ra và thông tin bổ sung.
 
 **Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s06-01.
@@ -2275,6 +2536,8 @@ Các phương pháp đã học dùng cùng một khung lặp trên đồ thị l
 <!-- public-notes:end -->
 
 ### lec04-s06-01 — Ý nghĩa của các điểm xếp hạng
+
+- **Sửa 2026-10-14:** quyết định `sửa`: đổi vai trò thành "Thuật toán, bảo đảm và chi phí" (bảng bốn cột). Âm tiết mặt trang 87 / 84 → 69. Tiêu đề hiện hành: “Thuật toán, bảo đảm và chi phí”. Thời lượng mới: 2 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tổng hợp; MT5. Đầu vào: HT1,HT5,HT6. Sản phẩm: phân biệt đầu ra và thông tin thêm của mỗi phương pháp.
 
@@ -2319,6 +2582,8 @@ PageRank theo chủ đề và TrustRank dùng cùng họ phương trình nhưng 
 
 ### lec04-s06-02 — Chọn phương pháp xếp hạng
 
+- **Sửa 2026-10-14:** quyết định `sửa`: đổi vai trò thành "Câu trả lời cho vấn đề trung tâm"; ghi chú bỏ câu về số vòng và thời gian (lời giải câu tự kiểm tra 2). Âm tiết mặt trang 81 / 78 → 68. Tiêu đề hiện hành: “Câu trả lời cho vấn đề trung tâm”. Thời lượng mới: 2,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Thu hồi tình huống; MT5. Đầu vào: bảng so sánh. Sản phẩm: chọn phương pháp kèm điều kiện và giới hạn tài nguyên.
 
 **Luận điểm trung tâm:** Lựa chọn phương pháp phụ thuộc yêu cầu và giả thiết, không chỉ bậc chi phí.
@@ -2360,6 +2625,8 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 <!-- public-notes:end -->
 
 ### lec04-s06-03 — Câu hỏi về mô hình và chi phí
+
+- **Sửa 2026-10-14:** quyết định `sửa`: "Câu hỏi tự kiểm tra"; bỏ hai khung; câu ≤ 20; lời giải nêu kết quả đã dùng. Âm tiết mặt trang 62 / 59 → 46. Tiêu đề hiện hành: “Câu hỏi tự kiểm tra”. Thời lượng mới: 2,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Tự kiểm tổng hợp1–2; MT1,MT5. Đầu vào: phân phối dịch chuyển và phép đếm. Sản phẩm: phân biệt thay mô hình/biểu diễn và hiểu phạm vi chi phí.
 
@@ -2405,6 +2672,8 @@ Nhu cầu theo chủ đề còn phụ thuộc độ phù hợp của tập dịc
 <!-- public-notes:end -->
 
 ### lec04-s06-04 — Câu hỏi so sánh các phương pháp
+
+- **Sửa 2026-10-14:** quyết định `sửa`: như s06-03; ol start=3. Âm tiết mặt trang 77 / 74 → 58. Tiêu đề hiện hành: “Câu hỏi tự kiểm tra”. Thời lượng mới: 2,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Kiểm tra riêng S06; câu 3–5; MT2–MT5. Đầu vào: ba mô hình. Sản phẩm: chọn và diễn giải điểm dưới đúng giả thiết.
 
@@ -2460,6 +2729,8 @@ Phân bổ: 3 slide, 60 phút.
 
 ### lec04-s07-00 — Bài tập
 
+- **Sửa 2026-10-14:** quyết định `sửa`: tên "Bài tập vận dụng"; từ khóa là cụm danh từ chủ đề (quyết định 2). Âm tiết mặt trang 23 / 23 → 34. Tiêu đề hiện hành: “7.Bài tập vận dụng”. Thời lượng mới: 0,5 phút.
+
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Trang tiêu đề mạch, điểm vào mạch 7 (`id="mach-7"`); ngoài chu trình khái niệm. Đầu vào: Phương trình PageRank theo chủ đề, cụm thao túng, HITS. Sản phẩm: Ba bài MMDS 5.3.1, 5.4.1, 5.5.2 cần giải.
 
 **Luận điểm trung tâm:** Dòng dẫn nêu nhu cầu của mạch; tên mạch khác tiêu đề trang lec04-s07-01.
@@ -2491,6 +2762,8 @@ Phương trình điểm cố định của PageRank theo chủ đề, mô hình 
 <!-- public-notes:end -->
 
 ### lec04-s07-01 — Bài tập PageRank theo chủ đề
+
+- **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Bài tập: …"; bỏ dòng số bài đầu trang; "Sản phẩm:" thành câu mệnh lệnh; dòng Nguồn; bỏ thời lượng. Âm tiết mặt trang 70 / 65 → 64. Tiêu đề hiện hành: “Bài tập: PageRank với hai tập dịch chuyển”. Thời lượng mới: 19,5 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT1; MT1. Đầu vào: HT1 và G4. Sản phẩm: hai vector điểm và phép kiểm nghiệm.
 
@@ -2550,6 +2823,8 @@ Hai nghiệm đều có tổng bằng $1$. Phép thế vào cả bốn phương 
 <!-- public-notes:end -->
 
 ### lec04-s07-02 — Bài tập biến thể cụm thao túng
+
+- **Sửa 2026-10-14:** quyết định `sửa`: như s07-01. Âm tiết mặt trang 74 / 69 → 55. Tiêu đề hiện hành: “Bài tập: biến thể cụm thao túng”. Thời lượng mới: 20 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT2; MT2. Đầu vào: HT4. Sản phẩm: hai mô hình cân bằng và biểu thức y theo tham số.
 
@@ -2614,6 +2889,8 @@ Không bỏ phần $b$ nhận tại hỗ trợ, vì tổng $m$ phần ấy tạo
 <!-- public-notes:end -->
 
 ### lec04-s07-03 — Bài tập HITS trên chuỗi có khuyên
+
+- **Sửa 2026-10-14:** quyết định `sửa`: như s07-01. Âm tiết mặt trang 61 / 55 → 55. Tiêu đề hiện hành: “Bài tập: HITS trên chuỗi có khuyên”. Thời lượng mới: 20 phút.
 
 **Vai trò, mục tiêu, đầu vào và sản phẩm:** Recitation BT3 và kiểm tra riêng S07; MT4. Đầu vào: HT6. Sản phẩm: vector theo n, chứng minh giới hạn và xử lý biên.
 
@@ -2760,3 +3037,28 @@ Số trang, thứ tự, mã, thời lượng và sản phẩm học tập không
 ## Phân bổ lại sau khi tách ký hiệu và phép suy luận ngày29/09/2026
 
 S02 có13 trang: thời lượng lần lượt2;2;2,5;2,5;3;3;2,5;2,5;1;2;2;2;3 phút (S02-09a nằm sau S02-09), tổng30 phút. S04 có8 trang:2;2;2;1;3;3;2;3 phút (S04-02a nằm sau S04-02), tổng18 phút. Các phần khác và60 phút bài tập giữ nguyên. Tách định nghĩa vector chủ đề khỏi chứng minh tổng, tách bảng ký hiệu TrustRank khỏi phép cập nhật để giảm số đối tượng mới trên cùng trang. Không thêm chủ đề, ví dụ số hoặc bài tập.
+
+## Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+Căn cứ: quyết định hợp nhất của điều phối viên (`fix-d04.md`) từ ba báo cáo rà toán, mạch truyện và sinh viên; không có phát hiện nghiêm trọng. Quyết định cho từng phát hiện nằm trong `review-log.md`, mục cùng tên. Số trang, thứ tự, thời lượng không đổi.
+
+| Mã | Thay đổi | Lý do | Kết nối vào → ra |
+|---|---|---|---|
+| s01-05 | Nhu cầu: "một tỷ người dùng cần thứ hạng theo ngữ cảnh, khó thao túng, tách hai vai trò." | dòng 2 và 4 trả lời các nhu cầu chưa đặt trên mặt trang; `sources/source.md` nêu giới hạn "có thể bị thao túng" | s01-08 → s01-05 → s01-03; thu hồi ở s06-02 |
+| s01-04 | Kết luận "số vector dài cần lưu giảm từ số người dùng xuống số chủ đề $k$"; ghi chú nối sang câu hỏi ôn nhánh theo liên kết | Kết luận cũ lặp dòng 1 của s01-05; thiếu nối ra | s01-03 → s01-04 → s01-06 |
+| s06-02 | dòng 1 nêu $v=\sum_jw_jv^{(j)}$ và $r^*$ của $v$; dòng 3 đọc Spam Mass so với 1; dòng 4 vector riêng ứng với trị riêng lớn nhất; Kết luận thu hồi mạch 2, 4, 5 | trả lời từng nhu cầu của s01-05 bằng kết luận, không chỉ bằng con số | s06-01 → s06-02 → s06-03 |
+| s06-05 | thêm "$r^0$ là phân phối", "$v=\sum_jw_jv^{(j)}$", "dịch chuyển đều, $b=(1-\beta)/n$"; HITS: không gian riêng một chiều, $LL^\mathsf Th=\lambda_{\max}h$ | giả thiết quyết định phải có trên bảng | s06-00 → s06-05 → s06-01 |
+| s05-09 | Giả thiết "trị riêng lớn nhất có không gian riêng một chiều"; Kết luận "vector riêng ứng với trị riêng lớn nhất" | mọi trị riêng đều có vector riêng; cách nói chuẩn của đại số tuyến tính | s05-08 → s05-09 → s05-10 |
+| s05-05 | gộp dòng dữ kiện với dòng "Tại A" (8 dòng) | trần 8 dòng của trang có bảng | không đổi |
+| s02-05, s04-02a, s03-05 | nhãn số hạng và mũi tên ra ngoài `\text{}` | 18 cảnh báo KaTeX; nay 0 | không đổi |
+| s04-04 | cột "$r_i$, PageRank nền (Bài 03)" | gọi tên PageRank nền trước s04-06 | s04-03 → s04-04 → s04-05 |
+| s03-07, s03-08, s04-07, s06-04, s07-01, s07-02 | "MMDS Hình 5.16", "MMDS Ví dụ 5.2/5.10"; s07-01 $\beta=4/5$; s04-07 $\rho_C=19/105$ | dẫn số hình của sách phải ghi rõ nguồn; thống nhất cách viết số | không đổi |
+| s06-00, s06-01, s06-03 | từ khóa có "Câu trả lời"; cận sai số dạng phân số; câu 1 bỏ công thức nội dòng bị ngắt | gọi tên trang trọng tâm; công thức không ngắt dòng | không đổi |
+
+Ghi chú diễn giả sửa ở s01-04, s01-05, s01-06, s01-07, s02-00, s02-06, s03-08, s04-04, s04-07, s05-05, s05-06, s05-08, s05-11, s06-00, s06-02, s06-04, s06-05, s07-02.
+
+### Sửa cuối sau rà lại (2026-10-14)
+
+- **s03-05:** bỏ dòng "Bước 1: …; bước 2: …" khỏi mặt trang, nội dung chuyển vào ghi chú. Đếm theo `AGENTS.md` (mỗi khối công thức hiển thị một dòng), trang trước sửa có 7 dòng, nay 6; số "6" ghi ở bảng mật độ trước đó đếm hai khối $y=\dots$ trong một đoạn là một dòng, nên sai.
+- **s06-02:** dòng 3 tách $s_A=s_C=1/5$ (xa 1: chưa cần rà soát) khỏi $s_B=s_D=-23/95$; Kết luận "Spam Mass chỉ trang cần rà soát". Âm tiết 77/80.
+- **Ghi chú s06-05, s01-05:** bỏ câu nêu $b=0$ tại cụm (lời giải câu tự kiểm tra 3); thay câu mô tả cấu trúc trang ở s01-05 bằng bốn câu trả lời có điều kiện.

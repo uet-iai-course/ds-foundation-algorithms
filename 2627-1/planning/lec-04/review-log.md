@@ -577,3 +577,178 @@ Sau rà lại độc lập, sửa notes của lec04-s04-00 (mức nhẹ): "đế
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` (các mục "Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06; kế hoạch sửa toàn diện Bài 04 (tệp tạm trong scratchpad của phiên) mục B–F; quyết định của điều phối viên, mục "Bài 04" và "Chung cho mọi bài".
+
+**Phân công.** Điều phối viên: phiên Claude Code, Opus 5.5, effort `high`. Tác tử lập kế hoạch: chỉ đọc, `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`). Tác tử soạn: `subagent_type: "fork"` (kế thừa Opus 5.5, effort `high`), tác tử duy nhất được ghi; phạm vi ghi là deck Bài 04 và ba tệp planning; không commit. Bằng chứng là lời gọi Agent và tin nhắn giao việc của điều phối viên. Rà rút gọn ba vai do điều phối viên giao sau (quyết định 8).
+
+**Quyết định của điều phối viên đã áp dụng.** (1) Gộp "Ba yêu cầu xếp hạng liên kết" vào "Vấn đề trung tâm", dùng lại mã s01-05. (2) Mạch 7 "Bài tập vận dụng", từ khóa là cụm danh từ chủ đề. (3) Tiêu đề trang ví dụ "Ví dụ: đồ thị bốn trang, …"/"Ví dụ: đồ thị năm trang, …", thân trang giữ G4, G5. (4) Bỏ thời lượng khỏi ghi chú bài tập; thay quyết định "giữ" ngày 01/10, thời lượng 19,5/20/20 phút chỉ ở storyboard. (5) Giữ một dòng `ex-note` "Nguồn: MMDS 3e, Bài …" trên trang đề; bỏ dòng in đậm trùng ở đầu trang. (6) Tách s02-10 thành hai trang chi phí. (7) Luận đề bản ngắn có chữ HITS; "Bài 04" giữ trong `h1` vì bìa không tràn ở 1600×900. (8) Rà rút gọn ba vai: chờ điều phối viên. (9) "Sản phẩm:" đổi thành câu mệnh lệnh. (10) "vector/véc tơ": ngoài đợt này, ghi ở đây để xử lý cấp học phần. (11) Ghi chú s04-01 rút 241 → 161 âm tiết, s02-11 ở 226 (dưới 250, giữ lời giải và quy trình bốn bước). Chung: deck không có chữ "Đáp án" (đã kiểm); "Câu trả lời cho vấn đề trung tâm"; nhãn ngoài danh sách ("Truy vấn:", "Dữ liệu:", "Phương án trực tiếp:", "Vấn đề:", "Giới hạn:", "Cơ sở:", "Ý tưởng:", "Cách đọc (MMDS …):", "Sản phẩm:") thay bằng nhãn cho phép hoặc câu thường; viết tắt và thuật ngữ giải nghĩa ở lần đầu (dịch chuyển (teleport), liên kết rác (link spam), cụm thao túng liên kết (spam farm), tập hạt giống (seed set), HITS, hub, authority).
+
+**Rủi ro đã kiểm:** ba trang tổng kết (s06-05, s06-01, s06-02) không chứa lời giải năm câu tự kiểm tra: không có câu "cùng bậc chi phí không suy ra cùng thời gian chạy" (câu 2; câu tương ứng trong ghi chú cũ của s06-02 đã bỏ), không nêu ý nghĩa giá trị Spam Mass âm (câu 4), không có $a^1$ trên G4 (câu 5), không viết phương trình cụm với $b=0$ (câu 3), không nêu đại lượng đổi khi tập dịch chuyển đổi sang {C} (câu 1).
+
+**Thay đổi cấu trúc.** 58 → 63 trang; bảy mạch 8/15/9/8/12/7/4; 120 + 60 phút. Thêm s01-07, s01-08 (tách), s02-14 (tách), s06-05, s06-06; gộp s01-05; đổi vai trò s06-01, s06-02. Bỏ 51 dòng `p.ex-source` (đoạn "Nguồn:" trong ghi chú đã có ở mọi trang), ba dòng thời lượng trong ghi chú bài tập. Lớp `l04-agenda`, `l04-agenda-goal`, `l04-data`, `l04-topic`, `l04-thirds`, `l04-stack`, `l04-split-55` (ở s01-02) không còn được deck dùng; quy tắc trong `lecture-style.css` để nguyên (sửa CSS chung đòi kiểm các deck khác). CSS, SVG, viewer, `index.html`, ghi chú bài giảng không sửa. Không dòng nối Bài 05 trên trang nguồn: `sources/source.md` chỉ nêu thứ tự bài và tiên quyết của Bài 5 (băm, tập hợp, xác suất), không nêu quan hệ với Bài 4.
+
+**Con số mới:** không có. $K_j$, $K_r$, $K_\rho$ là tên cho số vòng thực chạy; các bậc chi phí và số liệu lấy từ deck và ghi chú đã kiểm.
+
+**Mật độ trước → sau** (biến thể `m04.py` của `tools/density.py`, cộng trang đầu mỗi section ngoài, bỏ công thức `$…$`):
+
+| Chỉ số | Trước (58 trang, gồm / bỏ nguồn) | Sau (63 trang) |
+|---|---:|---:|
+| Trung vị | 49 / 44,5 | 43 |
+| Số trang > 40 | 40 / 34 | 36 |
+| Số trang > 60 | 21 / 14 | 5 (đều trần 80) |
+| Số trang > 80 | 6 / 3 | 0 |
+| Trang vượt 1,5 lần trần | 1 (s01-05, 91/60) | 0 |
+
+| # | Mã | Trước (gồm / bỏ nguồn) | Sau | Trần | Dòng | Dòng dài nhất | Âm tiết ghi chú | Quyết định |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | `lec04-s01-01` | 13 / 13 | 45 | — | 4 | 21 | 98 | `sửa` |
+| 2 | `lec04-s01-07` | — / — | 57 | 60 | 5 | 18 | 108 | `thêm` |
+| 3 | `lec04-s01-02` | 61 / 58 | 78 | 80 | 5 | 18 | 136 | `tách` |
+| 4 | `lec04-s01-08` | — / — | 44 | 80 | 8 | 14 | 104 | `thêm` |
+| 5 | `lec04-s01-05` | 94 / 91 | 60 | 60 | 6 | 16 | 121 | `gộp` |
+| 6 | `lec04-s01-03` | 74 / 71 | 58 | 60 | 5 | 14 | 148 | `sửa` |
+| 7 | `lec04-s01-04` | 60 / 57 | 42 | 60 | 3 | 17 | 117 | `sửa` |
+| 8 | `lec04-s01-06` | 39 / 35 | 30 | 60 | 5 | 11 | 99 | `sửa` |
+| 9 | `lec04-s02-00` | 36 / 36 | 36 | — | 2 | 21 | 86 | `giữ` |
+| 10 | `lec04-s02-01` | 50 / 47 | 58 | 60 | 4 | 15 | 128 | `sửa` |
+| 11 | `lec04-s02-02` | 44 / 38 | 40 | 60 | 4 | 11 | 134 | `sửa` |
+| 12 | `lec04-s02-03` | 32 / 27 | 27 | 60 | 7 | 9 | 60 | `sửa` |
+| 13 | `lec04-s02-04` | 42 / 37 | 29 | 60 | 7 | 17 | 99 | `sửa` |
+| 14 | `lec04-s02-05` | 41 / 38 | 38 | 60 | 3 | 14 | 75 | `sửa` |
+| 15 | `lec04-s02-06` | 25 / 22 | 12 | 60 | 1 | 12 | 128 | `sửa` |
+| 16 | `lec04-s02-07` | 42 / 39 | 34 | 60 | 7 | 11 | 110 | `sửa` |
+| 17 | `lec04-s02-08` | 62 / 53 | 50 | 60 | 5 | 14 | 196 | `sửa` |
+| 18 | `lec04-s02-09` | 45 / 41 | 41 | 60 | 5 | 13 | 171 | `sửa` |
+| 19 | `lec04-s02-11` | 67 / 64 | 51 | 60 | 4 | 15 | 226 | `sửa` |
+| 20 | `lec04-s02-09a` | 58 / 47 | 27 | 60 | 4 | 10 | 135 | `sửa` |
+| 21 | `lec04-s02-10` | 85 / 75 | 56 | 80 | 7 | 17 | 146 | `tách` |
+| 22 | `lec04-s02-14` | — / — | 53 | 80 | 5 | 16 | 83 | `thêm` |
+| 23 | `lec04-s02-12` | 23 / 17 | 17 | 60 | 3 | 8 | 144 | `sửa` |
+| 24 | `lec04-s03-00` | 38 / 38 | 38 | — | 2 | 23 | 85 | `giữ` |
+| 25 | `lec04-s03-01` | 78 / 75 | 59 | 60 | 4 | 17 | 102 | `sửa` |
+| 26 | `lec04-s03-02` | 33 / 29 | 44 | 60 | 4 | 15 | 134 | `sửa` |
+| 27 | `lec04-s03-03` | 47 / 44 | 44 | 60 | 5 | 14 | 80 | `sửa` |
+| 28 | `lec04-s03-04` | 46 / 43 | 38 | 60 | 5 | 14 | 68 | `sửa` |
+| 29 | `lec04-s03-05` | 33 / 30 | 30 | 60 | 3 | 15 | 163 | `sửa` |
+| 30 | `lec04-s03-06` | 50 / 45 | 36 | 60 | 6 | 11 | 102 | `sửa` |
+| 31 | `lec04-s03-07` | 86 / 83 | 55 | 60 | 4 | 17 | 124 | `sửa` |
+| 32 | `lec04-s03-08` | 59 / 56 | 40 | 60 | 4 | 19 | 129 | `sửa` |
+| 33 | `lec04-s04-00` | 34 / 34 | 34 | — | 2 | 20 | 82 | `giữ` |
+| 34 | `lec04-s04-01` | 62 / 59 | 59 | 60 | 4 | 20 | 161 | `sửa` |
+| 35 | `lec04-s04-02a` | 40 / 29 | 31 | 60 | 3 | 16 | 159 | `sửa` |
+| 36 | `lec04-s04-03` | 41 / 36 | 33 | 60 | 7 | 17 | 62 | `sửa` |
+| 37 | `lec04-s04-04` | 47 / 40 | 35 | 60 | 7 | 13 | 99 | `sửa` |
+| 38 | `lec04-s04-05` | 48 / 41 | 41 | 60 | 6 | 18 | 144 | `sửa` |
+| 39 | `lec04-s04-06` | 55 / 52 | 46 | 80 | 7 | 15 | 97 | `sửa` |
+| 40 | `lec04-s04-07` | 54 / 47 | 43 | 60 | 4 | 15 | 133 | `sửa` |
+| 41 | `lec04-s05-00` | 37 / 37 | 37 | — | 2 | 22 | 96 | `giữ` |
+| 42 | `lec04-s05-01` | 82 / 77 | 57 | 60 | 4 | 18 | 147 | `sửa` |
+| 43 | `lec04-s05-02` | 64 / 58 | 47 | 60 | 4 | 19 | 176 | `sửa` |
+| 44 | `lec04-s05-03` | 48 / 43 | 36 | 60 | 8 | 15 | 79 | `sửa` |
+| 45 | `lec04-s05-04` | 39 / 34 | 34 | 60 | 8 | 18 | 72 | `sửa` |
+| 46 | `lec04-s05-05` | 34 / 29 | 31 | 60 | 8 | 18 | 84 | `sửa` |
+| 47 | `lec04-s05-06` | 35 / 31 | 35 | 60 | 5 | 12 | 70 | `sửa` |
+| 48 | `lec04-s05-07` | 68 / 65 | 43 | 60 | 4 | 15 | 88 | `sửa` |
+| 49 | `lec04-s05-08` | 38 / 35 | 15 | 60 | 2 | 9 | 165 | `sửa` |
+| 50 | `lec04-s05-09` | 63 / 55 | 53 | 60 | 4 | 16 | 166 | `sửa` |
+| 51 | `lec04-s05-10` | 76 / 68 | 54 | 80 | 8 | 15 | 113 | `sửa` |
+| 52 | `lec04-s05-11` | 56 / 49 | 45 | 60 | 5 | 16 | 112 | `sửa` |
+| 53 | `lec04-s06-00` | 37 / 37 | 40 | — | 2 | 22 | 103 | `sửa` |
+| 54 | `lec04-s06-05` | — / — | 64 | 80 | 7 | 18 | 123 | `thêm` |
+| 55 | `lec04-s06-01` | 87 / 84 | 69 | 80 | 5 | 18 | 94 | `sửa` |
+| 56 | `lec04-s06-02` | 81 / 78 | 68 | 80 | 6 | 16 | 129 | `sửa` |
+| 57 | `lec04-s06-03` | 62 / 59 | 46 | 60 | 3 | 18 | 107 | `sửa` |
+| 58 | `lec04-s06-04` | 77 / 74 | 58 | 60 | 4 | 20 | 244 | `sửa` |
+| 59 | `lec04-s06-06` | — / — | 41 | 80 | 4 | 14 | 88 | `thêm` |
+| 60 | `lec04-s07-00` | 23 / 23 | 34 | — | 2 | 20 | 84 | `sửa` |
+| 61 | `lec04-s07-01` | 70 / 65 | 64 | 80 | 5 | 20 | 158 | `sửa` |
+| 62 | `lec04-s07-02` | 74 / 69 | 55 | 80 | 4 | 20 | 183 | `sửa` |
+| 63 | `lec04-s07-03` | 61 / 55 | 55 | 80 | 5 | 17 | 210 | `sửa` |
+
+**Tự kiểm no-ai-slop (Edit, đối chiếu `eval.md`).** Văn bản mới: luận đề, s01-07, s01-05, s01-08, năm mục tiêu, s06-05, s06-01, s06-02, s06-06, s02-14 và các dòng nhãn, ghi chú diễn giả mới. Đạt: không từ cấm, không đối lập nhị phân, không câu mở dọn đường, không bình luận tầm quan trọng, không câu kết châm ngôn. Đã sửa: ghi chú bìa lấy "Bài này" làm chủ ngữ; ánh xạ câu → mục tiêu nằm trong storyboard. Rà "chúng ta", "ta thấy", "Trang này", "Đáp án", "Sản phẩm:", "Thời lượng", nhãn ngoài danh sách trên mặt trang và trong ghi chú: 0 kết quả (chuỗi "Phương án trực tiếp:" chỉ còn trong `alt` của SVG, không phải nhãn).
+
+**Kiểm kỹ thuật.** `git diff --check` sạch. HTML cân bằng (`html.parser`); section mở/đóng 70/70; 63 `data-slide-id` và 63 `id` duy nhất; `id="mach-2"` … `mach-7` giữ. Chromium Playwright, cổng 8771, `wait_until="load"`, tắt hiệu ứng chuyển trang: 1600×900 duyệt đủ 63 trang, 0 lỗi console, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không phần tử nào vượt khung (đáy thấp nhất s02-12 802/864, chân trang 845); 390×844 không tràn ngang, 0 `.katex-error`. Đã tự xem ảnh 1600×900: bìa, s01-08, s05-01, s02-10, s06-05, s06-01.
+
+**Tác động tới ghi chú bài giảng `materials/lec-04/lecture-note.md`.** Không sửa. Ký hiệu, ví dụ, số liệu và kết luận không đổi. Cần đồng bộ ở lượt sửa ghi chú: đoạn mục tiêu đầu ghi chú khác năm mục tiêu hiển thị; ghi chú chưa có câu luận đề và "Vấn đề trung tâm"; tên mục 7 "Bài tập từ giáo trình" khác "Bài tập vận dụng"; tên $K_j$, $K_r$, $K_\rho$ cho số vòng thực chạy chưa có trong ghi chú; năm câu tự kiểm của deck chưa có trong ghi chú (đã ghi từ 01/10); ghi chú chưa đánh số môi trường nên deck không dẫn số hiệu.
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Trạng thái |
+|---|---|---|---|---|---|
+| nhẹ | toàn deck | Trung vị 43 trên mức nhắm 40 | bảng mật độ | Để vai sinh viên kèm mật độ đánh giá | mở, chờ rà |
+| nhẹ | s02-08, s02-11, s06-04, s07-01…03 | Ghi chú diễn giả > 150 âm tiết (chứng minh, lời giải; ≤ 250 trừ s06-04 sau khi rút còn dưới 250) | bảng mật độ | Giữ vì là chứng minh hoặc lời giải | chấp nhận |
+| nhẹ | học phần | "vector"/"véc tơ" khác nhau giữa Bài 03 và Bài 04 | quyết định 10 | Quyết định cấp học phần | hoãn có lý do |
+| nhẹ | `lecture-style.css` | Lớp `l04-*` không còn dùng | grep deck | Dọn ở đợt CSS, kiểm Bài 02, 03 | hoãn |
+
+## Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+Căn cứ: ba báo cáo rà deck 04 sau đợt sửa toàn diện (vai toán và thuật toán, vai mạch truyện và liên kết, vai sinh viên; tác tử chỉ đọc do điều phối viên tạo) và quyết định hợp nhất của điều phối viên `fix-d04.md`. Không có phát hiện nghiêm trọng. Vai sửa: tác tử `fork` kế thừa Opus 5.5, effort `high` (bằng chứng: lời gọi Agent của điều phối viên), tác tử ghi duy nhất. Phạm vi ghi: deck 04 và ba tệp planning; không sửa CSS, SVG, index, ghi chú bài giảng, deck khác. Không commit. Số trang (63), thứ tự, thời lượng không đổi. Không có con số mới; $\rho_C=19/105=38/210$ chỉ đổi cách viết.
+
+**Quyết định cho từng phát hiện.** Quyết định: `sửa` | `bác bỏ` | `mở`.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Cách xử lý, lý do |
+|---|---|---|---|---|---|
+| toán | trung bình | s06-05 "Điểm trang đích" | thiếu giả thiết dịch chuyển đều, $b$ không định nghĩa | sửa | ô giả thiết: "đúng kiến trúc cụm; không nút cụt; dịch chuyển đều, $b=(1-\beta)/n$"; ghi chú: khi dịch chuyển chỉ vào tập tin cậy, $b$ tại các trang của cụm không thuộc $T$ bằng $0$ |
+| toán | nhẹ | s06-05 "Ghép điểm chủ đề"; s06-02 dòng 1 | $r^*$ chưa xác định trên trang tổng kết | sửa | s06-05: giả thiết có $v=\sum_jw_jv^{(j)}$, công thức "điểm cố định của $v$: $r^*=\sum_jw_jr^{(j)}$"; s06-02: "$v=\sum_jw_jv^{(j)}$ … cho đúng $r^*$ của $v$" |
+| toán | nhẹ | s06-05 "Bảo toàn tổng điểm" | thiếu cơ sở quy nạp | sửa | ô giả thiết thêm "$r^0$ là phân phối" |
+| toán | nhẹ | s06-02 dòng 4; s05-09 | chưa nói vector riêng ứng với trị riêng nào | sửa | s05-09 Giả thiết "trị riêng lớn nhất có không gian riêng một chiều; $h^0$ có thành phần theo vector riêng ấy", Kết luận "vector riêng ứng với trị riêng lớn nhất của $LL^\mathsf T$, $L^\mathsf TL$"; s06-02 dòng 4 và s06-05 hàng HITS ($LL^\mathsf Th=\lambda_{\max}h$, $L^\mathsf TLa=\lambda_{\max}a$) cùng cách nói; ghi chú s06-05: hai ma trận có cùng trị riêng khác $0$ |
+| toán | nhẹ | s06-04 ghi chú câu 3 | chỉ nêu số hạng $m/n$ bị mất | sửa | "còn các số hạng $\beta mb$ và $b$ của công thức chính xác (dạng xấp xỉ: $\frac{\beta}{1+\beta}\frac mn$) bị mất"; bỏ một câu kết lặp để ghi chú lời giải còn 237 âm tiết (≤ 250) |
+| toán | nhẹ | s06-01, s06-05 | công thức nội dòng ngắt tại dấu trừ; `\frac` nhỏ | sửa | s06-01 "$\le\dfrac{\beta\Delta}{1-\beta}$"; s06-05 dùng `\dfrac`; các đẳng thức trong ô bảng s06-05 và $T=\{B,D\}$ ở s04-07 bọc trong nhóm KaTeX để không ngắt dòng; đã xem ảnh 1600×900 |
+| toán | nhẹ | s02-05, s04-02a, s03-05 | chữ Việt và "→" trong `\text{}` gây 18 cảnh báo KaTeX | sửa | nhãn số hạng thành $(1)$, $(2)$, $(3)$ dưới `\underbrace` và một dòng chú thích ngoài công thức; s03-05 dùng mũi tên trơn và dòng "Bước 1: …; bước 2: …"; Playwright 0 cảnh báo KaTeX |
+| toán | nhẹ | s01-06 ghi chú | dẫn sai hình | sửa | "Hình 5.1, tr.178" |
+| toán | nhẹ | s02-11, s02-14 | $C$ (tập ứng viên) trùng tên trang C của G4 | mở | đổi thành $\mathcal C$ chạm s02-11, s02-14, s06-01, ghi chú và ghi chú bài giảng; để đợt sửa ký hiệu chung cùng ghi chú bài giảng. Ngữ cảnh khác nhau (tập trong công thức chi phí, nhãn trang trong hình) |
+| mạch | trung bình | s01-05 | dòng Nhu cầu chỉ nêu nhu cầu của mạch 2 | sửa | "một tỷ người dùng cần thứ hạng theo ngữ cảnh, khó thao túng, tách hai vai trò." (18 âm tiết; trang 60/60) |
+| mạch | nhẹ | ghi chú s01-05, s06-02, s06-00 | câu siêu văn bản về thứ tự dòng | sửa | s01-05: câu nói Nhu cầu gộp ba hạn chế; s06-02 bỏ câu; s06-00: "trả lời bằng kết luận có điều kiện cho từng nhu cầu: thứ hạng theo ngữ cảnh, mức thao túng, hai vai trò" |
+| mạch | nhẹ | s06-02 | dòng 3 chỉ cho số; Kết luận chỉ thu hồi mạch 2 | sửa | dòng 3 "…, đều xa $1$: chưa cần rà soát."; Kết luận "$k$ vector thay một tỷ vector riêng; Spam Mass đo thao túng; HITS tách hai vai trò." Trang 76/80 |
+| mạch | nhẹ | s01-04 → s01-06 | thiếu câu nối; Kết luận lặp s01-05 | sửa | Kết luận "số vector dài cần lưu giảm từ số người dùng xuống số chủ đề $k$"; ghi chú kết bằng câu nối sang phép truyền điểm của Bài 03 |
+| mạch | nhẹ | ghi chú s01-06, s07-02 | "bước nhảy" sau khi đã đổi tên | sửa | "dịch chuyển"; s01-06 giữ một lần "(Bài 03 gọi là bước nhảy ngẫu nhiên)" |
+| mạch | nhẹ | s01-07 | chưa nêu đổi $T_{\max}\to K$ | sửa | ghi chú thêm "số vòng tối đa viết $K$ (Bài 03 viết $T_{\max}$)" |
+| mạch | nhẹ | s02-00 ghi chú | không giao đầu ra cho mạch 3; thiếu mệnh đề tuyến tính | sửa | thêm "tính tuyến tính theo phân phối dịch chuyển" và câu giao cho mạch 3 |
+| mạch | nhẹ | s03-08, s05-11 | ghi chú không nối ra | sửa | câu cuối ở cả hai trang |
+| mạch | nhẹ | s05-05 → s05-06 | thiếu lý do chuyển sang ma trận | sửa | câu đầu ghi chú s05-06 |
+| mạch | nhẹ | s04-06, s06-04 | "PageRank nền" dùng trước khi gọi tên | sửa | s04-04 cột "$r_i$, PageRank nền (Bài 03)"; ghi chú: PageRank nền là PageRank dịch chuyển đều của Bài 03 |
+| mạch | nhẹ | s07-01 | $\beta=0{,}8$ khác cách viết $4/5$ | sửa | "$\beta=4/5$, kế thừa MMDS Ví dụ 5.10" |
+| mạch | nhẹ | s06-05 ghi chú; s06-00 từ khóa | "Mỗi giả thiết có phản ví dụ" nhưng chỉ có bốn; từ khóa thiếu trang Câu trả lời | sửa | "Bốn giả thiết có phản ví dụ đã gặp"; từ khóa "Giả thiết · Bảo đảm và chi phí · Câu trả lời · Câu hỏi tự kiểm tra · Tài liệu đọc" (19) |
+| mạch | nhẹ | storyboard, outline | phần đầu còn "58 trang", bảng phần cũ | sửa | thêm đoạn "Bản hiện hành (2026-10-14)" ở đầu storyboard và trước bảng phần của outline, đánh dấu các bảng cũ |
+| sinh viên | trung bình | s05-05 | 9 dòng | sửa | gộp dòng $h^1$ với dòng "Tại A" thành "Từ $h^1=…$; chia $\tilde a$ cho $5/3$, $\tilde h$ cho $\tilde h_A=29/10$." (8 dòng); "trung tâm thô lớn nhất" sang ghi chú |
+| sinh viên | trung bình | s05-09, s06-02, s06-05 | vector riêng ứng với trị riêng nào; cách nói "một hướng" | sửa | như phát hiện của vai toán |
+| sinh viên | nhẹ | s02-06, s05-08 | phông đơn cách của giả mã đặt dấu thanh lệch trên Chromium Linux | mở | lỗi của chuỗi `font-family` cho `pre.ex-code` trong `lecture-style.css`, ngoài phạm vi lượt này; ghi để đợt CSS chung kiểm phông đơn cách hỗ trợ tiếng Việt |
+| sinh viên | nhẹ | s02-05, s04-02a, s03-05 | cảnh báo KaTeX | sửa | như phát hiện của vai toán |
+| sinh viên | nhẹ | s02-11, s02-14 ↔ s02-12 | $C$ trùng nghĩa | mở | như phát hiện của vai toán |
+| sinh viên | nhẹ | s04-07 ↔ s04-03 | $\rho_C$ viết hai dạng | sửa | mặt trang $\rho_C=19/105$; ghi chú: Hình 5.17 viết $38/210$ |
+| sinh viên | nhẹ | s03-07, s03-08, s06-04, s07-02, s07-01, s04-07 | dẫn "Hình 5.16", "Ví dụ 5.10", "Ví dụ 5.2" không rõ nguồn | sửa | thêm "MMDS" ở mọi chỗ dẫn trên mặt trang; không thêm chú thích dưới hình s03-02 vì nguồn đã ở ghi chú và các trang dẫn đã ghi "MMDS Hình 5.16" |
+| sinh viên | nhẹ | s02-08 | "Nhắc lại:" cho ký hiệu mới $\bar M$ | sửa | "Ký hiệu:" |
+| sinh viên | nhẹ | s04-04 | vector PageRank nền không nêu nguồn | sửa | cột "$r_i$, PageRank nền (Bài 03)" |
+| sinh viên | nhẹ | s06-01, s06-03 | công thức bị ngắt | sửa | s06-01 `\dfrac`; s06-03 câu 1 "…: trong phép lặp, đại lượng nào đổi, nào giữ?" (công thức trong ghi chú) |
+| sinh viên | nhẹ | s02-06 | `out[j]` chưa giải thích | sửa | ghi chú: "`out[j]` là danh sách các trang mà $j$ trỏ tới"; mặt trang giữ nguyên để không vượt 20 âm tiết |
+| sinh viên | nhẹ | s05-08 ↔ s02-06 | `Delta` hai nghĩa | sửa | ghi chú s05-08: "Khác PageRank, thay đổi đo bằng chuẩn cực đại vì $h$, $a$ không là phân phối." |
+| sinh viên | nhẹ | ghi chú s01-06, s07-02 | "bước nhảy" | sửa | như phát hiện của vai mạch |
+| sinh viên | nhẹ | s01-05 | thuật ngữ dùng trước định nghĩa | bác bỏ | khuôn trang Vấn đề trung tâm của `AGENTS.md` nêu trước câu trả lời từng mạch; thêm chú giải làm trang vượt 60; ghi chú s01-05 giải nghĩa cụm thao túng liên kết |
+| sinh viên | nhẹ | ghi chú diễn giả | một số ghi chú > 150 âm tiết | mở | không rút trong lượt này; ghi chú mới thêm ở s05-08 (181), s06-05 (159), s03-08 (154) là câu nối hoặc phân biệt ký hiệu do báo cáo yêu cầu; mọi ghi chú dưới 250 (s06-04 237) |
+| điều phối (`fix-d04.md`) | nhẹ | s04-03 | "tập mang nghĩa tin cậy" mơ hồ | sửa | s04-03 Kết luận "cùng $v$, cùng nghiệm như ví dụ theo chủ đề; chỉ khác: $T$ là tập trang đáng tin." |
+| sinh viên | nhẹ | storyboard (cột Dòng, số trang) | cột Dòng thấp hơn hiển thị; "58 trang" | sửa | đếm lại cột Dòng cho 63 trang theo quy tắc mới (kể cả khối công thức và hộp câu hỏi); 11 trang đổi số dòng, liệt kê trong đoạn Mật độ của storyboard; số trang 63 ở đầu storyboard và outline |
+
+**Mật độ sau lượt sửa** (`python3 -I m04.py`). Không trang trần 60 nào vượt 60 (s01-05 60); không trang trần 80 nào vượt 80 (s06-02 76, s06-05 75, s06-01 69). Mọi dòng nội dung ≤ 20 âm tiết; dòng dẫn tiêu đề mạch ≤ 23; luận đề 21. Âm tiết các trang đổi: s01-04 42 → 47; s02-05 38 → 46; s03-05 30 → 43; s03-07 55 → 56; s03-08 40 → 42; s04-02a 31 → 40; s04-03 33 → 34; s04-07 43 → 46; s05-05 31 → 28; s05-09 53 → 57; s06-02 68 → 76; s06-03 46 → 47; s06-04 58 → 59; s06-05 64 → 75; s07-01 64 → 65; s07-02 55 → 56; s01-05 60 → 60.
+
+**Tự kiểm no-ai-slop (Edit, đối chiếu `eval.md`).** Đạt: bỏ ba câu siêu văn bản về thứ tự dòng; câu mới nêu giả thiết, đại lượng hoặc liên kết cụ thể; không câu hỏi tu từ, không lời nói mô phỏng, không gạch ngang dài.
+
+**Kiểm kỹ thuật.** `git diff --check` sạch cho deck và ba tệp planning. HTML cân bằng (`html.parser`: 0 thẻ chưa đóng, 0 thẻ đóng sai); 63 `data-slide-id` duy nhất; 0 `<style>`, 0 `style=`, 0 `fragment`, 0 `.dense`; 0 chữ có dấu trong `\text{}`. Playwright Chromium, cổng 8771, `wait_until="load"`, tắt chuyển cảnh, bộ lọc console bắt `error` và cảnh báo KaTeX:
+- 1600×900: cả 63 trang; 0 lỗi console, 0 cảnh báo KaTeX (trước lượt sửa 18), 0 lỗi trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung; trang sát đáy nhất s06-05 (810/864 px, chân trang 845).
+- 390×844: 0 phần tử vượt mép phải, `scrollWidth` = `clientWidth` = 390, 0 lỗi, 0 `.katex-error`.
+- Ảnh đã tự xem (1600×900): s01-04, s01-05, s02-05, s03-05, s04-02a, s04-03, s04-04, s04-07, s05-05, s05-09, s06-00, s06-01, s06-02, s06-03, s06-04, s06-05, s07-01, s07-02; 390×844: s01-05, s05-05, s06-02, s06-05.
+
+**Tác động tới ghi chú bài giảng.** Không sửa. Cần đồng bộ ở đợt sửa ghi chú: cách phát biểu điều kiện HITS (không gian riêng một chiều của trị riêng lớn nhất), giả thiết $r^0$ phân phối và $v=\sum_jw_jv^{(j)}$ trong bảng tổng kết, $\rho_C=19/105$.
+
+### Sửa cuối sau rà lại (2026-10-14)
+
+Căn cứ: báo cáo rà lại chỉ đọc các trang đổi (`recheck-d04.md`) và chỉ đạo của điều phối viên. Cùng vai sửa (tác tử `fork`, Opus 5.5, effort `high`); không commit.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Cách xử lý, lý do |
+|---|---|---|---|---|---|
+| rà lại | trung bình | s03-05 | 7 dòng (4 đoạn và 3 khối công thức), vượt trần 6; storyboard ghi 6 và mục kiểm trước ghi "không trang nào vượt trần dòng" | sửa | chuyển dòng "Bước 1…; bước 2…" vào ghi chú; còn 6 dòng; đính chính storyboard (cách đếm cũ gộp hai khối trong một đoạn) và đính chính câu "không trang nào vượt trần dòng" của mục trước |
+| rà lại | nhẹ | s06-05 (ghi chú) | lộ bước then chốt của câu tự kiểm tra 3 | sửa | bỏ câu "$b$ … không thuộc $T$ bằng $0$" |
+| rà lại | nhẹ | s06-02 | "Spam Mass đo thao túng" mạnh hơn định nghĩa; giá trị âm bị xếp vào "chưa cần rà soát" | sửa | Kết luận "Spam Mass chỉ trang cần rà soát"; dòng 3 "$s_A=s_C=1/5$ xa $1$: chưa cần rà soát; $s_B=s_D=-23/95$." (cách đọc giá trị âm để lại cho câu 4) |
+| rà lại | nhẹ | s01-05 (ghi chú) | còn câu mô tả cấu trúc trang | sửa | thay bằng nội dung bốn câu trả lời có điều kiện và chi phí cùng bậc |
+
+**Kiểm.** `git diff --check` sạch. Mật độ: s03-05 30/60, 6 dòng; s06-02 77/80, mọi dòng ≤ 20 âm tiết. Playwright 1600×900 và 390×844 trên cả 63 trang: 0 lỗi, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn. Ảnh đã tự xem: s03-05, s06-02 (1600×900; công thức $s_B=s_D=-23/95$ không còn ngắt dòng).

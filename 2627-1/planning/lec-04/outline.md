@@ -91,6 +91,8 @@ Giữ thứ tự §5.3 → §5.4 → §5.5. Đặt HITS ngay sau PageRank sẽ n
 
 ## Bảy phần và phân bổ thời lượng
 
+**Bản hiện hành (2026-10-14).** Bảng dưới là bản trước đợt sửa (deck 58 trang, mạch 6 "So sánh các phương pháp xếp hạng"). Deck hiện hành có 63 trang, bảy mạch 8/15/9/8/12/7/4 trang, 12/30/19/17/29/13 + 60 phút, mạch 6 "Tổng kết và tự kiểm tra", mạch 7 "Bài tập vận dụng"; xem mục "Sửa toàn diện theo chuẩn 2026-10-14".
+
 | Phần | Loại chính; mục tiêu | Đầu vào → kết quả chuyển tiếp | Slide | Phút | Kiểm tra riêng |
 |---|---|---|---:|---:|---|
 | S01. Bài toán xếp hạng liên kết | Giới thiệu và động lực; MT1, MT5 | PageRank Bài03 → nhu cầu theo chủ đề/độ tin cậy/vai trò | 6 | 12 | S01-06 |
@@ -379,3 +381,28 @@ Giữ 53 trang, bảy phần và 120 + 60 phút. S04-02 đưa định nghĩa ph�
 - Thuật ngữ với Bài 03: “dịch chuyển” là bước nhảy ngẫu nhiên của Bài 03 (cầu nối ở S01-06, S02-01); $\bar M$ là ma trận $S$ của Bài 03; “điểm cố định” là phân phối không đổi của Bài 03.
 - Các câu hỏi kiểm tra S02-12, S03-08, S04-07, S05-11, S06-04 được đổi để đáp án không hiển thị trên các trang trước.
 - Ghi chú tự học `lecture-note.md` không đổi trong lượt này: ký hiệu ($\bar M$, $q_i$, điểm cố định, cụm thao túng) và thứ tự khái niệm tương thích; ghi chú chưa có câu nối “bước nhảy ngẫu nhiên” của Bài 03, ghi nhận để xử lý ở lượt sửa ghi chú.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Câu luận đề trên trang bìa (bản ngắn, quyết định 7 của điều phối viên): "Đổi phân phối dịch chuyển cho điểm theo chủ đề hoặc theo tập tin cậy; HITS gán mỗi trang hai điểm." Deck 63 trang (59 giảng + 4 bài tập); bảy mạch 8/15/9/8/12/7/4; 12/30/19/17/29/13 + 60 phút. Mạch 6 đổi tên "Tổng kết và tự kiểm tra", mạch 7 "Bài tập vận dụng" (từ khóa là cụm danh từ chủ đề). Dòng ghi chỉ dùng tác tử gốc GPT-6-Astra ở đầu tệp là lịch sử; đợt này dùng tác tử Claude theo `CLAUDE.md`.
+
+| Mục tiêu hiển thị (s01-02) | MT | Bằng chứng |
+|---|---|---|
+| 1. Lập phân phối dịch chuyển; tính PageRank theo chủ đề và cận sai số khi dừng | MT1 | s02-12, Bài 5.3.1 |
+| 2. Lập phương trình điểm trang đích của cụm thao túng; tính hệ số khuếch đại | MT2 | s03-08, Bài 5.4.1 |
+| 3. Tính TrustRank và Spam Mass trên cùng mô hình; nêu giới hạn diễn giải | MT3 | s04-07, câu tự kiểm tra 3–4 (s06-04) |
+| 4. Lập ma trận HITS; cập nhật uy tín rồi trung tâm, chuẩn hóa theo giá trị lớn nhất | MT4 | s05-11, Bài 5.5.2 |
+| 5. Chọn phương pháp theo đầu ra, thông tin bổ sung và chi phí mỗi vòng | MT5 | s06-01, câu tự kiểm tra 1–2 (s06-03), câu 5 (s06-04) |
+
+- **Mạch mở đầu:** thêm s01-07 "Tiên quyết và quy ước", s01-08 "Nội dung" (tách từ s01-02); s01-05 "Ba yêu cầu xếp hạng liên kết" gộp thành "Vấn đề trung tâm" (dùng lại mã); s01-04 đổi tiêu đề "Lưu PageRank riêng cho từng người dùng"; s01-06 thành trang câu hỏi.
+- **Mạch kết luận:** thêm s06-05 (bảng kết quả–giả thiết), s06-06 (nguồn); s06-01 thành "Thuật toán, bảo đảm và chi phí", s06-02 thành "Câu trả lời cho vấn đề trung tâm"; s06-03, s06-04 thành "Câu hỏi tự kiểm tra". Không dòng nối Bài 05 vì `sources/source.md` không nêu quan hệ giữa Bài 4 và Bài 5.
+- **Tách:** s02-10 thành "Chi phí: tiền tính theo chủ đề" và s02-14 "Chi phí: xử lý truy vấn".
+- **Thuật ngữ và ký hiệu (bổ sung):** dịch chuyển (teleport), Bài 03 gọi là bước nhảy ngẫu nhiên; \(\ell\) là số cạnh (Bài 03 viết \(m\)); \(K_j\), \(K_r\), \(K_\rho\) là số vòng thực chạy; liên kết rác (link spam), cụm thao túng liên kết (spam farm), tập hạt giống (seed set), trung tâm (hub), uy tín (authority). "vector/véc tơ" giữa Bài 03 và Bài 04 là quyết định cấp học phần, ngoài đợt này (quyết định 10).
+- Tiêu đề trang ví dụ gọi "đồ thị bốn trang", "đồ thị năm trang"; thân trang giữ G4, G5.
+
+## Lượt sửa sau ba báo cáo rà (2026-10-14)
+
+- **Vấn đề trung tâm:** dòng Nhu cầu nêu cả ba giới hạn của PageRank toàn cục (ngữ cảnh, thao túng, hai vai trò), khớp `sources/source.md` ("không phản ánh mọi ngữ cảnh truy vấn và có thể bị thao túng").
+- **Ký hiệu:** $\bar M$ là ký hiệu mới của Bài 04 (Bài 03 viết $S$ trong ghi chú), nên s02-08 dùng nhãn "Ký hiệu:"; số vòng tối đa $K$ thay $T_{\max}$ của Bài 03; $\rho_C$ viết $19/105$ ở mọi trang. Tập ứng viên $C$ (s02-11, s02-14, s06-01) giữ tên, xem review-log.
+- **HITS:** điều kiện viết theo đại số tuyến tính: trị riêng lớn nhất có không gian riêng một chiều; $h$, $a$ là vector riêng ứng với trị riêng lớn nhất.
+- **Ghi chú bài giảng:** không sửa trong lượt này; khi sửa ghi chú cần dùng cùng cách phát biểu điều kiện HITS và các giả thiết của bảng tổng kết.
