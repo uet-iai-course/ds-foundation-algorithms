@@ -326,7 +326,7 @@ Tập shingle · Thuật toán tạo tập · Độ dài shingle · Khoảng tr�
 
 **Ghi chú diễn giả học thuật**
 
-Jaccard đã được định nghĩa trên hai tập; bài toán tài liệu gần trùng cần so nội dung chứ không so từng ký tự. Phần này biểu diễn tài liệu bằng tập các $k$-shingle, tính ví dụ abcdabd với $k=2$, định nghĩa tập shingle và thuật toán tạo tập, rồi chọn độ dài $k$, xử lý khoảng trắng và băm mỗi 9-shingle thành mã 4 byte. Số mã shingle vẫn gần bằng số ký tự của tài liệu, dẫn tới nhu cầu chữ ký ngắn.
+Jaccard đã được định nghĩa trên hai tập; bài toán tài liệu gần trùng cần so nội dung chứ không so từng ký tự. Mỗi tài liệu được biểu diễn bằng tập các $k$-shingle: ví dụ abcdabd với $k=2$ dẫn tới định nghĩa tập shingle và thuật toán tạo tập; độ dài $k$, khoảng trắng và phép băm mỗi 9-shingle thành mã 4 byte là các quyết định kèm theo. Số mã shingle vẫn gần bằng số ký tự của tài liệu, dẫn tới nhu cầu chữ ký ngắn.
 
 ### 10. Biểu diễn văn bản bằng tập shingle
 
@@ -646,7 +646,7 @@ Ma trận đặc trưng · Hoán vị hàng · Ba loại hàng · Xác suất tr
 
 **Ghi chú diễn giả học thuật**
 
-Tập mã shingle của tài liệu 50.000 byte vẫn chiếm khoảng 200.000 byte. Phần này xếp các tập thành cột của ma trận đặc trưng, định nghĩa MinHash là phần tử đứng đầu của tập theo một hoán vị hàng, tính trên ví dụ bốn tập, phân ba loại hàng của một cặp cột và chứng minh xác suất hai MinHash trùng bằng độ tương đồng Jaccard. Một MinHash chỉ cho trùng hoặc không trùng; phần sau ghép nhiều MinHash thành chữ ký.
+Tập mã shingle của tài liệu 50.000 byte vẫn chiếm khoảng 200.000 byte. Các tập được xếp thành cột của ma trận đặc trưng; MinHash là phần tử đứng đầu của tập theo một hoán vị hàng, tính được trên ví dụ bốn tập; ba loại hàng của một cặp cột cho phép chứng minh xác suất hai MinHash trùng bằng độ tương đồng Jaccard. Một MinHash chỉ cho trùng hoặc không trùng; nhiều MinHash được ghép lại thành chữ ký.
 
 ### 19. Kích thước tập shingle
 
@@ -974,7 +974,7 @@ Ma trận chữ ký · Tỷ lệ trùng · Kỳ vọng · Phương sai · Chi ph
 
 **Ghi chú diễn giả học thuật**
 
-Định lý xác suất trùng cho một phép thử với kết quả trùng hoặc không trùng. Phần này ghép $n$ MinHash theo cùng bộ hoán vị thành chữ ký, ước lượng Jaccard bằng tỷ lệ tọa độ trùng, chứng minh ước lượng không chệch, tính phương sai khi các hoán vị độc lập và đếm chi phí so hai chữ ký. Mô hình vẫn cần $n$ hoán vị thật của hàng triệu hàng, nên phần sau thay hoán vị bằng hàm băm.
+Định lý xác suất trùng cho một phép thử với kết quả trùng hoặc không trùng. Chữ ký gồm $n$ MinHash theo cùng bộ hoán vị; tỷ lệ tọa độ trùng ước lượng Jaccard không chệch, phương sai tính được khi các hoán vị độc lập, và so hai chữ ký tốn $\Theta(n)$ phép so bằng. Mô hình vẫn cần $n$ hoán vị thật của hàng triệu hàng, nên cần thay hoán vị bằng hàm băm.
 
 ### 28. Chữ ký từ nhiều thứ tự
 
@@ -1273,7 +1273,7 @@ Hàm băm hàng · Quét hàng · Tính đúng · Chi phí và bộ nhớ · Đi
 
 **Ghi chú diễn giả học thuật**
 
-Chữ ký và ước lượng không chệch đã có dưới giả thiết hoán vị đều, độc lập. Phần này thay mỗi hoán vị bằng một hàm băm trên mã hàng, đặc tả ma trận $\mathrm{SIG}$, chạy tay phép quét với hai hàm băm trên năm hàng, phát biểu thuật toán quét hàng, chứng minh tính đúng, đếm thời gian và bộ nhớ, rồi nêu điều kiện để $(ar+b)\bmod R$ là hoán vị. Ma trận $\mathrm{SIG}$ là đầu vào của phần tổng kết và của Bài 06.
+Chữ ký và ước lượng không chệch đã có dưới giả thiết hoán vị đều, độc lập. Mỗi hoán vị được thay bằng một hàm băm trên mã hàng; ma trận $\mathrm{SIG}$ được đặc tả và phép quét chạy tay với hai hàm băm trên năm hàng; thuật toán quét hàng đi kèm chứng minh tính đúng, chi phí thời gian, bộ nhớ và điều kiện để $(ar+b)\bmod R$ là hoán vị. Ma trận $\mathrm{SIG}$ là đầu vào của bảng tổng kết và của Bài 06.
 
 ### 35. Mô phỏng hoán vị bằng hàm băm
 
@@ -1745,7 +1745,7 @@ Quy trình biểu diễn · Kết quả và giới hạn · Câu hỏi tự ki�
 
 **Ghi chú diễn giả học thuật**
 
-Shingling, MinHash, chữ ký và phép quét hàng tạo thành quy trình biến tài liệu thành chữ ký ngắn. Phần này nêu quy trình với hai bước băm, rồi đối chiếu với kho $10^6$ tài liệu: chữ ký cả kho khoảng 1 GB, độ lệch chuẩn của ước lượng không quá khoảng 0,032, nhưng số cặp vẫn khoảng $5\cdot10^{11}$. Hai trang câu hỏi kiểm lại biểu diễn và chữ ký. Số cặp bậc hai là giới hạn Bài 06 xử lý.
+Shingling, MinHash, chữ ký và phép quét hàng tạo thành quy trình biến tài liệu thành chữ ký ngắn. Quy trình gồm hai bước băm; đối chiếu với kho $10^6$ tài liệu cho chữ ký cả kho khoảng 1 GB, độ lệch chuẩn của ước lượng không quá khoảng 0,032, nhưng số cặp vẫn khoảng $5\cdot10^{11}$. Các câu hỏi tự kiểm tra kiểm lại biểu diễn và chữ ký. Số cặp bậc hai là giới hạn Bài 06 xử lý.
 
 ### 47. Quy trình biểu diễn tài liệu
 
