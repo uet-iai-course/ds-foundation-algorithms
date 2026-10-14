@@ -1,5 +1,121 @@
 # Nhật ký rà soát Bài 1
 
+## Sửa sau recheck (2026-10-14)
+
+Theo `recheck-d01.md` và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit.
+
+| Mức độ | Trang chiếu | Phát hiện | Quyết định |
+|---|---|---|---|
+| nhẹ | ghi chú D01 | câu "Bốn dòng cụ thể hóa…" sai sau khi bảng còn hai dòng; câu đầu lấy bảng làm chủ ngữ | sửa: bỏ câu; câu đầu "Hai năng lực giải thích và lựa chọn ứng với CLO1–CLO2; …" |
+| nhẹ | F04 dòng 1 | "tránh đọc lại" quá mạnh | sửa: "sắp hoặc băm theo khóa (Bài 12, 15) giảm đọc lại" |
+| nhẹ | G01 | hàng chi phí đọc ghi thiếu giả thiết đếm $F$, đứng lệch thứ tự P04 | sửa: giả thiết "khối chưa có trong bộ đệm"; hàng chuyển lên đầu bảng, khớp thứ tự P04 (79/80 âm tiết) |
+| nhẹ | review-log | quy ước đếm âm tiết chưa ghi | sửa: ghi dưới đây |
+| nhẹ | ghi chú G03 | *Foundations of Data Science* thiếu mục, trang | sửa: "đọc trọn Chương 1–2" |
+
+**Quy ước đếm mật độ.** `scratchpad/w01/cap01.py` đếm token có chữ cái (tách theo khoảng trắng, token phải chứa ít nhất một chữ cái), bỏ tiêu đề trang, công thức KaTeX, khối mã `pre`, SVG nội dòng và ghi chú diễn giả; mỗi `p`, `li`, hàng bảng là một dòng khi xét trần 20 âm tiết. Số liệu "trước" của kế hoạch theo cùng quy ước.
+
+Kiểm: `cap01.py` D01 36, F04 78, G01 79 (trần 80), không dòng vượt 20 âm tiết; Playwright cổng 8771 toàn deck ở 1600×900 và 390×844: 0 lỗi, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn; đã xem ảnh D01, F04, G01; `git diff --check` sạch.
+
+
+## Lượt sửa sau rà ba vai (2026-10-14)
+
+**Giao việc.** Điều phối viên giao tác tử soạn (`fork`, Opus 5.5, effort `high`) sửa theo `fix-d01.md`, hợp nhất ba báo cáo rà chỉ đọc (`review-d01-math.md`, `review-d01-storyline.md`, `review-d01-student.md`; ba tác tử rà `fork` Opus 5.5 theo lệnh gọi của điều phối viên; không có phát hiện chặn bàn giao hay nghiêm trọng). Phạm vi ghi mở rộng: ghi chú `lec02-s01-07` và review-log 02; ghi chú deck 05 và review-log 05. Không sửa CSS. Không commit.
+
+**Quyết định cho từng phát hiện.** Mã: T = rà toán, M = mạch viết, S = sinh viên.
+
+| Mã | Mức độ | Trang chiếu | Quyết định |
+|---|---|---|---|
+| T1, M3, S2 | trung bình | P04, F04 | sửa: danh sách không đánh số; dòng cuối "Lưu trú độc lập: kỳ vọng khoảng $249\,750$ biến cố trùng…" (dùng "biến cố" như F03, không "cặp", vì kỳ vọng đếm biến cố cặp người – cặp ngày); F04 dòng khối đọc ghi: "quét lại tốn khối đọc ghi; sắp hoặc băm theo khóa (Bài 12, 15) tránh đọc lại", ghi chú nối về kho tài liệu trên đĩa |
+| T6, S1 | nhẹ, trung bình | P03, P04 ($R$ trước định nghĩa) | sửa: dòng Ký hiệu P02 thêm "$R$ là tập cặp đạt ngưỡng"; tên học phần tiên quyết vào ghi chú (P02 58/60) |
+| M1, T2 | trung bình | G01 | sửa: thêm hàng "Chi phí đọc ghi \| dữ liệu vượt bộ nhớ \| một lượt $F$ khối; đọc và ghi $2F$"; ghi chú "hai tập cùng rỗng làm hợp rỗng"; câu quyết định thiết kế thay bằng câu về mô hình chi phí; rút ô để giữ 78/80 |
+| T3, S nhẹ, M10 | trung bình, nhẹ | G02, F03, F05 | sửa: câu 2 thay bằng câu dựa trên hàng chi phí đọc ghi của G01 (ba lượt, đáp $6F$); lời giải câu 3 nêu độc lập giữa hai người khi lấy $1/H$; F03 "$X$ là tổng các chỉ báo trùng…"; ghi chú F05 "nhờ hai người chọn độc lập và đều". Câu đếm từ chạy lại (cầu nối Bài 02) bỏ khỏi G02; dòng chuẩn bị Bài 02 vẫn ở G03 |
+| T4, S | nhẹ, trung bình | C07 | sửa: "Kiểm một cặp (trộn hai danh sách) \| $N(N-1)/2$ \| $\le2L$ phép so sánh \| $\le N(N-1)L$, tức $O(N^2L)$"; ghi chú nêu vì sao $\le2L$ |
+| T5, M, S | nhẹ | C18, C06 | sửa: Duy trì "cặp mới chưa từng xét…"; tiêu đề C06 "Tính đúng: bất biến của xét mọi cặp", C18 "Tính đúng: khởi tạo, duy trì, kết thúc" |
+| M4 | trung bình | A01; storyboard | sửa: thêm dòng Đầu ra (kèm số 55, 25, 0); câu kết nêu giới hạn tệp vượt bộ nhớ; storyboard ghi một mô tả (khuôn tình huống cộng bảng dữ kiện), 8 dòng kể cả bảng |
+| M7 | trung bình | D01 ↔ E02, E03 | sửa: D01 còn hai năng lực (CLO1–CLO2), hai năng lực còn lại do E02, E03 cụ thể hóa; phút D01 1 → 0,5, E02 1,5 → 2 |
+| M8, S | trung bình | G03, P01 | sửa: G03 ghi MMDS ấn bản 3 (2020) §1.2 tr.6–8, §1.3.4 tr.13, §3.1 tr.73–75; DSC Chương 14–15; Nelson–Gailly ấn bản 2; Blum, Hopcroft, Kannan (2020), *Foundations of Data Science*, Chương 1–2; P01 thêm tên sách BHK. G03 7 dòng (ngoại lệ trang nguồn) |
+| M6, S | trung bình, nhẹ | C02 | sửa: "đoạn ký tự (shingle)"; Kết luận "$J(S,T)\ge\tau$ khi và chỉ khi $\tau\le3/8$" (không dùng quy tắc chọn cặp trước C03) |
+| S | nhẹ | P00 | sửa: "Yêu cầu dữ liệu lớn chỉ thành bài toán thuật toán khi đã chốt đầu ra, biểu diễn, giới hạn tài nguyên, mức chính xác." (25; câu của `fix-d01.md` có "và" thành 26, nên bỏ "và") |
+| M9, S | trung bình, nhẹ | storyboard | sửa: mỗi trang mới một phiếu đủ chín trường; P04↔F04 đối ứng trong phiếu P04; ngoại lệ 8 dòng P01; A01 một mô tả |
+| M5 (T5 của vai mạch viết) | trung bình | deck 02 ghi chú `lec02-s01-07` | sửa: tên trang dẫn thành "Các tiêu chí đánh giá", "Tính đúng: khởi tạo, duy trì, kết thúc" và "Nguồn và tài liệu đọc"; G03 thêm "tính kết hợp và giao hoán"; ghi review-log 02 |
+| M19 | nhẹ | deck 05 ghi chú trang Tiên quyết | sửa: "Thuật toán: xét mọi cặp"; ghi review-log 05 |
+| M11 | nhẹ | ghi chú P04 | sửa: dòng giảm cặp lấy điều kiện đủ ở câu hỏi hậu kiểm và đặt vào Bài 05–06 |
+| M12 | nhẹ | E01, ghi chú D02, D11 | sửa: tên năm nhóm theo bản đồ (hình D02); lệch với `sources/source.md` ghi mở |
+| M13 | nhẹ | D08 | sửa: "phần còn lại phân theo bước nhảy ngẫu nhiên" |
+| M14 | nhẹ | ghi chú B02, D03 (câu nối) | sửa: câu nối chuyển về cuối; B09, E03, D07: giữ (câu nối nằm ở trang cuối nội dung trước trang câu hỏi, trang câu hỏi có lời giải thay câu nối) |
+| M15 | nhẹ | C05 | sửa: ghi chú nêu thứ tự trình bày các trang |
+| M16 | nhẹ | ghi chú CT | sửa: phạm vi đúng (đếm phép tính trên bài toán mẫu; tiêu chí khác minh họa bằng ví dụ đã gặp) |
+| M17 | nhẹ | ghi chú GT, G01, F04 | sửa: bỏ "Không có khái niệm mới."; G01 câu thiết kế thay; F04 bỏ câu ba vế và câu lặp |
+| M18, S | nhẹ | ghi chú A02, F02, F03, B09, R02 | sửa: bỏ câu lặp A02; F02 dòng Nguồn về cuối, câu 100 chỗ viết lại; số theo dấu phẩy và khoảng trắng nhóm nghìn |
+| T7, S | nhẹ | B12 câu 2 | sửa: câu hỏi "vì sao quét lại tốn khối"; lời giải thêm phép đếm $5000\cdot400+100=2\,000\,100$ lần chuyển khối (DSC Chương 15, trang chiếu 24), ghi là số đếm theo mô hình |
+| S | nhẹ | R01, R02, R04 | sửa: "kỳ vọng số biến cố trùng (sách: số cặp nghi vấn)"; "từng phần"; R04 "có nên cho rằng…" |
+| S | nhẹ | E06 | sửa: bỏ hình lặp C15, thay dòng "Nhắc lại: recall@5 $=3/5$" |
+| S | nhẹ | P01 8 dòng | ghi ngoại lệ trang Nội dung trong storyboard |
+| S | nhẹ | nhãn SVG ≈ 0,73 cỡ thân (D08, C15, E06) | giữ: trên ngưỡng 0,65 cho nhãn ngắn; SVG không đổi; mở |
+| S | nhẹ | phông đơn cách lệch dấu (C04, mọi deck) | mở: CSS chung, ngoài phạm vi |
+| S | nhẹ | mẫu "Hình … không phải …" trong khoảng 10 ghi chú | mở: giữ những câu chặn cách hiểu sai cụ thể; rút ở đợt ghi chú sau |
+
+**Kiểm tra.** `cap01.py`: không trang trần 60 vượt 60 (P02 58, P04 59, C07 59, C18 60); P03 80, G01 78, E03 79, F04 78, G03 70 (trần 80); không dòng nào vượt 20 âm tiết; luận đề 25. Thẻ HTML cân bằng (dựng lại bằng bộ dựng). Chromium Playwright cổng 8771, toàn deck 01 ở 1600×900 và 390×844 (ảnh riêng P00, P02, P04, P01, A01, C02, C07, C18, D01, F04, G01, G02, G03, E06, B12, F03): 0 lỗi, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn; P01 đáy 818/864; deck 02 (trang s01-07 và toàn deck) sạch ở hai cỡ. Đã tự xem ảnh các trang đổi. `git diff --check` sạch.
+
+**Tác động.** Deck 02 và deck 05: chỉ ghi chú diễn giả (tên trang dẫn). Ghi chú bài giảng 01: G02 câu 2 đổi (nay về chi phí đọc ghi), cần đồng bộ ở đợt ghi chú; các điểm đã ghi trước (hai con trỏ, LSH, số mục tiêu) vẫn mở.
+
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+**Giao việc.** Điều phối viên giao tác tử soạn (một tác tử ghi tệp; loại `fork`, Claude Opus 5.5, effort `high`, theo lệnh gọi Agent của điều phối viên). Phạm vi ghi: deck Bài 01, ba tệp `planning/lec-01/` và `lecture-style.css` chỉ để thêm tối đa 5 quy tắc giới hạn bởi `.lecture-bigdata`. Căn cứ: `AGENTS.md`, `slide_authoring_standard.md`, deck mẫu Bài 06, `plan-lec01.md`, mục "Bài 01" và "Chung cho mọi bài" của `decisions-decks.md`. Skill `no-ai-slop` nạp ở chế độ Edit. Không commit. Deck dựng lại bằng bộ dựng `scratchpad/w01/build.py` với đặc tả `spec/s0…s9.py`.
+
+**Quyết định đã áp dụng.**
+
+| # | Quyết định | Thực hiện |
+|---:|---|---|
+| 1 | Gộp D+E thành mạch 4; F thành mạch 5; mạch 6 tổng kết mới; mạch 7 bài tập; giữ 7 section | `id="mach-4"` DT "Năm nhóm thuật toán và cách học", `mach-5` FT, `mach-6` GT mới, `mach-7` RT; `aria-label` bằng tên mạch; trang Nội dung khớp từng chữ |
+| 2 | Luận đề bốn thành phần, ≤ 25 âm tiết | "Một yêu cầu dữ liệu lớn thành bài toán thuật toán khi chốt đầu ra, biểu diễn, giới hạn tài nguyên, mức chính xác." (24) |
+| 3 | Bỏ D00, E00, E05, F00; gộp E04 | nội dung chuyển vào ghi chú DT, D01, FT, dòng Nhu cầu F01, G02 câu 1–2, G03 |
+| 4 | Thêm A10, B12, D11 (phương án 83 trang); mục phân bổ thời gian | 83 trang (75 giảng, 8 bài tập); storyboard có mục phân bổ |
+| 5 | A01 giữ bảng, ngoại lệ 7 dòng | ghi trong storyboard |
+| 6 | `.course-deck` với lớp dùng chung; tối đa 5 quy tắc `.lecture-bigdata` | bỏ khối `<style>` 29 quy tắc; gốc `reveal course-deck lecture-bigdata`; thêm 4 quy tắc (chiều cao hình) cạnh khối `.lecture-lsh` |
+| 7 | Chấp nhận tiêu đề in hoa | theo `.course-deck` |
+| 8 | Bỏ dòng nguồn ở R00 | bỏ; trang đề bài R01–R05 và bước R06 giữ dòng "Nguồn: MMDS, Bài …, tr.8" lớp `ex-note` |
+| 9 | LSH theo Bài 06; "véc-tơ/vector" ngoài đợt | "băm nhạy cảm theo tính cục bộ (LSH)" ở D04, ghi chú C16; "véc-tơ" giữ, lệch với Bài 02–06 ghi ở đây |
+| 10 | MMDS "ấn bản 3 (2020)" | ghi ở P01, G03; `sources/source.md` dòng 42 ghi bản 2014: lệch nguồn, chưa sửa (ngoài phạm vi) |
+| 11 | Rà rút gọn ba vai | chưa chạy; điều phối viên giao |
+
+**Hai điểm ngoài phạm vi đã ghi ở Bài 05.** (1) Ghi chú C04, C07 hứa "Bài 05 phân tích hai con trỏ": bỏ; ghi chú C04 nói hai con trỏ là phép trộn hai danh sách đã sắp của học phần tiên quyết, nguồn C07 bỏ "Bài 05 thuật toán hai con trỏ". (2) Lộ trình "Bài 05–06 giảm số cặp": A06 (ghi chú), D04 (mặt trang và ghi chú), F04 (mặt trang dòng 4 và ghi chú), D11 (lời giải) nay nói Bài 05 biểu diễn bằng tập đoạn ký tự và chữ ký MinHash, Bài 06 phân dải LSH để chọn cặp ứng viên.
+
+**CSS chung.** Thêm vào `lecture-style.css` ngay sau khối Bài 06 (`.lecture-lsh`):
+`.reveal.course-deck.lecture-bigdata .l01-figure { margin: 10px 0; }`, `.l01-figure img { display:block; width:100%; max-height:320px; margin:0 auto; object-fit:contain; }`, `.l01-short img { max-height:245px; }`, `.l01-map img { max-height:470px; }`. Phạm vi ảnh hưởng: mọi selector giới hạn bởi `.lecture-bigdata`, chỉ deck 01 mang lớp này; không sửa quy tắc có sẵn. Kiểm hồi quy bằng Chromium Playwright cổng 8771 trên toàn bộ trang của Bài 02 (93), Bài 03 (72) và Bài 06 ở 1600×900 và 390×844: 0 lỗi console, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn khung, không cuộn ngang.
+
+**Mặt trang.** Mọi trang nội dung dùng `example-slide` (C07 `cost-slide`, P01 `agenda-slide`, P00 `title-slide`); `.card` → `.ex-card`, `.grid2` → `.ex-grid2`, `.trace` → `.ex-table` (`th scope="col"`), `.formula` → `p.ex-equation`, `.check` → dòng "Câu hỏi:" hoặc `p.ex-takeaway`, `img.figure` → `figure.l01-figure`; không `style`, `fragment`, `.dense`. Hai công thức có chữ Việt trong `\text{}` (C15, F06) viết lại: chữ ra ngoài KaTeX. Nhãn ngoài danh sách bỏ ("Khó khăn:", "Sau buổi học:", "Sản phẩm:", "Gợi ý:" trên mặt trang).
+
+**Ghi chú diễn giả.** Mọi ghi chú bọc `<p>`, có câu "Nguồn:" tách đoạn; bỏ câu lấy tài liệu làm chủ ngữ ("Trước hết…", "Phần tiếp theo…", "Các ví dụ tiếp theo…", "phần tiếp theo…", "buổi này"); "slide" → "trang chiếu"; "Gợi ý chấm" → "Hướng dẫn chấm"; chuẩn hóa khoảng trắng dính ("Bài07", "student100khối", "lớp8–9"…); nguồn "source.md" thay bằng đề cương. Ghi chú A03, A06, A07 rút về ≤ 150 âm tiết. Ký tự "<" trong công thức ghi chú được thoát.
+
+**Mật độ (trước → sau).** Đếm bằng `scratchpad/w01/cap01.py`; số trước theo `plan-lec01.md` §0.1.
+
+| Chỉ số | Trước (77 trang) | Sau (83 trang) |
+|---|---:|---:|
+| Trung vị trang nội dung | 52 | 46 |
+| Trang nội dung > 60 âm tiết | 25 | 16 (đều thuộc nhóm trần 80) |
+| Trang vượt trần | 17 | 0 |
+| Trang > 80 âm tiết | 11 | 0 |
+| Mặt trang dài nhất | 124 (E01) | 80 |
+| Dòng > 20 âm tiết (ngoài dòng dẫn mạch) | 12 trang | 0 |
+| Ghi chú > 150 âm tiết | 8 | 1 (R05, lời giải, 210 ≤ 250) |
+
+**Kiểm tra.** `git diff --check` sạch (deck, CSS, ba tệp kế hoạch). Thẻ HTML cân bằng; 83 `data-slide-id` duy nhất, không `id` trùng; 7 section ngoài có `aria-label`. Chromium Playwright cổng 8771, cả 83 trang ở 1600×900: 0 lỗi console, 0 cảnh báo KaTeX, 0 `.katex-error`, 0 yêu cầu mạng ngoài, không cuộn ngang, không phần tử vượt khung; đáy thấp nhất D04 796/864 px (chân trang 845); cỡ chữ nhỏ nhất 24 px (dòng nguồn `ex-note`), 25 px (ô bảng). 390×844: 0 lỗi, không tràn phải. Đã tự xem ảnh 1600×900 của cả 83 trang (10 ảnh ghép) và ảnh hẹp D09.
+
+**Vấn đề mở.**
+
+| Mức độ | Trang chiếu | Vấn đề | Đề xuất | Trạng thái |
+|---|---|---|---|---|
+| nhẹ | mạch 1 | chân trang ẩn khi section đầu hiện (CSS chung) | xem ở đợt CSS chung | mở |
+| nhẹ | toàn bài | "véc-tơ" khác "véc tơ"/"vector" của Bài 02–06 | thống nhất ở đợt thuật ngữ | mở |
+| nhẹ | `sources/source.md` dòng 42 | MMDS ghi bản 2014, deck ghi ấn bản 3 (2020) | sửa nguồn ở đợt sau | mở |
+| nhẹ | `img/lec-01/` | hai SVG mồ côi có từ trước (`giao-thoa-khai-pha-du-lieu.svg`, `the-tich-gan-bien.svg`) | dọn ở đợt hình | mở |
+| — | toàn bài | rà ba vai (sinh viên kèm mật độ; độ chính xác toán; kết nối và mạch viết) | điều phối viên giao | chờ |
+
+**Tác động tới ghi chú bài giảng `materials/lec-01/lecture-note.md`** (không sửa đợt này): ký hiệu, ví dụ, con số và kết luận không đổi. Cần sửa ở đợt ghi chú: dòng 246 còn câu "Bài 05 phân tích thao tác đó" (hai con trỏ); dòng 399, 427 viết "Băm nhạy cảm cục bộ (LSH)" thay vì "băm nhạy cảm theo tính cục bộ"; ghi chú có 3 mục tiêu, deck 5; chưa có mục tổng kết riêng. `index.html` không đổi.
+
+
 ## Bổ sung trang tiêu đề mạch 2026-10-14
 
 Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 1 gồm Bài 01–05; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.

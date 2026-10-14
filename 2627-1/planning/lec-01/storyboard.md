@@ -1,5 +1,8 @@
 # Storyboard Bài 1
 
+**Bản hiện hành (2026-10-14).** Deck có 83 trang: 75 trang giảng (120 phút) và 8 trang bài tập (60 phút); bảy mạch 13/14/20/16/7/5/8 trang. Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp; các mục bên dưới là lịch sử, giữ để đối chiếu. Ngoại lệ tạm của L01-P01 đã hết (P01 tách thành P01, P03).
+
+
 ## Trạng thái hiện hành
 
 ER-004 hoàn tất: D/E/F/R đã kiểm định và commit/push riêng lên origin/main. 77 trang, 7 phần (thêm sáu trang tiêu đề mạch ngày 2026-10-14); A23/B24/C31/D17/E9/F16 = 120 phút và R60 phút; thời lượng trang tiêu đề mạch lấy từ trang đầu mạch. Bảng từng trang là bản hiện hành; các thống kê trong mục triển khai từng phần ghi nhận thời điểm tương ứng.
@@ -321,3 +324,135 @@ Writer tạo bản nháp B00/B01 và hình hai hàng trong thư mục tạm. Đi
 ### Chỉnh sau rà ER-003
 
 Writer72050 soạn bốn đoạn sau đủ năm báo cáo; điều phối giữ ý chạy hai tập và gom đủ đóng góp, sửa cách gọi sai “cặp tài liệu là cặp ứng viên”, dùng định nghĩa chiều đúng. C01 bỏ số quy mô lặp để làm rõ chuẩn gần trùng. C04 chạy N2 cùngS,T theo hai nhánh ngưỡng, không đặt ngưỡng số mới. C15còn2phút,C16tăng2phút, tổng31giữ nguyên. E01tự kiểm dùng giao3/hợp8; E04thêm cầu tính đủ/không tính trùng khi phân tán. H26đảo mũi tên truy vấn→chỉ mục. Các thay đổi được rà lại toán và mạch toàn bài.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch", "Phân loại phần lớn", "Văn phong và mật độ mặt trang chiếu", "Tiêu chuẩn trang chiếu và ghi chú diễn giả"), `slide_authoring_standard.md`, deck mẫu Bài 06; kế hoạch `plan-lec01.md` (tác tử lập kế hoạch) và quyết định của điều phối viên (mục "Bài 01" và "Chung cho mọi bài" trong `decisions-decks.md`). Một tác tử soạn ghi tệp; không commit.
+
+**Cấu trúc.** Bảy section ngoài: gộp mạch D và E cũ thành mạch 4 "Năm nhóm thuật toán và cách học"; F thành mạch 5; thêm mạch 6 "Tổng kết và tự kiểm tra" (section riêng, trước bài tập); mạch 7 bài tập giữ. Bỏ D00, ET, E00, E05, F00 và gộp E04 (nội dung chuyển như ghi trong bảng dưới). Thêm P02, P03 (tách từ P01), P04, A10, B12, C17 và C18 (tách từ C04, C06), D11, GT, G01, G02, G03; F04 chuyển sang mạch 6 và đổi vai trò. Deck 83 trang: 75 trang giảng, 8 trang bài tập.
+
+| Mạch | Tên (khớp trang Nội dung) | Số trang | Phút | Vai trò chu trình của trang mở mạch |
+|---|---|---:|---:|---|
+| 1 | Tổng hợp và tìm kiếm dữ liệu web | 13 | 23 | bìa là trang tiêu đề mạch mở đầu |
+| 2 | Dòng dữ liệu, nén và truy vấn trên đĩa | 14 | 24 | BT ngoài chu trình khái niệm |
+| 3 | Đặc tả và đánh giá thuật toán | 20 | 30 | CT ngoài chu trình khái niệm |
+| 4 | Năm nhóm thuật toán và cách học | 16 | 21 | DT ngoài chu trình khái niệm |
+| 5 | Mẫu trùng ngẫu nhiên và suy luận | 7 | 14 | FT ngoài chu trình; nhận nội dung F00 |
+| 6 | Tổng kết và tự kiểm tra | 5 | 8 | GT ngoài chu trình khái niệm |
+| 7 | Bài tập vận dụng | 8 | 60 | RT ngoài chu trình; 0,5 phút lấy từ R00 |
+
+**Phân bổ thời gian khi phần giảng vượt 60 trang.** 75 trang giảng trong 120 phút, trung bình khoảng 1,6 phút mỗi trang: 23 + 24 + 30 + 21 + 14 + 8 = 120; bài tập 0,5 + 2,5 + 7 + 15 + 10 + 8 + 5 + 12 = 60. So với bản trước (A23/B24/C31/D17/E9/F16): mạch 3 bớt 1 phút, mạch D+E bớt 5 phút nhờ bỏ bốn trang tổng quan hoặc lặp, mạch F bớt 2 phút khi F00, F04, E04 rời mạch; mạch 6 mới nhận 8 phút. Năm trang tiêu đề mạch của phần giảng (BT, CT, DT, FT, GT) và trang Nội dung mỗi trang 0,5 phút; 16 trang tình huống theo một khuôn cố định 2–2,5 phút. Không phần nào chuyển sang đọc thêm và không rút ví dụ, chứng minh cốt lõi.
+
+**Khuôn trang tình huống** (A01–A07, B01–B09): dòng Đầu vào, dòng Đầu ra, hình giữ nguyên, một câu nêu giới hạn của cách làm trực tiếp; câu thứ hai của khung cũ chuyển vào ghi chú. A01 theo cùng khuôn, thêm bảng dữ kiện cạnh hình.
+
+**Chu trình các cụm.** Cặp gần trùng: A06, C01 (nhu cầu) → C02 (ví dụ rồi định nghĩa Jaccard) → C03 (đặc tả) → C17 (ví dụ chạy tay) → C04 (thuật toán, câu hỏi) → C05 (khung tiêu chí) → C06, C18 (tính đúng, dừng, biên) → C07 (chi phí) → C08–C15 (tiêu chí khác) → C16 (kiểm tra). Đủ tám bước; bước "giới hạn của cách làm trước" không áp dụng vì đây là thuật toán đầu tiên của học phần. Mô hình xác suất: F01 → F02 → F05 → F06 → F03 → F07. Giới thiệu học phần: DT → D01 … E03 → D11 (chu trình rút gọn: phần định hướng, không giả mã hay chứng minh của Bài 02–15). Bảng thuật toán, đầu vào, bảo đảm, chi phí ở mạch 6 không lập riêng vì bài chỉ đặc tả một thuật toán; G01 có hàng cho thuật toán xét mọi cặp.
+
+**Loại kiểm tra theo mạch.** Mạch 1: A10. Mạch 2: B12. Mạch 3: câu hỏi C04, C16. Mạch 4: D11. Mạch 5: F07. Mạch 6: G02. Mạch 7: hai bài MMDS 1.2.1, 1.2.2. Lời giải ở ghi chú diễn giả.
+
+**Ngoại lệ.** A01: bảng dữ kiện 4 hàng; sau lượt sửa theo đúng khuôn tình huống (Đầu vào, Đầu ra, bảng cạnh hình, một câu giới hạn), 8 dòng kể cả hàng bảng (quyết định 5). P01 (Nội dung): 7 mạch và dòng Đọc trước, 8 dòng. G03 (Nguồn và tài liệu đọc): 7 dòng. D02 chỉ có hình. Các trang bảng (B00, C05, C18, D01, D06, D07, D10, E01, E02, E03, F02, F07, G01, R00, R06) tối đa 8 dòng kể cả hàng bảng. Cột "Dòng" dưới đây đếm thô phần tử `p`, `li`, hàng bảng, kể cả nhãn trong khối hình HTML.
+
+Âm tiết đếm bằng `scratchpad/w01/cap01.py` (bỏ tiêu đề, công thức, khối mã, SVG); cột "trước" lấy từ bảng §0.1 của `plan-lec01.md`.
+
+| # | Mạch | Mã | Tiêu đề hiện hành | Quyết định | Âm tiết trước → sau | Trần | Dòng | Phút | Lý do |
+|---:|---:|---|---|---|---|---:|---:|---:|---|
+| 1 | 1 | `L01-P00` | Bài toán dữ liệu lớn và mô hình thuật toán | `sửa` | 12 → 49 | — | 4 | 0,5 | khuôn `title-slide`; câu luận đề 24 âm tiết (bốn thành phần); thêm ghi chú (trước không có); lượt sửa: luận đề "Yêu cầu dữ liệu lớn chỉ thành… khi đã chốt…" (25) |
+| 2 | 1 | `L01-P02` | Tiên quyết và quy ước | `thêm` | — → 58 | 60 | 5 | 1,5 | Tiên quyết và quy ước: UET.CS1058, số cặp, giao–hợp, độc lập và kỳ vọng tổng, ký hiệu $N$, $C_i$, $i<j$, $\tau$; lượt sửa: Ký hiệu thêm $R$; tên học phần tiên quyết vào ghi chú |
+| 3 | 1 | `L01-P03` | Mục tiêu học tập | `thêm` | — → 80 | 80 | 5 | 1 | tách từ P01: năm mục tiêu, mỗi mục một sản phẩm kiểm được; trần 80 |
+| 4 | 1 | `L01-P01` | Nội dung | `sửa` | 91 → 68 | 80 | 8 | 0,5 | `agenda-slide`, tiêu đề "Nội dung"; bảy mạch mới (cột 1–3, 4–7); Đọc trước; hết ngoại lệ tạm; lượt sửa: Đọc trước ghi tên sách Foundations of Data Science; ngoại lệ 8 dòng của trang Nội dung |
+| 5 | 1 | `L01-P04` | Vấn đề trung tâm | `thêm` | — → 59 | 60 | 5 | 1,5 | Vấn đề trung tâm: Nhu cầu $10^6$ tài liệu và bốn câu trả lời có điều kiện theo mạch 2–5; lượt sửa: danh sách không đánh số; dòng cuối "Lưu trú độc lập: kỳ vọng…biến cố trùng" |
+| 6 | 1 | `L01-A01` | Tính tổng kích thước trang web theo máy chủ | `sửa` | 45 → 50 | 60 | 8 | 2,5 | Đầu vào, bảng 4 hàng, hình, Kết luận có số; bỏ mũi tên; ngoại lệ 7 dòng (quyết định 5); lượt sửa: theo khuôn tình huống: thêm Đầu ra (kèm số), câu kết nêu giới hạn tệp vượt bộ nhớ; 8 dòng kể cả bảng |
+| 7 | 1 | `L01-A02` | Đếm số lần xuất hiện của từng từ | `sửa` | 46 → 36 | 60 | 3 | 2,5 | khuôn tình huống Đầu vào, Đầu ra, hình, một câu giới hạn; câu thứ hai vào ghi chú; lượt sửa: bỏ câu lặp ghi chú |
+| 8 | 1 | `L01-A03` | Tính điểm quan trọng của trang web | `sửa` | 56 → 43 | 60 | 3 | 2,5 | khuôn tình huống; ghi chú ≤ 150 |
+| 9 | 1 | `L01-A04` | Ưu tiên kết quả tìm kiếm theo chủ đề | `sửa` | 52 → 41 | 60 | 3 | 2 | khuôn tình huống |
+| 10 | 1 | `L01-A05` | Hạn chế liên kết rác trong xếp hạng | `sửa` | 55 → 46 | 60 | 3 | 2 | khuôn tình huống |
+| 11 | 1 | `L01-A06` | Tìm các cặp tài liệu gần trùng | `sửa` | 37 → 36 | 60 | 3 | 2,5 | khuôn tình huống; ví dụ xuyên suốt; ghi chú sửa lộ trình Bài 05 (chữ ký MinHash), Bài 06 (phân dải LSH) |
+| 12 | 1 | `L01-A07` | Tìm đoạn tài liệu bằng véc-tơ truy vấn | `sửa` | 49 → 44 | 60 | 3 | 2 | khuôn tình huống; ghi chú 183 → ≤ 150 |
+| 13 | 1 | `L01-A10` | Câu hỏi về bảy bài toán trên kho web | `thêm` | — → 44 | 60 | 4 | 2 | Câu hỏi về bảy bài toán; dữ kiện từ A01, A06, A07; lời giải trong ghi chú |
+| 14 | 2 | `L01-BT` | 2. Dòng dữ liệu, nén và truy vấn trên đĩa | `giữ` | — → 38 | — | 2 | 0,5 | trang tiêu đề mạch 2; ghi chú bọc `p` |
+| 15 | 2 | `L01-B00` | Bộ nhớ, dung lượng và số khối đọc ghi | `sửa` | 79 → 61 | 80 | 4 | 0,5 | tiêu đề "Bộ nhớ, dung lượng và số khối đọc ghi" (khác tên mạch); bảng ba hàng; trần 80 |
+| 16 | 2 | `L01-B01` | Giữ mẫu truy vấn và lọc thư đến | `sửa` | 49 → 50 | 60 | 3 | 2,5 | khuôn tình huống |
+| 17 | 2 | `L01-B02` | Đếm người dùng và lượt truy cập gần đây | `sửa` | 49 → 39 | 60 | 3 | 2,5 | khuôn tình huống; dòng 22 âm tiết tách |
+| 18 | 2 | `L01-B10` | Nén dữ liệu để lưu và khôi phục | `sửa` | 65 → 42 | 60 | 3 | 1 | Nhu cầu + hai `ex-card` |
+| 19 | 2 | `L01-B03` | Lưu văn bản với ít dung lượng hơn | `sửa` | 48 → 34 | 60 | 3 | 2 | khuôn tình huống; `code` → `span.inline-code` |
+| 20 | 2 | `L01-B04` | Giảm dung lượng ảnh với sai số cho phép | `sửa` | 45 → 39 | 60 | 3 | 2 | khuôn tình huống |
+| 21 | 2 | `L01-B11` | Xử lý và truy vấn dữ liệu trên đĩa | `sửa` | 83 → 58 | 60 | 6 | 1 | định nghĩa khối lên mặt trang; `ul` ba thao tác; bỏ `.grid3` |
+| 22 | 2 | `L01-B05` | Sắp xếp tệp lớn theo khóa | `sửa` | 58 → 47 | 60 | 3 | 2 | khuôn tình huống |
+| 23 | 2 | `L01-B06` | Tìm hồ sơ giảng viên theo mã hoặc lương | `sửa` | 52 → 39 | 60 | 3 | 2 | khuôn tình huống |
+| 24 | 2 | `L01-B07` | Tìm tài liệu chứa đồng thời hai từ khóa | `sửa` | 55 → 33 | 60 | 3 | 2 | khuôn tình huống |
+| 25 | 2 | `L01-B08` | Tìm đối tượng giao vùng trên bản đồ | `sửa` | 52 → 38 | 60 | 3 | 2 | khuôn tình huống |
+| 26 | 2 | `L01-B09` | Ghép sinh viên với các môn đã đăng ký | `sửa` | 54 → 44 | 60 | 3 | 2 | khuôn tình huống; ghi chú bỏ "Phần tiếp theo…" |
+| 27 | 2 | `L01-B12` | Câu hỏi về dòng, nén và truy vấn trên đĩa | `thêm` | — → 51 | 60 | 4 | 2 | Câu hỏi về dòng, nén và truy vấn trên đĩa; dữ kiện từ B10, B09, B04; lượt sửa: câu 2 hỏi vì sao quét lại tốn khối; lời giải có phép đếm 2 000 100 (DSC) |
+| 28 | 3 | `L01-CT` | 3. Đặc tả và đánh giá thuật toán | `giữ` | — → 38 | — | 2 | 0,5 | trang tiêu đề mạch 3 |
+| 29 | 3 | `L01-C00` | Phân tích thuật toán xử lý dữ liệu lớn | `sửa` | 69 → 43 | 60 | 3 | 0,5 | hai `ex-card` Đặc tả, Đánh giá |
+| 30 | 3 | `L01-C01` | Bài toán tìm cặp tài liệu gần trùng | `sửa` | 53 → 49 | 60 | 3 | 1,5 | Nhu cầu, hình, Đầu ra |
+| 31 | 3 | `L01-C02` | Độ tương đồng Jaccard | `sửa` | 38 → 46 | 60 | 4 | 2 | tiêu đề "Độ tương đồng Jaccard"; ví dụ trước định nghĩa; Kết luận $\tau\le3/8$; lượt sửa: "đoạn ký tự (shingle)"; Kết luận $J\ge\tau\iff\tau\le3/8$ |
+| 32 | 3 | `L01-C03` | Đặc tả tìm cặp gần trùng | `sửa` | 41 → 30 | 60 | 5 | 2,5 | thẻ thành dòng Đầu vào, Đầu ra; Trường hợp biên |
+| 33 | 3 | `L01-C17` | Ví dụ: thứ tự xét cặp | `thêm` | — → 22 | 60 | 4 | 1,5 | tách từ C04: thứ tự xét cặp $N=4$ và ví dụ $N=2$ |
+| 34 | 3 | `L01-C04` | Thuật toán: xét mọi cặp | `sửa` | 24 → 29 | 60 | 2 | 2,5 | "Thuật toán: xét mọi cặp"; Đầu vào/Đầu ra; `pre.ex-code`; câu hỏi dạng nhiệm vụ; ghi chú bỏ hứa "Bài 05 phân tích hai con trỏ" |
+| 35 | 3 | `L01-C05` | Các tiêu chí đánh giá | `sửa` | 75 → 68 | 80 | 6 | 1 | bảng bốn hàng thay ba thẻ; trần 80 |
+| 36 | 3 | `L01-C06` | Tính đúng: bất biến của xét mọi cặp | `sửa` | 45 → 39 | 60 | 2 | 1,5 | "Tính đúng: xét mọi cặp"; Mệnh đề, hình, Bất biến; lượt sửa: tiêu đề "Tính đúng: bất biến của xét mọi cặp" |
+| 37 | 3 | `L01-C18` | Tính đúng: khởi tạo, duy trì, kết thúc | `thêm` | — → 60 | 60 | 6 | 1,5 | tách: bảng Khởi tạo, Duy trì, Kết thúc; Điều kiện dừng; Trường hợp biên; lượt sửa: tiêu đề "Tính đúng: khởi tạo, duy trì, kết thúc"; Duy trì "cặp mới chưa từng xét" |
+| 38 | 3 | `L01-C07` | Chi phí: khối lượng tính toán | `sửa` | 38 → 59 | 60 | 5 | 2 | `cost-slide`; Mô hình; bảng Bước, Số lần, Chi phí mỗi lần, Đóng góp; bỏ hình lặp; lượt sửa: chi phí mỗi lần $\le2L$ phép so sánh (trộn hai danh sách), đóng góp $\le N(N-1)L$ |
+| 39 | 3 | `L01-C08` | Bộ nhớ làm việc | `sửa` | 38 → 30 | 60 | 2 | 1,5 | câu kết một câu |
+| 40 | 3 | `L01-C09` | Đọc ghi và số lượt quét | `sửa` | 47 → 37 | 60 | 3 | 1,5 | định nghĩa bằng "là" |
+| 41 | 3 | `L01-C10` | Dữ liệu truyền qua mạng | `sửa` | 45 → 37 | 60 | 2 | 1,5 | câu kết một câu |
+| 42 | 3 | `L01-C11` | Độ trễ truy vấn | `sửa` | 42 → 28 | 60 | 2 | 1,5 | câu kết một câu |
+| 43 | 3 | `L01-C12` | Chi phí xây dựng chỉ mục | `sửa` | 45 → 29 | 60 | 2 | 1 | định nghĩa bằng "là" |
+| 44 | 3 | `L01-C13` | Chi phí cập nhật dữ liệu | `sửa` | 45 → 36 | 60 | 2 | 1 | câu kết một câu |
+| 45 | 3 | `L01-C14` | Dung lượng lưu trữ | `sửa` | 40 → 36 | 60 | 2 | 1 | câu kết một câu |
+| 46 | 3 | `L01-C15` | Chất lượng kết quả gần đúng | `sửa` | 31 → 33 | 60 | 3 | 2 | công thức không còn chữ Việt trong `\text{}`; Kết luận |
+| 47 | 3 | `L01-C16` | Giảm ứng viên và nguy cơ bỏ sót | `sửa` | 35 → 31 | 60 | 2 | 2 | câu hỏi dạng nhiệm vụ; thuật ngữ LSH theo Bài 06 |
+| 48 | 4 | `L01-DT` | 4. Năm nhóm thuật toán và cách học | `sửa` | — → 41 | — | 2 | 0,5 | mạch 4 "Năm nhóm thuật toán và cách học" (gộp D+E); dòng dẫn, từ khóa, ghi chú mới |
+| 49 | 4 | `L01-D01` | Học phần và năng lực cần đạt | `sửa` | 73 → 36 | 80 | 4 | 0,5 | bỏ dòng tên học phần lặp bìa; ba mặt năng lực vào ghi chú; trần 80; lượt sửa: rút thành trang dẫn hai năng lực CLO1–CLO2 (hai năng lực còn lại ở E02, E03); 1 → 0,5 phút |
+| 50 | 4 | `L01-D02` | Năm nhóm bài của học phần | `giữ` | 0 → 0 | 60 | 0 | 1 | chỉ hình (`l01-map`) |
+| 51 | 4 | `L01-D03` | MapReduce: gom kết quả theo khóa | `sửa` | 52 → 44 | 60 | 3 | 1,5 | khung → câu kết |
+| 52 | 4 | `L01-D08` | PageRank: tính điểm theo liên kết | `sửa` | 68 → 50 | 60 | 3 | 1,5 | định nghĩa phân phối dịch chuyển vào ghi chú; lượt sửa: "bước nhảy ngẫu nhiên" thay "điểm nền" |
+| 53 | 4 | `L01-D04` | MinHash và LSH: chọn cặp cần đối chiếu | `sửa` | 57 → 59 | 60 | 4 | 1,5 | dòng dẫn "Bài 05: chữ ký MinHash; Bài 06: phân dải LSH"; LSH theo Bài 06 |
+| 54 | 4 | `L01-D09` | Chỉ mục cho truy vấn véc-tơ | `sửa` | 70 → 47 | 60 | 3 | 1 | HNSW giải nghĩa; câu đo lường vào ghi chú |
+| 55 | 4 | `L01-D05` | Lấy mẫu và lọc trên dòng dữ liệu | `sửa` | 53 → 46 | 60 | 3 | 1 | thẻ rút ≤ 15 âm tiết |
+| 56 | 4 | `L01-D10` | Cấu trúc gọn cho thống kê dòng | `sửa` | 90 → 62 | 80 | 5 | 1,5 | bảng rút ô; trần 80 |
+| 57 | 4 | `L01-D06` | Nén theo ký hiệu, mẫu lặp và ảnh | `sửa` | 68 → 64 | 80 | 5 | 1,5 | bảng rút ô; trần 80 |
+| 58 | 4 | `L01-D07` | Tổ chức dữ liệu để giảm đọc ghi | `sửa` | 114 → 77 | 80 | 6 | 1,5 | bảng rút ô; khung vào ghi chú; trần 80 |
+| 59 | 4 | `L01-E01` | Kiến thức nền dùng ở từng nhóm bài | `sửa` | 124 → 79 | 80 | 6 | 1,5 | bảng rút ô; dòng tiên quyết sang P02; vượt 1,5 lần trần → đạt; lượt sửa: tên nhóm theo bản đồ năm nhóm |
+| 60 | 4 | `L01-E02` | Sản phẩm khi phân tích thuật toán | `sửa` | 85 → 77 | 80 | 6 | 2 | bảng rút ô; trần 80; lượt sửa: nhận 0,5 phút từ D01 |
+| 61 | 4 | `L01-E06` | Báo cáo chất lượng và hiệu năng | `sửa` | 70 → 41 | 60 | 3 | 1 | một câu kết; lượt sửa: bỏ hình lặp C15, thay bằng dòng Nhắc lại |
+| 62 | 4 | `L01-E03` | Tự học, hợp tác và trách nhiệm dữ liệu | `sửa` | 112 → 79 | 80 | 6 | 1,5 | bảng rút ô; Kết luận; trần 80 |
+| 63 | 4 | `L01-D11` | Câu hỏi về nhóm bài và kiến thức nền | `thêm` | — → 34 | 60 | 3 | 2 | Câu hỏi về nhóm bài và kiến thức nền; lời giải trong ghi chú |
+| 64 | 5 | `L01-FT` | 5. Mẫu trùng ngẫu nhiên và suy luận | `sửa` | — → 37 | — | 2 | 0,5 | mạch 5 (`id="mach-5"`); ghi chú nhận nội dung F00 |
+| 65 | 5 | `L01-F01` | Tìm mẫu trùng trong hồ sơ lưu trú | `sửa` | 51 → 47 | 60 | 4 | 1,5 | Nhu cầu (từ F00), Đầu vào; bỏ nhãn "Khó khăn:" |
+| 66 | 5 | `L01-F02` | Mô hình lưu trú không phối hợp | `sửa` | 62 → 41 | 60 | 6 | 2 | Giả thiết một dòng; 6 dòng kể cả bảng |
+| 67 | 5 | `L01-F05` | Xác suất trùng một ngày và hai ngày | `sửa` | 46 → 37 | 60 | 4 | 2 | Kết luận $p^2=10^{-18}$ |
+| 68 | 5 | `L01-F06` | Đơn vị đếm và số phép thử | `sửa` | 42 → 37 | 60 | 3 | 2 | định nghĩa phép thử bằng "là"; công thức không còn chữ Việt trong KaTeX |
+| 69 | 5 | `L01-F03` | Kỳ vọng số biến cố trùng | `sửa` | 48 → 44 | 60 | 4 | 3 | bỏ `.big`; Kết luận; lượt sửa: "$X$ là tổng các chỉ báo trùng" |
+| 70 | 5 | `L01-F07` | Mẫu trùng và căn cứ suy luận | `sửa` | 111 → 71 | 80 | 5 | 3 | bảng rút ô; câu hỏi; trần 80 |
+| 71 | 6 | `L01-GT` | 6. Tổng kết và tự kiểm tra | `thêm` | — → 40 | — | 2 | 0,5 | trang tiêu đề mạch 6 "Tổng kết và tự kiểm tra" |
+| 72 | 6 | `L01-G01` | Kết quả và giả thiết không được bỏ | `thêm` | — → 78 | 80 | 7 | 2 | Kết quả và giả thiết không được bỏ (5 hàng); trần 80; lượt sửa: thêm hàng chi phí đọc ghi ($F$, $2F$); rút ô để giữ 80 |
+| 73 | 6 | `L01-F04` | Câu trả lời cho vấn đề trung tâm | `sửa` | 102 → 78 | 80 | 5 | 2 | chuyển sang mạch 6, đổi vai trò "Câu trả lời cho vấn đề trung tâm" theo thứ tự P04; dòng 4 nêu chữ ký MinHash, phân dải LSH; lượt sửa: danh sách không đánh số; dòng khối đọc ghi nêu sắp hoặc băm theo khóa (Bài 12, 15); dòng cuối "kỳ vọng…biến cố trùng" |
+| 74 | 6 | `L01-G02` | Câu hỏi tự kiểm tra | `thêm` | — → 50 | 60 | 4 | 2,5 | Câu hỏi tự kiểm tra (gom câu E05, E04 và dòng tự kiểm của ghi chú bài giảng); lượt sửa: câu 2 dựa trên hàng chi phí đọc ghi của G01 ($6F$); lời giải câu 3 nêu độc lập giữa hai người cho $1/H$ |
+| 75 | 6 | `L01-G03` | Nguồn và tài liệu đọc | `thêm` | — → 70 | 80 | 6 | 1 | Nguồn và tài liệu đọc; ghi công mmds.org; dòng Bài 02 (gộp E04); lượt sửa: phạm vi chương, mục, trang; tên sách Foundations of Data Science; "tính kết hợp và giao hoán"; 7 dòng (ngoại lệ trang nguồn) |
+| 76 | 7 | `L01-RT` | 7. Bài tập vận dụng | `giữ` | — → 34 | — | 2 | 0,5 | trang tiêu đề mạch 7 (0,5 phút lấy từ R00) |
+| 77 | 7 | `L01-R00` | Bài tập: phép đếm và suy luận | `sửa` | 73 → 65 | 80 | 5 | 2,5 | "Bài tập: …"; bỏ dòng nguồn, mũi tên, nhãn "Sản phẩm:" |
+| 78 | 7 | `L01-R01` | Bài tập: hồ sơ lưu trú, ba biến thể | `sửa` | 49 → 56 | 80 | 6 | 7 | ba dòng (a), (b), (c); dòng Nguồn `ex-note`; lượt sửa: "kỳ vọng số biến cố trùng (sách: số cặp nghi vấn)" |
+| 79 | 7 | `L01-R02` | Bài tập: hồ sơ lưu trú (a), (b) | `sửa` | 62 → 52 | 80 | 4 | 15 | "Gợi ý:" vào ghi chú; dòng Nguồn `ex-note`; lượt sửa: "từng phần" |
+| 80 | 7 | `L01-R03` | Bài tập: hồ sơ lưu trú (c) | `sửa` | 45 → 51 | 80 | 5 | 10 | "Sản phẩm:" → "Lời giải gồm…"; dòng Nguồn |
+| 81 | 7 | `L01-R04` | Bài tập: cặp người mua cùng tập mặt hàng | `sửa` | 48 → 46 | 80 | 4 | 8 | câu hỏi rút ≤ 20 âm tiết, giữ nghĩa đề; dòng Nguồn; lượt sửa: câu hỏi không dùng "kỳ vọng" theo nghĩa thường |
+| 82 | 7 | `L01-R06` | Bài tập: tập mặt hàng, đơn vị đếm | `sửa` | 96 → 74 | 80 | 7 | 5 | bảng giữ; Giả thiết; dòng Nguồn |
+| 83 | 7 | `L01-R05` | Bài tập: tập mặt hàng, bốn phần lời giải | `sửa` | 52 → 56 | 80 | 6 | 12 | dòng Nguồn `ex-note` |
+
+Trang bỏ hoặc gộp: `L01-D00` (`bỏ`: bảng mô tả chính phần, trùng dòng dẫn; ví dụ "tìm gần trùng cần giảm số cặp; nối bảng cần giảm khối đọc lại" vào ghi chú DT); `L01-ET` (`bỏ`: mạch 5 cũ gộp vào mạch 4; ghi chú vào DT); `L01-E00` (`bỏ`: trùng D01 và E01–E03; ba mặt kiến thức, kỹ năng, cách học vào ghi chú D01); `L01-E05` (`bỏ`: trùng C02; câu hỏi sang G02 câu 1); `L01-F00` (`gộp`: câu nhu cầu thành dòng Nhu cầu của F01, ba thẻ vào ghi chú FT); `L01-E04` (`gộp`: dòng chuẩn bị Bài 02 sang G03, câu hỏi chạy lại tác vụ sang G02 câu 2).
+
+**Phiếu trang mới (lượt sửa sau rà ba vai: mỗi trang một phiếu, đủ chín trường).** Thứ tự trường: mạch; mục đích; hành động của sinh viên; đối tượng trung tâm; dữ kiện kế thừa; kiến thức đầu vào; sản phẩm; bằng chứng; quyết định.
+
+- `L01-P02` Tiên quyết và quy ước — 1; nêu kiến thức tiên quyết thật sự dùng (bài đầu học phần); đối chiếu bốn dòng nhắc lại với kiến thức đã học; số cặp, giao–hợp, độc lập và kỳ vọng tổng; UET.CS1058; toán rời rạc, xác suất cơ bản; ký hiệu $N$, $C_i$, $i<j$, $\tau$, $R$; A06, C02, C03, F05, F03 dùng lại; `thêm`.
+- `L01-P03` Mục tiêu học tập — 1; năm mục tiêu kiểm được (1↔MT1; 2↔MT2, MT3; 3↔MT3, MT4; 4↔MT5; 5↔MT6); ghi sản phẩm cần nộp; năm năng lực của bài; không; P02; danh sách mục tiêu; A10, B12, C04, C18, C07, C16, D11, F07, G02, bài tập; `thêm` (tách từ P01).
+- `L01-P04` Vấn đề trung tâm — 1; nêu nhu cầu kho $10^6$ tài liệu và bốn câu trả lời có điều kiện; ghi bốn điều kiện để kiểm ở cuối bài; $R$, $N(N-1)/2$, khối đọc ghi, kỳ vọng $249\,750$ biến cố trùng; ký hiệu P02; P02, P03; bốn điều kiện; F04 trả lời cùng thứ tự (dòng 1 ↔ khối đọc ghi và sắp, băm theo khóa; dòng 2 ↔ $499\,999\,500\,000$ lần kiểm, $O(N^2L)$; dòng 3 ↔ điều kiện đủ khi chọn ứng viên bằng chữ ký MinHash, phân dải LSH; dòng 4 ↔ kỳ vọng nền và giới hạn kết luận); `thêm`.
+- `L01-A10` Câu hỏi về bảy bài toán trên kho web — 1; kiểm khả năng nêu đầu vào, đầu ra, trở ngại; trả lời ba câu; ba bài toán A01, A06, A07; số liệu A01, A06, A07; A01–A07; lời giải trong ghi chú; câu trả lời của sinh viên; `thêm`.
+- `L01-B12` Câu hỏi về dòng, nén và truy vấn trên đĩa — 2; kiểm phân biệt trạng thái đếm, bản nén và khối đọc ghi; trả lời ba câu; số đếm người dùng, hai bảng 100/400 khối, ảnh nén mất thông tin; B10, B09, B04; B01–B09; lời giải (có phép đếm $2\,000\,100$ lần chuyển khối theo DSC); câu trả lời; `thêm`.
+- `L01-C17` Ví dụ: thứ tự xét cặp — 3; chạy tay vòng lặp $i<j$; liệt kê sáu cặp với $N=4$ và xét $N=2$; thứ tự cặp; $S$, $T$, $J=3/8$ của C02; đặc tả C03; vết chạy; C04 câu hỏi; `thêm` (tách từ C04).
+- `L01-C18` Tính đúng: khởi tạo, duy trì, kết thúc — 3; chứng minh thuật toán xét mọi cặp trả đúng $R$; theo ba bước của bất biến; bất biến của C06; giả mã C04; bất biến (học phần tiên quyết); lập luận ba bước, điều kiện dừng, trường hợp biên; G01 hàng tính đúng, mục tiêu 2; `thêm` (tách từ C06).
+- `L01-D11` Câu hỏi về nhóm bài và kiến thức nền — 4; kiểm việc ghép giới hạn với nhóm bài; ghép ba giới hạn và nêu kiến thức cần ôn; bản đồ năm nhóm; số cặp, bảng 400 khối, bản ghi đến liên tục; D02–E01; lời giải trong ghi chú; câu trả lời; `thêm`.
+- `L01-GT` Tổng kết và tự kiểm tra — 6; trang tiêu đề mạch kết luận; đọc dòng dẫn và từ khóa; năm kết quả của bài; mọi mạch trước; không; định hướng mạch; G01–G03; `thêm`.
+- `L01-G01` Kết quả và giả thiết không được bỏ — 6; đặt sáu kết quả cạnh giả thiết; nêu hệ quả khi bỏ từng giả thiết; bảng kết quả–giả thiết–công thức; $R$, bất biến, $F$/$2F$, $O(N^2L)$, điều kiện đủ, kỳ vọng nền; C03, C18, C09, C07, C16, F03; bảng tóm tắt; G02 câu 2; `thêm`.
+- `L01-G02` Câu hỏi tự kiểm tra — 6; kiểm ba kết quả của G01 (Jaccard và ngưỡng; chi phí đọc ghi; mô hình lưu trú); trả lời và nêu kết quả đã dùng; ba câu; $J=3/8$, $F$, $\mathbb E[X]$; C02, C09, G01, F03, F05; lời giải trong ghi chú; câu trả lời; `thêm`.
+- `L01-G03` Nguồn và tài liệu đọc — 6; liệt kê nguồn có chương, mục, trang, ghi công mmds.org, nối Bài 02; chọn tài liệu đọc; danh mục nguồn; dòng "Nguồn:" của mọi ghi chú; không; danh mục và dòng chuẩn bị Bài 02; không có câu hỏi; `thêm` (gộp E04).
+- `L01-F04` Câu trả lời cho vấn đề trung tâm — 6 (chuyển từ mạch F, đổi vai trò); trả lời P04 theo thứ tự bằng số của bài; đối chiếu từng dòng với P04; bốn kết luận có điều kiện; G01; mọi mạch; bốn câu trả lời; G02; `sửa`.

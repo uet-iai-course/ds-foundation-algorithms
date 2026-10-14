@@ -1,5 +1,8 @@
 # Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán
 
+**Bản hiện hành (2026-10-14).** Dàn ý hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp: 83 trang, bảy mạch, mạch 4 gộp D và E, mạch 6 tổng kết mới. Các mục bên dưới là lịch sử, giữ để đối chiếu.
+
+
 ## ER-004 — kế hoạch được duyệt ngày 2026-09-07
 
 Bản hiện hành: 71 trang, 7 phần ngoài; 64 trang giảng/120 phút và 7 trang bài tập/60 phút. D/E/F/R đã kiểm định và xuất bản bằng các commit riêng lên origin/main; ER-004 hoàn tất. Các thống kê ở mục triển khai từng phần ghi nhận thời điểm tương ứng.
@@ -249,3 +252,42 @@ Nguồn quy trình: [bản đồ học phần](../../../sources/source.md), [sli
 ### Kết quả chỉnh sau rà ER-003
 
 C01 phân biệt giống hệt/gầntrùng thay nhắc lại quy mô; C04 dùng N2,C1=S,C2=T cho kết quả{(1,2)} khiτ≤3/8 hoặc rỗng khiτ>3/8. Dữ kiện giữ từ Ví dụ3.1, chỉ suy ra hai trường hợp, không gán ngưỡng số mới. C16nhắc lại cặp tài liệu sau ví dụ véc-tơ. Tựkiểm E01 và cầu E04 đồng bộ. Chọn mốc2phút cho C15vàC16, giữ31phút cho C. Rà lại mạch toàn bài và độ chính xác sau writer chỉnh sửa.
+
+## Sửa toàn diện theo chuẩn 2026-10-14
+
+**Luận đề (trang bìa).** "Yêu cầu dữ liệu lớn chỉ thành bài toán thuật toán khi đã chốt đầu ra, biểu diễn, giới hạn tài nguyên, mức chính xác." (25 âm tiết; lượt sửa sau rà ba vai khôi phục "chỉ" và "đã" để đủ nghĩa điều kiện cần; bỏ "và" để không vượt 25.)
+
+**Vấn đề trung tâm (P04) và câu trả lời (F04).** Trả mọi cặp đạt ngưỡng tương đồng trong $N=10^6$ tài liệu. Câu trả lời có điều kiện theo mạch: dữ liệu vượt bộ nhớ thì chi phí tính bằng khối đọc ghi (mạch 2); phép kiểm chính xác thì xét mọi cặp trả đúng $R$ sau $N(N-1)/2$ lần kiểm (mạch 3); giảm số cặp chỉ đủ khi không bỏ sót cặp đạt ngưỡng (mạch 4: chữ ký MinHash ở Bài 05, phân dải LSH ở Bài 06); mô hình lưu trú độc lập cho kỳ vọng khoảng $249\,750$ biến cố trùng ngẫu nhiên (mạch 5). Trên P04 và F04 các dòng không đánh số.
+
+| N | Tên mạch | Loại | Trang | Mã trang | Phút |
+|---:|---|---|---:|---|---:|
+| 1 | Tổng hợp và tìm kiếm dữ liệu web | giới thiệu | 13 | P00, P02, P03, P01, P04, A01–A07, A10 | 23 |
+| 2 | Dòng dữ liệu, nén và truy vấn trên đĩa | giới thiệu (bài toán) | 14 | BT, B00, B01, B02, B10, B03, B04, B11, B05–B09, B12 | 24 |
+| 3 | Đặc tả và đánh giá thuật toán | khái niệm, thuật toán, chi phí | 20 | CT, C00–C03, C17, C04, C05, C06, C18, C07–C16 | 30 |
+| 4 | Năm nhóm thuật toán và cách học | giới thiệu học phần | 16 | DT, D01, D02, D03, D08, D04, D09, D05, D10, D06, D07, E01, E02, E06, E03, D11 | 21 |
+| 5 | Mẫu trùng ngẫu nhiên và suy luận | khái niệm (mô hình xác suất) | 7 | FT, F01, F02, F05, F06, F03, F07 | 14 |
+| 6 | Tổng kết và tự kiểm tra | tổng kết | 5 | GT, G01, F04, G02, G03 | 8 |
+| 7 | Bài tập vận dụng | thực hành (recitation) | 8 | RT, R00–R06 | 60 |
+
+Mã trang mới: P02, P03, P04, A10, B12, C17, C18, D11, GT, G01, G02, G03. Mã bỏ: D00, ET, E00, E05, F00, E04 (không dùng lại).
+
+**Thuật ngữ Việt–Anh (giải nghĩa ở lần đầu trên mặt trang hoặc trong ghi chú).**
+
+| Tiếng Việt | Tiếng Anh |
+|---|---|
+| độ tương đồng Jaccard | Jaccard similarity |
+| đoạn ký tự | shingle |
+| cặp ứng viên; hậu kiểm | candidate pair; verification |
+| băm nhạy cảm theo tính cục bộ | locality-sensitive hashing (LSH) |
+| độ thu hồi tại $k$ | recall@k |
+| bộ nhớ làm việc; lượt quét | working memory; pass |
+| độ trễ; thông lượng | latency; throughput |
+| đồ thị thế giới nhỏ phân tầng | hierarchical navigable small world (HNSW) |
+| lượng tử hóa tích | product quantization (PQ) |
+| mô hình nền; kỳ vọng | null model; expectation |
+
+**Quy ước.** Số thập phân dùng dấu phẩy; dung lượng tính bằng byte hoặc khối; MMDS ghi "ấn bản 3 (2020)" như deck 06. "véc-tơ" của Bài 01 khác "véc tơ"/"vector" của Bài 02–06: ngoài đợt này (quyết định 9).
+
+**Lộ trình sang Bài 05–06.** Mọi câu nhắc Bài 05–06 nay theo nội dung hiện hành: Bài 05 biểu diễn bằng tập đoạn ký tự và chữ ký MinHash; Bài 06 phân dải LSH để chọn cặp ứng viên. Bỏ câu hứa "Bài 05 phân tích hai con trỏ" (C04, C07): hai con trỏ là phép trộn hai danh sách đã sắp của học phần tiên quyết.
+
+**Lượt sửa sau rà ba vai (2026-10-14).** "đoạn ký tự (shingle)" giải nghĩa trên mặt trang C02, khớp Bài 05–06. $R$ khai báo ở dòng Ký hiệu của P02. Tên năm nhóm thống nhất theo bản đồ năm nhóm: Phân tán và xếp hạng; Tương đồng và tìm gần; Dòng và cửa sổ; Nén và khôi phục; Lưu trữ và truy vấn (khác tên năm mạch của `sources/source.md`: ghi review-log). C06 "Tính đúng: bất biến của xét mọi cặp", C18 "Tính đúng: khởi tạo, duy trì, kết thúc". G01 thêm hàng chi phí đọc ghi; G02 câu 2 dựa trên hàng này. D01 rút còn hai năng lực.

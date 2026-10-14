@@ -1041,6 +1041,12 @@
 
 .reveal.course-deck.lecture-lsh .lsh-orientation { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 36px; align-items: center; }
 
+/* Bài 01: chỉ chiều cao hình SVG; dùng thang chữ course-deck. */
+.reveal.course-deck.lecture-bigdata .l01-figure { margin: 10px 0; }
+.reveal.course-deck.lecture-bigdata .l01-figure img { display: block; width: 100%; max-height: 320px; margin: 0 auto; object-fit: contain; }
+.reveal.course-deck.lecture-bigdata .l01-short img { max-height: 245px; }
+.reveal.course-deck.lecture-bigdata .l01-map img { max-height: 470px; }
+
 /* Bài 07: bố cục, hình và hộp câu hỏi; dùng thang chữ course-deck. */
 .reveal.course-deck.lecture-ann .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
 .reveal.course-deck.lecture-ann .ann-figure { margin: 10px 0; }

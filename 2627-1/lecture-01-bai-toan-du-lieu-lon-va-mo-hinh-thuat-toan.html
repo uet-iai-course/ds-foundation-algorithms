@@ -3,560 +3,754 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Bài 1: Bài toán dữ liệu lớn và mô hình thuật toán</title>
+  <title>Bài 01: Bài toán dữ liệu lớn và mô hình thuật toán</title>
+  <meta name="description" content="Bài toán dữ liệu lớn, đặc tả và đánh giá thuật toán qua bài toán tìm cặp tài liệu gần trùng, bản đồ học phần và mô hình trùng ngẫu nhiên; MMDS, ấn bản 3, Chương 1 và 3."/>
   <link rel="stylesheet" href="revealjs/dist/reset.css"/>
   <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
   <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
   <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
   <link rel="stylesheet" href="lecture-style.css"/>
-  <style>
-    .reveal .slides section[data-slide-id] { font-size: .82em; }
-    .reveal h1, .reveal h2 { color: #2f3e7a; }
-    .reveal h2 { font-size: 1.48em; text-transform: none; }
-    .reveal h3 { font-size: 1em; color: #2f3e7a; text-transform: none; }
-    .grid2, .grid3 { display: grid; gap: .7em; }
-    .grid2 { grid-template-columns: 1fr 1fr; }
-    .grid3 { grid-template-columns: repeat(3, 1fr); }
-    .card { border: 2px solid #cfd8dc; border-radius: 12px; padding: .4em .6em; }
-    .card.accent { border-left: 7px solid #b15a2b; background: #fffaf5; }
-    .card p { margin: .25em 0; }
-    .grid3 .card { font-size: .82em; }
-    .check { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 10px; padding: .38em .58em; margin-top: .55em; }
-    .formula { font-size: 1.1em; text-align: center; padding: .3em 0; }
-    .big { font-size: 1.15em; }
-    .trace { border-collapse: collapse; width: 100%; font-size: .9em; }
-    .trace th, .trace td { border: 1px solid #b0bec5; padding: .3em .4em; text-align: left; }
-    .trace th { background: #edf4ff; }
-    .reveal .figure { display: block; max-height: 320px; max-width: 100%; margin: .15em auto .4em; }
-    .reveal .figure.short { max-height: 245px; }
-    .reveal .figure.map { max-height: 470px; }
-    .reveal ol[type="a"] { list-style-type: lower-alpha; }
-    .reveal .goals .card { font-size: .86em; }
-    .identity { color: #546e7a; font-size: .78em; margin: .1em 0; }
-    .course-name { color: #2f3e7a; font-weight: 700; }
-    .reveal pre { width: 100%; font-size: .8em; line-height: 1.4; box-shadow: none; }
-    .reveal pre code { padding: 20px; max-height: none; }
-    .recitation { border-top: 6px solid #b15a2b; }
-    html.reveal-print .recitation { border: 0; }
-  </style>
 </head>
 <body>
-<div class="reveal"><div class="slides">
-  <section>
-    <section data-slide-id="L01-P00">
-      <h2>Bài toán dữ liệu lớn<br/>và mô hình thuật toán</h2>
-      <p class="identity">Bài 01 · Học kỳ 1, 2026–2027</p>
+<div class="reveal course-deck lecture-bigdata"><div class="slides">
+  <section aria-label="Tổng hợp và tìm kiếm dữ liệu web">
+    <section id="L01-P00" data-slide-id="L01-P00" class="title-slide">
+      <h1 class="lecture-title">Bài toán dữ liệu lớn và mô hình thuật toán</h1>
+      <p class="supporting-text">Yêu cầu dữ liệu lớn chỉ thành bài toán thuật toán khi đã chốt đầu ra, biểu diễn, giới hạn tài nguyên, mức chính xác.</p>
       <p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p>
+      <p class="term-name">Học kỳ 1 · Năm học 2026–2027</p>
+      <p class="institution-name">Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
+      <aside class="notes"><p>Bài 01 ứng với buổi 1 của đề cương: vai trò của giải thuật khi dữ liệu lớn, đa dạng và thay đổi liên tục. Các bài toán của Bài 02–15 được đặt vào một khung chung gồm đầu ra cần trả, cách biểu diễn dữ liệu, tài nguyên bị giới hạn và mức chính xác phải bảo đảm. Bài toán tìm cặp tài liệu gần trùng được phân tích đầy đủ theo khung ấy; bài toán hồ sơ lưu trú cho thấy giới hạn của kết luận rút ra từ kết quả tính toán.</p><p>Nguồn: Leskovec, Rajaraman, Ullman, Mining of Massive Datasets (MMDS), ấn bản 3, §1.2, tr.6–8; §1.3.4, tr.13; §3.1, tr.73–75; Blum, Hopcroft, Kannan, Chương 1–2.</p></aside>
     </section>
-    <section data-slide-id="L01-P01">
-      <h2>Nội dung buổi học</h2>
-      <div class="grid2"><ol><li>Tổng hợp và tìm kiếm dữ liệu web</li><li>Dòng dữ liệu, nén và truy vấn trên đĩa</li><li>Đặc tả và đánh giá thuật toán</li><li>Năm nhóm thuật toán của học phần</li></ol><ol start="5"><li>Chuẩn bị và cách học</li><li>Mẫu trùng ngẫu nhiên và suy luận</li><li>Bài tập vận dụng</li></ol></div>
-      <p>Sau buổi học:</p>
-      <ul><li>Nêu được đầu vào, đầu ra và trở ngại của một bài toán.</li><li>Giải thích được tính đúng và điều kiện chi phí của một thuật toán.</li><li>Phân biệt kết quả tính toán với kết luận rút ra về dữ liệu.</li></ul>
-      <aside class="notes">Tổng hợp và tìm kiếm trên kho web cho bảy bài toán với đầu vào, đầu ra và trở ngại riêng. Dòng dữ liệu, nén và truy vấn trên đĩa thêm giới hạn về bộ nhớ, dung lượng và số lần đọc ghi. Đặc tả và đánh giá thuật toán gom các giới hạn ấy thành khung phân tích trên bài toán tìm cặp gần trùng. Năm nhóm thuật toán của học phần được đọc bằng khung này. Chuẩn bị và cách học nối mỗi nhóm với kiến thức nền và sản phẩm học tập. Mẫu trùng ngẫu nhiên và suy luận xét giả thiết cần có trước khi kết luận từ kết quả tính toán; bài tập vận dụng kiểm lại mô hình đó. Nguồn: mục tiêu Bài 01 và chuẩn đầu ra học phần; MMDS mục 1.2.</aside>
+    <section id="L01-P02" data-slide-id="L01-P02" class="example-slide">
+      <h2>Tiên quyết và quy ước</h2>
+      <p><strong>Nhắc lại:</strong> tiên quyết UET.CS1058.</p>
+      <p><strong>Nhắc lại:</strong> $N$ phần tử có $\binom N2=N(N-1)/2$ cặp không thứ tự.</p>
+      <p><strong>Nhắc lại:</strong> giao $S\cap T$ là phần chung; hợp $S\cup T$ đếm mỗi phần tử một lần.</p>
+      <p><strong>Nhắc lại:</strong> độc lập thì nhân xác suất; kỳ vọng tổng bằng tổng kỳ vọng.</p>
+      <p><strong>Ký hiệu:</strong> $N$ tài liệu, tập $C_i$ hữu hạn, không rỗng; cặp $i&lt;j$; ngưỡng $\tau$; $R$ là tập cặp đạt ngưỡng.</p>
+      <aside class="notes"><p>Dòng thứ nhất là tiên quyết chính thức của học phần, Cấu trúc dữ liệu và giải thuật; ngưỡng $\tau$ lấy trong $[0,1]$; xác suất cơ bản, toán rời rạc, đại số tuyến tính và cơ sở dữ liệu được ôn tại nơi dùng. Số cặp không thứ tự dùng khi đếm cặp tài liệu và phép thử của mô hình lưu trú. Giao và hợp dùng để định nghĩa độ tương đồng Jaccard. Tính độc lập cho phép nhân xác suất trùng của hai người và hai ngày; tuyến tính của kỳ vọng cộng đóng góp của các phép thử mà không cần độc lập. Quy ước: số thập phân dùng dấu phẩy; dung lượng tính bằng byte hoặc khối, khối định nghĩa khi xét dữ liệu trên đĩa.</p><p>Nguồn: đề cương UET.DSE2053, học phần tiên quyết; MMDS §1.2.3, §3.1.1.</p></aside>
     </section>
-    <section data-slide-id="L01-A01">
+    <section id="L01-P03" data-slide-id="L01-P03" class="example-slide">
+      <h2>Mục tiêu học tập</h2>
+      <ol>
+        <li>Nêu đầu vào, đầu ra và tài nguyên bị giới hạn của một bài toán dữ liệu lớn.</li>
+        <li>Đặc tả tìm cặp gần trùng; chứng minh thuật toán xét mọi cặp trả đúng $R$.</li>
+        <li>Đếm chi phí xét mọi cặp; phân biệt tính toán, bộ nhớ, đọc ghi, mạng.</li>
+        <li>Gắn mỗi giới hạn đã gặp với một nhóm Bài 02–15 và kiến thức nền cần ôn.</li>
+        <li>Tính kỳ vọng số trùng ngẫu nhiên; nêu điều chưa suy ra được từ mẫu trùng.</li>
+      </ol>
+      <aside class="notes"><p>Mỗi mục tiêu có sản phẩm kiểm được: mục 1 bằng các câu hỏi về bài toán trên kho web và về dòng, nén, truy vấn trên đĩa; mục 2 bằng câu hỏi về vòng lặp xét mọi cặp và bảng khởi tạo, duy trì, kết thúc; mục 3 bằng bảng chi phí và câu hỏi về hậu kiểm ứng viên; mục 4 bằng câu hỏi ghép giới hạn với nhóm bài; mục 5 bằng phép tính kỳ vọng nền, câu hỏi tự kiểm tra và Bài 1.2.1, 1.2.2 của MMDS.</p><p>Nguồn: chuẩn đầu ra CLO1–CLO4 của đề cương; MMDS §1.2, §3.1.</p></aside>
+    </section>
+    <section id="L01-P01" data-slide-id="L01-P01" class="agenda-slide">
+      <h2>Nội dung</h2>
+      <div class="ex-grid2"><ol><li>Tổng hợp và tìm kiếm dữ liệu web</li><li>Dòng dữ liệu, nén và truy vấn trên đĩa</li><li>Đặc tả và đánh giá thuật toán</li></ol><ol start="4"><li>Năm nhóm thuật toán và cách học</li><li>Mẫu trùng ngẫu nhiên và suy luận</li><li>Tổng kết và tự kiểm tra</li><li>Bài tập vận dụng</li></ol></div>
+      <p><strong>Đọc trước:</strong> Leskovec, Rajaraman, Ullman, <em>Mining of Massive Datasets</em> (MMDS), ấn bản 3, §1.2, §3.1; Blum, Hopcroft, Kannan, <em>Foundations of Data Science</em>, Chương 1–2.</p>
+      <aside class="notes"><p>Phạm vi đọc trước: MMDS §1.2, tr.6–8 và §3.1, tr.73–75. Bảy bài toán trên kho web cho đầu vào, đầu ra và trở ngại của cách làm trực tiếp. Dòng dữ liệu, nén và truy vấn trên đĩa thêm giới hạn về bộ nhớ, dung lượng và số khối đọc ghi. Đặc tả và đánh giá thuật toán gom các giới hạn ấy thành khung phân tích trên bài toán tìm cặp gần trùng. Năm nhóm thuật toán của Bài 02–15 được đọc bằng khung này, cùng kiến thức nền và sản phẩm học tập. Mẫu trùng ngẫu nhiên cho thấy giả thiết cần có trước khi kết luận. Tổng kết đặt mọi kết quả cạnh giả thiết; bài tập kiểm lại mô hình lưu trú.</p><p>Nguồn: đề cương UET.DSE2053; MMDS §1.2, §3.1.</p></aside>
+    </section>
+    <section id="L01-P04" data-slide-id="L01-P04" class="example-slide">
+      <h2>Vấn đề trung tâm</h2>
+      <p><strong>Nhu cầu:</strong> trả mọi cặp đạt ngưỡng trong $N=10^6$ tài liệu.</p>
+      <ul>
+        <li>Dữ liệu vượt bộ nhớ: chi phí tính bằng số khối đọc ghi.</li>
+        <li>Phép kiểm chính xác: xét mọi cặp trả đúng $R$ sau $N(N-1)/2$ lần kiểm.</li>
+        <li>Giảm số cặp chỉ đủ khi không bỏ sót cặp đạt ngưỡng.</li>
+        <li>Lưu trú độc lập: kỳ vọng khoảng $249\,750$ biến cố trùng ngẫu nhiên.</li>
+      </ul>
+      <aside class="notes"><p>Kho một triệu tài liệu là ví dụ xuyên suốt; $\binom{10^6}{2}=499\,999\,500\,000$ cặp. Bốn dòng theo thứ tự các mạch 2 đến 5: dòng về khối đọc ghi dựa trên hai bảng 100 và 400 khối với bộ nhớ 20 khối; dòng về xét mọi cặp là mệnh đề tính đúng và phép đếm chi phí; dòng về giảm số cặp lấy điều kiện đủ ở câu hỏi hậu kiểm cuối phần đánh giá và đặt nó vào Bài 05–06 trong bản đồ năm nhóm; dòng cuối là mô hình hồ sơ lưu trú, không phải kho tài liệu, trong đó số trùng đến từ số phép thử nên mẫu trùng chưa là căn cứ. Các dòng được trả lời theo đúng thứ tự ở phần tổng kết.</p><p>Nguồn: MMDS Chương 3, tr.73; Stanford CS246, bài LSH, trang chiếu 14; MMDS §1.2.3, tr.7–8.</p></aside>
+    </section>
+    <section id="L01-A01" data-slide-id="L01-A01" class="example-slide">
       <h2>Tính tổng kích thước trang web theo máy chủ</h2>
-      <p>Kho thu thập web ghi máy chủ và kích thước của mỗi trang.<br/>Cần cộng kích thước các trang thuộc cùng máy chủ.</p>
-      <div class="grid2">
-        <table class="trace"><thead><tr><th>Máy chủ</th><th>Kích thước trang (byte)</th></tr></thead><tbody><tr><td>a.vn</td><td>40</td></tr><tr><td>b.vn</td><td>25</td></tr><tr><td>a.vn</td><td>15</td></tr><tr><td>c.vn</td><td>0</td></tr></tbody></table>
-        <img class="figure" src="img/lec-01/kho-nhat-ky-bo-nho.svg" role="img" alt="Tệp bản ghi lớn trên đĩa không thể nạp trọn vào bộ nhớ chính nhỏ hơn."/>
+      <p><strong>Đầu vào:</strong> máy chủ và kích thước (byte) của mỗi trang trong kho.</p>
+      <p><strong>Đầu ra:</strong> tổng theo máy chủ; ở đây a.vn 55, b.vn 25, c.vn 0 byte.</p>
+      <div class="ex-grid2">
+        <table class="ex-table"><thead><tr><th scope="col">Máy chủ</th><th scope="col">Kích thước trang (byte)</th></tr></thead><tbody><tr><td>a.vn</td><td>40</td></tr><tr><td>b.vn</td><td>25</td></tr><tr><td>a.vn</td><td>15</td></tr><tr><td>c.vn</td><td>0</td></tr></tbody></table>
+        <figure class="l01-figure"><img src="img/lec-01/kho-nhat-ky-bo-nho.svg" role="img" alt="Tệp bản ghi lớn trên đĩa không thể nạp trọn vào bộ nhớ chính nhỏ hơn."/></figure>
       </div>
-      <div class="card accent"><p>Kết quả từ bốn bản ghi: a.vn → 55 byte; b.vn → 25 byte; c.vn → 0 byte.</p></div>
-      <aside class="notes">Mỗi dòng là một trang trong kho thu thập, không phải một lượt truy cập. Máy chủ được lấy từ địa chỉ trang; tổng chỉ xét các trang có trong kho, không phải dung lượng toàn bộ máy chủ. Bốn bản ghi nhỏ làm rõ đầu ra theo từng máy chủ. Tổng của a.vn là 40 cộng 15. D là dung lượng tệp bản ghi, còn M là bộ nhớ khả dụng; không đồng nhất D với tổng kích thước nội dung trang. Khi không nạp được cả tệp, cách đọc và thông tin giữ lại phải thay đổi. Bảng tổng theo máy chủ cũng có thể vượt bộ nhớ. Nếu kho được chia trên nhiều máy, việc tổng hợp còn cần truyền dữ liệu. Nguồn: Stanford CS246 01-intro, trang chiếu 62; MMDS 1.3.4, tr. 13.</aside>
+      <p class="ex-takeaway">Tệp bản ghi lớn hơn bộ nhớ thì không nạp trọn để cộng một lần.</p>
+      <aside class="notes"><p>Đầu ra là tổng kích thước các trang của từng máy chủ; cần cộng các trang cùng máy chủ. Mỗi dòng là một trang trong kho thu thập, không phải một lượt truy cập. Máy chủ được lấy từ địa chỉ trang; tổng chỉ xét các trang có trong kho, không phải dung lượng toàn bộ máy chủ. Bốn bản ghi nhỏ làm rõ đầu ra theo từng máy chủ. Tổng của a.vn là 40 cộng 15. D là dung lượng tệp bản ghi, còn M là bộ nhớ khả dụng; không đồng nhất D với tổng kích thước nội dung trang. Khi không nạp được cả tệp, cách đọc và thông tin giữ lại phải thay đổi. Bảng tổng theo máy chủ cũng có thể vượt bộ nhớ. Nếu kho được chia trên nhiều máy, việc tổng hợp còn cần truyền dữ liệu.</p><p>Nguồn: Stanford CS246 01-intro, trang chiếu 62; MMDS 1.3.4, tr. 13.</p></aside>
     </section>
-    <section data-slide-id="L01-A02">
+    <section id="L01-A02" data-slide-id="L01-A02" class="example-slide">
       <h2>Đếm số lần xuất hiện của từng từ</h2>
-      <p>Kho tài liệu được chia trên nhiều máy.<br/>Với mỗi từ $w$, cần tổng số lần xuất hiện trong toàn kho.</p>
-      <img class="figure" src="img/lec-01/ung-dung-tong-hop-phan-tan.svg" role="img" alt="Từ w xuất hiện ở các phần kho trên hai máy. Gom mọi tài liệu về một máy phải truyền qua mạng và tập trung toàn bộ công việc."/>
-      <div class="card accent"><p>Gom cả kho về một máy tốn đường truyền và dồn việc vào máy đó. Khi chạy lại tác vụ bị lỗi, phải tránh đếm trùng.</p></div>
-      <aside class="notes">Đầu ra có một số đếm cho mỗi từ. Một từ xuất hiện nhiều lần trong cùng tài liệu đóng góp nhiều lần; đây không phải số tài liệu chứa từ. Hình lấy một từ w để chỉ cùng một khóa nằm ở các phần kho, không cho số đếm cụ thể. Tính đóng góp gần nơi lưu dữ liệu rồi gom theo từ là hướng xử lý ở Bài 02. Môi trường thực thi phải kiểm soát kết quả của tác vụ chạy lại để không bỏ sót hoặc tính trùng. Thống kê từ mô tả nội dung kho; khi trả kết quả tìm kiếm, còn phải quyết định thứ tự các trang. Nguồn: MMDS 2.1–2.2.6; slide Chương 2, trang 8–13, 20.</aside>
+      <p><strong>Đầu vào:</strong> kho tài liệu chia trên nhiều máy.</p>
+      <p><strong>Đầu ra:</strong> số lần xuất hiện trong toàn kho của mỗi từ $w$.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-tong-hop-phan-tan.svg" role="img" alt="Từ w xuất hiện ở các phần kho trên hai máy. Gom mọi tài liệu về một máy phải truyền qua mạng và tập trung toàn bộ công việc."/></figure>
+      <p class="ex-takeaway">Gom cả kho về một máy tốn đường truyền và dồn việc vào máy đó.</p>
+      <aside class="notes"><p>Đầu ra có một số đếm cho mỗi từ. Một từ xuất hiện nhiều lần trong cùng tài liệu đóng góp nhiều lần; đây không phải số tài liệu chứa từ. Hình lấy một từ w để chỉ cùng một khóa nằm ở các phần kho, không cho số đếm cụ thể. Tính đóng góp gần nơi lưu dữ liệu rồi gom theo từ là hướng xử lý ở Bài 02. Môi trường thực thi phải kiểm soát kết quả của tác vụ chạy lại để không bỏ sót hoặc tính trùng. Thống kê từ mô tả nội dung kho; khi trả kết quả tìm kiếm, còn phải quyết định thứ tự các trang.</p><p>Nguồn: MMDS 2.1–2.2.6; trang chiếu MMDS Chương 2, trang 8–13, 20.</p></aside>
     </section>
-    <section data-slide-id="L01-A03">
+    <section id="L01-A03" data-slide-id="L01-A03" class="example-slide">
       <h2>Tính điểm quan trọng của trang web</h2>
-      <p>Một truy vấn có thể khớp nhiều trang. Từ các liên kết giữa các trang,<br/>cần tính điểm quan trọng để hỗ trợ sắp xếp kết quả tìm kiếm.</p>
-      <img class="figure" src="img/lec-01/ung-dung-xep-hang-web.svg" role="img" alt="Ba trang y, a, m liên kết có hướng; y có liên kết về chính nó. Điểm từng trang được cập nhật qua nhiều vòng để hỗ trợ sắp kết quả tìm kiếm."/>
-      <div class="card accent"><p>Điểm một trang phụ thuộc các trang trỏ đến nó. Trên đồ thị lớn, mỗi vòng tính phải đọc nhiều liên kết và cập nhật nhiều điểm.</p></div>
-      <aside class="notes">Mỗi hộp là một trang web, mũi tên là liên kết có hướng. y trỏ đến y và a; a trỏ đến y và m; m trỏ đến a. PageRank dùng điểm của trang trỏ đến để tính đóng góp, rồi lặp phép cập nhật. Một lần đếm liên kết chưa thực hiện phép tính này. Điểm quan trọng theo liên kết chỉ là một tín hiệu để sắp kết quả, không thay cho độ liên quan với truy vấn. Hình không gán điểm hoặc thứ hạng chưa tính. Bài 03 phân tích biểu diễn đồ thị, phép lặp và điều kiện dừng. Một bộ điểm dùng chung vẫn chưa phân biệt được những chủ đề khác nhau của cùng truy vấn. Nguồn: MMDS 5.1–5.2; Link Analysis 1, trang 18–21, 48, 53.</aside>
+      <p><strong>Đầu vào:</strong> các trang web và liên kết giữa chúng.</p>
+      <p><strong>Đầu ra:</strong> điểm quan trọng của mỗi trang, hỗ trợ sắp kết quả tìm kiếm.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-xep-hang-web.svg" role="img" alt="Ba trang y, a, m liên kết có hướng; y có liên kết về chính nó. Điểm từng trang được cập nhật qua nhiều vòng để hỗ trợ sắp kết quả tìm kiếm."/></figure>
+      <p class="ex-takeaway">Điểm một trang phụ thuộc điểm các trang trỏ đến nó, nên phải cập nhật qua nhiều vòng.</p>
+      <aside class="notes"><p>Một truy vấn có thể khớp nhiều trang. Trên đồ thị lớn, mỗi vòng tính phải đọc nhiều liên kết và cập nhật nhiều điểm. Mỗi hộp là một trang web, mũi tên là liên kết có hướng. y trỏ đến y và a; a trỏ đến y và m; m trỏ đến a. PageRank dùng điểm của trang trỏ đến để tính đóng góp, rồi lặp phép cập nhật. Một lần đếm liên kết chưa thực hiện phép tính này. Điểm quan trọng theo liên kết chỉ là một tín hiệu để sắp kết quả, không thay cho độ liên quan với truy vấn. Bài 03 phân tích biểu diễn đồ thị, phép lặp và điều kiện dừng. Một bộ điểm dùng chung vẫn chưa phân biệt được những chủ đề khác nhau của cùng truy vấn.</p><p>Nguồn: MMDS 5.1–5.2; Link Analysis 1, trang 18–21, 48, 53.</p></aside>
     </section>
-    <section data-slide-id="L01-A04">
+    <section id="L01-A04" data-slide-id="L01-A04" class="example-slide">
       <h2>Ưu tiên kết quả tìm kiếm theo chủ đề</h2>
-      <p>“Jaguar” có nhiều nghĩa. Khi chủ đề đã xác định là ô tô,<br/>cần ưu tiên các trang về xe trong kết quả tìm kiếm.</p>
-      <img class="figure" src="img/lec-01/ung-dung-truy-van-theo-chu-de.svg" role="img" alt="Jaguar có bốn nghĩa. Chủ đề ô tô đã chọn hướng tới mục tiêu ưu tiên trang về xe; lưu một bộ điểm toàn web riêng cho từng người đòi quá nhiều bộ nhớ."/>
-      <div class="card accent"><p>Một bộ điểm chung chưa phân biệt sở thích. Lưu điểm của toàn bộ trang web riêng cho từng người dùng lại tốn quá nhiều bộ nhớ.</p></div>
-      <aside class="notes">Bốn nghĩa trong nguồn là loài báo, ô tô, hệ điều hành và máy chơi trò chơi. Ở đây chủ đề ô tô là đầu vào đã biết; xác định chủ đề từ truy vấn hoặc ngữ cảnh là công việc riêng. Hình biểu diễn mục tiêu ưu tiên, không phải thứ hạng đã tính. MMDS đối chiếu phương án một véc-tơ điểm toàn web cho từng người với một số véc-tơ theo chủ đề dùng chung. Bài 04 học cách đưa chủ đề vào điểm hạng, không bảo đảm suy đoán đúng ý định của mọi người. Ngoài sở thích khác nhau, xếp hạng còn chịu tác động của liên kết do một bên cố ý tạo ra. Nguồn: MMDS 5.3.1, tr. 195–196.</aside>
+      <p><strong>Đầu vào:</strong> truy vấn “Jaguar”, chủ đề đã xác định là ô tô.</p>
+      <p><strong>Đầu ra:</strong> kết quả tìm kiếm ưu tiên các trang về xe.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-truy-van-theo-chu-de.svg" role="img" alt="Jaguar có bốn nghĩa. Chủ đề ô tô đã chọn hướng tới mục tiêu ưu tiên trang về xe; lưu một bộ điểm toàn web riêng cho từng người đòi quá nhiều bộ nhớ."/></figure>
+      <p class="ex-takeaway">Lưu một bộ điểm toàn web riêng cho từng người dùng tốn quá nhiều bộ nhớ.</p>
+      <aside class="notes"><p>Một bộ điểm chung chưa phân biệt sở thích. Bốn nghĩa trong nguồn là loài báo, ô tô, hệ điều hành và máy chơi trò chơi. Ở đây chủ đề ô tô là đầu vào đã biết; xác định chủ đề từ truy vấn hoặc ngữ cảnh là công việc riêng. Hình biểu diễn mục tiêu ưu tiên, không phải thứ hạng đã tính. MMDS đối chiếu phương án một véc-tơ điểm toàn web cho từng người với một số véc-tơ theo chủ đề dùng chung. Bài 04 học cách đưa chủ đề vào điểm hạng, không bảo đảm suy đoán đúng ý định của mọi người. Ngoài sở thích khác nhau, xếp hạng còn chịu tác động của liên kết do một bên cố ý tạo ra.</p><p>Nguồn: MMDS 5.3.1, tr. 195–196.</p></aside>
     </section>
-    <section data-slide-id="L01-A05">
+    <section id="L01-A05" data-slide-id="L01-A05" class="example-slide">
       <h2>Hạn chế liên kết rác trong xếp hạng</h2>
-      <p>Một bên tạo nhiều trang cùng trỏ tới trang đích để đẩy điểm.<br/>Cần giảm ảnh hưởng của các liên kết này lên kết quả xếp hạng.</p>
-      <img class="figure" src="img/lec-01/ung-dung-lien-ket-thao-tung.svg" role="img" alt="Cụm trang cùng bên kiểm soát gồm đích t và các trang hỗ trợ trỏ qua lại. Những liên kết này có thể làm tăng điểm t dù không đến từ các nguồn độc lập."/>
-      <div class="card accent"><p>Nhiều liên kết có thể cùng do một bên tạo. Chỉ nhìn số liên kết hoặc điểm truyền tới trang đích chưa đủ đánh giá độ tin cậy.</p></div>
-      <aside class="notes">Đầu vào vẫn là đồ thị liên kết; đầu ra cần là điểm hạng ít chịu ảnh hưởng của liên kết rác. Hình giữ ba nhóm của MMDS Hình 5.16: ngoài tầm tác động, có thể đặt liên kết, và sở hữu. Đích t và các trang hỗ trợ thuộc nhóm sở hữu; chúng liên kết qua lại. Nhóm có thể tác động đặt liên kết tới t. Một hướng ở Bài 04 dùng tập trang tin cậy ban đầu để điều chỉnh điểm, như TrustRank; lựa chọn tập này là một yêu cầu riêng và không bảo đảm loại hết spam. Sơ đồ không đủ chứng minh danh tính hoặc ý định của một người ngoài đời. Kết quả tìm kiếm còn có thể chứa nhiều bản sao của cùng nội dung. Nguồn: MMDS 5.4.1–5.4.4, Hình 5.16.</aside>
+      <p><strong>Đầu vào:</strong> đồ thị liên kết có cụm trang do một bên tạo, cùng trỏ tới đích.</p>
+      <p><strong>Đầu ra:</strong> điểm hạng ít chịu ảnh hưởng của các liên kết này.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-lien-ket-thao-tung.svg" role="img" alt="Cụm trang cùng bên kiểm soát gồm đích t và các trang hỗ trợ trỏ qua lại. Những liên kết này có thể làm tăng điểm t dù không đến từ các nguồn độc lập."/></figure>
+      <p class="ex-takeaway">Số liên kết hay điểm truyền tới trang đích chưa đủ đánh giá độ tin cậy.</p>
+      <aside class="notes"><p>Nhiều liên kết có thể cùng do một bên tạo. Hình giữ ba nhóm của MMDS Hình 5.16: ngoài tầm tác động, có thể đặt liên kết, và sở hữu. Đích t và các trang hỗ trợ thuộc nhóm sở hữu; chúng liên kết qua lại. Nhóm có thể tác động đặt liên kết tới t. Một hướng ở Bài 04 dùng tập trang tin cậy ban đầu để điều chỉnh điểm, như TrustRank; lựa chọn tập này là một yêu cầu riêng và không bảo đảm loại hết spam. Sơ đồ không đủ chứng minh danh tính hoặc ý định của một người ngoài đời. Kết quả tìm kiếm còn có thể chứa nhiều bản sao của cùng nội dung.</p><p>Nguồn: MMDS 5.4.1–5.4.4, Hình 5.16.</p></aside>
     </section>
-    <section data-slide-id="L01-A06">
+    <section id="L01-A06" data-slide-id="L01-A06" class="example-slide">
       <h2>Tìm các cặp tài liệu gần trùng</h2>
-      <p>Kho web có các bản sao chỉ khác một phần văn bản.<br/>Cần tìm những cặp có độ tương đồng đạt ngưỡng đã chọn.</p>
-      <img class="figure" src="img/lec-01/ung-dung-tai-lieu-gan-trung.svg" role="img" alt="Hai tài liệu có phần văn bản chung và phần sửa đổi. Bên phải, bốn tài liệu nối bằng sáu đường so sánh, minh họa việc xét mọi cặp trong kho."/>
-      <div class="card accent"><p>Với $N=10^6$ tài liệu, so sánh tất cả phải xét<br/>$\binom N2=499\,999\,500\,000$ cặp, gần 500 tỷ cặp.</p></div>
-      <aside class="notes">Gần trùng ở đây là chia sẻ nhiều đoạn văn bản, không chỉ cùng chủ đề. Đầu ra là cặp tài liệu; biểu diễn, độ đo tương đồng và ngưỡng phải được chốt. Các nét chung và nét đứt trong hình minh họa phần giữ/phần sửa, không mã hóa một số đo tương đồng. N tài liệu cho N(N−1)/2 cặp không thứ tự. Con số gần 500 tỷ là phép đếm, không phải kết quả đo tốc độ. Bài 05–06 học biểu diễn gọn và chọn cặp ứng viên để giảm lượng đối chiếu; kiểm tra lại không tìm lại được cặp đã bị bỏ sót. Một nhu cầu khác là cho một truy vấn rồi tìm các mục gần nó, thay vì liệt kê mọi cặp trong kho. Nguồn: MMDS 3.1–3.4; Stanford CS246 03-lsh, trang chiếu 14.</aside>
+      <p><strong>Đầu vào:</strong> kho web có bản sao chỉ khác một phần văn bản.</p>
+      <p><strong>Đầu ra:</strong> các cặp tài liệu có độ tương đồng đạt ngưỡng đã chọn.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-tai-lieu-gan-trung.svg" role="img" alt="Hai tài liệu có phần văn bản chung và phần sửa đổi. Bên phải, bốn tài liệu nối bằng sáu đường so sánh, minh họa việc xét mọi cặp trong kho."/></figure>
+      <p class="ex-takeaway">Với $N=10^6$ tài liệu, xét mọi cặp phải kiểm $\binom N2=499\,999\,500\,000$ cặp.</p>
+      <aside class="notes"><p>Kho một triệu tài liệu, gần 500 tỷ cặp, là ví dụ xuyên suốt của bài. Gần trùng ở đây là chia sẻ nhiều đoạn văn bản, không chỉ cùng chủ đề. Đầu ra là cặp tài liệu; biểu diễn, độ đo tương đồng và ngưỡng phải được chốt. N tài liệu cho N(N−1)/2 cặp không thứ tự. Con số gần 500 tỷ là phép đếm, không phải kết quả đo tốc độ. Bài 05 học biểu diễn tài liệu bằng tập đoạn ký tự và chữ ký MinHash; Bài 06 học phân dải LSH để chọn cặp ứng viên; kiểm tra lại không tìm lại được cặp đã bị bỏ sót. Một nhu cầu khác là cho một truy vấn rồi tìm các mục gần nó, thay vì liệt kê mọi cặp trong kho.</p><p>Nguồn: MMDS 3.1–3.4; Stanford CS246 03-lsh, trang chiếu 14.</p></aside>
     </section>
-    <section data-slide-id="L01-A07">
+    <section id="L01-A07" data-slide-id="L01-A07" class="example-slide">
       <h2>Tìm đoạn tài liệu bằng véc-tơ truy vấn</h2>
-      <p>Mã hóa các đoạn tài liệu và truy vấn thành những dãy số (véc-tơ).<br/>Cần trả $k$ đoạn có véc-tơ gần truy vấn nhất theo khoảng cách đã chọn.</p>
-      <img class="figure" src="img/lec-01/ung-dung-truy-hoi-vec-to.svg" role="img" alt="Một truy vấn dạng véc-tơ được so với các đoạn tài liệu đã mã hóa. Quét toàn bộ phải tính khoảng cách tới từng đoạn để tìm k đoạn gần nhất."/>
-      <div class="card accent"><p>Ở quy mô 10 tỷ véc-tơ, mỗi véc-tơ 3072 chiều,<br/>quét hết kho cho mỗi truy vấn đòi 10 tỷ phép tính khoảng cách.</p></div>
-      <aside class="notes">Khác với tìm mọi cặp tài liệu gần trùng, bài toán này nhận một truy vấn rồi tìm các đoạn gần truy vấn ấy. Đoạn tài liệu và truy vấn dùng cùng phép mã hóa, cho các véc-tơ cùng số chiều. Khoảng cách là quy tắc so sánh đã chọn; gần theo véc-tơ không tự bảo đảm đúng về ngữ nghĩa. k là số đoạn cần trả, từ 1 đến số đoạn trong kho; cần quy ước xử lý các khoảng cách bằng nhau. Bài 07 học tổ chức và nén véc-tơ để giảm chi phí tìm kiếm, đồng thời đánh giá số hàng xóm thật giữ được khi cho phép gần đúng. Mỗi truy vấn quét toàn kho tính một khoảng cách tới từng véc-tơ; một khoảng cách còn sử dụng nhiều thành phần. Tình huống 10 tỷ véc-tơ, 3072 chiều, 32 bit mỗi thành phần lấy từ BIODS 271, không phải số đo của học phần. Các truy vấn đến nối tiếp tạo thành dòng nhật ký cần theo dõi. Nguồn: BIODS 271 L12, trang PDF 16 cho truy hồi đoạn tài liệu, 17–18 cho quy mô; Princeton lớp 8, trang 2–5.</aside>
+      <p><strong>Đầu vào:</strong> đoạn tài liệu và truy vấn mã hóa thành véc-tơ cùng số chiều.</p>
+      <p><strong>Đầu ra:</strong> $k$ đoạn có véc-tơ gần truy vấn nhất theo khoảng cách đã chọn.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-truy-hoi-vec-to.svg" role="img" alt="Một truy vấn dạng véc-tơ được so với các đoạn tài liệu đã mã hóa. Quét toàn bộ phải tính khoảng cách tới từng đoạn để tìm k đoạn gần nhất."/></figure>
+      <p class="ex-takeaway">Kho 10 tỷ véc-tơ 3072 chiều: quét hết cần 10 tỷ phép tính khoảng cách mỗi truy vấn.</p>
+      <aside class="notes"><p>Véc-tơ là dãy số biểu diễn một đoạn tài liệu hoặc một truy vấn. Khác với tìm mọi cặp tài liệu gần trùng, bài toán này nhận một truy vấn rồi tìm các đoạn gần truy vấn ấy. Khoảng cách là quy tắc so sánh đã chọn; gần theo véc-tơ không tự bảo đảm đúng về ngữ nghĩa. k là số đoạn cần trả, từ 1 đến số đoạn trong kho; cần quy ước xử lý các khoảng cách bằng nhau. Bài 07 học tổ chức và nén véc-tơ để giảm chi phí tìm kiếm, đồng thời đánh giá số hàng xóm thật giữ được khi cho phép gần đúng. Tình huống 10 tỷ véc-tơ, 3072 chiều, 32 bit mỗi thành phần lấy từ BIODS 271, không phải số đo của học phần.</p><p>Nguồn: BIODS 271 L12, trang PDF 16 cho truy hồi đoạn tài liệu, 17–18 cho quy mô; Princeton lớp 8, trang 2–5.</p></aside>
+    </section>
+    <section id="L01-A10" data-slide-id="L01-A10" class="example-slide">
+      <h2>Câu hỏi về bảy bài toán trên kho web</h2>
+      <p><strong>Câu hỏi:</strong> nêu đầu vào, đầu ra và trở ngại của cách làm trực tiếp.</p>
+      <ol>
+        <li>Tổng kích thước theo máy chủ khi tệp bản ghi vượt bộ nhớ.</li>
+        <li>Mọi cặp gần trùng trong $10^6$ tài liệu.</li>
+        <li>$k$ đoạn gần một véc-tơ truy vấn trong 10 tỷ véc-tơ.</li>
+      </ol>
+      <aside class="notes"><p>Lời giải. Câu 1: đầu vào là bản ghi máy chủ và kích thước trang; đầu ra là tổng theo máy chủ; tệp không nạp trọn vào bộ nhớ, và bảng tổng theo máy chủ cũng có thể vượt bộ nhớ. Câu 2: đầu vào là kho tài liệu, độ đo tương đồng và ngưỡng; đầu ra là mọi cặp đạt ngưỡng; xét mọi cặp phải kiểm $499\,999\,500\,000$ cặp. Câu 3: đầu vào là kho véc-tơ, truy vấn và $k$; đầu ra là $k$ đoạn gần nhất; quét hết cần 10 tỷ phép tính khoảng cách cho mỗi truy vấn. Câu 2 tìm mọi cặp trong kho, còn câu 3 trả lời từng truy vấn; hai đầu ra khác nhau.</p><p>Nguồn: các trang tình huống của mạch; MMDS §1.3.4, Chương 3; BIODS 271 L12.</p></aside>
     </section>
   </section>
 
-  <section>
+  <section aria-label="Dòng dữ liệu, nén và truy vấn trên đĩa">
     <section id="mach-2" data-slide-id="L01-BT" class="strand-title">
       <div class="strand-title-body">
         <h2><span class="strand-number">2.</span>Dòng dữ liệu, nén và truy vấn trên đĩa</h2>
         <p class="strand-lead">Muốn tiếp nhận, lưu và khai thác dữ liệu lớn, phải tính đến bộ nhớ hữu hạn và chi phí đọc đĩa.</p>
         <p class="strand-keys">Dòng&nbsp;dữ&nbsp;liệu&nbsp;· Nén&nbsp;văn&nbsp;bản&nbsp;và&nbsp;ảnh&nbsp;· Sắp&nbsp;xếp&nbsp;tệp&nbsp;lớn&nbsp;· Chỉ&nbsp;mục&nbsp;· Nối&nbsp;bảng</p>
       </div>
-      <aside class="notes">Bảy nhiệm vụ trên kho web đã cho đầu vào, đầu ra và trở ngại của tổng hợp, xếp hạng và tìm tương đồng. Nhật ký truy vấn, thư đến, văn bản, ảnh và bảng trên đĩa thêm ba loại giới hạn: bộ nhớ hữu hạn trước dữ liệu đến liên tục, dung lượng khi lưu, số khối đọc ghi khi truy vấn. Danh sách giới hạn này là đầu vào của khung đặc tả và đánh giá thuật toán.</aside>
+      <aside class="notes"><p>Bảy nhiệm vụ trên kho web đã cho đầu vào, đầu ra và trở ngại của tổng hợp, xếp hạng và tìm tương đồng. Nhật ký truy vấn, thư đến, văn bản, ảnh và bảng trên đĩa thêm ba loại giới hạn: bộ nhớ hữu hạn trước dữ liệu đến liên tục, dung lượng khi lưu, số khối đọc ghi khi truy vấn. Danh sách giới hạn này là đầu vào của khung đặc tả và đánh giá thuật toán.</p></aside>
     </section>
-    <section data-slide-id="L01-B00">
-      <h2>Xử lý dòng dữ liệu, lưu trữ và truy vấn</h2>
-      <p>Ngoài tìm kiếm và xếp hạng, hệ thống dữ liệu còn phải tiếp nhận, lưu lại và khai thác dữ liệu.</p>
-<div class="grid3">
-<div class="card"><h3>Dữ liệu đang đến</h3><p>Giữ mẫu, lọc và thống kê.</p><p>Bộ nhớ hữu hạn; bản ghi tiếp tục đến.</p></div>
-<div class="card"><h3>Lưu và khôi phục</h3><p>Nén văn bản và ảnh.</p><p>Giảm dung lượng nhưng giữ thông tin cần thiết.</p></div>
-<div class="card"><h3>Dữ liệu trên đĩa</h3><p>Sắp xếp, tra cứu và nối bảng.</p><p>Đọc ít dữ liệu thừa; tránh đọc lại nhiều lần.</p></div>
-</div>
-      <aside class="notes">Các truy vấn tìm kiếm vừa xét tạo thêm nhật ký cần phân tích. Hệ thống còn phải lưu nội dung và đọc dữ liệu trên đĩa khi bộ nhớ không đủ. Ba nhóm này đặt các bài toán khác nhau, không bắt buộc là ba bước nối tiếp. Trước hết, nhật ký truy vấn và thư điện tử cho hai ví dụ về dữ liệu đến liên tục. Nguồn: MMDS Chương 4; Nelson–Gailly Chương 3,11; Database System Concepts, ấn bản 7, Chương 14–15.</aside>
+    <section id="L01-B00" data-slide-id="L01-B00" class="example-slide">
+      <h2>Bộ nhớ, dung lượng và số khối đọc ghi</h2>
+      <table class="ex-table"><thead><tr><th scope="col">Nhóm bài toán</th><th scope="col">Việc cần làm</th><th scope="col">Tài nguyên bị giới hạn</th></tr></thead><tbody>
+      <tr><td>Dữ liệu đang đến</td><td>giữ mẫu, lọc, thống kê</td><td>bộ nhớ hữu hạn; bản ghi tiếp tục đến</td></tr>
+      <tr><td>Lưu và khôi phục</td><td>nén văn bản, ảnh</td><td>dung lượng; thông tin cần giữ</td></tr>
+      <tr><td>Dữ liệu trên đĩa</td><td>sắp xếp, tra cứu, nối bảng</td><td>số khối đọc ghi; số lần đọc lại</td></tr></tbody></table>
+      <aside class="notes"><p>Ngoài tìm kiếm và xếp hạng, hệ thống dữ liệu còn phải tiếp nhận, lưu lại và khai thác dữ liệu. Các truy vấn tìm kiếm vừa xét tạo thêm nhật ký cần phân tích. Hệ thống còn phải lưu nội dung và đọc dữ liệu trên đĩa khi bộ nhớ không đủ. Ba nhóm này đặt các bài toán khác nhau, không bắt buộc là ba bước nối tiếp. Nhật ký truy vấn và thư điện tử là hai ví dụ về dữ liệu đến liên tục.</p><p>Nguồn: MMDS Chương 4; Nelson–Gailly Chương 3,11; Database System Concepts, ấn bản 7, Chương 14–15.</p></aside>
     </section>
-    <section data-slide-id="L01-B01">
+    <section id="L01-B01" data-slide-id="L01-B01" class="example-slide">
       <h2>Giữ mẫu truy vấn và lọc thư đến</h2>
-      <p>Phân tích truy vấn lặp cần lịch sử của một mẫu người dùng.<br/>Tiếp nhận thư cần kiểm địa chỉ gửi có trong danh sách cho phép.</p>
-      <img class="figure" src="img/lec-01/ung-dung-dong-truy-van.svg" role="img" alt="Hai nhiệm vụ tách biệt: nhật ký truy vấn tạo mẫu theo người dùng; thư đến được kiểm địa chỉ theo danh sách cho phép."/>
-      <div class="card accent"><p>Lưu hết lịch sử tốn bộ nhớ. Tra danh sách lớn trên đĩa cho từng thư làm tăng thời gian xử lý.</p></div>
-      <aside class="notes">Nhật ký gồm người dùng, truy vấn và thời điểm. Để nghiên cứu truy vấn lặp, mẫu theo người dùng giữ lịch sử của những người được chọn; lấy từng bản ghi riêng lẻ có thể làm mất quan hệ lặp. Nếu mẫu vượt ngân sách, tỷ lệ giữ cần điều chỉnh. Lọc thư là nhiệm vụ khác: chỉ nhận thư từ địa chỉ trong danh sách cho phép. Một bộ lọc nhỏ có thể báo có dù địa chỉ thật sự không thuộc danh sách, nên phải tra lại danh sách để quyết định chính xác. Bộ lọc chuẩn sẽ không loại nhầm địa chỉ đã chèn khi không xóa, băm nhất quán và trạng thái còn nguyên. Danh sách cho phép không phát hiện được mọi thư rác. Nguồn: MMDS 4.2–4.3, tr. 136–142. Các bản ghi đến còn phục vụ thống kê cập nhật liên tục.</aside>
+      <p><strong>Đầu vào:</strong> nhật ký truy vấn; thư đến kèm địa chỉ gửi.</p>
+      <p><strong>Đầu ra:</strong> lịch sử của một mẫu người dùng; quyết định nhận thư theo danh sách cho phép.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-dong-truy-van.svg" role="img" alt="Hai nhiệm vụ tách biệt: nhật ký truy vấn tạo mẫu theo người dùng; thư đến được kiểm địa chỉ theo danh sách cho phép."/></figure>
+      <p class="ex-takeaway">Lưu hết lịch sử tốn bộ nhớ; tra danh sách lớn trên đĩa cho từng thư làm chậm xử lý.</p>
+      <aside class="notes"><p>Nhật ký gồm người dùng, truy vấn và thời điểm. Để nghiên cứu truy vấn lặp, mẫu theo người dùng giữ lịch sử của những người được chọn; lấy từng bản ghi riêng lẻ có thể làm mất quan hệ lặp. Nếu mẫu vượt ngân sách, tỷ lệ giữ cần điều chỉnh. Lọc thư là nhiệm vụ khác: chỉ nhận thư từ địa chỉ trong danh sách cho phép. Một bộ lọc nhỏ có thể báo có dù địa chỉ thật sự không thuộc danh sách, nên phải tra lại danh sách để quyết định chính xác. Bộ lọc chuẩn sẽ không loại nhầm địa chỉ đã chèn khi không xóa, băm nhất quán và trạng thái còn nguyên. Danh sách cho phép không phát hiện được mọi thư rác. Các bản ghi đến còn phục vụ thống kê cập nhật liên tục.</p><p>Nguồn: MMDS 4.2–4.3, tr. 136–142.</p></aside>
     </section>
-    <section data-slide-id="L01-B02">
+    <section id="L01-B02" data-slide-id="L01-B02" class="example-slide">
       <h2>Đếm người dùng và lượt truy cập gần đây</h2>
-      <p>Từ nhật ký truy cập, tính số người dùng khác nhau và số lượt truy cập trong khoảng thời gian gần nhất.</p>
-      <img class="figure" src="img/lec-01/ung-dung-thong-ke-cua-so.svg" role="img" alt="Trục thời gian tách các lượt truy cập quá cũ khỏi cửa sổ gần đây; đếm người dùng khác nhau phân biệt với đếm lượt."/>
-      <div class="card accent"><p>Đếm người dùng cần nhận ra lần quay lại. Thống kê gần đây phải bỏ ảnh hưởng của bản ghi hết hạn mà vẫn cập nhật kịp.</p></div>
-      <aside class="notes">Một người quay lại tạo thêm lượt nhưng không tạo thêm người dùng khác nhau. Cửa sổ chỉ xét khoảng thời gian gần đây: bản ghi mới đi vào, bản ghi quá cũ mất ảnh hưởng. Lưu mọi mã người dùng và mọi bản ghi còn trong cửa sổ có thể vượt bộ nhớ. Đếm tổng lượt từ đầu chỉ cần một bộ đếm; không phải mọi thống kê trên dòng đều cần xấp xỉ. Các thuật toán ở Bài 09 chọn trạng thái theo đại lượng cần tính, phạm vi thời gian và sai số được phép. Nguồn: MMDS 4.1.3,4.4–4.7, tr. 134–135,142–159. Thống kê không giữ đủ thông tin để tái tạo toàn bộ nhật ký.</aside>
+      <p><strong>Đầu vào:</strong> nhật ký truy cập.</p>
+      <p><strong>Đầu ra:</strong> số người dùng khác nhau và số lượt trong khoảng thời gian gần nhất.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-thong-ke-cua-so.svg" role="img" alt="Trục thời gian tách các lượt truy cập quá cũ khỏi cửa sổ gần đây; đếm người dùng khác nhau phân biệt với đếm lượt."/></figure>
+      <p class="ex-takeaway">Đếm người dùng phải nhận ra lần quay lại; cửa sổ phải bỏ bản ghi hết hạn.</p>
+      <aside class="notes"><p>Một người quay lại tạo thêm lượt nhưng không tạo thêm người dùng khác nhau. Cửa sổ chỉ xét khoảng thời gian gần đây: bản ghi mới đi vào, bản ghi quá cũ mất ảnh hưởng. Lưu mọi mã người dùng và mọi bản ghi còn trong cửa sổ có thể vượt bộ nhớ. Đếm tổng lượt từ đầu chỉ cần một bộ đếm; không phải mọi thống kê trên dòng đều cần xấp xỉ. Các thuật toán ở Bài 09 chọn trạng thái theo đại lượng cần tính, phạm vi thời gian và sai số được phép. Thống kê vẫn phải cập nhật kịp khi bản ghi đến liên tục. Thống kê không giữ đủ thông tin để tái tạo toàn bộ nhật ký.</p><p>Nguồn: MMDS 4.1.3,4.4–4.7, tr. 134–135,142–159.</p></aside>
     </section>
-    <section data-slide-id="L01-B10">
+    <section id="L01-B10" data-slide-id="L01-B10" class="example-slide">
       <h2>Nén dữ liệu để lưu và khôi phục</h2>
-      <p>Một số đếm không tái tạo được nhật ký. Lưu dữ liệu để đọc lại cần một biểu diễn có thể giải mã.</p>
-<div class="grid2">
-<div class="card"><h3>Văn bản</h3><p>Khôi phục đúng từng ký hiệu và thứ tự.</p><p>Mã nén phải chứa đủ thông tin để giải mã.</p></div>
-<div class="card accent"><h3>Ảnh</h3><p>Có thể cho phép ảnh khôi phục khác ảnh gốc.</p><p>Mức sai khác phải đáp ứng yêu cầu chất lượng.</p></div>
-</div>
-      <aside class="notes">Trạng thái đếm chỉ giữ thông tin cần cho một đại lượng. Nén tạo biểu diễn để bộ giải mã khôi phục dữ liệu. Nén văn bản ở đây không cho phép mất thông tin. Với ảnh, chỉ xét trường hợp ứng dụng chấp nhận sai số; vẫn có những nhu cầu ảnh phải khôi phục nguyên vẹn. Dung lượng phải tính cả dữ liệu mã và thông tin phụ trợ. Nguồn: Nelson–Gailly Chương 3,9,11; CMU Compression LZ và Lossy.</aside>
+      <p><strong>Nhu cầu:</strong> lưu dữ liệu để đọc lại; một số đếm không tái tạo được nhật ký.</p>
+      <div class="ex-grid2">
+        <div class="ex-card"><h3>Văn bản</h3><p>Khôi phục đúng từng ký hiệu và thứ tự.</p></div>
+        <div class="ex-card"><h3>Ảnh</h3><p>Ảnh khôi phục được khác ảnh gốc trong mức chất lượng yêu cầu.</p></div>
+      </div>
+      <aside class="notes"><p>Mã nén phải chứa đủ thông tin để giải mã; với ảnh, mức sai khác phải đáp ứng yêu cầu chất lượng. Trạng thái đếm chỉ giữ thông tin cần cho một đại lượng. Nén tạo biểu diễn để bộ giải mã khôi phục dữ liệu. Nén văn bản ở đây không cho phép mất thông tin. Với ảnh, chỉ xét trường hợp ứng dụng chấp nhận sai số; vẫn có những nhu cầu ảnh phải khôi phục nguyên vẹn. Dung lượng phải tính cả dữ liệu mã và thông tin phụ trợ.</p><p>Nguồn: Nelson–Gailly Chương 3,9,11; CMU Compression LZ và Lossy.</p></aside>
     </section>
-    <section data-slide-id="L01-B03">
+    <section id="L01-B03" data-slide-id="L01-B03" class="example-slide">
       <h2>Lưu văn bản với ít dung lượng hơn</h2>
-      <p>Nén một tệp văn bản để lưu trên đĩa; khi đọc lại, khôi phục đúng chuỗi <code>aabaacabcabcb</code>, không thiếu hoặc đổi ký hiệu.</p>
-      <img class="figure" src="img/lec-01/ung-dung-nen-van-ban.svg" role="img" alt="Văn bản gốc được lưu thành dữ liệu mã và thông tin giải mã; đầu ra phải khôi phục nguyên vẹn chuỗi."/>
-      <div class="card accent"><p>Lược bỏ tùy ý làm mất văn bản gốc. Mã và thông tin phụ trợ phải đủ để giải mã, nhưng cũng chiếm dung lượng.</p></div>
-      <aside class="notes">Chuỗi aabaacabcabcb lấy từ ví dụ LZ của CMU, trang logic 13–14. Các cụm ab và abc lặp lại là thông tin có thể khai thác. Hình chỉ nêu yêu cầu mã hóa và giải mã, không cho một bộ mã cụ thể hoặc tỷ lệ nén. Không phải mọi chuỗi đều ngắn hơn sau nén; bộ mã còn có dữ liệu phụ. Phải tính tổng dung lượng lưu và kiểm khả năng giải mã duy nhất. Nguồn: Nelson–Gailly Chương 3,9; CMU LZ trang logic 11–14. Với ảnh, giảm dung lượng có thể đi cùng chấp nhận sai khác.</aside>
+      <p><strong>Đầu vào:</strong> tệp văn bản, ví dụ chuỗi <span class="inline-code">aabaacabcabcb</span>.</p>
+      <p><strong>Đầu ra:</strong> dữ liệu mã và thông tin giải mã khôi phục đúng chuỗi gốc.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-nen-van-ban.svg" role="img" alt="Văn bản gốc được lưu thành dữ liệu mã và thông tin giải mã; đầu ra phải khôi phục nguyên vẹn chuỗi."/></figure>
+      <p class="ex-takeaway">Mã và thông tin giải mã đều chiếm dung lượng.</p>
+      <aside class="notes"><p>Lược bỏ tùy ý làm mất văn bản gốc. Chuỗi aabaacabcabcb lấy từ ví dụ LZ của CMU, trang logic 13–14. Các cụm ab và abc lặp lại là thông tin có thể khai thác. Hình chỉ nêu yêu cầu mã hóa và giải mã, không cho một bộ mã cụ thể hoặc tỷ lệ nén. Không phải mọi chuỗi đều ngắn hơn sau nén; bộ mã còn có dữ liệu phụ. Phải tính tổng dung lượng lưu và kiểm khả năng giải mã duy nhất. Với ảnh, giảm dung lượng có thể đi cùng chấp nhận sai khác.</p><p>Nguồn: Nelson–Gailly Chương 3,9; CMU LZ trang logic 11–14.</p></aside>
     </section>
-    <section data-slide-id="L01-B04">
+    <section id="L01-B04" data-slide-id="L01-B04" class="example-slide">
       <h2>Giảm dung lượng ảnh với sai số cho phép</h2>
-      <p>Nén ảnh để giảm dung lượng lưu hoặc truyền; ảnh khôi phục phải đạt mức chất lượng mà ứng dụng yêu cầu.</p>
-      <img class="figure" src="img/lec-01/ung-dung-nen-anh.svg" role="img" alt="Các mức sáng gần nhau được gộp về mức đại diện; chi tiết mức sáng bị mất nên ảnh khôi phục có thể khác ảnh gốc."/>
-      <div class="card accent"><p>Gộp các giá trị điểm ảnh làm mất chi tiết. Cần kiểm cả dung lượng mã và sai khác của ảnh khôi phục.</p></div>
-      <aside class="notes">Nén ảnh có mất thông tin cho phép ảnh khôi phục khác ảnh gốc. Một cơ chế là thay các mức sáng gần nhau bằng một mức đại diện; đó là lượng tử hóa, khác với phép biến đổi. Hình minh họa định tính cách gộp mức, không phải ảnh thực nghiệm hoặc số đo chất lượng. Không suy ra tỷ lệ nén hay sai số từ kích thước các hình. Chất lượng phải được đánh giá bằng tiêu chí đã chọn. Nguồn: Nelson–Gailly Chương 11; CMU lossy trang logic 2–16, đặc biệt trang 3. Dữ liệu đã lưu còn cần được đọc để sắp xếp và trả lời truy vấn.</aside>
+      <p><strong>Đầu vào:</strong> ảnh và mức chất lượng ứng dụng yêu cầu.</p>
+      <p><strong>Đầu ra:</strong> mã ảnh nhỏ hơn; ảnh khôi phục đạt mức chất lượng ấy.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-nen-anh.svg" role="img" alt="Các mức sáng gần nhau được gộp về mức đại diện; chi tiết mức sáng bị mất nên ảnh khôi phục có thể khác ảnh gốc."/></figure>
+      <p class="ex-takeaway">Phải báo cùng lúc dung lượng mã và sai khác của ảnh khôi phục.</p>
+      <aside class="notes"><p>Gộp các giá trị điểm ảnh làm mất chi tiết. Nén ảnh có mất thông tin cho phép ảnh khôi phục khác ảnh gốc. Một cơ chế là thay các mức sáng gần nhau bằng một mức đại diện; đó là lượng tử hóa, khác với phép biến đổi. Hình minh họa định tính cách gộp mức, không phải ảnh thực nghiệm hoặc số đo chất lượng. Không suy ra tỷ lệ nén hay sai số từ kích thước các hình. Chất lượng phải được đánh giá bằng tiêu chí đã chọn. Dữ liệu đã lưu còn cần được đọc để sắp xếp và trả lời truy vấn.</p><p>Nguồn: Nelson–Gailly Chương 11; CMU lossy trang logic 2–16, đặc biệt trang 3.</p></aside>
     </section>
-    <section data-slide-id="L01-B11">
+    <section id="L01-B11" data-slide-id="L01-B11" class="example-slide">
       <h2>Xử lý và truy vấn dữ liệu trên đĩa</h2>
-      <p>Tệp trên đĩa được đọc vào bộ nhớ theo từng khối.<br/>Khi tệp lớn hơn bộ nhớ, chỉ một phần dữ liệu được xử lý cùng lúc.</p>
-<div class="grid3">
-<div class="card"><h3>Sắp xếp</h3><p>Đưa toàn bộ bản ghi về thứ tự khóa.</p></div>
-<div class="card"><h3>Tra cứu</h3><p>Lấy bản ghi thỏa điều kiện, tránh quét hết tệp.</p></div>
-<div class="card"><h3>Nối bảng</h3><p>Ghép dữ liệu liên quan từ hai tệp.</p></div>
-</div>
-<div class="card accent"><p>Mỗi lần đọc hoặc ghi khối đều có chi phí. Nén dữ liệu chưa giải quyết cách truy cập các khối cần dùng.</p></div>
-      <aside class="notes">Khối là đơn vị dữ liệu được đọc hoặc ghi giữa đĩa và bộ nhớ trong mô hình của học phần. Một khối thường chứa nhiều bản ghi. Các ví dụ tiếp theo không giả định dữ liệu nhất thiết đã nén. Nhu cầu chung là tổ chức thứ tự xử lý và chọn các khối cần đọc dưới giới hạn bộ nhớ. Sắp xếp ngoài cho trường hợp phải xử lý toàn bộ tệp; tra cứu chỉ cần một phần kết quả; nối bảng phải kết hợp hai nguồn. Nguồn: Database System Concepts, ấn bản 7, Chương14–15.</aside>
+      <p>Khối là đơn vị đọc ghi giữa đĩa và bộ nhớ.</p>
+      <p>Tệp lớn hơn bộ nhớ được xử lý từng phần.</p>
+      <ul>
+        <li>Sắp xếp: đưa bản ghi về thứ tự khóa.</li>
+        <li>Tra cứu: lấy bản ghi thỏa điều kiện, không quét hết.</li>
+        <li>Nối bảng: ghép dữ liệu từ hai tệp.</li>
+      </ul>
+      <p class="ex-takeaway">Mỗi khối đọc hoặc ghi đều tính chi phí.</p>
+      <aside class="notes"><p>Một khối thường chứa nhiều bản ghi. Các ví dụ về đĩa không giả định dữ liệu đã nén; nén chưa giải quyết cách truy cập các khối cần dùng. Nhu cầu chung là tổ chức thứ tự xử lý và chọn các khối cần đọc dưới giới hạn bộ nhớ. Sắp xếp ngoài cho trường hợp phải xử lý toàn bộ tệp; tra cứu chỉ cần một phần kết quả; nối bảng phải kết hợp hai nguồn.</p><p>Nguồn: Database System Concepts, ấn bản 7, Chương 14–15.</p></aside>
     </section>
-    <section data-slide-id="L01-B05">
+    <section id="L01-B05" data-slide-id="L01-B05" class="example-slide">
       <h2>Sắp xếp tệp lớn theo khóa</h2>
-      <p>Đầu vào là tệp bản ghi chưa có thứ tự. Đầu ra là tệp chứa đủ các bản ghi ấy, sắp theo khóa tăng dần, kể cả các khóa lặp.</p>
-      <img class="figure" src="img/lec-01/ung-dung-sap-xep-ngoai.svg" role="img" alt="Các bản ghi được đổi từ thứ tự bất kỳ sang khóa tăng dần; tệp đầu vào lớn không thể nạp trọn vào bộ nhớ."/>
-      <div class="card accent"><p>Không thể nạp trọn tệp để sắp như một mảng trong bộ nhớ. Đọc và ghi lại nhiều lần làm tăng chi phí dù số so sánh ít.</p></div>
-      <aside class="notes">Khóa là thuộc tính dùng để xác định thứ tự, chẳng hạn mã bản ghi. Phép sắp xếp chỉ đổi thứ tự, không bỏ bản ghi. Các vạch trong hình biểu diễn thứ tự tương đối của khóa, không phải dữ liệu số mới. Tệp không vừa bộ nhớ nên không thể coi nó là một mảng nằm trọn trong bộ nhớ để sắp tại chỗ. Bài 12 học cách sắp từng phần và trộn các dãy qua bộ đệm. Nguồn: Database System Concepts, ấn bản 7, Chương 15 trang chiếu 17–23. Sắp xếp toàn bộ khác với tra cứu một số bản ghi.</aside>
+      <p><strong>Đầu vào:</strong> tệp bản ghi chưa có thứ tự, lớn hơn bộ nhớ.</p>
+      <p><strong>Đầu ra:</strong> tệp gồm đủ các bản ghi ấy theo khóa tăng dần, kể cả khóa lặp.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-sap-xep-ngoai.svg" role="img" alt="Các bản ghi được đổi từ thứ tự bất kỳ sang khóa tăng dần; tệp đầu vào lớn không thể nạp trọn vào bộ nhớ."/></figure>
+      <p class="ex-takeaway">Đọc và ghi lại tệp nhiều lần làm tăng chi phí dù số phép so sánh ít.</p>
+      <aside class="notes"><p>Khóa là thuộc tính dùng để xác định thứ tự, chẳng hạn mã bản ghi. Phép sắp xếp chỉ đổi thứ tự, không bỏ bản ghi. Các vạch trong hình biểu diễn thứ tự tương đối của khóa, không phải dữ liệu số mới. Tệp không vừa bộ nhớ nên không thể coi nó là một mảng nằm trọn trong bộ nhớ để sắp tại chỗ. Bài 12 học cách sắp từng phần và trộn các dãy qua bộ đệm. Sắp xếp toàn bộ khác với tra cứu một số bản ghi.</p><p>Nguồn: Database System Concepts, ấn bản 7, Chương 15 trang chiếu 17–23.</p></aside>
     </section>
-    <section data-slide-id="L01-B06">
+    <section id="L01-B06" data-slide-id="L01-B06" class="example-slide">
       <h2>Tìm hồ sơ giảng viên theo mã hoặc lương</h2>
-      <p>Từ bảng hồ sơ giảng viên, trả hồ sơ có mã đã cho, hoặc tất cả hồ sơ có mức lương nằm trong khoảng yêu cầu.</p>
-      <img class="figure" src="img/lec-01/ung-dung-tra-cuu-khoa.svg" role="img" alt="Hai yêu cầu: tìm theo một mã và tìm lương trong đoạn kín; đầu ra là hồ sơ thỏa điều kiện, không phải toàn bảng."/>
-      <div class="card accent"><p>Quét cả bảng cho mỗi yêu cầu đọc nhiều dữ liệu thừa. Nếu dùng chỉ mục, phải cập nhật nó khi mã hoặc lương thay đổi.</p></div>
-      <aside class="notes">Hai đặc tả tương ứng với truy vấn điểm và truy vấn khoảng. Mã giảng viên là ID; lương là salary của bảng instructor trong nguồn. Khoảng cần chỉ rõ có lấy hai đầu mút hay không; hình dùng đoạn kín và không gán giá trị số. Cùng mức lương có thể có nhiều hồ sơ và phải trả đủ. Chỉ mục thích hợp giúp chọn khối cần đọc, nhưng còn có chi phí xây dựng, dung lượng và cập nhật. Băm và cây có thứ tự không hỗ trợ khoảng giống nhau. Nguồn: DSC Chương 14 trang chiếu 4,6,10–16. Điều kiện tìm kiếm có thể là từ nằm trong tài liệu thay vì một cột của bảng.</aside>
+      <p><strong>Đầu vào:</strong> bảng hồ sơ giảng viên; một mã, hoặc một khoảng lương.</p>
+      <p><strong>Đầu ra:</strong> mọi hồ sơ có mã đã cho, hoặc có lương trong khoảng.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-tra-cuu-khoa.svg" role="img" alt="Hai yêu cầu: tìm theo một mã và tìm lương trong đoạn kín; đầu ra là hồ sơ thỏa điều kiện, không phải toàn bảng."/></figure>
+      <p class="ex-takeaway">Quét cả bảng cho mỗi yêu cầu đọc nhiều dữ liệu thừa.</p>
+      <aside class="notes"><p>Hai đặc tả tương ứng với truy vấn điểm và truy vấn khoảng. Mã giảng viên là ID; lương là salary của bảng instructor trong nguồn. Khoảng cần chỉ rõ có lấy hai đầu mút hay không; hình dùng đoạn kín và không gán giá trị số. Cùng mức lương có thể có nhiều hồ sơ và phải trả đủ. Chỉ mục thích hợp giúp chọn khối cần đọc, nhưng còn có chi phí xây dựng, dung lượng và cập nhật. Băm và cây có thứ tự không hỗ trợ khoảng giống nhau. Điều kiện tìm kiếm có thể là từ nằm trong tài liệu thay vì một cột của bảng.</p><p>Nguồn: DSC Chương 14 trang chiếu 4,6,10–16.</p></aside>
     </section>
-    <section data-slide-id="L01-B07">
+    <section id="L01-B07" data-slide-id="L01-B07" class="example-slide">
       <h2>Tìm tài liệu chứa đồng thời hai từ khóa</h2>
-      <p>Cho một kho tài liệu và hai từ khóa. Trả tất cả tài liệu chứa cả hai từ, không chỉ những tài liệu chứa một từ.</p>
-      <img class="figure" src="img/lec-01/ung-dung-tim-tu-khoa.svg" role="img" alt="Hai từ khóa phải cùng có mặt trong mỗi tài liệu kết quả; tài liệu chỉ chứa một từ không thỏa điều kiện."/>
-      <div class="card accent"><p>Đọc từng tài liệu cho mỗi truy vấn lặp lại công việc trên cả kho. Cần tìm được nơi xuất hiện của từng từ mà không quét lại hết.</p></div>
-      <aside class="notes">Hai từ khóa được gọi là từ thứ nhất và từ thứ hai, không tự đặt thêm kho văn bản. Hình là đặc tả cùng xuất hiện trong một tài liệu, không đưa ra tập kết quả số. Chỉ mục đảo ánh xạ mỗi từ sang tập tài liệu chứa nó; điều kiện chứa cả hai dùng giao, chứa ít nhất một dùng hợp. Bước này tìm tập thỏa truy vấn, chưa sắp thứ tự ưu tiên. Nguồn: DSC Chương 31 tr. 13–16, trang chiếu14; công thức OR ở bản PPTX có lỗi dấu, dùng phép hợp đúng theo định nghĩa và sách. Một vùng bản đồ lại đặt điều kiện hình học.</aside>
+      <p><strong>Đầu vào:</strong> kho tài liệu và hai từ khóa.</p>
+      <p><strong>Đầu ra:</strong> mọi tài liệu chứa cả hai từ.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-tim-tu-khoa.svg" role="img" alt="Hai từ khóa phải cùng có mặt trong mỗi tài liệu kết quả; tài liệu chỉ chứa một từ không thỏa điều kiện."/></figure>
+      <p class="ex-takeaway">Đọc từng tài liệu cho mỗi truy vấn lặp lại công việc trên cả kho.</p>
+      <aside class="notes"><p>Cần tìm được nơi xuất hiện của từng từ mà không quét lại hết. Hai từ khóa được gọi là từ thứ nhất và từ thứ hai, không tự đặt thêm kho văn bản. Hình là đặc tả cùng xuất hiện trong một tài liệu, không đưa ra tập kết quả số. Chỉ mục đảo ánh xạ mỗi từ sang tập tài liệu chứa nó; điều kiện chứa cả hai dùng giao, chứa ít nhất một dùng hợp. Bước này tìm tập thỏa truy vấn, chưa sắp thứ tự ưu tiên. Một vùng bản đồ lại đặt điều kiện hình học.</p><p>Nguồn: DSC Chương 31 tr. 13–16, trang chiếu 14; công thức OR ở bản PPTX có lỗi dấu, dùng phép hợp đúng theo định nghĩa và sách.</p></aside>
     </section>
-    <section data-slide-id="L01-B08">
+    <section id="L01-B08" data-slide-id="L01-B08" class="example-slide">
       <h2>Tìm đối tượng giao vùng trên bản đồ</h2>
-      <p>Cho các đối tượng hình học và vùng bản đồ được chọn. Trả các đối tượng nằm một phần hoặc toàn bộ trong vùng đó.</p>
-      <img class="figure" src="img/lec-01/ung-dung-truy-van-khong-gian.svg" role="img" alt="Vùng cần tìm Q giao hộp bao A và B của hai nhóm đối tượng; phải kiểm đối tượng trong cả hai nhóm trước khi trả kết quả."/>
-      <div class="card accent"><p>Kiểm mọi hình trên bản đồ tốn công. Lọc theo hộp bao giảm ứng viên, nhưng hộp bao giao vùng chưa đủ kết luận về hình thật.</p></div>
-      <aside class="notes">Q là vùng truy vấn; A và B là hộp bao hai nhóm đối tượng, không phải hai đối tượng kết quả. Vị trí tương đối giữ từ sơ đồ Bài 14: Q giao cả hai hộp bao nên cần xét cả hai nhóm. Hộp bao là hình chữ nhật chứa đối tượng của nhóm; giao hộp bao chỉ tạo ứng viên, chưa chứng minh đối tượng thật giao Q. Sơ đồ không vẽ đối tượng thật nên không gán kết quả cuối cùng. Nguồn: DSC Chương 24 trang chiếu 17,21–24; Auburn trang 10–13. Ngoài điều kiện vùng, có truy vấn phải ghép thông tin từ hai bảng.</aside>
+      <p><strong>Đầu vào:</strong> các đối tượng hình học và một vùng bản đồ.</p>
+      <p><strong>Đầu ra:</strong> các đối tượng nằm một phần hoặc toàn bộ trong vùng.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-truy-van-khong-gian.svg" role="img" alt="Vùng cần tìm Q giao hộp bao A và B của hai nhóm đối tượng; phải kiểm đối tượng trong cả hai nhóm trước khi trả kết quả."/></figure>
+      <p class="ex-takeaway">Hộp bao giao vùng chỉ cho ứng viên; vẫn phải kiểm hình thật.</p>
+      <aside class="notes"><p>Kiểm mọi hình trên bản đồ tốn công. Q là vùng truy vấn; A và B là hộp bao hai nhóm đối tượng, không phải hai đối tượng kết quả. Vị trí tương đối giữ từ sơ đồ Bài 14: Q giao cả hai hộp bao nên cần xét cả hai nhóm. Hộp bao là hình chữ nhật chứa đối tượng của nhóm; giao hộp bao chỉ tạo ứng viên, chưa chứng minh đối tượng thật giao Q. Sơ đồ không vẽ đối tượng thật nên không gán kết quả cuối cùng. Ngoài điều kiện vùng, có truy vấn phải ghép thông tin từ hai bảng.</p><p>Nguồn: DSC Chương 24 trang chiếu 17,21–24; Auburn trang 10–13.</p></aside>
     </section>
-    <section data-slide-id="L01-B09">
+    <section id="L01-B09" data-slide-id="L01-B09" class="example-slide">
       <h2>Ghép sinh viên với các môn đã đăng ký</h2>
-      <p>Ghép hồ sơ sinh viên với các lượt đăng ký học có cùng mã sinh viên để trả thông tin sinh viên kèm từng môn đã đăng ký.</p>
-      <img class="figure" src="img/lec-01/ung-dung-noi-bang.svg" role="img" alt="Hồ sơ sinh viên và lượt đăng ký được ghép bằng mã sinh viên; một sinh viên có thể tạo nhiều kết quả ứng với nhiều lượt đăng ký."/>
-      <div class="card accent"><p>Hai bảng chiếm 100 và 400 khối; bộ nhớ chỉ có 20 khối. Quét bảng đăng ký lại cho từng sinh viên sẽ đọc cùng dữ liệu nhiều lần.</p></div>
-      <aside class="notes">Bảng student chứa thông tin sinh viên; takes chứa các lượt đăng ký học. Nối theo ID phải trả mọi cặp trùng mã, kể cả khi một sinh viên có nhiều lượt đăng ký. Nguồn quy mô: DSC Chương 15 trang chiếu 24, student có 5000 bản ghi trong 100 khối; takes có 10.000 bản ghi trong 400 khối. Kịch bản ở Bài 15 dùng ngân sách 20 khối bộ nhớ; cả hai bảng đều vượt ngân sách. Quét bảng đăng ký lại cho mỗi sinh viên làm đọc lại cùng dữ liệu. Bài 15 xét cách tái sử dụng khối bằng các phương pháp nối. Không giả định mỗi mã chỉ có một cặp. Các bài toán vừa xét đặt giới hạn về bộ nhớ, đọc ghi và thời gian xử lý. Phần tiếp theo dùng tìm cặp tài liệu gần trùng để phân biệt đặc tả, thuật toán và đánh giá, rồi đối chiếu các tiêu chí trên những ứng dụng vừa gặp.</aside>
+      <p><strong>Đầu vào:</strong> bảng sinh viên 100 khối, bảng đăng ký 400 khối; bộ nhớ 20 khối.</p>
+      <p><strong>Đầu ra:</strong> mọi cặp hồ sơ sinh viên và lượt đăng ký cùng mã sinh viên.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-noi-bang.svg" role="img" alt="Hồ sơ sinh viên và lượt đăng ký được ghép bằng mã sinh viên; một sinh viên có thể tạo nhiều kết quả ứng với nhiều lượt đăng ký."/></figure>
+      <p class="ex-takeaway">Quét lại bảng đăng ký cho từng sinh viên đọc cùng dữ liệu nhiều lần.</p>
+      <aside class="notes"><p>Bảng student chứa thông tin sinh viên; takes chứa các lượt đăng ký học. Nối theo ID phải trả mọi cặp trùng mã, kể cả khi một sinh viên có nhiều lượt đăng ký. Kịch bản ở Bài 15 dùng ngân sách 20 khối bộ nhớ; cả hai bảng đều vượt ngân sách. Bài 15 xét cách tái sử dụng khối bằng các phương pháp nối. Không giả định mỗi mã chỉ có một cặp. Các bài toán vừa xét đặt giới hạn về bộ nhớ, đọc ghi và thời gian xử lý. Tìm cặp tài liệu gần trùng là bài toán mẫu để phân biệt đặc tả, thuật toán và đánh giá.</p><p>Quy mô: student có 5000 bản ghi trong 100 khối; takes có 10 000 bản ghi trong 400 khối.</p><p>Nguồn: DSC Chương 15, trang chiếu 24.</p></aside>
+    </section>
+    <section id="L01-B12" data-slide-id="L01-B12" class="example-slide">
+      <h2>Câu hỏi về dòng, nén và truy vấn trên đĩa</h2>
+      <p><strong>Câu hỏi:</strong></p>
+      <ol>
+        <li>Giải thích vì sao một số đếm người dùng không thay được bản nén của nhật ký.</li>
+        <li>Hai bảng 100 và 400 khối, bộ nhớ 20 khối: nêu việc không làm được, vì sao quét lại tốn khối.</li>
+        <li>Nén ảnh có mất thông tin: nêu hai đại lượng phải báo cùng nhau.</li>
+      </ol>
+      <aside class="notes"><p>Lời giải. Câu 1: số đếm chỉ giữ thông tin cho một đại lượng, không tái tạo được từng bản ghi; bản nén phải giải mã được về đúng nhật ký. Câu 2: không giữ trọn bảng nào trong 20 khối; nếu quét lại bảng đăng ký cho từng sinh viên thì 400 khối bị đọc nhiều lần, số khối đọc ghi tăng theo số lần quét; theo mô hình của DSC, quét lại bảng đăng ký cho từng bản ghi sinh viên tốn $5000\cdot400+100=2\,000\,100$ lần chuyển khối, một số đếm chứ không phải số đo. Câu 3: dung lượng mã và sai khác của ảnh khôi phục so với ảnh gốc theo tiêu chí chất lượng đã chọn; dung lượng còn gồm thông tin giải mã.</p><p>Nguồn: MMDS Chương 4; Database System Concepts, ấn bản 7, Chương 15, trang chiếu 24; Nelson–Gailly Chương 11.</p></aside>
     </section>
   </section>
 
-  <section>
+  <section aria-label="Đặc tả và đánh giá thuật toán">
     <section id="mach-3" data-slide-id="L01-CT" class="strand-title">
       <div class="strand-title-body">
         <h2><span class="strand-number">3.</span>Đặc tả và đánh giá thuật toán</h2>
         <p class="strand-lead">Muốn chọn lời giải cho bài toán tìm cặp gần trùng, phải đặc tả đầu ra rồi xét tính đúng và chi phí.</p>
         <p class="strand-keys">Độ&nbsp;tương&nbsp;đồng&nbsp;Jaccard&nbsp;· Đặc&nbsp;tả&nbsp;· Xét&nbsp;mọi&nbsp;cặp&nbsp;· Tính&nbsp;đúng&nbsp;· Tiêu&nbsp;chí&nbsp;chi&nbsp;phí</p>
       </div>
-      <aside class="notes">Các tình huống về kho web, dòng dữ liệu, nén và truy vấn trên đĩa khác nhau về đầu ra và giới hạn tài nguyên. Tìm cặp tài liệu gần trùng là bài toán mẫu: đặc tả bằng độ tương đồng Jaccard và ngưỡng, giải bằng thuật toán xét mọi cặp, chứng minh tính đúng, rồi đánh giá khối lượng tính, bộ nhớ, đọc ghi, truyền mạng, độ trễ, chỉ mục, cập nhật và chất lượng gần đúng. Khung đặc tả và đánh giá này được dùng để đọc bản đồ học phần.</aside>
+      <aside class="notes"><p>Các tình huống về kho web, dòng dữ liệu, nén và truy vấn trên đĩa khác nhau về đầu ra và giới hạn tài nguyên. Tìm cặp tài liệu gần trùng là bài toán mẫu: đặc tả bằng độ tương đồng Jaccard và ngưỡng, giải bằng thuật toán xét mọi cặp, chứng minh tính đúng và đếm phép tính trên bài toán này; các tiêu chí còn lại (bộ nhớ, đọc ghi, truyền mạng, độ trễ, chỉ mục, cập nhật, dung lượng, chất lượng gần đúng) được minh họa bằng ví dụ đã gặp ở hai mạch đầu. Khung đặc tả và đánh giá này được dùng để đọc bản đồ học phần.</p></aside>
     </section>
-    <section data-slide-id="L01-C00">
+    <section id="L01-C00" data-slide-id="L01-C00" class="example-slide">
       <h2>Phân tích thuật toán xử lý dữ liệu lớn</h2>
-      <p>Các bài toán vừa gặp khác nhau về đầu ra và giới hạn tài nguyên.<br/>Phân tích một lời giải gồm hai việc:</p>
-<div class="grid2"><div class="card"><h3>Đặc tả</h3><p>Xác định miền đầu vào, kết quả cần trả và mức chính xác yêu cầu.</p></div><div class="card"><h3>Đánh giá</h3><p>Kiểm tra tính đúng, chi phí tài nguyên và chất lượng kết quả.</p></div></div>
-<p>Bài toán phân tích: tìm các cặp tài liệu gần trùng trong kho web.</p>
-      <aside class="notes">Các truy vấn trên đĩa cho thấy tính được kết quả chưa đủ: còn phải xét dữ liệu nào cần đọc và bộ nhớ nào cần giữ. Tìm cặp tài liệu gần trùng cũng đặt hai yêu cầu: xác định cặp nào được tính là gần trùng, rồi đánh giá cách tìm các cặp ấy. Đặc tả chốt yêu cầu; phần đánh giá xét tính đúng, chi phí và chất lượng khi cho phép gần đúng. Nguồn: mục tiêu Bài 01 trong đề cương; MMDS Chương 3, tr.73–75; BHK Chương 1.</aside>
+      <div class="ex-grid2">
+        <div class="ex-card"><h3>Đặc tả</h3><p>Xác định miền đầu vào, kết quả cần trả, mức chính xác yêu cầu.</p></div>
+        <div class="ex-card"><h3>Đánh giá</h3><p>Kiểm tính đúng, chi phí tài nguyên, chất lượng kết quả.</p></div>
+      </div>
+      <p>Bài toán phân tích: tìm các cặp tài liệu gần trùng trong kho web.</p>
+      <aside class="notes"><p>Các bài toán vừa gặp khác nhau về đầu ra và giới hạn tài nguyên; phân tích một lời giải gồm hai việc. Các truy vấn trên đĩa cho thấy tính được kết quả chưa đủ: còn phải xét dữ liệu nào cần đọc và bộ nhớ nào cần giữ. Tìm cặp tài liệu gần trùng cũng đặt hai yêu cầu: xác định cặp nào được tính là gần trùng, rồi đánh giá cách tìm các cặp ấy. Đặc tả chốt yêu cầu; phần đánh giá xét tính đúng, chi phí và chất lượng khi cho phép gần đúng.</p><p>Nguồn: mục tiêu Bài 01 trong đề cương; MMDS Chương 3, tr.73–75; BHK Chương 1.</p></aside>
     </section>
-    <section data-slide-id="L01-C01">
+    <section id="L01-C01" data-slide-id="L01-C01" class="example-slide">
       <h2>Bài toán tìm cặp tài liệu gần trùng</h2>
-      <p>Bản sao web có thể đổi tên máy chủ hoặc liên kết nhưng giữ nội dung chính.<br/>Kiểm bằng nhau từng ký tự không nhận ra những cặp gần trùng này.</p>
-<img class="figure" src="img/lec-01/ung-dung-tai-lieu-gan-trung.svg" role="img" alt="Các tài liệu có phần chung và phần sửa; xét mọi cặp tạo sáu phép đối chiếu với bốn tài liệu."/>
-<div class="card accent"><p>Đầu ra: các cặp chia sẻ đủ nhiều đoạn văn bản.<br/>Độ đo và ngưỡng xác định thế nào là “đủ nhiều”.</p></div>
-      <aside class="notes">Đây là tìm mọi cặp trong kho, khác với cho một truy vấn rồi tìm các mục gần truy vấn đó. Trang sao trên máy chủ khác có thể giữ nội dung chính nhưng đổi thông tin máy chủ hoặc liên kết. So sánh bằng nhau từng ký tự không tìm đủ dạng gần trùng này. Chia sẻ văn bản không tự chứng minh sao chép trái phép hoặc cùng ý nghĩa. Bốn tài liệu trong hình chỉ biểu diễn sáu cặp có thể xét, không gán điểm tương đồng. Nguồn: MMDS 3.1.2 tr.75; MMDS slide Chương 3 trang15; Stanford 03-lsh trang14. Biểu diễn bằng tập đoạn ký tự cho phép định nghĩa một độ tương đồng cụ thể.</aside>
+      <p><strong>Nhu cầu:</strong> nhận ra bản sao đổi tên máy chủ hoặc liên kết nhưng giữ nội dung chính.</p>
+      <p>So bằng nhau từng ký tự không nhận ra các cặp này.</p>
+      <figure class="l01-figure"><img src="img/lec-01/ung-dung-tai-lieu-gan-trung.svg" role="img" alt="Các tài liệu có phần chung và phần sửa; xét mọi cặp tạo sáu phép đối chiếu với bốn tài liệu."/></figure>
+      <p><strong>Đầu ra:</strong> các cặp chia sẻ đủ nhiều đoạn văn bản; độ đo và ngưỡng định nghĩa “đủ nhiều”.</p>
+      <aside class="notes"><p>Đây là tìm mọi cặp trong kho, khác với cho một truy vấn rồi tìm các mục gần truy vấn đó. Trang sao trên máy chủ khác có thể giữ nội dung chính nhưng đổi thông tin máy chủ hoặc liên kết. So sánh bằng nhau từng ký tự không tìm đủ dạng gần trùng này. Chia sẻ văn bản không tự chứng minh sao chép trái phép hoặc cùng ý nghĩa. Bốn tài liệu trong hình chỉ biểu diễn sáu cặp có thể xét, không gán điểm tương đồng. Biểu diễn bằng tập đoạn ký tự cho phép định nghĩa một độ tương đồng cụ thể.</p><p>Nguồn: MMDS 3.1.2 tr.75; trang chiếu MMDS Chương 3, trang 15; Stanford CS246 03-lsh, trang chiếu 14.</p></aside>
     </section>
-    <section data-slide-id="L01-C02">
-      <h2>Độ tương đồng của hai tài liệu</h2>
-      <p>Biểu diễn mỗi tài liệu bằng tập các đoạn ký tự liên tiếp cùng độ dài.<br/>Hai tập $S,T$ dưới đây có 3 phần tử chung, 8 phần tử trong hợp.</p>
-<img class="figure short" src="img/lec-01/danh-gia-jaccard.svg" role="img" alt="Hai tập S và T có hai phần tử chỉ thuộc S, ba phần tử chung và ba phần tử chỉ thuộc T."/>
-<div class="formula">$J(S,T)=\dfrac{|S\cap T|}{|S\cup T|}=\dfrac38$</div>
-<p>Với ngưỡng $\tau$, cặp này được chọn khi và chỉ khi $\tau\le 3/8$.</p>
-      <aside class="notes">Đoạn ký tự là một chuỗi con liên tiếp; hai tài liệu dùng cùng độ dài đoạn và cùng quy tắc chuẩn hóa. Mỗi đoạn chỉ xuất hiện một lần trong tập dù lặp nhiều lần trong văn bản. Jaccard đo phần chung so với phần xuất hiện trong ít nhất một tập, không đo ngữ nghĩa. Ví dụ 3.1 của MMDS cho giao ba, hợp tám; các điểm là phần tử tập, không phải tài liệu. Giới hạn buổi này ở các tập không rỗng để tránh hợp rỗng; Bài 05 xét đầy đủ quy tắc biểu diễn. Ngưỡng là yêu cầu được cung cấp, không được suy từ chính cặp ví dụ. Nguồn: MMDS 3.1.1, Ví dụ 3.1/Hình 3.1 tr.74–75, 3.2.1. Từ phép kiểm một cặp, đặc tả tiếp theo xác định cả tập kết quả của kho.</aside>
+    <section id="L01-C02" data-slide-id="L01-C02" class="example-slide">
+      <h2>Độ tương đồng Jaccard</h2>
+      <p>Biểu diễn mỗi tài liệu bằng tập các đoạn ký tự (shingle) liên tiếp cùng độ dài.</p>
+      <p><strong>Ví dụ.</strong> $S$, $T$ có 3 phần tử chung, 8 phần tử trong hợp.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/danh-gia-jaccard.svg" role="img" alt="Hai tập S và T có hai phần tử chỉ thuộc S, ba phần tử chung và ba phần tử chỉ thuộc T."/></figure>
+      <p><strong>Định nghĩa.</strong> Jaccard của hai tập hữu hạn, không rỗng là $J(S,T)=|S\cap T|/|S\cup T|$; ở đây $3/8$.</p>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> $J(S,T)\ge\tau$ khi và chỉ khi $\tau\le3/8$.</p>
+      <aside class="notes"><p>Đoạn ký tự là một chuỗi con liên tiếp; hai tài liệu dùng cùng độ dài đoạn và cùng quy tắc chuẩn hóa. Mỗi đoạn chỉ xuất hiện một lần trong tập dù lặp nhiều lần trong văn bản. Jaccard đo phần chung so với phần xuất hiện trong ít nhất một tập, không đo ngữ nghĩa. Ví dụ 3.1 của MMDS cho giao ba, hợp tám; các điểm là phần tử tập, không phải tài liệu. Bài này giới hạn ở các tập không rỗng để tránh hợp rỗng; Bài 05 xét đầy đủ quy tắc biểu diễn. Ngưỡng là yêu cầu được cung cấp, không được suy từ chính cặp ví dụ. Từ phép kiểm một cặp, đặc tả xác định cả tập kết quả của kho.</p><p>Nguồn: MMDS 3.1.1, Ví dụ 3.1/Hình 3.1 tr.74–75, 3.2.1.</p></aside>
     </section>
-    <section data-slide-id="L01-C03">
+    <section id="L01-C03" data-slide-id="L01-C03" class="example-slide">
       <h2>Đặc tả tìm cặp gần trùng</h2>
-      <div class="grid2"><div class="card"><h3>Đầu vào</h3><p>$N$ tập hữu hạn, không rỗng $C_1,\ldots,C_N$; ngưỡng $\tau\in[0,1]$.</p></div><div class="card"><h3>Điều kiện đầu ra</h3><p>Trả đủ mọi cặp đạt ngưỡng, không trả cặp sai; mỗi cặp đúng một lần.</p></div></div>
-<div class="formula">$R=\{(i,j):1\le i&lt;j\le N,\ J(C_i,C_j)\ge\tau\}$</div>
-<p>$i&lt;j$ loại cặp tự so sánh và cặp đảo thứ tự.<br/>Khi $N&lt;2$, kết quả rỗng.</p>
-      <aside class="notes">Mỗi tập C_i biểu diễn tài liệu thứ i; các tập được tạo cùng cách như ở ví dụ. N là số tài liệu, có thể bằng không. Tập rỗng nằm ngoài miền đầu vào đã chọn; không ngầm gán Jaccard bằng một cho hai tài liệu rỗng. Đặc tả này yêu cầu chính xác và đầy đủ. Nếu cho phép bỏ sót thì phải nêu một đặc tả gần đúng khác, không âm thầm giữ lời hứa trả đủ. Tập là đối tượng toán; danh sách đã sắp hoặc cấu trúc băm là biểu diễn cài đặt. Đặc tả không bắt buộc xét mọi cặp hoặc giữ kho trong bộ nhớ. Nguồn: MMDS 3.1–3.4; quy ước hợp rỗng của Bài 05. Cách đơn giản đáp ứng yêu cầu là duyệt tất cả cặp hợp lệ.</aside>
+      <p><strong>Đầu vào:</strong> $N$ tập hữu hạn, không rỗng $C_1,\ldots,C_N$; ngưỡng $\tau\in[0,1]$.</p>
+      <p><strong>Đầu ra:</strong></p>
+      <p class="ex-equation">$R=\{(i,j):1\le i&lt;j\le N,\ J(C_i,C_j)\ge\tau\}$</p>
+      <p>Trả đủ mọi cặp đạt ngưỡng, không trả cặp sai; mỗi cặp đúng một lần nhờ $i&lt;j$.</p>
+      <p><strong>Trường hợp biên:</strong> $N&lt;2$ cho $R=\varnothing$.</p>
+      <aside class="notes"><p>Mỗi tập C_i biểu diễn tài liệu thứ i; các tập được tạo cùng cách như ở ví dụ. N là số tài liệu, có thể bằng không. Tập rỗng nằm ngoài miền đầu vào đã chọn; không ngầm gán Jaccard bằng một cho hai tài liệu rỗng. Đặc tả này yêu cầu chính xác và đầy đủ. Nếu cho phép bỏ sót thì phải nêu một đặc tả gần đúng khác, không âm thầm giữ lời hứa trả đủ. Tập là đối tượng toán; danh sách đã sắp hoặc cấu trúc băm là biểu diễn cài đặt. Đặc tả không bắt buộc xét mọi cặp hoặc giữ kho trong bộ nhớ. Điều kiện $i&lt;j$ loại cặp tự so sánh và cặp đảo thứ tự. Cách đơn giản đáp ứng yêu cầu là duyệt tất cả cặp hợp lệ.</p><p>Nguồn: MMDS 3.1–3.4; quy ước hợp rỗng của Bài 05.</p></aside>
     </section>
-    <section data-slide-id="L01-C04">
-      <h2>Thuật toán xét mọi cặp</h2>
-      <pre><code class="language-plaintext">nếu N &lt; 2: kết thúc với kết quả rỗng
+    <section id="L01-C17" data-slide-id="L01-C17" class="example-slide">
+      <h2>Ví dụ: thứ tự xét cặp</h2>
+      <p>$N=4$: liệt kê các cặp theo thứ tự hai vòng lặp $i&lt;j$.</p>
+      <p class="ex-equation">$(1,2),\ (1,3),\ (1,4),\ (2,3),\ (2,4),\ (3,4)$</p>
+      <p>Với $N=2$, $C_1=S$, $C_2=T$: chỉ xét $(1,2)$, $J=3/8$.</p>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> xuất $(1,2)$ khi $\tau\le3/8$; ngược lại kết quả rỗng.</p>
+      <aside class="notes"><p>Vòng ngoài chọn $i$ từ 1 đến $N-1$, vòng trong chọn $j$ từ $i+1$ đến $N$, nên mỗi cặp không thứ tự xuất hiện đúng một lần, $N(N-1)/2$ cặp; với $N=4$ là sáu cặp. Ví dụ chỉ minh họa thứ tự xét, không gán cặp nào trong bốn tài liệu đạt ngưỡng. Với hai tập $S$, $T$, $i=1$ và $j=2$ cho Jaccard $3/8$; nếu ngưỡng lớn hơn $3/8$ thì không xuất cặp nào và vòng lặp kết thúc.</p><p>Nguồn: MMDS §3.1.1, Ví dụ 3.1, tr.74–75.</p></aside>
+    </section>
+    <section id="L01-C04" data-slide-id="L01-C04" class="example-slide">
+      <h2>Thuật toán: xét mọi cặp</h2>
+      <p><strong>Đầu vào:</strong> $C_1,\ldots,C_N$ và $\tau$ như đặc tả. <strong>Đầu ra:</strong> các cặp của $R$, xuất dần.</p>
+      <pre class="ex-code"><code class="language-plaintext" data-trim>nếu N &lt; 2: kết thúc với kết quả rỗng
 cho i = 1,...,N−1:
     cho j = i+1,...,N:
         tính chính xác J(Cᵢ, Cⱼ)
         nếu J(Cᵢ, Cⱼ) ≥ τ:
             xuất cặp (i, j)</code></pre>
-<p>Với $N=2$, $C_1=S$, $C_2=T$: chỉ xét $(1,2)$.<br/>Xuất $(1,2)$ nếu $\tau\le3/8$; ngược lại trả rỗng.</p>
-<div class="check"><strong>Câu hỏi:</strong> Nếu bắt đầu vòng trong từ $j=1$, đầu ra có còn đúng đặc tả?</div>
-      <aside class="notes">Đầu vào và điều kiện trước giữ từ đặc tả. Với đúng hai tập S,T ở ví dụ, i=1 và j=2 cho Jaccard bằng3/8. Nếu ngưỡng không vượt3/8 thì xuất(1,2), còn nếu lớn hơn3/8 thì không xuất cặp nào; sau đó vòng lặp kết thúc. Các vòng hữu hạn xét lần lượt (1,2), (1,3), rồi các cặp còn lại theo thứ tự chỉ số. Có thể tính giao và hợp bằng hai con trỏ khi mỗi tập được lưu thành danh sách tăng dần không lặp; Bài 05 phân tích thao tác đó. Ở đây phép kiểm Jaccard được giả định chính xác; cài đặt phải tránh sai số làm đổi quyết định tại ngưỡng. Nếu j bắt đầu từ một, thuật toán còn xét cặp tự so sánh và có thể xuất cả hai thứ tự, trái i nhỏ hơn j. Xuất trực tiếp tiết kiệm bộ nhớ kết quả, không loại bỏ chi phí ghi kết quả. Nguồn: cách xét mọi cặp trong MMDS Chương 3 tr.73; hai con trỏ Bài 05. Cần đánh giá cả tính đúng của vòng lặp lẫn chi phí thực hiện các phép kiểm.</aside>
+      <p><strong>Câu hỏi:</strong> nếu vòng trong bắt đầu từ $j=1$, xác định phần đặc tả bị vi phạm.</p>
+      <aside class="notes"><p>Thao tác quyết định là kiểm $J\ge\tau$ cho mỗi cặp $i&lt;j$ đúng một lần. Có thể tính giao và hợp bằng hai con trỏ khi mỗi tập được lưu thành danh sách tăng dần không lặp; đây là phép trộn hai danh sách đã sắp của học phần tiên quyết. Phép kiểm Jaccard được giả định chính xác; cài đặt phải tránh sai số làm đổi quyết định tại ngưỡng. Xuất trực tiếp tiết kiệm bộ nhớ kết quả, không loại bỏ chi phí ghi kết quả. Lời giải câu hỏi: nếu $j$ bắt đầu từ một, thuật toán xét cả cặp tự so sánh và có thể xuất cả hai thứ tự của một cặp, trái điều kiện $i&lt;j$ và yêu cầu mỗi cặp đúng một lần.</p><p>Nguồn: MMDS Chương 3, tr.73.</p></aside>
     </section>
-    <section data-slide-id="L01-C05">
+    <section id="L01-C05" data-slide-id="L01-C05" class="example-slide">
       <h2>Các tiêu chí đánh giá</h2>
-      <p>Cùng một đặc tả, các lời giải có thể khác nhau trên nhiều mặt.</p>
-<div class="grid3"><div class="card"><h3>Kết quả</h3><p>Tính đúng<br/>Chất lượng gần đúng</p></div><div class="card"><h3>Tài nguyên</h3><p>Khối lượng tính toán<br/>Bộ nhớ làm việc<br/>Đọc ghi và lượt quét<br/>Dữ liệu truyền qua mạng<br/>Dung lượng lưu trữ</p></div><div class="card"><h3>Vận hành</h3><p>Độ trễ truy vấn<br/>Chi phí xây dựng<br/>Chi phí cập nhật</p></div></div>
-<p>Chỉ so sánh khi đã nêu mô hình chi phí và yêu cầu đầu ra.</p>
-      <aside class="notes">Tính đúng đối chiếu với đặc tả, còn chất lượng gần đúng cần thước đo phù hợp khi đặc tả cho phép sai lệch. Tài nguyên được tính bằng số phép toán, dung lượng bộ nhớ, số khối đọc ghi hoặc lượng dữ liệu mạng; vận hành còn phân biệt một truy vấn, một lần xây dựng và một cập nhật. Không cộng trực tiếp các đơn vị này. Các ví dụ trước sẽ làm rõ từng tiêu chí: gần trùng cho tính toán, nối bảng cho bộ nhớ, sắp ngoài cho đọc ghi, đếm từ cho mạng, tìm véc-tơ cho độ trễ và chất lượng. Nguồn: MMDS 1.3.4,2.5,3.4; BHK Chương 1; DSC 14–15; Bài 07. Trước hết, thuật toán xét mọi cặp phải trả đúng tập đã đặc tả.</aside>
+      <table class="ex-table"><thead><tr><th scope="col">Nhóm</th><th scope="col">Tiêu chí</th></tr></thead><tbody>
+      <tr><td>Kết quả</td><td>tính đúng; chất lượng gần đúng</td></tr>
+      <tr><td>Tài nguyên khi chạy</td><td>khối lượng tính toán; bộ nhớ làm việc</td></tr>
+      <tr><td>Tài nguyên dữ liệu</td><td>đọc ghi và lượt quét; truyền qua mạng; dung lượng lưu trữ</td></tr>
+      <tr><td>Vận hành</td><td>độ trễ truy vấn; chi phí xây dựng; chi phí cập nhật</td></tr></tbody></table>
+      <p class="ex-takeaway">Chỉ so sánh khi đã nêu mô hình chi phí và yêu cầu đầu ra.</p>
+      <aside class="notes"><p>Cùng một đặc tả, các lời giải có thể khác nhau trên nhiều mặt. Tính đúng đối chiếu với đặc tả, còn chất lượng gần đúng cần thước đo phù hợp khi đặc tả cho phép sai lệch. Tài nguyên được tính bằng số phép toán, dung lượng bộ nhớ, số khối đọc ghi hoặc lượng dữ liệu mạng; vận hành còn phân biệt một truy vấn, một lần xây dựng và một cập nhật. Không cộng trực tiếp các đơn vị này. Mỗi tiêu chí gắn với một ví dụ đã gặp: gần trùng cho tính toán, nối bảng cho bộ nhớ, sắp ngoài cho đọc ghi, đếm từ cho mạng, tìm véc-tơ cho độ trễ và chất lượng. Các trang sau trình bày theo thứ tự tính đúng, tính toán, bộ nhớ, đọc ghi, mạng, ba tiêu chí vận hành, dung lượng, rồi chất lượng gần đúng. Thuật toán xét mọi cặp phải trả đúng tập đã đặc tả.</p><p>Nguồn: MMDS 1.3.4,2.5,3.4; BHK Chương 1; DSC 14–15; Bài 07.</p></aside>
     </section>
-    <section data-slide-id="L01-C06">
-      <h2>Tính đúng của thuật toán</h2>
-      <p>Tính đúng yêu cầu cả hai điều: không trả cặp sai và không bỏ cặp đúng.</p>
-<img class="figure short" src="img/lec-01/danh-gia-tinh-dung.svg" role="img" alt="Sáu cặp của bốn tài liệu được xét theo thứ tự; ba cặp đầu đã xét, ba cặp sau chưa xét. Kết quả đang có chỉ gồm các cặp đạt ngưỡng trong phần đã xét."/>
-<div class="card accent"><p>Bất biến: sau mỗi bước, kết quả đã xuất gồm đúng các cặp đạt ngưỡng trong phần đã xét.</p></div>
-<p>Xét hết các cặp hợp lệ thì kết quả bằng $R$.</p>
-      <aside class="notes">Mệnh đề: với các tập hợp lệ và phép kiểm Jaccard chính xác, thuật toán trả đúng R, mỗi cặp một lần. Khởi tạo chưa xét cặp nào và chưa xuất cặp nào. Giả sử bất biến đúng trước bước hiện tại: nếu cặp mới đạt ngưỡng, xuất nó; nếu không, không xuất. Kết quả cũ không đổi và cặp mới chưa từng xuất nên bất biến được giữ. Vòng lặp xét đúng mỗi i nhỏ hơn j một lần rồi dừng sau N(N−1)/2 cặp; khi ấy phần đã xét là toàn bộ miền cặp. N nhỏ hơn hai trả rỗng ngay. Hình dùng bốn tài liệu để minh họa thứ tự, không giả định cặp cụ thể nào đạt ngưỡng. Chứng minh không thay thế việc kiểm kiểu dữ liệu và độ chính xác số trong cài đặt. Tính đúng này chưa cho biết mất bao lâu. Nguồn bài toán: MMDS 3.1; lập luận trực tiếp từ giả mã.</aside>
+    <section id="L01-C06" data-slide-id="L01-C06" class="example-slide">
+      <h2>Tính đúng: bất biến của xét mọi cặp</h2>
+      <p><strong>Mệnh đề.</strong> Với tập hợp lệ và phép kiểm Jaccard chính xác, thuật toán trả đúng $R$, mỗi cặp một lần.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/danh-gia-tinh-dung.svg" role="img" alt="Sáu cặp của bốn tài liệu được xét theo thứ tự; ba cặp đầu đã xét, ba cặp sau chưa xét. Kết quả đang có chỉ gồm các cặp đạt ngưỡng trong phần đã xét."/></figure>
+      <p><strong>Bất biến:</strong> sau mỗi bước, kết quả đã xuất gồm đúng các cặp đạt ngưỡng trong phần đã xét.</p>
+      <aside class="notes"><p>Tính đúng yêu cầu cả hai điều: không trả cặp sai và không bỏ cặp đúng. Hình dùng bốn tài liệu để minh họa thứ tự, ba cặp đầu đã xét, ba cặp sau chưa xét; không giả định cặp cụ thể nào đạt ngưỡng. Bất biến nói về phần đã xét, không về toàn miền; khi phần đã xét là toàn miền, bất biến chính là mệnh đề.</p><p>Nguồn: MMDS §3.1; lập luận trực tiếp từ giả mã.</p></aside>
     </section>
-    <section data-slide-id="L01-C07">
-      <h2>Khối lượng tính toán</h2>
-      <p>Số phép toán phụ thuộc cả số cặp lẫn chi phí kiểm một cặp.</p>
-<img class="figure short" src="img/lec-01/ung-dung-tai-lieu-gan-trung.svg" role="img" alt="Bốn tài liệu có sáu cặp cần đối chiếu; tăng số tài liệu làm số cặp tăng theo bình phương."/>
-<div class="grid2"><div class="card"><h3>Số lần kiểm</h3><p>$N(N-1)/2$. Với $N=10^6$:<br/>$499\,999\,500\,000$ cặp.</p></div><div class="card"><h3>Chi phí mỗi lần</h3><p>Mỗi tập có tối đa $L$ phần tử đã sắp: $O(L)$ cho một cặp, $O(N^2L)$ cho toàn kho.</p></div></div>
-      <aside class="notes">N từ hai trở lên và L là kích thước tập lớn nhất. Hai con trỏ đọc mỗi phần tử của hai danh sách nhiều nhất một lần nên tính giao và hợp trong O(L), với so sánh phần tử đơn vị. Cận toàn kho chưa tính tạo và sắp biểu diễn ban đầu; đây là cận trên trường hợp xấu, không phải số giây đo được. Một lần kiểm không có chi phí hằng khi độ dài tài liệu tăng. Giảm số cặp đối chiếu là một hướng, nhưng còn chi phí xây biểu diễn, tạo ứng viên và ghi các cặp kết quả. Nếu đầu ra vốn chứa bậc hai cặp thì riêng xuất đủ chúng đã cần bậc hai thao tác. Nguồn: MMDS Chương 3 tr.73; Stanford 03-lsh, trang 14; Bài 05 thuật toán hai con trỏ. Dù số phép toán chấp nhận được, các dữ liệu cần giữ đồng thời vẫn có thể vượt bộ nhớ.</aside>
+    <section id="L01-C18" data-slide-id="L01-C18" class="example-slide">
+      <h2>Tính đúng: khởi tạo, duy trì, kết thúc</h2>
+      <table class="ex-table"><thead><tr><th scope="col">Bước</th><th scope="col">Lập luận</th></tr></thead><tbody>
+      <tr><td>Khởi tạo</td><td>chưa xét cặp nào, chưa xuất cặp nào</td></tr>
+      <tr><td>Duy trì</td><td>cặp mới chưa từng xét, được xuất khi và chỉ khi đạt ngưỡng; kết quả cũ không đổi</td></tr>
+      <tr><td>Kết thúc</td><td>sau $N(N-1)/2$ cặp, phần đã xét là toàn miền, kết quả bằng $R$</td></tr></tbody></table>
+      <p><strong>Điều kiện dừng:</strong> hai vòng lặp hữu hạn.</p>
+      <p><strong>Trường hợp biên:</strong> $N&lt;2$ trả rỗng ngay.</p>
+      <aside class="notes"><p>Khởi tạo: bất biến đúng vì phần đã xét và kết quả đều rỗng. Duy trì: giả sử bất biến đúng trước bước hiện tại; nếu cặp mới đạt ngưỡng thì xuất nó, nếu không thì không xuất; kết quả cũ không đổi và cặp mới chưa từng xuất, nên bất biến được giữ và không có cặp lặp. Kết thúc: vòng lặp xét đúng mỗi cặp $i&lt;j$ một lần rồi dừng sau $N(N-1)/2$ cặp, khi ấy kết quả gồm đúng các cặp đạt ngưỡng của toàn miền, tức $R$. Chứng minh không thay việc kiểm kiểu dữ liệu và độ chính xác số trong cài đặt; tính đúng chưa cho biết mất bao lâu.</p><p>Nguồn: MMDS §3.1; lập luận trực tiếp từ giả mã.</p></aside>
     </section>
-    <section data-slide-id="L01-C08">
+    <section id="L01-C07" data-slide-id="L01-C07" class="cost-slide">
+      <h2>Chi phí: khối lượng tính toán</h2>
+      <p class="cost-note"><strong>Mô hình:</strong> đếm phép so sánh phần tử; mỗi tập là danh sách đã sắp, tối đa $L$ phần tử.</p>
+      <table class="ex-table"><thead><tr><th scope="col">Bước</th><th scope="col">Số lần</th><th scope="col">Chi phí mỗi lần</th><th scope="col">Đóng góp</th></tr></thead><tbody>
+      <tr><td>Kiểm một cặp (trộn hai danh sách)</td><td>${N(N-1)/2}$</td><td>$\le2L$ phép so sánh</td><td>$\le N(N-1)L$, tức $O(N^2L)$</td></tr></tbody></table>
+      <p>Với $N=10^6$: $499\,999\,500\,000$ lần kiểm.</p>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> $O(N^2L)$ là cận trên trường hợp xấu, chưa tính tạo biểu diễn và ghi kết quả.</p>
+      <aside class="notes"><p>Trộn hai danh sách đã sắp bằng hai con trỏ: mỗi phép so sánh đẩy ít nhất một con trỏ tiến một bước, nên tổng số phép so sánh không vượt $|S|+|T|\le2L$. N từ hai trở lên và L là kích thước tập lớn nhất. Đây là phép đếm, không phải số giây đo được. Giảm số cặp đối chiếu là một hướng, nhưng còn chi phí xây biểu diễn, tạo ứng viên và ghi các cặp kết quả. Nếu đầu ra vốn chứa bậc hai cặp thì riêng xuất đủ chúng đã cần bậc hai thao tác. Dù số phép toán chấp nhận được, các dữ liệu cần giữ đồng thời vẫn có thể vượt bộ nhớ.</p><p>Nguồn: MMDS Chương 3 tr.73; Stanford 03-lsh, trang 14.</p></aside>
+    </section>
+    <section id="L01-C08" data-slide-id="L01-C08" class="example-slide">
       <h2>Bộ nhớ làm việc</h2>
       <p>Bộ nhớ làm việc là dung lượng cần giữ đồng thời khi thuật toán chạy.</p>
-<img class="figure" src="img/lec-01/danh-gia-bo-nho.svg" role="img" alt="Bảng sinh viên chiếm 100 khối, bảng đăng ký 400 khối, nhưng bộ nhớ chỉ giữ được 20 khối; chỉ một phần dữ liệu có thể được nạp cùng lúc."/>
-<div class="card accent"><p>Nối hai bảng không thể giữ trọn một bảng trong 20 khối.<br/>Cần xử lý từng phần và dành chỗ cho các bộ đệm.</p></div>
-      <aside class="notes">Bài toán nối vẫn phải xuất mọi cặp sinh viên–đăng ký trùng mã. Quy mô student100khối và takes400khối lấy từ DSC 15 slide 24; ngân sách20khối dùng trong Bài 15. Đây là số khối, không phải số bản ghi hay số byte. Sơ đồ kho dữ liệu không vẽ theo tỷ lệ diện tích; ô bộ nhớ đếm đúng20. Ngân sách phải chứa trạng thái thuật toán, dữ liệu đang xử lý và bộ đệm đọc ghi; không dành hết20khối cho một phần bảng rồi bỏ qua các bộ đệm. Nếu xuất kết quả dần, không cần giữ toàn bộ đầu ra trong bộ nhớ. Phân chia giúp vừa bộ nhớ nhưng có thể khiến phải đọc lại dữ liệu; đó là tiêu chí kế tiếp. Nguồn: DSC 15 slide 24,28; Bài 15.</aside>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-bo-nho.svg" role="img" alt="Bảng sinh viên chiếm 100 khối, bảng đăng ký 400 khối, nhưng bộ nhớ chỉ giữ được 20 khối; chỉ một phần dữ liệu có thể được nạp cùng lúc."/></figure>
+      <p class="ex-takeaway">Bảng 100 hoặc 400 khối không vừa 20 khối; phải xử lý từng phần, chừa chỗ bộ đệm.</p>
+      <aside class="notes"><p>Bài toán nối vẫn phải xuất mọi cặp sinh viên–đăng ký trùng mã. Quy mô student 100 khối và takes 400 khối lấy từ DSC 15, trang chiếu 24; ngân sách 20 khối dùng trong Bài 15. Đây là số khối, không phải số bản ghi hay số byte. Sơ đồ kho dữ liệu không vẽ theo tỷ lệ diện tích; ô bộ nhớ đếm đúng 20. Ngân sách phải chứa trạng thái thuật toán, dữ liệu đang xử lý và bộ đệm đọc ghi; không dành hết 20 khối cho một phần bảng rồi bỏ qua các bộ đệm. Nếu xuất kết quả dần, không cần giữ toàn bộ đầu ra trong bộ nhớ. Phân chia giúp vừa bộ nhớ nhưng có thể khiến phải đọc lại dữ liệu; đó là tiêu chí kế tiếp.</p><p>Nguồn: DSC 15, trang chiếu 24, 28; Bài 15.</p></aside>
     </section>
-    <section data-slide-id="L01-C09">
+    <section id="L01-C09" data-slide-id="L01-C09" class="example-slide">
       <h2>Đọc ghi và số lượt quét</h2>
-      <p>Chi phí đọc ghi đếm các khối chuyển giữa đĩa và bộ nhớ.<br/>Một lượt quét đọc hết tệp; các lượt đọc lại vẫn được tính.</p>
-<img class="figure" src="img/lec-01/danh-gia-doc-ghi.svg" role="img" alt="Sắp xếp ngoài bộ nhớ đọc tệp vào bộ đệm, xử lý và ghi các dãy; các lượt trộn tiếp theo phải đọc và ghi lại dữ liệu."/>
-<div class="card accent"><p>Sắp một tệp lớn có thể cần nhiều lượt trộn.<br/>Ít phép so sánh chưa bảo đảm ít khối đọc ghi.</p></div>
-      <aside class="notes">Gọi F là số khối của tệp. Một lần đọc toàn bộ tệp cần F lần chuyển khối nếu chưa có khối nào trong bộ đệm. Nếu một lượt cũng ghi ra F khối thì riêng chuyển dữ liệu là2F, không phảiF; chưa tính các lần đọc ngẫu nhiên hoặc truy cập bổ sung. Sắp ngoài tạo các dãy đã sắp rồi trộn; số dãy có thể trộn một lần phụ thuộc số bộ đệm. Các lần quét, số khối và cách truy cập tuần tự hay ngẫu nhiên đều ảnh hưởng thời gian thực. Nguồn: DSC 15 slide 17–23; MMDS 1.3.4. Khi dữ liệu nằm ở nhiều máy, còn có một loại chuyển dữ liệu khác: qua mạng.</aside>
+      <p>Chi phí đọc ghi là số khối chuyển giữa đĩa và bộ nhớ.</p>
+      <p>Một lượt quét đọc hết tệp; mỗi lượt đọc lại đều được tính.</p>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-doc-ghi.svg" role="img" alt="Sắp xếp ngoài bộ nhớ đọc tệp vào bộ đệm, xử lý và ghi các dãy; các lượt trộn tiếp theo phải đọc và ghi lại dữ liệu."/></figure>
+      <p class="ex-takeaway">Ít phép so sánh chưa bảo đảm ít khối đọc ghi.</p>
+      <aside class="notes"><p>Sắp một tệp lớn có thể cần nhiều lượt trộn. Gọi F là số khối của tệp. Một lần đọc toàn bộ tệp cần F lần chuyển khối nếu chưa có khối nào trong bộ đệm. Nếu một lượt cũng ghi ra F khối thì riêng chuyển dữ liệu là 2F, không phải F; chưa tính các lần đọc ngẫu nhiên hoặc truy cập bổ sung. Sắp ngoài tạo các dãy đã sắp rồi trộn; số dãy có thể trộn một lần phụ thuộc số bộ đệm. Các lần quét, số khối và cách truy cập tuần tự hay ngẫu nhiên đều ảnh hưởng thời gian thực. Khi dữ liệu nằm ở nhiều máy, còn có một loại chuyển dữ liệu khác: qua mạng.</p><p>Nguồn: DSC 15, trang chiếu 17–23; MMDS 1.3.4.</p></aside>
     </section>
-    <section data-slide-id="L01-C10">
+    <section id="L01-C10" data-slide-id="L01-C10" class="example-slide">
       <h2>Dữ liệu truyền qua mạng</h2>
       <p>Chi phí mạng là lượng dữ liệu trao đổi giữa các máy để hoàn thành tác vụ.</p>
-<img class="figure" src="img/lec-01/danh-gia-truyen-mang.svg" role="img" alt="Mỗi máy đếm số lần xuất hiện của từ w trong phần kho của mình rồi gửi số đếm tới nơi cộng kết quả, thay cho việc gửi toàn bộ văn bản."/>
-<div class="card accent"><p>Đếm từ tại nơi lưu rồi gửi số đếm có thể giảm dữ liệu truyền.<br/>Vẫn phải gom đủ đóng góp và tránh tính trùng khi chạy lại.</p></div>
-      <aside class="notes">Bài toán là số lần xuất hiện của mỗi từ trên toàn kho; hình chỉ theo dõi một từ w để thấy các đóng góp nằm ở đâu. Việc kết hợp cục bộ có lợi khi một từ lặp nhiều lần; không khẳng định giảm dữ liệu theo một tỷ lệ cố định. Chi phí mạng ở đây chỉ đếm dữ liệu trao đổi giữa máy, còn định nghĩa chi phí truyền thông của MMDS 2.5 có thể tính cả dữ liệu vào ra của tác vụ; phải ghi rõ mô hình. Tổng lượng truyền không bằng thời gian hoàn thành: lệch tải, máy chậm hoặc nhiều vòng đồng bộ còn gây chờ. Môi trường thực thi phải kiểm soát tác vụ chạy lại. Nguồn: MMDS 2.2.4–2.2.6,2.5; Stanford01-intro67–69. Với một người đang gửi truy vấn, thời gian chờ đến kết quả là đại lượng trực tiếp hơn tổng công việc của hệ thống.</aside>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-truyen-mang.svg" role="img" alt="Mỗi máy đếm số lần xuất hiện của từ w trong phần kho của mình rồi gửi số đếm tới nơi cộng kết quả, thay cho việc gửi toàn bộ văn bản."/></figure>
+      <p class="ex-takeaway">Gửi số đếm thay văn bản có thể giảm dữ liệu truyền; vẫn phải tránh tính trùng khi chạy lại.</p>
+      <aside class="notes"><p>Bài toán là số lần xuất hiện của mỗi từ trên toàn kho; hình chỉ theo dõi một từ w để thấy các đóng góp nằm ở đâu. Việc kết hợp cục bộ có lợi khi một từ lặp nhiều lần; không khẳng định giảm dữ liệu theo một tỷ lệ cố định. Chi phí mạng ở đây chỉ đếm dữ liệu trao đổi giữa máy, còn định nghĩa chi phí truyền thông của MMDS 2.5 có thể tính cả dữ liệu vào ra của tác vụ; phải ghi rõ mô hình. Tổng lượng truyền không bằng thời gian hoàn thành: lệch tải, máy chậm hoặc nhiều vòng đồng bộ còn gây chờ. Với một người đang gửi truy vấn, thời gian chờ đến kết quả là đại lượng trực tiếp hơn tổng công việc của hệ thống.</p><p>Nguồn: MMDS 2.2.4–2.2.6,2.5; Stanford CS246 01-intro, trang chiếu 67–69.</p></aside>
     </section>
-    <section data-slide-id="L01-C11">
+    <section id="L01-C11" data-slide-id="L01-C11" class="example-slide">
       <h2>Độ trễ truy vấn</h2>
       <p>Độ trễ là thời gian từ khi nhận truy vấn đến khi trả kết quả.</p>
-<img class="figure" src="img/lec-01/danh-gia-do-tre.svg" role="img" alt="Một truy vấn véc-tơ đi qua chờ xử lý, truy cập dữ liệu, tính khoảng cách và trả kết quả; khoảng từ nhận đến trả là độ trễ."/>
-<div class="card accent"><p>Tìm $k$ đoạn tài liệu gần véc-tơ truy vấn cần trả lời từng yêu cầu.<br/>Phải đo độ trễ cùng chất lượng kết quả và tải truy vấn.</p></div>
-      <aside class="notes">Các khối trong hình biểu diễn công đoạn, độ rộng không phải thời gian đo. Độ trễ tính cả thời gian chờ chứ không chỉ các phép tính khoảng cách. Thông lượng là số truy vấn hoàn tất trong một đơn vị thời gian; nó không đồng nhất với độ trễ của từng truy vấn. Khi so sánh, cần cùng tập truy vấn, phần cứng, số luồng và yêu cầu chất lượng. Không suy độ trễ từ số phép tính mà bỏ qua đọc dữ liệu hoặc hàng đợi. Nguồn: Bài 07 mục1, BIODS271 và Princeton lớp8–9. Chỉ mục có thể giúp trả lời nhanh hơn nhưng phải được xây trước.</aside>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-do-tre.svg" role="img" alt="Một truy vấn véc-tơ đi qua chờ xử lý, truy cập dữ liệu, tính khoảng cách và trả kết quả; khoảng từ nhận đến trả là độ trễ."/></figure>
+      <p class="ex-takeaway">Độ trễ phải báo cùng chất lượng kết quả và tải truy vấn.</p>
+      <aside class="notes"><p>Tìm $k$ đoạn tài liệu gần véc-tơ truy vấn cần trả lời từng yêu cầu. Các khối trong hình biểu diễn công đoạn, độ rộng không phải thời gian đo. Độ trễ tính cả thời gian chờ chứ không chỉ các phép tính khoảng cách. Thông lượng là số truy vấn hoàn tất trong một đơn vị thời gian; nó không đồng nhất với độ trễ của từng truy vấn. Khi so sánh, cần cùng tập truy vấn, phần cứng, số luồng và yêu cầu chất lượng. Không suy độ trễ từ số phép tính mà bỏ qua đọc dữ liệu hoặc hàng đợi. Chỉ mục có thể giúp trả lời nhanh hơn nhưng phải được xây trước.</p><p>Nguồn: Bài 07 mục 1, BIODS 271 và Princeton lớp 8–9.</p></aside>
     </section>
-    <section data-slide-id="L01-C12">
+    <section id="L01-C12" data-slide-id="L01-C12" class="example-slide">
       <h2>Chi phí xây dựng chỉ mục</h2>
-      <p>Xây dựng chỉ mục tổ chức dữ liệu để phục vụ những truy vấn về sau.</p>
-<img class="figure" src="img/lec-01/danh-gia-xay-dung.svg" role="img" alt="Kho véc-tơ được đọc để tạo chỉ mục một lần; chỉ mục sau đó được dùng cho nhiều truy vấn khác nhau."/>
-<div class="card accent"><p>Với tìm kiếm véc-tơ, cần tính thời gian xây và bộ nhớ lớn nhất khi xây.<br/>Độ trễ truy vấn thấp không làm chi phí chuẩn bị biến mất.</p></div>
-      <aside class="notes">Chi phí xây dựng khác dung lượng của chỉ mục hoàn tất: trạng thái tạm lúc xây có thể lớn hơn dữ liệu giữ lại cuối cùng. Báo cáo phải nói có tính huấn luyện bộ mã, đọc dữ liệu hoặc tạo đồ thị hay không, tùy phương pháp. Nhiều truy vấn có thể dùng lại cùng chỉ mục, nhưng không thể kết luận một phương pháp tốt chỉ từ một truy vấn nhanh. Nguồn: Bài 07 mục1 và trục xây dựng trong Princeton lớp8–9; DSC 14 tiêu chí đánh giá chỉ mục. Khi dữ liệu gốc thay đổi, chỉ mục đã xây còn phải được duy trì.</aside>
+      <p>Chi phí xây dựng chỉ mục là thời gian và bộ nhớ lớn nhất khi tạo chỉ mục.</p>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-xay-dung.svg" role="img" alt="Kho véc-tơ được đọc để tạo chỉ mục một lần; chỉ mục sau đó được dùng cho nhiều truy vấn khác nhau."/></figure>
+      <p class="ex-takeaway">Độ trễ truy vấn thấp không xóa chi phí chuẩn bị.</p>
+      <aside class="notes"><p>Xây dựng chỉ mục tổ chức dữ liệu để phục vụ những truy vấn về sau, chẳng hạn tìm kiếm véc-tơ. Chi phí xây dựng khác dung lượng của chỉ mục hoàn tất: trạng thái tạm lúc xây có thể lớn hơn dữ liệu giữ lại cuối cùng. Báo cáo phải nói có tính huấn luyện bộ mã, đọc dữ liệu hoặc tạo đồ thị hay không, tùy phương pháp. Nhiều truy vấn có thể dùng lại cùng chỉ mục, nhưng không thể kết luận một phương pháp tốt chỉ từ một truy vấn nhanh. Khi dữ liệu gốc thay đổi, chỉ mục đã xây còn phải được duy trì.</p><p>Nguồn: Bài 07 mục 1 và trục xây dựng trong Princeton lớp 8–9; DSC 14 tiêu chí đánh giá chỉ mục.</p></aside>
     </section>
-    <section data-slide-id="L01-C13">
+    <section id="L01-C13" data-slide-id="L01-C13" class="example-slide">
       <h2>Chi phí cập nhật dữ liệu</h2>
-      <p>Chi phí cập nhật gồm công việc sửa dữ liệu và các cấu trúc phụ thuộc.</p>
-<img class="figure" src="img/lec-01/danh-gia-cap-nhat.svg" role="img" alt="Khi lương của một giảng viên thay đổi, bản ghi gốc và mục chỉ dẫn theo lương đều phải được sửa trước khi truy vấn dùng trạng thái mới."/>
-<div class="card accent"><p>Tra giảng viên theo khoảng lương cần chỉ mục theo kịp bảng gốc.<br/>Chỉ sửa bản ghi có thể khiến truy vấn bỏ sót hoặc trả mục đã cũ.</p></div>
-      <aside class="notes">Không cần một mức lương giả để thấy quan hệ phụ thuộc: khi giá trị chuyển khỏi một khoảng và vào khoảng khác, mục chỉ dẫn theo lương phải thay đổi tương ứng. Chi phí có thể đo bằng thao tác, khối đọc ghi hoặc thời gian cho mỗi cập nhật; với dòng còn xét tốc độ cập nhật hệ thống chịu được. Sơ đồ chỉ mô tả trạng thái trước và sau khi cập nhật hoàn tất, không quy định giao thức giao dịch hay thứ tự công bố trung gian. Nguồn: DSC 14 slide 4,10–11 và các phần chèn/xóa chỉ mục; Bài 13. Dữ liệu và cấu trúc phụ không chỉ tốn công duy trì mà còn chiếm chỗ lưu lâu dài.</aside>
+      <p>Chi phí cập nhật là công việc sửa dữ liệu và các cấu trúc phụ thuộc.</p>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-cap-nhat.svg" role="img" alt="Khi lương của một giảng viên thay đổi, bản ghi gốc và mục chỉ dẫn theo lương đều phải được sửa trước khi truy vấn dùng trạng thái mới."/></figure>
+      <p class="ex-takeaway">Chỉ sửa bản ghi mà không sửa chỉ mục theo lương thì truy vấn khoảng có thể trả mục cũ.</p>
+      <aside class="notes"><p>Không cần một mức lương giả để thấy quan hệ phụ thuộc: khi giá trị chuyển khỏi một khoảng và vào khoảng khác, mục chỉ dẫn theo lương phải thay đổi tương ứng. Chi phí có thể đo bằng thao tác, khối đọc ghi hoặc thời gian cho mỗi cập nhật; với dòng còn xét tốc độ cập nhật hệ thống chịu được. Sơ đồ chỉ mô tả trạng thái trước và sau khi cập nhật hoàn tất, không quy định giao thức giao dịch hay thứ tự công bố trung gian. Dữ liệu và cấu trúc phụ không chỉ tốn công duy trì mà còn chiếm chỗ lưu lâu dài.</p><p>Nguồn: DSC 14, trang chiếu 4, 10–11 và các phần chèn/xóa chỉ mục; Bài 13.</p></aside>
     </section>
-    <section data-slide-id="L01-C14">
+    <section id="L01-C14" data-slide-id="L01-C14" class="example-slide">
       <h2>Dung lượng lưu trữ</h2>
       <p>Dung lượng lưu trữ là chỗ chiếm bởi dữ liệu đã lưu và thông tin phụ trợ.</p>
-<img class="figure" src="img/lec-01/danh-gia-luu-tru.svg" role="img" alt="Lưu văn bản nén phải giữ dòng mã cùng thông tin cần giải mã; khi đọc lại, chúng được dùng để khôi phục đúng văn bản ban đầu."/>
-<div class="card accent"><p>Nén văn bản phải tính cả mã và thông tin giải mã cần lưu.<br/>Bản khôi phục phải bằng nguyên văn bản gốc.</p></div>
-      <aside class="notes">Dung lượng bản nén khác bộ nhớ làm việc khi nén hoặc giải nén. Thông tin phụ trợ phụ thuộc phương pháp: có thể là mô hình, thông số hoặc dữ liệu khởi tạo; từ điển LZ có thể được tái dựng chứ không nhất thiết lưu trọn. Nếu có chỉ mục truy cập thì phải tính nó trong ngân sách tương ứng. Hình không gán tỷ lệ nén hoặc coi mã luôn ngắn hơn dữ liệu gốc. Với ảnh cho phép mất thông tin, dung lượng phải được báo cùng sai số tái tạo; với văn bản ở đây yêu cầu là khôi phục nguyên vẹn. Nguồn: Nelson–Gailly Chương 3,8–9,11; CMU bài nén LZ; Bài 10–11. Trường hợp chấp nhận kết quả gần đúng còn cần một thước đo chất lượng riêng.</aside>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-luu-tru.svg" role="img" alt="Lưu văn bản nén phải giữ dòng mã cùng thông tin cần giải mã; khi đọc lại, chúng được dùng để khôi phục đúng văn bản ban đầu."/></figure>
+      <p class="ex-takeaway">Nén văn bản phải tính cả mã và thông tin giải mã; bản khôi phục bằng văn bản gốc.</p>
+      <aside class="notes"><p>Dung lượng bản nén khác bộ nhớ làm việc khi nén hoặc giải nén. Thông tin phụ trợ phụ thuộc phương pháp: có thể là mô hình, thông số hoặc dữ liệu khởi tạo; từ điển LZ có thể được tái dựng chứ không nhất thiết lưu trọn. Nếu có chỉ mục truy cập thì phải tính nó trong ngân sách tương ứng. Hình không gán tỷ lệ nén hoặc coi mã luôn ngắn hơn dữ liệu gốc. Với ảnh cho phép mất thông tin, dung lượng phải được báo cùng sai số tái tạo; với văn bản ở đây yêu cầu là khôi phục nguyên vẹn. Trường hợp chấp nhận kết quả gần đúng còn cần một thước đo chất lượng riêng.</p><p>Nguồn: Nelson–Gailly Chương 3,8–9,11; CMU bài nén LZ; Bài 10–11.</p></aside>
     </section>
-    <section data-slide-id="L01-C15">
+    <section id="L01-C15" data-slide-id="L01-C15" class="example-slide">
       <h2>Chất lượng kết quả gần đúng</h2>
-      <p>Với tìm $k$ hàng xóm gần nhất, độ thu hồi tại $k$ đo tỷ lệ hàng xóm thật được trả lại.</p>
-<img class="figure short" src="img/lec-01/danh-gia-do-thu-hoi.svg" role="img" alt="Năm hàng xóm thật gồm a,b,c,d,e; năm kết quả trả về gồm c,d,e,f,g. Có ba hàng xóm thật được tìm lại."/>
-<div class="formula">$\operatorname{recall@}k=\dfrac{\text{số hàng xóm thật được trả lại}}{k};\quad \operatorname{recall@}5=\dfrac35$</div>
-<p>Hai kết quả $f,g$ không bù được hai hàng xóm thật $a,b$ bị thiếu.</p>
-      <aside class="notes">Chuẩn đúng là k véc-tơ gần nhất theo khoảng cách đã chọn, với quy tắc phá hòa cố định; đầu ra cũng gồm k định danh phân biệt. Ví dụ từ Bài 07 có năm phần tử mỗi tập và ba phần tử chung. Cần đo trên tập truy vấn đã nêu và báo cùng độ trễ, bộ nhớ, phần cứng. Độ thu hồi đo được trên một tập kiểm tra không tự là bảo đảm xác suất cho mọi truy vấn. Các bài toán khác dùng sai số khác: nén ảnh dùng sai số tái tạo, thuật toán dòng có thể dùng cận xác định hoặc xác suất dưới giả thiết riêng. Nguồn: Bài 07 mục1 và ann-recall.svg; Princeton lớp8–9. Với cặp tài liệu gần trùng, bỏ một cặp khỏi danh sách ứng viên cũng tạo thiếu hụt mà bước kiểm lại không sửa được.</aside>
+      <p>Với tìm $k$ hàng xóm gần nhất, độ thu hồi tại $k$ là tỷ lệ hàng xóm thật được trả lại.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/danh-gia-do-thu-hoi.svg" role="img" alt="Năm hàng xóm thật gồm a,b,c,d,e; năm kết quả trả về gồm c,d,e,f,g. Có ba hàng xóm thật được tìm lại."/></figure>
+      <p class="ex-equation">$\operatorname{recall@}5=\dfrac35$</p>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> hai kết quả $f,g$ không bù được hai hàng xóm thật $a,b$ bị thiếu.</p>
+      <aside class="notes"><p>Chuẩn đúng là k véc-tơ gần nhất theo khoảng cách đã chọn, với quy tắc phá hòa cố định; đầu ra cũng gồm k định danh phân biệt. Ví dụ từ Bài 07 có năm phần tử mỗi tập và ba phần tử chung. Cần đo trên tập truy vấn đã nêu và báo cùng độ trễ, bộ nhớ, phần cứng. Độ thu hồi đo được trên một tập kiểm tra không tự là bảo đảm xác suất cho mọi truy vấn. Các bài toán khác dùng sai số khác: nén ảnh dùng sai số tái tạo, thuật toán dòng có thể dùng cận xác định hoặc xác suất dưới giả thiết riêng. Với cặp tài liệu gần trùng, bỏ một cặp khỏi danh sách ứng viên cũng tạo thiếu hụt mà bước kiểm lại không sửa được.</p><p>Nguồn: Bài 07 mục 1 và ann-recall.svg; Princeton lớp 8–9.</p></aside>
     </section>
-    <section data-slide-id="L01-C16">
+    <section id="L01-C16" data-slide-id="L01-C16" class="example-slide">
       <h2>Giảm ứng viên và nguy cơ bỏ sót</h2>
-      <p>Trong kho tài liệu, cặp ứng viên là cặp được chọn để kiểm Jaccard chính xác.</p>
-<img class="figure" src="img/lec-01/danh-gia-ung-vien.svg" role="img" alt="Từ toàn bộ các cặp, bộ lọc giữ một số ứng viên cho bước kiểm chính xác; những cặp không được chọn không đi tới kết quả, kể cả cặp đạt ngưỡng bị bỏ sót."/>
-<div class="check"><strong>Câu hỏi:</strong> Kiểm tra chính xác từng ứng viên đã đủ bảo đảm trả mọi cặp đạt ngưỡng chưa?</div>
-      <aside class="notes">Chưa. Hậu kiểm chính xác loại các ứng viên không đạt ngưỡng, nên có thể bảo đảm các cặp trả ra đều đạt ngưỡng. Để trả đủ còn cần mọi cặp đạt ngưỡng đều được chọn làm ứng viên. Nếu bộ lọc bỏ sót thì hậu kiểm không nhìn thấy cặp đó. Băm nhạy cảm cục bộ (LSH) ở Bài 06 cho cách chọn ứng viên với bảo đảm xác suất dưới giả thiết cụ thể; buổi này chưa phân tích cơ chế ấy. Hình không gán tỷ lệ bỏ sót hoặc cam kết luôn giảm chi phí: tạo ứng viên và ghi đầu ra vẫn phải được tính. Khi cho phép gần đúng phải công bố yêu cầu chất lượng thay cho đặc tả chính xác ban đầu. Nguồn: MMDS Chương 3 tr.73 và mục3.4; MMDS Chương 3 16–17; Stanford03-lsh15–16. Các yêu cầu về đúng, đủ và tài nguyên này giúp xác định vai trò của các nhóm phương pháp trong học phần.</aside>
+      <p>Cặp ứng viên là cặp được chọn để kiểm Jaccard chính xác.</p>
+      <figure class="l01-figure"><img src="img/lec-01/danh-gia-ung-vien.svg" role="img" alt="Từ toàn bộ các cặp, bộ lọc giữ một số ứng viên cho bước kiểm chính xác; những cặp không được chọn không đi tới kết quả, kể cả cặp đạt ngưỡng bị bỏ sót."/></figure>
+      <p><strong>Câu hỏi:</strong> xác định hậu kiểm từng ứng viên có đủ bảo đảm trả mọi cặp đạt ngưỡng không.</p>
+      <aside class="notes"><p>Lời giải: chưa. Hậu kiểm chính xác loại các ứng viên không đạt ngưỡng, nên có thể bảo đảm các cặp trả ra đều đạt ngưỡng. Để trả đủ còn cần mọi cặp đạt ngưỡng đều được chọn làm ứng viên. Nếu bộ lọc bỏ sót thì hậu kiểm không nhìn thấy cặp đó. Băm nhạy cảm theo tính cục bộ (locality-sensitive hashing, LSH) ở Bài 06 cho cách chọn ứng viên với bảo đảm xác suất dưới giả thiết cụ thể; bài này chưa phân tích cơ chế ấy. Khi cho phép gần đúng phải công bố yêu cầu chất lượng thay cho đặc tả chính xác ban đầu. Các yêu cầu về đúng, đủ và tài nguyên này giúp xác định vai trò của các nhóm phương pháp trong học phần.</p><p>Nguồn: MMDS Chương 3 tr.73 và mục 3.4; trang chiếu MMDS Chương 3, trang 16–17; Stanford CS246 03-lsh, trang chiếu 15–16.</p></aside>
     </section>
   </section>
 
-  <section>
+  <section aria-label="Năm nhóm thuật toán và cách học">
     <section id="mach-4" data-slide-id="L01-DT" class="strand-title">
       <div class="strand-title-body">
-        <h2><span class="strand-number">4.</span>Năm nhóm thuật toán của học phần</h2>
-        <p class="strand-lead">Muốn biết mỗi bài sau giải nhu cầu nào, phải đối chiếu phương pháp với các bài toán đã gặp.</p>
-        <p class="strand-keys">Phân&nbsp;tán&nbsp;và&nbsp;xếp&nbsp;hạng&nbsp;· Tương&nbsp;đồng&nbsp;và&nbsp;tìm&nbsp;gần&nbsp;· Dòng&nbsp;và&nbsp;cửa&nbsp;sổ&nbsp;· Nén&nbsp;và&nbsp;khôi&nbsp;phục&nbsp;· Lưu&nbsp;trữ&nbsp;và&nbsp;truy&nbsp;vấn</p>
+        <h2><span class="strand-number">4.</span>Năm nhóm thuật toán và cách học</h2>
+        <p class="strand-lead">Muốn biết mỗi bài sau giải giới hạn nào và cần nền gì, phải đối chiếu phương pháp với bài toán đã gặp.</p>
+        <p class="strand-keys">Năm&nbsp;nhóm&nbsp;Bài&nbsp;02–15&nbsp;· Phương&nbsp;pháp&nbsp;đại&nbsp;diện&nbsp;· Kiến&nbsp;thức&nbsp;nền&nbsp;· Sản&nbsp;phẩm&nbsp;học&nbsp;tập&nbsp;· Trách&nbsp;nhiệm&nbsp;dữ&nbsp;liệu</p>
       </div>
-      <aside class="notes">Khung đánh giá đã nêu các thuộc tính phải xét ở một lời giải: tính đúng, sai số và tài nguyên. Bài 02–15 chia thành năm nhóm; ý tưởng của phương pháp đại diện được nêu qua các bài toán đã gặp: gom theo khóa, tính điểm theo liên kết, chọn cặp cần đối chiếu, chỉ mục véc-tơ, lấy mẫu và thống kê dòng, nén, tổ chức dữ liệu để giảm đọc ghi. Mỗi nhóm cần một phần kiến thức nền riêng.</aside>
+      <aside class="notes"><p>Khung đánh giá đã nêu các thuộc tính phải xét ở một lời giải: tính đúng, sai số và tài nguyên. Bài 02–15 chia thành năm nhóm; ý tưởng của phương pháp đại diện được nêu qua các bài toán đã gặp: gom theo khóa, tính điểm theo liên kết, chọn cặp cần đối chiếu, chỉ mục véc-tơ, lấy mẫu và thống kê dòng, nén, tổ chức dữ liệu để giảm đọc ghi. Chẳng hạn, tìm gần trùng cần giảm số cặp đối chiếu, nối bảng lớn cần giảm số khối đọc lại. Mỗi nhóm được nối với kiến thức nền, sản phẩm học tập và trách nhiệm khi dùng dữ liệu; yêu cầu báo cáo có giả thiết dẫn tới giới hạn của kết luận rút ra từ kết quả tính toán.</p></aside>
     </section>
-    <section data-slide-id="L01-D00">
-      <h2>Nội dung học phần và các nhóm thuật toán</h2>
-<p>Học phần xây dựng lời giải cho các bài toán đã gặp, từ kho phân tán đến truy vấn trên đĩa.</p><table class="trace"><thead><tr><th>Nội dung phần này</th><th>Kết quả cần nắm</th></tr></thead><tbody><tr><td>Năm nhóm bài 02–15</td><td>Mỗi nhóm giải quyết nhu cầu nào</td></tr><tr><td>Các phương pháp đại diện</td><td>Ý tưởng xử lý và đầu ra cần giữ</td></tr><tr><td>Các thuộc tính phải đánh giá</td><td>Tính đúng, sai số và tài nguyên</td></tr></tbody></table>
-      <aside class="notes">Khung đặc tả và đánh giá vừa xây giúp đọc chương trình theo bài toán. Chẳng hạn, tìm gần trùng cần giảm số cặp đối chiếu; nối bảng lớn cần giảm số khối đọc lại. Phần này định vị phương pháp sẽ học và giải thích ý tưởng, còn giả mã và chứng minh chi tiết thuộc từng bài. Nguồn: đề cương, bảng thứ tự đề xuất và chuẩn đầu ra.</aside>
-    </section>
-    <section data-slide-id="L01-D01">
+    <section id="L01-D01" data-slide-id="L01-D01" class="example-slide">
       <h2>Học phần và năng lực cần đạt</h2>
-<p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p><p>UET.DSE2053 · 3 tín chỉ · Học kỳ 1, 2026–2027</p><table class="trace"><thead><tr><th>Năng lực</th><th>Ví dụ với cặp tài liệu gần trùng</th></tr></thead><tbody><tr><td>Giải thích</td><td>Nêu ý nghĩa độ tương đồng Jaccard</td></tr><tr><td>Lựa chọn</td><td>So số cặp đối chiếu và nguy cơ bỏ sót</td></tr><tr><td>Thiết kế, triển khai</td><td>Trả đủ cặp đạt ngưỡng, kiểm trường hợp biên</td></tr><tr><td>Tự học, hợp tác, trách nhiệm</td><td>Ghi nguồn, giả thiết và hạn chế kết quả</td></tr></tbody></table>
-      <aside class="notes">Bốn dòng cụ thể hóa bốn chuẩn đầu ra học phần (CLO1–CLO4) bằng bài toán đã đặc tả. Viết được chương trình là một phần; lựa chọn thuật toán còn cần biết đầu ra có đúng và chi phí có phù hợp quy mô hay không. Nguồn: đề cương phần I–II. Các năng lực này được rèn trên năm nhóm bài.</aside>
+      <p>UET.DSE2053 · 3 tín chỉ · Học kỳ 1, 2026–2027</p>
+      <table class="ex-table"><thead><tr><th scope="col">Năng lực</th><th scope="col">Ví dụ với cặp tài liệu gần trùng</th></tr></thead><tbody>
+      <tr><td>Giải thích</td><td>nêu ý nghĩa độ tương đồng Jaccard</td></tr>
+      <tr><td>Lựa chọn</td><td>so số cặp đối chiếu và nguy cơ bỏ sót</td></tr>
+</tbody></table>
+      <aside class="notes"><p>Hai năng lực giải thích và lựa chọn ứng với CLO1–CLO2; thiết kế, triển khai và tự học, hợp tác, trách nhiệm (CLO3–CLO4) được cụ thể hóa ở hai trang sản phẩm phân tích và trách nhiệm dữ liệu cuối mạch. Viết được chương trình là một phần; lựa chọn thuật toán còn cần biết đầu ra có đúng và chi phí có phù hợp quy mô hay không. Các năng lực này được rèn trên năm nhóm bài. Năng lực gồm ba mặt: kiến thức nền cần ôn theo bài; kỹ năng đặc tả, chạy tay, lập luận, triển khai và đo; cách học gồm tự kiểm, ghi nguồn, hợp tác và báo cáo có căn cứ.</p><p>Nguồn: đề cương phần I–II.</p></aside>
     </section>
-    <section data-slide-id="L01-D02">
+    <section id="L01-D02" data-slide-id="L01-D02" class="example-slide">
       <h2>Năm nhóm bài của học phần</h2>
-<img class="figure map" src="img/lec-01/ban-do-hoc-phan.svg" role="img" alt="Bài 01 dẫn tới năm nhóm bài 02–04, 05–07, 08–09, 10–11 và 12–15."/>
-      <aside class="notes">Năm nhóm được học liền nhau: phân tán và xếp hạng; tương đồng; dòng dữ liệu; nén; lưu trữ và truy vấn. Đây là thứ tự học, không phải chuỗi tiên quyết mà nhóm sau cần toàn bộ nhóm trước. Bài 02 hỗ trợ tính phân tán; các nhánh dùng kiến thức nền riêng. Nguồn: source.md, thứ tự đề xuất. Nhóm đầu bắt đầu từ đếm từ trên kho phân tán.</aside>
+      <figure class="l01-figure l01-map"><img src="img/lec-01/ban-do-hoc-phan.svg" role="img" alt="Bài 01 dẫn tới năm nhóm bài 02–04, 05–07, 08–09, 10–11 và 12–15."/></figure>
+      <aside class="notes"><p>Năm nhóm được học liền nhau: phân tán và xếp hạng; tương đồng và tìm gần; dòng và cửa sổ; nén và khôi phục; lưu trữ và truy vấn. Đây là thứ tự học, không phải chuỗi tiên quyết mà nhóm sau cần toàn bộ nhóm trước. Bài 02 hỗ trợ tính phân tán; các nhánh dùng kiến thức nền riêng. Nhóm đầu bắt đầu từ đếm từ trên kho phân tán.</p><p>Nguồn: đề cương UET.DSE2053, thứ tự bài của học phần.</p></aside>
     </section>
-    <section data-slide-id="L01-D03">
+    <section id="L01-D03" data-slide-id="L01-D03" class="example-slide">
       <h2>MapReduce: gom kết quả theo khóa</h2>
-<p>Bài 02: đếm số lần xuất hiện của mỗi từ trong kho nằm trên nhiều máy.</p><img class="figure short" src="img/lec-01/danh-gia-truyen-mang.svg" role="img" alt="Hai máy đếm từ tại chỗ rồi gửi số đếm của cùng từ để gộp."/><p><strong>Khóa</strong> là từ cần đếm; các số đếm cùng khóa được gom để tạo kết quả toàn kho.</p><div class="check">Cần giữ đủ mỗi đóng góp, tránh đếm trùng khi chạy lại; phân tích lượng dữ liệu phải truyền.</div>
-      <aside class="notes">Map tạo cặp khóa–giá trị cho mỗi lần xuất hiện; hệ thống gom cùng khóa; Reduce kết hợp các giá trị. Trong bài đếm từ, có thể cộng cục bộ trước khi gửi để giảm dữ liệu trung gian. Hình thể hiện cách có bộ kết hợp, không phải mọi tác vụ MapReduce đều được cộng trước. MapReduce là mô hình xử lý; không tự biến lời giải thành xấp xỉ. Nguồn: MMDS2.2.4–2.2.6; Stanford01-intro39–43. Ngoài tổng hợp một lượt, đồ thị web còn cần cập nhật điểm nhiều vòng.</aside>
+      <p>Bài 02: đếm số lần xuất hiện của mỗi từ trong kho trên nhiều máy.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/danh-gia-truyen-mang.svg" role="img" alt="Hai máy đếm từ tại chỗ rồi gửi số đếm của cùng từ để gộp."/></figure>
+      <p><strong>Khóa</strong> là từ cần đếm; các số đếm cùng khóa được gom thành kết quả toàn kho.</p>
+      <p class="ex-takeaway">Phải giữ đủ mỗi đóng góp và tránh đếm trùng khi chạy lại.</p>
+      <aside class="notes"><p>Map tạo cặp khóa–giá trị cho mỗi lần xuất hiện; hệ thống gom cùng khóa; Reduce kết hợp các giá trị. Trong bài đếm từ, có thể cộng cục bộ trước khi gửi để giảm dữ liệu trung gian. Hình thể hiện cách có bộ kết hợp, không phải mọi tác vụ MapReduce đều được cộng trước. MapReduce là mô hình xử lý; không tự biến lời giải thành xấp xỉ. Bài 02 còn phân tích lượng dữ liệu phải truyền. Ngoài tổng hợp một lượt, đồ thị web còn cần cập nhật điểm nhiều vòng.</p><p>Nguồn: MMDS 2.2.4–2.2.6; Stanford CS246 01-intro, trang chiếu 39–43.</p></aside>
     </section>
-    <section data-slide-id="L01-D08">
+    <section id="L01-D08" data-slide-id="L01-D08" class="example-slide">
       <h2>PageRank: tính điểm theo liên kết</h2>
-<p>Bài 03–04: dùng đồ thị liên kết để tính điểm hỗ trợ xếp kết quả tìm kiếm.</p><img class="figure short" src="img/lec-01/ung-dung-xep-hang-web.svg" role="img" alt="Đồ thị y, a, m và quá trình đọc liên kết, cập nhật điểm, lặp lại."/><p>PageRank truyền một phần điểm theo liên kết và bổ sung điểm nền. <strong>Phân phối dịch chuyển</strong> quy định cách chia phần điểm nền cho các trang.</p><p>Theo chủ đề: ưu tiên trang mẫu về ô tô cho “Jaguar”. TrustRank: dùng các trang đã xác nhận tin cậy làm nguồn tín hiệu.</p>
-      <aside class="notes">Mỗi trang nhận điểm từ các trang trỏ tới nó. Phần dịch chuyển và cách xử lý trang không có liên kết ra quyết định mô hình; Bài03 phân tích hội tụ và tiêu chuẩn dừng. Bài04 thay phân phối dịch chuyển để ưu tiên chủ đề; TrustRank truyền tín hiệu từ tập tin cậy để hạn chế ảnh hưởng rác, không bảo đảm loại hết rác. HITS học ở Bài04 cho hai điểm: trang dẫn tới nhiều nguồn tốt và trang được nhiều trang dẫn tốt trỏ tới. Hình không gán điểm hay thứ hạng mới. Nguồn: MMDS5.1–5.5; ví dụ Jaguar5.3.1. Điểm xếp hạng chưa nhận ra bản sao; nhiệm vụ kế tiếp so nội dung.</aside>
+      <p>Bài 03–04: tính điểm từ đồ thị liên kết để hỗ trợ xếp kết quả tìm kiếm.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/ung-dung-xep-hang-web.svg" role="img" alt="Đồ thị y, a, m và quá trình đọc liên kết, cập nhật điểm, lặp lại."/></figure>
+      <p>PageRank truyền một phần điểm theo liên kết; phần còn lại phân theo bước nhảy ngẫu nhiên.</p>
+      <p>Bài 04: ưu tiên trang về ô tô cho “Jaguar”; TrustRank dùng trang đã xác nhận tin cậy.</p>
+      <aside class="notes"><p>Phân phối dịch chuyển quy định cách chia phần điểm của bước nhảy ngẫu nhiên cho các trang. Mỗi trang nhận điểm từ các trang trỏ tới nó. Phần dịch chuyển và cách xử lý trang không có liên kết ra quyết định mô hình; Bài 03 phân tích hội tụ và tiêu chuẩn dừng. Bài 04 thay phân phối dịch chuyển để ưu tiên chủ đề; TrustRank truyền tín hiệu từ tập tin cậy để hạn chế ảnh hưởng rác, không bảo đảm loại hết rác. HITS học ở Bài 04 cho hai điểm: trang dẫn tới nhiều nguồn tốt và trang được nhiều trang dẫn tốt trỏ tới. Hình không gán điểm hay thứ hạng mới. Điểm xếp hạng chưa nhận ra bản sao; nhiệm vụ kế tiếp so nội dung.</p><p>Nguồn: MMDS 5.1–5.5; ví dụ Jaguar 5.3.1.</p></aside>
     </section>
-    <section data-slide-id="L01-D04">
+    <section id="L01-D04" data-slide-id="L01-D04" class="example-slide">
       <h2>MinHash và LSH: chọn cặp cần đối chiếu</h2>
-<p>Bài 05–06: giảm số cặp tài liệu phải tính Jaccard trực tiếp.</p><img class="figure short" src="img/lec-01/chuong-trinh-cap-ung-vien.svg" role="img" alt="Tập đoạn ký tự tạo chữ ký MinHash; LSH chọn ứng viên; tính Jaccard để kiểm ngưỡng."/><div class="grid2"><div class="card"><h3>MinHash</h3><p>Chữ ký là dãy giá trị đại diện gọn cho tập đoạn ký tự.</p></div><div class="card"><h3>Băm nhạy cảm cục bộ (LSH)</h3><p>Dùng chữ ký để chọn những cặp có khả năng tương đồng cao.</p></div></div><p>Với cặp có Jaccard $3/8$, chỉ cặp được chọn mới được hậu kiểm.</p>
-      <aside class="notes">Với một hoán vị đều, MinHash giữ phần tử nhỏ nhất sau hoán vị; xác suất hai giá trị bằng nhau bằng Jaccard. Nhiều hoán vị tạo chữ ký. LSH ở Bài06 chia chữ ký thành dải, lấy cặp trùng trong ít nhất một dải làm ứng viên. Chữ ký không phải bản nén có thể khôi phục tài liệu. Hậu kiểm loại ứng viên sai nhưng không cứu cặp không được chọn. Nguồn: MMDS3.1–3.4, Ví dụ3.1; Stanford03-lsh14–18. Tìm gần cho một véc-tơ truy vấn lại cần cấu trúc truy cập riêng.</aside>
-    </section>
-    <section data-slide-id="L01-D09">
-      <h2>Chỉ mục cho truy vấn véc-tơ</h2>
-<p>Bài 07: tìm các đoạn tài liệu gần véc-tơ truy vấn mà không quét lại toàn kho.</p><img class="figure short" src="img/lec-01/chuong-trinh-vec-to.svg" role="img" alt="HNSW tìm qua các liên kết lân cận; PQ chia véc-tơ thành đoạn và lưu mã đại diện."/><p><strong>HNSW</strong>: đồ thị lân cận nhiều tầng, tìm từ tầng thưa xuống tầng chi tiết.</p><p><strong>Lượng tử hóa tích (PQ)</strong>: thay từng đoạn véc-tơ bằng mã của một tâm đại diện.</p><div class="check">Đo độ thu hồi, độ trễ, bộ nhớ và chi phí xây dựng; giảm bộ nhớ không đồng nghĩa giảm số ứng viên.</div>
-      <aside class="notes">HNSW dùng liên kết giữa véc-tơ để tìm đường tới vùng gần truy vấn. PQ giảm dung lượng mỗi véc-tơ và tính khoảng cách qua mã; PQ quét đầy đủ vẫn chấm điểm mọi mã. IVF-PQ, thuộc Bài07, còn phân vùng để chỉ tìm một số danh sách. Ví dụ độ thu hồi3/5 đã gặp cho thấy kết quả gần đúng cần chuẩn đúng để đối chiếu. Nguồn: Bài07; Princeton lớp8–9 và BIODS271L12. Các kho trên được lập chỉ mục; khi dữ liệu đến liên tục, cần cập nhật trạng thái gọn ngay lúc nhận.</aside>
-    </section>
-    <section data-slide-id="L01-D05">
-      <h2>Lấy mẫu và lọc trên dòng dữ liệu</h2>
-<p>Bài 08: giữ một phần lịch sử truy vấn hoặc lọc địa chỉ thư trước khi tra danh sách lớn.</p><img class="figure short" src="img/lec-01/chuong-trinh-mau-loc.svg" role="img" alt="Dòng truy vấn cập nhật mẫu; địa chỉ thư qua Bloom rồi xác minh khi có thể thuộc danh sách."/><div class="grid2"><div class="card"><h3>Lấy mẫu</h3><p>Giữ dữ liệu đại diện theo đơn vị đã chọn, chẳng hạn người dùng.</p></div><div class="card"><h3>Bộ lọc Bloom</h3><p>Trả “chắc chắn không có” hoặc “có thể có”; trường hợp sau cần xác minh.</p></div></div>
-      <aside class="notes">Lấy mẫu theo khóa giữ hoặc bỏ cùng người dùng; lấy mẫu hồ chứa duy trì mẫu đều theo vị trí bản ghi, là hai đơn vị khác nhau. Bloom chuẩn dùng mảng bit và băm: có thể báo có nhầm, không bỏ sót phần tử đã chèn khi không xóa bit và dùng cùng các hàm băm. Nhánh có thể có cần tra danh sách gốc. Nguồn: MMDS4.2–4.3 và Bài08. Khi cần một thống kê thay vì một mẫu hay phép kiểm thuộc, trạng thái phải thay đổi.</aside>
-    </section>
-    <section data-slide-id="L01-D10">
-      <h2>Cấu trúc gọn cho thống kê dòng</h2>
-<p>Bài 09: duy trì thông tin đủ trả lời truy vấn, không lưu toàn bộ lịch sử.</p><table class="trace"><thead><tr><th>Đại lượng cần tính</th><th>Phương pháp và ý tưởng</th></tr></thead><tbody><tr><td>Số người dùng khác nhau</td><td>Flajolet–Martin: theo dõi dấu hiệu từ giá trị băm của khóa</td></tr><tr><td>Số lần một khóa xuất hiện</td><td>Count-Min: dùng nhiều hàng bộ đếm chia sẻ qua băm</td></tr><tr><td>Số bit 1 trong cửa sổ gần đây</td><td>DGIM: gom bit 1 thành nhóm có kích thước và mốc thời gian</td></tr></tbody></table><p>Phạm vi toàn dòng và cửa sổ gần đây cần trạng thái khác nhau.</p><img class="figure short" src="img/lec-01/chuong-trinh-thong-ke.svg" role="img" alt="Bản ghi mới cập nhật trạng thái gọn; truy vấn đọc trạng thái để nhận ước lượng."/>
-      <aside class="notes">Flajolet–Martin ước lượng số khóa khác nhau; Count-Min ước lượng tần suất khóa bằng các bộ đếm chia sẻ; DGIM giữ nhóm bit 1 và bỏ nhóm hết cửa sổ. Mỗi vị trí bit mã hóa có hoặc không một sự kiện. Bài 09 phân tích sai số của từng cấu trúc; danh mục trong ghi chú còn giải thích AMS và suy giảm mũ. Nguồn: MMDS 4.4–4.7; UMass CS514, bài Count-Min. Trạng thái thống kê không khôi phục lịch sử; nén đặt yêu cầu khôi phục.</aside>
-    </section>
-    <section data-slide-id="L01-D06">
-      <h2>Nén theo ký hiệu, mẫu lặp và ảnh</h2>
-<p>Bài 10–11: giảm dung lượng lưu, với yêu cầu khôi phục đã xác định.</p><img class="figure short" src="img/lec-01/ung-dung-nen-van-ban.svg" role="img" alt="Chuỗi aabaacabcabcb phải khôi phục nguyên vẹn từ mã và thông tin giải mã."/><table class="trace"><thead><tr><th>Dữ liệu và phương pháp</th><th>Ý tưởng cần học</th></tr></thead><tbody><tr><td>Ký hiệu · Huffman, mã hóa số học</td><td>Dùng phân phối ký hiệu để tạo mã</td></tr><tr><td>Đoạn lặp · LZ77, LZ78, LZW</td><td>Thay đoạn đã biết bằng tham chiếu</td></tr><tr><td>Ảnh · JPEG có lượng tử hóa</td><td>Biến đổi và làm tròn các hệ số, cho phép mất chi tiết</td></tr></tbody></table>
-      <aside class="notes">Chuỗi đã dùng có ký hiệu và đoạn xuất hiện lặp lại. Huffman gán mã cho ký hiệu, mã hóa số học biểu diễn cả chuỗi bằng một khoảng; các họ LZ tham chiếu đoạn lặp hoặc mục từ điển. Hai phía phải thống nhất thông tin giải mã. JPEG được học dùng biến đổi cô-sin rời rạc và lượng tử hóa, tức làm tròn hệ số sang các mức đại diện. Nguồn: Nelson–Gailly Chương 3–5, 8–11; CMU nén. Lưu gọn vẫn cần cách tổ chức để truy vấn mà không quét mọi dữ liệu.</aside>
-    </section>
-    <section data-slide-id="L01-D07">
-      <h2>Tổ chức dữ liệu để giảm đọc ghi</h2>
-<p>Bài 12–15: xử lý tệp và truy vấn khi dữ liệu không vừa bộ nhớ.</p><table class="trace"><thead><tr><th>Bài toán đã gặp</th><th>Cách tổ chức sẽ học</th></tr></thead><tbody><tr><td>Sắp tệp theo khóa · Bài12</td><td>Sắp từng phần vừa bộ nhớ rồi trộn các dãy</td></tr><tr><td>Tra mã hoặc khoảng lương · Bài13</td><td>Cây B+ chia miền khóa; băm tra khóa bằng nhau</td></tr><tr><td>Tra từ khóa, vùng bản đồ · Bài14</td><td>Chỉ mục đảo lưu nơi từ xuất hiện; R-tree nhóm hộp bao</td></tr><tr><td>Ghép sinh viên với đăng ký · Bài15</td><td>Nối trộn theo thứ tự hoặc nối băm theo nhóm khóa</td></tr></tbody></table><div class="check">Chọn cách tổ chức theo loại truy vấn; tính số khối đọc/ghi, chi phí cập nhật và điều kiện trả đủ kết quả.</div>
-      <aside class="notes">Với hai bảng 100 và 400 khối, bộ nhớ 20 khối không chứa trọn dữ liệu. Sắp hoặc phân nhóm giúp tránh quét lại toàn bảng cho từng bản ghi. Nối băm vẫn phải kiểm khóa; lọc hộp bao vẫn phải kiểm hình thật. Bài 12–15 phân tích khi nào các cách tổ chức này giảm đọc ghi và giữ đủ kết quả. Nguồn: DSC Chương 14–15, 24, 31. Từng nhóm phương pháp dùng kiến thức nền khác nhau; phần tiếp theo xác định nội dung cần ôn và sản phẩm học tập.</aside>
-    </section>
-  </section>
-
-  <section>
-    <section id="mach-5" data-slide-id="L01-ET" class="strand-title">
-      <div class="strand-title-body">
-        <h2><span class="strand-number">5.</span>Chuẩn bị và cách học</h2>
-        <p class="strand-lead">Muốn học các nhóm thuật toán, phải biết phần kiến thức nền cần ôn và sản phẩm chứng tỏ đã hiểu.</p>
-        <p class="strand-keys">Kiến&nbsp;thức&nbsp;nền&nbsp;· Tập&nbsp;hợp&nbsp;và&nbsp;Jaccard&nbsp;· Sản&nbsp;phẩm&nbsp;phân&nbsp;tích&nbsp;· Báo&nbsp;cáo&nbsp;· Trách&nbsp;nhiệm&nbsp;dữ&nbsp;liệu</p>
+      <p>Bài 05: chữ ký MinHash; Bài 06: phân dải LSH để chọn cặp ứng viên.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-cap-ung-vien.svg" role="img" alt="Tập đoạn ký tự tạo chữ ký MinHash; LSH chọn ứng viên; tính Jaccard để kiểm ngưỡng."/></figure>
+      <div class="ex-grid2">
+        <div class="ex-card"><h3>MinHash</h3><p>Chữ ký là dãy giá trị đại diện gọn cho tập đoạn ký tự.</p></div>
+        <div class="ex-card"><h3>Băm nhạy cảm theo tính cục bộ (LSH)</h3><p>Chọn từ chữ ký các cặp có khả năng tương đồng cao.</p></div>
       </div>
-      <aside class="notes">Bản đồ năm nhóm đã nêu phương pháp sẽ học và nhu cầu mà mỗi phương pháp giải quyết. Mỗi nhóm được nối với kiến thức nền cần ôn; tập hợp và Jaccard được vận dụng lại trên ví dụ cặp gần trùng; sản phẩm khi phân tích thuật toán, cách báo cáo chất lượng và hiệu năng cùng trách nhiệm khi dùng dữ liệu hoàn tất việc chuẩn bị. Yêu cầu báo cáo có giả thiết dẫn tới giới hạn của kết luận rút ra từ kết quả tính toán.</aside>
+      <p class="ex-takeaway">Cặp có Jaccard $3/8$ chỉ được hậu kiểm khi là ứng viên.</p>
+      <aside class="notes"><p>Hai bài cùng nhằm giảm số cặp tài liệu phải tính Jaccard trực tiếp: Bài 05 thay tập đoạn ký tự bằng chữ ký ngắn, Bài 06 dùng chữ ký để chọn cặp ứng viên. Với một hoán vị đều, MinHash giữ phần tử nhỏ nhất sau hoán vị; xác suất hai giá trị bằng nhau bằng Jaccard. Nhiều hoán vị tạo chữ ký. LSH ở Bài 06 chia chữ ký thành dải, lấy cặp trùng trong ít nhất một dải làm ứng viên. Chữ ký không phải bản nén có thể khôi phục tài liệu. Hậu kiểm loại ứng viên sai nhưng không cứu cặp không được chọn. Tìm gần cho một véc-tơ truy vấn lại cần cấu trúc truy cập riêng.</p><p>Nguồn: MMDS 3.1–3.4, Ví dụ 3.1; Stanford CS246 03-lsh, trang chiếu 14–18.</p></aside>
     </section>
-    <section data-slide-id="L01-E00">
-      <h2>Kiến thức, kỹ năng và cách học</h2>
-<p>Mỗi nhóm thuật toán dùng một phần kiến thức nền và tạo ra những sản phẩm học tập cụ thể.</p><div class="grid3"><div class="card"><h3>Kiến thức</h3><p>Lập trình, cấu trúc dữ liệu và phần toán cần ôn theo bài.</p></div><div class="card"><h3>Kỹ năng</h3><p>Đặc tả, chạy tay, lập luận, triển khai và đo kết quả.</p></div><div class="card"><h3>Cách học</h3><p>Tự kiểm, ghi nguồn, hợp tác và báo cáo có căn cứ.</p></div></div>
-      <aside class="notes">Năm nhóm vừa giới thiệu dùng những công cụ khác nhau. Đồ thị giúp đọc bài xếp hạng, tập hợp giúp đặc tả gần trùng, cây và khối dữ liệu giúp phân tích chỉ mục. Việc chuẩn bị gồm nhận ra phần nền cần ôn và biết sản phẩm nào chứng tỏ đã hiểu. Nguồn: đề cương, chuẩn đầu ra CLO1–CLO4. Trước hết là nền chung và phần cần huy động theo từng nhóm.</aside>
+    <section id="L01-D09" data-slide-id="L01-D09" class="example-slide">
+      <h2>Chỉ mục cho truy vấn véc-tơ</h2>
+      <p>Bài 07: tìm đoạn tài liệu gần véc-tơ truy vấn mà không quét lại toàn kho.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-vec-to.svg" role="img" alt="HNSW tìm qua các liên kết lân cận; PQ chia véc-tơ thành đoạn và lưu mã đại diện."/></figure>
+      <p><strong>HNSW</strong> (đồ thị thế giới nhỏ phân tầng): tìm từ tầng thưa xuống tầng chi tiết.</p>
+      <p><strong>Lượng tử hóa tích (PQ):</strong> thay từng đoạn véc-tơ bằng mã của một tâm đại diện.</p>
+      <aside class="notes"><p>HNSW (hierarchical navigable small world) là đồ thị lân cận nhiều tầng. Phải đo độ thu hồi, độ trễ, bộ nhớ và chi phí xây dựng; giảm bộ nhớ không đồng nghĩa giảm số ứng viên. HNSW dùng liên kết giữa véc-tơ để tìm đường tới vùng gần truy vấn. PQ giảm dung lượng mỗi véc-tơ và tính khoảng cách qua mã; PQ quét đầy đủ vẫn chấm điểm mọi mã. IVF-PQ, thuộc Bài 07, còn phân vùng để chỉ tìm một số danh sách. Ví dụ độ thu hồi 3/5 đã gặp cho thấy kết quả gần đúng cần chuẩn đúng để đối chiếu. Các kho trên được lập chỉ mục; khi dữ liệu đến liên tục, cần cập nhật trạng thái gọn ngay lúc nhận.</p><p>Nguồn: Bài 07; Princeton lớp 8–9 và BIODS 271 L12.</p></aside>
     </section>
-    <section data-slide-id="L01-E01">
+    <section id="L01-D05" data-slide-id="L01-D05" class="example-slide">
+      <h2>Lấy mẫu và lọc trên dòng dữ liệu</h2>
+      <p>Bài 08: giữ một phần lịch sử truy vấn hoặc lọc địa chỉ thư trước khi tra danh sách lớn.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-mau-loc.svg" role="img" alt="Dòng truy vấn cập nhật mẫu; địa chỉ thư qua Bloom rồi xác minh khi có thể thuộc danh sách."/></figure>
+      <div class="ex-grid2">
+        <div class="ex-card"><h3>Lấy mẫu</h3><p>Giữ dữ liệu đại diện theo đơn vị đã chọn.</p></div>
+        <div class="ex-card"><h3>Bộ lọc Bloom</h3><p>Trả “chắc chắn không có” hoặc “có thể có”, cần xác minh.</p></div>
+      </div>
+      <aside class="notes"><p>Lấy mẫu theo khóa giữ hoặc bỏ cùng người dùng; lấy mẫu hồ chứa duy trì mẫu đều theo vị trí bản ghi, là hai đơn vị khác nhau. Bloom chuẩn dùng mảng bit và băm: có thể báo có nhầm, không bỏ sót phần tử đã chèn khi không xóa bit và dùng cùng các hàm băm. Nhánh có thể có cần tra danh sách gốc. Khi cần một thống kê thay vì một mẫu hay phép kiểm thuộc, trạng thái phải thay đổi.</p><p>Nguồn: MMDS 4.2–4.3 và Bài 08.</p></aside>
+    </section>
+    <section id="L01-D10" data-slide-id="L01-D10" class="example-slide">
+      <h2>Cấu trúc gọn cho thống kê dòng</h2>
+      <p>Bài 09: giữ trạng thái gọn đủ trả lời truy vấn, không lưu toàn bộ lịch sử.</p>
+      <table class="ex-table"><thead><tr><th scope="col">Đại lượng cần tính</th><th scope="col">Phương pháp và ý tưởng</th></tr></thead><tbody>
+      <tr><td>Số người dùng khác nhau</td><td>Flajolet–Martin: dấu hiệu từ giá trị băm</td></tr>
+      <tr><td>Số lần một khóa xuất hiện</td><td>Count-Min: nhiều hàng bộ đếm chia sẻ</td></tr>
+      <tr><td>Số bit 1 trong cửa sổ</td><td>DGIM: nhóm bit 1 có mốc thời gian</td></tr></tbody></table>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-thong-ke.svg" role="img" alt="Bản ghi mới cập nhật trạng thái gọn; truy vấn đọc trạng thái để nhận ước lượng."/></figure>
+      <aside class="notes"><p>Phạm vi toàn dòng và cửa sổ gần đây cần trạng thái khác nhau. Flajolet–Martin ước lượng số khóa khác nhau; Count-Min ước lượng tần suất khóa bằng các bộ đếm chia sẻ; DGIM giữ nhóm bit 1 và bỏ nhóm hết cửa sổ. Mỗi vị trí bit mã hóa có hoặc không một sự kiện. Bài 09 phân tích sai số của từng cấu trúc; danh mục trong ghi chú còn giải thích AMS và suy giảm mũ. Trạng thái thống kê không khôi phục lịch sử; nén đặt yêu cầu khôi phục.</p><p>Nguồn: MMDS 4.4–4.7; UMass CS514, bài Count-Min.</p></aside>
+    </section>
+    <section id="L01-D06" data-slide-id="L01-D06" class="example-slide">
+      <h2>Nén theo ký hiệu, mẫu lặp và ảnh</h2>
+      <p>Bài 10–11: giảm dung lượng lưu, với yêu cầu khôi phục đã xác định.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/ung-dung-nen-van-ban.svg" role="img" alt="Chuỗi aabaacabcabcb phải khôi phục nguyên vẹn từ mã và thông tin giải mã."/></figure>
+      <table class="ex-table"><thead><tr><th scope="col">Dữ liệu và phương pháp</th><th scope="col">Ý tưởng cần học</th></tr></thead><tbody>
+      <tr><td>Ký hiệu · Huffman, mã hóa số học</td><td>dùng phân phối ký hiệu để tạo mã</td></tr>
+      <tr><td>Đoạn lặp · LZ77, LZ78, LZW</td><td>thay đoạn đã biết bằng tham chiếu</td></tr>
+      <tr><td>Ảnh · JPEG có lượng tử hóa</td><td>biến đổi, làm tròn hệ số, mất chi tiết</td></tr></tbody></table>
+      <aside class="notes"><p>Chuỗi đã dùng có ký hiệu và đoạn xuất hiện lặp lại. Huffman gán mã cho ký hiệu, mã hóa số học biểu diễn cả chuỗi bằng một khoảng; các họ LZ tham chiếu đoạn lặp hoặc mục từ điển. Hai phía phải thống nhất thông tin giải mã. JPEG được học dùng biến đổi cô-sin rời rạc và lượng tử hóa, tức làm tròn hệ số sang các mức đại diện. Lưu gọn vẫn cần cách tổ chức để truy vấn mà không quét mọi dữ liệu.</p><p>Nguồn: Nelson–Gailly Chương 3–5, 8–11; CMU nén.</p></aside>
+    </section>
+    <section id="L01-D07" data-slide-id="L01-D07" class="example-slide">
+      <h2>Tổ chức dữ liệu để giảm đọc ghi</h2>
+      <p>Bài 12–15: xử lý tệp và truy vấn khi dữ liệu không vừa bộ nhớ.</p>
+      <table class="ex-table"><thead><tr><th scope="col">Bài toán đã gặp</th><th scope="col">Cách tổ chức sẽ học</th></tr></thead><tbody>
+      <tr><td>Sắp tệp theo khóa · Bài 12</td><td>sắp từng phần rồi trộn các dãy</td></tr>
+      <tr><td>Tra mã, khoảng lương · Bài 13</td><td>cây B+ theo miền khóa; băm cho khóa bằng</td></tr>
+      <tr><td>Từ khóa, vùng bản đồ · Bài 14</td><td>chỉ mục đảo; R-tree nhóm hộp bao</td></tr>
+      <tr><td>Sinh viên và đăng ký · Bài 15</td><td>nối trộn theo thứ tự; nối băm theo khóa</td></tr></tbody></table>
+      <aside class="notes"><p>Với hai bảng 100 và 400 khối, bộ nhớ 20 khối không chứa trọn dữ liệu. Sắp hoặc phân nhóm giúp tránh quét lại toàn bảng cho từng bản ghi. Nối băm vẫn phải kiểm khóa; lọc hộp bao vẫn phải kiểm hình thật. Bài 12–15 phân tích khi nào các cách tổ chức này giảm đọc ghi và giữ đủ kết quả. Từng nhóm phương pháp dùng kiến thức nền khác nhau; nội dung cần ôn và sản phẩm học tập được nêu cho từng nhóm. Cách tổ chức được chọn theo loại truy vấn, kèm số khối đọc ghi, chi phí cập nhật và điều kiện trả đủ kết quả.</p><p>Nguồn: DSC Chương 14–15, 24, 31.</p></aside>
+    </section>
+    <section id="L01-E01" data-slide-id="L01-E01" class="example-slide">
       <h2>Kiến thức nền dùng ở từng nhóm bài</h2>
-<p>Tiên quyết chính thức: UET.CS1058 · Cấu trúc dữ liệu và giải thuật.</p><table class="trace"><thead><tr><th>Nhóm bài</th><th>Kiến thức được dùng vào việc gì</th></tr></thead><tbody><tr><td>Phân tán và xếp hạng</td><td>Khóa–giá trị để gom; đồ thị, ma trận để truyền điểm</td></tr><tr><td>Tương đồng và tìm gần</td><td>Tập hợp để tính Jaccard; véc-tơ, khoảng cách để tìm gần</td></tr><tr><td>Dòng dữ liệu</td><td>Xác suất để lấy mẫu; kỳ vọng để phân tích ước lượng</td></tr><tr><td>Nén</td><td>Cây và phân phối ký hiệu để tạo mã; chuỗi để tìm đoạn lặp</td></tr><tr><td>Lưu trữ và truy vấn</td><td>Cây, băm và khối dữ liệu để tổ chức truy cập</td></tr></tbody></table><p>Nền chung: viết chương trình, đọc giả mã và phân tích độ phức tạp. Không yêu cầu biết sẵn các thuật toán của học phần.</p>
-      <aside class="notes">Tiên quyết chính thức là cấu trúc dữ liệu và giải thuật. Xác suất cơ bản, toán rời rạc, đại số tuyến tính và cơ sở dữ liệu được ôn theo nơi sử dụng. Ví dụ, muốn hiểu điểm truyền qua liên kết phải đọc được đồ thị có hướng và phép nhân ma trận–véc-tơ. Những yêu cầu này không đồng nghĩa phải biết trước PageRank hay HNSW. Nguồn: đề cương và bảng tiên quyết bài 02–15. Tập hợp đã đủ để giải thích điều kiện chọn cặp gần trùng.</aside>
+      <table class="ex-table"><thead><tr><th scope="col">Nhóm bài</th><th scope="col">Kiến thức được dùng vào việc gì</th></tr></thead><tbody>
+      <tr><td>Phân tán và xếp hạng</td><td>khóa–giá trị để gom; đồ thị, ma trận để truyền điểm</td></tr>
+      <tr><td>Tương đồng và tìm gần</td><td>tập hợp cho Jaccard; véc-tơ, khoảng cách</td></tr>
+      <tr><td>Dòng và cửa sổ</td><td>xác suất, kỳ vọng cho mẫu và ước lượng</td></tr>
+      <tr><td>Nén và khôi phục</td><td>cây, phân phối ký hiệu; chuỗi cho đoạn lặp</td></tr>
+      <tr><td>Lưu trữ và truy vấn</td><td>cây, băm và khối dữ liệu để tổ chức truy cập</td></tr></tbody></table>
+      <aside class="notes"><p>Nền chung là viết chương trình, đọc giả mã và phân tích độ phức tạp; không yêu cầu biết sẵn các thuật toán của học phần. Tiên quyết chính thức là cấu trúc dữ liệu và giải thuật. Xác suất cơ bản, toán rời rạc, đại số tuyến tính và cơ sở dữ liệu được ôn theo nơi sử dụng. Ví dụ, muốn hiểu điểm truyền qua liên kết phải đọc được đồ thị có hướng và phép nhân ma trận–véc-tơ. Những yêu cầu này không đồng nghĩa phải biết trước PageRank hay HNSW. Tập hợp đã đủ để giải thích điều kiện chọn cặp gần trùng.</p><p>Nguồn: đề cương và bảng tiên quyết bài 02–15.</p></aside>
     </section>
-    <section data-slide-id="L01-E05">
-      <h2>Tập hợp, Jaccard và điều kiện chọn</h2>
-<p>Ví dụ hai tập đoạn ký tự đã xét: phần giao là nội dung chung; phần hợp là toàn bộ đoạn xuất hiện ở ít nhất một tài liệu.</p><img class="figure short" src="img/lec-01/danh-gia-jaccard.svg" role="img" alt="Hai tập đoạn ký tự có ba phần tử chung và tám phần tử trong hợp."/><div class="formula">$J(S,T)=\frac{|S\cap T|}{|S\cup T|}=\frac38;\qquad \text{chọn cặp khi }J(S,T)\ge\tau.$</div><div class="check"><strong>Câu hỏi:</strong> Với cặp này, điều kiện nào của $\tau$ khiến thuật toán đưa cặp vào kết quả?</div>
-      <aside class="notes">Giao đếm phần tử xuất hiện trong cả hai tập, hợp chỉ đếm mỗi phần tử một lần. Vì các tập không rỗng, mẫu số dương. Cặp được chọn khi 3/8 ≥ τ, tương đương τ ≤ 3/8. Đây là ví dụ Jaccard trong MMDS Ví dụ 3.1, không phải bộ dữ kiện độ thu hồi 3/5. Nếu chưa giải thích được phép đếm giao–hợp, cần ôn tập hợp trước khi đọc MinHash. Từ một phép tính đúng, việc học thuật toán còn phải tạo ra đặc tả và lập luận cho mọi đầu vào.</aside>
-    </section>
-    <section data-slide-id="L01-E02">
+    <section id="L01-E02" data-slide-id="L01-E02" class="example-slide">
       <h2>Sản phẩm khi phân tích thuật toán</h2>
-<p>Với bài toán cặp gần trùng, mỗi kỹ năng có một kết quả kiểm tra được.</p><table class="trace"><thead><tr><th>Kỹ năng</th><th>Sản phẩm trên ví dụ đã học</th></tr></thead><tbody><tr><td>Đặc tả</td><td>Tập kết quả gồm đúng, đủ các cặp đạt ngưỡng</td></tr><tr><td>Chạy tay</td><td>Hai tài liệu S,T: xét cặp (1,2), kiểm ngưỡng, cập nhật R</td></tr><tr><td>Lập luận và phân tích</td><td>Bất biến trên các cặp đã xét; số cặp nhân chi phí một cặp</td></tr><tr><td>Triển khai và kiểm thử</td><td>Mã nguồn, trường hợp ít hơn hai tài liệu, ngưỡng biên</td></tr></tbody></table><img class="figure short" src="img/lec-01/hoc-tap-san-pham.svg" role="img" alt="Đặc tả cặp gần trùng dẫn tới vết chạy và lập luận, rồi kiểm mã và chi phí."/>
-      <aside class="notes">Với N=2 và C₁=S,C₂=T, chỉ xét (1,2) một lần; đưa vào R khi J≥τ. Cặp có J=τ vẫn được chọn và cần có trong ca kiểm thử. Vết chạy minh họa một đầu vào, còn chứng minh phải giải thích đúng và đủ cho mọi đầu vào hợp lệ. Bất biến của thuật toán xét mọi cặp đã được lập ở phần phân tích. Mã Python hoặc C++ và kiểm thử hỗ trợ tìm lỗi, không thay thế chứng minh. Nguồn: CLO1–CLO3; MMDS 3.1–3.4 và thuật toán đã phân tích. Sau khi có chương trình, báo cáo phải mô tả điều kiện đo.</aside>
+      <p>Với bài toán cặp gần trùng, mỗi kỹ năng có một sản phẩm kiểm tra được.</p>
+      <table class="ex-table"><thead><tr><th scope="col">Kỹ năng</th><th scope="col">Sản phẩm trên ví dụ đã học</th></tr></thead><tbody>
+      <tr><td>Đặc tả</td><td>tập kết quả gồm đúng, đủ các cặp đạt ngưỡng</td></tr>
+      <tr><td>Chạy tay</td><td>hai tài liệu $S,T$: xét cặp $(1,2)$, kiểm ngưỡng</td></tr>
+      <tr><td>Lập luận, phân tích</td><td>bất biến trên cặp đã xét; số cặp nhân chi phí một cặp</td></tr>
+      <tr><td>Triển khai, kiểm thử</td><td>mã nguồn; ca ít hơn hai tài liệu, ngưỡng biên</td></tr></tbody></table>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/hoc-tap-san-pham.svg" role="img" alt="Đặc tả cặp gần trùng dẫn tới vết chạy và lập luận, rồi kiểm mã và chi phí."/></figure>
+      <aside class="notes"><p>Với N=2 và C₁=S,C₂=T, chỉ xét (1,2) một lần; đưa vào R khi J≥τ. Cặp có J=τ vẫn được chọn và cần có trong ca kiểm thử. Vết chạy minh họa một đầu vào, còn chứng minh phải giải thích đúng và đủ cho mọi đầu vào hợp lệ. Bất biến của thuật toán xét mọi cặp đã được lập ở phần phân tích. Mã Python hoặc C++ và kiểm thử hỗ trợ tìm lỗi, không thay thế chứng minh. Sau khi có chương trình, báo cáo phải mô tả điều kiện đo.</p><p>Nguồn: CLO1–CLO3; MMDS 3.1–3.4 và thuật toán đã phân tích.</p></aside>
     </section>
-    <section data-slide-id="L01-E06">
+    <section id="L01-E06" data-slide-id="L01-E06" class="example-slide">
       <h2>Báo cáo chất lượng và hiệu năng</h2>
-<p>Ví dụ truy vấn véc-tơ: chuẩn đúng có 5 hàng xóm; kết quả giữ được 3 trong số đó.</p><img class="figure short" src="img/lec-01/danh-gia-do-thu-hoi.svg" role="img" alt="Chuẩn đúng a,b,c,d,e và kết quả c,d,e,f,g có ba phần tử chung."/><p>Độ thu hồi tại 5 là $3/5$. Muốn so hiệu năng, còn cần độ trễ và bộ nhớ đo trong cùng điều kiện.</p><div class="check">Báo cáo kèm tập dữ liệu, tập truy vấn, tham số, thiết bị và cách đo. Không kết luận “nhanh hơn” khi chất lượng đầu ra khác mà chưa nêu yêu cầu.</div>
-      <aside class="notes">Độ thu hồi lấy số hàng xóm thật được trả lại chia cho số hàng xóm trong chuẩn đúng, ở đây là 3/5. Ví dụ này khác hai tập đoạn ký tự dùng tính Jaccard. Con số3/5 chỉ mô tả chất lượng truy vấn đang xét, không phải kết quả đo một hệ thống thực. Khi làm thử nghiệm phải dùng cùng chuẩn đúng, dữ liệu và điều kiện; thời gian một lần chạy không chứng minh độ phức tạp tiệm cận. Nguồn: Bài 07 và CLO3. Báo cáo còn cần ghi nguồn, phần đóng góp và giới hạn suy luận.</aside>
+      <p><strong>Nhắc lại:</strong> truy vấn véc-tơ có recall@5 $=3/5$ (5 hàng xóm thật, giữ được 3).</p>
+      <p>So hiệu năng còn cần độ trễ và bộ nhớ đo cùng điều kiện.</p>
+      <p class="ex-takeaway">Báo cáo kèm dữ liệu, tập truy vấn, tham số, thiết bị và cách đo.</p>
+      <aside class="notes"><p>Không kết luận “nhanh hơn” khi chất lượng đầu ra khác mà chưa nêu yêu cầu. Độ thu hồi lấy số hàng xóm thật được trả lại chia cho số hàng xóm trong chuẩn đúng, ở đây là 3/5. Ví dụ này khác hai tập đoạn ký tự dùng tính Jaccard. Con số 3/5 chỉ mô tả chất lượng truy vấn đang xét, không phải kết quả đo một hệ thống thực. Khi làm thử nghiệm phải dùng cùng chuẩn đúng, dữ liệu và điều kiện; thời gian một lần chạy không chứng minh độ phức tạp tiệm cận. Báo cáo còn cần ghi nguồn, phần đóng góp và giới hạn suy luận.</p><p>Nguồn: Bài 07 và CLO3.</p></aside>
     </section>
-    <section data-slide-id="L01-E03">
+    <section id="L01-E03" data-slide-id="L01-E03" class="example-slide">
       <h2>Tự học, hợp tác và trách nhiệm dữ liệu</h2>
-<table class="trace"><thead><tr><th>Cách làm</th><th>Biểu hiện cụ thể trong học phần</th></tr></thead><tbody><tr><td>Tự học và phản biện</td><td>Ghi bước chưa hiểu: lý do hậu kiểm không cứu cặp bị bỏ sót</td></tr><tr><td>Hợp tác có ghi nhận</td><td>Ghi nguồn thuật toán, dữ liệu và phần đóng góp của từng người</td></tr><tr><td>Báo cáo trung thực</td><td>Giữ cả trường hợp bỏ sót; nêu giả thiết và hạn chế của phép đo</td></tr><tr><td>Sử dụng dữ liệu có trách nhiệm</td><td>Chỉ chia sẻ dữ liệu được phép dùng; không suy ý định từ mẫu trùng</td></tr></tbody></table><p>Jaccard đo độ tương đồng theo biểu diễn đã chọn. Một cặp đạt ngưỡng chưa đủ căn cứ kết luận có hành vi sao chép.</p>
-      <aside class="notes">Tự học có thể bắt đầu từ một phản ví dụ nhỏ: cặp đạt ngưỡng nhưng bộ lọc không chọn thì bước sau không nhìn thấy nó. Khi hợp tác, việc ghi nguồn và đóng góp giúp phân biệt kiến thức tham khảo với kết quả nhóm tự thực hiện. Báo cáo cả thất bại và giới hạn giúp người khác kiểm tra lại. Nguồn: CLO4; MMDS 1.2 và 3.4. Mẫu trùng còn có thể phát sinh ngẫu nhiên khi xét rất nhiều khả năng; phần tiếp theo dùng hồ sơ lưu trú để tính quy mô hiện tượng ấy.</aside>
+      <table class="ex-table"><thead><tr><th scope="col">Cách làm</th><th scope="col">Biểu hiện cụ thể trong học phần</th></tr></thead><tbody>
+      <tr><td>Tự học và phản biện</td><td>ghi bước chưa hiểu; thử phản ví dụ nhỏ</td></tr>
+      <tr><td>Hợp tác có ghi nhận</td><td>ghi nguồn và phần đóng góp</td></tr>
+      <tr><td>Báo cáo trung thực</td><td>giữ trường hợp bỏ sót; nêu giả thiết</td></tr>
+      <tr><td>Dùng dữ liệu có trách nhiệm</td><td>dữ liệu được phép; không suy ý định từ mẫu trùng</td></tr></tbody></table>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> Jaccard đạt ngưỡng chưa đủ căn cứ kết luận có hành vi sao chép.</p>
+      <aside class="notes"><p>Jaccard đo độ tương đồng theo biểu diễn đã chọn. Tự học có thể bắt đầu từ một phản ví dụ nhỏ: cặp đạt ngưỡng nhưng bộ lọc không chọn thì bước sau không nhìn thấy nó. Khi hợp tác, việc ghi nguồn và đóng góp giúp phân biệt kiến thức tham khảo với kết quả nhóm tự thực hiện. Báo cáo cả thất bại và giới hạn giúp người khác kiểm tra lại. Mẫu trùng còn có thể phát sinh ngẫu nhiên khi xét rất nhiều khả năng; hồ sơ lưu trú cho phép tính quy mô hiện tượng ấy.</p><p>Nguồn: CLO4; MMDS 1.2 và 3.4.</p></aside>
+    </section>
+    <section id="L01-D11" data-slide-id="L01-D11" class="example-slide">
+      <h2>Câu hỏi về nhóm bài và kiến thức nền</h2>
+      <p><strong>Câu hỏi:</strong></p>
+      <ol>
+        <li>Ghép mỗi giới hạn với nhóm bài: $499\,999\,500\,000$ cặp; bảng 400 khối với bộ nhớ 20 khối; bản ghi đến liên tục.</li>
+        <li>Nêu một phần kiến thức nền cần ôn cho mỗi nhóm đã ghép.</li>
+      </ol>
+      <aside class="notes"><p>Lời giải. Câu 1: số cặp bậc hai ứng với nhóm tương đồng và tìm gần (Bài 05–06: chữ ký MinHash, phân dải LSH); bảng vượt bộ nhớ ứng với nhóm lưu trữ và truy vấn (Bài 12–15, chẳng hạn nối bảng ở Bài 15); bản ghi đến liên tục ứng với nhóm dòng và cửa sổ (Bài 08–09). Câu 2: tập hợp và Jaccard cho nhóm tương đồng và tìm gần; cây, băm và khối dữ liệu cho nhóm lưu trữ; xác suất và kỳ vọng cho nhóm dòng và cửa sổ. Các ghép này lấy từ bản đồ năm nhóm và bảng kiến thức nền.</p><p>Nguồn: đề cương UET.DSE2053 và thứ tự bài của học phần; MMDS Chương 3–4.</p></aside>
     </section>
   </section>
 
-  <section>
-    <section id="mach-6" data-slide-id="L01-FT" class="strand-title">
+  <section aria-label="Mẫu trùng ngẫu nhiên và suy luận">
+    <section id="mach-5" data-slide-id="L01-FT" class="strand-title">
       <div class="strand-title-body">
-        <h2><span class="strand-number">6.</span>Mẫu trùng ngẫu nhiên và suy luận</h2>
+        <h2><span class="strand-number">5.</span>Mẫu trùng ngẫu nhiên và suy luận</h2>
         <p class="strand-lead">Muốn dùng mẫu trùng tìm được làm căn cứ, phải ước lượng số trùng ngẫu nhiên theo mô hình nền.</p>
         <p class="strand-keys">Hồ&nbsp;sơ&nbsp;lưu&nbsp;trú&nbsp;· Mô&nbsp;hình&nbsp;độc&nbsp;lập&nbsp;· Đơn&nbsp;vị&nbsp;đếm&nbsp;· Kỳ&nbsp;vọng&nbsp;· Giới&nbsp;hạn&nbsp;kết&nbsp;luận</p>
       </div>
-      <aside class="notes">Trách nhiệm dữ liệu đòi hỏi nêu giả thiết khi diễn giải kết quả. Bài toán hồ sơ lưu trú của MMDS mục 1.2 được dùng để dựng mô hình lưu trú độc lập, tính xác suất trùng một ngày và hai ngày, chọn đơn vị đếm, tính kỳ vọng số biến cố trùng, rồi phân biệt mẫu tìm được với căn cứ về hoạt động phối hợp. Các tham số $P,T,H,q$ và cách đếm được dùng lại trong bài tập; việc chuẩn bị cho MapReduce của Bài 02 nối sang bài sau.</aside>
+      <aside class="notes"><p>Trách nhiệm dữ liệu đòi hỏi nêu giả thiết khi diễn giải kết quả. Mẫu trùng trong hồ sơ có thể xuất hiện ngẫu nhiên: số khả năng được xét lớn làm trùng ngẫu nhiên nhiều dù mỗi khả năng rất hiếm. Bài toán hồ sơ lưu trú của MMDS §1.2 được dùng để dựng mô hình lưu trú độc lập, tính xác suất trùng một ngày và hai ngày, chọn đơn vị đếm, tính kỳ vọng số biến cố trùng, rồi phân biệt mẫu tìm được với căn cứ về hoạt động phối hợp. Kỳ vọng nền và giới hạn kết luận được đặt cạnh các kết quả khác ở phần tổng kết; tham số $P,T,H,q$ dùng lại trong bài tập.</p></aside>
     </section>
-    <section data-slide-id="L01-F00">
-      <h2>Mô hình ngẫu nhiên và giới hạn suy luận</h2>
-<p>Mẫu trùng trong hồ sơ có thể xuất hiện ngẫu nhiên. Cần ước lượng số trùng theo mô hình nền trước khi dùng kết quả tìm kiếm để suy luận.</p><div class="grid3"><div class="card"><h3>Bài toán và mô hình</h3><p>Tìm mẫu trùng trong hồ sơ lưu trú; giả sử mọi người chọn độc lập.</p></div><div class="card"><h3>Xác suất và kỳ vọng</h3><p>Tính xác suất một mẫu, rồi số trùng trung bình trên mọi phép so sánh.</p></div><div class="card"><h3>Giới hạn kết luận</h3><p>Phân biệt mẫu tìm được với căn cứ về hoạt động phối hợp.</p></div></div>
-      <aside class="notes">Trách nhiệm báo cáo vừa nêu còn nằm ở cách diễn giải kết quả. MMDS dùng hồ sơ lưu trú để chỉ ra rằng số khả năng được xét có thể làm trùng ngẫu nhiên xuất hiện nhiều, dù mỗi khả năng rất hiếm. Phần này thiết lập bài toán, mô hình nền và phép đếm trước khi kết luận. Nguồn: MMDS 1.2.1–1.2.3, tr. 6–7.</aside>
-    </section>
-    <section data-slide-id="L01-F01">
+    <section id="L01-F01" data-slide-id="L01-F01" class="example-slide">
       <h2>Tìm mẫu trùng trong hồ sơ lưu trú</h2>
-<p>MMDS xét việc tìm dấu hiệu hoạt động phối hợp từ các hồ sơ lưu trú.</p><div class="grid2"><div class="card"><h3>Đầu vào</h3><p>Các bản ghi người, ngày và khách sạn.</p></div><div class="card"><h3>Mẫu cần tìm</h3><p>Hai người cùng khách sạn trong hai ngày khác nhau.</p></div></div><img class="figure short" src="img/lec-01/suy-luan-mau-luu-tru.svg" role="img" alt="Cùng cặp người u,v trùng khách sạn trong ngày s và trong ngày t; khách sạn có thể khác giữa hai ngày."/><div class="check">Khó khăn: nhiều phép thử có thể tạo nhiều trùng ngẫu nhiên.</div>
-      <aside class="notes">Đầu ra của bước tìm kiếm là các mẫu thỏa điều kiện lưu trú, không phải kết luận về danh tính hay ý định. Hai người phải trùng khách sạn trong từng ngày được chọn; hai ngày có thể ở hai khách sạn khác nhau. Hình dùng u,v,s,t làm ký hiệu cho một phép thử bất kỳ, không tạo dữ liệu quan sát mới. Nguồn: MMDS 1.2.3, tr. 7. Muốn ước lượng mức trùng ngẫu nhiên, cần giả thiết rõ cách phát sinh hồ sơ.</aside>
+      <p><strong>Nhu cầu:</strong> tìm dấu hiệu hoạt động phối hợp từ hồ sơ lưu trú.</p>
+      <p><strong>Đầu vào:</strong> các bản ghi người, ngày, khách sạn.</p>
+      <p>Mẫu cần tìm là hai người cùng khách sạn trong hai ngày khác nhau.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/suy-luan-mau-luu-tru.svg" role="img" alt="Cùng cặp người u,v trùng khách sạn trong ngày s và trong ngày t; khách sạn có thể khác giữa hai ngày."/></figure>
+      <p class="ex-takeaway">Nhiều phép thử có thể tạo nhiều trùng ngẫu nhiên.</p>
+      <aside class="notes"><p>Đầu ra của bước tìm kiếm là các mẫu thỏa điều kiện lưu trú, không phải kết luận về danh tính hay ý định. Hai người phải trùng khách sạn trong từng ngày được chọn; hai ngày có thể ở hai khách sạn khác nhau. Hình dùng u,v,s,t làm ký hiệu cho một phép thử bất kỳ, không tạo dữ liệu quan sát mới. Muốn ước lượng mức trùng ngẫu nhiên, cần giả thiết rõ cách phát sinh hồ sơ.</p><p>Nguồn: MMDS 1.2.3, tr. 7.</p></aside>
     </section>
-    <section data-slide-id="L01-F02">
+    <section id="L01-F02" data-slide-id="L01-F02" class="example-slide">
       <h2>Mô hình lưu trú không phối hợp</h2>
-<table class="trace"><thead><tr><th>Ký hiệu</th><th>Giá trị và ý nghĩa</th></tr></thead><tbody><tr><td>$P$</td><td>$10^9$ người</td></tr><tr><td>$T$</td><td>$1000$ ngày quan sát</td></tr><tr><td>$H$</td><td>$10^5$ khách sạn</td></tr><tr><td>$q$</td><td>$0{,}01$: xác suất một người lưu trú trong một ngày</td></tr></tbody></table><p>Nếu lưu trú, mỗi người chọn đều một trong $H$ khách sạn.</p><div class="check">Các lựa chọn độc lập giữa mọi người và mọi ngày. Đây là giả thiết của mô hình nền, không phải kết quả kiểm chứng từ hồ sơ thực.</div>
-      <aside class="notes">Mô hình nền mô tả dữ liệu khi không có phối hợp: mỗi người quyết định đi hay không, rồi chọn khách sạn nếu đi. Chọn đều nghĩa mỗi khách sạn có xác suất 1/H khi đã đi. Độc lập nghĩa lựa chọn của một người/ngày không làm đổi phân phối lựa chọn người/ngày khác. Nguồn dùng100 chỗ mỗi khách sạn để ấn định quy mô H, không áp thêm ràng buộc sức chứa làm mất độc lập. Nguồn: MMDS 1.2.3, tr. 7. Từ các giả thiết này có thể tính xác suất trùng một ngày.</aside>
+      <table class="ex-table"><thead><tr><th scope="col">Ký hiệu</th><th scope="col">Giá trị và ý nghĩa</th></tr></thead><tbody><tr><td>$P$</td><td>$10^9$ người</td></tr><tr><td>$T$</td><td>$1000$ ngày quan sát</td></tr><tr><td>$H$</td><td>$10^5$ khách sạn</td></tr><tr><td>$q$</td><td>$0{,}01$: xác suất một người lưu trú trong một ngày</td></tr></tbody></table>
+      <p><strong>Giả thiết:</strong> khi lưu trú, mỗi người chọn đều một trong $H$ khách sạn; độc lập giữa người và ngày.</p>
+      <aside class="notes"><p>Mô hình nền mô tả dữ liệu khi không có phối hợp: mỗi người quyết định đi hay không, rồi chọn khách sạn nếu đi. Chọn đều nghĩa mỗi khách sạn có xác suất 1/H khi đã đi. Độc lập nghĩa lựa chọn của một người/ngày không làm đổi phân phối lựa chọn người/ngày khác. Từ các giả thiết này có thể tính xác suất trùng một ngày. Đây là giả thiết của mô hình nền, không phải kết quả kiểm chứng từ hồ sơ thực.</p><p>MMDS dùng 100 chỗ mỗi khách sạn để ấn định $H$; mô hình không thêm ràng buộc sức chứa.</p><p>Nguồn: MMDS 1.2.3, tr. 7.</p></aside>
     </section>
-    <section data-slide-id="L01-F05">
+    <section id="L01-F05" data-slide-id="L01-F05" class="example-slide">
       <h2>Xác suất trùng một ngày và hai ngày</h2>
-<div class="grid2"><div class="card"><h3>Hai người đều lưu trú</h3><p>Độc lập giữa hai người cho xác suất $q^2=(0{,}01)^2=10^{-4}$.</p></div><div class="card"><h3>Cùng khách sạn khi đã đi</h3><p>Cố định lựa chọn của người thứ nhất; người kia chọn trùng với xác suất $1/H$.</p></div></div><p>Một ngày: $p=q^2/H=10^{-4}/10^5=10^{-9}$.</p><img class="figure short" src="img/lec-01/suy-luan-hai-ngay.svg" role="img" alt="Cặp người phải trùng trong ngày s và trong ngày t; độc lập giữa ngày cho phép nhân hai xác suất."/><p>Hai ngày khác nhau: $p^2=10^{-18}$, nhờ độc lập giữa các ngày.</p>
-      <aside class="notes">Xác suất có điều kiện cùng khách sạn khi cả hai đã đi là 1/H; nhân với xác suất cả hai đi q² để có p=q²/H. Hai ngày được cố định trước phép thử, nên xác suất trùng trong cả hai là p² dưới giả thiết độc lập ngày. Cùng khách sạn chỉ là điều kiện trong từng ngày, không yêu cầu một khách sạn duy nhất cho cả hai ngày. Nguồn: MMDS 1.2.3, tr. 7. Xác suất một phép thử rất nhỏ; còn phải đếm tổng số phép thử.</aside>
+      <div class="ex-grid2"><div class="ex-card"><h3>Hai người đều lưu trú</h3><p>Độc lập giữa hai người: $q^2=(0{,}01)^2=10^{-4}$.</p></div><div class="ex-card"><h3>Cùng khách sạn khi đã đi</h3><p>Người kia chọn trùng với xác suất $1/H$.</p></div></div>
+      <p>Một ngày: $p=q^2/H=10^{-4}/10^5=10^{-9}$.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/suy-luan-hai-ngay.svg" role="img" alt="Cặp người phải trùng trong ngày s và trong ngày t; độc lập giữa ngày cho phép nhân hai xác suất."/></figure>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> hai ngày khác nhau: $p^2=10^{-18}$, nhờ độc lập giữa các ngày.</p>
+      <aside class="notes"><p>Cố định lựa chọn của người thứ nhất; người kia chọn trùng với xác suất $1/H$, nhờ hai người chọn độc lập và đều. Xác suất có điều kiện cùng khách sạn khi cả hai đã đi là 1/H; nhân với xác suất cả hai đi q² để có p=q²/H. Hai ngày được cố định trước phép thử, nên xác suất trùng trong cả hai là p² dưới giả thiết độc lập ngày. Cùng khách sạn chỉ là điều kiện trong từng ngày, không yêu cầu một khách sạn duy nhất cho cả hai ngày. Xác suất một phép thử rất nhỏ; còn phải đếm tổng số phép thử.</p><p>Nguồn: MMDS 1.2.3, tr. 7.</p></aside>
     </section>
-    <section data-slide-id="L01-F06">
+    <section id="L01-F06" data-slide-id="L01-F06" class="example-slide">
       <h2>Đơn vị đếm và số phép thử</h2>
-<p>Một phép thử được xác định bởi <strong>một cặp người</strong> và <strong>một cặp ngày</strong>, đều không xét thứ tự.</p><img class="figure short" src="img/lec-01/phep-thu-va-duong-tinh-gia.svg" role="img" alt="Chọn một cặp người và một cặp ngày; kiểm trùng khách sạn trong từng ngày."/><div class="formula">$\text{Số phép thử}=\binom P2\binom T2.$</div><p>Một cặp người có thể xuất hiện ở nhiều bộ ngày. Vì vậy, số biến cố trùng khác số cặp người phân biệt.</p>
-      <aside class="notes">Có P(P−1)/2 cặp người và T(T−1)/2 cặp ngày. Ghép mỗi lựa chọn người với mỗi lựa chọn ngày cho tích hai số tổ hợp. Nếu một cặp người trùng trong ba ngày, ba cặp ngày tạo ba biến cố, dù chỉ có một cặp người. Đây là hệ quả phép đếm, không phải một bộ hồ sơ mới. Nguồn: MMDS 1.2.3, tr. 7–8. Sau khi xác định đơn vị, cộng đóng góp của mỗi phép thử để tính số trùng trung bình.</aside>
+      <p>Phép thử là một cặp người cùng một cặp ngày, đều không xét thứ tự.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/phep-thu-va-duong-tinh-gia.svg" role="img" alt="Chọn một cặp người và một cặp ngày; kiểm trùng khách sạn trong từng ngày."/></figure>
+      <p class="ex-equation">Số phép thử $=\binom P2\binom T2$</p>
+      <p class="ex-takeaway">Một cặp người có thể trùng ở nhiều cặp ngày, nên số biến cố trùng khác số cặp người.</p>
+      <aside class="notes"><p>Có P(P−1)/2 cặp người và T(T−1)/2 cặp ngày. Ghép mỗi lựa chọn người với mỗi lựa chọn ngày cho tích hai số tổ hợp. Nếu một cặp người trùng trong ba ngày, ba cặp ngày tạo ba biến cố, dù chỉ có một cặp người. Đây là hệ quả phép đếm, không phải một bộ hồ sơ mới. Sau khi xác định đơn vị, cộng đóng góp của mỗi phép thử để tính số trùng trung bình.</p><p>Nguồn: MMDS 1.2.3, tr. 7–8.</p></aside>
     </section>
-    <section data-slide-id="L01-F03">
+    <section id="L01-F03" data-slide-id="L01-F03" class="example-slide">
       <h2>Kỳ vọng số biến cố trùng</h2>
-<p><strong>Kỳ vọng</strong> là giá trị trung bình theo mô hình qua các lần sinh dữ liệu. Nó không phải số đếm đã quan sát trên một kho cụ thể.</p><p>$X$ đếm các biến cố cặp người–cặp ngày trùng khách sạn.</p><div class="formula">$\begin{aligned}\mathbb E[X]&=\binom P2\binom T2p^2\\&=\binom{10^9}{2}\binom{1000}{2}10^{-18}.\end{aligned}$</div><p class="big">Khoảng $249\,750$ biến cố, khi mọi người chọn độc lập.</p>
-      <aside class="notes">Với mỗi phép thử, biến chỉ báo bằng 1 nếu trùng trong cả hai ngày, bằng 0 nếu không. X là tổng các chỉ báo. Mỗi chỉ báo có kỳ vọng p². Kỳ vọng của tổng bằng tổng kỳ vọng các chỉ báo, nên được số phép thử nhân p² mà không cần mọi phép thử độc lập. Thay số được 249749.99975025. Sách dùng tổ hợp xấp xỉ n²/2 và được 250000; khác biệt do cách xấp xỉ số cặp. Độc lập đã dùng để tính q² và p², không dùng để cộng kỳ vọng. Nguồn: MMDS 1.2.3, tr. 7–8. Con số này đặt giới hạn cho cách diễn giải kết quả tìm kiếm.</aside>
+      <p>Kỳ vọng là giá trị trung bình theo mô hình, không phải số đếm trên một kho cụ thể.</p>
+      <p>$X$ là tổng các chỉ báo trùng của mọi phép thử cặp người – cặp ngày.</p>
+      <p class="ex-equation">$\begin{aligned}\mathbb E[X]&amp;=\binom P2\binom T2p^2\\&amp;=\binom{10^9}{2}\binom{1000}{2}10^{-18}\end{aligned}$</p>
+      <p class="ex-takeaway"><strong>Kết luận:</strong> khoảng $249\,750$ biến cố khi mọi người chọn độc lập.</p>
+      <aside class="notes"><p>Với mỗi phép thử, biến chỉ báo bằng 1 nếu trùng trong cả hai ngày, bằng 0 nếu không. X là tổng các chỉ báo. Mỗi chỉ báo có kỳ vọng p². Kỳ vọng của tổng bằng tổng kỳ vọng các chỉ báo, nên được số phép thử nhân p² mà không cần mọi phép thử độc lập. Thay số được $249\,749{,}99975025$. Sách dùng tổ hợp xấp xỉ $n^2/2$ và được $250\,000$; khác biệt do cách xấp xỉ số cặp. Độc lập đã dùng để tính q² và p², không dùng để cộng kỳ vọng. Con số này đặt giới hạn cho cách diễn giải kết quả tìm kiếm.</p><p>Nguồn: MMDS 1.2.3, tr. 7–8.</p></aside>
     </section>
-    <section data-slide-id="L01-F07">
+    <section id="L01-F07" data-slide-id="L01-F07" class="example-slide">
       <h2>Mẫu trùng và căn cứ suy luận</h2>
-<table class="trace"><thead><tr><th>Kết quả đã có</th><th>Phạm vi kết luận</th></tr></thead><tbody><tr><td>Thuật toán tìm đúng mẫu lưu trú trùng</td><td>Mẫu thỏa điều kiện hai người, hai ngày</td></tr><tr><td>Mô hình không phối hợp cho kỳ vọng khoảng $249\,750$</td><td>Trùng ngẫu nhiên có thể tạo nhiều kết quả cần xem xét</td></tr><tr><td>Một cặp xuất hiện trong kết quả</td><td>Chưa suy được xác suất họ có phối hợp từ kỳ vọng nền</td></tr></tbody></table><p>Kết luận về hoạt động phối hợp còn cần mô hình phù hợp, tỷ lệ nền và bằng chứng ngoài mẫu trùng.</p><div class="check"><strong>Câu hỏi:</strong> Nếu thuật toán liệt kê đủ mọi mẫu trùng, điều đó đã xác nhận giả thiết độc lập của mô hình chưa?</div>
-      <aside class="notes">Chưa. Tính đúng của phép tìm kiếm được kiểm theo đặc tả; giả thiết về cách con người lựa chọn là một vấn đề khác. MMDS gọi cảnh báo về số mẫu ngẫu nhiên là nguyên lý Bonferroni phi hình thức; ở đây không trình bày định lý hiệu chỉnh nhiều kiểm định. Kỳ vọng nền không phải xác suất có phối hợp khi đã quan sát trùng. Nguồn: MMDS 1.2.1–1.2.3, tr. 6–8. Tương tự, tìm đủ các cặp tài liệu đạt ngưỡng không chứng minh có hành vi sao chép.</aside>
-    </section>
-    <section data-slide-id="L01-F04">
-      <h2>Đặc tả, chi phí và giới hạn kết luận</h2>
-<p>Mẫu lưu trú trùng chưa chứng minh có phối hợp; cặp tài liệu gần trùng chưa chứng minh có sao chép.</p><table class="trace"><thead><tr><th>Khía cạnh</th><th>Kết luận cần kiểm</th></tr></thead><tbody><tr><td>Đặc tả và tính đúng</td><td>Trả đúng, đủ, không lặp các cặp có Jaccard đạt ngưỡng</td></tr><tr><td>Tài nguyên và chất lượng</td><td>Giảm số cặp đối chiếu phải đi kèm bảo đảm hoặc mức bỏ sót</td></tr><tr><td>Ý nghĩa kết quả</td><td>Độ tương đồng chưa đủ căn cứ suy luận về hành vi sao chép</td></tr></tbody></table><p>Các nhóm bài 02–15 cung cấp phương pháp theo từng giới hạn: phân tán, tìm gần, dòng, nén và tổ chức truy cập.</p>
-      <aside class="notes">Tình huống mở bài đã dẫn tới đầu ra cần tạo và những chi phí khác nhau. Đặc tả quyết định kết quả đúng; mô hình chi phí giúp lựa chọn; mô hình dữ liệu giới hạn suy luận. Chọn cặp ứng viên là một ví dụ: tiết kiệm đối chiếu không cho phép âm thầm đổi yêu cầu trả đủ. Nguồn: khung phân tích Bài 01; MMDS 1–4 và đề cương. Bài tiếp theo bắt đầu với đếm từ khi kho nằm trên nhiều máy.</aside>
-    </section>
-    <section data-slide-id="L01-E04">
-      <h2>Chuẩn bị cho Bài 02: MapReduce</h2>
-<p>Bài 02 dùng kho văn bản trên nhiều máy để tính số lần xuất hiện của từng từ.</p><img class="figure short" src="img/lec-01/danh-gia-truyen-mang.svg" role="img" alt="Đếm từ cục bộ rồi gom số đếm cùng từ để tạo kết quả toàn kho."/><p>Đọc MMDS Chương 2; ôn khóa–giá trị, phép nhóm, tính kết hợp và giao hoán của phép cộng.</p><div class="check"><strong>Câu hỏi:</strong> Khi một tác vụ đếm từ được chạy lại, cần giữ điều kiện nào để kết quả toàn kho vẫn đúng?</div>
-      <aside class="notes">Mỗi lần xuất hiện phải đóng góp đúng một lần vào kết quả cuối, không bị mất hoặc tính lặp khi tác vụ chạy lại. Phép cộng số nguyên không tràn có tính kết hợp và giao hoán, nhưng các tính chất ấy không tự loại đóng góp trùng. Không suy rộng máy móc sang cộng số thực dấu phẩy động vì có làm tròn. Nguồn: MMDS 2.2. Phần bài tập tiếp theo dùng mô hình lưu trú vừa xây để kiểm ảnh hưởng của quy mô và tiêu chuẩn trùng trước khi chuyển sang dữ liệu mua hàng.</aside>
+      <table class="ex-table"><thead><tr><th scope="col">Kết quả đã có</th><th scope="col">Phạm vi kết luận</th></tr></thead><tbody>
+      <tr><td>Thuật toán tìm đúng mẫu lưu trú trùng</td><td>mẫu thỏa điều kiện hai người, hai ngày</td></tr>
+      <tr><td>Mô hình nền cho kỳ vọng khoảng $249\,750$</td><td>nhiều kết quả có thể do ngẫu nhiên</td></tr>
+      <tr><td>Một cặp xuất hiện trong kết quả</td><td>chưa suy được xác suất họ có phối hợp</td></tr></tbody></table>
+      <p><strong>Câu hỏi:</strong> liệt kê đủ mọi mẫu trùng có xác nhận giả thiết độc lập không?</p>
+      <aside class="notes"><p>Kết luận về hoạt động phối hợp còn cần mô hình phù hợp, tỷ lệ nền và bằng chứng ngoài mẫu trùng. Lời giải: chưa. Tính đúng của phép tìm kiếm được kiểm theo đặc tả; giả thiết về cách con người lựa chọn là một vấn đề khác. MMDS gọi cảnh báo về số mẫu ngẫu nhiên là nguyên lý Bonferroni phi hình thức; ở đây không trình bày định lý hiệu chỉnh nhiều kiểm định. Kỳ vọng nền không phải xác suất có phối hợp khi đã quan sát trùng. Tương tự, tìm đủ các cặp tài liệu đạt ngưỡng không chứng minh có hành vi sao chép.</p><p>Nguồn: MMDS 1.2.1–1.2.3, tr. 6–8.</p></aside>
     </section>
   </section>
 
-  <section class="recitation">
+  <section aria-label="Tổng kết và tự kiểm tra">
+    <section id="mach-6" data-slide-id="L01-GT" class="strand-title">
+      <div class="strand-title-body">
+        <h2><span class="strand-number">6.</span>Tổng kết và tự kiểm tra</h2>
+        <p class="strand-lead">Muốn trả lời bài toán một triệu tài liệu, phải nêu giả thiết, bảo đảm và chi phí của từng kết quả.</p>
+        <p class="strand-keys">Giả&nbsp;thiết&nbsp;không&nbsp;được&nbsp;bỏ&nbsp;· Chi&nbsp;phí&nbsp;xét&nbsp;mọi&nbsp;cặp&nbsp;· Bỏ&nbsp;sót&nbsp;· Kỳ&nbsp;vọng&nbsp;nền&nbsp;· Tài&nbsp;liệu&nbsp;đọc</p>
+      </div>
+      <aside class="notes"><p>Đặc tả $R$, tính đúng và chi phí của thuật toán xét mọi cặp, điều kiện đủ khi giảm cặp ứng viên và kỳ vọng nền khoảng $249\,750$ được đặt cạnh giả thiết không được bỏ. Vấn đề trung tâm được trả lời theo đúng thứ tự các dòng đã nêu ở mở đầu. Bài 02 bắt đầu từ đếm từ trên kho phân tán.</p></aside>
+    </section>
+    <section id="L01-G01" data-slide-id="L01-G01" class="example-slide">
+      <h2>Kết quả và giả thiết không được bỏ</h2>
+      <table class="ex-table"><thead><tr><th scope="col">Kết quả</th><th scope="col">Giả thiết không được bỏ</th><th scope="col">Công thức hoặc thuật toán</th></tr></thead><tbody>
+      <tr><td>Chi phí đọc ghi</td><td>khối chưa có trong bộ đệm</td><td>một lượt $F$ khối; đọc và ghi $2F$</td></tr>
+      <tr><td>Đặc tả</td><td>tập hữu hạn, không rỗng</td><td>$R=\{(i,j):i&lt;j,\ J(C_i,C_j)\ge\tau\}$</td></tr>
+      <tr><td>Tính đúng</td><td>phép kiểm Jaccard chính xác</td><td>bất biến phần đã xét</td></tr>
+      <tr><td>Chi phí xét mọi cặp</td><td>danh sách đã sắp, cỡ $\le L$</td><td>$O(N^2L)$</td></tr>
+      <tr><td>Hậu kiểm ứng viên</td><td>mọi cặp đạt ngưỡng là ứng viên</td><td>kiểm chính xác</td></tr>
+      <tr><td>Kỳ vọng trùng nền</td><td>chọn đều, độc lập</td><td>$\binom P2\binom T2p^2\approx249\,750$</td></tr></tbody></table>
+      <aside class="notes"><p>Mỗi giả thiết đi kèm một hệ quả khi bị bỏ: hai tập cùng rỗng làm hợp rỗng nên Jaccard không xác định; phép kiểm số thực sai gần ngưỡng đổi quyết định chọn cặp; bỏ điều kiện mọi cặp đạt ngưỡng đều thành ứng viên thì hậu kiểm không thấy cặp bị bỏ sót; độc lập chỉ dùng để tính $q^2$ và $p^2$, còn cộng kỳ vọng không cần độc lập. Chi phí đọc ghi dùng mô hình khối: một lượt đọc hết tệp $F$ khối tốn $F$ lần chuyển, đọc và ghi lại tốn $2F$. Bài chỉ có một thuật toán được đặc tả là xét mọi cặp; hàng chi phí của nó dùng mô hình đếm phép so sánh, $N(N-1)/2$ lần kiểm.</p><p>Nguồn: MMDS §1.2.3, §3.1; các trang đặc tả, tính đúng, chi phí và mô hình lưu trú của bài.</p></aside>
+    </section>
+    <section id="L01-F04" data-slide-id="L01-F04" class="example-slide">
+      <h2>Câu trả lời cho vấn đề trung tâm</h2>
+      <p><strong>Nhu cầu:</strong> trả mọi cặp đạt ngưỡng trong $N=10^6$ tài liệu.</p>
+      <ul>
+        <li>Bảng 400 khối, bộ nhớ 20: quét lại tốn khối đọc ghi; sắp hoặc băm theo khóa (Bài 12, 15) giảm đọc lại.</li>
+        <li>Phép kiểm chính xác: xét mọi cặp trả đúng $R$ sau $499\,999\,500\,000$ lần kiểm, $O(N^2L)$.</li>
+        <li>Chữ ký MinHash, phân dải LSH giảm cặp; đủ khi mọi cặp đạt ngưỡng thành ứng viên.</li>
+        <li>Mô hình lưu trú độc lập: kỳ vọng khoảng $249\,750$ biến cố trùng; Jaccard đạt ngưỡng chưa chứng minh sao chép.</li>
+      </ul>
+      <aside class="notes"><p>Mỗi dòng trả lời dòng cùng vị trí của trang vấn đề trung tâm. Kho tài liệu trên đĩa gặp cùng giới hạn với hai bảng: quét lại đọc cùng khối nhiều lần, còn sắp hoặc băm theo khóa gom dữ liệu cần ghép để đọc mỗi khối ít lần. Chọn cặp ứng viên bằng chữ ký MinHash (Bài 05) và phân dải LSH (Bài 06) tiết kiệm đối chiếu nhưng không cho phép âm thầm đổi yêu cầu trả đủ: hoặc giữ điều kiện đủ, hoặc công bố mức bỏ sót.</p><p>Nguồn: MMDS Chương 3, tr.73; Database System Concepts, ấn bản 7, Chương 15, trang chiếu 24; MMDS §1.2.3, tr.7–8.</p></aside>
+    </section>
+    <section id="L01-G02" data-slide-id="L01-G02" class="example-slide">
+      <h2>Câu hỏi tự kiểm tra</h2>
+      <p><strong>Câu hỏi:</strong> trả lời và nêu kết quả đã dùng.</p>
+      <ol>
+        <li>Cặp $S,T$ có $J(S,T)=3/8$: xác định mọi ngưỡng $\tau$ để cặp thuộc $R$.</li>
+        <li>Sắp tệp $F$ khối cần ba lượt, mỗi lượt đọc và ghi hết: tính số lần chuyển khối.</li>
+        <li>Trong $\mathbb E[X]=\binom P2\binom T2p^2$: chỉ ra chỗ dùng độc lập và chỗ dùng tuyến tính kỳ vọng.</li>
+      </ol>
+      <aside class="notes"><p>Lời giải. Câu 1 (đặc tả và Jaccard): cặp thuộc $R$ khi $J\ge\tau$, tức $\tau\le3/8$; giao đếm phần tử chung, hợp đếm mỗi phần tử một lần, tập không rỗng nên mẫu số dương. Câu 2 (chi phí đọc ghi): mỗi lượt đọc $F$ khối và ghi $F$ khối, tức $2F$; ba lượt tốn $6F$ lần chuyển khối, chưa tính truy cập bổ sung. Câu 3 (mô hình lưu trú): độc lập giữa hai người dùng khi nhân $q^2$ và khi lấy $1/H$ cho xác suất cùng khách sạn (cùng với chọn đều); độc lập giữa hai ngày dùng khi bình phương $p$; tuyến tính kỳ vọng dùng khi cộng kỳ vọng các biến chỉ báo của mọi phép thử, không cần các phép thử độc lập.</p><p>Nguồn: MMDS §3.1.1; §1.3.4; §1.2.3; Database System Concepts, ấn bản 7, Chương 15.</p></aside>
+    </section>
+    <section id="L01-G03" data-slide-id="L01-G03" class="example-slide">
+      <h2>Nguồn và tài liệu đọc</h2>
+      <p><strong>Nguồn:</strong> Leskovec, Rajaraman, Ullman (2020), <em>Mining of Massive Datasets</em>, ấn bản 3, §1.2, tr.6–8; §1.3.4, tr.13; §3.1, tr.73–75.</p>
+      <p>Sách và trang chiếu của các tác giả: <a href="http://www.mmds.org">http://www.mmds.org</a>.</p>
+      <p>Silberschatz, Korth, Sudarshan (2019), <em>Database System Concepts</em>, ấn bản 7, Chương 14–15.</p>
+      <p>Nelson, Gailly (1995), <em>The Data Compression Book</em>, ấn bản 2; Blum, Hopcroft, Kannan (2020), <em>Foundations of Data Science</em>, Chương 1–2.</p>
+      <p><a href="material-viewer.html?doc=materials/lec-01/lecture-note.md&amp;deck=lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html">Ghi chú bài giảng</a></p>
+      <p>Bài 02 (MapReduce): đọc MMDS Chương 2; ôn khóa–giá trị, phép nhóm, tính kết hợp và giao hoán của phép cộng.</p>
+      <aside class="notes"><p>Mạch kho web dựa trên MMDS §1.3.4, Chương 2–5 và BIODS 271 L12; mạch dòng, nén và đĩa dựa trên MMDS Chương 4, Nelson–Gailly và Database System Concepts Chương 14–15, 24, 31; mạch đặc tả và đánh giá dựa trên MMDS §3.1 và Stanford CS246, bài LSH, trang chiếu 14–18; mạch mẫu trùng dựa trên MMDS §1.2. Các nguồn đối chiếu khác: Stanford CS246 bài mở đầu, trang chiếu 62, 67–69; Princeton COS 597A lớp 8–9; CMU về nén LZ và nén có mất thông tin; UMass CS514, bài 10. Mọi hình được vẽ lại. Với Blum, Hopcroft, Kannan, <em>Foundations of Data Science</em>, đọc trọn Chương 1–2. Ghi chú bài giảng có đủ lập luận và lời giải.</p></aside>
+    </section>
+  </section>
+
+  <section aria-label="Bài tập vận dụng">
     <section id="mach-7" data-slide-id="L01-RT" class="strand-title">
       <div class="strand-title-body">
         <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
         <p class="strand-lead">Muốn kiểm mô hình lưu trú, phải đổi quy mô, tiêu chuẩn trùng và đơn vị đếm rồi tính lại kỳ vọng.</p>
         <p class="strand-keys">Bài&nbsp;1.2.1&nbsp;· Bài&nbsp;1.2.2&nbsp;· Số&nbsp;phép&nbsp;thử&nbsp;· Kỳ&nbsp;vọng&nbsp;· Kết&nbsp;luận&nbsp;có&nbsp;điều&nbsp;kiện</p>
       </div>
-      <aside class="notes">Mô hình lưu trú với $P,T,H,q$ và phép tính kỳ vọng đã có. Hai bài của MMDS mục 1.2.4 kiểm lại mô hình: Bài 1.2.1 đổi số ngày, số người, số khách sạn và tiêu chuẩn trùng; Bài 1.2.2 chuyển sang tập mặt hàng của hai lượt mua. Mỗi lời giải gồm số phép thử, xác suất một phép thử, kỳ vọng và kết luận kèm giả thiết.</aside>
+      <aside class="notes"><p>Mô hình lưu trú với $P,T,H,q$ và phép tính kỳ vọng đã có. Hai bài của MMDS mục 1.2.4 kiểm lại mô hình: Bài 1.2.1 đổi số ngày, số người, số khách sạn và tiêu chuẩn trùng; Bài 1.2.2 chuyển sang tập mặt hàng của hai lượt mua. Mỗi lời giải gồm số phép thử, xác suất một phép thử, kỳ vọng và kết luận kèm giả thiết.</p></aside>
     </section>
-    <section data-slide-id="L01-R00">
-      <h2>Bài tập về phép đếm và suy luận</h2>
-<p>Hai bài tập từ MMDS dùng mô hình ngẫu nhiên để đánh giá số mẫu trùng trong dữ liệu.</p><table class="trace"><thead><tr><th>Bài tập</th><th>Mạch giải quyết</th></tr></thead><tbody><tr><td>1.2.1 · Hồ sơ lưu trú</td><td>Dựng mô hình gốc → thay quy mô → đổi sang ba ngày</td></tr><tr><td>1.2.2 · Tập mặt hàng</td><td>Đổi đơn vị đếm → tính trùng ngẫu nhiên → giới hạn kết luận</td></tr></tbody></table><p>Sản phẩm: số phép thử, xác suất, kỳ vọng và kết luận kèm giả thiết.</p><p>Nguồn: <a href="http://www.mmds.org">MMDS</a>, mục 1.2.4, trang 8.</p>
-      <aside class="notes">Bài 1.2.1 thay riêng điều kiện của mô hình lưu trú; Bài 1.2.2 so tập mặt hàng của hai lượt mua. Cả hai lời giải gồm số phép thử, xác suất một phép thử, kỳ vọng và kết luận kèm giả thiết. Bài lưu trú chọn một cặp ngày, còn bài mua hàng chọn một lượt của mỗi người. Nguồn: MMDS, mục 1.2.4, tr. 8. Bài đầu dùng lại P,T,H,q đã xác định.</aside>
+    <section id="L01-R00" data-slide-id="L01-R00" class="example-slide">
+      <h2>Bài tập: phép đếm và suy luận</h2>
+      <p>Hai bài tập MMDS dùng mô hình ngẫu nhiên để đánh giá số mẫu trùng.</p>
+      <table class="ex-table"><thead><tr><th scope="col">Bài tập</th><th scope="col">Các bước</th></tr></thead><tbody>
+      <tr><td>1.2.1 · Hồ sơ lưu trú</td><td>dựng mô hình gốc, thay quy mô, đổi sang ba ngày</td></tr>
+      <tr><td>1.2.2 · Tập mặt hàng</td><td>đổi đơn vị đếm, tính trùng ngẫu nhiên, giới hạn kết luận</td></tr></tbody></table>
+      <p>Lời giải gồm số phép thử, xác suất, kỳ vọng và kết luận kèm giả thiết.</p>
+      <aside class="notes"><p>Bài 1.2.1 thay riêng điều kiện của mô hình lưu trú; Bài 1.2.2 so tập mặt hàng của hai lượt mua. Cả hai lời giải gồm số phép thử, xác suất một phép thử, kỳ vọng và kết luận kèm giả thiết. Bài lưu trú chọn một cặp ngày, còn bài mua hàng chọn một lượt của mỗi người. Bài đầu dùng lại P,T,H,q đã xác định.</p><p>Nguồn: MMDS, mục 1.2.4, tr. 8.</p></aside>
     </section>
-    <section data-slide-id="L01-R01">
-      <h2>Ba biến thể của bài toán lưu trú</h2>
-<p>Mô hình gốc: $P=10^9$, $T=1000$, $H=10^5$, $q=0{,}01$.</p><p><strong>Câu hỏi:</strong> số cặp bị báo nghi vấn thay đổi thế nào khi:</p><ol type="a"><li>Quan sát $2000$ ngày.</li><li>Quan sát $2$ tỷ người và có $200\,000$ khách sạn.</li><li>Chỉ báo khi cùng khách sạn trong ba ngày khác nhau.</li></ol><p>Áp dụng từng thay đổi riêng; các số khác giữ nguyên.</p>
-      <aside class="notes">Nguồn: MMDS Bài 1.2.1(a–c), tr. 8, dùng mô hình mục 1.2.3. Ba thay đổi áp dụng riêng; bảng tham số phân biệt số người, số ngày quan sát và số ngày cần trùng. Sản phẩm: bảng tham số thay đổi và đơn vị đếm cho từng câu. Gợi ý: chọn cặp người, chọn bộ ngày rồi tính xác suất một phép thử. Phân biệt số biến cố với số cặp người theo cách xấp xỉ của sách. Hai phần đầu chỉ thay quy mô.</aside>
+    <section id="L01-R01" data-slide-id="L01-R01" class="example-slide">
+      <h2>Bài tập: hồ sơ lưu trú, ba biến thể</h2>
+      <p>Mô hình gốc: $P=10^9$, $T=1000$, $H=10^5$, $q=0{,}01$.</p>
+      <p><strong>Câu hỏi:</strong> kỳ vọng số biến cố trùng (sách: số cặp nghi vấn) thay đổi thế nào khi:</p>
+      <p>(a) quan sát $2000$ ngày;</p>
+      <p>(b) quan sát $2$ tỷ người và có $200\,000$ khách sạn;</p>
+      <p>(c) chỉ báo khi cùng khách sạn trong ba ngày khác nhau.</p>
+      <p class="ex-note"><strong>Nguồn:</strong> MMDS, Bài 1.2.1, tr.8; áp dụng từng thay đổi riêng.</p>
+      <aside class="notes"><p>Ba thay đổi áp dụng riêng; bảng tham số phân biệt số người, số ngày quan sát và số ngày cần trùng. Lời giải cần bảng tham số thay đổi và đơn vị đếm cho từng câu. Gợi ý: chọn cặp người, chọn bộ ngày rồi tính xác suất một phép thử. Phân biệt số biến cố với số cặp người theo cách xấp xỉ của sách. Hai phần đầu chỉ thay quy mô.</p><p>Nguồn: MMDS Bài 1.2.1(a–c), tr. 8, dùng mô hình mục 1.2.3.</p></aside>
     </section>
-    <section data-slide-id="L01-R02">
-      <h2>Ảnh hưởng của số ngày và số người</h2>
-<p><strong>Câu hỏi:</strong> giải riêng hai phần (a), (b) của Bài 1.2.1, so với mô hình gốc.</p><img class="figure short" src="img/lec-01/bai-tap-quy-mo.svg" role="img" alt="Hai nhánh thay đổi riêng: tăng lên 2000 ngày hoặc tăng lên 2 tỷ người và 200 000 khách sạn; không cộng dồn."/><p>Các tham số không nêu trong nhánh giữ nguyên, gồm $q=0{,}01$.</p><p>Sản phẩm: số phép thử, xác suất mỗi phép thử, kỳ vọng và tỷ lệ so với cơ sở.</p><div class="card"><p>Gợi ý: số phép thử và xác suất trùng có thể thay đổi theo hai hướng khác nhau.</p></div>
-      <aside class="notes">Nguồn: MMDS 1.2.1(a, b), tr. 8. Chấm mỗi phần theo mô hình, thay số, phép tính và diễn giải. (a) E=C(10⁹,2) C(2000,2)10⁻¹⁸=999 499,9990005, khoảng 999500; xấp xỉ n²/2 của sách cho 1 triệu, gần gấp 4 cơ sở. (b) C(P,2) gần gấp 4 nhưng (q²/H)² giảm 4 lần; kỳ vọng 249 749,999875125, khoảng 249750. Nói gần không đổi theo tổ hợp, không nói hoàn toàn bằng nhau. Theo xấp xỉ của sách được 250000. Lỗi cần sửa: tăng P mà giữ H, hoặc chỉ giảm xác suất hai ngày 2 lần. Hai thay đổi tính riêng, không cộng dồn. Sau hai thay đổi quy mô, phần(c) giữ quy mô gốc và thay số ngày cần trùng.</aside>
+    <section id="L01-R02" data-slide-id="L01-R02" class="example-slide">
+      <h2>Bài tập: hồ sơ lưu trú (a), (b)</h2>
+      <p><strong>Câu hỏi:</strong> giải riêng hai phần (a), (b) của Bài 1.2.1, so với mô hình gốc.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/bai-tap-quy-mo.svg" role="img" alt="Hai nhánh thay đổi riêng: tăng lên 2000 ngày hoặc tăng lên 2 tỷ người và 200 000 khách sạn; không cộng dồn."/></figure>
+      <p>Các tham số không nêu trong từng phần giữ nguyên, gồm $q=0{,}01$.</p>
+      <p>Lời giải gồm số phép thử, xác suất mỗi phép thử, kỳ vọng và tỷ lệ so với cơ sở.</p>
+      <p class="ex-note"><strong>Nguồn:</strong> MMDS, Bài 1.2.1(a, b), tr.8.</p>
+      <aside class="notes"><p>Gợi ý: số phép thử và xác suất trùng có thể thay đổi theo hai hướng khác nhau. Chấm mỗi phần theo mô hình, thay số, phép tính và diễn giải. (a) E=C(10⁹,2) C(2000,2)10⁻¹⁸=999 499,9990005, khoảng 999 500; xấp xỉ n²/2 của sách cho 1 triệu, gần gấp 4 cơ sở. (b) C(P,2) gần gấp 4 nhưng (q²/H)² giảm 4 lần; kỳ vọng 249 749,999875125, khoảng 249 750. Nói gần không đổi theo tổ hợp, không nói hoàn toàn bằng nhau. Theo xấp xỉ của sách được 250 000. Lỗi cần sửa: tăng P mà giữ H, hoặc chỉ giảm xác suất hai ngày 2 lần. Hai thay đổi tính riêng, không cộng dồn. Sau hai thay đổi quy mô, phần (c) giữ quy mô gốc và thay số ngày cần trùng.</p><p>Nguồn: MMDS 1.2.1(a, b), tr. 8.</p></aside>
     </section>
-    <section data-slide-id="L01-R03">
-      <h2>Mẫu lưu trú trùng trong ba ngày</h2>
-<p><strong>Câu hỏi:</strong> giải phần (c) của Bài 1.2.1 với quy mô gốc.</p><img class="figure short" src="img/lec-01/bai-tap-ba-ngay.svg" role="img" alt="Chọn một cặp người và bộ ba ngày khác nhau; cặp phải trùng khách sạn trong cả ba ngày."/><p>Chỉ báo một cặp nếu cùng khách sạn trong ba ngày khác nhau. Khách sạn có thể khác giữa các ngày.</p><p>Sản phẩm: đơn vị đếm mới, kỳ vọng và ý nghĩa kết quả.</p>
-      <aside class="notes">Nguồn: MMDS 1.2.1(c), tr. 8, theo mô hình mục 1.2.3, tr. 7: khách sạn có thể khác giữa các ngày; trong mỗi ngày, hai người phải ở cùng khách sạn. Xác suất một cặp người trùng trên một bộ ba ngày là (q²/H)³=10⁻²⁷; có C(1000,3) bộ. Kỳ vọng C(10⁹,2) C(1000,3)10⁻²⁷=0,0830834999169165, khoảng 0,0831. Xấp xỉ tổ hợp theo lũy thừa cho khoảng 0,0833. Chấm: đổi C(T,2) thành C(T,3); xác suất lũy thừa 3; thay số; nêu kết luận chỉ dưới mô hình. Kỳ vọng dưới 1 không có nghĩa không bao giờ xuất hiện trùng, càng không chứng minh danh tính của cặp. Phân biệt lời giải kỳ vọng với xác suất có điều kiện. Bài kế tiếp giữ cách so hai người nhưng thay hồ sơ theo ngày bằng tập mặt hàng của mỗi lượt mua.</aside>
+    <section id="L01-R03" data-slide-id="L01-R03" class="example-slide">
+      <h2>Bài tập: hồ sơ lưu trú (c)</h2>
+      <p><strong>Câu hỏi:</strong> giải phần (c) của Bài 1.2.1 với quy mô gốc.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/bai-tap-ba-ngay.svg" role="img" alt="Chọn một cặp người và bộ ba ngày khác nhau; cặp phải trùng khách sạn trong cả ba ngày."/></figure>
+      <p>Chỉ báo một cặp nếu cùng khách sạn trong ba ngày khác nhau.</p>
+      <p>Khách sạn có thể khác giữa các ngày.</p>
+      <p>Lời giải gồm đơn vị đếm mới, kỳ vọng và ý nghĩa kết quả.</p>
+      <p class="ex-note"><strong>Nguồn:</strong> MMDS, Bài 1.2.1(c), tr.8.</p>
+      <aside class="notes"><p>Gợi ý: thay cặp ngày bằng bộ ba ngày và nâng xác suất một ngày lên lũy thừa ba. Xác suất một cặp người trùng trên một bộ ba ngày là (q²/H)³=10⁻²⁷; có C(1000,3) bộ. Kỳ vọng C(10⁹,2) C(1000,3)10⁻²⁷=0,0830834999169165, khoảng 0,0831. Xấp xỉ tổ hợp theo lũy thừa cho khoảng 0,0833. Chấm: đổi C(T,2) thành C(T,3); xác suất lũy thừa 3; thay số; nêu kết luận chỉ dưới mô hình. Kỳ vọng dưới 1 không có nghĩa không bao giờ xuất hiện trùng, càng không chứng minh danh tính của cặp. Phân biệt lời giải kỳ vọng với xác suất có điều kiện. Bài kế tiếp giữ cách so hai người nhưng thay hồ sơ theo ngày bằng tập mặt hàng của mỗi lượt mua.</p><p>Nguồn: MMDS 1.2.1(c), tr. 8, theo mô hình mục 1.2.3, tr. 7: khách sạn có thể khác giữa các ngày; trong mỗi ngày, hai người phải ở cùng khách sạn.</p></aside>
     </section>
-    <section data-slide-id="L01-R04">
-      <h2>Tìm cặp người mua cùng tập mặt hàng</h2>
-<p>$100$ triệu người; $100$ lượt/người/năm; mỗi lượt mua $10$ trong $1000$ mặt hàng.</p><img class="figure short" src="img/lec-01/ung-dung-trung-gio-hang.svg" role="img" alt="Hai lượt mua của hai người khác nhau được so theo tập mười mặt hàng."/><p>Giả thuyết của Bài 1.2.2 trong MMDS: một cặp khủng bố sẽ mua cùng tập 10 mặt hàng trong năm.</p><p><strong>Câu hỏi:</strong> trong năm quan sát, cặp mua cùng tập có thể được kỳ vọng thực sự là cặp cần tìm?</p>
-      <aside class="notes">Nguồn: MMDS Bài 1.2.2 và chú thích 3, tr. 8. Đề đặt giả thuyết rằng một cặp khủng bố sẽ mua đúng cùng một tập 10 mặt hàng vào một thời điểm trong năm, và hỏi liệu người được tìm bằng mẫu trùng có thực sự là khủng bố. Giữ giả thuyết ấy như điều kiện làm bài; chưa bàn tính đúng thực tế của giả thuyết theo chú thích nguồn. Sản phẩm bước đầu: đơn vị người/lượt/tập và mô hình nền. Gợi ý: các lượt mua độc lập, mỗi tập 10 mặt hàng được chọn đều. Một lượt mua được biểu diễn bằng tập mặt hàng, nên thứ tự mua không ảnh hưởng phép so sánh. Đơn vị đếm của bài này phải tách người, lượt mua và tập mặt hàng.</aside>
+    <section id="L01-R04" data-slide-id="L01-R04" class="example-slide">
+      <h2>Bài tập: cặp người mua cùng tập mặt hàng</h2>
+      <p>$100$ triệu người; $100$ lượt/người/năm; mỗi lượt mua $10$ trong $1000$ mặt hàng.</p>
+      <figure class="l01-figure l01-short"><img src="img/lec-01/ung-dung-trung-gio-hang.svg" role="img" alt="Hai lượt mua của hai người khác nhau được so theo tập mười mặt hàng."/></figure>
+      <p>Giả thuyết của đề: một cặp khủng bố sẽ mua cùng tập 10 mặt hàng trong năm.</p>
+      <p><strong>Câu hỏi:</strong> có nên cho rằng cặp mua cùng tập trong năm là cặp cần tìm không?</p>
+      <p class="ex-note"><strong>Nguồn:</strong> MMDS, Bài 1.2.2, tr.8.</p>
+      <aside class="notes"><p>Đề đặt giả thuyết rằng một cặp khủng bố sẽ mua đúng cùng một tập 10 mặt hàng vào một thời điểm trong năm, và hỏi liệu người được tìm bằng mẫu trùng có thực sự là khủng bố. Giữ giả thuyết ấy như điều kiện làm bài; chưa bàn tính đúng thực tế của giả thuyết theo chú thích nguồn. Bước đầu của lời giải: đơn vị người/lượt/tập và mô hình nền. Gợi ý: các lượt mua độc lập, mỗi tập 10 mặt hàng được chọn đều. Một lượt mua được biểu diễn bằng tập mặt hàng, nên thứ tự mua không ảnh hưởng phép so sánh. Đơn vị đếm của bài này phải tách người, lượt mua và tập mặt hàng.</p><p>Nguồn: MMDS Bài 1.2.2 và chú thích 3, tr. 8.</p></aside>
     </section>
-    <section data-slide-id="L01-R06">
-      <h2>Đơn vị đếm trong bài toán giỏ hàng</h2>
-<p>Cùng so hai người, nhưng đơn vị quan sát của hai bài tập khác nhau.</p><table class="trace"><thead><tr><th>Hồ sơ lưu trú</th><th>Tập mặt hàng</th></tr></thead><tbody><tr><td>Cố định một cặp người</td><td>Cố định một cặp người</td></tr><tr><td>Chọn hai ngày khác nhau</td><td>Chọn một lượt mua của mỗi người</td></tr><tr><td>Trùng khách sạn trong từng ngày</td><td>Hai tập 10 mặt hàng bằng nhau</td></tr></tbody></table><p>So mọi kết hợp lượt mua, không chỉ các lượt cùng số thứ tự. Thứ tự mặt hàng không tạo thành một tập mới.</p><div class="check">Mô hình nền: các lượt độc lập; mỗi lượt chọn đều một tập 10 trong 1000 mặt hàng.</div>
-      <aside class="notes">Nguồn: MMDS 1.2.2, tr. 8; đây là bước chia nhỏ của cùng bài. Cố định hai người: mỗi người có 100 lượt nên có 100² cặp lượt cần xét. Một giỏ là tập 10 mặt hàng phân biệt; đổi thứ tự không tạo tập mới; tập của lượt thứ nhất được cố định khi tính xác suất lượt thứ hai trùng. Gợi ý chấm: bác chỉ so lượt thứ nhất với thứ nhất, hoặc nhân thêm 10! cho thứ tự. Chọn đều và độc lập là giả thiết của mô hình nền, chưa xác nhận cho hành vi mua hàng thực. Bước sau hoàn thiện phép đếm, xác suất và kết luận.</aside>
+    <section id="L01-R06" data-slide-id="L01-R06" class="example-slide">
+      <h2>Bài tập: tập mặt hàng, đơn vị đếm</h2>
+      <table class="ex-table"><thead><tr><th scope="col">Hồ sơ lưu trú</th><th scope="col">Tập mặt hàng</th></tr></thead><tbody>
+      <tr><td>cố định một cặp người</td><td>cố định một cặp người</td></tr>
+      <tr><td>chọn hai ngày khác nhau</td><td>chọn một lượt mua của mỗi người</td></tr>
+      <tr><td>trùng khách sạn trong từng ngày</td><td>hai tập 10 mặt hàng bằng nhau</td></tr></tbody></table>
+      <p>So mọi kết hợp lượt mua, không chỉ các lượt cùng số thứ tự.</p>
+      <p><strong>Giả thiết:</strong> các lượt độc lập; mỗi lượt chọn đều một tập 10 trong 1000 mặt hàng.</p>
+      <p class="ex-note"><strong>Nguồn:</strong> MMDS, Bài 1.2.2, tr.8.</p>
+      <aside class="notes"><p>Cùng so hai người, nhưng đơn vị quan sát của hai bài tập khác nhau; thứ tự mặt hàng không tạo thành một tập mới. Cố định hai người: mỗi người có 100 lượt nên có 100² cặp lượt cần xét. Một giỏ là tập 10 mặt hàng phân biệt; đổi thứ tự không tạo tập mới; tập của lượt thứ nhất được cố định khi tính xác suất lượt thứ hai trùng. Hướng dẫn chấm: bác chỉ so lượt thứ nhất với thứ nhất, hoặc nhân thêm 10! cho thứ tự. Chọn đều và độc lập là giả thiết của mô hình nền, chưa xác nhận cho hành vi mua hàng thực. Bước sau hoàn thiện phép đếm, xác suất và kết luận.</p><p>Nguồn: MMDS 1.2.2, tr. 8; đây là bước chia nhỏ của cùng bài.</p></aside>
     </section>
-    <section data-slide-id="L01-R05">
-      <h2>Lời giải và giới hạn kết luận</h2>
-<p><strong>Câu hỏi:</strong> hoàn tất Bài 1.2.2 bằng một lời giải có bốn phần.</p><ol><li>Đếm các cặp lượt mua của hai người khác nhau.</li><li>Tính xác suất hai tập mặt hàng trùng nhau.</li><li>Tính kỳ vọng số trùng dưới mô hình nền.</li><li>Trả lời theo giả thuyết nguồn và nêu giới hạn suy luận.</li></ol>
-      <aside class="notes">Nguồn: MMDS 1.2.2, tr. 8 và chú thích 3. Có C(10⁸,2) cặp người; mỗi cặp cho 100² cặp lượt mua. Một lượt là tập không thứ tự gồm 10 mặt hàng phân biệt trong 1000 mặt hàng. Dưới chọn đều độc lập, xác suất hai lượt trùng là 1/C(1000,10). E[Y]=C(10⁸,2)100²/C(1000,10)≈0,000189818469, tức khoảng 1,90×10⁻⁴. Y đếm cặp lượt, không phải cặp người phân biệt. Vì Y là số nguyên không âm, chỉ báo của biến cố Y≥1 không lớn hơn Y. Lấy kỳ vọng hai vế được Pr(Y≥1)≤E[Y] trong mô hình nền. Từ lời giải và nguyên lý phi hình thức của bài, nền ngẫu nhiên tạo rất ít trùng nên phép tìm này không bị ngập bởi trùng ngẫu nhiên như ví dụ khách sạn, với giả thuyết làm việc của đề. Tuy vậy, kỳ vọng nền không xác định xác suất một cặp là khủng bố khi đã quan sát trùng; còn cần mô hình thay thế và tỷ lệ nền. Không dùng dữ liệu thực để suy danh tính. Chấm bốn phần: đúng số phép thử, đúng mẫu số tổ hợp, đúng kỳ vọng, đúng kết luận có điều kiện. Gợi ý cho lỗi thường gặp: không dùng 10! lần cho thứ tự giỏ, không chỉ so lượt cùng số thứ tự giữa hai người.</aside>
+    <section id="L01-R05" data-slide-id="L01-R05" class="example-slide">
+      <h2>Bài tập: tập mặt hàng, bốn phần lời giải</h2>
+      <p><strong>Câu hỏi:</strong> hoàn tất Bài 1.2.2 bằng một lời giải có bốn phần.</p>
+      <ol><li>Đếm các cặp lượt mua của hai người khác nhau.</li><li>Tính xác suất hai tập mặt hàng trùng nhau.</li><li>Tính kỳ vọng số trùng dưới mô hình nền.</li><li>Trả lời theo giả thuyết nguồn và nêu giới hạn suy luận.</li></ol>
+      <p class="ex-note"><strong>Nguồn:</strong> MMDS, Bài 1.2.2, tr.8.</p>
+      <aside class="notes"><p>Có C(10⁸,2) cặp người; mỗi cặp cho 100² cặp lượt mua. Một lượt là tập không thứ tự gồm 10 mặt hàng phân biệt trong 1000 mặt hàng. Dưới chọn đều độc lập, xác suất hai lượt trùng là 1/C(1000,10). E[Y]=C(10⁸,2)100²/C(1000,10)≈0,000189818469, tức khoảng 1,90×10⁻⁴. Y đếm cặp lượt, không phải cặp người phân biệt. Vì Y là số nguyên không âm, chỉ báo của biến cố Y≥1 không lớn hơn Y. Lấy kỳ vọng hai vế được Pr(Y≥1)≤E[Y] trong mô hình nền. Từ lời giải và nguyên lý phi hình thức của bài, nền ngẫu nhiên tạo rất ít trùng nên phép tìm này không bị ngập bởi trùng ngẫu nhiên như ví dụ khách sạn, với giả thuyết làm việc của đề. Tuy vậy, kỳ vọng nền không xác định xác suất một cặp là khủng bố khi đã quan sát trùng; còn cần mô hình thay thế và tỷ lệ nền. Không dùng dữ liệu thực để suy danh tính. Chấm bốn phần: đúng số phép thử, đúng mẫu số tổ hợp, đúng kỳ vọng, đúng kết luận có điều kiện. Gợi ý cho lỗi thường gặp: không dùng 10! lần cho thứ tự giỏ, không chỉ so lượt cùng số thứ tự giữa hai người.</p><p>Nguồn: MMDS 1.2.2, tr. 8 và chú thích 3.</p></aside>
     </section>
   </section>
 
