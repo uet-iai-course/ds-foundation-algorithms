@@ -24,7 +24,7 @@
 
 <section id="lec03-s01-02" data-slide-id="lec03-s01-02" class="pr-slide agenda-slide">
   <h2>Nội dung</h2>
-  <ul><li>Giới thiệu bài học</li><li>Bài toán Xếp hạng trang web</li><li>Mô hình và thuật toán PageRank</li><li>Tính PageRank trên đồ thị lớn</li><li>Chi phí và lợi ích của cách tính</li><li>Thực hành tính PageRank</li><li>Tổng kết và bài tập vận dụng</li></ul>
+  <ol><li>Giới thiệu bài học</li><li>Bài toán xếp hạng trang web</li><li>Mô hình và thuật toán PageRank</li><li>Tính PageRank trên đồ thị lớn</li><li>Chi phí và lợi ích của cách tính</li><li>Thực hành tính PageRank</li><li>Tổng kết và bài tập vận dụng</li></ol>
   <aside class="notes">Tuyến của bài bắt đầu bằng nhu cầu xếp hạng và một đồ thị nhỏ có thể tính tay. Từ ví dụ, ta xây mô hình và thuật toán PageRank. Tiếp đó là cách tổ chức phép tính trên đồ thị lớn, rồi đánh giá chi phí. Phần thực hành chuyển đặc tả thành chương trình Python và đối chiếu với kết quả tính tay. Cuối bài, các bài tập yêu cầu tính điểm và chọn cách biểu diễn dữ liệu. Các phần dùng chung một ví dụ để tránh phải học lại dữ kiện mỗi khi đổi cách nhìn.</aside>
 </section>
 
@@ -79,10 +79,19 @@
 
 </section>
 
-<section id="web-ranking-problem" aria-label="Bài toán Xếp hạng trang web">
+<section id="web-ranking-problem" aria-label="Bài toán xếp hạng trang web">
+
+<section id="mach-2" data-slide-id="lec03-s02-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Bài toán xếp hạng trang web</h2>
+    <p class="strand-lead">Muốn xếp hạng trang theo liên kết, phải đặc tả đầu vào, đầu ra và thử quy tắc chia điểm trên bốn trang.</p>
+    <p class="strand-keys">Đồ thị có hướng · Đếm liên kết vào · Chia điểm theo bậc ra · Một vòng tính tay</p>
+  </div>
+  <aside class="notes"><p>Phần giới thiệu đã nêu nhu cầu dùng liên kết làm một tín hiệu xếp hạng và cho thấy ma trận đặc \(n^2\) ô không lưu được khi \(n=10^9\). Phần này đặc tả đồ thị \(G=(V,E)\) và đầu ra là một điểm cho mỗi trang, thử đếm liên kết vào, rồi để mỗi trang chia đều điểm cho các đích và chạy một vòng trên bốn trang. Kết quả vòng đầu là dữ kiện để hình thức hóa thành mô hình PageRank.</p></aside>
+</section>
 
 <section id="lec03-s02-01" data-slide-id="lec03-s02-01" class="pr-slide example-slide">
-  <h1>2 · Bài toán Xếp hạng trang web</h1>
+  <h1>Điểm và thứ tự cho mỗi trang</h1>
   <div class="grid2"><img src="img/lec-03/graph-pages.svg" role="img" class="main-figure" alt="Bốn trang A, B, C, D nối với nhau bằng các liên kết có hướng"/><div class="card"><h3>Kết quả cần tạo</h3><p>Mỗi trang có một điểm.</p><p>Sắp thứ tự các trang theo điểm.</p></div></div>
   <p class="caption">Từ mạng liên kết giữa các trang, tìm một điểm quan trọng cho mỗi trang và sắp các trang theo điểm đó.</p>
   <aside class="notes">Phần trước đặt nhu cầu dùng liên kết làm một tín hiệu xếp hạng. Bây giờ ta tách riêng bài toán tạo tín hiệu đó. Hình bên trái là các trang và liên kết có hướng; thẻ bên phải nêu kết quả cần tạo, chưa gán con số nào. Một điểm quan trọng theo liên kết không phải điểm phù hợp với truy vấn. Ta sẽ thử cách đếm liên kết vào, rồi xét cách để một trang chia điểm cho các đích của nó. Cùng đồ thị nhỏ giúp so sánh kết quả mà không thay dữ kiện.</aside>
@@ -194,8 +203,17 @@
 
 <section id="pagerank-model" aria-label="Phần 3: Mô hình và thuật toán PageRank">
 
+<section id="mach-3" data-slide-id="lec03-s03-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Mô hình và thuật toán PageRank</h2>
+    <p class="strand-lead">Muốn lặp phép chia điểm trên đồ thị bất kỳ, phải xử lý nút cụt, bẫy liên kết và nêu điều kiện dừng.</p>
+    <p class="strand-keys">Ma trận liên kết · Nút cụt · Bẫy liên kết · Bước nhảy ngẫu nhiên · Hội tụ</p>
+  </div>
+  <aside class="notes"><p>Một vòng chia điểm trên bốn trang đã cho quy tắc \(r_j/d_j\). Phần này viết quy tắc bằng ma trận liên kết, lặp phép truyền điểm, chỉ ra hai trở ngại là trang không có liên kết ra và bẫy liên kết, thêm bước nhảy với xác suất \(1-\beta\) và phân phối lại điểm ở nút cụt, rồi phát biểu thuật toán, điều kiện dừng, bảo toàn tổng điểm và hội tụ. Công thức cập nhật đầy đủ được giữ nguyên khi chuyển sang đồ thị lớn.</p></aside>
+</section>
+
 <section id="lec03-s03-01" data-slide-id="lec03-s03-01" class="pr-slide motivation-slide model-slide">
-  <h1>3 · Mô hình và thuật toán PageRank</h1>
+  <h1>Chia điểm và bước đi ngẫu nhiên</h1>
   <div class="grid2">
     <img src="img/lec-03/model-one-round.svg" role="img" class="main-figure"
          alt="Nút j mang điểm cũ rⱼ chia đều cho ba trang đích, mỗi mũi tên mang nhãn rⱼ/dⱼ"/>
@@ -404,8 +422,17 @@ trả về (r, chưa đạt)
 
 <section id="large-graph" aria-label="Phần 4: Tính PageRank trên đồ thị lớn">
 
+<section id="mach-4" data-slide-id="lec03-s04-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Tính PageRank trên đồ thị lớn</h2>
+    <p class="strand-lead">Muốn tính một vòng khi đồ thị không vừa bộ nhớ, phải lưu thưa và chia ma trận, véc tơ thành khối.</p>
+    <p class="strand-keys">Danh sách liên kết ra · Chia khối · Map và Combine · Reduce · Tính đúng</p>
+  </div>
+  <aside class="notes"><p>Công thức cập nhật đầy đủ đã có; với \(n\) trang và \(m\ll n^2\) liên kết, ma trận đặc phần lớn là số 0. Phần này lưu danh sách liên kết ra kèm bậc, chia ma trận và véc tơ thành khối, viết Map, Combine trên một khối và Reduce có bù điểm nút cụt, gộp hai khối tại trang A, chứng minh cách chia khối cho cùng kết quả, rồi tổ chức một vòng tính. Cách tổ chức này là đối tượng đo chi phí ở phần sau.</p></aside>
+</section>
+
 <section id="lec03-s04-01" data-slide-id="lec03-s04-01" class="pr-slide example-slide">
-<h1>4 · Tính PageRank trên đồ thị lớn</h1>
+<h1>Ma trận đặc và danh sách liên kết</h1>
 <div class="grid2"><div><p>Giữ nguyên quy tắc cập nhật PageRank.</p><p>Tổ chức dữ liệu và chia phép tính khi đồ thị, véc tơ không vừa bộ nhớ chính (RAM).</p></div><div class="card"><h3>Dữ liệu cần xử lý</h3><p>\(n\) trang, \(m\) liên kết.</p><p>Ma trận đặc lưu \(n^2\) ô; danh sách liên kết chỉ ghi các cạnh có thật.</p></div></div>
 <p class="caption">Khi \(m\ll n^2\), phần lớn ô bằng 0; biểu diễn thưa tránh lưu các ô này.</p>
 <aside class="notes">Phần ba đã xong công thức cập nhật với bước nhảy và bù điểm nút cụt. Vấn đề còn lại thuộc về quy mô: với n trang và m liên kết, ma trận đặc cần n bình phương ô trong khi thông tin thực chỉ là m cạnh. Khi m nhỏ hơn rất nhiều so với n bình phương, phần áp đảo của ma trận là số không, nên ta cần cách biểu diễn thưa và một cách chia việc bảo đảm mỗi tác vụ chỉ giữ phần dữ liệu vừa bộ nhớ. Chi phí chi tiết sẽ được phân tích ở phần năm; phần này chỉ nêu giới hạn bộ nhớ RAM. Nguồn: MMDS 5.2, trang 189–190.</aside>
@@ -531,8 +558,17 @@ Reduce(i, L_i):
 
 <section id="pagerank-cost" aria-label="Phần 5: Chi phí và lợi ích của cách tính">
 
+<section id="mach-5" data-slide-id="lec03-s05-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Chi phí và lợi ích của cách tính</h2>
+    <p class="strand-lead">Muốn biết cách chia khối tiết kiệm được gì, phải đo dung lượng, bộ nhớ một tác vụ, tổng việc và thời gian.</p>
+    <p class="strand-keys">Dung lượng đồ thị · Bộ nhớ một tác vụ · Combine · Băng thông · Thời gian một vòng</p>
+  </div>
+  <aside class="notes"><p>Cơ chế chia khối, Map, Combine và Reduce đã có. Phần này tính dung lượng biểu diễn đồ thị, bộ nhớ của một tác vụ, dữ liệu đầu vào các tác vụ, lượng dữ liệu Combine giảm được, thời gian khi tăng số máy, dữ liệu qua mạng, thời gian một vòng và cả công việc. Các công thức là mô hình suy từ cấu trúc thuật toán, không phải số đo; phần thực hành chạy trên một máy để kiểm công thức điểm, không đo tăng tốc.</p></aside>
+</section>
+
 <section id="lec03-s05-01" data-slide-id="lec03-s05-01" class="pr-slide cost-slide cost-open">
-<h1>5 · Chi phí và lợi ích của cách tính</h1>
+<h1>Bốn đại lượng chi phí</h1>
 <p>Bốn đại lượng để đánh giá cách tổ chức tính PageRank theo khối.</p>
 <div class="cost-cards">
   <div class="card">
@@ -664,8 +700,17 @@ Reduce(i, L_i):
 
 <section id="pagerank-practice" aria-label="Phần 6: Thực hành tính PageRank">
 
+<section id="mach-6" data-slide-id="lec03-s06-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Thực hành tính PageRank</h2>
+    <p class="strand-lead">Muốn kiểm công thức cập nhật bằng số, phải viết chương trình Python và đối chiếu với kết quả tính tay.</p>
+    <p class="strand-keys">Giao diện hàm · Một vòng cập nhật · Điều kiện dừng · Kiểm chứng</p>
+  </div>
+  <aside class="notes"><p>Công thức cập nhật đầy đủ và kết quả tính tay trên bốn trang đã có. Chương trình pagerank.py chỉ dùng thư viện chuẩn: đọc đồ thị, cập nhật một vòng có bước nhảy và bù nút cụt, lặp tới ngưỡng hoặc giới hạn vòng, rồi in véc tơ điểm, số vòng và độ thay đổi cuối. Phép kiểm tổng điểm bằng 1 và kết quả vòng đầu khớp tính tay khép lại chuỗi mô hình, tính toán, chi phí.</p></aside>
+</section>
+
 <section id="lec03-s06-01" data-slide-id="lec03-s06-01" class="pr-slide example-slide practical-slide">
-  <h1>6 · Thực hành tính PageRank</h1>
+  <h1>Sản phẩm và môi trường thực hành</h1>
   <div class="slide-badge-row"><span class="practice-badge">Thực hành</span></div>
   <div class="grid2">
     <div class="card">
@@ -794,8 +839,17 @@ for _ in range(max_iter):
 
 <section id="summary-exercises" aria-label="Phần 7: Tổng kết và bài tập vận dụng">
 
+<section id="mach-7" data-slide-id="lec03-s07-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết và bài tập vận dụng</h2>
+    <p class="strand-lead">Muốn vận dụng PageRank, phải nắm chuỗi từ chia điểm tới công thức đầy đủ và chọn được biểu diễn đồ thị.</p>
+    <p class="strand-keys">Các bước tính PageRank · Bước nhảy · Ma trận thưa · Biểu diễn đồ thị</p>
+  </div>
+  <aside class="notes"><p>Mô hình, cách tính theo khối, chi phí và chương trình đã cho một chuỗi kết quả: chia điểm theo bậc ra, xử lý nút cụt và bẫy liên kết bằng bước nhảy, lặp tới hội tụ. Phần cuối tóm tắt các bước tính, kiểm tra bằng câu hỏi, rồi giao bốn bài tập: điểm theo liên kết, thêm bước nhảy, ngưỡng lưu ma trận thưa và biểu diễn đồ thị. PageRank chỉ đo cấu trúc liên kết; mức phù hợp với truy vấn được đánh giá riêng.</p></aside>
+</section>
+
 <section id="lec03-s07-01" data-slide-id="lec03-s07-01" class="pr-slide example-slide">
-  <h1>7 · Tổng kết và bài tập vận dụng</h1>
+  <h1>Chuỗi kết quả và giới hạn của PageRank</h1>
 
   <div class="grid2">
     <div class="card">

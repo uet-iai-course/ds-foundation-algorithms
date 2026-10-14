@@ -499,3 +499,32 @@ Editor trả chuỗi JSON escape thừa; điều phối viên chuẩn hóa dấu
 
 
 Kiểm cuối sau hai chỉnh sửa của editor: toàn bộ 63 slide không tràn khung, không lỗi KaTeX, hình hoặc JavaScript; xem trực tiếp lại hai slide sửa cuối. Bản in vẫn 63 trang, bàn phím và khung hẹp đạt. Đối chiếu mã/notes vẫn nguyên vẹn. CSS không đổi sau lượt hồi quy 81 slide Lecture 02. Đã kiểm trường runtime của 11 đầu ra thành công (hai reader, hai writer, sáu reviewer và editor), không dựa vào lời tự khai trong báo cáo. Không còn việc nội dung hoặc kiểm định cần xử lý trong phạm vi yêu cầu.
+
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch" và hai gạch đầu dòng về mạch mở đầu, mạch kết luận trong "Mẫu RevealJS bắt buộc"; yêu cầu người dùng 2026-10-14 bổ sung trang tiêu đề mạch cho các bài đã phát hành theo từng đợt có nhật ký. Đợt 1 gồm Bài 01–05; một tác tử soạn duy nhất ghi tệp (Claude Opus 5.5; loại tác tử và effort do điều phối ghi theo lệnh gọi Agent); không commit.
+
+Trang thêm (6), mỗi trang là `<section>` trong đầu tiên của section ngoài, `class="strand-title"`, `id="mach-N"`:
+
+| N | Mã | Tên mạch | Dòng dẫn |
+|---:|---|---|---|
+| 2 | lec03-s02-00 | Bài toán xếp hạng trang web | Muốn xếp hạng trang theo liên kết, phải đặc tả đầu vào, đầu ra và thử quy tắc chia điểm trên bốn trang. |
+| 3 | lec03-s03-00 | Mô hình và thuật toán PageRank | Muốn lặp phép chia điểm trên đồ thị bất kỳ, phải xử lý nút cụt, bẫy liên kết và nêu điều kiện dừng. |
+| 4 | lec03-s04-00 | Tính PageRank trên đồ thị lớn | Muốn tính một vòng khi đồ thị không vừa bộ nhớ, phải lưu thưa và chia ma trận, véc tơ thành khối. |
+| 5 | lec03-s05-00 | Chi phí và lợi ích của cách tính | Muốn biết cách chia khối tiết kiệm được gì, phải đo dung lượng, bộ nhớ một tác vụ, tổng việc và thời gian. |
+| 6 | lec03-s06-00 | Thực hành tính PageRank | Muốn kiểm công thức cập nhật bằng số, phải viết chương trình Python và đối chiếu với kết quả tính tay. |
+| 7 | lec03-s07-00 | Tổng kết và bài tập vận dụng | Muốn vận dụng PageRank, phải nắm chuỗi từ chia điểm tới công thức đầy đủ và chọn được biểu diễn đồ thị. |
+
+Dòng dẫn 21–23 âm tiết; từ khóa 4–5 cụm, không có ký hiệu công thức; ghi chú diễn giả 80–88 âm tiết, công thức trong notes viết bằng `\(...\)` như phần còn lại của bài. Số trang 63 → 69.
+
+Trang đổi: sáu trang mở phần `lec03-s0N-01` có `<h1>N · tên phần</h1>` kèm hình, thẻ, bảng; giữ trang nhưng đổi tiêu đề theo nội dung của chính trang để không trùng tên mạch: s02-01 "Điểm và thứ tự cho mỗi trang", s03-01 "Chia điểm và bước đi ngẫu nhiên", s04-01 "Ma trận đặc và danh sách liên kết", s05-01 "Bốn đại lượng chi phí", s06-01 "Sản phẩm và môi trường thực hành", s07-01 "Chuỗi kết quả và giới hạn của PageRank". Giữ thẻ `h1`, nội dung, notes và thứ tự. `aria-label` của section 2 viết thường "xếp hạng" cho khớp tên mạch.
+
+Trang Nội dung: lec03-s01-02 đã có; `ul` đổi thành `ol` 1–7, tên trùng từng chữ với tên mạch, mạch 1 giữ "Giới thiệu bài học"; "Xếp hạng" ở mục 2 viết thường. Mặt trang khoảng 43 âm tiết; notes hiện có giữ nguyên vì đã nêu quan hệ giữa các phần.
+
+Cố ý chưa làm (việc của đợt sau): mạch mở đầu đầy đủ (Tiên quyết và quy ước, Vấn đề trung tâm, câu luận đề trên trang bìa); chuẩn mật độ mặt trang; mạch kết luận theo khuôn mới (bảng tổng kết ba cột, trả lời vấn đề trung tâm, câu hỏi tự kiểm tra, nguồn và tài liệu đọc) và tách bài tập recitation thành section ngoài riêng. Không sửa CSS, SVG, ghi chú bài giảng, index. Các notes cũ còn dùng "ta", "phần ba/phần năm" là văn phong có từ trước, ngoài phạm vi.
+
+Kiểm tra: section mở/đóng 76/76; 69 `data-slide-id` và 76 `id` duy nhất. Chromium Playwright trên máy chủ cục bộ cổng 8771: ở 1600×900, `#/2` … `#/7` mở đúng trang tiêu đề mạch 2–7; khối tiêu đề nằm trong khung (đáy lớn nhất 775 px trên 900 px), không cuộn ngang; 0 lỗi console, 0 `.katex-error`, không yêu cầu mạng ngoài; trang Nội dung đọc ra đúng bảy tên mạch; ba trang mở phần đổi tiêu đề (s02-01, s03-01, s07-01) không tràn khung. Ở 390×844, RevealJS chuyển sang chế độ cuộn và bỏ qua hash khi nạp; các trang được chụp sau khi cuộn tới phần tử, không tràn ngang. Đã tự xem ảnh. `git diff --check` sạch.
+
+### Sửa sau rà lại đợt 1
+
+Sau rà lại độc lập, sửa notes của lec03-s03-00 (mức nhẹ): "thêm bước nhảy với hệ số \(\beta\)" thành "thêm bước nhảy với xác suất \(1-\beta\)", vì trên lec03-s03-06 \(\beta\) là xác suất đi theo liên kết và \(1-\beta\) là xác suất nhảy. Dòng dẫn mạch 2 còn cụm "đầu vào, đầu ra" ở dạng văn xuôi, không phải nhãn; giữ nguyên trong đợt này. `git diff --check` sạch.

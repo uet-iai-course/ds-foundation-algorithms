@@ -14,7 +14,7 @@ Trạng thái: Hoàn tất bảy phần, 63 slide (59 slide giảng trong 120 ph
 | Phần | Tên trên mục lục | Loại phần | Thời lượng chính dự kiến |
 |---|---|---|---:|
 | 1 | Giới thiệu bài học | Giới thiệu và động lực | 10 phút |
-| 2 | Bài toán Xếp hạng trang web | Phát biểu bài toán, ví dụ và trực giác | 18 phút |
+| 2 | Bài toán xếp hạng trang web | Phát biểu bài toán, ví dụ và trực giác | 18 phút |
 | 3 | Mô hình và thuật toán PageRank | Hoàn thiện mô hình, thuật toán và tính đúng | 28 phút |
 | 4 | Tính PageRank trên đồ thị lớn | Biểu diễn và thuật toán phân tán | 22 phút |
 | 5 | Chi phí và lợi ích của cách tính | Đánh giá chi phí | 15 phút |
@@ -23,6 +23,16 @@ Trạng thái: Hoàn tất bảy phần, 63 slide (59 slide giảng trong 120 ph
 
 Tổng giảng chính 120 phút; recitation 60 phút. Bản triển khai có 63 slide, phân bổ theo bảy phần: 6, 8, 16, 10, 9, 7, 7. Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
 
+Từ 2026-10-14, mỗi phần 2–7 mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên mạch trùng từng chữ với cột "Tên trên mục lục"; mạch 1 mở bằng trang bìa. Deck 69 slide.
+
+| N | Trang tiêu đề mạch | Trang mở phần cũ, tiêu đề mới |
+|---:|---|---|
+| 2 | lec03-s02-00 | lec03-s02-01: Điểm và thứ tự cho mỗi trang |
+| 3 | lec03-s03-00 | lec03-s03-01: Chia điểm và bước đi ngẫu nhiên |
+| 4 | lec03-s04-00 | lec03-s04-01: Ma trận đặc và danh sách liên kết |
+| 5 | lec03-s05-00 | lec03-s05-01: Bốn đại lượng chi phí |
+| 6 | lec03-s06-00 | lec03-s06-01: Sản phẩm và môi trường thực hành |
+| 7 | lec03-s07-00 | lec03-s07-01: Chuỗi kết quả và giới hạn của PageRank |
 
 Chi tiết mạch, cách thể hiện, đầu ra học tập, nguồn và bài tập: [storyboard.md](storyboard.md).
 

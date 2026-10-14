@@ -15,14 +15,14 @@ Trạng thái: Hoàn tất bảy phần, 63 slide (59 slide giảng trong 120 ph
 | Phần | Tên trên mục lục | Loại phần | Thời lượng chính dự kiến |
 |---|---|---|---:|
 | 1 | Giới thiệu bài học | Giới thiệu và động lực | 10 phút |
-| 2 | Bài toán Xếp hạng trang web | Phát biểu bài toán, ví dụ và trực giác | 18 phút |
+| 2 | Bài toán xếp hạng trang web | Phát biểu bài toán, ví dụ và trực giác | 18 phút |
 | 3 | Mô hình và thuật toán PageRank | Hoàn thiện mô hình, thuật toán và tính đúng | 28 phút |
 | 4 | Tính PageRank trên đồ thị lớn | Biểu diễn và thuật toán phân tán | 22 phút |
 | 5 | Chi phí và lợi ích của cách tính | Đánh giá chi phí | 15 phút |
 | 6 | Thực hành tính PageRank | Thực hành | 20 phút |
 | 7 | Tổng kết và bài tập vận dụng | Tổng kết, kiểm tra, recitation | 7 phút + 60 phút bài tập |
 
-Tổng giảng chính 120 phút; recitation 60 phút. Bản triển khai có 63 slide, phân bổ theo bảy phần: 6, 8, 16, 10, 9, 7, 7. Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
+Tổng giảng chính 120 phút; recitation 60 phút. Bản triển khai có 63 slide, phân bổ theo bảy phần: 6, 8, 16, 10, 9, 7, 7; từ 2026-10-14 thêm một trang tiêu đề mạch ở đầu mỗi phần 2–7, thành 69 slide (6, 9, 17, 11, 10, 8, 8). Phần 6 có nhãn **Thực hành**; phần chứng minh nâng cao hoặc tối ưu ngoài mạch chính, nếu giữ, có nhãn **Đọc thêm**, ghi thời gian riêng. Không chuyển điều kiện đúng hoặc bước cần để code sang đọc thêm.
 
 ### 1. Giới thiệu bài học
 
@@ -123,6 +123,21 @@ Mỗi phần nội dung chính có câu hỏi kiểm tra ngắn. Recitation dự
 
 Chốt thời gian sau khi chạy lại lời giải. Không tự thêm yêu cầu code vào đề bài nguồn; phần thực hành có mục tiêu riêng. Lời giải và hướng dẫn chấm sẽ nằm trong notes khi soạn deck.
 
+## Bổ sung trang tiêu đề mạch 2026-10-14
+
+Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài từ 2 đến 7 mở bằng một trang `class="strand-title"`, `id="mach-N"`, mã `lec03-s0N-00` (mã này chưa có trong bài). Trang mở phần cũ `lec03-s0N-01` có tiêu đề "N · tên phần" trùng tên mạch; theo quy tắc tên mạch khác tiêu đề trang nội dung đầu tiên, tiêu đề các trang này được đổi theo nội dung của chính trang, bỏ tiền tố số; nội dung, notes và thứ tự giữ nguyên. Tên mạch 2 viết thường "xếp hạng" trên trang Nội dung, trang tiêu đề mạch và `aria-label`. Thời lượng 0,5 phút mỗi trang tiêu đề mạch lấy từ trang mở phần cũ; tổng 120 + 60 phút không đổi.
+
+| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
+|---|---|---|---|---|---|---|---:|---|
+| lec03-s02-00 | Bài toán xếp hạng trang web | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước lec03-s02-01 | Nhu cầu tín hiệu liên kết, giới hạn ma trận đặc của mạch 1 | Đặc tả $G=(V,E)$, kết quả một vòng chia điểm trên bốn trang | ngoài chu trình khái niệm; lec03-s02-01 đổi tiêu đề thành "Điểm và thứ tự cho mỗi trang" | 0,5 (từ lec03-s02-01) | thêm |
+| lec03-s03-00 | Mô hình và thuật toán PageRank | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước lec03-s03-01 | Quy tắc $r_j/d_j$ và vòng tính tay của mạch 2 | Công thức cập nhật đầy đủ, thuật toán, dừng, bảo toàn, hội tụ | ngoài chu trình khái niệm; lec03-s03-01 đổi tiêu đề thành "Chia điểm và bước đi ngẫu nhiên" | 0,5 (từ lec03-s03-01) | thêm |
+| lec03-s04-00 | Tính PageRank trên đồ thị lớn | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước lec03-s04-01 | Công thức cập nhật đầy đủ; $m\ll n^2$ | Biểu diễn thưa, chia khối, Map/Combine/Reduce, tính đúng | ngoài chu trình khái niệm; lec03-s04-01 đổi tiêu đề thành "Ma trận đặc và danh sách liên kết" | 0,5 (từ lec03-s04-01) | thêm |
+| lec03-s05-00 | Chi phí và lợi ích của cách tính | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước lec03-s05-01 | Cách tổ chức theo khối của mạch 4 | Mô hình dung lượng, bộ nhớ, lượng truyền và thời gian | ngoài chu trình khái niệm; lec03-s05-01 đổi tiêu đề thành "Bốn đại lượng chi phí" | 0,5 (từ lec03-s05-01) | thêm |
+| lec03-s06-00 | Thực hành tính PageRank | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước lec03-s06-01 | Công thức đầy đủ và kết quả tính tay | pagerank.py chạy được và các phép kiểm bằng số | ngoài chu trình khái niệm; lec03-s06-01 đổi tiêu đề thành "Sản phẩm và môi trường thực hành" | 0,5 (từ lec03-s06-01) | thêm |
+| lec03-s07-00 | Tổng kết và bài tập vận dụng | Nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 7, `id="mach-7"`, trước lec03-s07-01 | Mô hình, cách tính theo khối, chi phí, chương trình | Chuỗi kết quả và bốn bài tập vận dụng | ngoài chu trình khái niệm; lec03-s07-01 đổi tiêu đề thành "Chuỗi kết quả và giới hạn của PageRank" | 0,5 (từ lec03-s07-01) | thêm |
+
+lec03-s01-02 "Nội dung": `ul` thành `ol` 1–7, tên trùng từng chữ với tên mạch; giữ notes hiện có. Quyết định: sửa.
+
 ## Quyết định nguồn và các điểm cần kiểm tra khi soạn
 
 - MMDS Chương 5 là trục và nguồn bài tập. Slide MMDS và Stanford tương đương ở các cụm chính; ưu tiên MMDS. Trực quan ba nút của slide không bắt buộc dùng nếu đồ thị bốn nút trong sách giúp nối ví dụ với bài tập tốt hơn.
@@ -153,7 +168,7 @@ Phạm vi: sáu slide, id/introduction. Nguồn chính: MMDS 5.1.1 (trang 176–
 - **Tiêu đề:** Nội dung
 - **Mục đích:** Cho sinh viên thấy tuyến bảy phần của bài.
 - **Câu chốt:** Bài đi từ trực giác liên kết, ví dụ tính tay, mô hình/thuật toán, tính trên đồ thị lớn, chi phí, thực hành, rồi tổng kết/bài tập.
-- **Trung tâm visual:** Danh sách; hiện chỉ hiển thị "Giới thiệu bài học" vì đang xây từng phần.
+- **Trung tâm visual:** Danh sách đánh số bảy mạch, tên trùng trang tiêu đề mạch (2026-10-14).
 - **Tiên quyết:** Slide tiêu đề.
 - **Nối vào–ra:** Ra nối tới slide mục tiêu.
 - **Nguồn chính:** storyboard-approved.md (tuyến bảy phần).
@@ -222,7 +237,7 @@ Phân vai: phần này chỉ chứa **chuỗi bài toán và trực giác** (ph�
 
 | Slide | Mục đích | Câu chốt | Trung tâm | Kiến thức đầu vào | Nối vào–ra | Nguồn | Thời lượng |
 |---|---|---|---|---|---|---|---|
-| lec03-s02-01 | Phát biểu bài toán: từ mạng liên kết tìm điểm quan trọng rồi sắp thứ tự | Bài toán biến dữ liệu trang/cạnh thành điểm/thứ tự cho mỗi trang | Đồ thị `graph-pages.svg` bên trái; thẻ HTML điểm và thứ hạng bên phải | Nhu cầu tín hiệu xếp hạng từ liên kết của phần 1 (slide s01-04, s01-06) | Vào: kết thúc phần 1; Ra: đặc tả đầu vào–đầu ra slide 02 | storyboard-approved phần 2, mạch | 1 phút |
+| lec03-s02-01 | (tiêu đề từ 2026-10-14: Điểm và thứ tự cho mỗi trang) Phát biểu bài toán: từ mạng liên kết tìm điểm quan trọng rồi sắp thứ tự | Bài toán biến dữ liệu trang/cạnh thành điểm/thứ tự cho mỗi trang | Đồ thị `graph-pages.svg` bên trái; thẻ HTML điểm và thứ hạng bên phải | Nhu cầu tín hiệu xếp hạng từ liên kết của phần 1 (slide s01-04, s01-06) | Vào: kết thúc phần 1; Ra: đặc tả đầu vào–đầu ra slide 02 | storyboard-approved phần 2, mạch | 0,5 phút (trước 2026-10-14: 1 phút) |
 | lec03-s02-02 | Đặc tả đầu vào–đầu ra của bài toán | Đầu vào $G=(V,E)$, cạnh $j\to i$; đầu ra $r_i\ge 0$, tổng bằng 1, sắp giảm dần, cho phép đồng hạng; chuẩn hóa chưa xác định cách chấm điểm | Hai thẻ đầu vào–đầu ra với công thức ngắn (KaTeX) | Đồ thị có hướng, ký hiệu tập hợp; không giả định CSDL/Markov | Ra: quy ước ký hiệu $n,m,r_i$ dùng cho mọi slide sau; PageRank chốt mô hình ở phần 3 | MMDS 5.1.2 mở đầu | 2 phút |
 | lec03-s02-03 | Đọc đồ thị ví dụ, xác định liên kết ra/vào đủ để tính tay | Bốn trang A→B,C,D; B→A,D; C→A; D→B,C; $n=4$, $m=8$ | `graph-pages.svg` (A B trên, C D dưới, 8 mũi tên, 2 chiều tách đường cong) + bảng bậc ra | Ký hiệu $n,m$, cạnh có hướng của slide 02 | Ra: dữ kiện dùng chung phần 2–6 | MMDS Hình 5.1, trang 178 | 2 phút |
 | lec03-s02-04 | Tính quy tắc đếm liên kết vào và thấy giới hạn | Mỗi trang đều có 2 liên kết vào nên 4 trang đồng hạng; cách đếm coi mọi liên kết cùng trọng lượng | `graph-inlinks.svg` (2 cạnh vào A đậm) + bảng đếm cả 4 trang | Bảng liên kết ra slide 03 | Ra: động cơ cho quy tắc chia điểm slide 05; không tuyên bố PageRank | MMDS 5.1.2, Ví dụ 5.1 | 2 phút |
@@ -251,7 +266,7 @@ Phân vai: phần này chỉ chứa **chuỗi bài toán và trực giác** (ph�
 
 | Mã slide | Tiêu đề | Mục đích (SV làm được) | Câu chốt | Trung tâm | Tiên quyết | Nối vào–ra | Nguồn | Thời lượng |
 |---|---|---|---|---|---|---|---|---|
-| lec03-s03-01 | 3 · Mô hình và thuật toán PageRank | Diễn giải trực giác người đọc chọn đều liên kết ra; đọc r_i là xác suất ở trang i | Lặp phép chia điểm của phần 2 nhiều lần tạo thành mô hình di chuyển | Hình nút j chia r_j/d_j cho các đích | Kết quả một vòng phần 2 (s02-05..07) | Vào: một vòng phần 2. Ra: nhu cầu ma trận hóa | MMDS 5.1.2, tr.178–179 | 1 |
+| lec03-s03-01 | Chia điểm và bước đi ngẫu nhiên (trước 2026-10-14: 3 · Mô hình và thuật toán PageRank) | Diễn giải trực giác người đọc chọn đều liên kết ra; đọc r_i là xác suất ở trang i | Lặp phép chia điểm của phần 2 nhiều lần tạo thành mô hình di chuyển | Hình nút j chia r_j/d_j cho các đích | Kết quả một vòng phần 2 (s02-05..07) | Vào: một vòng phần 2. Ra: nhu cầu ma trận hóa | MMDS 5.1.2, tr.178–179 | 0,5 (trước 2026-10-14: 1) |
 | lec03-s03-02 | Ma trận liên kết | Lập được cột của M0 cho một trang, đúng quy ước cột nguồn / hàng đích | (M0)_ij = 1/d_j nếu j→i, cột j là nguồn, hàng i là đích | Công thức định nghĩa M0 + hình cột A | Bậc ra d_j (s02-03) | Vào: một vòng chia điểm. Ra: viết phép cập nhật dạng nhân ma trận | MMDS 5.1.2–5.1.3, tr.178–182 | 2 |
 | lec03-s03-03 | Lặp phép truyền điểm | Chạy tay r^1 = M0 r^0 và nêu mục tiêu tìm r* | r^{t+1} = M0 r^t; mục tiêu là điểm không đổi sau cập nhật; r^1 khớp phần 2 | Công thức lặp + hai vector r0→r1 | Slide 02 | Vào: ma trận M0. Ra: trường hợp mà lặp thô hỏng (04, 05) | MMDS 5.1.2, Ví dụ 5.2, tr.178–179 | 2 |
 | lec03-s03-04 | Trang không có liên kết ra | Chỉ ra điểm bị mất khi có nút cụt và vì sao phép chia không xác định | Nút cụt làm phép chia của nó không xác định, một vòng thô mất đúng δ điểm | Hình biến thể C nút cụt + phép tính tổng 3/4 | Slide 03 | Vào: lặp thô. Ra: nhu cầu phân phối lại (07) | MMDS 5.1.4, Ví dụ 5.3, tr.182–183 | 1 |
@@ -297,7 +312,7 @@ Hình SVG do render_large.py ghi cạnh script (bản phát hành ghi vào thư 
 
 ---
 
-## lec03-s04-01 — “4 · Tính PageRank trên đồ thị lớn” (1 phút)
+## lec03-s04-01 — “Ma trận đặc và danh sách liên kết” (0,5 phút; trước 2026-10-14: “4 · Tính PageRank trên đồ thị lớn”, 1 phút)
 
 - **Mục đích**: SV chỉ ra vì sao ma trận đặc không phù hợp khi $m\ll n^2$ và nêu hai nhiệm vụ của phần (cách lưu, cách chia việc).
 - **Câu chốt**: thông tin thực chỉ là $m$ cạnh; lưu cả ô 0 là lãng phí khi ma trận thưa.
@@ -439,7 +454,7 @@ Nguồn chính: MMDS 5.2, trang 190–194; quy ước chi phí I, H, C theo MMDS
 
 ## Slide
 
-### lec03-s05-01 — 5 · Chi phí và lợi ích của cách tính (1 phút)
+### lec03-s05-01 — Bốn đại lượng chi phí (0,5 phút; trước 2026-10-14: 5 · Chi phí và lợi ích của cách tính, 1 phút)
 - Mục đích: SV gọi tên và phân biệt bốn đại lượng S, B, W, T.
 - Câu chốt: bốn đại lượng đo bốn thứ khác nhau; T có thể giảm khi chia việc giữa các máy.
 - Trung tâm: 4 cards nhỏ với icon SVG native (đĩa, RAM, phép cộng, đồng hồ).
@@ -528,7 +543,7 @@ Bản nháp có sơ đồ Combine sai khối và sai phân số, timeline không
 
 Outer: `pagerank-practice`, 7 slide `pr-slide`, id `lec03-s06-01..07`. Tổng 20 phút: 2, 2, 4, 4, 3, 3, 2. Mọi slide có badge Thực hành; dùng CSS của deck (s01.css) và s06.css mới chỉ trong `#pagerank-practice`. Mã là trung tâm của mọi slide, không thêm hình trang trí.
 
-## s06-01 — 6 · Thực hành tính PageRank (2 phút)
+## s06-01 — Sản phẩm và môi trường thực hành (1,5 phút; trước 2026-10-14: 6 · Thực hành tính PageRank, 2 phút)
 - Mục đích: sinh viên nêu được bốn sản phẩm (r tổng 1, trạng thái dừng, số vòng, Δ) và môi trường cần có.
 - Câu chốt: đi từ dữ liệu tới chương trình chạy được và kiểm bằng số, một máy, Python 3 chuẩn.
 - Trung tâm: hai card — sản phẩm và môi trường; link `materials/lec-03/code/pagerank.py`.
@@ -608,7 +623,7 @@ Tổng kế hoạch 120 + 60: phần giảng 7 phút (2 + 2 + 3), recitation 60 
 CSS mới trong s07.css chỉ scoped `#summary-exercises`; không override `.pr-slide` toàn bài.
 Thời lượng 15 phút/bài chỉ ở storyboard, không xuất hiện trên mặt slide hay notes.
 
-## s07-01 — 7 · Tổng kết và bài tập vận dụng (2 phút)
+## s07-01 — Chuỗi kết quả và giới hạn của PageRank (1,5 phút; trước 2026-10-14: 7 · Tổng kết và bài tập vận dụng, 2 phút)
 - Mục đích: sinh viên nêu được chuỗi liên kết → chia điểm → lặp có bước nhảy → xếp hạng, và giới hạn của xếp hạng theo liên kết.
 - Câu chốt: PageRank là một tín hiệu xếp hạng bên cạnh mức phù hợp truy vấn.
 - Trung tâm: hai card — chuỗi kết quả đã xây và giới hạn cần nhớ.
