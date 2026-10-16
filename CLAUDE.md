@@ -116,9 +116,9 @@ Everything a student sees is formal, academic, native Vietnamese: slide text, ti
 
 `AGENTS.md` requires an orchestrator plus sub-agents; don't do the whole workflow in one role.
 
-This model assignment is a standing user instruction (2026-10-07, given for `../math-4-AI`, adopted here on 2026-10-14) and matches `AGENTS.md` §"Điều phối mô hình trong dự án".
+This model assignment is a standing user instruction (2026-10-07, given for `../math-4-AI`, adopted here on 2026-10-14; master model changed for this project on 2026-10-16) and matches `AGENTS.md` §"Điều phối mô hình trong dự án".
 
-- **Master and quality controller:** this session runs Claude Fable 5.1 (`claude-fable-5-1`).
+- **Master and quality controller:** this session runs Claude Opus 5.5 (`claude-opus-5-5`) at effort `high` (user confirmation 2026-10-16 for this project).
   - It splits the work, writes the briefs, merges results, and accepts or rejects every sub-agent output.
   - It does not take a sub-agent role itself. Drafting, reviewing and editing go to sub-agents.
   - If the session runs another model, say so before delegating and ask the user to switch.
