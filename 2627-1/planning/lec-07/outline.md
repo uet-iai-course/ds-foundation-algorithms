@@ -37,8 +37,8 @@ Phạm vi không gồm DiskANN, NSG, Vamana, huấn luyện bộ mã tối ưu, 
 | $k_c$ | số tâm thô của IVF |
 | $nprobe$ | số danh sách đảo được mở cho một truy vấn |
 | $k$ | số tâm của một bộ mã VQ (Q00–Q03) |
-| $x$ | điểm mới khi chèn HNSW (H10–H11); véc-tơ trong ví dụ VQ/PQ (Q00–Q06) |
-| $y$ | phần tử của kho; biến lân cận/ứng viên trong giả mã (H05, H06, H11) |
+| $x$ | điểm mới khi chèn HNSW (H10, H10B); véc-tơ trong ví dụ VQ/PQ (Q00–Q06) |
+| $y$ | phần tử của kho; biến lân cận/ứng viên trong giả mã (H05, H06) |
 | $\rho=e^{-1/m_L}$ | tỷ lệ điểm giữ lại ở tầng trên (H08, H13); thay $p$ của bài báo để khỏi trùng tên điểm $p1,\ldots,p11$ |
 | $a(y)$, $L_i$, $r(y)$, $\widetilde q_i$, $P$ | tâm thô được gán, danh sách đảo, phần dư, truy vấn dư, tập danh sách được mở (I01–I04) |
 
@@ -85,7 +85,7 @@ Stanford BIODS 271 không được dùng làm nguồn thuật toán vì chỉ t�
 
 ## Kiểm kê hình
 
-Mười chín SVG, tất cả sinh bằng `2627-1/img/lec-07/generate_svg.py` (lượt duyệt 03/10/2026 thay toàn bộ chín SVG viết tay cũ): `truy-hoi-ngu-nghia` (P01), `do-thu-hoi` (A01), `do-thi-vi-du`, `do-thi-tham-lam`, `do-thi-chum`, `do-thi-ef2` (đồ thị bảy đỉnh H00–H06), `search-layer-trang-thai` (H04), `canh-dai-mot-chieu` (H06B), `do-thi-nhieu-tang`, `do-thi-nhieu-tang-gon` (H07, H09), `chen-vi-du` (H10), `lan-can-da-dang` (H11), `luong-tu-hoa-vec-to` (Q00), `pq-tach-doan` (Q04), `pq-vi-du`, `pq-vi-du-adc` (Q05, Q06), `tep-dao`, `tep-dao-o`, `tep-dao-du` (I00–I02). Mỗi trang dùng lại ví dụ đều có hình hoặc dữ kiện trên trang. Bảng (bốn trục, bảng tra, so sánh, phiếu bài tập) dựng bằng HTML. Không dùng ảnh raster.
+Mười chín SVG, tất cả sinh bằng `2627-1/img/lec-07/generate_svg.py` (lượt duyệt 03/10/2026 thay toàn bộ chín SVG viết tay cũ): `truy-hoi-ngu-nghia` (P01), `do-thu-hoi` (A01), `do-thi-vi-du`, `do-thi-tham-lam`, `do-thi-chum`, `do-thi-ef2` (đồ thị bảy đỉnh H00–H06), `search-layer-trang-thai` (H04), `canh-dai-mot-chieu` (H06B), `do-thi-nhieu-tang`, `do-thi-nhieu-tang-gon` (H07, H09), `chen-vi-du` (H10), `lan-can-da-dang` (chỉ dùng trong ghi chú bài giảng §5 từ 2026-10-16, khi trang H11 bị bỏ; giữ tệp), `luong-tu-hoa-vec-to` (Q00), `pq-tach-doan` (Q04), `pq-vi-du`, `pq-vi-du-adc` (Q05, Q06), `tep-dao`, `tep-dao-o`, `tep-dao-du` (I00–I02). Mỗi trang dùng lại ví dụ đều có hình hoặc dữ kiện trên trang. Bảng (bốn trục, bảng tra, so sánh, phiếu bài tập) dựng bằng HTML. Không dùng ảnh raster.
 
 ## Giới hạn nguồn bài tập
 
@@ -154,3 +154,66 @@ Deck 65 trang (55 giảng + 10 bài tập). Mạch 6 đổi tên từ "So sánh 
 - **Thuật ngữ:** "chấm một mã" là phép đo xấp xỉ qua bảng tra (Q11); $n_c$ dùng ở Q11, Q10 ($n_c=N$), I03 ($n_c\approx nprobe\,N/k_c$). Đồ thị Delaunay giải nghĩa trên mặt trang H14. Mục "Thuật ngữ giải nghĩa" ở trên đổi hai điểm: A00 giữ "(approximate nearest neighbor)" nhưng không dùng chữ viết tắt ANN trên mặt trang; P03 viết "LSH" theo câu của điều phối viên, tên đầy đủ "băm nhạy cảm theo tính cục bộ" nằm trong ghi chú P00, P03 và đã giải nghĩa ở Bài 06.
 - **Bộ nhớ IVF-PQ** $(512+8)\cdot10^{10}$ byte $=5{,}2$ TB tính ở I03 (mạch 5), trước C00 và C04.
 - **Ghi chú bài giảng:** không sửa trong lượt này. Điểm cần đồng bộ khi sửa ghi chú: ngân sách giả định 6 TB và 10 ms; bảo đảm LSH $1-(1-p_1^r)^b$ trong bảng so sánh; "phần dư thường nhỏ hơn" (năng lượng trung bình).
+
+## Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)
+
+Bản hiện hành; các bảng mạch phía trên là lịch sử. Căn cứ: đặc tả sửa của điều phối viên (Phương án A). Mạch "Bài toán hàng xóm gần đúng" cũ gộp vào mạch mở đầu (bỏ trang tiêu đề `AT`); mạch HNSW cũ tách thành mạch đồ thị một tầng và mạch nhiều tầng (thêm trang tiêu đề `NT`). Deck 65 → 63 trang (54 giảng, 9 bài tập). Chi tiết từng trang, âm tiết trước → sau và ngoại lệ ở `storyboard.md`, mục cùng tên.
+
+### Tên mạch và trang tiêu đề mạch
+
+| N | Tên mạch (khớp P04) | Trang tiêu đề mạch | Dòng dẫn | Trang nội dung đầu mạch |
+|---:|---|---|---|---|
+| 1 | Bài toán hàng xóm gần đúng | P00 (bìa) | — | P03 |
+| 2 | Tìm kiếm trên đồ thị lân cận | HT, `id="mach-2"` | Muốn đo ít véc-tơ mà vẫn tới điểm gần $q$, phải đi trên đồ thị lân cận và giữ nhiều hướng. | H00 |
+| 3 | Đồ thị thế giới nhỏ phân tầng (HNSW) | NT, `id="mach-3"` | Muốn tới vùng gần $q$ sau ít bước, phải đặt các tầng thưa có cạnh dài phía trên đồ thị chứa mọi điểm. | H06B |
+| 4 | Lượng tử hóa tích (PQ) | QT, `id="mach-4"` | giữ | Q00 |
+| 5 | Tệp đảo kết hợp PQ (IVF-PQ) | IT, `id="mach-5"` | giữ | I00 |
+| 6 | Tổng kết và tự kiểm tra | CT, `id="mach-6"` | giữ | C03 |
+| 7 | Bài tập thực hành | RT, `id="mach-7"` | giữ | R00 |
+
+### Mạch phần giảng — 120 phút
+
+| Mạch | Trang (thứ tự deck) | Số trang | Phút | Sản phẩm học tập |
+|---|---|---:|---:|---|
+| 1. Bài toán hàng xóm gần đúng | P00, P03, P02, P04, P05, P01, A00, A00B, A01, A02, A03 | 11 | 20,5 | tình huống $10^{10}$ véc-tơ; đặc tả tìm đúng (A00) và tìm gần đúng (A00B, tách từ A00); recall@K; bốn trục; mô hình hai thừa số và cột "Lưu véc-tơ gốc" |
+| 2. Tìm kiếm trên đồ thị lân cận | HT, H00, H01, H03, H03B, H04, H05, H06 | 8 | 19 | đồ thị lân cận, tham lam, chùm, SEARCH-LAYER, bất biến |
+| 3. Đồ thị thế giới nhỏ phân tầng (HNSW) | NT, H06B, H07, H09, H08, H10, H10B, H12, H14, H13 | 10 | 23 | cạnh dài, nhiều tầng, truy vấn, phân phối tầng, chèn, tham số, số phép đo ($\log N$ có điều kiện), bộ nhớ (98% véc-tơ gốc) |
+| 4. Lượng tử hóa tích (PQ) | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 | 12 | 28 | VQ, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ |
+| 5. Tệp đảo kết hợp PQ (IVF-PQ) | IT, I00, I01, I02, I04, I05, I03 | 7 | 17 | tệp đảo, chọn danh sách, phần dư, thuật toán, vết, chi phí |
+| 6. Tổng kết và tự kiểm tra | CT, C03, C00, C04, C01, C05 | 6 | 12,5 | bảng giả thiết, bảng thuật toán, câu trả lời vấn đề trung tâm, ba câu tự kiểm, nguồn |
+
+Bỏ: AT (gộp mạch), H11 "Chọn lân cận đa dạng" (phần tùy chọn của thuật toán; nội dung và hình giữ ở ghi chú bài giảng §5), C02 (gộp vào C01). Đổi thứ tự: H14 trước H13, để mạch 3 kết bằng "véc-tơ gốc chiếm khoảng 98% bộ nhớ" mà Q00 nhận vào. Đổi tên trang: H08 "Phân phối tầng của điểm mới"; A00B "Tìm hàng xóm gần đúng" (khác tên mạch 1).
+
+### Bài tập — 60 phút
+
+| Nguồn trực tiếp | Trang | Phút |
+|---|---|---:|
+| ô nền 0–4, 17, 21–24; ô 82–97 | RT, R00, R01, R02 | 20 (0,5 + 0 + 5,5 + 14) |
+| ô 98–99 | R04, R05 | 20 |
+| ô 148–155 | R06, R07, R08 | 20 |
+
+R03 gộp vào R02: ba điều kiện khớp của tái dựng thành phần giải thích và tiêu chí chấm trong ghi chú R02, vì sổ nguồn ô 96–97 chỉ yêu cầu biểu thức tái dựng và kiểm `True`. Mọi trang bài tập đặt "Câu hỏi:" ngay dưới nhãn Thực hành.
+
+### Kiểm kê hình (2026-10-16)
+
+Mười tám SVG được deck dùng (không đổi tệp nào); `lan-can-da-dang.svg` còn trong `img/lec-07/` và chỉ được ghi chú bài giảng dùng. Không ảnh raster.
+
+### Thuật ngữ ở lần đầu trên mặt trang (thay mục cùng tên của đợt 2026-10-14)
+
+LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-PQ ở P04; tìm gần đúng (approximate nearest neighbor) ở A00B, không dùng viết tắt ANN trên mặt trang; độ thu hồi (recall) ở A01; tìm kiếm chùm (beam search) ở H03; HNSW ở H07 ("Đồ thị thế giới nhỏ phân tầng (Hierarchical Navigable Small World, HNSW)"); VQ ở Q00; ADC ở Q08; IVF ở I00; MSE ở R04. Dòng "Ký hiệu: HNSW là …" ở P03 bị bỏ; trước H07, "HNSW" chỉ xuất hiện trong tên mạch 3.
+
+### Lượt sửa 2 sau rà lại (2026-10-16)
+
+- Tên mạch 3 (P04, trang tiêu đề NT, `aria-label`): **"Đồ thị thế giới nhỏ phân tầng (HNSW)"**, cùng mẫu tên mạch 4, 5; hai bảng phía trên của mục 2026-10-16 đã sửa tại chỗ (tên cũ: "Đồ thị nhiều tầng HNSW"). Dòng dẫn NT: "Muốn tới vùng gần $q$ sau ít bước, phải đặt các tầng thưa có cạnh dài phía trên tầng 0." Từ khóa thứ năm: "Tham số và chi phí".
+- I05 đổi tiêu đề thành "Ví dụ: truy vấn IVF-PQ".
+- Ý tưởng chèn ("Chèn là truy vấn với $x$, rồi nối …") chuyển từ H10B lên dòng đầu H10, trước ví dụ; $efConstruction$ giải nghĩa trên H10.
+- H03: $C$ chứa các đỉnh từng vào $W$ nhưng chưa mở; $ef$ là bề rộng chùm. Quy tắc dừng ở dạng "Gợi ý:" trong hộp câu hỏi H03B.
+- Ký hiệu điểm của ví dụ một chiều thống nhất dạng $p1,\ldots,p11$ (khớp nhãn SVG); phá hòa theo chỉ số $i$ của $y_i$.
+- Kết quả HNSW phát biểu "số phép đo trung bình là $O(\log N)$" dưới giả thiết Delaunay chính xác và bậc bị chặn (H14, C03).
+- Số trang, thứ tự trang và thời lượng không đổi. Chi tiết và âm tiết trước → sau ở `storyboard.md`, mục "Lượt sửa 2 sau rà lại".
+
+### Lượt sửa 3 (2026-10-16)
+
+- Dòng dẫn NT: "Muốn tới vùng gần $q$ sau ít bước, phải đặt các tầng thưa có cạnh dài phía trên đồ thị chứa mọi điểm." (bảng mạch phía trên đã sửa tại chỗ).
+- Giả mã truy vấn H09 và chèn H10B dùng $ep$ là tập điểm vào, khớp đầu vào của SEARCH-LAYER (H04).
+- H10 nêu hai pha bằng hai dòng ($ef=1$ ở tầng $>\ell$; $efConstruction$ và nối $M$ lân cận ở tầng $\le\ell$) trước ví dụ.

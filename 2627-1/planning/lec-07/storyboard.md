@@ -2,6 +2,8 @@
 
 ## Hành trình khái niệm
 
+**Bản hiện hành từ 2026-10-16:** bản đồ mạch, thứ tự trang, thời lượng và mật độ nằm ở mục cuối "Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)". Các mục phía trên mục đó là lịch sử.
+
 **Thứ tự hiện hành (2026-10-14, sau lượt sửa theo ba báo cáo rà).** Sáu gạch đầu dòng ngay sau đoạn này là thứ tự hiện hành; bốn gạch dưới nhãn "Bản 03/10/2026" giữ để đối chiếu.
 
 - **Mở đầu:** bìa có luận đề P00 → tiên quyết P03 (LSH chỉ xác minh ứng viên cùng thùng, có thể bỏ sót) → mục tiêu P02 → Nội dung P04 → vấn đề trung tâm P05 (122,88 TB, ≈30,7 giây; ngân sách giả định 6 TB, 10 ms) → ví dụ truy hồi ngữ nghĩa P01 (gấp 3072 lần ngân sách 10 ms).
@@ -991,3 +993,217 @@ Ghi chú diễn giả sửa ở P00, P01, P03, P05, A00, A01, A03, HT, H00, H03,
 - **C00:** dòng dữ kiện bỏ "$b=8$", ghi "mã PQ 512 byte"; ô Đầu vào IVF-PQ "$k_c$, $nprobe$, mã PQ"; $b$ trên trang chỉ còn là số dải của LSH như Bài 06. Ô PQ "mã, bảng tra"; ô Bảo đảm HNSW "đúng trên đỉnh đã thấy" (tầng 0 đã nêu ở H09). Âm tiết 79/80.
 - **P05:** dòng cuối "Chọn chỉ mục đủ độ thu hồi với $10^{12}$ lượt/giây, 6 TB, dưới 10 ms (giả định)."; dòng 2 rút thành "Trả tối đa $K$ điểm; đo độ thu hồi." Âm tiết 59/60.
 - **H14:** ngoặc định nghĩa đồ thị Delaunay "(nối điểm có ô Voronoi kề nhau)"; tính chất tham lam tới điểm gần nhất ở ghi chú. Dòng 20 âm tiết, trang 60/60.
+
+## Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)
+
+Căn cứ: đặc tả sửa của điều phối viên (`spec-revise-07.md`, Phương án A) dựa trên hai báo cáo rà chỉ đọc (mạch và chủ đề mạch; phong cách MAT1101 và phản biện học thuật). Mục tiêu: mỗi mạch có một chủ đề, mọi trang phục vụ chủ đề đó, mặt trang theo lối MAT1101 (mệnh đề ngắn, mỗi trang một ý, "Muốn …"/"Nhu cầu:" nêu đích, câu kết là con số hoặc kết luận có điều kiện). Mục này là bản hiện hành; các mục trên là lịch sử. Deck 65 → 63 trang: 54 trang giảng (120 phút) và 9 trang bài tập (60 phút); bảy mạch 11/8/10/12/7/6/9.
+
+### Bản đồ mạch
+
+| N | Tên (khớp P04 và trang tiêu đề) | Loại | Chức năng | Đầu vào | Đầu ra | Trang tiêu đề mạch | Trang | Phút |
+|---:|---|---|---|---|---|---|---|---:|
+| 1 | Bài toán hàng xóm gần đúng | giới thiệu + khái niệm/mô hình | nêu kho $10^{10}$ véc-tơ, đặc tả tìm đúng và tìm gần đúng, độ thu hồi, bốn trục, mô hình hai thừa số | Bài 06: LSH chỉ xác minh ứng viên cùng thùng | $N_K(q)$, $\widehat N_K(q)$, recall@K, "chi phí ≈ số véc-tơ được đo × chi phí một phép đo", cột "Lưu véc-tơ gốc" | P00 (bìa) | P00, P03, P02, P04, P05, P01, A00, A00B, A01, A02, A03 | 20,5 |
+| 2 | Tìm kiếm trên đồ thị lân cận | thuật toán | giảm thừa số thứ nhất trên một đồ thị: tham lam, chùm, SEARCH-LAYER, bất biến | mô hình hai thừa số; $N=10^{10}$ | SEARCH-LAYER đúng trên tập đỉnh đã thấy $V$; số bước còn tăng theo khoảng cách | `HT`, `id="mach-2"` | HT, H00, H01, H03, H03B, H04, H05, H06 | 19 |
+| 3 | Đồ thị thế giới nhỏ phân tầng (HNSW) | thuật toán + chi phí | cạnh dài, tầng, truy vấn, phân phối tầng, chèn, tham số, chi phí | SEARCH-LAYER và bất biến; vết tham lam 6 bước | số phép đo tăng theo $\log N$ dưới giả thiết Delaunay; bộ nhớ ≈125,5 TB, ≈98% là véc-tơ gốc | `NT` (mới), `id="mach-3"` | NT, H06B, H07, H09, H08, H10, H10B, H12, H14, H13 | 23 |
+| 4 | Lượng tử hóa tích (PQ) | khái niệm + thuật toán + chi phí | thay véc-tơ bằng mã ngắn, khoảng cách qua bảng tra | véc-tơ gốc chiếm 98% bộ nhớ HNSW | mã 512 byte (5,12 TB); ADC; quét đủ vẫn chấm $10^{10}$ mã | `QT`, `id="mach-4"` | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 | 28 |
+| 5 | Tệp đảo kết hợp PQ (IVF-PQ) | thuật toán + chi phí | chỉ chấm mã trong vài danh sách gần $q$ | PQ quét đủ chấm mọi mã | $\approx3{,}63\cdot10^9$ thao tác (≈3,6 ms), $8+512$ byte mỗi phần tử | `IT`, `id="mach-5"` | IT, I00, I01, I02, I04, I05, I03 | 17 |
+| 6 | Tổng kết và tự kiểm tra | tổng kết | đối chiếu giả thiết, bảo đảm, chi phí; trả lời vấn đề trung tâm | bốn cấu trúc, cùng mô hình đếm | IVF-PQ khả thi có điều kiện (6 TB, 10 ms giả định) | `CT`, `id="mach-6"` | CT, C03, C00, C04, C01, C05 | 12,5 |
+| 7 | Bài tập thực hành | thực hành | đo lại công thức PQ, IVF-PQ trên sổ Princeton lớp 8 | công thức PQ, ADC, chi phí IVF-PQ | ba phiếu đo đối chiếu dự đoán | `RT`, `id="mach-7"` | RT, R00, R01, R02, R04–R08 | 60 |
+
+Tổng phần giảng 20,5 + 19 + 23 + 28 + 17 + 12,5 = 120 phút; bài tập 60 phút. Mạch 1 không có trang tiêu đề riêng; bìa là trang tiêu đề của mạch mở đầu (`AGENTS.md` §"Trang tiêu đề mạch"). `span.strand-number` của HT…RT là 2…7, khớp `#/2`…`#/7` (kiểm bằng trình duyệt: NT hiện "3 . 1").
+
+### Trang tiêu đề mạch
+
+| Mã | Tên | Vị trí | Dòng dẫn (âm tiết) | Ghi chú: kế thừa → nhiệm vụ → giao | Phút | Quyết định |
+|---|---|---|---|---|---:|---|
+| AT | (Bài toán hàng xóm gần đúng) | — | — | — | — | `bỏ`: A00–A03 là phần "bài toán" mà Bài 03, Bài 06 đặt trong mạch mở đầu; dòng dẫn cũ hứa "tránh quét" mà mạch không tránh phép quét nào |
+| HT | Tìm kiếm trên đồ thị lân cận | điểm vào mạch 2, trước H00 | "Muốn đo ít véc-tơ mà vẫn tới điểm gần $q$, phải đi trên đồ thị lân cận và giữ nhiều hướng." (20) | mô hình hai thừa số, quét đủ đo $10^{10}$ véc-tơ → tham lam, chùm, SEARCH-LAYER, bất biến → "đúng trên tập đỉnh đã thấy, số bước còn tăng theo khoảng cách", giới hạn dẫn tới cạnh dài (92 âm tiết) | 0,5 | `sửa`: tên, dòng dẫn, từ khóa, `id="mach-2"`; ghi chú bỏ "chọn lân cận đa dạng" và cụm "chi phí hoàn tất cấu trúc" |
+| NT | Đồ thị thế giới nhỏ phân tầng (HNSW) | điểm vào mạch 3, trước H06B | "Muốn tới vùng gần $q$ sau ít bước, phải đặt các tầng thưa có cạnh dài phía trên đồ thị chứa mọi điểm." (22) | SEARCH-LAYER và bất biến; số bước tăng theo khoảng cách → cạnh dài, tầng, truy vấn, rút tầng, chèn, đếm → "≈125,5 TB, ≈98% là véc-tơ gốc, nên véc-tơ cần được nén" (93 âm tiết; khớp H13: $12\,288/12\,553\approx0{,}979$) | 0,5 | `thêm`: tách mạch HNSW cũ (hai câu hỏi trung tâm trong 17 trang). Mã `NT` theo đặc tả; tên khác tiêu đề H06B. Ngoài chu trình khái niệm |
+| CT | Tổng kết và tự kiểm tra | điểm vào mạch 6 | giữ | ghi chú nêu bất biến SEARCH-LAYER và số phép đo đồ thị nhiều tầng thay "phân phối tầng" (88 âm tiết) | 0,5 | `sửa` (ghi chú) |
+| QT, IT, RT | giữ | giữ | giữ | giữ | 0,5 mỗi trang | `giữ` |
+
+### Từng trang
+
+Âm tiết đếm bằng `density07.py` trong scratchpad của điều phối viên (token tách theo khoảng trắng; bỏ tiêu đề, KaTeX, `pre`, `figure`, ghi chú, token thuần số trong ô bảng). Cột "Dòng" đếm `p`, `li`, hộp Câu hỏi và hàng `tbody`, không tính hàng tiêu đề bảng. Cột "Trần" là trần âm tiết áp dụng sau đợt sửa.
+
+| # | Mã | Tiêu đề | Mạch | Quyết định | Âm tiết trước → sau | Trần | Dòng | Phút | Lý do và kết nối |
+|---:|---|---|---:|---|---|---:|---:|---:|---|
+| 1 | P00 | Chỉ mục hàng xóm gần đúng | 1 | `sửa` | 51 → 50 | bìa | 4 | 0,5 | luận đề không dùng viết tắt HNSW trước khai triển: "Đồ thị nhiều tầng bớt số phép đo, mã ngắn bớt chi phí mỗi phép đo; đổi lại, có thể sót hàng xóm thật." (24 token, trần 25) |
+| 2 | P03 | Tiên quyết và quy ước | 1 | `sửa` | 61 → 45 | 60 | 4 | 1,5 | bỏ dòng "Ký hiệu: HNSW là …" (khai triển một viết tắt, không phải ký hiệu); dòng Nhắc lại khai triển LSH; "có thể bỏ sót" sang ghi chú; ghi chú bỏ câu lấy tài liệu làm chủ ngữ |
+| 3 | P02 | Mục tiêu học tập | 1 | `sửa` | 50 → 49 | 80 | 3 | 1 | mục tiêu 2 "tìm kiếm trên đồ thị" (không dùng HNSW trước H07); ghi chú đánh số lại câu tự kiểm |
+| 4 | P04 | Nội dung | 1 | `sửa` | 53 → 57 | 80 | 8 | 0,5 | bảy mạch mới; ghi chú một câu mỗi mạch |
+| 5 | P05 | Vấn đề trung tâm | 1 | `sửa` | 61 → 54 | 60 | 5 | 1,5 | Nhu cầu nêu đích và ngân sách, không lặp số quét đủ của P01; bốn dòng trả lời mạch 2–5; dòng "đầu ra gần đúng" bỏ vì trang lên 63 (đặc tả cho phép bỏ khi vượt) |
+| 6 | P01 | Ví dụ: truy hồi ngữ nghĩa trên mười tỷ véc-tơ | 1 | `giữ` | 37 → 37 | 60 | 4 | 3 | câu hỏi 30,7 giây giữ vì P05 không còn in số này |
+| 7 | A00 | Bài toán $K$ hàng xóm gần nhất | 1 | `tách` | 60 → 37 | 60 | 3 | 3,5 | một đặc tả mỗi trang; Nhu cầu nêu đích ($3{,}07\cdot10^{13}$ lượt tọa độ); ghi chú nêu phép đếm $\Theta(ND)$ và phá hòa |
+| 8 | A00B | Tìm hàng xóm gần đúng | 1 | `thêm` (tách từ A00) | — → 41 | 60 | 3 | 2 | Định nghĩa. ANN, câu cơ chế, Lưu ý thiếu điểm; ghi chú hai nguồn sai số và chữ "tối đa". Tên khác tên mạch 1 trên P04 |
+| 9 | A01 | Độ thu hồi tại $K$ | 1 | `sửa` | 34 → 36 | 60 | 4 | 3 | "Định nghĩa. … là tỷ lệ …:" đứng trước công thức |
+| 10 | A02 | Bốn trục đánh giá chỉ mục | 1 | `sửa` | 79 → 50 | 60 | 5 | 2 | câu hỏi A/B làm nhu cầu, đặt đầu trang, ≤ 20 âm tiết ("Nêu điều kiện để chọn B."); cột "Giữ cố định khi so sánh" sang ghi chú; bỏ ngoại lệ trần 80 |
+| 11 | A03 | Hai cách giảm chi phí truy vấn | 1 | `sửa` | 57 → 43 | 60 | 5 | 2 | cột "Cách giảm" (lặp P05) thành "Lưu véc-tơ gốc" có/có/không/không; hàng "HNSW" thành "Đồ thị lân cận" (chưa khai triển HNSW); ghi chú bỏ câu chung "Cả ba đều đổi …", thêm $4ND$ byte = 122,88 TB. Trang cuối mạch 1 |
+| 12 | HT | 2. Tìm kiếm trên đồ thị lân cận | 2 | `sửa` | 33 → 34 | dẫn ≤ 25 | 2 | 0,5 | xem bảng trang tiêu đề mạch |
+| 13 | H00 | Đồ thị lân cận | 2 | `sửa` | 48 → 51 | 60 | 3 | 1 | Nhu cầu có số và giới hạn của quét đủ ($N=10^{10}$) |
+| 14 | H01 | Tìm kiếm tham lam | 2 | `sửa` | 40 → 46 | 60 | 6 | 4 | Kết luận giải nghĩa "cực tiểu cục bộ (không lân cận nào gần $q$ hơn)" |
+| 15 | H03 | Tìm kiếm chùm | 2 | `sửa` | 53 → 48 | 60 | 3 | 2 | "Muốn tới $z{:}1$ … phải giữ nhánh $s$ chưa đi."; "mở" giải nghĩa trên mặt trang; dòng "Dừng khi …" sang ghi chú (giả mã H05 có); ghi chú 174 → 141 |
+| 16 | H03B | Ví dụ: tìm kiếm chùm trên đồ thị bảy đỉnh | 2 | `sửa` | 35 → 28 | 60 | 7 | 2 | bỏ câu tả bố cục bảng (sang ghi chú); không thêm "Diễn giải:" vì trang đã 8 dòng kể cả hàng tiêu đề |
+| 17 | H04 | Thuật toán: SEARCH-LAYER | 2 | `sửa` | 43 → 41 | 60 | 4 | 2 | "Ký hiệu: $V$ là tập đỉnh đã thấy; $C,W\subseteq V$." không lặp định nghĩa $C$, $W$ |
+| 18 | H05 | Thuật toán: SEARCH-LAYER | 2 | `giữ` | 8 → 8 | 60 | 1 | 4 | +0,5 phút đọc giả mã |
+| 19 | H06 | Tính đúng: SEARCH-LAYER | 2 | `sửa` | 54 → 41 | 60 | 5 | 3,5 | bỏ dòng "Điều kiện dừng" (phương án mật độ thấp hơn: −13 so với −5 nếu bỏ dòng Ví dụ.); tính kết thúc vẫn ở ghi chú H05, H06; dòng Ví dụ. $ef=2$ giữ vì đọc hình `do-thi-ef2.svg` và dẫn sang NT ($z\notin V$). Trang cuối mạch 2; +0,5 phút |
+| 20 | NT | 3. Đồ thị thế giới nhỏ phân tầng (HNSW) | 3 | `thêm` | — → 32 | dẫn ≤ 25 | 2 | 0,5 | điểm vào mạch 3; xem bảng trang tiêu đề mạch |
+| 21 | H06B | Ví dụ: cạnh dài trên mười hai điểm thẳng hàng | 3 | `sửa` | 37 → 33 | 60 | 3 | 2 | "Nhu cầu: đi tới $q$ sau ít bước tham lam khi $q$ xa điểm vào."; vế "chỉ có cạnh ngắn …" sang ghi chú (phương án mật độ thấp hơn); ghi chú bỏ "zoom-out/zoom-in" |
+| 22 | H07 | Đồ thị nhiều tầng | 3 | `sửa` | 47 → 47 | 60 | 4 | 2,5 | khai triển HNSW ở lần dùng đầu trong nội dung: "Đồ thị thế giới nhỏ phân tầng (Hierarchical Navigable Small World, HNSW) gồm nhiều tầng lồng nhau."; ghi chú bỏ đoạn lặp vết của H09 (178 → 150) |
+| 23 | H09 | Thuật toán: truy vấn HNSW | 3 | `giữ` | 28 → 28 | 60 | 3 | 3 | — |
+| 24 | H08 | Phân phối tầng của điểm mới | 3 | `sửa` | 54 → 57 | 60 | 6 | 3 | tiêu đề gọi tên kết quả; dòng công thức có động từ "Đặt …, với …" |
+| 25 | H10 | Ví dụ: chèn một điểm vào đồ thị ba tầng | 3 | `sửa` | 37 → 36 | 60 | 5 | 3 | dữ kiện + "Xác định lân cận của $x$ ở tầng 1 và tầng 0."; Kết luận nêu kết quả đọc từ bảng: $p2,p4$ ở tầng 1, $p3,p2$ ở tầng 0; ghi chú 174 → 145 |
+| 26 | H10B | Thuật toán: chèn HNSW | 3 | `sửa` | 15 → 29 | 60 | 3 | 4 | câu dẫn "Chèn là truy vấn với $x$, rồi nối …" chuyển từ H10; ghi chú bỏ câu cấu hình và câu nhắc ví dụ, giữ tham chiếu Thuật toán 4 và chỉ sang ghi chú bài giảng (188 → 130); +1 phút |
+| — | H11 | Chọn lân cận đa dạng | 3 | `bỏ` | 36 → — | — | — | −2,5 | phần tùy chọn của thuật toán (`AGENTS.md`: đặt trong ghi chú bài giảng); không mục tiêu nào đòi; không trang sau nào dùng. Nội dung giữ ở ghi chú bài giảng §5 cùng `img/lec-07/lan-can-da-dang.svg` (không xóa tệp) |
+| 27 | H12 | Ba tham số của HNSW | 3 | `sửa` | 65 → 56 | 60 | 4 | 2 | cột cuối rút thành cụm ngắn, giải thích chuyển vào ghi chú; bỏ ngoại lệ trần 80 |
+| 28 | H14 | Chi phí: truy vấn HNSW | 3 | `sửa` | 60 → 56 | 60 | 4 | 1,5 | đặt trước H13; "Mệnh đề. Với giả thiết trên, số phép đo trung bình tăng theo $\log N$."; "Lưu ý: … trường hợp xấu thăm cả tầng."; bỏ dòng Kết luận (vế bộ nhớ thuộc H13); nguồn Malkov–Yashunin chỉ trong ghi chú; ghi chú bỏ câu trỏ mặt trang |
+| 29 | H13 | Chi phí: bộ nhớ HNSW | 3 | `giữ` (đổi chỗ) | 53 → 53 | 80 | 5 | 1,5 | trang cuối mạch 3, kết "véc-tơ gốc chiếm khoảng 98% bộ nhớ" đúng câu Q00 nhận vào |
+| 30 | QT | 4. Lượng tử hóa tích (PQ) | 4 | `giữ` | 39 → 39 | dẫn ≤ 25 | 2 | 0,5 | — |
+| 31 | Q00 | Lượng tử hóa véc-tơ | 4 | `sửa` | 47 → 52 | 60 | 6 | 3,5 | "Nhu cầu: lưu mỗi véc-tơ bằng ít byte hơn; véc-tơ gốc chiếm 98% bộ nhớ HNSW." (bỏ 122,88 TB để giữ mật độ) |
+| 32 | Q02 | Thuật toán: mã hóa VQ | 4 | `giữ` | 36 → 36 | 60 | 4 | 2 | — |
+| 33 | Q03 | Chi phí: một bộ mã lớn | 4 | `sửa` | 69 → 62 | 80 | 6 | 2 | dòng Mô hình chỉ còn mô hình (dữ kiện ví dụ đã ở tiêu đề cột và ghi chú); Kết luận có số: "với $D=128$, mã 64 bit … cần $2^{64}$ tâm, khoảng $9{,}4\cdot10^{21}$ byte" ($2^{64}\cdot128\cdot4\approx9{,}44\cdot10^{21}$); bỏ "khổng lồ" |
+| 34 | Q04 | Mã PQ và tái dựng | 4 | `sửa` | 42 → 46 | 60 | 4 | 3 | "Định nghĩa. Lượng tử hóa tích (PQ) là VQ riêng trên từng đoạn …" trong `p`; gạch "Tương tự VQ, nhưng …" thành "Mỗi đoạn $j$ có bộ mã con riêng …" vì định nghĩa đã chứa phép so với VQ |
+| 35 | Q05 | Ví dụ: mã hóa PQ hai đoạn | 4 | `giữ` | 25 → 25 | 60 | 5 | 3 | — |
+| 36 | Q07 | Chi phí: kích thước mã và bộ mã PQ | 4 | `sửa` | 46 → 43 | 80 | 5 | 3 | Kết luận một ý: "cùng $2^{64}$ mã, bộ mã PQ nhỏ hơn bộ mã VQ $2^{56}$ lần" ($2^{64}\cdot128/(2^8\cdot128)$); cấu hình kho mở đầu chuyển sang Q10 |
+| 37 | Q06 | Ví dụ: khoảng cách bất đối xứng của mã $(0,1)$ | 4 | `sửa` | 22 → 27 | 60 | 5 | 3 | thêm "Nhu cầu: kho chỉ còn mã; cần ước lượng $d(q,x)$ mà không dùng $x$."; gộp dữ kiện $q$ vào dòng yêu cầu để giữ 6 dòng |
+| 38 | Q08 | Khoảng cách bất đối xứng (ADC) | 4 | `sửa` | 51 → 44 | 60 | 4 | 2 | bỏ gạch lặp Q06; gạch còn lại thành `p` |
+| 39 | Q09 | Bảng tra khoảng cách | 4 | `giữ` | 22 → 22 | 60 | 5 | 2 | — |
+| 40 | Q11 | Chi phí: bảng tra và chấm mã | 4 | `giữ` | 57 → 57 | 80 | 5 | 1 | — |
+| 41 | Q10 | Chi phí: PQ quét đầy đủ | 4 | `sửa` | 61 → 57 | 80 | 5 | 3 | dòng đầu "Mô hình:" kèm cấu hình ($m=512$ đoạn 6 chiều, $b=8$); một yếu tố chốt: giữ Kết luận giới hạn (I00 nhận vào), câu hỏi 5,12 giây chuyển thành phép tính trong ghi chú |
+| 42 | IT | 5. Tệp đảo kết hợp PQ (IVF-PQ) | 5 | `giữ` | 36 → 36 | dẫn ≤ 25 | 2 | 0,5 | — |
+| 43 | I00 | Tệp đảo (IVF) | 5 | `sửa` | 50 → 51 | 60 | 4 | 2,5 | "Nhu cầu: chấm ít hơn $10^{10}$ mã mỗi truy vấn; PQ quét đủ chấm mọi mã."; dòng Ví dụ. rút |
+| 44 | I01 | Chọn danh sách cần mở | 5 | `sửa` | 15 → 28 | 60 | 7 | 3 | câu dẫn trước công thức gán ô |
+| 45 | I02 | Mã hóa phần dư | 5 | `sửa` | 37 → 43 | 60 | 5 | 3 | "Phần dư có bình phương chuẩn trung bình nhỏ hơn của $y$" khớp ghi chú; ghi chú 156 → 147 |
+| 46 | I04 | Thuật toán: truy vấn IVF-PQ | 5 | `giữ` | 32 → 32 | 60 | 2 | 3 | +0,5 phút |
+| 47 | I05 | Ví dụ: truy vấn IVF-PQ | 5 | `giữ` | 26 → 26 | 60 | 5 | 2 | +0,5 phút |
+| 48 | I03 | Chi phí: truy vấn IVF-PQ | 5 | `sửa` | 67 → 56 | 80 | 7 | 3 | Mô hình 17 âm tiết; Kết luận một ý (≈1400 lần); 5,2 TB giữ ở C00, C04 và ghi chú |
+| 49 | CT | 6. Tổng kết và tự kiểm tra | 6 | `sửa` | 41 → 41 | dẫn ≤ 25 | 2 | 0,5 | ghi chú nhắc hai mạch đồ thị |
+| 50 | C03 | Kết quả và giả thiết không được bỏ | 6 | `sửa` | 80 → 75 | 80 | 6 | 2 | bỏ hàng "Phân phối tầng" (kết quả phụ, còn ở H08 và ghi chú bài giảng) |
+| 51 | C00 | Thuật toán, bảo đảm và chi phí | 6 | `sửa` | 78 → 78 | 80 | 5 | 3 | ghi chú mở bằng nội dung bảng, không mở bằng câu phủ định (172 → 146) |
+| 52 | C04 | Câu trả lời cho vấn đề trung tâm | 6 | `sửa` | 72 → 57 | 80 | 5 | 2,5 | bỏ gạch nhắc đặc tả; ba dòng HNSW, PQ, IVF-PQ khớp P05 (dòng HNSW trả lời chung cho hai mạch đồ thị); +0,5 phút |
+| 53 | C01 | Câu hỏi tự kiểm tra | 6 | `gộp` (nhận C02) | 54 → 53 | 60 | 4 | 4 | ba câu: $ef$ và bất biến (câu 2 cũ), bộ nhớ HNSW so 64 GB (câu 3 cũ, viết lại ≤ 20 âm tiết), số mã IVF-PQ với giả thiết cân bằng (câu 6 cũ); câu PQ $D=960$ không vừa trần 60 (61–63 âm tiết) nên chỉ còn ở ghi chú bài giảng; lời giải trùng ghi chú bài giảng §12 |
+| — | C02 | Câu hỏi tự kiểm tra | 6 | `bỏ` (gộp vào C01) | 57 → — | — | — | −3,5 | câu 4 trùng Q07 và R01, câu 5 trùng thao tác Q09; câu 6 chuyển sang C01 |
+| 54 | C05 | Nguồn và tài liệu đọc | 6 | `sửa` | 79 → 69 | 80 | 5 | 0,5 | dòng nguồn HNSW rút còn 12 âm tiết (tên đầy đủ của bài báo chuyển vào ghi chú); ngoại lệ: trần 80 của trang tổng kết, xem dưới |
+| 55 | RT | 7. Bài tập thực hành | 7 | `giữ` | 41 → 41 | dẫn ≤ 25 | 2 | 0,5 | — |
+| 56 | R00 | Sổ thực hành và dữ liệu | 7 | `giữ` | 49 → 49 | 80 | 8 | 0 | — |
+| 57 | R01 | Bài tập: mã và tái dựng PQ (a) | 7 | `sửa` | 49 → 48 | 80 | 6 | 5,5 | "Câu hỏi:" ngay dưới nhãn Thực hành, trước dữ kiện |
+| 58 | R02 | Bài tập: mã và tái dựng PQ (b) | 7 | `gộp` (nhận R03) | 39 → 39 | 80 | 3 | 14 | "Câu hỏi:" lên đầu; ba điều kiện khớp của R03 thành phần giải thích trong ghi chú; chấm nhiệm vụ 1: bảng 3 điểm (R01), biểu thức và `True` 7 điểm, vi phạm một điều kiện 4 điểm |
+| — | R03 | Bài tập: mã và tái dựng PQ (c) | 7 | `bỏ` (gộp vào R02) | 73 → — | — | — | −5 | nhiệm vụ giải thích không có trong sổ nguồn ô 96–97 và không phải số đo |
+| 59 | R04 | Bài tập: cùng ngân sách 6 byte (a) | 7 | `sửa` | 49 → 49 | 80 | 6 | 10 | "Câu hỏi:" lên đầu |
+| 60 | R05 | Bài tập: cùng ngân sách 6 byte (b) | 7 | `sửa` | 66 → 66 | 80 | 5 | 10 | "Câu hỏi: từ số đo MSE và thời gian đã ghi, trả lời ba ý sau." (bỏ "trang (a)", "của mình") |
+| 61 | R06 | Bài tập: chỉ mục IVF-PQ (a) | 7 | `sửa` | 41 → 37 | 80 | 3 | 6 | "Câu hỏi:" lên đầu, gộp câu "Chạy ô 149–151 …" |
+| 62 | R07 | Bài tập: chỉ mục IVF-PQ (b) | 7 | `sửa` | 33 → 33 | 80 | 3 | 9 | "Câu hỏi:" lên trước mã |
+| 63 | R08 | Bài tập: chỉ mục IVF-PQ (c) | 7 | `sửa` | 42 → 42 | 80 | 7 | 5 | "Câu hỏi:" lên trước bảng |
+
+Phút: phần giảng 120 (AT −0,5, H11 −2,5, C02 −3,5; NT +0,5, A00B +2, H05 +0,5, H06 +0,5, H10B +1, I04 +0,5, I05 +0,5, C04 +0,5, C01 +0,5); bài tập 0,5 + 0 + 5,5 + 14 + 10 + 10 + 6 + 9 + 5 = 60.
+
+### Lựa chọn khi đặc tả cho hai phương án
+
+- **H06:** bỏ dòng "Điều kiện dừng" thay vì dòng "Ví dụ." (mật độ thấp hơn: 54 → 41 thay vì 49).
+- **H06B:** vế "chỉ có cạnh ngắn …" sang ghi chú thay vì thành dòng giới hạn có số.
+- **A02:** đưa câu hỏi A/B lên làm nhu cầu ở đầu trang thay vì thêm dòng "Muốn so sánh …" (thêm dòng làm trang 66 âm tiết, 7 dòng).
+- **Q03:** không thêm dòng "Ví dụ." riêng; dữ kiện $D=128$, $k=2^{64}$ đã ở tiêu đề cột bảng.
+- **Q10:** giữ Kết luận giới hạn, chuyển câu hỏi thời gian vào ghi chú (−17 âm tiết).
+- **P05:** bỏ dòng "đầu ra gần đúng" vì trang lên 63.
+- **C04:** bỏ hẳn gạch đặc tả thay vì rút.
+- **C05:** rút dòng nguồn HNSW thay vì giữ tên bài báo trên mặt trang.
+- **C01:** ba câu thay vì bốn (câu PQ làm trang vượt 60).
+
+### Mật độ và ngoại lệ còn lại
+
+Không trang trần 60 nào vượt 60 (cao nhất H08 57, Q00 52, H00 51, I00 51). Trang trên 60 đều thuộc nhóm trần 80: Q03 62 (chi phí), C03 75, C00 78 (tổng kết), R05 66 (đề recitation) và C05 69. **Ngoại lệ C05:** trang "Nguồn và tài liệu đọc" thuộc mạch tổng kết; ba dòng nguồn giữ tên tài liệu tiếng Anh (PQ, MMDS) và tên lớp học, mỗi dòng ≤ 20 âm tiết; trần áp dụng 80, trang 69. Hai trang trước đây dựa vào ngoại lệ "bảng so sánh" nay dưới 60: A02 50, H12 56. Không dòng chữ nào vượt 20 âm tiết, trừ câu luận đề bìa (24, trần 25) và dòng dẫn trang tiêu đề mạch (18–23, trần 25).
+
+**Ngoại lệ dòng** (trần 6; bảng vết, bảng tính và bảng chi phí tới 8, đếm không tính hàng tiêu đề): P04 8 (bảy mạch và Đọc trước), R00 8 (hai bảng dữ kiện sổ thực hành), H03B 7 (vết 5 hàng), I01 7 (câu dẫn, công thức, bảng xếp tâm 4 hàng, câu hỏi), I03 7 (chi phí), R08 7 (phiếu 5 hàng). Ghi chú diễn giả trên 150 âm tiết chỉ ở trang chứng minh, tính đúng, đọc giả mã hoặc lời giải (H05 175, H06 156, H08 156, I01 154, C01 170, R02 196, R05 168, R07 158, R08 152, P01 163), cùng P03 171, Q10 152 (mức `nhẹ`).
+
+### Kiểm tra theo mạch và câu tự kiểm
+
+- Mạch 1: câu hỏi ở P01, A01, A02. Mạch 2: H03B. Mạch 3: H12. Mạch 4: Q00 (câu hỏi Q10 chuyển thành phép tính trong ghi chú). Mạch 5: I01, I05. Mạch 6: C01, lời giải trong ghi chú. Mạch 7: tám trang bài tập theo sổ Princeton COS 597A lớp 8.
+- **Ánh xạ câu tự kiểm tra → mục tiêu (thay bản 2026-10-14):** câu 1 ($ef$, bất biến SEARCH-LAYER) → mục tiêu 2; câu 2 (bộ nhớ HNSW so 64 GB) → mục tiêu 3; câu 3 (số mã IVF-PQ, giả thiết cân bằng) → mục tiêu 3. Mục tiêu 1 được kiểm bằng câu hỏi A01 và câu hỏi recall@3 ở I05 (ghi chú P02 đã sửa theo).
+
+### Thuật ngữ và viết tắt ở lần đầu trên mặt trang
+
+LSH khai triển ở P03; PQ ở mục tiêu 2 (P02); IVF-PQ ở P04 ("Tệp đảo kết hợp PQ (IVF-PQ)"); HNSW khai triển ở H07. Trước H07, mặt trang chỉ dùng "HNSW" trong tên mạch 3 (P04, NT, từ khóa "Chi phí HNSW"), vì tên mạch do đặc tả chốt; P00, P02, P05, A03 đã thay "HNSW" bằng "đồ thị nhiều tầng", "đồ thị lân cận" hoặc "tìm kiếm trên đồ thị". Ghi chú P00 khai triển HNSW.
+
+## Lượt sửa 2 sau rà lại (2026-10-16)
+
+Căn cứ: danh sách sửa của điều phối viên sau ba báo cáo rà lại (độ chính xác, mạch, sinh viên và mật độ); không có phát hiện chặn hay nghiêm trọng. Mục này thay các ô tương ứng của mục "Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)"; số trang, thứ tự và thời lượng 120 + 60 phút không đổi.
+
+**Đổi tên mạch 3:** "Đồ thị thế giới nhỏ phân tầng (HNSW)" trên P04, `h2` của NT và `aria-label` của section ngoài (cùng mẫu tên mạch 4, 5). H07 giữ khai triển có tiếng Anh. Trước P04, "HNSW" chỉ còn trong ghi chú P00 (đã khai triển) và ghi chú P02.
+
+**I05** đổi tiêu đề thành "Ví dụ: truy vấn IVF-PQ" (trang vết chạy, không phải trang đặc tả).
+
+### Mục storyboard đầy đủ cho trang mới
+
+| Trường | A00B — Tìm hàng xóm gần đúng | NT — 3. Đồ thị thế giới nhỏ phân tầng (HNSW) |
+|---|---|---|
+| Mạch, vị trí | mạch 1, sau A00, trước A01 | mạch 3, **điểm vào mạch 3**, sau H06, trước H06B; `id="mach-3"` |
+| Mục đích | hình thức hóa bài toán gần đúng tách khỏi bài toán tìm đúng; nêu hai nguồn thiếu điểm | nêu nhu cầu của mạch: ít bước khi $q$ xa điểm vào; báo các khối của mạch |
+| Hành động sinh viên | đối chiếu đầu ra $\widehat N_K(q)$ với $N_K(q)$ của A00; nêu vì sao chỉ mục có thể thiếu điểm | đọc dòng dẫn và từ khóa; nối giới hạn của SEARCH-LAYER (H06) với ý tưởng tầng thưa |
+| Đối tượng trung tâm | $\widehat N_K(q)\subseteq Y$, tối đa $K$ điểm | tầng thưa có cạnh dài phía trên đồ thị chứa mọi điểm (tầng 0) |
+| Dữ kiện, ký hiệu kế thừa | $Y$, $q$, $K$, $d$ (P03, A00); $N_K(q)$ và quy tắc phá hòa theo chỉ số (A00) | SEARCH-LAYER, bất biến "đúng trên $V$" (H04–H06); vết $ef=2$ không tới $z$ |
+| Kiến thức đầu vào | đặc tả đầu vào/đầu ra; tập con | tìm kiếm tham lam và tìm kiếm chùm trên một đồ thị |
+| Sản phẩm học tập | phát biểu được đặc tả tìm gần đúng và hai nguồn sai số (đo một phần kho, đo xấp xỉ) | nêu được mạch 3 giải quyết giới hạn nào của mạch 2 |
+| Bằng chứng kiểm | câu hỏi A01 (recall@5 $=2/5$) dùng $\widehat N_K$, $N_K$; Lưu ý trên mặt trang dẫn sang độ thu hồi | H06B (6 → 3 bước), câu hỏi H12, mệnh đề H14, bộ nhớ H13 |
+| Ghi chú | 119 âm tiết: hai nguồn thiếu điểm, chữ "tối đa", dẫn sang phép đo chất lượng | 98 âm tiết: kế thừa → nhiệm vụ (hai câu: đặt tầng và truy vấn; rút tầng, chèn, đếm số phép đo rồi bộ nhớ) → giao "≈125,5 TB, ≈98% véc-tơ gốc" |
+| Phút; quyết định | 2; `thêm` (tách từ A00) | 0,5; `thêm` |
+
+### Quyết định lượt 2
+
+Âm tiết đếm bằng `density07.py`; "trước" là bản sau lượt 1.
+
+| Mã | Quyết định | Âm tiết trước → sau | Trần | Thay đổi và lý do |
+|---|---|---|---:|---|
+| H03 | `sửa` | 48 → 51 | 60 | $C$ "chứa các đỉnh từng vào $W$ nhưng chưa mở", khớp giả mã H05 (đỉnh bị loại khỏi phép thử $W$ không vào $C$; ví dụ $w{:}9$ ở câu tự kiểm 1); $ef$ gọi tên "bề rộng chùm" ở lần dùng đầu; ghi chú thêm "đỉnh bị đẩy khỏi $W$ vẫn ở lại $C$" |
+| H03B | `sửa` | 28 → 42 | 60 | hộp câu hỏi gộp thành một câu (13 âm tiết) và thêm "Gợi ý:" quy tắc dừng (15 âm tiết), đủ để giải câu hỏi $ef=2$ trên mặt trang. Chọn hộp H03B thay vì thêm dòng dừng vào H03 vì H03 sẽ lên khoảng 64. Hộp gồm hai câu, mỗi câu ≤ 20 âm tiết; bộ đếm tính cả hộp là một dòng 28 âm tiết |
+| H10 | `sửa` | 36 → 51 | 60 | dòng đầu nêu ý tưởng chèn trước ví dụ; $efConstruction$ giải nghĩa "bề rộng chùm khi chèn"; 6 dòng (bảng vết 3 hàng) |
+| H10B | `sửa` | 29 → 15 | 60 | bỏ câu dẫn (đã ở H10; Đầu vào/Đầu ra đủ); giả mã: $ep$ luôn là tập (`ep ← {điểm vào}`, pha 1 `ep ← {…}`), biến `e ∈ R` đổi thành `y ∈ R`; ghi chú nêu kiểu $ep$ và "giữ $M_{max}(\ell_c)$ lân cận gần nhất" (151 âm tiết) |
+| NT | `sửa` | 32 → 35 | dẫn ≤ 25 | tên mạch đầy đủ; dòng dẫn một nghĩa "… đặt các tầng thưa có cạnh dài phía trên tầng 0." (18); từ khóa "Tham số và chi phí"; ghi chú tách hai câu, thứ tự số phép đo rồi bộ nhớ |
+| P04 | `sửa` | 57 → 60 | 80 | tên mạch 3 đầy đủ |
+| H06B | `sửa` | 33 → 39 | 60 | Nhu cầu nêu kết quả kế thừa và giới hạn: "SEARCH-LAYER đúng trên đỉnh đã thấy, nhưng với cạnh ngắn, số bước tăng theo khoảng cách tới $q$." (19); dữ kiện "$p1,\ldots,p11$ ở $1,\ldots,11$" (cùng ký hiệu p4 của SVG) |
+| HT | `sửa` | 34 → 34 | dẫn ≤ 25 | từ khóa `SEARCH&#8209;LAYER` (không ngắt dòng); ghi chú bỏ câu trừu tượng về "đồ thị bảy đỉnh giảm thừa số" và chỉ giao kết quả mạch 2 thật sự tạo ra (đúng trên $V$, vùng chưa thấy có thể chứa đỉnh gần hơn) (80 âm tiết) |
+| H14 | `sửa` | 56 → 55 | 60 | "số phép đo trung bình là $O(\log N)$" (bài báo cho cận trên); ghi chú cùng cách nói |
+| C03 | `sửa` | 75 → 76 | 80 | hàng HNSW: "Delaunay chính xác", "số phép đo trung bình $O(\log N)$"; hàng độ thu hồi "phá hòa theo chỉ số" |
+| Q00 | `sửa` | 52 → 53 | 60 | "khoảng 98%" ($12\,288/12\,553\approx0{,}979$) |
+| P05 | `sửa` | 54 → 56 | 60 | "trong kho $10^{10}$ véc-tơ" |
+| A00 | `sửa` | 37 → 41 | 60 | Nhu cầu khớp bài toán tìm đúng: "một tập đúng để so mọi chỉ mục; quét đủ tạo nó bằng $3{,}07\cdot10^{13}$ lượt tọa độ"; phá hòa "chỉ số $i$ nhỏ đứng trước" (P03 đã có $y_1,\ldots,y_N$) |
+| A00B | `sửa` | 41 → 48 | 60 | Lưu ý nối "…; mức thiếu đo bằng độ thu hồi." dẫn sang A01 |
+| A03 | `sửa` | 43 → 45 | 60 | "Mô hình: chi phí truy vấn ≈ …" |
+| H08 | `sửa` | 57 → 59 | 60 | Nhu cầu "khi chèn, mỗi điểm cần một tầng tối đa …" |
+| Q03 | `sửa` | 62 → 63 | 80 | Kết luận có điều kiện, không lặp ô bảng: "với $D=128$, mã 64 bit không lấy được từ một bộ mã duy nhất"; con số $9{,}4\cdot10^{21}$ byte ở bảng và ghi chú |
+| I02 | `sửa` | 43 → 38 | 60 | "Trung bình $\|r(y)\|^2$ nhỏ hơn trung bình $\|y\|^2$" thay câu cụt; thêm $y_8=(6{,}5;\ 2{,}5)$ trên mặt trang; ghi chú nêu điều kiện (tâm thô là trọng tâm ô, k-means hội tụ, trên tập huấn luyện) |
+| I05 | `sửa` | 26 → 26 | 60 | tiêu đề "Ví dụ: truy vấn IVF-PQ" |
+| C00 | `sửa` | 78 → 79 | 80 | ô LSH ghi "($b$ dải)" để tách khỏi $b$ bit của PQ |
+| Ghi chú | `sửa` | — | — | P03 giải nghĩa họ $(d_1,d_2,p_1,p_2)$-nhạy cảm, $b$ dải, $r$ hàm (181 âm tiết); P00 khai triển PQ và IVF-PQ (151); H00 dùng $N\cdot(4D+4g)$ thay $s$ (trùng tên đỉnh $s$); A00 phá hòa theo chỉ số; I03 nêu khoảng 3,3 GB đọc mỗi truy vấn và giả định băng thông cỡ 1 TB/s cho con số 3,6 ms (166) |
+
+Ghi chú trên 150 âm tiết mới phát sinh ở lượt này (mức `nhẹ`): P03 181, I02 168, I03 166, H03 154, P00 151, H10B 151; phần thêm là điều kiện hoặc giải nghĩa ký hiệu mà rà lại yêu cầu.
+
+### Không sửa (đã quyết)
+
+- **Chân trang ẩn ở mạch mở đầu (P00–A03):** do quy tắc CSS dùng chung `.reveal section:first-of-type.present~.footer`, cùng hành vi với mạch mở đầu của Bài 03, Bài 06; sửa CSS dùng chung nằm ngoài phạm vi.
+- **P01 sát đáy khung:** không tràn (còn khoảng 12 px).
+- **A03 dùng "Đồ thị lân cận"** trước H00: vai trò bản đồ xem trước của mô hình hai thừa số.
+- **H04 tham số $\ell_c$:** giữ "(một đồ thị: $\ell_c=0$)"; mạch 3 dùng nhiều tầng.
+- **P05 không có dòng cho mạch 1:** bỏ để giữ ≤ 60 âm tiết (bản có dòng này 63).
+- **P00 luận đề:** giữ bản lượt 1.
+
+Thời lượng không đổi: 20,5 / 19 / 23 / 28 / 17 / 12,5 = 120 phút; bài tập 60 phút.
+
+## Lượt sửa 3 (2026-10-16)
+
+Căn cứ: danh sách của điều phối viên sau rà lại lần 2. Tên mạch 3, dòng dẫn NT và tiêu đề I05 đã sửa tại chỗ trong các bảng hiện hành của mục "Rà chủ đề mạch…" (outline và storyboard). Số trang, thứ tự, thời lượng không đổi.
+
+| Mã | Âm tiết trước → sau | Dòng | Thay đổi |
+|---|---|---:|---|
+| H03 | 51 → 56 | 4 | "$W$ gồm tối đa $ef$ (bề rộng chùm) đỉnh đã thấy gần $q$ nhất" thành gạch riêng để giữ ≤ 20 âm tiết mỗi dòng; gạch "tương tự tham lam, nhưng giữ nhiều đỉnh trong $W$" giữ phép so sánh |
+| H09 | 28 → 28 | 3 | giả mã: `ep ← {điểm vào}`, `SEARCH-LAYER(q, ep, …)`, `ep ← W`; dòng Ví dụ. "$\{p8\}$, $\{p6\}$"; ghi chú: $ep$ là tập một phần tử khi xuống tầng dưới |
+| H10 | 51 → 47 | 7 | ô "$ep=\{p4\}$"; dòng dữ kiện rút thành "Xác định lân cận ở tầng 1, 0." để không xuống dòng (trang sát chân); câu ý tưởng tách hai dòng: "Tầng $>\ell$: tìm $x$ với $ef=1$, không thêm cạnh." và "Tầng $\le\ell$: tìm với bề rộng chùm $efConstruction$, rồi nối $x$ với $M$ đỉnh gần nó." (7 dòng: bảng vết, trần 8) |
+| H10B | 15 → 15 | 2 | ghi chú tách câu về $ep$; pha 2 chạy ở tầng $\min(\ell,L),\ldots,0$; cắt lân cận giữ $M_{max}(\ell_c)$ lân cận gần $y$ nhất ($y\in R$ của giả mã) |
+| H06B | 39 → 47 | 4 | dòng kết quả kế thừa và giới hạn đứng riêng; "Nhu cầu: ít bước khi $q$ xa điểm vào." nêu đích; ghi chú mở bằng vết 6 bước, khác câu mở của ghi chú NT |
+| NT | 35 → 38 | 2 | dòng dẫn "… phía trên đồ thị chứa mọi điểm." (22 âm tiết) thay "tầng 0", vì tầng 0 chỉ được định nghĩa ở H07 |
+| I02 | 38 → 44 | 5 | thêm "(tâm thô là trọng tâm ô)" lên mặt trang; dòng 17 âm tiết |
+| H03B | 42 → 42 | 7 | ghi chú lời giải: dừng ở lần lấy thứ tư từ $C$ ($s{:}8$ lấy ra nhưng không mở), trả $W=\{b,a\}$ (155 âm tiết, lời giải) |
+| Ghi chú | — | — | HT: "tìm kiếm chùm với $ef=3$ giữ nhánh $s$ và tới được $z$"; A00B bỏ câu cuối lặp Lưu ý (119 → 100); H00: mã định danh 4 byte khi $N<2^{32}$, 8 byte với kho $10^{10}$; I03: "≈3,3 GB mã PQ và mã định danh" |
+
+Ghi chú H10B (sửa cuối): cắt lân cận giữ $M_{max}(\ell_c)$ đỉnh gần nhất chỉ với cách chọn đơn giản (Thuật toán 3); quy tắc chọn đa dạng (Thuật toán 4) có thể giữ tập khác. Mặt trang không đổi.
+
+C01 lời giải, ghi chú H10 và H04 không coi $ep$ là một đỉnh (đã kiểm). Glyph U+2011 ở từ khóa HT giữ nguyên (điều phối viên đã kiểm hiển thị).

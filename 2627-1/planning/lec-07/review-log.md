@@ -649,3 +649,74 @@ Căn cứ: báo cáo rà lại chỉ đọc các trang đổi (`recheck-d07.md`)
 | rà lại | nhẹ | storyboard | câu dẫn "Hành trình khái niệm" nói sai vị trí bản cũ | sửa | "Sáu gạch … thứ tự hiện hành; bốn gạch dưới nhãn "Bản 03/10/2026" giữ để đối chiếu." |
 
 **Kiểm.** `git diff --check` sạch. Mật độ: P05 59/60, C00 79/80, H14 60/60, C04 69/80; mọi dòng ≤ 20 âm tiết. Playwright 1600×900 và 390×844 trên cả 65 trang: 0 lỗi console, 0 cảnh báo KaTeX, 0 `.katex-error`, không tràn khung. Ảnh đã tự xem: C00, P05, H14, C04 (1600×900).
+
+## Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)
+
+Yêu cầu người dùng: mỗi mạch có chủ đề rõ; mọi trang trong mạch phục vụ chủ đề đó; trang không phục vụ hoặc không thấy kết nối thì xóa hoặc sửa; mặt trang theo phong cách `../MAT1101`.
+
+### Tác tử và mô hình
+
+Điều phối viên kiêm kiểm soát chất lượng: phiên chính Claude Opus 5.5 (`claude-opus-5-5`), effort `high`, theo xác nhận của người dùng ngày 2026-10-16 (CLAUDE.md, AGENTS.md §"Điều phối mô hình trong dự án" đã cập nhật cùng ngày). Mọi tác tử con tạo bằng `Agent`, `subagent_type: "general-purpose"`, `model: "opus"`, `effort: "high"` (theo lời gọi công cụ).
+
+| Tác tử | Vai | Ghi tệp | Đầu ra | Quyết định của điều phối viên |
+|---|---|---|---|---|
+| rà mạch | chủ đề mạch, vai trò từng trang (65 trang), phụ thuộc khi xóa | không | `audit-strands-07.md` (scratchpad) | chấp nhận Phương án A; đã đối chiếu trích dẫn H11, R03, C01/C02 và cấu trúc mở đầu Bài 03, 06 |
+| rà phong cách | đặc điểm MAT1101 (Bài 2, 4, 8, 9, 11), mật độ 65 trang, lệch phong cách từng trang | không | `audit-style-07.md` | chấp nhận; đã kiểm năm trích dẫn ("Bài báo HNSW:", "khổng lồ", "Ký hiệu: HNSW là", cột "Giữ cố định khi so sánh", "trang (a)") |
+| sửa | sửa deck, storyboard, outline theo đặc tả `spec-revise-07.md`; ba lượt | có (deck, storyboard.md, outline.md) | diff ba tệp | lượt 1, 2, 3: chấp nhận sau khi đọc mặt trang và diff; yêu cầu sửa qua `SendMessage` ở lượt 2 và 3 |
+| rà lại độ chính xác | số liệu, vết chạy, giả mã sau lượt 1 | không | `recheck-accuracy-07.md` | chấp nhận; đã kiểm H03 ($C$ theo giả mã H05) và 98% ($12\,288/12\,553=0{,}979$) |
+| rà lại mạch | toàn deck sau lượt 1 | không | `recheck-storyline-07.md` | chấp nhận |
+| rà lại sinh viên và mật độ | đọc như sinh viên, mật độ 63 trang, Playwright hai cỡ | không | `recheck-student-07.md` | chấp nhận; bác phát hiện chân trang (xem dưới) |
+| rà lại lượt 2 và 3 | độ chính xác + mạch trên trang đổi | không | `recheck2-07.md` | chấp nhận; đã kiểm giả mã H09 ($ep$ là đỉnh, lệch H04/H10B) |
+
+### Quyết định cấu trúc
+
+| Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý, lý do |
+|---|---|---|---|---|
+| nghiêm trọng | HT, H00–H14 | mạch HNSW 17 trang, hai câu hỏi trung tâm (tìm trên một đồ thị; cấu trúc nhiều tầng) | sửa | tách thành mạch 2 "Tìm kiếm trên đồ thị lân cận" (H00–H06) và mạch 3 "Đồ thị thế giới nhỏ phân tầng (HNSW)" (trang tiêu đề mới NT; H06B–H13) |
+| trung bình | AT, A00–A03 | mạch "Bài toán hàng xóm gần đúng" là phần bài toán của mạch mở đầu (như Bài 03, 06); dòng dẫn hứa "tránh quét" | gộp | bỏ AT; A00–A03 vào mạch 1; P04 mục 1 "Bài toán hàng xóm gần đúng"; bài vẫn 7 mạch |
+| trung bình | H11 | chọn lân cận đa dạng: chi tiết tùy chọn, không trang nào dùng, không mục tiêu nào đòi | bỏ | nội dung và `lan-can-da-dang.svg` giữ trong ghi chú bài giảng §5; ghi chú H10B giữ tham chiếu |
+| trung bình | C01, C02 | sáu câu tự kiểm, ba câu trùng thao tác trong mạch | gộp | một trang C01, ba câu ($ef$ và bất biến; bộ nhớ HNSW; số mã IVF-PQ); lời giải khớp ghi chú bài giảng §12 |
+| trung bình | R03 | nhiệm vụ giải thích không có trong sổ nguồn, không phải số đo | gộp | vào ghi chú R02 (gợi ý, lời giải mẫu, chấm 3 + 7 điểm); R02 14 phút; ghi chú bài giảng §11 giữ câu này như phần mở rộng |
+| trung bình | A00 | hai đặc tả trên một trang | tách | A00 (tìm đúng) + A00B "Tìm hàng xóm gần đúng" |
+| nhẹ | H13, H14 | chi phí truy vấn chen giữa bộ nhớ và nhu cầu của Q00 | sửa | H14 trước H13; mạch 3 kết ở "khoảng 98% bộ nhớ" mà Q00 nhận vào |
+
+Số trang 65 → 63; thời lượng 120 + 60 phút giữ nguyên (phân lại trong storyboard). Phong cách: các phát hiện của `audit-style-07.md` (Nhu cầu nêu đích, Kết luận một con số, định nghĩa dạng "là", "Câu hỏi:" đầu trang bài tập, P03/P05/A02/H12 về dưới trần không ngoại lệ, "Bài báo HNSW:" thành "Mệnh đề." có giả thiết) đã áp dụng; chi tiết từng trang và âm tiết trước → sau ở storyboard, mục 2026-10-16 và các lượt sửa 2, 3.
+
+### Phát hiện rà lại và xử lý
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác, sinh viên | trung bình | H03 | $C$ mô tả là "đỉnh đã thấy, chưa mở", lệch giả mã H05 | sửa | "$C$ chứa các đỉnh từng vào $W$ nhưng chưa mở"; lượt 3 trả lại "đã thấy" trong định nghĩa $W$ |
+| sinh viên | trung bình | H03B | câu hỏi $ef=2$ cần quy tắc dừng đã bị bỏ khỏi H03 | sửa | "Gợi ý:" quy tắc dừng trong hộp câu hỏi (hai câu); lời giải nêu lần lấy thứ tư |
+| độ chính xác, sinh viên | trung bình | H10 | $efConstruction$ chưa định nghĩa; ví dụ chèn trước ý tưởng chèn | sửa | hai dòng đầu: tầng $>\ell$ tìm với $ef=1$; tầng $\le\ell$ tìm với bề rộng chùm $efConstruction$ rồi nối $M$ đỉnh |
+| mạch | trung bình | P04, NT | viết tắt HNSW trước khai triển | sửa | tên mạch 3 "Đồ thị thế giới nhỏ phân tầng (HNSW)" |
+| mạch | trung bình | H06 → H06B | ranh giới mạch không hiện trên mặt trang | sửa | dòng kế thừa "SEARCH-LAYER đúng trên đỉnh đã thấy; với cạnh ngắn, số bước tăng …" + Nhu cầu |
+| mạch | trung bình | storyboard | thiếu mục đầy đủ cho A00B, NT | sửa | đã thêm |
+| rà lại 2 | trung bình | H09 | $ep$ là một đỉnh, lệch H04/H10B | sửa | giả mã dùng tập; H10 "$ep=\{p4\}$" |
+| rà lại 2 | trung bình | outline, storyboard | tên mạch 3 cũ trong bảng hiện hành | sửa | sửa tại chỗ; mục lịch sử giữ |
+| độ chính xác | nhẹ | H14, C03 | "tăng theo $\log N$" | sửa | "trung bình là $O(\log N)$", giả thiết Delaunay chính xác, bậc bị chặn |
+| sinh viên | nhẹ | P00–A03 | chân trang ẩn trên mạch mở đầu | bác bỏ | quy tắc CSS dùng chung `section:first-of-type.present~.footer`, cùng hành vi ở Bài 03, 06; không sửa CSS dùng chung |
+| sinh viên | nhẹ | P01 | sát đáy khung | bác bỏ | không tràn (kiểm tự động 0 phần tử vượt khung) |
+| mạch | nhẹ | P00 | luận đề không nhắc tệp đảo | bác bỏ | IVF-PQ ghép hai cơ chế đã nêu; thêm vào vượt 25 âm tiết |
+| mạch | nhẹ | P05 | thiếu dòng cho mạch 1 | bác bỏ | thêm làm trang 63 > 60; đặc tả gần đúng ở A00B |
+
+Các phát hiện nhẹ khác (Q00 "khoảng 98%", Q03 câu kết, C00 "$b$ dải", I02, I03, H00, P03, P00, HT, NT, A00B ghi chú, ký hiệu $p1,\ldots,p11$, I05 tiêu đề "Ví dụ: truy vấn IVF-PQ") đã sửa; danh sách ở storyboard lượt 2, 3.
+
+### Kiểm của điều phối viên
+
+- Đọc mặt trang toàn deck sau lượt 1; đọc diff và ảnh các trang đổi sau lượt 2, 3.
+- `git diff --check` sạch. Mật độ (`density07.py`, scratchpad): 63 trang, không trang nào vượt trần; cao nhất trần 60: H08 59, H03 56, H12 56, P05 56; trần 80: C00 79, C03 76, C05 69 (ngoại lệ trang tổng kết ghi ở storyboard), R05 66, Q03 63, P04 60. Dòng dẫn trang tiêu đề mạch 18–23 âm tiết. Ghi chú trên 150 âm tiết (nhẹ, đã ghi ở storyboard): R02 196 (lời giải và chấm), P03 181, H05 175, I03 171, C01 170 (lời giải), I02 168, R05 168.
+- Playwright Chromium, server repo ở cổng 8771: cả 63 trang ở 1600×900 và 390×844, 0 lỗi console hoặc trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung ở 1600×900, không cuộn ngang ở 390×844. Sáu trang tiêu đề mạch có `span.strand-number` khớp chỉ số ngang (`#/2`…`#/7`); phím phải và xuống điều hướng đúng. Ảnh đã tự xem: NT, HT, P04, H03, H03B, H10, A00B, H14 (sau lượt 2); H09, H06B, H10 (sau lượt 3); C00 ở 390×844.
+- Ghi chú bài giảng không sửa: không tham chiếu số mạch hay tiêu đề trang bị sai; deck vẫn là bản tóm tắt của ghi chú.
+
+### Rà lại lượt 3 và sửa cuối (2026-10-16)
+
+Tác tử rà lại lượt 2 (cùng tác tử, tiếp tục bằng `SendMessage`) rà các trang của lượt 3: không còn phát hiện chặn bàn giao, nghiêm trọng hay trung bình (`recheck2-07.md`, mục "Rà lượt 3").
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý, lý do |
+|---|---|---|---|---|---|
+| rà lại 3 | nhẹ | H10B (ghi chú) | câu cắt lân cận chỉ đúng với cách chọn đơn giản | sửa | ghi chú nêu Thuật toán 3 giữ $M_{max}(\ell_c)$ đỉnh gần nhất, Thuật toán 4 có thể giữ tập khác; 146 âm tiết; mặt trang không đổi |
+| rà lại 3 | nhẹ | H06B | dòng "Nhu cầu:" đứng sau dòng giới hạn | bác bỏ | thứ tự "giới hạn của cách trước → nhu cầu" theo `AGENTS.md` §"Mở một khái niệm hoặc một thuật toán" |
+| rà lại 3 | nhẹ | outline.md:207 | còn dòng dẫn NT cũ | bác bỏ | câu ghi lịch sử thay đổi trong mục 2026-10-16, không phải bảng hiện hành |
+
+Điều phối viên đọc lại ghi chú H10B; `git diff --check` sạch. Kiểm Playwright sau lượt 3 (63 trang, hai cỡ): 0 lỗi, 0 `.katex-error`, không tràn, không cuộn ngang.
