@@ -1324,3 +1324,69 @@ Căn cứ: hai báo cáo rà lại mạch 2 và danh sách sửa của điều p
 | H04 | 47 → 48 | 4 | 147 → 147 | Đầu vào: "(một đồ thị thì $\ell_c=0$)" để dòng không ngắt giữa công thức |
 | H05 | 8 → 8 | 1 | 186 → 186 | sáu chú thích `//` cùng bắt đầu ở cột 40 (tính theo ký tự hiển thị); không tràn ngang ở 1600×900, đã xem ảnh 1600 và 390 |
 | H06 | 45 → 45 | 6 | 198 → 202 | ghi chú: trường hợp xấu thăm mọi đỉnh và cạnh đến được từ $ep$ trong tầng (Thuật toán 2 chỉ mở lân cận của đỉnh đã vào $C$) |
+
+### Mạch 3
+
+Căn cứ: `plan-guide-07.md` mục 3 và lưu ý của điều phối viên (chuỗi tương đương ở H08 với điều kiện "$k$ nguyên"; số liệu ví dụ sang H08B; khai triển HNSW và "một véc-tơ, một danh sách lân cận ở mỗi tầng" ở H07; vết khớp danh sách cạnh của `generate_svg.py`; mô hình ba thừa số ở H14; $1/15$ và mã định danh 8 byte ở H13). Âm tiết, dòng, ghi chú đếm bằng `check07.py`; "trước" đo trên bản đã commit sau mạch 2 (0306ed5).
+
+**Thứ tự và thời lượng hiện hành:** NT, H06B, H07, H09, H08, **H08B**, H10, H10B, H12, H14, H13 (11 trang). Phút: NT 0,5; H06B 2; H07 2; H09 2,5; H08 2; H08B 2; H10 3; H10B 2,5; H12 1,5; H14 1,5; H13 1,5; tổng 21 (trước 23). Tổng phần giảng tạm là $19{,}5+21+21+28+17+12{,}5=119$ phút cho tới khi mạch 4 (28 → 27) và mạch 5 (17 → 19) được sửa; sau đó về 120. Chỉ số: H08B `#/3/6`, H10 `#/3/7`, H10B `#/3/8`, H12 `#/3/9`, H14 `#/3/10`, H13 `#/3/11`; NT vẫn `#/3/1`, số "3.".
+
+**Mục đầy đủ cho trang mới H08B — Ví dụ: số điểm mỗi tầng của kho mười tỷ véc-tơ**
+
+| Trường | Nội dung |
+|---|---|
+| Mạch, vị trí | mạch 3, sau H08, trước H10 (`#/3/6`) |
+| Mục đích | biến mệnh đề phân phối tầng thành con số trên kho mở đầu; cho số tầng $\approx\log_{16}N$ |
+| Hoạt động sinh viên | tính $16^{-k}$ và $N\rho^k$ cho $k=0,1,2,3,8$; giải $N\rho^k=1$ |
+| Đối tượng trung tâm | bảng $k$, $\Pr[\ell\ge k]=16^{-k}$, $N\rho^k$ |
+| Dữ kiện, ký hiệu kế thừa | $\ell$, $m_L$, $\rho=e^{-1/m_L}$, $\Pr[\ell\ge k]=\rho^k$ (H08); $N=10^{10}$ (P01) |
+| Kiến thức đầu vào | lũy thừa, logarit, kỳ vọng của tổng biến chỉ báo |
+| Sản phẩm học tập | số tầng của chỉ mục $10^{10}$ điểm khoảng 8; số tầng tăng theo $\log N$ |
+| Bằng chứng kiểm | dòng Kết luận ($\log_{16}10^{10}\approx8{,}3$); H14 dùng "số tầng $O(\log N)$"; H13 dùng $\sum_{k\ge1}\rho^k=1/15$ |
+| Số liệu tự tính | $16^{-1}=0{,}0625$, $6{,}25\cdot10^8$; $16^{-2}=0{,}00390625$, $3{,}9\cdot10^7$; $16^{-3}\approx2{,}44\cdot10^{-4}$, $2{,}4\cdot10^6$; $16^8=4\,294\,967\,296$, $16^{-8}\approx2{,}33\cdot10^{-10}$, $N\rho^8\approx2{,}33$; tầng 9: $\approx0{,}146$; $\log_{16}10^{10}=10/\log_{10}16\approx8{,}30$ |
+| Mặt trang | 12 âm tiết, 7 dòng (bảng tính 5 hàng, trần 8), không công thức hiển thị. Tiêu đề không chứa KaTeX vì `h2` viết hoa biến $\rho$ thành "Ρ" (đã thấy trên ảnh bản đầu) |
+| Ghi chú | 107 âm tiết: giá trị $16^{-k}$, tầng 8 còn 2,3 điểm, tầng 9 khoảng 0,15; mô phỏng một triệu lần rút (0,0626 và 0,0039, chuyển từ ghi chú H08) khớp hai hàng đầu; $\log_{1/\rho}N$ là thừa số thứ nhất của H14 |
+| Phút; quyết định | 2; `thêm` |
+
+**Các trang sửa**
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| NT | `giữ` | 38 → 38 | 2 | 98 → 98 | 0,5 | ghi chú vẫn đúng (125,5 TB, khoảng 98% véc-tơ gốc; rút tầng, chèn, đếm) |
+| H06B | `sửa` | 44 → 46 | 4 | 136 → 148 | 2 | thêm "Nhận xét. Từ $p4$, $p5{:}1{,}4$ gần $q$ hơn $p8{:}1{,}6$, nên cạnh $p4$–$p8$ không được dùng." trước Kết luận. Dòng kết quả kế thừa gộp vào Nhu cầu ("với cạnh ngắn, số bước tăng theo khoảng cách tới $q$; cần ít bước khi $q$ xa điểm vào"), câu "SEARCH-LAYER đúng trên các đỉnh đã thấy" chuyển vào ghi chú: bản giữ cả hai dòng tràn đáy khung 1600×900 (43 phần tử, đã xem ảnh) |
+| H07 | `sửa` | 42 → 54 | 4 | 154 → 157 | 2 | bốn gạch: khai triển HNSW có tiếng Anh; "Tầng 0 chứa mọi điểm; tầng trên là tập con thưa hơn, cạnh dài hơn."; "Mỗi điểm có một véc-tơ và một danh sách lân cận ở mỗi tầng chứa nó." (cơ sở của H13); "Tầng trên tìm với $ef=1$; …". Gạch "Tầng 0 tìm với chùm rộng $efSearch$" chuyển ý sang Lưu ý H09 |
+| H09 | `sửa` | 26 → 44 | 4 | 131 → 148 | 2,5 | thêm "Lưu ý: tầng trên chỉ định vị vùng gần $q$; tầng 0 thường dùng $efSearch>K$ để xét nhiều ứng viên hơn." Ghi chú thêm vết có khoảng cách (tầng 2 $s{:}6{,}4\to p4{:}2{,}4\to p8{:}1{,}6$; tầng 1 $p8\to p6{:}0{,}4$) |
+| H08 | `sửa` | 58 → 50 | 6 | 177 → 157 | 2 | "Chứng minh. Vì $k$ nguyên và $U$ đều trên $(0,1]$:" + công thức hiển thị $\ell\ge k\Leftrightarrow-m_L\ln U\ge k\Leftrightarrow U\le e^{-k/m_L}$, nên $\Pr[\ell\ge k]=e^{-k/m_L}=\rho^k$ (2 công thức hiển thị). Dòng Ví dụ. chuyển sang H08B. Ghi chú: $\lfloor t\rfloor\ge k\iff t\ge k$ khi $k$ nguyên; bỏ phần số đã sang H08B |
+| H10 | `sửa` | 41 → 50 | 7 | 155 → 142 | 3 | cột "$W$, khoảng cách tới $x$": $ep=\{p4{:}1{,}4\}$; $\{p2{:}0{,}6,\ p4{:}1{,}4,\ s{:}2{,}6\}$; $\{p3{:}0{,}4,\ p2{:}0{,}6,\ p4{:}1{,}4\}$. Kết luận thêm "lân cận lấy từ $W$, không quét toàn kho". Ghi chú: $p6{:}3{,}4$ vào rồi bị $s$ đẩy ở tầng 1; $p1{:}1{,}6$ vào rồi bị $p3$ đẩy ở tầng 0, khi dừng $p1$ và $s$ còn trong $C$ mà không thuộc $W$ |
+| H10B | `sửa` | 15 → 33 | 3 | 163 → 157 | 2,5 | thêm "Lưu ý: cắt danh sách của $y$ có thể bỏ $x$, nên quan hệ kề có thể không đối xứng." sau Đầu ra; ghi chú: danh sách lân cận lưu như đồ thị có hướng |
+| H12 | `giữ` | 47 → 47 | 4 | 152 → 152 | 1,5 | ghi chú "bỏ lỡ" đổi thành "bỏ sót" (thống nhất thuật ngữ) |
+| H14 | `sửa` | 55 → 59 | 4 | 154 → 149 | 1,5 | "Mô hình: số phép đo $\approx$ số tầng $\times$ số bước mỗi tầng $\times$ bậc." Ghi chú gắn mỗi thừa số với giả thiết (số tầng $O(\log N)$ theo phân phối tầng; số bước mỗi tầng bị chặn khi tầng là Delaunay chính xác; bậc bị chặn); không là cận cho mọi dữ liệu |
+| H13 | `sửa` | 46 → 53 | 6 | 155 → 154 | 1,5 | Giả thiết "mã định danh 8 byte vì $10^{10}>2^{32}$"; thêm dòng "Kỳ vọng số tầng trên tầng 0: $\sum_{k\ge1}\rho^k=\rho/(1-\rho)=1/15$." Ghi chú bỏ hai ý đã lên mặt trang, nối với bảng H08B |
+
+**Vết tự chạy lại trên danh sách cạnh của `generate_svg.py`.** Một tầng có cạnh dài (H06B): $s\to p4\to p5\to p6$, 3 bước. Truy vấn $q=6{,}4$ (H09): tầng 2 $s\to p4\to p8$, dừng; tầng 1 $p8\to p6$, dừng. Chèn $x=2{,}6$, $\ell=1$, $efConstruction=3$, $M=2$ (H10): tầng 2 tham lam $s\to p4$; tầng 1 từ $\{p4\}$: mở $p4$ thêm $p2{:}0{,}6$, $p6{:}3{,}4$; mở $p2$ thêm $s{:}2{,}6$ và đẩy $p6$; mở $s$ ($2{,}6\le2{,}6$) không thêm gì; lấy $p6$: $3{,}4>2{,}6$, dừng; $W=\{p2,p4,s\}$. Tầng 0 từ $\{p2,p4,s\}$: mở $p2$ thêm $p1{:}1{,}6$ (đẩy $s$) rồi $p3{:}0{,}4$ (đẩy $p1$); mở $p3$, mở $p4$ ($p5{:}2{,}4$ không vào); lấy $p1$: $1{,}6>1{,}4$, dừng; $W=\{p3,p2,p4\}$.
+
+**Lệch tạm thời có chủ đích:** H08B chưa có trong `materials/lec-07/lecture-note.md`; đồng bộ cùng lượt ghi chú sau mạch 7.
+
+#### Rà lại mạch 3 (2026-10-28)
+
+Căn cứ: hai báo cáo rà lại mạch 3 và danh sách sửa của điều phối viên. Bảng này thay các ô tương ứng của tiểu mục "Mạch 3"; thứ tự, chỉ số và thời lượng không đổi. "Trước" là bản sau lượt sửa mạch 3 lần đầu.
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| H06B | 46 → 47 | 4 | 148 → 148 | Nhu cầu "số bước tăng theo khoảng cách từ điểm vào tới $q$; cần ít bước khi $q$ xa"; tiêu đề rút thành "Ví dụ: cạnh dài" vì tiêu đề dài chạm mũi tên điều khiển trên khi trang kín khung (đã xem ảnh 1600) |
+| H10 | 50 → 50 | 7 | 142 → 140 | ghi chú: "lần lấy $p1{:}1{,}6>p4{:}1{,}4$ làm thuật toán dừng; $s$ vẫn trong $C$ mà không thuộc $W$" (khi dừng $C=\{s\}$); ví dụ chọn $M_{max}=3$, $M_{max,0}=2M=4$ nên không cắt, khác quy ước $M_{max}=M$ của phép tính bộ nhớ |
+| H10B | 33 → 33 | 3 | 157 → 151 | ghi chú: lý do đi trước kết luận ("Vì việc cắt có thể bỏ $x$ khỏi danh sách của $y$, danh sách lân cận được lưu như đồ thị có hướng.") |
+| H14 | 59 → 69 | 6 | 149 → 165 | bảng `Thừa số ¦ Cận ¦ Giả thiết dùng`: số tầng $O(\log N)$, phân phối tầng $\Pr[\ell\ge k]=\rho^k$; số bước mỗi tầng trung bình $\le1/(1-\rho)$, Delaunay chính xác và tầng rút độc lập với vị trí; bậc hằng số, bậc trung bình bị chặn. Mệnh đề "Với ba giả thiết trong bảng"; Lưu ý "chỉ xấp xỉ Delaunay". Giải nghĩa ô Voronoi chuyển vào ghi chú. Trang chi phí: trần 80 âm tiết, 6 dòng. Ghi chú: Delaunay bảo đảm tham lam tới điểm gần nhất của tầng; cận $1/(1-\rho)\approx1{,}07$ do tầng rút độc lập với vị trí; số phép đo mỗi tầng ≤ bậc trung bình × số bước; bỏ câu "hằng số tăng theo hàm mũ của số chiều" (không nguồn), thay bằng ý của bài báo; nguồn "mục 4.2.1, tr.7". Ghi chú 165 âm tiết (phác thảo chứng minh) |
+| H13 | 53 → 55 | 6 | 154 → 154 | "Mỗi điểm, kỳ vọng số tầng trên tầng 0: …" khớp cột "Mỗi điểm" của bảng |
+
+`outline.md` (mục "Sửa toàn diện …" và "Lượt sửa 2 …") đã sửa câu về nơi giải nghĩa đồ thị Delaunay và về giả thiết của H14.
+
+#### Sửa cận số bước ở H14 (2026-10-28)
+
+Lỗi `nghiêm trọng` do rà độ chính xác lượt 2 phát hiện (điều phối viên đối chiếu bài báo, mục 4.2.1, tr.7): cận "số bước mỗi tầng trung bình $\le1/(1-\rho)\approx1{,}07$" ghi ở hàng H14 của bảng "Rà lại mạch 3" phía trên là sai; hàng đó được thay bằng nội dung sau.
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| H14 | 69 → 69 | 6 | 165 → 231 | bảng, hàng "Số bước mỗi tầng": cận "trung bình $\le1/\rho=M$", giả thiết giữ (Delaunay chính xác; tầng rút độc lập với vị trí). Ghi chú: mọi đỉnh trên đường đi trong một tầng, trừ điểm xuất phát, không thuộc tầng trên (nếu thuộc, tìm kiếm ở tầng trên đã dừng ở đỉnh khác); mỗi đỉnh thuộc tầng trên với xác suất $\rho$, độc lập với vị trí, nên $\Pr[\text{đi}\ge s\text{ bước}]\le(1-\rho)^s$ và số bước kỳ vọng $\le1/\rho$, như danh sách nhảy; $\rho=1/16$ cho tối đa 16 bước kỳ vọng, không phụ thuộc $N$. Một câu nêu bài báo viết hằng số dưới dạng khác, học phần dùng $1/\rho$ suy từ phân phối tầng; hằng số in trong bài báo không được chép. Ghi chú 231 âm tiết (lập luận chứng minh, trần khoảng 250) |
+
+Đã tìm "1,07", "1{,}07" và "1/(1-" trong deck, `outline.md`, `storyboard.md` và `materials/lec-07/lecture-note.md`: deck không còn; `outline.md` (mục "Lượt sửa 2 …") đã sửa thành "trung bình $\le1/\rho=M$"; storyboard chỉ còn ở hàng lịch sử của bảng "Rà lại mạch 3" (giữ làm vết, hàng thay thế ở trên); `lecture-note.md` không có cận số bước này (chỉ có $\rho/(1-\rho)$ của kỳ vọng số tầng trên, đúng). Các chỗ $\rho/(1-\rho)=1/15$ ở H13 là kỳ vọng số tầng trên, không liên quan.

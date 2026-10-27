@@ -151,7 +151,7 @@ Deck 65 trang (55 giảng + 10 bài tập). Mạch 6 đổi tên từ "So sánh 
 - **Luận đề:** bỏ "(PQ)": "HNSW giảm số véc-tơ được đo, lượng tử hóa tích giảm chi phí mỗi phép đo; đổi lại, có thể bỏ lỡ hàng xóm thật." (25 token). Tên đầy đủ kèm "(PQ)" chuyển sang mục tiêu 2 ở P02 (lần đầu PQ xuất hiện sau bìa).
 - **Vấn đề trung tâm và câu trả lời:** P05 nêu 122,88 TB, ≈30,7 giây mỗi truy vấn và ngân sách giả định của học phần 6 TB bộ nhớ, 10 ms mỗi truy vấn; C04 trả lời bằng TB và giây (HNSW ≈125,5 TB; PQ quét đủ 5,12 TB, ≈5,12 giây; IVF-PQ 5,2 TB, ≈3,6 ms). PQ bị loại vì thời gian, không vì bộ nhớ.
 - **Đặc tả ANN (A00):** trả tối đa $K$ điểm; hai nguồn sai số tương ứng hai thừa số chi phí: đo một phần kho, đo bằng khoảng cách xấp xỉ.
-- **Thuật ngữ:** "chấm một mã" là phép đo xấp xỉ qua bảng tra (Q11); $n_c$ định nghĩa ở A03 (từ lượt 2026-10-27), dùng ở Q11, Q10 ($n_c=N$), I03 ($n_c\approx nprobe\,N/k_c$). Đồ thị Delaunay giải nghĩa trên mặt trang H14. Mục "Thuật ngữ giải nghĩa" ở trên đổi hai điểm: A00 giữ "(approximate nearest neighbor)" nhưng không dùng chữ viết tắt ANN trên mặt trang; P03 viết "LSH" theo câu của điều phối viên, tên đầy đủ "băm nhạy cảm theo tính cục bộ" nằm trong ghi chú P00, P03 và đã giải nghĩa ở Bài 06.
+- **Thuật ngữ:** "chấm một mã" là phép đo xấp xỉ qua bảng tra (Q11); $n_c$ định nghĩa ở A03 (từ lượt 2026-10-27), dùng ở Q11, Q10 ($n_c=N$), I03 ($n_c\approx nprobe\,N/k_c$). Đồ thị Delaunay giải nghĩa trong ghi chú H14 (từ lượt rà lại mạch 3, 2026-10-28; mặt trang H14 ghép mỗi thừa số với giả thiết của nó). Mục "Thuật ngữ giải nghĩa" ở trên đổi hai điểm: A00 giữ "(approximate nearest neighbor)" nhưng không dùng chữ viết tắt ANN trên mặt trang; P03 viết "LSH" theo câu của điều phối viên, tên đầy đủ "băm nhạy cảm theo tính cục bộ" nằm trong ghi chú P00, P03 và đã giải nghĩa ở Bài 06.
 - **Bộ nhớ IVF-PQ** $(512+8)\cdot10^{10}$ byte $=5{,}2$ TB tính ở I03 (mạch 5), trước C00 và C04.
 - **Ghi chú bài giảng:** không sửa trong lượt này. Điểm cần đồng bộ khi sửa ghi chú: ngân sách giả định 6 TB và 10 ms; bảo đảm LSH $1-(1-p_1^r)^b$ trong bảng so sánh; "phần dư thường nhỏ hơn" (năng lượng trung bình).
 
@@ -209,7 +209,7 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 - Ý tưởng chèn ("Chèn là truy vấn với $x$, rồi nối …") chuyển từ H10B lên dòng đầu H10, trước ví dụ; $efConstruction$ giải nghĩa trên H10.
 - H03: $C$ chứa các đỉnh từng vào $W$ nhưng chưa mở; $ef$ là bề rộng chùm. Quy tắc dừng ở dạng "Gợi ý:" trong hộp câu hỏi H03B.
 - Ký hiệu điểm của ví dụ một chiều thống nhất dạng $p1,\ldots,p11$ (khớp nhãn SVG); phá hòa theo chỉ số $i$ của $y_i$.
-- Kết quả HNSW phát biểu "số phép đo trung bình là $O(\log N)$" dưới giả thiết Delaunay chính xác và bậc bị chặn (H14, C03).
+- Kết quả HNSW phát biểu "số phép đo trung bình là $O(\log N)$" dưới giả thiết Delaunay chính xác và bậc bị chặn (H14, C03). Từ 2026-10-28, H14 ghi đủ ba giả thiết: phân phối tầng (số tầng), Delaunay chính xác và tầng rút độc lập với vị trí (số bước mỗi tầng trung bình $\le1/\rho=M$), bậc trung bình bị chặn.
 - Số trang, thứ tự trang và thời lượng không đổi. Chi tiết và âm tiết trước → sau ở `storyboard.md`, mục "Lượt sửa 2 sau rà lại".
 
 ### Lượt sửa 3 (2026-10-16)
@@ -225,3 +225,4 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 - **Ví dụ chạy tay mới:** năm điểm với $d(q,y_i)=2{,}5;\ 1{,}2;\ 3{,}0;\ 0{,}8;\ 1{,}7$, $K=3$, $N_3(q)=\{y_4,y_2,y_5\}$ (A00); chỉ mục trả $\{y_4,y_5,y_1\}$ (A00B), $\operatorname{recall@3}=2/3$ (ghi chú A01).
 - **Sau rà lại mạch 1:** "chỉ mục (index)" định nghĩa trên mặt trang A00B ("cấu trúc dựng sẵn trên $Y$, quyết định véc-tơ nào được đo và đo thế nào"); P03 viết dạng tổng theo nhóm $\|x-y\|_2^2=\sum_{j=1}^{m}\sum_{i\in G_j}(x_i-y_i)^2$ với $G_1,\ldots,G_m$ là phân hoạch của $\{1,\ldots,D\}$ ($m$ cùng nghĩa số đoạn của PQ ở Q04). Từ "bỏ sót" dùng cho điểm không được đo; "thiếu" dùng khi so hai tập.
 - **Mạch 2** có 10 trang: HT, H00, H01, **H01B** (Cực tiểu cục bộ), H03, H03B, **H03C** (vết tìm kiếm chùm, bước cuối), H04, H05, H06; 21 phút (trước 19). Hình mới `cuc-tieu-cuc-bo.svg`. Thuật ngữ: "cực tiểu cục bộ" định nghĩa trên mặt trang H01B (trước ở Kết luận H01); "thấy" (đã tính $d(\cdot,q)$) và "mở" (đã duyệt danh sách lân cận) phân biệt ở H03 và H04.
+- **Mạch 3** có 11 trang: NT, H06B, H07, H09, H08, **H08B** (Ví dụ: số điểm mỗi tầng của kho mười tỷ véc-tơ), H10, H10B, H12, H14, H13; 21 phút (trước 23). Mô hình chi phí truy vấn HNSW viết ba thừa số (số tầng × số bước mỗi tầng × bậc) ở H14.

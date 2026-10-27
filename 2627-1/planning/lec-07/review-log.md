@@ -781,3 +781,18 @@ Trang đổi: H00, H01, H01B (mới, hình mới `cuc-tieu-cuc-bo.svg` sinh bằ
 Tác tử độ chính xác tự chạy Thuật toán 2 (hai thứ tự duyệt lân cận) với $ef=3$, $ef=2$, $ef=1$: mọi ô của H03B, H03C khớp; $C\not\subseteq W$ chỉ ở $ef=2$ sau khi mở $a$ (ghi chú H03C); chú thích H04 đúng. Điều phối viên tự kiểm cột so sánh bảy lần mở ($9\le9$, $7\le9$, $5\le8$, $8\le8$, $4\le7$, $2\le5$, $1\le4$).
 
 Kiểm của điều phối viên: đọc diff; `check07.py`: 66 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung 1600×900, không cuộn ngang 390×844; mạch 2 cao nhất H03 58, H04 48 âm tiết; H03B 7 dòng (bảng vết). Ảnh đã tự xem: H01B, H03B, H05, H06 (1600×900). Thời lượng tạm 121 phút cho tới khi mạch 3–5 phân lại (ghi ở storyboard). Hai báo cáo rà lượt 2: không có phát hiện.
+
+### Mạch 3
+
+Trang đổi: H06B (tiêu đề rút thành "Ví dụ: cạnh dài" để không chạm mũi tên điều khiển), H07 (khai triển HNSW), H09, H08 (chứng minh với "$k$ nguyên"), H08B (mới, số điểm mỗi tầng), H10, H10B, H14 (bảng thừa số–cận–giả thiết), H13; ghi chú H12. Deck 66 → 67 trang. Không đổi SVG.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác (rà lượt 2) | nghiêm trọng | H14 | cận "số bước mỗi tầng trung bình $\le1/(1-\rho)\approx1{,}07$" sai; lấy theo hằng số $S=1/(1-\exp(-m_L))$ in ở bài báo, mục 4.2.1, tr.7, vốn không nhất quán với chính lập luận của bài báo ($p$ là xác suất đỉnh kế tiếp thuộc tầng trên) | sửa | "trung bình $\le1/\rho=M$": mọi đỉnh trên đường đi trừ điểm xuất phát không thuộc tầng trên, nên $\Pr[\ge s\text{ bước}]\le(1-\rho)^s$; $\rho=1/16$ cho tối đa 16 bước kỳ vọng, không phụ thuộc $N$. Điều phối viên đã đọc đoạn 4.2.1 của bài báo (pdftotext) để xác nhận. Không chép hằng số của bài báo |
+| mạch | trung bình | H14 | mô hình ba thừa số không nối thừa số với giả thiết | sửa | bảng `Thừa số | Cận | Giả thiết dùng`; ô Voronoi vào ghi chú; 69 âm tiết, 6 dòng (trang chi phí, trần 80) |
+| độ chính xác | nhẹ | H10, H10B, H14 (ghi chú) | điều kiện dừng ở tầng 0 ($p1$ đã lấy ra); bậc tối đa ngầm định 3 khác $M_{max}=M$ của H13; thứ tự lý do–kết luận; số trang | sửa | ghi rõ $M_{max}=3$, $M_{max,0}=4$; "mục 4.2.1, tr.7" |
+| mạch | nhẹ | H06B, H13, ghi chú H14 | "khoảng cách tới $q$" mơ hồ; nhãn dòng kỳ vọng; câu không nguồn về số chiều | sửa | "từ điểm vào tới $q$"; "Mỗi điểm, kỳ vọng …"; thay bằng ý của bài báo |
+| biên tập | — | H06B | thêm dòng Nhận xét làm tràn khung | sửa | dòng kế thừa gộp vào Nhu cầu; ý "SEARCH-LAYER đúng trên đỉnh đã thấy" ở ghi chú NT, H06B |
+| biên tập | — | H08B | $\rho$ trong tiêu đề viết hoa thành "Ρ" | sửa | tiêu đề "Ví dụ: số điểm mỗi tầng của kho mười tỷ véc-tơ" |
+
+Kiểm của điều phối viên: đọc diff; tự kiểm bảng H08B ($10^{10}/256\approx3{,}9\cdot10^7$; $16^{-3}\approx2{,}4\cdot10^{-4}$; $10^{10}/16^8\approx2{,}33$); `check07.py`: 67 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 3 cao nhất H13 55, H07 54 (trần 60), H14 69 (trần 80); ghi chú H14 231 âm tiết (lập luận chứng minh). Ảnh đã tự xem: H08, H08B, H14 (1600×900). Thời lượng tạm 119 phút cho tới mạch 4, 5. Rà lượt 2 (mạch) và lượt 3 (độ chính xác): không còn phát hiện.
