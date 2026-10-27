@@ -766,3 +766,18 @@ Trang đổi: P03, P02, P01, A00, A00B, A01, A01B (mới), A02, A03; ghi chú P0
 | mạch | nhẹ | Q11; P02 | $n_c$ nên là "Nhắc lại:"; mục tiêu dạng giải thích | để sau | mạch 4; mạch 6 |
 
 Kiểm của điều phối viên: đọc diff deck và planning; `check07.py` (Playwright Chromium, cổng 8771): 64 trang, 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung 1600×900, không cuộn ngang 390×844; mạch 1 cao nhất A00B 59, A01B 58, P03 56 âm tiết (trần 60), A02, A03 6 dòng. Ảnh đã tự xem: A01B, A03, A00B, P01 (1600×900). `git diff --check` sạch. Hai báo cáo rà lượt 2: không còn phát hiện từ mức trung bình trở lên.
+
+### Mạch 2
+
+Trang đổi: H00, H01, H01B (mới, hình mới `cuc-tieu-cuc-bo.svg` sinh bằng chế độ `'local'` của `generate_svg.py`), H03, H03B, H03C (mới), H04, H05 (chú thích trong giả mã), H06. Deck 64 → 66 trang. Chạy lại `generate_svg.py` không đổi 19 SVG cũ (`git diff --stat img/lec-07/` chỉ có `generate_svg.py`).
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | trung bình | H03B, H03C | cột $d(c,q)$, $d(f,q)$ có trên bảng nhưng quy tắc mở/dừng chưa có trên mặt trang trước giả mã; "Gợi ý:" trên mặt trang H03C | sửa | dòng "Mở $c$ khi $d(c,q)\le d(f,q)$, với $f$ là đỉnh xa $q$ nhất của $W$; ngược lại dừng." trên H03B (7 dòng, trần bảng vết 8); gợi ý vào ghi chú H03C |
+| mạch | nhẹ | H05, H03, H01, H04 | chú thích lệch cột; "đã thấy" trước định nghĩa; $e:9$ không thống nhất; công thức ngắt dòng | sửa | canh cột 40; "(đã đo $d(\cdot,q)$)"; `{:}`; "(một đồ thị thì $\ell_c=0$)" |
+| mạch, độ chính xác | nhẹ | ghi chú H01, H06 | câu "4 phép đo" lặp; "thăm mọi đỉnh và cạnh của tầng" | sửa | giữ ở H01B; "đến được từ $ep$ trong tầng" |
+| biên tập | — | H06 | câu kế hoạch "$y$ không thuộc $ef$ đỉnh gần nhất" sai khi hòa khoảng cách | sửa | "$W$ vẫn là $ef$ đỉnh gần nhất"; tác tử độ chính xác xác nhận cả trường hợp hòa |
+
+Tác tử độ chính xác tự chạy Thuật toán 2 (hai thứ tự duyệt lân cận) với $ef=3$, $ef=2$, $ef=1$: mọi ô của H03B, H03C khớp; $C\not\subseteq W$ chỉ ở $ef=2$ sau khi mở $a$ (ghi chú H03C); chú thích H04 đúng. Điều phối viên tự kiểm cột so sánh bảy lần mở ($9\le9$, $7\le9$, $5\le8$, $8\le8$, $4\le7$, $2\le5$, $1\le4$).
+
+Kiểm của điều phối viên: đọc diff; `check07.py`: 66 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung 1600×900, không cuộn ngang 390×844; mạch 2 cao nhất H03 58, H04 48 âm tiết; H03B 7 dòng (bảng vết). Ảnh đã tự xem: H01B, H03B, H05, H06 (1600×900). Thời lượng tạm 121 phút cho tới khi mạch 3–5 phân lại (ghi ở storyboard). Hai báo cáo rà lượt 2: không có phát hiện.

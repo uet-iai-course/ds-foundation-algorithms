@@ -1268,3 +1268,59 @@ Căn cứ: hai báo cáo rà lại (độ chính xác; mạch, văn phong, sinh 
 Thuật ngữ thống nhất trong mạch 1: "bỏ sót" cho điểm không được đo; "thiếu" khi so hai tập. Không sửa (ghi nhận): hộp Câu hỏi P01 ở 1600×900 chạm mũi tên điều khiển dọc (đã có trước lượt này, hộp vẫn một dòng; sửa cần đổi CSS dùng chung hoặc bỏ nội dung). Để sau: Q11 "Nhắc lại: $n_c$" (mạch 4); mục tiêu "giải thích" ở P02 (mạch 6).
 
 Sửa nhẹ cuối (2026-10-28): A01 giữ dòng Ví dụ không có "Hình:"/"năm điểm trên" vì bản phân biệt nguồn xuống dòng ở 1600×900 (đã xem ảnh). Câu "PQ lấy $G_j$ là $m$ đoạn liên tiếp" không thêm vào ghi chú P03 vì ghi chú lên 160 âm tiết.
+
+### Mạch 2
+
+Căn cứ: `plan-guide-07.md` mục 2 và quyết định của điều phối viên (H04 giữ hình $ef=3$, không khẳng định $C\not\subseteq W$ ở trạng thái này; trường hợp $C\not\subseteq W$ đặt ở ghi chú H03C với $ef=2$; H01B có SVG mới; H00 nối $n_c$ của A03). Âm tiết, dòng, ghi chú đếm bằng `check07.py`; "trước" đo trên bản đã commit sau mạch 1 (5b13a8e).
+
+**Thứ tự và thời lượng hiện hành:** HT, H00, H01, **H01B**, H03, H03B, **H03C**, H04, H05, H06 (10 trang). Phút: HT 0,5; H00 1; H01 2,5; H01B 2; H03 2; H03B 2,5; H03C 2,5; H04 1,5; H05 3; H06 3,5; tổng 21 (trước 19). Tổng phần giảng tạm là $19{,}5+21+23+28+17+12{,}5=121$ phút cho tới khi mạch 3 (23 → 21), mạch 4 (28 → 27) và mạch 5 (17 → 19) được sửa theo kế hoạch §9; sau đó về 120. Chỉ số: H01B `#/2/4`, H03 `#/2/5`, H03B `#/2/6`, H03C `#/2/7`, H04 `#/2/8`, H05 `#/2/9`, H06 `#/2/10`; HT vẫn `#/2/1`, số "2.".
+
+**Mục đầy đủ cho hai trang mới**
+
+| Trường | H01B — Cực tiểu cục bộ | H03C — Ví dụ: tìm kiếm chùm trên đồ thị bảy đỉnh, bước cuối |
+|---|---|---|
+| Mạch, vị trí | mạch 2, sau H01, trước H03 (`#/2/4`) | mạch 2, sau H03B, trước H04 (`#/2/7`) |
+| Mục đích | định nghĩa cực tiểu cục bộ; phân biệt với đỉnh gần $q$ nhất trong cả đồ thị; chỉ ra bước làm tham lam thất bại | hoàn tất vết $ef=3$ tới $z$; giao câu hỏi $ef=2$ để thấy bề rộng chùm đổi vùng khám phá |
+| Hoạt động sinh viên | đọc hình, xác định cực tiểu cục bộ và đỉnh gần nhất; giải thích vì sao nhánh $s$ bị loại | điền ba hàng còn lại của vết theo cùng khuôn H03B; chạy lại với $ef=2$ và chỉ ra bước dừng |
+| Đối tượng trung tâm | đỉnh $b{:}5$ (cực tiểu cục bộ), $z{:}1$ (gần $q$ nhất), cạnh $e$–$s$ bị loại | ba lần mở $t$, $u$, $z$; phép so $d(c,q)\le d(f,q)$; điều kiện dừng $C$ rỗng |
+| Dữ kiện, ký hiệu kế thừa | đồ thị bảy đỉnh và vết tham lam (H00, H01); ký hiệu $e{:}9$ | $W=\{t{:}4,b{:}5,a{:}7\}$, $C=\{t{:}4\}$ sau khi mở $s$ (H03B); $f$, $C$, $W$, $ef$ (H03) |
+| Kiến thức đầu vào | lân cận trong đồ thị; quy tắc tham lam | tìm kiếm chùm, hàng đợi ưu tiên |
+| Sản phẩm học tập | phát biểu được định nghĩa và vì sao điều kiện dừng của tham lam chỉ bảo đảm cực tiểu cục bộ | vết đầy đủ đối chiếu được với giả mã H05; lời giải $ef=2$ trả $\{b,a\}$ |
+| Bằng chứng kiểm | dòng Nhận xét trên trang; câu tự kiểm về tham lam ở mạch 6 | hộp Câu hỏi (lời giải trong ghi chú: dừng ở lần lấy thứ tư, $s{:}8>a{:}7$); H06 dùng lại lần chạy $ef=2$ |
+| Hình | `cuc-tieu-cuc-bo.svg` (mới, chế độ `'local'` của `generate_svg.py`): $b$ viền kép có nhãn "cực tiểu cục bộ", $z$ có nhãn "gần q nhất", cạnh $e$–$s$ nét đứt có nhãn "bị loại ở bước đầu"; tín hiệu bằng chữ và nét, không chỉ bằng màu | dùng lại `do-thi-chum.svg` |
+| Mặt trang | 46 âm tiết, 3 dòng, dòng dài nhất 18 | 38 âm tiết, 6 dòng (bảng vết 3 hàng), dòng dài nhất 13 |
+| Ghi chú | 126 âm tiết: điều kiện dừng chỉ kiểm lân cận trực tiếp; phải giữ $s$ sau khi sang $a$; 4 phép đo của vết tham lam; đỉnh gần nhất cũng là một cực tiểu cục bộ; nguồn Princeton lớp 9 tr.8 | 118 âm tiết: lời giải $ef=2$; trạng thái sau khi mở $a$ với $ef=2$ ($V=\{e,a,s,b\}$, $C=\{s,b\}$, $W=\{b,a\}$) cho thấy $C\subseteq W$ không phải lúc nào cũng đúng; $ef$ đổi vùng khám phá, không đổi đồ thị |
+| Phút; quyết định | 2; `thêm` (tách khỏi H01: thêm vào H01 làm trang 68 âm tiết, 7 dòng) | 2,5; `thêm` (tách vết khỏi H03B thay vì gộp $t,u,z$ thành một hàng) |
+
+**Các trang sửa**
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| HT | `giữ` | 34 → 34 | 2 | 82 → 82 | 0,5 | trang tiêu đề không nhận định nghĩa; ẩn dụ tìm đường không đưa lên |
+| H00 | `sửa` | 50 → 45 | 3 | 148 → 137 | 1 | Nhu cầu nối mô hình A03: "quét đủ có $n_c=N=10^{10}$; cần $n_c\ll N$ mà vẫn tới điểm gần $q$." Ghi chú: "chỉ các đỉnh trên đường đi và lân cận của chúng được đo" (trước: "chỉ các đỉnh trên đường đi được đo", hẹp hơn tập đã đo); bỏ câu về hàm khoảng cách (A00B đã định nghĩa chỉ mục) |
+| H01 | `sửa` | 42 → 43 | 6 | 157 → 138 | 2,5 | Ký hiệu: "$e{:}9$ nghĩa là $d(e,q)=9$, chỉ được tính khi gặp $e$." (thuật toán không biết trước khoảng cách); Kết luận: "tham lam dừng ở $b{:}5$, trong khi $z{:}1$ gần $q$ hơn." Định nghĩa cực tiểu cục bộ chuyển sang H01B. Ghi chú: số trên hình chỉ để chạy tay; khoảng cách tính khi đỉnh xuất hiện trong danh sách lân cận. −1,5 phút |
+| H03 | `giữ` | 56 → 56 | 4 | 169 → 169 | 2 | trang sát 60; ghi chú đã có câu $ef=1$ cho lại tham lam |
+| H03B | `sửa` | 40 → 30 | 6 | 168 → 135 | 2,5 | bảng 4 hàng $e,a,b,s$ thêm cột "$d(c,q)$, $d(f,q)$" ($9\le9$, $7\le9$, $5\le8$, $8\le8$; $f$ lấy trước khi mở $c$) để quy tắc dừng thấy được trước giả mã; dòng đầu định nghĩa $f$; thêm "Nhận xét. Mở $a$ đẩy $e{:}9$ khỏi $W$ nhưng giữ $s{:}8$; sau khi mở $b$, nhánh $s$ còn trong $C$."; hộp câu hỏi $ef=2$ và lời giải chuyển sang H03C. +0,5 phút |
+| H04 | `sửa` | 40 → 47 | 4 | 114 → 147 | 1,5 | chú thích hình đọc đúng trạng thái $ef=3$: "Sau khi mở $b$, $ef=3$: $e$ đã mở, bị đẩy khỏi $W$; $s$ chưa mở, thuộc $C$ và $W$." (không khẳng định $C\not\subseteq W$, sai ở trạng thái này); Ký hiệu: "$V$ là tập đỉnh đã thấy, tức đã tính $d(\cdot,q)$". Ghi chú phân biệt thấy và mở. −0,5 phút |
+| H05 | `sửa` | 8 → 8 | 1 | 186 → 186 | 3 | chú thích cuối dòng trong giả mã: đã thấy/chờ mở/kết quả; ngưỡng; ứng viên tốt nhất xa hơn ngưỡng; mở $c$; mỗi đỉnh chỉ đo một lần; $W$ có thể vừa đổi (giữ đủ sáu chú thích vì không tràn ngang ở 1600×900, đã xem ảnh). −1 phút |
+| H06 | `sửa` | 38 → 45 | 6 | 172 → 198 | 3,5 | bảng 4 hàng: khởi tạo; duy trì khi $\lvert W\rvert<ef$; duy trì khi $\lvert W\rvert=ef$ ("$y$ thay $f$ nếu gần $q$ hơn; nếu không, $W$ vẫn là $ef$ đỉnh gần nhất"); khi dừng ("$W$ đúng trên $V$; đỉnh ngoài $V$ không được xét"). Ví dụ "đỉnh gần nhất $z{:}1\notin V$". Ghi chú chứng minh: bất biến chỉ đổi khi một đỉnh mới vào $V$, lấy $c$ khỏi $C$ không đổi $W$; hai nhánh duy trì. Ghi chú 198 âm tiết (chứng minh, ≤ 250) |
+
+**Vết tự chạy lại theo giả mã H05** ($f$ lấy ở dòng 4, trước khi mở $c$). $ef=3$: mở $e$ ($9\le9$) → $C=\{a,s\}$, $W=\{a7,s8,e9\}$; mở $a$ ($7\le9$) → $C=\{b,s\}$, $W=\{b5,a7,s8\}$; mở $b$ ($5\le8$) → $C=\{s\}$; mở $s$ ($8\le8$) → $C=\{t\}$, $W=\{t4,b5,a7\}$; mở $t$ ($4\le7$) → $C=\{u\}$, $W=\{u2,t4,b5\}$; mở $u$ ($2\le5$) → $C=\{z\}$, $W=\{z1,u2,t4\}$; mở $z$ ($1\le4$) → $C$ rỗng, dừng. $ef=2$: mở $e$ ($9\le9$) → $W=\{a7,s8\}$; mở $a$ ($7\le8$) → $C=\{s,b\}$, $W=\{b5,a7\}$, $V=\{e,a,s,b\}$; mở $b$ ($5\le7$) → $C=\{s\}$; lấy $s$: $8>7$, dừng, trả $\{b,a\}$. Với $ef=3$, $C\subseteq W$ sau mọi lần mở.
+
+**Hình:** `generate_svg.py` thêm chế độ `'local'` của `do_thi_vi_du` và lệnh sinh `cuc-tieu-cuc-bo.svg`. Chạy lại tệp sinh không đổi SVG nào khác (kiểm `git status` và `git diff --stat` trên `img/lec-07/`: chỉ `generate_svg.py` đổi và một tệp mới).
+
+**Lệch tạm thời có chủ đích:** H01B, H03C và cột so sánh của vết chưa có trong `materials/lec-07/lecture-note.md`; đồng bộ cùng lượt ghi chú sau mạch 7.
+
+#### Rà lại mạch 2 (2026-10-28)
+
+Căn cứ: hai báo cáo rà lại mạch 2 và danh sách sửa của điều phối viên. Bảng này thay các ô tương ứng của tiểu mục "Mạch 2"; thứ tự, chỉ số và thời lượng không đổi. "Trước" là bản sau lượt sửa mạch 2 lần đầu.
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| H01 | 43 → 43 | 6 | 138 → 111 | ô bảng viết $e{:}9$, $a{:}7,\ s{:}8$, … như dòng Ký hiệu; ghi chú bỏ câu "4 phép đo" (giữ ở H01B, nơi câu này phục vụ lập luận "$s$ đã đo nhưng bị bỏ") |
+| H03 | 56 → 58 | 4 | 169 → 169 | "đỉnh đã thấy (đã đo $d(\cdot,q)$)" ở lần dùng đầu trên mặt trang, trước định nghĩa $V$ ở H04 |
+| H03B | 30 → 34 | 7 | 135 → 135 | quy tắc mở và dừng nêu trước bảng: "Mở $c$ khi $d(c,q)\le d(f,q)$, với $f$ là đỉnh xa $q$ nhất của $W$; ngược lại dừng." (dòng riêng; 7 dòng, trần bảng vết 8); cột so sánh của bảng nay có lý do trên mặt trang |
+| H03C | 38 → 32 | 6 | 118 → 125 | bỏ "Gợi ý:" khỏi hộp câu hỏi (quy tắc dừng đã ở H03B); gợi ý chuyển vào ghi chú, trước lời giải |
+| H04 | 47 → 48 | 4 | 147 → 147 | Đầu vào: "(một đồ thị thì $\ell_c=0$)" để dòng không ngắt giữa công thức |
+| H05 | 8 → 8 | 1 | 186 → 186 | sáu chú thích `//` cùng bắt đầu ở cột 40 (tính theo ký tự hiển thị); không tràn ngang ở 1600×900, đã xem ảnh 1600 và 390 |
+| H06 | 45 → 45 | 6 | 198 → 202 | ghi chú: trường hợp xấu thăm mọi đỉnh và cạnh đến được từ $ep$ trong tầng (Thuật toán 2 chỉ mở lân cận của đỉnh đã vào $C$) |

@@ -92,7 +92,8 @@ GRAPH_LABEL = {'e': (-14, -40), 'a': (0, -42), 'b': (0, -42), 's': (0, 62),
 
 
 def do_thi_vi_du(name, mode):
-    """mode: 'base' (cấu trúc), 'greedy' (đường tham lam), 'beam' (đường của tìm kiếm chùm)."""
+    """mode: 'base' (cấu trúc), 'greedy' (đường tham lam), 'beam' (đường của tìm kiếm chùm),
+    'seen2' (ef = 2 dừng sớm), 'local' (cực tiểu cục bộ b và đỉnh gần q nhất z)."""
     sc, ox, oy = 40, 410, 290
     X = lambda v: ox + sc * GRAPH_POS[v][0]
     Y = lambda v: oy - sc * GRAPH_POS[v][1]
@@ -101,8 +102,10 @@ def do_thi_vi_du(name, mode):
     b = ''
     for u, v in GRAPH_EDGES:
         color, width, dash = '#9aa6b8', 4, ''
-        if mode == 'greedy' and (u, v) in greedy:
+        if mode in ('greedy', 'local') and (u, v) in greedy:
             color, width = ORANGE, 7
+        if mode == 'local' and (u, v) == ('e', 's'):
+            dash = '12 8'
         if mode == 'beam' and (u, v) in beam:
             color, width, dash = GREEN, 7, '14 8'
         b += line(X(u), Y(u), X(v), Y(v), color, dash, width=width)
@@ -113,8 +116,12 @@ def do_thi_vi_du(name, mode):
             if v in w2:
                 b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="34" fill="none" stroke="{BLUE}" stroke-width="5"/>'
             fill, stroke = (PALE_BLUE, BLUE) if v in seen2 else ('#ffffff', '#9aa6b8')
-        if mode == 'greedy' and v == 'b':
+        if mode in ('greedy', 'local') and v == 'b':
             fill, stroke = PALE_ORANGE, ORANGE
+        if mode == 'local' and v == 'b':
+            b += f'<circle cx="{X(v):.1f}" cy="{Y(v):.1f}" r="34" fill="none" stroke="{ORANGE}" stroke-width="5"/>'
+        if mode == 'local' and v == 'z':
+            fill, stroke = PALE_GREEN, GREEN
         if mode == 'beam' and v == 'z':
             fill, stroke = PALE_GREEN, GREEN
         dash_attr = ' stroke-dasharray="6 5"' if mode == 'seen2' and v not in seen2 else ''
@@ -134,10 +141,14 @@ def do_thi_vi_du(name, mode):
         b += f'<circle cx="680" cy="284" r="20" fill="none" stroke="{BLUE}" stroke-width="5"/>' + text(900, 294, 'W, ef = 2', 28, INK, 'end')
     if mode in ('base', 'seen2'):
         pass
-    elif mode == 'greedy':
+    elif mode in ('greedy', 'local'):
         b += line(716, 176, 768, 176, ORANGE, width=7) + text(900, 186, 'tham lam', 28, INK, 'end')
     else:
         b += line(640, 176, 692, 176, GREEN, '14 8', width=7) + text(900, 186, 'tìm kiếm chùm', 28, INK, 'end')
+    if mode == 'local':
+        b += text(X('b') + 44, Y('b') + 10, 'cực tiểu cục bộ', 26, ORANGE, 'start', weight='bold')
+        b += text(X('z') + 22, Y('z') - 46, 'gần q nhất', 26, GREEN, 'start', weight='bold')
+        b += text(125, 392, 'bị loại ở bước đầu', 24, GRAY, 'start', italic=True)
     titles = {
         'base': ('Đồ thị lân cận ví dụ',
                  'Bảy đỉnh e, a, b, s, t, u, z có khoảng cách tới q lần lượt 9, 7, 5, 8, 4, 2, 1; '
@@ -148,6 +159,10 @@ def do_thi_vi_du(name, mode):
         'seen2': ('SEARCH-LAYER với ef bằng 2 dừng sớm',
                   'Với ef bằng 2 và điểm vào e, thuật toán dừng khi đã thấy e, a, s, b; W gồm b và a; '
                   't, u, z chưa được thấy.'),
+        'local': ('Cực tiểu cục bộ b và đỉnh gần q nhất z',
+                  'Từ e, tham lam đi qua a tới b; b không có lân cận gần q hơn nên là cực tiểu cục bộ; '
+                  'z ở khoảng cách 1 là đỉnh gần q nhất, nằm trên nhánh s, t, u; cạnh e–s nét đứt '
+                  'bị loại ở bước đầu vì a gần q hơn s.'),
         'beam': ('Tìm kiếm chùm đi tới z',
                  'Tìm kiếm chùm với ef bằng 3 giữ s trong hàng đợi, sau khi b không còn lân cận mới thì mở s, '
                  'rồi đi qua t, u tới z ở khoảng cách 1.'),
@@ -475,6 +490,7 @@ def main():
     do_thi_vi_du('do-thi-vi-du.svg', 'base')
     do_thi_vi_du('do-thi-tham-lam.svg', 'greedy')
     do_thi_vi_du('do-thi-chum.svg', 'beam')
+    do_thi_vi_du('cuc-tieu-cuc-bo.svg', 'local')
     trang_thai_search_layer()
     do_thi_vi_du('do-thi-ef2.svg', 'seen2')
     canh_dai_mot_chieu()
