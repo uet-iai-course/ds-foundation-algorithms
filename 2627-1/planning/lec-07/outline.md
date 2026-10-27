@@ -142,7 +142,7 @@ Deck 65 trang (55 giảng + 10 bài tập). Mạch 6 đổi tên từ "So sánh 
 - **Mạch mở đầu:** thêm P03 "Tiên quyết và quy ước" (ánh xạ mục "Tiên quyết": LSH của Bài 06, tính cộng theo tọa độ; đồ thị có hướng, hàng đợi ưu tiên và k-means ở ghi chú diễn giả), P05 "Vấn đề trung tâm"; tách P02 thành "Mục tiêu học tập" và P04 "Nội dung"; P01 thành trang ví dụ.
 - **Mạch kết luận:** thêm C03 "Kết quả và giả thiết không được bỏ", C04 "Câu trả lời cho vấn đề trung tâm", C05 "Nguồn và tài liệu đọc"; C00 đổi sang khuôn `Thuật toán | Đầu vào | Bảo đảm | Chi phí`; C01, C02 thành "Câu hỏi tự kiểm tra". Không ghi công mmds.org vì bài không neo MMDS; không dòng nối Bài 08 vì `sources/source.md` chỉ nêu thứ tự (Bài 8 mở mạch "Dòng dữ liệu và cửa sổ"), không nêu quan hệ nội dung.
 - **Tách:** H13 → H13 + H14; Q09 → Q09 + Q11; I04 → I04 + I05.
-- **Bảng ký hiệu (bổ sung):** 1 TB là $10^{12}$ byte, 1 GB là $10^9$ byte; tọa độ viết bằng dấu chấm phẩy, ví dụ $(1{,}7;\ 0{,}4)$; $n_c$ là số véc-tơ được chấm (chỉ dùng ở Q11).
+- **Bảng ký hiệu (bổ sung):** 1 TB là $10^{12}$ byte, 1 GB là $10^9$ byte; tọa độ viết bằng dấu chấm phẩy, ví dụ $(1{,}7;\ 0{,}4)$; $n_c$ là số véc-tơ được đo (định nghĩa ở mô hình chi phí A03 từ lượt 2026-10-27; dùng lại ở Q11, Q10, I03).
 - **Thuật ngữ giải nghĩa ở lần đầu trên mặt trang:** HNSW (P03), ANN (A00), độ thu hồi (recall) (A01), tìm kiếm chùm (beam search) (H03), VQ (Q00), ADC (Q08), IVF (I00), MSE (R04); LSH viết "băm nhạy cảm theo tính cục bộ (LSH)" như Bài 06.
 - **Mạch 7:** nhãn Thực hành (`practice-badge`, lớp có sẵn); RT 0,5 phút lấy từ R01.
 
@@ -151,7 +151,7 @@ Deck 65 trang (55 giảng + 10 bài tập). Mạch 6 đổi tên từ "So sánh 
 - **Luận đề:** bỏ "(PQ)": "HNSW giảm số véc-tơ được đo, lượng tử hóa tích giảm chi phí mỗi phép đo; đổi lại, có thể bỏ lỡ hàng xóm thật." (25 token). Tên đầy đủ kèm "(PQ)" chuyển sang mục tiêu 2 ở P02 (lần đầu PQ xuất hiện sau bìa).
 - **Vấn đề trung tâm và câu trả lời:** P05 nêu 122,88 TB, ≈30,7 giây mỗi truy vấn và ngân sách giả định của học phần 6 TB bộ nhớ, 10 ms mỗi truy vấn; C04 trả lời bằng TB và giây (HNSW ≈125,5 TB; PQ quét đủ 5,12 TB, ≈5,12 giây; IVF-PQ 5,2 TB, ≈3,6 ms). PQ bị loại vì thời gian, không vì bộ nhớ.
 - **Đặc tả ANN (A00):** trả tối đa $K$ điểm; hai nguồn sai số tương ứng hai thừa số chi phí: đo một phần kho, đo bằng khoảng cách xấp xỉ.
-- **Thuật ngữ:** "chấm một mã" là phép đo xấp xỉ qua bảng tra (Q11); $n_c$ dùng ở Q11, Q10 ($n_c=N$), I03 ($n_c\approx nprobe\,N/k_c$). Đồ thị Delaunay giải nghĩa trên mặt trang H14. Mục "Thuật ngữ giải nghĩa" ở trên đổi hai điểm: A00 giữ "(approximate nearest neighbor)" nhưng không dùng chữ viết tắt ANN trên mặt trang; P03 viết "LSH" theo câu của điều phối viên, tên đầy đủ "băm nhạy cảm theo tính cục bộ" nằm trong ghi chú P00, P03 và đã giải nghĩa ở Bài 06.
+- **Thuật ngữ:** "chấm một mã" là phép đo xấp xỉ qua bảng tra (Q11); $n_c$ định nghĩa ở A03 (từ lượt 2026-10-27), dùng ở Q11, Q10 ($n_c=N$), I03 ($n_c\approx nprobe\,N/k_c$). Đồ thị Delaunay giải nghĩa trên mặt trang H14. Mục "Thuật ngữ giải nghĩa" ở trên đổi hai điểm: A00 giữ "(approximate nearest neighbor)" nhưng không dùng chữ viết tắt ANN trên mặt trang; P03 viết "LSH" theo câu của điều phối viên, tên đầy đủ "băm nhạy cảm theo tính cục bộ" nằm trong ghi chú P00, P03 và đã giải nghĩa ở Bài 06.
 - **Bộ nhớ IVF-PQ** $(512+8)\cdot10^{10}$ byte $=5{,}2$ TB tính ở I03 (mạch 5), trước C00 và C04.
 - **Ghi chú bài giảng:** không sửa trong lượt này. Điểm cần đồng bộ khi sửa ghi chú: ngân sách giả định 6 TB và 10 ms; bảo đảm LSH $1-(1-p_1^r)^b$ trong bảng so sánh; "phần dư thường nhỏ hơn" (năng lượng trung bình).
 
@@ -217,3 +217,10 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 - Dòng dẫn NT: "Muốn tới vùng gần $q$ sau ít bước, phải đặt các tầng thưa có cạnh dài phía trên đồ thị chứa mọi điểm." (bảng mạch phía trên đã sửa tại chỗ).
 - Giả mã truy vấn H09 và chèn H10B dùng $ep$ là tập điểm vào, khớp đầu vào của SEARCH-LAYER (H04).
 - H10 nêu hai pha bằng hai dòng ($ef=1$ ở tầng $>\ell$; $efConstruction$ và nối $M$ lân cận ở tầng $\le\ell$) trước ví dụ.
+
+### Lượt biên tập theo bản đánh giá giảng dạy (2026-10-27)
+
+- **Mạch 1** có 12 trang: P00, P03, P02, P04, P05, P01, A00, A00B, A01, **A01B**, A02, A03; 19,5 phút (trước 20,5; một phút chuyển sang mạch 2). Bảng "Mạch phần giảng — 120 phút" phía trên giữ bản cũ cho tới khi mọi mạch xong; số liệu hiện hành ở `storyboard.md`, mục cùng tên.
+- **Thuật ngữ mới:** độ thu hồi trung bình (mean recall) ở A01B, $\overline{\operatorname{recall@K}}$ trên tập truy vấn $Q$. **Ký hiệu mới:** $Q$ là tập truy vấn (A01B); $n_c$ (số véc-tơ được đo) gọi tên lần đầu ở mô hình chi phí A03, trước Q11.
+- **Ví dụ chạy tay mới:** năm điểm với $d(q,y_i)=2{,}5;\ 1{,}2;\ 3{,}0;\ 0{,}8;\ 1{,}7$, $K=3$, $N_3(q)=\{y_4,y_2,y_5\}$ (A00); chỉ mục trả $\{y_4,y_5,y_1\}$ (A00B), $\operatorname{recall@3}=2/3$ (ghi chú A01).
+- **Sau rà lại mạch 1:** "chỉ mục (index)" định nghĩa trên mặt trang A00B ("cấu trúc dựng sẵn trên $Y$, quyết định véc-tơ nào được đo và đo thế nào"); P03 viết dạng tổng theo nhóm $\|x-y\|_2^2=\sum_{j=1}^{m}\sum_{i\in G_j}(x_i-y_i)^2$ với $G_1,\ldots,G_m$ là phân hoạch của $\{1,\ldots,D\}$ ($m$ cùng nghĩa số đoạn của PQ ở Q04). Từ "bỏ sót" dùng cho điểm không được đo; "thiếu" dùng khi so hai tập.

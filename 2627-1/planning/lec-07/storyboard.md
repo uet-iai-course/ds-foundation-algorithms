@@ -1207,3 +1207,64 @@ Căn cứ: danh sách của điều phối viên sau rà lại lần 2. Tên m�
 Ghi chú H10B (sửa cuối): cắt lân cận giữ $M_{max}(\ell_c)$ đỉnh gần nhất chỉ với cách chọn đơn giản (Thuật toán 3); quy tắc chọn đa dạng (Thuật toán 4) có thể giữ tập khác. Mặt trang không đổi.
 
 C01 lời giải, ghi chú H10 và H04 không coi $ep$ là một đỉnh (đã kiểm). Glyph U+2011 ở từ khóa HT giữ nguyên (điều phối viên đã kiểm hiển thị).
+
+## Lượt biên tập theo bản đánh giá giảng dạy (2026-10-27)
+
+Căn cứ: bản đánh giá giảng dạy của người dùng (chép gọn trong scratchpad của điều phối viên, `guide-07.md`) và kế hoạch đã duyệt (`plan-guide-07.md`), cùng quyết định của điều phối viên: A03 viết mô hình bằng lời và gọi tên $n_c$, không đặt ký hiệu $t_d$; ghi chú bài giảng chưa sửa trong lượt này (ví dụ năm điểm và A01B sẽ đồng bộ sau mạch 7); không dùng "HNSW" trước H07, không dùng ký hiệu đoạn $x^{(j)}$ ở P03, không dùng "GPU". Mục này thay các ô tương ứng của mục "Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)" và hai lượt sửa sau đó. Âm tiết, dòng và độ dài ghi chú đếm bằng `check07.py` của điều phối viên (cùng quy tắc `density07.py`).
+
+### Mạch 1
+
+**Thứ tự và thời lượng hiện hành:** P00, P03, P02, P04, P05, P01, A00, A00B, A01, **A01B**, A02, A03 (12 trang). Phút: P00 0,5; P03 1,5; P02 1; P04 0,5; P05 1; P01 2,5; A00 2,5; A00B 2; A01 2; A01B 2; A02 1,5; A03 2,5; tổng 19,5 (trước 20,5). Một phút bớt ra chuyển sang mạch 2 (19 → 21) theo kế hoạch §9; cho tới khi mạch 2 được sửa, tổng phần giảng tạm là 119,5 phút. Chỉ số `#/1/v` của A02, A03 dịch xuống một (A02 `#/1/11`, A03 `#/1/12`); `#/2`…`#/7` không đổi.
+
+**Mục đầy đủ cho trang mới A01B — Độ thu hồi trung bình**
+
+| Trường | Nội dung |
+|---|---|
+| Mạch, vị trí | mạch 1, sau A01, trước A02 (`#/1/10`) |
+| Mục đích | mở rộng độ thu hồi từ một truy vấn sang tập truy vấn; tách hai cách hiểu dễ nhầm của con số 0,9; nêu rằng độ thu hồi không xét thứ tự |
+| Hoạt động sinh viên | tính trung bình cho hai tập mười truy vấn (ví dụ trên trang và câu hỏi), so hai kiểu lỗi có cùng trung bình |
+| Đối tượng trung tâm | $\overline{\operatorname{recall@K}}=\frac1{\lvert Q\rvert}\sum_{q\in Q}\operatorname{recall@K}(q)$ |
+| Dữ kiện, ký hiệu kế thừa | $\operatorname{recall@K}(q)$, $N_K(q)$, $\widehat N_K(q)$ (A00, A00B, A01); ký hiệu mới $Q$ (tập truy vấn) |
+| Kiến thức đầu vào | độ thu hồi của một truy vấn; trung bình cộng |
+| Sản phẩm học tập | phát biểu được độ thu hồi trung bình; giải thích vì sao trung bình 0,9 không cho biết tỷ lệ truy vấn đúng hoàn toàn |
+| Bằng chứng kiểm | câu hỏi trên trang (chín truy vấn đạt 1, một đạt 0: trung bình 0,9 như ví dụ); hàng "Chất lượng" của A02; $nok/100$ ở R07 là $\operatorname{recall@1}$ trung bình |
+| Ghi chú | 153 âm tiết (có lời giải): lời giải, hai kiểu lỗi, tỷ lệ đúng hoàn toàn phải đếm riêng, độ thu hồi so hai tập nên bỏ qua thứ tự, liên hệ $nok/100$; nguồn Malkov và Yashunin tr.1, sổ Princeton lớp 8 ô 155 |
+| Mặt trang | 58 âm tiết, 5 dòng, dòng dài nhất 17, 1 công thức hiển thị |
+| Phút; quyết định | 2; `thêm`: phản ví dụ số cho cách hiểu sai "0,9 là 90% truy vấn đúng" (bản đánh giá, trang độ thu hồi); A01 không còn chỗ (36 âm tiết, hình chiếm nửa trang) |
+
+**Các trang sửa**
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú (âm tiết) trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| P00 | `giữ` | 51 → 51 | 4 | 151 → 151 | 0,5 | luận đề đã nêu "bớt số phép đo … bớt chi phí mỗi phép đo … có thể sót"; ẩn dụ mục lục sách không đưa lên trang hay ghi chú |
+| P03 | `sửa` | 43 → 58 | 5 | 187 → 184 | 1,5 | thêm dòng "Hàng xóm không cùng thùng với $q$ ở dải nào bị bỏ sót." (nguồn gốc của độ thu hồi < 1); dòng Nhắc lại thứ hai "… bằng tổng theo các nhóm tọa độ rời nhau" (chuẩn bị Q08, I02, không dùng $x^{(j)}$). Ghi chú: bỏ câu lặp mặt trang về xác minh ứng viên; giải nghĩa cận $1-(1-p_1^r)^b$ qua hai bước (trùng khóa ở một dải $\ge p_1^r$; các dải độc lập nên bỏ sót ở cả $b$ dải $\le(1-p_1^r)^b$). Công thức ở lại ghi chú (đưa lên làm trang vượt 60) |
+| P02 | `sửa` | 48 → 48 | 3 | 135 → 135 | 1 | mục tiêu 3 gắn quyết định cụ thể: "Tính bộ nhớ, chi phí truy vấn; chọn chỉ mục cho kho $10^{10}$ véc-tơ với 6 TB, 10 ms." Ghi chú (ánh xạ câu tự kiểm) chưa đổi, để mạch 6 |
+| P04 | `giữ` (ghi chú `sửa`) | 52 → 52 | 8 | 141 → 157 | 0,5 | ghi chú thêm: mỗi mạch xử lý giới hạn mà mạch trước để lại, một hệ thống cụ thể chỉ dùng cấu trúc hợp ngân sách; rút câu về tổng kết. 157 âm tiết (mức `nhẹ`) |
+| P05 | `giữ` | 51 → 51 | 5 | 149 → 149 | 1 | ba đại lượng (độ trễ, bộ nhớ, độ thu hồi) nằm ở A02; "(giả định)" đã có. −0,5 phút |
+| P01 | `sửa` | 35 → 36 | 4 | 168 → 202 | 2,5 | hộp câu hỏi một câu tính cho hai tốc độ "$10^{12}$ và $10^{13}$ lượt tọa độ mỗi giây" (bản có câu thứ hai "Tính lại với phần cứng nhanh gấp 10 lần." làm hộp xuống dòng và tràn đáy khung 1600×900, đã thử và bỏ). Ghi chú lời giải: 3,07 giây, vẫn gấp khoảng 307 lần ngân sách; thời gian đọc 122,88 TB không giảm khi chỉ tăng tốc độ tính. 202 âm tiết, có lời giải |
+| A00 | `sửa` | 41 → 48 | 5 | 136 → 142 | 2,5 | thêm "Ví dụ. Năm điểm với $d(q,y_i)$ trong bảng, $K=3$: $N_3(q)=\{y_4,y_2,y_5\}$." và bảng một hàng $d(q,y_i)$ = 2,5; 1,2; 3,0; 0,8; 1,7 (tự tính: thứ tự tăng $y_4,y_2,y_5,y_1,y_3$). Ghi chú: thứ tự tăng dần; mô hình chỉ đếm tọa độ, giữ $K$ điểm tốt nhất bằng hàng đợi ưu tiên thêm $O(N\log K)$ phép so sánh; bỏ hai câu lặp mặt trang |
+| A00B | `sửa` | 48 → 50 | 4 | 105 → 146 | 2 | dòng cơ chế và Lưu ý thay bằng ví dụ chung với A00: "$\widehat N_3(q)=\{y_4,y_5,y_1\}$"; "Thiếu $y_2$ vì $y_2$ không được đo, hoặc khoảng cách xấp xỉ xếp $y_2$ sau $y_1$."; "Lưu ý: mức thiếu điểm đo bằng độ thu hồi." Ghi chú: hai nguồn thiếu điểm trên ví dụ, phân biệt hai nguồn cho biết nên mở rộng vùng tìm hay làm phép đo chính xác hơn. Tên cấu trúc theo từng nguồn chuyển sang cột mới của A03 |
+| A01 | `sửa` (ghi chú) | 34 → 34 | 4 | 107 → 103 | 2 | ghi chú bỏ câu "trung bình trên tập truy vấn" (sang A01B), thêm $\operatorname{recall@3}=2/3$ cho ví dụ năm điểm. −1 phút |
+| A02 | `sửa` | 39 → 54 | 6 | 143 → 134 | 1,5 | thêm "Lưu ý: chỉ so hai chỉ mục trên cùng dữ liệu, cùng $K$, cùng phần cứng." (điều kiện để câu hỏi A/B có nghĩa); ghi chú giữ chi tiết từng trục, bỏ câu lặp |
+| A03 | `sửa` | 31 → 44 | 6 | 122 → 150 | 2,5 | Mô hình gọi tên $n_c$ ("số véc-tơ được đo $n_c$"; Q11, Q10, I03 dùng lại); dòng "Quét đủ có $n_c=N$, mỗi phép đo $\Theta(D)$."; bảng thêm cột "Thiếu điểm vì" (LSH, đồ thị lân cận: không được đo; PQ: đo xấp xỉ; IVF-PQ: cả hai), cột "Thừa số giảm" ghi $n_c$. Ghi chú: giải thích cột mới, $4ND$ byte, một lần tra bảng và một lượt tọa độ không nhất thiết cùng thời gian. Không đặt $t_d$ (quyết định điều phối viên) |
+
+Kiểm `check07.py` sau lượt: mạch 1 không trang nào vượt 60 âm tiết, 6 dòng hay 20 âm tiết mỗi dòng (trừ dòng luận đề bìa P00, 24 token, đã duyệt từ lượt 2026-10-16); không tràn khung 1600×900, không lỗi KaTeX, console hay yêu cầu mạng ngoài. Ghi chú trên 150 âm tiết: P03 184 và P04 157 (mức `nhẹ`), P01 202 và A01B 153 (có lời giải).
+
+**Lệch tạm thời có chủ đích:** ví dụ năm điểm (A00, A00B, A01) và trang A01B chưa có trong `materials/lec-07/lecture-note.md`; đồng bộ ghi chú bài giảng sau mạch 7.
+
+### Rà lại mạch 1 (2026-10-28)
+
+Căn cứ: hai báo cáo rà lại (độ chính xác; mạch, văn phong, sinh viên) và danh sách sửa của điều phối viên. Bảng này thay các ô tương ứng của hai bảng "Mạch 1" phía trên (kể cả mục A01B); thứ tự 12 trang, chỉ số `#/1/v` và thời lượng 19,5 phút không đổi. "Trước" là bản sau lượt biên tập 2026-10-27.
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| P03 | 58 → 56 | 5 | 184 → 150 | dòng hệ quả LSH mở bằng "Suy ra" ("(Bài 06)" chỉ giữ ở dòng Nhắc lại đầu, bỏ lần lặp); dòng Nhắc lại thứ hai viết công thức $\|x-y\|_2^2=\sum_{j=1}^{m}\sum_{i\in G_j}(x_i-y_i)^2$ với $G_1,\ldots,G_m$ là phân hoạch của $\{1,\ldots,D\}$ (nhóm rời nhau và phủ hết, điều kiện cho tính cộng). Ghi chú: "mọi hàm chọn độc lập từ họ" (cận $p_1^r$ cần $r$ hàm trong một dải độc lập); bỏ giải nghĩa hàng đợi ưu tiên, k-means và "1 GB" để về 150 |
+| P04 | 52 → 52 | 8 | 157 → 150 | ghi chú: "Mỗi cấu trúc khắc phục một giới hạn của cấu trúc trước; một hệ thống chỉ dùng cấu trúc hợp ngân sách." (bỏ chủ ngữ "Mỗi mạch"); rút câu tổng kết |
+| A00B | 50 → 59 | 4 | 146 → 150 | thêm dòng "Chỉ mục (index) là cấu trúc dựng sẵn trên $Y$, quyết định véc-tơ nào được đo và đo thế nào." ngay sau Định nghĩa (thuật ngữ trung tâm chưa được định nghĩa); dòng Lưu ý chuyển vào ghi chú (cũng bỏ nghĩa thứ hai của "đo"). Ghi chú: phép suy đúng chiều "$y_1$ vào kết quả còn $y_2$ thì không, nên khoảng cách xấp xỉ của $y_2$ lớn hơn của $y_1$"; "ngoài tập đỉnh đã đo trên đồ thị"; "bỏ sót" thay "bỏ lỡ" |
+| A01 | 34 → 43 | 5 | 103 → 105 | Ví dụ. "$\operatorname{recall@5}=3/5$; năm điểm: $\operatorname{recall@3}=2/3$" (ví dụ xuyên suốt có kết quả trên mặt trang); thêm "Lưu ý: độ thu hồi không xét thứ tự trong $K$ kết quả." (chuyển từ A01B; vừa khung, đã xem ảnh 1600 và 390). Ghi chú: "Bài báo PQ, mục V-A, tr.7" |
+| A01B | 58 → 58 | 5 | 153 → 123 | "Độ thu hồi trung bình (mean recall)" ở lần dùng đầu; Ví dụ. "$K=10$, $\lvert Q\rvert=10$, mỗi truy vấn tìm lại 9 hàng xóm thật: trung bình $0{,}9$."; "Lưu ý: trung bình $0{,}9$ không cho biết tỷ lệ truy vấn đúng hoàn toàn." (kết luận lên mặt trang); Câu hỏi: "Chín truy vấn đạt 1, một đạt 0. Tính trung bình và tỷ lệ truy vấn đúng hoàn toàn." Ghi chú: lời giải 0,9 và tỷ lệ đúng hoàn toàn $9/10$ so với $0$ ở ví dụ; "$nok$ là số truy vấn …; $nok/100$ là $\operatorname{recall@1}$ trung bình". Sản phẩm học tập và bằng chứng kiểm của mục A01B giữ; dòng dài nhất 14 |
+| A03 | 44 → 47 | 6 | 150 → 149 | dòng quét đủ nối kho mở bài: "Quét đủ có $n_c=N=10^{10}$, mỗi phép đo $D=3072$ lượt tọa độ." Ghi chú: mô hình bỏ qua chi phí cố định mỗi truy vấn; lập bảng tra và chọn tâm thô được đếm ở trang chi phí PQ, IVF-PQ, còn chi phí băm $q$ của LSH không tính trong bài; mã PQ "từ vài byte đến vài trăm byte" |
+
+Thuật ngữ thống nhất trong mạch 1: "bỏ sót" cho điểm không được đo; "thiếu" khi so hai tập. Không sửa (ghi nhận): hộp Câu hỏi P01 ở 1600×900 chạm mũi tên điều khiển dọc (đã có trước lượt này, hộp vẫn một dòng; sửa cần đổi CSS dùng chung hoặc bỏ nội dung). Để sau: Q11 "Nhắc lại: $n_c$" (mạch 4); mục tiêu "giải thích" ở P02 (mạch 6).
+
+Sửa nhẹ cuối (2026-10-28): A01 giữ dòng Ví dụ không có "Hình:"/"năm điểm trên" vì bản phân biệt nguồn xuống dòng ở 1600×900 (đã xem ảnh). Câu "PQ lấy $G_j$ là $m$ đoạn liên tiếp" không thêm vào ghi chú P03 vì ghi chú lên 160 âm tiết.

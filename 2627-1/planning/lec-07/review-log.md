@@ -720,3 +720,49 @@ Tác tử rà lại lượt 2 (cùng tác tử, tiếp tục bằng `SendMessage
 | rà lại 3 | nhẹ | outline.md:207 | còn dòng dẫn NT cũ | bác bỏ | câu ghi lịch sử thay đổi trong mục 2026-10-16, không phải bảng hiện hành |
 
 Điều phối viên đọc lại ghi chú H10B; `git diff --check` sạch. Kiểm Playwright sau lượt 3 (63 trang, hai cỡ): 0 lỗi, 0 `.katex-error`, không tràn, không cuộn ngang.
+
+## Lượt biên tập theo bản đánh giá giảng dạy (2026-10-27)
+
+Yêu cầu người dùng (2026-10-27): biên tập lại các trang theo bản đánh giá giảng dạy 63 trang do người dùng gửi, để mặt trang thể hiện các giải thích và dễ hiểu với sinh viên, giữ văn phong đã thiết lập; làm lần lượt từng mạch, commit và push sau mỗi mạch. Bản đánh giá chép gọn ở scratchpad (`guide-07.md`); không dùng ảnh raster và giọng giảng viên của bản đánh giá.
+
+### Tác tử
+
+Mọi tác tử tạo bằng công cụ `Agent`, `subagent_type: "general-purpose"`, `model: "opus"`, `effort: "high"` (Claude Opus 5.5); điều phối viên chạy Opus 5.5, effort high. Sửa tiếp bằng `SendMessage` cho cùng tác tử.
+
+| Vai | Nhiệm vụ | Ghi tệp | Sản phẩm | Quyết định của điều phối viên |
+|---|---|---|---|---|
+| lập kế hoạch | đối chiếu 63 trang với bản đánh giá; kiểm lại mọi số; đề xuất sửa/tách/thêm, mật độ, thời lượng | không | `plan-guide-07.md` (scratchpad) | chấp nhận; đã tự chạy lại vết $ef=2$, $ef=3$ để xác nhận lỗi S17 của bản đánh giá |
+| biên tập | sửa deck, storyboard, outline theo từng mạch | có | diff | xem từng mạch |
+| rà lại độ chính xác | số liệu, công thức, nguồn trên trang đổi | không | `recheck-acc-m<N>.md` | xem từng mạch |
+| rà lại mạch, văn phong, sinh viên | kết nối, `no-ai-slop` Detect, mật độ, đồng bộ planning | không | `recheck-story-m<N>.md` | xem từng mạch |
+
+### Quyết định chung
+
+| Mục | Quyết định | Lý do |
+|---|---|---|
+| Lỗi của bản đánh giá, S17 | bác bỏ ví dụ | với $ef=3$, $C\subseteq W$ ở mọi bước; $C\not\subseteq W$ chỉ xuất hiện khi $ef=2$ sau khi mở $a$ ($C=\{s,b\}$, $W=\{b,a\}$); điều phối viên đã chạy lại |
+| S24 | sửa | bước $\lfloor t\rfloor\ge k\iff t\ge k$ cần $k$ nguyên |
+| S11, S43, "HNSW" trước H07, $x^{(j)}$ ở P03, "GPU" | không đưa lên mặt trang | số tự đặt khác ví dụ xuyên suốt; chỉ mục đảo từ khóa thuộc Bài 14; thuật ngữ, ký hiệu chưa định nghĩa |
+| A03 | lời + $n_c$, không $t_d$ | khớp ghi chú bài giảng §1 |
+| H04 | giữ hình $ef=3$, sửa chú thích | hình $ef=2$ lộ lời giải câu hỏi ngay trước đó |
+| C00, ký hiệu LSH | thay bằng lời (mạch 6) | $d_1,p_1,r,b$ chưa nhắc lại trên mặt trang |
+| Ghi chú bài giảng | đồng bộ sau mạch 7 | lệch có chủ đích tạm thời: ví dụ năm điểm (A00, A00B), A01B, H08B, C01B chưa có trong `lecture-note.md` |
+
+### Mạch 1
+
+Trang đổi: P03, P02, P01, A00, A00B, A01, A01B (mới), A02, A03; ghi chú P04. Deck 63 → 64 trang. Chi tiết và âm tiết trước → sau ở `storyboard.md`, mục "Lượt biên tập theo bản đánh giá giảng dạy (2026-10-27)".
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác | trung bình | A00B (ghi chú) | phép kéo theo đảo chiều ("khoảng cách xấp xỉ của $y_2$ lớn hơn của $y_1$ thì $y_1$ vào kết quả") | sửa | viết lại đúng chiều; điều phối viên kiểm phản ví dụ $y_3{:}1{,}0$ |
+| mạch | trung bình | A00B | "chỉ mục" chưa định nghĩa | sửa | dòng "Chỉ mục (index) là cấu trúc dựng sẵn trên $Y$, quyết định véc-tơ nào được đo và đo thế nào."; Lưu ý chuyển vào ghi chú |
+| mạch | trung bình | A01B | kết luận "0,9 không cho biết tỷ lệ truy vấn đúng hoàn toàn" chỉ ở ghi chú | sửa | lên mặt trang; câu hỏi tính cả tỷ lệ đúng hoàn toàn; "không xét thứ tự" lên A01 |
+| mạch | trung bình | P03 | dòng Nhắc lại hai lần "bằng" | sửa | công thức theo phân hoạch $G_1,\ldots,G_m$ |
+| độ chính xác | nhẹ | A01, P03, A01B, A03 (ghi chú) | tr.8 → mục V-A tr.7; tính độc lập của hàm; $nok$ và $nok/100$; chi phí cố định; "từ vài byte" | sửa | — |
+| độ chính xác | nhẹ | P03 | $G_j$ khác ký hiệu đoạn $x^{(j)}$ của PQ | bác bỏ | không mâu thuẫn; thêm câu nối làm ghi chú > 150 âm tiết |
+| mạch | nhẹ | A01 | dòng Ví dụ không nói số nào lấy từ hình | bác bỏ | bản có "Hình:" xuống hai dòng ở 1600×900 |
+| mạch | nhẹ | P04 (ghi chú), P03, outline | chủ ngữ "Mỗi mạch"; "(Bài 06)" lặp; câu "$n_c$ chỉ dùng ở Q11" | sửa | — |
+| mạch | nhẹ | P01 | mép dưới hộp Câu hỏi chạm mũi tên điều khiển dọc ở 1600×900 | tồn đọng | có từ trước lượt này (hộp một dòng, cùng vị trí); sửa cần đổi CSS dùng chung hoặc bỏ nội dung |
+| mạch | nhẹ | Q11; P02 | $n_c$ nên là "Nhắc lại:"; mục tiêu dạng giải thích | để sau | mạch 4; mạch 6 |
+
+Kiểm của điều phối viên: đọc diff deck và planning; `check07.py` (Playwright Chromium, cổng 8771): 64 trang, 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung 1600×900, không cuộn ngang 390×844; mạch 1 cao nhất A00B 59, A01B 58, P03 56 âm tiết (trần 60), A02, A03 6 dòng. Ảnh đã tự xem: A01B, A03, A00B, P01 (1600×900). `git diff --check` sạch. Hai báo cáo rà lượt 2: không còn phát hiện từ mức trung bình trở lên.
