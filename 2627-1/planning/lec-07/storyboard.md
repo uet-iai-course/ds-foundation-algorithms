@@ -1427,3 +1427,63 @@ Căn cứ: hai báo cáo rà lại mạch 4 và danh sách sửa của điều p
 | Q06 | 38 → 38 | 6 | 133 → 152 | ghi chú thay câu "chỉ liên hệ qua bất đẳng thức tam giác" bằng khai triển $\|q-\widehat x\|^2=\|q-x\|^2+\|x-\widehat x\|^2+2\langle q-x,\ x-\widehat x\rangle$, $0{,}31=0{,}07+0{,}18+0{,}06$ (tự tính: $\langle q-x,x-\widehat x\rangle=0{,}03$); căn bậc hai liên hệ qua bất đẳng thức tam giác (Jégou, Douze và Schmid, mục III-B) |
 | Q07 | 59 → 59 | 6 | 150 → 165 | ghi chú thêm lý do: mọi bộ mã PQ là một bộ mã VQ khả thi có $(k^*)^m$ tâm. Mặt trang giữ: bản Lưu ý có giải nghĩa "véc-tơ tái dựng phải là ghép các tâm con" dài 29 âm tiết một dòng (trần 20) nên không dùng |
 | Q11 | 68 → 70 | 7 | 146 → 146 | Mô hình nêu đơn vị đếm ("đếm phép toán trên tọa độ và lần tra ô bảng"); "Nhắc lại: … với PQ, đo là chấm một mã qua bảng tra"; dòng cuối trước Kết luận thành "Tổng: $k^*D+mn_c$ so với $Dn_c$; với $k^*=256$, $D=3072$: $k^*D=786\,432$, dùng lại cho cả $n_c$ mã." Trang chi phí: 70 âm tiết (trần 80), 7 dòng, dòng dài nhất 17 |
+
+### Mạch 5
+
+Căn cứ: `plan-guide-07.md` mục 5 và lưu ý của điều phối viên (không so với chỉ mục đảo từ khóa trên mặt trang I00; Nhận xét $y_3$ ở I01; lý do đẳng thức ở I02; I02B mới; đống $H$ ở I04; cái giá 8 mã ở I05; dữ liệu đọc, băng thông 0,9 TB/s và 3,6 ms ở I03; "bỏ lỡ" thành "bỏ sót"). Âm tiết, dòng, ghi chú đếm bằng `check07.py`; "trước" đo trên bản đã commit sau mạch 4 (48adf69).
+
+**Thứ tự và thời lượng hiện hành:** IT, I00, I01, I02, **I02B**, I04, I05, I03 (8 trang). Phút: IT 0,5; I00 2; I01 3; I02 3; I02B 3; I04 2,5; I05 2; I03 3; tổng 19 (trước 17). Chỉ số: I02B `#/5/5`, I04 `#/5/6`, I05 `#/5/7`, I03 `#/5/8`; IT vẫn `#/5/1`, số "5.".
+
+**Bảng tổng thời lượng phần giảng sau mạch 5 (kiểm cộng):**
+
+| Mạch | 1 | 2 | 3 | 4 | 5 | 6 | Tổng |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Phút | 19,5 | 21 | 21 | 27 | 19 | 12,5 | 120 |
+| Trang | 12 | 10 | 11 | 12 | 8 | 6 | 59 |
+
+Phần giảng trở lại đúng 120 phút; bài tập 60 phút. Mạch 6 (thêm C01B theo kế hoạch §8, 12,5 phút giữ nguyên) sẽ đưa số trang giảng lên 60.
+
+**Mục đầy đủ cho trang mới I02B — Ví dụ: truy vấn dư theo đúng danh sách**
+
+| Trường | Nội dung |
+|---|---|
+| Mạch, vị trí | mạch 5, sau I02, trước I04 (`#/5/5`) |
+| Mục đích | kiểm bằng số đẳng thức phần dư của I02; chỉ ra lỗi cài đặt dùng nhầm truy vấn dư của danh sách khác |
+| Hoạt động sinh viên | tính $r(y_8)$, $\widetilde q_1$, $\widetilde q_0$ và hai bình phương chuẩn; so với $\|q-y_8\|^2$ |
+| Đối tượng trung tâm | bảng hai hàng $\widetilde q_1$ (1,25) và $\widetilde q_0$ (31,25) |
+| Dữ kiện, ký hiệu kế thừa | $q=(6;3{,}5)$, $\mu_0$, $\mu_1$, $y_8\in L_1$ (I00, I01); $r(y)$, $\widetilde q_i$ (I02) |
+| Kiến thức đầu vào | phép trừ véc-tơ, bình phương chuẩn; ADC (Q08) |
+| Sản phẩm học tập | quy tắc: truy vấn dư lấy theo tâm của chính danh sách đang quét, mỗi danh sách một bảng tra |
+| Bằng chứng kiểm | dòng Kết luận; dòng `T ← bảng tra của q − μi` của I04; hàng phần dư IVF ở C03 |
+| Số liệu tự tính | $r(y_8)=(6{,}5-8;\ 2{,}5-2)=(-1{,}5;\ 0{,}5)$; $\widetilde q_1=(-2;\ 1{,}5)$, hiệu $(-0{,}5;\ 1)$, $0{,}25+1=1{,}25$; $\widetilde q_0=(4;\ 1{,}5)$, hiệu $(5{,}5;\ 1)$, $30{,}25+1=31{,}25$; $\|q-y_8\|^2=1{,}25$ |
+| Mặt trang | 21 âm tiết, 5 dòng, dòng dài nhất 11; hình dùng lại `tep-dao-du.svg`. Tiêu đề không chứa KaTeX (`h2` viết hoa đổi $y$ thành chữ hoa) |
+| Ghi chú | 102 âm tiết: kiểm trực tiếp, mỗi danh sách một bảng tra, sai lệch xuất hiện cả khi chưa lượng tử hóa, mã PQ chỉ cho ước lượng; hai câu "Kiểm tra trên ví dụ…", "Dùng nhầm…" chuyển từ ghi chú I02 sang, không lặp |
+| Phút; quyết định | 3; `thêm` |
+
+**Các trang sửa**
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| IT | `giữ` | 36 → 36 | 2 | 94 → 94 | 0,5 | — |
+| I00 | `giữ` (ghi chú `sửa`) | 49 → 49 | 4 | 131 → 156 | 2 | mặt trang không so với chỉ mục đảo từ khóa (Bài 14, sau bài này); ghi chú thêm một câu hướng tới Bài 14. −0,5 phút |
+| I01 | `sửa` | 25 → 28 | 8 | 168 → 173 | 3 | thêm "Nhận xét. $y_3\in L_0$ ($9{,}49<15{,}49$) nhưng $\|q-y_3\|^2=2{,}34$, hàng xóm gần thứ hai."; câu hỏi rút "Với $nprobe=3$, mở những danh sách nào?". Bản dài hơn của Nhận xét và câu hỏi tràn đáy khung 1600×900 (đã xem ảnh); 8 dòng (bảng xếp hạng tâm). Hộp câu hỏi chạm mũi tên điều khiển dưới nhưng không tràn khung. Ghi chú giải nghĩa 9,49 và 15,49, "bỏ sót" |
+| I02 | `sửa` | 43 → 55 | 5 | 178 → 148 | 3 | dòng Ví dụ. thay bằng "Đẳng thức đúng vì $q-y=(q-\mu_i)-(y-\mu_i)$; sai số chỉ xuất hiện khi thay $r(y)$ bằng mã PQ." (vì sao mã hóa phần dư đã có ở Nhu cầu và gạch "Trung bình $\|r(y)\|^2$ …"); phép kiểm $y_8$ sang I02B |
+| I04 | `sửa` | 32 → 51 | 3 | 125 → 125 | 2,5 | thêm "Lưu ý: $H$ là đống giữ $K$ kết quả tốt nhất trong các mã đã chấm, khác hàng đợi $C$ của SEARCH-LAYER."; Đầu ra đã nêu mã định danh; xếp hạng lại ở ghi chú. −0,5 phút |
+| I05 | `sửa` | 26 → 30 | 5 | 85 → 110 | 2 | Kết luận "… trả $y_8$, $y_3$, $y_7$ sau khi chấm 8 mã."; "giả sử ADC không sai số" đã có trên mặt trang. Ghi chú lời giải $nprobe=1$: 4 mã, recall@3 $=2/3$, "bỏ sót"; tăng $nprobe$ từ 1 lên 2 tìm thêm $y_3$, số mã tăng từ 4 lên 8 |
+| I03 | `sửa` | 48 → 66 | 8 | 191 → 186 | 3 | thêm "Mỗi truy vấn đọc $\approx3{,}3$ GB; 3,6 ms cần băng thông cỡ 0,9 TB/s."; Kết luận "… khoảng 1400 lần; với $10^{12}$ thao tác mỗi giây, khoảng 3,6 ms." Ghi chú "cỡ 1 TB/s" thành "khoảng 0,92 TB/s", tỷ lệ 1409. Trang chi phí: trần 80, 8 dòng |
+
+**Số liệu tự tính lại** (danh sách dựng lại từ `IVF_PTS` của `generate_svg.py`): $\|q-\mu_i\|^2$ = 18,25; 6,25; 36,25; 24,25 cho $\mu_0,\ldots,\mu_3$; $y_3$: 9,49 và 15,49, $\|q-y_3\|^2=2{,}34$; $L_1$: $y_8$ 1,25, $y_7$ 6,5, $y_5$ 7,25, $y_6$ 13; $L_0$: $y_3$ 2,34, $y_2$ 18,5, $y_4$ 20,34, $y_1$ 29; năm điểm gần nhất $y_8,y_3,y_7,y_5,y_6$; $T_1=3{,}072\cdot10^8$, $T_2=50\,331\,648\approx5{,}03\cdot10^7$, $T_3=3{,}2768\cdot10^9$, tổng $3{,}634\cdot10^9$; $5{,}12\cdot10^{12}/3{,}634\cdot10^9\approx1409$; $3{,}634$ ms; $6{,}4\cdot10^6\cdot520=3{,}328\cdot10^9$ byte, chia $3{,}634$ ms được $\approx0{,}92$ TB/s.
+
+**Lệch tạm thời có chủ đích:** I02B chưa có trong `materials/lec-07/lecture-note.md`; đồng bộ cùng lượt ghi chú sau mạch 7.
+
+Sửa bố cục I01 (2026-10-28): dòng Nhận xét về $y_3$ chuyển sang cột trái, dưới hình `tep-dao-o.svg`, để hộp Câu hỏi ở cột phải không còn đè mũi tên điều khiển dưới ở 1600×900 (đáy hộp khoảng y = 805, mũi tên khoảng y = 865–885; đã xem ảnh 1600 và 390). Mật độ không đổi: 28 âm tiết, 8 dòng, dòng dài nhất 13, ghi chú 173.
+
+#### Rà lại mạch 5 (2026-10-28)
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| I02 | 55 → 54 | 5 | 148 → 148 | "Trung bình $\|r(y)\|^2$ không lớn hơn trung bình $\|y\|^2$" (khớp ghi chú: bằng nhau khi mọi tâm thô trùng gốc); dòng lý do viết lại "Vì $q-y=(q-\mu_i)-(y-\mu_i)$, đẳng thức đúng; sai số chỉ do thay $r(y)$ bằng mã PQ.", bỏ cặp ngoặc bọc công thức, không còn chữ đứng một mình trên dòng (đã xem ảnh 1600) |
+| I02B | 21 → 21 | 5 | 102 → 101 | ghi chú bỏ "thường gặp" (không có nguồn) |
+| I03 | 66 → 62 | 8 | 186 → 186 | dòng trước Kết luận suy ra 3,6 ms trước khi dùng: "Với $10^{12}$ thao tác mỗi giây: khoảng 3,6 ms; đọc $\approx3{,}3$ GB trong 3,6 ms cần cỡ 0,9 TB/s."; Kết luận "ít hơn quét đủ mã PQ khoảng 1400 lần." (vẫn là dòng cuối) |
+
+Ghi nhận cho mạch 6: hàng HNSW của C03 và ghi chú C03 cần đồng bộ ba giả thiết của H14 (phân phối tầng; Delaunay chính xác và tầng rút độc lập với vị trí; bậc trung bình bị chặn).

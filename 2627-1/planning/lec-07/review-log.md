@@ -812,3 +812,18 @@ Trang đổi: Q00, Q02, Q03, Q04, Q07, Q06, Q08, Q09, Q11, Q10; QT, Q05 giữ. K
 Công cụ kiểm: tác tử biên tập phát hiện ở 390×844 Reveal chạy chế độ cuộn, nên ảnh 390 của `check07.py` trước lượt mạch 4 có thể là trang liền trước; kiểm cuộn ngang toàn trang không bị ảnh hưởng. Điều phối viên sửa script chụp theo phần tử `section`; ảnh 390 từ mạch 4 trở đi chụp đúng trang.
 
 Kiểm của điều phối viên: đọc diff; `check07.py`: 67 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 4 cao nhất Q04 57, Q07 59, Q08 58 (trần 60 hoặc 80 bảng so sánh), Q11 70, Q03 66, Q10 61 (trang chi phí, trần 80). Ảnh đã tự xem: Q04 (1600, 390), Q11 (1600). Một phiên rà bị gián đoạn do lỗi hạn mức API (429), tiếp tục bằng `SendMessage` cho cùng tác tử. Thời lượng tạm 118 phút cho tới mạch 5. Hai báo cáo rà lượt 2: không có phát hiện.
+
+### Mạch 5
+
+Trang đổi: I00 (ghi chú), I01, I02, I02B (mới, "Ví dụ: truy vấn dư theo đúng danh sách", dùng lại `tep-dao-du.svg`), I04, I05, I03. Deck 67 → 68 trang. Phần giảng về đúng 120 phút (19,5 + 21 + 21 + 27 + 19 + 12,5), 59 trang; thực hành 60 phút.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| điều phối viên | trung bình | I01 | hộp Câu hỏi đè mũi tên điều khiển dưới ở 1600×900 (script không báo tràn) | sửa | dòng Nhận xét $y_3$ chuyển sang cột trái dưới hình; đã tự xem ảnh sau sửa |
+| độ chính xác, mạch | nhẹ | I02 | "nhỏ hơn" (đúng là "không lớn hơn"); công thức bọc `{…}` làm cụm chữ đứng một mình | sửa | "không lớn hơn"; viết lại câu lý do đẳng thức |
+| mạch | nhẹ | I03 | dùng 3,6 ms trước khi suy ra | sửa | dòng "Với $10^{12}$ thao tác mỗi giây: khoảng 3,6 ms; đọc $\approx3{,}3$ GB trong 3,6 ms cần cỡ 0,9 TB/s." trước Kết luận |
+| độ chính xác | nhẹ | I03 (ghi chú) | 1409 chỉ đúng với mẫu số $3{,}634\cdot10^9$; "cỡ 1 TB/s" | sửa | mẫu số chưa làm tròn; 0,92 TB/s |
+| mạch | nhẹ | I02B (ghi chú) | "thường gặp" không nguồn | sửa | bỏ |
+| mạch | nhẹ | C03 | hàng HNSW chưa đồng bộ ba giả thiết của H14 | để sau | mạch 6 |
+
+Kiểm của điều phối viên: đọc diff; `check07.py` toàn deck: 68 trang, 0 lỗi console/trang, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung 1600×900, không cuộn ngang 390×844; mạch 5 cao nhất I02 54 (trần 60), I03 62 (trang chi phí, trần 80, 8 dòng). Ảnh đã tự xem: I01 (trước và sau sửa), I02B, I03 (1600×900). Hai báo cáo rà lượt 2: không có phát hiện từ mức trung bình trở lên.
