@@ -1390,3 +1390,40 @@ Lỗi `nghiêm trọng` do rà độ chính xác lượt 2 phát hiện (điều
 | H14 | 69 → 69 | 6 | 165 → 231 | bảng, hàng "Số bước mỗi tầng": cận "trung bình $\le1/\rho=M$", giả thiết giữ (Delaunay chính xác; tầng rút độc lập với vị trí). Ghi chú: mọi đỉnh trên đường đi trong một tầng, trừ điểm xuất phát, không thuộc tầng trên (nếu thuộc, tìm kiếm ở tầng trên đã dừng ở đỉnh khác); mỗi đỉnh thuộc tầng trên với xác suất $\rho$, độc lập với vị trí, nên $\Pr[\text{đi}\ge s\text{ bước}]\le(1-\rho)^s$ và số bước kỳ vọng $\le1/\rho$, như danh sách nhảy; $\rho=1/16$ cho tối đa 16 bước kỳ vọng, không phụ thuộc $N$. Một câu nêu bài báo viết hằng số dưới dạng khác, học phần dùng $1/\rho$ suy từ phân phối tầng; hằng số in trong bài báo không được chép. Ghi chú 231 âm tiết (lập luận chứng minh, trần khoảng 250) |
 
 Đã tìm "1,07", "1{,}07" và "1/(1-" trong deck, `outline.md`, `storyboard.md` và `materials/lec-07/lecture-note.md`: deck không còn; `outline.md` (mục "Lượt sửa 2 …") đã sửa thành "trung bình $\le1/\rho=M$"; storyboard chỉ còn ở hàng lịch sử của bảng "Rà lại mạch 3" (giữ làm vết, hàng thay thế ở trên); `lecture-note.md` không có cận số bước này (chỉ có $\rho/(1-\rho)$ của kỳ vọng số tầng trên, đúng). Các chỗ $\rho/(1-\rho)=1/15$ ở H13 là kỳ vọng số tầng trên, không liên quan.
+
+### Mạch 4
+
+Căn cứ: `plan-guide-07.md` mục 4 và lưu ý của điều phối viên (sai số tái dựng gọi tên ở Q00; "Nhắc lại:" k-means ở Q02; cơ chế $k=2^b$ ở Q03; đọc hình Q04 bằng con số; giới hạn PQ ở Q07; "bất đối xứng" và 0,31 khác 0,18 ở Q06; nối Q08 với phân hoạch $G_j$ của P03; bảng tra mỗi truy vấn ở Q09; "Nhắc lại: $n_c$" và $786\,432$ ở Q11; hàng thời gian ở Q10). Không có trang mới. Âm tiết, dòng, ghi chú đếm bằng `check07.py`; "trước" đo trên bản đã commit sau mạch 3 (a9f151c).
+
+**Thứ tự và thời lượng hiện hành:** QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 (12 trang, không đổi). Phút: QT 0,5; Q00 3; Q02 2; Q03 1,5; Q04 2,5; Q05 3; Q07 2,5; Q06 3; Q08 2; Q09 3; Q11 1,5; Q10 2,5; tổng 27 (trước 28). Tổng phần giảng tạm là $19{,}5+21+21+27+17+12{,}5=118$ phút cho tới khi mạch 5 (17 → 19) được sửa; sau đó về 120.
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| QT | `giữ` | 39 → 39 | 2 | 84 → 84 | 0,5 | dòng dẫn đã nêu hai ý (mã ngắn, bảng tra) |
+| Q00 | `sửa` | 52 → 56 | 6 | 152 → 152 | 3 | "sai số tái dựng $\|x-\widehat x\|^2=0{,}25$" gọi tên và công thức trước khi Q03, Q05, Q06 dùng; câu hỏi "Tính mã và sai số tái dựng của $y$". −0,5 phút |
+| Q02 | `sửa` | 36 → 55 | 5 | 120 → 117 | 2 | thêm "Nhắc lại: k-means lặp hai bước, gán điểm cho tâm gần nhất rồi dời tâm về trung bình cụm." sau Đầu vào; ghi chú: điều kiện Lloyd cần không đủ, chỉ hội tụ tới cực tiểu cục bộ, phụ thuộc khởi tạo |
+| Q03 | `sửa` | 55 → 66 | 7 | 135 → 127 | 1,5 | thêm "Mã $b$ bit cần $k=2^b$ tâm; thêm 1 bit thì số tâm gấp đôi." sau Mô hình (cơ chế bùng nổ). Trang chi phí: trần 80, 7 dòng. −0,5 phút |
+| Q04 | `sửa` | 45 → 59 | 5 | 122 → 137 | 2,5 | thêm "Ví dụ. Hình: mã 4 byte thay 32 byte, nén 8 lần chưa tính bộ mã." Hai gạch `ul` đổi thành hai dòng `p` để trang vừa khung (bản `ul` tràn đáy 1600×900, đã xem ảnh); số dòng không đổi. Ghi chú: đoạn $x^{(j)}$ là nhóm $G_j$ của phần tiên quyết, gồm $D/m$ tọa độ liên tiếp (khép khác biệt ký hiệu $G_j$/$x^{(j)}$ của mạch 1). −0,5 phút |
+| Q05 | `giữ` | 20 → 20 | 5 | 91 → 91 | 3 | bảng hai đoạn, mã, tái dựng, sai số 0,18 đã đủ |
+| Q07 | `sửa` | 39 → 59 | 6 | 108 → 150 | 2,5 | thêm "Lưu ý: các đoạn mã hóa độc lập, nên PQ có ít bậc tự do hơn VQ cùng số mã." trước Kết luận (Kết luận vẫn là dòng cuối). Ghi chú: PQ là VQ bị ràng buộc; với bộ mã tối ưu, sai số tái dựng của PQ không nhỏ hơn của VQ cùng số tâm. Bảng so sánh: trần 80. −0,5 phút |
+| Q06 | `sửa` | 25 → 38 | 6 | 130 → 133 | 3 | thêm "Lưu ý: $q$ giữ nguyên, chỉ $x$ thay bằng $\widehat x$; $0{,}31$ khác sai số tái dựng $0{,}18$ của $x$." Ghi chú: hai đại lượng chỉ liên hệ qua bất đẳng thức tam giác $\|q-\widehat x\|\le\|q-x\|+\|x-\widehat x\|$ |
+| Q08 | `sửa` | 44 → 58 | 5 | 144 → 139 | 2 | thêm "Nhắc lại: bình phương Euclid cộng theo phân hoạch $G_1,\ldots,G_m$; $q^{(j)}$ gồm các tọa độ thuộc $G_j$." (nối dòng Nhắc lại của P03); ghi chú: $G_j$ là $D/m$ tọa độ liên tiếp của đoạn $j$ |
+| Q09 | `sửa` | 20 → 40 | 6 | 68 → 68 | 3 | thêm "Lưu ý: bảng lập một lần cho mỗi truy vấn, dùng chung cho mọi mã; đổi $q$ thì lập bảng mới." (điều kiện để chi phí lập bảng được phân bổ ở Q11). +1 phút |
+| Q11 | `sửa` | 49 → 68 | 7 | 122 → 146 | 1,5 | Mô hình tách; "Nhắc lại: $n_c$ là số véc-tơ được đo; với PQ, đo là chấm một mã." (định nghĩa ở A03); thêm "Với $k^*=256$, $D=3072$: lập bảng $786\,432$ phép toán, dùng lại cho cả $n_c$ mã." Ghi chú: lưu ý phần cứng (bộ đệm, cách xếp mã, véc-tơ hóa, băng thông). Trang chi phí: trần 80, 7 dòng. +0,5 phút |
+| Q10 | `sửa` | 51 → 61 | 6 | 162 → 158 | 2,5 | ô dữ liệu đọc "$5{,}12$ TB, ít hơn 24 lần"; thêm hàng "Thời gian, $10^{12}$ thao tác mỗi giây ¦ $\approx30{,}7$ giây ¦ $\approx5{,}12$ giây" để C04 có số trên mặt trang trước đó. Ghi chú: giả định một lần tra tốn ngang một lượt tọa độ; $122{,}88/5{,}12=24$; vẫn gấp hơn 500 lần ngân sách 10 ms. Trang chi phí: trần 80. −0,5 phút |
+
+**Số liệu tự tính lại:** VQ $\|x-c_i\|^2=3{,}05;\ 0{,}25;\ 5{,}45$ và $\|y-c_i\|^2=2{,}61;\ 4{,}21;\ 0{,}61$; PQ $0{,}08;\ 6{,}48$ và $7{,}30;\ 0{,}10$, sai số $0{,}18$; ADC $0{,}02+0{,}29=0{,}31$, giá trị đúng $0{,}07$; bảng $0{,}02;\ 7{,}22;\ 6{,}29;\ 0{,}29$, mã $(1,0)$ cho $13{,}51$; $2^{56}\approx7{,}2\cdot10^{16}$; $k^*D=256\cdot3072=786\,432$; $10^{10}\cdot512$ byte $=5{,}12$ TB; $122{,}88/5{,}12=24$; $Nm=5{,}12\cdot10^{12}$; $2^{64}\cdot128\cdot4\approx9{,}44\cdot10^{21}$, $2^{64}\cdot128\approx2{,}36\cdot10^{21}$.
+
+**Kiểm hình ở 390×844:** ở bề rộng này Reveal chuyển sang chế độ cuộn (`Reveal.isScrollView()` trả `true`), và ảnh 390 của `check07.py` (chụp sau `Reveal.slide`) có thể là trang liền trước; ảnh Q04, Q10, Q11 ở 390 được chụp lại theo phần tử `section` và không thấy tràn ngang (`scrollWidth = clientWidth = 1280`).
+
+#### Rà lại mạch 4 (2026-10-28)
+
+Căn cứ: hai báo cáo rà lại mạch 4 và danh sách sửa của điều phối viên. Bảng này thay các ô tương ứng của tiểu mục "Mạch 4"; thứ tự và thời lượng không đổi.
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| Q02 | 55 → 55 | 5 | 117 → 116 | dòng "Nhắc lại:" k-means đưa lên trước Đầu vào; ghi chú "bộ mã đã học không nhất thiết tối ưu toàn cục" |
+| Q04 | 59 → 57 | 5 | 137 → 137 | Định nghĩa trên một dòng: "Lượng tử hóa tích (PQ) là VQ riêng trên từng đoạn $D/m$ chiều $x^{(1)},\ldots,x^{(m)}$ của $x$."; đã xem ảnh 1600 và 390 |
+| Q06 | 38 → 38 | 6 | 133 → 152 | ghi chú thay câu "chỉ liên hệ qua bất đẳng thức tam giác" bằng khai triển $\|q-\widehat x\|^2=\|q-x\|^2+\|x-\widehat x\|^2+2\langle q-x,\ x-\widehat x\rangle$, $0{,}31=0{,}07+0{,}18+0{,}06$ (tự tính: $\langle q-x,x-\widehat x\rangle=0{,}03$); căn bậc hai liên hệ qua bất đẳng thức tam giác (Jégou, Douze và Schmid, mục III-B) |
+| Q07 | 59 → 59 | 6 | 150 → 165 | ghi chú thêm lý do: mọi bộ mã PQ là một bộ mã VQ khả thi có $(k^*)^m$ tâm. Mặt trang giữ: bản Lưu ý có giải nghĩa "véc-tơ tái dựng phải là ghép các tâm con" dài 29 âm tiết một dòng (trần 20) nên không dùng |
+| Q11 | 68 → 70 | 7 | 146 → 146 | Mô hình nêu đơn vị đếm ("đếm phép toán trên tọa độ và lần tra ô bảng"); "Nhắc lại: … với PQ, đo là chấm một mã qua bảng tra"; dòng cuối trước Kết luận thành "Tổng: $k^*D+mn_c$ so với $Dn_c$; với $k^*=256$, $D=3072$: $k^*D=786\,432$, dùng lại cho cả $n_c$ mã." Trang chi phí: 70 âm tiết (trần 80), 7 dòng, dòng dài nhất 17 |

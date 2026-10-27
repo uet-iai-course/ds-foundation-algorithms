@@ -796,3 +796,19 @@ Trang đổi: H06B (tiêu đề rút thành "Ví dụ: cạnh dài" để không
 | biên tập | — | H08B | $\rho$ trong tiêu đề viết hoa thành "Ρ" | sửa | tiêu đề "Ví dụ: số điểm mỗi tầng của kho mười tỷ véc-tơ" |
 
 Kiểm của điều phối viên: đọc diff; tự kiểm bảng H08B ($10^{10}/256\approx3{,}9\cdot10^7$; $16^{-3}\approx2{,}4\cdot10^{-4}$; $10^{10}/16^8\approx2{,}33$); `check07.py`: 67 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 3 cao nhất H13 55, H07 54 (trần 60), H14 69 (trần 80); ghi chú H14 231 âm tiết (lập luận chứng minh). Ảnh đã tự xem: H08, H08B, H14 (1600×900). Thời lượng tạm 119 phút cho tới mạch 4, 5. Rà lượt 2 (mạch) và lượt 3 (độ chính xác): không còn phát hiện.
+
+### Mạch 4
+
+Trang đổi: Q00, Q02, Q03, Q04, Q07, Q06, Q08, Q09, Q11, Q10; QT, Q05 giữ. Không trang mới, không đổi SVG.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác | nhẹ | Q06 (ghi chú) | "0,31 và 0,18 chỉ liên hệ qua bất đẳng thức tam giác" nói quá | sửa | khai triển $\|q-\widehat x\|^2=\|q-x\|^2+\|x-\widehat x\|^2+2\langle q-x,x-\widehat x\rangle$, $0{,}31=0{,}07+0{,}18+0{,}06$ (điều phối viên tự tính $\langle\cdot\rangle=0{,}03$); bất đẳng thức tam giác cho căn bậc hai (mục III-B) |
+| độ chính xác | nhẹ | Q07 (ghi chú) | "sai số PQ không nhỏ hơn VQ" thiếu lý do | sửa | mọi bộ mã PQ là bộ mã VQ khả thi có $(k^*)^m$ tâm |
+| mạch | nhẹ | Q11 | Mô hình không nêu đơn vị đếm; thiếu dòng tổng | sửa | "đếm phép toán trên tọa độ và lần tra ô bảng"; "Tổng: $k^*D+mn_c$ so với $Dn_c$" |
+| mạch | nhẹ | Q04, Q02 (và ghi chú) | trang kín khung; "Nhắc lại" chen giữa Đầu vào và Đầu ra; câu ghi chú dạng lời dặn | sửa | Định nghĩa một dòng; Nhắc lại lên trước Đầu vào; "bộ mã đã học không nhất thiết tối ưu toàn cục" |
+| mạch | nhẹ | Q07 | "bậc tự do" chưa giải nghĩa trên mặt trang | bác bỏ | dòng giải nghĩa 29 âm tiết, vượt trần 20 âm tiết mỗi dòng; ghi chú giải nghĩa |
+
+Công cụ kiểm: tác tử biên tập phát hiện ở 390×844 Reveal chạy chế độ cuộn, nên ảnh 390 của `check07.py` trước lượt mạch 4 có thể là trang liền trước; kiểm cuộn ngang toàn trang không bị ảnh hưởng. Điều phối viên sửa script chụp theo phần tử `section`; ảnh 390 từ mạch 4 trở đi chụp đúng trang.
+
+Kiểm của điều phối viên: đọc diff; `check07.py`: 67 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 4 cao nhất Q04 57, Q07 59, Q08 58 (trần 60 hoặc 80 bảng so sánh), Q11 70, Q03 66, Q10 61 (trang chi phí, trần 80). Ảnh đã tự xem: Q04 (1600, 390), Q11 (1600). Một phiên rà bị gián đoạn do lỗi hạn mức API (429), tiếp tục bằng `SendMessage` cho cùng tác tử. Thời lượng tạm 118 phút cho tới mạch 5. Hai báo cáo rà lượt 2: không có phát hiện.
