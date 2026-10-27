@@ -843,3 +843,24 @@ Trang đổi: C03, C00, C04, C01 (tiêu đề "…, câu 1–2"), C01B (mới, "
 Câu tự kiểm sau lượt này: câu 1 ($ef=2$, $ef=3$) → mục tiêu 2; câu 2 (bộ nhớ HNSW) → mục tiêu 3; câu 3 (số mã IVF-PQ) → mục tiêu 3; câu 4 (chẩn đoán độ thu hồi thấp, mới) → mục tiêu 1 và 3. Câu "Tại sao SEARCH-LAYER … trả sai KNN?" của bản đánh giá không thêm (trùng năng lực câu 1, dạng câu hỏi "Tại sao" không hợp nhãn).
 
 Kiểm của điều phối viên: đọc diff; `check07.py` toàn deck: 69 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 6 cao nhất C03 71, C00 65 (bảng tổng kết, trần 80), C04 56 (trần 60). Ảnh đã tự xem: C03, C00, C04 (1600×900). Hai báo cáo rà lượt 2: không có phát hiện.
+
+### Mạch 7
+
+Trang đổi: R00 (ô `gt`; kích thước viết $10^6{\times}64$), R02 (ghi chú), R04 (MSE $=\frac1N\sum_i\|x_i-\widehat x_i\|^2$), R07 (hàng "$(t_1-t_0)\cdot1000/5000$ … chạy theo lô ($50\times100$ lượt)"; ghi chú), R08 (ghi chú hai giả thuyết bão hòa); RT, R01, R05, R06 giữ. Không trang mới. Đề giữ đúng sổ Princeton lớp 8 (ô 1, 2, 21, 83, 88, 89, 94, 97, 99, 149, 152–155, tác tử độ chính xác đối chiếu từng ô); không điền trước số đo.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| điều phối viên | trung bình | R07 | hàng cuối bảng chạm chân trang và mũi tên điều khiển ở 1600×900 | sửa | gộp hai hàng thời gian; đã tự xem ảnh sau sửa |
+| mạch | trung bình | `outline.md` | hai bảng "Mạch phần giảng — 120 phút" còn bản cũ (54 trang, 20,5/23 phút, "ba câu tự kiểm") | sửa | bản hiện hành từ 2026-10-28: 60 trang, 19,5/21/21/27/19/12,5 phút, sáu trang mới, bốn câu tự kiểm |
+| mạch | trung bình | `storyboard.md` | danh sách lệch tạm thời với ghi chú bài giảng thiếu tám mục | sửa | tiểu mục tổng hợp "Lệch tạm thời với ghi chú bài giảng (2026-10-28)"; đầu tệp trỏ tới mục hiện hành |
+| mạch | nhẹ | R00, ghi chú R07, storyboard R07 | tích kích thước ngắt dòng; gợi ý lặp mặt trang, nhãn "Câu kiểm hiểu/Lời đáp"; số âm tiết cũ | sửa | `{\times}`; "Câu hỏi: vì sao chia 5000 … Lời giải: …"; 34 âm tiết, 3 dòng |
+| biên tập | nhẹ | ghi chú (nhiều mạch) | cụm kiểu nhãn trong ghi chú ("Hướng dẫn chấm…:", "Tiêu chí:", "Gợi ý đọc:", "Thay số:", "Cái giá:") | tồn đọng | không phải nhãn trên mặt trang; hướng dẫn chấm là nội dung ghi chú cho bài tập; để lượt rà văn phong ghi chú sau |
+
+## Tổng kết lượt biên tập theo bản đánh giá (2026-10-28)
+
+- Bảy commit theo mạch: 5b13a8e (mạch 1), 0306ed5 (2), a9f151c (3), 48adf69 (4), a94419b (5), f66415e (6) và commit mạch 7.
+- Deck 63 → 69 trang (thêm A01B, H01B, H03C, H08B, I02B, C01B); phần giảng 60 trang, 120 phút; thực hành 9 trang, 60 phút; vẫn 7 mạch, P04 và `#/2`…`#/7` không đổi.
+- Hình mới: `cuc-tieu-cuc-bo.svg` (sinh bằng `generate_svg.py`); không raster.
+- Lỗi phát hiện ngoài bản đánh giá: cận số bước HNSW $1/(1-\rho)$ (nghiêm trọng, đã sửa thành $\le1/\rho$); S17 của bản đánh giá ($C\not\subseteq W$ với $ef=3$) sai, đã đặt đúng trạng thái $ef=2$.
+- Tồn đọng: (1) đồng bộ `materials/lec-07/lecture-note.md` với các nội dung mới trên mặt trang (danh sách ở storyboard, tiểu mục "Lệch tạm thời với ghi chú bài giảng"); deck hiện có nội dung chưa có trong ghi chú, trái nguyên tắc "deck là tóm tắt của ghi chú" cho tới lượt đồng bộ; (2) P01 hộp Câu hỏi chạm mũi tên điều khiển (có từ trước); (3) cụm kiểu nhãn trong ghi chú diễn giả.
+- Kiểm cuối của điều phối viên: `check07.py` toàn deck 69 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung, không cuộn ngang; không trang nào vượt trần (60, hoặc 80 cho mục tiêu, nội dung, bảng tổng kết, so sánh, chi phí, đề thực hành); bảy trang tiêu đề mạch có `span.strand-number` khớp chỉ số ngang.

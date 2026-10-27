@@ -44,18 +44,19 @@ Phạm vi không gồm DiskANN, NSG, Vamana, huấn luyện bộ mã tối ưu, 
 
 ## Mạch phần giảng — 120 phút
 
-Cập nhật sau lượt duyệt từng trang ngày 03/10/2026; thứ tự là thứ tự trong deck.
+Bản hiện hành từ 2026-10-28 (sau lượt biên tập theo bản đánh giá giảng dạy, mạch 1–7); thứ tự là thứ tự trong deck. Deck có 69 trang: 60 trang giảng, 9 trang bài tập.
 
-| Phần | Trang | Phút | Sản phẩm học tập |
-|---|---|---:|---|
-| 1. Mở đầu | P00–P02 | 6 | tình huống truy hồi ngữ nghĩa $10^{10}$ véc-tơ, chi phí quét; dàn bài và ba mục tiêu |
-| 2. Bài toán và phép đo | A00–A03 | 11 | đặc tả tìm đúng/ANN, recall@K, bốn trục đánh giá, hai thừa số chi phí |
-| 3. Tìm kiếm trên đồ thị HNSW | H00, H01, H03, H03B, H04–H06, H06B, H07, H09, H08, H10, H10B, H11–H13 | 44 | đồ thị lân cận, tham lam, chùm, SEARCH-LAYER và bất biến, cạnh dài, nhiều tầng, truy vấn, rút tầng, chèn, lân cận đa dạng, tham số, chi phí |
-| 4. Lượng tử hóa tích | Q00, Q02–Q05, Q07, Q06, Q08–Q10 | 28 | VQ, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ |
-| 5. IVF-PQ | I00–I02, I04, I03 | 16 | tệp đảo, chọn danh sách, phần dư, thuật toán, chi phí thay số |
-| 6. Tổng kết | C00–C02 | 15 | so sánh bốn cấu trúc trên tình huống mở đầu; sáu câu tự kiểm |
+| Mạch | Trang (thứ tự deck) | Số trang | Phút | Sản phẩm học tập |
+|---|---|---:|---:|---|
+| 1. Bài toán hàng xóm gần đúng | P00, P03, P02, P04, P05, P01, A00, A00B, A01, A01B, A02, A03 | 12 | 19,5 | tình huống $10^{10}$ véc-tơ; đặc tả tìm đúng (ví dụ năm điểm) và tìm gần đúng, định nghĩa chỉ mục; recall@K và độ thu hồi trung bình; bốn trục; mô hình hai thừa số với $n_c$ và cột "Thiếu điểm vì" |
+| 2. Tìm kiếm trên đồ thị lân cận | HT, H00, H01, H01B, H03, H03B, H03C, H04, H05, H06 | 10 | 21 | đồ thị lân cận, tham lam, cực tiểu cục bộ, chùm (vết đủ bảy lần mở, câu hỏi $ef=2$), SEARCH-LAYER, bất biến hai nhánh |
+| 3. Đồ thị thế giới nhỏ phân tầng (HNSW) | NT, H06B, H07, H09, H08, H08B, H10, H10B, H12, H14, H13 | 11 | 21 | cạnh dài, nhiều tầng, truy vấn, phân phối tầng và số điểm mỗi tầng, chèn, tham số, số phép đo (ba thừa số, ba giả thiết, $\le1/\rho$ bước mỗi tầng), bộ nhớ (98% véc-tơ gốc) |
+| 4. Lượng tử hóa tích (PQ) | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 | 12 | 27 | VQ và sai số tái dựng, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ (5,12 giây) |
+| 5. Tệp đảo kết hợp PQ (IVF-PQ) | IT, I00, I01, I02, I02B, I04, I05, I03 | 8 | 19 | tệp đảo, chọn danh sách, phần dư và truy vấn dư theo đúng danh sách, thuật toán, vết, chi phí (3,6 ms; 3,3 GB) |
+| 6. Tổng kết và tự kiểm tra | CT, C03, C00, C04, C01, C01B, C05 | 7 | 12,5 | bảng giả thiết, bảng thuật toán, câu trả lời vấn đề trung tâm, bốn câu tự kiểm, nguồn |
+| Tổng | | 60 | 120 | |
 
-Gộp: H02 vào H01; Q01 vào Q00. Tách: H03 thành H03 và H03B; H10 thành H10 và H10B. Thêm: H06B, C01, C02. Chuyển: H08 sau H09; Q06 sau Q07; I03 sau I04.
+Lịch sử (03/10/2026): Gộp: H02 vào H01; Q01 vào Q00. Tách: H03 thành H03 và H03B; H10 thành H10 và H10B. Thêm: H06B, C01, C02. Chuyển: H08 sau H09; Q06 sau Q07; I03 sau I04.
 
 Ghi chú nhất quán: kết luận $\log N$ của HNSW giả thiết mỗi tầng là đồ thị Delaunay chính xác và bậc trung bình bị chặn (mục 4.2.1 bài báo HNSW); bộ nhớ cạnh tính theo kỳ vọng số tầng trên $\rho/(1-\rho)$.
 
@@ -157,7 +158,7 @@ Deck 65 trang (55 giảng + 10 bài tập). Mạch 6 đổi tên từ "So sánh 
 
 ## Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)
 
-Bản hiện hành; các bảng mạch phía trên là lịch sử. Căn cứ: đặc tả sửa của điều phối viên (Phương án A). Mạch "Bài toán hàng xóm gần đúng" cũ gộp vào mạch mở đầu (bỏ trang tiêu đề `AT`); mạch HNSW cũ tách thành mạch đồ thị một tầng và mạch nhiều tầng (thêm trang tiêu đề `NT`). Deck 65 → 63 trang (54 giảng, 9 bài tập). Chi tiết từng trang, âm tiết trước → sau và ngoại lệ ở `storyboard.md`, mục cùng tên.
+Bản 2026-10-16, nay là lịch sử về số trang và thời lượng (bản hiện hành: hai bảng "Mạch phần giảng — 120 phút" cập nhật 2026-10-28). Căn cứ: đặc tả sửa của điều phối viên (Phương án A). Mạch "Bài toán hàng xóm gần đúng" cũ gộp vào mạch mở đầu (bỏ trang tiêu đề `AT`); mạch HNSW cũ tách thành mạch đồ thị một tầng và mạch nhiều tầng (thêm trang tiêu đề `NT`). Deck 65 → 63 trang (54 giảng, 9 bài tập). Chi tiết từng trang, âm tiết trước → sau và ngoại lệ ở `storyboard.md`, mục cùng tên.
 
 ### Tên mạch và trang tiêu đề mạch
 
@@ -173,14 +174,17 @@ Bản hiện hành; các bảng mạch phía trên là lịch sử. Căn cứ: �
 
 ### Mạch phần giảng — 120 phút
 
+Bảng dưới đây là bản hiện hành từ 2026-10-28, cùng nội dung với bảng ở mục "Mạch phần giảng — 120 phút" đầu tệp.
+
 | Mạch | Trang (thứ tự deck) | Số trang | Phút | Sản phẩm học tập |
 |---|---|---:|---:|---|
-| 1. Bài toán hàng xóm gần đúng | P00, P03, P02, P04, P05, P01, A00, A00B, A01, A02, A03 | 11 | 20,5 | tình huống $10^{10}$ véc-tơ; đặc tả tìm đúng (A00) và tìm gần đúng (A00B, tách từ A00); recall@K; bốn trục; mô hình hai thừa số và cột "Lưu véc-tơ gốc" |
-| 2. Tìm kiếm trên đồ thị lân cận | HT, H00, H01, H03, H03B, H04, H05, H06 | 8 | 19 | đồ thị lân cận, tham lam, chùm, SEARCH-LAYER, bất biến |
-| 3. Đồ thị thế giới nhỏ phân tầng (HNSW) | NT, H06B, H07, H09, H08, H10, H10B, H12, H14, H13 | 10 | 23 | cạnh dài, nhiều tầng, truy vấn, phân phối tầng, chèn, tham số, số phép đo ($\log N$ có điều kiện), bộ nhớ (98% véc-tơ gốc) |
-| 4. Lượng tử hóa tích (PQ) | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 | 12 | 28 | VQ, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ |
-| 5. Tệp đảo kết hợp PQ (IVF-PQ) | IT, I00, I01, I02, I04, I05, I03 | 7 | 17 | tệp đảo, chọn danh sách, phần dư, thuật toán, vết, chi phí |
-| 6. Tổng kết và tự kiểm tra | CT, C03, C00, C04, C01, C05 | 6 | 12,5 | bảng giả thiết, bảng thuật toán, câu trả lời vấn đề trung tâm, ba câu tự kiểm, nguồn |
+| 1. Bài toán hàng xóm gần đúng | P00, P03, P02, P04, P05, P01, A00, A00B, A01, A01B, A02, A03 | 12 | 19,5 | tình huống $10^{10}$ véc-tơ; đặc tả tìm đúng (ví dụ năm điểm) và tìm gần đúng, định nghĩa chỉ mục; recall@K và độ thu hồi trung bình; bốn trục; mô hình hai thừa số với $n_c$ và cột "Thiếu điểm vì" |
+| 2. Tìm kiếm trên đồ thị lân cận | HT, H00, H01, H01B, H03, H03B, H03C, H04, H05, H06 | 10 | 21 | đồ thị lân cận, tham lam, cực tiểu cục bộ, chùm (vết đủ bảy lần mở, câu hỏi $ef=2$), SEARCH-LAYER, bất biến hai nhánh |
+| 3. Đồ thị thế giới nhỏ phân tầng (HNSW) | NT, H06B, H07, H09, H08, H08B, H10, H10B, H12, H14, H13 | 11 | 21 | cạnh dài, nhiều tầng, truy vấn, phân phối tầng và số điểm mỗi tầng, chèn, tham số, số phép đo (ba thừa số, ba giả thiết, $\le1/\rho$ bước mỗi tầng), bộ nhớ (98% véc-tơ gốc) |
+| 4. Lượng tử hóa tích (PQ) | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 | 12 | 27 | VQ và sai số tái dựng, giới hạn bộ mã lớn, PQ, kích thước, ADC, bảng tra, giới hạn quét đủ (5,12 giây) |
+| 5. Tệp đảo kết hợp PQ (IVF-PQ) | IT, I00, I01, I02, I02B, I04, I05, I03 | 8 | 19 | tệp đảo, chọn danh sách, phần dư và truy vấn dư theo đúng danh sách, thuật toán, vết, chi phí (3,6 ms; 3,3 GB) |
+| 6. Tổng kết và tự kiểm tra | CT, C03, C00, C04, C01, C01B, C05 | 7 | 12,5 | bảng giả thiết, bảng thuật toán, câu trả lời vấn đề trung tâm, bốn câu tự kiểm, nguồn |
+| Tổng | | 60 | 120 | |
 
 Bỏ: AT (gộp mạch), H11 "Chọn lân cận đa dạng" (phần tùy chọn của thuật toán; nội dung và hình giữ ở ghi chú bài giảng §5), C02 (gộp vào C01). Đổi thứ tự: H14 trước H13, để mạch 3 kết bằng "véc-tơ gốc chiếm khoảng 98% bộ nhớ" mà Q00 nhận vào. Đổi tên trang: H08 "Phân phối tầng của điểm mới"; A00B "Tìm hàng xóm gần đúng" (khác tên mạch 1).
 
@@ -220,7 +224,7 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 
 ### Lượt biên tập theo bản đánh giá giảng dạy (2026-10-27)
 
-- **Mạch 1** có 12 trang: P00, P03, P02, P04, P05, P01, A00, A00B, A01, **A01B**, A02, A03; 19,5 phút (trước 20,5; một phút chuyển sang mạch 2). Bảng "Mạch phần giảng — 120 phút" phía trên giữ bản cũ cho tới khi mọi mạch xong; số liệu hiện hành ở `storyboard.md`, mục cùng tên.
+- **Mạch 1** có 12 trang: P00, P03, P02, P04, P05, P01, A00, A00B, A01, **A01B**, A02, A03; 19,5 phút (trước 20,5; một phút chuyển sang mạch 2). Hai bảng "Mạch phần giảng — 120 phút" phía trên là bản hiện hành từ 2026-10-28.
 - **Thuật ngữ mới:** độ thu hồi trung bình (mean recall) ở A01B, $\overline{\operatorname{recall@K}}$ trên tập truy vấn $Q$. **Ký hiệu mới:** $Q$ là tập truy vấn (A01B); $n_c$ (số véc-tơ được đo) gọi tên lần đầu ở mô hình chi phí A03, trước Q11.
 - **Ví dụ chạy tay mới:** năm điểm với $d(q,y_i)=2{,}5;\ 1{,}2;\ 3{,}0;\ 0{,}8;\ 1{,}7$, $K=3$, $N_3(q)=\{y_4,y_2,y_5\}$ (A00); chỉ mục trả $\{y_4,y_5,y_1\}$ (A00B), $\operatorname{recall@3}=2/3$ (ghi chú A01).
 - **Sau rà lại mạch 1:** "chỉ mục (index)" định nghĩa trên mặt trang A00B ("cấu trúc dựng sẵn trên $Y$, quyết định véc-tơ nào được đo và đo thế nào"); P03 viết dạng tổng theo nhóm $\|x-y\|_2^2=\sum_{j=1}^{m}\sum_{i\in G_j}(x_i-y_i)^2$ với $G_1,\ldots,G_m$ là phân hoạch của $\{1,\ldots,D\}$ ($m$ cùng nghĩa số đoạn của PQ ở Q04). Từ "bỏ sót" dùng cho điểm không được đo; "thiếu" dùng khi so hai tập.
@@ -229,3 +233,4 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 - **Mạch 4** giữ 12 trang; 27 phút (trước 28). "Sai số tái dựng $\|x-\widehat x\|^2$" gọi tên ở Q00; k-means có dòng "Nhắc lại:" ở Q02; $n_c$ ở Q11 là "Nhắc lại:" của A03; đoạn $x^{(j)}$ là nhóm $G_j$ của P03 (Q04 ghi chú, Q08 mặt trang).
 - **Mạch 5** có 8 trang: IT, I00, I01, I02, **I02B** (Ví dụ: truy vấn dư theo đúng danh sách), I04, I05, I03; 19 phút (trước 17). Tổng phần giảng về lại 120 phút (19,5 + 21 + 21 + 27 + 19 + 12,5).
 - **Mạch 6** có 7 trang: CT, C03, C00, C04, C01, **C01B** (Câu hỏi tự kiểm tra, câu 3–4), C05; 12,5 phút. Phần giảng 60 trang, 120 phút. Mục tiêu 1 (P02) thêm năng lực "giải thích hai nguồn thiếu điểm", kiểm bằng câu tự kiểm 4.
+- **Mạch 7** giữ 9 trang, 60 phút; đề theo sổ Princeton lớp 8. Toàn deck sau lượt biên tập: 69 trang (giảng 60 trang, 120 phút; bài tập 9 trang, 60 phút).

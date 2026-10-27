@@ -2,7 +2,7 @@
 
 ## Hành trình khái niệm
 
-**Bản hiện hành từ 2026-10-16:** bản đồ mạch, thứ tự trang, thời lượng và mật độ nằm ở mục cuối "Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)". Các mục phía trên mục đó là lịch sử.
+**Bản hiện hành từ 2026-10-28:** mục cuối tệp "Lượt biên tập theo bản đánh giá giảng dạy (2026-10-27)" (các tiểu mục Mạch 1 đến Mạch 7 và phần "Rà lại", có số liệu ngày 2026-10-28) thay các ô tương ứng của mục "Rà chủ đề mạch và phong cách MAT1101 (2026-10-16)". Bản đồ mạch hiện hành: 7 mạch; deck 69 trang (60 trang giảng, 9 trang bài tập); thứ tự: P00, P03, P02, P04, P05, P01, A00, A00B, A01, A01B, A02, A03 | HT, H00, H01, H01B, H03, H03B, H03C, H04, H05, H06 | NT, H06B, H07, H09, H08, H08B, H10, H10B, H12, H14, H13 | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 | IT, I00, I01, I02, I02B, I04, I05, I03 | CT, C03, C00, C04, C01, C01B, C05 | RT, R00, R01, R02, R04, R05, R06, R07, R08. Phút: 19,5 / 21 / 21 / 27 / 19 / 12,5 (120) và bài tập 60. Phút từng trang ở các tiểu mục Mạch 1 đến Mạch 7. Các mục phía trên mục 2026-10-16 là lịch sử.
 
 **Thứ tự hiện hành (2026-10-14, sau lượt sửa theo ba báo cáo rà).** Sáu gạch đầu dòng ngay sau đoạn này là thứ tự hiện hành; bốn gạch dưới nhãn "Bản 03/10/2026" giữ để đối chiếu.
 
@@ -1538,3 +1538,48 @@ Căn cứ: `plan-guide-07.md` mục 6 và quyết định của điều phối v
 | C03 | 68 → 71 | 6 | 149 → 149 | hàng ADC: "bình phương Euclid; các đoạn là phân hoạch tọa độ" (khớp P03, Q08). Bảng tổng kết: trần 80 |
 
 Tiêu đề C01, C01B đã xem ở 1600×900: không chạm mũi tên điều khiển trên.
+
+### Mạch 7
+
+Căn cứ: `plan-guide-07.md` mục 7 và lưu ý của điều phối viên. Đề giữ nguyên theo sổ nguồn `sources/reference-slides/princeton-vector-search/class-08-runbook-for-students.ipynb`; không thêm nhiệm vụ hay số liệu ngoài sổ, không điền trước số đo. Không có trang mới. Âm tiết, dòng, ghi chú đếm bằng `check07.py`; "trước" đo trên bản đã commit sau mạch 6 (f66415e).
+
+**Thứ tự và thời lượng:** RT, R00, R01, R02, R04, R05, R06, R07, R08 (9 trang), 60 phút không đổi (RT 0,5; R00 0; R01 5,5; R02 14; R04 10; R05 10; R06 6; R07 9; R08 5). Toàn deck sau lượt biên tập: 69 trang; phần giảng 60 trang, 120 phút; bài tập 9 trang, 60 phút.
+
+**Đối chiếu với sổ (đã đọc lại các ô):** ô 1 `faiss.omp_set_num_threads(32)`; ô 2 `SyntheticDataset(64, 1000_000, 10000, 100)`; ô 21 `gt_dis, gt = faiss.knn(xq, xb, k=10)`; ô 83 `faiss.ProductQuantizer(d, 4, 8)` ($D=64$, $m=4$, $b=8$; `pq_centroids` $(4,256,16)$, `xb_codes` $(10000,4)$); ô 88 và 99 `((pq_reconstruction - xb) ** 2).sum(1).mean()` (MSE không chia $D$); ô 99 ngân sách 6 byte, $m\in\{4,8,16\}$, `nbits = budget * 8 // M`, đo `decode(compute_codes(xb))`; $k^*D=262\,144;\ 4096;\ 512$; ô 149 `"IVF200,PQ16x8np"` ($N/k_c=50$); ô 155 năm giá trị $nprobe$, 50 lần × 100 truy vấn, `nok = (I[:, 0] == gt[:, 0]).sum()`; số mã được chấm $50\,nprobe$: 100; 250; 500; 1000; 2500.
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| RT | `giữ` | 40 → 40 | 2 | 92 → 92 | 0,5 | — |
+| R00 | `sửa` | 36 → 41 | 8 | 112 → 137 | 0 | ô vai trò của `gt`: "mã định danh 10 hàng xóm đúng, từ quét đủ" (nối $N_{10}(q)$ của bài toán tìm đúng với phép so ở R07); ghi chú: hàng `gt[i]` và phép so `gt[:, 0]` ở nhiệm vụ 3 |
+| R01 | `giữ` | 36 → 36 | 6 | 153 → 153 | 5,5 | — |
+| R02 | `giữ` (ghi chú `sửa`) | 34 → 34 | 3 | 201 → 218 | 14 | ghi chú: tái dựng chỉ là tra và ghép tâm đã lưu, không giải bài toán tối ưu mới. 218 âm tiết (lời giải và hướng dẫn chấm) |
+| R04 | `sửa` | 43 → 44 | 6 | 108 → 124 | 10 | hộp câu hỏi nêu MSE $=\frac1N\sum_i\|x_i-\widehat x_i\|^2$; ghi chú: không chia $D$, khớp ô 88 và 99 |
+| R05 | `giữ` | 62 → 62 | 5 | 178 → 178 | 10 | đề bài thực hành, trần 80 |
+| R06 | `giữ` | 31 → 31 | 3 | 140 → 140 | 6 | ghi chú hậu tố `np` (tắt huấn luyện hoán vị polysemous, không phải $nprobe$) còn đúng; không thêm nhiệm vụ ngoài sổ |
+| R07 | `sửa` | 29 → 34 | 3 | 165 → 174 | 9 | hàng thời gian thành "$(t_1-t_0)\cdot1000/5000$ ¦ ms trung bình mỗi truy vấn khi chạy theo lô ($50\times100$ lượt)" (gộp với hàng tổng ms, xem sửa bố cục bên dưới); ghi chú: không phải độ trễ một truy vấn đơn, báo cáo ghi số luồng và phần cứng, `nok` chỉ đo $\operatorname{recall@1}$ dù `search` trả 10. Đáy bảng sát mũi tên điều khiển dưới nhưng không chồng lấn (đã xem ảnh 1600) |
+| R08 | `giữ` (ghi chú `sửa`) | 37 → 37 | 7 | 156 → 199 | 5 | ghi chú: hai giả thuyết khi $nprobe$ tăng mà $\operatorname{recall@1}$ gần như không tăng (danh sách mở thêm ít chứa hàng xóm thật; sai số lượng tử hóa PQ làm hàng xóm thật bị xếp sau), nêu là giả thuyết cần đối chiếu số đo. 199 âm tiết (hướng dẫn chấm) |
+
+**Việc còn lại sau mạch 7 (ghi nhận):** đồng bộ `materials/lec-07/lecture-note.md` với các nội dung mới trên mặt trang (ví dụ năm điểm A00, A00B, A01; A01B; H01B; H03C và cột so sánh của vết; H08B; mô hình ba thừa số H14 với cận $1/\rho$; I02B; C01B và câu tự kiểm 4; mục tiêu 1 có "giải thích hai nguồn thiếu điểm").
+
+Sửa bố cục R07 (2026-10-28): hai hàng thời gian gộp thành một, "$(t_1-t_0)\cdot1000/5000$ ¦ ms trung bình mỗi truy vấn khi chạy theo lô ($50\times100$ lượt)", để đáy bảng không chạm chân trang và mũi tên điều khiển ở 1600×900 (đáy bảng khoảng y = 828, mũi tên khoảng y = 858–880; đã xem ảnh 1600 và 390). Mật độ: 34 âm tiết, 3 dòng, dòng dài nhất 16, ghi chú 174.
+
+### Lệch tạm thời với ghi chú bài giảng (tổng hợp, 2026-10-28)
+
+Theo quyết định của điều phối viên, `materials/lec-07/lecture-note.md` chưa sửa trong lượt biên tập deck; các nội dung sau có trên deck mà ghi chú bài giảng chưa có hoặc ghi khác, cần đồng bộ ở lượt ghi chú riêng:
+
+- Mạch 1: ví dụ năm điểm (A00, A00B; $\operatorname{recall@3}=2/3$ ở ghi chú A01); định nghĩa chỉ mục (A00B); độ thu hồi trung bình và phản ví dụ 0,9 (A01B); $n_c$ và cột "Thiếu điểm vì" (A03); phân hoạch $G_j$ ở dòng Nhắc lại (P03); mục tiêu 1 có "giải thích hai nguồn thiếu điểm" (P02).
+- Mạch 2: cực tiểu cục bộ có trang riêng và hình `cuc-tieu-cuc-bo.svg` (H01B); cột so sánh $d(c,q)$, $d(f,q)$ của vết và vết bước cuối (H03B, H03C); trạng thái $C\not\subseteq W$ với $ef=2$ (ghi chú H03C); hai nhánh duy trì của bất biến (H06).
+- Mạch 3: bảng số điểm mỗi tầng (H08B); quan hệ kề không đối xứng sau khi cắt bậc (H10B); mô hình ba thừa số, ba giả thiết và cận số bước $\le1/\rho$ (H14); kỳ vọng $1/15$ trên mặt trang (H13).
+- Mạch 4: dòng "Tổng: $k^*D+mn_c$ so với $Dn_c$" (Q11); phân hoạch $G_j$ ở Q08; giới hạn PQ (Q07); hàng thời gian 5,12 giây (Q10).
+- Mạch 5: truy vấn dư theo đúng danh sách (I02B); 3,3 GB và 0,9 TB/s (I03); đống $H$ khác hàng đợi $C$ (I04).
+- Mạch 6: câu tự kiểm 4 và trang C01B; hàng HNSW của C03 theo ba giả thiết; ô Bảo đảm LSH bằng lời (C00).
+- Mạch 7: công thức MSE không chia $D$ (R04); hàng R07 chia 5000 (ghi chú bài giảng dòng khoảng 676 ghi "tổng mili giây"); vai trò `gt` (R00).
+
+#### Rà lại mạch 7 (2026-10-28)
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| R00 | 41 → 41 | 8 | 137 → 137 | kích thước mảng viết `$10^6{\times}64$` (và tương tự) để KaTeX không ngắt dòng giữa tích; đã xem ảnh 1600 |
+| R07 | 34 → 34 | 3 | 174 → 195 | ghi chú: "Gợi ý: chia …" thành câu kiểm hiểu "vì sao chia tổng thời gian cho 5000?" với lời đáp (50 lần gọi `search`, mỗi lần 100 truy vấn) |
+
+`outline.md`: hai bảng "Mạch phần giảng — 120 phút" cập nhật theo deck hiện tại (60 trang giảng; 19,5 / 21 / 21 / 27 / 19 / 12,5 phút; thêm A01B, H01B, H03C, H08B, I02B, C01B; bốn câu tự kiểm), ghi là bản hiện hành từ 2026-10-28; bỏ câu "giữ bản cũ cho tới khi mọi mạch xong". Đầu `storyboard.md` (mục "Hành trình khái niệm") chỉ tới mục 2026-10-27/28 và ghi thứ tự 69 trang, phút từng mạch.
