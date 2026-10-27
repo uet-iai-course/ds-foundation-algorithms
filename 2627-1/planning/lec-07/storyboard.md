@@ -1487,3 +1487,54 @@ Sửa bố cục I01 (2026-10-28): dòng Nhận xét về $y_3$ chuyển sang c�
 | I03 | 66 → 62 | 8 | 186 → 186 | dòng trước Kết luận suy ra 3,6 ms trước khi dùng: "Với $10^{12}$ thao tác mỗi giây: khoảng 3,6 ms; đọc $\approx3{,}3$ GB trong 3,6 ms cần cỡ 0,9 TB/s."; Kết luận "ít hơn quét đủ mã PQ khoảng 1400 lần." (vẫn là dòng cuối) |
 
 Ghi nhận cho mạch 6: hàng HNSW của C03 và ghi chú C03 cần đồng bộ ba giả thiết của H14 (phân phối tầng; Delaunay chính xác và tầng rút độc lập với vị trí; bậc trung bình bị chặn).
+
+### Mạch 6
+
+Căn cứ: `plan-guide-07.md` mục 6 và quyết định của điều phối viên (C03 đồng bộ ba giả thiết của H14; ô Bảo đảm LSH ở C00 bằng lời; C04 tách 5,2 TB và đối chiếu số; câu 3 sang C01B, thêm câu 4 chẩn đoán; ghi chú P02 ánh xạ câu tự kiểm; gợi ý đọc ở C05). Không thêm khái niệm mới: "xếp hạng lại" chỉ ở lời giải (đã có ở ghi chú I04). Âm tiết, dòng, ghi chú đếm bằng `check07.py`; "trước" đo trên bản đã commit sau mạch 5 (a94419b).
+
+**Thứ tự và thời lượng hiện hành:** CT, C03, C00, C04, C01, **C01B**, C05 (7 trang). Phút: CT 0,5; C03 1,5; C00 2,5; C04 2,5; C01 2,5; C01B 2,5; C05 0,5; tổng 12,5 (không đổi). Phần giảng: $19{,}5+21+21+27+19+12{,}5=120$ phút, 60 trang; bài tập 60 phút. Chỉ số: C01B `#/6/6`, C05 `#/6/7`; CT vẫn `#/6/1`, số "6.".
+
+**Ánh xạ câu tự kiểm → mục tiêu (ghi chú P02):** câu 1 → mục tiêu 2; câu 2 → mục tiêu 3; câu 3 → mục tiêu 3; câu 4 → mục tiêu 1 và 3.
+
+**Mục đầy đủ cho trang mới C01B — Câu hỏi tự kiểm tra (lặp tiêu đề C01)**
+
+| Trường | Nội dung |
+|---|---|
+| Mạch, vị trí | mạch 6, sau C01, trước C05 (`#/6/6`) |
+| Mục đích | câu 3 (đếm mã IVF-PQ, chuyển từ C01) và câu 4 (chẩn đoán độ thu hồi thấp theo hai nguồn thiếu điểm) |
+| Hoạt động sinh viên | tính $n_c$ và số lần tra; phân loại nguyên nhân độ thu hồi thấp và chọn tham số cần chỉnh |
+| Đối tượng trung tâm | $n_c\approx nprobe\,N/k_c$; hai nguồn thiếu điểm (không được đo, đo xấp xỉ) |
+| Dữ kiện, ký hiệu kế thừa | $k_c$, $nprobe$, $m$ (I00–I03); cột "Thiếu điểm vì" (A03); ví dụ $nprobe=1$ (I05); ADC (Q06, Q08) |
+| Kiến thức đầu vào | chi phí IVF-PQ; hai thừa số của mô hình chi phí |
+| Sản phẩm học tập | phép đếm có nêu giả thiết cân bằng; chẩn đoán gắn đúng thừa số |
+| Bằng chứng kiểm | lời giải và tiêu chí chấm trong ghi chú; câu 4 kiểm mục tiêu 1 (giải thích hai nguồn thiếu điểm) và mục tiêu 3 |
+| Số liệu tự tính | $16\cdot10^9/32\,000=500\,000$ mã; $\times8=4\cdot10^6$ lần tra; quét đủ $10^9\cdot8=8\cdot10^9$; tỷ lệ 2000 |
+| Mặt trang | 43 âm tiết, 3 dòng (dòng mở + hai câu đánh số 3, 4), dòng dài nhất 20 |
+| Ghi chú | 171 âm tiết (lời giải, tiêu chí chấm) |
+| Phút; quyết định | 2,5; `thêm` (tách C01) |
+
+**Các trang sửa**
+
+| Mã | Quyết định | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Phút | Thay đổi và lý do |
+|---|---|---|---:|---|---:|---|
+| CT | `giữ` | 41 → 41 | 2 | 88 → 88 | 0,5 | — |
+| C03 | `sửa` | 66 → 68 | 6 | 116 → 149 | 1,5 | hàng "Truy vấn HNSW": giả thiết "tầng rút độc lập vị trí; Delaunay chính xác; bậc trung bình bị chặn" (ba giả thiết của H14; "tầng rút độc lập vị trí" là phân phối tầng), cột công thức "$O(\log N)$ phép đo trung bình". Cận số bước mỗi tầng $\le1/\rho$ ghi ở ghi chú: thêm vào mặt trang làm dòng của hàng lên 22 âm tiết (trần 20). Bảng tổng kết: trần 80 |
+| C00 | `sửa` | 66 → 65 | 5 | 156 → 147 | 2,5 | ô Bảo đảm LSH "điểm gần thành ứng viên với xác suất cao" (bỏ $d_1$, $p_1$, $r$ chưa nhắc lại trên mặt trang); ô Chi phí LSH "$12\,288+8b$ byte $(b\ \text{dải})$". Ghi chú: công thức $1-(1-p_1^r)^b$ ở phần tiên quyết; hai câu chẩn đoán độ thu hồi thấp (danh sách không mở → tăng $nprobe$, bộ mã không giúp; PQ xếp sai → mã dài hơn hoặc xếp hạng lại, tăng $nprobe$ không giúp). Bảng so sánh: trần 80 |
+| C04 | `sửa` | 51 → 56 | 5 | 151 → 138 | 2,5 | dòng IVF-PQ "$5{,}2$ TB mã và mã định danh, khoảng $3{,}6\ \text{ms}$"; số 5,12 giây khớp hàng thời gian Q10, 3,6 ms khớp dòng I03; tình huống mở đầu có số ($10^{10}$, $D=3072$, 6 TB, 10 ms). Ghi chú: $nprobe$ chọn bằng $\operatorname{recall@K}$ đo trên tập truy vấn đại diện; ngưỡng độ thu hồi tối thiểu chưa được bài toán xác định |
+| C01 | `tách` | 49 → 36 | 3 | 188 → 135 | 2,5 | giữ dòng mở và câu 1, 2; câu 3 sang C01B; ghi chú tiêu chí cho câu 1, 2 |
+| C05 | `giữ` (ghi chú `sửa`) | 53 → 53 | 5 | 139 → 146 | 0,5 | ghi chú thêm gợi ý đọc: bài báo HNSW, Thuật toán 2 (SEARCH-LAYER), 1 (chèn), 5 (truy vấn), mục 4.2.1; bài báo PQ, mục II-B, III-A, IV-A–IV-C |
+| P02 | `sửa` | 48 → 53 | 3 | 135 → 157 | 1 | mục tiêu 1 thêm "và giải thích hai nguồn thiếu điểm" (năng lực giải thích, kiểm bằng câu tự kiểm 4); ghi chú ánh xạ câu 1–4 như trên. Không thêm "giải thích vì sao tham lam kẹt…" vào mục tiêu 2: dòng lên 28 âm tiết (trần 20), và rút gọn thì mất khai triển "lượng tử hóa tích (PQ)" ở lần đầu trên mặt trang |
+
+**Số liệu tự tính lại:** câu 1 $ef=2$: mở $u$ thêm $v{:}6$, loại $w{:}9$ ($9>8$), $W=\{v,u\}$; $ef=3$: mở $w$ thấy $z{:}2$, $W=\{z,v,u\}$. Câu 2: $(512+265)\cdot10^8=7{,}77\cdot10^{10}$ byte $=77{,}7$ GB $>64$ GB. Câu 3: như bảng C01B.
+
+**Lệch tạm thời có chủ đích:** C01B và câu tự kiểm 4 chưa có trong `materials/lec-07/lecture-note.md`; đồng bộ cùng lượt ghi chú sau mạch 7.
+
+#### Rà lại mạch 6 (2026-10-28)
+
+| Mã | Âm tiết trước → sau | Dòng | Ghi chú trước → sau | Thay đổi và lý do |
+|---|---|---:|---|---|
+| C01 | 36 → 36 | 3 | 135 → 173 | tiêu đề "Câu hỏi tự kiểm tra, câu 1–2" (lặp tiêu đề kèm bước, đối xứng với C01B); ghi chú lời giải câu 1 nêu thứ tự duyệt lân cận ($v$ rồi $w$) và kiểm thứ tự ngược lại: $w$ vào $W$ rồi bị $v$ đẩy ra, còn trong $C$, lần lấy $w{:}9>8$ gây dừng, kết quả vẫn $\{v,u\}$ (tự chạy lại) |
+| C01B | 43 → 42 | 3 | 171 → 171 | tiêu đề "Câu hỏi tự kiểm tra, câu 3–4"; câu 4 "IVF-PQ, $\operatorname{recall@10}$ thấp: nêu cách chỉnh khi hàng xóm ở danh sách không mở, khi ADC xếp sai thứ tự." (dòng 19 âm tiết; cụm "xếp sai thứ tự" nối bằng khoảng trắng không ngắt để không còn chữ đứng một mình) |
+| C03 | 68 → 71 | 6 | 149 → 149 | hàng ADC: "bình phương Euclid; các đoạn là phân hoạch tọa độ" (khớp P03, Q08). Bảng tổng kết: trần 80 |
+
+Tiêu đề C01, C01B đã xem ở 1600×900: không chạm mũi tên điều khiển trên.

@@ -228,3 +228,4 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 - **Mạch 3** có 11 trang: NT, H06B, H07, H09, H08, **H08B** (Ví dụ: số điểm mỗi tầng của kho mười tỷ véc-tơ), H10, H10B, H12, H14, H13; 21 phút (trước 23). Mô hình chi phí truy vấn HNSW viết ba thừa số (số tầng × số bước mỗi tầng × bậc) ở H14.
 - **Mạch 4** giữ 12 trang; 27 phút (trước 28). "Sai số tái dựng $\|x-\widehat x\|^2$" gọi tên ở Q00; k-means có dòng "Nhắc lại:" ở Q02; $n_c$ ở Q11 là "Nhắc lại:" của A03; đoạn $x^{(j)}$ là nhóm $G_j$ của P03 (Q04 ghi chú, Q08 mặt trang).
 - **Mạch 5** có 8 trang: IT, I00, I01, I02, **I02B** (Ví dụ: truy vấn dư theo đúng danh sách), I04, I05, I03; 19 phút (trước 17). Tổng phần giảng về lại 120 phút (19,5 + 21 + 21 + 27 + 19 + 12,5).
+- **Mạch 6** có 7 trang: CT, C03, C00, C04, C01, **C01B** (Câu hỏi tự kiểm tra, câu 3–4), C05; 12,5 phút. Phần giảng 60 trang, 120 phút. Mục tiêu 1 (P02) thêm năng lực "giải thích hai nguồn thiếu điểm", kiểm bằng câu tự kiểm 4.

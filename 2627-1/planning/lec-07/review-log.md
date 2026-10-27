@@ -827,3 +827,19 @@ Trang đổi: I00 (ghi chú), I01, I02, I02B (mới, "Ví dụ: truy vấn dư t
 | mạch | nhẹ | C03 | hàng HNSW chưa đồng bộ ba giả thiết của H14 | để sau | mạch 6 |
 
 Kiểm của điều phối viên: đọc diff; `check07.py` toàn deck: 68 trang, 0 lỗi console/trang, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung 1600×900, không cuộn ngang 390×844; mạch 5 cao nhất I02 54 (trần 60), I03 62 (trang chi phí, trần 80, 8 dòng). Ảnh đã tự xem: I01 (trước và sau sửa), I02B, I03 (1600×900). Hai báo cáo rà lượt 2: không có phát hiện từ mức trung bình trở lên.
+
+### Mạch 6
+
+Trang đổi: C03, C00, C04, C01 (tiêu đề "…, câu 1–2"), C01B (mới, "Câu hỏi tự kiểm tra, câu 3–4"), C05 (ghi chú); mạch 1: P02 (mục tiêu 1 thêm "giải thích hai nguồn thiếu điểm"; ghi chú ánh xạ câu tự kiểm → mục tiêu). Deck 68 → 69 trang; phần giảng 60 trang, 120 phút.
+
+| Vai | Mức độ | Trang chiếu | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch (báo trước từ mạch 5) | nhẹ | C03 | hàng HNSW chưa đồng bộ ba giả thiết của H14 | sửa | "tầng rút độc lập vị trí; Delaunay chính xác; bậc trung bình bị chặn"; cận $\le1/\rho$ ở ghi chú |
+| kế hoạch | trung bình (có từ trước) | C00 | $d_1,p_1,r,b$ trên mặt trang chưa được nhắc lại | sửa | ô Bảo đảm LSH bằng lời; chi phí "$12\,288+8b$ byte ($b$ dải)"; ghi chú dẫn về P03 |
+| mạch, độ chính xác | nhẹ | C01 (ghi chú), C03, C01B | lời giải $ef=2$ ngầm định thứ tự duyệt; "đoạn rời nhau"; "PQ xếp sai"; hai trang trùng tiêu đề | sửa | nêu cả hai thứ tự (kết quả không đổi); "phân hoạch tọa độ"; "ADC xếp sai thứ tự"; tiêu đề kèm số câu |
+| mạch | — | P02 | năng lực giải thích (để sau từ mạch 1) | sửa | đặt ở mục tiêu 1, khớp câu tự kiểm 4; mục tiêu 2 không thêm vì dòng lên 28 âm tiết |
+| mạch | — | H14 (mạch 3) | tác tử mạch đính chính đề xuất $1/(1-\rho)$ của chính mình ở mạch 3 | ghi nhận | đã sửa thành $\le1/\rho$ ở commit mạch 3 |
+
+Câu tự kiểm sau lượt này: câu 1 ($ef=2$, $ef=3$) → mục tiêu 2; câu 2 (bộ nhớ HNSW) → mục tiêu 3; câu 3 (số mã IVF-PQ) → mục tiêu 3; câu 4 (chẩn đoán độ thu hồi thấp, mới) → mục tiêu 1 và 3. Câu "Tại sao SEARCH-LAYER … trả sai KNN?" của bản đánh giá không thêm (trùng năng lực câu 1, dạng câu hỏi "Tại sao" không hợp nhãn).
+
+Kiểm của điều phối viên: đọc diff; `check07.py` toàn deck: 69 trang, 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 6 cao nhất C03 71, C00 65 (bảng tổng kết, trần 80), C04 56 (trần 60). Ảnh đã tự xem: C03, C00, C04 (1600×900). Hai báo cáo rà lượt 2: không có phát hiện.
