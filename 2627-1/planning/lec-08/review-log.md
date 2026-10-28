@@ -429,3 +429,15 @@ Trang đổi: K01 (bảng xác suất thay bằng hình cây `cay-hai-bo-do-thi.
 | độ chính xác | — | K01, K09, K02, K05 | — | — | không phát hiện; tác tử tự kiểm bốn lá, $1/29$, dạng $\eta$, "với mọi $h$ cố định" |
 
 Điều phối viên đọc diff ghi chú bài giảng của mạch này thay cho vòng rà ghi chú riêng (các đoạn thêm ngắn, không đổi kết quả): đúng và khớp deck. Kiểm: `check08.py` toàn deck 59 trang: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết; ảnh đã tự xem: K01, K02 (1600×900). Trình xem ghi chú ở ba khổ (người viết ghi chú chạy): không lỗi. `git diff --check` sạch.
+
+### Mạch 4. Lấy mẫu hồ chứa (lượt bản đánh giá)
+
+Trang đổi: R04 (dòng "Trường hợp biên: $s=1$ giữ một phần tử, nhận $x_r$ với xác suất $1/r$" đặt dưới hình nhỏ ở cột phải), R07 (dòng "Lưu ý: $s/(r+1)$ là xác suất nhận $x_{r+1}$; khi $x_i\in W$, $1/(r+1)$ là xác suất $j$ trúng ô của $x_i$" — điểm bản đánh giá cho là sinh viên dễ nhầm nhất); ghi chú R00 (kiểm $5\cdot\frac25=2=s$; dòng a…g chỉ ở slide MMDS), R03 ([z, c] là một kết cục), R04 (MMDS §4.5.5 dùng cơ chế này cho biến AMS, Bài 09), R05 (dẫn Mệnh đề 08.18 mọi tập $s$ vị trí đồng khả năng), R07, R09 ($\Pr[\text{không bộ nào của An}]=\binom{990}{100}/\binom{1000}{100}\approx0{,}347$). Giữ RT, R01, R06, R08 (bảng khảo sát 100 chỗ, sơ đồ $j$ hai màu, đánh số dòng giả mã, biểu đồ số lần ghi: bác bỏ theo quyết định chung; sơ đồ $j$ và ô của phần tử cũ đã có ở `reservoir-step.svg`). Không hình mới. Ghi chú bài giảng: Nhận xét 08.20 thêm gạch đầu dòng phân biệt $s/(r+1)$ và $1/(r+1)$; lời giải Bài tập 08.4 thêm xác suất 0,347 (Mệnh đề 08.18); Nhận xét 08.21 thêm câu hồ chứa chọn đều trên toàn lịch sử, ưu tiên giai đoạn gần cần cửa sổ (ghi chú Bài 09, Mục 6 và 8).
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | nhẹ | R04 | chật sau khi thêm dòng trường hợp biên | sửa | dòng chuyển sang cột phải dưới hình nhỏ |
+| độ chính xác | nhẹ | R07 | $1/(r+1)$ là xác suất có điều kiện khi $x_i\in W$ | sửa | "khi $x_i\in W$" trên dòng Lưu ý |
+| độ chính xác, mạch | nhẹ | ghi chú R00, R03, R04, R05 | dòng a…g không có ở MMDS §4.5.5; "hồ chứa cặp khác"; ghi chú lặp mặt trang; tài liệu làm chủ ngữ | sửa | — |
+
+Điều phối viên tự kiểm $\binom{990}{100}/\binom{1000}{100}=0{,}346928$; đọc báo cáo phần ghi chú (các đoạn thêm ngắn, dẫn Mệnh đề 08.18 có sẵn). `check08.py` toàn deck 59 trang: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết. Ảnh đã tự xem: R07 (1600×900). Hai báo cáo rà lại: không phát hiện từ mức trung bình trở lên. `git diff --check` sạch.

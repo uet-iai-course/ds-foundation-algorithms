@@ -237,6 +237,8 @@ Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ ph
 
 **Lượt bản đánh giá, Mục 2 ↔ mạch 3.** Không thêm khối đánh số. Ví dụ 08.3: hình `cay-hai-bo-do-thi.svg` sau bảng và đoạn đọc cây (bốn lá $1/100$, $9/100$, $9/100$, $81/100$; hệ số 2 từ hai lá "giữ, bỏ" và "bỏ, giữ"; có mặt $19/100$; chỉ lá đầu có đủ hai bản). Nhận xét 08.7: kiểm $\eta=1$ cho $d/(u+d)$; $1/29=\frac{1/100}{1/10+19/100}$ là tỷ số hai kỳ vọng, tỷ lệ trên mẫu không xác định khi mẫu không có truy vấn của An. Mở §2.2: "cụm" (người dùng cùng mọi bộ). Sau Mệnh đề 08.10: số khóa được giữ trong một lần chạy là ngẫu nhiên, $a/b$ là xác suất cho từng khóa. Nhận xét 08.11: $h$ chọn ngẫu nhiên một lần trước dòng rồi cố định, khác hồ chứa rút số mới mỗi phần tử (Mục 3). Mục 2: 4 966 âm tiết; toàn chương 25 233.
 
+**Lượt bản đánh giá, Mục 3 ↔ mạch 4.** Không thêm khối đánh số. Nhận xét 08.20: gạch đầu dòng phân biệt $s/(r+1)$ (nhận $x_{r+1}$, có một ô bị thay) với $1/(r+1)$ (thay đúng ô của $x_i$). Bài tập 08.4, lời giải: kỳ vọng 1 không có nghĩa đúng một bộ mỗi lần; $\Pr[\text{không bộ nào của An}]=\binom{990}{100}/\binom{1000}{100}\approx0{,}347$ (Mệnh đề 08.18; tính lại 0,346928). Trường hợp biên $s=1$ (Thuật toán 08.16) và phép kiểm $5\cdot\frac25=2=s$ (Ví dụ 08.8) đã có. Nhận xét 08.21: hồ chứa chọn đều trên toàn lịch sử; ưu tiên gần đây cần cửa sổ (ghi chú Bài 09, Mục 6 DGIM và Mục 8 suy giảm mũ). Mục 3: 3 512 âm tiết; toàn chương 25 376.
+
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
 ## Lượt duyệt từng mạch (2026-10-28)
@@ -685,3 +687,24 @@ Thứ tự trang không đổi: KT → K01 → K09 → K01B → K02 → K04 → 
 Tổng mạch 3: 24 phút (không đổi).
 
 Ghi chú bài giảng: Ví dụ 08.3 cần hình cây và một câu đọc hình; Nhận xét 08.7 thêm kiểm $\eta=1$; Nhận xét 08.11 hoặc đoạn sau Mệnh đề 08.10 thêm câu "số khóa được giữ là ngẫu nhiên" và câu hạt giống nếu chưa có (tác tử ghi chú).
+
+### Mạch 4. Lấy mẫu hồ chứa
+
+Thứ tự trang không đổi: RT → R00 → R01 → R03 → R04 → R05 → R06 → R07 → R08 → R09. Không hình mới (sơ đồ quyết định $j$ và ô của phần tử cũ đã có trong `reservoir-step.svg` ở R06).
+
+| Trang | Đề xuất của bản đánh giá | Quyết định | Thay đổi | Âm tiết (dòng, max dòng) trước → sau; ghi chú | Phút |
+|---|---|---|---|---|---:|
+| RT | Bảng khảo sát 100 chỗ; hình dòng và hồ $s$ ô; câu hỏi công bằng | bác bỏ (trang tiêu đề mạch; số 100 chỗ tự đặt thay ví dụ MMDS) | không đổi | 39 (2, 20); ghi chú 89 | 0,5 |
+| R00 | $\sum_i\Pr[x_i\in W]=s$; sơ đồ bảy phần tử | một phần (ghi chú; số đã trên mặt trang, R03 có hình vết) | Ghi chú thêm «Kiểm: sau $r=5$, $5\cdot\frac25=2=s$, đúng số ô.»; nguồn tách: MMDS §4.5.5 đặt bài toán, dòng a x c y z k c d e g chỉ ở slide Streams 1 tr.18 | 58 (4, 18) không đổi; ghi chú 105 → 113 | 2,5 |
+| R01 | Phương án hai bước; sơ đồ quyết định $j$ hai màu | giữ (dòng Trực quan đã là phương án hai bước; sơ đồ trùng R06; màu không là tín hiệu duy nhất) | không đổi | 58 (4, 18); ghi chú 104 | 3 |
+| R03 | [z, c] không có xác suất cao hơn; hoạt cảnh | một phần (ghi chú); bác bỏ hoạt cảnh | Ghi chú thêm «[z, c] là một kết cục; ở lần rút khác hồ có thể chứa cặp khác, và sau $r=5$ mỗi phần tử có cùng xác suất $2/5$.» | 24 (2, 13) không đổi; ghi chú 76 → 103 | 3 |
+| R04 | $s=1$; đánh số dòng giả mã | một phần (không đánh số dòng) | Thêm «**Trường hợp biên:** $s=1$ giữ một phần tử, nhận $x_r$ với xác suất $1/r$.» ở cột phải, dưới hình nhỏ (dòng đọc giả mã giữ dưới khối); ghi chú thay vế lặp mặt trang bằng «MMDS §4.5.5 dùng cơ chế này để chọn vị trí các biến của phương pháp AMS (Bài 09); với $s=1$, mỗi vị trí được chọn với xác suất $1/r$.» | 37 (3, 16) → 48 (4, 16); ghi chú 107 → 129 | 3,5 |
+| R05 | Mọi tập con cỡ $s$ đồng khả năng; ô mở rộng | một phần (ghi chú; mặt trang 58/60) | Ghi chú thêm «Mạnh hơn, mọi tập $s$ vị trí trong $r$ vị trí có cùng xác suất $1/\binom rs$; chứng minh ở Mệnh đề 08.18 của ghi chú bài giảng.» | 58 (5, 18) không đổi; ghi chú 102 → 130 | 2 |
+| R06 | Phần tử mới chắc chắn trong hồ sau khi nhận | giữ (hình và $s/(r+1)$ đã có) | không đổi | 24 (3, 18); ghi chú 62 | 2,5 |
+| R07 | Phân biệt $s/(r+1)$ với $1/(r+1)$ | chấp nhận (một dòng; trước lượt này chỉ có câu "bị thay đúng khi $j$ bằng ô chứa nó, một trong $r+1$ giá trị", chưa có phân biệt) | Thêm «**Lưu ý:** $s/(r+1)$ là xác suất nhận $x_{r+1}$; khi $x_i\in W$, $1/(r+1)$ là xác suất $j$ trúng ô của $x_i$.» (xác suất có điều kiện); ghi chú bỏ câu ví dụ trùng dòng Ví dụ trên mặt trang | 27 (5, 14) → 40 (6, 14); ghi chú 159 → 134 | 3 |
+| R08 | "Mô hình RAM chuẩn"; biểu đồ đọc/ghi | giữ (mô hình đếm phép toán đã sửa ở lượt trước; biểu đồ không có dữ liệu nguồn) | không đổi | 49 (5, 20); ghi chú 88 | 2 |
+| R09 | Kỳ vọng 1 khác "đúng một bộ"; nhóm hiếm; phân phối thay đổi theo thời gian | một phần (ghi chú); phân phối thay đổi theo thời gian không lên deck | Ghi chú thêm «Kỳ vọng 1 cũng không có nghĩa mỗi lần chạy có đúng một bộ của An: vì mọi tập 100 vị trí đồng khả năng, xác suất hồ không chứa bộ nào của An là $\binom{990}{100}/\binom{1000}{100}\approx0{,}347$.» (tính lại: $0{,}346928$) | 41 (6, 18) không đổi; ghi chú 101 → 137 | 3 |
+
+Tổng mạch 4: 25 phút (không đổi).
+
+Ghi chú bài giảng: Nhận xét 08.20 thêm gạch đầu dòng phân biệt $s/(r+1)$ và $1/(r+1)$; lời giải Bài tập 08.4 thêm $\Pr[\text{không bộ nào của An}]\approx0{,}347$; Nhận xét 08.21 (tùy chọn) thêm câu hồ chứa chọn đều trên cả lịch sử, mẫu giai đoạn gần đây cần cửa sổ (Bài 09) (tác tử ghi chú).
