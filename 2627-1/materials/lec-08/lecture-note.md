@@ -338,6 +338,10 @@ Cách làm đầu tiên nghĩ tới là rút cho mỗi bộ một số đều tr
 | không giữ bộ "đồ thị" nào | $\frac9{10}\cdot\frac9{10}=\frac{81}{100}$ |
 | giữ bộ "băm" | $\frac1{10}$ |
 
+![Cây xác suất cho hai bộ đồ thị: bộ thứ nhất giữ với xác suất 1/10 hoặc bỏ với 9/10, rồi bộ thứ hai giữ 1/10 hoặc bỏ 9/10; bốn lá: giữ, giữ 1/100 đủ hai bản (khung kép); giữ, bỏ 9/100 đúng một bản; bỏ, giữ 9/100 đúng một bản; bỏ, bỏ 81/100 vắng mặt (khung nét đứt); đúng một bản 9/100 + 9/100 = 18/100; có mặt 1/100 + 18/100 = 19/100.](img/lec-08/cay-hai-bo-do-thi.svg)
+
+Cây vẽ cùng phép tính theo hai tầng: tầng một là bộ "đồ thị" thứ nhất, tầng hai là bộ thứ hai, mỗi nhánh giữ với xác suất $1/10$ và bỏ với $9/10$. Bốn lá có xác suất $1/100$, $9/100$, $9/100$, $81/100$; hệ số 2 trong $18/100$ đến từ hai lá "giữ, bỏ" và "bỏ, giữ". "Đồ thị" có mặt ở ba lá đầu, tổng $19/100$, và chỉ lá đầu có đủ hai bản.
+
 **Diễn giải.** Với điều kiện "đồ thị" có mặt trong mẫu, xác suất nó xuất hiện hai lần là $\frac{1/100}{1/100+18/100}=\frac1{19}$. Mẫu thường thấy "đồ thị" một lần và tính nó là truy vấn không lặp.
 
 **Kiểm tra lại.** $\frac1{100}+\frac{18}{100}+\frac{81}{100}=1$.
@@ -382,14 +386,14 @@ không xảy ra với $u\ge0$, $d>0$. $\square$
 Với An, $u=d=1$, mệnh đề cho $1/29\approx0{,}034$ thay cho $1/2$. Số này khác $1/19$ của Ví dụ 08.3 vì mẫu số tính cả truy vấn "băm". Bước 2 dùng độc lập giữa hai bộ của cùng một truy vấn, và sai lệch đến từ chỗ một truy vấn lặp bị cắt thành hai quyết định riêng.
 
 ::: remark Nhận xét 08.7 (Nhầm lẫn thường gặp)
-- Mỗi người dùng vẫn giữ trung bình $1/10$ số truy vấn của mình, và sai lệch đến từ việc đơn vị bị cắt. Với tỷ lệ giữ $\eta$ bất kỳ, cùng phép đếm cho tỷ số $d\eta/(u+(2-\eta)d)$, vẫn khác $d/(u+d)$ khi $\eta<1$; với $\eta=1/10$ ta được lại $d/(10u+19d)$.
-- $d/(10u+19d)$ là tỷ số của hai số đếm kỳ vọng, không phải kỳ vọng của tỷ lệ tính trên mẫu.
+- Mỗi người dùng vẫn giữ trung bình $1/10$ số truy vấn của mình, và sai lệch đến từ việc đơn vị bị cắt. Với tỷ lệ giữ $\eta$ bất kỳ, cùng phép đếm cho tỷ số $d\eta/(u+(2-\eta)d)$, vẫn khác $d/(u+d)$ khi $\eta<1$; với $\eta=1/10$ ta được lại $d/(10u+19d)$, và với $\eta=1$, khi mọi bộ được giữ, tỷ số về đúng $d/(u+d)$.
+- $d/(10u+19d)$ là tỷ số của hai số đếm kỳ vọng, không phải kỳ vọng của tỷ lệ tính trên mẫu. Với An, $1/29=\frac{1/100}{1/10+19/100}$ chia hai kỳ vọng; tỷ lệ tính trên mẫu là một biến ngẫu nhiên, không xác định khi mẫu không có truy vấn nào của An, nên không thể viết kỳ vọng của nó bằng $1/29$.
 :::
 
 <!-- note-topic-id: lec-08-topic-04 -->
 ### 2.2 Mẫu nhất quán theo khóa
 
-Mệnh đề 08.6 chỉ ra đơn vị cần giữ trọn là người dùng: giữ hoặc bỏ cả lịch sử truy vấn của mỗi người. MMDS (§4.2.2, tr.137) nêu một phương án trực tiếp: lần đầu gặp một người dùng, rút một số đều trong $\{0,\ldots,9\}$, ghi nhãn "giữ" nếu số là $0$ và "bỏ" nếu khác; bộ đến sau tra bảng nhãn và vào mẫu khi nhãn là "giữ".
+Mệnh đề 08.6 chỉ ra đơn vị cần giữ trọn là người dùng: giữ hoặc bỏ cả lịch sử truy vấn của mỗi người. Mỗi người dùng cùng mọi bộ của người đó tạo thành một cụm, và mẫu cần chọn hoặc bỏ cả cụm. MMDS (§4.2.2, tr.137) nêu một phương án trực tiếp: lần đầu gặp một người dùng, rút một số đều trong $\{0,\ldots,9\}$, ghi nhãn "giữ" nếu số là $0$ và "bỏ" nếu khác; bộ đến sau tra bảng nhãn và vào mẫu khi nhãn là "giữ".
 
 ::: example Ví dụ 08.4 (Bảng nhãn trên năm bộ)
 **Dữ kiện.** Năm bộ đến theo thứ tự (An, "đồ thị"), (Bình, "lọc"), (An, "băm"), (An, "đồ thị"), (Chi, "lọc"); ba bộ của An là ba bộ của Ví dụ 08.3. Các số rút cho người dùng mới lần lượt là $0$, $7$, $4$, một lần chạy minh họa do học phần dựng. Dòng năm bộ này được dùng lại ở Ví dụ 08.5 và 08.7.
@@ -499,7 +503,7 @@ $$
 $$
 :::
 
-Phần (a) là bảo đảm tất định thay cho bảng nhãn: mọi truy vấn tìm kiếm của một người được giữ đều có trong mẫu, nên tỷ lệ lặp của người đó tính đúng, như $1/2$ của An. Phần (b) cho mỗi người cùng xác suất $a/b$ được chọn, nên mọi tổng tính trên mẫu chia cho $a/b$ có kỳ vọng bằng tổng thật; Hệ quả 08.12 ở Mục 2.4 là một trường hợp. Để số người được chọn tập trung quanh $a/b$ số người, cần thêm giả thiết các khóa khác nhau nhận giá trị băm độc lập. Tính đều theo từng khóa không đủ: họ gồm $b$ hàm hằng $h\equiv c$, với $c$ chọn đều trong $\{0,\ldots,b-1\}$, thỏa giả thiết của phần (b), nhưng mẫu hoặc chứa mọi người dùng, hoặc rỗng.
+Phần (a) là bảo đảm tất định thay cho bảng nhãn: mọi truy vấn tìm kiếm của một người được giữ đều có trong mẫu, nên tỷ lệ lặp của người đó tính đúng, như $1/2$ của An. Phần (b) cho mỗi người cùng xác suất $a/b$ được chọn, nên mọi tổng tính trên mẫu chia cho $a/b$ có kỳ vọng bằng tổng thật; Hệ quả 08.12 ở Mục 2.4 là một trường hợp. Để số người được chọn tập trung quanh $a/b$ số người, cần thêm giả thiết các khóa khác nhau nhận giá trị băm độc lập. Tính đều theo từng khóa không đủ: họ gồm $b$ hàm hằng $h\equiv c$, với $c$ chọn đều trong $\{0,\ldots,b-1\}$, thỏa giả thiết của phần (b), nhưng mẫu hoặc chứa mọi người dùng, hoặc rỗng. Vì vậy số khóa được giữ trong một lần chạy là ngẫu nhiên; $a/b$ là xác suất cho từng khóa, không phải tỷ lệ chắc chắn đạt trong mỗi lần chạy.
 
 Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
 
@@ -510,7 +514,7 @@ Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiế
 Bước 1 dùng tính cố định của $h$; Bước 2 dùng tính đều theo từng khóa.
 
 ::: remark Nhận xét 08.11 (Trong thực hành)
-Hàm $h$ là một hàm băm có tham số, chẳng hạn hạt giống, chọn một lần khi khởi động và dùng chung trên mọi máy xử lý dòng; đổi tham số giữa chừng phá phần (a) của Mệnh đề 08.10. Máy tìm kiếm thật nhận địa chỉ IP chứ không nhận người dùng; MMDS (§4.2.1, chú thích tr.136) giả định mỗi địa chỉ ứng với một người, điều chỉ đúng gần đúng, và khi nhiều người chung một địa chỉ, tỷ lệ lặp đo được là của cả nhóm. Tính đều theo từng khóa là giả thiết về phép chọn hàm, không kiểm được trên một hàm đã chọn.
+Hàm $h$ là một hàm băm có tham số, chẳng hạn hạt giống, chọn ngẫu nhiên một lần trước khi dòng bắt đầu rồi cố định và dùng chung trên mọi máy xử lý dòng; đổi tham số giữa chừng phá phần (a) của Mệnh đề 08.10. Tính ngẫu nhiên chỉ nằm ở lần chọn đó, khác với hồ chứa ở Mục 3, nơi một số mới được rút cho mỗi phần tử. Máy tìm kiếm thật nhận địa chỉ IP chứ không nhận người dùng; MMDS (§4.2.1, chú thích tr.136) giả định mỗi địa chỉ ứng với một người, điều chỉ đúng gần đúng, và khi nhiều người chung một địa chỉ, tỷ lệ lặp đo được là của cả nhóm. Tính đều theo từng khóa là giả thiết về phép chọn hàm, không kiểm được trên một hàm đã chọn.
 :::
 
 <!-- note-topic-id: lec-08-topic-05 -->

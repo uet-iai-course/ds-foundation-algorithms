@@ -417,3 +417,15 @@ Trang đổi: A07 (mới, "Trạng thái và phép cập nhật", sau A00): đ�
 | mạch | nhẹ | ghi chú A07 | 151 âm tiết (mức 150) | chấp nhận | mức nhẹ theo CLAUDE.md |
 
 Kiểm của điều phối viên: đọc diff deck, SVG, ghi chú, planning; tự chạy lại $4{,}734375=303/64$, công thức ngây thơ cho $0{,}0$ và Welford cho $4{,}7343749866244345$ trên dòng cộng $10^9$ (float64); `check08.py` toàn deck 59 trang ở hai khổ: 0 lỗi console/trang, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang, không dòng > 20 âm tiết; mạch 2: A07 50 âm tiết, 4 dòng. Ảnh đã tự xem: A07 (1600×900). Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi. `git diff --check` sạch. Hai báo cáo rà lại: không phát hiện từ mức trung bình trở lên.
+
+### Mạch 3. Lấy mẫu theo khóa (lượt bản đánh giá)
+
+Trang đổi: K01 (bảng xác suất thay bằng hình cây `cay-hai-bo-do-thi.svg`: bốn lá $1/100$, $9/100$, $9/100$, $81/100$, hệ số 2, có mặt $19/100$; dòng cuối dẫn $1/19$), K09 (dòng cuối "tỷ số hai số đếm kỳ vọng là $1/29$, không phải $1/2$"; ghi chú dạng $\frac{\eta d}{u+(2-\eta)d}$ và kiểm $\eta=1$), K02 (dòng "$h$ được chọn ngẫu nhiên một lần trước dòng, rồi cố định"; dòng kết chuyển vào ghi chú), K05 (nhãn "Mệnh đề (tất định)", "Mệnh đề (xác suất)"; ghi chú "số khóa được giữ trong một lần chạy là ngẫu nhiên"); ghi chú KT ("cụm"), K01B. Giữ K04, K06, K07, K08 (thanh 10 ngăn, thanh 100 ngăn, kéo-thả: bác bỏ theo quyết định chung). Ghi chú bài giảng: hình cây và đoạn đọc hình ở Ví dụ 08.3; Nhận xét 08.7 thêm kiểm $\eta=1$ và lý do tỷ lệ trên mẫu không có kỳ vọng bằng $1/29$ (không xác định khi mẫu không có truy vấn của An); §2.2 thêm "cụm", câu số khóa được giữ là ngẫu nhiên; Nhận xét 08.11 phân biệt chọn $h$ một lần với rút số mới ở Mục 3.
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | trung bình | K02 | trang chật ở 1600×900 sau khi thêm dòng: tiêu đề sát mép trên, dòng cuối sát chân trang | sửa | dòng kết (lặp nội dung hình) chuyển vào ghi chú; 50 → 41 âm tiết |
+| mạch | nhẹ | K05 | nên có nhãn phân biệt tất định/xác suất | sửa | "Mệnh đề (tất định)." / "Mệnh đề (xác suất)." |
+| độ chính xác | — | K01, K09, K02, K05 | — | — | không phát hiện; tác tử tự kiểm bốn lá, $1/29$, dạng $\eta$, "với mọi $h$ cố định" |
+
+Điều phối viên đọc diff ghi chú bài giảng của mạch này thay cho vòng rà ghi chú riêng (các đoạn thêm ngắn, không đổi kết quả): đúng và khớp deck. Kiểm: `check08.py` toàn deck 59 trang: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết; ảnh đã tự xem: K01, K02 (1600×900). Trình xem ghi chú ở ba khổ (người viết ghi chú chạy): không lỗi. `git diff --check` sạch.

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 426" role="img" aria-labelledby="chb-t chb-d">
+<title id="chb-t">Cây xác suất cho hai bộ “đồ thị” khi giữ mỗi bộ độc lập với xác suất 1/10</title>
+<desc id="chb-d">Gốc: hai bộ “đồ thị”. Bộ thứ nhất được giữ với xác suất 1/10, bị bỏ với xác suất 9/10; với mỗi nhánh, bộ thứ hai cũng được giữ với xác suất 1/10, bị bỏ với xác suất 9/10. Bốn lá: giữ, giữ có xác suất 1/100, mẫu có đủ hai bản (khung kép); giữ, bỏ có xác suất 9/100, đúng một bản; bỏ, giữ có xác suất 9/100, đúng một bản; bỏ, bỏ có xác suất 81/100, “đồ thị” vắng mặt (khung nét đứt). Dòng dưới: đúng một bản có xác suất 9/100 + 9/100 = 18/100; có mặt có xác suất 1/100 + 18/100 = 19/100.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<g font-weight="700" text-anchor="middle"><text x="330" y="28">bộ thứ nhất</text><text x="580" y="28">bộ thứ hai</text><text x="935" y="28">xác suất, kết cục</text></g>
+<g stroke="#2f3e7a" stroke-width="3" fill="none"><path d="M190,195 L290,140"/><path d="M190,215 L290,300"/><path d="M370,140 L540,100"/><path d="M370,140 L540,180"/><path d="M370,300 L540,260"/><path d="M370,300 L540,340"/><path d="M620,100 L700,100"/><path d="M620,180 L700,180"/><path d="M620,260 L700,260"/><path d="M620,340 L700,340"/></g>
+<rect x="10" y="165" width="180" height="80" rx="10" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<g text-anchor="middle"><text x="100" y="197">hai bộ</text><text x="100" y="231">“đồ thị”</text></g>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"><rect x="290" y="115" width="80" height="50" rx="8"/><rect x="290" y="275" width="80" height="50" rx="8"/><rect x="540" y="75" width="80" height="50" rx="8"/><rect x="540" y="155" width="80" height="50" rx="8"/><rect x="540" y="235" width="80" height="50" rx="8"/><rect x="540" y="315" width="80" height="50" rx="8"/></g>
+<g text-anchor="middle"><text x="330" y="150">giữ</text><text x="330" y="310">bỏ</text><text x="580" y="110">giữ</text><text x="580" y="190">bỏ</text><text x="580" y="270">giữ</text><text x="580" y="350">bỏ</text></g>
+<g text-anchor="middle" font-size="26"><text x="222" y="150">1/10</text><text x="222" y="290">9/10</text><text x="455" y="104">1/10</text><text x="455" y="200">9/10</text><text x="455" y="264">1/10</text><text x="455" y="360">9/10</text></g>
+<g fill="#ffffff" stroke="#263238" stroke-width="2"><rect x="700" y="75" width="470" height="50"/><rect x="706" y="81" width="458" height="38"/><rect x="700" y="155" width="470" height="50"/><rect x="700" y="235" width="470" height="50"/></g>
+<rect x="700" y="315" width="470" height="50" fill="#ffffff" stroke="#263238" stroke-width="2" stroke-dasharray="9 7"/>
+<g text-anchor="middle"><text x="935" y="110">1/100: đủ hai bản</text><text x="935" y="190">9/100: đúng một bản</text><text x="935" y="270">9/100: đúng một bản</text><text x="935" y="350">81/100: vắng mặt</text></g>
+<text x="590" y="418" text-anchor="middle">đúng một bản: 9/100 + 9/100 = 18/100; có mặt: 1/100 + 18/100 = 19/100</text>
+</g>
+</svg>

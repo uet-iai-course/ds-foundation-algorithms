@@ -235,6 +235,8 @@ Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ ph
 
 **Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28), Mục 1 ↔ mạch 2.** Không thêm khối đánh số. §1.4, sau đoạn bộ đệm vòng: đoạn vết cửa sổ 4 số trên dòng $1,5,2,7,4$ (học phần dựng) khi $x_5=4$ đến: bộ đệm $[1,5,2,7]\to[4,5,2,7]$, tổng $15-1+4=18$, ghi tiếp ô 1 → ô 2, bất biến hai phần, trả lời $18/4=4{,}5$; hình `trang-thai-cap-nhat.svg` (trang A07) với đoạn đọc hình nối phép cập nhật và phép trả lời của Định nghĩa 08.1. Bài tập 08.1, lời giải (b): bảng $r,\sum x_i,\sum x_i^2$ sau từng số (1/1/1, 6/26, 8/30, 15/79, 19/95, 19/95, 22/104, 27/129). Đoạn "**Trong thực hành.**" không đánh số sau Bài tập 08.1: cộng $10^9$, float64, công thức $\frac1r\sum x_i^2-\bar x_r^2$ trả $0{,}0$ (hai số $\approx1{,}00000000675\cdot10^{18}$, khoảng cách float64 liền nhau 128); phương pháp Welford (1962) với $V_r$ (ký hiệu cục bộ, tránh $M$ của Mục 1) cho $V_8=37{,}875$, $\sigma_8^2=4{,}734375$ trên dòng gốc và $4{,}7343749866$ trên dòng cộng $10^9$ (chạy lại bằng Python). Tài liệu tham khảo thêm Welford (1962), *Technometrics* 4(3), 419–420, ghi là bổ sung ngoài nguồn chính. Các hàng slide 6–10 khác của kế hoạch không ảnh hưởng ghi chú. Kiểm lại: 17 mã chủ đề, bộ đếm liên tục, dẫn chiếu khớp; toàn chương 24 858 âm tiết.
 
+**Lượt bản đánh giá, Mục 2 ↔ mạch 3.** Không thêm khối đánh số. Ví dụ 08.3: hình `cay-hai-bo-do-thi.svg` sau bảng và đoạn đọc cây (bốn lá $1/100$, $9/100$, $9/100$, $81/100$; hệ số 2 từ hai lá "giữ, bỏ" và "bỏ, giữ"; có mặt $19/100$; chỉ lá đầu có đủ hai bản). Nhận xét 08.7: kiểm $\eta=1$ cho $d/(u+d)$; $1/29=\frac{1/100}{1/10+19/100}$ là tỷ số hai kỳ vọng, tỷ lệ trên mẫu không xác định khi mẫu không có truy vấn của An. Mở §2.2: "cụm" (người dùng cùng mọi bộ). Sau Mệnh đề 08.10: số khóa được giữ trong một lần chạy là ngẫu nhiên, $a/b$ là xác suất cho từng khóa. Nhận xét 08.11: $h$ chọn ngẫu nhiên một lần trước dòng rồi cố định, khác hồ chứa rút số mới mỗi phần tử (Mục 3). Mục 2: 4 966 âm tiết; toàn chương 25 233.
+
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
 ## Lượt duyệt từng mạch (2026-10-28)
@@ -662,3 +664,24 @@ Chu trình học của A07: nhu cầu (A05: trạng thái chọn theo truy vấn
 Ghi chú bài giảng: §1.4 cần vết cửa sổ 4 số và hình `trang-thai-cap-nhat.svg` (tác tử ghi chú; tạm lệch cho tới khi ghi chú cập nhật).
 
 Sửa nhẹ sau rà lại mạch 2 (2026-10-28): nhãn hình "số đếm 4" đổi thành "số trong bộ đệm 4" (sau 5 số vẫn là 4, tức $\min(r,4)$; khung trạng thái rộng 400, khối cập nhật 260; chữ hiển thị ≈ 23 px); ghi chú A07 nêu số trong bộ đệm bằng $\min(r,4)$ và nguồn: dãy $1,5,2,7,4$ là năm số đầu của dòng MMDS Hình 4.1, cỡ cửa sổ 4 do học phần chọn. Thứ tự định nghĩa → ví dụ → hình trong A07 giữ nguyên: A05 ngay trước đã cho trực quan có số, và định nghĩa viết bằng lời.
+
+### Mạch 3. Lấy mẫu theo khóa
+
+Thứ tự trang không đổi: KT → K01 → K09 → K01B → K02 → K04 → K05 → K06 → K07 → K08. Hình mới `img/lec-08/cay-hai-bo-do-thi.svg` thay bảng ba hàng ở K01 (viewBox 1180×426, chữ 28, nhãn cạnh 26; hiển thị cao 360 trong khung 1280×720, tỷ lệ 0,845, chữ ≈ 24 px, nhãn cạnh ≈ 22 px). Lá "đủ hai bản" khung kép, lá "vắng mặt" khung nét đứt, nên không dựa vào màu.
+
+| Trang | Đề xuất của bản đánh giá | Quyết định | Thay đổi | Âm tiết (dòng, max dòng) trước → sau; ghi chú | Phút |
+|---|---|---|---|---|---:|
+| KT | Lấy mẫu phần tử và lấy mẫu cụm; hình hai cấp người dùng → truy vấn | bác bỏ hình (trang tiêu đề mạch); một phần ở ghi chú | Ghi chú thêm «Mỗi người dùng cùng mọi bộ của người đó tạo thành một cụm; lấy mẫu theo khóa chọn hoặc bỏ cả cụm.»; bỏ vế nhắc bài tập phương sai để giữ ≤ 100 | 39 (2, 20) không đổi; ghi chú 94 → 99 | 0,5 |
+| K01 | Cây xác suất bốn trường hợp, giải thích hệ số 2, trực quan $1/19$ | chấp nhận | Bảng → hình cây; câu chốt «…xác suất có đủ hai bản là $(1/100)/(19/100)=1/19$.» Dòng «Bộ “băm” được giữ với xác suất $1/10$» của kế hoạch đặt vào ghi chú (dòng "Muốn …" đã nói mỗi bộ giữ với $1/10$; chỗ dành cho hình). Ghi chú: hệ số 2 từ hai lá "giữ, bỏ" và "bỏ, giữ", mỗi lá $9/100$ | 60 (6, 19) → 49 (3, 19); ghi chú 118 → 132 | 3 |
+| K09 | Kiểm $p=1$; phân biệt tỷ số các kỳ vọng với kỳ vọng của tỷ số | chấp nhận | Dòng cuối: «Với $u=d=1$: tỷ số hai số đếm kỳ vọng là $1/29$, không phải $1/2$; khác $1/19$ vì tính cả “băm”.» Ghi chú thêm dạng tổng quát với tỷ lệ giữ $\eta$ (ký hiệu của ghi chú bài giảng; $p$ đã dùng cho xác suất dương giả) và kiểm $\eta=1$ cho $d/(u+d)$ | 38 (5, 16) → 42 (5, 16); ghi chú 112 → 136 | 3 |
+| K01B | Hoạt cảnh năm sự kiện, bộ đếm số người dùng phân biệt | bác bỏ hoạt cảnh; giữ | Ghi chú thêm «một người dùng có $10^6$ bộ vẫn chỉ chiếm một hàng» | 58 (5, 18) không đổi; ghi chú 122 → 133 | 2,5 |
+| K02 | Ngẫu nhiên nằm ở việc chọn $h$; nhất quán do $h$ cố định | một phần | Thêm dòng «$h$ được chọn ngẫu nhiên một lần trước dòng, rồi cố định.» sau dòng "Hàm băm $h$ tương tự bảng…"; dòng cuối «Giữ bộ khi $h=0$; $h(\text{An})=0$ nên cả ba bộ của An vào mẫu.» chuyển vào ghi chú (hình đã thể hiện; trang chật ở 1600×900); ghi chú bỏ vế "không có thời gian ra đĩa" (đã có ở K01B) | 40 (3, 16) → 41 (3, 16); ghi chú 144 → 141 | 3 |
+| K04 | Thanh 10 ngăn; `<` và `≤`; biên $a=0$, $a=b$ | giữ (biên ở ghi chú; tỷ lệ của bài là $1/10$) | không đổi | 50 (4, 17); ghi chú 111 | 3 |
+| K05 | Nhãn tất định/xác suất; giả thiết "đủ đều" | một phần | Nhãn «**Mệnh đề (tất định).**» và «**Mệnh đề (xác suất).**»; «Với mọi $h$ cố định, …»; ghi chú thêm «Số khóa được giữ trong một lần chạy là ngẫu nhiên; $a/b$ là xác suất cho từng khóa.» | 51 (4, 16) → 56 (4, 19); ghi chú 126 → 144 | 3 |
+| K06 | Kéo-thả ghép cặp; khóa quá thô | giữ; bác bỏ kéo-thả | không đổi | 55 (6, 19); ghi chú 136 | 2,5 |
+| K07 | Tách chi phí quyết định và lưu mẫu | giữ (đã tách hàng) | không đổi | 51 (6, 19); ghi chú 129 | 2 |
+| K08 | Thanh 100 ngăn; câu chuyển tiếp dạng hỏi | giữ (thanh lộ lời giải; câu hỏi tu từ bị cấm; giới hạn ở R00) | không đổi | 33 (3, 19); ghi chú 81 | 1,5 |
+
+Tổng mạch 3: 24 phút (không đổi).
+
+Ghi chú bài giảng: Ví dụ 08.3 cần hình cây và một câu đọc hình; Nhận xét 08.7 thêm kiểm $\eta=1$; Nhận xét 08.11 hoặc đoạn sau Mệnh đề 08.10 thêm câu "số khóa được giữ là ngẫu nhiên" và câu hạt giống nếu chưa có (tác tử ghi chú).
