@@ -521,3 +521,31 @@ Kiểm của điều phối viên trước commit mạch 7: đọc diff deck, SV
 - Deck 58 → 64 trang (A07, B05A, X01B, X02B, X03B, X04C); phần giảng 120 phút, thực hành 60 phút; vẫn 7 mạch.
 - Hình mới: `trang-thai-cap-nhat.svg`, `cay-hai-bo-do-thi.svg`, `bloom-11bit-mang.svg`, `phi-tieu-8-bia.svg`, `chia-mang-bit.svg`; sửa `fpr-curve.svg`; không raster.
 - Ghi chú bài giảng 24 159 → 26 270 âm tiết; không thêm khối đánh số; liên kết trên index giữ nguyên.
+
+## Trang bài toán đầu mạch (2026-10-29)
+
+Yêu cầu người dùng (2026-10-29): "với mỗi mạch, sau slide tiêu đề nên có một slide nêu vấn đề/bài toán, có minh hoạ trực quan để làm rõ vấn đề cần giải quyết".
+
+Tác tử (Opus 5.5, effort high, `general-purpose`, tiếp tục bằng `SendMessage`): lập kế hoạch (`plan-problem-08.md`, scratchpad; chấp nhận), biên tập deck, người viết ghi chú, rà lại độ chính xác (`recheck-acc-p.md`), rà lại mạch và sinh viên (`recheck-story-p.md`).
+
+| Mạch | Trang bài toán ngay sau trang tiêu đề | Hình | Chỉnh trang kế tiếp |
+|---|---|---|---|
+| 2 | A08 (mới) "Truy vấn trên dòng cảm biến": Nhu cầu, dòng $1,5,2,7,4,0,3,5$, giả thiết một lượt và bộ nhớ nhỏ hơn lịch sử | `bai-toan-cam-bien.svg`: lưới ba truy vấn × tám thời điểm toàn dấu "?", cột lịch sử 3,5 TB mỗi ngày tăng theo $r$ so với bộ nhớ cố định | A05 đổi tiêu đề "Ví dụ: trạng thái của ba truy vấn", bỏ phần trùng |
+| 3 | K10 (mới) "Tỷ lệ truy vấn lặp trên mẫu": Nhu cầu, định nghĩa tỷ lệ lặp, câu hỏi "giữ $1/10$ nào" | `bai-toan-ty-le-lap.svg`: dòng năm bộ (ba bộ của An đậm), ô "tỷ lệ lặp 1/2", thanh dòng so với phần lưu được tỷ lệ 10 : 1 | K01 rút hai dòng đầu thành một dòng phương án |
+| 4 | R00 (giữ, thêm hình) | `bai-toan-mau-co-dinh.svg`: dòng a x c y z k c, xác suất cần $2/5$, $2/7$, hồ hai ô "?" | — |
+| 5 | B00 (giữ, thêm hình) | `bai-toan-loc-thu.svg`: hai cột tỷ lệ 20 : 1 (≥ 20 GB so với 1 GB), luồng thư → "địa chỉ ∈ S?" → tra đĩa quá chậm | — |
+| 6 | C06 (mới) "Hai dòng và ba câu hỏi": chỉ "Câu hỏi:" — không lộ lời giải, không khái niệm mới | `hai-dong-ba-cau-hoi.svg`: dòng truy vấn và dòng thư, ba câu hỏi đánh số | C01 bỏ dòng mở trùng; gạch đầu dòng mẫu từng bộ nêu "ba bộ của An" cho $1/29$ |
+| 7 | X01 (giữ đề nguyên văn MMDS, thêm hình) | `grades-hai-truong.svg`: hai trường cùng mã học phần CS101 và mã sinh viên 123 | — |
+
+"Bài toán:" không thuộc danh sách tiền tố tiêu đề cho phép, nên tiêu đề trang mới là cụm danh từ. Deck 64 → 67 trang; `#/2`…`#/7` không đổi; phần giảng 120 phút (thêm A08 1,5, K10 1,5, C06 1; bớt 4 phút ở A05, A00, K01, K01B, R09, B03, C01), thực hành 60 phút. Ghi chú bài giảng: sáu hình chèn ở đầu Mục 1, Mục 2, §3.1, §4.1, Mục 5 và đề Bài tập 08.13, mỗi hình có đoạn đọc hình và nguồn số liệu; không khối đánh số mới; 27 265 âm tiết.
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | nhẹ | K10, R00, B00, C06 | chữ trên trang lặp nhãn trong hình | sửa | rút: K10 53, R00 51, B00 29, C06 16 âm tiết |
+| mạch | nhẹ | K10 | dòng "An: tỷ lệ lặp 1/2" nên là định nghĩa | sửa | "Tỷ lệ lặp: số truy vấn gõ lại chia cho số truy vấn khác nhau; với An là $1/2$." |
+| độ chính xác | nhẹ | C01 | $1/29$ thiếu điều kiện trên mặt trang | sửa | "Mẫu từng bộ, với ba bộ của An: tỷ số hai số đếm kỳ vọng $1/29\ne1/2$." (74 âm tiết, trần 80) |
+| mạch | nhẹ | K10 | tô đậm bộ của An gợi ý rất nhẹ hướng giải | giữ | cần để đọc tỷ lệ lặp của An trên hình |
+
+Tác tử độ chính xác kiểm nguồn (MMDS §4.1.2 tr.133, §4.2.1 tr.136, §4.3.1 tr.139, Ex.4.2.1; slide Streams 1 tr.18), tỷ lệ vẽ (200 : 10, 700 : 70) và khớp hình–chữ–alt: không phát hiện từ mức trung bình trở lên. Tác tử mạch xác nhận mỗi mạch 2–7 có đúng một trang bài toán ngay sau trang tiêu đề, hình không lộ lời giải, trang kế tiếp không lặp.
+
+Kiểm của điều phối viên: đọc diff; ảnh đã tự xem A08, K10, B00, C06 (1600×900); `check08.py` toàn deck 67 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết; năm trang trên 60 âm tiết đều có ngoại lệ trần 80 (P01 72, C00 74, C03 61, C01 74, X01 68). Trình xem ghi chú ở 1440×900, 390×844, in: 0 `.katex-error`, không lỗi, 20 hình tải được. `git diff --check` sạch.

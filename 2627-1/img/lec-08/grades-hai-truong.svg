@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 176" role="img" aria-labelledby="ght-t ght-d">
+<title id="ght-t">Mã học phần và mã sinh viên chỉ duy nhất trong một trường</title>
+<desc id="ght-d">Hai khối trường U1 và trường U2. Mỗi khối có hộp học phần CS101 và hộp sinh viên 123. Đường nối hai hộp CS101 ghi: cùng mã CS101, hai học phần khác nhau. Đường nối hai hộp 123 ghi: cùng mã 123, hai sinh viên khác nhau. U1, U2 là tên đặt chỗ; CS101 lấy từ đề MMDS; mã 123 do học phần đặt.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<g fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"><rect x="10" y="4" width="290" height="168" rx="10"/><rect x="880" y="4" width="290" height="168" rx="10"/></g>
+<g text-anchor="middle" font-weight="700"><text x="155" y="36">trường U1</text><text x="1025" y="36">trường U2</text></g>
+<g fill="#ffffff" stroke="#2f3e7a" stroke-width="3"><rect x="28" y="50" width="254" height="50" rx="6"/><rect x="28" y="112" width="254" height="50" rx="6"/><rect x="898" y="50" width="254" height="50" rx="6"/><rect x="898" y="112" width="254" height="50" rx="6"/></g>
+<g text-anchor="middle"><text x="155" y="85">học phần CS101</text><text x="155" y="147">sinh viên 123</text><text x="1025" y="85">học phần CS101</text><text x="1025" y="147">sinh viên 123</text></g>
+<g stroke="#263238" stroke-width="2" stroke-dasharray="8 6"><path d="M284,75 L896,75"/><path d="M284,137 L896,137"/></g>
+<g text-anchor="middle"><text x="590" y="64">cùng mã CS101: hai học phần khác nhau</text><text x="590" y="126">cùng mã 123: hai sinh viên khác nhau</text></g>
+</g>
+</svg>

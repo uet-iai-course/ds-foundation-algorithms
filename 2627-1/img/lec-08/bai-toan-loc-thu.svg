@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 280" role="img" aria-labelledby="blt2-t blt2-d">
+<title id="blt2-t">Tập địa chỉ được phép so với bộ nhớ chính, và phép tra đĩa cho mỗi thư</title>
+<desc id="blt2-d">Trái: hai cột chung đáy, vẽ theo tỷ lệ 20 : 1. Cột cao là tập S gồm 10^9 địa chỉ, mỗi địa chỉ từ 20 byte, tức từ 20 GB. Cột thấp là bộ nhớ chính 1 GB, tức 8·10^9 bit. Dưới hai cột ghi: S lớn hơn bộ nhớ từ 20 lần. Phải: ba thư đến dạng (địa chỉ, thư) đi vào ô hỏi “địa chỉ ∈ S?”; từ ô này một mũi tên nét đứt xuống ô “đĩa: tra S cho mỗi thư”, ghi quá chậm.</desc>
+<defs><marker id="blt2-a" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="6" orient="auto"><path d="M0,0 L0,12 L13,6 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<rect x="40" y="40" width="70" height="200" fill="#f7efe6" stroke="#263238" stroke-width="3"/>
+<rect x="330" y="230" width="70" height="10" fill="#ffffff" stroke="#263238" stroke-width="3"/>
+<path d="M24,240 L430,240" stroke="#263238" stroke-width="2"/>
+<text x="122" y="70">S: 10<tspan baseline-shift="super" font-size="20">9</tspan> địa chỉ</text>
+<text x="122" y="106">× từ 20 byte</text>
+<text x="122" y="142" font-weight="700">≥ 20 GB</text>
+<text x="365" y="182" text-anchor="middle">bộ nhớ chính:</text>
+<text x="365" y="218" text-anchor="middle" font-weight="700">1 GB = 8·10<tspan baseline-shift="super" font-size="20">9</tspan> bit</text>
+<text x="230" y="272" text-anchor="middle">S lớn hơn từ 20 lần</text>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"><rect x="570" y="40" width="220" height="46" rx="8"/><rect x="570" y="96" width="220" height="46" rx="8"/><rect x="570" y="152" width="220" height="46" rx="8"/></g>
+<g text-anchor="middle"><text x="680" y="72">(địa chỉ, thư)</text><text x="680" y="128">(địa chỉ, thư)</text><text x="680" y="184">(địa chỉ, thư)</text></g>
+<path d="M792,119 L846,119" stroke="#2f3e7a" stroke-width="3" marker-end="url(#blt2-a)"/>
+<rect x="852" y="92" width="230" height="54" rx="8" fill="#fdf6ef" stroke="#b15a2b" stroke-width="3"/>
+<text x="967" y="128" text-anchor="middle" font-weight="700">địa chỉ ∈ S?</text>
+<path d="M967,148 L967,206" stroke="#2f3e7a" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#blt2-a)"/>
+<text x="985" y="186">quá chậm</text>
+<rect x="800" y="212" width="370" height="50" rx="8" fill="#ffffff" stroke="#263238" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="985" y="246" text-anchor="middle">đĩa: tra S cho mỗi thư</text>
+</g>
+</svg>

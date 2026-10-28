@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 262" role="img" aria-labelledby="bmc-t bmc-d">
+<title id="bmc-t">Mẫu cỡ cố định trên dòng a, x, c, y, z, k, c</title>
+<desc id="bmc-d">Trái: dòng bảy phần tử a, x, c, y, z, k, c ở vị trí 1 đến 7; hai chữ c ở vị trí 3 và 7 là hai phần tử khác nhau. Vạch đứng nét đứt sau vị trí 5 ghi r = 5, mỗi phần tử có xác suất 2/5; vạch sau vị trí 7 ghi r = 7, mỗi phần tử có xác suất 2/7. Phải: hồ W có 2 ô, cả hai ghi dấu hỏi; cỡ hồ không đổi khi dòng dài thêm.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<rect x="40" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="80" y="84" text-anchor="middle" font-weight="700">a</text>
+<text x="80" y="134" text-anchor="middle">1</text>
+<rect x="130" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="170" y="84" text-anchor="middle" font-weight="700">x</text>
+<text x="170" y="134" text-anchor="middle">2</text>
+<rect x="220" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="4"/>
+<text x="260" y="84" text-anchor="middle" font-weight="700">c</text>
+<text x="260" y="134" text-anchor="middle">3</text>
+<rect x="310" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="350" y="84" text-anchor="middle" font-weight="700">y</text>
+<text x="350" y="134" text-anchor="middle">4</text>
+<rect x="400" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="440" y="84" text-anchor="middle" font-weight="700">z</text>
+<text x="440" y="134" text-anchor="middle">5</text>
+<rect x="490" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="530" y="84" text-anchor="middle" font-weight="700">k</text>
+<text x="530" y="134" text-anchor="middle">6</text>
+<rect x="580" y="46" width="80" height="56" fill="#fdf6ef" stroke="#b15a2b" stroke-width="4"/>
+<text x="620" y="84" text-anchor="middle" font-weight="700">c</text>
+<text x="620" y="134" text-anchor="middle">7</text>
+<path d="M260,44 L260,30 L620,30 L620,44" fill="none" stroke="#263238" stroke-width="2"/>
+<text x="440" y="22" text-anchor="middle">hai chữ c: hai phần tử khác nhau</text>
+<path d="M485,40 L485,150" stroke="#263238" stroke-width="3" stroke-dasharray="8 6"/>
+<path d="M665,40 L665,190" stroke="#263238" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="478" y="176" text-anchor="end">r = 5: mỗi phần tử 2/5</text>
+<text x="658" y="216" text-anchor="end">r = 7: mỗi phần tử 2/7</text>
+<text x="860" y="84" text-anchor="middle" font-weight="700">hồ W: 2 ô</text>
+<rect x="760" y="100" width="90" height="60" fill="#ffffff" stroke="#2f3e7a" stroke-width="3"/>
+<rect x="870" y="100" width="90" height="60" fill="#ffffff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="805" y="140" text-anchor="middle" font-weight="700">?</text><text x="915" y="140" text-anchor="middle" font-weight="700">?</text>
+<text x="860" y="204" text-anchor="middle">cỡ không đổi khi</text>
+<text x="860" y="240" text-anchor="middle">dòng dài thêm</text>
+</g></svg>

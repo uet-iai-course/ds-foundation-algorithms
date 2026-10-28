@@ -1,6 +1,6 @@
 # Storyboard Bài 8
 
-Mục hiện hành: **Lượt duyệt từng mạch (2026-10-28)**, cùng các thay đổi ghi ở **Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)** ở cuối tệp; khi hai mục khác nhau, mục sau được áp dụng. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
+Mục hiện hành: **Lượt duyệt từng mạch (2026-10-28)**, cùng các thay đổi ghi ở **Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)** và **Trang bài toán đầu mạch (2026-10-29)** ở cuối tệp; khi các mục khác nhau, mục sau cùng được áp dụng. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
 
 ## Hành trình khái niệm
 
@@ -244,6 +244,8 @@ Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ ph
 **Lượt bản đánh giá, Mục 5, tình huống, bài tập ↔ mạch 6.** Không thêm khối đánh số. Mục 5.1 mở bằng câu phân biệt bảo đảm tất định (Mệnh đề 08.10(a), Định lý 08.25) và bảo đảm xác suất ($a/b$, $s/r$, $p(k)$). Mục 5.2: "tỷ số hai số đếm kỳ vọng là $1/29$"; câu "khóa nhiều bộ hơn $s$: không cấu trúc nào vừa giữ trọn khóa vừa giữ cỡ ≤ $s$", dẫn Bài tập 08.14. Nhận xét 08.31: định cỡ ngược $n/m=-\ln p/(\ln2)^2$; $p=0{,}01$: $9{,}59$ bit/khóa, $k^*=6{,}64$, $p(7)=0{,}01004$; 10 bit/khóa với $k=7$: $0{,}0082$ (tính lại 0,0081937). Bài tập 08.7: thêm bộ thứ 999, $s/r$ không phụ thuộc vị trí. Mục 5: 1 341 âm tiết; toàn chương 25 888.
 
 **Lượt bản đánh giá, Bài tập củng cố ↔ mạch 7.** Không thêm khối đánh số. Bài tập 08.10 (X02B): thêm "không suy ra càng nhiều hàm băm càng tốt; $k>k^*$ thì $p$ tăng". Bài tập 08.11 (X03, X03B): hình `chia-mang-bit.svg` và câu đọc hình trong gợi ý; lời giải nêu $h_i(y)$ đều trong mảng con thứ $i$, $k$ phép kiểm độc lập nên tích chính xác; mảng chung chính xác là $\mathbb E[(X/n)^k]$, $q^k$ là cận dưới. Bài tập 08.12 (X04B–X04C): đạo hàm theo quy tắc tích, bước thay $z=-\ln\theta$, điểm dừng $\theta=1/2$ chưa đủ cho cực tiểu toàn cục. Bài tập 08.13 (X01B): đơn vị trước rồi khóa; phản ví dụ mã sinh viên 123 ở hai trường (ví dụ của học phần). Bài tập củng cố: 2 066 âm tiết; toàn chương 26 182.
+
+**Lượt trang bài toán đầu mạch (2026-10-29).** Không thêm khối đánh số. Sáu hình bài toán của deck vào ghi chú, mỗi hình kèm đoạn đọc hình nêu nguồn số liệu và dữ kiện do học phần dựng; alt theo `desc` của SVG. Mục 1, sau đoạn mở: `bai-toan-cam-bien.svg` (dòng $1,5,2,7,4,0,3,5$ của MMDS Hình 4.1, tr.132; 3,5 TB mỗi ngày, §4.1.2, tr.133). Mục 2, sau đoạn mở: `bai-toan-ty-le-lap.svg` (dòng năm bộ do học phần dựng, tỷ lệ lặp của An $1/2$; tỉ lệ 10 : 1 theo §4.1.2, tr.133 và §4.2.1, tr.136). Mục 3.1, sau Ví dụ 08.8: `bai-toan-mau-co-dinh.svg` (bảy phần tử theo trang chiếu MMDS Streams 1, tr.18; $2/5$ và $2/7$; đơn vị là vị trí). Mục 4.1, trước đoạn trực quan: `bai-toan-loc-thu.svg` (20 GB so với 1 GB $=8\cdot10^9$ bit, §4.3.1, tr.139). Mục 5, sau đoạn mở: `hai-dong-ba-cau-hoi.svg` (hai dòng, ba câu hỏi; bảng Mục 5.1 và câu trả lời Mục 5.2 ghép câu hỏi với cấu trúc). Bài tập 08.13, trong đề: `grades-hai-truong.svg` (CS101 từ đề MMDS, U1/U2 là tên đặt chỗ, mã 123 do học phần đặt). Kiểm lại: 17 mã chủ đề, bộ đếm liên tục, dẫn chiếu khớp; 20 hình tải được ở khổ rộng và hẹp; toàn chương 27 265 âm tiết.
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -794,3 +796,61 @@ Số đã tự tính: $p(3)=0{,}030579$, $p(4)=0{,}023969$; $n=64$, $m=8$, $k=4$
 Ghi chú bài giảng (tác tử ghi chú): Bài tập 08.11 chèn `chia-mang-bit.svg` vào đề hoặc gợi ý, kèm câu đọc hình; đối chiếu lời giải Bài tập 08.13 (chọn khóa) với X01B, Bài tập 08.10 với X02B, Bài tập 08.12 (số hàm băm tối ưu) với X04B–X04C.
 
 Sửa nhẹ sau rà lại mạch 7 (2026-10-28): `chia-mang-bit.svg` tách nhãn «$h_2$» và «$h_3$» hai bên hai mũi tên vào bit 30 (khớp alt), nâng lên khỏi mép mảng; ghi chú X04B câu cuối thành «Còn phải chứng minh $\phi$ không có nghiệm nào khác trong $(0,1)$ và xét dấu ở hai phía.»; ghi chú X04C thêm «Từ $\phi'(\theta)=-\ln(1-\theta)-\ln\theta-2$ được $\phi''(\theta)=\frac1{1-\theta}-\frac1\theta$, âm khi $\theta<1/2$.» (đã kiểm đạo hàm); ghi chú X02 thêm gợi ý dự đoán trước khi tính ($k=4$ gần $k^*\approx5{,}5$ hơn); ghi chú X01B ý (a) phân biệt trung bình theo học phần với tỷ lệ tính trên bản ghi điểm và nêu mẫu từng bản ghi chỉ còn khoảng $1/20$ số sinh viên mỗi học phần. X04C không thêm nhãn "Lời giải (tiếp):" (không thuộc danh sách nhãn; hậu tố tiêu đề ", xét dấu" đã nói rõ).
+
+## Trang bài toán đầu mạch (2026-10-29)
+
+Căn cứ: yêu cầu người dùng 2026-10-29 ("với mỗi mạch, sau slide tiêu đề nên có một slide nêu vấn đề/bài toán, có minh hoạ trực quan để làm rõ vấn đề cần giải quyết") và kế hoạch đã duyệt (`scratchpad/plan-problem-08.md`). Trang tiêu đề mạch giữ nguyên, không hình. Trang ngay sau mỗi trang tiêu đề mạch nêu bài toán theo khuôn: nhu cầu, dữ liệu có số, ràng buộc, hình, câu nêu vì sao cách trực tiếp hỏng hoặc dòng "Câu hỏi:". Mỗi trang này là bước "vấn đề" của khái niệm đầu mạch. Số liệu chỉ lấy từ dữ kiện đã có (MMDS §4.1.2, §4.2.1, §4.3.1, Hình 4.1; slide Streams 1 tr.18; Ex.4.2.1; dòng năm bộ của học phần). Ba trang mới A08, K10, C06; ba trang có thêm hình R00, B00, X01. Deck 64 → 67 trang; số `span.strand-number` và `#/N` không đổi.
+
+| Mạch | Trang | Mục đích | Thay đổi | Âm tiết (dòng, max dòng) trước → sau; ghi chú | Phút trước → sau |
+|---|---|---|---|---|---:|
+| 2 | AT | điểm vào mạch 2 | Ghi chú nêu bài toán đầu mạch (ba truy vấn trên dòng cảm biến), rút câu chi phí | 37 (2, 19) không đổi; ghi chú 100 → 100 | 0,5 |
+| 2 | **A08** «Truy vấn trên dòng cảm biến» | vấn đề: ba truy vấn thường trực sau mỗi số, bộ nhớ nhỏ hơn lịch sử | thêm; hình `bai-toan-cam-bien.svg` | — → 54 (4, 17); ghi chú — → 114 | — → 1,5 |
+| 2 | A05 «Ví dụ: trạng thái của ba truy vấn» | ví dụ: trạng thái chọn theo truy vấn | đổi tiêu đề; bỏ dòng "Muốn …" và dòng quy mô (lên A08); dòng mở và dòng kết mới; ghi chú bỏ câu quy mô | 59 (6, 17) → 43 (5, 13); ghi chú 142 → 98 | 2,5 → 1,5 |
+| 2 | A00 | định nghĩa và mô hình | không đổi chữ; A08 đã đặt ràng buộc đọc một lần | 57; ghi chú 143 | 3 → 2,5 |
+| 3 | KT | điểm vào mạch 3 | Ghi chú nêu bài toán đầu mạch, rút câu cụm | 39 (2, 20) không đổi; ghi chú 99 → 97 | 0,5 |
+| 3 | **K10** «Tỷ lệ truy vấn lặp trên mẫu» | vấn đề: tỷ lệ lặp của mỗi người khi chỉ lưu $1/10$ | thêm; hình `bai-toan-ty-le-lap.svg` | — → 51 (4, 16); ghi chú — → 98 | — → 1,5 |
+| 3 | K01 | phương án giữ từng bộ và sai lệch | hai dòng đầu thay bằng «Giữ mỗi bộ độc lập với xác suất $1/10$; xét hai bộ “đồ thị” của An.»; ghi chú bỏ câu định nghĩa tỷ lệ lặp (lên K10) | 49 (3, 19) → 27 (2, 15); ghi chú 132 → 109 | 3 → 2,5 |
+| 3 | K01B | bảng nhãn | không đổi chữ; dòng năm bộ đã giới thiệu ở K10 | 58; ghi chú 133 | 2,5 → 2 |
+| 4 | R00 «Mẫu cỡ cố định» | vấn đề: mẫu đúng $s$ phần tử, mỗi phần tử $s/r$ | thêm hình `bai-toan-mau-co-dinh.svg`; dòng "Muốn …" thành «**Nhu cầu:** …»; dòng Ví dụ dùng dòng bảy phần tử; ghi chú thêm câu đọc hình | 58 (4, 18) → 55 (4, 15); ghi chú 113 → 144 | 2,5 (giữ) |
+| 4 | R09 | so sánh và câu hỏi | không đổi chữ; câu hỏi một phép tính | 41; ghi chú 137 | 3 → 2,5 |
+| 5 | B00 «Lọc theo danh sách cho phép» | vấn đề: $S$ không vừa bộ nhớ, tra đĩa quá chậm | thêm hình `bai-toan-loc-thu.svg` giữa dòng bộ nhớ và dòng tra đĩa; ghi chú thêm câu đọc hình | 38 (4, 12) không đổi; ghi chú 79 → 111 | 2,5 (giữ) |
+| 5 | B03 | giả mã xây | không đổi chữ; ví dụ 11 bit đã chạy tay việc đặt bit | 25; ghi chú 63 | 2,5 → 2 |
+| 6 | CT | điểm vào mạch 6 | Ghi chú nêu trang nhắc lại hai dòng và ba câu hỏi | 37 (2, 20) không đổi; ghi chú 83 → 95 | 0,5 |
+| 6 | **C06** «Hai dòng và ba câu hỏi» | nhắc lại bài toán trung tâm bằng hình, không khái niệm mới | thêm; hình `hai-dong-ba-cau-hoi.svg`; «**Câu hỏi:**» ghép câu hỏi với cấu trúc, lời giải ở các bảng và C01 | — → 32 (3, 17); ghi chú — → 107 | — → 1 |
+| 6 | C01 | câu trả lời | bỏ dòng mở «Dòng truy vấn chỉ lưu $1/10$; $10^9$ địa chỉ thư được phép.» (C06 đã nêu); ghi chú câu mở nối với ba câu hỏi | 78 (5, 20) → 69 (4, 20), trong ngoại lệ trần 80; ghi chú 146 → 148 | 2 → 1,5 |
+| 7 | X01 | đề MMDS 4.2.1 | thêm hình `grades-hai-truong.svg` (`stream-mini`) giữa dòng lược đồ và dòng "Câu hỏi:"; chữ đề giữ nguyên; ghi chú thêm câu đọc hình và nguồn tên | 68 (6, 20) không đổi; ghi chú 67 → 99 | 12 (giữ) |
+
+**Hình mới** (Arial 28, `role="img"`, `<title>`, `<desc>`, alt cụ thể; tín hiệu bằng khung đậm, nét đứt, nhãn chữ):
+- `bai-toan-cam-bien.svg` (1180×330, `stream-short`, chữ ≈ 23 px): dòng tám số $x_1$–$x_8$ theo thứ tự đến; lưới ba truy vấn × tám thời điểm, mọi ô "?"; cột cao "lịch sử của $10^6$ cảm biến ≈ 3,5 TB mỗi ngày, tăng theo r" so với cột thấp nét đứt "bộ nhớ cố định". Không vẽ bộ xử lý và kho (thuộc hình MMDS ở A00).
+- `bai-toan-ty-le-lap.svg` (1180×300, `stream-short`, ≈ 25 px): dòng năm bộ, ba bộ của An khung đậm; khối "bộ của An: đồ thị 2 lần, băm 1 lần, tỷ lệ lặp 1/2"; hai thanh tỷ lệ 10 : 1 "dòng" và "lưu được 1/10" (nét đứt), "giữ 1/10 nào?". Không vẽ phương án nào.
+- `bai-toan-mau-co-dinh.svg` (1180×262, `stream-short`, ≈ 27 px): dòng a, x, c, y, z, k, c, vị trí 1–7, hai chữ c khung đậm và ngoặc "hai phần tử khác nhau"; vạch nét đứt sau vị trí 5 và 7 với "mỗi phần tử 2/5", "2/7"; hồ W hai ô "?", "cỡ không đổi khi dòng dài thêm".
+- `bai-toan-loc-thu.svg` (1180×280, `stream-short`, ≈ 27 px): hai cột chung đáy tỷ lệ 20 : 1 ("$S$: $10^9$ địa chỉ × từ 20 byte, ≥ 20 GB" và "bộ nhớ chính 1 GB = $8\cdot10^9$ bit"); ba thư đến → "địa chỉ ∈ S?" → nét đứt "quá chậm" → "đĩa: tra S cho mỗi thư". Không vẽ bộ lọc (thuộc B02).
+- `hai-dong-ba-cau-hoi.svg` (1180×290, `stream-short`, ≈ 26 px): hai dòng (truy vấn, thư) với số; ba hộp câu hỏi (1)–(3) nối từ dòng tương ứng; không tên cấu trúc, không số kết quả.
+- `grades-hai-truong.svg` (1180×176, `stream-mini`, ≈ 24 px): trường U1 và U2, mỗi trường có "học phần CS101" và "sinh viên 123"; hai đường nét đứt "cùng mã …: hai … khác nhau". Không ghi khóa nào.
+
+**Thời lượng toàn bài:**
+
+| Mạch | Trước | Sau |
+|---|---:|---:|
+| 1 Mở đầu | 6,5 | 6,5 |
+| 2 Mô hình tính toán trên dòng | 13 | 13 |
+| 3 Lấy mẫu theo khóa | 24 | 24,5 |
+| 4 Lấy mẫu hồ chứa | 25 | 24,5 |
+| 5 Bloom filter | 39,5 | 39 |
+| 6 Tổng kết và chuyển tiếp | 12 | 12,5 |
+| **Phần giảng** | **120** | **120** |
+| 7 Bài tập vận dụng | 60 | 60 |
+
+Lý do bớt: A05 và K01 nhường phần nhu cầu và dữ kiện cho trang bài toán; A00 không phải đặt lại ràng buộc đọc một lần; K01B dùng dòng năm bộ đã giới thiệu; R09 là câu hỏi một phép tính; B03 là giả mã bốn dòng mà ví dụ 11 bit đã chạy tay; C01 bỏ dòng mở trùng C06.
+
+Ghi chú bài giảng (tác tử ghi chú; hiện các hình mới chỉ có trên deck): §1 đoạn mở, sau đoạn quy mô $3{,}46\cdot10^{12}$ byte, chèn `bai-toan-cam-bien.svg` và đoạn đọc hình; §2 đoạn mở chèn `bai-toan-ty-le-lap.svg` và câu đọc hình (nguồn "vài trăm triệu" là §4.1.2, tr.133); §3.1 sau Ví dụ 08.8 chèn `bai-toan-mau-co-dinh.svg`; §4.1 sau đoạn tình huống chèn `bai-toan-loc-thu.svg`; §5 đoạn mở chèn `hai-dong-ba-cau-hoi.svg`; Bài tập 08.13 chèn `grades-hai-truong.svg` vào đề kèm câu đọc hình. Ví dụ 08.1 có thể giữ tên cũ. Không tạo khối đánh số mới.
+
+Sửa nhẹ sau rà lại các trang bài toán (2026-10-29): bớt chữ lặp nhãn hình, để hình nói thay.
+
+| Trang | Thay đổi | Âm tiết (dòng, max dòng) trước → sau |
+|---|---|---|
+| K10 | Dòng dữ liệu rút thành «Dòng bộ (người dùng, truy vấn, thời gian); chỉ lưu $1/10$.» (quy mô ở hình); dòng An thay bằng định nghĩa «Tỷ lệ lặp: số truy vấn gõ lại chia cho số truy vấn khác nhau; với An là $1/2$.» | 51 (4, 16) → 53 (4, 18) |
+| R00 | Dòng Ví dụ rút thành «**Ví dụ.** $s=2$: hình cho xác suất cần đạt sau 5 và 7 phần tử.» | 55 (4, 15) → 51 (4, 15) |
+| B00 | Hai dòng cỡ $S$ và bộ nhớ gộp thành «$S$: $10^9$ địa chỉ, từ 20 GB; bộ nhớ chính 1 GB.» | 38 (4, 12) → 29 (3, 12) |
+| C06 | Bỏ dòng mở (số đã ghi trên hình; ghi chú nêu nguồn) | 32 (3, 17) → 16 (2, 16) |
+| C01 | Gạch đầu dòng thứ nhất tách hai: «Với $h$ đều, giữ trọn mỗi người dùng với xác suất $1/10$.» và «Mẫu từng bộ, với ba bộ của An: tỷ số hai số đếm kỳ vọng $1/29\ne1/2$.» (nêu điều kiện $u=d=1$ trên mặt trang) | 69 (4, 20) → 74 (5, 20), trong ngoại lệ trần 80 |

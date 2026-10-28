@@ -110,6 +110,10 @@ Hình đọc từ trên xuống. Khối trên cùng là đặc tả chung mà m�
 
 Một triệu cảm biến đo độ cao mặt biển, mỗi cảm biến gửi 10 số đo 4 byte mỗi giây, tạo $10^6\cdot10\cdot4\cdot86\,400\approx3{,}46\cdot10^{12}$ byte mỗi ngày, được sách làm tròn thành 3,5 TB (MMDS §4.1.2, tr.133). Số đo không được xử lý khi đến thì chỉ còn trong kho lưu trữ (archival store), nơi quá chậm để trả lời truy vấn (§4.1.1, tr.132). Ở Bài 02, trung bình cộng được tính bằng cặp (tổng, số lượng) thay cho danh sách các số, nhưng dữ liệu nằm trên đĩa và đọc lại được. Trên dòng, chúng ta phải chọn trước khi phần tử đầu tiên đến: giữ trạng thái nào cho truy vấn đã định, trạng thái ấy tốn bao nhiêu bộ nhớ, mỗi phần tử tốn bao nhiêu phép toán.
 
+![Trái, trên: dòng của một cảm biến gồm tám số 1, 5, 2, 7, 4, 0, 3, 5, đến lần lượt từ x1 đến x8 theo chiều mũi tên. Trái, dưới: lưới ba hàng, tám cột; ba hàng là giá trị lớn nhất, trung bình mọi số, trung bình 24 số gần nhất; mỗi cột ứng với thời điểm sau một số; mọi ô ghi dấu hỏi, tức câu trả lời cần có sau mỗi số. Phải: hai cột đứng chung đáy; cột cao là lịch sử của một triệu cảm biến, khoảng 3,5 TB mỗi ngày, tăng theo r; cột thấp khung nét đứt là bộ nhớ, cỡ cố định.](img/lec-08/bai-toan-cam-bien.svg)
+
+Hình đặt bài toán của mục trên dòng $1,5,2,7,4,0,3,5$ (dòng đầu của MMDS Hình 4.1, tr.132), đọc như số đo của một cảm biến. Lưới bên trái có một hàng cho mỗi truy vấn và một cột cho mỗi thời điểm; mỗi ô có dấu hỏi là một câu trả lời phải có ngay sau số tương ứng. Bên phải, lịch sử của một triệu cảm biến, khoảng 3,5 TB mỗi ngày (MMDS §4.1.2, tr.133), tăng theo $r$, còn bộ nhớ có cỡ cố định. Việc của mục là điền các ô của lưới mà không giữ cả cột lịch sử.
+
 ### 1.1 Trạng thái theo truy vấn
 
 Chúng ta tính ba truy vấn trên một dòng ngắn và ghi phần dữ liệu mỗi truy vấn phải giữ.
@@ -320,6 +324,10 @@ Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chư
 ## 2. Lấy mẫu theo khóa
 
 Máy tìm kiếm nhận dòng bộ $t$ dạng (người dùng, truy vấn tìm kiếm, thời gian), chỉ lưu được $1/10$ dòng, và muốn biết tỷ lệ truy vấn lặp của người dùng điển hình trong tháng vừa qua (MMDS §4.2.1, tr.136). Mục 1 cho thấy một số thống kê trên mọi phần tử, như giá trị lớn nhất, trung bình và phương sai, có trạng thái cỡ hằng; câu hỏi này thì cần một mẫu các bộ, vì tỷ lệ lặp của một người được tính từ chính các truy vấn của người đó. Chúng ta cần chọn mẫu sao cho tỷ lệ tính trên mẫu bằng tỷ lệ thật, với trạng thái quyết định không tăng theo dòng.
+
+![Trên: năm bộ theo thứ tự đến, (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc); ba bộ của An có khung đậm. Dưới trái: khối bộ của An, đồ thị hai lần, băm một lần, tỷ lệ lặp 1/2. Dưới phải: hai thanh ngang vẽ theo tỷ lệ 10 : 1; thanh dài là dòng, vài trăm triệu bộ mỗi ngày; thanh ngắn khung nét đứt là phần lưu được, 1/10; bên cạnh ghi câu hỏi giữ 1/10 nào.](img/lec-08/bai-toan-ty-le-lap.svg)
+
+Hình đặt bài toán trên dòng năm bộ dùng xuyên mục, một dòng do học phần dựng. Ba bộ của An, "đồ thị" hai lần và "băm" một lần, cho tỷ lệ lặp $1/2$: một trong hai truy vấn khác nhau được gõ lại. Hai thanh ngang theo tỷ lệ 10 : 1 là dòng vài trăm triệu bộ mỗi ngày (MMDS §4.1.2, tr.133) và phần $1/10$ lưu được (§4.2.1, tr.136). Câu hỏi của mục là giữ $1/10$ nào để tỷ lệ của An tính trên mẫu vẫn là $1/2$.
 
 <!-- note-topic-id: lec-08-topic-03 -->
 ### 2.1 Sai lệch của lấy mẫu từng bộ
@@ -679,6 +687,10 @@ Mẫu theo khóa của Mục 2 không chặn cỡ: ở Ví dụ 08.6, một khó
 **Kiểm tra lại.** Với $r=5$, tổng các xác suất có mặt là $5\cdot\frac25=2=s$, đúng số ô.
 :::
 
+![Trái: dòng bảy phần tử a, x, c, y, z, k, c ở vị trí 1 đến 7; hai chữ c ở vị trí 3 và 7 là hai phần tử khác nhau. Vạch đứng nét đứt sau vị trí 5 ghi r = 5, mỗi phần tử có xác suất 2/5; vạch sau vị trí 7 ghi r = 7, mỗi phần tử có xác suất 2/7. Phải: hồ W có 2 ô, cả hai ghi dấu hỏi; cỡ hồ không đổi khi dòng dài thêm.](img/lec-08/bai-toan-mau-co-dinh.svg)
+
+Hình vẽ bảy phần tử đầu của dòng trong Ví dụ 08.8 (trang chiếu MMDS, Streams 1, tr.18). Sau vạch $r=5$, mỗi phần tử cần xác suất $2/5$; sau vạch $r=7$, cần $2/7$; hồ $W$ vẫn chỉ có 2 ô. Hai chữ c ở vị trí 3 và 7 là hai phần tử khác nhau, nên đơn vị chọn là vị trí, không phải giá trị.
+
 Một cách trực quan, hồ chứa (reservoir) giống mẫu theo khóa ở quy tắc ngưỡng: giữ khi một số đều không vượt ngưỡng, $j\le s$ thay cho $h(K)<a$. Nó khác ở hai chỗ: số được rút lại ở mỗi vị trí thay vì băm từ khóa, và một phần tử đã giữ có thể bị thay. Khi phần tử thứ $r>s$ đến, rút một số nguyên $j$ đều trong $\{1,\ldots,r\}$ và thay ô $j$ của hồ chứa khi $j\le s$. Một số $j$ gộp hai quyết định của trang chiếu MMDS (Streams 1, tr.19). Thứ nhất, $x_r$ được nhận với xác suất $s/r$, vì đúng $s$ trong $r$ giá trị đồng khả năng thỏa $j\le s$. Thứ hai, với điều kiện $x_r$ được nhận, $j$ đều trên $\{1,\ldots,s\}$, nên ô bị thay được chọn đều trong $s$ ô. Mô tả này chưa cho biết xác suất có mặt của các phần tử cũ; Định nghĩa 08.15 nêu yêu cầu đó.
 
 ::: example Ví dụ 08.9 (Vết chạy hồ chứa hai ô)
@@ -899,6 +911,10 @@ Hai cấu trúc lấy mẫu của Mục 2 và Mục 3 trả lời câu hỏi v�
 ### 4.1 Lọc theo danh sách cho phép
 
 MMDS (§4.3.1, tr.139) đặt tình huống như sau. Tập $S$ gồm $m=10^9$ địa chỉ thư được tin là không phát tán thư rác. Mỗi địa chỉ dài từ 20 byte, nên lưu $S$ cần từ 20 GB. Bộ nhớ chính chỉ có 1 GB, tức $n=8\cdot10^9$ bit, và tra $S$ trên đĩa cho mỗi thư đến thì không theo kịp nhịp đến của dòng.
+
+![Trái: hai cột chung đáy, vẽ theo tỷ lệ 20 : 1; cột cao là tập S gồm 10^9 địa chỉ, mỗi địa chỉ từ 20 byte, tức từ 20 GB; cột thấp là bộ nhớ chính 1 GB, tức 8·10^9 bit; dưới hai cột ghi S lớn hơn bộ nhớ từ 20 lần. Phải: ba thư đến dạng (địa chỉ, thư) đi vào ô hỏi địa chỉ có thuộc S không; từ ô này một mũi tên nét đứt xuống ô đĩa: tra S cho mỗi thư, ghi quá chậm.](img/lec-08/bai-toan-loc-thu.svg)
+
+Hai cột bên trái vẽ theo tỷ lệ 20 : 1: tập $S$ cần từ 20 GB, còn bộ nhớ chính có 1 GB, tức $8\cdot10^9$ bit (MMDS §4.3.1, tr.139). Bên phải, mỗi thư đến cần câu trả lời "địa chỉ có thuộc $S$ không"; mũi tên nét đứt xuống đĩa là cách tra $S$ cho mỗi thư, quá chậm so với nhịp đến của dòng.
 
 Một cách trực quan, hàm băm lại thay cho bảng lưu khóa, như ở Mục 2.2; điểm khác là mọi khóa của $S$ được ghi vào cấu trúc trước khi dòng đến. Sách dùng một hàm băm từ địa chỉ vào $8\cdot10^9$ bit: mỗi địa chỉ của $S$ đặt bit của nó thành 1. Khi thư đến, nếu bit của địa chỉ gửi bằng 0 thì địa chỉ đó chắc chắn không thuộc $S$, vì mọi địa chỉ của $S$ đã đặt bit của mình. Nếu bit bằng 1, địa chỉ chỉ có thể thuộc $S$, vì nhiều địa chỉ có thể băm vào cùng một bit. Có $10^9$ địa chỉ đặt bit trên $8\cdot10^9$ bit, nên khoảng $1/8$ số bit bằng 1, và khoảng $1/8$ số địa chỉ ngoài $S$ lọt qua bước lọc. Mô tả này chưa cho biết tỷ lệ chính xác hay cách giảm tỷ lệ đó; Bloom filter dùng $k$ hàm băm thay cho một để giảm số lần nhận nhầm.
 
@@ -1248,6 +1264,10 @@ Như vậy, chúng ta đã xây Bloom filter (Định nghĩa 08.22, Thuật toá
 
 Ba cấu trúc của chương trả lời ba loại câu hỏi khác nhau, mỗi cấu trúc dưới giả thiết riêng và với chi phí riêng. Khi một câu hỏi mới đến trên dòng, chúng ta cần đối chiếu nhanh: kết quả nào đã có, giả thiết nào không được bỏ, và cấu trúc nào tốn bao nhiêu. Không có khái niệm mới ở đây; chúng ta đặt các kết quả của Mục 1–4 cạnh nhau.
 
+![Trái, trên: dòng truy vấn gồm các bộ (An, đồ thị), (Bình, lọc), …, vài trăm triệu bộ mỗi ngày, chỉ lưu 1/10. Trái, dưới: dòng thư gồm các cặp (địa chỉ, thư), …, 10^9 địa chỉ được phép, bộ nhớ 1 GB. Phải: ba hộp câu hỏi; từ dòng truy vấn đi tới câu hỏi 1, tỷ lệ truy vấn lặp của mỗi người dùng, và câu hỏi 2, mẫu đúng s bộ, mỗi bộ cùng cơ hội; từ dòng thư đi tới câu hỏi 3, địa chỉ này có thuộc S. Hình không ghi tên cấu trúc hay kết quả.](img/lec-08/hai-dong-ba-cau-hoi.svg)
+
+Hình nhắc lại hai dòng của đầu chương với số liệu của MMDS (§4.1.2, tr.133; §4.2.1, tr.136; §4.3.1, tr.139) và ba câu hỏi đặt trên chúng. Dòng truy vấn, chỉ lưu $1/10$, dẫn tới câu hỏi về tỷ lệ truy vấn lặp của mỗi người và câu hỏi về một mẫu đúng $s$ bộ. Dòng thư, với $10^9$ địa chỉ được phép trong 1 GB, dẫn tới câu hỏi thành viên. Hình không ghi tên cấu trúc; hai bảng của Mục 5.1 và các câu trả lời ở Mục 5.2 ghép mỗi câu hỏi với một cấu trúc.
+
 ### 5.1 Kết quả, giả thiết và chi phí
 
 Các bảo đảm của chương thuộc hai loại. Bảo đảm tất định đúng trong mọi lần chạy: mọi bộ cùng khóa nhận cùng quyết định (Mệnh đề 08.10(a)), và Bloom filter không có âm giả (Định lý 08.25). Bảo đảm xác suất nói về phép chọn hàm băm hoặc các lần rút số: $a/b$ cho mỗi khóa, $s/r$ cho mỗi phần tử, $p(k)$ cho mỗi khóa ngoài $S$; một lần chạy cụ thể có thể lệch khỏi các con số này. Bảng đầu gom các kết quả chính cùng giả thiết mà thiếu nó kết quả sai.
@@ -1532,7 +1552,13 @@ với $\phi(\theta)=(1-\theta)\ln(1-\theta)-\theta\ln\theta$; bước cuối tha
 ### Mức vận dụng
 
 ::: exercise Bài tập 08.13 (Chọn khóa lấy mẫu; Bài 4.2.1, MMDS §4.2.5, tr.138)
-Dòng có lược đồ `Grades(university, courseID, studentID, grade)`. Mã trường là duy nhất; mã học phần và mã sinh viên chỉ duy nhất trong một trường. Với một mẫu $1/20$ của dữ liệu, chọn thuộc tính khóa để ước lượng:
+Dòng có lược đồ `Grades(university, courseID, studentID, grade)`. Mã trường là duy nhất; mã học phần và mã sinh viên chỉ duy nhất trong một trường.
+
+![Hai khối trường U1 và trường U2; mỗi khối có hộp học phần CS101 và hộp sinh viên 123; đường nối hai hộp CS101 ghi cùng mã CS101, hai học phần khác nhau; đường nối hai hộp 123 ghi cùng mã 123, hai sinh viên khác nhau.](img/lec-08/grades-hai-truong.svg)
+
+Hình minh họa giả thiết của đề: ở hai trường U1 và U2, cùng mã học phần CS101 là hai học phần khác nhau, và cùng mã sinh viên 123 là hai sinh viên khác nhau. U1, U2 là tên đặt chỗ, CS101 lấy từ đề MMDS, mã 123 do học phần đặt.
+
+Với một mẫu $1/20$ của dữ liệu, chọn thuộc tính khóa để ước lượng:
 
 (a) với mỗi trường, số sinh viên trung bình của một học phần;
 

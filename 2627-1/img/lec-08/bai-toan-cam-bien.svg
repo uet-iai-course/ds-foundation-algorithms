@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 330" role="img" aria-labelledby="btc-t btc-d">
+<title id="btc-t">Ba truy vấn trên dòng của một cảm biến và ràng buộc bộ nhớ</title>
+<desc id="btc-d">Trái, trên: dòng của một cảm biến gồm tám số 1, 5, 2, 7, 4, 0, 3, 5, đến lần lượt từ x1 đến x8 theo chiều mũi tên. Trái, dưới: lưới ba hàng, tám cột; ba hàng là giá trị lớn nhất, trung bình mọi số, trung bình 24 số gần nhất; mỗi cột ứng với thời điểm sau một số; mọi ô ghi dấu hỏi, tức câu trả lời cần có sau mỗi số. Phải: hai cột đứng chung đáy. Cột cao là lịch sử của một triệu cảm biến, khoảng 3,5 TB mỗi ngày, tăng theo r. Cột thấp khung nét đứt là bộ nhớ, cỡ cố định.</desc>
+<defs><marker id="btc-a" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="6" orient="auto"><path d="M0,0 L0,12 L13,6 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="340" y="74" text-anchor="end" font-weight="700">dòng</text>
+<path d="M352,20 L784,20" stroke="#2f3e7a" stroke-width="3" marker-end="url(#btc-a)"/>
+<text x="340" y="28" text-anchor="end">thứ tự đến</text>
+<rect x="352" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="377.0" y="73" text-anchor="middle">1</text>
+<text x="371.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">1</tspan></text>
+<rect x="406" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="431.0" y="73" text-anchor="middle">5</text>
+<text x="425.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">2</tspan></text>
+<rect x="460" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="485.0" y="73" text-anchor="middle">2</text>
+<text x="479.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">3</tspan></text>
+<rect x="514" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="539.0" y="73" text-anchor="middle">7</text>
+<text x="533.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">4</tspan></text>
+<rect x="568" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="593.0" y="73" text-anchor="middle">4</text>
+<text x="587.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">5</tspan></text>
+<rect x="622" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="647.0" y="73" text-anchor="middle">0</text>
+<text x="641.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">6</tspan></text>
+<rect x="676" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="701.0" y="73" text-anchor="middle">3</text>
+<text x="695.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">7</tspan></text>
+<rect x="730" y="38" width="50" height="50" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="755.0" y="73" text-anchor="middle">5</text>
+<text x="749.0" y="118" text-anchor="middle">x<tspan baseline-shift="sub" font-size="20">8</tspan></text>
+<text x="340" y="168" text-anchor="end">giá trị lớn nhất</text>
+<rect x="352" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="377.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="406" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="431.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="460" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="485.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="514" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="539.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="568" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="593.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="622" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="647.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="676" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="701.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<rect x="730" y="134" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="755.0" y="167" text-anchor="middle" font-weight="700">?</text>
+<text x="340" y="220" text-anchor="end">trung bình mọi số</text>
+<rect x="352" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="377.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="406" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="431.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="460" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="485.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="514" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="539.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="568" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="593.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="622" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="647.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="676" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="701.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<rect x="730" y="186" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="755.0" y="219" text-anchor="middle" font-weight="700">?</text>
+<text x="340" y="272" text-anchor="end">trung bình 24 số gần nhất</text>
+<rect x="352" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="377.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="406" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="431.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="460" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="485.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="514" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="539.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="568" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="593.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="622" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="647.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="676" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="701.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<rect x="730" y="238" width="50" height="46" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="755.0" y="271" text-anchor="middle" font-weight="700">?</text>
+<text x="568" y="322" text-anchor="middle">câu trả lời cần có sau mỗi số</text>
+<rect x="790" y="40" width="54" height="250" fill="#f7efe6" stroke="#263238" stroke-width="3"/>
+<rect x="1100" y="246" width="50" height="44" fill="#ffffff" stroke="#263238" stroke-width="3" stroke-dasharray="9 6"/>
+<path d="M776,290 L1170,290" stroke="#263238" stroke-width="2"/>
+
+<text x="856" y="70">lịch sử của</text>
+<text x="856" y="106">10⁶ cảm biến:</text>
+<text x="856" y="142">≈ 3,5 TB</text>
+<text x="856" y="178">mỗi ngày,</text>
+<text x="856" y="214">tăng theo r</text>
+<text x="1125" y="200" text-anchor="middle">bộ nhớ</text>
+
+<text x="1125" y="234" text-anchor="middle">cố định</text>
+</g></svg>
