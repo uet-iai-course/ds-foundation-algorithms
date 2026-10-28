@@ -1,6 +1,6 @@
 # Storyboard Bài 8
 
-Mục hiện hành: **Lượt duyệt từng mạch (2026-10-28)** ở cuối tệp. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
+Mục hiện hành: **Lượt duyệt từng mạch (2026-10-28)**, cùng các thay đổi ghi ở **Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)** ở cuối tệp; khi hai mục khác nhau, mục sau được áp dụng. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
 
 ## Hành trình khái niệm
 
@@ -232,6 +232,8 @@ Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ ph
 **Trạng thái toàn chương (2026-10-28).** Đủ 17 `note-topic-id`, mỗi mã một lần. Bộ đếm chung 08.1–08.31 liên tục; Ví dụ 08.1–08.17; Bài tập 08.1–08.14; Tình huống 08.1–08.3; mọi dẫn chiếu "Mục k" và số hiệu khối đều trỏ tới khối có thật. Không còn "Đáp án", "Hướng dẫn chấm", "FPR", "Mục này", "Chương này", `https://www.mmds`, `\text{bị`, $x=k\rho$, $p_k$, mã `L08-N`. Âm tiết: đầu chương 2 938 (giới thiệu và mục tiêu 574, tiên quyết, ký hiệu, bản đồ 2 364), Mục 1 2 819, Mục 2 4 627, Mục 3 3 369, Mục 4 4 341, Mục 5 1 200, Tình huống 1 281, Tóm tắt 732, Bài tập 1 735, Tham khảo 412; toàn chương 23 454. Hình `key-sampling.svg`, `bloom-11bit.svg`, `stream-model.svg` không còn được ghi chú dùng.
 
 **Lượt sửa cuối trước công bố (theo kiểm định cuối F1–F14 và rà lại mạch 7).** Thêm hình `img/lec-08/cau-truc-chuong.svg` và đoạn mở Mục 1 (bài toán của ghi chú Bài 01, số liệu MMDS tr.133 và tr.139, việc chương xây dựng) cùng đoạn đọc hình (F6). Chữ một nghĩa (F1): chỉ số tổng ở Mệnh đề 08.19, Ví dụ 08.10 đổi $k\to i$; tỷ lệ giữ $p\to\eta$ (Nhận xét 08.7, Bài tập 08.6), $p,p_2\to\eta_1,\eta_2$ (Nhận xét 08.20); tập vị trí $T,T'\to A,A'$ (Mệnh đề 08.18); thêm dòng quy ước ký hiệu cục bộ ($M$, $T$, $G$, $W_r$, $E_i$, $A$, $\ell$, $\rho$, $z$, $\theta$, $\lambda$, $\phi$, $c$, $\eta$). F7: câu trực quan đặt trước Định nghĩa 08.1; đoạn 1.2 mở bằng việc đặt thành phần định nghĩa vào hình. F9: đoạn "**Trong thực hành.**" không đánh số sau Mệnh đề 08.14 (giữ nguyên bộ đếm); danh sách "Bỏ …" sau Mệnh đề 08.27 (vị trí truy vấn trùng một khóa của $S$ cho xác suất 1; $h_1=\cdots=h_k$ cho $\approx0{,}1175$ thay $0{,}0216$). F10: năm câu no-ai-slop. F11: "Ở Bài 02, hàm phân phối …". F12: "trang chiếu MMDS (slide)" lần đầu, "trang chiếu" sau đó. F13: bỏ câu nối lặp ở ranh giới Mục 2/3 và 3/4. F14: bỏ "định cỡ cho 1% là bổ sung". Rà lại mạch 7: Ullman ghi năm 2017; Blum–Hopcroft–Kannan ghi bản ngày 04/01/2018 (tệp trong `sources/`), §6.1, tr.181; lời giải 4.2.1(a) "theo kỳ vọng"; MMDS §1.3.5, tr.13–14. Đồng bộ deck: X04B ($z=-\ln\theta$ trong lời giải Bài tập 08.12), B06 (điều kiện 3 và 4 tự thỏa trong mô hình). Kiểm lại toàn chương: 17 `note-topic-id` duy nhất; bộ đếm chung 08.1–08.31, Ví dụ 08.1–08.17, Bài tập 08.1–08.14, Tình huống 08.1–08.3 liên tục; mọi dẫn chiếu Mục và khối khớp; chuỗi cấm bằng 0; liên kết deck HTTP 200. Số âm tiết toàn chương: 24 159.
+
+**Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28), Mục 1 ↔ mạch 2.** Không thêm khối đánh số. §1.4, sau đoạn bộ đệm vòng: đoạn vết cửa sổ 4 số trên dòng $1,5,2,7,4$ (học phần dựng) khi $x_5=4$ đến: bộ đệm $[1,5,2,7]\to[4,5,2,7]$, tổng $15-1+4=18$, ghi tiếp ô 1 → ô 2, bất biến hai phần, trả lời $18/4=4{,}5$; hình `trang-thai-cap-nhat.svg` (trang A07) với đoạn đọc hình nối phép cập nhật và phép trả lời của Định nghĩa 08.1. Bài tập 08.1, lời giải (b): bảng $r,\sum x_i,\sum x_i^2$ sau từng số (1/1/1, 6/26, 8/30, 15/79, 19/95, 19/95, 22/104, 27/129). Đoạn "**Trong thực hành.**" không đánh số sau Bài tập 08.1: cộng $10^9$, float64, công thức $\frac1r\sum x_i^2-\bar x_r^2$ trả $0{,}0$ (hai số $\approx1{,}00000000675\cdot10^{18}$, khoảng cách float64 liền nhau 128); phương pháp Welford (1962) với $V_r$ (ký hiệu cục bộ, tránh $M$ của Mục 1) cho $V_8=37{,}875$, $\sigma_8^2=4{,}734375$ trên dòng gốc và $4{,}7343749866$ trên dòng cộng $10^9$ (chạy lại bằng Python). Tài liệu tham khảo thêm Welford (1962), *Technometrics* 4(3), 419–420, ghi là bổ sung ngoài nguồn chính. Các hàng slide 6–10 khác của kế hoạch không ảnh hưởng ghi chú. Kiểm lại: 17 mã chủ đề, bộ đếm liên tục, dẫn chiếu khớp; toàn chương 24 858 âm tiết.
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -635,3 +637,28 @@ CSS: thêm `.reveal.course-deck.lecture-stream ol.stream-alpha { list-style-type
 | X04B | Ghi phép thay $z=-\ln\theta$ và tính chất "lõm chặt" trên mặt trang | Rà lại mạch 7 | 28 (5, 8) → 33 (5, 11); ghi chú 88 |
 
 Kiểm lại số lớn của Bài tập 4.3.2 ($n=8\cdot10^9$, $m=10^9$, $k=4$) bằng số thập phân 40 chữ số: mảng chia $0{,}0239686508395$, $q^k$ $0{,}0239686508256$, trùng chín chữ số có nghĩa như ghi chú X03 nói.
+
+## Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)
+
+Căn cứ: `planning/lec-08/danh-gia-giang-day.md` (58 slide; số slide ánh xạ sang ID theo thứ tự deck trước lượt này) và kế hoạch đã được điều phối viên duyệt (quyết định chung, bảng 58 mục, kế hoạch theo mạch, danh sách hình mới). Quyết định chung áp dụng ở mọi mạch: không `fragment`, không hoạt cảnh; trang tiêu đề mạch không hình, không câu hỏi; không đưa nội dung ngoài nguồn lên mặt trang (Flink/Spark, Welford); giữ ví dụ xuyên suốt và bảng tổng kết bắt buộc. Mạch 1 giữ nguyên (đã duyệt).
+
+### Mạch 2. Mô hình tính toán trên dòng
+
+Thứ tự trang: AT → A05 → A00 → **A07** → A02 → A06. A07 là ID mới (định nghĩa trạng thái, phép cập nhật, phép trả lời; vết cửa sổ 4 số). Hình mới `img/lec-08/trang-thai-cap-nhat.svg` (viewBox 1180×324, chữ 28, ô số 32; hiển thị ở `stream-short`, tỷ lệ 0,833, chữ ≈ 23 px trong khung 1280×720; chỉ số dưới $x_5$, $x_6$ ≈ 18 px).
+
+| Trang | Đề xuất của bản đánh giá | Quyết định | Thay đổi | Âm tiết (dòng, max dòng) trước → sau; ghi chú | Phút |
+|---|---|---|---|---|---:|
+| AT | Sơ đồ $x_r\to$ cập nhật $\to$ trạng thái $\to$ trả lời, phân biệt dòng vào/trạng thái/kết quả | chấp nhận nội dung, không trên AT (trang tiêu đề mạch không hình) | Cụm khóa: «Trạng thái theo truy vấn · Mô hình dòng · Phép cập nhật · Chi phí mỗi phần tử · Phương sai» (cụm cuối rút gọn để dòng ≤ 20); ghi chú nêu phép cập nhật và phép trả lời | 37 (2, 19) → 37 (2, 19); ghi chú 94 → 100 (bỏ vế "truy vấn quyết định trạng thái cần giữ", đã có ở A05) | 0,5 |
+| A05 | Vết từng phần tử, ba hàng song song; thêm $27/8$ | giữ mặt trang (59/60, 6 dòng; $27/8$ đã có; vết từng phần tử ở Ví dụ 08.2 của ghi chú bài giảng) | Ghi chú: câu cơ chế cửa sổ rút còn lý do (số rời cửa sổ phải được trừ khỏi tổng); cơ chế chạy tay chuyển sang A07 | 59 (6, 17) → 59 (6, 17); ghi chú 150 → 142 | 3 → 2,5 |
+| A00 | Vẽ lại bốn thành phần; phân biệt mô hình lý thuyết với Flink/Spark | giữ; bác bỏ Flink/Spark (ngoài nguồn) | Ghi chú: bỏ "chẳng hạn mỗi khi có phần tử mới" và vế "$x_1=1$ sát bộ xử lý"; gộp câu bộ nhớ làm việc; thêm câu nối «Phép cập nhật đặc tả cách trạng thái đổi khi phần tử mới đến.» | 57 (4, 18) → 57 (4, 18); ghi chú 150 → 143 | 3 |
+| A07 | (từ S6) phân biệt dòng vào, trạng thái, kết quả; vòng trạng thái quay lại; (từ S9) bộ đệm vòng 4 ô | thêm | Định nghĩa trạng thái và phép trả lời; phép cập nhật; ví dụ cửa sổ 4 số trên $1,5,2,7,4$ khi $x_5=4$ đến; hình; dòng kết «Cỡ trạng thái không tăng theo $r$.» Ghi chú: thành phần trạng thái, bất biến (tổng bằng tổng bộ đệm; ô ghi tiếp chứa số cũ nhất), vết $15-1+4=18$, trả lời $4{,}5$, nối bốn phép sang bảng chi phí. Không dùng ký hiệu $\sigma$ cho trạng thái | — → 50 (4, 20); ghi chú — → 151 | 2 |
+| A02 | Tổng $O(r)$ khác cập nhật $O(1)$; bộ đếm $O(\log r)$ bit; bộ đệm vòng 4 ô dưới bảng | một phần: dòng tổng công việc và $\lceil\log_2(r+1)\rceil$ bit đã có; bộ đệm vòng chạy tay ở A07, không thêm hình vào A02 | Ghi chú: bỏ câu mở "Mỗi hàng đếm chi phí…"; câu bốn phép thêm «như vết cửa sổ 4 số khi $x_5=4$ đến» | 58 (5, 17) → 58 (5, 17); ghi chú 146 → 142 | 3 → 2,5 |
+| A06 | Chia hai bước, bảng cập nhật $r,S_1,S_2$; mất chữ số; Welford | giữ mặt trang (trang "Câu hỏi" có lời giải trong ghi chú); Welford không lên mặt trang (quyết định điều phối viên; chỉ ghi chú bài giảng, do tác tử ghi chú) | không đổi | 28 (5, 15); ghi chú 141 | 2,5 |
+
+Tổng mạch 2: 13 phút (cũ 12). Phần giảng tạm là 120,5 phút theo số ghi (thực 120 vì mạch 5 cộng cột là 40, không phải 40,5); cân lại đúng 120 khi biên tập mạch 5 theo kế hoạch.
+
+Chu trình học của A07: nhu cầu (A05: trạng thái chọn theo truy vấn) → định nghĩa (A07) → ví dụ chạy tay (hình) → bất biến và lý do cập nhật đúng (ghi chú) → chi phí (A02) → kiểm tra (A06).
+
+Ghi chú bài giảng: §1.4 cần vết cửa sổ 4 số và hình `trang-thai-cap-nhat.svg` (tác tử ghi chú; tạm lệch cho tới khi ghi chú cập nhật).
+
+Sửa nhẹ sau rà lại mạch 2 (2026-10-28): nhãn hình "số đếm 4" đổi thành "số trong bộ đệm 4" (sau 5 số vẫn là 4, tức $\min(r,4)$; khung trạng thái rộng 400, khối cập nhật 260; chữ hiển thị ≈ 23 px); ghi chú A07 nêu số trong bộ đệm bằng $\min(r,4)$ và nguồn: dãy $1,5,2,7,4$ là năm số đầu của dòng MMDS Hình 4.1, cỡ cửa sổ 4 do học phần chọn. Thứ tự định nghĩa → ví dụ → hình trong A07 giữ nguyên: A05 ngay trước đã cho trực quan có số, và định nghĩa viết bằng lời.

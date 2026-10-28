@@ -68,7 +68,7 @@ Các quy ước đọc sau dùng trong cả chương.
 - Số thập phân dùng dấu phẩy, ví dụ $0{,}0216$. Số nguyên lớn nhóm ba chữ số bằng khoảng trắng hẹp, ví dụ $1\,000$, hoặc viết dạng lũy thừa, ví dụ $8\cdot10^9$. Ký hiệu $\ln$ là logarit cơ số $e$.
 - Vị trí trên dòng và ô của hồ chứa đánh số từ $1$; bit của mảng Bloom và giá trị băm đánh số từ $0$.
 - Chữ thường và chữ hoa là hai ký hiệu khác nhau: $k$ là số hàm băm, $K$ là khóa; $b$ là số giá trị của $h$, $B$ là mảng bit.
-- Ký hiệu cục bộ chỉ dùng trong một mục và được giới thiệu tại chỗ: $M$, $T$ (Mục 1); $G$ (Mục 2.5); $W_r$, $E_i$, $A$, $\ell$ (Mục 3); $\rho$, $z$, $\theta$, $\lambda$, $\phi$ (Mục 4). Ngoài phần tiên quyết, chữ $c$ luôn chỉ một giá trị của hàm băm: giá trị $h(K)$ ở Mục 2, vị trí bit $h_i(v)$ ở Mục 4. Chữ $\eta$, có hoặc không có chỉ số, chỉ một xác suất giữ một phần tử của mẫu (Mục 2.1, 3.5 và Bài tập 08.6).
+- Ký hiệu cục bộ chỉ dùng trong một mục và được giới thiệu tại chỗ: $M$, $T$, $V_r$ (Mục 1); $G$ (Mục 2.5); $W_r$, $E_i$, $A$, $\ell$ (Mục 3); $\rho$, $z$, $\theta$, $\lambda$, $\phi$ (Mục 4). Ngoài phần tiên quyết, chữ $c$ luôn chỉ một giá trị của hàm băm: giá trị $h(K)$ ở Mục 2, vị trí bit $h_i(v)$ ở Mục 4. Chữ $\eta$, có hoặc không có chỉ số, chỉ một xác suất giữ một phần tử của mẫu (Mục 2.1, 3.5 và Bài tập 08.6).
 - Tên phần tử trong vết chạy hồ chứa viết chữ đứng, như dòng a, x, c, y, z của trang chiếu MMDS (slide), để không lẫn với các ký hiệu nghiêng $a$, $x_i$, $y$.
 - Ký hiệu khác MMDS ở bốn chỗ, vì các chữ của sách đã mang nghĩa khác trong bảng: số truy vấn xuất hiện một lần $s$ (§4.2.1) viết là $u$; số giá trị băm $B$ và ngưỡng $t$ (§4.2.4) viết là $b$ và $\tau$; số đích $x$ và số phi tiêu $y$ (§4.3.3) là $n$ bit và $km$ phép băm; mẫu $S$ và số phần tử đã thấy $n$ trên trang chiếu hồ chứa viết là $W$ và $r$.
 - Số liệu lấy từ MMDS: Hình 4.1, các Ví dụ 4.1, 4.3, 4.4, ngân sách $1/10$ dòng ở §4.2.1, các bài 4.2.1 và 4.3.1–4.3.3. Mảng 11 bit với các khóa 25, 159, 585 và truy vấn 118 lấy từ trang chiếu của Ullman cho học phần CS246 (2017). Giá trị băm của An, Bình, Chi, dãy số ngẫu nhiên của vết hồ chứa, các khóa truy vấn khác trên mảng 11 bit và dữ kiện các bài tập không mang số bài sách do học phần dựng để minh họa. Khi số in trong sách khác phép tính lại, giá trị tính lại được dùng và chỗ khác được nêu tại chỗ.
@@ -237,6 +237,12 @@ Bộ nhớ quyết định thuật toán có chạy được không, cập nhậ
 
 Hàng đầu là Thuật toán 08.2. Ở hàng thứ hai, mỗi phần tử cộng $x_r$ vào $T$ và cộng $1$ vào $r$. Ở hàng cuối, 24 số nằm trong một bộ đệm vòng (ring buffer), tức một mảng 24 ô mà phần tử mới ghi đè ô của số cũ nhất; ba từ còn lại là tổng chạy của các số trong bộ đệm, vị trí ghi tiếp theo và số đếm $\min(r,24)$ dùng làm mẫu số. Mỗi phần tử tốn bốn phép: trừ số cũ nhất khỏi tổng khi $r>24$, hoặc tăng số đếm khi $r\le24$; cộng số mới vào tổng; ghi đè ô; tăng vị trí ghi theo modulo 24. Không hàng nào có chi phí tăng theo $r$.
 
+Vết sau chạy tay phép cập nhật của cửa sổ, thu nhỏ còn 4 số. Dòng $1,5,2,7,4$ là năm số đầu của dòng trong MMDS Hình 4.1; cỡ cửa sổ 4 do học phần chọn để chạy tay. Sau bốn số, trạng thái gồm bộ đệm $[1,5,2,7]$ ở ô 1 đến ô 4, tổng $15$, số trong bộ đệm $4$, bằng $\min(r,4)$, và vị trí ghi tiếp là ô 1. Bất biến của trạng thái gồm hai phần: tổng bằng tổng các số trong bộ đệm, và khi bộ đệm đầy, ô ở vị trí ghi tiếp chứa số cũ nhất. Khi $x_5=4$ đến, phép cập nhật trừ số cũ nhất $1$ khỏi tổng, cộng $4$, ghi đè ô 1 và chuyển vị trí ghi tiếp sang ô 2. Tổng thành $15-1+4=18$, bộ đệm thành $[4,5,2,7]$, và ô 2 chứa số 5, nay là số cũ nhất, nên bất biến được giữ. Phép trả lời chỉ đọc trạng thái: $18/4=4{,}5$, đúng trung bình của $5,2,7,4$.
+
+![Trạng thái sau 4 số: bộ đệm 1, 5, 2, 7 ở ô 1 đến ô 4, tổng 15, số trong bộ đệm 4, ghi tiếp ô 1; phần tử x5 bằng 4 đi vào khối cập nhật, khối này trừ 1, cộng 4, ghi đè ô 1, chuyển ghi tiếp sang ô 2; trạng thái sau 5 số: bộ đệm 4, 5, 2, 7 với ô 1 khung đậm, tổng 18, số trong bộ đệm vẫn là 4, ghi tiếp ô 2; mũi tên xuống câu trả lời 18/4 bằng 4,5; mũi tên nét đứt đưa trạng thái mới quay lại khối cập nhật, dùng khi x6 đến.](img/lec-08/trang-thai-cap-nhat.svg)
+
+Hình đọc từ trái sang phải: trạng thái sau 4 số, khối cập nhật nhận $x_5$, trạng thái sau 5 số. Mũi tên vào khối cập nhật chỉ có hai nguồn, trạng thái cũ và phần tử vừa đến, đúng như phép cập nhật của Định nghĩa 08.1; các số $x_1,\ldots,x_4$ không được đọc lại, nên thông tin cần về chúng phải nằm sẵn trong bộ đệm và tổng. Mũi tên nét đứt đưa trạng thái mới quay lại khối cập nhật cho phần tử kế tiếp, còn mũi tên xuống câu trả lời là phép trả lời. Bốn thao tác trong khối cập nhật là bốn phép mà bảng trên đếm cho cửa sổ 24 số.
+
 Mô hình từ máy che một chi tiết: bộ đếm $r$ cần $\lceil\log_2(r+1)\rceil$ bit, vì nó nhận $r+1$ giá trị $0,\ldots,r$. Với $r=8=1000_2$, ta cần $\lceil\log_2 9\rceil=4$ bit; một cảm biến độ cao mặt biển gửi 10 số mỗi giây trong một năm cho $r=315\,360\,000$, cần $29$ bit vì $2^{28}<r+1\le2^{29}$. Bộ đếm vừa một từ 64 bit khi $r<2^{64}$, nên mô hình tính nó là 1 từ.
 
 ### 1.5 Nhầm lẫn thường gặp và cách làm trong thực hành
@@ -282,7 +288,15 @@ $$
 
 Dòng đầu khai triển bình phương, dòng thứ hai thay $\sum_i x_i=r\bar x_r$. Chia cho $r$ được $\sigma_r^2=\frac1r\sum_i x_i^2-\bar x_r^2$. Vậy trạng thái gồm ba số $r$, $\sum_i x_i$ và $\sum_i x_i^2$. Khi $x_r$ đến: tăng $r$, cộng $x_r$ vào tổng, cộng $x_r^2$ vào tổng bình phương; cập nhật tốn một phép nhân và ba phép cộng, không tăng theo $r$. Trạng thái có 3 từ.
 
-**(b) Tính.** Sau 8 số: $r=8$, $\sum x_i=27$, $\sum x_i^2=1+25+4+49+16+0+9+25=129$. Do đó $\bar x_8=27/8=3{,}375$ và
+**(b) Tính.** Trạng thái sau từng số:
+
+| $r$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| $x_r$ | 1 | 5 | 2 | 7 | 4 | 0 | 3 | 5 |
+| $\sum x_i$ | 1 | 6 | 8 | 15 | 19 | 19 | 22 | 27 |
+| $\sum x_i^2$ | 1 | 26 | 30 | 79 | 95 | 95 | 104 | 129 |
+
+Sau 8 số: $r=8$, $\sum x_i=27$, $\sum x_i^2=1+25+4+49+16+0+9+25=129$. Do đó $\bar x_8=27/8=3{,}375$ và
 
 $$
 \sigma_8^2=\frac{129}{8}-\Bigl(\frac{27}{8}\Bigr)^2=16{,}125-11{,}390625=4{,}734375 .
@@ -290,6 +304,16 @@ $$
 
 **Kiểm tra lại.** Tính trực tiếp, các độ lệch $x_i-3{,}375$ có bình phương $5{,}640625$; $2{,}640625$; $1{,}890625$; $13{,}140625$; $0{,}390625$; $11{,}390625$; $0{,}140625$; $2{,}640625$, tổng $37{,}875$, và $37{,}875/8=4{,}734375$.
 :::
+
+**Trong thực hành.** Công thức $\sigma_r^2=\frac1r\sum_i x_i^2-\bar x_r^2$ đúng trong số học thực, nhưng khi tính bằng số thực dấu phẩy động nó trừ hai số lớn gần nhau và có thể mất hết chữ số có nghĩa. Cộng $10^9$ vào mọi số của dòng $1,5,2,7,4,0,3,5$ không đổi phương sai, vẫn là $4{,}734375$. Với số thực dấu phẩy động 64 bit (float64), hai số liền nhau ở cỡ $10^{18}$ cách nhau 128, nên mỗi $x_i^2$ được làm tròn tới bội của 128: $(10^9+1)^2=10^{18}+2\cdot10^9+1$ mất số hạng $1$, và các số hạng $1,25,4,49,16,0,9,25$ đều mất như vậy. Tổng $\sum_i x_i^2$, cỡ $8\cdot10^{18}$ với khoảng cách 1 024, vì thế thiếu đúng $129$, chính là phần mang thông tin về phương sai. Khi đó $\frac1r\sum_i x_i^2$ và $\bar x_r^2$ cùng bằng $1{,}00000000675\cdot10^{18}$ trong float64; phép trừ cuối gần như không có sai số và chỉ làm lộ việc mọi chữ số đúng đã mất, với kết quả $0{,}0$ theo một lần chạy bằng Python.
+
+Phương pháp của Welford (1962) tránh phép trừ này. Trạng thái gồm $r$, trung bình $\bar x_r$ và tổng bình phương độ lệch $V_r=\sum_{i\le r}(x_i-\bar x_r)^2$, bắt đầu từ $\bar x_0=0$, $V_0=0$, và cập nhật
+
+$$
+\bar x_r=\bar x_{r-1}+\frac{x_r-\bar x_{r-1}}r,\qquad V_r=V_{r-1}+(x_r-\bar x_{r-1})(x_r-\bar x_r),
+$$
+
+rồi trả lời $\sigma_r^2=V_r/r$. Trạng thái vẫn có cỡ hằng, ba số. Trên dòng gốc, phép cập nhật cho $V_8=37{,}875$, đúng tổng bình phương độ lệch ở phần kiểm tra lại của Bài tập 08.1, và $\sigma_8^2=37{,}875/8=4{,}734375$. Trên dòng cộng $10^9$, cùng phép tính float64 cho $4{,}7343749866$, sai số khoảng $1{,}3\cdot10^{-8}$. Phương pháp này là bổ sung ngoài nguồn chính của chương.
 
 Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chương: thuật toán dòng một lượt trả lời từ trạng thái chọn theo truy vấn (Định nghĩa 08.1) và được đo bằng bốn đại lượng trên mỗi phần tử (Định nghĩa 08.3), với Thuật toán 08.2 làm trường hợp mẫu. Các truy vấn của mục này, kể cả phương sai ở Bài tập 08.1, là những thống kê có trạng thái cỡ hằng trả lời chính xác. Câu hỏi của máy tìm kiếm thì khác: đo tỷ lệ truy vấn tìm kiếm lặp của từng người dùng khi chỉ lưu được $1/10$ dòng (MMDS §4.2.1, tr.136). Trạng thái khi đó phải là một mẫu các phần tử, và cách chọn mẫu quyết định câu trả lời có đúng không. Trong Mục 2, chúng ta xét cách chọn mẫu đó.
 
@@ -1532,6 +1556,7 @@ MMDS (hộp "A General Stream-Sampling Problem", tr.150) đề xuất kết hợ
 - Trang chiếu MMDS chương 4, *Mining Data Streams* phần 1 và 2 (tại [http://www.mmds.org](http://www.mmds.org)). Phần 1, tr.6–21: mô hình dòng, lấy mẫu theo khóa (tr.12–16, ví dụ 30%), hồ chứa (tr.18–21, dòng a, x, c, y, z, k, c, d, e, g). Phần 2, tr.4–14: Bloom filter; tr.14 in $(1-e^{-1/6})^2=0{,}0235$, khác công thức đúng (Ví dụ 08.16).
 - Leskovec, J. (2026). Stanford CS246, *Mining Data Streams* (26/02/2026), tr.13–14: phép đếm sai lệch của Mục 2.1; tr.32–33: đường cong $p(k)$ của Ví dụ 08.16. Hình trong ghi chú được vẽ lại.
 - Ullman, J. D. (2017). Stanford CS246, *Streams 2*, tr.5–8: ví dụ Bloom filter 11 bit với các khóa 25, 159, 585 và truy vấn 118 (Ví dụ 08.11–08.12).
+- Welford, B. P. (1962). Note on a method for calculating corrected sums of squares and products, *Technometrics* 4(3), 419–420. Phép cập nhật trung bình và tổng bình phương độ lệch trong đoạn "Trong thực hành" sau Bài tập 08.1; bổ sung ngoài nguồn chính.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14.
 - Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 5 (biến AMS, dùng hồ chứa cỡ 1), ứng với MMDS §4.4–4.7. Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; nội dung này không cần cho bài tập.
 - Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"; mục "Mô hình ngẫu nhiên và giới hạn suy luận"), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.

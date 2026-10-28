@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 324" role="img" aria-labelledby="ttc-t ttc-d">
+<title id="ttc-t">Trạng thái và phép cập nhật của trung bình 4 số gần nhất</title>
+<desc id="ttc-d">Dòng 1, 5, 2, 7, 4. Trái: trạng thái sau 4 số gồm bộ đệm 4 ô chứa 1, 5, 2, 7 ở ô 1 đến ô 4, tổng 15, số trong bộ đệm 4, ghi tiếp vào ô 1. Giữa: phần tử x5 bằng 4 đi vào khối cập nhật; khối này trừ 1, cộng 4, ghi đè ô 1, chuyển vị trí ghi tiếp sang ô 2. Phải: trạng thái sau 5 số gồm bộ đệm 4, 5, 2, 7, ô 1 vừa ghi có khung đậm, tổng 18, số trong bộ đệm vẫn là 4, ghi tiếp vào ô 2. Mũi tên từ trạng thái sau 5 số đi xuống câu trả lời 18/4 bằng 4,5. Mũi tên nét đứt đưa trạng thái sau 5 số quay lại khối cập nhật, dùng khi x6 đến.</desc>
+<defs><marker id="ttc-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="210" y="28" text-anchor="middle" font-weight="700">Trạng thái sau 4 số</text>
+<text x="970" y="28" text-anchor="middle" font-weight="700">Trạng thái sau 5 số</text>
+<text x="590" y="28" text-anchor="middle" font-weight="700">x<tspan baseline-shift="sub" font-size="22">5</tspan> = 4 đến</text>
+<g fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"><rect x="10" y="42" width="400" height="198" rx="10"/><rect x="770" y="42" width="400" height="198" rx="10"/></g>
+<rect x="460" y="76" width="260" height="164" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<g fill="#ffffff" stroke="#263238" stroke-width="2"><rect x="55" y="56" width="70" height="52"/><rect x="135" y="56" width="70" height="52"/><rect x="215" y="56" width="70" height="52"/><rect x="295" y="56" width="70" height="52"/><rect x="895" y="56" width="70" height="52"/><rect x="975" y="56" width="70" height="52"/><rect x="1055" y="56" width="70" height="52"/></g>
+<rect x="815" y="56" width="70" height="52" fill="#ffffff" stroke="#263238" stroke-width="6"/>
+<g font-size="32" text-anchor="middle"><text x="90" y="92">1</text><text x="170" y="92">5</text><text x="250" y="92">2</text><text x="330" y="92">7</text><text x="850" y="92" font-weight="700">4</text><text x="930" y="92">5</text><text x="1010" y="92">2</text><text x="1090" y="92">7</text></g>
+<g text-anchor="middle"><text x="90" y="136">ô 1</text><text x="170" y="136">ô 2</text><text x="250" y="136">ô 3</text><text x="330" y="136">ô 4</text><text x="850" y="136">ô 1</text><text x="930" y="136">ô 2</text><text x="1010" y="136">ô 3</text><text x="1090" y="136">ô 4</text></g>
+<g text-anchor="middle"><text x="210" y="180">tổng 15, số trong bộ đệm 4</text><text x="210" y="222">ghi tiếp: ô 1</text><text x="970" y="180">tổng 18, số trong bộ đệm 4</text><text x="970" y="222">ghi tiếp: ô 2</text></g>
+<g text-anchor="middle"><text x="590" y="110" font-weight="700">Cập nhật</text><text x="590" y="150">trừ 1, cộng 4</text><text x="590" y="188">ghi đè ô 1</text><text x="590" y="226">ghi tiếp: ô 2</text></g>
+<g stroke="#2f3e7a" stroke-width="3" fill="none" marker-end="url(#ttc-a)"><path d="M590,38 L590,70"/><path d="M412,158 L454,158"/><path d="M722,158 L764,158"/><path d="M1110,242 L1110,266"/></g>
+<path d="M830,242 L830,280 L640,280 L640,248" stroke="#2f3e7a" stroke-width="3" stroke-dasharray="9 7" fill="none" marker-end="url(#ttc-a)"/>
+<text x="1170" y="306" text-anchor="end" font-weight="700">trả lời: 18/4 = 4,5</text>
+<text x="735" y="310" text-anchor="middle">dùng khi x<tspan baseline-shift="sub" font-size="22">6</tspan> đến</text>
+</g>
+</svg>

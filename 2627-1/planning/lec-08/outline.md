@@ -33,13 +33,13 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 ## Mạch phần giảng
 
 1. P00 → P04 → P02 → P03 → P01 (cập nhật 2026-10-28): bìa có câu luận đề; tiên quyết và quy ước; mục tiêu học tập; nội dung và đọc trước; vấn đề trung tâm với câu trả lời có điều kiện của mạch 2–5 (số liệu MMDS tr.133, 136, 139).
-2. AT → A05 → A00 → A02 → A06 (cập nhật 2026-10-28): ví dụ ba truy vấn trên dòng cảm biến (MMDS Hình 4.1, Ví dụ 4.1; quy mô §4.1.2); định nghĩa thuật toán dòng và mô hình hệ thống; chi phí ba truy vấn theo từng phần tử (mô hình từ máy); bài tập trạng thái của phương sai (câu hỏi của học phần). Bỏ A01 (gộp vào A00) và A03; A04 chuyển sang mạch 3 thành K01B.
+2. AT → A05 → A00 → A07 → A02 → A06 (cập nhật 2026-10-28; A07 thêm ở lượt biên tập theo bản đánh giá giảng dạy): ví dụ ba truy vấn trên dòng cảm biến (MMDS Hình 4.1, Ví dụ 4.1; quy mô §4.1.2); định nghĩa thuật toán dòng và mô hình hệ thống; định nghĩa trạng thái, phép cập nhật, phép trả lời và vết cửa sổ 4 số trên $1,5,2,7,4$ (hình `trang-thai-cap-nhat.svg`); chi phí ba truy vấn theo từng phần tử (mô hình từ máy); bài tập trạng thái của phương sai (câu hỏi của học phần). Bỏ A01 (gộp vào A00) và A03; A04 chuyển sang mạch 3 thành K01B.
 3. KT → K01 → K09 → K01B → K02 → K04 → K05 → K06 → K07 → K08 (cập nhật 2026-10-28): ví dụ ba bộ của An; sai lệch tổng quát $d/(10u+19d)$; bảng giữ/bỏ theo người dùng (MMDS §4.2.2); hàm băm thay bảng; thuật toán với đặc tả; tính đúng; chọn khóa (MMDS §4.2.3); chi phí và hạ ngưỡng (MMDS §4.2.4); câu hỏi ngưỡng. Tỷ lệ $1/10$ ($b=10$, $a=1$) xuyên mạch. Bỏ K00, gộp K03 vào K04.
 4. RT → R00 → R01 → R03 → R04 → R05 → R06 → R07 → R08 → R09 (cập nhật 2026-10-28): mẫu cỡ cố định (giới hạn có số); ý tưởng so với mẫu theo khóa; vết hai ô; thuật toán với đặc tả, mảng $W$; tính đúng và hai nửa bước quy nạp; chi phí; so sánh với mẫu theo khóa và câu hỏi kiểm. Gộp R02 vào R04.
 5. BT → B00 → B02 → B05 → B05B → B01 → B03 → B04 → B06 → B07 → B08 → B09 → B10 → B11 → B12 (cập nhật 2026-10-28): giới hạn lưu $S$; ý tưởng và nhận xét bit 0; ví dụ 11 bit thêm ba khóa và kiểm tra hai khóa (một dương giả); đặc tả và định nghĩa dương giả/âm giả; giả mã; không có âm giả; xác suất một bit bằng 1 và xác suất dương giả; ảnh hưởng của $k$; $k^*$; ví dụ tám bit mỗi khóa; chi phí.
 6. CT → C00 → C03 → C01 → C04 → C05 → C02 (cập nhật 2026-10-28): kết quả và giả thiết không được bỏ; thuật toán, bảo đảm và chi phí; câu trả lời cho vấn đề trung tâm có số; câu hỏi tự kiểm tra (hai trang, phủ ba mục tiêu); nguồn và tài liệu đọc, liên kết ghi chú bài giảng và Bài 09.
 
-Thời lượng phần giảng (2026-10-28): mạch 1 6,5; mạch 2 12; mạch 3 24; mạch 4 25; mạch 5 40,5; mạch 6 12; tổng 120 phút.
+Thời lượng phần giảng (2026-10-28): mạch 1 6,5; mạch 2 13 (lượt biên tập theo bản đánh giá giảng dạy: thêm A07 2 phút, A05 và A02 bớt mỗi trang 0,5; tổng 120 cân lại khi xong mạch 5, theo kế hoạch đã duyệt); mạch 3 24; mạch 4 25; mạch 5 40,5; mạch 6 12; tổng 120 phút.
 7. XT → X01 → X02 → X03 → X04 → X04B (cập nhật 2026-10-28): bốn bài tập trực tiếp từ MMDS (Ex.4.2.1 tr.138; Ex.4.3.1–4.3.2 tr.141; Ex.4.3.3 tr.142), tiêu đề "Bài tập: <chủ đề>", lời giải trong ghi chú; X04B là lời giải mẫu Ex.4.3.3. Bỏ X00, X05. Phần bài tập 60 phút.
 
 ## Thuật ngữ và ký hiệu
@@ -126,7 +126,7 @@ Ký hiệu của ghi chú theo quyết định ký hiệu của điều phối v
 
 ## Tên mạch và trang tiêu đề mạch (2026-10-14)
 
-Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 58 trang (cập nhật 2026-10-28, sau lượt duyệt từng mạch).
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 58 trang sau lượt duyệt từng mạch; 59 trang sau khi thêm A07 (lượt biên tập theo bản đánh giá giảng dạy, 2026-10-28).
 
 | N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
 |---:|---|---|---|

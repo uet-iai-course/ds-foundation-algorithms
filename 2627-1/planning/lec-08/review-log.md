@@ -365,3 +365,55 @@ Tác tử kiểm định cuối (mới, `general-purpose`, `model: "opus"`, `eff
 - Tồn đọng: (1) lớp `stream-question`, `stream-accent`, `stream-figure` và ngăn xếp phông mã trùng ý với `ann-*` của Bài 07 (Bài 07 còn lỗi tách dấu tiếng Việt trong giả mã) — nên nâng thành lớp chung, cần kiểm Bài 02, 03, 07; (2) CSS chung của trình xem đặt hình tối thiểu 900 px; (3) đoạn mở Mục 1 lặp ý giới thiệu chương; (4) deck Bài 09 được liên kết từ C02 nhưng chưa qua lượt duyệt mới.
 
 Kiểm của điều phối viên trước commit mạch 7: đọc diff deck, CSS (một dòng `ol.stream-alpha`), ghi chú, planning, index; `check08.py` toàn deck 58 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang, không dòng > 20 âm tiết; năm trang trên 60 âm tiết đều có ngoại lệ trần 80 (P01 72, C00 74, C03 61, C01 76, X01 68). Ảnh đã tự xem: X01, X04B (1600×900), `cau-truc-chuong.svg`. Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem. `git diff --check` sạch.
+
+## Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)
+
+Yêu cầu người dùng (2026-10-28): ghi bản đánh giá giảng dạy 58 slide do người dùng gửi vào một tệp markdown, rồi lần lượt duyệt và chỉnh sửa theo mục tiêu và mười nguyên tắc biên tập của bản đánh giá (mỗi slide một thông điệp; trực quan trước công thức; ví dụ nhỏ chạy tay; phân biệt giả thiết, định lý, chứng minh, kết luận; ký hiệu và điều kiện biên chính xác; không đồng nhất kỳ vọng với giá trị luôn xảy ra hay xấp xỉ với đẳng thức; chứng minh dài chia bước; 16:9 chữ đủ lớn; không hình trang trí; ghi chú giảng viên và câu hỏi khi có giá trị). Bản đánh giá ghi ở `danh-gia-giang-day.md` (cùng thư mục; bỏ phần rác của trang gốc, đổi ký hiệu toán sang `$…$`). Làm theo mạch, commit và push sau mỗi mạch; ghi chú bài giảng đồng bộ cùng mạch.
+
+### Tác tử
+
+Điều phối viên: phiên chính Claude Opus 5.5, effort high. Tác tử con bằng `Agent`, `subagent_type: "general-purpose"`, `model: "opus"`, `effort: "high"`; tiếp tục bằng `SendMessage`.
+
+| Vai | Ghi tệp | Sản phẩm | Quyết định của điều phối viên |
+|---|---|---|---|
+| lập kế hoạch (mới) | không | `plan-guide-08.md` (scratchpad): quyết định chung, bảng 58 mục, kế hoạch theo mạch, hình mới, số đã kiểm, lỗi của bản đánh giá | chấp nhận; đã tự kiểm $-\ln(0{,}01)/(\ln2)^2\approx9{,}59$, $p(7)\approx0{,}01003$ với $n/m=9{,}585$, $0{,}0214^2\approx4{,}6\cdot10^{-4}$ |
+| biên tập deck (tiếp tục) | có | diff | xem từng mạch |
+| người viết ghi chú (tiếp tục) | có | diff | xem từng mạch |
+| rà lại độ chính xác; rà lại mạch, sinh viên, `no-ai-slop` (tiếp tục) | không | `recheck-acc-g<N>.md`, `recheck-story-g<N>.md` | xem từng mạch |
+
+### Quyết định chung
+
+| Mục | Quyết định | Lý do |
+|---|---|---|
+| Hoạt cảnh, hiện từng bước, ẩn lời giải, kéo-thả (slide 5, 10, 14, 18, 24, 35, 50, 54) | bác bỏ hình thức; thay bằng trang kế tiếp cùng tiêu đề (B05A → B05B; X01 → X01B; X02 → X02B; X03 → X03B; X04B → X04C) hoặc lời giải trong ghi chú diễn giả | CLAUDE.md "No `fragment`"; AGENTS §trang bài tập |
+| Hình, câu hỏi, sơ đồ trên trang tiêu đề mạch (slide 6, 11, 21, 31, 46, 53) | bác bỏ; nội dung đưa vào trang nội dung (ví dụ A07) | AGENTS §Trang tiêu đề mạch |
+| Ẩn kết quả khỏi trang Vấn đề trung tâm (slide 5) | bác bỏ | AGENTS: trang Vấn đề trung tâm nêu câu trả lời có điều kiện của từng mạch; C01 thu hồi các số |
+| Đổi cấu trúc hai bảng tổng kết (slide 47, 48) | bác bỏ | AGENTS: hai bảng bắt buộc của mạch kết |
+| Chia hai buổi 90 phút | bác bỏ | 120 phút giảng + 60 phút thực hành trong một HTML |
+| Nhãn, tiêu đề tiếng Anh trên mặt trang | bác bỏ | mặt trang tiếng Việt |
+| Nội dung ngoài nguồn trên mặt trang (Flink/Spark, Counting Bloom filter, Welford, concept drift, cluster sampling) | bác bỏ trên mặt trang; Welford và mất chữ số chỉ ở ghi chú bài giảng ("Trong thực hành", dẫn Welford 1962, ghi là bổ sung ngoài nguồn chính) | nguồn nội dung ở `sources/` |
+| Dữ liệu tự đặt thay ví dụ xuyên suốt (userID được phép, khảo sát 100 chỗ, mảng 12–16 bit, tỷ lệ 30%) | bác bỏ | ví dụ xuyên suốt đã có: ba bộ của An, dòng năm bộ, mảng 11 bit, lọc thư MMDS |
+| Giải trước bài tập trên trang giảng (đạo hàm $k^*$ ở B10; bảng $2\cdot10^9$ địa chỉ ở B12) | bác bỏ | chứng minh $k^*$ thuộc Bài tập 4.3.3; B12 là câu hỏi có lời giải trong ghi chú |
+| Lỗi của bản đánh giá (13 chỗ; ví dụ slide 41 "vị trí truy vấn trùng nhau" là nguồn sai số của $q^k$ — sai, đã sửa ở lượt trước; slide 43 $\ell(k)$ trùng ký hiệu, "Ý nghĩa rất đẹp", dẫn "slide 58"; "độc lập với lịch sử"; slide 51 mục tiêu 1% với $k=7$ cho $1{,}004\%$) | không đưa vào deck | chi tiết ở `plan-guide-08.md` mục (v) |
+| Trang mới | A07, B05A, X01B, X02B, X03B, X04C (58 → 64 trang) | ví dụ chạy tay; lời giải trang kế tiếp |
+| Ghi chú bài giảng | đồng bộ theo mạch, không thêm khối đánh số mới | không dời số hiệu |
+| Thời lượng | phần giảng đúng 120 phút sau mạch 5 (storyboard ghi mạch 5 là 40,5 phút nhưng các trang cộng 40: sửa) | — |
+
+### Mạch 1. Mở đầu
+
+Không đổi. Slide 1 (bìa thành sơ đồ có biểu tượng) bác bỏ: bìa theo mẫu `title-slide`, ba đầu ra đã có trong câu luận đề. Slide 2 (ba khối và bảng ký hiệu) một phần: P04 đã có dòng Ký hiệu, thêm khối sẽ vượt trần 60 âm tiết và 6 dòng; phân biệt "hàm băm chọn ngẫu nhiên một lần rồi cố định" và "rút số mới ở mỗi vị trí" đặt ở K02 và R01 (mạch 3, 4). Slide 3 đã đạt. Slide 4 (sơ đồ ba nhánh thay mục lục) bác bỏ: trang Nội dung phải là danh sách đánh số khớp trang tiêu đề mạch; sơ đồ ba nhánh có ở ghi chú bài giảng (`cau-truc-chuong.svg`). Slide 5 bác bỏ trên mặt trang; phân biệt bảo đảm tất định và bảo đảm xác suất đặt ở ghi chú diễn giả C00 (mạch 6). Tác tử rà mạch đồng ý cả năm quyết định.
+
+### Mạch 2. Mô hình tính toán trên dòng
+
+Trang đổi: A07 (mới, "Trạng thái và phép cập nhật", sau A00): định nghĩa trạng thái, phép cập nhật, phép trả lời; ví dụ cửa sổ 4 số trên năm số đầu của dòng MMDS Hình 4.1 khi $x_5=4$ đến; hình mới `trang-thai-cap-nhat.svg` (trạng thái trước, khối cập nhật, trạng thái sau, mũi tên nét đứt quay lại cho $x_6$; ô vừa ghi khung đậm). AT: cụm khóa thêm "Phép cập nhật"; ghi chú AT, A05, A00, A02 chỉnh để nối với A07. A06 giữ (Welford không lên mặt trang). Deck 59 trang; mạch 2 13 phút (tổng tạm 120,5, cân ở mạch 5). Ghi chú bài giảng: §1.4 thêm vết cửa sổ 4 số và hình; Bài tập 08.1 thêm bảng $r,\sum x_i,\sum x_i^2$ sau từng phần tử và đoạn "Trong thực hành" về mất chữ số trong float64 (dòng cộng $10^9$: mỗi $x_i^2$ làm tròn tới bội 128, tổng thiếu đúng 129, kết quả $0{,}0$) và phương pháp Welford ($V_8=37{,}875$; $4{,}7343749866$ trên dòng cộng $10^9$); tham khảo Welford (1962), *Technometrics* 4(3), 419–420.
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | nhẹ | ghi chú AT | 109 âm tiết, vượt 100 của trang tiêu đề mạch | sửa | 100 |
+| mạch | nhẹ | A07, hình | nhãn "số đếm 4" sau 5 số dễ hiểu lầm | sửa | "số trong bộ đệm 4" (bằng $\min(r,4)$) |
+| mạch | nhẹ | ghi chú A07, ghi chú bài giảng | dãy $1,5,2,7,4$ ghi "do học phần dựng" nhưng lấy từ MMDS Hình 4.1 | sửa | chỉ cỡ cửa sổ 4 do học phần chọn |
+| độ chính xác | nhẹ | ghi chú bài giảng, đoạn mất chữ số | chữ số mất khi làm tròn $x_i^2$ và tổng, không phải ở phép trừ | sửa | nêu ulp 128 và 1 024, tổng thiếu 129 |
+| mạch | nhẹ | ghi chú A00; A07 thứ tự định nghĩa trước hình | câu nối vấp; thứ tự | sửa / giữ | câu viết lại; thứ tự giữ vì A05 ngay trước đã cho trực quan có số |
+| mạch | nhẹ | ghi chú A07 | 151 âm tiết (mức 150) | chấp nhận | mức nhẹ theo CLAUDE.md |
+
+Kiểm của điều phối viên: đọc diff deck, SVG, ghi chú, planning; tự chạy lại $4{,}734375=303/64$, công thức ngây thơ cho $0{,}0$ và Welford cho $4{,}7343749866244345$ trên dòng cộng $10^9$ (float64); `check08.py` toàn deck 59 trang ở hai khổ: 0 lỗi console/trang, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không cuộn ngang, không dòng > 20 âm tiết; mạch 2: A07 50 âm tiết, 4 dòng. Ảnh đã tự xem: A07 (1600×900). Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi. `git diff --check` sạch. Hai báo cáo rà lại: không phát hiện từ mức trung bình trở lên.
