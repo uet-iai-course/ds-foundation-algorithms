@@ -466,3 +466,58 @@ Trang đổi: C01 (dòng mạch 3 «… mẫu từng bộ: tỷ số hai số đ
 | mạch | nhẹ | C04 | câu 2 hơi kém tự nhiên | giữ | câu sửa vượt 20 âm tiết/dòng |
 
 Điều phối viên tự kiểm $p(7)\approx0{,}00819$ tại $n/m=10$ và $p(6)\approx0{,}01014$ tại $n/m=9{,}585$; tác tử độ chính xác kiểm lại toàn bộ số định cỡ và lời giải C04. `check08.py` toàn deck 60 trang: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết. Trình xem ghi chú ở ba khổ: không lỗi. `git diff --check` sạch.
+
+### Mạch 7. Bài tập vận dụng (lượt bản đánh giá)
+
+Trang đổi: X01B, X02B, X03B (mới, trang lời giải ngay sau đề, cùng tiêu đề, nhãn "Lời giải:" — thay cho đề xuất "hiện đáp án ở lần bấm tiếp theo"); X04B tách thành X04B "Bài tập: số hàm băm tối ưu, điểm dừng" và X04C "…, xét dấu" (mới) theo đề xuất slide 58A/58B; X03 thêm hình `chia-mang-bit.svg` (mảng chung 64 bit với $h_2$, $h_3$ trùng bit 30; bốn mảng 16 bit); X04 thêm dòng "Gợi ý:" ba bước; ghi chú XT (mức độ bốn bài), X01–X04C (gợi ý ở trang đề, lời giải và tiêu chí đối chiếu ở trang lời giải; X01B phân biệt trung bình theo học phần với tỷ lệ theo bản ghi; phản ví dụ mã sinh viên 123 ở hai trường do học phần đặt; X02 dự đoán trước khi tính; X04C $\phi'$, $\phi''$). Đề giữ nguyên văn MMDS (Ex.4.2.1 §4.2.5 tr.138; Ex.4.3.1–4.3.2 §4.3.4 tr.141; Ex.4.3.3 tr.142). Deck 64 trang; thực hành đúng 60 phút (chuyển phút chữa sang trang lời giải); phần giảng 120 phút. Ghi chú bài giảng: Bài tập 08.11 thêm hình và lời giải "chính xác dưới mô hình" cho mảng chia, $\mathbb E[(X/n)^k]$ cho mảng chung; Bài tập 08.13, 08.10, 08.12 khớp các trang lời giải; ba câu đồng bộ cuối (G5).
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác | nhẹ | `chia-mang-bit.svg` | thiếu nhãn $h_3$ cho mũi tên thứ hai vào bit 30 | sửa | hai nhãn riêng $h_2$, $h_3$ |
+| mạch | nhẹ | X04C | thiếu nhãn "Lời giải (tiếp):" | bác bỏ | không thuộc danh sách nhãn; hậu tố ", xét dấu" của tiêu đề đã nói rõ |
+| mạch | nhẹ (4 mục) | ghi chú X04B, X04C, X02, X01B | tài liệu làm chủ ngữ; thiếu $\phi'$; gợi ý dự đoán; phân biệt trung bình theo học phần | sửa | điều phối viên tự kiểm $\phi'=-\ln(1-\theta)-\ln\theta-2$ |
+| kiểm định cuối | trung bình (G1) | `review-log.md` | thiếu mục mạch 7, bảng kiểm định cuối | sửa | mục này |
+| kiểm định cuối | trung bình (G2) | `review-log.md` | năm đề xuất chung chưa có quyết định ghi trong kho; danh sách lỗi của bản đánh giá chỉ ở scratchpad | sửa | hai bảng dưới |
+| kiểm định cuối | nhẹ (G3, G4) | `outline.md` | danh mục SVG lỗi thời; phút B05A/B05B lệch storyboard | sửa | 16 tệp SVG hiện có kèm trang dùng; B05A 2, B05B 1,5 |
+| kiểm định cuối | nhẹ (G5) | ghi chú bài giảng | ba câu chỉ có ở ghi chú diễn giả B03, B05B, X01B | sửa | Thuật toán 08.23 (khóa lặp không đổi mảng), Ví dụ 08.12 (hai bit của 29 do hai khóa khác nhau đặt), Bài tập 08.13 (a) |
+
+#### Quyết định cho các đề xuất chung còn lại của bản đánh giá (G2)
+
+| Đề xuất (mục "Những điểm ưu tiên" và phần cuối bản đánh giá) | Quyết định | Thực hiện |
+|---|---|---|
+| Sơ đồ so sánh băm cố định với rút số ngẫu nhiên liên tục (slide 15–17) | một phần, bằng chữ | K02 "$h$ được chọn ngẫu nhiên một lần trước dòng, rồi cố định"; R01 "khác ở chỗ $j$ rút lại ở mỗi vị trí"; Nhận xét 08.11 của ghi chú nối hai cơ chế. Không thêm hình riêng: K02 đã có hình băm, R06 có `reservoir-step.svg`; thêm trang sẽ vượt 120 phút |
+| Bảng so sánh cấu hình theo bit/khóa, xác suất dương giả, chi phí truy vấn (slide 44–45) | một phần | B11 thay số $p(5)$, $p(6)$ và đường cong có nhãn hai vùng; B12 giữ dạng câu hỏi ($2\cdot10^9$ địa chỉ) với lời giải trong ghi chú — bảng hai kịch bản trên mặt trang sẽ lộ lời giải; định cỡ ngược ở ghi chú C05 và Nhận xét 08.31 |
+| Hồ chứa cho mẫu không hoàn lại đều trên mọi tập con cỡ $s$ | chấp nhận ở ghi chú | Mệnh đề 08.18 (có từ lượt trước); ghi chú diễn giả R05 và R09 ($\Pr[\text{không bộ nào của An}]\approx0{,}347$ dùng tính chất này); C02 trỏ tới |
+| Ba hoạt động tại lớp: chạy tay vết hồ chứa, tự tính dương giả của 29, tự suy ra $k^*$ | chấp nhận | R03 (vết hai ô, trang riêng), B05A (câu hỏi tự tính trước trang lời giải B05B), X04 → X04B → X04C (đề, gợi ý, lời giải hai bước) |
+| Chia thành hai buổi 90 phút | bác bỏ | 120 phút giảng + 60 phút thực hành trong cùng HTML |
+
+#### Lỗi và điểm lệch của chính bản đánh giá (không đưa vào deck)
+
+1. Slide 41: lý do của xấp xỉ $q^k$ "các vị trí truy vấn có thể trùng nhau" sai; khi biết $X$, xác suất qua lọc đúng bằng $(X/n)^k$ kể cả khi vị trí trùng; sai số đến từ thay $\mathbb E[(X/n)^k]$ bằng $(\mathbb E X/n)^k$ (Jensen: $p_{FP}\ge q^k$); $\mathbb E[(X/n)^k]$ là biểu thức chính xác dưới mô hình, không phải "chính xác hơn".
+2. Slide 43: $\ell(k)$ trùng ký hiệu đã dùng; "Ý nghĩa rất đẹp" là câu khen; "slide 58" là dẫn chiếu số trang.
+3. Slide 47, 50: "độc lập với lịch sử" mơ hồ (đã đổi thành "độc lập với các lần rút trước"); "không xóa bit cần thiết" thiếu chính xác — đặt bất kỳ bit nào về 0 cũng có thể gây âm giả.
+4. Slide 51: mục tiêu 1% với $k=7$ nguyên cho $p(7)\approx1{,}004\%$, hơi vượt; 10 bit/khóa cho $0{,}82\%$ (đã ghi ở ghi chú C05 và Nhận xét 08.31).
+5. Slide 29: "mô hình RAM chuẩn" lệch mô hình đếm của bài.
+6. Slide 32: MMDS ghi địa chỉ "20 bytes or more", nên "từ 20 GB".
+7. Slide 17: "hàm băm đủ đều" mơ hồ; giả thiết đúng: với mỗi khóa $K$, $h(K)$ đều trên $\{0,\ldots,b-1\}$ theo cách chọn $h$.
+8. Slide 37: giả mã thiếu tham số $k$.
+9. Slide 46: gán cho phần mở đầu câu hỏi "Vì sao…?" mà deck không có.
+10. Bảng định hướng chung: "mỗi vị trí có xác suất $s/r$" thiếu $r\ge s$.
+11. Slide 16: ví dụ 30% lệch tỷ lệ $1/10$ thống nhất của bài.
+12. Thời lượng hai buổi 90 phút trái quy định.
+13. Giọng văn ("Tôi đề xuất", "Hãy", "rất quan trọng", "cực kỳ quan trọng") không đưa vào mặt trang hay ghi chú diễn giả.
+
+Mọi số khác của bản đánh giá khớp phép tính lại của tác tử lập kế hoạch và các tác tử độ chính xác.
+
+#### Kiểm định cuối của lượt bản đánh giá
+
+Tác tử kiểm định độc lập (`final-verify-08-guide.md`): deck 64 trang đạt danh mục `slide_authoring_standard.md` (không vượt khung, không `.katex-error`, không lỗi console hay mạng ngoài, trang tiêu đề mạch khớp `#/N`, không `fragment`, không KaTeX trong tiêu đề, năm SVG mới đủ `role`/`title`/`desc`, chữ ≥ 22 px trừ chỉ số dưới; năm trang trên 60 âm tiết đều có ngoại lệ trần 80); thời lượng 120 + 60 phút cộng đúng; ghi chú bài giảng vẫn đạt §"Kiểm định ghi chú bài giảng" (17 mã chủ đề, bộ đếm liên tục, dẫn chiếu đúng, Welford ghi là bổ sung ngoài nguồn chính, hiển thị sạch ở ba khổ); không phát hiện chặn bàn giao hay nghiêm trọng; G1–G5 đã xử lý trước commit.
+
+Kiểm của điều phối viên trước commit mạch 7: đọc diff deck, SVG, ghi chú, planning; `check08.py` toàn deck 64 trang ở 1600×900 và 390×844: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết; ghi chú X01B 171 âm tiết (lời giải, dưới 250). Trình xem ghi chú ở ba khổ: không lỗi. `git diff --check` sạch.
+
+## Tổng kết lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)
+
+- Bảy commit: d770f33 (bản đánh giá, mạch 1–2), 1f4667e (3), 0079f23 (4), ad2abb7 (5), bf23b6c (6) và commit mạch 7.
+- Deck 58 → 64 trang (A07, B05A, X01B, X02B, X03B, X04C); phần giảng 120 phút, thực hành 60 phút; vẫn 7 mạch.
+- Hình mới: `trang-thai-cap-nhat.svg`, `cay-hai-bo-do-thi.svg`, `bloom-11bit-mang.svg`, `phi-tieu-8-bia.svg`, `chia-mang-bit.svg`; sửa `fpr-curve.svg`; không raster.
+- Ghi chú bài giảng 24 159 → 26 270 âm tiết; không thêm khối đánh số; liên kết trên index giữ nguyên.

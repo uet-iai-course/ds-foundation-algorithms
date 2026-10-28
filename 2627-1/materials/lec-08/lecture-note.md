@@ -938,7 +938,7 @@ Hai ví dụ sau chạy một Bloom filter nhỏ với $n=11$ bit và $k=2$ hàm
 | 118 | $1110110_2$ | $(14\bmod 11,5)=(3,5)$ | $B[3]=0$ (dừng) | chắc chắn không thuộc |
 | 29 | $11101_2$ | $(7,2)$ | $B[7]=1$, $B[2]=1$ | có thể thuộc |
 
-**Diễn giải.** Khóa 118 bị loại ngay ở $h_1$, dù bit 5 bằng 1. Khóa 29 không thuộc $S$ nhưng qua bộ lọc: bit 7 do 159 và 585 đặt, bit 2 do 25 đặt. Đây là một trường hợp nhận nhầm, và ứng dụng phải tra $S$ để phát hiện nó.
+**Diễn giải.** Khóa 118 bị loại ngay ở $h_1$, dù bit 5 bằng 1. Khóa 29 không thuộc $S$ nhưng qua bộ lọc: bit 7 do 159 và 585 đặt, bit 2 do 25 đặt. Hai bit của 29 do hai khóa khác nhau đặt; không cần khóa nào của $S$ có cả hai vị trí $(7,2)$. Đây là một trường hợp nhận nhầm, và ứng dụng phải tra $S$ để phát hiện nó.
 
 **Kiểm tra lại.** $29\notin\{25,159,585\}$; cả hai bit $7$ và $2$ nằm trong tập bit 1 là $\{0,2,5,7,9\}$.
 :::
@@ -983,7 +983,7 @@ XÂY-BLOOM(S; n, h_1, …, h_k)
 
 **Dừng.** Bước 2 có đúng $km$ lượt.
 
-**Trường hợp biên.** $S$ rỗng cho mảng toàn 0, và mọi truy vấn nhận "chắc chắn không thuộc". Hai khóa, hoặc hai hàm của cùng một khóa, đặt cùng một bit thì bit đó không đổi.
+**Trường hợp biên.** $S$ rỗng cho mảng toàn 0, và mọi truy vấn nhận "chắc chắn không thuộc". Hai khóa, hoặc hai hàm của cùng một khóa, đặt cùng một bit thì bit đó không đổi. Thêm lại một khóa đã có trong $S$ cũng không đổi mảng, nên $m$ là số khóa phân biệt.
 
 **Chi phí.** Bước 1: $n$ phép ghi bit. Bước 2: $km$ phép băm và $km$ phép ghi bit. Bộ nhớ: $n$ bit, không phụ thuộc độ dài khóa.
 :::
@@ -1474,7 +1474,7 @@ Dùng dạng mũ $p(k)=(1-e^{-km/n})^k$ với $km/n=k/8$.
 :::
 
 ::: solution
-$p(3)=(1-e^{-3/8})^3\approx0{,}030579$ và $p(4)=(1-e^{-1/2})^4\approx0{,}023969$. Bốn hàm băm tốt hơn ba vì $4<k^*\approx5{,}545$, trên đoạn $p$ còn giảm (Định lý 08.28). Theo Mệnh đề 08.27, đây là dạng mũ, một cận dưới của $p_{FP}$ dưới mô hình băm đều, độc lập; với $n=8\cdot10^9$, các mức xấp xỉ trùng nhau tới nhiều chữ số.
+$p(3)=(1-e^{-3/8})^3\approx0{,}030579$ và $p(4)=(1-e^{-1/2})^4\approx0{,}023969$. Bốn hàm băm tốt hơn ba vì $4<k^*\approx5{,}545$, trên đoạn $p$ còn giảm (Định lý 08.28). Theo Mệnh đề 08.27, đây là dạng mũ, một cận dưới của $p_{FP}$ dưới mô hình băm đều, độc lập; với $n=8\cdot10^9$, các mức xấp xỉ trùng nhau tới nhiều chữ số. Không suy ra rằng càng nhiều hàm băm càng tốt: với $k>k^*$, $p$ tăng.
 
 **Kiểm tra lại.** Hai số nằm giữa $p(2)\approx0{,}0489$ và $p(6)\approx0{,}0216$ của Ví dụ 08.14 và 08.16, đúng chiều giảm của $p$ trên $(0,k^*]$.
 :::
@@ -1484,11 +1484,15 @@ Có $n$ bit bộ nhớ và tập $S$ gồm $m$ khóa. Thay vì $k$ hàm băm và
 :::
 
 ::: hint
-Một mảng con có $n/k$ bit và nhận $m$ phi tiêu. Để so sánh, dùng bất đẳng thức Bernoulli ở phần tiên quyết.
+Một mảng con có $n/k$ bit và nhận $m$ phi tiêu, mỗi khóa của $S$ một phi tiêu. Để so sánh, dùng bất đẳng thức Bernoulli ở phần tiên quyết.
+
+![Trái: một mảng 64 bit, chỉ số 0 đến 63, khóa v được băm bằng bốn hàm h1 đến h4 vào bất kỳ vị trí nào của cả mảng, ở đây h2 và h3 rơi vào cùng một bit. Phải: 64 bit chia thành bốn mảng, mỗi mảng 16 bit; h1 chỉ băm vào mảng 1, h2 vào mảng 2, h3 vào mảng 3, h4 vào mảng 4; bit bị trúng có nền đậm.](img/lec-08/chia-mang-bit.svg)
+
+Hình dựng bài toán với $n=64$, $k=4$: bên trái, bốn hàm băm của mảng chung có thể trúng cùng một bit; bên phải, mỗi hàm chỉ băm vào mảng con riêng của nó, nên bốn vị trí luôn khác nhau.
 :::
 
 ::: solution
-**Mảng chia.** Một bit cố định của một mảng con bằng 0 khi không khóa nào của $S$ băm vào nó; mỗi khóa trượt bit đó với xác suất $1-k/n$, nên xác suất là $(1-k/n)^m$. Một khóa $y\notin S$ đọc đúng một vị trí đều trong mỗi mảng con. Các mảng con dùng các hàm băm độc lập, nên các tỷ lệ bit 1 của chúng độc lập, và
+**Mảng chia.** Một bit cố định của một mảng con bằng 0 khi không khóa nào của $S$ băm vào nó; mỗi khóa trượt bit đó với xác suất $1-k/n$, nên xác suất là $(1-k/n)^m$. Với khóa $y\notin S$ cố định, $h_i(y)$ rơi đều trong mảng con thứ $i$, độc lập với các phi tiêu của $S$, nên bit đó bằng 1 với xác suất $1-(1-k/n)^m$. Các mảng con dùng các hàm băm khác nhau, chọn độc lập, nên $k$ phép kiểm độc lập, và tích
 
 $$
 p_{\text{chia}}=\bigl[1-(1-k/n)^m\bigr]^k,
@@ -1496,7 +1500,7 @@ $$
 
 đúng chính xác dưới mô hình này.
 
-**Mảng chung.** Theo Mệnh đề 08.27, $p_{FP}=\mathbb E[(X/n)^k]\ge q^k=[1-(1-1/n)^{km}]^k$.
+**Mảng chung.** Ở mảng chung, $k$ phép kiểm cùng đọc một mảng có số bit 1 ngẫu nhiên $X$, nên theo Mệnh đề 08.27 giá trị chính xác là $p_{FP}=\mathbb E[(X/n)^k]$, còn $q^k=[1-(1-1/n)^{km}]^k$ chỉ là xấp xỉ, một cận dưới.
 
 **So sánh.** Theo bất đẳng thức Bernoulli, $(1-1/n)^k\ge1-k/n$, nên $(1-1/n)^{km}\ge(1-k/n)^m$. Mảng chia có ít bit 0 hơn theo kỳ vọng, nên $p_{\text{chia}}\ge q^k$. Khi $n$ lớn, cả hai về $(1-e^{-km/n})^k$.
 
@@ -1514,7 +1518,13 @@ Theo $n$ là số bit và $m$ là số khóa của $S$, số hàm băm nào làm
 :::
 
 ::: solution
-Đây là Định lý 08.28 và Hệ quả 08.29. Với các biến của gợi ý, và $z=-\ln\theta$, $\lambda'(k)=\phi(\theta)/(1-\theta)$ với $\phi(\theta)=(1-\theta)\ln(1-\theta)-\theta\ln\theta$. Hàm $\phi$ dương trên $(0,1/2)$, nhờ tính lõm chặt và $\phi(0^+)=\phi(1/2)=0$, và âm trên $(1/2,1)$, nhờ $\phi(1-\theta)=-\phi(\theta)$. Vì $\theta>1/2$ khi và chỉ khi $k<(n/m)\ln2$, $p$ giảm rồi tăng và nhỏ nhất tại $k^*=(n/m)\ln2$, với $p(k^*)=2^{-k^*}$. Với $k$ nguyên, so $p$ tại $\lfloor k^*\rfloor$ và $\lceil k^*\rceil$, và lấy $k=1$ nếu $k^*<1$. Các bước đầy đủ nằm trong chứng minh Định lý 08.28.
+Đây là Định lý 08.28 và Hệ quả 08.29. Với các biến của gợi ý, $\lambda(k)=k\ln(1-e^{-k\rho})$, và theo quy tắc tích
+
+$$
+\lambda'(k)=\ln(1-e^{-k\rho})+\frac{k\rho\,e^{-k\rho}}{1-e^{-k\rho}}=\ln(1-\theta)+\frac{z\theta}{1-\theta}=\frac{\phi(\theta)}{1-\theta},
+$$
+
+với $\phi(\theta)=(1-\theta)\ln(1-\theta)-\theta\ln\theta$; bước cuối thay $z=-\ln\theta$. Vì $1-\theta>0$, dấu của $\lambda'(k)$ là dấu của $\phi(\theta)$. Ta có $\phi(1/2)=0$, nên $\theta=1/2$, tức $k^*=(n/m)\ln2$, là một điểm dừng; điểm dừng chưa đủ để kết luận cực tiểu toàn cục, nên cần xét dấu $\phi$ ở hai phía. Hàm $\phi$ dương trên $(0,1/2)$, nhờ tính lõm chặt và $\phi(0^+)=\phi(1/2)=0$, và âm trên $(1/2,1)$, nhờ $\phi(1-\theta)=-\phi(\theta)$. Vì $\theta>1/2$ khi và chỉ khi $k<(n/m)\ln2$, $p$ giảm rồi tăng và nhỏ nhất tại $k^*=(n/m)\ln2$, với $p(k^*)=2^{-k^*}$. Với $k$ nguyên, so $p$ tại $\lfloor k^*\rfloor$ và $\lceil k^*\rceil$, và lấy $k=1$ nếu $k^*<1$. Các bước đầy đủ nằm trong chứng minh Định lý 08.28.
 
 **Kiểm tra lại.** Với $n/m=8$: $k^*\approx5{,}545$; $p(5)\approx0{,}021679>p(6)\approx0{,}021577$, nên chọn $k=6$.
 :::
@@ -1536,13 +1546,15 @@ Với mỗi câu, hỏi thống kê gộp các bộ theo đơn vị nào, rồi 
 :::
 
 ::: solution
-(a) Khóa `(university, courseID)`. Mọi bộ của một học phần cùng vào mẫu hoặc cùng bị bỏ (Mệnh đề 08.10(a)), nên số sinh viên của học phần được giữ đếm đúng, và mỗi trường còn, theo kỳ vọng, khoảng $1/20$ số học phần; trường có rất ít học phần có thể không còn học phần nào, và ước lượng cho trường đó không xác định. Khóa chỉ gồm `university` sẽ bỏ hẳn khoảng $19/20$ số trường, trong khi câu hỏi cần mọi trường.
+Với mỗi câu, xác định đơn vị mà thống kê gộp, rồi lấy khóa nhận diện đơn vị đó.
 
-(b) Khóa `(university, studentID)`: điểm trung bình của một sinh viên cần mọi bộ của sinh viên đó.
+(a) Đơn vị là học phần, khóa `(university, courseID)`. Mọi bộ của một học phần cùng vào mẫu hoặc cùng bị bỏ (Mệnh đề 08.10(a)), nên số sinh viên của học phần được giữ đếm đúng, và mỗi trường còn, theo kỳ vọng, khoảng $1/20$ số học phần; trường có rất ít học phần có thể không còn học phần nào, và ước lượng cho trường đó không xác định. Đại lượng cần ước lượng là trung bình trên các học phần, không phải một tỷ lệ theo bản ghi điểm; mẫu từng bản ghi chỉ giữ khoảng $1/20$ số sinh viên của mỗi học phần, nên đếm sinh viên trên mẫu đó cho số quá nhỏ. Khóa chỉ gồm `university` sẽ bỏ hẳn khoảng $19/20$ số trường, trong khi câu hỏi cần mọi trường.
 
-(c) Khóa `(university, courseID)`: tỷ lệ đạt "A" của một học phần cần mọi bộ của học phần.
+(b) Đơn vị là sinh viên, khóa `(university, studentID)`: điểm trung bình của một sinh viên cần mọi bộ của sinh viên đó.
 
-Cả ba khóa phải có `university`, vì mã học phần và mã sinh viên chỉ duy nhất trong một trường; thiếu nó, hai học phần cùng mã ở hai trường bị gộp thành một đơn vị (bước 3 của quy trình ở Mục 2.3).
+(c) Đơn vị là học phần, khóa `(university, courseID)`: tỷ lệ đạt "A" của một học phần cần mọi bộ của học phần.
+
+Cả ba khóa phải có `university`, vì mã học phần và mã sinh viên chỉ duy nhất trong một trường; thiếu nó, hai học phần cùng mã ở hai trường bị gộp thành một đơn vị (bước 3 của quy trình ở Mục 2.3). Chẳng hạn, nếu khóa chỉ là `studentID`, hai sinh viên khác trường cùng mã 123 bị gộp thành một người; mã 123 là ví dụ của học phần.
 :::
 
 ::: exercise Bài tập 08.14 (Hồ chứa cho từng khóa)

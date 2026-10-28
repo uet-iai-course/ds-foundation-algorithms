@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 192" role="img" aria-labelledby="cmb-t cmb-d">
+<title id="cmb-t">Một mảng chung và bốn mảng chia</title>
+<desc id="cmb-d">Trái: một mảng 64 bit, chỉ số 0 đến 63; khóa v được băm bằng bốn hàm h1, h2, h3, h4 vào bất kỳ vị trí nào của cả mảng, ở đây h2 và h3 rơi vào cùng một bit. Phải: 64 bit chia thành bốn mảng, mỗi mảng 16 bit; hàm h1 chỉ băm vào mảng 1, h2 vào mảng 2, h3 vào mảng 3, h4 vào mảng 4. Bit bị trúng có nền đậm.</desc>
+<defs><marker id="cmb-a" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto"><path d="M0,0 L0,10 L11,5 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="290" y="26" text-anchor="middle" font-weight="700">một mảng: 64 bit, 4 hàm băm</text>
+<text x="884" y="26" text-anchor="middle" font-weight="700">bốn mảng, mỗi mảng 16 bit</text>
+<rect x="34" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="42" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="50" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="58" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="66" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="74" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="82" y="120" width="8" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="90" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="98" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="106" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="114" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="122" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="130" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="138" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="146" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="154" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="162" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="170" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="178" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="186" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="194" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="202" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="210" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="218" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="226" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="234" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="242" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="250" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="258" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="266" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="274" y="120" width="8" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="282" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="290" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="298" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="306" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="314" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="322" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="330" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="338" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="346" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="354" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="362" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="370" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="378" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="386" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="394" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="402" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="410" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="418" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="426" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="434" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="442" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="450" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="458" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="466" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="474" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="482" y="120" width="8" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="490" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="498" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="506" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="514" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="522" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="530" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="538" y="120" width="8" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="265" y="40" width="50" height="36" rx="6" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/><text x="290" y="68" text-anchor="middle">v</text>
+<path d="M290,76 L86,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<path d="M288,76 L276,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<path d="M292,76 L280,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<path d="M290,76 L486,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<text x="150" y="84" text-anchor="middle" font-size="26">h<tspan baseline-shift="sub" font-size="20">1</tspan></text>
+<text x="266" y="104" text-anchor="end" font-size="26">h<tspan baseline-shift="sub" font-size="20">2</tspan></text><text x="294" y="104" text-anchor="start" font-size="26">h<tspan baseline-shift="sub" font-size="20">3</tspan></text>
+<text x="420" y="84" font-size="26" text-anchor="middle">h<tspan baseline-shift="sub" font-size="20">4</tspan></text>
+<text x="38" y="180" font-size="26" text-anchor="middle">0</text><text x="542" y="180" font-size="26" text-anchor="middle">63</text>
+<rect x="859" y="40" width="50" height="36" rx="6" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/><text x="884" y="68" text-anchor="middle">v</text>
+<rect x="630" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="637" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="644" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="651" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="658" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="665" y="120" width="7" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="672" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="679" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="686" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="693" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="700" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="707" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="714" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="721" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="728" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="735" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<path d="M884,76 L668.5,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<text x="686" y="180" font-size="26" text-anchor="middle">mảng 1</text>
+<rect x="762" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="769" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="776" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="783" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="790" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="797" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="804" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="811" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="818" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="825" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="832" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="839" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="846" y="120" width="7" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="853" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="860" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="867" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<path d="M884,76 L849.5,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<text x="818" y="180" font-size="26" text-anchor="middle">mảng 2</text>
+<rect x="894" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="901" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="908" y="120" width="7" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="915" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="922" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="929" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="936" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="943" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="950" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="957" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="964" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="971" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="978" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="985" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="992" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="999" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<path d="M884,76 L911.5,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<text x="950" y="180" font-size="26" text-anchor="middle">mảng 3</text>
+<rect x="1026" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1033" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1040" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1047" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1054" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1061" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1068" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1075" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1082" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1089" y="120" width="7" height="30" fill="#2f3e7a" stroke="#263238" stroke-width="1"/>
+<rect x="1096" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1103" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1110" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1117" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1124" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<rect x="1131" y="120" width="7" height="30" fill="#ffffff" stroke="#263238" stroke-width="1"/>
+<path d="M884,76 L1092.5,116" stroke="#2f3e7a" stroke-width="2.5" fill="none" marker-end="url(#cmb-a)"/>
+<text x="1082" y="180" font-size="26" text-anchor="middle">mảng 4</text>
+<text x="740" y="86" font-size="26" text-anchor="middle">h<tspan baseline-shift="sub" font-size="20">1</tspan></text>
+<text x="850" y="98" font-size="26" text-anchor="end">h<tspan baseline-shift="sub" font-size="20">2</tspan></text>
+<text x="914" y="98" font-size="26" text-anchor="start">h<tspan baseline-shift="sub" font-size="20">3</tspan></text>
+<text x="1010" y="86" font-size="26" text-anchor="middle">h<tspan baseline-shift="sub" font-size="20">4</tspan></text>
+</g></svg>
