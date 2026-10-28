@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 170" role="img" aria-labelledby="b11m-t b11m-d">
+<title id="b11m-t">Mảng Bloom 11 bit sau ba khóa</title>
+<desc id="b11m-d">Mảng 10100101010, chỉ số 0 đến 10 từ trái sang phải: các bit 0, 2, 5, 7, 9 bằng 1. Bit 7 và bit 2, vị trí băm của khóa 29, bằng 1 và có khung đậm; bit 3, vị trí băm đầu tiên của khóa 118, bằng 0 và có khung nét đứt.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#263238">
+<text x="70" y="32" text-anchor="middle">0</text>
+<rect x="43" y="46" width="54" height="56" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="70" y="84" text-anchor="middle" font-weight="700">1</text>
+<text x="130" y="32" text-anchor="middle">1</text>
+<rect x="103" y="46" width="54" height="56" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="130" y="84" text-anchor="middle">0</text>
+<text x="190" y="32" text-anchor="middle">2</text>
+<rect x="163" y="46" width="54" height="56" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="190" y="84" text-anchor="middle" font-weight="700">1</text>
+<text x="250" y="32" text-anchor="middle">3</text>
+<rect x="223" y="46" width="54" height="56" fill="#ffffff" stroke="#2f3e7a" stroke-width="5" stroke-dasharray="8 5"/>
+<text x="250" y="84" text-anchor="middle">0</text>
+<text x="310" y="32" text-anchor="middle">4</text>
+<rect x="283" y="46" width="54" height="56" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="310" y="84" text-anchor="middle">0</text>
+<text x="370" y="32" text-anchor="middle">5</text>
+<rect x="343" y="46" width="54" height="56" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="370" y="84" text-anchor="middle" font-weight="700">1</text>
+<text x="430" y="32" text-anchor="middle">6</text>
+<rect x="403" y="46" width="54" height="56" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="430" y="84" text-anchor="middle">0</text>
+<text x="490" y="32" text-anchor="middle">7</text>
+<rect x="463" y="46" width="54" height="56" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="490" y="84" text-anchor="middle" font-weight="700">1</text>
+<text x="550" y="32" text-anchor="middle">8</text>
+<rect x="523" y="46" width="54" height="56" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="550" y="84" text-anchor="middle">0</text>
+<text x="610" y="32" text-anchor="middle">9</text>
+<rect x="583" y="46" width="54" height="56" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="610" y="84" text-anchor="middle" font-weight="700">1</text>
+<text x="670" y="32" text-anchor="middle">10</text>
+<rect x="643" y="46" width="54" height="56" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="670" y="84" text-anchor="middle">0</text>
+<text x="380" y="150" text-anchor="middle">khung đậm: bit 7, 2 của khóa 29; nét đứt: bit 3 của khóa 118</text>
+</g></svg>

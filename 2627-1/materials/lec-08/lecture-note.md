@@ -52,6 +52,7 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 | $W[1..s]$ | mảng hồ chứa, giữ mẫu hiện tại | mảng $s$ ô, mỗi ô chứa một phần tử của dòng |
 | $j$ | số ngẫu nhiên sinh khi phần tử thứ $r>s$ đến | số nguyên đều trên $\{1,\ldots,r\}$ |
 | $S$; $m$ | tập khóa được chèn vào Bloom filter; số khóa, $m=\lvert S\rvert$ | tập hữu hạn, $S\subseteq\mathcal K$; số nguyên dương |
+| $v$ | một khóa được chèn vào Bloom filter, $v\in S$ | phần tử của $\mathcal K$ |
 | $n$; $B[0..n-1]$ | số bit của Bloom filter; mảng bit | số nguyên dương; $\{0,1\}^n$ |
 | $k$; $h_1,\ldots,h_k$ | số hàm băm của Bloom filter; các hàm băm | số nguyên dương; $\mathcal K\to\{0,\ldots,n-1\}$ |
 | $y$ | khóa được truy vấn ở Bloom filter | phần tử của $\mathcal K$ |
@@ -88,14 +89,14 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Cơ chế Bloom filter (`lec-08-topic-09`) | cốt lõi | 4.1–4.3 | $10^9$ địa chỉ trong 1 GB, ví dụ 11 bit, xây và truy vấn → bảo đảm |
 | Không âm giả (`lec-08-topic-10`) | cốt lõi | 4.4 | Bốn điều kiện, phản ví dụ khi xóa bit → phân tích dương giả |
 | Mật độ bit và xác suất dương giả (`lec-08-topic-11`) | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | $q$ chính xác, xấp xỉ $q^k$, dạng mũ → hàm $p(k)$ |
-| Số hàm băm tối ưu (`lec-08-topic-12`) | cốt lõi; định cỡ cho 1% là bổ sung | 4.6 | $k^*=(n/m)\ln2$, chọn $k$ nguyên → định cỡ Bloom filter |
+| Số hàm băm tối ưu (`lec-08-topic-12`) | cốt lõi; định cỡ cho 1% là bổ sung | 4.6–4.7 | $k^*=(n/m)\ln2$, chọn $k$ nguyên → định cỡ Bloom filter |
 | Chọn cấu trúc theo đầu ra (`lec-08-topic-13`) | cốt lõi | 5 | Đơn vị, bảo đảm, chi phí → tình huống áp dụng |
 | Tình huống áp dụng (`lec-08-topic-14`) | cốt lõi | Tình huống | Bài toán giải trọn, một tình huống vi phạm giả thiết → tóm tắt |
 | Tóm tắt chương (`lec-08-topic-15`) | cốt lõi | Tóm tắt | Chuỗi kết quả, giả thiết hay bị bỏ quên → Bài 09 |
 | Bài tập củng cố (`lec-08-topic-16`) | cốt lõi | Bài tập | Ba mức, gồm bốn bài MMDS → kiểm ba mục tiêu |
 | Đọc thêm và tài liệu (`lec-08-topic-17`) | đọc thêm | Tham khảo | Ánh xạ mục ↔ nguồn, lấy mẫu có trọng số, Bài 09 |
 
-Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.5. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.2) rồi xác suất $s/r$ và chi phí (Mục 3.3–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
+Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.5. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.2) rồi xác suất $s/r$ và chi phí (Mục 3.3–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.7 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
 
 <!-- note-topic-id: lec-08-topic-02 -->
 ## 1. Mô hình dòng một lượt
@@ -419,8 +420,8 @@ Khóa là thành phần của bộ nhận diện đơn vị mà thống kê gộ
 **Giả thiết.** $h$ cố định suốt dòng. Để có xác suất $a/b$, với mỗi khóa $K$, $h(K)$ đều trên $\{0,\ldots,b-1\}$ theo cách chọn $h$.
 
 1. Khi bộ $t$ đến: tính khóa $K(t)$.
-2. Tính $v\gets h(K(t))$.
-3. Nếu $v<a$ thì đưa $t$ vào mẫu; nếu không thì bỏ $t$.
+2. Tính $c\gets h(K(t))$.
+3. Nếu $c<a$ thì đưa $t$ vào mẫu; nếu không thì bỏ $t$.
 
 ```text
 LẤY-MẪU-THEO-KHÓA(t; a, h)
@@ -444,7 +445,7 @@ Trạng thái quyết định gồm tham số của $h$ cùng $a$, $b$, không t
 Phép quyết định là so sánh $h(K(t))$ với $a$, và thuật toán không lưu gì theo khóa; tính đều của mẫu phụ thuộc cách chọn $h$. Mệnh đề sau, dựa trên tính tất định của hàm băm ở phần tiên quyết, cho biết mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất bao nhiêu.
 
 ::: proposition Mệnh đề 08.10 (Tính nhất quán theo khóa và xác suất $a/b$)
-**Giả thiết.** $b\ge1$, $0\le a\le b$, $h:\mathcal K\to\{0,\ldots,b-1\}$ cố định suốt dòng. Cho phần (b): $h$ được chọn ngẫu nhiên từ một họ hàm sao cho với mỗi khóa $K$ và mỗi $v\in\{0,\ldots,b-1\}$, $\Pr_h[h(K)=v]=1/b$.
+**Giả thiết.** $b\ge1$, $0\le a\le b$, $h:\mathcal K\to\{0,\ldots,b-1\}$ cố định suốt dòng. Cho phần (b): $h$ được chọn ngẫu nhiên từ một họ hàm sao cho với mỗi khóa $K$ và mỗi $c\in\{0,\ldots,b-1\}$, $\Pr_h[h(K)=c]=1/b$.
 
 **Kết luận.**
 
@@ -460,10 +461,10 @@ Phép quyết định là so sánh $h(K(t))$ với $a$, và thuật toán không
 ::: proof
 **Bước 1 (nhất quán).** Nếu $K(t)=K(t')$ thì $h(K(t))=h(K(t'))$, vì $h$ là một hàm cố định. Hai phép so sánh ở bước 3 so cùng một số với cùng $a$, nên cho cùng kết quả.
 
-**Bước 2 (xác suất).** Biến cố $h(K)<a$ là hợp rời của $a$ biến cố $h(K)=v$, $v=0,\ldots,a-1$. Theo giả thiết, mỗi biến cố có xác suất $1/b$, nên
+**Bước 2 (xác suất).** Biến cố $h(K)<a$ là hợp rời của $a$ biến cố $h(K)=c$, $c=0,\ldots,a-1$. Theo giả thiết, mỗi biến cố có xác suất $1/b$, nên
 
 $$
-\Pr_h[h(K)<a]=\sum_{v=0}^{a-1}\Pr_h[h(K)=v]=\frac ab. \qquad\square
+\Pr_h[h(K)<a]=\sum_{c=0}^{a-1}\Pr_h[h(K)=c]=\frac ab. \qquad\square
 $$
 :::
 
@@ -566,7 +567,7 @@ Với tỷ lệ cố định $1/10$, mẫu giữ mọi truy vấn của người
 
 1. Khởi tạo $\tau\gets b-1$ và mẫu rỗng.
 2. Khi bộ $t$ đến: nếu $h(K(t))\le\tau$ thì đưa $t$ vào mẫu và vào chỉ mục.
-3. Chừng nào mẫu có hơn $G$ bộ: lấy $v$ là giá trị băm lớn nhất trong mẫu (tra chỉ mục), xóa mọi bộ có giá trị băm $v$, rồi đặt $\tau\gets v-1$.
+3. Chừng nào mẫu có hơn $G$ bộ: lấy $c$ là giá trị băm lớn nhất trong mẫu (tra chỉ mục), xóa mọi bộ có giá trị băm $c$, rồi đặt $\tau\gets c-1$.
 
 **Dừng.** Mỗi lần lặp ở bước 3 xóa ít nhất một bộ, nên bước 3 dừng sau không quá số bộ đang có trong mẫu.
 
@@ -578,8 +579,8 @@ Với tỷ lệ cố định $1/10$, mẫu giữ mọi truy vấn của người
 |---|---|---|
 | băm và so sánh ở bước 2 | $r$ | 1 phép băm, 1 phép so sánh |
 | đưa vào chỉ mục | không quá $r$ | $O(\log G)$ |
-| lần dọn ở bước 3 | không quá số giá trị băm phân biệt từng có trong mẫu | $O(\log G)$ để tra $v$ |
-| xóa một bộ | không quá $r$ | $O(1)$ trên danh sách của $v$ |
+| lần dọn ở bước 3 | không quá số giá trị băm phân biệt từng có trong mẫu | $O(\log G)$ để tra $c$ |
+| xóa một bộ | không quá $r$ | $O(1)$ trên danh sách của $c$ |
 
 Mỗi bộ bị xóa nhiều nhất một lần; mỗi lần dọn loại hẳn một giá trị băm, vì $\tau$ xuống dưới giá trị đó và không tăng lại. Chỉ mục giữ không quá $G+1$ bộ, nên mỗi phép tra tốn $O(\log G)$. Sau mỗi lần dọn, bộ nhớ gồm tối đa $G$ bộ cùng chỉ mục.
 :::
@@ -596,8 +597,8 @@ Ký hiệu $G$ (ngân sách) chỉ dùng trong thuật toán này và Ví dụ 0
 | 1 | An | 9 | đưa vào | An | 9 |
 | 2 | Bình | 9 | đưa vào | An, Bình | 9 |
 | 3 | An | 9 | đưa vào | An, Bình, An | 9 |
-| 4 | An | 9 | đưa vào; 4 bộ vượt $G$: $v=7$, xóa bộ của Bình | An, An, An | 6 |
-| 5 | Chi | 6 | $4\le6$, đưa vào; 4 bộ vượt $G$: $v=4$, xóa bộ của Chi | An, An, An | 3 |
+| 4 | An | 9 | đưa vào; 4 bộ vượt $G$: $c=7$, xóa bộ của Bình | An, An, An | 6 |
+| 5 | Chi | 6 | $4\le6$, đưa vào; 4 bộ vượt $G$: $c=4$, xóa bộ của Chi | An, An, An | 3 |
 
 **Diễn giải.** Sau bước 5, mẫu là mẫu theo khóa với $a=\tau+1=4$: giữ trọn An, bỏ trọn Bình và Chi. Ở bước 4, ngưỡng nhảy từ 9 xuống 6, bỏ qua các giá trị 9 và 8 không có bộ nào.
 
@@ -609,7 +610,7 @@ Ký hiệu $G$ (ngân sách) chỉ dùng trong thuật toán này và Ví dụ 0
 
 **Kết luận.** Sau mỗi bước, mẫu đúng bằng tập các bộ đã đọc có $h(K(t))\le\tau$. Do đó mẫu luôn là mẫu theo khóa với ngưỡng $a=\tau+1$, và $\tau$ không tăng.
 
-**Điều kiện áp dụng.** Bước 3 xóa đúng các bộ có giá trị băm lớn nhất $v$ trong mẫu trước khi đặt $\tau\gets v-1$.
+**Điều kiện áp dụng.** Bước 3 xóa đúng các bộ có giá trị băm lớn nhất $c$ trong mẫu trước khi đặt $\tau\gets c-1$.
 
 **Phạm vi.** Mệnh đề không nói gì về xác suất; tỷ lệ khóa $(\tau+1)/b$ giảm dần theo dòng.
 :::
@@ -619,7 +620,7 @@ Ký hiệu $G$ (ngân sách) chỉ dùng trong thuật toán này và Ví dụ 0
 
 **Bước 2 (đưa bộ vào).** Giả sử bất biến đúng trước khi $t$ đến. Bước 2 đưa $t$ vào đúng khi $h(K(t))\le\tau$, nên bất biến đúng sau bước 2.
 
-**Bước 3 (hạ ngưỡng).** Giả sử mẫu bằng tập các bộ đã đọc có $h\le\tau$ và mẫu khác rỗng. Gọi $v$ là giá trị băm lớn nhất trong mẫu, nên $v\le\tau$. Không bộ nào trong mẫu có giá trị trong khoảng $(v,\tau]$; theo bất biến, cũng không bộ đã đọc nào có giá trị trong khoảng đó. Xóa các bộ có giá trị $v$ để lại đúng các bộ đã đọc có $h\le v-1$, nên đặt $\tau\gets v-1$ giữ bất biến, và $\tau$ giảm. Theo quy nạp trên số bước, bất biến đúng sau mọi bước; $\tau$ chỉ thay đổi ở bước 3, và ở đó nó giảm. $\square$
+**Bước 3 (hạ ngưỡng).** Giả sử mẫu bằng tập các bộ đã đọc có $h\le\tau$ và mẫu khác rỗng. Gọi $c$ là giá trị băm lớn nhất trong mẫu, nên $c\le\tau$. Không bộ nào trong mẫu có giá trị trong khoảng $(c,\tau]$; theo bất biến, cũng không bộ đã đọc nào có giá trị trong khoảng đó. Xóa các bộ có giá trị $c$ để lại đúng các bộ đã đọc có $h\le c-1$, nên đặt $\tau\gets c-1$ giữ bất biến, và $\tau$ giảm. Theo quy nạp trên số bước, bất biến đúng sau mọi bước; $\tau$ chỉ thay đổi ở bước 3, và ở đó nó giảm. $\square$
 :::
 
 Như vậy, chúng ta đã chỉ ra lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), thay bảng nhãn bằng hàm băm cố định (Định nghĩa 08.8, Thuật toán 08.9), chứng minh mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất $a/b$ (Mệnh đề 08.10), tính cỡ mẫu kỳ vọng $ar/b$ (Hệ quả 08.12), và giữ ngân sách bằng ngưỡng giảm dần (Thuật toán 08.13, Mệnh đề 08.14). Tuy nhiên, cỡ mẫu theo khóa phụ thuộc vào số bộ của các khóa được chọn: với tỷ lệ cố định, nó tăng theo dòng; với ngân sách cố định, tỷ lệ khóa giảm dần và một khóa nhiều bộ có thể bị đẩy trọn ra khỏi mẫu. Mẫu đại diện cho mọi phần tử đã đọc cần đúng $s$ phần tử ở mọi thời điểm. Trong Mục 3, chúng ta đổi đơn vị chọn từ khóa sang vị trí trên dòng và xây lấy mẫu hồ chứa với cỡ mẫu cố định.
@@ -852,192 +853,339 @@ Mỗi bộ của An nằm trong hồ với xác suất $s/r=100/1\,000=0{,}1$ (�
 
 Như vậy, chúng ta đã có cấu trúc lấy mẫu thứ hai: hồ chứa giữ đúng $\min(r,s)$ phần tử (Định nghĩa 08.15, Thuật toán 08.16), mỗi phần tử đã đọc có mặt với xác suất $s/r$ (Định lý 08.17), mọi tập con cỡ $s$ đồng khả năng (Mệnh đề 08.18), với bộ nhớ $\Theta(s)$ và thời gian $O(1)$ mỗi phần tử (Mệnh đề 08.19). Tuy nhiên, cả hai cấu trúc lấy mẫu đều trả lời câu hỏi về phân phối. Câu hỏi "địa chỉ gửi thư này có thuộc danh sách $10^9$ địa chỉ được phép không" đòi biết một khóa cụ thể có trong tập hay không, và một mẫu không trả lời được: một địa chỉ được phép vắng mặt trong mẫu vẫn là địa chỉ được phép. Trong Mục 4, chúng ta xây Bloom filter cho câu hỏi thành viên này.
 
-## 6. Đặc tả và cơ chế Bloom filter
+## 4. Lọc thành viên bằng Bloom filter
 
-### Vai trò
+Hai cấu trúc lấy mẫu của Mục 2 và Mục 3 trả lời câu hỏi về phân phối. Bài toán lọc thư của ghi chú Bài 01 cần một câu hỏi khác: địa chỉ gửi của thư vừa đến có thuộc tập địa chỉ được phép hay không. Một mẫu không trả lời được câu hỏi này, vì một địa chỉ được phép vắng mặt trong mẫu vẫn là địa chỉ được phép. Chúng ta cần một cấu trúc trả lời câu hỏi thành viên trên dòng, với bộ nhớ cố định và không bao giờ chặn nhầm một địa chỉ được phép.
 
-Khi cần lọc dòng theo thuộc tính thành viên trong một tập $S$ đủ lớn không thể để trong bộ nhớ chính, ta dùng bộ lọc thành viên xác suất. Mô hình đến từ MMDS: tập $S$ gồm một tỷ địa chỉ thư điện tử được phép, ngân sách một gigabyte (tám tỷ bit), và mỗi bộ đến cần được lọc trước phép tra cứu đĩa chậm.
+<!-- note-topic-id: lec-08-topic-09 -->
+### 4.1 Lọc theo danh sách cho phép
 
-Nếu $S$ có $m=10^9$ khóa và ngân sách $n=8\cdot10^9$ bit thì trung bình có $n/m=8$ bit cho mỗi khóa. Mỗi khóa được băm một lần vào mảng bit và đặt bit tương ứng bằng 1; khi một địa chỉ đến, băm nó và chỉ cho đi nếu bit băm bằng 1.
+MMDS (§4.3.1, tr.139) đặt tình huống như sau. Tập $S$ gồm $m=10^9$ địa chỉ thư được tin là không phát tán thư rác. Mỗi địa chỉ dài từ 20 byte, nên lưu $S$ cần từ 20 GB. Bộ nhớ chính chỉ có 1 GB, tức $n=8\cdot10^9$ bit, và tra $S$ trên đĩa cho mỗi thư đến thì không theo kịp nhịp đến của dòng.
 
-### Đặc tả tổng quát
+Một cách trực quan, hàm băm lại thay cho bảng lưu khóa, như ở Mục 2.2; điểm khác là mọi khóa của $S$ được ghi vào cấu trúc trước khi dòng đến. Sách dùng một hàm băm từ địa chỉ vào $8\cdot10^9$ bit: mỗi địa chỉ của $S$ đặt bit của nó thành 1. Khi thư đến, nếu bit của địa chỉ gửi bằng 0 thì địa chỉ đó chắc chắn không thuộc $S$, vì mọi địa chỉ của $S$ đã đặt bit của mình. Nếu bit bằng 1, địa chỉ chỉ có thể thuộc $S$, vì nhiều địa chỉ có thể băm vào cùng một bit. Có $10^9$ địa chỉ đặt bit trên $8\cdot10^9$ bit, nên khoảng $1/8$ số bit bằng 1, và khoảng $1/8$ số địa chỉ ngoài $S$ lọt qua bước lọc. Mô tả này chưa cho biết tỷ lệ chính xác hay cách giảm tỷ lệ đó; Bloom filter dùng $k$ hàm băm thay cho một để giảm số lần nhận nhầm.
 
-Một Bloom filter gồm:
+![Khóa của dòng đi qua Bloom filter, bộ lọc kiểm tra k bit; nếu có một bit bằng 0 thì khóa bị loại vì chắc chắn không thuộc S, nhánh này vẽ nét đứt; nếu mọi bit bằng 1 thì kết quả là có thể thuộc và khóa đi tiếp tới phép tra cứu chính xác trên S.](img/lec-08/bloom-pipeline.svg)
 
-- một mảng $n$ bit, ban đầu tất cả bằng 0;
-- $k\ge1$ hàm băm $h_1,\dots,h_k:\mathcal K\to\{0,\dots,n-1\}$;
-- một tập $S$ gồm $m$ khóa.
+Hình đặt Bloom filter trước phép tra chính xác. Chỉ khóa nhận "có thể thuộc" mới đi tới phép tra $S$ trên đĩa, nên số lần tra đĩa bằng số khóa thuộc $S$ cộng số khóa ngoài $S$ bị nhận nhầm.
 
-Mỗi khóa $x\in S$ được băm qua cả $k$ hàm và mọi bit $B[h_i(x)]$ được đặt bằng 1; các bit còn lại vẫn bằng 0. Để truy vấn khóa $y$, xét $k$ bit $B[h_i(y)]$. Nếu một trong các bit đó bằng 0 thì $y$ **chắc chắn không thuộc** $S$; nếu cả $k$ bit đều bằng 1 thì $y$ **có thể thuộc**, và cần phép kiểm tra chính xác nếu quyết định không được phép sai.
+### 4.2 Ví dụ Bloom filter 11 bit
 
-<div class="figure">
+Hai ví dụ sau chạy một Bloom filter nhỏ với $n=11$ bit và $k=2$ hàm băm, theo slide của Ullman cho học phần CS246 (2017, tr.5–8). Hàm $h_1(v)$ ghép các bit ở vị trí lẻ của biểu diễn nhị phân của $v$, đếm từ phải và bắt đầu từ 1, giữ thứ tự từ cao xuống thấp, rồi lấy dư cho 11. Hàm $h_2(v)$ làm như vậy với các bit ở vị trí chẵn. Mảng $B$ hiển thị chỉ số 0 đến 10 từ trái sang phải. Cặp hàm này chỉ là một ví dụ cụ thể, không thuộc định nghĩa Bloom filter.
 
-![Khóa đến qua Bloom filter; có bit không thì bị loại, còn có thể thuộc mới được tra cứu chính xác](img/lec-08/bloom-pipeline.svg)
+::: example Ví dụ 08.11 (Thêm ba khóa vào mảng 11 bit)
+**Dữ kiện.** $S=\{25,159,585\}$, $n=11$, $k=2$; mảng ban đầu toàn 0.
 
-</div>
+**Tính.**
 
-### Ví dụ 11 bit
+| Khóa $v$ | Nhị phân | Bit lẻ | Bit chẵn | $(h_1,h_2)$ | Mảng $B$ sau khi thêm |
+|---:|---|---|---|---|---|
+| 25 | $11001_2$ | $101_2=5$ | $10_2=2$ | $(5,2)$ | 00100100000 |
+| 159 | $10011111_2$ | $0111_2=7$ | $1011_2=11\equiv0$ | $(7,0)$ | 10100101000 |
+| 585 | $1001001001_2$ | $01001_2=9$ | $10010_2=18\equiv7$ | $(9,7)$ | 10100101010 |
 
-Với mảng $n=11$ bit, định nghĩa: $h_1(x)$ lấy các bit ở vị trí lẻ từ phải (vị trí 1-based) của biểu diễn nhị phân, giữ thứ tự từ trọng số cao xuống thấp, diễn giải thành số nguyên rồi lấy modulo 11; $h_2(x)$ làm tương tự với các bit ở vị trí chẵn.
+**Diễn giải.** Khóa 585 đặt lại bit 7, bit mà 159 đã đặt, nên mảng không đổi ở vị trí đó. Sau ba khóa, mảng có 5 bit bằng 1.
 
-Theo quy ước trình bày, mảng lọc hiển thị chỉ số $0,\dots,10$ từ trái qua phải. Với $x=159=10011111_2$, các bit vị trí lẻ cho $0111_2=7$ và các bit vị trí chẵn cho $1011_2=11\equiv0\pmod{11}$, nên $(h_1,h_2)=(7,0)$.
+**Kiểm tra lại.** Các bit bằng 1 là $0,2,5,7,9$, đúng hợp các vị trí $\{5,2\}\cup\{7,0\}\cup\{9,7\}$.
+:::
 
-| Phần tử $x$ | $h_1$ | $h_2$ | Mảng $B$ (chỉ số 0–10) |
-|---|---|---|---|
-| — | | | 00000000000 |
-| 25 | 5 | 2 | 00100100000 |
-| 159 | 7 | 0 | 10100101000 |
-| 585 | 9 | 7 | 10100101010 |
+![Mảng 11 bit, chỉ số 0 đến 10: ban đầu toàn 0; thêm 25 vào vị trí 5 và 2 được 00100100000; thêm 159 vào vị trí 7 và 0 được 10100101000; thêm 585 vào vị trí 9 và 7 được 10100101010, bit 7 đã bằng 1 nên không đổi; bit vừa đặt ở mỗi bước có khung đậm.](img/lec-08/bloom-11bit-them.svg)
 
-<div class="figure">
+::: example Ví dụ 08.12 (Kiểm tra hai khóa trên mảng 11 bit)
+**Dữ kiện.** Mảng $B=10100101010$ của Ví dụ 08.11, cùng $h_1$, $h_2$. Khóa 118 lấy từ slide Ullman tr.8; khóa 29 do học phần chọn.
 
-![Bit 0 đến 10 từ trái sang phải; ba khóa đặt các bit 0, 2, 5, 7, 9; khóa 118 gặp bit 3 bằng không nên chắc chắn không thuộc](img/lec-08/bloom-11bit.svg)
+**Tính.**
 
-</div>
+| Khóa $y$ | Nhị phân | $(h_1,h_2)$ | Bit đọc được | Trả lời |
+|---:|---|---|---|---|
+| 118 | $1110110_2$ | $(14\bmod 11,5)=(3,5)$ | $B[3]=0$ (dừng) | chắc chắn không thuộc |
+| 29 | $11101_2$ | $(7,2)$ | $B[7]=1$, $B[2]=1$ | có thể thuộc |
 
-Chỉ bit 7 bị va chạm khi thêm 585 (đã được đặt bởi 159). Các kết quả còn lại: $25\to(5,2)$, $585\to(9,7)$, $118\to(3,5)$.
+**Diễn giải.** Khóa 118 bị loại ngay ở $h_1$, dù bit 5 bằng 1. Khóa 29 không thuộc $S$ nhưng qua bộ lọc: bit 7 do 159 và 585 đặt, bit 2 do 25 đặt. Đây là một trường hợp nhận nhầm, và ứng dụng phải tra $S$ để phát hiện nó.
 
-Truy vấn $y=118=1110110_2$: $(h_1,h_2)=(3,5)$. Bit 5 bằng 1 nhưng bit 3 bằng 0, nên $118$ chắc chắn không thuộc $S$.
+**Kiểm tra lại.** $29\notin\{25,159,585\}$; cả hai bit $7$ và $2$ nằm trong tập bit 1 là $\{0,2,5,7,9\}$.
+:::
 
-> Cặp hàm băm ở đây chỉ là ví dụ cụ thể để cho thấy va chạm; đặc tả tổng quát ở trên không phụ thuộc vào cách chọn $h_i$ cụ thể.
+![Mảng 10100101010, chỉ số 0 đến 10; bit 2 và bit 7 bằng 1 có khung đậm, là hai vị trí của khóa 29; bit 3 bằng 0 có khung nét đứt, là vị trí h1 của khóa 118.](img/lec-08/bloom-11bit-mini.svg)
 
-### Xây dựng và truy vấn
+### 4.3 Đặc tả và thuật toán
+
+::: definition Định nghĩa 08.22 (Bloom filter, dương giả, âm giả)
+Cho tập $S\subseteq\mathcal K$ gồm $m$ khóa, số bit $n\ge1$ và $k\ge1$ hàm băm $h_1,\ldots,h_k:\mathcal K\to\{0,\ldots,n-1\}$. **Bloom filter** của $S$ là mảng bit $B[0..n-1]$ trong đó $B[c]=1$ khi và chỉ khi $c=h_i(v)$ với một khóa $v\in S$ và một chỉ số $i\in\{1,\ldots,k\}$. Với khóa truy vấn $y\in\mathcal K$, Bloom filter trả "chắc chắn không thuộc" nếu $B[h_i(y)]=0$ với một $i$ nào đó, và trả "có thể thuộc" nếu ngược lại.
+
+Một **dương giả** (false positive) là một khóa $y\notin S$ nhận câu trả lời "có thể thuộc". Một **âm giả** (false negative) là một khóa $y\in S$ nhận câu trả lời "chắc chắn không thuộc".
+:::
+
+Bloom filter trả lời câu hỏi thành viên một phía. Câu trả lời "chắc chắn không thuộc" luôn đúng dưới bốn điều kiện của Định lý 08.25; câu trả lời "có thể thuộc" cần tra $S$ khi quyết định không được sai. Trong lọc thư, dương giả là lỗi chấp nhận được, vì thư rác lọt qua bước lọc sẽ bị chặn ở bước tra chính xác. Âm giả thì không chấp nhận được, vì thư hợp lệ bị chặn. Trong Ví dụ 08.11–08.12, $n=11$, $k=2$, $m=3$, và khóa 29 là một dương giả. So với mẫu theo khóa (Định nghĩa 08.8), Bloom filter cũng dựa vào tính tất định của hàm băm, nhưng ghi dấu vết của mọi khóa trong $S$ thay vì chọn một phần khóa.
+
+::: algorithm Thuật toán 08.23 (Xây Bloom filter)
+**Đầu vào.** Tập $S$ gồm $m$ khóa; số bit $n$; hàm băm $h_1,\ldots,h_k$ vào $\{0,\ldots,n-1\}$.
+
+**Đầu ra.** Mảng $B[0..n-1]$ của Định nghĩa 08.22.
+
+**Giả thiết.** Các hàm $h_i$ tất định và được giữ nguyên giữa lúc xây và lúc truy vấn.
+
+1. Đặt mọi bit $B[0..n-1]$ bằng 0.
+2. Với mỗi khóa $v\in S$ và mỗi $i=1,\ldots,k$: đặt $B[h_i(v)]\gets1$.
+3. Trả $B$.
 
 ```text
-XÂY-BLOOM(S, n, h_1,…,h_k)
-  B[0…n-1] ← 0
-  với mỗi khóa x trong S:
-    với i = 1,…,k: B[h_i(x)] ← 1
-  trả B
+XÂY-BLOOM(S; n, h_1, …, h_k)
+    B[0 … n−1] ← 0
+    với mỗi khóa v trong S:
+        với i = 1, …, k: B[h_i(v)] ← 1
+    trả B
 ```
+
+**Dừng.** Bước 2 có đúng $km$ lượt.
+
+**Trường hợp biên.** $S$ rỗng cho mảng toàn 0, và mọi truy vấn nhận "chắc chắn không thuộc". Hai khóa, hoặc hai hàm của cùng một khóa, đặt cùng một bit thì bit đó không đổi.
+
+**Chi phí.** Bước 1: $n$ phép ghi bit. Bước 2: $km$ phép băm và $km$ phép ghi bit. Bộ nhớ: $n$ bit, không phụ thuộc độ dài khóa.
+:::
+
+::: algorithm Thuật toán 08.24 (Kiểm tra thành viên)
+**Đầu vào.** Khóa truy vấn $y$; mảng $B$ do Thuật toán 08.23 xây; cùng $h_1,\ldots,h_k$.
+
+**Đầu ra.** "Chắc chắn không thuộc" hoặc "có thể thuộc", theo Định nghĩa 08.22.
+
+**Giả thiết.** Như Thuật toán 08.23; mảng chỉ được đọc.
+
+1. Với $i=1,\ldots,k$: nếu $B[h_i(y)]=0$ thì trả "chắc chắn không thuộc" và dừng.
+2. Trả "có thể thuộc".
 
 ```text
-KIỂM-TRA-BLOOM(x, B, h_1,…,h_k)
-  với i = 1,…,k:
-    nếu B[h_i(x)] = 0: trả "chắc chắn không thuộc"
-  trả "có thể thuộc"
+KIỂM-TRA-BLOOM(y; B, h_1, …, h_k)
+    với i = 1, …, k:
+        nếu B[h_i(y)] = 0: trả "chắc chắn không thuộc"
+    trả "có thể thuộc"
 ```
 
-Va chạm không tạo ô mới; đặt lại bit 1 không đổi trạng thái. Chi phí xây $\Theta(km)$ phép băm và đặt bit, bộ nhớ $n$ bit; truy vấn xấu $\Theta(k)$, nhưng dừng sớm giúp khóa âm thường rẻ hơn $k$ phép băm.
+**Dừng.** Vòng lặp có tối đa $k$ lượt.
 
-::: exercise Tự kiểm
-Khi một khóa truy vấn gặp một bit 0, Bloom filter có cần kiểm các bit còn lại không?
+**Trường hợp biên.** Khóa thuộc $S$ và khóa dương giả luôn đọc đủ $k$ bit; khóa bị loại dừng ở bit 0 đầu tiên, như 118 dừng ngay ở $h_1(118)=3$.
+
+**Chi phí.** Trường hợp xấu nhất: $k$ phép băm và $k$ phép đọc bit.
+:::
+
+Phép quyết định của Thuật toán 08.24 là đọc bit: gặp một bit 0 thì dừng và loại $y$. Mảng chỉ đổi bit từ 0 sang 1, không bao giờ ngược lại; tính chất này là cơ sở của định lý sau.
+
+<!-- note-topic-id: lec-08-topic-10 -->
+### 4.4 Không âm giả
+
+::: theorem Định lý 08.25 (Không có âm giả)
+**Giả thiết.** Mảng $B$ được xây bằng Thuật toán 08.23 và:
+
+1. sau khi xây, không bit nào bị xóa hay đặt lại về 0;
+2. truy vấn dùng đúng các hàm $h_1,\ldots,h_k$ và đúng mảng đã xây;
+3. các hàm băm tất định;
+4. mọi phép ghi bit đã hoàn tất trước truy vấn.
+
+**Kết luận.** Với mọi $y\in S$, Thuật toán 08.24 trả "có thể thuộc".
+
+**Điều kiện áp dụng.** Định lý không dùng xác suất; nó đúng với mọi lựa chọn hàm băm thỏa điều kiện 3.
+
+**Phạm vi.** Định lý chỉ nói về khóa thuộc $S$. Khóa ngoài $S$ vẫn có thể là dương giả, như khóa 29 của Ví dụ 08.12.
+:::
+
+::: proof
+**Bước 1 (lúc xây).** Vì $y\in S$, bước 2 của Thuật toán 08.23 đặt $B[h_i(y)]\gets1$ với mọi $i$, và theo điều kiện 4 các phép ghi này đã xong trước truy vấn.
+
+**Bước 2 (lúc truy vấn).** Theo điều kiện 1, không bit nào trở về 0. Theo điều kiện 2 và 3, vị trí đọc ở lượt $i$ của Thuật toán 08.24 chính là $h_i(y)$ đã đặt ở Bước 1. Vậy mọi bit được đọc bằng 1, vòng lặp không dừng sớm, và thuật toán trả "có thể thuộc". $\square$
+:::
+
+Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+
+- Bỏ điều kiện 1: trong Ví dụ 08.11, gỡ 585 bằng cách đặt bit 9 và bit 7 về 0 làm $B[7]=0$, và khóa 159 thuộc $S$ nhận "chắc chắn không thuộc".
+- Bỏ điều kiện 2: nếu truy vấn dùng $h_1(v)+1\bmod 11$ thay cho $h_1$, khóa 25 thuộc $S$ đọc bit 6 và bit 2; trên mảng 10100101010, $B[6]=0$, nên 25 nhận "chắc chắn không thuộc".
+- Bỏ điều kiện 3: một hàm có thành phần ngẫu nhiên ở mỗi lần gọi có thể trả lúc truy vấn một vị trí khác lúc xây.
+- Bỏ điều kiện 4: truy vấn 159 khi Thuật toán 08.23 mới ghi $B[7]$ cho 159 mà chưa ghi $B[0]$; mảng tạm 00100101000 có $B[0]=0$, nên 159 nhận "chắc chắn không thuộc".
+
+Bước 1 dùng điều kiện 4; Bước 2 dùng điều kiện 1, 2 và 3.
+
+<!-- note-topic-id: lec-08-topic-11 -->
+### 4.5 Mật độ bit và xác suất dương giả
+
+Định lý 08.25 không nói gì về khóa ngoài $S$. Để biết bao nhiêu khóa ngoài $S$ lọt qua, chúng ta cần một mô hình xác suất cho các hàm băm. MMDS (§4.3.3, tr.140) dùng mô hình phi tiêu: mỗi phép băm của một khóa trong $S$ như một phi tiêu rơi đều vào một trong $n$ bia, độc lập với các phi tiêu khác. Có $km$ phi tiêu. Phân tích này đi theo cùng cách làm với Định lý 06.7 (Kiến thức tiên quyết): xác suất cho một lần thử, tích các xác suất độc lập, rồi biến cố bù.
+
+::: example Ví dụ 08.13 (Tám bia, bốn phi tiêu)
+**Dữ kiện.** $n=8$ bia, 4 phi tiêu, mỗi phi tiêu rơi đều và độc lập.
+
+**Tính.** Một bia cố định không bị một phi tiêu trúng với xác suất $7/8$. Bốn phi tiêu độc lập, nên bia không bị trúng với xác suất $(7/8)^4=2401/4096\approx0{,}586$, và bị trúng ít nhất một lần với xác suất $\approx0{,}414$.
+
+**Kiểm tra lại.** Kỳ vọng số bia bị trúng là $8\cdot0{,}414\approx3{,}31$, nhỏ hơn 4 vì có phi tiêu rơi trùng bia.
+:::
+
+::: lemma Bổ đề 08.26 (Mật độ bit 1)
+**Giả thiết.** $km$ giá trị $h_i(v)$, $v\in S$, $i=1,\ldots,k$, độc lập và đều trên $\{0,\ldots,n-1\}$.
+
+**Kết luận.** Với mọi vị trí $c$, $\Pr[B[c]=0]=(1-1/n)^{km}$. Số bit 1 $X$ có kỳ vọng $\mathbb E[X]=nq$, với $q=1-(1-1/n)^{km}$.
+
+**Điều kiện áp dụng.** Xác suất lấy theo cách chọn các hàm băm; $S$ cố định.
+
+**Phạm vi.** Bổ đề chính xác dưới mô hình phi tiêu; nó không nói các bit độc lập.
+:::
+
+::: proof
+**Bước 1.** Bit $c$ bằng 0 khi và chỉ khi không giá trị băm nào bằng $c$. Mỗi giá trị khác $c$ với xác suất $1-1/n$; $km$ giá trị độc lập, nên xác suất là $(1-1/n)^{km}$.
+
+**Bước 2.** $X=\sum_c\mathbf 1[B[c]=1]$; mỗi chỉ báo có kỳ vọng $q$, nên theo tuyến tính kỳ vọng $\mathbb E[X]=nq$. $\square$
+:::
+
+Đại lượng $q$ vì vậy là mật độ bit 1 kỳ vọng. Viết $(1-1/n)^{km}=\bigl((1-1/n)^n\bigr)^{km/n}$ và dùng giới hạn $(1-1/n)^n\approx e^{-1}$ ở phần tiên quyết, ta được $q\approx1-e^{-km/n}$ khi $n$ lớn. Các bit không độc lập. Với hai vị trí $c\ne c'$, cả hai bit bằng 0 khi không phi tiêu nào rơi vào hai vị trí đó, nên $\Pr[B[c]=B[c']=0]=(1-2/n)^{km}$; vì $1-2/n<(1-1/n)^2$, số này nhỏ hơn $\Pr[B[c]=0]\Pr[B[c']=0]=(1-1/n)^{2km}$, tức hai bit tương quan âm. Mệnh đề 08.27 không cần các bit độc lập.
+
+Một khóa $y\notin S$ là dương giả khi cả $k$ bit $B[h_1(y)],\ldots,B[h_k(y)]$ bằng 1. Mệnh đề sau tính xác suất này và đặt nó cạnh hai xấp xỉ quen dùng.
+
+::: proposition Mệnh đề 08.27 (Xác suất dương giả và hai xấp xỉ)
+**Giả thiết.** Như Bổ đề 08.26; thêm: với $y\notin S$ cố định, $k$ giá trị $h_1(y),\ldots,h_k(y)$ độc lập, đều trên $\{0,\ldots,n-1\}$ và độc lập với các giá trị băm của $S$.
+
+**Kết luận.**
+
+(a) $p_{FP}=\mathbb E\bigl[(X/n)^k\bigr]$.
+
+(b) $p(k)=\bigl(1-e^{-km/n}\bigr)^k\le q^k\le p_{FP}$; khi $k=1$, $q=p_{FP}$.
+
+**Điều kiện áp dụng.** Xác suất lấy theo cách chọn mọi hàm băm; $S$ và $y$ cố định.
+
+**Phạm vi.** $q^k$ và dạng mũ $p(k)$ là cận dưới của $p_{FP}$ dưới mô hình này; khi $n$ lớn, ba đại lượng gần nhau.
+:::
+
+::: proof
+**Bước 1 (điều kiện theo mảng).** Cố định các giá trị băm của $S$, tức cố định mảng, có $X$ bit 1. Mỗi vị trí $h_i(y)$ đều và độc lập với mảng, nên rơi vào bit 1 với xác suất $X/n$. Các vị trí độc lập với nhau, nên cả $k$ vị trí rơi vào bit 1 với xác suất $(X/n)^k$; khi hai vị trí trùng nhau, phép tính này vẫn đúng, vì mỗi vị trí được rút độc lập.
+
+**Bước 2 (lấy kỳ vọng).** Lấy kỳ vọng theo mảng được $p_{FP}=\mathbb E[(X/n)^k]$, tức phần (a).
+
+**Bước 3 (Jensen).** Hàm $z\mapsto z^k$ lồi trên $[0,1]$ khi $k\ge1$. Theo bất đẳng thức Jensen và Bổ đề 08.26, $\mathbb E[(X/n)^k]\ge(\mathbb E[X]/n)^k=q^k$. Khi $k=1$, hai vế bằng nhau.
+
+**Bước 4 (dạng mũ).** Từ $1-1/n\le e^{-1/n}$ suy ra $(1-1/n)^{km}\le e^{-km/n}$, nên $q\ge1-e^{-km/n}$ và $q^k\ge p(k)$. $\square$
+:::
+
+Phần (a) chỉ ra nguồn gốc của sai số khi dùng $q^k$: sai số đến từ việc thay kỳ vọng của $(X/n)^k$ bằng lũy thừa của kỳ vọng, chứ không đến từ việc các vị trí truy vấn có thể trùng. Dạng mũ $p(k)$ là công thức của MMDS (tr.141) và của mọi phép định cỡ trong phần còn lại của mục.
+
+::: example Ví dụ 08.14 (Một và hai hàm băm trên tình huống lọc thư)
+**Dữ kiện.** $n=8\cdot10^9$, $m=10^9$, nên $km/n=k/8$ (MMDS Ví dụ 4.3–4.4, tr.141).
+
+**Tính.** Với $k=1$: $p(1)=1-e^{-1/8}\approx0{,}1175$; phép tính hữu hạn $q=1-(1-1/n)^m=0{,}1175031$ trùng tới sáu chữ số, và theo Mệnh đề 08.27(b), với $k=1$ số này chính là $p_{FP}$. Với $k=2$: $p(2)=(1-e^{-1/4})^2\approx0{,}0489$.
+
+**Diễn giải.** Hai hàm băm giảm tỷ lệ nhận nhầm từ khoảng $11{,}75\%$ xuống khoảng $4{,}89\%$, dù mảng nhận gấp đôi số phi tiêu và mật độ bit 1 tăng từ $0{,}1175$ lên $1-e^{-1/4}\approx0{,}2212$.
+
+**Kiểm tra lại.** Ví dụ 4.4 của sách in $0{,}0493$ cho $k=2$; tính lại $(1-e^{-0{,}25})^2=0{,}048929$, nên giá trị tính lại được dùng.
+:::
+
+::: example Ví dụ 08.15 (Ba mức xấp xỉ trên mảng 11 bit)
+**Dữ kiện.** $n=11$, $k=2$, $m=3$ như Ví dụ 08.11, nên có $km=6$ phi tiêu.
+
+**Tính.** $q=1-(10/11)^6\approx0{,}4355$, nên $\mathbb E[X]=11q\approx4{,}79$. Liệt kê $11^6$ cách rơi của sáu phi tiêu cho $p_{FP}=\mathbb E[(X/11)^2]\approx0{,}1951$. Ta có $q^2\approx0{,}1897$ và $p(2)=(1-e^{-6/11})^2\approx0{,}1768$.
+
+**Diễn giải.** Thứ tự $0{,}1768\le0{,}1897\le0{,}1951$ đúng như Mệnh đề 08.27(b); với $n=11$ ba mức còn cách nhau rõ, còn với $n=8\cdot10^9$ chúng trùng tới nhiều chữ số. Mảng cụ thể của Ví dụ 08.11 có $X=5$, nên với các hàm băm đã cố định, một khóa ngẫu nhiên ngoài $S$ lọt qua với tỷ lệ $(5/11)^2\approx0{,}2066$.
+
+**Kiểm tra lại.** $11\cdot0{,}4355=4{,}79$ nằm giữa $0$ và $\min(11,6)=6$.
+:::
+
+<!-- note-topic-id: lec-08-topic-12 -->
+### 4.6 Số hàm băm tối ưu
+
+Ví dụ 08.14 cho thấy tăng $k$ từ 1 lên 2 làm $p$ giảm. Hai lực tác động ngược chiều. Mỗi hàm băm thêm một phép thử mà khóa ngoài $S$ phải vượt qua, nên số mũ $k$ tăng. Nhưng mỗi hàm băm cũng thêm $m$ phi tiêu, nên $q$ tăng. Với $n/m=8$, $p(1)\approx0{,}118$, $p(6)\approx0{,}022$ và $p(10)\approx0{,}034$. Khi $k\to\infty$, $p(k)\to1$: $e^{-km/n}\to0$ nhanh hơn $1/k$, nên $\ln p(k)=k\ln(1-e^{-km/n})\to0$, nghĩa là gần như mọi bit bằng 1 và mọi khóa đều lọt qua. Định lý sau tìm điểm cân bằng.
+
+::: theorem Định lý 08.28 (Số hàm băm tối ưu)
+**Giả thiết.** $n$, $m$ dương cố định; $p(k)=(1-e^{-km/n})^k$ xét như hàm của biến thực $k>0$.
+
+**Kết luận.** $p$ giảm chặt trên $(0,k^*]$ và tăng chặt trên $[k^*,\infty)$, với $k^*=(n/m)\ln2$. Do đó $p$ đạt giá trị nhỏ nhất trên $k>0$ tại $k^*$, và $p(k^*)=2^{-k^*}$.
+
+**Điều kiện áp dụng.** Kết luận nói về dạng mũ $p(k)$, công thức định cỡ của Mệnh đề 08.27; nó không phải mệnh đề về $p_{FP}$ chính xác.
+
+**Phạm vi.** $k$ thực; với $k$ nguyên, xem Hệ quả 08.29.
+:::
+
+Chứng minh đưa $\ln p(k)$ về một hàm của $\theta=e^{-km/n}$, chính là xác suất một bit bằng 0 theo dạng mũ. Dấu của đạo hàm khi đó trùng dấu của một hàm $\phi(\theta)$ đổi dấu đúng tại $\theta=1/2$, nên chỉ có một điểm dừng, và việc xét dấu hai bên điểm đó cho cực tiểu toàn cục.
+
+::: proof
+**Bước 1 (đổi biến).** Đặt $\rho=m/n>0$, $z=k\rho$ và $\theta=e^{-z}$. Khi $k$ chạy trên $(0,\infty)$, $\theta$ giảm chặt từ 1 xuống 0. Đặt $\lambda(k)=\ln p(k)=k\ln(1-e^{-k\rho})$; vì $\ln$ tăng chặt, $p$ và $\lambda$ cùng tăng, cùng giảm (Kiến thức tiên quyết).
+
+**Bước 2 (đạo hàm).** Theo quy tắc tích và quy tắc chuỗi,
+
+$$
+\begin{aligned}
+\lambda'(k)
+&=\ln(1-e^{-k\rho})+k\cdot\frac{\rho e^{-k\rho}}{1-e^{-k\rho}}\\
+&=\ln(1-\theta)+\frac{z\theta}{1-\theta}
+=\ln(1-\theta)-\frac{\theta\ln\theta}{1-\theta}\\
+&=\frac{\phi(\theta)}{1-\theta},\qquad \phi(\theta)=(1-\theta)\ln(1-\theta)-\theta\ln\theta .
+\end{aligned}
+$$
+
+Dòng thứ hai thay $z=-\ln\theta$. Vì $1-\theta>0$, dấu của $\lambda'(k)$ là dấu của $\phi(\theta)$.
+
+**Bước 3 (dấu của $\phi$ trên $(0,1/2)$).** Mở rộng $\phi(0)=0$, liên tục vì $\theta\ln\theta\to0$ khi $\theta\to0^+$. Ta có $\phi(1/2)=\frac12\ln\frac12-\frac12\ln\frac12=0$. Đạo hàm cấp hai là
+
+$$
+\phi'(\theta)=-\ln(1-\theta)-\ln\theta-2,\qquad \phi''(\theta)=\frac1{1-\theta}-\frac1\theta,
+$$
+
+âm trên $(0,1/2)$ vì $1-\theta>\theta$. Theo tính chất của hàm lõm chặt ở phần tiên quyết, $\phi>0$ trên $(0,1/2)$.
+
+**Bước 4 (dấu trên $(1/2,1)$).** Thay $\theta$ bằng $1-\theta$ được $\phi(1-\theta)=-\phi(\theta)$. Vậy $\phi<0$ trên $(1/2,1)$.
+
+**Bước 5 (kết luận).** $\theta>1/2$ khi và chỉ khi $z<\ln2$, tức $k<k^*=\ln2/\rho=(n/m)\ln2$. Theo Bước 3 và 4, $\lambda'<0$ trên $(0,k^*)$ và $\lambda'>0$ trên $(k^*,\infty)$; theo tiêu chuẩn cực trị ở phần tiên quyết, $\lambda$, và do đó $p$, giảm chặt rồi tăng chặt, nhỏ nhất tại $k^*$. Tại $k^*$, $e^{-k^*\rho}=1/2$, nên $p(k^*)=(1/2)^{k^*}=2^{-k^*}$. Kiểm với $n/m=8$: $\theta=e^{-5/8}\approx0{,}535>1/2$ tại $k=5$ và $\theta=e^{-6/8}\approx0{,}472<1/2$ tại $k=6$, nên $\lambda'(5)<0<\lambda'(6)$, khớp $5<k^*<6$. $\square$
+:::
+
+**Ý nghĩa:** tại $k^*$, xác suất một bit bằng 0 là $e^{-k^*m/n}=1/2$, nên khoảng một nửa số bit bằng 1. Mỗi bit mà khóa ngoài $S$ đọc bằng 1 với xác suất khoảng $1/2$, và $k^*$ bit như vậy cho $p(k^*)=2^{-k^*}$.
+
+::: corollary Hệ quả 08.29 (Số hàm băm nguyên)
+**Giả thiết.** Như Định lý 08.28; $k$ phải là số nguyên dương.
+
+**Kết luận.** Nếu $k^*\ge1$, số nguyên tốt nhất là $\lfloor k^*\rfloor$ hoặc $\lceil k^*\rceil$, chọn giá trị cho $p$ nhỏ hơn. Nếu $k^*<1$, số nguyên tốt nhất là $1$.
+
+**Điều kiện áp dụng.** Như Định lý 08.28.
+
+**Phạm vi.** Hệ quả không nói hai số nguyên kề cho $p$ gần nhau đến đâu; phải tính cả hai.
+:::
+
+::: proof
+Theo Định lý 08.28, $p$ giảm trên $(0,k^*]$, nên mọi số nguyên $k\le\lfloor k^*\rfloor$ cho $p(k)\ge p(\lfloor k^*\rfloor)$; $p$ tăng trên $[k^*,\infty)$, nên mọi số nguyên $k\ge\lceil k^*\rceil$ cho $p(k)\ge p(\lceil k^*\rceil)$. Khi $k^*<1$, mọi số nguyên dương nằm trong $[k^*,\infty)$, nên $k=1$ tốt nhất. $\square$
+:::
+
+::: example Ví dụ 08.16 (Tám bit mỗi khóa)
+**Dữ kiện.** Tình huống lọc thư: $n=8\cdot10^9$ bit, $m=10^9$ địa chỉ, $n/m=8$.
+
+**Tính.** $k^*=8\ln2\approx5{,}545$. Theo Hệ quả 08.29, so hai số nguyên kề: $p(5)=(1-e^{-5/8})^5\approx0{,}021679$ và $p(6)=(1-e^{-6/8})^6\approx0{,}021577$. Chọn $k=6$.
+
+**Diễn giải.** Với sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài $S$ lọt qua; giá trị liên tục nhỏ nhất là $2^{-5{,}545}\approx0{,}02142$, nên làm tròn $k$ chỉ tốn khoảng $0{,}0002$.
+
+**Kiểm tra lại.** $p(6)\ge2^{-k^*}$, đúng với Định lý 08.28. Slide MMDS (Streams 2, tr.14) in $(1-e^{-1/6})^2=0{,}0235$, tức viết sai cả số mũ và lũy thừa; công thức đúng $(1-e^{-6/8})^6$ cho $0{,}0216$, như slide CS246 (2026, tr.32–33) đã sửa.
+:::
+
+![Đường cong xác suất dương giả p(k) theo số hàm băm k từ 1 đến 10, trục tung tuyến tính từ 0 đến 0,12, với tám bit mỗi khóa; đường giảm từ khoảng 0,1175 tại k bằng 1 đến nhỏ nhất tại k bằng 6 rồi tăng lại tới khoảng 0,034 tại k bằng 10; vạch đứng nét đứt tại k* xấp xỉ 5,545; k bằng 5 cho 0,02168 và k bằng 6 cho 0,02158.](img/lec-08/fpr-curve.svg)
+
+Hình vẽ $p(k)$ với $n/m=8$. Phần bên trái vạch $k^*$ là vùng lực thứ nhất thắng, phần bên phải là vùng mảng quá đầy; hai điểm nguyên kề vạch ứng với hai giá trị so sánh ở Ví dụ 08.16.
+
+### 4.7 Giới hạn, nhầm lẫn và cách làm trong thực hành
+
+Thuật toán 08.23 và 08.24 cho chi phí xây $km$ phép băm và ghi bit, chi phí kiểm tra tối đa $k$ phép băm và đọc bit, và bộ nhớ $n$ bit. Bloom filter có ba giới hạn. Nó không liệt kê được các khóa của $S$, vì mảng chỉ ghi bit. Nó không xóa trực tiếp được một khóa, vì một bit có thể do nhiều khóa đặt, và Định lý 08.25 mất hiệu lực khi đặt bit về 0. Thêm khóa mà giữ nguyên $n$ làm $m$ tăng, nên $p(k)$ tăng.
+
+::: remark Nhận xét 08.30 (Nhầm lẫn thường gặp)
+- "Có thể thuộc" không có nghĩa "thuộc": khóa 29 của Ví dụ 08.12 nhận "có thể thuộc" mà không thuộc $S$.
+- $p_{FP}$ là xác suất cho một khóa $y\notin S$ cố định, không phải tỷ lệ thư rác trong các thư lọt qua; tỷ lệ đó còn phụ thuộc số thư từ địa chỉ thuộc $S$ và ngoài $S$.
+- Tăng $k$ không luôn tốt: với $n/m=8$, $p(10)\approx0{,}034$ lớn hơn $p(6)\approx0{,}022$.
+- $q$ chính xác dưới mô hình phi tiêu, còn $q^k$ chỉ là cận dưới của $p_{FP}$ (Mệnh đề 08.27).
+:::
+
+::: remark Nhận xét 08.31 (Trong thực hành)
+Mô hình phi tiêu giả định các hàm băm đều và độc lập; hàm băm thật chỉ xấp xỉ điều đó, nên $p(k)$ là con số định cỡ, không phải bảo đảm. Bảo đảm không âm giả của Định lý 08.25 thì không phụ thuộc mô hình xác suất, chỉ cần bốn điều kiện về trạng thái. Kích thước $m$ phải ước lượng trước khi xây: Ví dụ 08.16 định cỡ $n$ và $k$ cho $10^9$ địa chỉ, và Bài tập 08.5 cho thấy hậu quả khi số địa chỉ tăng gấp đôi. Khi cần gỡ địa chỉ khỏi danh sách cho phép, cách đúng với Bloom filter chuẩn là xây lại mảng.
+:::
+
+::: exercise Bài tập 08.5 (Danh sách cho phép tăng gấp đôi)
+Số địa chỉ được phép tăng lên $m=2\cdot10^9$, mảng giữ $n=8\cdot10^9$ bit và $k=6$. Tính $p(6)$. Số hàm băm nguyên nào tốt hơn?
+:::
+
+::: hint
+Tính $n/m$, rồi $k^*$, rồi so $p$ tại hai số nguyên kề $k^*$ theo Hệ quả 08.29.
 :::
 
 ::: solution
-Không. Một bit 0 đã đủ kết luận khóa chắc chắn không thuộc tập.
+$n/m=4$, nên $p(6)=(1-e^{-6/4})^6\approx0{,}2198$, gấp khoảng mười lần $0{,}0216$ của Ví dụ 08.16. Theo Định lý 08.28, $k^*=4\ln2\approx2{,}77$; so $p(2)=(1-e^{-1/2})^2\approx0{,}1548$ và $p(3)=(1-e^{-3/4})^3\approx0{,}1469$, nên chọn $k=3$. Ngay cả với $k=3$, khoảng $14{,}7\%$ địa chỉ ngoài $S$ lọt qua; muốn giữ khoảng $2\%$ phải tăng $n$ lên khoảng $8$ bit mỗi khóa, tức $1{,}6\cdot10^{10}$ bit.
 :::
 
-## 7. Không âm giả và giới hạn bảo đảm
-
-**Mệnh đề.** Nếu $x\in S$, truy vấn Bloom trả lời "có thể thuộc" khi:
-
-- không xóa hoặc đặt lại bit sau khi xây dựng;
-- dùng đúng cùng $h_1,\dots,h_k$ và cùng trạng thái mảng;
-- các hàm băm xác định (cùng khóa chọn cùng bit);
-- mọi phép ghi bit đã hoàn tất trước truy vấn.
-
-Lúc xây, với mỗi $i$ thuật toán đặt $B[h_i(x)]=1$; các điều kiện trên bảo đảm những bit đó không đổi. Vì vậy mọi bit mà $x$ băm tới vẫn bằng 1 khi truy vấn.
-
-Khóa ngoài $S$ vẫn có thể **dương giả**: cả $k$ bit băm của nó có thể đã được đặt bởi các khóa khác trong $S$. Bloom filter không hứa không có dương giả; bảo đảm không âm giả chỉ đúng khi các điều kiện trạng thái thỏa.
-
-Ví dụ, nếu $x\in S$ đã đặt các bit 2 và 7 thì truy vấn lại $x$ đọc hai bit 1. Nếu một thao tác xóa tùy tiện đặt bit 7 về 0, chính $x$ có thể bị trả lời “chắc chắn không thuộc”.
-
-::: exercise Tự kiểm
-Điều kiện nào của mệnh đề bị vi phạm trong ví dụ trên?
-:::
-
-::: solution
-Trạng thái đã bị xóa bit sau khi xây dựng. Bloom filter chuẩn trong bài không hỗ trợ thao tác xóa như vậy.
-:::
-
-## 8. Mật độ bit và xác suất dương giả
-
-### Mật độ bit hữu hạn
-
-Dưới mô hình mỗi phép băm đều và độc lập trên $n$ bit, mỗi phép băm đặt đúng một bit. Sau $km$ phép băm, xác suất một bit cụ thể vẫn bằng 0 là
-
-$$\left(1-\frac1n\right)^{km},$$
-
-và do đó xác suất bit đó bằng 1 là
-
-$$q=1-\left(1-\frac1n\right)^{km}.$$
-
-Đây là xác suất **chính xác** cho một bit dưới mô hình $km$ phép băm iid, và cũng là mật độ bit 1 kỳ vọng.
-
-### Xác suất dương giả là xấp xỉ
-
-Xác suất dương giả được tính là
-
-$$p_{FP}\approx\left[1-\left(1-\frac1n\right)^{km}\right]^k\approx\left(1-e^{-km/n}\right)^k.$$
-
-Cần phân biệt hai dấu xấp xỉ:
-
-- **Xấp xỉ chuẩn $q^k$.** Giá trị $q=1-(1-1/n)^{km}$ là mật độ biên chính xác dưới mô hình $km$ phép băm iid, nhưng trạng thái các bit phụ thuộc lẫn nhau (chúng chia sẻ các lần đặt), và các vị trí truy vấn có thể trùng nhau. Nâng $q$ lên $k$ giả định các vị trí truy vấn độc lập, nên chỉ là xấp xỉ.
-- **Xấp xỉ mũ.** Dạng $(1-e^{-km/n})^k$ dùng giới hạn $(1-1/n)^n\to e^{-1}$ khi $n$ lớn, nên còn đòi hỏi thêm điều kiện $n$ lớn.
-
-Ví dụ: $m=10^9$, $n=8\cdot10^9$. Với $k=1$: $1-e^{-1/8}\approx0{,}1175$ (so với xấp xỉ thô $1/8=0{,}125$). Với $k=2$: $(1-e^{-1/4})^2\approx0{,}0489$. Sách in 0,0493; phép tính trực tiếp cho 0,048929…, nên ghi chú dùng giá trị đã kiểm lại.
-
-::: exercise Tự kiểm
-Trong hai bước từ $q$ đến $(1-e^{-km/n})^k$, bước nào cần $n$ lớn?
-:::
-
-::: solution
-Bước thay $(1-1/n)^{km}$ bằng $e^{-km/n}$ cần $n$ lớn. Việc nâng $q$ lên $k$ là một xấp xỉ khác về tính độc lập.
-:::
-
-## 9. Chọn số hàm băm
-
-### Đánh đổi khi tăng $k$
-
-Tăng $k$ có hai tác động ngược nhau:
-
-- Mỗi hàm băm buộc khóa ngoài $S$ vượt thêm một phép thử, làm giảm $p_{FP}$.
-- Mỗi hàm băm cũng đặt thêm bit 1, làm mảng nhanh bão hòa, tăng cơ hội bit truy vấn bằng 1.
-
-Nếu mọi bit đã bằng 1 thì mọi truy vấn đều "có thể thuộc"; vì vậy cần chọn $k$ thay vì tăng vô hạn.
-
-### Dẫn xuất $k^*$
-
-Dùng dạng xấp xỉ mũ. Đặt $\rho=m/n$ (tỷ số khóa trên bit) và xét
-
-$$\ell(k)=\ln p(k)=k\ln\left(1-e^{-k\rho}\right),\qquad k>0.$$
-
-Vì $\ln$ đồng biến, cực tiểu của $p(k)$ cũng là cực tiểu của $\ell(k)$. Đạo hàm:
-
-$$\ell'(k)=\ln\left(1-e^{-k\rho}\right)+\frac{k\rho}{e^{k\rho}-1}=0.$$
-
-Đặt $x=k\rho$ và $t=e^{-x}$. Để chứng minh cực tiểu, nhân dấu của $\ell'(k)$ với $1-t>0$: dấu của $\ell'(k)$ bằng dấu của
-
-$$F(t)=(1-t)\ln(1-t)-t\ln t.$$
-
-Biểu thức này phản đối xứng quanh $t=1/2$: $F(t)<0$ khi $t>1/2$, $F(t)=0$ tại $t=1/2$, và $F(t)>0$ khi $t<1/2$. Vì $t=e^{-k\rho}$ giảm khi $k$ tăng, $\ell'(k)<0$ trước $k\rho=\ln2$ và $\ell'(k)>0$ sau đó. Vậy
-
-$$k^*=\frac{n}{m}\ln2.$$
-
-Với $k$ nguyên dương, chọn $k\ge1$ bằng cách so sánh $\max(1,\lfloor k^*\rfloor)$ và $\max(1,\lceil k^*\rceil)$: lấy khóa cho $p$ nhỏ hơn.
-
-### Đường cong FPR
-
-<div class="figure">
-
-![Đường cong xác suất dương giả theo k trên trục y tuyến tính, k từ 1 đến 10; với tám bit trên mỗi khóa, xác suất dương giả nhỏ nhất tại k bằng 6](img/lec-08/fpr-curve.svg)
-
-</div>
-
-Với $n/m=8$: $k^*=8\ln2\approx5{,}545$, nên so sánh hai số nguyên lân cận và chọn $k=6$. Giá trị dưới đây được tính lại từ công thức, không phải số liệu chép từ bài tập:
-
-$$p_{FP}(6)\approx\left(1-e^{-6/8}\right)^6\approx0{,}02158.$$
-
-Đường cong trên trục y tuyến tính có cực tiểu tại $k=6$, không phải đường thẳng; tăng thêm $k$ làm $p_{FP}$ tăng trở lại.
-
-::: exercise Tự kiểm
-Vì sao tăng từ $k=6$ lên $k=10$ có thể làm Bloom filter kém hơn khi $n/m=8$?
-:::
-
-::: solution
-Mỗi khóa đặt thêm bit 1 nên mảng bão hòa nhanh hơn. Sau điểm cực tiểu, tác động này lớn hơn lợi ích của việc kiểm thêm vị trí.
-:::
+Như vậy, chúng ta đã xây Bloom filter (Định nghĩa 08.22, Thuật toán 08.23–08.24), chứng minh nó không có âm giả dưới bốn điều kiện về trạng thái (Định lý 08.25), tính mật độ bit (Bổ đề 08.26) và xác suất dương giả cùng hai cận dưới (Mệnh đề 08.27), rồi chọn số hàm băm $k^*=(n/m)\ln2$ (Định lý 08.28, Hệ quả 08.29). Tuy nhiên, Bloom filter chỉ trả lời câu hỏi thành viên, còn hai cấu trúc lấy mẫu chỉ trả lời câu hỏi về phân phối, và mỗi cấu trúc cần giả thiết riêng. Trong Mục 5, chúng ta đặt ba cấu trúc cạnh nhau theo câu hỏi mà mỗi cấu trúc trả lời.
 
 ## 10. Chọn cấu trúc theo đầu ra
 

@@ -36,7 +36,7 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 2. AT → A05 → A00 → A02 → A06 (cập nhật 2026-10-28): ví dụ ba truy vấn trên dòng cảm biến (MMDS Hình 4.1, Ví dụ 4.1; quy mô §4.1.2); định nghĩa thuật toán dòng và mô hình hệ thống; chi phí ba truy vấn theo từng phần tử (mô hình từ máy); bài tập trạng thái của phương sai (câu hỏi của học phần). Bỏ A01 (gộp vào A00) và A03; A04 chuyển sang mạch 3 thành K01B.
 3. KT → K01 → K09 → K01B → K02 → K04 → K05 → K06 → K07 → K08 (cập nhật 2026-10-28): ví dụ ba bộ của An; sai lệch tổng quát $d/(10u+19d)$; bảng giữ/bỏ theo người dùng (MMDS §4.2.2); hàm băm thay bảng; thuật toán với đặc tả; tính đúng; chọn khóa (MMDS §4.2.3); chi phí và hạ ngưỡng (MMDS §4.2.4); câu hỏi ngưỡng. Tỷ lệ $1/10$ ($b=10$, $a=1$) xuyên mạch. Bỏ K00, gộp K03 vào K04.
 4. RT → R00 → R01 → R03 → R04 → R05 → R06 → R07 → R08 → R09 (cập nhật 2026-10-28): mẫu cỡ cố định (giới hạn có số); ý tưởng so với mẫu theo khóa; vết hai ô; thuật toán với đặc tả, mảng $W$; tính đúng và hai nửa bước quy nạp; chi phí; so sánh với mẫu theo khóa và câu hỏi kiểm. Gộp R02 vào R04.
-5. B00, B02, B05, B01, B03–B12: tình huống → vị trí hệ thống → ví dụ → đặc tả → thuật toán, bảo đảm và xác suất dương giả.
+5. BT → B00 → B02 → B05 → B05B → B01 → B03 → B04 → B06 → B07 → B08 → B09 → B10 → B11 → B12 (cập nhật 2026-10-28): giới hạn lưu $S$; ý tưởng và nhận xét bit 0; ví dụ 11 bit thêm ba khóa và kiểm tra hai khóa (một dương giả); đặc tả và định nghĩa dương giả/âm giả; giả mã; không có âm giả; xác suất một bit bằng 1 và xác suất dương giả; ảnh hưởng của $k$; $k^*$; ví dụ tám bit mỗi khóa; chi phí.
 6. C00–C02: chọn cấu trúc theo câu hỏi, nguồn và phạm vi.
 7. X00–X05: bốn bài tập trực tiếp từ MMDS (Ex.4.2.1 tr.138; Ex.4.3.1–4.3.2 tr.141; Ex.4.3.3 tr.142).
 
@@ -60,6 +60,9 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 | $n$ | số bit của mảng Bloom |
 | $m$ | số khóa được đưa vào Bloom filter, $m=\lvert S\rvert$ |
 | $k$ | số hàm băm của Bloom filter; khác khóa $K$ |
+| $y$ | khóa truy vấn của Bloom filter; $v$ là khóa của $S$ trong giả mã xây |
+| $p(k)$ | dạng mũ $(1-e^{-km/n})^k$, xấp xỉ của $p_{FP}$ |
+| $k^*$ | $(n/m)\ln2$ |
 | $q$ | mật độ bit 1 chính xác dưới mô hình $km$ phép băm iid: $q=1-(1-1/n)^{km}$ |
 | $p_{FP}$ | xác suất dương giả; $q^k$ là xấp xỉ chuẩn và dạng mũ $(1-e^{-km/n})^k$ là xấp xỉ khi $n$ lớn |
 
@@ -88,7 +91,7 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 - Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/r$; điều kiện không âm giả.
 - Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
 - Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
-- SVG tự vẽ: mô hình dòng (`mo-hinh-dong.svg`, thay `stream-model.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`), hàm băm thay bảng (`bam-theo-nguoi-dung.svg`, thay `key-sampling.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), mẫu theo khóa, vết hồ chứa (`reservoir-trace.svg`), vết hồ chứa thu nhỏ (`reservoir-mini.svg`), một bước của hồ chứa (`reservoir-step.svg`), ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
+- SVG tự vẽ: mô hình dòng (`mo-hinh-dong.svg`, thay `stream-model.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`), hàm băm thay bảng (`bam-theo-nguoi-dung.svg`, thay `key-sampling.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), mẫu theo khóa, vết hồ chứa (`reservoir-trace.svg`), vết hồ chứa thu nhỏ (`reservoir-mini.svg`), một bước của hồ chứa (`reservoir-step.svg`), ví dụ Bloom 11 bit (`bloom-11bit.svg` trong ghi chú; deck dùng `bloom-11bit-them.svg` và `bloom-11bit-mini.svg`), luồng kiểm tra Bloom (`bloom-pipeline.svg`), đường cong xác suất dương giả (`fpr-curve.svg`, có vạch $k^*$).
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
 
 ## Bản đồ chủ đề cho ghi chú tự học
@@ -108,7 +111,7 @@ Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hi�
 | `lec-08-topic-09` | cốt lõi | 4.1–4.3 | Cơ chế Bloom filter | xây, truy vấn, ví dụ 11 bit | N06 |
 | `lec-08-topic-10` | cốt lõi | 4.4 | Không âm giả | bốn điều kiện và phản ví dụ | N07 |
 | `lec-08-topic-11` | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | Mật độ bit và xác suất dương giả | phân biệt chính xác với xấp xỉ | N08 |
-| `lec-08-topic-12` | cốt lõi; định cỡ cho 1% là bổ sung | 4.6 | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ | N09 |
+| `lec-08-topic-12` | cốt lõi; định cỡ cho 1% là bổ sung | 4.6–4.7 | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ | N09 |
 | `lec-08-topic-13` | cốt lõi | 5 | Chọn cấu trúc theo đầu ra | ánh xạ đầu ra sang trạng thái | N10 |
 | `lec-08-topic-14` | cốt lõi | Tình huống | Tình huống áp dụng | bài toán giải trọn, một tình huống vi phạm giả thiết | — |
 | `lec-08-topic-15` | cốt lõi | Tóm tắt | Tóm tắt chương | chuỗi kết quả, giả thiết hay bị bỏ quên, sang Bài 09 | — |

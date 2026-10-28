@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" role="img" aria-labelledby="b11t-t b11t-d">
+<title id="b11t-t">Bloom filter 11 bit, thêm ba khóa</title>
+<desc id="b11t-d">Mảng 11 bit, chỉ số 0 đến 10 từ trái sang phải. Ban đầu mọi bit bằng 0. Thêm 25 với hai vị trí băm 5 và 2: 00100100000. Thêm 159 với vị trí 7 và 0: 10100101000. Thêm 585 với vị trí 9 và 7: 10100101010; bit 7 đã bằng 1 từ trước nên không đổi. Bit vừa đặt ở mỗi bước có khung đậm.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#263238">
+<text x="10" y="34" font-weight="700">chỉ số</text>
+<text x="325" y="34" text-anchor="middle">0</text>
+<text x="375" y="34" text-anchor="middle">1</text>
+<text x="425" y="34" text-anchor="middle">2</text>
+<text x="475" y="34" text-anchor="middle">3</text>
+<text x="525" y="34" text-anchor="middle">4</text>
+<text x="575" y="34" text-anchor="middle">5</text>
+<text x="625" y="34" text-anchor="middle">6</text>
+<text x="675" y="34" text-anchor="middle">7</text>
+<text x="725" y="34" text-anchor="middle">8</text>
+<text x="775" y="34" text-anchor="middle">9</text>
+<text x="825" y="34" text-anchor="middle">10</text>
+<text x="10" y="88">ban đầu</text>
+<rect x="302" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="325" y="86" text-anchor="middle">0</text>
+<rect x="352" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="375" y="86" text-anchor="middle">0</text>
+<rect x="402" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="425" y="86" text-anchor="middle">0</text>
+<rect x="452" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="475" y="86" text-anchor="middle">0</text>
+<rect x="502" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="525" y="86" text-anchor="middle">0</text>
+<rect x="552" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="575" y="86" text-anchor="middle">0</text>
+<rect x="602" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="625" y="86" text-anchor="middle">0</text>
+<rect x="652" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="675" y="86" text-anchor="middle">0</text>
+<rect x="702" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="725" y="86" text-anchor="middle">0</text>
+<rect x="752" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="775" y="86" text-anchor="middle">0</text>
+<rect x="802" y="52" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="825" y="86" text-anchor="middle">0</text>
+<text x="10" y="148">thêm 25 → (5, 2)</text>
+<rect x="302" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="325" y="146" text-anchor="middle">0</text>
+<rect x="352" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="375" y="146" text-anchor="middle">0</text>
+<rect x="402" y="112" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="425" y="146" text-anchor="middle" font-weight="700">1</text>
+<rect x="452" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="475" y="146" text-anchor="middle">0</text>
+<rect x="502" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="525" y="146" text-anchor="middle">0</text>
+<rect x="552" y="112" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="575" y="146" text-anchor="middle" font-weight="700">1</text>
+<rect x="602" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="625" y="146" text-anchor="middle">0</text>
+<rect x="652" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="675" y="146" text-anchor="middle">0</text>
+<rect x="702" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="725" y="146" text-anchor="middle">0</text>
+<rect x="752" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="775" y="146" text-anchor="middle">0</text>
+<rect x="802" y="112" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="825" y="146" text-anchor="middle">0</text>
+<text x="10" y="208">thêm 159 → (7, 0)</text>
+<rect x="302" y="172" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="325" y="206" text-anchor="middle" font-weight="700">1</text>
+<rect x="352" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="375" y="206" text-anchor="middle">0</text>
+<rect x="402" y="172" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="425" y="206" text-anchor="middle" font-weight="700">1</text>
+<rect x="452" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="475" y="206" text-anchor="middle">0</text>
+<rect x="502" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="525" y="206" text-anchor="middle">0</text>
+<rect x="552" y="172" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="575" y="206" text-anchor="middle" font-weight="700">1</text>
+<rect x="602" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="625" y="206" text-anchor="middle">0</text>
+<rect x="652" y="172" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="675" y="206" text-anchor="middle" font-weight="700">1</text>
+<rect x="702" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="725" y="206" text-anchor="middle">0</text>
+<rect x="752" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="775" y="206" text-anchor="middle">0</text>
+<rect x="802" y="172" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="825" y="206" text-anchor="middle">0</text>
+<text x="10" y="268">thêm 585 → (9, 7)</text>
+<rect x="302" y="232" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="325" y="266" text-anchor="middle" font-weight="700">1</text>
+<rect x="352" y="232" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="375" y="266" text-anchor="middle">0</text>
+<rect x="402" y="232" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="425" y="266" text-anchor="middle" font-weight="700">1</text>
+<rect x="452" y="232" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="475" y="266" text-anchor="middle">0</text>
+<rect x="502" y="232" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="525" y="266" text-anchor="middle">0</text>
+<rect x="552" y="232" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="2"/>
+<text x="575" y="266" text-anchor="middle" font-weight="700">1</text>
+<rect x="602" y="232" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="625" y="266" text-anchor="middle">0</text>
+<rect x="652" y="232" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5" stroke-dasharray="7 5"/>
+<text x="675" y="266" text-anchor="middle" font-weight="700">1</text>
+<rect x="702" y="232" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="725" y="266" text-anchor="middle">0</text>
+<rect x="752" y="232" width="46" height="48" fill="#f7efe6" stroke="#2f3e7a" stroke-width="5"/>
+<text x="775" y="266" text-anchor="middle" font-weight="700">1</text>
+<rect x="802" y="232" width="46" height="48" fill="#ffffff" stroke="#2f3e7a" stroke-width="2"/>
+<text x="825" y="266" text-anchor="middle">0</text>
+</g></svg>

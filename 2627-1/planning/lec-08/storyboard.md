@@ -125,7 +125,7 @@ Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo tr
 | 2. Mô hình tính toán trên dòng | AT, A05, A00, A02, A06 | Mục 1.1–1.6 | `lec-08-topic-02` | đã viết 2026-10-28, sửa sau rà lại mạch 2 |
 | 3. Lấy mẫu theo khóa | KT, K01, K09, K01B, K02, K04, K05, K06, K07, K08 | Mục 2.1–2.5 | `lec-08-topic-03`…`06` | đã viết 2026-10-28 |
 | 4. Lấy mẫu hồ chứa | RT, R00, R01, R03, R04, R05, R06, R07, R08, R09 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | đã viết 2026-10-28 |
-| 5. Lọc thành viên bằng Bloom filter | BT, B00–B12 | Mục 4.1–4.6 | `lec-08-topic-09`…`12` | chờ viết |
+| 5. Lọc thành viên bằng Bloom filter | BT, B00, B02, B05, B05B, B01, B03, B04, B06–B12 | Mục 4.1–4.7 | `lec-08-topic-09`…`12` | đã viết 2026-10-28 |
 | 6. Tổng kết và chuyển tiếp | CT, C00–C02 | Mục 5, Tình huống, Tóm tắt | `lec-08-topic-13`…`15` | chờ viết |
 | 7. Bài tập vận dụng | XT, X00–X05 | Bài tập củng cố; Tham khảo | `lec-08-topic-16`, `17` | chờ viết |
 
@@ -185,6 +185,20 @@ Bộ đếm sau Mục 2: chung 08.6–08.14; Ví dụ 08.3–08.7; Bài tập 08
 | 3.5 Nhầm lẫn, thực hành, so sánh | (thuộc `lec-08-topic-08`) | Nhận xét 08.20, 08.21; bảng so sánh; Bài tập 08.4 (An 10 bộ trong $1\,000$, $s=100$: kỳ vọng 1; giữ trọn với xác suất $\approx6{,}6\cdot10^{-11}$) | R09 | — |
 
 Bộ đếm sau Mục 3: chung 08.15–08.21; Ví dụ 08.8–08.10; Bài tập 08.4. Bản đồ chủ đề đổi: `lec-08-topic-07` là 3.1–3.2, `lec-08-topic-08` là 3.3–3.5 (ghi chú và outline). Số âm tiết Mục 3: 3 111 ở bản đầu, 3 291 sau lượt sửa theo rà lại mạch 4 (đối chiếu quy tắc ngưỡng với mẫu theo khóa; "độc lập với các lần rút trước"; mô hình chi phí của Định nghĩa 08.3 thay mô hình RAM; phép tính hai trường hợp của slide MMDS tr.21; Nhận xét 08.20 tính tỷ số các số đếm kỳ vọng với $p_2=\frac{s(s-1)}{r(r-1)}$; biến vị trí $\ell$ thay $y$ trong chứng minh Mệnh đề 08.18). Từ "thời điểm" trong bộ (người dùng, truy vấn, thời gian) đổi thành "thời gian" ở mọi chỗ của ghi chú, khớp deck và "time" của MMDS.
+
+**Mục 4 (mạch 5).** Thứ tự ghi chú: nhu cầu (MMDS §4.3.1: $10^9$ địa chỉ, từ 20 GB, 1 GB $=8\cdot10^9$ bit) → ý tưởng một hàm băm, nhận xét bit 0, khoảng $1/8$ lọt qua → ví dụ 11 bit (thêm, kiểm tra, dương giả 29) → định nghĩa → hai thuật toán → định lý không âm giả và phản ví dụ → mô hình phi tiêu, bổ đề mật độ bit → mệnh đề $p_{FP}=\mathbb E[(X/n)^k]\ge q^k\ge p(k)$ → ví dụ MMDS $k=1,2$ và ví dụ ba mức xấp xỉ trên 11 bit → hai lực của $k$ → định lý $k^*$ (chứng minh năm bước) → hệ quả số nguyên → ví dụ tám bit mỗi khóa → giới hạn, nhầm lẫn, "Trong thực hành", bài tập → đoạn kết sang Mục 5.
+
+| Phần ghi chú | `note-topic-id` | Khối, số hiệu | Trang deck | Dữ kiện, ký hiệu |
+|---|---|---|---|---|
+| 4.1 Lọc theo danh sách cho phép | `lec-08-topic-09` | đoạn nhu cầu, trực quan; hình `bloom-pipeline.svg` | BT, B00, B02 | $m=10^9$, $n=8\cdot10^9$; một hàm: khoảng $1/8$ |
+| 4.2 Ví dụ 11 bit | (thuộc 09) | Ví dụ 08.11 (thêm 25, 159, 585), hình `bloom-11bit-them.svg`; Ví dụ 08.12 (118 bị loại, 29 dương giả), hình `bloom-11bit-mini.svg` | B05, B05B | $(5,2)$, $(7,0)$, $(9,7)$; $118\to(3,5)$, $29\to(7,2)$ (học phần chọn); mảng 10100101010 |
+| 4.3 Đặc tả và thuật toán | (thuộc 09) | Định nghĩa 08.22 (Bloom filter, dương giả, âm giả); Thuật toán 08.23 (xây), 08.24 (kiểm tra) | B01, B03, B04 | khóa chèn $v$ (thêm vào bảng ký hiệu), khóa truy vấn $y$; vị trí bit $c$ |
+| 4.4 Không âm giả | `lec-08-topic-10` | Định lý 08.25 (bốn điều kiện), chứng minh hai bước; bốn phản ví dụ trên mảng 11 bit | B06 | $h_1+1\bmod11$ làm 25 đọc $B[6]=0$; mảng tạm 00100101000 làm 159 bị loại |
+| 4.5 Mật độ bit và xác suất dương giả | `lec-08-topic-11` | Ví dụ 08.13 ($(7/8)^4\approx0{,}586$); Bổ đề 08.26; Mệnh đề 08.27 ($p_{FP}=\mathbb E[(X/n)^k]$, Jensen, $p(k)\le q^k\le p_{FP}$); Ví dụ 08.14 ($0{,}1175$; $0{,}048929$, sách in $0{,}0493$); Ví dụ 08.15 (11 bit: $0{,}1768\le0{,}1897\le0{,}1951$; $(5/11)^2=0{,}2066$) | B07, B08 | $X$, $q$, $p_{FP}$, $p(k)$ |
+| 4.6 Số hàm băm tối ưu | `lec-08-topic-12` | đoạn hai lực, $p(k)\to1$; Định lý 08.28 (đổi biến $\rho,z,\theta$, $\lambda=\ln p$, $\phi$; năm bước); "Ý nghĩa:"; Hệ quả 08.29; Ví dụ 08.16; hình `fpr-curve.svg` | B09, B10, B11 | $k^*=8\ln2\approx5{,}545$; $p(5)=0{,}021679$, $p(6)=0{,}021577$; $2^{-k^*}=0{,}02142$; slide MMDS in khoảng 0,0235 |
+| 4.7 Giới hạn, nhầm lẫn, thực hành | (thuộc 12) | đoạn chi phí và ba giới hạn; Nhận xét 08.30, 08.31; Bài tập 08.5 | B12 | $n/m=4$: $p(6)=0{,}2198$, $k^*=2{,}77$, $p(2)=0{,}1548$, $p(3)=0{,}1469$ |
+
+Bộ đếm sau Mục 4: chung 08.22–08.31; Ví dụ 08.11–08.16; Bài tập 08.5. Bài tập 4.3.1–4.3.3 của MMDS không đặt ở Mục 4 (thuộc phần bài tập, lượt mạch 7); lời giải 4.3.3 sẽ dẫn về Định lý 08.28. Biến giá trị băm cục bộ ở Mục 2 đổi từ $v$ sang $c$ để $v$ chỉ là khóa chèn. Bản đồ chủ đề: `lec-08-topic-12` là 4.6–4.7. Hình `bloom-11bit.svg` không còn được ghi chú hay deck dùng. Số âm tiết Mục 4: 4 223 ở bản đầu, 4 337 sau lượt sửa theo rà lại mạch 5 (tương quan âm hai bit nêu đúng chiều; câu hướng chứng minh và dòng kiểm số cho Định lý 08.28; mật độ bit 0,1175 → 0,2212 ở Ví dụ 08.14; slide MMDS Streams 2 tr.14 viết sai công thức).
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -386,3 +400,76 @@ Hình: `reservoir-step.svg` ghi điều kiện cho $4/5$ ("khi xᵢ đang ở ô
 CSS: thêm vào khối `.lecture-stream` biến `--r-code-font` (Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace) để giả mã hiển thị đúng dấu tiếng Việt; phông mặc định `monospace` phân giải thành DejaVu Sans Mono trên máy kiểm và tách dấu. Đã kiểm K04, R04, B04 đúng dấu, không tràn khung; Bài 02, 03 không có phần tử `.lecture-stream`, không lỗi. Bài 07 có cùng lỗi phông; để nâng thành lớp chung ở lượt sau.
 
 Thời lượng: mạch 4 giữ 25 phút; tổng phần giảng tạm 116 phút. Mạch 5 (Bloom filter) và mạch 6 (tổng kết) nhận 4 phút còn lại khi duyệt.
+
+### Mạch 5. Lọc thành viên bằng Bloom filter
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| thuật toán và chi phí | Nêu giới hạn tra $S$ trực tiếp, ý tưởng mảng bit, chạy tay 11 bit (thêm và kiểm tra, có một dương giả), đặc tả và định nghĩa dương giả/âm giả, giả mã xây và kiểm tra, chứng minh không có âm giả, xác suất một bit bằng 1 và xác suất dương giả, ảnh hưởng của $k$, $k^*$, ví dụ tám bit mỗi khóa, chi phí | Mạch 4: hai phép lấy mẫu trả lời câu hỏi về phân phối; tình huống lọc thư của trang Vấn đề trung tâm | Bloom filter với bảo đảm không âm giả, $p_{FP}\approx p(k)=(1-e^{-km/n})^k$, $k^*=(n/m)\ln2$, định cỡ cho $10^9$ địa chỉ trong $8\cdot10^9$ bit; chi phí $km$ / $k$ / $n$ bit | Chu trình cụm thuật toán đủ bước: giới hạn có số (B00) → ý tưởng so với mạch 3 và nhận xét cấu trúc (B02) → chạy tay (B05, B05B) → đặc tả và định nghĩa ngay sau ví dụ dương giả (B01) → giả mã (B03, B04) → tính đúng (B06) → phân tích xác suất (B07, B08) → ảnh hưởng của $k$ và tối ưu (B09–B11) → chi phí và câu hỏi (B12) | BT (`id="mach-5"`) |
+
+Thứ tự trang: BT → B00 → B02 → B05 → B05B → B01 → B03 → B04 → B06 → B07 → B08 → B09 → B10 → B11 → B12. B05B là ID mới. Đầu vào/Đầu ra đặt ở B01, ngay trước hai trang giả mã. Chứng minh đầy đủ của $k^*$ (kể cả bước xét dấu) để ở lời giải bài tập và ghi chú bài giảng; B10 chỉ phát biểu và nêu hướng chứng minh, để không giải trước Bài tập 4.3.3. B09 không dùng Bài tập 4.3.2 (phần bài tập giao bài đó).
+
+**Câu hỏi trước khi sửa.**
+
+| Trang cũ | Trang muốn nói | Phục vụ chủ đề mạch? | Vấn đề còn lại | Quyết định |
+|---|---|---|---|---|
+| BT | Điểm vào mạch 5 | có | Lời dẫn "hữu hạn", "dương giả" chưa định nghĩa, cấu trúc "đổi A lấy B"; cụm khóa "Không âm giả" | sửa |
+| B00 | Tình huống $10^9$ địa chỉ, 1 GB | có | `h1` cũ; tiêu đề mở bằng tên thuật toán; thiếu giới hạn có số; dòng 33 âm tiết | sửa |
+| B02 | Bloom filter đứng trước tra cứu chính xác | có | Chỉ có hình (hình lỗi tô đen nhánh loại); tiêu đề ẩn dụ; thiếu ý tưởng so với cái đã biết và nhận xét cấu trúc | sửa, sửa hình |
+| B05 | Ví dụ 11 bit | có | Định nghĩa $h_1,h_2$ dồn một dòng 35 âm tiết; không có bước tính tay; không có dương giả; tiêu đề là câu | tách: B05 thêm khóa, B05B kiểm tra |
+| B01 | Đặc tả | có | Chưa có Đầu vào/Đầu ra; chưa định nghĩa dương giả, âm giả | sửa |
+| B03 | Giả mã xây | có | KaTeX trong tiêu đề; câu "va chạm" dùng dữ kiện không hiện | sửa |
+| B04 | Giả mã kiểm tra | có | Tiêu đề là câu; ghi chú ngắn | sửa |
+| B06 | Không âm giả | có | Bốn điều kiện chồng nhau, điều kiện ghi đồng thời ngoài trình độ; chứng minh chỉ ở ghi chú | sửa |
+| B07 | Xác suất bit bằng 0 | có | Tiêu đề "Mật độ bit hữu hạn" khó hiểu; thiếu trực quan phi tiêu và số | sửa |
+| B08 | Xác suất dương giả | có | Dẫn chiếu "trang trước"; đoạn 52 âm tiết; "iid" | sửa |
+| B09 | Tăng $k$ giảm rồi tăng | có | Câu hỏi là Bài tập 4.3.2, không có lời giải | sửa: câu hỏi riêng có lời giải |
+| B10 | Dẫn xuất $k^*$ | có | Giải trọn Bài tập 4.3.3; $p(k)$ chưa định nghĩa | sửa: phát biểu, Ý nghĩa, hướng chứng minh |
+| B11 | $k=6$ với $n/m=8$ | có | KaTeX trong tiêu đề; không nhắc $n$, $m$ của tình huống | sửa, sửa hình |
+| B12 | Chi phí, giới hạn, câu hỏi | có | Tiêu đề tương phản; "FPR"; câu hỏi ngầm dùng $k=2$; "Đáp án" | sửa |
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện, ký hiệu kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---:|
+| BT | Điểm vào mạch 5 | Nhận nhiệm vụ | Lời dẫn "Muốn loại sớm khóa ngoài tập bằng mảng bit cỡ cố định, phải chấp nhận một phần nhận nhầm." | Đầu ra mạch 4; tình huống lọc thư | — | sửa: không "hữu hạn", không thuật ngữ chưa định nghĩa trên mặt trang; ghi chú nêu thuật ngữ tiếng Anh | 36 (2, 22) → 39 (2, 20); ghi chú 92 → 90 | 0,5 |
+| B00 | Giới hạn cách trực tiếp | Tính cỡ $S$ so với bộ nhớ | $10^9$ địa chỉ × 20 byte ≥ 20 GB; 1 GB = $8\cdot10^9$ bit | Trang Vấn đề trung tâm | Nêu được vì sao không lưu $S$ | sửa: tiêu đề "Lọc theo danh sách cho phép"; MMDS §4.3.1 tr.139 | 40 (1, 33) → 38 (4, 12); ghi chú 59 → 79 | 2,5 |
+| B02 | Ý tưởng | So với lấy mẫu theo khóa; đọc nhận xét bit 0 | "Tương tự … Khác …"; Nhận xét bit 0 ⇒ $y\notin S$; hình luồng lọc | Hàm băm thay bảng (mạch 3) | Phát biểu nhận xét cấu trúc | sửa; hình `bloom-pipeline.svg` sửa lỗi tô đen nhánh loại, nhánh loại nét đứt, chữ 26 | 0 (0, 0) → 45 (4, 13); ghi chú 39 → 95 | 2,5 |
+| B05 | Chạy tay thêm khóa | Tính $h_1,h_2$ của 159; đọc trạng thái mảng | $h_1,h_2$ của Ullman; bảng trạng thái $00000000000\to\ldots\to10100101010$ | — | Mảng cuối; bằng chứng: B05B dùng mảng này | sửa và tách: hình mới `bloom-11bit-them.svg` (trạng thái sau từng khóa, bit vừa đặt khung đậm) | 35 (1, 35) → 33 (4, 14); ghi chú 108 → 77 | 3 |
+| B05B | Chạy tay kiểm tra | Kiểm 118 và 29 | Mảng $10100101010$ (hình nhỏ); 118 → (3, 5) loại; 29 → (7, 2) có thể thuộc | Mảng cuối của B05 hiện lại bằng hình | Một dương giả cụ thể | thêm (ID mới); khóa 29 do học phần chọn | — → 21 (3, 13); ghi chú — → 78 | 3 |
+| B01 | Đặc tả và định nghĩa | Đọc Đầu vào/Đầu ra; định nghĩa dương giả, âm giả | $S$, $m$, $n$, $B$, $h_i$, $y$; dương giả, âm giả | Ví dụ 11 bit nêu lại bằng số ($n=11$, $k=2$, $m=3$, khóa 29) | Gọi đúng tên hai loại lỗi | sửa: định nghĩa ngay sau ví dụ dương giả | 37 (2, 24) → 51 (5, 14); ghi chú 52 → 102 | 2,5 |
+| B03 | Giả mã xây | Đọc giả mã | `XÂY-BLOOM(S; n, h₁,…,hₖ)`; khóa $v$ | B01 | Chi phí $km$ | sửa: tiêu đề "Thuật toán: xây Bloom filter"; dòng đọc giả mã; khóa đặt tên $v$ để không trùng $x_i$ | 28 (1, 13) → 27 (2, 18); ghi chú 39 → 62 | 2,5 |
+| B04 | Giả mã kiểm tra | Đọc giả mã; nêu phép quyết định | `KIỂM-TRA-BLOOM(y; B, h₁,…,hₖ)` | B01 | Chi phí xấu nhất $k$ | sửa: tiêu đề "Thuật toán: kiểm tra thành viên" | 26 (1, 10) → 24 (2, 14); ghi chú 26 → 53 | 2,5 |
+| B06 | Tính đúng | Đọc giả thiết, mệnh đề, chứng minh | Không có âm giả; khóa 29 làm phản ví dụ cho chiều ngược | B03 (bit chỉ đổi 0 → 1) | Chứng minh được mệnh đề | sửa: hai giả thiết thay bốn điều kiện chồng nhau; chứng minh trên mặt trang | 46 (6, 11) → 53 (4, 19); ghi chú 35 → 93 | 3 |
+| B07 | Xác suất một bit bằng 1 | Tính $q$ với $k=1$ | Mô hình phi tiêu; $(1-1/n)^{km}\approx e^{-km/n}$; $q$; $0{,}1175$ | $(1-1/n)^n\approx e^{-1}$ (P04) | Tính được $q$ | sửa: tiêu đề mới; trực quan phi tiêu; ví dụ số. Không thêm hình phi tiêu (đủ chữ và công thức; số nhỏ $(7/8)^4\approx0{,}586$ để trong ghi chú) | 25 (2, 18) → 35 (5, 16); ghi chú 40 → 98 | 3 |
+| B08 | Xác suất dương giả | Phân biệt hai xấp xỉ; tính $p(1)$, $p(2)$ | $p_{FP}\approx q^k\approx p(k)$ | $q$ (nêu lại trong công thức) | Tính được $p(k)$ | sửa: bỏ "trang trước", "iid"; tách dòng; ghi chú nêu $p_{FP}\ge q^k$ và số $0{,}0493$ in trong sách | 52 (1, 52) → 29 (5, 15); ghi chú 64 → 92 | 3,5 |
+| B09 | Ảnh hưởng của $k$ | Giải thích hai lực; trả lời giới hạn $k\to\infty$ | Hai thẻ; $p(1)$, $p(6)$, $p(10)$ | $p(k)$ | Lời giải: $p(k)\to1$ vì $q\to1$ | sửa: câu hỏi riêng có lời giải; không dùng Bài tập 4.3.2 | 46 (2, 12) → 26 (5, 12); ghi chú 47 → 76 | 2,5 |
+| B10 | Số hàm băm tối ưu | Đọc mệnh đề, ý nghĩa, quy tắc số nguyên | $k^*=(n/m)\ln2$; tại $k^*$ một nửa số bit bằng 1; $p(k^*)=2^{-k^*}$ | $p(k)$ | Áp được quy tắc số nguyên | sửa: không giải trọn Bài tập 4.3.3 trên mặt trang; ghi chú nêu đạo hàm và yêu cầu bước xét dấu | 19 (2, 13) → 39 (4, 15); ghi chú 73 → 93 | 3,5 |
+| B11 | Ví dụ định cỡ | Đọc đường cong; so $p(5)$, $p(6)$ | $n=8\cdot10^9$, $m=10^9$; hình `fpr-curve.svg` có vạch $k^*$ | Tình huống lọc thư nêu lại bằng số | Chọn được $k=6$ | sửa: tiêu đề "Ví dụ: tám bit mỗi khóa"; hình thêm vạch $k^*\approx5{,}545$, chữ 26 | 0 (0, 0) → 9 (3, 6); ghi chú 64 → 73 | 2,5 |
+| B12 | Chi phí và câu hỏi | Đếm chi phí; giải câu hỏi định cỡ lại | Bảng xây/kiểm tra/bộ nhớ; Lưu ý; câu hỏi $2\cdot10^9$ địa chỉ, $k=6$ | B03, B04, B10 | Lời giải: $p(6)\approx0{,}2198$; $k=3$ tốt hơn | sửa: tiêu đề "Chi phí: Bloom filter"; bỏ "FPR", "Đáp án"; câu hỏi có $k$ rõ | 48 (2, 19) → 61 (8, 17); ghi chú 62 → 74 | 3 |
+
+Trang chi phí B12 có 61 âm tiết, 8 dòng: trong trần 80 âm tiết và 8 dòng của bảng chi phí.
+
+Tổng mạch 5: 40,5 phút (trước 44). Tổng phần giảng tạm: 113 phút với mạch 6 cũ (5 phút); mạch 6 cần khoảng 12 phút để tổng về 120.
+
+Số đã tự tính: $25=11001_2\to(5,2)$; $159=10011111_2\to(7,0)$; $585=1001001001_2\to(9,7)$ (bit chẵn $10010_2=18\equiv7$); $118=1110110_2\to(3,5)$ (bit lẻ $1110_2=14\equiv3$); $29=11101_2\to(7,2)$; mảng $00100100000\to10100101000\to10100101010$; $(7/8)^4=0{,}5862$; $1-e^{-1/8}=0{,}117503$ (chính xác $0{,}1175031$); $(1-e^{-1/4})^2=0{,}048929$; $p(5)=0{,}021679$; $p(6)=0{,}021577$; $p(10)=0{,}034191$; $k^*=8\ln2=5{,}5452$; $2^{-5{,}545}=0{,}021416$; với $n/m=4$: $p(6)=0{,}21983$, $k^*=2{,}7726$, $p(2)=0{,}15482$, $p(3)=0{,}14689$, $p(4)=0{,}15966$.
+
+Dữ kiện do học phần dựng: khóa 29; câu hỏi B09 và B12.
+
+Hình: `bloom-11bit-them.svg` (mới, B05), `bloom-11bit-mini.svg` (mới, B05B), `bloom-pipeline.svg` (sửa lỗi tô đen nhánh loại, nét đứt, chữ 26), `fpr-curve.svg` (thêm vạch $k^*$, chữ 26). `bloom-11bit.svg` giữ nguyên vì ghi chú bài giảng còn dùng; không vẽ `bloom-darts.svg`.
+
+**Sửa sau lượt rà lại mạch 5 (2026-10-28).** Các số đo dưới đây thay cột âm tiết của bảng trên.
+
+| Trang | Thay đổi | Âm tiết (dòng, max dòng); ghi chú |
+|---|---|---|
+| B02 | Hình `bloom-pipeline.svg`: khung "tra cứu chính xác" nới rộng để chữ không chạm viền | 45 (4, 13); ghi chú 95 |
+| B05B | Chú thích hình khớp nét vẽ ("khung đậm: bit 7, 2 của khóa 29; nét đứt: bit 3 của khóa 118"); cột Bit của 118 ghi "0 (dừng)", khớp phép dừng sớm ở B04 | 22 (3, 13); ghi chú 84 |
+| B01 | Đầu ra nêu cả mảng $B$ sau khi xây | 55 (5, 18); ghi chú 102 |
+| B07 | Chỉ số bit $c$ (khớp Bổ đề 08.26 của ghi chú bài giảng), "xét bit $c$" ở dòng mô hình | 38 (5, 16); ghi chú 98 |
+| B08 | Xấp xỉ thứ nhất: $p_{FP}=\mathbb E[(X/n)^k]\ge q^k$ (Jensen); xấp xỉ thứ hai: $p(k)\le q^k$. Bỏ lý do sai "các vị trí có thể trùng". Ghi chú khớp Mệnh đề 08.27 | 25 (5, 8); ghi chú 123 |
+| B09 | Hai thẻ "Tăng $k$ giúp" / "Tăng $k$ hại", không dựa vào màu viền | 28 (5, 12); ghi chú 76 |
+| B10 | Dòng "Chứng minh." nêu điểm dừng duy nhất và xét dấu hai phía; ghi chú dùng $z=k\rho$, $\theta=e^{-z}$ (khớp Định lý 08.28) | 42 (4, 18); ghi chú 104 |
+| B11 | Câu chốt "Chọn $k=6$; giá trị liên tục nhỏ nhất là $2^{-5{,}545}\approx0{,}0214$"; ghi chú: slide CS246 tr.32–33; số 0,0235 của slide Streams 2 tr.14 đến từ công thức viết sai $(1-e^{-1/6})^2$ | 11 (3, 8); ghi chú 79 |
+| B12 | Dòng "Lưu ý" chuyển vào ghi chú (giới hạn của Bloom filter) | 45 (7, 15); ghi chú 96 |
