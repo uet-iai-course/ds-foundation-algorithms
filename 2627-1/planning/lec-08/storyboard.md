@@ -1,5 +1,7 @@
 # Storyboard Bài 8
 
+Mục hiện hành: **Lượt duyệt từng mạch (2026-10-28)** ở cuối tệp. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
+
 ## Hành trình khái niệm
 
 - **Lấy mẫu theo khóa:** tình huống P01 → vấn đề K00–K01 → trực giác và ví dụ K02 → đặc tả K03 → thuật toán K04 → lập luận đúng K05 → ứng dụng K06, chi phí K07 → kiểm tra K08.
@@ -113,12 +115,62 @@ Tổng recitation: **60 phút**. Chỉ dịch, chia bước và thêm mẫu sả
 
 ## Storyboard ghi chú tự học
 
-Ghi chú dùng `L08-N01`–`L08-N11`. Mỗi chủ đề cốt lõi đi theo vai trò → đặc tả → ví dụ → trực quan → thuật toán/mệnh đề → lập luận đúng → chi phí, giới hạn và tự kiểm.
+Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo trình theo `AGENTS.md` §"Tiêu chuẩn giáo trình cho ghi chú bài giảng", lần lượt theo mạch của deck. Mã chủ đề cũ `L08-N01`…`L08-N11` được thay bằng `lec-08-topic-01`…`lec-08-topic-17` (ánh xạ cũ → mới ở `outline.md`, mục "Bản đồ chủ đề cho ghi chú tự học"). Trong thời gian chuyển tiếp, các mục cũ chưa viết lại vẫn nằm sau phần đầu chương và chưa mang `note-topic-id`.
 
-- `N01→N04`: từ hợp đồng dòng đến sai lệch lấy mẫu từng bộ, rồi chọn khóa và điều chỉnh ngưỡng.
-- `N05`: dùng vết $s=2$ để truyền trạng thái sang giả mã và chứng minh quy nạp; ký hiệu số vị trí đã thấy là $r$.
-- `N06→N09`: ví dụ Bloom 11 bit dẫn sang đặc tả, xây/truy vấn, không âm giả, mật độ bit, FPR và chọn $k$.
-- `N10`: so sánh mẫu theo nhóm, mẫu vị trí và phép lọc thành viên xác suất; không xếp hạng phổ quát.
-- `N11`: giữ nguyên bốn bài MMDS cùng dữ kiện, yêu cầu và sản phẩm; không thêm bài hồ chứa.
+**Ánh xạ mạch deck → phần ghi chú → chủ đề.**
 
-Mã trang, thời lượng và nhãn `note-topic-id` chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai.
+| Mạch deck | `data-slide-id` | Phần ghi chú | `note-topic-id` | Trạng thái |
+|---|---|---|---|---|
+| 1. Mở đầu | P00, P04, P02, P03, P01 | Giới thiệu chương, Mục tiêu học tập, Kiến thức tiên quyết, Bảng ký hiệu, Bản đồ chủ đề | `lec-08-topic-01` (Kiến thức tiên quyết); các phần còn lại không mang mã | đã viết 2026-10-28 |
+| 2. Mô hình tính toán trên dòng | AT, A00–A04 | Mục 1 | `lec-08-topic-02` | chờ viết |
+| 3. Lấy mẫu theo khóa | KT, K00–K08 | Mục 2.1–2.4 | `lec-08-topic-03`…`06` | chờ viết |
+| 4. Lấy mẫu hồ chứa | RT, R00–R08 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | chờ viết |
+| 5. Lọc thành viên bằng Bloom filter | BT, B00–B12 | Mục 4.1–4.6 | `lec-08-topic-09`…`12` | chờ viết |
+| 6. Tổng kết và chuyển tiếp | CT, C00–C02 | Mục 5, Tình huống, Tóm tắt | `lec-08-topic-13`…`15` | chờ viết |
+| 7. Bài tập vận dụng | XT, X00–X05 | Bài tập củng cố; Tham khảo | `lec-08-topic-16`, `17` | chờ viết |
+
+**Phần đầu chương (mạch 1).**
+
+| Phần ghi chú | `note-topic-id` | Trang deck tương ứng | Vai trò | Vào | Ra | Sản phẩm học tập |
+|---|---|---|---|---|---|---|
+| Giới thiệu chương và liên kết deck | — | P00, P01 | Nêu bài toán dòng (vài trăm triệu truy vấn/ngày, MMDS tr.133), ba loại câu hỏi (ngân sách $1/10$ tr.136; $10^9$ địa chỉ, 1 GB tr.139) | Hai bài toán của ghi chú Bài 01 | Ba cấu trúc cần xây | Nêu được ba câu hỏi và cấu trúc tương ứng |
+| Mục tiêu học tập | — | P02 | Ba mục tiêu khớp P02, mỗi mục tách thành việc quan sát được kèm mục ghi chú | Giới thiệu | Đích cho bài tập củng cố (một bài mỗi mục tiêu) | — |
+| Kiến thức tiên quyết | `lec-08-topic-01` | P04 (dòng "Nhắc lại:") | Phát biểu lại kết quả dùng lại, có nguồn: ghi chú Bài 01 (mục dòng dữ liệu; mục mô hình ngẫu nhiên), ghi chú Bài 05 (Mục 7, 9, 10, 11), Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2 (Jensen), MMDS §1.3.5, §4.3.3 tr.140 | Học phần Xác suất thống kê, Giải tích; Bài 01, 02, 05, 06 | Công cụ cho Mục 2 (băm tất định, tuyến tính kỳ vọng), Mục 3 (quy tắc nhân, quy nạp), Mục 4 (độc lập, $e^{-1}$, Jensen, Bernoulli, cực trị, hàm lõm) | Dùng đúng công cụ ở từng chứng minh |
+| Bảng ký hiệu | — | P04 (dòng "Ký hiệu:") | 21 dòng theo quyết định ký hiệu 2026-10-28 ($t$ là phần tử của dòng truy vấn, $t=x_i$, như P04 mới); quy ước số; bốn chỗ khác MMDS ($s\to u$; $B,t\to b,\tau$; $x,y$ phi tiêu $\to n,km$; slide hồ chứa $S,n\to W,r$) gộp một câu; số liệu sách và số liệu do học phần dựng | P04 | Mọi mục sau | Tra lại ký hiệu |
+| Bản đồ chủ đề | — | P03 | 17 chủ đề, bốn nhóm, quan hệ tiên quyết viết theo số mục, phạm vi Bài 09 | — | Thứ tự viết các mục | — |
+
+Số âm tiết phần đầu chương (token cách trắng, từ dòng 1 tới trước Mục 1): 3 110 ở bản đầu, 2 890 sau lượt sửa theo hai báo cáo rà lại mạch 1. Mục tiêu điều phối ≤ 2 800 chưa đạt; phần còn lại là bảng ký hiệu 21 dòng, chín nhóm tiên quyết mà Mục 2–4 cần và bản đồ 17 chủ đề (phần đầu chương của ghi chú Bài 06 là 2 466 âm tiết). Tổng chương vẫn trong khung 12 000–32 000 của `AGENTS.md`; mục tiêu riêng của Bài 08 là 15 000–20 000 theo phân bổ của báo cáo rà ghi chú.
+
+Chu trình rút gọn (thông tin soạn thảo, chuyển khỏi ghi chú ngày 2026-10-28): `lec-08-topic-05` (Mục 2.3, chọn khóa) là quy trình, không có định lý hay chi phí riêng; `lec-08-topic-06` (Mục 2.4, ngưỡng băm) chỉ thêm một mệnh đề bất biến, không có phân tích xác suất mới; `lec-08-topic-13` (Mục 5) tổng hợp ba nhánh, không đưa khái niệm mới.
+
+Điều kiện công bố (điều phối viên, 2026-10-28): số mục dẫn chiếu trong Mục tiêu học tập và Bản đồ chủ đề theo cấu trúc mới (Mục 1–5, 2.1–2.4, 3.1–3.5, 4.1–4.6) chưa khớp thân bài cũ; phải kiểm lại toàn bộ sau khi mạch 2–7 được viết lại.
+
+Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
+
+## Lượt duyệt từng mạch (2026-10-28)
+
+Căn cứ: `AGENTS.md` §"Mẫu RevealJS bắt buộc" và §"Văn phong và mật độ"; quyết định ký hiệu và thứ tự của điều phối viên ngày 2026-10-28; báo cáo rà deck cùng ngày. Âm tiết đếm bằng script kiểm deck (bỏ tiêu đề, KaTeX, giả mã, hình, số trong bảng và ghi chú). Số "trước" lấy từ lần đo trước bước chuyển CSS; số "sau" đo trên deck đã sửa. Mục này thay các dòng P00–P03 ở "Trang phần giảng" và "Bổ sung trang tiêu đề mạch".
+
+### Mạch 1. Mở đầu
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| giới thiệu | Nêu bài toán dòng dữ liệu, kết quả kế thừa, ký hiệu cả bài, mục tiêu, dàn bài và câu trả lời có điều kiện của từng mạch | Bài 01 (hai bài toán dòng: giữ mẫu truy vấn, lọc thư); Bài 02, 05 (hàm băm tất định); xác suất cơ bản, tuyến tính kỳ vọng; giới hạn $(1-1/n)^n\approx e^{-1}$ (MMDS §1.3.5); quy nạp | Nhu cầu "lấy mẫu, lọc dòng chưa biết độ dài, không lưu cả dòng"; khái niệm trạng thái (dữ liệu giữ lại giữa hai lần đọc); ký hiệu $x_i,r,t,K(t),s,W,S,m,n,k$; bốn câu trả lời có điều kiện mà mạch 2–5 chứng minh, trong đó mẫu theo khóa tăng theo dòng (khoảng $r/10$ bộ) và chỉ hồ chứa giữ cỡ mẫu cố định | Đặt mọi ký hiệu trước lần dùng đầu; thay tình huống P01 cũ (vượt trần) bằng trang "Vấn đề trung tâm" có số liệu MMDS và điều kiện của từng kết quả | Bìa P00 đóng vai trang mở mạch |
+
+Thứ tự trang: P00 → P04 → P02 → P03 → P01. Không có trang tiêu đề mạch riêng (mạch mở đầu).
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện, ký hiệu kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---:|
+| P00 | Tên bài, học phần, học kỳ, đơn vị và câu luận đề | Đọc luận đề, nhận ba cấu trúc của bài | Câu luận đề: băm khóa giữ trọn nhóm, hồ chứa giữ mẫu cỡ cố định, mảng bit loại hầu hết khóa ngoài tập | Bài 01 (hai bài toán dòng, nêu trong ghi chú) | Nêu được ba cấu trúc và câu hỏi mỗi cấu trúc phục vụ; bằng chứng: câu hỏi tự kiểm tra ở phần tổng kết | sửa: thêm `p.supporting-text` theo mẫu bìa. Lượt rà lại: bỏ "Với bộ nhớ cố định" vì sai với mẫu theo khóa tỷ lệ cố định (mẫu tăng theo dòng, MMDS §4.2.4 tr.138); câu còn 20 âm tiết, không cần ngoại lệ. Dòng học phần "Bài 08 · …" khớp chân trang; dòng học kỳ như Bài 03, 07; ghi chú nối Bài 01, ghi "Bài 09", ghi công MMDS | 32 (2, 11) → 51 (4, 20); ghi chú 65 → 98 | 0,5 |
+| P04 | Nhắc lại kết quả dùng lại và đặt ký hiệu cả bài | Đối chiếu ba kết quả nhắc lại với kiến thức đã học; ghi ký hiệu | Hàm băm tất định; tích xác suất của $\ell$ biến cố độc lập; $(1-1/n)^n\approx e^{-1}$; ký hiệu $x_i$ (mỗi phần tử là một bộ $t$), $K(t)$, $r$; hồ chứa (reservoir) $W$, $s$; $S,m,n,k$ | Bài 02 (phân hoạch theo khóa), Bài 05 (hàm băm thay hoán vị); MMDS §1.3.5 | Dùng đúng ký hiệu ở mọi mạch sau; bằng chứng: câu hỏi ở các mạch 3–5 dùng $r,s,n,m,k$ không cần định nghĩa lại | thêm: trang bắt buộc còn thiếu. Lượt rà lại: câu hàm băm có động từ chính; độc lập dạng $\ell$ biến cố (Bloom cần tích $km$ và $k$ biến cố); nêu quan hệ phần tử–bộ; thêm "(reservoir)" ở lần dùng đầu. Ghi chú định nghĩa trạng thái, nêu Bloom filter là mảng bit trả lời "chắc chắn không thuộc"/"có thể thuộc", tuyến tính kỳ vọng và quy nạp, để giữ mặt trang ≤ 60 | — → 57 (5, 17); ghi chú — → 139 | 2 |
+| P02 | Ba mục tiêu quan sát được, mỗi mục có sản phẩm kiểm được | Đọc ba mục tiêu và sản phẩm tương ứng | Đặc tả và chọn khóa; lập vết và chứng minh hồ chứa với $r\ge s$; xây dựng, truy vấn, định cỡ Bloom filter | $s,r,S,n,m,k$ từ P04 | Bằng chứng: câu hỏi cuối mạch 2, 3, 4, 5; Bài tập 4.2.1, 4.3.1–4.3.3; câu hỏi tự kiểm tra ở phần tổng kết (mạch 6 sẽ bổ sung) | sửa: tiêu đề "Mục tiêu học tập"; danh sách đánh số; "xác suất nhận nhầm khóa ngoài $S$" thay "dương giả" chưa định nghĩa. Lượt rà lại: mục 2 dùng "phần tử đã đọc" thay "vị trí" (tránh nhầm với ô của $W$) và thêm $r\ge s$; "Xây dựng và truy vấn"; ghi chú gộp ba câu "kiểm nó" thành một câu liệt kê | 45 (3, 16) → 56 (3, 20); ghi chú 41 → 133 | 1 |
+| P03 | Dàn bài 7 mạch, tên khớp trang tiêu đề mạch và `#/N`; tài liệu đọc trước | Định vị các mạch; ghi mục đọc trước | Danh sách 1–7; MMDS Chương 4, §§4.1–4.3, tr.131–142 | Tên mạch như trang tiêu đề mạch (không đổi) | Bằng chứng: số trên trang tiêu đề mạch khớp `#/2`…`#/7` (script kiểm deck) | sửa: chuyển sau mục tiêu; hai cột `ex-grid2` như Bài 07; dòng "Đọc trước:" theo định dạng Bài 02–07. Lượt rà lại: ghi chú bỏ "bộ nhớ không tăng theo $r$", nêu trạng thái quyết định cỡ hằng nhưng cỡ mẫu tăng theo dòng | 25 (7, 6) → 39 (8, 14); ghi chú 117 → 134 | 0,5 |
+| P01 | Vấn đề trung tâm: nhu cầu một dòng và câu trả lời có điều kiện của mạch 2–5 | Nối mỗi dòng với mạch sẽ chứng minh nó và với giả thiết của nó | Nhu cầu "lấy mẫu, lọc dòng chưa biết độ dài, không lưu cả dòng"; đọc một lần, trả lời từ trạng thái; hàm băm đều, xác suất $1/10$, mẫu $\approx r/10$ bộ; số ngẫu nhiên đều, độc lập, $s/r$ khi $r\ge s$; Bloom filter $8\cdot10^9$ bit, sáu hàm băm đều, độc lập, $10^9$ khóa, nhận nhầm $\approx2\%$ | MMDS §4.2.1 tr.136 (bộ (người dùng, truy vấn, thời gian), ngân sách $1/10$); §4.3.1 tr.139 ($10^9$ địa chỉ, 1 GB) | Bằng chứng: trang trả lời vấn đề trung tâm ở phần tổng kết nhắc lại bốn dòng này với số liệu | sửa: thay tình huống cũ bằng trang "Vấn đề trung tâm". Lượt rà lại: mỗi dòng là câu trần thuật có điều kiện, không còn cụm tự đặt trước dấu hai chấm; dòng lấy mẫu theo khóa nêu cỡ mẫu tăng theo dòng. Số 6 hàm băm do học phần chọn (MMDS §4.3.1 dùng một, Ví dụ 4.4 dùng hai): số nguyên gần $k^*=8\ln2\approx5{,}545$; $p(6)=0{,}021577<p(5)=0{,}021679$. Xếp loại trang đối chiếu (trần 80): lý do và số đo ở đoạn dưới | 72 (3, 20) → 72 (5, 17); ghi chú 44 → 150 | 2,5 |
+
+Tổng mạch 1: 6,5 phút, bằng tổng cũ (P00 0, P03 0,5, P01 4, P02 2); tổng phần giảng giữ 120 phút.
+
+Ngoại lệ mật độ P01: trang được xếp loại trang đối chiếu, trần 80 âm tiết, vì `AGENTS.md` đòi câu trả lời có điều kiện của cả bốn mạch nội dung cùng dòng nhu cầu có giới hạn tài nguyên, và mỗi câu trả lời phải mang giả thiết của nó (hàm băm đều; số ngẫu nhiên đều, độc lập, $r\ge s$; hàm băm đều, độc lập, xấp xỉ mũ). Mục tiêu điều phối là ≤ 65. Trước: 72 âm tiết (bản đầu, 3 dòng), lượt sửa thứ nhất 57 (thiếu điều kiện); sau: 72 (5 dòng, max 17 âm tiết mỗi dòng). Vượt mục tiêu 7 âm tiết; bỏ thêm sẽ phải bỏ một giả thiết hoặc số liệu MMDS.

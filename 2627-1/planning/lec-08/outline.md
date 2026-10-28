@@ -3,10 +3,20 @@
 ## Phạm vi và mục tiêu
 
 - Bài 8 theo thứ tự đề xuất trong `sources/source.md`: **Dòng dữ liệu: mô hình, lấy mẫu và lọc**.
-- Đối tượng: sinh viên đã học xác suất cơ bản, băm và bất biến vòng lặp.
+- Đối tượng: sinh viên năm hai, đã học lập trình, toán rời rạc, đại số tuyến tính, xác suất cơ bản và Bài 01–07 (băm, bất biến vòng lặp).
 - Phần giảng: 120 phút. Phần bài tập: 60 phút.
-- Sản phẩm học tập: đặc tả mô hình dòng; chọn đúng khóa lấy mẫu; chạy và chứng minh lấy mẫu hồ chứa; xây, truy vấn và định cỡ Bloom filter.
+- Sản phẩm học tập (mục tiêu trên deck, cập nhật 2026-10-28): (1) đặc tả thuật toán dòng một lượt và chọn khóa lấy mẫu cho một thống kê theo nhóm; (2) lập vết hồ chứa và chứng minh bằng quy nạp mỗi phần tử đã đọc còn trong mẫu với xác suất $s/r$ khi $r\ge s$; (3) xây dựng và truy vấn Bloom filter, tính xác suất nhận nhầm khóa ngoài $S$ và số hàm băm tối ưu.
 - Ngoài phạm vi: Rejection Sampling, Flajolet–Martin, moment, DGIM, cửa sổ trượt và suy giảm theo thời gian.
+
+## Luận đề và vấn đề trung tâm (2026-10-28)
+
+- Câu luận đề (P00): «Băm khóa giữ trọn nhóm, hồ chứa giữ mẫu cỡ cố định, mảng bit loại hầu hết khóa ngoài tập.»
+- Vấn đề trung tâm (P01). Nhu cầu: lấy mẫu, lọc dòng chưa biết độ dài, không lưu cả dòng. Câu trả lời có điều kiện:
+  1. Mạch 2: đọc một lần nên chỉ trả lời từ trạng thái giữ lại.
+  2. Mạch 3: hàm băm đều giữ trọn mỗi người dùng với xác suất $1/10$; mẫu có $\approx r/10$ bộ, tức tăng theo dòng.
+  3. Mạch 4: với số ngẫu nhiên đều, độc lập, hồ chứa giữ mỗi phần tử đã đọc với xác suất $s/r$ khi $r\ge s$.
+  4. Mạch 5: Bloom filter $8\cdot10^9$ bit, sáu hàm băm đều, độc lập, không loại khóa nào của $10^9$ khóa, nhận nhầm $\approx2\%$ (xấp xỉ mũ $(1-e^{-6/8})^6\approx0{,}0216$; số 6 do học phần chọn).
+- Số liệu: MMDS §4.2.1 tr.136; §4.3.1 tr.139.
 
 ## Nguồn
 
@@ -22,7 +32,7 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 
 ## Mạch phần giảng
 
-1. P00–P02: tình huống dòng truy vấn và sản phẩm học tập.
+1. P00 → P04 → P02 → P03 → P01 (cập nhật 2026-10-28): bìa có câu luận đề; tiên quyết và quy ước; mục tiêu học tập; nội dung và đọc trước; vấn đề trung tâm với câu trả lời có điều kiện của mạch 2–5 (số liệu MMDS tr.133, 136, 139).
 2. A00–A04: mô hình dòng, trạng thái và mô hình chi phí.
 3. K00–K08: lấy mẫu nhất quán theo khóa.
 4. R00, R01, R03, R02, R04–R08: vấn đề → phân biệt → chạy tay → đặc tả → thuật toán và chứng minh hồ chứa.
@@ -32,18 +42,37 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 
 ## Thuật ngữ và ký hiệu
 
+Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký hiệu 2026-10-28; trang Tiên quyết và quy ước (P04) đặt các ký hiệu này. Các dòng còn lại cập nhật khi duyệt mạch dùng chúng.
+
 | Ký hiệu | Nghĩa |
 |---|---|
+| $x_1,x_2,\ldots$ | phần tử của dòng; không dùng $x$ cho nghĩa khác |
 | $t$, $K(t)$ | một bộ trên dòng và khóa của bộ |
 | $a/b$ | tỷ lệ khóa cần lấy mẫu |
 | $h(K)<a$ | điều kiện chọn khi $h$ có miền $0,\ldots,b-1$; $h$ phải phân bố đều trên toàn miền để tỷ lệ $a/b$ được bảo đảm |
 | $s$ | sức chứa hồ chứa, $s\ge1$ |
-| $r$ | số vị trí đã thấy ở hồ chứa |
+| $W$ | mảng hồ chứa $W[1..s]$ (thay $S$ cũ, từ 2026-10-28) |
+| $r$ | số phần tử đã đọc, tính cả phần tử vừa đến; dùng chung cho mô hình dòng và hồ chứa |
+| $S$ | tập khóa của Bloom filter |
 | $n$ | số bit của mảng Bloom |
-| $m$ | số khóa được đưa vào Bloom filter |
-| $k$ | số hàm băm của Bloom filter |
+| $m$ | số khóa được đưa vào Bloom filter, $m=\lvert S\rvert$ |
+| $k$ | số hàm băm của Bloom filter; khác khóa $K$ |
 | $q$ | mật độ bit 1 chính xác dưới mô hình $km$ phép băm iid: $q=1-(1-1/n)^{km}$ |
 | $p_{FP}$ | xác suất dương giả; $q^k$ là xấp xỉ chuẩn và dạng mũ $(1-e^{-km/n})^k$ là xấp xỉ khi $n$ lớn |
+
+### Thuật ngữ Việt–Anh
+
+| Thuật ngữ | Tiếng Anh |
+|---|---|
+| dòng dữ liệu | data stream |
+| trạng thái (dữ liệu giữ lại giữa hai lần đọc) | state |
+| truy vấn thường trực | standing query |
+| truy vấn tức thời | ad-hoc query |
+| lấy mẫu theo khóa | sampling by key (MMDS §4.2.3, "key") |
+| lấy mẫu hồ chứa | reservoir sampling |
+| Bloom filter (còn gọi là bộ lọc Bloom) | Bloom filter |
+| dương giả | false positive |
+| âm giả | false negative |
 
 ## Kiểm kê nội dung và hình
 
@@ -57,29 +86,39 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 
 ## Bản đồ chủ đề cho ghi chú tự học
 
-| `note-topic-id` | Nhãn | Chủ đề | Sản phẩm |
-|---|---|---|---|
-| `L08-N01` | cốt lõi | Mô hình dòng một lượt | hợp đồng và bốn trục chi phí |
-| `L08-N02` | cốt lõi | Lấy mẫu sai đơn vị | nhận ra sai lệch khi thống kê theo nhóm |
-| `L08-N03` | cốt lõi | Lấy mẫu nhất quán theo khóa | đặc tả, thuật toán và chứng minh $a/b$ |
-| `L08-N04` | cầu nối | Điều chỉnh tỷ lệ bằng ngưỡng | đổi tỷ lệ mà không lưu quyết định cũ |
-| `L08-N05` | cốt lõi | Lấy mẫu hồ chứa | vết chạy, giả mã và quy nạp $s/r$ |
-| `L08-N06` | cốt lõi | Cơ chế Bloom filter | xây, truy vấn và ví dụ 11 bit |
-| `L08-N07` | cốt lõi | Bảo đảm không âm giả | điều kiện và giới hạn |
-| `L08-N08` | cốt lõi | Mật độ bit và FPR | phân biệt chính xác với xấp xỉ |
-| `L08-N09` | cốt lõi | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ |
-| `L08-N10` | cốt lõi | Chọn cấu trúc | ánh xạ đầu ra sang trạng thái |
-| `L08-N11` | cốt lõi | Bốn bài tập MMDS | sản phẩm recitation truy nguyên được |
+Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hiệu cùng ngày: mã `L08-N01`…`L08-N11` không hợp lệ với viewer (`TOPIC_ID_PATTERN` chỉ nhận chữ thường) nên thay bằng `lec-08-topic-01`…`lec-08-topic-17`. Ghi chú được viết lại thành chương giáo trình theo từng mạch; bảng dưới là bản đồ đích, đã đặt trong phần đầu chương của `lecture-note.md`. Mục ghi chú: 1 Mô hình dòng một lượt; 2 Lấy mẫu theo khóa; 3 Lấy mẫu hồ chứa; 4 Lọc thành viên bằng Bloom filter; 5 Chọn cấu trúc theo đầu ra; rồi Tình huống, Tóm tắt, Bài tập củng cố, Tham khảo.
 
-Đồ thị tiên quyết: `N01→N02→N03→N04`; `N01→N05`; `N01→N06→N07→N08→N09`; ba nhánh hội tụ tại `N10`, rồi sang `N11`. Ghi chú dùng $r$ cho số phần tử đã thấy ở hồ chứa để không xung đột với $n$ bit của Bloom.
+| `note-topic-id` | Nhãn | Mục ghi chú | Chủ đề | Sản phẩm | Mã cũ |
+|---|---|---|---|---|---|
+| `lec-08-topic-01` | cầu nối | Tiên quyết | Kiến thức tiên quyết | Hai bài toán dòng của ghi chú Bài 01; hàm băm tất định (ghi chú Bài 05, Mục 9, 11; hàm phân phối Bài 02); cách phân tích Định lý 06.7; công cụ xác suất, Jensen; $(1-1/c)^c\to e^{-1}$, $1-z\le e^{-z}$, Bernoulli, hàm lõm, cực trị; quy nạp và bất biến (ghi chú Bài 05, Mục 10; Mệnh đề 06.5) | — |
+| `lec-08-topic-02` | cốt lõi | 1 | Mô hình dòng một lượt | đặc tả chung và bốn trục chi phí | N01 |
+| `lec-08-topic-03` | cốt lõi | 2.1 | Sai lệch của lấy mẫu từng bộ | tỷ số $d/(10u+19d)$ so với $d/(u+d)$ | N02 |
+| `lec-08-topic-04` | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2 | Mẫu nhất quán theo khóa | quy tắc $h(K(t))<a$, thuật toán, tính nhất quán, xác suất $a/b$ | N03 |
+| `lec-08-topic-05` | cốt lõi | 2.3 | Chọn khóa theo đơn vị thống kê | quy trình ba bước; dẫn tới Bài tập 4.2.1 | N03 (tách) |
+| `lec-08-topic-06` | cầu nối | 2.4 | Ngưỡng băm khi ngân sách cố định | hạ $\tau$ mà không lưu quyết định cũ; bất biến của mẫu | N04 |
+| `lec-08-topic-07` | cốt lõi | 3.1–3.3 | Đặc tả và thuật toán hồ chứa | vết $s=2$, giả mã trên $W$ | N05 |
+| `lec-08-topic-08` | cốt lõi; số lần ghi kỳ vọng là bổ sung | 3.4–3.5 | Xác suất $s/r$ và chi phí hồ chứa | chứng minh quy nạp, chi phí | N05 (tách) |
+| `lec-08-topic-09` | cốt lõi | 4.1–4.3 | Cơ chế Bloom filter | xây, truy vấn, ví dụ 11 bit | N06 |
+| `lec-08-topic-10` | cốt lõi | 4.4 | Không âm giả | bốn điều kiện và phản ví dụ | N07 |
+| `lec-08-topic-11` | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | Mật độ bit và xác suất dương giả | phân biệt chính xác với xấp xỉ | N08 |
+| `lec-08-topic-12` | cốt lõi; định cỡ cho 1% là bổ sung | 4.6 | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ | N09 |
+| `lec-08-topic-13` | cốt lõi | 5 | Chọn cấu trúc theo đầu ra | ánh xạ đầu ra sang trạng thái | N10 |
+| `lec-08-topic-14` | cốt lõi | Tình huống | Tình huống áp dụng | bài toán giải trọn, một tình huống vi phạm giả thiết | — |
+| `lec-08-topic-15` | cốt lõi | Tóm tắt | Tóm tắt chương | chuỗi kết quả, giả thiết hay bị bỏ quên, sang Bài 09 | — |
+| `lec-08-topic-16` | cốt lõi | Bài tập | Bài tập củng cố | ba mức, gồm bốn bài MMDS của mạch 7 | N11 |
+| `lec-08-topic-17` | đọc thêm | Tham khảo | Đọc thêm và tài liệu | ánh xạ mục ↔ nguồn; lấy mẫu có trọng số (Blum–Hopcroft–Kannan §6.1) | — |
+
+Đồ thị tiên quyết: `topic-01→topic-02`; nhánh khóa `02→03→04→05→06`; nhánh hồ chứa `02→07→08` (08 so với 04); nhánh Bloom `02→09→10→11→12`; ba nhánh hội tụ ở `13`, rồi `14→15`; `16` dùng mọi chủ đề trước; `17` cuối chương. Chu trình rút gọn: `05` (quy trình), `06` (cầu nối, một mệnh đề bất biến), `13` (tổng hợp). Các nhãn "bổ sung" trong cột Nhãn chờ điều phối viên duyệt khi viết mục tương ứng.
+
+Ký hiệu của ghi chú theo quyết định ký hiệu của điều phối viên ngày 2026-10-28 và bảng "Thuật ngữ và ký hiệu" ở trên, thêm: $\mathcal K$ (miền khóa), $b$ thường cho số giá trị của $h$ (kể cả ở ngưỡng §4.2.4, thay $B$ của MMDS), $\tau$, $u$, $d$, $j$, $B[0..n-1]$, $y$, $X$ (số bit 1), $p(k)$, $k^*$. Biến phụ của chứng minh $k^*$ chưa chốt: đề xuất cũ $u=e^{-z}$ trùng $u$ (truy vấn đơn) nên phải chọn chữ khác khi viết Mục 4.6.
 
 ## Tên mạch và trang tiêu đề mạch (2026-10-14)
 
-Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 55 trang.
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 55 trang; 56 trang sau khi thêm P04 ngày 2026-10-28.
 
 | N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
 |---:|---|---|---|
-| 1 | Mở đầu | P00 (trang bìa) | — |
+| 1 | Mở đầu | P00 (trang bìa) | P04 (Tiên quyết và quy ước), rồi P02, P03, P01 |
 | 2 | Mô hình tính toán trên dòng | AT | A00 |
 | 3 | Lấy mẫu theo khóa | KT | K00 |
 | 4 | Lấy mẫu hồ chứa | RT | R00 |

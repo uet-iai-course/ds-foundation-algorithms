@@ -1,8 +1,101 @@
 # Bài 08 — Dòng dữ liệu: mô hình, lấy mẫu và lọc
 
-Xem bộ trang chiếu tại [Bài 08 — Dòng dữ liệu: mô hình, lấy mẫu và lọc](../../lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html).
+Máy tìm kiếm nhận vài trăm triệu truy vấn mỗi ngày (MMDS §4.1.2, tr.133). Các truy vấn đến thành một dòng không biết trước độ dài, mỗi phần tử chỉ được đọc một lần, và bộ nhớ làm việc không giữ được toàn bộ lịch sử. Hai bài toán trên những dòng như vậy, giữ mẫu truy vấn và lọc thư đến, đã được đặt ở ghi chú Bài 01 nhưng chưa có thuật toán. Trong chương này, chúng ta xây ba cấu trúc chỉ đọc dòng một lượt cho ba loại câu hỏi. Lấy mẫu theo khóa phục vụ thống kê theo người dùng khi chỉ lưu được $1/10$ dòng (§4.2.1, tr.136); trạng thái quyết định của nó có cỡ hằng, nhưng mẫu tăng theo dòng, với kỳ vọng khoảng một phần mười số bộ đã đọc. Lấy mẫu hồ chứa giữ một mẫu có số phần tử cố định, trong đó mọi phần tử đã đọc có cùng cơ hội có mặt. Bloom filter trả lời câu hỏi thành viên cho tập $10^9$ địa chỉ được phép bằng một mảng bit cố định trong 1 GB bộ nhớ (§4.3.1, tr.139). Với mỗi cấu trúc, chúng ta nêu giả thiết, chứng minh bảo đảm và đếm chi phí.
 
-Dòng dữ liệu đến liên tục, chưa biết trước độ dài cuối cùng, và không thể lưu toàn bộ lịch sử trong bộ nhớ làm việc. Bài này giới thiệu ba kiểu xử lý nền tảng: lấy mẫu theo khóa, lấy mẫu hồ chứa, và bộ lọc Bloom. Ba cấu trúc này trả lời ba loại câu hỏi khác nhau, và việc chọn đúng trạng thái phụ thuộc vào đầu ra mà ta cần tính.
+[Bộ trang chiếu Bài 08](lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html) trình bày cùng ký hiệu và dữ kiện.
+
+## Mục tiêu học tập
+
+Sau chương này, người học có thể:
+
+1. Đặc tả thuật toán dòng một lượt và chọn khóa lấy mẫu cho một thống kê theo nhóm.
+   - Viết đầu vào, trạng thái, phép cập nhật, đầu ra của một thuật toán dòng và đo nó theo bốn trục chi phí (Mục 1).
+   - Tính sai lệch của lấy mẫu từng bộ, chọn khóa nhận diện đúng đơn vị thống kê, chạy lấy mẫu theo khóa và chứng minh mọi bộ cùng khóa nhận cùng quyết định, kể cả khi hạ ngưỡng băm (Mục 2).
+2. Chạy tay lấy mẫu hồ chứa (reservoir sampling) có sức chứa $s$ và chứng minh bằng quy nạp rằng, sau khi đọc $r\ge s$ phần tử, mỗi phần tử đã đọc còn trong mẫu với xác suất $s/r$.
+   - Lập vết chạy khi biết các số ngẫu nhiên đã sinh; trình bày đủ bước cơ sở, bước quy nạp và chỗ dùng giả thiết về số ngẫu nhiên; nêu chi phí bộ nhớ và thời gian mỗi phần tử (Mục 3).
+3. Xây và truy vấn Bloom filter (còn gọi là bộ lọc Bloom) gồm $n$ bit, $k$ hàm băm và tập $S$ gồm $m$ khóa; tính xác suất nhận nhầm một khóa ngoài $S$ và số hàm băm tối ưu.
+   - Đặt bit và trả lời truy vấn trên một mảng 11 bit; chứng minh khóa đã chèn không bị loại khi bốn điều kiện được giữ: không xóa hay đặt lại bit, truy vấn dùng đúng các hàm băm và mảng đã xây, các hàm băm tất định, mọi phép ghi bit đã xong (Mục 4).
+   - Tính mật độ bit 1, xác suất nhận nhầm và dạng mũ $(1-e^{-km/n})^k$; dẫn xuất $k^*=(n/m)\ln2$ và chọn số hàm băm nguyên (Mục 4, các bài tập 4.3.1–4.3.3 của MMDS).
+
+Ở Mục 5 và các tình huống áp dụng, ba mục tiêu được dùng cùng lúc để chọn cấu trúc theo câu hỏi cần trả lời.
+
+<!-- note-topic-id: lec-08-topic-01 -->
+## Kiến thức tiên quyết
+
+Số hiệu `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 01 và Bài 05 chưa đánh số hiệu, nên các kết quả của hai bài đó được dẫn theo mục. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
+
+- **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời điểm) vẫn đo được mức lặp truy vấn của từng người, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
+- **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó. Hàm phân phối của MapReduce trong bộ trang chiếu Bài 02 dựa trên cùng tính chất: mọi tác vụ Map dùng chung một hàm, nên mọi cặp cùng khóa về cùng một tác vụ Reduce.
+- **Phân tích xác suất thành ứng viên** (Định lý 06.7). Khi các hàm MinHash được chọn độc lập, xác suất một cặp tài liệu thành ứng viên được tính theo bốn bước: xác suất trùng ở một hàng; tích các xác suất độc lập cho xác suất trùng cả một dải; tích lần nữa trên các dải độc lập cho xác suất không dải nào trùng; rồi lấy biến cố bù. MMDS (§4.3.3, tr.140) nêu rằng phân tích Bloom filter đi theo cùng cách làm với phân tích phân dải ở §3.4.2; bước tích thứ hai ứng với biến cố không phép băm nào rơi vào một bit cho trước.
+- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, mục "Mô hình ngẫu nhiên và giới hạn suy luận"; ghi chú Bài 05, Mục 7). Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$. Với các biến cố $E_1,\ldots,E_c$ độc lập (toàn phần, không chỉ từng đôi), $\Pr(E_1\cap\cdots\cap E_c)=\Pr(E_1)\cdots\Pr(E_c)$. Quy tắc nhân: $\Pr(E\cap F)=\Pr(E)\Pr(F\mid E)$ khi $\Pr(E)>0$. Tuyến tính kỳ vọng: kỳ vọng của tổng bằng tổng các kỳ vọng, không cần độc lập; $\mathbb E[\mathbf 1[E]]=\Pr(E)$.
+- **Bất đẳng thức Jensen** (học phần Xác suất thống kê; đã dùng ở Tình huống 06.2). Với hàm $g$ lồi trên một khoảng chứa mọi giá trị của biến ngẫu nhiên $Z$, $\mathbb E[g(Z)]\ge g(\mathbb E[Z])$; với $g$ lõm, bất đẳng thức đổi chiều.
+- **Giới hạn của $(1-1/c)^c$** (MMDS §1.3.5; học phần Giải tích). Khi số nguyên $c$ tăng, $(1-1/c)^c$ tăng và tiến tới $e^{-1}\approx0{,}3679$; do đó với $c$ lớn và $z>0$ cố định, $(1-1/c)^{zc}\approx e^{-z}$.
+- **Ba bất đẳng thức một biến** (học phần Giải tích). Với mọi số thực $z$, $1-z\le e^{-z}$; lấy $z=1/c$, $c\ge1$, rồi nâng hai vế không âm lên lũy thừa $c$ được $(1-1/c)^c\le e^{-1}$. Bất đẳng thức Bernoulli: $(1-z)^c\ge1-cz$ với $0\le z\le1$ và $c$ nguyên dương. Nếu $g$ liên tục trên $[\alpha,\beta]$, có $g''<0$ trên $(\alpha,\beta)$ và $g(\alpha)=g(\beta)=0$, thì $g>0$ trên $(\alpha,\beta)$, vì một hàm lõm chặt nằm trên dây cung nối hai đầu.
+- **Đạo hàm và cực trị** (học phần Giải tích). Nếu $g$ khả vi trên $(\alpha,\beta)$, $g'<0$ trên $(\alpha,c_0)$ và $g'>0$ trên $(c_0,\beta)$, thì $g$ đạt giá trị nhỏ nhất trên $(\alpha,\beta)$ tại $c_0$. Vì $(\ln g)'=g'/g$ khi $g>0$, hai hàm $g$ và $\ln g$ có cùng điểm cực tiểu.
+- **Quy nạp và bất biến vòng lặp** (ghi chú Bài 05, Mục 10; chứng minh Mệnh đề 06.5). Một khẳng định đúng cho mọi số nguyên $c\ge c_0$ khi nó đúng cho $c_0$ và đúng cho $c+1$ mỗi khi đúng cho $c$. Bất biến vòng lặp đúng trước lượt đầu (khởi tạo), được giữ qua mỗi lượt (duy trì) và cho điều cần chứng minh khi vòng lặp dừng (kết thúc).
+
+## Bảng ký hiệu
+
+Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùng trong một chứng minh được giới thiệu tại chỗ. Mỗi chữ giữ một nghĩa trong cả chương.
+
+| Ký hiệu | Ý nghĩa | Miền hoặc kiểu |
+|---|---|---|
+| $x_1,x_2,\ldots$; $x_i$ | các phần tử của dòng theo thứ tự đến; phần tử ở vị trí $i$ | phần tử của miền dữ liệu; $i\ge1$ |
+| $r$ | số phần tử đã đọc, tính cả phần tử vừa đến | số nguyên không âm |
+| $t$ | một phần tử của dòng truy vấn, là bộ (người dùng, truy vấn, thời điểm); khi cần chỉ số, $t=x_i$ | bộ nhiều thành phần |
+| $\mathcal K$; $K$; $K(t)$ | miền khóa; một giá trị khóa; khóa của bộ $t$, gồm các thành phần nhận diện đơn vị thống kê | tập; phần tử của $\mathcal K$ |
+| $u$; $d$ | số truy vấn khác nhau mà một người dùng gửi đúng một lần; đúng hai lần | số nguyên không âm |
+| $h$ | hàm băm dùng để lấy mẫu theo khóa, cố định sau khi chọn | $\mathcal K\to\{0,\ldots,b-1\}$ |
+| $b$; $a$ | số giá trị của $h$; số giá trị được nhận, bộ $t$ được chọn khi $h(K(t))<a$, tỷ lệ $a/b$ | số nguyên, $b\ge1$, $0\le a\le b$ |
+| $\tau$ | ngưỡng băm khi điều chỉnh tỷ lệ: bộ được nhận khi $h(K(t))\le\tau$, ứng với $a=\tau+1$ | số nguyên, $-1\le\tau\le b-1$ |
+| $s$ | sức chứa của hồ chứa | số nguyên, $s\ge1$ |
+| $W[1..s]$ | mảng hồ chứa, giữ mẫu hiện tại | mảng $s$ ô, mỗi ô chứa một phần tử của dòng |
+| $j$ | số ngẫu nhiên sinh khi phần tử thứ $r>s$ đến | số nguyên đều trên $\{1,\ldots,r\}$ |
+| $S$; $m$ | tập khóa được chèn vào Bloom filter; số khóa, $m=\lvert S\rvert$ | tập hữu hạn, $S\subseteq\mathcal K$; số nguyên dương |
+| $n$; $B[0..n-1]$ | số bit của Bloom filter; mảng bit | số nguyên dương; $\{0,1\}^n$ |
+| $k$; $h_1,\ldots,h_k$ | số hàm băm của Bloom filter; các hàm băm | số nguyên dương; $\mathcal K\to\{0,\ldots,n-1\}$ |
+| $y$ | khóa được truy vấn ở Bloom filter | phần tử của $\mathcal K$ |
+| $X$ | số bit bằng 1 của mảng sau khi chèn $S$ | biến ngẫu nhiên trên $\{0,\ldots,n\}$ |
+| $q$ | mật độ bit 1 kỳ vọng, $q=\mathbb E[X]/n=1-(1-1/n)^{km}$ khi $km$ phép băm đều và độc lập | $[0,1]$ |
+| $p_{FP}$ | xác suất dương giả (false positive): một khóa $y\notin S$ cố định nhận câu trả lời "có thể thuộc" | $[0,1]$ |
+| $p(k)$ | dạng mũ $(1-e^{-km/n})^k$, xét như hàm của $k$ | $(0,1)$, với $k>0$ thực |
+| $k^*$ | điểm cực tiểu của $p(k)$ trên $k>0$, $k^*=(n/m)\ln2$ | số thực dương |
+| $\Pr$; $\mathbb E$; $\mathbf 1[E]$ | xác suất; kỳ vọng; biến chỉ báo của biến cố $E$. Chỉ số dưới nêu nguồn ngẫu nhiên khi cần, như $\Pr_h$ | $[0,1]$; số thực; $\{0,1\}$ |
+
+Các quy ước đọc sau dùng trong cả chương.
+
+- Số thập phân dùng dấu phẩy, ví dụ $0{,}0216$. Số nguyên lớn nhóm ba chữ số bằng khoảng trắng hẹp, ví dụ $1\,000$, hoặc viết dạng lũy thừa, ví dụ $8\cdot10^9$. Ký hiệu $\ln$ là logarit cơ số $e$.
+- Vị trí trên dòng và ô của hồ chứa đánh số từ $1$; bit của mảng Bloom và giá trị băm đánh số từ $0$.
+- Chữ thường và chữ hoa là hai ký hiệu khác nhau: $k$ là số hàm băm, $K$ là khóa; $b$ là số giá trị của $h$, $B$ là mảng bit.
+- Tên phần tử trong vết chạy hồ chứa viết chữ đứng, như dòng a, x, c, y, z của slide MMDS, để không lẫn với các ký hiệu nghiêng $a$, $x_i$, $y$.
+- Ký hiệu khác MMDS ở bốn chỗ, vì các chữ của sách đã mang nghĩa khác trong bảng: số truy vấn xuất hiện một lần $s$ (§4.2.1) viết là $u$; số giá trị băm $B$ và ngưỡng $t$ (§4.2.4) viết là $b$ và $\tau$; số đích $x$ và số phi tiêu $y$ (§4.3.3) là $n$ bit và $km$ phép băm; mẫu $S$ và số phần tử đã thấy $n$ trên slide hồ chứa viết là $W$ và $r$.
+- Số liệu lấy từ MMDS: Hình 4.1, các Ví dụ 4.1, 4.3, 4.4, ngân sách $1/10$ dòng ở §4.2.1, các bài 4.2.1 và 4.3.1–4.3.3. Mảng 11 bit với các khóa 25, 159, 585 và truy vấn 118 lấy từ slide của Ullman cho học phần CS246 (2017). Giá trị băm của An, Bình, Chi, dãy số ngẫu nhiên của vết hồ chứa, các khóa truy vấn khác trên mảng 11 bit và dữ kiện các bài tập không mang số bài sách do học phần dựng để minh họa. Khi số in trong sách khác phép tính lại, giá trị tính lại được dùng và chỗ khác được nêu tại chỗ.
+
+## Bản đồ chủ đề
+
+Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại tiên quyết hoặc nối hai bước suy luận; **bổ sung** lấp một khoảng trống của nguồn; **đọc thêm** không cần để đạt mục tiêu.
+
+| Chủ đề (mã) | Nhóm | Mục | Vai trò → sản phẩm dùng tiếp |
+|---|---|---|---|
+| Kiến thức tiên quyết (`lec-08-topic-01`) | cầu nối | Tiên quyết | Kết quả dùng lại từ Bài 01, 05, 06, công cụ xác suất, giải tích, quy nạp → Mục 1–4 |
+| Mô hình dòng một lượt (`lec-08-topic-02`) | cốt lõi | 1 | Trạng thái, phép cập nhật, truy vấn, bốn trục chi phí → đặc tả chung của ba cấu trúc |
+| Sai lệch của lấy mẫu từng bộ (`lec-08-topic-03`) | cốt lõi | 2.1 | Tỷ số $d/(10u+19d)$ so với $d/(u+d)$ → nhu cầu lấy mẫu theo đơn vị thống kê |
+| Mẫu nhất quán theo khóa (`lec-08-topic-04`) | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2 | Quy tắc $h(K(t))<a$, tính nhất quán, xác suất $a/b$, cỡ mẫu kỳ vọng → giới hạn về cỡ mẫu |
+| Chọn khóa theo đơn vị thống kê (`lec-08-topic-05`) | cốt lõi | 2.3 | Quy trình ba bước, ba lựa chọn khóa → Bài tập 4.2.1 của MMDS |
+| Ngưỡng băm khi ngân sách cố định (`lec-08-topic-06`) | cầu nối | 2.4 | Hạ ngưỡng $\tau$, bất biến của mẫu → nhu cầu mẫu cỡ cố định |
+| Đặc tả và thuật toán hồ chứa (`lec-08-topic-07`) | cốt lõi | 3.1–3.3 | Mẫu cỡ $s$, vết chạy với $s=2$, giả mã → định lý xác suất |
+| Xác suất $s/r$ và chi phí hồ chứa (`lec-08-topic-08`) | cốt lõi; số lần ghi kỳ vọng là bổ sung | 3.4–3.5 | Chứng minh quy nạp, chi phí → so sánh với mẫu theo khóa |
+| Cơ chế Bloom filter (`lec-08-topic-09`) | cốt lõi | 4.1–4.3 | $10^9$ địa chỉ trong 1 GB, ví dụ 11 bit, xây và truy vấn → bảo đảm |
+| Không âm giả (`lec-08-topic-10`) | cốt lõi | 4.4 | Bốn điều kiện, phản ví dụ khi xóa bit → phân tích dương giả |
+| Mật độ bit và xác suất dương giả (`lec-08-topic-11`) | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | $q$ chính xác, xấp xỉ $q^k$, dạng mũ → hàm $p(k)$ |
+| Số hàm băm tối ưu (`lec-08-topic-12`) | cốt lõi; định cỡ cho 1% là bổ sung | 4.6 | $k^*=(n/m)\ln2$, chọn $k$ nguyên → định cỡ Bloom filter |
+| Chọn cấu trúc theo đầu ra (`lec-08-topic-13`) | cốt lõi | 5 | Đơn vị, bảo đảm, chi phí → tình huống áp dụng |
+| Tình huống áp dụng (`lec-08-topic-14`) | cốt lõi | Tình huống | Bài toán giải trọn, một tình huống vi phạm giả thiết → tóm tắt |
+| Tóm tắt chương (`lec-08-topic-15`) | cốt lõi | Tóm tắt | Chuỗi kết quả, giả thiết hay bị bỏ quên → Bài 09 |
+| Bài tập củng cố (`lec-08-topic-16`) | cốt lõi | Bài tập | Ba mức, gồm bốn bài MMDS → kiểm ba mục tiêu |
+| Đọc thêm và tài liệu (`lec-08-topic-17`) | đọc thêm | Tham khảo | Ánh xạ mục ↔ nguồn, lấy mẫu có trọng số, Bài 09 |
+
+Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.4. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.3) rồi xác suất $s/r$ và chi phí (Mục 3.4–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
 
 ## 1. Mô hình dòng một lượt
 
@@ -58,15 +151,15 @@ Cách tự nhiên là sinh mỗi bộ một số ngẫu nhiên trong $\{0,\dots,
 
 ### Phép đếm
 
-Giả sử mỗi người dùng có $x$ truy vấn phân biệt xuất hiện đúng một lần và $d$ truy vấn phân biệt xuất hiện đúng hai lần. Tỷ lệ cần ước lượng là
+Giả sử mỗi người dùng có $u$ truy vấn phân biệt xuất hiện đúng một lần và $d$ truy vấn phân biệt xuất hiện đúng hai lần. Tỷ lệ cần ước lượng là
 
-$$\frac{d}{x+d}.$$
+$$\frac{d}{u+d}.$$
 
-Trong mẫu $1/10$, kỳ vọng chứa $x/10$ truy vấn đơn. Trong $d$ truy vấn lặp, chỉ $d/100 = \tfrac{1}{10}\cdot\tfrac{1}{10}d$ còn đủ hai bản, và $18d/100$ chỉ còn một bản (một bản nằm trong $1/10$ được chọn, một bản nằm trong $9/10$ bị bỏ). Vậy tỷ số từ số đếm kỳ vọng trong mẫu là
+Trong mẫu $1/10$, kỳ vọng chứa $u/10$ truy vấn đơn. Trong $d$ truy vấn lặp, chỉ $d/100 = \tfrac{1}{10}\cdot\tfrac{1}{10}d$ còn đủ hai bản, và $18d/100$ chỉ còn một bản (một bản nằm trong $1/10$ được chọn, một bản nằm trong $9/10$ bị bỏ). Vậy tỷ số từ số đếm kỳ vọng trong mẫu là
 
-$$\frac{d/100}{x/10 + 18d/100 + d/100} = \frac{d}{10x + 19d}.$$
+$$\frac{d/100}{u/10 + 18d/100 + d/100} = \frac{d}{10u + 19d}.$$
 
-Rõ ràng $d/(x+d) \ne d/(10x+19d)$ với mọi $x,d>0$. Ví dụ với $x=d=1$, tỷ lệ đích là $1/2$ nhưng tỷ số từ số đếm kỳ vọng là $1/29$.
+Rõ ràng $d/(u+d) \ne d/(10u+19d)$ với mọi $u,d>0$. Ví dụ với $u=d=1$, tỷ lệ đích là $1/2$ nhưng tỷ số từ số đếm kỳ vọng là $1/29$.
 
 > Lưu ý: tỷ số thứ hai chỉ là tỷ số của hai kỳ vọng, không phải kỳ vọng chính xác của một tỷ số ngẫu nhiên. Nó cho thấy lấy mẫu độc lập từng bộ phá vỡ đơn vị thống kê: quan hệ giữa các lần xuất hiện của cùng một truy vấn bị mất.
 
@@ -150,7 +243,7 @@ Dùng $h(K)<20$ để nhận đúng 20 ngăn. Khóa đó được giữ cả m�
 
 ## 4. Điều chỉnh tỷ lệ mẫu bằng ngưỡng băm
 
-Khi dòng dài dần, mẫu có thể vượt quá ngân sách. Nguồn đề xuất băm khóa vào miền lớn $\{0,\dots,B-1\}$ và duy trì ngưỡng $\tau$, ban đầu có thể là $B-1$. Mẫu gồm các bộ có khóa $K$ thỏa $h(K)\le\tau$. Đây là quy ước tương đương với điều kiện nhỏ hơn ở phần trước sau khi dịch ngưỡng một đơn vị. Khi mẫu vượt ngân sách, hạ $\tau$ và loại các bộ ở mức vừa bỏ.
+Khi dòng dài dần, mẫu có thể vượt quá ngân sách. Nguồn đề xuất băm khóa vào miền $\{0,\dots,b-1\}$ với $b$ lớn và duy trì ngưỡng $\tau$, ban đầu có thể là $b-1$. Mẫu gồm các bộ có khóa $K$ thỏa $h(K)\le\tau$. Đây là quy ước tương đương với điều kiện nhỏ hơn ở phần trước sau khi dịch ngưỡng một đơn vị. Khi mẫu vượt ngân sách, hạ $\tau$ và loại các bộ ở mức vừa bỏ.
 
 Chỉ cần ngưỡng hiện tại và cùng hàm $h$ để tái lập quyết định; không cần nhớ quyết định cũ của từng khóa. Việc hạ ngưỡng làm thay đổi tập khóa được chọn. Phần tiếp theo chuyển sang yêu cầu khác: giữ mẫu kích thước cố định theo vị trí.
 
@@ -172,9 +265,9 @@ Trong lấy mẫu theo khóa, kích thước mẫu không cố định. Ngược
 
 </div>
 
-Vết chạy với $s=2$, dòng $a,x,c,y,z$ và các số ngẫu nhiên $j$ lần lượt là $j=2,4,1$:
+Vết chạy với $s=2$, dòng a, x, c, y, z và các số ngẫu nhiên $j$ lần lượt là $j=2,4,1$:
 
-| Bước $r$ | Phần tử | $j$ | Trạng thái $S$ |
+| Bước $r$ | Phần tử | $j$ | Trạng thái $W$ |
 |---|---|---|---|
 | 1 | a | — | a |
 | 2 | x | — | a x |
@@ -182,17 +275,17 @@ Vết chạy với $s=2$, dòng $a,x,c,y,z$ và các số ngẫu nhiên $j$ lầ
 | 4 | y | 4 ($>s$) | a c |
 | 5 | z | 1 | z c |
 
-Ở $r=3$ thì $j=2\le s$ nên $c$ thay ô 2. Ở $r=4$ thì $j=4>s$ nên bỏ $y$. Ở $r=5$ thì $j=1$ nên $z$ thay ô 1. Số $j$ ở đây chỉ là một lần chạy minh họa, không phải xác suất bảo đảm; chúng phụ thuộc vào bộ sinh số ngẫu nhiên.
+Ở $r=3$ thì $j=2\le s$ nên c thay ô 2. Ở $r=4$ thì $j=4>s$ nên bỏ y. Ở $r=5$ thì $j=1$ nên z thay ô 1. Số $j$ ở đây chỉ là một lần chạy minh họa, không phải xác suất bảo đảm; chúng phụ thuộc vào bộ sinh số ngẫu nhiên.
 
 ### Thuật toán
 
 ```text
-HỒ-CHỨA(x_r, r, s, S)
-  nếu r ≤ s: S[r] ← x_r
+HỒ-CHỨA(x_r, r, s, W)
+  nếu r ≤ s: W[r] ← x_r
   ngược lại:
     j ← số nguyên đều trong {1,…,r}
-    nếu j ≤ s: S[j] ← x_r
-  trả S
+    nếu j ≤ s: W[j] ← x_r
+  trả W
 ```
 
 Với $r>s$, sinh $j$ đều trong $1,\dots,r$ và chèn phần tử mới vào ô $j$ khi $j\le s$ tương đương với: giữ phần tử mới với xác suất $s/r$, rồi chọn đều một trong $s$ ô để thay. Mỗi lần gọi cần phép sinh mẫu đều và độc lập có điều kiện với lịch sử.
@@ -207,9 +300,9 @@ Giả sử đúng với $r$. Xét bước $r+1$.
 
 **(a) Phần tử mới.** Phần tử mới $x_{r+1}$ vào hồ khi $j\le s$:
 
-$$\Pr[x_{r+1}\in S]=\frac{s}{r+1}.$$
+$$\Pr[x_{r+1}\in W]=\frac{s}{r+1}.$$
 
-**(b) Phần tử cũ.** Với điều kiện phần tử cũ đang trong $S$, nó bị thay khi $j\le s$ và $j$ đúng ô của nó:
+**(b) Phần tử cũ.** Với điều kiện phần tử cũ đang trong $W$, nó bị thay khi $j\le s$ và $j$ đúng ô của nó:
 
 $$\Pr[\text{bị thay}]=\frac{s}{r+1}\cdot\frac{1}{s}=\frac{1}{r+1}.$$
 
@@ -217,7 +310,7 @@ Vì vậy xác suất sống sót của phần tử cũ qua bước $r+1$ là
 
 $$\frac{s}{r}\cdot\left(1-\frac{1}{r+1}\right)=\frac{s}{r}\cdot\frac{r}{r+1}=\frac{s}{r+1}.$$
 
-Kích thước đúng $s$ được duy trì vì bước $r>s$ hoặc không đổi $S$, hoặc thay đúng một ô.
+Kích thước đúng $s$ được duy trì vì bước $r>s$ hoặc không đổi $W$, hoặc thay đúng một ô.
 
 ### Chi phí, giả thiết và tự kiểm
 

@@ -174,3 +174,29 @@ Quyết định ký hiệu và quy trình chung ghi ở `decisions-08.md` (scrat
 | — | `index.html` | Bài 8 chưa có mục | thêm thẻ Bài 8 với liên kết deck; ghi chú để "Chưa có" cho tới khi qua kiểm định |
 
 Không đổi chữ: tác tử biên tập so chữ đã bỏ thẻ của 55 trang kể cả ghi chú diễn giả, không trang nào khác. Kiểm của điều phối viên: đọc diff ba tệp; `check08.py` (Playwright Chromium, cổng 8772) 55 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung, không cuộn ngang; chữ thân nhỏ nhất 28 px trong khung 1280×720 (bảng 25 px, `ex-note` 24 px); P01 72 và X01 78 âm tiết vượt trần từ trước, xử lý ở mạch 1 và 7. Ảnh đã tự xem: P00, K01, X04 (1600×900). Bài 02, 03 ở hai khổ: không phần tử khớp `.lecture-stream`, không lỗi. `git diff --check` sạch.
+
+### Mạch 1. Mở đầu
+
+Trang đổi: P00 (câu luận đề), P04 (mới, "Tiên quyết và quy ước"), P02 ("Mục tiêu học tập"), P03 (sau mục tiêu; "Đọc trước:"), P01 ("Vấn đề trung tâm"). Thứ tự P00 → P04 → P02 → P03 → P01; deck 55 → 56 trang. Ghi chú bài giảng: thay phần đầu tệp bằng phần đầu chương theo khuôn (giới thiệu, liên kết deck tương đối, mục tiêu, tiên quyết chín nhóm, bảng ký hiệu 21 dòng, bản đồ chủ đề `lec-08-topic-01`…`17`); sửa chữ ở các mục cũ ($x\to u$, $B\to b$, $S\to W$). Chi tiết từng trang, âm tiết trước → sau ở `storyboard.md`, mục "Lượt duyệt từng mạch (2026-10-28)".
+
+| Tác tử | Vai | Đầu ra | Quyết định |
+|---|---|---|---|
+| biên tập deck (tiếp tục bằng `SendMessage`) | sửa deck, storyboard, outline | diff | lượt 1: chấp nhận cấu trúc; lượt 2 sau rà lại: chấp nhận |
+| người viết ghi chú (mới) | phần đầu chương, storyboard ghi chú, bản đồ chủ đề trong outline | diff | lượt 1: chấp nhận cấu trúc; lượt 2: chấp nhận |
+| rà lại độ chính xác (mới) | số, công thức, nguồn, số hiệu dẫn | `recheck-acc-m1.md` | chấp nhận |
+| rà lại mạch, sinh viên, `no-ai-slop` Detect (mới) | thứ tự mạch mở đầu, mật độ, giọng, kết nối | `recheck-story-m1.md` | chấp nhận |
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác, mạch | nghiêm trọng | P00, P01, ghi chú P01, P03; ghi chú bài giảng dòng 3 | khẳng định cả ba cấu trúc dùng bộ nhớ cố định, sai với lấy mẫu theo khóa (mẫu tăng theo dòng, MMDS §4.2.4) | sửa | luận đề 20 âm tiết «Băm khóa giữ trọn nhóm, hồ chứa giữ mẫu cỡ cố định, mảng bit loại hầu hết khóa ngoài tập.»; P01 "mẫu có $\approx r/10$ bộ"; ghi chú: trạng thái quyết định cỡ hằng, mẫu tăng theo dòng |
+| độ chính xác, mạch | trung bình | P01, P02, mục tiêu 2 của ghi chú | $s/r$ thiếu $r\ge s$; "vị trí" dễ nhầm với ô của $W$ | sửa | "mỗi phần tử đã đọc … $s/r\ (r\ge s)$" |
+| mạch | trung bình | P01 | câu trả lời của từng mạch thiếu điều kiện trên mặt trang; cụm tự đặt trước dấu hai chấm; "trạng thái truy vấn cần" gãy câu | sửa | bốn câu trần thuật mang giả thiết (băm đều; số ngẫu nhiên đều, độc lập; băm đều, độc lập); "trạng thái" giải nghĩa ở ghi chú P04 |
+| mạch | trung bình | ghi chú P01 | số 6 hàm băm trông như lấy từ sách | sửa | nêu học phần chọn $k=6$ gần $k^*=8\ln2$; MMDS §4.3.1 dùng một hàm, Ví dụ 4.4 hai hàm |
+| mạch | trung bình | ghi chú bài giảng, bản đồ chủ đề | gọi chủ đề bằng mã; đoạn "chu trình rút gọn" là thông tin soạn thảo | sửa | dùng tên và số mục; đoạn soạn thảo chuyển vào storyboard |
+| mạch | trung bình | ghi chú bài giảng, mục tiêu và bản đồ | số mục dẫn chiếu chưa khớp thân bài cũ | tồn đọng có chủ đích | **điều kiện chặn công bố ghi chú**: kiểm lại mọi dẫn chiếu mục khi viết xong mạch 7 |
+| mạch | trung bình | AT | lời dẫn "trạng thái hữu hạn", cụm khóa "Hợp đồng" | để sau | mạch 2 |
+| độ chính xác, mạch | nhẹ (17 mục) | P04, P02, ghi chú P00, P02, P03; ghi chú bài giảng | độc lập chỉ cho hai biến cố; Định lý 06.7 ba bước; miền $\tau$; ba/bốn điều kiện không âm giả; Bài 02 chưa có ghi chú; quan hệ $x_i$ và bộ $t$; "Bài 9"; thuật ngữ Anh của hồ chứa; bảng thuật ngữ trong outline | sửa | theo bảng xử lý của hai tác tử; B06 dùng $x\in S$ cho khóa truy vấn để mạch 5 |
+
+Ngoại lệ mật độ: P01 72 âm tiết, xếp loại trang đối chiếu (trần 80), lý do ở storyboard (bốn câu trả lời có điều kiện, số MMDS). Phần đầu chương của ghi chú 2 890 âm tiết (Bài 06: 2 466): bảng ký hiệu 21 dòng và tiên quyết cho Mục 4 (Bernoulli, tiêu chuẩn lõm chặt, cực tiểu theo dấu đạo hàm).
+
+Kiểm của điều phối viên: đọc diff deck, ghi chú, outline, storyboard; đọc lại câu mở ghi chú sau sửa; `check08.py` toàn deck 56 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 1: P00 51, P04 57, P02 56, P03 39, P01 72 âm tiết; dòng dài nhất 20. Ảnh đã tự xem: P01, P03, P04 (1600×900). Trình xem ghi chú ở 1440×900, 390×844, in: 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang, liên kết deck tải được; lỗi CSP do máy chủ phát triển chèn script nội tuyến được loại; một cảnh báo KaTeX `\text{bị thay}` ở mục hồ chứa cũ, xử lý ở mạch 4. Ảnh đã tự xem: bảng ký hiệu (1440×900). `git diff --check` sạch.
