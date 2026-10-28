@@ -243,3 +243,26 @@ Trang đổi: KT (lời dẫn ≤ 20 âm tiết/dòng; ghi chú nhận đầu ra
 Thời lượng tạm 117 phút (mạch 3: 24 phút); 3 phút còn lại phân ở mạch 4–5.
 
 Kiểm của điều phối viên: đọc diff deck, SVG, ghi chú, planning; tự kiểm công thức $dp/(u+(2-p)d)$ với $p=1/10$ cho $d/(10u+19d)$; `check08.py` toàn deck 55 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 3 cao nhất K01B 58, K01 56, K06 55 âm tiết; dòng dài nhất 20. Ảnh đã tự xem: K01, K02 (trước sửa), K01B (sau sửa). Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang. `git diff --check` sạch.
+
+### Mạch 4. Lấy mẫu hồ chứa
+
+Trang đổi: RT (lời dẫn không KaTeX, bỏ "xác suất biên"), R00 ("Mẫu cỡ cố định", ví dụ $s=2$ của slide MMDS Streams 1 tr.18), R01 ("Ý tưởng lấy mẫu hồ chứa", so với mẫu theo khóa), R03 ("Ví dụ: vết chạy hồ chứa hai ô"), R04 ("Thuật toán: …", gộp đặc tả R02; giả mã dùng $W$, khởi tạo $r$), R05 ("Tính đúng: …"), R06, R07 ("Chứng minh: xác suất có mặt, phần tử mới/cũ"; giả thiết quy nạp và tính độc lập của $j$ hiện trên mặt trang), R08 ("Chi phí: …"), R09 (mới, "Hồ chứa và mẫu theo khóa" + câu hỏi An 10 bộ); bỏ R02. Deck 55 trang. Hình mới `reservoir-mini.svg`, `reservoir-step.svg`; `reservoir-trace.svg` nâng cỡ chữ. CSS: biến `--r-code-font` trong khối `.lecture-stream` (Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace) vì `monospace` phân giải thành DejaVu Sans Mono làm tách dấu tiếng Việt trong giả mã. Ghi chú bài giảng: "## 5." cũ thay bằng "## 3. Lấy mẫu hồ chứa" (Định nghĩa 08.15, Thuật toán 08.16, Định lý 08.17, Mệnh đề 08.18 mọi tập con đồng khả năng (bổ sung), Mệnh đề 08.19, Nhận xét 08.20–08.21, Ví dụ 08.8–08.10, Bài tập 08.4), 3 291 âm tiết; hết cảnh báo KaTeX `\text{bị thay}`; ghi chú đồng bộ "thời gian" trong bộ (người dùng, truy vấn, thời gian).
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | trung bình | K04, R04, B04 | giả mã tách dấu tiếng Việt (phông DejaVu Sans Mono) | sửa | ngăn xếp phông có tiếng Việt trong phạm vi `.lecture-stream`; tác tử rà đã thử bằng Playwright; điều phối viên xem ảnh R04 sau sửa. Bài 07 còn lỗi, đề xuất nâng thành lớp chung ở lượt sau |
+| mạch | trung bình | R00, R03, ghi chú | tên phần tử a, x, c, y, z in nghiêng KaTeX, trùng $a$, $x_i$, $y$ | sửa | chữ đứng |
+| mạch | trung bình | R01 | so sánh với mẫu theo khóa sai (mẫu theo khóa không rút số mới mỗi quyết định) | sửa | giống ở quy tắc ngưỡng $j\le s$ / $h(K)<a$; khác ở rút lại mỗi vị trí và có thể thay |
+| mạch | trung bình | R04, R05, R07, R08, ghi chú | "độc lập với lịch sử" mơ hồ | sửa | "độc lập với các lần rút trước (và với nội dung $W$)" |
+| mạch | trung bình | R08, Mệnh đề 08.19 | "mô hình RAM" lệch mô hình đếm của các mạch trước | sửa | đếm phép toán mỗi phần tử, rút một số đều tính 1 phép, bộ nhớ bằng từ máy |
+| mạch | trung bình | `reservoir-step.svg`, R07 | chú thích $4/5$ thiếu điều kiện; R07 chật | sửa | "khi $x_i$ đang ở ô 1"; R07 bỏ hình (trùng R06), thêm dòng ví dụ $\frac24\cdot\frac45=\frac25$ |
+| độ chính xác | nhẹ | Nhận xét 08.20 | "lệch như Mục 2.1" sai vì hồ chứa không giữ vị trí độc lập | sửa | dẫn tỷ số $\frac{dp_2}{up+2dp-dp_2}$ với $p_2=\frac{s(s-1)}{r(r-1)}$; bằng $d/(u+d)$ khi và chỉ khi $p_2=p$; lệch xuống khi $s<r$ (điều phối viên tự kiểm) |
+| độ chính xác | nhẹ | ghi chú R07 | mô tả sai phép tính của slide MMDS tr.21 | sửa | $(1-\frac{s}{r+1})+\frac{s}{r+1}\cdot\frac{s-1}{s}=\frac{r}{r+1}$ |
+| mạch, độ chính xác | nhẹ (9 mục) | R00, R06, R09, `reservoir-mini.svg`, Mệnh đề 08.18 | "khi được giữ"; dòng ví dụ R06; R09 7 dòng → 6; desc hình; biến $y$ trùng khóa truy vấn Bloom → $\ell$ | sửa | — |
+| mạch | trung bình | BT | lời dẫn dùng "hữu hạn", "dương giả" chưa định nghĩa | để sau | mạch 5 |
+
+Tác tử độ chính xác tự kiểm vết chạy, $2/3$, $2/4$, $2/5$, bước quy nạp, Mệnh đề 08.18 (liệt kê 12 kết cục với $r=4$, $s=2$), phản ví dụ phụ thuộc ($1/6$), số lần ghi kỳ vọng ($920{,}53$; cận $1\,020{,}04$ và $1\,021{,}03$), $\binom{990}{90}/\binom{1000}{100}\approx6{,}6\cdot10^{-11}$; không có phát hiện từ mức trung bình trở lên. Điều phối viên tự kiểm $100(H_{10^6}-H_{100})\approx920{,}53$.
+
+Thời lượng tạm 116 phút (mạch 4: 25 phút); mạch 5–6 nhận phần còn lại.
+
+Kiểm của điều phối viên: đọc diff deck, CSS, SVG, ghi chú, planning; `check08.py` toàn deck 55 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 4 cao nhất R00, R01, R05 58 âm tiết; R09 6 dòng. Ảnh đã tự xem: R04 (trước và sau đổi phông), R07 (trước sửa). Tác tử biên tập mở Bài 02, 03 ở hai khổ sau khi đổi CSS: không phần tử khớp `.lecture-stream`, không lỗi. Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem, không cảnh báo KaTeX. `git diff --check` sạch.

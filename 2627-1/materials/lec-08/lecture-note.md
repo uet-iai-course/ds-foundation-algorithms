@@ -24,7 +24,7 @@ Sau chương này, người học có thể:
 
 Số hiệu `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 01 và Bài 05 chưa đánh số hiệu, nên các kết quả của hai bài đó được dẫn theo mục. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
 
-- **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời điểm) vẫn đo được mức lặp truy vấn của từng người, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
+- **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời gian) vẫn đo được mức lặp truy vấn của từng người, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
 - **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó. Hàm phân phối của MapReduce trong bộ trang chiếu Bài 02 dựa trên cùng tính chất: mọi tác vụ Map dùng chung một hàm, nên mọi cặp cùng khóa về cùng một tác vụ Reduce.
 - **Phân tích xác suất thành ứng viên** (Định lý 06.7). Khi các hàm MinHash được chọn độc lập, xác suất một cặp tài liệu thành ứng viên được tính theo bốn bước: xác suất trùng ở một hàng; tích các xác suất độc lập cho xác suất trùng cả một dải; tích lần nữa trên các dải độc lập cho xác suất không dải nào trùng; rồi lấy biến cố bù. MMDS (§4.3.3, tr.140) nêu rằng phân tích Bloom filter đi theo cùng cách làm với phân tích phân dải ở §3.4.2; bước tích thứ hai ứng với biến cố không phép băm nào rơi vào một bit cho trước.
 - **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, mục "Mô hình ngẫu nhiên và giới hạn suy luận"; ghi chú Bài 05, Mục 7). Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$. Với các biến cố $E_1,\ldots,E_c$ độc lập (toàn phần, không chỉ từng đôi), $\Pr(E_1\cap\cdots\cap E_c)=\Pr(E_1)\cdots\Pr(E_c)$. Quy tắc nhân: $\Pr(E\cap F)=\Pr(E)\Pr(F\mid E)$ khi $\Pr(E)>0$. Tuyến tính kỳ vọng: kỳ vọng của tổng bằng tổng các kỳ vọng, không cần độc lập; $\mathbb E[\mathbf 1[E]]=\Pr(E)$.
@@ -42,7 +42,7 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 |---|---|---|
 | $x_1,x_2,\ldots$; $x_i$ | các phần tử của dòng theo thứ tự đến; phần tử ở vị trí $i$ | phần tử của miền dữ liệu; $i\ge1$ |
 | $r$ | số phần tử đã đọc, tính cả phần tử vừa đến | số nguyên không âm |
-| $t$ | một phần tử của dòng truy vấn, là bộ (người dùng, truy vấn, thời điểm); khi cần chỉ số, $t=x_i$ | bộ nhiều thành phần |
+| $t$ | một phần tử của dòng truy vấn, là bộ (người dùng, truy vấn, thời gian); khi cần chỉ số, $t=x_i$ | bộ nhiều thành phần |
 | $\mathcal K$; $K$; $K(t)$ | miền khóa; một giá trị khóa; khóa của bộ $t$, gồm các thành phần nhận diện đơn vị thống kê | tập; phần tử của $\mathcal K$ |
 | $u$; $d$ | số truy vấn khác nhau mà một người dùng gửi đúng một lần; đúng hai lần | số nguyên không âm |
 | $h$ | hàm băm dùng để lấy mẫu theo khóa, cố định sau khi chọn | $\mathcal K\to\{0,\ldots,b-1\}$ |
@@ -83,8 +83,8 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Mẫu nhất quán theo khóa (`lec-08-topic-04`) | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2, 2.4 | Quy tắc $h(K(t))<a$, tính nhất quán, xác suất $a/b$, cỡ mẫu kỳ vọng → giới hạn về cỡ mẫu |
 | Chọn khóa theo đơn vị thống kê (`lec-08-topic-05`) | cốt lõi | 2.3 | Quy trình ba bước, ba lựa chọn khóa → Bài tập 4.2.1 của MMDS |
 | Ngưỡng băm khi ngân sách cố định (`lec-08-topic-06`) | cầu nối | 2.5 | Hạ ngưỡng $\tau$, bất biến của mẫu → nhu cầu mẫu cỡ cố định |
-| Đặc tả và thuật toán hồ chứa (`lec-08-topic-07`) | cốt lõi | 3.1–3.3 | Mẫu cỡ $s$, vết chạy với $s=2$, giả mã → định lý xác suất |
-| Xác suất $s/r$ và chi phí hồ chứa (`lec-08-topic-08`) | cốt lõi; số lần ghi kỳ vọng là bổ sung | 3.4–3.5 | Chứng minh quy nạp, chi phí → so sánh với mẫu theo khóa |
+| Đặc tả và thuật toán hồ chứa (`lec-08-topic-07`) | cốt lõi | 3.1–3.2 | Mẫu cỡ $s$, vết chạy với $s=2$, giả mã → định lý xác suất |
+| Xác suất $s/r$ và chi phí hồ chứa (`lec-08-topic-08`) | cốt lõi; mọi tập con đồng khả năng và số lần ghi kỳ vọng là bổ sung | 3.3–3.5 | Chứng minh quy nạp, chi phí → so sánh với mẫu theo khóa |
 | Cơ chế Bloom filter (`lec-08-topic-09`) | cốt lõi | 4.1–4.3 | $10^9$ địa chỉ trong 1 GB, ví dụ 11 bit, xây và truy vấn → bảo đảm |
 | Không âm giả (`lec-08-topic-10`) | cốt lõi | 4.4 | Bốn điều kiện, phản ví dụ khi xóa bit → phân tích dương giả |
 | Mật độ bit và xác suất dương giả (`lec-08-topic-11`) | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | $q$ chính xác, xấp xỉ $q^k$, dạng mũ → hàm $p(k)$ |
@@ -95,7 +95,7 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Bài tập củng cố (`lec-08-topic-16`) | cốt lõi | Bài tập | Ba mức, gồm bốn bài MMDS → kiểm ba mục tiêu |
 | Đọc thêm và tài liệu (`lec-08-topic-17`) | đọc thêm | Tham khảo | Ánh xạ mục ↔ nguồn, lấy mẫu có trọng số, Bài 09 |
 
-Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.5. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.3) rồi xác suất $s/r$ và chi phí (Mục 3.4–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
+Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.5. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.2) rồi xác suất $s/r$ và chi phí (Mục 3.3–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
 
 <!-- note-topic-id: lec-08-topic-02 -->
 ## 1. Mô hình dòng một lượt
@@ -287,7 +287,7 @@ Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chư
 
 ## 2. Lấy mẫu theo khóa
 
-Máy tìm kiếm nhận dòng bộ $t$ dạng (người dùng, truy vấn tìm kiếm, thời điểm), chỉ lưu được $1/10$ dòng, và muốn biết tỷ lệ truy vấn lặp của người dùng điển hình trong tháng vừa qua (MMDS §4.2.1, tr.136). Mục 1 cho thấy một số thống kê trên mọi phần tử, như giá trị lớn nhất, trung bình và phương sai, có trạng thái cỡ hằng; câu hỏi này thì cần một mẫu các bộ, vì tỷ lệ lặp của một người được tính từ chính các truy vấn của người đó. Chúng ta cần chọn mẫu sao cho tỷ lệ tính trên mẫu bằng tỷ lệ thật, với trạng thái quyết định không tăng theo dòng.
+Máy tìm kiếm nhận dòng bộ $t$ dạng (người dùng, truy vấn tìm kiếm, thời gian), chỉ lưu được $1/10$ dòng, và muốn biết tỷ lệ truy vấn lặp của người dùng điển hình trong tháng vừa qua (MMDS §4.2.1, tr.136). Mục 1 cho thấy một số thống kê trên mọi phần tử, như giá trị lớn nhất, trung bình và phương sai, có trạng thái cỡ hằng; câu hỏi này thì cần một mẫu các bộ, vì tỷ lệ lặp của một người được tính từ chính các truy vấn của người đó. Chúng ta cần chọn mẫu sao cho tỷ lệ tính trên mẫu bằng tỷ lệ thật, với trạng thái quyết định không tăng theo dòng.
 
 <!-- note-topic-id: lec-08-topic-03 -->
 ### 2.1 Sai lệch của lấy mẫu từng bộ
@@ -473,7 +473,7 @@ Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiế
 
 - Bỏ "$h$ cố định": nếu hàm băm được chọn lại mỗi giờ, hai bộ của An ở hai giờ khác nhau có thể nhận hai quyết định khác nhau, và mẫu quay lại cắt rời đơn vị như Mục 2.1.
 - Bỏ "đều theo cách chọn $h$": với $1\le a<b$, họ hàm chỉ gồm hàm luôn trả $0$ vẫn cho phần (a), nhưng mọi khóa được giữ với xác suất $1$, không phải $a/b$.
-- Bỏ "khóa nhận diện đúng đơn vị": nếu khóa là cặp (người dùng, thời điểm), mỗi bộ có khóa riêng, và Mục 2.3 chỉ ra hậu quả.
+- Bỏ "khóa nhận diện đúng đơn vị": nếu khóa là cặp (người dùng, thời gian), mỗi bộ có khóa riêng, và Mục 2.3 chỉ ra hậu quả.
 
 Bước 1 dùng tính cố định của $h$; Bước 2 dùng tính đều theo từng khóa.
 
@@ -484,7 +484,7 @@ Hàm $h$ là một hàm băm có tham số, chẳng hạn hạt giống, chọn 
 <!-- note-topic-id: lec-08-topic-05 -->
 ### 2.3 Chọn khóa theo đơn vị thống kê
 
-Mệnh đề 08.10 giữ trọn từng khóa, nên khóa quyết định thống kê nào tính đúng trên mẫu. MMDS (§4.2.3, tr.137) nêu rằng cùng dòng (người dùng, truy vấn, thời điểm) có thể lấy mẫu theo người dùng, theo truy vấn hoặc theo cặp (người dùng, truy vấn). Ba lựa chọn này phục vụ ba thống kê khác nhau.
+Mệnh đề 08.10 giữ trọn từng khóa, nên khóa quyết định thống kê nào tính đúng trên mẫu. MMDS (§4.2.3, tr.137) nêu rằng cùng dòng (người dùng, truy vấn, thời gian) có thể lấy mẫu theo người dùng, theo truy vấn hoặc theo cặp (người dùng, truy vấn). Ba lựa chọn này phục vụ ba thống kê khác nhau.
 
 | Thống kê | Khóa |
 |---|---|
@@ -500,8 +500,8 @@ Quy trình chọn khóa có ba bước:
 
 Thêm thành phần thừa làm hỏng bước 3 vế đầu: một đơn vị bị tách thành nhiều khóa. Thiếu thành phần làm hỏng vế sau: nhiều đơn vị bị gộp, như mã sinh viên chỉ duy nhất trong một trường.
 
-::: exercise Bài tập 08.2 (Khóa người dùng và thời điểm)
-Với dòng truy vấn tìm kiếm và tỷ lệ $a/b=1/10$, dùng khóa là cặp (người dùng, thời điểm) thay cho người dùng. Mẫu có cho tỷ lệ truy vấn lặp của mỗi người không lệch không?
+::: exercise Bài tập 08.2 (Khóa người dùng và thời gian)
+Với dòng truy vấn tìm kiếm và tỷ lệ $a/b=1/10$, dùng khóa là cặp (người dùng, thời gian) thay cho người dùng. Mẫu có cho tỷ lệ truy vấn lặp của mỗi người không lệch không?
 :::
 
 ::: hint
@@ -509,7 +509,7 @@ Xét hai bộ "đồ thị" của An: chúng có cùng khóa không?
 :::
 
 ::: solution
-Không. Hai bộ của cùng một người có thời điểm khác nhau, nên có hai khóa khác nhau, và Mệnh đề 08.10(a) không ràng buộc quyết định của chúng. Nếu các khóa khác nhau nhận giá trị băm độc lập theo cách chọn $h$, mỗi bộ được giữ độc lập với xác suất $1/10$, đúng giả thiết của Mệnh đề 08.6; tỷ số tính trên mẫu là $d/(10u+19d)$, với An là $1/29$. Thành phần thời điểm tách một đơn vị thành nhiều khóa, vi phạm bước 3 của quy trình.
+Không. Hai bộ của cùng một người có thời gian khác nhau, nên có hai khóa khác nhau, và Mệnh đề 08.10(a) không ràng buộc quyết định của chúng. Nếu các khóa khác nhau nhận giá trị băm độc lập theo cách chọn $h$, mỗi bộ được giữ độc lập với xác suất $1/10$, đúng giả thiết của Mệnh đề 08.6; tỷ số tính trên mẫu là $d/(10u+19d)$, với An là $1/29$. Thành phần thời điểm tách một đơn vị thành nhiều khóa, vi phạm bước 3 của quy trình.
 :::
 
 ### 2.4 Chi phí và cỡ mẫu
@@ -624,79 +624,233 @@ Ký hiệu $G$ (ngân sách) chỉ dùng trong thuật toán này và Ví dụ 0
 
 Như vậy, chúng ta đã chỉ ra lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), thay bảng nhãn bằng hàm băm cố định (Định nghĩa 08.8, Thuật toán 08.9), chứng minh mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất $a/b$ (Mệnh đề 08.10), tính cỡ mẫu kỳ vọng $ar/b$ (Hệ quả 08.12), và giữ ngân sách bằng ngưỡng giảm dần (Thuật toán 08.13, Mệnh đề 08.14). Tuy nhiên, cỡ mẫu theo khóa phụ thuộc vào số bộ của các khóa được chọn: với tỷ lệ cố định, nó tăng theo dòng; với ngân sách cố định, tỷ lệ khóa giảm dần và một khóa nhiều bộ có thể bị đẩy trọn ra khỏi mẫu. Mẫu đại diện cho mọi phần tử đã đọc cần đúng $s$ phần tử ở mọi thời điểm. Trong Mục 3, chúng ta đổi đơn vị chọn từ khóa sang vị trí trên dòng và xây lấy mẫu hồ chứa với cỡ mẫu cố định.
 
-## 5. Lấy mẫu hồ chứa
+## 3. Lấy mẫu hồ chứa
 
-### Vấn đề
+Mẫu theo khóa của Mục 2 không chặn cỡ: ở Ví dụ 08.6, một khóa có $10^6$ bộ chiếm $10^6$ ô của mẫu khi được giữ, và cỡ mẫu kỳ vọng $ar/b$ tăng theo dòng (Hệ quả 08.12). Nhiều phân tích chỉ cần một mẫu đại diện có đúng $s$ phần tử ở mọi thời điểm, trong đó mọi phần tử đã đọc có cùng cơ hội có mặt. Chúng ta cần một thuật toán dòng giữ đúng $s$ phần tử mà không biết trước độ dài dòng.
 
-Trong lấy mẫu theo khóa, kích thước mẫu không cố định. Ngược lại, nhiều khi ta cần giữ mẫu đúng $s$ phần tử trên một dòng có độ dài chưa biết — chẳng hạn do giới hạn bộ nhớ chính. Đơn vị chọn ở đây là vị trí trong dòng, không phải khóa.
+<!-- note-topic-id: lec-08-topic-07 -->
+### 3.1 Mẫu cỡ cố định và ý tưởng hồ chứa
 
-### Đặc tả
+::: example Ví dụ 08.8 (Mẫu hai phần tử trên dòng mười phần tử)
+**Dữ kiện.** Dòng a, x, c, y, z, k, c, d, e, g của slide MMDS (Streams 1, tr.18); cần giữ $s=2$ phần tử. Đơn vị chọn là vị trí: chữ c ở vị trí 3 và vị trí 7 là hai phần tử khác nhau.
 
-- Đầu vào: dòng vị trí $1,2,\dots$; ngân sách nguyên $s\ge1$; bộ sinh số ngẫu nhiên đều, độc lập.
-- Điều kiện sau: nếu $r\le s$ thì giữ cả $r$ vị trí. Nếu $r>s$ thì giữ đúng $s$ vị trí và mỗi vị trí trong $r$ phần tử đã thấy có xác suất biên $s/r$.
-- Bảo đảm chỉ là xác suất biên của từng vị trí, không suy ra tính độc lập hay mọi tập con có cùng xác suất.
+**Tính.** Sau $r=5$ phần tử, mỗi phần tử trong a, x, c, y, z cần có mặt với xác suất $2/5$. Sau $r=7$ phần tử, mỗi phần tử trong bảy phần tử đầu cần xác suất $2/7$. Cách trực tiếp là lưu cả $r$ phần tử rồi rút ngẫu nhiên $2$ phần tử; cách này cho đúng xác suất nhưng bộ nhớ tăng theo $r$.
 
-<div class="figure">
+**Diễn giải.** Xác suất cần đạt giảm khi dòng dài ra, nên phần tử đã giữ phải có lúc bị thay.
 
-![Dòng a x c y z với các số ngẫu nhiên 2, 4, 1 và hồ chứa lần lượt đổi thành a c rồi z c](img/lec-08/reservoir-trace.svg)
+**Kiểm tra lại.** Với $r=5$, tổng các xác suất có mặt là $5\cdot\frac25=2=s$, đúng số ô.
+:::
 
-</div>
+Một cách trực quan, hồ chứa (reservoir) giống mẫu theo khóa ở quy tắc ngưỡng: giữ khi một số đều không vượt ngưỡng, $j\le s$ thay cho $h(K)<a$. Nó khác ở hai chỗ: số được rút lại ở mỗi vị trí thay vì băm từ khóa, và một phần tử đã giữ có thể bị thay. Khi phần tử thứ $r>s$ đến, rút một số nguyên $j$ đều trong $\{1,\ldots,r\}$ và thay ô $j$ của hồ chứa khi $j\le s$. Một số $j$ gộp hai quyết định của slide MMDS (Streams 1, tr.19). Thứ nhất, $x_r$ được nhận với xác suất $s/r$, vì đúng $s$ trong $r$ giá trị đồng khả năng thỏa $j\le s$. Thứ hai, với điều kiện $x_r$ được nhận, $j$ đều trên $\{1,\ldots,s\}$, nên ô bị thay được chọn đều trong $s$ ô. Mô tả này chưa cho biết xác suất có mặt của các phần tử cũ; Định nghĩa 08.15 nêu yêu cầu đó.
 
-Vết chạy với $s=2$, dòng a, x, c, y, z và các số ngẫu nhiên $j$ lần lượt là $j=2,4,1$:
+::: example Ví dụ 08.9 (Vết chạy hồ chứa hai ô)
+**Dữ kiện.** Dòng a, x, c, y, z; $s=2$; một lần rút do học phần dựng cho $j=2,4,1$ ở $r=3,4,5$.
 
-| Bước $r$ | Phần tử | $j$ | Trạng thái $W$ |
-|---|---|---|---|
-| 1 | a | — | a |
-| 2 | x | — | a x |
-| 3 | c | 2 | a c |
-| 4 | y | 4 ($>s$) | a c |
-| 5 | z | 1 | z c |
+**Tính.**
 
-Ở $r=3$ thì $j=2\le s$ nên c thay ô 2. Ở $r=4$ thì $j=4>s$ nên bỏ y. Ở $r=5$ thì $j=1$ nên z thay ô 1. Số $j$ ở đây chỉ là một lần chạy minh họa, không phải xác suất bảo đảm; chúng phụ thuộc vào bộ sinh số ngẫu nhiên.
+| $r$ | Phần tử | $j$ | Thao tác | Hồ chứa sau bước |
+|---:|---|---:|---|---|
+| 1 | a | — | $r\le s$, ghi ô 1 | [a] |
+| 2 | x | — | $r\le s$, ghi ô 2 | [a, x] |
+| 3 | c | 2 | $2\le2$, c thay ô 2 | [a, c] |
+| 4 | y | 4 | $4>2$, bỏ y | [a, c] |
+| 5 | z | 1 | $1\le2$, z thay ô 1 | [z, c] |
 
-### Thuật toán
+**Diễn giải.** Theo quy tắc, c được nhận với xác suất $2/3$, y với $2/4$, z với $2/5$; lần rút này nhận c và z, bỏ y. Các số $j$ là một kết cục của bộ sinh, không phải xác suất.
+
+**Kiểm tra lại.** Mỗi $j$ nằm trong miền của nó: $2\in\{1,2,3\}$, $4\in\{1,\ldots,4\}$, $1\in\{1,\ldots,5\}$; hồ chứa luôn có $\min(r,2)$ phần tử.
+:::
+
+![Bảng vết với s bằng 2 trên dòng a, x, c, y, z: r bằng 1 ghi a vào ô 1; r bằng 2 ghi x vào ô 2; r bằng 3 rút j bằng 2, c thay ô 2; r bằng 4 rút j bằng 4 lớn hơn s nên bỏ y; r bằng 5 rút j bằng 1, z thay ô 1; hồ cuối là z, c.](img/lec-08/reservoir-trace.svg)
+
+Hình đọc theo hàng giống bảng trên: mỗi hàng là một bước $r$, cột $j$ ghi số rút, và ô bị thay được tô đậm. Ở $r=4$, hồ chứa không đổi vì $j$ rơi ra ngoài $\{1,2\}$.
+
+### 3.2 Đặc tả và thuật toán
+
+::: definition Định nghĩa 08.15 (Mẫu hồ chứa cỡ $s$)
+Cho dòng $x_1,x_2,\ldots$, số nguyên $s\ge1$ gọi là sức chứa, và một bộ sinh số ngẫu nhiên. Một **mẫu hồ chứa cỡ $s$** là mảng $W[1..s]$ được cập nhật sau mỗi phần tử sao cho:
+
+- sau $r\le s$ phần tử, $W$ chứa đúng $r$ phần tử đã đọc;
+- sau $r\ge s$ phần tử, $W$ chứa đúng $s$ phần tử đã đọc, và $\Pr[x_i\in W]=s/r$ với mọi $i\le r$.
+
+Xác suất lấy theo các số do bộ sinh tạo ra; dòng được coi là cố định, không ngẫu nhiên.
+:::
+
+Định nghĩa đòi một tính chất về từng phần tử riêng lẻ. Nó không đòi các biến cố $x_i\in W$ độc lập; thực ra chúng không thể độc lập, vì tổng số phần tử có mặt luôn đúng bằng $s$. Nó cũng không đòi mọi tập con $s$ phần tử có cùng xác suất; tính chất mạnh hơn này là nội dung của Mệnh đề 08.18. Với Ví dụ 08.8, định nghĩa đòi đúng $2/5$ sau $r=5$ và $2/7$ sau $r=7$. So với mẫu theo khóa (Định nghĩa 08.8), đơn vị chọn là vị trí thay cho khóa, và cỡ mẫu cố định thay cho tỷ lệ cố định.
+
+::: algorithm Thuật toán 08.16 (Lấy mẫu hồ chứa)
+**Đầu vào.** Dòng $x_1,x_2,\ldots$; sức chứa $s\ge1$; bộ sinh số nguyên đều, độc lập với các lần rút trước.
+
+**Đầu ra.** Sau $r$ phần tử, mảng $W$ chứa $\min(r,s)$ phần tử đã đọc.
+
+**Giả thiết.** Mỗi lần rút, $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước, do đó độc lập với nội dung $W$.
+
+1. Khởi tạo $r\gets0$ và $W$ rỗng.
+2. Khi phần tử $x$ đến: tăng $r$ thêm 1.
+3. Nếu $r\le s$: đặt $W[r]\gets x$.
+4. Nếu $r>s$: rút $j$ đều trong $\{1,\ldots,r\}$; nếu $j\le s$ thì đặt $W[j]\gets x$, nếu không thì bỏ $x$.
 
 ```text
-HỒ-CHỨA(x_r, r, s, W)
-  nếu r ≤ s: W[r] ← x_r
-  ngược lại:
-    j ← số nguyên đều trong {1,…,r}
-    nếu j ≤ s: W[j] ← x_r
-  trả W
+HỒ-CHỨA(x_1, x_2, …; s)
+    r ← 0
+    với mỗi phần tử x đến:
+        r ← r + 1
+        nếu r ≤ s: W[r] ← x
+        ngược lại:
+            j ← số nguyên đều trong {1, …, r}
+            nếu j ≤ s: W[j] ← x
 ```
 
-Với $r>s$, sinh $j$ đều trong $1,\dots,r$ và chèn phần tử mới vào ô $j$ khi $j\le s$ tương đương với: giữ phần tử mới với xác suất $s/r$, rồi chọn đều một trong $s$ ô để thay. Mỗi lần gọi cần phép sinh mẫu đều và độc lập có điều kiện với lịch sử.
+**Dừng.** Mỗi phần tử được xử lý sau số bước không đổi; thuật toán chạy chừng nào dòng còn phần tử.
 
-### Bất biến và chứng minh quy nạp
+**Trường hợp biên.** Khi $r\le s$, hồ chứa cả $r$ phần tử đã đọc. Với $s=1$, phần tử thứ $r$ thay ô duy nhất khi $j=1$, với xác suất $1/r$, và hồ là một phần tử chọn đều trong $r$ phần tử.
 
-**Mệnh đề.** Sau khi xử lý $r\ge s$ vị trí, hồ chứa có đúng $s$ phần tử và mỗi vị trí $i\le r$ có xác suất $s/r$ nằm trong hồ.
+**Chi phí.** Mỗi phần tử: 1 phép tăng $r$, tối đa 1 lần rút và 1 lần ghi; chi tiết ở Mệnh đề 08.19.
+:::
 
-**Cơ sở $r=s$.** Giữ cả $s$ vị trí, nên xác suất là $1=s/s$.
+Một số $j$ vừa quyết định có nhận $x_r$ hay không ($j\le s$), vừa chọn ô bị thay. Điều còn phải chứng minh là phần tử cũ, sau nhiều lần có thể bị thay, vẫn có đúng xác suất $s/r$.
 
-Giả sử đúng với $r$. Xét bước $r+1$.
+<!-- note-topic-id: lec-08-topic-08 -->
+### 3.3 Xác suất $s/r$
 
-**(a) Phần tử mới.** Phần tử mới $x_{r+1}$ vào hồ khi $j\le s$:
+Chứng minh của định lý sau dùng quy nạp theo $r$ và quy tắc nhân của xác suất có điều kiện (Kiến thức tiên quyết). Ký hiệu $W_r$ là nội dung hồ chứa sau phần tử thứ $r$; ký hiệu này chỉ dùng trong mục này.
 
-$$\Pr[x_{r+1}\in W]=\frac{s}{r+1}.$$
+::: theorem Định lý 08.17 (Xác suất có mặt $s/r$)
+**Giả thiết.** $s\ge1$. Ở mỗi bước $r>s$, số $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước, do đó độc lập với nội dung $W$.
 
-**(b) Phần tử cũ.** Với điều kiện phần tử cũ đang trong $W$, nó bị thay khi $j\le s$ và $j$ đúng ô của nó:
+**Kết luận.** Với mọi $r\ge s$, $\lvert W_r\rvert=s$ và $\Pr[x_i\in W_r]=s/r$ với mọi $i\le r$.
 
-$$\Pr[\text{bị thay}]=\frac{s}{r+1}\cdot\frac{1}{s}=\frac{1}{r+1}.$$
+**Điều kiện áp dụng.** Xác suất lấy theo các lần rút $j$; dòng cố định.
 
-Vì vậy xác suất sống sót của phần tử cũ qua bước $r+1$ là
+**Phạm vi.** Định lý nói về từng phần tử riêng lẻ. Nó không khẳng định các biến cố $x_i\in W_r$ độc lập.
+:::
 
-$$\frac{s}{r}\cdot\left(1-\frac{1}{r+1}\right)=\frac{s}{r}\cdot\frac{r}{r+1}=\frac{s}{r+1}.$$
+::: proof Chứng minh Định lý 08.17 (Xác suất có mặt)
+**Bước 1 (cơ sở, $r=s$).** Các bước 1 đến $s$ ghi $x_1,\ldots,x_s$ vào $s$ ô khác nhau, nên $\lvert W_s\rvert=s$ và $\Pr[x_i\in W_s]=1=s/s$ với mọi $i\le s$.
 
-Kích thước đúng $s$ được duy trì vì bước $r>s$ hoặc không đổi $W$, hoặc thay đúng một ô.
+**Bước 2 (giả thiết quy nạp).** Giả sử với một $r\ge s$, $\lvert W_r\rvert=s$ và $\Pr[x_i\in W_r]=s/r$ với mọi $i\le r$.
 
-### Chi phí, giả thiết và tự kiểm
+**Bước 3 (phần tử mới).** Ở bước $r+1$, $j$ đều trên $\{1,\ldots,r+1\}$ và $x_{r+1}$ vào hồ khi $j\le s$, đúng $s$ trong $r+1$ giá trị đồng khả năng. Do đó $\Pr[x_{r+1}\in W_{r+1}]=s/(r+1)$. Bước này không dùng giả thiết quy nạp.
 
-- Chi phí: $\Theta(s)$ bộ nhớ; $\Theta(1)$ thời gian mỗi phần tử trong mô hình RAM, nếu truy cập mảng $O(1)$ và các phép sinh số nguyên đều có chi phí $O(1)$.
-- Giả thiết: bộ sinh số ngẫu nhiên đều trong $1,\dots,r$ và độc lập; nếu thiên lệch hoặc phụ thuộc, các xác suất $s/r$ không còn đúng.
+**Bước 4 (phần tử cũ).** Xét $x_i$ với $i\le r$, và gọi $E_i$ là biến cố $x_i$ bị thay ở bước $r+1$. Phần tử $x_i$ còn trong $W_{r+1}$ khi và chỉ khi nó ở trong $W_r$ và $E_i$ không xảy ra. Theo quy tắc nhân,
 
-Tự kiểm: với $s=100, r=1\,000$, xác suất một vị trí cụ thể còn lại là bao nhiêu? Đáp án: $s/r=0{,}1$.
+$$
+\begin{aligned}
+\Pr[x_i\in W_{r+1}]
+&=\Pr[x_i\in W_r]\cdot\bigl(1-\Pr[E_i\mid x_i\in W_r]\bigr)\\
+&=\frac sr\cdot\Bigl(1-\frac1{r+1}\Bigr)\\
+&=\frac sr\cdot\frac r{r+1}=\frac s{r+1}.
+\end{aligned}
+$$
 
-> Hồ chứa không bảo đảm tính nhất quán theo khóa: cùng một khóa có thể được giữ một lần, nhiều lần hoặc không lần nào tùy theo các vị trí của nó. Đây là điểm khác cơ bản với lấy mẫu theo khóa.
+Dòng thứ hai dùng giả thiết quy nạp cho thừa số đầu. Với thừa số sau: khi $x_i\in W_r$, phần tử $x_i$ nằm ở một ô cố định và bị thay khi và chỉ khi $j$ bằng đúng số hiệu ô đó. Vì $j$ độc lập với các lần rút trước, điều kiện $x_i\in W_r$ không đổi phân phối của $j$, nên xác suất bị thay là $1/(r+1)$. Slide MMDS (Streams 1, tr.21) tính xác suất không bị thay theo hai trường hợp: $x_{r+1}$ bị bỏ, hoặc được nhận nhưng thay ô khác, cho $\bigl(1-\frac s{r+1}\bigr)+\frac s{r+1}\cdot\frac{s-1}s=\frac r{r+1}$, cùng kết quả.
+
+**Bước 5 (cỡ).** Ở bước $r+1>s$, thuật toán giữ nguyên $W$ hoặc ghi đè đúng một ô, nên $\lvert W_{r+1}\rvert=s$.
+
+Bước 3 đến Bước 5 cho kết luận tại $r+1$; theo quy nạp, kết luận đúng với mọi $r\ge s$. $\square$
+:::
+
+![Bước r cộng 1 bằng 5 với s bằng 2: số rút j nhận năm giá trị đồng khả năng 1 đến 5; với j bằng 1 hoặc 2, phần tử mới x5 được nhận và thay ô j, xác suất 2/5; với j từ 3 đến 5, x5 bị bỏ, xác suất 3/5; phần tử cũ ở ô 1 bị thay khi j bằng 1, xác suất 1/5, nên còn lại với xác suất 4/5.](img/lec-08/reservoir-step.svg)
+
+Hình vẽ bước $r+1=5$ với $s=2$, đúng bước cuối của Ví dụ 08.9. Năm ô của hàng $j$ ứng với năm giá trị đồng khả năng: hai ô đầu là Bước 3, cho $\Pr[x_5\in W_5]=2/5$; ô đậm $j=1$ là Bước 4 cho phần tử cũ ở ô 1. Một phần tử cũ có mặt sau $r=4$ với xác suất $2/4$ và sống qua bước 5 với xác suất $4/5$, nên có mặt sau $r=5$ với xác suất $\frac24\cdot\frac45=\frac25$.
+
+Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+
+- Bỏ "$j$ đều trên $\{1,\ldots,r\}$": nếu bộ sinh luôn trả $j$ trong $\{1,\ldots,s\}$, mọi phần tử mới đều được nhận, nên $\Pr[x_{r+1}\in W_{r+1}]=1$ thay cho $s/(r+1)$, và hồ chứa giữ các phần tử gần đây nhiều hơn.
+- Bỏ "độc lập với các lần rút trước": với $s=2$, cho $j$ ở bước 4 bằng $j$ của bước 3 với xác suất $3/4$ và bằng $4$ với xác suất $1/4$. Số $j$ ở bước 4 vẫn đều trên $\{1,\ldots,4\}$, nhưng nếu $x_3$ được nhận ở bước 3 thì nó bị thay trừ khi $j=4$, nên $\Pr[x_3\in W_4]=\frac23\cdot\frac14=\frac16$ thay cho $\frac12$.
+
+Bước 3 dùng tính đều của $j$; Bước 4 dùng cả tính đều và tính độc lập.
+
+Định lý 08.17 chỉ nói về từng phần tử. Thuật toán thực ra cho một bảo đảm mạnh hơn, mà Định nghĩa 08.15 không đòi; đây là phần bổ sung, chứng minh bằng cùng kiểu quy nạp.
+
+::: proposition Mệnh đề 08.18 (Mọi tập con cỡ $s$ đồng khả năng)
+**Giả thiết.** Như Định lý 08.17.
+
+**Kết luận.** Với mọi $r\ge s$ và mọi tập $T$ gồm $s$ vị trí trong $\{1,\ldots,r\}$, $\Pr[W_r=T]=1/\binom rs$, trong đó $W_r=T$ nghĩa là hồ chứa đúng các phần tử ở các vị trí của $T$.
+
+**Điều kiện áp dụng.** Như Định lý 08.17.
+
+**Phạm vi.** Mệnh đề suy ra Định lý 08.17, vì mỗi vị trí $i$ thuộc đúng $\binom{r-1}{s-1}$ tập $T$, và $\binom{r-1}{s-1}/\binom rs=s/r$.
+:::
+
+::: proof
+**Bước 1 (cơ sở).** Với $r=s$, tập duy nhất là $\{1,\ldots,s\}$, xác suất $1=1/\binom ss$.
+
+**Bước 2 ($r+1\notin T$).** Khi đó $W_{r+1}=T$ đúng khi $W_r=T$ và $j>s$. Theo giả thiết quy nạp và tính độc lập của $j$, xác suất là $\frac1{\binom rs}\cdot\frac{r+1-s}{r+1}=\frac1{\binom{r+1}s}$, vì $\binom{r+1}s=\binom rs\frac{r+1}{r+1-s}$.
+
+**Bước 3 ($r+1\in T$).** Đặt $T'=T\setminus\{r+1\}$, gồm $s-1$ vị trí. Khi đó $W_{r+1}=T$ đúng khi $W_r=T'\cup\{\ell\}$ với một vị trí $\ell\le r$ ngoài $T'$, và $j$ bằng ô chứa phần tử ở vị trí $\ell$. Có $r-s+1$ cách chọn $\ell$, mỗi cách có xác suất $\frac1{\binom rs}\cdot\frac1{r+1}$, nên tổng là $\frac{r+1-s}{(r+1)\binom rs}=\frac1{\binom{r+1}s}$. $\square$
+:::
+
+Với $r=4$, $s=2$, mệnh đề cho mỗi cặp vị trí xác suất $1/\binom42=1/6$. Liệt kê trực tiếp: $j$ ở bước 3 có 3 giá trị và ở bước 4 có 4 giá trị, tạo $12$ kết cục đồng khả năng, và mỗi trong 6 cặp xuất hiện đúng 2 lần.
+
+### 3.4 Chi phí
+
+::: proposition Mệnh đề 08.19 (Chi phí của Thuật toán 08.16)
+**Giả thiết.** Mô hình của Định nghĩa 08.3: đếm phép toán mỗi phần tử, bộ nhớ đếm bằng từ máy; thêm quy ước rút một số nguyên đều trong $\{1,\ldots,r\}$ tính là 1 phép. Giả thiết của Định lý 08.17 cho phần kỳ vọng.
+
+**Kết luận.** Bộ nhớ gồm $s$ ô và bộ đếm $r$, tức $\Theta(s)$ từ máy; mỗi phần tử tốn $O(1)$ phép trong trường hợp xấu nhất. Sau $r>s$ phần tử có đúng $r-s$ lần rút, và số lần ghi vào $W$ có kỳ vọng
+
+$$
+s+\sum_{k=s+1}^{r}\frac sk,\qquad s\Bigl(1+\ln\frac{r+1}{s+1}\Bigr)\le s+\sum_{k=s+1}^{r}\frac sk\le s\Bigl(1+\ln\frac rs\Bigr).
+$$
+
+**Điều kiện áp dụng.** Cận $O(1)$ dựa vào quy ước rút một số tính là 1 phép.
+
+**Phạm vi.** Số lần ghi là kỳ vọng; một lần chạy cụ thể có thể ghi nhiều hơn.
+:::
+
+::: proof
+**Bước 1 (bộ nhớ, thời gian).** Thuật toán giữ $W[1..s]$ và $r$; mỗi phần tử tốn một phép tăng, tối đa một lần rút và một lần ghi.
+
+**Bước 2 (số lần ghi).** $s$ phần tử đầu được ghi chắc chắn. Phần tử thứ $k>s$ được ghi khi $j\le s$, với xác suất $s/k$ (Bước 3 của chứng minh Định lý 08.17). Theo tuyến tính kỳ vọng, tổng số lần ghi có kỳ vọng $s+\sum_{k=s+1}^r s/k$.
+
+**Bước 3 (cận).** Hàm $1/z$ giảm, nên $\int_k^{k+1}\frac{dz}z\le\frac1k\le\int_{k-1}^{k}\frac{dz}z$. Cộng theo $k=s+1,\ldots,r$ được $\ln\frac{r+1}{s+1}\le\sum_{k=s+1}^r\frac1k\le\ln\frac rs$; nhân với $s$ rồi cộng $s$. $\square$
+:::
+
+::: example Ví dụ 08.10 (Số lần ghi với $s=100$, $r=10^6$)
+**Dữ kiện.** Hồ chứa $s=100$ ô trên dòng $r=10^6$ phần tử.
+
+**Tính.** Số lần thay kỳ vọng sau khi hồ đầy là $\sum_{k=101}^{10^6}\frac{100}k\approx920{,}5$, nên tổng số lần ghi kỳ vọng khoảng $1\,020{,}5$. Cận trên của Mệnh đề 08.19 là $100(1+\ln10^4)\approx1\,021{,}0$; cận dưới là $100\bigl(1+\ln\frac{1\,000\,001}{101}\bigr)\approx1\,020{,}0$.
+
+**Diễn giải.** Hồ chứa chỉ ghi khoảng $0{,}1\%$ số phần tử; phần lớn phần tử bị bỏ sau một lần rút.
+
+**Kiểm tra lại.** $1\,020{,}0\le1\,020{,}5\le1\,021{,}0$.
+:::
+
+### 3.5 Nhầm lẫn, thực hành và so sánh với mẫu theo khóa
+
+::: remark Nhận xét 08.20 (Nhầm lẫn thường gặp)
+- $s/r$ không phải tỷ lệ lấy mẫu cố định: nó giảm khi dòng dài ra, khác tỷ lệ $a/b$ của Mục 2. Chỉ số $r$ tính cả phần tử vừa đến.
+- Bộ sinh lệch hoặc phụ thuộc các lần rút trước phá Định lý 08.17 mà không đổi chi phí, như hai phản ví dụ sau định lý.
+- Hồ chứa không giữ trọn khóa: các vị trí được chọn riêng, nên hai bộ của cùng một người có thể bị tách. Tỷ lệ truy vấn lặp tính trên hồ chứa lệch theo cùng chiều với Mục 2.1, nhưng không theo đúng công thức $d/(10u+19d)$, vì các vị trí không được giữ độc lập. Với $p=s/r$ và $p_2=\frac{s(s-1)}{r(r-1)}$, xác suất hai vị trí cho trước cùng có mặt (Mệnh đề 08.18), một truy vấn hai lần còn đủ hai bản với xác suất $p_2$ và đúng một bản với xác suất $2p-2p_2$, nên tỷ số các số đếm kỳ vọng là $\frac{dp_2}{up+2dp-dp_2}$. Với $d>0$, tỷ số này bằng $d/(u+d)$ khi và chỉ khi $p_2(u+2d)=p(u+2d)$, tức $p_2=p$; nó tăng theo $p_2$, và $p_2/p=(s-1)/(r-1)<1$ khi $s<r$, nên nó nhỏ hơn tỷ lệ thật.
+:::
+
+::: remark Nhận xét 08.21 (Trong thực hành)
+Giả thiết đều và độc lập của Định lý 08.17 được xấp xỉ bằng bộ sinh số giả ngẫu nhiên có hạt giống. Khi rút $j$ trong $\{1,\ldots,r\}$ từ một số đều trên $\{0,\ldots,2^{64}-1\}$, phép lấy dư cho $r$ chỉ đều khi $r$ chia hết $2^{64}$; với $r$ khác, các giá trị nhỏ được ưu tiên một chút, và cách rút đúng loại bỏ phần dư rồi rút lại. Bộ đếm $r$ vừa một từ 64 bit khi $r<2^{64}$ (Mục 1.4). Hồ chứa có cỡ cố định nên dùng được khi ngân sách bộ nhớ chỉ cho $s$ phần tử, nhưng không trả lời được thống kê theo người dùng.
+:::
+
+Bảng dưới đặt hai cấu trúc lấy mẫu của chương cạnh nhau.
+
+| | Mẫu theo khóa | Hồ chứa |
+|---|---|---|
+| Đơn vị chọn | giá trị khóa | vị trí |
+| Cỡ mẫu | tăng theo dòng, kỳ vọng $ar/b$ | $\min(r,s)$ |
+| Nhất quán theo khóa | có (Mệnh đề 08.10) | không |
+| Xác suất | $a/b$ mỗi khóa | $s/r$ mỗi phần tử (Định lý 08.17) |
+
+::: exercise Bài tập 08.4 (Bộ của An trong hồ chứa)
+Dòng có $1\,000$ bộ, trong đó An có 10 bộ; hồ chứa có $s=100$ ô. Tính kỳ vọng số bộ của An trong hồ sau khi đọc hết dòng. Hồ có giữ trọn 10 bộ của An không? Câu hỏi do học phần dựng; sách MMDS không có bài tập về hồ chứa.
+:::
+
+::: hint
+Dùng Định lý 08.17 cho từng bộ của An, rồi tuyến tính kỳ vọng.
+:::
+
+::: solution
+Mỗi bộ của An nằm trong hồ với xác suất $s/r=100/1\,000=0{,}1$ (Định lý 08.17). Theo tuyến tính kỳ vọng, số bộ kỳ vọng là $10\cdot0{,}1=1$. Hồ không bảo đảm giữ trọn 10 bộ: các vị trí được chọn riêng, và theo Mệnh đề 08.18, cả 10 bộ của An cùng nằm trong hồ với xác suất $\binom{990}{90}/\binom{1000}{100}\approx6{,}6\cdot10^{-11}$. Vì vậy tỷ lệ truy vấn lặp của An không tính đúng trên hồ chứa; thống kê theo người dùng cần mẫu theo khóa.
+:::
+
+Như vậy, chúng ta đã có cấu trúc lấy mẫu thứ hai: hồ chứa giữ đúng $\min(r,s)$ phần tử (Định nghĩa 08.15, Thuật toán 08.16), mỗi phần tử đã đọc có mặt với xác suất $s/r$ (Định lý 08.17), mọi tập con cỡ $s$ đồng khả năng (Mệnh đề 08.18), với bộ nhớ $\Theta(s)$ và thời gian $O(1)$ mỗi phần tử (Mệnh đề 08.19). Tuy nhiên, cả hai cấu trúc lấy mẫu đều trả lời câu hỏi về phân phối. Câu hỏi "địa chỉ gửi thư này có thuộc danh sách $10^9$ địa chỉ được phép không" đòi biết một khóa cụ thể có trong tập hay không, và một mẫu không trả lời được: một địa chỉ được phép vắng mặt trong mẫu vẫn là địa chỉ được phép. Trong Mục 4, chúng ta xây Bloom filter cho câu hỏi thành viên này.
 
 ## 6. Đặc tả và cơ chế Bloom filter
 

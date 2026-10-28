@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" role="img" aria-labelledby="rmi-t rmi-d">
+<title id="rmi-t">Vết hồ chứa hai ô</title>
+<desc id="rmi-d">Dòng a, x, c, y, z với s = 2. Các số rút j lần lượt là: không rút, không rút, 2, 4, 1. Phần tử c và z được nhận (khung đậm), y bị bỏ, x và a bị thay. Hồ cuối là [z, c].</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="12" y="101" font-style="italic">x</text>
+<text x="12" y="163" font-style="italic">j</text>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2">
+<rect x="110" y="62" width="80" height="56" rx="8"/>
+<rect x="205" y="62" width="80" height="56" rx="8" stroke-dasharray="7 5"/>
+<rect x="300" y="62" width="80" height="56" rx="8" stroke-width="5"/>
+<rect x="395" y="62" width="80" height="56" rx="8" stroke-dasharray="7 5"/>
+<rect x="490" y="62" width="80" height="56" rx="8" stroke-width="5"/>
+</g>
+<g text-anchor="middle"><text x="150" y="100">a</text><text x="245" y="100">x</text><text x="340" y="100" font-weight="700">c</text><text x="435" y="100">y</text><text x="530" y="100" font-weight="700">z</text>
+<text x="150" y="163">–</text><text x="245" y="163">–</text><text x="340" y="163">2</text><text x="435" y="163">4</text><text x="530" y="163">1</text>
+<text x="340" y="40">s = 2</text>
+<text x="340" y="218" font-weight="700">Hồ cuối: [z, c]</text></g>
+</g></svg>

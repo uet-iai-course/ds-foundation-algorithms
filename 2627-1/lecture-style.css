@@ -1081,3 +1081,4 @@
 .reveal.course-deck.lecture-stream .example-slide .stream-compact td { padding: 5px 10px; }
 .reveal.course-deck.lecture-stream .ex-table th[scope="row"] { white-space: nowrap; }
 .reveal.course-deck.lecture-stream .stream-tall img { max-height: 520px; }
+.reveal.course-deck.lecture-stream { --r-code-font: Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace; }

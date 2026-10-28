@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 310" role="img" aria-labelledby="rst-t rst-d">
+<title id="rst-t">Một bước của hồ chứa</title>
+<desc id="rst-d">Bước r + 1 = 5 với s = 2. Số rút j nhận năm giá trị 1 đến 5, mỗi giá trị xác suất 1/5. Với j ≤ 2 (hai giá trị) phần tử mới x5 được nhận và thay ô j, xác suất 2/5; với j > 2 (ba giá trị) x5 bị bỏ, xác suất 3/5. Khi phần tử cũ xi đang ở ô 1 (khung đậm), xi bị thay khi j = 1, xác suất 1/5, nên với điều kiện đó xi còn lại với xác suất 4/5.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#263238">
+<text x="400" y="32" text-anchor="middle" font-weight="700">Bước r + 1 = 5, s = 2</text>
+<text x="40" y="153" font-style="italic">j</text>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2">
+<rect x="100" y="110" width="110" height="64" rx="8" stroke-width="5"/>
+<rect x="220" y="110" width="110" height="64" rx="8"/>
+<rect x="400" y="110" width="110" height="64" rx="8" fill="#f5f5f5" stroke-dasharray="8 6"/>
+<rect x="520" y="110" width="110" height="64" rx="8" fill="#f5f5f5" stroke-dasharray="8 6"/>
+<rect x="640" y="110" width="110" height="64" rx="8" fill="#f5f5f5" stroke-dasharray="8 6"/>
+</g>
+<g text-anchor="middle"><text x="155" y="152">1</text><text x="275" y="152">2</text><text x="455" y="152">3</text><text x="575" y="152">4</text><text x="695" y="152">5</text></g>
+<path d="M100 96 V86 H330 V96" stroke="#2f3e7a" stroke-width="3" fill="none"/>
+<path d="M400 96 V86 H750 V96" stroke="#607d8b" stroke-width="3" fill="none" stroke-dasharray="8 6"/>
+<text x="215" y="74" text-anchor="middle">nhận x₅, thay ô j: 2/5</text>
+<text x="575" y="74" text-anchor="middle">bỏ x₅: 3/5</text>
+<text x="400" y="218" text-anchor="middle">xᵢ ở ô 1 (khung đậm) bị thay khi j = 1: 1/5</text>
+<text x="400" y="256" text-anchor="middle">khi xᵢ đang ở ô 1, xᵢ còn lại với xác suất 4/5</text>
+<text x="400" y="294" text-anchor="middle">mỗi giá trị j có xác suất 1/5</text>
+</g></svg>

@@ -124,7 +124,7 @@ Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo tr
 | 1. Mở đầu | P00, P04, P02, P03, P01 | Giới thiệu chương, Mục tiêu học tập, Kiến thức tiên quyết, Bảng ký hiệu, Bản đồ chủ đề | `lec-08-topic-01` (Kiến thức tiên quyết); các phần còn lại không mang mã | đã viết 2026-10-28 |
 | 2. Mô hình tính toán trên dòng | AT, A05, A00, A02, A06 | Mục 1.1–1.6 | `lec-08-topic-02` | đã viết 2026-10-28, sửa sau rà lại mạch 2 |
 | 3. Lấy mẫu theo khóa | KT, K01, K09, K01B, K02, K04, K05, K06, K07, K08 | Mục 2.1–2.5 | `lec-08-topic-03`…`06` | đã viết 2026-10-28 |
-| 4. Lấy mẫu hồ chứa | RT, R00–R08 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | chờ viết |
+| 4. Lấy mẫu hồ chứa | RT, R00, R01, R03, R04, R05, R06, R07, R08, R09 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | đã viết 2026-10-28 |
 | 5. Lọc thành viên bằng Bloom filter | BT, B00–B12 | Mục 4.1–4.6 | `lec-08-topic-09`…`12` | chờ viết |
 | 6. Tổng kết và chuyển tiếp | CT, C00–C02 | Mục 5, Tình huống, Tóm tắt | `lec-08-topic-13`…`15` | chờ viết |
 | 7. Bài tập vận dụng | XT, X00–X05 | Bài tập củng cố; Tham khảo | `lec-08-topic-16`, `17` | chờ viết |
@@ -172,6 +172,19 @@ Chu trình rút gọn của Mục 1: không có định lý; tính đúng của 
 | 2.5 Ngưỡng băm khi ngân sách cố định | `lec-08-topic-06` | Thuật toán 08.13 (dọn dạng nhảy: $v$ lớn nhất qua chỉ mục có thứ tự, $\tau\gets v-1$; xóa $\le r$, số lần dọn $\le$ số giá trị băm phân biệt, tra $O(\log G)$); Ví dụ 08.7 ($G=3$, $\tau$: 9 → 6 ở $r=4$, 6 → 3 ở $r=5$, mẫu An ×3); Mệnh đề 08.14 (bất biến, quy nạp, kiểm cho bản nhảy) | K07 (ghi chú) | MMDS §4.2.4 tr.138; $B,t$ của sách $\to b,\tau$; $G$ là ký hiệu cục bộ cho ngân sách |
 
 Bộ đếm sau Mục 2: chung 08.6–08.14; Ví dụ 08.3–08.7; Bài tập 08.2–08.3. Tiểu mục 2.4 (chi phí và cỡ mẫu) được thêm, nên ngưỡng băm chuyển sang 2.5 (bản đồ chủ đề ở ghi chú và outline đã đổi). Số âm tiết Mục 2: 4 179 ở bản đầu, 4 627 sau lượt sửa theo rà lại mạch 3 (dòng năm bộ, bảng chi phí của Thuật toán 08.13 dạng nhảy, đoạn về độc lập giữa các khóa); khung giao 3 000–4 000. Hình `key-sampling.svg` (30%) không còn được ghi chú hay deck dùng.
+
+**Mục 3 (mạch 4).** Thứ tự ghi chú: nhu cầu (giới hạn cỡ của mẫu theo khóa, Ví dụ 08.6) → ví dụ dẫn nhập $s=2$ trên dòng mười phần tử → ý tưởng (một số $j$ gộp hai quyết định) → vết hai ô → định nghĩa → thuật toán → định lý $s/r$ (quy nạp năm bước) và hình bước $r+1=5$ → phản ví dụ → mệnh đề tập con đều (bổ sung) → chi phí và số lần ghi → nhầm lẫn, "Trong thực hành", bảng so sánh, bài tập → đoạn kết sang câu hỏi thành viên.
+
+| Phần ghi chú | `note-topic-id` | Khối, số hiệu | Trang deck | Dữ kiện, ký hiệu |
+|---|---|---|---|---|
+| Mở mục | — | — | RT | Khóa $10^6$ bộ (Ví dụ 08.6); cỡ kỳ vọng $ar/b$ |
+| 3.1 Mẫu cỡ cố định và ý tưởng | `lec-08-topic-07` | Ví dụ 08.8; đoạn trực quan; Ví dụ 08.9; hình `reservoir-trace.svg` | R00, R01, R03 | Dòng a x c y z k c d e g (slide MMDS Streams 1 tr.18), $2/5$, $2/7$; $j=2,4,1$ (học phần dựng), hồ cuối [z, c]; xác suất nhận $2/3$, $2/4$, $2/5$ |
+| 3.2 Đặc tả và thuật toán | (thuộc `lec-08-topic-07`) | Định nghĩa 08.15; Thuật toán 08.16 (biên $r\le s$, $s=1$) | R04 | $W[1..s]$, $s$, $r$, $j$ |
+| 3.3 Xác suất $s/r$ | `lec-08-topic-08` | Định lý 08.17 (bốn phần; chứng minh: cơ sở, giả thiết quy nạp, phần tử mới, phần tử cũ có dẫn độc lập của $j$, cỡ); hình `reservoir-step.svg`; hai phản ví dụ; Mệnh đề 08.18 (mọi tập con cỡ $s$ xác suất $1/\binom rs$, bổ sung) | R05, R06, R07 | $W_r$ ký hiệu cục bộ; $E_i$ biến cố bị thay (thay `\text{bị thay}` cũ); $\frac24\cdot\frac45=\frac25$; phản ví dụ phụ thuộc: $\Pr[x_3\in W_4]=1/6$; liệt kê $r=4,s=2$: 12 kết cục, mỗi cặp 2 lần |
+| 3.4 Chi phí | (thuộc `lec-08-topic-08`) | Mệnh đề 08.19 (RAM, $\Theta(s)$, $O(1)$, số lần ghi kỳ vọng với cận tích phân); Ví dụ 08.10 ($s=100$, $r=10^6$: $920{,}5$ lần thay, tổng $1\,020{,}5$, cận $1\,020{,}0$ và $1\,021{,}0$) | R08 | — |
+| 3.5 Nhầm lẫn, thực hành, so sánh | (thuộc `lec-08-topic-08`) | Nhận xét 08.20, 08.21; bảng so sánh; Bài tập 08.4 (An 10 bộ trong $1\,000$, $s=100$: kỳ vọng 1; giữ trọn với xác suất $\approx6{,}6\cdot10^{-11}$) | R09 | — |
+
+Bộ đếm sau Mục 3: chung 08.15–08.21; Ví dụ 08.8–08.10; Bài tập 08.4. Bản đồ chủ đề đổi: `lec-08-topic-07` là 3.1–3.2, `lec-08-topic-08` là 3.3–3.5 (ghi chú và outline). Số âm tiết Mục 3: 3 111 ở bản đầu, 3 291 sau lượt sửa theo rà lại mạch 4 (đối chiếu quy tắc ngưỡng với mẫu theo khóa; "độc lập với các lần rút trước"; mô hình chi phí của Định nghĩa 08.3 thay mô hình RAM; phép tính hai trường hợp của slide MMDS tr.21; Nhận xét 08.20 tính tỷ số các số đếm kỳ vọng với $p_2=\frac{s(s-1)}{r(r-1)}$; biến vị trí $\ell$ thay $y$ trong chứng minh Mệnh đề 08.18). Từ "thời điểm" trong bộ (người dùng, truy vấn, thời gian) đổi thành "thời gian" ở mọi chỗ của ghi chú, khớp deck và "time" của MMDS.
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -306,3 +319,70 @@ Dữ kiện do học phần dựng: dòng năm bộ (An, “đồ thị”), (B�
 | K08 | Nhãn "Câu hỏi:" đứng trước câu hỏi thật | 33 (3, 19); ghi chú 81 |
 
 Giả mã K04: dấu tiếng Việt lệch trên ảnh chụp do phông monospace của máy chụp, giống Bài 07; không xử lý theo quyết định của điều phối viên. Giữ "thời gian" (không đổi sang "thời điểm") để khớp bộ (người dùng, truy vấn, thời gian) dùng trên toàn deck.
+
+### Mạch 4. Lấy mẫu hồ chứa
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| thuật toán | Nêu nhu cầu mẫu cỡ cố định, ý tưởng hồ chứa, chạy tay vết hai ô, giả mã có đặc tả, chứng minh bất biến $s/r$ bằng quy nạp, đếm chi phí, so với mẫu theo khóa | Mạch 3: mẫu theo khóa có cỡ kỳ vọng $ar/b$ tăng theo dòng; hạ ngưỡng làm tỷ lệ khóa đổi; khóa $10^6$ bộ | Hồ chứa $W$ đúng $s$ ô; với $r\ge s$, mỗi phần tử đã đọc nằm trong $W$ với xác suất $s/r$ (xác suất của từng phần tử riêng lẻ); chi phí $\Theta(s)$ bộ nhớ, $O(1)$ mỗi phần tử; không giữ trọn theo khóa | Chu trình cụm thuật toán đủ bước: giới hạn có số và nhu cầu (R00) → ý tưởng so với mẫu theo khóa (R01) → chạy tay (R03) → Đầu vào/Đầu ra ngay trước giả mã (R04) → tính đúng: mệnh đề, cơ sở, giả thiết quy nạp (R05) và hai nửa bước quy nạp (R06, R07) → chi phí (R08) → so sánh và câu hỏi kiểm (R09) | RT (`id="mach-4"`), điểm vào mạch 4 |
+
+Thứ tự trang: RT → R00 → R01 → R03 → R04 → R05 → R06 → R07 → R08 → R09. Gộp R02 (đặc tả) vào R04. Bảng so sánh cũ của R01 chuyển xuống R09 (ID mới), sau khi hồ chứa đã được định nghĩa và chứng minh, ghép với câu hỏi kiểm; R01 thành trang ý tưởng. Lý do không đưa bảng so sánh vào trang chi phí: trang chi phí đếm bước của một thuật toán, còn bảng so sánh đối chiếu hai thuật toán theo đơn vị, cỡ mẫu và bảo đảm. Sách MMDS 3e không có bài tập hồ chứa; câu hỏi R09 do học phần dựng.
+
+**Câu hỏi trước khi sửa.**
+
+| Trang cũ | Trang muốn nói | Phục vụ chủ đề mạch? | Vấn đề còn lại | Quyết định |
+|---|---|---|---|---|
+| RT | Điểm vào mạch 4 | có | "Xác suất biên" chưa giải nghĩa; ghi chú liệt kê trang, chạm trần 100 | sửa |
+| R00 | Bảo đảm $s/r$ | có | `h1` cũ; nêu kết quả trước vấn đề; dòng 29 âm tiết; không có ví dụ số | sửa: trang nhu cầu có giới hạn và ví dụ số |
+| R01 | So sánh với mẫu theo khóa | một phần | Dùng $\min(r,s)$, $s/r$ trước khi hồ chứa được định nghĩa; ghi chú siêu bình luận | sửa: thành trang ý tưởng; bảng so sánh chuyển sang R09 |
+| R03 | Vết $s=2$ | có | KaTeX trong tiêu đề; quy tắc $j$ chỉ có trong hình; chữ hình 21 đơn vị | sửa |
+| R02 | Đặc tả theo tiền tố | có | Tiêu đề khó hiểu; ghi chú "vết chạy vừa trình bày" | gộp vào R04 |
+| R04 | Giả mã | có | Tiêu đề là câu; giả mã nhận $r$ từ ngoài, không khởi tạo; không có Đầu vào/Đầu ra; dùng $S$ | sửa |
+| R05 | Bất biến và cơ sở | có | Tiêu đề không theo dạng "Tính đúng:"; thiếu giả thiết về $j$; dòng 25 âm tiết | sửa |
+| R06 | Phần tử mới | có | Không nhắc $j$ đều trên $\{1,\ldots,r+1\}$; tiêu đề là câu | sửa, thêm hình |
+| R07 | Phần tử cũ | có | KaTeX trong tiêu đề; câu đầu sai ngữ pháp; không phát biểu giả thiết quy nạp và tính độc lập | sửa, thêm hình |
+| R08 | Chi phí và câu hỏi $s=100$, $r=1\,000$ | có | Tiêu đề là câu; thiếu "Mô hình:" và bảng; "Đáp án"; ghi chú biên soạn | sửa: trang chi phí; câu hỏi chuyển sang R09 |
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện, ký hiệu kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---:|
+| RT | Điểm vào mạch 4 | Nhận nhiệm vụ của mạch | Lời dẫn "Muốn giữ đúng $s$ phần tử khi chưa biết độ dài dòng, phải thay ngẫu nhiên theo vị trí." | Đầu ra mạch 3 | — | sửa: bỏ "xác suất biên"; ghi chú nêu "xác suất của từng phần tử riêng lẻ", nhận đầu ra mạch 3, trao mạch 5 | 34 (2, 21) → 37 (2, 19); ghi chú 100 → 89 | 0,5 |
+| R00 | Nhu cầu mẫu cỡ cố định | Tính xác suất cần cho từng phần tử với $s=2$ | Giới hạn: khóa $10^6$ bộ chiếm $10^6$ ô; ví dụ $2/5$, $2/7$; cách lưu cả dòng | Khóa $10^6$ bộ (mạch 3); $s$, $r$ (P04) | Nêu được yêu cầu $s/r$ | sửa: tiêu đề "Mẫu cỡ cố định"; giới hạn có số trước nhu cầu; ví dụ slide MMDS tr.18 | 37 (1, 29) → 53 (4, 15); ghi chú 65 → 101 | 2,5 |
+| R01 | Ý tưởng | So hồ chứa với mẫu theo khóa; đọc quy tắc rút $j$ | "Tương tự … Khác …"; quy tắc $j$; trực quan $s/r$ và ô chọn đều | Mẫu theo khóa | Phát biểu quy tắc bằng lời | sửa: thay bảng so sánh bằng trang ý tưởng; quy tắc $j$ lên mặt trang trước vết | 33 (4, 10) → 55 (4, 18); ghi chú 26 → 91 | 3 |
+| R03 | Chạy tay | Lập vết $s=2$ trên $a,x,c,y,z$ với $j=$ –, –, 2, 4, 1 | Hình `reservoir-trace.svg`; hồ cuối $[z,c]$ | Quy tắc R01 | Vết; bằng chứng: hình nhỏ ở R04, ví dụ ở R06 | sửa: tiêu đề "Ví dụ: vết chạy hồ chứa hai ô"; dòng dữ kiện và dòng kết luận; chữ hình tăng lên 26–28 đơn vị | 14 (1, 14) → 13 (2, 7); ghi chú 76 → 72 | 3 |
+| R04 | Thuật toán | Đọc Đầu vào/Đầu ra, giả mã; đối chiếu với hình nhỏ | `HỒ-CHỨA(x₁, x₂, …; s)` 8 dòng, tự đếm $r$, mảng $W$; hình `reservoir-mini.svg` | Vết R03 hiện lại bằng hình nhỏ | Viết được giả mã; bằng chứng: chứng minh R05–R07 | sửa và gộp R02: đặc tả ngay trước giả mã; $W$ thay $S$; dòng đọc giả mã nêu phép quyết định | R02 34 (2, 18) + R04 24 → 35 (3, 15); ghi chú 36 + 69 → 103 | 3,5 |
+| R05 | Tính đúng | Đọc mệnh đề, cơ sở, giả thiết quy nạp | Mệnh đề với giả thiết $j$ đều, độc lập; cơ sở $r=s$; cỡ đúng $s$ | Giả mã R04 | Phát biểu được bất biến | sửa: tiêu đề "Tính đúng: lấy mẫu hồ chứa"; giả thiết quy nạp hiện rõ | 47 (3, 25) → 56 (5, 16); ghi chú 31 → 88 | 2 |
+| R06 | Nửa thứ nhất bước quy nạp | Tính $\Pr[x_{r+1}\in W]$ | Công thức $s/(r+1)$; hình `reservoir-step.svg` ($r+1=5$, $s=2$) | $j$ đều trên $\{1,\ldots,r+1\}$ nêu lại trên trang | $2/5$ khớp $z$ của vết | sửa: tiêu đề "Chứng minh: bất biến hồ chứa, phần tử mới"; thêm hình | 19 (2, 10) → 13 (3, 7); ghi chú 30 → 62 | 2,5 |
+| R07 | Nửa thứ hai bước quy nạp | Nhân giả thiết quy nạp với xác suất không bị thay | Giả thiết quy nạp hiện rõ; $\Pr[\text{bị thay}\mid x_i\in W]=1/(r+1)$; tính độc lập của $j$ | Hình `reservoir-step.svg` | $\frac{s}{r}(1-\frac1{r+1})=\frac{s}{r+1}$; ví dụ $\frac24\cdot\frac45=\frac25$ trong ghi chú | sửa: tiêu đề "Chứng minh: bất biến hồ chứa, phần tử cũ"; không KaTeX trong tiêu đề | 16 (2, 15) → 24 (4, 14); ghi chú 40 → 141 | 3 |
+| R08 | Chi phí | Đếm bước mỗi phần tử và sau $r$ phần tử | "Mô hình: RAM…"; bảng tăng $r$, rút $j$, ghi $W$; $\Theta(s)$ bộ nhớ, $O(1)$ mỗi phần tử | Mô hình từ máy (mạch 2) | Đếm được chi phí; số lần ghi kỳ vọng $\approx s(1+\ln\frac rs)$ trong ghi chú | sửa: tiêu đề "Chi phí: lấy mẫu hồ chứa"; bỏ "Đáp án" và ghi chú biên soạn | 48 (2, 24) → 37 (5, 13); ghi chú 58 → 78 | 2 |
+| R09 | So sánh và kiểm tra | Đối chiếu hai cách lấy mẫu; tính kỳ vọng số bộ của An | Bảng theo khóa ↔ hồ chứa; câu hỏi $r=1\,000$, An 10 bộ, $s=100$ | Mẫu theo khóa (mạch 3) | Lời giải: $10\cdot0{,}1=1$ bộ; không giữ trọn | thêm (ID mới): bảng so sánh cũ đặt sau định nghĩa; câu hỏi không chỉ thay số | — → 46 (7, 18); ghi chú — → 101 | 3 |
+
+Tổng mạch 4: 25 phút (trước: RT 0,5, R00 2,5, R01 2, R03 3, R02 3, R04 4, R05 3, R06 2, R07 3, R08 3 = 26). Tổng phần giảng tạm: 116 phút; 4 phút phân bổ cho mạch 5 khi duyệt (các trang mới B05B, phi tiêu và định nghĩa dương giả theo báo cáo rà deck).
+
+Số đã tự tính: vết $[a]\to[a,x]\to[a,c]\to[a,c]\to[z,c]$; xác suất nhận $c$, $y$, $z$ lần lượt $2/3$, $2/4$, $2/5$; ở $r+1=5$, $s=2$: nhận $2/5$, bỏ $3/5$, phần tử cũ bị thay $1/5$, còn lại $4/5$, $\frac24\cdot\frac45=\frac25$; $\frac{s}{r}(1-\frac1{r+1})=\frac{s}{r}\cdot\frac{r}{r+1}=\frac{s}{r+1}$; $s=100$, $r=1\,000$: $0{,}1$, kỳ vọng $10\cdot0{,}1=1$; số lần rút $r-s$; số lần ghi kỳ vọng $s+\sum_{k=s+1}^{r}s/k\approx s(1+\ln(r/s))$.
+
+Hình: `reservoir-mini.svg` (mới, R04), `reservoir-step.svg` (mới, R06, R07), `reservoir-trace.svg` (sửa cỡ chữ 21–25 → 26–28, không đổi nội dung; ghi chú bài giảng cũng dùng hình này).
+
+**Sửa sau lượt rà lại mạch 4 (2026-10-28).** Các số đo dưới đây thay cột âm tiết của bảng trên.
+
+| Trang | Thay đổi | Âm tiết (dòng, max dòng); ghi chú |
+|---|---|---|
+| RT | Lời dẫn bỏ KaTeX: "Muốn giữ số phần tử cố định khi chưa biết độ dài dòng, phải thay ngẫu nhiên theo vị trí." | 39 (2, 20); ghi chú 89 |
+| R00 | "nếu được giữ"; "sao cho"; tên phần tử a, x, c, y, z viết chữ đứng; câu ví dụ và câu "lưu cả $r$ phần tử" gọn lại | 58 (4, 18); ghi chú 101 |
+| R01 | So sánh đúng với mẫu theo khóa: giống ở quy tắc ngưỡng ($j\le s$ thay cho $h(K)<a$), khác ở chỗ $j$ rút lại ở mỗi vị trí và phần tử đã giữ có thể bị thay | 58 (4, 18); ghi chú 101 |
+| R03 | Tên phần tử chữ đứng trên mặt trang và ghi chú; "phần tử x và y không còn" | 24 (2, 13); ghi chú 76 |
+| R04 | "số rút đều, độc lập với các lần rút trước và $W$" (lần dùng đầu nói rõ) | 37 (3, 16); ghi chú 104 |
+| R05 | "độc lập với các lần rút trước"; ghi chú nêu "và vì thế với nội dung $W$" | 58 (5, 18); ghi chú 97 |
+| R06 | Tiêu đề "Chứng minh: xác suất có mặt, phần tử mới"; dòng ví dụ không còn ngụ ý một lần chạy kiểm được xác suất; alt nêu điều kiện của $4/5$ | 24 (3, 18); ghi chú 62 |
+| R07 | Tiêu đề "Chứng minh: xác suất có mặt, phần tử cũ"; bỏ hình (trùng R06), thay bằng dòng "Ví dụ. $s=2$, $r=4$: $\frac24\cdot\frac45=\frac25$"; ghi chú mô tả đúng phép tính của slide MMDS tr.21: $(1-\frac{s}{r+1})+\frac{s}{r+1}\cdot\frac{s-1}{s}=\frac{r}{r+1}$ | 27 (5, 14); ghi chú 154 (chứng minh, dưới mức 250) |
+| R08 | Mô hình đếm như mạch 2–3 (phép toán mỗi phần tử, rút một số đều tính 1 phép, từ máy); bỏ "RAM"; ô ghi $W$: kỳ vọng $\approx s(1+\ln\frac rs)$; câu kết nêu trường hợp xấu nhất | 49 (5, 20); ghi chú 85 |
+| R09 | Bỏ hàng "Đơn vị chọn" (hàng "Nhất quán theo khóa" đã hàm ý), còn 6 dòng | 41 (6, 18); ghi chú 101 |
+
+Hình: `reservoir-step.svg` ghi điều kiện cho $4/5$ ("khi xᵢ đang ở ô 1, xᵢ còn lại với xác suất 4/5"), desc khớp; `reservoir-mini.svg` desc thêm "x và a bị thay".
+
+CSS: thêm vào khối `.lecture-stream` biến `--r-code-font` (Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace) để giả mã hiển thị đúng dấu tiếng Việt; phông mặc định `monospace` phân giải thành DejaVu Sans Mono trên máy kiểm và tách dấu. Đã kiểm K04, R04, B04 đúng dấu, không tràn khung; Bài 02, 03 không có phần tử `.lecture-stream`, không lỗi. Bài 07 có cùng lỗi phông; để nâng thành lớp chung ở lượt sau.
+
+Thời lượng: mạch 4 giữ 25 phút; tổng phần giảng tạm 116 phút. Mạch 5 (Bloom filter) và mạch 6 (tổng kết) nhận 4 phút còn lại khi duyệt.
