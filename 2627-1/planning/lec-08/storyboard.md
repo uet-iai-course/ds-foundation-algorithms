@@ -239,6 +239,8 @@ Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ ph
 
 **Lượt bản đánh giá, Mục 3 ↔ mạch 4.** Không thêm khối đánh số. Nhận xét 08.20: gạch đầu dòng phân biệt $s/(r+1)$ (nhận $x_{r+1}$, có một ô bị thay) với $1/(r+1)$ (thay đúng ô của $x_i$). Bài tập 08.4, lời giải: kỳ vọng 1 không có nghĩa đúng một bộ mỗi lần; $\Pr[\text{không bộ nào của An}]=\binom{990}{100}/\binom{1000}{100}\approx0{,}347$ (Mệnh đề 08.18; tính lại 0,346928). Trường hợp biên $s=1$ (Thuật toán 08.16) và phép kiểm $5\cdot\frac25=2=s$ (Ví dụ 08.8) đã có. Nhận xét 08.21: hồ chứa chọn đều trên toàn lịch sử; ưu tiên gần đây cần cửa sổ (ghi chú Bài 09, Mục 6 DGIM và Mục 8 suy giảm mũ). Mục 3: 3 512 âm tiết; toàn chương 25 376.
 
+**Lượt bản đánh giá, Mục 4 ↔ mạch 5.** Không thêm khối đánh số. Sau Định nghĩa 08.22: bảng 2×2 (thực tế × trả lời) và câu nghĩa của "dương", "âm", "giả". Ví dụ 08.13: hình `phi-tieu-8-bia.svg` (kết cục do học phần chọn: bit 1, 4, 4, 6, ba bit bằng 1) và câu đọc hình; kỳ vọng $8(1-(7/8)^4)=3{,}31$ giữ ở "Kiểm tra lại". Phản ví dụ điều kiện 1 của Định lý 08.25: mảng 10100101010 thành 10100100000, 159 đọc bit 7, 0 thành âm giả. Alt và đoạn đọc `fpr-curve.svg` theo nhãn hai vùng. Sau "Ý nghĩa:" của Định lý 08.28: mảng 11 bit $k^*=(11/3)\ln2\approx2{,}54$, 5/11 bit bằng 1. Ví dụ 08.16: $0{,}0216$ là xác suất cho một địa chỉ ngoài $S$ cố định, không phải tỷ lệ thư rác hay xác suất một địa chỉ đã qua bộ lọc thuộc $S$. Nhận xét 08.31: đổi $k$ phải xây lại mảng. Mục 4: 4 807 âm tiết; toàn chương 25 682.
+
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
 ## Lượt duyệt từng mạch (2026-10-28)
@@ -708,3 +710,34 @@ Thứ tự trang không đổi: RT → R00 → R01 → R03 → R04 → R05 → R
 Tổng mạch 4: 25 phút (không đổi).
 
 Ghi chú bài giảng: Nhận xét 08.20 thêm gạch đầu dòng phân biệt $s/(r+1)$ và $1/(r+1)$; lời giải Bài tập 08.4 thêm $\Pr[\text{không bộ nào của An}]\approx0{,}347$; Nhận xét 08.21 (tùy chọn) thêm câu hồ chứa chọn đều trên cả lịch sử, mẫu giai đoạn gần đây cần cửa sổ (Bài 09) (tác tử ghi chú).
+
+### Mạch 5. Lọc thành viên bằng Bloom filter
+
+Thứ tự trang: BT → B00 → B02 → B05 → **B05A** → B05B → B01 → B03 → B04 → B06 → B07 → B08 → B09 → B10 → B11 → B12. B05A là ID mới (trang câu hỏi, cùng tiêu đề với trang lời giải B05B). Hình mới: `bloom-11bit-mang.svg` (mảng trơn, không lộ vị trí của 118 và 29; viewBox 760×176, chữ 28, hiển thị ở `stream-mini`, chữ ≈ 24 px) và `phi-tieu-8-bia.svg` (bốn phi tiêu vào tám bia, một kết cục do học phần chọn; viewBox 1180×168, chữ 28, hiển thị ≈ 25 px; bit bị trúng có khung đậm và chữ đậm). Hình sửa: `fpr-curve.svg` thêm nhãn hai vùng «k < k*: thêm phép thử, p giảm» và «k > k*: mảng đầy hơn, p tăng» (ba dòng mỗi bên để không cắt đường cong), desc và alt B11 cập nhật.
+
+| Trang | Đề xuất của bản đánh giá | Quyết định | Thay đổi | Âm tiết (dòng, max dòng) trước → sau; ghi chú | Phút |
+|---|---|---|---|---|---:|
+| BT | Hai loại câu hỏi; minh họa Bloom trước CSDL | bác bỏ (trang tiêu đề mạch) | không đổi | 39 (2, 20); ghi chú 90 | 0,5 |
+| B00 | Sơ đồ tỷ lệ 20 GB/1 GB; hai lộ trình | giữ (trang trí; lộ trình lọc ở B02) | không đổi | 38 (4, 12); ghi chú 79 | 2,5 |
+| B02 | Mảng 12–16 ô; nhãn tiếng Anh | giữ (ví dụ 11 bit làm việc này) | không đổi | 45 (4, 13); ghi chú 95 | 2,5 |
+| B05 | Ba bước, va chạm bit 7 | giữ (đã đủ) | không đổi | 33 (4, 14); ghi chú 77 | 3 |
+| B05A | Sinh viên tự trả lời trước; không hiện từng bước bằng hiệu ứng | thêm (trang kế tiếp thay hiệu ứng) | «$h_1$, $h_2$ lần lượt ghép các bit ở vị trí lẻ, chẵn của khóa (đếm từ phải, từ 1), rồi lấy modulo 11.»; hình mảng trơn; «**Câu hỏi:** với $118=1110110_2$ và $29=11101_2$, tính $(h_1,h_2)$; bộ lọc trả lời gì cho mỗi khóa?» Ghi chú: gợi ý cách ghép bit, nguồn 118 (Ullman tr.8) và 29 (học phần) | — → 32 (3, 19); ghi chú — → 98 | 2 |
+| B05B | Hai vị trí của 29 do hai khóa khác nhau bật | giữ làm trang lời giải; ghi chú một câu | Dòng đầu trang «**Lời giải:** 118 bị loại ngay ở bit 3; 29 chưa được thêm nhưng vẫn qua bộ lọc, một trường hợp nhận nhầm.» thay câu kết cũ; ghi chú thêm «không cần khóa nào của $S$ có cả hai vị trí 7 và 2» | 22 (3, 13) → 28 (3, 20); ghi chú 84 → 98 | 3 → 1,5 |
+| B01 | Ma trận 2×2 thực tế × kết quả; nghĩa của "dương" | chấp nhận (bảng HTML) | Đầu ra rút gọn; «**Định nghĩa.** Hai ô lỗi gọi là âm giả (false negative) và dương giả (false positive).» và bảng 2×2 (hàng $y\in S$, $y\notin S$; cột hai câu trả lời; ô "dương giả, như khóa 29"); dòng ví dụ 11 bit chuyển vào ghi chú; ghi chú thêm nghĩa của "dương" | 55 (5, 18) → 49 (5, 16); ghi chú 102 → 134 | 2,5 |
+| B03 | Hai khóa chung một bit; $m$ là số khóa phân biệt | một phần | Dòng đọc giả mã: «Phép duy nhất là đặt bit thành 1; 159 và 585 cùng đặt bit 7, bit đó vẫn là 1.» Ghi chú thêm «$m$ là số khóa phân biệt; thêm lại một khóa đã có không đổi mảng.», bỏ câu bit 7 (nay trên mặt trang) | 27 (2, 18) → 25 (2, 15); ghi chú 62 → 63 | 2,5 |
+| B04 | Lưu đồ; ví dụ 118 dừng sớm, 29 đọc đủ | một phần (không lưu đồ) | Thêm «**Ví dụ.** 118 dừng ở bit 3; 29 đọc cả bit 7 và bit 2.»; ghi chú thay câu ví dụ trùng bằng «Khóa 118 bị loại sau một lần băm, nên bit 5 của nó không cần đọc.» | 24 (2, 14) → 33 (3, 14); ghi chú 53 → 43 | 2,5 |
+| B06 | Phản ví dụ xóa bit chung; Counting Bloom filter | chấp nhận phản ví dụ; bác bỏ Counting Bloom filter (ngoài nguồn) | Thay dòng Lưu ý bằng «**Ví dụ.** Xóa 585 bằng cách đặt bit 9, 7 về 0: truy vấn 159 gặp $B[7]=0$, thành âm giả.» (tự kiểm: mảng thành $10100100000$). Ghi chú: câu xóa bit bằng lời thay bằng câu đọc ví dụ; chiều ngược (khóa 29) chuyển vào ghi chú; rút vế thừa ở câu Định lý 08.25, câu này mở bằng «Định lý 08.25 của ghi chú bài giảng có thêm hai điều kiện» | 53 (4, 19) → 55 (4, 19); ghi chú 141 → 148 | 3 |
+| B07 | Minh họa $km$ phi tiêu vào $n$ bia | chấp nhận (đổi quyết định lượt trước: hình cho thấy trùng bia) | Hình `phi-tieu-8-bia.svg` dưới dòng Trực quan (`stream-mini`); bỏ dòng Ví dụ $k=1$ (trùng $p(1)\approx0{,}1175$ ở B08; câu "khớp dạng mũ tới sáu chữ số" chuyển sang ghi chú B08); ghi chú thêm $8(1-(7/8)^4)\approx3{,}31<4$ và đọc hình | 38 (5, 16) → 36 (4, 16); ghi chú 98 → 105 | 3 |
+| B08 | Lý do "vị trí truy vấn trùng nhau" (sai) | giữ; lý do sai không đưa vào | Ghi chú thêm «Với $n/m=8$, $k=1$, $q$ chính xác là $0{,}1175031$, khớp dạng mũ tới sáu chữ số.» (chuyển từ B07); mặt trang giữ $p(1)\approx0{,}1175$ | 25 (5, 8); ghi chú 123 → 138 | 3,5 |
+| B09 | Đồ thị chữ U, nhãn hai vùng | giữ B09; nhãn vùng đặt trên `fpr-curve.svg` (B11) | không đổi | 28 (5, 12); ghi chú 76 | 2,5 |
+| B10 | Dẫn đạo hàm; mảng 50% bit; ký hiệu $\ell$; "slide 58" | giữ mặt trang (không giải trước Bài tập 4.3.3) | Ghi chú thêm «Ở mảng 11 bit ($n=11$, $m=3$), $k^*=(11/3)\ln2\approx2{,}54$; với $k=2$ gần $k^*$, mảng cuối có 5 trong 11 bit bằng 1, gần một nửa.» | 42 (4, 18) không đổi; ghi chú 104 → 127 | 3,5 → 3 |
+| B11 | Thay số $p(5)$, $p(6)$; trục phần trăm | một phần (bác bỏ trục phần trăm) | Dòng công thức: «$p(5)=(1-e^{-5/8})^5\approx0{,}0217,\ p(6)=(1-e^{-6/8})^6\approx0{,}0216$»; $k^*$ chuyển vào dòng cuối «$k^*=8\ln2\approx5{,}545$: chọn $k=6$; …»; ghi chú thêm nghĩa của $0{,}0216$ | 11 (3, 8) không đổi; ghi chú 79 → 114 | 2,5 |
+| B12 | Bảng hai kịch bản; đổi $k$ đòi xây lại | một phần (bảng lộ lời giải) | Ghi chú thêm «đổi $k$ phải xây lại mảng với bộ hàm băm mới, vì các bit đã đặt theo bộ hàm cũ» | 45 (7, 15) không đổi; ghi chú 96 → 116 | 3 → 2,5 |
+
+Tổng mạch 5: 39,5 phút (B05A 2, B05B 1,5 sau rà lại; tổng hai trang vẫn 3,5). Cột phút trước lượt này cộng được 40 (ghi nhầm 40,5).
+
+**Thời lượng toàn bài sau lượt này:** mạch 1 6,5; mạch 2 13; mạch 3 24; mạch 4 25; mạch 5 39,5; mạch 6 12; phần giảng **120 phút**. Phần bài tập 60 phút (cân lại ở mạch 7). Ghi chú "tạm 120,5" ở tiểu mục Mạch 2 đã được giải trừ.
+
+Số đã tự tính: $118=1110110_2\to(14\bmod11,5)=(3,5)$; $29=11101_2\to(7,2)$; xóa 585 cho mảng $10100100000$, 159 đọc $B[7]=0$; $(7/8)^4=0{,}5862$, $8(1-(7/8)^4)=3{,}3105$; $p(5)=0{,}021679$, $p(6)=0{,}021577$; $(11/3)\ln2=2{,}5415$.
+
+Ghi chú bài giảng (tác tử ghi chú): sau Định nghĩa 08.22 thêm bảng 2×2 và câu về nghĩa của "dương"; Ví dụ 08.13 chèn `phi-tieu-8-bia.svg` và câu đọc hình; §4.6 cập nhật alt của `fpr-curve.svg` (nhãn hai vùng); Nhận xét 08.31 thêm câu đổi $k$ phải xây lại; tùy chọn: câu mảng 11 bit gần nửa bit 1 sau "Ý nghĩa:" của Định lý 08.28.

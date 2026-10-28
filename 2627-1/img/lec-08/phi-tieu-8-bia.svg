@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 168" role="img" aria-labelledby="pt8-t pt8-d">
+<title id="pt8-t">Bốn phi tiêu vào tám bia</title>
+<desc id="pt8-d">Một kết cục minh họa do học phần chọn: tám bit, chỉ số 0 đến 7, ban đầu bằng 0. Bốn phi tiêu đánh số 1 đến 4 rơi vào bit 1, bit 4, bit 4 và bit 6. Ba bit bị trúng là bit 1, 4, 6, ghi 1 và có khung đậm; năm bit còn lại ghi 0. Phi tiêu 2 và 3 trùng bit 4, nên bốn phi tiêu chỉ cho ba bit bằng 1.</desc>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<g fill="#ffffff" stroke="#2f3e7a" stroke-width="2"><rect x="20" y="62" width="82" height="56"/><rect x="204" y="62" width="82" height="56"/><rect x="296" y="62" width="82" height="56"/><rect x="480" y="62" width="82" height="56"/><rect x="664" y="62" width="82" height="56"/></g>
+<g fill="#f7efe6" stroke="#2f3e7a" stroke-width="6"><rect x="112" y="62" width="82" height="56"/><rect x="388" y="62" width="82" height="56"/><rect x="572" y="62" width="82" height="56"/></g>
+<g text-anchor="middle"><text x="61" y="100">0</text><text x="153" y="100" font-weight="700">1</text><text x="245" y="100">0</text><text x="337" y="100">0</text><text x="429" y="100" font-weight="700">1</text><text x="521" y="100">0</text><text x="613" y="100" font-weight="700">1</text><text x="705" y="100">0</text></g>
+<g text-anchor="middle"><text x="61" y="152">bit 0</text><text x="153" y="152">bit 1</text><text x="245" y="152">bit 2</text><text x="337" y="152">bit 3</text><text x="429" y="152">bit 4</text><text x="521" y="152">bit 5</text><text x="613" y="152">bit 6</text><text x="705" y="152">bit 7</text></g>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"><circle cx="153" cy="22" r="19"/><circle cx="408" cy="22" r="19"/><circle cx="450" cy="22" r="19"/><circle cx="613" cy="22" r="19"/></g>
+<g text-anchor="middle" font-weight="700"><text x="153" y="32">1</text><text x="408" y="32">2</text><text x="450" y="32">3</text><text x="613" y="32">4</text></g>
+<g stroke="#2f3e7a" stroke-width="3"><path d="M153,41 L153,56"/><path d="M412,41 L422,56"/><path d="M446,41 L436,56"/><path d="M613,41 L613,56"/></g>
+<g><text x="790" y="50">4 phi tiêu, 3 bit bằng 1:</text><text x="790" y="92">phi tiêu 2 và 3</text><text x="790" y="134">trùng bit 4</text></g>
+</g>
+</svg>

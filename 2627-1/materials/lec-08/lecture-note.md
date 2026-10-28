@@ -953,6 +953,13 @@ Cho tập $S\subseteq\mathcal K$ gồm $m$ khóa, số bit $n\ge1$ và $k\ge1$ h
 Một **dương giả** (false positive) là một khóa $y\notin S$ nhận câu trả lời "có thể thuộc". Một **âm giả** (false negative) là một khóa $y\in S$ nhận câu trả lời "chắc chắn không thuộc".
 :::
 
+| Thực tế | trả lời "chắc chắn không thuộc" | trả lời "có thể thuộc" |
+|---|---|---|
+| $y\in S$ | âm giả | đúng |
+| $y\notin S$ | đúng | dương giả |
+
+Chữ "dương" chỉ câu trả lời "có thể thuộc", chữ "âm" chỉ câu trả lời "chắc chắn không thuộc", và chữ "giả" chỉ câu trả lời sai so với thực tế.
+
 Bloom filter trả lời câu hỏi thành viên một phía. Câu trả lời "chắc chắn không thuộc" luôn đúng dưới bốn điều kiện của Định lý 08.25; câu trả lời "có thể thuộc" cần tra $S$ khi quyết định không được sai. Trong lọc thư, dương giả là lỗi chấp nhận được, vì thư rác lọt qua bước lọc sẽ bị chặn ở bước tra chính xác. Âm giả thì không chấp nhận được, vì thư hợp lệ bị chặn. Trong Ví dụ 08.11–08.12, $n=11$, $k=2$, $m=3$, và khóa 29 là một dương giả. So với mẫu theo khóa (Định nghĩa 08.8), Bloom filter cũng dựa vào tính tất định của hàm băm, nhưng ghi dấu vết của mọi khóa trong $S$ thay vì chọn một phần khóa.
 
 ::: algorithm Thuật toán 08.23 (Xây Bloom filter)
@@ -1033,7 +1040,7 @@ Phép quyết định của Thuật toán 08.24 là đọc bit: gặp một bit 
 
 Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
 
-- Bỏ điều kiện 1: trong Ví dụ 08.11, gỡ 585 bằng cách đặt bit 9 và bit 7 về 0 làm $B[7]=0$, và khóa 159 thuộc $S$ nhận "chắc chắn không thuộc".
+- Bỏ điều kiện 1: trong Ví dụ 08.11, gỡ 585 bằng cách đặt bit 9 và bit 7 về 0 biến mảng 10100101010 thành 10100100000, nên $B[7]=0$; khóa 159 thuộc $S$ đọc bit 7 và bit 0, nhận "chắc chắn không thuộc" và thành một âm giả.
 - Bỏ điều kiện 2: nếu truy vấn dùng $h_1(v)+1\bmod 11$ thay cho $h_1$, khóa 25 thuộc $S$ đọc bit 6 và bit 2; trên mảng 10100101010, $B[6]=0$, nên 25 nhận "chắc chắn không thuộc".
 - Bỏ điều kiện 3: một hàm có thành phần ngẫu nhiên ở mỗi lần gọi có thể trả lúc truy vấn một vị trí khác lúc xây.
 - Bỏ điều kiện 4: truy vấn 159 khi Thuật toán 08.23 mới ghi $B[7]$ cho 159 mà chưa ghi $B[0]$; mảng tạm 00100101000 có $B[0]=0$, nên 159 nhận "chắc chắn không thuộc".
@@ -1049,6 +1056,10 @@ Bước 1 dùng điều kiện 4; Bước 2 dùng điều kiện 1, 2 và 3. Tro
 **Dữ kiện.** $n=8$ bia, 4 phi tiêu, mỗi phi tiêu rơi đều và độc lập.
 
 **Tính.** Một bia cố định không bị một phi tiêu trúng với xác suất $7/8$. Bốn phi tiêu độc lập, nên bia không bị trúng với xác suất $(7/8)^4=2401/4096\approx0{,}586$, và bị trúng ít nhất một lần với xác suất $\approx0{,}414$.
+
+![Một kết cục minh họa do học phần chọn: tám bit, chỉ số 0 đến 7, ban đầu bằng 0; bốn phi tiêu đánh số 1 đến 4 rơi vào bit 1, bit 4, bit 4 và bit 6; ba bit 1, 4, 6 bằng 1 và có khung đậm, năm bit còn lại bằng 0; phi tiêu 2 và 3 trùng bit 4, nên bốn phi tiêu chỉ cho ba bit bằng 1.](img/lec-08/phi-tieu-8-bia.svg)
+
+Hình vẽ một kết cục do học phần chọn: bốn phi tiêu rơi vào bit 1, 4, 4 và 6, nên chỉ ba bit bằng 1, vì phi tiêu 2 và 3 trùng bit 4.
 
 **Kiểm tra lại.** Kỳ vọng số bia bị trúng là $8\cdot0{,}414\approx3{,}31$, nhỏ hơn 4 vì có phi tiêu rơi trùng bia.
 :::
@@ -1173,7 +1184,7 @@ $$
 **Bước 5 (kết luận).** $\theta>1/2$ khi và chỉ khi $z<\ln2$, tức $k<k^*=\ln2/\rho=(n/m)\ln2$. Theo Bước 3 và 4, $\lambda'<0$ trên $(0,k^*)$ và $\lambda'>0$ trên $(k^*,\infty)$; theo tiêu chuẩn cực trị ở phần tiên quyết, $\lambda$, và do đó $p$, giảm chặt rồi tăng chặt, nhỏ nhất tại $k^*$. Tại $k^*$, $e^{-k^*\rho}=1/2$, nên $p(k^*)=(1/2)^{k^*}=2^{-k^*}$. Kiểm với $n/m=8$: $\theta=e^{-5/8}\approx0{,}535>1/2$ tại $k=5$ và $\theta=e^{-6/8}\approx0{,}472<1/2$ tại $k=6$, nên $\lambda'(5)<0<\lambda'(6)$, khớp $5<k^*<6$. $\square$
 :::
 
-**Ý nghĩa:** tại $k^*$, xác suất một bit bằng 0 là $e^{-k^*m/n}=1/2$, nên khoảng một nửa số bit bằng 1. Mỗi bit mà khóa ngoài $S$ đọc bằng 1 với xác suất khoảng $1/2$, và $k^*$ bit như vậy cho $p(k^*)=2^{-k^*}$.
+**Ý nghĩa:** tại $k^*$, xác suất một bit bằng 0 là $e^{-k^*m/n}=1/2$, nên khoảng một nửa số bit bằng 1. Mỗi bit mà khóa ngoài $S$ đọc bằng 1 với xác suất khoảng $1/2$, và $k^*$ bit như vậy cho $p(k^*)=2^{-k^*}$. Mảng 11 bit của Ví dụ 08.11 có $n/m=11/3$, nên $k^*=(11/3)\ln2\approx2{,}54$; với $k=2$ gần $k^*$, mảng sau ba khóa có 5 trên 11 bit bằng 1, gần một nửa.
 
 ::: corollary Hệ quả 08.29 (Số hàm băm nguyên)
 **Giả thiết.** Như Định lý 08.28; $k$ phải là số nguyên dương.
@@ -1194,14 +1205,14 @@ Theo Định lý 08.28, $p$ giảm trên $(0,k^*]$, nên mọi số nguyên $k\l
 
 **Tính.** $k^*=8\ln2\approx5{,}545$. Theo Hệ quả 08.29, so hai số nguyên kề: $p(5)=(1-e^{-5/8})^5\approx0{,}021679$ và $p(6)=(1-e^{-6/8})^6\approx0{,}021577$. Chọn $k=6$.
 
-**Diễn giải.** Với sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài $S$ lọt qua; giá trị liên tục nhỏ nhất là $2^{-5{,}545}\approx0{,}02142$, nên làm tròn $k$ chỉ tốn khoảng $0{,}0002$.
+**Diễn giải.** Với sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài $S$ lọt qua; giá trị liên tục nhỏ nhất là $2^{-5{,}545}\approx0{,}02142$, nên làm tròn $k$ chỉ tốn khoảng $0{,}0002$. Số $0{,}0216$ là xác suất cho một địa chỉ ngoài $S$ cố định; nó không phải tỷ lệ thư rác, cũng không phải xác suất một địa chỉ đã qua bộ lọc thuộc $S$.
 
 **Kiểm tra lại.** $p(6)\ge2^{-k^*}$, đúng với Định lý 08.28. Trang chiếu MMDS (Streams 2, tr.14) in $(1-e^{-1/6})^2=0{,}0235$, tức viết sai cả số mũ và lũy thừa; công thức đúng $(1-e^{-6/8})^6$ cho $0{,}0216$, như trang chiếu CS246 (2026, tr.32–33) đã sửa.
 :::
 
-![Đường cong xác suất dương giả p(k) theo số hàm băm k từ 1 đến 10, trục tung tuyến tính từ 0 đến 0,12, với tám bit mỗi khóa; đường giảm từ khoảng 0,1175 tại k bằng 1 đến nhỏ nhất tại k bằng 6 rồi tăng lại tới khoảng 0,034 tại k bằng 10; vạch đứng nét đứt tại k* xấp xỉ 5,545; k bằng 5 cho 0,02168 và k bằng 6 cho 0,02158.](img/lec-08/fpr-curve.svg)
+![Đường cong xác suất dương giả p(k) theo số hàm băm k từ 1 đến 10, trục tung tuyến tính từ 0 đến 0,12, với tám bit mỗi khóa; đường giảm từ khoảng 0,1175 tại k bằng 1 đến nhỏ nhất tại k bằng 6 rồi tăng lại tới khoảng 0,034 tại k bằng 10; vạch đứng nét đứt tại k* xấp xỉ 5,545; k bằng 5 cho 0,02168 và k bằng 6 cho 0,02158; bên trái vạch ghi k nhỏ hơn k*, thêm phép thử, p giảm; bên phải ghi k lớn hơn k*, mảng đầy hơn, p tăng.](img/lec-08/fpr-curve.svg)
 
-Hình vẽ $p(k)$ với $n/m=8$. Phần bên trái vạch $k^*$ là vùng lực thứ nhất thắng, phần bên phải là vùng mảng quá đầy; hai điểm nguyên kề vạch ứng với hai giá trị so sánh ở Ví dụ 08.16.
+Hình vẽ $p(k)$ với $n/m=8$. Hai nhãn hai bên vạch $k^*$ ghi hai lực: bên trái, thêm phép thử làm $p$ giảm; bên phải, mảng đầy hơn làm $p$ tăng; hai điểm nguyên kề vạch ứng với hai giá trị so sánh ở Ví dụ 08.16.
 
 ### 4.7 Giới hạn, nhầm lẫn và cách làm trong thực hành
 
@@ -1215,7 +1226,7 @@ Thuật toán 08.23 và 08.24 cho chi phí xây $km$ phép băm và ghi bit, chi
 :::
 
 ::: remark Nhận xét 08.31 (Trong thực hành)
-Mô hình phi tiêu giả định các hàm băm đều và độc lập; hàm băm thật chỉ xấp xỉ điều đó, nên $p(k)$ là con số định cỡ, không phải bảo đảm. Bảo đảm không âm giả của Định lý 08.25 thì không phụ thuộc mô hình xác suất, chỉ cần bốn điều kiện về trạng thái. Kích thước $m$ phải ước lượng trước khi xây: Ví dụ 08.16 định cỡ $n$ và $k$ cho $10^9$ địa chỉ, và Bài tập 08.5 cho thấy hậu quả khi số địa chỉ tăng gấp đôi. Khi cần gỡ địa chỉ khỏi danh sách cho phép, cách đúng với Bloom filter chuẩn là xây lại mảng.
+Mô hình phi tiêu giả định các hàm băm đều và độc lập; hàm băm thật chỉ xấp xỉ điều đó, nên $p(k)$ là con số định cỡ, không phải bảo đảm. Bảo đảm không âm giả của Định lý 08.25 thì không phụ thuộc mô hình xác suất, chỉ cần bốn điều kiện về trạng thái. Kích thước $m$ phải ước lượng trước khi xây: Ví dụ 08.16 định cỡ $n$ và $k$ cho $10^9$ địa chỉ, và Bài tập 08.5 cho thấy hậu quả khi số địa chỉ tăng gấp đôi. Khi cần gỡ địa chỉ khỏi danh sách cho phép, cách đúng với Bloom filter chuẩn là xây lại mảng. Đổi số hàm băm $k$ cũng phải xây lại mảng, vì các bit đã đặt ứng với các hàm băm cũ.
 :::
 
 ::: exercise Bài tập 08.5 (Danh sách cho phép tăng gấp đôi)

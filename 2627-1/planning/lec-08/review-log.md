@@ -441,3 +441,16 @@ Trang đổi: R04 (dòng "Trường hợp biên: $s=1$ giữ một phần tử, 
 | độ chính xác, mạch | nhẹ | ghi chú R00, R03, R04, R05 | dòng a…g không có ở MMDS §4.5.5; "hồ chứa cặp khác"; ghi chú lặp mặt trang; tài liệu làm chủ ngữ | sửa | — |
 
 Điều phối viên tự kiểm $\binom{990}{100}/\binom{1000}{100}=0{,}346928$; đọc báo cáo phần ghi chú (các đoạn thêm ngắn, dẫn Mệnh đề 08.18 có sẵn). `check08.py` toàn deck 59 trang: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết. Ảnh đã tự xem: R07 (1600×900). Hai báo cáo rà lại: không phát hiện từ mức trung bình trở lên. `git diff --check` sạch.
+
+### Mạch 5. Lọc thành viên bằng Bloom filter (lượt bản đánh giá)
+
+Trang đổi: B05A (mới, trước B05B, cùng tiêu đề "Ví dụ: Bloom filter 11 bit, kiểm tra hai khóa": nhắc $h_1$, $h_2$, hình mảng trơn `bloom-11bit-mang.svg`, "Câu hỏi:" tự tính $(h_1,h_2)$ của 118 và 29 — thay cho đề xuất "hiệu ứng xuất hiện từng bước"), B05B (trang lời giải: dòng "Lời giải:"), B01 (bảng 2×2 thực tế × trả lời thay hai dòng định nghĩa; ghi chú nghĩa của "dương"), B03 (159 và 585 cùng đặt bit 7; $m$ là số khóa phân biệt), B04 (ví dụ 118 dừng ở bit 3, 29 đọc bit 7 và 2), B06 (ví dụ xóa 585 bằng đặt bit 9, 7 về 0 làm 159 thành âm giả, mảng $10100100000$; Counting Bloom filter không lên deck vì ngoài nguồn), B07 (hình phi tiêu `phi-tieu-8-bia.svg`: 4 phi tiêu, 3 bit bằng 1; dòng ví dụ $k=1$ chỉ còn ở B08), B11 (thay số $p(5)$, $p(6)$; $k^*$ và $2^{-5{,}545}$; nhãn hai vùng trên `fpr-curve.svg`; ghi chú: $0{,}0216$ là xác suất cho một địa chỉ ngoài $S$ cố định, không phải tỷ lệ thư rác hay xác suất hậu nghiệm), ghi chú B05B, B10, B12. Giữ BT, B00, B02, B05, B08 (lý do sai của bản đánh giá ở slide 41 không đưa vào), B09, B10 mặt trang (không giải trước Bài tập 4.3.3). Deck 60 trang; mạch 5 39,5 phút (B05A 2, B05B 1,5); phần giảng đúng 120 phút (6,5 + 13 + 24 + 25 + 39,5 + 12); con số 40,5 cũ trong storyboard và outline là cộng sai (40), đã sửa. Ghi chú bài giảng: bảng 2×2 sau Định nghĩa 08.22; hình phi tiêu ở Ví dụ 08.13; phản ví dụ xóa 585 sau Định lý 08.25; alt và đoạn đọc `fpr-curve.svg`; Nhận xét 08.31 (đổi $k$ phải xây lại mảng); sau "Ý nghĩa:" của Định lý 08.28 (mảng 11 bit, $k^*\approx2{,}54$, 5/11 bit bằng 1); Ví dụ 08.16 (nghĩa của 0,0216).
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | trung bình | B05B | trang lời giải thiếu nhãn "Lời giải:" | sửa | dòng "Lời giải:" dưới tiêu đề |
+| mạch | nhẹ | B05A, B05B | 1 phút không đủ để sinh viên tự tính | sửa | 2 + 1,5 phút (tổng không đổi) |
+| mạch | nhẹ | B05A; B07; ghi chú B06 | "lần lượt" lẻ/chẵn; dòng ví dụ trùng B08; tài liệu làm chủ ngữ | sửa | — |
+| độ chính xác | nhẹ | ghi chú B10 | mảng 11 bit dùng $k=2$, gần $k^*$, không phải $k^*$ | sửa | — |
+
+Điều phối viên tự kiểm phản ví dụ âm giả (xóa 585 → $B[7]=0$ → 159 bị loại); hai tác tử tự kiểm mọi số (118 → (3,5), 29 → (7,2), $3{,}31$, $(11/3)\ln2$, $p(5)$, $p(6)$, chiều nhãn hai vùng). `check08.py` toàn deck 60 trang ở hai khổ: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết. Ảnh đã tự xem: B01, B07 (1600×900). Trình xem ghi chú ở ba khổ: không lỗi. `git diff --check` sạch.
