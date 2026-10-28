@@ -90,8 +90,8 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Không âm giả (`lec-08-topic-10`) | cốt lõi | 4.4 | Bốn điều kiện, phản ví dụ khi xóa bit → phân tích dương giả |
 | Mật độ bit và xác suất dương giả (`lec-08-topic-11`) | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | $q$ chính xác, xấp xỉ $q^k$, dạng mũ → hàm $p(k)$ |
 | Số hàm băm tối ưu (`lec-08-topic-12`) | cốt lõi; định cỡ cho 1% là bổ sung | 4.6–4.7 | $k^*=(n/m)\ln2$, chọn $k$ nguyên → định cỡ Bloom filter |
-| Chọn cấu trúc theo đầu ra (`lec-08-topic-13`) | cốt lõi | 5 | Đơn vị, bảo đảm, chi phí → tình huống áp dụng |
-| Tình huống áp dụng (`lec-08-topic-14`) | cốt lõi | Tình huống | Bài toán giải trọn, một tình huống vi phạm giả thiết → tóm tắt |
+| Chọn cấu trúc theo câu hỏi (`lec-08-topic-13`) | cốt lõi | 5.1–5.2 | Kết quả, giả thiết, bảo đảm, chi phí; trả lời vấn đề trung tâm → tình huống áp dụng |
+| Tình huống áp dụng và ứng dụng (`lec-08-topic-14`) | cốt lõi | Tình huống | Ba bài toán giải trọn, một tình huống vi phạm giả thiết; ứng dụng ở Bài 09 → tóm tắt |
 | Tóm tắt chương (`lec-08-topic-15`) | cốt lõi | Tóm tắt | Chuỗi kết quả, giả thiết hay bị bỏ quên → Bài 09 |
 | Bài tập củng cố (`lec-08-topic-16`) | cốt lõi | Bài tập | Ba mức, gồm bốn bài MMDS → kiểm ba mục tiêu |
 | Đọc thêm và tài liệu (`lec-08-topic-17`) | đọc thêm | Tham khảo | Ánh xạ mục ↔ nguồn, lấy mẫu có trọng số, Bài 09 |
@@ -744,7 +744,7 @@ $$
 \end{aligned}
 $$
 
-Dòng thứ hai dùng giả thiết quy nạp cho thừa số đầu. Với thừa số sau: khi $x_i\in W_r$, phần tử $x_i$ nằm ở một ô cố định và bị thay khi và chỉ khi $j$ bằng đúng số hiệu ô đó. Vì $j$ độc lập với các lần rút trước, điều kiện $x_i\in W_r$ không đổi phân phối của $j$, nên xác suất bị thay là $1/(r+1)$. Slide MMDS (Streams 1, tr.21) tính xác suất không bị thay theo hai trường hợp: $x_{r+1}$ bị bỏ, hoặc được nhận nhưng thay ô khác, cho $\bigl(1-\frac s{r+1}\bigr)+\frac s{r+1}\cdot\frac{s-1}s=\frac r{r+1}$, cùng kết quả.
+Dòng thứ hai dùng giả thiết quy nạp cho thừa số đầu. Với thừa số sau: khi $x_i\in W_r$, phần tử $x_i$ nằm ở một ô cố định và bị thay khi và chỉ khi $j$ bằng đúng số hiệu ô đó. Vì $j$ độc lập với các lần rút trước, điều kiện $x_i\in W_r$ không đổi phân phối của $j$, nên xác suất bị thay là $1/(r+1)$. MMDS (§4.5.5, tr.148–149) trình bày cùng kỹ thuật để chọn vị trí cho các biến ước lượng mômen và chứng minh $s/n$ bằng quy nạp, với $n$ của sách là $r$ ở đây. Sách và slide MMDS (Streams 1, tr.21) tính xác suất không bị thay theo hai trường hợp: $x_{r+1}$ bị bỏ, hoặc được nhận nhưng thay ô khác, cho $\bigl(1-\frac s{r+1}\bigr)+\frac s{r+1}\cdot\frac{s-1}s=\frac r{r+1}$, cùng kết quả.
 
 **Bước 5 (cỡ).** Ở bước $r+1>s$, thuật toán giữ nguyên $W$ hoặc ghi đè đúng một ô, nên $\lvert W_{r+1}\rvert=s$.
 
@@ -827,7 +827,7 @@ $$
 :::
 
 ::: remark Nhận xét 08.21 (Trong thực hành)
-Giả thiết đều và độc lập của Định lý 08.17 được xấp xỉ bằng bộ sinh số giả ngẫu nhiên có hạt giống. Khi rút $j$ trong $\{1,\ldots,r\}$ từ một số đều trên $\{0,\ldots,2^{64}-1\}$, phép lấy dư cho $r$ chỉ đều khi $r$ chia hết $2^{64}$; với $r$ khác, các giá trị nhỏ được ưu tiên một chút, và cách rút đúng loại bỏ phần dư rồi rút lại. Bộ đếm $r$ vừa một từ 64 bit khi $r<2^{64}$ (Mục 1.4). Hồ chứa có cỡ cố định nên dùng được khi ngân sách bộ nhớ chỉ cho $s$ phần tử, nhưng không trả lời được thống kê theo người dùng.
+Giả thiết đều và độc lập của Định lý 08.17 được xấp xỉ bằng bộ sinh số giả ngẫu nhiên có hạt giống. Khi rút $j$ trong $\{1,\ldots,r\}$ từ một số đều trên $\{0,\ldots,2^{64}-1\}$, phép lấy dư cho $r$ chỉ đều khi $r$ chia hết $2^{64}$; với $r$ khác, các giá trị nhỏ được ưu tiên một chút, và cách rút đúng loại bỏ phần dư rồi rút lại. Bộ đếm $r$ vừa một từ 64 bit khi $r<2^{64}$ (Mục 1.4). Hồ chứa có cỡ cố định nên dùng được khi ngân sách bộ nhớ chỉ cho $s$ phần tử, nhưng không trả lời được thống kê theo người dùng. MMDS (hộp "A General Stream-Sampling Problem", tr.150) nối hai cấu trúc: khi một khóa trong mẫu theo khóa có quá nhiều bộ, giữ cho khóa đó một hồ chứa $s$ ô, để số bộ của mỗi khóa không vượt $s$.
 :::
 
 Bảng dưới đặt hai cấu trúc lấy mẫu của chương cạnh nhau.
@@ -840,7 +840,7 @@ Bảng dưới đặt hai cấu trúc lấy mẫu của chương cạnh nhau.
 | Xác suất | $a/b$ mỗi khóa | $s/r$ mỗi phần tử (Định lý 08.17) |
 
 ::: exercise Bài tập 08.4 (Bộ của An trong hồ chứa)
-Dòng có $1\,000$ bộ, trong đó An có 10 bộ; hồ chứa có $s=100$ ô. Tính kỳ vọng số bộ của An trong hồ sau khi đọc hết dòng. Hồ có giữ trọn 10 bộ của An không? Câu hỏi do học phần dựng; sách MMDS không có bài tập về hồ chứa.
+Dòng có $1\,000$ bộ, trong đó An có 10 bộ; hồ chứa có $s=100$ ô. Tính kỳ vọng số bộ của An trong hồ sau khi đọc hết dòng. Hồ có giữ trọn 10 bộ của An không? Câu hỏi do học phần dựng; các bài tập của sách (§4.5.6) không có bài về hồ chứa.
 :::
 
 ::: hint
@@ -1187,23 +1187,168 @@ $n/m=4$, nên $p(6)=(1-e^{-6/4})^6\approx0{,}2198$, gấp khoảng mười lần
 
 Như vậy, chúng ta đã xây Bloom filter (Định nghĩa 08.22, Thuật toán 08.23–08.24), chứng minh nó không có âm giả dưới bốn điều kiện về trạng thái (Định lý 08.25), tính mật độ bit (Bổ đề 08.26) và xác suất dương giả cùng hai cận dưới (Mệnh đề 08.27), rồi chọn số hàm băm $k^*=(n/m)\ln2$ (Định lý 08.28, Hệ quả 08.29). Tuy nhiên, Bloom filter chỉ trả lời câu hỏi thành viên, còn hai cấu trúc lấy mẫu chỉ trả lời câu hỏi về phân phối, và mỗi cấu trúc cần giả thiết riêng. Trong Mục 5, chúng ta đặt ba cấu trúc cạnh nhau theo câu hỏi mà mỗi cấu trúc trả lời.
 
-## 10. Chọn cấu trúc theo đầu ra
+<!-- note-topic-id: lec-08-topic-13 -->
+## 5. Chọn cấu trúc theo câu hỏi
 
-Ba cấu trúc trả lời ba loại câu hỏi khác nhau; không có cấu trúc đứng đầu chung, lựa chọn theo sản phẩm cần tính.
+Ba cấu trúc của chương trả lời ba loại câu hỏi khác nhau, mỗi cấu trúc dưới giả thiết riêng và với chi phí riêng. Khi một câu hỏi mới đến trên dòng, chúng ta cần đối chiếu nhanh: kết quả nào đã có, giả thiết nào không được bỏ, và cấu trúc nào tốn bao nhiêu. Không có khái niệm mới ở đây; chúng ta đặt các kết quả của Mục 1–4 cạnh nhau.
 
-| Cấu trúc | Đơn vị | Bảo đảm | Sai số hoặc giới hạn |
+### 5.1 Kết quả, giả thiết và chi phí
+
+Bảng đầu gom các kết quả chính cùng giả thiết mà thiếu nó kết quả sai.
+
+| Kết quả | Giả thiết không được bỏ | Công thức hoặc thuật toán |
+|---|---|---|
+| Thuật toán dòng một lượt (Định nghĩa 08.1) | bộ nhớ làm việc nhỏ hơn lịch sử; không đọc lại kho lưu trữ | trạng thái chọn theo truy vấn |
+| Sai lệch của mẫu từng bộ (Mệnh đề 08.6) | mỗi bộ giữ độc lập với xác suất $1/10$; $d>0$ | $d/(10u+19d)\ne d/(u+d)$ |
+| Mẫu nhất quán theo khóa (Mệnh đề 08.10) | $h$ cố định; $h(K)$ đều theo cách chọn $h$; khóa nhận diện đúng đơn vị | giữ khi $h(K(t))<a$; xác suất $a/b$ mỗi khóa |
+| Cỡ mẫu kỳ vọng (Hệ quả 08.12) | như Mệnh đề 08.10(b) | $ar/b$ bộ |
+| Bất biến theo ngưỡng (Mệnh đề 08.14) | $h$ cố định; dọn đúng giá trị băm lớn nhất | mẫu là các bộ có $h\le\tau$ |
+| Xác suất có mặt (Định lý 08.17) | $j$ đều trên $\{1,\ldots,r\}$, độc lập với các lần rút trước; $r\ge s$ | $\Pr[x_i\in W]=s/r$ |
+| Không âm giả (Định lý 08.25) | không xóa bit; cùng hàm băm và cùng mảng; hàm tất định; ghi xong trước truy vấn | $y\in S$ cho "có thể thuộc" |
+| Xác suất dương giả (Mệnh đề 08.27) | băm đều, độc lập; $y\notin S$ cố định | $p(k)\le q^k\le p_{FP}=\mathbb E[(X/n)^k]$ |
+| Số hàm băm tối ưu (Định lý 08.28) | dạng mũ $p(k)$, $k$ thực | $k^*=(n/m)\ln2$, $p(k^*)=2^{-k^*}$ |
+
+Bảng thứ hai đặt các thuật toán cạnh nhau theo cùng mô hình chi phí của Định nghĩa 08.3.
+
+| Thuật toán | Đầu vào | Bảo đảm | Chi phí |
 |---|---|---|---|
-| Lấy mẫu theo khóa | khóa | cùng khóa cùng quyết định | kích thước số bộ không cố định |
-| Hồ chứa | vị trí | mỗi vị trí có xác suất $s/r$ | không giữ quan hệ theo khóa |
-| Bloom filter | khóa thành viên | không âm giả dưới giả thiết đã nêu | có dương giả, không trả phần tử |
+| Lấy mẫu theo khóa (Thuật toán 08.9) | bộ $t$; $a$, $b$, $h$ | cùng khóa cùng quyết định; $a/b$ mỗi khóa | 1 phép băm, 1 phép so sánh mỗi bộ; mẫu kỳ vọng $ar/b$ bộ |
+| Ngưỡng giảm dần (Thuật toán 08.13) | như trên; ngân sách $G$ | mẫu theo khóa với $a=\tau+1$, tối đa $G$ bộ | thêm $O(\log G)$ mỗi lần chèn hoặc dọn; tổng phép xóa $\le r$ |
+| Lấy mẫu hồ chứa (Thuật toán 08.16) | dòng; $s$ | $\min(r,s)$ phần tử; $s/r$ mỗi phần tử | $O(1)$ phép mỗi phần tử; $\Theta(s)$ từ máy |
+| Xây Bloom filter (Thuật toán 08.23) | $S$; $n$; $h_1,\ldots,h_k$ | mọi bit của khóa thuộc $S$ bằng 1 | $km$ phép băm và ghi bit; $n$ bit |
+| Kiểm tra thành viên (Thuật toán 08.24) | $y$; mảng $B$ | không âm giả; dương giả với xác suất $p_{FP}$ | tối đa $k$ phép băm và đọc bit |
 
-Áp dụng lại vào dòng truy vấn mở bài:
+Hai bảng cho một quy trình chọn cấu trúc gồm ba bước.
 
-- Phân tích truy vấn lặp theo người dùng: băm khóa người dùng và giữ mọi bộ của khóa được chọn — dùng lấy mẫu theo khóa.
-- Giữ đúng $s$ sự kiện để xem nhanh tiền tố: dùng hồ chứa, chấp nhận mất quan hệ khóa.
-- Loại khóa chắc chắn không thuộc danh sách cho phép: dùng Bloom filter trước phép tra cứu chính xác.
+1. Xác định đầu ra. Thống kê theo nhóm, như tỷ lệ truy vấn lặp của từng người, cần mẫu theo khóa với khóa là đơn vị của nhóm. Mẫu đại diện có cỡ cố định cần hồ chứa. Câu hỏi "khóa này có thuộc tập cho trước không" cần Bloom filter cùng phép tra chính xác cho các khóa qua bộ lọc.
+2. Kiểm giả thiết của kết quả sẽ dùng, theo cột giữa của bảng đầu.
+3. Đếm chi phí với số liệu của bài toán, theo bảng thứ hai, và kiểm bộ nhớ có nhỏ hơn lịch sử không.
 
-Với hệ thống thật còn phải chọn tham số và đo trên phân bố dữ liệu; bài này cung cấp đặc tả và phân tích nguồn cho ba cơ chế.
+Khi đầu ra không thuộc ba loại trên, chẳng hạn số người dùng phân biệt trong tháng, các cấu trúc của chương chưa trả lời được.
+
+### 5.2 Trả lời vấn đề trung tâm
+
+Đầu chương có hai bài toán: máy tìm kiếm chỉ lưu được $1/10$ dòng truy vấn, và bộ lọc thư phải xét danh sách $10^9$ địa chỉ được phép với 1 GB bộ nhớ. Câu trả lời của chương đều có điều kiện.
+
+- Với $h$ đều theo từng khóa và cố định, băm người dùng giữ trọn mỗi người với xác suất $1/10$ (Mệnh đề 08.10), nên tỷ lệ lặp của người được giữ tính đúng; lấy $1/10$ từng bộ thì cho $1/29$ thay vì $1/2$ khi $u=d=1$ (Mệnh đề 08.6).
+- Với $j$ đều và độc lập với các lần rút trước, hồ chứa giữ đúng $s$ bộ, mỗi bộ có mặt với xác suất $s/r$ khi $r\ge s$ (Định lý 08.17), nhưng không giữ trọn người dùng.
+- Khi bốn điều kiện về trạng thái của Định lý 08.25 được giữ, Bloom filter $8\cdot10^9$ bit, $k=6$ không loại địa chỉ hợp lệ nào, không cần giả thiết xác suất. Với các hàm băm đều, độc lập, nó nhận nhầm khoảng $p(6)\approx0{,}0216$ địa chỉ ngoài danh sách (Ví dụ 08.16).
+
+::: example Ví dụ 08.17 (Chọn cấu trúc cho bốn yêu cầu)
+**Dữ kiện.** Trên dòng truy vấn tìm kiếm và dòng thư, có bốn yêu cầu: (a) tỷ lệ truy vấn lặp của từng người dùng khi chỉ lưu $10\%$ dòng; (b) một mẫu đúng $1\,000$ bộ cho bảng theo dõi; (c) chặn thư từ địa chỉ ngoài danh sách cho phép; (d) số người dùng phân biệt trong tháng. Bốn yêu cầu do học phần đặt.
+
+**Tính.**
+
+| Yêu cầu | Cấu trúc | Tham số | Kết quả dùng |
+|---|---|---|---|
+| (a) | mẫu theo khóa người dùng | $a/b=1/10$ | Mệnh đề 08.10, Hệ quả 08.12 |
+| (b) | hồ chứa | $s=1\,000$ | Định lý 08.17 |
+| (c) | Bloom filter, rồi tra chính xác | $n/m=8$, $k=6$ | Định lý 08.25, Ví dụ 08.16 |
+| (d) | chưa có trong chương | — | Bài 09 |
+
+**Diễn giải.** Yêu cầu (a) không dùng được hồ chứa, vì hồ chứa tách các bộ của một người (Nhận xét 08.20). Yêu cầu (b) không dùng được mẫu theo khóa, vì cỡ mẫu theo khóa tăng theo dòng (Hệ quả 08.12).
+
+**Kiểm tra lại.** Mỗi lựa chọn đi qua ba bước của quy trình: đầu ra, giả thiết, chi phí.
+:::
+
+Như vậy, ba cấu trúc của chương phủ ba loại đầu ra: thống kê theo nhóm, mẫu cỡ cố định và câu hỏi thành viên, mỗi loại kèm một bảo đảm có điều kiện. Tuy nhiên, đếm số phần tử phân biệt, ước lượng mômen và trả lời theo cửa sổ thời gian gần đây không thuộc ba loại này. Bài 09 xây các cấu trúc cho những câu hỏi đó, và dùng lại hai công cụ của chương: hàm băm tất định và lấy mẫu hồ chứa.
+
+<!-- note-topic-id: lec-08-topic-14 -->
+## Tình huống áp dụng và ứng dụng
+
+Ba tình huống dưới đây giải trọn ba bài toán bằng công cụ của chương. Tình huống 08.1 và 08.2 thỏa giả thiết của các kết quả được dùng; Tình huống 08.3 vi phạm giả thiết của Định lý 08.25 và Ví dụ 08.16, và tính hậu quả bằng số. Các số người dùng, số truy vấn và số thư trong ba tình huống là giả định của học phần để có cỡ, không phải số liệu đo được.
+
+::: application Tình huống 08.1 (Nghiên cứu truy vấn lặp với ngân sách cố định)
+**Bài toán và dữ liệu.** Máy tìm kiếm muốn đo tỷ lệ truy vấn lặp của người dùng điển hình (MMDS §4.2.1). Giả định: $10^8$ người dùng, trung bình 30 truy vấn tìm kiếm mỗi người mỗi tháng, tức $r=3\cdot10^9$ bộ mỗi tháng; ngân sách mẫu $G=10^8$ bộ.
+
+**Mô hình hóa.** Khóa là người dùng (Mục 2.3). Mẫu theo khóa với tỷ lệ $1/10$ (Thuật toán 08.9) có cỡ kỳ vọng $ar/b=3\cdot10^8$ bộ (Hệ quả 08.12), gấp ba ngân sách, nên dùng ngưỡng giảm dần (Thuật toán 08.13) với $b=2^{32}$ giá trị băm.
+
+**Kiểm giả thiết.** Hàm băm được chọn một lần và dùng chung trên mọi máy, nên $h$ cố định (Mệnh đề 08.10(a)). Khóa người dùng nhận diện đúng đơn vị; nếu chỉ có địa chỉ IP, đơn vị là địa chỉ, như MMDS lưu ý (Nhận xét 08.11). Tính đều theo từng khóa là giả thiết về phép chọn hàm.
+
+**Áp dụng.** Theo Mệnh đề 08.14, mẫu luôn là mẫu theo khóa với tỷ lệ $(\tau+1)/b$. Để cỡ kỳ vọng $3\cdot10^9\cdot(\tau+1)/b$ không vượt $10^8$, tỷ lệ phải xuống khoảng $1/30$, tức $\tau+1\approx2^{32}/30\approx1{,}43\cdot10^8$, ứng với khoảng $3{,}3\cdot10^6$ người dùng được giữ trọn.
+
+**Chi phí.** Mỗi bộ tốn 1 phép băm và 1 phép so sánh, tức $3\cdot10^9$ phép băm mỗi tháng; mỗi lần chèn hoặc dọn tốn thêm $O(\log G)$ trên chỉ mục.
+
+**Diễn giải.** Với mỗi người được giữ, tỷ lệ lặp tính trên mẫu đúng bằng tỷ lệ thật (Mệnh đề 08.10(a)). Mệnh đề 08.10(b) chỉ áp dụng gần đúng cho ngưỡng giảm dần: ngưỡng cuối $\tau$ phụ thuộc vào giá trị băm và số bộ của các khóa, và một người dùng nhiều bộ đẩy $\tau$ xuống nên dễ tự rơi ra hơn; trường hợp cực đoan là một khóa có hơn $G$ bộ, luôn bị bỏ trọn (Thuật toán 08.13, trường hợp biên). Khi mỗi người dùng có rất ít bộ so với $G$, ở đây khoảng 30 so với $10^8$, ngưỡng gần như không phụ thuộc vào một khóa riêng lẻ, và trung bình trên những người được giữ xấp xỉ trung bình trên mọi người dùng. Lấy $1/10$ từng bộ thay vào đó sẽ cho $1/29$ với người có $u=d=1$ (Mệnh đề 08.6).
+
+**Giới hạn.** Tỷ lệ $1/30$ chỉ đúng theo kỳ vọng; một người dùng có rất nhiều truy vấn có thể đẩy ngưỡng xuống thấp hơn (Ví dụ 08.6). Ngưỡng giảm dần trong tháng, nên người dùng bị bỏ ở cuối tháng đã có bộ trong mẫu ở đầu tháng rồi bị xóa trọn.
+
+**Dẫn ngược lý thuyết.** Mệnh đề 08.6, Thuật toán 08.9, Mệnh đề 08.10, Hệ quả 08.12, Thuật toán 08.13, Mệnh đề 08.14, Nhận xét 08.11.
+:::
+
+::: application Tình huống 08.2 (Lọc $10^9$ địa chỉ trong 1 GB)
+**Bài toán và dữ liệu.** Danh sách cho phép có $m=10^9$ địa chỉ, mỗi địa chỉ từ 20 byte; bộ nhớ chính 1 GB (MMDS §4.3.1). Giả định: mỗi ngày có $10^6$ thư từ địa chỉ ngoài danh sách.
+
+**Mô hình hóa.** Bloom filter $n=8\cdot10^9$ bit (Định nghĩa 08.22), xây một lần bằng Thuật toán 08.23; mỗi thư đi qua Thuật toán 08.24, và chỉ thư nhận "có thể thuộc" mới tra danh sách trên đĩa.
+
+**Kiểm giả thiết.** Mảng chỉ được đọc sau khi xây, cùng $k$ hàm băm tất định, nên Định lý 08.25 cho không âm giả. Mô hình băm đều, độc lập là giả thiết của Mệnh đề 08.27.
+
+**Áp dụng.** $n/m=8$, $k^*=8\ln2\approx5{,}545$; theo Hệ quả 08.29 chọn $k=6$, $p(6)\approx0{,}0216$ (Ví dụ 08.16). Trong $10^6$ thư từ địa chỉ ngoài danh sách, kỳ vọng khoảng $21\,600$ thư đi tiếp tới phép tra đĩa thay vì $10^6$.
+
+**Chi phí.** Xây tốn $km=6\cdot10^9$ phép băm và ghi bit; mỗi thư tốn tối đa 6 phép băm và đọc bit; bộ nhớ 1 GB thay cho từ 20 GB.
+
+**Diễn giải.** Mọi thư từ địa chỉ được phép đi tiếp; khoảng $2{,}16\%$ thư từ địa chỉ ngoài danh sách cũng đi tiếp và bị chặn ở bước tra chính xác.
+
+**Giới hạn.** $p(6)$ là dạng mũ, một cận dưới của $p_{FP}$ dưới mô hình (Mệnh đề 08.27); với $n=8\cdot10^9$ các mức xấp xỉ trùng nhau tới nhiều chữ số, nhưng hàm băm thật chỉ xấp xỉ mô hình. Số $m$ phải biết trước khi xây.
+
+**Dẫn ngược lý thuyết.** Định nghĩa 08.22, Thuật toán 08.23–08.24, Định lý 08.25, Mệnh đề 08.27, Định lý 08.28, Hệ quả 08.29.
+:::
+
+::: application Tình huống 08.3 (Gỡ địa chỉ bằng cách xóa bit và danh sách tăng gấp đôi)
+**Bài toán và dữ liệu.** Bộ lọc của Tình huống 08.2 ($n=8\cdot10^9$, $m=10^9$, $k=6$) đã chạy. Có hai thay đổi giả định: (a) cần gỡ $1\,000$ địa chỉ khỏi danh sách; (b) danh sách tăng lên $2\cdot10^9$ địa chỉ mà mảng giữ nguyên.
+
+**Kiểm giả thiết.** Cách gỡ "đặt về 0 sáu bit của địa chỉ bị gỡ" vi phạm điều kiện 1 của Định lý 08.25. Danh sách tăng gấp đôi làm $n/m$ đổi từ 8 xuống 4, nên lựa chọn $k=6$ của Ví dụ 08.16 không còn là lựa chọn của Hệ quả 08.29.
+
+**Áp dụng (a).** Mỗi bit bị đặt về 0 có thể là bit của địa chỉ khác. Dưới mô hình phi tiêu, mỗi bit nhận trung bình $(m-1)k/n\approx0{,}75$ phi tiêu từ các địa chỉ còn lại, nên sáu bit của một địa chỉ bị gỡ chứa trung bình khoảng $4{,}5$ phi tiêu của địa chỉ khác. Mỗi phi tiêu như vậy biến địa chỉ của nó thành một âm giả, và một địa chỉ có thể mất nhiều bit. Gỡ $1\,000$ địa chỉ vì thế làm kỳ vọng số địa chỉ hợp lệ bị chặn lên tới khoảng $4\,500$; phản ví dụ sau Định lý 08.25 cho một trường hợp nhỏ, khi gỡ 585 làm 159 bị loại.
+
+**Áp dụng (b).** Theo Bài tập 08.5, $n/m=4$ cho $p(6)\approx0{,}2198$, nên khoảng $219\,800$ trong $10^6$ thư ngoài danh sách đi tới phép tra đĩa; số hàm băm tốt nhất đổi thành 3.
+
+**Diễn giải.** Lỗi (a) phá bảo đảm tuyệt đối của bộ lọc: thư hợp lệ bị chặn. Lỗi (b) không phá bảo đảm đó nhưng làm bước lọc mất phần lớn tác dụng.
+
+**Giới hạn và cách sửa.** Bloom filter chuẩn không hỗ trợ xóa; cách đúng là xây lại mảng từ danh sách mới, với $n$ định cỡ theo $m$ mới.
+
+**Dẫn ngược lý thuyết.** Định lý 08.25 (điều kiện 1), Bổ đề 08.26, Định lý 08.28, Hệ quả 08.29, Bài tập 08.5.
+:::
+
+**Ứng dụng trong bài sau.**
+
+- Ghi chú Bài 09, Mục 2 (Flajolet–Martin) dùng tính tất định của hàm băm, như mẫu theo khóa: cùng khóa luôn cho cùng giá trị băm, nên số phần tử phân biệt được ước lượng mà không lưu danh sách khóa.
+- Ghi chú Bài 09, Mục 5 (biến AMS) chọn vị trí bắt đầu bằng lấy mẫu hồ chứa cỡ 1, nên mỗi vị trí được chọn với xác suất $1/r$, trường hợp $s=1$ của Định lý 08.17.
+
+<!-- note-topic-id: lec-08-topic-15 -->
+## Tóm tắt chương
+
+Xuất phát điểm là hai bài toán của ghi chú Bài 01 trên một dòng không biết trước độ dài: đo tỷ lệ truy vấn lặp khi chỉ lưu được $1/10$ dòng, và lọc thư theo $10^9$ địa chỉ với 1 GB bộ nhớ. Chúng ta đặc tả thuật toán dòng một lượt, trả lời từ trạng thái chọn theo truy vấn và đo bằng bốn đại lượng chi phí mỗi phần tử (Định nghĩa 08.1, 08.3). Lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), nên chúng ta giữ trọn từng khóa bằng một hàm băm cố định (Thuật toán 08.9). Mỗi khóa được giữ với xác suất $a/b$ (Mệnh đề 08.10), cỡ mẫu kỳ vọng là $ar/b$ (Hệ quả 08.12), và ngưỡng giảm dần giữ được ngân sách cố định (Mệnh đề 08.14). Cỡ mẫu theo khóa không cố định, nên hồ chứa giữ đúng $s$ phần tử, mỗi phần tử có mặt với xác suất $s/r$ (Định lý 08.17), và mọi tập con cỡ $s$ đồng khả năng (Mệnh đề 08.18). Câu hỏi thành viên cần Bloom filter: không có âm giả dưới bốn điều kiện về trạng thái (Định lý 08.25), xác suất dương giả có các cận dưới $p(k)\le q^k$ (Mệnh đề 08.27), nhỏ nhất theo dạng mũ tại $k^*=(n/m)\ln2$ (Định lý 08.28). Với tám bit mỗi khóa và sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài danh sách lọt qua. Đếm phần tử phân biệt, mômen và cửa sổ thời gian vẫn chưa có cấu trúc và được xét ở Bài 09.
+
+**Định nghĩa và kết quả theo mục.**
+
+- Mục 1: thuật toán dòng một lượt (Định nghĩa 08.1); giá trị lớn nhất trên dòng (Thuật toán 08.2); chi phí của thuật toán dòng (Định nghĩa 08.3); nhầm lẫn và thực hành (Nhận xét 08.4, 08.5).
+- Mục 2: sai lệch của mẫu từng bộ (Mệnh đề 08.6, Nhận xét 08.7); mẫu theo khóa (Định nghĩa 08.8, Thuật toán 08.9); nhất quán và xác suất $a/b$ (Mệnh đề 08.10, Nhận xét 08.11); cỡ mẫu kỳ vọng (Hệ quả 08.12); ngưỡng giảm dần (Thuật toán 08.13, Mệnh đề 08.14).
+- Mục 3: mẫu hồ chứa (Định nghĩa 08.15, Thuật toán 08.16); xác suất có mặt (Định lý 08.17); mọi tập con đồng khả năng (Mệnh đề 08.18); chi phí (Mệnh đề 08.19); nhầm lẫn và thực hành (Nhận xét 08.20, 08.21).
+- Mục 4: Bloom filter, dương giả, âm giả (Định nghĩa 08.22); xây và kiểm tra (Thuật toán 08.23, 08.24); không âm giả (Định lý 08.25); mật độ bit (Bổ đề 08.26); xác suất dương giả (Mệnh đề 08.27); số hàm băm tối ưu (Định lý 08.28, Hệ quả 08.29); nhầm lẫn và thực hành (Nhận xét 08.30, 08.31).
+- Mục 5: hai bảng đối chiếu và quy trình chọn cấu trúc theo đầu ra.
+
+**Công thức và thuật toán cần nhớ.** Sai lệch của mẫu từng bộ, cỡ mẫu kỳ vọng theo khóa và xác suất có mặt trong hồ chứa:
+
+$$
+\frac{d}{10u+19d}\ne\frac{d}{u+d},\qquad \frac{ar}{b},\qquad \Pr[x_i\in W]=\frac sr\quad(r\ge s).
+$$
+
+Mật độ bit, xác suất dương giả và số hàm băm tối ưu:
+
+$$
+q=1-\Bigl(1-\frac1n\Bigr)^{km},\qquad p(k)=\bigl(1-e^{-km/n}\bigr)^k\le q^k\le p_{FP},\qquad k^*=\frac nm\ln2,\quad p(k^*)=2^{-k^*}.
+$$
+
+Ba thuật toán: giữ $t$ khi $h(K(t))<a$; với $r>s$, rút $j$ đều trong $\{1,\ldots,r\}$ và thay ô $j$ khi $j\le s$; đặt $B[h_i(v)]\gets1$ khi xây, trả "chắc chắn không thuộc" khi gặp một bit 0 lúc kiểm tra.
+
+**Giả thiết hay bị bỏ quên.**
+
+- Mẫu theo khóa cần $h$ cố định suốt dòng; xác suất $a/b$ lấy theo cách chọn $h$, không theo các lần xuất hiện của khóa; Mệnh đề 08.10 không nói số khóa được chọn gần đúng $a/b$ số khóa (Mục 2.2).
+- Khóa phải nhận diện đúng đơn vị của thống kê; khóa (người dùng, thời gian) quay lại mẫu từng bộ (Bài tập 08.2).
+- Cỡ mẫu $ar/b$ là kỳ vọng; một khóa nhiều bộ làm cỡ thực lệch xa (Ví dụ 08.6).
+- Hồ chứa cần $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước; $s/r$ chỉ đúng khi $r\ge s$ và là xác suất của từng phần tử.
+- Bloom filter cần mảng chỉ được đọc sau khi xây, cùng hàm băm, và $m$ biết trước; $p(k)$ và $q^k$ là cận dưới của $p_{FP}$ dưới mô hình băm đều, độc lập.
 
 ## 11. Bốn bài tập từ giáo trình MMDS
 

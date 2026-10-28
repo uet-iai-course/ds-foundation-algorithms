@@ -126,7 +126,7 @@ Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo tr
 | 3. Lấy mẫu theo khóa | KT, K01, K09, K01B, K02, K04, K05, K06, K07, K08 | Mục 2.1–2.5 | `lec-08-topic-03`…`06` | đã viết 2026-10-28 |
 | 4. Lấy mẫu hồ chứa | RT, R00, R01, R03, R04, R05, R06, R07, R08, R09 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | đã viết 2026-10-28 |
 | 5. Lọc thành viên bằng Bloom filter | BT, B00, B02, B05, B05B, B01, B03, B04, B06–B12 | Mục 4.1–4.7 | `lec-08-topic-09`…`12` | đã viết 2026-10-28 |
-| 6. Tổng kết và chuyển tiếp | CT, C00–C02 | Mục 5, Tình huống, Tóm tắt | `lec-08-topic-13`…`15` | chờ viết |
+| 6. Tổng kết và chuyển tiếp | CT, C00, C03, C01, C04, C05, C02 | Mục 5.1–5.2, Tình huống áp dụng và ứng dụng, Tóm tắt chương | `lec-08-topic-13`…`15` | đã viết 2026-10-28 |
 | 7. Bài tập vận dụng | XT, X00–X05 | Bài tập củng cố; Tham khảo | `lec-08-topic-16`, `17` | chờ viết |
 
 **Phần đầu chương (mạch 1).**
@@ -199,6 +199,17 @@ Bộ đếm sau Mục 3: chung 08.15–08.21; Ví dụ 08.8–08.10; Bài tập 
 | 4.7 Giới hạn, nhầm lẫn, thực hành | (thuộc 12) | đoạn chi phí và ba giới hạn; Nhận xét 08.30, 08.31; Bài tập 08.5 | B12 | $n/m=4$: $p(6)=0{,}2198$, $k^*=2{,}77$, $p(2)=0{,}1548$, $p(3)=0{,}1469$ |
 
 Bộ đếm sau Mục 4: chung 08.22–08.31; Ví dụ 08.11–08.16; Bài tập 08.5. Bài tập 4.3.1–4.3.3 của MMDS không đặt ở Mục 4 (thuộc phần bài tập, lượt mạch 7); lời giải 4.3.3 sẽ dẫn về Định lý 08.28. Biến giá trị băm cục bộ ở Mục 2 đổi từ $v$ sang $c$ để $v$ chỉ là khóa chèn. Bản đồ chủ đề: `lec-08-topic-12` là 4.6–4.7. Hình `bloom-11bit.svg` không còn được ghi chú hay deck dùng. Số âm tiết Mục 4: 4 223 ở bản đầu, 4 337 sau lượt sửa theo rà lại mạch 5 (tương quan âm hai bit nêu đúng chiều; câu hướng chứng minh và dòng kiểm số cho Định lý 08.28; mật độ bit 0,1175 → 0,2212 ở Ví dụ 08.14; slide MMDS Streams 2 tr.14 viết sai công thức).
+
+**Mạch 6 → Mục 5, Tình huống, Tóm tắt.**
+
+| Phần ghi chú | `note-topic-id` | Khối, số hiệu | Trang deck | Dữ kiện |
+|---|---|---|---|---|
+| 5.1 Kết quả, giả thiết và chi phí | `lec-08-topic-13` | bảng kết quả–giả thiết–công thức (9 hàng, có số hiệu); bảng thuật toán–đầu vào–bảo đảm–chi phí (5 hàng, thêm Thuật toán 08.13); quy trình ba bước | CT, C00, C03 | — |
+| 5.2 Trả lời vấn đề trung tâm | (thuộc 13) | ba câu có điều kiện; Ví dụ 08.17 (bốn yêu cầu: mẫu theo khóa, hồ chứa $s=1\,000$, Bloom filter, chưa có → Bài 09); đoạn kết sang Bài 09 | C01 | $1/29$; $s/r$; $p(6)\approx0{,}0216$ |
+| Tình huống áp dụng và ứng dụng | `lec-08-topic-14` | Tình huống 08.1 (ngân sách $G=10^8$, $r=3\cdot10^9$, tỷ lệ $\approx1/30$, $\tau+1\approx1{,}43\cdot10^8$); 08.2 ($10^9$ địa chỉ, $k=6$, $\approx21\,600$ trong $10^6$ thư); 08.3 (vi phạm: gỡ $1\,000$ địa chỉ bằng xóa bit, kỳ vọng tới $\approx4\,500$ âm giả vì $6(m-1)k/n\approx4{,}5$; danh sách gấp đôi: $p(6)=0{,}2198$, $\approx219\,800$ lần tra, chọn $k=3$); ứng dụng ở ghi chú Bài 09 Mục 2 và Mục 5 | C01 (ghi chú), C02 | số người dùng, số truy vấn, số thư là giả định của học phần |
+| Tóm tắt chương | `lec-08-topic-15` | đoạn bảy câu; kết quả theo Mục 1–5; công thức và thuật toán cần nhớ; giả thiết hay bị bỏ quên | C00–C03 | — |
+
+Câu hỏi tự kiểm tra C04 (ngưỡng 5%: $h<5$, $\frac{d}{20u+39d}$; hồ chứa $s=50$, $r=1\,000$: $0{,}05$) và C05 (không âm giả; gấp đôi $n$: $k^*$ gấp đôi, $p(k^*)$ bình phương, $0{,}0214\to4{,}6\cdot10^{-4}$) không đặt ở Mục 5; chúng sẽ thành bài tập mức nhận biết trong "Bài tập củng cố" ở lượt mạch 7. Dẫn chiếu "Mục k" trong phần đầu chương, mục tiêu, bản đồ chủ đề và đoạn kết các mục đã được kiểm khớp thân bài (Mục 1.1–5.2); điều kiện chặn công bố về số mục được giải trừ cho phần đã viết. Còn chờ mạch 7: "## 11. Bốn bài tập từ giáo trình MMDS" cũ (dùng $x=k\rho$, $t=e^{-x}$, $p_k$, "FPR", "Hướng dẫn chấm"), bài tập 4.3.1–4.3.3 mà Mục tiêu 3 dẫn tới, mục "Bài tập củng cố" (`lec-08-topic-16`), "Hướng dẫn đọc thêm và tài liệu tham khảo" (`lec-08-topic-17`) thay "Tóm tắt nguồn" cũ (còn `https://www.mmds.org`). Số âm tiết: Mục 5 1 184, Tình huống 1 215, Tóm tắt 730 (tổng 3 129); cả tệp 21 883. Sau lượt sửa theo rà lại mạch 6: Mục 5 1 200, Tình huống 1 281, Tóm tắt 732; Mục 3 thêm dẫn MMDS §4.5.5 (tr.148–149) và hộp tr.150 (3 369); cả tệp 22 062. Tình huống 08.1 nêu Mệnh đề 08.10(b) chỉ đúng gần đúng với ngưỡng giảm dần (điều kiện: mỗi khóa rất ít bộ so với $G$); Tình huống 08.3(b) dẫn về Bài tập 08.5 thay vì chép lời giải.
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -473,3 +484,69 @@ Hình: `bloom-11bit-them.svg` (mới, B05), `bloom-11bit-mini.svg` (mới, B05B)
 | B10 | Dòng "Chứng minh." nêu điểm dừng duy nhất và xét dấu hai phía; ghi chú dùng $z=k\rho$, $\theta=e^{-z}$ (khớp Định lý 08.28) | 42 (4, 18); ghi chú 104 |
 | B11 | Câu chốt "Chọn $k=6$; giá trị liên tục nhỏ nhất là $2^{-5{,}545}\approx0{,}0214$"; ghi chú: slide CS246 tr.32–33; số 0,0235 của slide Streams 2 tr.14 đến từ công thức viết sai $(1-e^{-1/6})^2$ | 11 (3, 8); ghi chú 79 |
 | B12 | Dòng "Lưu ý" chuyển vào ghi chú (giới hạn của Bloom filter) | 45 (7, 15); ghi chú 96 |
+
+### Mạch 6. Tổng kết và chuyển tiếp
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| tổng kết | Đối chiếu kết quả, giả thiết, bảo đảm và chi phí của ba cấu trúc; trả lời vấn đề trung tâm bằng số; tự kiểm tra ba mục tiêu; nguồn và nối sang Bài 09 | Mạch 2–5: mô hình dòng; mẫu theo khóa ($a/b$, nhất quán); hồ chứa ($s/r$); Bloom filter (không âm giả, $p(k)$, $k^*$) | Lựa chọn có điều kiện theo câu hỏi; bốn câu tự kiểm tra có lời giải; tài liệu đọc, liên kết ghi chú bài giảng, liên kết Bài 09 | Không có khái niệm mới | CT (`id="mach-6"`) |
+
+Thứ tự trang: CT → C00 → C03 → C01 → C04 → C05 → C02. C03, C04, C05 là ID mới. Tên mạch giữ "Tổng kết và chuyển tiếp" (khớp P03).
+
+**Câu hỏi trước khi sửa.**
+
+| Trang cũ | Trang muốn nói | Phục vụ chủ đề mạch? | Vấn đề còn lại | Quyết định |
+|---|---|---|---|---|
+| CT | Điểm vào mạch 6 | có | Lời dẫn 22 âm tiết; cụm khóa "Nguồn và phạm vi" | sửa |
+| C00 | So sánh ba cấu trúc theo đơn vị, bảo đảm, sai số | một phần | `h1` cũ; tiêu đề là câu; không theo mẫu `Kết quả \| Giả thiết không được bỏ \| Công thức hoặc thuật toán`; "dưới giả thiết đã nêu" | sửa: bảng theo mẫu, sáu hàng cho mạch 2–5 |
+| (thiếu) | Bảng thuật toán bốn cột | — | Bắt buộc với bài nhiều thuật toán | thêm C03 |
+| C01 | Áp lại ba cấu trúc vào dòng truy vấn | một phần | Không có số; ghép Bloom filter vào dòng truy vấn; tiêu đề kể tiến trình | sửa: câu trả lời có điều kiện, có số |
+| (thiếu) | Câu hỏi tự kiểm tra | — | Trang bắt buộc | thêm C04, C05 |
+| C02 | Nguồn và phạm vi | có | Tiêu đề khác mẫu; thiếu tác giả, năm, trang; thiếu liên kết ghi chú và dòng nối Bài 09; ghi chú biên soạn | sửa |
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện, ký hiệu kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---:|
+| CT | Điểm vào mạch 6 | Nhận nhiệm vụ | Lời dẫn "Muốn chọn cấu trúc cho từng câu hỏi trên dòng, phải đối chiếu giả thiết, bảo đảm và chi phí." | Đầu ra mạch 5 | — | sửa | 33 (2, 22) → 37 (2, 20); ghi chú 90 → 83 | 0,5 |
+| C00 | Kết quả và giả thiết | Nêu giả thiết không được bỏ của từng kết quả | Bảng sáu hàng (thuật toán dòng; mẫu theo khóa; xác suất có mặt; không âm giả; xác suất dương giả; $k^*$) | Mạch 2–5 | Nêu được hệ quả khi bỏ từng giả thiết (ghi chú) | sửa; bảng tổng kết, trần 80 | 53 (3, 14) → 67 (6, 14); ghi chú 29 → 108 | 2,5 |
+| C03 | Thuật toán, bảo đảm, chi phí | Đối chiếu bốn thuật toán | Bảng `Thuật toán \| Đầu vào \| Bảo đảm \| Chi phí` | Các trang chi phí K07, R08, B12 | Chọn thuật toán theo chi phí và bảo đảm | thêm; bảng tổng kết, trần 80 | — → 61 (4, 18); ghi chú — → 117 | 2,5 |
+| C01 | Trả lời vấn đề trung tâm | Nối mỗi câu trả lời với kết quả đã chứng minh | Lưu $1/10$; $10^9$ địa chỉ, $8\cdot10^9$ bit, $k=6$, khoảng 2%; $1/29$; $s/r$ | Trang Vấn đề trung tâm (số liệu nhắc lại trên trang) | Câu trả lời có điều kiện; ghi chú nêu kết quả dùng cho từng câu | sửa; trang đối chiếu (trần 80) như P01 vì mỗi câu mang giả thiết và số | 55 (3, 20) → 63 (4, 19); ghi chú 36 → 106 | 2 |
+| C04 | Tự kiểm tra, câu 1–2 | Trả lời, nêu kết quả đã dùng | Câu 1: giữ 5% người dùng và lý do không lấy từng bộ (mục tiêu 1); câu 2: hồ chứa $s=50$, $r=1\,000$ (mục tiêu 2) | Dữ kiện trên trang | Lời giải: $h(K)<5$, $\frac{d}{20u+39d}$; $0{,}05$ với giả thiết | thêm; câu hỏi do học phần dựng | — → 44 (3, 18); ghi chú — → 91 | 2 |
+| C05 | Tự kiểm tra, câu 3–4 | Trả lời, nêu kết quả đã dùng | Câu 3: không âm giả và giả thiết; câu 4: gấp đôi $n$ (mục tiêu 3) | Dữ kiện trên trang | Lời giải: không, khi mảng chỉ đọc; $k^*$ gấp đôi, $p(k^*)$ bình phương | thêm; câu hỏi do học phần dựng | — → 34 (3, 18); ghi chú — → 99 | 1,5 |
+| C02 | Nguồn và tài liệu đọc | Ghi nguồn; mở ghi chú; xem bài sau | MMDS 3e (2020) Chương 4 §§4.1–4.3 tr.131–142; slide MMDS Streams 1–2; CS246 (2026); Ullman (2017); mmds.org; liên kết ghi chú; liên kết Bài 09 | `sources/source.md` dòng 401, 423, 443 (Bài 9) | — | sửa; ghi chú nêu trang nào dùng nguồn nào, bỏ ghi chú biên soạn | 34 (4, 14) → 52 (6, 18); ghi chú 76 → 101 | 1 |
+
+Ngoại lệ mật độ: C00 (67), C03 (61) là bảng tổng kết, trần 80; C01 (63) là trang đối chiếu như P01, trần 80, vì mỗi câu trả lời phải mang giả thiết và số của tình huống mở đầu. Trước: C00 53, C01 55; sau: 67, 63.
+
+Kiểm liên kết: `material-viewer.html?doc=materials/lec-08/lecture-note.md&deck=lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html` và `lecture-09-dong-du-lieu-dem-momen-va-cua-so.html` trả HTTP 200 trên máy chủ cục bộ. Deck Bài 09 chưa được duyệt theo chuẩn hiện hành và chưa có trên `index.html`.
+
+Số đã tự tính: với tỷ lệ $p$, mẫu từng bộ cho $\frac{p^2d}{pu+2p(1-p)d+p^2d}=\frac{pd}{u+(2-p)d}$; $p=0{,}1$ cho $\frac{d}{10u+19d}$, $p=0{,}05$ cho $\frac{d}{20u+39d}$; $50/1\,000=0{,}05$; $n/m=16$: $k^*=16\ln2=11{,}09$, $2^{-11{,}09}=4{,}59\cdot10^{-4}=0{,}0214^2$.
+
+**Thời lượng toàn bài (phần giảng).**
+
+| Mạch | Phút |
+|---|---:|
+| 1. Mở đầu | 6,5 |
+| 2. Mô hình tính toán trên dòng | 12 |
+| 3. Lấy mẫu theo khóa | 24 |
+| 4. Lấy mẫu hồ chứa | 25 |
+| 5. Lọc thành viên bằng Bloom filter | 40,5 |
+| 6. Tổng kết và chuyển tiếp (CT 0,5; C00 2,5; C03 2,5; C01 2; C04 2; C05 1,5; C02 1) | 12 |
+| Tổng | 120 |
+
+Phần bài tập (mạch 7) giữ 60 phút, duyệt ở lượt sau.
+
+**Sửa sau lượt rà lại mạch 6 (2026-10-28).** Các số đo dưới đây thay cột âm tiết của bảng trên.
+
+| Trang | Thay đổi | Âm tiết (dòng, max dòng); ghi chú |
+|---|---|---|
+| C00 | Hàng xác suất dương giả thêm "$y\notin S$ cố định"; hàng số hàm băm tối ưu ghi "$k$ thực; tối ưu cho dạng mũ $p(k)$" | 74 (6, 14); ghi chú 108; bảng tổng kết, trần 80 |
+| C01 | "$1/29$" gắn với An; câu hồ chứa thêm $r\ge s$; tách câu Bloom filter: không âm giả khi mảng chỉ được đọc (không cần xác suất), khoảng 2% khi băm đều, độc lập; ghi chú thu hồi dòng mô hình dòng của trang vấn đề trung tâm | 76 (5, 20); ghi chú 143; trang đối chiếu, trần 80 |
+| C04 | Câu 1 "$h$ nhận giá trị trong"; câu 2 hỏi giả thiết dùng ở bước quy nạp; lời giải nêu tính đều dùng ở hai nửa, tính độc lập dùng ở nửa phần tử cũ | 45 (3, 19); ghi chú 121 |
+| C02 | Nguồn thêm MMDS §4.5.5, tr.148–150; ghi chú bỏ câu sai "sách không trình bày thuật toán này", thay bằng §4.5.5 tr.148–149 và hộp tr.150 | 53 (6, 18); ghi chú 122 |
+| K01 | "tỷ lệ truy vấn tìm kiếm lặp" để tách nghĩa với truy vấn gửi bộ xử lý ở mạch 2 | 60 (6, 19); ghi chú 118 |
+| R00, R01, R04, R05, R07, R08 (ghi chú) | Thêm nguồn MMDS §4.5.5, tr.148–149 bên cạnh slide Streams 1; R07 ghi phép tính sống sót là của cả sách tr.149 và slide tr.21 | R07 ghi chú 159 (chứng minh) |
+
+Đối chiếu sách: MMDS 3e §4.5.5 "Dealing With Infinite Streams" (tr.148–149) trình bày chọn vị trí $n+1$ với xác suất $s/(n+1)$, bỏ đều một trong $s$ biến và chứng minh quy nạp; hộp "A General Stream-Sampling Problem" (tr.150) nối với lấy mẫu theo khóa. Bài tập §4.5.6 (4.5.1–4.5.6) đều về mômen, nên ghi chú R09 "sách MMDS không có bài tập hồ chứa" vẫn đúng. Thuật ngữ bộ dùng thống nhất "(người dùng, truy vấn, thời gian)" trên toàn deck; "thời điểm" chỉ còn trong ghi chú A00 với nghĩa "thời điểm định trước".

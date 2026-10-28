@@ -37,7 +37,9 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 3. KT → K01 → K09 → K01B → K02 → K04 → K05 → K06 → K07 → K08 (cập nhật 2026-10-28): ví dụ ba bộ của An; sai lệch tổng quát $d/(10u+19d)$; bảng giữ/bỏ theo người dùng (MMDS §4.2.2); hàm băm thay bảng; thuật toán với đặc tả; tính đúng; chọn khóa (MMDS §4.2.3); chi phí và hạ ngưỡng (MMDS §4.2.4); câu hỏi ngưỡng. Tỷ lệ $1/10$ ($b=10$, $a=1$) xuyên mạch. Bỏ K00, gộp K03 vào K04.
 4. RT → R00 → R01 → R03 → R04 → R05 → R06 → R07 → R08 → R09 (cập nhật 2026-10-28): mẫu cỡ cố định (giới hạn có số); ý tưởng so với mẫu theo khóa; vết hai ô; thuật toán với đặc tả, mảng $W$; tính đúng và hai nửa bước quy nạp; chi phí; so sánh với mẫu theo khóa và câu hỏi kiểm. Gộp R02 vào R04.
 5. BT → B00 → B02 → B05 → B05B → B01 → B03 → B04 → B06 → B07 → B08 → B09 → B10 → B11 → B12 (cập nhật 2026-10-28): giới hạn lưu $S$; ý tưởng và nhận xét bit 0; ví dụ 11 bit thêm ba khóa và kiểm tra hai khóa (một dương giả); đặc tả và định nghĩa dương giả/âm giả; giả mã; không có âm giả; xác suất một bit bằng 1 và xác suất dương giả; ảnh hưởng của $k$; $k^*$; ví dụ tám bit mỗi khóa; chi phí.
-6. C00–C02: chọn cấu trúc theo câu hỏi, nguồn và phạm vi.
+6. CT → C00 → C03 → C01 → C04 → C05 → C02 (cập nhật 2026-10-28): kết quả và giả thiết không được bỏ; thuật toán, bảo đảm và chi phí; câu trả lời cho vấn đề trung tâm có số; câu hỏi tự kiểm tra (hai trang, phủ ba mục tiêu); nguồn và tài liệu đọc, liên kết ghi chú bài giảng và Bài 09.
+
+Thời lượng phần giảng (2026-10-28): mạch 1 6,5; mạch 2 12; mạch 3 24; mạch 4 25; mạch 5 40,5; mạch 6 12; tổng 120 phút.
 7. X00–X05: bốn bài tập trực tiếp từ MMDS (Ex.4.2.1 tr.138; Ex.4.3.1–4.3.2 tr.141; Ex.4.3.3 tr.142).
 
 ## Thuật ngữ và ký hiệu
@@ -112,8 +114,8 @@ Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hi�
 | `lec-08-topic-10` | cốt lõi | 4.4 | Không âm giả | bốn điều kiện và phản ví dụ | N07 |
 | `lec-08-topic-11` | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | Mật độ bit và xác suất dương giả | phân biệt chính xác với xấp xỉ | N08 |
 | `lec-08-topic-12` | cốt lõi; định cỡ cho 1% là bổ sung | 4.6–4.7 | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ | N09 |
-| `lec-08-topic-13` | cốt lõi | 5 | Chọn cấu trúc theo đầu ra | ánh xạ đầu ra sang trạng thái | N10 |
-| `lec-08-topic-14` | cốt lõi | Tình huống | Tình huống áp dụng | bài toán giải trọn, một tình huống vi phạm giả thiết | — |
+| `lec-08-topic-13` | cốt lõi | 5.1–5.2 | Chọn cấu trúc theo câu hỏi | hai bảng đối chiếu, quy trình ba bước, trả lời vấn đề trung tâm | N10 |
+| `lec-08-topic-14` | cốt lõi | Tình huống | Tình huống áp dụng và ứng dụng | ba tình huống, Tình huống 08.3 vi phạm giả thiết; ứng dụng ở Bài 09 | — |
 | `lec-08-topic-15` | cốt lõi | Tóm tắt | Tóm tắt chương | chuỗi kết quả, giả thiết hay bị bỏ quên, sang Bài 09 | — |
 | `lec-08-topic-16` | cốt lõi | Bài tập | Bài tập củng cố | ba mức, gồm bốn bài MMDS của mạch 7 | N11 |
 | `lec-08-topic-17` | đọc thêm | Tham khảo | Đọc thêm và tài liệu | ánh xạ mục ↔ nguồn; lấy mẫu có trọng số (Blum–Hopcroft–Kannan §6.1) | — |
