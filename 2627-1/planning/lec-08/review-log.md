@@ -454,3 +454,15 @@ Trang đổi: B05A (mới, trước B05B, cùng tiêu đề "Ví dụ: Bloom fil
 | độ chính xác | nhẹ | ghi chú B10 | mảng 11 bit dùng $k=2$, gần $k^*$, không phải $k^*$ | sửa | — |
 
 Điều phối viên tự kiểm phản ví dụ âm giả (xóa 585 → $B[7]=0$ → 159 bị loại); hai tác tử tự kiểm mọi số (118 → (3,5), 29 → (7,2), $3{,}31$, $(11/3)\ln2$, $p(5)$, $p(6)$, chiều nhãn hai vùng). `check08.py` toàn deck 60 trang ở hai khổ: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết. Ảnh đã tự xem: B01, B07 (1600×900). Trình xem ghi chú ở ba khổ: không lỗi. `git diff --check` sạch.
+
+### Mạch 6. Tổng kết và chuyển tiếp (lượt bản đánh giá)
+
+Trang đổi: C01 (dòng mạch 3 «… mẫu từng bộ: tỷ số hai số đếm kỳ vọng $1/29\ne1/2$» thay "tỷ số kỳ vọng" dễ đọc thành kỳ vọng của tỷ số; dòng không âm giả tách riêng và nêu đủ "mảng chỉ đọc và cùng hàm băm", không gắn xác suất; 78 âm tiết, trần 80 của trang đối chiếu), C04 (câu 2 hỏi cả bộ thứ 7 và bộ thứ 999, giả thiết dùng ở quy nạp); ghi chú C00 (hai loại bảo đảm: tất định và xác suất — đề xuất slide 5 của bản đánh giá đặt ở đây), C01 (khóa có hơn $s$ bộ: không cấu trúc nào vừa giữ trọn khóa vừa giữ cỡ ≤ $s$), C04, C05 (định cỡ ngược $n/m=-\ln p/(\ln2)^2$: $p=0{,}01$ cần $\approx9{,}59$ bit/khóa, $k^*\approx6{,}64$; $k=7$ cho $p(7)\approx0{,}01004$, hơi trên 1%; 10 bit/khóa với $k=7$ cho $0{,}0082$), C02 (đọc thêm Mệnh đề 08.18 và lời giải số hàm băm tối ưu). Giữ CT (trang tiêu đề mạch), C00, C03 (cấu trúc bảng bắt buộc), mặt trang C05, C02. Không hình mới; thời lượng không đổi. Ghi chú bài giảng: Mục 5.1 mở bằng đoạn hai loại bảo đảm; Mục 5.2 "tỷ số hai số đếm kỳ vọng … khi $u=d=1$" và câu khóa có hơn $s$ bộ; Nhận xét 08.31 thêm định cỡ ngược; Bài tập 08.7 thêm bộ thứ 999.
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch, độ chính xác (điều phối viên lưu ý trước) | trung bình | C01 | "tỷ số kỳ vọng $1/29$" đọc thành kỳ vọng của tỷ số — đúng cách hiểu bản đánh giá dặn tránh; thiếu $u=d=1$ | sửa | "tỷ số hai số đếm kỳ vọng"; $u=d=1$ (ba bộ của An) ở ghi chú |
+| độ chính xác | nhẹ | C01 | câu không âm giả thiếu "cùng hàm băm" | sửa | "Với mảng chỉ đọc và cùng hàm băm, …" |
+| mạch | nhẹ | C04 | câu 2 hơi kém tự nhiên | giữ | câu sửa vượt 20 âm tiết/dòng |
+
+Điều phối viên tự kiểm $p(7)\approx0{,}00819$ tại $n/m=10$ và $p(6)\approx0{,}01014$ tại $n/m=9{,}585$; tác tử độ chính xác kiểm lại toàn bộ số định cỡ và lời giải C04. `check08.py` toàn deck 60 trang: 0 lỗi, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết. Trình xem ghi chú ở ba khổ: không lỗi. `git diff --check` sạch.

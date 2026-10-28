@@ -1226,7 +1226,7 @@ Thuật toán 08.23 và 08.24 cho chi phí xây $km$ phép băm và ghi bit, chi
 :::
 
 ::: remark Nhận xét 08.31 (Trong thực hành)
-Mô hình phi tiêu giả định các hàm băm đều và độc lập; hàm băm thật chỉ xấp xỉ điều đó, nên $p(k)$ là con số định cỡ, không phải bảo đảm. Bảo đảm không âm giả của Định lý 08.25 thì không phụ thuộc mô hình xác suất, chỉ cần bốn điều kiện về trạng thái. Kích thước $m$ phải ước lượng trước khi xây: Ví dụ 08.16 định cỡ $n$ và $k$ cho $10^9$ địa chỉ, và Bài tập 08.5 cho thấy hậu quả khi số địa chỉ tăng gấp đôi. Khi cần gỡ địa chỉ khỏi danh sách cho phép, cách đúng với Bloom filter chuẩn là xây lại mảng. Đổi số hàm băm $k$ cũng phải xây lại mảng, vì các bit đã đặt ứng với các hàm băm cũ.
+Mô hình phi tiêu giả định các hàm băm đều và độc lập; hàm băm thật chỉ xấp xỉ điều đó, nên $p(k)$ là con số định cỡ, không phải bảo đảm. Bảo đảm không âm giả của Định lý 08.25 thì không phụ thuộc mô hình xác suất, chỉ cần bốn điều kiện về trạng thái. Kích thước $m$ phải ước lượng trước khi xây: Ví dụ 08.16 định cỡ $n$ và $k$ cho $10^9$ địa chỉ, và Bài tập 08.5 cho thấy hậu quả khi số địa chỉ tăng gấp đôi. Khi cần gỡ địa chỉ khỏi danh sách cho phép, cách đúng với Bloom filter chuẩn là xây lại mảng. Đổi số hàm băm $k$ cũng phải xây lại mảng, vì các bit đã đặt ứng với các hàm băm cũ. Định lý 08.28 cũng cho phép định cỡ ngược: tại $k^*=(n/m)\ln2$, $p(k^*)=2^{-k^*}=e^{-(n/m)(\ln2)^2}$, nên muốn xác suất dương giả $p$ cho trước cần $n/m=-\ln p/(\ln2)^2$ bit mỗi khóa. Với $p=0{,}01$, ta được $n/m\approx9{,}59$ và $k^*\approx6{,}64$; số nguyên $k=7$ cho $p(7)\approx0{,}01004$, hơi trên $1\%$, nên làm tròn lên 10 bit mỗi khóa, khi đó $k=7$ cho $p(7)\approx0{,}0082$.
 :::
 
 ::: exercise Bài tập 08.5 (Danh sách cho phép tăng gấp đôi)
@@ -1250,7 +1250,7 @@ Ba cấu trúc của chương trả lời ba loại câu hỏi khác nhau, mỗi
 
 ### 5.1 Kết quả, giả thiết và chi phí
 
-Bảng đầu gom các kết quả chính cùng giả thiết mà thiếu nó kết quả sai.
+Các bảo đảm của chương thuộc hai loại. Bảo đảm tất định đúng trong mọi lần chạy: mọi bộ cùng khóa nhận cùng quyết định (Mệnh đề 08.10(a)), và Bloom filter không có âm giả (Định lý 08.25). Bảo đảm xác suất nói về phép chọn hàm băm hoặc các lần rút số: $a/b$ cho mỗi khóa, $s/r$ cho mỗi phần tử, $p(k)$ cho mỗi khóa ngoài $S$; một lần chạy cụ thể có thể lệch khỏi các con số này. Bảng đầu gom các kết quả chính cùng giả thiết mà thiếu nó kết quả sai.
 
 | Kết quả | Giả thiết không được bỏ | Công thức hoặc thuật toán |
 |---|---|---|
@@ -1286,9 +1286,11 @@ Khi đầu ra không thuộc ba loại trên, chẳng hạn số người dùng 
 
 Đầu chương có hai bài toán: máy tìm kiếm chỉ lưu được $1/10$ dòng truy vấn, và bộ lọc thư phải xét danh sách $10^9$ địa chỉ được phép với 1 GB bộ nhớ. Câu trả lời của chương đều có điều kiện.
 
-- Với $h$ đều theo từng khóa và cố định, băm người dùng giữ trọn mỗi người với xác suất $1/10$ (Mệnh đề 08.10), nên tỷ lệ lặp của người được giữ tính đúng; lấy $1/10$ từng bộ thì cho $1/29$ thay vì $1/2$ khi $u=d=1$ (Mệnh đề 08.6).
+- Với $h$ đều theo từng khóa và cố định, băm người dùng giữ trọn mỗi người với xác suất $1/10$ (Mệnh đề 08.10), nên tỷ lệ lặp của người được giữ tính đúng; lấy $1/10$ từng bộ thì tỷ số hai số đếm kỳ vọng là $1/29$ thay vì $1/2$ khi $u=d=1$ (Mệnh đề 08.6).
 - Với $j$ đều và độc lập với các lần rút trước, hồ chứa giữ đúng $s$ bộ, mỗi bộ có mặt với xác suất $s/r$ khi $r\ge s$ (Định lý 08.17), nhưng không giữ trọn người dùng.
 - Khi bốn điều kiện về trạng thái của Định lý 08.25 được giữ, Bloom filter $8\cdot10^9$ bit, $k=6$ không loại địa chỉ hợp lệ nào, không cần giả thiết xác suất. Với các hàm băm đều, độc lập, nó nhận nhầm khoảng $p(6)\approx0{,}0216$ địa chỉ ngoài danh sách (Ví dụ 08.16).
+
+Khi một khóa có nhiều bộ hơn $s$, không cấu trúc lấy mẫu nào của chương vừa giữ trọn khóa đó vừa giữ cỡ mẫu không quá $s$, vì giữ trọn khóa cần ít nhất số bộ của nó; chúng ta phải chọn một trong hai, hoặc kết hợp như Bài tập 08.14.
 
 ::: example Ví dụ 08.17 (Chọn cấu trúc cho bốn yêu cầu)
 **Dữ kiện.** Trên dòng truy vấn tìm kiếm và dòng thư, có bốn yêu cầu: (a) tỷ lệ truy vấn lặp của từng người dùng khi chỉ lưu $10\%$ dòng; (b) một mẫu đúng $1\,000$ bộ cho bảng theo dõi; (c) chặn thư từ địa chỉ ngoài danh sách cho phép; (d) số người dùng phân biệt trong tháng. Bốn yêu cầu do học phần đặt.
@@ -1426,7 +1428,7 @@ Giữ $t$ khi $h(K(t))<5$, với $K(t)$ là người dùng: đúng 5 trong 100 g
 :::
 
 ::: exercise Bài tập 08.7 (Xác suất có mặt trong hồ chứa)
-Hồ chứa có $s=50$ ô, dòng đã có $r=1\,000$ bộ. Bộ thứ 7 còn trong hồ với xác suất bao nhiêu? Cần giả thiết gì?
+Hồ chứa có $s=50$ ô, dòng đã có $r=1\,000$ bộ. Bộ thứ 7 và bộ thứ 999 còn trong hồ với xác suất bao nhiêu? Cần giả thiết gì?
 :::
 
 ::: hint
@@ -1434,7 +1436,7 @@ Kiểm $r\ge s$ rồi dùng Định lý 08.17.
 :::
 
 ::: solution
-Vì $r=1\,000\ge s=50$, Định lý 08.17 cho $\Pr[x_7\in W]=s/r=50/1\,000=0{,}05$. Cần mỗi số $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước. Vị trí 7 không có vai trò riêng: mọi bộ đã đọc có cùng xác suất.
+Vì $r=1\,000\ge s=50$, Định lý 08.17 cho $\Pr[x_7\in W]=\Pr[x_{999}\in W]=s/r=50/1\,000=0{,}05$. Cần mỗi số $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước. Xác suất $s/r$ không phụ thuộc vị trí $i$: bộ đến rất sớm và bộ vừa đến có cùng xác suất.
 :::
 
 ::: exercise Bài tập 08.8 (Âm giả sau khi thêm khóa)

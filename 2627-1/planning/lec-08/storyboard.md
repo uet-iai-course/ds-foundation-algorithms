@@ -241,6 +241,8 @@ Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ ph
 
 **Lượt bản đánh giá, Mục 4 ↔ mạch 5.** Không thêm khối đánh số. Sau Định nghĩa 08.22: bảng 2×2 (thực tế × trả lời) và câu nghĩa của "dương", "âm", "giả". Ví dụ 08.13: hình `phi-tieu-8-bia.svg` (kết cục do học phần chọn: bit 1, 4, 4, 6, ba bit bằng 1) và câu đọc hình; kỳ vọng $8(1-(7/8)^4)=3{,}31$ giữ ở "Kiểm tra lại". Phản ví dụ điều kiện 1 của Định lý 08.25: mảng 10100101010 thành 10100100000, 159 đọc bit 7, 0 thành âm giả. Alt và đoạn đọc `fpr-curve.svg` theo nhãn hai vùng. Sau "Ý nghĩa:" của Định lý 08.28: mảng 11 bit $k^*=(11/3)\ln2\approx2{,}54$, 5/11 bit bằng 1. Ví dụ 08.16: $0{,}0216$ là xác suất cho một địa chỉ ngoài $S$ cố định, không phải tỷ lệ thư rác hay xác suất một địa chỉ đã qua bộ lọc thuộc $S$. Nhận xét 08.31: đổi $k$ phải xây lại mảng. Mục 4: 4 807 âm tiết; toàn chương 25 682.
 
+**Lượt bản đánh giá, Mục 5, tình huống, bài tập ↔ mạch 6.** Không thêm khối đánh số. Mục 5.1 mở bằng câu phân biệt bảo đảm tất định (Mệnh đề 08.10(a), Định lý 08.25) và bảo đảm xác suất ($a/b$, $s/r$, $p(k)$). Mục 5.2: "tỷ số hai số đếm kỳ vọng là $1/29$"; câu "khóa nhiều bộ hơn $s$: không cấu trúc nào vừa giữ trọn khóa vừa giữ cỡ ≤ $s$", dẫn Bài tập 08.14. Nhận xét 08.31: định cỡ ngược $n/m=-\ln p/(\ln2)^2$; $p=0{,}01$: $9{,}59$ bit/khóa, $k^*=6{,}64$, $p(7)=0{,}01004$; 10 bit/khóa với $k=7$: $0{,}0082$ (tính lại 0,0081937). Bài tập 08.7: thêm bộ thứ 999, $s/r$ không phụ thuộc vị trí. Mục 5: 1 341 âm tiết; toàn chương 25 888.
+
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
 ## Lượt duyệt từng mạch (2026-10-28)
@@ -741,3 +743,25 @@ Tổng mạch 5: 39,5 phút (B05A 2, B05B 1,5 sau rà lại; tổng hai trang v�
 Số đã tự tính: $118=1110110_2\to(14\bmod11,5)=(3,5)$; $29=11101_2\to(7,2)$; xóa 585 cho mảng $10100100000$, 159 đọc $B[7]=0$; $(7/8)^4=0{,}5862$, $8(1-(7/8)^4)=3{,}3105$; $p(5)=0{,}021679$, $p(6)=0{,}021577$; $(11/3)\ln2=2{,}5415$.
 
 Ghi chú bài giảng (tác tử ghi chú): sau Định nghĩa 08.22 thêm bảng 2×2 và câu về nghĩa của "dương"; Ví dụ 08.13 chèn `phi-tieu-8-bia.svg` và câu đọc hình; §4.6 cập nhật alt của `fpr-curve.svg` (nhãn hai vùng); Nhận xét 08.31 thêm câu đổi $k$ phải xây lại; tùy chọn: câu mảng 11 bit gần nửa bit 1 sau "Ý nghĩa:" của Định lý 08.28.
+
+### Mạch 6. Tổng kết và chuyển tiếp
+
+Thứ tự trang không đổi: CT → C00 → C03 → C01 → C04 → C05 → C02. Không hình mới. Hai bảng tổng kết giữ cấu trúc bắt buộc của `AGENTS.md` (bác bỏ đổi cột).
+
+| Trang | Đề xuất của bản đánh giá | Quyết định | Thay đổi | Âm tiết (dòng, max dòng) trước → sau; ghi chú | Phút |
+|---|---|---|---|---|---:|
+| CT | Quay lại câu hỏi "Vì sao…?" (deck không có); ba câu hỏi lớn | bác bỏ (trang tiêu đề mạch; tiêu đề dạng hỏi bị cấm) | không đổi | 37 (2, 20); ghi chú 83 | 0,5 |
+| C00 | Rút thành ba thuật toán × Bảo đảm/Giả thiết; "độc lập với lịch sử"; "không xóa bit cần thiết" | giữ mặt trang (cấu trúc bắt buộc; cách viết hiện hành chính xác hơn); một phần ở ghi chú | Ghi chú thêm «Hai loại bảo đảm: tất định (cùng khóa cùng quyết định; không âm giả) và xác suất ($a/b$, $s/r$, $p(k)$).» (nhắc từ mạch 1) | 74 (6, 14) không đổi (ngoại lệ trần 80 đã ghi); ghi chú 108 → 128 | 2,5 |
+| C03 | Bốn cột Đơn vị/Bộ nhớ/Chi phí/Bảo đảm | giữ (cấu trúc bắt buộc; bộ nhớ quyết định và bộ nhớ mẫu đã tách) | không đổi | 61 (4, 18); ghi chú 117 | 2,5 |
+| C01 | $1/29$ là tỷ số các số đếm kỳ vọng | chấp nhận | Dòng mạch 3: «Với $h$ đều, băm người dùng giữ trọn mỗi người với xác suất $1/10$; mẫu từng bộ cho tỷ số kỳ vọng $1/29\ne1/2$.» Ghi chú: «$1/29$, tỷ số hai số đếm kỳ vọng»; thêm «khi một khóa có nhiều bộ hơn $s$, không cấu trúc nào vừa giữ trọn khóa đó vừa giữ cỡ mẫu không quá $s$» (ý từ slide 46); rút câu mở và vế thừa để giữ ≤ 150 | 76 (5, 20) → 78 (5, 20), vẫn trong ngoại lệ trần 80; ghi chú 143 → 146 | 2 |
+| C04 | Công bằng giữa bộ thứ 7 và bộ thứ 999; "lần bấm" | một phần (không hiệu ứng) | Câu 2: «Hồ chứa $s=50$, $r=1\,000$: bộ thứ 7 và thứ 999 ở trong hồ với xác suất nào? Giả thiết nào dùng ở quy nạp?» (20 âm tiết). Lời giải: «$0{,}05$ cho cả bộ thứ 7 và bộ thứ 999 … $s/r$ không phụ thuộc vị trí $i$». Lời giải câu 1 đổi ký hiệu tỷ lệ giữ $p$ → $\eta$ (thống nhất K09; $p$ dành cho xác suất dương giả) | 45 (3, 20) → 46 (3, 20); ghi chú 121 → 138 | 2 |
+| C05 | Định cỡ ngược $n/m\approx-\ln p/(\ln2)^2$; biểu đồ so | một phần (ghi chú; mạch kết luận không thêm khái niệm mới lên mặt trang); bác bỏ biểu đồ | Ghi chú thêm «Định cỡ ngược: từ $p(k^*)=2^{-k^*}$ và $k^*=(n/m)\ln2$ được $n/m=-\ln p/(\ln2)^2$; mục tiêu $p=0{,}01$ cần khoảng $9{,}59$ bit mỗi khóa và $k^*\approx6{,}64$; với $k=7$ nguyên, $p(7)\approx0{,}01004$, hơi trên 1%, còn 10 bit mỗi khóa với $k=7$ cho $0{,}0082$.» | 34 (3, 18) không đổi; ghi chú 99 → 136 | 1,5 |
+| C02 | Đường dẫn; mục bắt buộc/nâng cao | giữ mặt trang (thêm nhãn làm vượt 6 dòng); một phần ở ghi chú | Câu cuối ghi chú (tài liệu làm chủ ngữ) thay bằng «Đọc thêm trong ghi chú bài giảng: Mệnh đề 08.18 (mọi tập con cỡ $s$ đồng khả năng) và lời giải đủ bước của số hàm băm tối ưu.» | 53 (6, 18) không đổi; ghi chú 122 → 137 | 1 |
+
+Tổng mạch 6: 12 phút (không đổi). Phần giảng: 120 phút.
+
+Số đã tự tính: $-\ln0{,}01/(\ln2)^2=9{,}5851$; $k^*=9{,}5851\ln2=6{,}6439$; với $n/m=9{,}5851$: $p(6)=0{,}010143$, $p(7)=0{,}010039$; với $n/m=10$, $k=7$: $p(7)=0{,}008194$; $s/r=50/1\,000=0{,}05$.
+
+Ghi chú bài giảng (tác tử ghi chú): Nhận xét 08.31 (Trong thực hành) thêm đoạn định cỡ ngược với các số trên, không tạo Hệ quả mới; Bài tập 08.7 thêm "và bộ thứ 999" vào đề; Mục 5.2 kiểm câu $1/29$ dùng "tỷ số các số đếm kỳ vọng"; Mục 5.1 kiểm có câu hai loại bảo đảm.
+
+Sửa nhỏ C01 sau rà lại mạch 6 (2026-10-28): dòng mạch 3 thành «Với $h$ đều, giữ trọn mỗi người dùng với xác suất $1/10$; mẫu từng bộ: tỷ số hai số đếm kỳ vọng $1/29\ne1/2$.» (20 âm tiết; $u=d=1$ của An nêu trong ghi chú); dòng Bloom filter thành «Với mảng chỉ đọc và cùng hàm băm, Bloom filter không loại địa chỉ hợp lệ.»; dòng đầu rút thành «Dòng truy vấn chỉ lưu $1/10$; $10^9$ địa chỉ thư được phép.» để giữ trần 80. C01: 77 → 78 (5, 20).
