@@ -93,6 +93,8 @@ Tổng phần giảng: **120 phút**.
 
 ## Trang bài tập
 
+Lịch sử, thay bằng mục "Mạch 7" của lượt duyệt 2026-10-28: X00 và X05 đã bỏ, thêm X04B; số phút và lời giải hiện hành ghi ở mục đó.
+
 | Cụm bài tập | Bước và mã trang | Đầu vào → sản phẩm | Dữ kiện truyền từ phần giảng | Gộp hoặc không áp dụng | Câu nối | Phút |
 |---|---|---|---|---|---|---:|
 | Chọn khóa | X01 | phân tích ba câu hỏi trên `Grades` → ba khóa và ba giải thích | quy trình xác định đơn vị thống kê K06; quy tắc nhất quán K03–K05 | không chạy lại ví dụ để tránh lộ đáp án | Dùng đơn vị thống kê để tự xác định khóa. | 15 |
@@ -115,7 +117,7 @@ Tổng recitation: **60 phút**. Chỉ dịch, chia bước và thêm mẫu sả
 
 ## Storyboard ghi chú tự học
 
-Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo trình theo `AGENTS.md` §"Tiêu chuẩn giáo trình cho ghi chú bài giảng", lần lượt theo mạch của deck. Mã chủ đề cũ `L08-N01`…`L08-N11` được thay bằng `lec-08-topic-01`…`lec-08-topic-17` (ánh xạ cũ → mới ở `outline.md`, mục "Bản đồ chủ đề cho ghi chú tự học"). Trong thời gian chuyển tiếp, các mục cũ chưa viết lại vẫn nằm sau phần đầu chương và chưa mang `note-topic-id`.
+Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo trình theo `AGENTS.md` §"Tiêu chuẩn giáo trình cho ghi chú bài giảng", lần lượt theo mạch của deck. Mã chủ đề cũ `L08-N01`…`L08-N11` được thay bằng `lec-08-topic-01`…`lec-08-topic-17` (ánh xạ cũ → mới ở `outline.md`, mục "Bản đồ chủ đề cho ghi chú tự học"). ~~Trong thời gian chuyển tiếp, các mục cũ chưa viết lại vẫn nằm sau phần đầu chương và chưa mang `note-topic-id`.~~ Đã giải trừ 2026-10-28: toàn chương đã viết lại, đủ 17 `note-topic-id`.
 
 **Ánh xạ mạch deck → phần ghi chú → chủ đề.**
 
@@ -127,7 +129,7 @@ Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo tr
 | 4. Lấy mẫu hồ chứa | RT, R00, R01, R03, R04, R05, R06, R07, R08, R09 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | đã viết 2026-10-28 |
 | 5. Lọc thành viên bằng Bloom filter | BT, B00, B02, B05, B05B, B01, B03, B04, B06–B12 | Mục 4.1–4.7 | `lec-08-topic-09`…`12` | đã viết 2026-10-28 |
 | 6. Tổng kết và chuyển tiếp | CT, C00, C03, C01, C04, C05, C02 | Mục 5.1–5.2, Tình huống áp dụng và ứng dụng, Tóm tắt chương | `lec-08-topic-13`…`15` | đã viết 2026-10-28 |
-| 7. Bài tập vận dụng | XT, X00–X05 | Bài tập củng cố; Tham khảo | `lec-08-topic-16`, `17` | chờ viết |
+| 7. Bài tập vận dụng | XT, X01, X02, X03, X04, X04B (X00, X05 đã bỏ) | Bài tập củng cố; Hướng dẫn đọc thêm và tài liệu tham khảo | `lec-08-topic-16`, `17` | đã viết 2026-10-28 |
 
 **Phần đầu chương (mạch 1).**
 
@@ -143,7 +145,7 @@ Số âm tiết phần đầu chương (token cách trắng, từ dòng 1 tới 
 
 Chu trình rút gọn (thông tin soạn thảo, chuyển khỏi ghi chú ngày 2026-10-28): `lec-08-topic-05` (Mục 2.3, chọn khóa) là quy trình, không có định lý hay chi phí riêng; `lec-08-topic-06` (Mục 2.4, ngưỡng băm) chỉ thêm một mệnh đề bất biến, không có phân tích xác suất mới; `lec-08-topic-13` (Mục 5) tổng hợp ba nhánh, không đưa khái niệm mới.
 
-Điều kiện công bố (điều phối viên, 2026-10-28): số mục dẫn chiếu trong Mục tiêu học tập và Bản đồ chủ đề theo cấu trúc mới (Mục 1–5, 2.1–2.4, 3.1–3.5, 4.1–4.6) chưa khớp thân bài cũ; phải kiểm lại toàn bộ sau khi mạch 2–7 được viết lại.
+~~Điều kiện công bố (điều phối viên, 2026-10-28): số mục dẫn chiếu trong Mục tiêu học tập và Bản đồ chủ đề theo cấu trúc mới (Mục 1–5, 2.1–2.4, 3.1–3.5, 4.1–4.6) chưa khớp thân bài cũ; phải kiểm lại toàn bộ sau khi mạch 2–7 được viết lại.~~ Đã giải trừ 2026-10-28: mạch 2–7 của ghi chú đã viết lại; trạng thái hiện hành ở đoạn "Trạng thái toàn chương".
 
 **Mục 1 (mạch 2), `lec-08-topic-02`.** Thứ tự ghi chú: nhu cầu có số → ví dụ dẫn nhập → định nghĩa → hình (trực quan) → ví dụ giải → thuật toán mẫu → chi phí ba truy vấn → nhầm lẫn → "Trong thực hành" → bài tập phương sai → đoạn kết mục (nhu cầu thống kê theo người dùng khi chỉ lưu $1/10$ dòng → Mục 2).
 
@@ -211,6 +213,26 @@ Bộ đếm sau Mục 4: chung 08.22–08.31; Ví dụ 08.11–08.16; Bài tập
 
 Câu hỏi tự kiểm tra C04 (ngưỡng 5%: $h<5$, $\frac{d}{20u+39d}$; hồ chứa $s=50$, $r=1\,000$: $0{,}05$) và C05 (không âm giả; gấp đôi $n$: $k^*$ gấp đôi, $p(k^*)$ bình phương, $0{,}0214\to4{,}6\cdot10^{-4}$) không đặt ở Mục 5; chúng sẽ thành bài tập mức nhận biết trong "Bài tập củng cố" ở lượt mạch 7. Dẫn chiếu "Mục k" trong phần đầu chương, mục tiêu, bản đồ chủ đề và đoạn kết các mục đã được kiểm khớp thân bài (Mục 1.1–5.2); điều kiện chặn công bố về số mục được giải trừ cho phần đã viết. Còn chờ mạch 7: "## 11. Bốn bài tập từ giáo trình MMDS" cũ (dùng $x=k\rho$, $t=e^{-x}$, $p_k$, "FPR", "Hướng dẫn chấm"), bài tập 4.3.1–4.3.3 mà Mục tiêu 3 dẫn tới, mục "Bài tập củng cố" (`lec-08-topic-16`), "Hướng dẫn đọc thêm và tài liệu tham khảo" (`lec-08-topic-17`) thay "Tóm tắt nguồn" cũ (còn `https://www.mmds.org`). Số âm tiết: Mục 5 1 184, Tình huống 1 215, Tóm tắt 730 (tổng 3 129); cả tệp 21 883. Sau lượt sửa theo rà lại mạch 6: Mục 5 1 200, Tình huống 1 281, Tóm tắt 732; Mục 3 thêm dẫn MMDS §4.5.5 (tr.148–149) và hộp tr.150 (3 369); cả tệp 22 062. Tình huống 08.1 nêu Mệnh đề 08.10(b) chỉ đúng gần đúng với ngưỡng giảm dần (điều kiện: mỗi khóa rất ít bộ so với $G$); Tình huống 08.3(b) dẫn về Bài tập 08.5 thay vì chép lời giải.
 
+**Mạch 7 → Bài tập củng cố, Tham khảo.**
+
+| Bài tập | Mức | Trang deck / nguồn | Mục tiêu | Số kiểm |
+|---|---|---|---|---|
+| 08.6 Ngưỡng 5% và mẫu từng bộ | nhận biết | C04 câu 1 | 1 | $h<5$; $d/(20u+39d)$, $u=d=1$: $1/59$ |
+| 08.7 Xác suất có mặt trong hồ chứa | nhận biết | C04 câu 2 | 2 | $50/1\,000=0{,}05$ |
+| 08.8 Âm giả sau khi thêm khóa | nhận biết | C05 câu 3 | 3 | gỡ 585 làm 159 bị loại |
+| 08.9 Gấp đôi số bit | nhận biết | C05 câu 4 | 3 | $k^*$: $5{,}545\to11{,}09$; $p(k^*)$: $0{,}0214\to4{,}6\cdot10^{-4}$ |
+| 08.10 Ba và bốn hàm băm | tính toán | X02; MMDS 4.3.1, §4.3.4, tr.141 | 3 | $p(3)=0{,}030579$, $p(4)=0{,}023969$ |
+| 08.11 Chia mảng bit | tính toán | X03; MMDS 4.3.2, tr.141 (quy ước $k\mid n$, băm đều độc lập của học phần) | 3 | $n=64,m=8,k=4$: chia $0{,}026450$, $q^k$ $0{,}024556$, chính xác $0{,}025354$; $n=8\cdot10^9,m=10^9,k=4$: trùng 9 chữ số, $0{,}023968650\ldots$ |
+| 08.12 Số hàm băm tối ưu | chứng minh | X04, X04B; MMDS 4.3.3, tr.142 | 3 | dẫn về Định lý 08.28, Hệ quả 08.29; $p(5)>p(6)$ |
+| 08.13 Chọn khóa lấy mẫu | vận dụng | X01; MMDS 4.2.1, §4.2.5, tr.138 | 1 | (university, courseID); (university, studentID); (university, courseID) |
+| 08.14 Hồ chứa cho từng khóa | vận dụng (mở rộng) | MMDS hộp tr.150; Định lý 08.17 | 2 | $s/r_K$; tối đa $sN_K$ bộ; tỷ lệ lặp đúng chỉ khi $r_K\le s$ |
+
+Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ phần của chương; slide MMDS Streams 1–2; CS246 2026 (Leskovec); Ullman 2017; CLRS §2.1; đọc tiếp Bài 09 và Blum–Hopcroft–Kannan §6.1; ghi công http://www.mmds.org. Mục tiêu 3 ở đầu chương đổi dẫn chiếu thành "Bài tập 08.10–08.12".
+
+**Trạng thái toàn chương (2026-10-28).** Đủ 17 `note-topic-id`, mỗi mã một lần. Bộ đếm chung 08.1–08.31 liên tục; Ví dụ 08.1–08.17; Bài tập 08.1–08.14; Tình huống 08.1–08.3; mọi dẫn chiếu "Mục k" và số hiệu khối đều trỏ tới khối có thật. Không còn "Đáp án", "Hướng dẫn chấm", "FPR", "Mục này", "Chương này", `https://www.mmds`, `\text{bị`, $x=k\rho$, $p_k$, mã `L08-N`. Âm tiết: đầu chương 2 938 (giới thiệu và mục tiêu 574, tiên quyết, ký hiệu, bản đồ 2 364), Mục 1 2 819, Mục 2 4 627, Mục 3 3 369, Mục 4 4 341, Mục 5 1 200, Tình huống 1 281, Tóm tắt 732, Bài tập 1 735, Tham khảo 412; toàn chương 23 454. Hình `key-sampling.svg`, `bloom-11bit.svg`, `stream-model.svg` không còn được ghi chú dùng.
+
+**Lượt sửa cuối trước công bố (theo kiểm định cuối F1–F14 và rà lại mạch 7).** Thêm hình `img/lec-08/cau-truc-chuong.svg` và đoạn mở Mục 1 (bài toán của ghi chú Bài 01, số liệu MMDS tr.133 và tr.139, việc chương xây dựng) cùng đoạn đọc hình (F6). Chữ một nghĩa (F1): chỉ số tổng ở Mệnh đề 08.19, Ví dụ 08.10 đổi $k\to i$; tỷ lệ giữ $p\to\eta$ (Nhận xét 08.7, Bài tập 08.6), $p,p_2\to\eta_1,\eta_2$ (Nhận xét 08.20); tập vị trí $T,T'\to A,A'$ (Mệnh đề 08.18); thêm dòng quy ước ký hiệu cục bộ ($M$, $T$, $G$, $W_r$, $E_i$, $A$, $\ell$, $\rho$, $z$, $\theta$, $\lambda$, $\phi$, $c$, $\eta$). F7: câu trực quan đặt trước Định nghĩa 08.1; đoạn 1.2 mở bằng việc đặt thành phần định nghĩa vào hình. F9: đoạn "**Trong thực hành.**" không đánh số sau Mệnh đề 08.14 (giữ nguyên bộ đếm); danh sách "Bỏ …" sau Mệnh đề 08.27 (vị trí truy vấn trùng một khóa của $S$ cho xác suất 1; $h_1=\cdots=h_k$ cho $\approx0{,}1175$ thay $0{,}0216$). F10: năm câu no-ai-slop. F11: "Ở Bài 02, hàm phân phối …". F12: "trang chiếu MMDS (slide)" lần đầu, "trang chiếu" sau đó. F13: bỏ câu nối lặp ở ranh giới Mục 2/3 và 3/4. F14: bỏ "định cỡ cho 1% là bổ sung". Rà lại mạch 7: Ullman ghi năm 2017; Blum–Hopcroft–Kannan ghi bản ngày 04/01/2018 (tệp trong `sources/`), §6.1, tr.181; lời giải 4.2.1(a) "theo kỳ vọng"; MMDS §1.3.5, tr.13–14. Đồng bộ deck: X04B ($z=-\ln\theta$ trong lời giải Bài tập 08.12), B06 (điều kiện 3 và 4 tự thỏa trong mô hình). Kiểm lại toàn chương: 17 `note-topic-id` duy nhất; bộ đếm chung 08.1–08.31, Ví dụ 08.1–08.17, Bài tập 08.1–08.14, Tình huống 08.1–08.3 liên tục; mọi dẫn chiếu Mục và khối khớp; chuỗi cấm bằng 0; liên kết deck HTTP 200. Số âm tiết toàn chương: 24 159.
+
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
 ## Lượt duyệt từng mạch (2026-10-28)
@@ -238,6 +260,8 @@ Thứ tự trang: P00 → P04 → P02 → P03 → P01. Không có trang tiêu đ
 | P01 | Vấn đề trung tâm: nhu cầu một dòng và câu trả lời có điều kiện của mạch 2–5 | Nối mỗi dòng với mạch sẽ chứng minh nó và với giả thiết của nó | Nhu cầu "lấy mẫu, lọc dòng chưa biết độ dài, không lưu cả dòng"; đọc một lần, trả lời từ trạng thái; hàm băm đều, xác suất $1/10$, mẫu $\approx r/10$ bộ; số ngẫu nhiên đều, độc lập, $s/r$ khi $r\ge s$; Bloom filter $8\cdot10^9$ bit, sáu hàm băm đều, độc lập, $10^9$ khóa, nhận nhầm $\approx2\%$ | MMDS §4.2.1 tr.136 (bộ (người dùng, truy vấn, thời gian), ngân sách $1/10$); §4.3.1 tr.139 ($10^9$ địa chỉ, 1 GB) | Bằng chứng: trang trả lời vấn đề trung tâm ở phần tổng kết nhắc lại bốn dòng này với số liệu | sửa: thay tình huống cũ bằng trang "Vấn đề trung tâm". Lượt rà lại: mỗi dòng là câu trần thuật có điều kiện, không còn cụm tự đặt trước dấu hai chấm; dòng lấy mẫu theo khóa nêu cỡ mẫu tăng theo dòng. Số 6 hàm băm do học phần chọn (MMDS §4.3.1 dùng một, Ví dụ 4.4 dùng hai): số nguyên gần $k^*=8\ln2\approx5{,}545$; $p(6)=0{,}021577<p(5)=0{,}021679$. Xếp loại trang đối chiếu (trần 80): lý do và số đo ở đoạn dưới | 72 (3, 20) → 72 (5, 17); ghi chú 44 → 150 | 2,5 |
 
 Tổng mạch 1: 6,5 phút, bằng tổng cũ (P00 0, P03 0,5, P01 4, P02 2); tổng phần giảng giữ 120 phút.
+
+Ngoại lệ số dòng P03 (ghi 2026-10-28 theo kiểm định cuối): trang Nội dung có 8 dòng (danh sách 7 mạch bắt buộc theo `AGENTS.md` §"Mẫu RevealJS bắt buộc", hai cột `ex-grid2`, cộng dòng "Đọc trước:"), vượt trần 6 dòng. Không tách vì danh sách mạch phải nằm trọn một trang và khớp `#/N`. Âm tiết 39 → 40 sau khi thêm MMDS §4.5.5, tr.148–150 vào "Đọc trước:"; dòng dài nhất 15.
 
 Ngoại lệ mật độ P01: trang được xếp loại trang đối chiếu, trần 80 âm tiết, vì `AGENTS.md` đòi câu trả lời có điều kiện của cả bốn mạch nội dung cùng dòng nhu cầu có giới hạn tài nguyên, và mỗi câu trả lời phải mang giả thiết của nó (hàm băm đều; số ngẫu nhiên đều, độc lập, $r\ge s$; hàm băm đều, độc lập, xấp xỉ mũ). Mục tiêu điều phối là ≤ 65. Trước: 72 âm tiết (bản đầu, 3 dòng), lượt sửa thứ nhất 57 (thiếu điều kiện); sau: 72 (5 dòng, max 17 âm tiết mỗi dòng). Vượt mục tiêu 7 âm tiết; bỏ thêm sẽ phải bỏ một giả thiết hoặc số liệu MMDS.
 
@@ -550,3 +574,64 @@ Phần bài tập (mạch 7) giữ 60 phút, duyệt ở lượt sau.
 | R00, R01, R04, R05, R07, R08 (ghi chú) | Thêm nguồn MMDS §4.5.5, tr.148–149 bên cạnh slide Streams 1; R07 ghi phép tính sống sót là của cả sách tr.149 và slide tr.21 | R07 ghi chú 159 (chứng minh) |
 
 Đối chiếu sách: MMDS 3e §4.5.5 "Dealing With Infinite Streams" (tr.148–149) trình bày chọn vị trí $n+1$ với xác suất $s/(n+1)$, bỏ đều một trong $s$ biến và chứng minh quy nạp; hộp "A General Stream-Sampling Problem" (tr.150) nối với lấy mẫu theo khóa. Bài tập §4.5.6 (4.5.1–4.5.6) đều về mômen, nên ghi chú R09 "sách MMDS không có bài tập hồ chứa" vẫn đúng. Thuật ngữ bộ dùng thống nhất "(người dùng, truy vấn, thời gian)" trên toàn deck; "thời điểm" chỉ còn trong ghi chú A00 với nghĩa "thời điểm định trước".
+
+### Mạch 7. Bài tập vận dụng
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| bài tập | Vận dụng đặc tả mẫu theo khóa, công thức dương giả và số hàm băm tối ưu trên bốn bài MMDS | Mạch 3 (chọn khóa theo đơn vị thống kê), mạch 5 ($p(k)$, $k^*$), mạch 6 (bảng kết quả và giả thiết) | Lời giải bốn bài, tiêu chí đối chiếu trong ghi chú; lời giải mẫu Bài tập 4.3.3 trên trang | Không có khái niệm mới | XT (`id="mach-7"`) |
+
+Thứ tự trang: XT → X01 → X02 → X03 → X04 → X04B. Bỏ X00 và X05 (điều phối lớp); danh sách bốn bài chuyển vào ghi chú XT, tiêu chí đối chiếu chuyển vào ghi chú từng bài. X04B là ID mới (lời giải mẫu, cùng tiêu đề với X04).
+
+**Câu hỏi trước khi sửa.**
+
+| Trang cũ | Trang muốn nói | Phục vụ chủ đề mạch? | Vấn đề còn lại | Quyết định |
+|---|---|---|---|---|
+| XT | Điểm vào phần bài tập | có | Lời dẫn 22 âm tiết có nhận xét biên soạn "với dữ kiện giữ nguyên" | sửa |
+| X00 | Giới thiệu bốn bài, phiếu nộp | một phần | Chỉ dẫn biên soạn và điều phối lớp; trùng XT | bỏ |
+| X01 | Ex.4.2.1 chọn khóa | có | Tiêu đề số bài; câu 36 âm tiết; không có "Câu hỏi:"; "Sản phẩm:"; ý (a)–(c) đánh số 1–3 | sửa |
+| X02 | Ex.4.3.1 ba và bốn hàm băm | có | Tiêu đề số bài; hai thẻ chỉ chứa $k$; "Sản phẩm:"; ký hiệu $p_3$, $p_4$ | sửa |
+| X03 | Ex.4.3.2 chia mảng bit | có | Tiêu đề số bài; dòng 23 âm tiết; giả thiết $k$ chia hết $n$ của học phần chưa ghi rõ; ghi chú thiếu chiều so sánh | sửa |
+| X04 | Ex.4.3.3 số hàm băm tối ưu | có | Tiêu đề số bài; "Sản phẩm:"; lời giải chỉ ở ghi chú | sửa, thêm X04B |
+| X05 | Phiếu nộp | không | Trang hành chính | bỏ |
+
+**Đối chiếu đề với sách (MMDS 3e, bản văn bản chương 4).**
+- Ex.4.2.1, tr.138: "Suppose we have a stream of tuples with the schema Grades(university, courseID, studentID, grade). Assume universities are unique, but a courseID is unique only within a university … and likewise, studentID's are unique only within a university … Suppose we want to answer certain queries approximately from a 1/20th sample of the data. For each of the queries below, indicate how you would construct the sample. That is, tell what the key attributes should be. (a) For each university, estimate the average number of students in a course. (b) Estimate the fraction of students who have a GPA of 3.5 or more. (c) Estimate the fraction of courses where at least half the students got "A."" Deck dịch đủ dữ kiện; bỏ ví dụ "CS101".
+- Ex.4.3.1, tr.141: "For the situation of our running example (8 billion bits, 1 billion members of the set S), calculate the false-positive rate if we use three hash functions? What if we use four hash functions?" Deck giữ nguyên dữ kiện.
+- Ex.4.3.2, tr.141: "Suppose we have n bits of memory available, and our set S has m members. Instead of using k hash functions, we could divide the n bits into k arrays, and hash once to each array. As a function of n, m, and k, what is the probability of a false positive? How does it compare with using k hash functions into a single array?" Quy ước "$k$ chia hết $n$; các hàm băm đều, độc lập" là của học phần, ghi trên trang bằng nhãn "Quy ước:" và trong ghi chú.
+- Ex.4.3.3, tr.142: "As a function of n, the number of bits and m the number of members in the set S, what number of hash functions minimizes the false-positive rate?" Deck thêm "dùng dạng $p(k)$ với $k$ thực, rồi chọn $k$ nguyên", là cách hiểu chuẩn của câu hỏi theo công thức ở tr.141; không đổi nhiệm vụ.
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút (đề, làm, chữa) |
+|---|---|---|---|---|---|---|---|---:|
+| XT | Điểm vào phần bài tập | Nhận bốn bài | Lời dẫn "Muốn chọn khóa lấy mẫu và định cỡ Bloom filter, phải áp dụng đặc tả và công thức dương giả." | Mạch 3, 5, 6 | — | sửa | 26 (2, 22) → 35 (2, 20); ghi chú 85 → 86 | 0,5 |
+| X01 | Ex.4.2.1 | Chọn khóa cho (a)–(c) | Lược đồ Grades; mẫu $1/20$ | Quy tắc chọn khóa theo đơn vị (K06) | Ba khóa; tiêu chí trong ghi chú | sửa; đề bài thực hành, trần 80; danh sách a–c (lớp `stream-alpha`) | 78 (5, 36) → 70 (6, 18); ghi chú 59 → 154 | 14,5 (2; 8; 4,5) |
+| X02 | Ex.4.3.1 | Tính $p(3)$, $p(4)$ | $n=8\cdot10^9$, $m=10^9$ | $p(k)$ (B08) | $0{,}0306$; $0{,}0240$ | sửa; ký hiệu $p(k)$ | 25 (4, 16) → 30 (3, 16); ghi chú 37 → 54 | 10 (1; 6; 3) |
+| X03 | Ex.4.3.2 | Dẫn công thức mảng chia, so với mảng chung | $n$, $m$, $k$; quy ước $k\mid n$ | Mô hình phi tiêu (B07); Bernoulli | $[1-(1-k/n)^m]^k\ge q^k$; ví dụ số trong ghi chú | sửa; ghi chú nêu chiều so sánh | 49 (4, 23) → 51 (5, 16); ghi chú 85 → 154 | 15 (2; 8; 5) |
+| X04 | Ex.4.3.3 | Tìm $k$ tối ưu, chứng minh cực tiểu, quy tắc số nguyên | $p(k)$ | B10 (phát biểu, không có chứng minh trên trang) | Lời giải ở X04B | sửa | 44 (6, 14) → 29 (3, 19); ghi chú 101 → 86 | 12 (2; 10; —) |
+| X04B | Lời giải mẫu Ex.4.3.3 | Đối chiếu bài làm | Đổi biến $\rho$, $z$, $\theta$; $\lambda'=\phi(\theta)/(1-\theta)$; xét dấu; quy tắc số nguyên | Định lý 08.28, Hệ quả 08.29 của ghi chú bài giảng | Chứng minh đủ ý | thêm; 1 công thức hiển thị (hai dòng `aligned`) | — → 28 (5, 8); ghi chú — → 88 | 8 (chữa) |
+
+Tổng phần bài tập: 60 phút.
+
+Số đã tự tính: $p(3)=(1-e^{-3/8})^3=0{,}030579$; $p(4)=(1-e^{-1/2})^4=0{,}023969$; mảng chia với $n=64$, $m=8$, $k=4$: $[1-(1-4/64)^8]^4=0{,}026450$, $q^k=[1-(1-1/64)^{32}]^4=0{,}024556$, giá trị chính xác của mảng chung $\mathbb E[(X/n)^k]=0{,}025354$ (tính bằng phân phối số bit 1), dạng mũ $0{,}023969$; với $n=8\cdot10^9$, $m=10^9$, $k=4$: mảng chia $0{,}0239686508395$, $q^k$ $0{,}0239686508256$ (trùng chín chữ số có nghĩa); $\phi(1/2)=0$; $k^*=8\ln2=5{,}545$, $p(5)=0{,}021679>p(6)=0{,}021577$.
+
+CSS: thêm `.reveal.course-deck.lecture-stream ol.stream-alpha { list-style-type: lower-alpha; }` (theme ghi đè `type="a"`).
+
+### Lượt sửa cuối (2026-10-28, sau rà lại mạch 7 và kiểm định cuối)
+
+| Trang | Thay đổi | Lý do | Âm tiết (dòng, max dòng) trước → sau; ghi chú |
+|---|---|---|---|
+| P03 | "Đọc trước:" thêm "; §4.5.5, tr.148–150" | Mạch 4 dùng MMDS §4.5.5 | 39 (8, 14) → 40 (8, 15); ngoại lệ số dòng ghi ở mạch 1 |
+| K01B | Alt của hình đổi sang năm bộ, khớp hình và ghi chú bài giảng | Kiểm định cuối F8 | không đổi mặt trang (58) |
+| B05 | Ghi chú: "(CS246, 2017, tr.5–8)" thay ngày cụ thể | Ngày chỉ có trong siêu dữ liệu PDF | ghi chú 77 → 77 |
+| B06 | Ghi chú: nêu Định lý 08.25 của ghi chú bài giảng có thêm hai điều kiện (hàm băm tất định; truy vấn sau khi mọi phép ghi đã xong), tự thỏa trong mô hình của bài; mặt trang giữ hai giả thiết và nhãn "Mệnh đề." | Kiểm định cuối F3 | 53 (4, 19) không đổi; ghi chú → 141 |
+| X01 | Dữ kiện (lược đồ, tính duy nhất của mã) lên trước "Câu hỏi:"; ghi chú (a) "theo kỳ vọng, khoảng $1/20$ số học phần" | Rà lại mạch 7 | 70 (6, 18) → 68 (6, 20); ghi chú 154 → 157 |
+| X02 | Dữ kiện lên trước "Câu hỏi:" | Cùng mẫu với X01 | 30 (3, 16) → 30 (3, 18) |
+| X03 | Dữ kiện lên trước "Câu hỏi:" | Cùng mẫu với X01 | 51 (5, 16) → 51 (5, 18) |
+| X04 | Ghi chú bỏ câu điều phối lớp, còn "Lời giải mẫu ở trang kế tiếp, cùng tiêu đề." | Rà lại mạch 7 | 29 không đổi; ghi chú 86 → 78 |
+| X04B | Ghi phép thay $z=-\ln\theta$ và tính chất "lõm chặt" trên mặt trang | Rà lại mạch 7 | 28 (5, 8) → 33 (5, 11); ghi chú 88 |
+
+Kiểm lại số lớn của Bài tập 4.3.2 ($n=8\cdot10^9$, $m=10^9$, $k=4$) bằng số thập phân 40 chữ số: mảng chia $0{,}0239686508395$, $q^k$ $0{,}0239686508256$, trùng chín chữ số có nghĩa như ghi chú X03 nói.

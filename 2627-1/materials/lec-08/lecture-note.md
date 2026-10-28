@@ -15,7 +15,7 @@ Sau chương này, người học có thể:
    - Lập vết chạy khi biết các số ngẫu nhiên đã sinh; trình bày đủ bước cơ sở, bước quy nạp và chỗ dùng giả thiết về số ngẫu nhiên; nêu chi phí bộ nhớ và thời gian mỗi phần tử (Mục 3).
 3. Xây và truy vấn Bloom filter (còn gọi là bộ lọc Bloom) gồm $n$ bit, $k$ hàm băm và tập $S$ gồm $m$ khóa; tính xác suất nhận nhầm một khóa ngoài $S$ và số hàm băm tối ưu.
    - Đặt bit và trả lời truy vấn trên một mảng 11 bit; chứng minh khóa đã chèn không bị loại khi bốn điều kiện được giữ: không xóa hay đặt lại bit, truy vấn dùng đúng các hàm băm và mảng đã xây, các hàm băm tất định, mọi phép ghi bit đã xong (Mục 4).
-   - Tính mật độ bit 1, xác suất nhận nhầm và dạng mũ $(1-e^{-km/n})^k$; dẫn xuất $k^*=(n/m)\ln2$ và chọn số hàm băm nguyên (Mục 4, các bài tập 4.3.1–4.3.3 của MMDS).
+   - Tính mật độ bit 1, xác suất nhận nhầm và dạng mũ $(1-e^{-km/n})^k$; dẫn xuất $k^*=(n/m)\ln2$ và chọn số hàm băm nguyên (Mục 4; Bài tập 08.10–08.12, tức các bài 4.3.1–4.3.3 của MMDS).
 
 Ở Mục 5 và các tình huống áp dụng, ba mục tiêu được dùng cùng lúc để chọn cấu trúc theo câu hỏi cần trả lời.
 
@@ -25,7 +25,7 @@ Sau chương này, người học có thể:
 Số hiệu `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 01 và Bài 05 chưa đánh số hiệu, nên các kết quả của hai bài đó được dẫn theo mục. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
 
 - **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời gian) vẫn đo được mức lặp truy vấn của từng người, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
-- **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó. Hàm phân phối của MapReduce trong bộ trang chiếu Bài 02 dựa trên cùng tính chất: mọi tác vụ Map dùng chung một hàm, nên mọi cặp cùng khóa về cùng một tác vụ Reduce.
+- **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó. Ở Bài 02, hàm phân phối của MapReduce dựa trên cùng tính chất: mọi tác vụ Map dùng chung một hàm, nên mọi cặp cùng khóa về cùng một tác vụ Reduce.
 - **Phân tích xác suất thành ứng viên** (Định lý 06.7). Khi các hàm MinHash được chọn độc lập, xác suất một cặp tài liệu thành ứng viên được tính theo bốn bước: xác suất trùng ở một hàng; tích các xác suất độc lập cho xác suất trùng cả một dải; tích lần nữa trên các dải độc lập cho xác suất không dải nào trùng; rồi lấy biến cố bù. MMDS (§4.3.3, tr.140) nêu rằng phân tích Bloom filter đi theo cùng cách làm với phân tích phân dải ở §3.4.2; bước tích thứ hai ứng với biến cố không phép băm nào rơi vào một bit cho trước.
 - **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, mục "Mô hình ngẫu nhiên và giới hạn suy luận"; ghi chú Bài 05, Mục 7). Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$. Với các biến cố $E_1,\ldots,E_c$ độc lập (toàn phần, không chỉ từng đôi), $\Pr(E_1\cap\cdots\cap E_c)=\Pr(E_1)\cdots\Pr(E_c)$. Quy tắc nhân: $\Pr(E\cap F)=\Pr(E)\Pr(F\mid E)$ khi $\Pr(E)>0$. Tuyến tính kỳ vọng: kỳ vọng của tổng bằng tổng các kỳ vọng, không cần độc lập; $\mathbb E[\mathbf 1[E]]=\Pr(E)$.
 - **Bất đẳng thức Jensen** (học phần Xác suất thống kê; đã dùng ở Tình huống 06.2). Với hàm $g$ lồi trên một khoảng chứa mọi giá trị của biến ngẫu nhiên $Z$, $\mathbb E[g(Z)]\ge g(\mathbb E[Z])$; với $g$ lõm, bất đẳng thức đổi chiều.
@@ -68,9 +68,10 @@ Các quy ước đọc sau dùng trong cả chương.
 - Số thập phân dùng dấu phẩy, ví dụ $0{,}0216$. Số nguyên lớn nhóm ba chữ số bằng khoảng trắng hẹp, ví dụ $1\,000$, hoặc viết dạng lũy thừa, ví dụ $8\cdot10^9$. Ký hiệu $\ln$ là logarit cơ số $e$.
 - Vị trí trên dòng và ô của hồ chứa đánh số từ $1$; bit của mảng Bloom và giá trị băm đánh số từ $0$.
 - Chữ thường và chữ hoa là hai ký hiệu khác nhau: $k$ là số hàm băm, $K$ là khóa; $b$ là số giá trị của $h$, $B$ là mảng bit.
-- Tên phần tử trong vết chạy hồ chứa viết chữ đứng, như dòng a, x, c, y, z của slide MMDS, để không lẫn với các ký hiệu nghiêng $a$, $x_i$, $y$.
-- Ký hiệu khác MMDS ở bốn chỗ, vì các chữ của sách đã mang nghĩa khác trong bảng: số truy vấn xuất hiện một lần $s$ (§4.2.1) viết là $u$; số giá trị băm $B$ và ngưỡng $t$ (§4.2.4) viết là $b$ và $\tau$; số đích $x$ và số phi tiêu $y$ (§4.3.3) là $n$ bit và $km$ phép băm; mẫu $S$ và số phần tử đã thấy $n$ trên slide hồ chứa viết là $W$ và $r$.
-- Số liệu lấy từ MMDS: Hình 4.1, các Ví dụ 4.1, 4.3, 4.4, ngân sách $1/10$ dòng ở §4.2.1, các bài 4.2.1 và 4.3.1–4.3.3. Mảng 11 bit với các khóa 25, 159, 585 và truy vấn 118 lấy từ slide của Ullman cho học phần CS246 (2017). Giá trị băm của An, Bình, Chi, dãy số ngẫu nhiên của vết hồ chứa, các khóa truy vấn khác trên mảng 11 bit và dữ kiện các bài tập không mang số bài sách do học phần dựng để minh họa. Khi số in trong sách khác phép tính lại, giá trị tính lại được dùng và chỗ khác được nêu tại chỗ.
+- Ký hiệu cục bộ chỉ dùng trong một mục và được giới thiệu tại chỗ: $M$, $T$ (Mục 1); $G$ (Mục 2.5); $W_r$, $E_i$, $A$, $\ell$ (Mục 3); $\rho$, $z$, $\theta$, $\lambda$, $\phi$ (Mục 4). Ngoài phần tiên quyết, chữ $c$ luôn chỉ một giá trị của hàm băm: giá trị $h(K)$ ở Mục 2, vị trí bit $h_i(v)$ ở Mục 4. Chữ $\eta$, có hoặc không có chỉ số, chỉ một xác suất giữ một phần tử của mẫu (Mục 2.1, 3.5 và Bài tập 08.6).
+- Tên phần tử trong vết chạy hồ chứa viết chữ đứng, như dòng a, x, c, y, z của trang chiếu MMDS (slide), để không lẫn với các ký hiệu nghiêng $a$, $x_i$, $y$.
+- Ký hiệu khác MMDS ở bốn chỗ, vì các chữ của sách đã mang nghĩa khác trong bảng: số truy vấn xuất hiện một lần $s$ (§4.2.1) viết là $u$; số giá trị băm $B$ và ngưỡng $t$ (§4.2.4) viết là $b$ và $\tau$; số đích $x$ và số phi tiêu $y$ (§4.3.3) là $n$ bit và $km$ phép băm; mẫu $S$ và số phần tử đã thấy $n$ trên trang chiếu hồ chứa viết là $W$ và $r$.
+- Số liệu lấy từ MMDS: Hình 4.1, các Ví dụ 4.1, 4.3, 4.4, ngân sách $1/10$ dòng ở §4.2.1, các bài 4.2.1 và 4.3.1–4.3.3. Mảng 11 bit với các khóa 25, 159, 585 và truy vấn 118 lấy từ trang chiếu của Ullman cho học phần CS246 (2017). Giá trị băm của An, Bình, Chi, dãy số ngẫu nhiên của vết hồ chứa, các khóa truy vấn khác trên mảng 11 bit và dữ kiện các bài tập không mang số bài sách do học phần dựng để minh họa. Khi số in trong sách khác phép tính lại, giá trị tính lại được dùng và chỗ khác được nêu tại chỗ.
 
 ## Bản đồ chủ đề
 
@@ -89,7 +90,7 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Cơ chế Bloom filter (`lec-08-topic-09`) | cốt lõi | 4.1–4.3 | $10^9$ địa chỉ trong 1 GB, ví dụ 11 bit, xây và truy vấn → bảo đảm |
 | Không âm giả (`lec-08-topic-10`) | cốt lõi | 4.4 | Bốn điều kiện, phản ví dụ khi xóa bit → phân tích dương giả |
 | Mật độ bit và xác suất dương giả (`lec-08-topic-11`) | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | $q$ chính xác, xấp xỉ $q^k$, dạng mũ → hàm $p(k)$ |
-| Số hàm băm tối ưu (`lec-08-topic-12`) | cốt lõi; định cỡ cho 1% là bổ sung | 4.6–4.7 | $k^*=(n/m)\ln2$, chọn $k$ nguyên → định cỡ Bloom filter |
+| Số hàm băm tối ưu (`lec-08-topic-12`) | cốt lõi | 4.6–4.7 | $k^*=(n/m)\ln2$, chọn $k$ nguyên → định cỡ Bloom filter |
 | Chọn cấu trúc theo câu hỏi (`lec-08-topic-13`) | cốt lõi | 5.1–5.2 | Kết quả, giả thiết, bảo đảm, chi phí; trả lời vấn đề trung tâm → tình huống áp dụng |
 | Tình huống áp dụng và ứng dụng (`lec-08-topic-14`) | cốt lõi | Tình huống | Ba bài toán giải trọn, một tình huống vi phạm giả thiết; ứng dụng ở Bài 09 → tóm tắt |
 | Tóm tắt chương (`lec-08-topic-15`) | cốt lõi | Tóm tắt | Chuỗi kết quả, giả thiết hay bị bỏ quên → Bài 09 |
@@ -100,6 +101,12 @@ Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượ
 
 <!-- note-topic-id: lec-08-topic-02 -->
 ## 1. Mô hình dòng một lượt
+
+Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn") đặt hai bài toán trên dòng: giữ một mẫu nhật ký truy vấn vẫn đo được mức lặp của từng người dùng, và lọc thư theo danh sách địa chỉ cho phép khi danh sách vượt bộ nhớ; ghi chú đó chưa đưa ra thuật toán. Với vài trăm triệu truy vấn mỗi ngày (MMDS §4.1.2, tr.133) và $10^9$ địa chỉ được phép trong 1 GB bộ nhớ (§4.3.1, tr.139), không thể lưu cả dòng rồi xử lý. Chúng ta xây một mô hình chung cho thuật toán dòng (Mục 1), ba cấu trúc trên mô hình đó (Mục 2–4) và một quy trình chọn giữa chúng (Mục 5).
+
+![Sơ đồ cấu trúc chương đọc từ trên xuống: khối Mục 1, mô hình dòng một lượt, đọc một lần và trả lời từ trạng thái; ba mũi tên xuống ba khối song song: Mục 2 lấy mẫu theo khóa, câu hỏi thống kê theo nhóm, bảo đảm giữ trọn từng khóa với xác suất a/b mỗi khóa; Mục 3 lấy mẫu hồ chứa, câu hỏi mẫu có cỡ cố định, bảo đảm đúng s phần tử với xác suất s/r mỗi phần tử; Mục 4 Bloom filter, câu hỏi khóa có thuộc tập không, bảo đảm không âm giả và dương giả xấp xỉ p(k); ba mũi tên hội tụ vào khối Mục 5, chọn cấu trúc theo câu hỏi dựa trên đầu ra, giả thiết và chi phí.](img/lec-08/cau-truc-chuong.svg)
+
+Hình đọc từ trên xuống. Khối trên cùng là đặc tả chung mà mọi cấu trúc phải thỏa. Ba khối giữa là ba cấu trúc, mỗi khối ghi câu hỏi nó trả lời và bảo đảm chính sẽ được chứng minh: Mệnh đề 08.10 cho mẫu theo khóa, Định lý 08.17 cho hồ chứa, Định lý 08.25 và Mệnh đề 08.27 cho Bloom filter. Ba nhánh không phụ thuộc nhau, nên có thể đọc theo thứ tự bất kỳ sau Mục 1; chúng gặp lại ở khối dưới cùng, nơi Mục 5 đặt ba bảo đảm cạnh nhau.
 
 Một triệu cảm biến đo độ cao mặt biển, mỗi cảm biến gửi 10 số đo 4 byte mỗi giây, tạo $10^6\cdot10\cdot4\cdot86\,400\approx3{,}46\cdot10^{12}$ byte mỗi ngày, được sách làm tròn thành 3,5 TB (MMDS §4.1.2, tr.133). Số đo không được xử lý khi đến thì chỉ còn trong kho lưu trữ (archival store), nơi quá chậm để trả lời truy vấn (§4.1.1, tr.132). Ở Bài 02, trung bình cộng được tính bằng cặp (tổng, số lượng) thay cho danh sách các số, nhưng dữ liệu nằm trên đĩa và đọc lại được. Trên dòng, chúng ta phải chọn trước khi phần tử đầu tiên đến: giữ trạng thái nào cho truy vấn đã định, trạng thái ấy tốn bao nhiêu bộ nhớ, mỗi phần tử tốn bao nhiêu phép toán.
 
@@ -123,7 +130,7 @@ Khi số mới đến, truy vấn thứ nhất so nó với giá trị đang gi�
 **Kiểm tra lại.** $1+5+2+7+4+0+3+5=27$; số lớn nhất là $7$.
 :::
 
-Không truy vấn nào cần cả lịch sử: hai truy vấn đầu giữ một hoặc hai số dù dòng dài bao nhiêu, truy vấn thứ ba giữ không quá 24 số. Ngược lại, câu hỏi "số đo thứ ba là bao nhiêu" không trả lời được từ ba trạng thái trên, vì số $2$ đã bị bỏ khi đến. Trạng thái được chọn theo truy vấn, trước khi dòng đến.
+Một cách trực quan, một thuật toán dòng là một trạng thái nhỏ được cập nhật khi từng phần tử đi qua, và trạng thái đó do truy vấn quyết định. Không truy vấn nào cần cả lịch sử: hai truy vấn đầu giữ một hoặc hai số dù dòng dài bao nhiêu, truy vấn thứ ba giữ không quá 24 số. Ngược lại, câu hỏi "số đo thứ ba là bao nhiêu" không trả lời được từ ba trạng thái trên, vì số $2$ đã bị bỏ khi đến. Trạng thái được chọn theo truy vấn, trước khi dòng đến.
 
 ::: definition Định nghĩa 08.1 (Thuật toán dòng một lượt)
 Một **dòng** là dãy phần tử $x_1,x_2,\ldots$ đến lần lượt; độ dài không biết trước, và hệ thống không điều khiển nhịp đến. Ký hiệu $r$ là số phần tử đã đọc, tính cả phần tử vừa đến.
@@ -145,7 +152,7 @@ Ví dụ 08.1 thỏa định nghĩa: ba truy vấn là truy vấn thường tr�
 
 ### 1.2 Hình mô hình dòng
 
-Một cách trực quan, mô hình dòng là một bộ xử lý đứng giữa các dòng đi vào và các câu trả lời đi ra, với hai nơi lưu có vai trò khác nhau. Hình dưới vẽ lại MMDS Hình 4.1 (tr.132) và đặt mỗi thành phần của Định nghĩa 08.1 vào một chỗ trong hệ thống.
+Hình dưới vẽ lại MMDS Hình 4.1 (tr.132) và đặt mỗi thành phần của Định nghĩa 08.1 vào một chỗ trong hệ thống: một bộ xử lý đứng giữa các dòng đi vào và các câu trả lời đi ra, với hai nơi lưu có vai trò khác nhau.
 
 ![Các dòng đi vào bộ xử lý dòng từ bên trái; dòng trên cùng viết 5, 3, 0, 4, 7, 2, 5, 1, số 1 sát bộ xử lý là phần tử đến trước, mũi tên thời gian chỉ sang trái. Bộ xử lý chứa truy vấn thường trực; truy vấn tức thời đi vào từ phía trên, dòng kết quả đi ra bên phải; bộ xử lý đọc và ghi bộ nhớ làm việc hạn chế bằng mũi tên hai chiều, chỉ ghi vào kho lưu trữ vẽ bằng khung nét đứt, và kho này không dùng để trả lời truy vấn.](img/lec-08/mo-hinh-dong.svg)
 
@@ -348,10 +355,10 @@ $$
 không xảy ra với $u\ge0$, $d>0$. $\square$
 :::
 
-Với An, $u=d=1$, mệnh đề cho $1/29\approx0{,}034$ thay cho $1/2$. Số này khác $1/19$ của Ví dụ 08.3 vì mẫu số tính cả truy vấn "băm". Bước 2 dùng độc lập giữa hai bộ của cùng một truy vấn, và chính sự tách rời này gây sai lệch: một truy vấn lặp bị cắt thành hai quyết định riêng.
+Với An, $u=d=1$, mệnh đề cho $1/29\approx0{,}034$ thay cho $1/2$. Số này khác $1/19$ của Ví dụ 08.3 vì mẫu số tính cả truy vấn "băm". Bước 2 dùng độc lập giữa hai bộ của cùng một truy vấn, và sai lệch đến từ chỗ một truy vấn lặp bị cắt thành hai quyết định riêng.
 
 ::: remark Nhận xét 08.7 (Nhầm lẫn thường gặp)
-- Mỗi người dùng vẫn giữ trung bình $1/10$ số truy vấn của mình; sai lệch không nằm ở tỷ lệ giữ mà ở đơn vị bị cắt. Với tỷ lệ giữ $p$ bất kỳ, cùng phép đếm cho tỷ số $dp/(u+(2-p)d)$, vẫn khác $d/(u+d)$ khi $p<1$; với $p=1/10$ ta được lại $d/(10u+19d)$.
+- Mỗi người dùng vẫn giữ trung bình $1/10$ số truy vấn của mình, và sai lệch đến từ việc đơn vị bị cắt. Với tỷ lệ giữ $\eta$ bất kỳ, cùng phép đếm cho tỷ số $d\eta/(u+(2-\eta)d)$, vẫn khác $d/(u+d)$ khi $\eta<1$; với $\eta=1/10$ ta được lại $d/(10u+19d)$.
 - $d/(10u+19d)$ là tỷ số của hai số đếm kỳ vọng, không phải kỳ vọng của tỷ lệ tính trên mẫu.
 :::
 
@@ -386,7 +393,7 @@ Một cách trực quan, hàm băm làm việc của bảng mà không lưu bả
 
 ![Năm bộ (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc) đi qua cùng một hàm băm h trên tên người dùng, giá trị trong 0 đến 9; giữ khi h bằng 0: h(An) = 0 nên giữ cả ba bộ của An, h(Bình) = 7 và h(Chi) = 4 nên bỏ; không lưu bảng theo người dùng.](img/lec-08/bam-theo-nguoi-dung.svg)
 
-Hình dùng $b=10$ ngăn, ngưỡng $a=1$, tức giữ bộ khi $h=0$; cả ba bộ của An vào mẫu. Các giá trị $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$ là một hàm minh họa, chọn trùng số rút của Ví dụ 08.4 nên hai phương án cho cùng mẫu, nhưng không có bảng nào được lưu. Slide MMDS (Streams 1, tr.15–16) minh họa cùng cơ chế với tỷ lệ 30%, tức giữ khi giá trị băm thuộc $\{0,1,2\}$.
+Hình dùng $b=10$ ngăn, ngưỡng $a=1$, tức giữ bộ khi $h=0$; cả ba bộ của An vào mẫu. Các giá trị $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$ là một hàm minh họa, chọn trùng số rút của Ví dụ 08.4 nên hai phương án cho cùng mẫu, nhưng không có bảng nào được lưu. Trang chiếu MMDS (Streams 1, tr.15–16) minh họa cùng cơ chế với tỷ lệ 30%, tức giữ khi giá trị băm thuộc $\{0,1,2\}$.
 
 ::: definition Định nghĩa 08.8 (Mẫu theo khóa với tỷ lệ $a/b$)
 Cho dòng bộ $t$, mỗi bộ có khóa $K(t)$ trong miền khóa $\mathcal K$. Cho số ngăn $b\ge1$, ngưỡng $a$ nguyên với $0\le a\le b$, và hàm băm $h:\mathcal K\to\{0,\ldots,b-1\}$ được chọn một lần trước khi dòng bắt đầu rồi giữ cố định.
@@ -536,7 +543,7 @@ Với bộ thứ $i$, đặt biến chỉ báo $\mathbf 1[h(K(t_i))<a]$. Theo M�
 
 **Tính.** Theo Hệ quả 08.12, cỡ mẫu kỳ vọng là $1\,001\,000/5=200\,200$ bộ. Theo Mệnh đề 08.10, khóa nhiều bộ được giữ trọn với xác suất $1/5$ và bị bỏ trọn với xác suất $4/5$. Nếu được giữ, mẫu có ít nhất $10^6$ bộ; nếu bị bỏ, mẫu có không quá $1\,000$ bộ.
 
-**Diễn giải.** Cỡ mẫu thực không bao giờ gần $200\,200$: kỳ vọng đúng nhưng không mô tả một lần chạy.
+**Diễn giải.** Cỡ mẫu thực hoặc ít nhất $10^6$, hoặc không quá $1\,000$, nên không bao giờ gần $200\,200$.
 
 **Kiểm tra lại.** $\frac15\cdot10^6+\frac15\cdot1\,000=200\,000+200=200\,200$.
 :::
@@ -623,7 +630,9 @@ Ký hiệu $G$ (ngân sách) chỉ dùng trong thuật toán này và Ví dụ 0
 **Bước 3 (hạ ngưỡng).** Giả sử mẫu bằng tập các bộ đã đọc có $h\le\tau$ và mẫu khác rỗng. Gọi $c$ là giá trị băm lớn nhất trong mẫu, nên $c\le\tau$. Không bộ nào trong mẫu có giá trị trong khoảng $(c,\tau]$; theo bất biến, cũng không bộ đã đọc nào có giá trị trong khoảng đó. Xóa các bộ có giá trị $c$ để lại đúng các bộ đã đọc có $h\le c-1$, nên đặt $\tau\gets c-1$ giữ bất biến, và $\tau$ giảm. Theo quy nạp trên số bước, bất biến đúng sau mọi bước; $\tau$ chỉ thay đổi ở bước 3, và ở đó nó giảm. $\square$
 :::
 
-Như vậy, chúng ta đã chỉ ra lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), thay bảng nhãn bằng hàm băm cố định (Định nghĩa 08.8, Thuật toán 08.9), chứng minh mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất $a/b$ (Mệnh đề 08.10), tính cỡ mẫu kỳ vọng $ar/b$ (Hệ quả 08.12), và giữ ngân sách bằng ngưỡng giảm dần (Thuật toán 08.13, Mệnh đề 08.14). Tuy nhiên, cỡ mẫu theo khóa phụ thuộc vào số bộ của các khóa được chọn: với tỷ lệ cố định, nó tăng theo dòng; với ngân sách cố định, tỷ lệ khóa giảm dần và một khóa nhiều bộ có thể bị đẩy trọn ra khỏi mẫu. Mẫu đại diện cho mọi phần tử đã đọc cần đúng $s$ phần tử ở mọi thời điểm. Trong Mục 3, chúng ta đổi đơn vị chọn từ khóa sang vị trí trên dòng và xây lấy mẫu hồ chứa với cỡ mẫu cố định.
+**Trong thực hành.** Chỉ mục có thứ tự trên giá trị băm là một cây tìm kiếm cân bằng mà mỗi nút giữ danh sách các bộ cùng giá trị, nên tra giá trị lớn nhất và xóa cả danh sách đều nhanh. Ngân sách thường tính bằng byte; khi các bộ có độ dài khác nhau, $G$ là số bộ tối đa vừa ngân sách đó. Tình huống 08.1 áp dụng thuật toán cho ngân sách $10^8$ bộ.
+
+Như vậy, chúng ta đã chỉ ra lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), thay bảng nhãn bằng hàm băm cố định (Định nghĩa 08.8, Thuật toán 08.9), chứng minh mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất $a/b$ (Mệnh đề 08.10), tính cỡ mẫu kỳ vọng $ar/b$ (Hệ quả 08.12), và giữ ngân sách bằng ngưỡng giảm dần (Thuật toán 08.13, Mệnh đề 08.14). Tuy nhiên, cỡ mẫu theo khóa phụ thuộc vào số bộ của các khóa được chọn: với tỷ lệ cố định, nó tăng theo dòng; với ngân sách cố định, tỷ lệ khóa giảm dần và một khóa nhiều bộ có thể bị đẩy trọn ra khỏi mẫu. Trong Mục 3, chúng ta đổi đơn vị chọn từ khóa sang vị trí trên dòng và xây lấy mẫu hồ chứa với cỡ mẫu cố định.
 
 ## 3. Lấy mẫu hồ chứa
 
@@ -633,7 +642,7 @@ Mẫu theo khóa của Mục 2 không chặn cỡ: ở Ví dụ 08.6, một khó
 ### 3.1 Mẫu cỡ cố định và ý tưởng hồ chứa
 
 ::: example Ví dụ 08.8 (Mẫu hai phần tử trên dòng mười phần tử)
-**Dữ kiện.** Dòng a, x, c, y, z, k, c, d, e, g của slide MMDS (Streams 1, tr.18); cần giữ $s=2$ phần tử. Đơn vị chọn là vị trí: chữ c ở vị trí 3 và vị trí 7 là hai phần tử khác nhau.
+**Dữ kiện.** Dòng a, x, c, y, z, k, c, d, e, g của trang chiếu MMDS (Streams 1, tr.18); cần giữ $s=2$ phần tử. Đơn vị chọn là vị trí: chữ c ở vị trí 3 và vị trí 7 là hai phần tử khác nhau.
 
 **Tính.** Sau $r=5$ phần tử, mỗi phần tử trong a, x, c, y, z cần có mặt với xác suất $2/5$. Sau $r=7$ phần tử, mỗi phần tử trong bảy phần tử đầu cần xác suất $2/7$. Cách trực tiếp là lưu cả $r$ phần tử rồi rút ngẫu nhiên $2$ phần tử; cách này cho đúng xác suất nhưng bộ nhớ tăng theo $r$.
 
@@ -642,7 +651,7 @@ Mẫu theo khóa của Mục 2 không chặn cỡ: ở Ví dụ 08.6, một khó
 **Kiểm tra lại.** Với $r=5$, tổng các xác suất có mặt là $5\cdot\frac25=2=s$, đúng số ô.
 :::
 
-Một cách trực quan, hồ chứa (reservoir) giống mẫu theo khóa ở quy tắc ngưỡng: giữ khi một số đều không vượt ngưỡng, $j\le s$ thay cho $h(K)<a$. Nó khác ở hai chỗ: số được rút lại ở mỗi vị trí thay vì băm từ khóa, và một phần tử đã giữ có thể bị thay. Khi phần tử thứ $r>s$ đến, rút một số nguyên $j$ đều trong $\{1,\ldots,r\}$ và thay ô $j$ của hồ chứa khi $j\le s$. Một số $j$ gộp hai quyết định của slide MMDS (Streams 1, tr.19). Thứ nhất, $x_r$ được nhận với xác suất $s/r$, vì đúng $s$ trong $r$ giá trị đồng khả năng thỏa $j\le s$. Thứ hai, với điều kiện $x_r$ được nhận, $j$ đều trên $\{1,\ldots,s\}$, nên ô bị thay được chọn đều trong $s$ ô. Mô tả này chưa cho biết xác suất có mặt của các phần tử cũ; Định nghĩa 08.15 nêu yêu cầu đó.
+Một cách trực quan, hồ chứa (reservoir) giống mẫu theo khóa ở quy tắc ngưỡng: giữ khi một số đều không vượt ngưỡng, $j\le s$ thay cho $h(K)<a$. Nó khác ở hai chỗ: số được rút lại ở mỗi vị trí thay vì băm từ khóa, và một phần tử đã giữ có thể bị thay. Khi phần tử thứ $r>s$ đến, rút một số nguyên $j$ đều trong $\{1,\ldots,r\}$ và thay ô $j$ của hồ chứa khi $j\le s$. Một số $j$ gộp hai quyết định của trang chiếu MMDS (Streams 1, tr.19). Thứ nhất, $x_r$ được nhận với xác suất $s/r$, vì đúng $s$ trong $r$ giá trị đồng khả năng thỏa $j\le s$. Thứ hai, với điều kiện $x_r$ được nhận, $j$ đều trên $\{1,\ldots,s\}$, nên ô bị thay được chọn đều trong $s$ ô. Mô tả này chưa cho biết xác suất có mặt của các phần tử cũ; Định nghĩa 08.15 nêu yêu cầu đó.
 
 ::: example Ví dụ 08.9 (Vết chạy hồ chứa hai ô)
 **Dữ kiện.** Dòng a, x, c, y, z; $s=2$; một lần rút do học phần dựng cho $j=2,4,1$ ở $r=3,4,5$.
@@ -677,7 +686,7 @@ Cho dòng $x_1,x_2,\ldots$, số nguyên $s\ge1$ gọi là sức chứa, và m�
 Xác suất lấy theo các số do bộ sinh tạo ra; dòng được coi là cố định, không ngẫu nhiên.
 :::
 
-Định nghĩa đòi một tính chất về từng phần tử riêng lẻ. Nó không đòi các biến cố $x_i\in W$ độc lập; thực ra chúng không thể độc lập, vì tổng số phần tử có mặt luôn đúng bằng $s$. Nó cũng không đòi mọi tập con $s$ phần tử có cùng xác suất; tính chất mạnh hơn này là nội dung của Mệnh đề 08.18. Với Ví dụ 08.8, định nghĩa đòi đúng $2/5$ sau $r=5$ và $2/7$ sau $r=7$. So với mẫu theo khóa (Định nghĩa 08.8), đơn vị chọn là vị trí thay cho khóa, và cỡ mẫu cố định thay cho tỷ lệ cố định.
+Định nghĩa đòi một tính chất về từng phần tử riêng lẻ. Nó không đòi các biến cố $x_i\in W$ độc lập; chúng không thể độc lập, vì tổng số phần tử có mặt luôn đúng bằng $s$. Nó cũng không đòi mọi tập con $s$ phần tử có cùng xác suất; tính chất mạnh hơn này là nội dung của Mệnh đề 08.18. Với Ví dụ 08.8, định nghĩa đòi đúng $2/5$ sau $r=5$ và $2/7$ sau $r=7$. So với mẫu theo khóa (Định nghĩa 08.8), đơn vị chọn là vị trí thay cho khóa, và cỡ mẫu cố định thay cho tỷ lệ cố định.
 
 ::: algorithm Thuật toán 08.16 (Lấy mẫu hồ chứa)
 **Đầu vào.** Dòng $x_1,x_2,\ldots$; sức chứa $s\ge1$; bộ sinh số nguyên đều, độc lập với các lần rút trước.
@@ -744,7 +753,7 @@ $$
 \end{aligned}
 $$
 
-Dòng thứ hai dùng giả thiết quy nạp cho thừa số đầu. Với thừa số sau: khi $x_i\in W_r$, phần tử $x_i$ nằm ở một ô cố định và bị thay khi và chỉ khi $j$ bằng đúng số hiệu ô đó. Vì $j$ độc lập với các lần rút trước, điều kiện $x_i\in W_r$ không đổi phân phối của $j$, nên xác suất bị thay là $1/(r+1)$. MMDS (§4.5.5, tr.148–149) trình bày cùng kỹ thuật để chọn vị trí cho các biến ước lượng mômen và chứng minh $s/n$ bằng quy nạp, với $n$ của sách là $r$ ở đây. Sách và slide MMDS (Streams 1, tr.21) tính xác suất không bị thay theo hai trường hợp: $x_{r+1}$ bị bỏ, hoặc được nhận nhưng thay ô khác, cho $\bigl(1-\frac s{r+1}\bigr)+\frac s{r+1}\cdot\frac{s-1}s=\frac r{r+1}$, cùng kết quả.
+Dòng thứ hai dùng giả thiết quy nạp cho thừa số đầu. Với thừa số sau: khi $x_i\in W_r$, phần tử $x_i$ nằm ở một ô cố định và bị thay khi và chỉ khi $j$ bằng đúng số hiệu ô đó. Vì $j$ độc lập với các lần rút trước, điều kiện $x_i\in W_r$ không đổi phân phối của $j$, nên xác suất bị thay là $1/(r+1)$. MMDS (§4.5.5, tr.148–149) trình bày cùng kỹ thuật để chọn vị trí cho các biến ước lượng mômen và chứng minh $s/n$ bằng quy nạp, với $n$ của sách là $r$ ở đây. Sách và trang chiếu MMDS (Streams 1, tr.21) tính xác suất không bị thay theo hai trường hợp: $x_{r+1}$ bị bỏ, hoặc được nhận nhưng thay ô khác, cho $\bigl(1-\frac s{r+1}\bigr)+\frac s{r+1}\cdot\frac{s-1}s=\frac r{r+1}$, cùng kết quả.
 
 **Bước 5 (cỡ).** Ở bước $r+1>s$, thuật toán giữ nguyên $W$ hoặc ghi đè đúng một ô, nên $\lvert W_{r+1}\rvert=s$.
 
@@ -762,24 +771,24 @@ Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiế
 
 Bước 3 dùng tính đều của $j$; Bước 4 dùng cả tính đều và tính độc lập.
 
-Định lý 08.17 chỉ nói về từng phần tử. Thuật toán thực ra cho một bảo đảm mạnh hơn, mà Định nghĩa 08.15 không đòi; đây là phần bổ sung, chứng minh bằng cùng kiểu quy nạp.
+Định lý 08.17 chỉ nói về từng phần tử. Thuật toán cho một bảo đảm mạnh hơn, mà Định nghĩa 08.15 không đòi; đây là phần bổ sung, chứng minh bằng cùng kiểu quy nạp.
 
 ::: proposition Mệnh đề 08.18 (Mọi tập con cỡ $s$ đồng khả năng)
 **Giả thiết.** Như Định lý 08.17.
 
-**Kết luận.** Với mọi $r\ge s$ và mọi tập $T$ gồm $s$ vị trí trong $\{1,\ldots,r\}$, $\Pr[W_r=T]=1/\binom rs$, trong đó $W_r=T$ nghĩa là hồ chứa đúng các phần tử ở các vị trí của $T$.
+**Kết luận.** Với mọi $r\ge s$ và mọi tập $A$ gồm $s$ vị trí trong $\{1,\ldots,r\}$, $\Pr[W_r=A]=1/\binom rs$, trong đó $W_r=A$ nghĩa là hồ chứa đúng các phần tử ở các vị trí của $A$.
 
 **Điều kiện áp dụng.** Như Định lý 08.17.
 
-**Phạm vi.** Mệnh đề suy ra Định lý 08.17, vì mỗi vị trí $i$ thuộc đúng $\binom{r-1}{s-1}$ tập $T$, và $\binom{r-1}{s-1}/\binom rs=s/r$.
+**Phạm vi.** Mệnh đề suy ra Định lý 08.17, vì mỗi vị trí $i$ thuộc đúng $\binom{r-1}{s-1}$ tập $A$, và $\binom{r-1}{s-1}/\binom rs=s/r$.
 :::
 
 ::: proof
 **Bước 1 (cơ sở).** Với $r=s$, tập duy nhất là $\{1,\ldots,s\}$, xác suất $1=1/\binom ss$.
 
-**Bước 2 ($r+1\notin T$).** Khi đó $W_{r+1}=T$ đúng khi $W_r=T$ và $j>s$. Theo giả thiết quy nạp và tính độc lập của $j$, xác suất là $\frac1{\binom rs}\cdot\frac{r+1-s}{r+1}=\frac1{\binom{r+1}s}$, vì $\binom{r+1}s=\binom rs\frac{r+1}{r+1-s}$.
+**Bước 2 ($r+1\notin A$).** Khi đó $W_{r+1}=A$ đúng khi $W_r=A$ và $j>s$. Theo giả thiết quy nạp và tính độc lập của $j$, xác suất là $\frac1{\binom rs}\cdot\frac{r+1-s}{r+1}=\frac1{\binom{r+1}s}$, vì $\binom{r+1}s=\binom rs\frac{r+1}{r+1-s}$.
 
-**Bước 3 ($r+1\in T$).** Đặt $T'=T\setminus\{r+1\}$, gồm $s-1$ vị trí. Khi đó $W_{r+1}=T$ đúng khi $W_r=T'\cup\{\ell\}$ với một vị trí $\ell\le r$ ngoài $T'$, và $j$ bằng ô chứa phần tử ở vị trí $\ell$. Có $r-s+1$ cách chọn $\ell$, mỗi cách có xác suất $\frac1{\binom rs}\cdot\frac1{r+1}$, nên tổng là $\frac{r+1-s}{(r+1)\binom rs}=\frac1{\binom{r+1}s}$. $\square$
+**Bước 3 ($r+1\in A$).** Đặt $A'=A\setminus\{r+1\}$, gồm $s-1$ vị trí. Khi đó $W_{r+1}=A$ đúng khi $W_r=A'\cup\{\ell\}$ với một vị trí $\ell\le r$ ngoài $A'$, và $j$ bằng ô chứa phần tử ở vị trí $\ell$. Có $r-s+1$ cách chọn $\ell$, mỗi cách có xác suất $\frac1{\binom rs}\cdot\frac1{r+1}$, nên tổng là $\frac{r+1-s}{(r+1)\binom rs}=\frac1{\binom{r+1}s}$. $\square$
 :::
 
 Với $r=4$, $s=2$, mệnh đề cho mỗi cặp vị trí xác suất $1/\binom42=1/6$. Liệt kê trực tiếp: $j$ ở bước 3 có 3 giá trị và ở bước 4 có 4 giá trị, tạo $12$ kết cục đồng khả năng, và mỗi trong 6 cặp xuất hiện đúng 2 lần.
@@ -792,7 +801,7 @@ Với $r=4$, $s=2$, mệnh đề cho mỗi cặp vị trí xác suất $1/\binom
 **Kết luận.** Bộ nhớ gồm $s$ ô và bộ đếm $r$, tức $\Theta(s)$ từ máy; mỗi phần tử tốn $O(1)$ phép trong trường hợp xấu nhất. Sau $r>s$ phần tử có đúng $r-s$ lần rút, và số lần ghi vào $W$ có kỳ vọng
 
 $$
-s+\sum_{k=s+1}^{r}\frac sk,\qquad s\Bigl(1+\ln\frac{r+1}{s+1}\Bigr)\le s+\sum_{k=s+1}^{r}\frac sk\le s\Bigl(1+\ln\frac rs\Bigr).
+s+\sum_{i=s+1}^{r}\frac si,\qquad s\Bigl(1+\ln\frac{r+1}{s+1}\Bigr)\le s+\sum_{i=s+1}^{r}\frac si\le s\Bigl(1+\ln\frac rs\Bigr).
 $$
 
 **Điều kiện áp dụng.** Cận $O(1)$ dựa vào quy ước rút một số tính là 1 phép.
@@ -803,15 +812,15 @@ $$
 ::: proof
 **Bước 1 (bộ nhớ, thời gian).** Thuật toán giữ $W[1..s]$ và $r$; mỗi phần tử tốn một phép tăng, tối đa một lần rút và một lần ghi.
 
-**Bước 2 (số lần ghi).** $s$ phần tử đầu được ghi chắc chắn. Phần tử thứ $k>s$ được ghi khi $j\le s$, với xác suất $s/k$ (Bước 3 của chứng minh Định lý 08.17). Theo tuyến tính kỳ vọng, tổng số lần ghi có kỳ vọng $s+\sum_{k=s+1}^r s/k$.
+**Bước 2 (số lần ghi).** $s$ phần tử đầu được ghi chắc chắn. Phần tử thứ $i>s$ được ghi khi $j\le s$, với xác suất $s/i$ (Bước 3 của chứng minh Định lý 08.17). Theo tuyến tính kỳ vọng, tổng số lần ghi có kỳ vọng $s+\sum_{i=s+1}^r s/i$.
 
-**Bước 3 (cận).** Hàm $1/z$ giảm, nên $\int_k^{k+1}\frac{dz}z\le\frac1k\le\int_{k-1}^{k}\frac{dz}z$. Cộng theo $k=s+1,\ldots,r$ được $\ln\frac{r+1}{s+1}\le\sum_{k=s+1}^r\frac1k\le\ln\frac rs$; nhân với $s$ rồi cộng $s$. $\square$
+**Bước 3 (cận).** Hàm $1/z$ giảm, nên $\int_i^{i+1}\frac{dz}z\le\frac1i\le\int_{i-1}^{i}\frac{dz}z$. Cộng theo $i=s+1,\ldots,r$ được $\ln\frac{r+1}{s+1}\le\sum_{i=s+1}^r\frac1i\le\ln\frac rs$; nhân với $s$ rồi cộng $s$. $\square$
 :::
 
 ::: example Ví dụ 08.10 (Số lần ghi với $s=100$, $r=10^6$)
 **Dữ kiện.** Hồ chứa $s=100$ ô trên dòng $r=10^6$ phần tử.
 
-**Tính.** Số lần thay kỳ vọng sau khi hồ đầy là $\sum_{k=101}^{10^6}\frac{100}k\approx920{,}5$, nên tổng số lần ghi kỳ vọng khoảng $1\,020{,}5$. Cận trên của Mệnh đề 08.19 là $100(1+\ln10^4)\approx1\,021{,}0$; cận dưới là $100\bigl(1+\ln\frac{1\,000\,001}{101}\bigr)\approx1\,020{,}0$.
+**Tính.** Số lần thay kỳ vọng sau khi hồ đầy là $\sum_{i=101}^{10^6}\frac{100}i\approx920{,}5$, nên tổng số lần ghi kỳ vọng khoảng $1\,020{,}5$. Cận trên của Mệnh đề 08.19 là $100(1+\ln10^4)\approx1\,021{,}0$; cận dưới là $100\bigl(1+\ln\frac{1\,000\,001}{101}\bigr)\approx1\,020{,}0$.
 
 **Diễn giải.** Hồ chứa chỉ ghi khoảng $0{,}1\%$ số phần tử; phần lớn phần tử bị bỏ sau một lần rút.
 
@@ -823,7 +832,7 @@ $$
 ::: remark Nhận xét 08.20 (Nhầm lẫn thường gặp)
 - $s/r$ không phải tỷ lệ lấy mẫu cố định: nó giảm khi dòng dài ra, khác tỷ lệ $a/b$ của Mục 2. Chỉ số $r$ tính cả phần tử vừa đến.
 - Bộ sinh lệch hoặc phụ thuộc các lần rút trước phá Định lý 08.17 mà không đổi chi phí, như hai phản ví dụ sau định lý.
-- Hồ chứa không giữ trọn khóa: các vị trí được chọn riêng, nên hai bộ của cùng một người có thể bị tách. Tỷ lệ truy vấn lặp tính trên hồ chứa lệch theo cùng chiều với Mục 2.1, nhưng không theo đúng công thức $d/(10u+19d)$, vì các vị trí không được giữ độc lập. Với $p=s/r$ và $p_2=\frac{s(s-1)}{r(r-1)}$, xác suất hai vị trí cho trước cùng có mặt (Mệnh đề 08.18), một truy vấn hai lần còn đủ hai bản với xác suất $p_2$ và đúng một bản với xác suất $2p-2p_2$, nên tỷ số các số đếm kỳ vọng là $\frac{dp_2}{up+2dp-dp_2}$. Với $d>0$, tỷ số này bằng $d/(u+d)$ khi và chỉ khi $p_2(u+2d)=p(u+2d)$, tức $p_2=p$; nó tăng theo $p_2$, và $p_2/p=(s-1)/(r-1)<1$ khi $s<r$, nên nó nhỏ hơn tỷ lệ thật.
+- Hồ chứa không giữ trọn khóa: các vị trí được chọn riêng, nên hai bộ của cùng một người có thể bị tách. Tỷ lệ truy vấn lặp tính trên hồ chứa lệch theo cùng chiều với Mục 2.1, nhưng không theo đúng công thức $d/(10u+19d)$, vì các vị trí không được giữ độc lập. Với $\eta_1=s/r$ và $\eta_2=\frac{s(s-1)}{r(r-1)}$, xác suất hai vị trí cho trước cùng có mặt (Mệnh đề 08.18), một truy vấn hai lần còn đủ hai bản với xác suất $\eta_2$ và đúng một bản với xác suất $2\eta_1-2\eta_2$, nên tỷ số các số đếm kỳ vọng là $\frac{d\eta_2}{u\eta_1+2d\eta_1-d\eta_2}$. Với $d>0$, tỷ số này bằng $d/(u+d)$ khi và chỉ khi $\eta_2(u+2d)=\eta_1(u+2d)$, tức $\eta_2=\eta_1$; nó tăng theo $\eta_2$, và $\eta_2/\eta_1=(s-1)/(r-1)<1$ khi $s<r$, nên nó nhỏ hơn tỷ lệ thật.
 :::
 
 ::: remark Nhận xét 08.21 (Trong thực hành)
@@ -855,7 +864,7 @@ Như vậy, chúng ta đã có cấu trúc lấy mẫu thứ hai: hồ chứa gi
 
 ## 4. Lọc thành viên bằng Bloom filter
 
-Hai cấu trúc lấy mẫu của Mục 2 và Mục 3 trả lời câu hỏi về phân phối. Bài toán lọc thư của ghi chú Bài 01 cần một câu hỏi khác: địa chỉ gửi của thư vừa đến có thuộc tập địa chỉ được phép hay không. Một mẫu không trả lời được câu hỏi này, vì một địa chỉ được phép vắng mặt trong mẫu vẫn là địa chỉ được phép. Chúng ta cần một cấu trúc trả lời câu hỏi thành viên trên dòng, với bộ nhớ cố định và không bao giờ chặn nhầm một địa chỉ được phép.
+Hai cấu trúc lấy mẫu của Mục 2 và Mục 3 trả lời câu hỏi về phân phối. Bài toán lọc thư của ghi chú Bài 01 cần một câu hỏi khác: địa chỉ gửi của thư vừa đến có thuộc tập $10^9$ địa chỉ được phép hay không. Chúng ta cần một cấu trúc trả lời câu hỏi thành viên trên dòng, với bộ nhớ cố định và không bao giờ chặn nhầm một địa chỉ được phép.
 
 <!-- note-topic-id: lec-08-topic-09 -->
 ### 4.1 Lọc theo danh sách cho phép
@@ -870,7 +879,7 @@ Hình đặt Bloom filter trước phép tra chính xác. Chỉ khóa nhận "c�
 
 ### 4.2 Ví dụ Bloom filter 11 bit
 
-Hai ví dụ sau chạy một Bloom filter nhỏ với $n=11$ bit và $k=2$ hàm băm, theo slide của Ullman cho học phần CS246 (2017, tr.5–8). Hàm $h_1(v)$ ghép các bit ở vị trí lẻ của biểu diễn nhị phân của $v$, đếm từ phải và bắt đầu từ 1, giữ thứ tự từ cao xuống thấp, rồi lấy dư cho 11. Hàm $h_2(v)$ làm như vậy với các bit ở vị trí chẵn. Mảng $B$ hiển thị chỉ số 0 đến 10 từ trái sang phải. Cặp hàm này chỉ là một ví dụ cụ thể, không thuộc định nghĩa Bloom filter.
+Hai ví dụ sau chạy một Bloom filter nhỏ với $n=11$ bit và $k=2$ hàm băm, theo trang chiếu của Ullman cho học phần CS246 (2017, tr.5–8). Hàm $h_1(v)$ ghép các bit ở vị trí lẻ của biểu diễn nhị phân của $v$, đếm từ phải và bắt đầu từ 1, giữ thứ tự từ cao xuống thấp, rồi lấy dư cho 11. Hàm $h_2(v)$ làm như vậy với các bit ở vị trí chẵn. Mảng $B$ hiển thị chỉ số 0 đến 10 từ trái sang phải. Cặp hàm này chỉ là một ví dụ cụ thể, không thuộc định nghĩa Bloom filter.
 
 ::: example Ví dụ 08.11 (Thêm ba khóa vào mảng 11 bit)
 **Dữ kiện.** $S=\{25,159,585\}$, $n=11$, $k=2$; mảng ban đầu toàn 0.
@@ -891,7 +900,7 @@ Hai ví dụ sau chạy một Bloom filter nhỏ với $n=11$ bit và $k=2$ hàm
 ![Mảng 11 bit, chỉ số 0 đến 10: ban đầu toàn 0; thêm 25 vào vị trí 5 và 2 được 00100100000; thêm 159 vào vị trí 7 và 0 được 10100101000; thêm 585 vào vị trí 9 và 7 được 10100101010, bit 7 đã bằng 1 nên không đổi; bit vừa đặt ở mỗi bước có khung đậm.](img/lec-08/bloom-11bit-them.svg)
 
 ::: example Ví dụ 08.12 (Kiểm tra hai khóa trên mảng 11 bit)
-**Dữ kiện.** Mảng $B=10100101010$ của Ví dụ 08.11, cùng $h_1$, $h_2$. Khóa 118 lấy từ slide Ullman tr.8; khóa 29 do học phần chọn.
+**Dữ kiện.** Mảng $B=10100101010$ của Ví dụ 08.11, cùng $h_1$, $h_2$. Khóa 118 lấy từ trang chiếu Ullman tr.8; khóa 29 do học phần chọn.
 
 **Tính.**
 
@@ -1000,7 +1009,7 @@ Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiế
 - Bỏ điều kiện 3: một hàm có thành phần ngẫu nhiên ở mỗi lần gọi có thể trả lúc truy vấn một vị trí khác lúc xây.
 - Bỏ điều kiện 4: truy vấn 159 khi Thuật toán 08.23 mới ghi $B[7]$ cho 159 mà chưa ghi $B[0]$; mảng tạm 00100101000 có $B[0]=0$, nên 159 nhận "chắc chắn không thuộc".
 
-Bước 1 dùng điều kiện 4; Bước 2 dùng điều kiện 1, 2 và 3.
+Bước 1 dùng điều kiện 4; Bước 2 dùng điều kiện 1, 2 và 3. Trong mô hình của chương, mảng được xây xong rồi mới đọc và mỗi $h_i$ là một hàm cố định, nên điều kiện 3 và 4 tự thỏa; điều kiện 1 và 2 là hai điều kiện có thể bị vi phạm khi vận hành.
 
 <!-- note-topic-id: lec-08-topic-11 -->
 ### 4.5 Mật độ bit và xác suất dương giả
@@ -1058,6 +1067,13 @@ Một khóa $y\notin S$ là dương giả khi cả $k$ bit $B[h_1(y)],\ldots,B[h
 
 **Bước 4 (dạng mũ).** Từ $1-1/n\le e^{-1/n}$ suy ra $(1-1/n)^{km}\le e^{-km/n}$, nên $q\ge1-e^{-km/n}$ và $q^k\ge p(k)$. $\square$
 :::
+
+Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+
+- Bỏ "các vị trí của $y$ độc lập với các giá trị băm của $S$": nếu hàm băm chỉ đọc một phần của khóa và $y$ trùng phần đó với một khóa $v\in S$, thì $h_i(y)=h_i(v)$ với mọi $i$, và $y$ luôn lọt qua; xác suất là 1 thay cho $p_{FP}$.
+- Bỏ "các $h_i(y)$ độc lập với nhau": nếu $h_1=\cdots=h_k$, mỗi khóa chỉ đặt một bit và khóa ngoài $S$ chỉ đọc một bit; với $n/m=8$, xác suất lọt qua là $1-(1-1/n)^m\approx0{,}1175$ dù $k=6$, thay cho khoảng $0{,}0216$.
+
+Bước 1 dùng hai giả thiết này; Bước 3 dùng tính lồi của $z\mapsto z^k$; Bước 4 không dùng giả thiết xác suất nào.
 
 Phần (a) chỉ ra nguồn gốc của sai số khi dùng $q^k$: sai số đến từ việc thay kỳ vọng của $(X/n)^k$ bằng lũy thừa của kỳ vọng, chứ không đến từ việc các vị trí truy vấn có thể trùng. Dạng mũ $p(k)$ là công thức của MMDS (tr.141) và của mọi phép định cỡ trong phần còn lại của mục.
 
@@ -1151,7 +1167,7 @@ Theo Định lý 08.28, $p$ giảm trên $(0,k^*]$, nên mọi số nguyên $k\l
 
 **Diễn giải.** Với sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài $S$ lọt qua; giá trị liên tục nhỏ nhất là $2^{-5{,}545}\approx0{,}02142$, nên làm tròn $k$ chỉ tốn khoảng $0{,}0002$.
 
-**Kiểm tra lại.** $p(6)\ge2^{-k^*}$, đúng với Định lý 08.28. Slide MMDS (Streams 2, tr.14) in $(1-e^{-1/6})^2=0{,}0235$, tức viết sai cả số mũ và lũy thừa; công thức đúng $(1-e^{-6/8})^6$ cho $0{,}0216$, như slide CS246 (2026, tr.32–33) đã sửa.
+**Kiểm tra lại.** $p(6)\ge2^{-k^*}$, đúng với Định lý 08.28. Trang chiếu MMDS (Streams 2, tr.14) in $(1-e^{-1/6})^2=0{,}0235$, tức viết sai cả số mũ và lũy thừa; công thức đúng $(1-e^{-6/8})^6$ cho $0{,}0216$, như trang chiếu CS246 (2026, tr.32–33) đã sửa.
 :::
 
 ![Đường cong xác suất dương giả p(k) theo số hàm băm k từ 1 đến 10, trục tung tuyến tính từ 0 đến 0,12, với tám bit mỗi khóa; đường giảm từ khoảng 0,1175 tại k bằng 1 đến nhỏ nhất tại k bằng 6 rồi tăng lại tới khoảng 0,034 tại k bằng 10; vạch đứng nét đứt tại k* xấp xỉ 5,545; k bằng 5 cho 0,02168 và k bằng 6 cho 0,02158.](img/lec-08/fpr-curve.svg)
@@ -1350,92 +1366,172 @@ Ba thuật toán: giữ $t$ khi $h(K(t))<a$; với $r>s$, rút $j$ đều trong 
 - Hồ chứa cần $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước; $s/r$ chỉ đúng khi $r\ge s$ và là xác suất của từng phần tử.
 - Bloom filter cần mảng chỉ được đọc sau khi xây, cùng hàm băm, và $m$ biết trước; $p(k)$ và $q^k$ là cận dưới của $p_{FP}$ dưới mô hình băm đều, độc lập.
 
-## 11. Bốn bài tập từ giáo trình MMDS
+<!-- note-topic-id: lec-08-topic-16 -->
+## Bài tập củng cố
 
-Dưới đây là bốn bài tập giữ nguyên dữ kiện và yêu cầu của giáo trình *Mining of Massive Datasets* (Bài 4.2.1, 4.3.1, 4.3.2, 4.3.3). Lời giải và hướng dẫn chấm là của giảng viên suy ra từ đề, vì kho không có đáp án chính thức của sách.
+Các bài tập trong các mục và chín bài dưới đây là bộ bài tập của chương. Mục tiêu 1 được kiểm bởi Bài tập 08.1, 08.2, 08.3, 08.6 và 08.13; mục tiêu 2 bởi Bài tập 08.4, 08.7 và 08.14; mục tiêu 3 bởi Bài tập 08.5, 08.8–08.12. Bốn bài mang số bài sách (Bài tập 08.10–08.13) là bài của phần bài tập vận dụng trên lớp. Sách không in lời giải; lời giải dưới đây suy ra từ đề và từ các kết quả đã chứng minh trong chương.
 
-::: exercise
-**Bài tập 4.2.1 (tr.138).** Dòng có lược đồ `Grades(university, courseID, studentID, grade)`. Mỗi mã học phần và mã sinh viên chỉ duy nhất trong một trường; định danh `university` là duy nhất toàn cục. Với mẫu $1/20$, xác định khóa cho:
+### Mức nhận biết
 
-1. số sinh viên trung bình trong một học phần của mỗi trường;
-2. tỷ lệ sinh viên có điểm trung bình từ 3,5;
-3. tỷ lệ học phần có ít nhất nửa số sinh viên đạt A.
+::: exercise Bài tập 08.6 (Ngưỡng 5% và mẫu từng bộ)
+Hàm $h$ nhận giá trị trong $\{0,\ldots,99\}$. Muốn giữ $5\%$ người dùng của dòng truy vấn tìm kiếm, điều kiện giữ bộ $t$ là gì? Vì sao không lấy $5\%$ từng bộ? Nêu kết quả đã dùng.
+:::
 
-**Sản phẩm:** ba khóa, mỗi khóa kèm một câu giải thích.
+::: hint
+Đếm số giá trị được nhận; với mẫu từng bộ, dùng công thức tỷ lệ giữ $\eta$ ở Nhận xét 08.7.
 :::
 
 ::: solution
-**Lời giải.** Khóa theo đơn vị thống kê của mỗi câu hỏi:
-
-1. Trung bình sinh viên trong một học phần của mỗi trường: đơn vị là học phần của mỗi trường, khóa `(university, courseID)`.
-2. Tỷ lệ sinh viên có GPA từ 3,5: đơn vị là sinh viên của mỗi trường, khóa `(university, studentID)`.
-3. Tỷ lệ học phần có ít nhất nửa sinh viên đạt A: đơn vị là học phần của mỗi trường, khóa `(university, courseID)`.
-
-Hướng dẫn chấm: 2 điểm cho mỗi khóa đúng, 1 điểm cho mỗi giải thích, 1 điểm cho ký hiệu đồng nhất.
+Giữ $t$ khi $h(K(t))<5$, với $K(t)$ là người dùng: đúng 5 trong 100 giá trị, nên mỗi người được giữ với xác suất $5/100$ khi $h$ đều theo từng khóa (Mệnh đề 08.10(b)), và mọi bộ của một người nhận cùng quyết định (Mệnh đề 08.10(a)). Lấy từng bộ với xác suất $\eta=0{,}05$ cho tỷ số $\frac{d\eta}{u+(2-\eta)d}=\frac{0{,}05d}{u+1{,}95d}=\frac{d}{20u+39d}$ thay vì $\frac{d}{u+d}$ (Nhận xét 08.7, Mệnh đề 08.6). Với $u=d=1$, đó là $1/59$ thay vì $1/2$.
 :::
 
-::: exercise
-**Bài tập 4.3.1 (tr.141).** Bloom filter có $n=8$ tỷ bit và tập $S$ gồm $m=1$ tỷ khóa. Tính xác suất dương giả khi dùng $k=3$ hàm băm là bao nhiêu? Khi dùng $k=4$ là bao nhiêu?
+::: exercise Bài tập 08.7 (Xác suất có mặt trong hồ chứa)
+Hồ chứa có $s=50$ ô, dòng đã có $r=1\,000$ bộ. Bộ thứ 7 còn trong hồ với xác suất bao nhiêu? Cần giả thiết gì?
+:::
 
-**Sản phẩm:** hai phép thế số và hai kết quả.
+::: hint
+Kiểm $r\ge s$ rồi dùng Định lý 08.17.
 :::
 
 ::: solution
-**Lời giải.** Dùng dạng xấp xỉ $p_k\approx(1-e^{-k/8})^k$.
-
-- $k=3$: $p_3=(1-e^{-3/8})^3\approx0{,}030579$.
-- $k=4$: $p_4=(1-e^{-1/2})^4\approx0{,}023969$.
-
-Hướng dẫn chấm: 4 điểm cho mỗi phép thế và kết quả, 2 điểm cho ký hiệu và làm tròn nhất quán.
+Vì $r=1\,000\ge s=50$, Định lý 08.17 cho $\Pr[x_7\in W]=s/r=50/1\,000=0{,}05$. Cần mỗi số $j$ đều trên $\{1,\ldots,r\}$ và độc lập với các lần rút trước. Vị trí 7 không có vai trò riêng: mọi bộ đã đọc có cùng xác suất.
 :::
 
-::: exercise
-**Bài tập 4.3.2 (tr.141).** Giả sử $k\mid n$. Chia $n$ bit thành $k$ mảng, mỗi mảng $n/k$ bit; mỗi khóa băm một lần vào từng mảng bằng các hàm đều, độc lập.
+::: exercise Bài tập 08.8 (Âm giả sau khi thêm khóa)
+Bloom filter có thể trả "chắc chắn không thuộc" cho một khóa đã được thêm vào $S$ không? Nêu giả thiết của câu trả lời.
+:::
 
-1. Tính xác suất dương giả theo $n,m,k$.
-2. So sánh với $k$ hàm băm vào một mảng chung.
-
-**Sản phẩm:** công thức theo $n$ hữu hạn, dạng xấp xỉ và kết luận.
+::: hint
+Xem bốn điều kiện của Định lý 08.25 và điều gì xảy ra khi bỏ điều kiện 1.
 :::
 
 ::: solution
-**Lời giải.** Với mảng chia: mỗi mảng có $n/k$ bit và được $m$ khóa băm, xác suất một bit trong mảng con vẫn bằng 0 là $(1-k/n)^m$ (vì mỗi khóa băm một trong $n/k$ bit, tức xác suất trúng một bit là $k/n$). Xác suất dương giả mảng chia là
-
-$$\left[1-\left(1-\frac{k}{n}\right)^m\right]^k.$$
-
-Với mảng chung, $q^k=\left[1-(1-1/n)^{km}\right]^k$ là xấp xỉ chuẩn của FPR vì trạng thái các bit phụ thuộc và vị trí truy vấn có thể trùng. Khi $n$ lớn, cả hai dẫn đến $(1-e^{-km/n})^k$ trong xấp xỉ mũ.
-
-Hướng dẫn chấm: 3 điểm cho xác suất bit 0 ở mảng con, 2 điểm cho FPR mảng chia, 2 điểm cho biểu thức mảng chung, 2 điểm cho so sánh hữu hạn/xấp xỉ, 1 điểm nêu giả thiết.
+Không, khi bốn điều kiện của Định lý 08.25 được giữ: không bit nào bị xóa, truy vấn dùng đúng hàm băm và mảng đã xây, hàm băm tất định, mọi phép ghi đã xong. Nếu gỡ một khóa bằng cách đặt bit về 0, khóa khác dùng chung bit có thể bị loại: trong mảng 11 bit của Ví dụ 08.11, gỡ 585 làm 159 nhận "chắc chắn không thuộc".
 :::
 
-::: exercise
-**Bài tập 4.3.3 (tr.142).** Với $n$ bit và tập $S$ gồm $m$ phần tử, tìm số hàm băm tối thiểu hóa
+::: exercise Bài tập 08.9 (Gấp đôi số bit)
+Giữ $m$, gấp đôi $n$. Số hàm băm tối ưu $k^*$ và giá trị $p(k^*)$ thay đổi thế nào? Tính cho $n/m$ từ 8 lên 16.
+:::
 
-$$p(k)=\left(1-e^{-km/n}\right)^k.$$
-
-**Sản phẩm:** dẫn xuất và quy tắc chọn $k$.
+::: hint
+Dùng $k^*=(n/m)\ln2$ và $p(k^*)=2^{-k^*}$ của Định lý 08.28.
 :::
 
 ::: solution
-**Lời giải.** Đặt $\rho=m/n$ và xét $\ell(k)=\ln p(k)=k\ln(1-e^{-k\rho})$ theo $k>0$. Đạo hàm:
-
-$$\ell'(k)=\ln(1-e^{-k\rho})+\frac{k\rho}{e^{k\rho}-1}.$$
-
-Đặt $x=k\rho$, $t=e^{-x}$. Dấu của $\ell'(k)$ bằng dấu của $(1-t)\ln(1-t)-t\ln t$, âm khi $t>1/2$, bằng 0 tại $t=1/2$, dương khi $t<1/2$. Vì $t$ giảm theo $k$, $\ell'(k)$ đổi dấu từ âm sang dương tại $k\rho=\ln2$. Vậy cực tiểu tại
-
-$$k^*=\frac{n}{m}\ln2.$$
-
-Với $k$ nguyên dương $k\ge1$, chọn bằng cách so sánh $\max(1,\lfloor k^*\rfloor)$ và $\max(1,\lceil k^*\rceil)$: lấy khóa cho $p$ nhỏ hơn.
-
-Hướng dẫn chấm: 3 điểm lập log/đạo hàm, 3 điểm nghiệm, 2 điểm lập luận dấu, 2 điểm quy tắc số nguyên.
+$k^*=(n/m)\ln2$ gấp đôi, và $p(k^*)=2^{-k^*}$ nên giá trị mới là bình phương giá trị cũ (Định lý 08.28). Với $n/m=8$: $k^*\approx5{,}545$, $p(k^*)\approx0{,}0214$. Với $n/m=16$: $k^*\approx11{,}09$, $p(k^*)\approx0{,}0214^2\approx4{,}6\cdot10^{-4}$.
 :::
 
-> Không có bài hồ chứa trực tiếp trong phần bài tập của sách, nên phần này không thêm bài về hồ chứa.
+### Mức tính toán hoặc chứng minh
 
-## Tóm tắt nguồn
+::: exercise Bài tập 08.10 (Ba và bốn hàm băm; Bài 4.3.1, MMDS §4.3.4, tr.141)
+Với tình huống lọc thư, $n=8\cdot10^9$ bit và tập $S$ gồm $m=10^9$ khóa, tính xác suất dương giả khi dùng ba hàm băm, và khi dùng bốn hàm băm.
+:::
 
-- Giáo trình: *Mining of Massive Datasets*, Chương 4, mục 4.1–4.3.
-- Slide chính: MMDS, *Data Streams 1–2*; đối chiếu các bản PDF Stanford CS246 cục bộ cho phép đếm truy vấn và đường cong FPR, và cho ví dụ 11 bit.
-- Bài tập: MMDS 4.2.1 và 4.3.1–4.3.3.
+::: hint
+Dùng dạng mũ $p(k)=(1-e^{-km/n})^k$ với $km/n=k/8$.
+:::
 
-Ghi công theo yêu cầu của tác giả: <https://www.mmds.org>.
+::: solution
+$p(3)=(1-e^{-3/8})^3\approx0{,}030579$ và $p(4)=(1-e^{-1/2})^4\approx0{,}023969$. Bốn hàm băm tốt hơn ba vì $4<k^*\approx5{,}545$, trên đoạn $p$ còn giảm (Định lý 08.28). Theo Mệnh đề 08.27, đây là dạng mũ, một cận dưới của $p_{FP}$ dưới mô hình băm đều, độc lập; với $n=8\cdot10^9$, các mức xấp xỉ trùng nhau tới nhiều chữ số.
+
+**Kiểm tra lại.** Hai số nằm giữa $p(2)\approx0{,}0489$ và $p(6)\approx0{,}0216$ của Ví dụ 08.14 và 08.16, đúng chiều giảm của $p$ trên $(0,k^*]$.
+:::
+
+::: exercise Bài tập 08.11 (Chia mảng bit; Bài 4.3.2, MMDS §4.3.4, tr.141)
+Có $n$ bit bộ nhớ và tập $S$ gồm $m$ khóa. Thay vì $k$ hàm băm vào một mảng, chia $n$ bit thành $k$ mảng và băm một lần vào mỗi mảng. Theo $n$, $m$, $k$, xác suất dương giả là bao nhiêu? So với $k$ hàm băm vào một mảng chung. Quy ước của học phần, sách không nêu: $k$ chia hết $n$; các hàm băm đều và độc lập.
+:::
+
+::: hint
+Một mảng con có $n/k$ bit và nhận $m$ phi tiêu. Để so sánh, dùng bất đẳng thức Bernoulli ở phần tiên quyết.
+:::
+
+::: solution
+**Mảng chia.** Một bit cố định của một mảng con bằng 0 khi không khóa nào của $S$ băm vào nó; mỗi khóa trượt bit đó với xác suất $1-k/n$, nên xác suất là $(1-k/n)^m$. Một khóa $y\notin S$ đọc đúng một vị trí đều trong mỗi mảng con. Các mảng con dùng các hàm băm độc lập, nên các tỷ lệ bit 1 của chúng độc lập, và
+
+$$
+p_{\text{chia}}=\bigl[1-(1-k/n)^m\bigr]^k,
+$$
+
+đúng chính xác dưới mô hình này.
+
+**Mảng chung.** Theo Mệnh đề 08.27, $p_{FP}=\mathbb E[(X/n)^k]\ge q^k=[1-(1-1/n)^{km}]^k$.
+
+**So sánh.** Theo bất đẳng thức Bernoulli, $(1-1/n)^k\ge1-k/n$, nên $(1-1/n)^{km}\ge(1-k/n)^m$. Mảng chia có ít bit 0 hơn theo kỳ vọng, nên $p_{\text{chia}}\ge q^k$. Khi $n$ lớn, cả hai về $(1-e^{-km/n})^k$.
+
+**Ví dụ số.** Với $n=64$, $m=8$, $k=4$: $p_{\text{chia}}\approx0{,}026450$; $q^k\approx0{,}024556$; giá trị chính xác của mảng chung $\mathbb E[(X/64)^4]\approx0{,}025354$, tính từ phân phối số bit 1 sau 32 phi tiêu. Với $n=8\cdot10^9$, $m=10^9$, $k=4$, hai công thức trùng tới chín chữ số có nghĩa, $0{,}023968650\ldots$
+
+**Kiểm tra lại.** Chiều $p_{\text{chia}}\ge q^k$ được chứng minh; trong ví dụ, mảng chia còn lớn hơn giá trị chính xác của mảng chung, nhưng chương không chứng minh chiều này cho mọi $n$, $m$, $k$.
+:::
+
+::: exercise Bài tập 08.12 (Số hàm băm tối ưu; Bài 4.3.3, MMDS §4.3.4, tr.142)
+Theo $n$ là số bit và $m$ là số khóa của $S$, số hàm băm nào làm nhỏ nhất xác suất dương giả? Dùng dạng mũ $p(k)=(1-e^{-km/n})^k$ với $k$ thực, rồi chọn $k$ nguyên.
+:::
+
+::: hint
+Đặt $\rho=m/n$, $z=k\rho$, $\theta=e^{-z}$ và xét $\lambda(k)=\ln p(k)$. Tìm điểm làm đạo hàm bằng 0, rồi xét dấu đạo hàm ở hai phía.
+:::
+
+::: solution
+Đây là Định lý 08.28 và Hệ quả 08.29. Với các biến của gợi ý, và $z=-\ln\theta$, $\lambda'(k)=\phi(\theta)/(1-\theta)$ với $\phi(\theta)=(1-\theta)\ln(1-\theta)-\theta\ln\theta$. Hàm $\phi$ dương trên $(0,1/2)$, nhờ tính lõm chặt và $\phi(0^+)=\phi(1/2)=0$, và âm trên $(1/2,1)$, nhờ $\phi(1-\theta)=-\phi(\theta)$. Vì $\theta>1/2$ khi và chỉ khi $k<(n/m)\ln2$, $p$ giảm rồi tăng và nhỏ nhất tại $k^*=(n/m)\ln2$, với $p(k^*)=2^{-k^*}$. Với $k$ nguyên, so $p$ tại $\lfloor k^*\rfloor$ và $\lceil k^*\rceil$, và lấy $k=1$ nếu $k^*<1$. Các bước đầy đủ nằm trong chứng minh Định lý 08.28.
+
+**Kiểm tra lại.** Với $n/m=8$: $k^*\approx5{,}545$; $p(5)\approx0{,}021679>p(6)\approx0{,}021577$, nên chọn $k=6$.
+:::
+
+### Mức vận dụng
+
+::: exercise Bài tập 08.13 (Chọn khóa lấy mẫu; Bài 4.2.1, MMDS §4.2.5, tr.138)
+Dòng có lược đồ `Grades(university, courseID, studentID, grade)`. Mã trường là duy nhất; mã học phần và mã sinh viên chỉ duy nhất trong một trường. Với một mẫu $1/20$ của dữ liệu, chọn thuộc tính khóa để ước lượng:
+
+(a) với mỗi trường, số sinh viên trung bình của một học phần;
+
+(b) tỷ lệ sinh viên có điểm trung bình từ 3,5;
+
+(c) tỷ lệ học phần có ít nhất nửa số sinh viên đạt "A".
+:::
+
+::: hint
+Với mỗi câu, hỏi thống kê gộp các bộ theo đơn vị nào, rồi chọn thuộc tính nhận diện duy nhất đơn vị đó (quy trình ở Mục 2.3).
+:::
+
+::: solution
+(a) Khóa `(university, courseID)`. Mọi bộ của một học phần cùng vào mẫu hoặc cùng bị bỏ (Mệnh đề 08.10(a)), nên số sinh viên của học phần được giữ đếm đúng, và mỗi trường còn, theo kỳ vọng, khoảng $1/20$ số học phần; trường có rất ít học phần có thể không còn học phần nào, và ước lượng cho trường đó không xác định. Khóa chỉ gồm `university` sẽ bỏ hẳn khoảng $19/20$ số trường, trong khi câu hỏi cần mọi trường.
+
+(b) Khóa `(university, studentID)`: điểm trung bình của một sinh viên cần mọi bộ của sinh viên đó.
+
+(c) Khóa `(university, courseID)`: tỷ lệ đạt "A" của một học phần cần mọi bộ của học phần.
+
+Cả ba khóa phải có `university`, vì mã học phần và mã sinh viên chỉ duy nhất trong một trường; thiếu nó, hai học phần cùng mã ở hai trường bị gộp thành một đơn vị (bước 3 của quy trình ở Mục 2.3).
+:::
+
+::: exercise Bài tập 08.14 (Hồ chứa cho từng khóa)
+MMDS (hộp "A General Stream-Sampling Problem", tr.150) đề xuất kết hợp hai cấu trúc: lấy mẫu theo khóa với tỷ lệ $a/b$, và với mỗi khóa được chọn, giữ các bộ của khóa đó trong một hồ chứa $s$ ô. Xét một khóa $K$ được chọn, đã có $r_K\ge s$ bộ.
+
+(a) Một bộ cố định của $K$ nằm trong mẫu với xác suất bao nhiêu, theo các lần rút của hồ chứa của $K$?
+
+(b) Mẫu có tối đa bao nhiêu bộ, nếu có $N_K$ khóa được chọn?
+
+(c) Tỷ lệ truy vấn lặp của một người dùng $K$ có còn tính đúng trên mẫu không?
+:::
+
+::: hint
+Áp Định lý 08.17 cho dòng con gồm các bộ của $K$; với (c), xem Nhận xét 08.20.
+:::
+
+::: solution
+(a) Các bộ của $K$ tạo một dòng con, và hồ chứa của $K$ chạy Thuật toán 08.16 trên dòng con đó. Theo Định lý 08.17, với các số rút đều và độc lập với các lần rút trước, mỗi bộ của $K$ có mặt với xác suất $s/r_K$.
+
+(b) Mỗi khóa được chọn giữ tối đa $s$ bộ, nên mẫu có tối đa $sN_K$ bộ, cộng một bộ đếm $r_K$ cho mỗi khóa. Một khóa nhiều bộ, như khóa $10^6$ bộ của Ví dụ 08.6, chỉ chiếm $s$ ô.
+
+(c) Chỉ khi $r_K\le s$. Khi $r_K>s$, hồ chứa của $K$ chọn vị trí riêng lẻ, nên hai bộ của cùng một truy vấn có thể bị tách, và tỷ lệ lặp tính trên mẫu bị lệch xuống (Nhận xét 08.20). Cách kết hợp này đổi tính đúng của thống kê theo người dùng nặng lấy giới hạn bộ nhớ.
+:::
+
+<!-- note-topic-id: lec-08-topic-17 -->
+## Hướng dẫn đọc thêm và tài liệu tham khảo
+
+- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 4. §4.1, tr.131–135: Mục 1 (Hình 4.1, Ví dụ 4.1). §4.2, tr.136–138: Mục 2 và Bài tập 08.13. §4.3, tr.139–142: Mục 4 (Ví dụ 4.3–4.4) và Bài tập 08.10–08.12. §4.5.5, tr.148–149, và hộp "A General Stream-Sampling Problem", tr.150: Mục 3 và Bài tập 08.14. §1.3.5, tr.13–14: giới hạn $(1-1/c)^c\to e^{-1}$ ở phần tiên quyết. Sách và bộ trang chiếu của các tác giả tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
+- Trang chiếu MMDS chương 4, *Mining Data Streams* phần 1 và 2 (tại [http://www.mmds.org](http://www.mmds.org)). Phần 1, tr.6–21: mô hình dòng, lấy mẫu theo khóa (tr.12–16, ví dụ 30%), hồ chứa (tr.18–21, dòng a, x, c, y, z, k, c, d, e, g). Phần 2, tr.4–14: Bloom filter; tr.14 in $(1-e^{-1/6})^2=0{,}0235$, khác công thức đúng (Ví dụ 08.16).
+- Leskovec, J. (2026). Stanford CS246, *Mining Data Streams* (26/02/2026), tr.13–14: phép đếm sai lệch của Mục 2.1; tr.32–33: đường cong $p(k)$ của Ví dụ 08.16. Hình trong ghi chú được vẽ lại.
+- Ullman, J. D. (2017). Stanford CS246, *Streams 2*, tr.5–8: ví dụ Bloom filter 11 bit với các khóa 25, 159, 585 và truy vấn 118 (Ví dụ 08.11–08.12).
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14.
+- Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 5 (biến AMS, dùng hồ chứa cỡ 1), ứng với MMDS §4.4–4.7. Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; nội dung này không cần cho bài tập.
+- Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"; mục "Mô hình ngẫu nhiên và giới hạn suy luận"), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.

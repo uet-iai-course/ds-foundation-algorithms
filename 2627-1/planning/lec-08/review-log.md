@@ -306,3 +306,62 @@ Trang đổi: CT (lời dẫn ≤ 20 âm tiết/dòng), C00 ("Kết quả và gi
 Ngoại lệ mật độ (trần 80): C00 74 và C03 61 (bảng tổng kết), C01 76 (trang đối chiếu, như P01); lý do ở storyboard. Tác tử mạch rà thêm toàn deck 59 trang từ góc nhìn sinh viên: lập luận giữa các mạch liền, lỗi các lượt 1–5 đã sửa; còn lại ở mạch 7 ("Sản phẩm:", $p_3$, $p_4$, X01 78 âm tiết).
 
 Kiểm của điều phối viên: đọc diff deck, ghi chú, planning; tự kiểm $16\ln2\approx11{,}09$, $2^{-11{,}09}\approx4{,}6\cdot10^{-4}=0{,}0214^2$; `check08.py` toàn deck 59 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; liên kết trình xem ghi chú và deck Bài 09: HTTP 200. Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem, không cảnh báo KaTeX. `git diff --check` sạch.
+
+### Mạch 7. Bài tập vận dụng
+
+Trang đổi: XT (lời dẫn bỏ nhận xét biên soạn), X01 ("Bài tập: chọn khóa lấy mẫu", dữ kiện trước câu hỏi, ý (a)–(c) bằng `ol.stream-alpha`), X02 ("Bài tập: dương giả với ba và bốn hàm băm", $p(k)$), X03 ("Bài tập: chia mảng bit", quy ước $k\mid n$ và băm đều, độc lập ghi là của học phần), X04 ("Bài tập: số hàm băm tối ưu"), X04B (mới, "Lời giải:" cùng tiêu đề: $\lambda'=\phi(\theta)/(1-\theta)$, $\phi$ lõm chặt trên $(0,1/2)$, phản đối xứng, quy tắc số nguyên); bỏ X00, X05 (trang điều phối lớp). Deck 58 trang; thực hành 60 phút (XT 0,5; X01 14,5; X02 10; X03 15; X04 12; X04B 8). Đề giữ đúng MMDS Ex.4.2.1 (§4.2.5, tr.138), Ex.4.3.1–4.3.2 (§4.3.4, tr.141), Ex.4.3.3 (tr.142); tác tử biên tập và tác tử độ chính xác đối chiếu nguyên văn. CSS: `ol.stream-alpha` trong khối `.lecture-stream` (theme ghi đè `type="a"`). Lượt sửa cuối cùng lượt này: P03 "Đọc trước:" thêm §4.5.5; alt hình K01B khớp năm bộ; ghi chú B06 nêu hai điều kiện tự thỏa của Định lý 08.25; ghi chú B05 ghi năm 2017 (ngày cũ lấy từ siêu dữ liệu PDF). Ghi chú bài giảng: "## 11." cũ thay bằng "## Bài tập củng cố" (ba mức; Bài tập 08.6–08.14, mỗi bài có `hint` và `solution`; Bài tập 08.10–08.13 là bốn bài MMDS, 08.14 mở rộng theo hộp tr.150) và "Tóm tắt nguồn" cũ thay bằng "## Hướng dẫn đọc thêm và tài liệu tham khảo"; đầu Mục 1 thêm hình `cau-truc-chuong.svg` và đoạn đọc hình (AGENTS.md §"Cấu trúc bắt buộc của một chương", mục 7).
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| mạch | trung bình | X01 | dữ kiện chen giữa câu hỏi và danh sách ý | sửa | dữ kiện lên trước; X02, X03 cùng mẫu |
+| kiểm định cuối | trung bình | ghi chú (F1) | chữ hai nghĩa: $k$ chỉ số tổng, $p$ tỷ lệ giữ, $T$, $c$ | sửa | $k\to i$, $p\to\eta$, $T\to A$; gạch đầu dòng ký hiệu cục bộ sau bảng ký hiệu |
+| kiểm định cuối | trung bình | ghi chú, đầu Mục 1 (F6) | thiếu hình cấu trúc chương có đoạn đọc hình | sửa | `cau-truc-chuong.svg` (ba nhánh, câu hỏi và bảo đảm từng nhánh, hội tụ Mục 5); điều phối viên đã xem ảnh. Lượt đầu điều phối viên bỏ qua yêu cầu này vì tìm sai từ khóa trong AGENTS.md; đã đính chính |
+| kiểm định cuối | trung bình | B06, C00, C01 ↔ Định lý 08.25 (F3) | deck hai giả thiết, ghi chú bốn | hòa giải | mặt trang giữ hai giả thiết; ghi chú diễn giả B06 và ghi chú bài giảng nêu hai điều kiện còn lại tự thỏa trong mô hình của bài (hàm tất định; truy vấn sau khi ghi xong) |
+| kiểm định cuối, mạch | trung bình | X04 (F4) | câu điều phối lớp trong ghi chú diễn giả | sửa | bỏ |
+| kiểm định cuối | trung bình | `review-log.md` (F2) | thiếu mục mạch 7, bảng kiểm định ghi chú và bảng nguồn theo mục | sửa | mục này và hai bảng dưới |
+| kiểm định cuối, mạch, độ chính xác | nhẹ (16 mục) | ghi chú (F7, F9–F14), storyboard (F5, F15, F16), alt K01B (F8), X04B, P03, outline, tham khảo | trực giác sau định nghĩa; thiếu "Trong thực hành" sau Mệnh đề 08.14 và "Bỏ …" sau Mệnh đề 08.27; năm câu no-ai-slop; "slide" chưa dịch; câu nối lặp; "định cỡ 1%"; ngày Ullman; năm bản Blum–Hopcroft–Kannan; §1.3.5 tr.13–14; "đáp án và rubric" trong outline | sửa | — |
+| kiểm định cuối | nhẹ | trình xem ghi chú | CSS chung của trình xem đặt hình rộng tối thiểu 900 px nên ở 1440 mép phải hình cần cuộn ngang trong khung riêng | tồn đọng | có ở mọi bài; sửa cần đổi `material-viewer.css` dùng chung, ngoài phạm vi lượt này |
+| kiểm định cuối | nhẹ | ghi chú, đầu Mục 1 | đoạn mở Mục 1 lặp ý đoạn giới thiệu chương | tồn đọng | không chặn; để lượt rà văn phong ghi chú sau |
+
+Tác tử kiểm định cuối (mới, `general-purpose`, `model: "opus"`, `effort: "high"`) kiểm độc lập toàn deck theo `slide_authoring_standard.md` và ghi chú theo AGENTS.md §"Kiểm định ghi chú bài giảng" (`final-verify-08.md`), rồi kiểm lại sau lượt sửa (`final-verify-08-r2.md`): không phát hiện chặn bàn giao hay nghiêm trọng; mọi phát hiện từ mức trung bình đã xử lý; ghi chú đủ điều kiện liên kết trên index; deck đạt.
+
+#### Kiểm định ghi chú bài giảng (AGENTS.md §"Kiểm định ghi chú bài giảng")
+
+| Mục kiểm | Kết quả | Bằng chứng |
+|---|---|---|
+| Cấu trúc chương bắt buộc (tiêu đề, giới thiệu ≤ 1 đoạn và liên kết deck, mục tiêu, tiên quyết, bảng ký hiệu, bản đồ chủ đề, Mục 1–5, tình huống, tóm tắt, bài tập ba mức, tham khảo) | đạt | đủ 11 phần; liên kết deck tương đối, HTTP 200 |
+| `note-topic-id` | đạt | 17 mã `lec-08-topic-01`…`17`, chữ thường, mỗi mã một lần; trình xem chấp nhận và ẩn |
+| Đánh số | đạt | bộ đếm chung 08.1–08.31; Ví dụ 08.1–08.17; Bài tập 08.1–08.14; Tình huống 08.1–08.3; mọi dẫn chiếu khớp |
+| Định lý bốn phần, thuật toán đủ thành phần, chứng minh có bước và $\square$ | đạt | Định lý 08.17, 08.25, 08.28; Thuật toán 08.2, 08.9, 08.13, 08.16, 08.23, 08.24 |
+| Mục 1 mở đúng mẫu (kết quả bài trước, bài toán có số, điều chương xây dựng, hình cấu trúc chương) | đạt | `cau-truc-chuong.svg` và đoạn đọc hình |
+| Ví dụ số trước phát biểu tổng quát, ví dụ giải sau; "Trong thực hành"; đoạn kết mục | đạt | mỗi mục 1–4; Nhận xét 08.5, 08.11, 08.21, 08.31 và đoạn sau Mệnh đề 08.14 |
+| Tình huống ≥ 2, một tình huống vi phạm giả thiết, dẫn ngược lý thuyết | đạt | Tình huống 08.1–08.3; 08.3 xóa địa chỉ bằng đặt bit 0 |
+| Tóm tắt chương 5–8 câu, kết quả theo mục, công thức cần nhớ, giả thiết hay quên | đạt | 8 câu |
+| Bài tập ba mức có gợi ý và lời giải, gồm bài của phần thực hành; mỗi mục tiêu có bài | đạt | Bài tập 08.6–08.14; ánh xạ mục tiêu ở đầu phần bài tập |
+| Tham khảo có ghi công `http://www.mmds.org` | đạt | — |
+| Giọng văn (không lấy tài liệu làm chủ ngữ; "chúng ta"/"ta" đúng chỗ; không "hãy" ngoài đề; không "Đáp án") | đạt | grep chuỗi cấm = 0 |
+| Mỗi chữ một nghĩa | đạt sau sửa F1 | — |
+| Độ dài | đạt | 24 159 âm tiết (khung 12 000–32 000) |
+| Hiển thị 1440×900, 390×844, in | đạt | 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang, 40 khối gập mở bằng bàn phím và hiện khi in; lỗi CSP do `reloadserver` chèn script nội tuyến được loại (tác tử biên tập kiểm lại bằng `python3 -m http.server`: không lỗi) |
+
+#### Nguồn và giáo trình đã tham khảo theo mục
+
+| Mục ghi chú / mạch deck | Nguồn nội dung | Tham khảo cách dẫn dắt |
+|---|---|---|
+| Mở đầu, Mục 1 / mạch 1–2 | MMDS 3e §4.1 tr.131–135 (Hình 4.1, Ví dụ 4.1), §1.3.5 tr.13–14 | CLRS 4e §2.1 (bất biến vòng lặp cho Thuật toán 08.2); giọng *Học máy thống kê* |
+| Mục 2 / mạch 3 | MMDS §4.2 tr.136–138; slide MMDS Streams 1 tr.12–16; CS246 2026 tr.13–14 (phép đếm sai lệch) | CLRS 4e §2.1 (Mệnh đề 08.14) |
+| Mục 3 / mạch 4 | MMDS §4.5.5 tr.148–149 và hộp tr.150; slide MMDS Streams 1 tr.18–21 | Blum–Hopcroft–Kannan, bản 04/01/2018, §6.1 tr.181 (đọc thêm) |
+| Mục 4 / mạch 5 | MMDS §4.3 tr.139–142 (Ví dụ 4.3–4.4); slide MMDS Streams 2 tr.4–14; Ullman 2017 tr.5–8 (ví dụ 11 bit); CS246 2026 tr.32–33 (đường cong) | — |
+| Mục 5, tình huống, tóm tắt / mạch 6 | tổng hợp các nguồn trên; ghi chú Bài 09 Mục 2, Mục 5 (liên kết bài sau) | ghi chú Bài 06 (mẫu tình huống, tóm tắt) |
+| Bài tập / mạch 7 | MMDS Ex.4.2.1, 4.3.1–4.3.3 | — |
+
+## Tổng kết lượt duyệt từng mạch (2026-10-28)
+
+- Tám commit: fac2f73 (chuẩn bị CSS, index), 1ab32b4 (mạch 1), 3227ef2 (2), 8e0138e (3), 1465082 (4), 6de9aa6 (5), e8f2595 (6) và commit mạch 7 (kèm bật liên kết ghi chú trên index).
+- Deck 55 → 58 trang, vẫn 7 mạch; mỗi mạch trừ mở đầu có trang tiêu đề mạch khớp `#/N`; phần giảng 120 phút, thực hành 60 phút. Thêm P04, A05, A06, K09, K01B (chuyển từ A04), B05B, R09, C03, C04, C05, X04B; bỏ A01, A03, K00, K03, R02, X00, X05.
+- Hình mới: `mo-hinh-dong.svg`, `bang-theo-nguoi-dung.svg`, `bam-theo-nguoi-dung.svg`, `reservoir-mini.svg`, `reservoir-step.svg`, `bloom-11bit-them.svg`, `bloom-11bit-mini.svg`, `cau-truc-chuong.svg`; sửa `reservoir-trace.svg`, `bloom-pipeline.svg`, `fpr-curve.svg`; xóa `stream-model.svg`, `key-sampling.svg`, `bloom-11bit.svg`. Không raster.
+- Ghi chú bài giảng viết lại thành chương giáo trình: 4 943 → 24 159 âm tiết; liên kết trên `index.html`.
+- Lỗi nội dung tìm được và đã sửa: bộ nhớ "cố định" gán cho lấy mẫu theo khóa; dữ kiện An lệch giữa các trang; lý do của xấp xỉ $q^k$ (B08) sai; chứng minh $k^*$ thiếu bước xét dấu; khẳng định "sách không trình bày hồ chứa" sai (MMDS §4.5.5); mũi tên thời gian của hình mô hình dòng ngược thứ tự $x_1$; chi phí hạ ngưỡng thiếu số lần giảm $\tau$; số 0,0493 của sách và 0,0235 của slide MMDS được tính lại (0,0489; 0,0216).
+- Tồn đọng: (1) lớp `stream-question`, `stream-accent`, `stream-figure` và ngăn xếp phông mã trùng ý với `ann-*` của Bài 07 (Bài 07 còn lỗi tách dấu tiếng Việt trong giả mã) — nên nâng thành lớp chung, cần kiểm Bài 02, 03, 07; (2) CSS chung của trình xem đặt hình tối thiểu 900 px; (3) đoạn mở Mục 1 lặp ý giới thiệu chương; (4) deck Bài 09 được liên kết từ C02 nhưng chưa qua lượt duyệt mới.
+
+Kiểm của điều phối viên trước commit mạch 7: đọc diff deck, CSS (một dòng `ol.stream-alpha`), ghi chú, planning, index; `check08.py` toàn deck 58 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang, không dòng > 20 âm tiết; năm trang trên 60 âm tiết đều có ngoại lệ trần 80 (P01 72, C00 74, C03 61, C01 76, X01 68). Ảnh đã tự xem: X01, X04B (1600×900), `cau-truc-chuong.svg`. Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem. `git diff --check` sạch.

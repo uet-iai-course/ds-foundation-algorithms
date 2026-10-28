@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" role="img" aria-labelledby="ctc-t ctc-d">
+<title id="ctc-t">Cấu trúc của Bài 08</title>
+<desc id="ctc-d">Khối trên cùng là Mục 1, mô hình dòng một lượt: đọc mỗi phần tử một lần và trả lời từ trạng thái. Ba mũi tên đi xuống ba khối song song. Mục 2, lấy mẫu theo khóa, trả lời thống kê theo nhóm và bảo đảm giữ trọn từng khóa với xác suất a/b mỗi khóa. Mục 3, lấy mẫu hồ chứa, trả lời câu hỏi cần mẫu cỡ cố định và bảo đảm đúng s phần tử, mỗi phần tử có mặt với xác suất s/r. Mục 4, Bloom filter, trả lời câu hỏi thành viên và bảo đảm không âm giả, dương giả xấp xỉ p(k). Ba mũi tên từ ba khối hội tụ vào khối dưới cùng, Mục 5, chọn cấu trúc theo câu hỏi.</desc>
+<defs><marker id="ctc-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto-start-reverse"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="22" fill="#263238">
+<rect x="230" y="14" width="440" height="104" rx="16" fill="#f7efe6" stroke="#b15a2b" stroke-width="4"/>
+<text x="450" y="54" text-anchor="middle" font-weight="700" font-size="24">Mục 1. Mô hình dòng một lượt</text>
+<text x="450" y="94" text-anchor="middle">đọc một lần, trả lời từ trạng thái</text>
+<g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#ctc-a)">
+<path d="M330 120 L160 186"/><path d="M450 120 V186"/><path d="M570 120 L740 186"/>
+</g>
+<rect x="12" y="192" width="280" height="262" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="152" y="228" text-anchor="middle" font-weight="700" font-size="24">Mục 2</text>
+<text x="152" y="260" text-anchor="middle" font-weight="700">Lấy mẫu theo khóa</text>
+<text x="152" y="300" text-anchor="middle" font-style="italic">Câu hỏi:</text>
+<text x="152" y="330" text-anchor="middle">thống kê theo nhóm</text>
+<text x="152" y="372" text-anchor="middle" font-style="italic">Bảo đảm:</text>
+<text x="152" y="402" text-anchor="middle">giữ trọn từng khóa,</text>
+<text x="152" y="432" text-anchor="middle">xác suất <tspan font-style="italic">a</tspan>/<tspan font-style="italic">b</tspan> mỗi khóa</text>
+<rect x="310" y="192" width="280" height="262" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="450" y="228" text-anchor="middle" font-weight="700" font-size="24">Mục 3</text>
+<text x="450" y="260" text-anchor="middle" font-weight="700">Lấy mẫu hồ chứa</text>
+<text x="450" y="300" text-anchor="middle" font-style="italic">Câu hỏi:</text>
+<text x="450" y="330" text-anchor="middle">mẫu có cỡ cố định</text>
+<text x="450" y="372" text-anchor="middle" font-style="italic">Bảo đảm:</text>
+<text x="450" y="402" text-anchor="middle">đúng <tspan font-style="italic">s</tspan> phần tử,</text>
+<text x="450" y="432" text-anchor="middle">xác suất <tspan font-style="italic">s</tspan>/<tspan font-style="italic">r</tspan> mỗi phần tử</text>
+<rect x="608" y="192" width="280" height="262" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="748" y="228" text-anchor="middle" font-weight="700" font-size="24">Mục 4</text>
+<text x="748" y="260" text-anchor="middle" font-weight="700">Bloom filter</text>
+<text x="748" y="300" text-anchor="middle" font-style="italic">Câu hỏi:</text>
+<text x="748" y="330" text-anchor="middle">khóa có thuộc tập không</text>
+<text x="748" y="372" text-anchor="middle" font-style="italic">Bảo đảm:</text>
+<text x="748" y="402" text-anchor="middle">không âm giả,</text>
+<text x="748" y="432" text-anchor="middle">dương giả ≈ <tspan font-style="italic">p</tspan>(<tspan font-style="italic">k</tspan>)</text>
+<g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#ctc-a)">
+<path d="M160 456 L330 524"/><path d="M450 456 V524"/><path d="M740 456 L570 524"/>
+</g>
+<rect x="190" y="530" width="520" height="96" rx="16" fill="#f7efe6" stroke="#b15a2b" stroke-width="4"/>
+<text x="450" y="568" text-anchor="middle" font-weight="700" font-size="24">Mục 5. Chọn cấu trúc theo câu hỏi</text>
+<text x="450" y="604" text-anchor="middle">đầu ra, giả thiết, chi phí</text>
+</g></svg>

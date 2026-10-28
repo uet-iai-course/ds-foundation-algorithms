@@ -40,7 +40,7 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 6. CT → C00 → C03 → C01 → C04 → C05 → C02 (cập nhật 2026-10-28): kết quả và giả thiết không được bỏ; thuật toán, bảo đảm và chi phí; câu trả lời cho vấn đề trung tâm có số; câu hỏi tự kiểm tra (hai trang, phủ ba mục tiêu); nguồn và tài liệu đọc, liên kết ghi chú bài giảng và Bài 09.
 
 Thời lượng phần giảng (2026-10-28): mạch 1 6,5; mạch 2 12; mạch 3 24; mạch 4 25; mạch 5 40,5; mạch 6 12; tổng 120 phút.
-7. X00–X05: bốn bài tập trực tiếp từ MMDS (Ex.4.2.1 tr.138; Ex.4.3.1–4.3.2 tr.141; Ex.4.3.3 tr.142).
+7. XT → X01 → X02 → X03 → X04 → X04B (cập nhật 2026-10-28): bốn bài tập trực tiếp từ MMDS (Ex.4.2.1 tr.138; Ex.4.3.1–4.3.2 tr.141; Ex.4.3.3 tr.142), tiêu đề "Bài tập: <chủ đề>", lời giải trong ghi chú; X04B là lời giải mẫu Ex.4.3.3. Bỏ X00, X05. Phần bài tập 60 phút.
 
 ## Thuật ngữ và ký hiệu
 
@@ -92,13 +92,13 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 - Thuật toán: `LẤY-MẪU-THEO-KHÓA`, `HỒ-CHỨA`, `XÂY-BLOOM`, `KIỂM-TRA-BLOOM`.
 - Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/r$; điều kiện không âm giả.
 - Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
-- Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
+- Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; lời giải và tiêu chí đối chiếu do học phần suy ra từ đề, ghi trong speaker notes; sách không in lời giải.
 - SVG tự vẽ: mô hình dòng (`mo-hinh-dong.svg`, thay `stream-model.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`), hàm băm thay bảng (`bam-theo-nguoi-dung.svg`, thay `key-sampling.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), mẫu theo khóa, vết hồ chứa (`reservoir-trace.svg`), vết hồ chứa thu nhỏ (`reservoir-mini.svg`), một bước của hồ chứa (`reservoir-step.svg`), ví dụ Bloom 11 bit (`bloom-11bit.svg` trong ghi chú; deck dùng `bloom-11bit-them.svg` và `bloom-11bit-mini.svg`), luồng kiểm tra Bloom (`bloom-pipeline.svg`), đường cong xác suất dương giả (`fpr-curve.svg`, có vạch $k^*$).
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
 
 ## Bản đồ chủ đề cho ghi chú tự học
 
-Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hiệu cùng ngày: mã `L08-N01`…`L08-N11` không hợp lệ với viewer (`TOPIC_ID_PATTERN` chỉ nhận chữ thường) nên thay bằng `lec-08-topic-01`…`lec-08-topic-17`. Ghi chú được viết lại thành chương giáo trình theo từng mạch; bảng dưới là bản đồ đích, đã đặt trong phần đầu chương của `lecture-note.md`. Mục ghi chú: 1 Mô hình dòng một lượt; 2 Lấy mẫu theo khóa; 3 Lấy mẫu hồ chứa; 4 Lọc thành viên bằng Bloom filter; 5 Chọn cấu trúc theo đầu ra; rồi Tình huống, Tóm tắt, Bài tập củng cố, Tham khảo.
+Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hiệu cùng ngày: mã `L08-N01`…`L08-N11` không hợp lệ với viewer (`TOPIC_ID_PATTERN` chỉ nhận chữ thường) nên thay bằng `lec-08-topic-01`…`lec-08-topic-17`. Ghi chú được viết lại thành chương giáo trình theo từng mạch; bảng dưới là bản đồ đích, đã đặt trong phần đầu chương của `lecture-note.md`. Mục ghi chú: 1 Mô hình dòng một lượt; 2 Lấy mẫu theo khóa; 3 Lấy mẫu hồ chứa; 4 Lọc thành viên bằng Bloom filter; 5 Chọn cấu trúc theo câu hỏi; rồi Tình huống áp dụng và ứng dụng, Tóm tắt chương, Bài tập củng cố, Hướng dẫn đọc thêm và tài liệu tham khảo. Toàn chương đã viết ngày 2026-10-28.
 
 | `note-topic-id` | Nhãn | Mục ghi chú | Chủ đề | Sản phẩm | Mã cũ |
 |---|---|---|---|---|---|
@@ -113,12 +113,12 @@ Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hi�
 | `lec-08-topic-09` | cốt lõi | 4.1–4.3 | Cơ chế Bloom filter | xây, truy vấn, ví dụ 11 bit | N06 |
 | `lec-08-topic-10` | cốt lõi | 4.4 | Không âm giả | bốn điều kiện và phản ví dụ | N07 |
 | `lec-08-topic-11` | cốt lõi; cận dưới $q^k\le p_{FP}$ là bổ sung | 4.5 | Mật độ bit và xác suất dương giả | phân biệt chính xác với xấp xỉ | N08 |
-| `lec-08-topic-12` | cốt lõi; định cỡ cho 1% là bổ sung | 4.6–4.7 | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ | N09 |
+| `lec-08-topic-12` | cốt lõi | 4.6–4.7 | Số hàm băm tối ưu | dẫn xuất và làm tròn $k^*$ | N09 |
 | `lec-08-topic-13` | cốt lõi | 5.1–5.2 | Chọn cấu trúc theo câu hỏi | hai bảng đối chiếu, quy trình ba bước, trả lời vấn đề trung tâm | N10 |
 | `lec-08-topic-14` | cốt lõi | Tình huống | Tình huống áp dụng và ứng dụng | ba tình huống, Tình huống 08.3 vi phạm giả thiết; ứng dụng ở Bài 09 | — |
 | `lec-08-topic-15` | cốt lõi | Tóm tắt | Tóm tắt chương | chuỗi kết quả, giả thiết hay bị bỏ quên, sang Bài 09 | — |
-| `lec-08-topic-16` | cốt lõi | Bài tập | Bài tập củng cố | ba mức, gồm bốn bài MMDS của mạch 7 | N11 |
-| `lec-08-topic-17` | đọc thêm | Tham khảo | Đọc thêm và tài liệu | ánh xạ mục ↔ nguồn; lấy mẫu có trọng số (Blum–Hopcroft–Kannan §6.1) | — |
+| `lec-08-topic-16` | cốt lõi | Bài tập | Bài tập củng cố | ba mức: nhận biết 08.6–08.9 (câu tự kiểm C04–C05), tính toán hoặc chứng minh 08.10–08.12 (MMDS 4.3.1–4.3.3), vận dụng 08.13 (MMDS 4.2.1) và 08.14 (hồ chứa cho từng khóa, MMDS tr.150) | N11 |
+| `lec-08-topic-17` | đọc thêm | Tham khảo | Hướng dẫn đọc thêm và tài liệu tham khảo | ánh xạ mục ↔ nguồn (MMDS §4.1–4.3, §4.5.5, slide Streams 1–2, CS246 2026, Ullman 2017, CLRS §2.1); ghi công http://www.mmds.org; đọc tiếp Bài 09, Blum–Hopcroft–Kannan §6.1 | — |
 
 Đồ thị tiên quyết: `topic-01→topic-02`; nhánh khóa `02→03→04→05→06`; nhánh hồ chứa `02→07→08` (08 so với 04); nhánh Bloom `02→09→10→11→12`; ba nhánh hội tụ ở `13`, rồi `14→15`; `16` dùng mọi chủ đề trước; `17` cuối chương. Chu trình rút gọn: `05` (quy trình), `06` (cầu nối, một mệnh đề bất biến), `13` (tổng hợp). Các nhãn "bổ sung" trong cột Nhãn chờ điều phối viên duyệt khi viết mục tương ứng.
 
@@ -126,14 +126,14 @@ Ký hiệu của ghi chú theo quyết định ký hiệu của điều phối v
 
 ## Tên mạch và trang tiêu đề mạch (2026-10-14)
 
-Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 55 trang; 56 trang sau khi thêm P04 ngày 2026-10-28.
+Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 58 trang (cập nhật 2026-10-28, sau lượt duyệt từng mạch).
 
 | N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
 |---:|---|---|---|
 | 1 | Mở đầu | P00 (trang bìa) | P04 (Tiên quyết và quy ước), rồi P02, P03, P01 |
-| 2 | Mô hình tính toán trên dòng | AT | A00 |
-| 3 | Lấy mẫu theo khóa | KT | K00 |
+| 2 | Mô hình tính toán trên dòng | AT | A05 |
+| 3 | Lấy mẫu theo khóa | KT | K01 |
 | 4 | Lấy mẫu hồ chứa | RT | R00 |
 | 5 | Lọc thành viên bằng Bloom filter | BT | B00 |
 | 6 | Tổng kết và chuyển tiếp | CT | C00 |
-| 7 | Bài tập vận dụng | XT | X00 |
+| 7 | Bài tập vận dụng | XT | X01 |
