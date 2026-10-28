@@ -9,7 +9,7 @@ Máy tìm kiếm nhận vài trăm triệu truy vấn mỗi ngày (MMDS §4.1.2,
 Sau chương này, người học có thể:
 
 1. Đặc tả thuật toán dòng một lượt và chọn khóa lấy mẫu cho một thống kê theo nhóm.
-   - Viết đầu vào, trạng thái, phép cập nhật, đầu ra của một thuật toán dòng và đo nó theo bốn trục chi phí (Mục 1).
+   - Viết đầu vào, trạng thái, phép cập nhật, đầu ra của một thuật toán dòng và đo nó theo bốn đại lượng chi phí (Mục 1).
    - Tính sai lệch của lấy mẫu từng bộ, chọn khóa nhận diện đúng đơn vị thống kê, chạy lấy mẫu theo khóa và chứng minh mọi bộ cùng khóa nhận cùng quyết định, kể cả khi hạ ngưỡng băm (Mục 2).
 2. Chạy tay lấy mẫu hồ chứa (reservoir sampling) có sức chứa $s$ và chứng minh bằng quy nạp rằng, sau khi đọc $r\ge s$ phần tử, mỗi phần tử đã đọc còn trong mẫu với xác suất $s/r$.
    - Lập vết chạy khi biết các số ngẫu nhiên đã sinh; trình bày đủ bước cơ sở, bước quy nạp và chỗ dùng giả thiết về số ngẫu nhiên; nêu chi phí bộ nhớ và thời gian mỗi phần tử (Mục 3).
@@ -78,7 +78,7 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Chủ đề (mã) | Nhóm | Mục | Vai trò → sản phẩm dùng tiếp |
 |---|---|---|---|
 | Kiến thức tiên quyết (`lec-08-topic-01`) | cầu nối | Tiên quyết | Kết quả dùng lại từ Bài 01, 05, 06, công cụ xác suất, giải tích, quy nạp → Mục 1–4 |
-| Mô hình dòng một lượt (`lec-08-topic-02`) | cốt lõi | 1 | Trạng thái, phép cập nhật, truy vấn, bốn trục chi phí → đặc tả chung của ba cấu trúc |
+| Mô hình dòng một lượt (`lec-08-topic-02`) | cốt lõi | 1.1–1.6 | Trạng thái, phép cập nhật, truy vấn, bốn đại lượng chi phí → đặc tả chung của ba cấu trúc |
 | Sai lệch của lấy mẫu từng bộ (`lec-08-topic-03`) | cốt lõi | 2.1 | Tỷ số $d/(10u+19d)$ so với $d/(u+d)$ → nhu cầu lấy mẫu theo đơn vị thống kê |
 | Mẫu nhất quán theo khóa (`lec-08-topic-04`) | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2 | Quy tắc $h(K(t))<a$, tính nhất quán, xác suất $a/b$, cỡ mẫu kỳ vọng → giới hạn về cỡ mẫu |
 | Chọn khóa theo đơn vị thống kê (`lec-08-topic-05`) | cốt lõi | 2.3 | Quy trình ba bước, ba lựa chọn khóa → Bài tập 4.2.1 của MMDS |
@@ -97,49 +97,193 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 
 Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.4. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.3) rồi xác suất $s/r$ và chi phí (Mục 3.4–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
 
+<!-- note-topic-id: lec-08-topic-02 -->
 ## 1. Mô hình dòng một lượt
 
-### Vai trò
+Một triệu cảm biến đo độ cao mặt biển, mỗi cảm biến gửi 10 số đo 4 byte mỗi giây, tạo $10^6\cdot10\cdot4\cdot86\,400\approx3{,}46\cdot10^{12}$ byte mỗi ngày, được sách làm tròn thành 3,5 TB (MMDS §4.1.2, tr.133). Số đo không được xử lý khi đến thì chỉ còn trong kho lưu trữ (archival store), nơi quá chậm để trả lời truy vấn (§4.1.1, tr.132). Ở Bài 02, trung bình cộng được tính bằng cặp (tổng, số lượng) thay cho danh sách các số, nhưng dữ liệu nằm trên đĩa và đọc lại được. Trên dòng, chúng ta phải chọn trước khi phần tử đầu tiên đến: giữ trạng thái nào cho truy vấn đã định, trạng thái ấy tốn bao nhiêu bộ nhớ, mỗi phần tử tốn bao nhiêu phép toán.
 
-Dòng dữ liệu khác cơ sở dữ liệu ở chỗ ta không có toàn bộ dữ liệu khi muốn. Dữ liệu đến từng bộ và tuần tự; nếu không xử lý hoặc lưu ngay thì bộ đó có thể mất đi vĩnh viễn. Điều này xảy ra khi tốc độ đến quá nhanh, hoặc khi có quá nhiều dòng cùng lúc khiến tổng nhu cầu bộ nhớ vượt quá bộ nhớ làm việc.
+### 1.1 Trạng thái theo truy vấn
 
-### Đặc tả
+Chúng ta tính ba truy vấn trên một dòng ngắn và ghi phần dữ liệu mỗi truy vấn phải giữ.
 
-Ta xem bộ xử lý dòng như một mô hình với bốn thành phần:
+::: example Ví dụ 08.1 (Ba truy vấn trên dòng cảm biến)
+**Dữ kiện.** Một cảm biến gửi dòng $1,5,2,7,4,0,3,5$, theo thứ tự đến này. Dãy số là dòng đầu của MMDS Hình 4.1 (tr.132); ba truy vấn lấy từ Ví dụ 4.1 (tr.134), vốn viết cho một cảm biến nhiệt độ.
 
-- **Đầu vào:** dãy bộ $x_1,x_2,\dots$ đến tuần tự; độ dài có thể chưa biết trước và mỗi bộ phải được xử lý trước khi dòng tiếp tục quá xa.
-- **Trạng thái:** một lưu trữ làm việc hữu hạn, được cập nhật mỗi khi một bộ đến; ngân sách này nhỏ hơn lịch sử của dòng.
-- **Kho lưu trữ:** nơi lưu dữ liệu lớn, chỉ được truy cập trong trường hợp đặc biệt và tốn thời gian; ta không dùng nó để trả lời truy vấn.
-- **Đầu ra:** mẫu, quyết định lọc, hoặc thống kê, được tạo ra khi dòng chảy qua.
+**Tính.**
 
-Hai dạng truy vấn trên dòng: truy vấn thường trực (chạy lâu dài, sinh đầu ra liên tục) và truy vấn tức thời (hỏi một lần về trạng thái hiện tại). Vì không giữ được toàn bộ lịch sử, ta không thể trả lời truy vấn tùy ý; ta chuẩn bị trạng thái cho những loại truy vấn dự kiến.
+| Truy vấn | Phần cần giữ | Câu trả lời sau 8 số |
+|---|---|---|
+| giá trị lớn nhất | giá trị lớn nhất đã gặp | $7$ |
+| trung bình mọi số | tổng và số đếm | $27/8=3{,}375$ |
+| trung bình 24 số gần nhất | 24 số gần nhất | $27/8$, vì mới có 8 số |
 
-### Bốn trục chi phí
+Khi số mới đến, truy vấn thứ nhất so nó với giá trị đang giữ; truy vấn thứ hai cộng nó vào tổng và tăng số đếm; truy vấn thứ ba thêm nó vào danh sách và, khi đã đủ 24 số, bỏ số cũ nhất.
 
-Khi so sánh thuật toán dòng, ta hỏi bốn câu sau thay vì chỉ báo độ phức tạp theo độ dài dòng:
+**Kiểm tra lại.** $1+5+2+7+4+0+3+5=27$; số lớn nhất là $7$.
+:::
 
-| Trục | Câu hỏi cần trả lời |
-|---|---|
-| Bộ nhớ | Trạng thái tăng theo ngân sách nào? Có tăng theo độ dài dòng không? |
-| Cập nhật | Mỗi bộ đến cần bao nhiêu phép băm, phép gán, truy cập bit? |
-| Lượt quét | Cần một lượt hay phải đọc lại lịch sử? |
-| Sai số | Xác suất hoặc đại lượng nào chỉ được xấp xỉ? |
+Không truy vấn nào cần cả lịch sử: hai truy vấn đầu giữ một hoặc hai số dù dòng dài bao nhiêu, truy vấn thứ ba giữ không quá 24 số. Ngược lại, câu hỏi "số đo thứ ba là bao nhiêu" không trả lời được từ ba trạng thái trên, vì số $2$ đã bị bỏ khi đến. Trạng thái được chọn theo truy vấn, trước khi dòng đến.
 
-Việc cần làm là chọn một trạng thái nhỏ phù hợp với đầu ra. Ba phần sau trình bày ba trạng thái tương ứng với ba sản phẩm: mẫu theo nhóm, mẫu theo vị trí, và phép lọc thành viên xác suất.
+::: definition Định nghĩa 08.1 (Thuật toán dòng một lượt)
+Một **dòng** là dãy phần tử $x_1,x_2,\ldots$ đến lần lượt; độ dài không biết trước, và hệ thống không điều khiển nhịp đến. Ký hiệu $r$ là số phần tử đã đọc, tính cả phần tử vừa đến.
 
-<div class="figure">
+Một **thuật toán dòng một lượt** gồm:
 
-![Ba dòng phần tử đi vào bộ xử lý có bộ nhớ hữu hạn, trả lời truy vấn và có thể ghi kho lưu trữ](img/lec-08/stream-model.svg)
+- một **trạng thái** ban đầu, là dữ liệu thuật toán giữ trước khi đọc phần tử nào;
+- một **phép cập nhật**, nhận trạng thái sau $r-1$ phần tử cùng $x_r$ và trả trạng thái sau $r$ phần tử;
+- một **phép trả lời**, nhận trạng thái hiện tại cùng một truy vấn và trả câu trả lời.
 
-</div>
+Mỗi phần tử được đọc đúng một lần, khi nó đến. Trạng thái nằm trong **bộ nhớ làm việc** (working store), có dung lượng giới hạn, nhỏ hơn lịch sử $x_1,\ldots,x_r$ khi $r$ lớn. Dòng có thể được ghi vào **kho lưu trữ**, nhưng kho này không được đọc để trả lời.
 
-::: exercise Tự kiểm
-Một thuật toán giữ trạng thái cố định nhưng phải quét lại toàn bộ lịch sử sau mỗi truy vấn có thuộc mô hình một lượt ở đây không?
+Một **truy vấn thường trực** (standing query) được đăng ký trước và cho câu trả lời vào thời điểm định trước, chẳng hạn mỗi khi có phần tử mới; một **truy vấn tức thời** (ad-hoc query) được hỏi một lần, về trạng thái tại lúc hỏi.
+:::
+
+Phép cập nhật chỉ thấy phần tử vừa đến và trạng thái, nên thông tin cần về các phần tử trước phải đã nằm trong trạng thái. Phép trả lời chỉ thấy trạng thái, nên truy vấn không tính được từ trạng thái thì không có câu trả lời, kể cả khi dòng còn trong kho. Giả thiết về bộ nhớ loại bỏ phương án chép cả dòng.
+
+Ví dụ 08.1 thỏa định nghĩa: ba truy vấn là truy vấn thường trực, cột "Phần cần giữ" là trạng thái, câu dưới bảng là phép cập nhật. Với truy vấn tức thời, chỉ chuẩn bị được trạng thái cho những loại câu hỏi đoán trước (MMDS §4.1.3, tr.134). Hệ quản trị cơ sở dữ liệu tự quyết tốc độ đọc đĩa (§4.1.1, tr.132); thuật toán dòng nhận phần tử theo nhịp của nguồn và không quay lại được. Trong chương, "truy vấn" có hai nghĩa: câu hỏi gửi tới bộ xử lý dòng, như trong định nghĩa trên, và phần tử của dòng truy vấn tìm kiếm ở Mục 2; khi có thể nhầm, nghĩa thứ hai được gọi là truy vấn tìm kiếm.
+
+### 1.2 Hình mô hình dòng
+
+Một cách trực quan, mô hình dòng là một bộ xử lý đứng giữa các dòng đi vào và các câu trả lời đi ra, với hai nơi lưu có vai trò khác nhau. Hình dưới vẽ lại MMDS Hình 4.1 (tr.132) và đặt mỗi thành phần của Định nghĩa 08.1 vào một chỗ trong hệ thống.
+
+![Các dòng đi vào bộ xử lý dòng từ bên trái; dòng trên cùng viết 5, 3, 0, 4, 7, 2, 5, 1, số 1 sát bộ xử lý là phần tử đến trước, mũi tên thời gian chỉ sang trái. Bộ xử lý chứa truy vấn thường trực; truy vấn tức thời đi vào từ phía trên, dòng kết quả đi ra bên phải; bộ xử lý đọc và ghi bộ nhớ làm việc hạn chế bằng mũi tên hai chiều, chỉ ghi vào kho lưu trữ vẽ bằng khung nét đứt, và kho này không dùng để trả lời truy vấn.](img/lec-08/mo-hinh-dong.svg)
+
+Hình giữ quy ước của MMDS: phần tử nằm gần bộ xử lý đến trước, nên dòng $1,5,2,7,4,0,3,5$ được viết ngược thành 5, 3, 0, 4, 7, 2, 5, 1, với $x_1=1$ sát bộ xử lý. Hai mũi tên giữa bộ xử lý và hai nơi lưu mang nội dung của định nghĩa. Mũi tên hai chiều tới bộ nhớ làm việc ứng với trạng thái: phép cập nhật đọc và ghi nó, phép trả lời đọc nó. Mũi tên một chiều tới kho lưu trữ nét đứt ứng với giả thiết cuối của Định nghĩa 08.1: không có đường từ kho quay về để trả lời. Truy vấn thường trực nằm sẵn trong bộ xử lý, truy vấn tức thời đi vào từ bên ngoài, và ba dòng trên hình có nhịp, kiểu riêng nhưng dùng chung một bộ nhớ làm việc.
+
+### 1.3 Vết chạy và thuật toán mẫu
+
+Ví dụ sau áp Định nghĩa 08.1 cho hai truy vấn đầu của Ví dụ 08.1 và ghi trạng thái sau từng phần tử.
+
+::: example Ví dụ 08.2 (Vết chạy của hai trạng thái)
+**Dữ kiện.** Dòng $x_1,\ldots,x_8=1,5,2,7,4,0,3,5$. Truy vấn giá trị lớn nhất giữ một số $M$, ban đầu $M=-\infty$, cập nhật $M\gets\max(M,x_r)$. Truy vấn trung bình giữ tổng $T$, ban đầu $0$, cập nhật $T\gets T+x_r$, cùng số đếm $r$, và trả lời $T/r$.
+
+**Tính.**
+
+| $r$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| $x_r$ | 1 | 5 | 2 | 7 | 4 | 0 | 3 | 5 |
+| $M$ | 1 | 5 | 5 | 7 | 7 | 7 | 7 | 7 |
+| $T$ | 1 | 6 | 8 | 15 | 19 | 19 | 22 | 27 |
+
+**Diễn giải.** Sau tám phần tử, trạng thái của hai truy vấn là ba số $M=7$, $T=27$, $r=8$; tám số đo không còn được giữ.
+
+**Kiểm tra lại.** Cột cuối cho lại $7$ và $27/8=3{,}375$ của Ví dụ 08.1.
+:::
+
+Truy vấn giá trị lớn nhất có đủ các thành phần của Định nghĩa 08.1, nên chúng ta dùng nó làm thuật toán mẫu khi đếm chi phí.
+
+::: algorithm Thuật toán 08.2 (Giá trị lớn nhất trên dòng)
+**Đầu vào.** Dòng số thực $x_1,x_2,\ldots$, đọc lần lượt.
+
+**Đầu ra.** Khi có truy vấn, giá trị $M=\max\{x_1,\ldots,x_r\}$.
+
+**Giả thiết.** Mỗi số nằm gọn trong một từ máy (machine word), đơn vị bộ nhớ mà một phép toán xử lý trong một bước.
+
+1. Khởi tạo $M\gets-\infty$.
+2. Khi $x_r$ đến: nếu $x_r>M$ thì đặt $M\gets x_r$.
+3. Khi có truy vấn: trả $M$.
+
+```text
+M ← −∞
+khi x_r đến:  nếu x_r > M: M ← x_r
+khi có truy vấn: trả M
+```
+
+**Bất biến.** Sau bước 2 với phần tử $x_r$, $M=\max\{x_1,\ldots,x_r\}$. Với $r=1$, $x_1>-\infty$ nên $M=x_1$. Nếu bất biến đúng sau $x_r$, bước 2 đặt $M$ bằng số lớn hơn trong $\max\{x_1,\ldots,x_r\}$ và $x_{r+1}$, tức $\max\{x_1,\ldots,x_{r+1}\}$; theo quy nạp, bất biến đúng với mọi $r\ge1$.
+
+**Dừng.** Dòng không có điểm cuối; mỗi lần gọi bước 2 hoặc bước 3 kết thúc sau số phép toán không đổi.
+
+**Trường hợp biên.** Truy vấn trước phần tử đầu tiên ($r=0$) trả $-\infty$, nghĩa là chưa có số đo. Phần tử bằng $M$ không làm đổi $M$.
+
+**Chi phí.** Mỗi phép toán trên một từ máy tính là 1; mô hình này được nêu đầy đủ ở Định nghĩa 08.3 (Mục 1.4).
+
+| Bước | Số lần sau $r$ phần tử | Chi phí mỗi lần | Đóng góp |
+|---|---|---|---|
+| 1 | $1$ | 1 phép gán | $1$ |
+| 2 | $r$ | 1 phép so sánh, tối đa 1 phép gán | $r$ phép so sánh, tối đa $r$ phép gán |
+| 3 | mỗi truy vấn | 1 phép đọc | $1$ mỗi truy vấn |
+:::
+
+### 1.4 Chi phí theo từng phần tử
+
+Dòng không có điểm cuối, nên tổng thời gian chạy không phải một con số để so sánh. Chúng ta đo chi phí trên mỗi phần tử đến; sau $r$ phần tử, tổng công việc bằng $r$ nhân chi phí mỗi phần tử.
+
+::: definition Định nghĩa 08.3 (Chi phí của thuật toán dòng)
+**Mô hình.** Bộ nhớ đếm bằng từ máy; một từ chứa một số đo, một khóa, một chỉ số hoặc một bộ đếm. Thời gian đếm bằng số phép toán trên từ máy.
+
+Chi phí của một thuật toán dòng gồm bốn đại lượng:
+
+- **bộ nhớ**: số từ của trạng thái, yêu cầu nhỏ hơn lịch sử;
+- **cập nhật**: số phép toán cho mỗi phần tử đến, yêu cầu không tăng theo $r$;
+- **lượt đọc**: số lần đọc mỗi phần tử, bằng $1$;
+- **sai số**: đại lượng nào của câu trả lời chỉ được xấp xỉ, theo tỷ lệ hay theo xác suất, và dưới giả thiết nào.
+:::
+
+Bộ nhớ quyết định thuật toán có chạy được không, cập nhật quyết định nó có theo kịp nhịp đến không, sai số nói câu trả lời đúng tới đâu. Bảng dưới đếm bốn đại lượng cho ba truy vấn của Ví dụ 08.1.
+
+| Truy vấn | Bộ nhớ (từ) | Cập nhật mỗi phần tử | Lượt đọc | Sai số |
+|---|---|---|---:|---|
+| giá trị lớn nhất | $1$ | 1 phép so sánh | 1 | không |
+| trung bình mọi số | $2$ | 2 phép cộng | 1 | không |
+| trung bình 24 số gần nhất | $24+3$ | 4 phép | 1 | không |
+
+Hàng đầu là Thuật toán 08.2. Ở hàng thứ hai, mỗi phần tử cộng $x_r$ vào $T$ và cộng $1$ vào $r$. Ở hàng cuối, 24 số nằm trong một bộ đệm vòng (ring buffer), tức một mảng 24 ô mà phần tử mới ghi đè ô của số cũ nhất; ba từ còn lại là tổng chạy của các số trong bộ đệm, vị trí ghi tiếp theo và số đếm $\min(r,24)$ dùng làm mẫu số. Mỗi phần tử tốn bốn phép: trừ số cũ nhất khỏi tổng khi $r>24$, hoặc tăng số đếm khi $r\le24$; cộng số mới vào tổng; ghi đè ô; tăng vị trí ghi theo modulo 24. Không hàng nào có chi phí tăng theo $r$.
+
+Mô hình từ máy che một chi tiết: bộ đếm $r$ cần $\lceil\log_2(r+1)\rceil$ bit, vì nó nhận $r+1$ giá trị $0,\ldots,r$. Với $r=8=1000_2$, ta cần $\lceil\log_2 9\rceil=4$ bit; một cảm biến độ cao mặt biển gửi 10 số mỗi giây trong một năm cho $r=315\,360\,000$, cần $29$ bit vì $2^{28}<r+1\le2^{29}$. Bộ đếm vừa một từ 64 bit khi $r<2^{64}$, nên mô hình tính nó là 1 từ.
+
+### 1.5 Nhầm lẫn thường gặp và cách làm trong thực hành
+
+::: remark Nhận xét 08.4 (Nhầm lẫn thường gặp)
+- "Bộ nhớ hữu hạn" khác "bộ nhớ nhỏ hơn lịch sử": chép tám số của Ví dụ 08.1 chỉ tốn 8 từ, nhưng sau một năm một cảm biến độ cao mặt biển đã gửi hơn $3\cdot10^8$ số.
+- Trạng thái khác mẫu: trạng thái của truy vấn trung bình là cặp $(27,8)$, không phải phần tử nào của dòng; mẫu ở Mục 2 và Mục 3 là trạng thái gồm các phần tử được chọn.
+- "Một lượt" không có nghĩa bộ nhớ đạt yêu cầu: thuật toán chép mọi phần tử vào trạng thái cũng đọc mỗi phần tử một lần, nhưng bộ nhớ tăng theo $r$. Ngược lại, trung bình $w$ số gần nhất giữ $w$ số cùng vài từ phụ, không đổi theo $r$ nhưng tăng theo $w$.
+- Có kho lưu trữ không có nghĩa đọc lại được: câu trả lời phải tính từ trạng thái.
+:::
+
+::: remark Nhận xét 08.5 (Trong thực hành)
+Theo MMDS (§4.1.4, tr.135), phần tử đến nhanh nên phải xử lý ngay trong bộ nhớ chính, và nhiều dòng chậm cộng lại vẫn vượt bộ nhớ: một cảm biến độ cao mặt biển tạo khoảng 3,5 MB mỗi ngày, một triệu cảm biến tạo khoảng $3{,}46\cdot10^{12}$ byte. Cũng theo mục đó, nhiều bài toán dòng chỉ giải được trong bộ nhớ nhỏ khi chấp nhận câu trả lời xấp xỉ hoặc ngẫu nhiên. Đại lượng sai số của Định nghĩa 08.3 ghi lại phần đó; Mục 2 và Mục 4 lấy tính ngẫu nhiên từ phép chọn hàm băm, Mục 3 từ số ngẫu nhiên rút ở mỗi bước.
+:::
+
+### 1.6 Bài tập: trạng thái của phương sai
+
+::: exercise Bài tập 08.1 (Trạng thái của phương sai)
+Câu hỏi do học phần dựng trên dòng của MMDS Hình 4.1, cùng kiểu với truy vấn trung bình của Ví dụ 4.1. Một truy vấn thường trực trả phương sai của mọi số đã đọc,
+
+$$
+\sigma_r^2=\frac1r\sum_{i=1}^{r}(x_i-\bar x_r)^2,\qquad \bar x_r=\frac1r\sum_{i=1}^{r}x_i .
+$$
+
+(a) Xác định một trạng thái cỡ hằng đủ để trả lời sau mỗi phần tử, cùng phép cập nhật của nó. (b) Tính $\sigma_8^2$ trên dòng $1,5,2,7,4,0,3,5$.
+:::
+
+::: hint
+Khai triển $(x_i-\bar x_r)^2$ và tách tổng thành các tổng chỉ phụ thuộc vào $x_i$, không phụ thuộc vào $\bar x_r$.
 :::
 
 ::: solution
-Không. Thuật toán còn phải cập nhật trạng thái khi dữ liệu đến và không dựa vào việc đọc lại lịch sử.
+**(a) Trạng thái.** Ta biểu diễn tổng bình phương độ lệch qua các tổng của $x_i$:
+
+$$
+\begin{aligned}
+\sum_{i=1}^{r}(x_i-\bar x_r)^2
+&=\sum_i x_i^2-2\bar x_r\sum_i x_i+r\bar x_r^2\\
+&=\sum_i x_i^2-2r\bar x_r^2+r\bar x_r^2\\
+&=\sum_i x_i^2-r\bar x_r^2 .
+\end{aligned}
+$$
+
+Dòng đầu khai triển bình phương, dòng thứ hai thay $\sum_i x_i=r\bar x_r$. Chia cho $r$ được $\sigma_r^2=\frac1r\sum_i x_i^2-\bar x_r^2$. Vậy trạng thái gồm ba số $r$, $\sum_i x_i$ và $\sum_i x_i^2$. Khi $x_r$ đến: tăng $r$, cộng $x_r$ vào tổng, cộng $x_r^2$ vào tổng bình phương; cập nhật tốn một phép nhân và ba phép cộng, không tăng theo $r$. Trạng thái có 3 từ.
+
+**(b) Tính.** Sau 8 số: $r=8$, $\sum x_i=27$, $\sum x_i^2=1+25+4+49+16+0+9+25=129$. Do đó $\bar x_8=27/8=3{,}375$ và
+
+$$
+\sigma_8^2=\frac{129}{8}-\Bigl(\frac{27}{8}\Bigr)^2=16{,}125-11{,}390625=4{,}734375 .
+$$
+
+**Kiểm tra lại.** Tính trực tiếp, các độ lệch $x_i-3{,}375$ có bình phương $5{,}640625$; $2{,}640625$; $1{,}890625$; $13{,}140625$; $0{,}390625$; $11{,}390625$; $0{,}140625$; $2{,}640625$, tổng $37{,}875$, và $37{,}875/8=4{,}734375$.
 :::
+
+Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chương: thuật toán dòng một lượt trả lời từ trạng thái chọn theo truy vấn (Định nghĩa 08.1) và được đo bằng bốn đại lượng trên mỗi phần tử (Định nghĩa 08.3), với Thuật toán 08.2 làm trường hợp mẫu. Các truy vấn của mục này, kể cả phương sai ở Bài tập 08.1, là thống kê trên mọi phần tử, nên một trạng thái cỡ hằng trả lời chính xác. Câu hỏi của máy tìm kiếm thì khác: đo tỷ lệ truy vấn tìm kiếm lặp của từng người dùng khi chỉ lưu được $1/10$ dòng (MMDS §4.2.1, tr.136). Trạng thái khi đó phải là một mẫu các phần tử, và cách chọn mẫu quyết định câu trả lời có đúng không. Trong Mục 2, chúng ta xét cách chọn mẫu đó.
 
 ## 2. Sai lệch của lấy mẫu độc lập từng bộ
 

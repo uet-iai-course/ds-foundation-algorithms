@@ -122,7 +122,7 @@ Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo tr
 | Mạch deck | `data-slide-id` | Phần ghi chú | `note-topic-id` | Trạng thái |
 |---|---|---|---|---|
 | 1. Mở đầu | P00, P04, P02, P03, P01 | Giới thiệu chương, Mục tiêu học tập, Kiến thức tiên quyết, Bảng ký hiệu, Bản đồ chủ đề | `lec-08-topic-01` (Kiến thức tiên quyết); các phần còn lại không mang mã | đã viết 2026-10-28 |
-| 2. Mô hình tính toán trên dòng | AT, A00–A04 | Mục 1 | `lec-08-topic-02` | chờ viết |
+| 2. Mô hình tính toán trên dòng | AT, A05, A00, A02, A06 | Mục 1.1–1.6 | `lec-08-topic-02` | đã viết 2026-10-28, sửa sau rà lại mạch 2 |
 | 3. Lấy mẫu theo khóa | KT, K00–K08 | Mục 2.1–2.4 | `lec-08-topic-03`…`06` | chờ viết |
 | 4. Lấy mẫu hồ chứa | RT, R00–R08 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | chờ viết |
 | 5. Lọc thành viên bằng Bloom filter | BT, B00–B12 | Mục 4.1–4.6 | `lec-08-topic-09`…`12` | chờ viết |
@@ -144,6 +144,21 @@ Số âm tiết phần đầu chương (token cách trắng, từ dòng 1 tới 
 Chu trình rút gọn (thông tin soạn thảo, chuyển khỏi ghi chú ngày 2026-10-28): `lec-08-topic-05` (Mục 2.3, chọn khóa) là quy trình, không có định lý hay chi phí riêng; `lec-08-topic-06` (Mục 2.4, ngưỡng băm) chỉ thêm một mệnh đề bất biến, không có phân tích xác suất mới; `lec-08-topic-13` (Mục 5) tổng hợp ba nhánh, không đưa khái niệm mới.
 
 Điều kiện công bố (điều phối viên, 2026-10-28): số mục dẫn chiếu trong Mục tiêu học tập và Bản đồ chủ đề theo cấu trúc mới (Mục 1–5, 2.1–2.4, 3.1–3.5, 4.1–4.6) chưa khớp thân bài cũ; phải kiểm lại toàn bộ sau khi mạch 2–7 được viết lại.
+
+**Mục 1 (mạch 2), `lec-08-topic-02`.** Thứ tự ghi chú: nhu cầu có số → ví dụ dẫn nhập → định nghĩa → hình (trực quan) → ví dụ giải → thuật toán mẫu → chi phí ba truy vấn → nhầm lẫn → "Trong thực hành" → bài tập phương sai → đoạn kết mục (nhu cầu thống kê theo người dùng khi chỉ lưu $1/10$ dòng → Mục 2).
+
+| Phần ghi chú | Khối, số hiệu | Trang deck | Dữ kiện, ký hiệu | Sản phẩm học tập |
+|---|---|---|---|---|
+| Mở mục | — | AT (ghi chú) | Cảm biến độ cao mặt biển: $10^6\cdot10\cdot4\cdot86\,400\approx3{,}46\cdot10^{12}$ byte/ngày (MMDS §4.1.2 tr.133); cặp (tổng, số lượng) của Bài 02 | Nhu cầu chọn trạng thái trước khi dòng đến |
+| 1.1 Trạng thái theo truy vấn | Ví dụ 08.1; Định nghĩa 08.1; câu hai nghĩa của "truy vấn" | A05, A00 | Dòng $1,5,2,7,4,0,3,5$; lớn nhất 7; $27/8=3{,}375$; ba truy vấn từ Ví dụ 4.1 (cảm biến nhiệt độ) | Đặc tả trạng thái, cập nhật, trả lời |
+| 1.2 Hình mô hình dòng | hình `mo-hinh-dong.svg` | A00 | Dòng viết ngược 5, 3, 0, 4, 7, 2, 5, 1, $x_1=1$ sát bộ xử lý (quy ước MMDS) | Nối thành phần định nghĩa với hệ thống |
+| 1.3 Vết chạy và thuật toán mẫu | Ví dụ 08.2; Thuật toán 08.2 (bất biến, trường hợp biên $r=0$, bảng chi phí) | A05 (ghi chú), A02 | Vết $M$, $T$ (ký hiệu cục bộ) | Lập vết, đọc bất biến |
+| 1.4 Chi phí theo từng phần tử | Định nghĩa 08.3; bảng ba truy vấn | A02 | 1 từ/1 so sánh; 2 từ/2 phép cộng; $24+3$ từ/4 phép (bộ đệm vòng, tổng chạy, vị trí ghi, số đếm $\min(r,24)$); $\lceil\log_2(r+1)\rceil$ bit: 4 bit khi $r=8$, 29 bit khi $r=315\,360\,000$ | Đếm bốn đại lượng |
+| 1.5 Nhầm lẫn, thực hành | Nhận xét 08.4, 08.5 | A02 (ghi chú) | MMDS §4.1.4 tr.135; nguồn ngẫu nhiên: băm ở Mục 2, 4, số ngẫu nhiên ở Mục 3 | Phân biệt hữu hạn/nhỏ hơn lịch sử, trạng thái/mẫu |
+| 1.6 Bài tập: trạng thái của phương sai | Bài tập 08.1 (hint, solution) | A06 | $r,\sum x_i,\sum x_i^2$; $\sum x_i^2=129$; $\sigma_8^2=129/8-(27/8)^2=4{,}734375$; câu hỏi do học phần dựng | Chọn trạng thái cỡ hằng cho một thống kê mới |
+| (chuyển đi) Bảng giữ/bỏ theo người dùng | Ví dụ, hình `bang-theo-nguoi-dung.svg`, bài tập; bản nháp `scratchpad/note-moved-table.md` | K01B (mạch 3) | An, Bình, An, Chi; số rút 0, 7, 4 (học phần dựng); MMDS §4.2.2 tr.137 | Mục 2, chờ viết; nhu cầu bỏ bảng nhãn → hàm băm |
+
+Chu trình rút gọn của Mục 1: không có định lý; tính đúng của thuật toán mẫu nêu bằng dòng "Bất biến." trong Thuật toán 08.2 (quy nạp hai bước). Bộ đếm chung đã dùng: 08.1–08.5; Ví dụ 08.1–08.2; Bài tập 08.1. Số âm tiết Mục 1: 2 730 ở bản đầu (đã chấp nhận), 2 812 sau lượt sửa (thêm bảng chi phí ba truy vấn và bài tập phương sai, bỏ §1.5 cũ).
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -174,3 +189,43 @@ Thứ tự trang: P00 → P04 → P02 → P03 → P01. Không có trang tiêu đ
 Tổng mạch 1: 6,5 phút, bằng tổng cũ (P00 0, P03 0,5, P01 4, P02 2); tổng phần giảng giữ 120 phút.
 
 Ngoại lệ mật độ P01: trang được xếp loại trang đối chiếu, trần 80 âm tiết, vì `AGENTS.md` đòi câu trả lời có điều kiện của cả bốn mạch nội dung cùng dòng nhu cầu có giới hạn tài nguyên, và mỗi câu trả lời phải mang giả thiết của nó (hàm băm đều; số ngẫu nhiên đều, độc lập, $r\ge s$; hàm băm đều, độc lập, xấp xỉ mũ). Mục tiêu điều phối là ≤ 65. Trước: 72 âm tiết (bản đầu, 3 dòng), lượt sửa thứ nhất 57 (thiếu điều kiện); sau: 72 (5 dòng, max 17 âm tiết mỗi dòng). Vượt mục tiêu 7 âm tiết; bỏ thêm sẽ phải bỏ một giả thiết hoặc số liệu MMDS.
+
+### Mạch 2. Mô hình tính toán trên dòng
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| khái niệm/mô hình | Đặc tả thuật toán dòng (đọc một lượt, trả lời từ trạng thái), đo chi phí theo từng phần tử trên ba truy vấn của cùng một dòng, kiểm bằng bài tập phương sai | Mạch 1: nhu cầu "lấy mẫu, lọc dòng chưa biết độ dài, không lưu cả dòng"; khái niệm trạng thái; ký hiệu $x_i,r,t,K(t)$ | Định nghĩa thuật toán dòng; mô hình từ máy và bốn đại lượng chi phí; yêu cầu bộ nhớ nhỏ hơn lịch sử, mạch 3 dùng để loại phương án bảng theo người dùng | Chu trình đủ cho khái niệm: nhu cầu "Muốn …" và ví dụ có số (A05) trước hình thức hóa (A00); chi phí trên cùng ba truy vấn (A02); bài tập kiểm (A06) | AT (`id="mach-2"`), điểm vào mạch 2 |
+
+Thứ tự trang: AT → A05 → A00 → A02 → A06. Bỏ A01 (gộp vào A00) và A03 (nội dung đã lên trang Vấn đề trung tâm). A04 chuyển sang mạch 3 thành K01B, sau K01 (theo thứ tự MMDS §4.2.1 → §4.2.2: lý do lấy mẫu theo người dùng đến trước phương án bảng). Chu trình rút gọn: bước "thuật toán và tính đúng" không áp dụng vì mạch đặt một mô hình; ba truy vấn của A05 đóng vai thuật toán mẫu, đếm chi phí ở A02.
+
+**Câu hỏi trước khi sửa (theo báo cáo rà deck và lượt rà lại mạch 1).**
+
+| Trang cũ | Trang muốn nói | Phục vụ chủ đề mạch? | Vấn đề còn lại | Quyết định |
+|---|---|---|---|---|
+| AT | Điểm vào mạch 2 | có | Lời dẫn "trạng thái hữu hạn" không phân biệt được gì; cụm khóa "Hợp đồng", "Mẫu, hồ chứa, bộ lọc" xem trước khái niệm chưa học; ghi chú không nêu kết quả kế thừa | sửa |
+| A00 | Sơ đồ mô hình dòng | có | Trang chỉ có hình; hình đặt "truy vấn" làm đích của "kết quả", thiếu truy vấn thường trực/tức thời, bộ nhớ làm việc, kho lưu trữ không dùng để trả lời | sửa và gộp A01 |
+| A01 | Đặc tả thuật toán dòng | có | Tiêu đề "Hợp đồng"; "trạng thái hữu hạn" thiếu chính xác; câu "trước khi dòng tiếp tục quá xa" mơ hồ | gộp vào A00 |
+| (thiếu) | Ví dụ dẫn nhập có số | — | Mạch không có ví dụ trước hình thức hóa | thêm A05 |
+| A02 | Bốn đại lượng chi phí | có | Tiêu đề kể so sánh; ô bảng là câu hỏi; thiếu "Mô hình:"; ghi chú lấy tài liệu làm chủ ngữ | sửa |
+| A03 | Xem trước ba cấu trúc | một phần | Ba khái niệm xuất hiện đột ngột; trùng trang Vấn đề trung tâm và bảng tổng kết | bỏ |
+| A04 | Chọn cấu trúc theo truy vấn | không | Kiểm điều chưa học; nhãn "Sản phẩm:"; "Đáp án" | lượt 1: thay bằng câu hỏi bảng giữ/bỏ theo người dùng (MMDS §4.2.2); lượt rà lại: chuyển sang mạch 3 (K01B) vì nhu cầu giữ trọn người dùng chỉ có ngữ cảnh sau K01 |
+| (thiếu sau khi chuyển A04) | Kiểm mô hình dòng | — | Mạch cần trang kiểm tra | thêm A06 |
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện, ký hiệu kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---:|
+| AT | Điểm vào mạch 2 | Nhận nhiệm vụ của mạch | Lời dẫn "Muốn trả lời truy vấn trên dòng chưa biết độ dài, phải giữ trạng thái nhỏ hơn lịch sử."; cụm khóa "Trạng thái theo truy vấn · Mô hình dòng · Chi phí mỗi phần tử · Trạng thái của phương sai" | Nhu cầu và ký hiệu từ mạch 1 | Nêu được ba việc của mạch | sửa: ràng buộc thật là bộ nhớ nhỏ hơn lịch sử; cụm khóa chỉ gọi tên nội dung của mạch; ghi chú nêu kết quả kế thừa và đầu ra trao mạch 3 (yêu cầu bộ nhớ dùng để loại bảng theo người dùng) | 39 (2, 21) → 37 (2, 19); ghi chú 98 → 94 | 0,5 |
+| A05 | Nhu cầu, quy mô và ví dụ có số trước hình thức hóa | Tính trạng thái và kết quả của ba truy vấn sau 8 số | Quy mô một triệu cảm biến độ cao mặt biển, 3,5 TB mỗi ngày; dòng $1,5,2,7,4,0,3,5$; giá trị lớn nhất 7; trung bình $27/8=3{,}375$; cửa sổ 24 số | MMDS Hình 4.1 (tr.132), Ví dụ 4.1 (tr.134), §4.1.2 (tr.133) | Bảng trạng thái theo truy vấn; bằng chứng: ba hàng của bảng chi phí A02 và bài tập A06 dùng lại cùng dòng | thêm. Lượt rà lại: tiêu đề "dòng cảm biến" và câu quy mô ghi đúng cảm biến độ cao mặt biển (10 số mỗi giây, 3,5 TB thuộc cảm biến có GPS; cảm biến nhiệt độ của sách gửi một số mỗi giờ); câu quy mô đưa lên trước dữ liệu nhỏ. Tự tính lại: tổng 27; lớn nhất 7; $10^6\cdot10\cdot4\cdot86\,400=3{,}456\cdot10^{12}$ byte | — → 59 (6, 17); ghi chú — → 150 | 3 |
+| A00 | Định nghĩa thuật toán dòng và mô hình hệ thống | Đọc hình: nối từng thành phần với một dòng định nghĩa | Hình `mo-hinh-dong.svg`; Định nghĩa., Đầu vào:, Đầu ra: (thường trực chạy liên tục, tức thời hỏi một lần), Giả thiết: | Dòng hiện lại trong hình theo quy ước MMDS (phần tử gần bộ xử lý đến trước), viết "5, 3, 0, 4, 7, 2, 5, 1", nhãn "$x_1=1$ đến trước" chỉ vào phần tử sát bộ xử lý | Phân biệt truy vấn thường trực và tức thời, bộ nhớ làm việc và kho lưu trữ; bằng chứng: bài tập A06 dùng truy vấn thường trực | sửa và gộp A01. Lượt rà lại: đảo thứ tự viết dòng trên hình để khớp $x_1=1,\ldots,x_8=5$; giải nghĩa hai loại truy vấn trên mặt trang; định nghĩa nêu "trả lời từ trạng thái giữ lại"; ghi chú theo MMDS §4.1.3 ("kết quả vào thời điểm định trước") | A00 5 (0, 0) + A01 54 (4, 17) → 57 (4, 18); ghi chú 44 + 39 → 150 | 3 |
+| A02 | Chi phí của thuật toán dòng trên ba truy vấn | Đọc và đếm chi phí từng truy vấn | Mô hình từ máy (word); bảng `Truy vấn \| Bộ nhớ (từ) \| Cập nhật mỗi phần tử \| Lượt đọc \| Sai số`: giá trị lớn nhất 1 / 1 phép so sánh; trung bình 2 / 2 phép cộng; cửa sổ 24 số $24+3$ / 4 phép với bộ đệm vòng; công việc sau $r$ phần tử | Ba truy vấn của A05; ký hiệu $r$ | Đếm được chi phí từng truy vấn; bằng chứng: bài tập A06 và các trang chi phí mạch 3–5 | sửa. Lượt rà lại: dựng lại theo hàng là ba truy vấn (so sánh ba công cụ trên cùng dữ liệu), bỏ cột "Giá trị lớn nhất" dễ hiểu nhầm. Số đếm: cửa sổ giữ 24 số, tổng chạy, vị trí ghi, số đếm $\min(r,24)$ = 27 từ; mỗi phần tử 4 phép (trừ số cũ khi $r>24$ hoặc tăng số đếm khi $r\le24$, cộng số mới, ghi đè, tăng vị trí modulo 24) | 54 (4, 15) → 58 (5, 17); ghi chú 38 → 146 | 3 |
+| A03 | — | — | — | — | — | bỏ: ba dòng trả lời đã nằm ở trang Vấn đề trung tâm; bảng đối chiếu thuộc mạch tổng kết | 40 → — | 0 |
+| A06 | Bài tập kiểm mô hình dòng | Chọn trạng thái cỡ hằng cho phương sai; tính $\sigma_8^2$ | Phương sai mọi số đã đọc (chia $r$); dòng $1,5,2,7,4,0,3,5$ hiện lại trên trang | Truy vấn thường trực (A00); trạng thái tổng và số đếm (A05, A02) | Lời giải trong ghi chú: trạng thái $r,\sum x_i,\sum x_i^2$ (3 từ), cập nhật 3 phép; $\sigma_8^2=129/8-(27/8)^2=4{,}734375$ | thêm (theo quyết định của điều phối viên, thay A04 đã chuyển). Câu hỏi do học phần dựng trên dòng của MMDS Hình 4.1, cùng kiểu truy vấn trung bình của Ví dụ 4.1. Tự kiểm: $\sum x_i^2=1+25+4+49+16+0+9+25=129$; $129/8=16{,}125$; $(27/8)^2=11{,}390625$; hiệu $4{,}734375$ | — → 28 (5, 15); ghi chú — → 100 | 2,5 |
+
+Tổng mạch 2: 12 phút (trước: AT 0,5, A00 2,5, A01 3, A02 3, A03 2, A04 2 = 13). K01B (A04 cũ) mang 2,5 phút sang mạch 3; phân bổ lại khi duyệt mạch 3. Tổng phần giảng tạm là 121,5 phút.
+
+Hình: `img/lec-08/mo-hinh-dong.svg` (mới, thay `stream-model.svg` trên deck; dòng trên viết theo quy ước MMDS kèm nhãn $x_1$) và `img/lec-08/bang-theo-nguoi-dung.svg` (mới, nay ở K01B). `stream-model.svg` giữ nguyên vì ghi chú bài giảng còn dùng; việc thay hình trong ghi chú thuộc tác tử viết ghi chú.
+
+**K01B (chuyển từ A04, thuộc mạch 3).** Bảng giữ hoặc bỏ theo người dùng (MMDS §4.2.2, tr.137), đặt sau K01 và trước K02. Nội dung giữ nguyên; ghi chú đổi "mà không lưu gì" thành "mà không lưu bảng nhãn". Số rút 0, 7, 4 do học phần dựng. Âm tiết 56 (6, 18), ghi chú 116. Biên tập sâu (câu "Nhu cầu", gộp câu hỏi, khớp số rút với $h$ của K02) làm ở lượt mạch 3.

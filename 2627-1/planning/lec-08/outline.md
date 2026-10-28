@@ -33,8 +33,8 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 ## Mạch phần giảng
 
 1. P00 → P04 → P02 → P03 → P01 (cập nhật 2026-10-28): bìa có câu luận đề; tiên quyết và quy ước; mục tiêu học tập; nội dung và đọc trước; vấn đề trung tâm với câu trả lời có điều kiện của mạch 2–5 (số liệu MMDS tr.133, 136, 139).
-2. A00–A04: mô hình dòng, trạng thái và mô hình chi phí.
-3. K00–K08: lấy mẫu nhất quán theo khóa.
+2. AT → A05 → A00 → A02 → A06 (cập nhật 2026-10-28): ví dụ ba truy vấn trên dòng cảm biến (MMDS Hình 4.1, Ví dụ 4.1; quy mô §4.1.2); định nghĩa thuật toán dòng và mô hình hệ thống; chi phí ba truy vấn theo từng phần tử (mô hình từ máy); bài tập trạng thái của phương sai (câu hỏi của học phần). Bỏ A01 (gộp vào A00) và A03; A04 chuyển sang mạch 3 thành K01B.
+3. K00, K01, K01B, K02–K08: lấy mẫu nhất quán theo khóa; K01B là bảng giữ/bỏ theo người dùng (MMDS §4.2.2), chuyển từ mạch 2 ngày 2026-10-28.
 4. R00, R01, R03, R02, R04–R08: vấn đề → phân biệt → chạy tay → đặc tả → thuật toán và chứng minh hồ chứa.
 5. B00, B02, B05, B01, B03–B12: tình huống → vị trí hệ thống → ví dụ → đặc tả → thuật toán, bảo đảm và xác suất dương giả.
 6. C00–C02: chọn cấu trúc theo câu hỏi, nguồn và phạm vi.
@@ -68,6 +68,10 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 | trạng thái (dữ liệu giữ lại giữa hai lần đọc) | state |
 | truy vấn thường trực | standing query |
 | truy vấn tức thời | ad-hoc query |
+| bộ nhớ làm việc | working store |
+| kho lưu trữ | archival store |
+| bộ đệm vòng | ring buffer |
+| từ máy | machine word |
 | lấy mẫu theo khóa | sampling by key (MMDS §4.2.3, "key") |
 | lấy mẫu hồ chứa | reservoir sampling |
 | Bloom filter (còn gọi là bộ lọc Bloom) | Bloom filter |
@@ -81,7 +85,7 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 - Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/r$; điều kiện không âm giả.
 - Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
 - Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
-- Sáu SVG tự vẽ: mô hình dòng, mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
+- SVG tự vẽ: mô hình dòng (`mo-hinh-dong.svg`, thay `stream-model.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`), mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
 
 ## Bản đồ chủ đề cho ghi chú tự học

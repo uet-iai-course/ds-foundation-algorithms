@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 580" role="img" aria-labelledby="mhd-t mhd-d">
+<title id="mhd-t">Mô hình dòng dữ liệu</title>
+<desc id="mhd-d">Ba dòng đi vào bộ xử lý dòng từ bên trái, dòng trên cùng viết 5, 3, 0, 4, 7, 2, 5, 1 vì phần tử nằm gần bộ xử lý đến trước: x1 = 1 đến trước, rồi 5, 2, 7, 4, 0, 3, 5; mũi tên thời gian chỉ sang trái. Bộ xử lý chứa truy vấn thường trực; truy vấn tức thời đi vào từ phía trên; dòng kết quả đi ra bên phải. Bộ xử lý đọc và ghi bộ nhớ làm việc hạn chế (khung nét liền, mũi tên hai chiều) và chỉ ghi vào kho lưu trữ (khung nét đứt), kho này không dùng để trả lời truy vấn.</desc>
+<defs><marker id="mhd-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto-start-reverse"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="150" y="92" text-anchor="middle" font-weight="700">Các dòng đi vào</text>
+<text x="195" y="142" text-anchor="end" font-size="26"><tspan font-style="italic">x</tspan><tspan font-size="19" dy="6">1</tspan><tspan dy="-6"> = 1 đến trước</tspan></text>
+<path d="M203 136 L236 160" stroke="#2f3e7a" stroke-width="3" fill="none" marker-end="url(#mhd-a)"/>
+<text x="10" y="185">5, 3, 0, 4, 7, 2, 5, 1</text>
+<text x="10" y="245">q, w, e, r, t, y</text>
+<text x="10" y="305">0, 1, 1, 0, 1, 0</text>
+<g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mhd-a)"><path d="M300 175 H402"/><path d="M300 235 H402"/><path d="M300 295 H402"/></g>
+<path d="M250 345 H25" stroke="#526070" stroke-width="3" fill="none" marker-end="url(#mhd-a)"/>
+<text x="140" y="382" text-anchor="middle">thời gian</text>
+<text x="560" y="42" text-anchor="middle">Truy vấn tức thời</text>
+<path d="M560 56 V104" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mhd-a)"/>
+<rect x="410" y="110" width="300" height="220" rx="18" fill="#f7efe6" stroke="#b15a2b" stroke-width="4"/>
+<text x="560" y="156" text-anchor="middle" font-weight="700">Bộ xử lý dòng</text>
+<rect x="440" y="182" width="240" height="118" rx="10" fill="#ffffff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="560" y="232" text-anchor="middle">Truy vấn</text>
+<text x="560" y="270" text-anchor="middle">thường trực</text>
+<path d="M712 220 H830" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mhd-a)"/>
+<text x="772" y="166" text-anchor="middle">Dòng</text>
+<text x="772" y="200" text-anchor="middle">kết quả</text>
+<rect x="40" y="440" width="350" height="120" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="215" y="492" text-anchor="middle">Bộ nhớ làm việc</text>
+<text x="215" y="530" text-anchor="middle">(hạn chế)</text>
+<path d="M470 336 V500 H396" stroke="#2f3e7a" stroke-width="4" fill="none" marker-start="url(#mhd-a)" marker-end="url(#mhd-a)"/>
+<rect x="500" y="440" width="330" height="120" rx="12" fill="#f5f5f5" stroke="#607d8b" stroke-width="3" stroke-dasharray="12 8"/>
+<text x="665" y="492" text-anchor="middle">Kho lưu trữ</text>
+<text x="665" y="530" text-anchor="middle" font-size="26">(không dùng để trả lời)</text>
+<path d="M650 332 V434" stroke="#607d8b" stroke-width="4" stroke-dasharray="10 7" fill="none" marker-end="url(#mhd-a)"/>
+</g></svg>

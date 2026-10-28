@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="btn-t btn-d">
+<title id="btn-t">Bảng giữ hoặc bỏ theo người dùng</title>
+<desc id="btn-d">Bốn bộ đến lần lượt: An, Bình, An, Chi. Bảng tra có một hàng cho mỗi người dùng: An rút số 0, nhãn giữ; Bình rút số 7, nhãn bỏ; Chi rút số 4, nhãn bỏ. Lần thứ hai gặp An chỉ tra bảng, không thêm hàng. Mỗi người dùng mới thêm một hàng.</desc>
+<defs><marker id="btn-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="26" fill="#263238">
+<text x="100" y="48" text-anchor="middle" font-weight="700">Bộ đến</text>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"><rect x="10" y="70" width="180" height="44" rx="8"/><rect x="10" y="125" width="180" height="44" rx="8"/><rect x="10" y="180" width="180" height="44" rx="8"/><rect x="10" y="235" width="180" height="44" rx="8"/></g>
+<text x="100" y="101" text-anchor="middle">(An, …)</text>
+<text x="100" y="156" text-anchor="middle">(Bình, …)</text>
+<text x="100" y="211" text-anchor="middle">(An, …)</text>
+<text x="100" y="266" text-anchor="middle">(Chi, …)</text>
+<path d="M196 175 H248" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#btn-a)"/>
+<text x="442" y="48" text-anchor="middle" font-weight="700">Bảng tra theo người dùng</text>
+<rect x="255" y="70" width="375" height="44" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
+<g fill="none" stroke="#2f3e7a" stroke-width="2"><rect x="255" y="114" width="375" height="44"/><rect x="255" y="158" width="375" height="44"/><rect x="255" y="202" width="375" height="44"/><path d="M425 70 V246 M515 70 V246"/></g>
+<rect x="255" y="246" width="375" height="40" fill="none" stroke="#2f3e7a" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="340" y="100" text-anchor="middle" font-weight="700">Người dùng</text><text x="470" y="100" text-anchor="middle" font-weight="700">Số rút</text><text x="572" y="100" text-anchor="middle" font-weight="700">Nhãn</text>
+<text x="340" y="145" text-anchor="middle">An</text><text x="470" y="145" text-anchor="middle">0</text><text x="572" y="145" text-anchor="middle" font-weight="700">giữ</text>
+<text x="340" y="189" text-anchor="middle">Bình</text><text x="470" y="189" text-anchor="middle">7</text><text x="572" y="189" text-anchor="middle">bỏ</text>
+<text x="340" y="233" text-anchor="middle">Chi</text><text x="470" y="233" text-anchor="middle">4</text><text x="572" y="233" text-anchor="middle">bỏ</text>
+<text x="442" y="274" text-anchor="middle">…</text>
+<text x="320" y="345" text-anchor="middle">Mỗi người dùng mới thêm một hàng</text>
+</g></svg>

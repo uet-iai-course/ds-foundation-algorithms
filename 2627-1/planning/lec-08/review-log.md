@@ -200,3 +200,25 @@ Trang đổi: P00 (câu luận đề), P04 (mới, "Tiên quyết và quy ước
 Ngoại lệ mật độ: P01 72 âm tiết, xếp loại trang đối chiếu (trần 80), lý do ở storyboard (bốn câu trả lời có điều kiện, số MMDS). Phần đầu chương của ghi chú 2 890 âm tiết (Bài 06: 2 466): bảng ký hiệu 21 dòng và tiên quyết cho Mục 4 (Bernoulli, tiêu chuẩn lõm chặt, cực tiểu theo dấu đạo hàm).
 
 Kiểm của điều phối viên: đọc diff deck, ghi chú, outline, storyboard; đọc lại câu mở ghi chú sau sửa; `check08.py` toàn deck 56 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 1: P00 51, P04 57, P02 56, P03 39, P01 72 âm tiết; dòng dài nhất 20. Ảnh đã tự xem: P01, P03, P04 (1600×900). Trình xem ghi chú ở 1440×900, 390×844, in: 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang, liên kết deck tải được; lỗi CSP do máy chủ phát triển chèn script nội tuyến được loại; một cảnh báo KaTeX `\text{bị thay}` ở mục hồ chứa cũ, xử lý ở mạch 4. Ảnh đã tự xem: bảng ký hiệu (1440×900). `git diff --check` sạch.
+
+### Mạch 2. Mô hình tính toán trên dòng
+
+Trang đổi: AT (lời dẫn bỏ "trạng thái hữu hạn", cụm khóa), A05 (mới, "Ví dụ: ba truy vấn trên dòng cảm biến"), A00 (gộp A01; hình mới), A02 ("Chi phí: thuật toán dòng", bảng ba truy vấn), A06 (mới, "Bài tập: trạng thái của phương sai"); bỏ A01, A03; A04 (bảng giữ/bỏ theo người dùng) chuyển sang mạch 3 thành K01B, sau K01. Deck 56 trang. Hình mới `mo-hinh-dong.svg` (vẽ lại MMDS Hình 4.1; dòng viết "5, 3, 0, 4, 7, 2, 5, 1" với nhãn "$x_1=1$ đến trước"; kho lưu trữ nét đứt) và `bang-theo-nguoi-dung.svg`; xóa `stream-model.svg` (không còn trang nào dùng; mũi tên kết quả đi vào ô truy vấn, sai so với MMDS). CSS: thêm `.stream-tall` trong khối `.lecture-stream`. Ghi chú bài giảng: viết lại Mục 1 (1.1–1.6; Định nghĩa 08.1, Thuật toán 08.2, Định nghĩa 08.3, Nhận xét 08.4–08.5, Ví dụ 08.1–08.2, Bài tập 08.1), 2 823 âm tiết; phần bảng giữ/bỏ để dành cho Mục 2.
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác, mạch (điều phối viên phát hiện cùng lúc) | trung bình | A00, `mo-hinh-dong.svg`, ghi chú §1.2 | mũi tên thời gian chỉ sang trái (quy ước MMDS) nên theo hình $x_1=5$, ngược $x_1=1$ của A05 và vết $M$, $T$ | sửa | viết ngược dòng trên hình, nhãn "$x_1=1$ đến trước", sửa desc, alt, ghi chú |
+| mạch | trung bình | A04 | phương án lấy mẫu theo người dùng xuất hiện trước lý do (sai lệch của lấy mẫu từng bộ, MMDS §4.2.1) | sửa | chuyển thành K01B sau K01 (đúng vai "phương pháp trước" của cụm thuật toán mạch 3); mạch 2 kết bằng A06 do học phần dựng: trạng thái $r,\sum x_i,\sum x_i^2$, $\sigma_8^2=129/8-(27/8)^2=4{,}734375$ (điều phối viên tự kiểm, và kiểm trực tiếp $37{,}875/8$) |
+| mạch | trung bình | A02 | cột "Giá trị lớn nhất" dễ hiểu là mức tối đa; chỉ một truy vấn | sửa | bảng ba truy vấn: 1 từ/1 so sánh; 2 từ/2 phép cộng; $24+3$ từ/4 phép (bộ đệm vòng) |
+| mạch | trung bình | A00 | truy vấn thường trực/tức thời chưa giải nghĩa | sửa | "(chạy liên tục)", "(hỏi một lần)" trên dòng Đầu ra |
+| mạch | trung bình | toàn mạch, ghi chú | "truy vấn" hai nghĩa | sửa | ghi chú §1 nêu hai nghĩa; dữ liệu gọi "truy vấn tìm kiếm"; mặt trang mạch 3 xử lý ở lượt sau |
+| mạch | trung bình | ghi chú KT | còn "Hợp đồng", "trạng thái hữu hạn"; chưa nhận đầu ra mạch 2 | sửa | viết lại; lời dẫn KT để mạch 3 |
+| độ chính xác, mạch | trung bình | ghi chú §1 | Nhận xét 08.4 lấy cửa sổ 24 số làm phản ví dụ cho bộ nhớ không đổi theo $r$; Nhận xét 08.5 nói hồ chứa dùng băm; Thuật toán 08.2 thiếu trường hợp biên | sửa | phản ví dụ "chép cả dòng"; Mục 3 lấy ngẫu nhiên từ số rút; $r=0$ trả $-\infty$ |
+| độ chính xác | nhẹ | A05, ghi chú | quy mô 10 số/giây, 3,5 TB thuộc cảm biến độ cao mặt biển (§4.1.2), không phải cảm biến nhiệt độ | sửa | tiêu đề "dòng cảm biến"; câu quy mô nêu đúng loại cảm biến |
+| độ chính xác | nhẹ | A02, ghi chú | trạng thái cửa sổ đếm thiếu | sửa | tổng chạy, vị trí ghi, số đếm $\min(r,24)$ |
+| độ chính xác | nhẹ | K01B | số rút của An (0) khác $h(\text{An})=1$ ở K02 | để sau | mạch 3 |
+| mạch | nhẹ (11 mục khác) | AT, A00, A02, outline, storyboard, ghi chú §1 | thuật ngữ Anh, thứ tự câu, meta description, chủ ngữ là bộ trang chiếu, "từ máy" chưa giải nghĩa | sửa | theo bảng xử lý của hai tác tử |
+
+Thời lượng tạm 121,5 phút (K01B mang 2,5 phút sang mạch 3), cân lại ở mạch 3. Ghi chú diễn giả A05, A00 đúng 150 âm tiết (trần).
+
+Kiểm của điều phối viên: đọc diff deck, SVG, ghi chú, planning; `check08.py` toàn deck 56 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 2: AT 37, A05 59, A00 57, A02 58 (trần 80), A06 28 âm tiết; dòng dài nhất 19. Ảnh đã tự xem: A05, A00 (trước và sau sửa hình), A02, A04/K01B (1600×900). Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang. Hình trong trình xem kế thừa `min-width: 900px` của CSS trình xem nên cuộn ngang trong khung riêng ở 1440 và 390 (có ở mọi bài, không thuộc phạm vi lượt này). `git diff --check` sạch.
