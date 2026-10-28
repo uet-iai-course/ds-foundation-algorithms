@@ -1064,3 +1064,19 @@
 .reveal.course-deck.lecture-ann .example-slide .ann-compact th, .reveal.course-deck.lecture-ann .example-slide .ann-compact td { padding: 5px 10px; }
 .reveal.course-deck.lecture-ann .ex-table th[scope="row"] { white-space: nowrap; }
 .reveal.course-deck.lecture-ann .ex-table .ann-selected { outline: 3px solid #2f3e7a; outline-offset: -3px; font-weight: 700; background: #edf4ff; }
+
+/* Bài 08: dòng dữ liệu (.lecture-stream). */
+.reveal.course-deck.lecture-stream .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
+.reveal.course-deck.lecture-stream .stream-figure { margin: 10px 0; }
+.reveal.course-deck.lecture-stream .stream-figure img { display: block; width: 100%; max-height: 360px; margin: 0 auto; object-fit: contain; }
+.reveal.course-deck.lecture-stream .stream-short img { max-height: 270px; }
+.reveal.course-deck.lecture-stream .stream-mini img { max-height: 150px; }
+.reveal.course-deck.lecture-stream .ex-grid2 > div { min-width: 0; }
+.reveal.course-deck.lecture-stream .ex-grid2.stream-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.reveal.course-deck.lecture-stream .stream-figure-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
+.reveal.course-deck.lecture-stream .stream-code-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
+.reveal.course-deck.lecture-stream .ex-card.stream-accent { border-left-color: #b15a2b; background: #fdf6ef; }
+.reveal.course-deck.lecture-stream .stream-question { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: 10px 16px; margin-top: 16px; }
+.reveal.course-deck.lecture-stream .example-slide .stream-compact th,
+.reveal.course-deck.lecture-stream .example-slide .stream-compact td { padding: 5px 10px; }
+.reveal.course-deck.lecture-stream .ex-table th[scope="row"] { white-space: nowrap; }

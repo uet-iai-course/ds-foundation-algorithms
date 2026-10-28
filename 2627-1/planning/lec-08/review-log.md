@@ -147,3 +147,30 @@ Kiểm tra: section mở/đóng 62/62; 55 `data-slide-id` và 6 `id` duy nhất.
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 6 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Câu "Mỗi nhóm nộp một phiếu…" ở ghi chú XT thay bằng sản phẩm của lời giải: khóa đã chọn, phép tính xác suất và lập luận tối ưu. Từ khóa "Ba sản phẩm" ở AT đổi thành "Mẫu, hồ chứa, bộ lọc". Lý do đặt trang Nội dung P03 ngay sau bìa: bài không có trang mục tiêu đứng ngay sau bìa (P01 là trang tình huống dòng truy vấn, P02 là kết quả học tập), nên theo brief đặt P03 sau P00; sắp lại mạch mở đầu theo thứ tự mục tiêu → Nội dung → vấn đề trung tâm là việc của đợt sau. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Duyệt từng mạch, sửa ghi chú và gắn index (2026-10-28)
+
+Yêu cầu người dùng (2026-10-28): duyệt lần lượt các trang Bài 08 theo mạch (mạch đã có trang tiêu đề chưa, trang có đạt và phục vụ chủ đề mạch không, trang muốn nói gì, còn vấn đề gì, đề xuất sửa); sửa để tiêu đề ngắn, học thuật, lập luận chặt, khái niệm không đột ngột; rà lại từ góc nhìn sinh viên; giảm chữ; dùng `no-ai-slop`; dùng hình nhắc lại dữ kiện thay cho dẫn chiếu ví dụ ở trang trước; sau mỗi phần sửa ghi chú bài giảng tương ứng, gắn lên `index.html`, commit và push theo mạch.
+
+### Tác tử
+
+Điều phối viên kiêm kiểm soát chất lượng: phiên chính Claude Opus 5.5 (`claude-opus-5-5`), effort `high`. Mọi tác tử con tạo bằng `Agent`, `subagent_type: "general-purpose"`, `model: "opus"`, `effort: "high"` (theo lời gọi công cụ); sửa tiếp bằng `SendMessage` cho cùng tác tử.
+
+| Vai | Ghi tệp | Sản phẩm | Quyết định của điều phối viên |
+|---|---|---|---|
+| lập kế hoạch, rà deck theo mạch (55 trang, MMDS 4.1–4.3, mật độ, CSS) | không | `audit-deck-08.md` (scratchpad) | chấp nhận; đã tự kiểm khóa Bloom 29 → (7, 2) dương giả và 118 → (3, 5) bị loại trên mảng $10100101010$ |
+| bản đồ chủ đề, rà ghi chú theo chuẩn giáo trình | không | `audit-note-08.md` | chấp nhận; đã kiểm `TOPIC_ID_PATTERN = /^[a-z0-9][a-z0-9-]*$/` (mã `L08-N01` không hợp lệ) và liên kết deck `../../lecture-08-…` sai dạng so với Bài 06 |
+| biên tập deck | có | diff | xem từng bước |
+
+Quyết định ký hiệu và quy trình chung ghi ở `decisions-08.md` (scratchpad), tóm tắt: hồ chứa là mảng $W$ (thay $S$); $S$, $m$ là tập khóa Bloom; khóa truy vấn $y$; $u$, $d$ cho số giá trị truy vấn xuất hiện một, hai lần (thay $x$ trùng phần tử dòng); $r$ là số phần tử đã đọc; $p_{FP}$ là xác suất dương giả thật, $p(k)$ là dạng mũ; không KaTeX trong tiêu đề; thứ tự mạch 1: P00 → P04 (mới) → P02 → P03 → P01.
+
+### Bước chuẩn bị: chuyển sang CSS dùng chung và mục index
+
+| Mức độ | Vị trí | Vấn đề | Quyết định |
+|---|---|---|---|
+| nghiêm trọng | `<head>` | khối `<style>` riêng (cỡ chữ `.88em`, `.small`, `.tiny`, lớp `.grid2`, `.card`, `.check`, `.trace`, `.code`) trái quy định chỉ dùng `lecture-style.css` | bỏ; gốc `.reveal.course-deck.lecture-stream`; trang nội dung `example-slide`; lớp chung `ex-grid2`, `ex-card`, `ex-equation`, `ex-table`, `ex-code`, `ex-note`; lớp riêng `stream-*` trong phạm vi `.lecture-stream` |
+| nhẹ | CSS | `stream-question`, `stream-accent`, `stream-figure` trùng giá trị `ann-question`, `ann-accent`, `ann-figure` của Bài 07 | phương án A: giữ phạm vi hẹp, không chạm Bài 07; trùng lặp có chủ ý, việc nâng thành lớp chung để lượt sau (cần kiểm lại Bài 02, 03, 07) |
+| nhẹ | P00, h1, giả mã, cấu hình | bìa chưa theo `title-slide`; `h1` ở A00, K00, R00, B00, C00, X00; giả mã `div.code`; thiếu khối nạp KaTeX cho cửa sổ ghi chú | theo mẫu Bài 07 |
+| — | `index.html` | Bài 8 chưa có mục | thêm thẻ Bài 8 với liên kết deck; ghi chú để "Chưa có" cho tới khi qua kiểm định |
+
+Không đổi chữ: tác tử biên tập so chữ đã bỏ thẻ của 55 trang kể cả ghi chú diễn giả, không trang nào khác. Kiểm của điều phối viên: đọc diff ba tệp; `check08.py` (Playwright Chromium, cổng 8772) 55 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung, không cuộn ngang; chữ thân nhỏ nhất 28 px trong khung 1280×720 (bảng 25 px, `ex-note` 24 px); P01 72 và X01 78 âm tiết vượt trần từ trước, xử lý ở mạch 1 và 7. Ảnh đã tự xem: P00, K01, X04 (1600×900). Bài 02, 03 ở hai khổ: không phần tử khớp `.lecture-stream`, không lỗi. `git diff --check` sạch.
