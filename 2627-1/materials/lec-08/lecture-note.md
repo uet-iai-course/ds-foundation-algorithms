@@ -46,7 +46,7 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 | $\mathcal K$; $K$; $K(t)$ | miền khóa; một giá trị khóa; khóa của bộ $t$, gồm các thành phần nhận diện đơn vị thống kê | tập; phần tử của $\mathcal K$ |
 | $u$; $d$ | số truy vấn khác nhau mà một người dùng gửi đúng một lần; đúng hai lần | số nguyên không âm |
 | $h$ | hàm băm dùng để lấy mẫu theo khóa, cố định sau khi chọn | $\mathcal K\to\{0,\ldots,b-1\}$ |
-| $b$; $a$ | số giá trị của $h$; số giá trị được nhận, bộ $t$ được chọn khi $h(K(t))<a$, tỷ lệ $a/b$ | số nguyên, $b\ge1$, $0\le a\le b$ |
+| $b$; $a$ | số ngăn, tức số giá trị của $h$; ngưỡng, bộ $t$ được chọn khi $h(K(t))<a$, tỷ lệ $a/b$ | số nguyên, $b\ge1$, $0\le a\le b$ |
 | $\tau$ | ngưỡng băm khi điều chỉnh tỷ lệ: bộ được nhận khi $h(K(t))\le\tau$, ứng với $a=\tau+1$ | số nguyên, $-1\le\tau\le b-1$ |
 | $s$ | sức chứa của hồ chứa | số nguyên, $s\ge1$ |
 | $W[1..s]$ | mảng hồ chứa, giữ mẫu hiện tại | mảng $s$ ô, mỗi ô chứa một phần tử của dòng |
@@ -80,9 +80,9 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Kiến thức tiên quyết (`lec-08-topic-01`) | cầu nối | Tiên quyết | Kết quả dùng lại từ Bài 01, 05, 06, công cụ xác suất, giải tích, quy nạp → Mục 1–4 |
 | Mô hình dòng một lượt (`lec-08-topic-02`) | cốt lõi | 1.1–1.6 | Trạng thái, phép cập nhật, truy vấn, bốn đại lượng chi phí → đặc tả chung của ba cấu trúc |
 | Sai lệch của lấy mẫu từng bộ (`lec-08-topic-03`) | cốt lõi | 2.1 | Tỷ số $d/(10u+19d)$ so với $d/(u+d)$ → nhu cầu lấy mẫu theo đơn vị thống kê |
-| Mẫu nhất quán theo khóa (`lec-08-topic-04`) | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2 | Quy tắc $h(K(t))<a$, tính nhất quán, xác suất $a/b$, cỡ mẫu kỳ vọng → giới hạn về cỡ mẫu |
+| Mẫu nhất quán theo khóa (`lec-08-topic-04`) | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2, 2.4 | Quy tắc $h(K(t))<a$, tính nhất quán, xác suất $a/b$, cỡ mẫu kỳ vọng → giới hạn về cỡ mẫu |
 | Chọn khóa theo đơn vị thống kê (`lec-08-topic-05`) | cốt lõi | 2.3 | Quy trình ba bước, ba lựa chọn khóa → Bài tập 4.2.1 của MMDS |
-| Ngưỡng băm khi ngân sách cố định (`lec-08-topic-06`) | cầu nối | 2.4 | Hạ ngưỡng $\tau$, bất biến của mẫu → nhu cầu mẫu cỡ cố định |
+| Ngưỡng băm khi ngân sách cố định (`lec-08-topic-06`) | cầu nối | 2.5 | Hạ ngưỡng $\tau$, bất biến của mẫu → nhu cầu mẫu cỡ cố định |
 | Đặc tả và thuật toán hồ chứa (`lec-08-topic-07`) | cốt lõi | 3.1–3.3 | Mẫu cỡ $s$, vết chạy với $s=2$, giả mã → định lý xác suất |
 | Xác suất $s/r$ và chi phí hồ chứa (`lec-08-topic-08`) | cốt lõi; số lần ghi kỳ vọng là bổ sung | 3.4–3.5 | Chứng minh quy nạp, chi phí → so sánh với mẫu theo khóa |
 | Cơ chế Bloom filter (`lec-08-topic-09`) | cốt lõi | 4.1–4.3 | $10^9$ địa chỉ trong 1 GB, ví dụ 11 bit, xây và truy vấn → bảo đảm |
@@ -95,7 +95,7 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Bài tập củng cố (`lec-08-topic-16`) | cốt lõi | Bài tập | Ba mức, gồm bốn bài MMDS → kiểm ba mục tiêu |
 | Đọc thêm và tài liệu (`lec-08-topic-17`) | đọc thêm | Tham khảo | Ánh xạ mục ↔ nguồn, lấy mẫu có trọng số, Bài 09 |
 
-Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.4. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.3) rồi xác suất $s/r$ và chi phí (Mục 3.4–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
+Quan hệ tiên quyết giữa các mục như sau. Mô hình dòng một lượt (Mục 1) dùng phần tiên quyết và là đầu vào của cả ba nhánh. Nhánh lấy mẫu theo khóa đi tuần tự qua Mục 2.1–2.5. Nhánh hồ chứa gồm đặc tả và thuật toán (Mục 3.1–3.3) rồi xác suất $s/r$ và chi phí (Mục 3.4–3.5); phần sau cần quy nạp ở tiên quyết và so kết quả với mẫu nhất quán theo khóa (Mục 2.2). Nhánh Bloom filter đi tuần tự qua Mục 4.1–4.6 và cần giới hạn của $(1-1/c)^c$, bất đẳng thức Jensen cùng phần đạo hàm ở tiên quyết. Ba nhánh gặp nhau ở Mục 5, rồi đi qua tình huống áp dụng và tóm tắt chương; bài tập củng cố dùng mọi mục trước. Đếm số phần tử phân biệt, mômen và cửa sổ thời gian thuộc Bài 09.
 
 <!-- note-topic-id: lec-08-topic-02 -->
 ## 1. Mô hình dòng một lượt
@@ -283,113 +283,346 @@ $$
 **Kiểm tra lại.** Tính trực tiếp, các độ lệch $x_i-3{,}375$ có bình phương $5{,}640625$; $2{,}640625$; $1{,}890625$; $13{,}140625$; $0{,}390625$; $11{,}390625$; $0{,}140625$; $2{,}640625$, tổng $37{,}875$, và $37{,}875/8=4{,}734375$.
 :::
 
-Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chương: thuật toán dòng một lượt trả lời từ trạng thái chọn theo truy vấn (Định nghĩa 08.1) và được đo bằng bốn đại lượng trên mỗi phần tử (Định nghĩa 08.3), với Thuật toán 08.2 làm trường hợp mẫu. Các truy vấn của mục này, kể cả phương sai ở Bài tập 08.1, là thống kê trên mọi phần tử, nên một trạng thái cỡ hằng trả lời chính xác. Câu hỏi của máy tìm kiếm thì khác: đo tỷ lệ truy vấn tìm kiếm lặp của từng người dùng khi chỉ lưu được $1/10$ dòng (MMDS §4.2.1, tr.136). Trạng thái khi đó phải là một mẫu các phần tử, và cách chọn mẫu quyết định câu trả lời có đúng không. Trong Mục 2, chúng ta xét cách chọn mẫu đó.
+Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chương: thuật toán dòng một lượt trả lời từ trạng thái chọn theo truy vấn (Định nghĩa 08.1) và được đo bằng bốn đại lượng trên mỗi phần tử (Định nghĩa 08.3), với Thuật toán 08.2 làm trường hợp mẫu. Các truy vấn của mục này, kể cả phương sai ở Bài tập 08.1, là những thống kê có trạng thái cỡ hằng trả lời chính xác. Câu hỏi của máy tìm kiếm thì khác: đo tỷ lệ truy vấn tìm kiếm lặp của từng người dùng khi chỉ lưu được $1/10$ dòng (MMDS §4.2.1, tr.136). Trạng thái khi đó phải là một mẫu các phần tử, và cách chọn mẫu quyết định câu trả lời có đúng không. Trong Mục 2, chúng ta xét cách chọn mẫu đó.
 
-## 2. Sai lệch của lấy mẫu độc lập từng bộ
+## 2. Lấy mẫu theo khóa
 
-### Vấn đề
+Máy tìm kiếm nhận dòng bộ $t$ dạng (người dùng, truy vấn tìm kiếm, thời điểm), chỉ lưu được $1/10$ dòng, và muốn biết tỷ lệ truy vấn lặp của người dùng điển hình trong tháng vừa qua (MMDS §4.2.1, tr.136). Mục 1 cho thấy một số thống kê trên mọi phần tử, như giá trị lớn nhất, trung bình và phương sai, có trạng thái cỡ hằng; câu hỏi này thì cần một mẫu các bộ, vì tỷ lệ lặp của một người được tính từ chính các truy vấn của người đó. Chúng ta cần chọn mẫu sao cho tỷ lệ tính trên mẫu bằng tỷ lệ thật, với trạng thái quyết định không tăng theo dòng.
 
-Xét dòng truy vấn với bộ `(user, query, time)` và câu hỏi: "với người dùng điển hình, có bao nhiêu phần trăm truy vấn được lặp lại trong tháng vừa qua?" Ta chỉ lưu được $1/10$ dòng.
+<!-- note-topic-id: lec-08-topic-03 -->
+### 2.1 Sai lệch của lấy mẫu từng bộ
 
-Cách tự nhiên là sinh mỗi bộ một số ngẫu nhiên trong $\{0,\dots,9\}$ và giữ bộ khi số bằng 0. Mỗi người dùng trung bình giữ lại $1/10$ truy vấn của mình. Tuy nhiên, cách này cho câu trả lời sai cho câu hỏi về tỷ lệ truy vấn lặp.
+Cách làm đầu tiên nghĩ tới là rút cho mỗi bộ một số đều trong $\{0,\ldots,9\}$ và giữ bộ khi số bằng $0$. Mỗi người dùng khi đó giữ trung bình $1/10$ số truy vấn của mình (MMDS §4.2.1, tr.136). Ví dụ sau tính điều xảy ra với tỷ lệ lặp.
 
-### Phép đếm
+::: example Ví dụ 08.3 (Ba bộ truy vấn của An)
+**Dữ kiện.** An gõ "đồ thị" hai lần và "băm" một lần, nên tỷ lệ lặp của An, tức số truy vấn phân biệt xuất hiện hai lần chia cho số truy vấn phân biệt, là $1/2$. Mỗi bộ được giữ độc lập với xác suất $1/10$. Ba bộ này do học phần dựng.
 
-Giả sử mỗi người dùng có $u$ truy vấn phân biệt xuất hiện đúng một lần và $d$ truy vấn phân biệt xuất hiện đúng hai lần. Tỷ lệ cần ước lượng là
+**Tính.** Hai bộ "đồ thị" được giữ độc lập, nên
 
-$$\frac{d}{u+d}.$$
+| Biến cố | Xác suất |
+|---|---|
+| giữ cả hai bộ "đồ thị" | $\frac1{10}\cdot\frac1{10}=\frac1{100}$ |
+| giữ đúng một bộ "đồ thị" | $2\cdot\frac1{10}\cdot\frac9{10}=\frac{18}{100}$ |
+| không giữ bộ "đồ thị" nào | $\frac9{10}\cdot\frac9{10}=\frac{81}{100}$ |
+| giữ bộ "băm" | $\frac1{10}$ |
 
-Trong mẫu $1/10$, kỳ vọng chứa $u/10$ truy vấn đơn. Trong $d$ truy vấn lặp, chỉ $d/100 = \tfrac{1}{10}\cdot\tfrac{1}{10}d$ còn đủ hai bản, và $18d/100$ chỉ còn một bản (một bản nằm trong $1/10$ được chọn, một bản nằm trong $9/10$ bị bỏ). Vậy tỷ số từ số đếm kỳ vọng trong mẫu là
+**Diễn giải.** Với điều kiện "đồ thị" có mặt trong mẫu, xác suất nó xuất hiện hai lần là $\frac{1/100}{1/100+18/100}=\frac1{19}$. Mẫu thường thấy "đồ thị" một lần và tính nó là truy vấn không lặp.
 
-$$\frac{d/100}{u/10 + 18d/100 + d/100} = \frac{d}{10u + 19d}.$$
-
-Rõ ràng $d/(u+d) \ne d/(10u+19d)$ với mọi $u,d>0$. Ví dụ với $u=d=1$, tỷ lệ đích là $1/2$ nhưng tỷ số từ số đếm kỳ vọng là $1/29$.
-
-> Lưu ý: tỷ số thứ hai chỉ là tỷ số của hai kỳ vọng, không phải kỳ vọng chính xác của một tỷ số ngẫu nhiên. Nó cho thấy lấy mẫu độc lập từng bộ phá vỡ đơn vị thống kê: quan hệ giữa các lần xuất hiện của cùng một truy vấn bị mất.
-
-::: exercise Tự kiểm
-Sai lệch trên đến từ tỷ lệ $1/10$ hay từ việc chọn sai đơn vị?
+**Kiểm tra lại.** $\frac1{100}+\frac{18}{100}+\frac{81}{100}=1$.
 :::
 
-::: solution
-Từ việc chọn sai đơn vị. Lấy độc lập từng lần xuất hiện có thể giữ một bản nhưng bỏ bản còn lại của cùng truy vấn.
+Phép đếm sau làm cho một người dùng bất kỳ, theo MMDS (§4.2.1, tr.136–137); sách viết $s$ cho số truy vấn xuất hiện một lần, ở đây là $u$.
+
+::: proposition Mệnh đề 08.6 (Tỷ số từ số đếm kỳ vọng)
+**Giả thiết.** Một người dùng có $u\ge0$ truy vấn phân biệt xuất hiện đúng một lần và $d>0$ truy vấn phân biệt xuất hiện đúng hai lần, không truy vấn nào nhiều hơn hai lần. Mỗi bộ được giữ độc lập với xác suất $1/10$.
+
+**Kết luận.** Số kỳ vọng các truy vấn phân biệt thấy hai lần trong mẫu là $d/100$, thấy đúng một lần là $u/10+18d/100$, và tỷ số
+
+$$
+\frac{d/100}{d/100+u/10+18d/100}=\frac{d}{10u+19d}
+$$
+
+khác tỷ lệ thật $d/(u+d)$.
+
+**Điều kiện áp dụng.** Xác suất lấy theo các số rút cho từng bộ; dòng của người dùng cố định.
+
+**Phạm vi.** Mệnh đề so tỷ số của hai số đếm kỳ vọng với tỷ lệ thật; nó không tính kỳ vọng của tỷ số ngẫu nhiên trên mẫu.
 :::
 
-## 3. Lấy mẫu nhất quán theo khóa
+::: proof
+**Bước 1 (truy vấn một lần).** Mỗi truy vấn trong $u$ truy vấn một lần có mặt trong mẫu với xác suất $1/10$, và khi có mặt thì xuất hiện một lần. Theo tuyến tính kỳ vọng, số kỳ vọng là $u/10$.
 
-### Trực giác
+**Bước 2 (truy vấn hai lần).** Với mỗi truy vấn trong $d$ truy vấn hai lần, hai bộ được giữ độc lập, nên xác suất thấy hai lần là $1/100$ và thấy đúng một lần là $2\cdot\frac1{10}\cdot\frac9{10}=18/100$. Theo tuyến tính kỳ vọng, hai số kỳ vọng là $d/100$ và $18d/100$.
 
-Thay vì lấy mẫu từng bộ độc lập, ta lấy mẫu theo **đơn vị thống kê**: chọn tập các giá trị khóa và giữ toàn bộ bộ có khóa được chọn. Với câu hỏi về truy vấn lặp theo người dùng, đơn vị là người dùng: ta chọn $10\%$ số người dùng và giữ mọi truy vấn của họ.
+**Bước 3 (tỷ số).** Nhân tử số và mẫu số với $100$ được $d/(10u+19d)$.
 
-Hàm băm $\mathcal K\to\{0,\dots,b-1\}$ đóng vai bảng quyết định theo khóa. Cùng một khóa luôn cho cùng giá trị băm, do đó cùng quyết định, mà không cần lưu danh sách quyết định của từng khóa.
+**Bước 4 (so sánh).** Vì $d>0$,
 
-### Đặc tả
+$$
+\frac{d}{u+d}=\frac{d}{10u+19d}
+\iff 10u+19d=u+d
+\iff 9u+18d=0,
+$$
 
-- Đầu vào: bộ $t$ có khóa $K(t)$; số nguyên $b\ge1$ và $0\le a\le b$; hàm $h:\mathcal K\to\{0,\dots,b-1\}$.
-- Quy tắc: chọn $h$ sao cho mỗi giá trị trong $\{0,\dots,b-1\}$ có xác suất $1/b$, rồi giữ $t$ khi và chỉ khi $h(K(t))<a$.
-- Một hàm $h$ đã chọn được giữ cố định cho toàn bộ dòng.
+không xảy ra với $u\ge0$, $d>0$. $\square$
+:::
 
-Dấu nhỏ hơn là để có đúng $a$ giá trị $\{0,\dots,a-1\}$ được nhận. Điều kiện để tỷ lệ là $a/b$ là $h$ phân bố **đều trên toàn miền**; nếu chỉ "gần đều" thì tỷ lệ $a/b$ không được bảo đảm.
+Với An, $u=d=1$, mệnh đề cho $1/29\approx0{,}034$ thay cho $1/2$. Số này khác $1/19$ của Ví dụ 08.3 vì mẫu số tính cả truy vấn "băm". Bước 2 dùng độc lập giữa hai bộ của cùng một truy vấn, và chính sự tách rời này gây sai lệch: một truy vấn lặp bị cắt thành hai quyết định riêng.
 
-<div class="figure">
+::: remark Nhận xét 08.7 (Nhầm lẫn thường gặp)
+- Mỗi người dùng vẫn giữ trung bình $1/10$ số truy vấn của mình; sai lệch không nằm ở tỷ lệ giữ mà ở đơn vị bị cắt. Với tỷ lệ giữ $p$ bất kỳ, cùng phép đếm cho tỷ số $dp/(u+(2-p)d)$, vẫn khác $d/(u+d)$ khi $p<1$; với $p=1/10$ ta được lại $d/(10u+19d)$.
+- $d/(10u+19d)$ là tỷ số của hai số đếm kỳ vọng, không phải kỳ vọng của tỷ lệ tính trên mẫu.
+:::
 
-![Các bộ cùng người dùng đi qua cùng hàm băm và được giữ toàn bộ khi giá trị băm nhỏ hơn ba](img/lec-08/key-sampling.svg)
+<!-- note-topic-id: lec-08-topic-04 -->
+### 2.2 Mẫu nhất quán theo khóa
 
-</div>
+Mệnh đề 08.6 chỉ ra đơn vị cần giữ trọn là người dùng: giữ hoặc bỏ cả lịch sử truy vấn của mỗi người. MMDS (§4.2.2, tr.137) nêu một phương án trực tiếp: lần đầu gặp một người dùng, rút một số đều trong $\{0,\ldots,9\}$, ghi nhãn "giữ" nếu số là $0$ và "bỏ" nếu khác; bộ đến sau tra bảng nhãn và vào mẫu khi nhãn là "giữ".
 
-Ví dụ $a=3, b=10$ cho tỷ lệ $30\%$: các khóa có giá trị băm $\{0,1,2\}$ được chọn. Hai bộ của cùng người dùng cùng được giữ vì có cùng khóa và cùng giá trị băm.
+::: example Ví dụ 08.4 (Bảng nhãn trên năm bộ)
+**Dữ kiện.** Năm bộ đến theo thứ tự (An, "đồ thị"), (Bình, "lọc"), (An, "băm"), (An, "đồ thị"), (Chi, "lọc"); ba bộ của An là ba bộ của Ví dụ 08.3. Các số rút cho người dùng mới lần lượt là $0$, $7$, $4$, một lần chạy minh họa do học phần dựng. Dòng năm bộ này được dùng lại ở Ví dụ 08.5 và 08.7.
 
-### Thuật toán
+**Tính.**
+
+| $r$ | Người dùng | Thao tác | Bảng sau bước | Vào mẫu? |
+|---:|---|---|---|---|
+| 1 | An | mới, rút $0$, ghi "giữ" | An: giữ | có |
+| 2 | Bình | mới, rút $7$, ghi "bỏ" | An: giữ; Bình: bỏ | không |
+| 3 | An | đã có, tra "giữ" | không đổi | có |
+| 4 | An | đã có, tra "giữ" | không đổi | có |
+| 5 | Chi | mới, rút $4$, ghi "bỏ" | An: giữ; Bình: bỏ; Chi: bỏ | không |
+
+**Diễn giải.** Mẫu gồm đủ ba bộ của An: "đồ thị" hai lần, "băm" một lần, nên tỷ lệ lặp của An tính trên mẫu là $1/2$, đúng tỷ lệ thật. Bảng có 3 hàng sau 5 bộ.
+
+**Kiểm tra lại.** Số hàng bằng số người dùng phân biệt trong An, Bình, An, An, Chi, tức $3$.
+:::
+
+![Năm bộ (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc) đi vào bảng tra; sau năm bộ bảng có ba hàng, một hàng cho mỗi người dùng: An rút số 0 và nhãn giữ, Bình rút số 7 và nhãn bỏ, Chi rút số 4 và nhãn bỏ; các lần gặp lại An chỉ tra bảng, mỗi người dùng mới thêm một hàng.](img/lec-08/bang-theo-nguoi-dung.svg)
+
+Phương án đúng về xác suất: mỗi người dùng nhận nhãn "giữ" với xác suất $1/10$, và mọi bộ của người đó tra cùng một hàng. Nhưng bảng có một hàng cho mỗi người dùng phân biệt đã gặp, tối đa $r$ hàng, nên vi phạm giả thiết bộ nhớ của Định nghĩa 08.1. Với $10^8$ người dùng và 16 byte mỗi hàng, một giả định của học phần để có cỡ, bảng chiếm $10^8\cdot16=1{,}6\cdot10^9$ byte; đưa bảng ra đĩa cũng không được, vì không có thời gian ra đĩa cho mỗi bộ đến (MMDS §4.2.2, tr.137).
+
+Một cách trực quan, hàm băm làm việc của bảng mà không lưu bảng: một hàm cố định cho cùng giá trị mỗi khi gặp lại cùng tên (Kiến thức tiên quyết), nên quyết định được tính lại ở mỗi bộ thay vì tra lại. MMDS (§4.2.2, tr.137) gọi hàm băm là bộ sinh số ngẫu nhiên có thêm tính chất này. Mô tả này chưa phải định nghĩa: nó chưa nói hàm băm phải thỏa điều kiện gì để tỷ lệ đúng $1/10$.
+
+![Năm bộ (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc) đi qua cùng một hàm băm h trên tên người dùng, giá trị trong 0 đến 9; giữ khi h bằng 0: h(An) = 0 nên giữ cả ba bộ của An, h(Bình) = 7 và h(Chi) = 4 nên bỏ; không lưu bảng theo người dùng.](img/lec-08/bam-theo-nguoi-dung.svg)
+
+Hình dùng $b=10$ ngăn, ngưỡng $a=1$, tức giữ bộ khi $h=0$; cả ba bộ của An vào mẫu. Các giá trị $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$ là một hàm minh họa, chọn trùng số rút của Ví dụ 08.4 nên hai phương án cho cùng mẫu, nhưng không có bảng nào được lưu. Slide MMDS (Streams 1, tr.15–16) minh họa cùng cơ chế với tỷ lệ 30%, tức giữ khi giá trị băm thuộc $\{0,1,2\}$.
+
+::: definition Định nghĩa 08.8 (Mẫu theo khóa với tỷ lệ $a/b$)
+Cho dòng bộ $t$, mỗi bộ có khóa $K(t)$ trong miền khóa $\mathcal K$. Cho số ngăn $b\ge1$, ngưỡng $a$ nguyên với $0\le a\le b$, và hàm băm $h:\mathcal K\to\{0,\ldots,b-1\}$ được chọn một lần trước khi dòng bắt đầu rồi giữ cố định.
+
+**Mẫu theo khóa với tỷ lệ $a/b$** là tập các bộ $t$ đã đọc có $h(K(t))<a$.
+:::
+
+Khóa là thành phần của bộ nhận diện đơn vị mà thống kê gộp; ở dòng truy vấn tìm kiếm, khóa là người dùng. Dấu "$<$" nhận đúng $a$ giá trị $0,\ldots,a-1$, nên tỷ lệ giá trị được nhận là $a/b$; $a=0$ cho mẫu rỗng, $a=b$ giữ mọi bộ. Ví dụ dẫn nhập ứng với $b=10$, $a=1$. So với mẫu từng bộ của Mục 2.1, đơn vị quyết định đổi từ bộ sang khóa; so với bảng nhãn của Ví dụ 08.4, quyết định được tính lại từ $h$ thay vì tra bảng.
+
+::: example Ví dụ 08.5 (Ba ngưỡng trên cùng hàm băm)
+**Dữ kiện.** Dòng năm bộ của Ví dụ 08.4: ba bộ của An, một của Bình, một của Chi; $b=10$; $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$. Xét $a=1$, $a=5$, $a=8$.
+
+**Tính.**
+
+| $a$ | Khóa có $h<a$ | Bộ trong mẫu |
+|---:|---|---:|
+| $1$ | An | $3$ |
+| $5$ | An, Chi | $4$ |
+| $8$ | An, Bình, Chi | $5$ |
+
+**Diễn giải.** Với mọi $a$, ba bộ của An cùng có mặt hoặc cùng vắng. Tăng $a$ chỉ thêm khóa, không bỏ khóa nào đã có; tính chất này được dùng ở Mục 2.5.
+
+**Kiểm tra lại.** Với $a=8$, cả ba giá trị $0$, $7$, $4$ đều nhỏ hơn $8$, nên mẫu chứa cả năm bộ: $3+1+1=5$.
+:::
+
+::: algorithm Thuật toán 08.9 (Lấy mẫu theo khóa)
+**Đầu vào.** Dòng bộ $t$ có khóa $K(t)$; số ngăn $b\ge1$, ngưỡng $0\le a\le b$; hàm $h:\mathcal K\to\{0,\ldots,b-1\}$.
+
+**Đầu ra.** Mẫu gồm đúng các bộ $t$ có $h(K(t))<a$.
+
+**Giả thiết.** $h$ cố định suốt dòng. Để có xác suất $a/b$, với mỗi khóa $K$, $h(K)$ đều trên $\{0,\ldots,b-1\}$ theo cách chọn $h$.
+
+1. Khi bộ $t$ đến: tính khóa $K(t)$.
+2. Tính $v\gets h(K(t))$.
+3. Nếu $v<a$ thì đưa $t$ vào mẫu; nếu không thì bỏ $t$.
 
 ```text
-LẤY-MẪU-THEO-KHÓA(t, a, b, h)
-  K ← khóa_của(t)
-  nếu h(K) < a: phát t vào dòng mẫu
-  ngược lại: bỏ t
+LẤY-MẪU-THEO-KHÓA(t; a, h)
+    nếu h(K(t)) < a: đưa t vào mẫu
 ```
 
-Điều kiện trước: $a,b$ thỏa đặc tả mẫu tỷ lệ $a/b$ và $h$ cố định. Điều kiện dừng: xử lý đúng một bộ. Hàm băm thay bảng quyết định theo khóa: mỗi lần một bộ đến chỉ cần tính $h(K)$, không cần tra cứu quyết định lưu trước.
+**Dừng.** Mỗi bộ được xử lý sau ba bước; thuật toán chạy chừng nào dòng còn phần tử.
 
-### Tính đúng là tính nhất quán theo khóa
+**Trường hợp biên.** $a=0$: không bộ nào vào mẫu. $a=b$: mọi bộ vào mẫu. Khóa gồm nhiều thành phần: $h$ kết hợp các thành phần thành một giá trị (MMDS §4.2.3, tr.137).
 
-**Mệnh đề.** Với $b\ge1$, $0\le a\le b$ và hàm $h$ cố định, mọi bộ có cùng khóa đều được giữ hoặc đều bị bỏ.
+**Chi phí.** Theo mô hình của Định nghĩa 08.3:
 
-**Lập luận.** Nếu $K(t)=K(t')$ thì $h(K(t))=h(K(t'))$; hai phép so sánh với cùng $a$ cho cùng kết quả.
+| Bước | Số lần sau $r$ bộ | Chi phí mỗi lần | Đóng góp |
+|---|---|---|---|
+| 1–2: tính khóa và băm | $r$ | 1 phép băm | $r$ phép băm |
+| 3: so sánh với $a$, có thể ghi bộ | $r$ | 1 phép so sánh | $r$ phép so sánh |
 
-Nếu $h$ được chọn sao cho mỗi giá trị trong $\{0,\dots,b-1\}$ có xác suất $1/b$, thì xác suất theo phép chọn $h$ để một khóa cố định được giữ là $a/b$.
+Trạng thái quyết định gồm tham số của $h$ cùng $a$, $b$, không tăng theo $r$ hay theo số khóa.
+:::
 
-Xác suất được hiểu theo phép chọn $h$, không theo các lần xuất hiện của khóa. Sau khi chọn, $h$ cố định. Mệnh đề không bảo đảm đúng $a/b$ số bộ khi tần suất khóa lệch: một khóa nặng có thể chiếm mọi bộ hoặc không có bộ nào.
+Phép quyết định là so sánh $h(K(t))$ với $a$, và thuật toán không lưu gì theo khóa; tính đều của mẫu phụ thuộc cách chọn $h$. Mệnh đề sau, dựa trên tính tất định của hàm băm ở phần tiên quyết, cho biết mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất bao nhiêu.
 
-### Chọn khóa
+::: proposition Mệnh đề 08.10 (Tính nhất quán theo khóa và xác suất $a/b$)
+**Giả thiết.** $b\ge1$, $0\le a\le b$, $h:\mathcal K\to\{0,\ldots,b-1\}$ cố định suốt dòng. Cho phần (b): $h$ được chọn ngẫu nhiên từ một họ hàm sao cho với mỗi khóa $K$ và mỗi $v\in\{0,\ldots,b-1\}$, $\Pr_h[h(K)=v]=1/b$.
 
-Khóa đi theo đơn vị thống kê mà thống kê sẽ gộp nhiều bộ:
+**Kết luận.**
 
-1. Xác định đối tượng mà thống kê cần giữ trọn.
-2. Chọn đủ thuộc tính để nhận diện duy nhất đối tượng đó.
-3. Kiểm tra: hai bộ của cùng đối tượng phải nhận cùng quyết định theo khóa.
+(a) Với mọi hai bộ $t$, $t'$ có $K(t)=K(t')$, Thuật toán 08.9 giữ cả hai hoặc bỏ cả hai.
 
-Nếu thống kê cần toàn bộ truy vấn của một người dùng, đơn vị là người dùng và khóa phải nhận diện người dùng. Nếu khóa gồm nhiều thành phần, hàm băm cần kết hợp các giá trị đó thành một giá trị băm duy nhất.
+(b) Mỗi khóa $K$ được giữ với xác suất $\Pr_h[h(K)<a]=a/b$.
 
-### Chi phí và giới hạn
+**Điều kiện áp dụng.** Phần (a) đúng với mọi hàm $h$, kể cả hàm không đều. Phần (b) là xác suất theo phép chọn $h$, không theo các lần xuất hiện của khóa.
 
-- Chi phí mỗi bộ: một phép băm và một phép so sánh; trạng thái quyết định khóa là $O(1)$ ngoài dữ liệu mẫu.
-- Giới hạn: mẫu tăng theo số bộ của các khóa được chọn và tăng khi dòng dài ra. Khóa "nặng" có thể chiếm nhiều bộ nhớ.
+**Phạm vi.** Mệnh đề nói về từng khóa. Nó không khẳng định mẫu chứa đúng $a/b$ số khóa hay $a/b$ số bộ.
+:::
 
-Do đó lấy mẫu theo khóa có chi phí thấp nhưng không bảo đảm kích thước mẫu cố định.
+::: proof
+**Bước 1 (nhất quán).** Nếu $K(t)=K(t')$ thì $h(K(t))=h(K(t'))$, vì $h$ là một hàm cố định. Hai phép so sánh ở bước 3 so cùng một số với cùng $a$, nên cho cùng kết quả.
 
-::: exercise Tự kiểm
-Hàm $h$ ánh xạ vào $\{0,\dots,99\}$. Muốn chọn $20\%$ khóa, điều kiện nào đúng: $h(K)\le20$ hay $h(K)<20$? Mẫu này bảo đảm điều gì khi một khóa xuất hiện một triệu lần?
+**Bước 2 (xác suất).** Biến cố $h(K)<a$ là hợp rời của $a$ biến cố $h(K)=v$, $v=0,\ldots,a-1$. Theo giả thiết, mỗi biến cố có xác suất $1/b$, nên
+
+$$
+\Pr_h[h(K)<a]=\sum_{v=0}^{a-1}\Pr_h[h(K)=v]=\frac ab. \qquad\square
+$$
+:::
+
+Phần (a) là bảo đảm tất định thay cho bảng nhãn: mọi truy vấn tìm kiếm của một người được giữ đều có trong mẫu, nên tỷ lệ lặp của người đó tính đúng, như $1/2$ của An. Phần (b) cho mỗi người cùng xác suất $a/b$ được chọn, nên mọi tổng tính trên mẫu chia cho $a/b$ có kỳ vọng bằng tổng thật; Hệ quả 08.12 ở Mục 2.4 là một trường hợp. Để số người được chọn tập trung quanh $a/b$ số người, cần thêm giả thiết các khóa khác nhau nhận giá trị băm độc lập. Tính đều theo từng khóa không đủ: họ gồm $b$ hàm hằng $h\equiv c$, với $c$ chọn đều trong $\{0,\ldots,b-1\}$, thỏa giả thiết của phần (b), nhưng mẫu hoặc chứa mọi người dùng, hoặc rỗng.
+
+Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+
+- Bỏ "$h$ cố định": nếu hàm băm được chọn lại mỗi giờ, hai bộ của An ở hai giờ khác nhau có thể nhận hai quyết định khác nhau, và mẫu quay lại cắt rời đơn vị như Mục 2.1.
+- Bỏ "đều theo cách chọn $h$": với $1\le a<b$, họ hàm chỉ gồm hàm luôn trả $0$ vẫn cho phần (a), nhưng mọi khóa được giữ với xác suất $1$, không phải $a/b$.
+- Bỏ "khóa nhận diện đúng đơn vị": nếu khóa là cặp (người dùng, thời điểm), mỗi bộ có khóa riêng, và Mục 2.3 chỉ ra hậu quả.
+
+Bước 1 dùng tính cố định của $h$; Bước 2 dùng tính đều theo từng khóa.
+
+::: remark Nhận xét 08.11 (Trong thực hành)
+Hàm $h$ là một hàm băm có tham số, chẳng hạn hạt giống, chọn một lần khi khởi động và dùng chung trên mọi máy xử lý dòng; đổi tham số giữa chừng phá phần (a) của Mệnh đề 08.10. Máy tìm kiếm thật nhận địa chỉ IP chứ không nhận người dùng; MMDS (§4.2.1, chú thích tr.136) giả định mỗi địa chỉ ứng với một người, điều chỉ đúng gần đúng, và khi nhiều người chung một địa chỉ, tỷ lệ lặp đo được là của cả nhóm. Tính đều theo từng khóa là giả thiết về phép chọn hàm, không kiểm được trên một hàm đã chọn.
+:::
+
+<!-- note-topic-id: lec-08-topic-05 -->
+### 2.3 Chọn khóa theo đơn vị thống kê
+
+Mệnh đề 08.10 giữ trọn từng khóa, nên khóa quyết định thống kê nào tính đúng trên mẫu. MMDS (§4.2.3, tr.137) nêu rằng cùng dòng (người dùng, truy vấn, thời điểm) có thể lấy mẫu theo người dùng, theo truy vấn hoặc theo cặp (người dùng, truy vấn). Ba lựa chọn này phục vụ ba thống kê khác nhau.
+
+| Thống kê | Khóa |
+|---|---|
+| tỷ lệ truy vấn lặp của mỗi người | người dùng |
+| số người gõ mỗi truy vấn | truy vấn |
+| số lần một người gõ lại một truy vấn | (người dùng, truy vấn) |
+
+Quy trình chọn khóa có ba bước:
+
+1. Xác định đơn vị mà thống kê gộp các bộ, tức đối tượng phải được giữ trọn.
+2. Chọn đủ thành phần của bộ để nhận diện duy nhất đơn vị đó.
+3. Kiểm: hai bộ của cùng đơn vị phải có cùng khóa, và hai đơn vị khác nhau phải có khóa khác nhau.
+
+Thêm thành phần thừa làm hỏng bước 3 vế đầu: một đơn vị bị tách thành nhiều khóa. Thiếu thành phần làm hỏng vế sau: nhiều đơn vị bị gộp, như mã sinh viên chỉ duy nhất trong một trường.
+
+::: exercise Bài tập 08.2 (Khóa người dùng và thời điểm)
+Với dòng truy vấn tìm kiếm và tỷ lệ $a/b=1/10$, dùng khóa là cặp (người dùng, thời điểm) thay cho người dùng. Mẫu có cho tỷ lệ truy vấn lặp của mỗi người không lệch không?
+:::
+
+::: hint
+Xét hai bộ "đồ thị" của An: chúng có cùng khóa không?
 :::
 
 ::: solution
-Dùng $h(K)<20$ để nhận đúng 20 ngăn. Khóa đó được giữ cả một triệu bộ hoặc bỏ cả một triệu bộ; thuật toán không bảo đảm mẫu có $20\%$ số bộ hay kích thước cố định.
+Không. Hai bộ của cùng một người có thời điểm khác nhau, nên có hai khóa khác nhau, và Mệnh đề 08.10(a) không ràng buộc quyết định của chúng. Nếu các khóa khác nhau nhận giá trị băm độc lập theo cách chọn $h$, mỗi bộ được giữ độc lập với xác suất $1/10$, đúng giả thiết của Mệnh đề 08.6; tỷ số tính trên mẫu là $d/(10u+19d)$, với An là $1/29$. Thành phần thời điểm tách một đơn vị thành nhiều khóa, vi phạm bước 3 của quy trình.
 :::
 
-## 4. Điều chỉnh tỷ lệ mẫu bằng ngưỡng băm
+### 2.4 Chi phí và cỡ mẫu
 
-Khi dòng dài dần, mẫu có thể vượt quá ngân sách. Nguồn đề xuất băm khóa vào miền $\{0,\dots,b-1\}$ với $b$ lớn và duy trì ngưỡng $\tau$, ban đầu có thể là $b-1$. Mẫu gồm các bộ có khóa $K$ thỏa $h(K)\le\tau$. Đây là quy ước tương đương với điều kiện nhỏ hơn ở phần trước sau khi dịch ngưỡng một đơn vị. Khi mẫu vượt ngân sách, hạ $\tau$ và loại các bộ ở mức vừa bỏ.
+Thuật toán 08.9 tốn một phép băm và một phép so sánh mỗi bộ, và trạng thái quyết định cỡ hằng. Mẫu đã lưu thì khác: mỗi bộ được giữ thêm vào mẫu, nên cỡ mẫu tăng theo dòng. Hệ quả sau đo tốc độ tăng đó.
 
-Chỉ cần ngưỡng hiện tại và cùng hàm $h$ để tái lập quyết định; không cần nhớ quyết định cũ của từng khóa. Việc hạ ngưỡng làm thay đổi tập khóa được chọn. Phần tiếp theo chuyển sang yêu cầu khác: giữ mẫu kích thước cố định theo vị trí.
+::: corollary Hệ quả 08.12 (Cỡ mẫu kỳ vọng)
+**Giả thiết.** Như Mệnh đề 08.10(b); dòng đã có $r$ bộ.
+
+**Kết luận.** Số bộ trong mẫu có kỳ vọng $ar/b$ theo cách chọn $h$.
+
+**Điều kiện áp dụng.** Không cần các khóa khác nhau nhận giá trị băm độc lập.
+
+**Phạm vi.** Kết luận nói về kỳ vọng; cỡ mẫu thực có thể lệch xa kỳ vọng khi một khóa có nhiều bộ.
+:::
+
+::: proof
+Với bộ thứ $i$, đặt biến chỉ báo $\mathbf 1[h(K(t_i))<a]$. Theo Mệnh đề 08.10(b), biến này có kỳ vọng $a/b$. Cỡ mẫu là tổng $r$ biến chỉ báo, nên theo tuyến tính kỳ vọng, không cần độc lập, cỡ mẫu có kỳ vọng $r\cdot a/b$. $\square$
+:::
+
+::: example Ví dụ 08.6 (Khóa nhiều bộ)
+**Dữ kiện.** Dòng có $r=1\,001\,000$ bộ: một khóa có $10^6$ bộ và $1\,000$ khóa, mỗi khóa một bộ. Tỷ lệ $a/b=1/5$. Số liệu do học phần dựng.
+
+**Tính.** Theo Hệ quả 08.12, cỡ mẫu kỳ vọng là $1\,001\,000/5=200\,200$ bộ. Theo Mệnh đề 08.10, khóa nhiều bộ được giữ trọn với xác suất $1/5$ và bị bỏ trọn với xác suất $4/5$. Nếu được giữ, mẫu có ít nhất $10^6$ bộ; nếu bị bỏ, mẫu có không quá $1\,000$ bộ.
+
+**Diễn giải.** Cỡ mẫu thực không bao giờ gần $200\,200$: kỳ vọng đúng nhưng không mô tả một lần chạy.
+
+**Kiểm tra lại.** $\frac15\cdot10^6+\frac15\cdot1\,000=200\,000+200=200\,200$.
+:::
+
+::: exercise Bài tập 08.3 (Ngưỡng 20% và khóa nhiều bộ)
+Hàm $h$ nhận giá trị trong $\{0,\ldots,99\}$. Để chọn 20% khóa, giữ bộ khi $h(K)\le20$ hay khi $h(K)<20$? Một khóa có $10^6$ bộ: mẫu bảo đảm gì về các bộ đó, và có bảo đảm mẫu chứa 20% số bộ không?
+:::
+
+::: hint
+Đếm số giá trị được nhận ở mỗi điều kiện; với khóa nhiều bộ, dùng Mệnh đề 08.10(a).
+:::
+
+::: solution
+$h(K)<20$ nhận đúng 20 giá trị $0,\ldots,19$, tức tỷ lệ $20/100$; $h(K)\le20$ nhận 21 giá trị, tức 21%. Theo Mệnh đề 08.10(a), khóa có $10^6$ bộ được giữ trọn hoặc bỏ trọn. Mẫu không bảo đảm 20% số bộ, vì tỷ lệ $a/b$ áp dụng cho khóa, không cho bộ (Ví dụ 08.6). Câu hỏi do học phần dựng theo MMDS §4.2.3, tr.137–138.
+:::
+
+<!-- note-topic-id: lec-08-topic-06 -->
+### 2.5 Ngưỡng băm khi ngân sách cố định
+
+Với tỷ lệ cố định $1/10$, mẫu giữ mọi truy vấn của người dùng được chọn mãi mãi, và người mới được chọn tiếp tục xuất hiện (MMDS §4.2.4, tr.138). Khi chỉ có ngân sách cố định cho số bộ trong mẫu, tỷ lệ khóa phải giảm dần. Ví dụ 08.5 đã cho thấy hạ ngưỡng chỉ bỏ khóa, không thêm khóa; MMDS dùng đúng tính chất này. Sách viết $B$ cho số giá trị băm và $t$ cho ngưỡng; ở đây là $b$ và $\tau$.
+
+::: algorithm Thuật toán 08.13 (Lấy mẫu theo khóa với ngưỡng giảm dần)
+**Đầu vào.** Dòng bộ $t$ có khóa $K(t)$; hàm $h:\mathcal K\to\{0,\ldots,b-1\}$ với $b$ lớn; ngân sách $G\ge0$ bộ.
+
+**Đầu ra.** Sau mỗi bộ, mẫu gồm các bộ đã đọc có $h(K(t))\le\tau$, với không quá $G$ bộ.
+
+**Giả thiết.** $h$ cố định. Mẫu có chỉ mục có thứ tự theo giá trị băm, chẳng hạn cây tìm kiếm cân bằng trên các giá trị băm đang có trong mẫu, mỗi giá trị trỏ tới danh sách các bộ mang giá trị đó.
+
+1. Khởi tạo $\tau\gets b-1$ và mẫu rỗng.
+2. Khi bộ $t$ đến: nếu $h(K(t))\le\tau$ thì đưa $t$ vào mẫu và vào chỉ mục.
+3. Chừng nào mẫu có hơn $G$ bộ: lấy $v$ là giá trị băm lớn nhất trong mẫu (tra chỉ mục), xóa mọi bộ có giá trị băm $v$, rồi đặt $\tau\gets v-1$.
+
+**Dừng.** Mỗi lần lặp ở bước 3 xóa ít nhất một bộ, nên bước 3 dừng sau không quá số bộ đang có trong mẫu.
+
+**Trường hợp biên.** Một khóa có hơn $G$ bộ buộc $\tau$ xuống dưới giá trị băm của nó, nên khóa đó bị bỏ trọn. Bước 3 hạ $\tau$ nhiều đơn vị một lần, qua các giá trị băm không có bộ nào, theo gợi ý của MMDS (§4.2.4, tr.138).
+
+**Chi phí.**
+
+| Thành phần | Số lần sau $r$ bộ | Chi phí mỗi lần |
+|---|---|---|
+| băm và so sánh ở bước 2 | $r$ | 1 phép băm, 1 phép so sánh |
+| đưa vào chỉ mục | không quá $r$ | $O(\log G)$ |
+| lần dọn ở bước 3 | không quá số giá trị băm phân biệt từng có trong mẫu | $O(\log G)$ để tra $v$ |
+| xóa một bộ | không quá $r$ | $O(1)$ trên danh sách của $v$ |
+
+Mỗi bộ bị xóa nhiều nhất một lần; mỗi lần dọn loại hẳn một giá trị băm, vì $\tau$ xuống dưới giá trị đó và không tăng lại. Chỉ mục giữ không quá $G+1$ bộ, nên mỗi phép tra tốn $O(\log G)$. Sau mỗi lần dọn, bộ nhớ gồm tối đa $G$ bộ cùng chỉ mục.
+:::
+
+Ký hiệu $G$ (ngân sách) chỉ dùng trong thuật toán này và Ví dụ 08.7. Ngưỡng $\tau$ ứng với ngưỡng $a=\tau+1$ của Định nghĩa 08.8, vì $h(K)\le\tau$ tương đương $h(K)<\tau+1$.
+
+::: example Ví dụ 08.7 (Hạ ngưỡng trên năm bộ)
+**Dữ kiện.** Dòng năm bộ của Ví dụ 08.4: (An, "đồ thị"), (Bình, "lọc"), (An, "băm"), (An, "đồ thị"), (Chi, "lọc"); $b=10$; $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$; ngân sách $G=3$ bộ.
+
+**Tính.**
+
+| $r$ | Bộ | $\tau$ trước | Thao tác | Mẫu sau bước | $\tau$ sau |
+|---:|---|---:|---|---|---:|
+| 1 | An | 9 | đưa vào | An | 9 |
+| 2 | Bình | 9 | đưa vào | An, Bình | 9 |
+| 3 | An | 9 | đưa vào | An, Bình, An | 9 |
+| 4 | An | 9 | đưa vào; 4 bộ vượt $G$: $v=7$, xóa bộ của Bình | An, An, An | 6 |
+| 5 | Chi | 6 | $4\le6$, đưa vào; 4 bộ vượt $G$: $v=4$, xóa bộ của Chi | An, An, An | 3 |
+
+**Diễn giải.** Sau bước 5, mẫu là mẫu theo khóa với $a=\tau+1=4$: giữ trọn An, bỏ trọn Bình và Chi. Ở bước 4, ngưỡng nhảy từ 9 xuống 6, bỏ qua các giá trị 9 và 8 không có bộ nào.
+
+**Kiểm tra lại.** Các bộ đã đọc có $h\le3$ là ba bộ của An, đúng mẫu sau bước 5; mẫu có 3 bộ, bằng $G$.
+:::
+
+::: proposition Mệnh đề 08.14 (Bất biến của mẫu theo ngưỡng)
+**Giả thiết.** Thuật toán 08.13 với $h$ cố định.
+
+**Kết luận.** Sau mỗi bước, mẫu đúng bằng tập các bộ đã đọc có $h(K(t))\le\tau$. Do đó mẫu luôn là mẫu theo khóa với ngưỡng $a=\tau+1$, và $\tau$ không tăng.
+
+**Điều kiện áp dụng.** Bước 3 xóa đúng các bộ có giá trị băm lớn nhất $v$ trong mẫu trước khi đặt $\tau\gets v-1$.
+
+**Phạm vi.** Mệnh đề không nói gì về xác suất; tỷ lệ khóa $(\tau+1)/b$ giảm dần theo dòng.
+:::
+
+::: proof
+**Bước 1 (khởi tạo).** Trước bộ đầu tiên, mẫu rỗng và chưa có bộ nào được đọc.
+
+**Bước 2 (đưa bộ vào).** Giả sử bất biến đúng trước khi $t$ đến. Bước 2 đưa $t$ vào đúng khi $h(K(t))\le\tau$, nên bất biến đúng sau bước 2.
+
+**Bước 3 (hạ ngưỡng).** Giả sử mẫu bằng tập các bộ đã đọc có $h\le\tau$ và mẫu khác rỗng. Gọi $v$ là giá trị băm lớn nhất trong mẫu, nên $v\le\tau$. Không bộ nào trong mẫu có giá trị trong khoảng $(v,\tau]$; theo bất biến, cũng không bộ đã đọc nào có giá trị trong khoảng đó. Xóa các bộ có giá trị $v$ để lại đúng các bộ đã đọc có $h\le v-1$, nên đặt $\tau\gets v-1$ giữ bất biến, và $\tau$ giảm. Theo quy nạp trên số bước, bất biến đúng sau mọi bước; $\tau$ chỉ thay đổi ở bước 3, và ở đó nó giảm. $\square$
+:::
+
+Như vậy, chúng ta đã chỉ ra lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), thay bảng nhãn bằng hàm băm cố định (Định nghĩa 08.8, Thuật toán 08.9), chứng minh mẫu giữ trọn từng khóa và giữ mỗi khóa với xác suất $a/b$ (Mệnh đề 08.10), tính cỡ mẫu kỳ vọng $ar/b$ (Hệ quả 08.12), và giữ ngân sách bằng ngưỡng giảm dần (Thuật toán 08.13, Mệnh đề 08.14). Tuy nhiên, cỡ mẫu theo khóa phụ thuộc vào số bộ của các khóa được chọn: với tỷ lệ cố định, nó tăng theo dòng; với ngân sách cố định, tỷ lệ khóa giảm dần và một khóa nhiều bộ có thể bị đẩy trọn ra khỏi mẫu. Mẫu đại diện cho mọi phần tử đã đọc cần đúng $s$ phần tử ở mọi thời điểm. Trong Mục 3, chúng ta đổi đơn vị chọn từ khóa sang vị trí trên dòng và xây lấy mẫu hồ chứa với cỡ mẫu cố định.
 
 ## 5. Lấy mẫu hồ chứa
 

@@ -222,3 +222,24 @@ Trang đổi: AT (lời dẫn bỏ "trạng thái hữu hạn", cụm khóa), A0
 Thời lượng tạm 121,5 phút (K01B mang 2,5 phút sang mạch 3), cân lại ở mạch 3. Ghi chú diễn giả A05, A00 đúng 150 âm tiết (trần).
 
 Kiểm của điều phối viên: đọc diff deck, SVG, ghi chú, planning; `check08.py` toàn deck 56 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 2: AT 37, A05 59, A00 57, A02 58 (trần 80), A06 28 âm tiết; dòng dài nhất 19. Ảnh đã tự xem: A05, A00 (trước và sau sửa hình), A02, A04/K01B (1600×900). Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang. Hình trong trình xem kế thừa `min-width: 900px` của CSS trình xem nên cuộn ngang trong khung riêng ở 1440 và 390 (có ở mọi bài, không thuộc phạm vi lượt này). `git diff --check` sạch.
+
+### Mạch 3. Lấy mẫu theo khóa
+
+Trang đổi: KT (lời dẫn ≤ 20 âm tiết/dòng; ghi chú nhận đầu ra mạch 2), K01 ("Ví dụ: ba bộ truy vấn của An", tính tay $1/100$, $18/100$, $1/19$), K09 (mới, "Sai lệch của mẫu từng bộ", $d/(10u+19d)$), K01B (bảng giữ/bỏ chuyển từ mạch 2), K02 ("Hàm băm thay bảng nhãn", hình mới), K04 ("Thuật toán: lấy mẫu theo khóa", gộp đặc tả K03), K05 ("Tính đúng: …"), K06 ("Chọn khóa lấy mẫu"), K07 ("Chi phí: …"), K08 ("Ngưỡng băm và khóa nhiều bộ"); bỏ K00, K03; ghi chú A06 thêm câu nối. Deck 55 trang. Hình: `bam-theo-nguoi-dung.svg` (mới), `bang-theo-nguoi-dung.svg` vẽ lại; xóa `key-sampling.svg` (tỷ lệ 30%, không còn trang nào dùng). Tỷ lệ $1/10$ ($b=10$, $a=1$) thống nhất trong cả mạch theo quyết định của điều phối viên; ví dụ 30% của slide MMDS Streams 1 chỉ nhắc trong ghi chú. Ghi chú bài giảng: ba mục cũ 2–4 thay bằng "## 2. Lấy mẫu theo khóa" (2.1–2.5; Mệnh đề 08.6, Nhận xét 08.7, Định nghĩa 08.8, Thuật toán 08.9, Mệnh đề 08.10, Nhận xét 08.11, Hệ quả 08.12, Thuật toán 08.13, Mệnh đề 08.14; Ví dụ 08.3–08.7; Bài tập 08.2–08.3), 4 627 âm tiết.
+
+| Vai | Mức độ | Trang chiếu / vị trí | Vấn đề | Quyết định | Xử lý |
+|---|---|---|---|---|---|
+| độ chính xác, mạch | nghiêm trọng | K01 ↔ K01B, K02, hai SVG, ghi chú K01B, K02, K05; Ví dụ 08.4, 08.5, 08.7 | dữ kiện An đổi giữa các trang: K01 ba bộ, các trang sau hai bộ "đồ thị" ("băm" thuộc Bình), nên "tỷ lệ lặp của An trên mẫu là $1/2$" sai (thực là 1) | sửa | một dòng năm bộ dùng chung: (An, "đồ thị"), (Bình, "lọc"), (An, "băm"), (An, "đồ thị"), (Chi, "lọc"); vẽ lại hai hình; tính lại Ví dụ 08.4 (bảng 3 hàng), 08.5 (3, 4, 5 bộ), 08.7 (điều phối viên tự chạy lại: $r=4$ xóa Bình, $\tau=6$; $r=5$ xóa Chi, $\tau=3$) |
+| độ chính xác | trung bình | ghi chú, Thuật toán 08.13 | chi phí bỏ sót tới $b$ lần giảm $\tau$ qua giá trị trống khi $b$ rất lớn | sửa | bước dọn dạng nhảy theo MMDS §4.2.4 (chỉ mục theo giá trị băm, $\tau\gets v-1$); kiểm lại bất biến Mệnh đề 08.14 |
+| mạch | trung bình | K01, K09 | "tỷ lệ lặp" chưa định nghĩa; mẫu số thiếu bước; lý do $1/29\ne1/19$ chỉ ở ghi chú | sửa | "1 trong 2 truy vấn được gõ lại"; mẫu số $u/10+d/100+18d/100$; một dòng lý do |
+| mạch | trung bình | K04, KT | $a$, $b$ chưa có tên; "phát vào dòng mẫu" dịch sát chữ | sửa | "số ngăn $b$", "ngưỡng $a$", "đưa $t$ vào mẫu" |
+| độ chính xác, mạch | trung bình / nhẹ | ghi chú K06; ghi chú bài giảng sau Mệnh đề 08.10 | giả thiết "đều theo từng khóa" chỉ cho xác suất biên, ngầm dùng độc lập giữa các khóa | sửa | nêu giả thiết thêm; phản ví dụ họ hàm hằng; "hàm luôn trả 0" thêm $1\le a<b$ |
+| mạch | trung bình | A06 → KT | thiếu câu nối | sửa | câu cuối ghi chú A06 |
+| mạch | trung bình | K04 | giả mã lệch dấu tiếng Việt trên ảnh chụp | không sửa | do phông monospace của máy chụp headless; mã nguồn NFC; Bài 07 cùng hiện tượng |
+| độ chính xác | nhẹ | mở Mục 2, kết Mục 1 | "mọi thống kê trên mọi phần tử có trạng thái cỡ hằng" khái quát quá mức | sửa | "một số thống kê, như giá trị lớn nhất, trung bình và phương sai" |
+| mạch | nhẹ (12 mục) | K02, K06, K07, K08, K09, ghi chú | 1,6 GB chưa thuyết phục; dòng nguồn trên mặt trang K07; nhãn Câu hỏi trước dữ kiện ở K08; tên cột K09 | sửa | theo bảng xử lý của tác tử biên tập; "thời gian"/"thời điểm" trong bộ (người dùng, truy vấn, …): deck giữ "thời gian" (khớp "time" của MMDS), ghi chú đồng bộ ở lượt sau |
+| mạch | nhẹ | RT | "xác suất biên" đột ngột | để sau | mạch 4 |
+
+Thời lượng tạm 117 phút (mạch 3: 24 phút); 3 phút còn lại phân ở mạch 4–5.
+
+Kiểm của điều phối viên: đọc diff deck, SVG, ghi chú, planning; tự kiểm công thức $dp/(u+(2-p)d)$ với $p=1/10$ cho $d/(10u+19d)$; `check08.py` toàn deck 55 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 vượt khung, không cuộn ngang; mạch 3 cao nhất K01B 58, K01 56, K06 55 âm tiết; dòng dài nhất 20. Ảnh đã tự xem: K01, K02 (trước sửa), K01B (sau sửa). Trình xem ghi chú ở ba khổ: 0 `.katex-error`, không lỗi trình xem, không cuộn ngang trang. `git diff --check` sạch.

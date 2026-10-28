@@ -34,7 +34,7 @@ MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì p
 
 1. P00 → P04 → P02 → P03 → P01 (cập nhật 2026-10-28): bìa có câu luận đề; tiên quyết và quy ước; mục tiêu học tập; nội dung và đọc trước; vấn đề trung tâm với câu trả lời có điều kiện của mạch 2–5 (số liệu MMDS tr.133, 136, 139).
 2. AT → A05 → A00 → A02 → A06 (cập nhật 2026-10-28): ví dụ ba truy vấn trên dòng cảm biến (MMDS Hình 4.1, Ví dụ 4.1; quy mô §4.1.2); định nghĩa thuật toán dòng và mô hình hệ thống; chi phí ba truy vấn theo từng phần tử (mô hình từ máy); bài tập trạng thái của phương sai (câu hỏi của học phần). Bỏ A01 (gộp vào A00) và A03; A04 chuyển sang mạch 3 thành K01B.
-3. K00, K01, K01B, K02–K08: lấy mẫu nhất quán theo khóa; K01B là bảng giữ/bỏ theo người dùng (MMDS §4.2.2), chuyển từ mạch 2 ngày 2026-10-28.
+3. KT → K01 → K09 → K01B → K02 → K04 → K05 → K06 → K07 → K08 (cập nhật 2026-10-28): ví dụ ba bộ của An; sai lệch tổng quát $d/(10u+19d)$; bảng giữ/bỏ theo người dùng (MMDS §4.2.2); hàm băm thay bảng; thuật toán với đặc tả; tính đúng; chọn khóa (MMDS §4.2.3); chi phí và hạ ngưỡng (MMDS §4.2.4); câu hỏi ngưỡng. Tỷ lệ $1/10$ ($b=10$, $a=1$) xuyên mạch. Bỏ K00, gộp K03 vào K04.
 4. R00, R01, R03, R02, R04–R08: vấn đề → phân biệt → chạy tay → đặc tả → thuật toán và chứng minh hồ chứa.
 5. B00, B02, B05, B01, B03–B12: tình huống → vị trí hệ thống → ví dụ → đặc tả → thuật toán, bảo đảm và xác suất dương giả.
 6. C00–C02: chọn cấu trúc theo câu hỏi, nguồn và phạm vi.
@@ -48,6 +48,8 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 |---|---|
 | $x_1,x_2,\ldots$ | phần tử của dòng; không dùng $x$ cho nghĩa khác |
 | $t$, $K(t)$ | một bộ trên dòng và khóa của bộ |
+| $u$, $d$ | số truy vấn tìm kiếm xuất hiện một lần, hai lần trong phép đếm sai lệch (MMDS viết $s$ cho $u$) |
+| $\tau$ | ngưỡng khi hạ tỷ lệ để giữ ngân sách (chỉ trong ghi chú; MMDS §4.2.4 viết $t$) |
 | $a/b$ | tỷ lệ khóa cần lấy mẫu |
 | $h(K)<a$ | điều kiện chọn khi $h$ có miền $0,\ldots,b-1$; $h$ phải phân bố đều trên toàn miền để tỷ lệ $a/b$ được bảo đảm |
 | $s$ | sức chứa hồ chứa, $s\ge1$ |
@@ -85,7 +87,7 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 - Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/r$; điều kiện không âm giả.
 - Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
 - Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; đáp án và rubric là lời giải giảng viên suy ra từ đề, không in trong sách.
-- SVG tự vẽ: mô hình dòng (`mo-hinh-dong.svg`, thay `stream-model.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`), mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
+- SVG tự vẽ: mô hình dòng (`mo-hinh-dong.svg`, thay `stream-model.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`), hàm băm thay bảng (`bam-theo-nguoi-dung.svg`, thay `key-sampling.svg` trên deck từ 2026-10-28; bản cũ còn trong ghi chú), mẫu theo khóa, vết hồ chứa, ví dụ Bloom 11 bit, luồng kiểm tra Bloom, đường cong FPR.
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
 
 ## Bản đồ chủ đề cho ghi chú tự học
@@ -97,9 +99,9 @@ Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hi�
 | `lec-08-topic-01` | cầu nối | Tiên quyết | Kiến thức tiên quyết | Hai bài toán dòng của ghi chú Bài 01; hàm băm tất định (ghi chú Bài 05, Mục 9, 11; hàm phân phối Bài 02); cách phân tích Định lý 06.7; công cụ xác suất, Jensen; $(1-1/c)^c\to e^{-1}$, $1-z\le e^{-z}$, Bernoulli, hàm lõm, cực trị; quy nạp và bất biến (ghi chú Bài 05, Mục 10; Mệnh đề 06.5) | — |
 | `lec-08-topic-02` | cốt lõi | 1 | Mô hình dòng một lượt | đặc tả chung và bốn trục chi phí | N01 |
 | `lec-08-topic-03` | cốt lõi | 2.1 | Sai lệch của lấy mẫu từng bộ | tỷ số $d/(10u+19d)$ so với $d/(u+d)$ | N02 |
-| `lec-08-topic-04` | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2 | Mẫu nhất quán theo khóa | quy tắc $h(K(t))<a$, thuật toán, tính nhất quán, xác suất $a/b$ | N03 |
+| `lec-08-topic-04` | cốt lõi; kích thước mẫu kỳ vọng là bổ sung | 2.2, 2.4 | Mẫu nhất quán theo khóa | quy tắc $h(K(t))<a$, thuật toán, tính nhất quán, xác suất $a/b$ | N03 |
 | `lec-08-topic-05` | cốt lõi | 2.3 | Chọn khóa theo đơn vị thống kê | quy trình ba bước; dẫn tới Bài tập 4.2.1 | N03 (tách) |
-| `lec-08-topic-06` | cầu nối | 2.4 | Ngưỡng băm khi ngân sách cố định | hạ $\tau$ mà không lưu quyết định cũ; bất biến của mẫu | N04 |
+| `lec-08-topic-06` | cầu nối | 2.5 | Ngưỡng băm khi ngân sách cố định | hạ $\tau$ mà không lưu quyết định cũ; bất biến của mẫu | N04 |
 | `lec-08-topic-07` | cốt lõi | 3.1–3.3 | Đặc tả và thuật toán hồ chứa | vết $s=2$, giả mã trên $W$ | N05 |
 | `lec-08-topic-08` | cốt lõi; số lần ghi kỳ vọng là bổ sung | 3.4–3.5 | Xác suất $s/r$ và chi phí hồ chứa | chứng minh quy nạp, chi phí | N05 (tách) |
 | `lec-08-topic-09` | cốt lõi | 4.1–4.3 | Cơ chế Bloom filter | xây, truy vấn, ví dụ 11 bit | N06 |

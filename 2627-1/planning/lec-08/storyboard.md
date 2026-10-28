@@ -123,7 +123,7 @@ Cập nhật 2026-10-28. Ghi chú được viết lại thành chương giáo tr
 |---|---|---|---|---|
 | 1. Mở đầu | P00, P04, P02, P03, P01 | Giới thiệu chương, Mục tiêu học tập, Kiến thức tiên quyết, Bảng ký hiệu, Bản đồ chủ đề | `lec-08-topic-01` (Kiến thức tiên quyết); các phần còn lại không mang mã | đã viết 2026-10-28 |
 | 2. Mô hình tính toán trên dòng | AT, A05, A00, A02, A06 | Mục 1.1–1.6 | `lec-08-topic-02` | đã viết 2026-10-28, sửa sau rà lại mạch 2 |
-| 3. Lấy mẫu theo khóa | KT, K00–K08 | Mục 2.1–2.4 | `lec-08-topic-03`…`06` | chờ viết |
+| 3. Lấy mẫu theo khóa | KT, K01, K09, K01B, K02, K04, K05, K06, K07, K08 | Mục 2.1–2.5 | `lec-08-topic-03`…`06` | đã viết 2026-10-28 |
 | 4. Lấy mẫu hồ chứa | RT, R00–R08 | Mục 3.1–3.5 | `lec-08-topic-07`, `08` | chờ viết |
 | 5. Lọc thành viên bằng Bloom filter | BT, B00–B12 | Mục 4.1–4.6 | `lec-08-topic-09`…`12` | chờ viết |
 | 6. Tổng kết và chuyển tiếp | CT, C00–C02 | Mục 5, Tình huống, Tóm tắt | `lec-08-topic-13`…`15` | chờ viết |
@@ -159,6 +159,19 @@ Chu trình rút gọn (thông tin soạn thảo, chuyển khỏi ghi chú ngày 
 | (chuyển đi) Bảng giữ/bỏ theo người dùng | Ví dụ, hình `bang-theo-nguoi-dung.svg`, bài tập; bản nháp `scratchpad/note-moved-table.md` | K01B (mạch 3) | An, Bình, An, Chi; số rút 0, 7, 4 (học phần dựng); MMDS §4.2.2 tr.137 | Mục 2, chờ viết; nhu cầu bỏ bảng nhãn → hàm băm |
 
 Chu trình rút gọn của Mục 1: không có định lý; tính đúng của thuật toán mẫu nêu bằng dòng "Bất biến." trong Thuật toán 08.2 (quy nạp hai bước). Bộ đếm chung đã dùng: 08.1–08.5; Ví dụ 08.1–08.2; Bài tập 08.1. Số âm tiết Mục 1: 2 730 ở bản đầu (đã chấp nhận), 2 812 sau lượt sửa (thêm bảng chi phí ba truy vấn và bài tập phương sai, bỏ §1.5 cũ).
+
+**Mục 2 (mạch 3).** Thứ tự ghi chú: nhu cầu (MMDS §4.2.1) → ví dụ dẫn nhập An → mệnh đề sai lệch → nhầm lẫn → phương án bảng nhãn → trực giác hàm băm và hình → định nghĩa → ví dụ giải ba ngưỡng → thuật toán → mệnh đề nhất quán và xác suất, phản ví dụ → "Trong thực hành" → chọn khóa và bài tập → chi phí, cỡ mẫu kỳ vọng, khóa nhiều bộ, bài tập ngưỡng → ngưỡng giảm dần (cầu nối) → đoạn kết mục sang hồ chứa.
+
+| Phần ghi chú | `note-topic-id` | Khối, số hiệu | Trang deck | Dữ kiện, ký hiệu |
+|---|---|---|---|---|
+| Mở mục | — | — | KT | Dòng (người dùng, truy vấn tìm kiếm, thời điểm), ngân sách $1/10$ (MMDS tr.136) |
+| 2.1 Sai lệch của lấy mẫu từng bộ | `lec-08-topic-03` | Ví dụ 08.3; Mệnh đề 08.6 (bốn phần, chứng minh bốn bước, điều kiện $9u+18d=0$); Nhận xét 08.7 | K01, K09 | An: $1/100$, $18/100$, $81/100$, $1/10$, $1/19$; $d/(10u+19d)$; $u=d=1$: $1/29$; tỷ lệ $p$ tổng quát $dp/(u+(2-p)d)$ (suy trực tiếp, ghi chú bổ sung) |
+| 2.2 Mẫu nhất quán theo khóa | `lec-08-topic-04` | Ví dụ 08.4 (bảng nhãn, năm bộ, 3 hàng), hình `bang-theo-nguoi-dung.svg`; hình `bam-theo-nguoi-dung.svg`; Định nghĩa 08.8; Ví dụ 08.5 (ba ngưỡng $a=1,5,8$: 3, 4, 5 bộ); Thuật toán 08.9; Mệnh đề 08.10 (a)(b) và ba phản ví dụ; Nhận xét 08.11 (Trong thực hành) | K01B, K02, K04, K05 | Dòng năm bộ dùng chung: (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc); An 0, Bình 7, Chi 4; số ngăn $b=10$, ngưỡng $a=1$; tỷ lệ lặp của An trên mẫu $1/2$; $10^8\cdot16=1{,}6\cdot10^9$ byte (giả định học phần); ví dụ 30% của slide MMDS chỉ nhắc trong văn |
+| 2.3 Chọn khóa theo đơn vị thống kê | `lec-08-topic-05` | bảng MMDS §4.2.3; quy trình ba bước; Bài tập 08.2 (khóa (người dùng, thời điểm)) | K06 | Lời giải dùng Mệnh đề 08.6, $1/29$ |
+| 2.4 Chi phí và cỡ mẫu | (thuộc `lec-08-topic-04`) | Hệ quả 08.12 ($ar/b$); Ví dụ 08.6 (khóa $10^6$ bộ, $a/b=1/5$, kỳ vọng $200\,200$); Bài tập 08.3 (ngưỡng 20%) | K07, K08 | Chi phí mỗi bộ: 1 băm, 1 so sánh |
+| 2.5 Ngưỡng băm khi ngân sách cố định | `lec-08-topic-06` | Thuật toán 08.13 (dọn dạng nhảy: $v$ lớn nhất qua chỉ mục có thứ tự, $\tau\gets v-1$; xóa $\le r$, số lần dọn $\le$ số giá trị băm phân biệt, tra $O(\log G)$); Ví dụ 08.7 ($G=3$, $\tau$: 9 → 6 ở $r=4$, 6 → 3 ở $r=5$, mẫu An ×3); Mệnh đề 08.14 (bất biến, quy nạp, kiểm cho bản nhảy) | K07 (ghi chú) | MMDS §4.2.4 tr.138; $B,t$ của sách $\to b,\tau$; $G$ là ký hiệu cục bộ cho ngân sách |
+
+Bộ đếm sau Mục 2: chung 08.6–08.14; Ví dụ 08.3–08.7; Bài tập 08.2–08.3. Tiểu mục 2.4 (chi phí và cỡ mẫu) được thêm, nên ngưỡng băm chuyển sang 2.5 (bản đồ chủ đề ở ghi chú và outline đã đổi). Số âm tiết Mục 2: 4 179 ở bản đầu, 4 627 sau lượt sửa theo rà lại mạch 3 (dòng năm bộ, bảng chi phí của Thuật toán 08.13 dạng nhảy, đoạn về độc lập giữa các khóa); khung giao 3 000–4 000. Hình `key-sampling.svg` (30%) không còn được ghi chú hay deck dùng.
 
 Mã trang, thời lượng và nhãn quy trình chỉ tồn tại trong planning, không xuất hiện trong ghi chú công khai; `note-topic-id` là chú thích HTML mà viewer kiểm rồi ẩn.
 
@@ -229,3 +242,67 @@ Tổng mạch 2: 12 phút (trước: AT 0,5, A00 2,5, A01 3, A02 3, A03 2, A04 2
 Hình: `img/lec-08/mo-hinh-dong.svg` (mới, thay `stream-model.svg` trên deck; dòng trên viết theo quy ước MMDS kèm nhãn $x_1$) và `img/lec-08/bang-theo-nguoi-dung.svg` (mới, nay ở K01B). `stream-model.svg` giữ nguyên vì ghi chú bài giảng còn dùng; việc thay hình trong ghi chú thuộc tác tử viết ghi chú.
 
 **K01B (chuyển từ A04, thuộc mạch 3).** Bảng giữ hoặc bỏ theo người dùng (MMDS §4.2.2, tr.137), đặt sau K01 và trước K02. Nội dung giữ nguyên; ghi chú đổi "mà không lưu gì" thành "mà không lưu bảng nhãn". Số rút 0, 7, 4 do học phần dựng. Âm tiết 56 (6, 18), ghi chú 116. Biên tập sâu (câu "Nhu cầu", gộp câu hỏi, khớp số rút với $h$ của K02) làm ở lượt mạch 3.
+
+### Mạch 3. Lấy mẫu theo khóa
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| thuật toán | Chỉ ra sai lệch của mẫu từng bộ, nêu phương án bảng và giới hạn của nó, thay bảng bằng hàm băm với ngưỡng, chứng minh nhất quán và xác suất $a/b$, chọn khóa, đếm chi phí | Mạch 2: thuật toán dòng trả lời từ trạng thái nhỏ hơn lịch sử; trạng thái cỡ hằng (bài tập phương sai); dòng (người dùng, truy vấn tìm kiếm, thời gian) từ trang Vấn đề trung tâm | Mẫu nhất quán theo khóa, xác suất $a/b$ theo cách chọn $h$; cỡ mẫu kỳ vọng $ar/b$ tăng theo dòng, là nhu cầu của mạch hồ chứa | Chu trình cụm thuật toán đủ bước: ví dụ tính tay (K01) → sai lệch tổng quát (K09) → phương án trước và giới hạn (K01B, dòng đầu K02) → ý tưởng so với bảng và chạy một bước (K02) → Đầu vào/Giả thiết/Đầu ra ngay trước giả mã (K04) → tính đúng (K05) → áp dụng (K06) → chi phí (K07) → kiểm tra (K08) | KT (`id="mach-3"`), điểm vào mạch 3 |
+
+Thứ tự trang: KT → K01 → K09 → K01B → K02 → K04 → K05 → K06 → K07 → K08. Bỏ K00 (nhu cầu vào K01) và K03 (đặc tả gộp vào K04). K09 là ID mới cho trang sai lệch tổng quát. Tỷ lệ $1/10$ ($b=10$, $a=1$) dùng xuyên mạch: số rút ở K01B và giá trị băm ở K02 trùng nhau (An 0, Bình 7, Chi 4), nên hai phương án cho cùng mẫu và An được giữ ở cả hai. Không giữ ví dụ 30% của slide MMDS trên mặt trang (chỉ nêu trong ghi chú K02, K04) vì tỷ lệ $1/10$ là tình huống của MMDS §4.2.1 và của trang Vấn đề trung tâm.
+
+**Câu hỏi trước khi sửa.**
+
+| Trang cũ | Trang muốn nói | Phục vụ chủ đề mạch? | Vấn đề còn lại | Quyết định |
+|---|---|---|---|---|
+| KT | Điểm vào mạch 3 | có | Lời dẫn 22 âm tiết; ghi chú liệt kê trang, chưa nhận đầu ra mạch 2 | sửa |
+| K00 | Nhu cầu giữ quan hệ lặp | có | `h1` cũ, tiêu đề là câu, trùng vai KT, dòng 26 âm tiết, không có số | bỏ |
+| K01 | Mẫu từng bộ cho $d/(10x+19d)$ | có | Không có ví dụ tính tay; thẻ màu là tín hiệu chính; câu chốt phủ định khó hiểu | tách: K01 thành ví dụ An, thêm K09 tổng quát |
+| K01B | Bảng giữ/bỏ theo người dùng | có | Hai câu hỏi rời; "Nhu cầu" chưa nói truy vấn tìm kiếm | sửa nhẹ |
+| K02 | Một khóa một quyết định, ví dụ 30% | có | Tiêu đề là câu; trang chỉ có hình; ý "băm thay bảng" không có trên mặt trang; tỷ lệ 30% lệch $1/10$ của K01B | sửa, hình mới |
+| K03 | Đặc tả mẫu tỷ lệ $a/b$ | có | KaTeX trong tiêu đề; chưa dùng Đầu vào/Đầu ra | gộp vào K04 |
+| K04 | Giả mã | có | Tiêu đề là câu dùng khái niệm chưa giới thiệu; "Điều kiện dừng" gượng; ghi chú chỉ đường | sửa |
+| K05 | Nhất quán và xác suất | có | Tiêu đề là câu; nhãn "Lập luận."; dòng 25 âm tiết | sửa |
+| K06 | Khóa theo đơn vị thống kê | có | Ba thẻ chung chung; câu hỏi lặp đề; "Đáp án" | sửa |
+| K07 | Chi phí và cỡ mẫu | có | Tiêu đề tương phản; thiếu "Mô hình:" và bảng đếm; "khóa nặng" chưa định nghĩa | sửa |
+| K08 | Kiểm ngưỡng và khóa $10^6$ bộ | có | Tiêu đề chung chung; "Đáp án" | sửa |
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Dữ kiện, ký hiệu kế thừa | Sản phẩm học tập và bằng chứng | Quyết định và lý do | Âm tiết (dòng, max dòng) trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---:|
+| KT | Điểm vào mạch 3 | Nhận nhiệm vụ của mạch | Lời dẫn "Muốn ước lượng tỷ lệ truy vấn lặp của mỗi người dùng, phải giữ hoặc bỏ trọn từng người."; năm cụm khóa | Đầu ra mạch 2 | Nêu được vì sao phải giữ trọn từng người | sửa: lời dẫn 19 âm tiết; ghi chú nhận đầu ra mạch 2 và trao cỡ mẫu tăng theo dòng cho mạch 4 | 39 (2, 22) → 39 (2, 20); ghi chú 99 → 94 | 0,5 |
+| K01 | Ví dụ tính tay của sai lệch | Tính xác suất giữ hai, một bộ "đồ thị" và xác suất có điều kiện | An: "đồ thị" hai lần, "băm" một lần; tỷ lệ lặp $1/2$; $1/100$, $18/100$, $1/10$; $1/19$ | Tỷ lệ $1/10$ của trang Vấn đề trung tâm | Bảng xác suất; bằng chứng: K09 dùng cùng $u=d=1$ | sửa: ví dụ có số trước công thức; dữ kiện An do học phần dựng | 53 (4, 25) → 56 (6, 17); ghi chú 92 → 118 | 3 |
+| K09 | Sai lệch tổng quát | Đọc bảng số đếm kỳ vọng, rút $d/(10u+19d)$ | Bảng `Loại \| Trong dòng \| Kỳ vọng thấy hai lần \| Kỳ vọng thấy một lần`; $\dfrac{d}{10u+19d}\ne\dfrac{d}{u+d}$; $u=d=1$: $1/29$ | MMDS tr.136–137; $u$ thay $s$ của sách | Công thức sai lệch; bằng chứng: lời giải K06 dùng lại | thêm (ID mới). Câu "tỷ số các số đếm kỳ vọng" ở ghi chú; ghi chú giải thích $1/29$ khác $1/19$ | — → 31 (5, 16); ghi chú — → 112 | 3 |
+| K01B | Phương án trước: bảng nhãn | Trả lời bảng tăng theo gì, khi nào vượt bộ nhớ | Bảng An 0 giữ, Bình 7 bỏ, Chi 4 bỏ | Tỷ lệ $1/10$; mô hình dòng | Lời giải: tăng theo số người dùng phân biệt, tối đa $r$ | sửa nhẹ: "Nhu cầu" nói "truy vấn tìm kiếm"; gộp hai câu hỏi thành một | 56 (6, 18) → 58 (5, 18); ghi chú 116 → 112 | 2,5 |
+| K02 | Ý tưởng băm thay bảng, chạy một bước | So bảng và hàm băm; đọc giá trị băm | Giới hạn có số: $10^8$ người dùng × 16 byte = 1,6 GB (giả định); "tương tự bảng nhưng không lưu"; $h(\text{An})=0$ giữ cả hai bộ | Số rút của K01B | Nêu được vì sao băm cho cùng nhãn; bằng chứng: Mệnh đề thứ nhất ở K05 | sửa: tiêu đề "Hàm băm thay bảng nhãn"; hình mới `bam-theo-nguoi-dung.svg` (tỷ lệ $1/10$, giá trị băm trùng số rút). `key-sampling.svg` giữ nguyên vì ghi chú bài giảng còn dùng | 0 (0, 0) → 38 (3, 15); ghi chú 52 → 124 | 3 |
+| K04 | Thuật toán | Đọc Đầu vào, Giả thiết, Đầu ra, giả mã | `LẤY-MẪU-THEO-KHÓA(t; a, h)`; phép quyết định là so sánh với $a$ | $h$, $b$, $a$ | Viết được đặc tả và giả mã | sửa và gộp K03: đặc tả ngay trước giả mã; bỏ "Điều kiện dừng"; ghi chú nêu biên $a=0$, $a=b$, lý do dùng "<", khóa nhiều thành phần | K03 37 (3, 18) + K04 20 (1, 20) → 45 (4, 14); ghi chú 85 + 39 → 104 | 3 |
+| K05 | Tính đúng | Đọc hai mệnh đề và chứng minh | Nhất quán tất định; xác suất $a/b$ theo cách chọn $h$ | Đặc tả K04 | Chứng minh được hai mệnh đề; bằng chứng: câu hỏi K08 | sửa: tiêu đề "Tính đúng: lấy mẫu theo khóa"; "Chứng minh." thay "Lập luận."; hệ quả tỷ lệ lặp đúng nằm trong ghi chú để giữ mật độ | 56 (3, 25) → 51 (4, 16); ghi chú 44 → 120 | 3 |
+| K06 | Chọn khóa | Ghép thống kê với khóa; trả lời câu hỏi khóa (người dùng, thời gian) | Bảng ba thống kê theo MMDS §4.2.3 | Sai lệch K09 | Lời giải: không, vì mỗi bộ một khóa, quay về mẫu từng bộ | sửa: bỏ ba thẻ; câu hỏi không lặp đề, không lộ Bài tập 4.2.1; "Lời giải" | 60 (3, 12) → 52 (6, 17); ghi chú 38 → 112 | 2,5 |
+| K07 | Chi phí | Đếm phép toán mỗi bộ và sau $r$ bộ | Bảng thành phần; cỡ mẫu kỳ vọng $ar/b$; hạ ngưỡng (MMDS §4.2.4) | Mô hình từ máy của mạch 2 | Đếm được chi phí; bằng chứng: trang so sánh với hồ chứa ở mạch 4 | sửa: tiêu đề "Chi phí: lấy mẫu theo khóa"; "Mô hình:" đầu trang; bảng đếm; "khóa nặng" thay bằng "khóa nhiều bộ"; ngưỡng $\tau$ của §4.2.4 trong ghi chú | 39 (2, 18) → 46 (6, 14); ghi chú 48 → 129 | 2 |
+| K08 | Kiểm tra | Chọn điều kiện ngưỡng; nêu bảo đảm cho khóa $10^6$ bộ | Câu hỏi ngưỡng $<20$ hay $\le20$ | K04, K05 | Lời giải: $<20$ cho đúng 20 giá trị; khóa giữ trọn hoặc bỏ trọn; không bảo đảm 20% số bộ | sửa: tiêu đề "Ngưỡng băm và khóa nhiều bộ"; câu hỏi tách ba dòng; "Lời giải" | 28 (0, 0) → 32 (4, 19); ghi chú 36 → 81 | 1,5 |
+
+Tổng mạch 3: 24 phút (trước: KT 0,5, K00 2,5, K01 4, K01B 2,5, K02 3, K03 3, K04 3, K05 3, K06 3, K07 2, K08 2 = 28,5). Tổng phần giảng tạm: 117 phút; 3 phút còn lại phân bổ khi duyệt mạch 4–5 (mạch Bloom filter có nhiều trang nhất).
+
+Số đã tự tính: $\frac1{10}\cdot\frac1{10}=\frac1{100}$; $2\cdot\frac1{10}\cdot\frac9{10}=\frac{18}{100}$; $\Pr[\text{không giữ bộ nào}]=\frac{81}{100}$, tổng ba trường hợp bằng 1; $\frac{1/100}{19/100}=\frac1{19}$; $\frac{1/100}{1/10+19/100}=\frac{1}{29}$; $10u+19d=u+d\iff 9u+18d=0$; $10^8\cdot16=1{,}6\cdot10^9$ byte; kỳ vọng cỡ mẫu $\sum_{\text{bộ}}\Pr[\text{giữ}]=ar/b$; với $\{0,\ldots,99\}$, $h<20$ có 20 giá trị, $h\le20$ có 21.
+
+Dữ kiện do học phần dựng: dòng năm bộ (An, “đồ thị”), (Bình, “lọc”), (An, “băm”), (An, “đồ thị”), (Chi, “lọc”), trong đó An có đúng ba bộ của K01; giá trị băm $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$ (trùng số rút ở K01B); giả định $10^8$ người dùng, 16 byte mỗi hàng; câu hỏi K06 và K08.
+
+**Sửa sau lượt rà lại mạch 3 (2026-10-28).** Các số đo dưới đây thay cột âm tiết của bảng trên.
+
+| Trang | Thay đổi | Âm tiết (dòng, max dòng); ghi chú |
+|---|---|---|
+| A06 (mạch 2) | Ghi chú thêm câu nối sang mạch 3: truy vấn theo từng nhóm phải nhớ truy vấn đã gặp của từng người, trạng thái tăng theo dòng | 28 (5, 15); ghi chú 100 → 141 |
+| K01 | Mặt trang định nghĩa tỷ lệ lặp ("1 trong 2 truy vấn được gõ lại"); cột "Được giữ"; câu chốt nêu rõ biến cố điều kiện | 56 (6, 18); ghi chú 118 |
+| K09 | Mẫu số đủ ba số hạng $u/10+d/100+18d/100$; cột "Kỳ vọng còn hai bản / một bản"; câu chốt nêu lý do $1/29\ne1/19$ | 38 (5, 16); ghi chú 112 |
+| K01B | Hình dùng dòng năm bộ, An đủ ba bộ; bảng ba hàng sau năm bộ; ghi chú: mẫu chứa đủ ba bộ của An, tỷ lệ lặp trên mẫu $1/2$ | 58 (5, 18); ghi chú 122 |
+| K02 | Dòng giới hạn nêu bảng tăng không chặn; hình năm bộ, ba bộ của An in đậm; "cả ba bộ của An vào mẫu"; ghi chú thêm "không có thời gian ra đĩa"; hình đổi từ `stream-short` sang `stream-figure` để chữ trong hình ≥ 22 px | 40 (3, 16); ghi chú 144 |
+| K04 | Gọi tên "số ngăn $b$", "ngưỡng $a$"; "đưa t vào mẫu" thay "phát vào dòng mẫu"; Đầu ra "mẫu gồm…"; câu đọc giả mã nêu điều còn mở (tính đều do cách chọn $h$) | 50 (4, 17); ghi chú 111 |
+| K05 | Ghi chú: mẫu chứa đủ ba bộ của An và cho $1/2$ | 51 (4, 16); ghi chú 126 |
+| K06 | "Khóa nhận diện đơn vị…"; câu hỏi "có cho đúng tỷ lệ truy vấn lặp của từng người không?"; lời giải nêu giả thiết thêm: giá trị băm của các khóa khác nhau độc lập | 55 (6, 19); ghi chú 136 |
+| K07 | Bỏ dòng nguồn trên mặt trang; câu chốt nêu tỷ lệ khóa giảm dần khi hạ ngưỡng | 51 (6, 19); ghi chú 129 |
+| K08 | Nhãn "Câu hỏi:" đứng trước câu hỏi thật | 33 (3, 19); ghi chú 81 |
+
+Giả mã K04: dấu tiếng Việt lệch trên ảnh chụp do phông monospace của máy chụp, giống Bài 07; không xử lý theo quyết định của điều phối viên. Giữ "thời gian" (không đổi sang "thời điểm") để khớp bộ (người dùng, truy vấn, thời gian) dùng trên toàn deck.
