@@ -37,7 +37,7 @@ Không đưa PageRank, phép nối, nhân ma trận–vector, đại số quan h
 6. `sources/reference-slides/stanford-cs246/01-intro.pdf`, đọc toàn bộ; ưu tiên trang chiếu 50–60 và 66 cho DAG, Spark và giới hạn của MapReduce theo lô.
 7. `2627-1/planning/lec-02/outline.md`, `storyboard.md`, `review-log.md`, năm SVG trong `2627-1/img/lec-02/` và bộ trang chiếu hiện có của Bài 02.
 8. `2627-1/material-viewer.html`, `material-viewer.css`, `material-viewer.js`, `material-index.css`, các mẫu trong `materials/_templates/` và `2627-1/index.html`.
-9. `openrouter-mcp/README.md` để kiểm tra tên lệnh, quyền của từng vai và `task-profile`.
+9. `../tools/openrouter-mcp/README.md` để kiểm tra tên lệnh, quyền của từng vai và `task-profile`.
 
 Với từng cụm, so sánh slide chính thức MMDS và Stanford theo mức khớp mục tiêu, độ chính xác, ví dụ hoặc hình và khả năng Việt hóa. Dùng sách MMDS để kiểm chứng. Nếu hai nguồn tương đương, ưu tiên MMDS; nếu chọn Stanford cho DAG hoặc Spark, ghi lý do cụ thể. Không sao chép CSS, phông chữ hoặc tài sản nhị phân của nguồn.
 
@@ -45,9 +45,9 @@ Với từng cụm, so sánh slide chính thức MMDS và Stanford theo mức kh
 
 Người dùng cho phép gửi tới OpenRouter nội dung các tệp cần thiết trong workspace để thực hiện nhiệm vụ, ngoại trừ `.env`, `.env.*`, khóa, token, mật khẩu, cookie, khóa riêng, thông tin xác thực và mọi giá trị bí mật. Không đọc, đưa vào prompt hoặc log các nội dung bị loại trừ.
 
-1. Từ `openrouter-mcp/`, chạy song song khi đầu vào ổn định:
-   - `uv run openrouter-mcp-reader --repo-root .. --json --task-profile plan "Lập kế hoạch hẹp cho goal ghi chú Bài 02; không sửa tệp."`;
-   - `uv run openrouter-mcp-reader --repo-root .. --json --task-profile source "Kiểm kê và ánh xạ nguồn hẹp cho ghi chú Bài 02; không sửa tệp."`.
+1. Từ gốc kho, chạy song song khi đầu vào ổn định:
+   - `../.venv/bin/openrouter-mcp-reader --repo-root . --json --task-profile plan "Lập kế hoạch hẹp cho goal ghi chú Bài 02; không sửa tệp."`;
+   - `../.venv/bin/openrouter-mcp-reader --repo-root . --json --task-profile source "Kiểm kê và ánh xạ nguồn hẹp cho ghi chú Bài 02; không sửa tệp."`.
 2. Reader lập kế hoạch xác định mục tiêu, đối tượng, phạm vi, đầu ra, tiêu chí hoàn thành, rủi ro và quan hệ tuần tự–song song.
 3. Reader nguồn kiểm kê định nghĩa, ví dụ, hình, mệnh đề, thuật toán, chứng minh, bài tập, nguồn và khoảng trống. Phân biệt mệnh đề nguồn với quyết định biên tập.
 4. Giao một reviewer độc lập lập bản đồ chủ đề. Mỗi chủ đề nhận nhãn `cốt lõi`, `cầu nối`, `bổ sung` hoặc `đọc thêm`, kèm nguồn, vai trò, kiến thức đầu vào, sản phẩm học tập, kết nối vào–ra và tác động phạm vi.

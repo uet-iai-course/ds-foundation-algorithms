@@ -62,7 +62,7 @@ Khi có xung đột, tuân theo thứ tự sau:
 4. Tài liệu bổ sung và tài sản liên quan do người dùng cung cấp.
 5. Mẫu văn phong, dẫn dắt và cách đặt vấn đề của tác giả: các trang chiếu MAT1101 tại `../MAT1101/` cho mặt trang chiếu, giáo trình *Học máy thống kê* tại `../SML-textbook-main.zip` cho ghi chú bài giảng, cùng cách các học phần `../math-4-AI` và `../rl-plan` đã áp dụng hai mẫu đó. Ba nguồn này chỉ làm mẫu cách trình bày; không lấy nội dung, số liệu hay thứ tự chủ đề từ chúng thay cho nguồn ở mục 2 và 3.
 6. `slide_authoring_standard.md` về mức độ cho sinh viên năm 2, mạch xây dựng kiến thức và cách thể hiện nội dung slide.
-7. `2627-1/lecture-template.html` và `2627-1/lecture-style.css` về giao diện và nền kỹ thuật.
+7. `2627-1/lecture-template.html`, `2627-1/lecture-style.css` và `2627-1/lecture-course.css` về giao diện và nền kỹ thuật.
 8. Các quy ước trong tệp này.
 
 Giữ mạch cấp học phần theo `sources/source.md`; giữ mạch và ý chính trong từng bài theo tài liệu chi tiết. Chỉ gộp, tách, thêm, lược hoặc sắp xếp cục bộ khi cần sửa lỗi, giảm quá tải, khôi phục tiên quyết, hoàn thiện mạch học tập hoặc bảo đảm khả năng đọc. Mọi sai khác phải có lý do trong storyboard và nhật ký rà soát.
@@ -78,7 +78,7 @@ Sau khi người dùng chọn bài học hoặc tệp nguồn, điều phối vi
 - từ mục học liệu của bài, xác định tài liệu chi tiết cần dùng, đọc các tệp tương ứng và kiểm tra tài liệu liên quan trong `sources/`;
 - bỏ qua `.DS_Store`, tệp có tiền tố `._` và tệp tạm có tiền tố `~$`;
 - xác định số bài, tên bài, mục tiêu, kiến thức tiên quyết và phạm vi từ `sources/source.md`; xác định số trang, phần hoặc chương nguồn và các tài sản từ tài liệu chi tiết;
-- đọc `slide_authoring_standard.md`, `2627-1/lecture-template.html`, `2627-1/lecture-style.css` và `2627-1/index.html` trước khi lập kế hoạch;
+- đọc `slide_authoring_standard.md`, `2627-1/lecture-template.html`, `2627-1/lecture-style.css`, `2627-1/lecture-course.css` và `2627-1/index.html` trước khi lập kế hoạch;
 - kiểm kê định nghĩa, định lý, bổ đề, chứng minh, thuật toán, cấu trúc dữ liệu, ví dụ, bài tập, hình, bảng, công thức và đoạn mã phải chuyển;
 - xác định phần nào của nguồn là nội dung, bố cục, ghi chú, tài liệu tham khảo hoặc tài sản trực quan;
 - chỉ hỏi người dùng về thông tin không thể suy ra từ kho và có thể làm thay đổi đáng kể kết quả.
@@ -125,11 +125,11 @@ Mỗi bài dùng cấu trúc sau:
 ## Mẫu RevealJS bắt buộc
 
 - Dùng `2627-1/lecture-template.html` làm nền. Chỉ kế thừa cấu trúc, giao diện và cấu hình kỹ thuật; không sao chép chủ đề, nội dung hoặc siêu dữ liệu của bài khác.
-- Dùng `2627-1/lecture-style.css`, màu, phông chữ, khoảng cách, thẻ, lưới và chân trang hiện có. Không tạo hệ giao diện mới.
-- `2627-1/lecture-style.css` là nguồn duy nhất cho các kiểu trình bày dùng lại giữa các bài: trang tiêu đề, tên môn/học kỳ, mục lục, tiêu đề phần/trang, chữ thân bài, bảng, mã, chú thích, nguồn và badge. Lecture 02 là mẫu đối chiếu ban đầu; Lecture 02, Lecture 03 và các deck được soạn hoặc chỉnh sửa sau này phải liên kết tới CSS này và dùng cùng lớp cho các thành phần cùng vai trò.
+- Dùng `2627-1/lecture-style.css` (chung mọi học phần, đồng bộ từ `../shared/css/`, không sửa tại chỗ), `2627-1/lecture-course.css`, màu, phông chữ, khoảng cách, thẻ, lưới và chân trang hiện có. Không tạo hệ giao diện mới.
+- `2627-1/lecture-course.css` là nguồn duy nhất của học phần cho các kiểu trình bày dùng lại giữa các bài: trang tiêu đề, tên môn/học kỳ, mục lục, tiêu đề phần/trang, chữ thân bài, bảng, mã, chú thích, nguồn và badge. Lecture 02 là mẫu đối chiếu ban đầu; Lecture 02, Lecture 03 và các deck được soạn hoặc chỉnh sửa sau này phải liên kết tới CSS này và dùng cùng lớp cho các thành phần cùng vai trò.
 - Trước khi thêm kiểu trình bày, kiểm tra lớp hiện có trong CSS chung và mẫu tương ứng ở Lecture 02. Nếu kiểu trong một deck cần dùng lại, chuyển định nghĩa vào CSS chung và cập nhật các deck sử dụng; không sao chép thành nhiều bản riêng. Đồng nhất giao diện phải bao gồm cỡ chữ, độ đậm, chiều cao dòng và khoảng cách của các thành phần tương ứng, không chỉ màu sắc.
 - Không chép khối `<style>` hoặc tự đặt lại cỡ chữ, màu, khoảng cách của các thành phần tương ứng trong từng HTML. Khi cần kiểu mới, thêm hoặc mở rộng lớp có ý nghĩa trong CSS chung rồi dùng lớp đó; chỉ giữ kiểu nội dòng cho hình hoặc bố cục đơn lẻ khi thực sự cần, không dùng để ghi đè thang chữ chung.
-- CSS riêng cho sơ đồ hoặc bố cục của một bài vẫn đặt trong `lecture-style.css`, giới hạn bằng lớp gốc của bài (ví dụ `.lecture-pagerank`); không để selector chung như `.card`, `h2`, `p` làm đổi các bài khác. Những bài dùng hệ thành phần chung nhận lớp `.course-deck`.
+- CSS riêng cho sơ đồ hoặc bố cục của một bài vẫn đặt trong `lecture-course.css`, giới hạn bằng lớp gốc của bài (ví dụ `.lecture-pagerank`); không để selector chung như `.card`, `h2`, `p` làm đổi các bài khác. Những bài dùng hệ thành phần chung nhận lớp `.course-deck`.
 - Khi sửa CSS chung, đối chiếu cỡ chữ và khoảng cách thực tế của các thành phần cùng vai trò; kiểm tra tất cả deck bị ảnh hưởng, ít nhất Lecture 02 và Lecture 03. Kiểm cả tiêu đề, mục lục, nội dung, bảng/mã, tràn khung, công thức và hình; không chỉ kiểm deck đang sửa. Ghi phạm vi ảnh hưởng và kết quả vào `review-log.md`.
 
 - Tham khảo cách tổ chức bố cục trong kho `uet-iai-course/machine-learning`, ưu tiên `SLIDE_STYLE_GUIDE.md` và các tệp `2526-2/lecture-*.html`. Áp dụng nguyên tắc một luận điểm trung tâm, hình hoặc công thức đủ lớn, chú thích nêu kết luận và nhịp mở phần–trực giác–cơ chế–ví dụ–kiểm tra. Không sao chép nội dung, tài sản hoặc CSS từ kho tham khảo.
@@ -683,7 +683,7 @@ Giao một tác tử soạn:
 - giữ thứ tự nguồn trừ các thay đổi đã được phê duyệt;
 - thêm ghi chú diễn giả và nguồn;
 - không sửa RevealJS, tiện ích hoặc CSS dùng chung nếu có thể giải quyết trong tệp bài giảng;
-- nếu cần sửa `lecture-style.css`, phải kiểm tra các bài hiện có không bị hỏng.
+- nếu cần sửa `lecture-course.css` (hoặc CSS chung trong `../shared/css/`), phải kiểm tra các bài hiện có không bị hỏng.
 
 ### 4. Kiểm định storyboard
 
@@ -741,7 +741,7 @@ Các tác tử sửa tệp không được chạy song song.
 - chạy phép đếm mật độ (âm tiết chữ, số dòng, âm tiết mỗi dòng) cho mọi trang và đính kèm kết quả vào `review-log.md`; xác nhận không trang nào vượt trần mà không có ngoại lệ ghi trong storyboard, và không trang nào dùng lớp thu nhỏ chữ để đạt trần;
 - kiểm tra mọi trang tiêu đề mạch hiển thị đúng ở 1600×900 và 390×844, số mạch khớp `#/N` và trang "Nội dung"; kiểm tra trang bìa có câu luận đề, mạch mở đầu và mạch kết luận có đủ các trang quy định;
 - kiểm tra không có tài nguyên hỏng hoặc phụ thuộc mạng cốt lõi;
-- chạy `python3 -m reloadserver 8765` tại thư mục gốc; cổng là đối số vị trí, không dùng `--port`;
+- chạy `../.venv/bin/python -m reloadserver 8765` tại thư mục gốc; cổng là đối số vị trí, không dùng `--port`;
 - mở `http://localhost:8765/2627-1/lecture-NN-<ten-bai>.html` và duyệt mọi trang ngang, trang dọc;
 - kiểm tra tràn chữ, chữ nhỏ, chồng lấn, công thức, giả mã, hình, tương phản và bàn phím ở khung 16:9 và một màn hình hẹp;
 - rà soát trực quan sau cùng bằng trình duyệt, lưu ảnh chụp màn hình ở khung 16:9 và màn hình hẹp cho các trang bị ảnh hưởng, và xác minh thay đổi đã được lưu trong tệp của kho và hiển thị đúng;
@@ -812,7 +812,7 @@ Khi bàn giao, nêu ngắn gọn: tệp sản phẩm, URL cục bộ, nguồn ch
 - Phiên Claude Code chính giữ vai trò điều phối viên kiêm kiểm soát chất lượng và chạy **Claude Opus 5.5** (`claude-opus-5-5`) với mức suy luận `high` (người dùng xác nhận cho học phần này ngày 2026-10-16, thay chỉ định Claude Fable 5.1 trước đó; phần còn lại của chỉ dẫn thường trực 2026-10-07 cho `../math-4-AI`, được `../rl-plan` và học phần này áp dụng từ 2026-10-14, giữ nguyên): phân rã công việc, viết brief, duyệt kế hoạch, hợp nhất kết quả, đọc diff và chấp nhận hoặc bác bỏ từng đầu ra của tác tử con. Điều phối viên không tự đảm nhận vai soạn, rà soát hay chỉnh sửa. Nếu phiên đang chạy mô hình khác, báo rõ trước khi giao việc và đề nghị người dùng chuyển mô hình; không tự coi phiên đó là điều phối viên hợp lệ.
 - Mọi tác tử con, kể cả tác tử do tác tử con tạo tiếp, phải dùng **Claude Opus 5.5** (`claude-opus-5-5`) với mức suy luận (reasoning effort) `high` qua cơ chế tác tử gốc của Claude Code. Tạo tác tử bằng công cụ `Agent` với loại `general-purpose`, `model: "opus"` và `effort: "high"`, hoặc loại tác tử có định nghĩa trong `.claude/agents/` khai báo mô hình `claude-opus-5-5` và mức suy luận `high`. Không dùng loại `fork` cho vai trong quy trình, vì `fork` kế thừa mô hình của điều phối viên và bỏ qua tham số mô hình. Không giao vai trong quy trình cho loại tác tử cố định mô hình hoặc mức suy luận khác. Tiếp tục nhiệm vụ của tác tử đã tạo bằng `SendMessage`; lời gọi `Agent` mới tạo một tác tử mới.
 - Mọi đầu ra của tác tử con chỉ đi tiếp sang giai đoạn sau, vào tệp của kho hoặc tới người dùng sau khi điều phối viên đã rà: với kế hoạch và báo cáo, đối chiếu từng phát hiện với tệp hoặc dòng được dẫn và tính lại số liệu; với tệp đã ghi, đọc diff và chạy các kiểm tra quy định; ghi quyết định `chấp nhận | yêu cầu sửa | bác bỏ` kèm lý do trong `review-log.md`. Một tác tử con rà tác tử con khác không thay cho việc duyệt của điều phối viên.
-- Không dùng OpenRouter, cầu nối trong `openrouter-mcp/`, các script OpenRouter, Codex hoặc lời gọi mô hình qua API/CLI để thay cơ chế tác tử gốc của Claude Code. Các ủy quyền và chỉ dẫn OpenRouter, Codex hoặc GPT-6-Astra cũ trong `.codex/`, script, prompt hay hồ sơ lịch sử không áp dụng cho quy trình hiện hành; chỉ kế thừa phần phạm vi học thuật còn phù hợp.
+- Không dùng OpenRouter, cầu nối trong `../tools/openrouter-mcp/`, các script OpenRouter, Codex hoặc lời gọi mô hình qua API/CLI để thay cơ chế tác tử gốc của Claude Code. Các ủy quyền và chỉ dẫn OpenRouter, Codex hoặc GPT-6-Astra cũ trong `.codex/`, script, prompt hay hồ sơ lịch sử không áp dụng cho quy trình hiện hành; chỉ kế thừa phần phạm vi học thuật còn phù hợp.
 - Không đọc, nạp hoặc gửi `.env`, `.env.*` ở bất kỳ thư mục nào; không dùng khóa API hay bí mật để tạo hoặc xác thực tác tử. Không đưa bí mật, kể cả trong tệp có tên thông thường, vào lời nhắc, tệp đính kèm, kết quả công cụ hoặc nhật ký.
 - Dùng tác tử chỉ đọc cho kiểm kê, lập kế hoạch, phân tích nguồn, kiểm định storyboard và các lượt rà soát độc lập. Tác tử soạn hoặc chỉnh sửa chỉ được ghi vào danh sách tệp đã giao. Mỗi nhiệm vụ phải có vai trò, đầu vào, đầu ra và điều kiện hoàn thành cụ thể.
 - Tác tử chỉ đọc có thể chạy song song trong giới hạn khả dụng; chia thành các đợt khi số vai trò vượt giới hạn. Chỉ một tác tử được ghi tệp tại một thời điểm. Điều phối viên phải chờ đủ kết quả liên quan, chấp nhận hoặc bác bỏ đầu ra trước giai đoạn phụ thuộc và tự xác minh trước khi bàn giao.

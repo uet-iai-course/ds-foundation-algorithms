@@ -1,0 +1,45 @@
+/* ds-foundation-algorithms: course-specific rules, loaded after the shared material-viewer.css. */
+
+.material-toc a {
+  text-decoration-thickness: 1px;
+}
+
+.markdown-body table {
+  position: relative;
+}
+
+.markdown-body p:has(> img[src^="img/lec-"]) {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.markdown-body img[src^="img/lec-"] {
+  width: 100%;
+  min-width: 900px;
+  max-width: none;
+}
+
+@media print {
+  /* Co SVG của các bài vừa giấy thay cho chiều rộng cuộn trên màn hình. */
+  .markdown-body p:has(> img[src^="img/lec-"]) {
+    overflow: visible;
+  }
+
+  .markdown-body img[src^="img/lec-"] {
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Bài 05: giữ số chủ đề gốc và nhịp đọc của ghi chú. */
+body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .material-toc ol { list-style: none; padding-left: 0; }
+@media screen and (min-width: 1200px) {
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body img[src="img/lec-05/quy-trinh-bieu-dien.svg"] { min-width: 0; width: 100%; }
+}
+@media print {
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body :is(h2,h3,h4) { break-after: avoid; page-break-after: avoid; break-inside: avoid; }
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body h3 + p { break-after: avoid; page-break-after: avoid; }
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body h3 + p + .material-block,
+  body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body :is(h2,h3,h4) + .material-block { break-before: avoid; page-break-before: avoid; }
+}

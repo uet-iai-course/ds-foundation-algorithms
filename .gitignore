@@ -24,3 +24,9 @@ sources/**/*.docx
 sources/**/*.pdf
 sources/**/*.pptx
 sources/**/*.ipynb
+
+# Workspace tooling and environments live outside this repo (../tools, ../.venv).
+.venv/
+node_modules/
+openrouter-mcp/
+codex-orchestrator
