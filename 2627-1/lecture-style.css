@@ -1083,3 +1083,8 @@
 .reveal.course-deck.lecture-stream .stream-tall img { max-height: 520px; }
 .reveal.course-deck.lecture-stream { --r-code-font: Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace; }
 .reveal.course-deck.lecture-stream ol.stream-alpha { list-style-type: lower-alpha; }
+.reveal.course-deck.lecture-stream table.stream-even { table-layout: fixed; }
+.reveal.course-deck.lecture-stream table.stream-even th:first-child { width: 22%; }
+.reveal.course-deck.lecture-stream table.stream-even th, .reveal.course-deck.lecture-stream table.stream-even td { text-align: center; }
+.reveal.course-deck.lecture-stream table.stream-even th:first-child, .reveal.course-deck.lecture-stream table.stream-even tbody th { text-align: left; }
+.reveal.course-deck.lecture-stream table.stream-even .stream-pick { border-left: 3px solid #2f3e7a; border-right: 3px solid #2f3e7a; }

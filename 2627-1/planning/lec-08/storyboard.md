@@ -364,7 +364,7 @@ Tổng mạch 3: 24 phút (trước: KT 0,5, K00 2,5, K01 4, K01B 2,5, K02 3, K0
 
 Số đã tự tính: $\frac1{10}\cdot\frac1{10}=\frac1{100}$; $2\cdot\frac1{10}\cdot\frac9{10}=\frac{18}{100}$; $\Pr[\text{không giữ bộ nào}]=\frac{81}{100}$, tổng ba trường hợp bằng 1; $\frac{1/100}{19/100}=\frac1{19}$; $\frac{1/100}{1/10+19/100}=\frac{1}{29}$; $10u+19d=u+d\iff 9u+18d=0$; $10^8\cdot16=1{,}6\cdot10^9$ byte; kỳ vọng cỡ mẫu $\sum_{\text{bộ}}\Pr[\text{giữ}]=ar/b$; với $\{0,\ldots,99\}$, $h<20$ có 20 giá trị, $h\le20$ có 21.
 
-Dữ kiện do học phần dựng: dòng năm bộ (An, “đồ thị”), (Bình, “lọc”), (An, “băm”), (An, “đồ thị”), (Chi, “lọc”), trong đó An có đúng ba bộ của K01; giá trị băm $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$ (trùng số rút ở K01B); giả định $10^8$ người dùng, 16 byte mỗi hàng; câu hỏi K06 và K08.
+Dữ kiện do học phần dựng: dòng năm bộ (An, “đồ thị”), (Bình, “lọc”), (An, “băm”; từ 2026-10-29 là “đệ quy”), (An, “đồ thị”), (Chi, “lọc”), trong đó An có đúng ba bộ của K01; giá trị băm $h(\text{An})=0$, $h(\text{Bình})=7$, $h(\text{Chi})=4$ (trùng số rút ở K01B); giả định $10^8$ người dùng, 16 byte mỗi hàng; câu hỏi K06 và K08.
 
 **Sửa sau lượt rà lại mạch 3 (2026-10-28).** Các số đo dưới đây thay cột âm tiết của bảng trên.
 
@@ -865,3 +865,116 @@ Căn cứ: phản hồi người dùng 2026-10-29 về K01 («giữ với bỏ n
 | 3 | K10 «Tỷ lệ truy vấn lặp trên mẫu» | sửa | Câu hỏi «giữ $1/10$ nào để tỷ lệ của An trên mẫu vẫn là $1/2$?» thành «lưu $1/10$ nào vào mẫu để tỷ lệ của An vẫn là $1/2$?»: động từ «lưu» khớp dòng «chỉ lưu $1/10$» và nhãn hình «lưu được: 1/10»; định nghĩa giữ/bỏ cho một bộ xuất hiện ở K01; câu dẫn trang tiêu đề mạch (KT) dùng giữ/bỏ cho người dùng. Ghi chú: «ví dụ kế tiếp thử cách giữ từng bộ» thành «ví dụ kế tiếp thử lấy mẫu từng bộ». Hình `bai-toan-ty-le-lap.svg`: chữ «giữ 1/10 nào?» thành «lưu 1/10 nào?», `<desc>` và alt (deck, ghi chú bài giảng) đồng bộ. | 54 (4, 18) → 54 (4, 18); ghi chú 98 không đổi |
 
 Ghi chú bài giảng (`lec-08-topic-03`, §2 đoạn mở và §2.1): câu hỏi của mục thành «lưu $1/10$ nào của dòng để tỷ lệ của An tính trên mẫu vẫn là $1/2$»; sau câu nêu cách rút số cho mỗi bộ thêm hai câu «Bộ được giữ thì được ghi vào mẫu, nằm trong bộ nhớ làm việc; bộ bị bỏ thì không vào bộ nhớ làm việc. Vì mỗi phần tử được đọc đúng một lần, khi nó đến, và kho lưu trữ không được đọc để trả lời (Định nghĩa 08.1), thuật toán không lấy lại được bộ bị bỏ.»; alt hình `bai-toan-ty-le-lap.svg` đổi «giữ» thành «lưu».
+
+## Sửa mạch 3 theo phản hồi người dùng (2026-10-29)
+
+Căn cứ: phản hồi người dùng 2026-10-29 («mạch Lấy mẫu theo khóa vẫn khó hiểu, cần giải thích kĩ hơn»); báo cáo đọc theo góc nhìn sinh viên và quyết định của điều phối viên cùng ngày. Mục tiêu: mỗi khái niệm (tỷ số hai số đếm kỳ vọng, đổi đơn vị rút, chọn $h$ một lần, khóa, ngăn, ngưỡng, $a/b$) có ví dụ số trên dòng năm bộ trước khi được dùng. Deck 67 → 71 trang; bốn trang mới nằm trong ngăn xếp dọc của mạch 3, nên `span.strand-number` và `#/N` của mọi trang tiêu đề mạch không đổi. Âm tiết đo bằng `check08.py` (cột «syl»; bỏ tiêu đề, KaTeX, hình, giả mã, ô số của bảng; tính cả tiêu đề cột bảng); số «trước» đo trên bản deck ngay trước lượt này.
+
+**Bản đồ mạch.**
+
+| Loại | Chức năng | Vào | Ra | Đóng góp | Trang tiêu đề mạch |
+|---|---|---|---|---|---|
+| thuật toán | Chỉ ra sai lệch của mẫu từng bộ bằng số đếm trên 100 người như An, đổi đơn vị rút sang người dùng, thay bảng bằng hàm băm chọn một lần trước dòng, định nghĩa khóa, ngăn, ngưỡng, chạy vết với $a=5$, chứng minh nhất quán và $a/b$, chọn khóa, đếm chi phí | Mạch 2: thuật toán dòng trả lời từ trạng thái nhỏ hơn lịch sử; dòng (người dùng, truy vấn, thời gian), tỷ lệ $1/10$ từ trang Vấn đề trung tâm | Mẫu nhất quán theo khóa, mỗi khóa xác suất $a/b$ theo phép rút $h$; người được giữ là mẫu ngẫu nhiên của người dùng nên tỷ lệ lặp tính trên họ đại diện cho người dùng điển hình; cỡ mẫu kỳ vọng $ar/b$ tăng theo dòng, là nhu cầu của mạch hồ chứa | Bài toán (K10) → ví dụ tính tay (K01) → số đếm kỳ vọng có số (K11) → tổng quát (K09) → phương án trước, «tương tự … nhưng …» (K01B) → giới hạn bảng và ý tưởng băm (K02) → trực quan phép chọn $h$ (K12) → khái niệm khóa, ngăn, ngưỡng có số (K13) → Đầu vào/Đầu ra, giả mã (K04) → vết (K14) → tính đúng (K05) → áp dụng (K06) → chi phí (K07) → kiểm tra (K08) | KT (`id="mach-3"`), điểm vào mạch 3 |
+
+Thứ tự: KT → K10 → K01 → **K11** → K09 → K01B → K02 → **K12** → **K13** → K04 → **K14** → K05 → K06 → K07 → K08.
+
+Dữ kiện do học phần dựng (mới): 100 người dùng, mỗi người ba bộ như An; họ hàm $h_\omega(\text{tên})=(\text{mã}+\omega)\bmod10$, $\omega$ rút đều một lần trên $\{0,\ldots,9\}$, mã An 7, Bình 4, Chi 1, $\omega=3$ cho $h=0,7,4$ (khớp số rút và giá trị băm đã có); ngưỡng $a=5$ của vết; $r=10^9$ ở K07. Truy vấn mẫu “băm” đổi thành “đệ quy” (tránh nhầm với «hàm băm $h$»; deck, `bai-toan-ty-le-lap.svg`, `bang-theo-nguoi-dung.svg`, `bam-theo-nguoi-dung.svg`, mọi alt và `<desc>`). Ghi chú bài giảng đổi ở giai đoạn sau.
+
+**Từng trang.**
+
+| Trang | Mục đích | Hành động của sinh viên | Đối tượng trung tâm | Quyết định và lý do | Âm tiết (dòng, dòng dài nhất) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---:|
+| KT | Điểm vào mạch 3 | Nhận nhiệm vụ | Lời dẫn «Muốn ước lượng tỷ lệ truy vấn lặp của người dùng điển hình, phải giữ hoặc bỏ trọn từng người.» (20 âm tiết); cụm khóa «Sai lệch của mẫu từng bộ · Bảng nhãn · Hàm băm chọn một lần · Ngăn và ngưỡng · Chọn khóa» | sửa: đại lượng ước lượng là người dùng điển hình (MMDS §4.2.1 «typical user»), không phải «mỗi người dùng» (9/10 người bị bỏ trọn); cụm khóa theo trang mới | 39 (2, 20) → 38 (2, 20); 97 → 95 | 0,5 |
+| K10 | Bài toán đầu mạch | Đọc hình, định nghĩa tỷ lệ lặp | Dòng năm bộ; An «đồ thị» ×2, «đệ quy» ×1 | sửa: «Nhu cầu:» nói người dùng điển hình; định nghĩa «số truy vấn khác nhau được gõ từ hai lần, chia cho số truy vấn khác nhau» (bỏ «với An là $1/2$», hình đã ghi); tiêu đề hình «bộ theo thứ tự đến, ghi (người dùng, truy vấn), lược thời gian» khớp chữ ba thành phần; ghi chú GV nêu vì sao phải lấy mẫu (giữ chính xác số lần gõ của mọi người tăng theo dòng). Trên mục tiêu 40: bốn dòng đều cần cho bài toán | 53 (4, 18) → 55 (4, 20); 98 → 137 | 1,5 |
+| K01 | Ví dụ tính tay sai lệch | Tính bốn lá và xác suất có điều kiện | Hai bộ «đồ thị» | sửa: dòng 1 gọi tên «Mẫu từng bộ:»; dòng cuối nêu hệ quả «Khi “đồ thị” có mặt, xác suất chỉ có một bản là $18/19$: An trông như không gõ lại.»; $1/19$ vào ghi chú GV. Dòng **Quy ước:** giữ nguyên (phản hồi người dùng trước). Trên mục tiêu 40: dòng quy ước và dòng hệ quả đều bắt buộc | 46 (3, 19) → 55 (3, 20); 133 → 126 | 2,5 |
+| K11 | Đọc tỷ số hai số đếm kỳ vọng bằng số nguyên | Tính số người kỳ vọng mỗi trường hợp, rồi $1/29$ | Bảng `Trường hợp trong mẫu \| Xác suất mỗi người \| Số người kỳ vọng`: 1, 18, 10 | thêm: tỷ lệ lặp trên mẫu cho chính An trước công thức tổng quát; $1/29$ gắn với tử số (thấy lặp) và mẫu số (có mặt); ghi chú GV: 18 : 1, $1/29<1/19$ vì 10 lần «đệ quy», luật số lớn | — → 47 (5, 18); — → 140 | 2 |
+| K09 | Tổng quát $d/(10u+19d)$ | Đọc bảng số đếm, so với tỷ lệ thật | Bảng $u$, $d$; công thức | sửa: dòng mở nêu giả thiết «không truy vấn nào hơn hai lần»; dòng cuối gọi tên tử số, mẫu số, tỷ lệ thật $d/(u+d)$ và $u=d=1$ cho $1/29$ (bỏ «khác $1/19$ vì tính cả “băm”»); ghi chú GV giữ $9u+18d=0$, dạng $\eta$, nguyên nhân hai bản quyết định riêng | 42 (5, 16) → 45 (5, 18); 136 → 119 | 1,5 |
+| K01B | Phương án trước: bảng nhãn | So mẫu từng bộ với rút theo người | Bảng An 0 giữ, Bình 7 bỏ, Chi 4 bỏ | sửa: dòng giới hạn có số và nguyên nhân «quyết định riêng hai bản “đồ thị”: $1/29$ thay vì $1/2$»; «Tương tự mẫu từng bộ, nhưng rút một số cho mỗi người dùng, không cho mỗi bộ.»; **Diễn giải:** An «giữ» nên mẫu đủ ba bộ, $1/2$. Câu hỏi «bảng tăng theo đại lượng nào?» chuyển vào ghi chú GV kèm lời giải (K02 trả lời ở dòng đầu). Trên mục tiêu 40: đủ ba bước giới hạn, ý tưởng, kiểm | 58 (5, 18) → 59 (4, 17); 133 → 113 | 2 |
+| K02 | Ý tưởng băm thay bảng | Nối với băm khóa ở Bài 02 | Hình năm bộ qua $h$ | sửa: dòng 1 «Bảng không bị chặn: một hàng mỗi người dùng, $10^8$ người cần 1,6 GB bộ nhớ làm việc.»; thêm **Nhắc lại:** Bài 02 băm khóa đưa mọi cặp cùng khóa tới cùng tác vụ Reduce; dòng «$h$ được chọn ngẫu nhiên một lần trước dòng, rồi cố định» (lượt bản đánh giá) chuyển sang K12, nơi nó được mở rộng thành ví dụ; ghi chú GV: không ra đĩa mỗi bộ, hàm băm biến chuỗi tên thành số | 41 (3, 16) → 48 (3, 18); 141 → 132 | 2 |
+| K12 | Trực quan «xác suất theo phép chọn $h$» và tính cố định | Đọc bảng họ $h_\omega$: mỗi hàng một số 0; cột $\omega=3$ | Bảng HTML 4 hàng × 11 cột, số 0 in đậm, cột «3 (chọn)» | thêm: nguồn ngẫu nhiên là lần rút $\omega$ trước dòng (nối Bài 06), sau đó $h$ cố định; ghi chú GV nói rõ họ này chỉ cho mỗi khóa đều trên các ngăn, không cho các khóa độc lập (người cùng số dư đi cùng nhau; An, Bình, Chi không bao giờ cùng có $h=0$), thực hành dùng hạt giống | — → 28 (5, 16); — → 147 | 2,5 |
+| K13 | Khái niệm khóa, ngăn, ngưỡng, $a/b$ | Đọc hình 10 ngăn, kiểm $3/10$ trên họ $h_\omega$ | Hình `ngan-va-nguong.svg` | thêm: định nghĩa khóa trước K04; «ngăn không chứa dữ liệu, khác thùng ở Bài 06» (MMDS §4.2.2); ví dụ $a=3$ (30% của slide MMDS Streams 1 tr.15–16) là bước tổng quát, không thay $1/10$; khác quyết định bác «tỷ lệ 30%» và «thanh 10 ngăn» trước đây vì phản hồi người dùng 2026-10-29 và vì K08, C04, X01 cần $a\ne1$ | — → 49 (4, 19); — → 134 | 2 |
+| K04 | Đặc tả và giả mã | Đọc Đầu vào, Giả thiết, Đầu ra | `LẤY-MẪU-THEO-KHÓA(t; a, h)` | sửa câu cuối: «xác suất $a/b$ đến từ lần rút $h$ trước dòng» thay «tính đều do cách chọn $h$» | 50 (4, 17) → 53 (4, 20); 111 không đổi | 2 |
+| K14 | Vết thuật toán | Đọc từng bước, tính tỷ lệ lặp trên mẫu | Bảng vết 5 bước, $a=5$ | thêm (cùng tiêu đề K04 theo AGENTS §Trang thuật toán): An $1/2$, Chi $0$, Bình vắng trọn; ghi chú GV: hai trong ba người được giữ, số người được giữ ngẫu nhiên; người được giữ đại diện cho người dùng điển hình | — → 35 (7, 16), bảng vết trong trần 8; — → 119 | 1,5 |
+| K05 | Tính đúng | Đọc hai mệnh đề | Nhất quán; $a/b$ | giữ mặt trang; ghi chú GV thêm hai phản ví dụ (rút lại $\omega$ giữa dòng; hàm luôn trả 0) và câu đại diện cho người dùng điển hình | 56 (4, 19) không đổi; 144 → 146 | 2 |
+| K06 | Chọn khóa | Ghép thống kê với khóa | Bảng ba thống kê | sửa: hàng đầu «tỷ lệ lặp của người dùng điển hình»; câu hỏi dùng cùng đại lượng; ghi chú GV thêm ví dụ khóa truy vấn (hai bộ «lọc» của Bình, Chi) | 55 (6, 19) không đổi; 136 → 138 | 2 |
+| K07 | Chi phí | Đếm phép toán mỗi bộ | Bảng thành phần | sửa: hàng tham số «$\omega$ của $h$; $a$, $b$»; dòng cuối «Cỡ mẫu tăng theo dòng: $r=10^9$, $a/b=1/10$ cho kỳ vọng $10^8$ bộ.»; câu hạ ngưỡng (MMDS §4.2.4) chỉ còn trong ghi chú GV và ghi chú bài giảng §2.5 | 51 (6, 19) → 41 (6, 14); 129 → 136 | 1,5 |
+| K08 | Kiểm tra | Chọn $<$ hay $\le$; khóa $10^6$ bộ | — | giữ | 33 (3, 19) | 1,5 |
+
+Tổng mạch 3: **27 phút** (trước 24,5: KT 0,5; K10 1,5; K01 2,5; K09 3; K01B 2; K02 3; K04 3; K05 3; K06 2,5; K07 2; K08 1,5). K09, K02, K04, K05, K06, K07 giảm vì phần số đã chuyển sang K11, K12, K13.
+
+Trang ngoài mạch 3 sửa theo cùng quyết định:
+
+| Trang | Thay đổi | Âm tiết trước → sau |
+|---|---|---|
+| P01 | «mẫu có $\approx r/10$ bộ» → «mẫu có kỳ vọng $r/10$ bộ» (khớp K07, K08) | 72 → 74, trong ngoại lệ trần 80 đã ghi |
+| C06 | Hình `hai-dong-ba-cau-hoi.svg` (chữ, `<desc>`) và alt: «(1) tỷ lệ truy vấn lặp của mỗi người dùng» → «(1) tỷ lệ lặp của người dùng điển hình» (cùng đại lượng với K10) | 16 không đổi |
+| P04 | Dòng nhắc lại thứ nhất: «hàm băm cho cùng giá trị với cùng khóa (Bài 02, 05); Bài 06 rút hàm từ một họ.» | 57 (5, 17) → 60 (5, 18), bằng trần 60; trên mục tiêu 40 từ trước vì là trang tiên quyết năm dòng |
+
+**Thời lượng toàn bài** (bớt 2,5 phút ở mạch 4–6 theo quyết định của điều phối viên):
+
+| Trang | Phút trước → sau | Lý do |
+|---|---:|---|
+| R01 | 3 → 2,5 | Ngưỡng trên một số đều đã dạy ở K12–K13 |
+| B04 | 2,5 → 2 | Khóa 118 và 29 đã chạy tay ở B05A–B05B |
+| B09 | 2,5 → 2 | Trang câu hỏi, lời giải trong ghi chú GV |
+| B11 | 2,5 → 2 | Mặt trang 11 âm tiết |
+| C03 | 2,5 → 2 | Hàng lấy mẫu theo khóa nay quen với sinh viên |
+
+| Mạch | Trước | Sau |
+|---|---:|---:|
+| 1 Mở đầu | 6,5 | 6,5 |
+| 2 Mô hình tính toán trên dòng | 13 | 13 |
+| 3 Lấy mẫu theo khóa | 24,5 | 27 |
+| 4 Lấy mẫu hồ chứa | 24,5 | 24 |
+| 5 Bloom filter | 39 | 37,5 |
+| 6 Tổng kết và chuyển tiếp | 12,5 | 12 |
+| **Phần giảng** | **120** | **120** |
+| 7 Bài tập vận dụng | 60 | 60 |
+
+Số đã tự tính: $\frac1{10}\cdot\frac1{10}=\frac1{100}$, $2\cdot\frac1{10}\cdot\frac9{10}=\frac{18}{100}$, $\frac{18/100}{19/100}=\frac{18}{19}$; trên 100 người: $1$, $18$, $10$, $\frac{1}{29}$, trong dòng $\frac{100}{200}$; $(7+\omega)\bmod10$: $7,8,9,0,1,2,3,4,5,6$ (số 0 tại $\omega=3$), Bình số 0 tại $\omega=6$, Chi tại $\omega=9$; với $\omega=3$: $0,7,4$; $(7+\omega)\bmod10<3\iff\omega\in\{3,4,5\}$; $<5\iff\omega\in\{3,\ldots,7\}$; vết $a=5$: 4 bộ, An $1/2$, Chi $0$; $10^9\cdot\frac1{10}=10^8$.
+
+Ghi chú bài giảng (giai đoạn sau): đổi «băm» → «đệ quy» khi là truy vấn mẫu; §2.1 thêm phép đếm trên 100 người; §2.2 thêm câu nối Bài 02, bảng $h_\omega$ và đoạn đọc bảng, «ngăn không chứa dữ liệu», ví dụ $a=3$, hình `ngan-va-nguong.svg`; Ví dụ 08.5 thêm tỷ lệ lặp trên mẫu với $a=5$; bảng ký hiệu thêm $\omega$; không thêm khối đánh số.
+
+Sửa sau kiểm của điều phối viên (2026-10-29): K12 bảng $h_\omega$ dùng lớp mới `table.stream-even` trong khối CSS Bài 08 của `lecture-style.css`, phạm vi `.reveal.course-deck.lecture-stream` (`table-layout: fixed`, cột đầu 22%, ô số căn giữa); chỉ K12 dùng lớp này nên không deck nào khác bị ảnh hưởng. Ô đầu thành «Người (mã) / $\omega$», tiêu đề cột là $0,\ldots,9$, cột được chọn in đậm $\mathbf 3$ (thay «3 (chọn)», để mười cột đều nhau); dòng kết thành «Mỗi hàng có đúng một số $0$: xác suất $1/10$. Chọn $\omega=3$: cả ba bộ của An có $h=0$, đều được giữ.» K12: 28 → 30 âm tiết (5 dòng, dòng dài nhất 18). Đã xem 1600×900 và 390×844.
+
+**Ghi chú bài giảng, lượt mạch 3 (2026-10-29).** Không thêm khối đánh số; `note-topic-id` không đổi (`lec-08-topic-03` cho §2.1, `lec-08-topic-04` cho §2.2 và §2.4). Thay đổi:
+- toàn chương: truy vấn mẫu "băm" → "đệ quy" (§2 đoạn mở, Ví dụ 08.3, đoạn sau Mệnh đề 08.6, Ví dụ 08.4, Ví dụ 08.7, alt ba hình); đại lượng "tỷ lệ truy vấn lặp của người dùng điển hình" ở cuối Mục 1, đoạn mở §2, bảng chọn khóa §2.3, Bài tập 08.2, đoạn đọc hình §5, Ví dụ 08.17 (a); tiên quyết và đoạn mở Mục 1 viết "mức lặp truy vấn theo người dùng";
+- bảng ký hiệu thêm $\omega$; $h_\omega$; quy ước số liệu ghi mã 7, 4, 1 do học phần dựng;
+- §2 đoạn mở: định nghĩa người dùng điển hình; đoạn đọc hình nói hình lược thời gian;
+- §2.1 sau Mệnh đề 08.6: phép đếm trên 100 người như An (bảng 1, 18, 10; $1/29$; luật số lớn cho tỷ lệ gộp); Nhận xét 08.7 trỏ tới phép đếm này;
+- §2.2: Diễn giải Ví dụ 08.4 nêu đơn vị rút đổi từ bộ sang người dùng; câu nối Bài 02; hai đoạn mới về họ $h_\omega(\text{tên})=(\text{mã}+\omega)\bmod10$ với bảng Markdown, đọc bảng và phạm vi của họ (mỗi khóa đều, không độc lập giữa khóa, trỏ Nhận xét 08.11); đoạn sau Định nghĩa 08.8 thêm ngăn không chứa dữ liệu, khác thùng Bài 06, ví dụ $a=3$ ($\omega\in\{3,4,5\}$), hình `ngan-va-nguong.svg` và đoạn đọc hình; Ví dụ 08.5 Diễn giải thêm tỷ lệ lặp trên mẫu với $a=5$; đoạn sau Mệnh đề 08.10 thêm câu đại diện cho người dùng điển hình và ví dụ $h_\omega$ với $a=1$.
+Số token tách theo khoảng trắng: 27 325 → 28 544, trong khoảng 12 000–32 000. KaTeX: `\text{người}` gây cảnh báo thiếu metric chữ «ờ», nên deck, ghi chú, outline, storyboard dùng $h_\omega(\text{tên})$, khớp nhãn «h(tên)» của hình băm.
+
+**Sửa theo hai lượt rà lại mạch 3 (2026-10-29).** Âm tiết theo `check08.py` (trước → sau).
+
+| Trang | Thay đổi | Âm tiết (dòng, dòng dài nhất); ghi chú GV |
+|---|---|---|
+| K01 | Dòng cuối «…xác suất chỉ một bản là $18/19$: mẫu tính nó là truy vấn gõ một lần.» (bỏ văn nói); ghi chú: bộ được giữ ghi nối tiếp vào mẫu, là đầu ra | 55 → 57 (3, 20); 126 → 119 |
+| K10 | Ghi chú bỏ câu chỉ đường | 55; 137 → 124 |
+| K11 | Dòng kết gọi tên tử/mẫu: «Tỷ số hai số đếm kỳ vọng, thấy lặp trên có mặt: …» | 47 → 52 (5, 18); 140 |
+| K09 | «$d>0$»; ghi chú nêu giữ mỗi bộ độc lập với $1/10$ | 45; 119 → 130 |
+| K01B | Rút hai dòng: «Tương tự, nhưng rút một số cho mỗi người dùng, không cho mỗi bộ.», «Gặp một người lần đầu: số $0$ ghi “giữ”, số khác ghi “bỏ”; bộ sau tra bảng.» | 59 → 55 (4, 16); 113 |
+| K02 | Dòng 1 nêu lý do bỏ bảng: «Bảng phải tra ở mỗi bộ nên nằm trong bộ nhớ làm việc, tăng không chặn: $10^8$ người cần 1,6 GB.»; ghi chú: mẫu chỉ ghi nối tiếp, là đầu ra; bỏ câu chỉ đường | 48 → 51 (3, 19); 132 → 144 |
+| K12 | Thêm «**Nhu cầu:** $h(\text{An})=0$ là số cố định; xác suất $1/10$ nằm ở lần chọn $h$.»; dòng quy tắc thêm «giữ khi $h=0$; mã là số hiệu người dùng»; cột $\omega=3$ khung đậm hai bên (lớp `stream-pick` trong `table.stream-even`, phạm vi `.lecture-stream`), ba số 0 in đậm; ghi chú: điểm yếu của họ là người cùng số dư luôn cùng được giữ hoặc cùng bị bỏ. **Ngoại lệ 7 dòng** (2 dòng chữ, hàng tiêu đề $\omega$ và 3 hàng bảng giá trị, dòng kết): bảng giá trị của họ hàm cần hàng tiêu đề để đọc cột; 48 âm tiết, dưới trần 60 | 30 (5) → 48 (6 theo script, 7 theo AGENTS, 18); 147 → 141 |
+| K13 | «**Định nghĩa.** Khóa $K(t)$ là một hoặc vài thành phần của bộ $t$ mà quyết định giữ hoặc bỏ dựa vào.»; «$h$ đưa mỗi khóa, ở đây là người dùng, vào …; ngăn không chứa dữ liệu, khác thùng Bài 06.»; ghi chú bỏ tham chiếu trang. Định nghĩa khóa giữ ở K13, không chuyển lên K02 hay K01B: K02 thêm dòng thứ tư thì trang kèm hình lớn chật ở 1600×900 (đã ghi ở lượt bản đánh giá) và vượt 60 âm tiết (ước 59–61); K01B đã ở 55 với bốn dòng cạnh hình | 49 → 53 (4, 20); 134 → 136 |
+| K14 | Tiêu đề «Thuật toán: lấy mẫu theo khóa, vết trên năm bộ»; thêm «**Ý nghĩa:** mỗi người vào mẫu với cùng xác suất $a/b$ và mang đủ mọi bộ.»; ghi chú: lý do $a=5$ (ngưỡng nhận cả Chi), bỏ khẳng định «mẫu ngẫu nhiên … đại diện cho người dùng điển hình», nêu giả thiết độc lập giữa khóa cần cho từng lần chạy, họ $h_\omega$ không có. Bảng vết 6 hàng (trong trần 8) và 3 dòng chữ | 35 → 49 (8, 16); 119 → 147 |
+| K05 | Ghi chú: thay khẳng định đại diện bằng «mỗi người vào mẫu với cùng xác suất $a/b$ và mang đủ mọi bộ, nên tổng theo người tính trên mẫu chia cho $a/b$ có kỳ vọng bằng tổng thật» | 56; 146 → 145 |
+| K06 | Dòng mở «Khóa nhận diện đơn vị mà thống kê gộp: tỷ lệ lặp gộp các bộ theo từng người dùng.»; ghi chú nguồn «ba khóa theo MMDS §4.2.3, cột thống kê do học phần ghép», bỏ ví dụ «quốc gia». **Ngoại lệ trần 80 (bảng so sánh ba thống kê với khóa)**: 63 âm tiết (`check08.py`, tính cả tiêu đề cột và chữ trong ô), 6 dòng, dòng dài nhất 19 | 55 → 63 (6, 19); 138 → 134 |
+| K07 | Hàng «hạt giống $\omega$ của $h$; $a$, $b$»; dòng kết «Trạng thái quyết định cỡ hằng; mẫu là đầu ra, tăng theo dòng: …»; ghi chú: họ độc lập từng cặp cần $O(1)$ từ, hàm hoàn toàn ngẫu nhiên không lưu được cỡ hằng; mẫu chỉ ghi nối tiếp | 41 → 50 (6, 17); 136 → 146 |
+| A06 | Ghi chú: «tỷ lệ truy vấn lặp của người dùng điển hình» | 28; 142 |
+
+K04: miền của $h$ đã có ở dòng «Đầu vào:» («hàm $h$ từ khóa vào $\{0,\ldots,b-1\}$»), nên chữ ký giả mã giữ `(t; a, h)`.
+
+Ghi chú bài giảng (cùng lượt): §2.1 «Bộ được giữ thì được ghi nối tiếp vào mẫu, là đầu ra của thuật toán…; Phép quyết định không lưu gì theo bộ, nên trạng thái quyết định có cỡ hằng.» (khớp Định nghĩa 08.1: trạng thái trong bộ nhớ làm việc, mỗi phần tử đọc một lần, kho lưu trữ không đọc để trả lời); đoạn sau Mệnh đề 08.10 viết lại thành hai đoạn: kỳ vọng của tổng theo người và người bị bỏ trọn không làm sai tỷ lệ của người được giữ; đại diện trong từng lần chạy cần tập trung, độc lập từng cặp là đủ (Chebyshev), MMDS ngầm dùng giả thiết mạnh hơn, họ $h_\omega$ không độc lập từng cặp (người cùng số dư); §2.2 bỏ ví dụ An–Bình–Chi không cùng được giữ, «chúng ta rút $\omega$», «mã số, tức một số hiệu nguyên», chú thích ngăn và ngưỡng trước Định nghĩa 08.8; Ví dụ 08.5 «không làm sai tỷ lệ của người được giữ»; Mục 5.1 «tỷ lệ truy vấn lặp của người dùng điển hình, tính từ các truy vấn của từng người». Số token 28 544 → 28 674.
+
+**Sửa theo lượt kiểm lại độ chính xác (2026-10-29).** Mẫu là một phần trạng thái trong bộ nhớ làm việc, tăng theo dòng, trong ngân sách $1/10$ dòng mà bài toán cho (MMDS §4.2.1), khớp Định nghĩa 08.1, A00, Nhận xét 08.4 («mẫu … là trạng thái gồm các phần tử được chọn»), Thuật toán 08.13 và ghi chú C03; trạng thái quyết định (hạt giống của $h$, $a$, $b$) có cỡ hằng. Bỏ mọi chỗ gọi mẫu là «đầu ra ghi nối tiếp».
+
+| Trang / vị trí | Thay đổi | Âm tiết; ghi chú GV |
+|---|---|---|
+| K02 | Dòng 1: «Bảng là trạng thái ngoài mẫu, tra ở mỗi bộ, tăng không chặn theo số người dùng: $10^8$ người cần 1,6 GB.»; ghi chú: mẫu cũng là trạng thái tăng theo dòng nhưng nằm trong ngân sách $1/10$, bảng là phần thêm ngoài ngân sách; bỏ câu lặp Bài 02 | 51 → 52 (3, 20); 144 → 136 |
+| K07 | Dòng kết: «Trạng thái quyết định cỡ hằng; mẫu là phần trạng thái tăng theo dòng: …»; ghi chú: mẫu là phần trạng thái trong ngân sách $1/10$ | 50 → 51 (6, 18); 146 → 149 |
+| K01 | Ghi chú: «Bộ được giữ được ghi vào mẫu, một phần trạng thái trong bộ nhớ làm việc» | 57; 119 → 123 |
+| K14 | Ghi chú: «… đủ nếu thêm giả thiết các khóa nhận giá trị băm độc lập từng cặp; MMDS coi $h$ là bộ sinh số ngẫu nhiên, mạnh hơn giả thiết này …»; bỏ câu lặp mặt trang | 49; 147 → 146 |
+| Ghi chú bài giảng §2.1 | Mẫu là phần trạng thái trong ngân sách $1/10$; phần trạng thái quyết định cỡ hằng | — |
+| Ghi chú bài giảng §2.2 | Bảng là trạng thái thêm ngoài ngân sách mẫu, tra ở mỗi bộ, không bị chặn | — |
+| Ghi chú bài giảng, đoạn hai sau Mệnh đề 08.10 | Thêm tập trung của mỗi tổng theo người quanh $a/b$ lần tổng thật; Chebyshev áp cho cả hai đại lượng khi giá trị theo người bị chặn | — |

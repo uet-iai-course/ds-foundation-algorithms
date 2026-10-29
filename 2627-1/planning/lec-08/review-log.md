@@ -571,3 +571,35 @@ Thay đổi: K01 nêu cơ chế rút số cho từng bộ, phạm vi "xét hai b
 | nhẹ | K10 ghi chú, storyboard | "cách giữ từng bộ"; khẳng định "giữ xuất hiện lần đầu ở K01" | đã sửa |
 
 Kiểm tra: `check08.py` toàn deck 67 trang không lỗi console, KaTeX, mạng ngoài, tràn khung; điều phối viên xem ảnh K01, K10 ở 1600×900 và K01 ở 390×844. `notecheck08.py`: viewer ở 1440×900, 390×844 và in không lỗi KaTeX, không lỗi console, không tràn ngang trang. `git diff --check` sạch.
+
+## Mạch 3 giải thích kỹ hơn (2026-10-29)
+
+Phản hồi người dùng: "mạch "Lấy mẫu theo khóa" vẫn khó hiểu, cần giải thích kĩ hơn".
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Quyết định của điều phối viên |
+|---|---|---|---|
+| đọc theo góc nhìn sinh viên | chẩn đoán chỗ vấp (chỉ đọc) | Agent general-purpose, opus, high | chấp nhận; 5 nghiêm trọng, 8 trung bình, 6 nhẹ dùng làm danh sách việc |
+| lập kế hoạch, sau đó biên tập (một tác tử, nhiều lượt qua SendMessage) | kế hoạch trang; sửa deck, SVG, CSS, ghi chú, storyboard, outline | Agent general-purpose, opus, high | kế hoạch chấp nhận kèm điều chỉnh; mỗi lượt sửa được điều phối viên kiểm diff và ảnh |
+| rà độ chính xác (hai lượt) | số liệu, xác suất, MMDS | Agent general-purpose, opus, high | chấp nhận các phát hiện |
+| rà mạch, sinh viên, no-ai-slop Detect | vai trò/kết nối, mật độ, văn phong | Agent general-purpose, opus, high | chấp nhận, trừ một đề xuất bị bác |
+
+Thay đổi chính: mạch 3 từ 11 lên 15 trang (deck 67 → 71). Thêm K11 (đếm trên 100 người như An, $1/29$), K12 (chọn hàm $h_\omega(\text{tên})=(\text{mã}+\omega)\bmod10$ trước dòng; xác suất theo phép chọn hàm), K13 (khóa, ngăn, ngưỡng; hình mới `ngan-va-nguong.svg`; ví dụ $a=3$), K14 (vết $a=5$ trên năm bộ, tỷ lệ lặp đúng trên mẫu). Sửa KT, K10, K01, K09, K01B, K02, K04, K05, K06, K07; P01, P04, C06. Đại lượng ước lượng là tỷ lệ lặp của người dùng điển hình (MMDS §4.2.1). Truy vấn mẫu "băm" đổi thành "đệ quy" ở deck, ba SVG và ghi chú. Thời gian: mạch 3 24,5 → 27 phút; R01, B04, B09, B11, C03 mỗi trang bớt 0,5; tổng 120 + 60. CSS: thêm `table.stream-even` và `.stream-pick` trong khối Bài 08, phạm vi `.lecture-stream`, chỉ K12 dùng; không deck khác bị ảnh hưởng. Ghi chú bài giảng §2 đồng bộ (27 325 → 28 751 token), không thêm khối đánh số.
+
+Quyết định đổi so với lượt trước: dùng 30% ($a=3$) và thanh 10 ngăn làm bước tổng quát (trước đây bác khi dùng thay ví dụ xuyên suốt); dòng "$h$ được chọn ngẫu nhiên một lần trước dòng" chuyển từ K02 sang K12 và mở rộng thành ví dụ; câu hạ ngưỡng ở K07 chuyển vào ghi chú; câu hỏi "bảng tăng theo…" ở K01B chuyển vào ghi chú GV.
+
+| mức độ | nguồn | vị trí | vấn đề | trạng thái |
+|---|---|---|---|---|
+| nghiêm trọng | sinh viên | K01B, K02, K05 | chưa kiểm rằng lấy mẫu theo người sửa được sai lệch | đã sửa (K01B Diễn giải, K14) |
+| nghiêm trọng | sinh viên | KT, K10, K06 | "tỷ lệ của mỗi người" không ước lượng được cho người bị bỏ | đã sửa: người dùng điển hình |
+| nghiêm trọng | sinh viên | K04, K05 | "đều theo cách chọn $h$" không có trực quan | đã sửa (K12) |
+| nghiêm trọng | sinh viên | K09 | $1/29$ không có cách đọc | đã sửa (K11, nhãn tử/mẫu) |
+| nghiêm trọng | sinh viên | K04, K06 | khóa dùng trước định nghĩa | đã sửa (K13 trước K04) |
+| trung bình | sinh viên | K04, K02, K01→K01B, K09→K01B, A06→K10, P01/K07/K08, K07, K05 | $a,b$ không gắn ví dụ; lý do bỏ bảng; đổi đơn vị rút; chẩn đoán; cỡ mẫu; hạ ngưỡng đột ngột; phản ví dụ | đã sửa (A06→K10 chỉ ở ghi chú GV; phản ví dụ K05 ở ghi chú GV) |
+| nghiêm trọng | độ chính xác | ghi chú sau Mệnh đề 08.10, GV K05, K14 | "người được giữ là mẫu ngẫu nhiên, đại diện" vượt giả thiết đều theo từng khóa | đã sửa: kỳ vọng tổng/(a/b); đại diện từng lần chạy cần thêm độc lập từng cặp |
+| trung bình | độ chính xác | ghi chú ~dòng 547 | "cần" độc lập; ví dụ An–Bình–Chi sai chiều | đã sửa: độc lập từng cặp là đủ; điểm yếu $h_\omega$ là cùng số dư |
+| trung bình | độ chính xác (lượt 2) | §2.1, K02, K07, GV K01/K02/K07 | gọi mẫu là "đầu ra ghi nối tiếp" trái Định nghĩa 08.1, Nhận xét 08.4 | đã sửa: mẫu là phần trạng thái tăng theo dòng trong ngân sách $1/10$; trạng thái quyết định cỡ hằng; bảng là trạng thái thêm ngoài ngân sách |
+| trung bình | mạch | K02↔K07 | lý do bỏ bảng mâu thuẫn với cỡ mẫu | đã sửa (cùng mục trên) |
+| trung bình | mạch | K14, K12, K02→K12, K13, K01B, K06 | ý nghĩa người dùng điển hình; "mã"; câu nối; K13 quá tải; K01B 61; K06 64 | đã sửa; định nghĩa khóa giữ ở K13 (K02, K01B không còn chỗ), K06 ngoại lệ bảng so sánh 63 ≤ 80, K12 bảng giá trị 6 dòng theo check08 |
+| nhẹ | cả hai | nhiều trang | 17 điểm nhẹ | đã sửa, trừ: "dùng $a=5$ cho K13" bác (giữ $a=3$ theo ví dụ 30% MMDS; K14 cần $a=5$ để Chi được giữ); chữ ký K04 giữ (dòng Đầu vào đã ghi miền $h$) |
+
+Kiểm tra: `check08.py` toàn deck 71 trang, 1600×900 và 390×844: không lỗi console, KaTeX, mạng ngoài, tràn khung; số trang tiêu đề mạch khớp `#/N`. Mạch 3: mọi trang ≤ 60 âm tiết trừ K06 (63, ngoại lệ bảng so sánh), ≤ 20 âm tiết/dòng. Điều phối viên xem ảnh K11, K12 (cả 390), K13, K14, K02, K01. `notecheck08.py`: viewer 1440×900, 390×844, in: 0 lỗi. `git diff --check` sạch.

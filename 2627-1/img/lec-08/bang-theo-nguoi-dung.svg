@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" role="img" aria-labelledby="btn-t btn-d">
 <title id="btn-t">Bảng giữ hoặc bỏ theo người dùng</title>
-<desc id="btn-d">Năm bộ đến lần lượt: (An, “đồ thị”), (Bình, “lọc”), (An, “băm”), (An, “đồ thị”), (Chi, “lọc”). Sau năm bộ, bảng tra có ba hàng, một hàng cho mỗi người dùng: An rút số 0, nhãn giữ; Bình rút số 7, nhãn bỏ; Chi rút số 4, nhãn bỏ. Các lần gặp lại An chỉ tra bảng, không thêm hàng. Mỗi người dùng mới thêm một hàng.</desc>
+<desc id="btn-d">Năm bộ đến lần lượt: (An, “đồ thị”), (Bình, “lọc”), (An, “đệ quy”), (An, “đồ thị”), (Chi, “lọc”). Sau năm bộ, bảng tra có ba hàng, một hàng cho mỗi người dùng: An rút số 0, nhãn giữ; Bình rút số 7, nhãn bỏ; Chi rút số 4, nhãn bỏ. Các lần gặp lại An chỉ tra bảng, không thêm hàng. Mỗi người dùng mới thêm một hàng.</desc>
 <defs><marker id="btn-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
 <g font-family="Arial,Helvetica,sans-serif" font-size="27" fill="#263238">
 <text x="125" y="40" text-anchor="middle" font-weight="700">Bộ đến</text>
 <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"><rect x="5" y="58" width="240" height="44" rx="8"/><rect x="5" y="110" width="240" height="44" rx="8"/><rect x="5" y="162" width="240" height="44" rx="8"/><rect x="5" y="214" width="240" height="44" rx="8"/><rect x="5" y="266" width="240" height="44" rx="8"/></g>
 <text x="125" y="89" text-anchor="middle">(An, “đồ thị”)</text>
 <text x="125" y="141" text-anchor="middle">(Bình, “lọc”)</text>
-<text x="125" y="193" text-anchor="middle">(An, “băm”)</text>
+<text x="125" y="193" text-anchor="middle">(An, “đệ quy”)</text>
 <text x="125" y="245" text-anchor="middle">(An, “đồ thị”)</text>
 <text x="125" y="297" text-anchor="middle">(Chi, “lọc”)</text>
 <path d="M250 184 H298" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#btn-a)"/>

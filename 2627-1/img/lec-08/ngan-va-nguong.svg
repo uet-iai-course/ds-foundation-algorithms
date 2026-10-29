@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 256" role="img" aria-labelledby="nvn-t nvn-d">
+<title id="nvn-t">Mười ngăn của hàm băm và hai ngưỡng</title>
+<desc id="nvn-d">Mười ngăn đánh số 0 đến 9; với omega bằng 3, An ở ngăn 0, Chi ở ngăn 4, Bình ở ngăn 7. Ngoặc thứ nhất trùm ngăn 0: a = 1, nhận 1 trong 10 ngăn, tỷ lệ 1/10. Ngoặc thứ hai trùm ngăn 0 đến 2: a = 3, nhận 3 trong 10 ngăn, tỷ lệ 3/10. Cả hai ngưỡng đều giữ An, bỏ Chi và Bình.</desc>
+<defs><marker id="nvn-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="10" y="58" font-weight="700">ngăn</text>
+<g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2">
+<rect x="130" y="20" width="90" height="56" stroke-width="5"/><rect x="220" y="20" width="90" height="56" stroke-width="5"/><rect x="310" y="20" width="90" height="56" stroke-width="5"/><rect x="400" y="20" width="90" height="56"/><rect x="490" y="20" width="90" height="56"/><rect x="580" y="20" width="90" height="56"/><rect x="670" y="20" width="90" height="56"/><rect x="760" y="20" width="90" height="56"/><rect x="850" y="20" width="90" height="56"/><rect x="940" y="20" width="90" height="56"/>
+</g>
+<g text-anchor="middle">
+<text x="175" y="58">0</text><text x="265" y="58">1</text><text x="355" y="58">2</text><text x="445" y="58">3</text><text x="535" y="58">4</text><text x="625" y="58">5</text><text x="715" y="58">6</text><text x="805" y="58">7</text><text x="895" y="58">8</text><text x="985" y="58">9</text>
+</g>
+<text x="10" y="156">ω = 3:</text>
+<g stroke="#2f3e7a" stroke-width="3" fill="none" marker-end="url(#nvn-a)">
+<path d="M175 128 V84"/><path d="M535 128 V84"/><path d="M805 128 V84"/>
+</g>
+<g text-anchor="middle" font-weight="700">
+<text x="175" y="156">An</text><text x="535" y="156">Chi</text><text x="805" y="156">Bình</text>
+</g>
+<g stroke="#263238" stroke-width="3" fill="none">
+<path d="M134 180 V194 H216 V180"/>
+<path d="M134 222 V236 H396 V222"/>
+</g>
+<text x="236" y="200">a = 1: nhận 1 trong 10 ngăn, tỷ lệ 1/10</text>
+<text x="416" y="246">a = 3: nhận 3 trong 10 ngăn, tỷ lệ 3/10</text>
+</g></svg>

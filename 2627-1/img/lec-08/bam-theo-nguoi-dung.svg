@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" role="img" aria-labelledby="btnd-t btnd-d">
 <title id="btnd-t">Hàm băm thay bảng nhãn</title>
-<desc id="btnd-d">Năm bộ đến (An, “đồ thị”), (Bình, “lọc”), (An, “băm”), (An, “đồ thị”), (Chi, “lọc”) đi qua cùng một hàm băm h trên tên người dùng, giá trị trong 0 đến 9. Giữ khi h bằng 0: h(An) = 0 nên giữ cả ba bộ của An; h(Bình) = 7 và h(Chi) = 4 nên bỏ. Không lưu bảng theo người dùng.</desc>
+<desc id="btnd-d">Năm bộ đến (An, “đồ thị”), (Bình, “lọc”), (An, “đệ quy”), (An, “đồ thị”), (Chi, “lọc”) đi qua cùng một hàm băm h trên tên người dùng, giá trị trong 0 đến 9. Giữ khi h bằng 0: h(An) = 0 nên giữ cả ba bộ của An; h(Bình) = 7 và h(Chi) = 4 nên bỏ. Không lưu bảng theo người dùng.</desc>
 <defs><marker id="btnd-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
 <g font-family="Arial,Helvetica,sans-serif" font-size="27" fill="#263238">
 <text x="135" y="32" text-anchor="middle" font-weight="700">Bộ đến</text>
 <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"><rect x="10" y="48" width="250" height="46" rx="8" stroke-width="4"/><rect x="10" y="102" width="250" height="46" rx="8"/><rect x="10" y="156" width="250" height="46" rx="8" stroke-width="4"/><rect x="10" y="210" width="250" height="46" rx="8" stroke-width="4"/><rect x="10" y="264" width="250" height="46" rx="8"/></g>
 <text x="135" y="81" text-anchor="middle" font-weight="700">(An, “đồ thị”)</text>
 <text x="135" y="135" text-anchor="middle">(Bình, “lọc”)</text>
-<text x="135" y="189" text-anchor="middle" font-weight="700">(An, “băm”)</text>
+<text x="135" y="189" text-anchor="middle" font-weight="700">(An, “đệ quy”)</text>
 <text x="135" y="243" text-anchor="middle" font-weight="700">(An, “đồ thị”)</text>
 <text x="135" y="297" text-anchor="middle">(Chi, “lọc”)</text>
 <path d="M266 179 H332" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#btnd-a)"/>

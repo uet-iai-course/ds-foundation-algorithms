@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 290" role="img" aria-labelledby="hdc-t hdc-d">
 <title id="hdc-t">Hai dòng dữ liệu và ba câu hỏi của bài</title>
-<desc id="hdc-d">Trái, trên: dòng truy vấn gồm các bộ (An, “đồ thị”), (Bình, “lọc”), …, vài trăm triệu bộ mỗi ngày, chỉ lưu 1/10. Trái, dưới: dòng thư gồm các cặp (địa chỉ, thư), …, 10^9 địa chỉ được phép, bộ nhớ 1 GB. Phải: ba hộp câu hỏi. Từ dòng truy vấn đi tới câu hỏi 1, tỷ lệ truy vấn lặp của mỗi người dùng, và câu hỏi 2, mẫu đúng s bộ, mỗi bộ cùng cơ hội. Từ dòng thư đi tới câu hỏi 3, địa chỉ này có thuộc S. Hình không ghi tên cấu trúc hay kết quả.</desc>
+<desc id="hdc-d">Trái, trên: dòng truy vấn gồm các bộ (An, “đồ thị”), (Bình, “lọc”), …, vài trăm triệu bộ mỗi ngày, chỉ lưu 1/10. Trái, dưới: dòng thư gồm các cặp (địa chỉ, thư), …, 10^9 địa chỉ được phép, bộ nhớ 1 GB. Phải: ba hộp câu hỏi. Từ dòng truy vấn đi tới câu hỏi 1, tỷ lệ truy vấn lặp của người dùng điển hình, và câu hỏi 2, mẫu đúng s bộ, mỗi bộ cùng cơ hội. Từ dòng thư đi tới câu hỏi 3, địa chỉ này có thuộc S. Hình không ghi tên cấu trúc hay kết quả.</desc>
 <defs><marker id="hdc-a" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="6" orient="auto"><path d="M0,0 L0,12 L13,6 z" fill="#2f3e7a"/></marker></defs>
 <g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
 <text x="10" y="30" font-weight="700">dòng truy vấn</text>
@@ -14,7 +14,7 @@
 <text x="434" y="228">…</text>
 <text x="10" y="278">10<tspan baseline-shift="super" font-size="20">9</tspan> địa chỉ được phép; bộ nhớ 1 GB</text>
 <g fill="#fdf6ef" stroke="#b15a2b" stroke-width="3"><rect x="620" y="20" width="552" height="52" rx="8"/><rect x="620" y="92" width="552" height="52" rx="8"/><rect x="620" y="196" width="552" height="52" rx="8"/></g>
-<text x="636" y="56">(1) tỷ lệ truy vấn lặp của mỗi người dùng?</text>
+<text x="636" y="56">(1) tỷ lệ lặp của người dùng điển hình?</text>
 <text x="636" y="128">(2) mẫu đúng s bộ, mỗi bộ cùng cơ hội?</text>
 <text x="636" y="232">(3) địa chỉ này có thuộc S?</text>
 <g stroke="#2f3e7a" stroke-width="3" fill="none" marker-end="url(#hdc-a)"><path d="M470,68 L614,46"/><path d="M470,68 L614,118"/><path d="M470,218 L614,222"/></g>
