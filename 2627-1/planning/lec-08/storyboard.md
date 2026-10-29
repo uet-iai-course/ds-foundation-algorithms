@@ -1045,3 +1045,47 @@ Số đã tự kiểm: $\binom52(0{,}4)^2(0{,}6)^3=0{,}3456$; $\Pr[N>2]=0{,}2304
 Số tự kiểm thêm: $\Pr[N\ne2]=1-0{,}3456=0{,}6544\approx0{,}65$ ở $r=5$; $\Pr[N=2]=21\cdot0{,}16\cdot0{,}07776=0{,}2612736$, $\Pr[N\ne2]=0{,}7387264\approx0{,}74$ ở $r=7$.
 
 Ghi chú bài giảng: đoạn 2 «chạy một hồ chứa riêng cho từng khóa, giữ tối đa $s$ phần tử cho mỗi khóa»; đoạn 3 mở bằng «mục tiêu $s/r$ giảm sau mỗi phần tử và phải đạt ở mọi $r$, trong khi độ dài dòng không biết trước và bộ nhớ chỉ có $s$ ô cùng bộ đếm $r$»; «ba cách trực tiếp khác đều không đạt (Ví dụ 08.8)»; «một dạng của cách chọn vị trí một lần cho mãi mãi»; «xác suất có mặt của mỗi phần tử đã đọc giảm từ $s/r$ xuống $s/(r+1)$»; alt hình đồng bộ nhãn mới. Số token: 30 053 → 30 058.
+
+## Động lực và khó khăn của mạch 2 (2026-10-29)
+
+Căn cứ: yêu cầu giảng viên 2026-10-29 (mỗi mạch trả lời trên mặt trang ba câu: vì sao phải giải bài toán, động lực có số và nguồn, khó khăn chính); kế hoạch của tác tử lập kế hoạch và quyết định điều phối viên cùng ngày (chấp nhận toàn bộ). Trước lượt này A08 nêu nhu cầu và quy mô nhưng không trang nào nói các bài trước còn thiếu gì (dữ liệu đã lưu, đọc lại được), không nêu mục đích của mạng cảm biến, và khó khăn chỉ hiện ra thành hai sự kiện rời («Giả thiết:» và «Lưu cả dòng cần khoảng 3,5 TB…»); dãy số và «3,5 TB mỗi ngày» lặp chữ của hình. Âm tiết đếm bằng `check08.py` (bỏ tiêu đề, KaTeX, hình, ô số; tính cả nhãn); ghi chú GV đếm token theo khoảng trắng; «trước» đo trên HEAD e3a3564. Deck vẫn 73 trang; số mạch, `span.strand-number` và `#/N` không đổi (AT tại `#/2/1`, A08 tại `#/2/2`).
+
+Chuỗi lý do của đầu mạch (khớp mặt trang sau lượt rà lại): Bài 02 tính trung bình từ tổng và số đếm, trên tệp đọc lại được (A08, «Nhắc lại:») → nhu cầu tìm hiểu đại dương qua độ cao mặt biển (MMDS §4.1.2, tr.133) → mỗi dòng có 10 số mỗi giây và cần ba truy vấn trên hình (truy vấn của Ví dụ 4.1, tr.134, do học phần đặt lên dòng độ cao), khoảng 3,5 TB mỗi ngày trên hình → trả lời dùng số đã qua; giữ hết một triệu dòng vượt bộ nhớ, đọc kho lưu trữ quá chậm (§4.1.1, tr.132; §4.1.4, tr.135) → mỗi truy vấn giữ một trạng thái riêng chọn trước (A05).
+
+Lệch có chủ ý: trang bài toán A08 mở bằng «**Nhắc lại:**» trước «**Nhu cầu:**», theo tiền lệ K15 và R00; dòng nhắc lại nêu kết quả của bài trước mà mạch này đổi giả thiết (tệp đọc lại được).
+
+| Trang | Mục đích | Quyết định và lý do | Âm tiết (dòng, dòng dài nhất) trước → sau; ghi chú GV | Phút trước → sau |
+|---|---|---|---|---:|
+| AT | Điểm vào mạch 2 | giữ mặt trang; ghi chú GV câu đầu «Bài 02–07 xử lý dữ liệu đã lưu; mạch mở đầu đặt nhu cầu lấy mẫu và lọc mà không lưu cả dòng, cùng ký hiệu $x_i$, $r$.»; câu cuối «… loại bảng nhãn theo người dùng» (khớp K02) | 37 (2, 19) không đổi; 100 → 100 | 0,5 |
+| A08 «Truy vấn trên dòng cảm biến» | Bước «trường hợp sử dụng dữ liệu lớn» và «vấn đề» của mạch: vì sao, động lực, khó khăn | sửa. Mặt trang: «**Nhắc lại:** Bài 02 tính trung bình từ tổng và số đếm, trên tệp đọc lại được.» / «**Nhu cầu:** tìm hiểu đại dương bằng ba truy vấn trên hình.» / «Có một triệu dòng cùng lúc, mỗi dòng 10 số mỗi giây.» / hình `bai-toan-cam-bien.svg` (không đổi) / «Trả lời dùng số đã qua; giữ hết thì vượt bộ nhớ, đọc kho lưu trữ thì quá chậm.» Bỏ «**Giả thiết:**» (A00 phát biểu hình thức), bỏ dãy số và «3,5 TB mỗi ngày» (có trên hình). «số đã qua», không «mọi số», vì truy vấn cửa sổ chỉ cần 24 số cuối; «một triệu dòng» khớp ghi chú GV (một cảm biến 3,5 MB/ngày vừa bộ nhớ, khó từ nhiều dòng). Ghi chú GV: mất nếu không xử lý ngay (tr.131), nhịp do nguồn (§4.1.1), quy mô và mục đích (§4.1.2), một cảm biến 3,5 MB vừa bộ nhớ, khó khăn từ một triệu dòng (§4.1.4), kho lưu trữ không dùng để trả lời (§4.1.1), nguồn dãy và truy vấn; bỏ câu «Hai cột…» và «Bài toán còn mở…» (mặt trang đã nêu) | 54 (4, 17) → 55 (4, 19) → 57 (4, 20) sau rà lại, trên mục tiêu 40 từ trước, dưới trần 60; 114 → 147 → 150 | 1,5 → 2 |
+| A05 | Ví dụ ba trạng thái | giữ; dòng mở nay là chỗ đầu tiên viết dãy bằng chữ; hàng «tổng và số đếm» dùng lại «Nhắc lại:» của A08 | 43 (5, 13) không đổi; 98 | 1,5 |
+| A02 | Chi phí | giữ; bớt phút vì A07 đã chạy tay bốn phép của cửa sổ | 58 (5, 17) không đổi; 142 | 2,5 → 2 |
+| A06 | Bài tập phương sai | giữ mặt trang; ghi chú GV câu nối thay bằng «Các truy vấn của mạch này biết trước khi dòng chạy; truy vấn tức thời về người dùng điển hình thì chưa biết khi phần tử đến, nên mạch sau giữ một mẫu.» (khớp «Nhắc lại:» và «Nhu cầu:» của K15) | 28 (5, 15) không đổi; 142 → 133 → 134 | 2,5 |
+
+Tổng mạch 2: 0,5 + 2 + 1,5 + 2,5 + 2 + 2 + 2,5 = **13 phút** (AT, A08, A05, A00, A07, A02, A06), không đổi. Phần giảng 120 phút (6,5 + 13 + 27 + 24 + 37,5 + 12), phần bài tập 60 phút.
+
+Trang ngoài mạch 2 (theo quyết định điều phối viên, chỉ ghi chú GV):
+
+| Trang | Thay đổi | Ghi chú GV trước → sau |
+|---|---|---|
+| P00 | «mẫu đại diện có cỡ cố định» → «mẫu cỡ cố định trong đó mọi phần tử đã đọc có cùng xác suất có mặt» (không nói yêu cầu như đã đạt) | 98 → 108 |
+| C06 | «ba mạch giữa: tỷ lệ lặp theo người dùng» → «ba mạch lấy mẫu theo khóa, hồ chứa và Bloom filter: tỷ lệ lặp của người dùng điển hình» | 107 → 117 |
+
+Ghi chú bài giảng (`lec-08-topic-02` không đổi; không thêm khối đánh số). Đoạn «Một triệu cảm biến…» trước hình `bai-toan-cam-bien.svg` thay bằng hai đoạn: (1) động lực: Bài 02–07 xử lý dữ liệu đã lưu, MMDS tr.131 «available when and if we want it»; Bài 02 cặp (tổng, số lượng), trích một lần rồi gọi tổng và số đếm; phần tử không xử lý hoặc lưu ngay thì mất (tr.131); nhịp do nguồn, khác hệ quản trị cơ sở dữ liệu (§4.1.1, tr.132; câu này chuyển lên từ đoạn sau Định nghĩa 08.1 để không lặp); nguồn dòng và mục đích theo §4.1.2, tr.133–134: một triệu cảm biến để tìm hiểu đại dương (3,5 MB một cảm biến, 3,5 TB cả mạng mỗi ngày), «sore throat» theo dõi lây lan virus, tỷ lệ nhấp báo tin mới hoặc liên kết hỏng; ba truy vấn Ví dụ 4.1; (2) «Khó khăn chính nằm ở chỗ…»: câu trả lời dùng số đã qua; một cảm biến vừa bộ nhớ, khó từ một triệu dòng (§4.1.4, tr.135); kho lưu trữ không dùng để trả lời (§4.1.1); xử lý kịp nhịp đến (§4.1.4); phép đếm do học phần tính: $864\,000$ số mỗi ngày, tính lại trung bình sau mỗi số tốn $\sum_{r=1}^{864\,000}(r-1)\approx3{,}73\cdot10^{11}$ phép cộng, giữ tổng và số đếm tốn khoảng $1{,}7\cdot10^6$; kết bằng câu chọn trạng thái trước khi phần tử đầu tiên đến (giữ từ bản cũ). Số token tách theo khoảng trắng: 30 058 → 30 427 (bản đầu), trong khoảng 12 000–32 000.
+
+Số đã tự kiểm: $10\cdot4\cdot86\,400=3\,456\,000$ byte ≈ 3,5 MB; nhân $10^6$ được $3{,}456\cdot10^{12}$ byte ≈ 3,5 TB; $10\cdot86\,400=864\,000$; $864\,000\cdot863\,999/2=373\,247\,568\,000\approx3{,}73\cdot10^{11}$; $2\cdot864\,000=1\,728\,000\approx1{,}7\cdot10^6$; tổng phút mạch 2 bằng 13. Trích dẫn đối chiếu `ch4.txt`: tr.131 (đầu Chương 4), §4.1.1 tr.132, §4.1.2 tr.133–134, Ví dụ 4.1 tr.134, §4.1.4 tr.135.
+
+Kiểm: `check08.py` (73 trang, không lỗi console, không yêu cầu mạng ngoài, không tràn khung; cờ SYL>60 chỉ ở các trang ngoại lệ đã ghi từ trước, không đổi); ảnh A08 ở 1600×900 và 390×844 đã xem; `notecheck08.py` (rộng, hẹp, in: không `.katex-error`, không tràn ngang, không lỗi).
+
+**Sửa theo rà lại mạch 2 (2026-10-29)**, điều phối viên chấp nhận 3 trung bình, 10 nhẹ; không có lỗi chặn hay nghiêm trọng. Bảng trên giữ bản đầu; số đo sau lượt này ghi ở cột âm tiết.
+
+| Vị trí | Thay đổi | Âm tiết; ghi chú GV |
+|---|---|---|
+| A08 mặt trang | «**Nhu cầu:** tìm hiểu đại dương qua độ cao mặt biển.» / «Mỗi dòng có 10 số mỗi giây và cần ba truy vấn trên hình.» (không gán ba truy vấn cho mục đích của sách) / dòng cuối có chủ ngữ: «Trả lời dùng số đã qua; giữ hết một triệu dòng vượt bộ nhớ, đọc kho lưu trữ quá chậm.»; dòng «Nhắc lại:» giữ nguyên | 55 (4, 19) → 57 (4, 20) |
+| A08 ghi chú GV | mở bằng «Bài 02 gọi cặp này là (tổng, số lượng).»; «Dữ liệu một ngày của một cảm biến, 3,5 MB, vừa bộ nhớ chính; bộ nhớ làm việc không chứa được mọi dữ liệu của mọi dòng (§4.1.1, tr.132)» (theo «cannot store all the data from all the streams»); Ví dụ 4.1 viết cho cảm biến nhiệt độ gửi một số mỗi giờ, 24 số là một ngày, học phần đặt lên dòng độ cao và giữ cỡ cửa sổ 24; bỏ câu đọc dấu hỏi | 147 → 150 |
+| A06 ghi chú GV | «Các truy vấn của mạch này được đặt trước khi dòng chạy» | 133 → 134 |
+| Ghi chú bài giảng, đoạn động lực | câu Bài 02 (tổng, số lượng) chuyển xuống đoạn khó khăn để «giả thiết đó» quy chiếu đúng câu MMDS tr.131; bỏ «Dòng nảy sinh tự nhiên ở nhiều nơi»; «dòng lượt nhấp (click), hàng tỷ lượt mỗi ngày ở các trang của Yahoo!, số lượt nhấp vào một liên kết tăng đột ngột …» (§4.1.2, tr.133–134); Ví dụ 4.1 viết cho cảm biến nhiệt độ một số mỗi giờ, cửa sổ 24 số ứng với một ngày; học phần đặt ba truy vấn lên dòng độ cao, giữ cỡ cửa sổ 24 | — |
+| Ghi chú bài giảng, đoạn khó khăn | bỏ lặp 3,5 MB: «Dữ liệu một ngày của một cảm biến vừa bộ nhớ chính»; thêm §4.1.1, tr.132 (bộ nhớ làm việc không chứa mọi dữ liệu của mọi dòng); câu Bài 02 đặt cạnh phép đếm «giữ tổng và số đếm tốn hai phép cộng mỗi số»; «Hai phép đếm này do học phần tính» | — |
+| Ghi chú bài giảng, đoạn đọc hình | «Việc của mục là điền …» → «Bài toán đặt ra: điền các ô của lưới mà không giữ cả cột lịch sử.» | — |
+
+Số token ghi chú bài giảng: 30 058 → 30 482. Kiểm sau lượt này: `check08.py` (73 trang, không lỗi console, không yêu cầu mạng ngoài, không tràn; cờ SYL>60 không đổi), ảnh A08 1600×900 và 390×844 đã xem, `notecheck08.py` rộng, hẹp, in không lỗi.

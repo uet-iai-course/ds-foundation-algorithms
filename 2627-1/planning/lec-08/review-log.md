@@ -647,3 +647,23 @@ Thay đổi: R00 nêu giới hạn kế thừa (cỡ kỳ vọng $ar/b$; vài tr
 | nhẹ | R10, R00 hình, ghi chú GV RT/R00/R10, ghi chú bài giảng | 10 điểm (đúng/sai từng ô, câu kết, nhãn "cần", âm tiết ghi chú, "một dạng của…", "khóa vượt ngân sách", chủ ngữ tài liệu, xác suất có mặt, "tối đa $s$ mỗi khóa") | đã sửa; R10 giữ hai dòng sau bảng vì gộp vượt 20 âm tiết/dòng |
 
 Mật độ: R00 58, R10 78 (bảng so sánh, trần 80, ngoại lệ ghi storyboard), RT 40. Kiểm tra: `check08.py` 73 trang không lỗi; RT `#/4/1`, R10 `#/4/3`; `notecheck08.py` ba khổ 0 lỗi; điều phối viên xem ảnh R00, R10 1600×900. `git diff --check` sạch.
+
+## Động lực và khó khăn của mạch 2 (2026-10-29)
+
+Yêu cầu người dùng: "các mạch khác cũng xử lý tương tự".
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Quyết định |
+|---|---|---|---|
+| lập kế hoạch mạch 2 (kèm kiểm nhẹ mạch 1, 6, 7), sau đó biên tập (SendMessage) | kế hoạch; sửa A08, ghi chú GV AT, A08, A06, P00, C06; ghi chú Mục 1; storyboard, outline | Agent general-purpose, opus, high | kế hoạch chấp nhận toàn bộ (`decisions-strand2-motivation`); bản sửa chấp nhận sau lượt hai |
+| rà lại gộp (độ chính xác + mạch/sinh viên + no-ai-slop Detect) | P01, AT, A08, A05, A00, A06, KT, K15, Mục 1 | Agent general-purpose, opus, high | 0 chặn, 0 nghiêm trọng, 3 trung bình, 10 nhẹ: chấp nhận tất cả |
+
+Thay đổi: A08 "Truy vấn trên dòng cảm biến": Nhắc lại Bài 02 (tổng và số đếm trên tệp đọc lại được); Nhu cầu tìm hiểu đại dương qua độ cao mặt biển (MMDS §4.1.2); mỗi dòng 10 số mỗi giây, ba truy vấn trên hình; khó khăn: trả lời dùng số đã qua, giữ hết một triệu dòng vượt bộ nhớ, đọc kho lưu trữ quá chậm (§4.1.1). Bỏ dòng "Giả thiết:" (A00 phát biểu hình thức) và các chữ lặp hình. Ghi chú GV nói rõ học phần ghép ba truy vấn của Ví dụ 4.1 (cảm biến nhiệt độ, một số mỗi giờ) lên dòng độ cao mặt biển. Ghi chú bài giảng Mục 1: đoạn động lực (MMDS tr.131, §4.1.1, §4.1.2: cảm biến, truy vấn tìm kiếm, lượt nhấp) và đoạn "Khó khăn chính nằm ở …" (phép đếm $3{,}73\cdot10^{11}$ so với $1{,}7\cdot10^6$, do học phần tính). Ghi chú GV P00, C06 đồng bộ với mạch 3, 4 mới; mạch 1, 6, 7 không đổi mặt trang. Mạch 2 vẫn 13 phút (A08 +0,5; A02 −0,5). Lệch có chủ ý: trang bài toán mở bằng "Nhắc lại:" (tiền lệ K15, R00).
+
+| mức độ | vị trí | vấn đề | trạng thái |
+|---|---|---|---|
+| trung bình | A08, ghi chú | ghép Ví dụ 4.1 (nhiệt độ, mỗi giờ) với dòng độ cao không nói rõ | đã sửa |
+| trung bình | ghi chú bài giảng | "tỷ lệ nhấp" dịch sai "click rate" | đã sửa: số lượt nhấp tăng đột ngột |
+| trung bình | ghi chú bài giảng | "giả thiết đó" quy chiếu sai | đã sửa |
+| nhẹ | A08, ghi chú GV A08/A06, ghi chú bài giảng, storyboard | 10 điểm (chủ ngữ "một triệu dòng", câu mạnh hơn sách, tên "(tổng, số lượng)", lặp số liệu, câu chung chung, "được đặt", chủ ngữ tài liệu, chuỗi lý do) | đã sửa |
+
+Kiểm tra: `check08.py` 73 trang không lỗi; AT `#/2/1`; A08 57 âm tiết (4 dòng, dài nhất 20), ghi chú GV 150. `notecheck08.py` ba khổ 0 lỗi. Điều phối viên xem ảnh A08 1600×900 và đối chiếu trích "billions of clicks" (§4.1.2). `git diff --check` sạch.
