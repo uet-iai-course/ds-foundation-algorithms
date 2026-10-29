@@ -549,3 +549,25 @@ Tác tử (Opus 5.5, effort high, `general-purpose`, tiếp tục bằng `SendMe
 Tác tử độ chính xác kiểm nguồn (MMDS §4.1.2 tr.133, §4.2.1 tr.136, §4.3.1 tr.139, Ex.4.2.1; slide Streams 1 tr.18), tỷ lệ vẽ (200 : 10, 700 : 70) và khớp hình–chữ–alt: không phát hiện từ mức trung bình trở lên. Tác tử mạch xác nhận mỗi mạch 2–7 có đúng một trang bài toán ngay sau trang tiêu đề, hình không lộ lời giải, trang kế tiếp không lặp.
 
 Kiểm của điều phối viên: đọc diff; ảnh đã tự xem A08, K10, B00, C06 (1600×900); `check08.py` toàn deck 67 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 mạng ngoài, 0 vượt khung, không dòng > 20 âm tiết; năm trang trên 60 âm tiết đều có ngoại lệ trần 80 (P01 72, C00 74, C03 61, C01 74, X01 68). Trình xem ghi chú ở 1440×900, 390×844, in: 0 `.katex-error`, không lỗi, 20 hình tải được. `git diff --check` sạch.
+
+## Nghĩa của giữ và bỏ trên K01 (2026-10-29)
+
+Phản hồi người dùng về K01 "Ví dụ: ba bộ truy vấn của An": "giữ với bỏ nghĩa là gì, slide chưa rõ".
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Quyết định của điều phối viên |
+|---|---|---|---|
+| biên tập (một tác tử, hai lượt qua SendMessage) | sửa K01, K10, `bai-toan-ty-le-lap.svg`, ghi chú §2 và §2.1, storyboard | Agent general-purpose, opus, high | chấp nhận sau lượt hai |
+| rà lại | độ chính xác, mạch K10 → K01 → K09 → K01B, no-ai-slop Detect | Agent general-purpose, opus, high | chấp nhận cả 6 phát hiện |
+
+Thay đổi: K01 nêu cơ chế rút số cho từng bộ, phạm vi "xét hai bộ “đồ thị” của An" và dòng **Quy ước:** "số $0$ thì giữ, tức ghi bộ vào mẫu; số khác thì bỏ, tức không ghi vào mẫu." (27 → 46 âm tiết, dưới trần 60, lý do ghi ở storyboard). K10 hỏi "lưu $1/10$ nào vào mẫu" để "giữ" được định nghĩa ở K01. Ghi chú bài giảng §2.1 thêm định nghĩa giữ/bỏ khớp Định nghĩa 08.1 (bộ bị bỏ không vào bộ nhớ làm việc; đọc một lần, kho lưu trữ không được đọc để trả lời).
+
+| mức độ | vị trí | vấn đề | trạng thái |
+|---|---|---|---|
+| trung bình | K01 | bản sửa đầu bỏ dòng nêu phạm vi hai bộ "đồ thị" | đã sửa |
+| trung bình | ghi chú §2.1 | câu mới lệch Định nghĩa 08.1 (kho lưu trữ; mẫu ≠ bộ nhớ làm việc) | đã sửa |
+| nhẹ | K01 Quy ước | hai vế đổi động từ "ghi vào mẫu"/"không được lưu" | đã sửa |
+| nhẹ | K01 ghi chú GV | "độc lập nên bốn lá" sai quan hệ nhân quả | đã sửa |
+| nhẹ | K01 ghi chú GV | "mẫu thường thấy" mơ hồ | đã sửa, dùng $18/19$ |
+| nhẹ | K10 ghi chú, storyboard | "cách giữ từng bộ"; khẳng định "giữ xuất hiện lần đầu ở K01" | đã sửa |
+
+Kiểm tra: `check08.py` toàn deck 67 trang không lỗi console, KaTeX, mạng ngoài, tràn khung; điều phối viên xem ảnh K01, K10 ở 1600×900 và K01 ở 390×844. `notecheck08.py`: viewer ở 1440×900, 390×844 và in không lỗi KaTeX, không lỗi console, không tràn ngang trang. `git diff --check` sạch.

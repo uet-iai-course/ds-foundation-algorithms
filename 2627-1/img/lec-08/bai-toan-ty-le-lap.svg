@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 300" role="img" aria-labelledby="btl-t btl-d">
 <title id="btl-t">Dòng truy vấn tìm kiếm, tỷ lệ lặp của An và ngân sách lưu một phần mười</title>
-<desc id="btl-d">Trên: năm bộ theo thứ tự đến, (An, “đồ thị”), (Bình, “lọc”), (An, “băm”), (An, “đồ thị”), (Chi, “lọc”); ba bộ của An có khung đậm. Dưới trái: khối bộ của An, “đồ thị” hai lần, “băm” một lần, tỷ lệ lặp 1/2. Dưới phải: hai thanh ngang vẽ theo tỷ lệ 10 : 1; thanh dài là dòng, vài trăm triệu bộ mỗi ngày; thanh ngắn khung nét đứt là phần lưu được, 1/10; bên cạnh ghi câu hỏi giữ 1/10 nào.</desc>
+<desc id="btl-d">Trên: năm bộ theo thứ tự đến, (An, “đồ thị”), (Bình, “lọc”), (An, “băm”), (An, “đồ thị”), (Chi, “lọc”); ba bộ của An có khung đậm. Dưới trái: khối bộ của An, “đồ thị” hai lần, “băm” một lần, tỷ lệ lặp 1/2. Dưới phải: hai thanh ngang vẽ theo tỷ lệ 10 : 1; thanh dài là dòng, vài trăm triệu bộ mỗi ngày; thanh ngắn khung nét đứt là phần lưu được, 1/10; bên cạnh ghi câu hỏi lưu 1/10 nào.</desc>
 <g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
 <text x="10" y="26" font-weight="700">dòng bộ (người dùng, truy vấn), theo thứ tự đến</text>
 <rect x="10" y="40" width="222" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="5"/>
@@ -22,5 +22,5 @@
 <rect x="450" y="152" width="700" height="40" fill="#f7efe6" stroke="#263238" stroke-width="3"/>
 <text x="450" y="236">lưu được: 1/10</text>
 <rect x="450" y="248" width="70" height="40" fill="#ffffff" stroke="#263238" stroke-width="3" stroke-dasharray="9 6"/>
-<text x="540" y="278" font-weight="700">giữ 1/10 nào?</text>
+<text x="540" y="278" font-weight="700">lưu 1/10 nào?</text>
 </g></svg>

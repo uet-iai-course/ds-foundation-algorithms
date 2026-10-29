@@ -325,14 +325,14 @@ Như vậy, chúng ta đã có đặc tả chung cho các cấu trúc của chư
 
 Máy tìm kiếm nhận dòng bộ $t$ dạng (người dùng, truy vấn tìm kiếm, thời gian), chỉ lưu được $1/10$ dòng, và muốn biết tỷ lệ truy vấn lặp của người dùng điển hình trong tháng vừa qua (MMDS §4.2.1, tr.136). Mục 1 cho thấy một số thống kê trên mọi phần tử, như giá trị lớn nhất, trung bình và phương sai, có trạng thái cỡ hằng; câu hỏi này thì cần một mẫu các bộ, vì tỷ lệ lặp của một người được tính từ chính các truy vấn của người đó. Chúng ta cần chọn mẫu sao cho tỷ lệ tính trên mẫu bằng tỷ lệ thật, với trạng thái quyết định không tăng theo dòng.
 
-![Trên: năm bộ theo thứ tự đến, (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc); ba bộ của An có khung đậm. Dưới trái: khối bộ của An, đồ thị hai lần, băm một lần, tỷ lệ lặp 1/2. Dưới phải: hai thanh ngang vẽ theo tỷ lệ 10 : 1; thanh dài là dòng, vài trăm triệu bộ mỗi ngày; thanh ngắn khung nét đứt là phần lưu được, 1/10; bên cạnh ghi câu hỏi giữ 1/10 nào.](img/lec-08/bai-toan-ty-le-lap.svg)
+![Trên: năm bộ theo thứ tự đến, (An, đồ thị), (Bình, lọc), (An, băm), (An, đồ thị), (Chi, lọc); ba bộ của An có khung đậm. Dưới trái: khối bộ của An, đồ thị hai lần, băm một lần, tỷ lệ lặp 1/2. Dưới phải: hai thanh ngang vẽ theo tỷ lệ 10 : 1; thanh dài là dòng, vài trăm triệu bộ mỗi ngày; thanh ngắn khung nét đứt là phần lưu được, 1/10; bên cạnh ghi câu hỏi lưu 1/10 nào.](img/lec-08/bai-toan-ty-le-lap.svg)
 
-Hình đặt bài toán trên dòng năm bộ dùng xuyên mục, một dòng do học phần dựng. Ba bộ của An, "đồ thị" hai lần và "băm" một lần, cho tỷ lệ lặp $1/2$: một trong hai truy vấn khác nhau được gõ lại. Hai thanh ngang theo tỷ lệ 10 : 1 là dòng vài trăm triệu bộ mỗi ngày (MMDS §4.1.2, tr.133) và phần $1/10$ lưu được (§4.2.1, tr.136). Câu hỏi của mục là giữ $1/10$ nào để tỷ lệ của An tính trên mẫu vẫn là $1/2$.
+Hình đặt bài toán trên dòng năm bộ dùng xuyên mục, một dòng do học phần dựng. Ba bộ của An, "đồ thị" hai lần và "băm" một lần, cho tỷ lệ lặp $1/2$: một trong hai truy vấn khác nhau được gõ lại. Hai thanh ngang theo tỷ lệ 10 : 1 là dòng vài trăm triệu bộ mỗi ngày (MMDS §4.1.2, tr.133) và phần $1/10$ lưu được (§4.2.1, tr.136). Câu hỏi của mục là lưu $1/10$ nào của dòng để tỷ lệ của An tính trên mẫu vẫn là $1/2$.
 
 <!-- note-topic-id: lec-08-topic-03 -->
 ### 2.1 Sai lệch của lấy mẫu từng bộ
 
-Cách làm đầu tiên nghĩ tới là rút cho mỗi bộ một số đều trong $\{0,\ldots,9\}$ và giữ bộ khi số bằng $0$. Mỗi người dùng khi đó giữ trung bình $1/10$ số truy vấn của mình (MMDS §4.2.1, tr.136). Ví dụ sau tính điều xảy ra với tỷ lệ lặp.
+Cách làm đầu tiên nghĩ tới là rút cho mỗi bộ một số đều trong $\{0,\ldots,9\}$ và giữ bộ khi số bằng $0$. Bộ được giữ thì được ghi vào mẫu, nằm trong bộ nhớ làm việc; bộ bị bỏ thì không vào bộ nhớ làm việc. Vì mỗi phần tử được đọc đúng một lần, khi nó đến, và kho lưu trữ không được đọc để trả lời (Định nghĩa 08.1), thuật toán không lấy lại được bộ bị bỏ. Mỗi người dùng khi đó giữ trung bình $1/10$ số truy vấn của mình (MMDS §4.2.1, tr.136). Ví dụ sau tính điều xảy ra với tỷ lệ lặp.
 
 ::: example Ví dụ 08.3 (Ba bộ truy vấn của An)
 **Dữ kiện.** An gõ "đồ thị" hai lần và "băm" một lần, nên tỷ lệ lặp của An, tức số truy vấn phân biệt xuất hiện hai lần chia cho số truy vấn phân biệt, là $1/2$. Mỗi bộ được giữ độc lập với xác suất $1/10$. Ba bộ này do học phần dựng.
