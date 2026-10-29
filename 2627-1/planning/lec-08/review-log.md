@@ -667,3 +667,25 @@ Thay đổi: A08 "Truy vấn trên dòng cảm biến": Nhắc lại Bài 02 (t�
 | nhẹ | A08, ghi chú GV A08/A06, ghi chú bài giảng, storyboard | 10 điểm (chủ ngữ "một triệu dòng", câu mạnh hơn sách, tên "(tổng, số lượng)", lặp số liệu, câu chung chung, "được đặt", chủ ngữ tài liệu, chuỗi lý do) | đã sửa |
 
 Kiểm tra: `check08.py` 73 trang không lỗi; AT `#/2/1`; A08 57 âm tiết (4 dòng, dài nhất 20), ghi chú GV 150. `notecheck08.py` ba khổ 0 lỗi. Điều phối viên xem ảnh A08 1600×900 và đối chiếu trích "billions of clicks" (§4.1.2). `git diff --check` sạch.
+
+## Động lực và khó khăn của mạch 5 (2026-10-29)
+
+Yêu cầu người dùng: "các mạch khác cũng xử lý tương tự".
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Quyết định |
+|---|---|---|---|
+| lập kế hoạch mạch 5, sau đó biên tập (SendMessage) | kế hoạch; sửa BT, B00 (+ `bai-toan-loc-thu.svg`), B13 mới, B02, ghi chú GV B01; ghi chú Mục 4; storyboard, outline | Agent general-purpose, opus, high | kế hoạch chấp nhận kèm 7 quyết định (`decisions-strand5-motivation`); bản sửa chấp nhận sau lượt hai |
+| rà lại gộp (độ chính xác + mạch/sinh viên + no-ai-slop Detect) | R09, BT, B00, B13, B02, B05, B01, Mục 4–4.2 | Agent general-purpose, opus, high | 0 chặn, 0 nghiêm trọng, 5 trung bình, 12 nhẹ: chấp nhận tất cả; riêng đề xuất thêm lập luận đếm "bất khả" vào ghi chú GV B13 bị bác (giữ quyết định không khẳng định bất khả) |
+
+Thay đổi: BT dòng dẫn nêu khó khăn trước giải pháp ("Muốn lọc trong bộ nhớ nhỏ hơn tập nhiều lần, phải cho phép nhận nhầm …"). B00: Nhắc lại lấy mẫu được bỏ phần lớn bộ; Nhu cầu chặn thư rác theo danh sách tin cậy $S$; hình (nhãn "bảng lưu S") cho bảng lưu và tra đĩa; dòng cuối: lấy mẫu $1/20$ của $S$ vẫn buộc tra đĩa (lập luận của học phần, cận trên, ghi trong ghi chú GV). B13 "Lỗi một phía của bộ lọc" (mới): 8 bit mỗi địa chỉ so với từ 160 bit; Nhu cầu "chắc chắn không thuộc" luôn đúng; bảng 2×2 so mẫu $1/20$ với bộ lọc cần (sai ngược chiều); đặt tên lỗi một phía (one-sided error). B02: một hàm băm, 8 bit mỗi địa chỉ, xác suất qua bộ lọc chưa đến $1/8$ ($1-e^{-1/8}\approx0{,}1175$). Ghi chú bài giảng Mục 4: đoạn động lực (MMDS §4.3 tr.139, 80% là số sách dẫn lại, publish–subscribe, quảng cáo) và đoạn "Khó khăn chính" (ba cách trực tiếp, §4.4.1 tr.142 trong ngữ cảnh đếm phần tử phân biệt, lỗi một phía). Deck 73 → 74; mạch 5 vẫn 37,5 phút (B13 +1,5; B02, B01, B10 mỗi trang −0,5). Chương 31 032 token.
+
+| mức độ | vị trí | vấn đề | trạng thái |
+|---|---|---|---|
+| trung bình | ghi chú GV B00, ghi chú, storyboard | §4.4.1 trích tr.143, thiếu ngữ cảnh | đã sửa: tr.142, bài toán đếm phần tử phân biệt |
+| trung bình | tài liệu tham khảo ghi chú | gán Bài tập 08.10–08.12 nhầm cho §4.4.1 | đã sửa |
+| trung bình | BT | "phải cho phép nhận nhầm" quá rộng | đã sửa: "trong bộ nhớ nhỏ hơn tập nhiều lần" |
+| trung bình | B00 | dòng cuối không nối "Nhắc lại", "địa chỉ không thấy" mơ hồ | đã sửa (hai dòng) |
+| trung bình | B13 | chỉ có chữ, ý "sai ngược chiều" chỉ ở ghi chú | đã sửa: bảng 2×2 |
+| nhẹ | B13, B02, ghi chú GV B13/B01, ghi chú bài giảng | 12 điểm ("thường dài", phép chia 8 bit, đặt tên lỗi một phía, xác suất cho một địa chỉ, câu điều hướng, "Mục 4.5–4.7", "hơi ít hơn 1/8", 19/20 thư hợp lệ, "cái giá", độ dài chương, "dương giả (còn gọi là nhận nhầm)") | đã sửa |
+
+Mật độ: BT 37, B00 58, B13 63 (bảng so sánh, trần 80, ngoại lệ ghi storyboard), B02 55. Kiểm tra: `check08.py` 74 trang không lỗi; `notecheck08.py` ba khổ 0 lỗi; điều phối viên xem ảnh B00, B13 1600×900, kiểm tham chiếu Ví dụ 08.14 và không còn "tr.143". `git diff --check` sạch.
