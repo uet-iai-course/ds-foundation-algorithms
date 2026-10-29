@@ -626,3 +626,24 @@ Thay đổi: K15 "Mẫu cho truy vấn tức thời" (mới, hình `mau-truy-van
 | nhẹ | ghi chú, K15, KT, K10, storyboard | giọng "ta", lặp cuối Mục 1, siêu diễn ngôn, thiếu mục đích, trùng lặp, thiếu nguồn §4.2.4, quy ước đếm | đã sửa |
 
 Kiểm tra: `check08.py` 72 trang không lỗi; KT `#/3/1`, K15 `#/3/2`; K15 56, K10 58, K02 48 âm tiết (đếm cả nhãn), ghi chú GV ≤ 150. Điều phối viên xem ảnh K15, K10, K02 ở 1600×900. `notecheck08.py` ba khổ 0 lỗi. `git diff --check` sạch.
+
+## Động lực và khó khăn của mạch 4 (2026-10-29)
+
+Yêu cầu người dùng: "các mạch khác cũng xử lý tương tự" (ba câu: vì sao phải giải, động lực, khó khăn chính trên mặt trang đầu mạch).
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Quyết định |
+|---|---|---|---|
+| lập kế hoạch mạch 4, sau đó biên tập (SendMessage) | kế hoạch; sửa RT, R00, R10 mới, R01, SVG `bai-toan-mau-co-dinh.svg`, ghi chú Mục 3, storyboard, outline | Agent general-purpose, opus, high | kế hoạch chấp nhận kèm 7 quyết định (`decisions-strand4-motivation`); bản sửa chấp nhận sau lượt hai |
+| rà lại gộp (độ chính xác + mạch/sinh viên + no-ai-slop Detect) | RT, R00, R10, R01, Mục 3 | Agent general-purpose, opus, high | 0 chặn, 0 nghiêm trọng, 4 trung bình, 10 nhẹ: chấp nhận tất cả |
+
+Thay đổi: R00 nêu giới hạn kế thừa (cỡ kỳ vọng $ar/b$; vài trăm triệu bộ mỗi ngày với $1/10$ thêm vài chục triệu bộ mỗi ngày, MMDS §4.1.2, §4.2.4), nhu cầu ($s/r$ ở mọi $r\ge s$) và hai ứng dụng (vị trí cho ước lượng mômen §4.5.5; một hồ mỗi khóa không quá $s$ bộ, khung tr.150). R10 "Ví dụ: ba cách giữ mẫu hai ô" (mới): lưu cả dòng, giữ 2 phần tử đầu, giữ với xác suất $2/5$ ($\Pr[N\ne2]\approx0{,}65$ ở $r=5$, $0{,}74$ ở $r=7$); khó khăn chính: mục tiêu $s/r$ giảm sau mỗi phần tử, độ dài dòng chưa biết, chỉ $s$ ô và bộ đếm $r$; phần tử đã giữ phải có lúc bị bỏ. Ghi chú bài giảng: ba đoạn mở Mục 3 (giới hạn kế thừa, ứng dụng, "Khó khăn chính nằm ở …"), Ví dụ 08.8 thêm cách 2 và 3. Deck 72 → 73; mạch 4 vẫn 24 phút (R10 +2; R01, R03, R04, R06 mỗi trang −0,5).
+
+| mức độ | vị trí | vấn đề | trạng thái |
+|---|---|---|---|
+| trung bình | R10 | $\lvert W\rvert>2$ trái hình "hồ W: 2 ô", deck/ghi chú khác ký hiệu | đã sửa: $N$ định nghĩa trên trang |
+| trung bình | R10, ghi chú | "$r$ chưa biết", "chỉ với $s$ ô" bỏ sót bộ đếm | đã sửa |
+| trung bình | R00 | "chặn mỗi khóa ở $s$ ô" đọc như cỡ hằng tổng | đã sửa: một hồ mỗi khóa |
+| trung bình | R00 | "Nhắc lại" đưa số mới | đã sửa: nêu phép tính |
+| nhẹ | R10, R00 hình, ghi chú GV RT/R00/R10, ghi chú bài giảng | 10 điểm (đúng/sai từng ô, câu kết, nhãn "cần", âm tiết ghi chú, "một dạng của…", "khóa vượt ngân sách", chủ ngữ tài liệu, xác suất có mặt, "tối đa $s$ mỗi khóa") | đã sửa; R10 giữ hai dòng sau bảng vì gộp vượt 20 âm tiết/dòng |
+
+Mật độ: R00 58, R10 78 (bảng so sánh, trần 80, ngoại lệ ghi storyboard), RT 40. Kiểm tra: `check08.py` 73 trang không lỗi; RT `#/4/1`, R10 `#/4/3`; `notecheck08.py` ba khổ 0 lỗi; điều phối viên xem ảnh R00, R10 1600×900. `git diff --check` sạch.

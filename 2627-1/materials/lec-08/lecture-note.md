@@ -715,7 +715,11 @@ Như vậy, chúng ta đã chỉ ra lấy mẫu từng bộ làm sai tỷ lệ l
 
 ## 3. Lấy mẫu hồ chứa
 
-Mẫu theo khóa của Mục 2 không chặn cỡ: ở Ví dụ 08.6, một khóa có $10^6$ bộ chiếm $10^6$ ô của mẫu khi được giữ, và cỡ mẫu kỳ vọng $ar/b$ tăng theo dòng (Hệ quả 08.12). Nhiều phân tích chỉ cần một mẫu đại diện có đúng $s$ phần tử ở mọi thời điểm, trong đó mọi phần tử đã đọc có cùng cơ hội có mặt. Chúng ta cần một thuật toán dòng giữ đúng $s$ phần tử mà không biết trước độ dài dòng.
+Mẫu theo khóa của Mục 2 có cỡ kỳ vọng $ar/b$ (Hệ quả 08.12), và cỡ này tăng theo dòng: mẫu giữ mãi mọi truy vấn của những người dùng được chọn, trong khi người dùng mới được chọn tiếp tục xuất hiện (MMDS §4.2.4, tr.138). Với vài trăm triệu truy vấn mỗi ngày (§4.1.2, tr.133) và $a/b=1/10$, mẫu thêm vài chục triệu bộ mỗi ngày. Ở Ví dụ 08.6, một khóa có $10^6$ bộ chiếm $10^6$ ô của mẫu khi được giữ. Thuật toán 08.13 giữ được ngân sách $G$ bằng cách hạ ngưỡng, nhưng vẫn chọn theo khóa: tỷ lệ khóa $(\tau+1)/b$ giảm dần, và một khóa có hơn $G$ bộ bị bỏ trọn, nên mỗi bộ của khóa đó có xác suất có mặt bằng 0.
+
+Hai bài toán cần một mẫu có đúng $s$ phần tử ở mọi thời điểm. Thứ nhất, phương pháp AMS ước lượng mômen (Bài 09) giữ $s$ biến, mỗi biến gắn với một vị trí của dòng; ở mọi thời điểm, mỗi vị trí đã đọc phải có cùng xác suất được chọn, nếu không ước lượng bị lệch (MMDS §4.5.5, tr.148–149). Thứ hai, khi một khóa có quá nhiều bộ, chúng ta có thể chạy một hồ chứa riêng cho từng khóa, giữ tối đa $s$ phần tử cho mỗi khóa (MMDS, khung «A General Stream-Sampling Problem», tr.150); bộ nhớ khi đó là $s$ ô cho mỗi khóa đã chọn, không phải $s$ ô tổng cộng. Trang chiếu MMDS (Streams 1, tr.12, 18) nêu chung các ràng buộc: bộ nhớ chính chỉ đủ cho $s$ phần tử, độ dài dòng không biết trước, và sau mỗi phần tử, mọi phần tử đã đọc có cùng xác suất có mặt. Với $r\ge s$ phần tử đã đọc, xác suất chung đó phải là $s/r$, vì tổng các xác suất có mặt bằng số phần tử trong mẫu, tức $s$.
+
+Khó khăn chính nằm ở chỗ mục tiêu $s/r$ giảm sau mỗi phần tử và phải đạt ở mọi $r$, trong khi độ dài dòng không biết trước và bộ nhớ chỉ có $s$ ô cùng bộ đếm $r$. Nếu độ dài $n$ của dòng được biết trước và chỉ cần mẫu ở cuối dòng, rút trước $s$ vị trí trong $\{1,\ldots,n\}$ là đủ; yêu cầu ở mọi thời điểm loại cách này, vì sau $r<n$ phần tử, mẫu chỉ chứa những vị trí đã rút không vượt $r$. Trên dòng của trang chiếu MMDS, ba cách trực tiếp khác đều không đạt (Ví dụ 08.8). Lưu cả dòng rồi rút cần $r$ ô. Giữ $s$ phần tử đầu, một dạng của cách chọn vị trí một lần cho mãi mãi, thiên về các vị trí đầu và làm ước lượng mômen quá lớn (§4.5.5, tr.148). Giữ mỗi phần tử với một xác suất cố định chỉ đúng ở một giá trị $r$ và không chặn được cỡ mẫu. MMDS còn nêu cách chờ đủ lâu rồi mới chọn vị trí; khi đó đầu dòng có ít biến và ước lượng không tin cậy (tr.148–149). Từ $r$ sang $r+1$, xác suất có mặt của mỗi phần tử đã đọc giảm từ $s/r$ xuống $s/(r+1)$, nên phần tử đã giữ phải bị bỏ với một xác suất xác định, còn phần tử đã bỏ thì không lấy lại được; đồng thời phần tử mới phải vào mẫu với xác suất $s/(r+1)$. Ở Mục 3.1, chúng ta dùng một số nguyên đều $j$ ở mỗi bước để đáp ứng cả hai đòi hỏi.
 
 <!-- note-topic-id: lec-08-topic-07 -->
 ### 3.1 Mẫu cỡ cố định và ý tưởng hồ chứa
@@ -723,14 +727,19 @@ Mẫu theo khóa của Mục 2 không chặn cỡ: ở Ví dụ 08.6, một khó
 ::: example Ví dụ 08.8 (Mẫu hai phần tử trên dòng mười phần tử)
 **Dữ kiện.** Dòng a, x, c, y, z, k, c, d, e, g của trang chiếu MMDS (Streams 1, tr.18); cần giữ $s=2$ phần tử. Đơn vị chọn là vị trí: chữ c ở vị trí 3 và vị trí 7 là hai phần tử khác nhau.
 
-**Tính.** Sau $r=5$ phần tử, mỗi phần tử trong a, x, c, y, z cần có mặt với xác suất $2/5$. Sau $r=7$ phần tử, mỗi phần tử trong bảy phần tử đầu cần xác suất $2/7$. Cách trực tiếp là lưu cả $r$ phần tử rồi rút ngẫu nhiên $2$ phần tử; cách này cho đúng xác suất nhưng bộ nhớ tăng theo $r$.
+**Tính.** Sau $r=5$ phần tử, mỗi phần tử trong a, x, c, y, z cần có mặt với xác suất $2/5$. Sau $r=7$ phần tử, mỗi phần tử trong bảy phần tử đầu cần xác suất $2/7$.
 
-**Diễn giải.** Xác suất cần đạt giảm khi dòng dài ra, nên phần tử đã giữ phải có lúc bị thay.
+Cách thứ nhất, lưu cả $r$ phần tử rồi rút ngẫu nhiên $2$ phần tử, cho đúng xác suất nhưng cần $r$ ô. Cách thứ hai, giữ hai phần tử đầu, cho a và x xác suất 1 và mọi phần tử còn lại xác suất 0, ở mọi $r\ge2$. Cách thứ ba giữ mỗi phần tử độc lập với xác suất $p=2/5$, giá trị do học phần chọn để đúng ở $r=5$. Số phần tử được giữ, ký hiệu $N$, có phân phối nhị thức với tham số $r$ và $2/5$. Ở $r=5$, ta có
+$$\begin{aligned}\Pr[N>2]&=\binom53(0{,}4)^3(0{,}6)^2+\binom54(0{,}4)^4(0{,}6)+(0{,}4)^5\\&=0{,}2304+0{,}0768+0{,}01024=0{,}31744,\end{aligned}$$
+nên với xác suất gần một phần ba, hai ô không đủ chứa mẫu. Ở $r=7$, mỗi phần tử vẫn có xác suất $2/5\ne2/7$, $\mathrm E[N]=7\cdot\frac25=2{,}8$ và
+$$\begin{aligned}\Pr[N>2]&=1-\bigl((0{,}6)^7+7\cdot0{,}4\cdot(0{,}6)^6+21\cdot(0{,}4)^2(0{,}6)^5\bigr)\\&=1-0{,}419904=0{,}580096.\end{aligned}$$
 
-**Kiểm tra lại.** Với $r=5$, tổng các xác suất có mặt là $5\cdot\frac25=2=s$, đúng số ô.
+**Diễn giải.** Xác suất cần đạt giảm khi dòng dài ra, nên phần tử đã giữ phải có lúc bị thay. Cách thứ hai không bao giờ thay; cách thứ ba không giữ cỡ mẫu cố định.
+
+**Kiểm tra lại.** Với $r=5$, tổng các xác suất có mặt là $5\cdot\frac25=2=s$, đúng số ô. Ở cách thứ ba với $r=5$, $\Pr[N=2]=10\cdot0{,}16\cdot0{,}216=0{,}3456$ và $\Pr[N<2]=(0{,}6)^5+5\cdot0{,}4\cdot(0{,}6)^4=0{,}33696$; cộng với $\Pr[N>2]=0{,}31744$ được 1.
 :::
 
-![Trái: dòng bảy phần tử a, x, c, y, z, k, c ở vị trí 1 đến 7; hai chữ c ở vị trí 3 và 7 là hai phần tử khác nhau. Vạch đứng nét đứt sau vị trí 5 ghi r = 5, mỗi phần tử có xác suất 2/5; vạch sau vị trí 7 ghi r = 7, mỗi phần tử có xác suất 2/7. Phải: hồ W có 2 ô, cả hai ghi dấu hỏi; cỡ hồ không đổi khi dòng dài thêm.](img/lec-08/bai-toan-mau-co-dinh.svg)
+![Trái: dòng bảy phần tử a, x, c, y, z, k, c ở vị trí 1 đến 7; hai chữ c ở vị trí 3 và 7 là hai phần tử khác nhau. Vạch đứng nét đứt sau vị trí 5 ghi r = 5: cần 2/5, tức mỗi phần tử cần xác suất 2/5; vạch sau vị trí 7 ghi r = 7: cần 2/7. Phải: hồ W, s = 2 ô, cả hai ô ghi dấu hỏi; cỡ hồ không đổi khi dòng dài thêm.](img/lec-08/bai-toan-mau-co-dinh.svg)
 
 Hình vẽ bảy phần tử đầu của dòng trong Ví dụ 08.8 (trang chiếu MMDS, Streams 1, tr.18). Sau vạch $r=5$, mỗi phần tử cần xác suất $2/5$; sau vạch $r=7$, cần $2/7$; hồ $W$ vẫn chỉ có 2 ô. Hai chữ c ở vị trí 3 và 7 là hai phần tử khác nhau, nên đơn vị chọn là vị trí, không phải giá trị.
 
