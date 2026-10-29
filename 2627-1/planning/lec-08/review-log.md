@@ -603,3 +603,26 @@ Quyết định đổi so với lượt trước: dùng 30% ($a=3$) và thanh 10
 | nhẹ | cả hai | nhiều trang | 17 điểm nhẹ | đã sửa, trừ: "dùng $a=5$ cho K13" bác (giữ $a=3$ theo ví dụ 30% MMDS; K14 cần $a=5$ để Chi được giữ); chữ ký K04 giữ (dòng Đầu vào đã ghi miền $h$) |
 
 Kiểm tra: `check08.py` toàn deck 71 trang, 1600×900 và 390×844: không lỗi console, KaTeX, mạng ngoài, tràn khung; số trang tiêu đề mạch khớp `#/N`. Mạch 3: mọi trang ≤ 60 âm tiết trừ K06 (63, ngoại lệ bảng so sánh), ≤ 20 âm tiết/dòng. Điều phối viên xem ảnh K11, K12 (cả 390), K13, K14, K02, K01. `notecheck08.py`: viewer 1440×900, 390×844, in: 0 lỗi. `git diff --check` sạch.
+
+## Động lực và khó khăn của mạch 3 (2026-10-29)
+
+Phản hồi người dùng: "vấn đề ở đây là 'tại sao phải giải quyết vấn đề đó', động lực để giải bài toán đó là gì, khó khăn chính ở đâu?"
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Quyết định |
+|---|---|---|---|
+| biên tập (hai lượt qua SendMessage) | thêm K15, sửa KT, K10, K02, hai SVG, đoạn mở Mục 2 ghi chú, storyboard, outline | Agent general-purpose, opus, high | chấp nhận sau lượt hai; bác của tác tử về thuật ngữ "truy vấn tùy ý" được chấp nhận (giữ "truy vấn tức thời" đã định nghĩa ở A00) |
+| rà lại gộp (độ chính xác + mạch/sinh viên + no-ai-slop Detect) | KT, K15, K10, K02, Mục 2 | Agent general-purpose, opus, high | chấp nhận cả 13 phát hiện |
+
+Thay đổi: K15 "Mẫu cho truy vấn tức thời" (mới, hình `mau-truy-van-tuc-thoi.svg`): truy vấn thường trực có trạng thái riêng cỡ hằng; nhu cầu nghiên cứu người dùng điển hình bằng truy vấn tức thời chưa biết khi bộ đến (MMDS §4.1.3, §4.2.1); không lưu được cả dòng nên cần mẫu $1/10$ đại diện. K10: khó khăn chính (hai bản "đồ thị" ở $r=1$, $r=4$; bộ $r=1$ phải quyết định khi đến vì giữ tạm là lưu cả dòng). K02: mâu thuẫn "cùng người cùng quyết định, không lưu nhãn theo người". Ghi chú bài giảng: đoạn động lực (có cửa sổ trượt §4.1.3 vượt ngân sách) và đoạn "Khó khăn chính". Deck 71 → 72; mạch 3 vẫn 27 phút (K15 +1,5; K01B, K09, K05 mỗi trang −0,5).
+
+| mức độ | vị trí | vấn đề | trạng thái |
+|---|---|---|---|
+| nghiêm trọng | K15 Nhắc lại | "truy vấn biết trước có trạng thái cỡ hằng" khái quát quá (A06) | đã sửa: truy vấn thường trực như giá trị lớn nhất, phương sai |
+| trung bình | hình K15 | "số người gõ mỗi truy vấn" cần khóa truy vấn | đã sửa: số truy vấn của mỗi người trong tháng |
+| trung bình | K15 dòng cuối; ghi chú | "giữ mẫu đại diện" như đã đạt; "cách còn lại" bỏ qua cửa sổ trượt | đã sửa ("cần mẫu"; câu cửa sổ trượt); cụm "trong ngân sách" để ở ghi chú GV vì dòng vượt 20 âm tiết |
+| trung bình | K10 | dòng mặt trang lặp hình | đã sửa: dòng nêu lý do |
+| trung bình | K02 | mất ý "tăng theo số người dùng" | đã sửa (hai dòng; "Nhắc lại Bài 02" vào câu "Tương tự…" và ghi chú GV) |
+| trung bình | ghi chú | "mọi câu hỏi đến sau mọi quyết định" sai thời điểm | đã sửa |
+| nhẹ | ghi chú, K15, KT, K10, storyboard | giọng "ta", lặp cuối Mục 1, siêu diễn ngôn, thiếu mục đích, trùng lặp, thiếu nguồn §4.2.4, quy ước đếm | đã sửa |
+
+Kiểm tra: `check08.py` 72 trang không lỗi; KT `#/3/1`, K15 `#/3/2`; K15 56, K10 58, K02 48 âm tiết (đếm cả nhãn), ghi chú GV ≤ 150. Điều phối viên xem ảnh K15, K10, K02 ở 1600×900. `notecheck08.py` ba khổ 0 lỗi. `git diff --check` sạch.

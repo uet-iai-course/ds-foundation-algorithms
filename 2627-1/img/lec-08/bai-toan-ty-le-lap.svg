@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 300" role="img" aria-labelledby="btl-t btl-d">
-<title id="btl-t">Dòng truy vấn tìm kiếm, tỷ lệ lặp của An và ngân sách lưu một phần mười</title>
-<desc id="btl-d">Trên: năm bộ theo thứ tự đến, ghi (người dùng, truy vấn), lược thời gian: (An, “đồ thị”), (Bình, “lọc”), (An, “đệ quy”), (An, “đồ thị”), (Chi, “lọc”); ba bộ của An có khung đậm. Dưới trái: khối bộ của An, “đồ thị” hai lần, “đệ quy” một lần, tỷ lệ lặp 1/2. Dưới phải: hai thanh ngang vẽ theo tỷ lệ 10 : 1; thanh dài là dòng, vài trăm triệu bộ mỗi ngày; thanh ngắn khung nét đứt là phần lưu được, 1/10; bên cạnh ghi câu hỏi lưu 1/10 nào.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 330" role="img" aria-labelledby="btl-t btl-d">
+<title id="btl-t">Dòng truy vấn tìm kiếm, tỷ lệ lặp của An và quyết định giữ hoặc bỏ khi bộ đến</title>
+<desc id="btl-d">Trên: năm bộ theo thứ tự đến, ghi (người dùng, truy vấn), lược thời gian: (An, “đồ thị”) ở r = 1, (Bình, “lọc”) ở r = 2, (An, “đệ quy”) ở r = 3, (An, “đồ thị”) ở r = 4, (Chi, “lọc”) ở r = 5; ba bộ của An có khung đậm. Một ngoặc nối hai bộ ở r = 1 và r = 4, ghi hai bản “đồ thị”. Dưới trái: An gõ “đồ thị” hai lần, “đệ quy” một lần, tỷ lệ lặp của An 1/2. Dưới phải: lưu được 1/10 dòng; bộ r = 1 phải giữ hoặc bỏ khi đến, trước khi bộ r = 4 đến.</desc>
 <g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
 <text x="10" y="26" font-weight="700">bộ theo thứ tự đến, ghi (người dùng, truy vấn), lược thời gian</text>
 <rect x="10" y="40" width="222" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="5"/>
@@ -13,14 +13,21 @@
 <text x="823" y="76" text-anchor="middle" font-weight="700">(An, “đồ thị”)</text>
 <rect x="946" y="40" width="222" height="52" rx="8" fill="#edf4ff" stroke="#2f3e7a" stroke-width="2"/>
 <text x="1057" y="76" text-anchor="middle">(Chi, “lọc”)</text>
-<rect x="10" y="120" width="390" height="172" rx="10" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
-<text x="205" y="154" text-anchor="middle" font-weight="700">bộ của An</text>
-<text x="205" y="192" text-anchor="middle">“đồ thị”: 2 lần</text>
-<text x="205" y="228" text-anchor="middle">“đệ quy”: 1 lần</text>
-<text x="205" y="268" text-anchor="middle" font-weight="700">tỷ lệ lặp: 1/2</text>
-<text x="450" y="140">dòng: vài trăm triệu bộ mỗi ngày</text>
-<rect x="450" y="152" width="700" height="40" fill="#f7efe6" stroke="#263238" stroke-width="3"/>
-<text x="450" y="236">lưu được: 1/10</text>
-<rect x="450" y="248" width="70" height="40" fill="#ffffff" stroke="#263238" stroke-width="3" stroke-dasharray="9 6"/>
-<text x="540" y="278" font-weight="700">lưu 1/10 nào?</text>
+<g font-size="26" text-anchor="middle">
+<text x="121" y="122">r = 1</text>
+<text x="355" y="122">r = 2</text>
+<text x="589" y="122">r = 3</text>
+<text x="823" y="122">r = 4</text>
+<text x="1057" y="122">r = 5</text>
+<text x="472" y="180">hai bản “đồ thị”: r = 1 và r = 4</text>
+</g>
+<path d="M121 132 V148 H823 V132" stroke="#b15a2b" stroke-width="3" fill="none"/>
+<rect x="10" y="200" width="390" height="124" rx="10" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="205" y="236" text-anchor="middle">An: “đồ thị” 2 lần,</text>
+<text x="205" y="270" text-anchor="middle">“đệ quy” 1 lần</text>
+<text x="205" y="304" text-anchor="middle" font-weight="700">tỷ lệ lặp của An: 1/2</text>
+<rect x="450" y="200" width="720" height="124" rx="10" fill="#f7efe6" stroke="#263238" stroke-width="2"/>
+<text x="475" y="236">lưu được: 1/10 dòng</text>
+<text x="475" y="270" font-weight="700">bộ r = 1: giữ hoặc bỏ khi đến,</text>
+<text x="475" y="304">trước khi bộ r = 4 đến</text>
 </g></svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 340" role="img" aria-labelledby="mtt-t mtt-d">
+<title id="mtt-t">Chọn mẫu khi dòng chạy, hỏi mẫu bằng truy vấn tức thời về sau</title>
+<desc id="mtt-d">Bên trái, ghi «lúc dòng chạy»: khối dòng bộ (người dùng, truy vấn, thời gian), vài trăm triệu bộ mỗi ngày, đi vào khối «khi bộ đến: giữ hoặc bỏ». Từ khối này, mũi tên liền sang khối mẫu, 1/10 dòng, giữ để hỏi sau; mũi tên nét đứt xuống khối nét đứt «bộ bị bỏ: không lấy lại được». Bên phải, ghi «về sau: truy vấn tức thời»: ba khối câu hỏi chỉ vào mẫu, gồm tỷ lệ lặp của người dùng điển hình, số truy vấn của mỗi người trong tháng, và một khối nét đứt «câu hỏi khác, chưa biết trước».</desc>
+<defs><marker id="mtt-a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+<g font-family="Arial,Helvetica,sans-serif" font-size="28" fill="#263238">
+<text x="10" y="28" font-weight="700">lúc dòng chạy</text>
+<text x="1170" y="28" text-anchor="end" font-weight="700">về sau: truy vấn tức thời</text>
+<rect x="10" y="48" width="240" height="280" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+<text x="130" y="88" text-anchor="middle" font-weight="700">dòng bộ</text>
+<text x="130" y="126" text-anchor="middle" font-size="26">(người dùng,</text>
+<text x="130" y="160" text-anchor="middle" font-size="26">truy vấn,</text>
+<text x="130" y="194" text-anchor="middle" font-size="26">thời gian)</text>
+<text x="130" y="254" text-anchor="middle" font-size="26">vài trăm triệu</text>
+<text x="130" y="288" text-anchor="middle" font-size="26">bộ mỗi ngày</text>
+<path d="M252 109 H282" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mtt-a)"/>
+<rect x="290" y="48" width="230" height="122" rx="14" fill="#f7efe6" stroke="#b15a2b" stroke-width="4"/>
+<text x="405" y="98" text-anchor="middle" font-weight="700">khi bộ đến:</text>
+<text x="405" y="138" text-anchor="middle">giữ hoặc bỏ</text>
+<path d="M405 172 V212" stroke="#2f3e7a" stroke-width="4" stroke-dasharray="9 6" fill="none" marker-end="url(#mtt-a)"/>
+<rect x="290" y="220" width="230" height="108" rx="10" fill="#ffffff" stroke="#263238" stroke-width="3" stroke-dasharray="9 6"/>
+<text x="405" y="262" text-anchor="middle" font-size="26">bộ bị bỏ: không</text>
+<text x="405" y="298" text-anchor="middle" font-size="26">lấy lại được</text>
+<path d="M522 109 H552" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mtt-a)"/>
+<rect x="560" y="48" width="210" height="280" rx="14" fill="#ffffff" stroke="#2f3e7a" stroke-width="5"/>
+<text x="665" y="120" text-anchor="middle" font-weight="700">mẫu</text>
+<text x="665" y="164" text-anchor="middle">1/10 dòng</text>
+<text x="665" y="236" text-anchor="middle" font-size="26">giữ để</text>
+<text x="665" y="270" text-anchor="middle" font-size="26">hỏi sau</text>
+<rect x="830" y="48" width="340" height="86" rx="10" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="1000" y="82" text-anchor="middle" font-size="26">tỷ lệ lặp của</text>
+<text x="1000" y="116" text-anchor="middle" font-size="26">người dùng điển hình?</text>
+<path d="M828 91 H780" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mtt-a)"/>
+<rect x="830" y="145" width="340" height="86" rx="10" fill="#fdf6ef" stroke="#b15a2b" stroke-width="2"/>
+<text x="1000" y="179" text-anchor="middle" font-size="26">số truy vấn của</text>
+<text x="1000" y="213" text-anchor="middle" font-size="26">mỗi người trong tháng?</text>
+<path d="M828 188 H780" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mtt-a)"/>
+<rect x="830" y="242" width="340" height="86" rx="10" fill="#ffffff" stroke="#b15a2b" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="1000" y="276" text-anchor="middle" font-size="26">câu hỏi khác,</text>
+<text x="1000" y="310" text-anchor="middle" font-size="26">chưa biết trước</text>
+<path d="M828 285 H780" stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#mtt-a)"/>
+</g></svg>
