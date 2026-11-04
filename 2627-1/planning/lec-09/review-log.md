@@ -266,3 +266,97 @@ Không có đoạn dịch hoặc chép: Nhận xét 09.4 (bản cũ sát BHK tr.
 - Ghi chú cuối: 31 990 âm tiết (`wc -w`), 27 `note-topic-id`, md5 `cb22bc78…`.
 - Chromium Playwright qua `http.server` cục bộ, `material-viewer.html?doc=materials/lec-09/lecture-note.md&deck=…`: ở 1600×900 và 390×844, 0 lỗi console/trang, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không tràn ngang trang; 6/6 SVG tải được; 51 công thức hiển thị, ở 1600 px 0 tràn, ở 390 px chỉ dãy 25 bit của DGIM (ngoại lệ: cần giữ liền để đọc vị trí). Bản in: sau `beforeprint` 62/62 khối `details` mở; PDF 112 trang. Đã tự xem ảnh chụp đầu trang (1600) và giữa trang (390).
 - `git diff --check` sạch.
+
+## Làm lại bộ trang chiếu từ ghi chú mới (2026-11-04)
+
+Theo yêu cầu người dùng, deck được làm lại sau khi ghi chú hoàn thiện (commit `0c13fdc`). Quy trình: CLAUDE.md khóa học "Sub-agents (course settings)" và AGENTS.md §"Quy trình đa tác tử cho bộ trang chiếu".
+
+### Tác tử
+
+| Tác tử | Vai trò | Loại, mô hình, effort (theo lệnh gọi `Agent`) | Đầu ra | Quyết định |
+|---|---|---|---|---|
+| lập kế hoạch deck | bản đồ mạch, danh sách trang, thời gian, rủi ro mật độ, ánh xạ trang ↔ chủ đề (chỉ đọc) | general-purpose, opus, high | `plan-deck.md` (scratchpad) | chấp nhận với phương án gọn |
+| phân tích nguồn deck | ánh xạ ghi chú → trang, MMDS vs CS246 theo cụm, kiểm kê hình, recitation (chỉ đọc) | general-purpose, opus, high | `source-deck.md` | chấp nhận, trừ ba đề xuất thêm ví dụ ngoài ghi chú |
+| soạn deck, sau đó sửa theo kiểm định (SendMessage) | deck 107 trang (94 giảng, 13 recitation), 18 SVG mới qua `generate_deck_svg.py`, `git rm` 8 SVG cũ, outline, storyboard | general-purpose, opus, high | `writer-deck-report.md`, `writer-deck-report-2.md` | chấp nhận để rà |
+| kiểm định storyboard | lý do mỗi trang, chu trình, trang tiêu đề mạch, mật độ, thời gian (chỉ đọc) | general-purpose, opus, high | `gate.md`: đạt có điều kiện (0/0/6/12) | chấp nhận toàn bộ |
+
+### Quyết định trước khi soạn
+
+- **Bảy section ngoài, đếm cả recitation như Bài 08:** Mở đầu · Flajolet–Martin · AMS · Count-Min Sketch · Cửa sổ trượt và cửa sổ suy giảm mũ · Tổng kết và tự kiểm tra · Bài tập vận dụng. Mục 5 và Mục 6 của ghi chú cùng vào mạch 5 vì MMDS §4.6–4.7 trình bày liền nhau hai cách giữ dữ liệu gần đây; bác phương án gộp cửa sổ suy giảm vào kết luận như deck cũ (mạch kết luận không có khái niệm mới, AGENTS.md) và phương án tám section ngoài.
+- **Số trang:** phương án gọn khoảng 90 trang giảng và 13 trang recitation (áp chín trong mười một phép gộp của kế hoạch; giữ trang chứng minh cửa sổ suy giảm và trang chi phí AMS). Bài có năm thuật toán trọng tâm, mỗi thuật toán đủ chu trình, trang bài toán có hình và chứng minh tách trang theo quy ước tác giả 2026-10-28/29; bảng thời gian ghi trong storyboard.
+- **Nguồn theo cụm:** trình tự trang theo slide MMDS; bảy chỗ chọn Stanford CS246 2017 (thứ tự gộp FM 17b tr.30 vì MMDS-S2 tr.25 đảo; thùng là đoạn liên tục 17a tr.16–17; cận 50% có "+1" 17a tr.23; số thùng 17a tr.24; quy mô URL $N=10^9$ 17a tr.13; ví dụ mưa và câu hỏi ngưỡng 17a tr.28, 32; lân cận đồ thị 17b tr.32–38); Count-Min theo UMass bài 10 trang chiếu 8–19.
+- **Bác (không có trong ghi chú):** ví dụ DGIM `101111→110000` (MMDS tr.156), ví dụ số cận 50% $k=13$ do tác tử nguồn tự tính, hình vùng tăng theo lũy thừa (MMDS-S1 tr.29–31). Deck là bản tóm lược của ghi chú.
+- **Hình:** dùng lại ba SVG của ghi chú, tạo bản trang chiếu cho ba SVG khác, vẽ mới hình bài toán đầu mạch và bảng Count-Min 104/78/90; bỏ chín SVG cũ (nhãn "≥ 8" đọc sai, khung thùng sai, số tự dựng không nguồn ở `count-min.svg` và `fm-trace.svg`, đường suy giảm không phải hàm mũ, sơ đồ thiếu nhánh).
+- **CSS:** lớp gốc `course-deck lecture-stream` dùng chung thành phần đã có của Bài 08; không sửa `lecture-course.css`.
+- **Việc để lại cho ghi chú:** câu "hàng tỷ bộ đếm" (Mục 3) chưa có số gốc; sửa sau khi deck xong, cùng lượt đồng bộ deck–ghi chú.
+
+### Bản nháp và kiểm định storyboard
+
+Bản nháp: 107 trang; bốn trang tách thêm so với đích (P04B hình vấn đề trung tâm; D07B, D17B vì vượt trần; E07B tách bảng vết 9 hàng thay cho ngoại lệ) — chấp nhận. Ba bản SVG `-trang-chieu` của hình ghi chú (nhãn dưới 18 px khi chiếu) — chấp nhận. `decision-map.svg` giữ lại vì `planning/lec-01/storyboard.md` dòng 229 còn ghi tên. Kiểm của điều phối viên (`check_deck.py`, http.server cục bộ): 107 trang, mã không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, `#/2`…`#/7` mở đúng trang tiêu đề mạch; xem ảnh D01, F09.
+
+| mức độ | trang chiếu | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | CT | dòng dẫn 26 âm tiết | sửa (23) |
+| trung bình | D19, T01, T05 | `note-topic-id` sai | sửa |
+| trung bình | storyboard | 27 hàng thiếu hành động sinh viên hoặc sản phẩm và bằng chứng | sửa, thêm cột kiến thức đầu vào |
+| trung bình | storyboard | quyết định `thêm` không lý do | sửa |
+| trung bình | E06–E08 | thiếu giới hạn "$d$ số" và ý "tổng $<1/c$" | sửa ở E07 |
+| trung bình | P04B | ký hiệu dùng trước định nghĩa | sửa: viết bằng lời |
+| nhẹ | 12 mục G7–G18 | ghi chú trang tiêu đề mạch dài, thiếu dòng đọc giả mã/câu chi phí, giới hạn không số, câu chỉ đường, nhãn "Câu hỏi cho lớp", ví dụ D07 trùng D06… | sửa, trừ G16 (C03 giữ hai công cụ trên một trang, mỗi công cụ một dòng, chỉ dùng ở C10) |
+| điều phối viên | D01 | hình dùng "=" thay "là"; dòng cuối lặp 125 MB của hình | sửa (số chỉ ở một nơi; F01 áp tương tự) |
+
+### Nguyên tắc không rào đón về vị thế của đoạn văn (yêu cầu người dùng 2026-11-04)
+
+Người dùng: "các câu kiểu rào đón như 'Mô tả này chưa phải định nghĩa; ví dụ sau tính nó trên bốn phần tử.' không cần thiết, chỉ cần nói thẳng, ví dụ 'để làm rõ hơn khái niệm này, xem ví dụ sau'", rồi "ghi nguyên tắc không rào đón vào nguyên tắc chung". Nguồn của câu rào đón: AGENTS.md §"Mẫu trình bày một khái niệm", bước 2 đòi "một câu nói rõ đây chưa phải định nghĩa". Xử lý: thêm nguyên tắc vào `../CLAUDE.md` (mục "Content: cut", ghi rõ thắng câu chữ ngược lại của AGENTS.md); sửa bước 2 trong AGENTS.md của học phần này, `../rl-plan` và `../math-4-AI` (chưa commit, chờ người dùng). Ghi chú Bài 09: tác tử chỉnh sửa (SendMessage, opus, high) thay 13 câu "Mô tả này chưa phải …; ví dụ sau …" bằng câu gọi thẳng khối kế tiếp ("Ví dụ 09.3 tính nó trên bốn phần tử."), bỏ một câu "chưa phải thuật toán"; điều phối viên đọc word-diff; 31 899 âm tiết, viewer 0 `.katex-error`; commit `13f538c`, đã đẩy. Deck: tác tử soạn rà mặt trang và ghi chú diễn giả, không còn câu loại này.
+
+### Năm lượt rà deck vòng 1 (bản đóng băng md5 `6cbf4c0c…`, 107 trang)
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Báo cáo (chặn/nghiêm trọng/trung bình/nhẹ) | Quyết định |
+|---|---|---|---|---|
+| rà: sinh viên | theo dõi 107 trang ở 1600×900, tự làm câu hỏi và recitation, đo mật độ độc lập | general-purpose, opus, high | `rv-student.md` (0/1/5/7) | chấp nhận |
+| rà: chuyên gia | giả thiết, bảo đảm, chi phí, khẳng định quá mức | general-purpose, opus, high | `rv-expert.md` (0/1/4/6) | chấp nhận |
+| rà: độ chính xác | tính lại mọi số, SVG theo tọa độ, chứng minh, giả mã, 108 tham chiếu 09.k | general-purpose, opus, high | `rv-accuracy.md` (0/0/4/8) | chấp nhận |
+| rà: phản biện giảng dạy | phiếu `slide_authoring_standard.md`, chu trình, câu trên trang, ghi chú diễn giả, no-ai-slop Detect | general-purpose, opus, high | `rv-pedagogy.md` (0/1/12/22) | chấp nhận |
+| rà: mạch | vai trò, kết nối vào–ra mỗi mạch, nhất quán với ghi chú | general-purpose, opus, high | `rv-storyline.md` (0/0/7/14) | chấp nhận, trừ ba đề xuất cần nội dung ngoài ghi chú |
+
+| mức độ | trang chiếu | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | P04B | "Hàng độc lập: Count-Min không ước lượng thấp" gắn kết luận tất định với giả thiết xác suất | Bổ đề 09.35 (mỗi phần tử cộng 1) không cần độc lập; độc lập chỉ cho cận thừa quá $\varepsilon r/\kappa$ | tách hai ý | chấp nhận (bốn vai cùng nêu) |
+| nghiêm trọng | D06 | dòng mở ý tưởng DGIM không hiểu được; hình dùng "thùng", "mốc phải", "cỡ" trước D07 | so với ghi chú §5.2 (đoạn tóm tắt chỉ bằng tổng sai khi bit 1 dồn vào đoạn dài) | viết lại theo ghi chú | chấp nhận |
+
+Trung bình được chấp nhận (bảng hợp nhất `merge-deck1.md`, phần D): C11 "ít nhất khoảng 99 lần"; D18 "từ trạng thái rỗng"; P07 đơn vị và hàng câu 5; D01, E08, M13 ký hiệu định nghĩa trước dùng; E01 nhãn "Nhắc lại:" chỉ chứa điều đã học; C13 đóng bài toán phần tử nặng; M14 phép gộp và điều kiện độc lập của AMS; "ba loại bảo đảm" thống nhất; nhãn in đậm "Bước k." (37 chỗ, ngoài danh sách cho phép) đổi thành "Bước k:" thường; M03 trực giác AMS; C03 tách hai công cụ (thay quyết định "giữ" của G16); lời chú của người soạn trong ghi chú diễn giả (M12, D11, E07, E07B, XT, X01, X03, X04) và câu rào đón F07; trang bài tập có năng lực và hướng dẫn chấm; 12 trang Ví dụ thêm dòng "Tính …"; F03, F13 có phép tính; X04 nhãn đè chú giải; D17B vế bất biến cho cỡ lớn hơn; X05C "hai thùng cỡ 8 cũ nhất". Bác: ba đề xuất cần nội dung ngoài ghi chú (mở rộng C07, chạy DGIM trên dòng bit của a, câu hỏi T06 mới). 390 px: Reveal co khung như Bài 08, giữ.
+
+### Sửa ghi chú phát sinh từ rà deck (ghi chú là bản gốc nên sửa trước)
+
+| Commit | Nội dung | Rà lại |
+|---|---|---|
+| `c9640d3` | "phân phối đuôi nặng" đầy đủ để "đuôi" chỉ còn nghĩa độ dài đuôi (tiêu đề §2.4 đổi); chuỗi bit của $\rho$ đổi $y$ → $\mathbf s$; Count-Min $2\times3$ tách nhiễu quan sát $Z_1=Z_2=3$ khỏi cận kỳ vọng $(r-f_{\mathrm a})/m=10/3\le r/m=5$; 266 byte (không 267); phép tính $L/2+1=33$ và cận 17; "tới $2^{32}$ bộ đếm" thay "hàng tỷ bộ đếm" | độ chính xác (`rc3-accuracy.md`): 0/0/0/1 |
+| `b1d1c77` | Nhận xét 09.3: hàng câu 5 là $D_r(u)$ với mọi $u$, $d$ số (khớp §6.2); "cả năm đại lượng" | điều phối viên đọc diff; phát hiện từ vai chuyên gia ở P07 |
+
+Ba lượt sửa ghi chú do tác tử chỉnh sửa ghi chú (opus, high, SendMessage) làm, không chạy cùng lúc với tác tử deck.
+
+### Chỉnh sửa deck và rà lại
+
+| Lượt | Nội dung | Rà lại | Quyết định |
+|---|---|---|---|
+| chỉnh sửa 1 (tác tử soạn deck) | phần D của `merge-deck1.md`: P04B, D06 viết lại; C03 tách thành C03, C03B; E08 tách bảng chi phí thành E11 sau chứng minh; P07 theo Nhận xét 09.3 mới; "Bước k:" không in đậm; trang Ví dụ có "Tính …"; theo ghi chú: "phân phối đuôi nặng", $\rho(\mathbf s)$, 266 byte, 17 so với 33, $Z_j$ quan sát và kỳ vọng; 107 → 109 trang | độ chính xác `rc-accuracy.md` (12/12 phát hiện vòng 1 đã sửa; mới 0/0/1/5: C13 lấy mọi $u$ thay vì phần tử đã xuất hiện); mạch `rc-storyline.md` (19/21, hai mục bác theo K3; 0/0/1/6: storyboard ghi E11 đã gộp); giảng dạy `rc-pedagogy.md` (0/0/2/3: lời chú người soạn X01, D04; M11 9 dòng, P05 7 dòng); sinh viên `rc-student.md` (nghiêm trọng D06 và 5 trung bình vòng 1 đã giải quyết; mới: M11) | chấp nhận, gom vào lượt 2 |
+| chỉnh sửa 2 | C13 chỉ phần tử đã xuất hiện (Hệ quả 09.38(b)); storyboard E11, C03; bỏ lời chú người soạn; M11 8 dòng, P05 6 dòng; các mục nhẹ (P04B họ phổ dụng, C03 định nghĩa độc lập từng cặp, D06 `desc` và ghi chú, X04, X05 gọi lại "hai mươi lăm bit", công thức ngắt dòng) | điều phối viên đọc báo cáo; kiểm định cuối bên dưới | chấp nhận; không làm: E06 dòng "Tính …" (trang lên 7 dòng, động từ đã ở tiêu đề cột), một chỗ ngắt công thức ở D13 (nhẹ) |
+| index | thẻ Bài 9: "Bài giảng" liên kết deck | kiểm định cuối | — |
+
+### Sự cố commit `13f538c`
+
+Commit `13f538c` (sửa câu rào đón trong ghi chú) mang theo việc xóa 8 SVG cũ mà tác tử soạn deck đã `git rm` sẵn trong vùng stage; điều phối viên không kiểm `git diff --cached --stat` trước khi commit. Hệ quả: từ `13f538c` tới commit deck mới, deck cũ trên `origin/main` thiếu hình. Không viết lại lịch sử; commit deck mới khắc phục. Biện pháp: kiểm vùng stage (`git diff --cached --stat`) trước mỗi commit.
+
+### Kiểm định cuối deck và bàn giao
+
+| Tác tử | Vai trò | Loại, mô hình, effort | Báo cáo | Quyết định |
+|---|---|---|---|---|
+| kiểm định cuối | phiếu `slide_authoring_standard.md`, kỹ thuật, mật độ đếm độc lập, trang tiêu đề mạch, hình, đồng bộ kế hoạch và ghi chú, index, git (chỉ đọc) | general-purpose, opus, high | `final-check.md`: **đạt** (0/0/1/6) | chấp nhận |
+
+Bằng chứng của tác tử kiểm định (Chromium Playwright, http.server cục bộ): 0 lỗi console/trang, 0 request hỏng hoặc ra mạng, 0 `.katex-error`; 109 `data-slide-id` duy nhất, không lộ trên mặt trang hay ghi chú; 109 trang vừa khung 1280×720 ở 1600×900; không tràn ngang ở 390×844; phím mũi tên, Home, End hoạt động; cấu hình RevealJS và CSS đúng (`lang="vi"`, 1280×720, `controlsLayout: "edges"`, `slideNumber`, `hash`, `hashOneBasedIndex`, plugin cục bộ, không `fragment`, không `<style>`, `course-deck lecture-stream`); `#/2`…`#/7` mở đúng `mach-2`…`mach-7`, khớp trang Nội dung, đã xem sáu trang tiêu đề mạch ở hai cỡ và 13 tờ ghép đủ 109 trang; 18/18 SVG tải được, có alt cụ thể, không raster; hơn 40 số và phát biểu khớp ghi chú hiện tại (C13 theo Hệ quả 09.38(b), P07 theo Nhận xét 09.3, P04B tách ý tất định và ý xác suất); thẻ Bài 9 của index liên kết deck và ghi chú, cả hai trả 200; `git diff --check` sạch. Phiếu `slide_authoring_standard.md`: đạt mọi mục.
+
+Phát hiện: trung bình — nhật ký chưa có mục kiểm định cuối (mục này). Nhẹ — D13 nhãn bước nhảy 2 → 5 và P05 danh sách 1, 3, 4, 5: đã sửa (D13 Bước 1–4; P05 nhãn "Câu 1–2:" … "Câu 5:"); để lại: nhãn vị trí trong bốn hình DGIM hiển thị 17,1–17,4 px (dưới mức 18 px của K5 một chút), tiêu đề mạch 4 ngắt dòng "Count-/Min", tiêu đề bìa ngắt "CỬA / SỔ", ở 390 px RevealJS chuyển chế độ cuộn và bỏ hash khi tải (giống Bài 08).
+
+Kiểm lại của điều phối viên sau hai sửa nhãn (`check_deck.py`): 109 trang, mã không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, `#/2`…`#/7` đúng. Mật độ (đếm âm tiết theo khoảng trắng, trừ tiêu đề, KaTeX, giả mã, số trong bảng, nhãn hình, ghi chú): tám trang trên 60, đều thuộc loại trần 80 hoặc có ngoại lệ trong storyboard — P02 66 (mục tiêu), P04B 73 (trả lời có điều kiện, ngoại lệ K8), P07 79 (bảng chi phí), F18 64 (bảng chi phí), M14 66 (bảng chi phí), T02 70 (bảng tổng kết, ngoại lệ 8 dòng), T04 61 (bảng so sánh), T05 61 (trả lời có điều kiện); không dòng nào quá 20 âm tiết, không trang nào quá 3 công thức hiển thị. Bảng đếm từng trang trong storyboard (cột âm tiết).
+
+Bàn giao: deck 109 trang (96 giảng, 120 phút; 13 recitation, 60 phút), 18 SVG mới, `outline.md`, `storyboard.md`, nhật ký này, thẻ index. Không đưa vào commit: `material-viewer.*` (thay đổi chưa commit của người khác), `AGENTS.md` (nguyên tắc không rào đón, chờ người dùng cho commit), `.claude/`, `.codex/`, `skills/`. `decision-map.svg` giữ lại (còn tên trong `planning/lec-01/storyboard.md`), không trang hay ghi chú nào dùng.

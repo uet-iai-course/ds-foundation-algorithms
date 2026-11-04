@@ -1,50 +1,55 @@
-# Dàn ý Bài 9
+# Dàn ý Bài 09 — Dòng dữ liệu: đếm, mômen và cửa sổ
+
+Phần deck viết lại ngày 2026-11-04 cùng bộ trang chiếu mới (109 trang sau lượt biên tập 1), theo đặc tả K1–K9 của điều phối viên; các mục ghi chú (bảng thuật ngữ, bản đồ chủ đề, ghi chú bài giảng 2026-11-04) giữ nguyên.
 
 ## Phạm vi và mục tiêu
 
-- Bài 9 theo thứ tự đề xuất: **Dòng dữ liệu: đếm, mômen và cửa sổ**.
-- Phần giảng 120 phút; phần bài tập củng cố 60 phút.
-- Đầu vào kiến thức: mô hình dòng, hàm băm, xác suất cơ bản, kỳ vọng và lấy mẫu hồ chứa từ Bài 8.
-- Sản phẩm: chọn phác thảo theo đại lượng cần ước lượng; chạy và giải thích Flajolet–Martin, Count-Min Sketch, AMS và DGIM; nêu bảo đảm cùng điều kiện áp dụng; cập nhật một tổng suy giảm mũ.
-- Ngoài phạm vi: cơ chế HyperLogLog chuẩn, biến thể DGIM sai số tùy ý, Count-Min cho dòng có cập nhật âm và thuật toán tự sinh danh sách khóa nặng.
+- Bài 09 theo thứ tự đề xuất của `sources/source.md`: **Dòng dữ liệu: đếm, mômen và cửa sổ**. Phần giảng 120 phút (96 trang), phần bài tập vận dụng 60 phút (13 trang, phần dọc riêng).
+- Đầu vào: Bài 08 (thuật toán dòng một lượt, hồ chứa, Bloom filter, hàm băm tất định), Bài 06 (Định lý 06.7), xác suất cơ bản (cận hợp, tuyến tính kỳ vọng, $1-z\le e^{-z}$).
+- Sáu mục tiêu như ghi chú: đặc tả đại lượng và chọn phác thảo; Flajolet–Martin với ngưỡng hai phía và mẹo trung vị; biến AMS, $F_p$, hồ chứa vị trí; Count-Min và định cỡ $m$, $t$; DGIM với cận dưới $N$ bit, bộ nhớ $O(\log^2N)$, cận 50%, gộp dây chuyền; cửa sổ suy giảm và phần tử phổ biến.
+- Ngoài phạm vi deck (chỉ ở ghi chú hoặc đọc thêm): HyperLogLog, giảm sai số DGIM và tổng số nguyên (Nhận xét 09.50), tình huống cỡ lân cận trong mạng xã hội (Tình huống 09.1), Count-Min cho dòng có cập nhật âm, cơ chế liệt kê phần tử nặng của UMass.
 
-## Nguồn và quyết định chọn
+## Mạch của bộ trang chiếu
 
-| Cụm | Khớp chuẩn đầu ra | Độ chính xác và tính hiện thời | Ví dụ hoặc hình | Khả năng Việt hóa | Nguồn được chọn và lý do |
-|---|---|---|---|---|---|
-| Đếm phân biệt | MMDS và Stanford đều khớp $F_0$. | Sách MMDS và Stanford 2017 cho đúng thứ tự gộp; MMDS Streams 2 tr.25 và Stanford 2026 tr.44 đảo thứ tự. | MMDS có vết băm và bài tập trực tiếp. | Ký hiệu ngắn, dễ vẽ lại. | Sách MMDS tr.142–145 làm chuẩn; Stanford 2017 Streams 2 kiểm tra thứ tự trung bình trong nhóm rồi trung vị giữa nhóm. |
-| Count-Min Sketch | Không có trong MMDS Chương 4 hoặc các slide Stanford được ánh xạ. | UMass nêu đầy đủ miền băm, khuếch đại xác suất và tham số khóa nặng. | Có cơ chế va chạm và lập luận Markov. | Có thể Việt hóa mà giữ tên thuật toán. | Chỉ dùng UMass CS514 Lecture 10 với $m=\lceil2k/\varepsilon\rceil$, $t=\lceil\log_2(1/\delta)\rceil$; không trộn dạng tham số khác. |
-| Mômen và AMS | Cả hai nguồn khớp $F_2$ và tính không chệch. | Sách MMDS nêu đầy đủ biến hậu tố và chứng minh. | MMDS có ví dụ 910/8110 và vết ba vị trí. | Thuận lợi, ký hiệu nhất quán với sách. | MMDS tr.146–150 làm trục; Stanford 2017 chỉ đối chiếu. |
-| DGIM | Cả hai nguồn khớp đếm bit 1 trong hậu tố. | Sách MMDS xác định sáu bất biến và cận 50%; Stanford diễn đạt cập nhật dễ theo dõi. | Hình 4.2 và 4.3 của MMDS nối trực tiếp với bài tập. | Phải vẽ lại mốc phải và phần trái chưa xác định. | MMDS tr.151–157 làm trục; Stanford 2017 Streams 1 tr.13–24 dùng để kiểm tra diễn đạt cập nhật/truy vấn. |
-| Cửa sổ suy giảm | Cả hai nguồn khớp ý giảm trọng số theo tuổi. | Sách MMDS cho định nghĩa, tổng hữu hạn và truy hồi. | Hình 4.4 đủ cho so sánh với cửa sổ cứng. | Dễ Việt hóa. | MMDS tr.157–159 làm chuẩn; Stanford 2017 Streams 1 tr.27–29 đối chiếu. |
+| N (`#/N`) | Tên mạch (trang Nội dung) | Trang tiêu đề mạch | Trang bài toán có hình | Mục ghi chú | Trang | Phút |
+|---:|---|---|---|---|---:|---:|
+| 1 | Mở đầu | P00 (trang bìa) | P04 `cau-truc-bai-09.svg` | Mục tiêu, Tiên quyết, Bảng ký hiệu, Mục 1 | 9 | 10 |
+| 2 | Đếm phần tử phân biệt bằng Flajolet–Martin | FT, `id="mach-2"` | F01 `fm-bai-toan.svg` | Mục 2 | 18 | 25 |
+| 3 | Mômen bậc hai và ước lượng AMS | MT, `id="mach-3"` | M01 `ams-hai-phan-bo.svg` | Mục 3 | 15 | 20 |
+| 4 | Ước lượng tần suất bằng Count-Min Sketch | CT, `id="mach-4"` | C01 `cm-phan-tu-nang.svg` | Mục 4 | 15 | 18 |
+| 5 | Cửa sổ trượt và cửa sổ suy giảm mũ | DT, `id="mach-5"` | D01 `dgim-bai-toan.svg`; cụm suy giảm E01 `suy-giam-hai-phim.svg` | Mục 5, Mục 6 | 32 | 39 |
+| 6 | Tổng kết và tự kiểm tra | TT, `id="mach-6"` | T01 `nam-yeu-cau.svg` | Mục 7, Tình huống, Tóm tắt, Tham khảo | 7 | 8 |
+| 7 | Bài tập vận dụng | XT, `id="mach-7"` | X01 `bai-4-4-1-dong.svg` | Bài tập 09.10, 09.11, 09.12, 09.15, 09.16 | 13 | 60 |
 
-MMDS được ưu tiên khi hai nguồn tương đương. Slide Stanford 2017 được dùng để kiểm tra thứ tự gộp FM và cách diễn đạt DGIM; không sao chép giao diện hoặc tài sản. Ghi công: <http://www.mmds.org>.
+Thứ tự trong mạch theo ghi chú: FM (đuôi băm → định nghĩa → thuật toán → bất biến → ngưỡng hai phía → phân phối đuôi nặng → gộp → mẹo trung vị → chi phí); AMS (biến → không chệch → $F_p$ → dòng chưa biết độ dài → chi phí); Count-Min (bài toán phần tử nặng → họ băm phổ dụng, Markov → bảng và cực tiểu → bảo đảm → chi phí); DGIM (cận dưới → thùng, sáu quy tắc, bộ nhớ → truy vấn, cận 50% → cập nhật, tính đúng, khấu hao); cửa sổ suy giảm (định nghĩa, truy hồi → phần tử phổ biến, số điểm). Chi tiết từng trang ở `storyboard.md`.
 
-Tệp `umass-cs514/lecture8-hyperloglog.pdf` chỉ đủ cho FM/LogLog, không mô tả đầy đủ HyperLogLog chuẩn. Deck chỉ nêu HyperLogLog là hướng mở rộng.
+Dòng dẫn trang tiêu đề mạch: FT "Muốn đếm phần tử phân biệt bằng vài bit cho mỗi hàm băm, phải đọc cỡ của tập từ đuôi băm dài nhất."; MT "Muốn đo độ lệch của phân bố mà không giữ bộ đếm cho mọi phần tử, phải ước lượng từ một vị trí ngẫu nhiên."; CT "Muốn ước lượng tần suất bằng một bảng nhỏ, phải chấp nhận ước lượng thừa và chặn phần thừa theo xác suất."; DT "Muốn trả lời về phần gần đây của dòng, phải tóm tắt cửa sổ bằng thùng hoặc bằng trọng số giảm theo tuổi."; TT "Muốn chọn đúng phác thảo cho một câu hỏi, phải đối chiếu đại lượng, giả thiết và chi phí."; XT "Muốn vận dụng Flajolet–Martin, AMS và DGIM, phải chạy chúng bằng tay trên các dòng ngắn của giáo trình."
 
-## Mạch phần giảng
+## Nguồn và quyết định chọn theo cụm
 
-1. P00–A02: mở bài, tình huống dòng sự kiện và bản đồ chọn cấu trúc, 8 phút.
-2. F00–F06: Flajolet–Martin, 22 phút.
-3. C00–C04: Count-Min Sketch rút gọn, 14 phút.
-4. M00–M07: mômen bậc hai và AMS, 25 phút.
-5. D00–D09: cửa sổ bit và DGIM, 36 phút.
-6. E00–T01: cửa sổ suy giảm mũ rồi kết luận bằng bảng tổng hợp bảo đảm và giới hạn, 15 phút.
+| Cụm | Trục | Đối chiếu | Quyết định |
+|---|---|---|---|
+| Mở đầu | Ghi chú Mục 1; MMDS §4.1.2, §4.4.1, §4.5.1, Ví dụ 4.6–4.7 | Stanford CS246 2017, Streams 1, tr.13 | Quy mô URL $N=10^9$ theo Stanford (MMDS không có số cho URL) |
+| Flajolet–Martin | MMDS §4.4, tr.142–145; trang chiếu MMDS phần 2, tr.17–25 | CS246 2017 Streams 2, tr.23–30; CS246 2026 tr.35–44 | Trình tự MMDS; thứ tự gộp trung bình nhóm rồi trung vị theo Stanford 2017 Streams 2, tr.30, vì trang chiếu MMDS tr.25 và CS246 2026 tr.44 đảo thứ tự; mẹo trung vị theo UMass bài 8 bằng phép đếm của ghi chú |
+| AMS | MMDS §4.5, tr.145–150; phần 2, tr.27–36 | CS246 2017 Streams 2, tr.40–49 | Trình tự MMDS; "khoảng 100 biến" theo Stanford Streams 2, tr.49 (MMDS không nêu số) |
+| Count-Min | UMass CS514 bài 10, trang chiếu 8–19 | BHK §6.2.1, Định lý 2.1 | Hình và ví dụ 104/78/90 theo UMass trang chiếu 16; thứ tự khối theo ghi chú (công cụ trước bảng); không dùng dòng `5,12,3,…` của UMass |
+| DGIM | MMDS §4.6, tr.150–157; phần 1, tr.23–45 | CS246 2017 Streams 1, tr.11–25 | Trình tự MMDS, truy vấn trước cập nhật như ghi chú; theo Stanford: thùng là đoạn liên tục kết thúc ở bit 1 (tr.16–17), cận 50% có số hạng "+1" (tr.23, vì MMDS phần 1 tr.42 bỏ sót), trang số thùng (tr.24, MMDS không có); ví dụ dùng Hình 4.2/4.3 của sách, không dùng chuỗi của trang chiếu |
+| Cửa sổ suy giảm | MMDS §4.7, tr.157–159; phần 2, tr.38–43 | CS246 2017 Streams 1, tr.27–32 | Trình tự MMDS; ví dụ dòng mưa $c=0{,}1$ theo Stanford Streams 1, tr.28 (MMDS không có ví dụ số) |
+| Tổng kết | Ghi chú Mục 7, Ví dụ 09.20 | Stanford Streams 2, tr.32–38 (chỉ trong ghi chú diễn giả T07) | Không thêm khái niệm mới; tình huống cỡ lân cận trong đồ thị chỉ ở ghi chú |
 
-Tổng phần giảng: **120 phút**.
-Sáu mạch giảng và một mạch bài tập tạo đúng bảy `<section>` ngoài.
+Bảy chỗ chọn Stanford, có lý do ở cột cuối: (1) thứ tự gộp FM; (2) khoảng 100 biến AMS; (3) quy mô URL $N=10^9$; (4) thùng là đoạn liên tục; (5) cận 50% có "+1"; (6) trang số thùng; (7) ví dụ dòng mưa. Mọi hình vẽ lại bằng SVG; không chép CSS, phông, ảnh hay bảng màu của slide nguồn. Ghi công `http://www.mmds.org` ở trang bìa (ghi chú diễn giả) và trang Nguồn (T07).
 
-## Bài tập củng cố
+## Bài tập vận dụng (recitation)
 
-| Bài | Nguồn | Phút |
-|---|---|---:|
-| X01 | MMDS Ex.4.4.1, tr.145 | 12 |
-| X02 | MMDS Ex.4.5.1, tr.150 | 8 |
-| X03 | MMDS Ex.4.5.3, tr.150 | 12 |
-| X04 | MMDS Ex.4.6.1, tr.157 | 12 |
-| X05 | MMDS Ex.4.6.3, tr.157 | 16 |
+| Thứ tự | Bài MMDS | Ghi chú | Trang | Phút |
+|---:|---|---|---|---:|
+| 1 | 4.4.1, §4.4.5, tr.145 | Bài tập 09.11 | X01 (đề, hình `bai-4-4-1-dong.svg`), X01B, X01C | 14 |
+| 2 | 4.5.1, §4.5.6, tr.149 | Bài tập 09.10 | X02, X02B | 8 |
+| 3 | 4.5.3, §4.5.6, tr.150 | Bài tập 09.12 | X03, X03B | 12 |
+| 4 | 4.6.1, §4.6.8, tr.157 | Bài tập 09.15 | X04 (hình `dgim-bai-4-6-1.svg`), X04B | 12 |
+| 5 | 4.6.3, §4.6.8, tr.157 | Bài tập 09.16 | X05 (hình `dgim-bai-4-6-3.svg`), X05B, X05C | 14 |
 
-Tổng phần bài tập: **60 phút**. X00 chỉ mở phần, không tính thời lượng.
+Đề giữ dữ kiện và yêu cầu của sách (Bài 4.5.3 giữ đúng câu hỏi của sách; ước lượng và trung bình 21 đưa vào lời giải như phép kiểm). Mỗi trang đề ghi số bài, mục, trang; trang "Lời giải:" cùng tiêu đề; ghi chú diễn giả có gợi ý, lỗi thường gặp và hướng dẫn chấm 10 điểm theo bước của lời giải.
 
 ## Thuật ngữ và ký hiệu
 
@@ -57,8 +62,9 @@ Bảng theo bảng ký hiệu của ghi chú bài giảng (2026-11-04); mỗi ch
 | $f_u$; $F_p$; $d=F_0$ | tần suất của $u$; mômen bậc $p$; số phần tử phân biệt | moment of order $p$; number of distinct elements |
 | $F_2$ | số bất ngờ | surprise number |
 | phác thảo | cấu trúc nhỏ cho ước lượng có bảo đảm | sketch |
-| $h$; $L$; $\rho(y)$; $R$ | hàm băm Flajolet–Martin; số bit giá trị băm; độ dài đuôi; độ dài đuôi lớn nhất | tail length, number of trailing zeros |
+| $h$; $L$; $\rho(\mathbf s)$; $R$ | hàm băm Flajolet–Martin; số bit giá trị băm; độ dài đuôi; độ dài đuôi lớn nhất | tail length, number of trailing zeros |
 | $q$; $g$; $Y_j$; $\widehat d$ | số hàm băm; số nhóm ($g$ lẻ, chia hết $q$); ước lượng $2^{R_j}$; ước lượng gộp | median trick |
+| $\xi$ | số ngẫu nhiên đều trên $\{1,\ldots,r\}$ của hồ chứa vị trí | |
 | $s$; $I$; $v_i$; $X=r(2v_I-1)$ | số biến AMS và sức chứa hồ chứa vị trí; vị trí được chọn; số lần $x_i$ xuất hiện trong $x_i,\ldots,x_r$; biến AMS | AMS variable |
 | phần tử nặng; $\kappa$; $\varepsilon$; $\delta$ | phần tử có $f_u\ge r/\kappa$; tham số sai số; xác suất thất bại | heavy hitter, frequent item |
 | họ băm phổ dụng | $\Pr[h(u)=h(u')]\le1/m$ với $u\ne u'$ | universal hash family |
@@ -69,12 +75,34 @@ Bảng theo bảng ký hiệu của ghi chú bài giảng (2026-11-04); mỗi ch
 | $c$; $D_r$; $D_r(u)$; $\theta$ | hằng số suy giảm; giá trị cửa sổ suy giảm; điểm phổ biến của $u$; ngưỡng điểm | decay constant, exponentially decaying window, most popular elements |
 | chi phí khấu hao; phương pháp thế năng | chi phí trung bình trên dãy thao tác; phân tích theo hàm thế | amortized cost; potential method |
 
-## Kiểm kê hình và nội dung
+## Kiểm kê hình của bộ trang chiếu
 
-- Chín SVG tự vẽ: bản đồ quyết định; vết FM; bảng Count-Min; vết AMS; trạng thái DGIM nền; truy vấn DGIM $k=10$; bài tập DGIM $k=5,15$; trạng thái đầu cho chuỗi gộp; so sánh trọng số cửa sổ.
-- Thuật toán: FM, Count-Min, AMS và cập nhật/truy vấn DGIM; truy hồi cửa sổ suy giảm.
-- Lập luận: ngưỡng FM dưới mô hình băm lý tưởng; cảnh báo đuôi nặng; nhiễu kỳ vọng, Markov và khuếch đại Count-Min; tính không chệch AMS; bất biến, chi phí và cận sai số DGIM.
-- Không có ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
+Mọi SVG sinh bằng `tools/courses/ds-foundation-algorithms/2627-1/img/lec-09/generate_deck_svg.py` (dùng lại hàm vẽ của `generate_svg.py`; không sửa sáu SVG của ghi chú). Mỗi tệp có `role="img"`, `<title>`, `<desc>`; trên trang có `alt` cụ thể; màu luôn kèm kiểu nét hoặc nhãn.
+
+| Tệp | Trang | Nội dung, số liệu (từ ghi chú) |
+|---|---|---|
+| `cau-truc-bai-09.svg` | P04 | Biến thể của `cau-truc-chuong-09.svg` với số mạch 2–6 thay "Mục k" |
+| `fm-bai-toan.svg` | F01 | Dòng IP của một trang → vector $2^{32}$ bit = 512 MiB; hình khái niệm |
+| `fm-nguong-hai-phia-trang-chieu.svg` | F12 | Bản trang chiếu của `fm-nguong-hai-phia.svg` (Ví dụ 09.5), $\ell=0..16$, chữ lớn hơn |
+| `ams-hai-phan-bo.svg` | M01 | Ví dụ 09.2: 910 và 8 110, cùng $F_0=11$ |
+| `ams-ba-bien-trang-chieu.svg` | M03 | Bản trang chiếu của `ams-ba-bien.svg` (Ví dụ 09.7), nhãn vị trí lớn hơn |
+| `cm-phan-tu-nang.svg` | C01 | §4.1: tần suất 5, 4, 3, 3; ngưỡng $r/\kappa=5$; b ở $r/\kappa-1$ |
+| `cm-ba-o.svg` | C04 | Ví dụ 09.11 (UMass trang chiếu 16): 104, 78, 90 → 78 |
+| `cm-bang-2x3.svg` | C06 | Ví dụ 09.12: phần tử băm vào mỗi ô theo $h_1$, $h_2$ |
+| `dgim-bai-toan.svg` | D01 | Dòng bit $\mathbf 1[x_i=\mathrm a]$, cửa sổ 8 bit có 3 bit 1; 125 MB mỗi URL |
+| `dgim-trang-thai-nen.svg` | D06 | Hình 4.2 (Ví dụ 09.14), không có đường truy vấn |
+| `dgim-truy-van-10.svg` | D10 | Hình 4.2, đường $k=10$, $b^*=(4,r-8)$ viền đậm (Ví dụ 09.15) |
+| `dgim-cap-nhat-trang-chieu.svg` | D15 | Bản trang chiếu của `dgim-cap-nhat.svg` (Ví dụ 09.16) |
+| `suy-giam-hai-phim.svg` | E01 | Ví dụ 09.17: phim A 1 × 10 tuần, phim B 2 ở tuần hiện nay |
+| `cua-so-suy-giam-trang-chieu.svg` | E03 | Bản trang chiếu của `cua-so-suy-giam.svg` (Định nghĩa 09.52, Nhận xét 09.54) |
+| `nam-yeu-cau.svg` | T01 | Ví dụ 09.20, phần dữ kiện; cột phác thảo để dấu hỏi |
+| `bai-4-4-1-dong.svg` | X01 | Bài tập 09.11: chín số → $h(x)=\alpha x+\beta\bmod32$ → chín ô 5 bit |
+| `dgim-bai-4-6-1.svg` | X04 | Hình 4.2 với hai ranh giới $k=5$, $k=15$, không ghi đáp số |
+| `dgim-bai-4-6-3.svg` | X05 | Hình 4.3 có mốc $r-25..r$, chú thích "có ít nhất một thùng cỡ 8" |
+
+SVG cũ của deck 53 trang đã `git rm` (không còn tệp nào dẫn tới): `ams-trace.svg`, `count-min.svg`, `dgim-buckets.svg`, `dgim-query-10.svg`, `dgim-exercise.svg`, `dgim-cascade-exercise.svg`, `fm-trace.svg`, `window-weights.svg`. `decision-map.svg` chưa xóa: `planning/lec-01/storyboard.md` (dòng 229) còn ghi tên tệp này làm nguồn cho hình của Bài 01. Sáu SVG của ghi chú giữ nguyên; `cau-truc-chuong-09.svg`, `fm-nguong-hai-phia.svg`, `ams-ba-bien.svg`, `dgim-trang-thai.svg`, `dgim-cap-nhat.svg`, `cua-so-suy-giam.svg` chỉ ghi chú dùng.
+
+Không có ảnh raster, mã trình diễn hay tài nguyên mạng cốt lõi.
 
 ## Bản đồ chủ đề ghi chú bài giảng
 
@@ -87,7 +115,7 @@ Theo bản đồ chủ đề của ghi chú (2026-11-04); thay bảng `L09-N01�
 | `lec-09-topic-03` | Đếm chính xác và giới hạn bộ nhớ | cốt lõi; cận dưới tất định là bổ sung | 2.1 | MMDS §4.4.1; BHK §6.2.1 tr.183 | Nhu cầu ước lượng $F_0$ |
 | `lec-09-topic-04` | Đuôi băm và ước lượng $2^R$ | cốt lõi | 2.2 | MMDS §4.4.2 | Chạy Flajolet–Martin; bất biến $R$ |
 | `lec-09-topic-05` | Ngưỡng hai phía | cốt lõi; dạng bất đẳng thức là bổ sung | 2.3 | MMDS §4.4.2 tr.143 | Cận $1/\lambda$ và $e^{-\lambda/2}$ |
-| `lec-09-topic-06` | Đuôi nặng và gộp ước lượng | cốt lõi; cận kỳ vọng và mẹo trung vị là bổ sung | 2.4 | MMDS §4.4.3; UMass bài 8 tr.3–5 | Trung bình trong nhóm rồi trung vị; cận $(4\eta)^{q/2}$ |
+| `lec-09-topic-06` | Phân phối đuôi nặng và gộp nhiều hàm băm | cốt lõi; cận kỳ vọng và mẹo trung vị là bổ sung | 2.4 | MMDS §4.4.3; UMass bài 8 tr.3–5 | Trung bình trong nhóm rồi trung vị; cận $(4\eta)^{q/2}$ |
 | `lec-09-topic-07` | Chi phí, hợp nhất, thực hành | cốt lõi | 2.5 | MMDS §4.4.4; UMass bài 8 tr.8 | Bộ nhớ theo bit; ghép phác thảo bằng max |
 | `lec-09-topic-08` | Biến AMS | cốt lõi | 3.1 | MMDS §4.5.2, Ví dụ 4.8 | Chạy biến AMS |
 | `lec-09-topic-09` | Tính không chệch | cốt lõi; tổng các số lẻ là cầu nối | 3.2 | MMDS §4.5.3, Bài tập 4.5.5 | $\mathbb E[X]=F_2$ |
@@ -114,22 +142,8 @@ Quan hệ tiên quyết: Mục 1 là đầu vào của mọi mục; Mục 3 dùn
 
 ## Ghi chú bài giảng 2026-11-04
 
-- Các mục về deck (mạch phần giảng, bài tập theo mã trang, tên mạch, kiểm kê hình của deck) phản ánh deck cũ cho tới khi deck được làm lại.
+- Các mục về deck ở đầu tệp đã được viết lại theo bộ trang chiếu mới (2026-11-04); deck là bản tóm lược của ghi chú, cùng thứ tự, ký hiệu, ví dụ và số hiệu kết quả.
 - Thứ tự mục của ghi chú: năm câu hỏi (Mục 1) → Flajolet–Martin → AMS → Count-Min → DGIM → cửa sổ suy giảm → chọn phác thảo. AMS đứng trước Count-Min vì $F_2$ không chỉ ra phần tử nặng, nên Count-Min nhận nhu cầu từ giới hạn của AMS; deck cũ đặt Count-Min trước AMS.
 - Nguồn: MMDS là trục cho Flajolet–Martin, AMS, DGIM và cửa sổ suy giảm; Count-Min theo UMass CS514 bài 10, vì MMDS không trình bày; BHK §6.2.1 cho cận dưới đếm chính xác và họ độc lập từng cặp; Stanford CS246 2017 cho bài toán URL, ví dụ dòng mưa và Tình huống 09.1.
 - Bỏ Count-Min cho cập nhật âm và các ví dụ tự dựng cũ của deck; dữ liệu tính tay của ghi chú được ghi ở quy ước nguồn trong bảng ký hiệu.
 - Ghi chú có 57 khối đánh số chung, 20 ví dụ, 3 tình huống, 19 bài tập (năm bài MMDS dùng cho phần vận dụng trên lớp) và sáu SVG trong `img/lec-09/`.
-
-## Tên mạch và trang tiêu đề mạch (2026-10-14)
-
-Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 53 trang.
-
-| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
-|---:|---|---|---|
-| 1 | Mở đầu | P00 (trang bìa) | — |
-| 2 | Đếm khóa phân biệt bằng Flajolet–Martin | FT | F00 |
-| 3 | Ước lượng tần suất bằng Count-Min Sketch | CT | C00 |
-| 4 | Mômen và ước lượng AMS | MT | M00 |
-| 5 | Đếm bit 1 trong cửa sổ bằng DGIM | DT | D00 |
-| 6 | Cửa sổ suy giảm và tổng kết | ET | E00 |
-| 7 | Bài tập vận dụng | XT | X00 |
