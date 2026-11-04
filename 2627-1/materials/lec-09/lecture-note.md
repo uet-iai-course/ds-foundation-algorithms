@@ -159,7 +159,7 @@ Năm câu hỏi có năm câu trả lời:
 **Kiểm tra lại.** $5+4+3+3=15$, bằng độ dài dòng.
 :::
 
-Câu 4 cần thêm vị trí, câu 5 cần một cách cân thời gian. Một cách trực quan, câu 1 đến câu 3 tóm tắt cùng một bảng tần suất thành một số: đếm số hàng, đọc một hàng, hay cộng bình phương các hàng. Mô tả này chưa phải định nghĩa; định nghĩa sau gom chúng vào một họ.
+Câu 4 cần thêm vị trí, câu 5 cần một cách cân thời gian. Một cách trực quan, câu 1 đến câu 3 tóm tắt cùng một bảng tần suất thành một số: đếm số hàng, đọc một hàng, hay cộng bình phương các hàng. Định nghĩa 09.1 gom chúng vào một họ.
 
 ::: definition Định nghĩa 09.1 (Tần suất và mômen bậc $p$)
 Cho dòng $x_1,\ldots,x_r$ gồm các phần tử của tập vũ trụ $\mathcal U$.
@@ -271,7 +271,7 @@ Với $\mathcal U$ là các địa chỉ IPv4, cận này đúng bằng 512 MiB,
 <!-- note-topic-id: lec-09-topic-04 -->
 ### 2.2 Đuôi băm và ước lượng $2^R$
 
-Một cách trực quan, càng nhiều phần tử phân biệt thì càng nhiều giá trị băm khác nhau, và càng dễ gặp một giá trị "hiếm" (MMDS §4.4.2, tr.143). Tính chất hiếm được chọn là kết thúc bằng nhiều bit 0: chuỗi ngẫu nhiên kết thúc bằng ít nhất $\ell$ bit 0 với xác suất $2^{-\ell}$, nên cần cỡ $2^\ell$ phần tử phân biệt mới có cơ hội thấy nó, và số bit 0 cuối dài nhất đã thấy cho biết cỡ của $d$. Mô tả này chưa phải định nghĩa; ví dụ sau tính nó trên bốn phần tử.
+Một cách trực quan, càng nhiều phần tử phân biệt thì càng nhiều giá trị băm khác nhau, và càng dễ gặp một giá trị "hiếm" (MMDS §4.4.2, tr.143). Tính chất hiếm được chọn là kết thúc bằng nhiều bit 0: chuỗi ngẫu nhiên kết thúc bằng ít nhất $\ell$ bit 0 với xác suất $2^{-\ell}$, nên cần cỡ $2^\ell$ phần tử phân biệt mới có cơ hội thấy nó, và số bit 0 cuối dài nhất đã thấy cho biết cỡ của $d$. Ví dụ 09.3 tính nó trên bốn phần tử.
 
 ::: example Ví dụ 09.3 (Đuôi băm của bốn phần tử)
 **Dữ kiện.** Dòng mười lăm phần tử $\mathrm{a},\mathrm{b},\mathrm{c},\mathrm{b},\mathrm{d},\mathrm{a},\mathrm{c},\mathrm{d},\mathrm{a},\mathrm{b},\mathrm{d},\mathrm{c},\mathrm{a},\mathrm{a},\mathrm{b}$ có bốn phần tử phân biệt; một hàm băm $h_1$ cho bốn giá trị 5 bit:
@@ -385,7 +385,7 @@ Bỏ tính tất định thì (a) sai: nếu mỗi lần gọi $h$ trả một c
 
 Ví dụ 09.4 cho ba ước lượng 2, 8, 16 trên cùng $d=4$. Chúng ta tính xác suất để $2^R$ lệch khỏi $d$ quá một hệ số cho trước; MMDS (tr.143) chỉ trả lời định tính.
 
-Một cách trực quan, mỗi phần tử phân biệt là một lần thử độc lập để có đuôi dài $\ell$, mỗi lần thành công với xác suất $2^{-\ell}$. Với $d$ lần thử, gần như chắc chắn có thành công khi $2^\ell$ nhỏ hơn nhiều $d$, và gần như chắc chắn không khi $2^\ell$ lớn hơn nhiều $d$. Mô tả này chưa phải mô hình; định nghĩa sau nói rõ "ngẫu nhiên" và "độc lập" nghĩa là gì.
+Một cách trực quan, mỗi phần tử phân biệt là một lần thử độc lập để có đuôi dài $\ell$, mỗi lần thành công với xác suất $2^{-\ell}$. Với $d$ lần thử, gần như chắc chắn có thành công khi $2^\ell$ nhỏ hơn nhiều $d$, và gần như chắc chắn không khi $2^\ell$ lớn hơn nhiều $d$. Định nghĩa 09.8 nói rõ "ngẫu nhiên" và "độc lập" nghĩa là gì.
 
 ::: definition Định nghĩa 09.8 (Mô hình băm lý tưởng)
 Hàm $h:\mathcal U\to\{0,1\}^L$ được chọn ngẫu nhiên trước dòng. Dưới **mô hình băm lý tưởng**, với mọi tập $d$ phần tử phân biệt $u_1,\ldots,u_d$, các giá trị $h(u_1),\ldots,h(u_d)$ độc lập và mỗi giá trị đều trên $\{0,1\}^L$. Xác suất lấy theo phép chọn $h$; dòng được coi là cố định.
@@ -591,7 +591,7 @@ Một lựa chọn khác là lấy trung vị, vốn không bị một giá tr�
 Trung vị của một số lẻ giá trị là một trong các giá trị đó. Mọi ước lượng $2^{R_j}$ là lũy thừa của 2, nên trung vị của chúng cũng là lũy thừa của 2. Khi $d=400$ (MMDS tr.144), hai lũy thừa của 2 gần nhất là 256 và 512, nên trung vị sai ít nhất $\min(400-256,\,512-400)=112$, tức sai số tương đối ít nhất $112/400=28\%$, dù dùng bao nhiêu hàm băm.
 :::
 
-Trung bình cho được mọi giá trị nhưng bị đuôi nặng kéo lệch; trung vị không bị kéo lệch nhưng chỉ cho lũy thừa của 2. Về mặt ý tưởng, nếu lấy trung bình trong từng nhóm nhỏ, một giá trị quá lớn chỉ làm hỏng nhóm chứa nó, và trung vị của các nhóm bỏ qua nhóm đó. Mô tả này chưa phải thuật toán; ví dụ sau kết hợp hai phép theo thứ tự của MMDS (tr.144).
+Trung bình cho được mọi giá trị nhưng bị đuôi nặng kéo lệch; trung vị không bị kéo lệch nhưng chỉ cho lũy thừa của 2. Về mặt ý tưởng, nếu lấy trung bình trong từng nhóm nhỏ, một giá trị quá lớn chỉ làm hỏng nhóm chứa nó, và trung vị của các nhóm bỏ qua nhóm đó. Ví dụ 09.6 kết hợp hai phép theo thứ tự của MMDS (tr.144).
 
 ::: example Ví dụ 09.6 (Gộp sáu ước lượng)
 **Dữ kiện.** Dòng mười lăm phần tử của Ví dụ 09.3, $d=4$. Sáu hàm băm 5 bit; hàng $h_1$ đã có ở Ví dụ 09.3, ba hàng $h_3$, $h_4$, $h_5$ ở Ví dụ 09.4.
@@ -803,7 +803,7 @@ Hai dòng của Ví dụ 09.2 có cùng độ dài 100 và cùng 11 phần tử 
 <!-- note-topic-id: lec-09-topic-08 -->
 ### 3.1 Biến AMS
 
-Một cách trực quan, chọn một vị trí ngẫu nhiên của dòng, rồi đếm số lần phần tử ở vị trí đó xuất hiện từ vị trí đó trở về sau. Phần tử xuất hiện nhiều vừa dễ được chọn, vừa có bộ đếm lớn, nên một hàm tăng của bộ đếm phản ánh $\sum_uf_u^2$ chứ không chỉ $\sum_uf_u$. Mô tả này chưa phải định nghĩa; ví dụ sau của MMDS chạy nó trên dòng mười lăm phần tử.
+Một cách trực quan, chọn một vị trí ngẫu nhiên của dòng, rồi đếm số lần phần tử ở vị trí đó xuất hiện từ vị trí đó trở về sau. Phần tử xuất hiện nhiều vừa dễ được chọn, vừa có bộ đếm lớn, nên một hàm tăng của bộ đếm phản ánh $\sum_uf_u^2$ chứ không chỉ $\sum_uf_u$. Ví dụ 09.7, theo MMDS, chạy nó trên dòng mười lăm phần tử.
 
 ::: example Ví dụ 09.7 (Ba biến trên dòng mười lăm phần tử)
 **Dữ kiện.** Dòng $\mathrm{a},\mathrm{b},\mathrm{c},\mathrm{b},\mathrm{d},\mathrm{a},\mathrm{c},\mathrm{d},\mathrm{a},\mathrm{b},\mathrm{d},\mathrm{c},\mathrm{a},\mathrm{a},\mathrm{b}$, độ dài $r=15$, có $F_2=59$ (Ví dụ 09.1). Ba biến được chọn ở vị trí 3, 8, 13 (MMDS Ví dụ 4.7, tr.146–147).
@@ -1050,7 +1050,7 @@ Các số hạng giữa triệt tiêu, và $0^p=0$ vì $p\ge2$. Cộng theo $u$ 
 
 Thuật toán 09.20 rút vị trí trước dòng, nên cần biết $r$. Theo MMDS (§4.5.5, tr.148), phép nhân với $r$ không khó, vì chỉ cần giữ $r$ riêng; khó ở vị trí: chọn vị trí một lần cho mãi thì các vị trí sớm được ưu tiên và ước lượng quá lớn, như kỳ vọng 93 thay cho 59 khi bỏ giả thiết $I$ đều của Định lý 09.22.
 
-Về mặt ý tưởng, các vị trí bắt đầu của $s$ biến cần là một mẫu đều của các vị trí đã đọc ở mọi thời điểm, đúng yêu cầu mà hồ chứa của Bài 08 thỏa (Định lý 08.17). Mô tả này chưa phải thuật toán; ví dụ sau chạy nó với hai biến. Ký hiệu $\xi$ là số ngẫu nhiên rút khi phần tử thứ $r>s$ đến.
+Về mặt ý tưởng, các vị trí bắt đầu của $s$ biến cần là một mẫu đều của các vị trí đã đọc ở mọi thời điểm, đúng yêu cầu mà hồ chứa của Bài 08 thỏa (Định lý 08.17). Ví dụ 09.10 chạy nó với hai biến. Ký hiệu $\xi$ là số ngẫu nhiên rút khi phần tử thứ $r>s$ đến.
 
 ::: example Ví dụ 09.10 (Vết chạy với hai biến trên năm phần tử đầu)
 **Dữ kiện.** Năm phần tử đầu của dòng mười lăm phần tử: $\mathrm a,\mathrm b,\mathrm c,\mathrm b,\mathrm d$. Số biến $s=2$. Các số ngẫu nhiên đã rút: $\xi=3$ khi $r=3$, $\xi=1$ khi $r=4$, $\xi=4$ khi $r=5$, mỗi số đều trên $\{1,\ldots,r\}$.
@@ -1288,7 +1288,7 @@ Bỏ giả thiết không âm thì bổ đề sai: $Z=10$ hoặc $-10$ với xá
 <!-- note-topic-id: lec-09-topic-14 -->
 ### 4.3 Bảng $t\times m$ và phép lấy cực tiểu
 
-Một cách trực quan, nhiều phần tử dùng chung một bộ đếm trong một mảng nhỏ qua một hàm băm, nên bộ đếm của $u$ bằng $f_u$ cộng tần suất của các phần tử va chạm, không bao giờ nhỏ hơn $f_u$. Với nhiều mảng và hàm băm độc lập, bộ đếm nhỏ nhất là bộ đếm ít nhiễu nhất (UMass, trang chiếu 12–16). Mô tả này chưa phải định nghĩa; ví dụ sau của UMass cho thấy phép lấy cực tiểu.
+Một cách trực quan, nhiều phần tử dùng chung một bộ đếm trong một mảng nhỏ qua một hàm băm, nên bộ đếm của $u$ bằng $f_u$ cộng tần suất của các phần tử va chạm, không bao giờ nhỏ hơn $f_u$. Với nhiều mảng và hàm băm độc lập, bộ đếm nhỏ nhất là bộ đếm ít nhiễu nhất (UMass, trang chiếu 12–16). Ví dụ 09.11, theo UMass, cho thấy phép lấy cực tiểu.
 
 ::: example Ví dụ 09.11 (Ba ô của một phần tử)
 **Dữ kiện.** Theo UMass (bài 10, trang chiếu 16), ba ô mà phần tử $u$ được băm tới ở hàng 1, 2, 3 của một bảng ba hàng chứa lần lượt 104, 78 và 90.
@@ -1546,7 +1546,7 @@ Trong Mục 5, $x_i\in\{0,1\}$ là bit ở vị trí $i$, $r$ là vị trí củ
 <!-- note-topic-id: lec-09-topic-16 -->
 ### 5.1 Cận dưới $N$ bit cho lời giải chính xác
 
-Một cách trực quan, nếu hai cửa sổ khác nhau lại cho cùng một trạng thái, thuật toán không thể trả lời đúng cho cả hai ở mọi truy vấn; với $2^N$ cửa sổ có thể, trạng thái phải có ít nhất $2^N$ giá trị. Mô tả này chưa phải chứng minh; ví dụ sau của MMDS cho hai cặp cửa sổ có thể bị nhầm.
+Một cách trực quan, nếu hai cửa sổ khác nhau lại cho cùng một trạng thái, thuật toán không thể trả lời đúng cho cả hai ở mọi truy vấn; với $2^N$ cửa sổ có thể, trạng thái phải có ít nhất $2^N$ giá trị. Ví dụ 09.13, theo MMDS, cho hai cặp cửa sổ có thể bị nhầm.
 
 ::: example Ví dụ 09.13 (Hai cửa sổ khác nhau)
 **Dữ kiện.** Cửa sổ độ dài $N=4$, bit mới nhất bên phải (MMDS Ví dụ 4.10, tr.151).
@@ -1588,7 +1588,7 @@ Chứng minh theo MMDS (§4.6.1, tr.151), cùng kiểu lập luận đếm của
 <!-- note-topic-id: lec-09-topic-17 -->
 ### 5.2 Thùng, sáu quy tắc và bộ nhớ
 
-Về mặt ý tưởng, tóm tắt các đoạn có độ dài tăng theo lũy thừa của 2 sai nhiều khi các bit 1 dồn vào một đoạn dài mà ta chỉ biết tổng (trang chiếu MMDS, Streams 1, tr.29–31); DGIM chọn các đoạn sao cho **số bit 1** mỗi đoạn là lũy thừa của 2 và không giảm về quá khứ (tr.32). Mô tả này chưa phải định nghĩa; ví dụ sau đọc trạng thái mà MMDS vẽ ở Hình 4.2.
+Về mặt ý tưởng, tóm tắt các đoạn có độ dài tăng theo lũy thừa của 2 sai nhiều khi các bit 1 dồn vào một đoạn dài mà ta chỉ biết tổng (trang chiếu MMDS, Streams 1, tr.29–31); DGIM chọn các đoạn sao cho **số bit 1** mỗi đoạn là lũy thừa của 2 và không giảm về quá khứ (tr.32). Ví dụ 09.14 đọc trạng thái mà MMDS vẽ ở Hình 4.2.
 
 ::: example Ví dụ 09.14 (Trạng thái của MMDS Hình 4.2)
 **Dữ kiện.** Hai mươi lăm bit cuối của dòng, từ cũ sang mới, ở các vị trí $r-24,\ldots,r$ (MMDS Hình 4.2, tr.152):
@@ -1667,7 +1667,7 @@ Bước 1–2 xử lý cả trường hợp thùng cũ nhất vắt qua biên tr
 <!-- note-topic-id: lec-09-topic-18 -->
 ### 5.3 Truy vấn và cận sai số 50%
 
-Biểu diễn chỉ giữ mốc phải và kích thước, nên một thùng vắt qua biên của $k$ vị trí cuối chỉ cho biết một phần bit 1 của nó nằm trong hậu tố. Về mặt ý tưởng, mọi thùng mới hơn thùng chứa biên được cộng đủ, còn thùng chứa biên chỉ được đoán một nửa; quy tắc 4 bảo đảm phần đã cộng đủ lớn để lỗi đoán không vượt một nửa đáp số. Mô tả này chưa phải thuật toán; ví dụ sau của MMDS cho thấy cách làm.
+Biểu diễn chỉ giữ mốc phải và kích thước, nên một thùng vắt qua biên của $k$ vị trí cuối chỉ cho biết một phần bit 1 của nó nằm trong hậu tố. Về mặt ý tưởng, mọi thùng mới hơn thùng chứa biên được cộng đủ, còn thùng chứa biên chỉ được đoán một nửa; quy tắc 4 bảo đảm phần đã cộng đủ lớn để lỗi đoán không vượt một nửa đáp số. Ví dụ 09.15, theo MMDS, cho thấy cách làm.
 
 ::: example Ví dụ 09.15 (Mười vị trí cuối của Hình 4.2)
 **Dữ kiện.** Trạng thái của Ví dụ 09.14: các thùng (kích thước, mốc phải) là $(1,r-1)$, $(1,r-2)$, $(2,r-4)$, $(4,r-8)$, $(4,r-14)$, $(8,r-22)$. Truy vấn $k=10$, tức các vị trí $r-9,\ldots,r$ (MMDS Ví dụ 4.12, tr.153–154).
@@ -1746,7 +1746,7 @@ Bước 1 và Bước 5 dùng quy tắc 1, 2, 3 và điều kiện mốc phải 
 <!-- note-topic-id: lec-09-topic-19 -->
 ### 5.4 Cập nhật và gộp dây chuyền
 
-Định lý 09.46 giả sử biểu diễn thỏa sáu quy tắc, nên phép cập nhật khi một bit mới đến phải giữ chúng. Một cách trực quan, bit 1 mới là một thùng cỡ 1, và khi một kích thước có ba thùng, hai thùng cũ nhất hợp thành một thùng cỡ gấp đôi, giống phép nhớ khi cộng 1 vào một số nhị phân. Mô tả này chưa phải thuật toán; ví dụ sau của MMDS thêm một bit 1 vào trạng thái của Hình 4.2.
+Định lý 09.46 giả sử biểu diễn thỏa sáu quy tắc, nên phép cập nhật khi một bit mới đến phải giữ chúng. Một cách trực quan, bit 1 mới là một thùng cỡ 1, và khi một kích thước có ba thùng, hai thùng cũ nhất hợp thành một thùng cỡ gấp đôi, giống phép nhớ khi cộng 1 vào một số nhị phân. Ví dụ 09.16, theo MMDS, thêm một bit 1 vào trạng thái của Hình 4.2.
 
 ::: example Ví dụ 09.16 (Một bit 1 mới trên Hình 4.2)
 **Dữ kiện.** Các thùng (kích thước, mốc phải) $(8,r-22)$, $(4,r-14)$, $(4,r-8)$, $(2,r-4)$, $(1,r-2)$, $(1,r-1)$ của Ví dụ 09.14. Bit 1 đến ở vị trí $r+1$; thùng cũ nhất chưa ra khỏi cửa sổ (MMDS Ví dụ 4.13, tr.155).
@@ -1910,7 +1910,7 @@ Với sản phẩm của Amazon hay người dùng Twitter, số phần tử qu�
 <!-- note-topic-id: lec-09-topic-21 -->
 ### 6.1 Trọng số giảm theo tuổi
 
-Một cách trực quan, mỗi phần tử mang trọng số 1 khi vừa đến, và mỗi khi có thêm một phần tử mới, mọi trọng số cũ nhân với $1-c$ cho một hằng số nhỏ $c$. Phần tử càng cũ càng nhẹ nhưng không bao giờ bị cắt hẳn. Mô tả này chưa phải định nghĩa; ví dụ sau áp nó cho hai phim, với đơn vị thời gian là tuần.
+Một cách trực quan, mỗi phần tử mang trọng số 1 khi vừa đến, và mỗi khi có thêm một phần tử mới, mọi trọng số cũ nhân với $1-c$ cho một hằng số nhỏ $c$. Phần tử càng cũ càng nhẹ nhưng không bao giờ bị cắt hẳn. Ví dụ 09.17 áp nó cho hai phim, với đơn vị thời gian là tuần.
 
 ::: example Ví dụ 09.17 (Mười tuần so với một tuần)
 **Dữ kiện.** Đo số vé theo một đơn vị chung: phim A bán 1 đơn vị mỗi tuần trong 10 tuần gần nhất; phim B bán 2 đơn vị tuần gần nhất và không bán trước đó (MMDS §4.7.1, tr.158). Mỗi tuần là một phần tử mang số vé của tuần; $c=0{,}1$ mỗi tuần.
@@ -2004,7 +2004,7 @@ Hình vẽ lại ý của MMDS Hình 4.4 (tr.158) với $c=0{,}1$. Cửa sổ tr
 <!-- note-topic-id: lec-09-topic-22 -->
 ### 6.2 Duy trì các phần tử phổ biến
 
-Giữ $D_r(u)$ cho mọi $u$ tốn $d$ số. Một cách trực quan, tổng mọi điểm nhỏ hơn $1/c$ (Mệnh đề 09.53(c)), nên chỉ ít phần tử có điểm lớn, và các phần tử còn lại có thể quên mà chỉ mất phần điểm nhỏ. Mô tả này chưa phải thuật toán.
+Giữ $D_r(u)$ cho mọi $u$ tốn $d$ số. Một cách trực quan, tổng mọi điểm nhỏ hơn $1/c$ (Mệnh đề 09.53(c)), nên chỉ ít phần tử có điểm lớn, và các phần tử còn lại có thể quên mà chỉ mất phần điểm nhỏ.
 
 Để tìm các phần tử phổ biến (most popular elements), MMDS (§4.7.3, tr.159) chỉ giữ điểm đạt một ngưỡng. Ký hiệu $\widehat D_r(u)$ là điểm được duy trì của $u$ sau $r$ phần tử; ví dụ sau dùng ngưỡng $\theta=1/2$ của MMDS.
 
