@@ -931,7 +931,7 @@ $$
 :::
 
 ::: remark Nhận xét 08.21 (Trong thực hành)
-Giả thiết đều và độc lập của Định lý 08.17 được xấp xỉ bằng bộ sinh số giả ngẫu nhiên có hạt giống. Khi rút $j$ trong $\{1,\ldots,r\}$ từ một số đều trên $\{0,\ldots,2^{64}-1\}$, phép lấy dư cho $r$ chỉ đều khi $r$ chia hết $2^{64}$; với $r$ khác, các giá trị nhỏ được ưu tiên một chút, và cách rút đúng loại bỏ phần dư rồi rút lại. Bộ đếm $r$ vừa một từ 64 bit khi $r<2^{64}$ (Mục 1.4). Hồ chứa có cỡ cố định nên dùng được khi ngân sách bộ nhớ chỉ cho $s$ phần tử, nhưng không trả lời được thống kê theo người dùng. MMDS (hộp "A General Stream-Sampling Problem", tr.150) nối hai cấu trúc: khi một khóa trong mẫu theo khóa có quá nhiều bộ, giữ cho khóa đó một hồ chứa $s$ ô, để số bộ của mỗi khóa không vượt $s$. Hồ chứa chọn đều trên toàn bộ lịch sử, nên phần tử vừa đến có cùng xác suất có mặt $s/r$ như một phần tử rất cũ; muốn ưu tiên giai đoạn gần đây cần một cửa sổ, như cửa sổ DGIM và cửa sổ suy giảm mũ ở ghi chú Bài 09, Mục 6 và Mục 8.
+Giả thiết đều và độc lập của Định lý 08.17 được xấp xỉ bằng bộ sinh số giả ngẫu nhiên có hạt giống. Khi rút $j$ trong $\{1,\ldots,r\}$ từ một số đều trên $\{0,\ldots,2^{64}-1\}$, phép lấy dư cho $r$ chỉ đều khi $r$ chia hết $2^{64}$; với $r$ khác, các giá trị nhỏ được ưu tiên một chút, và cách rút đúng loại bỏ phần dư rồi rút lại. Bộ đếm $r$ vừa một từ 64 bit khi $r<2^{64}$ (Mục 1.4). Hồ chứa có cỡ cố định nên dùng được khi ngân sách bộ nhớ chỉ cho $s$ phần tử, nhưng không trả lời được thống kê theo người dùng. MMDS (hộp "A General Stream-Sampling Problem", tr.150) nối hai cấu trúc: khi một khóa trong mẫu theo khóa có quá nhiều bộ, giữ cho khóa đó một hồ chứa $s$ ô, để số bộ của mỗi khóa không vượt $s$. Hồ chứa chọn đều trên toàn bộ lịch sử, nên phần tử vừa đến có cùng xác suất có mặt $s/r$ như một phần tử rất cũ; muốn ưu tiên giai đoạn gần đây cần một cửa sổ, như cửa sổ DGIM và cửa sổ suy giảm mũ ở ghi chú Bài 09, Mục 5 và Mục 6.
 :::
 
 Bảng dưới đặt hai cấu trúc lấy mẫu của chương cạnh nhau.
@@ -1447,7 +1447,7 @@ Ba tình huống dưới đây giải trọn ba bài toán bằng công cụ c�
 **Ứng dụng trong bài sau.**
 
 - Ghi chú Bài 09, Mục 2 (Flajolet–Martin) dùng tính tất định của hàm băm, như mẫu theo khóa: cùng khóa luôn cho cùng giá trị băm, nên số phần tử phân biệt được ước lượng mà không lưu danh sách khóa.
-- Ghi chú Bài 09, Mục 5 (biến AMS) chọn vị trí bắt đầu bằng lấy mẫu hồ chứa cỡ 1, nên mỗi vị trí được chọn với xác suất $1/r$, trường hợp $s=1$ của Định lý 08.17.
+- Ghi chú Bài 09, Mục 3 (biến AMS) giữ vị trí bắt đầu của $s$ biến bằng một hồ chứa $s$ vị trí, nên mỗi vị trí đã đọc được một biến giữ với xác suất $s/r$, đúng Định lý 08.17.
 
 <!-- note-topic-id: lec-08-topic-15 -->
 ## Tóm tắt chương
@@ -1670,5 +1670,5 @@ MMDS (hộp "A General Stream-Sampling Problem", tr.150) đề xuất kết hợ
 - Ullman, J. D. (2017). Stanford CS246, *Streams 2*, tr.5–8: ví dụ Bloom filter 11 bit với các khóa 25, 159, 585 và truy vấn 118 (Ví dụ 08.11–08.12).
 - Welford, B. P. (1962). Note on a method for calculating corrected sums of squares and products, *Technometrics* 4(3), 419–420. Phép cập nhật trung bình và tổng bình phương độ lệch trong đoạn "Trong thực hành" sau Bài tập 08.1; bổ sung ngoài nguồn chính.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14.
-- Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 5 (biến AMS, dùng hồ chứa cỡ 1), ứng với MMDS §4.4–4.7. Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; nội dung này không cần cho bài tập.
+- Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 3 (biến AMS, dùng hồ chứa $s$ vị trí), ứng với MMDS §4.4–4.7. Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; nội dung này không cần cho bài tập.
 - Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"; mục "Mô hình ngẫu nhiên và giới hạn suy luận"), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.
