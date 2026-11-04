@@ -48,7 +48,7 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 | $F_p$; $p$ | mômen bậc $p$ của dòng; bậc của mômen | số nguyên không âm; $p\in\{0,1,2,\ldots\}$ |
 | $d$ | số phần tử phân biệt đã đọc, $d=F_0$ | số nguyên không âm |
 | $h$; $L$ | hàm băm của thuật toán Flajolet–Martin; số bit của giá trị băm | $\mathcal U\to\{0,1\}^L$; số nguyên dương |
-| $\rho(y)$; $\ell$ | độ dài đuôi của chuỗi bit $y$; một ngưỡng độ dài đuôi | $\{0,\ldots,L\}$ |
+| $\rho(\mathbf s)$; $\ell$ | độ dài đuôi của chuỗi bit $\mathbf s$; một ngưỡng độ dài đuôi | $\{0,\ldots,L\}$ |
 | $R$ | độ dài đuôi lớn nhất đã thấy | $\{0,\ldots,L\}$ |
 | $q$; $g$ | số hàm băm Flajolet–Martin chạy song song; số nhóm khi gộp ước lượng | số nguyên dương, $g$ lẻ và chia hết $q$ |
 | $Y_j$; $\widehat d$ | ước lượng $2^{R_j}$ của hàm băm thứ $j$; ước lượng gộp | số thực dương |
@@ -87,7 +87,7 @@ Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại ti�
 | Đếm chính xác và giới hạn bộ nhớ (`lec-09-topic-03`) | cốt lõi; cận dưới tất định là bổ sung | 2.1 | 512 MiB một dòng → nhu cầu ước lượng |
 | Đuôi băm và ước lượng $2^R$ (`lec-09-topic-04`) | cốt lõi | 2.2 | $\rho$, $R$, bất biến → phân tích xác suất |
 | Ngưỡng hai phía (`lec-09-topic-05`) | cốt lõi; dạng bất đẳng thức là bổ sung | 2.3 | Cận $1/\lambda$, $e^{-\lambda/2}$ → nhu cầu gộp |
-| Đuôi nặng và gộp ước lượng (`lec-09-topic-06`) | cốt lõi; cận kỳ vọng và mẹo trung vị là bổ sung | 2.4 | Trung bình rồi trung vị → Mục 3.5 |
+| Phân phối đuôi nặng và gộp ước lượng (`lec-09-topic-06`) | cốt lõi; cận kỳ vọng và mẹo trung vị là bổ sung | 2.4 | Trung bình rồi trung vị → Mục 3.5 |
 | Chi phí, hợp nhất, thực hành (`lec-09-topic-07`) | cốt lõi | 2.5 | Bộ nhớ theo bit → Tình huống 09.1 |
 | Biến AMS (`lec-09-topic-08`) | cốt lõi | 3.1 | $v_i$, $X=r(2v_I-1)$ → không chệch |
 | Tính không chệch (`lec-09-topic-09`) | cốt lõi; tổng các số lẻ là cầu nối | 3.2 | $\mathbb E[X]=F_2$ → Mục 3.3–3.4 |
@@ -289,7 +289,7 @@ Một cách trực quan, càng nhiều phần tử phân biệt thì càng nhi�
 ::: definition Định nghĩa 09.5 (Độ dài đuôi và ước lượng Flajolet–Martin)
 Cho hàm băm $h:\mathcal U\to\{0,1\}^L$.
 
-- **Độ dài đuôi** (tail length), còn gọi là số bit 0 ở cuối (number of trailing zeros), của chuỗi $y\in\{0,1\}^L$ là số bit 0 liên tiếp ở cuối $y$, ký hiệu $\rho(y)$; với chuỗi toàn 0 đặt $\rho(0^L)=L$.
+- **Độ dài đuôi** (tail length), còn gọi là số bit 0 ở cuối (number of trailing zeros), của chuỗi $\mathbf s\in\{0,1\}^L$ là số bit 0 liên tiếp ở cuối $\mathbf s$, ký hiệu $\rho(\mathbf s)$; với chuỗi toàn 0 đặt $\rho(0^L)=L$.
 - Sau dòng $x_1,\ldots,x_r$ với $r\ge1$, **độ dài đuôi lớn nhất** là $R=\max_{1\le i\le r}\rho(h(x_i))$.
 - **Ước lượng Flajolet–Martin** của $d$ là $2^R$; với dòng rỗng, ước lượng là 0.
 :::
@@ -482,7 +482,7 @@ $$
 **Bước 6 (gộp).** Biến cố $d/\lambda<2^R<\lambda d$ là phần bù của hợp hai biến cố ở (b) và (c); theo cận hợp, xác suất của hợp không vượt $1/\lambda+e^{-\lambda/2}$. $\square$
 :::
 
-Với một hàm băm lý tưởng, ước lượng vượt $\lambda$ lần giá trị thật với xác suất không quá $1/\lambda$, và thấp hơn $\lambda$ lần với xác suất không quá $e^{-\lambda/2}$; đuôi dưới giảm theo hàm mũ của $\lambda$, đuôi trên chỉ như $1/\lambda$.
+Với một hàm băm lý tưởng, ước lượng vượt $\lambda$ lần giá trị thật với xác suất không quá $1/\lambda$, và thấp hơn $\lambda$ lần với xác suất không quá $e^{-\lambda/2}$; xác suất lệch xuống giảm theo hàm mũ của $\lambda$, xác suất lệch lên chỉ giảm như $1/\lambda$.
 
 Hai kết luận định tính của MMDS (tr.143) là giới hạn của (a): khi $d\gg2^\ell$, $(1-2^{-\ell})^d\le e^{-d2^{-\ell}}$ gần 0, nên gần như chắc chắn thấy đuôi dài $\ell$; khi $d\ll2^\ell$, xác suất đó không quá $d2^{-\ell}$.
 
@@ -513,7 +513,7 @@ Hình vẽ công thức (a) với $d=1\,000$. Cột giảm từ gần 1 xuống 
 Như vậy, với một hàm băm lý tưởng, $2^R$ nằm trong khoảng $(d/\lambda,\lambda d)$ với xác suất ít nhất $1-1/\lambda-e^{-\lambda/2}$ (Định lý 09.10). Hệ số $\lambda=4$ chỉ cho xác suất khoảng $0{,}6$ đến $0{,}76$, quá thấp để dùng. Cách hiển nhiên để làm tốt hơn là chạy nhiều hàm băm và gộp các ước lượng, nhưng cách gộp phải chọn theo phân phối của $2^R$.
 
 <!-- note-topic-id: lec-09-topic-06 -->
-### 2.4 Đuôi nặng và gộp nhiều hàm băm
+### 2.4 Phân phối đuôi nặng và gộp nhiều hàm băm
 
 Chạy sáu hàm băm trên dòng mười lăm phần tử cho sáu ước lượng $4,4,2,8,16,4$ (bảng đủ ở Ví dụ 09.6). Trung bình của chúng là $38/6\approx6{,}33$, lớn hơn $d=4$ gần $60\%$, và phần lớn độ lệch đến từ một giá trị 16. Theo MMDS (§4.4.3, tr.144), một giá trị quá lớn hiếm khi xảy ra nhưng kéo trung bình đi rất xa; mệnh đề sau lượng hóa điều đó.
 
@@ -581,7 +581,7 @@ theo Định lý 09.10(a), bất đẳng thức $1-z\le e^{-z}$ và Bước 4. D
 **Bước 6 (cộng lại).** Các số hạng với $\ell<\ell_0$ không âm. Có $L-\ell_0+1$ giá trị $\ell$ trong $[\ell_0,L]$, mỗi giá trị góp ít nhất $d/4$, nên $\mathbb E[2^R]\ge1+\frac d4(L-\ell_0+1)$. $\square$
 :::
 
-Với $d=1$ và $L=64$, kỳ vọng của ước lượng là 33 dù chỉ có một phần tử. Với $d=10^6$ và $L=64$, $\ell_0=20$, nên $\mathbb E[2^R]>1{,}1\cdot10^7$, tức ít nhất khoảng $11d$; tính trực tiếp theo Bước 3 cho khoảng $22{,}6d$.
+Với $d=1$ và $L=64$, kỳ vọng của ước lượng là $L/2+1=33$ dù chỉ có một phần tử; cận (b) với $\ell_0=1$ chỉ cho $1+64/4=17$. Với $d=10^6$ và $L=64$, $\ell_0=20$, nên $\mathbb E[2^R]>1{,}1\cdot10^7$, tức ít nhất khoảng $11d$; tính trực tiếp theo Bước 3 cho khoảng $22{,}6d$.
 
 Mỗi số hạng của Bước 3 góp ít nhất $d/4$ bất kể $\ell$: xác suất có đuôi dài thêm 1 giảm một nửa, nhưng $2^R$ tăng gấp đôi (MMDS tr.144, chú thích 3). Do đó trung bình của nhiều ước lượng $2^{R_j}$ hội tụ về $\mathbb E[2^R]$, lớn hơn $d$ nhiều khi $L$ lớn hơn nhiều $\log_2d$, chứ không về $d$.
 
@@ -591,7 +591,7 @@ Một lựa chọn khác là lấy trung vị, vốn không bị một giá tr�
 Trung vị của một số lẻ giá trị là một trong các giá trị đó. Mọi ước lượng $2^{R_j}$ là lũy thừa của 2, nên trung vị của chúng cũng là lũy thừa của 2. Khi $d=400$ (MMDS tr.144), hai lũy thừa của 2 gần nhất là 256 và 512, nên trung vị sai ít nhất $\min(400-256,\,512-400)=112$, tức sai số tương đối ít nhất $112/400=28\%$, dù dùng bao nhiêu hàm băm.
 :::
 
-Trung bình cho được mọi giá trị nhưng bị đuôi nặng kéo lệch; trung vị không bị kéo lệch nhưng chỉ cho lũy thừa của 2. Về mặt ý tưởng, nếu lấy trung bình trong từng nhóm nhỏ, một giá trị quá lớn chỉ làm hỏng nhóm chứa nó, và trung vị của các nhóm bỏ qua nhóm đó. Ví dụ 09.6 kết hợp hai phép theo thứ tự của MMDS (tr.144).
+Trung bình cho được mọi giá trị nhưng bị phân phối đuôi nặng (heavy-tailed distribution) kéo lệch; trung vị không bị kéo lệch nhưng chỉ cho lũy thừa của 2. Về mặt ý tưởng, nếu lấy trung bình trong từng nhóm nhỏ, một giá trị quá lớn chỉ làm hỏng nhóm chứa nó, và trung vị của các nhóm bỏ qua nhóm đó. Ví dụ 09.6 kết hợp hai phép theo thứ tự của MMDS (tr.144).
 
 ::: example Ví dụ 09.6 (Gộp sáu ước lượng)
 **Dữ kiện.** Dòng mười lăm phần tử của Ví dụ 09.3, $d=4$. Sáu hàm băm 5 bit; hàng $h_1$ đã có ở Ví dụ 09.3, ba hàng $h_3$, $h_4$, $h_5$ ở Ví dụ 09.4.
@@ -798,7 +798,7 @@ Như vậy, chúng ta đã có một ước lượng cho $F_0$ chỉ cần một
 
 ## 3. Mômen bậc hai và ước lượng AMS
 
-Hai dòng của Ví dụ 09.2 có cùng độ dài 100 và cùng 11 phần tử phân biệt, nhưng số bất ngờ là 910 và $8\,110$. Lời giải chính xác cho $F_2$ giữ $d$ bộ đếm (Nhận xét 09.3), với dòng địa chỉ IP là hàng tỷ bộ đếm. Chúng ta ước lượng $F_2$ bằng thuật toán Alon–Matias–Szegedy (AMS, MMDS §4.5.2–4.5.5): giữ $s$ biến, mỗi biến một cặp (phần tử, bộ đếm), với trung bình có kỳ vọng đúng bằng $F_2$.
+Hai dòng của Ví dụ 09.2 có cùng độ dài 100 và cùng 11 phần tử phân biệt, nhưng số bất ngờ là 910 và $8\,110$. Lời giải chính xác cho $F_2$ giữ $d$ bộ đếm (Nhận xét 09.3), với địa chỉ IPv4 là tới $2^{32}$ bộ đếm. Chúng ta ước lượng $F_2$ bằng thuật toán Alon–Matias–Szegedy (AMS, MMDS §4.5.2–4.5.5): giữ $s$ biến, mỗi biến một cặp (phần tử, bộ đếm), với trung bình có kỳ vọng đúng bằng $F_2$.
 
 <!-- note-topic-id: lec-09-topic-08 -->
 ### 3.1 Biến AMS
@@ -1504,7 +1504,7 @@ Bước 2 dùng điều kiện về $m$; Bước 3 dùng tính độc lập gi�
 **Bước 2 (phần tử nặng).** Nếu $f_u\ge r/\kappa$ thì $\widehat f_u\ge f_u\ge r/\kappa$, nên $u\in\mathcal F$; điều này đúng chắc chắn. Nếu $f_u<(1-\varepsilon)r/\kappa$ thì, khi biến cố ở (a) xảy ra, $\widehat f_u<f_u+\varepsilon r/\kappa<r/\kappa$, nên $u\notin\mathcal F$. $\square$
 :::
 
-Hệ quả 09.38(a) trả lời câu hỏi của UMass (trang chiếu 18) về $\delta$ để mọi phần tử cùng tốt với xác suất $99\%$: $\delta=0{,}01/r_{\max}$. Trên Ví dụ 09.12, Bổ đề 09.36 cho $\mathbb E[Z_j]\le10/3$ với $u=\mathrm a$ và ngưỡng Markov $2r/m=10$, trong khi nhiễu thật là 3.
+Hệ quả 09.38(a) trả lời câu hỏi của UMass (trang chiếu 18) về $\delta$ để mọi phần tử cùng tốt với xác suất $99\%$: $\delta=0{,}01/r_{\max}$. Trong Ví dụ 09.12, hai hàm băm đã cố định, nên nhiễu của $\mathrm a$ là số quan sát được $Z_1=Z_2=3$. Bổ đề 09.36 nói về phép chọn ngẫu nhiên hàm băm: với $u=\mathrm a$, $\mathbb E[Z_j]\le(r-f_{\mathrm a})/m=10/3$, chặt hơn $r/m=5$ vì đã trừ tần suất của chính $\mathrm a$, và ngưỡng Markov là $2r/m=10$.
 
 ::: remark Nhận xét 09.39 (Vì sao lấy cực tiểu; quan hệ với Bloom filter và với Mục 2)
 Mọi ô $A_j[h_j(u)]$ đều là ước lượng thừa (Bổ đề 09.35), nên ô nhỏ nhất gần $f_u$ nhất; trung bình hay trung vị của các ô không nhỏ hơn cực tiểu (UMass, trang chiếu 16).
@@ -1662,7 +1662,7 @@ Hai biểu diễn sau không hợp lệ: ba thùng cỡ 1 (vi phạm quy tắc 4
 **Bước 4 (bit).** Mốc phải lưu theo modulo $N$ cần $\lceil\log_2N\rceil$ bit; cùng với $r\bmod N$, nó xác định vị trí thật trong cửa sổ, vì cửa sổ có đúng $N$ vị trí liên tiếp. Số mũ $\log_2\lvert b\rvert\in\{0,\ldots,\lfloor\log_2N\rfloor\}$ cần $\lceil\log_2(\lfloor\log_2N\rfloor+1)\rceil$ bit. Nhân với số thùng ở Bước 3 được $O(\log N)\cdot O(\log N)=O(\log^2N)$. $\square$
 :::
 
-Bước 1–2 xử lý cả trường hợp thùng cũ nhất vắt qua biên trái. Với $N=10^9$: $\lfloor\log_2N\rfloor=29$, nhiều nhất 60 thùng, mỗi thùng $30+5=35$ bit, tổng $2\,100$ bit cộng 30 bit cho $r\bmod N$, khoảng 267 byte so với 125 MB. Bỏ quy tắc 4 thì số thùng không còn bị chặn bởi $O(\log N)$: $N$ thùng cỡ 1 thỏa mọi quy tắc khác.
+Bước 1–2 xử lý cả trường hợp thùng cũ nhất vắt qua biên trái. Với $N=10^9$: $\lfloor\log_2N\rfloor=29$, nhiều nhất 60 thùng, mỗi thùng $30+5=35$ bit, tổng $2\,100$ bit cộng 30 bit cho $r\bmod N$, khoảng 266 byte so với 125 MB. Bỏ quy tắc 4 thì số thùng không còn bị chặn bởi $O(\log N)$: $N$ thùng cỡ 1 thỏa mọi quy tắc khác.
 
 <!-- note-topic-id: lec-09-topic-18 -->
 ### 5.3 Truy vấn và cận sai số 50%
@@ -2193,12 +2193,12 @@ Hai bảng cho một quy trình chọn phác thảo gồm ba bước.
 | (a) | $F_0$ | Flajolet–Martin, gộp trung bình rồi trung vị | Định lý 09.10 cho từng hàm băm; bước trung bình nhóm chưa có cận định lượng | băm 64 bit xấp xỉ đều, độc lập | $q=420$, khoảng 368 byte |
 | (b) | $F_2$ | biến AMS với hồ chứa vị trí | Hệ quả 09.26 | $\xi$ đều; đủ nhiều biến | $s$ cặp (phần tử, bộ đếm) |
 | (c) | $f_u$; phần tử nặng $\kappa=100$ | Count-Min | Hệ quả 09.38 | các hàng độc lập; liệt kê ứng viên theo UMass (trang chiếu 19, chưa chứng minh) | $74\,000$ bộ đếm với $\varepsilon=0{,}1$, $\delta=0{,}01$, $r_{\max}=10^9$ |
-| (d) | $y_k$, $N=10^9$ | DGIM cho URL được hỏi | Mệnh đề 09.44, Định lý 09.46 | sáu quy tắc | khoảng 267 byte mỗi URL |
+| (d) | $y_k$, $N=10^9$ | DGIM cho URL được hỏi | Mệnh đề 09.44, Định lý 09.46 | sáu quy tắc | khoảng 266 byte mỗi URL |
 | (e) | $D_r(u)$ | cửa sổ suy giảm, ngưỡng $1/2$ | Định lý 09.56 | chọn $c$ | không quá $d$ và ít hơn $2/c$ điểm |
 
 **Diễn giải.** Yêu cầu (b) không dùng Flajolet–Martin, vì hai dòng của Ví dụ 09.2 có cùng $F_0$; (c) không dùng AMS, vì $F_2$ không chỉ ra phần tử nặng; (d) không dùng Count-Min, vì tần suất tính trên toàn dòng; (e) không dùng DGIM, vì xếp hạng cần đọc biểu diễn của mọi URL ở mỗi truy vấn.
 
-**Kiểm tra lại.** (d): $60$ thùng $\times35$ bit $+30=2\,130$ bit, khoảng 267 byte, khớp Mệnh đề 09.44.
+**Kiểm tra lại.** (d): $60$ thùng $\times35$ bit $+30=2\,130$ bit, khoảng 266 byte, khớp Mệnh đề 09.44.
 :::
 
 ::: exercise Bài tập 09.9 (Chọn phác thảo theo câu hỏi)
@@ -2243,7 +2243,7 @@ Tình huống 09.1 và 09.2 thỏa giả thiết của các kết quả được
 
 **Mô hình hóa và kiểm giả thiết.** Mỗi URL có một dòng bit, và câu hỏi thứ nhất là $y_N$ của dòng đó; Thuật toán 09.47 giữ sáu quy tắc (Định lý 09.48), nên Định lý 09.46 áp dụng. Câu hỏi thứ hai là các URL có điểm $D_r(u)$ lớn, với $c=10^{-9}$ ứng với khoảng $10^9$ lượt gần nhất (Nhận xét 09.54); Thuật toán 09.55 không cần giả thiết xác suất.
 
-**Áp dụng và chi phí.** DGIM: nhiều nhất 60 thùng, khoảng 267 byte mỗi URL (Mệnh đề 09.44), tổng khoảng 267 MB, sai số tương đối $\le50\%$. Lời giải chính xác giữ $N$ mã URL cuối trong một bộ đệm vòng, $10^9\cdot20$ bit $=2{,}5$ GB, cùng một bộ đếm 30 bit cho mỗi URL, tức khoảng 9 lần DGIM.
+**Áp dụng và chi phí.** DGIM: nhiều nhất 60 thùng, khoảng 266 byte mỗi URL (Mệnh đề 09.44), tổng khoảng 266 MB, sai số tương đối $\le50\%$. Lời giải chính xác giữ $N$ mã URL cuối trong một bộ đệm vòng, $10^9\cdot20$ bit $=2{,}5$ GB, cùng một bộ đếm 30 bit cho mỗi URL, tức khoảng 9 lần DGIM.
 
 Mỗi lượt truy cập là bit 1 cho một URL và bit 0 cho mọi URL khác, nên chạy bước hết hạn của Thuật toán 09.47 cho mọi dòng tốn $10^6$ phép kiểm mỗi lượt.
 
@@ -2288,7 +2288,7 @@ Yêu cầu Bài 08 để ngỏ, đếm số người dùng phân biệt, đượ
 **Định nghĩa và kết quả theo mục.**
 
 - Mục 1: tần suất và mômen (Định nghĩa 09.1); cửa sổ trượt (Định nghĩa 09.2); chi phí lời giải chính xác (Nhận xét 09.3).
-- Mục 2: Nhận xét 09.4; độ dài đuôi (Định nghĩa 09.5); Flajolet–Martin (Thuật toán 09.6, Mệnh đề 09.7); mô hình băm lý tưởng (Định nghĩa 09.8); ngưỡng hai phía (Bổ đề 09.9, Định lý 09.10); đuôi nặng (Mệnh đề 09.11, Nhận xét 09.12); gộp và mẹo trung vị (Thuật toán 09.13, Bổ đề 09.14, Hệ quả 09.15); chi phí (Mệnh đề 09.16, Nhận xét 09.17, 09.18).
+- Mục 2: Nhận xét 09.4; độ dài đuôi (Định nghĩa 09.5); Flajolet–Martin (Thuật toán 09.6, Mệnh đề 09.7); mô hình băm lý tưởng (Định nghĩa 09.8); ngưỡng hai phía (Bổ đề 09.9, Định lý 09.10); phân phối đuôi nặng (Mệnh đề 09.11, Nhận xét 09.12); gộp và mẹo trung vị (Thuật toán 09.13, Bổ đề 09.14, Hệ quả 09.15); chi phí (Mệnh đề 09.16, Nhận xét 09.17, 09.18).
 - Mục 3: biến AMS (Định nghĩa 09.19, Thuật toán 09.20); tổng các số lẻ (Bổ đề 09.21); không chệch (Định lý 09.22); mômen bậc $p$ (Hệ quả 09.23); dòng chưa biết độ dài (Thuật toán 09.24, Mệnh đề 09.25, Hệ quả 09.26); độc lập, gộp và nhầm lẫn (Nhận xét 09.27, 09.28, 09.29).
 - Mục 4: phần tử nặng (Định nghĩa 09.30); họ băm phổ dụng (Định nghĩa 09.31); Markov (Bổ đề 09.32); Count-Min (Định nghĩa 09.33, Thuật toán 09.34); một phía (Bổ đề 09.35); nhiễu một hàng (Bổ đề 09.36); bảo đảm (Định lý 09.37, Hệ quả 09.38); thực hành (Nhận xét 09.39, 09.40).
 - Mục 5: cận dưới $N$ bit (Mệnh đề 09.41); thùng và sáu quy tắc (Định nghĩa 09.42); các thùng phủ liên tiếp (Nhận xét 09.43); bộ nhớ (Mệnh đề 09.44); truy vấn và cận 50% (Thuật toán 09.45, Định lý 09.46); cập nhật (Thuật toán 09.47, Định lý 09.48, Mệnh đề 09.49); mở rộng và thực hành (Nhận xét 09.50, 09.51).
