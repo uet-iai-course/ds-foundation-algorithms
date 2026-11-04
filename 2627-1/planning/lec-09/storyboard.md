@@ -111,19 +111,36 @@ X00 không thêm yêu cầu toán học. Tổng phần bài tập: **60 phút**.
 - D02 và D03 đổi thứ tự; đã rà D00–D05. Định nghĩa bucket đi trước trạng thái cụ thể, bất biến được đọc từ trạng thái, sau đó mới cập nhật.
 - D07 và X04 dùng hình riêng để ranh giới truy vấn không lẫn với trạng thái nền hoặc đáp án bài tập.
 
-## Hành trình chủ đề của ghi chú tự học
+## Hành trình chủ đề của ghi chú bài giảng
+
+Cập nhật 2026-11-04 theo `note-topic-id` của ghi chú; thay bảng `L09-N01…N10` cũ. Phần trang chiếu ở trên phản ánh deck cũ cho tới khi deck được làm lại.
 
 | `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào → sản phẩm | Thành phần trình bày |
 |---|---|---|---|
-| `L09-N01` | Mở từ giới hạn bộ nhớ; tách hai trục quyết định để dẫn sang ba nhánh toàn dòng và một nhánh dữ liệu gần đây. | Mô hình dòng → chọn đúng loại trạng thái. | Vai trò, đặc tả câu hỏi, hình quyết định, bảng hợp đồng, tự kiểm. |
-| `L09-N02` | Nhận nhánh $F_0$ từ N01; kết thúc bằng giới hạn của truy vấn số khóa để nối sang tần suất một khóa. | Băm và xác suất cơ bản → chạy FM, giải thích $2^R$ và gộp nhiều bản sao. | Đặc tả, giả mã, vết băm, lập luận ngưỡng, chi phí, trường hợp biên, tự kiểm. |
-| `L09-N03` | Nhận nhu cầu tần suất từ N02; đầu ra là bảo đảm một phía, chuẩn bị đối chiếu với mômen toàn phân phối. | Dòng chỉ tăng và Markov → cập nhật, truy vấn và chứng minh Count-Min. | Đặc tả, giả mã, ví dụ va chạm, chứng minh, chi phí, giới hạn, tự kiểm. |
-| `L09-N04` | Chuyển từ tần suất riêng lẻ sang độ tập trung của cả phân phối; đặt đại lượng cho AMS. | Tần suất → tính và diễn giải $F_0,F_1,F_2$. | Định nghĩa, ví dụ hai phân phối, câu nối. |
-| `L09-N05` | Nhận $F_2$ từ N04; chứng minh biến hậu tố không chệch và nối lại lấy mẫu hồ chứa của Bài 8. | Kỳ vọng và lấy mẫu đều → chạy AMS và giải thích bảo đảm theo kỳ vọng. | Ví dụ chạy tay, giả mã, mệnh đề, chứng minh, duy trì trực tuyến, chi phí, tự kiểm. |
-| `L09-N06` | Trở lại nhánh gần đây của N01; xây biểu diễn đủ để N07 cập nhật và truy vấn. | Dòng bit và cửa sổ $N$ → nhận biết bucket, mốc phải và trạng thái hợp lệ. | Đặc tả, hình trạng thái, sáu bất biến, giả mã cập nhật và vết cascade. |
-| `L09-N07` | Dùng bất biến N06 để truy vấn và chứng minh; đầu ra là hợp đồng DGIM hoàn chỉnh. | Bucket hợp lệ → tính truy vấn, cận 50% và chi phí. | Ví dụ $k=10$, mệnh đề, chứng minh đầy đủ, trường hợp $c=0$, tự kiểm. |
-| `L09-N08` | Nới biên cứng của N07 thành trọng số giảm dần; đưa hợp đồng thứ năm vào phần so sánh. | Cấp số nhân → suy ra tổng hữu hạn và truy hồi $O(1)$. | Vai trò, hình trọng số, dẫn xuất, chi phí, tự kiểm; không có định lý riêng vì chỉ là đồng nhất thức đại số. |
-| `L09-N09` | Hội tụ các nhánh N02–N08; khóa điều kiện trước khi làm bài tập. | Bốn phác thảo và một tổng suy giảm → so sánh năm hợp đồng mà không chuyển nhầm bảo đảm. | Bảng sáu cột và đoạn tổng hợp ngắn. |
-| `L09-N10` | Dùng trực tiếp các hợp đồng đã khóa; kết thúc tài liệu bằng sản phẩm kiểm tra được. | FM, mômen, AMS, DGIM → năm lời giải truy nguyên tới MMDS. | Năm khối bài tập–lời giải, hai SVG DGIM; không sửa dữ kiện hoặc yêu cầu toán học. |
-
-Ghi chú giữ cùng ký hiệu và ví dụ số với deck nhưng đặt định nghĩa trước ví dụ theo khuôn tài liệu tự học. Không dùng `data-slide-id` trong nội dung công khai; ánh xạ khái niệm được giữ ở bảng trên.
+| `lec-09-topic-01` | Cầu nối vào chương; nhận Bài 08, 06, 05 và công cụ xác suất, cấp cho Mục 1–6. | Kết quả các bài trước → phát biểu lại đúng giả thiết. | Danh sách nhóm kết quả kèm số hiệu và phát biểu lại. |
+| `lec-09-topic-02` | Mở từ yêu cầu Bài 08 để ngỏ; đặt năm đại lượng và chi phí lời giải chính xác, ra năm nhu cầu. | Mô hình dòng → $f_u$, $F_p$, cửa sổ trượt, Nhận xét 09.3. | Hình cấu trúc chương, Ví dụ 09.1–09.2, Định nghĩa 09.1–09.2, Bài tập 09.1, đoạn kết mục. |
+| `lec-09-topic-03` | Nhận nhu cầu $F_0$; chứng tỏ đếm chính xác tốn 512 MiB, ra nhu cầu ước lượng. | Vector bit → cận dưới tất định (Nhận xét 09.4). | Đoạn bài toán, nhận xét có lập luận đếm. |
+| `lec-09-topic-04` | Đưa ra ước lượng $2^R$; ra bất biến dùng cho phân tích. | Băm tất định → chạy Thuật toán 09.6, Mệnh đề 09.7. | Trực giác, Ví dụ 09.3–09.4, định nghĩa, thuật toán, chứng minh bất biến. |
+| `lec-09-topic-05` | Nhận $R$; đặt mô hình băm lý tưởng và cận hai phía, ra nhu cầu gộp. | Độc lập, cận hợp, $1-z\le e^{-z}$ → Định lý 09.10. | Định nghĩa 09.8, Bổ đề 09.9, định lý bốn phần, chứng minh theo bước, phản ví dụ khi bỏ giả thiết, Ví dụ 09.5 với hình ngưỡng. |
+| `lec-09-topic-06` | Nhận nhu cầu gộp; chỉ ra đuôi nặng và trung vị lũy thừa của 2, ra phép gộp hai bước. | Kỳ vọng, nhị thức → Mệnh đề 09.11, Bổ đề 09.14, Hệ quả 09.15. | Ví dụ 09.6, Thuật toán 09.13, bảng chi phí. |
+| `lec-09-topic-07` | Đóng Mục 2 bằng chi phí và thực hành; ra mẫu cho Tình huống 09.1. | Số bit → Mệnh đề 09.16, Nhận xét 09.17–09.18. | Ví dụ 368 byte, nhầm lẫn, Bài tập 09.2–09.3, đoạn kết mục. |
+| `lec-09-topic-08` | Nhận giới hạn của $F_0$; đặt biến AMS. | Hồ chứa cỡ 1 → $v_i$, $X$. | Trực giác, Ví dụ 09.7, hình ba biến, Định nghĩa 09.19, Thuật toán 09.20. |
+| `lec-09-topic-09` | Chứng minh không chệch; ra kết quả cho Mục 3.3–3.4. | Tuyến tính kỳ vọng → Bổ đề 09.21, Định lý 09.22. | Chứng minh theo bước, phản ví dụ, Ví dụ 09.8 (phương sai). |
+| `lec-09-topic-10` | Mở rộng sang $F_p$ bằng cùng chứng minh. | Tổng lồng nhau → Hệ quả 09.23. | Chu trình rút gọn: hệ quả, Ví dụ 09.9. |
+| `lec-09-topic-11` | Bỏ giả thiết biết $r$; ra hồ chứa vị trí cho Tình huống 09.3. | Định lý 08.17 → Thuật toán 09.24, Mệnh đề 09.25, Hệ quả 09.26. | Ví dụ 09.10, nhận xét độc lập, Bài tập 09.4–09.5, đoạn kết mục. |
+| `lec-09-topic-12` | Nhận giới hạn của $F_2$; đặt bài toán phần tử nặng. | Tần suất → bài toán $(\varepsilon,\kappa)$. | Đoạn bài toán, Định nghĩa 09.30, ví dụ ngưỡng. |
+| `lec-09-topic-13` | Cấp hai công cụ cho Mục 4.4. | Xác suất → họ băm phổ dụng, Bổ đề 09.32. | Định nghĩa 09.31, ví dụ họ BHK, phản ví dụ hàm hằng. |
+| `lec-09-topic-14` | Dựng bảng Count-Min. | Băm, mảng đếm → Định nghĩa 09.33, Thuật toán 09.34. | Trực giác, Ví dụ 09.11–09.12, bảng chi phí. |
+| `lec-09-topic-15` | Chứng minh bảo đảm; ra nhu cầu dữ liệu gần đây. | Markov, độc lập các hàng → Định lý 09.37, Hệ quả 09.38. | Bổ đề 09.35–09.36, chứng minh, Bài tập 09.6, thực hành, đoạn kết mục. |
+| `lec-09-topic-16` | Mở Mục 5 bằng dòng bit chỉ báo; ra nhu cầu xấp xỉ. | Đếm trạng thái → Mệnh đề 09.41. | Ví dụ 09.13, chứng minh theo bước. |
+| `lec-09-topic-17` | Đặt biểu diễn DGIM. | Lũy thừa của 2 → Định nghĩa 09.42, Mệnh đề 09.44. | Ví dụ 09.14, hình trạng thái, Nhận xét 09.43. |
+| `lec-09-topic-18` | Truy vấn và cận 50%. | Quy tắc 4 → Thuật toán 09.45, Định lý 09.46. | Ví dụ 09.15, chứng minh, phản ví dụ, thực hành. |
+| `lec-09-topic-19` | Cập nhật giữ sáu quy tắc; ra chi phí khấu hao. | Bất biến vòng lặp, thế năng → Thuật toán 09.47, Định lý 09.48, Mệnh đề 09.49. | Ví dụ 09.16, hình cập nhật, bảng chi phí. |
+| `lec-09-topic-20` | Đọc thêm và thực hành sau DGIM. | —→ giảm sai số, tổng số nguyên. | Nhận xét 09.50–09.51, Bài tập 09.7, đoạn kết mục. |
+| `lec-09-topic-21` | Nhận giới hạn của cửa sổ trượt; đặt cửa sổ suy giảm. | Cấp số nhân → Định nghĩa 09.52, Mệnh đề 09.53. | Ví dụ 09.17–09.18, hình trọng số, Nhận xét 09.54. |
+| `lec-09-topic-22` | Theo dõi phần tử phổ biến; ra bảo đảm thứ năm cho Mục 7. | Tổng $<1/c$ → Thuật toán 09.55, Định lý 09.56. | Ví dụ 09.19, chứng minh, Bài tập 09.8, đoạn kết mục. |
+| `lec-09-topic-23` | Hội tụ Mục 2–6; chọn phác thảo cho năm yêu cầu. | Năm bảo đảm → hai bảng, quy trình chọn. | Bảng kết quả–giả thiết, bảng thuật toán, Ví dụ 09.20, Bài tập 09.9. |
+| `lec-09-topic-24` | Dẫn lý thuyết ra ba bài toán, một bài vi phạm giả thiết. | Mục 2–6 → Tình huống 09.1–09.3. | Năm phần mỗi tình huống, dẫn ngược lý thuyết. |
+| `lec-09-topic-25` | Kết chương, nối Bài 10. | Cả chương → chuỗi kết quả. | Đoạn kể 7 câu, kết quả theo mục, công thức, giả thiết hay bị bỏ quên. |
+| `lec-09-topic-26` | Kiểm sáu mục tiêu. | Cả chương → lời giải kiểm được. | Ba mức, gợi ý, lời giải; năm bài MMDS vận dụng trên lớp. |
+| `lec-09-topic-27` | Mở rộng không bắt buộc. | —→ hướng đọc tiếp. | Danh mục tài liệu, ghi công MMDS. |

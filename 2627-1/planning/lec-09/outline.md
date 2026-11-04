@@ -48,19 +48,26 @@ Tổng phần bài tập: **60 phút**. X00 chỉ mở phần, không tính th�
 
 ## Thuật ngữ và ký hiệu
 
-| Ký hiệu | Nghĩa |
-|---|---|
-| $f_x$, $f_i$ | tần suất của khóa $x$ hoặc khóa thứ $i$ |
-| $F_k=\sum_i f_i^k$ | mômen bậc $k$ của dòng |
-| $\rho(h(x))$ | số bit 0 liên tiếp ở cuối giá trị băm |
-| $R$ | cực đại của $\rho$ đã quan sát |
-| $C[j,h_j(x)]$ | ô Count-Min ở hàng $j$ cho khóa $x$ |
-| $I$, $c_I$ | vị trí chọn đều và số lần khóa tại $I$ xuất hiện trong hậu tố |
-| $N$, $k$ | độ dài cửa sổ DGIM và độ dài hậu tố truy vấn |
-| $n$, $m$, $t$ | tổng cập nhật của dòng chỉ tăng; số ô mỗi hàng; số hàng Count-Min |
-| $\varepsilon$, $\delta$ | sai số tương đối cho phép; xác suất thất bại cho phép |
-| $X$ | biến AMS, $X=n(2c_I-1)$, kỳ vọng $F_2$ |
-| $c$ | hệ số suy giảm, $0<c<1$ |
+Bảng theo bảng ký hiệu của ghi chú bài giảng (2026-11-04); mỗi chữ giữ một nghĩa trong cả chương.
+
+| Ký hiệu hoặc thuật ngữ | Nghĩa | Tiếng Anh |
+|---|---|---|
+| $x_i$; $r$ | phần tử ở vị trí (mốc thời gian) $i$; số phần tử đã đọc | timestamp |
+| $\mathcal U$; $u$ | tập vũ trụ; một phần tử | universal set |
+| $f_u$; $F_p$; $d=F_0$ | tần suất của $u$; mômen bậc $p$; số phần tử phân biệt | moment of order $p$; number of distinct elements |
+| $F_2$ | số bất ngờ | surprise number |
+| phác thảo | cấu trúc nhỏ cho ước lượng có bảo đảm | sketch |
+| $h$; $L$; $\rho(y)$; $R$ | hàm băm Flajolet–Martin; số bit giá trị băm; độ dài đuôi; độ dài đuôi lớn nhất | tail length, number of trailing zeros |
+| $q$; $g$; $Y_j$; $\widehat d$ | số hàm băm; số nhóm ($g$ lẻ, chia hết $q$); ước lượng $2^{R_j}$; ước lượng gộp | median trick |
+| $s$; $I$; $v_i$; $X=r(2v_I-1)$ | số biến AMS và sức chứa hồ chứa vị trí; vị trí được chọn; số lần $x_i$ xuất hiện trong $x_i,\ldots,x_r$; biến AMS | AMS variable |
+| phần tử nặng; $\kappa$; $\varepsilon$; $\delta$ | phần tử có $f_u\ge r/\kappa$; tham số sai số; xác suất thất bại | heavy hitter, frequent item |
+| họ băm phổ dụng | $\Pr[h(u)=h(u')]\le1/m$ với $u\ne u'$ | universal hash family |
+| $m$; $t$; $h_j$; $A_j$; $\widehat f_u$; $Z_j$ | số ô mỗi hàng; số hàng; hàm băm và mảng của hàng $j$; ước lượng Count-Min; nhiễu va chạm | Count-Min Sketch |
+| cửa sổ trượt; $N$; $k$ | $N$ phần tử cuối; độ dài cửa sổ; độ dài hậu tố được hỏi | sliding window |
+| thùng $b$; $\lvert b\rvert$; $\tau_b$ | đoạn vị trí liên tục của DGIM; số bit 1 trong thùng; mốc phải | bucket |
+| $b^*$; $y_k$; $\widehat y_k$ | thùng cũ nhất có mốc phải trong $k$ vị trí cuối; số bit 1 thật; ước lượng DGIM | |
+| $c$; $D_r$; $D_r(u)$; $\theta$ | hằng số suy giảm; giá trị cửa sổ suy giảm; điểm phổ biến của $u$; ngưỡng điểm | decay constant, exponentially decaying window, most popular elements |
+| chi phí khấu hao; phương pháp thế năng | chi phí trung bình trên dãy thao tác; phân tích theo hàm thế | amortized cost; potential method |
 
 ## Kiểm kê hình và nội dung
 
@@ -69,22 +76,49 @@ Tổng phần bài tập: **60 phút**. X00 chỉ mở phần, không tính th�
 - Lập luận: ngưỡng FM dưới mô hình băm lý tưởng; cảnh báo đuôi nặng; nhiễu kỳ vọng, Markov và khuếch đại Count-Min; tính không chệch AMS; bất biến, chi phí và cận sai số DGIM.
 - Không có ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
 
-## Bản đồ chủ đề ghi chú tự học
+## Bản đồ chủ đề ghi chú bài giảng
 
-| `note-topic-id` | Vai trò | Sản phẩm học tập | Nguồn chính |
-|---|---|---|---|
-| `L09-N01` | cốt lõi | Chọn cấu trúc theo đại lượng cần ước lượng và phạm vi thời gian. | MMDS 4.4–4.7 |
-| `L09-N02` | cốt lõi | Chạy Flajolet–Martin, giải thích ngưỡng $2^R$, đuôi nặng và phép gộp. | MMDS 4.4; Stanford CS246 2017 |
-| `L09-N03` | cốt lõi | Cập nhật, truy vấn và chứng minh bảo đảm một phía của Count-Min Sketch. | UMass CS514 Lecture 10 |
-| `L09-N04` | cốt lõi | Phân biệt $F_0,F_1,F_2$ và diễn giải độ tập trung. | MMDS 4.5.1 |
-| `L09-N05` | cốt lõi | Chạy biến AMS, chứng minh tính không chệch và duy trì bằng lấy mẫu hồ chứa. | MMDS 4.5.2–4.5.5 |
-| `L09-N06` | cốt lõi | Đặc tả bucket và sáu bất biến DGIM. | MMDS 4.6.1–4.6.3 |
-| `L09-N07` | cốt lõi | Cập nhật, truy vấn, chứng minh cận 50% và tính chi phí DGIM. | MMDS 4.6.3–4.6.5 |
-| `L09-N08` | cầu nối | Suy ra tổng hữu hạn và truy hồi của cửa sổ suy giảm mũ. | MMDS 4.7.1–4.7.2 |
-| `L09-N09` | cốt lõi | So sánh năm hợp đồng và điều kiện áp dụng. | Tổng hợp các nguồn trên |
-| `L09-N10` | cốt lõi | Giải năm bài tập trực tiếp từ MMDS. | MMDS 4.4.1, 4.5.1, 4.5.3, 4.6.1, 4.6.3 |
+Theo bản đồ chủ đề của ghi chú (2026-11-04); thay bảng `L09-N01…N10` cũ.
 
-Đồ thị tiên quyết của ghi chú là `N01→N02→N03`, `N01→N04→N05` và `N01→N06→N07→N08`; ba nhánh hội tụ tại `N09` rồi dẫn sang `N10`. Không thêm chủ đề ngoài nguồn. `N08` được giữ làm cầu nối vì nếu thiếu nó, khái niệm dữ liệu gần đây chỉ còn cửa sổ cứng và mạch kết luận của deck không được thu hồi trong tài liệu tự học.
+| `note-topic-id` | Chủ đề | Nhãn | Mục | Nguồn | Sản phẩm |
+|---|---|---|---|---|---|
+| `lec-09-topic-01` | Kiến thức tiên quyết | cầu nối | Tiên quyết | Ghi chú Bài 08, 06, 05; BHK §12 | Phát biểu lại kết quả được dẫn |
+| `lec-09-topic-02` | Năm câu hỏi, tần suất và mômen | cốt lõi | 1 | MMDS §4.5.1, Ví dụ 4.6–4.7; CS246 Streams 1 tr.13 | $f_u$, $F_p$, cửa sổ trượt, chi phí lời giải chính xác |
+| `lec-09-topic-03` | Đếm chính xác và giới hạn bộ nhớ | cốt lõi; cận dưới tất định là bổ sung | 2.1 | MMDS §4.4.1; BHK §6.2.1 tr.183 | Nhu cầu ước lượng $F_0$ |
+| `lec-09-topic-04` | Đuôi băm và ước lượng $2^R$ | cốt lõi | 2.2 | MMDS §4.4.2 | Chạy Flajolet–Martin; bất biến $R$ |
+| `lec-09-topic-05` | Ngưỡng hai phía | cốt lõi; dạng bất đẳng thức là bổ sung | 2.3 | MMDS §4.4.2 tr.143 | Cận $1/\lambda$ và $e^{-\lambda/2}$ |
+| `lec-09-topic-06` | Đuôi nặng và gộp ước lượng | cốt lõi; cận kỳ vọng và mẹo trung vị là bổ sung | 2.4 | MMDS §4.4.3; UMass bài 8 tr.3–5 | Trung bình trong nhóm rồi trung vị; cận $(4\eta)^{q/2}$ |
+| `lec-09-topic-07` | Chi phí, hợp nhất, thực hành | cốt lõi | 2.5 | MMDS §4.4.4; UMass bài 8 tr.8 | Bộ nhớ theo bit; ghép phác thảo bằng max |
+| `lec-09-topic-08` | Biến AMS | cốt lõi | 3.1 | MMDS §4.5.2, Ví dụ 4.8 | Chạy biến AMS |
+| `lec-09-topic-09` | Tính không chệch | cốt lõi; tổng các số lẻ là cầu nối | 3.2 | MMDS §4.5.3, Bài tập 4.5.5 | $\mathbb E[X]=F_2$ |
+| `lec-09-topic-10` | Mômen bậc cao | cốt lõi, chu trình rút gọn | 3.3 | MMDS §4.5.4 | Ước lượng $F_p$ |
+| `lec-09-topic-11` | AMS trên dòng chưa biết độ dài | cốt lõi; bất biến và hệ quả trung bình là bổ sung | 3.4–3.5 | MMDS §4.5.5; Định lý 08.17 | Hồ chứa vị trí; trung bình không chệch |
+| `lec-09-topic-12` | Bài toán phần tử nặng | cốt lõi, chu trình rút gọn | 4.1 | UMass bài 10 tr.8–11 | Bài toán $(\varepsilon,\kappa)$ |
+| `lec-09-topic-13` | Họ băm phổ dụng, bất đẳng thức Markov | cầu nối | 4.2 | UMass bài 10 tr.14; BHK §6.2.1 tr.184–185 | Cận va chạm, Markov |
+| `lec-09-topic-14` | Bảng Count-Min | cốt lõi | 4.3 | UMass bài 10 tr.12–16 | Cập nhật, truy vấn cực tiểu |
+| `lec-09-topic-15` | Bảo đảm Count-Min | cốt lõi; cận hợp cho mọi phần tử là bổ sung | 4.4 | UMass bài 10 tr.17–19 | Sai số $\varepsilon r/\kappa$ với xác suất $\delta$; chọn $m$, $t$ |
+| `lec-09-topic-16` | Cận dưới $N$ bit | cốt lõi | 5.1 | MMDS §4.6.1 | Lời giải chính xác cần $N$ bit |
+| `lec-09-topic-17` | Thùng, sáu quy tắc, bộ nhớ | cốt lõi; chứng minh số thùng là bổ sung | 5.2 | MMDS §4.6.2–4.6.3, Hình 4.2 | $O(\log^2N)$ bit |
+| `lec-09-topic-18` | Truy vấn và cận 50% | cốt lõi | 5.3 | MMDS §4.6.3–4.6.4; CS246 Streams 1 tr.23 | $\tfrac12y_k\le\widehat y_k\le\tfrac32y_k$ |
+| `lec-09-topic-19` | Cập nhật DGIM | cốt lõi; tính đúng và khấu hao là bổ sung | 5.4 | MMDS §4.6.5, Hình 4.3; CLRS 4e Ch.16 | Gộp dây chuyền; khấu hao một lượt gộp mỗi bit 1 |
+| `lec-09-topic-20` | Mở rộng DGIM | đọc thêm | 5.5 | MMDS §4.6.6–4.6.7 | Giảm sai số; tổng số nguyên |
+| `lec-09-topic-21` | Cửa sổ suy giảm | cốt lõi; tổng hữu hạn là cầu nối | 6.1 | MMDS §4.7.1–4.7.2; CS246 Streams 1 tr.28 | Truy hồi $D_r$; tổng $<1/c$ |
+| `lec-09-topic-22` | Phần tử phổ biến hiện thời | cốt lõi; chứng minh cận là bổ sung | 6.2 | MMDS §4.7.3 | Ít hơn $1/(c\theta)$ điểm |
+| `lec-09-topic-23` | Chọn phác thảo theo câu hỏi | cốt lõi | 7 | Tổng hợp Mục 2–6 | Hai bảng đối chiếu; Ví dụ 09.20 |
+| `lec-09-topic-24` | Tình huống áp dụng và ứng dụng | cốt lõi | Tình huống | CS246 2017 Streams 2 tr.32–38; Streams 1 tr.13; MMDS §4.5.5 | Ba tình huống, một vi phạm giả thiết |
+| `lec-09-topic-25` | Tóm tắt chương | cốt lõi | Tóm tắt | — | Chuỗi kết quả; nối Bài 10 |
+| `lec-09-topic-26` | Bài tập củng cố | cốt lõi | Bài tập | MMDS Bài 4.4.1, 4.4.2, 4.5.1–4.5.6, 4.6.1, 4.6.3 | Ba mức, năm bài vận dụng trên lớp |
+| `lec-09-topic-27` | Đọc thêm và tài liệu | đọc thêm | Tham khảo | UMass bài 8; BHK §6.2; trang chiếu MMDS | HyperLogLog, thuật toán Frequent |
+
+Quan hệ tiên quyết: Mục 1 là đầu vào của mọi mục; Mục 3 dùng phép gộp của Mục 2.4 và Định lý 08.17; Mục 4 dùng cận hợp và bất đẳng thức Markov; Mục 5 chỉ cần Mục 1 và mô hình dòng của Bài 08; Mục 6 mở từ giới hạn của cửa sổ trượt; mọi nhánh gặp nhau ở Mục 7.
+
+## Ghi chú bài giảng 2026-11-04
+
+- Các mục về deck (mạch phần giảng, bài tập theo mã trang, tên mạch, kiểm kê hình của deck) phản ánh deck cũ cho tới khi deck được làm lại.
+- Thứ tự mục của ghi chú: năm câu hỏi (Mục 1) → Flajolet–Martin → AMS → Count-Min → DGIM → cửa sổ suy giảm → chọn phác thảo. AMS đứng trước Count-Min vì $F_2$ không chỉ ra phần tử nặng, nên Count-Min nhận nhu cầu từ giới hạn của AMS; deck cũ đặt Count-Min trước AMS.
+- Nguồn: MMDS là trục cho Flajolet–Martin, AMS, DGIM và cửa sổ suy giảm; Count-Min theo UMass CS514 bài 10, vì MMDS không trình bày; BHK §6.2.1 cho cận dưới đếm chính xác và họ độc lập từng cặp; Stanford CS246 2017 cho bài toán URL, ví dụ dòng mưa và Tình huống 09.1.
+- Bỏ Count-Min cho cập nhật âm và các ví dụ tự dựng cũ của deck; dữ liệu tính tay của ghi chú được ghi ở quy ước nguồn trong bảng ký hiệu.
+- Ghi chú có 57 khối đánh số chung, 20 ví dụ, 3 tình huống, 19 bài tập (năm bài MMDS dùng cho phần vận dụng trên lớp) và sáu SVG trong `img/lec-09/`.
 
 ## Tên mạch và trang tiêu đề mạch (2026-10-14)
 

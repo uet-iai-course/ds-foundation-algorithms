@@ -165,3 +165,104 @@ Kiểm tra: section mở/đóng 60/60; 53 `data-slide-id` và 6 `id` duy nhất.
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 6 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Ghi chú ET và ghi chú trang Nội dung P03 nay nêu đúng ba phác thảo được bài tập kiểm (Flajolet–Martin, AMS, DGIM) thay cho "từng phác thảo"; ghi chú XT nói "kiểm lại ba phác thảo". Lý do đặt P03 ngay sau bìa: P01 là trang tình huống "Một dòng, bốn quyết định", không phải trang mục tiêu; sắp lại mạch mở đầu để đợt sau. Mở: dòng dẫn mạch 6 chỉ nêu nửa đầu của mạch gộp (cửa sổ suy giảm), chưa nêu bảng tổng kết; chấp nhận tạm vì tên mạch đã nêu cả hai. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Nâng cấp ghi chú bài giảng theo chuẩn giáo trình (2026-11-04)
+
+Yêu cầu người dùng (2026-11-04): rà soát ghi chú Bài 09 theo các nguyên tắc về nội dung, văn phong, bố cục và cách diễn giải của từng khối trong `../CLAUDE.md`, `CLAUDE.md` và `AGENTS.md`, giải thích chi tiết, đặc biệt các chứng minh quan trọng, dùng nguồn MMDS; sau khi ghi chú hoàn thiện mới làm lại bộ trang chiếu 09 từ ghi chú mới. Hiện trạng: ghi chú cũ 3 385 âm tiết, soạn trước chuẩn 2026-10-14, thiếu tiên quyết, bảng ký hiệu, tình huống, tóm tắt, bài tập ba mức và chứng minh chia bước. Quy trình: AGENTS.md §"Quy trình tác tử gốc cho một ghi chú bài giảng".
+
+### Tác tử
+
+| Tác tử | Vai trò | Loại, mô hình, effort (theo lệnh gọi `Agent`) | Đầu ra | Quyết định |
+|---|---|---|---|---|
+| lập kế hoạch | kế hoạch chương, chu trình tám bước, danh sách chứng minh, rủi ro (chỉ đọc) | general-purpose, opus, high | `plan-note.md` (scratchpad) | chấp nhận, trừ bảng ký hiệu 10.2 |
+| phân tích nguồn | hồ sơ MMDS §4.4–4.7, slide MMDS/CS246, UMass L8/L10, BHK §6; bài tập và lời giải; lỗi nguồn (chỉ đọc) | general-purpose, opus, high | `source-dossier.md` | chấp nhận |
+| bản đồ chủ đề | 28 chủ đề có nhãn và nguồn, tiên quyết, bảng ký hiệu (chỉ đọc) | general-purpose, opus, high | `topic-map.md` | chấp nhận, thứ tự mục theo kế hoạch |
+| soạn, sau đó chỉnh sửa (cùng tác tử, tiếp tục bằng `SendMessage`) | viết lại ghi chú (31 485 âm tiết), 6 SVG mới, ba câu tham chiếu ở ghi chú Bài 08; vòng chỉnh sửa theo `merge1.md` | general-purpose, opus, high | `lecture-note.md`, `writer-report.md`, `editor-report-1.md` | bản nháp chấp nhận để rà; ba lượt chỉnh sửa chấp nhận sau rà lại |
+| rà: sinh viên | phép thử đọc hiểu, tự giải ví dụ và bài tập | general-purpose, opus, high | `rv-student.md` (0/1/7/22) | chấp nhận, trừ D1 |
+| rà: chuyên gia | giải thuật và khoa học dữ liệu | general-purpose, opus, high | `rv-expert.md` (0/2/8/8) | chấp nhận |
+| rà: độ chính xác | tính lại mọi số bằng script riêng, kiểm 24 chứng minh | general-purpose, opus, high | `rv-accuracy.md` (0/0/3/13) | chấp nhận |
+| rà: phản biện học thuật–giảng dạy | tám bước, từng loại khối, văn phong tác giả, no-ai-slop Detect | general-purpose, opus, high | `rv-pedagogy.md` (0/2/13/14) | chấp nhận |
+| rà: mạch, nguồn và kết nối | mạch, đoạn móc nối, cấu trúc chương, trang nguồn | general-purpose, opus, high | `rv-storyline.md` (0/1/15/22) | chấp nhận |
+
+### Quyết định trước khi soạn (điều phối viên)
+
+- **Thứ tự mục:** Mục 1 năm câu hỏi trên một dòng → 2 Flajolet–Martin → 3 mômen và AMS → 4 Count-Min Sketch → 5 DGIM → 6 cửa sổ suy giảm và phần tử phổ biến → 7 chọn cấu trúc. Lý do: theo thứ tự MMDS §4.4–4.7; AMS dùng lại phép gộp trung bình–trung vị của FM; Count-Min không có trong MMDS nên chèn sau mômen, nơi bài toán khóa nặng nối sang phần tử phổ biến của §4.7.3. Bác thứ tự FM → Count-Min → AMS của ghi chú cũ và của bản đồ chủ đề.
+- **Ký hiệu:** dùng bảng của bản đồ chủ đề vì khớp Bài 08 ($r$ độ dài dòng, $d=F_0$, bậc $p$, $\kappa$ khóa nặng, $v_i$ số đếm hậu tố AMS, $y_k$ số bit 1 DGIM, $c$ chỉ là hằng suy giảm; Count-Min giữ $m$, $t$ của UMass). Bác bảng 10.2 của kế hoạch ($n$, $w$, $d$, $T_k$) vì $d$ trùng nghĩa và $n$ khác Bài 08. Thuật ngữ "thùng (bucket)" như ghi chú Bài 06.
+- **Duy trì biến AMS:** theo MMDS §4.5.5 (hồ chứa $s$ vị trí, Định lý 08.17), thay cho $q$ hồ chứa cỡ 1 của ghi chú cũ (lệch nguồn, không ghi lý do). Kéo theo sửa ba câu tham chiếu tiến trong ghi chú Bài 08.
+- **Chứng minh do học phần bổ sung (được duyệt, phải qua rà toán):** cận hai phía FM; $\mathbb E[2^R]$ phân kỳ (ví dụ $d=1$: $L/2+1$); bổ đề mẹo trung vị dạng sơ cấp (ý từ UMass L8 PDF 5–7); số thùng DGIM $O(\log N)$ kể cả thùng vắt biên; tổng số lần gộp không vượt số bit 1 đã đến; tổng trọng số suy giảm $<1/c$ và số phần tử có điểm $\ge\theta$ nhỏ hơn $1/(c\theta)$.
+- **Bỏ (không có nguồn):** Count-Min với cập nhật $(x,\Delta)$ và cập nhật âm; khẳng định "khấu hao $O(1)$" không chứng minh; ví dụ tự dựng FM $(4,8),(8,16),(2,4)$ và Count-Min $f_x=6$ với ô 9, 7, 11 (storyboard cũ gán nhầm cho UMass; ví dụ thật của UMass là ô 104, 78, 90 cho ước lượng 78). HyperLogLog chỉ ở đọc thêm.
+- **Sửa sai của bản cũ:** thùng DGIM là đoạn vị trí liên tục (Hình 4.2 MMDS; CS246-17a tr.16); "at least one of size 8" nghĩa là có ít nhất một thùng cỡ 8; Bài tập 4.5.1 ở tr.149 (điều phối viên kiểm bằng `pdftotext`, trang PDF 19).
+- **Chỗ nguồn sai, ghi đúng trong ghi chú:** MMDS tr.159 "tổng điểm là $1/c$" (đúng là $<1/c$); §4.8 dùng $e^{-ct}$ khác §4.7.2; ba bộ slide gọi FM là không chệch; MMDS-S2 tr.25 và CS246-26 tr.44 đảo thứ tự gộp (sách và CS246-17b tr.30 đúng); MMDS-S1 tr.42 thiếu "+1" trong cận DGIM (chọn CS246-17a tr.23); UMass L10 viết "$=1-2^{-t}$" thay cho "$\ge$" và không nêu giả thiết các hàng độc lập.
+- **Kiểm số của điều phối viên:** phương sai biến AMS trên dòng Ví dụ 4.7 bằng 1304, $\mathbb E[X]=59$ (tính lại bằng Python).
+- **Độ dài:** 24 000–31 500 âm tiết; vượt thì cắt theo danh sách ưu tiên B của bản đồ chủ đề, không cắt chứng minh chính.
+
+### Vòng rà 1: sáu phát hiện nghiêm trọng và quyết định
+
+Số trong ngoặc: chặn bàn giao/nghiêm trọng/trung bình/nhẹ. Bản đóng băng md5 `58c1bdca…`. Báo cáo và bảng hợp nhất `merge1.md` lưu ở scratchpad của phiên; các phát hiện chặn và nghiêm trọng ghi lại dưới đây, không xóa.
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | Nhận xét 09.37; L1097, L1330 | họ băm $(\alpha w+\beta)\bmod M$ có miền $M\ge\lvert\mathcal U\rvert$, không nén được bảng Count-Min | BHK tr.184 chỉ cho họ miền $M$; UMass không cho họ có miền $m$ nhỏ (điều phối viên kiểm `fds.txt`) | giả thiết họ băm phổ dụng miền $m$ như UMass; cách dựng ngoài phạm vi, dẫn CLRS 4e Ch.11 | chấp nhận (A1) |
+| nghiêm trọng | Bài tập 09.16, L2212 | "chọn $a$ lẻ" không khôi phục giả thiết độc lập | $\rho(ax+b\bmod2^k)=\rho(x+a^{-1}b\bmod2^k)$; điều phối viên kiểm lại; mô phỏng 1 000 bội của 1 024: $\Pr\approx0{,}996$ so với cận $0{,}135$ | câu cảnh báo theo chuyên gia | chấp nhận (A2) |
+| nghiêm trọng | Tình huống 09.2, L1972–1976 | so 267 MB với $1{,}25\cdot10^{14}$ byte lệch nhiều bậc; cận $2\cdot10^9$ điểm vô tác dụng khi $d=10^6$ | lời giải chính xác chỉ cần bộ đệm vòng $N$ mã URL và bộ đếm mỗi URL | sửa phép so, cận $\min(d,1/(c\theta))$, chi phí kiểm hết hạn | chấp nhận (A3) |
+| nghiêm trọng | L215, L279, L590, L889, L1034, L1294, L1335, L1931, L1962, L1972, L2054 | câu rào đón và ghi xuất xứ trong thân bài | trái đặc tả D3 và "The author's voice" | bỏ; giữ một câu quy ước sau bảng ký hiệu | chấp nhận (A4) |
+| nghiêm trọng | L2054, phần bài tập | ba thành phần mục tiêu không có bài đo (chọn cấu trúc; gộp FM và mẹo trung vị; AMS với hồ chứa) | đối chiếu mục tiêu 1–3 với Bài tập 09.1–09.18 | thêm ba bài | chấp nhận (A5) |
+| nghiêm trọng | L220 | "đáp số chính xác buộc phải tốn bộ nhớ tỷ lệ $d$ hoặc $N$" cho cả bốn đại lượng | chương chỉ có cận dưới cho $F_0$ (Nhận xét 09.3) và $y_k$ (Mệnh đề 09.38) | thu hẹp về $F_0$, $y_k$ | chấp nhận (A6) |
+
+Trung bình được chấp nhận (B1–B19 của `merge1.md`): biến AMS từ hồ chứa chung không độc lập nên phương sai $1\,304/s$ và gộp trung vị cần $s$ hồ chứa cỡ 1 độc lập; $t$ của Hệ quả 09.35 dựa trên cận trên $r_{\max}$ chọn trước; Bài tập 09.5 dùng sai Mệnh đề 09.45(b); thùng gộp DGIM là đoạn vị trí liên tục, tách thành khối đánh số; bảng chi phí bước–số lần–chi phí–đóng góp cho mỗi thuật toán; vết chạy trước giả mã và đoạn trực giác ở 2.3, 2.4, 5.1, 5.3, 5.4, 6.2; khối định nghĩa cho mô hình băm lý tưởng và cửa sổ trượt; đoạn quan hệ sau Định lý 09.20, 09.42, 09.44, 09.52; `aligned` và chia bước; câu nối một phía ở ranh giới mục; sửa phát biểu lại Định lý 06.7 và Mệnh đề 08.10(a); dẫn tại chỗ ví dụ mưa (Stanford CS246 2017 Streams 1 tr.28, lựa chọn Stanford vì MMDS không có ví dụ số cho §4.7.1); viết lại Nhận xét 09.3 sát BHK; ký hiệu và thuật ngữ mỗi chữ một nghĩa; Ví dụ 09.20; phản ví dụ của Bổ đề 09.12 và Định lý 09.52; gọi đúng phương pháp thế năng; chi phí lưu mô hình băm lý tưởng.
+
+Bác bỏ: cắt câu chuẩn "Các giả thiết của kết quả có vai trò riêng…" và câu "Bước … dùng …" (đề xuất của vai sinh viên), vì AGENTS.md §"Tiêu chuẩn thứ nhất" quy định đúng dạng này.
+
+Ví dụ và số liệu do bản soạn dựng (thuật toán của nguồn, số đã tính lại bởi tác tử soạn và tác tử độ chính xác): bảng băm 5 bit $h_1$–$h_6$ của FM; $d=1\,000$, $\lambda=4$; $d=10^6$, $L=64$; $\lambda=8$ với $g=21, 41$; vết hồ chứa AMS $s=2$; bảng Count-Min $2\times3$; vết cửa sổ suy giảm với $c=1/2$; Tình huống 09.1 (đồ thị bảy đỉnh theo CS246 2017 Streams 2 tr.32–38, hàm băm của bản soạn); $10^6$ URL và $r=10^9$ ở Tình huống 09.2.
+
+### Vòng chỉnh sửa và rà lại
+
+| Lượt | Tác tử | Nội dung | Rà lại | Quyết định |
+|---|---|---|---|---|
+| chỉnh sửa 1 | tác tử soạn (SendMessage) | A1–A6, B1–B19, C theo `merge1.md`; đánh số lại (57 khối chung, 20 ví dụ, 19 bài tập, 3 tình huống); thêm Định nghĩa 09.2, 09.8, Nhận xét 09.27, 09.43; ba bài tập mới 09.3, 09.5, 09.9, bỏ hai bài cũ; năm bảng chi phí; 31 866 âm tiết | — | yêu cầu sửa: B9 làm dở (lý do độ dài không đứng được vì tách đoạn không thêm âm tiết), 21/51 công thức tràn ở 390 px |
+| chỉnh sửa 1b | như trên | tách 26 đoạn thành 56; 17 chuỗi chứng minh đặt căn cứ ở câu sau công thức; 31 940 âm tiết | độ chính xác (`rc-accuracy.md`, 0/0/3/9; 15/16 phát hiện vòng 1 đã xử lý đúng), giảng dạy (`rc-pedagogy.md`, 0/0/4/15), mạch (`rc-storyline.md`, 0/0/0/14) | chấp nhận, gom phát hiện vào `merge2.md` |
+| chỉnh sửa 2 | như trên | R1 `\mathbf w\'` dựng sai thành dấu sắc trên "=" (không sinh `.katex-error`); R2 Ví dụ 09.20(c) theo Hệ quả 09.38, $t=37$, 74 000 bộ đếm; R3 chỉ trung vị thuần có cận, bước trung bình nhóm chưa có cận; R4 Nhận xét 09.4 tự chứa; R5 đoạn kể Tóm tắt một đoạn 7 câu; R6 tài liệu không làm chủ ngữ; 31 972 âm tiết | độ chính xác (`rc2-accuracy.md`, 0/0/0/4), mạch (`rc2-storyline.md`, 0/0/1/5: mất câu nối sang Bài 10) | chấp nhận sau lượt 3 |
+| chỉnh sửa 3 | như trên | câu nối sang Bài 10; chín phát hiện nhẹ; `outline.md` (bảng thuật ngữ, bản đồ `lec-09-topic-01…27`), `storyboard.md` (bảng 27 `note-topic-id`), thẻ Bài 9 trong `index.html` (bài giảng "Chưa có"); công thức phương sai AMS tràn 2 px do điều phối viên đo, đã tách | điều phối viên đọc diff | chấp nhận |
+
+Không sửa (nhẹ, có lý do): tên Mục 7 giữ "cấu trúc" cho tới khi làm lại deck, để khỏi lệch nhãn trong SVG và deck; câu 125 MB đầu Mục 5 (Nhận xét 09.3 đã có số); bài nhận biết "vì sao lấy cực tiểu" không khôi phục do trần độ dài.
+
+Thay đổi ở ghi chú Bài 08 (chỉ ba câu tham chiếu tiến): "Mục 6 và Mục 8" → "Mục 5 và Mục 6"; "Mục 5 … hồ chứa cỡ 1 … $1/r$" → "Mục 3 … hồ chứa $s$ vị trí … $s/r$, đúng Định lý 08.17"; "Mục 5 (… hồ chứa cỡ 1)" → "Mục 3 (… hồ chứa $s$ vị trí)". Tác tử chuyên gia xác nhận ba câu khớp.
+
+### Giáo trình và nguồn đã tham khảo theo mục
+
+| Mục | Nguồn và mục tham khảo cách diễn giải |
+|---|---|
+| Tiên quyết | ghi chú Bài 08, 06 (Định lý 06.7), 05 Mục 8–10; BHK Định lý 2.1 tr.13 (Markov), §12.3 tr.408, §12.5.3 tr.422 |
+| 1 | MMDS §4.5.1 tr.145–146, Ví dụ 4.6–4.7; §4.4.1 tr.142–143; CS246 2017 Streams 1 tr.13 |
+| 2 | MMDS §4.4 tr.142–145; slide MMDS phần 2 tr.20; CS246 2017 Streams 2 tr.27–30; BHK §6.2.1 tr.183; UMass bài 8 trang chiếu 3–5, 8 (mẹo trung vị) |
+| 3 | MMDS §4.5.2–4.5.6 tr.146–150; Định lý 08.17; CS246 2017 Streams 2 tr.49 |
+| 4 | UMass bài 10 trang chiếu 8–19 (đọc qua ảnh trang); BHK tr.184–185; CLRS 4e Ch.11 (đọc thêm) |
+| 5 | MMDS §4.6 tr.150–157, Hình 4.2–4.3; slide MMDS phần 1 tr.29–32; CS246 2017 Streams 1 tr.13–24 (chọn cận 50% theo tr.23 vì slide MMDS phần 1 tr.42 thiếu "+1"); CLRS 4e §2.1, Ch.16 |
+| 6 | MMDS §4.7 tr.157–159; CS246 2017 Streams 1 tr.27–29 (ví dụ mưa tr.28, dẫn tại chỗ) |
+| 7, Tình huống | tổng hợp các nguồn trên; CS246 2017 Streams 2 tr.32–38 (Tình huống 09.1) |
+
+Không có đoạn dịch hoặc chép: Nhận xét 09.4 (bản cũ sát BHK tr.183) đã viết lại ở vòng 1.
+
+### Kiểm định ghi chú bài giảng (AGENTS.md §"Kiểm định ghi chú bài giảng")
+
+| Tiêu chí | Kết quả | Bằng chứng |
+|---|---|---|
+| mục tiêu ↔ kết quả ↔ bài tập | đạt | bảng mục tiêu ↔ bài tập đầu phần bài tập; rà mạch vòng 2 xác nhận phủ 19 bài |
+| tám bước cho mỗi khái niệm; tính tay trước giả mã, tính đúng, chi phí | đạt | bảng tám bước của `rc-pedagogy.md`; năm bảng chi phí |
+| ký hiệu trong bảng, mỗi chữ một nghĩa | đạt | bảng 25 dòng và danh sách ký hiệu cục bộ; `rc2-accuracy.md` |
+| định lý bốn phần, chứng minh hoặc nguồn có trang | đạt | 24+ khối `proof`; phác thảo có nguồn: Nhận xét 09.4 (BHK tr.183), Nhận xét 09.50 (MMDS §4.6.6–4.6.7) |
+| số liệu tính lại độc lập | đạt | script riêng của tác tử độ chính xác (`acc/verify*.py`): FM, AMS, Count-Min, DGIM 300 dòng ngẫu nhiên, suy giảm; điều phối viên tính lại Var $=1\,304$, 0,217/0,020, 1 020 bit/URL |
+| bài tập có gợi ý và lời giải; bài sách có số bài, mục, trang | đạt | MMDS 4.4.1, 4.4.2, 4.5.1 (tr.149), 4.5.2–4.5.6, 4.6.1, 4.6.3 |
+| không "xem trang chiếu", câu mảnh, bước bị bỏ | đạt | grep; năm vai rà |
+| chứng minh chia bước, `aligned`, đoạn một ý | đạt | `rc-pedagogy.md`; 26 đoạn đã tách |
+| số hiệu liên tục, tham chiếu đúng, khối không lồng, hiển thị | đạt | script tham chiếu chéo 0 lỗi; viewer bên dưới |
+| đoạn móc nối, "Trong thực hành", nối Bài 08 và Bài 10 | đạt | `rc-storyline.md`, `rc2-storyline.md` |
+| giọng kể, tài liệu không làm chủ ngữ | đạt | `rc2-storyline.md`; grep "Mục này", "chương này" 0 |
+| nguồn theo mục, không dịch/chép | đạt | bảng trên |
+| nhất quán với deck | chưa áp dụng | deck cũ lệch thứ tự mục, ký hiệu, ví dụ Count-Min; deck được làm lại từ ghi chú mới ở giai đoạn sau (yêu cầu người dùng), index ghi bài giảng "Chưa có" |
+
+### Kiểm định của điều phối viên
+
+- Ghi chú cuối: 31 990 âm tiết (`wc -w`), 27 `note-topic-id`, md5 `cb22bc78…`.
+- Chromium Playwright qua `http.server` cục bộ, `material-viewer.html?doc=materials/lec-09/lecture-note.md&deck=…`: ở 1600×900 và 390×844, 0 lỗi console/trang, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không tràn ngang trang; 6/6 SVG tải được; 51 công thức hiển thị, ở 1600 px 0 tràn, ở 390 px chỉ dãy 25 bit của DGIM (ngoại lệ: cần giữ liền để đọc vị trí). Bản in: sau `beforeprint` 62/62 khối `details` mở; PDF 112 trang. Đã tự xem ảnh chụp đầu trang (1600) và giữa trang (390).
+- `git diff --check` sạch.
