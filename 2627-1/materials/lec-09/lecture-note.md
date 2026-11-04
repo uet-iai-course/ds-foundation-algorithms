@@ -228,14 +228,14 @@ Bảng ghi trạng thái mà cách làm hiển nhiên giữ cho từng câu hỏ
 | tần suất | $f_u$ | một bộ đếm cho mỗi phần tử đã gặp | $d$ bộ đếm |
 | độ lệch | $F_2$ | như trên, rồi cộng bình phương (MMDS §4.5.1, tr.146) | $d$ bộ đếm |
 | bit 1 trong $k$ vị trí cuối | $y_k$ | giữ $N$ bit cuối (MMDS §4.6, tr.150) | $N$ bit |
-| tổng suy giảm | $D_r$ | một số, cập nhật theo truy hồi của Mục 6 | 1 số |
+| phần tử phổ biến gần đây | $D_r(u)$ với mọi $u$ | một điểm cho mỗi phần tử đã gặp, cập nhật theo truy hồi của Mục 6 | $d$ số |
 
 Với tập vũ trụ là các địa chỉ IPv4, $\lvert\mathcal U\rvert=2^{32}\approx4{,}3\cdot10^9$. Một vector bit đánh dấu mọi địa chỉ đã gặp cần $2^{32}$ bit, tức $2^{29}$ byte $=512$ MiB cho mỗi dòng. Với cửa sổ $N=10^9$ lượt (trang chiếu Stanford CS246 2017, Streams 1, tr.13), giữ $N$ bit cho một URL tốn $10^9/8$ byte $=125$ MB.
 
 Bài 08 đo bộ nhớ bằng từ máy (Định nghĩa 08.3); với Flajolet–Martin và DGIM, chúng ta đếm theo bit, vì đếm bằng từ máy sẽ che mất thừa số $\log N$ khi so $O(\log^2N)$ bit với $N$ bit.
 :::
 
-Tổng suy giảm được giữ chính xác bằng một số, còn bốn hàng đầu tỷ lệ với $d$ hoặc $N$. Với số phần tử phân biệt và số bit 1 trong cửa sổ, mọi thuật toán tất định trả đáp số chính xác đều cần chừng ấy bit (Nhận xét 09.4, Mệnh đề 09.41); vì vậy các phác thảo của chương dùng tính ngẫu nhiên hoặc chấp nhận sai số.
+Cả năm hàng đều tỷ lệ với $d$ hoặc $N$; riêng tổng suy giảm $D_r$ của một dòng số chỉ cần một số. Với số phần tử phân biệt và số bit 1 trong cửa sổ, mọi thuật toán tất định trả đáp số chính xác đều cần chừng ấy bit (Nhận xét 09.4, Mệnh đề 09.41); vì vậy các phác thảo của chương dùng tính ngẫu nhiên hoặc chấp nhận sai số.
 
 ::: exercise Bài tập 09.1 (Các mômen của dòng mười lăm phần tử)
 Cho dòng $\mathrm{a},\mathrm{b},\mathrm{c},\mathrm{b},\mathrm{d},\mathrm{a},\mathrm{c},\mathrm{d},\mathrm{a},\mathrm{b},\mathrm{d},\mathrm{c},\mathrm{a},\mathrm{a},\mathrm{b}$ (MMDS Ví dụ 4.7). Tính $F_0$, $F_1$, $F_3$. Câu hỏi "trong 5 phần tử cuối, $\mathrm b$ xuất hiện mấy lần" có tính được từ bảng tần suất $f_u$ không? Giải thích.
@@ -251,7 +251,7 @@ Tần suất là $f_{\mathrm a}=5$, $f_{\mathrm b}=4$, $f_{\mathrm c}=f_{\mathrm
 Câu hỏi cuối không tính được từ bảng tần suất: trên dòng đã cho, 5 phần tử cuối là $\mathrm d,\mathrm c,\mathrm a,\mathrm a,\mathrm b$, đáp số 1, còn dòng $\mathrm a,\mathrm c,\mathrm d,\mathrm a,\mathrm c,\mathrm d,\mathrm a,\mathrm d,\mathrm c,\mathrm a,\mathrm a,\mathrm b,\mathrm b,\mathrm b,\mathrm b$ có cùng bảng tần suất nhưng cho đáp số 4.
 :::
 
-Như vậy, chúng ta đã đặt năm câu hỏi thành các đại lượng có định nghĩa (Định nghĩa 09.1, 09.2) và đếm chi phí của lời giải chính xác (Nhận xét 09.3): bốn trong năm đại lượng cần bộ nhớ tỷ lệ với số phần tử phân biệt hoặc độ dài cửa sổ. Tuy nhiên, mới chỉ có lời giải chính xác. Trong Mục 2, chúng ta bắt đầu với $F_0$ và xây một ước lượng chỉ cần một số nhỏ cho mỗi hàm băm.
+Như vậy, chúng ta đã đặt năm câu hỏi thành các đại lượng có định nghĩa (Định nghĩa 09.1, 09.2) và đếm chi phí của lời giải chính xác (Nhận xét 09.3): cả năm đại lượng cần bộ nhớ tỷ lệ với số phần tử phân biệt hoặc độ dài cửa sổ. Tuy nhiên, mới chỉ có lời giải chính xác. Trong Mục 2, chúng ta bắt đầu với $F_0$ và xây một ước lượng chỉ cần một số nhỏ cho mỗi hàm băm.
 
 ## 2. Đếm phần tử phân biệt bằng Flajolet–Martin
 
