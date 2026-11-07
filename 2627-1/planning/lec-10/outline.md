@@ -1,94 +1,79 @@
 # Bài 10: Nén dữ liệu không mất thông tin
 
-> Ghi chú phạm vi (2026-11-08): các mục "Mục tiêu và phạm vi", "Nguồn và quyết định chọn nguồn", "Dàn ý và thời lượng", "Chức năng của sáu mạch", "Bản đồ chu trình học tập", "Thuật ngữ và ký hiệu", "Tài sản trực quan" và "Tên mạch và trang tiêu đề mạch" dưới đây là của **deck cũ** (sáu mạch, ký hiệu $[L,H)$, $C_s$, $D_s$), giữ nguyên chờ làm lại deck. Phần ghi chú bài giảng viết lại ngày 2026-11-08 nằm ở mục "Ghi chú bài giảng (bản 2026-11-08)" cuối tệp và thay cho bản đồ `L10-N01…N10` cũ (bảng ánh xạ ở cùng mục).
+> Ghi chú phạm vi (2026-11-08): các mục từ "Mục tiêu và phạm vi" tới "Tên mạch và trang tiêu đề mạch" là dàn ý của **bộ trang chiếu mới** (bảy mạch, viết lại từ ghi chú `materials/lec-10/lecture-note.md` và `exercises.md`, commit `51cb9ad`), thay toàn bộ dàn ý của deck cũ. Mục "Ghi chú bài giảng (bản 2026-11-08)" cuối tệp giữ nguyên.
 
 ## Mục tiêu và phạm vi
 
-Sau phần giảng, sinh viên có thể:
+Đối tượng: sinh viên năm 2 (lập trình, toán rời rạc, xác suất cơ bản, cây và hàng đợi ưu tiên). 120 phút giảng và 60 phút bài tập vận dụng trong cùng tệp HTML.
 
-1. đặc tả bài toán nén không mất thông tin, phân biệt trục mô hình tĩnh/cập nhật với trục bộ mã Huffman/số học;
-2. dựng, dùng và giải thích tính tối ưu của mã Huffman tĩnh;
-3. mô phỏng `ESCAPE`, `EOS` và phép đổi của Huffman thích nghi theo biến thể Nelson–Gailly; giải thích điều kiện và mục đích dựng lại khi đạt ngưỡng;
-4. mã hóa, giải mã một thông điệp bằng khoảng nửa mở của mã hóa số học;
-5. dùng tự thông tin và entropy để giải thích độ dài của một chuỗi cụ thể;
-6. nêu điều kiện đồng bộ, kết thúc dòng, chi phí và giới hạn của ba cặp mô hình–bộ mã được học.
+Mục tiêu học tập trên deck (P02), mỗi mục một sản phẩm kiểm được:
 
-Phần giảng dài 120 phút. Phần bài tập dài 60 phút và nằm sau phần giảng trong cùng tệp HTML.
+1. Đặc tả nén; chứng minh không mã nào rút ngắn mọi thông điệp; tách mô hình, bộ mã. Kiểm: T05 câu 1 (đếm chuỗi), P07; tách mô hình khỏi bộ mã kiểm cùng T05 câu 2.
+2. Kiểm mã tiền tố, tổng Kraft; tính entropy, chứng minh hai cận. Kiểm: K21 (trường hợp dấu bằng), X01 (Kraft bằng cách đếm lá).
+3. Chạy Huffman tĩnh; chứng minh tối ưu; đếm chi phí. Kiểm: H17, X02, T05 câu 2.
+4. Chạy Huffman thích nghi; chứng minh tăng–đổi giữ tính chất anh em. Kiểm: A20, X03.
+5. Mã hóa, giải mã bằng khoảng; chuỗi bit dài dưới $I(x)+2$. Kiểm: X04, T05 câu 3.
+6. Chạy mã số học 16 bit với bit chờ; giải thích $N\le2^{R-2}$; chọn cặp mô hình–bộ mã. Kiểm: G06 (Câu hỏi về bit chờ), G15, T05 câu 4; phần chọn cặp: T03, T04.
+
+Sáu mục tiêu của deck gộp mục tiêu 2–3 và 6–7 của ghi chú. Ngoài phạm vi mặt trang (chỉ ở ghi chú bài giảng hoặc ghi chú diễn giả): chứng minh McMillan, mã khối $j$ ký hiệu, Mệnh đề 10.33 (chứng minh và phát biểu ở ghi chú diễn giả), chứng minh Mệnh đề 10.27 và Bổ đề 10.24 (ghi chú diễn giả), mã số học thích nghi (NG Chương 6), cách lan truyền nhớ của EE398A-3, `scale_counts`, cận Fibonacci tổng quát, chứng minh đầy đủ Mệnh đề 10.41.
 
 ## Nguồn và quyết định chọn nguồn
 
-| Cụm | Nguồn trục | Nguồn đối chiếu | Quyết định |
-|---|---|---|---|
-| Mã tiền tố và Huffman | Nelson–Gailly, Ch.3, PDF tr.31–37 | Stanford EE398A, *Entropy and Lossless Coding*; Stanford CS106B, *Huffman Coding*; CMU `compression1-2.pdf` | Giữ dữ liệu A–E và mã của sách; dùng Stanford cho nhịp trực quan cây và hàng đợi; dùng CMU cho Kraft. Viết lại chứng minh trao đổi với mệnh đề, phép đổi và cấu trúc con tối ưu. |
-| Huffman thích nghi | Nelson–Gailly, Ch.4: tính chất và Hình 4.2–4.3 ở PDF tr.67–71; `ESCAPE` ở tr.73–74; cập nhật, chống tràn và dựng lại ở tr.75–85; lá mới trọng số 0 ở tr.82–83 | CMU `compression3.pdf` | Chỉ dùng biến thể trong sách: `ESCAPE`, `EOS`, tính chất anh em, đổi nút và dựng lại. Vết ký hiệu mới gồm `ESCAPE`, tám bit thô, lá trọng số 0 và cập nhật. Không dùng tên NYT, FGK hay Vitter. Không dùng Hình 4.1 vì hình và lời mô tả lệch nhau. |
-| Mã hóa số học | Nelson–Gailly, Ch.2 và Ch.5, PDF tr.96–104 | Stanford EE398A, *Arithmetic Coding*, trang chiếu 10–12 và 16; CMU `compression1-2.pdf` | Giữ ví dụ “BILL GATES”, khoảng nửa mở, phát tiền tố chung và underflow theo sách. Dùng Stanford để đối chiếu số học hữu hạn và phép dịch; nhãn E1/E2/E3 là nhãn theo dõi của deck, không quy cho Stanford. Erratum bảng giải mã chỉ ghi trong ghi chú và nhật ký. |
-| Bài tập | Nelson–Gailly, các ví dụ Ch.3–4; CMU Assignment 1a, Problem 3 | CMU solution | Người dùng đã phê duyệt ngoại lệ nguồn ngày 2026-08-28: X01–X02 chuyển ví dụ Nelson–Gailly thành bài luyện; X03 dùng CMU Assignment 1a, Problem 3. |
-
-MMDS không bao phủ mô-đun nén này, nên không có cụm tương đương để ưu tiên hoặc Việt hóa.
+- Trục nội dung: ghi chú bài giảng Bài 10 (mọi định nghĩa, kết quả, ví dụ và số trên mặt trang lấy từ ghi chú hoặc `exercises.md`; K3).
+- Nguồn của ghi chú, ghi ở ghi chú diễn giả và trang "Nguồn và tài liệu đọc": Nelson và Gailly, *The Data Compression Book*, ấn bản 2 (NG), Chương 2–5, trang PDF; Blelloch, CMU 15-499 *Data Compression* phần 1–2 và Assignment 1a (CMU, CMU-A1); Girod, Stanford EE398A *Entropy and Lossless Coding*, *Arithmetic Coding* (EE398A-1, EE398A-3); Stanford CS106B *Huffman Coding*.
+- MMDS không có chương nén, nên không có ghi công `mmds.org` (Q1, K3).
+- Nhịp theo nguồn: mô hình–bộ mã theo NG Hình 2.1 và CMU tc.8; mã tiền tố theo nhịp CS106B (thất bại → định nghĩa → giải mã trên cây) với dữ liệu CMU tc.22 và NG; Kraft qua khoảng mã (CMU tc.45–47, EE398A-1 tc.15–16), cách đếm lá để dành recitation; Huffman theo dữ liệu NG, bảng vết kiểu CS106B, hình kiểu CMU tc.34; tối ưu theo khung CMU tc.31, 36; Huffman thích nghi theo NG Chương 4, mỗi trạng thái một hình; mã số học theo NG (BILL GATES), hình khoảng lồng kiểu EE398A-3 tc.3–4, hình thức hóa CMU tc.45–51; thanh ghi theo NG và CMU tc.55. Thứ tự mã tiền tố → Kraft → entropy theo ghi chú (Q2), khác CMU, EE398A, NG; con số "eeeee" ở P04 (ghi chú diễn giả) giữ trực giác thông tin sớm.
+- "Đọc trước:" NG Chương 2–5 (D6).
 
 ## Dàn ý và thời lượng
 
-| Phần | Mã trang | Thời lượng |
-|---|---|---:|
-| Đặt bài toán và mô hình chung | P00–P02 | 9 phút |
-| Mã tiền tố và Huffman tĩnh | H00–H13 | 38 phút |
-| Huffman thích nghi | A00–A10 | 30 phút |
-| Mã hóa số học | R00–R13 | 36 phút |
-| Chọn bộ mã hóa và tổng hợp | S00–S01 | 7 phút |
-| Bài tập recitation | X00–X03 | 60 phút |
+| Mạch | Trang | Phút | Nội dung |
+|---|---:|---:|---|
+| 1 Mở đầu | 12 | 13 | bìa, tiên quyết, mục tiêu, nội dung, vấn đề trung tâm (hai trang), A–E với mã cố định, đặc tả, Mệnh đề 10.2, chữ u, mô hình–bộ mã, bốn thành phần |
+| 2 Mã tiền tố, bất đẳng thức Kraft và entropy | 15 | 20 | 1011 ba cách đọc, mã tiền tố, cây mã và giải mã, Mệnh đề 10.6, khoảng mã, bốn tổng Kraft và dựng mã (một trang), Định lý 10.9 và chứng minh, tự thông tin và entropy, độ dài trung bình và ví dụ A–E, cận dưới và chứng minh, độ dài Shannon kèm ví dụ 102 bit, Câu hỏi dấu bằng |
+| 3 Mã Huffman tĩnh | 16 | 21,5 | số bit tối thiểu, Shannon–Fano, dựng từ lá, bốn lượt ghép, cây và bảng mã, giả mã, phép đổi chỗ, Bổ đề 10.16 và chứng minh, Định lý 10.18 và chứng minh, Hệ quả 10.19, chi phí, đầu mục, Câu hỏi năm ký hiệu lệch |
+| 4 Mã Huffman thích nghi | 18 | 24 | một lượt không đầu mục, danh sách nút, tính chất anh em, Định lý 10.22, tăng A từ 1 lên 3 (hai trang), UPDATE, Định lý 10.25 và hai trang tính đúng (Bổ đề 10.24 ở hàng "Hợp lệ"), chi phí, ESCAPE/EOS, thêm E, bộ nén–giải nén kèm điều kiện đồng bộ, chống tràn, dựng lại, Câu hỏi bộ giải mã bỏ phép đổi |
+| 5 Mã số học | 25 | 34 | giới hạn 1 bit, thu hẹp B, I, L, khoảng chuỗi, mã hóa BILL GATES, Mệnh đề 10.31, thuật toán số thực, giải mã, bảy chữ A, Định lý 10.34 và chứng minh, Hệ quả 10.35; thanh ghi, năm chữ số thập phân, tràn dưới, ba trường hợp, ENCODE-SYMBOL, vết cbb (hai trang), Bổ đề 10.38, 10.39, giải mã hai ký hiệu đầu, DECODE, chi phí, Câu hỏi bảng số đếm tích lũy |
+| 6 Tổng kết và tự kiểm tra | 7 | 7,5 | A–E qua các bộ mã, kết quả và giả thiết, cặp mô hình–bộ mã, trả lời có điều kiện, câu hỏi tự kiểm tra, nguồn |
+| **Giảng** | **93** | **120** | |
+| 7 Bài tập vận dụng | 12 | 60 | Kraft bằng đếm lá (13), Huffman A–E quy tắc gán bit khác (10), ba lần tăng A (20), giải mã số học bốn chữ (17) |
 
-Tổng phần giảng: 120 phút. Phần recitation đủ 60 phút theo ngoại lệ nguồn được người dùng phê duyệt ngày 2026-08-28; không còn lỗi chặn hoặc nghiêm trọng.
+## Chức năng của bảy mạch
 
-## Chức năng của sáu mạch
-
-| Mạch | Chức năng | Kết nối vào | Đầu ra cho mạch sau | Đóng góp vào mục tiêu |
+| Mạch | Loại | Chức năng | Đầu vào | Đầu ra |
 |---|---|---|---|---|
-| Đặt bài toán và mô hình chung | Tách mô hình xác suất khỏi bộ mã hóa, đặt yêu cầu khôi phục chính xác. | Kiến thức tiên quyết về xác suất, cây và hàng đợi ưu tiên. | Ma trận lựa chọn và tiêu chí giao thức. | Mục tiêu 1 và 6. |
-| Mã tiền tố và Huffman tĩnh | Đi từ miền độ dài khả thi đến thuật toán tham lam và lập luận tối ưu. | Ma trận có ô tĩnh + Huffman. | Chi phí đếm trước và truyền cây làm động cơ cho cập nhật trực tuyến. | Mục tiêu 2. |
-| Huffman thích nghi | Xây cây đồng bộ khi chưa biết thống kê, gồm ký hiệu mới, đổi nút và dựng lại. | Nhược điểm đầu mục của mô hình tĩnh. | Phân biệt chi phí mô hình với giới hạn độ dài nguyên bit. | Mục tiêu 3 và 6. |
-| Mã hóa số học | Mã cả chuỗi bằng khoảng, thêm cách dừng và chuẩn hóa hữu hạn. | Giới hạn một từ mã nguyên bit cho mỗi ký hiệu. | Quan hệ độ rộng khoảng, tự thông tin và chi phí triển khai. | Mục tiêu 4 và 5. |
-| Chọn bộ mã hóa và tổng hợp | Thu hồi hai trục và liệt kê thông tin giao thức cần để giải mã đúng. | Ba cặp đã phân tích. | Tiêu chí lựa chọn và yêu cầu giải trình cho bài tập. | Mục tiêu 1 và 6. |
-| Bài tập recitation | Buộc sinh viên tạo cây, vết cập nhật và vết khoảng có thể chấm. | Thuật toán, bất biến và quy ước của năm mạch giảng. | Ba sản phẩm luyện tập kèm hướng dẫn chấm. | Kiểm tra toàn bộ sáu mục tiêu. |
+| 1 | giới thiệu và động lực; khái niệm | đặt bài toán khôi phục từng bit, đặc tả, giới hạn, mô hình–bộ mã | Bài 08, Bài 09 | A–E, Định nghĩa 10.1, 10.3 |
+| 2 | khái niệm hoặc mô hình | điều kiện tiền tố, Kraft, entropy, cận hai phía | đặc tả | cây mã, khoảng mã, $[H;\,H+1)$; chưa có cách dựng mã tối ưu |
+| 3 | thuật toán và ví dụ vận dụng | Huffman tĩnh, tối ưu, chi phí, đầu mục | cây mã, hai cận | mã tối ưu; giới hạn hai lượt, đầu mục |
+| 4 | thuật toán và ví dụ vận dụng | Huffman thích nghi một lượt | thứ tự lấy ra, tối ưu | cây Huffman sau mỗi ký hiệu; giới hạn 1 bit mỗi ký hiệu |
+| 5 | thuật toán và ví dụ vận dụng | mã số học số thực và thanh ghi | giới hạn 1 bit, khoảng mã | cận $<I(x)+2$, bộ mã 16 bit đúng khi $N\le2^{R-2}$ |
+| 6 | tổng kết | thu hồi và so sánh | mọi kết quả | chọn cặp mô hình–bộ mã; nối Bài 11 |
+| 7 | bài tập vận dụng | bốn bài sách | mạch 2–5 | sản phẩm nộp |
 
 ## Bản đồ chu trình học tập
 
-| Cụm | Tình huống | Vấn đề | Trực giác | Chạy tay | Hình thức | Thuật toán và tính đúng | Chi phí | Kiểm tra |
-|---|---|---|---|---|---|---|---|---|
-| Huffman tĩnh | H00 | H01 | H02–H03 | H04–H08 | H02, H09 | H09–H11 | H12 | H13 |
-| Huffman thích nghi | A00 | A01–A02 | A03 | A02, A04–A06 | A03, A07 | A07–A08 | A09 | A10 |
-| Mã hóa số học | R00 | R01 | R02 | R03–R04 | R05, R08 | R06–R07, R09–R11 | R12 | R13 |
+Các mã dưới đây liệt kê theo cột chu trình, không theo thứ tự trang. Xem `storyboard.md`, mục "Chu trình học tập theo cụm". Cụm thuật toán theo khuôn của `CLAUDE.md`: Huffman tĩnh (H02 giới hạn 89 bit → H03 "tương tự … nhưng khác ở …" và nhận xét cấu trúc → H04 chạy tay → H06 Đầu vào/Đầu ra, giả mã, phép quyết định → H07–H12 tính đúng → H15 chi phí); tăng–đổi (A01 → A07 → A06 → A10 → A12, A13, A13B → A14); mã số học số thực (S01 → S02 → S04 → S06 → S05, S06 → S06 ghi chú diễn giả); thanh ghi (G01 → G02, G04 → G06 → G05 → G08, G09 → G13), giải mã nguyên (G10 → G11). Chu trình rút gọn có lý do: mô hình–bộ mã (phân loại và giao thức), entropy (đại lượng đo, kết quả ở topic-07), Shannon–Fano (phương pháp trước làm giới hạn, Q3), chi phí và đầu mục (phân tích thuật toán đã có), chống tràn và dựng lại (biến thể phụ của chương trình).
 
 ## Thuật ngữ và ký hiệu
 
-| Thuật ngữ hoặc ký hiệu | Cách dùng |
-|---|---|
-| mã tiền tố | Không từ mã nào là tiền tố của từ mã khác. |
-| $f_s$, $p_s$ | Tần suất và xác suất của ký hiệu $s$. |
-| $\ell_s$ | Độ dài từ mã của $s$. |
-| $L,H$ | Cận dưới và cận trên của khoảng nửa mở $[L,H)$. |
-| $C_s,D_s$ | Cận tích lũy dưới và trên của ký hiệu $s$. |
-| $I(x)$ | Tự thông tin của một chuỗi cụ thể, bằng $-\log_2 p(x)$. |
-| $H(P)$ | Entropy, tức tự thông tin trung bình theo phân phối $P$. |
-| `ESCAPE` | Lá báo ký hiệu chưa có trong cây; theo sau bởi biểu diễn thô của ký hiệu. |
-| `EOS` | Ký hiệu kết thúc dòng. |
-| tính chất anh em | Có thể liệt kê nút theo trọng số không giảm sao cho hai nút anh em đứng kề nhau. |
+Bảng Việt–Anh và bảng ký hiệu của ghi chú ở cuối tệp áp dụng cho deck. Tên tiếng Anh nêu ở lần đầu trên mặt trang: mã ký hiệu (symbol code), từ mã (codeword), giải mã duy nhất (uniquely decodable code) ở P06; cây mã (code tree) ở K04; độ dài trung bình (average length), mã tiền tố tối ưu (optimal prefix code) ở K16; mô hình xác suất (statistical model), tĩnh (static), thích nghi (adaptive), bậc (order), bộ mã (coder) ở P09; quy tắc phá hòa (tie-breaking rule), `EOS` (end of stream) ở P10; tiền tố (prefix), mã tiền tố (prefix code), mã tức thời (instantaneous code) ở K02; khoảng mã (code interval), tổng Kraft (Kraft sum) ở K08; tự thông tin (self-information), entropy ở K15; đầu mục (header) ở H16; cây có trọng số (weighted tree), tính chất anh em (sibling property) ở A03; xác suất tích lũy (cumulative probability), khoảng ký hiệu (symbol interval), khoảng chuỗi (sequence interval) ở S03; thanh ghi (register) ở G01; tràn dưới (underflow) ở G03; chuẩn hóa (renormalization), bit chờ (pending bits) ở G04; cây nhị phân hoàn hảo (perfect binary tree) ở X01. Mặt trang dùng "mã số học", "mô hình thích nghi", "số đếm", "Lời giải".
 
 ## Tài sản trực quan
 
-Tất cả hình được vẽ lại bằng SVG trong `2627-1/img/lec-10/`: cây tiền tố và tám miền Kraft; chuỗi ghép Huffman A–E; cây mã/giải mã; các mức phóng đại khoảng “BILL GATES”; chuẩn hóa giải mã; E1/E2/E3 theo khoảng nửa mở; tăng trọng số; đổi nút; hai đường ống `ESCAPE`/`EOS`.
+17 SVG mới trong `img/lec-10/`, sinh bởi `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-10/generate_deck_svg.py` (danh sách và trang dùng ở `storyboard.md`, mục "Hình"). Rộng 1 200 đơn vị, cao theo khung hiển thị của lớp `.stream-figure` (360 px), `.stream-short` (270 px), `.stream-mini` (150 px), `.stream-tall` (520 px), chữ nhỏ nhất 20 đơn vị, nên nhãn khi chiếu ở 1280×720 khoảng 18–24 px. Lớp gốc của deck là `reveal course-deck lecture-compression`; `lecture-course.css` chỉ thêm `.lecture-compression` vào các selector của khối Bài 08 (D5).
 
-## Tên mạch và trang tiêu đề mạch (2026-10-14)
+## Tên mạch và trang tiêu đề mạch
 
-Mỗi mạch trừ mạch mở đầu mở bằng trang tiêu đề mạch (`class="strand-title"`, `id="mach-N"`); tên trùng từng chữ với trang Nội dung. Deck 54 trang.
+| N | Mã | `id` | Tên mạch | Dòng dẫn (âm tiết) | Từ khóa |
+|---:|---|---|---|---|---|
+| 2 | KT | `mach-2` | Mã tiền tố, bất đẳng thức Kraft và entropy | Muốn chọn độ dài từ mã ngắn mà vẫn giải mã được, phải có điều kiện tiền tố, tổng Kraft và mức đích entropy. (24) | Mã tiền tố · Cây mã · Tổng Kraft · Entropy · Cận hai phía |
+| 3 | HT | `mach-3` | Mã Huffman tĩnh | Muốn có mã tiền tố tối ưu cho một bảng số đếm, phải ghép hai nút nhẹ nhất từ lá lên gốc. (22) | Shannon–Fano · Hàng đợi ưu tiên · Phép đổi chỗ · Tính tối ưu · Đầu mục |
+| 4 | AT | `mach-4` | Mã Huffman thích nghi | Muốn nén một lượt mà không gửi bảng số đếm, phải cập nhật cây Huffman cục bộ sau mỗi ký hiệu. (22) | Tính chất anh em · Nút cuối khối · ESCAPE và EOS · Đồng bộ hai phía · Dựng lại cây |
+| 5 | ST | `mach-5` | Mã số học | Muốn dùng dưới một bit cho ký hiệu xác suất lớn, phải mã cả thông điệp bằng một khoảng số. (20) | Khoảng chuỗi · Ký hiệu kết thúc · Cận độ dài · Thanh ghi 16 bit · Bit chờ |
+| 6 | TT | `mach-6` | Tổng kết và tự kiểm tra | Muốn chọn bộ nén cho một tệp, phải đặt giả thiết, bảo đảm và chi phí của ba bộ mã cạnh nhau. (22) | — |
+| 7 | XT | `mach-7` | Bài tập vận dụng | Muốn vận dụng Kraft, hai mã Huffman và mã số học, phải chạy tay và chứng minh trên bài của sách và CMU 15-499. (23) | Đếm lá · Lượt ghép · Nút cuối khối · Giải mã khoảng |
 
-| N | Tên mạch | Trang tiêu đề mạch | Trang nội dung đầu mạch |
-|---:|---|---|---|
-| 1 | Mở đầu | P00 (trang bìa) | — |
-| 2 | Mã Huffman tĩnh | HT | H00 |
-| 3 | Huffman thích nghi | AT | A00 |
-| 4 | Mã hóa số học | RT | R00 |
-| 5 | Tổng kết và tự kiểm tra | ST | S00 |
-| 6 | Bài tập vận dụng | XT | X00 |
+Tên mạch khác tiêu đề trang nội dung đầu mạch (K01, H01, A01, S01, T01, X01). Câu luận đề trang bìa: "Mã Huffman cách entropy dưới một bit mỗi ký hiệu; mã số học lý tưởng cách tự thông tin của thông điệp dưới hai bit." (25 âm tiết, D7).
 
 ## Ghi chú bài giảng (bản 2026-11-08)
 

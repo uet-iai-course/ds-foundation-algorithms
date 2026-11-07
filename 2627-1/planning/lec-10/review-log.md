@@ -294,3 +294,70 @@ CLRS 4e không có trong `sources/`; chi phí Huffman suy từ chi phí đống 
 - Ghi chú cuối: 31 977 âm tiết (`wc -w`), md5 `bb16a821…`; `exercises.md` 2 667 âm tiết, md5 `01b31228…`; 25 `note-topic-id`; 41 khối chung (10.1–10.41), 21 ví dụ, 3 tình huống, 21 bài tập.
 - Chromium Playwright, `python -m http.server` cục bộ, hai tệp qua `material-viewer.html?doc=…&deck=lecture-10-…`: ở 1600×900 và 390×844, 0 lỗi console/trang, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không cuộn ngang trang; ghi chú 46 công thức hiển thị, 0 tràn ở cả hai kích thước; 9/9 SVG tải được (ở 390 px hình nằm trong khung cuộn theo CSS học phần). Bản in: sau `beforeprint` 38/38 (ghi chú) và 26/26 (bài tập) khối `details` mở; xuất PDF được. Với `reloadserver`, viewer báo một lỗi CSP do script tự nạp lại của máy chủ chèn vào; với `http.server` không có lỗi. Đã tự xem ảnh đầu trang 1600 px và giữa trang 390 px.
 - Index: thêm thẻ Bài 10 với ghi chú và bài tập; bài giảng "Chưa có" cho tới khi deck mới hoàn thành.
+
+## Làm lại deck từ ghi chú mới (2026-11-08)
+
+Theo yêu cầu người dùng 2026-11-07: sau khi ghi chú hoàn thiện (commit `51cb9ad`), làm lại deck Bài 10 dựa trên ghi chú mới. Deck là bản tóm lược của ghi chú (K3): không ví dụ, số, khẳng định hay nguồn ngoài ghi chú. Không dùng MMDS (như ghi chú), nên không có ghi công `mmds.org`; trang "Nguồn và tài liệu đọc" ghi NG, CMU 15-499, Stanford EE398A/CS106B.
+
+### Tác tử
+
+| Tác tử | Vai trò | Loại, mô hình, effort (theo lệnh gọi `Agent`) | Đầu ra (scratchpad) | Quyết định |
+|---|---|---|---|---|
+| lập kế hoạch deck | phạm vi, ngân sách 120 + 60 phút, mạch, chu trình, D1–D8 (chỉ đọc) | general-purpose, opus, high | `plan-deck.md` | chấp nhận, kèm K1–K3, D3–D8 |
+| phân tích nguồn deck | ghi chú → trang, hình cần vẽ, bài recitation từ sách (chỉ đọc) | general-purpose, opus, high | `source-deck.md` | chấp nhận |
+| soạn, sau đó chỉnh sửa (cùng tác tử, tiếp tục bằng `SendMessage`) | deck HTML, 17 SVG qua `generate_deck_svg.py`, selector CSS, phần deck của outline/storyboard; bốn vòng chỉnh sửa | general-purpose, opus, high | `writer-deck-report.md`, `writer-gate-report.md`, `editor-deck-report{,-2,-3}.md` | chấp nhận sau rà lại |
+| cổng storyboard | lý do tồn tại, chu trình, trang tiêu đề mạch, mật độ, 120 + 60 phút (chỉ đọc) | general-purpose, opus, high | `review1/gate.md` (0/1/7/14) | qua có điều kiện; G1–G7 |
+| rà: sinh viên (đo mật độ) | đọc deck như sinh viên năm hai, tự làm ví dụ và bài tập (chỉ đọc) | general-purpose, opus, high | `review2/rv-student.md` (0/0/7/17) | chấp nhận |
+| rà: chuyên gia | khẳng định chuyên môn, giả thiết, so sánh công bằng (chỉ đọc) | general-purpose, opus, high | `review2/rv-expert.md` (0/4/6/7) | chấp nhận |
+| rà: độ chính xác | tính lại mọi số, vết, SVG, giả mã bằng script (chỉ đọc) | general-purpose, opus, high | `rv-accuracy.md` (0/0/1/8); `recheck/rc-accuracy.md` (0/0/0/3); `rc2-accuracy.md` (0/0/0/0); `rc3-accuracy.md` (0/0/0/1) | chấp nhận |
+| rà: phản biện học thuật–sư phạm, `no-ai-slop` Detect | checklist `slide_authoring_standard.md`, giọng văn (chỉ đọc) | general-purpose, opus, high | `rv-pedagogy.md` (0/0/9/22) | chấp nhận |
+| rà: mạch và liên kết (vai trò, kết nối vào/ra) | từng trang: vai trò, kết nối vào/ra (chỉ đọc) | general-purpose, opus, high | `rv-storyline.md` (0/1/10/16); `rc-storyline.md` (0/0/2/13); `rc2-storyline.md` (0/0/0/2); `rc3-storyline.md` (0/0/0/3) | chấp nhận |
+| kiểm định cuối | checklist `slide_authoring_standard.md`, kỹ thuật, mật độ, trực quan, đồng bộ kế hoạch, nhất quán ghi chú, git (chỉ đọc) | general-purpose, opus, high | `final/verifier.md` (1/0/2/6: chặn bàn giao là nhật ký này) | đạt có điều kiện → xử lý, xem dưới |
+| soạn ghi chú (tác tử của giai đoạn ghi chú, tiếp tục bằng `SendMessage`) | đính chính N1–N5 | general-purpose, opus, high | `note-fix-report.md` | chấp nhận |
+
+Số trong ngoặc: chặn bàn giao/nghiêm trọng/trung bình/nhẹ. Người soạn ghi chú và người soạn deck không chạy cùng lúc.
+
+### Quyết định của điều phối viên
+
+- K1: bảy section ngoài (Mở đầu · mã tiền tố–Kraft–entropy · Huffman tĩnh · Huffman thích nghi · mã số học, gộp Mục 5–6 · tổng kết · bài tập vận dụng). K2: hình vẽ lại bằng `generate_deck_svg.py` (nhãn ≥ 18 px khi chiếu), 9 SVG của deck cũ bị xóa lúc commit. K3: deck tóm lược ghi chú.
+- D3: không giảng Ví dụ 10.13. D4: Bài tập 10.11 giữ quy tắc gán bit của ghi chú, nêu bằng nhãn "Quy ước:" trên trang đề; Bài tập 10.14 chỉ phần (a)–(c) theo NG Hình 4.2–4.4, phần (d) (dữ liệu của bản soạn) chỉ ở `exercises.md`. D5: gốc `reveal course-deck lecture-compression`. D6: "Đọc trước:" NG Chương 2–5. D7: luận đề và dòng dẫn "Muốn …, phải …". D8: recitation theo mạch (10.12, 10.11, 10.14, 10.15).
+- Cổng storyboard (G1–G7): ngân sách thời gian không thật (trang chứng minh 1 phút) → gộp bảy trang (A11 vào A13B, A13–A13C còn hai trang, K20 vào K19, S09 vào S10, A16 vào A17, A19 vào A18, S08 xuống ghi chú diễn giả), trang chứng minh 1,5–2 phút; danh sách đọc thêm chép vào storyboard; chia/gọt K15, K16, K08, K02, A21, A23, K12; T05 không lộ lời giải; "NG" trên mặt trang thay bằng tên chương trình (HUFF.C, AHUFF.C, ARITH.C) hoặc quy tắc.
+
+### Năm vòng rà (bản đóng băng d2, md5 `d6701316…`) và xử lý
+
+| Mức độ | Trang | Vấn đề | Xử lý |
+|---|---|---|---|
+| nghiêm trọng | S01 | "ảnh fax hai màu không nén được" sai (chuyên gia) | theo ghi chú: với hai ký hiệu, mọi mã ký hiệu dùng đúng 1 bit mỗi điểm |
+| nghiêm trọng | T02, P02 | cận $H\le\bar\ell<H+1$ gắn giả thiết "mã tiền tố" (chuyên gia; phản ví dụ ASCII) | cận dưới cho mọi mã tiền tố, cận trên cho mã tối ưu |
+| nghiêm trọng | T03 | gộp cận lý tưởng với điều kiện thanh ghi, bỏ khoản cố định; đơn vị chi phí lẫn (chuyên gia, độ chính xác) | tách hàng lý tưởng/thanh ghi, ghi EOS, bit kết thúc, 16 bit 0; chi phí cùng đơn vị |
+| nghiêm trọng | T04 | so sánh dùng hai quy tắc chọn chuỗi bit (5 bit ngắn nhất; 33 bit trung điểm) (chuyên gia; lỗi có từ ghi chú dòng 2003) | ghi chú đính chính N1, deck dùng 6 bit theo Định lý 10.34; bỏ tiêu chí "phân phối lệch" |
+| nghiêm trọng | X03 (ghi chú diễn giả) | thời lượng và lời điều phối lớp (mạch) | bỏ; ghi phần trùng với ví dụ tăng A trong storyboard |
+| trung bình | 28 phát hiện | A21 điều kiện 16 bit và phá hòa; A23 "Sau khi co:"; A17 cây lược ESCAPE/EOS; H04/H05 quy tắc phá hòa và gán bit; "Huffman A–E" trước mạch 3; A13/A13B thứ tự khởi tạo–duy trì–kết thúc, Bổ đề 10.24 đủ hai vế; T01 dòng $\lambda=87$; P02 ↔ T05 ánh xạ mục tiêu; S10 "Nhu cầu:"; K16, K02/K04 tách định nghĩa khỏi trang ví dụ; H12 $\Sigma'$, $T'$; A10 REBUILD, $W_{\max}$; G08 dòng trực giác và giả thiết; S14 ngoại lệ lũy thừa của $\tfrac12$; X01 định nghĩa cây nhị phân hoàn hảo; thuật ngữ tiếng Anh lần đầu; bốn trang "Bài tập:" trong mạch 2 phút; mật độ | đã sửa (`merge-deck.md` B1–B18; `editor-deck-report.md`) |
+| nhẹ | 70 phát hiện | | áp dụng khi sửa lỗi hoặc làm rõ mà không tăng mật độ; mục bác ghi trong báo cáo chỉnh sửa (không thêm cột "Câu chốt", "Nguồn" vào storyboard: nguồn từng trang đã ở ghi chú diễn giả, như Bài 09; T06 giữ "Bài 11: nén bằng từ điển." vì thêm lý do vượt trần 60, lý do ở ghi chú diễn giả) |
+
+Kiểm định cuối (`final/verifier.md`, bản d4): đạt có điều kiện. Chặn bàn giao: nhật ký này chưa có (đã ghi). Trung bình: tiêu đề cột T02 lệch khuôn `Kết quả | Giả thiết không được bỏ | Công thức hoặc thuật toán` (đã sửa; ô cột cuối là công thức hoặc tên thuật toán); outline lệch deck ở luận đề và dòng dẫn KT, XT (đã chép nguyên văn). Nhẹ: T03 cột "Thuật toán" theo khuôn; lý do nội dung cho ngoại lệ trần 80 của P04B, T05; ghi chú P04B không tả bố cục; X04C bỏ đối lập. T06 giữ nguyên vì ghi chú không có năm cho CMU, Stanford. Phiếu kiểm `slide_authoring_standard.md`: mọi mục đạt (mục "sai khác nguồn, ngoại lệ có lý do trong nhật ký" đạt sau khi ghi mục này); 17/17 SVG tái tạo trùng byte từ `generate_deck_svg.py`; CSS bỏ selector `.lecture-compression` thì trùng HEAD.
+
+Sau kiểm định cuối, rà lại T02, T03, X04C, P04B: độ chính xác 0/0/0/1 (X04C gọi tự thông tin là số bit phát ra), mạch 0/0/0/3 (X04C lặp; câu mở ghi chú P04B; hai ô T02 mất kết luận). Sửa cả bốn; điều phối viên đối chiếu diff (chỉ bốn chỗ đó) và kiểm lại trình duyệt.
+
+Rà lại: độ chính xác (trang đổi, đính chính N1–N5, dẫn EE398A-1 trang chiếu 20 kiểm trên PDF) 0/0/0/3 rồi 0/0/0/0; mạch (trang đổi ±2, ranh giới, luận đề, ánh xạ mục tiêu) 0/0/2/13 rồi 0/0/0/2. Mọi phát hiện đã xử lý.
+
+### Đính chính ghi chú phát sinh từ vòng rà deck
+
+Ghi chú được sửa trước deck (ghi chú là chuẩn nội dung):
+
+- N1 Mục 7: "6 bit thay cho 8 bit ở Ví dụ 10.19 (chuỗi ngắn nhất: 5 bit)", cùng quy tắc với BILL GATES 33 bit.
+- N2 đầu mục HUFF.C: "phép co không bảo đảm điều đó: cận Fibonacci chỉ loại từ mã 17 bit khi gốc nhỏ hơn $4\,181$, còn gốc có thể tới $65\,281$" (bản trước ngầm khẳng định từ mã 17 bit xuất hiện).
+- N3 tiêu đề Định lý 10.12: "phần cận dưới của định lý mã hóa không nhiễu của Shannon, Shannon's noiseless coding theorem" (EE398A-1 trang chiếu 20; trang chiếu 10 phát biểu định lý đầy đủ cho khối).
+- N4 giới hạn độ dài từ mã của AHUFF.C: "Với biến tích bit 16 bit, …" (NG tr.75).
+- N5 `exercises.md` Bài tập 10.12: cây nhị phân hoàn hảo "mọi nút trong có đúng hai con và mọi lá ở độ sâu $\ell_{\max}$".
+
+Ghi chú sau đính chính: 31 992 âm tiết; `exercises.md` 2 674.
+
+### Kiểm định của điều phối viên
+
+- `check_deck.py` (Playwright Chromium, `python -m http.server` cục bộ; đếm âm tiết mặt trang trừ tiêu đề, KaTeX, giả mã, SVG, ô số, ghi chú; sửa ngày 2026-11-08 để không dính chữ giữa các ô bảng và `<li>`): 7 section ngoài, 105 trang (93 giảng, 120 phút; 12 bài tập vận dụng, 60 phút), `data-slide-id` duy nhất; ở 1600×900 và 390×844: 0 lỗi console, 0 request hỏng hay ra ngoài, 0 `.katex-error`, 0 trang tràn khung, không cuộn ngang; `#/2`…`#/7` mở đúng `mach-2`…`mach-7`, phím mũi tên chạy đúng. Mật độ: 34 trang ≤ 40 âm tiết, 63 trang 41–60 (cao nhất H04 59), 8 trang > 60, đều loại trần 80 hoặc có ngoại lệ ghi trong storyboard (T02 80, P02 77, T03 74, T05 69, G13 67, P04B 63, H15 63, X02 63); tối đa 2 công thức hiển thị; ghi chú diễn giả 56–247 âm tiết. Điều phối viên đã xem ảnh 1600 và 390 của P00, P04B, K11, KT, H08, A13, A13B, A17, S06, G11, T02, T03, T04, T05, X02, X04C.
+- CSS: `lecture-course.css` chỉ thêm `.reveal.course-deck.lecture-compression …` vào 21 selector của khối Bài 08 (một selector `th` mới cho bảng nén trong `.example-slide .stream-compact`, phạm vi `.lecture-compression`). Bài 02, 03, 08, 09 kiểm ở 1600×900 và 390×844: 0 lỗi console, 0 `.katex-error`, không cuộn ngang; Bài 02, 08, 09 0 trang tràn; Bài 03 báo một phần tử của `lec03-s03-13` ra ngoài khung, có từ trước (deck 03 không mang lớp `lecture-compression`, nên thay đổi CSS không chạm tới).
+- Ở 390 px RevealJS chuyển sang chế độ cuộn và bỏ qua `#/N` khi mở trang (như Bài 02, 09); `#/2`–`#/7` kiểm ở 1600×900.
+- Ghi chú và bài tập sau đính chính, qua viewer ở 1600×900 và 390×844: 0 lỗi, 0 `.katex-error`, 0 tràn, 9/9 SVG; in: 38/38 và 26/26 khối `details` mở.
+- Không raster. 9 SVG của deck cũ (`adaptive-sibling-increment`, `adaptive-swap`, `arithmetic-bill-gates`, `arithmetic-decode-normalize`, `arithmetic-renormalization`, `escape-eof-pipelines`, `huffman-code-decode`, `huffman-merge-a-e`, `prefix-tree-kraft`) không còn tham chiếu trong deck, ghi chú, index; xóa trong commit deck.
+- Index: thẻ Bài 10 thêm liên kết bài giảng.

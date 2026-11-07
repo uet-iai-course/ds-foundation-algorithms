@@ -670,25 +670,25 @@
 .reveal.course-deck.lecture-ann .ex-table .ann-selected { outline: 3px solid #2f3e7a; outline-offset: -3px; font-weight: 700; background: #edf4ff; }
 
 /* Bài 08: dòng dữ liệu (.lecture-stream). */
-.reveal.course-deck.lecture-stream .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
-.reveal.course-deck.lecture-stream .stream-figure { margin: 10px 0; }
-.reveal.course-deck.lecture-stream .stream-figure img { display: block; width: 100%; max-height: 360px; margin: 0 auto; object-fit: contain; }
-.reveal.course-deck.lecture-stream .stream-short img { max-height: 270px; }
-.reveal.course-deck.lecture-stream .stream-mini img { max-height: 150px; }
-.reveal.course-deck.lecture-stream .ex-grid2 > div { min-width: 0; }
-.reveal.course-deck.lecture-stream .ex-grid2.stream-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.reveal.course-deck.lecture-stream .stream-figure-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
-.reveal.course-deck.lecture-stream .stream-code-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
-.reveal.course-deck.lecture-stream .ex-card.stream-accent { border-left-color: #b15a2b; background: #fdf6ef; }
-.reveal.course-deck.lecture-stream .stream-question { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: 10px 16px; margin-top: 16px; }
+.reveal.course-deck.lecture-stream .slides > section > section, .reveal.course-deck.lecture-compression .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
+.reveal.course-deck.lecture-stream .stream-figure, .reveal.course-deck.lecture-compression .stream-figure { margin: 10px 0; }
+.reveal.course-deck.lecture-stream .stream-figure img, .reveal.course-deck.lecture-compression .stream-figure img { display: block; width: 100%; max-height: 360px; margin: 0 auto; object-fit: contain; }
+.reveal.course-deck.lecture-stream .stream-short img, .reveal.course-deck.lecture-compression .stream-short img { max-height: 270px; }
+.reveal.course-deck.lecture-stream .stream-mini img, .reveal.course-deck.lecture-compression .stream-mini img { max-height: 150px; }
+.reveal.course-deck.lecture-stream .ex-grid2 > div, .reveal.course-deck.lecture-compression .ex-grid2 > div { min-width: 0; }
+.reveal.course-deck.lecture-stream .ex-grid2.stream-grid3, .reveal.course-deck.lecture-compression .ex-grid2.stream-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.reveal.course-deck.lecture-stream .stream-figure-split, .reveal.course-deck.lecture-compression .stream-figure-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
+.reveal.course-deck.lecture-stream .stream-code-split, .reveal.course-deck.lecture-compression .stream-code-split { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
+.reveal.course-deck.lecture-stream .ex-card.stream-accent, .reveal.course-deck.lecture-compression .ex-card.stream-accent { border-left-color: #b15a2b; background: #fdf6ef; }
+.reveal.course-deck.lecture-stream .stream-question, .reveal.course-deck.lecture-compression .stream-question { background: #edf4ff; border: 2px solid #2f3e7a; border-radius: 8px; padding: 10px 16px; margin-top: 16px; }
 .reveal.course-deck.lecture-stream .example-slide .stream-compact th,
-.reveal.course-deck.lecture-stream .example-slide .stream-compact td { padding: 5px 10px; }
-.reveal.course-deck.lecture-stream .ex-table th[scope="row"] { white-space: nowrap; }
-.reveal.course-deck.lecture-stream .stream-tall img { max-height: 520px; }
-.reveal.course-deck.lecture-stream { --r-code-font: Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace; }
-.reveal.course-deck.lecture-stream ol.stream-alpha { list-style-type: lower-alpha; }
-.reveal.course-deck.lecture-stream table.stream-even { table-layout: fixed; }
-.reveal.course-deck.lecture-stream table.stream-even th:first-child { width: 22%; }
-.reveal.course-deck.lecture-stream table.stream-even th, .reveal.course-deck.lecture-stream table.stream-even td { text-align: center; }
-.reveal.course-deck.lecture-stream table.stream-even th:first-child, .reveal.course-deck.lecture-stream table.stream-even tbody th { text-align: left; }
-.reveal.course-deck.lecture-stream table.stream-even .stream-pick { border-left: 3px solid #2f3e7a; border-right: 3px solid #2f3e7a; }
+.reveal.course-deck.lecture-stream .example-slide .stream-compact td, .reveal.course-deck.lecture-compression .example-slide .stream-compact th, .reveal.course-deck.lecture-compression .example-slide .stream-compact td { padding: 5px 10px; }
+.reveal.course-deck.lecture-stream .ex-table th[scope="row"], .reveal.course-deck.lecture-compression .ex-table th[scope="row"] { white-space: nowrap; }
+.reveal.course-deck.lecture-stream .stream-tall img, .reveal.course-deck.lecture-compression .stream-tall img { max-height: 520px; }
+.reveal.course-deck.lecture-stream, .reveal.course-deck.lecture-compression { --r-code-font: Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace; }
+.reveal.course-deck.lecture-stream ol.stream-alpha, .reveal.course-deck.lecture-compression ol.stream-alpha { list-style-type: lower-alpha; }
+.reveal.course-deck.lecture-stream table.stream-even, .reveal.course-deck.lecture-compression table.stream-even { table-layout: fixed; }
+.reveal.course-deck.lecture-stream table.stream-even th:first-child, .reveal.course-deck.lecture-compression table.stream-even th:first-child { width: 22%; }
+.reveal.course-deck.lecture-stream table.stream-even th, .reveal.course-deck.lecture-stream table.stream-even td, .reveal.course-deck.lecture-compression table.stream-even th, .reveal.course-deck.lecture-compression table.stream-even td { text-align: center; }
+.reveal.course-deck.lecture-stream table.stream-even th:first-child, .reveal.course-deck.lecture-stream table.stream-even tbody th, .reveal.course-deck.lecture-compression table.stream-even th:first-child, .reveal.course-deck.lecture-compression table.stream-even tbody th { text-align: left; }
+.reveal.course-deck.lecture-stream table.stream-even .stream-pick, .reveal.course-deck.lecture-compression table.stream-even .stream-pick { border-left: 3px solid #2f3e7a; border-right: 3px solid #2f3e7a; }

@@ -1,115 +1,296 @@
 # Storyboard Bài 10: Nén dữ liệu không mất thông tin
 
+> Phạm vi (2026-11-08): các mục từ đầu tệp tới trước "Storyboard ghi chú tự học (bản 2026-11-08)" là storyboard của **bộ trang chiếu mới**, viết lại toàn bộ từ ghi chú `materials/lec-10/lecture-note.md` và `exercises.md` (commit `51cb9ad`), thay mọi mục của deck cũ (54 trang, sáu mạch). Phần storyboard ghi chú ở cuối tệp giữ nguyên. Căn cứ: `decisions-deck.md` (K1–K3, D3–D8), kế hoạch deck (phương án gọn), phân tích nguồn deck, quyết định sau cổng storyboard `gate-decisions.md` (G1–G7, 2026-11-08) và quyết định sau năm vòng rà deck `merge-deck.md` (A1–A5, B1–B18, C, 2026-11-08).
+
 ## Hành trình khái niệm
 
-Dữ liệu lớn làm nổi bật ba chi phí khác nhau: gửi bảng tần suất, mã hóa một dòng chưa biết thống kê trước và lãng phí do từ mã phải dài nguyên bit. Bài học tách hai trục ngay từ đầu: mô hình có thể tĩnh hoặc cập nhật; bộ mã có thể dùng cây Huffman hoặc khoảng số học. Ba cụm lần lượt xét tĩnh + Huffman, cập nhật + Huffman và tĩnh + số học. Mọi bộ giải mã phải tái tạo đúng mô hình, quy tắc mã và điều kiện kết thúc.
+Bài mở từ giới hạn của Bài 09 (bảng Count-Min trả lời truy vấn nhưng không dựng lại được dòng) và yêu cầu khôi phục đúng từng bit. Mạch 2 cho điều kiện giải mã kiểm được (mã tiền tố), tiêu chuẩn cho bộ độ dài (Kraft) và mức đích có cận hai phía (entropy). Mạch 3 dựng mã tiền tố tối ưu bằng Huffman tĩnh, chứng minh tối ưu bằng phép đổi chỗ và quy nạp, đếm chi phí và đầu mục; giới hạn giao tiếp là hai lượt đọc và đầu mục. Mạch 4 bỏ hai chi phí đó bằng phép tăng–đổi giữ tính chất anh em, với hai phía đồng bộ; giới hạn giao tiếp là ít nhất 1 bit mỗi ký hiệu. Mạch 5 mã cả thông điệp bằng một khoảng, cận $\lambda<I(x)+2$, rồi cài trên thanh ghi 16 bit với bit chờ và điều kiện $N\le2^{R-2}$. Mạch 6 thu hồi thông điệp A–E bằng số (312 → 87 bit, đích 85,25) và đặt ba bộ mã cạnh nhau. Mạch 7 là bốn bài sách.
 
-## Bổ sung trang tiêu đề mạch 2026-10-14
+Ví dụ xuyên suốt: **thông điệp A–E** (39 ký hiệu; P05 → K11, K16, K19 → H01–H05, H07, H13 → X02 → T01) và **BILL GATES** (S02, S04, S07 → G01, G02 → T04); phụ: chữ u (P08), bảy chữ A (S10–S12, T04), cây A1, B2, C2, D2, E10 (A02, A06–A07, A20, X03; lần 1 của X03 trùng A06), mô hình a, b, c với $p=(0{,}1;\,0{,}2;\,0{,}7)$ (G06–G10, X04).
 
-Căn cứ: `AGENTS.md` mục "Trang tiêu đề mạch"; yêu cầu người dùng 2026-10-14. Mỗi section ngoài trừ mạch mở đầu mở bằng một trang `class="strand-title"`, `id="mach-N"`. Mã theo quy ước của bài: mã `<tiền tố>00` đã thuộc trang nội dung đầu mạch, nên trang tiêu đề mạch dùng `<tiền tố>T`. Trang tiêu đề mạch nằm ngoài chu trình khái niệm; thời lượng 0,5 phút mỗi trang lấy từ trang đầu mạch (cột "Trang đầu mạch"), tổng thời lượng bài không đổi. Deck 48 → 54 trang.
+## Bản đồ mạch
 
-Bản đồ mạch (tên trùng từng chữ với trang Nội dung): 1. Mở đầu (mở bằng trang bìa P00); 2. Mã Huffman tĩnh (`HT`); 3. Huffman thích nghi (`AT`); 4. Mã hóa số học (`RT`); 5. Tổng kết và tự kiểm tra (`ST`); 6. Bài tập vận dụng (`XT`).
+Bảy section ngoài (K1, Q7): mở đầu, bốn mạch giảng, tổng kết, bài tập vận dụng; trong khoảng 5–7. Mạch 5 gộp Mục 5–6 của ghi chú với hai tiền tố S/G (như D/E của Bài 09); điểm chuyển là G01 mở bằng "Nhu cầu:" có số.
 
-| Mã trang | Tiêu đề (tên mạch) | Mục đích | Vị trí | Kiến thức đầu vào | Đầu ra | Ghi chú | Phút | Quyết định |
-|---|---|---|---|---|---|---|---:|---|
-| P03 | Nội dung | Liệt kê đánh số mọi mạch, tên trùng trang tiêu đề mạch; notes một câu mỗi mạch | mạch mở đầu, sau P01 | Tên bài | Thứ tự và quan hệ các mạch | trang `agenda-slide` | 0,5 (từ trang bìa) | thêm |
-| HT | Mã Huffman tĩnh | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 2, `id="mach-2"`, trước H00 | Mục tiêu, hai trục mô hình–bộ mã (P01–P02) | Cây Huffman, tính tối ưu, chi phí và đầu mục | ngoài chu trình khái niệm; tên khác tiêu đề H00 | 0,5 (từ H00) | thêm |
-| AT | Huffman thích nghi | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 3, `id="mach-3"`, trước A00 | Huffman tĩnh cần bảng tần suất trước | Cập nhật cây đồng bộ, ba bất biến, ngưỡng dựng lại | ngoài chu trình khái niệm; tên khác tiêu đề A00 | 0,5 (từ A00) | thêm |
-| RT | Mã hóa số học | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 4, `id="mach-4"`, trước R00 | Giới hạn từ mã nguyên bit | Mã khoảng, bất biến khoảng lồng nhau, cách dừng | ngoài chu trình khái niệm; tên khác tiêu đề R00 | 0,5 (từ R00) | thêm |
-| ST | Tổng kết và tự kiểm tra | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 5, `id="mach-5"`, trước S00 | Ba cách mã đã có | Bốn mục giao thức, câu hỏi chọn cặp | ngoài chu trình khái niệm; tên khác tiêu đề S00 | 0,5 (từ S00) | thêm |
-| XT | Bài tập vận dụng | Dòng dẫn nêu nhu cầu của mạch; notes nối kết quả kế thừa, nhiệm vụ, kết quả giao | điểm vào mạch 6, `id="mach-6"`, trước X00 | Thuật toán của ba cách mã | Ba bài Nelson–Gailly và CMU | ngoài chu trình khái niệm; tên khác tiêu đề X00 | 0,5 (từ X01; X00 không có phút riêng nên X01 giảm 0,5 phút) | thêm |
+| N | Mạch | Tiền tố | Loại | Chức năng | Đầu vào | Đầu ra | Đóng góp | Trang tiêu đề mạch |
+|---:|---|---|---|---|---|---|---|---|
+| 1 | Mở đầu | P | giới thiệu và động lực; khái niệm (chu trình rút gọn) | đặc tả, giới hạn không mã nào rút ngắn mọi thông điệp, mô hình–bộ mã, bốn thành phần giao thức | Bài 08 (Định nghĩa 08.1), Bài 09 (Định lý 09.37) | A–E 312/117 bit; Định nghĩa 10.1, 10.3; Mệnh đề 10.2; Nhận xét 10.4 | mục tiêu 1 | P00 (bìa) |
+| 2 | Mã tiền tố, bất đẳng thức Kraft và entropy | K | khái niệm hoặc mô hình | điều kiện tiền tố, Kraft, entropy và hai cận | Định nghĩa 10.1; 117 bit | cây mã, $K\le1$, $H\le\bar\ell<H+1$; giới hạn: không chỉ cách tìm mã tối ưu | mục tiêu 2 | KT, `id="mach-2"`, `#/2`, điểm vào mạch 2 |
+| 3 | Mã Huffman tĩnh | H | thuật toán và ví dụ vận dụng, kèm chi phí | Shannon–Fano (giới hạn), Huffman, tối ưu, chi phí, đầu mục | cây mã, $\operatorname{cost}(T)$, $I(x)$ | Thuật toán 10.14, Định lý 10.18, Hệ quả 10.19; giới hạn: hai lượt, đầu mục | mục tiêu 3 | HT, `id="mach-3"`, `#/3`, điểm vào mạch 3 |
+| 4 | Mã Huffman thích nghi | A | thuật toán và ví dụ vận dụng | tính chất anh em, tăng–đổi, ESCAPE/EOS, đồng bộ, dựng lại | thứ tự lấy ra của Huffman, Định lý 10.18, đầu mục | Thuật toán 10.23, 10.26; giới hạn: ít nhất 1 bit mỗi ký hiệu | mục tiêu 4 | AT, `id="mach-4"`, `#/4`, điểm vào mạch 4 |
+| 5 | Mã số học | S, G | thuật toán và ví dụ vận dụng | khoảng chuỗi, giải mã, dừng, cận độ dài; thanh ghi, tràn dưới, bit chờ, khoảng con nguyên, giải mã nguyên | giới hạn 1 bit; khoảng mã (K08) | Thuật toán 10.32, 10.37, 10.40; Định lý 10.34; Bổ đề 10.38, 10.39; bảng chi phí | mục tiêu 5, 6 | ST, `id="mach-5"`, `#/5`, điểm vào mạch 5 |
+| 6 | Tổng kết và tự kiểm tra | T | tổng kết và bài tập (phần tổng kết) | thu hồi A–E, hai bảng, trả lời có điều kiện, tự kiểm tra, nguồn, nối Bài 11 | mọi kết quả | kiến thức cho recitation | mọi mục tiêu | TT, `id="mach-6"`, `#/6`, ngoài chu trình khái niệm |
+| 7 | Bài tập vận dụng | X | tổng kết và bài tập (dọc riêng 60 phút) | bốn bài sách | Định lý 10.9, Thuật toán 10.14, 10.23, 10.32, Định lý 10.34 | chứng minh, bảng lượt ghép, danh sách vị trí, bảng giải mã | mục tiêu 2–5 | XT, `id="mach-7"`, `#/7`, ngoài chu trình khái niệm |
 
-Trang Nội dung: bài chưa có trang này; thêm `P03` (`class="agenda-slide"`, `<h2>Nội dung</h2>`, `ol` 1–6) ngay sau trang mục tiêu P01 (đứng ngay sau trang bìa), tên trùng từng chữ với tên mạch; mạch 1 đặt tên "Mở đầu". Mặt trang khoảng 24 âm tiết; notes một câu cho mỗi mạch, nêu quan hệ suy luận. Mã `P03` theo dãy mã P của mạch mở đầu. Quyết định: thêm (0,5 phút lấy từ trang bìa).
+Trang tiêu đề mạch KT, HT, AT, ST có dòng dẫn nêu đúng nhu cầu của khái niệm hoặc thuật toán đầu mạch, nên ghi là bước `vấn đề`; TT, XT ngoài chu trình khái niệm. Mã `<tiền tố>-00` không dùng vì bài dùng mã ngắn; mã trang tiêu đề mạch là `<tiền tố>T` như Bài 09.
 
-Bài có 6 section ngoài (trong khoảng 5–7), nên trang Nội dung đánh số 1–6. Mạch 5 đặt tên "Tổng kết và tự kiểm tra" theo `AGENTS.md`, vì phần S gồm bốn mục giao thức và câu hỏi chọn cặp.
+**Số trang và phần đọc thêm.** Phần giảng có 93 trang (mốc tham khảo 45–55 của `slide_authoring_standard.md`, vượt 60). Lý do, như Bài 09 (96 trang giảng): bốn thuật toán trọng tâm (Huffman tĩnh, tăng–đổi, mã số học số thực, mã số học nguyên) và ba cụm kết quả (mã tiền tố, Kraft, entropy), mỗi cụm đủ chu trình; trang bài toán có hình sau mỗi trang tiêu đề mạch, chứng minh tách trang theo quy ước tác giả 2026-10-28/29. Nhịp sau cổng storyboard (G1): trang chứng minh, tính đúng và trang kết quả có dòng chứng minh 1,5–2 phút, như Bài 09; trung bình 1,29 phút mỗi trang. Sau năm vòng rà (B17): K21, H17, A20, G15 (bốn trang Câu hỏi) mỗi trang 2 phút; bù bằng gộp K10 và bớt 0,5 phút ở K08, K15, A07, S02, G02, G04.
 
-## Bản đồ sáu mạch
+Sau cổng storyboard (G1), bảy trang được gộp: A11 (Bổ đề 10.24) vào hàng "Hợp lệ" của A13B; A13C vào A13B (phép tăng và kết thúc); A16 vào A17; A19 (Mệnh đề 10.27) thành dòng "Kết luận:" của A18; S08 (Mệnh đề 10.33) xuống ghi chú diễn giả S11; S09 vào S10; K20 (Ví dụ 10.6) thành dòng "Ví dụ." của K19. Sau năm vòng rà, K10 (bốn tổng Kraft) thành dòng đầu của K11, và A20 chuyển xuống sau A23 để trang Câu hỏi đóng mạch 4.
 
-| Mạch | Chức năng | Kết nối vào | Đầu ra | Đóng góp mục tiêu |
-|---|---|---|---|---|
-| P — Đặt bài toán và mô hình chung | Nêu đích khôi phục chính xác và tách mô hình khỏi bộ mã. | Tiên quyết: xác suất, cây, hàng đợi ưu tiên. | Ma trận ba cặp lựa chọn được học. | Phân biệt hai trục và điều kiện giao thức. |
-| H — Mã tiền tố và Huffman tĩnh | Dẫn từ Kraft đến cây tham lam, giải mã, tính đúng và tối ưu. | Ô tĩnh + Huffman trong ma trận. | Chi phí lượt đếm và đầu mục. | Dựng, giải mã và lập luận tối ưu Huffman. |
-| A — Huffman thích nghi | Đồng bộ cây khi chưa có bảng trước, gồm ký hiệu mới, đổi nút và dựng lại. | Nhược điểm đầu mục của mô hình tĩnh. | Chi phí cập nhật mô hình và giới hạn tích lũy trọng số. | Mô phỏng biến thể Nelson–Gailly và các bất biến. |
-| R — Mã hóa số học | Thu hẹp khoảng cho cả chuỗi, giải mã, dừng và chuẩn hóa hữu hạn. | Giới hạn độ dài nguyên bit của mã tiền tố. | Quan hệ độ rộng khoảng, số bit và chi phí. | Mã hóa, giải mã và dùng tự thông tin. |
-| S — Chọn bộ mã hóa và tổng hợp | Thu hồi hai trục và thông tin giao thức. | Ba cụm thuật toán đã hoàn thành. | Tiêu chí lựa chọn có ràng buộc, không ép đáp án duy nhất. | So sánh chi phí, điều kiện đồng bộ và kết thúc. |
-| X — Bài tập recitation | Tạo ba sản phẩm có thể chấm từ dữ kiện nguồn. | Cây A–E, cây thích nghi đầy đủ và mô hình CMU. | Vết ghép và bảng mã; vết đổi nút; bốn khoảng giải mã và giải thích tự thông tin. | Kiểm tra toàn bộ mục tiêu bài học. |
+Đọc thêm, không lên mặt trang (ghi chú diễn giả hoặc ghi chú bài giảng), theo kế hoạch deck §3 và các mục chuyển xuống ở G1: Nhận xét 10.10 (McMillan); ba phân phối khác của Ví dụ 10.5; các danh sách "Bỏ giả thiết"; Bài tập 10.1, 10.2, 10.5, 10.6, 10.8; Tình huống 10.1; quy ước bit trong lời văn NG; `scale_counts`; cách lưu mảng của AHUFF.C; mã khối $j$ ký hiệu (dòng "Lưu ý:" của H11 và hàng của T03 chuyển xuống ghi chú diễn giả); mã số học thích nghi (NG Chương 6); Mệnh đề 10.33 và chứng minh (ghi chú diễn giả S11); bảng danh sách trước khi cập nhật E của Ví dụ 10.14 (ghi chú diễn giả A17); chứng minh Mệnh đề 10.27 (ghi chú diễn giả A18); ba bước chứng minh Bổ đề 10.24 (ghi chú diễn giả A13B); các khoản cố định của bộ mã thanh ghi (ghi chú diễn giả G13); cách lan truyền nhớ của EE398A-3.
 
 ## Chu trình học tập theo cụm
 
-| Cụm | Kiến thức đầu vào và sản phẩm | Tình huống, dữ liệu, giới hạn và đầu ra | Vai trò tám bước và dữ kiện truyền |
-|---|---|---|---|
-| Huffman tĩnh | Biết cây nhị phân và hàng đợi ưu tiên; tạo cây, bảng mã, vết giải mã, lập luận tối ưu và chi phí. | Kho văn bản có phân phối lệch; ví dụ A–E có 39 ký hiệu với tần suất 15,7,6,6,5; cần dòng bit khôi phục đúng, nhưng lượt đếm và đầu mục có chi phí. | Tình huống H00 → vấn đề H01 → trực giác H02–H03 → chạy tay H04–H08 → hình thức H02,H09 → thuật toán và tính đúng H09–H11 → chi phí H12 → kiểm tra H13. Các trọng số truyền từ bảng sang hàng đợi, cây, bảng mã và tổng 87 bit. |
-| Huffman thích nghi | Biết cây Huffman và con trỏ cha; tạo vết ký hiệu mới, vết tăng/đổi, ba bất biến và quyết định dựng lại. | Dòng byte chỉ qua một lượt, chưa biết ký hiệu xuất hiện; hai phía phải tạo cùng dòng bit và cùng cây. Ký hiệu E mới truyền `ESCAPE`, `01000101`, lá E:0 rồi cập nhật. | Tình huống A00 → vấn đề A01–A02 → trực giác A03 → chạy tay A02,A04–A06 → hình thức A03,A07 → thuật toán và tính đúng A07–A08 → chi phí A09 → kiểm tra A10. Trạng thái cuối Hình 4.2 truyền sang đúng một lần tăng và phép đổi Hình 4.3. |
-| Mã hóa số học | Biết xác suất và logarit; tạo vết khoảng, vết giải mã, vòng chuẩn hóa và giải thích số bit. | Nguồn 100.000 số 0 có $p(0)=16382/16383$ và $p(\mathrm{EOS})=1/16383$; mã tiền tố vẫn cần một bit mỗi ký hiệu, còn mã khoảng tạo tệp 3 byte theo nguồn. | Tình huống R00 → vấn đề R01 → trực giác R02 → chạy tay R03–R04,R07 → hình thức R05,R08 → thuật toán và tính đúng R06–R07,R09–R11 → chi phí R12 → kiểm tra R13. Khoảng BILL GATES truyền vào công thức, giải mã và điều kiện dừng; độ rộng khoảng truyền sang tự thông tin. |
+| Cụm | Tình huống, vấn đề | Trực giác | Ví dụ | Hình thức | Thuật toán | Tính đúng, kết quả | Ứng dụng, chi phí | Kiểm tra |
+|---|---|---|---|---|---|---|---|---|
+| Đặc tả, mô hình–bộ mã (rút gọn: phân loại và giao thức, không có thuật toán) | P04 | P08 | P05, P08 | P06, P09, P10 | — | P07 | P10 (ghi chú diễn giả: Bài tập 10.1) | T05 câu 1, câu 2 |
+| Mã tiền tố | P05, KT, K01 | K04 (hỏi–đáp, ghi chú diễn giả) | K04 | K02 | thủ tục đi cây (K05(c)) | K05 | K04 ghi chú diễn giả: $\sum_t\ell_{x_t}$ bước | X01 (đếm lá trên cây mã) |
+| Kraft | K08 | K08 | K11 (trước định lý) | K08 | dựng mã từ độ dài (K11, K13) | K12, K13 | K11: hai phía dựng cùng mã từ bộ độ dài | X01 (Bài tập 10.12) |
+| Entropy và hai cận (entropy là đại lượng đo, kết quả ở topic-07) | K15 | K15 (chữ e), K16 | K16, K19 (dòng Ví dụ) | K15, K16 | — | K17, K18, K19 | K19 (102 so với 85,25) | K21 |
+| Huffman tĩnh (Shannon–Fano rút gọn theo Q3) | HT, H01 | H03 | H02 (giới hạn 89 bit), H04, H05 | H06 | H06 | H07, H08, H09, H11, H12, H13 | H15, H16 | H17, X02 |
+| Tính chất anh em | A01 | A02 | A02 | A03 | — | A04 | — | A03 (phản ví dụ), X03 |
+| Tăng–đổi | A01 (chạy lại $O(k\log k)$) | A07 | A06, A07 | A10 | A10 | A12, A13, A13B | A14 | A20 (cuối mạch), X03 |
+| ESCAPE, EOS, đồng bộ | A15 | A15 | A17 | A15 | A18 | A18 (dòng Kết luận) | A18 ghi chú diễn giả | A20 |
+| Chống tràn, dựng lại (rút gọn: biến thể phụ của chương trình) | A21 | A21 | A21, A23 | — | A23 | A23 ghi chú diễn giả | A23 | — (Bài tập 10.5 trong ghi chú) |
+| Mã số học số thực | ST, S01 | S02 | S02, S04, S07 | S03, S05 | S06 | S05, S06 | S06 ghi chú diễn giả | X04 |
+| Dừng và cận độ dài | S07 | S10 | S10 | S11 | quy tắc trung điểm (S11) | S11, S12, S14 | S14 | X04, T05 câu 3 |
+| Thanh ghi hữu hạn (topic-18 gộp với topic-19 như ghi chú) | G01, G03 | G02, G04 | G02, G06, G07, G10 | G01, G04 | G05, G11 | G08, G09, G11 | G13 | G15, T05 câu 4 |
 
-Không có bước nào ghi `không áp dụng` cho ba thuật toán trọng tâm. Một số bước được gộp để giữ một luận điểm trung tâm trên mỗi trang; mã trang ở bảng trên ghi rõ các phần gộp.
+Mỗi mạch nội dung có ít nhất một trang "Câu hỏi" với lời giải trong ghi chú diễn giả: K21 (mạch 2), H17 (mạch 3), A20 (mạch 4), G15 (mạch 5).
+
+Thứ tự cục bộ ở mã số học số thực: giả mã giải mã (S06) đứng trước ví dụ giải mã BILL GATES (S07), theo thứ tự của ghi chú (Thuật toán 10.32 trước Ví dụ 10.18); phép giải mã là phép thu hẹp viết ngược, đã chạy tay theo chiều mã hóa ở S02, S04, và S07 chạy tay ngay sau giả mã (G20). D3 (trường hợp nút cuối khối là nút trong) đáp ứng bằng dòng "Trường hợp biên:" của A10.
 
 ## Ánh xạ từng trang
 
-> Các mục trang chiếu dưới đây (và các mục "Hành trình khái niệm", "Bổ sung trang tiêu đề mạch", "Bản đồ sáu mạch", "Chu trình học tập theo cụm", "Liên tục dữ kiện và ký hiệu", "Trạng thái phần recitation") thuộc deck cũ, giữ nguyên chờ làm lại deck; ánh xạ `data-slide-id` ↔ `note-topic-id` sẽ được lập khi làm lại.
+Cột ÂT / dòng / CT: ÂT và CT đo bằng một script duy nhất, `check_deck.py` của điều phối viên (scratchpad `master/`), trên trang đã dựng trong Chromium: bỏ ghi chú diễn giả, tiêu đề, `pre`, KaTeX, hình, ô bảng chỉ có số hoặc ký hiệu; âm tiết là token có chữ cái của `textContent`; CT là số khối `.katex-display` (G9). Số dòng (mỗi `<p>`, `<li>`, hàng `<tbody>`) đo bằng `density.py` của tác tử soạn, vì `check_deck.py` không đếm dòng. Mọi trang là `thêm` (viết mới từ ghi chú) hoặc `sửa sau cổng storyboard`; các trang cũ được xử lý ở mục "Trang của deck cũ".
 
-| Mã | Luận điểm và sản phẩm học tập | Bước trong chu trình, câu nối và nguồn | Phút |
-|---|---|---|---:|
-| P00 | Đặt tên và vị trí Bài 10. | Mở bài; `sources/source.md`, Bài 10 đề xuất. | 1 |
-| P01 | Nêu bốn nhóm mục tiêu: hai trục và giao thức; Huffman tĩnh; mô phỏng `ESCAPE`/`EOS`/phép đổi và giải thích dựng lại; mã số học và tự thông tin. | Chuẩn đầu ra không yêu cầu mô phỏng toàn bộ thủ tục dựng lại; không hiển thị mã trang hay thời lượng. | 2 |
-| P02 | Tách trục mô hình tĩnh/cập nhật khỏi trục bộ mã Huffman/số học; giải thích lựa chọn Nelson–Gailly, Stanford và CMU. | Tiên quyết và truy nguyên nguồn; Nelson–Gailly Ch.2–5; CMU `compression1-2`; MMDS không có mô-đun tương ứng. | 6 |
-| H00 | Kho văn bản lớn có phân phối lệch; hai lượt quét và bảng tần suất là chi phí thực. | Tình huống dữ liệu lớn; dữ liệu A–E được dùng lại ở H04–H13; Nelson–Gailly tr.32–37. | 3 |
-| H01 | Đặc tả mã không mất thông tin với đầu vào, đầu ra và điều kiện giải mã duy nhất. | Vấn đề; nối sang điều kiện tiền tố. | 2 |
-| H02 | Mã tiền tố cho phép đọc dòng bit từ trái sang phải. | Trực giác và hình thức; CMU/Stanford đối chiếu. | 3 |
-| H03 | Kraft vừa đo sức chứa cây vừa xác định miền độ dài khả thi trước khi tối ưu chi phí. | Trực giác nối sang bài toán tối ưu; SVG `prefix-tree-kraft` dùng tám ô ở độ sâu 3; CMU Assignment 1a P4 chỉ làm nguồn đối chiếu. | 3 |
-| H04 | Khởi tạo năm lá A–E với tần suất 15,7,6,6,5. | Ví dụ chạy tay; Nelson–Gailly tr.35. | 2 |
-| H05 | Ghép D,E thành 11 rồi B,C thành 13. | Chạy tay; trạng thái truyền sang H06. | 3 |
-| H06 | Ghép 11,13 thành 24 rồi A,24 thành 39. | Chạy tay; SVG `huffman-merge-a-e`; Nelson–Gailly tr.35–36. | 3 |
-| H07 | Đọc mã A=0, B=100, C=101, D=110, E=111 từ cây. | Chạy tay sang hình thức; Nelson–Gailly tr.36. | 3 |
-| H08 | Mã hóa và giải mã bằng đường gốc–lá. | Ứng dụng trực tiếp; SVG `huffman-code-decode`. | 2 |
-| H09 | Giả mã hàng đợi ưu tiên, điều kiện dừng và quy tắc hòa. | Thuật toán; Stanford CS106B hỗ trợ cách kể, dữ liệu giữ theo sách. | 3 |
-| H10 | Cây nhị phân đầy đủ tạo mã tiền tố và giải mã duy nhất. | Lập luận đúng; điều kiện dừng ở lá. | 2 |
-| H11 | Gọi $x,y$ là hai ký hiệu nhẹ nhất và $a,b$ là cặp lá anh em sâu nhất; hai phép đổi không tăng chi phí, rồi co cặp và quy nạp. | Tính tối ưu; deck triển khai lập luận từ các mệnh đề tối ưu trong Nelson–Gailly PDF tr.37 và Stanford *Entropy and Lossless Coding* trang chiếu 18, không quy lời giải đầy đủ cho nguồn. | 4 |
-| H12 | Dựng cây $O(k\log k)$, mã hóa tuyến tính theo số bit đầu ra; phải truyền cây/bảng và quy ước trường hợp biên. | Chi phí, trường hợp biên và giới hạn; $k$ là số ký hiệu phân biệt; Nelson–Gailly tr.37, 67. | 4 |
-| H13 | Người học chọn hai nút ghép tiếp và giải thích ảnh hưởng của hòa. | Kiểm tra; kết cụm Huffman tĩnh. | 1 |
-| A00 | Dòng byte chỉ đi qua một lần và chưa có bảng tần suất. | Tình huống dữ liệu lớn; dùng lại chi phí bảng từ H12; Nelson–Gailly tr.67–68. Không tuyên bố thuật toán tự quên lịch sử hoặc bảo đảm bám drift. | 3 |
-| A01 | Bộ nén và giải nén phải khởi tạo, mã hóa/giải mã, cập nhật cùng thứ tự. | Vấn đề; SVG `escape-eof-pipelines`. | 3 |
-| A02 | Vết ký hiệu mới E: mã `ESCAPE`, tám bit `01000101`, chẻ nút nhẹ nhất để thêm E trọng số 0, rồi cập nhật E và tổ tiên; `EOS` kết thúc dòng. | Trực giác, ví dụ chạy tay và trường hợp biên; `ESCAPE` ở Nelson–Gailly PDF tr.73–74, lá mới trọng số 0 ở tr.82–83; dữ kiện truyền sang giả mã và bất biến. | 3 |
-| A03 | Tính chất anh em đặc trưng cây Huffman. | Hình thức hóa; Nelson–Gailly tr.68–69; không dùng Hình 4.1. | 3 |
-| A04 | Trên toàn cây Hình 4.2, tăng A $1\to2$, nút số 5 $3\to4$, nút số 7 $7\to8$ và gốc $17\to18$; nút số 6 và E giữ nguyên. | Ví dụ chạy tay; SVG `adaptive-sibling-increment`; Nelson–Gailly PDF tr.70. Trạng thái cuối truyền nguyên sang lần tăng kế tiếp. | 3 |
-| A05 | Từ trạng thái cuối vừa có, thực hiện thêm một lần tăng A từ 2 lên 3 và phát hiện A vượt khối trọng số 2. | Trạng thái trung gian nối trực tiếp sang phép đổi; Nelson–Gailly PDF tr.70–71. | 2 |
-| A06 | Đổi A với D; toàn cây Hình 4.3 giữ tổ tiên ở trọng số cũ vì mới chỉ A đã tăng, rồi tiếp tục từ cha mới số 6. | SVG `adaptive-swap`; Nelson–Gailly PDF tr.71. Hình phân biệt thời điểm sau đổi với thời điểm cập nhật xong cả đường. | 3 |
-| A07 | Trước cập nhật, kiểm tra ngưỡng; nếu đạt thì thay mỗi trọng số lá bằng $(w+1)//2$ và dựng lại. Sau đó tăng, đổi an toàn và dừng tại gốc. | Thuật toán; cập nhật, chống tràn và dựng lại theo Nelson–Gailly PDF tr.75–85; loại tổ tiên khỏi ứng viên đổi. | 4 |
-| A08 | Ba bất biến: hai phía có cùng cây; cây giữ tính chất anh em; nhánh mới bắt đầu ở trọng số 0 rồi được cập nhật ngay. | Quy nạp gồm ký hiệu đã biết, ký hiệu mới và nhánh dựng lại: cùng ngưỡng, phép làm tròn, quy tắc phá hòa và thủ tục tái dựng cho cùng cây. | 3 |
-| A09 | Tách chi phí đường cập nhật khỏi chi phí dựng lại; dựng lại phục vụ chống tràn, còn chiết giảm lịch sử chỉ là tác dụng kèm theo. | Chi phí và giới hạn; không suy ra bảo đảm bám phân phối trôi. Nelson–Gailly PDF tr.75–85. | 2 |
-| A10 | Người học xác định nút đổi với A và cha tiếp theo. | Kiểm tra; kết cụm thích nghi. | 1 |
-| R00 | Tệp 100.000 số 0 với $p(0)=16382/16383$ nén còn 3 byte bằng mã số học, so với tối thiểu 12.501 byte bằng Huffman. | Tình huống dữ liệu lớn có quy mô và kết quả từ Nelson–Gailly Ch.5, phần “Where’s the Beef?”; dùng lại ở R01, R12 và S01. | 3 |
-| R01 | Huffman bị chặn bởi độ dài nguyên bit; mã số học mã cả thông điệp thành một khoảng. | Vấn đề; Nelson–Gailly tr.96, 104. | 2 |
-| R02 | Phân hoạch $[0,1)$ bằng xác suất tích lũy. | Trực giác; khoảng nửa mở tránh hai ký hiệu cùng sở hữu biên; tr.97. | 3 |
-| R03 | Bảng chín ký hiệu của “BILL GATES”. | Ví dụ chạy tay; Nelson–Gailly tr.97. | 2 |
-| R04 | Sau B, I, L: $[0{,}2;0{,}3)$, $[0{,}25;0{,}26)$, $[0{,}256;0{,}258)$. | Chạy tay; SVG `arithmetic-bill-gates` vẽ đúng tỷ lệ trong từng mức phóng đại và chỉ đánh dấu vị trí khi khoảng cuối dưới độ phân giải; tr.98. | 3 |
-| R05 | Công thức $L'=L+(H-L)C_s$, $H'=L+(H-L)D_s$. | Hình thức hóa; điều kiện $0\le C_s<D_s\le1$. | 3 |
-| R06 | Bất biến khoảng chứa đúng các thông điệp có tiền tố đã đọc. | Lập luận đúng bằng quy nạp; khoảng lồng nhau. | 3 |
-| R07 | Giải mã chọn khoảng chứa $x$ rồi chuẩn hóa $x'=(x-C_s)/(D_s-C_s)$. | Thuật toán và ví dụ; SVG `arithmetic-decode-normalize`; Nelson–Gailly PDF tr.99. Câu nối: giải mã còn cần quy tắc dừng. | 3 |
-| R09 | Dừng bằng `EOS` hoặc độ dài truyền kèm; hoàn tất bằng tiền tố chọn một điểm trong khoảng cuối và đệm theo định dạng chung. | Trường hợp biên; Nelson–Gailly PDF tr.99. Hai phía chia sẻ quy tắc kết thúc, xử lý bit chờ, bit bù và đệm; sau giao thức lý tưởng là cài đặt hữu hạn. | 2 |
-| R10 | Cài đặt hữu hạn giữ hai số nguyên, phát bit khi tiền tố cố định và phản chiếu phép dịch ở bộ giải nén. | Cơ chế; Nelson–Gailly PDF tr.100–103; Stanford *Arithmetic Coding* trang chiếu 10–12 và 16 đối chiếu số học hữu hạn. | 3 |
-| R11 | Khởi tạo `pending` một lần trước thông điệp; vòng lặp có thứ tự E1, E2, E3 giữ bộ đếm xuyên các ký hiệu và dừng chuẩn hóa khi cả ba điều kiện sai. | Thuật toán hữu hạn; các dòng đặt lại `pending` được tách chủ ý để không tạo dòng mồ côi, lưới trái rộng hơn để tránh tràn. Ghi chú nối đến bước hoàn tất sau EOS/độ dài. Nguồn tiền tố chung/underflow là Nelson–Gailly tr.100–103; Stanford trang chiếu 10–12 và 16 đối chiếu phép dịch. | 4 |
-| R08 | Độ rộng khoảng bằng xác suất chuỗi, nên số bit gắn với $I(x)=-\log_2P(x)$; chỉ nguồn không nhớ mới tách thành tổng theo ký hiệu. | Cầu nối từ chuẩn hóa hữu hạn sang chi phí và bài CMU; Nelson–Gailly Ch.2. Erratum bảng A chỉ nằm trong ghi chú và nhật ký. | 2 |
-| R12 | So sánh bộ nhớ $O(k)$, đường cao $h$, tra cứu, dựng lại và điều kiện giao thức mà không áp cận thời gian thiếu nguồn. | Chi phí và giới hạn; giữ hai trục mở bài. Câu nối: kiểm tra khoảng và điều kiện dừng. | 2 |
-| R13 | Người học tính khoảng sau B,I và nêu điều kiện dừng. | Kiểm tra; kết cụm số học. | 1 |
-| S00 | Nêu bốn nhóm thông tin giao thức phải mang để giải mã đúng. | Tổng hợp xuyên ba cụm; dùng lại mô hình, cây/khoảng và cách dừng. | 4 |
-| S01 | Chọn một cặp phù hợp cho từng tình huống dưới ràng buộc được đánh dấu, giải thích đánh đổi và nêu thông tin giao thức. | Kiểm tra cuối không ép đáp án duy nhất; thu hồi hai trục mở bài và bốn nhóm thông tin tổng hợp. Tổng phần giảng 120 phút. | 3 |
-| X00 | Giao sản phẩm recitation và nêu ba nguồn nội dung. | Mở phần dọc; tổng thời lượng 60 phút theo ngoại lệ nguồn được người dùng phê duyệt ngày 2026-08-28. | 0 |
-| X01 | Nộp đủ bốn lượt ghép, cây có nhãn nhánh, bảng mã năm ký hiệu, phép tính tổng 87 bit và nhận xét phá hòa. | Ví dụ Nelson–Gailly Ch.3, PDF tr.35–37, được chuyển thành bài luyện theo ngoại lệ đã phê duyệt. | 20 |
-| X02 | Dùng giá trị sau mũi tên làm trạng thái đầu: A=B=C=D=2, số 5=số 6=4, số 7=8, số 9=18; tăng A đúng một lần, đổi với D và tiếp tục từ cha số 6. | Ví dụ Nelson–Gailly Ch.4, Hình 4.2–4.3, PDF tr.70–71. Ảnh được gọi đúng là sơ đồ chuyển tiếp, không phải trạng thái tĩnh; bài tự chứa đủ topology và giá trị đầu. | 15 |
-| X03 | Giải mã $0{,}01001110110_2$ thành caba; nộp giá trị thập phân, bốn khoảng toàn cục, tự thông tin xấp xỉ 9,48 bit và nhận xét về kết thúc/đệm. | CMU 15-499 Assignment 1a, Problem 3, tr.1; đáp án tr.2–3. Dòng 11 bit là biểu diễn nguồn cung cấp, không tuyên bố tối thiểu. | 25 |
+### Mạch 1. Mở đầu (12 trang, 13 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| P00 | Nén dữ liệu không mất thông tin | bìa | nêu luận đề; nhận hai cận độ dài | câu luận đề | Bài 09 (Count-Min) | — | nhắc lại được hai cận | — | 0,5 | sửa sau năm vòng rà: luận đề ghi "mã số học lý tưởng"; ghi chú giới thiệu viết tắt nguồn (C); sửa sau rà lại: luận đề 25 âm tiết | 50 / 4 / 0 |
+| P01 | Tiên quyết và quy ước | tiên quyết, cầu nối | đối chiếu kết quả cũ và ký hiệu | Nhắc lại/Ký hiệu/Quy ước | Định nghĩa 08.1, Định lý 09.37 | Bài 08–09, CTDL, xác suất | dùng đúng $\Sigma,k,x,f_s,N,p_s$ | lec-10-topic-01 | 1,5 | sửa sau cổng storyboard: gộp hai dòng Nhắc lại; sửa sau năm vòng rà: tên tiếng Anh full binary tree, priority queue (C) | 51 / 4 / 0 |
+| P02 | Mục tiêu học tập | mục tiêu | biết sáu sản phẩm kiểm được | sáu mục tiêu | — | — | đối chiếu với T05, bài tập | — | 1 | sửa sau cổng storyboard: mục 1 thêm Mệnh đề 10.2; sáu mục gộp mục tiêu 2–3 và 6–7 của ghi chú (G10); sửa sau năm vòng rà: sáu mục tiêu theo ghi chú: Huffman thích nghi và mã số học 16 bit có mục riêng (A2); ánh xạ mục tiêu trùng T05; sửa sau rà lại: khôi phục "tách mô hình, bộ mã" (mục 1) và "chọn cặp mô hình–bộ mã" (mục 6) | 77 / 6 / 0 |
+| P03 | Nội dung | nội dung | định vị bảy mạch; đọc trước NG Ch.2–5 | danh sách mạch | — | — | — | — | 0,5 | sửa sau năm vòng rà: tên tiếng Anh ba bộ mã (C) | 51 / 8 / 0 |
+| P04 | Vấn đề trung tâm | tình huống, vấn đề | nêu yêu cầu khôi phục từng bit; đọc sơ đồ mô hình–bộ mã | hình cau-truc-bai-10 | Bài 09 | — | gán mạch cho từng khối hình | lec-10-topic-02 | 1 | sửa sau năm vòng rà: nhãn hình "lý tưởng" (C) | 25 / 2 / 0 |
+| P04B | Vấn đề trung tâm, câu trả lời có điều kiện | vấn đề (trả lời có điều kiện) | nêu điều kiện của mỗi câu trả lời | bốn dòng có điều kiện | P04 | — | thu hồi ở T02, T04 | lec-10-topic-23 | 1 | thêm: viết mới từ ghi chú 2026-11-08; ngoại lệ trần 80; sửa cuối: ghi chú diễn giả mở bằng giới hạn chung | 63 / 4 / 0 |
+| P05 | Ví dụ: thông điệp A–E với mã độ dài cố định | ví dụ dẫn nhập | tính 312 và 117 bit | thông điệp A–E | — | số bit $\lceil\log_2k\rceil$ (Bài 08) | hai phép nhân; nhận ra A tốn 3 bit | lec-10-topic-02 | 1 | sửa sau năm vòng rà: tên tiếng Anh fixed-length code (C) | 44 / 5 / 0 |
+| P06 | Mã ký hiệu và giải mã duy nhất | hình thức | đọc đặc tả mã ký hiệu, giải mã duy nhất | Định nghĩa 10.1 | A–E, mã 3 bit | ánh xạ, đơn ánh | phân biệt $c$ và $c^*$ | lec-10-topic-02 | 1,5 | sửa sau cổng storyboard: gọt câu dẫn của $c^*$ | 52 / 5 / 1 |
+| P07 | Không mã nào rút ngắn mọi thông điệp | kết quả | chứng minh bằng đếm; thay $n=3$ | Mệnh đề 10.2 | đặc tả | Dirichlet (nhắc tại chỗ) | đếm 8 so với 7 | lec-10-topic-02 | 1,5 | sửa sau năm vòng rà: pigeonhole principle (C) | 50 / 4 / 0 |
+| P08 | Ví dụ: chữ u dưới hai mô hình | ví dụ, trực giác | tính hai giá trị $-\log_2p$ | chữ u dưới hai mô hình | Mệnh đề 10.2 (mô hình quyết định) | logarit | 6,64 và 0,074 bit | lec-10-topic-03 | 1 | thêm: viết mới từ ghi chú 2026-11-08 | 52 / 5 / 1 |
+| P09 | Mô hình xác suất và bộ mã | hình thức | phân loại mô hình tĩnh/thích nghi/bậc | Định nghĩa 10.3 | chữ u (bậc 0, 1) | — | xếp loại ba bộ nén | lec-10-topic-03 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08 | 56 / 4 / 0 |
+| P10 | Bốn thành phần của một giao thức nén | hình thức, kiểm tra | liệt kê bốn thành phần; giải thích EB (ghi chú diễn giả) | Nhận xét 10.4 | Định nghĩa 10.3 | — | chỉ ra thành phần thiếu trong Bài tập 10.1 | lec-10-topic-03 | 1 | thêm: viết mới từ ghi chú 2026-11-08 | 53 / 5 / 0 |
+
+### Mạch 2. Mã tiền tố, bất đẳng thức Kraft và entropy (15 trang, 20 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| KT | 2.Mã tiền tố, bất đẳng thức Kraft và entropy | tiêu đề mạch (vấn đề) | nhận nhiệm vụ mạch | dòng dẫn | mạch 1 | — | — | lec-10-topic-04 | 0,5 | thêm: viết mới từ ghi chú 2026-11-08 | 35 / 2 / 0 |
+| K01 | Dòng bit nhiều cách đọc | tình huống, vấn đề (trang bài toán có hình) | đọc ba cách cắt 1011 | hình ba-cach-doc-1011 | Định nghĩa 10.1, A–E | — | nêu vì sao không giải mã duy nhất | lec-10-topic-04 | 1,5 | sửa sau cổng storyboard: một cách mở "Muốn …, phải …" (G12) | 28 / 2 / 0 |
+| K02 | Mã tiền tố | hình thức | kiểm điều kiện trên cặp từ mã | Định nghĩa 10.5 | mã a,b,c,d | chuỗi bit | kiểm hai mã A–E (ghi chú diễn giả) | lec-10-topic-04 | 1 | gộp K03 vào ghi chú diễn giả; sửa sau cổng storyboard: cây mã chuyển sang K04 (G8); sửa sau năm vòng rà: tiêu đề "Mã tiền tố" (C) | 39 / 3 / 0 |
+| K04 | Cây mã và giải mã | hình thức, ví dụ, trực giác | đọc định nghĩa cây mã; giải mã 0101100111 | hình cay-ma-a-e | mã Huffman A–E | K02 | ra ACBE, 10 bit | lec-10-topic-04 | 1,5 | sửa sau cổng storyboard: nhận định nghĩa cây mã từ K02 (G8); sửa sau năm vòng rà: định nghĩa cây mã trên mặt trang (C) | 48 / 4 / 0 |
+| K05 | Mã tiền tố, cây mã và giải mã tức thời | kết quả | đọc ba phần (a)(b)(c); chứng minh (b) một dòng | Mệnh đề 10.6 | K02, K04 | quy nạp | giải thích chiều ngược sai | lec-10-topic-04 | 1,5 | gộp K06 (chứng minh) vào ghi chú diễn giả; sửa sau cổng storyboard: 1,5 phút cho trang có chứng minh (G1) | 57 / 4 / 0 |
+| K08 | Khoảng mã và tổng Kraft | vấn đề, trực giác, hình thức | tính $J(u)$, $K$; đọc khoảng A–E trên hình | Định nghĩa 10.7, Bổ đề 10.8(c) | A–E | phân số nhị phân | năm khoảng rời nhau | lec-10-topic-05 | 1 | gộp K07, K09; sửa sau cổng storyboard: bỏ dòng A–E trùng K10 (G4); sửa sau năm vòng rà: −0,5 phút (B17) | 48 / 4 / 1 |
+| K11 | Ví dụ: tổng Kraft và dựng mã từ bộ độ dài | ví dụ (tính tay trước định lý) | tính bốn tổng Kraft; dựng mã từ $(2,3,3,3,3)$ | bốn tổng Kraft; bảng $z_i$ (bảng vết) | K08 | — | năm từ mã, khoảng trống 0,25 | lec-10-topic-05 | 1 | sửa sau năm vòng rà: gộp K10: bốn tổng Kraft thành dòng đầu (B17); sửa sau rà lại: dòng đầu nêu chỉ $(1,1,2)$ có $K>1$ | 27 / 8 / 0 |
+| K12 | Bất đẳng thức Kraft | kết quả | đọc ba phần của định lý | Định lý 10.9 | K11 | — | phân biệt độ dài với từ mã | lec-10-topic-05 | 1,5 | sửa sau cổng storyboard: dòng Lưu ý chuyển ghi chú diễn giả để không lộ lời giải T05 câu 1 (G5); sửa sau năm vòng rà: Kraft inequality (C) | 46 / 4 / 0 |
+| K13 | Chứng minh: bất đẳng thức Kraft, phần (a) và (b) | chứng minh | theo dõi (a) qua khoảng, (b) qua $z_i$ | chứng minh Định lý 10.9 | K08, K11 | — | tái lập Bước 1–3 | lec-10-topic-05 | 2 | gộp: K14 (phần (c)) vào ghi chú diễn giả; sửa sau năm vòng rà: ghi chú diễn giả không dùng lại $d$ (C) | 50 / 5 / 1 |
+| K15 | Tự thông tin và entropy | vấn đề, trực giác, hình thức | nêu nhu cầu mức đích; đọc định nghĩa $I$, $H$ | Định nghĩa 10.11 (phần đầu) | 87/89 bit, chữ e | logarit | phân biệt $I(s)$, $I(x)$, $H$ | lec-10-topic-06 | 1 | sửa sau cổng storyboard: định nghĩa độ dài trung bình chuyển sang K16 (G3); sửa sau năm vòng rà: ghi chú diễn giả: phép tính 87 bit (C) | 39 / 4 / 1 |
+| K16 | Độ dài trung bình và entropy của A–E | hình thức, ví dụ | đọc $\bar\ell$, mã tối ưu, $\operatorname{cost}(T)$; tính $I(s)$, $I(x)$, $H$ | Định nghĩa 10.11 (phần cuối), bảng A–E | K15 | — | 85,25 bit; 2,186; $N\bar\ell=\operatorname{cost}(T)$ | lec-10-topic-06 | 1 | sửa sau cổng storyboard: định nghĩa $\operatorname{cost}(T)$ bằng "là" (G3); sửa sau năm vòng rà: tiêu đề nêu A–E (C) | 41 / 6 / 0 |
+| K17 | Cận dưới entropy | kết quả | đọc giả thiết, dấu bằng | Định lý 10.12 | K16 | — | áp dụng cho A–E | lec-10-topic-07 | 1 | sửa sau năm vòng rà: tên định lý theo N3 (C) | 39 / 3 / 0 |
+| K18 | Chứng minh: cận dưới entropy | chứng minh | theo dõi ba bước và dấu bằng | chứng minh Định lý 10.12 | K12(a) | $\ln\xi\le\xi-1$ | tái lập bất đẳng thức | lec-10-topic-07 | 2 | thêm: viết mới từ ghi chú 2026-11-08 | 28 / 6 / 2 |
+| K19 | Cận trên: độ dài Shannon | kết quả, ví dụ | chứng minh hai dòng; thay số A–E | Định lý 10.13, Ví dụ 10.6 | K12(b), K16 | phần nguyên | 102 bit; 85,25 ≤ 102 < 124,25 | lec-10-topic-07 | 1,5 | sửa sau cổng storyboard: gộp K20 (Ví dụ 10.6) thành dòng Ví dụ (G1) | 46 / 4 / 0 |
+| K21 | Bài tập: trường hợp dấu bằng | kiểm tra (Câu hỏi, lời giải trong ghi chú diễn giả) | tính $H$, mã, $\bar\ell$ | Bài tập 10.3 | K17–K19 | — | $\bar\ell=H=1{,}75$ | lec-10-topic-07 | 2 | gộp: K21B (lời giải) vào ghi chú diễn giả; sửa sau năm vòng rà: 2 phút (B17) | 41 / 3 / 0 |
+
+### Mạch 3. Mã Huffman tĩnh (16 trang, 21,5 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| HT | 3.Mã Huffman tĩnh | tiêu đề mạch (vấn đề) | nhận nhiệm vụ | dòng dẫn | mạch 2 | — | — | lec-10-topic-08 | 0,5 | thêm: viết mới từ ghi chú 2026-11-08 | 35 / 2 / 0 |
+| H01 | Số bit tối thiểu cho thông điệp A–E | tình huống, vấn đề (trang bài toán có hình) | đặt mã tối ưu giữa 85,25 và 87 | hình so-bit-a-e | K19, K15 | — | nêu bài toán cost nhỏ nhất | lec-10-topic-08 | 1 | sửa sau năm vòng rà: ghi chú diễn giả (C) | 37 / 2 / 0 |
+| H02 | Ví dụ: Shannon–Fano cho A–E | giới hạn cách trước (có số) | chạy bốn lần chia | Shannon–Fano, 89 bit | A–E | — | 89 bit; lý do thua 2 bit | lec-10-topic-08 | 1,5 | thêm; chu trình rút gọn (Q3) | 53 / 5 / 0 |
+| H03 | Cách dựng từ lá lên gốc | trực giác, nhận xét cấu trúc | so Huffman với Shannon–Fano | ý tưởng ghép từ lá | H02 | — | nêu bài toán con $k-1$ | lec-10-topic-09 | 1 | sửa sau năm vòng rà: số hiệu khối thay câu chỉ đường (C) | 55 / 3 / 0 |
+| H04 | Ví dụ: Huffman cho A–E, bốn lượt ghép | ví dụ chạy tay | theo dõi bốn lượt hàng đợi | bảng vết hàng đợi | A–E | hàng đợi ưu tiên | tái lập bốn lượt | lec-10-topic-09 | 2 | sửa sau cổng storyboard: "quy tắc phá hòa chọn D" thay "NG chọn D" (G7); sửa sau năm vòng rà: quy tắc phá hòa nêu tên D (C) | 59 / 5 / 0 |
+| H05 | Ví dụ: Huffman cho A–E, cây và bảng mã | ví dụ | gán bit, đọc từ mã, 87 bit | hình huffman-a-e | H04 | — | 87 bit, $K=1$ | lec-10-topic-09 | 1 | sửa sau cổng storyboard: quy tắc gán bit thay "hình của NG" (G7); sửa sau năm vòng rà: quy tắc bit nêu đủ (C) | 22 / 2 / 0 |
+| H06 | Thuật toán: Huffman tĩnh | thuật toán | đọc Đầu vào/Đầu ra, giả mã | Thuật toán 10.14 | H04 | — | ánh xạ dòng giả mã với H04 | lec-10-topic-09 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08 | 55 / 3 / 0 |
+| H07 | Phép đổi chỗ hai lá | công cụ chứng minh | tính $\Delta$ cho A, E | phép đổi chỗ | H05 | — | $\Delta=20$ | lec-10-topic-10 | 1 | thêm: viết mới từ ghi chú 2026-11-08 | 40 / 5 / 1 |
+| H08 | Hai ký hiệu ít gặp nhất là anh em sâu nhất | kết quả | đọc giả thiết, chỉ tồn tại | Bổ đề 10.16 | H07 | — | phân biệt tồn tại/mọi | lec-10-topic-10 | 1 | sửa sau năm vòng rà: gọt (B18); sửa sau rà lại: Lưu ý: đúng với mọi cách chọn $s_1$, $s_2$ khi có hòa | 57 / 4 / 0 |
+| H09 | Chứng minh: hai ký hiệu ít gặp nhất là anh em sâu nhất | chứng minh | theo dõi hai phép đổi | chứng minh Bổ đề 10.16 | H07, H08 | — | dấu của $\Delta_1,\Delta_2$ | lec-10-topic-10 | 2 | gộp: Bổ đề 10.15 thành một vế ở Bước 1; sửa sau năm vòng rà: gọt (B18) | 53 / 6 / 1 |
+| H11 | Huffman cho mã tiền tố tối ưu | kết quả | đọc giả thiết không được bỏ | Định lý 10.18 | H08 | — | nêu ba giả thiết | lec-10-topic-10 | 1 | sửa sau cổng storyboard: dòng khối $j$ ký hiệu chuyển ghi chú diễn giả (đọc thêm, G1) | 39 / 2 / 0 |
+| H12 | Chứng minh: Huffman cho mã tiền tố tối ưu | chứng minh | quy nạp, chuỗi bất đẳng thức | chứng minh Định lý 10.18 | H09, Bổ đề 10.17 | quy nạp | tái lập bước $k\ge3$ | lec-10-topic-10 | 2 | gộp: H10 (Bổ đề 10.17) thành dòng đầu; sửa sau năm vòng rà: định nghĩa $T'$, $\Sigma'$ (C) | 49 / 5 / 1 |
+| H13 | Cận entropy của mã Huffman | kết quả, ví dụ | kẹp Huffman A–E | Hệ quả 10.19 | K17, K19, H11 | — | 2,186 ≤ 2,231 < 3,186 | lec-10-topic-10 | 1,5 | gộp H14 (Ví dụ 10.10) thành dòng Ví dụ; sửa sau cổng storyboard: 1,5 phút (G1); sửa sau năm vòng rà: bỏ câu chỉ đường cuối ghi chú (C) | 28 / 3 / 0 |
+| H15 | Chi phí: Huffman tĩnh | chi phí | đếm từng bước, tổng | bảng chi phí | H06 | đống nhị phân | truy hàng bảng về giả mã | lec-10-topic-11 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08 | 63 / 8 / 0 |
+| H16 | Đầu mục của Huffman tĩnh | chi phí, giới hạn | nêu đầu mục và hai lượt | đầu mục HUFF.C | H15 | — | 256 và 65 536 byte | lec-10-topic-11 | 1 | sửa sau cổng storyboard: chủ ngữ HUFF.C (G7); bỏ câu tối ưu cho số đếm đã co (ghi chú diễn giả); sửa sau năm vòng rà: ước lượng 257 bảng, 65 536 byte ghi đúng trang NG; N2 (C) | 52 / 4 / 0 |
+| H17 | Bài tập: Huffman cho năm ký hiệu lệch | kiểm tra (Câu hỏi) | chạy Huffman năm ký hiệu | Bài tập 10.4 | H06, K16 | — | 89 bit, 83,69 bit | lec-10-topic-09 | 2 | gộp: H17B (lời giải) vào ghi chú diễn giả; sửa sau năm vòng rà: 2 phút; phá hòa nêu trên mặt trang (B17) | 39 / 3 / 0 |
+
+### Mạch 4. Mã Huffman thích nghi (18 trang, 24 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| AT | 4.Mã Huffman thích nghi | tiêu đề mạch (vấn đề) | nhận nhiệm vụ | dòng dẫn | H16 | — | — | lec-10-topic-12 | 0,5 | thêm: viết mới từ ghi chú 2026-11-08 | 38 / 2 / 0 |
+| A01 | Bộ nén một lượt không đầu mục | tình huống, vấn đề (trang bài toán có hình) | đặt nhu cầu cập nhật cục bộ | hình hai-phia-cung-cay | H16, Định nghĩa 08.1 | — | nêu hai chi phí bị bỏ | lec-10-topic-12 | 1,5 | sửa sau năm vòng rà: nhãn hình "cập nhật cục bộ"; Định nghĩa 08.1 trong ghi chú diễn giả (C) | 45 / 3 / 0 |
+| A02 | Ví dụ: danh sách nút của một cây Huffman | ví dụ, trực giác | đọc danh sách, cặp anh em, quy ước bit | hình tinh-chat-anh-em | H04 (thứ tự lấy ra) | — | liệt kê bốn cặp | lec-10-topic-12 | 1 | sửa sau năm vòng rà: gọt (B18) | 52 / 4 / 0 |
+| A03 | Tính chất anh em | hình thức | kiểm tính chất trên phản ví dụ | Định nghĩa 10.21 | A02 | — | phản ví dụ A1,B1,C3,D3 | lec-10-topic-12 | 1 | sửa sau năm vòng rà: dòng Ví dụ chuyển ghi chú diễn giả (B18) | 44 / 4 / 1 |
+| A04 | Tính chất anh em đặc trưng cây Huffman | kết quả | đọc hai chiều, chứng minh một dòng | Định lý 10.22 | A03, H06 | quy nạp | giải thích vì sao cần trọng số dương | lec-10-topic-12 | 1,5 | gộp A05 vào ghi chú diễn giả; sửa sau cổng storyboard: 1,5 phút (G1); sửa sau năm vòng rà: định lý và giả thiết chiều ngược (B18) | 59 / 4 / 0 |
+| A06 | Ví dụ: tăng A từ 1 lên 3 | ví dụ chạy tay | theo dõi lần tăng thứ hai | Ví dụ 10.12 | A02 | — | danh sách sau | lec-10-topic-13 | 1,5 | sửa sau năm vòng rà: gọt dòng lần thứ hai (B18) | 55 / 5 / 0 |
+| A07 | Ví dụ: tăng A từ 1 lên 3, cây sau lần tăng thứ hai | ví dụ, trực giác | kiểm cây sau đổi; nút cuối khối | hình tang-doi-a-lan-2 | A06 | — | bốn cặp, tổng đúng | lec-10-topic-13 | 1 | gộp: A08 (trực giác nút cuối khối) thành dòng Trực quan; sửa sau năm vòng rà: bỏ nhãn "Kiểm tra lại:"; −0,5 phút (B17, C) | 34 / 2 / 0 |
+| A10 | Thuật toán: cập nhật cây bằng tăng và đổi | thuật toán | đọc giả mã UPDATE; trường hợp biên | Thuật toán 10.23 | A06 | — | ánh xạ dòng với A06 | lec-10-topic-13 | 1,5 | sửa sau cổng storyboard: nhãn "Trường hợp biên:" (D3, G13); câu hỏi tổ tiên chuyển ghi chú diễn giả; sửa sau năm vòng rà: chú thích REBUILD; trường hợp biên đủ ba loại nút (B12) | 49 / 3 / 0 |
+| A12 | Phép tăng–đổi giữ tính chất anh em | kết quả | đọc giả thiết, kết luận, phạm vi | Định lý 10.25 | A04, A10 | — | nêu ý nghĩa tối ưu hiện thời | lec-10-topic-13 | 1,5 | sửa sau cổng storyboard: 1,5 phút (G1); sửa sau năm vòng rà: Ý nghĩa gọn; câu (I3) chuyển A13 (B18, C) | 58 / 4 / 0 |
+| A13 | Tính đúng: phép tăng–đổi, bất biến và khởi tạo | tính đúng | đọc bốn bất biến, khởi tạo, kết thúc | bất biến (I1)–(I4) | A12 | bất biến vòng lặp (Bài 05) | kiểm khởi tạo và kết thúc | lec-10-topic-13 | 1,5 | sửa sau cổng storyboard: gộp A13 và phần kết thúc của A13C cũ (G1); sửa sau năm vòng rà: tiêu đề "bất biến và khởi tạo"; dòng kết thúc chuyển A13B (B6) | 47 / 3 / 0 |
+| A13B | Tính đúng: phép tăng–đổi, duy trì và kết thúc | tính đúng | theo dõi phép đổi và phép tăng giữ bất biến | bảng duy trì, Bổ đề 10.24 | A13 | — | giải thích (I4) và hàng "Hợp lệ" | lec-10-topic-13 | 2 | sửa sau cổng storyboard: gộp A11 (Bổ đề 10.24) vào hàng "Hợp lệ" và phần tăng của A13C cũ (G1); sửa sau năm vòng rà: tiêu đề "duy trì và kết thúc"; hàng Hợp lệ nêu lý do; chủ ngữ rõ (B6); sửa sau rà lại: hàng Hợp lệ đủ Bổ đề 10.24; ghi chú diễn giả nhận phần kết thúc và dừng | 58 / 5 / 0 |
+| A14 | Chi phí: cập nhật cây | chi phí | đếm ba bước | bảng chi phí UPDATE | A10 | — | $O(hk')$ | lec-10-topic-13 | 1 | thêm: viết mới từ ghi chú 2026-11-08 | 54 / 5 / 0 |
+| A15 | Ký hiệu mới, ESCAPE và EOS | vấn đề, hình thức | nêu cây khởi tạo, ESCAPE, EOS | phép thêm lá | A01 | — | giải thích lá trọng số 0 | lec-10-topic-14 | 1 | sửa sau cổng storyboard: chủ ngữ AHUFF.C (G7); sửa sau năm vòng rà: escape symbol (B16); gọt (B18) | 56 / 4 / 0 |
+| A17 | Ví dụ: thêm ký hiệu E vào cây A, B, C, D | ví dụ | mã hóa E, thêm lá, cập nhật | Ví dụ 10.14, hình them-la-e | A15, A10 | — | danh sách 1,1,2,2,2,3,4,5,9 | lec-10-topic-14 | 1,5 | sửa sau cổng storyboard: gộp A16 (bảng trước/sau khi thêm lá chuyển ghi chú diễn giả) (G1); sửa sau năm vòng rà: cây A1, B2, C2, D3; ESCAPE rồi 8 bit; khác cây ví dụ tăng A (B3) | 52 / 4 / 0 |
+| A18 | Thuật toán: mã hóa và giải mã Huffman thích nghi | thuật toán, kết quả | đọc hai giả mã; điều kiện đồng bộ | Thuật toán 10.26, Mệnh đề 10.27 | A15–A17, K05(c) | quy nạp (ghi chú diễn giả) | nêu giả thiết chung hai phía | lec-10-topic-14 | 1,5 | sửa sau cổng storyboard: gộp A19 (Mệnh đề 10.27) thành dòng Kết luận, chứng minh ở ghi chú diễn giả (G1) | 54 / 4 / 0 |
+| A21 | Chống tràn và cây Fibonacci | vấn đề, ví dụ | nêu hai giới hạn, cây Fibonacci | Ví dụ 10.15, Nhận xét 10.28 | A10 | — | 17 bit với gốc 4 181 | lec-10-topic-15 | 1 | sửa sau cổng storyboard: dòng $W_{\max}$ chuyển sang A23 và ghi chú diễn giả (G8); sửa sau năm vòng rà: phá hòa ưu tiên nút vừa tạo; điều kiện biến 16 bit, AHUFF.C dùng unsigned long (B1) | 58 / 4 / 0 |
+| A23 | Thuật toán: co trọng số và dựng lại cây | thuật toán, chi phí | đọc REBUILD, ví dụ, chi phí | Thuật toán 10.29 | A21, H06 | — | $O(k'^2)$ | lec-10-topic-15 | 1,5 | gộp A22; sửa sau cổng storyboard: dòng Lưu ý chuyển ghi chú diễn giả (G8); sửa sau năm vòng rà: ví dụ co A1, B3, C5, D7 (B2) | 50 / 4 / 0 |
+| A20 | Bài tập: bộ giải mã bỏ phép đổi | kiểm tra (Câu hỏi) | tìm ký hiệu đọc sai | Tình huống 10.3(b) | A06, A18 | — | D; giả thiết bị vi phạm | lec-10-topic-22 | 2 | sửa sau cổng storyboard: gọt một vế (G3); sửa sau năm vòng rà: 2 phút; chuyển sau A23 (B17) | 55 / 3 / 0 |
+
+### Mạch 5. Mã số học (25 trang, 34 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| ST | 5.Mã số học | tiêu đề mạch (vấn đề) | nhận nhiệm vụ | dòng dẫn | H13, A12 | — | — | lec-10-topic-16 | 0,5 | thêm: viết mới từ ghi chú 2026-11-08 | 34 / 2 / 0 |
+| S01 | Giới hạn một bit mỗi ký hiệu | tình huống, vấn đề (trang bài toán có hình) | so tự thông tin với số bit Huffman | hình mot-bit-moi-ky-hieu | H13 | — | nêu giới hạn 1 bit | lec-10-topic-16 | 1,5 | sửa sau năm vòng rà: câu ảnh fax: mọi mã ký hiệu 1 bit mỗi điểm (A1) | 47 / 4 / 0 |
+| S02 | Ví dụ: thu hẹp khoảng theo B, I, L | ví dụ dẫn nhập, trực giác | thu hẹp B, I, L | hình khoang-bill-gates | S01 | — | [0,256; 0,258) | lec-10-topic-16 | 1 | sửa sau năm vòng rà: −0,5 phút (B17) | 45 / 3 / 0 |
+| S03 | Khoảng ký hiệu và khoảng chuỗi | hình thức | đọc $F(s)$, truy hồi | Định nghĩa 10.30 | S02 | — | lưu ý $F$ loại trừ $s$ | lec-10-topic-16 | 1 | sửa sau năm vòng rà: bỏ siêu ngôn ngữ trong ghi chú diễn giả (C) | 45 / 5 / 1 |
+| S04 | Ví dụ: mã hóa BILL GATES | ví dụ (bảng vết) | tính $a_t$, $w_t$ | Ví dụ 10.17 | S03 | — | $w_{10}$, 31,22 bit | lec-10-topic-16 | 1,5 | gộp: S04B (hàng 5–9) vào ghi chú diễn giả, hàng lược ghi rõ; sửa sau năm vòng rà: bỏ nhãn "Kiểm tra lại:" (C) | 25 / 8 / 0 |
+| S05 | Khoảng chuỗi lồng nhau, độ rộng bằng xác suất | kết quả | đọc (a)(b)(c) | Mệnh đề 10.31 | S04 | quy nạp | nối độ rộng với bit | lec-10-topic-16 | 1,5 | gộp S05B; sửa sau cổng storyboard: 1,5 phút (G1); sửa sau năm vòng rà: gọt (B18) | 50 / 6 / 0 |
+| S06 | Thuật toán: mã số học với số thực | thuật toán, tính đúng | đọc giả mã hai phía | Thuật toán 10.32 | S05 | — | dòng tính đúng | lec-10-topic-16 | 1,5 | sửa sau năm vòng rà: bỏ nhãn "Tính đúng:" (C) | 48 / 4 / 0 |
+| S07 | Ví dụ: giải mã BILL GATES | ví dụ, cách dừng | giải mã BILL GATES | Ví dụ 10.18 | S06 | — | nêu vấn đề dừng | lec-10-topic-16 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08 | 32 / 8 / 0 |
+| S10 | Ví dụ: bảy chữ A, ký hiệu kết thúc và chuỗi bit | ví dụ, trực giác | tính khoảng cuối; so hai chuỗi bit | Ví dụ 10.19, hình khoang-ma-bay-chu-a | S03, K08 | — | 4,386 bit; 5 bit so với 8 | lec-10-topic-17 | 1,5 | sửa sau cổng storyboard: gộp S09 (khoảng cuối) (G1); sửa sau năm vòng rà: tiêu đề nêu chuỗi bit; dòng Nhu cầu (B9) | 50 / 5 / 0 |
+| S11 | Khoảng mã trong khoảng chuỗi và cận độ dài | kết quả | đọc quy tắc $\lambda$, $z$; cách dừng | Định lý 10.34 | S10, K08, S07 | — | cận $<I(x)+2$ | lec-10-topic-17 | 1 | sửa sau cổng storyboard: Mệnh đề 10.33 (S08 cũ) chuyển ghi chú diễn giả S11 (đọc thêm, G1) | 50 / 6 / 1 |
+| S12 | Chứng minh: khoảng mã trong khoảng chuỗi và cận độ dài | chứng minh | theo dõi năm bước | chứng minh Định lý 10.34 | S11 | phần nguyên | áp dụng: 6 bit cho bảy chữ A (ghi chú diễn giả) | lec-10-topic-17 | 2 | gộp: S13 (quy tắc trung điểm trên bảy chữ A) vào ghi chú diễn giả; sửa sau năm vòng rà: ghi chú diễn giả: Bước 1–3 cho (a) (C) | 39 / 5 / 0 |
+| S14 | Độ dài kỳ vọng của mã số học | kết quả | đọc giả thiết độc lập, mô hình đúng | Hệ quả 10.35 | S12 | kỳ vọng | so phần thừa với Huffman | lec-10-topic-17 | 1,5 | sửa sau cổng storyboard: 1,5 phút (G1); sửa sau năm vòng rà: phần thừa của Huffman và của mã số học lý tưởng (B14) | 55 / 5 / 0 |
+| G01 | Thanh ghi của bộ mã số học nguyên | vấn đề (giới hạn có số), hình thức | đọc thanh ghi, phép thu hẹp | Định nghĩa 10.36 | S04 (mười chữ số) | — | ánh xạ với truy hồi số thực | lec-10-topic-18 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08 | 44 / 5 / 1 |
+| G02 | Ví dụ: thanh ghi năm chữ số thập phân cho BILL GATES | ví dụ, trực giác | theo dõi phát chữ số | Ví dụ 10.20 | G01, S04 | — | dòng 0,25721677520 | lec-10-topic-18 | 1 | gộp: G02B (hàng lược) vào ghi chú diễn giả; sửa sau năm vòng rà: −0,5 phút (B17) | 53 / 8 / 0 |
+| G03 | Tràn dưới | vấn đề | nhận ra tràn dưới | 70000/69999; 40344/39810 | G02 | — | giải thích bộ đếm | lec-10-topic-19 | 1 | thêm: viết mới từ ghi chú 2026-11-08 | 51 / 5 / 0 |
+| G04 | Ba trường hợp chuẩn hóa | hình thức, trực giác | phân ba trường hợp | hình ba-nhanh-chuan-hoa | G03 | — | chọn trường hợp cho một cặp thanh ghi | lec-10-topic-19 | 1 | sửa sau năm vòng rà: −0,5 phút (B17) | 29 / 3 / 0 |
+| G05 | Thuật toán: mã hóa một ký hiệu với chuẩn hóa | thuật toán | đọc giả mã ENCODE-SYMBOL | Thuật toán 10.37 | G04 | — | ánh xạ nhánh với G04 | lec-10-topic-19 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08; giả mã 11 dòng đứng riêng | 34 / 3 / 0 |
+| G06 | Ví dụ: vết 16 bit cho cbb, hai ký hiệu đầu | ví dụ chạy tay | theo dõi c, b | Ví dụ 10.21 (hàng 1–3) | G05 | — | một bit vào $m$ | lec-10-topic-19 | 1,5 | sửa sau năm vòng rà: dòng cuối thành Câu hỏi về b thứ hai và bit chờ (B8) | 54 / 6 / 0 |
+| G07 | Ví dụ: vết 16 bit cho cbb, ký hiệu thứ ba và kết thúc | ví dụ | theo dõi b thứ hai, kết thúc | Ví dụ 10.21 (hàng 4–7) | G06 | — | 011001 ∈ khoảng | lec-10-topic-19 | 1,5 | sửa sau cổng storyboard: chủ ngữ ARITH.C (G7); sửa sau năm vòng rà: thêm giá trị thập phân (C) | 36 / 6 / 0 |
+| G08 | Tính đúng của bit phát ra và bit chờ | kết quả | đọc $\psi$, bit phát đúng | Bổ đề 10.38 | G06, G07, K08 | — | đọc trên cbb (ghi chú diễn giả) | lec-10-topic-19 | 1,5 | gộp G08B; sửa sau cổng storyboard: 1,5 phút (G1); sửa sau năm vòng rà: tiêu đề danh từ; dòng ý tưởng; giả thiết nêu phép thu hẹp xen kẽ; chứng minh ở ghi chú diễn giả (B13) | 52 / 5 / 1 |
+| G09 | Khoảng con nguyên không rỗng | kết quả | chứng minh hai bước | Bổ đề 10.39 | G05 | phần nguyên | phản ví dụ $N=20\,000$ (T05) | lec-10-topic-19 | 1,5 | gộp G09B; sửa sau cổng storyboard: 1,5 phút (G1) | 38 / 5 / 1 |
+| G10 | Ví dụ: giải mã hai ký hiệu đầu của cbb | ví dụ (chạy tay trước giả mã) | giải hai ký hiệu đầu cbb | công thức count | G07 | — | c, b | lec-10-topic-20 | 1 | thêm (phương án đầy đủ): tách khỏi G11 vì giả mã 10 dòng phải đứng riêng | 27 / 5 / 1 |
+| G11 | Thuật toán: giải mã nguyên và kết thúc dòng | thuật toán, tính đúng | đọc DECODE; đồng bộ | Thuật toán 10.40, Mệnh đề 10.41 | G10 | — | điều kiện đồng bộ | lec-10-topic-20 | 1,5 | gộp: G12 (Mệnh đề 10.41) thành dòng kết | 43 / 3 / 0 |
+| G13 | Chi phí: mã số học nguyên | chi phí | đếm năm bước | bảng chi phí | G05, G11 | — | $O(nk)$ giải mã | lec-10-topic-20 | 1,5 | gộp: G14 (khoản cố định) vào ghi chú diễn giả | 67 / 7 / 0 |
+| G15 | Bài tập: bảng số đếm tích lũy | kiểm tra (Câu hỏi) | lập $G$, tính count | Bài tập 10.7 | G10, G09 | — | C, E | lec-10-topic-19 | 2 | sửa sau năm vòng rà: 2 phút (B17) | 26 / 3 / 0 |
+
+### Mạch 6. Tổng kết và tự kiểm tra (7 trang, 7,5 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| TT | 6.Tổng kết và tự kiểm tra | tiêu đề mạch | nhận nhiệm vụ tổng kết | dòng dẫn | mạch 2–5 | — | — | lec-10-topic-21 | 0,5 | thêm: viết mới từ ghi chú 2026-11-08 | 22 / 1 / 0 |
+| T01 | Thông điệp A–E qua các bộ mã | thu hồi tình huống bằng số | so các mốc bit | hình so-bit-a-e-tong-ket | P05, K16, K19, H02, H05, S11 | — | đọc 87 = 87 | lec-10-topic-21 | 1 | sửa sau năm vòng rà: dòng mã số học lý tưởng 87 bit (B7) | 22 / 2 / 0 |
+| T02 | Kết quả và giả thiết không được bỏ | bảng tổng kết | đối chiếu kết quả–giả thiết | bảng 7 hàng | mọi kết quả | — | chỉ giả thiết bị bỏ | lec-10-topic-23 | 1,5 | thêm: viết mới từ ghi chú 2026-11-08; ngoại lệ 7 hàng; sửa sau năm vòng rà: cận entropy, số đếm của mô hình (A2); sửa sau rà lại: EOS thay END; kết luận "mã tiền tố, $\lambda<I(x)+2$"; sửa cuối: khuôn cột "Giả thiết không được bỏ | Công thức hoặc thuật toán"; ô cột cuối là công thức hoặc tên thuật toán; ô tăng–đổi, đồng bộ nêu kết luận cây Huffman, cùng cây (rc3) | 80 / 7 / 0 |
+| T03 | Cặp mô hình–bộ mã: bảo đảm và chi phí | bảng thuật toán | so cặp mô hình–bộ mã | bảng 4 hàng | H15, A14, G13 | — | chọn cặp theo tiêu chí | lec-10-topic-21 | 1 | sửa sau cổng storyboard: hàng khối $j$ ký hiệu chuyển ghi chú diễn giả (đọc thêm, G1); sửa sau năm vòng rà: bốn hàng: tĩnh, thích nghi, số học lý tưởng, số học thanh ghi (A3); sửa cuối: cột đầu "Thuật toán" theo khuôn | 74 / 5 / 0 |
+| T04 | Câu trả lời cho vấn đề trung tâm | trả lời có điều kiện | áp tiêu chí lên bốn trường hợp | bốn dòng | T03 | — | BILL GATES 32/33 | lec-10-topic-21 | 1,5 | sửa sau cổng storyboard: thay "khởi đầu nguội" bằng mô tả đã chiếu (G19); sửa sau năm vòng rà: bỏ "phân phối lệch"; dòng lũy thừa của ½ (A4) | 53 / 4 / 0 |
+| T05 | Câu hỏi tự kiểm tra | kiểm tra | trả lời bốn câu | Câu hỏi tự kiểm tra | mạch 2–5 | — | lời giải trong ghi chú diễn giả; ánh xạ mục tiêu như P02 | lec-10-topic-22 | 1,5 | sửa sau cổng storyboard: câu 3 hỏi độ dài mã số học; câu 1 không còn lời giải trên K12 (G5); sửa sau năm vòng rà: bốn câu mới, không lặp lời giải đã chiếu (B8) | 69 / 5 / 0 |
+| T06 | Nguồn và tài liệu đọc | nguồn | tra nguồn, viewer, Bài 11 | danh mục nguồn | — | — | — | lec-10-topic-25 | 0,5 | sửa sau năm vòng rà: M&T Books; Witten–Neal–Cleary trong ghi chú diễn giả (C) | 55 / 5 / 0 |
+
+### Mạch 7. Bài tập vận dụng (12 trang, 60 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Kiến thức đầu vào | Sản phẩm học tập; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / dòng / CT |
+|---|---|---|---|---|---|---|---|---|---:|---|---|
+| XT | 7.Bài tập vận dụng | tiêu đề mạch | nhận bốn bài sách | dòng dẫn | mạch 6 | — | — | lec-10-topic-24 | 0,5 | thêm: viết mới từ ghi chú 2026-11-08 | 33 / 2 / 0 |
+| X01 | Bài tập: bất đẳng thức Kraft bằng cách đếm lá | đề bài (CMU-A1 4A, tr.1) | chứng minh bằng đếm lá | Bài tập 10.12 | K12, K13 | cây hoàn hảo | chứng minh ba bước | lec-10-topic-24 | 5 | sửa sau năm vòng rà: định nghĩa cây nhị phân hoàn hảo trước khi dùng (B15) | 48 / 5 / 0 |
+| X01B | Bài tập: bất đẳng thức Kraft bằng cách đếm lá | lời giải | đối chiếu ba bước | lời giải 10.12 | X01 | — | hướng dẫn chấm | lec-10-topic-24 | 7,5 | thêm: viết mới từ ghi chú 2026-11-08 | 51 / 5 / 1 |
+| X02 | Bài tập: Huffman A–E với quy tắc gán bit khác | đề bài (NG Ch.3, tr.32–37) | chạy Huffman với quy ước khác | Bài tập 10.11 | H04–H06 | — | bảng lượt ghép | lec-10-topic-24 | 4 | thêm: viết mới từ ghi chú 2026-11-08; Quy ước: gán bit (D4) | 63 / 5 / 0 |
+| X02B | Bài tập: Huffman A–E với quy tắc gán bit khác | lời giải | đối chiếu bốn lượt | bảng lượt | X02 | — | hướng dẫn chấm | lec-10-topic-24 | 3 | thêm: viết mới từ ghi chú 2026-11-08 | 28 / 5 / 0 |
+| X02C | Bài tập: Huffman A–E với quy tắc gán bit khác | lời giải | bảng mã, 87 bit, so sánh | bảng mã | X02B | — | 87 bit | lec-10-topic-24 | 3 | thêm: viết mới từ ghi chú 2026-11-08 | 32 / 4 / 0 |
+| X03 | Bài tập: ba lần tăng A | đề bài (NG Ch.4, Hình 4.2–4.4, tr.69–72) | chạy UPDATE ba lần | Bài tập 10.14 (a)–(c), hình bai-10-14-cay-dau | A06–A13B | — | ba danh sách | lec-10-topic-24 | 6 | thêm; phần (d) không lên deck (D4); lần 1 trùng A06, làm như bước kiểm nhanh (G6); sửa sau năm vòng rà: bỏ thời lượng khỏi ghi chú diễn giả (A5) | 44 / 4 / 0 |
+| X03B | Bài tập: ba lần tăng A | lời giải | lần 1, 2 | bảng danh sách | X03 | — | hướng dẫn chấm | lec-10-topic-24 | 6 | thêm: viết mới từ ghi chú 2026-11-08 | 54 / 5 / 0 |
+| X03C | Bài tập: ba lần tăng A | lời giải | lần 3: nút cuối khối là nút trong | hình tang-doi-a-lan-4 | X03B, A13B | — | độ dài E1, A2, C3, B,D 4 | lec-10-topic-24 | 8 | thêm: viết mới từ ghi chú 2026-11-08 | 28 / 2 / 0 |
+| X04 | Bài tập: giải mã số học bốn chữ | đề bài (CMU-A1 bài 3, tr.1) | giải mã khoảng | Bài tập 10.15 | S06, S11 | — | bảng giải mã | lec-10-topic-24 | 5 | thêm: viết mới từ ghi chú 2026-11-08 | 48 / 6 / 0 |
+| X04B | Bài tập: giải mã số học bốn chữ | lời giải | đối chiếu bốn bước | bảng $\zeta$ | X04 | — | caba | lec-10-topic-24 | 6 | thêm: viết mới từ ghi chú 2026-11-08 | 18 / 6 / 0 |
+| X04C | Bài tập: giải mã số học bốn chữ | lời giải | giải thích độ dài | $I$, $\lambda$, $H$ | X04B, S14 | — | 9,48; 11; 4,63 | lec-10-topic-24 | 6 | thêm: viết mới từ ghi chú 2026-11-08; sửa cuối: dòng cuối nêu kỳ vọng và caba, không đối lập; dòng cuối: kỳ vọng tự thông tin (rc3) | 48 / 4 / 0 |
+
+## Bảng thời gian
+
+| Mạch | Trang | Phút |
+|---|---:|---:|
+| 1 Mở đầu | 12 | 13 |
+| 2 Mã tiền tố, bất đẳng thức Kraft và entropy | 15 | 20 |
+| 3 Mã Huffman tĩnh | 16 | 21,5 |
+| 4 Mã Huffman thích nghi | 18 | 24 |
+| 5 Mã số học (S 12 trang kể cả ST, G 13 trang) | 25 | 34 |
+| 6 Tổng kết và tự kiểm tra | 7 | 7,5 |
+| **Phần giảng** | **93** | **120** |
+| 7 Bài tập vận dụng (dọc riêng) | 12 | 60 |
+| **Tổng** | **105** | **180** |
+
+Nhịp (G1, B17): trang chứng minh và tính đúng 1,5–2 phút (K13, K18, H09, H12, A13B, S12: 2; A13: 1,5), trang Câu hỏi K21, H17, A20, G15: 2 phút, trang kết quả có dòng chứng minh 1,5 phút (P07, K05, K19, H13, A04, A12, A18, S05, S14, G08, G09). Thời lượng chỉ ghi ở đây và trong `outline.md`, không trên mặt trang hay ghi chú diễn giả.
+
+## Ngoại lệ mật độ
+
+Trần: 40 (đích) / 60 âm tiết; 80 cho mục tiêu, nội dung, tổng kết, bảng so sánh, bảng chi phí, đề recitation; ≤ 6 dòng (≤ 8 với bảng vết, bảng chi phí); ≤ 20 âm tiết mỗi dòng; ≤ 3 công thức hiển thị. Số âm tiết theo `check_deck.py` (xem trên). Không trang nào có dòng quá 20 âm tiết (theo `density.py`) hoặc quá 3 công thức hiển thị.
+
+| Trang | Loại | Số đếm `check_deck.py` (cổng → sau năm vòng rà) | Lý do, quyết định |
+|---|---|---|---|
+| P02 | mục tiêu | 73 → 77, 6 dòng | trần 80; sáu mục tiêu, mục 4 và 6 nêu Huffman thích nghi và mã số học 16 bit (A2); mục 1, 6 giữ tách mô hình–bộ mã và chọn cặp (rà lại) |
+| P04B | trả lời có điều kiện | 61 → 63, 4 dòng | trần 80: bốn dòng, mỗi dòng trả lời cho một mạch giảng (mã tiền tố, Huffman tĩnh, Huffman thích nghi, mã số học) và phải kèm điều kiện của câu trả lời đó; bỏ điều kiện thì câu trả lời sai |
+| P03 | nội dung | 8 dòng | trang nội dung: bảy mạch và dòng "Đọc trước:", như P03 Bài 09 |
+| H15, G13 | bảng chi phí | → 63, 67; 8, 7 dòng | trần 80; bảng chi phí ≤ 8 hàng |
+| K11, H04, S04, S07, G02 | bảng vết | 8, 5, 8, 8, 8 dòng | bảng vết ≤ 8 hàng; K11 nhận thêm dòng tổng Kraft của K10 |
+| T02 | bảng tổng kết | 62 → 80, 7 dòng | trần 80; ngoại lệ dòng (7 hàng); khuôn cột `Kết quả \| Giả thiết không được bỏ \| Công thức hoặc thuật toán`; A2 thêm cận trên và "số đếm mô hình" |
+| T03 | bảng thuật toán | → 74 | trần 80; bốn hàng theo A3; khuôn cột `Thuật toán \| Đầu vào \| Bảo đảm \| Chi phí` |
+| T05 | tự kiểm tra | 58 → 69 | trần 80: bốn câu phủ các mục tiêu 1, 3, 5, 6 (ghi chú diễn giả nêu ánh xạ); mỗi câu cần đủ dữ kiện để tự giải (B8 thay bốn câu cũ) |
+| X02 | đề recitation | 63 | trần 80 cho đề bài tập vận dụng |
+
+Trang loại trần 60 lớn nhất sau vòng sửa cuối: A04, H04 59; A12, A21, A13B 58; K05, H08 57; P09, A15 56. Danh sách đầy đủ trang trên 40 âm tiết ở `editor-deck-report.md`.
+
+## Bài tập vận dụng (recitation)
+
+| Thứ tự | Trang | Bài (`exercises.md`) | Nguồn: bài, mục, trang | Phút | Điều chỉnh so với sách |
+|---:|---|---|---|---:|---|
+| 1 | X01, X01B | 10.12 Kraft bằng cách đếm lá | CMU 15-499 Assignment 1a, bài 4A, tr.1 (lời giải tr.3) | 13 (0,5 tiêu đề mạch tính ở đây) | đề CMU gợi ý quy nạp; ghi chú chốt cách đếm lá theo lời giải CMU-A1; lỗi chiều bất đẳng thức của lời giải CMU chỉ ở ghi chú diễn giả |
+| 2 | X02, X02B, X02C | 10.11 Huffman A–E với quy tắc gán bit khác | NG Chương 3, ví dụ A–E, tr.32–37 | 10 | ví dụ trong chương chuyển thành bài luyện (phê duyệt 2026-08-28); quy tắc gán bit "nút lấy ra trước nhận bit 0" là quy ước của ghi chú, nêu bằng nhãn "Quy ước:" trên trang đề (D4) |
+| 3 | X03, X03B, X03C | 10.14 (a)–(c) Ba lần tăng A | NG Chương 4, Hình 4.2–4.4, tr.69–72 | 20 | ví dụ trong chương chuyển thành bài luyện; phần (d) (dữ liệu của bản soạn) không lên deck, vẫn ở `exercises.md` (D4). Lần 1 trùng nguyên lần tăng thứ hai đã giảng ở A06 (G6): làm như bước kiểm nhanh, khoảng 3 phút, 3 điểm; khoảng 6 phút cho lần 2 và 11 phút cho lần 3, lần đầu sinh viên chạy nút cuối khối là nút trong (D3). Dữ kiện sách không đổi |
+| 4 | X04, X04B, X04C | 10.15 Giải mã số học bốn chữ | CMU 15-499 Assignment 1a, bài 3, tr.1 (lời giải tr.2) | 17 | giữ nguyên dữ kiện và yêu cầu |
+
+Thứ tự theo mạch giảng (D8). Lời giải trên mặt trang cho cùng kết quả với lời giải trong `exercises.md`; hướng dẫn chấm 10 điểm ở ghi chú diễn giả của một trang lời giải của mỗi bài (X01B, X02B, X03B, X04C).
+
+## Ánh xạ `note-topic-id` ↔ `data-slide-id`
+
+P00, P02, P03 không gắn chủ đề.
+
+| `note-topic-id` | `data-slide-id` |
+|---|---|
+| `lec-10-topic-01` | P01 |
+| `lec-10-topic-02` | P04, P05, P06, P07 |
+| `lec-10-topic-03` | P08, P09, P10 |
+| `lec-10-topic-04` | KT, K01, K02, K04, K05 |
+| `lec-10-topic-05` | K08, K11, K12, K13 |
+| `lec-10-topic-06` | K15, K16 |
+| `lec-10-topic-07` | K17, K18, K19, K21 |
+| `lec-10-topic-08` | HT, H01, H02 |
+| `lec-10-topic-09` | H03, H04, H05, H06, H17 |
+| `lec-10-topic-10` | H07, H08, H09, H11, H12, H13 |
+| `lec-10-topic-11` | H15, H16 |
+| `lec-10-topic-12` | AT, A01, A02, A03, A04 |
+| `lec-10-topic-13` | A06, A07, A10, A12, A13, A13B, A14 |
+| `lec-10-topic-14` | A15, A17, A18 |
+| `lec-10-topic-15` | A21, A23 |
+| `lec-10-topic-16` | ST, S01, S02, S03, S04, S05, S06, S07 |
+| `lec-10-topic-17` | S10, S11, S12, S14 |
+| `lec-10-topic-18` | G01, G02 |
+| `lec-10-topic-19` | G03, G04, G05, G06, G07, G08, G09, G15 |
+| `lec-10-topic-20` | G10, G11, G13 |
+| `lec-10-topic-21` | TT, T01, T03, T04 |
+| `lec-10-topic-22` | A20, T05 |
+| `lec-10-topic-23` | P04B, T02 |
+| `lec-10-topic-24` | XT, X01, X01B, X02, X02B, X02C, X03, X03B, X03C, X04, X04B, X04C |
+| `lec-10-topic-25` | T06 |
 
 ## Liên tục dữ kiện và ký hiệu
 
-- Dữ liệu A–E chỉ dùng cho Huffman tĩnh và bài X01; không trộn với bảng chín ký hiệu của “BILL GATES”.
-- `ESCAPE` và `EOS` được giới thiệu ở A02. Vết E truyền `ESCAPE`, tám bit thô, lá E trọng số 0 và lời gọi cập nhật; không thay bằng tên nút từ biến thể khác.
-- Phần số học dùng khoảng nửa mở $[L,H)$ từ R02 đến R13. Cặp $C_s,D_s$ luôn là cận tích lũy của ký hiệu trong $[0,1)$.
-- Tự thông tin ở R08 được dùng trực tiếp để giải thích câu hỏi độ dài của X03; entropy chỉ là trung bình theo phân phối.
-- Tình huống ở H00 được dùng lại trong chi phí bảng H12; tình huống A00 được dùng lại trong đồng bộ A08; tình huống R00 được dùng lại khi so sánh độ dài ở R12 và kiểm tra S01.
+- Ký hiệu theo bảng ký hiệu của ghi chú: $[a_t;\,a_t+w_t)$, $F(s)$, $G(s)$, $N$, $\bar\ell(c)$, $\operatorname{wt}(v)$, $\#i$, $m$, $z$, $\lambda$, $\zeta$, $Q=2^{R-2}$, $\mathcal Q$ (hàng đợi, khác $Q$). Không dùng $[L,H)$, $C_s$, $D_s$, E1/E2/E3, `pending`, $x$ cho số thực, $w$ cho trọng số nút.
+- Dấu phẩy thập phân và dấu chấm phẩy giữa hai đầu khoảng (P01 "Quy ước:"), cả trong nhãn SVG.
+- Quy ước bit của AHUFF.C (vị trí lẻ bit 1) nêu ở A02 cùng từ mã đầu tiên của mạch 4 (E = `0`, A = `111`); hình cây của mạch 4 ghi bit theo quy ước đó. Huffman tĩnh (H05, X02) gán bit theo hình của NG hoặc theo quy ước của bài.
+- Số sai của NG chỉ ở ghi chú diễn giả: khoảng của A ở bảng giải mã (S07), $10\,000$ (G02), "chín bit" (S10), $83{,}56$ (H17), C = 6 ở Hình 4.12 (A23), "từ mã ≤ 16 bit" (H16).
+- Thuật ngữ: "mã số học", "mô hình thích nghi", "số đếm $f_s$", "Lời giải".
+- Ghi chú diễn giả A10, A12, A13B không nêu lời giải của X03C (D3).
+- Mặt trang không dùng "NG" làm chủ ngữ (G5): HUFF.C, AHUFF.C, ARITH.C hoặc quy tắc phá hòa, gán bit; trang và tên sách ở ghi chú diễn giả và T06.
 
-## Trạng thái phần recitation
+## Hình
 
-X01–X03 có tổng thời lượng 60 phút và có lời giải trong ghi chú. Người dùng đã phê duyệt ngoại lệ nguồn ngày 2026-08-28: X01–X02 là ví dụ Nelson–Gailly được chuyển thành bài luyện, còn X03 là CMU Assignment 1a, Problem 3. Lỗi chặn nguồn đã đóng; phần recitation không còn lỗi chặn hoặc nghiêm trọng.
+SVG mới (17 tệp, sinh bởi `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-10/generate_deck_svg.py`, chỉ dữ liệu của ghi chú): `cau-truc-bai-10` (P04), `ba-cach-doc-1011` (K01), `cay-ma-a-e-trang-chieu` (K04), `khoang-ma-a-e-trang-chieu` (K08), `so-bit-a-e` (H01), `huffman-a-e-trang-chieu` (H05), `hai-phia-cung-cay` (A01), `tinh-chat-anh-em-trang-chieu` (A02), `tang-doi-a-lan-2-trang-chieu` (A07), `them-la-e-trang-chieu` (A17, khung thấp 280), `mot-bit-moi-ky-hieu` (S01), `khoang-bill-gates-trang-chieu` (S02), `khoang-ma-bay-chu-a-trang-chieu` (S10), `ba-nhanh-chuan-hoa-trang-chieu` (G04), `so-bit-a-e-tong-ket` (T01), `bai-10-14-cay-dau` (X03), `tang-doi-a-lan-4-trang-chieu` (X03C). Mỗi tệp có `role="img"`, `<title>`, `<desc>`; mỗi `<img>` có `alt` cụ thể; tô màu luôn đi kèm nét dày, nét đứt, mẫu sọc hoặc nhãn chữ. Không dùng hình raster. Chín `note-*.svg` của ghi chú giữ nguyên. Hình tùy chọn `cay-fibonacci.svg` không vẽ (A21 dùng dòng chữ).
+
+Chín SVG của deck cũ (`adaptive-sibling-increment`, `adaptive-swap`, `arithmetic-bill-gates`, `arithmetic-decode-normalize`, `arithmetic-renormalization`, `escape-eof-pipelines`, `huffman-code-decode`, `huffman-merge-a-e`, `prefix-tree-kraft`) không còn được deck tham chiếu; điều phối viên xóa trong commit deck (K2).
+
+## Trang của deck cũ
+
+54 trang của deck cũ (`P00 P01 P03 P02 HT H00–H13 AT A00–A10 RT R00–R13 ST S00 S01 XT X00–X03`) đều `bỏ`: deck viết lại từ mục tiêu và ghi chú mới (AGENTS.md: không dùng bố cục bản cũ làm khuôn), xử lý 19 chỗ lệch ghi trong kế hoạch deck (ký hiệu $[L,H)$, E1/E2/E3, thứ tự Kraft–Huffman–entropy, thiếu Mệnh đề 10.2, Shannon–Fano, Định lý 10.34, Mục 7, recitation không khớp ghi chú). Một số mã cũ (P00–P03, HT, AT, ST, XT, H01…, A01…, S01, X01–X03) được dùng lại cho trang mới có nội dung khác; không có liên kết sâu tới deck từ tệp nào. Sau cổng storyboard, các mã K20, A11, A13C, A16, A19, S08, S09 của bản nháp không còn; sau năm vòng rà, K10 cũng không còn (gộp, xem "Số trang và phần đọc thêm").
 
 ## Storyboard ghi chú tự học (bản 2026-11-08)
 
