@@ -59,7 +59,7 @@ Lượt 1 lấy E5 rồi D6, nên E nhận bit 0 ở lượt đó.
 :::
 
 ::: exercise Bài tập 10.12 (Bất đẳng thức Kraft bằng cách đếm lá; CMU-A1, bài 4A, tr.1)
-Cho mã tiền tố $c$ với độ dài $\ell_s$ và $\ell_{\max}=\max_s\ell_s$. Chứng minh $\sum_s2^{-\ell_s}\le1$ bằng cách đếm các lá của cây nhị phân hoàn hảo (perfect binary tree) độ sâu $\ell_{\max}$, cây có mọi lá ở độ sâu $\ell_{\max}$.
+Cho mã tiền tố $c$ với độ dài $\ell_s$ và $\ell_{\max}=\max_s\ell_s$. Chứng minh $\sum_s2^{-\ell_s}\le1$ bằng cách đếm các lá của cây nhị phân hoàn hảo (perfect binary tree) độ sâu $\ell_{\max}$, tức mọi nút trong có đúng hai con và mọi lá ở độ sâu $\ell_{\max}$.
 :::
 
 ::: hint

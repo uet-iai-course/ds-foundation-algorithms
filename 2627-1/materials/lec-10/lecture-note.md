@@ -521,7 +521,7 @@ Hai nhầm lẫn thường gặp cần tách ra. Thứ nhất, NG (tr.20) gọi 
 
 Thông điệp A–E có $I(x)\approx85{,}25$ bit. Để dùng con số này làm đích, chúng ta cần biết hai điều: không mã tiền tố nào xuống dưới nó, và luôn có mã tiền tố đến đủ gần nó.
 
-::: theorem Định lý 10.12 (Cận dưới entropy; định lý mã hóa nguồn của Shannon, source coding theorem)
+::: theorem Định lý 10.12 (Cận dưới entropy; phần cận dưới của định lý mã hóa không nhiễu của Shannon, Shannon's noiseless coding theorem)
 **Giả thiết.** $P=(p_s)_{s\in\Sigma}$ là phân phối với mọi $p_s>0$; $c$ là mã tiền tố trên $\Sigma$ với độ dài $\ell_s$.
 
 **Kết luận.** $\bar\ell(c)\ge H(P)$, dấu bằng xảy ra khi và chỉ khi $p_s=2^{-\ell_s}$ với mọi $s$.
@@ -963,7 +963,7 @@ Tổng thời gian là $O(n+k\log k+\operatorname{cost}(T))$, trong đó $\opera
 Về đầu mục (header, còn gọi là thông tin phụ, side information), NG (tr.52–54) chọn các cách sau:
 
 - bảng chữ cái có 257 ký hiệu, gồm 256 giá trị byte và `EOS`;
-- số đếm được co lại để vừa một byte, nên mọi phép tính khi dựng cây vừa số nguyên 16 bit; NG (tr.52) viết thêm rằng nhờ vậy mỗi từ mã dài không quá 16 bit, nhưng phép co không chặn độ dài từ mã, vì gốc vẫn có thể tới $256\cdot255+1=65\,281$, vượt xa mức $4\,181$ mà từ mã đã có thể dài 17 bit (Nhận xét 10.28);
+- số đếm được co lại để vừa một byte, nên mọi phép tính khi dựng cây vừa số nguyên 16 bit; NG (tr.52) viết thêm rằng nhờ vậy mỗi từ mã dài không quá 16 bit, nhưng phép co không bảo đảm điều đó: cận Fibonacci chỉ loại từ mã 17 bit khi gốc nhỏ hơn $4\,181$, còn gốc có thể tới $256\cdot255+1=65\,281$ (Nhận xét 10.28);
 - bên nén gửi số đếm đã co thay cho cây, vì bên nhận chạy cùng Thuật toán 10.14 trên cùng số đếm sẽ dựng lại đúng cây: bảng số đếm tốn 256 byte, còn mảng nút của cây tốn 4K byte;
 - các số đếm bằng 0 được bỏ bằng cách gửi từng dải ký hiệu liên tiếp: ký hiệu đầu, ký hiệu cuối, rồi số đếm của các ký hiệu trong dải, kết thúc bằng một số 0.
 :::
@@ -1329,7 +1329,7 @@ Trọng số chỉ tăng, nên sau đủ nhiều ký hiệu chúng vượt khả
 - trọng số gốc vượt cỡ của bộ đếm, 16 bit trong các chương trình của sách;
 - từ mã dài nhất vượt cỡ của biến nguyên mà bộ nén dùng để tích các bit khi đi từ lá lên gốc, vì bộ nén thu các bit theo thứ tự ngược rồi mới phát.
 
-Giới hạn thứ hai có thể đến sớm hơn, vì một cây lệch có từ mã dài với trọng số gốc không lớn. Đặt $\mathrm{fib}(0)=\mathrm{fib}(1)=1$ và $\mathrm{fib}(i)=\mathrm{fib}(i-1)+\mathrm{fib}(i-2)$, như hàm `fib` của NG (tr.74–75).
+Với biến tích bit 16 bit, giới hạn thứ hai có thể đến sớm hơn, vì một cây lệch có từ mã dài với trọng số gốc không lớn. Đặt $\mathrm{fib}(0)=\mathrm{fib}(1)=1$ và $\mathrm{fib}(i)=\mathrm{fib}(i-1)+\mathrm{fib}(i-2)$, như hàm `fib` của NG (tr.74–75).
 
 ::: example Ví dụ 10.15 (Cây Fibonacci)
 **Dữ kiện.** NG, Hình 4.6 (tr.75): sáu lá A, B, C trọng số 1 và ba lá trọng số 2, 3, 5.
@@ -2000,7 +2000,7 @@ Như vậy, chúng ta đã có bộ mã số học với thanh ghi $R$ bit (Đ�
 
 Trên thông điệp A–E của Mục 1, chuỗi số bit của chương là 312 bit với ASCII, 117 bit với mã độ dài cố định, 102 bit với độ dài Shannon, 89 bit với Shannon–Fano, 87 bit với Huffman, và $\lambda=\lceil85{,}247\rceil+1=87$ bit với mã số học lý tưởng dùng cùng mô hình, so với đích $I(x)\approx85{,}25$ bit. Các kết quả cho ba tiêu chí có số:
 
-- khi một xác suất gần 1, mọi mã ký hiệu dùng ít nhất 1 bit mỗi ký hiệu, còn mã số học dùng gần $I(x)$ bit: 5 bit thay cho 8 bit ở Ví dụ 10.19;
+- khi một xác suất gần 1, mọi mã ký hiệu dùng ít nhất 1 bit mỗi ký hiệu, còn mã số học dùng gần $I(x)$ bit: 6 bit thay cho 8 bit ở Ví dụ 10.19 (chuỗi ngắn nhất: 5 bit);
 - trên thông điệp ngắn, khoản 2 bit của Định lý 10.34 chưa được bù lại: trên BILL GATES, cây Huffman của tám số đếm 1 và số đếm 2 của L có các nút trong trọng số $2,2,2,2,4,4,6,10$, tổng 32 bit (áp dụng lặp Bổ đề 10.17, chi phí bằng tổng trọng số các nút trong), còn quy tắc của Định lý 10.34 dùng $\lceil31{,}22\rceil+1=33$ bit; khi mọi xác suất là lũy thừa của $\tfrac12$, mã Huffman đạt đúng entropy (Định lý 10.12, 10.13, 10.18);
 - khi không đọc được dữ liệu hai lần hoặc đầu mục lớn so với thân, mô hình thích nghi bỏ được đầu mục, đổi lại khởi đầu nguội và chi phí `ESCAPE` (Mục 4.3).
 
