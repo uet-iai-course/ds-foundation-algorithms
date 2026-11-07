@@ -46,6 +46,8 @@ Không có bước nào ghi `không áp dụng` cho ba thuật toán trọng tâ
 
 ## Ánh xạ từng trang
 
+> Các mục trang chiếu dưới đây (và các mục "Hành trình khái niệm", "Bổ sung trang tiêu đề mạch", "Bản đồ sáu mạch", "Chu trình học tập theo cụm", "Liên tục dữ kiện và ký hiệu", "Trạng thái phần recitation") thuộc deck cũ, giữ nguyên chờ làm lại deck; ánh xạ `data-slide-id` ↔ `note-topic-id` sẽ được lập khi làm lại.
+
 | Mã | Luận điểm và sản phẩm học tập | Bước trong chu trình, câu nối và nguồn | Phút |
 |---|---|---|---:|
 | P00 | Đặt tên và vị trí Bài 10. | Mở bài; `sources/source.md`, Bài 10 đề xuất. | 1 |
@@ -109,19 +111,36 @@ Không có bước nào ghi `không áp dụng` cho ba thuật toán trọng tâ
 
 X01–X03 có tổng thời lượng 60 phút và có lời giải trong ghi chú. Người dùng đã phê duyệt ngoại lệ nguồn ngày 2026-08-28: X01–X02 là ví dụ Nelson–Gailly được chuyển thành bài luyện, còn X03 là CMU Assignment 1a, Problem 3. Lỗi chặn nguồn đã đóng; phần recitation không còn lỗi chặn hoặc nghiêm trọng.
 
-## Storyboard ghi chú tự học
+## Storyboard ghi chú tự học (bản 2026-11-08)
 
-| `note-topic-id` | Vai trò và kết nối vào–ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày |
-|---|---|---|---|---|
-| `L10-N01` | Mở bài; tách mô hình khỏi bộ mã, mở hai nhánh Huffman và số học. | Xác suất cơ bản, cây nhị phân, hàng đợi ưu tiên. | Đặc tả đầu vào, đầu ra và bốn nhóm thông tin giao thức. | Vai trò, đặc tả, bảng lựa chọn, tự kiểm phá hòa. |
-| `L10-N02` | Nhận yêu cầu giải mã duy nhất; trao miền độ dài khả thi cho N03. | Cây nhị phân và độ sâu lá. | Giải thích mã tiền tố và tính tổng Kraft. | Định nghĩa, hình cây, lập luận đếm lá, trường hợp biên. |
-| `L10-N03` | Nhận miền khả thi; trao chi phí đếm trước và đầu mục cho N04. | Hàng đợi ưu tiên, tổng có trọng số. | Dựng và giải mã cây A–E; chứng minh bằng đổi, co cặp và quy nạp; tính chi phí. | Đặc tả, giả mã, hai hình, vết ghép, mệnh đề và chứng minh. |
-| `L10-N04` | Khắc phục lượt đếm trước; trao tính chất anh em cho thủ tục cập nhật. | Cây Huffman và giao thức hai phía. | Mô phỏng ký hiệu mới, phân biệt `ESCAPE`, `EOS` và lá mới. | Sơ đồ hai phía, vết tám bit, định nghĩa tính chất anh em. |
-| `L10-N05` | Nhận tính chất anh em; trao giới hạn độ dài nguyên bit cho N06. | Con trỏ cha và thứ tự nút theo trọng số. | Chạy vết A, đổi với D, nêu ba bất biến và điều kiện dựng lại. | Hai cây chuyển tiếp, giả mã, quy nạp đồng bộ, chi phí và lỗi dễ mắc. |
-| `L10-N06` | Mở nhánh số học từ N01; trao khoảng lý tưởng cho N07. | Xác suất tích lũy. | Thu hẹp và giải mã khoảng nửa mở; nêu `EOS` hoặc độ dài. | Ví dụ 100.000 số 0, bảng “BILL GATES”, hai hình, công thức và bất biến. |
-| `L10-N07` | Chuyển mô hình số thực lý tưởng thành cơ chế hữu hạn; trao độ rộng cuối cho N08. | Khoảng nửa mở và biểu diễn nhị phân. | Phân biệt E1/E2/E3, duy trì `pending` và hoàn tất dòng. | Giả mã chuẩn hóa, hình ba nhánh, liên hệ thanh ghi số nguyên. |
-| `L10-N08` | Cầu nối từ độ rộng khoảng sang chi phí; trao tiêu chí cho N09. | Xác suất chuỗi và logarit cơ số 2. | Phân biệt tự thông tin với entropy và nêu điều kiện nguồn không nhớ. | Định nghĩa, công thức, cảnh báo giả thiết. |
-| `L10-N09` | Hội tụ hai nhánh; trao tiêu chí lựa chọn cho bài tập. | N03–N08. | So sánh bộ nhớ, công việc và điều kiện giao thức của ba cặp. | Bảng so sánh và giới hạn không phụ thuộc cài đặt. |
-| `L10-N10` | Kiểm tra cuối; thu hồi các dữ kiện A–E, Hình 4.2–4.3 và CMU P3. | Toàn bộ N01–N09. | Ba vết giải có số liệu, trạng thái trung gian và kết luận kiểm được. | Ba khối bài tập–lời giải; cây thích nghi được lặp lại để bài tự chứa. |
+Thay cho bảng `L10-N01…N10` cũ; ánh xạ mã cũ → mới ở `outline.md`, mục "Ghi chú bài giảng (bản 2026-11-08)". Ghi chú: `materials/lec-10/lecture-note.md`. Thứ tự mỗi chủ đề trọng tâm: nhu cầu có số → định nghĩa → ví dụ có lời giải → trực quan → kết quả → thuật toán (tính tay trước giả mã) → chứng minh → ứng dụng và kiểm tra.
 
-Đồ thị tiên quyết là `N01→N02→N03→N04→N05` và `N01→N06→N07→N08`; hai nhánh hội tụ ở `N09` rồi tới `N10`. Thứ tự ví dụ–trực quan được đổi cục bộ ở N03 và N06 để dữ kiện nguồn dẫn trực tiếp vào công thức; không có đề mục rỗng hoặc bước bị bỏ ngầm.
+| `note-topic-id` | Mục ghi chú | Vai trò; kết nối vào → ra | Kiến thức đầu vào | Sản phẩm học tập | Thành phần trình bày |
+|---|---|---|---|---|---|
+| `lec-10-topic-01` | Kiến thức tiên quyết | cầu nối; Bài 08–09, Bài 05 → mọi mục | — | dùng được các phát biểu lại | danh sách có số hiệu |
+| `lec-10-topic-02` | 1.1 | mở bài từ Định lý 09.37 và bài toán khôi phục từng bit → đặc tả cho 1.2, 2.1 | 01 | đặc tả mã, Mệnh đề 10.2 | Ví dụ 10.1, Định nghĩa 10.1, Mệnh đề 10.2 có chứng minh, hình cấu trúc chương |
+| `lec-10-topic-03` | 1.2 | tách mô hình–bộ mã → bốn thành phần giao thức dùng ở 3.2, 4.3, 6.3 | 02 | Định nghĩa 10.3, Nhận xét 10.4 | Ví dụ 10.2, Bài tập 10.1; chu trình rút gọn (không có định lý, thuật toán) |
+| `lec-10-topic-04` | 2.1 | điều kiện giải mã kiểm được → cây mã cho 2.2, 3.2 | 02 | kiểm mã tiền tố, giải mã bằng cây | Định nghĩa 10.5, Ví dụ 10.3, Mệnh đề 10.6 có chứng minh; hình cây và khoảng mã |
+| `lec-10-topic-05` | 2.2 | bộ độ dài khả thi → hai cận ở 2.4; Bổ đề 10.8 → Định lý 10.34 | 04 | tính tổng Kraft, dựng mã | Định nghĩa 10.7, Bổ đề 10.8, Ví dụ 10.4 (tính tay trước định lý), Định lý 10.9, Nhận xét 10.10, Bài tập 10.2 |
+| `lec-10-topic-06` | 2.3 | thước đo đích → 2.4, 5.1 | 03 | tính $I$, $H$, $\bar\ell$ | Định nghĩa 10.11, Ví dụ 10.5; chu trình rút gọn (đại lượng đo) |
+| `lec-10-topic-07` | 2.4 | cận hai phía → giới hạn 102 bit mở Mục 3 | 05, 06 | chứng minh $H\le\bar\ell<H+1$ | Định lý 10.12, 10.13 có chứng minh, Ví dụ 10.6, danh sách bỏ giả thiết, Trong thực hành, Bài tập 10.3 |
+| `lec-10-topic-08` | 3.1 | phương pháp trước có số (89 bit) → nhu cầu dựng từ dưới lên | 05, 07 | so sánh 89 và 87 bit | Ví dụ 10.7; chu trình rút gọn theo Q3 (phương pháp trước làm giới hạn, nguồn không có kết quả về nó) |
+| `lec-10-topic-09` | 3.2 | thuật toán → tối ưu ở 3.3, danh sách nút ở 4.1 | 04, 07, 08 | chạy Huffman, bảng mã | Ví dụ 10.8 (bảng hàng đợi trước giả mã), hình cây A–E, Thuật toán 10.14, giả mã, Bài tập 10.4 |
+| `lec-10-topic-10` | 3.3 | tối ưu → Định lý 10.25, giới hạn nguyên bit mở Mục 5 | 05, 07, 09 | chứng minh tối ưu | Ví dụ 10.9, Bổ đề 10.15–10.17, Định lý 10.18, Hệ quả 10.19, Ví dụ 10.10, danh sách bỏ giả thiết |
+| `lec-10-topic-11` | 3.4 | chi phí và đầu mục → nhu cầu thích nghi | 09 | đếm chi phí, đầu mục | Nhận xét 10.20 (bảng bước–số lần–chi phí–đóng góp), Trong thực hành; chu trình rút gọn (phân tích thuật toán đã có) |
+| `lec-10-topic-12` | 4.1 | đặc trưng cây Huffman → cập nhật cục bộ | 09, 10 | kiểm tính chất anh em | Ví dụ 10.11, Định nghĩa 10.21, phản ví dụ Hình 4.8, Định lý 10.22 có chứng minh, quy ước bit, hình |
+| `lec-10-topic-13` | 4.2 | thuật toán cập nhật → đồng bộ ở 4.3 | 12 | chạy tăng–đổi, chứng minh bất biến | Ví dụ 10.12, 10.13 (bốn lần tăng A trước giả mã), hình, Thuật toán 10.23, Bổ đề 10.24, Định lý 10.25, bảng chi phí, Trong thực hành |
+| `lec-10-topic-14` | 4.3 | bộ nén một lượt → chống tràn ở 4.4; Tình huống 10.3(b) | 03, 13 | thêm ký hiệu mới, chứng minh đồng bộ | Ví dụ 10.14 (Hình 4.10), hình, Thuật toán 10.26, Mệnh đề 10.27 có chứng minh, Trong thực hành (khởi đầu nguội, Bài tập 10.16) |
+| `lec-10-topic-15` | 4.4 | chặn trọng số → kết luận Mục 4, nối Mục 5 | 13, 14 | ngưỡng Fibonacci, dựng lại | Ví dụ 10.15, Nhận xét 10.28 (lời văn và mã của NG, Q15), Ví dụ 10.16 trước Thuật toán 10.29, Trong thực hành, Bài tập 10.5; Fibonacci chu trình rút gọn |
+| `lec-10-topic-16` | 5.1–5.2 | khoảng của chuỗi → dừng và cận ở 5.3–5.4 | 06, 10 | mã hóa, giải mã với số thực | bảng khoảng BILL GATES (tính tay ba ký hiệu trước định nghĩa), Định nghĩa 10.30, Ví dụ 10.17, hình, Mệnh đề 10.31, Thuật toán 10.32, tính đúng, Ví dụ 10.18 |
+| `lec-10-topic-17` | 5.3–5.4 | cận độ dài → nhu cầu thanh ghi hữu hạn | 05, 16 | chọn chuỗi bit, cận $<I(x)+2$ | Mệnh đề 10.33, Ví dụ 10.19, hình khoảng mã, Định lý 10.34, Hệ quả 10.35, Trong thực hành, Bài tập 10.6 |
+| `lec-10-topic-18` | 6.1 | thanh ghi và phát tiền tố chung → 6.2 | 16, 17 | đọc vết thanh ghi | Định nghĩa 10.36, Ví dụ 10.20; gộp chu trình với topic-19 (hai nhánh của một vòng chuẩn hóa) |
+| `lec-10-topic-19` | 6.2 | chuẩn hóa đúng → giải mã ở 6.3 | 18 | chạy ba trường hợp, chứng minh hai bổ đề | Thuật toán 10.37, giả mã, hình ba trường hợp, Ví dụ 10.21 (vết 16 bit cho cbb, có một lần khoảng giữa, dữ liệu của bản soạn), Bổ đề 10.38 (kéo ngược qua $\psi$), 10.39, danh sách bỏ giả thiết, Trong thực hành, Bài tập 10.7 |
+| `lec-10-topic-20` | 6.3 | giải mã và kết thúc → Mục 7 | 19, 03 | giải mã nguyên | tính tay hai ký hiệu đầu của cbb trước Thuật toán 10.40, Mệnh đề 10.41 (phác thảo; đầy đủ ngoài phạm vi), bảng chi phí, Trong thực hành (các khoản cố định) |
+| `lec-10-topic-21` | 7 | tổng hợp → tình huống | 09–20 | chọn cặp mô hình–bộ mã | bảng Thuật toán–Đầu vào–Bảo đảm–Chi phí, Bài tập 10.8; chu trình rút gọn (tổng hợp) |
+| `lec-10-topic-22` | Tình huống | áp dụng ngược về lý thuyết | 02–21 | giải ba tình huống | Tình huống 10.1, 10.2, 10.3 (vi phạm giả thiết), danh mục ứng dụng |
+| `lec-10-topic-23` | Tóm tắt | kể lại chuỗi kết quả → Bài 11 | mọi mục | — | đoạn 5–8 câu, kết quả theo mục, công thức, giả thiết hay quên |
+| `lec-10-topic-24` | Bài tập | kiểm tra cuối | mọi mục | mười ba bài ba mức, trong tệp `materials/lec-10/exercises.md`; ghi chú giữ đoạn dẫn và liên kết | Bài tập 10.9–10.21 (10.16 thêm ký hiệu qua `ESCAPE`, 10.17 bit chờ với $R=8$, 10.18, 10.19 chứng minh cho mục tiêu 3, 4; 10.20 quy tắc trung điểm; 10.21 bảng mã dùng chung); recitation 10.11 (NG tr.32–37), 10.12 (CMU-A1 bài 4A), 10.14 (NG Hình 4.2–4.4), 10.15 (CMU-A1 bài 3) |
+| `lec-10-topic-25` | Tham khảo | đọc thêm | — | — | danh mục có trang, quy ước trang PDF của NG, bảng nguồn của các chứng minh |
+
+Các dữ kiện của bản soạn (Q12, Q19): dòng bit `0101100111` (Ví dụ 10.3); bộ độ dài $(1,1,2)$ (Ví dụ 10.4) và hai bộ đầu của Bài tập 10.2; vết 16 bit cho cbb (Ví dụ 10.21) và phép tính `count` ở Mục 6.3; giá trị `code` của Bài tập 10.7; quy tắc phá hòa, gán bit của Bài tập 10.11; phần (d) của Bài tập 10.14; thông điệp AB của Bài tập 10.16; thông điệp bc với $R=8$ của Bài tập 10.17; cây trọng số A1, B2, C2, D2 sau Định lý 10.22; tệp chỉ gồm Q và Z (Tình huống 10.3(a), Bài tập 10.21); bộ giải mã bỏ phép đổi (Tình huống 10.3(b)); xác suất $0{,}9$ cho điểm trắng ở Tình huống 10.2.

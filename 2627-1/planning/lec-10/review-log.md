@@ -203,3 +203,94 @@ Kiểm tra: section mở/đóng 60/60; 54 `data-slide-id` và 5 `id` duy nhất.
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 5 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Câu "Mỗi bài nộp…" ở ghi chú XT thay bằng "Lời giải gồm vết tính, trạng thái trung gian và kết luận." Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Viết lại ghi chú bài giảng theo chuẩn giáo trình (2026-11-07/08)
+
+Yêu cầu người dùng (2026-11-07): rà soát ghi chú Bài 10 theo các nguyên tắc về nội dung, văn phong, bố cục và cách diễn giải của từng khối trong `../CLAUDE.md`, `CLAUDE.md` và `AGENTS.md`, giải thích chi tiết, đặc biệt các chứng minh quan trọng, "dùng nguồn MMDS"; sau khi ghi chú hoàn thiện mới làm lại bộ trang chiếu 10 từ ghi chú mới; xong thì commit và đẩy. Hiện trạng: ghi chú cũ 4 702 âm tiết, không khối đánh số, không mục tiêu, tiên quyết, bảng ký hiệu, tình huống, tóm tắt hay bài tập ba mức; $H$ mang hai nghĩa; một số trích dẫn và lời giải CMU bài 3 sai ý. Quy trình: AGENTS.md §"Quy trình tác tử gốc cho một ghi chú bài giảng".
+
+**Nguồn.** MMDS không có chương nén dữ liệu (`sources/reference-slides/README.md`, dòng Bài 10: "MMDS không bao phủ mô-đun này"). Trục nguồn là Nelson–Gailly (NG) Chương 2–5; Stanford EE398A, CS106B và CMU 15-499 (kèm Assignment 1a và lời giải) để đối chiếu và cho các chứng minh mà NG chỉ phát biểu. Không có ghi công `mmds.org`. Đã báo người dùng khi bàn giao.
+
+### Tác tử
+
+| Tác tử | Vai trò | Loại, mô hình, effort (theo lệnh gọi `Agent`) | Đầu ra (scratchpad) | Quyết định |
+|---|---|---|---|---|
+| lập kế hoạch | phạm vi, phân bổ độ dài, đánh giá bản cũ, chu trình tám bước, 26 chứng minh, bài tập, Q1–Q14 (chỉ đọc) | general-purpose, opus, high | `plan-note.md` | chấp nhận, kèm quyết định Q1–Q20 |
+| phân tích nguồn | ánh xạ NG/Stanford/CMU theo trang PDF, tính lại mọi ví dụ, mô phỏng AHUFF.C và ARITH.C, 27 lỗi nguồn (chỉ đọc) | general-purpose, opus, high | `source-dossier.md` | chấp nhận |
+| bản đồ chủ đề | 25 chủ đề có nhãn, nguồn, khối dự kiến, thuật ngữ, ký hiệu, mâu thuẫn M1–M15 (chỉ đọc) | general-purpose, opus, high | `topic-map.md` | chấp nhận, chốt M1–M15 |
+| soạn, sau đó chỉnh sửa (cùng tác tử, tiếp tục bằng `SendMessage`) | viết lại ghi chú, 9 SVG `note-*.svg` qua `generate_note_svg.py`, phần ghi chú của outline/storyboard; ba vòng chỉnh sửa; tách bài tập | general-purpose, opus, high | `writer-report.md`, `editor-report-{1,2,3}.md` | chấp nhận sau rà lại |
+| rà: sinh viên | đọc không deck, tự giải ví dụ và bài tập | general-purpose, opus, high | `rv-student.md` (0/2/5/22) | chấp nhận |
+| rà: chuyên gia | giả thiết, biến thể NG, so sánh công bằng, chi phí, 60+ trích dẫn | general-purpose, opus, high | `rv-expert.md` (0/2/7/14) | chấp nhận |
+| rà: độ chính xác | tính lại độc lập (bản chuyển AHUFF.C, ARITH.C), 22 chứng minh, tham chiếu | general-purpose, opus, high | `rv-accuracy.md` (0/3/5/12); `rc-accuracy.md` (0/0/0/8); `rc2-accuracy.md` (0/0/0/0) | chấp nhận |
+| rà: phản biện học thuật–giảng dạy | tám bước, khối, văn phong tác giả, `no-ai-slop` Detect | general-purpose, opus, high | `rv-pedagogy.md` (0/2/11/15); `rc-pedagogy.md` (0/0/1/9) | chấp nhận |
+| rà: mạch, nguồn và kết nối | mạch, đoạn móc nối, cấu trúc, 44 nhóm dẫn nguồn, lệch với deck cũ | general-purpose, opus, high | `rv-storyline.md` (0/0/12/17); `rc-storyline.md` (0/0/0/13) | chấp nhận |
+
+Số trong ngoặc: chặn bàn giao/nghiêm trọng/trung bình/nhẹ.
+
+### Quyết định trước khi soạn (điều phối viên)
+
+- Q1 trục NG thay MMDS (lý do ở trên). Q2 entropy và hai cận đặt trước Huffman. Q3 Shannon–Fano làm ví dụ dẫn, chu trình rút gọn. Q4/Q17/M1 các chứng minh không có trong nguồn được dựng đủ bước: chiều đảo Kraft, cận dưới entropy, cây có tính chất anh em là cây Huffman (không gắn tên Gallager vì nguồn được giao không nêu), bảo toàn tính chất anh em qua tăng–đổi, bit chờ, khoảng con nguyên không rỗng. Q5 ngoài phạm vi kèm nguồn có trang: bất đẳng thức McMillan, cận Fibonacci, bộ giải mã nguyên của Witten–Neal–Cleary (dẫn qua thư mục NG).
+- Q6/M3 ký hiệu: khoảng $[a_t;\,a_t+w_t)$, $F(s)$, $G(s)$, tổng số đếm $N$, $\bar\ell$, $\operatorname{wt}(v)$; $H$ chỉ là entropy. Q8 dấu phẩy thập phân, dấu chấm phẩy ngăn đầu khoảng. Q9 trang NG là trang PDF.
+- Q10 số sai của sách thay bằng số tính lại kèm một câu nêu số của sách; Q15 hai chỗ lời–mã của NG không khớp (chia đôi cắt cụt và $(w+1)/2$; ngưỡng 4 181 và `MAX_WEIGHT = 0x8000`) được nêu cả hai. Q18 điều kiện "nút đổi không là tổ tiên" là của FGK; trong biến thể NG không xảy ra (Bổ đề 10.24).
+- Q16 không raster; SVG cũ của Bài 10 giữ nguyên cho deck cũ, hình ghi chú đặt tên mới `note-*.svg`.
+- M15: không có mục "Bản đồ chủ đề" trong ghi chú (nhận xét người dùng 2026-11-04 cho `../rl-plan`: "quá nhiều không cần thiết"); chú thích `note-topic-id` giữ trong thân bài; bảng bốn nhóm ở `outline.md`. Khác với ghi chú Bài 09, không sửa các ghi chú đã công bố.
+- Q13 mã chủ đề cũ → mới (đầy đủ ở `outline.md`, mục "Ánh xạ mã cũ → mới"): `L10-N01` → topic-02, 03; `N02` → 04, 05; `N03` → 08–11; `N04` → 14; `N05` → 12, 13, 15; `N06` → 16, 17; `N07` → 18–20; `N08` → 06, 07; `N09` → 21; `N10` → 24.
+
+### Vòng rà 1 (bản đóng băng md5 `d4bfc3d0…`, 31 832 âm tiết)
+
+| Mức độ | Vị trí | Vấn đề | Quyết định và xử lý |
+|---|---|---|---|
+| nghiêm trọng | Bổ đề 10.38, câu áp dụng sau nó | Phát biểu bỏ qua phép thu hẹp xen giữa các lần khoảng giữa và lần nửa dưới/trên; phản ví dụ trên chính Ví dụ 10.21 (độ chính xác, chuyên gia) | phát biểu lại trên $\psi^{-1}(\mathcal I_1)$ với $\psi(\eta)=2^{m'}(\eta-\tfrac12)+\tfrac12$, thêm bước quy nạp; kiểm vét cạn $R=6$–$8$ (tác tử soạn 8 310 thông điệp, tác tử độ chính xác 4 356 thông điệp, 0 vi phạm); điều phối viên đọc lại chứng minh |
+| nghiêm trọng | Ví dụ 10.14 | E có từ mã 3 bit, không phải 4 (sinh viên, độ chính xác, chuyên gia) | sửa: 3 bit, `111` theo AHUFF.C |
+| nghiêm trọng | sau Định lý 10.9 | "rút `00` thành `0`" không cho mã tiền tố (sinh viên, độ chính xác) | sửa: đổi `101` thành `11`, $K=7/8$ |
+| nghiêm trọng | Nhận xét 10.20 | lặp khẳng định sai của NG tr.52 "từ mã không quá 16 bit"; mô phỏng HUFF.C cho 17–18 bit (chuyên gia) | nêu lời NG một câu; phép co chỉ làm số đếm vừa một byte, không chặn độ dài từ mã |
+| nghiêm trọng | mục tiêu 5, 7 | không bài tập cho `ESCAPE`/thêm lá và bit chờ (giảng dạy) | thêm Bài tập 10.16, 10.17 (dữ liệu của chương) |
+| nghiêm trọng | 18 dòng "Phạm vi.", 3 dòng "Điều kiện áp dụng." | nêu nguồn gốc chứng minh hoặc trỏ khối khác thay cho phạm vi (giảng dạy) | viết lại thành phạm vi/điều kiện thật; nguồn gốc chứng minh gom vào bảng "Nguồn của các chứng minh" ở mục tài liệu tham khảo |
+| trung bình | 23 mục B1–B23 của `merge1.md` | quy tắc gán bit giả mã/ví dụ; đọc hình trên–dưới; mỗi chữ một nghĩa; lá trọng số 0 khi dựng lại; "trường hợp xấu nhất" từ một ví dụ; "tối ưu cho trọng số hiện thời"; so sánh công bằng (khoản cố định của bộ mã nguyên, Huffman khối, giá của mô hình thích nghi); `scale_counts`; bảng chi phí mã số học; nhắc lại A–E bằng số ở Mục 7; mở Mục 3.2; "Trong thực hành" và "Bỏ …" còn thiếu; tài liệu làm chủ ngữ; khối `algorithm`; danh sách song song; phân mức bài tập; bài tập trùng ví dụ (10.14 thêm phần (d)); bài tập lộ đáp số; Ví dụ 10.21 đổi từ "caba" (đáp số bài recitation) sang "cbb"; thuật ngữ cây hoàn hảo; khai báo dữ liệu của bản soạn; trích dẫn NG tr.122, tr.61–62 | đã sửa hết (`editor-report-1.md` §2) |
+
+Bác hoặc không áp dụng: N15 (thêm Count-Min vào Mục 3.4, tùy chọn, ngoài mạch); câu "Bài 11 khai thác …" ở cuối Mục 7 (trỏ tiến, trái "The author's voice"); `note-topic-id` riêng cho 5.2, 5.4 (topic-16, 17 đã phủ).
+
+**Độ dài.** Sau vòng sửa 1 ghi chú có 33 964 âm tiết (vượt trần 32 000). Theo AGENTS.md §"Tiêu chuẩn thứ nhất" ("trên 32 000 âm tiết phải xét tách phần bài tập"), điều phối viên chọn tách phần "Bài tập củng cố" (Bài tập 10.9–10.21) sang `materials/lec-10/exercises.md`, không cắt nội dung toán. Bài tập 10.1–10.8 tự kiểm sau từng mục vẫn ở trong ghi chú. Đánh số liên tục qua hai tệp.
+
+**Vòng sửa 2–3.** Rà lại trên bản v2 (md5 `075ab79c…`): độ chính xác 19/20 phát hiện vòng 1 đã sửa đúng, 8 nhẹ mới; giảng dạy N1, N2, T1–T12 sửa đúng, còn R3 (trung bình: tài liệu làm chủ ngữ ở khoảng 9 chỗ) và 9 nhẹ; mạch 22/29 sửa đúng, 5 sửa một phần, 13 nhẹ. Điều phối viên: R9 — mục D của `merge1.md` cắt dòng "Kiểm tra lại." đã đi quá AGENTS.md §"Kiểm định ghi chú bài giảng"; phục hồi cho chín ví dụ, mỗi dòng một phép kiểm thật. R8: thêm Bài tập 10.18 (mục tiêu 3), 10.19 (mục tiêu 4), bài cũ 10.18–10.19 thành 10.20–10.21. Rà lại hẹp trên bản v3 (md5 `bb16a821…`): độ chính xác 0/0/0/0.
+
+### Dữ liệu của bản soạn (không kèm nguồn, đã tính lại bởi hai tác tử)
+
+Dòng bit giải mã ở Ví dụ 10.3; bộ độ dài $(1,1,2)$; cây phản ví dụ của Mục 4.1; vết thanh ghi 16 bit cho "cbb" (Ví dụ 10.21); bộ giải mã bỏ phép đổi (Tình huống 10.3); dữ kiện Bài tập 10.16 (thêm ký hiệu qua `ESCAPE`), 10.17 (bit chờ) và phần (d) của Bài tập 10.14. Danh sách đầy đủ ở dòng quy ước đầu ghi chú.
+
+### Giáo trình và nguồn đã tham khảo theo mục
+
+| Mục | Nguồn và trang |
+|---|---|
+| 1 | NG Ch.2 tr.18–25; CMU trang chiếu 2–8; CS106B tr.182 |
+| 2 | CMU trang chiếu 13–14, 20–30, 47; EE398A-1 trang chiếu 3–23; CMU-A1 bài 4 |
+| 3 | NG Ch.3 tr.30–37, 51–66; CMU trang chiếu 31–38, 56; CS106B tr.130–132 |
+| 4 | NG Ch.4 tr.66–95 (Hình 4.2–4.10, AHUFF.C) |
+| 5 | NG Ch.5 tr.96–104; CMU trang chiếu 39–51; EE398A-3 trang chiếu 2–9 |
+| 6 | NG Ch.5 tr.102–126 (ARITH.C); CMU trang chiếu 52–56; EE398A-3 trang chiếu 10–14; CMU-A1 bài 3 |
+| 7, tình huống | tổng hợp; NG tr.22, tr.25; EE398A-1 trang chiếu 21–23 |
+
+CLRS 4e không có trong `sources/`; chi phí Huffman suy từ chi phí đống nhị phân (tiên quyết UET.CS1058). Không có đoạn dịch hoặc chép (mạch: lấy mẫu 44 nhóm dẫn nguồn; giảng dạy: lấy mẫu so sánh).
+
+### Kiểm định ghi chú bài giảng (AGENTS.md §"Kiểm định ghi chú bài giảng")
+
+| Tiêu chí | Kết quả | Bằng chứng |
+|---|---|---|
+| mục tiêu ↔ kết quả ↔ bài tập | đạt | bảng mục tiêu ↔ bài tập trong `exercises.md`; `rc-storyline.md` xác nhận đủ 7 mục tiêu |
+| tám bước cho mỗi khái niệm; tính tay trước giả mã, tính đúng, chi phí | đạt | bảng tám bước của `rv-pedagogy.md`, `rc-pedagogy.md`; bảng chi phí Huffman tĩnh, thích nghi, mã số học |
+| ký hiệu trong bảng, mỗi chữ một nghĩa | đạt | `rc2-accuracy.md` |
+| định lý bốn phần, chứng minh hoặc nguồn có trang | đạt | 22 khối kết quả đủ bốn phần; bảng "Nguồn của các chứng minh" |
+| số liệu tính lại độc lập | đạt | script riêng của tác tử độ chính xác (`review1/acc/`, gồm `ahuff.py`, `arith16.py`, `lemma38.py`); vai sinh viên và chuyên gia tính lại độc lập các ví dụ chính; điều phối viên kiểm lại phản ví dụ Bổ đề 10.39 ($\lfloor16\,386/20\,000\rfloor=0$) và Bổ đề 10.38 |
+| bài tập có gợi ý và lời giải; bài sách có số bài, mục, trang | đạt | 21 bài; NG tr.32–37, Hình 4.2–4.4; CMU-A1 bài 3, 4A |
+| không "xem trang chiếu", câu mảnh, bước bị bỏ | đạt | năm vai rà |
+| chứng minh chia bước, `aligned`, đoạn một ý | đạt | `rc-pedagogy.md`; ở 390 px khối nội dung chỉ rộng 230–317 px nên công thức được tách |
+| số hiệu liên tục, tham chiếu đúng, khối không lồng, hiển thị | đạt | `check_refs2.py` và script của tác tử độ chính xác: 0 tham chiếu hỏng qua hai tệp; viewer bên dưới |
+| đoạn móc nối, "Trong thực hành", nối Bài 09 và Bài 11 | đạt | `rc-storyline.md` |
+| giọng kể, tài liệu không làm chủ ngữ | đạt | `rc-pedagogy.md` R3 đã sửa ở vòng 3 (grep thêm 18 câu) |
+| nguồn theo mục, không dịch/chép | đạt | bảng trên |
+| nhất quán với deck | chưa áp dụng | deck cũ dùng $[L,H)$, $C_s$, $D_s$, E1/E2/E3 và ví dụ cũ; `rv-storyline.md` liệt kê 19 chỗ lệch; deck được làm lại từ ghi chú mới ở giai đoạn sau, index ghi bài giảng "Chưa có" |
+
+### Kiểm định của điều phối viên
+
+- Ghi chú cuối: 31 977 âm tiết (`wc -w`), md5 `bb16a821…`; `exercises.md` 2 667 âm tiết, md5 `01b31228…`; 25 `note-topic-id`; 41 khối chung (10.1–10.41), 21 ví dụ, 3 tình huống, 21 bài tập.
+- Chromium Playwright, `python -m http.server` cục bộ, hai tệp qua `material-viewer.html?doc=…&deck=lecture-10-…`: ở 1600×900 và 390×844, 0 lỗi console/trang, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không cuộn ngang trang; ghi chú 46 công thức hiển thị, 0 tràn ở cả hai kích thước; 9/9 SVG tải được (ở 390 px hình nằm trong khung cuộn theo CSS học phần). Bản in: sau `beforeprint` 38/38 (ghi chú) và 26/26 (bài tập) khối `details` mở; xuất PDF được. Với `reloadserver`, viewer báo một lỗi CSP do script tự nạp lại của máy chủ chèn vào; với `http.server` không có lỗi. Đã tự xem ảnh đầu trang 1600 px và giữa trang 390 px.
+- Index: thêm thẻ Bài 10 với ghi chú và bài tập; bài giảng "Chưa có" cho tới khi deck mới hoàn thành.
