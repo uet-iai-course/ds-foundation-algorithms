@@ -361,3 +361,7 @@ Ghi chú sau đính chính: 31 992 âm tiết; `exercises.md` 2 674.
 - Ghi chú và bài tập sau đính chính, qua viewer ở 1600×900 và 390×844: 0 lỗi, 0 `.katex-error`, 0 tràn, 9/9 SVG; in: 38/38 và 26/26 khối `details` mở.
 - Không raster. 9 SVG của deck cũ (`adaptive-sibling-increment`, `adaptive-swap`, `arithmetic-bill-gates`, `arithmetic-decode-normalize`, `arithmetic-renormalization`, `escape-eof-pipelines`, `huffman-code-decode`, `huffman-merge-a-e`, `prefix-tree-kraft`) không còn tham chiếu trong deck, ghi chú, index; xóa trong commit deck.
 - Index: thẻ Bài 10 thêm liên kết bài giảng.
+
+### Quyết định của người dùng về nguồn (2026-11-08)
+
+Yêu cầu ban đầu ghi "sử dụng nguồn MMDS". Điều phối viên quét 11 tệp MMDS trong `sources/` (sách 3e Ch.1, 2, 3, 4, 5 và slide mmds.org Ch.2–5) với các từ khóa Huffman, arithmetic coding, Kraft, prefix code, entropy, compression: không có nội dung nào, chỉ một tên hội nghị trong thư mục tài liệu của Ch.3. `sources/reference-slides/README.md` ghi Bài 10 "MMDS không bao phủ mô-đun này". Người dùng được hỏi và chọn **chấp nhận Nelson–Gailly làm trục nguồn**, Stanford EE398A/CS106B và CMU 15-499 để đối chiếu, giữ nguyên ghi chú và deck đã đẩy (`51cb9ad`, `4869732`, `0dfedd7`).
