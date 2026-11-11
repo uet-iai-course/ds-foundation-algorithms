@@ -689,3 +689,42 @@ Thay đổi: BT dòng dẫn nêu khó khăn trước giải pháp ("Muốn lọc
 | nhẹ | B13, B02, ghi chú GV B13/B01, ghi chú bài giảng | 12 điểm ("thường dài", phép chia 8 bit, đặt tên lỗi một phía, xác suất cho một địa chỉ, câu điều hướng, "Mục 4.5–4.7", "hơi ít hơn 1/8", 19/20 thư hợp lệ, "cái giá", độ dài chương, "dương giả (còn gọi là nhận nhầm)") | đã sửa |
 
 Mật độ: BT 37, B00 58, B13 63 (bảng so sánh, trần 80, ngoại lệ ghi storyboard), B02 55. Kiểm tra: `check08.py` 74 trang không lỗi; `notecheck08.py` ba khổ 0 lỗi; điều phối viên xem ảnh B00, B13 1600×900, kiểm tham chiếu Ví dụ 08.14 và không còn "tr.143". `git diff --check` sạch.
+
+## Sửa ghi chú theo chuẩn 2026-11 (đợt A4, giai đoạn 1, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md`; `AGENTS.md` §"Cấu trúc bắt buộc" mục 5, 6, 10. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Rà văn phong (đợt duyệt toàn học phần, bản chưa đổi) | general-purpose | opus | high | không |
+| Rà chuẩn giáo trình và kế hoạch tách bài tập; sau đó kiểm tra lại mạch, văn phong (hai lượt) | general-purpose | opus | high | không |
+| Rà độ chính xác (ba lượt) | general-purpose | opus | high | không |
+| Biên tập (ba vòng, SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md` |
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Ví dụ 08.14, sau Ví dụ 08.16, mục tham khảo, quy ước đọc | đính chính sách và trang chiếu trong thân bài | chấp nhận: xóa; ghi dưới đây |
+| trung bình | khoảng 27 câu | câu nguồn gốc số liệu | chấp nhận: xóa hoặc "Giả sử …" |
+| trung bình | toàn chương | bản đồ chủ đề; câu về vị thế ("Câu trả lời của chương đều có điều kiện", "chưa phải định nghĩa"); lời bàn nguồn, nguồn làm chủ ngữ | chấp nhận |
+| trung bình | Bài tập 08.2 | gọi $d/(10u+19d)$ là tỷ số trên mẫu | chấp nhận: tỷ số hai số đếm kỳ vọng |
+| trung bình | danh sách phương án ở Mục 2, 3, 4.1 | treo trên câu phủ định; câu "bước nào dùng giả thiết nào" bị xóa theo | chấp nhận: câu dẫn khẳng định; khôi phục câu |
+| trung bình | Nhận xét 08.30 | gọi $p_{FP}$ là tỷ lệ | chấp nhận: xác suất của một địa chỉ cố định, số thư là kỳ vọng |
+| nhẹ | ký hiệu $n$, $p$, $N$, $x$; tiên quyết (Chebyshev, luật số lớn, đơn điệu chặt, ký hiệu tiệm cận theo CLRS §3.2); phản ví dụ "đọc bit 7, bằng 0, và dừng"; Ví dụ 08.15 tính $p_{FP}$ bằng công thức cặp bit; Ví dụ 08.7 trước Thuật toán 08.13; Tình huống 08.3 thêm mô hình hóa và chi phí; mục tiêu 3 có bảo đảm không âm giả | chấp nhận |
+| — | thêm câu vào Bài tập 08.3–08.5 để phủ mục tiêu con | bác bỏ: thêm dữ kiện tự dựng |
+| — | bảng chi phí 4 cột cho 08.13, 08.16, 08.23, 08.24 | bác bỏ (nhẹ) |
+
+Số liệu và chi tiết bị bỏ theo hàng đợi đã duyệt (không thuộc khối có số hiệu): tầng lọc $7/8$ và ý thêm máy (§4.4.1); "hàng tỷ lượt" Yahoo!; ví dụ $r=8$, 4 bit; chi tiết Welford (thiếu 129, $V_8=37{,}875$, sai số $1{,}3\cdot10^{-8}$); ước tính 80% thư rác.
+
+Đính chính so với nguồn (chuyển khỏi ghi chú): MMDS Ví dụ 4.4 in $0{,}0493$ cho $k=2$, tính lại $(1-e^{-0{,}25})^2=0{,}048929$; trang chiếu MMDS Streams 2, tr.14 in $(1-e^{-1/6})^2=0{,}0235$ (công thức sai), trang chiếu CS246 2026 tr.32–33 đã sửa thành $(1-e^{-3/4})^6=0{,}0216$. Nguồn gốc số liệu chuyển khỏi ghi chú: các số không kèm nguồn (một trăm người trong phép đếm của Mục 2.1, cỡ cửa sổ 4, tên người dùng An và Bình, mảng 11 bit với các khóa ngoài trang chiếu Ullman, số người dùng và thư trong ba tình huống) là dữ liệu tính tay do người soạn dựng.
+
+### Kết quả kiểm tra
+
+- Độ dài: ghi chú 31 037 → 26 628; `exercises.md` 2 356 (Bài tập 08.6–08.14 chuyển nguyên văn; hình của 08.11 chuyển từ gợi ý lên đề).
+- Khối có số hiệu: 66 khối giữ số, loại và tên; 65 dẫn chiếu trong ghi chú và tệp bài tập trỏ tới khối có thật; 10 dẫn chiếu từ ghi chú và tệp bài tập Bài 09 tới Bài 08 còn đúng nghĩa.
+- Grep: 0 "chưa phải", "Bản đồ chủ đề", "Bài này", "Mục này", "sách in", "do học phần"; `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
+- Giai đoạn 2: 08.6–08.9 và 08.14 là bài tự dựng; MMDS §4.1–4.3 chỉ có bốn bài (đã là 08.10–08.13). Dự kiến thay bằng BHK Bài 6.1 câu 2, 6.2, 6.3, 6.4 (giáo trình ghi chú dẫn làm nguồn) và bỏ 08.14.
