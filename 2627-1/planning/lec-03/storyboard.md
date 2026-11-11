@@ -933,3 +933,30 @@ Căn cứ: `fix-d03.md` của điều phối viên, hợp nhất `review-d03-mat
 - Ma trận trong chứng minh hội tụ đổi tên $S\to\bar M$; $S$ chỉ còn nghĩa dung lượng ở mạch 4. Trên mặt trang, $\bar M$ định nghĩa bằng lời ("$M_0$ có cột nút cụt thay bằng $u$"); dạng $M_0+uz^{\mathsf T}$ chỉ ở ghi chú, vì $z$ trên mặt trang đã là tổng đóng góp $z=M_0r$ của mạch 3.
 - s03-15 chuyển sang mạch 3 làm bước trực giác (recheck: đặt sau s04-02); mạch 2: 16 trang, 27 phút; mạch 3: 13 trang, 23,5 phút; số section ngoài và `id="mach-N"` không đổi.
 - Ngoại lệ dòng giữ như trên; s04-04 lên 8 dòng kể cả hàng bảng (trong trần trang bảng); s07-01 còn 6 dòng nên không cần ngoại lệ.
+
+## Ánh xạ chủ đề của ghi chú (2026-11-11)
+
+Ghi chú `materials/lec-03/lecture-note.md` viết lại theo chuẩn giáo trình. Mục này thay đoạn "Bản đồ chủ đề ghi chú tự học" ở trên; các mục `lec03-note-01`…`lec03-note-07` trong tệp này đã bị thay và chỉ giữ làm lịch sử. Các chú thích `<!-- note-topic-id: … -->` đặt trước tiêu đề mục tương ứng. Thứ tự trong ghi chú: nhu cầu có số → định nghĩa → ví dụ tính tay → kết quả hoặc thuật toán → chứng minh → trong thực hành → bài tập. Số hiệu theo vòng sửa 1 (2026-11-11).
+
+| Mã | note-topic-id | Mục ghi chú | Trang chiếu (`data-slide-id`) | Khối số hiệu | Vào → ra |
+|---|---|---|---|---|---|
+| L03-N01 | `lec-03-topic-01` | Mục 1 mở, 1.1 | s01-01, s01-07, s01-03, s01-02, s01-06, s01-04, s01-05, s02-02, s02-03, s02-04 | Ví dụ 03.1–03.3; Định nghĩa 03.1 | Thuật toán 02.18, Mệnh đề 02.15, Tình huống 02.3 → đặc tả bài toán xếp hạng |
+| L03-N02 | `lec-03-topic-02` | 1.2 | s02-05, s02-06, s02-07, s02-08 | Ví dụ 03.4; Định nghĩa 03.2 | đếm liên kết vào → $(3/8,5/24,5/24,5/24)$ |
+| L03-N03 | `lec-03-topic-03` | Mục 2 mở, 2.1 | s03-00, s03-01, s03-02, s03-03 | Định nghĩa 03.3, 03.5; Mệnh đề 03.4; Ví dụ 03.5, 03.6; Bài tập 03.1 | một vòng → $M_0$, lặp thô, $(1/3,2/9,2/9,2/9)$ |
+| L03-N04 | `lec-03-topic-04` | 2.2 | s03-04, s03-05 | Định nghĩa 03.6, 03.7; Ví dụ 03.7, 03.8 | lặp thô → hai trở ngại |
+| L03-N05 | `lec-03-topic-05` | 2.3 | s03-06, s03-07, s03-08, s03-09, s03-10 | Định nghĩa 03.8; Mệnh đề 03.9; Ví dụ 03.9–03.11 | hai trở ngại → quy tắc đầy đủ $F$ |
+| L03-N06 | `lec-03-topic-06` | 2.4 | s03-11, s03-12 | Thuật toán 03.10; Mệnh đề 03.11; Nhận xét 03.12; Ví dụ 03.12 | $F$ → thuật toán, $\Delta_t$ |
+| L03-N07 | `lec-03-topic-07` | 2.5 | s03-13, s03-14, s03-16 | Mệnh đề 03.13; Bổ đề 03.14; Định lý 03.15; Hệ quả 03.16; Mệnh đề 03.17; Nhận xét 03.18; Ví dụ 03.13; Bài tập 03.2 | $\Delta_t$ → hội tụ, cận sai số, $(9/28,19/84,\ldots)$ |
+| L03-N08 | `lec-03-topic-08` | Mục 3 mở, 3.1 | s04-00, s04-01, s04-02 | Định nghĩa 03.19; Ví dụ 03.14 | bộ nhớ một máy ($4{,}4\cdot10^{10}$, $1{,}6\cdot10^{10}$ byte) → danh sách liên kết ra |
+| L03-N09 | `lec-03-topic-09` | 3.2 | s03-15 | Ví dụ 03.15; Nhận xét 03.20 | Thuật toán 02.18 → một vòng là công việc MapReduce |
+| L03-N10 | `lec-03-topic-10` | 3.3 | s04-03, s04-11, s04-04, s04-05, s04-06, s04-07, s04-08, s04-09, s04-10 | Định nghĩa 03.21; Thuật toán 03.22; Mệnh đề 03.23; Nhận xét 03.24; Ví dụ 03.16–03.18; Bài tập 03.3 | đọc ghi lặp → $k^2$ khối, một vòng $=F(r)$ |
+| L03-N11 | `lec-03-topic-11` | Mục 4 mở, 4.1 | s05-00, s05-01, s05-02 | Định nghĩa 03.25; Mệnh đề 03.26; Ví dụ 03.19 | khối → 128, 48, 88 byte |
+| L03-N12 | `lec-03-topic-12` | 4.2, 4.3 | s05-03, s05-04, s05-05, s05-07 | Mệnh đề 03.27, 03.28; Ví dụ 03.20, 03.21 | → $B_{\text{task}}$, $I=152$, $H$ 144→132 |
+| L03-N13 | `lec-03-topic-13` | 4.4 | s05-06, s05-08, s05-09 | Mệnh đề 03.29; Nhận xét 03.30; Ví dụ 03.22; Bài tập 03.4 | → $T_{\text{map}}=3c_e$, mức tăng tốc $8/3$ |
+| L03-N14 | `lec-03-topic-14` | Đọc thêm (thu gọn) | không có trang | Thuật toán 03.31; Nhận xét 03.32; Ví dụ 03.23; Bài tập 03.5 | nút cụt → cách xử lý bằng xóa dữ liệu |
+| L03-N15 | `lec-03-topic-15` | Mục 5 | s06-00 đến s06-07 | Nhận xét 03.33; Ví dụ 03.24; Bài tập 03.6 | Thuật toán 03.10 → 20, 12, 34 vòng khớp nghiệm tay |
+| L03-N16 | `lec-03-topic-16` | Tình huống và ứng dụng | s01-06, s07-01, s07-09 | Tình huống 03.1, 03.2 | toàn chương → Bài 04, Bài 14 |
+| L03-N17 | `lec-03-topic-17` | Tóm tắt chương | s07-00, s07-02, s07-08, s07-03 | — | toàn chương |
+| — | (không có id) | `exercises.md` | s07-T, s07-04, s07-05, s07-06, s07-07 | Bài tập 03.7–03.12 | recitation: 03.8 ↔ s07-04, 03.9 ↔ s07-05, 03.10 ↔ s07-06, 03.7 ↔ s07-07 |
+
+Các trang mở đầu không mang `note-topic-id` riêng: `s01-02` (Nội dung) ứng với hình cấu trúc chương ở đầu Mục 1; `s01-07` (Tiên quyết và quy ước) ứng với "Kiến thức tiên quyết" và "Bảng ký hiệu"; `s01-03` (Mục tiêu học tập) ứng với "Mục tiêu học tập". Phần đọc thêm nằm giữa Mục 4 và Mục 5, tiêu đề "Đọc thêm: Loại nút cụt đệ quy", thu gọn mặc định bằng `<!-- note-collapsed -->`.

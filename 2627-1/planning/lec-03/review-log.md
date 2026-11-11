@@ -659,3 +659,60 @@ Theo `recheck-d03.md` (vai recheck toán và mạch viết, `fork` Opus 5.5; kh�
 | — | nhẹ | s03-14, s05-01 (390×844) | giữ như recheck đề xuất (đáy sát chân trang; chế độ cuộn ở cỡ hẹp do CSS chung) |
 
 Mật độ sau sửa (`p03/dens03.py`): s03-08 30, s03-15 47, s04-01 58, s04-02 43, s04-03 37, s05-01 53, s07-01 75, s07-09 54; không dòng nào vượt 20 âm tiết.
+
+## Viết lại ghi chú và lập tệp bài tập theo chuẩn 2026-11 (đợt B3, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` (đợt B3, hàng 03: viết lại toàn bộ; giữ dữ kiện, vết tính, mã, bốn lời giải; định lý hội tụ bốn phần có chứng minh chia bước; bỏ "Hướng dẫn chấm"); `AGENTS.md` §"Tiêu chuẩn giáo trình", §"Cấu trúc bắt buộc" 1–10; "The author's voice" của `../CLAUDE.md`. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà. Nguồn: MMDS 3e Ch.5 §5.1–5.2 (`sources/textbooks/mmds-3e-ch05-link-analysis.pdf`, trang in = trang PDF + 174); trang chiếu MMDS ch05, CS246 09; `materials/lec-03/code/pagerank.py`.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập kế hoạch chương | general-purpose | opus | high | không |
+| Soạn, sau đó biên tập hai vòng (SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `img/lec-03/note-*.svg` và bộ sinh trong `tools/`, `outline.md`, `storyboard.md` |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà chuyên gia miền | general-purpose | opus | high | không |
+| Rà độ chính xác (ba lượt) | general-purpose | opus | high | không |
+| Rà sư phạm, `no-ai-slop` Detect | general-purpose | opus | high | không |
+| Rà mạch và liên kết (ba lượt) | general-purpose | opus | high | không |
+
+### Quyết định của điều phối viên
+
+- Tồn tại và duy nhất qua tính khả nghịch của $I-\beta\bar M$; hội tụ qua tính co hệ số $\beta$ (Bổ đề 03.14, Định lý 03.15, Hệ quả 03.16 cận $\beta\Delta/(1-\beta)$ trong mạch chính cho Bài 04).
+- Phần Đọc thêm thu gọn: loại nút cụt đệ quy (§5.1.4) và Bài tập 03.5; không đưa cập nhật theo dải (§5.2.5).
+- Ký hiệu: $K$ thay $T_{\max}$; $t_{\text{dừng}}$; ký hiệu Bài 02 khi cùng nghĩa; $\bar M=M_0+u\mathbf 1_{\mathcal D}^{\mathsf T}$; bảng đối chiếu deck ↔ ghi chú trong `outline.md`.
+- Bài tập: `exercises.md` 03.7–03.12 = MMDS 5.2.2, 5.1.1, 5.1.2, 5.2.1 (recitation s07-07, s07-04, s07-05, s07-06; giữ bốn lời giải cũ), 5.1.3 (!), 5.1.7; ghi chú 03.1 (5.1.5), 03.3 (5.2.3), 03.4 (5.2.4, đề chỉ câu (a) của sách), 03.5 (5.1.6, đọc thêm). Bỏ 5.1.4 (!!). Không mục Thực hành trong `exercises.md` (bài tập chỉ từ giáo trình).
+- Mục tiêu hội tụ/ngưỡng dừng và mục tiêu chạy `pagerank.py` không có bài sách: thêm Bài tập 03.2 (cuối §2.5, đồ thị $\mathrm A\rightleftarrows\mathrm B$, $\beta=4/5$) và 03.6 (cuối Mục 5, `step` và `--variant dead`) trong ghi chú, dựng trên dữ kiện của ghi chú (`AGENTS.md` mục 10).
+- Bài tập 5.1.3: giải theo quy tắc bù của ghi chú; so với công thức không bù của MMDS trong lời giải (Mệnh đề 03.17), không trong đề.
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Bài tập 03.4 (cũ 03.3) | $S_{\text{blocks}}-S_{\text{adj}}=4n-8=4R$ sai | chấp nhận: $=4R-4$; khối không lưu bậc 0 của trang $n$ |
+| nghiêm trọng | bảng mục tiêu | mục tiêu hội tụ và mục tiêu chạy mã không có bài tập | chấp nhận: Bài tập 03.2, 03.6 trong ghi chú; đánh lại số bài tập theo thứ tự đọc |
+| trung bình | Ví dụ 03.21, Tóm tắt, hình | $H$ bỏ cặp khởi tạo (96/84) | chấp nhận: $H=144/132$, $C=296/284$ |
+| trung bình | Định nghĩa 03.25, Mệnh đề 03.28 | $Q$ hai nghĩa; $b_{\text{eff}}$ chưa thỏa điều kiện Mệnh đề 02.38 | chấp nhận |
+| trung bình | Nhận xét 03.10 cũ | kết quả có chứng minh dựa vào định lý đứng sau | chấp nhận: Mệnh đề 03.17 sau Ví dụ 03.13 |
+| trung bình | ký hiệu, thuật ngữ | $u,I,a,s,S,W,q$ nhiều nghĩa; "lặp thô/lặp lũy thừa"; "danh sách nguồn" | chấp nhận |
+| trung bình | nguồn | "vote with their feet" gán sai; "phần lớn web" không có trong MMDS; câu (b) thêm vào 5.2.4 | chấp nhận |
+| trung bình | mạch | câu nối Bài 02 sai; ranh giới mục lặp; Tóm tắt thiếu quy mô $10^9$; Ví dụ 03.6 mặc nhiên hội tụ | chấp nhận |
+| trung bình | vai trò giả thiết, chi phí | thiếu "Bỏ …: …" có số; thiếu bảng chi phí 03.22, 03.31; Phạm vi Hệ quả đọc sai | chấp nhận |
+| nhẹ | khoảng 70 mục | trích trang, phân số, câu chỉ đường, tên tiếng Anh, … | chấp nhận |
+| — | rút gọn phân số Ví dụ 03.11 | bác bỏ: giữ mẫu số chung như MMDS Ví dụ 5.6 |
+| — | bỏ "nơi Bài tập … đứng ngay sau các mục" ở `exercises.md` | bác bỏ: câu của mẫu |
+| — | thêm dữ kiện bộ nhớ cho Tình huống 03.1 | bác bỏ: giữ $k$ ký hiệu, điều kiện chọn $k$ bằng công thức |
+
+Đổi số hiệu so với bản nháp: Thuật toán 03.11→03.10, Mệnh đề 03.12→03.11, Nhận xét 03.13→03.12, Mệnh đề 03.14→03.13, Bổ đề 03.15→03.14, Định lý 03.16→03.15, Hệ quả 03.17→03.16, Nhận xét 03.10→Mệnh đề 03.17. Ghi chú cũ (đã công bố) không dùng số hiệu; ghi chú Bài 04 chưa dẫn số hiệu Bài 03 (sửa ở đợt B4).
+
+Dữ kiện tự dựng (không ghi trong ghi chú): đồ thị hai trang $\mathrm A\rightleftarrows\mathrm B$ (phản ví dụ $\beta=1$, Bài tập 03.2); các phản ví dụ bốn trang (chia theo bậc vào; cập nhật không đồng bộ, tổng $9/8$ và $404/375$; bậc cục bộ, cột A tổng $4/3$, $z$ tổng $13/12$; $\delta$ đếm hai lần, tổng $6/5$; danh sách lặp $23/60$, $11/60$; $r$ âm; dải chồng nhau; $n=4$, $k=3$); trang E giả định; suy diễn $\Delta_t=\tfrac15(2/5)^t$; giả thiết cặp khởi tạo tạo ở máy Reduce ($Q=84$). Trang chiếu MMDS tr.53 ghi 40 GB khi chỉ đếm mã đích (ghi chú dùng $4{,}4\cdot10^{10}$ byte gồm cả bậc).
+
+Sai khác với deck (không sửa deck trong đợt này): deck s07-04…07 dẫn "ghi chú mục 7, Bài 1–4" và "Hướng dẫn chấm"; deck s05-05 ghi $H$ 96/84, $C$ 248/236; ký hiệu $T_{\max}$, $L$, $p$, $B$, "véc tơ"; `desc` của `model-spider-trap.svg`, `visual-contraction.svg` không khớp hình. Hình `model-collect.svg` không còn trang nào dùng, xóa khỏi kho.
+
+### Kết quả kiểm tra
+
+- Độ dài: ghi chú 5 349 (bản cũ) → 23 846; `exercises.md` 2 241.
+- Khối: bộ đếm chung 03.1–03.33; Ví dụ 03.1–03.24; Bài tập 03.1–03.12; Tình huống 03.1–03.2; mọi dẫn 03.k/02.k/01.k đúng khối.
+- `pagerank.py`: base 20, dead 12, trap 34 vòng, khớp ghi chú.
+- Grep mẫu cấm: 0 (trừ " — " ở tiêu đề theo mẫu); `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, trang không cuộn ngang, 0 công thức tràn ở 390 px; phần Đọc thêm thu gọn, mở khi in.
