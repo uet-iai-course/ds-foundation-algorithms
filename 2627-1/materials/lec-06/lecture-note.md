@@ -1,16 +1,16 @@
 # Bài 06 — Tìm cặp tương đồng bằng LSH
 
-Bài 05 thu mỗi tài liệu về một chữ ký MinHash ngắn mà tỷ lệ hàng trùng ước lượng được độ tương đồng Jaccard. Trong chương này, chúng ta dùng các chữ ký ấy để tìm những cặp tài liệu tương đồng mà không phải so mọi cặp: phân dải (banding) chữ ký để chỉ xác minh các cặp cùng thùng (bucket), tính xác suất một cặp bị bỏ sót và công việc còn lại, khái quát cách làm này cho các độ đo khác ngoài Jaccard, rồi áp dụng cho ba bài toán của sách nguồn. Các phương pháp này có tên chung là băm nhạy cảm theo tính cục bộ (locality-sensitive hashing, LSH).
+Bài 05 thu mỗi tài liệu về một chữ ký MinHash ngắn mà tỷ lệ hàng trùng ước lượng được độ tương đồng Jaccard. Trong chương này, chúng ta dùng các chữ ký ấy để tìm những cặp tài liệu tương đồng mà không phải so mọi cặp: phân dải (banding) chữ ký để chỉ xác minh các cặp cùng thùng (bucket), tính xác suất bỏ sót và công việc còn lại, khái quát cho các độ đo khác ngoài Jaccard, rồi áp dụng cho đối sánh thực thể, đối sánh vân tay và bản tin gần trùng. Các phương pháp này có tên chung là băm nhạy cảm theo tính cục bộ (locality-sensitive hashing, LSH).
 
-[Bộ trang chiếu Bài 06](lecture-06-tim-cap-tuong-dong-bang-lsh.html) trình bày cùng ký hiệu và dữ kiện.
+[Bộ trang chiếu Bài 06](lecture-06-tim-cap-tuong-dong-bang-lsh.html) trình bày cùng ký hiệu và dữ kiện; [tệp bài tập Bài 06](material-viewer.html?doc=materials/lec-06/exercises.md&deck=lecture-06-tim-cap-tuong-dong-bang-lsh.html) chứa các bài tập củng cố.
 
 ## Mục tiêu học tập
 
 Sau chương này, người học có thể:
 
-1. Chia chữ ký thành dải (band), lập khóa dải, dựng thùng, khử lặp và xác minh tập cặp ứng viên trên một ma trận chữ ký nhỏ, và chứng minh đầu ra đúng trên tập ứng viên (Mục 2.1–2.2).
+1. Phân biệt ứng viên giả với cặp bỏ sót (Mục 1); chia chữ ký thành dải (band), lập khóa dải, dựng thùng, khử lặp và xác minh tập cặp ứng viên trên một ma trận chữ ký nhỏ, và chứng minh đầu ra đúng trên tập ứng viên (Mục 2.1–2.2).
 2. Tính xác suất thành ứng viên $P_{b,r}(s)$, chọn số dải $b$ và số hàng $r$ theo ngưỡng $t$, và đếm công việc phát cặp, xác minh (Mục 2.3–2.5).
-3. Kiểm một họ hàm là $(d_1,d_2,p_1,p_2)$-nhạy cảm và tính bộ tham số sau phép ghép AND và OR (Mục 3).
+3. Tính năm độ đo khoảng cách $L_q$, Jaccard, góc, chỉnh sửa, Hamming; kiểm một họ hàm là $(d_1,d_2,p_1,p_2)$-nhạy cảm và tính bộ tham số sau phép ghép AND và OR (Mục 3).
 4. Chạy họ chọn tọa độ, họ siêu phẳng (hyperplane) và họ chiếu có dịch trên dữ kiện nhỏ, nêu giả thiết của từng bảo đảm xác suất và chi phí tính chữ ký (Mục 4).
 5. Chọn biểu diễn, họ hàm và bước xác minh cho đối sánh thực thể, đối sánh vân tay và bản tin gần trùng (Mục 5, Tình huống 06.1–06.4).
 
@@ -21,9 +21,9 @@ Ghi chú Bài 05 chưa đánh số hiệu, nên các kết quả của bài đó
 
 - **Độ tương đồng Jaccard** (ghi chú Bài 05, Mục 2). Với hai tập hữu hạn $A$, $B$ không cùng rỗng, $\mathrm{SIM}(A,B)=|A\cap B|/|A\cup B|$. Giá trị nằm trong $[0,1]$ và bằng $1$ khi và chỉ khi $A=B$.
 - **Shingle** (ghi chú Bài 05, Mục 3 và Mục 12). Một $k$-shingle của tài liệu là một đoạn liên tiếp dài $k$ trong biểu diễn văn bản đã chọn; tài liệu được biểu diễn bằng tập các shingle của nó. Mục 12 của ghi chú Bài 05 (đọc thêm) nêu một biến thể: mỗi shingle là một từ dừng cùng hai từ ngay sau nó; phần tử của tập khi đó là cụm ba từ chứ không là đoạn $k$ ký tự.
-- **MinHash và định lý xác suất trùng** (ghi chú Bài 05, Mục 5–6). Với một hoán vị $\pi$ của vũ trụ đặc trưng hữu hạn, MinHash của tập không rỗng $A$ là phần tử của $A$ đứng đầu trong thứ tự $\pi$, $h_\pi(A)=\arg\min_{a\in A}\pi(a)$, trong đó $\pi(a)$ là vị trí của $a$; ghi chú Bài 05 trả định danh phần tử này, không trả vị trí. Nếu thay định danh bằng vị trí $\min_{a\in A}\pi(a)$, hai tập vẫn cho cùng biến cố $h_\pi(A)=h_\pi(B)$ vì $\pi$ là song ánh. Nếu $\pi$ được chọn đều trong mọi hoán vị và dùng chung cho hai tập không rỗng $A$, $B$, thì $\Pr[h_\pi(A)=h_\pi(B)]=\mathrm{SIM}(A,B)$: phần tử đứng đầu của $A\cup B$ phân phối đều trên $A\cup B$, và hai giá trị bằng nhau đúng khi phần tử ấy thuộc $A\cap B$.
+- **MinHash và định lý xác suất trùng** (ghi chú Bài 05, Mục 5–6). Với một hoán vị $\pi$ của vũ trụ đặc trưng hữu hạn, MinHash của tập không rỗng $A$ là phần tử của $A$ đứng đầu trong thứ tự $\pi$, $h_\pi(A)=\arg\min_{a\in A}\pi(a)$, trong đó $\pi(a)$ là vị trí của $a$. Nếu $\pi$ được chọn đều trong mọi hoán vị và dùng chung cho hai tập không rỗng $A$, $B$, thì $\Pr[h_\pi(A)=h_\pi(B)]=\mathrm{SIM}(A,B)$: phần tử đứng đầu của $A\cup B$ phân phối đều trên $A\cup B$, và hai giá trị bằng nhau đúng khi phần tử ấy thuộc $A\cap B$.
 - **Chữ ký và ước lượng Jaccard** (ghi chú Bài 05, Mục 7). Chữ ký gồm $n$ giá trị MinHash với $n$ hoán vị chọn độc lập. Tỷ lệ $\widehat s$ các thành phần trùng của hai chữ ký có kỳ vọng bằng Jaccard của hai tập gốc.
-- **Hàm băm thay hoán vị** (ghi chú Bài 05, Mục 9 và 11). Khi tính thực tế, mỗi hoán vị được thay bằng một hàm băm trên mã hàng; tập rỗng cho giá trị quy ước $+\infty$ ở đầu ra của thuật toán quét $x\in\{0,\ldots,R-1\}$, chẳng hạn $f(x)=(\alpha x+\beta)\bmod R$. Một hàm như vậy có thể là song ánh, nhưng một họ gồm các song ánh riêng lẻ chưa tự tạo ra phép chọn đều trên mọi hoán vị mà định lý xác suất trùng cần.
+- **Hàm băm thay hoán vị** (ghi chú Bài 05, Mục 9 và 11). Khi tính thực tế, mỗi hoán vị được thay bằng một hàm băm trên mã hàng $x\in\{0,\ldots,R-1\}$, chẳng hạn $f(x)=(\alpha x+\beta)\bmod R$; ở đầu ra của thuật toán quét, tập rỗng cho giá trị quy ước $+\infty$.
 - **Công cụ xác suất** (học phần Xác suất thống kê). Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$. Với các biến cố độc lập, xác suất của giao bằng tích các xác suất. Chặn hợp: $\Pr(E\cup F)\le\Pr(E)+\Pr(F)$, không cần độc lập. Tuyến tính kỳ vọng: kỳ vọng của một tổng bằng tổng các kỳ vọng, không cần độc lập; kỳ vọng của một biến chỉ báo bằng xác suất của biến cố tương ứng. Bất đẳng thức Jensen: với hàm $g$ lồi trên một khoảng chứa giá trị của biến ngẫu nhiên $X$, $\mathbb E[g(X)]\ge g(\mathbb E[X])$; với $g$ lõm, bất đẳng thức đổi chiều.
 - **Tích vô hướng và chuẩn Euclid** (học phần Đại số tuyến tính). Với $x,y\in\mathbb R^D$, $x\cdot y=\sum_{i=1}^Dx_iy_i$ và $\|x\|_2=\sqrt{x\cdot x}$. Theo bất đẳng thức Cauchy–Schwarz, với $x,y\ne0$ thương $x\cdot y/(\|x\|_2\|y\|_2)$ nằm trong $[-1,1]$.
 
@@ -37,13 +37,15 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 | $S_c$ | tập đặc trưng của tài liệu $c$, $1\le c\le C$ | tập hữu hạn, không rỗng |
 | $\mathrm{SIG}$; $V$ | ma trận chữ ký, cột $c$ là chữ ký của $S_c$; miền giá trị của một thành phần chữ ký | $V^{n\times C}$; tập giá trị |
 | $n$ | độ dài chữ ký, tức số hàng của $\mathrm{SIG}$ | số nguyên dương, $n=br$ |
-| $s$; $\widehat s$ | Jaccard của hai tập gốc của một cặp; tỷ lệ hàng chữ ký trùng của cặp ấy | $[0,1]$ |
+| $\mathrm{SIM}(A,B)$ | độ tương đồng Jaccard của hai tập hữu hạn không cùng rỗng | $[0,1]$ |
+| $s$; $\widehat s$; $s_{cd}$ | Jaccard của hai tập gốc của một cặp; tỷ lệ hàng chữ ký trùng của cặp ấy; Jaccard của cặp $(c,d)$, $s_{cd}=\mathrm{SIM}(S_c,S_d)$ | $[0,1]$ |
 | $t$ | ngưỡng chấp nhận trên Jaccard gốc | $[0,1]$ |
 | $b$; $r$; $j$ | số dải; số hàng mỗi dải; chỉ số dải | số nguyên dương; $1\le j\le b$ |
 | $z_{j,c}$; $k_{j,c}$ | tuple của cột $c$ ở dải $j$; khóa dải $(j,z_{j,c})$ | $V^r$; $\{1,\ldots,b\}\times V^r$ |
 | $\mathcal C$ | tập cặp ứng viên | tập các cặp $(c,d)$ với $c<d$ |
 | $Q$; $K$ | số lượt phát cặp trước khử lặp; số cặp ứng viên phân biệt, $K=\lvert\mathcal C\rvert$ | số nguyên không âm, $K\le Q$ |
 | $u_{j,z}$ | số mã tài liệu trong thùng có tuple $z$ ở dải $j$ | số nguyên không âm |
+| $N$ | số cặp gần trong giả định về phân bố tương đồng của kho (Mục 2.5) | số nguyên không âm |
 | $T_J(c,d)$ | thời gian tính Jaccard gốc của cặp $(c,d)$ | số phép toán từ máy |
 | $P_{b,r}(s)$ | xác suất một cặp có Jaccard $s$ thành ứng viên khi phân dải $b$ dải, $r$ hàng | $[0,1]$ |
 | $s_{1/2}$ | nghiệm của $P_{b,r}(s)=1/2$ | $(0,1)$ |
@@ -52,59 +54,30 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 | $D$; $\Sigma$ | số chiều của vector; bảng ký hiệu của vector trong khoảng cách Hamming | số nguyên dương; tập hữu hạn |
 | $\mathbf 1[E]$ | hàm chỉ báo, bằng $1$ khi mệnh đề $E$ đúng và $0$ khi $E$ sai | $\{0,1\}$ |
 | $\mathcal H$; $h$ | họ hàm băm kèm phân phối chọn hàm; một hàm được chọn từ họ | tập hàm; hàm |
-| $(d_1,d_2,p_1,p_2)$ | bộ tham số của họ nhạy cảm: ngưỡng gần, ngưỡng xa, cận dưới và cận trên của xác suất trùng | $0\le d_1<d_2$, $0\le p_2<p_1\le1$ |
+| $(d_1,d_2,p_1,p_2)$; $p$ | bộ tham số của họ nhạy cảm: ngưỡng gần, ngưỡng xa, cận dưới và cận trên của xác suất trùng; xác suất trùng cơ sở của một cặp dưới một hàm chọn từ họ | $0\le d_1<d_2$, $0\le p_2<p_1\le1$; $[0,1]$ |
 | $m$ | số hàm trong chữ ký của Mục 4 | số nguyên dương |
 | $v$; $\widehat p_{\ne}$; $\widehat\theta$ | pháp tuyến của siêu phẳng; tỷ lệ bit khác dấu; góc ước lượng | $\mathbb R^D\setminus\{0\}$; $[0,1]$; $[0,\pi]$ |
-| $u$; $\delta$; $a$ | hướng chiếu đơn vị; độ dịch biên; độ rộng khoảng | vector đơn vị; $[0,a)$; số thực dương |
-| $\ell$ | khoảng cách giữa hai hình chiếu, $\lvert u\cdot(x-y)\rvert$ | $\mathbb R_{\ge0}$ |
+| $u$; $\delta$; $a$; $\ell$ | hướng chiếu đơn vị; độ dịch biên; độ rộng khoảng; khoảng cách giữa hai hình chiếu, $\lvert u\cdot(x-y)\rvert$ | vector đơn vị; $[0,a)$; số thực dương; $\mathbb R_{\ge0}$ |
+| $\rho$ | khoảng cách Euclid của hai điểm, $\rho=\lVert x-y\rVert_2$ | $\mathbb R_{\ge0}$ |
 | $q_F$; $q_T$ | xác suất hai ảnh khác ngón, cùng ngón cùng có đủ ba ô của một hàm ba ô | $[0,1]$ |
 
 Các quy ước đọc sau dùng trong cả chương.
 
 - Cặp tài liệu luôn viết $(c,d)$ với $c<d$, nên mỗi cặp không thứ tự được đếm một lần.
-- Số thập phân dùng dấu phẩy, ví dụ $0{,}8$. Trong một bộ tham số có số thập phân, các thành phần cách nhau bằng dấu chấm phẩy, ví dụ $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$. Góc đo bằng radian; giá trị theo độ chỉ dùng khi ghi kèm phép quy đổi, chẳng hạn $\pi/3=60^\circ$.
-- Chữ $C$ nghiêng là số tài liệu, còn $\mathcal C$ là tập ứng viên. Tên vector trong Bài tập 06.23 viết chữ đứng $\mathrm A,\mathrm B,\mathrm C,\mathrm D$ để không trùng $C$ và $D$.
-- Chữ $d$ đứng trong cặp $(c,d)$ là chỉ số tài liệu; $d(\cdot,\cdot)$ có hai đối số là hàm khoảng cách; chữ $a,b,c,d,e$ đứng trong một tập như $S_1=\{a,d\}$ là tên phần tử của dữ kiện Ví dụ 3.8, giữ nguyên theo sách.
+- Số thập phân dùng dấu phẩy, ví dụ $0{,}8$. Trong một bộ tham số có số thập phân, các thành phần cách nhau bằng dấu chấm phẩy, ví dụ $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$. Góc đo bằng radian; giá trị theo độ chỉ dùng khi ghi kèm phép quy đổi, chẳng hạn $\pi/3=60^\circ$; khi $d$ đo bằng độ, mức $1-d/\pi$ của họ siêu phẳng viết thành $(180-d)/180$.
+- Chữ $C$ nghiêng là số tài liệu, còn $\mathcal C$ là tập ứng viên.
+- Chữ $d$ đứng trong cặp $(c,d)$ là chỉ số tài liệu; $d(\cdot,\cdot)$ có hai đối số là hàm khoảng cách; chữ $a,b,c,d,e$ đứng trong một tập như $S_1=\{a,d\}$ là tên phần tử của dữ kiện bốn tập đặc trưng (Ví dụ 06.3).
 - Chữ $\pi$ là hoán vị ở MinHash (Mục 1–3); trong $1-\theta/\pi$ và các góc của Mục 3.3, 4.2, 4.3, $\pi$ là hằng số.
-- Chữ $L$ là độ dài dãy con chung dài nhất (Mục 3.4); $L$ trong giả mã của Thuật toán 06.4 là một danh sách thùng, còn $L_q$ là tên chuẩn. Chữ $k$ là độ dài shingle ở phần tiên quyết, khóa dải ở Thuật toán 06.4 và chỉ số khoảng ở Mục 4.3 cùng Bài tập 06.25–06.26; nghĩa được nêu tại chỗ.
-- Chữ $u$ không chỉ số là hướng chiếu, còn $u_{j,z}$ là cỡ thùng. Chữ $z$ có hai chỉ số $z_{j,c}$ là tuple; ba điểm của Bài 3.7.5 được ký hiệu $z_1,z_2,z_3$ (sách viết $p_1,p_2,p_3$, trùng với hai cận của họ nhạy cảm); vector $z$ không chỉ số trong Bài 3.7.2 giữ tên của đề sách.
-- Sách nguồn là Leskovec, Rajaraman và Ullman, *Mining of Massive Datasets* (MMDS), ấn bản 3, Chương 3. Số liệu trong các Ví dụ 3.8, 3.10–3.24 và các Bài 3.4.1–3.8.2 là số của sách. Vết chạy phân dải với $b=2$, $r=1$ trên dữ kiện Ví dụ 3.8, dữ kiện các bài tập không mang số bài sách và giả định thời gian $1\,\mu\mathrm{s}$ mỗi cặp là số liệu áp dụng của bản soạn. Sách đo góc bằng độ trong biểu thức $(180-d)/180$; ở đây góc đo bằng radian và bộ tham số viết $1-d/\pi$.
-
-## Bản đồ chủ đề
-
-Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại tiên quyết; **bổ sung** lấp một khoảng trống cụ thể của nguồn; **đọc thêm** không cần để đạt mục tiêu.
-
-| Chủ đề (`note-topic-id`) | Nhóm | Mục | Vai trò → sản phẩm dùng tiếp |
-|---|---|---|---|
-| Kiến thức tiên quyết (`lec-06-topic-18`) | cầu nối | Tiên quyết | Định lý MinHash, chữ ký, công cụ xác suất → Mục 1–2 |
-| Bài toán tìm cặp (`lec-06-topic-01`) | cốt lõi | 1 | Kho một triệu tài liệu, đặc tả tập ứng viên → nhu cầu phân dải |
-| Phân dải, khử lặp, xác minh (`lec-06-topic-02`) | cốt lõi | 2.1–2.2 | Khóa dải, Thuật toán 06.4, tính đúng → xác suất và chi phí |
-| Xác suất, ngưỡng, hai loại sai số (`lec-06-topic-03`) | cốt lõi | 2.3–2.4 | $P_{b,r}(s)$, $s_{1/2}$, chọn $b$, $r$ → chi phí, phép ghép |
-| Chi phí tạo và kiểm cặp (`lec-06-topic-04`) | bổ sung | 2.5 | $Q$, $K$, trường hợp xấu nhất → giới hạn của bảo đảm |
-| Độ đo khoảng cách (`lec-06-topic-05`) | cốt lõi | 3.1–3.5 | Năm độ đo trên tập, vector, chuỗi → miền của họ nhạy cảm |
-| Họ nhạy cảm theo tính cục bộ (`lec-06-topic-06`) | cốt lõi | 3.6 | Hai bảo đảm gần, xa → phép ghép |
-| Phép ghép AND và OR (`lec-06-topic-07`) | cốt lõi | 3.7 | Biến đổi bộ tham số; phân dải là AND rồi OR → ba họ cơ sở |
-| Họ chọn tọa độ (`lec-06-topic-08`) | cốt lõi | 4.1 | Xác suất $1-d_H/D$ → họ cho Hamming |
-| Siêu phẳng và chữ ký dấu (`lec-06-topic-09`) | cốt lõi | 4.2 | Xác suất $1-\theta/\pi$, ước lượng góc → họ cho góc |
-| Chiếu có dịch ngẫu nhiên (`lec-06-topic-10`) | cốt lõi; dịch đều là bổ sung | 4.3 | Bộ tham số $(a/2,2a,1/2,1/3)$ trong hai chiều → họ cho Euclid |
-| Chi phí tính chữ ký ba họ (`lec-06-topic-17`) | bổ sung | 4.4 | Bảng đếm phép tính → so sánh với chi phí phân dải |
-| Đối sánh thực thể (`lec-06-topic-11`) | cốt lõi | 5.1 | Ba hàm khóa cố định → Tình huống 06.1 |
-| Đối sánh vân tay (`lec-06-topic-12`) | cốt lõi | 5.2 | Hàm ba ô, $q_F$, $q_T$ → Tình huống 06.2, Bài tập 06.28 |
-| Bản tin gần trùng (`lec-06-topic-13`) | cốt lõi | 5.3 | Shingle theo từ dừng → Tình huống 06.3 |
-| Tình huống áp dụng (`lec-06-topic-19`) | cốt lõi | Tình huống | Bốn bài toán giải trọn, hai tình huống giả thiết không thỏa → tóm tắt |
-| Tóm tắt chương (`lec-06-topic-14`) | cốt lõi | Tóm tắt | Chuỗi kết quả, giả thiết hay bị bỏ quên → Bài 07 |
-| Bài tập củng cố (`lec-06-topic-16`) | cốt lõi | Bài tập | Kiểm năm mục tiêu, sáu cụm bài sách |
-| Đọc thêm và tài liệu (`lec-06-topic-15`) | đọc thêm | Tham khảo | Ánh xạ mục ↔ nguồn, các nhánh đọc tiếp |
-
-Các độ đo ở Mục 3.1–3.5 là khái niệm phụ, không có thuật toán riêng, nên đi theo chu trình rút gọn: ví dụ, định nghĩa, tính chất và chứng minh, không có giả mã hay bảng chi phí. Nội dung đọc thêm của nguồn (tổ chức phân dải trên MapReduce, phép ghép 256 hàm, mở rộng định tính của họ Euclid) chỉ được chỉ dẫn ở mục tham khảo.
+- Chữ $L$ là độ dài dãy con chung dài nhất (Mục 3.4); $L$ trong giả mã của Thuật toán 06.4 là một danh sách thùng, còn $L_q$ là tên chuẩn. Chữ $k$ là độ dài shingle ở phần tiên quyết, khóa dải ở Thuật toán 06.4 và chỉ số khoảng ở Mục 4.3 cùng Bài tập 06.25–06.26 của tệp bài tập; nghĩa được nêu tại chỗ.
+- Chữ $u$ không chỉ số là hướng chiếu, còn $u_{j,z}$ là cỡ thùng. Chữ $z$ có hai chỉ số $z_{j,c}$ là tuple; $z_1,z_2,z_3$ là ba điểm của Ví dụ 06.16.
 
 <!-- note-topic-id: lec-06-topic-01 -->
 ## 1. Bài toán tìm cặp tương đồng
 
 Bài 05 kết thúc với một cách so hai tài liệu nhanh: thay hai tập shingle lớn bằng hai cột chữ ký MinHash dài $n$, rồi lấy tỷ lệ hàng trùng $\widehat s$ làm ước lượng của Jaccard, vì mỗi hàng trùng với xác suất đúng bằng Jaccard (ghi chú Bài 05, Mục 6–7). Kết quả đó giảm chi phí so một cặp. Nó chưa giảm số cặp phải so, và với một kho lớn, số cặp mới là đại lượng quyết định thời gian chạy.
 
-::: example Ví dụ 06.1 (Kho một triệu tài liệu)
-**Dữ kiện.** Theo Ví dụ 3.10 của MMDS (tr.92), kho có $C=10^6$ tài liệu; mỗi chữ ký có $n=250$ thành phần, mỗi thành phần là số nguyên 4 byte. Ta thêm giả định mỗi lần so một cặp chữ ký mất $1\,\mu\mathrm{s}$.
+::: example Ví dụ 06.1 (Kho một triệu tài liệu; *Mining of Massive Datasets* (MMDS), Ví dụ 3.10, tr.92)
+**Dữ kiện.** Kho có $C=10^6$ tài liệu; mỗi chữ ký có $n=250$ thành phần, mỗi thành phần là số nguyên 4 byte. Ta thêm giả định mỗi lần so một cặp chữ ký mất $1\,\mu\mathrm{s}$.
 
 **Dung lượng chữ ký.** Ma trận chữ ký chiếm $10^6\cdot250\cdot4=10^9$ byte, tức khoảng 1 GB, vừa bộ nhớ chính của một máy.
 
@@ -121,11 +94,11 @@ Như vậy, so mọi cặp nghĩa là khoảng $5\cdot10^{11}$ lần so chữ k�
 **Kiểm tra lại.** $500\,000\cdot999\,999=499\,999\,500\,000$, khớp với số cặp ở trên.
 :::
 
-Ví dụ 06.1 tách hai chi phí. Chữ ký làm chi phí mỗi cặp nhỏ và làm dữ liệu vừa bộ nhớ; số cặp vẫn tăng theo bình phương số tài liệu. Con số $5{,}787$ ngày là phép tính dưới một giả định về thời gian mỗi cặp, không phải số đo của một hệ thống.
+Ví dụ 06.1 tách hai chi phí. Chữ ký làm chi phí mỗi cặp nhỏ và làm dữ liệu vừa bộ nhớ; số cặp vẫn tăng theo bình phương số tài liệu.
 
 Để rút ngắn thời gian, chúng ta cần một thủ tục chỉ đưa ra một phần nhỏ các cặp để xác minh, và cần biết thủ tục ấy bỏ mất những cặp nào.
 
-Một cách trực quan, chúng ta muốn một bộ lọc rẻ đặt các tài liệu giống nhau vào chung nhóm, rồi chỉ so các cặp trong cùng nhóm. Bộ lọc được phép sai theo hai hướng: để lọt cặp không đủ giống, và bỏ mất cặp đủ giống. Mô tả này chưa phải định nghĩa; định nghĩa sau đặt tên cho tập cặp mà bộ lọc trả về và cho hai loại sai.
+Một cách trực quan, chúng ta muốn một bộ lọc rẻ đặt các tài liệu giống nhau vào chung nhóm, rồi chỉ so các cặp trong cùng nhóm. Bộ lọc được phép sai theo hai hướng: để lọt cặp không đủ giống, và bỏ mất cặp đủ giống.
 
 ::: definition Định nghĩa 06.1 (Bài toán tìm cặp tương đồng)
 Cho $C$ tài liệu với các tập đặc trưng hữu hạn, không rỗng $S_1,\ldots,S_C$, và một ngưỡng chấp nhận $t\in[0,1]$.
@@ -143,21 +116,19 @@ Một **ứng viên giả** (false positive) là cặp thuộc $\mathcal C$ có 
 
 Định nghĩa bao hàm Ví dụ 06.1 như một trường hợp biên. Bộ tạo tầm thường trả mọi cặp: nó không có cặp bỏ sót, nhưng $\lvert\mathcal C\rvert=499\,999\,500\,000$ và ta quay lại đúng phép so mọi cặp. Ở đầu kia, bộ tạo trả tập rỗng không tốn gì nhưng bỏ sót mọi cặp đạt ngưỡng. Một bộ tạo hữu ích nằm giữa hai cực này.
 
-Băm nhạy cảm theo tính cục bộ (LSH) là tên chung của các bộ tạo ứng viên dùng hàm băm sao cho cặp càng giống càng dễ rơi vào cùng thùng.
-
-::: remark Nhận xét 06.2 (Hai đại lượng $s$ và $\widehat s$)
+::: remark Nhận xét 06.2 (Hai đại lượng $s$ và $\widehat s$; MMDS Ví dụ 3.8, tr.85–86)
 Với một cặp cố định $(c,d)$, ta viết $s=\mathrm{SIM}(S_c,S_d)$ cho Jaccard của hai tập gốc và $\widehat s$ cho tỷ lệ hàng trùng của hai cột chữ ký. Đại lượng $s$ là tính chất của dữ liệu; $\widehat s$ còn phụ thuộc các hoán vị đã chọn khi lập chữ ký.
 
-Ví dụ 3.8 của MMDS (tr.85–86) cho $S_1=\{a,d\}$, $S_4=\{a,c,d\}$ và hai hàng chữ ký trong đó cột 1 và cột 4 đều bằng $(1,0)$. Khi đó $\widehat s=1$, trong khi $s=2/3$. Định nghĩa 06.1 đặt ngưỡng trên $s$, nên bước xác minh tính $s$; giá trị $\widehat s$ chỉ dùng để tổ chức bộ tạo ứng viên.
+Cho $S_1=\{a,d\}$, $S_4=\{a,c,d\}$ và hai hàng chữ ký trong đó cột 1 và cột 4 đều bằng $(1,0)$. Khi đó $\widehat s=1$, trong khi $s=2/3$. Định nghĩa 06.1 đặt ngưỡng trên $s$, nên bước xác minh tính $s$; giá trị $\widehat s$ chỉ dùng để tổ chức bộ tạo ứng viên.
 :::
 
 Bộ tạo ứng viên cần chạy trên dữ liệu đã có sau Bài 05, tức ma trận chữ ký, và không được duyệt mọi cặp. Hình sau cho cấu trúc của chương dưới dạng một quy trình bốn khối.
 
 ![Sơ đồ bốn khối nối từ trái sang phải: "Chữ ký" (ma trận chữ ký của các tài liệu), "Khóa dải" (mỗi cột tạo khóa từ từng dải), "Ứng viên" (tập cặp duy nhất trước khi xác minh) và "Kiểm tập gốc" (tính Jaccard trên tập gốc và giữ cặp đạt ngưỡng).](img/lec-06/quy-trinh-cap.svg)
 
-Hình đọc từ trái sang phải theo đường đi của dữ liệu. Mục 2 xây hai khối giữa: lập khóa dải từ chữ ký, gom các cột cùng khóa và lấy hợp các cặp thành tập ứng viên $\mathcal C$; khối cuối là bước xác minh của Định nghĩa 06.1.
+Hình đọc từ trái sang phải theo đường đi của dữ liệu. Ở Mục 2, chúng ta xây hai khối giữa: lập khóa dải từ chữ ký, gom các cột cùng khóa và lấy hợp các cặp thành tập ứng viên $\mathcal C$; khối cuối là bước xác minh của Định nghĩa 06.1.
 
-Mục 3 và Mục 4 thay khối đầu: chữ ký MinHash chỉ phục vụ Jaccard trên tập, nên với vector và chuỗi chúng ta cần một họ hàm băm khác hợp với độ đo đang dùng. Mục 5 đổi cách biểu diễn dữ liệu trước khối đầu cho ba bài toán cụ thể, còn hai khối cuối giữ nguyên.
+Ở Mục 3 và Mục 4, chúng ta thay khối đầu: chữ ký MinHash chỉ phục vụ Jaccard trên tập, nên với vector và chuỗi chúng ta cần một họ hàm băm khác hợp với độ đo đang dùng. Ở Mục 5, chúng ta đổi cách biểu diễn dữ liệu trước khối đầu cho ba bài toán cụ thể, còn hai khối cuối giữ nguyên.
 
 ::: exercise Bài tập 06.1
 Dữ kiện: kho $C=10^6$ tài liệu, chữ ký $n=250$ thành phần 4 byte, giả định $1\,\mu\mathrm{s}$ mỗi lần so cặp (Ví dụ 06.1); hai tập $S_1=\{a,d\}$, $S_4=\{a,c,d\}$ có hai cột chữ ký cùng bằng $(1,0)$ (Nhận xét 06.2).
@@ -192,12 +163,12 @@ Sau Mục 1, kho một triệu tài liệu vẫn có khoảng $5\cdot10^{11}$ c�
 <!-- note-topic-id: lec-06-topic-02 -->
 ### 2.1 Dải, khóa dải và tập ứng viên
 
-Theo §3.4.1 của MMDS, cách tiếp cận chung của LSH là băm mỗi đối tượng nhiều lần sao cho đối tượng giống nhau dễ rơi vào cùng thùng hơn đối tượng khác nhau, rồi coi mọi cặp chung thùng ở ít nhất một lần băm là cặp ứng viên. Với chữ ký MinHash, một lựa chọn thô là dùng một hàng làm khóa băm. Khi đó cặp có Jaccard $0{,}3$ chung thùng với xác suất $0{,}3$, nên rất nhiều cặp xa thành ứng viên. Chúng ta cần một khóa khắt khe hơn một hàng nhưng vẫn cho cặp gần nhiều cơ hội gặp nhau.
+Cách tiếp cận chung của LSH là băm mỗi đối tượng nhiều lần sao cho đối tượng giống nhau dễ rơi vào cùng thùng hơn đối tượng khác nhau, rồi coi mọi cặp chung thùng ở ít nhất một lần băm là cặp ứng viên (MMDS §3.4.1, tr.92). Với chữ ký MinHash, một lựa chọn thô là dùng một hàng làm khóa băm. Khi đó cặp có Jaccard $0{,}3$ chung thùng với xác suất $0{,}3$, nên rất nhiều cặp xa thành ứng viên. Chúng ta cần một khóa khắt khe hơn một hàng nhưng vẫn cho cặp gần nhiều cơ hội gặp nhau.
 
-Một cách trực quan, chúng ta cắt chữ ký thành nhiều đoạn ngắn và dùng mỗi đoạn làm một khóa. Hai cột chỉ chung khóa ở một đoạn khi trùng mọi hàng của đoạn ấy, điều dễ xảy ra với cột rất giống nhau và hiếm với cột ít giống. Vì có nhiều đoạn, một cặp giống nhau có nhiều cơ hội trùng ít nhất một đoạn. Mô tả này chưa phải định nghĩa; ví dụ sau cho thấy vì sao phải so cả đoạn chứ không so từng hàng.
+Một cách trực quan, chúng ta cắt chữ ký thành nhiều đoạn ngắn và dùng mỗi đoạn làm một khóa. Hai cột chỉ chung khóa ở một đoạn khi trùng mọi hàng của đoạn ấy, điều dễ xảy ra với cột rất giống nhau và hiếm với cột ít giống. Vì có nhiều đoạn, một cặp giống nhau có nhiều cơ hội trùng ít nhất một đoạn. Để thấy vì sao phải so cả đoạn chứ không so từng hàng, xem ví dụ sau.
 
-::: example Ví dụ 06.2 (Năm cột, dải ba hàng)
-**Dữ kiện.** Theo Ví dụ 3.11 và Hình 3.7 của MMDS (tr.92–93), chữ ký có $n=12$ hàng chia thành $b=4$ dải, mỗi dải $r=3$ hàng. Hình 3.7 của sách chỉ cho dải đầu; năm cột của dải này là
+::: example Ví dụ 06.2 (Năm cột, dải ba hàng; MMDS Ví dụ 3.11 và Hình 3.7, tr.92–93)
+**Dữ kiện.** Chữ ký có $n=12$ hàng chia thành $b=4$ dải, mỗi dải $r=3$ hàng. Dải đầu của năm cột là
 
 $$
 (1,3,0),\quad (0,2,1),\quad (0,1,3),\quad (0,2,1),\quad (2,2,1).
@@ -230,7 +201,7 @@ $$
 
 Định nghĩa có ba thành phần. Tham số $r$ quyết định độ khắt khe của một phép thử: hai cột phải trùng cả $r$ hàng của dải. Tham số $b$ quyết định số phép thử: chỉ cần trùng một trong $b$ dải. Khóa chứa cả số dải $j$, nên hai tuple bằng nhau ở hai dải khác nhau không tạo cùng khóa; nếu bỏ $j$, hai cột không trùng ở dải nào vẫn có thể chung thùng. Công thức của $\mathcal C$ đọc là: một cặp là ứng viên khi tồn tại ít nhất một dải mà ở đó hai cột trùng mọi hàng.
 
-Định nghĩa bao hàm Ví dụ 06.2 như sau: $k_{1,2}=k_{1,4}=(1,(0,2,1))$, nên $(2,4)\in\mathcal C$; còn cặp $(2,3)$ thuộc $\mathcal C$ hay không phụ thuộc ba dải chưa được cho. Đòi trùng mọi hàng trong một dải là một phép ghép đồng thời, còn nhận cặp khi trùng ít nhất một dải là một phép ghép ít nhất một; Mục 3.7 định nghĩa hai phép ghép này cho mọi họ hàm băm (Định nghĩa 06.25) và chỉ ra phân dải là trường hợp riêng (Nhận xét 06.27). Ở đây chúng ta chỉ dùng hai tên gọi này để đọc định nghĩa.
+Định nghĩa bao hàm Ví dụ 06.2 như sau: $k_{1,2}=k_{1,4}=(1,(0,2,1))$, nên $(2,4)\in\mathcal C$; còn cặp $(2,3)$ thuộc $\mathcal C$ hay không phụ thuộc ba dải chưa được cho.
 
 ![Ma trận chữ ký có n hàng chia thành bốn dải chồng lên nhau theo chiều dọc; mỗi dải gồm r hàng và tạo một khóa ghi là (1, tuple), (2, tuple), (3, tuple), (4, tuple); chú thích ghi b dải, mỗi dải r hàng, n = br.](img/lec-06/phan-dai-chu-ky.svg)
 
@@ -240,8 +211,8 @@ Trên hình, mỗi dải là một khối hàng liên tiếp; khóa bên phải 
 
 Định nghĩa 06.3 mô tả $\mathcal C$ bằng một điều kiện "tồn tại $j$" trên từng cặp. Kiểm điều kiện ấy cho từng cặp lại là duyệt mọi cặp. Để tránh điều đó, chúng ta gom các cột theo khóa vào thùng rồi chỉ phát cặp bên trong mỗi thùng. Ví dụ sau chạy tay toàn bộ quy trình trên dữ kiện của Bài 05.
 
-::: example Ví dụ 06.3 (Bốn tập đặc trưng)
-**Dữ kiện.** Theo Ví dụ 3.8 của MMDS (tr.85–86), bốn tập là
+::: example Ví dụ 06.3 (Bốn tập đặc trưng; MMDS Ví dụ 3.8, tr.85–86)
+**Dữ kiện.** Bốn tập là
 
 $$
 S_1=\{a,d\},\quad S_2=\{c\},\quad S_3=\{b,d,e\},\quad S_4=\{a,c,d\},
@@ -356,7 +327,7 @@ Thuật toán có trả đúng tập $\mathcal C$ của Định nghĩa 06.3 khô
 **Bước 5 (dừng).** Theo mục Dừng của Thuật toán 06.4, mọi vòng lặp hữu hạn. $\square$
 :::
 
-Mệnh đề 06.5 nói rằng sai số của phân dải không đến từ thuật toán: trên tập $\mathcal C$, kết quả chính xác. Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Trên $\mathcal C$, Thuật toán 06.4 cho kết quả chính xác; sai số chỉ đến từ các cặp ngoài $\mathcal C$. Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
 
 - Bỏ phép so khóa đầy đủ, chỉ so ô của bảng băm lưu trữ: nếu hai khóa $(1,(1))$ và $(1,(3))$ của Ví dụ 06.3 rơi vào cùng ô, danh sách của ô chứa các cột 1, 4 và 2, nên cặp $(1,2)$ được phát dù hai cột không trùng dải nào. Khi đó $\mathrm{CAND}\ne\mathcal C$, và với ngưỡng $t=0$ cặp $(1,2)$ còn xuất hiện trong đầu ra.
 - Bỏ số dải khỏi khóa: với $C=2$, $b=2$, $r=1$, cột 1 bằng $(1,2)$ và cột 2 bằng $(2,1)$, hai cột không trùng dải nào nên $\mathcal C=\varnothing$. Nếu khóa chỉ là tuple, giá trị $(1)$ của cột 1 ở dải 1 và của cột 2 ở dải 2 rơi vào cùng thùng, nên cặp $(1,2)$ được phát.
@@ -365,10 +336,10 @@ Mệnh đề 06.5 nói rằng sai số của phân dải không đến từ thu�
 Bước 2 của chứng minh dùng phép so khóa đầy đủ và số dải trong khóa; Bước 4 dùng điều kiện tập không rỗng. Giả thiết ma trận không đổi cho phép đọc mệnh đề như một phát biểu xác định: tính ngẫu nhiên chỉ nằm ở lúc lập chữ ký, trước khi thuật toán chạy.
 
 ::: remark Nhận xét 06.6 (Bước lọc theo $\widehat s$)
-Quy trình ở §3.4.3 của MMDS (tr.95–96) kiểm tỷ lệ trùng chữ ký $\widehat s$ của các ứng viên, rồi ghi bước kiểm tài liệu gốc là tùy chọn. Thuật toán 06.4 bỏ bước lọc theo $\widehat s$ và luôn kiểm Jaccard gốc. Lọc theo $\widehat s$ có thể thêm cặp bỏ sót: một cặp có $s\ge t$ nhưng $\widehat s<t$ sẽ bị loại trước khi tính $s$. Với Nhận xét 06.2, cặp $(1,4)$ có $\widehat s=1$ còn $s=2/3$, nên với chữ ký hai hàng, hai đại lượng lệch nhau $1/3$.
+Một biến thể lọc ứng viên theo $\widehat s$ và coi bước kiểm tập gốc là tùy chọn (MMDS §3.4.3, tr.95–96). Thuật toán 06.4 luôn kiểm Jaccard gốc. Lọc theo $\widehat s$ có thể thêm cặp bỏ sót: một cặp có $s\ge t$ nhưng $\widehat s<t$ sẽ bị loại trước khi tính $s$. Ví dụ, với $t=2/3$, một cặp có $s=2/3$ mà hai hàng chữ ký chỉ trùng một hàng có $\widehat s=1/2<t$ và bị loại dù đạt ngưỡng.
 :::
 
-**Trong thực hành.** Từ điển $B$ thường là bảng băm có khóa là bộ $(j,\text{tuple})$; ngôn ngữ có kiểu bộ bất biến cho phép dùng trực tiếp bộ này làm khóa. Bảng băm giải va chạm bằng phép so khóa bằng nhau, nên giả thiết so khóa đầy đủ của Mệnh đề 06.5 được bảo đảm bởi cấu trúc dữ liệu chứ không bởi số ô của bảng; MMDS thay điều này bằng giả định có rất nhiều thùng.
+**Trong thực hành.** Từ điển $B$ thường là bảng băm có khóa là bộ $(j,\text{tuple})$; ngôn ngữ có kiểu bộ bất biến cho phép dùng trực tiếp bộ này làm khóa. Bảng băm giải va chạm bằng phép so khóa bằng nhau, nên giả thiết so khóa đầy đủ của Mệnh đề 06.5 được bảo đảm bởi cấu trúc dữ liệu chứ không bởi số ô của bảng.
 
 Sao chép tuple ở bước 2 làm khóa không phụ thuộc vùng nhớ của $\mathrm{SIG}$. Một cách tổ chức tương đương là dùng $b$ bảng, mỗi dải một bảng, với khóa chỉ là tuple; số dải khi đó nằm ở việc chọn bảng.
 
@@ -395,24 +366,24 @@ Dữ kiện: $S_1=\{a,d\}$, $S_2=\{c\}$, $S_3=\{b,d,e\}$, $S_4=\{a,c,d\}$; ma tr
 <!-- note-topic-id: lec-06-topic-03 -->
 ### 2.3 Xác suất thành ứng viên
 
-Mệnh đề 06.5 bảo đảm kết quả đúng trên $\mathcal C$, nhưng một cặp đạt ngưỡng không vào $\mathcal C$ thì bị bỏ sót. Xác suất bỏ sót một cặp có Jaccard $s$ là bao nhiêu, và phụ thuộc $b$, $r$ thế nào? Định lý 06.7 dưới đây trả lời câu hỏi này. Trong Ví dụ 06.3, hai hàm MinHash là cố định nên không có xác suất nào để tính; chúng ta chuyển sang mô hình trong đó $n$ hàm MinHash được chọn ngẫu nhiên khi lập chữ ký, còn cặp tài liệu được cố định trước.
+Mệnh đề 06.5 bảo đảm kết quả đúng trên $\mathcal C$, nhưng một cặp đạt ngưỡng không vào $\mathcal C$ thì bị bỏ sót. Xác suất bỏ sót một cặp có Jaccard $s$ là bao nhiêu, và phụ thuộc $b$, $r$ thế nào? Trong Ví dụ 06.3, hai hàm MinHash là cố định nên không có xác suất nào để tính; chúng ta chuyển sang mô hình trong đó $n$ hàm MinHash được chọn ngẫu nhiên khi lập chữ ký, còn cặp tài liệu được cố định trước.
 
-Một cách trực quan, mỗi dải là một phép thử chặt mà cặp phải vượt qua ở cả $r$ hàng, còn $b$ dải cho $b$ lượt thử. Xác suất vượt một dải giảm nhanh khi $s$ giảm, nên cặp xa hiếm khi vượt dải nào; cặp gần có $b$ cơ hội nên hiếm khi trượt mọi dải. Mô tả này chưa phải định lý; ví dụ sau tính các xác suất ấy cho một cặp.
+Một cách trực quan, mỗi dải là một phép thử chặt mà cặp phải vượt qua ở cả $r$ hàng, còn $b$ dải cho $b$ lượt thử. Xác suất vượt một dải giảm nhanh khi $s$ giảm, nên cặp xa hiếm khi vượt dải nào; cặp gần có $b$ cơ hội nên hiếm khi trượt mọi dải. Ví dụ sau tính các xác suất ấy cho một cặp.
 
-::: example Ví dụ 06.4 (Cặp $s=0{,}8$ qua 20 dải năm hàng)
-**Dữ kiện.** Theo Ví dụ 3.12 của MMDS (tr.94–95), chữ ký dài $n=100$ chia thành $b=20$ dải, mỗi dải $r=5$ hàng; một cặp có Jaccard $s=0{,}8$. Mỗi hàng dùng một MinHash chọn độc lập.
+::: example Ví dụ 06.4 (Cặp $s=0{,}8$ qua 20 dải năm hàng; MMDS Ví dụ 3.12, tr.94–95)
+**Dữ kiện.** Chữ ký dài $n=100$ chia thành $b=20$ dải, mỗi dải $r=5$ hàng; một cặp có Jaccard $s=0{,}8$. Mỗi hàng dùng một MinHash chọn độc lập.
 
 **Một dải.** Mỗi hàng trùng với xác suất $0{,}8$, nên cả năm hàng trùng với xác suất $0{,}8^5=0{,}32768$. Dải không trùng với xác suất $1-0{,}32768=0{,}67232$.
 
 **Hai mươi dải.** Không dải nào trùng với xác suất $0{,}67232^{20}\approx0{,}000356058$. Cặp thành ứng viên với xác suất $1-0{,}000356058\approx0{,}999643942$.
 
-**Kiểm tra lại.** Xác suất bỏ sót khoảng $0{,}00036$, tức khoảng 1 trên 2 800 cặp có $s=0{,}8$; sách làm tròn thành 1 trên 3 000.
+**Kiểm tra lại.** Xác suất bỏ sót khoảng $0{,}00036$, tức khoảng 1 trên 2 800 cặp có $s=0{,}8$.
 :::
 
 Ví dụ 06.4 dùng ba phép tính: lũy thừa cho một dải, lũy thừa cho mọi dải, và biến cố bù. Định lý sau phát biểu chuỗi phép tính này cho mọi $s$, $b$, $r$ và chỉ rõ giả thiết của từng phép.
 
 ::: theorem Định lý 06.7 (Xác suất thành ứng viên)
-**Giả thiết.** Cặp $(c,d)$ cố định, hai tập $S_c$, $S_d$ hữu hạn, không rỗng, có Jaccard $s$. Mỗi thành phần chữ ký là một MinHash lý tưởng: hoán vị được chọn đều trong mọi hoán vị và dùng chung cho mọi tập. Các hoán vị của $n=br$ thành phần được chọn độc lập. Thuật toán 06.4 so khóa dải đầy đủ.
+**Giả thiết.** Cặp $(c,d)$ cố định, hai tập $S_c$, $S_d$ hữu hạn, không rỗng, có Jaccard $s$. Mỗi thành phần chữ ký là một MinHash lý tưởng: hoán vị được chọn đều trong mọi hoán vị và dùng chung cho mọi tập. Các hoán vị của $n=br$ thành phần được chọn độc lập.
 
 **Kết luận.**
 
@@ -420,15 +391,15 @@ $$
 \Pr[(c,d)\in\mathcal C]=P_{b,r}(s)=1-(1-s^r)^b. \tag{2.1}
 $$
 
-**Điều kiện áp dụng.** Xác suất lấy theo cách chọn $n$ hoán vị; cặp và hai tập gốc không ngẫu nhiên.
+**Điều kiện áp dụng.** Xác suất lấy theo cách chọn $n$ hoán vị; cặp và hai tập gốc không ngẫu nhiên. Với $\mathrm{CAND}=\mathcal C$ (Mệnh đề 06.5), xác suất này cũng là xác suất cặp được thuật toán xét.
 
 **Phạm vi.** Đây là xác suất của một cặp. Định lý không cần các cặp khác nhau độc lập và không cho tỷ lệ cặp bỏ sót trên toàn kho khi chưa biết phân bố độ tương đồng của các cặp.
 :::
 
 ::: proof Chứng minh Định lý 06.7
-**Bước 1 (một hàng).** Gọi $E_i$ là biến cố hai cột trùng ở hàng thứ $i$ của một dải. Theo định lý MinHash (ghi chú Bài 05, Mục 6), áp dụng cho hoán vị chọn đều dùng chung cho hai tập không rỗng, $\Pr(E_i)=s$.
+**Bước 1 (một hàng).** Gọi $E_i$ là biến cố hai cột trùng ở hàng thứ $i$ của một dải. Theo định lý MinHash (ghi chú Bài 05, Mục 6), áp dụng cho hoán vị chọn đều dùng chung cho hai tập không rỗng, $\Pr(E_i)=s$. Thành phần chữ ký ghi vị trí $\min_{a\in S_c}\pi(a)$ hay định danh của phần tử đứng đầu đều cho cùng biến cố trùng, vì $\pi$ là song ánh.
 
-**Bước 2 (một dải).** Hai cột trùng dải khi trùng cả $r$ hàng, tức biến cố $\bigcap_{i=1}^rE_i$; vì khóa được so đầy đủ, không có cách nào khác để chung thùng. Các hoán vị trong dải độc lập, nên
+**Bước 2 (một dải).** Theo Định nghĩa 06.3, hai cột trùng dải khi trùng cả $r$ hàng, tức biến cố $\bigcap_{i=1}^rE_i$. Các hoán vị trong dải độc lập, nên
 
 $$
 \Pr\Bigl(\bigcap_{i=1}^rE_i\Bigr)=\prod_{i=1}^r\Pr(E_i)=s^r.
@@ -443,20 +414,20 @@ $$
 **Bước 4 (biến cố bù).** Theo Định nghĩa 06.3, cặp thuộc $\mathcal C$ khi có ít nhất một dải trùng, là biến cố bù của biến cố ở Bước 3. Do đó $\Pr[(c,d)\in\mathcal C]=1-(1-s^r)^b$. $\square$
 :::
 
-Công thức (2.1) đọc từ trong ra ngoài: $s^r$ là xác suất trùng một dải, $(1-s^r)^b$ là xác suất trượt mọi dải, và phần bù là xác suất được xét. Với $b=20$, $r=5$, $s=0{,}8$, công thức cho lại $0{,}999643942$ của Ví dụ 06.4. So với Mệnh đề 06.5, định lý này không nói gì về tính đúng mà nói về độ phủ: hai kết quả cùng nhau cho biết đầu ra là các cặp đạt ngưỡng đã được xét, và mỗi cặp đạt ngưỡng được xét với xác suất (2.1).
+Công thức (2.1) đọc từ trong ra ngoài: $s^r$ là xác suất trùng một dải, $(1-s^r)^b$ là xác suất trượt mọi dải, và phần bù là xác suất được xét. Với $b=20$, $r=5$, $s=0{,}8$, công thức cho lại $0{,}999643942$ của Ví dụ 06.4. So với Mệnh đề 06.5, định lý này nói về độ phủ: hai kết quả cùng nhau cho biết đầu ra là các cặp đạt ngưỡng đã được xét, và mỗi cặp đạt ngưỡng được xét với xác suất (2.1).
 
-Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ phép chọn đều hoán vị: nếu thứ tự cố định đặt phần tử $a$ lên đầu, thì với $S_1=\{a,d\}$, $S_4=\{a,c,d\}$ cả hai MinHash đều bằng $a$ ở mọi hàng. Cặp thành ứng viên với xác suất $1$, trong khi $s=2/3$ và $P_{b,r}(2/3)<1$.
 - Bỏ độc lập trong một dải: nếu $r$ hàng của một dải dùng cùng một hoán vị, dải trùng đúng khi một MinHash trùng, với xác suất $s$ chứ không phải $s^r$; với $s=0{,}8$, $r=5$, đó là $0{,}8$ thay cho $0{,}32768$.
 - Bỏ độc lập giữa các dải: nếu cả $b$ dải dùng lại cùng $r$ hoán vị, mọi dải cho cùng một kết quả và cặp thành ứng viên với xác suất $s^r$; với $s=0{,}8$, $r=5$, $b=20$, đó là $0{,}32768$ thay cho $0{,}999643942$.
-- Bỏ phép so khóa đầy đủ: va chạm ô của bảng băm lưu trữ chỉ thêm cặp vào tập $\mathrm{CAND}$ mà thuật toán trả, $\mathrm{CAND}\supseteq\mathcal C$, nên chỉ còn $\Pr[(c,d)\in\mathrm{CAND}]\ge P_{b,r}(s)$. Cặp $(1,2)$ của Ví dụ 06.3 có $s=0$, nên $P_{b,r}(0)=0$, nhưng thành ứng viên nếu hai khóa $(1,(1))$ và $(1,(3))$ chung ô.
+- Bỏ phép so khóa đầy đủ của Mệnh đề 06.5: va chạm ô của bảng băm lưu trữ chỉ thêm cặp vào tập $\mathrm{CAND}$ mà thuật toán trả, $\mathrm{CAND}\supseteq\mathcal C$, nên chỉ còn $\Pr[(c,d)\in\mathrm{CAND}]\ge P_{b,r}(s)$. Cặp $(1,2)$ của Ví dụ 06.3 có $s=0$, nên $P_{b,r}(0)=0$, nhưng thành ứng viên nếu hai khóa $(1,(1))$ và $(1,(3))$ chung ô.
 - Bỏ điều kiện tập không rỗng: theo quy ước đầu ra của thuật toán quét (ghi chú Bài 05, Mục 9 và 11), hai tập rỗng có cột chữ ký toàn $+\infty$, trùng mọi dải nên thành ứng viên với xác suất $1$, trong khi $s$ không xác định.
 
-Bước 1 dùng phép chọn đều và tập không rỗng; Bước 2 dùng độc lập trong dải và phép so khóa đầy đủ; Bước 3 dùng độc lập giữa các dải.
+Bước 1 dùng phép chọn đều và tập không rỗng; Bước 2 dùng độc lập trong dải; Bước 3 dùng độc lập giữa các dải.
 
 ::: corollary Hệ quả 06.8 (Xác suất bỏ sót)
-**Giả thiết.** Như Định lý 06.7, và cặp có $s\ge t$.
+**Giả thiết.** Như Định lý 06.7 và Mệnh đề 06.5, và cặp có $s\ge t$.
 
 **Kết luận.** Cặp bị bỏ sót, tức không thuộc đầu ra của Thuật toán 06.4, với xác suất $(1-s^r)^b$.
 
@@ -477,10 +448,10 @@ Chữ ký được lập một lần rồi dùng lại cho mọi lần chạy Th
 
 Với độ dài chữ ký $n$ cho trước, chúng ta còn phải chọn cách tách $n=br$. Tăng $r$ làm mỗi dải khắt khe hơn; tăng $b$ cho thêm lượt thử. Để chọn được, chúng ta cần biết hình dạng của hàm $s\mapsto P_{b,r}(s)$ và vị trí vùng chuyển tiếp của nó so với ngưỡng $t$.
 
-Một cách trực quan, khi $b\ge2$ và $r\ge2$, đồ thị của $P_{b,r}$ là một đường cong S (S-curve): gần $0$ với $s$ nhỏ, gần $1$ với $s$ lớn, và tăng nhanh trong một vùng hẹp. Cặp có $s$ dưới vùng này hiếm khi thành ứng viên, cặp có $s$ trên vùng này hiếm khi bị bỏ sót. Mô tả này chưa phải định nghĩa; ví dụ sau so hai cách tách cùng $n=100$.
+Một cách trực quan, khi $b\ge2$ và $r\ge2$, đồ thị của $P_{b,r}$ là một đường cong S (S-curve): gần $0$ với $s$ nhỏ, gần $1$ với $s$ lớn, và tăng nhanh trong một vùng hẹp. Cặp có $s$ dưới vùng này hiếm khi thành ứng viên, cặp có $s$ trên vùng này hiếm khi bị bỏ sót. Ví dụ sau so hai cách tách cùng $n=100$.
 
 ::: example Ví dụ 06.5 (Hai cấu hình cùng 100 hàng)
-**Dữ kiện.** Chữ ký dài $n=100$; hai cấu hình $(b,r)=(20,5)$ của Ví dụ 3.12 (MMDS, tr.94–95) và $(b,r)=(10,10)$; hai cặp có Jaccard $0{,}3$ và $0{,}8$.
+**Dữ kiện.** Chữ ký dài $n=100$; hai cấu hình $(b,r)=(20,5)$ của Ví dụ 06.4 và $(b,r)=(10,10)$; hai cặp có Jaccard $0{,}3$ và $0{,}8$.
 
 **Tính.** Thế vào (2.1), ta được bảng sau.
 
@@ -496,7 +467,7 @@ Một cách trực quan, khi $b\ge2$ và $r\ge2$, đồ thị của $P_{b,r}$ l�
 
 ![Đồ thị hai đường xác suất thành ứng viên P(s) = 1 − (1 − s^r)^b theo Jaccard thật s trên đoạn từ 0 đến 1, cho hai cấu hình b × r bằng 20 × 5 và 10 × 10, cùng độ dài chữ ký n = 100; đường 10 × 10 nằm bên phải và dốc hơn đường 20 × 5.](img/lec-06/xac-suat-phan-dai.svg)
 
-Trên hình, trục hoành là Jaccard thật $s$, trục tung là $P_{b,r}(s)$. Đường $20\times5$ đi lên sớm hơn, nên nhận nhiều cặp vừa phải hơn và bỏ sót ít cặp gần hơn; đường $10\times10$ dời vùng chuyển tiếp sang phải. Hai giá trị ở cột $s=0{,}8$ của bảng là hai điểm trên hai đường tại hoành độ $0{,}8$. Nhãn trục trên hình dùng dấu chấm thập phân.
+Trên hình, trục hoành là Jaccard thật $s$, trục tung là $P_{b,r}(s)$. Đường $20\times5$ đi lên sớm hơn, nên nhận nhiều cặp vừa phải hơn và bỏ sót ít cặp gần hơn; đường $10\times10$ dời vùng chuyển tiếp sang phải. Hai giá trị ở cột $s=0{,}8$ của bảng là hai điểm trên hai đường tại hoành độ $0{,}8$.
 
 Vị trí vùng chuyển tiếp được đo bằng điểm mà xác suất thành ứng viên bằng một nửa.
 
@@ -529,14 +500,12 @@ $$
 $\square$
 :::
 
-Với $b=20$, $r=5$, công thức (2.2) cho $s_{1/2}\approx0{,}508695962$. MMDS dùng xấp xỉ $(1/b)^{1/r}$ cho vị trí vùng chuyển tiếp, ở đây bằng $0{,}549280272$; tại điểm này $P_{20,5}\approx0{,}641514078$, nên xấp xỉ không phải nghiệm một nửa.
+Với $b=20$, $r=5$, công thức (2.2) cho $s_{1/2}\approx0{,}508695962$. Xấp xỉ $(1/b)^{1/r}$ của vùng chuyển tiếp (MMDS §3.4.2, tr.94) bằng $0{,}549280272$; tại điểm này $P_{20,5}\approx0{,}641514078>1/2$.
 
 ::: remark Nhận xét 06.10 (Ba đại lượng ngưỡng và quy tắc chọn $b$, $r$)
 Ba số $t$, $s_{1/2}$ và $(1/b)^{1/r}$ có ba vai trò. Ngưỡng $t$ là tiêu chuẩn chấp nhận trên dữ liệu gốc, do bài toán quy định. Nghiệm $s_{1/2}$ là tính chất của cấu hình $(b,r)$. Giá trị $(1/b)^{1/r}$ là xấp xỉ dễ tính của vùng chuyển tiếp. Với $(b,r)=(20,5)$ và $t=0{,}8$, ba số là $0{,}8$, khoảng $0{,}509$ và khoảng $0{,}549$.
 
-Quy trình §3.4.3 của MMDS (tr.95) chọn $b$, $r$ sao cho $(1/b)^{1/r}\approx t$. Nếu ưu tiên tránh bỏ sót, đặt giá trị này thấp hơn $t$; nếu ưu tiên ít ứng viên giả để chạy nhanh, đặt cao hơn $t$.
-
-Dạng chữ S cần cả $b\ge2$ và $r\ge2$. Với $r=1$, $P_{b,1}(s)=1-(1-s)^b$ lõm; với $b=1$, $P_{1,r}(s)=s^r$ lồi; cả hai không có điểm uốn, nên tên gọi chung là "đường xác suất thành ứng viên". Diện tích dưới hay trên đường cũng không phải tỷ lệ lỗi của kho khi chưa biết phân bố độ tương đồng của các cặp.
+Quy tắc chọn tham số: chọn $b$, $r$ với $n=br$ sao cho $(1/b)^{1/r}\approx t$ (MMDS §3.4.3, tr.95). Nếu ưu tiên tránh bỏ sót, đặt giá trị này thấp hơn $t$; nếu ưu tiên ít ứng viên giả để chạy nhanh, đặt cao hơn $t$.
 :::
 
 **Trong thực hành.** Độ dài $n$ thường bị chặn bởi bộ nhớ của ma trận chữ ký, như $10^9$ byte của Ví dụ 06.1 với $n=250$. Trong ngân sách ấy, chọn $(b,r)$ là chọn vị trí vùng chuyển tiếp so với $t$: Ví dụ 06.5 cho thấy cùng $n=100$, một cấu hình ưu tiên độ phủ còn cấu hình kia ưu tiên ít ứng viên. Số ứng viên giả không được đọc trực tiếp từ đường cong; nó được đếm qua $K$ ở Mục 2.5.
@@ -556,7 +525,7 @@ Câu (b) thế $b$, $r$ vào (2.1). Câu (c) xét nguồn ngẫu nhiên trong gi
 :::
 
 ::: solution
-(a) Ưu tiên giảm bỏ sót tại $0{,}8$ chọn $(20,5)$, vì xác suất bỏ sót là khoảng $0{,}000356058$, so với $0{,}321140026$ của $(10,10)$. Ưu tiên giảm ứng viên tại $0{,}3$ chọn $(10,10)$. Kết luận chỉ so đúng hai độ tương đồng và hai mục tiêu đã nêu.
+(a) Ưu tiên giảm bỏ sót tại $0{,}8$ chọn $(20,5)$, vì xác suất bỏ sót là khoảng $0{,}000356058$, so với $0{,}321140026$ của $(10,10)$. Ưu tiên giảm ứng viên tại $0{,}3$ chọn $(10,10)$.
 
 (b) $P_{2,1}(s)=1-(1-s)^2$ và $P_{1,2}(s)=s^2$. Tại $s=1/4$: $7/16$ và $1/16$. Tại $s=2/3$: $8/9$ và $4/9$. Cấu hình một dải hai hàng nhận ít cặp xa hơn nhưng cũng bỏ sót cặp gần nhiều hơn.
 
@@ -658,13 +627,13 @@ $$
 **Bước 2 (lấy kỳ vọng).** Kỳ vọng của một chỉ báo bằng xác suất của biến cố. Theo Định lý 06.7, $\Pr[(c,d)\in\mathcal C]=P_{b,r}(s_{cd})$; theo Bước 2 của chứng minh định lý, $\Pr[k_{j,c}=k_{j,d}]=s_{cd}^r$. Tuyến tính kỳ vọng, không cần độc lập giữa các số hạng, cho hai đẳng thức. $\square$
 :::
 
-**Trong thực hành.** Mệnh đề 06.13 cho thấy mỗi cặp có $s_{cd}$ gần $1$ đóng góp gần $b$ vào $\mathbb E[Q]$ và gần $1$ vào $\mathbb E[K]$. Kho web chứa nhiều bản sao của cùng một trang tạo những thùng lớn ở mọi dải, và $Q$ tăng theo bình phương cỡ nhóm bản sao; đây là trường hợp gần với Nhận xét 06.12 trên một phần của kho.
+**Trong thực hành.** Theo Mệnh đề 06.11 và 06.13, công việc phát cặp và xác minh do $Q$ và $K$ quyết định, và mỗi cặp có $s_{cd}$ gần $1$ đóng góp gần $b$ vào $\mathbb E[Q]$ và gần $1$ vào $\mathbb E[K]$. Kho web chứa nhiều bản sao của cùng một trang tạo những thùng lớn ở mọi dải, và $Q$ tăng theo bình phương cỡ nhóm bản sao; đây là trường hợp gần với Nhận xét 06.12 trên một phần của kho.
 
 Ngược lại, nếu hầu hết các cặp có $s_{cd}$ nhỏ, các số hạng $s_{cd}^r$ nhỏ và công việc tập trung ở số ít cặp gần. Cùng một cấu hình $(b,r)$ vì vậy có thể nhanh trên kho này và chậm trên kho khác.
 
-Áp dụng cho kho một triệu tài liệu của Ví dụ 06.1 với $(b,r)=(20,5)$, ta giả định thêm, như một giả định minh họa về phân bố tương đồng chứ không phải số đo, rằng ngoài $N$ cặp gần, mọi cặp có $s_{cd}\le0{,}1$. Vì $P_{20,5}$ tăng theo $s$ và $P_{20,5}(0{,}1)=1-(1-10^{-5})^{20}\approx1{,}9998\cdot10^{-4}$, mỗi cặp nền đóng góp không quá $2\cdot10^{-4}$ vào $\mathbb E[K]$, còn mỗi cặp gần không quá $1$. Có không quá $499\,999\,500\,000$ cặp nền, nên Mệnh đề 06.13 cho $\mathbb E[K]\le N+10^8$; tương tự, mỗi cặp nền đóng góp $20\,s_{cd}^5\le2\cdot10^{-4}$ vào $\mathbb E[Q]$, nên $\mathbb E[Q]\le20N+10^8$. Hai chặn này không cần các cặp độc lập.
+Xét kho một triệu tài liệu của Ví dụ 06.1 với $(b,r)=(20,5)$. Giả sử ngoài $N$ cặp gần, mọi cặp có $s_{cd}\le0{,}1$. Vì $P_{20,5}$ tăng theo $s$ và $P_{20,5}(0{,}1)=1-(1-10^{-5})^{20}\approx1{,}9998\cdot10^{-4}$, mỗi cặp nền đóng góp không quá $2\cdot10^{-4}$ vào $\mathbb E[K]$, còn mỗi cặp gần không quá $1$. Có không quá $499\,999\,500\,000$ cặp nền, nên Mệnh đề 06.13 cho $\mathbb E[K]\le N+10^8$; tương tự, mỗi cặp nền đóng góp $20\,s_{cd}^5\le2\cdot10^{-4}$ vào $\mathbb E[Q]$, nên $\mathbb E[Q]\le20N+10^8$. Hai chặn này không cần các cặp độc lập.
 
-Với giả định $1\,\mu\mathrm{s}$ mỗi lần so cặp của Ví dụ 06.1 và $N\ll10^8$, thời gian xác minh kỳ vọng không quá khoảng $100$ giây, so với khoảng $5{,}79$ ngày khi xét mọi cặp. Không có giả định về phân bố tương đồng thì chặn này không còn, và trường hợp xấu nhất vẫn là $K=\binom C2$ (Nhận xét 06.12).
+Do đó số cặp phải xác minh kỳ vọng không quá $N+10^8$; nếu mỗi lần xác minh tốn $1\,\mu\mathrm{s}$ như một lần so chữ ký ở Ví dụ 06.1 và $N\ll10^8$, thời gian xác minh kỳ vọng không quá khoảng $100$ giây, so với khoảng $5{,}79$ ngày khi xét mọi cặp. Không có giả định về phân bố tương đồng thì chặn này không còn, và trường hợp xấu nhất vẫn là $K=\binom C2$ (Nhận xét 06.12).
 
 ::: exercise Bài tập 06.4
 Dữ kiện: vết chạy của Ví dụ 06.3 với $b=2$, $r=1$ có bốn lượt phát $(1,4)$, $(1,3)$, $(1,4)$, $(3,4)$ và tập ứng viên $\{(1,3),(1,4),(3,4)\}$.
@@ -684,7 +653,7 @@ Cặp $(1,4)$ được phát hai lần. Cả hai lượt đều phải xử lý 
 
 Như vậy, chúng ta đã dựng bộ tạo ứng viên đầu tiên: phân dải chữ ký (Định nghĩa 06.3), thực hiện bằng Thuật toán 06.4, đúng trên tập ứng viên (Mệnh đề 06.5), xét một cặp có Jaccard $s$ với xác suất $P_{b,r}(s)$ (Định lý 06.7), có vùng chuyển tiếp điều chỉnh được qua $(b,r)$ (Mệnh đề 06.9), và tốn công việc $O(nC+Q+\sum T_J)$ (Mệnh đề 06.11).
 
-Tuy nhiên, mọi kết quả trên dựa vào một tính chất riêng của MinHash: một hàng trùng với xác suất bằng Jaccard. Tính chất đó chỉ nói về tập; nó không cho cách tìm cặp vector gần theo góc hay theo khoảng cách Euclid, hoặc cặp chuỗi gần theo số thao tác sửa. Trong Mục 3, chúng ta định nghĩa các độ đo khoảng cách cho những kiểu dữ liệu này, rồi tách từ MinHash ra tính chất chung mà một họ hàm băm cần có để phân dải còn dùng được.
+Tuy nhiên, mọi kết quả trên dựa vào tính chất của MinHash trên tập: một hàng trùng với xác suất bằng Jaccard. Trong Mục 3, chúng ta định nghĩa các độ đo khoảng cách cho vector (góc, khoảng cách Euclid) và cho chuỗi (số thao tác sửa), rồi tách từ MinHash ra tính chất chung mà một họ hàm băm cần có để phân dải còn dùng được.
 
 ## 3. Khoảng cách và họ nhạy cảm
 
@@ -693,10 +662,10 @@ Với bốn tập đặc trưng, Định lý 06.7 dựa vào việc cặp $(1,4)
 <!-- note-topic-id: lec-06-topic-05 -->
 ### 3.1 Độ đo khoảng cách và chuẩn vector
 
-Một cách trực quan, khoảng cách là một con số đo hai đối tượng khác nhau bao nhiêu, bằng $0$ khi chúng trùng nhau và không cho phép đi đường vòng ngắn hơn đường thẳng. Mô tả này chưa phải định nghĩa. Ví dụ sau cho thấy cùng hai điểm có thể nhận nhiều giá trị khoảng cách, tùy cách đo.
+Một cách trực quan, khoảng cách là một con số đo hai đối tượng khác nhau bao nhiêu, bằng $0$ khi chúng trùng nhau và không cho phép đi đường vòng ngắn hơn đường thẳng. Ví dụ sau cho thấy cùng hai điểm có thể nhận nhiều giá trị khoảng cách, tùy cách đo.
 
-::: example Ví dụ 06.7 (Ba độ đo trên hai điểm)
-**Dữ kiện.** Theo Ví dụ 3.13 của MMDS (tr.98), $x=(2,7)$ và $y=(6,4)$ trong $\mathbb R^2$.
+::: example Ví dụ 06.7 (Ba độ đo trên hai điểm; MMDS Ví dụ 3.13, tr.98)
+**Dữ kiện.** $x=(2,7)$ và $y=(6,4)$ trong $\mathbb R^2$.
 
 **Tính.** Độ lệch theo hai tọa độ là $\lvert2-6\rvert=4$ và $\lvert7-4\rvert=3$. Cộng hai độ lệch cho $7$; lấy căn tổng bình phương cho $\sqrt{16+9}=5$; lấy độ lệch lớn nhất cho $4$.
 
@@ -723,7 +692,7 @@ $$
 
 Ba tiên đề nói rằng khoảng cách phân biệt được hai đối tượng khác nhau, không phụ thuộc thứ tự, và đường trực tiếp không dài hơn đường qua một điểm trung gian. Ba số của Ví dụ 06.7 là $L_1$, $L_2$ và $L_\infty$.
 
-MMDS §3.5.2 (tr.97–98) định nghĩa chuẩn $L_r$ cho mọi hằng $r$; điều kiện $q\ge1$ là điều kiện bảo đảm bất đẳng thức tam giác, tức bất đẳng thức Minkowski, mà ta dùng ở đây không chứng minh lại. Điều kiện này không bỏ được: với $q=1/2$ và ba điểm $(0,0)$, $(1,0)$, $(1,1)$, công thức cho $d((0,0),(1,1))=(1+1)^2=4$, lớn hơn tổng $1+1$ của hai đoạn qua $(1,0)$.
+Điều kiện $q\ge1$ bảo đảm bất đẳng thức tam giác (bất đẳng thức Minkowski); chứng minh nằm ngoài phạm vi học phần. Điều kiện này không bỏ được: với $q=1/2$ và ba điểm $(0,0)$, $(1,0)$, $(1,1)$, công thức cho $d((0,0),(1,1))=(1+1)^2=4$, lớn hơn tổng $1+1$ của hai đoạn qua $(1,0)$.
 
 ### 3.2 Khoảng cách Jaccard
 
@@ -742,7 +711,7 @@ Với tập, độ tương đồng Jaccard đã có; khoảng cách tương ứn
 ::: proof Chứng minh Mệnh đề 06.15
 **Bước 1 (liên hệ xác suất).** Theo định lý MinHash, $\Pr[h(A)=h(B)]=\mathrm{SIM}(A,B)$; lấy biến cố bù được $\Pr[h(A)\ne h(B)]=d_J(A,B)$.
 
-**Bước 2 (miền giá trị, tiên đề 1 và 2).** $0\le d_J\le1$ vì $0\le\mathrm{SIM}\le1$. $d_J(A,B)=0$ khi và chỉ khi $\lvert A\cap B\rvert=\lvert A\cup B\rvert$, tức $A=B$. Đối xứng theo từ đối xứng của giao và hợp.
+**Bước 2 (miền giá trị, tiên đề 1 và 2).** $0\le d_J\le1$ vì $0\le\mathrm{SIM}\le1$. $d_J(A,B)=0$ khi và chỉ khi $\lvert A\cap B\rvert=\lvert A\cup B\rvert$, tức $A=B$. Tính đối xứng suy ra từ tính đối xứng của giao và hợp.
 
 **Bước 3 (tam giác).** Dùng cùng một $h$ cho ba tập. Nếu $h(A)\ne h(W)$ thì không thể đồng thời có $h(A)=h(B)$ và $h(B)=h(W)$, nên
 
@@ -753,14 +722,14 @@ $$
 Lấy xác suất, dùng chặn hợp và Bước 1, ta được $d_J(A,W)\le d_J(A,B)+d_J(B,W)$. Chặn hợp không cần độc lập giữa hai biến cố ở vế phải. $\square$
 :::
 
-Mệnh đề 06.15 là cầu nối giữa Mục 2 và phần còn lại của Mục 3: khoảng cách Jaccard bằng xác suất hai giá trị MinHash khác nhau. Mục 3.6 lấy quan hệ "xác suất trùng giảm khi khoảng cách tăng" làm định nghĩa cho mọi độ đo.
+Mệnh đề 06.15 là cầu nối giữa Mục 2 và phần còn lại của Mục 3: khoảng cách Jaccard bằng xác suất hai giá trị MinHash khác nhau. Ở Mục 3.6, chúng ta lấy quan hệ "xác suất trùng giảm khi khoảng cách tăng" làm định nghĩa cho mọi độ đo.
 
 ### 3.3 Khoảng cách góc
 
 Với vector, nhiều ứng dụng chỉ quan tâm hướng chứ không quan tâm độ dài, chẳng hạn khi nhân đôi mọi tần suất của một tài liệu không làm đổi nội dung của nó.
 
-::: example Ví dụ 06.8 (Góc giữa hai vector)
-**Dữ kiện.** Theo Ví dụ 3.14 của MMDS (tr.99), $x=(1,2,-1)$ và $y=(2,1,1)$.
+::: example Ví dụ 06.8 (Góc giữa hai vector; MMDS Ví dụ 3.14, tr.99)
+**Dữ kiện.** $x=(1,2,-1)$ và $y=(2,1,1)$.
 
 **Tính.** $x\cdot y=2+2-1=3$; $\|x\|_2=\|y\|_2=\sqrt6$. Do đó $\cos\theta=3/6=1/2$ và $\theta=\pi/3=60^\circ$.
 
@@ -780,15 +749,15 @@ Miền của khoảng cách góc là tập các hướng, tức các lớp vecto
 Biểu thức trong $\arccos$ là độ tương đồng cosin (cosine similarity), nằm trong $[-1,1]$ theo Cauchy–Schwarz, nên góc xác định. Góc chỉ phụ thuộc hướng: $x$ và $2x$ có góc $0$ dù là hai vector khác nhau, nên tiên đề "$d=0$ khi và chỉ khi trùng nhau" chỉ đúng trên các hướng. Vector $0$ không có hướng và nằm ngoài miền.
 
 ::: remark Nhận xét 06.17 (Góc và cosin)
-Khoảng cách góc khác độ tương đồng cosin $\cos\theta$ và khác $1-\cos\theta$; Ví dụ 06.8 cho $\theta=\pi/3$ trong khi $1-\cos\theta=1/2$. Bất đẳng thức tam giác của góc có một phác thảo hình học: trên mặt cầu đơn vị, góc giữa hai hướng là độ dài cung ngắn nhất nối chúng, và đi qua một hướng trung gian không ngắn hơn cung trực tiếp. MMDS §3.5.4 (tr.99) cũng chỉ lập luận bằng hình học; đây là phác thảo, không phải chứng minh đầy đủ.
+Khoảng cách góc khác độ tương đồng cosin $\cos\theta$ và khác $1-\cos\theta$; Ví dụ 06.8 cho $\theta=\pi/3$ trong khi $1-\cos\theta=1/2$. Bất đẳng thức tam giác của góc có một phác thảo hình học: trên mặt cầu đơn vị, góc giữa hai hướng là độ dài cung ngắn nhất nối chúng, và đi qua một hướng trung gian không ngắn hơn cung trực tiếp. Lập luận hình học này theo MMDS §3.5.4 (tr.99); chứng minh đầy đủ nằm ngoài phạm vi học phần.
 :::
 
 ### 3.4 Khoảng cách chỉnh sửa
 
 Với chuỗi, hai chuỗi gần nhau khi sửa ít ký tự là biến chuỗi này thành chuỗi kia.
 
-::: example Ví dụ 06.9 (Sửa abcde thành acfdeg)
-**Dữ kiện.** Theo Ví dụ 3.15–3.16 của MMDS (tr.100), $x=abcde$ và $y=acfdeg$; chỉ dùng thao tác chèn hoặc xóa một ký tự.
+::: example Ví dụ 06.9 (Sửa abcde thành acfdeg; MMDS Ví dụ 3.15–3.16, tr.100)
+**Dữ kiện.** $x=abcde$ và $y=acfdeg$; chỉ dùng thao tác chèn hoặc xóa một ký tự.
 
 **Tính.** Vết sửa $abcde\to acde\to acfde\to acfdeg$ gồm xóa $b$, chèn $f$, chèn $g$: ba thao tác. Chuỗi $acde$ được giữ nguyên thứ tự trong cả hai chuỗi; nó dài $4$.
 
@@ -810,7 +779,7 @@ Ví dụ 06.9 có $L=4$ với dãy con $acde$. Đếm số thao tác ít nhất 
 
 **Điều kiện áp dụng.** Mọi bảng chữ cái.
 
-**Phạm vi.** Mệnh đề không cho thuật toán tính $L$; chi phí tính $L$ không được phân tích ở chương này.
+**Phạm vi.** Khi cho phép thay một ký tự, công thức không còn đúng: "Bill" và "William" có $d=5$ theo Định nghĩa 06.18 (Ví dụ 06.17) nhưng chỉ cần 4 phép khi được thay ký tự.
 :::
 
 ::: proof Chứng minh Mệnh đề 06.19
@@ -825,8 +794,8 @@ Ví dụ 06.9 có $L=4$ với dãy con $acde$. Đếm số thao tác ít nhất 
 
 Khi hai vector cùng chiều và vị trí của mỗi thành phần có ý nghĩa cố định, ta chỉ cần đếm số vị trí khác nhau.
 
-::: example Ví dụ 06.10 (Hai vector bit)
-**Dữ kiện.** Theo Ví dụ 3.17 của MMDS (tr.101), $x=10101$ và $y=11110$, $D=5$.
+::: example Ví dụ 06.10 (Hai vector bit; MMDS Ví dụ 3.17, tr.101)
+**Dữ kiện.** $x=10101$ và $y=11110$, $D=5$.
 
 **Tính.** So từng vị trí: vị trí 1 và 3 trùng, vị trí 2, 4, 5 khác. Khoảng cách là $3$.
 
@@ -846,7 +815,7 @@ Công thức đếm số tọa độ khác nhau: mỗi số hạng bằng $1$ �
 ::: remark Nhận xét 06.21 (Hamming là độ đo; chi phí tính độ đo)
 Tại mỗi tọa độ, nếu $x_i\ne w_i$ thì ít nhất một trong hai điều $x_i\ne y_i$, $y_i\ne w_i$ đúng, nên $\mathbf 1[x_i\ne w_i]\le\mathbf 1[x_i\ne y_i]+\mathbf 1[y_i\ne w_i]$; cộng theo $i$ cho bất đẳng thức tam giác. Tổng bằng $0$ khi và chỉ khi mọi số hạng bằng $0$, tức $x=y$; đối xứng vì $x_i\ne y_i$ khi và chỉ khi $y_i\ne x_i$.
 
-Trên vector đặc, các chuẩn $L_q$, góc và Hamming đều tính được trong một lượt qua $D$ tọa độ, tức $O(D)$ phép toán từ máy. Chi phí đó là của một cặp; nó chưa giải bài toán tìm cặp trên toàn kho.
+Trên vector đặc, các chuẩn $L_q$, góc và Hamming đều tính được trong một lượt qua $D$ tọa độ, tức $O(D)$ phép toán từ máy.
 :::
 
 ::: exercise Bài tập 06.5
@@ -882,17 +851,16 @@ Câu (c) tìm một dãy con chung dài nhất rồi dùng Mệnh đề 06.19. C
 
 Phân dải dùng được vì MinHash có một tính chất định lượng: cặp càng gần càng dễ trùng. Với bốn tập đặc trưng, cặp $(1,4)$ có $d_J=1/3$ và trùng một MinHash với xác suất $2/3$; cặp $(1,3)$ có $d_J=3/4$ và trùng với xác suất $1/4$. Để dùng cùng ý tưởng cho góc, Hamming hay khoảng cách Euclid, chúng ta cần phát biểu tính chất này mà không đòi xác suất trùng có một công thức đúng như MinHash.
 
-Một cách trực quan, phân dải chỉ cần biết xác suất trùng ở hai phía của vùng quan tâm: cặp đủ gần phải trùng đủ thường để vượt ít nhất một dải, cặp đủ xa phải trùng đủ hiếm; xác suất của cặp ở giữa không ảnh hưởng tới hai loại sai số tại hai ngưỡng. Vì vậy chúng ta chỉ đòi hai bảo đảm và không đòi gì với cặp ở giữa. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, phân dải chỉ cần biết xác suất trùng ở hai phía của vùng quan tâm: cặp đủ gần phải trùng đủ thường để vượt ít nhất một dải, cặp đủ xa phải trùng đủ hiếm; xác suất của cặp ở giữa không ảnh hưởng tới hai loại sai số tại hai ngưỡng. Vì vậy chúng ta chỉ đòi hai bảo đảm và không đòi gì với cặp ở giữa.
 
 ::: definition Định nghĩa 06.22 (Họ nhạy cảm theo tính cục bộ)
 Cho độ đo khoảng cách $d$ trên miền $X$ và một họ hàm $\mathcal H$ trên $X$ kèm một phân phối chọn hàm. Với $0\le d_1<d_2$ và $0\le p_2<p_1\le1$, họ $\mathcal H$ là **$(d_1,d_2,p_1,p_2)$-nhạy cảm** (locality-sensitive family) nếu với mọi cặp cố định $x,y\in X$:
 
 $$
-d(x,y)\le d_1\ \Longrightarrow\ \Pr_{h\sim\mathcal H}[h(x)=h(y)]\ge p_1,
-$$
-
-$$
-d(x,y)\ge d_2\ \Longrightarrow\ \Pr_{h\sim\mathcal H}[h(x)=h(y)]\le p_2.
+\begin{aligned}
+d(x,y)\le d_1\ &\Longrightarrow\ \Pr_{h\sim\mathcal H}[h(x)=h(y)]\ge p_1,\\
+d(x,y)\ge d_2\ &\Longrightarrow\ \Pr_{h\sim\mathcal H}[h(x)=h(y)]\le p_2.
+\end{aligned}
 $$
 
 Trong cả hai bất đẳng thức, cùng một hàm $h$ được áp dụng cho $x$ và $y$, và xác suất lấy theo cách chọn $h$.
@@ -902,7 +870,7 @@ Trong cả hai bất đẳng thức, cùng một hàm $h$ được áp dụng ch
 
 ![Trục khoảng cách d chia ba miền: miền gần d ≤ d₁ ghi xác suất trùng ít nhất p₁, miền giữa d₁ < d < d₂ ghi không có cận chung, miền xa d ≥ d₂ ghi xác suất trùng nhiều nhất p₂.](img/lec-06/mien-gan-xa.svg)
 
-Hình đặt hai bất đẳng thức của Định nghĩa 06.22 lên trục khoảng cách. Hai mũi tên xác suất chỉ có ở hai miền ngoài; miền giữa để trống vì định nghĩa không ràng buộc gì ở đó.
+Hình đặt hai bất đẳng thức của Định nghĩa 06.22 lên trục khoảng cách. Hai mũi tên xác suất chỉ có ở hai miền ngoài, còn miền giữa để trống.
 
 ::: corollary Hệ quả 06.23 (Họ MinHash)
 **Giả thiết.** Miền là các tập hữu hạn, không rỗng với khoảng cách $d_J$; họ gồm các MinHash lý tưởng với hoán vị chọn đều; $0\le d_1<d_2\le1$.
@@ -918,12 +886,19 @@ Hình đặt hai bất đẳng thức của Định nghĩa 06.22 lên trục kho
 Theo Mệnh đề 06.15, $\Pr[h(A)=h(B)]=1-d_J(A,B)$. Nếu $d_J(A,B)\le d_1$ thì xác suất ít nhất $1-d_1$; nếu $d_J(A,B)\ge d_2$ thì xác suất nhiều nhất $1-d_2$. Từ $d_1<d_2$ suy ra $1-d_2<1-d_1$, đúng thứ tự $p_2<p_1$ của Định nghĩa 06.22. $\square$
 :::
 
-::: example Ví dụ 06.11 (Họ MinHash với hai ngưỡng $0{,}3$ và $0{,}6$)
-**Dữ kiện.** Theo Ví dụ 3.18 của MMDS (tr.105), $d_1=0{,}3$, $d_2=0{,}6$.
+::: example Ví dụ 06.11 (Họ MinHash với hai ngưỡng $0{,}3$ và $0{,}6$; MMDS Ví dụ 3.18, tr.105)
+**Dữ kiện.** $d_1=0{,}3$, $d_2=0{,}6$.
 
 **Tính.** Theo Hệ quả 06.23, họ MinHash là $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$-nhạy cảm: cặp có khoảng cách Jaccard không quá $0{,}3$, tức Jaccard ít nhất $0{,}7$, trùng với xác suất ít nhất $0{,}7$; cặp có khoảng cách ít nhất $0{,}6$ trùng với xác suất nhiều nhất $0{,}4$.
 
 **Kiểm tra lại.** Cặp $(1,4)$ có $d_J=1/3\approx0{,}333$, rơi vào miền giữa của họ này, nên định nghĩa không cho bảo đảm nào cho nó, dù xác suất thật của nó là $2/3$.
+:::
+
+::: remark Nhận xét 06.24 (Bộ tham số là cận, không là xác suất của từng cặp)
+Hai nhầm lẫn thường gặp khi đọc Định nghĩa 06.22.
+
+- Đọc $p_1$, $p_2$ như xác suất trùng của mọi cặp gần, mọi cặp xa. Thực ra chúng chỉ là cận: cặp có $d_J=0{,}2$ trong họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$ trùng với xác suất $0{,}8$, lớn hơn $p_1=0{,}7$. Với họ MinHash, Hệ quả 06.23 cho đúng một đẳng thức; các họ khác nói chung chỉ cho bất đẳng thức.
+- Bỏ điều kiện cùng hàm cho hai đối tượng. Nếu $S_1=\{a,d\}$ được băm hai lần bằng hai hoán vị chọn độc lập, mỗi lần cho $a$ hoặc $d$ với xác suất $1/2$, nên hai giá trị trùng với xác suất $1/2$ dù khoảng cách bằng $0$. Biến cố trùng khi đó không đo khoảng cách.
 :::
 
 ::: exercise Bài tập 06.6
@@ -940,23 +915,14 @@ Tại $0{,}2$, xác suất trùng ít nhất $0{,}7$. Tại $0{,}8$, xác suất
 **Kiểm tra lại.** Hệ quả 06.23 cho xác suất thật tại $0{,}5$ là $0{,}5$, nằm giữa hai mức $0{,}4$ và $0{,}7$, nhưng định nghĩa họ không dùng thông tin này.
 :::
 
-::: remark Nhận xét 06.24 (Bộ tham số là cận, không là xác suất của từng cặp)
-Hai nhầm lẫn thường gặp khi đọc Định nghĩa 06.22.
-
-- Đọc $p_1$, $p_2$ như xác suất trùng của mọi cặp gần, mọi cặp xa. Thực ra chúng chỉ là cận: cặp có $d_J=0{,}2$ trong họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$ trùng với xác suất $0{,}8$, lớn hơn $p_1=0{,}7$. Với họ MinHash, Hệ quả 06.23 cho đúng một đẳng thức; các họ khác nói chung chỉ cho bất đẳng thức.
-- Bỏ điều kiện cùng hàm cho hai đối tượng. Nếu $S_1=\{a,d\}$ được băm hai lần bằng hai hoán vị chọn độc lập, mỗi lần cho $a$ hoặc $d$ với xác suất $1/2$, nên hai giá trị trùng với xác suất $1/2$ dù khoảng cách bằng $0$. Biến cố trùng khi đó không đo khoảng cách.
-
-Miền giữa $d_1<d<d_2$ cũng không có nghĩa là xác suất ở đó nằm giữa $p_2$ và $p_1$; định nghĩa không nói gì về miền này.
-:::
-
 <!-- note-topic-id: lec-06-topic-07 -->
 ### 3.7 Phép ghép AND và OR
 
-Một hàm băm cơ sở thường chỉ tách hai mức xác suất một khoảng nhỏ. Theo Ví dụ 3.19 của MMDS (tr.106), xét họ $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm: cặp gần trùng với xác suất ít nhất $0{,}8$, cặp xa nhiều nhất $0{,}4$. Một phép thử như vậy để lọt nhiều cặp xa.
+Một hàm băm cơ sở thường chỉ tách hai mức xác suất một khoảng nhỏ. Xét họ $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm (MMDS Ví dụ 3.19, tr.106): cặp gần trùng với xác suất ít nhất $0{,}8$, cặp xa nhiều nhất $0{,}4$. Một phép thử như vậy để lọt nhiều cặp xa.
 
 Nếu đòi bốn hàm độc lập cùng trùng, hai mức thành $0{,}8^4=0{,}4096$ và $0{,}4^4=0{,}0256$; nếu chỉ đòi ít nhất một trong bốn hàm trùng, hai mức thành $1-0{,}2^4=0{,}9984$ và $1-0{,}6^4=0{,}8704$. Cách thứ nhất hạ mạnh mức của cặp xa nhưng cũng hạ mức của cặp gần; cách thứ hai làm ngược lại.
 
-Một cách trực quan, đòi mọi hàm cùng trùng làm phép thử khắt khe hơn, còn chấp nhận một hàm trùng làm phép thử dễ dãi hơn; ghép hai cách theo thứ tự thích hợp có thể đẩy mức của cặp gần lên gần $1$ và mức của cặp xa xuống gần $0$. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, đòi mọi hàm cùng trùng làm phép thử khắt khe hơn, còn chấp nhận một hàm trùng làm phép thử dễ dãi hơn; ghép hai cách theo thứ tự thích hợp có thể đẩy mức của cặp gần lên gần $1$ và mức của cặp xa xuống gần $0$.
 
 ::: definition Định nghĩa 06.25 (Phép ghép AND và OR)
 Cho họ $\mathcal H$ kèm phân phối chọn hàm.
@@ -986,15 +952,15 @@ Phép ghép đồng thời tạo một hàm mới có giá trị là tuple, nên
 **Bước 3 (biến đổi cận).** Hai hàm $p\mapsto p^r$ và $p\mapsto1-(1-p)^b$ tăng trên $[0,1]$. Nếu cặp gần có xác suất cơ sở ít nhất $p_1$, xác suất sau ghép ít nhất giá trị của hàm tại $p_1$; tương tự, cặp xa cho cận trên tại $p_2$. Tính tăng chặt của hai hàm giữ thứ tự của hai mức sau ghép. $\square$
 :::
 
-Mệnh đề 06.26 mở rộng Định lý 06.7 từ MinHash sang mọi họ nhạy cảm. Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Mệnh đề 06.26 mở rộng Định lý 06.7 từ MinHash sang mọi họ nhạy cảm. Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ độc lập giữa các hàm: nếu phép ghép đồng thời bậc $4$ dùng lại cùng một hàm bốn lần, $g(x)=g(y)$ đúng khi hàm đó trùng, với xác suất $p$; cặp có $p=0{,}8$ được nhận với xác suất $0{,}8$ chứ không phải $0{,}4096$. Tương tự, phép ghép ít nhất một bậc $4$ dùng lại một hàm cho $0{,}8$ thay cho $0{,}9984$.
 - Bỏ điều kiện cùng hàm cho mọi đối tượng: nếu $x$ được băm bằng $h_1$ còn $y$ bằng một hàm $h_1'$ chọn riêng, biến cố "$h_1(x)=h_1'(y)$" không còn là biến cố trùng của Định nghĩa 06.22. Với $x=y=S_1=\{a,d\}$ và hai hoán vị độc lập, hai MinHash trùng với xác suất $1/2$ thay cho $1$ (Nhận xét 06.24).
 
 Bước 1 và Bước 2 dùng độc lập; giả thiết cùng hàm cho mọi đối tượng cho phép dùng cận $p_1$, $p_2$ của họ cơ sở ở Bước 3.
 
-::: example Ví dụ 06.12 (Hai thứ tự ghép trên 16 phép thử)
-**Dữ kiện.** Theo Ví dụ 3.19–3.20 của MMDS (tr.106–108), họ cơ sở $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm; ngân sách 16 hàm cơ sở, chia thành $4\times4$.
+::: example Ví dụ 06.12 (Hai thứ tự ghép trên 16 phép thử; MMDS Ví dụ 3.19–3.20, tr.106–108)
+**Dữ kiện.** Họ cơ sở $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$-nhạy cảm; ngân sách 16 hàm cơ sở, chia thành $4\times4$.
 
 **AND 4 rồi OR 4.** Tầng trong cho $0{,}8^4=0{,}4096$ và $0{,}4^4=0{,}0256$. Tầng ngoài cho $F(p)=1-(1-p^4)^4$, tức $F(0{,}8)\approx0{,}878497449$ và $F(0{,}4)\approx0{,}098534519$.
 
@@ -1015,7 +981,7 @@ Phân dải của Mục 2 là phép ghép đồng thời bậc $r$ trên họ Mi
 
 **Trong thực hành.** Cấu trúc AND $r$ rồi OR $b$ được cài như Thuật toán 06.4: mỗi đối tượng tính $br$ giá trị cơ sở, tạo $b$ tuple, chèn vào $b$ bảng, rồi hợp các tập cặp. Bộ nhớ của các bảng tăng tuyến tính theo $b$.
 
-Cấu trúc OR rồi AND không cài được bằng một tuple duy nhất, vì quan hệ "trùng ít nhất một bảng" không bắc cầu: mỗi nhóm OR phải hợp các cặp của các bảng cơ sở thành một tập cặp, rồi tầng AND lấy giao các tập cặp của các nhóm. §3.6.1 của MMDS định nghĩa hàm của một họ như một quyết định trên từng cặp, nên phép ghép OR rồi AND vẫn có nghĩa dù không có một giá trị băm duy nhất.
+Cấu trúc OR rồi AND không cài được bằng một tuple duy nhất, vì quan hệ "trùng ít nhất một bảng" không bắc cầu: mỗi nhóm OR phải hợp các cặp của các bảng cơ sở thành một tập cặp, rồi tầng AND lấy giao các tập cặp của các nhóm. Phép ghép OR rồi AND vẫn có nghĩa dù không có một giá trị băm duy nhất, vì hàm của một họ được định nghĩa như một quyết định trên từng cặp (MMDS §3.6.1, tr.104).
 
 ::: exercise Bài tập 06.7
 Dữ kiện: họ MinHash $(0{,}3;\ 0{,}6;\ 0{,}7;\ 0{,}4)$-nhạy cảm (Ví dụ 06.11). Áp dụng AND 2 rồi OR 2, với các hàm độc lập. Tính hai cận mới và so độ chênh $p_1-p_2$ trước và sau.
@@ -1031,9 +997,9 @@ AND 2 cho $0{,}7^2=0{,}49$ và $0{,}4^2=0{,}16$. OR 2 cho $1-0{,}51^2=0{,}7399$ 
 **Kiểm tra lại.** $0{,}51^2=0{,}2601$ và $0{,}84^2=0{,}7056$.
 :::
 
-Như vậy, chúng ta đã có ngôn ngữ chung cho mọi độ đo: độ đo khoảng cách (Định nghĩa 06.14) với năm trường hợp của MMDS, họ $(d_1,d_2,p_1,p_2)$-nhạy cảm (Định nghĩa 06.22) với MinHash là trường hợp riêng (Hệ quả 06.23), và hai phép ghép biến đổi bộ tham số (Mệnh đề 06.26), trong đó phân dải là AND rồi OR (Nhận xét 06.27).
+Như vậy, chúng ta đã có ngôn ngữ chung cho mọi độ đo: độ đo khoảng cách (Định nghĩa 06.14) với năm trường hợp $L_q$, Jaccard, góc, chỉnh sửa và Hamming, họ $(d_1,d_2,p_1,p_2)$-nhạy cảm (Định nghĩa 06.22) với MinHash là trường hợp riêng (Hệ quả 06.23), và hai phép ghép biến đổi bộ tham số (Mệnh đề 06.26), trong đó phân dải là AND rồi OR (Nhận xét 06.27).
 
-Tuy nhiên, ngoài MinHash cho Jaccard, chúng ta chưa có họ nhạy cảm nào; tính chất độ đo của góc, Hamming hay khoảng cách Euclid không tự sinh ra một họ như vậy. Trong Mục 4, chúng ta dựng ba họ cơ sở cho Hamming, góc và khoảng cách Euclid, chứng minh bộ tham số của từng họ, rồi dùng lại phép ghép và Thuật toán 06.4 mà không đổi gì.
+Trong Mục 4, chúng ta dựng ba họ cơ sở cho Hamming, góc và khoảng cách Euclid, chứng minh bộ tham số của từng họ, rồi dùng lại phép ghép và Thuật toán 06.4 mà không đổi gì.
 
 ## 4. Các họ băm theo độ đo
 
@@ -1042,7 +1008,7 @@ Với bốn tập đặc trưng, họ MinHash cho đúng xác suất trùng $1-d
 <!-- note-topic-id: lec-06-topic-08 -->
 ### 4.1 Họ chọn tọa độ cho khoảng cách Hamming
 
-Một cách trực quan, hai vector bit càng ít vị trí khác nhau thì một vị trí chọn ngẫu nhiên càng dễ là vị trí trùng; đọc một tọa độ là một phép thử rẻ nhất có thể. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, hai vector bit càng ít vị trí khác nhau thì một vị trí chọn ngẫu nhiên càng dễ là vị trí trùng; đọc một tọa độ là một phép thử rẻ nhất có thể.
 
 ::: example Ví dụ 06.13 (Hai vector bit theo từng chỉ số)
 **Dữ kiện.** $x=10101$, $y=11110$, $D=5$ (Ví dụ 06.10); hàm $h_i$ trả tọa độ thứ $i$.
@@ -1076,7 +1042,7 @@ Cho $D\ge1$ và bảng ký hiệu hữu hạn $\Sigma$. Với mỗi $i\in\{1,\ld
 **Bước 2 (bộ tham số).** Hàm $d\mapsto1-d/D$ giảm, nên $d_H\le d_1$ cho xác suất ít nhất $1-d_1/D$ và $d_H\ge d_2$ cho xác suất nhiều nhất $1-d_2/D$; $d_1<d_2$ cho $1-d_2/D<1-d_1/D$. $\square$
 :::
 
-Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ phép chọn đều: nếu $I$ luôn bằng $1$, cặp $10101$, $11110$ trùng với xác suất $1$ thay cho $2/5$.
 - Bỏ chỉ số dùng chung: nếu $x$ và $y$ nhận hai chỉ số chọn riêng, thì với $x=y=10101$, cặp chỉ số $(1,2)$ cho hai giá trị $1$ và $0$; cặp vector trùng nhau, $d_H=0$, không còn trùng với xác suất $1$.
@@ -1110,15 +1076,15 @@ Hai vector khác tại vị trí 2 và 4, nên $d_H=2$ và xác suất trùng l�
 
 Khoảng cách góc chỉ phụ thuộc hướng, nên hàm băm cần cho cùng giá trị với $x$ và $2x$. Dấu của một tích vô hướng có tính chất đó.
 
-::: example Ví dụ 06.14 (Dấu theo hai pháp tuyến)
-**Dữ kiện.** Theo Ví dụ 3.22 của MMDS (tr.111), $x=(3,4,5,6)$, $y=(4,3,2,1)$; hai vector $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$.
+::: example Ví dụ 06.14 (Dấu theo hai pháp tuyến; MMDS Ví dụ 3.22, tr.111)
+**Dữ kiện.** $x=(3,4,5,6)$, $y=(4,3,2,1)$; hai vector $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$.
 
 **Tính.** $v_1\cdot x=3-4+5+6=10$ và $v_1\cdot y=4-3+2+1=4$: cùng dấu dương. $v_2\cdot x=-3+4-5+6=2$ và $v_2\cdot y=-4+3-2+1=-2$: khác dấu.
 
 **Kiểm tra lại.** $v_1\cdot(2x)=20$ vẫn dương: nhân $x$ với hệ số dương không đổi dấu.
 :::
 
-Một cách trực quan, mỗi vector $v$ xác định một siêu phẳng qua gốc vuông góc với nó; dấu cho biết điểm nằm phía nào. Hai vector có góc nhỏ hiếm khi bị một siêu phẳng ngẫu nhiên tách ra hai phía. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, mỗi vector $v$ xác định một siêu phẳng qua gốc vuông góc với nó; dấu cho biết điểm nằm phía nào. Hai vector có góc nhỏ hiếm khi bị một siêu phẳng ngẫu nhiên tách ra hai phía.
 
 ::: definition Định nghĩa 06.31 (Hàm băm dấu và họ siêu phẳng)
 Với $v\in\mathbb R^D$, $v\ne0$, **siêu phẳng** qua gốc với **pháp tuyến** (normal vector) $v$ là tập $\{x:\ v\cdot x=0\}$. **Hàm băm dấu** là
@@ -1127,14 +1093,14 @@ $$
 h_v(x)=\operatorname{sign}(v\cdot x),\qquad \operatorname{sign}(\tau)=\begin{cases}+1,&\tau\ge0,\\-1,&\tau<0.\end{cases}
 $$
 
-**Họ siêu phẳng** gồm các hàm $h_v$, với $v$ chọn theo một phân phối **đẳng hướng** (isotropic): phân phối của $v$ không đổi qua mọi phép quay quanh gốc, nên hướng của $v$ đều trên mặt cầu đơn vị. Cùng một $v$ được dùng cho mọi vector.
+**Họ siêu phẳng** gồm các hàm $h_v$, với $v$ chọn theo một phân phối **đẳng hướng** (isotropic): $\Pr[v=0]=0$ và hướng $v/\lVert v\rVert_2$ phân phối đều trên mặt cầu đơn vị. Khi $D\ge2$, một phân phối có $\Pr[v=0]=0$ và không đổi qua mọi phép quay quanh gốc là một cách đạt điều này. Cùng một $v$ được dùng cho mọi vector.
 :::
 
-Pháp tuyến vuông góc với mặt phân chia; nó không phải chính mặt đó. Quy ước $\operatorname{sign}(0)=+1$ làm hàm xác định khắp nơi. Ví dụ 06.14 dùng hai pháp tuyến cố định có tọa độ $\pm1$; chúng là hai hàm của họ, nhưng chọn chúng theo cách đó không phải phép chọn đẳng hướng.
+Pháp tuyến vuông góc với mặt phân chia. Quy ước $\operatorname{sign}(0)=+1$ làm hàm xác định khắp nơi. Ví dụ 06.14 dùng hai pháp tuyến cố định có tọa độ $\pm1$; chúng là hai hàm của họ, nhưng chọn chúng theo cách đó không phải phép chọn đẳng hướng.
 
 ![Hình hai chiều: mặt phân chia v · x = 0 nằm ngang; pháp tuyến v vuông góc với nó, hướng lên miền ghi Dấu +; nửa dưới ghi Dấu −.](img/lec-06/phap-tuyen-dau.svg)
 
-Hình chỉ mô tả quan hệ trong mặt phẳng, không phải tọa độ của Ví dụ 06.14: mọi điểm phía mà $v$ chỉ tới có $h_v=+1$, mọi điểm phía còn lại có $h_v=-1$.
+Trên hình, mọi điểm phía mà $v$ chỉ tới có $h_v=+1$, mọi điểm phía còn lại có $h_v=-1$.
 
 ::: theorem Định lý 06.32 (Xác suất cùng dấu)
 **Giả thiết.** $x,y\in\mathbb R^D$ khác $0$ tạo góc $\theta\in[0,\pi]$ đo bằng radian; $v$ chọn theo phân phối đẳng hướng, dùng chung cho $x$ và $y$.
@@ -1149,7 +1115,7 @@ Hình chỉ mô tả quan hệ trong mặt phẳng, không phải tọa độ c�
 ::: proof Chứng minh Định lý 06.32
 **Bước 1 (hai trường hợp biên).** Nếu $\theta=0$, $y=\lambda x$ với $\lambda>0$, nên $v\cdot y=\lambda\,v\cdot x$ cùng dấu và cùng bằng $0$ hay không; hai giá trị băm luôn bằng nhau. Nếu $\theta=\pi$, $y=-\lambda x$ với $\lambda>0$; hai tích vô hướng trái dấu trừ khi $v\cdot x=0$, biến cố có xác suất $0$ dưới phân phối đẳng hướng. Cả hai trường hợp khớp với $\theta/\pi$.
 
-**Bước 2 (chuyển về mặt phẳng).** Với $0<\theta<\pi$, $x$ và $y$ không cùng phương nên sinh một mặt phẳng $\Pi$. Viết $v=v_\Pi+v_\perp$ với $v_\Pi\in\Pi$ và $v_\perp$ vuông góc với $\Pi$. Vì $x,y\in\Pi$, $v\cdot x=v_\Pi\cdot x$ và $v\cdot y=v_\Pi\cdot y$. Mọi phép quay trong $\Pi$, giữ nguyên phần vuông góc với $\Pi$, là một phép quay quanh gốc, nên theo tính đẳng hướng nó không đổi phân phối của $v$; do đó phân phối hướng của $v_\Pi$ không đổi qua mọi phép quay trong $\Pi$, tức đều trên đường tròn đơn vị của $\Pi$. Biến cố $v_\Pi=0$ có xác suất $0$.
+**Bước 2 (chuyển về mặt phẳng).** Dấu của $v\cdot x$ và $v\cdot y$ không đổi khi nhân $v$ với một hệ số dương, nên ta có thể thay $v$ bằng hướng $v/\lVert v\rVert_2$, tức coi $v$ đều trên mặt cầu đơn vị; biến cố $v=0$ có xác suất $0$. Với $0<\theta<\pi$, $x$ và $y$ không cùng phương nên sinh một mặt phẳng $\Pi$. Viết $v=v_\Pi+v_\perp$ với $v_\Pi\in\Pi$ và $v_\perp$ vuông góc với $\Pi$. Vì $x,y\in\Pi$, $v\cdot x=v_\Pi\cdot x$ và $v\cdot y=v_\Pi\cdot y$. Mọi phép quay trong $\Pi$, giữ nguyên phần vuông góc với $\Pi$, là một phép quay quanh gốc, nên nó không đổi phân phối đều của $v$ trên mặt cầu đơn vị; do đó phân phối hướng của $v_\Pi$ không đổi qua mọi phép quay trong $\Pi$, tức đều trên đường tròn đơn vị của $\Pi$. Biến cố $v_\Pi=0$ có xác suất $0$.
 
 **Bước 3 (đếm góc).** Trong $\Pi$, dấu của $v_\Pi\cdot x$ đổi khi hướng của $v_\Pi$ đi qua đường thẳng vuông góc với $x$, và tương tự với $y$. Hai dấu khác nhau đúng khi hướng của $v_\Pi$ nằm giữa hai đường vuông góc ấy, gồm hai cung đối nhau, mỗi cung có số đo $\theta$. Do hướng đều trên đường tròn,
 
@@ -1164,7 +1130,7 @@ Lấy biến cố bù được xác suất cùng dấu; bộ tham số suy ra nh
 
 Hình vẽ Bước 3 trong mặt phẳng $\Pi$: hai miền tô là các hướng của $v_\Pi$ làm $x$, $y$ khác dấu, tổng số đo $2\theta$ trên cả vòng $2\pi$. Với $\theta=\pi/3$ của Ví dụ 06.8, xác suất cùng dấu là $2/3$.
 
-Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ tính đẳng hướng: nếu $v$ chọn đều trong 16 vector có tọa độ $\pm1$ của $\mathbb R^4$, thì với $x=(3,4,5,6)$, $y=(4,3,2,1)$ có đúng 4 vector cho hai dấu khác nhau theo quy ước $\operatorname{sign}(0)=+1$, nên xác suất khác dấu là $1/4$, ứng với góc $45^\circ$, trong khi góc thật xấp xỉ $38{,}047579^\circ$ (Tình huống 06.4).
 - Bỏ đơn vị radian: thay $\theta=60$ (độ) vào $1-\theta/\pi$ cho một số âm, không phải xác suất; giá trị đúng là $1-(\pi/3)/\pi=2/3$.
@@ -1175,12 +1141,12 @@ Bước 1 dùng điều kiện khác $0$; Bước 2 dùng pháp tuyến dùng ch
 
 Định lý 06.32 có cùng dạng với Hệ quả 06.23 và Mệnh đề 06.29: xác suất trùng bằng một trừ khoảng cách chuẩn hóa, ở đây $\theta/\pi$, và là đẳng thức. Giả thiết quyết định không còn là phép chọn đều một chỉ số trong tập hữu hạn mà là tính đẳng hướng của một vector liên tục; cái giá là mỗi hàm tốn $O(D)$ thay cho $O(1)$.
 
-**Trong thực hành.** MMDS §3.7.3 hạn chế pháp tuyến vào các vector có tọa độ $\pm1$; khi đó tích vô hướng chỉ cần cộng và trừ các tọa độ. Lựa chọn này giảm chi phí tính nhưng bỏ tính đẳng hướng, nên Định lý 06.32 không còn bảo đảm; Tình huống 06.4 đo hậu quả trên Ví dụ 3.22. Các pháp tuyến được sinh một lần và lưu lại, vì mọi vector của kho phải được băm bằng cùng các pháp tuyến.
+**Trong thực hành.** Có thể hạn chế pháp tuyến vào các vector có tọa độ $\pm1$; khi đó tích vô hướng chỉ cần cộng và trừ các tọa độ (MMDS §3.7.3, tr.111). Lựa chọn này giảm chi phí tính nhưng bỏ tính đẳng hướng, nên Định lý 06.32 không còn bảo đảm; Tình huống 06.4 đo hậu quả trên dữ kiện của Ví dụ 06.15. Các pháp tuyến được sinh một lần và lưu lại, vì mọi vector của kho phải được băm bằng cùng các pháp tuyến.
 
-Từ Định lý 06.32, mỗi bit dấu là một phép thử có xác suất khác dấu $\theta/\pi$, nên tỷ lệ bit khác dấu trên nhiều pháp tuyến cho một ước lượng của góc. Dãy $m$ bit dấu của một vector theo $m$ pháp tuyến gọi là **chữ ký dấu** (sketch) của vector. Ví dụ sau chạy quy tắc này với ba pháp tuyến cố định của sách.
+Từ Định lý 06.32, mỗi bit dấu là một phép thử có xác suất khác dấu $\theta/\pi$, nên tỷ lệ bit khác dấu trên nhiều pháp tuyến cho một ước lượng của góc. Dãy $m$ bit dấu của một vector theo $m$ pháp tuyến là chữ ký dấu của vector. Ví dụ sau chạy quy tắc này với ba pháp tuyến cố định.
 
-::: example Ví dụ 06.15 (Chữ ký dấu với ba pháp tuyến cố định)
-**Dữ kiện.** Theo Ví dụ 3.22 của MMDS (tr.111), $x=(3,4,5,6)$, $y=(4,3,2,1)$ và ba pháp tuyến $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$, $v_3=(1,1,-1,-1)$.
+::: example Ví dụ 06.15 (Chữ ký dấu với ba pháp tuyến cố định; MMDS Ví dụ 3.22, tr.111)
+**Dữ kiện.** $x=(3,4,5,6)$, $y=(4,3,2,1)$ và ba pháp tuyến $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$, $v_3=(1,1,-1,-1)$.
 
 **Tích và dấu.**
 
@@ -1202,11 +1168,11 @@ Chữ ký dấu của $x$ là $(+,+,-)$, của $y$ là $(+,-,+)$; hai bit cuối
 ::: algorithm Thuật toán 06.33 (Chữ ký dấu và ước lượng góc)
 **Đầu vào.** Các vector khác $0$ $x_1,\ldots,x_C\in\mathbb R^D$; số bit $m\ge1$.
 
-**Đầu ra.** Chữ ký dấu $m$ bit của mỗi vector; với một cặp $(c,d)$, góc ước lượng $\widehat\theta_{cd}$.
+**Đầu ra.** Chữ ký dấu (sketch) $m$ bit của mỗi vector; với một cặp $(c,d)$, góc ước lượng $\widehat\theta_{cd}$.
 
 **Giả thiết.** Các pháp tuyến được chọn độc lập theo phân phối đẳng hướng và dùng chung cho mọi vector.
 
-1. Chọn $m$ pháp tuyến $v_1,\ldots,v_m$ độc lập theo một phân phối đẳng hướng, chẳng hạn mỗi tọa độ lấy độc lập theo phân phối chuẩn tắc; cách sinh và chứng minh tính đẳng hướng của nó nằm ngoài phạm vi chương, MMDS §3.7.2 chỉ nói chọn vector ngẫu nhiên. Biến thể có tọa độ $\pm1$ của Ví dụ 3.22 không đẳng hướng.
+1. Chọn $m$ pháp tuyến $v_1,\ldots,v_m$ độc lập theo một phân phối đẳng hướng, chẳng hạn mỗi tọa độ lấy độc lập theo phân phối chuẩn tắc.
 2. Với mỗi vector $x_c$ và mỗi $i$: tính $v_i\cdot x_c$ và ghi bit $h_{v_i}(x_c)$.
 3. Với một cặp $(c,d)$: đếm số bit khác nhau, đặt $\widehat p_{\ne}$ là tỷ lệ bit khác trên $m$ và $\widehat\theta_{cd}=\pi\,\widehat p_{\ne}$.
 
@@ -1233,7 +1199,7 @@ với c = 1, …, C:
 | 3: so hai chữ ký | $1$ mỗi cặp | $O(m)$ | $O(m)$ mỗi cặp |
 :::
 
-Theo Định lý 06.32 và tuyến tính kỳ vọng, $\mathbb E[\widehat p_{\ne}]=\theta/\pi$, nên $\pi\widehat p_{\ne}$ là ước lượng có kỳ vọng bằng góc khi giả thiết của thuật toán thỏa. Ví dụ 06.15 chạy bước 2 và bước 3 với $m=3$ nhưng vi phạm giả thiết đẳng hướng; độ lệch $120^\circ$ so với $38{,}05^\circ$ đến từ cả số bit ít và phân phối pháp tuyến.
+Theo Định lý 06.32 và tuyến tính kỳ vọng, $\mathbb E[\widehat p_{\ne}]=\theta/\pi$, nên $\pi\widehat p_{\ne}$ là ước lượng có kỳ vọng bằng góc khi giả thiết của thuật toán thỏa. Ví dụ 06.15 chạy bước 2 và bước 3 với $m=3$ nhưng vi phạm giả thiết đẳng hướng; độ lệch $120^\circ$ so với $38{,}05^\circ$ đến từ cả số bit ít và phân phối pháp tuyến. Mật độ của vector có các tọa độ độc lập theo phân phối chuẩn tắc đối xứng cầu, và chuẩn hóa vector này cho phân phối đều trên mặt cầu đơn vị (Blum, Hopcroft và Kannan, §2.5, tr.22–23).
 
 **Trong thực hành.** Chữ ký dấu được lưu thành dãy $m$ bit, và số bit khác nhau ở bước 3 là khoảng cách Hamming của hai dãy bit; vì vậy các chữ ký dấu có thể đưa tiếp vào họ chọn tọa độ của Mục 4.1 và Thuật toán 06.4 mà không đọc lại vector gốc. Khi các pháp tuyến độc lập và đẳng hướng, $m$ bit khác dấu là $m$ biến Bernoulli độc lập tham số $\theta/\pi$, nên phương sai của $\widehat p_{\ne}$ là $(\theta/\pi)(1-\theta/\pi)/m$, giảm tỷ lệ nghịch với $m$; điều này không sửa được sai lệch do pháp tuyến $\pm1$ ở Tình huống 06.4.
 
@@ -1254,7 +1220,7 @@ Tính góc bằng radian trước khi thế vào công thức.
 
 (b) Hai vector khác $0$; pháp tuyến chọn theo phân phối đẳng hướng và dùng chung cho cả hai; $\theta$ đo bằng radian.
 
-**Kiểm tra lại.** $3\pi/4=135^\circ$, và $1-135/180=1/4$ theo cách viết bằng độ của MMDS.
+**Kiểm tra lại.** $3\pi/4=135^\circ$, và $1-135/180=1/4$.
 :::
 
 <!-- note-topic-id: lec-06-topic-10 -->
@@ -1262,19 +1228,19 @@ Tính góc bằng radian trước khi thế vào công thức.
 
 Hàm băm dấu bỏ mất độ dài, nên không phân biệt được hai điểm cùng hướng nhưng cách xa nhau. Khoảng cách Euclid cần một hàm giữ độ lớn của tọa độ. Một cách tự nhiên là chiếu điểm lên một đường thẳng, chia đường thẳng thành các khoảng bằng nhau và dùng chỉ số khoảng làm giá trị băm.
 
-::: example Ví dụ 06.16 (Ba điểm trên trục thứ nhất)
-**Dữ kiện.** Theo Bài 3.7.5 của MMDS (tr.114), ba điểm $z_1=(1,2,3)$, $z_2=(0,2,4)$, $z_3=(4,3,2)$. Chiếu lên trục thứ nhất, chia trục thành các khoảng nửa mở $[ka,(k+1)a)$ với $a=1$, không dịch biên.
+::: example Ví dụ 06.16 (Ba điểm trên trục thứ nhất; MMDS Bài 3.7.5, tr.114)
+**Dữ kiện.** Ba điểm $z_1=(1,2,3)$, $z_2=(0,2,4)$, $z_3=(4,3,2)$. Chiếu lên trục thứ nhất, chia trục thành các khoảng nửa mở $[ka,(k+1)a)$ với $a=1$, không dịch biên.
 
 **Tính.** Mã của một điểm là $\lfloor x_1/a\rfloor$, lần lượt $1$, $0$, $4$. Ba điểm thuộc ba khoảng $[1,2)$, $[0,1)$, $[4,5)$.
 
-**Kết luận.** Trục này không đặt hai điểm nào vào cùng thùng. Kết quả trên ba trục và hai độ rộng là nội dung của Bài tập 06.25.
+**Kết luận.** Trục này không đặt hai điểm nào vào cùng thùng.
 
 **Kiểm tra lại.** $\lfloor1\rfloor=1$, $\lfloor0\rfloor=0$, $\lfloor4\rfloor=4$.
 :::
 
-Ví dụ 06.16 dùng một trục cố định và các biên cố định tại các số nguyên. Hai điểm có hình chiếu $1-\varepsilon$ và $1+\varepsilon$, với $\varepsilon>0$ nhỏ, rất gần nhau nhưng luôn bị biên $1$ tách ra. Một cách trực quan, chọn ngẫu nhiên cả hướng chiếu lẫn vị trí biên làm xác suất hai điểm chung thùng phụ thuộc vào khoảng cách giữa chúng chứ không vào vị trí của chúng so với một lưới cố định. Mô tả này chưa phải định nghĩa.
+Ví dụ 06.16 dùng một trục cố định và các biên cố định tại các số nguyên. Hai điểm có hình chiếu $1-\varepsilon$ và $1+\varepsilon$, với $\varepsilon>0$ nhỏ, rất gần nhau nhưng luôn bị biên $1$ tách ra. Một cách trực quan, chọn ngẫu nhiên cả hướng chiếu lẫn vị trí biên làm xác suất hai điểm chung thùng phụ thuộc vào khoảng cách giữa chúng chứ không vào vị trí của chúng so với một lưới cố định.
 
-::: definition Định nghĩa 06.34 (Họ chiếu có dịch)
+::: definition Định nghĩa 06.34 (Họ chiếu có dịch; MMDS §3.7.4, tr.111–113; Datar và cộng sự 2004, §3.2)
 Cho số chiều $D\ge1$ và độ rộng khoảng $a>0$. Một hàm của **họ chiếu có dịch** trên $\mathbb R^D$ được xác định bởi một vector đơn vị $u\in\mathbb R^D$ và một độ dịch $\delta\in[0,a)$:
 
 $$
@@ -1284,7 +1250,7 @@ $$
 Phân phối chọn hàm: $u$ đều trên mặt cầu đơn vị của $\mathbb R^D$, với $D=2$ là đường tròn đơn vị; $\delta$ đều trên $[0,a)$, độc lập với $u$. Cùng cặp $(u,\delta)$ được dùng cho mọi điểm.
 :::
 
-Giá trị $h_{u,\delta}(x)$ gọi là chỉ số khoảng, trên trang chiếu gọi là mã thùng. Trên đường thẳng hướng $u$, thùng có chỉ số $k$ là khoảng $[ka-\delta,(k+1)a-\delta)$, đóng bên trái và mở bên phải. Ví dụ 06.16 dùng một hàm cùng dạng trên $\mathbb R^3$ với $u=e_1=(1,0,0)$ và $\delta=0$, nên nó là một hàm của họ với $D=3$ nhưng không phải một phép chọn ngẫu nhiên. MMDS §3.7.4 (tr.111–113) mô tả phép chiếu lên đường thẳng ngẫu nhiên và chia khoảng nhưng không có độ dịch; cơ chế dịch đều được lấy theo Datar, Immorlica, Indyk và Mirrokni (2004, §3.2).
+Giá trị $h_{u,\delta}(x)$ gọi là chỉ số khoảng. Trên đường thẳng hướng $u$, thùng có chỉ số $k$ là khoảng $[ka-\delta,(k+1)a-\delta)$, đóng bên trái và mở bên phải. Ví dụ 06.16 dùng một hàm cùng dạng trên $\mathbb R^3$ với $u=e_1=(1,0,0)$ và $\delta=0$, nên nó là một hàm của họ với $D=3$ nhưng không phải một phép chọn ngẫu nhiên.
 
 ![Trục hình chiếu chia thành các khoảng nửa mở độ rộng a, đánh số k = −2 đến k = 2, biên có dạng ka − δ; hai hình chiếu u·x và u·y cách nhau ℓ, có thể bị một biên tách ra.](img/lec-06/chia-khoang-dich.svg)
 
@@ -1312,20 +1278,20 @@ Ba trường hợp gộp lại thành $\max(0,1-\ell/a)$. $\square$
 
 Bổ đề nói rằng, sau khi cố định hướng, xác suất chung thùng giảm tuyến tính theo khoảng cách của hai hình chiếu. Giả thiết dịch đều không bỏ được: với $\delta=0$ cố định và $a=1$, hai hình chiếu $1-\varepsilon$ và $1+\varepsilon$, $0<\varepsilon<1/2$, có mã $0$ và $1$, nên không bao giờ chung thùng dù $\ell=2\varepsilon$ nhỏ tùy ý và công thức cho $1-2\varepsilon$. Bước 2 là bước dùng giả thiết này.
 
-::: theorem Định lý 06.36 (Họ chiếu có dịch trong hai chiều)
+::: theorem Định lý 06.36 (Họ chiếu có dịch trong hai chiều; MMDS §3.7.4, tr.111–113)
 **Giả thiết.** $D=2$; $x,y\in\mathbb R^2$, $\rho=\|x-y\|_2$; $u$ đều trên đường tròn đơn vị, $\delta$ đều trên $[0,a)$, độc lập với $u$; cùng $(u,\delta)$ cho hai điểm.
 
 **Kết luận.** Nếu $\rho\le a/2$ thì xác suất chung thùng ít nhất $1/2$; nếu $\rho\ge2a$ thì xác suất chung thùng nhiều nhất $1/3$. Do đó họ chiếu có dịch là $(a/2,2a,1/2,1/3)$-nhạy cảm theo khoảng cách Euclid trên $\mathbb R^2$.
 
 **Điều kiện áp dụng.** Mọi $a>0$. Cận gần dùng dịch đều; cận xa chỉ dùng hướng đều và đúng với mọi cách chọn $\delta$, kể cả $\delta$ cố định.
 
-**Phạm vi.** Định lý được phát biểu và chứng minh cho $D=2$, theo MMDS §3.7.4 (tr.111–113); chương không phát biểu cận xa cho số chiều khác.
+**Phạm vi.** Kết quả phát biểu cho các điểm trong $\mathbb R^2$.
 :::
 
 ::: proof Chứng minh Định lý 06.36
 **Bước 1 (cận gần).** Với mọi hướng đơn vị $u$, $\ell=\lvert u\cdot(x-y)\rvert\le\|u\|_2\|x-y\|_2=\rho$ theo Cauchy–Schwarz. Nếu $\rho\le a/2$, Bổ đề 06.35 cho xác suất có điều kiện ít nhất $1-\rho/a\ge1/2$ với mọi $u$; lấy trung bình theo $u$ giữ cận $1/2$.
 
-**Bước 2 (cận xa).** Gọi $\phi\in[0,\pi/2]$ là góc nhọn giữa đường chiếu và đoạn nối hai điểm. Khi đó $\ell=\rho\lvert\cos\phi\rvert$. Với mọi $\delta$, một khoảng nửa mở rộng $a$ không chứa hai hình chiếu cách nhau ít nhất $a$ (Bước 3 của chứng minh Bổ đề 06.35), nên chung thùng cần $\ell<a$, tức $\lvert\cos\phi\rvert<a/\rho\le1/2$ khi $\rho\ge2a$, tức $\phi>\pi/3$. Trong mặt phẳng, gọi $\alpha$ là góc cực của $u$, đều trên $[0,2\pi)$, và $\beta$ là góc cực của $x-y$. Khi đó $\gamma=(\alpha-\beta)\bmod\pi$ đều trên $[0,\pi)$ và $\phi=\min(\gamma,\pi-\gamma)$; với $0\le\psi\le\pi/2$, $\Pr[\phi\le\psi]=\Pr[\gamma\le\psi]+\Pr[\gamma\ge\pi-\psi]=2\psi/\pi$, nên $\phi$ đều trên $[0,\pi/2]$ và
+**Bước 2 (cận xa).** Gọi $\phi\in[0,\pi/2]$ là góc nhọn giữa đường chiếu và đoạn nối hai điểm. Khi đó $\ell=\rho\lvert\cos\phi\rvert$. Với mọi $\delta$, một khoảng nửa mở rộng $a$ không chứa hai hình chiếu cách nhau ít nhất $a$ (Bước 3 của chứng minh Bổ đề 06.35), nên chung thùng cần $\ell<a$, tức $\lvert\cos\phi\rvert<a/\rho\le1/2$ khi $\rho\ge2a$, tức $\phi>\pi/3$. Trong mặt phẳng, gọi $\omega_u$ là góc cực của $u$, đều trên $[0,2\pi)$, và $\beta$ là góc cực của $x-y$. Khi đó $\gamma=(\omega_u-\beta)\bmod\pi$ đều trên $[0,\pi)$ và $\phi=\min(\gamma,\pi-\gamma)$; với $0\le\psi\le\pi/2$, $\Pr[\phi\le\psi]=\Pr[\gamma\le\psi]+\Pr[\gamma\ge\pi-\psi]=2\psi/\pi$, nên $\phi$ đều trên $[0,\pi/2]$ và
 
 $$
 \Pr[\phi>\pi/3]=\frac{\pi/2-\pi/3}{\pi/2}=\frac13.
@@ -1336,24 +1302,24 @@ $$
 
 ![Đoạn nối x với y dài ρ tạo góc nhọn φ với trục chiếu u; đường vuông góc nét đứt xác định đoạn chiếu dài ℓ = ρ |cos φ|.](img/lec-06/hinh-chieu-euclid.svg)
 
-Hình minh họa đẳng thức $\ell=\rho\lvert\cos\phi\rvert$ của Bước 2: góc $\phi$ càng gần $\pi/2$, hình chiếu càng ngắn dù đoạn nối dài. Hình không ấn định tỷ lệ giữa $\rho$ và $a$.
+Hình minh họa đẳng thức $\ell=\rho\lvert\cos\phi\rvert$ của Bước 2: góc $\phi$ càng gần $\pi/2$, hình chiếu càng ngắn dù đoạn nối dài.
 
-Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ dịch đều: với $\delta=0$ cố định, hai điểm $(\varepsilon,0)$ và $(-\varepsilon,0)$ với $0<\varepsilon\le a/4$ có $\rho=2\varepsilon\le a/2$. Với mọi hướng có $\cos\phi\ne0$, hai hình chiếu $\pm\varepsilon\cos\phi$ nằm hai phía của biên $0$, có mã $0$ và $-1$, nên xác suất chung thùng bằng $0$, nhỏ hơn $1/2$.
 - Bỏ hướng đều: nếu $u$ luôn vuông góc với $x-y$, thì $\ell=0$ và hai điểm luôn chung thùng với mọi $\rho$, kể cả $\rho\ge2a$; xác suất $1$ lớn hơn $1/3$.
 
-Bước 1 dùng dịch đều qua Bổ đề 06.35 và đúng với từng hướng, nên không cần hướng đều. Bước 2 dùng hướng đều trong mặt phẳng để có $\phi$ đều và đúng với mọi $\delta$, nên không cần dịch đều. Giới hạn hai chiều chỉ thuộc Bước 2: tính chất "$\phi$ đều trên $[0,\pi/2]$" đúng trong mặt phẳng; ngoài hai chiều, chứng minh trên không cho cận $1/3$ và chương này không phát biểu cận thay thế.
+Bước 1 dùng dịch đều qua Bổ đề 06.35 và đúng với từng hướng, nên không cần hướng đều. Bước 2 dùng hướng đều trong mặt phẳng để có $\phi$ đều và đúng với mọi $\delta$, nên không cần dịch đều.
 
 ::: remark Nhận xét 06.37 (Trục cố định, ngưỡng gần nhau và chi phí)
-Ba trục cố định của Bài tập 06.25 là ba hàm cụ thể của họ, không phải phép chọn ngẫu nhiên, nên không thừa hưởng bảo đảm của Định lý 06.36. Các ngưỡng $a/2$ và $2a$ cách nhau bốn lần.
+Trục cố định của Ví dụ 06.16 là một hàm cụ thể của họ, không phải phép chọn ngẫu nhiên, nên không thừa hưởng bảo đảm của Định lý 06.36. Các ngưỡng $a/2$ và $2a$ cách nhau bốn lần.
 
-MMDS §3.7.5 (tr.113) nêu một lập luận định tính cho mọi cặp $d_1<d_2$ và mọi số chiều: với phép chiếu lên đường thẳng ngẫu nhiên và chia khoảng, xác suất chung thùng $p_1$ ở khoảng cách $d_1$ lớn hơn xác suất $p_2$ ở khoảng cách $d_2$, vì xác suất này tăng khi khoảng cách giảm; sau đó phép ghép AND và OR của Mục 3.7 kéo $p_1$ và $p_2$ ra xa nhau. Sách không tính $p_1$, $p_2$, không chứng minh tính đơn điệu và không dùng độ dịch, nên lập luận này chỉ được dùng như định hướng, không như một định lý.
+Với $D\ge2$, với $x\ne y$, đặt $\rho=\lVert x-y\rVert_2$ và $e=(x-y)/\rho$. Theo Bổ đề 06.35, khi cố định hướng $u$, xác suất chung thùng là $\max(0,1-\rho\lvert u\cdot e\rvert/a)$. Lấy trung bình theo $u$ đều trên mặt cầu, xác suất $P(\rho)=\mathbb E_u[\max(0,1-\rho\lvert u\cdot e\rvert/a)]$ không phụ thuộc $e$ và giảm chặt theo $\rho$. Do đó với $d_1<d_2$, họ là $(d_1,d_2,P(d_1),P(d_2))$-nhạy cảm, và phép ghép AND, OR của Mục 3.7 kéo hai mức ra xa nhau (MMDS §3.7.5, tr.113).
 
 Mỗi hàm tính một tích vô hướng, cộng dịch, chia cho $a$ và lấy sàn, tốn $O(D)$ trên vector $D$ chiều.
 :::
 
-**Trong thực hành.** Dữ liệu vector thường có nhiều hơn hai chiều. Định nghĩa 06.34 dùng được trên $\mathbb R^D$ và Bước 1 của chứng minh Định lý 06.36 đúng với từng hướng, nhưng cận xa $1/3$ chỉ được chứng minh cho hai chiều; MMDS §3.7.5 chỉ nêu định tính rằng phép chiếu lên đường thẳng ngẫu nhiên và chia khoảng vẫn cho một họ nhạy cảm trong nhiều chiều. Hằng $1/3$ không được chuyển sang chiều khác. Độ rộng $a$ đặt thang đo của "gần": cùng một cặp điểm có thể là cặp gần với $a$ lớn và cặp xa với $a$ nhỏ, nên $a$ phải chọn theo khoảng cách cần phân biệt của bài toán.
+**Trong thực hành.** Định nghĩa 06.34 dùng được trên $\mathbb R^D$, và Bước 1 của chứng minh Định lý 06.36 đúng với từng hướng trong mọi số chiều. Độ rộng $a$ đặt thang đo của "gần": cùng một cặp điểm có thể là cặp gần với $a$ lớn và cặp xa với $a$ nhỏ, nên $a$ phải chọn theo khoảng cách cần phân biệt của bài toán.
 
 ::: exercise Bài tập 06.10
 Dữ kiện: họ chiếu có dịch trên $\mathbb R^2$ với $a=2$ (Định nghĩa 06.34).
@@ -1428,41 +1394,41 @@ Số phép nhân là $C\cdot m\cdot D=10^6\cdot200\cdot1000=2\cdot10^{11}$. Các
 
 Như vậy, chúng ta đã có ba họ cơ sở với bộ tham số chứng minh được: họ chọn tọa độ cho Hamming (Mệnh đề 06.29), họ siêu phẳng cho góc (Định lý 06.32) cùng quy tắc ước lượng góc (Thuật toán 06.33), và họ chiếu có dịch cho khoảng cách Euclid trong hai chiều (Bổ đề 06.35, Định lý 06.36); chi phí lấy chữ ký là $O(Cm)$ hoặc $O(CmD)$ (Mệnh đề 06.38). Mỗi họ đưa vào phép ghép của Mục 3.7 và Thuật toán 06.4 mà không đổi thùng hay bước xác minh.
 
-Tuy nhiên, các kết quả này giả định dữ liệu đã ở dạng tập, vector bit hay vector số với độ đo đã chọn, và giả định hàm băm được chọn ngẫu nhiên từ một họ. Trong Mục 5, chúng ta xét ba bài toán của MMDS §3.8, nơi việc chọn biểu diễn, chọn hàm và thậm chí việc có hay không một phân phối chọn hàm là phần chính của lời giải.
+Tuy nhiên, các kết quả này giả định dữ liệu đã ở dạng tập, vector bit hay vector số với độ đo đã chọn, và giả định hàm băm được chọn ngẫu nhiên từ một họ. Trong Mục 5, chúng ta xét ba bài toán, trong đó việc chọn biểu diễn, chọn hàm và thậm chí việc có hay không một phân phối chọn hàm là phần chính của lời giải.
 
 ## 5. Ứng dụng tìm cặp tương đồng
 
-Kho một triệu tài liệu đã có sẵn biểu diễn tập và họ MinHash, nên cả năm thành phần của khung tìm cặp (biểu diễn, họ cơ sở, phép ghép, thùng, xác minh) đều xác định. Ba bài toán của MMDS §3.8 thì không: hồ sơ khách hàng, ảnh vân tay và trang báo kèm quảng cáo chưa có biểu diễn hay họ ngẫu nhiên đã chứng minh. Với từng bài toán, chúng ta xác định thành phần nào phải đổi và giả thiết nào còn đúng.
+Kho một triệu tài liệu đã có sẵn biểu diễn tập và họ MinHash, nên cả năm thành phần của khung tìm cặp (biểu diễn, họ cơ sở, phép ghép, thùng, xác minh) đều xác định. Ba bài toán sau (MMDS §3.8) thì không: hồ sơ khách hàng, ảnh vân tay và trang báo kèm quảng cáo chưa có biểu diễn hay họ ngẫu nhiên đã chứng minh. Với từng bài toán, chúng ta xác định thành phần nào phải đổi và giả thiết nào còn đúng.
 
 <!-- note-topic-id: lec-06-topic-11 -->
 ### 5.1 Đối sánh thực thể
 
-Theo MMDS §3.8.1–3.8.2 (tr.114–116), hai nguồn mỗi nguồn khoảng $10^6$ hồ sơ khách hàng, gồm tên, địa chỉ và điện thoại, cần được ghép các cặp hồ sơ cùng mô tả một người. Chấm điểm mọi cặp giữa hai nguồn cần $10^{12}$ lần. Hai hồ sơ của cùng một người thường khác nhau ở cách viết tên, lỗi gõ hoặc số điện thoại cũ, nên không thể đòi mọi trường trùng nhau.
+Hai nguồn, mỗi nguồn khoảng $10^6$ hồ sơ khách hàng gồm tên, địa chỉ và điện thoại, cần được ghép các cặp hồ sơ cùng mô tả một người (MMDS §3.8.1–3.8.2, tr.115–116). Chấm điểm mọi cặp giữa hai nguồn cần $10^{12}$ lần. Hai hồ sơ của cùng một người thường khác nhau ở cách viết tên, lỗi gõ hoặc số điện thoại cũ, nên không thể đòi mọi trường trùng nhau.
 
-Một cách trực quan, hai hồ sơ của cùng một người thường trùng hoàn toàn ở ít nhất một trường, nên mỗi trường có thể đóng vai một dải của Mục 2. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, hai hồ sơ của cùng một người thường trùng hoàn toàn ở ít nhất một trường, nên mỗi trường có thể đóng vai một dải của Mục 2.
 
 ::: definition Định nghĩa 06.39 (Hàm khóa và quy tắc ứng viên theo trường)
 Một **hàm khóa** gán cho mỗi hồ sơ giá trị của một trường: tên, địa chỉ hoặc điện thoại. Một cặp gồm một hồ sơ của nguồn A và một hồ sơ của nguồn B là **cặp ứng viên** khi hai hồ sơ có cùng giá trị ở ít nhất một trong ba hàm khóa. Mỗi cặp ứng viên được **chấm điểm** trên cả ba trường và được nhận khi điểm vượt một ngưỡng.
 :::
 
-Quy tắc ứng viên là phép ghép ít nhất một trên ba hàm khóa, tức phân dải với $b=3$ dải, mỗi dải một hàm, $r=1$; MMDS thay bảng băm bằng ba lần sắp xếp hai nguồn theo từng trường. Bước chấm điểm đóng vai bước xác minh: ở §3.8.2, điểm phạt của mỗi trường dựa trên khoảng cách chỉnh sửa của Định nghĩa 06.18 giữa hai giá trị, có hiệu chỉnh bằng các bảng công khai ghi những tên cùng chỉ một người, chẳng hạn tên gọi tắt Bill của William. Khóa trùng hoàn toàn chỉ tạo ứng viên; mức sai khác giữa hai chuỗi chỉ dùng ở bước chấm điểm.
+Quy tắc ứng viên là phép ghép ít nhất một trên ba hàm khóa, tức phân dải với $b=3$ dải, mỗi dải một hàm, $r=1$, và chỉ phát cặp gồm một mã của A và một mã của B; khi cài đặt, bảng băm được thay bằng ba lần sắp xếp hai nguồn theo từng trường. Bước chấm điểm đóng vai bước xác minh: điểm phạt của mỗi trường dựa trên khoảng cách chỉnh sửa của Định nghĩa 06.18 giữa hai giá trị, có hiệu chỉnh bằng các bảng công khai ghi những tên cùng chỉ một người, chẳng hạn tên gọi tắt Bill của William (MMDS §3.8.2, tr.116). Khóa trùng hoàn toàn chỉ tạo ứng viên; mức sai khác giữa hai chuỗi chỉ dùng ở bước chấm điểm.
 
 ![Ba bảng khóa Tên, Địa chỉ và Điện thoại cùng sinh cặp; ba tập cặp đi vào khối Hợp ứng viên, rồi vào khối Chấm điểm, xác minh.](img/lec-06/khoa-thuc-the.svg)
 
 Hình đặt ba hàm khóa song song như ba dải; khối hợp ứng viên là phép khử lặp của bước 3 trong Thuật toán 06.4, khối chấm điểm là bước 4 với phép kiểm khác.
 
 ::: remark Nhận xét 06.40 (Hàm khóa cố định không cho cận xác suất)
-Ba hàm khóa là cố định, không được chọn ngẫu nhiên từ một họ. Vì vậy không có phân phối để áp dụng Định nghĩa 06.22 hay Mệnh đề 06.26, và công thức $1-(1-p)^b$ không cho xác suất bỏ sót. Một cặp cùng người không trùng hoàn toàn trường nào thì bị bỏ sót chắc chắn. Ba trường của cùng một người cũng không độc lập: đổi địa chỉ thường đi kèm đổi điện thoại. Chất lượng của tập kết quả vì vậy phải đo gián tiếp; Tình huống 06.1 trình bày cách đo của MMDS bằng một trường không dùng khi chấm điểm.
+Ba hàm khóa là cố định, không được chọn ngẫu nhiên từ một họ. Vì vậy không có phân phối để áp dụng Định nghĩa 06.22 hay Mệnh đề 06.26, và công thức $1-(1-p)^b$ không cho xác suất bỏ sót. Một cặp cùng người không trùng hoàn toàn trường nào thì bị bỏ sót chắc chắn. Hai hồ sơ của cùng một người sai khác khi khách hàng chuyển nhà và chỉ báo cho B, hoặc khi mã vùng điện thoại thay đổi (MMDS §3.8.2, tr.115). Chất lượng của tập kết quả vì vậy phải đo gián tiếp; Tình huống 06.1 đo nó bằng một trường không dùng khi chấm điểm (MMDS §3.8.3, tr.116).
 :::
 
-Bước chấm điểm thay bước xác minh bằng Jaccard của Mục 2, nên cần biết điểm được tính thế nào. Ví dụ sau dùng thang điểm của MMDS và khoảng cách chỉnh sửa của Mục 3.4.
+Bước chấm điểm thay bước xác minh bằng Jaccard của Mục 2, nên cần biết điểm được tính thế nào. Ví dụ sau tính điểm theo thang 300 điểm và khoảng cách chỉnh sửa (Định nghĩa 06.18).
 
-::: example Ví dụ 06.17 (Thang điểm chấm và tên tương đương)
-**Dữ kiện.** Theo MMDS §3.8.2 (tr.115–116), mỗi trường tên, địa chỉ, điện thoại được 100 điểm, nên hai hồ sơ trùng hoàn toàn cả ba trường được 300 điểm. Mỗi trường sai khác bị trừ điểm; mức trừ ban đầu dựa trên khoảng cách chỉnh sửa và tăng theo bình phương khoảng cách. Các bảng tên công khai sau đó giảm mức trừ: "Bill" và "William" được coi như chỉ khác một chữ cái.
+::: example Ví dụ 06.17 (Thang điểm chấm và tên tương đương; MMDS §3.8.2, tr.115–116)
+**Dữ kiện.** Mỗi trường tên, địa chỉ, điện thoại được 100 điểm, nên hai hồ sơ trùng hoàn toàn cả ba trường được 300 điểm. Mỗi trường sai khác bị trừ điểm; mức trừ ban đầu dựa trên khoảng cách chỉnh sửa và tăng theo bình phương khoảng cách. Các bảng tên công khai sau đó giảm mức trừ: "Bill" và "William" được coi như chỉ khác một chữ cái.
 
 **Tính.** Theo Mệnh đề 06.19, $d(x,y)=\lvert x\rvert+\lvert y\rvert-2L$. Chuỗi "Bill" dài 4, "William" dài 7, dãy con chung dài nhất là "ill" với $L=3$, nên $d=4+7-2\cdot3=5$.
 
-**Kết luận.** Giả sử mức trừ ở một trường có dạng $c\,d^2$ với hằng $c$ mà sách không cho. Nếu "khác một chữ cái" được đọc là $d=1$, bảng tên tương đương thay $d=5$ bằng $1$ và giảm mức trừ ở trường tên $25$ lần. Theo Định nghĩa 06.18, thay một chữ cái cần một lần xóa và một lần chèn, tức $d=2$; khi đó mức trừ giảm $25/4$ lần. Riêng khoảng cách chỉnh sửa xếp Bill và William vào loại sai khác lớn, dù hai tên thường chỉ cùng một người.
+**Kết luận.** Giả sử mức trừ ở một trường là $\kappa d^2$ với hằng $\kappa>0$. Theo Định nghĩa 06.18, "khác một chữ cái" ứng với một lần xóa và một lần chèn, tức $d=2$, nên bảng tên tương đương hạ mức trừ ở trường tên từ $25\kappa$ xuống $4\kappa$. Riêng khoảng cách chỉnh sửa xếp Bill và William vào loại sai khác lớn, dù Bill là tên gọi tắt của William.
 
 **Kiểm tra lại.** Một dãy năm thao tác: xóa "B" được "ill", chèn "W" ở đầu được "Will", chèn "i", "a", "m" ở cuối được "William". Không có dãy con chung dài 4, vì chữ "B" không có trong "William"; vậy $L=3$ và $d=5$ là nhỏ nhất.
 :::
@@ -1486,9 +1452,9 @@ Tên không trùng hoàn toàn và điện thoại khác, nhưng địa chỉ tr
 <!-- note-topic-id: lec-06-topic-12 -->
 ### 5.2 Đối sánh vân tay
 
-Theo MMDS §3.8.4 (tr.117–118), một ảnh vân tay sau khi chuẩn hóa kích thước và hướng được biểu diễn bằng tập các ô của một lưới chứa điểm đặc trưng (minutia), tức vị trí một đường vân kết thúc hoặc hai đường vân nhập vào nhau. Hai tập ô có thể so bằng Jaccard, nhưng lưới chỉ khoảng 1000 ô nên tập đã nhỏ, và MMDS dùng một họ hàm khác thay cho việc rút gọn bằng MinHash. Có hai bài toán: một–nhiều, so một ảnh truy vấn với cả kho; nhiều–nhiều, tìm mọi cặp trong kho.
+Một ảnh vân tay sau khi chuẩn hóa kích thước và hướng được biểu diễn bằng tập các ô của một lưới chứa điểm đặc trưng (minutia), tức vị trí một đường vân kết thúc hoặc hai đường vân nhập vào nhau (MMDS §3.8.4, tr.117–118). Hai tập ô có thể so bằng Jaccard, nhưng lưới chỉ khoảng 1000 ô nên tập đã nhỏ, và thay cho việc rút gọn bằng MinHash, ta dùng một họ hàm khác (MMDS §3.8.5, tr.118). Có hai bài toán: một–nhiều, so một ảnh truy vấn với cả kho; nhiều–nhiều, tìm mọi cặp trong kho.
 
-Một cách trực quan, hai ảnh của cùng một ngón có điểm đặc trưng ở gần như cùng các ô, nên nếu ta chọn trước vài ô, hai ảnh cùng ngón dễ cùng có đủ các ô ấy hơn hai ảnh khác ngón. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, hai ảnh của cùng một ngón có điểm đặc trưng ở gần như cùng các ô, nên nếu ta chọn trước vài ô, hai ảnh cùng ngón dễ cùng có đủ các ô ấy hơn hai ảnh khác ngón.
 
 ::: definition Định nghĩa 06.41 (Hàm ba ô cho vân tay)
 Mỗi ảnh được biểu diễn bằng tập ô của lưới có điểm đặc trưng. Một **hàm ba ô** $f$ được xác định bởi ba ô chọn từ lưới trước khi xét ảnh. Mọi ảnh có điểm đặc trưng ở cả ba ô được đặt vào một **thùng chung**; mỗi ảnh thiếu ít nhất một trong ba ô được đặt vào một **thùng đơn** riêng của nó. Hai ảnh **va chạm** theo $f$ khi chúng cùng nằm trong thùng chung.
@@ -1501,13 +1467,13 @@ Thùng đơn là điểm khác với bảng băm thông thường: nếu gom m�
 Hình cho thấy ba ô được cố định trước, rồi mỗi ảnh được đưa vào thùng chung hay thùng riêng theo việc có đủ ba ô.
 
 ::: proposition Mệnh đề 06.42 (Xác suất va chạm của hàm ba ô)
-**Giả thiết.** Theo mô hình của MMDS §3.8.5, mỗi ô của một ảnh có điểm đặc trưng với xác suất $0{,}2$, độc lập giữa các ô và giữa hai ảnh khác ngón. Với hai ảnh cùng ngón, nếu ảnh thứ nhất có điểm đặc trưng ở một ô thì ảnh thứ hai có ở ô đó với xác suất $0{,}8$, độc lập giữa các ô. Ba ô được chọn trước khi xét ảnh.
+**Giả thiết.** Theo mô hình của MMDS §3.8.5 (tr.118), mỗi ô của một ảnh có điểm đặc trưng với xác suất $0{,}2$, độc lập giữa các ô và giữa hai ảnh khác ngón. Với hai ảnh cùng ngón, nếu ảnh thứ nhất có điểm đặc trưng ở một ô thì ảnh thứ hai có ở ô đó với xác suất $0{,}8$, độc lập giữa các ô. Ba ô được chọn trước khi xét ảnh.
 
 **Kết luận.** Hai ảnh khác ngón va chạm theo $f$ với xác suất $q_F=0{,}2^6=0{,}000064$; hai ảnh cùng ngón va chạm với xác suất $q_T=(0{,}2\cdot0{,}8)^3=0{,}004096$.
 
 **Điều kiện áp dụng.** Xác suất lấy theo mô hình sinh ảnh, với ba ô cố định.
 
-**Phạm vi.** Đây là xác suất cả hai ảnh có đủ ba ô; nó không điều kiện hóa việc ảnh truy vấn đã có sẵn ba ô. Các số thuộc mô hình, không phải số đo trên một hệ nhận dạng.
+**Phạm vi.** Đây là xác suất cả hai ảnh có đủ ba ô; nó không điều kiện hóa việc ảnh truy vấn đã có sẵn ba ô.
 :::
 
 ::: proof Chứng minh Mệnh đề 06.42
@@ -1516,17 +1482,19 @@ Hình cho thấy ba ô được cố định trước, rồi mỗi ảnh đượ
 **Bước 2 (ba ô).** Theo Định nghĩa 06.41, hai ảnh va chạm khi cả hai có đủ ba ô. Các ô độc lập, nên $q_F=0{,}04^3=0{,}2^6=0{,}000064$ và $q_T=0{,}16^3=0{,}004096$. $\square$
 :::
 
-Mệnh đề 06.42 cho thấy một hàm ba ô nhận cặp cùng ngón với xác suất chỉ khoảng $1/244$, dù gấp $64$ lần cặp khác ngón; cần ghép nhiều hàm. Các giả thiết của kết quả có vai trò riêng, và mỗi giả thiết bị bỏ đều có phản ví dụ.
+Mệnh đề 06.42 cho thấy một hàm ba ô nhận cặp cùng ngón với xác suất chỉ khoảng $1/244$, dù gấp $64$ lần cặp khác ngón; cần ghép nhiều hàm.
+
+Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ độc lập giữa các ô: nếu ba ô luôn cùng có hoặc cùng không có điểm đặc trưng, mỗi ảnh có đủ ba ô với xác suất $0{,}2$, nên hai ảnh khác ngón va chạm với xác suất $0{,}2\cdot0{,}2=0{,}04$ thay cho $0{,}000064$.
 - Bỏ việc chọn ô trước khi xét ảnh: nếu ba ô được chọn trong các ô mà ảnh truy vấn đã có, ảnh truy vấn chắc chắn có đủ ba ô, và một ảnh cùng ngón va chạm với xác suất $0{,}8^3=0{,}512$ thay cho $0{,}004096$.
 
 Bước 1 dùng mô hình một ô; Bước 2 dùng độc lập giữa các ô và việc ba ô cố định trước.
 
-::: example Ví dụ 06.18 (Hai cấu trúc ghép cho vân tay)
-**Dữ kiện.** Theo Ví dụ 3.23 của MMDS (tr.118–120), $q_F=0{,}000064$, $q_T=0{,}004096$ (Mệnh đề 06.42); các hàm ba ô được chọn độc lập.
+::: example Ví dụ 06.18 (Hai cấu trúc ghép cho vân tay; MMDS Ví dụ 3.23, tr.119–120)
+**Dữ kiện.** $q_F=0{,}000064$, $q_T=0{,}004096$ (Mệnh đề 06.42); các hàm ba ô được chọn độc lập.
 
-**Giả thiết độc lập thêm.** Mệnh đề 06.26 cho xác suất theo cách chọn hàm khi cặp đối tượng cố định. Ở đây $q_F$, $q_T$ lấy theo mô hình sinh ảnh, và mọi hàm cùng xét một cặp ảnh, nên theo mô hình ấy các biến cố va chạm theo những hàm khác nhau không độc lập: một ảnh có nhiều điểm đặc trưng dễ va chạm theo nhiều hàm. MMDS tính như thể các biến cố va chạm theo các hàm khác nhau, và giữa hai nhóm của cấu trúc AND, là độc lập. Các số dưới đây dùng giả thiết thêm này; Tình huống 06.2 nêu hướng sai lệch của nó.
+**Giả thiết độc lập thêm.** Ta coi các biến cố va chạm theo các hàm khác nhau, và giữa hai nhóm của cấu trúc AND, là độc lập. Các số dưới đây dùng giả thiết thêm này.
 
 **OR 1024.** Dưới giả thiết độc lập thêm, cặp khác ngón được nhận với xác suất $1-(1-q_F)^{1024}\approx0{,}063436634$; cặp cùng ngón bị bỏ sót với xác suất $(1-q_T)^{1024}\approx0{,}014951892$.
 
@@ -1536,15 +1504,15 @@ $$
 P_F=\bigl[1-(1-q_F)^{1024}\bigr]^2\approx0{,}004024207,\qquad P_{\rm miss}=1-\bigl[1-(1-q_T)^{1024}\bigr]^2\approx0{,}029680224.
 $$
 
-**Diễn giải.** Cấu trúc AND giảm xác suất nhận cặp khác ngón khoảng 16 lần, nhưng xác suất bỏ sót tăng gấp đôi. Hai cấu trúc dùng 1024 và 2048 hàm, nên đây chưa là so sánh cùng ngân sách; Bài tập 06.28 so OR 2048 với AND hai nhóm OR 1024.
+**Diễn giải.** Cấu trúc AND giảm xác suất nhận cặp khác ngón khoảng 16 lần, nhưng xác suất bỏ sót tăng gấp đôi. Hai cấu trúc dùng 1024 và 2048 hàm.
 
-**Kiểm tra lại.** $0{,}063436634^2\approx0{,}004024207$, khớp với $P_F$. Lấy $0{,}063^2=0{,}003969$ sẽ cho số khác, vì đã làm tròn trung gian.
+**Kiểm tra lại.** $0{,}063436634^2\approx0{,}004024207$, khớp với $P_F$.
 :::
 
-**Trong thực hành.** Các xác suất $0{,}2$ và $0{,}8$ là giả định của mô hình MMDS, không phải tần suất đo trên một cơ sở dữ liệu vân tay. Với một ảnh truy vấn, cấu trúc AND hai nhóm OR thực hiện bốn thao tác: hợp các mã ảnh trong những thùng chung phù hợp của nhóm thứ nhất, hợp tương tự ở nhóm thứ hai, lấy giao hai hợp, rồi so ảnh truy vấn với các ứng viên còn lại; phép so vân tay cuối cùng có chi phí riêng. Tình huống 06.2 dùng các số này cho bài toán một–nhiều.
+**Trong thực hành.** Với một ảnh truy vấn, cấu trúc AND hai nhóm OR thực hiện bốn thao tác: hợp các mã ảnh trong những thùng chung phù hợp của nhóm thứ nhất, hợp tương tự ở nhóm thứ hai, lấy giao hai hợp, rồi so ảnh truy vấn với các ứng viên còn lại; phép so vân tay cuối cùng có chi phí riêng. Tình huống 06.2 dùng các số này cho bài toán một–nhiều.
 
 ::: exercise Bài tập 06.13
-Dữ kiện: $q_F=0{,}000064$, $q_T=0{,}004096$ (Mệnh đề 06.42); các hàm ba ô chọn độc lập, và dùng giả thiết độc lập thêm của MMDS nêu ở Ví dụ 06.18.
+Dữ kiện: $q_F=0{,}000064$, $q_T=0{,}004096$ (Mệnh đề 06.42); các hàm ba ô chọn độc lập, và dùng giả thiết độc lập thêm của Ví dụ 06.18.
 
 Dùng OR 512 thay cho OR 1024. Tính xác suất nhận cặp khác ngón và xác suất bỏ sót cặp cùng ngón, rồi so với OR 1024 của Ví dụ 06.18.
 :::
@@ -1562,20 +1530,18 @@ $1-(1-0{,}000064)^{512}\approx0{,}0322$ và $(1-0{,}004096)^{512}\approx0{,}1223
 <!-- note-topic-id: lec-06-topic-13 -->
 ### 5.3 Bản tin gần trùng
 
-Theo MMDS §3.8.6 (tr.120–121), một bản tin được đăng lại trên nhiều trang báo, mỗi trang bao quanh bằng quảng cáo và tiêu đề riêng. Cần tìm các cặp trang mang cùng văn bản gốc, khác với các cặp chỉ cùng chủ đề. Nếu dùng $k$-shingle ký tự (ghi chú Bài 05, Mục 3), phần quảng cáo đóng góp shingle ngang với phần bản tin và làm Jaccard phản ánh cả hai.
+Một bản tin được đăng lại trên nhiều trang báo, mỗi trang bao quanh bằng quảng cáo và tiêu đề riêng (MMDS §3.8.6, tr.120–121). Cần tìm các cặp trang mang cùng văn bản gốc, khác với các cặp chỉ cùng chủ đề. Nếu dùng $k$-shingle ký tự (ghi chú Bài 05, Mục 3), phần quảng cáo đóng góp shingle ngang với phần bản tin và làm Jaccard phản ánh cả hai.
 
-Một cách trực quan, văn xuôi của bản tin chứa nhiều từ rất thông dụng, còn quảng cáo thường là cụm ngắn ít từ như vậy; nếu chỉ lấy đặc trưng bắt đầu tại những từ đó, tập đặc trưng tập trung vào phần bản tin. Mô tả này chưa phải định nghĩa.
-
-Ghi chú Bài 05, Mục 12 (MMDS §3.2.4, tr.80) đã giới thiệu shingle bắt đầu bằng từ dừng như một nội dung đọc thêm; định nghĩa được nhắc lại dưới đây để dùng cho bài toán bản tin.
+Một cách trực quan, văn xuôi của bản tin chứa nhiều từ rất thông dụng, còn quảng cáo thường là cụm ngắn ít từ như vậy; nếu chỉ lấy đặc trưng bắt đầu tại những từ đó, tập đặc trưng tập trung vào phần bản tin.
 
 ::: definition Định nghĩa 06.43 (Từ dừng và shingle theo từ dừng)
 **Từ dừng** (stop word) là từ xuất hiện rất thường xuyên trong ngôn ngữ, cho trước bằng một danh sách. **Shingle theo từ dừng** của một văn bản là một từ dừng cùng hai từ đứng ngay sau nó.
 :::
 
-Định nghĩa đổi bước biểu diễn của khung tìm cặp, còn MinHash, phân dải và xác minh giữ nguyên. Ví dụ sau dùng danh sách năm từ dừng của sách.
+Định nghĩa đổi bước biểu diễn của khung tìm cặp, còn MinHash, phân dải và xác minh giữ nguyên. Ví dụ sau dùng danh sách năm từ dừng.
 
-::: example Ví dụ 06.19 (Shingle theo từ dừng trên hai câu)
-**Dữ kiện.** Theo Ví dụ 3.24 của MMDS (tr.120–121), từ dừng là I, that, you, for, your. Hai câu là "Buy Sudzo." và "I recommend that you buy Sudzo for your laundry."
+::: example Ví dụ 06.19 (Shingle theo từ dừng trên hai câu; MMDS Ví dụ 3.24, tr.120–121)
+**Dữ kiện.** Từ dừng là I, that, you, for, your. Hai câu là "Buy Sudzo." và "I recommend that you buy Sudzo for your laundry."
 
 **Tính.** Câu thứ nhất không có từ dừng nên không có shingle. Câu thứ hai cho bốn shingle xác định: "I recommend that", "that you buy", "you buy Sudzo", "for your laundry". Shingle bắt đầu bằng "your" có dạng "your laundry x", phụ thuộc từ $x$ đứng sau câu, chưa được cho.
 
@@ -1598,43 +1564,43 @@ Chỉ bắt đầu shingle tại một từ trong danh sách từ dừng.
 **Kiểm tra lại.** Câu có bốn từ dừng (that, you, for, your), cho ba shingle đủ và một shingle thiếu.
 :::
 
-Như vậy, ba ứng dụng dùng lại khung của Mục 2–4 bằng cách đổi đúng một thành phần: đối sánh thực thể thay họ ngẫu nhiên bằng ba hàm khóa cố định (Định nghĩa 06.39), vân tay thay MinHash bằng hàm ba ô với xác suất tính được dưới một mô hình (Mệnh đề 06.42), bản tin thay cách tạo tập đặc trưng (Định nghĩa 06.43). Thùng, khử lặp và xác minh giữ nguyên trong cả ba. Tuy nhiên, Mục 5 mới mô tả cơ chế; chưa giải trọn một bài toán từ dữ liệu đến kết luận, và chưa đo hậu quả khi một giả thiết như tính ngẫu nhiên của hàm băm hay tính đẳng hướng của pháp tuyến không thỏa. Phần tình huống áp dụng dưới đây làm việc đó.
+Như vậy, ba ứng dụng dùng lại khung của Mục 2–4 bằng cách đổi đúng một thành phần: đối sánh thực thể thay họ ngẫu nhiên bằng ba hàm khóa cố định (Định nghĩa 06.39), vân tay thay MinHash bằng hàm ba ô với xác suất tính được dưới một mô hình (Mệnh đề 06.42), bản tin thay cách tạo tập đặc trưng (Định nghĩa 06.43). Thùng, khử lặp và xác minh giữ nguyên trong cả ba. Tuy nhiên, việc chọn tham số cho từng bài toán và hậu quả khi một giả thiết không thỏa cần tính trên số liệu cụ thể; các tình huống sau tính các đại lượng đó.
 
 <!-- note-topic-id: lec-06-topic-19 -->
 ## Tình huống áp dụng và ứng dụng
 
-Bốn tình huống dưới đây giải trọn bốn bài toán bằng công cụ của chương. Tình huống 06.2 dùng các kết quả của chương cùng giả thiết độc lập thêm của MMDS (Ví dụ 06.18). Tình huống 06.3 dùng mô hình MinHash lý tưởng của Định lý 06.7; hàm băm khi tính thực tế chỉ xấp xỉ mô hình này. Tình huống 06.1 và 06.4 là hai trường hợp giả thiết không thỏa, và nêu hậu quả.
+Trong bốn tình huống dưới đây, chúng ta giải trọn bốn bài toán bằng công cụ của chương. Tình huống 06.1 và 06.4 là hai trường hợp giả thiết không thỏa, kèm hậu quả của chúng.
 
-::: application Tình huống 06.1 (Đối sánh hồ sơ hai nguồn và kiểm bằng trường ngày)
-**Bài toán và dữ liệu.** Theo MMDS §3.8.2–3.8.3 (tr.115–117), hai nguồn A và B, mỗi nguồn khoảng $10^6$ hồ sơ có tên, địa chỉ, điện thoại và ngày tạo hồ sơ. Cần các cặp hồ sơ cùng một người và một ước lượng chất lượng của tập kết quả.
+::: application Tình huống 06.1 (Đối sánh hồ sơ hai nguồn và kiểm bằng trường ngày; MMDS §3.8.2–3.8.3, tr.115–117)
+**Bài toán và dữ liệu.** Hai nguồn A và B, mỗi nguồn khoảng $10^6$ hồ sơ có tên, địa chỉ, điện thoại và ngày tạo hồ sơ. Cần các cặp hồ sơ cùng một người và một ước lượng chất lượng của tập kết quả.
 
-**Mô hình hóa.** Ba hàm khóa tên, địa chỉ, điện thoại tạo ứng viên theo Định nghĩa 06.39; mỗi trường là một dải với $r=1$, và hợp ba tập cặp là bước 3 của Thuật toán 06.4. Bước chấm điểm thay bước xác minh: điểm của một cặp là tổng điểm của ba trường, tối đa 300, trong đó điểm mỗi trường bị trừ theo điểm phạt dựa trên khoảng cách chỉnh sửa (Định nghĩa 06.18).
+**Mô hình hóa.** Ba hàm khóa tên, địa chỉ, điện thoại tạo ứng viên theo Định nghĩa 06.39; mỗi trường là một dải với $r=1$, và hợp ba tập cặp là bước 3 của Thuật toán 06.4, chỉ phát cặp gồm một mã của A và một mã của B. Bước chấm điểm thay bước xác minh: điểm của một cặp là tổng điểm của ba trường, tối đa 300, trong đó điểm mỗi trường bị trừ theo điểm phạt dựa trên khoảng cách chỉnh sửa (Định nghĩa 06.18).
 
-**Kiểm giả thiết.** Ba hàm khóa cố định, không chọn ngẫu nhiên, và các trường của một người không độc lập. Giả thiết của Định lý 06.7 và Mệnh đề 06.26 không thỏa, nên không có xác suất bỏ sót (Nhận xét 06.40). Trường ngày không tham gia tính điểm; điều này chưa có nghĩa nó độc lập thống kê với điểm.
+**Kiểm giả thiết.** Ba hàm khóa cố định, không chọn ngẫu nhiên. Giả thiết của Định lý 06.7 và Mệnh đề 06.26 không thỏa, nên không có xác suất bỏ sót (Nhận xét 06.40). Phép ước lượng cần độ trễ của cặp ghép ngẫu nhiên có trung bình 45 ngày ở mọi mức điểm.
 
-**Áp dụng.** Độ trễ của một cặp là ngày tạo hồ sơ ở B trừ ngày tạo ở A, chỉ xét từ 0 đến 90 ngày. Với cặp ghép ngẫu nhiên, mô hình dùng độ trễ trung bình 45 ngày; một giả thiết đủ để có giá trị này là độ trễ ngẫu nhiên phân bố đều trên 0–90. Nhóm cặp đạt điểm tối đa 300 có độ trễ trung bình 10 ngày và được coi là các khớp đúng. Với một nhóm cặp cùng mức điểm có độ trễ trung bình $x$, gọi $f$ là tỷ phần khớp đúng. Coi nhóm là hỗn hợp hai thành phần: tỷ phần $f$ khớp đúng có độ trễ trung bình 10 ngày, tỷ phần $1-f$ ghép ngẫu nhiên có độ trễ trung bình 45 ngày. Độ trễ trung bình của cả nhóm khi đó là
+**Áp dụng.** Độ trễ của một cặp là ngày tạo hồ sơ ở B trừ ngày tạo ở A, chỉ xét từ 0 đến 90 ngày. Với cặp ghép ngẫu nhiên, mô hình dùng độ trễ trung bình 45 ngày; một giả thiết đủ để có giá trị này là độ trễ ngẫu nhiên phân bố đều trên 0–90. Nhóm cặp đạt điểm tối đa 300 có độ trễ trung bình 10 ngày và được coi là các khớp đúng. Với một nhóm cặp cùng mức điểm có độ trễ trung bình $\bar\tau$, gọi $\eta$ là tỷ phần khớp đúng. Coi nhóm là hỗn hợp hai thành phần: tỷ phần $\eta$ khớp đúng có độ trễ trung bình 10 ngày, tỷ phần $1-\eta$ ghép ngẫu nhiên có độ trễ trung bình 45 ngày. Độ trễ trung bình của cả nhóm khi đó là
 
 $$
-x=10f+45(1-f),\qquad f=\frac{45-x}{35}.
+\bar\tau=10\eta+45(1-\eta),\qquad \eta=\frac{45-\bar\tau}{35}.
 $$
 
 **Chi phí.** So mọi cặp cần $10^{12}$ lần chấm điểm. Với ba hàm khóa, số cặp được chấm là số cặp chung ít nhất một khóa; theo Mệnh đề 06.11, số này phụ thuộc cỡ các nhóm cùng giá trị khóa, chẳng hạn một địa chỉ chung của nhiều hồ sơ, và mỗi lần chấm điểm còn tốn chi phí tính khoảng cách chỉnh sửa trên ba trường.
 
-**Diễn giải.** Công thức ước lượng tỷ phần khớp đúng của cả một nhóm điểm, không xác nhận từng cặp. Một giá trị $x$ ngoài đoạn $[10,45]$ không tương thích với mô hình hai thành phần.
+**Diễn giải.** Công thức ước lượng tỷ phần khớp đúng của cả một nhóm điểm, không xác nhận từng cặp. Một giá trị $\bar\tau$ ngoài đoạn $[10,45]$ không tương thích với mô hình hai thành phần.
 
-**Kết luận.** Theo khung "When Are Record Matches Good Enough?" của MMDS (tr.117), với các mức điểm từ 185 trở lên, $x$ rất gần 10, nên $f\approx1$. Mức 185 ứng với một trường trùng hoàn toàn, một trường khác hẳn và trường thứ ba sai khác nhỏ; các nhóm điểm này gần như chỉ gồm cặp cùng người. Ở mức 115, ứng với một trường trùng và hai trường chỉ giống nhẹ, $x$ nhỏ hơn 45 rõ rệt, nên $f>0$: một phần các cặp này cùng người. Sách không cho giá trị $x$ ở mức 115, nên tỷ phần $f$ tại đó không xác định được từ dữ kiện.
+**Kết luận.** Với các mức điểm từ 185 trở lên, $\bar\tau$ rất gần 10, nên $\eta\approx1$ (MMDS §3.8.3, khung "When Are Record Matches Good Enough?", tr.117). Mức 185 ứng với một trường trùng hoàn toàn, một trường khác hẳn và trường thứ ba sai khác nhỏ; các nhóm điểm này gần như chỉ gồm cặp cùng người. Ở mức 115, ứng với một trường trùng và hai trường chỉ giống nhẹ, $\bar\tau$ nhỏ hơn 45 rõ rệt, nên $\eta>0$: một phần các cặp này cùng người.
 
 **Giới hạn.** Ước lượng cần hai nhóm tham chiếu đại diện cho thành phần thật và thành phần ngẫu nhiên. Cặp cùng người không trùng hoàn toàn trường nào bị bỏ sót, và trường ngày không đo được số cặp bỏ sót này, vì chúng không có mặt trong tập kết quả.
 
 **Dẫn ngược lý thuyết.** Định nghĩa 06.39, Nhận xét 06.40 (giả thiết không thỏa), Thuật toán 06.4 (bước 2–3), Mệnh đề 06.11, Định nghĩa 06.18.
 :::
 
-::: application Tình huống 06.2 (Truy vấn vân tay một–nhiều)
-**Bài toán và dữ liệu.** Theo MMDS §3.8.5 (tr.118–120), một ảnh vân tay truy vấn cần được so với một kho ảnh đã lưu; mỗi ảnh là tập ô có điểm đặc trưng.
+::: application Tình huống 06.2 (Truy vấn vân tay một–nhiều; MMDS §3.8.5, tr.118–120)
+**Bài toán và dữ liệu.** Một ảnh vân tay truy vấn cần được so với một kho ảnh đã lưu; mỗi ảnh là tập ô có điểm đặc trưng.
 
 **Mô hình hóa.** Mỗi hàm ba ô là một hàm của Định nghĩa 06.41. Hai cấu trúc được xét: OR 1024 hàm, và AND hai nhóm, mỗi nhóm OR 1024 hàm.
 
-**Kiểm giả thiết.** Mô hình $0{,}2$ và $0{,}8$ với độc lập giữa các ô là giả thiết của Mệnh đề 06.42; ba ô của mỗi hàm được chọn trước khi xét ảnh; các hàm chọn độc lập. Mệnh đề 06.26 không cho phép nhân xác suất qua 1024 hàm và qua hai nhóm, vì $q_F$, $q_T$ lấy theo mô hình ảnh và mọi hàm xét chung một cặp ảnh; phép nhân dùng giả thiết độc lập thêm của MMDS (Ví dụ 06.18).
+**Kiểm giả thiết.** Mô hình $0{,}2$ và $0{,}8$ với độc lập giữa các ô là giả thiết của Mệnh đề 06.42; ba ô của mỗi hàm được chọn trước khi xét ảnh; các hàm chọn độc lập. Mệnh đề 06.26 không cho phép nhân xác suất qua 1024 hàm và qua hai nhóm, vì $q_F$, $q_T$ lấy theo mô hình ảnh và mọi hàm xét chung một cặp ảnh; phép nhân dùng giả thiết độc lập thêm của Ví dụ 06.18.
 
 **Áp dụng.** Theo Ví dụ 06.18, một ảnh khác ngón thành ứng viên với xác suất khoảng $0{,}0634$ dưới OR 1024 và khoảng $0{,}004024$ dưới AND hai nhóm. Theo tuyến tính kỳ vọng (Kiến thức tiên quyết), đây cũng là tỷ phần kỳ vọng của các ảnh khác ngón trong kho phải so với ảnh truy vấn: khoảng $6{,}3\%$ và khoảng $1/250$. Xác suất bỏ sót ảnh cùng ngón là khoảng $0{,}0150$ và $0{,}0297$.
 
@@ -1642,19 +1608,19 @@ $$
 
 **Diễn giải.** Cấu trúc AND giảm số ảnh khác ngón phải so khoảng 16 lần, đổi lại xác suất bỏ sót tăng gấp đôi. Lựa chọn phụ thuộc chi phí của một phép so so với hậu quả của một lần bỏ sót.
 
-**Giới hạn.** Hai cấu trúc dùng ngân sách 1024 và 2048 hàm. Với cấu trúc OR, giả thiết độc lập thêm làm lệch các số theo một chiều xác định. Với một cặp ảnh cùng ngón cố định, gọi $p$ là xác suất va chạm theo cách chọn ba ô; khi đó $q_T=\mathbb E[p]$, kỳ vọng lấy theo mô hình ảnh. Vì các hàm chọn độc lập, xác suất bỏ sót thật dưới OR 1024 là $\mathbb E[(1-p)^{1024}]$. Hàm $t\mapsto(1-t)^{1024}$ lồi trên $[0,1]$, nên theo bất đẳng thức Jensen $\mathbb E[(1-p)^{1024}]\ge(1-q_T)^{1024}$: số $0{,}0150$ của sách là cận dưới của xác suất bỏ sót. Tương tự, hàm $t\mapsto1-(1-t)^{1024}$ lõm, nên $0{,}0634$ là cận trên của xác suất nhận một ảnh khác ngón dưới OR 1024. Với AND hai nhóm, hàm $t\mapsto[1-(1-t)^{1024}]^2$ không lồi cũng không lõm trên $[0,1]$, nên bất đẳng thức Jensen không cho chiều sai lệch: hai số $0{,}004024$ và $0{,}0297$ dựa trên giả định độc lập, và không có bất đẳng thức một chiều.
+**Giới hạn.** Hai cấu trúc dùng ngân sách 1024 và 2048 hàm. Với cấu trúc OR, giả thiết độc lập thêm của Ví dụ 06.18 làm lệch các số theo một chiều xác định. Với một cặp ảnh cùng ngón cố định, gọi $p$ là xác suất va chạm theo cách chọn ba ô; khi đó $q_T=\mathbb E[p]$, kỳ vọng lấy theo mô hình ảnh. Vì các hàm chọn độc lập, xác suất bỏ sót thật dưới OR 1024 là $\mathbb E[(1-p)^{1024}]$. Hàm $\xi\mapsto(1-\xi)^{1024}$ lồi trên $[0,1]$, nên theo bất đẳng thức Jensen $\mathbb E[(1-p)^{1024}]\ge(1-q_T)^{1024}$: số $0{,}0150$ của Ví dụ 06.18 là cận dưới của xác suất bỏ sót. Tương tự, hàm $\xi\mapsto1-(1-\xi)^{1024}$ lõm, nên $0{,}0634$ là cận trên của xác suất nhận một ảnh khác ngón dưới OR 1024. Với AND hai nhóm, hàm $\xi\mapsto[1-(1-\xi)^{1024}]^2$ không lồi cũng không lõm trên $[0,1]$, nên bất đẳng thức Jensen trên $[0,1]$ không cho chiều sai lệch; hai số $0{,}004024$ và $0{,}0297$ dựa trên giả định độc lập.
 
 **Dẫn ngược lý thuyết.** Định nghĩa 06.41, Mệnh đề 06.42, Mệnh đề 06.26, Ví dụ 06.18 (giả thiết độc lập thêm), tuyến tính kỳ vọng.
 :::
 
-::: application Tình huống 06.3 (Bản tin gần trùng)
-**Bài toán và dữ liệu.** Theo MMDS §3.8.6 (tr.120–121), hai trang, mỗi trang gồm một nửa là bản tin và một nửa là quảng cáo. Cần nhận cặp trang cùng bản tin khác quảng cáo, và không nhận cặp cùng quảng cáo khác bản tin.
+::: application Tình huống 06.3 (Bản tin gần trùng; MMDS §3.8.6, tr.120–121)
+**Bài toán và dữ liệu.** Hai trang, mỗi trang gồm một nửa là bản tin và một nửa là quảng cáo. Cần nhận cặp trang cùng bản tin khác quảng cáo, và không nhận cặp cùng quảng cáo khác bản tin.
 
 **Mô hình hóa.** Mỗi trang được biểu diễn bằng tập shingle theo từ dừng (Định nghĩa 06.43), sau đó lập chữ ký MinHash và chạy Thuật toán 06.4 như với mọi tập.
 
-**Kiểm giả thiết.** Định lý 06.7 cần tập không rỗng và MinHash lý tưởng, tức hoán vị chọn đều và độc lập; hàm băm khi tính thực tế chỉ xấp xỉ mô hình này. Tập shingle của một trang có văn xuôi là không rỗng. Lập luận của MMDS giả định shingle theo từ dừng tập trung ở phần bản tin.
+**Kiểm giả thiết.** Định lý 06.7 cần tập không rỗng và MinHash lý tưởng, tức hoán vị chọn đều và độc lập. Tập shingle của một trang có văn xuôi là không rỗng. Các Jaccard ở bước Áp dụng giả định shingle theo từ dừng tập trung ở phần bản tin.
 
-**Áp dụng.** Theo MMDS, với shingle theo từ dừng, cặp cùng bản tin khác quảng cáo có Jaccard khoảng $0{,}75$, còn cặp cùng quảng cáo khác bản tin chỉ khoảng $0{,}25$. Với shingle 10 ký tự liên tiếp, cả hai trường hợp đều cho khoảng $1/3$. Chọn $(b,r)=(20,5)$ của Ví dụ 3.12 (MMDS, tr.94–95), có $s_{1/2}\approx0{,}509$ nằm giữa $0{,}25$ và $0{,}75$. Vì $P_{20,5}$ tăng theo $s$, công thức (2.1) cho $P_{20,5}(0{,}25)\le P_{20,5}(0{,}3)=0{,}047494259$ và $P_{20,5}(0{,}75)\ge P_{20,5}(0{,}6)=0{,}801902454$: cặp cùng bản tin thành ứng viên với xác suất ít nhất khoảng $0{,}80$, cặp chỉ cùng quảng cáo với xác suất nhiều nhất khoảng $0{,}047$.
+**Áp dụng.** Với shingle theo từ dừng, cặp cùng bản tin khác quảng cáo có Jaccard khoảng $0{,}75$, còn cặp cùng quảng cáo khác bản tin chỉ khoảng $0{,}25$; với shingle 10 ký tự liên tiếp, cả hai trường hợp đều cho khoảng $1/3$. Chọn $(b,r)=(20,5)$ của Ví dụ 06.4, có $s_{1/2}\approx0{,}509$ nằm giữa $0{,}25$ và $0{,}75$. Công thức (2.1) cho $P_{20,5}(0{,}75)\approx0{,}995564$ và $P_{20,5}(0{,}25)\approx0{,}019351$: cặp cùng bản tin thành ứng viên với xác suất khoảng $0{,}996$, cặp chỉ cùng quảng cáo với xác suất khoảng $0{,}019$.
 
 Với shingle 10 ký tự, cả hai loại cặp có Jaccard khoảng $1/3$, nên cả hai thành ứng viên với cùng một xác suất nằm giữa $P_{20,5}(0{,}3)=0{,}047494259$ và $P_{20,5}(0{,}4)=0{,}186049552$.
 
@@ -1662,13 +1628,13 @@ Với shingle 10 ký tự, cả hai loại cặp có Jaccard khoảng $1/3$, nê
 
 **Diễn giải.** Đổi biểu diễn làm hai loại cặp tách xa nhau trên trục Jaccard, nên đường xác suất của Mục 2.4 phân biệt được chúng. Với shingle ký tự, hai loại cặp có cùng Jaccard, nên mọi cấu hình $(b,r)$ cho chúng cùng xác suất thành ứng viên và không phân biệt được.
 
-**Giới hạn.** Hai giá trị $0{,}75$ và $0{,}25$ là ước lượng của sách cho trang chia đôi; câu quảng cáo dài vẫn chứa từ dừng.
+**Giới hạn.** Hai giá trị $0{,}75$ và $0{,}25$ là ước lượng cho trang chia đôi; câu quảng cáo dài vẫn chứa từ dừng.
 
 **Dẫn ngược lý thuyết.** Định nghĩa 06.43, Ví dụ 06.19, Định lý 06.7, Mệnh đề 06.9, Nhận xét 06.10, Thuật toán 06.4.
 :::
 
-::: application Tình huống 06.4 (Ước lượng góc bằng pháp tuyến có tọa độ $\pm1$)
-**Bài toán và dữ liệu.** Theo MMDS §3.7.3 và Ví dụ 3.22 (tr.110–111), cần ước lượng góc giữa $x=(3,4,5,6)$ và $y=(4,3,2,1)$ bằng chữ ký dấu, với pháp tuyến có tọa độ $\pm1$; sách coi các vector này là đủ ngẫu nhiên, và tích vô hướng với chúng chỉ cần cộng, trừ.
+::: application Tình huống 06.4 (Ước lượng góc bằng pháp tuyến có tọa độ $\pm1$; MMDS §3.7.3 và Ví dụ 3.22, tr.111)
+**Bài toán và dữ liệu.** Cần ước lượng góc giữa $x=(3,4,5,6)$ và $y=(4,3,2,1)$ bằng chữ ký dấu, với pháp tuyến có tọa độ $\pm1$, dùng thay pháp tuyến ngẫu nhiên vì tích vô hướng với chúng chỉ cần cộng, trừ.
 
 **Mô hình hóa.** Chữ ký dấu và quy tắc $\widehat\theta=\pi\widehat p_{\ne}$ của Thuật toán 06.33.
 
@@ -1676,7 +1642,7 @@ Với shingle 10 ký tự, cả hai loại cặp có Jaccard khoảng $1/3$, nê
 
 **Áp dụng.** Với ba pháp tuyến của Ví dụ 06.15, $\widehat\theta=120^\circ$. Xét đủ 16 pháp tuyến với quy ước $\operatorname{sign}(0)=+1$, có 4 pháp tuyến cho hai dấu khác nhau, nên tỷ lệ khác dấu là $1/4$ và góc ước lượng là $45^\circ$. Góc thật là $\arccos(40/\sqrt{2580})\approx38{,}047579^\circ$.
 
-**Chi phí.** Theo Mệnh đề 06.38, một hàm siêu phẳng tốn $D$ phép nhân; với tọa độ $\pm1$, các phép nhân thành phép đổi dấu, nên chỉ còn khoảng $D-1$ phép cộng hoặc trừ.
+**Chi phí.** Theo Mệnh đề 06.38, một hàm siêu phẳng tốn $D$ phép nhân; với tọa độ $\pm1$, các phép nhân thành phép đổi dấu, nên chỉ còn $D-1$ phép cộng hoặc trừ.
 
 **Diễn giải.** Có hai nguồn sai. Ba bit cho một ước lượng thô: $120^\circ$ so với $45^\circ$ của toàn bộ 16 pháp tuyến. Phân phối không đẳng hướng tạo sai lệch không mất đi khi dùng hết các pháp tuyến: $45^\circ$ so với $38{,}05^\circ$.
 
@@ -1688,18 +1654,12 @@ Với shingle 10 ký tự, cả hai loại cặp có Jaccard khoảng $1/3$, nê
 **Ứng dụng trong các bài sau.**
 
 - Bài 07 (Chỉ mục hàng xóm gần đúng) dùng LSH của chương này làm bộ lọc ứng viên cho truy vấn: vector truy vấn được băm bằng cùng các hàm, và chỉ các vector cùng thùng được đo khoảng cách. LSH được đặt trong bảng so sánh với đồ thị thế giới nhỏ phân tầng (Hierarchical Navigable Small World, HNSW) và lượng tử hóa tích (product quantization, PQ).
-- Bài 3.4.4 của MMDS (tr.96) đặt việc phân dải trên MapReduce. Trong mô hình của Bài 02, hàm map phát các cặp khóa–giá trị và mọi giá trị cùng khóa được gom về một lần gọi reduce; khóa dải $(j,z)$ của Định nghĩa 06.3 có thể làm khóa, với mã tài liệu làm giá trị, để mỗi lần gọi reduce nhận đúng một thùng.
+- Phân dải có thể tổ chức trên MapReduce (Bài 3.4.4 của MMDS, tr.96). Trong mô hình của Bài 02, hàm map phát các cặp khóa–giá trị và mọi giá trị cùng khóa được gom về một lần gọi reduce; khóa dải $(j,z)$ của Định nghĩa 06.3 có thể làm khóa, với mã tài liệu làm giá trị, để mỗi lần gọi reduce nhận đúng một thùng.
 
 <!-- note-topic-id: lec-06-topic-14 -->
 ## Tóm tắt chương
 
-Chương bắt đầu từ giới hạn của Bài 05: chữ ký MinHash làm kho một triệu tài liệu vừa bộ nhớ, nhưng số cặp vẫn là $499\,999\,500\,000$ (Ví dụ 06.1). Chúng ta tách bài toán thành bộ tạo ứng viên và bước xác minh (Định nghĩa 06.1), rồi dựng bộ tạo đầu tiên bằng phân dải chữ ký (Định nghĩa 06.3, Thuật toán 06.4), đúng trên tập ứng viên (Mệnh đề 06.5).
-
-Một cặp có Jaccard $s$ được xét với xác suất $P_{b,r}(s)=1-(1-s^r)^b$ (Định lý 06.7), nên cặp đạt ngưỡng bị bỏ sót với xác suất $(1-s^r)^b$ (Hệ quả 06.8), và cách tách $n=br$ dời vùng chuyển tiếp của đường xác suất (Mệnh đề 06.9). Công việc là $O(nC+Q+\sum T_J)$ nhưng $K$ có thể bằng $\binom C2$ trong trường hợp xấu nhất (Mệnh đề 06.11, Nhận xét 06.12).
-
-Chúng ta khái quát hóa tính chất của MinHash thành họ $(d_1,d_2,p_1,p_2)$-nhạy cảm (Định nghĩa 06.22), dựng hai phép ghép (Mệnh đề 06.26) và ba họ cơ sở theo Hamming, góc và khoảng cách Euclid (Mệnh đề 06.29, Định lý 06.32, Định lý 06.36). Ba ứng dụng chỉ đổi biểu diễn hoặc họ hàm, còn thùng và xác minh giữ nguyên.
-
-Với kho một triệu tài liệu, giả định thêm rằng ngoài $N$ cặp gần, mọi cặp có $s\le0{,}1$. Với $(b,r)=(20,5)$, $P_{20,5}(0{,}1)\approx2\cdot10^{-4}$, nên theo Mệnh đề 06.13, không cần các cặp độc lập, $\mathbb E[K]\le N+10^8$ và $\mathbb E[Q]\le20N+10^8$. Với $1\,\mu\mathrm{s}$ mỗi lần so cặp và $N\ll10^8$, thời gian xác minh kỳ vọng không quá khoảng $100$ giây, so với khoảng $5{,}79$ ngày khi xét mọi cặp; không có giả định về phân bố tương đồng, trường hợp xấu nhất vẫn là $K=\binom C2$ (Nhận xét 06.12). Giới hạn còn lại là truy vấn hàng xóm gần trên vector: Bài 07 dùng LSH làm bộ lọc ứng viên cho truy vấn và so nó với đồ thị thế giới nhỏ phân tầng (HNSW) và lượng tử hóa tích (PQ).
+Chương bắt đầu từ giới hạn của Bài 05: chữ ký MinHash làm kho một triệu tài liệu vừa bộ nhớ, nhưng số cặp vẫn là $499\,999\,500\,000$ (Ví dụ 06.1). Chúng ta tách bài toán thành bộ tạo ứng viên và bước xác minh (Định nghĩa 06.1), rồi dựng bộ tạo đầu tiên bằng phân dải chữ ký (Định nghĩa 06.3, Thuật toán 06.4), đúng trên tập ứng viên (Mệnh đề 06.5). Một cặp có Jaccard $s$ được xét với xác suất $P_{b,r}(s)=1-(1-s^r)^b$ (Định lý 06.7), nên cặp đạt ngưỡng bị bỏ sót với xác suất $(1-s^r)^b$ (Hệ quả 06.8), và cách tách $n=br$ dời vùng chuyển tiếp của đường xác suất (Mệnh đề 06.9). Công việc là $O(nC+Q+\sum T_J)$ nhưng $K$ có thể bằng $\binom C2$ trong trường hợp xấu nhất (Mệnh đề 06.11, Nhận xét 06.12). Chúng ta khái quát hóa tính chất của MinHash thành họ $(d_1,d_2,p_1,p_2)$-nhạy cảm (Định nghĩa 06.22), dựng hai phép ghép (Mệnh đề 06.26) và ba họ cơ sở theo Hamming, góc và khoảng cách Euclid (Mệnh đề 06.29, Định lý 06.32, Định lý 06.36). Ba ứng dụng chỉ đổi biểu diễn hoặc họ hàm, còn thùng và xác minh giữ nguyên. Với kho một triệu tài liệu, nếu ngoài $N$ cặp gần mọi cặp có $s\le0{,}1$ và $(b,r)=(20,5)$, Mệnh đề 06.13 cho số cặp phải xác minh kỳ vọng không quá $N+10^8$; nếu mỗi lần xác minh tốn $1\,\mu\mathrm{s}$ như một lần so chữ ký ở Ví dụ 06.1 và $N\ll10^8$, thời gian xác minh kỳ vọng không quá khoảng $100$ giây, so với khoảng $5{,}79$ ngày khi xét mọi cặp. Giới hạn còn lại là truy vấn hàng xóm gần trên vector: Bài 07 dùng LSH làm bộ lọc ứng viên và so nó với HNSW và PQ.
 
 **Định nghĩa và kết quả theo mục.**
 
@@ -1727,11 +1687,13 @@ $$
 p\mapsto p^r,\qquad p\mapsto1-(1-p)^b.
 $$
 
-Xác suất trùng của ba họ cơ sở và của hàm ba ô:
+Xác suất trùng của ba họ cơ sở, với họ chiếu có dịch khi cố định hướng $u$, và của hàm ba ô:
 
 $$
 1-\frac{d_H}{D},\qquad 1-\frac\theta\pi,\qquad \max\Bigl(0,1-\frac\ell a\Bigr),\qquad q_F=0{,}2^6,\quad q_T=(0{,}2\cdot0{,}8)^3.
 $$
+
+Trong hai chiều, họ chiếu có dịch là $(a/2,2a,1/2,1/3)$-nhạy cảm (Định lý 06.36).
 
 **Giả thiết hay bị bỏ quên.**
 
@@ -1741,409 +1703,21 @@ $$
 - Kỳ vọng của $K$, $Q$ ở Mệnh đề 06.13 lấy theo cách chọn hoán vị, không phải chi phí xấu nhất; Nhận xét 06.12 cho $K=\binom C2$. Kỳ vọng ở Mệnh đề 06.11 chỉ lấy theo hàm băm của bảng.
 - Định lý 06.32 cần pháp tuyến đẳng hướng và góc đo bằng radian; vector $\pm1$ không đẳng hướng (Tình huống 06.4).
 - Cận $1/2$ của Định lý 06.36 cần dịch đều; cận $1/3$ chỉ được chứng minh trong hai chiều, cần hướng đều nhưng không cần dịch đều. Trục cố định không có bảo đảm.
-- Hàm khóa cố định không cho xác suất bỏ sót (Nhận xét 06.40). Các số của mô hình vân tay là dự đoán của mô hình, dựa thêm vào giả thiết độc lập của MMDS; với cấu trúc OR, số bỏ sót của sách là cận dưới, còn với AND hai nhóm không có bất đẳng thức một chiều (Tình huống 06.2).
+- Hàm khóa cố định không cho xác suất bỏ sót (Nhận xét 06.40). Các số của mô hình vân tay là dự đoán của mô hình, dựa thêm vào giả thiết độc lập thêm của Ví dụ 06.18; với cấu trúc OR, số bỏ sót của Ví dụ 06.18 là cận dưới, còn với AND hai nhóm, bất đẳng thức Jensen trên $[0,1]$ không cho chiều sai lệch (Tình huống 06.2).
 - Xác minh loại ứng viên giả nhưng không lấy lại cặp bỏ sót.
 
 <!-- note-topic-id: lec-06-topic-16 -->
 ## Bài tập củng cố
 
-Các bài tập trong các mục và mười sáu bài dưới đây là bộ bài tập của chương. Mục tiêu 1 được kiểm bởi Bài tập 06.2, 06.4, 06.17, 06.30; mục tiêu 2 bởi Bài tập 06.3, 06.16, 06.18, 06.20, 06.21, 06.29; mục tiêu 3 bởi Bài tập 06.6, 06.7, 06.15, 06.19, 06.22; mục tiêu 4 bởi Bài tập 06.8–06.11, 06.23–06.26; mục tiêu 5 bởi Bài tập 06.12–06.14, 06.27, 06.28. Bảy bài mang số bài sách (Bài tập 06.20–06.25 và 06.28) là bài của phần bài tập vận dụng trên lớp; Bài tập 06.26 là phần (d) của Bài 3.7.5, dành cho tự học. Máy tính được dùng cho lũy thừa và $\arccos$; không có yêu cầu viết chương trình.
-
-### Mức nhận biết
-
-::: exercise Bài tập 06.15
-Dữ kiện: họ MinHash trên các tập hữu hạn, không rỗng với khoảng cách Jaccard (Hệ quả 06.23).
-
-Viết bộ tham số của họ MinHash với $d_1=0{,}2$, $d_2=0{,}5$, rồi bộ tham số của họ sau phép ghép đồng thời bậc 2.
-:::
-
-::: hint
-Hệ quả 06.23 cho $p_i=1-d_i$; phép ghép đồng thời giữ $d_1$, $d_2$ và bình phương hai mức xác suất.
-:::
-
-::: solution
-Họ MinHash là $(0{,}2;\ 0{,}5;\ 0{,}8;\ 0{,}5)$-nhạy cảm. Với hai hàm độc lập, phép ghép đồng thời bậc 2 cho $(0{,}2;\ 0{,}5;\ 0{,}64;\ 0{,}25)$.
-
-**Kiểm tra lại.** Hai ngưỡng khoảng cách không đổi khi ghép; $0{,}8^2=0{,}64$ và $0{,}5^2=0{,}25$.
-:::
-
-::: exercise Bài tập 06.16
-Dữ kiện: phân dải với $b$ dải, $r$ hàng mỗi dải, $P_{b,r}(s)=1-(1-s^r)^b$ (Định lý 06.7).
-
-Giữ $r$ và tăng $b$. Xác định ảnh hưởng tới số cặp bỏ sót và tới $K$.
-:::
-
-::: hint
-Xét chiều biến thiên của $(1-s^r)^b$ theo $b$ với $s$ cố định trong $(0,1)$.
-:::
-
-::: solution
-Với $0<s<1$, $0<1-s^r<1$ nên $(1-s^r)^b$ giảm khi $b$ tăng, và $P_{b,r}(s)$ tăng với mọi $s$. Mỗi cặp đạt ngưỡng có xác suất bỏ sót nhỏ hơn, nên kỳ vọng của số cặp bỏ sót giảm; mỗi cặp xa cũng có xác suất thành ứng viên lớn hơn, nên kỳ vọng của $K$ và của thời gian xác minh tăng; kỳ vọng của $Q$ cũng tăng vì có thêm dải (Mệnh đề 06.13). Độ dài chữ ký $n=br$ và chi phí lập chữ ký cũng tăng.
-
-**Kiểm tra lại.** Tại $s=0{,}8$, $r=5$: $b=20$ cho xác suất bỏ sót $0{,}67232^{20}\approx0{,}000356$, nhỏ hơn $0{,}67232$ của $b=1$.
-:::
-
-### Mức tính toán hoặc chứng minh
-
-::: exercise Bài tập 06.17
-Dữ kiện: ma trận chữ ký có hai hàng $(2,1,2,0)$ và $(1,1,1,1)$ cho bốn tài liệu; $b=2$, $r=1$.
-
-Tính $Q$, $K$ và nêu cặp được phát lặp.
-:::
-
-::: hint
-Lập các thùng của từng dải; một thùng cỡ $u$ phát $\binom u2$ cặp.
-:::
-
-::: solution
-Dải 1 có các thùng $\{1,3\}$ (giá trị 2), $\{2\}$, $\{4\}$; dải 2 có một thùng $\{1,2,3,4\}$ (giá trị 1). Do đó $Q=\binom22+\binom42=1+6=7$. Dải 2 đã phát đủ sáu cặp, nên $K=6$, và cặp $(1,3)$ được phát hai lần.
-
-**Kiểm tra lại.** $Q-K=1$, đúng một lượt phát lặp.
-:::
-
-::: exercise Bài tập 06.18
-Dữ kiện: phân dải với $b=10$, $r=4$ (Định lý 06.7, Nhận xét 06.10).
-
-Tính ngưỡng xấp xỉ $(1/b)^{1/r}$ và xác suất thành ứng viên của cặp có $s=0{,}8$ và $s=0{,}3$.
-:::
-
-::: hint
-Tính $s^4$ trước, rồi thế vào (2.1); làm tròn ở bước cuối.
-:::
-
-::: solution
-$(1/10)^{1/4}=0{,}1^{1/4}\approx0{,}562$. Với $s=0{,}8$: $0{,}8^4=0{,}4096$ và $P=1-(1-0{,}4096)^{10}\approx0{,}9949$. Với $s=0{,}3$: $0{,}3^4=0{,}0081$ và $P=1-(1-0{,}0081)^{10}\approx0{,}0781$.
-
-**Kiểm tra lại.** $0{,}562^4\approx0{,}0998$, gần $1/b=0{,}1$.
-:::
-
-::: exercise Bài tập 06.19
-Dữ kiện: họ siêu phẳng với pháp tuyến đẳng hướng (Định lý 06.32); cặp gần là cặp có $\theta\le\pi/6$, cặp xa là cặp có $\theta\ge\pi/2$.
-
-Tính $p_1$, $p_2$ và hai cận sau phép ghép AND 2 rồi OR 2.
-:::
-
-::: hint
-Định lý 06.32 cho $p_i=1-d_i/\pi$; cấu trúc AND 2 rồi OR 2 là $F(p)=1-(1-p^2)^2$.
-:::
-
-::: solution
-$p_1=1-1/6=5/6$ và $p_2=1-1/2=1/2$. Với $F(p)=1-(1-p^2)^2$: $F(5/6)\approx0{,}9066$ và $F(1/2)=1-(3/4)^2=0{,}4375$.
-
-**Kiểm tra lại.** $(5/6)^2=25/36$, $1-25/36=11/36$, $(11/36)^2\approx0{,}0934$, nên $F(5/6)\approx0{,}9066$.
-:::
-
-::: exercise Bài tập 06.20 (Bài 3.4.1, MMDS §3.4.4, tr.96)
-Dữ kiện: xác suất thành ứng viên $P(s)=1-(1-s^r)^b$ (Định lý 06.7); ba cấu hình $(r,b)=(3,10)$, $(6,20)$, $(5,50)$, viết theo thứ tự $(r,b)$ của đề sách.
-
-Tính $P(s)$ cho $s=0{,}1;\ 0{,}2;\ \ldots;\ 0{,}9$ với cả ba cấu hình. Sản phẩm là bảng 27 xác suất.
-:::
-
-::: hint
-Giữ thứ tự $(r,b)$ của đề. Tính $s^r$ trước, rồi $(1-s^r)^b$, và chỉ làm tròn kết quả cuối.
-:::
-
-::: solution
-| $s$ | $r=3,b=10$ | $r=6,b=20$ | $r=5,b=50$ |
-|---:|---:|---:|---:|
-| 0,1 | 0,009955120 | 0,000020000 | 0,000499878 |
-| 0,2 | 0,077180588 | 0,001279222 | 0,015875200 |
-| 0,3 | 0,239448893 | 0,014479467 | 0,114539882 |
-| 0,4 | 0,483870732 | 0,078809323 | 0,402283952 |
-| 0,5 | 0,736924424 | 0,270187144 | 0,795550630 |
-| 0,6 | 0,912267475 | 0,615414636 | 0,982533828 |
-| 0,7 | 0,985015105 | 0,918185997 | 0,999898996 |
-| 0,8 | 0,999234054 | 0,997712125 | 0,999999998 |
-| 0,9 | 0,999997864 | 0,999999740 | xấp xỉ 1 |
-
-Giá trị cuối bảng chỉ làm tròn về $1$, không bằng $1$ chính xác. Đổi chỗ $r$ và $b$ cho một hàm khác: chẳng hạn $(r,b)=(10,3)$ cho $P(0{,}5)=1-(1-2^{-10})^3\approx0{,}002927$, khác $0{,}736924424$ của $(3,10)$.
-
-**Kiểm tra lại.** Tại $s=0{,}1$, $r=3$, $b=10$: $1-(1-0{,}001)^{10}\approx0{,}009955$.
-:::
-
-::: exercise Bài tập 06.21 (Bài 3.4.2, MMDS §3.4.4, tr.96)
-Dữ kiện: xác suất thành ứng viên $P(s)=1-(1-s^r)^b$; ba cấu hình $(r,b)=(3,10)$, $(6,20)$, $(5,50)$ của Bài tập 06.20.
-
-Với từng cấu hình, tìm $s$ để $P(s)=1/2$ và so với xấp xỉ $(1/b)^{1/r}$. Sản phẩm là phép biến đổi và bảng ba cặp ngưỡng.
-:::
-
-::: hint
-Cô lập $(1-s^r)^b$ trước, rồi lấy căn bậc $b$ và căn bậc $r$ (Mệnh đề 06.9).
-:::
-
-::: solution
-Biến đổi $1-(1-s^r)^b=1/2$ cho $s=(1-2^{-1/b})^{1/r}$.
-
-| $(r,b)$ | Nghiệm chính xác | Xấp xỉ $(1/b)^{1/r}$ |
-|---|---:|---:|
-| $(3,10)$ | 0,406088134 | 0,464158883 |
-| $(6,20)$ | 0,569353387 | 0,606962231 |
-| $(5,50)$ | 0,424394480 | 0,457305052 |
-
-Cả ba xấp xỉ lớn hơn nghiệm một nửa. Các nghiệm này là tính chất của cấu hình, không phải ngưỡng $t$ do bài toán đặt (Nhận xét 06.10).
-
-**Kiểm tra lại.** Với $(3,10)$: $0{,}406088134^3\approx0{,}066967$, và $(1-0{,}066967)^{10}\approx0{,}5$.
-:::
-
-::: exercise Bài tập 06.22 (Bài 3.6.1(a–d), MMDS §3.6.4, tr.108)
-Dữ kiện: $p$ là xác suất trùng của một MinHash cơ sở; mọi phép ghép dùng các bản thử độc lập (Mệnh đề 06.26).
-
-Viết xác suất nhận cặp sau các chuỗi ghép, theo thứ tự từ trái sang phải:
-
-- (a) AND 2 rồi OR 3.
-- (b) OR 3 rồi AND 2.
-- (c) AND 2, OR 2, AND 2.
-- (d) OR 2, AND 2, OR 2, AND 2.
-
-Sản phẩm là bốn biểu thức, có trạng thái trung gian cho từng tầng.
-:::
-
-::: hint
-Mỗi tầng AND $k$ thay xác suất $q$ bằng $q^k$; mỗi tầng OR $k$ thay $q$ bằng $1-(1-q)^k$.
-:::
-
-::: solution
-(a) $p\to p^2\to1-(1-p^2)^3$.
-
-(b) $p\to1-(1-p)^3\to\bigl[1-(1-p)^3\bigr]^2$.
-
-(c) $p\to p^2\to1-(1-p^2)^2\to\bigl[1-(1-p^2)^2\bigr]^2$.
-
-(d) Đặt $q_1=1-(1-p)^2$, $q_2=q_1^2$, $q_3=1-(1-q_2)^2$; kết quả là $q_3^2$.
-
-Mỗi tầng dùng các bản thử độc lập của tầng trước. Đảo thứ tự AND và OR nói chung làm đổi biểu thức, như (a) so với (b).
-
-**Kiểm tra lại.** Tại $p=1$ cả bốn biểu thức bằng $1$; tại $p=0$ cả bốn bằng $0$.
-:::
-
-::: exercise Bài tập 06.23 (Bài 3.7.1, MMDS §3.7.6, tr.113)
-Dữ kiện: họ gồm sáu hàm $h_i(x)=x_i$, $i=1,\ldots,6$ (Định nghĩa 06.28); bốn vector $\mathrm A=000000$, $\mathrm B=110011$, $\mathrm C=010101$, $\mathrm D=011100$.
-
-Với mỗi cặp vector, xác định các hàm làm cặp đó thành ứng viên. Sản phẩm là sáu tập chỉ số cho các cặp AB, AC, AD, BC, BD, CD.
-:::
-
-::: hint
-Đánh chỉ số từ 1. Hàm $h_i$ nhận cặp khi hai bit ở vị trí $i$ bằng nhau.
-:::
-
-::: solution
-| Cặp | Chỉ số hàm nhận cặp | Hamming để đối chiếu |
-|---|---|---:|
-| AB | 3, 4 | 4 |
-| AC | 1, 3, 5 | 3 |
-| AD | 1, 5, 6 | 3 |
-| BC | 2, 3, 6 | 3 |
-| BD | 2 | 5 |
-| CD | 1, 2, 4, 5 | 2 |
-
-Số hàm nhận một cặp bằng $6$ trừ khoảng cách Hamming, nên cặp CD gần nhất được nhiều hàm nhận nhất, cặp BD xa nhất chỉ được một hàm nhận.
-
-**Kiểm tra lại.** Ở mỗi hàng, số chỉ số cộng khoảng cách Hamming bằng $6$.
-:::
-
-::: exercise Bài tập 06.24 (Bài 3.7.2, MMDS §3.7.6, tr.113–114)
-Dữ kiện: bốn pháp tuyến
-
-$$
-v_1=(1,1,1,-1),\quad v_2=(1,1,-1,1),\quad v_3=(1,-1,1,1),\quad v_4=(-1,1,1,1);
-$$
-
-ba vector $x=(2,3,4,5)$, $y=(-2,3,-4,5)$, $z=(2,-3,4,-5)$; quy ước $\operatorname{sign}(0)=+1$.
-
-Tính chữ ký dấu của ba vector. Với mỗi cặp, tính góc ước lượng từ chữ ký (Thuật toán 06.33) và góc thật. Sản phẩm là bảng tích và dấu, và bảng ba cặp góc.
-:::
-
-::: hint
-Tính bốn tích vô hướng trước khi lấy dấu. Góc ước lượng bằng $\pi$ nhân tỷ lệ bit khác; góc thật tính từ tích vô hướng của hai vector gốc.
-:::
-
-::: solution
-| Vector | Tích với $(v_1,v_2,v_3,v_4)$ | Chữ ký |
-|---|---|---|
-| $x$ | $(4,6,8,10)$ | $(+,+,+,+)$ |
-| $y$ | $(-8,10,-4,6)$ | $(-,+,-,+)$ |
-| $z$ | $(8,-10,4,-6)$ | $(+,-,+,-)$ |
-
-Bình phương ba chuẩn đều bằng $54$; $x\cdot y=14$, $x\cdot z=-14$, $y\cdot z=-54$.
-
-| Cặp | Tỷ lệ khác dấu | Góc ước lượng | Góc thật |
-|---|---:|---|---|
-| $x,y$ | $2/4$ | $\pi/2=90^\circ$ | $\arccos(7/27)\approx74{,}973886^\circ$ |
-| $x,z$ | $2/4$ | $\pi/2=90^\circ$ | $\arccos(-7/27)\approx105{,}026114^\circ$ |
-| $y,z$ | $4/4$ | $\pi=180^\circ$ | $\pi=180^\circ$ |
-
-Bốn pháp tuyến là dữ kiện cố định, không phải mẫu đẳng hướng, nên vết tính không bảo đảm góc ước lượng bằng góc thật (Tình huống 06.4).
-
-**Kiểm tra lại.** $14/54=7/27$; $y=-z$ nên góc giữa $y$ và $z$ bằng $\pi$.
-:::
-
-::: exercise Bài tập 06.25 (Bài 3.7.5(a–c), MMDS §3.7.6, tr.114)
-Dữ kiện: ba điểm $z_1=(1,2,3)$, $z_2=(0,2,4)$, $z_3=(4,3,2)$ (sách ký hiệu $p_1,p_2,p_3$). Ba hàm là phép chiếu lên ba trục tọa độ; các khoảng có dạng $[ka,(k+1)a)$ với $k\in\mathbb Z$ (sách viết chỉ số là $j$; chương này dành $j$ cho số dải), không dịch biên.
-
-- (a) Gán thùng với $a=1$.
-- (b) Lặp lại với $a=2$.
-- (c) Tìm các cặp ứng viên trong mỗi trường hợp.
-
-Sản phẩm là hai bảng mã theo trục và hai tập cặp.
-:::
-
-::: hint
-Mã của một điểm ở trục $i$ là $\lfloor x_i/a\rfloor$. Chỉ so mã trong cùng trục; số trục là một phần của khóa, như số dải ở Định nghĩa 06.3.
-:::
-
-::: solution
-| $a$ | Mã của $z_1$ theo ba trục | Mã của $z_2$ | Mã của $z_3$ | Tập cặp |
-|---:|---|---|---|---|
-| 1 | $(1,2,3)$ | $(0,2,4)$ | $(4,3,2)$ | $\{(1,2)\}$ |
-| 2 | $(0,1,1)$ | $(0,1,2)$ | $(2,1,1)$ | $\{(1,2),(1,3),(2,3)\}$ |
-
-Với $a=1$, chỉ $z_1$, $z_2$ trùng ở trục 2. Với $a=2$, cặp $(1,2)$ trùng ở trục 1 và trục 2; cặp $(1,3)$ trùng ở trục 2 và trục 3; cặp $(2,3)$ trùng ở trục 2. Hợp các cặp theo trục và khử lặp cho tập kết quả.
-
-**Kiểm tra lại.** Một tọa độ bằng $a$ thuộc $[a,2a)$, không thuộc $[0,a)$: tọa độ $2$ với $a=2$ có mã $1$.
-:::
-
-::: exercise Bài tập 06.26 (Bài 3.7.5(d), MMDS §3.7.6, tr.114)
-Dữ kiện: ba điểm $z_1=(1,2,3)$, $z_2=(0,2,4)$, $z_3=(4,3,2)$ và ba phép chiếu lên ba trục tọa độ như Bài tập 06.25; độ rộng $a>0$ tùy ý, khoảng nửa mở $[ka,(k+1)a)$, $k\in\mathbb Z$, không dịch biên.
-
-Với mỗi cặp điểm, tìm mọi giá trị $a$ làm cặp đó thành ứng viên.
-:::
-
-::: hint
-Hai số $\alpha<\beta$ không âm cùng mã khi $\lfloor\alpha/a\rfloor=\lfloor\beta/a\rfloor$. Xét riêng giá trị mã chung bằng $0$ và bằng một số nguyên $k\ge1$.
-:::
-
-::: solution
-**Cặp $(1,2)$.** Hai điểm có cùng tọa độ thứ hai, bằng $2$, nên luôn chung thùng ở trục 2: ứng viên với mọi $a>0$.
-
-**Cặp $(1,3)$ và $(2,3)$ ở trục 2.** Hai tọa độ là $2$ và $3$. Mã chung bằng $0$ khi $a>3$. Mã chung bằng một số nguyên $k\ge1$ khi đồng thời $ka\le2$ và $3<(k+1)a$, tức
-
-$$
-\frac3{k+1}<a\le\frac2k .
-$$
-
-Khoảng này khác rỗng chỉ khi $3k<2(k+1)$, tức $k<2$, nên chỉ $k=1$ và $a\in(3/2,2]$.
-
-**Các trục còn lại.** Ở trục 1, cặp $(1,3)$ có tọa độ $1$ và $4$, cặp $(2,3)$ có $0$ và $4$; ở trục 3, cặp $(2,3)$ có $4$ và $2$. Mỗi trường hợp chỉ trùng mã khi $a>4$, đã nằm trong $(3,\infty)$. Ở trục 3, cặp $(1,3)$ có tọa độ $3$ và $2$, lặp lại điều kiện của trục 2.
-
-**Kết luận.** Mỗi cặp $(1,3)$, $(2,3)$ là ứng viên đúng khi
-
-$$
-a\in(3/2,2]\cup(3,\infty).
-$$
-
-**Kiểm tra lại.** Tại $a=3/2$, $\lfloor3/1{,}5\rfloor=2\ne\lfloor2/1{,}5\rfloor=1$; tại $a=3$, $\lfloor3/3\rfloor=1\ne\lfloor2/3\rfloor=0$; tại $a=2$, hai tọa độ $2$ và $3$ cùng mã $1$. Quy tắc nửa mở quyết định các dấu đóng, mở này.
-:::
-
-### Mức vận dụng
-
-::: exercise Bài tập 06.27
-Dữ kiện: kho $C$ ảnh, mỗi ảnh một vector đặc trưng thực 128 chiều; cần tìm các cặp ảnh có góc nhỏ.
-
-Chọn họ cơ sở trong Mục 4 và nêu chi phí tính chữ ký $m$ bit.
-:::
-
-::: hint
-Xác định độ đo của bài toán trước, rồi dùng Mệnh đề 06.38.
-:::
-
-::: solution
-Dùng họ siêu phẳng (Định lý 06.32), vì độ đo là góc và chỉ phụ thuộc hướng. Theo Mệnh đề 06.38 với $D=128$, tính chữ ký cần $C\cdot m\cdot128$ phép nhân, tức $O(CmD)$; mỗi ảnh lưu $m$ bit, và các pháp tuyến cần $128m$ số. Dựng thùng, phát cặp và xác minh được tính thêm theo Mệnh đề 06.11.
-
-**Kiểm tra lại.** Họ chọn tọa độ dùng cho Hamming trên vector rời rạc, còn họ chiếu có dịch đo khoảng cách Euclid, phụ thuộc cả độ dài; cả hai không đo đúng góc.
-:::
-
-::: exercise Bài tập 06.28 (Bài 3.8.2(a,b), MMDS §3.8.7, tr.121)
-Dữ kiện: mỗi ô có điểm đặc trưng với xác suất $0{,}2$; với hai ảnh cùng ngón, ảnh thứ hai có điểm đặc trưng tại một ô đã có ở ảnh thứ nhất với xác suất $0{,}8$; mỗi hàm chọn ba ô từ lưới trước khi xét ảnh; các hàm độc lập theo mô hình (Mệnh đề 06.42). Gọi $F_1$ là OR 1024 hàm và $F_2$ là OR 2048 hàm.
-
-- (a) Tính xác suất nhận cặp khác ngón và xác suất bỏ sót cặp cùng ngón của $F_2$.
-- (b) So với cấu trúc AND hai nhóm $F_1$ độc lập.
-
-Sản phẩm là bảng hai xác suất cho hai cấu trúc cùng 2048 hàm.
-:::
-
-::: hint
-Tính $q_F$ và $q_T$ từ mô hình một ô rồi ba ô. Với cặp cùng ngón, bỏ sót là biến cố bù của được nhận. Không dùng các giá trị đã làm tròn như $0{,}063$ làm đầu vào ghép tiếp.
-:::
-
-::: solution
-Xác suất cơ sở là $q_F=0{,}2^6=0{,}000064$ và $q_T=(0{,}2\cdot0{,}8)^3=0{,}004096$.
-
-| Cấu trúc | Nhận cặp khác ngón | Bỏ sót cặp cùng ngón |
-|---|---:|---:|
-| $F_2$: OR 2048 | $1-(1-q_F)^{2048}\approx0{,}122849062$ | $(1-q_T)^{2048}\approx0{,}000223559$ |
-| AND hai nhóm $F_1$ | $\bigl[1-(1-q_F)^{1024}\bigr]^2\approx0{,}004024207$ | $1-\bigl[1-(1-q_T)^{1024}\bigr]^2\approx0{,}029680224$ |
-
-OR 2048 giảm bỏ sót nhưng nhận nhiều cặp khác ngón hơn. AND hai nhóm OR 1024 giảm ứng viên giả và tăng bỏ sót. Hai phương án cùng ngân sách 2048 hàm, nên khác biệt đến từ cấu trúc ghép. Các xác suất trên là xác suất cả hai ảnh có đủ ba ô, không phải xác suất có điều kiện khi ảnh truy vấn đã có ba ô (Mệnh đề 06.42).
-
-Các phép nhân qua 1024 hoặc 2048 hàm dùng giả thiết độc lập thêm của MMDS (Ví dụ 06.18), không suy ra từ Mệnh đề 06.26. Với $p$ là xác suất va chạm của một cặp ảnh cùng ngón cố định theo cách chọn ba ô, $q_T=\mathbb E[p]$ và xác suất bỏ sót thật của $F_2$ là $\mathbb E[(1-p)^{2048}]$. Hàm $t\mapsto(1-t)^{2048}$ lồi, nên theo bất đẳng thức Jensen xác suất này ít nhất $(1-q_T)^{2048}\approx0{,}000223559$: số bỏ sót của $F_2$ trong bảng là cận dưới. Với AND hai nhóm $F_1$, hàm $t\mapsto1-[1-(1-t)^{1024}]^2$ không lồi cũng không lõm, nên số $0{,}029680224$ dựa trên giả định độc lập và không có bất đẳng thức một chiều.
-
-**Kiểm tra lại.** $(1-q_T)^{2048}$ là bình phương của $(1-q_T)^{1024}\approx0{,}014951892$, và $0{,}014951892^2\approx0{,}000223559$.
-:::
-
-::: exercise Bài tập 06.29
-Dữ kiện: chữ ký dài $n=100$; bốn cấu hình $(b,r)\in\{(50,2),(25,4),(20,5),(10,10)\}$, đều có $br=100$; ngưỡng $t=0{,}6$; bài toán ưu tiên tránh bỏ sót các cặp đạt ngưỡng.
-
-(a) Tính $s_{1/2}$ theo (2.2) và xấp xỉ $(1/b)^{1/r}$ cho bốn cấu hình.
-
-(b) Theo quy tắc của Nhận xét 06.10, giữ các cấu hình có $(1/b)^{1/r}<t$; trong số đó chọn cấu hình có $P_{b,r}(0{,}3)$ nhỏ nhất, với $s=0{,}3$ là cặp xa đại diện như Ví dụ 06.5.
-
-(c) Với cấu hình được chọn, tính xác suất bỏ sót một cặp có $s=0{,}7$.
-:::
-
-::: hint
-Câu (b) cần $P_{b,r}(0{,}3)=1-(1-0{,}3^r)^b$ cho các cấu hình còn lại sau bước lọc. Câu (c) dùng Hệ quả 06.8.
-:::
-
-::: solution
-(a)
-
-| $(b,r)$ | $s_{1/2}$ | $(1/b)^{1/r}$ | $P_{b,r}(0{,}3)$ |
-|---|---:|---:|---:|
-| $(50,2)$ | 0,117334119 | 0,141421356 | 0,991044917 |
-| $(25,4)$ | 0,406648983 | 0,447213595 | 0,183986664 |
-| $(20,5)$ | 0,508695962 | 0,549280272 | 0,047494259 |
-| $(10,10)$ | 0,763108147 | 0,794328235 | 0,000059047 |
-
-(b) Ba cấu hình đầu có $(1/b)^{1/r}<0{,}6$; cấu hình $(10,10)$ bị loại vì vùng chuyển tiếp nằm trên $t$. Trong ba cấu hình còn lại, $(20,5)$ có $P_{b,r}(0{,}3)$ nhỏ nhất, nên được chọn.
-
-(c) Theo Hệ quả 06.8, xác suất bỏ sót là $(1-0{,}7^5)^{20}=(1-0{,}16807)^{20}=0{,}83193^{20}\approx0{,}025219456$.
-
-**Kiểm tra lại.** Cấu hình bị loại $(10,10)$ bỏ sót cặp $s=0{,}7$ với xác suất $(1-0{,}7^{10})^{10}\approx0{,}750855826$, lớn hơn nhiều so với $0{,}025$; điều này khớp với việc nó đặt vùng chuyển tiếp trên $t$.
-:::
-
-::: exercise Bài tập 06.30
-Dữ kiện: một biến thể của Thuật toán 06.4 dùng $b$ bảng băm $B_1,\ldots,B_b$ so khóa đầy đủ. Ở bước 2, cột $c$ của dải $j$ được nối vào danh sách $B_j[z_{j,c}]$, với khóa chỉ là tuple; bước 3 duyệt mọi danh sách của mọi bảng. Ma trận chữ ký có $n=4$, $b=2$, $r=2$ và ba cột, mỗi cột viết từ hàng 1 đến hàng 4: cột 1 là $(1,2,3,4)$, cột 2 là $(3,4,1,2)$, cột 3 là $(1,2,5,6)$.
-
-(a) Chứng minh tập $\mathrm{CAND}$ của biến thể bằng tập ứng viên $\mathcal C$ của Định nghĩa 06.3.
-
-(b) Tính $\mathcal C$, tập $\mathrm{CAND}$ của biến thể, và tập $\mathrm{CAND}$ khi dùng một bảng duy nhất với khóa chỉ là tuple.
-:::
-
-::: hint
-Câu (a) lặp lại bất biến của chứng minh Mệnh đề 06.5 cho từng bảng $B_j$; số dải nằm ở việc chọn bảng thay vì nằm trong khóa. Câu (b) viết hai tuple của mỗi cột trước khi dựng thùng.
-:::
-
-::: solution
-(a) Bảng $B_j$ chỉ nhận các lượt chèn của dải $j$. Áp dụng bất biến của Bước 1 và Bước 2 trong chứng minh Mệnh đề 06.5 cho riêng $B_j$: khi bước 2 kết thúc, danh sách $B_j[z]$ là đúng tập $\{c:\ z_{j,c}=z\}$. Do đó $c$, $d$ chung một danh sách của $B_j$ khi và chỉ khi $z_{j,c}=z_{j,d}$, tức $k_{j,c}=k_{j,d}$. Bước 3 thêm $(c,d)$ vào $\mathrm{CAND}$ khi và chỉ khi tồn tại $j$ để $c$, $d$ chung một danh sách của $B_j$, tức tồn tại $j$ với $k_{j,c}=k_{j,d}$. Theo Định nghĩa 06.3, $\mathrm{CAND}=\mathcal C$. $\square$
-
-(b) Tuple ở dải 1 là $(1,2)$, $(3,4)$, $(1,2)$ cho ba cột; ở dải 2 là $(3,4)$, $(1,2)$, $(5,6)$. Chỉ cột 1 và cột 3 trùng một dải, nên $\mathcal C=\{(1,3)\}$.
-
-| Cách tổ chức | Danh sách có ít nhất hai cột | $\mathrm{CAND}$ |
-|---|---|---|
-| $b$ bảng | $B_1[(1,2)]=[1,3]$ | $\{(1,3)\}$ |
-| Một bảng, khóa chỉ là tuple | $[(1,2)]=[1,3,2]$; $[(3,4)]=[2,1]$ | $\{(1,2),(1,3),(2,3)\}$ |
-
-Với một bảng có khóa chỉ là tuple, tuple $(1,2)$ của cột 2 ở dải 2 rơi vào danh sách của cột 1 và cột 3 ở dải 1, và tuple $(3,4)$ của cột 1 ở dải 2 rơi vào danh sách của cột 2 ở dải 1. Hai cặp $(1,2)$ và $(2,3)$ được phát dù không trùng dải nào: $\mathrm{CAND}\ne\mathcal C$.
-
-**Kiểm tra lại.** Cặp $(1,2)$ so dải 1: $(1,2)\ne(3,4)$; dải 2: $(3,4)\ne(1,2)$. Cặp $(2,3)$ so dải 1: $(3,4)\ne(1,2)$; dải 2: $(1,2)\ne(5,6)$. Cả hai không thuộc $\mathcal C$.
-:::
+Bài tập 06.15–06.30 nằm trong [tệp bài tập Bài 06](material-viewer.html?doc=materials/lec-06/exercises.md&deck=lecture-06-tim-cap-tuong-dong-bang-lsh.html), cùng gợi ý và lời giải.
 
 <!-- note-topic-id: lec-06-topic-15 -->
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
-- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 3. Ví dụ 3.8, tr.85–86: dữ kiện bốn tập đặc trưng. §3.4, tr.91–96: Mục 1 và Mục 2. §3.5, tr.96–103: Mục 3.1–3.5. §3.6, tr.103–108: Mục 3.6–3.7. §3.7, tr.108–114: Mục 4. §3.8, tr.114–122: Mục 5 và các tình huống áp dụng. Bài tập 06.20–06.26 và 06.28 lấy từ §§3.4.4, 3.6.4, 3.7.6, 3.8.7. Sách và bộ trang chiếu của các tác giả tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
+- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 3. Ví dụ 3.8, tr.85–86: dữ kiện bốn tập đặc trưng. §3.4, tr.91–96: Mục 1 và Mục 2. §3.5, tr.96–103: Mục 3.1–3.5. §3.6, tr.103–108: Mục 3.6–3.7. §3.7, tr.108–114: Mục 4. §3.8, tr.114–122: Mục 5 và các tình huống áp dụng. Bài tập 06.20–06.26 và 06.28 của tệp bài tập lấy từ §§3.4.4, 3.6.4, 3.7.6, 3.8.7. Sách và bộ trang chiếu của các tác giả tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
 - Leskovec, J. (2026). Stanford CS246, [LSH I](https://web.stanford.edu/class/cs246/slides/03-lsh.pdf) và [LSH II](https://web.stanford.edu/class/cs246/slides/04-lsh_theory.pdf). Đối chiếu phân dải, phép ghép và hình học pháp tuyến của Mục 4.2; hình trong ghi chú được vẽ lại.
-- Datar, M., Immorlica, N., Indyk, P. và Mirrokni, V. S. (2004). [*Locality-Sensitive Hashing Scheme Based on p-Stable Distributions*](https://people.csail.mit.edu/nickle/pubs/pstable.pdf), SoCG 2004, §3.2. Cơ chế dịch đều của Định nghĩa 06.34 và Bổ đề 06.35. Bộ tham số $(a/2,2a,1/2,1/3)$ và lập luận góc của Định lý 06.36 theo MMDS §3.7.4 (tr.111–113); ghi chú viết đủ các bước và thêm độ dịch đều cho cận gần. Phân phối ổn định không thuộc chương này.
+- Datar, M., Immorlica, N., Indyk, P. và Mirrokni, V. S. (2004). [*Locality-Sensitive Hashing Scheme Based on p-Stable Distributions*](https://people.csail.mit.edu/nickle/pubs/pstable.pdf), SoCG 2004, §3.2. Cơ chế dịch đều của Định nghĩa 06.34 và Bổ đề 06.35. Bộ tham số $(a/2,2a,1/2,1/3)$ và lập luận góc của Định lý 06.36 theo MMDS §3.7.4 (tr.111–113). Phân phối ổn định không thuộc chương này.
+- Blum, A., Hopcroft, J. và Kannan, R. (2018). *Foundations of Data Science*, bản thảo ngày 4/1/2018, §2.5, tr.22–23. Phân phối đều trên mặt cầu đơn vị sinh từ vector chuẩn tắc, dùng ở Thuật toán 06.33.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho chứng minh Mệnh đề 06.5.
 - Đọc tiếp, không là tiên quyết của bài tập: Bài 3.4.4 của MMDS (tr.96) về tổ chức phân dải trên MapReduce; Ví dụ 3.21 (tr.108) về phép ghép 256 hàm; Bài 3.6.2–3.6.4 (tr.108) về điểm bất động và độ dốc của các hàm ghép; §3.7.5 (tr.113) về mở rộng định tính của họ chiếu sang nhiều chiều.
 - Ghi chú Bài 05, *Biểu diễn tương đồng: Shingling và MinHash*, Mục 2–3, 5–7, 9 và 11: các kết quả nhắc lại ở phần kiến thức tiên quyết.

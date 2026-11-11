@@ -1043,3 +1043,44 @@ Tác tử soạn thảo (fork, Opus 5.5, effort `high`, tác tử ghi duy nhất
 **Giới hạn còn lại.** Hai SVG (`xac-suat-phan-dai.svg` dấu chấm thập phân, `mien-gan-xa.svg` nhãn nhỏ) giữ ngoại lệ cũ; CSS chung ẩn chân trang ở các trang mạch 1 (ảnh hưởng mọi deck, cần đợt sửa riêng); thuật ngữ liên bài ("băm nhạy cảm cục bộ" ở Bài 05, "véc-tơ" ở Bài 07) chưa thống nhất.
 
 **Cập nhật về độ dài ghi chú (điều phối viên, 2026-10-14).** Quy định độ dài trong `AGENTS.md` được sửa từ "8 000 đến 20 000 từ" (chép từ chuẩn của `../rl-plan`, nơi ghi chú mẫu cũng dài 26 000 âm tiết theo cách đếm khoảng trắng) thành "12 000 đến 32 000 âm tiết tách theo khoảng trắng"; ghi chú Bài 06 (30 799) nằm trong khoảng này, nên ngoại lệ ghi ở trên không còn cần thiết.
+
+## Sửa ghi chú theo chuẩn 2026-11 (đợt A3, giai đoạn 1, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md`; `AGENTS.md` §"Cấu trúc bắt buộc" mục 5, 6, 10. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Rà văn phong (đợt duyệt toàn học phần, bản chưa đổi) | general-purpose | opus | high | không |
+| Rà chuẩn giáo trình, kế hoạch tách bài tập; sau đó kiểm tra lại mạch và văn phong (hai lượt) | general-purpose | opus | high | không |
+| Rà độ chính xác (ba lượt) | general-purpose | opus | high | không |
+| Biên tập (bốn vòng, SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, một SVG |
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | toàn chương | bản đồ chủ đề; 13 câu "Mô tả này chưa phải định nghĩa/định lý"; câu về vị thế văn bản; câu nguồn gốc số liệu; khoảng 50 câu bàn nguồn hoặc lấy MMDS làm chủ ngữ | chấp nhận: xóa; nguồn vào cuối tiêu đề khối hoặc ngoặc sau dữ kiện; MMDS viết đủ tên ở tiêu đề Ví dụ 06.1 |
+| trung bình | 667, Tóm tắt | 100 giây dùng giả định $1\,\mu$s của phép so chữ ký cho bước xác minh Jaccard gốc | chấp nhận: nêu giả định tường minh |
+| trung bình | Định lý 06.7 | giả thiết so khóa đầy đủ đặt lên tập $\mathcal C$ | chấp nhận: bỏ khỏi định lý, thêm vào Điều kiện áp dụng; Hệ quả 06.8 "Như Định lý 06.7 và Mệnh đề 06.5"; người rà xác nhận chứng minh còn đúng |
+| trung bình | Nhận xét 06.37 | lập luận đơn điệu thiếu bước lấy trung bình theo $u$; câu "mọi số chiều" sai khi $D=1$ | chấp nhận: $P(\rho)=\mathbb E_u[\cdot]$ giảm chặt khi $D\ge2$ |
+| trung bình | Tóm tắt | 11 câu; vòng sau thiếu giới hạn còn lại và Bài 07 | chấp nhận: 8 câu |
+| trung bình | sáu danh sách "Bỏ …" | mất câu dẫn khi bỏ câu mẫu lặp | chấp nhận: "Phản ví dụ khi bỏ từng giả thiết:" |
+| trung bình | trích dẫn | MMDS §3.7.2 cho tính đẳng hướng, MMDS §3.5.2 cho Minkowski (sách không viết) | chấp nhận: BHK §2.5, tr.22–23 (bản thảo 2018) cho tính đẳng hướng; Minkowski không gán MMDS |
+| trung bình | bảng ký hiệu, chữ nhiều nghĩa | thiếu $\mathrm{SIM}$, $s_{cd}$, $N$, $\rho$; $f$, $x$, $\alpha$, $t$ nhiều nghĩa | chấp nhận: thêm; Tình huống 06.1 dùng $\bar\tau$, $\eta$; góc cực $\omega_u$; biến câm $\xi$ |
+| nhẹ | Jensen (Tình huống 06.2) | "không có bất đẳng thức một chiều" mạnh hơn điều đã chứng minh | chấp nhận ở ghi chú; lời giải Bài tập 06.28 sửa ở giai đoạn 2 |
+| nhẹ | Định nghĩa 06.31, Mệnh đề 06.19 Phạm vi, Nhận xét 06.6 ví dụ, Ví dụ 06.17 ($25\kappa\to4\kappa$), cặp A×B, Nhận xét 06.40, số trang (§3.8.5 tr.118; tr.119–120; tr.111; tr.115–116), giá trị trực tiếp Tình huống 06.3 | chấp nhận |
+| nhẹ | nhãn trục SVG | dấu chấm thập phân | chấp nhận: `img/lec-06/xac-suat-phan-dai.svg`; bộ sinh hình trong `tools/` sửa cùng, chạy lại trùng khít |
+| — | đổi Nhận xét 06.21 (chứa chứng minh) thành mệnh đề | bác bỏ: đổi nhãn khối có số |
+
+Nguồn gốc số liệu chuyển khỏi ghi chú: câu quy ước 71 cũ ("các Bài 3.4.1–3.8.2 là số của sách"; số không kèm nguồn là dữ liệu tính tay), "5,787 ngày là phép tính dưới một giả định về thời gian mỗi cặp", "giả định minh họa về phân bố tương đồng" (665), "các số thuộc mô hình, không phải số đo" (1510, 1544, 1606, 1655); sách làm tròn 1/2808 thành "1 trên 3 000" (409); MMDS không cho $x$ ở mức 115.
+
+### Kết quả kiểm tra
+
+- Độ dài: ghi chú 31 005 → 25 994; `exercises.md` 3 619 (Bài tập 06.15–06.30 chuyển nguyên văn, chỉ đổi `###` → `##`).
+- Khối có số hiệu: 112 khối giữ số, loại và tên; 25 tiêu đề thêm nguồn trong ngoặc; Nhận xét 06.24 chuyển lên trước Bài tập 06.6.
+- Tham chiếu: 96 dẫn chiếu trỏ tới khối có thật. Grep: 0 "chưa phải", "Bản đồ chủ đề", "Bài này", "Mục này".
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
+- Giai đoạn 2: tám bài củng cố tự dựng (06.15–06.19, 06.27, 06.29, 06.30) phải thay bằng bài MMDS theo quy tắc nguồn bài tập 2026-11-11.
+- Lệch với deck (không sửa trong goal): ghi chú diễn giả gọi 06.15–06.19, 06.26, 06.27, 06.29, 06.30 là bài về nhà "trong ghi chú bài giảng"; các bài này nay ở tệp bài tập.
