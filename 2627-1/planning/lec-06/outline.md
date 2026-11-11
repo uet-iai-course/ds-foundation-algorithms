@@ -142,7 +142,7 @@ Ghi chú bài giảng được viết lại theo cấu trúc chương của `AGE
 | `lec-06-topic-13` | N13 | Bản tin gần trùng; cốt lõi | 5.3 | Định nghĩa 06.43; Ví dụ 06.19; Bài tập 06.14 | 5 |
 | `lec-06-topic-19` | — | Tình huống áp dụng; cốt lõi | Tình huống áp dụng và ứng dụng | Tình huống 06.1–06.4 (06.1 và 06.4 giả thiết không thỏa) | 5, 6 |
 | `lec-06-topic-14` | N14 | Tóm tắt chương; cốt lõi | Tóm tắt chương | Thu hồi kho một triệu tài liệu | 6 |
-| `lec-06-topic-16` | N16 | Bài tập củng cố; cốt lõi | Bài tập củng cố | Bài tập 06.15–06.30; bài sách 06.20–06.26, 06.28 | 6 (06.15–06.19, 06.27), 7 (bài sách); 06.29–06.30 chỉ ở ghi chú |
+| `lec-06-topic-16` | N16 | Bài tập củng cố; cốt lõi | Bài tập củng cố | Bài tập 06.15–06.30 trong `exercises.md`; mọi bài 06.15–06.30 là bài MMDS; trên lớp: 06.20–06.25, 06.28 | 6 (câu tự kiểm ứng với Bài tập 06.3, 06.4, 06.7, 06.11, Nhận xét 06.10, Mệnh đề 06.38), 7 (06.20–06.25, 06.28); 06.15–06.19, 06.26, 06.27, 06.29, 06.30 tự học |
 | `lec-06-topic-15` | N15 | Đọc thêm; đọc thêm | Hướng dẫn đọc thêm và tài liệu tham khảo | Bài 3.7.5(d) chuyển thành Bài tập 06.26; mô hình trường ngày chuyển thành Tình huống 06.1; các chỉ dẫn đọc tiếp ở mục tham khảo | 6 (trang Nguồn và tài liệu đọc) |
 
 ## 5. Mạch giảng và chu trình theo cụm

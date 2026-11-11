@@ -1084,3 +1084,57 @@ Nguồn gốc số liệu chuyển khỏi ghi chú: câu quy ước 71 cũ ("cá
 - Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
 - Giai đoạn 2: tám bài củng cố tự dựng (06.15–06.19, 06.27, 06.29, 06.30) phải thay bằng bài MMDS theo quy tắc nguồn bài tập 2026-11-11.
 - Lệch với deck (không sửa trong goal): ghi chú diễn giả gọi 06.15–06.19, 06.26, 06.27, 06.29, 06.30 là bài về nhà "trong ghi chú bài giảng"; các bài này nay ở tệp bài tập.
+
+## Tệp bài tập theo chuẩn 2026-11 (đợt A3, giai đoạn 2, 2026-11-11)
+
+Căn cứ: `AGENTS.md` §"Cấu trúc bắt buộc" mục 10 và quyết định người dùng 2026-11-11 (bài tập chỉ lấy từ giáo trình là nguồn chính). Tám bài củng cố tự dựng (06.15–06.19, 06.27, 06.29, 06.30) thay bằng bài MMDS ấn bản 3, Chương 3, giữ số hiệu.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập danh sách bài (tác tử rà chuẩn của giai đoạn 1, SendMessage) | general-purpose | opus | high | không |
+| Soạn (tác tử biên tập của giai đoạn 1, SendMessage) | general-purpose | opus | high | `exercises.md`, dòng tham khảo ghi chú, `outline.md`, `storyboard.md` |
+| Rà độ chính xác (hai lượt) | general-purpose | opus | high | không |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà sư phạm và văn phong, `no-ai-slop` Detect (hai lượt) | general-purpose | opus | high | không |
+
+### Danh sách bài
+
+| Bài | Nguồn | Mức | Mục tiêu |
+|---|---|---|---|
+| 06.15 | MMDS Bài 3.5.4, §3.5.7, tr.102 (thay bài tự dựng) | nhận biết | 3 |
+| 06.16 | MMDS Bài 3.5.2, tr.102 (thay) | nhận biết | 3 |
+| 06.17 | MMDS Bài 3.5.5, tr.102 (thay) | tính toán | 3 |
+| 06.18 | MMDS Bài 3.5.7, tr.102 (thay) | tính toán | 3 |
+| 06.19 | MMDS Bài 3.5.1 (mức "!"), tr.101–102 (thay) | tính toán hoặc chứng minh | 3 |
+| 06.20 | MMDS Bài 3.4.1, §3.4.4, tr.96 (recitation) | tính toán | 2 |
+| 06.21 | MMDS Bài 3.4.2, tr.96 (recitation) | tính toán | 2 |
+| 06.22 | MMDS Bài 3.6.1, §3.6.4, tr.108 (recitation) | tính toán | 3 |
+| 06.23 | MMDS Bài 3.7.1, §3.7.6, tr.113 (recitation) | tính toán | 4 |
+| 06.24 | MMDS Bài 3.7.2, tr.113–114 (recitation) | tính toán | 4 |
+| 06.25 | MMDS Bài 3.7.5(a–c), tr.114 (recitation) | tính toán | 4 |
+| 06.26 | MMDS Bài 3.7.5(d), tr.114 | tính toán | 4 |
+| 06.27 | MMDS Bài 3.8.1, §3.8.7, tr.121 (thay) | vận dụng | 5 |
+| 06.28 | MMDS Bài 3.8.2, tr.121 (recitation) | vận dụng | 5 |
+| 06.29 | MMDS Bài 3.7.3, tr.114 (thay) | vận dụng | 4 |
+| 06.30 | MMDS Bài 3.8.5 (mức "!"), tr.122 (thay) | vận dụng | 5 |
+
+Mục tiêu 1 (phân dải, khử lặp, xác minh) không có bài sách phù hợp (Bài 3.4.4 cần MapReduce của Bài 02); dựa vào Bài tập 06.1, 06.2 của ghi chú. Bài không dùng: 3.4.3 (cần xấp xỉ $e^{-x}$ của §1.3.5), 3.5.3 (mức "!!"), 3.5.8–3.5.9 (phép thay, đổi chỗ ngoài chương), 3.6.2–3.6.4 (điểm bất động, độ dốc), 3.7.4 (mức "!!"), 3.8.4 (trùng số liệu Ví dụ 06.18).
+
+### Phát hiện chính và quyết định
+
+| mức độ | bài | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | 06.25, 06.26 | đề không nêu quy tắc ứng viên (OR qua ba trục) | chấp nhận: thêm vào đề |
+| trung bình | đoạn mở | câu đặt tên ký hiệu, câu máy tính, câu mức "!" (thiếu 06.21, 06.26) | chấp nhận: cắt |
+| trung bình | 06.28 | lời giải độn chữ, lặp Ví dụ 06.18 và Tình huống 06.2; câu "cận dưới" đặt sai điều kiện | chấp nhận: một câu có tỷ số (khoảng 30 và 130 lần), dẫn Ví dụ 06.18, câu cận dưới viết lại |
+| nhẹ | 06.17, 06.20, 06.21, 06.22, 06.23, 06.24, 06.26; câu "Sản phẩm là …" | kiểm tra lại yếu, phủ định, lập luận thiếu ở trục 1, 3 | chấp nhận |
+
+### Kết quả kiểm tra
+
+- Các lượt rà tính lại mọi số (16 bài; ví dụ: dãy con chung 4, 5, 3; $\mathbb E\lvert\Delta\rvert=3{,}3$, $\eta=13/32$; 16 pháp tuyến cho 6, 10, 14 bit khác; $n=1030$, $g\approx0{,}07838439$).
+- `exercises.md`: 4 062 âm tiết, 16 bài, 16 hint, 16 solution; 36 dẫn chiếu "Loại 06.k" trỏ tới khối có thật.
+- Trình duyệt (`http.server`, Playwright Chromium): 1600×900 và 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
+- `index.html`: thẻ Bài 6 thêm liên kết "Bài tập".
+- Lệch với deck (không sửa trong goal): ghi chú diễn giả trang `lec06-s06-03` ("Bài tập 06.16–06.18") và `lec06-s06-04` ("Bài tập 06.15, 06.19, 06.27") trỏ tới số nay mang bài MMDS khác; câu tự kiểm tương ứng nay là Bài tập 06.3, 06.4, Nhận xét 06.10 và Bài tập 06.7, 06.11, Mệnh đề 06.38. Trang nguồn ghi "bài tập về nhà là Bài tập 06.15–06.19, 06.26, 06.27, 06.29 và 06.30" vẫn đúng về số.

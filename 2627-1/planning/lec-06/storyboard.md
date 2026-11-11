@@ -412,7 +412,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Dữ kiện và ký hiệu kế thừa:** Bảng chi phí s02-13; vết chạy bốn tập.
 - **Kiến thức đầu vào:** Tổ hợp chập hai.
 - **Sản phẩm học tập:** Kết luận phân dải không giảm bậc hai vô điều kiện.
-- **Bằng chứng kiểm tra:** Câu 1 của s06-03; Bài tập 06.4, 06.17.
+- **Bằng chứng kiểm tra:** Câu 1 của s06-03; Bài tập 06.4.
 - **Kết nối vào–ra:** Vào: bảng chi phí. Ra: câu hỏi s02-14; mạch 3 khái quát sang độ đo khác.
 - **Nguồn:** Phân tích chi phí từ thủ tục MMDS §3.4.
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: phần thứ hai tách từ s02-13. Âm tiết mặt trang — → 38.
@@ -1090,7 +1090,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Kết nối vào–ra:** Giới hạn→tự kiểm nửa đầu; trang sau kiểm phép ghép/họ/ứng dụng.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: dải 1 cho thùng $\{1,3\}$, dải 2 cho thùng $\{1,2,3,4\}$; $Q=1+6=7$, $K=6$, cặp $(1,3)$ phát hai lần. Câu 2: ngưỡng $0{,}1^{1/4}\approx0{,}562$; $P(0{,}8)=1-(1-0{,}4096)^{10}\approx0{,}9949$, $P(0{,}3)=1-(1-0{,}0081)^{10}\approx0{,}0781$. Câu 3: $(0{,}2;\ 0{,}5;\ 0{,}8;\ 0{,}5)$, sau AND 2 là $(0{,}2;\ 0{,}5;\ 0{,}64;\ 0{,}25)$ với hai hàm độc lập. Tiêu chí: đếm cả lượt phát lặp trong $Q$ và chỉ đếm một lần trong $K$; dùng đúng thứ tự AND trong dải rồi OR giữa các dải; giữ nguyên $d_1$, $d_2$ khi ghép.
 - **Nguồn:** B Ex 3.8, §3.4.2, Ex 3.18 tr.105; tổng hợp mục tiêu MT1–MT3.
-- **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N14`); số hiệu: Bài tập 06.16–06.18. **Thời lượng:** 2,5 phút (trước 2.5 phút).
+- **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N14`); số hiệu: Bài tập 06.3, 06.4, Nhận xét 06.10 (2026-11-11; trước là Bài tập 06.16–06.18). **Thời lượng:** 2,5 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng "Câu hỏi: trả lời và nêu kết quả đã dùng."; câu MinHash chuyển sang s06-04, câu "giữ r, tăng b" chuyển vào đây. Âm tiết mặt trang 52 → 34. Tiêu đề cũ: “Câu hỏi tổng hợp về phân dải”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (toán): ghi chú gọi $0{,}1^{1/4}$ là xấp xỉ, thêm nghiệm một nửa $\approx0{,}509$; "kỳ vọng của $K$". Âm tiết mặt trang 34 → 34.
 
@@ -1105,7 +1105,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Kết nối vào–ra:** Tự kiểm nửa đầu→nửa sau; bài tập nguồn cung cấp vết chạy đầy đủ hơn.
 - **Diễn giải học thuật, lời giải và tiêu chí:** Câu 1: $p_1=1-1/6=5/6$, $p_2=1/2$; $F(p)=1-(1-p^2)^2$ cho $F(5/6)\approx0{,}9066$ và $F(1/2)=0{,}4375$. Câu 2: họ siêu phẳng, vì góc chỉ phụ thuộc hướng; tính chữ ký cần $C\cdot m\cdot128$ phép nhân, tức $O(CmD)$ với $D=128$, và lưu $m$ bit mỗi ảnh cùng $128m$ số cho các pháp tuyến. Câu 3: $P_{b,r}(s)$ tăng với mọi $s$, nên ít cặp bỏ sót hơn nhưng nhiều cặp xa thành ứng viên hơn, $K$ và thời gian xác minh tăng. Tiêu chí: đổi góc sang radian trước khi dùng $1-\theta/\pi$; tách chi phí tính chữ ký khỏi chi phí phân dải; nêu đủ hai chiều của đánh đổi.
 - **Nguồn:** B Ex 3.19–20, §3.7.2, §3.8.5; tổng hợp MT4–MT6.
-- **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N14`); số hiệu: Bài tập 06.15, 06.19, 06.27. **Thời lượng:** 2 phút (trước 2 phút).
+- **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N14`); số hiệu: Bài tập 06.7, 06.11, Mệnh đề 06.38 (2026-11-11; trước là Bài tập 06.15, 06.19, 06.27). **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng "Câu hỏi: trả lời và nêu kết quả đã dùng."; đánh số tiếp 4–6. Âm tiết mặt trang 69 → 51. Tiêu đề cũ: “Câu hỏi tổng hợp về họ băm và ứng dụng”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B17: câu 6 rút còn 18 âm tiết. Âm tiết mặt trang 55 → 52.
 
@@ -1123,7 +1123,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: mạch kết luận bắt buộc có trang nguồn, ghi công mmds.org và liên kết ghi chú. Âm tiết mặt trang — → 56.
 - **Ánh xạ ghi chú:** `lec-06-topic-15`; số hiệu: Hướng dẫn đọc thêm và tài liệu tham khảo. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11, B17: HNSW, PQ viết đầy đủ trong ghi chú, mặt trang "chỉ mục đồ thị HNSW và lượng tử hóa tích (PQ)"; tên đầy đủ Datar và cộng sự; nhãn "Đối chiếu:" thành "Nguồn:"; trang nguồn theo trần 80 (ngoại lệ). Âm tiết mặt trang 64 → 65.
-- **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ (rà lại toán): ghi chú tách bài về nhà (06.15–06.19, 06.26, 06.27, 06.29, 06.30) khỏi bài giải trên lớp. Âm tiết mặt trang 65 → 65.
+- **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ (rà lại toán): ghi chú tách bài về nhà (06.15–06.19, 06.26, 06.27, 06.29, 06.30) khỏi bài giải trên lớp; từ 2026-11-11 các số này là bài MMDS tự học trong `exercises.md`. Âm tiết mặt trang 65 → 65.
 
 ### Mạch 7. Bài tập vận dụng
 
@@ -1270,9 +1270,9 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 | N12 | `lec-06-topic-12` | 5.2 | Định nghĩa 06.41; Mệnh đề 06.42; Ví dụ 06.18; Bài tập 06.13 | Bài tập 06.13 dùng câu OR 512 của trang `lec06-s05-06`; truy vấn một–nhiều chuyển sang Tình huống 06.2 |
 | N13 | `lec-06-topic-13` | 5.3 | Định nghĩa 06.43; Ví dụ 06.19; Bài tập 06.14 | Hệ quả Jaccard $0{,}75$, $0{,}25$, $1/3$ chuyển sang Tình huống 06.3 |
 | — | `lec-06-topic-19` | Tình huống áp dụng và ứng dụng | Tình huống 06.1–06.4 | Thêm; Tình huống 06.1 (hàm khóa cố định) và 06.4 (pháp tuyến $\pm1$) là hai tình huống giả thiết không thỏa |
-| N14 | `lec-06-topic-14` | Tóm tắt chương | — | Sáu nhiệm vụ tự kiểm chuyển thành Bài tập 06.15–06.19 và 06.27; thu hồi kho một triệu tài liệu bằng $\binom{10^6}{2}$ và giả định luyện tập $10^6$ cặp |
+| N14 | `lec-06-topic-14` | Tóm tắt chương | — | Sáu nhiệm vụ tự kiểm ứng với Bài tập 06.3, 06.4, 06.7, 06.11, Nhận xét 06.10 và Mệnh đề 06.38 (2026-11-11; Bài tập 06.15–06.19, 06.27 nay là bài MMDS); thu hồi kho một triệu tài liệu bằng $\binom{10^6}{2}$ và giả định luyện tập $10^6$ cặp |
 | N15 | `lec-06-topic-15` | Hướng dẫn đọc thêm và tài liệu tham khảo | — | Tách ba nơi: Bài 3.7.5(d) thành Bài tập 06.26; mô hình trường ngày thành Tình huống 06.1; các chỉ dẫn đọc tiếp ở mục tham khảo |
-| N16 | `lec-06-topic-16` | Bài tập củng cố | Bài tập 06.15–06.30 | R1 tách thành Bài tập 06.20 (Bài 3.4.1) và 06.21 (Bài 3.4.2); R2–R6 là Bài tập 06.22–06.25 và 06.28 |
+| N16 | `lec-06-topic-16` | Bài tập củng cố | Bài tập 06.15–06.30 | R1 tách thành Bài tập 06.20 (Bài 3.4.1) và 06.21 (Bài 3.4.2); R2–R6 là Bài tập 06.22–06.25 và 06.28; 06.15–06.19, 06.26, 06.27, 06.29, 06.30 là bài MMDS tự học trong `exercises.md` |
 
 ### N01 → `lec-06-topic-01`. Bài toán ứng viên (Mục 1)
 
@@ -1368,7 +1368,7 @@ MapReduce Bài 3.4.4, tr.96; ghép 256 Ví dụ 3.21, tr.108; điểm bất đ�
 
 ### N16 → `lec-06-topic-16`. Bài tập và lời giải (Bài tập củng cố)
 
-Cập nhật 2026-10-14 (lượt sửa ghi chú theo hai báo cáo rà): thêm Bài tập 06.29 (chọn $(b,r)$ cho $t=0{,}6$ trong bốn cấu hình $br=100$, kiểm mục tiêu 2) và Bài tập 06.30 (chứng minh biến thể $b$ bảng cho $\mathrm{CAND}=\mathcal C$ và phản ví dụ một bảng không có số dải, kiểm mục tiêu 1) ở cuối Mức vận dụng; hai bài chỉ có trong ghi chú, không thêm trang chiếu.
+Cập nhật 2026-10-14 (lượt sửa ghi chú theo hai báo cáo rà): thêm Bài tập 06.29 (chọn $(b,r)$ cho $t=0{,}6$ trong bốn cấu hình $br=100$, kiểm mục tiêu 2) và Bài tập 06.30 (chứng minh biến thể $b$ bảng cho $\mathrm{CAND}=\mathcal C$ và phản ví dụ một bảng không có số dải, kiểm mục tiêu 1) ở cuối Mức vận dụng; hai bài chỉ có trong ghi chú, không thêm trang chiếu. Ngày 2026-11-11, hai số này được dùng cho MMDS Bài 3.7.3 và Bài 3.8.5 trong `exercises.md`.
 
 Sáu cụm nguồn, R1–R6, giữ toàn dữ kiện/yêu cầu và tổng 60 phút như phiếu s07-01–07. Mỗi bài có khối exercise, hint, solution không lồng nhau; hint/solution gập mặc định, dùng bàn phím và mở khi in. Dữ kiện đề xuất hiện đầy đủ để người đọc không phải mở slide. Các lời giải dưới đây chuyển vào tài liệu, không chỉ tham chiếu storyboard. Tiêu chí đánh giá nêu bước toán học và lỗi cụ thể, không chứa lời điều phối lớp. Việc chia bài 3.4.1–2 thành hai trang và chuyển 3.7.5(d) sang đọc thêm là hai điều chỉnh, được ghi trong log.
 
@@ -1558,8 +1558,8 @@ N02 và ghi chú s02-08 mô tả đúng biến thể: bỏ bước 6 kiểm ch�
 | `lec06-s06-05` | Kết quả và giả thiết không được bỏ | `lec-06-topic-14` | Mệnh đề 06.5; Định lý 06.7; Định nghĩa 06.22; Mệnh đề 06.26, 06.29; Định lý 06.32, 06.36; Mệnh đề 06.42; Nhận xét 06.40 | 2 |
 | `lec06-s06-02` | Thuật toán, bảo đảm và chi phí | `lec-06-topic-14` | Thuật toán 06.4, 06.33; Mệnh đề 06.11, 06.38 | 1,5 |
 | `lec06-s06-01` | Câu trả lời cho vấn đề trung tâm | `lec-06-topic-14` | Tóm tắt chương; Mệnh đề 06.13 | 2 |
-| `lec06-s06-03` | Câu hỏi tự kiểm tra | `lec-06-topic-16` | Bài tập 06.16–06.18 | 2,5 |
-| `lec06-s06-04` | Câu hỏi tự kiểm tra | `lec-06-topic-16` | Bài tập 06.15, 06.19, 06.27 | 2 |
+| `lec06-s06-03` | Câu hỏi tự kiểm tra | `lec-06-topic-16` | Bài tập 06.3, 06.4; Nhận xét 06.10 | 2,5 |
+| `lec06-s06-04` | Câu hỏi tự kiểm tra | `lec-06-topic-16` | Bài tập 06.7, 06.11; Mệnh đề 06.38 | 2 |
 | `lec06-s06-08` | Nguồn và tài liệu đọc | `lec-06-topic-15` | Hướng dẫn đọc thêm và tài liệu tham khảo | 0,5 |
 | `lec06-s07-00` | 7. Bài tập vận dụng | `lec-06-topic-16` | — | 0,5 |
 | `lec06-s07-01` | Bài tập: bảng giá trị đường cong S | `lec-06-topic-16` | Bài tập 06.20 | 11,5 |
