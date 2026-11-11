@@ -719,7 +719,7 @@ Căn cứ: `prompt_fix_lecture_notes.md`; `AGENTS.md` §"Cấu trúc bắt buộ
 
 Số liệu và chi tiết bị bỏ theo hàng đợi đã duyệt (không thuộc khối có số hiệu): tầng lọc $7/8$ và ý thêm máy (§4.4.1); "hàng tỷ lượt" Yahoo!; ví dụ $r=8$, 4 bit; chi tiết Welford (thiếu 129, $V_8=37{,}875$, sai số $1{,}3\cdot10^{-8}$); ước tính 80% thư rác.
 
-Đính chính so với nguồn (chuyển khỏi ghi chú): MMDS Ví dụ 4.4 in $0{,}0493$ cho $k=2$, tính lại $(1-e^{-0{,}25})^2=0{,}048929$; trang chiếu MMDS Streams 2, tr.14 in $(1-e^{-1/6})^2=0{,}0235$ (công thức sai), trang chiếu CS246 2026 tr.32–33 đã sửa thành $(1-e^{-3/4})^6=0{,}0216$. Nguồn gốc số liệu chuyển khỏi ghi chú: các số không kèm nguồn (một trăm người trong phép đếm của Mục 2.1, cỡ cửa sổ 4, tên người dùng An và Bình, mảng 11 bit với các khóa ngoài trang chiếu Ullman, số người dùng và thư trong ba tình huống) là dữ liệu tính tay do người soạn dựng.
+Đính chính so với nguồn (chuyển khỏi ghi chú): MMDS Ví dụ 4.4 in $0{,}0493$ cho $k=2$, tính lại $(1-e^{-0{,}25})^2=0{,}048929$; trang chiếu MMDS Streams 2, tr.14 in $(1-e^{-1/6})^2=0{,}0235$ (công thức sai), trang chiếu CS246 2026 tr.32–33 đã sửa thành $(1-e^{-3/4})^6=0{,}0216$. Nguồn gốc số liệu chuyển khỏi ghi chú: các câu ở dòng 75, 112, 114, 247, 271, 333, 339, 349, 407, 428, 447, 453, 461, 623, 641, 734, 751, 947, 971, 1004, 1132, 1134, 1372, 1393 của bản trước sửa (commit trước `e5a5117`) ghi số liệu nào do người soạn dựng để tính tay; nguyên văn giữ trong lịch sử git.
 
 ### Kết quả kiểm tra
 
@@ -728,3 +728,49 @@ Số liệu và chi tiết bị bỏ theo hàng đợi đã duyệt (không thu�
 - Grep: 0 "chưa phải", "Bản đồ chủ đề", "Bài này", "Mục này", "sách in", "do học phần"; `git diff --check` sạch.
 - Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
 - Giai đoạn 2: 08.6–08.9 và 08.14 là bài tự dựng; MMDS §4.1–4.3 chỉ có bốn bài (đã là 08.10–08.13). Dự kiến thay bằng BHK Bài 6.1 câu 2, 6.2, 6.3, 6.4 (giáo trình ghi chú dẫn làm nguồn) và bỏ 08.14.
+
+## Tệp bài tập theo chuẩn 2026-11 (đợt A4, giai đoạn 2, 2026-11-11)
+
+Căn cứ: `AGENTS.md` §"Cấu trúc bắt buộc" mục 10 và quyết định người dùng 2026-11-11 (bài tập chỉ lấy từ giáo trình). MMDS §4.1–4.3 chỉ có Bài 4.2.1, 4.3.1, 4.3.2, 4.3.3; năm bài tự dựng (08.6–08.9, 08.14) thay bằng bài BHK §6.6 (giáo trình ghi chú dẫn làm nguồn) và bỏ 08.14 (số cuối, không tạo khoảng trống).
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Đề xuất bài thay (tác tử rà chuẩn của giai đoạn 1) | general-purpose | opus | high | không |
+| Soạn (tác tử biên tập của giai đoạn 1, SendMessage) | general-purpose | opus | high | `exercises.md`, dòng liên kết và tham khảo của ghi chú, `outline.md`, `storyboard.md` |
+| Rà độ chính xác (hai lượt) | general-purpose | opus | high | không |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà sư phạm và văn phong, `no-ai-slop` Detect | general-purpose | opus | high | không |
+
+### Danh sách bài
+
+| Bài | Nguồn | Mức | Mục tiêu |
+|---|---|---|---|
+| 08.6 | BHK Bài 6.3, §6.6, tr.204 (thay bài tự dựng) | nhận biết | 2 |
+| 08.7 | BHK Bài 6.2, tr.204 (thay) | nhận biết | 2 |
+| 08.12 | MMDS Bài 4.3.3 (mức "!!"), §4.3.4, tr.142 (recitation) | nhận biết | 3 |
+| 08.8 | BHK Bài 6.1 câu 2, tr.204 (thay) | tính toán hoặc chứng minh | 2 |
+| 08.9 | BHK Bài 6.4, tr.204 (thay) | tính toán hoặc chứng minh | 2 |
+| 08.10 | MMDS Bài 4.3.1, §4.3.4, tr.141 (recitation) | tính toán hoặc chứng minh | 3 |
+| 08.11 | MMDS Bài 4.3.2 (mức "!"), tr.141 (recitation) | tính toán hoặc chứng minh | 3 |
+| 08.13 | MMDS Bài 4.2.1, §4.2.5, tr.138 (recitation) | vận dụng | 1 |
+
+Bỏ: 08.14 (dựng từ phần văn của hộp "A General Stream-Sampling Problem", MMDS tr.150; ý hồ chứa theo khóa vẫn ở Nhận xét 08.21). Mục 5 của ghi chú (chọn cấu trúc theo câu hỏi) không có bài sách riêng; Bài tập 08.13 (MMDS 4.2.1) áp dụng quy trình ba bước của Mục 2.3. 08.12 trùng Định lý 08.28 và Hệ quả 08.29 nên xếp mức nhận biết, kiểm tra lại trên $n/m=10$ (chưa có trong ghi chú). Câu nguồn gốc dữ kiện trong 08.11 và 08.13 cũ ("U1, U2 là tên đặt chỗ", "mã 123 là ví dụ của học phần") đã bỏ; giả thiết của 08.11 viết thành "Giả sử $k$ chia hết $n$ và các hàm băm đều, độc lập".
+
+### Phát hiện chính và quyết định
+
+| mức độ | bài | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | 08.12 | đề là Định lý 08.28, sai mức | chấp nhận: mức nhận biết; kiểm tra lại $n/m=10$ ($p(6)\approx0{,}008436>p(7)\approx0{,}008194\ge2^{-k^*}\approx0{,}008193$) |
+| trung bình | 08.8, 08.7 | gợi ý thay lời giải | chấp nhận: gợi ý bước mở đầu |
+| trung bình | 08.6 | đề có/không, câu bên lề, dẫn sai Định nghĩa 08.8 | chấp nhận: động từ nhiệm vụ, cắt câu, chuyển mục tiêu 2 |
+| trung bình | 08.13 | lời giải (a) vòng vo | chấp nhận: rút gọn |
+| nhẹ | 08.9, 08.10, 08.11 | ký hiệu $T$ trùng Mục 1, bộ nhớ của tổng, cận $p(6)$ ngoài đoạn giảm, câu khái quát từ một ví dụ | chấp nhận |
+
+### Kết quả kiểm tra
+
+- Các lượt rà tính lại mọi số (ví dụ: 08.7 sách "a b a" cho $2/3$; 08.8 dòng $1,2,2$ cho $1/9$, $4/9$, $4/9$; 08.9 $9/16$; 08.10 $p(3)=0{,}030579$, $p(4)=0{,}023969$, trùng $q^k$ tới chín chữ số khi $n=8\cdot10^9$; 08.11 $0{,}024556<0{,}025354<0{,}026450$).
+- `exercises.md`: 8 bài, 8 hint, 8 solution; 64 dẫn chiếu "Loại 08.k" trong ghi chú và tệp bài tập trỏ tới khối có thật.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
+- `index.html`: thẻ Bài 8 thêm liên kết "Bài tập".

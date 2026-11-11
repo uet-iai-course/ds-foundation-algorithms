@@ -2,7 +2,7 @@
 
 Trên một dòng dữ liệu, mỗi phần tử chỉ được đọc một lần khi nó đến, độ dài dòng không biết trước, và bộ nhớ làm việc không giữ được toàn bộ lịch sử. Chúng ta xây ba cấu trúc chỉ đọc dòng một lượt, gồm lấy mẫu theo khóa cho thống kê theo nhóm, lấy mẫu hồ chứa cho mẫu cỡ cố định và Bloom filter cho câu hỏi thành viên, và với mỗi cấu trúc, chúng ta nêu giả thiết, chứng minh bảo đảm và đếm chi phí.
 
-[Bộ trang chiếu Bài 08](lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html) trình bày cùng ký hiệu và dữ kiện. Bài tập củng cố 08.6–08.14 nằm trong [tệp bài tập Bài 08](material-viewer.html?doc=materials/lec-08/exercises.md&deck=lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html), cùng gợi ý và lời giải.
+[Bộ trang chiếu Bài 08](lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html) trình bày cùng ký hiệu và dữ kiện. Bài tập củng cố 08.6–08.13 nằm trong [tệp bài tập Bài 08](material-viewer.html?doc=materials/lec-08/exercises.md&deck=lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html), cùng gợi ý và lời giải.
 
 ## Mục tiêu học tập
 
@@ -1506,16 +1506,17 @@ Ba thuật toán: giữ $t$ khi $h(K(t))<a$; với $r>s$, rút $j$ đều trong 
 <!-- note-topic-id: lec-08-topic-16 -->
 ## Bài tập củng cố
 
-Bài tập 08.6–08.14 nằm trong [tệp bài tập Bài 08](material-viewer.html?doc=materials/lec-08/exercises.md&deck=lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html), cùng gợi ý và lời giải.
+Bài tập 08.6–08.13 nằm trong [tệp bài tập Bài 08](material-viewer.html?doc=materials/lec-08/exercises.md&deck=lecture-08-dong-du-lieu-mo-hinh-lay-mau-va-loc.html), cùng gợi ý và lời giải.
 
 <!-- note-topic-id: lec-08-topic-17 -->
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
-- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 4. §4.1, tr.131–135: Mục 1 (Hình 4.1, Ví dụ 4.1). §4.2, tr.136–138: Mục 2 và Bài tập 08.13 (tệp bài tập). §4.3, tr.139–142: Mục 4 (Ví dụ 4.3–4.4) và Bài tập 08.10–08.12 (tệp bài tập). §4.5.5, tr.148–149, và hộp "A General Stream-Sampling Problem", tr.150: Mục 3 và Bài tập 08.14 (tệp bài tập). §1.3.5, tr.13–14: giới hạn $(1-1/c)^c\to e^{-1}$ ở phần tiên quyết. Sách và bộ trang chiếu của các tác giả tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
+- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 4. §4.1, tr.131–135: Mục 1 (Hình 4.1, Ví dụ 4.1). §4.2, tr.136–138: Mục 2 và Bài tập 08.13 (tệp bài tập). §4.3, tr.139–142: Mục 4 (Ví dụ 4.3–4.4) và Bài tập 08.10–08.12 (tệp bài tập). §4.5.5, tr.148–149, và hộp "A General Stream-Sampling Problem", tr.150: Mục 3 và Nhận xét 08.21. §1.3.5, tr.13–14: giới hạn $(1-1/c)^c\to e^{-1}$ ở phần tiên quyết. Sách và bộ trang chiếu của các tác giả tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
 - Trang chiếu MMDS chương 4, *Mining Data Streams* phần 1 và 2 (tại [http://www.mmds.org](http://www.mmds.org)). Phần 1, tr.6–21: mô hình dòng, lấy mẫu theo khóa (tr.12–16, ví dụ 30%), hồ chứa (tr.18–21, dòng a, x, c, y, z, k, c, d, e, g). Phần 2, tr.4–14: Bloom filter.
 - Leskovec, J. (2026). Stanford CS246, *Mining Data Streams* (26/02/2026), tr.13–14: phép đếm sai lệch của Mục 2.1; tr.23–24: bảng băm là cách hiển nhiên, ví dụ quảng cáo ở mục Ứng dụng; tr.32–33: đường cong $p(k)$ của Ví dụ 08.16. Hình trong ghi chú được vẽ lại.
 - Ullman, J. D. (2017). Stanford CS246, *Streams 2*, tr.5–8: ví dụ Bloom filter 11 bit với các khóa 25, 159, 585 và truy vấn 118 (Ví dụ 08.11–08.12).
 - Welford, B. P. (1962). Note on a method for calculating corrected sums of squares and products, *Technometrics* 4(3), 419–420. Phép cập nhật trung bình và tổng bình phương độ lệch trong đoạn "Trong thực hành" sau Bài tập 08.1; bổ sung ngoài nguồn chính.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1 và §3.2. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14; ký hiệu tiệm cận ở phần tiên quyết.
-- Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 3 (biến AMS, dùng hồ chứa $s$ vị trí), ứng với MMDS §4.4–4.7. Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17.
+- Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 3 (biến AMS, dùng hồ chứa $s$ vị trí), ứng với MMDS §4.4–4.7.
+- Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; §6.6, tr.204: Bài tập 08.6–08.9 (tệp bài tập).
 - Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"; mục "Mô hình ngẫu nhiên và giới hạn suy luận"), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.

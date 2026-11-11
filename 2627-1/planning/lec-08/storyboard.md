@@ -217,15 +217,14 @@ Câu hỏi tự kiểm tra C04 (ngưỡng 5%: $h<5$, $\frac{d}{20u+39d}$; hồ c
 
 | Bài tập | Mức | Trang deck / nguồn | Mục tiêu | Số kiểm |
 |---|---|---|---|---|
-| 08.6 Ngưỡng 5% và mẫu từng bộ | nhận biết | C04 câu 1 | 1 | $h<5$; $d/(20u+39d)$, $u=d=1$: $1/59$ |
-| 08.7 Xác suất có mặt trong hồ chứa | nhận biết | C04 câu 2 | 2 | $50/1\,000=0{,}05$ |
-| 08.8 Âm giả sau khi thêm khóa | nhận biết | C05 câu 3 | 3 | gỡ 585 làm 159 bị loại |
-| 08.9 Gấp đôi số bit | nhận biết | C05 câu 4 | 3 | $k^*$: $5{,}545\to11{,}09$; $p(k^*)$: $0{,}0214\to4{,}6\cdot10^{-4}$ |
-| 08.10 Ba và bốn hàm băm | tính toán | X02; MMDS 4.3.1, §4.3.4, tr.141 | 3 | $p(3)=0{,}030579$, $p(4)=0{,}023969$ |
-| 08.11 Chia mảng bit | tính toán | X03; MMDS 4.3.2, tr.141 (quy ước $k\mid n$, băm đều độc lập của học phần) | 3 | $n=64,m=8,k=4$: chia $0{,}026450$, $q^k$ $0{,}024556$, chính xác $0{,}025354$; $n=8\cdot10^9,m=10^9,k=4$: trùng 9 chữ số, $0{,}023968650\ldots$ |
-| 08.12 Số hàm băm tối ưu | chứng minh | X04, X04B; MMDS 4.3.3, tr.142 | 3 | dẫn về Định lý 08.28, Hệ quả 08.29; $p(5)>p(6)$ |
+| 08.6 Chọn hàng qua một phần tử | nhận biết | BHK 6.3, §6.6, tr.204 | 2 | $\Pr[\text{hàng }i]=\sum_j\pi_{ij}$; ma trận $2\times2$: $0{,}3$, $0{,}7$ |
+| 08.7 Chọn một từ theo số lần xuất hiện | nhận biết | BHK 6.2, §6.6, tr.204 | 2 | hồ chứa $s=1$; $f_w/r$; "a b a": $2/3$ |
+| 08.8 Chọn vị trí theo bình phương giá trị | tính toán hoặc chứng minh | BHK 6.1 câu 2, §6.6, tr.204 | 2 | $x_i^2/Y_r$; dòng $1,2,2$: $1/9$, $4/9$, $4/9$ |
+| 08.9 Nhiều mẫu độc lập theo trọng số | tính toán hoặc chứng minh | BHK 6.4, §6.6, tr.204 | 2 | $L$ bản sao, $x_i/Y_r$; dòng $1,3$, $L=2$: $9/16$ |
+| 08.10 Ba và bốn hàm băm | tính toán hoặc chứng minh | X02; MMDS 4.3.1, §4.3.4, tr.141 | 3 | $p(3)=0{,}030579$, $p(4)=0{,}023969$ |
+| 08.11 Chia mảng bit | tính toán hoặc chứng minh | X03; MMDS 4.3.2, tr.141 (giả sử $k\mid n$, băm đều độc lập) | 3 | $n=64,m=8,k=4$: chia $0{,}026450$, $q^k$ $0{,}024556$, chính xác $0{,}025354$; $n=8\cdot10^9,m=10^9,k=4$: trùng 9 chữ số, $0{,}023968650\ldots$ |
+| 08.12 Số hàm băm tối ưu | nhận biết | X04, X04B; MMDS 4.3.3, tr.142 | 3 | dẫn về Định lý 08.28, Hệ quả 08.29; $n/m=10$: $k^*\approx6{,}931$, $p(6)\approx0{,}008436>p(7)\approx0{,}008194$ |
 | 08.13 Chọn khóa lấy mẫu | vận dụng | X01; MMDS 4.2.1, §4.2.5, tr.138 | 1 | (university, courseID); (university, studentID); (university, courseID) |
-| 08.14 Hồ chứa cho từng khóa | vận dụng (mở rộng) | MMDS hộp tr.150; Định lý 08.17 | 2 | $s/r_K$; tối đa $sN_K$ bộ; tỷ lệ lặp đúng chỉ khi $r_K\le s$ |
 
 Tham khảo (`lec-08-topic-17`): MMDS 3e Chương 4 với ánh xạ mục ↔ phần của chương; slide MMDS Streams 1–2; CS246 2026 (Leskovec); Ullman 2017; CLRS §2.1; đọc tiếp Bài 09 và Blum–Hopcroft–Kannan §6.1; ghi công http://www.mmds.org. Mục tiêu 3 ở đầu chương đổi dẫn chiếu thành "Bài tập 08.10–08.12".
 

@@ -125,7 +125,7 @@ Cập nhật 2026-10-28 theo báo cáo rà ghi chú và quyết định ký hi�
 | `lec-08-topic-13` | cốt lõi | 5.1–5.2 | Chọn cấu trúc theo câu hỏi | hai bảng đối chiếu, quy trình ba bước, trả lời vấn đề trung tâm | N10 |
 | `lec-08-topic-14` | cốt lõi | Tình huống | Tình huống áp dụng và ứng dụng | ba tình huống, Tình huống 08.3 vi phạm giả thiết; ứng dụng ở Bài 09 | — |
 | `lec-08-topic-15` | cốt lõi | Tóm tắt | Tóm tắt chương | chuỗi kết quả, giả thiết hay bị bỏ quên, sang Bài 09 | — |
-| `lec-08-topic-16` | cốt lõi | Bài tập | Bài tập củng cố | ba mức: nhận biết 08.6–08.9 (câu tự kiểm C04–C05), tính toán hoặc chứng minh 08.10–08.12 (MMDS 4.3.1–4.3.3), vận dụng 08.13 (MMDS 4.2.1) và 08.14 (hồ chứa cho từng khóa, MMDS tr.150) | N11 |
+| `lec-08-topic-16` | cốt lõi | Bài tập | Bài tập củng cố | tệp `exercises.md`, ba mức: nhận biết 08.6, 08.7 (BHK 6.3, 6.2) và 08.12 (MMDS 4.3.3), tính toán hoặc chứng minh 08.8, 08.9 (BHK 6.1 câu 2, 6.4), 08.10, 08.11 (MMDS 4.3.1, 4.3.2), vận dụng 08.13 (MMDS 4.2.1) | N11 |
 | `lec-08-topic-17` | đọc thêm | Tham khảo | Hướng dẫn đọc thêm và tài liệu tham khảo | ánh xạ mục ↔ nguồn (MMDS §4.1–4.3, §4.5.5, slide Streams 1–2, CS246 2026, Ullman 2017, CLRS §2.1); ghi công http://www.mmds.org; đọc tiếp Bài 09, Blum–Hopcroft–Kannan §6.1 | — |
 
 Đồ thị tiên quyết: `topic-01→topic-02`; nhánh khóa `02→03→04→05→06`; nhánh hồ chứa `02→07→08` (08 so với 04); nhánh Bloom `02→09→10→11→12`; ba nhánh hội tụ ở `13`, rồi `14→15`; `16` dùng mọi chủ đề trước; `17` cuối chương. Chu trình rút gọn: `05` (quy trình), `06` (cầu nối, một mệnh đề bất biến), `13` (tổng hợp). Các nhãn "bổ sung" trong cột Nhãn chờ điều phối viên duyệt khi viết mục tương ứng.
