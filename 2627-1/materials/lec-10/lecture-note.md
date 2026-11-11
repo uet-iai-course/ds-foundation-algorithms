@@ -1590,7 +1590,7 @@ và gọi $b_1\cdots b_\lambda$ là chuỗi $\lambda$ bit có $z=0{,}b_1\cdots b
 
 **Điều kiện áp dụng.** Số học chính xác; khoảng chuỗi của các thông điệp cần phân biệt đôi một rời nhau, nhờ độ dài biết trước hoặc `EOS`.
 
-**Phạm vi.** Quy tắc không luôn cho chuỗi ngắn nhất (Bài tập 10.20). Kết quả là của mã số học lý tưởng; bộ mã thanh ghi ở Mục 6 kết thúc theo quy tắc khác và có thêm các khoản cố định.
+**Phạm vi.** Quy tắc không luôn cho chuỗi ngắn nhất (Ví dụ 10.19, Bài tập 10.6). Kết quả là của mã số học lý tưởng; bộ mã thanh ghi ở Mục 6 kết thúc theo quy tắc khác và có thêm các khoản cố định.
 :::
 
 ::: proof
@@ -2090,18 +2090,18 @@ Huffman tĩnh ghép hai nút nhẹ nhất trong $k-1$ lượt. Huffman thích ng
 <!-- note-topic-id: lec-10-topic-24 -->
 ## Bài tập củng cố
 
-Bài tập 10.9–10.21 nằm trong [tệp bài tập Bài 10](material-viewer.html?doc=materials/lec-10/exercises.md&deck=lecture-10-nen-du-lieu-khong-mat-thong-tin.html), cùng gợi ý và lời giải.
+Bài tập 10.9–10.15 nằm trong [tệp bài tập Bài 10](material-viewer.html?doc=materials/lec-10/exercises.md&deck=lecture-10-nen-du-lieu-khong-mat-thong-tin.html), cùng gợi ý và lời giải.
 
 <!-- note-topic-id: lec-10-topic-25 -->
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
 Số trang của NG là số trang của tệp PDF trong bộ nguồn của học phần; số trang in của sách không được dùng.
 
-- Nelson, M. và Gailly, J.-L. (1995). *The Data Compression Book*, ấn bản 2, M&T Books. Chương 2, tr.18–25: Mục 1, Mục 2.3, Tình huống 10.3(a), Bài tập 10.21; tên "entropy của một ký hiệu" và "entropy của thông điệp" (tr.20) ứng với tự thông tin $I(s)$ và $I(x)$. Chương 3, tr.30–37 và 51–66: Ví dụ 10.1, 10.5, 10.7, 10.8, Nhận xét 10.20, Bài tập 10.1, 10.4, 10.11. Chương 4, tr.66–95: Mục 4, Bài tập 10.5, 10.14, 10.16. Chương 5, tr.96–126: Mục 5, Mục 6, Bài tập 10.7, 10.17. Thư mục, tr.384–385: Huffman (1952) và Witten, Neal, Cleary (1987).
-- Blelloch, G. CMU 15-499, *Algorithms in the Real World: Data Compression*, phần 1–2, trang chiếu 2–8, 13–14, 20–56: Mục 1–3, Mục 5, Mục 6, phần Ứng dụng, Bài tập 10.6, 10.9, 10.20. Assignment 1a và lời giải, bài 2–4: Bài tập 10.10, 10.12, 10.13, 10.15.
+- Nelson, M. và Gailly, J.-L. (1995). *The Data Compression Book*, ấn bản 2, M&T Books. Chương 2, tr.18–25: Mục 1, Mục 2.3, Tình huống 10.3(a); tên "entropy của một ký hiệu" và "entropy của thông điệp" (tr.20) ứng với tự thông tin $I(s)$ và $I(x)$. Chương 3, tr.30–37 và 51–66: Ví dụ 10.1, 10.5, 10.7, 10.8, Nhận xét 10.20, Bài tập 10.1, 10.4, 10.11. Chương 4, tr.66–95: Mục 4, Bài tập 10.5, 10.14. Chương 5, tr.96–126: Mục 5, Mục 6, Bài tập 10.7. Thư mục, tr.384–385: Huffman (1952) và Witten, Neal, Cleary (1987).
+- Blelloch, G. CMU 15-499, *Algorithms in the Real World: Data Compression*, phần 1–2, trang chiếu 2–8, 13–14, 20–56: Mục 1–3, Mục 5, Mục 6, phần Ứng dụng, Bài tập 10.6. Assignment 1a và lời giải, bài 1–4: Bài tập 10.9, 10.10, 10.12, 10.13, 10.15.
 - Girod, B. Stanford EE398A, *Entropy and Lossless Coding*, trang chiếu 3–23: Mục 2, Định nghĩa 10.3; *Arithmetic Coding*, trang chiếu 2–14: Mục 5, Mục 6.3.
 - Stanford CS106B, *Huffman Coding*, tr.130–132 và 182: hàng đợi ưu tiên trong Huffman, Mệnh đề 10.2.
 - Chứng minh nằm ngoài phạm vi học phần: bất đẳng thức McMillan (EE398A-1, trang chiếu 13; CMU, trang chiếu 28); cận Fibonacci cho độ dài từ mã Huffman (NG, tr.74–75); tính đúng của bộ giải mã số học nguyên, trong Witten, I. H., Neal, R. M. và Cleary, J. G. (1987), "Arithmetic Coding for Data Compression", *Communications of the ACM* 30(6), tr.520–540 (NG, tr.133, 385).
-- Đọc thêm, không cần cho bài tập: mã khối và mã Huffman cắt ngắn (EE398A-1, trang chiếu 21–22); entropy có điều kiện và nguồn Markov (CMU, trang chiếu 15–16; CMU-A1, bài 1); mô hình bậc cao và mã số học thích nghi (NG, Chương 6, từ tr.127; CMU, trang chiếu 61–73); cài đặt mã số học bằng lan truyền nhớ và tổn thất do làm tròn (EE398A-3, trang chiếu 10–14).
+- Đọc thêm, không cần cho bài tập: mã khối và mã Huffman cắt ngắn (EE398A-1, trang chiếu 21–22); mô hình bậc cao và mã số học thích nghi (NG, Chương 6, từ tr.127; CMU, trang chiếu 61–73); cài đặt mã số học bằng lan truyền nhớ và tổn thất do làm tròn (EE398A-3, trang chiếu 10–14).
 - Đọc tiếp: [Bài 11](lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html), *Nén bằng từ điển và nén mất dữ liệu*.
 - Ghi chú Bài 08, Bài 09 (Định lý 09.37) và Bài 05 (Mục 10): các kết quả nhắc lại ở phần kiến thức tiên quyết.

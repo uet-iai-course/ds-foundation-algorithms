@@ -106,7 +106,7 @@ Tệp: `materials/lec-10/lecture-note.md`. Căn cứ: `decisions.md` (Q1–Q20, 
 | `lec-10-topic-11` | Chi phí và đầu mục của Huffman tĩnh | cốt lõi, chu trình rút gọn | 3.4 | NG tr.24, 52–54, 62, 66–67 | Nhận xét 10.20 |
 | `lec-10-topic-12` | Tính chất anh em | cốt lõi; chứng minh Định lý 10.22 là bổ sung | 4.1 | NG tr.67–69, 81, 92 | Ví dụ 10.11; Định nghĩa 10.21; Định lý 10.22 |
 | `lec-10-topic-13` | Tăng trọng số và đổi nút | cốt lõi; Bổ đề 10.24 và Định lý 10.25 là bổ sung | 4.2 | NG tr.69–72, 83–84 | Ví dụ 10.12, 10.13; Thuật toán 10.23; Bổ đề 10.24; Định lý 10.25 |
-| `lec-10-topic-14` | `ESCAPE`, `EOS`, lá trọng số 0 và đồng bộ | cốt lõi; Mệnh đề 10.27 là bổ sung | 4.3 | NG tr.73–74, 79–83, 87, 90 | Ví dụ 10.14; Thuật toán 10.26; Mệnh đề 10.27; Bài tập 10.16 |
+| `lec-10-topic-14` | `ESCAPE`, `EOS`, lá trọng số 0 và đồng bộ | cốt lõi; Mệnh đề 10.27 là bổ sung | 4.3 | NG tr.73–74, 79–83, 87, 90 | Ví dụ 10.14; Thuật toán 10.26; Mệnh đề 10.27 |
 | `lec-10-topic-15` | Chống tràn và dựng lại cây | cốt lõi; quan hệ Fibonacci chu trình rút gọn, chứng minh ngoài phạm vi | 4.4 | NG tr.74–77, 84–88, 91 | Ví dụ 10.15, 10.16; Nhận xét 10.28; Thuật toán 10.29; Bài tập 10.5 |
 | `lec-10-topic-16` | Khoảng của chuỗi; mã hóa và giải mã với số thực | cốt lõi; chứng minh Mệnh đề 10.31 là bổ sung | 5.1–5.2 | NG tr.96–99; CMU tc.37–44; EE398A-3 tc.2–7 | Định nghĩa 10.30; Ví dụ 10.17, 10.18; Mệnh đề 10.31; Thuật toán 10.32 |
 | `lec-10-topic-17` | Cách dừng, khoảng mã và cận độ dài | cốt lõi; Mệnh đề 10.33, phần (a) và cận dưới (c) của Định lý 10.34, Hệ quả 10.35 là bổ sung | 5.3–5.4 | NG tr.99, 104; CMU tc.38, 45–51; EE398A-3 tc.5 | Mệnh đề 10.33; Ví dụ 10.19; Định lý 10.34; Hệ quả 10.35; Bài tập 10.6 |
@@ -116,8 +116,8 @@ Tệp: `materials/lec-10/lecture-note.md`. Căn cứ: `decisions.md` (Q1–Q20, 
 | `lec-10-topic-21` | Chọn cặp mô hình–bộ mã | cốt lõi, chu trình rút gọn | 7 | NG tr.23–24, 66–67; tổng hợp Mục 1–6 | bảng so sánh; Bài tập 10.8 |
 | `lec-10-topic-22` | Tình huống áp dụng và ứng dụng | cốt lõi | Tình huống | NG tr.22, 24, 37, 67, 96, 104; CMU tc.2–3 | Tình huống 10.1–10.3 |
 | `lec-10-topic-23` | Tóm tắt chương | cốt lõi | Tóm tắt | — | đoạn tóm tắt, danh mục kết quả, công thức, giả thiết |
-| `lec-10-topic-24` | Bài tập củng cố | cốt lõi | Bài tập | CMU tc.22, 49; CMU-A1 bài 2–4; NG tr.22, 24, 32–37, 69–72 | đoạn dẫn và liên kết trong ghi chú; Bài tập 10.9–10.21 với gợi ý và lời giải nằm ở `materials/lec-10/exercises.md` (tách vì ghi chú vượt 32 000 âm tiết, quyết định của điều phối viên 2026-11-08; recitation: 10.11, 10.12, 10.14, 10.15) |
-| `lec-10-topic-25` | Hướng dẫn đọc thêm và tài liệu tham khảo | đọc thêm | Tham khảo | NG; CMU; EE398A; CS106B | danh mục nguồn có trang; bảng "Nguồn của các chứng minh" |
+| `lec-10-topic-24` | Bài tập củng cố | cốt lõi | Bài tập | CMU-A1 bài 1–4; NG tr.32–37, 35, 62–63, 69–72 | đoạn dẫn và liên kết trong ghi chú; Bài tập 10.9–10.15 với gợi ý và lời giải nằm ở `materials/lec-10/exercises.md` (tách vì ghi chú vượt 32 000 âm tiết, quyết định của điều phối viên 2026-11-08; recitation: 10.11, 10.12, 10.14, 10.15) |
+| `lec-10-topic-25` | Hướng dẫn đọc thêm và tài liệu tham khảo | đọc thêm | Tham khảo | NG; CMU; EE398A; CS106B | danh mục nguồn có trang; chứng minh ngoài phạm vi học phần ghi nguồn trong tài liệu tham khảo |
 
 "tc." là trang chiếu. Lý do chu trình rút gọn: topic-03 là phân loại và giao thức, không có định lý hay thuật toán riêng; topic-06 là đại lượng đo, các kết quả về nó nằm ở topic-07; topic-08 là phương pháp trước dùng làm giới hạn có số (Q3, dưới 500 âm tiết); topic-11 phân tích chi phí của thuật toán đã có; topic-15 phần Fibonacci là kết quả phụ chỉ có phát biểu trong nguồn; topic-18 gộp chu trình với topic-19 vì phát tiền tố chung và tràn dưới là hai nhánh của cùng một vòng chuẩn hóa; topic-21 là tổng hợp.
 

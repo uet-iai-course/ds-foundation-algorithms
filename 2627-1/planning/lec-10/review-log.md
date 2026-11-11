@@ -411,3 +411,49 @@ Nguồn gốc số liệu chuyển khỏi ghi chú: các dữ kiện không kèm
 - Grep: 0 HUFF.C, AHUFF.C, ARITH.C, "NG in", "lỗi in", "tính tay của chương", "Bài này", "Mục này"; `git diff --check` sạch.
 - Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900 và 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không công thức tràn khung, không tràn ngang trang, khối gập mở khi in.
 - Giai đoạn 2 (`exercises.md` theo quy tắc nguồn bài tập 2026-11-11: Bài 10 lấy bài từ CMU 15-499 vì NG không có bài tập) làm sau khi ghi chú được push.
+
+## Tệp bài tập theo chuẩn 2026-11 (đợt A2, giai đoạn 2, 2026-11-11)
+
+Căn cứ: `AGENTS.md` §"Cấu trúc bắt buộc" mục 10 và quyết định người dùng 2026-11-11: bài tập lấy từ giáo trình là nguồn chính; NG không có bài tập, nên Bài 10 lấy bài từ nguồn recitation đã duyệt (CMU 15-499, bài tập 1a và lời giải) và giữ hai ví dụ NG đã được duyệt làm bài recitation (ngoại lệ 2026-08-28). Không câu hỏi trang chiếu, không bài tự dựng.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập danh sách bài | general-purpose | opus | high | không |
+| Soạn (tác tử biên tập của giai đoạn 1, SendMessage) | general-purpose | opus | high | `exercises.md`, dòng tham chiếu của ghi chú, `storyboard.md`, `outline.md` |
+| Rà độ chính xác (hai lượt) | general-purpose | opus | high | không |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà sư phạm và văn phong, `no-ai-slop` Detect (hai lượt) | general-purpose | opus | high | không |
+
+### Danh sách bài sau giai đoạn 2
+
+| Bài | Nguồn | Mức | Mục tiêu |
+|---|---|---|---|
+| 10.14 | NG Ch.4, Hình 4.2–4.4, tr.69–72 (recitation); bỏ phần (d) tự dựng | nhận biết | 5 |
+| 10.10 | CMU-A1 bài 2 (nhiệm vụ gốc: dựng mã giải mã duy nhất không tiền tố) | tính toán | 1, 2 |
+| 10.11 | NG Ví dụ A–E, tr.32–37; phá hòa tr.35; gán bit tr.62–63 (recitation) | tính toán | 4 |
+| 10.12 | CMU-A1 bài 4A (recitation) | tính toán | 2 |
+| 10.13 | CMU-A1 bài 4B | tính toán | 2 |
+| 10.9 | CMU-A1 bài 1 (dùng lại số 10.9; bài cũ là câu hỏi trang chiếu) | vận dụng | 3 |
+| 10.15 | CMU-A1 bài 3 (recitation) | vận dụng | 3, 6 |
+
+Bỏ: 10.9 cũ (câu hỏi CMU trang chiếu 22, dữ liệu đổi), 10.16 (`ESCAPE` với AB, tự dựng), 10.17 (thanh ghi $R=8$, tự dựng), 10.18, 10.19 (lời và định lý trên trang chiếu CMU 31–32), 10.20 (câu hỏi trang chiếu CMU 49), 10.21 (mở rộng tự dựng của Tình huống 10.3). Deck không dẫn 10.9, 10.16–10.21; ghi chú, `storyboard.md`, `outline.md` đã cập nhật. Mục tiêu 7 (thanh ghi, chọn cặp mô hình–bộ mã) không có bài nguồn; dựa vào Bài tập 10.7, 10.8 của ghi chú. 10.14 trùng các lần tăng của Ví dụ 10.12–10.13: giữ vì là bài recitation đã duyệt, xếp mức nhận biết, lời giải dẫn ví dụ thay vì chép. Lời giải CMU-A1 bài 4A (tr.3) in bất đẳng thức ngược chiều ($2^n\le\sum$); bài trong tệp viết đúng chiều.
+
+### Phát hiện chính và quyết định
+
+| mức độ | bài | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | 10.15(b) | gán cho Hệ quả 10.35 "độ dài kỳ vọng $4H$" | chấp nhận: tự thông tin kỳ vọng $4H\approx4{,}63$; số bit kỳ vọng trong $[4{,}63;6{,}63)$ |
+| trung bình | 10.14 | lời giải chép Ví dụ 10.12–10.13 | chấp nhận: dẫn ví dụ, nêu tên phép đổi |
+| trung bình | 10.9 và ghi chú | ghi chú xếp entropy có điều kiện vào "đọc thêm, không cần cho bài tập" | chấp nhận: sửa dòng tham khảo của ghi chú |
+| trung bình | 10.10 | lời giải có ý không được hỏi | chấp nhận: CMU-A1 bài 2 không hỏi giải mã tức thời, cắt |
+| nhẹ | 10.9, 10.10, 10.11, 10.12, 10.13, 10.15 | kiểm tra lại không có tác dụng, chỉ số $\varsigma_0$, dẫn sai Nhận xét 10.4, câu chen, từ so sánh không số | chấp nhận |
+| — | đổi dữ kiện 10.14 cho khác ghi chú | bác bỏ: thành bài tự dựng |
+
+### Kết quả kiểm tra
+
+- Các lượt rà tính lại mọi số (phân phối dừng và entropy của 10.9; cây và 87 bit của 10.11; ba lần tăng của 10.14; giải mã caba, $I\approx9{,}48$, $\lambda=11$ của 10.15).
+- `exercises.md`: 1 985 âm tiết, 7 bài, 7 hint, 7 solution; 80 dẫn chiếu "Loại 10.k" (ghi chú và tệp bài tập) trỏ tới khối có thật.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900 và 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
+- Lệch với deck (không sửa trong goal): dòng 43 "Bài tập 10.10 của ghi chú" (nay ở tệp bài tập); trang recitation 10.12 có ghi chú diễn giả "Ở Bước 1" (các bước nay mang tên theo kết quả); trang đề 10.11 có nhãn "Quy ước:" cho quy tắc gán bit (nay ghi nguồn NG tr.62–63); deck không dùng phần (d) của 10.14.
