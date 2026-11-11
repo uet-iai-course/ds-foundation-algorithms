@@ -1,35 +1,33 @@
-# Bài tập NN — Tên chủ đề
+# Bài tập Bài NN — Tên bài
 
-## Hướng dẫn và ký hiệu
+Các bài tập củng cố NN.m–NN.n dưới đây có gợi ý và lời giải. Mọi số hiệu Định nghĩa, Định lý, Mệnh đề, Bổ đề, Hệ quả, Nhận xét, Thuật toán, Ví dụ và Tình huống NN.k là của [ghi chú Bài NN](material-viewer.html?doc=materials/lec-NN/lecture-note.md&deck=lecture-NN-ten-bai.html), nơi Bài tập NN.1–NN.(m−1) đứng ngay sau các mục; ký hiệu dùng như trong bảng ký hiệu của ghi chú. Các bài sách NN.a, NN.b là bài tập trên lớp (recitation) của [bộ trang chiếu Bài NN](lecture-NN-ten-bai.html).
 
-Nêu miền, giả thiết, ký hiệu và yêu cầu trình bày.
+## Mục tiêu và bài tập
 
-## Nhận biết
+| Mục tiêu học tập của ghi chú | Bài tập trong ghi chú | Bài tập trong tệp này |
+|---|---|---|
+| 1. Kết quả quan sát được thứ nhất (Mục 1) | NN.1 | NN.m |
 
-::: exercise Bài 1
-Phát biểu bài tập nhận biết hoặc kiểm tra định nghĩa.
+## Mức nhận biết
+
+::: exercise Bài tập NN.m (Tên bài; nguồn, mục, trang)
+Đề bài nêu lại đầy đủ dữ kiện và yêu cầu bằng động từ nhiệm vụ.
 :::
 
-::: hint Gợi ý Bài 1
-Nêu định nghĩa hoặc bước đầu cần dùng.
+::: hint
+Bước mở đầu, không thay toàn bộ lời giải.
 :::
 
-::: solution Lời giải Bài 1
-Trình bày lời giải có thể kiểm tra.
+::: solution
+**Câu (a).** Các bước và kết quả.
+
+**Kiểm tra lại.** Một dòng đối chiếu.
 :::
 
-## Tính toán hoặc chứng minh
+## Mức tính toán hoặc chứng minh
 
-::: exercise Bài 2
-Nêu bài toán với đầy đủ dữ kiện và giả thiết.
-:::
+## Mức vận dụng
 
-## Vận dụng vào AI
+## Thực hành
 
-::: exercise Bài 3
-Nêu bài toán mô hình hóa, lựa chọn hoặc đánh giá thuật toán trong AI.
-:::
-
-## Tài liệu tham khảo
-
-- Ghi nguồn của bài tập nếu bài không phải nội dung tự tạo.
+Chỉ có khi bài có mã trong `materials/lec-NN/code/` hoặc sổ thực hành; mỗi nhiệm vụ một khối `exercise` có `hint` và `solution`.

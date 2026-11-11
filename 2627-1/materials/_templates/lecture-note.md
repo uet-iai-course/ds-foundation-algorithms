@@ -25,15 +25,7 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu cục bộ
 |---|---|---|
 | $C$ | số tài liệu | số nguyên dương |
 
-Các quy ước đọc dùng trong cả chương: dấu thập phân, chỉ số, số liệu nào của sách và số liệu nào là áp dụng của bản soạn.
-
-## Bản đồ chủ đề
-
-Nhóm **cốt lõi** tạo mạch chính; **cầu nối** phát biểu lại tiên quyết; **bổ sung** lấp khoảng trống cụ thể; **đọc thêm** không cần để đạt mục tiêu.
-
-| Chủ đề (`note-topic-id`) | Nhóm | Mục | Vai trò → sản phẩm dùng tiếp |
-|---|---|---|---|
-| Tên chủ đề (`lec-NN-topic-01`) | cốt lõi | 1 | Vai trò → sản phẩm |
+Các quy ước đọc dùng trong cả chương: dấu thập phân, chỉ số.
 
 <!-- note-topic-id: lec-NN-topic-01 -->
 ## 1. Tên mục thứ nhất
@@ -46,7 +38,7 @@ Kết quả của bài trước mà chương xây tiếp (số hiệu, một câ
 
 ### 1.1 Tên khái niệm
 
-Một cách trực quan, mô tả điều khái niệm nắm bắt. Mô tả này chưa phải định nghĩa.
+Một cách trực quan, mô tả điều khái niệm nắm bắt. Để làm rõ khái niệm này, xem ví dụ sau.
 
 ::: example Ví dụ NN.1 (Tên đối tượng)
 **Dữ kiện.** Toàn bộ dữ kiện có số.
@@ -154,23 +146,7 @@ $$
 
 ## Bài tập củng cố
 
-### Mức nhận biết
-
-::: exercise Bài tập NN.2
-…
-:::
-
-::: hint
-…
-:::
-
-::: solution
-…
-:::
-
-### Mức tính toán hoặc chứng minh
-
-### Mức vận dụng
+Các bài tập củng cố NN.m–NN.n theo ba mức, có gợi ý và lời giải, nằm trong [tệp bài tập Bài NN](material-viewer.html?doc=materials/lec-NN/exercises.md&deck=lecture-NN-ten-bai.html).
 
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
