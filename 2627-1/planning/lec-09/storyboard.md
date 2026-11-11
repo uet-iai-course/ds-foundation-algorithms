@@ -166,7 +166,7 @@ Quy ước cột Quyết định: `giữ` nghĩa là giữ đúng trang của `p
 | T02 | Kết quả và giả thiết không được bỏ | tổng kết | Bảng kết quả–giả thiết–công thức, 7 hàng | Gọi phản ví dụ của từng giả thiết | Bảng 7 hàng | mạch 2–5 | mạch 2–5 | Gọi một phản ví dụ cho mỗi giả thiết | bảng đầu Mục 7.1 | lec-09-topic-23 | gộp: T02 + T03 (phép gộp 9) | 70 (8, 14) | 149 | 1,5 |
 | T04 | Thuật toán, bảo đảm và chi phí | tổng kết | Bảng thuật toán–đầu vào–bảo đảm–chi phí | So bộ nhớ | Mô hình + bảng 5 hàng | mạch 2–5 | mạch 2–5 | So bộ nhớ của năm thuật toán với lời giải chính xác | bảng thứ hai Mục 7.1 | lec-09-topic-23 | giữ | 61 (7, 16) | 132 | 1,5 |
 | T05 | Câu trả lời cho vấn đề trung tâm | ứng dụng | Trả lời có điều kiện năm yêu cầu bằng số | Đọc năm dòng | Năm dòng | T02, T04 | T01; F18, C13, D08, E09 | 368 byte, 74 000 bộ đếm, 266 byte, $<2/c$ | Ví dụ 09.20 | lec-09-topic-23 | giữ; 57 âm tiết, không cần ngoại lệ K8 | 61 (5, 19) | 162 | 1,5 |
-| T06 | Câu hỏi tự kiểm tra | kiểm tra | Bốn câu tự kiểm tra, mỗi mạch giảng một câu (FM, AMS, DGIM, Count-Min) | Trả lời, nêu kết quả | Câu hỏi + 4 câu | mạch 2–5 | mạch 2–5 | Lời giải trong ghi chú diễn giả | Mệnh đề 09.11, Nhận xét 09.29, 09.51, Bài tập 09.19 | lec-09-topic-25 | sửa (merge D): câu 3 hỏi bộ nhớ DGIM (Nhận xét 09.51), câu 4 hỏi Count-Min (Ví dụ 09.12) | 57 (5, 14) | 155 | 1,5 |
+| T06 | Câu hỏi tự kiểm tra | kiểm tra | Bốn câu tự kiểm tra, mỗi mạch giảng một câu (FM, AMS, DGIM, Count-Min) | Trả lời, nêu kết quả | Câu hỏi + 4 câu | mạch 2–5 | mạch 2–5 | Lời giải trong ghi chú diễn giả | Mệnh đề 09.11, Nhận xét 09.29, 09.51, Định lý 09.56 | lec-09-topic-25 | sửa (merge D): câu 3 hỏi bộ nhớ DGIM (Nhận xét 09.51), câu 4 hỏi Count-Min (Ví dụ 09.12) | 57 (5, 14) | 155 | 1,5 |
 | T07 | Nguồn và tài liệu đọc | ngoài chu trình | Nguồn, ghi công MMDS, liên kết ghi chú, nối Bài 10 | Ghi mục đọc thêm; mở ghi chú bài giảng | Danh sách nguồn | nguồn của mạch 1–5 | — | Liên kết viewer và Bài 10 hoạt động | Tài liệu tham khảo | lec-09-topic-27 | giữ | 60 (6, 16) | 185 | 0,5 |
 
 ### Mạch 7. Bài tập vận dụng (phần dọc riêng)
@@ -236,7 +236,7 @@ Phần giảng vượt 60 trang: bài có năm thuật toán trọng tâm, mỗi
 | lec-09-topic-27 | T07 |
 | lec-09-topic-24 | không có trang riêng; Tình huống 09.1 và 09.3 chỉ nhắc trong ghi chú diễn giả T07, M10; Tình huống 09.2 cho số liệu URL ở D01, D08 |
 
-P00, P02, P03 không gắn chủ đề (phần đầu chương không mang mã, như Bài 08). Câu hỏi cuối cụm dùng bài tập của ghi chú: F19 (09.2), M15 (09.4), C14 (phản ví dụ của Định lý 09.37, Nhận xét 09.39), D19 (09.7, thuộc topic-20 theo vị trí trong ghi chú), E12 (09.8); T06 dùng Mệnh đề 09.11, Nhận xét 09.29, 09.51 và Bài tập 09.19.
+P00, P02, P03 không gắn chủ đề (phần đầu chương không mang mã, như Bài 08). Câu hỏi cuối cụm dùng bài tập của ghi chú: F19 (09.2), M15 (09.4), C14 (phản ví dụ của Định lý 09.37, Nhận xét 09.39), D19 (09.7, thuộc topic-20 theo vị trí trong ghi chú), E12 (09.8); T06 dùng Mệnh đề 09.11, Nhận xét 09.29 và 09.51.
 
 ## Danh sách mật độ và ngoại lệ
 

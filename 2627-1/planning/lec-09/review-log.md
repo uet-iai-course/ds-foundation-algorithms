@@ -413,3 +413,66 @@ Nguồn gốc số liệu chuyển khỏi ghi chú (nguyên văn câu đã xóa)
 - Grep sau sửa: 0 "chưa phải", "do học phần", "do bài giảng", "nguyên văn", "dẫn xuất", "lỗi in", "Bản đồ chủ đề", "Bài này", "Mục này", "Đáp án", "Đáp số"; `git diff --check` sạch.
 - Trình duyệt (Playwright Chromium, `http.server` cục bộ; `reloadserver` chèn script tải lại bị CSP chặn nên không dùng cho phép đo lỗi console): ghi chú và `exercises.md` ở 1600×900 và 390×844, 0 lỗi console và trang, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không tràn ngang trang (hình rộng nằm trong khung cuộn của viewer, như Bài 10), không còn chỉ thị `:::` thô, khối gập mở khi in. Ảnh chụp đã xem trong scratchpad của phiên.
 - Giai đoạn 2 (chuẩn hóa `exercises.md`: "Kiểm tra lại", "Câu (a)", bài tự chứa, bài cho mục tiêu 4) làm sau khi ghi chú được push.
+
+## Tệp bài tập theo chuẩn 2026-11 (đợt A1, giai đoạn 2, 2026-11-11)
+
+Căn cứ: `AGENTS.md` §"Cấu trúc bắt buộc" mục 10 và yêu cầu người dùng giữa giai đoạn này (2026-11-11): mọi bài trong `exercises.md` lấy từ bài tập của các giáo trình là nguồn chính của bài, không dùng câu hỏi trang chiếu hay bài tự dựng (đã ghi vào `AGENTS.md` mục 10).
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập danh sách bài | general-purpose | opus | high | không |
+| Soạn tệp bài tập (tác tử biên tập của giai đoạn 1, SendMessage) | general-purpose | opus | high | `exercises.md`, dòng tham khảo của ghi chú, một câu ghi chú, `storyboard.md` |
+| Rà độ chính xác (ba lượt) | general-purpose | opus | high | không |
+| Rà vai sinh viên năm hai (hai lượt) | general-purpose | opus | high | không |
+| Rà sư phạm và văn phong, `no-ai-slop` Detect (ba lượt) | general-purpose | opus | high | không |
+
+### Danh sách bài sau giai đoạn 2
+
+| Bài | Nguồn | Mức | Mục tiêu |
+|---|---|---|---|
+| 09.10 | MMDS Bài 4.5.1, §4.5.6, tr.149 (recitation) | nhận biết | 1 |
+| 09.14 | MMDS Bài 4.5.6, tr.150 (bỏ Bài 4.5.5: trùng chứng minh Bổ đề 09.21) | nhận biết | 3 |
+| 09.20 | BHK Bài 6.7, §6.6, tr.204 | nhận biết | 4 |
+| 09.22 | BHK Bài 6.1 câu 1, §6.6, tr.204 | nhận biết | 3 |
+| 09.11 | MMDS Bài 4.4.1, §4.4.5, tr.145 (recitation) | tính toán | 2 |
+| 09.12 | MMDS Bài 4.5.3, tr.150 (recitation) | tính toán | 3 |
+| 09.13 | MMDS Bài 4.5.4, tr.150 | tính toán | 3 |
+| 09.15 | MMDS Bài 4.6.1, §4.6.8, tr.157 (recitation) | tính toán | 5 |
+| 09.16 | MMDS Bài 4.6.3, tr.157 (recitation) | tính toán | 5 |
+| 09.19 | MMDS Bài 4.6.2, tr.157 | tính toán | 5 |
+| 09.17 | MMDS Bài 4.4.2, tr.145 | vận dụng | 2 |
+| 09.18 | MMDS Bài 4.5.2, tr.150 | vận dụng | 1 |
+| 09.21 | BHK Bài 6.6, §6.6, tr.204 | vận dụng | 2 |
+
+Mục tiêu 6 (cửa sổ suy giảm) không có bài giáo trình (MMDS §4.7 không có bài tập); dựa vào Bài tập 09.8 của ghi chú. Số hiệu không đơn điệu trong tệp vì bài xếp theo mức và giữ số đã công bố.
+
+Bỏ khỏi tệp theo yêu cầu người dùng: 09.19 cũ (câu hỏi trang chiếu Stanford CS246 2017, Streams 1, tr.32, về ngưỡng $\theta$), 09.20 cũ (UMass CS514 bài 10 trang chiếu 8), 09.21 và 09.22 cũ (bài dựng trên Ví dụ 09.12). Số 09.19–09.22 dùng lại cho bốn bài giáo trình; deck không dẫn các số này, `storyboard.md` đã bỏ dẫn chiếu 09.19 cũ (dòng 169, 239).
+
+Phần mở rộng có chủ đích so với sách (phép tính trên chính dữ kiện của bài): 09.12(b) ước lượng và trung bình; 09.16(b) trường hợp còn một thùng cỡ 8 cũ hơn (khớp deck X05C); 09.18(c) kiểm với hai dòng của ghi chú; 09.21(b) số lần chạy nhỏ nhất; 09.22 "$r$ chưa biết trước". Cách đọc quy tắc 4: lời giải 09.19 theo Định nghĩa 09.42 của ghi chú (đủ mọi kích thước từ 1 tới lớn nhất) cho 4 cách chia; đọc lỏng câu "one or two buckets of any given size, up to some maximum size" của MMDS (§4.6.2) cho 9 cách.
+
+### Phát hiện chính và quyết định
+
+| mức độ | bài | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | 09.17 và ghi chú (Nhận xét 09.17) | câu "khi $\alpha$ lẻ, giả thiết độc lập không thỏa trên dữ liệu có cấu trúc" ngụ ý độc lập đúng với dữ liệu khác; với $\alpha$ cố định hiệu $h(x)-h(x')$ không phụ thuộc $\beta$ | chấp nhận: sửa cả ghi chú (câu này vào ghi chú ở giai đoạn 1, commit `2f5c961`) và lời giải |
+| trung bình | 09.17 | ví dụ "bội của 1 024" mâu thuẫn $L=5$ | chấp nhận: ví dụ bội của 4 |
+| trung bình | 09.16 | đề và lời giải mâu thuẫn về thùng cỡ 8 | chấp nhận: tách (a), (b) |
+| trung bình | 09.19 cũ | lời giải lặp Định lý 09.56, thiếu vị trí 4 | đã sửa rồi bỏ bài theo quy tắc mới |
+| trung bình | 09.14, 09.20, 09.19 cũ | xếp sai mức | chấp nhận |
+| trung bình | 09.22 cũ | thiếu lý do độc lập của ba chỉ báo | đã sửa rồi bỏ bài theo quy tắc mới |
+| trung bình | 09.20 mới | gợi ý là lời giải, đoạn hệ quả Count-Min lặp ghi chú | chấp nhận: gợi ý mở đầu, một câu dẫn phản ví dụ sau Định lý 09.37 |
+| trung bình | 09.19 mới | câu bàn chữ của MMDS là ý bên lề | chấp nhận: cắt, ghi ở đây |
+| nhẹ | nhiều bài | "Câu (a)", "Kiểm tra lại" có tác dụng, đề tự chứa, ký hiệu theo ghi chú ($n_j$, $m$, $x_1,\ldots,x_r$), lý do dừng và cực trị ở 09.18, đơn điệu ở 09.21 | chấp nhận |
+| — | đề nghị rút "Điều kiện áp dụng" của Định lý 09.56 hoặc đổi tham số bài 09.19 cũ | bác bỏ: không đổi ghi chú đã duyệt, không đổi dữ kiện bài có nguồn |
+| — | đánh số lại theo thứ tự trong tệp | bác bỏ: ghi chú và deck dẫn số hiện tại |
+
+### Kết quả kiểm tra
+
+- Tính lại độc lập của ba lượt rà: mọi số của 13 bài đúng (vét cạn cách chia DGIM của 09.19: 4 cách; tổng nhị thức của 09.21: $q=15$ thất bại $0{,}2131$, $q=17$ thất bại $0{,}1989$, nên $q=17$; điều phối viên tính lại bảng $q=1,\ldots,19$).
+- `exercises.md`: 3 728 âm tiết, 13 bài, 13 hint, 13 solution; 36 dẫn chiếu "Loại 0X.k" đều trỏ tới khối có thật (ghi chú Bài 08, Bài 09); không "Đáp án", "hãy", câu hỏi tu từ hay câu nguồn gốc số liệu.
+- Ghi chú: câu Nhận xét 09.17 về $\alpha$ lẻ; câu Bài tập củng cố "09.10–09.22"; dòng tham khảo MMDS, BHK, Stanford, UMass cập nhật.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900 và 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ngang, khối gập mở khi in.
+- `index.html`: thẻ Bài 9 thêm liên kết "Bài tập".
+- Lệch với deck (không sửa trong goal): ghi chú diễn giả X01–X05C ghi "Bài tập 09.1x của ghi chú" cho các bài nay ở tệp bài tập; số hiệu không đổi.

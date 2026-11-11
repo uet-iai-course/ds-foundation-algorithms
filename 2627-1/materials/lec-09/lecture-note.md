@@ -697,7 +697,7 @@ Với $L=64$, mỗi $R_j$ cần 7 bit. Nếu $d$ khoảng $10^6$, $\log_2d\appro
 ::: remark Nhận xét 09.17 (Trong thực hành)
 Mỗi trang có một bộ $q$ số nguyên nhỏ $R_j$; giới hạn thực tế là thời gian tính $q$ giá trị băm mỗi phần tử (MMDS §4.4.4, tr.144–145).
 
-Mô hình băm lý tưởng là giả thiết phân tích: một hàm thực sự ngẫu nhiên trên địa chỉ IPv4 với $L=64$ cần $\lvert\mathcal U\rvert L$ bit, tức 32 GiB, nên phép so 368 byte với 512 MiB giả thiết các hàm băm có mô tả ngắn. Họ $h(x)=\alpha x+\beta\bmod 2^L$ với hệ số nguyên $\alpha,\beta$ vi phạm nặng khi $\alpha$ chẵn, vì mọi giá trị băm có cùng các bit thấp; khi $\alpha$ lẻ, giả thiết độc lập không thỏa trên dữ liệu có cấu trúc theo bit thấp (Bài tập 09.11, 09.17, tệp bài tập).
+Mô hình băm lý tưởng là giả thiết phân tích: một hàm thực sự ngẫu nhiên trên địa chỉ IPv4 với $L=64$ cần $\lvert\mathcal U\rvert L$ bit, tức 32 GiB, nên phép so 368 byte với 512 MiB giả thiết các hàm băm có mô tả ngắn. Họ $h(x)=\alpha x+\beta\bmod 2^L$ với hệ số nguyên $\alpha,\beta$ vi phạm nặng khi $\alpha$ chẵn, vì mọi giá trị băm có cùng các bit thấp. Với $\alpha$ cố định, hiệu $h(x)-h(x')=\alpha(x-x')\bmod 2^L$ không phụ thuộc $\beta$, nên các giá trị băm không độc lập; mức sai của ước lượng phụ thuộc cấu trúc bit thấp của dữ liệu (Bài tập 09.11, 09.17, tệp bài tập).
 
 Khi dòng phân tán trên nhiều máy dùng cùng các hàm $h_j$, Mệnh đề 09.7(b) cho phép ghép các phác thảo bằng phép lấy max từng $R_j$, tính chất mà UMass (bài 8, trang chiếu 8) gọi là phác thảo hợp nhất được (mergeable sketch).
 :::
@@ -2278,16 +2278,16 @@ Phép gộp DGIM: khi có ba thùng cùng cỡ, gộp hai thùng cũ nhất, gi�
 <!-- note-topic-id: lec-09-topic-26 -->
 ## Bài tập củng cố
 
-Bài tập 09.10–09.19 nằm trong [tệp bài tập Bài 09](material-viewer.html?doc=materials/lec-09/exercises.md&deck=lecture-09-dong-du-lieu-dem-momen-va-cua-so.html), cùng gợi ý và lời giải. Năm bài sách 09.10, 09.11, 09.12, 09.15 và 09.16 là bài tập trên lớp (recitation).
+Bài tập 09.10–09.22 nằm trong [tệp bài tập Bài 09](material-viewer.html?doc=materials/lec-09/exercises.md&deck=lecture-09-dong-du-lieu-dem-momen-va-cua-so.html), cùng gợi ý và lời giải. Năm bài sách 09.10, 09.11, 09.12, 09.15 và 09.16 là bài tập trên lớp (recitation).
 
 <!-- note-topic-id: lec-09-topic-27 -->
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
-- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 4. §4.4, tr.142–145: Mục 2 (Ví dụ 4.5) và Bài tập 09.11, 09.17 (tệp bài tập). §4.5, tr.145–150: Mục 1 (Ví dụ 4.6, 4.7), Mục 3 (Ví dụ 4.7–4.9) và Bài tập 09.10, 09.12–09.14, 09.18. §4.6, tr.150–157: Mục 5 (Hình 4.2, 4.3, Ví dụ 4.10–4.13) và Bài tập 09.15, 09.16. §4.7, tr.157–159: Mục 6. §4.1.2, tr.133: Mục 1; §4.8, tr.160: Nhận xét 09.28. Sách và trang chiếu tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
+- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 4. §4.4, tr.142–145: Mục 2 (Ví dụ 4.5) và Bài tập 09.11, 09.17 (tệp bài tập). §4.5, tr.145–150: Mục 1 (Ví dụ 4.6, 4.7), Mục 3 (Ví dụ 4.7–4.9) và Bài tập 09.10, 09.12–09.14, 09.18. §4.6, tr.150–157: Mục 5 (Hình 4.2, 4.3, Ví dụ 4.10–4.13) và Bài tập 09.15, 09.16; Bài 4.6.2: Bài tập 09.19. §4.7, tr.157–159: Mục 6. §4.1.2, tr.133: Mục 1; §4.8, tr.160: Nhận xét 09.28. Sách và trang chiếu tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
 - Leskovec, J., Rajaraman, A. và Ullman, J. D., trang chiếu chương 4, *Mining Data Streams* phần 1 và 2 (tại [http://www.mmds.org](http://www.mmds.org)). Phần 1, tr.29–32: ý tưởng thùng của DGIM ở Mục 5.2. Phần 2, tr.18: phần Ứng dụng; tr.20: ví dụ độ dài đuôi ở Mục 2.2.
 - Ullman, J. D. (2017). Stanford CS246, *Streams 1*, tr.13: bài toán URL với $N=10^9$ ở Mục 5 và Tình huống 09.2; tr.23: cận 50%; tr.28: ví dụ dòng mưa ở Mục 6.1. *Streams 2*, tr.24: số trang liên kết tới mỗi trang; tr.32–38: cỡ lân cận trong đồ thị (Tình huống 09.1); tr.49: số biến AMS.
 - Musco, C. (2021). UMass CS514, bài 10, *Count-Min Sketch*, trang chiếu 8–19: toàn bộ Mục 4. Bài 8, trang chiếu 3–5 và 8: mẹo trung vị (Bổ đề 09.14), phác thảo hợp nhất được.
-- Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018. §6.2.1, tr.183: cận dưới cho đếm chính xác (Nhận xét 09.4); tr.184–185: họ độc lập từng cặp (Định nghĩa 09.31); Định lý 2.1, tr.13: bất đẳng thức Markov; §12.3, tr.408 và §12.5.3, tr.422: cấp số nhân và cận hợp ở phần tiên quyết.
+- Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018. §6.2.1, tr.183: cận dưới cho đếm chính xác (Nhận xét 09.4); tr.184–185: họ độc lập từng cặp (Định nghĩa 09.31); Định lý 2.1, tr.13: bất đẳng thức Markov; §12.3, tr.408 và §12.5.3, tr.422: cấp số nhân và cận hợp ở phần tiên quyết; §6.6, tr.204, Bài 6.1, 6.6, 6.7: Bài tập 09.22, 09.21, 09.20.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1 (bất biến vòng lặp) và Chương 16 (phân tích khấu hao): cách trình bày Định lý 09.48 và Mệnh đề 09.49(b). Chương 11 (băm phổ dụng): họ băm phổ dụng có miền giá trị nhỏ cho các hàng Count-Min.
 - Đọc thêm, không cần cho bài tập: HyperLogLog (UMass bài 8, trang chiếu 6–8); ước lượng $F_0$ bằng giá trị băm nhỏ nhất, thuật toán Frequent và phân tích phương sai của một ước lượng $F_2$ khác (BHK §6.2.1, §6.2.3, §6.2.4, tr.185–191); tập phần tử phổ biến trong cửa sổ suy giảm (trang chiếu MMDS, phần 2, tr.44–46).
 - Đọc tiếp: [Bài 10](lecture-10-nen-du-lieu-khong-mat-thong-tin.html), *Nén dữ liệu không mất thông tin*.
