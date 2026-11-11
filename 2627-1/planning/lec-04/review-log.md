@@ -756,3 +756,58 @@ Căn cứ: báo cáo rà lại chỉ đọc các trang đổi (`recheck-d04.md`)
 ## Đồng bộ ký hiệu $\bar M$ với Bài 03 (2026-10-14)
 
 Bài 03 đổi tên ma trận trong chứng minh hội tụ từ $S$ thành $\bar M$ (lượt sửa sau rà ba vai của Bài 03). Theo giao việc của điều phối viên (tác tử soạn, `fork`, Opus 5.5, effort `high`; không commit), ghi chú diễn giả trang hội tụ của deck 04 sửa một câu: "Bài 03 ký hiệu ma trận này là $S$; Bài 04 dùng $\bar M$ vì $S$ đã chỉ tập chủ đề." thành "Bài 03 cũng ký hiệu ma trận này là $\bar M$, định nghĩa là $M_0$ có cột nút cụt thay bằng $u$; trong Bài 04, $S$ chỉ tập chủ đề." Dạng $\bar M=M_0+uz^{\mathsf T}$ ở câu sau giữ nguyên. Mặt trang không đổi. Kiểm: deck 04 trên cổng 8771 ở 1600×900, 0 lỗi console, 0 `.katex-error`, không cuộn ngang; `git diff --check` sạch. Nếu bộ dựng deck 04 trong scratchpad được chạy lại, cần mang theo câu này.
+
+## Viết lại ghi chú và tệp bài tập theo chuẩn 2026-11 (đợt B4, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` (đợt B4, hàng 04: giữ thân §2–§5, §7; kết quả thành khối; dấu thập phân `{,}`; bỏ thời lượng và ghi chú biên soạn; "khối lượng rác (spam mass)"; tiên quyết dẫn số hiệu mới của Bài 03); `AGENTS.md` §"Tiêu chuẩn giáo trình", §"Cấu trúc bắt buộc" 1–10; "The author's voice" của `../CLAUDE.md`. Ghi chú cũ 6 198 âm tiết (dưới 12 000) nên được viết lại thành chương đầy đủ. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà. Nguồn: MMDS 3e Ch.5 §5.3–5.5 (trang in = trang PDF + 174); trang chiếu MMDS (phần 2), CS246 10-spam; BHK §3.7, §3.9.4 (nguồn bổ sung cho giới hạn HITS); mã `materials/lec-04/code/`.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập kế hoạch chương | general-purpose | opus | high | không |
+| Soạn, sau đó biên tập (SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `img/lec-04/note-*.svg` và bộ sinh trong `tools/`, `outline.md`, `storyboard.md` |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà chuyên gia miền | general-purpose | opus | high | không |
+| Rà độ chính xác (nhiều lượt) | general-purpose | opus | high | không |
+| Rà sư phạm, `no-ai-slop` Detect | general-purpose | opus | high | không |
+| Rà mạch và liên kết (nhiều lượt) | general-purpose | opus | high | không |
+
+### Quyết định của điều phối viên
+
+- Thuật ngữ: giữ "phân phối dịch chuyển" (Bài 03 gọi là phân phối nhảy); "cụm thao túng liên kết (còn gọi là trại thư rác)"; $\ell$ số cạnh ($m$ số trang hỗ trợ theo MMDS); chỉ số chủ đề $\theta$; "véc-tơ"; "ma trận kề $L$".
+- Bài tập `exercises.md` chỉ MMDS: 04.8 (5.5.1, hai vòng), 04.9 (5.3.1, recitation), 04.10 (5.4.1(a,c), recitation), 04.11 (5.4.2, nền cùng $\beta=4/5$), 04.12 (5.5.1, giới hạn), 04.13 (5.5.2, recitation), 04.14 (5.4.1(b)). Bỏ 5.4.3 (bài mở). Bỏ phần chuẩn bị, lộ trình 60 phút, nộp bài, tiêu chí chấm, nhiệm vụ chạy mã của tệp cũ. Bài cuối mục 04.1–04.7 dựng trên dữ kiện của ghi chú (mục tiêu chi phí, chọn phương pháp không có bài sách).
+- BHK §3.7, §3.9.4 làm nguồn bổ sung cho chứng minh giới hạn HITS (Định lý 04.22); Bước 3 (véc-tơ riêng không âm, thương Rayleigh) do chương chứng minh, rà độ chính xác xác nhận. Tốc độ $\lambda_2/\lambda_1$ (Định lý 04.25) là phần Đọc thêm thu gọn; mạch chính và bài tập không dựa vào nó.
+- Không đổi thẻ chỉ mục Bài 04 về "Chưa có" (yêu cầu của tác giả); thẻ thêm liên kết "Bài tập" sau khi đạt.
+- Mã `link_analysis.py` không sửa trong đợt này; ghi chú nêu một câu ở tài liệu tham khảo.
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | thân bài | đính chính MMDS/trang chiếu (360% so với 260%; "y lớn tùy ý"; nền Ví dụ 5.12) | chấp nhận: phát biểu thẳng kết quả; đính chính ghi dưới đây |
+| nghiêm trọng | Định lý 04.25, Bổ đề 04.21, … | chữ trùng nghĩa với bảng ký hiệu | chấp nhận: $\kappa,\eta,z_t,\mu_t,\sigma,g,e,d^{\mathrm{in}},K_{\mathrm H}$ |
+| trung bình | Mục 4 | khối lượng rác đọc là "phần điểm không đến từ $T$" (sai toán); "TrustRank một mình chưa chỉ ra"; tập tin cậy đồng nhất với tập hạt giống | chấp nhận |
+| trung bình | Tóm tắt | khái quát quá Tình huống 04.3; HITS "cần thông tin ngoài đồ thị" | chấp nhận |
+| trung bình | Định nghĩa 04.9 | điều kiện thứ tư suy ra từ điều kiện thứ ba | chấp nhận: ba điều kiện và một hệ quả |
+| trung bình | Mục 6, bài tập | dựa vào phần Đọc thêm | chấp nhận: dẫn Bước 4 của chứng minh Định lý 04.22 |
+| trung bình | bài tập cuối mục | hỏi lại kết quả đã in; phản ví dụ in sẵn lời giải 04.9 | chấp nhận |
+| trung bình | đọc hình, ranh giới mục, "ma trận liên kết" hai nghĩa, Ví dụ 04.6 bỏ bước giải hệ, quy mô 7 trang so với $10^9$ | chấp nhận |
+| nhẹ | khoảng 60 mục | trích trang, chỉ đường, từ làm mềm, … | chấp nhận |
+
+Đính chính so với nguồn (không ghi trong ghi chú): MMDS Ví dụ 5.11 gọi hệ số $1/(1-\beta^2)\approx3{,}6$ là "khuếch đại 360%", tức tăng thêm khoảng 260%; trang chiếu MMDS tr.35 và CS246 trang chiếu 55 ghi tăng số trang hỗ trợ làm $y$ "lớn tùy ý", trong khi $y\le1$ và phần do trang hỗ trợ đem lại $<m/(2n)$; MMDS Ví dụ 5.12 tính khối lượng rác với PageRank nền không có dịch chuyển ($\beta=1$) trong khi TrustRank dùng $\beta=4/5$. Deck s04-01 ghi tập tin cậy là "tập hạt giống"; s04-05 đọc khối lượng rác theo cách đã sửa.
+
+Lệch mã (báo tác giả): `link_analysis.py trust` và `check_practice.py` tính khối lượng rác với nền $\beta=1$ ($s=(47/245,-299/490,71/245,8/245)$ trên bài 5.4.2), khác Định nghĩa 04.14 ($s=(17/105,-387/665,201/665,33/665)$); `practice-README.md` dùng "điểm thẩm quyền"; `hits()` khởi tạo $a=\mathbf 0$ (Thuật toán 04.19 dùng $\mathbf 1$, giới hạn không đổi).
+
+Dữ kiện tự dựng (không ghi trong ghi chú): đồ thị bảy trang (G4 với $\mathrm C\to\mathrm A,\mathrm Y$; $\mathrm Y\to\mathrm P_1,\mathrm P_2$; $\mathrm P_k\to\mathrm Y$), tên trang Y, P1, P2; các phản ví dụ (quên chia $\lvert S\rvert$; cập nhật tuần tự $413/375$; hai khuyên; khác $\beta$ trên $\{\mathrm B,\mathrm D\}$, $\{\mathrm C\}$; bù theo $v$ trên G4 có C cụt, $\beta=1/2$; trang đích có thêm cạnh ra; cụm $10^6$ trang; $\mathrm A\to\mathrm B$, $\mathrm C\to\mathrm D$; ba trang cùng trỏ một đích; hai bản sao G4); ghép $w=(1/3,2/3)$; Tình huống 04.1 (16 chủ đề, $10^9$ người dùng).
+
+Sai khác với deck (không sửa deck): "Spam Mass" → "khối lượng rác"; chỉ số chủ đề $j$ → $\theta$; deck s01-07 còn "Bài 03 viết $T_{\max}$"; deck dẫn Teufel (2012), ghi chú dẫn BHK; deck định nghĩa cụm bằng ba điều kiện; recitation s07-01…03 nay giải ở `exercises.md` (04.9, 04.10, 04.13); thứ tự Mục 2 (tiền tính/truy vấn và tính tuyến tính) đảo so với deck. Chi tiết trong `outline.md`.
+
+### Kết quả kiểm tra
+
+- Hai vòng sửa sau năm báo cáo, hai lượt kiểm lại (độ chính xác, mạch): chấp nhận; không còn phát hiện chặn bàn giao, nghiêm trọng hay trung bình.
+- Độ dài: ghi chú 6 198 (bản cũ) → 24 368; `exercises.md` 3 297.
+- Khối: bộ đếm chung 04.1–04.25; Ví dụ 04.1–04.14; Tình huống 04.1–04.3; Bài tập 04.1–04.14 theo thứ tự đọc; mọi dẫn 04.k/03.k/01.k đúng khối.
+- Grep mẫu cấm: 0; `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, trang không cuộn ngang, 0 công thức tràn; phần Đọc thêm thu gọn, mở khi in.
+- Chỉ mục: Bài 4 thêm liên kết "Bài tập"; mô tả đổi "Spam Mass" thành "khối lượng rác".

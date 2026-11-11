@@ -406,3 +406,97 @@ Câu luận đề trên trang bìa (bản ngắn, quyết định 7 của điề
 - **Ký hiệu:** $\bar M$ là ký hiệu mới của Bài 04 (Bài 03 viết $S$ trong ghi chú), nên s02-08 dùng nhãn "Ký hiệu:"; số vòng tối đa $K$ thay $T_{\max}$ của Bài 03; $\rho_C$ viết $19/105$ ở mọi trang. Tập ứng viên $C$ (s02-11, s02-14, s06-01) giữ tên, xem review-log.
 - **HITS:** điều kiện viết theo đại số tuyến tính: trị riêng lớn nhất có không gian riêng một chiều; $h$, $a$ là vector riêng ứng với trị riêng lớn nhất.
 - **Ghi chú bài giảng:** không sửa trong lượt này; khi sửa ghi chú cần dùng cùng cách phát biểu điều kiện HITS và các giả thiết của bảng tổng kết.
+
+## Ghi chú theo chuẩn giáo trình (2026-11-11)
+
+Mục này thay phần ghi chú tự học ở các mục trên (`lec04-note-01`… trong `storyboard.md` chỉ còn là lịch sử). Viết lại theo kế hoạch `lec04-plan.md` và quyết định D1–D15 của điều phối viên; bộ trang chiếu giữ nguyên.
+
+**Goal.** `materials/lec-04/lecture-note.md` là một chương giáo trình tự chứa theo `materials/_templates/lecture-note.md`: mục tiêu, tiên quyết dẫn số hiệu Bài 01, Bài 03, bảng ký hiệu ba cột, sáu mục nội dung, một phần đọc thêm thu gọn, ba tình huống, tóm tắt. Bài tập cuối mục 04.1–04.7 dựng trên dữ kiện của ghi chú; bài tập củng cố 04.8–04.14 ở `materials/lec-04/exercises.md`, chỉ bài MMDS: 04.8 (5.5.1, hai vòng), 04.9 (5.3.1), 04.10 (5.4.1(a, c)), 04.11 (5.4.2), 04.12 (5.5.1, giới hạn), 04.13 (5.5.2), 04.14 (5.4.1(b)); recitation của deck là 04.9, 04.10, 04.13. Không mục Thực hành (D7).
+
+**Vấn đề trung tâm.** Xếp hạng $10^9$ trang theo ngữ cảnh của $10^9$ người dùng, khó thao túng bằng liên kết và tách hai vai trò của một trang; một véc-tơ mỗi người dùng cần $8\cdot10^{18}$ byte (Ví dụ 04.1). Hình cấu trúc chương: `img/lec-04/note-cau-truc-chuong-04.svg`.
+
+### Bản đồ chủ đề bốn nhóm
+
+| note-topic-id | Mục ghi chú | Chủ đề và khối số hiệu | Nhãn | Nguồn | Chu trình |
+|---|---|---|---|---|---|
+| `lec-04-topic-01` | Mục 1 | Ba nhu cầu; Ví dụ 04.1; hình cấu trúc chương; Bài tập 04.1 | cầu nối | MMDS §5.3.1 tr.195–196, §5.4 tr.199, Ví dụ 5.13 | rút gọn: mục giới thiệu, không định nghĩa |
+| `lec-04-topic-02` | Mục 2 mở, 2.1 | Ví dụ 04.2; Định nghĩa 04.1; Ví dụ 04.3; Nhận xét 04.2 | cốt lõi | MMDS §5.3.2 tr.196–197, Ví dụ 5.10, Hình 5.15 | đủ (vấn đề, trực giác, ví dụ trước, định nghĩa, ví dụ sau) |
+| `lec-04-topic-03` | 2.2 | Thuật toán 04.3 (bảng chi phí); Mệnh đề 04.4 (tính đúng, bảo toàn) | cốt lõi | Thuật toán 03.10, Mệnh đề 03.11, 03.13; CLRS §2.1 | đủ |
+| `lec-04-topic-04` | 2.3 | Định lý 04.5; Ví dụ 04.4; đoạn "Trong thực hành" | cầu nối (mở rộng Định lý 03.15, Hệ quả 03.16) | Bổ đề 03.14, Định lý 03.15, Hệ quả 03.16, Nhận xét 03.18 | đủ; chứng minh dẫn Bài 03, viết đủ hai bước đổi |
+| `lec-04-topic-05` | 2.4 | Ví dụ 04.5; Mệnh đề 04.6 (tuyến tính, xấp xỉ) | cốt lõi | MMDS §5.3.2, §5.3.4 tr.199; ghi chú diễn giả s02-09a | đủ |
+| `lec-04-topic-06` | 2.5 | Mệnh đề 04.7 (chi phí); Nhận xét 04.8; Bài tập 04.2, 04.3 | bổ sung | MMDS §5.3.3–5.3.4 tr.197–199, Ví dụ 5.9 | rút gọn: phép đếm |
+| `lec-04-topic-07` | Mục 3 | Ví dụ 04.6 (đồ thị bảy trang); Định nghĩa 04.9; Mệnh đề 04.10; Ví dụ 04.7; Hệ quả 04.11; Nhận xét 04.12; Bài tập 04.4 | cốt lõi | MMDS §5.4.1–5.4.3 tr.199–202, Ví dụ 5.11, Hình 5.16; trang chiếu MMDS tr.31–35; CS246 51–55 | đủ |
+| `lec-04-topic-08` | Mục 4 mở, 4.1 | Định nghĩa 04.13; Ví dụ 04.8 | cốt lõi | MMDS §5.4.4 tr.202–203 | rút gọn: thuật toán và chứng minh dẫn Mục 2 |
+| `lec-04-topic-09` | 4.2 | Ví dụ 04.9; Định nghĩa 04.14; Ví dụ 04.10; Nhận xét 04.15, 04.16; Bài tập 04.5 | cốt lõi | MMDS §5.4.5 tr.203, Ví dụ 5.12, Hình 5.17 | rút gọn: độ đo dẫn xuất, không định lý riêng ($\sum_ir_is_i=0$ dùng ở Ví dụ 04.10, Bài tập 04.5, Tình huống 04.2, D12) |
+| `lec-04-topic-10` | Mục 5 mở, 5.1 | Ví dụ 04.11; Định nghĩa 04.17; Ví dụ 04.12; Nhận xét 04.18 | cốt lõi | MMDS §5.5–5.5.2 tr.204–207, Ví dụ 5.13–5.15, Hình 5.18–5.20 | đủ |
+| `lec-04-topic-11` | 5.2 | Thuật toán 04.19 (bảng chi phí); Mệnh đề 04.20 | cốt lõi | MMDS §5.5.2 tr.206–207 | đủ |
+| `lec-04-topic-12` | 5.3 | Bổ đề 04.21; Định lý 04.22 (chứng minh trong thân, D9); Ví dụ 04.13 | cốt lõi (phát biểu); bổ sung (chứng minh) | MMDS §5.5.2 tr.206–208; BHK §3.7 tr.51–52, §3.9.4 tr.62 | đủ |
+| `lec-04-topic-13` | 5.4 | Mệnh đề 04.23; Nhận xét 04.24; Bài tập 04.6 | bổ sung | MMDS §5.5.2 tr.206 | rút gọn: phép đếm |
+| `lec-04-topic-14` | Đọc thêm (thu gọn) | Định lý 04.25 (phép lặp lũy thừa với khoảng cách trị riêng); Ví dụ 04.14 | đọc thêm | BHK Định lý 3.11 tr.52–53 | rút gọn |
+| `lec-04-topic-15` | Mục 6 | Bảng so sánh bốn phương pháp; Bài tập 04.7 | cầu nối (tổng hợp) | MMDS §5.3–5.5 | không áp dụng: không khái niệm mới |
+| `lec-04-topic-16` | Tình huống và ứng dụng | Tình huống 04.1 (16 chủ đề, $10^9$ người dùng), 04.2 (khối lượng rác trên đồ thị bảy trang), 04.3 (tập tin cậy chứa trang bình luận, giả thiết bị vi phạm); ứng dụng Bài 05, Bài 14 | cốt lõi (áp dụng) | MMDS §5.3.1, Ví dụ 5.9, §5.4.4; Tình huống 03.1 | không áp dụng |
+| `lec-04-topic-17` | Tóm tắt chương | Đoạn 7 câu, kết quả theo mục, công thức, giả thiết hay bỏ quên | tổng kết | toàn chương | không áp dụng |
+
+Chu trình rút gọn: Mục 1 là mục giới thiệu; TrustRank dùng lại thuật toán và chứng minh của Mục 2 vì là trường hợp riêng của Định nghĩa 04.1; khối lượng rác là một độ đo dẫn xuất từ hai véc-tơ; Mục 6 tổng hợp. Thứ tự trong 2.1, 4.2, 5.1: ví dụ dẫn nhập có số (Ví dụ 04.2, 04.9, 04.11) đứng trước định nghĩa, ví dụ có lời giải đứng sau.
+
+**Bài tập theo mục tiêu.** Khớp bảng mục tiêu của `exercises.md`: mục tiêu 1 ↔ 04.2, 04.3 / 04.9; mục tiêu 2 ↔ 04.2, 04.3, 04.7 / 04.9, 04.11 (phần kiểm tra dùng Mệnh đề 04.6); mục tiêu 3 ↔ 04.4 / 04.10, 04.14; mục tiêu 4 ↔ 04.5 / 04.11; mục tiêu 5 ↔ 04.6 / 04.8, 04.12, 04.13; mục tiêu 6 ↔ 04.7 / không có. Mục tiêu 2 và 6 không có bài giáo trình riêng trong MMDS §5.3–5.5; theo `AGENTS.md` mục 10 chúng dựa vào bài cuối mục trong ghi chú.
+
+**Bỏ.** Bài 5.4.3 (!) (D11); suy chủ đề bằng Jaccard (chuyển Bài 05, chỉ nêu ở Nhận xét 04.8 và mục Ứng dụng); Personalized PageRank, random walk with restarts, SimRank, Pixie.
+
+### Thuật ngữ Việt–Anh của ghi chú
+
+| Tiếng Việt | Tiếng Anh | Lần đầu trong ghi chú |
+|---|---|---|
+| phân phối dịch chuyển (Bài 03: phân phối nhảy); tập chủ đề, tập dịch chuyển | teleport distribution; topic set, teleport set | Định nghĩa 04.1 |
+| PageRank theo chủ đề | topic-sensitive PageRank | Định nghĩa 04.1 |
+| điểm ghép; tập trang ứng viên | (combined score); candidate set | Mục 2.5 |
+| liên kết rác | link spam | Mục 3 |
+| trang không thể tác động; trang có thể tác động; trang sở hữu | inaccessible pages; accessible pages; own pages | Mục 3 |
+| cụm thao túng liên kết (còn gọi là trại thư rác) | spam farm | Định nghĩa 04.9 |
+| trang đích; trang hỗ trợ; đóng góp từ ngoài | target page; supporting pages; (contribution $x$) | Định nghĩa 04.9 |
+| hệ số khuếch đại | (amplification, MMDS "amplified … by 360%") | Hệ quả 04.11 |
+| tập tin cậy | trusted set | Định nghĩa 04.13 |
+| tập hạt giống (tập trang đưa cho người đánh giá; tập tin cậy là phần được xác nhận) | seed set | Định nghĩa 04.13 |
+| giả thiết cách ly gần đúng | approximate isolation (trang chiếu MMDS) | Định nghĩa 04.13 |
+| khối lượng rác | spam mass | Định nghĩa 04.14 |
+| trang trung tâm, điểm trung tâm; trang uy tín, điểm uy tín | hub, hubbiness; authority | Mục 5.1 |
+| tìm kiếm theo chủ đề dựa trên siêu liên kết | hyperlink-induced topic search (HITS) | Mục 5.1 |
+| chuẩn hóa theo giá trị lớn nhất | (scale so that the largest component is 1) | Định nghĩa 04.17 |
+| phép lặp lũy thừa | power iteration (Bài 03: power method) | Mục 5.3 |
+
+### Khác biệt với bộ trang chiếu
+
+- Thuật ngữ: ghi chú viết "khối lượng rác (spam mass)", deck viết "Spam Mass"; ghi chú viết "véc-tơ", deck viết "vector" (D5); ghi chú gọi tên đầy đủ "trang trung tâm/uy tín" như deck.
+- Ký hiệu: chỉ số chủ đề là $\theta$ (deck dùng $j$, đồng thời là trang nguồn; D4); $\bar M=M_0+u\,\mathbf 1_{\mathcal D}^{\mathsf T}$ (ghi chú diễn giả s02-08 viết $M_0+uz^{\mathsf T}$); hằng chuẩn hóa $\lambda,\mu$ của MMDS (ghi chú diễn giả s05-09) thay bằng "tỷ lệ dương", vì $\lambda_i$ là trị riêng; trị riêng lớn nhất viết $\lambda_1$ (deck s06-05 viết $\lambda_{\max}$); véc-tơ uy tín và trung tâm mới trong giả mã viết $a'$, $h'$ (deck: `a_new`, `h_new`).
+- Ghi chú diễn giả s01-07 còn ghi "số vòng tối đa viết $K$ (Bài 03 viết $T_{\max}$)", trong khi Bài 03 hiện hành viết $K$ (lệch deck, không sửa deck).
+- Nội dung thêm so với deck: Định lý 04.5 bốn phần có (b) không phụ thuộc $r^0$ và (d) cận dừng, chứng minh nêu hai bước đổi so với Định lý 03.15; Mệnh đề 04.6(b) (ở deck chỉ có trong ghi chú diễn giả s02-09a) và hai phản ví dụ (khác $\beta$, trên $\{\mathrm B,\mathrm D\}$ và $\{\mathrm C\}$; bù theo $v$ trên G4 có C cụt, $\beta=1/2$); Mệnh đề 04.4 và các phản ví dụ "Bỏ …"; đồ thị bảy trang (Ví dụ 04.6, 04.7, Tình huống 04.2, 04.3) với hình mới `note-g4-cum-thao-tung.svg`, `note-g4-cum-tin-cay.svg`; Hệ quả 04.11 dạng chính xác với số hạng $1/(n(1+\beta))$; ba biến thể "Bỏ …" của kiến trúc cụm; $\sum_ir_is_i=0$; Mệnh đề 04.20 (deck chỉ có câu trong ghi chú diễn giả s05-08), Bổ đề 04.21, Định lý 04.22 có chứng minh (deck s05-09: "phác thảo có điều kiện"), dạng đóng của giới hạn G5, phản ví dụ $\mathrm A\to\mathrm B$, $\mathrm C\to\mathrm D$ và $h^0=(0,0,1,0,0)$; phần đọc thêm Định lý 04.25; bảng chi phí HITS đếm $8n+2\ell$ (deck s05-10 ghi $2\ell+\Theta(n)$, cùng bậc).
+- Bài recitation: deck s07-01…s07-03 không còn trỏ "ghi chú bài giảng, mục 7"; lời giải nằm ở `exercises.md`: s07-01 ↔ Bài tập 04.9 (5.3.1), s07-02 ↔ 04.10 (5.4.1(a, c)), s07-03 ↔ 04.13 (5.5.2).
+- Bảng so sánh Mục 6 gộp hai bảng s06-05 và s06-01 thành một bảng năm cột.
+- Mặt trang s05-09 và s06-05 nêu điều kiện HITS là "trị riêng lớn nhất có không gian riêng một chiều"; ghi chú viết "trị riêng lớn nhất là đơn", cùng nghĩa với ma trận đối xứng.
+
+### Tương ứng ký hiệu deck ↔ ghi chú
+
+| Deck | Ghi chú | Lý do |
+|---|---|---|
+| $j$ chỉ chủ đề (s02-09 trở đi), $v^{(j)}$, $r^{(j)}$, $w_j$, $K_j$ | $\theta$, $v^{(\theta)}$, $r^{(\theta)}$, $w_\theta$, $K_\theta$ | $j$ là trang nguồn (D4) |
+| $\bar M=M_0+uz^{\mathsf T}$ (ghi chú diễn giả) | $M_0+u\,\mathbf 1_{\mathcal D}^{\mathsf T}$ | ký hiệu Bài 03 |
+| $h=\lambda La$, $a=\mu L^{\mathsf T}h$ | "$h$ tỷ lệ dương với $La$" | $\lambda_i$ là trị riêng |
+| $\lambda_{\max}$ | $\lambda_1$ | thứ tự $\lambda_1\ge\cdots\ge\lambda_n$ |
+| $q$ (chuẩn hóa, s05-07) | $z$ trong $N(z)$ | $q_i$ là điểm ghép |
+| `a_new`, `h_new` | $a'$, $h'$ | tránh chữ có dấu trong công thức |
+| (không có) | $J$ (tập trang ngoài cụm trỏ tới trang đích), $\gamma_i$, $\psi_i$; trong Đọc thêm $\kappa$, $\eta$, $\hat h^0$, $\hat\gamma_i$, $z_t$ | thêm cho các mệnh đề |
+| trang đích "t" trên hình `hinh-5-16-cum-thao-tung.svg` (nhãn "Đích") | "trang đích"; trên đồ thị bảy trang là $\mathrm Y$, hai trang hỗ trợ $\mathrm P_1$, $\mathrm P_2$ | $t$ là chỉ số vòng; $\mathrm Y$ ứng với điểm $y$, $\mathrm P_k$ với điểm $p$ |
+| $\theta$, $\delta$, $w_k$, $k$, $x$, $c_i$, $B$ trong Định lý 04.25 (bản nháp 1) | $\kappa$, $\eta$, $z_t$, $t$, $\hat h^0$, $\hat\gamma_i$, $LL^{\mathsf T}$ | mỗi chữ một nghĩa (vòng sửa 1, A2) |
+| $c,c'$ (Bổ đề 04.21), $x,y$ (Định lý 04.5(a)), giá trị chung $q$, "$k$ cạnh ra", "$q$ cạnh vào", $K'$ (bản nháp 1) | $\mu_t,\mu'_t$; $r,r'$; $\sigma$ (giá trị chung ở Ví dụ 04.3, 04.5, 04.6, Bài tập 04.3, 04.9, 04.11), $g$ chỉ cho tổ hợp trong chứng minh Mệnh đề 04.6, $\phi=L^{\mathsf T}\psi_1$ trong Bước 6 chứng minh Định lý 04.22; $e$; $d^{\mathrm{in}}$; $K_{\mathrm H}$ (thêm vào bảng ký hiệu) | như trên |
+
+### Vòng sửa 1 (2026-11-11): thay đổi so với bản nháp 1
+
+- Định nghĩa 04.9 còn ba điều kiện; điều kiện "mọi cạnh từ ngoài vào cụm kết thúc ở trang đích" thành hệ quả của điều kiện thứ ba (deck cũng dùng ba điều kiện). Sau định nghĩa: cụm là một bẫy liên kết (Định nghĩa 03.7); trại thư rác của Bài 03 không có cạnh từ trang đích về.
+- Định nghĩa 04.13 phân biệt *tập hạt giống* (seed set) với *tập tin cậy* (trusted set) theo trang chiếu MMDS tr.38–39 (deck s04-01 ghi "tập tin cậy (tập hạt giống, seed set)", lệch nguồn); thêm "giả thiết cách ly gần đúng (approximate isolation)", tr.38; Mục 4.2 mở bằng ngưỡng TrustRank của trang chiếu MMDS tr.39.
+- Cách đọc khối lượng rác: $s_i$ là phần của $r_i$ mất đi khi dịch chuyển chỉ vào $T$; $s$ lớn có thể do liên kết rác hoặc do $T$ thiếu độ phủ (deck s04-05 viết "tỷ lệ của $r_i$ không được tập tin cậy giải thích", ghi lệch).
+- Bỏ các câu đính chính MMDS/trang chiếu trong thân (360%, "y lớn tùy ý", Ví dụ 5.12 với nền $\beta=1$); phản ví dụ nền $\beta=1$ viết bằng lặp thô (Ví dụ 03.6).
+- Mệnh đề 04.4 thêm (c) trạng thái dừng. Đọc thêm tách khỏi mạch chính: Mục 6, Bài tập 04.7, 04.12, 04.13 dẫn Bước 4 của chứng minh Định lý 04.22.
+- Bài tập cuối mục đổi dữ kiện để không hỏi lại số đã in: 04.2 hỏi $r^4$; 04.3 thêm (c) ghép $\tfrac12r^*_{\{\mathrm C\}}+\tfrac12r^*_u$ và (d) đếm $c(2k-1)$; 04.5 dùng $T=\{\mathrm C\}$; 04.7 thay (a), (c), (d), (e). Phản ví dụ "cùng $\beta$" dựng trên $\{\mathrm B,\mathrm D\}$ và $\{\mathrm C\}$; phản ví dụ "bù theo $u$" dùng G4 có C cụt với $\beta=1/2$.
+- `exercises.md`: lời giải 04.8, 04.12, 04.13, 04.14 dùng nhãn bước in đậm (bài sách không chia ý); 04.13 bỏ "(!)", phần đối chiếu Định lý 04.22 chuyển vào "Kiểm tra lại"; 04.12 thêm gợi ý chia đôi trên $[4,5]$; 04.11 bỏ đoạn nền $\beta=1$.
+- Lệch deck thêm: thứ tự Mục 2 (deck đặt s02-11 tiền tính trước s02-09a tuyến tính; ghi chú đặt Mệnh đề 04.6 trước Mệnh đề 04.7). Ghi chú nối sang Bài 05 có căn cứ MMDS §5.3.4 (tr.198–199, Jaccard để suy chủ đề), trong khi deck không nối. Hình của deck `luu-vector-theo-chu-de.svg`, `tien-tinh-va-truy-van.svg` ghi "vector"; `desc` của `hinh-5-16-cum-thao-tung.svg` dùng chữ "t" cho trang đích (không sửa, ngoài phạm vi). Mã `link_analysis.py` lệnh `trust` dùng nền $\beta=1$ (ghi một câu ở tài liệu tham khảo theo B1); `hits()` khởi tạo $a=\mathbf 0$ (Thuật toán 04.19: $a=\mathbf 1$; chỉ đổi $\Delta_a$ vòng đầu).
+- Bảng Mục 6: cột "Đầu vào thêm" của HITS ghi "đồ thị con của truy vấn"; "ít nhất một cạnh" sang cột giả thiết; gọi chung "ba phép lặp và một chỉ số dẫn xuất".

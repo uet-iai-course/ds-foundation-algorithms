@@ -3062,3 +3062,32 @@ Ghi chú diễn giả sửa ở s01-04, s01-05, s01-06, s01-07, s02-00, s02-06, 
 - **s03-05:** bỏ dòng "Bước 1: …; bước 2: …" khỏi mặt trang, nội dung chuyển vào ghi chú. Đếm theo `AGENTS.md` (mỗi khối công thức hiển thị một dòng), trang trước sửa có 7 dòng, nay 6; số "6" ghi ở bảng mật độ trước đó đếm hai khối $y=\dots$ trong một đoạn là một dòng, nên sai.
 - **s06-02:** dòng 3 tách $s_A=s_C=1/5$ (xa 1: chưa cần rà soát) khỏi $s_B=s_D=-23/95$; Kết luận "Spam Mass chỉ trang cần rà soát". Âm tiết 77/80.
 - **Ghi chú s06-05, s01-05:** bỏ câu nêu $b=0$ tại cụm (lời giải câu tự kiểm tra 3); thay câu mô tả cấu trúc trang ở s01-05 bằng bốn câu trả lời có điều kiện.
+
+## Ánh xạ chủ đề của ghi chú (2026-11-11)
+
+Ghi chú `materials/lec-04/lecture-note.md` viết lại theo chuẩn giáo trình. Mục này thay "Ánh xạ ghi chú tự học" ở trên; các mục `lec04-note-*` chỉ giữ làm lịch sử. Chú thích `<!-- note-topic-id: … -->` đặt trước tiêu đề mục tương ứng. Thứ tự trong ghi chú: nhu cầu có số → ví dụ dẫn nhập → định nghĩa → ví dụ có lời giải → kết quả hoặc thuật toán → chứng minh → vai trò giả thiết → trong thực hành → bài tập.
+
+| Mã | note-topic-id | Mục ghi chú | Trang chiếu (`data-slide-id`) | Khối số hiệu | Vào → ra |
+|---|---|---|---|---|---|
+| L04-N01 | `lec-04-topic-01` | Mục 1 | s01-01, s01-05, s01-03, s01-04, s01-06 | Ví dụ 04.1; Bài tập 04.1 | Định lý 03.15, Ví dụ 03.13 → ba nhu cầu, $8\cdot10^{18}$ byte |
+| L04-N02 | `lec-04-topic-02` | Mục 2 mở, 2.1 | s02-00, s02-01, s02-02, s02-03, s02-04 | Ví dụ 04.2, 04.3; Định nghĩa 04.1; Nhận xét 04.2 | dịch chuyển đều → $F_v$, $r^*_v=(9/35,59/210,19/105,59/210)$ |
+| L04-N03 | `lec-04-topic-03` | 2.2 | s02-05, s02-06, s02-07 | Thuật toán 04.3; Mệnh đề 04.4 | Thuật toán 03.10 → $3n+\ell$ mỗi vòng, bảo toàn |
+| L04-N04 | `lec-04-topic-04` | 2.3 | s02-08 | Định lý 04.5; Ví dụ 04.4 | Định lý 03.15, Hệ quả 03.16, Nhận xét 03.18 → cận $4\Delta_1=16/25$, sai số $8/175$ |
+| L04-N05 | `lec-04-topic-05` | 2.4 | s02-09, s02-09a | Ví dụ 04.5; Mệnh đề 04.6 | một chủ đề → ghép tuyến tính |
+| L04-N06 | `lec-04-topic-06` | 2.5 | s02-11, s02-10, s02-14, s02-12 | Mệnh đề 04.7; Nhận xét 04.8; Bài tập 04.2, 04.3 | ghép → tiền tính $\Theta((\sum_\theta K_\theta)(n+\ell))$, truy vấn $\Theta(kc)$ |
+| L04-N07 | `lec-04-topic-07` | Mục 3 | s03-00 … s03-08 | Ví dụ 04.6, 04.7; Định nghĩa 04.9; Mệnh đề 04.10; Hệ quả 04.11; Nhận xét 04.12; Bài tập 04.4 | liên kết vào → $y=(x+\beta mb+b)/(1-\beta^2)$, hệ số $400/111$ |
+| L04-N08 | `lec-04-topic-08` | Mục 4 mở, 4.1 | s04-00, s04-01, s04-02a, s04-03 | Định nghĩa 04.13; Ví dụ 04.8 | Định nghĩa 04.1 → TrustRank |
+| L04-N09 | `lec-04-topic-09` | 4.2 | s04-04, s04-05, s04-06, s04-07 | Ví dụ 04.9, 04.10; Định nghĩa 04.14; Nhận xét 04.15, 04.16; Bài tập 04.5 | $r$, $\rho$ → $s=(1/5,-23/95,1/5,-23/95)$ |
+| L04-N10 | `lec-04-topic-10` | Mục 5 mở, 5.1 | s05-00 … s05-07 | Ví dụ 04.11, 04.12; Định nghĩa 04.17; Nhận xét 04.18 | một điểm → hai điểm $h$, $a$ |
+| L04-N11 | `lec-04-topic-11` | 5.2 | s05-08 | Thuật toán 04.19; Mệnh đề 04.20 | hai vòng tay → thuật toán, chuẩn hóa xác định |
+| L04-N12 | `lec-04-topic-12` | 5.3 | s05-09 | Bổ đề 04.21; Định lý 04.22; Ví dụ 04.13 | phép lặp → véc-tơ riêng của $LL^{\mathsf T}$, $h^*\approx(1;0{,}3583;0;0{,}7165;0)$ |
+| L04-N13 | `lec-04-topic-13` | 5.4 | s05-10, s05-11 | Mệnh đề 04.23; Nhận xét 04.24; Bài tập 04.6 | → $8n+2\ell$ mỗi vòng |
+| L04-N14 | `lec-04-topic-14` | Đọc thêm (thu gọn) | không có trang (ghi chú diễn giả s05-09 nêu "phác thảo") | Định lý 04.25; Ví dụ 04.14 | Định lý 04.22 → công bội $\lambda_2/\lambda_1$ |
+| L04-N15 | `lec-04-topic-15` | Mục 6 | s06-00, s06-05, s06-01, s06-03, s06-04 | Bài tập 04.7 | ba phép lặp và một chỉ số → bảng so sánh |
+| L04-N16 | `lec-04-topic-16` | Tình huống và ứng dụng | s01-05, s06-02 | Tình huống 04.1–04.3 | toàn chương → Bài 05, Bài 14 |
+| L04-N17 | `lec-04-topic-17` | Tóm tắt chương | s06-05, s06-02, s06-06 | — | toàn chương |
+| — | (`exercises.md`) | Bài tập 04.8–04.14 | s07-00 … s07-03 (04.9, 04.10, 04.13) | Bài tập 04.8–04.14 | MMDS 5.3.1, 5.4.1, 5.4.2, 5.5.1, 5.5.2 |
+
+Các trang mở đầu không mang `note-topic-id` riêng: `s01-02` (Mục tiêu) ứng với "Mục tiêu học tập"; `s01-07` (Tiên quyết và quy ước) ứng với "Kiến thức tiên quyết" và "Bảng ký hiệu"; `s01-08` (Nội dung) ứng với hình cấu trúc chương ở Mục 1. Phần đọc thêm nằm giữa Mục 5 và Mục 6, tiêu đề "Đọc thêm: Tốc độ hội tụ của HITS", thu gọn mặc định bằng `<!-- note-collapsed -->`.
+
+Vòng sửa 1 (2026-11-11): số hiệu không đổi; Mệnh đề 04.4 thêm ý (c); Bài tập 04.2 (vòng thứ tư), 04.3 (thêm ghép và chi phí, phục vụ mục tiêu 2), 04.5 ($T=\{\mathrm C\}$), 04.7 (bốn câu mới) đổi nội dung nhưng giữ số; ánh xạ `data-slide-id` không đổi.
