@@ -119,9 +119,9 @@ Theo bản đồ chủ đề của ghi chú (2026-11-04); thay bảng `L09-N01�
 | `lec-09-topic-07` | Chi phí, hợp nhất, thực hành | cốt lõi | 2.5 | MMDS §4.4.4; UMass bài 8 tr.8 | Bộ nhớ theo bit; ghép phác thảo bằng max |
 | `lec-09-topic-08` | Biến AMS | cốt lõi | 3.1 | MMDS §4.5.2, Ví dụ 4.8 | Chạy biến AMS |
 | `lec-09-topic-09` | Tính không chệch | cốt lõi; tổng các số lẻ là cầu nối | 3.2 | MMDS §4.5.3, Bài tập 4.5.5 | $\mathbb E[X]=F_2$ |
-| `lec-09-topic-10` | Mômen bậc cao | cốt lõi, chu trình rút gọn | 3.3 | MMDS §4.5.4 | Ước lượng $F_p$ |
+| `lec-09-topic-10` | Mômen bậc cao | cốt lõi, chu trình rút gọn vì cùng chứng minh với Định lý 09.22 | 3.3 | MMDS §4.5.4 | Ước lượng $F_p$ |
 | `lec-09-topic-11` | AMS trên dòng chưa biết độ dài | cốt lõi; bất biến và hệ quả trung bình là bổ sung | 3.4–3.5 | MMDS §4.5.5; Định lý 08.17 | Hồ chứa vị trí; trung bình không chệch |
-| `lec-09-topic-12` | Bài toán phần tử nặng | cốt lõi, chu trình rút gọn | 4.1 | UMass bài 10 tr.8–11 | Bài toán $(\varepsilon,\kappa)$ |
+| `lec-09-topic-12` | Bài toán phần tử nặng | cốt lõi, chu trình rút gọn vì là đặc tả | 4.1 | UMass bài 10 tr.8–11 | Bài toán $(\varepsilon,\kappa)$ |
 | `lec-09-topic-13` | Họ băm phổ dụng, bất đẳng thức Markov | cầu nối | 4.2 | UMass bài 10 tr.14; BHK §6.2.1 tr.184–185 | Cận va chạm, Markov |
 | `lec-09-topic-14` | Bảng Count-Min | cốt lõi | 4.3 | UMass bài 10 tr.12–16 | Cập nhật, truy vấn cực tiểu |
 | `lec-09-topic-15` | Bảo đảm Count-Min | cốt lõi; cận hợp cho mọi phần tử là bổ sung | 4.4 | UMass bài 10 tr.17–19 | Sai số $\varepsilon r/\kappa$ với xác suất $\delta$; chọn $m$, $t$ |
@@ -138,7 +138,7 @@ Theo bản đồ chủ đề của ghi chú (2026-11-04); thay bảng `L09-N01�
 | `lec-09-topic-26` | Bài tập củng cố | cốt lõi | Bài tập | MMDS Bài 4.4.1, 4.4.2, 4.5.1–4.5.6, 4.6.1, 4.6.3 | Ba mức, năm bài vận dụng trên lớp |
 | `lec-09-topic-27` | Đọc thêm và tài liệu | đọc thêm | Tham khảo | UMass bài 8; BHK §6.2; trang chiếu MMDS | HyperLogLog, thuật toán Frequent |
 
-Quan hệ tiên quyết: Mục 1 là đầu vào của mọi mục; Mục 3 dùng phép gộp của Mục 2.4 và Định lý 08.17; Mục 4 dùng cận hợp và bất đẳng thức Markov; Mục 5 chỉ cần Mục 1 và mô hình dòng của Bài 08; Mục 6 mở từ giới hạn của cửa sổ trượt; mọi nhánh gặp nhau ở Mục 7.
+Quan hệ tiên quyết: Mục 1 là đầu vào của mọi mục; Mục 3 dùng phép gộp của Mục 2.4 và Định lý 08.17; Mục 4 dùng cận hợp và bất đẳng thức Markov; Mục 5 chỉ cần Mục 1 và mô hình dòng của Bài 08; Mục 6 mở từ giới hạn của cửa sổ trượt ở Mục 5; mọi nhánh gặp nhau ở Mục 7.
 
 ## Ghi chú bài giảng 2026-11-04
 
@@ -146,4 +146,4 @@ Quan hệ tiên quyết: Mục 1 là đầu vào của mọi mục; Mục 3 dùn
 - Thứ tự mục của ghi chú: năm câu hỏi (Mục 1) → Flajolet–Martin → AMS → Count-Min → DGIM → cửa sổ suy giảm → chọn phác thảo. AMS đứng trước Count-Min vì $F_2$ không chỉ ra phần tử nặng, nên Count-Min nhận nhu cầu từ giới hạn của AMS; deck cũ đặt Count-Min trước AMS.
 - Nguồn: MMDS là trục cho Flajolet–Martin, AMS, DGIM và cửa sổ suy giảm; Count-Min theo UMass CS514 bài 10, vì MMDS không trình bày; BHK §6.2.1 cho cận dưới đếm chính xác và họ độc lập từng cặp; Stanford CS246 2017 cho bài toán URL, ví dụ dòng mưa và Tình huống 09.1.
 - Bỏ Count-Min cho cập nhật âm và các ví dụ tự dựng cũ của deck; dữ liệu tính tay của ghi chú được ghi ở quy ước nguồn trong bảng ký hiệu.
-- Ghi chú có 57 khối đánh số chung, 20 ví dụ, 3 tình huống, 19 bài tập (năm bài MMDS dùng cho phần vận dụng trên lớp) và sáu SVG trong `img/lec-09/`.
+- Ghi chú có 57 khối đánh số chung, 20 ví dụ, 3 tình huống, 9 bài tập cuối mục (09.1–09.9) và sáu SVG trong `img/lec-09/`; 10 bài tập củng cố 09.10–09.19 (năm bài MMDS dùng cho phần vận dụng trên lớp) nằm trong `materials/lec-09/exercises.md`.

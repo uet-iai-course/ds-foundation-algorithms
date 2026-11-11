@@ -360,3 +360,56 @@ Phát hiện: trung bình — nhật ký chưa có mục kiểm định cuối (
 Kiểm lại của điều phối viên sau hai sửa nhãn (`check_deck.py`): 109 trang, mã không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, `#/2`…`#/7` đúng. Mật độ (đếm âm tiết theo khoảng trắng, trừ tiêu đề, KaTeX, giả mã, số trong bảng, nhãn hình, ghi chú): tám trang trên 60, đều thuộc loại trần 80 hoặc có ngoại lệ trong storyboard — P02 66 (mục tiêu), P04B 73 (trả lời có điều kiện, ngoại lệ K8), P07 79 (bảng chi phí), F18 64 (bảng chi phí), M14 66 (bảng chi phí), T02 70 (bảng tổng kết, ngoại lệ 8 dòng), T04 61 (bảng so sánh), T05 61 (trả lời có điều kiện); không dòng nào quá 20 âm tiết, không trang nào quá 3 công thức hiển thị. Bảng đếm từng trang trong storyboard (cột âm tiết).
 
 Bàn giao: deck 109 trang (96 giảng, 120 phút; 13 recitation, 60 phút), 18 SVG mới, `outline.md`, `storyboard.md`, nhật ký này, thẻ index. Không đưa vào commit: `material-viewer.*` (thay đổi chưa commit của người khác), `AGENTS.md` (nguyên tắc không rào đón, chờ người dùng cho commit), `.claude/`, `.codex/`, `skills/`. `decision-map.svg` giữ lại (còn tên trong `planning/lec-01/storyboard.md`), không trang hay ghi chú nào dùng.
+
+## Sửa ghi chú theo chuẩn 2026-11 (đợt A1, giai đoạn 1, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` và ba quyết định của người dùng ngày 2026-11-11, đã ghi vào `AGENTS.md` §"Cấu trúc bắt buộc" mục 5, 6, 10 (commit `761469f`): ghi chú không có mục bản đồ chủ đề; không có câu nào về nguồn gốc số liệu hay đính chính sách, nguồn chỉ ở mục tài liệu tham khảo; mọi bài có `exercises.md` chứa bài tập củng cố. Điều phối viên: Claude Opus 5.5 (`claude-opus-5-5`), effort high, không soạn hay rà.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Rà văn phong và giọng tác giả (đợt duyệt toàn học phần, bản ghi chú chưa đổi) | general-purpose | opus | high | không |
+| Rà chuẩn giáo trình và kế hoạch tách bài tập | general-purpose | opus | high | không |
+| Rà độ chính xác toán và thuật toán | general-purpose | opus | high | không |
+| Biên tập (ba vòng, tiếp tục bằng SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `outline.md`, một SVG |
+| Kiểm tra lại độ chính xác (hai lượt) | general-purpose | opus | high | không |
+| Kiểm tra lại mạch, liên kết và văn phong (hai lượt) | general-purpose | opus | high | không |
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Bài tập củng cố | chưa nằm trong `exercises.md` | chấp nhận: 09.10–09.19 chuyển nguyên văn sang `materials/lec-09/exercises.md`, giữ số; ghi chú còn một câu kèm liên kết |
+| trung bình | bản đồ chủ đề, câu nguồn gốc số liệu, danh sách ký hiệu cục bộ | trái quyết định 2026-11-11 | chấp nhận: xóa; lý do chu trình rút gọn topic-10, topic-12 chép sang `outline.md` |
+| trung bình | sau Hệ quả 09.38 | $\delta=0{,}01/r_{\max}$ mâu thuẫn với nghĩa của $\delta$ trong hệ quả | chấp nhận: "xác suất thất bại $0{,}01/r_{\max}$ cho mỗi phần tử trong Định lý 09.37, tức Hệ quả 09.38 với $\delta=0{,}01$" |
+| trung bình | câu mở phần tình huống | mâu thuẫn với Tình huống 09.1 (giá trị băm cố định) | chấp nhận: viết lại, thứ tự 09.1, 09.2, 09.3 |
+| trung bình | kết Mục 7 | thiếu "còn thiếu gì" và câu nối | chấp nhận |
+| trung bình | 2.5, 3.5, 5.5 | tiểu mục mở thẳng bằng khối | chấp nhận: thêm câu dẫn |
+| trung bình | Nhận xét 09.17 | $\alpha,\beta$ chưa gọi tên | chấp nhận; thêm trường hợp $\alpha$ lẻ theo lời giải 09.17 |
+| trung bình | khoảng 35 chỗ | nguồn làm chủ ngữ hoặc bình nguồn ("UMass … dùng mà không phát biểu", "MMDS chỉ trả lời định tính", "Hình vẽ lại MMDS Hình 4.2") | chấp nhận: nội dung trước, nguồn trong ngoặc, giữ mọi số trang; cắt các câu bình nguồn |
+| trung bình | 708, 2193, Tóm tắt | câu về vị thế ("bảo đảm định lượng … dừng ở …", "chưa có cận") | chấp nhận: viết nội dung dương |
+| trung bình | Ví dụ 09.1 | hứa năm câu trả lời, mục 5 không trả lời | chấp nhận |
+| nhẹ | 7 điểm toán (Nhận xét 09.4 "không quá $\lvert\mathcal U\rvert+1$", "(lẻ)" ở Nhận xét 09.12, $m\ge2$, $\theta=1/2$ ở Tình huống 09.2, "ước lượng bị chệch", cận $\lvert\mathcal U\rvert$ bit, ký hiệu $r_{\max}$ vào bảng) | chấp nhận |
+| nhẹ | alt hình cấu trúc chương và nhãn SVG | "ít hơn 2/c điểm" chỉ đúng khi $\theta=1/2$ | chấp nhận: "1/(cθ)" ở alt, nhãn và `<desc>` của `img/lec-09/cau-truc-chuong-09.svg`; bộ sinh hình trong `tools/` sửa cùng, chạy lại cho tệp trùng khít |
+| nhẹ | khối `aligned` | dòng ngắn bị bẻ, dòng chứa hai quan hệ | chấp nhận: gộp 8 khối, tách 8 khối; đo ở 390 px không tràn |
+| nhẹ | các điểm còn lại của ba lượt rà (câu rào đón, trỏ tiến, câu lặp 103, $\theta<1$, phân phối "ta/chúng ta", trích dẫn lặp tr.159, số trang MMDS ở Bài tập 09.9) | chấp nhận |
+| trung bình | Nhận xét 09.4 | là kết quả, nên đổi thành Mệnh đề | bác bỏ: đổi nhãn khối có số hiệu, trái ràng buộc đợt A |
+| nhẹ | Ví dụ 09.14–09.16, "đúng MMDS Hình 4.3" | đổi tiêu đề nhắc hình của sách | bác bỏ: tiêu đề khối giữ nguyên; Bài tập 09.15, 09.16 là bài sách làm trên chính các hình đó |
+| nhẹ | Thuật toán 09.6, 09.20, 09.45 | thiếu bảng bước–số lần–chi phí | bác bỏ: phép đếm bằng lời đủ, bảng làm tăng độ dài |
+| nhẹ | sau 09.10, 09.22, 09.48 | "Trong thực hành" gom vào Nhận xét 09.17, 09.28 | chấp nhận cách gom, không thêm |
+| nhẹ | tiên quyết | Mệnh đề 08.10(b), Nhận xét 08.21 chưa phát biểu lại | để lại |
+| trung bình | ghi chú diễn giả của deck (dòng 234–245) | ghi "Lời giải đầy đủ ở các Bài tập … của ghi chú bài giảng" | ngoài phạm vi goal (không sửa deck); số hiệu không đổi nên dẫn chiếu vẫn đúng, chỉ chữ "của ghi chú" cần đổi thành "của tệp bài tập" ở lần sửa deck sau |
+
+Hai ý bị cắt có chủ ý ở vòng 2 (người rà độ chính xác hỏi lại): "Cận kỳ vọng thành đẳng thức khi họ độc lập từng cặp" (nhận xét bên lề không dùng lại) và "số biến AMS cần dùng chưa có cận định lượng" (câu về vị thế).
+
+Nguồn gốc số liệu chuyển khỏi ghi chú (nguyên văn câu đã xóa): "Số liệu của nguồn được dẫn tại chỗ; các số không kèm nguồn (bảng giá trị băm, bảng Count-Min $2\times3$, số ngẫu nhiên của vết chạy hồ chứa, hằng $c=1/2$, dữ kiện của Ví dụ 09.20, các tình huống và các bài tập không mang số bài sách) là dữ liệu tính tay của chương."
+
+### Kết quả kiểm tra
+
+- Độ dài (`wc -w`): ghi chú 31 971 → 28 913; `exercises.md` 2 287 (10 bài, 10 hint, 10 solution); ghi chú còn 9 bài tập cuối mục, mỗi bài một hint và một solution.
+- Khối có số hiệu: 99 khối trước và sau (ghi chú + `exercises.md`) trùng khít về loại, số và tiêu đề.
+- Tham chiếu chéo: mọi "Loại 09.k" trỏ tới khối có thật (kiểm bằng script của người rà độ chính xác).
+- Grep sau sửa: 0 "chưa phải", "do học phần", "do bài giảng", "nguyên văn", "dẫn xuất", "lỗi in", "Bản đồ chủ đề", "Bài này", "Mục này", "Đáp án", "Đáp số"; `git diff --check` sạch.
+- Trình duyệt (Playwright Chromium, `http.server` cục bộ; `reloadserver` chèn script tải lại bị CSP chặn nên không dùng cho phép đo lỗi console): ghi chú và `exercises.md` ở 1600×900 và 390×844, 0 lỗi console và trang, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không tràn ngang trang (hình rộng nằm trong khung cuộn của viewer, như Bài 10), không còn chỉ thị `:::` thô, khối gập mở khi in. Ảnh chụp đã xem trong scratchpad của phiên.
+- Giai đoạn 2 (chuẩn hóa `exercises.md`: "Kiểm tra lại", "Câu (a)", bài tự chứa, bài cho mục tiêu 4) làm sau khi ghi chú được push.
