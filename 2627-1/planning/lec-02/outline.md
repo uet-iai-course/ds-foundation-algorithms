@@ -1,6 +1,6 @@
 # Dàn ý Bài 02: Mô hình tính toán Map-Reduce
 
-**Bản hiện hành (2026-10-14).** Dàn ý hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp: 93 trang, mạch 1 đổi tên "Xử lý dữ liệu trên cụm máy", chính tả "MapReduce". Các mục bên dưới là lịch sử xây dựng bài, giữ để đối chiếu.
+**Bản hiện hành.** Ghi chú bài giảng: mục "Ghi chú theo chuẩn giáo trình (2026-11-11)" cuối tệp. Bộ trang chiếu (2026-10-14): mục "Sửa toàn diện theo chuẩn 2026-10-14": 93 trang, mạch 1 đổi tên "Xử lý dữ liệu trên cụm máy", chính tả "MapReduce". Các mục bên dưới là lịch sử xây dựng bài, giữ để đối chiếu.
 
 
 ## Dàn ý hiện tại — đủ bảy phần
@@ -220,6 +220,83 @@ Mạch 7 theo phương án F: cụm tổng kết rồi cụm bài tập trong c�
 | chương trình chính | driver | s03-09 (chương trình gọi lần lượt hai công việc; khác tiến trình điều phối) |
 | véc tơ | vector | toàn bài |
 
-Phạm vi không đổi: CSS, tệp SVG, viewer, `index.html`; Bài 02 chưa có ghi chú bài giảng.
+Phạm vi không đổi: CSS, tệp SVG, viewer, `index.html`. (Lượt 2026-10-14; ghi chú bài giảng được viết ngày 2026-11-11, xem mục cuối tệp.)
 
 **Lượt sửa sau rà ba vai (2026-10-14).** Tám trang mới: `lec02-s01-07` Tiên quyết và quy ước, `lec02-s01-08` Mục tiêu học tập, `lec02-s01-09` Vấn đề trung tâm, `lec02-s02-13` Tính đúng: một công việc MapReduce, `lec02-s04-12` Chi phí: cộng một dãy số, `lec02-s07-07` Kết quả và giả thiết không được bỏ, `lec02-s07-08` Nguồn và tài liệu đọc, `lec02-s07-09` Bài tập vận dụng; hai trang đổi vai: `lec02-s07-02`, `lec02-s07-01`. Phiếu đầy đủ ở `storyboard.md`. Thay đổi nội dung: s07-02 hàng trung bình viết $\mu=\sum s/\sum c$, cột chi phí dùng số cặp trên ví dụ; mệnh đề s02-13 nêu $Y$; s02-01 thành bốn cặp yêu cầu–cơ chế; cụm trung bình cộng s03-12, s03-16a, s03-13 không lặp nhau; một tên "tiến trình điều phối (Master)"; "chương trình chính (driver)"; hàm phân phối $p$ và số Reduce $r$ thống nhất (hình `sys-04.svg` còn ghi $f$, ghi chú nêu tương ứng).
+
+## Ghi chú theo chuẩn giáo trình (2026-11-11)
+
+**Goal.** Ghi chú `materials/lec-02/lecture-note.md` là một chương giáo trình tự chứa theo `materials/_templates/lecture-note.md`, kế hoạch `lec02-plan.md` và quyết định R1–R14 của điều phối viên (2026-11-11); bộ trang chiếu giữ nguyên. Bài tập cuối mục 02.1–02.4 (MMDS 2.2.1, 2.3.6, 2.5.1(a)(c), 2.4.1) ở ghi chú; bài tập củng cố 02.5–02.8 (MMDS 2.3.2; 2.3.1(a); 2.3.1(b); 2.3.1(c)(d)) ở `materials/lec-02/exercises.md`, trong đó 02.6–02.8 là recitation của deck.
+
+**Vấn đề trung tâm.** Đếm từ trên kho web hơn 400 TB; một máy đọc 35 MB/s mất khoảng 132 ngày, 1000 máy khoảng 3,2 giờ (trang chiếu MMDS tr.4). Hình cấu trúc chương: `img/lec-02/note-cau-truc-chuong-02.svg`.
+
+### Bản đồ chủ đề bốn nhóm
+
+| note-topic-id | Mục ghi chú | Chủ đề và khối số hiệu | Nhãn | Nguồn | Chu trình |
+|---|---|---|---|---|---|
+| `lec-02-topic-01` | Mục 1 mở, 1.1 | Kho web trên một máy (Ví dụ 02.1); bốn yêu cầu | cốt lõi | trang chiếu MMDS tr.4; CS246 tr.33 | rút gọn: nhu cầu và ví dụ có số, không có định nghĩa riêng; định nghĩa cụm máy ở 1.3 |
+| `lec-02-topic-02` | 1.2 | Cộng sáu số (Ví dụ 02.2); phép gộp kết hợp, giao hoán (Định nghĩa 02.1); Bổ đề 02.2; số dấu phẩy động | cầu nối | MMDS §2.2.4 tr.27; CLRS §2.1 (quy nạp) | đủ: ví dụ → định nghĩa → phản ví dụ → bổ đề → chứng minh → trong thực hành |
+| `lec-02-topic-03` | 1.3 | Cụm máy và DFS (Định nghĩa 02.3); `hdfs-racks.svg`; Nhận xét 02.4 | cốt lõi | MMDS §2.1.1–2.1.2 tr.22–24, tr.30–31; trang chiếu MMDS tr.5; CS246 tr.35 | rút gọn: khái niệm lưu trữ, không có thuật toán hay định lý |
+| `lec-02-topic-04` | Mục 2 mở, 2.1 | Bài toán đếm từ (Ví dụ 02.3, Định nghĩa 02.5) | cốt lõi | MMDS §2.2.1, Ví dụ 2.1–2.2 | đủ (đặc tả) |
+| `lec-02-topic-05` | 2.2 | Map, Reduce, phân phối và nhóm (Định nghĩa 02.6–02.8); vết chạy (Ví dụ 02.4); Thuật toán 02.9 | cốt lõi | MMDS §2.2–2.2.3 tr.25–27, chú thích 1; trang chiếu MMDS tr.13, 32 | đủ |
+| `lec-02-topic-06` | 2.3 | Một công việc (Thuật toán 02.10, `note-luong-mapreduce.svg`); Mệnh đề 02.11; Hệ quả 02.12; Nhận xét 02.13 | cốt lõi | MMDS Hình 2.2, §2.2.5 tr.29, hộp tr.28; trang chiếu MMDS tr.27; CS246 tr.44 | đủ |
+| `lec-02-topic-07` | 2.4 | Combine (Định nghĩa 02.14, Ví dụ 02.5, Mệnh đề 02.15 có hàm hoàn tất $\phi$, Nhận xét 02.16); Bài tập 02.1 | cốt lõi; dạng có $\phi$ là bổ sung (R7) | MMDS §2.2.4; trang chiếu MMDS tr.30; MMDS §1.3.6 (Zipf) | đủ |
+| `lec-02-topic-08` | Mục 3 mở, 3.1 | Nhân ma trận–véc-tơ (Định nghĩa 02.17, Thuật toán 02.18, Ví dụ 02.6, Mệnh đề 02.19, Nhận xét 02.20) | cốt lõi | MMDS §2.3.1–2.3.2 tr.31–32, chú thích 3 | đủ; bước tính tay trước giả mã (R10) |
+| `lec-02-topic-09` | 3.2 | Đếm từ phân biệt (Định nghĩa 02.21, Thuật toán 02.22, Ví dụ 02.7, Mệnh đề 02.23); Bài tập 02.2 | cốt lõi | MMDS §2.3.5 tr.36; Bài 2.3.6 | đủ |
+| `lec-02-topic-10` | 3.3 | Trung bình cộng (Định nghĩa 02.24, Thuật toán 02.25, Ví dụ 02.8, Mệnh đề 02.26, Ví dụ 02.9); quy tắc chọn khóa và trạng thái (Nhận xét 02.27) | cốt lõi | MMDS §2.2.4; Bài 2.3.1(b) | đủ |
+| `lec-02-topic-11` | Mục 4 mở, 4.1 | Ba đại lượng (Định nghĩa 02.28); Ví dụ 02.10; Mệnh đề 02.29 | cốt lõi | MMDS §2.5 | đủ |
+| `lec-02-topic-12` | 4.2 | Thời gian pha và công việc (Định nghĩa 02.30, Ví dụ 02.11–02.13, Mệnh đề 02.31, Hệ quả 02.32) | cốt lõi; Hệ quả 02.32 là bổ sung (R7) | MMDS §2.5.2; trang chiếu MMDS tr.38–39; CS246 tr.67–68 | đủ |
+| `lec-02-topic-13` | 4.3 | Chi phí truyền thông (Định nghĩa 02.33, Ví dụ 02.14, Nhận xét 02.34, Mệnh đề 02.35, Ví dụ 02.15, Nhận xét 02.36) | cốt lõi; Mệnh đề 02.35 là bổ sung (R7) | MMDS §2.5.1–2.5.2 tr.53–56; trang chiếu MMDS tr.39; CS246 tr.49, 68 | đủ |
+| `lec-02-topic-14` | 4.4 | Thời gian truyền, đường nối dùng chung (Định nghĩa 02.37, Ví dụ 02.16, Mệnh đề 02.38, Ví dụ 02.17) | cốt lõi | MMDS §2.1.1, §2.5.1 (1 gigabit/s); mô hình $\lambda+Q/B$ nêu thành định nghĩa của chương (R1: không dẫn Cornell) | đủ |
+| `lec-02-topic-15` | 4.5 | Mức tăng tốc (Định nghĩa 02.39, Ví dụ 02.18–02.19); Bài tập 02.3 | cốt lõi | MMDS §2.5.2; Bài 2.5.1 | đủ; $S_P$ là định nghĩa, không dẫn Cornell (R1) |
+| `lec-02-topic-16` | Đọc thêm (thu gọn) mở, tiểu mục 1 | Tiến trình điều phối, trạng thái tác vụ (Định nghĩa 02.40); `sys-02`, `sys-03`, `sys-07` | đọc thêm | MMDS §2.2.5 tr.28–29; trang chiếu MMDS tr.24–28 | rút gọn: cơ chế hệ thống |
+| `lec-02-topic-17` | Đọc thêm, tiểu mục 2 | Phân phối và chuyển (Ví dụ 02.20, `note-phan-phoi-h.svg`, `sys-05`, `sys-06`) | đọc thêm | MMDS §2.2.5; CS246 tr.46 | rút gọn |
+| `lec-02-topic-18` | Đọc thêm, tiểu mục 3 | Phần phải chạy lại (Mệnh đề 02.41); tính chặn (Định nghĩa 02.42); Mệnh đề 02.43; Ví dụ 02.21; Nhận xét 02.44 | đọc thêm | MMDS §2.2.6 tr.30, tr.43, tr.75; trang chiếu MMDS tr.26, 29; CS246 tr.47 | đủ cho hai mệnh đề |
+| `lec-02-topic-19` | Đọc thêm, tiểu mục 4 | Luồng công việc phi chu trình (Định nghĩa 02.45); Spark, RDD, Flatmap, Filter, tính lười, dòng dõi (Ví dụ 02.22); Bài tập 02.4 | đọc thêm, bổ sung (R2) | MMDS §2.4.1–2.4.3 tr.41–47; CS246 tr.49–51, 60 | rút gọn; khoảng 1 000 âm tiết không kể bài tập |
+| `lec-02-topic-20` | Mục 5 | Cụm Hadoop, Streaming (Nhận xét 02.46), đối chiếu bộ đếm (Ví dụ 02.23) | cốt lõi (thực hành) | `examples/lec-02/hadoop-compose/` (README: 5/4/3 cặp); Apache Hadoop Streaming 3.4.2 cho lệnh (R1, R14) | rút gọn: không có bài sách (R4) |
+| `lec-02-topic-21` | Tình huống và ứng dụng | Tình huống 02.1 (tổng byte theo máy chủ), 02.2 (dãy năm từ), 02.3 (véc-tơ không vừa bộ nhớ, giả thiết bị vi phạm); ứng dụng Bài 03, 12, 15 | bổ sung | CS246 tr.62–63; trang chiếu MMDS tr.32, 34–35; MMDS §1.3.6, §2.3.2, chú thích 5 tr.37 | không áp dụng |
+| `lec-02-topic-22` | Tóm tắt chương | Đoạn 8 câu, kết quả theo mục, công thức, giả thiết hay bỏ quên | tổng kết | toàn chương | không áp dụng |
+
+**Mục không có bài tập cuối mục.** Mục 1 (MMDS §2.1 không có bài tập), Mục 3.1 và 3.3 (bài sách 2.3.1, 2.3.2 ở `exercises.md`), Mục 5 thực hành (không có bài sách, R4).
+
+**Đọc thêm hoặc bỏ.** Đại số quan hệ trên túi (MMDS 2.3.3, 2.3.4): bỏ (R6). Số liệu Google 1998/2004/2005, IIR §6.3, Cornell CS5220: không dẫn (R1); ứng dụng côsin bỏ (B2). TensorFlow, đệ quy, hệ đồng bộ khối, nối nhiều chiều, §2.6: ngoài phạm vi.
+
+**Khác biệt với bộ trang chiếu.**
+
+- Ký hiệu: phần đầu vào $X_j$ (deck $B_j$), dãy trung gian $Z$ (deck $I$), hàm phân phối $h$ (deck $p$; `sys-04.svg` ghi $f$, ghi chú dùng `note-phan-phoi-h.svg`), cặp $(k,x)$ (deck $(k,v)$), tập từ $\mathcal W$, $\mathcal W_i$ (deck $V$, $W_i$), lượng truyền $Q$ (deck $V$; R8), trạng thái $(s,\kappa)$, gộp cuối $(s^\ast,\kappa^\ast)$ (deck $(s,c)$, $(S,C)$; R8), tải máy $t_u$ (deck $t_m$), khối ma trận $A_{11},\ldots$ (deck $B_{11},\ldots$), số từ $\ell_i$ (ghi chú diễn giả $m_i$), miền phép gộp $E$, tập dãy $\Omega^*$ (deck $A^*$, trùng ma trận $A$). Hình deck `cost-07.svg` còn ghi $V$; đoạn đọc hình nêu tương ứng.
+- Thứ tự: bước tính tay trước giả mã ở Mục 3 (R10).
+- Tương ứng ký hiệu với deck, chuyển nguyên từ phần quy ước của ghi chú (vòng sửa 1, quyết định B3): Bộ trang chiếu viết $B_j$ cho phần đầu vào, $I$ cho dãy cặp trung gian, $p$ cho hàm phân phối, $(k,v)$ cho cặp khóa–giá trị, $V$ cho tập từ và cho lượng truyền, $(S,C)$ cho trạng thái gộp cuối và $t_m$ cho tải của máy; ghi chú viết lần lượt $X_j$, $Z$, $h$, $(k,x)$, $\mathcal W$ và $Q$, $(s^\ast,\kappa^\ast)$, $t_u$ để mỗi chữ chỉ có một nghĩa.
+- Vòng sửa 1 (2026-11-11): Mục 3.1 trình bày ma trận vuông $q\times q$ như MMDS (B1; dùng $q$ thay $n$ của MMDS vì $n$ là số bản ghi đầu vào), Bài tập 02.5 làm phần tổng quát $p\times q$; bỏ ứng dụng côsin (B2); phần hệ thống thực thi thành mục "Đọc thêm" không số, thu gọn bằng `<!-- note-collapsed -->`, mục thực hành đánh lại thành Mục 5 (B4); chỉ số tác vụ Reduce là $z$, dãy đầu ra của tác vụ là $Y_z$ (deck $O_t$); RDD là $\mathcal D_0,\mathcal D_1,\mathcal D_2$; khối ma trận gọi là "khối con"; $W_P$ gọi là tổng khối lượng tính toán; miền trạng thái $\mathbb R\times\mathbb N_{\ge1}$.
+- Nội dung thêm: Bổ đề 02.2 có chứng minh; Mệnh đề 02.15 có hàm hoàn tất $\phi$; Mệnh đề 02.35, Hệ quả 02.32 (R7); phần Đọc thêm (luồng công việc và Spark) (R2); ví dụ cộng sáu số dùng số cụ thể $2,4,9,1,3,5$ (deck để ký hiệu $a_1,\ldots,a_6$).
+- Mục 1 dùng số của trang chiếu MMDS tr.4–5 thay số Google của s01-03 (R1).
+- Tiêu đề ghi chú "Mô hình tính toán MapReduce" theo bìa deck (R9; `index.html` còn ghi "Map-Reduce").
+
+### Thuật ngữ Việt–Anh của ghi chú
+
+| Tiếng Việt | Tiếng Anh | Lần đầu trong ghi chú |
+|---|---|---|
+| kết hợp; giao hoán | associative; commutative | Định nghĩa 02.1 |
+| nút tính toán; tủ máy; bộ chuyển mạch | compute node; rack; switch | Mục 1.3 |
+| cụm máy | computing cluster | Định nghĩa 02.3 |
+| hệ thống tệp phân tán | distributed file system (DFS) | Định nghĩa 02.3 |
+| khối; bản sao; nút chủ | chunk; replica; master node, name node | Định nghĩa 02.3 |
+| nhóm theo khóa | group by key | Mục 2.2 |
+| phát | emit | Định nghĩa 02.6 |
+| reducer; tác vụ | reducer; task | Định nghĩa 02.7 |
+| hàm phân phối | partitioning function | Định nghĩa 02.8 |
+| công việc | job | Mục 2.3 |
+| lệch tải | skew | Nhận xét 02.13 |
+| hàm Combine | combiner | Định nghĩa 02.14 |
+| hàm hoàn tất | (không có tên trong nguồn) | Mệnh đề 02.15 |
+| chương trình chính | driver | Thuật toán 02.22 |
+| pha | phase | Mục 4.2 |
+| chi phí truyền thông; chi phí truyền thông trôi qua | communication cost; elapsed communication cost | Định nghĩa 02.33; Mục 4.2 |
+| băng thông; độ trễ khởi đầu | bandwidth; latency | Định nghĩa 02.37 |
+| mức tăng tốc | speedup | Định nghĩa 02.39 |
+| tiến trình điều phối; tiến trình thực thi | Master; Worker | Định nghĩa 02.40 |
+| chuyển dữ liệu trung gian | shuffle | Đọc thêm (phân phối và chuyển) |
+| tính chặn | blocking property | Định nghĩa 02.42 |
+| bản dự phòng | backup task | Nhận xét 02.44 |
+| luồng công việc phi chu trình | acyclic workflow | Định nghĩa 02.45 |
+| tập dữ liệu phân tán có khả năng phục hồi | Resilient Distributed Dataset (RDD) | Đọc thêm (luồng công việc và Spark) |
+| biến đổi; hành động; tính lười; dòng dõi | transformation; action; lazy evaluation; lineage | Đọc thêm (luồng công việc và Spark) |

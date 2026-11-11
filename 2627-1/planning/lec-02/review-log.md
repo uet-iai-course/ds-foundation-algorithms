@@ -422,3 +422,61 @@ Kiểm: `cap02.py` không trang vượt trần (s02-01 60, s07-01 76, s07-02 80)
 ### Đồng bộ liên bài với Bài 01 (2026-10-14)
 
 Theo lượt sửa Bài 01 sau rà ba vai (phát hiện M5 của vai mạch viết Bài 01) và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit. Ghi chú diễn giả `lec02-s01-07` dẫn hai tên trang không còn trong deck 01 ("Tính đúng của thuật toán", "Chuẩn bị cho Bài 02"): sửa thành các trang hiện hành "Các tiêu chí đánh giá", "Tính đúng: khởi tạo, duy trì, kết thúc" và "Nguồn và tài liệu đọc". Mặt trang không đổi. Deck 01 trang "Nguồn và tài liệu đọc" nay ghi "tính kết hợp và giao hoán của phép cộng", khớp dòng Nhắc lại của `lec02-s01-07`. Kiểm: Playwright cổng 8771 ở 1600×900 và 390×844 trên toàn deck 02: 0 lỗi, 0 `.katex-error`; `git diff --check` sạch.
+
+## Ghi chú bài giảng và tệp bài tập theo chuẩn 2026-11 (đợt B2, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` (đợt B2: Bài 02 chưa có ghi chú); `AGENTS.md` §"Tiêu chuẩn giáo trình cho ghi chú bài giảng", §"Cấu trúc bắt buộc" 1–10; mục "The author's voice" của `../CLAUDE.md`. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà. Nguồn: MMDS 3e Chương 2 (`sources/textbooks/mmds-3e-ch02-mapreduce.pdf`; trang in = trang PDF + 19), §1.3.6; trang chiếu MMDS Chương 2; Stanford CS246 `01-intro.pdf`; `examples/lec-02/hadoop-compose/`.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập kế hoạch chương | general-purpose | opus | high | không |
+| Soạn, sau đó biên tập hai vòng (SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `img/lec-02/note-*.svg` và bộ sinh trong `tools/`, `outline.md`, `storyboard.md` |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà chuyên gia miền | general-purpose | opus | high | không |
+| Rà độ chính xác (ba lượt) | general-purpose | opus | high | không |
+| Rà sư phạm, `no-ai-slop` Detect | general-purpose | opus | high | không |
+| Rà mạch và liên kết (ba lượt) | general-purpose | opus | high | không |
+
+### Quyết định của điều phối viên trên kế hoạch
+
+- Chỉ dùng số liệu có trong `sources/`: số liệu Google 2004/2005/1998 của deck thay bằng trang chiếu MMDS tr.4; không dẫn IIR, Cornell CS5220; tài liệu Apache chỉ cho lệnh thực hành.
+- Hệ thống thực thi, chịu lỗi, luồng công việc và Spark là phần đọc thêm thu gọn (`<!-- note-collapsed -->`), như Bài 01; mục thực hành Hadoop là Mục 5; Mục 5 không dùng kết quả của phần đọc thêm.
+- Bài tập chỉ từ MMDS Chương 2: ghi chú 02.1–02.4 (2.2.1, 2.3.6, 2.5.1(a)(c), 2.4.1); `exercises.md` 02.5–02.8 (2.3.2, 2.3.1(a), (b), (c)(d)); bài trên lớp của deck: 2.3.1(a), (b), (d). Bỏ 2.3.3, 2.3.4 (túi, đại số quan hệ). Mục tiêu chạy Hadoop và mục tiêu chi phí không có bài sách trong tệp bài tập ("—").
+- Mục 3.1 trình bày ma trận vuông $q\times q$ như MMDS để Bài tập 02.5 (MMDS 2.3.2) làm phần tổng quát $p\times q$.
+- Bài tập 02.1 giữ đề MMDS; giả thiết Zipf (MMDS §1.3.6) đặt trong lời giải. Bài tập 02.2 bỏ câu (b) tự thêm. Bài tập 02.4: mô hình hỏng "mỗi giây của tổng thời gian thực thi, kể cả giây khởi động lại" ghi trong đề; cách đọc kia nêu bằng một câu điều kiện.
+- Bỏ ứng dụng côsin (không còn nguồn được phép). Bảng tương ứng ký hiệu với deck chuyển sang `outline.md`.
+- Tiêu đề ghi chú "Mô hình tính toán MapReduce" (theo bìa deck).
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | phần đọc thêm, Spark | "Spark giữ tính chặn" trái MMDS tr.46–47 | chấp nhận: luồng phi chu trình giữ tính chặn; Spark phục hồi bằng dòng dõi |
+| nghiêm trọng | mở chương, đầu Mục 5–6 cũ | "Mục 6 chỉ dùng Mục 2" sai; Mục 6 dẫn Ví dụ 02.20 | chấp nhận: một câu "Mục 5 không dùng kết quả nào của phần đọc thêm"; bỏ dẫn |
+| nghiêm trọng | `exercises.md` | thiếu `## Thực hành` cho mục tiêu chạy Hadoop | bác bỏ: bài tập chỉ lấy từ giáo trình (quyết định tác giả 2026-11-11); thực hành ở Mục 5 và `examples/lec-02/` |
+| trung bình | Bài tập 02.3(c) | COUNT với Combine theo Mệnh đề 02.15 | chấp nhận: Map phát $(a,1)$, $\oplus=+$; phản ví dụ $[5,7]$ |
+| trung bình | Định nghĩa 02.24 | $\phi(s,0)$ không xác định | chấp nhận: $E=\mathbb R\times\mathbb N_{\ge1}$ |
+| trung bình | phần đọc thêm | câu phủ định về tiến trình điều phối trái MMDS tr.25, 27 | chấp nhận |
+| trung bình | Định nghĩa 02.3 | nút chủ là "tệp nhỏ"; bản sao "các tủ khác nhau" trái hình | chấp nhận: nút giữ siêu dữ liệu (CS246 tr.35); không đặt mọi bản sao trong một tủ |
+| trung bình | ký hiệu | $B$, $O$, $R_i$, $c/\kappa$, "khối", "công việc", "nút chủ" nhiều nghĩa | chấp nhận: đổi chữ, "khối con", $W_P$ là tổng khối lượng tính toán |
+| trung bình | Bài 03 | "Bài 03 dùng Thuật toán 02.18" nói quá | chấp nhận: dạng chia khối, Reduce có hàm hoàn tất |
+| trung bình | Bài tập 02.1(b), vòng 1 | ngưỡng $r=10\,000$ suy từ cận trên cho chiều "đáng kể" | chấp nhận: ba trường hợp theo cận dưới/cận trên |
+| trung bình | ranh giới mục, chủ ngữ là văn bản, tóm tắt 10 câu, phản ví dụ thiếu, "Trong thực hành", bảng chi phí 02.18 và 02.25, Tình huống 02.2 so sánh không có căn cứ | chấp nhận |
+| nhẹ | khoảng 60 mục của năm báo cáo | trích trang, quy ước đếm phép cộng, MiB, README (bỏ "SUCCEEDED"; ba dòng kết quả là kết quả mong đợi), … | chấp nhận |
+| — | nối lại công thức đã ngắt dòng | bác bỏ: tràn khung ở 390 px |
+| — | cho $D=10^6$ trong đề 02.1; thêm văn bản tự dựng cho Tình huống 02.2; ví dụ hai quy ước xếp ngược | bác bỏ: đổi đề sách hoặc dữ kiện không có nguồn |
+
+Dữ kiện tự dựng để tính tay (không ghi trong ghi chú): dãy $2,4,9$ (và $1,3,5$); hai văn bản "mèo chó mèo", "chó chim"; ma trận $4\times4$ với $y=(9,8,9,11)$; $O=5$ MB; danh sách từ bỏ qua {chim}; phản ví dụ $(24,4)$, $[5,7]$, (mèo, 2)/(mèo, 4); kiểm tra lại Bài tập 02.4 với $J=100$, $t_0=10$, $\rho=0{,}001$. Các số giờ, MB, MB/s và 16 byte mỗi cặp lấy theo deck. Bộ đếm Hadoop 5/4/3 lấy từ `examples/lec-02/hadoop-compose/README.md`.
+
+Sai khác với deck (không sửa deck trong đợt này): ký hiệu $B_j$, $I$, $p$, $V$, $(S,C)$, $t_m$, $O_t$; hình `cost-07.svg` ghi $V$; `sys-03`/`sys-09` ghi khối B₁ cạnh máy B; ghi chú diễn giả deck dẫn IIR, Cornell; deck không có Spark; deck đặt hệ thống thực thi trong phần giảng. Chi tiết trong `outline.md`.
+
+### Kết quả kiểm tra
+
+- Độ dài: ghi chú 29 191 âm tiết; `exercises.md` 2 138.
+- Khối: bộ đếm chung 02.1–02.46; Ví dụ 02.1–02.23; Tình huống 02.1–02.3; Bài tập 02.1–02.8; mọi dẫn "X 02.k", "X 01.k" trỏ tới khối có thật.
+- Grep mẫu cấm: 0; `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, trang không cuộn ngang (15 hình rộng trong khung cuộn riêng); phần đọc thêm thu gọn mặc định, mở khi bấm liên kết mục lục và khi in.
+
+Kiểm lại cuối (độ chính xác, mạch): chấp nhận; năm điểm nhẹ cuối đã sửa (luật lũy thừa $\beta\,\xi^{-\nu}$, câu áp Bổ đề 02.2 trong lời giải 02.2, $H$ bằng đúng cận ở Tình huống 02.2, câu dẫn Mục 1.2, trường hợp thứ hai của Bài tập 02.1(b)). Chỉ mục: Bài 2 có liên kết ghi chú và bài tập. Ghi chú Bài 01 (Tóm tắt, Đọc tiếp) trỏ sang ghi chú Bài 02.

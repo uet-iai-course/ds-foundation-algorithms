@@ -752,7 +752,7 @@ Trang bỏ: `lec02-s03-01` "Khóa và giá trị trong ba ví dụ" (`bỏ`, tr�
 
 **Ngoại lệ dòng.** Các trang có cột "Dòng" lớn hơn 6: s01-02 (Nội dung: 7 mục mạch và dòng Đọc trước, trần trang mục lục); s01-05, s02-02, s02-06, s02-08 (số thô gồm nhãn trong khối hình HTML; dòng chữ ngoài hình ≤ 6); s02-05 (vết chạy ba cột, mỗi nhãn là một phần tử; ngoài hình chỉ một dòng Kiểm tra); s03-05, s03-09, s03-10, s03-14 (trang bảng, ≤ 8 trừ s03-05 có thêm khối ma trận được tính như hình); s04-11 (bảng dữ kiện 6 hàng cùng ba câu hỏi; ngoại lệ trần 80 theo kế hoạch, bảng giữ để sinh viên tính trên cùng một trang).
 
-**Ánh xạ trang mới.** s01-07, s01-08, s01-09 (mở đầu theo khuôn deck 06); s02-13 tách từ s02-10 (mệnh đề và chứng minh); s04-12 tách từ s04-02 (bảng chi phí tổng quát); s07-07, s07-08 (khuôn kết luận); s07-09 (mở cụm bài tập). Các `id` được CSS chung tham chiếu (`lec02-s03-03`, `-s03-05`, `-s03-08`, `-s03-13`, `-s04-04`, `-s04-11`) giữ nguyên. Bài 02 chưa có ghi chú bài giảng, nên không có cột `note-topic-id`.
+**Ánh xạ trang mới.** s01-07, s01-08, s01-09 (mở đầu theo khuôn deck 06); s02-13 tách từ s02-10 (mệnh đề và chứng minh); s04-12 tách từ s04-02 (bảng chi phí tổng quát); s07-07, s07-08 (khuôn kết luận); s07-09 (mở cụm bài tập). Các `id` được CSS chung tham chiếu (`lec02-s03-03`, `-s03-05`, `-s03-08`, `-s03-13`, `-s04-04`, `-s04-11`) giữ nguyên. Ánh xạ `note-topic-id` nằm ở mục "Ánh xạ chủ đề của ghi chú (2026-11-11)" cuối tệp.
 
 ### Phiếu trang mới và trang đổi vai (lượt sửa sau rà ba vai, 2026-10-14)
 
@@ -768,3 +768,35 @@ Mỗi phiếu: mạch; mục đích; hành động của sinh viên; đối tư�
 - `lec02-s07-01` Câu trả lời cho vấn đề trung tâm — mạch 7 (đổi vai từ "Ba nhu cầu và cách MapReduce đáp ứng"); mục đích: trả lời bốn dòng s01-09 bằng số của bài; sinh viên kiểm từng điều kiện; đối tượng: bốn câu trả lời có số; kế thừa: s02-05, s03-05, s03-10, s03-15, s04-08, s04-09, s04-10, s06-10, s06-11; đầu vào: mạch 2–6; sản phẩm: kết luận "chọn khóa theo đầu ra, giữ đủ thông tin; truyền là chi phí phải đo"; bằng chứng: s07-03; `sửa` (đổi vai trò). Đối ứng: dòng 1 s01-09 (Map, nhóm, Reduce; không phụ thuộc thứ tự) ↔ dòng 1 s07-01 (chim 1, chó 2, mèo 2; Reduce cộng); dòng 2 (giữ đủ thông tin) ↔ dòng 2 ($y$, $D$, $\mu=5$ so với 6); dòng 3 (thêm máy khi truyền, gộp không lấn át) ↔ dòng 3 (ví dụ bốn pha: $T_4=10$ s, truyền và nhóm 3 s, $S_4=2{,}4<4$; Combine 80 còn 64 byte); dòng 4 (Hadoop khớp tính tay) ↔ dòng 4 (5, 4, 3 cặp).
 - `lec02-s07-08` Nguồn và tài liệu đọc — mạch 7; mục đích: liệt kê nguồn, ghi công mmds.org, câu nối Bài 03; sinh viên chọn tài liệu đọc thêm; đối tượng: danh sách nguồn; kế thừa: dòng "Nguồn:" của mọi ghi chú; đầu vào: không; sản phẩm: danh mục đọc; bằng chứng: không có câu hỏi (trang nguồn); `thêm`.
 - `lec02-s07-09` Bài tập vận dụng — mạch 7, mở cụm bài tập (phương án F); mục đích: nêu yêu cầu nộp chung cho ba bài MMDS 2.3.1(a), (b), (d); sinh viên đọc yêu cầu nộp; đối tượng: danh sách ba bài; kế thừa: khuôn đặc tả và chứng minh của mạch 3; đầu vào: s07-02; sản phẩm: yêu cầu nộp; bằng chứng: s07-04…s07-06; `thêm`.
+
+## Ánh xạ chủ đề của ghi chú (2026-11-11)
+
+Ghi chú `materials/lec-02/lecture-note.md` viết theo chuẩn giáo trình; các chú thích `<!-- note-topic-id: … -->` đặt trước tiêu đề mục tương ứng. Thứ tự trong ghi chú: nhu cầu có số → định nghĩa → bước tính tay → thuật toán → vết chạy → chứng minh → ứng dụng (R10).
+
+| Mã | note-topic-id | Mục ghi chú | Trang chiếu (`data-slide-id`) | Khối số hiệu | Vào → ra |
+|---|---|---|---|---|---|
+| L02-N01 | `lec-02-topic-01` | Mục 1 mở, 1.1 | s01-01, s01-09, s01-03, s01-04 | Ví dụ 02.1 | Nhận xét 01.3, Định nghĩa 01.13 → bốn yêu cầu |
+| L02-N02 | `lec-02-topic-02` | 1.2 | s01-05 | Ví dụ 02.2; Định nghĩa 02.1; Bổ đề 02.2 | bốn yêu cầu → gộp không phụ thuộc thứ tự, dùng ở Mệnh đề 02.15 |
+| L02-N03 | `lec-02-topic-03` | 1.3 | s01-06 | Định nghĩa 02.3; Nhận xét 02.4 | Bổ đề 02.2 → bản sao chỉ phục vụ lưu trữ |
+| L02-N04 | `lec-02-topic-04` | Mục 2 mở, 2.1 | s02-00, s02-01, s02-02 | Ví dụ 02.3; Định nghĩa 02.5 | hai văn bản → đặc tả $c(w)$ |
+| L02-N05 | `lec-02-topic-05` | 2.2 | s02-06, s02-07, s02-08, s02-03, s02-05 | Định nghĩa 02.6–02.8; Ví dụ 02.4; Thuật toán 02.9 | đặc tả → hai hàm, phép nhóm |
+| L02-N06 | `lec-02-topic-06` | 2.3 | s02-04, s02-09, s02-10, s02-13 | Thuật toán 02.10; Mệnh đề 02.11; Hệ quả 02.12; Nhận xét 02.13 | hai hàm → tính đúng của khung |
+| L02-N07 | `lec-02-topic-07` | 2.4 | s02-11, s02-12 | Định nghĩa 02.14; Ví dụ 02.5; Mệnh đề 02.15; Nhận xét 02.16; Bài tập 02.1 | Mệnh đề 02.11, Bổ đề 02.2 → điều kiện Combine |
+| L02-N08 | `lec-02-topic-08` | Mục 3 mở, 3.1 | s03-00, s03-02, s03-06a, s03-03, s03-04, s03-05, s03-06 | Định nghĩa 02.17; Thuật toán 02.18; Ví dụ 02.6; Mệnh đề 02.19; Nhận xét 02.20 | Mệnh đề 02.11, 02.15 → khóa hàng |
+| L02-N09 | `lec-02-topic-09` | 3.2 | s03-07, s03-11a, s03-08, s03-09, s03-10, s03-11 | Định nghĩa 02.21; Thuật toán 02.22; Ví dụ 02.7; Mệnh đề 02.23; Bài tập 02.2 | → hai công việc, loại trùng |
+| L02-N10 | `lec-02-topic-10` | 3.3 | s03-12, s03-16a, s03-13, s03-14, s03-15, s03-16, s03-17 | Định nghĩa 02.24; Thuật toán 02.25; Ví dụ 02.8–02.9; Mệnh đề 02.26; Nhận xét 02.27 | → trạng thái $(s,\kappa)$, quy tắc chọn khóa |
+| L02-N11 | `lec-02-topic-11` | Mục 4 mở, 4.1 | s04-00, s04-01, s04-02, s04-12 | Định nghĩa 02.28; Ví dụ 02.10; Mệnh đề 02.29 | ba thiết kế → $W_P=n-1$ |
+| L02-N12 | `lec-02-topic-12` | 4.2 | s04-03, s04-04, s04-09 | Định nghĩa 02.30; Ví dụ 02.11–02.13; Mệnh đề 02.31; Hệ quả 02.32 | → $T_P$, $P=\sqrt n$ |
+| L02-N13 | `lec-02-topic-13` | 4.3 | s04-05, s04-08 | Định nghĩa 02.33; Ví dụ 02.14–02.15; Nhận xét 02.34, 02.36; Mệnh đề 02.35 | → $C=I+H$, Combine giảm $H$ |
+| L02-N14 | `lec-02-topic-14` | 4.4 | s04-06, s04-07 | Định nghĩa 02.37; Ví dụ 02.16–02.17; Mệnh đề 02.38 | → cận $Q/B$ |
+| L02-N15 | `lec-02-topic-15` | 4.5 | s04-10, s04-11 | Định nghĩa 02.39; Ví dụ 02.18–02.19; Bài tập 02.3 | → $S_P$; mở Mục 5 |
+| L02-N16 | `lec-02-topic-16` | Đọc thêm (thu gọn) mở, tiểu mục 1 | s05-00, s05-02, s05-02a, s05-03, s05-07 | Định nghĩa 02.40 | Mục 4 → cơ chế giao tác vụ |
+| L02-N17 | `lec-02-topic-17` | Đọc thêm, tiểu mục 2 | s05-04, s05-05, s05-06 | Ví dụ 02.20 | → $mr$ tệp trung gian |
+| L02-N18 | `lec-02-topic-18` | Đọc thêm, tiểu mục 3 | s05-08, s05-09, s05-10, s05-11, s05-12, s05-13 | Mệnh đề 02.41, 02.43; Định nghĩa 02.42; Ví dụ 02.21; Nhận xét 02.44 | → phục hồi không tính trùng |
+| L02-N19 | `lec-02-topic-19` | Đọc thêm, tiểu mục 4 | không có trang (R2) | Định nghĩa 02.45; Ví dụ 02.22; Bài tập 02.4 | tính chặn → luồng công việc, Spark |
+| L02-N20 | `lec-02-topic-20` | Mục 5 | s06-00 đến s06-12 | Nhận xét 02.46; Ví dụ 02.23 | Hệ quả 02.12, Mệnh đề 02.35 → bộ đếm 5/4/3 |
+| L02-N21 | `lec-02-topic-21` | Tình huống và ứng dụng | không có trang | Tình huống 02.1–02.3 | toàn chương → Bài 03, 12, 15 |
+| L02-N22 | `lec-02-topic-22` | Tóm tắt chương | s07-00, s07-07, s07-02, s07-01, s07-03, s07-08 | — | toàn chương |
+| — | (không có id) | `exercises.md` | s07-09, s07-04, s07-05, s07-06 | Bài tập 02.5–02.8 | recitation: 02.6 ↔ s07-04, 02.7 ↔ s07-05, 02.8 ↔ s07-06 |
+
+Các trang mở đầu không mang `note-topic-id` riêng: `s01-02` (Nội dung) ứng với hình cấu trúc chương ở đầu Mục 1; `s01-07` (Tiên quyết và quy ước) ứng với "Kiến thức tiên quyết" và "Bảng ký hiệu"; `s01-08` (Mục tiêu học tập) ứng với "Mục tiêu học tập". Vòng sửa 1 (2026-11-11): phần hệ thống thực thi nằm giữa Mục 4 và Mục 5 (thực hành), tiêu đề "Đọc thêm: Hệ thống thực thi MapReduce", thu gọn mặc định; số hiệu khối không đổi.
