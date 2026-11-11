@@ -1,6 +1,6 @@
 # Bài 01 — Bài toán dữ liệu lớn và mô hình thuật toán
 
-Chúng ta đặt các bài toán của học phần vào một khung chung: đầu vào, đầu ra phải trả, tài nguyên bị giới hạn và mức chính xác phải bảo đảm. Bài toán tìm cặp tài liệu gần trùng được phân tích trọn vẹn trong khung đó, từ đặc tả, thuật toán xét mọi cặp và chứng minh tính đúng tới phép đếm chi phí; mô hình hồ sơ lưu trú cho kỳ vọng số mẫu trùng xuất hiện chỉ do ngẫu nhiên.
+Chúng ta đặt các bài toán của học phần vào một khung chung: đầu vào, đầu ra phải trả, tài nguyên bị giới hạn và mức chính xác phải bảo đảm. Bài toán tìm cặp tài liệu gần trùng được phân tích trọn vẹn trong khung đó, từ đặc tả, thuật toán xét mọi cặp và chứng minh tính đúng tới phép đếm chi phí. Trong mô hình hồ sơ lưu trú (phần đọc thêm), ta tính kỳ vọng số mẫu trùng xuất hiện chỉ do ngẫu nhiên.
 
 [Bộ trang chiếu Bài 01](lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) trình bày cùng chủ đề; [tệp bài tập Bài 01](material-viewer.html?doc=materials/lec-01/exercises.md&deck=lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html) chứa các bài tập củng cố.
 
@@ -12,7 +12,8 @@ Sau chương này, người học có thể:
 2. Đặc tả bài toán tìm cặp tài liệu gần trùng bằng độ tương đồng Jaccard và chứng minh thuật toán xét mọi cặp trả đúng tập $R$, mỗi cặp một lần (Mục 3.1–3.3).
 3. Đếm chi phí của thuật toán xét mọi cặp; chứng minh bước xác minh tập ứng viên $A$ trả đúng $R$ khi và chỉ khi $R\subseteq A$ (Mục 3.4–3.5).
 4. Gắn mỗi giới hạn tài nguyên đã gặp với một nhóm Bài 02–15 và với kiến thức nền cần ôn (Mục 4).
-5. Tính kỳ vọng số biến cố trùng ngẫu nhiên, chỉ ra chỗ dùng tính độc lập và chỗ dùng tính tuyến tính của kỳ vọng, chặn $\Pr(X\ge1)$ bằng bất đẳng thức Markov và nêu giới hạn của kết luận rút ra từ một mẫu trùng (Mục 5).
+
+Phần đọc thêm: tính kỳ vọng số biến cố trùng ngẫu nhiên, chỉ ra chỗ dùng tính độc lập và chỗ dùng tính tuyến tính của kỳ vọng, chặn $\Pr(X\ge1)$ bằng bất đẳng thức Markov.
 
 ## Kiến thức tiên quyết
 
@@ -52,11 +53,11 @@ Các ký hiệu dưới đây dùng xuyên suốt chương; chữ chỉ dùng tr
 | $k$ | số hàng xóm phải trả | $1\le k\le n$ |
 | $\mathcal N_k(\mathbf y)$; $\widehat{\mathcal N}_k(\mathbf y)$ | tập $k$ hàng xóm gần nhất chính xác; tập $k$ véc-tơ do một phương pháp trả về | tập $k$ định danh |
 | $\operatorname{recall@}k$ | độ thu hồi tại $k$ | $[0,1]$ |
-| $P$; $T$; $H$ | số người; số ngày quan sát; số khách sạn | số nguyên dương |
-| $u,v$; $s,t$ | hai người; hai ngày khác nhau | |
-| $q$; $p$ | xác suất một người lưu trú trong một ngày; xác suất một cặp người trùng khách sạn trong một ngày cho trước | $[0,1]$ |
-| $X$; $\mathbb 1_e$ | số biến cố trùng; biến chỉ báo của biến cố $e$ | số nguyên không âm; $\{0,1\}$ |
-| $\lambda$ | ngưỡng trong bất đẳng thức Markov | số thực dương |
+| $P$; $T$; $H$ | số người; số ngày quan sát; số khách sạn (phần đọc thêm) | số nguyên dương |
+| $u,v$; $s,t$ | hai người; hai ngày khác nhau (phần đọc thêm) | |
+| $q$; $p$ | xác suất một người lưu trú trong một ngày; xác suất một cặp người trùng khách sạn trong một ngày cho trước (phần đọc thêm) | $[0,1]$ |
+| $X$; $\mathbb 1_e$ | số biến cố trùng; biến chỉ báo của biến cố $e$ (phần đọc thêm) | số nguyên không âm; $\{0,1\}$ |
+| $\lambda$ | ngưỡng trong bất đẳng thức Markov (phần đọc thêm) | số thực dương |
 | $\mathbb E$; $\Pr$ | kỳ vọng; xác suất | |
 
 Các quy ước đọc sau dùng trong cả chương.
@@ -64,7 +65,7 @@ Các quy ước đọc sau dùng trong cả chương.
 - Số thập phân dùng dấu phẩy, ví dụ $0{,}01$; số nguyên lớn nhóm ba chữ số bằng khoảng trắng hẹp, ví dụ $65\,536$.
 - Dung lượng tính bằng byte; 1 GB $=10^9$ byte, 1 TB $=10^{12}$ byte; một khối có $65\,536=2^{16}$ byte, cỡ khối mà MMDS dùng làm ví dụ (§1.3.4).
 - $F$ và $M$ luôn tính bằng khối, không tính bằng byte.
-- Bài 05–06 viết ngưỡng là $t$; ở đây ta viết $\tau$ vì $t$ chỉ một ngày ở Mục 5. Bài 07 viết $N$, $K$, $q$ cho số véc-tơ, số hàng xóm và véc-tơ truy vấn; ở đây ta viết $n$, $k$, $\mathbf y$.
+- Bài 05–06 viết ngưỡng là $t$; ở đây ta viết $\tau$ vì $t$ chỉ một ngày trong phần đọc thêm. Bài 07 viết $N$, $K$, $q$ cho số véc-tơ, số hàng xóm và véc-tơ truy vấn; ở đây ta viết $n$, $k$, $\mathbf y$.
 - Tên đối tượng trong ví dụ viết chữ đứng, như $\mathrm a,\mathrm b$ hay a.vn, để không lẫn với biến.
 - Chữ "lượt" chỉ dùng cho lượt đọc hay lượt quét một tệp; mỗi lần thân vòng lặp chạy gọi là một vòng.
 - Viết tắt nguồn: MMDS (*Mining of Massive Datasets*, ấn bản 3), BHK (*Foundations of Data Science*), DSC (*Database System Concepts*, ấn bản 7), CS246 (bài giảng mở đầu của Stanford CS246), BIODS 271 (bài giảng *Approximate Nearest Neighbor* của Stanford BIODS 271); chi tiết ở mục tài liệu tham khảo.
@@ -81,16 +82,15 @@ $$
 &=499\,999\,500\,000,
 \end{aligned}
 $$
-khoảng nửa nghìn tỷ cặp (MMDS, tr.73). Để phân tích bài toán này, chúng ta cần trả lời bốn câu hỏi:
+khoảng nửa nghìn tỷ cặp (MMDS, tr.73). Để phân tích bài toán này, chúng ta cần trả lời ba câu hỏi:
 
 - chi phí được đo bằng đơn vị nào khi dữ liệu không nằm trong bộ nhớ;
 - thế nào là trả đúng kết quả, và thuật toán xét mọi cặp tốn bao nhiêu;
-- khi nào được phép xét ít cặp hơn mà vẫn trả đủ kết quả;
-- khi dữ liệu sinh ngẫu nhiên và độc lập, kỳ vọng có bao nhiêu mẫu trùng, và một mẫu trùng tìm được cho phép kết luận điều gì.
+- khi nào được phép xét ít cặp hơn mà vẫn trả đủ kết quả.
 
-![Sơ đồ cấu trúc chương: khối trên cùng là bài toán trung tâm, trả mọi cặp tài liệu có SIM ≥ τ trong N = 10⁶ tài liệu, tức 499 999 500 000 cặp; bốn mũi tên xuống bốn cột. Câu hỏi 1, Mục 2: đo chi phí khi dữ liệu trên đĩa, kết quả là khối, lượt quét, F, 2F, 2mF. Câu hỏi 2, Mục 3.1–3.4: đặc tả R và xét mọi cặp, kết quả N(N−1)L phép so sánh. Câu hỏi 3, Mục 3.5 và 4: giảm số cặp khi nào vẫn đủ, kết quả R̂ = A ∩ R, đủ khi và chỉ khi R ⊆ A. Câu hỏi 4, Mục 5: kỳ vọng số mẫu trùng ngẫu nhiên, kết quả E[X] và Pr(X ≥ 1) ≤ E[X].](img/lec-01/note-cau-truc-chuong-01.svg)
+![Sơ đồ cấu trúc chương: khối trên cùng là bài toán trung tâm, trả mọi cặp tài liệu có SIM ≥ τ trong N = 10⁶ tài liệu, tức 499 999 500 000 cặp; ba mũi tên xuống ba cột. Câu hỏi 1, Mục 2: đo chi phí khi dữ liệu trên đĩa, kết quả là khối, lượt quét, F, 2F, 2mF. Câu hỏi 2, Mục 3.1–3.4: đặc tả R và xét mọi cặp, kết quả N(N−1)L phép so sánh. Câu hỏi 3, Mục 3.5 và 4: giảm số cặp khi nào vẫn đủ, kết quả R̂ = A ∩ R, đủ khi và chỉ khi R ⊆ A.](img/lec-01/note-cau-truc-chuong-01.svg)
 
-Sơ đồ đọc từ trên xuống. Khối trên cùng ghi bài toán trung tâm với $N=10^6$ và số cặp vừa tính. Bốn mũi tên dẫn xuống bốn cột theo thứ tự bốn câu hỏi; mỗi cột ghi mục trả lời câu hỏi và, dưới đường kẻ đứt, kết quả chính của mục đó, chẳng hạn $F$, $2F$, $2mF$ lần truyền khối ở cột thứ nhất.
+Sơ đồ đọc từ trên xuống. Khối trên cùng ghi bài toán trung tâm với $N=10^6$ và số cặp vừa tính. Ba mũi tên dẫn xuống ba cột theo thứ tự ba câu hỏi; mỗi cột ghi mục trả lời câu hỏi và, dưới đường kẻ đứt, kết quả chính của mục đó, chẳng hạn $F$, $2F$, $2mF$ lần truyền khối ở cột thứ nhất.
 
 ### 1.1 Bài toán dữ liệu
 
@@ -925,7 +925,7 @@ Mỗi kỹ năng của học phần cho một sản phẩm kiểm tra được, 
 
 Các sản phẩm này cụ thể hóa CLO1–CLO3. Một chương trình chạy đúng trên Ví dụ 01.7 chưa thay được chứng minh, vì nó chỉ kiểm một đầu vào; ca kiểm thử còn phải gồm $N<2$ và một cặp có $\mathrm{SIM}(C_i,C_j)=\tau$.
 
-Trách nhiệm dữ liệu của CLO4 thể hiện qua cách làm việc cụ thể: ghi nguồn của thuật toán và dữ liệu, ghi phần đóng góp của từng người khi làm nhóm, báo cáo cả trường hợp bỏ sót và sai số, chỉ dùng dữ liệu được phép dùng.
+Trách nhiệm dữ liệu của CLO4 thể hiện qua cách làm việc cụ thể: ghi nguồn của thuật toán và dữ liệu, ghi phần đóng góp của từng người khi làm nhóm, báo cáo cả trường hợp bỏ sót và sai số, chỉ dùng dữ liệu được phép dùng. Trách nhiệm còn nằm ở cách diễn giải: $\mathrm{SIM}\ge\tau$ chưa đủ căn cứ để kết luận có hành vi sao chép.
 
 ::: exercise Bài tập 01.8 (Giới hạn, nhóm bài và kiến thức nền)
 Với mỗi giới hạn sau, nêu nhóm bài xử lý nó và một phần kiến thức nền cần ôn cho nhóm đó.
@@ -949,14 +949,15 @@ Xác định trước đầu ra và đại lượng của Định nghĩa 01.13 b
 **Kiểm tra lại.** Ba câu rơi vào ba nhóm bài khác nhau nhưng chỉ hai đại lượng của Định nghĩa 01.13: khối lượng tính toán ở Câu (a), dung lượng lưu trữ ở Câu (b) và (c). Cùng một đại lượng có thể bị vi phạm ở hai nhóm bài khác nhau.
 :::
 
-Như vậy, chúng ta đã gắn ba giới hạn của Mục 1–3 với ba nhóm bài (Ví dụ 01.11), lập bảng phương pháp và thuộc tính cho Bài 02–15, và nêu sản phẩm học tập cho từng kỹ năng. Tuy nhiên, một tập kết quả đúng và đủ vẫn có thể chứa nhiều mẫu xuất hiện chỉ do ngẫu nhiên. Trong Mục 5, chúng ta tính kỳ vọng số mẫu như vậy trong một mô hình xác suất cụ thể.
+Như vậy, chúng ta đã gắn ba giới hạn của Mục 1–3 với ba nhóm bài (Ví dụ 01.11), lập bảng phương pháp và thuộc tính cho Bài 02–15, và nêu sản phẩm học tập cho từng kỹ năng. Tuy nhiên, ba giới hạn này cần các thuật toán của Bài 05–06, 12–15 và 08–09.
 
 <!-- note-topic-id: lec-01-topic-07 -->
-## 5. Mẫu trùng ngẫu nhiên và suy luận
+<!-- note-collapsed -->
+## Đọc thêm: Mẫu trùng ngẫu nhiên và suy luận
 
 Giả sử một hệ thống đọc hồ sơ khách sạn của $10^9$ người trong $1000$ ngày và tìm các cặp người đã ở cùng một khách sạn trong hai ngày khác nhau. Số cặp người là $\binom{10^9}{2}=499\,999\,999\,500\,000\,000$, khoảng $5\times10^{17}$, nên một mẫu rất hiếm ở từng cặp người vẫn có thể xuất hiện nhiều lần chỉ do ngẫu nhiên. Để biết "nhiều" là bao nhiêu, chúng ta cần một mô hình xác suất cho dữ liệu và một phép tính kỳ vọng trong mô hình đó.
 
-### 5.1 Hồ sơ lưu trú và mô hình không phối hợp
+### Hồ sơ lưu trú và mô hình không phối hợp
 
 Bài toán này xuất phát từ chương trình TIA (Total Information Awareness), đề xuất sau sự kiện ngày 11 tháng 9 năm 2001 để khai phá mọi dữ liệu tìm được, gồm cả hồ sơ khách sạn (MMDS, §1.2.1, tr.6). Khi tìm quá nhiều loại mẫu trong dữ liệu cùng lúc, ta sẽ thấy những mẫu trông đáng chú ý nhưng chỉ là sản phẩm của ngẫu nhiên. Khách sạn ở hai ngày có thể khác nhau; điều kiện trùng xét trong từng ngày (MMDS, §1.2.3, tr.7).
 
@@ -1081,7 +1082,7 @@ Nếu thật sự có 10 cặp người phối hợp, cảnh sát phải điều
 **Kiểm tra lại.** Một cặp ngày có ngày ngoài $\{s_1,s_2,s_3\}$ không xảy ra vì cặp người không trùng ngày đó.
 :::
 
-### 5.2 Bất đẳng thức Markov và nguyên lý Bonferroni
+### Bất đẳng thức Markov và nguyên lý Bonferroni
 
 Kỳ vọng $249\,750$ cho biết trung bình có nhiều biến cố trùng ngẫu nhiên. Khi kỳ vọng nhỏ, chúng ta muốn đi xa hơn: chặn xác suất có ít nhất một biến cố trùng ngẫu nhiên. Công cụ cho việc đó chỉ dùng kỳ vọng.
 
@@ -1236,12 +1237,12 @@ Như vậy, chúng ta đã tính $\mathbb E[X]\approx249\,750$ biến cố trùn
 - Mô hình chi phí (Định nghĩa 01.13) đo chi phí mỗi vòng cập nhật PageRank ở Bài 03.
 - Yêu cầu $\mathrm{dec}(\mathrm{enc}(x))=x$ (Định nghĩa 01.7) là đặc tả khôi phục của Bài 10–11.
 - Chỉ mục băm (Định nghĩa 01.8) là điểm xuất phát của băm tĩnh ở Bài 13.
-- Tuyến tính của kỳ vọng và bất đẳng thức Markov (Mệnh đề 01.20, Bổ đề 01.21) là công cụ phân tích lấy mẫu và phác thảo ở Bài 08–09 (Bổ đề 09.32).
+- Tuyến tính của kỳ vọng và bất đẳng thức Markov (Mệnh đề 01.20, Bổ đề 01.21, phần đọc thêm) là công cụ phân tích lấy mẫu và phác thảo ở Bài 08–09 (Bổ đề 09.32).
 - Bài toán đếm từ và yêu cầu mỗi đóng góp được tính đúng một lần (Mục 1.2, Nhận xét 01.3) là bài toán mở đầu của MapReduce ở Bài 02.
 
 ## Tóm tắt chương
 
-Câu hỏi xuất phát của chương là trả mọi cặp đạt ngưỡng trong $N=10^6$ tài liệu: chữ ký của cả kho vừa bộ nhớ, nhưng số cặp là $499\,999\,500\,000$. Một bài toán dữ liệu gồm miền đầu vào, quan hệ đầu vào–đầu ra và ngân sách tài nguyên (Định nghĩa 01.1), và khi dữ liệu nằm trên đĩa, ngân sách được đo bằng số lần truyền khối: một lượt quét tệp $F$ khối tốn $F$, đọc và ghi lại tốn $2F$, $m$ lượt tốn $2mF$ (Định nghĩa 01.4, Mệnh đề 01.5). Với độ tương đồng Jaccard (Định nghĩa 01.9), tập kết quả là $R$ của Định nghĩa 01.10, và thuật toán xét mọi cặp trả đúng $R$ nhờ một bất biến trên tập cặp đã xét (Thuật toán 01.11, Mệnh đề 01.12). Thuật toán đó tốn không quá $N(N-1)L$ phép so sánh (Bổ đề 01.14, Mệnh đề 01.15), tức gần sáu ngày cho một triệu chữ ký trong bộ nhớ (Tình huống 01.1). Xét ít cặp hơn qua một tập ứng viên $A$ trả đúng $R$ khi và chỉ khi $R\subseteq A$ (Mệnh đề 01.16); các giới hạn về số cặp, đọc ghi và dòng dữ liệu được ba nhóm của Bài 02–15 xử lý (Mục 4). Kết quả đúng và đủ vẫn có thể chứa nhiều mẫu ngẫu nhiên: mô hình lưu trú không phối hợp cho khoảng $249\,750$ biến cố trùng (Mệnh đề 01.20), Markov chặn xác suất có ít nhất một biến cố khi kỳ vọng nhỏ hơn 1 (Hệ quả 01.22), và một cặp có tên trong đầu ra chưa đủ để tính xác suất cặp đó phối hợp (Nhận xét 01.23). Các giới hạn còn lại, gồm cách tạo $A$, cách xử lý dòng và cách nối bảng lớn, là nội dung của các bài sau, bắt đầu với đếm từ trên kho phân tán (Mục 1.2, Nhận xét 01.3): bộ trang chiếu [Bài 02](lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html) đặc tả MapReduce cho bài toán này, với yêu cầu mỗi lần xuất hiện của một từ góp đúng một lần vào số đếm.
+Câu hỏi xuất phát của chương là trả mọi cặp đạt ngưỡng trong $N=10^6$ tài liệu: chữ ký của cả kho vừa bộ nhớ, nhưng số cặp là $499\,999\,500\,000$. Một bài toán dữ liệu gồm miền đầu vào, quan hệ đầu vào–đầu ra và ngân sách tài nguyên (Định nghĩa 01.1), và khi dữ liệu nằm trên đĩa, ngân sách được đo bằng số lần truyền khối: một lượt quét tệp $F$ khối tốn $F$, đọc và ghi lại tốn $2F$, $m$ lượt tốn $2mF$ (Định nghĩa 01.4, Mệnh đề 01.5). Với độ tương đồng Jaccard (Định nghĩa 01.9), tập kết quả là $R$ của Định nghĩa 01.10, và thuật toán xét mọi cặp trả đúng $R$ nhờ một bất biến trên tập cặp đã xét (Thuật toán 01.11, Mệnh đề 01.12). Thuật toán đó tốn không quá $N(N-1)L$ phép so sánh (Bổ đề 01.14, Mệnh đề 01.15), tức gần sáu ngày cho một triệu chữ ký trong bộ nhớ (Tình huống 01.1). Xét ít cặp hơn qua một tập ứng viên $A$ trả đúng $R$ khi và chỉ khi $R\subseteq A$ (Mệnh đề 01.16); các giới hạn về số cặp, đọc ghi và dòng dữ liệu được ba nhóm của Bài 02–15 xử lý (Mục 4). Trong mô hình hồ sơ lưu trú không phối hợp, kỳ vọng số biến cố trùng chỉ do ngẫu nhiên là khoảng $249\,750$ (Mệnh đề 01.20, phần đọc thêm). Các giới hạn còn lại, gồm cách tạo $A$, cách xử lý dòng và cách nối bảng lớn, là nội dung của các bài sau, bắt đầu với đếm từ trên kho phân tán (Mục 1.2, Nhận xét 01.3): bộ trang chiếu [Bài 02](lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html) đặc tả MapReduce cho bài toán này, với yêu cầu mỗi lần xuất hiện của một từ góp đúng một lần vào số đếm.
 
 **Định nghĩa và kết quả theo mục.**
 
@@ -1249,7 +1250,7 @@ Câu hỏi xuất phát của chương là trả mọi cặp đạt ngưỡng tr
 - Mục 2: khối, lần truyền khối, lượt quét (Định nghĩa 01.4); chi phí lượt quét (Mệnh đề 01.5, Nhận xét 01.6); nén không mất và có mất thông tin (Định nghĩa 01.7); hàm băm và chỉ mục băm (Định nghĩa 01.8).
 - Mục 3: Jaccard (Định nghĩa 01.9); bài toán cặp gần trùng (Định nghĩa 01.10); xét mọi cặp (Thuật toán 01.11) và tính đúng (Mệnh đề 01.12); mô hình chi phí (Định nghĩa 01.13); thủ tục trộn (Bổ đề 01.14); chi phí xét mọi cặp (Mệnh đề 01.15); xác minh ứng viên (Mệnh đề 01.16); độ thu hồi (Định nghĩa 01.17).
 - Mục 4: bảng giới hạn, nhóm bài và thuộc tính cần đánh giá; ghép giới hạn với nhóm bài (Ví dụ 01.11); CLO1–CLO4 và sản phẩm học tập.
-- Mục 5: mô hình lưu trú không phối hợp (Định nghĩa 01.18); phép thử và số biến cố trùng (Định nghĩa 01.19); kỳ vọng (Mệnh đề 01.20); Markov (Bổ đề 01.21, Hệ quả 01.22); nguyên lý Bonferroni (Nhận xét 01.23).
+- Phần đọc thêm: mô hình lưu trú không phối hợp (Định nghĩa 01.18); phép thử và số biến cố trùng (Định nghĩa 01.19); kỳ vọng (Mệnh đề 01.20); Markov (Bổ đề 01.21, Hệ quả 01.22); nguyên lý Bonferroni (Nhận xét 01.23).
 
 **Công thức và thuật toán cần nhớ.**
 
@@ -1270,15 +1271,6 @@ $$
 \end{gathered}
 $$
 
-Với mô hình lưu trú:
-
-$$
-\begin{gathered}
-p=\frac{q^2}{H},\qquad \mathbb E[X]=\binom P2\binom T2p^2,\\
-\Pr(X\ge1)\le\mathbb E[X].
-\end{gathered}
-$$
-
 Thuật toán xét mọi cặp duyệt $i=1,\ldots,N-1$ và $j=i+1,\ldots,N$, tính $\mathrm{SIM}$ chính xác và xuất $(i,j)$ khi $\mathrm{SIM}\ge\tau$.
 
 **Giả thiết hay bị bỏ quên.**
@@ -1288,16 +1280,15 @@ Thuật toán xét mọi cặp duyệt $i=1,\ldots,N-1$ và $j=i+1,\ldots,N$, t�
 - $O(N^2L)$ là cận trên của phần xét cặp, chưa tính tạo các tập, ghi $R$ và đọc ghi đĩa.
 - Xác minh chính xác chỉ bảo đảm $\widehat R\subseteq R$; đủ $R$ cần thêm $R\subseteq A$.
 - Số lần truyền khối khác số giây: với cùng $F$ khối, đọc từng khối bằng một truy cập riêng chậm hơn đọc tuần tự khoảng 15 lần theo giả thiết của MMDS (Ví dụ 01.3).
-- $\mathbb E[X]$ cần độc lập giữa người, giữa ngày và chọn khách sạn đều; tuyến tính kỳ vọng không cần độc lập; $X$ đếm biến cố, không đếm cặp người.
 
 <!-- note-topic-id: lec-01-topic-08 -->
 ## Bài tập củng cố
 
-Bài tập 01.10–01.11 nằm trong [tệp bài tập Bài 01](material-viewer.html?doc=materials/lec-01/exercises.md&deck=lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html), cùng gợi ý và lời giải.
+Bài tập 01.10–01.11 nằm trong [tệp bài tập Bài 01](material-viewer.html?doc=materials/lec-01/exercises.md&deck=lecture-01-bai-toan-du-lieu-lon-va-mo-hinh-thuat-toan.html), cùng gợi ý và lời giải. Hai bài này dùng mô hình lưu trú của phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận* (Định nghĩa 01.18 – Nhận xét 01.23).
 
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
-- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press. §1.2.1–1.2.4, tr.6–8: Mục 5, Bài tập 01.10, 01.11; §1.3.2–1.3.3, tr.10–12: Định nghĩa 01.8, Ví dụ 01.5, Tình huống 01.3; §1.3.4, tr.13: Mục 2.1; Chương 3, tr.73–75, Ví dụ 3.1, tr.74 và Hình 3.1, tr.75: Mục 1, Mục 3.1, Mục 3.5; Ví dụ 3.10, tr.92: Mục 3.4, Tình huống 01.1; §4.2.1–4.2.2, tr.136–137 và §4.3.1, tr.139–140: Mục 2.2; §5.3.1, tr.195–196 và Hình 5.16, tr.200: Mục 1.2. Sách và trang chiếu của các tác giả: http://www.mmds.org.
+- Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press. §1.2.1–1.2.4, tr.6–8: phần đọc thêm, Bài tập 01.10, 01.11; §1.3.2–1.3.3, tr.10–12: Định nghĩa 01.8, Ví dụ 01.5, Tình huống 01.3; §1.3.4, tr.13: Mục 2.1; Chương 3, tr.73–75, Ví dụ 3.1, tr.74 và Hình 3.1, tr.75: Mục 1, Mục 3.1, Mục 3.5; Ví dụ 3.10, tr.92: Mục 3.4, Tình huống 01.1; §4.2.1–4.2.2, tr.136–137 và §4.3.1, tr.139–140: Mục 2.2; §5.3.1, tr.195–196 và Hình 5.16, tr.200: Mục 1.2. Sách và trang chiếu của các tác giả: http://www.mmds.org.
 - Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018. Chương 1, tr.9–11: mô hình RAM ở mở đầu Mục 1; §2.1–2.2, tr.12–15, và Định lý 2.1, tr.13: Bổ đề 01.21.
 - Leskovec, J. Stanford CS246, *Mining Massive Datasets*, bài 01-intro, trang chiếu 32–33: Nhận xét 01.3; trang chiếu 62: Mục 1.1; trang chiếu 67–69: chi phí truyền thông (communication cost) ở Mục 3.4.
 - Silberschatz, A., Korth, H. F. và Sudarshan, S. (2019). *Database System Concepts*, ấn bản 7, McGraw-Hill. Trang chiếu Chương 15, 8–9: mô hình chi phí ở Mục 2.1, Nhận xét 01.6; 19–22: sắp xếp ngoài ở Mục 2.4; 24–28: Tình huống 01.2; 40: giả thiết bộ nhớ $M=20$ khối ở Mục 2.4 và Tình huống 01.2; Chương 14, 24 và 31: tra cứu theo khóa, theo vùng và theo từ khóa ở Mục 2.4.

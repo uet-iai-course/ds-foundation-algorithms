@@ -1129,3 +1129,14 @@ Nguồn đã đối chiếu: MMDS §1.2–1.3, tr.6–13; Ch.3 tr.73–75, 92; �
 - Khối: bộ đếm chung 01.1–01.23 liên tục; Ví dụ 01.1–01.14; Bài tập 01.1–01.11; Tình huống 01.1–01.3; 51 dẫn "X 01.k" trong ghi chú, `exercises.md`, Bài 08, Bài 09 trỏ tới khối có thật.
 - Grep: 0 "chưa phải", "Bản đồ chủ đề", "Mục này", "do học phần", "hậu kiểm", "chuyển khối", "Đáp"; `git diff --check` sạch.
 - Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, trang không cuộn ngang (13 hình rộng nằm trong khung cuộn riêng, như Bài 10), khối gập mở khi in.
+
+### Mục 5 chuyển thành phần Đọc thêm thu gọn (2026-11-11)
+
+Phản hồi của tác giả: "bài ghi chú 01, mục 5 không phù hợp với nội dung cả bài lắm"; lựa chọn "thu gọn thành đọc thêm, collapse". Mục 5 đổi thành `## Đọc thêm: Mẫu trùng ngẫu nhiên và suy luận`, giữ vị trí, khối và số hiệu (01.18–01.23, Ví dụ 01.12–01.14, Bài tập 01.9); dòng `<!-- note-collapsed -->` trước tiêu đề làm viewer thu gọn mục (tính năng mới của `material-viewer.js`, mở khi in và khi bấm liên kết trong mục lục). Mạch chính còn ba câu hỏi, sơ đồ ba cột, mục tiêu 5 thành dòng "Phần đọc thêm"; Tóm tắt giữ một câu về $\mathbb E[X]$; "Bài tập củng cố" nêu 01.10–01.11 dùng phần đọc thêm; Mục 4.2 giữ ý "$\mathrm{SIM}\ge\tau$ chưa đủ căn cứ kết luận sao chép". Ghi chú Bài 08 (dẫn "Mục 5") đổi thành "phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*".
+
+| Tác tử | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Biên tập (hai lượt, SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, SVG, `outline.md`, `storyboard.md` |
+| Rà mạch và liên kết | general-purpose | opus | high | không |
+
+Rà mạch: 3 trung bình (văn bản làm chủ ngữ ở dòng 3 và Tóm tắt; Bài tập củng cố không nêu phụ thuộc phần đọc thêm; sai khác với deck chưa ghi), 4 nhẹ: chấp nhận, trừ đổi tên mục "Hướng dẫn đọc thêm và tài liệu tham khảo" (bác bỏ: tiêu đề của mẫu). Sai khác với deck: deck giữ bốn câu ở P04/F04 và mạch 5 trong phần giảng; không sửa deck trong đợt này. Độ dài sau sửa: 19 073 âm tiết.

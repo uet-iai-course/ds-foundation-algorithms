@@ -20,7 +20,7 @@ Số hiệu `01.k` chỉ ghi chú Bài 01, `06.k` chỉ ghi chú Bài 06. Ghi ch
 - **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, Mục 2.2, Ví dụ 01.4). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời gian) vẫn đo được mức lặp truy vấn theo người dùng, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
 - **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó.
 - **Phân tích xác suất thành ứng viên** (Định lý 06.7). Khi các hàm MinHash được chọn độc lập, xác suất một cặp tài liệu thành ứng viên được tính theo bốn bước: xác suất trùng ở một hàng; tích các xác suất độc lập cho xác suất trùng cả một dải; tích lần nữa trên các dải độc lập cho xác suất không dải nào trùng; rồi lấy biến cố bù.
-- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, Mục 5, Mệnh đề 01.20; ghi chú Bài 05, Mục 7).
+- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*, Mệnh đề 01.20; ghi chú Bài 05, Mục 7).
   - Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$.
   - Với các biến cố $E_1,\ldots,E_c$ độc lập (toàn phần, không chỉ từng đôi), $\Pr(E_1\cap\cdots\cap E_c)=\Pr(E_1)\cdots\Pr(E_c)$.
   - Quy tắc nhân: $\Pr(E\cap F)=\Pr(E)\Pr(F\mid E)$ khi $\Pr(E)>0$.
@@ -1519,4 +1519,4 @@ Bài tập 08.6–08.13 nằm trong [tệp bài tập Bài 08](material-viewer.h
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1 và §3.2. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14; ký hiệu tiệm cận ở phần tiên quyết.
 - Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 3 (biến AMS, dùng hồ chứa $s$ vị trí), ứng với MMDS §4.4–4.7.
 - Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; §6.6, tr.204: Bài tập 08.6–08.9 (tệp bài tập).
-- Ghi chú Bài 01 (Mục 2.2, Mục 5), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.
+- Ghi chú Bài 01 (Mục 2.2, phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.

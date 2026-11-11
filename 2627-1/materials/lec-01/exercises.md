@@ -10,7 +10,7 @@ Các bài tập củng cố 01.10–01.11 dưới đây lấy từ mục bài t�
 | 2. Đặc tả cặp gần trùng; tính đúng của xét mọi cặp (Mục 3.1–3.3) | 01.5, 01.6 | — |
 | 3. Chi phí của xét mọi cặp; xác minh ứng viên (Mục 3.4–3.5) | 01.2, 01.7 | — |
 | 4. Giới hạn, nhóm bài và kiến thức nền (Mục 4) | 01.8 | — |
-| 5. Kỳ vọng số biến cố trùng, độc lập và tuyến tính, Markov, giới hạn kết luận (Mục 5) | 01.9 | 01.10, 01.11 |
+| Phần đọc thêm: mẫu trùng ngẫu nhiên (kỳ vọng số biến cố trùng, độc lập và tuyến tính, Markov) | 01.9 | 01.10, 01.11 |
 
 ## Mức tính toán hoặc chứng minh
 
