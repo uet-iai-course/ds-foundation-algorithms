@@ -17,13 +17,13 @@ Sau chương này, người học có thể:
 <!-- note-topic-id: lec-06-topic-18 -->
 ## Kiến thức tiên quyết
 
-Ghi chú Bài 05 chưa đánh số hiệu, nên các kết quả của bài đó được dẫn theo mục, dưới dạng "ghi chú Bài 05, Mục k", và được phát biểu lại dưới đây.
+Số hiệu `01.k`, `05.k` chỉ ghi chú Bài 01, Bài 05; mỗi kết quả được dẫn như vậy được phát biểu lại dưới đây.
 
-- **Độ tương đồng Jaccard** (ghi chú Bài 05, Mục 2). Với hai tập hữu hạn $A$, $B$ không cùng rỗng, $\mathrm{SIM}(A,B)=|A\cap B|/|A\cup B|$. Giá trị nằm trong $[0,1]$ và bằng $1$ khi và chỉ khi $A=B$.
-- **Shingle** (ghi chú Bài 05, Mục 3 và Mục 12). Một $k$-shingle của tài liệu là một đoạn liên tiếp dài $k$ trong biểu diễn văn bản đã chọn; tài liệu được biểu diễn bằng tập các shingle của nó. Mục 12 của ghi chú Bài 05 (đọc thêm) nêu một biến thể: mỗi shingle là một từ dừng cùng hai từ ngay sau nó; phần tử của tập khi đó là cụm ba từ chứ không là đoạn $k$ ký tự.
-- **MinHash và định lý xác suất trùng** (ghi chú Bài 05, Mục 5–6). Với một hoán vị $\pi$ của vũ trụ đặc trưng hữu hạn, MinHash của tập không rỗng $A$ là phần tử của $A$ đứng đầu trong thứ tự $\pi$, $h_\pi(A)=\arg\min_{a\in A}\pi(a)$, trong đó $\pi(a)$ là vị trí của $a$. Nếu $\pi$ được chọn đều trong mọi hoán vị và dùng chung cho hai tập không rỗng $A$, $B$, thì $\Pr[h_\pi(A)=h_\pi(B)]=\mathrm{SIM}(A,B)$: phần tử đứng đầu của $A\cup B$ phân phối đều trên $A\cup B$, và hai giá trị bằng nhau đúng khi phần tử ấy thuộc $A\cap B$.
-- **Chữ ký và ước lượng Jaccard** (ghi chú Bài 05, Mục 7). Chữ ký gồm $n$ giá trị MinHash với $n$ hoán vị chọn độc lập. Tỷ lệ $\widehat s$ các thành phần trùng của hai chữ ký có kỳ vọng bằng Jaccard của hai tập gốc.
-- **Hàm băm thay hoán vị** (ghi chú Bài 05, Mục 9 và 11). Khi tính thực tế, mỗi hoán vị được thay bằng một hàm băm trên mã hàng $x\in\{0,\ldots,R-1\}$, chẳng hạn $f(x)=(\alpha x+\beta)\bmod R$; ở đầu ra của thuật toán quét, tập rỗng cho giá trị quy ước $+\infty$.
+- **Độ tương đồng Jaccard** (Định nghĩa 01.9). Với hai tập hữu hạn $A$, $B$ không cùng rỗng, $\mathrm{SIM}(A,B)=|A\cap B|/|A\cup B|$. Giá trị nằm trong $[0,1]$ và bằng $1$ khi và chỉ khi $A=B$.
+- **Shingle** (Định nghĩa 05.2). Một $k$-shingle của tài liệu là một đoạn liên tiếp dài $k$ trong biểu diễn văn bản đã chọn; tài liệu được biểu diễn bằng tập các shingle của nó.
+- **MinHash và định lý xác suất trùng** (Định nghĩa 05.8; Định lý 05.10). Với một hoán vị $\pi$ của vũ trụ đặc trưng hữu hạn, MinHash của tập không rỗng $A$ là phần tử của $A$ đứng đầu trong thứ tự $\pi$, $h_\pi(A)=\arg\min_{a\in A}\pi(a)$, trong đó $\pi(a)$ là vị trí của $a$. Nếu $\pi$ được chọn đều trong mọi hoán vị và dùng chung cho hai tập không rỗng $A$, $B$, thì $\Pr[h_\pi(A)=h_\pi(B)]=\mathrm{SIM}(A,B)$: phần tử đứng đầu của $A\cup B$ phân phối đều trên $A\cup B$, và hai giá trị bằng nhau đúng khi phần tử ấy thuộc $A\cap B$.
+- **Chữ ký và ước lượng Jaccard** (Định nghĩa 05.11; Mệnh đề 05.12). Chữ ký gồm $n$ giá trị MinHash với $n$ hoán vị dùng chung cho mọi tập. Khi mỗi hoán vị chọn đều, tỷ lệ $\widehat s$ các thành phần trùng của hai chữ ký có kỳ vọng bằng Jaccard của hai tập gốc, không cần các hoán vị độc lập.
+- **Hàm băm thay hoán vị** (Định nghĩa 05.17; Thuật toán 05.18; Mệnh đề 05.22). Khi tính thực tế, mỗi hoán vị được thay bằng một hàm băm trên mã hàng $x\in\{0,\ldots,R-1\}$, chẳng hạn $f(x)=(\alpha x+\beta)\bmod R$; ở đầu ra của thuật toán quét, tập rỗng cho giá trị quy ước $+\infty$.
 - **Công cụ xác suất** (học phần Xác suất thống kê). Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$. Với các biến cố độc lập, xác suất của giao bằng tích các xác suất. Chặn hợp: $\Pr(E\cup F)\le\Pr(E)+\Pr(F)$, không cần độc lập. Tuyến tính kỳ vọng: kỳ vọng của một tổng bằng tổng các kỳ vọng, không cần độc lập; kỳ vọng của một biến chỉ báo bằng xác suất của biến cố tương ứng. Bất đẳng thức Jensen: với hàm $g$ lồi trên một khoảng chứa giá trị của biến ngẫu nhiên $X$, $\mathbb E[g(X)]\ge g(\mathbb E[X])$; với $g$ lõm, bất đẳng thức đổi chiều.
 - **Tích vô hướng và chuẩn Euclid** (học phần Đại số tuyến tính). Với $x,y\in\mathbb R^D$, $x\cdot y=\sum_{i=1}^Dx_iy_i$ và $\|x\|_2=\sqrt{x\cdot x}$. Theo bất đẳng thức Cauchy–Schwarz, với $x,y\ne0$ thương $x\cdot y/(\|x\|_2\|y\|_2)$ nằm trong $[-1,1]$.
 
@@ -74,7 +74,7 @@ Các quy ước đọc sau dùng trong cả chương.
 <!-- note-topic-id: lec-06-topic-01 -->
 ## 1. Bài toán tìm cặp tương đồng
 
-Bài 05 kết thúc với một cách so hai tài liệu nhanh: thay hai tập shingle lớn bằng hai cột chữ ký MinHash dài $n$, rồi lấy tỷ lệ hàng trùng $\widehat s$ làm ước lượng của Jaccard, vì mỗi hàng trùng với xác suất đúng bằng Jaccard (ghi chú Bài 05, Mục 6–7). Kết quả đó giảm chi phí so một cặp. Nó chưa giảm số cặp phải so, và với một kho lớn, số cặp mới là đại lượng quyết định thời gian chạy.
+Bài 05 kết thúc với một cách so hai tài liệu nhanh: thay hai tập shingle lớn bằng hai cột chữ ký MinHash dài $n$, rồi lấy tỷ lệ hàng trùng $\widehat s$ làm ước lượng của Jaccard, vì mỗi hàng trùng với xác suất đúng bằng Jaccard (Định lý 05.10; Mệnh đề 05.12). Kết quả đó giảm chi phí so một cặp. Nó chưa giảm số cặp phải so, và với một kho lớn, số cặp mới là đại lượng quyết định thời gian chạy.
 
 ::: example Ví dụ 06.1 (Kho một triệu tài liệu; *Mining of Massive Datasets* (MMDS), Ví dụ 3.10, tr.92)
 **Dữ kiện.** Kho có $C=10^6$ tài liệu; mỗi chữ ký có $n=250$ thành phần, mỗi thành phần là số nguyên 4 byte. Ta thêm giả định mỗi lần so một cặp chữ ký mất $1\,\mu\mathrm{s}$.
@@ -218,7 +218,7 @@ $$
 S_1=\{a,d\},\quad S_2=\{c\},\quad S_3=\{b,d,e\},\quad S_4=\{a,c,d\},
 $$
 
-với ma trận chữ ký hai hàng đã tính ở Bài 05:
+với ma trận chữ ký hai hàng đã tính ở Bài 05 (Ví dụ 05.12):
 
 | Hàng chữ ký | $S_1$ | $S_2$ | $S_3$ | $S_4$ |
 |---|---:|---:|---:|---:|
@@ -397,7 +397,7 @@ $$
 :::
 
 ::: proof Chứng minh Định lý 06.7
-**Bước 1 (một hàng).** Gọi $E_i$ là biến cố hai cột trùng ở hàng thứ $i$ của một dải. Theo định lý MinHash (ghi chú Bài 05, Mục 6), áp dụng cho hoán vị chọn đều dùng chung cho hai tập không rỗng, $\Pr(E_i)=s$. Thành phần chữ ký ghi vị trí $\min_{a\in S_c}\pi(a)$ hay định danh của phần tử đứng đầu đều cho cùng biến cố trùng, vì $\pi$ là song ánh.
+**Bước 1 (một hàng).** Gọi $E_i$ là biến cố hai cột trùng ở hàng thứ $i$ của một dải. Theo định lý MinHash (Định lý 05.10), áp dụng cho hoán vị chọn đều dùng chung cho hai tập không rỗng, $\Pr(E_i)=s$. Thành phần chữ ký ghi vị trí $\min_{a\in S_c}\pi(a)$ hay định danh của phần tử đứng đầu đều cho cùng biến cố trùng, vì $\pi$ là song ánh.
 
 **Bước 2 (một dải).** Theo Định nghĩa 06.3, hai cột trùng dải khi trùng cả $r$ hàng, tức biến cố $\bigcap_{i=1}^rE_i$. Các hoán vị trong dải độc lập, nên
 
@@ -422,7 +422,7 @@ Phản ví dụ khi bỏ từng giả thiết:
 - Bỏ độc lập trong một dải: nếu $r$ hàng của một dải dùng cùng một hoán vị, dải trùng đúng khi một MinHash trùng, với xác suất $s$ chứ không phải $s^r$; với $s=0{,}8$, $r=5$, đó là $0{,}8$ thay cho $0{,}32768$.
 - Bỏ độc lập giữa các dải: nếu cả $b$ dải dùng lại cùng $r$ hoán vị, mọi dải cho cùng một kết quả và cặp thành ứng viên với xác suất $s^r$; với $s=0{,}8$, $r=5$, $b=20$, đó là $0{,}32768$ thay cho $0{,}999643942$.
 - Bỏ phép so khóa đầy đủ của Mệnh đề 06.5: va chạm ô của bảng băm lưu trữ chỉ thêm cặp vào tập $\mathrm{CAND}$ mà thuật toán trả, $\mathrm{CAND}\supseteq\mathcal C$, nên chỉ còn $\Pr[(c,d)\in\mathrm{CAND}]\ge P_{b,r}(s)$. Cặp $(1,2)$ của Ví dụ 06.3 có $s=0$, nên $P_{b,r}(0)=0$, nhưng thành ứng viên nếu hai khóa $(1,(1))$ và $(1,(3))$ chung ô.
-- Bỏ điều kiện tập không rỗng: theo quy ước đầu ra của thuật toán quét (ghi chú Bài 05, Mục 9 và 11), hai tập rỗng có cột chữ ký toàn $+\infty$, trùng mọi dải nên thành ứng viên với xác suất $1$, trong khi $s$ không xác định.
+- Bỏ điều kiện tập không rỗng: theo quy ước đầu ra của thuật toán quét (Định nghĩa 05.17; Tình huống 05.2), hai tập rỗng có cột chữ ký toàn $+\infty$, trùng mọi dải nên thành ứng viên với xác suất $1$, trong khi $s$ không xác định.
 
 Bước 1 dùng phép chọn đều và tập không rỗng; Bước 2 dùng độc lập trong dải; Bước 3 dùng độc lập giữa các dải.
 
@@ -440,7 +440,7 @@ Bước 1 dùng phép chọn đều và tập không rỗng; Bước 2 dùng đ�
 Theo Mệnh đề 06.5, cặp có $s\ge t$ thuộc đầu ra khi và chỉ khi nó thuộc $\mathcal C$. Theo Định lý 06.7, biến cố $(c,d)\notin\mathcal C$ có xác suất $1-P_{b,r}(s)=(1-s^r)^b$. $\square$
 :::
 
-**Trong thực hành.** Khi lập chữ ký, mỗi hoán vị được thay bằng một hàm băm trên mã hàng, chẳng hạn $f(x)=(\alpha x+\beta)\bmod R$ (ghi chú Bài 05, Mục 9 và 11). Họ hàm này không chọn đều trên mọi hoán vị, nên Bước 1 của chứng minh, $\Pr(E_i)=s$, chỉ còn là xấp xỉ, và (2.1) là dự đoán của mô hình chứ không phải đẳng thức về dữ liệu.
+**Trong thực hành.** Khi lập chữ ký, mỗi hoán vị được thay bằng một hàm băm trên mã hàng, chẳng hạn $f(x)=(\alpha x+\beta)\bmod R$ (Thuật toán 05.18; Mệnh đề 05.22; Nhận xét 05.23). Họ hàm này không chọn đều trên mọi hoán vị, nên Bước 1 của chứng minh, $\Pr(E_i)=s$, chỉ còn là xấp xỉ, và (2.1) là dự đoán của mô hình chứ không phải đẳng thức về dữ liệu.
 
 Chữ ký được lập một lần rồi dùng lại cho mọi lần chạy Thuật toán 06.4, nên với một chữ ký đã lập, tập bỏ sót là cố định. Khi cần một con số cho cả kho, tuyến tính kỳ vọng cho số cặp bỏ sót kỳ vọng bằng tổng $(1-s_{cd}^r)^b$ trên các cặp có $s_{cd}\ge t$, với $s_{cd}=\mathrm{SIM}(S_c,S_d)$; con số này cần biết phân bố của $s_{cd}$, điều Định lý 06.7 không cung cấp.
 
@@ -1530,7 +1530,7 @@ $1-(1-0{,}000064)^{512}\approx0{,}0322$ và $(1-0{,}004096)^{512}\approx0{,}1223
 <!-- note-topic-id: lec-06-topic-13 -->
 ### 5.3 Bản tin gần trùng
 
-Một bản tin được đăng lại trên nhiều trang báo, mỗi trang bao quanh bằng quảng cáo và tiêu đề riêng (MMDS §3.8.6, tr.120–121). Cần tìm các cặp trang mang cùng văn bản gốc, khác với các cặp chỉ cùng chủ đề. Nếu dùng $k$-shingle ký tự (ghi chú Bài 05, Mục 3), phần quảng cáo đóng góp shingle ngang với phần bản tin và làm Jaccard phản ánh cả hai.
+Một bản tin được đăng lại trên nhiều trang báo, mỗi trang bao quanh bằng quảng cáo và tiêu đề riêng (MMDS §3.8.6, tr.120–121). Cần tìm các cặp trang mang cùng văn bản gốc, khác với các cặp chỉ cùng chủ đề. Nếu dùng $k$-shingle ký tự (Định nghĩa 05.2), phần quảng cáo đóng góp shingle ngang với phần bản tin và làm Jaccard phản ánh cả hai.
 
 Một cách trực quan, văn xuôi của bản tin chứa nhiều từ rất thông dụng, còn quảng cáo thường là cụm ngắn ít từ như vậy; nếu chỉ lấy đặc trưng bắt đầu tại những từ đó, tập đặc trưng tập trung vào phần bản tin.
 
@@ -1720,4 +1720,5 @@ Bài tập 06.15–06.30 nằm trong [tệp bài tập Bài 06](material-viewer.
 - Blum, A., Hopcroft, J. và Kannan, R. (2018). *Foundations of Data Science*, bản thảo ngày 4/1/2018, §2.5, tr.22–23. Phân phối đều trên mặt cầu đơn vị sinh từ vector chuẩn tắc, dùng ở Thuật toán 06.33.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho chứng minh Mệnh đề 06.5.
 - Đọc tiếp, không là tiên quyết của bài tập: Bài 3.4.4 của MMDS (tr.96) về tổ chức phân dải trên MapReduce; Ví dụ 3.21 (tr.108) về phép ghép 256 hàm; Bài 3.6.2–3.6.4 (tr.108) về điểm bất động và độ dốc của các hàm ghép; §3.7.5 (tr.113) về mở rộng định tính của họ chiếu sang nhiều chiều.
-- Ghi chú Bài 05, *Biểu diễn tương đồng: Shingling và MinHash*, Mục 2–3, 5–7, 9 và 11: các kết quả nhắc lại ở phần kiến thức tiên quyết.
+- Ghi chú Bài 01: Định nghĩa 01.9.
+- Ghi chú Bài 05, *Biểu diễn tương đồng: Shingling và MinHash*, Định nghĩa 05.2, 05.8, 05.11, 05.17; Định lý 05.10; Mệnh đề 05.12, 05.22; Thuật toán 05.18; Nhận xét 05.23; Tình huống 05.2: các kết quả nhắc lại ở phần kiến thức tiên quyết.

@@ -2566,3 +2566,30 @@ Ngày 28-09-2026, editor riêng sửa tại chỗ 57 trang, giữ 7 phần và t
 Không thêm, bớt, gộp, tách hoặc đổi thứ tự trang. Nguồn Hình 3.1 là tr. 75; ví dụ mua hàng ở §3.1.3; Ví dụ 3.4 tr. 78 và Ví dụ 3.7 tr. 82–83 đã được xác minh. Các hình vẫn là SVG; bảng trạng thái và công thức giữ dạng HTML/KaTeX.
 
 Quill continuity: định danh ở 23/24/28 đi qua bảng hai tọa độ 30 rồi ánh xạ sang giá trị của cùng hàng ở 35/37/40. Ký hiệu $S_c$ luôn chỉ tập; chữ ký là trạng thái được cập nhật. Nhánh đọc thêm không thêm tiên quyết cho bài tập. Phạm vi tái kiểm flow là các trang sửa với hai trang lân cận, ranh giới 4→5→6, cùng n05-09 đến n05-14; math/gate kiểm các điều kiện, mô hình chi phí và dấu giảm.
+
+## Ánh xạ chủ đề của ghi chú (2026-11-11)
+
+Ghi chú `materials/lec-05/lecture-note.md` viết lại theo chuẩn giáo trình. Mục này thay "Ánh xạ tài liệu tự học" ở trên; các mã `n05-*` chỉ giữ làm lịch sử. Chú thích `<!-- note-topic-id: … -->` đặt trước tiêu đề mục tương ứng. Thứ tự trong ghi chú: nhu cầu có số → ví dụ dẫn nhập → định nghĩa → ví dụ có lời giải → kết quả hoặc thuật toán → chứng minh → vai trò giả thiết → trong thực hành → bài tập.
+
+| Mã | note-topic-id | Mục ghi chú | Trang chiếu (`data-slide-id`) | Khối số hiệu | Vào → ra |
+|---|---|---|---|---|---|
+| L05-N01 | `lec-05-topic-01` | Mục 1 mở, 1.1 | s01-11, s01-04, s01-05 | Ví dụ 05.1 | Mệnh đề 01.12, Bổ đề 01.14, Mệnh đề 01.15, Ví dụ 01.8 → chi phí một cặp: $\le100\,000$ phép so trên tập mã so với 250 trên chữ ký |
+| L05-N02 | `lec-05-topic-02` | 1.2 | s01-07, s01-08, s01-09 | Nhận xét 05.1; Bài tập 05.1, 05.2 | Định nghĩa 01.9 → Jaccard theo cách chọn phần tử, ngưỡng $t$ |
+| L05-N03 | `lec-05-topic-03` | Mục 2 | s02-00 … s02-07, s02-09 | Ví dụ 05.2–05.4; Định nghĩa 05.2; Thuật toán 05.3; Mệnh đề 05.4, 05.6; Nhận xét 05.5; Bài tập 05.3, 05.4 | chuỗi → $S_k(D)$, $O(1+wk)$, mã 4 byte |
+| L05-N04 | `lec-05-topic-04` | Mục 3 mở, 3.1 | s03-00, s03-01, s03-02 | Ví dụ 05.5; Định nghĩa 05.7 | tập mã $\approx200\,000$ byte → ma trận đặc trưng, $L=9$ |
+| L05-N05 | `lec-05-topic-05` | 3.2 | s03-04, s03-05, s03-06 | Ví dụ 05.6; Định nghĩa 05.8 | thứ tự chung → $h_\pi$ |
+| L05-N06 | `lec-05-topic-06` | 3.3 | s03-07, s03-08, s03-09 | Ví dụ 05.7, 05.8; Bổ đề 05.9; Định lý 05.10; Bài tập 05.5, 05.6 | hoán vị đều → $\Pr=\mathrm{SIM}$ |
+| L05-N07 | `lec-05-topic-07` | Mục 4 mở, 4.1–4.3 | s04-00 … s04-04, s04-06 | Ví dụ 05.9; Định nghĩa 05.11; Mệnh đề 05.12, 05.13 | một phép thử → $\widehat s$, $\mathbb E[\widehat s]=s$, $\Theta(n)$ |
+| L05-N08 | `lec-05-topic-08` | 4.4 | s04-05, s04-07 | Mệnh đề 05.14; Hệ quả 05.15; Ví dụ 05.10; Nhận xét 05.16; Bài tập 05.7–05.9 | thêm độc lập → $s(1-s)/n\le1/(4n)$ |
+| L05-N09 | `lec-05-topic-09` | Mục 5 mở, 5.1–5.2 | s05-00 … s05-07 | Ví dụ 05.11, 05.12; Định nghĩa 05.17; Thuật toán 05.18 | hoán vị → hàm băm hàng, vết chạy, quét hàng |
+| L05-N10 | `lec-05-topic-10` | 5.3–5.4 | s05-08, s05-09, s05-13, s05-10 | Mệnh đề 05.19, 05.21; Hệ quả 05.20; Ví dụ 05.13 | bất biến → $\Theta(nC+nR+nL)$, 56 và 36 thao tác |
+| L05-N11 | `lec-05-topic-11` | 5.5 | s05-11, s05-12 | Mệnh đề 05.22; Nhận xét 05.23; Bài tập 05.10–05.12 | $\gcd(\alpha,R)=1$; song ánh chưa đủ |
+| L05-N12 | `lec-05-topic-12` | Đọc thêm, tiểu mục 1 | không có trang | Định nghĩa 05.24, 05.25; Ví dụ 05.14, 05.15; Bài tập 05.13 | đa tập, từ dừng |
+| L05-N13 | `lec-05-topic-13` | Đọc thêm, tiểu mục 2 | không có trang | Nhận xét 05.26; Ví dụ 05.16; Bài tập 05.14 | $m$ hàng đầu, nhóm hàng |
+| L05-N14 | `lec-05-topic-14` | Tình huống và ứng dụng | s01-05, s06-02, s06-05 | Tình huống 05.1–05.3 | toàn chương → Bài 06, 08, 09, 10 |
+| L05-N15 | `lec-05-topic-15` | Tóm tắt chương | s06-00, s06-05, s06-06, s06-02, s06-03, s06-04, s06-07 | — | toàn chương |
+| L05-N16 | `lec-05-topic-16` | Bài tập củng cố (`exercises.md`) | s07-00 … s07-07 | Bài tập 05.15–05.28 (recitation 05.15, 05.19, 05.20, 05.21, 05.22) | MMDS Bài 3.1.1–3.3.9 |
+
+Các trang mở đầu không mang `note-topic-id` riêng: `s01-01` (bìa) ứng với tiêu đề và đoạn giới thiệu; `s01-10` (Tiên quyết và quy ước) ứng với "Kiến thức tiên quyết" và "Bảng ký hiệu"; `s01-03` (Mục tiêu) ứng với "Mục tiêu học tập"; `s01-02` (Nội dung) ứng với hình cấu trúc chương ở Mục 1. Phần đọc thêm là một mục `##` thu gọn sau Mục 5, gồm hai tiểu mục `lec-05-topic-12`, `lec-05-topic-13`. Câu hỏi tự kiểm `s06-03`, `s06-04` ứng với Bài tập 05.3(c), 05.4(c), 05.7(b)(c), 05.9, 05.12(a) của ghi chú.
+
+Vòng sửa 1 (2026-11-11): ánh xạ trên không đổi. Bài tập 05.3(a), 05.4, 05.5, 05.8, 05.9, 05.10, 05.11(a), 05.12(b), 05.13, 05.14 đổi dữ kiện (xem `outline.md`, mục "Vòng sửa 1"); câu hỏi tự kiểm `s06-03`, `s06-04` nay ứng với Bài tập 05.3(c), 05.7(b)(c), 05.12(a) và, ở dạng mở rộng, 05.4(c) (va chạm chéo) và 05.9 (kho $10^4$ tài liệu). Ghi chú có bảy mục tiêu (deck `s01-03`: năm).

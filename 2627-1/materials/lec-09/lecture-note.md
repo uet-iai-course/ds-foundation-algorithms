@@ -18,22 +18,22 @@ Sau chương này, người học có thể:
 <!-- note-topic-id: lec-09-topic-01 -->
 ## Kiến thức tiên quyết
 
-Số hiệu `08.k` chỉ ghi chú Bài 08, `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 05 chưa đánh số hiệu, nên được dẫn theo mục.
+Số hiệu `08.k` chỉ ghi chú Bài 08, `06.k` chỉ ghi chú Bài 06, `05.k` chỉ ghi chú Bài 05.
 
 Mỗi kết quả được dẫn đều được phát biểu lại dưới đây. Trong phần phát biểu lại, các chữ $n$, $k$, $j$, $b$, $r$, $s$ là biến tạm theo ký hiệu của bài được dẫn, không mang nghĩa của bảng ký hiệu Bài 09.
 
 - **Thuật toán dòng một lượt** (Định nghĩa 08.1). Thuật toán giữ một trạng thái; phép cập nhật nhận trạng thái sau $r-1$ phần tử cùng $x_r$ và trả trạng thái sau $r$ phần tử; phép trả lời chỉ đọc trạng thái. Mỗi phần tử được đọc đúng một lần, và kho lưu trữ không được đọc để trả lời.
 - **Chi phí của thuật toán dòng và số bit của bộ đếm** (Định nghĩa 08.3; Bài 08, Mục 1.4). Thuật toán được đo bằng bộ nhớ, số phép toán mỗi phần tử, số lượt đọc dòng và sai số. Một bộ đếm nhận các giá trị $0,1,\ldots,r$ cần $\lceil\log_2(r+1)\rceil$ bit.
-- **Hàm băm tất định** (giả thiết của Mệnh đề 08.10; ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy; Mệnh đề 08.10(a) dùng tính chất này để hai bộ cùng khóa luôn cùng được giữ hoặc cùng bị bỏ.
+- **Hàm băm tất định** (giả thiết của Mệnh đề 08.10; Định nghĩa 05.17). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy; Mệnh đề 08.10(a) dùng tính chất này để hai bộ cùng khóa luôn cùng được giữ hoặc cùng bị bỏ.
 - **Bloom filter không có âm giả** (Định nghĩa 08.22, Định lý 08.25). Bloom filter đặt các bit $h_1(v),\ldots,h_k(v)$ của mỗi khóa $v$ bằng 1. Dưới bốn điều kiện (không bit nào bị xóa, truy vấn dùng đúng các hàm băm và mảng đã xây, hàm băm tất định, mọi phép ghi xong trước truy vấn), mọi khóa đã chèn nhận câu trả lời "có thể thuộc"; sai số chỉ có một phía là dương giả.
 - **Mật độ bit 1** (Bổ đề 08.26). Khi $kn'$ giá trị băm độc lập và đều trên $n$ ngăn, một ngăn cho trước không nhận giá trị nào với xác suất $(1-1/n)^{kn'}$.
 - **Lấy mẫu hồ chứa** (Thuật toán 08.16, Định lý 08.17). Hồ chứa có $s$ ô. Phần tử thứ $r\le s$ được ghi vào ô $r$. Với $r>s$, rút $j$ đều trên $\{1,\ldots,r\}$, độc lập với các lần rút trước; nếu $j\le s$ thì phần tử thứ $r$ thay ô $j$, nếu không thì bị bỏ. Sau $r\ge s$ phần tử, mỗi phần tử đã đọc có mặt trong hồ với xác suất $s/r$.
 - **Xác suất qua các dải độc lập** (Định lý 06.7, Hệ quả 06.8). Với $b$ dải độc lập, mỗi dải trùng với xác suất $s^r$, một cặp bị bỏ sót khi mọi dải cùng không trùng, với xác suất bằng tích $(1-s^r)^b$.
-- **Trung bình của các phép thử độc lập** (ghi chú Bài 05, Mục 8). Phương sai của trung bình $n$ biến độc lập cùng phân phối bằng phương sai của một biến chia cho $n$.
+- **Trung bình của các phép thử độc lập** (Bước 2 trong chứng minh Mệnh đề 05.14). Phương sai của trung bình $n$ biến độc lập cùng phân phối bằng phương sai của một biến chia cho $n$.
 - **Công cụ xác suất** (học phần Xác suất thống kê; phần tiên quyết Bài 08). $\Pr(\overline E)=1-\Pr(E)$; với các biến cố độc lập toàn phần, xác suất của giao bằng tích các xác suất. Tuyến tính kỳ vọng: kỳ vọng của tổng bằng tổng các kỳ vọng, không cần độc lập; $\mathbb E[\mathbf 1[E]]=\Pr(E)$. Cận hợp (union bound): $\Pr(E_1\cup\cdots\cup E_n)\le\Pr(E_1)+\cdots+\Pr(E_n)$ (Blum, Hopcroft và Kannan, *Foundations of Data Science*, viết tắt BHK, §12.5.3, tr.422).
 - **Bất đẳng thức một biến** (phần tiên quyết Bài 08). Với mọi số thực $z$, $1-z\le e^{-z}$.
 - **Tổng cấp số nhân** (BHK §12.3, tr.408). Với $z\ne1$ và $n\ge1$, $1+z+\cdots+z^{n-1}=(1-z^n)/(1-z)$.
-- **Quy nạp và bất biến vòng lặp** (ghi chú Bài 05, Mục 10). Bất biến vòng lặp đúng trước lượt đầu, được giữ qua mỗi lượt và cho điều cần chứng minh khi vòng lặp dừng.
+- **Quy nạp và bất biến vòng lặp** (chứng minh Mệnh đề 05.19). Bất biến vòng lặp đúng trước lượt đầu, được giữ qua mỗi lượt và cho điều cần chứng minh khi vòng lặp dừng.
 
 ## Bảng ký hiệu
 
@@ -944,7 +944,7 @@ $$
 $$
 và độ lệch chuẩn của một biến là $\sqrt{1\,304}\approx36{,}1$.
 
-**Diễn giải.** Độ lệch chuẩn của một biến khoảng $61\%$ của $F_2$; trung bình của $s$ biến độc lập có phương sai $1\,304/s$ (ghi chú Bài 05, Mục 8), với điều kiện về độc lập ở Nhận xét 09.27.
+**Diễn giải.** Độ lệch chuẩn của một biến khoảng $61\%$ của $F_2$; trung bình của $s$ biến độc lập có phương sai $1\,304/s$ (Bước 2 trong chứng minh Mệnh đề 05.14), với điều kiện về độc lập ở Nhận xét 09.27.
 
 **Kiểm tra lại.** $25+16+9+9=59$; $\sum_iv_i=37$ và $\sum_i(2v_i-1)=2\cdot37-15=59$.
 :::
@@ -2291,4 +2291,4 @@ Bài tập 09.10–09.22 nằm trong [tệp bài tập Bài 09](material-viewer.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1 (bất biến vòng lặp) và Chương 16 (phân tích khấu hao): cách trình bày Định lý 09.48 và Mệnh đề 09.49(b). Chương 11 (băm phổ dụng): họ băm phổ dụng có miền giá trị nhỏ cho các hàng Count-Min.
 - Đọc thêm, không cần cho bài tập: HyperLogLog (UMass bài 8, trang chiếu 6–8); ước lượng $F_0$ bằng giá trị băm nhỏ nhất, thuật toán Frequent và phân tích phương sai của một ước lượng $F_2$ khác (BHK §6.2.1, §6.2.3, §6.2.4, tr.185–191); tập phần tử phổ biến trong cửa sổ suy giảm (trang chiếu MMDS, phần 2, tr.44–46).
 - Đọc tiếp: [Bài 10](lecture-10-nen-du-lieu-khong-mat-thong-tin.html), *Nén dữ liệu không mất thông tin*.
-- Ghi chú Bài 08, Bài 06 (Định lý 06.7) và Bài 05 (Mục 8–10): các kết quả nhắc lại ở phần kiến thức tiên quyết.
+- Ghi chú Bài 08, Bài 06 (Định lý 06.7) và Bài 05 (Bước 2 trong chứng minh Mệnh đề 05.14, Định nghĩa 05.17, Mệnh đề 05.19): các kết quả nhắc lại ở phần kiến thức tiên quyết.

@@ -15,12 +15,12 @@ Sau chương này, người học có thể:
 <!-- note-topic-id: lec-08-topic-01 -->
 ## Kiến thức tiên quyết
 
-Số hiệu `01.k` chỉ ghi chú Bài 01, `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 05 chưa đánh số hiệu, nên các kết quả của bài đó được dẫn theo mục. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $f$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
+Số hiệu `01.k` chỉ ghi chú Bài 01, `05.k` chỉ ghi chú Bài 05, `06.k` chỉ ghi chú Bài 06. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $f$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
 
 - **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, Mục 2.2, Ví dụ 01.4). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời gian) vẫn đo được mức lặp truy vấn theo người dùng, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
-- **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó.
+- **Hàm băm là hàm tất định** (Định nghĩa 05.17; Nhận xét 05.23). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó.
 - **Phân tích xác suất thành ứng viên** (Định lý 06.7). Khi các hàm MinHash được chọn độc lập, xác suất một cặp tài liệu thành ứng viên được tính theo bốn bước: xác suất trùng ở một hàng; tích các xác suất độc lập cho xác suất trùng cả một dải; tích lần nữa trên các dải độc lập cho xác suất không dải nào trùng; rồi lấy biến cố bù.
-- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*, Mệnh đề 01.20; ghi chú Bài 05, Mục 7).
+- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*, Mệnh đề 01.20; Mệnh đề 05.12).
   - Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$.
   - Với các biến cố $E_1,\ldots,E_c$ độc lập (toàn phần, không chỉ từng đôi), $\Pr(E_1\cap\cdots\cap E_c)=\Pr(E_1)\cdots\Pr(E_c)$.
   - Quy tắc nhân: $\Pr(E\cap F)=\Pr(E)\Pr(F\mid E)$ khi $\Pr(E)>0$.
@@ -36,7 +36,7 @@ Số hiệu `01.k` chỉ ghi chú Bài 01, `06.k` chỉ ghi chú Bài 06. Ghi ch
   - Bất đẳng thức Bernoulli: $(1-z)^c\ge1-cz$ với $0\le z\le1$ và $c$ nguyên dương.
   - Nếu $g$ liên tục trên $[\alpha,\beta]$, có $g''<0$ trên $(\alpha,\beta)$ và $g(\alpha)=g(\beta)=0$, thì $g>0$ trên $(\alpha,\beta)$, vì một hàm lõm chặt nằm trên dây cung nối hai đầu.
 - **Đạo hàm và cực trị** (học phần Giải tích). Nếu $g'<0$ trên một khoảng thì $g$ giảm chặt trên khoảng đó, và nếu $g'>0$ thì $g$ tăng chặt (định lý giá trị trung bình). Nếu $g$ khả vi trên $(\alpha,\beta)$, $g'<0$ trên $(\alpha,c_0)$ và $g'>0$ trên $(c_0,\beta)$, thì $g$ đạt giá trị nhỏ nhất trên $(\alpha,\beta)$ tại $c_0$. Vì $(\ln g)'=g'/g$ khi $g>0$, hai hàm $g$ và $\ln g$ có cùng điểm cực tiểu.
-- **Quy nạp và bất biến vòng lặp** (ghi chú Bài 05, Mục 10; chứng minh Mệnh đề 06.5). Một khẳng định đúng cho mọi số nguyên $c\ge c_0$ khi nó đúng cho $c_0$ và đúng cho $c+1$ mỗi khi đúng cho $c$. Bất biến vòng lặp đúng trước lượt đầu (khởi tạo), được giữ qua mỗi lượt (duy trì) và cho điều cần chứng minh khi vòng lặp dừng (kết thúc).
+- **Quy nạp và bất biến vòng lặp** (chứng minh Mệnh đề 05.19; chứng minh Mệnh đề 06.5). Một khẳng định đúng cho mọi số nguyên $c\ge c_0$ khi nó đúng cho $c_0$ và đúng cho $c+1$ mỗi khi đúng cho $c$. Bất biến vòng lặp đúng trước lượt đầu (khởi tạo), được giữ qua mỗi lượt (duy trì) và cho điều cần chứng minh khi vòng lặp dừng (kết thúc).
 - **Ký hiệu tiệm cận** (Cormen và cộng sự, *Introduction to Algorithms*, §3.2). Với hai hàm không âm $f$, $g$, $f=O(g)$ khi có hằng số $c>0$ và $c_0$ sao cho $f(z)\le c\,g(z)$ với mọi $z\ge c_0$; $f=\Theta(g)$ khi $f=O(g)$ và $g=O(f)$.
 
 ## Bảng ký hiệu
@@ -1519,4 +1519,4 @@ Bài tập 08.6–08.13 nằm trong [tệp bài tập Bài 08](material-viewer.h
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1 và §3.2. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14; ký hiệu tiệm cận ở phần tiên quyết.
 - Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 3 (biến AMS, dùng hồ chứa $s$ vị trí), ứng với MMDS §4.4–4.7.
 - Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; §6.6, tr.204: Bài tập 08.6–08.9 (tệp bài tập).
-- Ghi chú Bài 01 (Mục 2.2, phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.
+- Ghi chú Bài 01 (Mục 2.2, phần đọc thêm *Mẫu trùng ngẫu nhiên và suy luận*), ghi chú Bài 05 (Mệnh đề 05.12, Định nghĩa 05.17, Mệnh đề 05.19, Nhận xét 05.23) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.

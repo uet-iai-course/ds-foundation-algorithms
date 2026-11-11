@@ -1703,3 +1703,58 @@ Căn cứ: ba báo cáo rà chỉ đọc (toán và thuật toán; kết nối v
 ### Đồng bộ liên bài với Bài 01 (2026-10-14)
 
 Theo lượt sửa Bài 01 sau rà ba vai (phát hiện M19 của vai mạch viết Bài 01) và giao việc của điều phối viên; tác tử soạn `fork`, Opus 5.5, effort `high`; không commit. Ghi chú diễn giả trang Tiên quyết và quy ước dẫn trang "Thuật toán xét mọi cặp" của Bài 01; sửa thành tiêu đề hiện hành "Thuật toán: xét mọi cặp". Chỉ đổi ghi chú; mặt trang và số liệu không đổi. `git diff --check` sạch.
+
+## Viết lại một phần ghi chú và lập tệp bài tập theo chuẩn 2026-11 (đợt B5, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` (đợt B5, hàng 05: viết lại một phần, giữ khoảng 80% văn xuôi; định nghĩa, Định lý MinHash thành khối; "Lời giải"; mỗi bài tập một gợi ý, một lời giải; sau đó cập nhật dẫn chiếu của các bài dùng Bài 05); `AGENTS.md` §"Tiêu chuẩn giáo trình", §"Cấu trúc bắt buộc" 1–10; "The author's voice" của `../CLAUDE.md`. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà. Nguồn: MMDS 3e Ch.3 §3.1–3.3 (trang in = trang PDF + 71); trang chiếu MMDS ch03 tr.18–39; CS246 03-lsh trang chiếu 17–33.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập kế hoạch chương | general-purpose | opus | high | không |
+| Soạn, sau đó biên tập (SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `img/lec-05/note-cau-truc-chuong-05.svg` và bộ sinh trong `tools/`, `outline.md`, `storyboard.md`, phần dẫn tới Bài 05 trong ghi chú Bài 04, 06, 08, 09, 10 |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà chuyên gia miền | general-purpose | opus | high | không |
+| Rà độ chính xác (nhiều lượt) | general-purpose | opus | high | không |
+| Rà sư phạm, `no-ai-slop` Detect | general-purpose | opus | high | không |
+| Rà mạch và liên kết (nhiều lượt) | general-purpose | opus | high | không |
+
+### Quyết định của điều phối viên
+
+- Năm mục khớp mạch deck, `note-topic-id` `lec-05-topic-01…16`; một mục Đọc thêm thu gọn gộp (viewer không cho hai mục thu gọn liền nhau).
+- Không định nghĩa lại Jaccard (Định nghĩa 01.9); ngưỡng $t$ như Bài 06; tên phần tử chữ đứng; hệ số affine $\alpha,\beta$ ($a,b$ là tên phần tử).
+- Bài tập: ghi chú 05.1–05.14 (dựng trên dữ kiện ghi chú); `exercises.md` 05.15–05.28 chỉ MMDS §3.1–3.3 (3.1.1–3.1.3, 3.2.1–3.2.3, 3.3.1–3.3.9; recitation 3.1.1, 3.2.3, 3.3.1, 3.3.2, 3.3.3); 3.1.3 và 3.3.4 gộp thành 05.27; ba bài gắn phần Đọc thêm ghi "(Đọc thêm)". Mục tiêu phương sai và chi phí so không có bài sách, dựa vào bài cuối mục.
+- Dẫn chiếu sang Bài 05 trong ghi chú Bài 06, 08, 09, 10 đổi từ số mục sang số hiệu 05.k (chỉ phần dẫn); câu nối ở Bài 04 (Ứng dụng, Tóm tắt) sửa cho đúng nội dung Bài 05; Bài 04, 06 thêm dòng tham khảo Định nghĩa 01.9.
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Bài tập 05.19 (MMDS 3.2.3) | câu "điều kiện cần" sai logic; phép dựng dùng giả thiết mạnh hơn đề | chấp nhận: cận $\max(0,\ell-k+1)$; dựng tường minh khi bảng chữ cái có ít nhất $\ell-k+1$ ký tự; `00010111` |
+| nghiêm trọng | bài tập cuối mục | khoảng 10/14 bài hỏi lại kết quả đã in | chấp nhận: giữ số hiệu, đổi dữ kiện |
+| trung bình | dẫn chiếu | cận $\lvert S\rvert+\lvert T\rvert$ gán Mệnh đề 01.15 | chấp nhận: Bổ đề 01.14 |
+| trung bình | nguồn | bỏ rào đón "might be unusual enough" của MMDS; "sai lệch tuyệt đối" không có trong sách | chấp nhận |
+| trung bình | ký hiệu | $L$, $R$, $M$ khác Bài 01; $i$, $X_i$, $Y_i$, $q$ nhiều nghĩa | chấp nhận |
+| trung bình | mạch | mở chương thiếu số; Ví dụ 05.1 chép Ví dụ 01.8; ranh giới mục lặp; Phạm vi Định lý 05.10 dẫn phần Đọc thêm; Tình huống 05.2 in sẵn lời giải 05.24; Bài 04, 06 nối sai | chấp nhận |
+| trung bình | văn phong | thuật ngữ mới in đậm; nhịp lặp; câu về vị thế văn bản; chỉ đường | chấp nhận |
+| nhẹ | khoảng 50 mục | trang dẫn, chi tiết toán, dịch đề 3.3.8, … | chấp nhận |
+| — | thêm ví dụ cho Mệnh đề 05.6, 05.12 | bác bỏ: giữ độ dài |
+| — | Tình huống 05.3 gắn kho lớn | bác bỏ: giữ trên dữ kiện MMDS, vai trò giả thiết bị vi phạm |
+| — | nêu MMDS Ví dụ 3.8 "chỉ vì 5 là số nguyên tố" | bác bỏ: không đính chính sách trong thân bài |
+| — | sửa `desc` của `ban-tin-dang-lai.svg` ("Ví dụ dựng:") | hoãn: hình dùng chung với deck |
+
+Đính chính so với nguồn (không ghi trong ghi chú): MMDS tr.84 viết "expected number of rows … equals the Jaccard similarity" (đúng là kỳ vọng tỷ lệ; kỳ vọng số tọa độ trùng là $ns$); MMDS Ví dụ 3.8 viết hoán vị thật "only because 5 is a prime" (đúng là cần $\gcd(\alpha,R)=1$). Các câu nguồn gốc số liệu và câu "không được chứng minh trong phác thảo này" của bản cũ đã bỏ.
+
+Sai khác với deck (không sửa deck): ghi chú diễn giả deck 06 (`lec06-s01-06`) dẫn "Ghi chú Bài 05, Mục 2, 6 và 7"; deck 09 (M08) dẫn "ghi chú Bài 05, Mục 8"; deck 05 viết $a,b$, $\mathbf1\{E\}$, "vector", số "50.000"; `s01-10` còn "Bài 01 viết $J(S,T)$"; `s07-02` ghi phần đạt cận của 3.2.3 không được chứng minh; thứ tự 4.3/4.4 đảo; deck không có phần Đọc thêm; `desc` của `ban-tin-dang-lai.svg` có "Ví dụ dựng:".
+
+Dữ kiện tự dựng (không ghi trong ghi chú): `abcxabd`; phản ví dụ va chạm (`ab`, `bc`, `cd`); hai hoán vị độc lập; dãy $n=1,2,3$; hai hàm modulo 4; họ 20 hàm affine modulo 5 ($13/20$, $7/20$); Tình huống 05.1 (số dẫn xuất từ MMDS tr.81); Tình huống 05.2 (`Mua ngay`, `Gia soc`); bảng sai lệch Tình huống 05.3; dữ kiện mới của Bài tập 05.3–05.14; `abcdaa` (kiểm 05.19).
+
+### Kết quả kiểm tra
+
+- Hai vòng sửa sau năm báo cáo, hai lượt kiểm lại (độ chính xác, mạch) và một lượt sửa câu chữ cuối: chấp nhận; không còn phát hiện chặn bàn giao, nghiêm trọng hay trung bình. Câu mở danh sách phản ví dụ giữ dạng chuẩn của `AGENTS.md` (ưu tiên hơn `no-ai-slop`).
+- Độ dài: ghi chú 11 686 (bản cũ) → 21 720; `exercises.md` 5 079.
+- Khối: bộ đếm chung 05.1–05.26; Ví dụ 05.1–05.16; Bài tập 05.1–05.28 theo thứ tự đọc; Tình huống 05.1–05.3; mọi dẫn 05.k/01.k/02.k đúng khối, cả trong ghi chú Bài 04, 06, 08, 09, 10.
+- Grep mẫu cấm: 0; `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium) ở 1600×900, 390×844: ghi chú và `exercises.md` Bài 05, ghi chú Bài 04, 06, 08, 09, 10: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, trang không cuộn ngang; phần Đọc thêm thu gọn, mở khi in.
+- Chỉ mục: Bài 5 thêm liên kết "Bài tập".

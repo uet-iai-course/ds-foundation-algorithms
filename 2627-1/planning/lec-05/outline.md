@@ -300,3 +300,92 @@ Căn cứ: `AGENTS.md` ("Mẫu RevealJS bắt buộc", "Trang tiêu đề mạch
 - Bảng kết quả–giả thiết (s06-05): hàng "Tập mã shingle" nêu kết quả "SIM trên tập mã bằng SIM trên tập shingle" dưới giả thiết cùng quy ước khoảng trắng, mã không va chạm; cận \(|S_k(D)|\le w\) thuộc bảo đảm của thuật toán tạo tập shingle (s06-06).
 - Quy ước: hạng trong hoán vị đếm từ 1, vị trí ký tự và mã hàng đếm từ 0 (ghi tại s03-05, s03-06 và ghi chú s01-10). Ký hiệu Bài 01 \(J\), \(N\), \(C_i\) ứng với \(\mathrm{SIM}\), \(C\), \(S_i\) của bài này, nêu trên trang Tiên quyết và quy ước.
 - Trang vấn đề trung tâm và trang câu trả lời dùng danh sách không đánh số, sáu dòng theo thứ tự mạch, như Bài 06.
+
+## Ghi chú theo chuẩn giáo trình (2026-11-11)
+
+Mục này thay bản đồ ghi chú ở §8 (`n05-01`… chỉ còn là lịch sử). Ghi chú `materials/lec-05/lecture-note.md` viết lại theo kế hoạch `lec05-plan.md` và quyết định Q1–Q14 của điều phối viên; bộ trang chiếu giữ nguyên.
+
+**Goal.** Ghi chú là một chương giáo trình tự chứa theo `materials/_templates/lecture-note.md`: mục tiêu (7), tiên quyết dẫn số hiệu Bài 01, bảng ký hiệu ba cột, năm mục nội dung ứng với năm mạch nội dung của deck, một phần đọc thêm thu gọn sau Mục 5 gồm hai tiểu mục, ba tình huống, tóm tắt. Bài tập cuối mục 05.1–05.14 trong ghi chú; bài tập củng cố 05.15–05.28 ở `materials/lec-05/exercises.md`, chỉ bài MMDS §3.1–3.3; recitation của deck là 05.15, 05.19, 05.20, 05.21, 05.22. Jaccard không được định nghĩa lại (Định nghĩa 01.9 phát biểu lại ở tiên quyết, Q4); ví dụ Hình 3.1 và `jaccard-ba-vung.svg` không còn trong ghi chú. "Trong thực hành" là đoạn văn có nhãn in đậm (Q14).
+
+**Vấn đề trung tâm.** Kho $10^6$ tài liệu: $499\,999\,500\,000$ cặp; tập mã shingle khoảng $200\,000$ byte mỗi tài liệu (Ví dụ 05.1; MMDS tr.81). Hình cấu trúc chương: `img/lec-05/note-cau-truc-chuong-05.svg`, sinh bởi `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-05/generate_note_svg.py`.
+
+### Bản đồ chủ đề bốn nhóm
+
+| note-topic-id | Mục ghi chú | Chủ đề và khối số hiệu | Nhãn | Nguồn | Chu trình |
+|---|---|---|---|---|---|
+| `lec-05-topic-01` | Mục 1 mở, 1.1 | Ba tình huống gần trùng; hình cấu trúc chương; Ví dụ 05.1 | cầu nối | MMDS tr.73, §3.1.2 tr.75–76, Ví dụ 3.10 tr.92; Bài 01 (Mệnh đề 01.12, Bổ đề 01.14, Mệnh đề 01.15, Ví dụ 01.8) | rút gọn: mục giới thiệu, không định nghĩa |
+| `lec-05-topic-02` | 1.2 | Nhắc Định nghĩa 01.9; Nhận xét 05.1 (ngưỡng $t$); Bài tập 05.1, 05.2 | cầu nối | §3.1.1–3.1.3 tr.74–76 | rút gọn: khái niệm đã định nghĩa ở Bài 01 |
+| `lec-05-topic-03` | Mục 2 | Ví dụ 05.2, 05.3, 05.4; Định nghĩa 05.2; Thuật toán 05.3; Mệnh đề 05.4, 05.6; Nhận xét 05.5; Bài tập 05.3, 05.4 | cốt lõi | §3.2.1–3.2.3 tr.78–80, Ví dụ 3.3, 3.4 | đủ (ví dụ trước định nghĩa, thuật toán, tính đúng, chi phí, giả thiết bị bỏ, trong thực hành) |
+| `lec-05-topic-04` | Mục 3 mở, 3.1 | Ví dụ 05.5; Định nghĩa 05.7 | cầu nối | §3.3.1 tr.81–82, Ví dụ 3.6, Hình 3.2 | rút gọn: biểu diễn, không có định lý riêng |
+| `lec-05-topic-05` | 3.2 | Ví dụ 05.6; Định nghĩa 05.8 | cốt lõi | §3.3.2 tr.82–83, Ví dụ 3.7, Hình 3.3 | đủ |
+| `lec-05-topic-06` | 3.3 | Ví dụ 05.7, 05.8; Bổ đề 05.9; Định lý 05.10 (bốn phần, ba "Bỏ …"); Bài tập 05.5, 05.6 | cốt lõi | §3.3.3 tr.83; §3.3.5 tr.84 (trong thực hành) | đủ |
+| `lec-05-topic-07` | Mục 4 mở, 4.1–4.3 | Ví dụ 05.9; Định nghĩa 05.11; Mệnh đề 05.12, 05.13 | cốt lõi | §3.3.4 tr.83–84 | đủ |
+| `lec-05-topic-08` | 4.4 | Mệnh đề 05.14; Hệ quả 05.15; Ví dụ 05.10; Nhận xét 05.16; Bài tập 05.7, 05.8, 05.9 | bổ sung (đã duyệt, HT7) | suy từ §3.3.4; tr.81, tr.83 (trong thực hành) | đủ |
+| `lec-05-topic-09` | Mục 5 mở, 5.1–5.2 | Ví dụ 05.11, 05.12; Định nghĩa 05.17; Thuật toán 05.18 | cốt lõi | §3.3.5 tr.84–86, Ví dụ 3.8, Hình 3.4 | đủ (vết chạy trước giả mã) |
+| `lec-05-topic-10` | 5.3–5.4 | Mệnh đề 05.19, 05.21; Hệ quả 05.20; Ví dụ 05.13 | bổ sung (đã duyệt) | suy từ §3.3.5; tr.81, Ví dụ 3.10 (trong thực hành) | đủ |
+| `lec-05-topic-11` | 5.5 | Mệnh đề 05.22; Nhận xét 05.23; Bài tập 05.10, 05.11, 05.12 | cầu nối | §3.3.5; CS246 03-lsh trang chiếu 33 | rút gọn: điều kiện và giới hạn của cơ chế đã có |
+| `lec-05-topic-12` | Đọc thêm (thu gọn), tiểu mục 1 | Định nghĩa 05.24, 05.25; Ví dụ 05.14, 05.15; Bài tập 05.13 | đọc thêm | §3.1.3 tr.77, §3.2.4 tr.80 | rút gọn |
+| `lec-05-topic-13` | Đọc thêm (thu gọn), tiểu mục 2 | Nhận xét 05.26; Ví dụ 05.16; Bài tập 05.14 | đọc thêm | §3.3.6–3.3.7 tr.86–90, Ví dụ 3.9, Hình 3.5 | rút gọn |
+| `lec-05-topic-14` | Tình huống và ứng dụng | Tình huống 05.1 (kho $10^6$, $n=250$), 05.2 (tài liệu ngắn hơn $k$, giả thiết không rỗng bị vi phạm), 05.3 (bộ hàm cố định của Ví dụ 3.8); ứng dụng Bài 06, 08, 09, 10 | cốt lõi (áp dụng) | tr.81, Ví dụ 3.8, 3.10 | không áp dụng |
+| `lec-05-topic-15` | Tóm tắt chương | Đoạn 7 câu, kết quả theo mục, công thức, giả thiết hay bỏ quên; hình `quy-trinh-bieu-dien.svg` | tổng kết | toàn chương | không áp dụng |
+| `lec-05-topic-16` | Bài tập củng cố | Liên kết tới `exercises.md` (05.15–05.28) | tổng kết | MMDS Bài 3.1.1–3.3.9 | không áp dụng |
+
+Phần đọc thêm là một mục `##` thu gọn ("Đọc thêm: Biến thể của biểu diễn và của phép quét") chứa hai tiểu mục, thay cho hai mục `##` thu gọn liền nhau của kế hoạch: `material-viewer.js` chuyển dấu `note-collapsed` thứ hai vào thân mục thu gọn thứ nhất và báo lỗi "Dấu note-collapsed phải đứng ngay trước một tiêu đề cấp hai".
+
+**Bài tập theo mục tiêu (bảy mục tiêu).** Mục tiêu 1 ↔ 05.1, 05.2 / 05.15; mục tiêu 2 ↔ 05.3, 05.4 / 05.16, 05.19; mục tiêu 3 ↔ 05.5, 05.6 / 05.20, 05.23, 05.26, 05.27; mục tiêu 4 ↔ 05.7(a)(b), 05.9 / 05.22(c); mục tiêu 5 ↔ 05.7(c), 05.8 / không có; mục tiêu 6 ↔ 05.10, 05.11 / 05.21, 05.22(a), 05.25; mục tiêu 7 ↔ 05.12 / 05.22(b), 05.24; đọc thêm ↔ 05.13, 05.14 / 05.17, 05.18, 05.28. Mục tiêu 5 không có bài MMDS riêng cho phương sai; theo `AGENTS.md` mục 10 nó dựa vào bài cuối mục.
+
+### Thuật ngữ Việt–Anh của ghi chú
+
+| Tiếng Việt | Tiếng Anh | Lần đầu trong ghi chú |
+|---|---|---|
+| độ tương đồng Jaccard | Jaccard similarity | Kiến thức tiên quyết (Định nghĩa 01.9) |
+| shingle, $k$-shingle | shingle, $k$-gram | Giới thiệu chương; Định nghĩa 05.2 |
+| cửa sổ | (window) | Định nghĩa 05.2 |
+| va chạm | collision | Mục 2.4 |
+| ma trận đặc trưng; biểu diễn theo hàng | characteristic matrix | Mục tiêu 3; Định nghĩa 05.7 |
+| hoán vị; hạng | permutation; (rank) | Mục tiêu 3; Định nghĩa 05.8 |
+| chữ ký MinHash; ma trận chữ ký | MinHash signature; signature matrix | Mục tiêu 4; Định nghĩa 05.11 |
+| ước lượng không chệch | unbiased (estimator) | Mục tiêu 4 |
+| hàm băm; lượt quét; bất biến vòng lặp; biến chỉ báo | hash function; pass; loop invariant; indicator variable | Kiến thức tiên quyết |
+| giá trị canh | sentinel | Bảng ký hiệu |
+| đa tập; bội | bag, multiset; (multiplicity) | Đọc thêm |
+| từ dừng | stop word | Đọc thêm |
+
+### Khác biệt với bộ trang chiếu
+
+- Thứ tự Mục 4: ghi chú đặt chi phí so sánh (4.3, Mệnh đề 05.13) trước phương sai (4.4, Mệnh đề 05.14); deck đặt `s04-05` (phương sai) trước `s04-06` (chi phí). Nội dung không đổi.
+- Ký hiệu: tên phần tử chữ đứng $\mathrm a,\ldots,\mathrm e$ (deck chữ nghiêng); hệ số hàm affine $\alpha,\beta$ (deck `s05-11` viết $a,b$, trùng tên phần tử a, b); chỉ báo $\mathbf 1[E]$ như Bài 06 (deck $\mathbf 1\{E\}$); bí danh $\widehat s=\widehat{\mathrm{SIM}}$; loại hàng $\mathrm X,\mathrm Y,\mathrm Z$ chữ đứng; hàm mã shingle $g$ (deck không đặt tên); số lớn nhóm bằng khoảng trắng hẹp (deck `s01-11`, `s05-10`, `s06-02` viết "50.000", "200.000", "1.000"); "véc-tơ" (deck "vector").
+- Deck `s01-10` ghi "Bài 01 viết $J(S,T)$"; ghi chú Bài 01 hiện viết $\mathrm{SIM}$ (lệch có từ trước).
+- Mục tiêu: deck `s01-03` có năm mục; ghi chú tách mục 6 (hàm affine, giả thiết bị vi phạm).
+- Nội dung thêm so với deck: Bổ đề 05.9 tách riêng; Mệnh đề 05.6 có chứng minh; danh sách "Bỏ …" sau Mệnh đề 05.4, 05.6, 05.12, 05.19 và Định lý 05.10; Hệ quả 05.20; Ví dụ 05.3 ($3/7$); Nhận xét 05.16; Nhận xét 05.23 với họ 20 hàm affine modulo 5 ($13/20$, $7/20$); ví dụ $R=4$ ở đoạn đọc Mệnh đề 05.22 (deck `s05-11` dùng hệ số 5 modulo 6 của Bài 3.3.3; ghi chú tránh lộ lời giải Bài tập 05.22(b)); Tình huống 05.2, 05.3.
+- Câu hỏi tự kiểm `s06-03`, `s06-04` ↔ Bài tập 05.3(c), 05.4(c), 05.7(b)(c), 05.12(a), 05.9 của ghi chú; recitation `s07-01` ↔ 05.15, `s07-02` ↔ 05.19, `s07-03`/`s07-04` ↔ 05.20, `s07-05` ↔ 05.21, `s07-06`/`s07-07` ↔ 05.22.
+
+### Tương ứng ký hiệu deck ↔ ghi chú
+
+| Deck | Ghi chú | Lý do |
+|---|---|---|
+| $a,b,c,d,e$ (chữ nghiêng) | $\mathrm a,\ldots,\mathrm e$ | quy ước tên phần tử chữ đứng (Bài 01, 04); Ví dụ 06.3 của Bài 06 viết chữ nghiêng |
+| $(ar+b)\bmod R$ | $(\alpha r+\beta)\bmod R$ | $a$, $b$ trùng tên phần tử (Q6); Bài 06 viết $\alpha,\beta$ |
+| $\mathbf1\{E\}$ | $\mathbf 1[E]$ | như Bài 06 |
+| $\widehat{\mathrm{SIM}}$ | $\widehat s=\widehat{\mathrm{SIM}}(S,T)$ | như Bài 06 |
+| $X$, $Y$, $Z$ (loại hàng); $X_i$ (chỉ báo) | $\mathrm X$, $\mathrm Y$, $\mathrm Z$; $I_i$ | chữ X đã dùng cho loại hàng $\mathrm X$ và số đếm $x$, nên chỉ báo viết $I_i$ (vòng sửa 1) |
+| (không có) | $g$ (mã shingle), $\mu_B(u)$ (bội), $P$ (nhóm hàng), $m$ (số hàng xét), $A$ (hàng đã quét, trong chứng minh) | thêm cho các mệnh đề và phần đọc thêm |
+| MMDS: $n$ (độ dài tài liệu), $h_i$, $k$ (số hàng ở §3.3.6–3.3.7), $T$ (nhóm hàng) | $\ell$, $f_i$, $R$, $P$ | $n$ là độ dài chữ ký, $h_\pi$ là MinHash, $k$ là độ dài shingle, $T$ là tập của cặp |
+
+### Vòng sửa 1 (2026-11-11): thay đổi so với bản nháp 1
+
+Theo hàng đợi `lec05-queue.md` (A1–A14, B1–B3) và năm báo cáo rà. Số hiệu khối, ví dụ, tình huống và bài tập không đổi; `note-topic-id` không đổi.
+
+- **Mục tiêu học tập:** bảy mục (mục tiêu 4 cũ tách thành 4: chữ ký, không chệch, chi phí so, Mục 4.1–4.3; và 5: phương sai, độ dài chữ ký, Mục 4.4). Bài tập theo mục tiêu: 1 ↔ 05.1, 05.2 / 05.15; 2 ↔ 05.3, 05.4 / 05.16, 05.19; 3 ↔ 05.5, 05.6 / 05.20, 05.23, 05.26, 05.27; 4 ↔ 05.7(a)(b), 05.9 / 05.22(c); 5 ↔ 05.7(c), 05.8 / không có bài MMDS; 6 ↔ 05.10, 05.11 / 05.21, 05.22(a), 05.25; 7 ↔ 05.12 / 05.22(b), 05.24.
+- **Bài tập cuối mục đổi dữ kiện** (không hỏi lại kết quả đã in): 05.3(a) $k=3$ trên `abcdabd`/`abcxabd` ($1/4$); 05.4(a) $k$ nhỏ nhất với $20^k>2^{32}$ ($k=8$), (b) thư $2\,000$ ký tự, $k=5$ ($1\,996$ mã, $7\,984$ byte), (c) va chạm chéo cho $1/3$; 05.5(a) thêm phần tử f ($L=11$, $RC=24$, Jaccard $0\to1/5$), (b) $\pi=(\mathrm c,\mathrm e,\mathrm b,\mathrm a,\mathrm d)$; 05.8(b) $n=625$ khi chưa biết $s$; 05.9 tập mã so với chữ ký trên kho $10^4$ thư (tỷ số $19{,}96$); 05.10 hàng chữ ký thứ ba với $f_3=(4r+2)\bmod5$ (hàng $(2,0,1,0)$, 4 phép min không giảm); 05.11(a) $n=3$ (74 và 54 thao tác); 05.12(b) hàm $(4r+1)\bmod6$ trên hai tập rời ($\widehat s=1$); 05.13 ba cách đo $\{\mathrm a,\mathrm a,\mathrm b\}$, $\{\mathrm a,\mathrm b,\mathrm b\}$ ($1/3$, $1/2$, 1); 05.14 chia chẵn–lẻ và chia $\{0,1,2,7\}$/$\{3,4,5,6\}$ trên Hình 3.5. Mọi số kiểm bằng `scratchpad/l05w/verify_r1.py`.
+- **Ví dụ 05.1** so chi phí một cặp trên tập mã ($\le100\,000$ phép so sánh, Bổ đề 01.14) với trên chữ ký (250), tỷ số 400; số cặp chỉ còn nêu ở tiên quyết và Ví dụ 05.1.
+- **Ký hiệu:** vị trí cửa sổ $j$ (chỉ số hàm $i$); chỉ báo $I_i$ (loại hàng $\mathrm X,\mathrm Y,\mathrm Z$ giữ nguyên); $W_i$ trong Bước 2 chứng minh Mệnh đề 05.14; tập hàng đã quét $H$ (chứng minh Mệnh đề 05.19); bảng ký hiệu thêm $A$, $u$, $\Pr$, $\mathbb E$, $\operatorname{Var}$; quy ước thêm $L$, $R$, $M$ của Bài 01; "phân phối đều", "hoán vị (còn gọi là thứ tự liệt kê)"; tệp bài tập: $K=\lvert S\cap T\rvert$ ở 05.27, $x+y$ ở 05.20.
+- **Mã hàng:** $U$ là tập các mã shingle xuất hiện trong kho, mã hàng là thứ tự tăng dần trong $U$, $R\le2^{32}$ (sau Định nghĩa 05.7); Tình huống 05.1 giả sử biểu diễn theo hàng đã có và thay số $nR\le1{,}07\cdot10^{12}$.
+- **Nguồn:** giữ rào đón "có thể đã đủ bất thường" của MMDS ở Nhận xét 05.1; bỏ cụm "sai lệch tuyệt đối trên thang Jaccard"; tên $k$-gram dẫn trang chiếu MMDS tr.20, CS246 trang chiếu 18; quy ước bội lớn hơn ở tr.77, chú thích 2; họ hàm CS246 viết $((\alpha r+\beta)\bmod p)\bmod R$ kèm lý do không chọn đều.
+- **Bài tập 05.19 (Q9):** cận $\max(0,\ell-k+1)$; giả thiết của đề bảo đảm đủ $\ell-k+1$ chuỗi khác nhau; phép dựng tường minh khi bảng chữ cái có ít nhất $\ell-k+1$ ký tự; `00010111` là ví dụ với bảng chữ cái nhỏ.
+- **Ghi chú khác:** Bài 04 (Ứng dụng, Tóm tắt) nêu Jaccard là Định nghĩa 01.9 và Bài 05 ước lượng nó bằng chữ ký MinHash; Bài 06 bỏ Định nghĩa 05.25 khỏi tiên quyết và tham khảo, phát biểu lại đúng Mệnh đề 05.12, thêm "(Ví dụ 05.12)" và dòng tham khảo Bài 01; Bài 08 dẫn "Định nghĩa 05.17; Nhận xét 05.23"; Bài 09 dẫn "Bước 2 trong chứng minh Mệnh đề 05.14".
+- **Không đổi:** hình `ban-tin-dang-lai.svg` (deck dùng chung, A14); deck 06, 09 vẫn dẫn số mục cũ trong ghi chú diễn giả (B3, ghi `review-log.md`).
+
+### Vòng sửa 2 (2026-11-11)
+
+Mục 1 mở bằng Thuật toán 01.11, Mệnh đề 01.12, Bổ đề 01.14, Mệnh đề 01.15 (không số liệu), đoạn giới thiệu chương bỏ câu về Bài 01; năm danh sách phản ví dụ (sau Mệnh đề 05.4, 05.6, 05.12, 05.19 và Định lý 05.10) trở lại câu mở chuẩn của `AGENTS.md`, phản ví dụ độc lập của Mệnh đề 05.14 gộp vào câu; Mục 5 mở bằng thiếu hụt của Ví dụ 05.9 ($R$ số mỗi hoán vị, MMDS §3.3.5); bảng chi phí Thuật toán 05.18 bỏ dòng bước 3, tổng ghi "cộng $O(1)$ cho bước 3" để khớp 56 thao tác của Ví dụ 05.13; Bài tập 05.24 không phụ thuộc phần đọc thêm; Bài tập 05.19 kết luận chỉ nêu điều kiện đạt cận tường minh. Số hiệu không đổi.

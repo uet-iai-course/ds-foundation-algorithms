@@ -19,7 +19,7 @@ Sau chương này, người học có thể:
 <!-- note-topic-id: lec-10-topic-01 -->
 ## Kiến thức tiên quyết
 
-Số hiệu `08.k` chỉ ghi chú Bài 08, `09.k` chỉ ghi chú Bài 09. Ghi chú Bài 05 chưa đánh số hiệu, nên được dẫn theo mục.
+Số hiệu `08.k` chỉ ghi chú Bài 08, `09.k` chỉ ghi chú Bài 09, `05.k` chỉ ghi chú Bài 05.
 
 Trong các kết quả nhắc lại dưới đây, các chữ $r$, $t$, $m$, $u$, $\kappa$, $\varepsilon$ là biến tạm theo ký hiệu của bài được dẫn, không mang nghĩa của bảng ký hiệu Bài 10.
 
@@ -33,7 +33,7 @@ Trong các kết quả nhắc lại dưới đây, các chữ $r$, $t$, $m$, $u$
 - **Phần nguyên** (Toán rời rạc). Với số thực $\upsilon$, $\upsilon\le\lceil\upsilon\rceil<\upsilon+1$ và $\upsilon-1<\lfloor\upsilon\rfloor\le\upsilon$; với hai số thực $\alpha\ge\beta$, $\lfloor\alpha\rfloor-\lfloor\beta\rfloor\ge\lfloor\alpha-\beta\rfloor$.
 - **Phân số nhị phân** (Toán rời rạc). Chuỗi bit $b_1\cdots b_\ell$ biểu diễn số $0{,}b_1\cdots b_\ell$ (cơ số 2) $=\sum_{i=1}^{\ell}b_i2^{-i}$, một bội của $2^{-\ell}$ trong $[0;1)$.
 - **Nguyên lý Dirichlet** (Toán rời rạc). Không có đơn ánh từ tập hữu hạn $A$ vào tập $B$ khi $\lvert A\rvert>\lvert B\rvert$.
-- **Quy nạp và bất biến vòng lặp** (ghi chú Bài 05, Mục 10). Bất biến vòng lặp đúng trước lượt đầu, được giữ qua mỗi lượt và cho điều cần chứng minh khi vòng lặp dừng.
+- **Quy nạp và bất biến vòng lặp** (chứng minh Mệnh đề 05.19). Bất biến vòng lặp đúng trước lượt đầu, được giữ qua mỗi lượt và cho điều cần chứng minh khi vòng lặp dừng.
 
 ## Bảng ký hiệu
 
@@ -2104,4 +2104,4 @@ Số trang của NG là số trang của tệp PDF trong bộ nguồn của họ
 - Chứng minh nằm ngoài phạm vi học phần: bất đẳng thức McMillan (EE398A-1, trang chiếu 13; CMU, trang chiếu 28); cận Fibonacci cho độ dài từ mã Huffman (NG, tr.74–75); tính đúng của bộ giải mã số học nguyên, trong Witten, I. H., Neal, R. M. và Cleary, J. G. (1987), "Arithmetic Coding for Data Compression", *Communications of the ACM* 30(6), tr.520–540 (NG, tr.133, 385).
 - Đọc thêm, không cần cho bài tập: mã khối và mã Huffman cắt ngắn (EE398A-1, trang chiếu 21–22); mô hình bậc cao và mã số học thích nghi (NG, Chương 6, từ tr.127; CMU, trang chiếu 61–73); cài đặt mã số học bằng lan truyền nhớ và tổn thất do làm tròn (EE398A-3, trang chiếu 10–14).
 - Đọc tiếp: [Bài 11](lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html), *Nén bằng từ điển và nén mất dữ liệu*.
-- Ghi chú Bài 08, Bài 09 (Định lý 09.37) và Bài 05 (Mục 10): các kết quả nhắc lại ở phần kiến thức tiên quyết.
+- Ghi chú Bài 08, Bài 09 (Định lý 09.37) và Bài 05 (Mệnh đề 05.19): các kết quả nhắc lại ở phần kiến thức tiên quyết.
