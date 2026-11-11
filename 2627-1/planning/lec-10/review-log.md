@@ -365,3 +365,49 @@ Ghi chú sau đính chính: 31 992 âm tiết; `exercises.md` 2 674.
 ### Quyết định của người dùng về nguồn (2026-11-08)
 
 Yêu cầu ban đầu ghi "sử dụng nguồn MMDS". Điều phối viên quét 11 tệp MMDS trong `sources/` (sách 3e Ch.1, 2, 3, 4, 5 và slide mmds.org Ch.2–5) với các từ khóa Huffman, arithmetic coding, Kraft, prefix code, entropy, compression: không có nội dung nào, chỉ một tên hội nghị trong thư mục tài liệu của Ch.3. `sources/reference-slides/README.md` ghi Bài 10 "MMDS không bao phủ mô-đun này". Người dùng được hỏi và chọn **chấp nhận Nelson–Gailly làm trục nguồn**, Stanford EE398A/CS106B và CMU 15-499 để đối chiếu, giữ nguyên ghi chú và deck đã đẩy (`51cb9ad`, `4869732`, `0dfedd7`).
+
+## Sửa ghi chú theo chuẩn 2026-11 (đợt A2, giai đoạn 1, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md`; `AGENTS.md` §"Cấu trúc bắt buộc" mục 5, 6, 10 (commit `761469f`, `91599ec`, `6cd691f`). Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Rà văn phong và giọng tác giả (đợt duyệt toàn học phần, bản chưa đổi) | general-purpose | opus | high | không |
+| Rà chuẩn giáo trình | general-purpose | opus | high | không |
+| Rà độ chính xác toán và thuật toán (ba lượt) | general-purpose | opus | high | không |
+| Biên tập (ba vòng, SendMessage) | general-purpose | opus | high | ghi chú |
+| Kiểm tra lại mạch, liên kết và văn phong (hai lượt) | general-purpose | opus | high | không |
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | danh sách 77–84, bảng "Nguồn của các chứng minh", chín câu đính chính NG, khoảng 60 câu bàn nguồn hoặc lấy NG/HUFF.C/AHUFF.C/ARITH.C/CMU làm chủ ngữ | trái quyết định 2026-11-11 | chấp nhận: xóa; viết "nội dung (nguồn)"; tiêu đề Thuật toán 10.23, 10.26, 10.29, 10.40 và Nhận xét 10.28 bỏ "theo NG"/"chương trình" (số hiệu giữ); chứng minh ngoài phạm vi giữ nguồn ở mục tài liệu tham khảo (McMillan; cận Fibonacci NG tr.74–75; Witten, Neal, Cleary 1987, CACM 30(6), tr.520–540) |
+| trung bình | 1415, 2045 | "mọi mã trên hai ký hiệu có $\bar\ell=1$" sai (mã {`0`, `10`} với $(0{,}9;0{,}1)$ cho $1{,}1$) | chấp nhận: "ít nhất 1 bit; mã Huffman đúng 1 bit" |
+| trung bình | Tình huống 10.3(a) | lượt sửa 1 bỏ chữ "có thể" của nguồn | chấp nhận: khôi phục |
+| trung bình | Nhận xét 10.20 | "nên" nối 257 bảng với $65\,536$ byte ($257\cdot256\ne65\,536$) | chấp nhận: tách gạch, bỏ quan hệ nhân quả |
+| trung bình | Định nghĩa 10.36 | khoảng giữa, bit chờ định nghĩa trong văn xuôi, chưa có nghĩa vận hành | chấp nhận: nối vào Định nghĩa 10.36 (không tạo số mới), thêm nghĩa vận hành; giữ vị trí khối (thứ tự rút gọn: định nghĩa trước ví dụ tràn dưới) |
+| trung bình | bảng ký hiệu | thiếu $J(u)$, $k'$, $\#i$, $c_{\mathrm H}/T_{\mathrm H}$, $\mathcal Q$, $j$, `count` | chấp nhận (24 dòng) |
+| trung bình | Bổ đề 10.8, 10.15; Mệnh đề 10.27, 10.33, 10.41 | thiếu đoạn đọc và "Bỏ …" | chấp nhận; phản ví dụ kiểm bằng tính toán |
+| trung bình | Mục 6, 7 mở và kết; câu mở phần tình huống; Tình huống 10.1 | mở bằng nguồn; mâu thuẫn Tình huống 10.2; tình huống không có bước áp dụng | chấp nhận |
+| nhẹ | 966 | cận gốc $256\cdot255+1$ không đạt được (số đếm sau co ≤ 254) | chấp nhận: $256\cdot254+1=65\,025$ |
+| nhẹ | cận Fibonacci, $z_6=K$, mã E/A ở Ví dụ 10.14, 22,81 bit, điều kiện cận trên Hệ quả 10.19, $d\ge d_{s_2}$, dấu "<" của NG cho $N$, trích dẫn mã nguồn NG tr.81, 85 thay lời văn | chấp nhận |
+| nhẹ | các điểm văn phong còn lại (Ta/Chúng ta, nhãn "Ý tưởng:", điều hướng, giả mã tiếng Việt, thứ tự trường thuật toán, `aligned`, câu lặp, câu mảnh) | chấp nhận |
+| — | đổi thứ tự trực giác–định nghĩa ở 266, 515, 1017, 1467, 1759 | bác bỏ: ghi chú theo §"Cách trình bày một chủ đề" (AGENTS.md dòng 221) |
+| — | thêm bài tập sau 3.3, 4.1–4.3, 5.1–5.3, 6.1, 6.3 | bác bỏ: bài tương ứng ở `exercises.md` |
+| — | bảng chi phí cho 10.26, 10.29; bỏ Tình huống 10.1 | bác bỏ (nhẹ; bỏ phải đánh lại số) |
+
+Đính chính so với NG (chuyển khỏi ghi chú; người rà độ chính xác xác nhận cả 11 chỗ NG sai, ghi chú đúng): thứ tự ghép của HUFF.C khác lời văn tr.35–36 (Bài tập 10.1); tổng 83,56 bit của NG do làm tròn, đúng là 83,69 bit (Bài tập 10.4); tuyên bố từ mã ≤ 16 bit ở tr.52 không bảo đảm (có cây 17 bit với 175 ký hiệu, số đếm ≤ 247, gốc 28 656); quy ước bit theo vị trí: lời văn tr.81 ngược mã nguồn; Hình 4.4 và lời văn; Hình 4.12 ghi C có W=6, đúng là 5; khoảng của A ở tr.99 in 0,2–0,3, đúng là $[0{,}1;0{,}2)$; "minimum of nine bits" với 8 ký hiệu, đúng là 8; bảng tr.101–102 in range 10000 sau "Shift out 2", đúng là 100 000; `scale_counts` của ARITH.C: lần chia thứ hai không đặt lại số đếm về 1; "sáu lần" ở tr.96 là làm tròn của 6,6. Co trọng số: lời văn tr.75–77 chia đôi bỏ phần lẻ, mã tr.85 làm tròn lên.
+
+Nguồn gốc số liệu chuyển khỏi ghi chú: các dữ kiện không kèm nguồn (danh sách dòng 77–84 cũ) là dữ liệu tính tay do người soạn dựng.
+
+### Kết quả kiểm tra
+
+- Độ dài (`wc -w`): 31 992 → 30 703 (dưới trần 32 000; đích 30 000 của hàng đợi là mềm).
+- Khối có số hiệu: 86 khối (ghi chú + `exercises.md`) giữ số và loại; đổi tiêu đề trong ngoặc của Thuật toán 10.23, 10.26, 10.29, 10.40 và Nhận xét 10.28 như đã duyệt.
+- Tham chiếu: 81 dẫn chiếu "Loại NN.k" trong ghi chú trỏ tới khối có thật.
+- Grep: 0 HUFF.C, AHUFF.C, ARITH.C, "NG in", "lỗi in", "tính tay của chương", "Bài này", "Mục này"; `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900 và 390×844, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không công thức tràn khung, không tràn ngang trang, khối gập mở khi in.
+- Giai đoạn 2 (`exercises.md` theo quy tắc nguồn bài tập 2026-11-11: Bài 10 lấy bài từ CMU 15-499 vì NG không có bài tập) làm sau khi ghi chú được push.
