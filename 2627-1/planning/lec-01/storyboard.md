@@ -95,6 +95,8 @@ Bản ER-001: 45 trang giảng, 120 phút; sáu trang bài tập kể cả trang
 
 ## Vai trò và kết nối giữa các mạch
 
+*Lịch sử, giữ để đối chiếu: bảng và các câu nối dưới đây ghi cấu trúc trước lượt sửa toàn diện 2026-10-14 (còn mạch E, L01-ET). Cấu trúc bảy mạch hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14".*
+
 | Mạch | Kiến thức đầu vào | Vai trò và sản phẩm | Kết nối vào → ra |
 |---|---|---|---|
 | A | Tệp, bản ghi, liên kết web; véc-tơ được giải thích là dãy số | P00 là trang tiêu đề mạch 1; P01 liệt kê đánh số bảy mạch và mục tiêu; bảy nhiệm vụ phân biệt đầu vào, đầu ra và khó khăn | Mục tiêu học → thống kê kho web → sắp kết quả và tìm tương đồng → dòng yêu cầu |
@@ -456,3 +458,20 @@ Trang bỏ hoặc gộp: `L01-D00` (`bỏ`: bảng mô tả chính phần, trùn
 - `L01-G02` Câu hỏi tự kiểm tra — 6; kiểm ba kết quả của G01 (Jaccard và ngưỡng; chi phí đọc ghi; mô hình lưu trú); trả lời và nêu kết quả đã dùng; ba câu; $J=3/8$, $F$, $\mathbb E[X]$; C02, C09, G01, F03, F05; lời giải trong ghi chú; câu trả lời; `thêm`.
 - `L01-G03` Nguồn và tài liệu đọc — 6; liệt kê nguồn có chương, mục, trang, ghi công mmds.org, nối Bài 02; chọn tài liệu đọc; danh mục nguồn; dòng "Nguồn:" của mọi ghi chú; không; danh mục và dòng chuẩn bị Bài 02; không có câu hỏi; `thêm` (gộp E04).
 - `L01-F04` Câu trả lời cho vấn đề trung tâm — 6 (chuyển từ mạch F, đổi vai trò); trả lời P04 theo thứ tự bằng số của bài; đối chiếu từng dòng với P04; bốn kết luận có điều kiện; G01; mọi mạch; bốn câu trả lời; G02; `sửa`.
+
+## Ánh xạ chủ đề của ghi chú (đợt B1, 2026-11-11)
+
+Ghi chú viết lại theo chuẩn giáo trình; mã chủ đề cũ `L01-N0k` đổi thành `lec-01-topic-0k`. Các chú thích `<!-- note-topic-id: … -->` đặt trước tiêu đề mục tương ứng trong `materials/lec-01/lecture-note.md`.
+
+| Mã cũ | note-topic-id | Mục ghi chú | Trang chiếu (`data-slide-id`) | Khối số hiệu | Vào → ra |
+|---|---|---|---|---|---|
+| L01-N01 | `lec-01-topic-01` | Mục 1 (1.1–1.2) | L01-P00, P02, P03, P01, P04, A01–A07, A10 | Định nghĩa 01.1, 01.2; Nhận xét 01.3; Ví dụ 01.1–01.2; Bài tập 01.1–01.2 | mô hình RAM của học phần tiên quyết → bài toán dữ liệu có ngân sách → cần đơn vị đo |
+| L01-N02 | `lec-01-topic-02` | Mục 2 | L01-BT, B00, B01, B02, B10, B03, B04, B11, B05–B09, B12; C09 cho Mệnh đề 01.5 | Định nghĩa 01.4, 01.7, 01.8; Mệnh đề 01.5; Nhận xét 01.6; Ví dụ 01.3–01.5; Bài tập 01.3–01.4 | ngân sách bằng lời → số lần chuyển khối $F$, $2F$, $2mF$ → cần đặc tả chặt |
+| L01-N03 | `lec-01-topic-03` | Mục 3.1–3.3 | L01-CT, C00, C01, C02, C03, C17, C04, C06, C18 | Định nghĩa 01.9, 01.10; Thuật toán 01.11; Mệnh đề 01.12; Ví dụ 01.6–01.7 | cặp gần trùng → $R$ và tính đúng → cần chi phí |
+| L01-N04 | `lec-01-topic-04` | Mục 3.4–3.5 | L01-C05, C07, C08, C10–C16 | Định nghĩa 01.13, 01.17; Bổ đề 01.14; Mệnh đề 01.15, 01.16; Ví dụ 01.8 (chi phí), 01.9 (xác minh ứng viên), 01.10 (độ thu hồi); Bài tập 01.5–01.7 | $N(N-1)L$ phép so sánh → điều kiện $R\subseteq A$ → nhóm phương pháp |
+| L01-N05 | `lec-01-topic-05` | Mục 4.1 | L01-DT, D02, D03, D08, D04, D09, D05, D10, D06, D07, D11 | Ví dụ 01.11 | ba giới hạn → năm nhóm Bài 02–15 → kiến thức nền |
+| L01-N06 | `lec-01-topic-06` | Mục 4.2 | L01-D01, E01, E02, E06, E03 | Bài tập 01.8 | nhóm bài → CLO, kiến thức nền, sản phẩm, trách nhiệm → câu hỏi về mẫu ngẫu nhiên |
+| L01-N07 | `lec-01-topic-07` | Mục 5 | L01-FT, F01, F02, F05, F06, F03, F07 | Định nghĩa 01.18, 01.19; Mệnh đề 01.20; Bổ đề 01.21; Hệ quả 01.22; Nhận xét 01.23; Ví dụ 01.12–01.14; Bài tập 01.9 | kết quả đúng và đủ → $\mathbb E[X]\approx249\,750$, Markov → giới hạn kết luận, Bài 02 |
+| L01-N08 | `lec-01-topic-08` | Bài tập củng cố; `materials/lec-01/exercises.md` | L01-RT, R00–R06 | Bài tập 01.10 (MMDS 1.2.1), 01.11 (MMDS 1.2.2) | mô hình nền → hai bài recitation có gợi ý và lời giải |
+
+Các trang tổng kết L01-GT, G01, F04, G02, G03 ứng với "Tóm tắt chương" và "Hướng dẫn đọc thêm" của ghi chú, không mang `note-topic-id` riêng. Ba tình huống áp dụng của ghi chú (Tình huống 01.1–01.3) không có trang chiếu tương ứng: Tình huống 01.1 dùng MMDS Ví dụ 3.10, Tình huống 01.2 dùng DSC Ch.15 trang chiếu 24–28, 40, Tình huống 01.3 dùng MMDS Ví dụ 1.5.

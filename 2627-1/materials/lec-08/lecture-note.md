@@ -15,12 +15,12 @@ Sau chương này, người học có thể:
 <!-- note-topic-id: lec-08-topic-01 -->
 ## Kiến thức tiên quyết
 
-Số hiệu `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 01 và Bài 05 chưa đánh số hiệu, nên các kết quả của hai bài đó được dẫn theo mục. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $f$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
+Số hiệu `01.k` chỉ ghi chú Bài 01, `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 05 chưa đánh số hiệu, nên các kết quả của bài đó được dẫn theo mục. Mỗi kết quả được phát biểu lại dưới đây; các chữ $c$, $c_0$, $z$, $Z$, $f$, $g$, $\alpha$, $\beta$ trong phần này là biến tạm, không mang nghĩa của bảng ký hiệu.
 
-- **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời gian) vẫn đo được mức lặp truy vấn theo người dùng, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
+- **Hai bài toán dòng của Bài 01** (ghi chú Bài 01, Mục 2.2, Ví dụ 01.4). Bài toán thứ nhất cần một mẫu của nhật ký (người dùng, truy vấn, thời gian) vẫn đo được mức lặp truy vấn theo người dùng, nên đơn vị lấy mẫu là người dùng. Bài toán thứ hai nhận thư có địa chỉ gửi thuộc danh sách cho phép và bỏ thư còn lại; khi danh sách vượt bộ nhớ, mỗi thư có thể cần một lần tra đĩa.
 - **Hàm băm là hàm tất định** (ghi chú Bài 05, Mục 9). Một hàm băm đã chọn cho cùng giá trị trên cùng đầu vào, ở mọi lần gọi và trên mọi máy dùng hàm đó. Tính ngẫu nhiên, nếu có, đến từ phép chọn hàm trong một họ hàm, không đến từ từng lần gọi; tính đều của phép chọn là một giả thiết riêng, được nêu tại từng kết quả cần đến nó.
 - **Phân tích xác suất thành ứng viên** (Định lý 06.7). Khi các hàm MinHash được chọn độc lập, xác suất một cặp tài liệu thành ứng viên được tính theo bốn bước: xác suất trùng ở một hàng; tích các xác suất độc lập cho xác suất trùng cả một dải; tích lần nữa trên các dải độc lập cho xác suất không dải nào trùng; rồi lấy biến cố bù.
-- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, mục "Mô hình ngẫu nhiên và giới hạn suy luận"; ghi chú Bài 05, Mục 7).
+- **Công cụ xác suất** (học phần Xác suất thống kê; ghi chú Bài 01, Mục 5, Mệnh đề 01.20; ghi chú Bài 05, Mục 7).
   - Biến cố bù: $\Pr(\overline E)=1-\Pr(E)$.
   - Với các biến cố $E_1,\ldots,E_c$ độc lập (toàn phần, không chỉ từng đôi), $\Pr(E_1\cap\cdots\cap E_c)=\Pr(E_1)\cdots\Pr(E_c)$.
   - Quy tắc nhân: $\Pr(E\cap F)=\Pr(E)\Pr(F\mid E)$ khi $\Pr(E)>0$.
@@ -81,7 +81,7 @@ Các quy ước đọc sau dùng trong cả chương.
 <!-- note-topic-id: lec-08-topic-02 -->
 ## 1. Mô hình dòng một lượt
 
-Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn") đặt hai bài toán trên dòng: giữ một mẫu nhật ký truy vấn vẫn đo được mức lặp truy vấn theo người dùng, và lọc thư theo danh sách địa chỉ cho phép khi danh sách vượt bộ nhớ. Với vài trăm triệu truy vấn mỗi ngày (MMDS §4.1.2, tr.133) và $10^9$ địa chỉ được phép trong 1 GB bộ nhớ (§4.3.1, tr.139), không thể lưu cả dòng rồi xử lý. Chúng ta xây một mô hình chung cho thuật toán dòng (Mục 1), ba cấu trúc trên mô hình đó (Mục 2–4) và một quy trình chọn giữa chúng (Mục 5).
+Ghi chú Bài 01 (Mục 2.2) đặt hai bài toán trên dòng: giữ một mẫu nhật ký truy vấn vẫn đo được mức lặp truy vấn theo người dùng, và lọc thư theo danh sách địa chỉ cho phép khi danh sách vượt bộ nhớ. Với vài trăm triệu truy vấn mỗi ngày (MMDS §4.1.2, tr.133) và $10^9$ địa chỉ được phép trong 1 GB bộ nhớ (§4.3.1, tr.139), không thể lưu cả dòng rồi xử lý. Chúng ta xây một mô hình chung cho thuật toán dòng (Mục 1), ba cấu trúc trên mô hình đó (Mục 2–4) và một quy trình chọn giữa chúng (Mục 5).
 
 ![Sơ đồ cấu trúc chương đọc từ trên xuống: khối Mục 1, mô hình dòng một lượt, đọc một lần và trả lời từ trạng thái; ba mũi tên xuống ba khối song song: Mục 2 lấy mẫu theo khóa, câu hỏi thống kê theo nhóm, bảo đảm giữ trọn từng khóa với xác suất a/b mỗi khóa; Mục 3 lấy mẫu hồ chứa, câu hỏi mẫu có cỡ cố định, bảo đảm đúng s phần tử với xác suất s/r mỗi phần tử; Mục 4 Bloom filter, câu hỏi khóa có thuộc tập không, bảo đảm không âm giả và dương giả xấp xỉ p(k); ba mũi tên hội tụ vào khối Mục 5, chọn cấu trúc theo câu hỏi dựa trên đầu ra, giả thiết và chi phí.](img/lec-08/cau-truc-chuong.svg)
 
@@ -960,7 +960,7 @@ Như vậy, chúng ta đã có cấu trúc lấy mẫu thứ hai: hồ chứa gi
 
 ## 4. Lọc thành viên bằng Bloom filter
 
-Bài toán lọc thư của ghi chú Bài 01 đòi cho qua hay chặn mỗi thư đến tùy địa chỉ gửi có thuộc tập $10^9$ địa chỉ được phép hay không, và thư từ địa chỉ được phép thì không được chặn. Lọc theo một tập không vừa bộ nhớ chính cần tra tập đó cho mỗi bộ (MMDS §4.3, tr.139). Chúng ta cần một cấu trúc trả lời câu hỏi thành viên trên dòng, với bộ nhớ cố định và không bao giờ chặn nhầm một địa chỉ được phép.
+Bài toán lọc thư của ghi chú Bài 01 (Mục 2.2) đòi cho qua hay chặn mỗi thư đến tùy địa chỉ gửi có thuộc tập $10^9$ địa chỉ được phép hay không, và thư từ địa chỉ được phép thì không được chặn. Lọc theo một tập không vừa bộ nhớ chính cần tra tập đó cho mỗi bộ (MMDS §4.3, tr.139). Chúng ta cần một cấu trúc trả lời câu hỏi thành viên trên dòng, với bộ nhớ cố định và không bao giờ chặn nhầm một địa chỉ được phép.
 
 <!-- note-topic-id: lec-08-topic-09 -->
 ### 4.1 Lọc theo danh sách cho phép
@@ -1471,7 +1471,7 @@ Ba tình huống dưới đây giải trọn ba bài toán bằng công cụ c�
 <!-- note-topic-id: lec-08-topic-15 -->
 ## Tóm tắt chương
 
-Xuất phát điểm là hai bài toán của ghi chú Bài 01 trên một dòng không biết trước độ dài: đo tỷ lệ truy vấn lặp khi chỉ lưu được $1/10$ dòng, và lọc thư theo $10^9$ địa chỉ với 1 GB bộ nhớ. Chúng ta đặc tả thuật toán dòng một lượt, trả lời từ trạng thái chọn theo truy vấn và đo bằng bốn đại lượng chi phí mỗi phần tử (Định nghĩa 08.1, 08.3). Lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), nên chúng ta giữ trọn từng khóa bằng một hàm băm cố định (Thuật toán 08.9): mỗi khóa được giữ với xác suất $a/b$ (Mệnh đề 08.10), cỡ mẫu kỳ vọng là $ar/b$ (Hệ quả 08.12), và ngưỡng giảm dần giữ được ngân sách cố định (Mệnh đề 08.14). Cỡ mẫu theo khóa không cố định, nên hồ chứa giữ đúng $s$ phần tử, mỗi phần tử có mặt với xác suất $s/r$ (Định lý 08.17), và mọi tập con cỡ $s$ đồng khả năng (Mệnh đề 08.18). Câu hỏi thành viên cần Bloom filter: không có âm giả dưới bốn điều kiện về trạng thái (Định lý 08.25), xác suất dương giả có các cận dưới $p(k)\le q^k$ (Mệnh đề 08.27), nhỏ nhất theo dạng mũ tại $k^*=(n/m)\ln2$ (Định lý 08.28). Với tám bit mỗi khóa và sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài danh sách lọt qua. Đếm phần tử phân biệt, mômen và cửa sổ thời gian được xét ở Bài 09.
+Xuất phát điểm là hai bài toán của ghi chú Bài 01 (Mục 2.2) trên một dòng không biết trước độ dài: đo tỷ lệ truy vấn lặp khi chỉ lưu được $1/10$ dòng, và lọc thư theo $10^9$ địa chỉ với 1 GB bộ nhớ. Chúng ta đặc tả thuật toán dòng một lượt, trả lời từ trạng thái chọn theo truy vấn và đo bằng bốn đại lượng chi phí mỗi phần tử (Định nghĩa 08.1, 08.3). Lấy mẫu từng bộ làm sai tỷ lệ lặp (Mệnh đề 08.6), nên chúng ta giữ trọn từng khóa bằng một hàm băm cố định (Thuật toán 08.9): mỗi khóa được giữ với xác suất $a/b$ (Mệnh đề 08.10), cỡ mẫu kỳ vọng là $ar/b$ (Hệ quả 08.12), và ngưỡng giảm dần giữ được ngân sách cố định (Mệnh đề 08.14). Cỡ mẫu theo khóa không cố định, nên hồ chứa giữ đúng $s$ phần tử, mỗi phần tử có mặt với xác suất $s/r$ (Định lý 08.17), và mọi tập con cỡ $s$ đồng khả năng (Mệnh đề 08.18). Câu hỏi thành viên cần Bloom filter: không có âm giả dưới bốn điều kiện về trạng thái (Định lý 08.25), xác suất dương giả có các cận dưới $p(k)\le q^k$ (Mệnh đề 08.27), nhỏ nhất theo dạng mũ tại $k^*=(n/m)\ln2$ (Định lý 08.28). Với tám bit mỗi khóa và sáu hàm băm, khoảng $2{,}16\%$ địa chỉ ngoài danh sách lọt qua. Đếm phần tử phân biệt, mômen và cửa sổ thời gian được xét ở Bài 09.
 
 **Định nghĩa và kết quả theo mục.**
 
@@ -1519,4 +1519,4 @@ Bài tập 08.6–08.13 nằm trong [tệp bài tập Bài 08](material-viewer.h
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1 và §3.2. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho Thuật toán 08.2 và Mệnh đề 08.14; ký hiệu tiệm cận ở phần tiên quyết.
 - Đọc tiếp: ghi chú Bài 09, *Dòng dữ liệu: đếm, mômen và cửa sổ*, Mục 2 (Flajolet–Martin) và Mục 3 (biến AMS, dùng hồ chứa $s$ vị trí), ứng với MMDS §4.4–4.7.
 - Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018, §6.1, tr.181, trình bày lấy mẫu một chỉ số với xác suất tỷ lệ trọng số bằng cùng kiểu quy nạp như Định lý 08.17; §6.6, tr.204: Bài tập 08.6–08.9 (tệp bài tập).
-- Ghi chú Bài 01 (mục "Xử lý dòng dữ liệu, lưu trữ và truy vấn"; mục "Mô hình ngẫu nhiên và giới hạn suy luận"), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.
+- Ghi chú Bài 01 (Mục 2.2, Mục 5), ghi chú Bài 05 (Mục 7, 9, 10) và ghi chú Bài 06 (Định lý 06.7, Mệnh đề 06.5, Tình huống 06.2): các kết quả nhắc lại ở phần kiến thức tiên quyết.

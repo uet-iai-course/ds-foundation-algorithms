@@ -18,7 +18,7 @@ Sau chương này, người học có thể:
 <!-- note-topic-id: lec-09-topic-01 -->
 ## Kiến thức tiên quyết
 
-Số hiệu `08.k` chỉ ghi chú Bài 08, `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 01 và Bài 05 chưa đánh số hiệu, nên được dẫn theo mục.
+Số hiệu `08.k` chỉ ghi chú Bài 08, `06.k` chỉ ghi chú Bài 06. Ghi chú Bài 05 chưa đánh số hiệu, nên được dẫn theo mục.
 
 Mỗi kết quả được dẫn đều được phát biểu lại dưới đây. Trong phần phát biểu lại, các chữ $n$, $k$, $j$, $b$, $r$, $s$ là biến tạm theo ký hiệu của bài được dẫn, không mang nghĩa của bảng ký hiệu Bài 09.
 

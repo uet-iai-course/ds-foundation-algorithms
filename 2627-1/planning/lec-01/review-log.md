@@ -1073,3 +1073,59 @@ Reviewer mạch phiên49476 đọc đủ51slide sau sửa A07, xác nhận bảy
 | Git |Chỉ đầu ra Bài01 vàedit_request.md;giữ thay đổi người dùng ởAGENTS.md,.gitignore,.codex,codex-orchestrator,openrouter-mcp |
 
 Thời lượng là thiết kế học liệu, không phải số đo diễn tập. Nội dung đã xuất bản bằng commit `627d69ee9a214830ee81543faa170b1b50e7e532`, push thường lên origin/main; `git ls-remote` xác nhận đúng mã commit từ xa. ER-001 được tick sau xác nhận này. Bản cập nhật checklist/nhật ký không đổi học liệu đã kiểm định.
+
+## Viết lại ghi chú theo chuẩn 2026-11 (đợt B1, giai đoạn 1 và 2, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` (đợt B1); `AGENTS.md` §"Cấu trúc bắt buộc" mục 5, 6, 10; mục "The author's voice" của `../CLAUDE.md`. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà. Quyết định của tác giả (2026-11-11): Bài 01 là bài giới thiệu, không thêm bài tập; giữ Bài tập 01.1–01.9 (ghi chú) và 01.10–01.11 (MMDS Bài 1.2.1, 1.2.2, §1.2.4, tr.8; `exercises.md`) và hoàn thiện. Giai đoạn 2 vì vậy chỉ còn rà và hoàn thiện, gộp vào lượt này.
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập kế hoạch chương | general-purpose | opus | high | không |
+| Soạn, sau đó biên tập ba vòng (SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `img/lec-01/note-cau-truc-chuong-01.svg` và bộ sinh trong `tools/`, `outline.md`, `storyboard.md`, các dòng dẫn tới Bài 01 trong ghi chú Bài 08, 09 |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà chuyên gia miền | general-purpose | opus | high | không |
+| Rà độ chính xác (ba lượt) | general-purpose | opus | high | không |
+| Rà sư phạm, `no-ai-slop` Detect | general-purpose | opus | high | không |
+| Rà mạch và liên kết (ba lượt) | general-purpose | opus | high | không |
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | `exercises.md`, Bài tập 01.10(a) | "$3998/999$ … nhỏ hơn 4"; thực ra $999\cdot4=3996<3998$ | chấp nhận: $\approx4{,}002$, lớn hơn 4 |
+| nghiêm trọng | Mục 3–4 | "bộ nhớ 20 khối (Mục 2.4)" không có trong Mục 2.4 | chấp nhận: đặt $M=20$ ở Mục 2.4 (DSC Ch.15, trang chiếu 40) |
+| trung bình | toàn chương | thuật ngữ lệch các bài sau | chấp nhận: "lần truyền khối" (Bài 12, 15); "xác minh" (Bài 06); "dương giả/âm giả" (Bài 08), "ứng viên giả/cặp bỏ sót" (Bài 06); bảng thuật ngữ trong `outline.md` |
+| trung bình | ký hiệu | $J$, $d$ hai nghĩa, $b$, $c$, $s$, $h$, $e$, $u$ | chấp nhận: $\mathrm{SIM}$; $D$ số chiều, $d(\cdot,\cdot)$ khoảng cách; $\tau=a/c$; $\lambda$ ngưỡng Markov; $\kappa$, $x_0$ trong ký hiệu $O$; câu đối chiếu với Bài 05–07 |
+| trung bình | Tình huống 01.2 | "mọi thuật toán nối tốn ít nhất 500 lần" | chấp nhận: thu hẹp về trường hợp không có chỉ mục |
+| trung bình | Mục 2.1, Nhận xét 01.6 | số liệu đĩa viết như sự thật chung | chấp nhận: "MMDS giả sử"; thêm số liệu đĩa từ/SSD và $b\,t_T+S\,t_S$ (DSC trang chiếu 8) |
+| trung bình | Tình huống 01.3 | "tập khóa hợp lý" ngược MMDS §1.3.2 | chấp nhận: tập khóa hợp lý nhưng chung ước 2 với $B$ |
+| trung bình | Tình huống 01.1 | khẳng định Mệnh đề trên chữ ký xấp xỉ | chấp nhận: giả thiết phép kiểm chính xác bị vi phạm, mất cả $\widehat R\subseteq R$ |
+| trung bình | Bài tập 01.8, Ví dụ 01.11 | "ba đại lượng khác nhau" | chấp nhận: đếm lại đại lượng chính |
+| trung bình | Mục 3.5 | thứ tự: độ thu hồi trước ứng viên | chấp nhận: đổi thứ tự, đổi số hiệu (bảng dưới) |
+| trung bình | đọc hình, câu hỏi 1 và 4, câu mở Mục 2, 3, 4, Tóm tắt | đọc hình sai; câu hỏi chưa áp vào bài toán trung tâm; câu mở lặp cuối mục trước | chấp nhận |
+| trung bình | toàn chương | khoảng 16 câu chỉ đường, 13 câu bình luận nguồn, câu gần đính chính sách, cảnh báo "sao chép" và MMDS Ví dụ 3.10 lặp | chấp nhận: cắt; phép tính giữ |
+| trung bình | Ví dụ 01.7 | chạy tay $N=2$ quá ngắn | chấp nhận: $N=3$, $C_3=C_1$ |
+| nhẹ | khoảng 40 mục của năm báo cáo | trang nguồn (DSC 8–9, CMU 13–14, 17, 19), BHK bản 04/01/2018, CS246 trang chiếu 67–69, Markov, $8{,}31\%$, Spam Mass, BIODS 271, … | chấp nhận |
+| — | cắt thêm bảng Mục 3.2, 4.1, danh mục tham khảo để đạt mục tiêu cắt 1 800 | bác bỏ: độ dài 19 128 đã trong khoảng 12 000–32 000 |
+| — | gộp công thức đã ngắt dòng | bác bỏ: tràn khung ở 390 px |
+| — | đổi câu mở "Các giả thiết … có vai trò riêng" | bác bỏ: dạng chuẩn của `AGENTS.md` |
+| — | đổi nhãn $S,T$ của `img/lec-01/danh-gia-jaccard.svg` | bác bỏ: hình dùng chung với deck; ghi chú nêu $S=C_1$, $T=C_2$ |
+| — | đổi $t_T$, $t_S$ | bác bỏ: ký hiệu của DSC và Bài 15 |
+| — | thêm bài tập mức nhận biết | hủy theo quyết định tác giả |
+
+Đổi số hiệu (Mục 3.5): Định nghĩa 01.16 → 01.17 (độ thu hồi); Mệnh đề 01.17 → 01.16 (xác minh ứng viên); Ví dụ 01.9 ↔ 01.10. Không nơi nào ngoài ghi chú dẫn các số cũ.
+
+Dẫn chéo: ghi chú Bài 08 (các câu dẫn Bài 01 ở phần tiên quyết, Mục 1, Mục 4, tham khảo) đổi tên mục cũ thành Mục 2.2, Mục 5, Ví dụ 01.4, Mệnh đề 01.20; câu "Ghi chú Bài 01 … chưa đánh số hiệu" ở Bài 08 và Bài 09 sửa phần nói về Bài 01.
+
+Sai khác với deck (không sửa deck trong đợt này): deck còn $J$, nhãn $S,T$, "khối đọc ghi" (P04, B00, C09), "hậu kiểm" (D04, G01), "bỏ sót" (C16, GT), "lần kiểm" (C07, F04); ghi trong `outline.md`.
+
+Nguồn đã đối chiếu: MMDS §1.2–1.3, tr.6–13; Ch.3 tr.73–75, 92; §4.2–4.3, §5.3.1; DSC Ch.15 trang chiếu 8–9, 19–22, 24–28, 40; CS246 trang chiếu 32–33, 62, 67–69; BHK tr.10, 13; BIODS L12 tr.16–18; CMU 15-499 compression3-lz trang chiếu 13–14, 17, 19.
+
+### Kết quả kiểm tra
+
+- Độ dài: ghi chú 12 212 (bản cũ) → 19 173; `exercises.md` 1 297.
+- Khối: bộ đếm chung 01.1–01.23 liên tục; Ví dụ 01.1–01.14; Bài tập 01.1–01.11; Tình huống 01.1–01.3; 51 dẫn "X 01.k" trong ghi chú, `exercises.md`, Bài 08, Bài 09 trỏ tới khối có thật.
+- Grep: 0 "chưa phải", "Bản đồ chủ đề", "Mục này", "do học phần", "hậu kiểm", "chuyển khối", "Đáp"; `git diff --check` sạch.
+- Trình duyệt (`http.server`, Playwright Chromium): ghi chú và `exercises.md` ở 1600×900, 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, trang không cuộn ngang (13 hình rộng nằm trong khung cuộn riêng, như Bài 10), khối gập mở khi in.

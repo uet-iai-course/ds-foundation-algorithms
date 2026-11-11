@@ -138,6 +138,8 @@ R là phần dọc thứ bảy sau phần giảng; có sáu trang kể cả tran
 
 ### Tên mạch và trang tiêu đề mạch (2026-10-14)
 
+*Lịch sử, giữ để đối chiếu: bảng dưới đây ghi cấu trúc trước lượt sửa toàn diện 2026-10-14 (còn mạch E, L01-ET). Cấu trúc bảy mạch hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14".*
+
 Tên trên trang "Nội dung buổi học" (L01-P01) và trên trang tiêu đề mạch trùng từng chữ. Mạch 1 mở bằng trang bìa L01-P00; các mạch khác mở bằng trang `class="strand-title"` có `id="mach-N"`.
 
 | N | Nhãn nội bộ | Tên mạch | Trang tiêu đề mạch |
@@ -291,3 +293,38 @@ Mã trang mới: P02, P03, P04, A10, B12, C17, C18, D11, GT, G01, G02, G03. Mã 
 **Lộ trình sang Bài 05–06.** Mọi câu nhắc Bài 05–06 nay theo nội dung hiện hành: Bài 05 biểu diễn bằng tập đoạn ký tự và chữ ký MinHash; Bài 06 phân dải LSH để chọn cặp ứng viên. Bỏ câu hứa "Bài 05 phân tích hai con trỏ" (C04, C07): hai con trỏ là phép trộn hai danh sách đã sắp của học phần tiên quyết.
 
 **Lượt sửa sau rà ba vai (2026-10-14).** "đoạn ký tự (shingle)" giải nghĩa trên mặt trang C02, khớp Bài 05–06. $R$ khai báo ở dòng Ký hiệu của P02. Tên năm nhóm thống nhất theo bản đồ năm nhóm: Phân tán và xếp hạng; Tương đồng và tìm gần; Dòng và cửa sổ; Nén và khôi phục; Lưu trữ và truy vấn (khác tên năm mạch của `sources/source.md`: ghi review-log). C06 "Tính đúng: bất biến của xét mọi cặp", C18 "Tính đúng: khởi tạo, duy trì, kết thúc". G01 thêm hàng chi phí đọc ghi; G02 câu 2 dựa trên hàng này. D01 rút còn hai năng lực.
+
+## Ghi chú theo chuẩn giáo trình (đợt B1, 2026-11-11)
+
+**Goal.** Ghi chú `materials/lec-01/lecture-note.md` viết lại thành một chương giáo trình tự chứa theo `materials/_templates/lecture-note.md` và dàn ý đã duyệt ngày 2026-11-11; bộ trang chiếu giữ nguyên. Bài tập recitation MMDS 1.2.1, 1.2.2 chuyển sang `materials/lec-01/exercises.md` (Bài tập 01.10–01.11, giai đoạn 1).
+
+**Vấn đề trung tâm.** Trả mọi cặp có $J\ge\tau$ trong $N=10^6$ tài liệu, $\binom{10^6}2=499\,999\,500\,000$ cặp (MMDS tr.73), với bốn câu hỏi: đơn vị chi phí khi dữ liệu trên đĩa (Mục 2); đúng và tốn bao nhiêu (Mục 3.1–3.4); khi nào xét ít cặp hơn vẫn đủ (Mục 3.5, 4); bao nhiêu mẫu trùng do ngẫu nhiên (Mục 5). Hình cấu trúc chương: `img/lec-01/note-cau-truc-chuong-01.svg`.
+
+### Bản đồ chủ đề bốn nhóm
+
+| note-topic-id | Mục ghi chú | Chủ đề và khối số hiệu | Nhãn | Nguồn | Chu trình |
+|---|---|---|---|---|---|
+| `lec-01-topic-01` | Mục 1 | Bài toán dữ liệu (Định nghĩa 01.1, Ví dụ 01.1); bảy nhiệm vụ trên kho web; $k$ hàng xóm gần nhất chính xác (Định nghĩa 01.2, Ví dụ 01.2); nhiều máy và máy hỏng (Nhận xét 01.3); Bài tập 01.1–01.2 | cốt lõi | BHK tr.10; MMDS tr.73, §5.3.1 tr.195–196, Hình 5.16 tr.200; CS246 01-intro trang chiếu 32–33, 62; BIODS 271 L12 tr.16–18; CLRS 4e §1.1 | Mục 1.1 đủ (nhu cầu → ví dụ → định nghĩa → diễn giải và phản ví dụ). Mục 1.2 rút gọn: bảng bảy nhiệm vụ không có định lý, thuật toán hay chứng minh vì phương pháp thuộc Bài 02–07; Định nghĩa 01.2 có trực giác, ví dụ và phản ví dụ phá hòa |
+| `lec-01-topic-02` | Mục 2 | Khối, lần truyền khối, lượt quét (Định nghĩa 01.4, Ví dụ 01.3); chi phí lượt quét (Mệnh đề 01.5, chứng minh, phản ví dụ; Nhận xét 01.6); dòng dữ liệu (Ví dụ 01.4); nén (Định nghĩa 01.7); dữ liệu trên đĩa; hàm băm và chỉ mục băm (Định nghĩa 01.8, Ví dụ 01.5); Bài tập 01.3–01.4 | cốt lõi; Định nghĩa 01.8 là bổ sung | MMDS §1.3.2–1.3.4 tr.10–13, §4.2.1–4.2.2 tr.136–137, §4.3.1 tr.139–140; DSC Ch.15 trang chiếu 8–9, 19–22, 24–28, 40; Nelson–Gailly Ch.3, 11; CMU 15-499 LZ trang chiếu 13–14, 17, 19 | Mục 2.1 đủ. Mục 2.2–2.4 rút gọn: chỉ nêu đầu ra và trạng thái phải giữ, vì Bloom, FM, DGIM, mã nén, B+-Tree và các thuật toán nối thuộc Bài 08–15; Định nghĩa 01.8 bổ sung để Tình huống 01.3 có đối tượng |
+| `lec-01-topic-03` | Mục 3.1–3.3 | Jaccard (Ví dụ 01.6, Định nghĩa 01.9); bài toán cặp gần trùng (Định nghĩa 01.10); chạy tay (Ví dụ 01.7); xét mọi cặp (Thuật toán 01.11); tính đúng (Mệnh đề 01.12, chứng minh bốn phần đặt tên theo kết quả: mỗi cặp được xét đúng một vòng, bất biến đúng khi bắt đầu, bất biến được giữ qua mỗi vòng, khi dừng kết quả bằng $R$; phản ví dụ) | cốt lõi | MMDS tr.73–75, Ví dụ 3.1 tr.74; CLRS 4e §2.1 | đủ tám bước |
+| `lec-01-topic-04` | Mục 3.4–3.5 | Mô hình chi phí (Định nghĩa 01.13); thủ tục trộn (Bổ đề 01.14); chi phí xét mọi cặp (Mệnh đề 01.15, Ví dụ 01.8); xác minh ứng viên (Mệnh đề 01.16, Ví dụ 01.9); độ thu hồi (Định nghĩa 01.17, Ví dụ 01.10); Bài tập 01.5–01.7 | cốt lõi | MMDS Ví dụ 3.10 tr.92, tr.73; CS246 01-intro trang chiếu 67–69; Princeton COS 597A lớp 8–9 | đủ tám bước |
+| `lec-01-topic-05` | Mục 4.1 | Bảng giới hạn → nhóm → bài → thuộc tính; ý tưởng năm nhóm; quan hệ tiên quyết; Ví dụ 01.11 | cốt lõi | `sources/source.md` phần B; đề cương UET.DSE2053 | rút gọn: bản đồ học phần không có định nghĩa, định lý hay thuật toán mới; cơ chế, giả mã và chứng minh thuộc Bài 02–15 |
+| `lec-01-topic-06` | Mục 4.2 | Học phần, CLO1–CLO4; kiến thức nền theo nhóm; sản phẩm học tập; trách nhiệm dữ liệu; Bài tập 01.8 | cốt lõi | `sources/source.md` phần A | rút gọn: thông tin học phần không có kết quả toán học; giữ ví dụ trên bài toán cặp gần trùng và một bài tập |
+| `lec-01-topic-07` | Mục 5 | Mô hình lưu trú (Định nghĩa 01.18, 01.19; Ví dụ 01.12–01.14); kỳ vọng (Mệnh đề 01.20); Markov (Bổ đề 01.21, Hệ quả 01.22); nguyên lý Bonferroni (Nhận xét 01.23); Bài tập 01.9 | cầu nối; Bổ đề 01.21 là cầu nối | MMDS §1.2.1–1.2.3 tr.6–8; BHK Định lý 2.1 tr.13 | đủ tám bước |
+| `lec-01-topic-08` | Bài tập củng cố, `exercises.md` | MMDS Bài 1.2.1 (Bài tập 01.10), Bài 1.2.2 (Bài tập 01.11) | cốt lõi (recitation) | MMDS §1.2.4 tr.8, chú thích 3 | không áp dụng: tệp bài tập |
+
+**Đọc thêm hoặc bỏ.** BHK §2.2 hình học nhiều chiều và hình `the-tich-gan-bien.svg`: bỏ khỏi ghi chú. TF.IDF, luật lũy thừa, đồng nhất thức về $e$ (MMDS §1.3.1, 1.3.5–1.3.6): bỏ. Định lý hiệu chỉnh Bonferroni: không phát biểu. HyperLogLog, Rejection Sampling, DiskANN, hiệu năng Spark/Faiss: bỏ. Giả mã và chứng minh của Bài 02–15: không đưa vào.
+
+**Ký hiệu của ghi chú khác bộ trang chiếu (sau lượt sửa 2026-11-11).** Jaccard viết $\mathrm{SIM}(C,C')$ như MMDS và Bài 05–06; hai tập của MMDS Ví dụ 3.1 là $C_1,C_2$; deck dùng $J$ hoặc $S,T$ ở C02, C17, E02, G02. Hình `img/lec-01/danh-gia-jaccard.svg` của deck, cũng dùng trong ghi chú ở Mục 3.1, ghi nhãn hai tập là $S,T$; chữ $T$ trùng với số ngày của chương, nên đoạn đọc hình của ghi chú nêu "$S$ (tập $C_1$), $T$ (tập $C_2$)". Hình của deck không sửa. Deck còn dùng "khối đọc ghi" (P04, B00, C09), "hậu kiểm" (D04, G01), "bỏ sót" (C16, GT), "lần kiểm" (C07, F04), cùng $J$ và $S,T$; ghi chú dùng "lần truyền khối", "xác minh", "âm giả"/"cặp bỏ sót", "vòng" và $\mathrm{SIM}$, $C_1,C_2$. Quyết định: không sửa deck trong đợt này. Ngưỡng giữ $\tau$ (Bài 05–06 viết $t$; $t$ của chương là ngày). Dung lượng tệp và bộ nhớ tính bằng khối $F$, $M$; ghi chú diễn giả của A01 dùng $D$, $M$ tính bằng byte. Kho véc-tơ có $n$ véc-tơ, $D$ chiều, khoảng cách $d(\cdot,\cdot)$, truy vấn $\mathbf y$, tập hàng xóm $\mathcal N_k(\mathbf y)$ (Bài 07 viết $N$, $K$, $q$). Ngưỡng hữu tỷ viết $\tau=a/c$. Số ngày là $T$. Đã ghi `review-log.md`.
+
+### Thuật ngữ thống nhất với các bài sau (quyết định cấp học phần, lượt sửa 2026-11-11)
+
+| Tiếng Việt trong ghi chú | Tiếng Anh | Thay cho | Đối chiếu |
+|---|---|---|---|
+| lần truyền khối | block transfer | lần chuyển khối | Bài 12, Bài 15 |
+| xác minh | verification | hậu kiểm | Bài 06 |
+| dương giả (FP); ứng viên giả khi nói về cặp ứng viên | false positive | dương tính giả | Bài 08; Bài 06 |
+| âm giả (FN); cặp bỏ sót khi nói về cặp ứng viên | false negative | âm tính giả | Bài 08; Bài 06 |
+| chữ ký | signature | (chưa định nghĩa trong bản trước) | Bài 05 |
+| chi phí truyền thông | communication cost | | CS246 01-intro, trang chiếu 67 |
+| lượt (chỉ lượt đọc, lượt quét tệp); vòng (một lần chạy thân vòng lặp) | pass; iteration | "lượt" dùng cho cả hai | quy ước của chương |
