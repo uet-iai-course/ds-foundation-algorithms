@@ -5,6 +5,9 @@
   const DECK_PATTERN = /^lecture-(\d{2})-[a-z0-9-]+\.html$/;
   const TOPIC_ID_PATTERN = /^[a-z0-9][a-z0-9-]*$/;
   const TOPIC_COMMENT_PATTERN = /^[ \t]*<!--\s*note-topic-id:\s*([^\s]+)\s*-->[ \t]*$/gm;
+  // Dấu <!-- note-collapsed --> đứng ngay trước một tiêu đề "## " làm mục cấp hai đó thu gọn được (phần Đọc thêm).
+  const COLLAPSE_COMMENT_PATTERN = /^[ \t]*<!--\s*note-collapsed\s*-->[ \t]*$/gm;
+  const COLLAPSE_TOKEN = "notecollapsedsectionmarker";
   // Danh sách duy nhất các loại khối ::: và nhãn mặc định; mọi regex bên dưới sinh từ đây.
   const DIRECTIVE_LABELS = Object.freeze({
     definition: "Định nghĩa",
@@ -44,7 +47,72 @@
       }
       seen.add(topicId);
     }
-    return markdown.replace(TOPIC_COMMENT_PATTERN, "");
+    return markdown
+      .replace(TOPIC_COMMENT_PATTERN, "")
+      .replace(COLLAPSE_COMMENT_PATTERN, `\n${COLLAPSE_TOKEN}\n`);
+  }
+
+  // Bọc mục cấp hai sau mỗi dấu thu gọn trong <details>: tiêu đề nằm trong <summary>,
+  // nội dung kéo tới tiêu đề cấp hai kế tiếp hoặc hết tài liệu.
+  function collapseMarkedSections() {
+    const markers = Array.from(contentElement.querySelectorAll("p"))
+      .filter((paragraph) => paragraph.textContent.trim() === COLLAPSE_TOKEN);
+    markers.forEach((marker) => {
+      const heading = marker.nextElementSibling;
+      marker.remove();
+      if (!heading || heading.tagName !== "H2") {
+        throw new Error("Dấu note-collapsed phải đứng ngay trước một tiêu đề cấp hai (##).");
+      }
+      const details = document.createElement("details");
+      details.className = "material-section material-section--collapsed";
+      const summary = document.createElement("summary");
+      const body = document.createElement("div");
+      body.className = "material-section__body";
+      heading.before(details);
+      let node = heading.nextSibling;
+      while (node && !(node.nodeType === Node.ELEMENT_NODE && node.tagName === "H2")) {
+        const next = node.nextSibling;
+        body.appendChild(node);
+        node = next;
+      }
+      summary.appendChild(heading);
+      details.append(summary, body);
+    });
+  }
+
+  // Mở mọi <details> chứa đích của một liên kết trong trang trước khi cuộn tới đích.
+  function revealTarget(hash) {
+    if (!hash || hash.length < 2) {
+      return;
+    }
+    let target;
+    try {
+      target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    } catch (error) {
+      return;
+    }
+    if (!target || !contentElement.contains(target)) {
+      return;
+    }
+    let ancestor = target.parentElement;
+    while (ancestor && ancestor !== contentElement) {
+      if (ancestor.tagName === "DETAILS" && !ancestor.open) {
+        ancestor.open = true;
+      }
+      ancestor = ancestor.parentElement;
+    }
+    target.scrollIntoView();
+  }
+
+  function setupInPageLinks() {
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (link) {
+        revealTarget(link.getAttribute("href"));
+      }
+    });
+    window.addEventListener("hashchange", () => revealTarget(window.location.hash));
+    revealTarget(window.location.hash);
   }
 
   const statusElement = document.getElementById("material-status");
@@ -422,8 +490,10 @@
         warnings.push("Không tải được KaTeX; nội dung văn bản vẫn được giữ nguyên.");
         console.error(mathError);
       }
+      collapseMarkedSections();
       buildTableOfContents();
       setupTocToggle();
+      setupInPageLinks();
       preparePrinting();
 
       if (warnings.length === 0) {

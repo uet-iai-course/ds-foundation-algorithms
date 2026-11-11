@@ -43,3 +43,69 @@ body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .material-toc o
   body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body h3 + p + .material-block,
   body:has(#source-link[href$="materials/lec-05/lecture-note.md"]) .markdown-body :is(h2,h3,h4) + .material-block { break-before: avoid; page-break-before: avoid; }
 }
+
+/* Mục cấp hai thu gọn được (dấu <!-- note-collapsed -->), dùng cho phần Đọc thêm. */
+.markdown-body .material-section--collapsed {
+  margin: 2.2rem 0;
+  border-top: 1px solid #d9d2c7;
+  border-bottom: 1px solid #d9d2c7;
+}
+
+.markdown-body .material-section--collapsed > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.9rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.markdown-body .material-section--collapsed > summary::-webkit-details-marker {
+  display: none;
+}
+
+.markdown-body .material-section--collapsed > summary::before {
+  content: "▸";
+  flex: none;
+  color: var(--accent-dark);
+  font-weight: 750;
+}
+
+.markdown-body .material-section--collapsed[open] > summary::before {
+  content: "▾";
+}
+
+.markdown-body .material-section--collapsed > summary > h2 {
+  margin: 0;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.markdown-body .material-section--collapsed > summary::after {
+  content: "Bấm để mở";
+  margin-left: auto;
+  flex: none;
+  color: var(--muted, #6b6259);
+  font-size: 0.85rem;
+}
+
+.markdown-body .material-section--collapsed[open] > summary::after {
+  content: "Bấm để thu gọn";
+}
+
+.markdown-body .material-section__body {
+  padding-bottom: 1rem;
+}
+
+@media print {
+  .markdown-body .material-section--collapsed > summary::before,
+  .markdown-body .material-section--collapsed > summary::after {
+    content: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .markdown-body .material-section--collapsed > summary::after {
+    content: none;
+  }
+}
