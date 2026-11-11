@@ -234,3 +234,121 @@ LSH ở P03 ("băm nhạy cảm theo tính cục bộ (LSH)"); PQ ở P02; IVF-P
 - **Mạch 5** có 8 trang: IT, I00, I01, I02, **I02B** (Ví dụ: truy vấn dư theo đúng danh sách), I04, I05, I03; 19 phút (trước 17). Tổng phần giảng về lại 120 phút (19,5 + 21 + 21 + 27 + 19 + 12,5).
 - **Mạch 6** có 7 trang: CT, C03, C00, C04, C01, **C01B** (Câu hỏi tự kiểm tra, câu 3–4), C05; 12,5 phút. Phần giảng 60 trang, 120 phút. Mục tiêu 1 (P02) thêm năng lực "giải thích hai nguồn thiếu điểm", kiểm bằng câu tự kiểm 4.
 - **Mạch 7** giữ 9 trang, 60 phút; đề theo sổ Princeton lớp 8. Toàn deck sau lượt biên tập: 69 trang (giảng 60 trang, 120 phút; bài tập 9 trang, 60 phút).
+
+## Ghi chú bài giảng theo chuẩn 2026-11 (đợt B6, 2026-11-11)
+
+Ghi chú `materials/lec-07/lecture-note.md` được viết lại theo `AGENTS.md` §"Tiêu chuẩn giáo trình cho ghi chú bài giảng" và §"Cấu trúc bắt buộc" 1–10; bài tập củng cố tách sang `materials/lec-07/exercises.md`. Kế hoạch đã duyệt và quyết định Q1–Q11 của điều phối viên (2026-11-11) là căn cứ. Mục "Bản đồ chủ đề ghi chú tự học" và "Storyboard ghi chú tự học" phía trên (mã `L07-N01`–`N11`) là bản cũ; bảng dưới thay thế.
+
+### Mục tiêu học tập của ghi chú
+
+1. Đặc tả tìm đúng, tìm gần đúng; độ thu hồi tại $K$ và trung bình; hai nguồn thiếu điểm (Mục 1).
+2. Tham lam, tìm kiếm chùm, `SEARCH-LAYER` và bất biến của nó (Mục 2).
+3. Truy vấn, chèn HNSW; phân phối tầng; bộ nhớ; ba giả thiết của cận $O(\log N)$ (Mục 3).
+4. Lượng tử hóa véc-tơ, lượng tử hóa tích, ADC bằng bảng tra, phân tích theo đoạn, cận sai số (Mục 4).
+5. IVF-PQ trên phần dư, chi phí theo $k_c$, $nprobe$, danh sách lệch (Mục 5, Tình huống 07.2).
+6. So sánh bốn cấu trúc, chọn chỉ mục theo ngân sách (Mục 6, Tình huống 07.1).
+
+### Bản đồ chủ đề bốn nhóm
+
+| `note-topic-id` | Mục ghi chú | Nhãn | Nguồn | Sản phẩm học tập |
+|---|---|---|---|---|
+| lec-07-topic-01 | §1 Bài toán hàng xóm gần đúng (1.1–1.3) | cốt lõi (đặc tả, độ thu hồi, Mệnh đề 07.7); cầu nối (Bài 01, LSH Bài 06) | BIODS 271 tr.16–17; Princeton lớp 8 tr.2–5, lớp 9 tr.2; Jégou §V-A tr.8; CLRS §2.1, §6.5 | Định nghĩa 07.1, 07.4; Thuật toán 07.2; Mệnh đề 07.3, 07.7 |
+| lec-07-topic-02 | §2 Tìm kiếm trên đồ thị lân cận | cốt lõi | Princeton lớp 9 tr.7–9; Malkov–Yashunin Thuật toán 2 tr.4 | Mệnh đề 07.11, 07.13; Hệ quả 07.14 |
+| lec-07-topic-03 | §3 HNSW | cốt lõi; Mệnh đề 07.21 bổ sung (phác thảo) | Princeton lớp 9 tr.11–21; Malkov–Yashunin Thuật toán 1, 3, 5; §4.1–4.2.3 tr.5–8 | Thuật toán 07.17, 07.20; Mệnh đề 07.19, 07.21, 07.22 |
+| lec-07-topic-04 | §4 Lượng tử hóa tích | cốt lõi; Mệnh đề 07.31 bổ sung | Jégou §II–III tr.2–5; Princeton lớp 8 tr.8–33, 58; BIODS tr.17 | Định nghĩa 07.24, 07.27, 07.29; Mệnh đề 07.28, 07.30, 07.31; Thuật toán 07.32 |
+| lec-07-topic-05 | §5 IVF-PQ | cốt lõi | Jégou §IV tr.6–7; Princeton lớp 8 tr.21–22, 55–56, lớp 9 tr.5 | Định nghĩa 07.34; Mệnh đề 07.35, 07.37; Thuật toán 07.36 |
+| lec-07-topic-06 | §6 So sánh và chọn chỉ mục | cốt lõi | tổng hợp Mục 1–5 | bảng bốn cấu trúc; Bài tập 07.14 |
+| lec-07-topic-07 | Đọc thêm: chọn lân cận đa dạng (thu gọn) | đọc thêm | Malkov–Yashunin Thuật toán 4 tr.5; Princeton lớp 9 tr.24 | Thuật toán 07.39; Ví dụ 07.21 |
+| lec-07-topic-08 | Tình huống áp dụng và ứng dụng | cốt lõi (07.1); bổ sung (07.2, giả thiết bị vi phạm) | BIODS tr.16–18; sổ Princeton ô 2–38; lớp 8 tr.56; lớp 9 tr.35 | Tình huống 07.1, 07.2 |
+| lec-07-topic-09 | Tóm tắt chương | cầu nối | — | — |
+| lec-07-topic-10 | Bài tập củng cố (liên kết sang `exercises.md`) | cầu nối | Princeton lớp 8 tr.22; sổ ô 82–99, 148–155 | Bài tập 07.15–07.19 |
+
+Chu trình rút gọn: độ thu hồi trung bình và recall@R (Nhận xét 07.5) là khái niệm phụ của Mục 1.2, không có tiểu mục riêng; k-means trình bày trong Nhận xét 07.26 (quyết định Q7), không là khái niệm trọng tâm.
+
+### Đồ thị tiên quyết
+
+Mục 1 → Mục 2 → Mục 3 (nhánh giảm $n_c$); Mục 1 → Mục 4 (nhánh giảm chi phí một phép đo); Mục 3 và Mục 4 → Mục 5 → Mục 6 → Tình huống. Đọc thêm phụ thuộc Thuật toán 07.20. Bài 01 (Định nghĩa 01.2, 01.8, 01.17; Mệnh đề 01.16) và Bài 06 (Định nghĩa 06.14, 06.22; Mệnh đề 06.26; Nhận xét 06.27; Định lý 06.36) vào Mục 1.
+
+### Thuật ngữ Việt–Anh của ghi chú
+
+| Tiếng Việt | Tiếng Anh | Lần đầu |
+|---|---|---|
+| tìm đúng / tìm gần đúng $K$ hàng xóm | exact / approximate nearest neighbor search (ANN) | Định nghĩa 07.1 |
+| chỉ mục hàng xóm | vector index | Định nghĩa 07.1 |
+| độ thu hồi tại $K$; độ thu hồi trung bình | recall@K; mean recall | Định nghĩa 07.4 |
+| xếp hạng lại | re-ranking | Mục 1.3 |
+| đồ thị lân cận; điểm vào | proximity graph; entry point | Định nghĩa 07.8 |
+| tìm kiếm tham lam; cực tiểu cục bộ | greedy search; local minimum | Thuật toán 07.9, Định nghĩa 07.10 |
+| ô Voronoi; đồ thị Delaunay | Voronoi cell; Delaunay graph | Mục 3.4, trước Mệnh đề 07.21 |
+| truy hồi ngữ nghĩa; mô hình nhúng | semantic retrieval; embedding model | Mục 1.1 |
+| thao tác (một lượt tọa độ hoặc một lần tra) | — | Mục 1 |
+| mã đa nghĩa | polysemous codes | Bài tập 07.19 |
+| tìm kiếm chùm; bề rộng chùm | beam search; beam width ($ef$) | Mục 2.2 |
+| danh sách nhảy | skip list | Mục 3.1 |
+| đồ thị thế giới nhỏ phân tầng | Hierarchical Navigable Small World (HNSW) | Định nghĩa 07.16 |
+| lượng tử hóa véc-tơ; bộ mã; tâm; ô | vector quantizer (VQ); codebook; centroid; cell | Định nghĩa 07.24 |
+| véc-tơ tái dựng; sai số bình phương trung bình | reconstruction; mean squared error (MSE) | Định nghĩa 07.24 |
+| điều kiện tối ưu Lloyd | Lloyd's optimality conditions | Nhận xét 07.26 |
+| lượng tử hóa tích; bộ mã con | product quantizer (PQ); sub-codebook | Định nghĩa 07.27 |
+| khoảng cách bất đối xứng / đối xứng | asymmetric / symmetric distance computation (ADC / SDC) | Định nghĩa 07.29 |
+| lượng tử hóa thô; danh sách đảo; tệp đảo | coarse quantizer; inverted list; inverted file (IVF) | Định nghĩa 07.34 |
+| phần dư; truy vấn dư | residual; residual query | Mục 5.2 |
+
+"Thiếu" dùng khi so tập trả với tập đúng; "bỏ sót" chỉ còn trong cụm của Bài 06 (xác suất bỏ sót của phân dải), như quy ước của deck (lượt 2026-10-27).
+
+### Ký hiệu: tương ứng và lệch với deck
+
+| Ghi chú | Deck Bài 07 | Lý do (quyết định) |
+|---|---|---|
+| $\mathcal N_K(q)$, $\widehat{\mathcal N}_K(q)$ | $N_K(q)$, $\widehat N_K(q)$ (A00–A01, C03) | theo Định nghĩa 01.2, tránh trùng chữ $N$ (Q2) |
+| $\mathcal C$ (bộ mã VQ); $C$ (hàng đợi `SEARCH-LAYER`) | $C$ cho cả hai (Q00, Q02, H03–H06) | một chữ một nghĩa (Q2) |
+| số bit mỗi chỉ số $\log_2k^*$; $b$, $r$ của LSH | $b$ = số bit PQ (Q07, R04, R06), $k^*=2^b$; C00 "$12\,288+8b$ byte ($b$ dải)" | giữ $b$, $r$ của Bài 06 (Q1; Jégou tr.3, lớp 8 tr.32–33) |
+| $\rho=e^{-1/m_L}$; bài báo $p$ | $\rho$ | như deck |
+| $\prec$ (thứ tự $(d,\text{chỉ số})$ trên đỉnh) | không có | phá hòa cho Mệnh đề 07.11, 07.13 |
+| $s_{id}$ (byte mã định danh), $B$ (cận số liên kết) | không có | Mệnh đề 07.22 |
+| $\mathit{nprobe}$, $\mathit{efSearch}$, $\mathit{efConstruction}$ viết `\mathit` | $nprobe$, `efSearch` | hiển thị một từ trong KaTeX |
+
+### Khác biệt nội dung với deck (không sửa deck trong đợt B6; ghi `review-log.md`)
+
+- Ví dụ recall@5 $\{a,\ldots,e\}$/$\{c,\ldots,g\}$ của deck A01 không còn trong ghi chú 07 (trùng Ví dụ 01.10); ghi chú dùng Ví dụ 07.2 năm điểm (Q11).
+- Ghi chú có thêm: Mệnh đề 07.7 với hai nguồn thiếu điểm phát biểu đủ bốn phần; Hệ quả 07.14 ($ef=1$ là tham lam, có chứng minh); Mệnh đề 07.21 với ba giả thiết, cận $\mathbb E[L]$ và số bước $\le1/\rho$ (H14 chỉ có mô hình ba thừa số); Mệnh đề 07.31 (cận sai số ADC/SDC, ví dụ SDC cho $\widehat d=0$); Mệnh đề 07.35(b) (tính chất trọng tâm, không áp dụng cho tâm tay của ví dụ IVF); Nhận xét 07.5 (recall@R ≠ recall@K).
+- Bộ nhớ cạnh HNSW: ghi chú dùng kỳ vọng suy từ Mệnh đề 07.19(c), $\approx264{,}5$ byte (Q5); bài báo §4.2.3 viết $(M_{\max0}+m_LM_{\max})\cdot$ byte, cho $\approx302$ byte. Deck H13 giữ "≈265 byte".
+- Chọn lân cận đa dạng (deck H11 cũ đã bỏ) nằm trong mục Đọc thêm thu gọn.
+- Phần thực hành §11 của ghi chú cũ chuyển sang `exercises.md`, mục `## Mức vận dụng (thực hành)` (Bài tập 07.17–07.19 ứng với deck R00–R08); ô 96 thành Bài tập 07.15; bài tập P8 tr.22 thành Bài tập 07.16 (không có trên deck).
+- Bài tập Câu 3 cũ ($10^8$ véc-tơ, 265 byte cạnh với mã 8 byte) đổi thành Bài tập 07.6 với mã 4 byte ($10^8<2^{32}$): $64{,}4$ GB với $M=16$, $61{,}2$ GB với $M=12$. Deck C01 câu 2 vẫn dùng 265 byte và 77,7 GB.
+- Câu tự kiểm C01 câu 1 (đồ thị $u,v,w,z$) thành Bài tập 07.5; C01B câu 3, 4 thành Bài tập 07.12, 07.13 (07.13 dựng thêm dữ kiện chẩn đoán).
+
+### Ánh xạ mã cũ ↔ `note-topic-id` ↔ `data-slide-id`
+
+| `L07-N` cũ | `note-topic-id` | `data-slide-id` |
+|---|---|---|
+| N01, N02 | lec-07-topic-01 | P00, P03, P02, P04, P05, P01, A00, A00B, A01, A01B, A02, A03 |
+| N03, N04 | lec-07-topic-02 | HT, H00, H01, H01B, H03, H03B, H03C, H04, H05, H06 |
+| N05, N06 | lec-07-topic-03 | NT, H06B, H07, H09, H08, H08B, H10, H10B, H12, H14, H13 |
+| N07, N08 | lec-07-topic-04 | QT, Q00, Q02, Q03, Q04, Q05, Q07, Q06, Q08, Q09, Q11, Q10 |
+| N09 | lec-07-topic-05 | IT, I00, I01, I02, I02B, I04, I05, I03 |
+| N10 | lec-07-topic-06 | CT, C03, C00, C04 |
+| (thuộc N05) | lec-07-topic-07 | không có trang (H11 cũ đã bỏ) |
+| — | lec-07-topic-08 | P05, C04 |
+| — | lec-07-topic-09 | C03, C00, C01, C01B, C05 |
+| N11 | lec-07-topic-10 (`exercises.md`) | RT, R00, R01, R02, R04, R05, R06, R07, R08 |
+
+### Nguồn của `exercises.md` (quyết định Q3)
+
+| Bài tập | Nguồn | Mức |
+|---|---|---|
+| 07.15 | sổ Princeton lớp 8, ô 96 (TODO tái dựng véc-tơ 123), kiểm ở ô 97 | nhận biết |
+| 07.16 | Princeton lớp 8, tr.22 ("Exercise: find optimal k as a function of n for fixed nprobe"), dữ kiện ô 49–50 | tính toán hoặc chứng minh |
+| 07.17 | sổ ô 82–95 (deck R00–R02) | vận dụng (thực hành) |
+| 07.18 | sổ ô 98–99; lớp 8 tr.33 (deck R04–R05) | vận dụng (thực hành) |
+| 07.19 | sổ ô 148–155 (deck R06–R08) | vận dụng (thực hành) |
+
+Mục tiêu 2, 3, 6 không có bài nguồn; dựa vào Bài tập 07.4, 07.5 (Mục 2), 07.6, 07.7 (Mục 3), 07.14 (Mục 6) của ghi chú. Các bài loại C của kế hoạch (tính lại số liệu nguồn tự nêu) không vào `exercises.md`.
+
+### Vòng sửa 1 (2026-11-11): thay đổi so với bản trên
+
+- Đổi số hiệu: thêm Thuật toán 07.9 (tìm kiếm tham lam), nên các khối chung từ 07.9 cũ tăng 1 (Định nghĩa 07.9 → 07.10, …, Thuật toán 07.38 → 07.39). Các bảng trên đã đổi theo; Ví dụ, Tình huống, Bài tập giữ số.
+- Ký hiệu thêm: $s$, $\mathcal L(y)$, $g$, $\prec$, $\preceq$, $\mathcal R$ (tập lân cận được chọn; thay $R$, $r$ ở Thuật toán 07.20, 07.39), $T_{\max}$ (Bài tập 07.3), $\mathbf u_i$ (véc-tơ đơn vị), $v_1,\ldots,v_4$ (Ví dụ 07.21). Ngoại lệ ghi trong ghi chú: $k$ là chỉ số tầng ở Mệnh đề 07.19, 07.21, Ví dụ 07.8, Bài tập 07.7; $p_1,\ldots,p_{11}$ là điểm trên đường thẳng (tên trùng nhãn trong hình dùng chung với deck).
+- "Ô" chỉ dùng cho ô Voronoi và ô của lượng tử hóa; ô sổ thực hành viết "ô mã"; bảng tra viết "phần tử $T[j,i]$"; "đoạn" chỉ dùng cho $x^{(j)}$, còn đơn vị văn bản viết "đoạn văn bản". "Lớp 8/9" của Princeton viết "bài giảng 8/9 (class 8/9)".
+- Khác deck thêm: hình `note-lan-can-da-dang.svg` (nhãn v1–v4) thay hình deck trong ghi chú; Bài tập 07.11 đổi sang $K=4,\ \mathit{nprobe}=1$ và $K=6,\ \mathit{nprobe}=2,3$ (deck I01/I05 dùng $K=3$); Bài tập 07.1 đổi sang tốc độ $10^{13}$ và $n_c$ tối đa ($\approx3{,}26\cdot10^7$); Nhận xét 07.23 dùng 53–388 byte (bài báo §4.2.3: 60–450, theo $M_{\max0}+m_LM_{\max}$).
+- Mục tiêu 6 của ghi chú vẫn dựa vào Bài tập 07.14; bảng mục tiêu của `exercises.md` không đổi.

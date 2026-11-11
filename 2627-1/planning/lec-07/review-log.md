@@ -864,3 +864,73 @@ Trang đổi: R00 (ô `gt`; kích thước viết $10^6{\times}64$), R02 (ghi ch
 - Lỗi phát hiện ngoài bản đánh giá: cận số bước HNSW $1/(1-\rho)$ (nghiêm trọng, đã sửa thành $\le1/\rho$); S17 của bản đánh giá ($C\not\subseteq W$ với $ef=3$) sai, đã đặt đúng trạng thái $ef=2$.
 - Tồn đọng: (1) đồng bộ `materials/lec-07/lecture-note.md` với các nội dung mới trên mặt trang (danh sách ở storyboard, tiểu mục "Lệch tạm thời với ghi chú bài giảng"); deck hiện có nội dung chưa có trong ghi chú, trái nguyên tắc "deck là tóm tắt của ghi chú" cho tới lượt đồng bộ; (2) P01 hộp Câu hỏi chạm mũi tên điều khiển (có từ trước); (3) cụm kiểu nhãn trong ghi chú diễn giả.
 - Kiểm cuối của điều phối viên: `check07.py` toàn deck 69 trang ở 1600×900 và 390×844: 0 lỗi console/trang, 0 `.katex-error`, 0 yêu cầu mạng ngoài, 0 phần tử vượt khung, không cuộn ngang; không trang nào vượt trần (60, hoặc 80 cho mục tiêu, nội dung, bảng tổng kết, so sánh, chi phí, đề thực hành); bảy trang tiêu đề mạch có `span.strand-number` khớp chỉ số ngang.
+
+## Viết lại một phần ghi chú và lập tệp bài tập theo chuẩn 2026-11 (đợt B6, 2026-11-11)
+
+Căn cứ: `prompt_fix_lecture_notes.md` (đợt B6, hàng 07: giữ ví dụ chạy tay và chi phí; khối định nghĩa, thuật toán, mệnh đề; §11 cũ thành bài tập thực hành có gợi ý, lời giải; "Lời giải"; ký hiệu LSH của Bài 06); `AGENTS.md` §"Tiêu chuẩn giáo trình", §"Cấu trúc bắt buộc" 1–10 (ngoại lệ nguồn bài tập 07/10/11); "The author's voice" của `../CLAUDE.md`. Ghi chú cũ 9 822 âm tiết (dưới 12 000), viết lại thành chương đầy đủ. Điều phối viên: Claude Opus 5.5, effort high, không soạn hay rà. Nguồn: Princeton COS 597A (bài giảng 8, 9; sổ `class-08-runbook-for-students.ipynb`), Stanford BIODS 271 (tệp L12), Malkov–Yashunin (HNSW, số trang theo arXiv 1603.09320 v4), Jégou–Douze–Schmid (PQ, bản HAL, số trang in).
+
+### Tác tử (lấy từ lời gọi công cụ)
+
+| Vai trò | Loại | Mô hình | Effort | Ghi |
+|---|---|---|---|---|
+| Lập kế hoạch chương | general-purpose | opus | high | không |
+| Soạn, sau đó biên tập (SendMessage) | general-purpose | opus | high | ghi chú, `exercises.md`, `img/lec-07/note-*.svg` và bộ sinh trong `tools/`, `outline.md`, `storyboard.md` |
+| Rà vai sinh viên năm hai | general-purpose | opus | high | không |
+| Rà chuyên gia miền | general-purpose | opus | high | không |
+| Rà độ chính xác (nhiều lượt) | general-purpose | opus | high | không |
+| Rà sư phạm, `no-ai-slop` Detect | general-purpose | opus | high | không |
+| Rà mạch và liên kết (nhiều lượt) | general-purpose | opus | high | không |
+
+### Quyết định của điều phối viên
+
+- `exercises.md` chỉ gồm bài do nguồn đã duyệt tự đặt (ngoại lệ 07/10/11): 07.15 (sổ ô 96, TODO tái dựng véc-tơ 123), 07.16 (bài giảng 8 tr.22, "Exercise: find optimal k", dữ kiện ô 49–50), 07.17–07.19 (nhiệm vụ chạy mã của sổ, ô 82–95, 98–99, 148–155; bài trên lớp R00–R08 của deck) ở mục "Mức vận dụng (thực hành)". Không đưa các bài "loại C" (tính lại số hoặc chứng minh nhận định nguồn tự nêu: bài dựng). Mục tiêu không có bài nguồn dựa vào bài cuối mục 07.1–07.14 của ghi chú.
+- Ký hiệu: PQ ghi số bit $\log_2k^*$ ($b$, $r$ giữ nghĩa LSH của Bài 06); $\mathcal C$ là bộ mã; $\mathcal N_K(q)$ theo Bài 01; $k$ là chỉ số tầng và $p_1..p_{11}$ (hình dùng chung với deck) ghi là ngoại lệ trong quy ước.
+- Bài báo HNSW: ghi chú dùng dạng suy ra đúng, không đính chính trong thân bài (danh sách lệch dưới đây).
+- Một mục Đọc thêm thu gọn: quy tắc chọn lân cận đa dạng (Thuật toán 07.39).
+- Không đổi thẻ chỉ mục Bài 7 về "Chưa có"; thẻ thêm liên kết "Bài tập" sau khi đạt.
+
+### Phát hiện và quyết định
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Mục 1 | thiếu ngân sách 6 TB của bài toán trung tâm | chấp nhận |
+| nghiêm trọng | Mục 1, tiên quyết | dẫn Hệ quả 06.8 (Jaccard) không khớp bài toán Euclid; chưa nhận đúng bàn giao của Bài 06 | chấp nhận: Mệnh đề 06.26 (bộ lọc ứng viên), Định lý 06.36 (bảo đảm Euclid khi $D=2$) |
+| nghiêm trọng | Bài tập 07.4 | "cực tiểu không phụ thuộc thuật toán" sai (Ví dụ 07.4) | chấp nhận |
+| nghiêm trọng | `exercises.md` | thiếu mục Mức vận dụng | chấp nhận: ba bài thực hành ở "Mức vận dụng (thực hành)"; không thêm bài |
+| trung bình | Mệnh đề 07.7 | xếp hạng lại viện (c) cho khẳng định mạnh hơn | chấp nhận: thêm (d) có chứng minh |
+| trung bình | HNSW | dẫn §4.2.1 sai dạng; phác thảo số bước bỏ qua phụ thuộc; 60–450 byte không khớp Mệnh đề 07.22 | chấp nhận: dẫn §4.1; lập luận đếm $G$; 53–388 byte |
+| trung bình | ký hiệu, thuật ngữ | $k$, $r/R$, $T$, $c$, "ô", "đoạn" nhiều nghĩa; Voronoi/Delaunay chưa định nghĩa; Bài tập 07.16 dùng ký hiệu nguồn | chấp nhận |
+| trung bình | mạch, cấu trúc | ranh giới mục lặp; tìm kiếm tham lam thiếu khối thuật toán; Thuật toán chèn thiếu tính đúng và bảng chi phí; Tóm tắt thiếu số; bài cuối mục hỏi lại kết quả đã in; thuật ngữ mới in đậm | chấp nhận |
+| nhẹ | khoảng 60 mục | trang dẫn, câu chỉ đường, câu nguồn gốc dạng mảnh, … | chấp nhận |
+| — | thêm câu "§4.2.1 viết exp(−m_L)" vào thân bài | bác bỏ: không đính chính nguồn trong thân bài |
+| — | rút dữ kiện đồ thị bảy đỉnh khỏi Ví dụ 07.4, 07.5 | vòng 1 bác bỏ; vòng 2 chấp nhận: hai ví dụ dẫn Ví dụ 07.3 ngay trước, Bài tập 07.4 giữ đủ dữ kiện |
+| — | gộp công thức recall đã ngắt dòng | bác bỏ: tràn ở 390 px |
+
+Lệch nguồn (không ghi trong ghi chú): HNSW §4.2.1 viết $p=\exp(-m_L)$ và $S=1/(1-\exp(-m_L))$ (đúng: $\rho=e^{-1/m_L}$, cận $1/\rho$); §4.2.2 $E[l+1]=1+m_L$ bỏ phần nguyên; §4.2.3 "60–450 byte" và 302 byte từ $(M_{\max0}+m_LM_{\max})$ (đúng: 53–388 và 264,5 byte); §4.1 ghi $M$ 5–48, §4.2.3 ghi 6–48; bài giảng 8 tr.33 "k=1 → binary encoding" (đúng: $k^*=2$, một bit); BIODS L12 trang bìa *Improving LLM Performance*.
+
+Dữ kiện tự dựng (không ghi trong ghi chú): năm điểm (khoảng cách 2,5/1,2/3,0/0,8/1,7); đồ thị bảy đỉnh; đồ thị $u,v,w,z$; đường thẳng mười hai điểm và tầng $Y_1$, $Y_2$; chèn $x=2{,}6$; ba tâm VQ; PQ hai đoạn; bảng $m=3$, $k^*=4$; mười sáu điểm IVF và bốn tâm (không là trọng tâm); bốn ứng viên chọn đa dạng; dữ kiện chẩn đoán Bài tập 07.13; phản ví dụ hình tròn (Delaunay) và $\mathbf u_i$; giả sử $10^{12}$ thao tác mỗi giây, 6 TB, 10 ms, $k_c=10^5$, $\mathit{nprobe}=64$; Bài tập 07.1(b), 07.11 mới.
+
+Sai khác với deck (không sửa deck): ký hiệu ($N_K$, $C$ bộ mã, $b$ số bit); C01 câu 2 dùng mã định danh 8 byte, 77,7 GB (ghi chú 4 byte, 64,4 GB); C05 dẫn HNSW 2018; I02 không lưu ý tâm của ví dụ không là trọng tâm; ví dụ recall@5 (A01) chỉ còn ở Bài 01; I01/I05 dùng $K=3$; hình `lan-can-da-dang.svg` nhãn c1–c4 (ghi chú dùng bản `note-lan-can-da-dang.svg` nhãn v1–v4); ghi chú diễn giả C05 còn câu "do học phần dựng".
+
+### Vòng kiểm lại 2 và 3
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | kết Mục 1 | "LSH chỉ có bảo đảm khi $D=2$" nói quá Định lý 06.36 | chấp nhận: "bộ tham số $(a/2,2a,1/2,1/3)$ chỉ được chứng minh khi $D=2$" |
+| trung bình | kết Mục 5, Tình huống 07.1 | gọi dữ liệu của Tình huống 07.2 là "dữ liệu thật" | chấp nhận: dữ liệu tổng hợp của sổ thực hành; cỡ danh sách phải đo trên kho của Tình huống 07.1 trước khi dùng 3,6 ms |
+| trung bình | `storyboard.md` topic-01 | còn Hệ quả 06.8, Ví dụ 01.2 | chấp nhận |
+| trung bình | kết Mục 4, Tóm tắt | "sai lệch không vượt sai số tái dựng" trong khi sai số tái dựng là bình phương (Định nghĩa 07.24) | chấp nhận: "không vượt khoảng cách $\|y-\widehat y\|$ tới véc-tơ tái dựng (Mệnh đề 07.31)" |
+| nhẹ | Mệnh đề 07.21, Điều kiện áp dụng | vế "khi số chiều cố định" (vòng 2) không có trong bài báo | chấp nhận: viết theo tr.7 (kho rất lớn; $C_{\deg}$ phụ thuộc số chiều) |
+| nhẹ | Hệ quả 07.14 | Kết luận "hai thủ tục đo cùng tập đỉnh" chưa được chứng minh | chấp nhận: thêm Bước 4 |
+| nhẹ | Thuật toán 07.9 | Dừng/Đầu ra chưa dẫn Mệnh đề 07.11 | chấp nhận |
+| nhẹ | các đoạn đọc hình | hình/bảng làm chủ ngữ; sau đó 16 đoạn cùng khuôn "Trên hình" và bốn câu sai nghĩa | chấp nhận: giữ 8 đoạn "Trên hình", sửa bốn câu |
+| nhẹ | Bài tập 07.19 | $8{,}2/2{,}44\approx3{,}4$ lệch Tình huống 07.2 | chấp nhận: khoảng 3,3 lần ($106/13$ so với $10^4/4096$) |
+| nhẹ | còn lại (ký hiệu $T_{\max}$, ngoại lệ $k$, danh mục tham khảo, nhãn SVG, storyboard topic-04/06/07) | | chấp nhận |
+
+### Kết quả kiểm tra
+
+- Ghi chú 24 989 âm tiết (trước đợt: 9 822); `exercises.md` 2 379 âm tiết, Bài tập 07.15–07.19. Khối 07.1–07.39, Ví dụ 07.1–07.21, Tình huống 07.1–07.2, Bài tập 07.1–07.14 trong ghi chú; dẫn chiếu "Kiểu 07.k" kiểm bằng script, không trỏ sai.
+- Rà độ chính xác vòng 3 và rà mạch vòng 3: không còn phát hiện chặn bàn giao, nghiêm trọng hay trung bình.
+- Trình duyệt (Playwright, `material-viewer.html`, 1600×900 và 390×844, in): 0 lỗi KaTeX, 0 lỗi console, 0 request hỏng, không cuộn ngang trang; mục Đọc thêm mở khi in. Tràn ở 390 px chỉ là 15 hình SVG trong khung cuộn. Điều phối viên đã xem ảnh chụp đầu trang 1600 px và cuối trang 390 px.
+- Thẻ Bài 07 trên `index.html` thêm liên kết "Bài tập"; trạng thái thẻ giữ nguyên.
+- Quyết định: chấp nhận.

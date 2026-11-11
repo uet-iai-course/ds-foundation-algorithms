@@ -1583,3 +1583,75 @@ Theo quyết định của điều phối viên, `materials/lec-07/lecture-note.
 | R07 | 34 → 34 | 3 | 174 → 195 | ghi chú: "Gợi ý: chia …" thành câu kiểm hiểu "vì sao chia tổng thời gian cho 5000?" với lời đáp (50 lần gọi `search`, mỗi lần 100 truy vấn) |
 
 `outline.md`: hai bảng "Mạch phần giảng — 120 phút" cập nhật theo deck hiện tại (60 trang giảng; 19,5 / 21 / 21 / 27 / 19 / 12,5 phút; thêm A01B, H01B, H03C, H08B, I02B, C01B; bốn câu tự kiểm), ghi là bản hiện hành từ 2026-10-28; bỏ câu "giữ bản cũ cho tới khi mọi mạch xong". Đầu `storyboard.md` (mục "Hành trình khái niệm") chỉ tới mục 2026-10-27/28 và ghi thứ tự 69 trang, phút từng mạch.
+
+## Storyboard ghi chú theo chuẩn 2026-11 (đợt B6, 2026-11-11)
+
+Thay mục "Storyboard ghi chú tự học" (mã `L07-N`) phía trên. Mỗi chủ đề ghi vai trò trong mạch, kết nối vào, kết nối ra, kiến thức đầu vào, sản phẩm học tập, các khối có số hiệu và hình; ánh xạ `data-slide-id` ở `outline.md`, mục cùng đợt. Ví dụ tự dựng (năm điểm, đồ thị bảy đỉnh, đường thẳng mười hai điểm, ba tâm VQ, PQ hai đoạn, mười sáu điểm IVF, chèn $x=2{,}6$, bốn ứng viên của chọn đa dạng, chẩn đoán của Bài tập 07.13) giữ theo quyết định Q8; nguồn gốc ghi `review-log.md`, không ghi trong ghi chú.
+
+### lec-07-topic-01 — §1 Bài toán hàng xóm gần đúng
+
+- **Vai trò trong mạch:** đặt bài toán trung tâm (kho $10^{10}$ véc-tơ, 6 TB bộ nhớ trong, 10 ms mỗi truy vấn; quét đủ $30{,}72$ s) và công cụ đo (độ thu hồi, hai thừa số chi phí) cho mọi mục sau.
+- **Kết nối vào:** Định nghĩa 01.2, 01.8, 01.17, Mệnh đề 01.16; Định nghĩa 06.14, 06.22, Mệnh đề 06.26, Nhận xét 06.27, Định lý 06.36.
+- **Kết nối ra:** $n_c$ và $\widetilde d$ của Mệnh đề 07.7 dùng ở Mục 2 ($\widetilde d=d$), Mục 4 ($n_c=N$), Mục 5 (cả hai); Thuật toán 07.2 dùng lại trong Thuật toán 07.25, 07.32, 07.36.
+- **Khối:** Ví dụ 07.1 (năm điểm, vết đống) → Định nghĩa 07.1 → Thuật toán 07.2 → Mệnh đề 07.3 (bất biến, phản ví dụ, Trong thực hành: ô 21) → Định nghĩa 07.4 → Ví dụ 07.2 → Nhận xét 07.5 → Nhận xét 07.6 → Mệnh đề 07.7 (bảng bốn cấu trúc, Trong thực hành: xếp hạng lại) → Bài tập 07.1–07.3. Hình `note-cau-truc-chuong-07.svg` (mới), `truy-hoi-ngu-nghia.svg`.
+- **Sản phẩm:** tính $\mathcal N_K$, độ thu hồi, phân loại nguồn thiếu điểm.
+
+### lec-07-topic-02 — §2 Tìm kiếm trên đồ thị lân cận
+
+- **Vai trò trong mạch:** giảm $n_c$ bằng đường đi; chứng minh điều đồ thị bảo đảm (đúng trên $V$) và không bảo đảm.
+- **Kết nối vào:** Mệnh đề 07.7(b); Thuật toán 07.2 (bất biến).
+- **Kết nối ra:** `SEARCH-LAYER` và Mệnh đề 07.13 dùng ở Thuật toán 07.17, 07.20, Hệ quả 07.18; giới hạn "số bước tỷ lệ $N$" mở Mục 3.
+- **Khối:** Định nghĩa 07.8 → Ví dụ 07.3 → Thuật toán 07.9 (tham lam, thêm ở vòng sửa 1) → Định nghĩa 07.10 → Mệnh đề 07.11 → Ví dụ 07.4 ($ef=3$, cột kiểm dừng và $f$) → Thuật toán 07.12 → Mệnh đề 07.13 (năm bước, ba phản ví dụ) → Hệ quả 07.14 → Ví dụ 07.5 ($ef=2$) → Nhận xét 07.15 → Bài tập 07.4, 07.5. Hình `do-thi-vi-du`, `do-thi-tham-lam`, `cuc-tieu-cuc-bo`, `do-thi-chum`, `search-layer-trang-thai`, `do-thi-ef2`.
+- **Sản phẩm:** vết chạy tham lam và chùm; chứng minh bất biến.
+
+### lec-07-topic-03 — §3 HNSW
+
+- **Vai trò trong mạch:** rút ngắn đường đi bằng tầng; tính phân phối tầng, bộ nhớ, số phép đo; chỉ ra véc-tơ gốc chiếm 98 % bộ nhớ.
+- **Kết nối vào:** Thuật toán 07.12, Mệnh đề 07.13, Hệ quả 07.14; tuyến tính kỳ vọng, chuỗi hình học.
+- **Kết nối ra:** Ví dụ 07.10 (125,5 TB) vào Mục 6 và Tình huống 07.1; giới hạn bộ nhớ mở Mục 4.
+- **Khối:** Ví dụ 07.6 → Định nghĩa 07.16 → Ví dụ 07.7 → Thuật toán 07.17 → Hệ quả 07.18 → Mệnh đề 07.19 (bốn bước, ba phản ví dụ) → Ví dụ 07.8 → Ví dụ 07.9 → Thuật toán 07.20 → Mệnh đề 07.21 (phác thảo, "Chứng minh đầy đủ … nằm ngoài phạm vi học phần (Malkov và Yashunin, §4.2.1, tr.7)") → Mệnh đề 07.22 → Ví dụ 07.10 → Nhận xét 07.23 → Bài tập 07.6, 07.7. Hình `canh-dai-mot-chieu`, `do-thi-nhieu-tang`, `chen-vi-du`.
+- **Sản phẩm:** vết truy vấn và chèn; bảng tầng; bộ nhớ kỳ vọng.
+
+### lec-07-topic-04 — §4 Lượng tử hóa tích
+
+- **Vai trò trong mạch:** giảm chi phí một phép đo và bộ nhớ (122,88 TB → 5,12 TB), giữ $n_c=N$.
+- **Kết nối vào:** Mệnh đề 07.7; Thuật toán 07.2; bất đẳng thức tam giác (Định nghĩa 06.14).
+- **Kết nối ra:** Mệnh đề 07.30, 07.31 và Thuật toán 07.32 dùng ở Mệnh đề 07.35, Thuật toán 07.36; Ví dụ 07.16 (5,12 s) mở Mục 5.
+- **Khối:** Ví dụ 07.11 → Định nghĩa 07.24 → Thuật toán 07.25 → Nhận xét 07.26 (k-means) → Ví dụ 07.12 ($2^{64}$) → Định nghĩa 07.27 → Ví dụ 07.13 → Mệnh đề 07.28 (Trong thực hành: bài giảng 8 tr.33) → Ví dụ 07.14 → Ví dụ 07.15 → Định nghĩa 07.29 → Mệnh đề 07.30 (bảng $T$) → Mệnh đề 07.31 → Thuật toán 07.32 → Ví dụ 07.16 → Nhận xét 07.33 → Bài tập 07.8–07.10. Hình `luong-tu-hoa-vec-to`, `pq-tach-doan`, `pq-vi-du`, `pq-vi-du-adc`.
+- **Sản phẩm:** mã, véc-tơ tái dựng, bảng tra, ADC, cận sai số.
+
+### lec-07-topic-05 — §5 IVF-PQ
+
+- **Vai trò trong mạch:** ghép hai nhánh; mô hình chi phí $3{,}63\cdot10^9$ thao tác, 5,2 TB cho kho mở đầu.
+- **Kết nối vào:** Định nghĩa 07.24 (lượng tử hóa thô), Mệnh đề 07.30, 07.31, Thuật toán 07.32, Mệnh đề 07.7.
+- **Kết nối ra:** Mệnh đề 07.37 và Ví dụ 07.20 vào Mục 6, Tình huống 07.1, 07.2.
+- **Khối:** Ví dụ 07.17 (đủ 16 tọa độ) → Định nghĩa 07.34 → Ví dụ 07.18 (chuyển lên trước mệnh đề ở vòng sửa 1) → Mệnh đề 07.35 → Thuật toán 07.36 → Ví dụ 07.19 → Mệnh đề 07.37 → Ví dụ 07.20 → Nhận xét 07.38 → Bài tập 07.11–07.13. Hình `tep-dao`, `tep-dao-du`.
+- **Sản phẩm:** vết truy vấn IVF-PQ; chi phí theo $k_c$, $\mathit{nprobe}$; chẩn đoán độ thu hồi thấp.
+
+### lec-07-topic-06 — §6 So sánh và chọn chỉ mục
+
+- **Vai trò trong mạch:** đặt bốn cấu trúc trên cùng kho; câu trả lời có điều kiện nằm ở Tình huống 07.1.
+- **Kết nối vào:** Ví dụ 07.10, 07.16, 07.20; Mệnh đề 06.26, 07.21, 07.31; Hệ quả 07.18. **Kết nối ra:** Tình huống 07.1; Bài 12 (vào–ra), Bài 14 (danh sách đảo văn bản, chỉ mục không gian).
+- **Khối:** bảng so sánh → Bài tập 07.14.
+
+### lec-07-topic-07 — Đọc thêm (thu gọn)
+
+- **Vai trò:** biến thể của bước chọn lân cận trong Thuật toán 07.20; không là tiên quyết của mục nào. **Khối:** Thuật toán 07.39, Ví dụ 07.21; hình `note-lan-can-da-dang`.
+
+### lec-07-topic-08 — Tình huống áp dụng và ứng dụng
+
+- Tình huống 07.1 (6 TB, 10 ms; giả thiết thỏa theo mô hình đếm) và Tình huống 07.2 (sổ ô 2–38: 106 so với 31,7 khoảng cách; giả thiết cân bằng của Mệnh đề 07.37(b) bị vi phạm; quyết định Q4). Ứng dụng: Faiss `IndexIVFPQ`, ScaNN, DiskANN, Bài 12, Bài 14.
+
+### lec-07-topic-09, lec-07-topic-10
+
+- Tóm tắt: đoạn 6 câu dẫn số hiệu, kết quả theo mục, công thức (mỗi công thức một dòng hiển thị để vừa 390 px), giả thiết hay bị bỏ quên. Bài tập củng cố: một câu và liên kết tới `exercises.md` (Bài tập 07.15–07.19).
+
+### Vòng sửa 1 (2026-11-11)
+
+- Số hiệu chung từ 07.9 trở đi tăng 1 vì thêm Thuật toán 07.9 (tìm kiếm tham lam); bộ đếm Ví dụ, Tình huống, Bài tập không đổi. Các mục trên đã đổi số theo.
+- topic-01: Mục 1 nêu đủ ba điều kiện (kho $10^{10}$, 6 TB, 10 ms) và nhận từ Bài 06 Mệnh đề 06.26 (bộ lọc ứng viên) cùng Định lý 06.36 (bảo đảm Euclid chỉ khi $D=2$); Mệnh đề 07.7 thêm phần (d).
+- topic-02: Thuật toán 07.9 sau Ví dụ 07.3; $\prec$, $\preceq$ thành câu riêng và vào bảng ký hiệu.
+- topic-03: định nghĩa ô Voronoi, đồ thị Delaunay trước Mệnh đề 07.21; Bước 2 của phác thảo dùng biến đếm $G$; Thuật toán 07.20 thêm lập luận tính đúng và bảng chi phí; Nhận xét 07.23 dùng 53–388 byte suy từ Mệnh đề 07.22.
+- topic-05: Ví dụ 07.18 và hình `tep-dao-du` đứng trước Mệnh đề 07.35.
+- topic-07: Ví dụ 07.21 dùng $v_1,\ldots,v_4$ và hình `note-lan-can-da-dang.svg` (bản của hình deck với nhãn v1–v4, sinh bằng `generate_note_svg.py`).
+- `exercises.md`: mục `## Mức vận dụng (thực hành)` chứa Bài tập 07.17–07.19; 07.17 bỏ hai câu trùng 07.15; 07.16 dùng $k_c$, $N$, $k_c^{\mathrm{opt}}$, $g(k_c)$ và điểm cắt $N=4k_c^2/15$.
