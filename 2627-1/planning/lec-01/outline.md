@@ -328,3 +328,14 @@ Mã trang mới: P02, P03, P04, A10, B12, C17, C18, D11, GT, G01, G02, G03. Mã 
 | chữ ký | signature | (chưa định nghĩa trong bản trước) | Bài 05 |
 | chi phí truyền thông | communication cost | | CS246 01-intro, trang chiếu 67 |
 | lượt (chỉ lượt đọc, lượt quét tệp); vòng (một lần chạy thân vòng lặp) | pass; iteration | "lượt" dùng cho cả hai | quy ước của chương |
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+Deck được đưa về ghi chú hiện hành (bảng phát hiện 2026-11-13 trong `review-log.md`; quyết định người dùng cùng ngày; `edit-decisions.md` G1–G18, D01). Mục này thay các câu "Quyết định: không sửa deck trong đợt này" ở đoạn "Ký hiệu của ghi chú khác bộ trang chiếu" phía trên.
+
+- **Mục tiêu trên deck** (`L01-P03`): bốn mục tiêu của ghi chú (note:11–14) và một dòng mang nhãn Đọc thêm (note:16). Mỗi mục tiêu có trang phục vụ: 1 ↔ `A11`, `B14`–`B16`; 2 ↔ `C02`–`C18`; 3 ↔ `C20`–`C07`, `C16`, `C23`, `C24`; 4 ↔ `D02`–`D11`.
+- **Vấn đề trung tâm** (`P04`, `F04`): ba câu hỏi của note:85–89, trả lời bằng $F$, $2F$, $2mF$; $R$, $\binom N2$ vòng, $N(N-1)L$, $5{,}79$ ngày; $\widehat R=A\cap R$, đủ khi và chỉ khi $R\subseteq A$.
+- **Mạch.** Bảy section giữ tên. Mạch 5 "Mẫu trùng ngẫu nhiên và suy luận" mang nhãn Đọc thêm, không tính vào 120 phút, nội dung theo phần Đọc thêm của ghi chú (thêm trang Bổ đề 01.21, Hệ quả 01.22). Mạch 7 mở bằng trang "Nhắc lại:" `R07`; mỗi bài recitation có trang "Lời giải:" cùng tiêu đề.
+- **Thứ tự khái niệm theo ghi chú.** Mạch 2: khối, lượt quét (Mục 2.1) trước dòng, nén, đĩa. Mạch 3: ví dụ số liệu MMDS 3.10 (`C20`) → mô hình chi phí (`C05`) → thủ tục trộn (`C21`) → chi phí (`C07`) → các tiêu chí `C08`–`C14` → ứng viên (`C16`) → xác minh (`C23`, `C24`) → độ thu hồi (`C15`). Mạch 4: ba giới hạn và bản đồ (`D02`) → phương pháp Bài 02–15 → CLO (`D01`) → kiến thức nền, sản phẩm, trách nhiệm → câu hỏi.
+- **Ký hiệu và thuật ngữ trên deck** theo bảng ký hiệu của ghi chú: $\mathrm{SIM}(C,C')$; $C_1,C_2$ (hình riêng của deck `danh-gia-jaccard-c.svg`; hình `danh-gia-jaccard.svg` với $S,T$ giữ cho ghi chú); $F$, $M$, $L$ ở dòng Ký hiệu; "lần truyền khối", "xác minh", "vòng", "lần mua", "lần truy cập", "bản ghi đăng ký"; tên đối tượng $\mathrm a,\ldots,\mathrm g$ chữ đứng; "véc-tơ". Nhãn SVG "lượt đăng ký", "lượt truy cập", "lượt mua" đổi theo (script `tools/courses/ds-foundation-algorithms/2627-1/img/lec-01/fix_deck_svg_2026_11_13.py`).
+- **Dẫn chiếu.** Mặt trang dẫn số khối ghi chú (tối đa một lần mỗi trang) và Bài tập 01.10, 01.11; `refcheck.py 01`: 175 đúng, 0 sai.

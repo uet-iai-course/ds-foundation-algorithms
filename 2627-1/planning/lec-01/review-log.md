@@ -1216,3 +1216,92 @@ Quy ước dẫn dòng: `html:` = tệp deck, `note:` = `lecture-note.md`, `ex:`
 
 - Mạch 5 (mẫu trùng ngẫu nhiên và suy luận) được gắn nhãn **Đọc thêm**, khớp mục "Đọc thêm" của ghi chú (note:956). Mạch 7 mở bằng một trang "Nhắc lại:" nêu đủ mô hình và kết quả cần cho bài tập. Các phát hiện liên quan tới mạch 5, mạch 7, mục tiêu 5, vấn đề trung tâm (P04, F04), bảng G01 và câu 3 của G02 sửa theo hướng này.
 - Thuật ngữ: dùng "véc-tơ". Deck 01 đã dùng "véc-tơ" (30 chỗ), không cần sửa.
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Tác tử.** Một tác tử sửa (writer) do điều phối viên tạo; loại, mô hình và effort ghi theo lời gọi công cụ của điều phối viên. Căn cứ: bảng phát hiện ở mục trên, "Quyết định của người dùng (2026-11-13)", `edit-decisions.md` (G1–G18, D01); `no-ai-slop` chế độ Edit, tự kiểm theo `eval.md`. Không sửa ghi chú, `exercises.md`, CSS hay deck khác; không commit.
+
+**Kết quả.** Deck 83 → 100 trang (80 giảng, 8 Đọc thêm, 12 bài tập); bảy section; 17 trang thêm, không bỏ trang. Hình: sửa nhãn bốn SVG (`danh-gia-bo-nho`, `ung-dung-noi-bang`, `ung-dung-thong-ke-cua-so`, `ung-dung-trung-gio-hang`) và thêm `danh-gia-jaccard-c.svg` bằng script `tools/courses/ds-foundation-algorithms/2627-1/img/lec-01/fix_deck_svg_2026_11_13.py`. Chi tiết từng trang ở `storyboard.md`, mục cùng tên.
+
+**Xuất xứ dữ liệu tự dựng** (không ghi trên deck): bốn bản ghi a.vn, b.vn, c.vn của Ví dụ 01.1; vết chạy $N=3$, $C_3=C_1$, $\tau=1/2$ (Ví dụ 01.7(b)); $R$, $A$ của Ví dụ 01.9; năm hàng xóm a–g của Ví dụ 01.10; ví dụ phá hòa $n=3$, $k=1$ (Định nghĩa 01.2) đều do ghi chú dựng để tính tay, lấy nguyên từ ghi chú. Các số còn lại có nguồn ở dòng "Nguồn:" của ghi chú diễn giả.
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| nghiêm trọng — mạch 5 dạy như mạch chính | sửa theo D01: nhãn Đọc thêm trên P01, dòng dẫn FT và mọi trang F; P03 bỏ mục tiêu 5, thêm dòng Đọc thêm; P04, F04 còn ba dòng; G01 bỏ hàng kỳ vọng; G02 câu 3 thay bằng Bài tập 01.7; thêm R07 "Nhắc lại:" đầu mạch 7 và F08 (Markov) | P01, P03, P04, FT, F01–F08, G01, F04, G02, R07 | mạch 5 không tính vào 120 phút |
+| nghiêm trọng — Mệnh đề 01.16 không có trang | thêm trang mệnh đề có chứng minh và trang Ví dụ 01.9 với FP, FN, độ thu hồi $1/2$; C16 giữ làm trang nhu cầu và câu hỏi | C16, C23, C24 | |
+| nghiêm trọng — Mục 2.1 không có trang, $F$ dùng trước định nghĩa | thêm Định nghĩa 01.4, Ví dụ 01.3, Mệnh đề 01.5 ở đầu mạch 2; C09 và B11 đổi thành "Nhắc lại:"; Bài tập 01.3 ($6F=91\,552\,740$) trong ghi chú diễn giả B16, C09 và G02 câu 2 | B14, B15, B16, B11, C09 | |
+| nghiêm trọng — Định nghĩa 01.1, 01.2 không có trang; luận đề bìa bốn thành phần | thêm A11 (Định nghĩa 01.1 trên Ví dụ 01.1, ba phản ví dụ trong ghi chú diễn giả) và A12 (Định nghĩa 01.2, ví dụ phá hòa); luận đề theo ba thành phần | P00, A11, A12, A10 | A12 đặt sau A07 theo thứ tự note:154–164 |
+| trung bình — C07 thiếu bổ đề, ví dụ, bảng bốn hàng | thêm C20 (MMDS Ví dụ 3.10: $15\,259$ khối, $5{,}79$ ngày), C21 (Bổ đề 01.14); C07 có Mệnh đề 01.15, bảng bốn hàng note:681–686 (có phép so số nguyên), dòng $N$ gấp đôi $\approx4{,}000002$ | C20, C21, C07 | phép so số nguyên đặt trong bảng C07 và ghi chú diễn giả C21 |
+| trung bình — mục tiêu học tập | viết lại theo note:11–14; đếm tay 78 âm tiết | P03 | |
+| trung bình — vấn đề trung tâm và câu trả lời | ba dòng theo note:85–89; F04 trả lời cùng thứ tự bằng số | P04, F04 | |
+| trung bình — ký hiệu và thuật ngữ | $\mathrm{SIM}$, $C_1,C_2$, "lần truyền khối", "xác minh", "vòng", "lần mua", "lần truy cập", $\mathrm a,\ldots,\mathrm g$ trên toàn deck; hình deck `danh-gia-jaccard-c.svg` ghi $C_1,C_2$ | toàn deck; C02, C19, E02, G02, R04, R06, B02, B09 | không đổi nhãn hình ghi chú `danh-gia-jaccard.svg` (ghi chú vẫn đọc $S=C_1$, $T=C_2$); nhãn "lượt" trong bốn SVG đổi theo |
+| trung bình — B00, C00, D01 không hình, không số | B00 thành trang bài toán có hình (1 TB, 1 GB); C00 thêm $N=10^6$ và hình (chuyển từ C01); D02 lên ngay sau DT với ba giới hạn có số và bản đồ; D01 lùi về trước E01 | B00, C00, C01, D02, D01 | giữ chức năng ER-002, ER-003, ER-004 |
+| trung bình — thứ tự khái niệm | (a) Mục 2.1 đầu mạch 2; (b) C05 sau C20; (c) C16 → C23 → C24 → C15; (d) D02 → D03…D07 → D01 → E01…E03 → D11 | mạch 2, 3, 4 | câu nối trong ghi chú diễn giả các trang lân cận viết lại |
+| trung bình — vết chạy $N=2$ | thay bằng Ví dụ 01.7(b), tách trang bảng vết; E02 dùng vết $N=3$ | C17, C19, E02 | |
+| trung bình — khối Mục 2.2–2.4 thiếu | B01 thêm số liệu ($1/10$, $10^9$ địa chỉ, 20 GB); thêm B17 (Ví dụ 01.4) và B18 (Định nghĩa 01.8, Ví dụ 01.5); B10 thành Định nghĩa 01.7; Tình huống 01.3 trong ghi chú diễn giả B18 | B01, B17, B10, B18 | |
+| trung bình — recitation thiếu trang "Lời giải:" | thêm R02B, R03B, R05B cùng tiêu đề, lời giải khớp `exercises.md`; R01–R03 hỏi "điều Hệ quả 01.22 cho biết"; Hệ quả 01.22 trên R07 và F08; hướng dẫn chấm theo bước trong ghi chú diễn giả | R01–R05B, R07, F08 | |
+| trung bình — nội dung ngoài ghi chú | rút cơ chế ngoài ghi chú khỏi mặt trang và ghi chú diễn giả (dây chuyền độ trễ, hoán vị MinHash, DCT, bước nhảy ngẫu nhiên, HITS, HNSW/PQ, FM/CM/DGIM, tính chất Bloom, "Không phải mọi chuỗi…"); các trang D giữ chức năng ER-004 bằng bảng phương pháp và thuộc tính của note:849–864; C10 dùng công thức CS246 note:708; E02 bỏ "Python hoặc C++" | C10–C13, D03–D10, B01, B03, E02 | giữ hình và ví dụ ER-003 của C11–C13 (vector, lương), A03 (đồ thị y, a, m); đề nghị bổ sung ghi chú ở báo cáo của tác tử sửa |
+| trung bình — khoảng 30 câu xuất xứ, rào đón | xóa; giới hạn nêu bằng nguyên nhân hoặc bằng số (A07: $122{,}88$ TB) | ghi chú diễn giả toàn deck | xuất xứ ghi ở đoạn trên |
+| trung bình — lời chú người soạn, đính chính nguồn | xóa; B09 dẫn DSC trang chiếu 40; C15 nguồn Princeton COS 597A; R04 dùng "giả thuyết làm việc" | B07, B08, B09, C13, C15, R04, R06 | |
+| trung bình — P02 "Nhắc lại" và ký hiệu | dòng tiên quyết thường; "Nhắc lại:" mô hình RAM, $O$, trộn, bất biến; Ký hiệu thêm $F$, $M$, $L$ | P02 | 6 dòng, 56 âm tiết |
+| nhẹ — G01 bảng tổng kết | hàng $F$; $2F$; $2mF$, $\le N(N-1)L$, "Xác minh ứng viên" với $\widehat R=A\cap R$ | G01 | |
+| nhẹ — C15 thiếu định nghĩa | Định nghĩa 01.17 dạng công thức; độ thu hồi cặp ở C24 | C15, C24 | |
+| nhẹ — câu định nghĩa C12 | theo note:625 | C12 | |
+| nhẹ — ghi chú diễn giả trang tiêu đề mạch dài | CT 97, DT 80, FT 89 âm tiết; C05 bỏ câu chỉ đường | CT, DT, FT, C05 | |
+| nhẹ — câu chỉ đường | xóa ở P04, GT, F04, D01, E02, D10, G03, C02, C03 | các trang nêu | P04 giữ ánh xạ dòng → mạch vì là chức năng của trang vấn đề trung tâm |
+| nhẹ — no-ai-slop Detect (câu kết châm ngôn, phủ định, "có thể") | C12 "Báo chi phí xây dựng cùng độ trễ truy vấn."; F03, F01 theo đề xuất; C10 bỏ "có thể giảm"; D02 nêu năm chuỗi tiên quyết; câu cầu nối khuôn "Ngoài …, còn …" bỏ | C12, F03, F01, C10, D02, D03, D04 | |
+| nhẹ — nhãn in đậm D03, D09 | *khóa*, *HNSW*, *lượng tử hóa tích* in nghiêng, kèm tên tiếng Anh | D03, D09 | |
+| nhẹ — C17 thiếu dòng "Tính …" | thêm | C17, C19 | |
+| nhẹ — `id="L01-…"` lộ mã | bỏ thuộc tính `id` của mọi trang nội dung | toàn deck | giữ `id="mach-N"` |
+| nhẹ — A01 dùng $D$, $M$ byte | ghi chú diễn giả viết bằng lời | A01 | |
+| nhẹ — D01, D02 thiếu CLO, chuỗi tiên quyết | D01 bảng CLO1–CLO4; D02 ghi chú diễn giả năm chuỗi | D01, D02 | |
+| nhẹ — G03 tài liệu | BHK bản 04/01/2018; thêm CLRS 4e; liên kết `exercises.md`; dòng Bài 02 | G03 | |
+| nhẹ — không dẫn số khối | dẫn số khối ghi chú trên các trang kết quả (tối đa một lần mỗi trang) và Bài tập 01.10, 01.11 | toàn deck | `refcheck.py 01`: 175 đúng, 0 sai |
+
+**Kiểm G17** (máy chủ 8796, Chromium, `check_deck.py`): 100 trang, 7 section, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, 0 `fragment`, không trùng mã, mọi trang có ghi chú diễn giả (40–250 âm tiết), không trang > 3 công thức hiển thị, `overflow_1600` rỗng, `hash_strand` đúng `mach-2…7`, không cuộn ngang ở 390 px; trang > 60 âm tiết đều thuộc loại trần 80 và có trong ngoại lệ của `storyboard.md`. `refcheck.py 01`: 175 đúng, 0 sai. Ảnh chụp 1600×900 của 34 trang mới hoặc sửa nhiều và 390×844 của 4 trang đã xem. `git diff --check` sạch.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Căn cứ: danh sách điều phối viên đã duyệt sau hai lượt kiểm lại (`merge-01.md`: 3 trung bình, 12 nhẹ) và hai quyết định: giữ một dòng cơ chế mỗi trang `D05`–`D10` (ngoại lệ ER-004, G12); mạch 6 không cần trang mở có hình. Cùng tác tử sửa; không commit.
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1 [TB] thủ tục trộn thiếu điều kiện lặp | thêm dòng "Lặp khi cả hai con trỏ chưa hết danh sách"; dòng "Chứng minh." chuyển xuống ghi chú diễn giả; 50 âm tiết | C21 |
+| 2 [nhẹ] $X_c$ ở trang Markov | trường hợp ba ngày chuyển xuống ghi chú diễn giả, viết $\mathbb E[X_c]$, $\Pr(X_c\ge1)$ | F08 |
+| 3 [nhẹ] giả thiết Ví dụ 01.4 | "$\mu_1$ truy vấn đúng một lần, $\mu_2$ đúng hai lần; giữ độc lập mỗi bản ghi với xác suất $1/10$"; 59 âm tiết | B17 |
+| 4 [nhẹ] hình ứng viên còn "hậu kiểm" | `title` "Ứng viên và xác minh", nhãn "Xác minh chính xác", `desc` theo; qua script `fix_deck_svg_2026_11_13.py`; `alt` của C16 theo | C16, `danh-gia-ung-vien.svg` |
+| 5 [nhẹ] P02 nhắc lại trộn | "Nhắc lại: mô hình RAM, ký hiệu $O$; danh sách đã sắp tăng ngặt" | P02 |
+| 6 [nhẹ] giả thiết Mệnh đề 01.15, 01.5 | C07 dòng Mô hình thêm "mọi $C_i$ trong bộ nhớ"; B16 "đọc mỗi khối đúng một lần" | C07, B16 |
+| 7 [TB] thứ tự mạch 3 | C20 → C05 → C08…C14 → C21 → C07 → C16; ghi chú diễn giả C21 mở bằng câu nối note:630–632; C16 dẫn Ví dụ 01.8 (kho gấp đôi, số vòng tăng gần bốn lần) ngay sau C07; storyboard và bảng thời gian cập nhật (tổng mạch 3 giữ 37,5 phút) | mạch 3 |
+| 8 [TB] câu thừa ở G01 | xóa câu "Bài chỉ đặc tả một thuật toán…"; lý do giữ ở storyboard | G01 |
+| 9 [nhẹ] R07 và F08 | R07: một nhãn "Nhắc lại:" cho danh sách bốn ý, ý ba "$X$ là tổng chỉ báo trên các phép thử; $\mathbb E[X]$ bằng số phép thử nhân xác suất một phép thử"; F08: dòng "Ba ngày" chuyển xuống ghi chú diễn giả | R07, F08 |
+| 10 [nhẹ] mô tả lời giải | R00, R02 thêm "cận Hệ quả 01.22" | R00, R02 |
+| 11 [nhẹ] ghi chú diễn giả trang tiêu đề mạch | DT: mạch 3 kết thúc ở $R\subseteq A$ và độ thu hồi; GT: "kết quả của mạch 2–3"; FT nêu kết quả kế thừa (trách nhiệm khi diễn giải kết quả tính toán); FT 95 âm tiết | DT, GT, FT |
+| 12 [nhẹ] câu chỉ đường, câu tập $C_i$ | F04 xóa câu mở; C01 "Giả sử các tập $C_i$ đã có sẵn; Bài 05 tạo chúng." | F04, C01 |
+| 13 [nhẹ] ý lặp | "$\mathrm{SIM}\ge\tau$ chưa đủ … sao chép" chỉ còn ở E03 (D01 ô CLO4 đổi thành "báo cáo cả cặp bỏ sót"; F07 bỏ câu); "chạy nhanh không chứng minh cận" chỉ còn ở C00 (E06 bỏ; C00 bỏ ý "chạy đúng", E02 giữ); C00 dòng 1 thành "Bài toán phân tích: tìm cặp tài liệu gần trùng trong kho $N=10^6$ tài liệu." | C00, D01, E06, F07 |
+| 14 [nhẹ] D02 | thêm "Nhắc lại: ba giới hạn đã gặp." trước danh sách | D02 |
+| 15 [nhẹ] storyboard | tiêu đề trong bảng lấy từ mã nguồn (KaTeX giữ dạng `$…$`); cột lý do trỏ "phát hiện k" theo dòng 1–30 của bảng phát hiện; ghi quyết định mạch 6 và ngoại lệ ER-004 | `storyboard.md` |
+| ER-004 | một dòng cơ chế: D08 (Định nghĩa 03.8), D09 (HNSW tìm tham lam theo tầng; PQ, Định nghĩa 07.27), D05 (Bloom, Định nghĩa 08.22), D10 (Flajolet–Martin, Định nghĩa 09.5), D06 (Huffman, Thuật toán 10.14), D07 (note:872); giữ mật độ (D08 48, D09 60, D05 59, D10 58, D06 50, D07 79 âm tiết) | D05–D10 |
+
+Làm khác danh sách: mục 9, R07 không ghi "(Mệnh đề 01.20)" trên mặt trang vì trang đã có "(Hệ quả 01.22)" mà đề bài cần (tối đa một số hiệu mỗi trang, G4); Mệnh đề 01.20 ở ghi chú diễn giả.
+
+**Kiểm G17 sau lượt sửa.** `check_deck.py 8796`: 100 trang, 7 section, console 0, request hỏng 0, `.katex-error` 0, trùng mã 0, ghi chú diễn giả 40–250, `disp_gt3` rỗng, `overflow_1600` rỗng, `hash_strand` đúng `mach-2…7`, không cuộn ngang 390 px; mọi trang > 60 âm tiết thuộc loại trần 80 và có trong ngoại lệ storyboard. `refcheck.py 01`: 184 đúng, 0 sai. `git diff --check` sạch. Ảnh chụp 1600×900 của C21, C16, D05, D06, D08, D09, D10, R07, C07 và 390×844 của D09 đã xem.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | cần sửa | 0/0/1/5 | chấp nhận; điều kiện lặp của thủ tục trộn ở C21 (note:633). Sáu mục vào `merge-01.md` (mục 1–6) |
+| B | cần sửa | 0/0/3/8 | chấp nhận; thứ tự mạch 3 (trang tổng C05 liền các trang tiêu chí, theo ER-003 và note:614→637), câu lời người soạn ở G01, xung đột ER-004/G12 ở D05–D10. Chín mục vào `merge-01.md` (mục 7–15) |
+
+Quyết định của điều phối viên trong lượt này: (1) ER-004 là yêu cầu rõ của người dùng, nên mỗi trang D05–D10 giữ một dòng cơ chế, viết bằng thuật ngữ và số khối của ghi chú bài sau (Định nghĩa 03.8, 07.27, 08.22, 09.5, Thuật toán 10.14; D07 theo note:872); phần ghi chú 01 chưa có câu cơ chế là đề nghị sửa ghi chú cho người dùng. (2) Mạch 6 không thêm trang mở có hình: F04 nhắc lại $N=10^6$ bằng số, hình cấu trúc chương quá nhỏ khi chiếu.
+
+Lượt sửa sau kiểm lại: 15/15 mục làm; R07 dẫn "(Hệ quả 01.22)" trên mặt trang, Mệnh đề 01.20 trong ghi chú diễn giả (một số hiệu mỗi trang) — chấp nhận. Deck 83 → 100 trang (80 giảng, 120 phút; mạch 5 tám trang Đọc thêm không tính giờ; mạch 7 mười hai trang, 60 phút). Hai SVG không còn deck nào dùng (`giao-thoa-khai-pha-du-lieu.svg`, `the-tich-gan-bien.svg`) được giữ vì bản lưu trong `backups/lec-01/` còn dẫn.
+
+Đề nghị sửa ghi chú để lại cho người dùng (chi tiết trong báo cáo tác tử sửa): ví dụ cho các trang tiêu chí của ER-003; câu cơ chế cho từng nhóm phương pháp ở Mục 4.1; hình Jaccard nhãn $C_1$, $C_2$.
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 100 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không tràn khung, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; mười tám trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 184 dẫn chiếu, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh FT (nhãn Đọc thêm) và R07 (trang "Nhắc lại:" mở mạch 7) ở 1600×900. Thuộc tính `id="L01-…"` của các trang nội dung đã bỏ; không tệp nào liên kết tới (đã grep); trang tiêu đề mạch giữ `id="mach-N"`.
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
