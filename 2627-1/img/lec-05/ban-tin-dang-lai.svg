@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
-<title id="title">Bản tin gốc và bản đăng lại</title><desc id="desc">Ví dụ dựng: bản tin gốc có hai câu; bản đăng lại giữ nguyên hai câu đó và chèn thêm một câu ở giữa. Câu chung có nền xanh, viền liền; câu thêm có viền đứt và nhãn “thêm”. Hai chuỗi khác nhau từ đầu câu thứ hai.</desc>
+<title id="title">Bản tin gốc và bản đăng lại</title><desc id="desc">Bản tin gốc có hai câu; bản đăng lại giữ nguyên hai câu đó và chèn thêm một câu ở giữa. Câu chung có nền xanh, viền liền; câu thêm có viền đứt và nhãn “thêm”. Hai chuỗi khác nhau từ đầu câu thứ hai.</desc>
 <g font-family="Arial, sans-serif" font-size="27" fill="#243247">
 <text x="290" y="34" text-anchor="middle" font-size="29" font-weight="700">Bản tin gốc</text>
 <text x="910" y="34" text-anchor="middle" font-size="29" font-weight="700">Bản đăng lại</text>

@@ -1829,3 +1829,85 @@ Dữ kiện tự dựng (không ghi trong ghi chú): `abcxabd`; phản ví dụ 
 ### Quyết định của người dùng (2026-11-13)
 
 - Quyết định của người dùng (2026-11-13): thống nhất thuật ngữ "véc-tơ" cho deck và ghi chú (tên tiếng Anh "vector" chỉ trong ngoặc ở lần dùng đầu). Deck 05 còn 1 chỗ "vector": đổi nếu không phải tên tiếng Anh trong ngoặc.
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Tác tử.** Vai trò: tác tử sửa deck (writer) cho Bài 05, `no-ai-slop` chế độ Edit, tự kiểm theo `eval.md`; loại, mô hình và effort do điều phối viên ghi theo lời gọi công cụ. Căn cứ: `SP/fix/edit-decisions.md` (G1–G18, D05), bảng phát hiện ở mục trên, ghi chú `materials/lec-05/lecture-note.md` và `exercises.md` (không sửa). Phạm vi ghi: deck, `img/lec-05/`, ba tệp kế hoạch, script `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-05/generate_deck_svg.py` (mới). Không commit.
+
+**Kết quả.** 65 → 80 trang (57 → 65 trang giảng, 8 → 15 trang bài tập). Thêm `lec05-s02-10`, `s02-11`, `s02-12`, `s03-10`, `s04-08`, `s04-09`, `s05-14`, `s06-08`, `s07-11` … `s07-17`; không bỏ trang nào; không đổi mã trang cũ. Đổi thứ tự: `s04-06` trước `s04-05`; `s02-06` trước `s02-05`. Mã phát hiện trong bảng dưới: N1–N3 (nghiêm trọng), T1–T13 (trung bình), L1–L17 (nhẹ), theo thứ tự dòng của bảng phát hiện; `storyboard.md` dùng cùng mã.
+
+**Xuất xứ dữ liệu tự dựng** (không ghi trên mặt trang hay ghi chú diễn giả): hình bản tin đăng lại (`ban-tin-dang-lai.svg`, s01-04) là ví dụ dựng của học phần; `abcxabd`, `abcdabc` là biến thể Ví dụ 3.3 của MMDS do ghi chú dựng (Ví dụ 05.3, Bài tập 05.3); `Mua ngay`, `Gia soc` lấy từ Tình huống 05.2; số liệu câu hỏi và câu tự kiểm tra lấy từ Bài tập 05.2–05.12 của ghi chú; họ 20 hàm affine modulo 5 ($13/20$, $7/20$) theo Nhận xét 05.23, kiểm lại bằng script (liệt kê 20 hàm và 120 hoán vị).
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| N1 nghiêm trọng: thiếu trang Hệ quả 05.15 | sửa: thêm trang "Cận độ lệch chuẩn của ước lượng" (phát biểu, chứng minh một dòng, bảng $n=100,250$ của Ví dụ 05.10); bảng tổng kết thêm $\le1/(4n)$; s05-10, s06-02 dẫn Hệ quả 05.15 | s04-09 (mới), s06-05, s05-10, s06-02 | số tính lại: $\sqrt{1/450}\approx0{,}0471$, $\sqrt{1/1125}\approx0{,}0298$, $1/(2\sqrt{250})\approx0{,}0316$ |
+| N2 nghiêm trọng: thiếu trang Mệnh đề 05.6 | sửa: tách s02-07; trang mới có giả thiết đơn ánh trên $S\cup T$, cùng $g$, chứng minh hai dòng, phản ví dụ $1/3\to1/2$; hàng bảng tổng kết theo mệnh đề | s02-10 (mới), s02-07, s06-05 | — |
+| N3 nghiêm trọng: thiếu Bổ đề 05.9, bước "phân bố đều" chỉ khẳng định | sửa: thêm trang bổ đề với chứng minh song ánh ba bước; chứng minh định lý dẫn bổ đề và thêm trường hợp $u\in S\setminus T$; kiểm 80/40 hoán vị ở ghi chú diễn giả | s03-10 (mới), s03-08 | kiểm bằng liệt kê 120 hoán vị: a, c, d mỗi phần tử đứng đầu hợp ở 40 hoán vị |
+| T1 trung bình: mục tiêu 5 dòng so với 7 | sửa: bảy mục tiêu theo ghi chú, cùng thứ tự; ghi chú diễn giả theo bảng "Mục tiêu và bài tập" của `exercises.md` | s01-03 | đếm tay 79 âm tiết (≤ 80); `check_deck.py` 80 |
+| T2 trung bình: $X_i$ hai nghĩa | sửa: $I_i$, $\mathbf 1[E]$, $\widehat s$; loại hàng $\mathrm X,\mathrm Y,\mathrm Z$ chữ đứng; "biến chỉ báo" | s01-10, s03-07, s04-03, s04-04, s04-05 | — |
+| T3 trung bình: hệ số $a,b$; Mệnh đề 05.22 không chứng minh | sửa: $(\alpha r+\beta)\bmod R$; chứng minh hai chiều; ví dụ $(3r+1)\bmod4$, $(2r+1)\bmod4$ | s05-11, s05-00, s06-04, s07-06 | ghi chú diễn giả s05-11 nêu $(5r+2)\bmod6$ |
+| T4 trung bình: ký hiệu lệch bảng ký hiệu | sửa: $i\to j$ (s02-01, s02-03, s02-04), $t\to q$ (s02-11), $A\to H$ (s05-08), $q\to x+y$ (ghi chú diễn giả s07-04, s07-14); bỏ câu "Bài 01 viết $J$"; tên phần tử $\mathrm a,\ldots,\mathrm e$ trong công thức | s01-10, s01-07, s02-01, s02-03, s02-04, s02-11, s03-02 … s03-09, s04-01, s04-03, s05-01 … s05-06, s05-08, s07-04, s07-13, s07-14 | tên phần tử trong bảng và trong lời văn ghi chú diễn giả viết a, …, e như quy ước của ghi chú |
+| T5 trung bình: thiếu "biểu diễn theo hàng", $L=\operatorname{nnz}(M)$ | sửa: định nghĩa ở s03-02; thay "danh sách cột có 1" ở mọi trang | s03-02, s05-02, s05-03, s05-07, s05-09, s05-13, s05-12, s06-06 | s06-02 dòng quét hàng viết "một lượt quét" |
+| T6 trung bình: Ví dụ 05.1 thiếu chi phí một cặp trên hai biểu diễn | sửa: bảng tập mã ($\le100\,000$) / chữ ký (250), tổng $5\cdot10^{16}$ / $1{,}25\cdot10^{14}$; dữ kiện "so một cặp chữ ký mất 1 micro giây"; 5,79 ngày; tỷ số 400 | s01-05 | — |
+| T7 trung bình: Tình huống 05.2, Nhận xét 05.23 không có trang | sửa: trang mới "Hậu quả khi giả thiết bị vi phạm" (họ 20 hàm, $13/20\ne2/3$; hai tầng va chạm; hai tài liệu ngắn hơn $k=9$ cho $\widehat s=1$) | s05-14 (mới), s05-02 | chọn trang riêng thay vì thêm vào s05-11 để s05-11 giữ phát biểu và chứng minh Mệnh đề 05.22 trong trần 60 |
+| T8 trung bình: recitation không có trang "Lời giải:" | sửa: mỗi trang đề có trang "Lời giải:" kế tiếp cùng tiêu đề, khớp `exercises.md`; ghi chú diễn giả trang đề có năng lực kiểm, gợi ý, hướng dẫn chấm theo bước | s07-01 … s07-07; s07-11 … s07-17 (mới) | 15 trang, 60 phút |
+| T9 trung bình: lời giải 3.2.3 nói phần đạt cận "không được chứng minh ở đây" | sửa: bỏ câu; trang lời giải nêu phép dựng đạt cận và ví dụ `00010111` | s07-02, s07-12 | — |
+| T10 trung bình: mạch 2, 3, 4 không mở bằng trang bài toán có hình | sửa: s02-01 dùng hình mới `cua-so-mot-ky-tu.svg`; s03-01 dùng hình mới `kich-thuoc-bieu-dien.svg`; mạch 4 thêm s04-08 với hình `mot-phep-thu.svg` | s02-01, s03-01, s04-08 (mới) | số trên hình lấy từ Ví dụ 05.3, Mục 2.4, Mục 5.4, Ví dụ 05.8, 05.9 |
+| T11 trung bình: nhãn SVG ≈ 16,7 px | sửa: vẽ lại bằng script, nhãn 33–34 đơn vị (≈ 19 px ở khung 572,7 px đo bằng Playwright 1280×720); vẽ lại thêm `cua-so-shingle.svg` (nhãn 23 → 27–34, khổ 1200×315) vì đo được ≈ 12 px | s01-07, s01-09, s02-02, s03-04, s03-07 | ba hình này cũng dùng trong ghi chú; nội dung và alt không đổi nghĩa |
+| T12 trung bình: thuật toán tạo tập shingle gộp một trang | tách: "Thuật toán:" (Đầu vào/Đầu ra, giả mã, câu đọc giả mã, giả thiết), "Tính đúng:" (khởi tạo, duy trì, kết thúc, phản ví dụ danh sách nối thêm), "Chi phí:" (Mô hình, bảng ba bước, $O(1+wk)$ kỳ vọng) | s02-04, s02-11 (mới), s02-12 (mới) | — |
+| T13 trung bình: câu xuất xứ, đính chính sách | sửa: bỏ các câu ở s01-04, s05-09, s04-04, s04-05, s06-03, s06-04; bỏ "Ví dụ dựng:" trong `desc` của `ban-tin-dang-lai.svg` | s01-04, s04-04, s04-05, s05-09, s06-03, s06-04 | xuất xứ ghi ở đoạn trên |
+| L1 nhẹ: rào đón vị thế đoạn văn | sửa theo đề xuất | s04-01, s05-08, s02-05, s04-02 | — |
+| L2 nhẹ: câu chỉ đường | sửa: bỏ các câu dẫn; s05-11 nêu $(5r+2)\bmod6$; s06-05 nêu Bài tập 05.22 bằng số | s01-10, s01-11, s01-08, s04-01, s05-07, s05-11, s06-00, s06-02, s06-05 | — |
+| L3 nhẹ: từ làm mềm | sửa: tỷ số 400; $3{,}7\cdot10^{-5}$ của $2^{32}$ | s01-05, s02-07 | "thường … vài phần trăm" ở s05-10 giữ vì trích MMDS tr.81 |
+| L4 nhẹ: ý phụ, điều hiển nhiên | sửa: bỏ ba câu | s01-04, s07-03, s01-10 | — |
+| L5 nhẹ: nhịp câu robot ở ghi chú diễn giả mục tiêu | sửa: viết lại theo bảng mục tiêu–bài tập, một đoạn liền | s01-03 | — |
+| L6 nhẹ: điều kiện đặt sai kết quả | sửa: "Mọi bộ $f_i$: một lượt quét …; xác suất cần hoán vị đều" | s06-02 | — |
+| L7 nhẹ: điều kiện $RC$ chi phối rút gọn | sửa: chép điều kiện của note:1154 | s05-13 | — |
+| L8 nhẹ: giả thiết đặt sai chỗ | sửa: bỏ dòng "Giả thiết" ở định nghĩa chữ ký, thêm $S\ne\varnothing$; kỳ vọng thêm "cùng bộ hoán vị" | s04-02, s04-04 | — |
+| L9 nhẹ: thứ tự kỳ vọng → phương sai → chi phí | sửa: đưa s04-06 lên trước s04-05 | s04-06, s04-05 | quyết định cũ ở storyboard bị thay |
+| L10 nhẹ: nhóm nghìn bằng dấu chấm; "vector" | sửa: khoảng trắng hẹp trong KaTeX; "véc-tơ" | s01-09, s01-11, s02-09, s03-00, s03-01, s04-03, s05-10, s06-02 | grep: 0 "vector", 0 "[0-9].000" |
+| L11 nhẹ: Jaccard gắn nhãn "Định nghĩa." | sửa: "Nhắc lại:" | s01-07 | — |
+| L12 nhẹ: trang "Ví dụ:" thiếu dòng "Tính …" | sửa | s02-02, s03-05, s04-01, s05-04, s05-05, s05-06 | — |
+| L13 nhẹ: so số chuỗi với "một thư điện tử" | sửa: "lớn hơn nhiều độ dài một thư điện tử" | s02-05 | — |
+| L14 nhẹ: khó khăn đầu mạch không có số | sửa: s05-01 "$R$ cỡ $2^{32}$, mỗi hoán vị cần $R$ số"; dòng "Nhu cầu:" của s04-01 chuyển sang s04-08 với $\mathrm{SIM}=2/3$ | s05-01, s04-08 | — |
+| L15 nhẹ: dòng mạch 2 của vấn đề trung tâm không có điều kiện | sửa: "Mã không va chạm: Jaccard giữ nguyên; tập mã gấp bốn lần tài liệu" | s01-11 | rút gọn để giữ ≤ 20 âm tiết mỗi dòng |
+| L16 nhẹ: thiếu tên Anh ở lần đầu | sửa: near-duplicate, indicator variable, window, $k$-gram, loop invariant, permutation, rank, unbiased | s01-04, s01-10, s02-01, s02-03, s02-11, s03-04, s03-06, s04-04 | signature matrix chuyển lên s04-02 (lần dùng đầu) |
+| L17 nhẹ: ghi chú diễn giả dài | sửa: s06-00 còn 71; các trang không phải chứng minh/lời giải cắt câu dẫn, xuất xứ, câu lặp | s06-00, s01-10, s01-11, s01-04, s01-05, s01-07, s02-01, s02-07, s04-03, s06-05, s06-02 | sau sửa chỉ ba trang chứng minh vượt 150 (s03-08 158, s04-05 156, s05-08 159; trần ~250 cho chứng minh) |
+
+**Kiểm G17 (sau sửa).** `check_deck.py` (máy chủ 8796): 80 trang, 7 section ngoài, 0 trùng mã, 0 lỗi console, 0 request hỏng, 0 `.katex-error`, 0 `fragment`, `disp_gt3` rỗng, `notes_gt250` rỗng, `notes_lt40` rỗng, `hash_strand` đúng `mach-2…7` ở `#/2…7`, `hscroll_390=false`, điều hướng phím đúng. `over60`: s01-03 80, s01-11 72, s01-08 64, s04-06 69, s05-10 61, s06-05 70, s06-06 61, s06-02 68 (đều trần 80, ngoại lệ ghi trong `storyboard.md`). `overflow_1600`: s01-11, s04-05, s04-09 có độ lệch phải 14 891–19 122 px, cờ giả của path SVG `\sqrt` KaTeX; ảnh chụp 1600×900 cho thấy vừa khung. `refcheck.py 05`: 149 dẫn chiếu đúng, 0 sai. `git diff --check` trên các tệp của Bài 05: sạch (toàn kho báo một dòng trống cuối tệp ở `planning/lec-04/outline.md`, ngoài phạm vi). Ảnh chụp 1600×900 và 390×844 của 35 trang mới và trang sửa nhiều đã xem (thư mục nháp `SP/fix/lec-05/chk/`).
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Theo danh sách đã duyệt của điều phối viên `SP/fix/lec-05/merge-05.md` (12 mục: 2 trung bình, 10 nhẹ), cùng tác tử sửa, cùng phạm vi ghi. Deck 80 → 81 trang (thêm `lec05-s02-13`); phần giảng 66 trang, 120 phút (s02-02 2 → 1,5 phút, s02-09 3,5 → 3 phút, s02-13 1 phút).
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1 nhẹ: phản ví dụ Mệnh đề 05.6 thiếu \(\ne g(\texttt{ab})\) | sửa theo note:376 | s02-10 |
+| 2 nhẹ: va chạm \(f_i\) "có thể"; thiếu \(\beta\) | sửa: "có thể cho hai tập rời cùng cực tiểu"; thêm \(\beta\in\{0,\ldots,4\}\) | s05-14 |
+| 3 nhẹ: kỳ vọng thiếu "\(S,T\) không rỗng" | sửa trên mệnh đề và hàng bảng tổng kết | s04-04, s06-05 |
+| 4 nhẹ: kết luận \(\le0{,}032\) thiếu điều kiện | sửa: "khi các hoán vị đều, độc lập" | s05-10 |
+| 5 trung bình: thiếu bảng vết chèn của Ví dụ 05.2 | thêm trang `s02-13` sau s02-02 (bảng \(j\) / cửa sổ / tập sau chèn, 7 hàng, trước giả mã s02-04); ghi chú diễn giả s02-02 bỏ câu về bảng, s02-04 dẫn đúng "cột cuối của bảng" | s02-13 (mới), s02-02, s02-04 |
+| 6 trung bình: s04-07 câu 2 lộ đáp số bảng s04-09 | sửa: bỏ câu độ lệch chuẩn \(n=100\); câu 3 mới là Bài tập 05.8(b) (\(n\ge625\)), lời giải và tiêu chí trong ghi chú diễn giả; s04-09 bỏ câu nêu sẵn \(n\ge625\) | s04-07, s04-09 |
+| 7 nhẹ: s04-08 khung phải làm trước s04-01 | sửa: vẽ lại `mot-phep-thu.svg` chỉ một phép thử (a, c, d mỗi phần tử 1/3; Pr[trùng] = 2/3); alt và ghi chú diễn giả bỏ câu chỉ đường | s04-08 |
+| 8 nhẹ: hai câu chỉ đường mới | xóa | s02-11, s04-06 |
+| 9 nhẹ: câu mô tả cách soạn trang | xóa | s01-03, s01-11, s07-00 |
+| 10 nhẹ: Bổ đề 05.9 Bước 1 | sửa: "với \(a'\in A\)"; ghi chú diễn giả "đứng sau vị trí cũ của \(a\)" (note:569) | s03-10 |
+| 11 nhẹ: MT1 | sửa: "đọc Jaccard theo cách chọn phần tử"; để giữ ≤ 80, MT4 viết "đếm chi phí so chữ ký"; đếm tay 80 âm tiết | s01-03 |
+| 12 nhẹ: gom | ghi chú diễn giả s05-10 bỏ câu lặp s04-02; s04-07 bỏ câu lặp s04-05; s04-09 bỏ câu nhắc lại bảng; s02-03 bỏ câu \(k=1\) lặp s02-05; s06-08 "Ba bước, ba kết quả: mã không va chạm giữ Jaccard; hoán vị đều cho xác suất trùng bằng Jaccard; tỷ lệ trùng không chệch"; s07-16 thêm "(a)"; storyboard: s05-12, s05-14 mang `lec-05-topic-11, lec-05-topic-14`; câu "Không chệch chưa đủ…" chuyển từ s04-04 xuống cuối ghi chú diễn giả s04-06 | s05-10, s04-07, s04-09, s02-03, s06-08, s07-16, s04-04, s04-06 |
+
+**Kiểm G17 lại.** `check_deck.py`: 81 trang, 7 section ngoài, 0 trùng mã, 0 lỗi console/request/KaTeX, 0 `fragment`, `disp_gt3`, `notes_gt250`, `notes_lt40` rỗng, `hash_strand` đúng `mach-2…7`, `hscroll_390=false`. `over60`: s01-03 80, s01-11 72, s01-08 64, s04-06 69, s05-10 65, s06-05 69, s06-06 61, s06-02 68 (trần 80, ngoại lệ trong `storyboard.md`). `overflow_1600` chỉ còn ba cờ giả `\sqrt` (s01-11, s04-05, s04-09). `refcheck.py 05`: 151 đúng, 0 sai. `git diff --check` trên tệp Bài 05: sạch. Đã xem ảnh s02-13, s04-08, s04-07, s05-14, s03-10, s06-05, s01-03.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | đạt | 0/0/0/5 | chấp nhận; bốn mục vào `merge-05.md` (mục 1–4) |
+| B | cần sửa | 0/0/2/7 | chấp nhận; bảng vết chèn của Ví dụ 05.2 cho cụm thuật toán shingle và câu hỏi s04-07 lộ đáp số của s04-09. Tám mục vào `merge-05.md` (mục 5–12) |
+
+Lượt sửa sau kiểm lại: 12/12 mục làm; bảng vết đặt ở trang mới s02-13 (s02-02 đã đủ dòng), `mot-phep-thu.svg` vẽ lại giữ một phép thử, MT4 rút để giữ trần — chấp nhận. Deck 80 → 81 trang.
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 81 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s01-11, s04-05, s04-09 là path SVG của `\sqrt` (cờ giả); tám trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 151 dẫn chiếu `05.k`, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh s02-13 ở 1600×900. Ba hình vẽ lại mà ghi chú cũng dùng (`jaccard-ba-vung`, `minhash-hoan-vi`, `phan-tu-dau-hop`) giữ nội dung; vai A đã kiểm khớp alt của ghi chú.
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.

@@ -389,3 +389,29 @@ Theo hàng đợi `lec05-queue.md` (A1–A14, B1–B3) và năm báo cáo rà. S
 ### Vòng sửa 2 (2026-11-11)
 
 Mục 1 mở bằng Thuật toán 01.11, Mệnh đề 01.12, Bổ đề 01.14, Mệnh đề 01.15 (không số liệu), đoạn giới thiệu chương bỏ câu về Bài 01; năm danh sách phản ví dụ (sau Mệnh đề 05.4, 05.6, 05.12, 05.19 và Định lý 05.10) trở lại câu mở chuẩn của `AGENTS.md`, phản ví dụ độc lập của Mệnh đề 05.14 gộp vào câu; Mục 5 mở bằng thiếu hụt của Ví dụ 05.9 ($R$ số mỗi hoán vị, MMDS §3.3.5); bảng chi phí Thuật toán 05.18 bỏ dòng bước 3, tổng ghi "cộng $O(1)$ cho bước 3" để khớp 56 thao tác của Ví dụ 05.13; Bài tập 05.24 không phụ thuộc phần đọc thêm; Bài tập 05.19 kết luận chỉ nêu điều kiện đạt cận tường minh. Số hiệu không đổi.
+
+## Sửa deck theo bảng phát hiện (2026-11-13)
+
+Deck sửa theo bảng phát hiện 2026-11-13 trong `review-log.md`, nguyên tắc deck mới và ghi chú (bản 2026-11-11, không sửa). Mục này thay các mục "Khác biệt với bộ trang chiếu" và "Tương ứng ký hiệu deck ↔ ghi chú" ở trên, vốn mô tả deck 2026-10-14; bảng mục tiêu MT1–MT5 và bảng "Mục tiêu hiển thị" ở Mục 1 cũng được thay bằng bảng dưới đây.
+
+**Quy mô.** 81 trang: 66 trang giảng (120 phút), 15 trang bài tập vận dụng (60 phút); bảy mạch 10/13/10/10/15/8/15 (sau lượt sửa sau kiểm lại: thêm s02-13, bảng vết chèn của Ví dụ 05.2). Chi tiết từng trang, thời gian, ngoại lệ mật độ ở `storyboard.md`.
+
+**Mục tiêu học tập trên deck (`lec05-s01-03`)** khớp bảy mục tiêu của ghi chú, cùng thứ tự; 80 âm tiết (đếm tay).
+
+| Mục tiêu (ghi chú) | Trang phục vụ | Kiểm tra |
+|---|---|---|
+| 1. Số cặp nhân chi phí một cặp; Jaccard theo phần tử (Mục 1) | s01-04, s01-05, s01-07, s01-08 | s01-09; s07-01/s07-11 (Bài tập 05.15) |
+| 2. Tập $k$-shingle, Thuật toán 05.3, mã giữ Jaccard (Mục 2) | s02-01 … s02-07, s02-10 … s02-13 | s02-09; s07-02/s07-12 (05.19) |
+| 3. Ma trận đặc trưng, MinHash, Định lý 05.10 (Mục 3) | s03-01 … s03-08, s03-10 | s03-09; s07-03, s07-04 và lời giải (05.20) |
+| 4. Chữ ký, không chệch, chi phí so (Mục 4.1–4.3) | s04-08, s04-01 … s04-04, s04-06 | s04-07 câu 1; s06-03 câu 3; s07-07/s07-17 (05.22(c)) |
+| 5. Phương sai, độ dài chữ ký (Mục 4.4) | s04-05, s04-09 | s04-07 câu 2, 3 (Bài tập 05.8); s06-04 câu 4 |
+| 6. Quét hàng, bất biến, thời gian, bộ nhớ (Mục 5.1–5.4) | s05-01 … s05-10, s05-13 | s05-12; s07-05/s07-15 (05.21), s07-06/s07-16 (05.22(a)) |
+| 7. Hàm affine là hoán vị; giả thiết bị vi phạm (Mục 5.5, Tình huống 05.2, 05.3) | s05-11, s05-14 | s06-04 câu 5; s07-06/s07-16 (05.22(b)) |
+
+**Mạch.** Mạch 2–5 ứng với Mục 2–5 của ghi chú, mỗi mạch mở bằng trang bài toán có hình (s02-01, s03-01, s04-08, s05-01); mạch tổng kết mở bằng s06-08 (hình quy trình của ghi chú). Thứ tự Mục 4 theo ghi chú: kỳ vọng (s04-04) → chi phí so (s04-06) → phương sai (s04-05) → cận độ lệch chuẩn (s04-09). Trong mạch 2, khoảng trắng (s02-06) đứng trước chọn $k$ (s02-05).
+
+**Ký hiệu.** Deck dùng bảng ký hiệu của ghi chú: chỉ số cửa sổ $j$; số vòng $q$ trong bất biến tạo tập shingle; tập hàng đã quét $H$; chỉ báo $I_i$ và $\mathbf 1[E]$; ước lượng $\widehat s=\widehat{\mathrm{SIM}}(S,T)$; loại hàng $\mathrm X,\mathrm Y,\mathrm Z$; tên phần tử chữ đứng $\mathrm a,\ldots,\mathrm e$; hệ số hàm affine $\alpha,\beta$; hàm mã shingle $g$; $L=\operatorname{nnz}(M)$ và "biểu diễn theo hàng"; số lớn nhóm bằng khoảng trắng hẹp; "véc-tơ". Jaccard của Bài 01 là $\mathrm{SIM}$ (Định nghĩa 01.9). Trong ghi chú diễn giả, kết quả dẫn bằng số khối của ghi chú (Định nghĩa 05.2 … Nhận xét 05.23, Ví dụ 05.1 … 05.13, Tình huống 05.1–05.3, Bài tập 05.2 … 05.22).
+
+**Nội dung thêm so với deck 2026-10-14** (đều từ ghi chú): Mệnh đề 05.6 (s02-10), Mệnh đề 05.4 tách tính đúng và chi phí (s02-11, s02-12), Bổ đề 05.9 (s03-10), Hệ quả 05.15 và Ví dụ 05.10 (s04-09), Mệnh đề 05.22 có chứng minh và ví dụ modulo 4 (s05-11), Nhận xét 05.23 và Tình huống 05.2 (s05-14), bảng hai biểu diễn của Ví dụ 05.1 (s01-05), trang "Lời giải:" cho bảy trang đề recitation.
+
+**Thuật ngữ Anh thêm ở lần dùng đầu trên mặt trang:** near-duplicate (s01-04), indicator variable (s01-10), window (s02-01), $k$-gram (s02-03), loop invariant (s02-11), permutation (s03-04), rank (s03-06), unbiased (s04-04), signature matrix (s04-02).

@@ -1,10 +1,253 @@
 # Storyboard Bài 05 — Biểu diễn tương đồng: Shingling và MinHash
 
+> Phạm vi (2026-11-13): các mục từ đầu tệp tới trước "Lưu trữ: storyboard deck 2026-09-28 và 2026-10-14" là storyboard của **deck hiện hành**, sửa theo bảng phát hiện 2026-11-13 trong `review-log.md`, nguyên tắc deck mới (Bài 09, 10 làm mẫu) và ghi chú `materials/lec-05/lecture-note.md`, `exercises.md` (bản 2026-11-11). Mỗi trang của deck có đúng một dòng ở mục "Ánh xạ từng trang". Phần lưu trữ giữ nguyên làm hồ sơ; các mục của nó (phiếu theo số thứ tự 01–57, T2–T7, bản đồ mạch 2026-10-14) không còn hiệu lực. Quyết định cũ bị thay: không có trang "Lời giải:" cho recitation (thay theo quy ước tác giả 2026-10-28/29); thứ tự kỳ vọng → phương sai → chi phí so sánh (thay theo thứ tự Mục 4.2 → 4.3 → 4.4 của ghi chú); s02-04 gộp giả mã, bất biến và chi phí (tách theo cụm thuật toán).
+
+## Hành trình khái niệm
+
+Bài mở từ giới hạn của Bài 01: xét mọi cặp tốn số cặp nhân chi phí một cặp, với \(499\,999\,500\,000\) cặp và tới \(100\,000\) phép so một cặp trên tập mã (Ví dụ 05.1). Mạch 2 biến văn bản thành tập \(k\)-shingle, chứng minh và đếm thuật toán tạo tập, rồi mã 4 byte giữ Jaccard khi không va chạm (Mệnh đề 05.6); giới hạn còn lại là tập mã gấp bốn lần tài liệu. Mạch 3 thay tập bằng phần tử đứng đầu theo một hoán vị chung, chứng minh phần tử đứng đầu phân phối đều (Bổ đề 05.9) và xác suất trùng bằng Jaccard (Định lý 05.10); giới hạn là một phép thử chỉ cho 0 hoặc 1. Mạch 4 ghép \(n\) phép thử thành chữ ký, chứng minh không chệch, đếm chi phí so, tính phương sai và cận \(1/(2\sqrt n)\) (Mệnh đề 05.12–05.14, Hệ quả 05.15); giới hạn là cần \(n\) hoán vị của \(R\) hàng. Mạch 5 thay hoán vị bằng hàm băm hàng, chạy phép quét, chứng minh bất biến, đếm thời gian, bộ nhớ, rồi nêu điều kiện hoán vị của hàm affine và hậu quả khi giả thiết bị vi phạm (Thuật toán 05.18, Mệnh đề 05.19–05.22, Nhận xét 05.23, Tình huống 05.2). Mạch 6 thu hồi kho một triệu tài liệu bằng số. Mạch 7 là năm bài MMDS, mỗi bài một trang đề và một trang "Lời giải:".
+
+Ví dụ xuyên suốt: **kho một triệu tài liệu** (s01-05 → s03-01 → s05-10 → s06-08, s06-02) và **bốn tập đặc trưng** \(S_1=\{\mathrm a,\mathrm d\}\), \(S_2=\{\mathrm c\}\), \(S_3=\{\mathrm b,\mathrm d,\mathrm e\}\), \(S_4=\{\mathrm a,\mathrm c,\mathrm d\}\) (s03-02 → s03-05, s03-07, s03-10, s03-08 → s04-08, s04-01, s04-03, s04-09 → s05-03 … s05-06, s05-13, s05-14, s05-12 → s07-03 … s07-15); phụ: `abcdabd`/`abcxabd` (s02-01 … s02-11), `touch down` (s02-06).
+
+## Bản đồ mạch
+
+Bảy section ngoài (81 trang sau lượt sửa sau kiểm lại): mở đầu, bốn mạch giảng, tổng kết, bài tập vận dụng. Mạch deck ↔ mục ghi chú: mạch 1 ↔ Mục 1; mạch 2 ↔ Mục 2; mạch 3 ↔ Mục 3; mạch 4 ↔ Mục 4; mạch 5 ↔ Mục 5 và Tình huống 05.2; mạch 6 ↔ Tóm tắt chương, Tình huống 05.1; mạch 7 ↔ `exercises.md` (Bài tập 05.15, 05.19–05.22). Phần Đọc thêm của ghi chú (đa tập, shingle theo từ dừng, phép thử trên \(m\) hàng đầu) không có trang.
+
+| N | Mạch | Loại | Chức năng | Đầu vào | Đầu ra | Đóng góp | Trang tiêu đề mạch; trang bài toán |
+|---:|---|---|---|---|---|---|---|
+| 1 | Tài liệu gần trùng và độ tương đồng Jaccard | giới thiệu và động lực | bài toán gần trùng, hai thừa số của chi phí, Jaccard theo cách chọn phần tử | Bài 01 (Định nghĩa 01.9, 01.10, Ví dụ 01.8, Bổ đề 01.14) | Ví dụ 05.1; ngưỡng theo ứng dụng | mục tiêu 1 | bìa s01-01; s01-04 (hình bản tin) |
+| 2 | Shingling văn bản | khái niệm và thuật toán | tập \(k\)-shingle, thuật toán tạo tập, khoảng trắng, \(k\), mã 4 byte | Jaccard | Định nghĩa 05.2, Thuật toán 05.3, Mệnh đề 05.4, 05.6; giới hạn: tập mã gấp bốn lần tài liệu | mục tiêu 2 | `mach-2` s02-00, `#/2`, điểm vào mạch 2; s02-01 (hình `cua-so-mot-ky-tu.svg`) |
+| 3 | MinHash theo hoán vị | khái niệm và kết quả | ma trận đặc trưng, MinHash, bổ đề phần tử đứng đầu, định lý xác suất trùng | tập mã, Jaccard | Định nghĩa 05.7, 05.8, Bổ đề 05.9, Định lý 05.10; giới hạn: một phép thử cho 0 hoặc 1 | mục tiêu 3 | `mach-3` s03-00, `#/3`, điểm vào mạch 3; s03-01 (hình `kich-thuoc-bieu-dien.svg`) |
+| 4 | Chữ ký MinHash | khái niệm, kết quả và chi phí | chữ ký, ước lượng, kỳ vọng, chi phí so, phương sai, cận độ lệch chuẩn | Định lý 05.10 | Định nghĩa 05.11, Mệnh đề 05.12–05.14, Hệ quả 05.15; giới hạn: cần \(n\) hoán vị | mục tiêu 4, 5 | `mach-4` s04-00, `#/4`, điểm vào mạch 4; s04-08 (hình `mot-phep-thu.svg`) |
+| 5 | Tính chữ ký bằng hàm băm | thuật toán và chi phí | hàm băm hàng, đặc tả, vết chạy, quét hàng, tính đúng, chi phí, điều kiện hàm affine, giả thiết bị vi phạm | chữ ký, hoán vị | Định nghĩa 05.17, Thuật toán 05.18, Mệnh đề 05.19, 05.21, 05.22, Nhận xét 05.23 | mục tiêu 6, 7 | `mach-5` s05-00, `#/5`, điểm vào mạch 5; s05-01 (hình `bam-thay-hoan-vi.svg`) |
+| 6 | Tổng kết và tự kiểm tra | tổng kết | quy trình, hai bảng, trả lời có điều kiện, tự kiểm tra, nguồn, nối Bài 06 | mọi kết quả | kiến thức cho recitation | mọi mục tiêu | `mach-6` s06-00, `#/6`; s06-08 (hình `quy-trinh-bieu-dien.svg`) |
+| 7 | Bài tập vận dụng | bài tập (dọc riêng 60 phút) | năm bài MMDS, mỗi bài đề và lời giải | Định nghĩa 01.9, 05.2, 05.7, Định lý 05.10, Thuật toán 05.18, Mệnh đề 05.22 | lời giải khớp `exercises.md` | mục tiêu 1–4, 6, 7 | `mach-7` s07-00, `#/7`; trang mở là đề s07-01 (không thêm hình: đề là ba tập số) |
+
+## Chu trình học tập theo cụm
+
+| Cụm | Tình huống, vấn đề | Trực giác | Ví dụ | Hình thức | Thuật toán | Tính đúng, kết quả | Ứng dụng, chi phí | Kiểm tra |
+|---|---|---|---|---|---|---|---|---|
+| Jaccard (nhắc lại từ Bài 01, chu trình rút gọn) | s01-04, s01-11 | s01-07 (hình ba vùng) | s01-07 (3/8) | s01-07 (Nhắc lại) | — | s01-07 (Ý nghĩa) | s01-05, s01-08 | s01-09 |
+| Tập shingle | s02-00, s02-01 | s02-01 | s02-02, s02-01 (3/7) | s02-03 | s02-04 | s02-11 | s02-12, s02-06, s02-05 | s02-09, s07-02/s07-12 |
+| Mã 4 byte | s02-07 | s02-07 | s02-10 (1/3 → 1/2) | s02-10 | — | s02-10 (Mệnh đề 05.6) | s02-07 | s02-09 câu 3, s06-03 câu 2 |
+| MinHash | s03-00, s03-01 | s03-04 | s03-05 | s03-06 | — | s03-07, s03-10, s03-08 | s03-08 ghi chú diễn giả (phản ví dụ) | s03-09, s07-03/04 |
+| Chữ ký và ước lượng | s04-00, s04-08 | s04-08 | s04-01, s04-03 | s04-02, s04-03 | so theo tọa độ (s04-03, s04-06) | s04-04, s04-05, s04-09 | s04-06, s04-09 (bảng \(n=100,250\)) | s04-07, s06-03, s06-04 |
+| Quét hàng | s05-00, s05-01 | s05-01 | s05-03 … s05-06 | s05-02 | s05-07 | s05-08 | s05-09, s05-13, s05-10 | s05-12, s07-05/s07-15, s07-06/s07-16 |
+| Hàm affine, giả thiết bị vi phạm | s05-11 | s05-11 (ví dụ modulo 4) | s05-11, s05-14 | s05-11 | — | s05-11 (Mệnh đề 05.22) | s05-14 | s06-04 câu 5, s07-06/s07-16, s07-07/s07-17 |
+
+Mỗi mạch nội dung có ít nhất một trang "Câu hỏi" với lời giải trong ghi chú diễn giả: s01-09, s02-09, s03-09, s04-07, s05-12. Cụm thuật toán tạo tập shingle: hạn chế (so từng ký tự, s01-04) → ý tưởng (cửa sổ, s02-01) → chạy tay (s02-02) → Đầu vào/Đầu ra, giả mã, câu đọc giả mã (s02-04) → tính đúng (s02-11) → bảng chi phí (s02-12). Cụm quét hàng: hạn chế có số (\(R\) cỡ \(2^{32}\), s05-01) → ý tưởng so với MinHash theo hoán vị (s05-01) → đặc tả (s05-02) → chạy tay (s05-03 … s05-06) → giả mã và câu đọc (s05-07) → tính đúng (s05-08) → bảng chi phí (s05-09, s05-13, s05-10). Thứ tự cục bộ: đặc tả \(\mathrm{SIG}\) đứng trước vết chạy như Định nghĩa 05.17 đứng trước Ví dụ 05.12 của ghi chú; khoảng trắng (s02-06) đứng trước chọn \(k\) (s02-05) như Ví dụ 05.4 trước Nhận xét 05.5.
+
+## Ánh xạ từng trang
+
+Cột ÂT: số âm tiết mặt trang theo `check_deck.py` của điều phối viên (token có chữ cái, bỏ ghi chú diễn giả, tiêu đề, `pre`, KaTeX, hình, ô bảng chỉ có số), trước sửa (quét 2026-11-13) → sau sửa; CT: số công thức hiển thị. "Sửa 2026-11-13" ghi mã phát hiện theo thứ tự dòng của bảng phát hiện (N1–N3 nghiêm trọng, T1–T13 trung bình, L1–L17 nhẹ; xem mục sửa trong `review-log.md`).
+
+### Mạch 1. Tài liệu gần trùng và độ tương đồng Jaccard (10 trang, 16 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s01-01 | Biểu diễn tương đồng: Shingling và MinHash | bìa | nhận luận đề | câu luận đề | Bài 01 | — | — | 0,5 | giữ; ghi chú diễn giả dẫn Định nghĩa 01.10, Ví dụ 01.8 | 47 → 47 / 0 |
+| s01-10 | Tiên quyết và quy ước | tiên quyết | đối chiếu kết quả kế thừa và ký hiệu | Nhắc lại, Ký hiệu, Quy ước | Định nghĩa 01.9, Ví dụ 01.8 | dùng đúng \(C\), \(S_c\), \(t\), \(I_i\) | lec-05-topic-01 | 1,5 | Sửa 2026-11-13 (T4, L2, L4, L16): Jaccard viết \(\mathrm{SIM}\), bỏ câu "Bài 01 viết \(J\)", biến chỉ báo \(I_i\) và tên Anh, kỳ vọng theo Xác suất thống kê, dẫn số khối Bài 01 thay tiêu đề trang | 56 → 59 / 0 |
+| s01-03 | Mục tiêu học tập | mục tiêu | biết bảy sản phẩm kiểm được | bảy mục tiêu | — | đối chiếu Câu hỏi, recitation | — | 1 | Sửa 2026-11-13 (T1, L5): bảy mục tiêu theo ghi chú; ghi chú diễn giả theo bảng "Mục tiêu và bài tập" của `exercises.md`; đếm tay 79 âm tiết; Lượt sửa sau kiểm lại 2026-11-13 (mục 9, 11): MT1 "đọc Jaccard theo cách chọn phần tử", MT4 "đếm chi phí so chữ ký"; bỏ câu mô tả cách soạn trong ghi chú diễn giả; đếm tay 80 | 70 → 80 / 0 |
+| s01-02 | Nội dung | nội dung | định vị bảy mạch | danh sách mạch | — | — | — | 0,5 | giữ | 49 → 49 / 0 |
+| s01-11 | Vấn đề trung tâm | vấn đề (trả lời có điều kiện) | nêu điều kiện của mỗi câu trả lời | năm dòng có điều kiện | kho \(10^6\) | thu hồi ở s06-02 | lec-05-topic-01 | 1,5 | Sửa 2026-11-13 (L2, L15, L10): dòng mạch 2 thành câu trả lời có điều kiện; dòng mạch 4 có cận \(1/(2\sqrt n)\); bỏ câu chỉ đường; số nhóm bằng khoảng trắng hẹp; Lượt sửa sau kiểm lại 2026-11-13 (mục 9): bỏ câu "Năm dòng theo thứ tự mạch…" | 60 → 72 / 0 |
+| s01-04 | Bài toán tài liệu gần trùng | tình huống, vấn đề (hình) | nhận ra giới hạn so từng ký tự | hình bản tin | Định nghĩa 01.10 | nêu vì sao so ký tự thất bại | lec-05-topic-01 | 2 | Sửa 2026-11-13 (T13, L4, L16): bỏ câu xuất xứ hình và câu về tương đồng ngữ nghĩa; tên Anh near-duplicate | 50 → 54 / 0 |
+| s01-05 | Ví dụ: kho một triệu tài liệu | ví dụ dẫn nhập | tính chi phí một cặp và tổng trên hai biểu diễn | Ví dụ 05.1 | Ví dụ 01.8, Bổ đề 01.14 | \(5\cdot10^{16}\) so với \(1{,}25\cdot10^{14}\); 400 lần | lec-05-topic-01 | 2,5 | Sửa 2026-11-13 (T6, L3): bảng tập mã/chữ ký theo Ví dụ 05.1; 5,79 ngày; bỏ "thường tốn hơn" | 52 → 56 / 0 |
+| s01-07 | Độ tương đồng Jaccard | nhắc lại, trực giác | đọc Jaccard trên hình ba vùng | Định nghĩa 01.9 | Ví dụ 01.6 | \(3/8\) | lec-05-topic-02 | 2 | Sửa 2026-11-13 (L11, T4): nhãn "Nhắc lại:" thay "Định nghĩa."; ghi chú diễn giả bỏ "\(J(S,T)\)"; hình vẽ lại nhãn 34 (T11) | 43 → 44 / 2 |
+| s01-08 | Ứng dụng của độ tương đồng Jaccard | ứng dụng | đọc ngưỡng theo ứng dụng | Nhận xét 05.1 | — | \(t\approx0{,}9\), \(t=0{,}2\) | lec-05-topic-02 | 1,5 | Sửa 2026-11-13 (L2): dòng kết nêu ngưỡng \(t\) của Nhận xét 05.1; bỏ câu chỉ đường | 65 → 64 / 0 |
+| s01-09 | Câu hỏi về độ tương đồng Jaccard | kiểm tra | tính lại Jaccard, chỉ lỗi mẫu số | ba câu | Hình 3.1 | \(3/10\); Bài tập 05.2 | lec-05-topic-02 | 3 | Sửa 2026-11-13 (L10): \(1\,000\); ghi chú diễn giả dẫn Bài tập 05.2 | 45 → 45 / 0 |
+
+### Mạch 2. Shingling văn bản (13 trang, 22 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s02-00 | 2.Shingling văn bản | tiêu đề mạch (vấn đề) | nhận nhiệm vụ mạch | dòng dẫn | mạch 1 | — | lec-05-topic-03 | 0,5 | Sửa 2026-11-13: từ khóa thêm "Mã không va chạm"; ghi chú diễn giả theo ba ý | 33 → 37 / 0 |
+| s02-01 | Biểu diễn văn bản bằng tập shingle | tình huống, vấn đề (trang bài toán có hình) | đọc hai chuỗi khác một ký tự, đếm cửa sổ đổi | hình `cua-so-mot-ky-tu.svg` | bản tin s01-04 | bốn trong sáu cửa sổ chung; \(3/7\) | lec-05-topic-03 | 2 | Sửa 2026-11-13 (T10, T4, L16): bảng vết thay bằng hình mới (Ví dụ 05.3); "Nhu cầu:" đầu trang; tên Anh window; chỉ số \(j_0\) | 56 → 54 / 0 |
+| s02-02 | Ví dụ: tập 2-shingle của `abcdabd` | ví dụ | tính \(S_2(D)\) | Ví dụ 05.2 | \(k=2\) | năm phần tử | lec-05-topic-03 | 1,5 | Sửa 2026-11-13 (L12, T11): dòng "Tính tập \(S_2(D)\)"; hình `cua-so-shingle.svg` vẽ lại khổ ngang, nhãn ≥ 18 px; Lượt sửa sau kiểm lại 2026-11-13 (mục 5): bảng vết chèn chuyển sang s02-13; ghi chú diễn giả bỏ câu về bảng | 24 → 25 / 2 |
+| s02-13 | Ví dụ: tập 2-shingle của `abcdabd`, các phép chèn | ví dụ (vết) | tính tập sau mỗi phép chèn | Ví dụ 05.2 (bảng) | s02-02 | năm phần tử; \(j=4\) không tăng tập | lec-05-topic-03 | 1 | thêm, Lượt sửa sau kiểm lại 2026-11-13 (mục 5): bảng vết của Ví dụ 05.2 là lượt chạy tay đứng trước giả mã s02-04 | — → 39 / 0 |
+| s02-03 | Định nghĩa tập shingle | hình thức | đọc định nghĩa, tính \(w\) | Định nghĩa 05.2 | `abcdabd` | \(D[3:5]=\texttt{da}\); \(\lvert S_k(D)\rvert\le w\) | lec-05-topic-03 | 1,5 | Sửa 2026-11-13 (T4, L16): chỉ số cửa sổ \(j\); tên k-gram; thêm dòng \(w\) và cận; tách câu định nghĩa thành hai dòng; Lượt sửa sau kiểm lại 2026-11-13 (mục 12): ghi chú diễn giả bỏ câu \(k=1\) lặp s02-05 | 33 → 41 / 1 |
+| s02-04 | Thuật toán: tạo tập shingle | thuật toán | đọc Đầu vào/Đầu ra, giả mã và thao tác quyết định | Thuật toán 05.3 | s02-02 (lượt chạy tay) | nêu thao tác quyết định | lec-05-topic-03 | 1,5 | tách 2026-11-13 (T12): giữ giả mã, thêm câu đọc giả mã và giả thiết bảng băm; bất biến chuyển sang s02-11, chi phí sang s02-12; giả mã dùng \(j\) | 36 → 46 / 0 |
+| s02-11 | Tính đúng: tạo tập shingle | tính đúng | chứng minh bất biến ba bước | Mệnh đề 05.4(a)(b) | s02-04 | phản ví dụ danh sách nối thêm | lec-05-topic-03 | 2,5 | thêm 2026-11-13 (T12, T4): tách từ s02-04; bất biến dùng \(q\) theo ghi chú; tên Anh loop invariant; Lượt sửa sau kiểm lại 2026-11-13 (mục 8): bỏ câu chỉ đường | — → 56 / 1 |
+| s02-12 | Chi phí: tạo tập shingle | chi phí | đọc Mô hình và bảng ba bước | Thuật toán 05.3 (bảng), Mệnh đề 05.4(c) | \(w\) | \(O(1+wk)\) kỳ vọng; \(449\,928\) | lec-05-topic-03 | 1,5 | thêm 2026-11-13 (T12): tách từ s02-04; số liệu "Trong thực hành" Mục 2.2 | — → 57 / 0 |
+| s02-06 | Xử lý khoảng trắng | ví dụ, quy ước | đếm cửa sổ hai cụm | Ví dụ 05.4 | \(k=9\) | hai tập không giao | lec-05-topic-03 | 1,5 | Sửa 2026-11-13: đổi chỗ với s02-05 theo thứ tự Ví dụ 05.4 → Nhận xét 05.5 (G1) | 59 → 59 / 0 |
+| s02-05 | Chọn độ dài shingle | quy ước | đọc tiêu chí chọn \(k\) | Nhận xét 05.5 | — | \(k=5\), \(k=9\) | lec-05-topic-03 | 1,5 | Sửa 2026-11-13 (L1, L13): "lớn hơn nhiều độ dài một thư điện tử"; bỏ "không phải ngưỡng có chứng minh" | 60 → 59 / 0 |
+| s02-07 | Băm shingle | ứng dụng | so 4-shingle với mã 9-shingle | hàm \(g\), va chạm | Nhận xét 05.5 (20 ký tự) | cùng 4 byte, mã 9-shingle phân biệt hơn | lec-05-topic-03 | 1,5 | Sửa 2026-11-13 (L3, N2): dùng \(g\); "dễ chung phần tử" thay bằng \(3{,}7\cdot10^{-5}\); câu va chạm đổi Jaccard chuyển sang s02-10 | 59 → 57 / 0 |
+| s02-10 | Mã không va chạm bảo toàn Jaccard | kết quả, chứng minh | phát biểu, chứng minh hai dòng, phản ví dụ | Mệnh đề 05.6 | \(g\), s02-07 | \(1/3\to1/2\) khi va chạm | lec-05-topic-03 | 2,5 | thêm 2026-11-13 (N2): tách từ s02-07; Lượt sửa sau kiểm lại 2026-11-13 (mục 1): phản ví dụ thêm \(\ne g(\texttt{ab})\) | — → 37 / 1 |
+| s02-09 | Câu hỏi về shingling | kiểm tra | liệt kê \(S_3\), tính \(4/5\), đếm mã | ba câu | `abcdabd` | \(49\,992\) mã, \(199\,968\) byte | lec-05-topic-03 | 3 | Sửa 2026-11-13 (L10): \(50\,000\); ghi chú diễn giả dẫn Bài tập 05.3 | 46 → 46 / 0 |
+
+### Mạch 3. MinHash theo hoán vị (10 trang, 20,5 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s03-00 | 3.MinHash theo hoán vị | tiêu đề mạch | nhận nhiệm vụ mạch | dòng dẫn | mạch 2 | — | lec-05-topic-04 | 0,5 | Sửa 2026-11-13: từ khóa thêm "Phần tử đứng đầu"; \(50\,000\) | 32 → 36 / 0 |
+| s03-01 | Kích thước tập mã shingle | tình huống, vấn đề (trang bài toán có hình) | so ba dung lượng trên hình | hình `kich-thuoc-bieu-dien.svg` | \(\lvert S_k(D)\rvert\le w\) | \(2\cdot10^{11}\) so với \(10^9\) byte | lec-05-topic-04 | 1,5 | Sửa 2026-11-13 (T10, L10): bảng thay bằng hình tỷ lệ 50 000 → 199 968 → 1 000 byte; tiêu đề thêm "mã" | 51 → 41 / 0 |
+| s03-02 | Ma trận đặc trưng của bốn tập | ví dụ, hình thức | đọc tập từ cột; đếm \(L\) | Ví dụ 05.5, Định nghĩa 05.7 | bốn tập | \(L=9\); biểu diễn theo hàng | lec-05-topic-04 | 2,5 | Sửa 2026-11-13 (T5, T4): thêm \(L=\operatorname{nnz}(M)\) và "biểu diễn theo hàng"; tên phần tử chữ đứng | 52 → 41 / 0 |
+| s03-04 | Ý tưởng của MinHash | trực giác | so hai tập dưới một thứ tự | hình `minhash-hoan-vi.svg` | bốn tập | phần tử đầu của hợp thuộc giao | lec-05-topic-05 | 1,5 | Sửa 2026-11-13 (T11, L16): hình vẽ lại nhãn 34; tên Anh permutation; câu "càng dễ" thay bằng xác suất phần tử đầu của hợp thuộc giao | 57 → 58 / 0 |
+| s03-05 | Ví dụ: bốn tập đặc trưng, một hoán vị | ví dụ | tính MinHash bốn tập | Ví dụ 05.6 | \((\mathrm b,\mathrm e,\mathrm a,\mathrm d,\mathrm c)\) | a, c, b, a | lec-05-topic-05 | 2 | Sửa 2026-11-13 (L12, T4): dòng "Tính MinHash"; chữ đứng; bỏ câu xuất xứ bảng | 44 → 47 / 0 |
+| s03-06 | Định nghĩa MinHash | hình thức | đọc định nghĩa hạng và \(h_\pi\) | Định nghĩa 05.8 | s03-05 | \(h_\pi(S_1)=\mathrm a\), hạng 3 | lec-05-topic-05 | 1,5 | Sửa 2026-11-13 (L16, T4): tên Anh rank; chữ đứng; số khối | 43 → 47 / 1 |
+| s03-07 | Ba loại hàng của một cặp cột | ví dụ, trực giác | phân loại hàng của \(S_1,S_4\) | Ví dụ 05.7, hình `phan-tu-dau-hop.svg` | bốn tập | \(x=2\), \(y=1\) | lec-05-topic-06 | 1,5 | Sửa 2026-11-13 (T2, T11): \(\mathrm X,\mathrm Y,\mathrm Z\) chữ đứng; hình vẽ lại nhãn 33–34 | 12 → 12 / 0 |
+| s03-10 | Phần tử đứng đầu phân phối đều | kết quả, chứng minh | chứng minh song ánh ba bước | Bổ đề 05.9 | s03-07 | \(R!/\lvert A\rvert\); 80/40 hoán vị | lec-05-topic-06 | 3 | thêm 2026-11-13 (N3); Lượt sửa sau kiểm lại 2026-11-13 (mục 10): Bước 1 "với \(a'\in A\)"; ghi chú diễn giả "đứng sau vị trí cũ của \(a\)" | — → 38 / 1 |
+| s03-08 | Định lý xác suất trùng MinHash | kết quả, chứng minh | chứng minh qua phần tử đứng đầu hợp | Định lý 05.10 | Bổ đề 05.9 | \(x/(x+y)\) | lec-05-topic-06 | 3 | Sửa 2026-11-13 (N3): chứng minh dẫn bổ đề, thêm bước \(u\in S\setminus T\); phản ví dụ ở ghi chú diễn giả | 31 → 32 / 2 |
+| s03-09 | Câu hỏi về MinHash | kiểm tra | lập thứ tự, tính \(1/2\) | ba câu | \(S_1,S_4\) | Bài tập 05.6 | lec-05-topic-06 | 3,5 | Sửa 2026-11-13 (T4): chữ đứng | 34 → 34 / 1 |
+
+### Mạch 4. Chữ ký MinHash (10 trang, 19,5 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s04-00 | 4.Chữ ký MinHash | tiêu đề mạch | nhận nhiệm vụ mạch | dòng dẫn | mạch 3 | — | lec-05-topic-07 | 0,5 | Sửa 2026-11-13: từ khóa theo thứ tự mới; ghi chú diễn giả nêu cận \(1/(2\sqrt n)\) | 34 → 34 / 0 |
+| s04-08 | Một phép thử MinHash | tình huống, vấn đề (trang bài toán có hình) | đọc một phép thử và xác suất trùng | hình `mot-phep-thu.svg` | Định lý 05.10, Ví dụ 05.8 | 0 hoặc 1 so với \(2/3\) | lec-05-topic-07 | 1,5 | thêm 2026-11-13 (T10, L14): trang bài toán đầu mạch; "Nhu cầu:" chuyển từ s04-01; Lượt sửa sau kiểm lại 2026-11-13 (mục 7): hình chỉ còn một phép thử (bỏ khung hai thứ tự cố định, để s04-01 giữ việc "Tính"); bỏ câu chỉ đường | — → 31 / 0 |
+| s04-01 | Ví dụ: bốn tập đặc trưng, hai thứ tự | ví dụ | tính chữ ký hai tọa độ | Ví dụ 05.9 | \(\pi_1,\pi_2\) | \(S_1,S_4\) trùng cả hai | lec-05-topic-07 | 2 | Sửa 2026-11-13 (L1, L2, L12, L14): dòng "Tính MinHash"; bỏ câu rào đón và câu chỉ đường | 39 → 31 / 0 |
+| s04-02 | Định nghĩa chữ ký MinHash | hình thức | đọc định nghĩa, so hai ma trận | Định nghĩa 05.11 | s04-01 | ma trận \(n\times C\) | lec-05-topic-07 | 1,5 | Sửa 2026-11-13 (L8, L1): bỏ dòng "Giả thiết", thêm \(S\ne\varnothing\), véc-tơ cột, signature matrix; ghi chú diễn giả theo note:1156 | 44 → 41 / 1 |
+| s04-03 | Ước lượng Jaccard từ chữ ký | hình thức, ví dụ | tính ước lượng \(S_2,S_4\) | Định nghĩa 05.11 (ước lượng) | \(\mathbf 1[E]\) | \(0\) so với \(1/3\) | lec-05-topic-07 | 2 | Sửa 2026-11-13 (T2, L10): \(\mathbf 1[E]\), \(\widehat s\); "véc-tơ"; gộp dòng định nghĩa chỉ báo | 29 → 24 / 2 |
+| s04-04 | Kỳ vọng của ước lượng | kết quả | chứng minh không chệch | Mệnh đề 05.12 | \(I_i\) | \(ns\), \(s\) | lec-05-topic-07 | 2 | Sửa 2026-11-13 (T2, T13, L8, L16): \(I_i\); thêm "cùng bộ hoán vị"; tên Anh unbiased; bỏ câu hiệu chỉnh sách; Lượt sửa sau kiểm lại 2026-11-13 (mục 3, 12): thêm "\(S,T\) không rỗng"; câu "Không chệch chưa đủ…" chuyển sang s04-06 | 41 → 50 / 2 |
+| s04-06 | Chi phí: so sánh chữ ký | chi phí | đếm phép so một cặp và mọi cặp | Mệnh đề 05.13 | \(C\), \(n\) | \(nC(C-1)/2\) | lec-05-topic-07 | 1,5 | Sửa 2026-11-13 (L9): đặt trước phương sai theo thứ tự Mục 4.3 → 4.4; thêm dòng điều kiện; Lượt sửa sau kiểm lại 2026-11-13 (mục 8, 12): bỏ câu chỉ đường; nhận câu "Không chệch chưa đủ…" | 54 → 69 / 0 |
+| s04-05 | Phương sai của ước lượng | kết quả, chứng minh | chứng minh \(s(1-s)/n\) | Mệnh đề 05.14 | \(I_i\) độc lập | \(\operatorname{Var}(\widehat s)\) | lec-05-topic-08 | 2,5 | Sửa 2026-11-13 (T2, T13): "biến chỉ báo độc lập"; bỏ "(hệ quả, không trích nguyên văn sách)" | 31 → 29 / 1 |
+| s04-09 | Cận độ lệch chuẩn của ước lượng | kết quả, ví dụ | chứng minh một dòng; đọc bảng \(n=100,250\) | Hệ quả 05.15, Ví dụ 05.10 | \(s=2/3\) | \(0{,}047\le0{,}05\); \(0{,}030\le0{,}032\) | lec-05-topic-08 | 2,5 | thêm 2026-11-13 (N1); Lượt sửa sau kiểm lại 2026-11-13 (mục 12): ghi chú diễn giả bỏ câu nhắc lại bảng và đáp số \(n\ge625\) | — → 21 / 1 |
+| s04-07 | Câu hỏi về chữ ký MinHash | kiểm tra | tính \(ns\), \(n=556\), \(n=625\) khi chưa biết \(s\) | ba câu | \(s=2/3\) | Bài tập 05.7(a), 05.8(a)(b) | lec-05-topic-08 | 3,5 | Sửa 2026-11-13: \(\widehat s\); ghi chú diễn giả dẫn số bài tập; Lượt sửa sau kiểm lại 2026-11-13 (mục 6, 12): câu 2 cũ (lộ đáp số bảng s04-09) thay bằng Bài tập 05.8(b); bỏ câu lặp s04-05 | 44 → 56 / 0 |
+
+### Mạch 5. Tính chữ ký bằng hàm băm (15 trang, 27,5 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s05-00 | 5.Tính chữ ký bằng hàm băm | tiêu đề mạch | nhận nhiệm vụ mạch | dòng dẫn | mạch 4 | — | lec-05-topic-09 | 0,5 | Sửa 2026-11-13 (T3): \((\alpha r+\beta)\bmod R\) trong ghi chú diễn giả | 38 → 38 / 0 |
+| s05-01 | Mô phỏng hoán vị bằng hàm băm | tình huống, vấn đề (trang bài toán có hình) | đọc thứ tự cảm sinh của \(f_1\) | hình `bam-thay-hoan-vi.svg` | \(\pi_1\) | cực tiểu thay sắp xếp | lec-05-topic-09 | 1,5 | Sửa 2026-11-13 (L14): "Nhu cầu:" có số \(R\) cỡ \(2^{32}\) | 51 → 56 / 0 |
+| s05-02 | Đặc tả bài toán tính chữ ký | hình thức | đọc đặc tả và quy ước \(+\infty\) | Định nghĩa 05.17 | \(f_i\), \(V\) | cột rỗng \(+\infty\) | lec-05-topic-09 | 1,5 | Sửa 2026-11-13 (T5, T7): "biểu diễn theo hàng"; câu về tập rỗng viết dạng khẳng định | 39 → 46 / 1 |
+| s05-03 | Ví dụ: bốn tập đặc trưng, hai hàm băm hàng | ví dụ | tính bảng giá trị và thứ tự cảm sinh | Ví dụ 05.11 | \(f_1,f_2\) | \(\pi_1,\pi_2\) | lec-05-topic-09 | 1,5 | Sửa 2026-11-13 (T5, T4): cột "Danh sách cột"; chữ đứng | 25 → 25 / 0 |
+| s05-04 | Ví dụ: bốn tập đặc trưng, khởi tạo và hàng 0 | ví dụ (vết) | tính trạng thái sau hàng 0 | Ví dụ 05.12 | s05-03 | bốn phép min | lec-05-topic-09 | 1,5 | Sửa 2026-11-13 (L12): dòng "Tính trạng thái sau hàng 0" | 31 → 35 / 1 |
+| s05-05 | Ví dụ: bốn tập đặc trưng, hàng 1 và 2 | ví dụ (vết) | tính trạng thái sau hàng 1, 2 | Ví dụ 05.12 | s05-04 | min không đổi ô | lec-05-topic-09 | 2 | Sửa 2026-11-13 (L12): dòng "Tính trạng thái" | 46 → 49 / 0 |
+| s05-06 | Ví dụ: bốn tập đặc trưng, hàng 3 và 4 | ví dụ (vết) | tính trạng thái cuối | Ví dụ 05.12 | s05-05 | \(\mathrm{SIG}\) | lec-05-topic-09 | 2 | Sửa 2026-11-13 (L12): dòng "Tính trạng thái" | 36 → 44 / 0 |
+| s05-07 | Thuật toán: quét hàng | thuật toán | đọc giả mã và thao tác quyết định | Thuật toán 05.18 | s05-04 … s05-06 | phép min | lec-05-topic-09 | 1,5 | Sửa 2026-11-13 (T5, L2): "biểu diễn theo hàng"; câu đọc giả mã; bỏ "Còn hai câu hỏi" | 35 → 37 / 0 |
+| s05-08 | Tính đúng: quét hàng | tính đúng | chứng minh bất biến ba bước | Mệnh đề 05.19, Hệ quả 05.20 | \(H\) | đúng với mọi bộ \(f_i\) | lec-05-topic-10 | 2,5 | Sửa 2026-11-13 (T4, L1): \(H\) thay \(A\); câu rào đón thay bằng điều kiện xác suất | 40 → 41 / 1 |
+| s05-09 | Chi phí: tính chữ ký | chi phí | đọc bảng bốn loại thao tác | Mệnh đề 05.21(a)(b) | \(L=\operatorname{nnz}(M)\) | hai cận | lec-05-topic-10 | 1,5 | Sửa 2026-11-13 (T5, T13): "biểu diễn theo hàng"; bỏ câu "không là số đo thời gian thực" | 49 → 45 / 0 |
+| s05-13 | Chi phí: tính chữ ký, bốn tập đặc trưng | chi phí (ví dụ) | thay số | Ví dụ 05.13 | \(R,C,n,L\) | 56/36 | lec-05-topic-10 | 1,5 | Sửa 2026-11-13 (T5, L7): "biểu diễn theo hàng"; điều kiện chi phối theo note:1154 | 51 → 51 / 0 |
+| s05-10 | Chi phí: bộ nhớ của chữ ký | chi phí | so 200 000 với 1 000 byte | Mệnh đề 05.21(c) | \(n=250\) | 1/200; \(\le0{,}032\) | lec-05-topic-10 | 1,5 | Sửa 2026-11-13 (L10, N1): khoảng trắng hẹp; dòng kết dẫn Hệ quả 05.15; Lượt sửa sau kiểm lại 2026-11-13 (mục 4, 12): kết luận nêu điều kiện "hoán vị đều, độc lập"; ghi chú diễn giả bỏ câu lặp s04-02 | 64 → 65 / 1 |
+| s05-11 | Điều kiện đối với hàm băm hàng | kết quả, chứng minh | chứng minh hai chiều; ví dụ modulo 4 | Mệnh đề 05.22 | \(f_1,f_2\) | \(\gcd(\alpha,R)=1\) | lec-05-topic-11 | 2,5 | Sửa 2026-11-13 (T3, L2): \(\alpha,\beta\); chứng minh hai dòng; ví dụ \((3r+1)\bmod4\), \((2r+1)\bmod4\); dòng phân phối chuyển sang s05-14 | 57 → 34 / 0 |
+| s05-14 | Hậu quả khi giả thiết bị vi phạm | ứng dụng (giả thiết bị vi phạm) | đọc ba hậu quả có số | Nhận xét 05.23, Tình huống 05.2 | bốn tập, \(k=9\) | \(13/20\ne2/3\); \(\widehat s=1\) | lec-05-topic-11, lec-05-topic-14 | 2,5 | thêm 2026-11-13 (T7): phục vụ mục tiêu 7; Lượt sửa sau kiểm lại 2026-11-13 (mục 2): thêm \(\beta\in\{0,\ldots,4\}\), "có thể cho" | — → 57 / 0 |
+| s05-12 | Câu hỏi về tính chữ ký | kiểm tra | ước lượng \(S_3,S_4\), quét ngược, đếm | ba câu | \(\mathrm{SIG}\) | Tình huống 05.3, Bài tập 05.11 | lec-05-topic-11, lec-05-topic-14 | 3,5 | Sửa 2026-11-13 (T5): "biểu diễn theo hàng"; ghi chú diễn giả dẫn số khối; Lượt sửa sau kiểm lại 2026-11-13 (mục 12): `note-topic-id` theo vị trí Bài tập 05.11 (topic-11) và Tình huống 05.3 (topic-14) | 49 → 49 / 0 |
+
+### Mạch 6. Tổng kết và tự kiểm tra (8 trang, 14,5 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s06-00 | 6.Tổng kết và tự kiểm tra | tiêu đề mạch | nhận nhiệm vụ mạch | dòng dẫn | mạch 2–5 | — | lec-05-topic-15 | 0,5 | Sửa 2026-11-13 (L2, L17): ghi chú diễn giả ba ý, 71 âm tiết | 42 → 42 / 0 |
+| s06-08 | Quy trình biểu diễn tài liệu | tổng kết (trang mở có hình) | nối ba bước với kết quả | hình `quy-trinh-bieu-dien.svg` (hình của ghi chú) | Ví dụ 05.1 | \(100\,000\to250\) | lec-05-topic-15 | 1 | thêm 2026-11-13 (G14): trang mở mạch tổng kết có hình; Lượt sửa sau kiểm lại 2026-11-13 (mục 12): câu "Ba bước, ba kết quả" khớp ba mũi tên của hình | — → 45 / 0 |
+| s06-05 | Kết quả và giả thiết không được bỏ | tổng kết (bảng) | đặt kết quả cạnh giả thiết | sáu kết quả | mọi mạch | giả thiết không được bỏ | lec-05-topic-15 | 2 | Sửa 2026-11-13 (N1, N2, L2): hàng mã không va chạm theo Mệnh đề 05.6; phương sai thêm \(\le1/(4n)\); hàng quét hàng theo Mệnh đề 05.19; Lượt sửa sau kiểm lại 2026-11-13 (mục 3): hàng kỳ vọng thêm "\(S,T\) không rỗng" | 78 → 69 / 0 |
+| s06-06 | Thuật toán, bảo đảm và chi phí | tổng kết (bảng) | so bốn thủ tục | bốn thuật toán | mọi mạch | chi phí | lec-05-topic-15 | 1,5 | Sửa 2026-11-13 (T5): "biểu diễn theo hàng" | 61 → 61 / 0 |
+| s06-02 | Câu trả lời cho vấn đề trung tâm | trả lời có điều kiện | thu hồi kho \(10^6\) bằng số | năm dòng | s01-11 | \(10^9\) byte; \(0{,}032\); 5,79 ngày | lec-05-topic-14 | 2 | Sửa 2026-11-13 (N1, T5, L6, L2, L10): độ lệch chuẩn theo Hệ quả 05.15; dòng quét hàng "mọi bộ \(f_i\)"; số theo Tình huống 05.1 | 77 → 68 / 0 |
+| s06-03 | Câu hỏi tự kiểm tra | kiểm tra | ba câu, nêu kết quả đã dùng | Bài tập 05.3(c), 05.4(c), 05.7(b) | — | lời giải trong ghi chú diễn giả | lec-05-topic-15 | 3,5 | Sửa 2026-11-13 (T13): bỏ câu xuất xứ số liệu; dẫn số bài tập | 51 → 51 / 0 |
+| s06-04 | Câu hỏi tự kiểm tra | kiểm tra | ba câu, nêu kết quả đã dùng | Bài tập 05.7(c), 05.12(a), 05.9 | — | lời giải trong ghi chú diễn giả | lec-05-topic-15 | 3,5 | Sửa 2026-11-13 (T13, T3): bỏ câu xuất xứ; \(\gcd(\alpha,R)\) | 56 → 56 / 0 |
+| s06-07 | Nguồn và tài liệu đọc | nguồn, nối Bài 06 | mở ghi chú, bài tập, Bài 06 | nguồn | — | — | lec-05-topic-16 | 0,5 | Sửa 2026-11-13 (G14, G12): thêm liên kết `exercises.md` và Bài 06; ghi chú diễn giả bỏ CMU 15-853, UMass (không có trong tài liệu tham khảo của ghi chú) | 57 → 60 / 0 |
+
+### Mạch 7. Bài tập vận dụng (15 trang, 60 phút)
+
+| ID | Tiêu đề | Loại/bước | Mục đích; hành động sinh viên | Đối tượng trung tâm | Dữ liệu, ký hiệu kế thừa | Sản phẩm; bằng chứng | `note-topic-id` | Phút | Quyết định | ÂT / CT |
+|---|---|---|---|---|---|---|---|---:|---|---|
+| s07-00 | 7.Bài tập vận dụng | tiêu đề mạch | nhận năm bài | dòng dẫn | mạch 6 | — | lec-05-topic-16 | 1 | Sửa 2026-11-13: ghi chú diễn giả dẫn số Bài tập 05.15–05.22; Lượt sửa sau kiểm lại 2026-11-13 (mục 9): bỏ câu "Mỗi đề có một trang lời giải ngay sau" | 23 → 23 / 0 |
+| s07-01 | Bài tập: Jaccard của ba tập | đề (MMDS Bài 3.1.1, tr. 78) | tính ba Jaccard | Bài tập 05.15 | Định nghĩa 01.9 | bảng ba cặp | lec-05-topic-16 | 3 | Sửa 2026-11-13 (T8): ghi chú diễn giả có năng lực kiểm và hướng dẫn chấm; lời giải chuyển sang s07-11 | 25 → 25 / 1 |
+| s07-11 | Bài tập: Jaccard của ba tập | lời giải | đối chiếu bảng | lời giải 05.15 | s07-01 | \(1/3\), \(2/5\), \(1/6\) | lec-05-topic-16 | 5 | thêm 2026-11-13 (T8) | — → 23 / 0 |
+| s07-02 | Bài tập: số shingle lớn nhất | đề (MMDS Bài 3.2.3, tr. 81) | đếm cửa sổ, tìm cận | Bài tập 05.19 | Định nghĩa 05.2 | cận và chuỗi đạt cận | lec-05-topic-16 | 4 | Sửa 2026-11-13 (T8, T9): bỏ câu "không được chứng minh ở đây"; hướng dẫn chấm | 53 → 50 / 0 |
+| s07-12 | Bài tập: số shingle lớn nhất | lời giải | đối chiếu cận trên và phép dựng | lời giải 05.19 | s07-02 | `00010111` | lec-05-topic-16 | 6 | thêm 2026-11-13 (T8, T9) | — → 55 / 1 |
+| s07-03 | Bài tập: ma trận đặc trưng (a) | đề (MMDS Bài 3.3.1(a), tr. 90) | đọc tập, tính sáu Jaccard | Bài tập 05.20(a) | Hình 3.2 | bảng sáu cặp | lec-05-topic-16 | 3 | Sửa 2026-11-13 (T8, L4): bỏ câu về nhãn số | 32 → 32 / 0 |
+| s07-13 | Bài tập: ma trận đặc trưng (a) | lời giải | đối chiếu bảng | lời giải 05.20(a) | s07-03 | \(0,1/4,2/3,0,1/3,1/5\) | lec-05-topic-16 | 5 | thêm 2026-11-13 (T8) | — → 15 / 0 |
+| s07-04 | Bài tập: ma trận đặc trưng (b) | đề (MMDS Bài 3.3.1(b), tr. 90) | đếm hoán vị trùng | Bài tập 05.20(b) | Bổ đề 05.9 | sáu số đếm | lec-05-topic-16 | 4 | Sửa 2026-11-13 (T8, T4): ghi chú diễn giả dùng \(x+y\) | 51 → 51 / 0 |
+| s07-14 | Bài tập: ma trận đặc trưng (b) | lời giải | đối chiếu số đếm | lời giải 05.20(b) | s07-04 | 0, 30, 80, 0, 40, 24 | lec-05-topic-16 | 6 | thêm 2026-11-13 (T8) | — → 48 / 0 |
+| s07-05 | Bài tập: hai hàng chữ ký bổ sung | đề (MMDS Bài 3.3.2, tr. 90) | chạy quét với \(f_3,f_4\) | Bài tập 05.21 | Hình 3.4 | hai hàng chữ ký | lec-05-topic-16 | 3 | Sửa 2026-11-13 (T8) | 38 → 38 / 1 |
+| s07-15 | Bài tập: hai hàng chữ ký bổ sung | lời giải | đối chiếu bảng giá trị và hai hàng | lời giải 05.21 | s07-05 | \((0,3,0,0)\), \((3,0,1,0)\) | lec-05-topic-16 | 5 | thêm 2026-11-13 (T8) | — → 10 / 0 |
+| s07-06 | Bài tập: chữ ký với ba hàm modulo 6 (a, b) | đề (MMDS Bài 3.3.3(a, b), tr. 90–91) | tính chữ ký; xác định hoán vị | Bài tập 05.22(a)(b) | Hình 3.6 | \(\mathrm{SIG}\) 3×4 | lec-05-topic-16 | 3 | Sửa 2026-11-13 (T8, T3): \(\gcd(\alpha,R)\) | 35 → 35 / 1 |
+| s07-16 | Bài tập: chữ ký với ba hàm modulo 6 (a, b) | lời giải | đối chiếu bảng và ma trận | lời giải 05.22(a)(b) | s07-06 | chỉ \(f_3\) là hoán vị | lec-05-topic-16 | 5 | thêm 2026-11-13 (T8); Lượt sửa sau kiểm lại 2026-11-13 (mục 12): nhãn "(a)" | — → 13 / 1 |
+| s07-07 | Bài tập: chữ ký với ba hàm modulo 6 (c) | đề (MMDS Bài 3.3.3(c), tr. 90–91) | so ước lượng với giá trị thật | Bài tập 05.22(c) | s07-16 | bảng sáu cặp | lec-05-topic-16 | 3 | Sửa 2026-11-13 (T8) | 40 → 40 / 0 |
+| s07-17 | Bài tập: chữ ký với ba hàm modulo 6 (c) | lời giải | đối chiếu sai lệch | lời giải 05.22(c) | s07-07 | sai lệch tới \(2/3\) | lec-05-topic-16 | 4 | thêm 2026-11-13 (T8) | — → 38 / 0 |
+
+## Bảng thời gian
+
+| Mạch | Trang | Phút |
+|---|---:|---:|
+| 1 Tài liệu gần trùng và độ tương đồng Jaccard | 10 | 16 |
+| 2 Shingling văn bản | 13 | 22 |
+| 3 MinHash theo hoán vị | 10 | 20,5 |
+| 4 Chữ ký MinHash | 10 | 19,5 |
+| 5 Tính chữ ký bằng hàm băm | 15 | 27,5 |
+| 6 Tổng kết và tự kiểm tra | 8 | 14,5 |
+| **Phần giảng** | **66** | **120** |
+| 7 Bài tập vận dụng (dọc riêng) | 15 | 60 |
+| **Tổng** | **81** | **180** |
+
+Nhịp: trung bình 1,82 phút mỗi trang giảng; trang tiêu đề mạch 0,5 phút; trang chứng minh và tính đúng 2,5–3 phút (s02-11, s02-10, s03-10, s03-08, s04-05, s04-09, s05-08, s05-11); trang "Câu hỏi" 3–3,5 phút (s01-09, s02-09, s03-09, s04-07, s05-12, s06-03, s06-04). Deck tăng từ 57 lên 66 trang giảng; chín trang mới phục vụ nội dung cốt lõi của ghi chú (Mệnh đề 05.6, Bổ đề 05.9, Hệ quả 05.15, Mệnh đề 05.4 tách hai trang, Nhận xét 05.23 và Tình huống 05.2, trang bài toán mạch 4, trang mở mạch tổng kết, bảng vết chèn của Ví dụ 05.2); không cần bù bằng gộp trang vì 120 phút vẫn đủ với nhịp trên. Thời lượng chỉ ghi ở đây và trong `outline.md`.
+
+## Ngoại lệ mật độ
+
+Trần: 40 (đích) / 60 âm tiết; 80 cho mục tiêu, nội dung, tổng kết, bảng so sánh, bảng chi phí, đề recitation, trang trả lời có điều kiện; ≤ 6 dòng (≤ 8 với bảng vết, bảng chi phí); ≤ 3 công thức hiển thị (0 trang vượt). Số đếm theo `check_deck.py` sau sửa.
+
+| Trang | Loại | Số đếm (trước → sau) | Lý do |
+|---|---|---|---|
+| s01-03 | mục tiêu | 70 → 80 (đếm tay 80), 7 dòng | trần 80; bảy mục tiêu của ghi chú, mỗi mục một dòng (G3) |
+| s01-11 | vấn đề trung tâm, trả lời có điều kiện | 60 → 72, 6 dòng | trần 80 như P04B Bài 10: năm dòng, mỗi dòng phải kèm điều kiện của câu trả lời |
+| s01-08 | bảng so sánh | 65 → 64 | trần 80, giữ ngoại lệ cũ |
+| s04-06 | bảng chi phí | 54 → 69 | trần 80; thêm dòng điều kiện áp dụng của Mệnh đề 05.13 |
+| s05-10 | bảng chi phí | 64 → 65 | trần 80 |
+| s06-05 | bảng tổng kết | 78 → 69, 7 dòng (tiêu đề bảng và sáu hàng) | trần 80; ngoại lệ dòng cho bảng tổng kết |
+| s06-06 | bảng thuật toán | 61 → 61 | trần 80 |
+| s06-02 | trả lời có điều kiện | 77 → 68, 6 dòng | trần 80 |
+| s05-03, s03-05, s03-02, s02-13, s07-03 … s07-07 | bảng vết, ma trận | 6–8 dòng | bảng vết, ma trận đặc trưng ≤ 8 hàng |
+| s07-16 | lời giải | 7 dòng | bảng giá trị ba hàm (4 hàng) cạnh ma trận chữ ký; bảng vết ≤ 8 |
+
+Ghi chú diễn giả: trang chứng minh và lời giải ≤ 250 âm tiết (lớn nhất s05-08 159); các trang khác sau lượt cắt ≤ 150 theo đếm khoảng trắng (gồm dòng "Nguồn:").
+
+## Bài tập vận dụng (recitation)
+
+| Thứ tự | Trang | Bài (`exercises.md`) | Nguồn: bài, mục, trang | Phút | Điều chỉnh so với sách |
+|---:|---|---|---|---:|---|
+| 1 | s07-01, s07-11 | 05.15 Jaccard của ba tập | MMDS Bài 3.1.1, §3.1.4, tr. 78 | 8 (1 phút tiêu đề mạch tính riêng) | đặt nhãn \(S_A,S_B,S_C\) |
+| 2 | s07-02, s07-12 | 05.19 Số \(k\)-shingle lớn nhất | MMDS Bài 3.2.3, §3.2.5, tr. 81 | 10 | độ dài \(n\) của sách viết \(\ell\) |
+| 3 | s07-03, s07-13, s07-04, s07-14 | 05.20 Jaccard và 120 hoán vị | MMDS Bài 3.3.1 (b có dấu !), §3.3.8, tr. 90 | 18 | tách (a), (b) |
+| 4 | s07-05, s07-15 | 05.21 Hai hàng chữ ký bổ sung | MMDS Bài 3.3.2, §3.3.8, tr. 90 | 8 | \(h_3,h_4\) viết \(f_3,f_4\) |
+| 5 | s07-06, s07-16, s07-07, s07-17 | 05.22 Chữ ký với ba hàm modulo 6 | MMDS Bài 3.3.3, §3.3.8, tr. 90–91 | 15 | \(h_i\) viết \(f_i\); tách (a, b) và (c) |
+
+Mục tiêu 5 (phương sai) không có bài sách trong `exercises.md`; trang "Câu hỏi về chữ ký MinHash" và câu tự kiểm tra 4 phục vụ nó.
+
+## Ánh xạ `note-topic-id` ↔ `data-slide-id`
+
+| `note-topic-id` | Trang |
+|---|---|
+| lec-05-topic-01 | s01-10, s01-11, s01-04, s01-05 |
+| lec-05-topic-02 | s01-07, s01-08, s01-09 |
+| lec-05-topic-03 | s02-00 … s02-09 (13 trang) |
+| lec-05-topic-04 | s03-00, s03-01, s03-02 |
+| lec-05-topic-05 | s03-04, s03-05, s03-06 |
+| lec-05-topic-06 | s03-07, s03-10, s03-08, s03-09 |
+| lec-05-topic-07 | s04-00, s04-08, s04-01, s04-02, s04-03, s04-04, s04-06 |
+| lec-05-topic-08 | s04-05, s04-09, s04-07 |
+| lec-05-topic-09 | s05-00 … s05-07 |
+| lec-05-topic-10 | s05-08, s05-09, s05-13, s05-10 |
+| lec-05-topic-11 | s05-11, s05-14, s05-12 (Bài tập 05.11) |
+| lec-05-topic-12, 13 (Đọc thêm) | không có trang |
+| lec-05-topic-14 | s05-14 (Tình huống 05.2), s06-02 (Tình huống 05.1), s05-12 (Tình huống 05.3) |
+| lec-05-topic-15 | s06-00, s06-08, s06-05, s06-06, s06-03, s06-04 |
+| lec-05-topic-16 | s06-07, s07-00 … s07-17 |
+
+## Hình
+
+| Hình | Trang | Trạng thái 2026-11-13 |
+|---|---|---|
+| `ban-tin-dang-lai.svg` | s01-04 | sửa: bỏ "Ví dụ dựng:" trong `desc` (script `generate_deck_svg.py`) |
+| `jaccard-ba-vung.svg` | s01-07, s01-09 | vẽ lại bằng script, nhãn 34 (≈ 19,5 px ở 1280×720) |
+| `cua-so-mot-ky-tu.svg` | s02-01 | mới |
+| `cua-so-shingle.svg` | s02-02 (và ghi chú) | vẽ lại khổ 1200×315, nhãn ≥ 27 (≈ 18,5 px trong khung `mh-short`) |
+| `kich-thuoc-bieu-dien.svg` | s03-01 | mới |
+| `minhash-hoan-vi.svg` | s03-04 (và ghi chú) | vẽ lại, nhãn 34 |
+| `phan-tu-dau-hop.svg` | s03-07 (và ghi chú) | vẽ lại, nhãn 34 |
+| `mot-phep-thu.svg` | s04-08 | mới |
+| `bam-thay-hoan-vi.svg` | s05-01 | giữ (nhãn 24 ≈ 19,6 px) |
+| `quy-trinh-bieu-dien.svg` | s06-08 (và ghi chú) | giữ; lần đầu dùng trên deck |
+| `quet-ma-tran-thua.svg`, `note-cau-truc-chuong-05.svg` | chỉ ghi chú | giữ |
+
+Script: `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-05/generate_deck_svg.py` (deck), `generate_note_svg.py` (ghi chú). Số đo cỡ nhãn: Playwright ở 1280×720, khung ảnh 572,7 px cho hình 1000 đơn vị trong `ex-grid2`; 216–269 px chiều cao cho hình khổ ngang.
+
+## Lưu trữ: storyboard deck 2026-09-28 và 2026-10-14 (không còn hiệu lực)
+
 Bản viết mới ngày 28-09-2026. Phạm vi hiện tại: 47 trang giảng/120 phút (trang 17 gộp vào 19, trang 21 gộp vào 20 ngày 01/10/2026; trang 06 gộp vào 07 ngày 07/10/2026; số thứ tự phiếu giữ theo bản 28-09), 7 trang cho 5 bài nguồn/60 phút; 7 phần lớn. Cửa kiểm kế hoạch đã PASS và được điều phối viên chấp nhận; đặc tả này đã được triển khai thành bản nháp để rà độc lập, chưa phải xác nhận bản render cuối. Mỗi `data-slide-id` dưới đây chỉ dùng trong HTML và tài liệu quy trình, không hiển thị trong nội dung hay ghi chú diễn giả.
 
 **Sửa toàn diện 2026-10-14.** Deck theo chuẩn trình bày 2026-10-14 (`AGENTS.md`, `slide_authoring_standard.md`): 65 trang = 57 trang giảng/120 phút + 8 trang bài tập/60 phút; bảy mạch 10/9/9/8/14/7/8. Thêm `lec05-s01-10`, `lec05-s01-11`, `lec05-s05-13` (tách từ s05-09), `lec05-s06-05`, `lec05-s06-06`, `lec05-s06-07`; bỏ `lec05-s06-01`; s01-02 và s01-03 đổi chỗ. Bản đồ mạch, thứ tự trang, quyết định và số âm tiết ở mục "Bản đồ mạch và quyết định sửa toàn diện 2026-10-14". Mỗi phiếu cũ có thêm dòng **Sửa 2026-10-14** ghi quyết định, lý do, âm tiết mặt trang trước → sau, tiêu đề mới và thời lượng mới; trường "Nội dung công khai dự kiến" và "Ghi chú diễn giả học thuật" của phiếu cũ là bản kế hoạch trước đợt sửa, mặt trang và ghi chú hiện hành nằm trong tệp HTML (cùng cách làm với Bài 06). Phiếu mới đặt tên theo mã trang (ví dụ "### lec05-s01-10. Tiên quyết và quy ước") và có đủ các trường bắt buộc. Phần giảng 57 trang ≤ 60 nên không bắt buộc mục phân bổ thời gian riêng; phút theo mạch và theo trang vẫn được ghi.
 
-## Quy ước bố cục, dữ liệu và nội dung
+### Quy ước bố cục, dữ liệu và nội dung
 
 Nền kỹ thuật là `lecture-template.html`; giao diện dùng `.reveal.course-deck.lecture-minhash` và thành phần chung đối chiếu Lecture 02. Không sao chép khối style của template: quy tắc mới của kho yêu cầu kiểu dùng lại nằm trong `lecture-style.css`. Dùng `title-slide`, `lecture-title`, `course-name`, `term-name`, `agenda-slide`, `motivation-slide`, `example-slide`, `ex-grid2`, `ex-table`, `ex-card`, `ex-equation`, `pre.ex-code`, `ex-source`, `cost-slide`. Các vùng bất đối xứng chỉ cần lớp bố cục giới hạn bằng `.lecture-minhash`; không ghi đè cỡ chữ tương ứng giữa các deck.
 
@@ -14,7 +257,7 @@ Nguồn `B` là `sources/textbooks/mmds-3e-ch03-finding-similar-items.pdf`; tran
 
 Các tỷ lệ trạng thái và vị trí nhãn giữ nguyên qua 23–24,28–30,37–40,53–54 và 56–57. Màu đi kèm nhãn, viền hoặc kiểu nét. Đáp án kiểm tra không hiển thị trước trên mặt. Các đoạn số viết bằng lời trong notes phải chuyển sang công thức thích hợp khi dựng để tránh chuỗi ký hiệu khó đọc.
 
-## Hành trình khái niệm và kiểm soát thời lượng
+### Hành trình khái niệm và kiểm soát thời lượng
 
 _Trạng thái trước 2026-10-14 (lịch sử); bản hiện hành ở mục "Bản đồ mạch và quyết định sửa toàn diện 2026-10-14"._
 
@@ -30,7 +273,7 @@ _Trạng thái trước 2026-10-14 (lịch sử); bản hiện hành ở mục "
 
 Từ 14/10/2026, mỗi phần 2–7 mở bằng trang tiêu đề mạch `lec05-s0N-00` (phiếu T2–T7, đặt trước trang đầu phần); 0,5 phút mỗi trang lấy từ trang đầu phần, deck 60 trang. Phần giảng cộng 120 phút. Phần bài tập: 8+10+(7+8)+12+(8+7)=60 phút; trang tách chỉ phân bổ thời lượng của cùng bài. Mục tiêu nêu ở 03; tình huống 04–05 được dùng lại ở 19, 33, 44,47–48. Mỗi phiếu có dự toán; đối với trang không kiểm tra, thời gian gồm đọc dữ kiện, thực hiện phép suy luận và đối chiếu kết quả; không quy đổi số chữ thành số phút.
 
-## Chu trình các cụm
+### Chu trình các cụm
 
 _Trạng thái trước 2026-10-14 (lịch sử); bản hiện hành ở mục "Bản đồ mạch và quyết định sửa toàn diện 2026-10-14"._
 
@@ -40,7 +283,7 @@ _Trạng thái trước 2026-10-14 (lịch sử); bản hiện hành ở mục "
 - **Chữ ký:** 28 chạy ví dụ hai thứ tự;29–30 hình thức hóa;31–32 lập luận kỳ vọng/phương sai;33 chi phí;34 kiểm tra. Ví dụ đưa lên từ VD 3.8 để tránh ký hiệu tổng quát xuất hiện trước cơ chế, đã được điều phối viên duyệt. Thuật toán tạo chữ ký thuộc cụm kế, không là bước bị bỏ.
 - **Quét chữ ký:** 35 tình huống/trực giác;36 đặc tả;37–40 dữ kiện và vết chạy;41 giả mã;42 đúng;43–44 chi phí;45 giới hạn;46 kiểm tra. Đặc tả trước vết chạy chi tiết vì phép chọn và min đã có trực giác; việc đổi định danh sang giá trị băm được nói rõ trước khi chạy.
 
-## Ánh xạ tài liệu tự học
+### Ánh xạ tài liệu tự học
 
 _Trạng thái trước 2026-10-14 (lịch sử); bản hiện hành ở mục "Bản đồ mạch và quyết định sửa toàn diện 2026-10-14"._
 
@@ -48,7 +291,7 @@ _Trạng thái trước 2026-10-14 (lịch sử); bản hiện hành ở mục "
 
 Bản đồ vai trò, đầu vào/đầu ra, thành phần áp dụng và mục không áp dụng của từng chủ đề được khóa ở mục 8 của `outline.md`. Ghi chú theo vai trò→định nghĩa→ví dụ→trực quan→mệnh đề/thuật toán/chứng minh→ứng dụng/lỗi/kiểm tra; không dùng thứ tự “ví dụ trước định nghĩa” của slide để làm sai chu trình tài liệu tự học. Chữ ký, ma trận, bài tập và hai phép băm dùng chung hệ ký hiệu ở outline.
 
-## Bản đồ mạch và quyết định sửa toàn diện 2026-10-14
+### Bản đồ mạch và quyết định sửa toàn diện 2026-10-14
 
 | Mạch | Tên (khớp trang Nội dung) | Trang | Phút | Vai trò chu trình của trang tiêu đề mạch |
 |---|---|---:|---:|---|
@@ -150,7 +393,7 @@ Không trang nào có trần 60 vượt 60 âm tiết; không dòng chữ nào v
 **Ánh xạ `data-slide-id` ↔ `note-topic-id` của trang mới.** s01-10 → `n05-01`; s01-11 → `n05-01`; s05-13 → `n05-10`; s06-05 → `n05-11`; s06-06 → `n05-10`, `n05-11`; s06-07 → `n05-14`. Ghi chú bài giảng giữ `n05-01` … `n05-14`, không đổi.
 
 
-### Lượt sửa sau ba báo cáo rà (2026-10-14)
+#### Lượt sửa sau ba báo cáo rà (2026-10-14)
 
 Theo quyết định của điều phối viên hợp nhất ba báo cáo (toán, mạch viết, sinh viên). Bảng trên đã cập nhật âm tiết và số dòng sau lượt sửa. Trang đổi âm tiết hoặc số dòng: s01-10 58→56, s01-03 67→70, s02-01 58→56, s02-04 33→36, s02-06 46→59, s02-07 60→59, s03-05 43→44, s03-06 41→43, s03-07 8→12, s04-01 36→39, s04-02 40→44, s05-05 44→46, s05-07 34→35, s05-09 48→49, s05-13 43→51, s05-11 53→57, s06-00 45→42, s06-05 70→78, s06-02 76→77, s06-04 54→56. Thay đổi chính:
 
@@ -164,9 +407,9 @@ Theo quyết định của điều phối viên hợp nhất ba báo cáo (toán
 
 **Phiếu T6 (hiện hành):** kết nối vào–ra là s05-12 → T6 → s06-05; trang 47 (s06-01) đã bỏ; 0,5 phút của T6 tính trong 12 phút của mạch 6.
 
-## Phiếu từng trang
+### Phiếu từng trang
 
-### 01. Biểu diễn tương đồng: Shingling và MinHash
+#### 01. Biểu diễn tương đồng: Shingling và MinHash
 
 - **Mã:** `lec05-s01-01`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Sửa 2026-10-14:** quyết định `sửa`: thêm câu luận đề (phương án A) và dòng đơn vị; bỏ "Bài 05 ·" khỏi học kỳ như deck 06; ghi chú mở bằng đối tượng, nêu kết quả Bài 01 được dùng. Âm tiết mặt trang 14 → 47. Thời lượng mới: 0,5 phút.
@@ -197,7 +440,7 @@ Bài 05 mở mạch tương đồng và hàng xóm gần. Phạm vi gồm Jaccar
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 02. Nội dung
+#### 02. Nội dung
 
 - **Mã:** `lec05-s01-02`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Sửa 2026-10-14:** quyết định `sửa`: hai cột `ol` 1–4 và 5–7, thêm dòng "Đọc trước:"; ghi chú bỏ câu "Phần thứ năm…", "Phần bài tập…". Âm tiết mặt trang 35 → 49. Thời lượng mới: 0,5 phút.
@@ -224,7 +467,7 @@ Jaccard là đại lượng cần đo giữa hai tập. Shingling chuyển mỗi
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 03. Mục tiêu và kiến thức đầu vào
+#### 03. Mục tiêu và kiến thức đầu vào
 
 - **Mã:** `lec05-s01-03`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tách khung "Kiến thức đầu vào" sang s01-10; năm mục tiêu quan sát được; đổi chỗ trước trang Nội dung. Âm tiết mặt trang 46 → 67. Tiêu đề hiện hành: “Mục tiêu học tập”. Thời lượng mới: 1 phút.
@@ -251,7 +494,7 @@ Phép giao và hợp được dùng để định nghĩa Jaccard. Thứ tự và
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### lec05-s01-10. Tiên quyết và quy ước (thêm 2026-10-14)
+#### lec05-s01-10. Tiên quyết và quy ước (thêm 2026-10-14)
 
 - **Mã:** `lec05-s01-10`; **mạch:** 1; **note-topic-id:** `n05-01`
 - **Loại phần và mục đích:** mở đầu; nêu ba kết quả được dùng lại và các quy ước chỉ số trước khi gặp ký hiệu mới
@@ -274,7 +517,7 @@ Nhắc lại: xét mọi cặp của $C$ tài liệu cần $\binom C2=C(C-1)/2$ 
 
 Đối chiếu ký hiệu Bài 01 ($N$, $J$, $\tau$) với ký hiệu MMDS ($C$, $\mathrm{SIM}$); nơi dùng từng công cụ; danh sách ký hiệu được định nghĩa tại chỗ.
 
-### lec05-s01-11. Vấn đề trung tâm (thêm 2026-10-14)
+#### lec05-s01-11. Vấn đề trung tâm (thêm 2026-10-14)
 
 - **Mã:** `lec05-s01-11`; **mạch:** 1; **note-topic-id:** `n05-01`
 - **Loại phần và mục đích:** mở đầu; nêu bài toán dữ liệu lớn trong một dòng và câu trả lời có điều kiện của từng mạch
@@ -297,7 +540,7 @@ Nhu cầu: ước lượng Jaccard mọi cặp trong $10^6$ tài liệu, vừa b
 
 Nguồn của từng số; giả thiết của mục 3 và 4 (thêm độc lập cho sai số); mục 6 là giới hạn còn lại; phần tổng kết trả lời từng mục bằng con số.
 
-### 04. Bài toán tài liệu gần trùng
+#### 04. Bài toán tài liệu gần trùng
 
 - **Mã:** `lec05-s01-04`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn Nhu cầu/Đầu vào/Đầu ra in đậm; câu kết luận có nhãn; bỏ dòng nguồn; ghi chú bỏ câu lấy sách làm chủ ngữ. Âm tiết mặt trang 63 → 50. Thời lượng mới: 2,5 phút.
@@ -332,7 +575,7 @@ Nguồn: Tình huống: Mining of Massive Datasets (MMDS), ấn bản 3, Chươn
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 05. Chi phí so sánh mọi cặp
+#### 05. Chi phí so sánh mọi cặp
 
 - **Mã:** `lec05-s01-05`; **phần:** 1; **note-topic-id:** `n05-01`.
 - **Sửa 2026-10-14:** quyết định `sửa`: đổi sang khuôn trang ví dụ "Ví dụ: kho một triệu tài liệu" (dữ kiện, yêu cầu, bảng, Kết luận); bỏ dòng "Tổng công việc = …". Âm tiết mặt trang 72 → 52. Tiêu đề hiện hành: “Ví dụ: kho một triệu tài liệu”. Thời lượng mới: 2,5 phút.
@@ -372,12 +615,12 @@ Nguồn: MMDS 3e, tr. 73; giả định 1 micro giây mỗi cặp chữ ký theo
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 06. (Đã gộp vào trang 07)
+#### 06. (Đã gộp vào trang 07)
 
 - **Mã:** `lec05-s01-06` (đã xóa khỏi deck ngày 07/10/2026); **phần:** 1; **note-topic-id:** `n05-02`.
 - **Quyết định:** gộp. Trang chỉ đếm giao và hợp trên Hình 3.1; trang 07 dùng lại đúng hình ấy để định nghĩa tỷ số, nên hai trang chia một luận điểm và lặp hình. Câu nối tài liệu → tập, hai phép đếm và lý do chia cho hợp chuyển sang trang 07. Thời lượng 2 phút chuyển sang trang 07.
 
-### 07. Độ tương đồng Jaccard
+#### 07. Độ tương đồng Jaccard
 
 - **Mã:** `lec05-s01-07`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Sửa 2026-10-14:** quyết định `sửa`: định nghĩa viết bằng "là" ngay trước công thức; "Ý nghĩa:" thay câu takeaway không nhãn. Âm tiết mặt trang 39 → 43. Thời lượng mới: 3,5 phút.
@@ -416,7 +659,7 @@ Nguồn: MMDS 3e, §3.1.1, tr. 74; hình vẽ lại theo Hình 3.1, tr. 75.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 08. Ứng dụng của độ tương đồng Jaccard
+#### 08. Ứng dụng của độ tương đồng Jaccard
 
 - **Mã:** `lec05-s01-08`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Sửa 2026-10-14:** quyết định `sửa`: hai `ex-card` và ba takeaway thành một bảng so sánh ba cột và một Kết luận. Âm tiết mặt trang 63 → 65. Thời lượng mới: 2,5 phút.
@@ -449,7 +692,7 @@ Nguồn: MMDS 3e, §§3.1.2–3.1.3, tr. 74–76.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 09. Câu hỏi về độ tương đồng Jaccard
+#### 09. Câu hỏi về độ tương đồng Jaccard
 
 - **Mã:** `lec05-s01-09`; **phần:** 1; **note-topic-id:** `n05-02`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Câu hỏi:" theo khuôn deck 06; rút câu 3; ghi chú nêu kết quả đã dùng. Âm tiết mặt trang 54 → 45. Thời lượng mới: 3 phút.
@@ -484,7 +727,7 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.1, tr. 75.
 
 Đáp án: $3/10$; $5+6$ đếm giao hai lần, mẫu đúng là 8; độ dài không xác định giao, hợp nên cần quy tắc tạo tập phần tử. Chấm đủ ba ý. Câu 1 và 2 không có đáp án trên các trang trước (s01-07 chỉ hiện $3/8$). Dự toán 2 phút làm, 1 phút trình bày, 1 phút đối chiếu; đã nằm trong 4 phút.
 
-### T2. Shingling văn bản (trang tiêu đề mạch)
+#### T2. Shingling văn bản (trang tiêu đề mạch)
 
 - **Mã:** `lec05-s02-00`; **phần:** 2; **note-topic-id:** `n05-03` (cùng chủ đề với trang 10).
 - **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 33 → 33. Thời lượng mới: 0,5 phút.
@@ -507,7 +750,7 @@ Tập shingle · Thuật toán tạo tập · Độ dài shingle · Khoảng tr�
 
 Jaccard đã được định nghĩa trên hai tập; bài toán tài liệu gần trùng cần so nội dung chứ không so từng ký tự. Mỗi tài liệu được biểu diễn bằng tập các $k$-shingle: ví dụ abcdabd với $k=2$ dẫn tới định nghĩa tập shingle và thuật toán tạo tập; độ dài $k$, khoảng trắng và phép băm mỗi 9-shingle thành mã 4 byte là các quyết định kèm theo. Số mã shingle vẫn gần bằng số ký tự của tài liệu, dẫn tới nhu cầu chữ ký ngắn.
 
-### 10. Biểu diễn văn bản bằng tập shingle
+#### 10. Biểu diễn văn bản bằng tập shingle
 
 - **Mã:** `lec05-s02-01`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: bỏ `ex-card` hai câu (27 âm tiết); một dòng định nghĩa, Quy ước, Kết luận; câu biểu diễn tài liệu lên s02-03. Âm tiết mặt trang 107 → 58. Thời lượng mới: 2,5 phút.
@@ -545,7 +788,7 @@ Nguồn: MMDS 3e, mở §3.2 và §3.2.1, tr. 78; `abcxabd` là biến thể c�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 11. Tập 2-shingle của một chuỗi
+#### 11. Tập 2-shingle của một chuỗi
 
 - **Mã:** `lec05-s02-02`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: khuôn trang ví dụ: thêm yêu cầu và Kết luận; tiêu đề "Ví dụ: …". Âm tiết mặt trang 5 → 24. Tiêu đề hiện hành: “Ví dụ: tập 2-shingle của abcdabd”. Thời lượng mới: 2 phút.
@@ -578,7 +821,7 @@ Nguồn: MMDS 3e, Ví dụ 3.3, tr. 78.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 12. Định nghĩa tập shingle
+#### 12. Định nghĩa tập shingle
 
 - **Mã:** `lec05-s02-03`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Định nghĩa." viết bằng "là"; `ex-card` thành dòng "Trường hợp biên:". Âm tiết mặt trang 41 → 33. Thời lượng mới: 2 phút.
@@ -615,7 +858,7 @@ Nguồn: MMDS 3e, §3.2.1; hình thức hóa chỉ số theo định nghĩa ngu�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 13. Thuật toán tạo tập shingle
+#### 13. Thuật toán tạo tập shingle
 
 - **Mã:** `lec05-s02-04`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Thuật toán: …"; Đầu vào/Đầu ra trước giả mã; Bất biến, Điều kiện dừng có nhãn; bộ nhớ sang ghi chú. Âm tiết mặt trang 49 → 33. Tiêu đề hiện hành: “Thuật toán: tạo tập shingle”. Thời lượng mới: 3 phút.
@@ -661,7 +904,7 @@ Nguồn: Suy ra từ MMDS 3e, §3.2.1, với mô hình chèn vào tập băm.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 14. Chọn độ dài shingle
+#### 14. Chọn độ dài shingle
 
 - **Mã:** `lec05-s02-05`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: bỏ `ex-card` và `ex-note`; ví dụ cực đoan $k=1$ trước quy tắc; tiêu chí thành Kết luận, câu "không có chứng minh" sang ghi chú. Âm tiết mặt trang 91 → 60. Thời lượng mới: 2,5 phút.
@@ -701,7 +944,7 @@ Nguồn: MMDS 3e, §3.2.2, tr. 79.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 15. Xử lý khoảng trắng
+#### 15. Xử lý khoảng trắng
 
 - **Mã:** `lec05-s02-06`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: dòng quy ước có nhãn "Quy ước:"; Kết luận có nhãn. Âm tiết mặt trang 50 → 46. Thời lượng mới: 2 phút.
@@ -737,7 +980,7 @@ Nguồn: MMDS 3e, Ví dụ 3.4, tr. 78.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 16. Băm shingle
+#### 16. Băm shingle
 
 - **Mã:** `lec05-s02-07`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: rút dòng 23 âm tiết và bảng; va chạm thành "Lưu ý:" có thuật ngữ tiếng Anh; một Kết luận. Âm tiết mặt trang 80 → 60. Thời lượng mới: 2,5 phút.
@@ -775,12 +1018,12 @@ Nguồn: MMDS 3e, §3.2.3, tr. 79–80.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 17. (Đã gộp vào trang 19)
+#### 17. (Đã gộp vào trang 19)
 
 - **Mã:** `lec05-s02-08` (đã xóa khỏi deck ngày 01/10/2026); **phần:** 2; **note-topic-id:** `n05-03`.
 - **Quyết định:** gộp. Luận điểm “băm rút ngắn từng phần tử nhưng không giới hạn số phần tử” trùng với trang 19; bảng `abcdabd` 6/5/5 lặp số liệu của trang 11 và 13. Cận $|S_k(D)|\le w$ và câu về băm chuyển sang trang 19. Thời lượng 1 phút chuyển sang trang 19.
 
-### 18. Câu hỏi về shingling
+#### 18. Câu hỏi về shingling
 
 - **Mã:** `lec05-s02-09`; **phần:** 2; **note-topic-id:** `n05-03`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Câu hỏi:"; câu 3 rút còn 19 âm tiết, giữ dữ kiện và nhiệm vụ. Âm tiết mặt trang 75 → 46. Thời lượng mới: 3 phút.
@@ -813,7 +1056,7 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.3, §3.2.3 và mở §3.3; chuỗi `ab
 
 Đáp án: năm cửa sổ `abc, bcd, cda, dab, abd`, $|S_3(D)|=5$; Jaccard $4/5$; $49\,992$ mã, $199\,968$ byte (cận trên). Không câu nào có đáp án trên mặt các trang trước. Chuỗi `abcdabc` là dữ kiện do người soạn tạo, ghi rõ ở dòng nguồn.
 
-### T3. MinHash theo hoán vị (trang tiêu đề mạch)
+#### T3. MinHash theo hoán vị (trang tiêu đề mạch)
 
 - **Mã:** `lec05-s03-00`; **phần:** 3; **note-topic-id:** `n05-04` (cùng chủ đề với trang 19).
 - **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 32 → 32. Thời lượng mới: 0,5 phút.
@@ -836,7 +1079,7 @@ Ma trận đặc trưng · Hoán vị hàng · Ba loại hàng · Xác suất tr
 
 Tập mã shingle của tài liệu 50.000 byte vẫn chiếm khoảng 200.000 byte. Các tập được xếp thành cột của ma trận đặc trưng; MinHash là phần tử đứng đầu của tập theo một hoán vị hàng, tính được trên ví dụ bốn tập; ba loại hàng của một cặp cột cho phép chứng minh xác suất hai MinHash trùng bằng độ tương đồng Jaccard. Một MinHash chỉ cho trùng hoặc không trùng; nhiều MinHash được ghép lại thành chữ ký.
 
-### 19. Kích thước tập shingle
+#### 19. Kích thước tập shingle
 
 - **Mã:** `lec05-s03-01`; **phần:** 3; **note-topic-id:** `n05-04`.
 - **Sửa 2026-10-14:** quyết định `sửa`: câu cần chữ ký thành dòng "Nhu cầu:" mở trang; ghi chú bỏ "Phần 2 cho…". Âm tiết mặt trang 65 → 51. Thời lượng mới: 2 phút.
@@ -874,7 +1117,7 @@ Nguồn: MMDS 3e, mở §3.3, tr. 81; cận số phần tử từ §3.2.1.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 20. Ma trận đặc trưng
+#### 20. Ma trận đặc trưng
 
 - **Mã:** `lec05-s03-02`; **phần:** 3; **note-topic-id:** `n05-04`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Định nghĩa." ma trận đặc trưng (characteristic matrix); `ex-note` thành "Lưu ý:"; một Kết luận; đặt tên ví dụ bốn tập đặc trưng. Âm tiết mặt trang 78 → 52. Tiêu đề hiện hành: “Ma trận đặc trưng của bốn tập”. Thời lượng mới: 2,5 phút.
@@ -921,12 +1164,12 @@ Nguồn: MMDS 3e, §3.3.1, Hình 3.2, tr. 81–82.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 21. (Đã gộp vào trang 20)
+#### 21. (Đã gộp vào trang 20)
 
 - **Mã:** `lec05-s03-03` (đã xóa khỏi deck ngày 01/10/2026); **phần:** 3; **note-topic-id:** `n05-04`.
 - **Quyết định:** gộp. Ý “ma trận thưa, chỉ lưu vị trí ô 1” chuyển thành một dòng của trang 20. Danh sách cột có 1 theo hàng chỉ cần khi quét hàng, nên xuất hiện ở trang 37 (cột “Các cột có 1”) và trang 43 ($L=\operatorname{nnz}(M)$); ghi chú cũ phải nhắc tới giá trị băm trước khi phép băm hàng được giới thiệu. Thời lượng chuyển sang trang 22 để giữ 23 phút của phần 3.
 
-### 22. Ý tưởng của MinHash
+#### 22. Ý tưởng của MinHash
 
 - **Mã:** `lec05-s03-04`; **phần:** 3; **note-topic-id:** `n05-05`.
 - **Sửa 2026-10-14:** quyết định `sửa`: dòng "Nhu cầu:"; gạch thứ ba thành Kết luận. Âm tiết mặt trang 57 → 57. Thời lượng mới: 2,5 phút.
@@ -961,7 +1204,7 @@ Nguồn: MMDS 3e, §3.3.2–§3.3.3, tr. 82–83.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 23. Ví dụ MinHash theo một hoán vị
+#### 23. Ví dụ MinHash theo một hoán vị
 
 - **Mã:** `lec05-s03-05`; **phần:** 3; **note-topic-id:** `n05-05`.
 - **Sửa 2026-10-14:** quyết định `sửa`: khuôn trang ví dụ: dữ kiện và yêu cầu trên bảng; chú giải ô viền đậm sang ghi chú; tiêu đề "Ví dụ: bốn tập đặc trưng, một hoán vị". Âm tiết mặt trang 51 → 43. Tiêu đề hiện hành: “Ví dụ: bốn tập đặc trưng, một hoán vị”. Thời lượng mới: 3 phút.
@@ -1003,7 +1246,7 @@ Nguồn: MMDS 3e, Ví dụ 3.7, Hình 3.3, tr. 82–83; bổ sung bảng đối 
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 24. Định nghĩa MinHash
+#### 24. Định nghĩa MinHash
 
 - **Mã:** `lec05-s03-06`; **phần:** 3; **note-topic-id:** `n05-05`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Giả thiết:", "Định nghĩa." bằng "là"; `ex-card` thành "Lưu ý:"; câu $\arg\min$ sang ghi chú. Âm tiết mặt trang 55 → 41. Thời lượng mới: 2 phút.
@@ -1040,7 +1283,7 @@ Nguồn: MMDS 3e, §3.3.2–§3.3.3; quy ước trả định danh tương đư�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 25. Ba loại hàng của một cặp cột
+#### 25. Ba loại hàng của một cặp cột
 
 - **Mã:** `lec05-s03-07`; **phần:** 3; **note-topic-id:** `n05-06`.
 - **Sửa 2026-10-14:** quyết định `sửa`: takeaway thành dòng "Ví dụ.". Âm tiết mặt trang 8 → 8. Thời lượng mới: 2,5 phút.
@@ -1079,7 +1322,7 @@ Nguồn: MMDS 3e, §3.3.3, tr. 83.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 26. Định lý xác suất trùng MinHash
+#### 26. Định lý xác suất trùng MinHash
 
 - **Mã:** `lec05-s03-08`; **phần:** 3; **note-topic-id:** `n05-06`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Định lý." và "Chứng minh." hai dòng. Âm tiết mặt trang 32 → 31. Thời lượng mới: 3,5 phút.
@@ -1115,7 +1358,7 @@ Nguồn: MMDS 3e, §3.3.3, tr. 83.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 27. Câu hỏi về MinHash
+#### 27. Câu hỏi về MinHash
 
 - **Mã:** `lec05-s03-09`; **phần:** 3; **note-topic-id:** `n05-06`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Câu hỏi:". Âm tiết mặt trang 48 → 34. Thời lượng mới: 3,5 phút.
@@ -1150,7 +1393,7 @@ Nguồn: Dữ kiện: MMDS 3e, Hình 3.2 và §3.3.3; tập $S_1'$ là biến th
 
 Đáp án: một thứ tự có $c$ trước $a$ và $d$; xác suất $1/2$ (kiểm lại bằng liệt kê 120 hoán vị); $c$ thuộc loại $Z$ của cặp $S_1,S_3$. Không câu nào có đáp án trên mặt trang 23–26 (trang 23 chỉ có thứ tự $(b,e,a,d,c)$, trang 25 chỉ có $x=2,y=1$ của $S_1,S_4$). Tập $S_1'$ là dữ kiện biến thể, ghi ở dòng nguồn.
 
-### T4. Chữ ký MinHash (trang tiêu đề mạch)
+#### T4. Chữ ký MinHash (trang tiêu đề mạch)
 
 - **Mã:** `lec05-s04-00`; **phần:** 4; **note-topic-id:** `n05-07` (cùng chủ đề với trang 28).
 - **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 34 → 34. Thời lượng mới: 0,5 phút.
@@ -1173,7 +1416,7 @@ Ma trận chữ ký · Tỷ lệ trùng · Kỳ vọng · Phương sai · Chi ph
 
 Định lý xác suất trùng cho một phép thử với kết quả trùng hoặc không trùng. Chữ ký gồm $n$ MinHash theo cùng bộ hoán vị; tỷ lệ tọa độ trùng ước lượng Jaccard không chệch, phương sai tính được khi các hoán vị độc lập, và so hai chữ ký tốn $\Theta(n)$ phép so bằng. Mô hình vẫn cần $n$ hoán vị thật của hàng triệu hàng, nên cần thay hoán vị bằng hàm băm.
 
-### 28. Chữ ký từ nhiều thứ tự
+#### 28. Chữ ký từ nhiều thứ tự
 
 - **Mã:** `lec05-s04-01`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Ví dụ: bốn tập đặc trưng, hai thứ tự"; dòng Nhu cầu; dòng chữ ký và `ex-note` sang ghi chú. Âm tiết mặt trang 66 → 36. Tiêu đề hiện hành: “Ví dụ: bốn tập đặc trưng, hai thứ tự”. Thời lượng mới: 2,5 phút.
@@ -1215,7 +1458,7 @@ Nguồn: MMDS 3e, Hình 3.2 và hai thứ tự suy từ Ví dụ 3.8, tr. 85–8
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 29. Định nghĩa chữ ký MinHash
+#### 29. Định nghĩa chữ ký MinHash
 
 - **Mã:** `lec05-s04-02`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Định nghĩa." có thuật ngữ tiếng Anh; takeaway thành "Giả thiết:". Âm tiết mặt trang 38 → 40. Thời lượng mới: 2 phút.
@@ -1255,7 +1498,7 @@ Nguồn: MMDS 3e, §3.3.4, tr. 83–84.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 30. Ước lượng Jaccard từ chữ ký
+#### 30. Ước lượng Jaccard từ chữ ký
 
 - **Mã:** `lec05-s04-03`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Định nghĩa." bằng "là". Âm tiết mặt trang 20 → 29. Thời lượng mới: 2,5 phút.
@@ -1299,7 +1542,7 @@ Nguồn: MMDS 3e, §3.3.4, tr. 84.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 31. Kỳ vọng của ước lượng
+#### 31. Kỳ vọng của ước lượng
 
 - **Mã:** `lec05-s04-04`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Mệnh đề."; Kết luận có nhãn. Âm tiết mặt trang 52 → 41. Thời lượng mới: 2,5 phút.
@@ -1336,7 +1579,7 @@ Nguồn: MMDS 3e, §3.3.4; tính tuyến tính của kỳ vọng. Phân biệt s
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 32. Phương sai của ước lượng
+#### 32. Phương sai của ước lượng
 
 - **Mã:** `lec05-s04-05`; **phần:** 4; **note-topic-id:** `n05-08`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Mệnh đề." và "Chứng minh."; hai câu kết luận thành một "Ý nghĩa:"; `ex-note` sang ghi chú. Âm tiết mặt trang 56 → 31. Thời lượng mới: 2,5 phút.
@@ -1373,7 +1616,7 @@ Nguồn: Suy ra từ mô hình §3.3.4 bằng phương sai của biến chỉ b�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 33. Chi phí so sánh chữ ký
+#### 33. Chi phí so sánh chữ ký
 
 - **Mã:** `lec05-s04-06`; **phần:** 4; **note-topic-id:** `n05-07`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Chi phí: …"; dòng "Mô hình:"; hai `ex-card` thành bảng Bước | Số lần | Chi phí mỗi lần | Đóng góp. Âm tiết mặt trang 57 → 54. Tiêu đề hiện hành: “Chi phí: so sánh chữ ký”. Thời lượng mới: 2 phút.
@@ -1422,7 +1665,7 @@ Nguồn: Suy ra từ §3.3.4 và phép đếm cặp ở mở Chương 3.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 34. Câu hỏi về chữ ký MinHash
+#### 34. Câu hỏi về chữ ký MinHash
 
 - **Mã:** `lec05-s04-07`; **phần:** 4; **note-topic-id:** `n05-08`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Câu hỏi:". Âm tiết mặt trang 53 → 44. Thời lượng mới: 2 phút.
@@ -1457,7 +1700,7 @@ Nguồn: Dữ kiện: Hình 3.2; áp dụng mô hình chữ ký §3.3.4.
 
 Đáp án: $200/3$; $\sqrt{1/450}\approx0{,}047$; $n=556$, 556 phép so bằng (tính lại bằng phân số). Không câu nào có đáp án trên mặt trang 31–33.
 
-### T5. Tính chữ ký bằng hàm băm (trang tiêu đề mạch)
+#### T5. Tính chữ ký bằng hàm băm (trang tiêu đề mạch)
 
 - **Mã:** `lec05-s05-00`; **phần:** 5; **note-topic-id:** `n05-09` (cùng chủ đề với trang 35).
 - **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 38 → 38. Thời lượng mới: 0,5 phút.
@@ -1480,7 +1723,7 @@ Hàm băm hàng · Quét hàng · Tính đúng · Chi phí và bộ nhớ · Đi
 
 Chữ ký và ước lượng không chệch đã có dưới giả thiết hoán vị đều, độc lập. Mỗi hoán vị được thay bằng một hàm băm trên mã hàng; ma trận $\mathrm{SIG}$ được đặc tả và phép quét chạy tay với hai hàm băm trên năm hàng; thuật toán quét hàng đi kèm chứng minh tính đúng, chi phí thời gian, bộ nhớ và điều kiện để $(ar+b)\bmod R$ là hoán vị. Ma trận $\mathrm{SIG}$ là đầu vào của bảng tổng kết và của Bài 06.
 
-### 35. Mô phỏng hoán vị bằng hàm băm
+#### 35. Mô phỏng hoán vị bằng hàm băm
 
 - **Mã:** `lec05-s05-01`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: dòng Nhu cầu; câu "tương tự … nhưng …"; rút hai dòng 23, 24 âm tiết; `ex-note` sang ghi chú. Âm tiết mặt trang 76 → 51. Thời lượng mới: 2,5 phút.
@@ -1517,7 +1760,7 @@ Nguồn: MMDS 3e, §3.3.5, tr. 84–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 36. Đặc tả bài toán tính chữ ký
+#### 36. Đặc tả bài toán tính chữ ký
 
 - **Mã:** `lec05-s05-02`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: Đầu vào/Đầu ra in đậm; "ma trận chữ ký (signature matrix)"; dòng cuối thành "Quy ước:". Âm tiết mặt trang 50 → 39. Thời lượng mới: 2,5 phút.
@@ -1554,7 +1797,7 @@ Nguồn: Đặc tả phép quét trong MMDS 3e, §3.3.5; quy ước cho cột r�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 37. Hai hàm băm hàng
+#### 37. Hai hàm băm hàng
 
 - **Mã:** `lec05-s05-03`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Ví dụ: bốn tập đặc trưng, hai hàm băm hàng"; thêm yêu cầu; `ex-note` thành Kết luận. Âm tiết mặt trang 29 → 25. Tiêu đề hiện hành: “Ví dụ: bốn tập đặc trưng, hai hàm băm hàng”. Thời lượng mới: 2,5 phút.
@@ -1593,7 +1836,7 @@ Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 38. Khởi tạo và quét hàng 0
+#### 38. Khởi tạo và quét hàng 0
 
 - **Mã:** `lec05-s05-04`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ có tên bước; hai câu kết luận gộp làm một. Âm tiết mặt trang 36 → 31. Tiêu đề hiện hành: “Ví dụ: bốn tập đặc trưng, khởi tạo và hàng 0”. Thời lượng mới: 2,5 phút.
@@ -1644,7 +1887,7 @@ Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 39. Quét hàng 1 và 2
+#### 39. Quét hàng 1 và 2
 
 - **Mã:** `lec05-s05-05`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ có tên bước; `ex-note` thành "Quy ước:"; hai phép min cụ thể sang ghi chú. Âm tiết mặt trang 49 → 44. Tiêu đề hiện hành: “Ví dụ: bốn tập đặc trưng, hàng 1 và 2”. Thời lượng mới: 2 phút.
@@ -1683,7 +1926,7 @@ Nguồn: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 40. Quét hàng 3 và 4
+#### 40. Quét hàng 3 và 4
 
 - **Mã:** `lec05-s05-06`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề ví dụ có tên bước; `ex-note` thành "Quy ước:". Âm tiết mặt trang 38 → 36. Tiêu đề hiện hành: “Ví dụ: bốn tập đặc trưng, hàng 3 và 4”. Thời lượng mới: 2 phút.
@@ -1723,7 +1966,7 @@ Nguồn: MMDS 3e, Hình 3.4, tr. 85; Ví dụ 3.8, tr. 85–86.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 41. Thuật toán quét hàng
+#### 41. Thuật toán quét hàng
 
 - **Mã:** `lec05-s05-07`; **phần:** 5; **note-topic-id:** `n05-09`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Thuật toán: quét hàng"; Đầu vào/Đầu ra trước giả mã; câu thao tác quyết định; "Điều kiện dừng:"; ghi chú nêu chỗ khung để ngỏ. Âm tiết mặt trang 13 → 34. Tiêu đề hiện hành: “Thuật toán: quét hàng”. Thời lượng mới: 2,5 phút.
@@ -1752,7 +1995,7 @@ Nguồn: MMDS 3e, §3.3.5, tr. 85.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 42. Tính đúng của phép quét hàng
+#### 42. Tính đúng của phép quét hàng
 
 - **Mã:** `lec05-s05-08`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Tính đúng: quét hàng"; nhãn "Bất biến:". Âm tiết mặt trang 48 → 40. Tiêu đề hiện hành: “Tính đúng: quét hàng”. Thời lượng mới: 2,5 phút.
@@ -1787,7 +2030,7 @@ Nguồn: Bất biến suy từ thuật toán §3.3.5; bao gồm cột rỗng.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 43. Chi phí tính chữ ký
+#### 43. Chi phí tính chữ ký
 
 - **Mã:** `lec05-s05-09`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Sửa 2026-10-14:** quyết định `tách`: đổi về khuôn bảng chi phí chung với dòng "Mô hình:"; cột thay số tách sang s05-13. Âm tiết mặt trang 58 → 48. Tiêu đề hiện hành: “Chi phí: tính chữ ký”. Thời lượng mới: 2,5 phút.
@@ -1831,7 +2074,7 @@ Nguồn: Đếm từ giả mã §3.3.5; dữ kiện Ví dụ 3.8.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### lec05-s05-13. Chi phí: tính chữ ký, bốn tập đặc trưng (thêm 2026-10-14)
+#### lec05-s05-13. Chi phí: tính chữ ký, bốn tập đặc trưng (thêm 2026-10-14)
 
 - **Mã:** `lec05-s05-13`; **mạch:** 5; **note-topic-id:** `n05-10`
 - **Loại phần và mục đích:** chi phí; thay số vào bảng đếm s05-09 trên ví dụ bốn tập đặc trưng
@@ -1854,7 +2097,7 @@ Mô hình: mỗi thao tác một đơn vị; $R=5$, $C=4$, $n=2$, $L=9$. / Bản
 
 Hai tổng; đối chiếu 18 phép min với vết chạy theo hàng; với ma trận thưa, $RC\gg L$ nên danh sách cột loại số hạng chi phối; số đếm theo mô hình, không phải số đo.
 
-### 44. Bộ nhớ của chữ ký
+#### 44. Bộ nhớ của chữ ký
 
 - **Mã:** `lec05-s05-10`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Chi phí: bộ nhớ của chữ ký"; "Mô hình:" gộp `ex-note`; "Ví dụ."; một Kết luận. Âm tiết mặt trang 67 → 64. Tiêu đề hiện hành: “Chi phí: bộ nhớ của chữ ký”. Thời lượng mới: 2 phút.
@@ -1894,7 +2137,7 @@ Nguồn: MMDS 3e, tr. 81; $n=250$: Ví dụ 3.10, tr. 92; phân tích bộ nhớ
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 45. Điều kiện đối với hàm băm hàng
+#### 45. Điều kiện đối với hàm băm hàng
 
 - **Mã:** `lec05-s05-11`; **phần:** 5; **note-topic-id:** `n05-11`.
 - **Sửa 2026-10-14:** quyết định `sửa`: `ex-card` thành Kết luận. Âm tiết mặt trang 60 → 53. Thời lượng mới: 2,5 phút.
@@ -1925,7 +2168,7 @@ Với modulo 5, hệ số 1 và 3 trong ví dụ khả nghịch nên hai hàm l�
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 46. Câu hỏi về tính chữ ký
+#### 46. Câu hỏi về tính chữ ký
 
 - **Mã:** `lec05-s05-12`; **phần:** 5; **note-topic-id:** `n05-10`.
 - **Sửa 2026-10-14:** quyết định `sửa`: nhãn "Câu hỏi:". Âm tiết mặt trang 56 → 49. Thời lượng mới: 3 phút.
@@ -1965,7 +2208,7 @@ Nguồn: Dữ kiện: MMDS 3e, Ví dụ 3.8, tr. 85–86.
 
 Đáp án: $1/2$ so với $1/5$; sau $r=4$: cột 3 là $(0,3)$; sau $r=3$: $(4,0),(+\infty,+\infty),(0,0),(4,0)$; ma trận cuối không đổi (kiểm bằng chương trình); 12, 15, 27. Không câu nào có đáp án trên mặt trang 38–45 (trang 40 chỉ nêu cặp $S_1,S_4$, trang 43 chỉ có $n=2$).
 
-### T6. Tổng kết và tự kiểm tra (trang tiêu đề mạch)
+#### T6. Tổng kết và tự kiểm tra (trang tiêu đề mạch)
 
 - **Mã:** `lec05-s06-00`; **phần:** 6; **note-topic-id:** `n05-11` (cùng chủ đề với trang 47).
 - **Sửa 2026-10-14:** quyết định `sửa`: dòng từ khóa và ghi chú diễn giả theo nội dung mạch mới. Âm tiết mặt trang 37 → 45. Thời lượng mới: 0,5 phút.
@@ -1988,7 +2231,7 @@ Quy trình biểu diễn · Kết quả và giới hạn · Câu hỏi tự ki�
 
 Shingling, MinHash, chữ ký và phép quét hàng tạo thành quy trình biến tài liệu thành chữ ký ngắn. Quy trình gồm hai bước băm; đối chiếu với kho $10^6$ tài liệu cho chữ ký cả kho khoảng 1 GB, độ lệch chuẩn của ước lượng không quá khoảng 0,032, nhưng số cặp vẫn khoảng $5\cdot10^{11}$. Các câu hỏi tự kiểm tra kiểm lại biểu diễn và chữ ký. Số cặp bậc hai là giới hạn Bài 06 xử lý.
 
-### lec05-s06-05. Kết quả và giả thiết không được bỏ (thêm 2026-10-14)
+#### lec05-s06-05. Kết quả và giả thiết không được bỏ (thêm 2026-10-14)
 
 - **Mã:** `lec05-s06-05`; **mạch:** 6; **note-topic-id:** `n05-11`
 - **Loại phần và mục đích:** tổng kết; đặt mỗi kết quả chính cạnh giả thiết không được bỏ
@@ -2011,7 +2254,7 @@ Bảng 6 hàng: Jaccard; Tập mã shingle; Định lý MinHash; Kỳ vọng ư�
 
 Phản ví dụ khi bỏ từng giả thiết, chỉ dùng phản ví dụ đã có: $0/0$; va chạm mã; hai hoán vị khác nhau; hiệp phương sai; $(4r+1)\bmod6$ và bộ ba hàm modulo 6 lệch tới $2/3$; song ánh từng hàm chưa đủ.
 
-### lec05-s06-06. Thuật toán, bảo đảm và chi phí (thêm 2026-10-14)
+#### lec05-s06-06. Thuật toán, bảo đảm và chi phí (thêm 2026-10-14)
 
 - **Mã:** `lec05-s06-06`; **mạch:** 6; **note-topic-id:** `n05-10`, `n05-11`
 - **Loại phần và mục đích:** tổng kết; so ba thủ tục có đặc tả và phép so mọi cặp trên cùng mô hình từ máy
@@ -2034,7 +2277,7 @@ Bảng 4 hàng: Tạo tập shingle; So hai chữ ký; Quét hàng; So mọi c�
 
 Mô hình chung; thêm $RC$ phép kiểm ô với ma trận đặc; bảo đảm xác định của phép quét khác bảo đảm xác suất của ước lượng; hàng cuối là thừa số Bài 06 giảm.
 
-### 47. Quy trình biểu diễn tài liệu
+#### 47. Quy trình biểu diễn tài liệu
 
 - **Mã:** `lec05-s06-01`; **phần:** 6; **note-topic-id:** `n05-01`.
 - **Sửa 2026-10-14:** quyết định `bỏ`: hình và hai khung nhấn có câu lặp lại chuỗi kết quả; nội dung chuyển vào s06-05 (hàng tập mã shingle, phép quét hàng) và s06-02. Âm tiết mặt trang 46 → —. Thời lượng mới: 0 phút.
@@ -2069,7 +2312,7 @@ Nguồn: Tổng hợp MMDS 3e, §§3.1–3.3.
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 48. Kết quả và giới hạn còn lại
+#### 48. Kết quả và giới hạn còn lại
 
 - **Mã:** `lec05-s06-02`; **phần:** 6; **note-topic-id:** `n05-11`.
 - **Sửa 2026-10-14:** quyết định `sửa`: đổi vai trò thành "Câu trả lời cho vấn đề trung tâm"; mục 2–6 theo thứ tự trang vấn đề trung tâm; bỏ bảng ba hàng và `ex-card`; dòng nối Bài 06 sang s06-07. Âm tiết mặt trang 98 → 76. Tiêu đề hiện hành: “Câu trả lời cho vấn đề trung tâm”. Thời lượng mới: 2,5 phút.
@@ -2108,7 +2351,7 @@ Nguồn: MMDS 3e, §§3.1–3.3 và Ví dụ 3.10, tr. 92; phạm vi Bài 06 the
 
 Không có câu hỏi riêng; trang tạo dữ kiện cho kiểm tra cuối phần.
 
-### 49. Câu hỏi tổng kết về biểu diễn
+#### 49. Câu hỏi tổng kết về biểu diễn
 
 - **Mã:** `lec05-s06-03`; **phần:** 6; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: "Câu hỏi: trả lời và nêu kết quả đã dùng."; tiêu đề "Câu hỏi tự kiểm tra"; lời giải nêu tên kết quả. Âm tiết mặt trang 65 → 51. Tiêu đề hiện hành: “Câu hỏi tự kiểm tra”. Thời lượng mới: 2 phút.
@@ -2141,7 +2384,7 @@ Nguồn: Tự kiểm theo §§3.2–3.3.4; chuỗi và số liệu là dữ ki�
 
 Đáp án: 1; va chạm giữa hai shingle khác nhau của hai tài liệu; $1/4$ và 50. Ba câu đòi vận dụng, không nhắc lại kết luận đã hiện trên mặt trang trước.
 
-### 50. Câu hỏi tổng kết về chữ ký
+#### 50. Câu hỏi tổng kết về chữ ký
 
 - **Mã:** `lec05-s06-04`; **phần:** 6; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: như s06-03; câu 6 rút; dòng ghi công mmds.org sang s06-07. Âm tiết mặt trang 92 → 54. Tiêu đề hiện hành: “Câu hỏi tự kiểm tra”. Thời lượng mới: 2 phút.
@@ -2176,7 +2419,7 @@ Nguồn: Tự kiểm theo §§3.3.4–3.3.5 và phép đếm cặp đầu bài; 
 
 Đáp án: $\sqrt{3/3200}\approx0{,}031$; thành phần chữ ký $\min(f(0),f(3))=\min(1,1)=1$, $f$ không là hoán vị vì $\gcd(4,6)=2$; $9\,999\,000\,000$ phép so bằng, thừa số số cặp. Ba câu đòi thay số hoặc kiểm điều kiện, không nhắc lại kết luận trên mặt trang trước.
 
-### lec05-s06-07. Nguồn và tài liệu đọc (thêm 2026-10-14)
+#### lec05-s06-07. Nguồn và tài liệu đọc (thêm 2026-10-14)
 
 - **Mã:** `lec05-s06-07`; **mạch:** 6; **note-topic-id:** `n05-14`
 - **Loại phần và mục đích:** tổng kết; ghi nguồn, ghi công mmds.org, liên kết ghi chú, nối Bài 06
@@ -2199,7 +2442,7 @@ Nguồn: Leskovec, Rajaraman, Ullman (2020), MMDS ấn bản 3, Chương 3, §§
 
 Mạch nào dựa trên mục nào của sách; vai trò của CS246, CMU 15-853 (2013), UMass COMPSCI 514 (2021); phần đọc thêm trong ghi chú.
 
-### T7. Bài tập vận dụng (trang tiêu đề mạch)
+#### T7. Bài tập vận dụng (trang tiêu đề mạch)
 
 - **Mã:** `lec05-s07-00`; **phần:** 7; **note-topic-id:** `n05-14` (cùng chủ đề với trang 51).
 - **Sửa 2026-10-14:** quyết định `giữ`: dòng dẫn và từ khóa đạt chuẩn. Âm tiết mặt trang 23 → 23. Thời lượng mới: 0,5 phút.
@@ -2222,7 +2465,7 @@ Bài 3.1.1 · Bài 3.2.3 · Bài 3.3.1 · Bài 3.3.2 · Bài 3.3.3
 
 Jaccard, tập shingle, ma trận đặc trưng, MinHash và phép quét hàng đã có. Năm bài của MMDS kiểm lại từng kết quả: Bài 3.1.1 tính Jaccard, Bài 3.2.3 đếm số shingle lớn nhất, Bài 3.3.1 đọc Jaccard từ ma trận đặc trưng và đếm hoán vị, Bài 3.3.2 bổ sung hàng chữ ký, Bài 3.3.3 so chữ ký với hoán vị và đánh giá ước lượng. Mỗi lời giải nêu dữ kiện, phép tính và kết luận.
 
-### 51. Bài tập tính Jaccard
+#### 51. Bài tập tính Jaccard
 
 - **Mã:** `lec05-s07-01`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Bài tập: Jaccard của ba tập"; bỏ dòng "Bài 3.1.1" và `ex-card` "Sản phẩm:"; dòng "Nguồn:"; ghi chú có năng lực kiểm, Gợi ý, Lời giải, bỏ thời lượng. Âm tiết mặt trang 27 → 25. Tiêu đề hiện hành: “Bài tập: Jaccard của ba tập”. Thời lượng mới: 7,5 phút.
@@ -2255,7 +2498,7 @@ Ba tập được đặt nhãn $S_A,S_B,S_C$; dữ kiện số giữ nguyên. C�
 
 Chấm ba cặp: mỗi cặp đúng giao/hợp và tỷ số; đáp án 1/3, 2/5, 1/6. Phân bổ 5 phút làm, 1 phút trình bày, 2 phút đối chiếu; tổng 8 phút.
 
-### 52. Bài tập số lượng shingle
+#### 52. Bài tập số lượng shingle
 
 - **Mã:** `lec05-s07-02`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Bài tập: số shingle lớn nhất"; "Quy ước:" thay "Quy ước tính:"; "Đáp số" thành "Lời giải:"; bỏ thời lượng. Âm tiết mặt trang 64 → 53. Tiêu đề hiện hành: “Bài tập: số shingle lớn nhất”. Thời lượng mới: 10 phút.
@@ -2292,7 +2535,7 @@ Chấm số vị trí, điều kiện k≤ℓ, trường hợp ℓ<k và ý phâ
 
 Chỉ dẫn biên soạn: giữ yêu cầu nguồn về số shingle lớn nhất; không thêm yêu cầu xây dãy de Bruijn.
 
-### 53. Bài tập Jaccard từ ma trận đặc trưng
+#### 53. Bài tập Jaccard từ ma trận đặc trưng
 
 - **Mã:** `lec05-s07-03`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Bài tập: ma trận đặc trưng (a)"; sản phẩm thành câu thường; dòng "Nguồn:"; bỏ thời lượng. Âm tiết mặt trang 37 → 32. Tiêu đề hiện hành: “Bài tập: ma trận đặc trưng (a)”. Thời lượng mới: 7 phút.
@@ -2331,7 +2574,7 @@ Các tập lần lượt là $\{a,d\}$, $\{c\}$, $\{b,d,e\}$, $\{a,c,d\}$. Sáu 
 
 Chấm sáu giao/hợp/tỷ số; 5 phút tính và 2 phút đối chiếu. Tổng 53+54=15 phút, không cộng thêm một lần 15 phút cho bài.
 
-### 54. Bài tập đếm hoán vị
+#### 54. Bài tập đếm hoán vị
 
 - **Mã:** `lec05-s07-04`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "(b)"; câu hỏi tách dòng 21 âm tiết; dòng "Nguồn:"; bỏ thời lượng. Âm tiết mặt trang 51 → 51. Tiêu đề hiện hành: “Bài tập: ma trận đặc trưng (b)”. Thời lượng mới: 8 phút.
@@ -2370,7 +2613,7 @@ Với một cặp, gọi $q$ là số phần tử của hợp. Do đối xứng,
 
 Đáp án số đếm 0, 30, 80, 0, 40, 24. Chấm căn cứ 120/q, số phần tử giao và tỷ lệ khớp ý (a). Phân bổ 5 phút lập luận/tính, 1 phút trình bày, 2 phút đối chiếu.
 
-### 55. Bài tập bổ sung hàng chữ ký
+#### 55. Bài tập bổ sung hàng chữ ký
 
 - **Mã:** `lec05-s07-05`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Bài tập: hai hàng chữ ký bổ sung"; sản phẩm thành câu thường; bỏ thời lượng. Âm tiết mặt trang 43 → 38. Tiêu đề hiện hành: “Bài tập: hai hàng chữ ký bổ sung”. Thời lượng mới: 12 phút.
@@ -2415,7 +2658,7 @@ Chấm bảng hai hàm, chọn đúng hàng có 1, hai hàng 0, 3, 0, 0 và 3, 0
 
 Chỉ dẫn biên soạn: không thêm nhiệm vụ tính ước lượng sau khi bổ sung hai hàng chữ ký; giữ đúng các ý (a), (b) của đề nguồn.
 
-### 56. Bài tập chữ ký và hoán vị
+#### 56. Bài tập chữ ký và hoán vị
 
 - **Mã:** `lec05-s07-06`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "Bài tập: chữ ký với ba hàm modulo 6 (a, b)"; ba hàm gộp một khối `aligned`; bỏ thời lượng. Âm tiết mặt trang 39 → 35. Tiêu đề hiện hành: “Bài tập: chữ ký với ba hàm modulo 6 (a, b)”. Thời lượng mới: 8 phút.
@@ -2461,7 +2704,7 @@ Bảng $f_1$ là $(1,3,5,1,3,5)$, $f_2$ là $(2,5,2,5,2,5)$, $f_3$ là $(2,1,0,5
 
 Chấm ba bảng hàm, ba hàng chữ ký và chỉ f3 là hoán vị. Phân bổ 6 phút tính,2 phút đối chiếu. Tổng 56+57=15 phút.
 
-### 57. Bài tập đánh giá ước lượng
+#### 57. Bài tập đánh giá ước lượng
 
 - **Mã:** `lec05-s07-07`; **phần:** 7; **note-topic-id:** `n05-14`.
 - **Sửa 2026-10-14:** quyết định `sửa`: tiêu đề "(c)"; câu hỏi tách; sản phẩm thành câu thường; bỏ thời lượng. Âm tiết mặt trang 44 → 40. Tiêu đề hiện hành: “Bài tập: chữ ký với ba hàm modulo 6 (c)”. Thời lượng mới: 7 phút.
@@ -2501,7 +2744,7 @@ Sáu ước lượng theo thứ tự 12, 13, 14, 23, 24, 34 là $1/3$, $1/3$, $2
 
 Chấm sáu tỷ lệ, sáu giá trị thật, phép so sánh và không áp sai định lý cho hàm va chạm. Phân bổ 5 phút đối chiếu,2 phút chữa; bài 3.3.3 là kiểm tra riêng của phần 7.
 
-## Bảng trạng thái dùng chung để dựng
+### Bảng trạng thái dùng chung để dựng
 
 Các phiếu 37–40 hiển thị đúng hàng tương ứng trong bảng này. Các giá trị là dữ liệu đã tính lại từ Ví dụ 3.8, không là số đo thực nghiệm.
 
@@ -2514,7 +2757,7 @@ Các phiếu 37–40 hiển thị đúng hàng tương ứng trong bảng này. 
 | 3 | $1,3,2,1$ | $0,2,0,0$ |
 | 4 | $1,3,0,1$ | $0,2,0,0$ |
 
-## Quyết định sai khác và phạm vi rà tiếp
+### Quyết định sai khác và phạm vi rà tiếp
 
 1. Theo sách, Jaccard trước shingling; không giữ trật tự dàn bài cũ. Dữ liệu sách Hình 3.2–3.4 tạo một chuỗi xuyên bài; không trộn ma trận 7 hàng của slide tham khảo.
 2. Trang 28 chuyển hai thứ tự cụ thể từ VD 3.8 lên trước định nghĩa vector 29. Giá trị trên 28 là định danh phần tử thắng; các giá trị băm chỉ tính tại 37–40. Hai thứ tự cố định không được gọi là mô phỏng lấy đều. Đây là quyết định giảm mức trừu tượng trước hình thức hóa đã được điều phối viên duyệt.
@@ -2525,7 +2768,7 @@ Các phiếu 37–40 hiển thị đúng hàng tương ứng trong bảng này. 
 
 Không gắn nhãn đạt hiển thị trước khi có HTML/SVG. Cửa kiểm storyboard và năm vai trò đọc bản nháp chưa hoàn thành tại thời điểm viết bản này.
 
-## Đối chiếu bố cục của bản nháp giai đoạn 2 — hồ sơ trước editor
+### Đối chiếu bố cục của bản nháp giai đoạn 2 — hồ sơ trước editor
 
 Các phiếu phía trên giữ quyết định của kế hoạch đã duyệt để cửa kiểm có thể so sánh. HTML nháp dùng các thành phần chung; những thay đổi bố trí dưới đây cần được cửa kiểm bản thực đánh giá, không được coi là đã duyệt chỉ vì kiểm hình học không tràn. Nội dung học thuật và thời lượng vẫn lấy từ từng phiếu.
 
@@ -2546,7 +2789,7 @@ Các phiếu phía trên giữ quyết định của kế hoạch đã duyệt �
 Các mục trong cột cuối là việc cần quyết định ở cửa kiểm sản phẩm thực, không phải chỉ dẫn đưa vào học liệu. Writer chưa tự tuyên bố các sai khác bố cục này đã được chấp nhận.
 
 
-## Chốt triển khai sau hợp nhất năm báo cáo và gate
+### Chốt triển khai sau hợp nhất năm báo cáo và gate
 
 Ngày 28-09-2026, editor riêng sửa tại chỗ 57 trang, giữ 7 phần và tổng 120 + 60 phút. Các phiếu được sửa ở trên là đặc tả hiện hành; bảng bản nháp trước editor chỉ lưu lịch sử phát hiện, không thay đặc tả đã sửa.
 
@@ -2567,7 +2810,7 @@ Không thêm, bớt, gộp, tách hoặc đổi thứ tự trang. Nguồn Hình 
 
 Quill continuity: định danh ở 23/24/28 đi qua bảng hai tọa độ 30 rồi ánh xạ sang giá trị của cùng hàng ở 35/37/40. Ký hiệu $S_c$ luôn chỉ tập; chữ ký là trạng thái được cập nhật. Nhánh đọc thêm không thêm tiên quyết cho bài tập. Phạm vi tái kiểm flow là các trang sửa với hai trang lân cận, ranh giới 4→5→6, cùng n05-09 đến n05-14; math/gate kiểm các điều kiện, mô hình chi phí và dấu giảm.
 
-## Ánh xạ chủ đề của ghi chú (2026-11-11)
+### Ánh xạ chủ đề của ghi chú (2026-11-11)
 
 Ghi chú `materials/lec-05/lecture-note.md` viết lại theo chuẩn giáo trình. Mục này thay "Ánh xạ tài liệu tự học" ở trên; các mã `n05-*` chỉ giữ làm lịch sử. Chú thích `<!-- note-topic-id: … -->` đặt trước tiêu đề mục tương ứng. Thứ tự trong ghi chú: nhu cầu có số → ví dụ dẫn nhập → định nghĩa → ví dụ có lời giải → kết quả hoặc thuật toán → chứng minh → vai trò giả thiết → trong thực hành → bài tập.
 
