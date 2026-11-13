@@ -540,3 +540,82 @@ Chế độ `no-ai-slop`: Detect. Dòng `html:` là dòng của tệp deck (mỗ
 
 Theo quyết định người dùng 2026-11-13 ("dùng 'véc-tơ'"), tác tử chỉnh sửa ghi chú (`general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit) đổi "vector" thành "véc-tơ" trong ghi chú; tên tiếng Anh giữ trong ngoặc ở lần dùng đầu. Chạy trước đợt sửa deck, không chạy cùng tác tử deck. Điều phối viên đọc word-diff (chỉ có thay thuật ngữ và chú thích tiếng Anh), `git diff --check` sạch; trình xem ở 1440×900 và 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không cuộn ngang. Quyết định: chấp nhận.
 - Ghi chú 09: 3/3 chỗ đổi; lần đầu "véc-tơ bit (bit vector)". `img/lec-09/fm-bai-toan.svg` (chỉ deck dùng) còn "vector" trong `desc`: sửa ở đợt sửa deck.
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Tác tử.** Vai trò: tác tử sửa deck (writer) Bài 09, theo `edit-decisions.md` của điều phối viên (G1–G18, D09); `no-ai-slop` chế độ Edit, tự kiểm theo `eval.md`. Loại, mô hình và effort do điều phối viên ghi từ lời gọi công cụ. Không commit.
+
+**Phạm vi đã ghi.** Deck `lecture-09-dong-du-lieu-dem-momen-va-cua-so.html` (109 → 111 trang); `img/lec-09/fm-bai-toan.svg` (sinh lại bằng `tools/courses/ds-foundation-algorithms/2627-1/img/lec-09/generate_deck_svg.py`, hàm `fm_bai_toan`: desc "véc-tơ bit", bỏ nhãn "hình khái niệm"); `storyboard.md`, `outline.md`, mục này. Ghi chú bài giảng và `exercises.md` không đổi.
+
+**Ngoài bảng phát hiện.**
+- G5 (danh sách recitation): mục tiêu 4 (Count-Min) chưa có bài recitation, `exercises.md` có Bài tập 09.20 (BHK Bài 6.7, §6.6, tr.204). Thêm X06 (đề) và X06B ("Lời giải:", khớp lời giải 09.20), đặt sau X03B theo thứ tự mạch; XT (dòng dẫn, từ khóa, ghi chú diễn giả), P02 (ghi chú diễn giả), T07 (BHK §6.6) cập nhật theo. Thời gian recitation giữ 60 phút: X01C 5 → 4, X02B 5 → 4, X03B 8 → 6, X04B 8 → 7, X05B 6 → 5; X06 2, X06B 4.
+- G13: bốn chỗ "vector" (P07 mặt trang và ghi chú diễn giả, ghi chú diễn giả FT, `alt` F01) và `desc` của `fm-bai-toan.svg` đổi thành "véc-tơ"; lần dùng đầu (ghi chú diễn giả P07) là "véc-tơ bit (bit vector)". Mặt trang P07 bỏ hẳn chữ này khi rút dòng cuối.
+- G14: T07 thêm liên kết `exercises.md` qua trình xem, như deck 10.
+- G6: thêm "Giả định" → "Giả sử" (F18); ghi chú diễn giả F16 đặt nguồn Chernoff trong ngoặc. Xuất xứ dữ liệu tính tay đã ghi ở mục "Sửa ghi chú theo chuẩn 2026-11" (nguyên văn câu đã xóa), không ghi lại.
+- Kiểm hình: P04B dòng Count-Min bỏ "bao giờ" để "$\le\delta$" không rơi xuống dòng riêng ở 1600×900; X05 chuyển danh sách thùng xuống ghi chú diễn giả để trang vừa khung.
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| nghiêm trọng · lời giải "đảo thứ tự gộp" sai (5) | sửa | F14 | Ghi chú diễn giả: ba nhóm cho 4, 5, 10; trung bình $19/3\approx6{,}33$, bằng trung bình thuần $38/6$; bước cuối không còn là trung vị nên mất bảo đảm của mẹo trung vị (Nhận xét 09.18). Tính lại: $(4+5+10)/3=19/3=38/6$. |
+| trung bình · "Bài tập 09.1x của ghi chú" sau đợt A1 | sửa | XT, X01, X01C, X02, X02B, X03, X03B, X04, X05 | Chín chỗ viết "Bài tập 09.k" không kèm "của ghi chú"/"của tệp bài tập", theo G4 (khác đề xuất "của tệp bài tập"); refcheck 130 đúng, 0 sai. |
+| trung bình · dẫn chiếu "ghi chú Bài 05, Mục 8" | sửa | M08 | Thay bằng "(Bước 2 trong chứng minh Mệnh đề 05.14)" như note:947, kèm điều kiện độc lập ở Nhận xét 09.27. |
+| trung bình · họ $\alpha x+\beta\bmod2^L$ trái ghi chú | sửa | X01C | Ghi chú diễn giả theo lời giải 09.17: với $\alpha$ cố định, $h(x)-h(x')=\alpha(x-x')\bmod2^L$ không phụ thuộc $\beta$, nên các giá trị băm không độc lập. |
+| trung bình · câu xuất xứ số liệu | sửa | F03, M11, C06, E06 | Cắt bốn mệnh đề "dữ liệu tính tay của học phần"; E06 còn "Với $c=1/2$, trọng số giảm một nửa sau mỗi phần tử mới" (không dùng "khác nhau rõ" của đề xuất vì là từ làm mềm). |
+| trung bình · câu bình nguồn, đính chính sách | sửa | C11, D12, D06, T07, F09, F15, T05, C13, D08, E04, D15, E03 | C11 theo note:1403; D12 chỉ còn nguồn chứng minh (số hạng "+1" đã giải thích ở D13); F09 theo note:436; T07 thứ tự gộp theo MMDS tr.144 và Streams 2, tr.30; T05, C13 "Phạm vi" theo note:1448 và điều kiện $1/4$ theo note:661; D08 nguồn trong ngoặc; cắt câu ở D06, D15, F15, E04 ("vì MMDS không có ví dụ số"); E03 "Theo Nhận xét 09.54 (MMDS Hình 4.4)". |
+| trung bình · P07 90 âm tiết, trần 80 | sửa | P07 | Áp đủ bốn phép rút của đề xuất: 90 → 79 (script, tính tiêu đề cột); storyboard ghi số mới. |
+| trung bình · mục tiêu P02 thiếu ý của ghi chú | sửa | P02 | Sáu mục tiêu theo động từ, đối tượng của note:11–16: thêm $y_k$, $D_r$, phạm vi, phép gộp, dạng $F_p$, không chệch với hồ chứa, Markov và hàng độc lập, cận dưới $N$ bit, phép gộp đúng, tìm phần tử phổ biến, $1/(c\theta)$; 69 → 79 âm tiết (đếm tay 79). Không ghi đủ "cận nhiễu kỳ vọng", "số thùng $O(\log N)$" để giữ ≤ 80; các trang C10, D08 phục vụ. |
+| nhẹ · "chỉ có lập luận định tính" | sửa | F16 | Lưu ý: "hệ quả là cận của phép gộp khi $g=q$; với nhóm lớn hơn, bổ đề cần $\Pr[\bar Y_\gamma\notin G]<1/4$" (note:661); 55 → 53 âm tiết. |
+| nhẹ · từ làm mềm | sửa | P04B, M09, X01C, C10 | P04B "thừa quá $\varepsilon r/\kappa$ với xác suất $\le\delta$", "điểm $\ge\theta$ … ít hơn $1/(c\theta)$ điểm" (73 → 71); M09 165, 32%, 7%; X01C "so với ba ước lượng 1, 16, 16"; C10 "tới $r-f_u$ khi mọi phần tử chung ô với $u$". |
+| nhẹ · ý bên lề đã cắt khỏi ghi chú | sửa | C10 | Cắt "Cận kỳ vọng thành đẳng thức khi họ độc lập từng cặp." |
+| nhẹ · thiếu "(lẻ)" và "$m\ge2$" | sửa | F13, C03 | F13 ghi chú diễn giả "với số hàm lẻ"; C03 mặt trang "Với $m\ge2$, …" (53 → 54). |
+| nhẹ · thiếu "ngẫu nhiên đều" | sửa | F03 | "Chuỗi bit ngẫu nhiên đều kết thúc bằng $\ge\ell$ bit 0 …" (53 → 55, dòng 20 âm tiết). |
+| nhẹ · giải thích vòng, chỉ đường | sửa | P04, F04, M08, M15, E10 | P04 cắt câu lặp; F04 nêu 2, 8, 16; M08 "55 ở một lần rút; kỳ vọng trên mọi lần rút là 59"; M15 "… nên dùng hậu tố; theo câu (a), đếm ở tiền tố cũng cho kỳ vọng $F_2$"; E10 theo note:2050 (thêm "trừ khi xuất hiện lại ngay"). |
+| nhẹ · trang "Ví dụ:" thiếu dòng "Tính" | sửa | M03 | "Chọn vị trí 3, 8, 13; tính bộ đếm $v$, số lần phần tử ở đó xuất hiện từ đó về sau, và $r(2v-1)$." (19 âm tiết). |
+| nhẹ · nhãn Bước trên mặt trang | sửa | F17 | Thêm "Bước 2:" (phủ bằng tập chỉ số) và "Bước 3–4:" (cận hợp, độc lập, rút gọn), khớp bốn bước chứng minh của ghi chú và ghi chú diễn giả (Bước 3 thêm $\Pr[E_\gamma]\le\eta$); 43 → 46. |
+| nhẹ · đề recitation khác cấu trúc `exercises.md` | sửa | X03, X03B, X05, X05B, X05C | X03 (a) bộ đếm, (b) ước lượng $9(2v_i-1)$ và trung bình (ex:130–131); X05 (a), (b) như ex:194–195; trang lời giải gắn nhãn (a), (b); X05C (b) ghi $(16,r-23)$, trạng thái nhìn thấy trong ghi chú diễn giả. |
+| nhẹ · T02 81 âm tiết | sửa | T02 | "nhân với $1-c$" → "nhân $1-c$": 81 → 80; ngoại lệ T02 trong storyboard ghi số tính cả tiêu đề cột. |
+| nhẹ · dấu chấm trong KaTeX | sửa | P06, F16, X05C, D13 | Đưa dấu chấm ra ngoài `$…$`; thêm D13 (Bước 1, "$\lvert b^*\rvert.$") cùng loại. Dấu chấm cuối công thức hiển thị giữ. |
+
+**Kiểm G17** (máy chủ 8796, `check_deck.py`, ảnh chụp 1600×900 và 390×844): 111 trang, 7 section ngoài, 0 lỗi console/trang, 0 request hỏng, 0 request ngoài, 0 `.katex-error`, 0 `fragment`, `style_blocks=1` (thẻ runtime), `overflow_1600` rỗng, không cuộn ngang ở 390, `hash_strand` `mach-2…7` đúng `#/2…7`, phím mũi tên chạy. Trang trên 60 âm tiết: P02 79, P04B 71, P07 79, F13 63, F18 69, M14 73, D18 67, T02 80, T04 70 (đều loại trần 80). `disp_gt3`, `notes_gt250`, `notes_lt40` rỗng. `refcheck.py 09`: 130 đúng, 0 sai. `git diff --check` sạch trên deck, hình, kế hoạch. Đã xem ảnh P02, P04B, P07, F01, F03, F14, F16, F17, M03, C03, T02, T07, XT, X01C, X03, X03B, X06, X06B, X05, X05B, X05C.
+
+**Trạng thái.** Mọi phát hiện nghiêm trọng, trung bình và nhẹ đã xử lý; chờ điều phối viên rà và quyết định.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Theo 16 mục đã duyệt của điều phối viên (`SP/fix/lec-09/merge-09.md`); X06/X06B được chấp nhận. Cùng tác tử sửa, cùng phạm vi ghi (G18). Không commit.
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1. C11: nguồn UMass | sửa: "… không suy ra từ tính phổ dụng của từng hàm. Bảo đảm theo UMass, trang chiếu 17." | C11 |
+| 2. "bổ đề cần … $<1/4$" | sửa: mặt trang F16 "Với nhóm lớn hơn, bổ đề cho cận có nội dung khi $\Pr[\bar Y_\gamma\notin G]<1/4$" (tách thành dòng riêng để dòng ≤ 20 âm tiết; 53 → 58); T05 "mẹo trung vị cho cận có nội dung khi …" | F16, T05 |
+| 3. P07 dòng cuối | sửa: "Véc-tơ bit IPv4: $2^{32}$ bit $=512$ MiB mỗi trang; …"; bù bằng "giữ $N$ bit cuối" → "$N$ bit cuối"; 79 (đếm tay 79 token, 80 nếu tách "véc-tơ" thành hai âm tiết) | P07 |
+| 4. MT1 "theo đại lượng, phạm vi" | không thêm: sau mục 7 trang ở 79 âm tiết, thêm "đại lượng" lên 81; dòng 1 đã liệt kê bốn đại lượng $f_u$, $F_p$, $y_k$, $D_r$ | P02 |
+| 5. thời lượng recitation | sửa storyboard: 13, 7, 10, 6, 11, 13, tổng 60 (khớp phút theo trang) | storyboard |
+| 6. bản đồ mạch 7 và XT | sửa storyboard: kiểm mục tiêu 1–5; sản phẩm thêm "một họ hằng và hai phép tính xác suất (X06)"; đầu vào thêm mạch 4 (Định nghĩa 09.31, Định lý 09.37) | storyboard (mạch 7, XT) |
+| 7. P02 thuật ngữ hai nghĩa | sửa: MT2 "giải thích thứ tự gộp", MT3 "Chạy Alon–Matias–Szegedy (AMS)" và bỏ "tính" trước "không chệch", MT5 "gộp dây chuyền đúng"; ghi chú diễn giả giải nghĩa hai cụm, cắt câu mở (155 → 146 âm tiết); đếm tay 79 | P02 |
+| 8. XT | sửa: dòng dẫn "trên bài tập của giáo trình"; ghi chú diễn giả thêm "Sáu bài sau chạy bằng tay các phác thảo của bảng tổng kết và kiểm giả thiết của chúng.", rút câu về BHK 6.7 (92 âm tiết) | XT |
+| 9. F16 câu lặp | sửa: cắt câu điều kiện $1/4$ trong ghi chú diễn giả | F16 |
+| 10. E10 | sửa: ghi chú diễn giả mở bằng "Với $\theta=1$, phần tử mới …" | E10 |
+| 11. C10 | sửa: gộp thành một câu ở chỗ thứ nhất: "Bổ đề cần $h_j$ ngẫu nhiên: với một hàm cố định, như ở ví dụ, nhiễu là một số cố định, tới $r-f_u$ …"; cắt câu cuối | C10 |
+| 12. F13 | sửa: "miễn số hàm lẻ" | F13 |
+| 13. C03 | sửa: "Cận Count-Min chỉ cần cận va chạm $\Pr[h(u)=h(u')]\le1/m$ (UMass, trang chiếu 14)." | C03 |
+| 14. storyboard P04B | sửa: ngoại lệ P04B ghi 71 âm tiết | storyboard |
+| 15. X06 hai điều kiện | sửa: "(i) Với mọi $x$ … đều trên $\{0,\ldots,m-1\}$." và "(ii) $\mathcal H$ không độc lập từng cặp."; 44 → 46 | X06 |
+| 16. X01C | sửa: "Ba ước lượng 1, 16, 16; dòng có 7 phần tử phân biệt $\{1,2,3,4,5,6,9\}$."; 23 → 21 | X01C |
+
+**Kiểm G17 lại** (máy chủ 8796, `check_deck.py`): 111 trang, 0 lỗi console/trang, 0 request hỏng hoặc ngoài, 0 `.katex-error`, `overflow_1600` rỗng, không cuộn ngang ở 390, `hash_strand` đúng `mach-2…7`; trang trên 60 âm tiết: P02 79, P04B 71, P07 79, F13 63, F18 69, M14 73, D18 67, T02 80, T04 70; `disp_gt3`, `notes_gt250`, `notes_lt40` rỗng. `refcheck.py 09`: 130 đúng, 0 sai. `git diff --check` sạch. Ảnh đã xem: P02, P07, F16, XT, X06, X01C (1600×900).
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | đạt | 0/0/0/4 | chấp nhận; bốn mục vào `merge-09.md` (mục 1–4) |
+| B | cần sửa | 0/0/3/8 | chấp nhận; mười một mục vào `merge-09.md` (mục 5–16) |
+
+Lượt sửa sau kiểm lại: 15/16 mục làm, mục 4 không làm có lý do (P02 lên 81 âm tiết) — chấp nhận. X06/X06B (Bài tập 09.20) chấp nhận theo G5. Đề nghị sửa ghi chú để lại cho người dùng: `exercises.md` dòng 3 thêm 09.20 vào danh sách recitation.
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 111 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không tràn khung, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`, phím mũi tên chạy; chín trang trên 60 âm tiết đều thuộc loại trần 80 (P02 79, P04B 71, P07 79, F13 63, F18 69, M14 73, D18 67, T02 80, T04 70); không trang nào quá 3 công thức hiển thị hay ghi chú diễn giả quá 250 âm tiết. `refcheck.py`: 130 dẫn chiếu `09.k`, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh P02, X06 (1600×900); tính lại F14 ($19/3$). SVG `decision-map.svg` không trang nào dùng (từ trước đợt này), giữ vì `planning/lec-01/storyboard.md` còn ghi tên.
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.

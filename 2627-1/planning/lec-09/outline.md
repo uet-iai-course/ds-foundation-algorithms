@@ -1,12 +1,12 @@
 # Dàn ý Bài 09 — Dòng dữ liệu: đếm, mômen và cửa sổ
 
-Phần deck viết lại ngày 2026-11-04 cùng bộ trang chiếu mới (109 trang sau lượt biên tập 1), theo đặc tả K1–K9 của điều phối viên; các mục ghi chú (bảng thuật ngữ, bản đồ chủ đề, ghi chú bài giảng 2026-11-04) giữ nguyên.
+Phần deck viết lại ngày 2026-11-04 cùng bộ trang chiếu mới (109 trang sau lượt biên tập 1; 111 trang sau đợt sửa theo bảng phát hiện 2026-11-13), theo đặc tả K1–K9 của điều phối viên; các mục ghi chú (bảng thuật ngữ, bản đồ chủ đề, ghi chú bài giảng 2026-11-04) giữ nguyên.
 
 ## Phạm vi và mục tiêu
 
-- Bài 09 theo thứ tự đề xuất của `sources/source.md`: **Dòng dữ liệu: đếm, mômen và cửa sổ**. Phần giảng 120 phút (96 trang), phần bài tập vận dụng 60 phút (13 trang, phần dọc riêng).
+- Bài 09 theo thứ tự đề xuất của `sources/source.md`: **Dòng dữ liệu: đếm, mômen và cửa sổ**. Phần giảng 120 phút (96 trang), phần bài tập vận dụng 60 phút (15 trang từ 2026-11-13, phần dọc riêng).
 - Đầu vào: Bài 08 (thuật toán dòng một lượt, hồ chứa, Bloom filter, hàm băm tất định), Bài 06 (Định lý 06.7), xác suất cơ bản (cận hợp, tuyến tính kỳ vọng, $1-z\le e^{-z}$).
-- Sáu mục tiêu như ghi chú: đặc tả đại lượng và chọn phác thảo; Flajolet–Martin với ngưỡng hai phía và mẹo trung vị; biến AMS, $F_p$, hồ chứa vị trí; Count-Min và định cỡ $m$, $t$; DGIM với cận dưới $N$ bit, bộ nhớ $O(\log^2N)$, cận 50%, gộp dây chuyền; cửa sổ suy giảm và phần tử phổ biến.
+- Sáu mục tiêu như ghi chú: đặc tả đại lượng và chọn phác thảo; Flajolet–Martin với ngưỡng hai phía và mẹo trung vị; biến AMS, $F_p$, hồ chứa vị trí; Count-Min và định cỡ $m$, $t$; DGIM với cận dưới $N$ bit, bộ nhớ $O(\log^2N)$, cận 50%, gộp dây chuyền; cửa sổ suy giảm và phần tử phổ biến. Sửa 2026-11-13: trang P02 viết lại theo động từ và đối tượng của sáu mục tiêu ghi chú (thêm $y_k$, $D_r$, phạm vi toàn dòng hay cửa sổ, dạng $F_p$, tính không chệch với hồ chứa, Markov và hàng độc lập, cận dưới $N$ bit, phép gộp đúng, ít hơn $1/(c\theta)$ điểm), 79 âm tiết.
 - Ngoài phạm vi deck (chỉ ở ghi chú hoặc đọc thêm): HyperLogLog, giảm sai số DGIM và tổng số nguyên (Nhận xét 09.50), tình huống cỡ lân cận trong mạng xã hội (Tình huống 09.1), Count-Min cho dòng có cập nhật âm, cơ chế liệt kê phần tử nặng của UMass.
 
 ## Mạch của bộ trang chiếu
@@ -19,11 +19,11 @@ Phần deck viết lại ngày 2026-11-04 cùng bộ trang chiếu mới (109 tr
 | 4 | Ước lượng tần suất bằng Count-Min Sketch | CT, `id="mach-4"` | C01 `cm-phan-tu-nang.svg` | Mục 4 | 15 | 18 |
 | 5 | Cửa sổ trượt và cửa sổ suy giảm mũ | DT, `id="mach-5"` | D01 `dgim-bai-toan.svg`; cụm suy giảm E01 `suy-giam-hai-phim.svg` | Mục 5, Mục 6 | 32 | 39 |
 | 6 | Tổng kết và tự kiểm tra | TT, `id="mach-6"` | T01 `nam-yeu-cau.svg` | Mục 7, Tình huống, Tóm tắt, Tham khảo | 7 | 8 |
-| 7 | Bài tập vận dụng | XT, `id="mach-7"` | X01 `bai-4-4-1-dong.svg` | Bài tập 09.10, 09.11, 09.12, 09.15, 09.16 | 13 | 60 |
+| 7 | Bài tập vận dụng | XT, `id="mach-7"` | X01 `bai-4-4-1-dong.svg` | Bài tập 09.10, 09.11, 09.12, 09.20, 09.15, 09.16 | 15 | 60 |
 
 Thứ tự trong mạch theo ghi chú: FM (đuôi băm → định nghĩa → thuật toán → bất biến → ngưỡng hai phía → phân phối đuôi nặng → gộp → mẹo trung vị → chi phí); AMS (biến → không chệch → $F_p$ → dòng chưa biết độ dài → chi phí); Count-Min (bài toán phần tử nặng → họ băm phổ dụng, Markov → bảng và cực tiểu → bảo đảm → chi phí); DGIM (cận dưới → thùng, sáu quy tắc, bộ nhớ → truy vấn, cận 50% → cập nhật, tính đúng, khấu hao); cửa sổ suy giảm (định nghĩa, truy hồi → phần tử phổ biến, số điểm). Chi tiết từng trang ở `storyboard.md`.
 
-Dòng dẫn trang tiêu đề mạch: FT "Muốn đếm phần tử phân biệt bằng vài bit cho mỗi hàm băm, phải đọc cỡ của tập từ đuôi băm dài nhất."; MT "Muốn đo độ lệch của phân bố mà không giữ bộ đếm cho mọi phần tử, phải ước lượng từ một vị trí ngẫu nhiên."; CT "Muốn ước lượng tần suất bằng một bảng nhỏ, phải chấp nhận ước lượng thừa và chặn phần thừa theo xác suất."; DT "Muốn trả lời về phần gần đây của dòng, phải tóm tắt cửa sổ bằng thùng hoặc bằng trọng số giảm theo tuổi."; TT "Muốn chọn đúng phác thảo cho một câu hỏi, phải đối chiếu đại lượng, giả thiết và chi phí."; XT "Muốn vận dụng Flajolet–Martin, AMS và DGIM, phải chạy chúng bằng tay trên các dòng ngắn của giáo trình."
+Dòng dẫn trang tiêu đề mạch: FT "Muốn đếm phần tử phân biệt bằng vài bit cho mỗi hàm băm, phải đọc cỡ của tập từ đuôi băm dài nhất."; MT "Muốn đo độ lệch của phân bố mà không giữ bộ đếm cho mọi phần tử, phải ước lượng từ một vị trí ngẫu nhiên."; CT "Muốn ước lượng tần suất bằng một bảng nhỏ, phải chấp nhận ước lượng thừa và chặn phần thừa theo xác suất."; DT "Muốn trả lời về phần gần đây của dòng, phải tóm tắt cửa sổ bằng thùng hoặc bằng trọng số giảm theo tuổi."; TT "Muốn chọn đúng phác thảo cho một câu hỏi, phải đối chiếu đại lượng, giả thiết và chi phí."; XT "Muốn vận dụng Flajolet–Martin, AMS, Count-Min và DGIM, phải chạy và kiểm giả thiết của chúng trên ví dụ của giáo trình." (sửa 2026-11-13)
 
 ## Nguồn và quyết định chọn theo cụm
 
@@ -41,15 +41,16 @@ Bảy chỗ chọn Stanford, có lý do ở cột cuối: (1) thứ tự gộp F
 
 ## Bài tập vận dụng (recitation)
 
-| Thứ tự | Bài MMDS | Ghi chú | Trang | Phút |
+| Thứ tự | Bài sách | Bài tập | Trang | Phút |
 |---:|---|---|---|---:|
-| 1 | 4.4.1, §4.4.5, tr.145 | Bài tập 09.11 | X01 (đề, hình `bai-4-4-1-dong.svg`), X01B, X01C | 14 |
-| 2 | 4.5.1, §4.5.6, tr.149 | Bài tập 09.10 | X02, X02B | 8 |
-| 3 | 4.5.3, §4.5.6, tr.150 | Bài tập 09.12 | X03, X03B | 12 |
-| 4 | 4.6.1, §4.6.8, tr.157 | Bài tập 09.15 | X04 (hình `dgim-bai-4-6-1.svg`), X04B | 12 |
-| 5 | 4.6.3, §4.6.8, tr.157 | Bài tập 09.16 | X05 (hình `dgim-bai-4-6-3.svg`), X05B, X05C | 14 |
+| 1 | MMDS 4.4.1, §4.4.5, tr.145 | Bài tập 09.11 | X01 (đề, hình `bai-4-4-1-dong.svg`), X01B, X01C | 13 |
+| 2 | MMDS 4.5.1, §4.5.6, tr.149 | Bài tập 09.10 | X02, X02B | 7 |
+| 3 | MMDS 4.5.3, §4.5.6, tr.150 | Bài tập 09.12 | X03, X03B | 10 |
+| 4 | BHK 6.7, §6.6, tr.204 | Bài tập 09.20 | X06, X06B (thêm 2026-11-13 cho mục tiêu 4) | 6 |
+| 5 | MMDS 4.6.1, §4.6.8, tr.157 | Bài tập 09.15 | X04 (hình `dgim-bai-4-6-1.svg`), X04B | 11 |
+| 6 | MMDS 4.6.3, §4.6.8, tr.157 | Bài tập 09.16 | X05 (hình `dgim-bai-4-6-3.svg`), X05B, X05C | 13 |
 
-Đề giữ dữ kiện và yêu cầu của sách (Bài 4.5.3 giữ đúng câu hỏi của sách; ước lượng và trung bình 21 đưa vào lời giải như phép kiểm). Mỗi trang đề ghi số bài, mục, trang; trang "Lời giải:" cùng tiêu đề; ghi chú diễn giả có gợi ý, lỗi thường gặp và hướng dẫn chấm 10 điểm theo bước của lời giải.
+Đề giữ dữ kiện và yêu cầu của sách. Sửa 2026-11-13: đề X03 và X05 theo cấu trúc (a), (b) của `exercises.md` (Bài tập 09.12, 09.16); thêm Bài tập 09.20 vì mục tiêu 4 chưa có bài recitation. Mỗi trang đề ghi số bài, mục, trang; trang "Lời giải:" cùng tiêu đề; ghi chú diễn giả có gợi ý, lỗi thường gặp và hướng dẫn chấm 10 điểm theo bước của lời giải.
 
 ## Thuật ngữ và ký hiệu
 
@@ -82,7 +83,7 @@ Mọi SVG sinh bằng `tools/courses/ds-foundation-algorithms/2627-1/img/lec-09/
 | Tệp | Trang | Nội dung, số liệu (từ ghi chú) |
 |---|---|---|
 | `cau-truc-bai-09.svg` | P04 | Biến thể của `cau-truc-chuong-09.svg` với số mạch 2–6 thay "Mục k" |
-| `fm-bai-toan.svg` | F01 | Dòng IP của một trang → vector $2^{32}$ bit = 512 MiB; hình khái niệm |
+| `fm-bai-toan.svg` | F01 | Dòng IP của một trang → véc-tơ $2^{32}$ bit = 512 MiB; chiều cao không theo tỷ lệ (sinh lại 2026-11-13) |
 | `fm-nguong-hai-phia-trang-chieu.svg` | F12 | Bản trang chiếu của `fm-nguong-hai-phia.svg` (Ví dụ 09.5), $\ell=0..16$, chữ lớn hơn |
 | `ams-hai-phan-bo.svg` | M01 | Ví dụ 09.2: 910 và 8 110, cùng $F_0=11$ |
 | `ams-ba-bien-trang-chieu.svg` | M03 | Bản trang chiếu của `ams-ba-bien.svg` (Ví dụ 09.7), nhãn vị trí lớn hơn |
@@ -135,7 +136,7 @@ Theo bản đồ chủ đề của ghi chú (2026-11-04); thay bảng `L09-N01�
 | `lec-09-topic-23` | Chọn phác thảo theo câu hỏi | cốt lõi | 7 | Tổng hợp Mục 2–6 | Hai bảng đối chiếu; Ví dụ 09.20 |
 | `lec-09-topic-24` | Tình huống áp dụng và ứng dụng | cốt lõi | Tình huống | CS246 2017 Streams 2 tr.32–38; Streams 1 tr.13; MMDS §4.5.5 | Ba tình huống, một vi phạm giả thiết |
 | `lec-09-topic-25` | Tóm tắt chương | cốt lõi | Tóm tắt | — | Chuỗi kết quả; nối Bài 10 |
-| `lec-09-topic-26` | Bài tập củng cố | cốt lõi | Bài tập | MMDS Bài 4.4.1, 4.4.2, 4.5.1–4.5.6, 4.6.1, 4.6.3 | Ba mức, năm bài vận dụng trên lớp |
+| `lec-09-topic-26` | Bài tập củng cố | cốt lõi | Bài tập | MMDS Bài 4.4.1, 4.4.2, 4.5.1–4.5.6, 4.6.1, 4.6.3; BHK Bài 6.7 | Ba mức, sáu bài vận dụng trên lớp (từ 2026-11-13) |
 | `lec-09-topic-27` | Đọc thêm và tài liệu | đọc thêm | Tham khảo | UMass bài 8; BHK §6.2; trang chiếu MMDS | HyperLogLog, thuật toán Frequent |
 
 Quan hệ tiên quyết: Mục 1 là đầu vào của mọi mục; Mục 3 dùng phép gộp của Mục 2.4 và Định lý 08.17; Mục 4 dùng cận hợp và bất đẳng thức Markov; Mục 5 chỉ cần Mục 1 và mô hình dòng của Bài 08; Mục 6 mở từ giới hạn của cửa sổ trượt ở Mục 5; mọi nhánh gặp nhau ở Mục 7.
