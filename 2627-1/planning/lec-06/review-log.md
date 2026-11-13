@@ -1199,3 +1199,8 @@ Mục tiêu 1 (phân dải, khử lặp, xác minh) không có bài sách phù h
 ### Quyết định của người dùng (2026-11-13)
 
 - Quyết định của người dùng (2026-11-13): thống nhất thuật ngữ "véc-tơ" cho deck và ghi chú (tên tiếng Anh "vector" chỉ trong ngoặc ở lần dùng đầu). Deck 06 (40 chỗ) và ghi chú 06 (85 chỗ) viết "vector": đổi cả hai thành "véc-tơ"; sửa ghi chú trước theo thứ tự ghi chú → deck.
+
+## Thuật ngữ "véc-tơ" trong ghi chú (2026-11-13)
+
+Theo quyết định người dùng 2026-11-13 ("dùng 'véc-tơ'"), tác tử chỉnh sửa ghi chú (`general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit) đổi "vector" thành "véc-tơ" trong ghi chú; tên tiếng Anh giữ trong ngoặc ở lần dùng đầu. Chạy trước đợt sửa deck, không chạy cùng tác tử deck. Điều phối viên đọc word-diff (chỉ có thay thuật ngữ và chú thích tiếng Anh), `git diff --check` sạch; trình xem ở 1440×900 và 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không cuộn ngang. Quyết định: chấp nhận.
+- Ghi chú 06: 83/85 chỗ đổi trong `lecture-note.md` (mục 3.1, tiêu đề Ví dụ 06.8, 06.10, 06.13 đổi theo), 18/18 trong `exercises.md`; giữ "(vector)" lần đầu, tên tệp `chuan-vector.svg`, "(normal vector)". Không SVG nào của ghi chú có chữ "vector".

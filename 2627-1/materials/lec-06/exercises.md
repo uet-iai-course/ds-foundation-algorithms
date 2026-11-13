@@ -57,15 +57,15 @@ $$
 
 ## Mức tính toán hoặc chứng minh
 
-::: exercise Bài tập 06.17 (Cosin và góc của bốn cặp vector; MMDS Bài 3.5.5, §3.5.7, tr.102)
-Dữ kiện: bốn cặp vector khác $0$.
+::: exercise Bài tập 06.17 (Cosin và góc của bốn cặp véc-tơ (vector); MMDS Bài 3.5.5, §3.5.7, tr.102)
+Dữ kiện: bốn cặp véc-tơ khác $0$.
 
 - (a) $(3,-1,2)$ và $(-2,3,1)$.
 - (b) $(1,2,3)$ và $(2,4,6)$.
 - (c) $(5,0,-4)$ và $(-1,-6,2)$.
 - (d) $(0,1,1,0,1,1)$ và $(0,0,1,0,0,0)$.
 
-Với từng cặp, tính cosin của góc giữa hai vector và góc $\theta$ (Định nghĩa 06.16).
+Với từng cặp, tính cosin của góc giữa hai véc-tơ và góc $\theta$ (Định nghĩa 06.16).
 :::
 
 ::: hint
@@ -88,7 +88,7 @@ Tính tích vô hướng và bình phương hai chuẩn trước; $\cos\theta=x\
 
 **Câu (d).** Chỉ tọa độ thứ ba cho tích khác $0$, nên $x\cdot y=1$; $\sqrt{4\cdot1}=2$, nên $\cos\theta=1/2$.
 
-**Kiểm tra lại.** Ở (b), vector thứ hai bằng $2$ lần vector thứ nhất, nên hai vector cùng hướng và góc bằng $0$, khớp với $\cos\theta=1$. Ở (c), $\cos108{,}486^\circ\approx-0{,}3171\approx-13/41$.
+**Kiểm tra lại.** Ở (b), véc-tơ thứ hai bằng $2$ lần véc-tơ thứ nhất, nên hai véc-tơ cùng hướng và góc bằng $0$, khớp với $\cos\theta=1$. Ở (c), $\cos108{,}486^\circ\approx-0{,}3171\approx-13/41$.
 :::
 
 ::: exercise Bài tập 06.18 (Khoảng cách chỉnh sửa của ba cặp chuỗi; MMDS Bài 3.5.7, §3.5.7, tr.102)
@@ -229,7 +229,7 @@ Tại $p=1/2$, (a) cho $37/64\approx0{,}578$, (b) cho $49/64\approx0{,}766$, nê
 :::
 
 ::: exercise Bài tập 06.23 (Họ chọn tọa độ trên sáu bit; MMDS Bài 3.7.1, §3.7.6, tr.113)
-Dữ kiện: họ gồm sáu hàm $h_i(x)=x_i$, $i=1,\ldots,6$ (Định nghĩa 06.28); bốn vector $\mathrm A=000000$, $\mathrm B=110011$, $\mathrm C=010101$, $\mathrm D=011100$.
+Dữ kiện: họ gồm sáu hàm $h_i(x)=x_i$, $i=1,\ldots,6$ (Định nghĩa 06.28); bốn véc-tơ $\mathrm A=000000$, $\mathrm B=110011$, $\mathrm C=010101$, $\mathrm D=011100$.
 
 Với mỗi cặp AB, AC, AD, BC, BD, CD, xác định tập chỉ số của các hàm làm cặp đó thành ứng viên.
 :::
@@ -260,17 +260,17 @@ $$
 v_1=(1,1,1,-1),\quad v_2=(1,1,-1,1),\quad v_3=(1,-1,1,1),\quad v_4=(-1,1,1,1);
 $$
 
-ba vector $x=(2,3,4,5)$, $y=(-2,3,-4,5)$, $z=(2,-3,4,-5)$; quy ước $\operatorname{sign}(0)=+1$.
+ba véc-tơ $x=(2,3,4,5)$, $y=(-2,3,-4,5)$, $z=(2,-3,4,-5)$; quy ước $\operatorname{sign}(0)=+1$.
 
-Lập bảng tích vô hướng và chữ ký dấu của ba vector. Với mỗi cặp, tính góc ước lượng từ chữ ký (Thuật toán 06.33) và góc thật.
+Lập bảng tích vô hướng và chữ ký dấu của ba véc-tơ. Với mỗi cặp, tính góc ước lượng từ chữ ký (Thuật toán 06.33) và góc thật.
 :::
 
 ::: hint
-Tính bốn tích vô hướng trước khi lấy dấu. Góc ước lượng bằng $\pi$ nhân tỷ lệ bit khác; góc thật tính từ tích vô hướng của hai vector gốc.
+Tính bốn tích vô hướng trước khi lấy dấu. Góc ước lượng bằng $\pi$ nhân tỷ lệ bit khác; góc thật tính từ tích vô hướng của hai véc-tơ gốc.
 :::
 
 ::: solution
-| Vector | Tích với $(v_1,v_2,v_3,v_4)$ | Chữ ký |
+| Véc-tơ | Tích với $(v_1,v_2,v_3,v_4)$ | Chữ ký |
 |---|---|---|
 | $x$ | $(4,6,8,10)$ | $(+,+,+,+)$ |
 | $y$ | $(-8,10,-4,6)$ | $(-,+,-,+)$ |
@@ -404,14 +404,14 @@ Cùng 2048 hàm, OR 2048 nhận cặp khác ngón nhiều gấp khoảng 30 lầ
 :::
 
 ::: exercise Bài tập 06.29 (Chữ ký dấu với 16 pháp tuyến $\pm1$; MMDS Bài 3.7.3, §3.7.6, tr.114)
-Dữ kiện: ba vector $x=(2,3,4,5)$, $y=(-2,3,-4,5)$, $z=(2,-3,4,-5)$ của Bài tập 06.24; pháp tuyến là cả 16 vector của $\mathbb R^4$ có tọa độ $\pm1$; quy ước $\operatorname{sign}(0)=+1$.
+Dữ kiện: ba véc-tơ $x=(2,3,4,5)$, $y=(-2,3,-4,5)$, $z=(2,-3,4,-5)$ của Bài tập 06.24; pháp tuyến là cả 16 véc-tơ của $\mathbb R^4$ có tọa độ $\pm1$; quy ước $\operatorname{sign}(0)=+1$.
 
-- (a) Tính chữ ký dấu 16 bit của ba vector.
+- (a) Tính chữ ký dấu 16 bit của ba véc-tơ.
 - (b) Với mỗi cặp, tính góc ước lượng $\widehat\theta=\pi\widehat p_{\ne}$ của Thuật toán 06.33 và so với góc thật.
 :::
 
 ::: hint
-Tính 16 tích vô hướng cho mỗi vector, chú ý các tích bằng $0$. Góc thật của ba cặp đã có ở lời giải Bài tập 06.24.
+Tính 16 tích vô hướng cho mỗi véc-tơ, chú ý các tích bằng $0$. Góc thật của ba cặp đã có ở lời giải Bài tập 06.24.
 :::
 
 ::: solution
@@ -436,7 +436,7 @@ Tính 16 tích vô hướng cho mỗi vector, chú ý các tích bằng $0$. Gó
 | $(-1,-1,-1,1)$ | −4 | 8 | −8 | $-,+,-$ |
 | $(-1,-1,-1,-1)$ | −14 | −2 | 2 | $-,-,+$ |
 
-Chữ ký dấu của mỗi vector là cột dấu tương ứng, theo thứ tự các hàng. Tích bằng $0$ xảy ra với $x$ tại $\pm(1,-1,-1,1)$, và với $y$, $z$ tại $\pm(1,1,-1,-1)$; theo quy ước, các bit đó là $+$.
+Chữ ký dấu của mỗi véc-tơ là cột dấu tương ứng, theo thứ tự các hàng. Tích bằng $0$ xảy ra với $x$ tại $\pm(1,-1,-1,1)$, và với $y$, $z$ tại $\pm(1,1,-1,-1)$; theo quy ước, các bit đó là $+$.
 
 **Câu (b).**
 
@@ -446,9 +446,9 @@ Chữ ký dấu của mỗi vector là cột dấu tương ứng, theo thứ t�
 | $x,z$ | 10 | $\pi\cdot10/16=112{,}5^\circ$ | $\approx105{,}026^\circ$ |
 | $y,z$ | 14 | $\pi\cdot14/16=157{,}5^\circ$ | $180^\circ$ |
 
-Với bốn pháp tuyến của Bài tập 06.24, ba góc ước lượng là $90^\circ$, $90^\circ$, $180^\circ$. Mười sáu pháp tuyến đưa hai cặp đầu lại gần góc thật hơn, sai số giảm từ khoảng $15^\circ$ xuống khoảng $7{,}5^\circ$, nhưng cặp $y,z$ sai $22{,}5^\circ$: tại hai pháp tuyến vuông góc với $y$, cả $y$ và $z=-y$ nhận bit $+$. Phân phối đều trên 16 vector $\pm1$ không đẳng hướng, nên Định lý 06.32 không bảo đảm các ước lượng này (Tình huống 06.4).
+Với bốn pháp tuyến của Bài tập 06.24, ba góc ước lượng là $90^\circ$, $90^\circ$, $180^\circ$. Mười sáu pháp tuyến đưa hai cặp đầu lại gần góc thật hơn, sai số giảm từ khoảng $15^\circ$ xuống khoảng $7{,}5^\circ$, nhưng cặp $y,z$ sai $22{,}5^\circ$: tại hai pháp tuyến vuông góc với $y$, cả $y$ và $z=-y$ nhận bit $+$. Phân phối đều trên 16 véc-tơ $\pm1$ không đẳng hướng, nên Định lý 06.32 không bảo đảm các ước lượng này (Tình huống 06.4).
 
-**Kiểm tra lại.** Vì $z=-y$, ở 14 pháp tuyến có $v\cdot y\ne0$, bit của $z$ ngược bit của $y$, nên $y$, $z$ khác nhau ở đúng 14 bit, và ở mỗi pháp tuyến đó $x$ khác đúng một trong hai vector. Ở hai pháp tuyến còn lại, $y$ và $z$ cùng bit $+$, còn $x$ có một bit $+$ và một bit $-$. Do đó $6+10=14+2=16$.
+**Kiểm tra lại.** Vì $z=-y$, ở 14 pháp tuyến có $v\cdot y\ne0$, bit của $z$ ngược bit của $y$, nên $y$, $z$ khác nhau ở đúng 14 bit, và ở mỗi pháp tuyến đó $x$ khác đúng một trong hai véc-tơ. Ở hai pháp tuyến còn lại, $y$ và $z$ cùng bit $+$, còn $x$ có một bit $+$ và một bit $-$. Do đó $6+10=14+2=16$.
 :::
 
 ::: exercise Bài tập 06.30 (Số hàm tối ưu của phép ghép OR cho vân tay; MMDS Bài 3.8.5, §3.8.7, tr.122)

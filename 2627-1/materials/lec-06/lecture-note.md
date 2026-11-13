@@ -50,14 +50,14 @@ Bảng gồm các ký hiệu dùng xuyên suốt chương; ký hiệu chỉ dùn
 | $P_{b,r}(s)$ | xác suất một cặp có Jaccard $s$ thành ứng viên khi phân dải $b$ dải, $r$ hàng | $[0,1]$ |
 | $s_{1/2}$ | nghiệm của $P_{b,r}(s)=1/2$ | $(0,1)$ |
 | $d$; $d_J$; $d_H$ | độ đo khoảng cách tổng quát; khoảng cách Jaccard; khoảng cách Hamming | hàm vào $\mathbb R_{\ge0}$ |
-| $\theta$ | góc giữa hai vector khác $0$ | $[0,\pi]$, đo bằng radian |
-| $D$; $\Sigma$ | số chiều của vector; bảng ký hiệu của vector trong khoảng cách Hamming | số nguyên dương; tập hữu hạn |
+| $\theta$ | góc giữa hai véc-tơ (vector) khác $0$ | $[0,\pi]$, đo bằng radian |
+| $D$; $\Sigma$ | số chiều của véc-tơ; bảng ký hiệu của véc-tơ trong khoảng cách Hamming | số nguyên dương; tập hữu hạn |
 | $\mathbf 1[E]$ | hàm chỉ báo, bằng $1$ khi mệnh đề $E$ đúng và $0$ khi $E$ sai | $\{0,1\}$ |
 | $\mathcal H$; $h$ | họ hàm băm kèm phân phối chọn hàm; một hàm được chọn từ họ | tập hàm; hàm |
 | $(d_1,d_2,p_1,p_2)$; $p$ | bộ tham số của họ nhạy cảm: ngưỡng gần, ngưỡng xa, cận dưới và cận trên của xác suất trùng; xác suất trùng cơ sở của một cặp dưới một hàm chọn từ họ | $0\le d_1<d_2$, $0\le p_2<p_1\le1$; $[0,1]$ |
 | $m$ | số hàm trong chữ ký của Mục 4 | số nguyên dương |
 | $v$; $\widehat p_{\ne}$; $\widehat\theta$ | pháp tuyến của siêu phẳng; tỷ lệ bit khác dấu; góc ước lượng | $\mathbb R^D\setminus\{0\}$; $[0,1]$; $[0,\pi]$ |
-| $u$; $\delta$; $a$; $\ell$ | hướng chiếu đơn vị; độ dịch biên; độ rộng khoảng; khoảng cách giữa hai hình chiếu, $\lvert u\cdot(x-y)\rvert$ | vector đơn vị; $[0,a)$; số thực dương; $\mathbb R_{\ge0}$ |
+| $u$; $\delta$; $a$; $\ell$ | hướng chiếu đơn vị; độ dịch biên; độ rộng khoảng; khoảng cách giữa hai hình chiếu, $\lvert u\cdot(x-y)\rvert$ | véc-tơ đơn vị; $[0,a)$; số thực dương; $\mathbb R_{\ge0}$ |
 | $\rho$ | khoảng cách Euclid của hai điểm, $\rho=\lVert x-y\rVert_2$ | $\mathbb R_{\ge0}$ |
 | $q_F$; $q_T$ | xác suất hai ảnh khác ngón, cùng ngón cùng có đủ ba ô của một hàm ba ô | $[0,1]$ |
 
@@ -128,7 +128,7 @@ Bộ tạo ứng viên cần chạy trên dữ liệu đã có sau Bài 05, tứ
 
 Hình đọc từ trái sang phải theo đường đi của dữ liệu. Ở Mục 2, chúng ta xây hai khối giữa: lập khóa dải từ chữ ký, gom các cột cùng khóa và lấy hợp các cặp thành tập ứng viên $\mathcal C$; khối cuối là bước xác minh của Định nghĩa 06.1.
 
-Ở Mục 3 và Mục 4, chúng ta thay khối đầu: chữ ký MinHash chỉ phục vụ Jaccard trên tập, nên với vector và chuỗi chúng ta cần một họ hàm băm khác hợp với độ đo đang dùng. Ở Mục 5, chúng ta đổi cách biểu diễn dữ liệu trước khối đầu cho ba bài toán cụ thể, còn hai khối cuối giữ nguyên.
+Ở Mục 3 và Mục 4, chúng ta thay khối đầu: chữ ký MinHash chỉ phục vụ Jaccard trên tập, nên với véc-tơ và chuỗi chúng ta cần một họ hàm băm khác hợp với độ đo đang dùng. Ở Mục 5, chúng ta đổi cách biểu diễn dữ liệu trước khối đầu cho ba bài toán cụ thể, còn hai khối cuối giữ nguyên.
 
 ::: exercise Bài tập 06.1
 Dữ kiện: kho $C=10^6$ tài liệu, chữ ký $n=250$ thành phần 4 byte, giả định $1\,\mu\mathrm{s}$ mỗi lần so cặp (Ví dụ 06.1); hai tập $S_1=\{a,d\}$, $S_4=\{a,c,d\}$ có hai cột chữ ký cùng bằng $(1,0)$ (Nhận xét 06.2).
@@ -653,14 +653,14 @@ Cặp $(1,4)$ được phát hai lần. Cả hai lượt đều phải xử lý 
 
 Như vậy, chúng ta đã dựng bộ tạo ứng viên đầu tiên: phân dải chữ ký (Định nghĩa 06.3), thực hiện bằng Thuật toán 06.4, đúng trên tập ứng viên (Mệnh đề 06.5), xét một cặp có Jaccard $s$ với xác suất $P_{b,r}(s)$ (Định lý 06.7), có vùng chuyển tiếp điều chỉnh được qua $(b,r)$ (Mệnh đề 06.9), và tốn công việc $O(nC+Q+\sum T_J)$ (Mệnh đề 06.11).
 
-Tuy nhiên, mọi kết quả trên dựa vào tính chất của MinHash trên tập: một hàng trùng với xác suất bằng Jaccard. Trong Mục 3, chúng ta định nghĩa các độ đo khoảng cách cho vector (góc, khoảng cách Euclid) và cho chuỗi (số thao tác sửa), rồi tách từ MinHash ra tính chất chung mà một họ hàm băm cần có để phân dải còn dùng được.
+Tuy nhiên, mọi kết quả trên dựa vào tính chất của MinHash trên tập: một hàng trùng với xác suất bằng Jaccard. Trong Mục 3, chúng ta định nghĩa các độ đo khoảng cách cho véc-tơ (góc, khoảng cách Euclid) và cho chuỗi (số thao tác sửa), rồi tách từ MinHash ra tính chất chung mà một họ hàm băm cần có để phân dải còn dùng được.
 
 ## 3. Khoảng cách và họ nhạy cảm
 
-Với bốn tập đặc trưng, Định lý 06.7 dựa vào việc cặp $(1,4)$ trùng một hàng MinHash với xác suất $\mathrm{SIM}(S_1,S_4)=2/3$. Nếu mỗi tài liệu của kho một triệu tài liệu được biểu diễn bằng một vector đặc trưng số thay cho một tập shingle, không có tập nào để lấy MinHash, và câu hỏi "hai tài liệu có gần nhau không" cần một độ đo khác cùng một họ hàm băm hợp với độ đo ấy.
+Với bốn tập đặc trưng, Định lý 06.7 dựa vào việc cặp $(1,4)$ trùng một hàng MinHash với xác suất $\mathrm{SIM}(S_1,S_4)=2/3$. Nếu mỗi tài liệu của kho một triệu tài liệu được biểu diễn bằng một véc-tơ đặc trưng số thay cho một tập shingle, không có tập nào để lấy MinHash, và câu hỏi "hai tài liệu có gần nhau không" cần một độ đo khác cùng một họ hàm băm hợp với độ đo ấy.
 
 <!-- note-topic-id: lec-06-topic-05 -->
-### 3.1 Độ đo khoảng cách và chuẩn vector
+### 3.1 Độ đo khoảng cách và chuẩn véc-tơ
 
 Một cách trực quan, khoảng cách là một con số đo hai đối tượng khác nhau bao nhiêu, bằng $0$ khi chúng trùng nhau và không cho phép đi đường vòng ngắn hơn đường thẳng. Ví dụ sau cho thấy cùng hai điểm có thể nhận nhiều giá trị khoảng cách, tùy cách đo.
 
@@ -726,9 +726,9 @@ Mệnh đề 06.15 là cầu nối giữa Mục 2 và phần còn lại của M�
 
 ### 3.3 Khoảng cách góc
 
-Với vector, nhiều ứng dụng chỉ quan tâm hướng chứ không quan tâm độ dài, chẳng hạn khi nhân đôi mọi tần suất của một tài liệu không làm đổi nội dung của nó.
+Với véc-tơ, nhiều ứng dụng chỉ quan tâm hướng chứ không quan tâm độ dài, chẳng hạn khi nhân đôi mọi tần suất của một tài liệu không làm đổi nội dung của nó.
 
-::: example Ví dụ 06.8 (Góc giữa hai vector; MMDS Ví dụ 3.14, tr.99)
+::: example Ví dụ 06.8 (Góc giữa hai véc-tơ; MMDS Ví dụ 3.14, tr.99)
 **Dữ kiện.** $x=(1,2,-1)$ và $y=(2,1,1)$.
 
 **Tính.** $x\cdot y=2+2-1=3$; $\|x\|_2=\|y\|_2=\sqrt6$. Do đó $\cos\theta=3/6=1/2$ và $\theta=\pi/3=60^\circ$.
@@ -737,16 +737,16 @@ Với vector, nhiều ứng dụng chỉ quan tâm hướng chứ không quan t�
 :::
 
 ::: definition Định nghĩa 06.16 (Khoảng cách góc)
-Với hai vector khác $0$ trong $\mathbb R^D$, **khoảng cách góc** là
+Với hai véc-tơ khác $0$ trong $\mathbb R^D$, **khoảng cách góc** là
 
 $$
 \theta(x,y)=\arccos\frac{x\cdot y}{\|x\|_2\|y\|_2}\in[0,\pi].
 $$
 
-Miền của khoảng cách góc là tập các hướng, tức các lớp vector khác $0$ sai khác một hệ số dương; mỗi hướng có thể đại diện bằng một vector đơn vị.
+Miền của khoảng cách góc là tập các hướng, tức các lớp véc-tơ khác $0$ sai khác một hệ số dương; mỗi hướng có thể đại diện bằng một véc-tơ đơn vị.
 :::
 
-Biểu thức trong $\arccos$ là độ tương đồng cosin (cosine similarity), nằm trong $[-1,1]$ theo Cauchy–Schwarz, nên góc xác định. Góc chỉ phụ thuộc hướng: $x$ và $2x$ có góc $0$ dù là hai vector khác nhau, nên tiên đề "$d=0$ khi và chỉ khi trùng nhau" chỉ đúng trên các hướng. Vector $0$ không có hướng và nằm ngoài miền.
+Biểu thức trong $\arccos$ là độ tương đồng cosin (cosine similarity), nằm trong $[-1,1]$ theo Cauchy–Schwarz, nên góc xác định. Góc chỉ phụ thuộc hướng: $x$ và $2x$ có góc $0$ dù là hai véc-tơ khác nhau, nên tiên đề "$d=0$ khi và chỉ khi trùng nhau" chỉ đúng trên các hướng. Véc-tơ $0$ không có hướng và nằm ngoài miền.
 
 ::: remark Nhận xét 06.17 (Góc và cosin)
 Khoảng cách góc khác độ tương đồng cosin $\cos\theta$ và khác $1-\cos\theta$; Ví dụ 06.8 cho $\theta=\pi/3$ trong khi $1-\cos\theta=1/2$. Bất đẳng thức tam giác của góc có một phác thảo hình học: trên mặt cầu đơn vị, góc giữa hai hướng là độ dài cung ngắn nhất nối chúng, và đi qua một hướng trung gian không ngắn hơn cung trực tiếp. Lập luận hình học này theo MMDS §3.5.4 (tr.99); chứng minh đầy đủ nằm ngoài phạm vi học phần.
@@ -792,9 +792,9 @@ Ví dụ 06.9 có $L=4$ với dãy con $acde$. Đếm số thao tác ít nhất 
 
 ### 3.5 Khoảng cách Hamming
 
-Khi hai vector cùng chiều và vị trí của mỗi thành phần có ý nghĩa cố định, ta chỉ cần đếm số vị trí khác nhau.
+Khi hai véc-tơ cùng chiều và vị trí của mỗi thành phần có ý nghĩa cố định, ta chỉ cần đếm số vị trí khác nhau.
 
-::: example Ví dụ 06.10 (Hai vector bit; MMDS Ví dụ 3.17, tr.101)
+::: example Ví dụ 06.10 (Hai véc-tơ bit; MMDS Ví dụ 3.17, tr.101)
 **Dữ kiện.** $x=10101$ và $y=11110$, $D=5$.
 
 **Tính.** So từng vị trí: vị trí 1 và 3 trùng, vị trí 2, 4, 5 khác. Khoảng cách là $3$.
@@ -815,11 +815,11 @@ Công thức đếm số tọa độ khác nhau: mỗi số hạng bằng $1$ �
 ::: remark Nhận xét 06.21 (Hamming là độ đo; chi phí tính độ đo)
 Tại mỗi tọa độ, nếu $x_i\ne w_i$ thì ít nhất một trong hai điều $x_i\ne y_i$, $y_i\ne w_i$ đúng, nên $\mathbf 1[x_i\ne w_i]\le\mathbf 1[x_i\ne y_i]+\mathbf 1[y_i\ne w_i]$; cộng theo $i$ cho bất đẳng thức tam giác. Tổng bằng $0$ khi và chỉ khi mọi số hạng bằng $0$, tức $x=y$; đối xứng vì $x_i\ne y_i$ khi và chỉ khi $y_i\ne x_i$.
 
-Trên vector đặc, các chuẩn $L_q$, góc và Hamming đều tính được trong một lượt qua $D$ tọa độ, tức $O(D)$ phép toán từ máy.
+Trên véc-tơ đặc, các chuẩn $L_q$, góc và Hamming đều tính được trong một lượt qua $D$ tọa độ, tức $O(D)$ phép toán từ máy.
 :::
 
 ::: exercise Bài tập 06.5
-Dữ kiện: $x=(1,2,-1)$, $y=(2,1,1)$ (Ví dụ 06.8); hai vector bit $10101$, $11110$ (Ví dụ 06.10); hai chuỗi $abc$ và $bca$; hai vector $(1,1,0)$ và $(1,0,0)$.
+Dữ kiện: $x=(1,2,-1)$, $y=(2,1,1)$ (Ví dụ 06.8); hai véc-tơ bit $10101$, $11110$ (Ví dụ 06.10); hai chuỗi $abc$ và $bca$; hai véc-tơ $(1,1,0)$ và $(1,0,0)$.
 
 (a) Phân biệt độ tương đồng cosin với khoảng cách góc trên cặp $x$, $y$.
 
@@ -1003,14 +1003,14 @@ Trong Mục 4, chúng ta dựng ba họ cơ sở cho Hamming, góc và khoảng 
 
 ## 4. Các họ băm theo độ đo
 
-Với bốn tập đặc trưng, họ MinHash cho đúng xác suất trùng $1-d_J$, nhưng đó là họ cụ thể duy nhất đã có. Nếu kho một triệu tài liệu được lưu thành vector bit cần tìm cặp gần theo Hamming, hoặc thành vector đặc trưng số cần tìm cặp có góc nhỏ hay gần theo khoảng cách Euclid, chúng ta chưa có hàm băm nào để đưa vào Thuật toán 06.4. Việc còn thiếu là một họ băm có bộ tham số chứng minh được cho từng độ đo.
+Với bốn tập đặc trưng, họ MinHash cho đúng xác suất trùng $1-d_J$, nhưng đó là họ cụ thể duy nhất đã có. Nếu kho một triệu tài liệu được lưu thành véc-tơ bit cần tìm cặp gần theo Hamming, hoặc thành véc-tơ đặc trưng số cần tìm cặp có góc nhỏ hay gần theo khoảng cách Euclid, chúng ta chưa có hàm băm nào để đưa vào Thuật toán 06.4. Việc còn thiếu là một họ băm có bộ tham số chứng minh được cho từng độ đo.
 
 <!-- note-topic-id: lec-06-topic-08 -->
 ### 4.1 Họ chọn tọa độ cho khoảng cách Hamming
 
-Một cách trực quan, hai vector bit càng ít vị trí khác nhau thì một vị trí chọn ngẫu nhiên càng dễ là vị trí trùng; đọc một tọa độ là một phép thử rẻ nhất có thể.
+Một cách trực quan, hai véc-tơ bit càng ít vị trí khác nhau thì một vị trí chọn ngẫu nhiên càng dễ là vị trí trùng; đọc một tọa độ là một phép thử rẻ nhất có thể.
 
-::: example Ví dụ 06.13 (Hai vector bit theo từng chỉ số)
+::: example Ví dụ 06.13 (Hai véc-tơ bit theo từng chỉ số)
 **Dữ kiện.** $x=10101$, $y=11110$, $D=5$ (Ví dụ 06.10); hàm $h_i$ trả tọa độ thứ $i$.
 
 **Tính.** $h_1$ trả $1$ và $1$; $h_2$ trả $0$ và $1$; $h_3$ trả $1$ và $1$; $h_4$ trả $0$ và $1$; $h_5$ trả $1$ và $0$. Hai hàm $h_1$, $h_3$ cho cùng giá trị.
@@ -1021,10 +1021,10 @@ Một cách trực quan, hai vector bit càng ít vị trí khác nhau thì mộ
 :::
 
 ::: definition Định nghĩa 06.28 (Họ chọn tọa độ)
-Cho $D\ge1$ và bảng ký hiệu hữu hạn $\Sigma$. Với mỗi $i\in\{1,\ldots,D\}$, hàm $h_i:\Sigma^D\to\Sigma$ là $h_i(x)=x_i$. **Họ chọn tọa độ** gồm $D$ hàm này, với phân phối chọn chỉ số $I$ đều trên $\{1,\ldots,D\}$; một lần chọn $I$ cho một hàm $h_I$ dùng chung cho mọi vector của kho.
+Cho $D\ge1$ và bảng ký hiệu hữu hạn $\Sigma$. Với mỗi $i\in\{1,\ldots,D\}$, hàm $h_i:\Sigma^D\to\Sigma$ là $h_i(x)=x_i$. **Họ chọn tọa độ** gồm $D$ hàm này, với phân phối chọn chỉ số $I$ đều trên $\{1,\ldots,D\}$; một lần chọn $I$ cho một hàm $h_I$ dùng chung cho mọi véc-tơ của kho.
 :::
 
-Định nghĩa bao hàm Ví dụ 06.13 với $D=5$. Điều kiện "dùng chung cho mọi vector" là điều kiện "cùng $h$" của Định nghĩa 06.22: chọn chỉ số riêng cho từng vector làm phép thử không còn đo sự trùng tại cùng vị trí.
+Định nghĩa bao hàm Ví dụ 06.13 với $D=5$. Điều kiện "dùng chung cho mọi véc-tơ" là điều kiện "cùng $h$" của Định nghĩa 06.22: chọn chỉ số riêng cho từng véc-tơ làm phép thử không còn đo sự trùng tại cùng vị trí.
 
 ::: proposition Mệnh đề 06.29 (Xác suất trùng của họ chọn tọa độ)
 **Giả thiết.** $x,y\in\Sigma^D$; $I$ đều trên $\{1,\ldots,D\}$, dùng chung cho $x$ và $y$.
@@ -1045,17 +1045,17 @@ Cho $D\ge1$ và bảng ký hiệu hữu hạn $\Sigma$. Với mỗi $i\in\{1,\ld
 Phản ví dụ khi bỏ từng giả thiết:
 
 - Bỏ phép chọn đều: nếu $I$ luôn bằng $1$, cặp $10101$, $11110$ trùng với xác suất $1$ thay cho $2/5$.
-- Bỏ chỉ số dùng chung: nếu $x$ và $y$ nhận hai chỉ số chọn riêng, thì với $x=y=10101$, cặp chỉ số $(1,2)$ cho hai giá trị $1$ và $0$; cặp vector trùng nhau, $d_H=0$, không còn trùng với xác suất $1$.
+- Bỏ chỉ số dùng chung: nếu $x$ và $y$ nhận hai chỉ số chọn riêng, thì với $x=y=10101$, cặp chỉ số $(1,2)$ cho hai giá trị $1$ và $0$; cặp véc-tơ trùng nhau, $d_H=0$, không còn trùng với xác suất $1$.
 
 Bước 1 dùng cả hai giả thiết: phép chọn đều cho mẫu số $D$, chỉ số dùng chung cho phép đếm trên tập vị trí trùng.
 
 Mệnh đề 06.29 có cùng dạng với Hệ quả 06.23: xác suất trùng bằng một trừ khoảng cách chuẩn hóa về $[0,1]$, ở đây $d_H/D$, ở đó $d_J$. Cả hai là đẳng thức, nên mọi cặp ngưỡng $d_1<d_2$ cho một bộ tham số. Khác biệt nằm ở số hàm: họ chọn tọa độ chỉ có $D$ hàm phân biệt, nên phép ghép phải lấy chỉ số có hoàn lại (Nhận xét 06.30).
 
 ::: remark Nhận xét 06.30 (Ghép nhiều hàm chọn tọa độ)
-Họ chỉ có $D$ hàm, nhưng Mệnh đề 06.26 cần các hàm chọn độc lập. Khi ghép, các chỉ số được lấy độc lập, có hoàn lại; hai chỉ số có thể trùng nhau, và điều này không làm sai phép nhân xác suất. Mỗi phép thử chỉ đọc một phần tử của mảng, nên tốn $O(1)$ thời gian và lưu một chỉ số; $m$ phép thử lưu $m$ chỉ số dùng chung và $m$ giá trị mỗi vector.
+Họ chỉ có $D$ hàm, nhưng Mệnh đề 06.26 cần các hàm chọn độc lập. Khi ghép, các chỉ số được lấy độc lập, có hoàn lại; hai chỉ số có thể trùng nhau, và điều này không làm sai phép nhân xác suất. Mỗi phép thử chỉ đọc một phần tử của mảng, nên tốn $O(1)$ thời gian và lưu một chỉ số; $m$ phép thử lưu $m$ chỉ số dùng chung và $m$ giá trị mỗi véc-tơ.
 :::
 
-**Trong thực hành.** Vector bit thường được lưu thành các từ máy; đọc tọa độ $I$ là một phép dịch và một phép che bit, nên chi phí $O(1)$ của Nhận xét 06.30 đạt được. Các $m$ chỉ số được chọn một lần, lưu lại và dùng cho mọi vector của kho; nếu dữ liệu nạp sau dùng chỉ số khác, chữ ký cũ và mới không còn so được với nhau, vì giả thiết chỉ số dùng chung của Mệnh đề 06.29 bị vi phạm.
+**Trong thực hành.** Véc-tơ bit thường được lưu thành các từ máy; đọc tọa độ $I$ là một phép dịch và một phép che bit, nên chi phí $O(1)$ của Nhận xét 06.30 đạt được. Các $m$ chỉ số được chọn một lần, lưu lại và dùng cho mọi véc-tơ của kho; nếu dữ liệu nạp sau dùng chỉ số khác, chữ ký cũ và mới không còn so được với nhau, vì giả thiết chỉ số dùng chung của Mệnh đề 06.29 bị vi phạm.
 
 ::: exercise Bài tập 06.8
 Dữ kiện: $x=11001$, $y=10011$, $D=5$; họ chọn tọa độ với chỉ số chọn đều. Tính xác suất trùng của một hàm, và của phép ghép đồng thời bậc 2 với hai chỉ số lấy độc lập, có hoàn lại.
@@ -1066,7 +1066,7 @@ Dữ kiện: $x=11001$, $y=10011$, $D=5$; họ chọn tọa độ với chỉ s�
 :::
 
 ::: solution
-Hai vector khác tại vị trí 2 và 4, nên $d_H=2$ và xác suất trùng là $1-2/5=3/5$. Với hai chỉ số độc lập, phép ghép đồng thời cho $(3/5)^2=9/25=0{,}36$.
+Hai véc-tơ khác tại vị trí 2 và 4, nên $d_H=2$ và xác suất trùng là $1-2/5=3/5$. Với hai chỉ số độc lập, phép ghép đồng thời cho $(3/5)^2=9/25=0{,}36$.
 
 **Kiểm tra lại.** Ba vị trí trùng là 1, 3, 5, đúng $3$ trên $5$.
 :::
@@ -1077,14 +1077,14 @@ Hai vector khác tại vị trí 2 và 4, nên $d_H=2$ và xác suất trùng l�
 Khoảng cách góc chỉ phụ thuộc hướng, nên hàm băm cần cho cùng giá trị với $x$ và $2x$. Dấu của một tích vô hướng có tính chất đó.
 
 ::: example Ví dụ 06.14 (Dấu theo hai pháp tuyến; MMDS Ví dụ 3.22, tr.111)
-**Dữ kiện.** $x=(3,4,5,6)$, $y=(4,3,2,1)$; hai vector $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$.
+**Dữ kiện.** $x=(3,4,5,6)$, $y=(4,3,2,1)$; hai véc-tơ $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$.
 
 **Tính.** $v_1\cdot x=3-4+5+6=10$ và $v_1\cdot y=4-3+2+1=4$: cùng dấu dương. $v_2\cdot x=-3+4-5+6=2$ và $v_2\cdot y=-4+3-2+1=-2$: khác dấu.
 
 **Kiểm tra lại.** $v_1\cdot(2x)=20$ vẫn dương: nhân $x$ với hệ số dương không đổi dấu.
 :::
 
-Một cách trực quan, mỗi vector $v$ xác định một siêu phẳng qua gốc vuông góc với nó; dấu cho biết điểm nằm phía nào. Hai vector có góc nhỏ hiếm khi bị một siêu phẳng ngẫu nhiên tách ra hai phía.
+Một cách trực quan, mỗi véc-tơ $v$ xác định một siêu phẳng qua gốc vuông góc với nó; dấu cho biết điểm nằm phía nào. Hai véc-tơ có góc nhỏ hiếm khi bị một siêu phẳng ngẫu nhiên tách ra hai phía.
 
 ::: definition Định nghĩa 06.31 (Hàm băm dấu và họ siêu phẳng)
 Với $v\in\mathbb R^D$, $v\ne0$, **siêu phẳng** qua gốc với **pháp tuyến** (normal vector) $v$ là tập $\{x:\ v\cdot x=0\}$. **Hàm băm dấu** là
@@ -1093,7 +1093,7 @@ $$
 h_v(x)=\operatorname{sign}(v\cdot x),\qquad \operatorname{sign}(\tau)=\begin{cases}+1,&\tau\ge0,\\-1,&\tau<0.\end{cases}
 $$
 
-**Họ siêu phẳng** gồm các hàm $h_v$, với $v$ chọn theo một phân phối **đẳng hướng** (isotropic): $\Pr[v=0]=0$ và hướng $v/\lVert v\rVert_2$ phân phối đều trên mặt cầu đơn vị. Khi $D\ge2$, một phân phối có $\Pr[v=0]=0$ và không đổi qua mọi phép quay quanh gốc là một cách đạt điều này. Cùng một $v$ được dùng cho mọi vector.
+**Họ siêu phẳng** gồm các hàm $h_v$, với $v$ chọn theo một phân phối **đẳng hướng** (isotropic): $\Pr[v=0]=0$ và hướng $v/\lVert v\rVert_2$ phân phối đều trên mặt cầu đơn vị. Khi $D\ge2$, một phân phối có $\Pr[v=0]=0$ và không đổi qua mọi phép quay quanh gốc là một cách đạt điều này. Cùng một $v$ được dùng cho mọi véc-tơ.
 :::
 
 Pháp tuyến vuông góc với mặt phân chia. Quy ước $\operatorname{sign}(0)=+1$ làm hàm xác định khắp nơi. Ví dụ 06.14 dùng hai pháp tuyến cố định có tọa độ $\pm1$; chúng là hai hàm của họ, nhưng chọn chúng theo cách đó không phải phép chọn đẳng hướng.
@@ -1109,7 +1109,7 @@ Trên hình, mọi điểm phía mà $v$ chỉ tới có $h_v=+1$, mọi điểm
 
 **Điều kiện áp dụng.** Mọi $D\ge1$; khi $D=1$ chỉ xảy ra hai trường hợp $\theta\in\{0,\pi\}$ của Bước 1.
 
-**Phạm vi.** Định lý không áp dụng cho pháp tuyến chọn theo phân phối không đẳng hướng, như các vector $\pm1$ của Ví dụ 06.14.
+**Phạm vi.** Định lý không áp dụng cho pháp tuyến chọn theo phân phối không đẳng hướng, như các véc-tơ $\pm1$ của Ví dụ 06.14.
 :::
 
 ::: proof Chứng minh Định lý 06.32
@@ -1132,18 +1132,18 @@ Hình vẽ Bước 3 trong mặt phẳng $\Pi$: hai miền tô là các hướng
 
 Phản ví dụ khi bỏ từng giả thiết:
 
-- Bỏ tính đẳng hướng: nếu $v$ chọn đều trong 16 vector có tọa độ $\pm1$ của $\mathbb R^4$, thì với $x=(3,4,5,6)$, $y=(4,3,2,1)$ có đúng 4 vector cho hai dấu khác nhau theo quy ước $\operatorname{sign}(0)=+1$, nên xác suất khác dấu là $1/4$, ứng với góc $45^\circ$, trong khi góc thật xấp xỉ $38{,}047579^\circ$ (Tình huống 06.4).
+- Bỏ tính đẳng hướng: nếu $v$ chọn đều trong 16 véc-tơ có tọa độ $\pm1$ của $\mathbb R^4$, thì với $x=(3,4,5,6)$, $y=(4,3,2,1)$ có đúng 4 véc-tơ cho hai dấu khác nhau theo quy ước $\operatorname{sign}(0)=+1$, nên xác suất khác dấu là $1/4$, ứng với góc $45^\circ$, trong khi góc thật xấp xỉ $38{,}047579^\circ$ (Tình huống 06.4).
 - Bỏ đơn vị radian: thay $\theta=60$ (độ) vào $1-\theta/\pi$ cho một số âm, không phải xác suất; giá trị đúng là $1-(\pi/3)/\pi=2/3$.
 - Bỏ điều kiện khác $0$: với $x=0$, $v\cdot x=0$ nên $h_v(x)=+1$ với mọi $v$, trong khi góc giữa $0$ và $y$ không xác định.
 - Bỏ pháp tuyến dùng chung: nếu $x$ và $y$ được băm bằng hai pháp tuyến đẳng hướng độc lập, thì với $y=x$, mỗi dấu bằng $+1$ hay $-1$ với xác suất $1/2$ độc lập nhau, nên hai giá trị trùng với xác suất $1/2$ thay cho $1$.
 
 Bước 1 dùng điều kiện khác $0$; Bước 2 dùng pháp tuyến dùng chung và tính đẳng hướng; Bước 3 dùng tính đẳng hướng và đơn vị radian.
 
-Định lý 06.32 có cùng dạng với Hệ quả 06.23 và Mệnh đề 06.29: xác suất trùng bằng một trừ khoảng cách chuẩn hóa, ở đây $\theta/\pi$, và là đẳng thức. Giả thiết quyết định không còn là phép chọn đều một chỉ số trong tập hữu hạn mà là tính đẳng hướng của một vector liên tục; cái giá là mỗi hàm tốn $O(D)$ thay cho $O(1)$.
+Định lý 06.32 có cùng dạng với Hệ quả 06.23 và Mệnh đề 06.29: xác suất trùng bằng một trừ khoảng cách chuẩn hóa, ở đây $\theta/\pi$, và là đẳng thức. Giả thiết quyết định không còn là phép chọn đều một chỉ số trong tập hữu hạn mà là tính đẳng hướng của một véc-tơ liên tục; cái giá là mỗi hàm tốn $O(D)$ thay cho $O(1)$.
 
-**Trong thực hành.** Có thể hạn chế pháp tuyến vào các vector có tọa độ $\pm1$; khi đó tích vô hướng chỉ cần cộng và trừ các tọa độ (MMDS §3.7.3, tr.111). Lựa chọn này giảm chi phí tính nhưng bỏ tính đẳng hướng, nên Định lý 06.32 không còn bảo đảm; Tình huống 06.4 đo hậu quả trên dữ kiện của Ví dụ 06.15. Các pháp tuyến được sinh một lần và lưu lại, vì mọi vector của kho phải được băm bằng cùng các pháp tuyến.
+**Trong thực hành.** Có thể hạn chế pháp tuyến vào các véc-tơ có tọa độ $\pm1$; khi đó tích vô hướng chỉ cần cộng và trừ các tọa độ (MMDS §3.7.3, tr.111). Lựa chọn này giảm chi phí tính nhưng bỏ tính đẳng hướng, nên Định lý 06.32 không còn bảo đảm; Tình huống 06.4 đo hậu quả trên dữ kiện của Ví dụ 06.15. Các pháp tuyến được sinh một lần và lưu lại, vì mọi véc-tơ của kho phải được băm bằng cùng các pháp tuyến.
 
-Từ Định lý 06.32, mỗi bit dấu là một phép thử có xác suất khác dấu $\theta/\pi$, nên tỷ lệ bit khác dấu trên nhiều pháp tuyến cho một ước lượng của góc. Dãy $m$ bit dấu của một vector theo $m$ pháp tuyến là chữ ký dấu của vector. Ví dụ sau chạy quy tắc này với ba pháp tuyến cố định.
+Từ Định lý 06.32, mỗi bit dấu là một phép thử có xác suất khác dấu $\theta/\pi$, nên tỷ lệ bit khác dấu trên nhiều pháp tuyến cho một ước lượng của góc. Dãy $m$ bit dấu của một véc-tơ theo $m$ pháp tuyến là chữ ký dấu của véc-tơ. Ví dụ sau chạy quy tắc này với ba pháp tuyến cố định.
 
 ::: example Ví dụ 06.15 (Chữ ký dấu với ba pháp tuyến cố định; MMDS Ví dụ 3.22, tr.111)
 **Dữ kiện.** $x=(3,4,5,6)$, $y=(4,3,2,1)$ và ba pháp tuyến $v_1=(1,-1,1,1)$, $v_2=(-1,1,-1,1)$, $v_3=(1,1,-1,-1)$.
@@ -1166,14 +1166,14 @@ Chữ ký dấu của $x$ là $(+,+,-)$, của $y$ là $(+,-,+)$; hai bit cuối
 :::
 
 ::: algorithm Thuật toán 06.33 (Chữ ký dấu và ước lượng góc)
-**Đầu vào.** Các vector khác $0$ $x_1,\ldots,x_C\in\mathbb R^D$; số bit $m\ge1$.
+**Đầu vào.** Các véc-tơ khác $0$ $x_1,\ldots,x_C\in\mathbb R^D$; số bit $m\ge1$.
 
-**Đầu ra.** Chữ ký dấu (sketch) $m$ bit của mỗi vector; với một cặp $(c,d)$, góc ước lượng $\widehat\theta_{cd}$.
+**Đầu ra.** Chữ ký dấu (sketch) $m$ bit của mỗi véc-tơ; với một cặp $(c,d)$, góc ước lượng $\widehat\theta_{cd}$.
 
-**Giả thiết.** Các pháp tuyến được chọn độc lập theo phân phối đẳng hướng và dùng chung cho mọi vector.
+**Giả thiết.** Các pháp tuyến được chọn độc lập theo phân phối đẳng hướng và dùng chung cho mọi véc-tơ.
 
 1. Chọn $m$ pháp tuyến $v_1,\ldots,v_m$ độc lập theo một phân phối đẳng hướng, chẳng hạn mỗi tọa độ lấy độc lập theo phân phối chuẩn tắc.
-2. Với mỗi vector $x_c$ và mỗi $i$: tính $v_i\cdot x_c$ và ghi bit $h_{v_i}(x_c)$.
+2. Với mỗi véc-tơ $x_c$ và mỗi $i$: tính $v_i\cdot x_c$ và ghi bit $h_{v_i}(x_c)$.
 3. Với một cặp $(c,d)$: đếm số bit khác nhau, đặt $\widehat p_{\ne}$ là tỷ lệ bit khác trên $m$ và $\widehat\theta_{cd}=\pi\,\widehat p_{\ne}$.
 
 ```text
@@ -1188,9 +1188,9 @@ với c = 1, …, C:
 
 **Dừng.** Các vòng lặp có $Cm$ và $m$ lượt.
 
-**Trường hợp biên.** Vector $0$ nằm ngoài đầu vào; tích vô hướng bằng $0$ cho bit $+1$.
+**Trường hợp biên.** Véc-tơ $0$ nằm ngoài đầu vào; tích vô hướng bằng $0$ cho bit $+1$.
 
-**Chi phí.** Bảng đếm cho vector đặc:
+**Chi phí.** Bảng đếm cho véc-tơ đặc:
 
 | Bước | Số lần | Chi phí mỗi lần | Đóng góp |
 |---|---|---|---|
@@ -1199,9 +1199,9 @@ với c = 1, …, C:
 | 3: so hai chữ ký | $1$ mỗi cặp | $O(m)$ | $O(m)$ mỗi cặp |
 :::
 
-Theo Định lý 06.32 và tuyến tính kỳ vọng, $\mathbb E[\widehat p_{\ne}]=\theta/\pi$, nên $\pi\widehat p_{\ne}$ là ước lượng có kỳ vọng bằng góc khi giả thiết của thuật toán thỏa. Ví dụ 06.15 chạy bước 2 và bước 3 với $m=3$ nhưng vi phạm giả thiết đẳng hướng; độ lệch $120^\circ$ so với $38{,}05^\circ$ đến từ cả số bit ít và phân phối pháp tuyến. Mật độ của vector có các tọa độ độc lập theo phân phối chuẩn tắc đối xứng cầu, và chuẩn hóa vector này cho phân phối đều trên mặt cầu đơn vị (Blum, Hopcroft và Kannan, §2.5, tr.22–23).
+Theo Định lý 06.32 và tuyến tính kỳ vọng, $\mathbb E[\widehat p_{\ne}]=\theta/\pi$, nên $\pi\widehat p_{\ne}$ là ước lượng có kỳ vọng bằng góc khi giả thiết của thuật toán thỏa. Ví dụ 06.15 chạy bước 2 và bước 3 với $m=3$ nhưng vi phạm giả thiết đẳng hướng; độ lệch $120^\circ$ so với $38{,}05^\circ$ đến từ cả số bit ít và phân phối pháp tuyến. Mật độ của véc-tơ có các tọa độ độc lập theo phân phối chuẩn tắc đối xứng cầu, và chuẩn hóa véc-tơ này cho phân phối đều trên mặt cầu đơn vị (Blum, Hopcroft và Kannan, §2.5, tr.22–23).
 
-**Trong thực hành.** Chữ ký dấu được lưu thành dãy $m$ bit, và số bit khác nhau ở bước 3 là khoảng cách Hamming của hai dãy bit; vì vậy các chữ ký dấu có thể đưa tiếp vào họ chọn tọa độ của Mục 4.1 và Thuật toán 06.4 mà không đọc lại vector gốc. Khi các pháp tuyến độc lập và đẳng hướng, $m$ bit khác dấu là $m$ biến Bernoulli độc lập tham số $\theta/\pi$, nên phương sai của $\widehat p_{\ne}$ là $(\theta/\pi)(1-\theta/\pi)/m$, giảm tỷ lệ nghịch với $m$; điều này không sửa được sai lệch do pháp tuyến $\pm1$ ở Tình huống 06.4.
+**Trong thực hành.** Chữ ký dấu được lưu thành dãy $m$ bit, và số bit khác nhau ở bước 3 là khoảng cách Hamming của hai dãy bit; vì vậy các chữ ký dấu có thể đưa tiếp vào họ chọn tọa độ của Mục 4.1 và Thuật toán 06.4 mà không đọc lại véc-tơ gốc. Khi các pháp tuyến độc lập và đẳng hướng, $m$ bit khác dấu là $m$ biến Bernoulli độc lập tham số $\theta/\pi$, nên phương sai của $\widehat p_{\ne}$ là $(\theta/\pi)(1-\theta/\pi)/m$, giảm tỷ lệ nghịch với $m$; điều này không sửa được sai lệch do pháp tuyến $\pm1$ ở Tình huống 06.4.
 
 ::: exercise Bài tập 06.9
 Dữ kiện: $x=(1,0)$, $y=(-1,1)$ trong $\mathbb R^2$; họ siêu phẳng với pháp tuyến đẳng hướng.
@@ -1218,7 +1218,7 @@ Tính góc bằng radian trước khi thế vào công thức.
 ::: solution
 (a) $x\cdot y=-1$, $\|x\|_2=1$, $\|y\|_2=\sqrt2$, nên $\cos\theta=-1/\sqrt2$ và $\theta=3\pi/4$. Xác suất cùng dấu là $1-3/4=1/4$.
 
-(b) Hai vector khác $0$; pháp tuyến chọn theo phân phối đẳng hướng và dùng chung cho cả hai; $\theta$ đo bằng radian.
+(b) Hai véc-tơ khác $0$; pháp tuyến chọn theo phân phối đẳng hướng và dùng chung cho cả hai; $\theta$ đo bằng radian.
 
 **Kiểm tra lại.** $3\pi/4=135^\circ$, và $1-135/180=1/4$.
 :::
@@ -1241,7 +1241,7 @@ Hàm băm dấu bỏ mất độ dài, nên không phân biệt được hai đi
 Ví dụ 06.16 dùng một trục cố định và các biên cố định tại các số nguyên. Hai điểm có hình chiếu $1-\varepsilon$ và $1+\varepsilon$, với $\varepsilon>0$ nhỏ, rất gần nhau nhưng luôn bị biên $1$ tách ra. Một cách trực quan, chọn ngẫu nhiên cả hướng chiếu lẫn vị trí biên làm xác suất hai điểm chung thùng phụ thuộc vào khoảng cách giữa chúng chứ không vào vị trí của chúng so với một lưới cố định.
 
 ::: definition Định nghĩa 06.34 (Họ chiếu có dịch; MMDS §3.7.4, tr.111–113; Datar và cộng sự 2004, §3.2)
-Cho số chiều $D\ge1$ và độ rộng khoảng $a>0$. Một hàm của **họ chiếu có dịch** trên $\mathbb R^D$ được xác định bởi một vector đơn vị $u\in\mathbb R^D$ và một độ dịch $\delta\in[0,a)$:
+Cho số chiều $D\ge1$ và độ rộng khoảng $a>0$. Một hàm của **họ chiếu có dịch** trên $\mathbb R^D$ được xác định bởi một véc-tơ đơn vị $u\in\mathbb R^D$ và một độ dịch $\delta\in[0,a)$:
 
 $$
 h_{u,\delta}(x)=\Bigl\lfloor\frac{u\cdot x+\delta}{a}\Bigr\rfloor.
@@ -1257,7 +1257,7 @@ Giá trị $h_{u,\delta}(x)$ gọi là chỉ số khoảng. Trên đường th�
 Hình cho thấy hai hình chiếu cách nhau $\ell$ và các biên cách đều $a$; dịch $\delta$ trượt toàn bộ lưới biên. Hai điểm khác thùng đúng khi có một biên nằm giữa hai hình chiếu.
 
 ::: lemma Bổ đề 06.35 (Xác suất chung thùng khi cố định hướng)
-**Giả thiết.** $x,y\in\mathbb R^D$; vector đơn vị $u$ cố định; $\ell=\lvert u\cdot(x-y)\rvert$; $\delta$ đều trên $[0,a)$, dùng chung cho hai điểm.
+**Giả thiết.** $x,y\in\mathbb R^D$; véc-tơ đơn vị $u$ cố định; $\ell=\lvert u\cdot(x-y)\rvert$; $\delta$ đều trên $[0,a)$, dùng chung cho hai điểm.
 
 **Kết luận.** $\Pr_\delta[h_{u,\delta}(x)=h_{u,\delta}(y)\mid u]=\max(0,1-\ell/a)$.
 
@@ -1316,7 +1316,7 @@ Trục cố định của Ví dụ 06.16 là một hàm cụ thể của họ, k
 
 Với $D\ge2$, với $x\ne y$, đặt $\rho=\lVert x-y\rVert_2$ và $e=(x-y)/\rho$. Theo Bổ đề 06.35, khi cố định hướng $u$, xác suất chung thùng là $\max(0,1-\rho\lvert u\cdot e\rvert/a)$. Lấy trung bình theo $u$ đều trên mặt cầu, xác suất $P(\rho)=\mathbb E_u[\max(0,1-\rho\lvert u\cdot e\rvert/a)]$ không phụ thuộc $e$ và giảm chặt theo $\rho$. Do đó với $d_1<d_2$, họ là $(d_1,d_2,P(d_1),P(d_2))$-nhạy cảm, và phép ghép AND, OR của Mục 3.7 kéo hai mức ra xa nhau (MMDS §3.7.5, tr.113).
 
-Mỗi hàm tính một tích vô hướng, cộng dịch, chia cho $a$ và lấy sàn, tốn $O(D)$ trên vector $D$ chiều.
+Mỗi hàm tính một tích vô hướng, cộng dịch, chia cho $a$ và lấy sàn, tốn $O(D)$ trên véc-tơ $D$ chiều.
 :::
 
 **Trong thực hành.** Định nghĩa 06.34 dùng được trên $\mathbb R^D$, và Bước 1 của chứng minh Định lý 06.36 đúng với từng hướng trong mọi số chiều. Độ rộng $a$ đặt thang đo của "gần": cùng một cặp điểm có thể là cặp gần với $a$ lớn và cặp xa với $a$ nhỏ, nên $a$ phải chọn theo khoảng cách cần phân biệt của bài toán.
@@ -1348,20 +1348,20 @@ Câu (a), (b) dùng Bổ đề 06.35. Câu (c) so $5$ với $2a$.
 <!-- note-topic-id: lec-06-topic-17 -->
 ### 4.4 Chi phí tính chữ ký của ba họ
 
-Ba họ có xác suất trùng khác nhau và cũng có chi phí tính khác nhau. Chi phí phân dải ở Mệnh đề 06.11 bắt đầu khi chữ ký đã có; với họ MinHash, chữ ký thuộc Bài 05, còn với ba họ mới, chữ ký phải được tính từ vector. Mô hình đếm: vector đặc $D$ chiều, mỗi số chiếm một từ máy, mỗi phép đọc, nhân, cộng, chia, so sánh hoặc lấy sàn tốn thời gian hằng.
+Ba họ có xác suất trùng khác nhau và cũng có chi phí tính khác nhau. Chi phí phân dải ở Mệnh đề 06.11 bắt đầu khi chữ ký đã có; với họ MinHash, chữ ký thuộc Bài 05, còn với ba họ mới, chữ ký phải được tính từ véc-tơ. Mô hình đếm: véc-tơ đặc $D$ chiều, mỗi số chiếm một từ máy, mỗi phép đọc, nhân, cộng, chia, so sánh hoặc lấy sàn tốn thời gian hằng.
 
 ::: proposition Mệnh đề 06.38 (Chi phí tính chữ ký của ba họ)
-**Giả thiết.** Mô hình đếm vừa nêu; chữ ký gồm $m$ hàm cho $C$ vector; tham số của $m$ hàm được chọn trước và dùng chung.
+**Giả thiết.** Mô hình đếm vừa nêu; chữ ký gồm $m$ hàm cho $C$ véc-tơ; tham số của $m$ hàm được chọn trước và dùng chung.
 
-**Kết luận.** Tính chữ ký tốn $O(Cm)$ thời gian với họ chọn tọa độ và $O(CmD)$ với họ siêu phẳng và họ chiếu có dịch. Tham số của các hàm chiếm $O(m)$ từ với họ thứ nhất và $O(mD)$ từ với hai họ còn lại; mỗi vector lưu $m$ giá trị.
+**Kết luận.** Tính chữ ký tốn $O(Cm)$ thời gian với họ chọn tọa độ và $O(CmD)$ với họ siêu phẳng và họ chiếu có dịch. Tham số của các hàm chiếm $O(m)$ từ với họ thứ nhất và $O(mD)$ từ với hai họ còn lại; mỗi véc-tơ lưu $m$ giá trị.
 
-**Điều kiện áp dụng.** Vector đặc. Với vector thưa có $\mathrm{nnz}(x)$ thành phần khác $0$, tích vô hướng chỉ duyệt các thành phần ấy, nên $D$ được thay bằng $\mathrm{nnz}(x)$.
+**Điều kiện áp dụng.** Véc-tơ đặc. Với véc-tơ thưa có $\mathrm{nnz}(x)$ thành phần khác $0$, tích vô hướng chỉ duyệt các thành phần ấy, nên $D$ được thay bằng $\mathrm{nnz}(x)$.
 
 **Phạm vi.** Đây là chi phí lấy chữ ký; dựng thùng, phát $Q$ cặp và xác minh $K$ cặp được tính thêm theo Mệnh đề 06.11.
 :::
 
 ::: proof Chứng minh Mệnh đề 06.38
-Đếm phép tính của một hàm trên một vector, theo Định nghĩa 06.28, 06.31 và 06.34:
+Đếm phép tính của một hàm trên một véc-tơ, theo Định nghĩa 06.28, 06.31 và 06.34:
 
 | Họ | Phép tính của một hàm | Thời gian | Tham số lưu |
 |---|---|---|---|
@@ -1372,29 +1372,29 @@ Ba họ có xác suất trùng khác nhau và cũng có chi phí tính khác nha
 Chữ ký cần $Cm$ lần tính hàm; nhân với cột thời gian cho kết luận. Tham số của $m$ hàm được lưu một lần cho cả kho. $\square$
 :::
 
-**Trong thực hành.** Với $D$ lớn, phần tốn kém là $m$ tích vô hướng trên mỗi vector. Xếp $m$ pháp tuyến thành một ma trận $m\times D$ thì chữ ký của cả kho là một phép nhân ma trận, tính được theo khối và song song theo vector mà không đổi số phép nhân $CmD$. Với vector thưa, như vector tần suất từ của văn bản, chi phí tính theo $\mathrm{nnz}(x)$ của Điều kiện áp dụng. Bộ tham số $O(mD)$ phải được lưu cùng kho, vì vector nạp sau phải dùng đúng các pháp tuyến và độ dịch ấy thì chữ ký mới so được với chữ ký cũ.
+**Trong thực hành.** Với $D$ lớn, phần tốn kém là $m$ tích vô hướng trên mỗi véc-tơ. Xếp $m$ pháp tuyến thành một ma trận $m\times D$ thì chữ ký của cả kho là một phép nhân ma trận, tính được theo khối và song song theo véc-tơ mà không đổi số phép nhân $CmD$. Với véc-tơ thưa, như véc-tơ tần suất từ của văn bản, chi phí tính theo $\mathrm{nnz}(x)$ của Điều kiện áp dụng. Bộ tham số $O(mD)$ phải được lưu cùng kho, vì véc-tơ nạp sau phải dùng đúng các pháp tuyến và độ dịch ấy thì chữ ký mới so được với chữ ký cũ.
 
-Mệnh đề 06.38 cho thấy họ chọn tọa độ rẻ hơn hai họ kia một thừa số $D$, đổi lại chỉ dùng được cho Hamming. Bảng của Ví dụ 06.15 có $6$ tích vô hướng, ba pháp tuyến nhân với hai vector, mỗi tích $4$ phép nhân; tổng $6\cdot4=24$ phép nhân khớp với $CmD=2\cdot3\cdot4$.
+Mệnh đề 06.38 cho thấy họ chọn tọa độ rẻ hơn hai họ kia một thừa số $D$, đổi lại chỉ dùng được cho Hamming. Bảng của Ví dụ 06.15 có $6$ tích vô hướng, ba pháp tuyến nhân với hai véc-tơ, mỗi tích $4$ phép nhân; tổng $6\cdot4=24$ phép nhân khớp với $CmD=2\cdot3\cdot4$.
 
 ::: exercise Bài tập 06.11
-Dữ kiện: kho $C=10^6$ vector đặc, $D=1000$ chiều; chữ ký $m=200$ hàm siêu phẳng.
+Dữ kiện: kho $C=10^6$ véc-tơ đặc, $D=1000$ chiều; chữ ký $m=200$ hàm siêu phẳng.
 
 Đếm số phép nhân để tính chữ ký, số từ lưu các pháp tuyến và số bit chữ ký của cả kho.
 :::
 
 ::: hint
-Mỗi hàm cần $D$ phép nhân cho một vector; các pháp tuyến dùng chung cho cả kho.
+Mỗi hàm cần $D$ phép nhân cho một véc-tơ; các pháp tuyến dùng chung cho cả kho.
 :::
 
 ::: solution
-Số phép nhân là $C\cdot m\cdot D=10^6\cdot200\cdot1000=2\cdot10^{11}$. Các pháp tuyến cần $m\cdot D=2\cdot10^5$ từ. Chữ ký dấu cần $m=200$ bit mỗi vector, tức $2\cdot10^8$ bit cho cả kho.
+Số phép nhân là $C\cdot m\cdot D=10^6\cdot200\cdot1000=2\cdot10^{11}$. Các pháp tuyến cần $m\cdot D=2\cdot10^5$ từ. Chữ ký dấu cần $m=200$ bit mỗi véc-tơ, tức $2\cdot10^8$ bit cho cả kho.
 
 **Kiểm tra lại.** Dữ liệu gốc có $C\cdot D=10^9$ số, mỗi số một từ. Với từ $64$ bit, dữ liệu gốc chiếm $6{,}4\cdot10^{10}$ bit, gấp $320$ lần $2\cdot10^8$ bit chữ ký.
 :::
 
 Như vậy, chúng ta đã có ba họ cơ sở với bộ tham số chứng minh được: họ chọn tọa độ cho Hamming (Mệnh đề 06.29), họ siêu phẳng cho góc (Định lý 06.32) cùng quy tắc ước lượng góc (Thuật toán 06.33), và họ chiếu có dịch cho khoảng cách Euclid trong hai chiều (Bổ đề 06.35, Định lý 06.36); chi phí lấy chữ ký là $O(Cm)$ hoặc $O(CmD)$ (Mệnh đề 06.38). Mỗi họ đưa vào phép ghép của Mục 3.7 và Thuật toán 06.4 mà không đổi thùng hay bước xác minh.
 
-Tuy nhiên, các kết quả này giả định dữ liệu đã ở dạng tập, vector bit hay vector số với độ đo đã chọn, và giả định hàm băm được chọn ngẫu nhiên từ một họ. Trong Mục 5, chúng ta xét ba bài toán, trong đó việc chọn biểu diễn, chọn hàm và thậm chí việc có hay không một phân phối chọn hàm là phần chính của lời giải.
+Tuy nhiên, các kết quả này giả định dữ liệu đã ở dạng tập, véc-tơ bit hay véc-tơ số với độ đo đã chọn, và giả định hàm băm được chọn ngẫu nhiên từ một họ. Trong Mục 5, chúng ta xét ba bài toán, trong đó việc chọn biểu diễn, chọn hàm và thậm chí việc có hay không một phân phối chọn hàm là phần chính của lời giải.
 
 ## 5. Ứng dụng tìm cặp tương đồng
 
@@ -1638,7 +1638,7 @@ Với shingle 10 ký tự, cả hai loại cặp có Jaccard khoảng $1/3$, nê
 
 **Mô hình hóa.** Chữ ký dấu và quy tắc $\widehat\theta=\pi\widehat p_{\ne}$ của Thuật toán 06.33.
 
-**Kiểm giả thiết.** Thuật toán 06.33 và Định lý 06.32 cần pháp tuyến đẳng hướng. Vector $\pm1$ chọn đều trong 16 vector của $\mathbb R^4$ không đẳng hướng: chúng chỉ có 16 hướng. Giả thiết không thỏa.
+**Kiểm giả thiết.** Thuật toán 06.33 và Định lý 06.32 cần pháp tuyến đẳng hướng. Véc-tơ $\pm1$ chọn đều trong 16 véc-tơ của $\mathbb R^4$ không đẳng hướng: chúng chỉ có 16 hướng. Giả thiết không thỏa.
 
 **Áp dụng.** Với ba pháp tuyến của Ví dụ 06.15, $\widehat\theta=120^\circ$. Xét đủ 16 pháp tuyến với quy ước $\operatorname{sign}(0)=+1$, có 4 pháp tuyến cho hai dấu khác nhau, nên tỷ lệ khác dấu là $1/4$ và góc ước lượng là $45^\circ$. Góc thật là $\arccos(40/\sqrt{2580})\approx38{,}047579^\circ$.
 
@@ -1646,20 +1646,20 @@ Với shingle 10 ký tự, cả hai loại cặp có Jaccard khoảng $1/3$, nê
 
 **Diễn giải.** Có hai nguồn sai. Ba bit cho một ước lượng thô: $120^\circ$ so với $45^\circ$ của toàn bộ 16 pháp tuyến. Phân phối không đẳng hướng tạo sai lệch không mất đi khi dùng hết các pháp tuyến: $45^\circ$ so với $38{,}05^\circ$.
 
-**Giới hạn.** Tình huống chỉ đo sai lệch trên một cặp vector; nó không cho cận sai lệch chung của phân phối $\pm1$.
+**Giới hạn.** Tình huống chỉ đo sai lệch trên một cặp véc-tơ; nó không cho cận sai lệch chung của phân phối $\pm1$.
 
 **Dẫn ngược lý thuyết.** Định nghĩa 06.31, Định lý 06.32 (giả thiết đẳng hướng bị vi phạm), Thuật toán 06.33, Ví dụ 06.15, Mệnh đề 06.38.
 :::
 
 **Ứng dụng trong các bài sau.**
 
-- Bài 07 (Chỉ mục hàng xóm gần đúng) dùng LSH của chương này làm bộ lọc ứng viên cho truy vấn: vector truy vấn được băm bằng cùng các hàm, và chỉ các vector cùng thùng được đo khoảng cách. LSH được đặt trong bảng so sánh với đồ thị thế giới nhỏ phân tầng (Hierarchical Navigable Small World, HNSW) và lượng tử hóa tích (product quantization, PQ).
+- Bài 07 (Chỉ mục hàng xóm gần đúng) dùng LSH của chương này làm bộ lọc ứng viên cho truy vấn: véc-tơ truy vấn được băm bằng cùng các hàm, và chỉ các véc-tơ cùng thùng được đo khoảng cách. LSH được đặt trong bảng so sánh với đồ thị thế giới nhỏ phân tầng (Hierarchical Navigable Small World, HNSW) và lượng tử hóa tích (product quantization, PQ).
 - Phân dải có thể tổ chức trên MapReduce (Bài 3.4.4 của MMDS, tr.96). Trong mô hình của Bài 02, hàm map phát các cặp khóa–giá trị và mọi giá trị cùng khóa được gom về một lần gọi reduce; khóa dải $(j,z)$ của Định nghĩa 06.3 có thể làm khóa, với mã tài liệu làm giá trị, để mỗi lần gọi reduce nhận đúng một thùng.
 
 <!-- note-topic-id: lec-06-topic-14 -->
 ## Tóm tắt chương
 
-Chương bắt đầu từ giới hạn của Bài 05: chữ ký MinHash làm kho một triệu tài liệu vừa bộ nhớ, nhưng số cặp vẫn là $499\,999\,500\,000$ (Ví dụ 06.1). Chúng ta tách bài toán thành bộ tạo ứng viên và bước xác minh (Định nghĩa 06.1), rồi dựng bộ tạo đầu tiên bằng phân dải chữ ký (Định nghĩa 06.3, Thuật toán 06.4), đúng trên tập ứng viên (Mệnh đề 06.5). Một cặp có Jaccard $s$ được xét với xác suất $P_{b,r}(s)=1-(1-s^r)^b$ (Định lý 06.7), nên cặp đạt ngưỡng bị bỏ sót với xác suất $(1-s^r)^b$ (Hệ quả 06.8), và cách tách $n=br$ dời vùng chuyển tiếp của đường xác suất (Mệnh đề 06.9). Công việc là $O(nC+Q+\sum T_J)$ nhưng $K$ có thể bằng $\binom C2$ trong trường hợp xấu nhất (Mệnh đề 06.11, Nhận xét 06.12). Chúng ta khái quát hóa tính chất của MinHash thành họ $(d_1,d_2,p_1,p_2)$-nhạy cảm (Định nghĩa 06.22), dựng hai phép ghép (Mệnh đề 06.26) và ba họ cơ sở theo Hamming, góc và khoảng cách Euclid (Mệnh đề 06.29, Định lý 06.32, Định lý 06.36). Ba ứng dụng chỉ đổi biểu diễn hoặc họ hàm, còn thùng và xác minh giữ nguyên. Với kho một triệu tài liệu, nếu ngoài $N$ cặp gần mọi cặp có $s\le0{,}1$ và $(b,r)=(20,5)$, Mệnh đề 06.13 cho số cặp phải xác minh kỳ vọng không quá $N+10^8$; nếu mỗi lần xác minh tốn $1\,\mu\mathrm{s}$ như một lần so chữ ký ở Ví dụ 06.1 và $N\ll10^8$, thời gian xác minh kỳ vọng không quá khoảng $100$ giây, so với khoảng $5{,}79$ ngày khi xét mọi cặp. Giới hạn còn lại là truy vấn hàng xóm gần trên vector: Bài 07 dùng LSH làm bộ lọc ứng viên và so nó với HNSW và PQ.
+Chương bắt đầu từ giới hạn của Bài 05: chữ ký MinHash làm kho một triệu tài liệu vừa bộ nhớ, nhưng số cặp vẫn là $499\,999\,500\,000$ (Ví dụ 06.1). Chúng ta tách bài toán thành bộ tạo ứng viên và bước xác minh (Định nghĩa 06.1), rồi dựng bộ tạo đầu tiên bằng phân dải chữ ký (Định nghĩa 06.3, Thuật toán 06.4), đúng trên tập ứng viên (Mệnh đề 06.5). Một cặp có Jaccard $s$ được xét với xác suất $P_{b,r}(s)=1-(1-s^r)^b$ (Định lý 06.7), nên cặp đạt ngưỡng bị bỏ sót với xác suất $(1-s^r)^b$ (Hệ quả 06.8), và cách tách $n=br$ dời vùng chuyển tiếp của đường xác suất (Mệnh đề 06.9). Công việc là $O(nC+Q+\sum T_J)$ nhưng $K$ có thể bằng $\binom C2$ trong trường hợp xấu nhất (Mệnh đề 06.11, Nhận xét 06.12). Chúng ta khái quát hóa tính chất của MinHash thành họ $(d_1,d_2,p_1,p_2)$-nhạy cảm (Định nghĩa 06.22), dựng hai phép ghép (Mệnh đề 06.26) và ba họ cơ sở theo Hamming, góc và khoảng cách Euclid (Mệnh đề 06.29, Định lý 06.32, Định lý 06.36). Ba ứng dụng chỉ đổi biểu diễn hoặc họ hàm, còn thùng và xác minh giữ nguyên. Với kho một triệu tài liệu, nếu ngoài $N$ cặp gần mọi cặp có $s\le0{,}1$ và $(b,r)=(20,5)$, Mệnh đề 06.13 cho số cặp phải xác minh kỳ vọng không quá $N+10^8$; nếu mỗi lần xác minh tốn $1\,\mu\mathrm{s}$ như một lần so chữ ký ở Ví dụ 06.1 và $N\ll10^8$, thời gian xác minh kỳ vọng không quá khoảng $100$ giây, so với khoảng $5{,}79$ ngày khi xét mọi cặp. Giới hạn còn lại là truy vấn hàng xóm gần trên véc-tơ: Bài 07 dùng LSH làm bộ lọc ứng viên và so nó với HNSW và PQ.
 
 **Định nghĩa và kết quả theo mục.**
 
@@ -1701,7 +1701,7 @@ Trong hai chiều, họ chiếu có dịch là $(a/2,2a,1/2,1/3)$-nhạy cảm (
 - Xác suất trong định nghĩa họ nhạy cảm lấy theo cách chọn hàm, với cùng một hàm cho hai đối tượng.
 - $P_{b,r}(s)$ là xác suất theo cặp, không phải tỷ lệ lỗi của kho; $\widehat s$ không phải $s$.
 - Kỳ vọng của $K$, $Q$ ở Mệnh đề 06.13 lấy theo cách chọn hoán vị, không phải chi phí xấu nhất; Nhận xét 06.12 cho $K=\binom C2$. Kỳ vọng ở Mệnh đề 06.11 chỉ lấy theo hàm băm của bảng.
-- Định lý 06.32 cần pháp tuyến đẳng hướng và góc đo bằng radian; vector $\pm1$ không đẳng hướng (Tình huống 06.4).
+- Định lý 06.32 cần pháp tuyến đẳng hướng và góc đo bằng radian; véc-tơ $\pm1$ không đẳng hướng (Tình huống 06.4).
 - Cận $1/2$ của Định lý 06.36 cần dịch đều; cận $1/3$ chỉ được chứng minh trong hai chiều, cần hướng đều nhưng không cần dịch đều. Trục cố định không có bảo đảm.
 - Hàm khóa cố định không cho xác suất bỏ sót (Nhận xét 06.40). Các số của mô hình vân tay là dự đoán của mô hình, dựa thêm vào giả thiết độc lập thêm của Ví dụ 06.18; với cấu trúc OR, số bỏ sót của Ví dụ 06.18 là cận dưới, còn với AND hai nhóm, bất đẳng thức Jensen trên $[0,1]$ không cho chiều sai lệch (Tình huống 06.2).
 - Xác minh loại ứng viên giả nhưng không lấy lại cặp bỏ sót.
@@ -1717,7 +1717,7 @@ Bài tập 06.15–06.30 nằm trong [tệp bài tập Bài 06](material-viewer.
 - Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press, Chương 3. Ví dụ 3.8, tr.85–86: dữ kiện bốn tập đặc trưng. §3.4, tr.91–96: Mục 1 và Mục 2. §3.5, tr.96–103: Mục 3.1–3.5. §3.6, tr.103–108: Mục 3.6–3.7. §3.7, tr.108–114: Mục 4. §3.8, tr.114–122: Mục 5 và các tình huống áp dụng. Bài tập 06.15–06.30 của tệp bài tập lấy từ §§3.4.4, 3.5.7, 3.6.4, 3.7.6, 3.8.7. Sách và bộ trang chiếu của các tác giả tại [http://www.mmds.org](http://www.mmds.org); phần lớn sườn, ví dụ và bài tập của chương dựa trên nguồn này.
 - Leskovec, J. (2026). Stanford CS246, [LSH I](https://web.stanford.edu/class/cs246/slides/03-lsh.pdf) và [LSH II](https://web.stanford.edu/class/cs246/slides/04-lsh_theory.pdf). Đối chiếu phân dải, phép ghép và hình học pháp tuyến của Mục 4.2; hình trong ghi chú được vẽ lại.
 - Datar, M., Immorlica, N., Indyk, P. và Mirrokni, V. S. (2004). [*Locality-Sensitive Hashing Scheme Based on p-Stable Distributions*](https://people.csail.mit.edu/nickle/pubs/pstable.pdf), SoCG 2004, §3.2. Cơ chế dịch đều của Định nghĩa 06.34 và Bổ đề 06.35. Bộ tham số $(a/2,2a,1/2,1/3)$ và lập luận góc của Định lý 06.36 theo MMDS §3.7.4 (tr.111–113). Phân phối ổn định không thuộc chương này.
-- Blum, A., Hopcroft, J. và Kannan, R. (2018). *Foundations of Data Science*, bản thảo ngày 4/1/2018, §2.5, tr.22–23. Phân phối đều trên mặt cầu đơn vị sinh từ vector chuẩn tắc, dùng ở Thuật toán 06.33.
+- Blum, A., Hopcroft, J. và Kannan, R. (2018). *Foundations of Data Science*, bản thảo ngày 4/1/2018, §2.5, tr.22–23. Phân phối đều trên mặt cầu đơn vị sinh từ véc-tơ chuẩn tắc, dùng ở Thuật toán 06.33.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press, §2.1. Cách phát biểu bất biến vòng lặp với ba phần khởi tạo, duy trì, kết thúc, dùng cho chứng minh Mệnh đề 06.5.
 - Đọc tiếp, không là tiên quyết của bài tập: Bài 3.4.4 của MMDS (tr.96) về tổ chức phân dải trên MapReduce; Ví dụ 3.21 (tr.108) về phép ghép 256 hàm; Bài 3.6.2–3.6.4 (tr.108) về điểm bất động và độ dốc của các hàm ghép; §3.7.5 (tr.113) về mở rộng định tính của họ chiếu sang nhiều chiều.
 - Ghi chú Bài 01: Định nghĩa 01.9.

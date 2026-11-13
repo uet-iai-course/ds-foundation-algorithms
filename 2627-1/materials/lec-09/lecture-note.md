@@ -186,7 +186,7 @@ Bảng ghi trạng thái mà cách làm hiển nhiên giữ cho từng câu hỏ
 | bit 1 trong $k$ vị trí cuối | $y_k$ | giữ $N$ bit cuối (MMDS §4.6, tr.150) | $N$ bit |
 | phần tử phổ biến gần đây | $D_r(u)$ với mọi $u$ | một điểm cho mỗi phần tử đã gặp, cập nhật theo truy hồi của Mục 6 | $d$ số |
 
-Với tập vũ trụ là các địa chỉ IPv4, $\lvert\mathcal U\rvert=2^{32}\approx4{,}3\cdot10^9$. Một vector bit đánh dấu mọi địa chỉ đã gặp cần $2^{32}$ bit, tức $2^{29}$ byte $=512$ MiB cho mỗi dòng. Với cửa sổ $N=10^9$ lượt (trang chiếu Stanford CS246 2017, Streams 1, tr.13), giữ $N$ bit cho một URL tốn $10^9/8$ byte $=125$ MB.
+Với tập vũ trụ là các địa chỉ IPv4, $\lvert\mathcal U\rvert=2^{32}\approx4{,}3\cdot10^9$. Một véc-tơ bit (bit vector) đánh dấu mọi địa chỉ đã gặp cần $2^{32}$ bit, tức $2^{29}$ byte $=512$ MiB cho mỗi dòng. Với cửa sổ $N=10^9$ lượt (trang chiếu Stanford CS246 2017, Streams 1, tr.13), giữ $N$ bit cho một URL tốn $10^9/8$ byte $=125$ MB.
 
 Bài 08 đo bộ nhớ bằng từ máy (Định nghĩa 08.3); với Flajolet–Martin và DGIM, chúng ta đếm theo bit, vì đếm bằng từ máy sẽ che mất thừa số $\log N$ khi so $O(\log^2N)$ bit với $N$ bit.
 :::
@@ -211,7 +211,7 @@ Như vậy, chúng ta đã đặt năm câu hỏi thành các đại lượng c�
 
 ## 2. Đếm phần tử phân biệt bằng Flajolet–Martin
 
-Bài toán đếm phần tử phân biệt (count-distinct problem) hỏi $F_0=d$ của dòng đã đọc (MMDS §4.4.1, tr.142). Với dòng địa chỉ IP của một trang, vector bit chính xác cần 512 MiB (Nhận xét 09.3). Trong ba lối ra MMDS nêu (thêm máy, đưa cấu trúc xuống đĩa, hoặc chỉ ước lượng; tr.142–143), chúng ta theo lối thứ ba: giữ một số nhỏ cho mỗi hàm băm, chặn sai số của nó, rồi gộp nhiều hàm băm.
+Bài toán đếm phần tử phân biệt (count-distinct problem) hỏi $F_0=d$ của dòng đã đọc (MMDS §4.4.1, tr.142). Với dòng địa chỉ IP của một trang, véc-tơ bit chính xác cần 512 MiB (Nhận xét 09.3). Trong ba lối ra MMDS nêu (thêm máy, đưa cấu trúc xuống đĩa, hoặc chỉ ước lượng; tr.142–143), chúng ta theo lối thứ ba: giữ một số nhỏ cho mỗi hàm băm, chặn sai số của nó, rồi gộp nhiều hàm băm.
 
 <!-- note-topic-id: lec-09-topic-03 -->
 ### 2.1 Đếm chính xác và giới hạn bộ nhớ
@@ -692,7 +692,7 @@ Thuật toán 09.13 giữ $q$ số $R_j$; mệnh đề sau đếm bit và phép 
 **Bước 3 (truy vấn).** Truy vấn tính $q$ lũy thừa và $q$ phép cộng cho $g$ trung bình, rồi sắp $g$ số để lấy trung vị. $\square$
 :::
 
-Với $L=64$, mỗi $R_j$ cần 7 bit. Nếu $d$ khoảng $10^6$, $\log_2d\approx20$; $g=21$ nhóm cỡ 20 cho $q=420$ hàm băm và $2\,941$ bit, khoảng 368 byte cho một dòng, so với 512 MiB của vector bit (Nhận xét 09.3).
+Với $L=64$, mỗi $R_j$ cần 7 bit. Nếu $d$ khoảng $10^6$, $\log_2d\approx20$; $g=21$ nhóm cỡ 20 cho $q=420$ hàm băm và $2\,941$ bit, khoảng 368 byte cho một dòng, so với 512 MiB của véc-tơ bit (Nhận xét 09.3).
 
 ::: remark Nhận xét 09.17 (Trong thực hành)
 Mỗi trang có một bộ $q$ số nguyên nhỏ $R_j$; giới hạn thực tế là thời gian tính $q$ giá trị băm mỗi phần tử (MMDS §4.4.4, tr.144–145).

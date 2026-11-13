@@ -535,3 +535,8 @@ Chế độ `no-ai-slop`: Detect. Dòng `html:` là dòng của tệp deck (mỗ
 ### Quyết định của người dùng (2026-11-13)
 
 - Quyết định của người dùng (2026-11-13): thống nhất thuật ngữ "véc-tơ" cho deck và ghi chú (tên tiếng Anh "vector" chỉ trong ngoặc ở lần dùng đầu). Deck 09 (4 chỗ) và ghi chú 09 (3 chỗ) viết "vector": đổi thành "véc-tơ" trừ tên tiếng Anh trong ngoặc.
+
+## Thuật ngữ "véc-tơ" trong ghi chú (2026-11-13)
+
+Theo quyết định người dùng 2026-11-13 ("dùng 'véc-tơ'"), tác tử chỉnh sửa ghi chú (`general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit) đổi "vector" thành "véc-tơ" trong ghi chú; tên tiếng Anh giữ trong ngoặc ở lần dùng đầu. Chạy trước đợt sửa deck, không chạy cùng tác tử deck. Điều phối viên đọc word-diff (chỉ có thay thuật ngữ và chú thích tiếng Anh), `git diff --check` sạch; trình xem ở 1440×900 và 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không cuộn ngang. Quyết định: chấp nhận.
+- Ghi chú 09: 3/3 chỗ đổi; lần đầu "véc-tơ bit (bit vector)". `img/lec-09/fm-bai-toan.svg` (chỉ deck dùng) còn "vector" trong `desc`: sửa ở đợt sửa deck.
