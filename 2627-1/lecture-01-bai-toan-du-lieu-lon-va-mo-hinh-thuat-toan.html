@@ -96,7 +96,7 @@
       <p><strong>Đầu ra:</strong> một điểm quan trọng cho mỗi trang, dùng để sắp kết quả tìm kiếm.</p>
       <figure class="l01-figure"><img src="img/lec-01/ung-dung-xep-hang-web.svg" role="img" alt="Ba trang y, a, m liên kết có hướng; y có liên kết về chính nó. Điểm từng trang được cập nhật qua nhiều vòng để hỗ trợ sắp kết quả tìm kiếm."/></figure>
       <p class="ex-takeaway">Mỗi vòng đọc mọi liên kết; ma trận đặc cho mọi cặp trang lãng phí khi đồ thị thưa.</p>
-      <aside class="notes"><p>Mỗi hộp là một trang web, mũi tên là liên kết có hướng: y trỏ đến y và a; a trỏ đến y và m; m trỏ đến a. Điểm của một trang phụ thuộc điểm của các trang trỏ đến nó, nên phép tính được lặp qua nhiều vòng, và mỗi vòng đọc mọi liên kết của đồ thị. Lưu đồ thị thành ma trận đặc có một ô cho mọi cặp trang, trong khi phần lớn cặp trang không có liên kết. PageRank là phương pháp của Bài 03.</p><p>Nguồn: MMDS §5.1–5.2; ghi chú Bài 01, bảng bảy bài toán ở Mục 1.2.</p></aside>
+      <aside class="notes"><p>Mỗi hộp là một trang web, mũi tên là liên kết có hướng: y trỏ đến y và a; a trỏ đến y và m; m trỏ đến a. Điểm của một trang phụ thuộc điểm của các trang trỏ đến nó, nên phép tính được lặp qua nhiều vòng, và mỗi vòng đọc mọi liên kết của đồ thị. Lưu đồ thị thành ma trận đặc có một ô cho mọi cặp trang, trong khi phần lớn cặp trang không có liên kết. PageRank là phương pháp của Bài 03.</p><p>Nguồn: đồ thị y, a, m theo trang chiếu MMDS, <em>Link Analysis</em> 1, tr.19; phép lặp và ma trận thưa theo MMDS §5.1–5.2; ghi chú Bài 01, bảng bảy bài toán ở Mục 1.2.</p></aside>
     </section>
     <section data-slide-id="L01-A04" class="example-slide">
       <h2>Ưu tiên kết quả tìm kiếm theo chủ đề</h2>
@@ -587,7 +587,7 @@
       <p>Bài 03: mỗi vòng, trang chuyển phần $\beta$ điểm cho các trang nó trỏ tới, phần còn lại chia đều (Định nghĩa 03.8).</p>
       <p>Bài 04: PageRank theo chủ đề, TrustRank, khối lượng rác (spam mass), HITS.</p>
       <p class="ex-takeaway">Thuộc tính cần đánh giá: điều kiện hội tụ, tiêu chuẩn dừng, chi phí mỗi vòng.</p>
-      <aside class="notes"><p>Bài 03–04 tính điểm từ đồ thị liên kết để sắp kết quả tìm kiếm. Bài 03 xếp hạng trang bằng phép lặp PageRank, xử lý nút cụt (dead end) và bẫy nhện (spider trap); ánh xạ cập nhật đầy đủ của Định nghĩa 03.8 có hằng số $0&lt;\beta&lt;1$, và điểm của nút cụt cũng được chia đều; lời giải được đánh giá theo điều kiện hội tụ, tiêu chuẩn dừng và chi phí mỗi vòng, đo bằng các đại lượng của Định nghĩa 01.13. Bài 04 xử lý hai bài toán của mạch 1: ưu tiên chủ đề, như ô tô cho truy vấn Jaguar, và hạn chế liên kết rác. Thuộc tính cần đánh giá ở Bài 04 là giả thiết về tín hiệu và giới hạn diễn giải của điểm.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1; MMDS §5.1–5.4.</p></aside>
+      <aside class="notes"><p>Bài 03–04 tính điểm từ đồ thị liên kết để sắp kết quả tìm kiếm. Bài 03 xếp hạng trang bằng phép lặp PageRank, xử lý nút cụt (dead end) và bẫy nhện (spider trap); ánh xạ cập nhật đầy đủ của Định nghĩa 03.8 có hằng số $0&lt;\beta&lt;1$, và điểm của nút cụt cũng được chia đều; lời giải được đánh giá theo điều kiện hội tụ, tiêu chuẩn dừng và chi phí mỗi vòng, đo bằng các đại lượng của Định nghĩa 01.13. Bài 04 xử lý hai bài toán của mạch 1: ưu tiên chủ đề, như ô tô cho truy vấn Jaguar, và hạn chế liên kết rác. Thuộc tính cần đánh giá ở Bài 04 là giả thiết về tín hiệu và giới hạn diễn giải của điểm.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1; MMDS §5.1–5.4; đồ thị y, a, m theo trang chiếu MMDS, <em>Link Analysis</em> 1, tr.19.</p></aside>
     </section>
     <section data-slide-id="L01-D04" class="example-slide">
       <h2>MinHash và LSH: chọn cặp cần đối chiếu</h2>
@@ -600,39 +600,40 @@
     </section>
     <section data-slide-id="L01-D09" class="example-slide">
       <h2>Chỉ mục cho truy vấn véc-tơ</h2>
-      <p>Bài 07: $k$ hàng xóm gần đúng, không quét toàn kho.</p>
+      <p>Bài 07: $k$ hàng xóm gần đúng, không quét kho.</p>
       <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-vec-to.svg" role="img" alt="HNSW tìm qua các liên kết lân cận; PQ chia véc-tơ thành đoạn và lưu mã đại diện."/></figure>
-      <p><em>Đồ thị thế giới nhỏ phân tầng</em> (hierarchical navigable small world, HNSW): tìm tham lam từ tầng trên xuống.</p>
-      <p><em>Lượng tử hóa tích</em> (product quantization, PQ): mỗi đoạn véc-tơ thay bằng chỉ số tâm con (Định nghĩa 07.27).</p>
+      <p><em>Đồ thị thế giới nhỏ phân tầng</em> (hierarchical navigable small world, HNSW): tìm tham lam ở các tầng trên.</p>
+      <p><em>Lượng tử hóa tích</em> (product quantization, PQ): thay đoạn tọa độ bằng chỉ số véc-tơ đại diện gần nhất.</p>
       <p class="ex-takeaway">Cần đánh giá: độ thu hồi, độ trễ, bộ nhớ, chi phí xây dựng.</p>
-      <aside class="notes"><p>Bài 07 còn học chỉ mục phân vùng kết hợp PQ (IVF-PQ). Truy vấn HNSW (Thuật toán 07.17) đi từ tầng cao nhất xuống, mỗi tầng tìm tham lam trên đồ thị lân cận. Bài 07 giải bài toán $k$ hàng xóm gần nhất của mạch 1 theo cách gần đúng, nên tập đúng $\mathcal N_k(\mathbf y)$ với quy tắc phá hòa là chuẩn để đối chiếu. Bốn thuộc tính phải đánh giá đều là đại lượng của Định nghĩa 01.13: độ thu hồi tại $k$, như $3/5$ ở ví dụ năm hàng xóm; độ trễ truy vấn; bộ nhớ; chi phí xây dựng chỉ mục. Với kho $10^{10}$ véc-tơ, quét hết tốn $10^{10}$ phép tính khoảng cách cho mỗi truy vấn.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1; Princeton COS 597A, lớp 8–9; Stanford BIODS 271, L12.</p></aside>
+      <aside class="notes"><p>Bài 07 còn học chỉ mục phân vùng kết hợp PQ (IVF-PQ). Truy vấn HNSW (Thuật toán 07.17) tìm tham lam ở các tầng trên, từ tầng cao nhất xuống, rồi tìm kiếm chùm (beam search) ở tầng 0. PQ (Định nghĩa 07.27) chia véc-tơ thành các đoạn tọa độ liên tiếp và thay mỗi đoạn bằng chỉ số của véc-tơ đại diện gần nó nhất trong danh sách chọn trước cho đoạn đó. Bài 07 giải bài toán $k$ hàng xóm gần nhất của mạch 1 theo cách gần đúng, nên tập đúng $\mathcal N_k(\mathbf y)$ với quy tắc phá hòa là chuẩn để đối chiếu. Bốn thuộc tính cần đánh giá là đại lượng của Định nghĩa 01.13; với ví dụ năm hàng xóm, độ thu hồi tại $k$ bằng $3/5$.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1; Princeton COS 597A, lớp 8–9; Stanford BIODS 271, L12.</p></aside>
     </section>
     <section data-slide-id="L01-D05" class="example-slide">
       <h2>Lấy mẫu và lọc trên dòng dữ liệu</h2>
-      <p>Bài 08: giữ một phần lịch sử truy vấn; lọc địa chỉ thư trước khi tra danh sách.</p>
+      <p>Bài 08: giữ một phần lịch sử truy vấn; lọc thư theo danh sách địa chỉ.</p>
       <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-mau-loc.svg" role="img" alt="Dòng truy vấn cập nhật mẫu; địa chỉ thư qua bộ lọc Bloom rồi được xác minh khi có thể thuộc danh sách."/></figure>
       <p>Phương pháp: lấy mẫu theo khóa, lấy mẫu hồ chứa, bộ lọc Bloom.</p>
-      <p>Bloom: $k$ hàm băm đặt bit; một bit 0 thì trả “chắc chắn không thuộc” (Định nghĩa 08.22).</p>
+      <p>Bloom: hàm băm đặt bit; có bit 0 ở vị trí băm thì “chắc chắn không thuộc” (Định nghĩa 08.22).</p>
       <p class="ex-takeaway">Thuộc tính cần đánh giá: đơn vị mẫu, trạng thái, sai số một phía.</p>
-      <aside class="notes"><p>Trên dòng dữ liệu, mỗi bản ghi được đọc một lần, và thuật toán chỉ giữ một trạng thái nhỏ: một mẫu hay một mảng bit. Ví dụ mẫu theo từng truy vấn cho thấy đơn vị mẫu quyết định đại lượng được đo: chọn từng bản ghi cho tỷ số $1/29$ thay vì $1/2$, chọn theo người dùng giữ đúng tỷ lệ. Bài toán lọc thư cần một trạng thái $8\cdot10^9$ bit để loại phần lớn thư ngoài danh sách $10^9$ địa chỉ mà không loại thư trong danh sách.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1 và Mục 2.2; MMDS §4.2–4.3.</p></aside>
+      <aside class="notes"><p>Trên dòng dữ liệu, mỗi bản ghi được đọc một lần, và thuật toán chỉ giữ một trạng thái nhỏ: một mẫu hay một mảng bit. Ví dụ mẫu theo từng truy vấn cho thấy đơn vị mẫu quyết định đại lượng được đo: chọn từng bản ghi cho tỷ số $1/29$ thay vì $1/2$, chọn theo người dùng giữ đúng tỷ lệ. Bài toán lọc thư cần một trạng thái $8\cdot10^9$ bit để loại phần lớn thư ngoài danh sách $10^9$ địa chỉ mà không loại thư trong danh sách. Bộ lọc Bloom đặt bằng 1 các bit tại vị trí băm của mỗi địa chỉ trong danh sách; địa chỉ truy vấn có ít nhất một bit 0 tại các vị trí băm của nó thì chắc chắn không thuộc danh sách.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1 và Mục 2.2; MMDS §4.2–4.3.</p></aside>
     </section>
     <section data-slide-id="L01-D10" class="example-slide">
       <h2>Cấu trúc gọn cho thống kê dòng</h2>
       <p>Bài 09: số người dùng khác nhau, số lần truy cập trong cửa sổ, không lưu toàn bộ lịch sử.</p>
       <figure class="l01-figure l01-short"><img src="img/lec-01/chuong-trinh-thong-ke.svg" role="img" alt="Bản ghi mới cập nhật trạng thái gọn; truy vấn đọc trạng thái để nhận ước lượng."/></figure>
       <p>Phương pháp: Flajolet–Martin, Count-Min, AMS, DGIM, suy giảm mũ.</p>
-      <p>Flajolet–Martin giữ độ dài đuôi lớn nhất $R$ của giá trị băm, ước lượng $2^R$ (Định nghĩa 09.5).</p>
+      <p>Flajolet–Martin ước lượng bằng 2 mũ độ dài đuôi lớn nhất của giá trị băm (Định nghĩa 09.5).</p>
       <p class="ex-takeaway">Thuộc tính cần đánh giá: đại lượng ước lượng, cửa sổ, sai số, bộ nhớ.</p>
-      <aside class="notes"><p>Hai câu hỏi đếm của nhật ký truy cập: số người dùng khác nhau đã gặp, và số lần truy cập trong cửa sổ gần nhất. Lưu mọi mã người dùng có thể vượt bộ nhớ; một bộ đếm tổng không biết lần nào đã ra khỏi cửa sổ. Bài 09 giữ vài bộ đếm làm trạng thái và trả một ước lượng, nên lời giải phải nêu đại lượng được ước lượng, phạm vi cửa sổ, sai số và bộ nhớ. Một trạng thái thống kê không dựng lại được nhật ký.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1 và Mục 2.2; MMDS §4.4–4.7.</p></aside>
+      <aside class="notes"><p>Hai câu hỏi đếm của nhật ký truy cập: số người dùng khác nhau đã gặp, và số lần truy cập trong cửa sổ gần nhất. Lưu mọi mã người dùng có thể vượt bộ nhớ; một bộ đếm tổng không biết lần nào đã ra khỏi cửa sổ. Flajolet–Martin băm mỗi phần tử của dòng thành một chuỗi bit, chỉ giữ độ dài đuôi lớn nhất, tức số bit 0 liên tiếp ở cuối nhiều nhất đã gặp, và ước lượng số phần tử khác nhau bằng 2 mũ độ dài đó. Bài 09 giữ vài bộ đếm làm trạng thái và trả một ước lượng, nên lời giải phải nêu đại lượng được ước lượng, phạm vi cửa sổ, sai số và bộ nhớ. Một trạng thái thống kê không dựng lại được nhật ký.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1 và Mục 2.2; MMDS §4.4–4.7.</p></aside>
     </section>
     <section data-slide-id="L01-D06" class="example-slide">
       <h2>Nén theo ký hiệu, mẫu lặp và ảnh</h2>
-      <p>Huffman ghép hai nút trọng số nhỏ nhất đến khi còn một cây (Thuật toán 10.14).</p>
+      <p>Huffman (Thuật toán 10.14): mỗi ký hiệu là một lá, trọng số bằng số lần xuất hiện.</p>
+      <p>Ghép hai nút trọng số nhỏ nhất thành nút cha trọng số bằng tổng, đến khi còn một cây.</p>
       <figure class="l01-figure l01-short"><img src="img/lec-01/ung-dung-nen-van-ban.svg" role="img" alt="Chuỗi aabaacabcabcb phải khôi phục nguyên vẹn từ mã và thông tin giải mã."/></figure>
       <table class="ex-table"><thead><tr><th scope="col">Bài</th><th scope="col">Phương pháp</th><th scope="col">Thuộc tính cần đánh giá</th></tr></thead><tbody>
       <tr><td>10</td><td>Huffman tĩnh, Huffman thích nghi, mã số học</td><td>độ dài mã, thông tin giải mã</td></tr>
       <tr><td>11</td><td>LZ77, LZ78, LZW; JPEG</td><td>khôi phục đúng hoặc sai khác cho phép</td></tr></tbody></table>
-      <aside class="notes"><p>Bài 10–11 giảm dung lượng lưu với yêu cầu khôi phục đã xác định. Mọi bộ nén không mất thông tin phải thỏa $\mathrm{dec}(\mathrm{enc}(x))=x$ của Định nghĩa 01.7, và dung lượng tính cả thông tin giải mã. Bài 10 học nén không mất thông tin theo ký hiệu; thuộc tính cần đánh giá là độ dài mã và thông tin giải mã. Bài 11 học nén bằng từ điển, khai thác các cụm lặp như ab, abc của chuỗi aabaacabcabcb, và nén ảnh JPEG; thuộc tính cần đánh giá là khôi phục đúng với nén từ điển, sai khác cho phép với nén ảnh có mất thông tin.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1; Nelson và Gailly, Chương 3, 11.</p></aside>
+      <aside class="notes"><p>Bài 10–11 giảm dung lượng lưu với yêu cầu khôi phục đã xác định. Mọi bộ nén không mất thông tin phải thỏa $\mathrm{dec}(\mathrm{enc}(x))=x$ của Định nghĩa 01.7, và dung lượng tính cả thông tin giải mã. Bài 10 học nén không mất thông tin theo ký hiệu; thuộc tính cần đánh giá là độ dài mã và thông tin giải mã. Trong cây Huffman, từ mã của mỗi ký hiệu là dãy bit trên đường từ gốc tới lá của nó. Bài 11 học nén bằng từ điển, khai thác các cụm lặp như ab, abc của chuỗi aabaacabcabcb, và nén ảnh JPEG; thuộc tính cần đánh giá là khôi phục đúng với nén từ điển, sai khác cho phép với nén ảnh có mất thông tin.</p><p>Nguồn: ghi chú Bài 01, bảng Mục 4.1; Nelson và Gailly, Chương 3, 11.</p></aside>
     </section>
     <section data-slide-id="L01-D07" class="example-slide">
       <h2>Tổ chức dữ liệu để giảm đọc ghi</h2>

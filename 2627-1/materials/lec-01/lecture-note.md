@@ -149,7 +149,7 @@ Bảng dưới đây liệt kê bảy bài toán trên kho web theo Định ngh�
 | Cặp tài liệu gần trùng | $N$ tài liệu và ngưỡng $\tau$ | mọi cặp có độ tương đồng $\ge\tau$ | $499\,999\,500\,000$ cặp khi $N=10^6$ | 05–06 |
 | $k$ hàng xóm gần nhất | $n$ véc-tơ, véc-tơ truy vấn $\mathbf y$ | $k$ véc-tơ gần $\mathbf y$ nhất | quét hết kho cho mỗi truy vấn | 07 |
 
-Ở hàng thứ hai, một từ xuất hiện ba lần trong một tài liệu góp 3 vào số đếm. Ở hàng thứ tư, truy vấn "jaguar" có thể chỉ loài báo, hãng ô tô, một phiên bản hệ điều hành MAC hoặc một máy chơi trò chơi cũ; biết người dùng quan tâm ô tô thì máy tìm kiếm ưu tiên các trang về xe (MMDS, §5.3.1, tr.195–196). Ở hàng thứ năm, một trang đích được nhiều trang hỗ trợ cùng một chủ sở hữu trỏ tới, và trang đích trỏ ngược lại từng trang hỗ trợ (MMDS, Hình 5.16, tr.200).
+Ở hàng thứ hai, một từ xuất hiện ba lần trong một tài liệu góp 3 vào số đếm. Ở hàng thứ ba, xét đồ thị ba trang $\mathrm y,\mathrm a,\mathrm m$ với năm liên kết $\mathrm y\to\mathrm y$, $\mathrm y\to\mathrm a$, $\mathrm a\to\mathrm y$, $\mathrm a\to\mathrm m$, $\mathrm m\to\mathrm a$: điểm của $\mathrm y$ phụ thuộc điểm của $\mathrm y$ và $\mathrm a$, hai trang trỏ tới nó, nên điểm được tính lặp qua nhiều vòng và mỗi vòng đọc cả năm liên kết (trang chiếu MMDS, *Link Analysis* 1, tr.19). Ở hàng thứ tư, truy vấn "jaguar" có thể chỉ loài báo, hãng ô tô, một phiên bản hệ điều hành MAC hoặc một máy chơi trò chơi cũ; biết người dùng quan tâm ô tô thì máy tìm kiếm ưu tiên các trang về xe (MMDS, §5.3.1, tr.195–196). Ở hàng thứ năm, một trang đích được nhiều trang hỗ trợ cùng một chủ sở hữu trỏ tới, và trang đích trỏ ngược lại từng trang hỗ trợ (MMDS, Hình 5.16, tr.200).
 
 Một cách trực quan, hai hàng cuối có đầu ra khác hẳn nhau. Tìm cặp gần trùng xét cả kho một lần và trả một tập cặp, có thể rất lớn. Tìm hàng xóm gần nhất nhận từng truy vấn, mỗi truy vấn trả đúng $k$ đối tượng, và công việc lặp lại với mọi truy vấn mới. Hàng cuối cần được nêu chính xác, kể cả trường hợp nhiều véc-tơ cách truy vấn bằng nhau.
 
@@ -439,9 +439,9 @@ Trên web, nhiều trang là bản sao của nhau: một trang được sao sang
 **Kiểm tra lại.** $|C_1|=5$, $|C_2|=6$, và $|C_1|+|C_2|-|C_1\cap C_2|=5+6-3=8=|C_1\cup C_2|$.
 :::
 
-![Hai tập S và T chồng lên nhau: hai phần tử chỉ thuộc S, ba phần tử chung, ba phần tử chỉ thuộc T; giao có ba phần tử, hợp có tám.](img/lec-01/danh-gia-jaccard.svg)
+![Hai tập C₁ và C₂ chồng lên nhau: hai phần tử chỉ thuộc C₁, ba phần tử chung, ba phần tử chỉ thuộc C₂; giao có ba phần tử, hợp có tám.](img/lec-01/danh-gia-jaccard-c.svg)
 
-Hình ghi hai tập bằng chữ $S$ (tập $C_1$) và $T$ (tập $C_2$). Vùng giữa là giao, cả hình là hợp. Một cách trực quan, độ gần trùng nên là phần chung tính trên toàn bộ nội dung của hai tài liệu: hai tập lớn chung ba phần tử ít giống nhau hơn hai tập nhỏ chung ba phần tử. Chia số phần tử chung cho số phần tử của hợp cho đúng tỷ lệ đó.
+Vùng giữa là giao $C_1\cap C_2$, cả hình là hợp $C_1\cup C_2$. Một cách trực quan, độ gần trùng nên là phần chung tính trên toàn bộ nội dung của hai tài liệu: hai tập lớn chung ba phần tử ít giống nhau hơn hai tập nhỏ chung ba phần tử. Chia số phần tử chung cho số phần tử của hợp cho đúng tỷ lệ đó.
 
 ::: definition Định nghĩa 01.9 (Độ tương đồng Jaccard)
 Cho hai tập hữu hạn $C,C'$ với $C\cup C'\ne\varnothing$. **Độ tương đồng Jaccard** (Jaccard similarity) của chúng là
@@ -627,7 +627,16 @@ Một **mô hình chi phí** chọn một đại lượng và một đơn vị �
 | Chất lượng | sai lệch của kết quả so với đặc tả, khi đặc tả cho phép kết quả gần đúng |
 :::
 
-Mỗi dòng là một mô hình riêng; con số của hai dòng không cộng được với nhau khi chưa có một mục tiêu chung. Hai cặp dễ nhầm là bộ nhớ làm việc (working memory) với dung lượng lưu trữ, và độ trễ (latency) với thông lượng (throughput), tức số truy vấn hoàn tất trong một đơn vị thời gian. Để đếm khối lượng tính toán của Thuật toán 01.11, ta cần chọn cách tính $\mathrm{SIM}$ ở bước 4.
+Mỗi dòng là một mô hình riêng; con số của hai dòng không cộng được với nhau khi chưa có một mục tiêu chung. Hai cặp dễ nhầm là bộ nhớ làm việc (working memory) với dung lượng lưu trữ, và độ trễ (latency) với thông lượng (throughput), tức số truy vấn hoàn tất trong một đơn vị thời gian.
+
+Bốn đại lượng của bảng có ví dụ trong các bài toán đã gặp:
+
+- **Bộ nhớ làm việc.** Phép nối của Mục 2.4 ghép bảng `student` 100 khối với bảng `takes` 400 khối trong bộ nhớ $M=20$ khối. Không bảng nào vừa bộ nhớ, nên thuật toán phải xử lý từng phần, và 20 khối đó còn phải chứa trạng thái của thuật toán và bộ đệm đọc ghi.
+- **Độ trễ truy vấn.** Một truy vấn $k$ hàng xóm gần nhất (Định nghĩa 01.2) đi qua bốn công đoạn: chờ xử lý, truy cập dữ liệu, tính khoảng cách và trả kết quả. Khi quét hết kho $10^{10}$ véc-tơ của Ví dụ 01.2, công đoạn tính khoảng cách của mỗi truy vấn gồm $10^{10}$ phép tính khoảng cách, mỗi phép đọc $3072$ thành phần.
+- **Chi phí xây dựng.** Một chỉ mục cho kho véc-tơ giảm công việc của mỗi truy vấn; chỉ mục được tạo một lần bằng cách đọc kho, rồi dùng cho nhiều truy vấn. Chi phí xây dựng gồm thời gian và bộ nhớ trong lúc tạo; dung lượng của chỉ mục đã tạo thuộc dòng dung lượng lưu trữ.
+- **Chi phí cập nhật.** Bảng hồ sơ giảng viên có chỉ mục theo lương. Khi lương của một giảng viên thay đổi, cả bản ghi gốc và mục của giảng viên đó trong chỉ mục theo lương phải được sửa; nếu chỉ sửa bản ghi gốc, truy vấn theo một khoảng chứa lương cũ vẫn tìm thấy giảng viên đó qua chỉ mục.
+
+Để đếm khối lượng tính toán của Thuật toán 01.11, ta cần chọn cách tính $\mathrm{SIM}$ ở bước 4.
 
 Với biểu diễn danh sách tăng ngặt, giao và hợp của hai tập $C,C'$ tính được bằng **thủ tục trộn** hai con trỏ:
 
@@ -866,9 +875,21 @@ Sơ đồ đặt Bài 01 ở gốc và năm nhóm bài ở năm nhánh; các bà
 Mỗi nhóm khắc phục một giới hạn bằng một ý tưởng chung.
 
 - **Phân tán và xếp hạng (Bài 02–04).** MapReduce tính đóng góp tại nơi lưu dữ liệu rồi gom các đóng góp cùng khóa; trong đếm từ, khóa là từ và giá trị là số lần xuất hiện.
+  - PageRank: ở mỗi vòng, một trang chia đều phần $\beta$ điểm của nó cho các trang mà nó trỏ tới, với hằng số $0<\beta<1$, còn phần $1-\beta$ được chia đều cho mọi trang.
 - **Tương đồng và tìm gần (Bài 05–07).** Chữ ký MinHash và LSH tạo tập ứng viên $A$, sau đó xác minh theo Mệnh đề 01.16.
+  - MinHash: giá trị MinHash của $C_i$ theo một hoán vị $\pi$ chọn ngẫu nhiên đều của tập mọi đoạn ký tự là phần tử của $C_i$ đứng đầu theo $\pi$; với cùng $\pi$, $C_i$ và $C_j$ có cùng giá trị MinHash với xác suất $\mathrm{SIM}(C_i,C_j)$.
+  - LSH: chữ ký, tức dãy giá trị MinHash theo nhiều hoán vị, được chia thành các dải gồm những giá trị liên tiếp, và hai tài liệu thành cặp ứng viên khi chữ ký của chúng trùng nhau trên toàn bộ ít nhất một dải.
+  - HNSW: các véc-tơ được nối thành đồ thị lân cận trên nhiều tầng. Một truy vấn tìm tham lam ở mỗi tầng trên, đi từ tầng trên cùng xuống, và điểm dừng ở một tầng là điểm vào của tầng ngay dưới; ở tầng 0, truy vấn dùng tìm kiếm chùm (beam search).
+  - PQ: mỗi véc-tơ được chia thành các đoạn tọa độ liên tiếp, và mỗi đoạn được thay bằng chỉ số của véc-tơ gần nó nhất trong một danh sách véc-tơ đại diện chọn trước cho đoạn đó.
 - **Dòng và cửa sổ (Bài 08–09).** Mỗi bản ghi được đọc một lần, và thuật toán chỉ giữ một trạng thái nhỏ: một mẫu, một mảng bit hay vài bộ đếm.
+  - Bộ lọc Bloom: với mỗi địa chỉ trong danh sách, các bit tại những vị trí do các hàm băm chỉ ra được đặt bằng 1, và một địa chỉ truy vấn có ít nhất một bit bằng 0 tại các vị trí của nó thì chắc chắn không thuộc danh sách.
+  - Flajolet–Martin: mỗi phần tử của dòng được băm thành một chuỗi bit, thuật toán chỉ giữ độ dài đuôi lớn nhất, tức số bit 0 liên tiếp ở cuối nhiều nhất đã gặp, và ước lượng số phần tử khác nhau bằng 2 mũ độ dài đó.
+  - Count-Min: mỗi phần tử đến tăng một bộ đếm ở mỗi hàng của một bảng nhiều hàng, mỗi hàng dùng một hàm băm, và ước lượng tần suất của một phần tử là giá trị nhỏ nhất trong các bộ đếm của nó.
+  - DGIM: các bit 1 gần đây của một dòng bit được gom thành các nhóm vị trí liên tiếp, mỗi nhóm chứa một số bit 1 là lũy thừa của 2, mỗi số như vậy có một hoặc hai nhóm, và số bit 1 trong cửa sổ được ước lượng từ các số đó.
 - **Nén và khôi phục (Bài 10–11).** Mọi bộ nén không mất thông tin phải thỏa $\mathrm{dec}(\mathrm{enc}(x))=x$ của Định nghĩa 01.7.
+  - Huffman: mỗi ký hiệu là một lá có trọng số bằng số lần xuất hiện của nó. Hai nút có trọng số nhỏ nhất được ghép thành một nút cha có trọng số bằng tổng hai trọng số, cho đến khi chỉ còn một cây, và từ mã của mỗi ký hiệu là dãy bit trên đường từ gốc tới lá của nó.
+  - LZ77, LZ78, LZW: một cụm lặp, như `ab` hay `abc` trong chuỗi `aabaacabcabcb`, được thay bằng một tham chiếu tới phần chuỗi đã đọc. LZ77 trỏ về một vị trí trong cửa sổ các ký tự vừa đọc, còn LZ78 và LZW trỏ tới mã của cụm trong một từ điển mà bộ mã hóa và bộ giải mã dựng theo cùng quy tắc.
+  - JPEG: ảnh được chia thành các khối $8\times8$, mỗi khối được biến đổi bằng biến đổi cosin rời rạc (discrete cosine transform, DCT), rồi từng hệ số được làm tròn theo một bước lượng tử hóa; phép làm tròn này là bước làm mất thông tin chính.
 - **Lưu trữ và truy vấn (Bài 12–15).** Dữ liệu được sắp, được chỉ mục hay được phân hoạch sao cho mỗi truy vấn chỉ đọc ít khối, đếm theo Định nghĩa 01.4.
 
 Quan hệ tiên quyết giữa các bài theo năm nhánh từ Bài 01:
@@ -1289,13 +1310,14 @@ Bài tập 01.10–01.11 nằm trong [tệp bài tập Bài 01](material-viewer.
 ## Hướng dẫn đọc thêm và tài liệu tham khảo
 
 - Leskovec, J., Rajaraman, A. và Ullman, J. D. (2020). *Mining of Massive Datasets*, ấn bản 3, Cambridge University Press. §1.2.1–1.2.4, tr.6–8: phần đọc thêm, Bài tập 01.10, 01.11; §1.3.2–1.3.3, tr.10–12: Định nghĩa 01.8, Ví dụ 01.5, Tình huống 01.3; §1.3.4, tr.13: Mục 2.1; Chương 3, tr.73–75, Ví dụ 3.1, tr.74 và Hình 3.1, tr.75: Mục 1, Mục 3.1, Mục 3.5; Ví dụ 3.10, tr.92: Mục 3.4, Tình huống 01.1; §4.2.1–4.2.2, tr.136–137 và §4.3.1, tr.139–140: Mục 2.2; §5.3.1, tr.195–196 và Hình 5.16, tr.200: Mục 1.2. Sách và trang chiếu của các tác giả: http://www.mmds.org.
+- Leskovec, J., Rajaraman, A. và Ullman, J. D. Trang chiếu *Link Analysis* 1 (ch05-linkanalysis1), tr.19: đồ thị ba trang $\mathrm y,\mathrm a,\mathrm m$ ở Mục 1.2.
 - Blum, A., Hopcroft, J. và Kannan, R., *Foundations of Data Science*, bản ngày 04/01/2018. Chương 1, tr.9–11: mô hình RAM ở mở đầu Mục 1; §2.1–2.2, tr.12–15, và Định lý 2.1, tr.13: Bổ đề 01.21.
 - Leskovec, J. Stanford CS246, *Mining Massive Datasets*, bài 01-intro, trang chiếu 32–33: Nhận xét 01.3; trang chiếu 62: Mục 1.1; trang chiếu 67–69: chi phí truyền thông (communication cost) ở Mục 3.4.
-- Silberschatz, A., Korth, H. F. và Sudarshan, S. (2019). *Database System Concepts*, ấn bản 7, McGraw-Hill. Trang chiếu Chương 15, 8–9: mô hình chi phí ở Mục 2.1, Nhận xét 01.6; 19–22: sắp xếp ngoài ở Mục 2.4; 24–28: Tình huống 01.2; 40: giả thiết bộ nhớ $M=20$ khối ở Mục 2.4 và Tình huống 01.2; Chương 14, 24 và 31: tra cứu theo khóa, theo vùng và theo từ khóa ở Mục 2.4.
+- Silberschatz, A., Korth, H. F. và Sudarshan, S. (2019). *Database System Concepts*, ấn bản 7, McGraw-Hill. Trang chiếu Chương 15, 8–9: mô hình chi phí ở Mục 2.1, Nhận xét 01.6; 19–22: sắp xếp ngoài ở Mục 2.4; 24–28: Tình huống 01.2; 40: giả thiết bộ nhớ $M=20$ khối ở Mục 2.4 và Tình huống 01.2; Chương 14, 24 và 31: tra cứu theo khóa, theo vùng và theo từ khóa ở Mục 2.4; Chương 14, trang chiếu 4, 10–11: chỉ mục theo lương và chi phí cập nhật ở Mục 3.4.
 - Nelson, M. và Gailly, J.-L. (1995). *The Data Compression Book*, ấn bản 2, M&T Books. Chương 3 và 11: Mục 2.3.
 - Blelloch, G. CMU 15-499, *Algorithms in the Real World: Data Compression*, phần LZ (compression3-lz), trang chiếu 13–14, 17, 19: chuỗi `aabaacabcabcb` ở Mục 2.3.
 - Stanford BIODS 271, bài L12 *Approximate Nearest Neighbor*, tr.16–18: Mục 1.2, Ví dụ 01.2.
-- Princeton COS 597A, lớp 8 và 9: độ thu hồi tại $k$ làm thước đo chất lượng của tìm kiếm véc-tơ, Định nghĩa 01.17.
+- Princeton COS 597A, lớp 8 và 9: độ thu hồi tại $k$ làm thước đo chất lượng của tìm kiếm véc-tơ, Định nghĩa 01.17; độ trễ truy vấn và chi phí xây dựng chỉ mục véc-tơ ở Mục 3.4.
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. và Stein, C. (2022). *Introduction to Algorithms*, ấn bản 4, MIT Press. §1.1: bài toán tính toán, Định nghĩa 01.1; §2.1: bất biến vòng lặp, chứng minh Mệnh đề 01.12 và Bổ đề 01.14.
 - Đề cương học phần UET.DSE2053: mã, số tín chỉ, tiên quyết và CLO1–CLO4 ở Mục 4.2; thứ tự và quan hệ tiên quyết của Bài 02–15 ở Mục 4.1.
 - Đọc tiếp: [ghi chú Bài 02](material-viewer.html?doc=materials/lec-02/lecture-note.md&deck=lecture-02-mapreduce-va-ngan-xep-xu-ly-du-lieu-lon.html), *Mô hình tính toán MapReduce*.

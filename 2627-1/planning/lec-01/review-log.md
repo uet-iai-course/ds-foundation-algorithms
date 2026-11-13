@@ -1305,3 +1305,74 @@ Lượt sửa sau kiểm lại: 15/15 mục làm; R07 dẫn "(Hệ quả 01.22)"
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 100 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không tràn khung, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; mười tám trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 184 dẫn chiếu, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh FT (nhãn Đọc thêm) và R07 (trang "Nhắc lại:" mở mạch 7) ở 1600×900. Thuộc tính `id="L01-…"` của các trang nội dung đã bỏ; không tệp nào liên kết tới (đã grep); trang tiêu đề mạch giữ `id="mach-N"`.
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa ghi chú theo đề nghị của đợt sửa deck (2026-11-13)
+
+Người dùng duyệt các đề nghị sửa ghi chú ngày 2026-11-13.
+
+| mục | thay đổi | vị trí |
+|---|---|---|
+| 1.2 | Thêm một câu đọc đồ thị ba trang $\mathrm y,\mathrm a,\mathrm m$ (năm liên kết, điểm của $\mathrm y$ phụ thuộc $\mathrm y$ và $\mathrm a$, tính lặp, mỗi vòng đọc mọi liên kết) vào đoạn đọc bảng bảy bài toán, khớp ghi chú diễn giả `L01-A03` và hình của `L01-D08`; ghi chú không có hình này nên đọc bằng lời và ký hiệu mũi tên. | note:152 |
+| 3.1 | Hình đổi sang `img/lec-01/danh-gia-jaccard-c.svg` (nhãn $C_1$, $C_2$), alt viết lại theo SVG; bỏ câu "Hình ghi hai tập bằng chữ $S$ (tập $C_1$) và $T$ (tập $C_2$)."; câu đọc hình ghi giao $C_1\cap C_2$ và hợp $C_1\cup C_2$. | note:442–444 |
+| 3.4 | Sau đoạn đọc Định nghĩa 01.13, thêm danh sách bốn ví dụ theo thứ tự trang `L01-C08`, `C11`, `C12`, `C13`: nối `student` 100 khối với `takes` 400 khối trong $M=20$ khối (bộ nhớ làm việc); bốn công đoạn của một truy vấn véc-tơ và $10^{10}$ phép tính khoảng cách (độ trễ); chỉ mục véc-tơ tạo một lần, dùng cho nhiều truy vấn (chi phí xây dựng); sửa lương phải sửa chỉ mục theo lương (chi phí cập nhật). Không dùng khối Ví dụ đánh số, nên bộ đếm Ví dụ không đổi. | note:630–639 |
+| 4.1 | Dưới mỗi nhóm của danh sách "Mỗi nhóm khắc phục một giới hạn…", thêm một câu cơ chế cho PageRank, MinHash, LSH, HNSW, PQ, bộ lọc Bloom, Flajolet–Martin, Count-Min, DGIM, Huffman, LZ77/LZ78/LZW, JPEG; năm câu dẫn số hiệu như deck (Định nghĩa 03.8, 07.27, 08.22, 09.5, Thuật toán 10.14). Nhóm Bài 12–15 giữ câu chung (`L01-D07` theo note:872 cũ). Bảng phương pháp không đổi. | note:878–892 |
+
+Đối chiếu cơ chế: PageRank với Định nghĩa 03.8 (lec-03 note:431); MinHash với Định nghĩa 05.8 và Định lý 05.10 (lec-05 note:514, 578); LSH với Định nghĩa 06.3 (lec-06 note:186); HNSW với Thuật toán 07.17 và 07.12 (lec-07 note:727, 501); PQ với Định nghĩa 07.27 và 07.24 (lec-07 note:1106, 1058); Bloom với Định nghĩa 08.22 (lec-08 note:1031); Flajolet–Martin với Định nghĩa 09.5 (lec-09 note:245); Count-Min với Định nghĩa 09.33 và Thuật toán 09.34 (lec-09 note:1251, 1293); DGIM với Định nghĩa 09.42 và Thuật toán 09.45 (lec-09 note:1572, 1630); Huffman với Thuật toán 10.14 (lec-10 note:669); LZ với lec-11 note §2.1–2.2, §3.2, §4.1; JPEG với lec-11 note §5.2, §5.5.
+
+Ký hiệu: câu Flajolet–Martin không dùng $R$ (trong Bài 01, $R$ là tập cặp đạt ngưỡng) và câu Bloom không dùng $k$; trang `L01-D10` và `L01-D05` vẫn ghi $R$, $k$ trên mặt trang.
+
+Độ dài ghi chú (âm tiết tách theo khoảng trắng): 19 071 trước, 19 954 sau lượt đầu, 20 050 sau lượt sửa sau kiểm lại.
+
+Kiểm: `git diff --check` sạch; trình xem `material-viewer.html` (Playwright, 1600×900 và 390×844): 0 lỗi console, 0 request hỏng, 0 `.katex-error`, hình `danh-gia-jaccard-c.svg` tải được; bảng Mục 4.1 ở 390 px có `scrollWidth` bằng `clientWidth` (317 px), không tràn ngang. `outline.md` không đổi.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Theo `merge-01.md` của điều phối viên (15 mục, đều được làm).
+
+| mục | xử lý | vị trí |
+|---|---|---|
+| 1 HNSW | Tìm tham lam chỉ ở các tầng trên, điểm dừng của một tầng là điểm vào của tầng dưới; tầng 0 dùng tìm kiếm chùm (beam search), chỉ gọi tên (Thuật toán 07.17, bước 2–3). | note:882 |
+| 2 DGIM | Bỏ "thùng" (trùng nghĩa thùng băm của Định nghĩa 01.8) và "kích thước"; viết "nhóm vị trí liên tiếp", số bit 1 mỗi nhóm là lũy thừa của 2, một hoặc hai nhóm cho mỗi số; khớp Định nghĩa 09.42 (quy tắc 2–5) và đoạn đọc sau nó (lec-09 note:1585). | note:888 |
+| 3 PQ | Thay "tâm", "bộ mã con" bằng "véc-tơ gần nó nhất trong một danh sách véc-tơ đại diện chọn trước cho đoạn đó". | note:883 |
+| 4 Huffman | Nêu lá là ký hiệu, trọng số là số lần xuất hiện, trọng số nút cha là tổng (Thuật toán 10.14, bước 1–2); tách hai câu. | note:890 |
+| 5 Độ trễ | Bỏ mệnh đề "độ trễ đo khoảng thời gian từ lúc nhận tới lúc trả" (trùng dòng bảng); ghi "$10^{10}$ phép tính khoảng cách, mỗi phép đọc $3072$ thành phần" (Ví dụ 01.2). | note:635 |
+| 6 Nguồn 1.2 | Dẫn "(trang chiếu MMDS, *Link Analysis* 1, tr.19)"; đã kiểm bằng `pdftotext` trên `sources/reference-slides/mmds/ch05-linkanalysis1.pdf`: tr.19 có đồ thị y, a, m ("The web in 1839"), tr.20 có phương trình $r_y,r_a,r_m$. | note:152 |
+| 7 Tài liệu tham khảo | Thêm mục trang chiếu MMDS *Link Analysis* 1, tr.19 (sau mục sách MMDS); nối vào mục DSC "Chương 14, trang chiếu 4, 10–11: chỉ mục theo lương và chi phí cập nhật ở Mục 3.4" (đã kiểm `sources/reference-slides/db-book-7e/ch14.pptx`: tr.4 tiêu chí đánh giá chỉ mục, tr.10 chỉ mục phụ theo lương, tr.11 chi phí cập nhật chỉ mục); nối vào mục Princeton COS 597A "độ trễ truy vấn và chi phí xây dựng chỉ mục véc-tơ ở Mục 3.4" (đã kiểm `sources/reference-slides/princeton-vector-search/class-08-quantization.pdf`, `class-09-graph-indexes.pdf`: latency, index construction). | note:1312–1320 |
+| 8 Cập nhật | Viết lại theo đề xuất: "mục của giảng viên đó trong chỉ mục theo lương", "một khoảng chứa lương cũ". | note:637 |
+| 9 LZ | Tham chiếu tới "phần chuỗi đã đọc"; tách hai câu, một dấu hai chấm. | note:891 |
+| 10 MinHash | Viết bằng $C_i$, $\pi$, $\mathrm{SIM}$, nêu điều kiện cùng $\pi$; không dùng $h$. $C_i$ (bảng ký hiệu, Định nghĩa 01.10) và $\mathrm{SIM}$ (Định nghĩa 01.9) có đúng nghĩa tập đoạn ký tự; $\pi$ chưa dùng ở Bài 01 nên được giới thiệu tại chỗ. | note:880 |
+| 11 LSH | Thêm "chữ ký, tức dãy giá trị MinHash theo nhiều hoán vị". | note:881 |
+| 12 PageRank | "còn phần $1-\beta$ được chia đều cho mọi trang". | note:878 |
+| 13 Số hiệu bài sau | Bỏ năm số hiệu 03.8, 07.27, 08.22, 09.5, 10.14 khỏi ghi chú; deck giữ. | note:878–892 |
+| 14 Bài 12–15 | Quyết định: không thêm câu cơ chế cho Bài 12–15; ghi chú Bài 12–15 chưa có khối đánh số, câu chung của nhóm giữ nguyên. | note:893 |
+| 15 Alt 3.1 | Alt viết C₁, C₂ bằng chỉ số dưới Unicode. | note:442 |
+
+Kiểm lại: `git diff --check` sạch; trình xem (Playwright, 1600×900 và 390×844): 0 lỗi console, 0 request hỏng, 0 `.katex-error`, hình Jaccard tải được với alt mới, bảng Mục 4.1 không tràn ngang ở 390 px; đã xem ảnh chụp danh sách cơ chế, Mục 3.4 và danh mục tài liệu. Máy chủ đã tắt.
+
+## Sửa deck theo ghi chú sau đợt sửa ghi chú (2026-11-13)
+
+Tác tử sửa deck (ghi), theo bản giao việc của điều phối viên; `no-ai-slop` chế độ Edit. Ghi chú Bài 01 Mục 4.1 (note:876–893) là chuẩn; trong deck, $R$ là tập cặp đạt ngưỡng và $k$ là số hàng xóm.
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1 Bloom, ký hiệu $k$ | Mặt trang: "Bloom: hàm băm đặt bit; có bit 0 ở vị trí băm thì “chắc chắn không thuộc” (Định nghĩa 08.22)." Dòng Bài 08 rút còn "lọc thư theo danh sách địa chỉ" để giữ trần 60. Ghi chú diễn giả thêm câu cơ chế theo note:886. Âm tiết 59 → 60. | `L01-D05` |
+| 2 Flajolet–Martin, ký hiệu $R$ | Mặt trang: "Flajolet–Martin ước lượng bằng 2 mũ độ dài đuôi lớn nhất của giá trị băm (Định nghĩa 09.5)." Ghi chú diễn giả không có $R$ theo nghĩa này; thêm câu cơ chế theo note:887 (đuôi là số bit 0 liên tiếp ở cuối). Âm tiết 58 → 59. | `L01-D10` |
+| 3 HNSW | Ghi chú diễn giả: "đi từ tầng cao nhất xuống, tìm tham lam ở mỗi tầng trên, rồi dùng tìm kiếm chùm (beam search) ở tầng 0" (Thuật toán 07.17 bước 2–3, note:882). Mặt trang: "tìm tham lam ở các tầng trên" thay "tìm tham lam từ tầng trên xuống"; trang đang ở trần 60 nên tầng 0 nằm trong ghi chú diễn giả. Âm tiết 60 → 60. | `L01-D09` |
+| 4 Huffman | Mặt trang hai dòng: "Huffman (Thuật toán 10.14): mỗi ký hiệu là một lá, trọng số bằng số lần xuất hiện." và "Ghép hai nút trọng số nhỏ nhất thành nút cha trọng số bằng tổng, đến khi còn một cây." (note:890). Trang bảng so sánh, trần 80; 5 dòng nội dung. Ghi chú diễn giả thêm câu từ mã. Âm tiết 50 → 70. | `L01-D06` |
+| 5 Nguồn đồ thị y, a, m | `A03`: "Nguồn: đồ thị y, a, m theo trang chiếu MMDS, *Link Analysis* 1, tr.19; phép lặp và ma trận thưa theo MMDS §5.1–5.2; …" (sách MMDS Hình 5.1 dùng A–D). `D08` (cùng hình): thêm nguồn trang chiếu vào dòng Nguồn. Mặt trang không đổi. | `L01-A03`, `L01-D08` |
+| 6 Rà $R$, $k$ toàn deck | Mọi $R$ khác trong deck là tập cặp đạt ngưỡng (P02–P04, CT, C03–C24, DT, D04, D01, E02, GT, G01, F04, G02); $\mathbb R^D$ ở `A12` là tập số thực, ký hiệu khác. Mọi $k$ khác là số hàng xóm (A07, A12, A10, C11, C15, D09). Không còn chỗ lệch nghĩa. | toàn deck |
+| 7 PQ, thuật ngữ (lượt sửa của điều phối viên) | Mặt trang: "mỗi đoạn véc-tơ thay bằng chỉ số tâm con (Định nghĩa 07.27)" → "mỗi đoạn thành chỉ số véc-tơ đại diện gần nhất (Định nghĩa 07.27)" (note:883; "tâm con" chưa có ở Bài 01); dòng HNSW "ở các tầng trên" → "ở tầng trên" để giữ trần 60. Ghi chú diễn giả thêm câu cơ chế PQ theo note:883. Âm tiết 60 → 60; ghi chú diễn giả 145 → 179 (vượt mốc 150, mức `nhẹ`). Kiểm lại: 0 lỗi console, 0 `.katex-error`, không tràn ở 1600, không cuộn ngang ở 390; `refcheck.py 01` 184 đúng, 0 sai; `git diff --check` sạch. `storyboard.md`: cập nhật gạch đầu dòng ngoại lệ ER-004 (ghi chú Bài 01 Mục 4.1 đã có câu cơ chế, không dẫn số khối bài sau; deck giữ số khối). | `L01-D09` |
+| 8 PQ, động từ và nghĩa của "đoạn" (lượt sửa thứ hai của điều phối viên) | Mặt trang `D09`: dòng PQ "mỗi đoạn thành chỉ số véc-tơ đại diện gần nhất (Định nghĩa 07.27)" → "thay đoạn tọa độ bằng chỉ số véc-tơ đại diện gần nhất" ("mỗi" bỏ để giữ trần 60, "đoạn tọa độ" phân biệt với đoạn tài liệu, đoạn ký tự); dòng HNSW trả lại "ở các tầng trên"; dòng Bài 07 "không quét toàn kho" → "không quét kho". "(Định nghĩa 07.27)" chuyển vào câu PQ của ghi chú diễn giả. Ghi chú diễn giả: bỏ câu $10^{10}$ cuối (trùng `A07`), rút câu HNSW, câu PQ và câu bốn thuộc tính; 179 → 149. `D10`: câu Flajolet–Martin của ghi chú diễn giả chuyển lên trước câu "Bài 09 giữ vài bộ đếm…"; 149 → 149. Âm tiết mặt trang: `D09` 60 → 60, `D10` 59 → 59. Kiểm lại `D09`, `D10`: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không tràn ở 1600, không cuộn ngang ở 390; `refcheck.py 01` 184 đúng, 0 sai (Định nghĩa 07.27 vẫn được đếm, nay ở ghi chú diễn giả); `git diff --check` sạch. | `L01-D09`, `L01-D10` |
+
+Kiểm (máy chủ `http.server` cổng 8813, `check_deck.py`, Chromium 1600×900 và 390×844): 0 lỗi console, 0 request hỏng, 0 tài nguyên ngoài, 0 `.katex-error`, không trang nào tràn khung ở 1600, không cuộn ngang ở 390, điều hướng bàn phím chạy; `refcheck.py 01`: 184 số hiệu đúng, 0 sai; `git diff --check` sạch. Đã xem ảnh chụp `D05`, `D06`, `D09`, `D10`, `A03`, `D08` ở hai cỡ. Ghi chú diễn giả (âm tiết): `A03` 104 → 124, `D08` 142 → 155, `D09` 138 → 145, `D05` 103 → 146, `D10` 105 → 149, `D06` 121 → 141; `D08` vượt mốc 150 thông thường vì dòng Nguồn (mức `nhẹ`).
+
+## Kiểm lại và duyệt của điều phối viên: sửa ghi chú và deck theo đề nghị (2026-11-13)
+
+| vai trò | loại tác tử | mô hình | effort | kết quả |
+|---|---|---|---|---|
+| viết ghi chú (Mục 1.2, 3.1, 3.4, 4.1, tài liệu tham khảo) | general-purpose | opus (Opus 5.5) | high | chấp nhận sau một lượt sửa |
+| kiểm lại ghi chú: độ chính xác, mạch, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | cần sửa: 7 trung bình, 9 nhẹ; đã sửa đủ |
+| sửa deck (D05, D06, D09, D10, A03, D08) | general-purpose | opus (Opus 5.5) | high | chấp nhận sau hai lượt sửa |
+| kiểm lại deck: độ chính xác, mạch ±2, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | cần sửa: 1 trung bình (D09 "đoạn" mơ hồ), 5 nhẹ; đã sửa mục trung bình và hai mục nhẹ |
+
+Quyết định của điều phối viên: ghi chú bỏ số khối của bài sau ở Mục 4.1 (độc giả Bài 01 không cần mở), deck giữ mỗi trang một số; nhóm Bài 12–15 giữ câu chung; D06 là trang có bảng nên trần 80; D05, D10 bỏ ký hiệu $k$, $R$ (trùng nghĩa trong deck 01). Kiểm của điều phối viên: `check_deck.py` trên A03, D05, D06, D08, D09, D10 ở 1600×900 và 390×844 (0 lỗi console, 0 yêu cầu hỏng, 0 `.katex-error`, không cuộn ngang ở 390; mật độ 47, 60, 70, 48, 60, 59; ghi chú diễn giả D08 155, mức nhẹ); xem ảnh D06, D09; `refcheck.py 01` 184 đúng, 0 sai; trình xem ghi chú 01 ở 1600 và 390 không lỗi; `git diff --check` sạch. Chấp nhận.
