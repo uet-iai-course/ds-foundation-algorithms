@@ -5,7 +5,7 @@
 - Bài 8 theo thứ tự đề xuất trong `sources/source.md`: **Dòng dữ liệu: mô hình, lấy mẫu và lọc**.
 - Đối tượng: sinh viên năm hai, đã học lập trình, toán rời rạc, đại số tuyến tính, xác suất cơ bản và Bài 01–07 (băm, bất biến vòng lặp).
 - Phần giảng: 120 phút. Phần bài tập: 60 phút.
-- Sản phẩm học tập (mục tiêu trên deck, cập nhật 2026-10-28): (1) đặc tả thuật toán dòng một lượt và chọn khóa lấy mẫu cho một thống kê theo nhóm; (2) lập vết hồ chứa và chứng minh bằng quy nạp mỗi phần tử đã đọc còn trong mẫu với xác suất $s/r$ khi $r\ge s$; (3) xây dựng và truy vấn Bloom filter, tính xác suất nhận nhầm khóa ngoài $S$ và số hàm băm tối ưu.
+- Sản phẩm học tập (mục tiêu trên deck, cập nhật 2026-11-13 theo mục tiêu của ghi chú): (1) đặc tả thuật toán dòng một lượt và mẫu theo khóa cho một thống kê theo nhóm; (2) chứng minh rằng hồ chứa sức chứa $s$ giữ mỗi phần tử đã đọc với xác suất $s/r$ khi $r\ge s$; (3) xây và truy vấn Bloom filter, chứng minh không có âm giả, tính xác suất dương giả và $k^*=(n/m)\ln2$. Bản 2026-10-28 ("lập vết hồ chứa…", "tính xác suất nhận nhầm…") được thay.
 - Ngoài phạm vi: Rejection Sampling, Flajolet–Martin, moment, DGIM, cửa sổ trượt và suy giảm theo thời gian.
 
 ## Luận đề và vấn đề trung tâm (2026-10-28)
@@ -15,7 +15,7 @@
   1. Mạch 2: đọc một lần nên chỉ trả lời từ trạng thái giữ lại.
   2. Mạch 3: hàm băm đều giữ trọn mỗi người dùng với xác suất $1/10$; mẫu có $\approx r/10$ bộ, tức tăng theo dòng.
   3. Mạch 4: với số ngẫu nhiên đều, độc lập, hồ chứa giữ mỗi phần tử đã đọc với xác suất $s/r$ khi $r\ge s$.
-  4. Mạch 5: Bloom filter $8\cdot10^9$ bit, sáu hàm băm đều, độc lập, không loại khóa nào của $10^9$ khóa, nhận nhầm $\approx2\%$ (xấp xỉ mũ $(1-e^{-6/8})^6\approx0{,}0216$; số 6 do học phần chọn).
+  4. Mạch 5 (sửa 2026-11-13): «Bloom filter $8\cdot10^9$ bit không loại khóa nào của $S$, $m=10^9$; với sáu hàm băm đều, độc lập, khoảng 2% khóa ngoài $S$ lọt qua.» Bảo đảm tất định cần bốn điều kiện về trạng thái của Định lý 08.25; $k=6$ là số nguyên tốt nhất theo Hệ quả 08.29, $p(6)=(1-e^{-6/8})^6\approx0{,}0216$.
 - Số liệu: MMDS §4.2.1 tr.136; §4.3.1 tr.139.
 
 ## Nguồn
@@ -31,6 +31,19 @@
 MMDS được ưu tiên ở mọi cụm. Stanford được dùng tại K01 vì phép đếm số truy vấn phân biệt rõ hơn, tại B05 vì có trọn vết 11 bit và tại B11 để đối chiếu hình dạng đường cong. Mọi công thức được kiểm chứng bằng sách; ví dụ B05 giữ nguyên dữ kiện nguồn. Ghi công: <http://www.mmds.org>.
 
 ## Mạch phần giảng
+
+**Thứ tự hiện hành (sửa deck theo bảng phát hiện, 2026-11-13; thay các dòng 1–7 dưới đây khi khác nhau):**
+
+1. P00 → P04 → P02 → P03 → P01 (P04 thêm «Nhắc lại:» tuyến tính kỳ vọng, Jensen/Bernoulli/luật số lớn ở ghi chú diễn giả; P02 theo mục tiêu ghi chú).
+2. AT → A08 → A05 → A00 → A07 → **A09** → A02 → A06 (A09 «Thuật toán: giá trị lớn nhất trên dòng» = Thuật toán 08.2, Ví dụ 08.2).
+3. KT → K15 → K10 → K01 → K11 → K09 → K01B → K02 → K12 → K13 → K04 → K14 → K05 → K06 → K07 → K08 → **K16** → **K17** → **K18** (Mục 2.5 của ghi chú: Ví dụ 08.7, Thuật toán 08.13, Mệnh đề 08.14).
+4. RT → R00 → R10 → R01 → R03 → R04 → R05 → R06 → R07 → R08 → R09 (R00 thêm Định nghĩa 08.15).
+5. BT → B00 → B13 → B02 → B05 → B05A → B05B → B01 → B03 → B04 → B06 → B07 → B08 → B09 → B10 → B11 → B12 (B06: bốn điều kiện của Định lý 08.25; nhãn khối theo ghi chú).
+6. CT → C06 → C00 → **C00B** → C03 → C01 → C04 → C05 → C02 (C00 tách hai theo bảng §5.1; C03 thêm hàng ngưỡng giảm dần).
+7. XT → X01 → X01B → **X05** → **X05B** → X02 → X02B → X03 → X03B → X04 → X04B → X04C (X05 = Bài tập 08.7, mục tiêu 2).
+
+Deck 74 → 81 trang. Thời lượng: phần giảng 120 phút (6,5 + 13 + 27 + 24 + 37,5 + 12), phần bài tập 60 phút; chi tiết ở `storyboard.md`, mục «Storyboard hiện hành sau sửa deck 2026-11-13».
+
 
 1. P00 → P04 → P02 → P03 → P01 (cập nhật 2026-10-28): bìa có câu luận đề; tiên quyết và quy ước; mục tiêu học tập; nội dung và đọc trước; vấn đề trung tâm với câu trả lời có điều kiện của mạch 2–5 (số liệu MMDS tr.133, 136, 139).
 2. AT → A08 → A05 → A00 → A07 → A02 → A06 (cập nhật 2026-10-29: A08 «Truy vấn trên dòng cảm biến» là trang bài toán đầu mạch, hình `bai-toan-cam-bien.svg`; lượt động lực và khó khăn của mạch 2: A08 mở bằng «Nhắc lại:» Bài 02 tính trung bình từ tổng và số đếm trên tệp đọc lại được, «Nhu cầu:» tìm hiểu đại dương qua độ cao mặt biển (MMDS §4.1.2), mỗi dòng 10 số mỗi giây cần ba truy vấn (Ví dụ 4.1 viết cho cảm biến nhiệt độ, học phần đặt lên dòng độ cao), và thế khó «giữ hết một triệu dòng vượt bộ nhớ, đọc kho lưu trữ quá chậm» (§4.1.1, §4.1.4); A05 đổi tiêu đề thành «Ví dụ: trạng thái của ba truy vấn»; cập nhật 2026-10-28; A07 thêm ở lượt biên tập theo bản đánh giá giảng dạy): ví dụ ba truy vấn trên dòng cảm biến (MMDS Hình 4.1, Ví dụ 4.1; quy mô §4.1.2); định nghĩa thuật toán dòng và mô hình hệ thống; định nghĩa trạng thái, phép cập nhật, phép trả lời và vết cửa sổ 4 số trên $1,5,2,7,4$ (hình `trang-thai-cap-nhat.svg`); chi phí ba truy vấn theo từng phần tử (mô hình từ máy); bài tập trạng thái của phương sai (câu hỏi của học phần). Bỏ A01 (gộp vào A00) và A03; A04 chuyển sang mạch 3 thành K01B.
@@ -51,7 +64,8 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 | $x_1,x_2,\ldots$ | phần tử của dòng; không dùng $x$ cho nghĩa khác |
 | $t$, $K(t)$ | một bộ trên dòng và khóa của bộ |
 | $u$, $d$ | số truy vấn tìm kiếm xuất hiện một lần, hai lần trong phép đếm sai lệch (MMDS viết $s$ cho $u$) |
-| $\tau$ | ngưỡng khi hạ tỷ lệ để giữ ngân sách (chỉ trong ghi chú; MMDS §4.2.4 viết $t$) |
+| $\tau$ | ngưỡng khi hạ tỷ lệ để giữ ngân sách, nhận bộ khi $h(K(t))\le\tau$, tức $a=\tau+1$; trên deck từ 2026-11-13 (K16–K18); MMDS §4.2.4 viết $t$ |
+| $G$ | ngân sách số bộ của mẫu theo ngưỡng giảm dần (chỉ dùng ở K16–K18, C03; ghi chú Mục 2.5) |
 | $a/b$ | tỷ lệ khóa cần lấy mẫu |
 | $h(K)<a$ | điều kiện chọn khi $h$ có miền $0,\ldots,b-1$; $h$ phải phân bố đều trên toàn miền để tỷ lệ $a/b$ được bảo đảm |
 | $b$, $a$ | số ngăn (giá trị của $h$, ngăn không chứa dữ liệu) và ngưỡng: giữ khi $h(K)<a$ |
@@ -65,10 +79,10 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 | $m$ | số khóa được đưa vào Bloom filter, $m=\lvert S\rvert$ |
 | $k$ | số hàm băm của Bloom filter; khác khóa $K$ |
 | $y$ | khóa truy vấn của Bloom filter; $v$ là khóa của $S$ trong giả mã xây |
-| $p(k)$ | dạng mũ $(1-e^{-km/n})^k$, xấp xỉ của $p_{FP}$ |
+| $p(k)$ | dạng mũ $(1-e^{-km/n})^k$, cận dưới của $p_{FP}$ (Mệnh đề 08.27; sửa 2026-11-13) |
 | $k^*$ | $(n/m)\ln2$ |
 | $q$ | mật độ bit 1 chính xác dưới mô hình $km$ phép băm iid: $q=1-(1-1/n)^{km}$ |
-| $p_{FP}$ | xác suất dương giả; $q^k$ là xấp xỉ chuẩn và dạng mũ $(1-e^{-km/n})^k$ là xấp xỉ khi $n$ lớn |
+| $p_{FP}$ | xác suất dương giả, $p_{FP}=\mathbb E[(X/n)^k]$; $p(k)\le q^k\le p_{FP}$, ba đại lượng gần nhau khi $n$ lớn (sửa 2026-11-13) |
 
 ### Thuật ngữ Việt–Anh
 
@@ -97,10 +111,10 @@ Các dòng $x_i$, $W$, $r$, $S$, $m$, $k$ cập nhật theo quyết định ký 
 ## Kiểm kê nội dung và hình
 
 - Định nghĩa: mô hình dòng, mẫu theo khóa, mẫu hồ chứa, Bloom filter.
-- Thuật toán: `LẤY-MẪU-THEO-KHÓA`, `HỒ-CHỨA`, `XÂY-BLOOM`, `KIỂM-TRA-BLOOM`.
-- Chứng minh: tính nhất quán theo khóa; quy nạp xác suất $s/r$; điều kiện không âm giả.
+- Thuật toán: giá trị lớn nhất trên dòng (A09, thêm 2026-11-13), `LẤY-MẪU-THEO-KHÓA`, ngưỡng giảm dần (K17, thêm 2026-11-13), `HỒ-CHỨA`, `XÂY-BLOOM`, `KIỂM-TRA-BLOOM`.
+- Chứng minh: bất biến giá trị lớn nhất; tính nhất quán theo khóa; bất biến của mẫu theo ngưỡng (Mệnh đề 08.14); quy nạp xác suất $s/r$; không âm giả dưới bốn điều kiện về trạng thái (Định lý 08.25).
 - Phân tích: $\Theta(s)$ bộ nhớ hồ chứa; $\Theta(km)$ xây và $\Theta(k)$ truy vấn Bloom; mật độ bit hữu hạn $q$ chính xác dưới băm iid, FPR $q^k$ là xấp xỉ chuẩn và dạng mũ là xấp xỉ khi $n$ lớn.
-- Bài tập: X01 dùng giả thiết lược đồ `Grades` với định danh university duy nhất toàn cục; lời giải và tiêu chí đối chiếu do học phần suy ra từ đề, ghi trong speaker notes; sách không in lời giải.
+- Bài tập (cập nhật 2026-11-13): năm bài recitation theo `exercises.md`: X01 = Bài tập 08.13 (MMDS 4.2.1), X05 = Bài tập 08.7 (BHK Bài 6.2, §6.6, tr.204; thêm cho mục tiêu 2), X02 = 08.10, X03 = 08.11, X04 = 08.12 (MMDS 4.3.1–4.3.3); mỗi bài có trang "Lời giải:" cùng tiêu đề, lời giải khớp `exercises.md`, ghi chú diễn giả trang đề có năng lực kiểm và hướng dẫn chấm theo bước.
 - SVG tự vẽ trong `img/lec-08/` (24 tệp, cập nhật 2026-10-29, thêm `ngan-va-nguong.svg` và `mau-truy-van-tuc-thoi.svg`; `stream-model.svg`, `key-sampling.svg`, `bloom-11bit.svg` đã xóa, không trang nào dùng): cấu trúc chương (`cau-truc-chuong.svg`, chỉ ghi chú); trang bài toán đầu mạch (2026-10-29, hiện chỉ deck): ba truy vấn trên dòng cảm biến và bộ nhớ (`bai-toan-cam-bien.svg`, A08), dòng năm bộ có vị trí $r$, tỷ lệ lặp của An, ngoặc nối hai bản “đồ thị” và khối ràng buộc giữ hoặc bỏ khi bộ đến (`bai-toan-ty-le-lap.svg`, K10 và ghi chú §2); chọn mẫu lúc dòng chạy, hỏi mẫu bằng truy vấn tức thời về sau (`mau-truy-van-tuc-thoi.svg`, K15 và ghi chú §2), mẫu cỡ cố định trên dòng a, x, c, y, z, k, c (`bai-toan-mau-co-dinh.svg`, R00), bảng lưu $S$ so với bộ nhớ chính và phép tra đĩa (`bai-toan-loc-thu.svg`, B00 và ghi chú §4.1; nhãn «bảng lưu S» từ lượt động lực của mạch 5), hai dòng và ba câu hỏi (`hai-dong-ba-cau-hoi.svg`, C06), mã chỉ duy nhất trong một trường (`grades-hai-truong.svg`, X01); mô hình dòng (`mo-hinh-dong.svg`, deck A00 và ghi chú); trạng thái và phép cập nhật, cửa sổ 4 số (`trang-thai-cap-nhat.svg`, deck A07 và ghi chú); cây xác suất hai bộ “đồ thị” (`cay-hai-bo-do-thi.svg`, deck K01 và ghi chú); bảng giữ/bỏ theo người dùng (`bang-theo-nguoi-dung.svg`, K01B); hàm băm thay bảng (`bam-theo-nguoi-dung.svg`, K02); vết hồ chứa (`reservoir-trace.svg`, R03), vết hồ chứa thu nhỏ (`reservoir-mini.svg`, chỉ deck R04), một bước của hồ chứa (`reservoir-step.svg`, R06); luồng kiểm tra Bloom (`bloom-pipeline.svg`, B02); Bloom 11 bit thêm ba khóa (`bloom-11bit-them.svg`, B05), mảng trơn cho câu hỏi (`bloom-11bit-mang.svg`, chỉ deck B05A), mảng đánh dấu bit của 118 và 29 (`bloom-11bit-mini.svg`, B05B); bốn phi tiêu vào tám bia (`phi-tieu-8-bia.svg`, B07); đường cong xác suất dương giả có vạch $k^*$ và nhãn hai vùng (`fpr-curve.svg`, B11); một mảng chung và bốn mảng chia (`chia-mang-bit.svg`, X03). Hình có trong cả deck và ghi chú trừ khi ghi "chỉ deck" hoặc "chỉ ghi chú".
 - Không dùng ảnh raster, mã trình diễn hoặc tài nguyên mạng cốt lõi.
 

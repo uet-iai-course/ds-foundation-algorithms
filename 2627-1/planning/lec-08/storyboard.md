@@ -1,6 +1,6 @@
 # Storyboard Bài 8
 
-Mục hiện hành: **Lượt duyệt từng mạch (2026-10-28)**, cùng các thay đổi ghi ở **Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)** và **Trang bài toán đầu mạch (2026-10-29)** ở cuối tệp; khi các mục khác nhau, mục sau cùng được áp dụng. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
+Mục hiện hành từ 2026-11-13: **Storyboard hiện hành sau sửa deck 2026-11-13** ở cuối tệp (mỗi trang một dòng); mọi mục trước là lịch sử. Trước đó: **Lượt duyệt từng mạch (2026-10-28)**, cùng các thay đổi ghi ở **Lượt biên tập theo bản đánh giá giảng dạy (2026-10-28)** và **Trang bài toán đầu mạch (2026-10-29)** ở cuối tệp; khi các mục khác nhau, mục sau cùng được áp dụng. Các mục trước giữ làm lịch sử; khi mâu thuẫn, mục hiện hành được áp dụng.
 
 ## Hành trình khái niệm
 
@@ -1122,3 +1122,205 @@ Số đã tự kiểm: $10^9\cdot20$ byte $=2\cdot10^{10}$ byte = 20 GB; 1 GB $=
 | B02 | Dòng cuối «Với một hàm băm và 8 bit mỗi địa chỉ, địa chỉ ngoài $S$ qua bộ lọc với xác suất chưa đến $1/8$.» (bỏ «mỗi» trước «địa chỉ ngoài» để dòng ≤ 20 âm tiết) | 55 (4, 20); 137 | 2 |
 
 Tổng mạch 5 vẫn 37,5 phút. Ghi chú bài giảng: §4.4.1 sửa thành tr.142 ở đoạn khó khăn và tài liệu tham khảo («§4.3, tr.139–142: Mục 4 (Ví dụ 4.3–4.4) và Bài tập 08.10–08.12. §4.4.1, tr.142: …»); ngữ cảnh đếm phần tử phân biệt và «mỗi máy xử lý một hoặc vài dòng» thay câu nhiều máy cũ, bỏ «ít nhất 20 máy»; «thường dài từ 20 byte», «thường dài từ 160 bit»; thêm «cùng khoảng $19/20$ thư hợp lệ (nếu thư hợp lệ đến đều từ các địa chỉ của $S$)»; câu «Đổi lại, mỗi địa chỉ ngoài $S$ cố định được cho qua với một xác suất; xác suất này không phải tỷ lệ thư rác.»; «Mục 4.5–4.7»; đoạn trực quan «hơi ít hơn $1/8$ số bit bằng 1 (khoảng $0{,}1175$, Ví dụ 08.14, …)»; gộp đoạn đọc hình `bai-toan-loc-thu.svg` vào đoạn khó khăn, bỏ lặp 20 GB/1 GB, rút câu §4.3 và câu ứng dụng. Số token toàn chương 31 181 → 31 032 (Mục 4: 5 724 → 5 575).
+
+## Storyboard hiện hành sau sửa deck 2026-11-13
+
+Sửa deck theo bảng phát hiện của lượt rà soát 2026-11-13 (`review-log.md`, mục «Rà soát deck theo nguyên tắc deck mới và đối chiếu ghi chú bài giảng (2026-11-13)»), theo nguyên tắc deck mới và ghi chú bài giảng hiện hành (`materials/lec-08/lecture-note.md`, `exercises.md`). Mục này là storyboard hiện hành: mỗi trang của deck có đúng một dòng ở các bảng dưới; các mục trước giữ làm lịch sử. Âm tiết đếm như script kiểm deck (token có chữ cái; bỏ tiêu đề, KaTeX, giả mã, hình, ô bảng chỉ có số, ghi chú diễn giả); «dòng» là đoạn, mục danh sách hoặc hàng bảng; «max» là âm tiết của dòng dài nhất. Deck **74 → 81 trang**: thêm A09, K16, K17, K18, X05, X05B; tách C00 thành C00, C00B. Không trang nào bị bỏ; không đổi `data-slide-id` của trang cũ.
+
+### Bản đồ mạch
+
+| Mạch (tên trùng trang Nội dung) | Loại | Chức năng | Vào | Ra | Mục ghi chú | Trang tiêu đề mạch |
+|---|---|---|---|---|---|---|
+| 1. Mở đầu | giới thiệu | Luận đề, tiên quyết, ba mục tiêu theo ghi chú, vấn đề trung tâm có câu trả lời có điều kiện | Bài 01 (hai bài toán dòng), Bài 02, 05, 06 | Ký hiệu cả bài; hai tình huống có số | Mục tiêu, Tiên quyết, Bảng ký hiệu | P00 (bìa) |
+| 2. Mô hình tính toán trên dòng | khái niệm/mô hình, chi phí | Định nghĩa 08.1, Thuật toán 08.2 làm thuật toán mẫu, bốn đại lượng chi phí | P01 | Trạng thái chọn theo truy vấn; giới hạn: câu hỏi tức thời cần một mẫu | Mục 1 | AT, `#/2` |
+| 3. Lấy mẫu theo khóa | thuật toán | Sai lệch của mẫu từng bộ, mẫu nhất quán theo khóa, chọn khóa, cỡ mẫu, ngưỡng giảm dần | Mạch 2 | Giới hạn: cỡ mẫu theo khóa không cố định, khóa nhiều bộ bị bỏ trọn | Mục 2.1–2.5 | KT, `#/3` |
+| 4. Lấy mẫu hồ chứa | thuật toán | Định nghĩa 08.15, Thuật toán 08.16, Định lý 08.17 bằng quy nạp, chi phí | Mạch 3 | Giới hạn: mẫu không trả lời câu hỏi thành viên | Mục 3 | RT, `#/4` |
+| 5. Lọc thành viên bằng Bloom filter | thuật toán | Lỗi một phía, xây và kiểm tra, không âm giả dưới bốn điều kiện, xác suất dương giả và hai cận dưới, $k^*$ | Mạch 4 | Ba cấu trúc cho ba loại câu hỏi | Mục 4 | BT, `#/5` |
+| 6. Tổng kết và chuyển tiếp | tổng kết | Hai bảng của §5.1 (bảng kết quả tách hai trang), trả lời có điều kiện, tự kiểm tra, nguồn, nối Bài 09 | Mạch 2–5 | Quy trình chọn cấu trúc; hai công cụ Bài 09 dùng lại | Mục 5 | CT, `#/6` |
+| 7. Bài tập vận dụng | bài tập (60 phút, dọc riêng) | Năm bài sách: 08.13, 08.7, 08.10, 08.11, 08.12 | Mạch 6 | Lời giải khớp `exercises.md` | `exercises.md` | XT, `#/7` |
+
+### Bản đồ chu trình theo cụm
+
+| Cụm | Tình huống, vấn đề | Trực giác, ý tưởng | Ví dụ chạy tay | Hình thức hóa | Thuật toán | Tính đúng | Ứng dụng, chi phí | Kiểm tra |
+|---|---|---|---|---|---|---|---|---|
+| Mô hình dòng | A08 | A05 | A05, A07 | A00 | A09 | A09 (bất biến) | A02 | A06 |
+| Mẫu theo khóa | K15, K10 | K01B, K02 | K01, K11, K12, K14 | K09, K13 | K04 | K05 | K06, K07 | K06, K08 |
+| Ngưỡng giảm dần (cầu nối, chu trình rút gọn) | K07–K08 (giới hạn có số) | K16 dòng 1 | K16 | K18 (bất biến) | K17 | K18 | K17 (câu chi phí), C03 | C03 |
+| Hồ chứa | R00, R10 | R01 | R03 | R00 (Định nghĩa 08.15) | R04 | R05–R07 | R08 | R09 |
+| Bloom filter | B00, B13 | B02 | B05–B05B | B01, B07, B08 | B03, B04 | B06 | B10–B12 | B09, B12 |
+
+Ngưỡng giảm dần là chủ đề `cầu nối` (`lec-08-topic-06`), lên deck ở dạng gọn theo quyết định D08: không có trang tình huống riêng (dùng giới hạn của K07–K08) và bảng đếm chi phí nằm ở ghi chú diễn giả K17 và hàng mới của C03.
+
+#### Mạch 1. Mở đầu
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| P00 | Dòng dữ liệu: mô hình, lấy mẫu và lọc | ngoài chu trình | Nhận diện bài và luận đề; đọc câu luận đề | Câu luận đề ba cấu trúc | Bài 01 (hai bài toán dòng) | Nêu ba câu hỏi của bài | mở đầu ghi chú | giữ | không đổi: 45 (4, 20); ghi chú 109 → 109 | 0 |
+| P04 | Tiên quyết và quy ước | cầu nối | Nhắc lại kết quả dùng lại, đặt ký hiệu; đối chiếu ba dòng Nhắc lại | Hàm băm tất định, tích xác suất độc lập, $(1-1/n)^n\approx e^{-1}$, tuyến tính kỳ vọng; $x_i,t,K(t),r,W,s,n,k,m,S$ | xác suất cơ bản; Bài 02, 05, 06 | Dùng ký hiệu không định nghĩa lại | Tiên quyết, Bảng ký hiệu (topic-01) | sửa: thêm tuyến tính kỳ vọng (dạng công thức) trên mặt trang; Jensen, Bernoulli, luật số lớn trong ghi chú diễn giả (phát hiện 16); thêm «còn gọi là bộ lọc Bloom» (phát hiện 17); gọn hai dòng Ký hiệu; kiểm lại: ghi chú tách ba kết quả thành ba câu (mục 12) | 60 (5, 18) → 60 (5, 19); ghi chú 139 → 139 | 1 |
+| P02 | Mục tiêu học tập | ngoài chu trình | Biết ba sản phẩm kiểm được | Ba mục tiêu theo ghi chú | P04 | Mỗi mục tiêu có câu hỏi cuối mạch và bài recitation (08.13; 08.7; 08.10–08.12) | Mục tiêu học tập | sửa: ba mục tiêu theo ghi chú, thêm «chứng minh không có âm giả», «dương giả» (phát hiện 5); kiểm lại: ghi chú nêu câu hỏi K08 (mục 9) | 57 (3, 20) → 52 (3, 18); ghi chú 133 → 143 | 1,5 |
+| P03 | Nội dung | ngoài chu trình | Định vị bảy mạch, khớp `#/N` | Danh sách 1–7, Đọc trước | tên mạch | Số mạch khớp `#/2…7` (kiểm bằng script) | — | sửa ghi chú: ngưỡng giảm dần, năm bài recitation | không đổi: 46 (8, 15); ghi chú 134 → 149 | 0,5 |
+| P01 | Vấn đề trung tâm | tình huống, vấn đề | Nêu nhu cầu và câu trả lời có điều kiện của mạch 2–5 | Dòng truy vấn $1/10$; $10^9$ địa chỉ, $8\cdot10^9$ bit | P04 | Thu hồi bằng số ở C01 | Mục 1 mở, Mục 5.2 (topic-02, topic-13) | sửa: dòng Bloom tách bảo đảm tất định khỏi giả thiết xác suất (phát hiện 23); ghi chú bốn điều kiện của Định lý 08.25, bỏ câu xuất xứ «số 6 do học phần chọn» (phát hiện 7); ngoại lệ trần 80 | 76 (5, 17) → 79 (5, 20); ghi chú 150 → 150 | 3,5 |
+
+Tổng mạch 1: **6,5 phút**.
+
+#### Mạch 2. Mô hình tính toán trên dòng
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| AT | 2. Mô hình tính toán trên dòng | điểm vào mạch 2 | Nhận nhiệm vụ của mạch | Dòng dẫn «Muốn …, phải …» | P01 | — | — | sửa ghi chú: bỏ câu chỉ đường «Bài toán đầu mạch là …» (phát hiện 15) | không đổi: 37 (2, 19); ghi chú 100 → 98 | 0,5 |
+| A08 | Truy vấn trên dòng cảm biến | tình huống, vấn đề | Đọc hình ba truy vấn và quy mô 3,5 TB | Hình `bai-toan-cam-bien.svg`; dòng $1,5,2,7,4,0,3,5$ | Bài 02 (tổng và số đếm) | Nêu vì sao không giữ cả lịch sử | Mục 1 mở (topic-02) | sửa ghi chú: bỏ câu «học phần đặt …» (phát hiện 7); tách câu dồn dấu chấm phẩy (phát hiện 24) | không đổi: 60 (4, 20); ghi chú 149 → 134 | 2 |
+| A05 | Ví dụ: trạng thái của ba truy vấn | ví dụ | Tính trạng thái và câu trả lời sau 8 số | Bảng ba truy vấn; $27/8$ | A08 | Ba trạng thái, hai không tăng theo $r$ | Ví dụ 08.1 | sửa: dòng «Tính …» (phát hiện 15); ghi chú dẫn Ví dụ 08.1 | 51 (6, 13) → 50 (6, 13); ghi chú 98 → 82 | 1 |
+| A00 | Mô hình dòng dữ liệu | hình thức hóa | Đọc hình mô hình dòng và định nghĩa | Hình `mo-hinh-dong.svg`; Định nghĩa 08.1 | A05 | Phân biệt truy vấn thường trực, tức thời; bộ nhớ làm việc, kho lưu trữ | Định nghĩa 08.1, Mục 1.2 | sửa: tên Anh standing query, ad-hoc query, working store, archival store (phát hiện 17) | 60 (4, 18) → 60 (4, 19); ghi chú 143 → 146 | 2 |
+| A07 | Trạng thái và phép cập nhật | ví dụ chạy tay | Chạy tay cửa sổ 4 số khi $x_5=4$ đến | Hình `trang-thai-cap-nhat.svg`; $15-1+4=18$ | A00 | Bất biến của bộ đệm vòng | Mục 1.4 | sửa ghi chú: bỏ câu «cỡ cửa sổ 4 do học phần chọn» (phát hiện 7) | không đổi: 53 (4, 20); ghi chú 151 → 140 | 2 |
+| A09 | Thuật toán: giá trị lớn nhất trên dòng | thuật toán, tính đúng | Đọc giả mã ba dòng, vết $M$, bất biến | Thuật toán 08.2; vết $M=1,5,5,7,\ldots,7$ | A07 (phép cập nhật) | Nêu bất biến và chứng minh quy nạp (ghi chú diễn giả); thuật toán mẫu cho bảng chi phí | Thuật toán 08.2, Ví dụ 08.2 | thêm (phát hiện 10): thuật toán mẫu của ghi chú chưa có trang; đặt sau A07 vì cần định nghĩa phép cập nhật, trước A02 vì bảng chi phí đếm nó ở hàng đầu | — → 24 (6, 15); ghi chú — → 120 | 1,5 |
+| A02 | Chi phí: thuật toán dòng | chi phí | Đọc bảng bốn đại lượng | Bảng ba truy vấn | A07, A09 | Bốn đại lượng chi phí mỗi phần tử | Định nghĩa 08.3 | sửa: «từ máy» (tên Anh đã ở A09); ghi chú dẫn Thuật toán 08.2; bảng chi phí, trần 80 | 70 (6, 17) → 69 (6, 16); ghi chú 142 → 145 | 2 |
+| A06 | Bài tập: trạng thái của phương sai | kiểm tra | Tìm trạng thái cỡ hằng, tính $\sigma_8^2$ | Công thức $\sigma_r^2$ | A05 | $4{,}734375$ (lời giải trong ghi chú diễn giả) | Bài tập 08.1 | sửa ghi chú: bỏ câu «lưu trực tiếp $\bar x_r$» và câu xuất xứ, thay bằng ý Welford của ghi chú (phát hiện 7, 12) | không đổi: 30 (4, 15); ghi chú 134 → 140 | 2 |
+
+Tổng mạch 2: **13,0 phút**.
+
+#### Mạch 3. Lấy mẫu theo khóa
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| KT | 3. Lấy mẫu theo khóa | điểm vào mạch 3 | Nhận nhiệm vụ của mạch | Dòng dẫn; cụm khóa thêm «Ngưỡng giảm dần» | Mạch 2 | — | — | sửa: cụm khóa (bỏ «Truy vấn tức thời», thêm «Ngưỡng giảm dần»); ghi chú nêu ngưỡng giảm dần | 39 (2, 20) → 38 (2, 19); ghi chú 99 → 118 | 0,5 |
+| K15 | Mẫu cho truy vấn tức thời | tình huống | Đọc hình: câu hỏi đến sau quyết định giữ hoặc bỏ | Hình `mau-truy-van-tuc-thoi.svg` | A06 | Nêu vì sao cần một mẫu | Mục 2 mở (topic-03) | sửa ghi chú: bỏ câu xuất xứ (phát hiện 7) | không đổi: 58 (3, 20); ghi chú 145 → 144 | 1 |
+| K10 | Tỷ lệ truy vấn lặp trên mẫu | vấn đề | Đọc dòng năm bộ, tỷ lệ của An $1/2$ | Hình `bai-toan-ty-le-lap.svg` | K15 | Câu hỏi: lưu $1/10$ nào | Mục 2 mở | sửa (phát hiện 9): «Bộ $r=1$ phải giữ hoặc bỏ ngay khi đến.»; bỏ câu xuất xứ tên An, Bình, Chi (phát hiện 7) | 61 (4, 19) → 54 (4, 19); ghi chú 148 → 135 | 1 |
+| K01 | Ví dụ: ba bộ truy vấn của An | ví dụ | Tính xác suất hai, một, không bản “đồ thị” | Cây `cay-hai-bo-do-thi.svg`; $1/100$, $18/100$, $18/19$ | K10 | Xác suất chỉ một bản $18/19$ | Ví dụ 08.3 | sửa: dòng «Tính …» (phát hiện 15), Quy ước gọn; bỏ câu xuất xứ (phát hiện 7) | 59 (3, 20) → 59 (4, 20); ghi chú 123 → 118 | 2,5 |
+| K11 | Ví dụ: tỷ lệ lặp trên mẫu từng bộ | ví dụ | Tính số người kỳ vọng trên 100 người | Bảng $1,18,10$; $1/29$ | K01 | Tỷ số hai số đếm kỳ vọng | Mục 2.1 (sau Mệnh đề 08.6) | sửa ghi chú: «Giả sử 100 người …» thay câu xuất xứ (phát hiện 7) | không đổi: 58 (6, 18); ghi chú 140 → 128 | 1,5 |
+| K09 | Sai lệch của mẫu từng bộ | hình thức hóa | Tổng quát $d/(10u+19d)$ | Bảng $u,d$ | K11 | So với $d/(u+d)$ | Mệnh đề 08.6 | sửa ghi chú: dẫn Mệnh đề 08.6 | không đổi: 52 (6, 18); ghi chú 130 → 133 | 1 |
+| K01B | Bảng giữ hoặc bỏ theo người dùng | ý tưởng (phương án trực tiếp) | Đọc bảng nhãn | Hình `bang-theo-nguoi-dung.svg` | K09 | Bảng tăng theo số người | Ví dụ 08.4 | sửa ghi chú: bỏ câu xuất xứ, dẫn Ví dụ 08.4 (phát hiện 7) | không đổi: 57 (4, 16); ghi chú 113 → 106 | 1 |
+| K02 | Hàm băm thay bảng nhãn | ý tưởng | So bảng nhãn với hàm băm | Hình `bam-theo-nguoi-dung.svg`; 1,6 GB | K01B; Bài 02 | Cùng tên cùng giá trị | Mục 2.2 | sửa ghi chú: «Giả sử có $10^8$ người dùng, mỗi hàng 16 byte» (phát hiện 7) | không đổi: 50 (3, 20); ghi chú 139 → 134 | 1,5 |
+| K12 | Ví dụ: chọn hàm băm trước dòng | ví dụ | Tính bảng $h_\omega$ theo mã | Họ $h_\omega$; bảng 3×10 | K02; Bài 06 | Xác suất $1/10$ theo phép rút $\omega$ | Mục 2.2 | sửa: «Tính $h_\omega$ theo mã.» (phát hiện 15); ghi chú bỏ câu xuất xứ (phát hiện 7); ngoại lệ 7 dòng đã ghi | 49 (7, 18) → 46 (7, 18); ghi chú 141 → 141 | 2,5 |
+| K13 | Khóa, ngăn và ngưỡng | hình thức hóa | Định nghĩa khóa, ngăn, ngưỡng $a$ | Hình `ngan-va-nguong.svg` | K12 | Tỷ lệ $a/b$ | Định nghĩa 08.8 | sửa ghi chú: bỏ câu vị thế «chỉ là bước tổng quát …» (phát hiện 14) | không đổi: 54 (4, 20); ghi chú 136 → 131 | 1,5 |
+| K04 | Thuật toán: lấy mẫu theo khóa | thuật toán | Đọc Đầu vào/Đầu ra, giả mã | Giả mã hai dòng | K13 | Phép quyết định so sánh với $a$ | Thuật toán 08.9 | sửa ghi chú: bỏ đính chính slide «at most a» (phát hiện 7) | không đổi: 54 (4, 20); ghi chú 111 → 94 | 1,5 |
+| K14 | Thuật toán: lấy mẫu theo khóa, vết trên năm bộ | chạy tay | Lập vết $a=5$ | Bảng vết 5 hàng | K04 | An $1/2$, Chi $0$ | Ví dụ 08.5 | sửa (phát hiện 9): bỏ dòng dữ kiện (đã có ở cột bảng; $b=10$, $\omega=3$ chuyển xuống ghi chú); 9 → 8 dòng, trần trang vết | 61 (9, 16) → 58 (8, 16); ghi chú 146 → 143 | 1 |
+| K05 | Tính đúng: lấy mẫu theo khóa | tính đúng | Chứng minh (a) nhất quán, (b) $a/b$ | Mệnh đề 08.10(a)(b) | K14 | Hai chứng minh một dòng | Mệnh đề 08.10 | sửa (phát hiện 21): nhãn «Mệnh đề.» với (a)(b) thay hai nhãn ngoài danh sách | 58 (4, 19) → 57 (5, 13); ghi chú 145 → 141 | 1,5 |
+| K06 | Chọn khóa lấy mẫu | ứng dụng, kiểm tra | Chọn khóa theo đơn vị thống kê | Bảng ba thống kê | K05 | Câu hỏi khóa (người dùng, thời gian) | Mục 2.3, Bài tập 08.2 | sửa ghi chú: bỏ câu xuất xứ cột thống kê (phát hiện 7); dẫn Mệnh đề 08.10(a); ngoại lệ 72 đã ghi | không đổi: 72 (6, 19); ghi chú 134 → 129 | 1,5 |
+| K07 | Chi phí: lấy mẫu theo khóa | chi phí | Đọc bảng chi phí; cỡ mẫu kỳ vọng | Bảng bốn thành phần; $10^8$ bộ | K05 | Mẫu tăng theo dòng (Hệ quả 08.12) | Mục 2.4, Hệ quả 08.12 | sửa: dẫn Hệ quả 08.12 một lần; ghi chú bỏ câu xuất xứ $r=10^9$, nối sang ngân sách cố định (phát hiện 7, 1) | 60 (7, 18) → 58 (7, 16); ghi chú 149 → 145 | 1 |
+| K08 | Ngưỡng băm và khóa nhiều bộ | kiểm tra | Trả lời $h<20$ hay $h\le20$; khóa $10^6$ bộ | Câu hỏi | K07 | Lời giải trong ghi chú diễn giả; Ví dụ 08.6 | Bài tập 08.3, Ví dụ 08.6 | sửa ghi chú: dẫn Bài tập 08.3 và số của Ví dụ 08.6; bỏ «câu hỏi của học phần» (phát hiện 7) | không đổi: 33 (2, 19); ghi chú 81 → 109 | 1 |
+| K16 | Ví dụ: hạ ngưỡng trên năm bộ | ý tưởng, chạy tay | Lập vết $\tau$: 9 → 6 → 3 với $G=3$ | Bảng vết 5 hàng; dòng năm bộ, $h$ của K12 | K07–K08 (giới hạn: mẫu tăng theo dòng, khóa nhiều bộ) | Mẫu cuối là mẫu theo khóa $a=4$ | Ví dụ 08.7 (topic-06) | thêm (phát hiện 1, nghiêm trọng): Mục 2.5 của ghi chú; dòng «Tương tự … khác ở …» đặt ý tưởng; trang vết, 8 dòng; kiểm lại: «4 bộ $>G$» thay «$4>G$» (mục 2) | — → 60 (8, 17); ghi chú — → 143 | 2 |
+| K17 | Thuật toán: lấy mẫu theo khóa với ngưỡng giảm dần | thuật toán, chi phí | Đọc Đầu vào/Đầu ra, giả mã, phép quyết định, trường hợp biên, câu chi phí | Giả mã bảy dòng; chỉ mục có thứ tự | K16 | Khóa hơn $G$ bộ bị bỏ trọn; $O(\log G)$ mỗi lần chèn hoặc dọn | Thuật toán 08.13 | thêm (phát hiện 1): dạng gọn theo D08; câu chi phí trên mặt trang, bảng đếm trong ghi chú diễn giả và hàng C03 | — → 60 (5, 15); ghi chú — → 138 | 2 |
+| K18 | Tính đúng: ngưỡng giảm dần | tính đúng | Chứng minh bất biến theo ba bước | Mệnh đề 08.14 | K17 | Mẫu luôn là mẫu theo khóa với $a=\tau+1$ | Mệnh đề 08.14 | thêm (phát hiện 1): bất biến khởi tạo–đưa vào–hạ ngưỡng; kiểm lại: «theo giả thiết quy nạp», «(Mệnh đề 08.14)» (mục 3); «Quy nạp;» rút gọn để giữ trần 60 | — → 59 (4, 20); ghi chú — → 146 | 1,5 |
+
+Tổng mạch 3: **27,0 phút**.
+
+#### Mạch 4. Lấy mẫu hồ chứa
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| RT | 4. Lấy mẫu hồ chứa | điểm vào mạch 4 | Nhận nhiệm vụ của mạch | Dòng dẫn | Mạch 3 (ngưỡng giảm dần bỏ trọn khóa) | — | — | giữ (ghi chú đã nối với trường hợp biên của ngưỡng giảm dần); kiểm lại: dòng dẫn nêu yêu cầu cùng xác suất trong mẫu cỡ cố định; ghi chú nêu giới hạn của ngưỡng giảm dần (mục 8) | 40 (2, 20) → 43 (2, 23); ghi chú 99 → 108 | 0,5 |
+| R00 | Mẫu cỡ cố định | tình huống, vấn đề, hình thức hóa yêu cầu | Đọc hình $2/5$, $2/7$; đọc định nghĩa | Hình `bai-toan-mau-co-dinh.svg`; Định nghĩa 08.15 | K07, K16–K18 | Yêu cầu $s/r$ ở mọi $r\ge s$ | Mục 3 mở, Định nghĩa 08.15 (topic-07) | sửa (phát hiện 11): «Định nghĩa.» mẫu hồ chứa cỡ $s$ thay dòng ứng dụng; Nhu cầu nêu bằng lời; ghi chú nối khóa $10^6$ bộ bị bỏ trọn (phát hiện 1); kiểm lại: «Nhắc lại:» nêu giới hạn của ngưỡng giảm dần (note:711), bỏ dòng «vài trăm triệu bộ …» (xuống ghi chú) để giữ trần 60 (mục 8) | 59 (4, 18) → 54 (3, 20); ghi chú 148 → 148 | 2,5 |
+| R10 | Ví dụ: ba cách giữ mẫu hai ô | vấn đề (phương án trực tiếp) | Tính xác suất có mặt ở ba cách | Bảng ba cách, $r=5,7$ | R00 | Phần tử đã giữ phải có lúc bị bỏ | Ví dụ 08.8 | sửa (phát hiện 8, 15, 18, 23): dòng «Tính …»; hai dòng kết gộp một; ghi chú $\eta=2/5$, bỏ câu xuất xứ; ngoại lệ trần 80 | 83 (7, 20) → 68 (6, 20); ghi chú 134 → 145 | 2 |
+| R01 | Ý tưởng lấy mẫu hồ chứa | ý tưởng | So với mẫu theo khóa | Quy tắc $j\le s$ | R10 | Một số $j$ gộp hai quyết định | Mục 3.1 | giữ | không đổi: 59 (4, 18); ghi chú 119 → 119 | 2 |
+| R03 | Ví dụ: vết chạy hồ chứa hai ô | chạy tay | Tính hồ chứa sau $r=5$ | Hình `reservoir-trace.svg` | R01 | Hồ cuối [z, c] | Ví dụ 08.9 | sửa (phát hiện 15): dòng «Tính …»; ghi chú bỏ «do học phần dựng, không phải xác suất» (phát hiện 7, 14) | 24 (2, 13) → 27 (2, 14); ghi chú 103 → 91 | 2,5 |
+| R04 | Thuật toán: lấy mẫu hồ chứa | thuật toán | Đọc Đầu vào/Đầu ra, giả mã | Giả mã; hình `reservoir-mini.svg` | R03 | Trường hợp biên $s=1$ | Thuật toán 08.16 | sửa ghi chú: dẫn Thuật toán 08.16 | không đổi: 49 (4, 16); ghi chú 129 → 132 | 3 |
+| R05 | Tính đúng: lấy mẫu hồ chứa | tính đúng | Đọc định lý, cơ sở và bước quy nạp | Định lý 08.17 | R04 | Cơ sở $r=s$ | Định lý 08.17 (topic-08) | sửa (phát hiện 3): nhãn «Định lý.» và «(Định lý 08.17)»; ghi chú dẫn Mệnh đề 08.18 không chỉ đường | 59 (5, 18) → 59 (5, 20); ghi chú 130 → 128 | 2 |
+| R06 | Chứng minh: xác suất có mặt, phần tử mới | tính đúng | Tính $s/(r+1)$ | Hình `reservoir-step.svg` | R05 | Nửa thứ nhất của bước quy nạp | Chứng minh Định lý 08.17, Bước 3 | giữ | không đổi: 24 (3, 18); ghi chú 62 → 62 | 2 |
+| R07 | Chứng minh: xác suất có mặt, phần tử cũ | tính đúng | Tính $\frac sr(1-\frac1{r+1})$ | Công thức | R06 | Nửa thứ hai | Bước 4 | giữ | không đổi: 42 (6, 14); ghi chú 134 → 134 | 3 |
+| R08 | Chi phí: lấy mẫu hồ chứa | chi phí | Đọc bảng chi phí | Bảng ba bước | R04 | $\Theta(s)$ từ, $O(1)$ mỗi phần tử | Mệnh đề 08.19, Ví dụ 08.10 | sửa (phát hiện 11): ô số lần ghi «kỳ vọng $\le s(1+\ln\frac rs)$»; ghi chú cận hai phía và Ví dụ 08.10 | không đổi: 53 (6, 20); ghi chú 88 → 105 | 2 |
+| R09 | Hồ chứa và mẫu theo khóa | kiểm tra | So hai cấu trúc; câu hỏi bộ của An | Bảng so sánh | R05, K05 | Lời giải 1 bộ kỳ vọng, $0{,}347$ | Mục 3.5, Bài tập 08.4 | sửa ghi chú: bỏ «sách MMDS không có bài tập hồ chứa» (phát hiện 6), dẫn Bài tập 08.4, thêm hồ chứa mỗi khóa (hộp tr.150) | không đổi: 50 (6, 18); ghi chú 136 → 139 | 2,5 |
+
+Tổng mạch 4: **24,0 phút**.
+
+#### Mạch 5. Lọc thành viên bằng Bloom filter
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| BT | 5. Lọc thành viên bằng Bloom filter | điểm vào mạch 5 | Nhận nhiệm vụ | Dòng dẫn | Mạch 4 | — | — | sửa: cụm khóa «Xác suất dương giả» (phát hiện 17) | không đổi: 37 (2, 20); ghi chú 98 → 98 | 0,5 |
+| B00 | Lọc theo danh sách cho phép | tình huống, vấn đề | Đọc hình 20 GB so với 1 GB | Hình `bai-toan-loc-thu.svg` | R09 | Ba phương án trực tiếp hỏng | Mục 4.1 (topic-09) | sửa ghi chú: bỏ «80% thư rác», §4.4.1 và câu «lập luận của học phần» (phát hiện 7, 12) | không đổi: 59 (4, 19); ghi chú 150 → 148 | 2,5 |
+| B13 | Lỗi một phía của bộ lọc | vấn đề | Đọc 8 bit mỗi địa chỉ; chọn phía được sai | Bảng 2×2 | B00 | Lỗi một phía | Mục 4.1 | sửa ghi chú: bỏ câu chỉ trang và câu «không phải tỷ lệ thư rác» (phát hiện 14, 15); ngoại lệ 70 đã ghi | không đổi: 70 (6, 15); ghi chú 144 → 124 | 1,5 |
+| B02 | Ý tưởng Bloom filter | ý tưởng | So với lấy mẫu theo khóa | Hình `bloom-pipeline.svg` | B13 | Bit 0 thì $y\notin S$ | Mục 4.1 | giữ | không đổi: 57 (4, 20); ghi chú 137 → 137 | 2 |
+| B05 | Ví dụ: Bloom filter 11 bit, thêm ba khóa | ví dụ | Tính mảng sau ba khóa | Hình `bloom-11bit-them.svg` | B02 | Mảng 10100101010 | Ví dụ 08.11 (topic-09) | sửa (phát hiện 15): dòng «Tính …»; ghi chú bỏ câu vị thế (phát hiện 14) | 34 (4, 14) → 43 (5, 14); ghi chú 77 → 74 | 3 |
+| B05A | Ví dụ: Bloom filter 11 bit, kiểm tra hai khóa | ví dụ (câu hỏi) | Tính $(h_1,h_2)$ của 118 và 29 | Hình `bloom-11bit-mang.svg` | B05 | Lời giải ở trang sau | Ví dụ 08.12 | sửa ghi chú: bỏ câu chỉ trang, câu xuất xứ khóa 29 (phát hiện 7, 15) | không đổi: 32 (2, 19); ghi chú 98 → 83 | 2 |
+| B05B | Ví dụ: Bloom filter 11 bit, kiểm tra hai khóa | ví dụ (lời giải) | Đối chiếu bảng | Hình `bloom-11bit-mini.svg` | B05A | 118 bị loại, 29 dương giả | Ví dụ 08.12 | sửa ghi chú: bỏ câu xuất xứ (phát hiện 7) | không đổi: 34 (4, 20); ghi chú 98 → 95 | 1,5 |
+| B01 | Đặc tả Bloom filter | hình thức hóa | Đọc Đầu vào/Đầu ra và bảng lỗi | Định nghĩa 08.22 | B05B | Âm giả, dương giả | Định nghĩa 08.22 | sửa ghi chú: dẫn Định lý 08.25 | không đổi: 56 (6, 16); ghi chú 139 → 144 | 2 |
+| B03 | Thuật toán: xây Bloom filter | thuật toán | Đọc Đầu vào/Đầu ra, giả mã | Giả mã | B01 | $km$ lần băm | Thuật toán 08.23 | sửa (phát hiện 20): dòng Đầu vào/Đầu ra ngay trước giả mã | 25 (2, 15) → 30 (3, 15); ghi chú 63 → 63 | 2 |
+| B04 | Thuật toán: kiểm tra thành viên | thuật toán | Đọc Đầu vào/Đầu ra, giả mã | Giả mã | B03 | Dừng ở bit 0 đầu tiên | Thuật toán 08.24 | sửa (phát hiện 20, 24): dòng Đầu vào/Đầu ra; ghi chú bỏ «thường» | 34 (3, 14) → 46 (4, 14); ghi chú 43 → 69 | 2 |
+| B06 | Tính đúng: không có âm giả | tính đúng | Đọc bốn điều kiện, định lý, chứng minh, phản ví dụ | Định lý 08.25 | B04 | Phản ví dụ của từng điều kiện (ghi chú diễn giả) | Định lý 08.25 (topic-10) | sửa (phát hiện 2, 3): bốn điều kiện trên dòng Giả thiết, nhãn «Định lý.»; ghi chú bỏ câu «tự thỏa», thêm phản ví dụ điều kiện 2, 3, 4 | 56 (4, 19) → 59 (4, 18); ghi chú 148 → 151 | 3 |
+| B07 | Xác suất một bit bằng 1 | hình thức hóa | Ném phi tiêu; tính $\Pr[B[c]=0]$ | Hình `phi-tieu-8-bia.svg`; Bổ đề 08.26 | B03 | $q$, $\mathbb E[X]=nq$ | Bổ đề 08.26, Ví dụ 08.13 (topic-11) | sửa (phát hiện 3): nhãn «Bổ đề.»; ghi chú bỏ «(do học phần chọn)» (phát hiện 7) | 37 (4, 16) → 43 (4, 16); ghi chú 105 → 116 | 3 |
+| B08 | Xác suất dương giả | hình thức hóa | Đọc mệnh đề và hai bất đẳng thức | Mệnh đề 08.27 | B07; Jensen (P04) | $p(k)\le q^k\le p_{FP}$ | Mệnh đề 08.27, Ví dụ 08.14, 08.15 | sửa (phát hiện 3, 11): nhãn «Mệnh đề.», $p_{FP}=\mathbb E[(X/n)^k]$ và hai cận dưới theo ghi chú; ghi chú bỏ đính chính Ví dụ 4.4 (phát hiện 7), thêm Ví dụ 08.15 | 25 (5, 8) → 31 (5, 10); ghi chú 138 → 148 | 3,5 |
+| B09 | Ảnh hưởng của số hàm băm | trực giác, kiểm tra | Câu hỏi $k\to\infty$ | Hai lực ngược chiều | B08 | $p(k)\to1$ | Mục 4.6 mở | giữ | không đổi: 30 (4, 12); ghi chú 76 → 76 | 2 |
+| B10 | Số hàm băm tối ưu | kết quả | Đọc định lý, ý nghĩa, quy tắc số nguyên, chứng minh một dòng | Định lý 08.28 | B09 | $k^*=(n/m)\ln2$, $p(k^*)=2^{-k^*}$ | Định lý 08.28, Hệ quả 08.29 (topic-12) | sửa (phát hiện 3, 15): nhãn «Định lý.»; dòng Chứng minh nêu dấu của $\phi(\theta)$ thay câu chỉ «Bài tập 4.3.3»; kiểm lại: dòng Chứng minh định nghĩa $\phi(\theta)$ và kết luận đơn điệu (mục 1) | 42 (4, 18) → 41 (4, 15); ghi chú 127 → 121 | 2,5 |
+| B11 | Ví dụ: tám bit mỗi khóa | ví dụ, ứng dụng | Tính $p(5)$, $p(6)$, chọn $k$ | Hình `fpr-curve.svg` | B10 | Chọn $k=6$ | Ví dụ 08.16 | sửa (phát hiện 15): dòng «Tính …»; ghi chú nghĩa vận hành 21 600 thư (Nhận xét 08.30), bỏ đính chính slide (phát hiện 7, 14) | 11 (3, 8) → 14 (3, 8); ghi chú 114 → 97 | 2 |
+| B12 | Chi phí: Bloom filter | chi phí, kiểm tra | Đọc bảng; câu hỏi $n/m=4$ | Bảng ba thao tác | B11 | Lời giải $k=3$ | Mục 4.7, Bài tập 08.5 | sửa ghi chú: tách câu dồn ba giới hạn (phát hiện 24); dẫn Bài tập 08.5 | không đổi: 52 (7, 15); ghi chú 116 → 125 | 2,5 |
+
+Tổng mạch 5: **37,5 phút**.
+
+#### Mạch 6. Tổng kết và chuyển tiếp
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| CT | 6. Tổng kết và chuyển tiếp | điểm vào mạch 6 | Nhận nhiệm vụ | Dòng dẫn | Mạch 5 | — | — | sửa ghi chú theo khuôn kết quả kế thừa–nhiệm vụ–đầu ra; bỏ «Mạch không đưa khái niệm mới» (phát hiện 14, 15) | không đổi: 37 (2, 20); ghi chú 95 → 105 | 0,5 |
+| C06 | Hai dòng và ba câu hỏi | tình huống (nhắc lại) | Ghép câu hỏi với cấu trúc | Hình `hai-dong-ba-cau-hoi.svg` | P01 | Quy trình ba bước chọn cấu trúc (ghi chú diễn giả) | Mục 5 mở (topic-13) | sửa ghi chú: bỏ hai câu vị thế, thêm quy trình ba bước của §5.1 (phát hiện 11, 14) | không đổi: 16 (1, 16); ghi chú 117 → 147 | 1 |
+| C00 | Kết quả và giả thiết không được bỏ, mô hình dòng và lấy mẫu theo khóa | tổng kết | Đọc năm hàng đầu của bảng §5.1 | Định nghĩa 08.1, Mệnh đề 08.6, 08.10, Hệ quả 08.12, Mệnh đề 08.14 | Mạch 2–3 | Nêu hệ quả khi bỏ từng giả thiết | Mục 5.1 | tách (phát hiện 4, 8): bảng §5.1 chín hàng không vừa 6 dòng; tiêu đề lặp với tên bước sau dấu phẩy; trần 80; kiểm lại: tiêu đề «…, mô hình dòng và lấy mẫu theo khóa» (mục 10); hàng mẫu từng bộ thêm «xác suất $1/10$» (mục 4); rút «bộ nhớ $<$ lịch sử», «các bộ có» để giữ trần 80; ngoặc kép ghi chú (mục 11) | 85 (7, 16) → 79 (6, 17); ghi chú 128 → 138 | 1,5 |
+| C00B | Kết quả và giả thiết không được bỏ, hồ chứa và Bloom filter | tổng kết | Đọc bốn hàng cuối của bảng §5.1 | Định lý 08.17, 08.25, Mệnh đề 08.27, Định lý 08.28 | Mạch 4–5 | Bốn điều kiện về trạng thái; $p(k)\le q^k\le p_{FP}$ | Mục 5.1 | thêm (tách từ C00; phát hiện 2, 4); kiểm lại: ngoặc kép ghi chú (mục 11) | — → 61 (5, 20); ghi chú — → 128 | 1,5 |
+| C03 | Thuật toán, bảo đảm và chi phí | tổng kết | So năm thuật toán | Bảng bốn cột: thuật toán, đầu vào, bảo đảm, chi phí | K07, K17, R08, B12 | Chọn thuật toán theo chi phí | Mục 5.1 | sửa (phát hiện 1, 4): thêm hàng «Ngưỡng giảm dần»; hàng kiểm tra «dương giả: $p_{FP}$»; rút chữ trong ô; trần 80; kiểm lại: «thêm $O(\log G)$» (mục 5) | 71 (5, 19) → 79 (6, 16); ghi chú 117 → 137 | 2 |
+| C01 | Câu trả lời cho vấn đề trung tâm | ứng dụng | Nối mỗi câu trả lời với kết quả | Năm câu có điều kiện | C00, C00B | Thu hồi số của P01 | Mục 5.2, Ví dụ 08.17 | sửa (phát hiện 2): dòng Bloom «Khi bốn điều kiện về trạng thái được giữ …»; ghi chú Ví dụ 08.17(d); ngoại lệ trần 80; kiểm lại: gạch 1 «Với $h$ cố định, đều» (mục 6); ghi chú đánh số theo năm dòng | 76 (5, 20) → 79 (5, 20); ghi chú 148 → 147 | 1,5 |
+| C04 | Câu hỏi tự kiểm tra, câu 1–2 | kiểm tra | Trả lời, nêu kết quả | Câu 1–2 | C00 | Lời giải trong ghi chú diễn giả | Mục 2, 3 | sửa ghi chú: dẫn Mệnh đề 08.10, Nhận xét 08.7, Định lý 08.17 | không đổi: 48 (3, 20); ghi chú 137 → 128 | 1,5 |
+| C05 | Câu hỏi tự kiểm tra, câu 3–4 | kiểm tra | Trả lời, nêu kết quả | Câu 3–4 | C00B | Lời giải trong ghi chú diễn giả | Mục 4 | sửa ghi chú (phát hiện 2, 3): bốn điều kiện, Định lý 08.25, Định lý 08.28, Nhận xét 08.31 | không đổi: 36 (3, 18); ghi chú 136 → 145 | 1,5 |
+| C02 | Nguồn và tài liệu đọc | ngoài chu trình | Ghi nguồn, mở ghi chú và bài tập | Nguồn; liên kết viewer ghi chú và `exercises.md`; Bài 09 | Mạch 2–7 | Liên kết hoạt động | Tài liệu tham khảo (topic-17) | sửa (phát hiện 22): câu nối Bài 09 nêu hai công cụ dùng lại; thêm liên kết `exercises.md` (G14) và nguồn BHK | 58 (6, 18) → 59 (6, 18); ghi chú 137 → 149 | 1 |
+
+Tổng mạch 6: **12,0 phút**.
+
+#### Mạch 7. Bài tập vận dụng (phần dọc riêng, 60 phút)
+
+| ID | Tiêu đề | Bước chu trình | Mục đích; hành động của sinh viên | Đối tượng trung tâm; dữ kiện | Kiến thức đầu vào | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định 2026-11-13 và lý do | ÂT (dòng, max) trước → sau; ghi chú GV | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| XT | 7. Bài tập vận dụng | điểm vào mạch 7 | Nhận năm bài | Dòng dẫn, cụm khóa năm bài | Mạch 6 | — | — | sửa (phát hiện 6): dòng dẫn và cụm khóa có hồ chứa; ghi chú năm bài với số Bài tập 08.k; bỏ «Sách không có bài tập về hồ chứa» | 35 (2, 20) → 39 (2, 21); ghi chú 89 → 110 | 0,5 |
+| X01 | Bài tập: chọn khóa lấy mẫu | bài tập (đề) | Chọn khóa cho ba thống kê | Lược đồ Grades; hình `grades-hai-truong.svg` | K06 | Năng lực kiểm và hướng dẫn chấm theo bước (ghi chú diễn giả) | Bài tập 08.13 | sửa: nguồn «MMDS, Bài tập 4.2.1, §4.2.5, tr.138»; ghi chú bỏ câu xuất xứ và câu chỉ trang (phát hiện 7, 15); ngoại lệ trần 80 (đề recitation) | không đổi: 72 (6, 20); ghi chú 99 → 122 | 10 |
+| X01B | Bài tập: chọn khóa lấy mẫu | bài tập (lời giải) | Đối chiếu lời giải | Ba khóa | X01 | Khớp lời giải Bài tập 08.13 | Bài tập 08.13 | sửa ghi chú: bỏ «khóa chỉ gồm university …», «Mã 123 do học phần đặt», «Lời giải do học phần soạn …» (phát hiện 7, 12) | không đổi: 55 (5, 18); ghi chú 171 → 158 | 2,5 |
+| X05 | Bài tập: chọn một từ theo số lần xuất hiện | bài tập (đề) | Thiết kế cách chọn một từ | Đề BHK Bài 6.2 | R04–R05 | Năng lực kiểm và hướng dẫn chấm (ghi chú diễn giả) | Bài tập 08.7 | thêm (phát hiện 6): mục tiêu 2 chưa có bài recitation; `exercises.md` gán 08.6–08.9 cho mục tiêu 2, chọn 08.7 vì dùng trực tiếp Thuật toán 08.16 và Định lý 08.17; kiểm lại: «Câu hỏi: xây dựng cách chọn một từ, …» theo ex:32 (mục 13) | — → 48 (4, 20); ghi chú — → 90 | 6 |
+| X05B | Bài tập: chọn một từ theo số lần xuất hiện | bài tập (lời giải) | Đối chiếu lời giải | Hồ chứa $s=1$; $f_w/r$; kiểm «a b a» | X05 | Khớp lời giải Bài tập 08.7 | Bài tập 08.7 | thêm (phát hiện 6); kiểm lại: «một từ trong hồ và bộ đếm $r$» (mục 7) | — → 52 (5, 18); ghi chú — → 118 | 2 |
+| X02 | Bài tập: dương giả với ba và bốn hàm băm | bài tập (đề) | Tính $p(3)$, $p(4)$ | Tình huống lọc thư | B08, B11 | Năng lực kiểm và hướng dẫn chấm | Bài tập 08.10 | sửa: nguồn có §4.3.4; ghi chú bỏ câu chỉ trang (phát hiện 15) | không đổi: 32 (3, 18); ghi chú 70 → 110 | 7 |
+| X02B | Bài tập: dương giả với ba và bốn hàm băm | bài tập (lời giải) | Đối chiếu | $0{,}0306$, $0{,}0240$ | X02 | Khớp lời giải Bài tập 08.10 | Bài tập 08.10 | sửa (phát hiện 21): «dạng mũ, một cận dưới của $p_{FP}$» | 27 (4, 17) → 28 (4, 18); ghi chú 85 → 93 | 2 |
+| X03 | Bài tập: chia mảng bit | bài tập (đề) | Dẫn công thức mảng chia | Hình `chia-mang-bit.svg` | B07–B08 | Năng lực kiểm và hướng dẫn chấm | Bài tập 08.11 | sửa: nguồn có §4.3.4; ghi chú bỏ «là của học phần; sách không nêu» và câu chỉ trang (phát hiện 7, 15) | không đổi: 55 (5, 18); ghi chú 76 → 104 | 10 |
+| X03B | Bài tập: chia mảng bit | bài tập (lời giải) | Đối chiếu | $p_{\text{chia}}$, $q^k$ | X03; Bernoulli (P04, ghi chú) | Khớp lời giải Bài tập 08.11 | Bài tập 08.11 | sửa (phát hiện 21): «$q^k$ … là cận dưới của $\mathbb E[(X/n)^k]$» | không đổi: 51 (5, 16); ghi chú 129 → 139 | 2 |
+| X04 | Bài tập: số hàm băm tối ưu | bài tập (đề) | Cực tiểu hóa $p(k)$ | Đề MMDS 4.3.3 | B10 | Năng lực kiểm và hướng dẫn chấm | Bài tập 08.12 | sửa: nguồn có §4.3.4; ghi chú bỏ câu chỉ trang (phát hiện 15) | không đổi: 49 (4, 19); ghi chú 78 → 90 | 9 |
+| X04B | Bài tập: số hàm băm tối ưu, điểm dừng | bài tập (lời giải) | Đối chiếu đạo hàm | $\lambda'$, $\phi$ | X04 | Khớp Bài tập 08.12 | Bài tập 08.12 | sửa: dòng cuối nêu khẳng định thay «chưa đủ để kết luận» | 38 (5, 17) → 34 (5, 13); ghi chú 69 → 82 | 4,5 |
+| X04C | Bài tập: số hàm băm tối ưu, xét dấu | bài tập (lời giải) | Đối chiếu xét dấu | $\phi''$, đối xứng | X04B | Khớp Bài tập 08.12 | Bài tập 08.12 | sửa ghi chú: dẫn Bài tập 08.12 | không đổi: 29 (5, 9); ghi chú 100 → 103 | 4,5 |
+
+Tổng mạch 7: **60,0 phút**.
+
+### Bảng thời gian
+
+| Mạch | Trang | Phút trước | Phút sau |
+|---|---:|---:|---:|
+| 1. Mở đầu | 5 | 6,5 | 6,5 |
+| 2. Mô hình tính toán trên dòng | 8 | 13 | 13 |
+| 3. Lấy mẫu theo khóa | 19 | 27 | 27 |
+| 4. Lấy mẫu hồ chứa | 11 | 24 | 24 |
+| 5. Lọc thành viên bằng Bloom filter | 17 | 37,5 | 37,5 |
+| 6. Tổng kết và chuyển tiếp | 9 | 12 | 12 |
+| **Phần giảng** | **69** | **120** | **120** |
+| 7. Bài tập vận dụng | 12 | 60 | 60 |
+
+Bù thời gian: mạch 3 thêm K16–K18 (5,5 phút) và giữ ngân sách 27 phút (D08) bằng cách bớt 0,5 phút ở K15, K10, K11, K01B, K02, K13, K04, K14, K06, K07, K08 (các trang này dùng dòng năm bộ và hàm $h_\omega$ đã quen) và không đổi K01, K12. Mạch 2 thêm A09 (1,5 phút), bớt ở A05, A00, A06 (mỗi trang 0,5). Mạch 6 tách C00 (2,5 → 1,5 + 1,5), C04 2 → 1,5; C06 và C01 lấy 1 và 1,5 phút. Mạch 1 phân lại: P04 0 → 1, P02 2 → 1,5, P01 4 → 3,5. Nhịp phần giảng khoảng 1,7 phút mỗi trang. Recitation thêm X05, X05B (8 phút), bớt X01 12 → 10, X02 8 → 7, X03 12 → 10, X03B 3 → 2, X04 11 → 9.
+
+### Danh sách mật độ và ngoại lệ (sau sửa)
+
+Trần 60; trần 80 cho mục tiêu, nội dung, bảng tổng kết, bảng so sánh và chi phí, đề recitation, và các ngoại lệ đã ghi. Mọi trang đều trong trần; không trang nào quá 3 công thức hiển thị.
+
+| Trang | Âm tiết (dòng, max) | Loại, căn cứ |
+|---|---|---|
+| P01 | 79 (5, 20) | trang vấn đề trung tâm, ngoại lệ trần 80 đã ghi (76 → 79: dòng Bloom tách bảo đảm tất định và giả thiết xác suất) |
+| A02 | 69 (6, 16) | bảng chi phí, trần 80 |
+| K06 | 72 (6, 19) | ngoại lệ đã ghi (bảng ba khóa và câu hỏi), không đổi |
+| R10 | 68 (6, 20) | ngoại lệ trần 80; trước 83 (7, 20), quá trần 80, nay gộp hai dòng kết thành một và thêm dòng «Tính …» |
+| B13 | 70 (6, 15) | ngoại lệ đã ghi (bảng so sánh 2×2), không đổi |
+| C00 | 79 (6, 17) | bảng tổng kết, trần 80; trước 85 (7, 16), nay tách năm hàng đầu |
+| C00B | 61 (5, 20) | bảng tổng kết, trần 80 |
+| C03 | 79 (6, 16) | bảng chi phí tổng kết, trần 80; trước 71 (5, 19), thêm hàng ngưỡng giảm dần và rút chữ trong ô |
+| C01 | 79 (5, 20) | trang đối chiếu, ngoại lệ trần 80 đã ghi |
+| X01 | 72 (6, 20) | đề recitation, trần 80 |
+| K12 | 46 (7, 18) | 7 dòng (bảng 3×10 và dòng tiêu đề cột), ngoại lệ đã ghi |
+| K14, K16 | 58 (8, 16); 60 (8, 17) | bảng vết, trần 8 dòng; K14 trước 61 (9, 16) |
+| P03 | 46 (8, 15) | trang Nội dung, ngoại lệ 8 dòng đã ghi |
+
+Trang tiêu đề mạch XT, RT có dòng dẫn 21 và 22 âm tiết (trần 25). Ghi chú diễn giả: 62–158 âm tiết; trên 150 chỉ có X01B (158, lời giải) và B06 (151, bốn phản ví dụ của định lý), trong trần khoảng 250 của chứng minh và lời giải.
+
+### Quyết định cũ được thay
+
+- Storyboard 2026-10-28 và `outline.md` ghi $\tau$ «chỉ trong ghi chú»: thay bằng K16–K18 (phát hiện 1, quyết định D08).
+- Trang B06 cũ nêu hai điều kiện và ghi chú diễn giả coi hai điều kiện còn lại «tự thỏa»: thay bằng bốn điều kiện của Định lý 08.25 (phát hiện 2).
+- Mạch 7 cũ không có bài hồ chứa («sách không có bài tập về hồ chứa»): thay bằng X05/X05B = Bài tập 08.7 (phát hiện 6, quyết định D08).
+- Ngoại lệ mật độ cũ của R10 (78) và C00 (74) đếm không tính tiêu đề cột bảng; số đo mới ở bảng trên thay số cũ.
