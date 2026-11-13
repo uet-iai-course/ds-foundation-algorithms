@@ -7,17 +7,17 @@
     </marker>
   </defs>
   <rect x="0" y="0" width="900" height="420" fill="#edf4ff"/>
-  <rect x="40" y="150" width="260" height="120" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
-  <text x="170.0" y="203.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Danh mục học phần</text>
-  <text x="170.0" y="235.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang trung tâm</text>
-  <rect x="580" y="60" width="280" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
-  <text x="720.0" y="108.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang học phần 1</text>
-  <text x="720.0" y="140.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang uy tín</text>
-  <rect x="580" y="250" width="280" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
-  <text x="720.0" y="298.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang học phần 2</text>
-  <text x="720.0" y="330.1" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang uy tín</text>
-  <line x1="300" y1="185" x2="580" y2="120" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-arw)"/>
-  <line x1="300" y1="235" x2="580" y2="300" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-arw)"/>
-  <text x="440" y="140" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">liên kết</text>
-  <text x="440" y="290" font-family="Arial, sans-serif" font-size="24" fill="#2F3E7A" font-weight="bold" text-anchor="middle">liên kết</text>
+  <rect x="25" y="150" width="300" height="120" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="175.0" y="202.65" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Danh mục học phần</text>
+  <text x="175.0" y="237.65" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang trung tâm</text>
+  <rect x="565" y="60" width="310" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="720.0" y="107.65" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang học phần 1</text>
+  <text x="720.0" y="142.65" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang uy tín</text>
+  <rect x="565" y="250" width="310" height="110" rx="10" fill="#ffffff" stroke="#2F3E7A" stroke-width="2.5"/>
+  <text x="720.0" y="297.65" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Trang học phần 2</text>
+  <text x="720.0" y="332.65" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">trang uy tín</text>
+  <line x1="325" y1="185" x2="565" y2="120" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-arw)"/>
+  <line x1="325" y1="235" x2="565" y2="300" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#hits-arw)"/>
+  <text x="445" y="138" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">liên kết</text>
+  <text x="445" y="296" font-family="Arial, sans-serif" font-size="29" fill="#2F3E7A" font-weight="bold" text-anchor="middle">liên kết</text>
 </svg>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 460" width="420" height="460" role="img" aria-labelledby="weighted-t weighted-d">
-  <title id="weighted-t">Kết hợp các vector chủ đề</title>
-  <desc id="weighted-d">Các vector chủ đề một tới k được kết hợp bằng các trọng số w một tới w k.</desc>
+  <title id="weighted-t">Kết hợp các véc-tơ chủ đề</title>
+  <desc id="weighted-d">Các véc-tơ chủ đề một tới k được kết hợp bằng các trọng số w một tới w k.</desc>
   <defs>
     <marker id="weighted-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>

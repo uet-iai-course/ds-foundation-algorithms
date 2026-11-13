@@ -1,10 +1,168 @@
 # Storyboard mới Bài 04: PageRank theo chủ đề, liên kết rác và HITS
 
-**Bản hiện hành (2026-10-14).** Deck có 63 trang: 59 trang giảng (120 phút) và 4 trang bài tập (60 phút); bảy mạch 8/15/9/8/12/7/4 trang, 12/30/19/17/29/13 + 60 phút; mạch 6 tên "Tổng kết và tự kiểm tra", mạch 7 "Bài tập vận dụng"; trang Nội dung là `lec04-s01-08`. Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" và mục "Lượt sửa sau ba báo cáo rà (2026-10-14)". Đoạn ngày soạn ("58 trang"), quy ước "50 slide giảng … 3 slide recitation", bảng "Bản đồ phần và kiểm tra" và các phiếu chi tiết phía dưới là bản trước đợt sửa, giữ để đối chiếu.
+**Bản hiện hành: mục "Sửa deck theo bảng phát hiện 2026-11-13 (bản hiện hành)" ngay dưới (72 trang).** Phần còn lại của tệp là lịch sử. **Bản trước (2026-10-14).** Deck có 63 trang: 59 trang giảng (120 phút) và 4 trang bài tập (60 phút); bảy mạch 8/15/9/8/12/7/4 trang, 12/30/19/17/29/13 + 60 phút; mạch 6 tên "Tổng kết và tự kiểm tra", mạch 7 "Bài tập vận dụng"; trang Nội dung là `lec04-s01-08`. Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" và mục "Lượt sửa sau ba báo cáo rà (2026-10-14)". Đoạn ngày soạn ("58 trang"), quy ước "50 slide giảng … 3 slide recitation", bảng "Bản đồ phần và kiểm tra" và các phiếu chi tiết phía dưới là bản trước đợt sửa, giữ để đối chiếu.
 
 Ngày soạn: 27/09/2026; cập nhật làm rõ nội dung: 29/09/2026; duyệt từng trang: 01/10/2026. Các phiếu dưới đây phản ánh bản HTML hiện tại gồm 58 trang: 52 trang nội dung (49 trang giảng, 3 trang bài tập) và 6 trang tiêu đề mạch thêm ngày 14/10/2026. Kết quả kiểm định từng phiên được lưu trong review-log.md.
 
 Nguồn nền là sách MMDS Chương 5: §5.3 → §5.4 → §5.5. Các slide MMDS, Stanford và Cambridge chỉ đối chiếu cách minh họa; không quyết định lại mạch sách. Đọc cùng [outline.md](outline.md) để tra mã NG, MT, HT, VD và bản đồ quyết định; xem [review-log.md](review-log.md) cho sai khác nguồn và các lượt rà độc lập.
+
+## Sửa deck theo bảng phát hiện 2026-11-13 (bản hiện hành)
+
+Căn cứ: bảng phát hiện 2026-11-13 trong `review-log.md` (29 dòng) và quyết định người dùng cùng ngày (thuật ngữ "véc-tơ"); quyết định điều phối viên G1–G18, D04; ghi chú `materials/lec-04/lecture-note.md` và `exercises.md` là chuẩn nội dung. Deck 63 → 72 trang: 65 trang giảng (120 phút), 7 trang bài tập (60 phút); bảy mạch 8/16/11/10/13/7/7. Mục này thay bảng thứ tự, quyết định, âm tiết và thời lượng của mục "Sửa toàn diện theo chuẩn 2026-10-14" và các mục cũ hơn; các mục cũ giữ làm lịch sử. Quyết định cũ "lời giải thuộc ghi chú, không có trang Lời giải" (outline, 2026-10-14) bị thay theo G5: mỗi bài recitation có trang "Lời giải:" cùng tiêu đề.
+
+### Bản đồ mạch
+
+| N | Mạch (khớp trang Nội dung) | Loại | Chức năng | Đầu vào | Đầu ra | Mục tiêu | Trang tiêu đề mạch | `note-topic-id` |
+|---:|---|---|---|---|---|---|---|---|
+| 1 | Bài toán xếp hạng liên kết | giới thiệu và động lực | ba nhu cầu, dung lượng $8\cdot10^{18}$ byte (Ví dụ 04.1), ôn nhánh theo liên kết | Bài 03: $M_0$, $\bar M$, Định lý 03.15, Ví dụ 03.13 | ba nhu cầu bằng số | 1–6 (mở) | bìa `lec04-s01-01` | topic-01 |
+| 2 | PageRank theo chủ đề | khái niệm, thuật toán, chi phí | $F_v$, Thuật toán 04.3, Mệnh đề 04.4, Định lý 04.5, Ví dụ 04.5, Mệnh đề 04.6, 04.7 | dịch chuyển đều | $r^*_v$, ghép $\Theta(kc)$ | 1, 2 | `lec04-s02-00`, `id="mach-2"`, `#/2` | topic-02 … 06 |
+| 3 | Cơ chế liên kết rác | mô hình và phân tích | đồ thị bảy trang (Ví dụ 04.6, 04.7), Định nghĩa 04.9, Mệnh đề 04.10, Hệ quả 04.11 | PageRank dịch chuyển đều | $y=(x+\beta mb+b)/(1-\beta^2)$, hệ số $400/111$; giới hạn: PageRank không phân biệt cụm | 3 | `lec04-s03-00`, `id="mach-3"`, `#/3` | topic-07 |
+| 4 | TrustRank và khối lượng rác | thuật toán, diễn giải, ứng dụng | Định nghĩa 04.13, 04.14, Ví dụ 04.8–04.10, Tình huống 04.2, 04.3 | Định nghĩa 04.1, đồ thị bảy trang | $\rho$, $s_i$; ba trang của cụm có $s_i>0$ | 4 | `lec04-s04-00`, `id="mach-4"`, `#/4` | topic-08, 09, 16 |
+| 5 | HITS | thuật toán, tính đúng, giới hạn, chi phí | Ví dụ 04.11–04.13, Định nghĩa 04.17, Thuật toán 04.19, Mệnh đề 04.20, Định lý 04.22, Mệnh đề 04.23 | một điểm mỗi trang | $h^*$, $a^*$; $8n+2\ell$ mỗi vòng | 5 | `lec04-s05-00`, `id="mach-5"`, `#/5` | topic-10 … 13 |
+| 6 | Tổng kết và tự kiểm tra | tổng kết | hai bảng, trả lời có điều kiện bằng số của mở bài, năm câu tự kiểm tra, nguồn, nối Bài 05 | mọi kết quả | trả lời bài toán trung tâm | 6 | `lec04-s06-00`, `id="mach-6"`, `#/6` | topic-15, 16, 17 |
+| 7 | Bài tập vận dụng | bài tập (dọc riêng 60 phút) | Bài tập 04.9, 04.10, 04.13 (MMDS 5.3.1, 5.4.1(a, c), 5.5.2), mỗi bài trang đề và trang "Lời giải:" | phương trình của mạch 2, 3, 5 | lời giải có hướng dẫn chấm | 1, 3, 5 | `lec04-s07-00`, `id="mach-7"`, `#/7` | `exercises.md` |
+
+Phần đọc thêm của ghi chú (Định lý 04.25, Ví dụ 04.14) không có trang; ghi chú diễn giả `lec04-s05-09` nêu tốc độ phụ thuộc $\lambda_2/\lambda_1$.
+
+### Ánh xạ từng trang
+
+Âm tiết đo bằng `check_deck.py` của điều phối viên (bỏ tiêu đề, KaTeX, `pre`, hình, ô bảng chỉ có số); "trước" là số của deck 63 trang ngày 2026-11-13. Dòng đếm theo `<p>`, `<li>`, hàng bảng kể cả hàng tiêu đề, khối công thức. Trần: 60, hoặc 80 cho mục tiêu, nội dung, bảng chi phí, bảng tổng kết, trang nguồn của mạch tổng kết và đề recitation.
+
+| # | `data-slide-id` | Tiêu đề | Mạch, bước | Mục đích; đối tượng trung tâm; khối ghi chú | Quyết định 2026-11-13 | ÂT trước → sau | Trần | Dòng | Phút |
+|---:|---|---|---|---|---|---|---:|---:|---:|
+| 1 | `lec04-s01-01` | Bài 04 PageRank theo chủ đề, liên kết rác và HITS | 1, bìa | câu luận đề | giữ | 45 → 45 | — | 4 | 0,5 |
+| 2 | `lec04-s01-07` | Tiên quyết và quy ước | 1 | Nhắc lại $M_0$, phép cập nhật; Ký hiệu $\ell$, G4; Kiến thức tiên quyết, Bảng ký hiệu | sửa 2026-11-13: "véc-tơ cột"; ghi chú diễn giả bỏ "(Bài 03 viết $T_{\max}$)" và câu chỉ đường, thêm PageRank G4 của Ví dụ 03.13 | 57 → 57 | 60 | 5 | 1,5 |
+| 3 | `lec04-s01-02` | Mục tiêu học tập | 1 | sáu mục tiêu của ghi chú (note:11–16) | sửa 2026-11-13: 5 → 6 mục, đủ động từ và đối tượng của ghi chú (thêm chứng minh, ghép, chi phí, giả thiết, giới hạn qua véc-tơ riêng); ghi chú diễn giả ánh xạ mục tiêu ↔ câu kiểm tra | 78 → 77 (đếm tay `wc -w`: 79; sau kiểm lại MT5 "giải thích chuẩn hóa") | 80 | 6 | 1 |
+| 4 | `lec04-s01-08` | Nội dung | 1 | bảy mạch, Đọc trước | sửa 2026-11-13: mạch 4 "TrustRank và khối lượng rác" | 44 → 45 | 80 | 8 | 0,5 |
+| 5 | `lec04-s01-05` | Vấn đề trung tâm | 1 | bài toán dữ liệu lớn bằng số ($8\cdot10^{18}$ byte), câu trả lời từng mạch; Ví dụ 04.1 | sửa 2026-11-13: Nhu cầu có số byte; "khối lượng rác"; ghi chú diễn giả bỏ "quy mô minh họa" | 60 → 60 | 60 | 6 | 1,5 |
+| 6 | `lec04-s01-03` | Truy vấn đa nghĩa | 1, vấn đề | "jaguar"; Mục 1 | sửa 2026-11-13: ghi chú diễn giả theo note:81 (bốn nghĩa), số $9/28$ của G4 | 58 → 58 | 60 | 5 | 2 |
+| 7 | `lec04-s01-04` | Lưu PageRank riêng cho từng người dùng | 1, vấn đề | phép tính dung lượng; Ví dụ 04.1 | sửa 2026-11-13: dòng "Quy mô minh họa" thay bằng $10^9\cdot8\cdot10^9=8\cdot10^{18}$ byte; Kết luận $k=16$: $2{,}56\cdot10^{11}$ byte, ít hơn khoảng $3\cdot10^7$ lần | 47 → 30 | 60 | 4 | 2 |
+| 8 | `lec04-s01-06` | Câu hỏi về phép truyền điểm | 1, kiểm tra | Bài tập 04.1 | sửa 2026-11-13: ghi chú diễn giả dẫn Bài tập 04.1, câu dương thay "chưa phải toàn bộ điểm" | 30 → 30 | 60 | 5 | 3 |
+| 9 | `lec04-s02-00` | 2. PageRank theo chủ đề | điểm vào mạch 2 | dòng dẫn "Muốn …, phải …" | sửa 2026-11-13: từ khóa thêm "Ghép chủ đề"; ghi chú diễn giả 114 → ≤ 100 âm tiết | 36 → 36 | — | 2 | 0,5 |
+| 10 | `lec04-s02-01` | Dịch chuyển vào tập chủ đề | 2, vấn đề có hình | `hai-nhanh-di-chuyen.svg`; Mục 2.1 | sửa 2026-11-13: ghi chú diễn giả bỏ câu rào đón "giả định ý nghĩa …" | 58 → 58 | 60 | 4 | 1,5 |
+| 11 | `lec04-s02-02` | Ví dụ: đồ thị bốn trang, tập chủ đề {B, D} | 2, ví dụ | $v$, phép cập nhật; Ví dụ 04.2 | sửa 2026-11-13: dòng "Tính $r^1$, $r^2$ từ $r^0=v$"; ghi chú diễn giả bỏ "lựa chọn theo ví dụ sách" | 40 → 38 | 60 | 4 | 2 |
+| 12 | `lec04-s02-03` | Ví dụ: đồ thị bốn trang, vòng 1 | 2, ví dụ | bảng vòng 1; Ví dụ 04.2 | sửa 2026-11-13: dòng "Tính $r^1=\dots$"; ghi chú diễn giả bỏ dòng cộng tổng đã trên mặt trang | 27 → 29 | 60 | 8 | 2 |
+| 13 | `lec04-s02-04` | Ví dụ: đồ thị bốn trang, vòng 2 và điểm cố định | 2, ví dụ | $r^2$, $r^*_v$; Ví dụ 04.3 | sửa 2026-11-13: dòng "Tính"; $r^*_v$; ghi chú diễn giả thay hai câu chỉ đường và rào đón bằng cách giải $\sigma$ của ghi chú | 29 → 32 | 60 | 8 | 2 |
+| 14 | `lec04-s02-05` | Thuật toán: PageRank theo chủ đề | 2, Đầu vào/Đầu ra | $F_v$; Định nghĩa 04.1, Thuật toán 04.3 | sửa 2026-11-13: Đầu vào "danh sách kề $\mathrm{out}[j]$"; Đầu ra $(r,t,\Delta,$ trạng thái$)$ | 46 → 50 | 60 | 5 | 2 |
+| 15 | `lec04-s02-06` | Thuật toán: PageRank theo chủ đề | 2, giả mã và đọc giả mã | giả mã của note:272–284 | sửa 2026-11-13: vòng $t=1..K$, trả $(r,t,\Delta,\dots)$; dòng đọc giả mã | 12 → 14 | 60 | 1 + mã | 2,5 |
+| 16 | `lec04-s02-07` | Tính đúng: PageRank theo chủ đề | 2, tính đúng | bất biến; Mệnh đề 04.4 | sửa 2026-11-13: ghi chú diễn giả dẫn Mệnh đề 04.4, phản ví dụ $v=(0,1,0,1)$ | 34 → 34 | 60 | 7 | 2 |
+| 17 | `lec04-s02-08` | Hội tụ và cận sai số khi dừng | 2, kết quả | Định lý 04.5 | sửa 2026-11-13: "Nhắc lại:" $\bar M=M_0+u\,\mathbf 1_{\mathcal D}^{\mathsf T}$; Định lý với $F_v$, $r^*_v$, $\Delta_t$; một dòng chứng minh theo Bước 6; ghi chú diễn giả dùng $r,r'$ | 50 → 43 | 60 | 5 | 2,5 |
+| 18 | `lec04-s02-09` | Ký hiệu cho nhiều chủ đề | 2, nhu cầu và ký hiệu | $\theta$, $v^{(\theta)}$, $r^{(\theta)}$, $w_\theta$; Mục 2.4 | sửa 2026-11-13: $j\to\theta$; dòng nhu cầu $\Theta(K(n+\ell))$ mỗi truy vấn; ghi chú diễn giả bỏ câu đổi nghĩa $j$ | 41 → 49 | 60 | 6 | 1 |
+| 19 | `lec04-s02-13` | Ví dụ: ghép chủ đề {B, D} với PageRank toàn cục | 2, ví dụ | Ví dụ 04.5 | thêm 2026-11-13: ví dụ số cốt lõi của 2.4 thiếu trên deck (phát hiện tb); đặt trước mệnh đề theo thứ tự ghi chú | — → 29 | 60 | 7 | 2 |
+| 20 | `lec04-s02-09a` | Tính tuyến tính theo phân phối dịch chuyển | 2, kết quả | Mệnh đề 04.6 | sửa 2026-11-13: $\theta$, $r^*_v$; chuyển lên trước s02-11 theo thứ tự 2.4 → 2.5; Ý nghĩa theo Mệnh đề 04.6(b) | 27 → 42 | 60 | 6 | 2 |
+| 21 | `lec04-s02-11` | Tiền tính và xử lý truy vấn | 2, ứng dụng | hai pha; Mục 2.5, Nhận xét 04.8 | sửa 2026-11-13: chuyển sau mệnh đề; $\theta$; bỏ "Nhu cầu:" (trang không phải trang bài toán); ghi chú diễn giả bỏ câu rào đón và "cần được chứng minh" | 44 → 43 | 60 | 4 | 1,5 |
+| 22 | `lec04-s02-10` | Chi phí: tiền tính theo chủ đề | 2, chi phí | Mệnh đề 04.7(a), (b) | sửa 2026-11-13: câu chi phí $3n+\ell$ trước bảng; bảng đếm $3n$, $\ell$ theo ghi chú; $\theta$ | 56 → 73 | 80 | 8 | 1,5 |
+| 23 | `lec04-s02-14` | Chi phí: xử lý truy vấn | 2, chi phí | Mệnh đề 04.7(c) | sửa 2026-11-13: câu chi phí trước bảng; $c(2k-1)$; Kết luận $31c$ (Tình huống 04.1) | 53 → 57 | 80 | 6 | 1 |
+| 24 | `lec04-s02-12` | Câu hỏi về PageRank theo chủ đề | 2, kiểm tra | Ví dụ 04.4 | sửa 2026-11-13: $\Delta_1$; ghi chú diễn giả dẫn Ví dụ 04.4 | 17 → 17 | 60 | 6 | 3 |
+| 25 | `lec04-s03-00` | 3. Cơ chế liên kết rác | điểm vào mạch 3 | dòng dẫn | sửa 2026-11-13: ghi chú diễn giả nêu đồ thị bảy trang | 38 → 38 | — | 2 | 0,5 |
+| 26 | `lec04-s03-01` | Liên kết rác | 3, vấn đề có hình | `g7-cum-thao-tung.svg`; A $9/28\to3/29$, Y $9/29$; định nghĩa liên kết rác (note:654) | sửa 2026-11-13: thành trang bài toán có hình và số của Ví dụ 04.6; định nghĩa theo ghi chú; ba vùng web sang ghi chú diễn giả; bỏ câu rào đón | 59 → 42 | 60 | 3 + hình | 2 |
+| 27 | `lec04-s03-01a` | Ví dụ: cụm hai trang hỗ trợ gắn vào G4 | 3, ví dụ | hệ bảy phương trình, $r^*$; Ví dụ 04.6 | thêm 2026-11-13: ví dụ xuyên suốt cốt lõi (phát hiện nghiêm trọng) | — → 28 | 60 | 8 | 2,5 |
+| 28 | `lec04-s03-02` | Cụm thao túng liên kết | 3, định nghĩa | Định nghĩa 04.9, `hinh-5-16-cum-thao-tung.svg` | sửa 2026-11-13: tên "trại thư rác", "trang đích (target page)", "trang hỗ trợ (supporting pages)"; nhãn SVG ≥ 18 px | 44 → 55 | 60 | 5 | 2 |
+| 29 | `lec04-s03-03` | Điểm của một trang hỗ trợ | 3, kết quả | Mệnh đề 04.10(a) | sửa 2026-11-13: ghi chú diễn giả dẫn mệnh đề, số của đồ thị bảy trang | 44 → 44 | 60 | 6 | 2 |
+| 30 | `lec04-s03-04` | Ba nguồn điểm tại trang đích | 3, kết quả | Mệnh đề 04.10(b), `luong-hang-trong-cum.svg` | sửa 2026-11-13: nhãn SVG ≥ 18 px; ghi chú diễn giả $x=38/1015$ | 38 → 38 | 60 | 6 | 2 |
+| 31 | `lec04-s03-05` | Điểm cố định của trang đích | 3, kết quả | Mệnh đề 04.10(c) | sửa 2026-11-13: ghi chú diễn giả dẫn mệnh đề | 30 → 30 | 60 | 6 | 2,5 |
+| 32 | `lec04-s03-05a` | Ví dụ: điểm trang đích trên đồ thị bảy trang | 3, ví dụ | $b$, $x$, $y=9/29$, $p=31/203$; Ví dụ 04.7 | thêm 2026-11-13: kiểm công thức trên ví dụ xuyên suốt (phát hiện nghiêm trọng) | — → 25 | 60 | 6 | 2 |
+| 33 | `lec04-s03-06` | Hệ số khuếch đại của cụm | 3, hệ quả | Hệ quả 04.11 | sửa 2026-11-13: tên số hạng bị bỏ $1/(n(1+\beta))$; ghi chú diễn giả bỏ đính chính "360%" và câu rào đón, thêm xấp xỉ $422/1827$ trên đồ thị bảy trang | 36 → 36 | 60 | 7 | 2 |
+| 34 | `lec04-s03-07` | Hai hướng chống liên kết rác | 3, ứng dụng | Nhận xét 04.12 | sửa 2026-11-13: "khối lượng rác" | 48 → 55 | 60 | 4 | 1 |
+| 35 | `lec04-s03-08` | Câu hỏi về cụm thao túng liên kết | 3, kiểm tra | Bài tập 04.4(a); biến thể "Bỏ …" | sửa 2026-11-13: ghi chú diễn giả bỏ câu tóm tắt và câu chỉ đường | 42 → 42 | 60 | 4 | 2,5 |
+| 36 | `lec04-s04-00` | 4. TrustRank và khối lượng rác | điểm vào mạch 4 | dòng dẫn | sửa 2026-11-13: tên mạch theo Mục 4; từ khóa | 34 → 35 | — | 2 | 0,5 |
+| 37 | `lec04-s04-01` | TrustRank | 4, vấn đề có hình | Định nghĩa 04.13, `tap-tin-cay.svg` | sửa 2026-11-13: Nhu cầu bằng đồ thị bảy trang; tập tin cậy (trusted set) phân biệt tập hạt giống (seed set); giả thiết cách ly gần đúng; cách chọn $T$ sang ghi chú diễn giả | 59 → 55 | 60 | 4 + hình | 2 |
+| 38 | `lec04-s04-02a` | Thuật toán: TrustRank | 4, thuật toán (rút gọn) | Định nghĩa 04.13 | sửa 2026-11-13: ghi chú diễn giả rút, dẫn Mệnh đề 04.4, Định lý 04.5 | 40 → 40 | 60 | 5 | 2 |
+| 39 | `lec04-s04-03` | Ví dụ: TrustRank trên đồ thị bốn trang | 4, ví dụ | Ví dụ 04.8 | sửa 2026-11-13: dòng "Tính $\rho$"; Kết luận không dùng dấu hai chấm kép | 34 → 35 | 60 | 7 | 1 |
+| 40 | `lec04-s04-04` | Ví dụ: hiệu PageRank và TrustRank trên đồ thị bốn trang | 4, ví dụ | ngưỡng TrustRank đánh dấu C ($\rho_C=19/105$); Ví dụ 04.9 | sửa 2026-11-13: dòng ngưỡng (note:872) và "Tính $r_i-\rho_i$" thay "Nhu cầu:"; ghi chú diễn giả bỏ đính chính Hình 5.17 | 35 → 38 | 60 | 8 | 2 |
+| 41 | `lec04-s04-05` | Khối lượng rác | 4, định nghĩa | Định nghĩa 04.14, Ví dụ 04.10 | sửa 2026-11-13: tên "khối lượng rác (spam mass)"; cách đọc "phần của $r_i$ bị mất"; ghi chú diễn giả thêm $\sum_ir_is_i=0$, bỏ đính chính Ví dụ 5.12 | 41 → 43 | 60 | 5 | 2,5 |
+| 42 | `lec04-s04-06` | Chi phí: khối lượng rác | 4, chi phí | Nhận xét 04.16 | sửa 2026-11-13: tiêu đề; câu chi phí trước bảng; $3n+\ell$ mỗi vòng, $2n$ cho $s_i$ | 46 → 64 | 80 | 8 | 1,5 |
+| 43 | `lec04-s04-08` | Ví dụ: phát hiện trang đích bằng khối lượng rác | 4, ứng dụng | `g7-khoi-luong-rac.svg`; Tình huống 04.2 | thêm 2026-11-13: tình huống cốt lõi (phát hiện nghiêm trọng): $s_{\mathrm Y}=43/81$, $s_{\mathrm P}=863/1395$, bốn trang G4 âm | — → 28 | 60 | 6 + hình | 2,5 |
+| 44 | `lec04-s04-09` | Ví dụ: tập tin cậy chứa trang cho phép bình luận | 4, ứng dụng (giả thiết bị vi phạm) | Tình huống 04.3 | thêm 2026-11-13: ba tập tin cậy, $s_{\mathrm Y}=43/81, 31/81, 7/81$ | — → 59 | 60 | 8 | 2 |
+| 45 | `lec04-s04-07` | Câu hỏi về khối lượng rác | 4, kiểm tra | Nhận xét 04.15 | sửa 2026-11-13: nền "lặp thô của Bài 03 ($\beta=1$)"; câu 1 bỏ dẫn tiêu đề trang; ghi chú diễn giả có hướng dẫn | 46 → 35 | 60 | 4 | 2,5 |
+| 46 | `lec04-s05-00` | 5. HITS | điểm vào mạch 5 | dòng dẫn | sửa 2026-11-13: từ khóa "Ma trận kề", "Giới hạn" | 37 → 35 | — | 2 | 0,5 |
+| 47 | `lec04-s05-01` | Trang trung tâm và trang uy tín | 5, vấn đề có hình | `cap-vai-tro-hits.svg`; Mục 5.1 | sửa 2026-11-13: tên đầy đủ "hyperlink-induced topic search"; ghi chú diễn giả 150 → 129; nhãn SVG ≥ 18 px | 57 → 60 | 60 | 4 + hình | 1,5 |
+| 48 | `lec04-s05-02` | Định nghĩa tương hỗ của hai điểm | 5, trực giác | G5 | sửa 2026-11-13: ghi chú diễn giả bỏ "quy ước thuật toán sách" | 47 → 47 | 60 | 5 | 2 |
+| 49 | `lec04-s05-03` | Ví dụ: đồ thị năm trang, bước uy tín thứ nhất | 5, ví dụ | Ví dụ 04.11 | sửa 2026-11-13: dòng "Tính $\tilde a_j$" | 36 → 27 | 60 | 8 | 2 |
+| 50 | `lec04-s05-04` | Ví dụ: đồ thị năm trang, bước trung tâm thứ nhất | 5, ví dụ | Ví dụ 04.11 | sửa 2026-11-13: dòng "Tính $\tilde h_i$" | 34 → 33 | 60 | 8 | 2 |
+| 51 | `lec04-s05-05` | Ví dụ: đồ thị năm trang, vòng thứ hai | 5, ví dụ | Ví dụ 04.12 | sửa 2026-11-13: dòng "Tính"; Kết luận theo note:1057; ghi chú diễn giả bỏ "quan sát …, chưa phải chứng minh" | 28 → 33 | 60 | 8 | 2 |
+| 52 | `lec04-s05-06` | Ma trận kề của HITS | 5, hình thức hóa | Định nghĩa 04.17, Nhận xét 04.18 | sửa 2026-11-13: tiêu đề "Ma trận kề", "ma trận kề (adjacency matrix)" | 35 → 37 | 60 | 7 | 2 |
+| 53 | `lec04-s05-07` | Chuẩn hóa điểm HITS | 5, định nghĩa | $N(z)$ | sửa 2026-11-13: $N(q)\to N(z)$ | 43 → 41 | 60 | 4 | 1,5 |
+| 54 | `lec04-s05-08` | Thuật toán: HITS | 5, Đầu vào/Đầu ra, giả mã, đọc giả mã | Thuật toán 04.19 | sửa 2026-11-13: Đầu vào danh sách cạnh; $a'$, $h'$; trả $t$; dòng đọc giả mã; ghi chú diễn giả 186 → 138 | 15 → 33 | 60 | 3 + mã | 2,5 |
+| 55 | `lec04-s05-08a` | Tính đúng: HITS | 5, tính đúng | bất biến quy nạp; Mệnh đề 04.20 | thêm 2026-11-13: cụm HITS thiếu trang tính đúng (phát hiện tb) | — → 51 | 60 | 4 | 2 |
+| 56 | `lec04-s05-09` | Giới hạn của HITS | 5, kết quả | Bổ đề 04.21, Định lý 04.22, Ví dụ 04.13 | sửa 2026-11-13: tiêu đề theo định lý; giả thiết "$\lambda_1$ đơn; $h^0$ dương"; một dòng chứng minh; $h^*$ trên G5 lên mặt trang; bỏ "phác thảo" | 57 → 39 | 60 | 6 | 3 |
+| 57 | `lec04-s05-10` | Chi phí: HITS mỗi vòng | 5, chi phí | Mệnh đề 04.23 | sửa 2026-11-13: câu chi phí trong dòng Mô hình; bảng $8n+2\ell$ theo ghi chú | 54 → 66 | 80 | 8 | 1,5 |
+| 58 | `lec04-s05-11` | Câu hỏi về HITS | 5, kiểm tra | Bài tập 04.6 | sửa 2026-11-13: ghi chú diễn giả bỏ câu tóm tắt và chỉ đường | 45 → 45 | 60 | 5 | 2,5 |
+| 59 | `lec04-s06-00` | 6. Tổng kết và tự kiểm tra | điểm vào mạch 6 | dòng dẫn | sửa 2026-11-13: ghi chú diễn giả 109 → 88 | 40 → 40 | — | 2 | 0,5 |
+| 60 | `lec04-s06-05` | Kết quả và giả thiết không được bỏ | 6, bảng 1 | các kết quả chính | sửa 2026-11-13: $\theta$, $r^*_v$, $\Delta_t$, $\lambda_1$; "Khối lượng rác"; giả thiết HITS theo Định lý 04.22 | 75 → 66 | 80 | 7 | 2,5 |
+| 61 | `lec04-s06-01` | Thuật toán, bảo đảm và chi phí | 6, bảng 2 | Mục 6 | sửa 2026-11-13: $3n+\ell$, $8n+2\ell$; bảo đảm của khối lượng rác $s_i\le1$, $\sum_ir_is_i=0$ | 69 → 61 | 80 | 5 | 2 |
+| 62 | `lec04-s06-02` | Câu trả lời cho vấn đề trung tâm | 6, trả lời có điều kiện | Tình huống 04.1, 04.2 | sửa 2026-11-13: gạch 3 bằng số của Tình huống 04.2; Kết luận $2{,}56\cdot10^{11}$ thay $8\cdot10^{18}$ byte | 77 → 57 | 80 | 6 | 2,5 |
+| 63 | `lec04-s06-03` | Câu hỏi tự kiểm tra | 6, kiểm tra | Bài tập 04.3(a), Mục 6 | sửa 2026-11-13: ghi chú diễn giả dẫn khối | 47 → 47 | 60 | 3 | 2,5 |
+| 64 | `lec04-s06-04` | Câu hỏi tự kiểm tra | 6, kiểm tra | Bài tập 04.7(b), (c), 04.8 | sửa 2026-11-13: câu 4 thay bằng Bài tập 04.7(c) ($T=V$) | 59 → 47 | 60 | 4 | 3,5 |
+| 65 | `lec04-s06-06` | Nguồn và tài liệu đọc | 6, nguồn | tài liệu tham khảo của ghi chú | sửa 2026-11-13: bỏ Teufel; thêm trang chiếu MMDS phần hai, BHK §3.7, §3.9.4; liên kết tệp bài tập; dòng nối Bài 05 | 41 → 59 | 80 | 4 | 1 |
+| 66 | `lec04-s07-00` | 7. Bài tập vận dụng | điểm vào mạch 7 | dòng dẫn | sửa 2026-11-13: ghi chú diễn giả nêu trang lời giải | 34 → 34 | — | 2 | 0,5 |
+| 67 | `lec04-s07-01` | Bài tập: PageRank với hai tập dịch chuyển | 7, đề | Bài tập 04.9 (MMDS 5.3.1, §5.3.5, tr.199) | sửa 2026-11-13: lời giải chuyển sang trang kế; ghi chú diễn giả gợi ý và hướng dẫn chấm 10 điểm | 65 → 65 | 80 | 5 | 8 |
+| 68 | `lec04-s07-01a` | Bài tập: PageRank với hai tập dịch chuyển | 7, lời giải | Bài tập 04.9 | thêm 2026-11-13 (G5): "Lời giải:" $(3/7,4/21,4/21,4/21)$, $(27/70,6/35,19/70,6/35)$ | — → 39 | 60 | 5 | 11,5 |
+| 69 | `lec04-s07-02` | Bài tập: biến thể cụm thao túng | 7, đề | Bài tập 04.10 (MMDS 5.4.1(a, c), §5.4.6, tr.203–204) | sửa 2026-11-13: cột hình rộng 45 % để nhãn ≥ 18 px; hướng dẫn chấm | 56 → 56 | 80 | 4 + hình | 8 |
+| 70 | `lec04-s07-02a` | Bài tập: biến thể cụm thao túng | 7, lời giải | Bài tập 04.10 | thêm 2026-11-13 (G5): hai cặp phương trình, $y=x+b$, nghiệm chính xác và xấp xỉ của (c) | — → 29 | 60 | 5 | 12 |
+| 71 | `lec04-s07-03` | Bài tập: HITS trên chuỗi có khuyên | 7, đề | Bài tập 04.13 (MMDS 5.5.2, §5.5.3, tr.208) | sửa 2026-11-13: hướng dẫn chấm | 55 → 55 | 80 | 5 | 8 |
+| 72 | `lec04-s07-03a` | Bài tập: HITS trên chuỗi có khuyên | 7, lời giải | Bài tập 04.13 | thêm 2026-11-13 (G5): $LL^{\mathsf T}=\mathrm{diag}(2,1,\ldots,1,0)$, $h^t$, $a^t$, $h^*$, $a^*$, $n=1,2$ | — → 22 | 60 | 5 | 12 |
+
+Không trang nào bị bỏ hay gộp; không `data-slide-id` cũ nào đổi. Mọi "vector" trên mặt trang, ghi chú diễn giả, `alt` và nhãn SVG của deck đổi thành "véc-tơ" (quyết định người dùng 2026-11-13); tên tệp `luu-vector-theo-chu-de.svg`, `tong-vector-chu-de.svg` giữ nguyên.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Mười ba mục của điều phối viên (`merge-04.md`): s03-01 (ba trang sở hữu Y, $\mathrm P_1$, $\mathrm P_2$), s01-05 (Nhu cầu "$10^9$ người dùng, mỗi người một véc-tơ"), s04-09 (Kết luận theo note:1515), s06-02 (giả thiết "$h^0$ dương"), tên trang chữ đứng ở s02-12, s02-13, s04-03, s04-04, s04-07, ghi chú diễn giả s04-01 ($m/n=2/7$, loại Y khỏi tập hạt giống), s02-13 (Kết luận thay dòng $\sigma$), s04-01 (Nhu cầu), ghi chú diễn giả s04-08, s06-06 (câu nối Bài 05 với $w_\theta$), s03-01a (dòng kiểm tổng thay Diễn giải), s03-07 (Kết luận), s01-02 (MT5 "giải thích chuẩn hóa"; MT3, MT4 rút một chữ để giữ ≤ 80). Số âm tiết trong bảng trên đã cập nhật.
+
+### Bảng thời gian
+
+| Mạch | Trang | Phút | Nhịp (phút/trang) |
+|---|---:|---:|---:|
+| 1. Bài toán xếp hạng liên kết | 8 | 12 | 1,5 |
+| 2. PageRank theo chủ đề | 16 | 29 | 1,8 |
+| 3. Cơ chế liên kết rác | 11 | 21 | 1,9 |
+| 4. TrustRank và khối lượng rác | 10 | 18,5 | 1,85 |
+| 5. HITS | 13 | 25 | 1,9 |
+| 6. Tổng kết và tự kiểm tra | 7 | 14,5 | 2,1 |
+| Phần giảng | 65 | 120 | 1,85 |
+| 7. Bài tập vận dụng | 7 | 60 | — |
+
+Phần giảng thêm sáu trang (Ví dụ 04.5, 04.6, 04.7, Tình huống 04.2, 04.3, tính đúng HITS), 59 → 65 trang, và vẫn 120 phút. So với 12/30/19/17/29/13 phút của bản 2026-10-14: mạch 2 bớt 1 phút (s02-09, s02-14 mỗi trang 1 phút), mạch 3 thêm 2, mạch 4 thêm 1,5, mạch 5 bớt 4 (ba trang vết 2 phút thay 2,5–3; s05-06, s05-08 mỗi trang bớt 1 phút), mạch 6 thêm 1,5 cho câu trả lời và câu tự kiểm tra mới. Nhịp 1,85 phút/trang cao hơn Bài 09, 10 (1,2–1,5) vì deck giữ các trang vết, chi phí và bảng của bản 2026-10-14; không trang nào được rút thêm để giữ đủ chu trình của bốn cụm. Recitation: 0,5 + (8 + 11,5) + (8 + 12) + (8 + 12) = 60 phút.
+
+### Ngoại lệ mật độ và dòng
+
+- Trang trần 80: s01-02 (77; đếm tay 79), s01-08 (45), s02-10 (73), s02-14 (57), s04-06 (64), s05-10 (66), s06-05 (66), s06-01 (61), s06-02 (57), s06-06 (59), s07-01 (65), s07-02 (56), s07-03 (55). Không trang trần 60 nào vượt 60 (s01-05, s05-01 bằng 60).
+- Dòng 7–8 vì bảng (vết, chi phí, so sánh): s02-03, s02-04, s02-10, s03-01a, s04-04, s04-06, s04-09, s05-03, s05-04, s05-05, s05-10 (8); s02-07, s02-13, s03-06, s05-06, s06-05 (7); s01-08 (8, trang Nội dung).
+- Khối công thức: s03-05 có 3 (bằng trần); các trang khác ≤ 2.
+- Ghi chú diễn giả trên 150 âm tiết chỉ ở trang chứng minh hoặc lời giải: s02-08 (151, chứng minh Định lý 04.5), s06-04 (182, lời giải ba câu), s07-02a (168), s07-03a (157).
+
+### Chu trình rút gọn có lý do
+
+- TrustRank: vết chạy tay trùng vết PageRank theo chủ đề khi cùng phân phối dịch chuyển (Ví dụ 04.8), nên "Thuật toán: TrustRank" không lặp giả mã và tính đúng (Mệnh đề 04.4, Định lý 04.5 áp dụng nguyên vẹn).
+- Khối lượng rác: chỉ số dẫn xuất, không có thuật toán lặp riêng (note:900); chu trình gồm vấn đề (s04-04), định nghĩa (s04-05), chi phí (s04-06), ứng dụng (s04-08, s04-09), kiểm tra (s04-07).
+- Cụm thao túng: không có thuật toán; chu trình là vấn đề có số (s03-01), ví dụ (s03-01a), định nghĩa (s03-02), kết quả (s03-03…s03-05), kiểm trên ví dụ (s03-05a), hệ quả (s03-06), ứng dụng (s03-07), kiểm tra (s03-08).
+
+### Hình
+
+Mới (script `tools/courses/ds-foundation-algorithms/2627-1/img/lec-04/scripts/render_figures.py`, hàm `fig_g7`): `g7-cum-thao-tung.svg` (s03-01), `g7-khoi-luong-rac.svg` (s04-08) — bản deck của `note-g4-cum-thao-tung.svg`, `note-g4-cum-tin-cay.svg` (chữ 18–19 trên viewBox 860, chỉ còn khoảng 11 px khi chiếu), nhãn 31 trên viewBox 1000 × 720, đo 18,5 px ở 1280 × 720. Sửa: `hinh-5-16-cum-thao-tung.svg` (nhãn 28, 19,7 px), `luong-hang-trong-cum.svg` (31–32, 18,5 px), `ho-tro-tu-khuyen.svg`, `ho-tro-khuyen-va-dich.svg` (32, 20,6 px với cột 45 %), `cap-vai-tro-hits.svg` (29, ≥ 18 px), `hinh-5-15.svg`, `hinh-5-15-tin-cay.svg` (chữ S/T 22 → 26), `luu-vector-theo-chu-de.svg`, `tien-tinh-va-truy-van.svg`, `tong-vector-chu-de.svg` ("véc-tơ"). Script được cập nhật để sinh lại đúng các sửa tay trước đây của `hinh-5-1-kiem-tra.svg`, `luu-vector-theo-chu-de.svg`, `hinh-5-16-cum-thao-tung.svg`.
+
+### Ánh xạ `note-topic-id` ↔ `data-slide-id` (thay bảng 2026-11-11)
+
+| `note-topic-id` | Trang chiếu |
+|---|---|
+| `lec-04-topic-01` | s01-01, s01-05, s01-03, s01-04, s01-06 |
+| `lec-04-topic-02` | s02-00, s02-01, s02-02, s02-03, s02-04 |
+| `lec-04-topic-03` | s02-05, s02-06, s02-07 |
+| `lec-04-topic-04` | s02-08, s02-12 |
+| `lec-04-topic-05` | s02-09, s02-13, s02-09a |
+| `lec-04-topic-06` | s02-11, s02-10, s02-14 |
+| `lec-04-topic-07` | s03-00, s03-01, s03-01a, s03-02 … s03-05, s03-05a, s03-06 … s03-08 |
+| `lec-04-topic-08` | s04-00, s04-01, s04-02a, s04-03 |
+| `lec-04-topic-09` | s04-04, s04-05, s04-06, s04-07 |
+| `lec-04-topic-10` | s05-00 … s05-07 |
+| `lec-04-topic-11` | s05-08, s05-08a |
+| `lec-04-topic-12` | s05-09 |
+| `lec-04-topic-13` | s05-10, s05-11 |
+| `lec-04-topic-14` (đọc thêm) | không có trang; ghi chú diễn giả s05-09 |
+| `lec-04-topic-15` | s06-00, s06-05, s06-01, s06-03, s06-04 |
+| `lec-04-topic-16` | s01-04, s01-05 (Tình huống 04.1), s04-08 (04.2), s04-09 (04.3), s06-02 |
+| `lec-04-topic-17` | s06-05, s06-02, s06-06 |
+| `exercises.md` | s07-01, s07-01a (04.9); s07-02, s07-02a (04.10); s07-03, s07-03a (04.13); s06-04 câu 5 (04.8) |
 
 ## Quy ước đọc phiếu
 

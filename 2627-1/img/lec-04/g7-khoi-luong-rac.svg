@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" role="img" aria-labelledby="g7sm-t g7sm-d">
+  <title id="g7sm-t">Khối lượng rác trên đồ thị bảy trang</title>
+  <desc id="g7sm-d">Cùng đồ thị bảy trang, beta bằng 4/5. B và D có viền đôi: tập tin cậy T gồm B, D. Cạnh đậm từ C tới trang đích Y là cạnh duy nhất vào cụm. Nhãn cạnh mỗi trang ghi khối lượng rác: A và C mỗi trang âm 0,40; B và D mỗi trang âm 1,47; Y 0,53; P1, P2 mỗi trang 0,62. Ba trang của cụm là ba trang duy nhất có khối lượng rác dương.</desc>
+  <defs>
+    <marker id="g7sm-arw" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#B15A2B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="720" fill="#edf4ff"/>
+  <rect x="215" y="470" width="770" height="242" rx="14" fill="#fff7ed" stroke="#B15A2B" stroke-width="2.5" stroke-dasharray="10 7"/>
+  <text x="970" y="508" font-family="Arial, sans-serif" font-size="31" fill="#B15A2B" font-weight="bold" text-anchor="end">cụm thao túng</text>
+  <text x="640" y="60" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="bold" text-anchor="start">Nhãn: khối lượng rác</text>
+  <text x="640" y="100" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="bold" text-anchor="start">viền đôi: T = {B, D}</text>
+  <path d="M 182,90 L 438,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="A" data-target="B" />
+  <path d="M 480,48 Q 310,-20 140,48" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="B" data-target="A" />
+  <path d="M 140,132 L 140,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="A" data-target="C" />
+  <path d="M 98,350 Q 0,220 98,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="C" data-target="A" />
+  <path d="M 480,132 L 480,308" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="B" data-target="D" />
+  <path d="M 522,350 Q 620,220 522,90" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="D" data-target="B" />
+  <path d="M 173.4,115.5 L 446.6,324.5" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="A" data-target="D" />
+  <path d="M 438,350 L 182,350" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="D" data-target="C" />
+  <path d="M 165.7,383.2 L 284.3,536.8" fill="none" stroke="#B15A2B" stroke-width="6" marker-end="url(#g7sm-arw)" data-source="C" data-target="Y"/>
+  <path d="M 350.6,556.0 L 597.2,526.1" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="Y" data-target="P1" />
+  <path d="M 599.4,544.0 L 352.8,573.9" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="P1" data-target="Y" />
+  <path d="M 352.9,572.4 L 601.8,640.3" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="Y" data-target="P2" />
+  <path d="M 597.1,657.6 L 348.2,589.7" fill="none" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#g7sm-arw)" data-source="P2" data-target="Y" />
+  <circle cx="140" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="140" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">A</text>
+  <circle cx="480" cy="90" r="51" fill="none" stroke="#26704E" stroke-width="4"/>
+  <circle cx="480" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="480" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">B</text>
+  <circle cx="140" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="140" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">C</text>
+  <circle cx="480" cy="350" r="51" fill="none" stroke="#26704E" stroke-width="4"/>
+  <circle cx="480" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="480" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">D</text>
+  <circle cx="310" cy="570" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="310" y="582" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">Y</text>
+  <circle cx="640" cy="530" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="640" y="542" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">P₁</text>
+  <circle cx="640" cy="660" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
+  <text x="640" y="672" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">P₂</text>
+  <text x="52" y="40" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="middle">−0,40</text>
+  <text x="575" y="40" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="middle">−1,47</text>
+  <text x="62" y="432" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="middle">−0,40</text>
+  <text x="480" y="438" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="middle">−1,47</text>
+  <text x="310" y="668" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="middle">0,53</text>
+  <text x="697" y="541" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="start">0,62</text>
+  <text x="697" y="671" font-family="Arial, sans-serif" font-size="31" fill="#2F3E7A" font-weight="normal" text-anchor="start">0,62</text>
+</svg>

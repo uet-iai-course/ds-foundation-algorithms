@@ -22,12 +22,12 @@
   <circle cx="480" cy="90" r="50" fill="none" stroke="#2F3E7A" stroke-width="2.5"/>
   <circle cx="480" cy="90" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
   <text x="480" y="102" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
-  <text x="480" y="82" font-family="Arial, sans-serif" font-size="22" fill="#2F3E7A" font-weight="bold" text-anchor="middle">S</text>
+  <text x="480" y="82" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">S</text>
   <text x="480" y="116" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">B</text>
   <circle cx="480" cy="350" r="50" fill="none" stroke="#2F3E7A" stroke-width="2.5"/>
   <circle cx="480" cy="350" r="42" fill="#ffffff" stroke="#2F3E7A" stroke-width="3" />
   <text x="480" y="362" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle"></text>
-  <text x="480" y="342" font-family="Arial, sans-serif" font-size="22" fill="#2F3E7A" font-weight="bold" text-anchor="middle">S</text>
+  <text x="480" y="342" font-family="Arial, sans-serif" font-size="26" fill="#2F3E7A" font-weight="bold" text-anchor="middle">S</text>
   <text x="480" y="376" font-family="Arial, sans-serif" font-size="34" fill="#2F3E7A" font-weight="bold" text-anchor="middle">D</text>
   <text x="310" y="470" font-family="Arial, sans-serif" font-size="30" fill="#2F3E7A" font-weight="bold" text-anchor="middle">B và D thuộc tập chủ đề S</text>
 </svg>

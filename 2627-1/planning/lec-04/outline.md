@@ -2,6 +2,8 @@
 
 ## Phạm vi và trạng thái hiện hành
 
+**Trạng thái hiện hành (2026-11-13):** deck 72 trang sửa theo bảng phát hiện 2026-11-13 và ghi chú bài giảng; mục tiêu, bảy phần, ký hiệu và quyết định hiện hành nằm ở mục "Sửa deck theo bảng phát hiện 2026-11-13" cuối tệp, thay các bảng tương ứng phía dưới (giữ làm lịch sử).
+
 Ngày lập: 27/09/2026. Bản này thay thế toàn bộ dàn bài cũ theo yêu cầu của người dùng. Nội dung được xây lại từ đề cương và nguồn chi tiết; cấu trúc HTML, dàn ý, storyboard và báo cáo đạt của bản cũ không được dùng làm căn cứ thiết kế hoặc kiểm định bản mới.
 
 Bộ slide đã triển khai bằng HTML, SVG và ghi chú diễn giả. Ngày 29/09/2026, bản sửa làm rõ ký hiệu, cơ chế và cách diễn giải điểm; hồ sơ hiện hành phản ánh 53 trang. Ghi chú tự học đã được đối chiếu về giả thiết, công thức và thứ tự khái niệm; lượt này giữ nguyên tệp ghi chú, CSS chung và mục tài nguyên. Kết quả kiểm định bản sửa được ghi riêng trong nhật ký.
@@ -500,3 +502,52 @@ Chu trình rút gọn: Mục 1 là mục giới thiệu; TrustRank dùng lại t
 - `exercises.md`: lời giải 04.8, 04.12, 04.13, 04.14 dùng nhãn bước in đậm (bài sách không chia ý); 04.13 bỏ "(!)", phần đối chiếu Định lý 04.22 chuyển vào "Kiểm tra lại"; 04.12 thêm gợi ý chia đôi trên $[4,5]$; 04.11 bỏ đoạn nền $\beta=1$.
 - Lệch deck thêm: thứ tự Mục 2 (deck đặt s02-11 tiền tính trước s02-09a tuyến tính; ghi chú đặt Mệnh đề 04.6 trước Mệnh đề 04.7). Ghi chú nối sang Bài 05 có căn cứ MMDS §5.3.4 (tr.198–199, Jaccard để suy chủ đề), trong khi deck không nối. Hình của deck `luu-vector-theo-chu-de.svg`, `tien-tinh-va-truy-van.svg` ghi "vector"; `desc` của `hinh-5-16-cum-thao-tung.svg` dùng chữ "t" cho trang đích (không sửa, ngoài phạm vi). Mã `link_analysis.py` lệnh `trust` dùng nền $\beta=1$ (ghi một câu ở tài liệu tham khảo theo B1); `hits()` khởi tạo $a=\mathbf 0$ (Thuật toán 04.19: $a=\mathbf 1$; chỉ đổi $\Delta_a$ vòng đầu).
 - Bảng Mục 6: cột "Đầu vào thêm" của HITS ghi "đồ thị con của truy vấn"; "ít nhất một cạnh" sang cột giả thiết; gọi chung "ba phép lặp và một chỉ số dẫn xuất".
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+Căn cứ: bảng phát hiện 2026-11-13 và quyết định người dùng cùng ngày trong `review-log.md`; quyết định điều phối viên G1–G18, D04. Ghi chú `materials/lec-04/lecture-note.md` là chuẩn nội dung; deck là bản tóm lược của ghi chú. Chi tiết từng trang ở `storyboard.md`, mục "Sửa deck theo bảng phát hiện 2026-11-13 (bản hiện hành)".
+
+### Mục tiêu học tập (thay bảng MT1–MT5)
+
+| Mã | Mục tiêu trên deck (khớp note:11–16) | Trang phục vụ | Bằng chứng đánh giá |
+|---|---|---|---|
+| MT1 | Lập phân phối dịch chuyển, chạy hai vòng, giải điểm cố định | s02-01 … s02-04 | Bài tập 04.9 (s07-01, s07-01a); câu tự kiểm tra 1 |
+| MT2 | Chứng minh bảo toàn, hội tụ, cận sai số; ghép chủ đề, đếm chi phí | s02-07, s02-08, s02-09, s02-13, s02-09a, s02-11, s02-10, s02-14 | s02-12 |
+| MT3 | Giải điểm trang đích của cụm thao túng, hệ số khuếch đại; nêu giả thiết | s03-01 … s03-07 | s03-08; Bài tập 04.10 (s07-02, s07-02a); câu tự kiểm tra 3 |
+| MT4 | Tính TrustRank, khối lượng rác; đọc dấu và độ lớn | s04-01 … s04-09 | s04-07; câu tự kiểm tra 3, 4 |
+| MT5 | Lập $L$, chạy HITS bằng tay; giới hạn qua véc-tơ riêng của $LL^{\mathsf T}$ | s05-01 … s05-10 | s05-11; Bài tập 04.13 (s07-03, s07-03a); câu tự kiểm tra 5 |
+| MT6 | Chọn phương pháp theo đầu ra, thông tin bổ sung, giả thiết, chi phí | s06-05, s06-01, s06-02 | câu tự kiểm tra 2 |
+
+Phần "Đọc thêm: Tốc độ hội tụ của HITS" của ghi chú không có mục tiêu riêng và không có trang.
+
+### Bảy phần và thời lượng (thay bảng "Bảy phần và phân bổ thời lượng")
+
+| Phần | Trang | Phút | Trang kiểm tra |
+|---|---:|---:|---|
+| 1. Bài toán xếp hạng liên kết | 8 | 12 | s01-06 |
+| 2. PageRank theo chủ đề | 16 | 29 | s02-12 |
+| 3. Cơ chế liên kết rác | 11 | 21 | s03-08 |
+| 4. TrustRank và khối lượng rác | 10 | 18,5 | s04-07 |
+| 5. HITS | 13 | 25 | s05-11 |
+| 6. Tổng kết và tự kiểm tra | 7 | 14,5 | s06-03, s06-04 |
+| 7. Bài tập vận dụng (recitation) | 7 | 60 | ba cặp trang đề và "Lời giải:" |
+
+Phần giảng 65 trang, 120 phút. Quyết định cũ "một bài 20 phút dùng một slide dữ kiện, lời giải thuộc ghi chú" bị thay theo G5 và D04: mỗi bài recitation có trang "Lời giải:" kế tiếp cùng tiêu đề, khớp `exercises.md` 04.9, 04.10, 04.13; ghi chú diễn giả trang đề có gợi ý và hướng dẫn chấm.
+
+### Ví dụ xuyên suốt
+
+- G4 (Hình 5.1): PageRank $(9/28,19/84,19/84,19/84)$; tập chủ đề hoặc tập tin cậy $\{\mathrm B,\mathrm D\}$: $(9/35,59/210,19/105,59/210)$; ghép với PageRank toàn cục, $w=(1/3,2/3)$: $(3/10,11/45,19/90,11/45)$ (Ví dụ 04.5).
+- Đồ thị bảy trang (G4 thêm $\mathrm C\to\mathrm Y$, cụm Y, $\mathrm P_1$, $\mathrm P_2$): PageRank $(3/29,19/203,19/203,19/203,9/29,31/203,31/203)$ (Ví dụ 04.6); $x=38/1015$, $y=9/29$ (Ví dụ 04.7); khối lượng rác với $T=\{\mathrm B,\mathrm D\}$: $s_{\mathrm Y}=43/81$, $s_{\mathrm P}=863/1395$, bốn trang G4 âm (Tình huống 04.2); $T=\{\mathrm B,\mathrm C,\mathrm D\}$: $31/81$; $T=\{\mathrm C\}$: $7/81$ (Tình huống 04.3). Xuất xứ: đồ thị do ghi chú dựng trên G4 theo mô hình MMDS §5.4.2; các số tính lại chính xác bằng phân số trong lượt sửa này.
+- G5 (Hình 5.18): hai vòng HITS (Ví dụ 04.11, 04.12), giới hạn $h^*\approx(1;0{,}3583;0;0{,}7165;0)$ (Ví dụ 04.13).
+
+### Thuật ngữ và ký hiệu trên deck (theo bảng ký hiệu của ghi chú)
+
+- Chỉ số chủ đề $\theta$ ($v^{(\theta)}$, $r^{(\theta)}$, $w_\theta$, $K_\theta$); $j$ chỉ dùng cho trang nguồn.
+- $F_v$, $r^*_v$, $\Delta_t$, $\bar M=M_0+u\,\mathbf 1_{\mathcal D}^{\mathsf T}$, $N(z)$, $\lambda_1$; véc-tơ uy tín, trung tâm mới trong giả mã HITS là $a'$, $h'$.
+- "khối lượng rác (spam mass)" thay "Spam Mass"; "ma trận kề (adjacency matrix)" cho $L$, "ma trận liên kết" chỉ cho $M_0$; "tập tin cậy (trusted set)" là phần của "tập hạt giống (seed set)" được xác nhận; "giả thiết cách ly gần đúng (approximate isolation)"; "cụm thao túng liên kết (còn gọi là trại thư rác, spam farm)", "trang đích (target page)", "trang hỗ trợ (supporting pages)"; "tìm kiếm theo chủ đề dựa trên siêu liên kết (hyperlink-induced topic search, HITS)".
+- "véc-tơ" thay "vector" trên mặt trang, ghi chú diễn giả, `alt` và nhãn SVG (quyết định người dùng 2026-11-13).
+
+### Phạm vi đổi so với bản 2026-10-14
+
+- Giới hạn HITS (Định lý 04.22) lên deck với giả thiết của ghi chú và một dòng chứng minh; câu "chứng minh phổ tổng quát nằm ngoài phạm vi" của mục Phạm vi không còn áp dụng cho trường hợp trị riêng lớn nhất đơn. Phần tốc độ hội tụ (Định lý 04.25) vẫn chỉ ở ghi chú.
+- Trang nguồn nối Bài 05 (độ tương đồng Jaccard, MMDS §5.3.4 dùng để suy chủ đề; MinHash), theo ghi chú note:1522–1525; nguồn thêm trang chiếu MMDS phần hai và Blum, Hopcroft, Kannan §3.7, §3.9.4; bỏ Teufel (ghi chú không dẫn).
