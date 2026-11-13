@@ -352,3 +352,29 @@ Mục tiêu 2, 3, 6 không có bài nguồn; dựa vào Bài tập 07.4, 07.5 (M
 - "Ô" chỉ dùng cho ô Voronoi và ô của lượng tử hóa; ô sổ thực hành viết "ô mã"; bảng tra viết "phần tử $T[j,i]$"; "đoạn" chỉ dùng cho $x^{(j)}$, còn đơn vị văn bản viết "đoạn văn bản". "Lớp 8/9" của Princeton viết "bài giảng 8/9 (class 8/9)".
 - Khác deck thêm: hình `note-lan-can-da-dang.svg` (nhãn v1–v4) thay hình deck trong ghi chú; Bài tập 07.11 đổi sang $K=4,\ \mathit{nprobe}=1$ và $K=6,\ \mathit{nprobe}=2,3$ (deck I01/I05 dùng $K=3$); Bài tập 07.1 đổi sang tốc độ $10^{13}$ và $n_c$ tối đa ($\approx3{,}26\cdot10^7$); Nhận xét 07.23 dùng 53–388 byte (bài báo §4.2.3: 60–450, theo $M_{\max0}+m_LM_{\max}$).
 - Mục tiêu 6 của ghi chú vẫn dựa vào Bài tập 07.14; bảng mục tiêu của `exercises.md` không đổi.
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+Deck được sửa theo bảng phát hiện 2026-11-13 của `review-log.md`; ghi chú và `exercises.md` không đổi. Mục này thay các mục “Mục tiêu và phạm vi”, “Ký hiệu khóa”, “Mạch phần giảng — 120 phút” và “Bài tập — 60 phút” ở trên cho deck hiện hành; chi tiết từng trang ở `storyboard.md`, mục cùng tên.
+
+**Mục tiêu trên deck (P02)** là sáu mục tiêu của ghi chú (note:11–16), rút gọn trong 78 âm tiết: (1) đặc tả tìm gần đúng, độ thu hồi, hai nguồn thiếu điểm; (2) tham lam, SEARCH-LAYER, bất biến; (3) truy vấn, chèn HNSW, phân phối tầng, bộ nhớ, giả thiết của cận $O(\log N)$; (4) VQ, PQ, ADC bằng bảng tra, cận sai số; (5) truy vấn IVF-PQ, chi phí, danh sách lệch; (6) so bốn cấu trúc, chọn chỉ mục theo ngân sách và độ thu hồi.
+
+**Ký hiệu:** deck theo bảng ký hiệu của ghi chú; các dòng lệch ở mục “Ký hiệu: tương ứng và lệch với deck” phía trên đã được xử lý: $\mathcal N_K(q)$, $\widehat{\mathcal N}_K(q)$ là tập chỉ số; $\mathcal C$, $\mathcal C^{(j)}$ cho bộ mã, $C$ chỉ cho hàng đợi của SEARCH-LAYER; số bit mỗi chỉ số viết $\log_2k^*$, $b$ giữ nghĩa số bảng của LSH; tên đỉnh viết thẳng $\mathrm e,\mathrm a,\ldots,\mathrm z$; $p_1,\ldots,p_{11}$; $M_{\max}$, $M_{\max,0}$; $\mathit{ef}$-tham số, $\mathit{nprobe}$ viết `\mathit`; $\mathcal R$; thứ tự $\prec$ có phá hòa (H03, H05, H06); $\operatorname{recall@}K$. Nhãn SVG “p1”, “p4” của các hình dùng chung với ghi chú giữ nguyên.
+
+**Mạch và thời gian:**
+
+| Mạch | Trang | Phút | Thay đổi chính |
+|---|---:|---:|---|
+| 1. Bài toán hàng xóm gần đúng | 13 | 19,5 | P03B (tách tiên quyết), Mệnh đề 07.3 ở A00, Mệnh đề 07.7 ở A03 |
+| 2. Tìm kiếm trên đồ thị lân cận | 11 | 20 | H06C chi phí SEARCH-LAYER; Mệnh đề 07.11 ở H01B; quy ước $\prec$ |
+| 3. HNSW | 11 | 20 | Hệ quả 07.18 ở H09; thứ tự H14, H13, H12 |
+| 4. Lượng tử hóa tích | 14 | 24 | Q09B cận sai số (Mệnh đề 07.31), Q09C Thuật toán 07.32 |
+| 5. IVF-PQ | 10 | 20 | I02C Mệnh đề 07.35, I03B Tình huống 07.2 |
+| 6. Tổng kết và tự kiểm tra | 9 | 16,5 | C06 hình mở mạch, C03 tách thành C03/C03B |
+| 7. Bài tập thực hành | 16 | 60 | R00 hình mở mạch; bảy trang “Lời giải:” |
+
+**Bài tập thực hành:** Bài tập 07.17 (R01, R01B), 07.15 (R02, R02B), 07.18 (R04–R05B), 07.19 (R06–R08B) của `exercises.md`; mỗi đề có trang “Lời giải:” cùng tiêu đề, lời giải khớp `exercises.md`. `exercises.md` (ex:3) ghi recitation là 07.17–07.19; deck dùng thêm 07.15 trong nhiệm vụ 1 và ghi số bài trên mặt trang.
+
+**Hình:** mới `bon-chi-muc-kho-mo-dau.svg` (C06) và `thuc-hanh-du-lieu.svg` (R00); `do-thu-hoi.svg` (A01) vẽ lại theo Ví dụ 07.2. Script: `tools/courses/ds-foundation-algorithms/2627-1/img/lec-07/generate_svg.py` (hàm `do_thu_hoi`, `bon_chi_muc`, `thuc_hanh_du_lieu`).
+
+**Thuật ngữ tiếng Anh thêm trên deck ở lần dùng đầu:** approximate nearest neighbor search (ANN), vector index, proximity graph, entry point, greedy search, local minimum, beam width, semantic retrieval, embedding model, codebook, centroid, reconstruction, coarse quantizer, inverted list, residual, residual query, polysemous codes; “lớp 8, 9” thành “bài giảng 8, 9”, “ô” thành “ô mã” theo ghi chú.

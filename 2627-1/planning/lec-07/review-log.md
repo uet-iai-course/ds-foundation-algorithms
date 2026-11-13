@@ -1004,3 +1004,84 @@ Quy ước dẫn: `html:N` là dòng trong deck (ghi chú diễn giả: dòng c�
 ### Quyết định của người dùng (2026-11-13)
 
 - Quyết định của người dùng (2026-11-13): thống nhất thuật ngữ "véc-tơ" cho deck và ghi chú (tên tiếng Anh "vector" chỉ trong ngoặc ở lần dùng đầu). Deck 07 đã dùng "véc-tơ" (113 chỗ); còn 2 chỗ "vector" trên deck và 5 chỗ trong ghi chú: kiểm, giữ nếu là tên tiếng Anh trong ngoặc.
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Bối cảnh.** Yêu cầu người dùng (2026-11-13): sửa deck 01–10 theo nguyên tắc deck mới và bảng phát hiện của mỗi bài, nội dung thống nhất theo ghi chú bài giảng. Căn cứ: bảng phát hiện 2026-11-13 ở trên, quyết định điều phối G1–G18 và D07 (`edit-decisions.md`), ghi chú `materials/lec-07/lecture-note.md` và `exercises.md` (không sửa). Tác tử sửa deck Bài 07 (writer) do điều phối viên tạo; `no-ai-slop` chế độ Edit, tự kiểm theo `eval.md`. Không commit. Vai trò, loại, mô hình và effort của tác tử do điều phối viên ghi từ lời gọi công cụ.
+
+**Kết quả.** 69 → 84 trang (68 giảng, 120 phút; 16 bài tập, 60 phút). Thêm P03B, H06C, Q09B, Q09C, I02C, I03B, C06, C03B và R01B, R02B, R04B, R05B, R06B, R07B, R08B; không bỏ trang; mã trang cũ giữ nguyên; H14, H13 chuyển lên trước H12. Hình mới `bon-chi-muc-kho-mo-dau.svg`, `thuc-hanh-du-lieu.svg`; `do-thu-hoi.svg` vẽ lại theo Ví dụ 07.2 (script `tools/courses/ds-foundation-algorithms/2627-1/img/lec-07/generate_svg.py`; các SVG khác sinh lại trùng byte). Storyboard: mục “Sửa deck theo bảng phát hiện 2026-11-13” (từng trang, ngoại lệ mật độ, thời gian); outline: mục cùng tên.
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| nghiêm trọng · thiếu Mệnh đề 07.31 (cận sai số ADC/SDC) | Thêm trang “Cận sai số của khoảng cách bất đối xứng”: (a), (b) với giả thiết $d$ Euclid, lượng tử hóa bất kỳ; dòng chứng minh bằng bất đẳng thức tam giác hai chiều; kiểm $0{,}557-0{,}265=0{,}292\le0{,}424$; Lưu ý bình phương $0{,}24>0{,}18$; SDC $\widehat d=0$ ở ghi chú diễn giả. C00: ô Bảo đảm PQ $\vert d-\widetilde d\vert \le\Vert y-\widehat y\Vert $. C03B: hàng “Cận sai số ADC”. Cận trên phần dư đặt ở I02C (a) | Q09B, C00, C03B, I02C | cận trên phần dư đặt ở trang Mệnh đề 07.35 (I02C) thay vì I02, theo thứ tự ghi chú (§5.2: ví dụ rồi mệnh đề); P03 thêm Nhắc lại bất đẳng thức tam giác |
+| trung bình · P02 có 3 mục tiêu, ghi chú có 6 | Thay bằng sáu mục tiêu của ghi chú, 78 âm tiết (đếm tay); ghi chú diễn giả viết lại, bỏ câu chỉ đường; mục tiêu 4 → Q09B, mục tiêu 5 → I03B | P02 | bảng mục tiêu–trang ở storyboard |
+| trung bình · tiên quyết thiếu kết quả Bài 01, ký hiệu thiếu $d$ Euclid và quy ước chỉ số | P03: bốn dòng Nhắc lại ($\mathcal N_k$, $\operatorname{recall@}k$; Mệnh đề 01.16(c); LSH 06.26; bất đẳng thức tam giác); tách P03B: công cụ xác suất ($\mathbb E[X]=\sum\Pr[X\ge t]$, chặn hợp, chuỗi hình học), Ký hiệu với $d$ Euclid, Quy ước đếm từ 1/từ 0. A01 ghi chú diễn giả: trùng Định nghĩa 01.17 khi trả đủ $K$ | P03, P03B, A01 | P03 cũ 56 âm tiết không chứa thêm; số khối ở ghi chú diễn giả (tối đa một số mỗi mặt trang) |
+| trung bình · ký hiệu khác bảng ký hiệu ghi chú (8 mục) | Toàn deck: $\mathcal N_K$, $\widehat{\mathcal N}_K$ là tập chỉ số; $\mathcal C$, $\mathcal C^{(j)}$; $\log_2k^*$ thay $b$ (Q03, Q07, Q10, R01, R04, R06), $b$ chỉ cho LSH (“$b$ bảng”); $\mathrm e,\ldots,\mathrm z$ chữ đứng; $p_1,\ldots,p_{11}$; $M_{\max}$, $M_{\max,0}$; $\mathit{efSearch}$, $\mathit{efConstruction}$, $\mathit{nprobe}$; $\mathcal R$ (ℛ trong giả mã); $\operatorname{recall@}K$ | toàn deck | nhãn SVG “p1…p11” giữ vì hình dùng chung với ghi chú (ghi chú cũng ghi “p1” trong alt) |
+| trung bình · thiếu thứ tự $\prec$ có phá hòa | H03: dòng Quy ước $u\prec v$; H05: `if f ≺ c: break`, `y ≺ f`; H06: bất biến “$\min(ef,\vert V\vert )$ đỉnh nhỏ nhất của $V$ theo $\prec$”; H04: đầu ra theo $\prec$; H01B/H06 ghi chú: vai trò phá hòa | H03, H04, H05, H06 | Quy ước đặt ở H03 vì H01 đã 7 dòng (bảng vết) |
+| trung bình · kết quả và thuật toán thiếu trang (07.2/07.3, 07.7, 07.11, 07.32, 07.18) | A00: dòng Mệnh đề 07.3 (bảng năm điểm viết thành một dòng dữ kiện); A03: phát biểu Mệnh đề 07.7, tiêu đề theo ghi chú; H01B: Mệnh đề 07.11 thay Nhận xét; thêm Q09C “Thuật toán: quét mã PQ bằng bảng tra” (Đầu vào, Đầu ra, ba bước, nhận xét tính đúng); H09: Đầu ra theo Hệ quả 07.18, tính đúng ở ghi chú diễn giả | A00, A03, H01B, Q09C, H09 | A03 thành ngoại lệ mật độ 78 âm tiết, 8 dòng (storyboard) |
+| trung bình · chu trình thiếu chi phí SEARCH-LAYER, chi phí/tính chất phép chèn, tính đúng I04 | Thêm H06C “Chi phí: SEARCH-LAYER” (Mô hình, bảng 4 hàng của note:536–541, ví dụ 7 và 4 phép đo, trường hợp biên); H10B ghi chú: $\max(0,L-\ell)$ và $\min(L,\ell)+1$ lời gọi, kỳ vọng $1+\rho/(1-\rho)$, ba tính chất; I04 ghi chú: tính đúng theo Mệnh đề 07.35(a) và 07.3 | H06C, H10B, I04 | — |
+| trung bình · thiếu Tình huống 07.2; C04 thiếu kiểm giả thiết | Thêm I03B “Ví dụ: danh sách lệch trên dữ liệu tổng hợp” ($N=10^4$, $k_c=4096$, $\mathit{nprobe}=13$; 31,7 so với 106; 3,3 lần; 8,2 so với 2,44); C04: Lưu ý đo cỡ danh sách trước khi dùng 3,6 ms, ghi chú diễn giả “Kiểm giả thiết” | I03B, C04 | — |
+| trung bình · I02 vượt phạm vi Mệnh đề 07.35(b), “tâm thô là trọng tâm ô” | I02 viết lại: Nhu cầu “mỗi phần tử của $L_i$ cần một mã ngắn chấm được bằng bảng tra”, $r(y)$, $\widetilde q_i$, nội dung $L_i$; bỏ “chính xác hơn”. Thêm I02C “Phần dư và truy vấn dư”: (a), (b) với giả thiết trọng tâm, Lưu ý “(b) so tổng bình phương độ dài, không so sai số tái dựng”; ghi chú diễn giả: bốn tâm ví dụ không là trọng tâm ($(2{,}375;\ 2{,}375)$) | I02, I02C | Nhu cầu viết theo note:1405 thay câu đề xuất; tách trang mệnh đề theo thứ tự ghi chú |
+| trung bình · C01 câu 2 dùng 8 byte, 77,7 GB | Câu 2 theo Bài tập 07.6(b): $M_{\max}=M$, $M_{\max,0}=2M$, $m_L=1/\ln M$, mã định danh đủ cho $N$; lời giải $s_{id}=4$, 644,3 byte, 64,4 GB, véc-tơ gốc 51,2 GB | C01 | — |
+| trung bình · H13/H14 dẫn công thức 302 byte và câu đính chính nguồn | Xóa hai câu; H13 dùng $264{,}5$ byte và $97{,}9\%$ (Ví dụ 07.10) | H13, H14 | — |
+| trung bình · nội dung ngoài ghi chú (A01, Q03, Q07, H12, C00) | A01: ví dụ duy nhất là Ví dụ 07.2 ($\{4,5,1\}\cap\{4,2,5\}$, $2/3$), `do-thu-hoi.svg` vẽ lại theo hai tập này, câu hỏi theo Bài tập 07.2(a); Q03: bỏ hàng k-means, thêm dòng “lớn hơn kho mở đầu khoảng $7{,}7\cdot10^7$ lần”; Q07: Lưu ý thay bằng phát biểu Mệnh đề 07.28, (b) ở ghi chú diễn giả; H12: cột theo Nhận xét 07.23; C00: bảo đảm LSH bằng $1-(1-p_1^r)^b$ | A01, Q03, Q07, H12, C00 | — |
+| trung bình · câu xuất xứ, rào đón trong ghi chú diễn giả ở mọi mạch | Xóa ở P05, P01, H00, H01, H03B, H03C, H06, H06B, H07, H08B, H10, H12, H13, Q00, Q05, Q06, Q10, I00, I02B, I03, C04, C05 và các trang cùng loại; giả định ngân sách viết “Giả sử …” (P05, C04, C06) | toàn deck | xuất xứ dữ kiện tự dựng đã có ở rl:911; không thêm dữ kiện tự dựng mới |
+| trung bình · mạch 6, 7 không có trang bài toán có hình | Thêm C06 “Quét đủ và bốn chỉ mục trên kho mở đầu” với hình mới (bộ nhớ, thời gian, thang log, vạch 6 TB, 10 ms, chữ “vượt/vừa”); R00: hình luồng dữ liệu `xt`, `xb`, `xq` → `train`, `add`, `search`, quét đủ → `gt`, dòng Nhu cầu | C06, R00 | `note-cau-truc-chuong-07.svg` không dùng vì cỡ chữ dưới 18 px ở khung 360 px |
+| trung bình · bài recitation không có trang “Lời giải:” | Thêm R01B, R02B, R04B, R06B và R05B, R07B, R08B, cùng tiêu đề với trang đề, mở bằng “Lời giải:”, khớp `exercises.md` | R01B, R02B, R04B, R05B, R06B, R07B, R08B | số đo (MSE, thời gian, `nok`) để trống trên phiếu của R07B; hướng dẫn chấm ở ghi chú diễn giả trang đề |
+| trung bình · bài tập lệch `exercises.md` (07.17(b), 07.19(c), số bài) | R01: thêm câu (b) và lời giải R01B theo ex:109/119; R08: câu hỏi (c) “so với Mệnh đề 07.37(a); xét `nok/100` có nhất thiết tăng”, R08B theo ex:190; mỗi trang đề ghi “Bài tập 07.k” ở dòng Nguồn; R02 ghi Bài tập 07.15 | R01, R01B, R02, R08, R08B | ex:3 ghi recitation 07.17–07.19: không sửa `exercises.md` (G1), ghi trong “Đề nghị sửa ghi chú” |
+| trung bình · mật độ A02 63, C03 81 | A02: Lưu ý chuyển xuống ghi chú diễn giả, 50; C03 tách thành C03 (70) và C03B (50) | A02, C03, C03B | — |
+| nhẹ · thiếu thuật ngữ tiếng Anh, tên khác ghi chú | Thêm ANN, vector index, proximity graph, entry point, greedy search, local minimum, beam width, semantic retrieval, embedding model, codebook, centroid, reconstruction, coarse quantizer, inverted list, residual, residual query, polysemous codes; “lớp” → “bài giảng”, “ô” → “ô mã” | A00B, H00, H01, H01B, H03, P01, Q00, I00, I02, R06 và toàn deck | thuật ngữ dài đặt ở ghi chú diễn giả để giữ ≤ 20 âm tiết mỗi dòng |
+| nhẹ · từ làm mềm | H09 “$\mathit{efSearch}>K$ giữ thêm ứng viên trong $W$”; P05, C04 “giả sử”; H03 ghi chú theo đồ thị ví dụ; R08 bỏ “xu hướng thường thấy” | H09, P05, C04, H03, R08 | — |
+| nhẹ · câu chỉ đường, rào đón về vị thế văn bản | Xóa ở P02, H05, H07, H08B, A03, C00; H08: “Thuật toán đúng với mọi $m_L>0$, vì tính đúng của truy vấn không dùng phân phối tầng” | P02, H05, H07, H08B, A03, C00, H08 | — |
+| nhẹ · no-ai-slop (R07, R02, P04, C04) | R07: bỏ câu tự hỏi tự trả lời và lời dặn; ý nghĩa “/5000” ở R07B; R02: lời giải viết khẳng định (R02B); P04: bỏ câu khẩu hiệu; C04: bỏ câu nói về chính văn bản | R07, R07B, R02, R02B, P04, C04 | — |
+| nhẹ · trang “Ví dụ:” thiếu dòng “Tính …” | P01 “Tính dung lượng kho và số lượt tọa độ khi quét”; H03C “tính tiếp $C$, $W$ đến khi dừng”; I05 “Xác định kết quả và số mã được chấm”; thêm ở H06B, Q05 | P01, H03C, I05, H06B, Q05 | — |
+| nhẹ · ghi chú diễn giả 151–186 âm tiết | Đếm lại: P00 146, P02 137, H03 147, H07 118, H10B 138, H13 117, Q07 146, Q06 131, Q10 139, I00 145, I03 131 | 11 trang | còn trên 150 chỉ ở trang chứng minh, lời giải (H01B, H06, H14, Q09B, I02C, A02, Q00, I01, C01) và R00 156; không trang nào vượt 250 |
+| nhẹ · P00 luận đề 24 âm tiết một dòng | “Đồ thị nhiều tầng giảm số phép đo, mã ngắn giảm chi phí đo; đổi lại, có thể sót hàng xóm.” (20) | P00 | câu đề xuất của bảng có 22 âm tiết nên viết lại |
+| nhẹ · nguồn (HNSW 2018, tr.7, thiếu mmds.org, thiếu câu nối) | C05: Malkov, Yashunin (2020), IEEE TPAMI 42(4), arXiv 1603.09320 v4; liên kết `http://www.mmds.org`; liên kết `exercises.md`; câu nối Bài 08; Bài 12 (chi phí đọc khối) ở ghi chú diễn giả; A01: tr.8 | C05, A01 | câu nối dùng Bài 08 theo `sources/source.md` (bài kế tiếp) |
+| nhẹ · H14 “$\le1/\rho=M$” | “kỳ vọng $\le1/\rho$” | H14 | — |
+| nhẹ · “(Thuật toán 3)”, “(Thuật toán 4)” không ghi “của bài báo” | “Thuật toán 3 của bài báo HNSW”; “Thuật toán 4 của bài báo … Đọc thêm của ghi chú (Thuật toán 07.39)” | H10B | — |
+| nhẹ · khẳng định ngoài ghi chú (P01, H08B, Q07) | Xóa ba câu | P01, H08B, Q07 | — |
+| nhẹ · H12 đứng trước H14/H13 | Thứ tự mới H14, H13, H12 | H14, H13, H12 | — |
+| nhẹ · A02, I01, I05 lệch bài tập | A02: lời giải theo vùng $(\tau,T_{\max})$ của Bài tập 07.3; I05: câu hỏi theo Bài tập 07.11(a) ($K=4$, $\mathit{nprobe}=1$, $3/4$) | A02, I05, I01 | I01 giữ câu hỏi $\mathit{nprobe}=3$ vì trùng danh sách mở của Bài tập 07.11(c); ghi chú diễn giả dẫn bài tập đó |
+| nhẹ · P05 thiếu câu trả lời của mạch 6 | Thêm dòng “Chọn IVF-PQ khi danh sách cân bằng và đủ độ thu hồi.” | P05 | — |
+
+**Quyết định của người dùng “véc-tơ” (2026-11-13).** Deck dùng “véc-tơ”; “vector” chỉ còn trong “(vector index)”, “(vector quantization, VQ)” và chú thích mã của sổ (“reconstruct vector no 123”). Ba SVG mới không có “vector”.
+
+**Kiểm G17 (đã chạy).** `check_deck.py 8796` (1600×900 và 390×844): 84 trang, 7 section ngoài; 0 lỗi console, 0 request hỏng, 0 request ngoài, 0 `.katex-error`, 0 `fragment`, không trùng hay thiếu `data-slide-id`, mọi trang có ghi chú diễn giả; `hash_strand` `#/2…7` → HT, NT, QT, IT, CT, RT với số “2.”–“7.”; không cuộn ngang ở 390; `disp_gt3` rỗng; `notes_gt250` rỗng; `style_blocks=1` (thẻ runtime); `overflow_1600` chỉ Q09B với độ lệch phải 15 925 px, cờ giả do path SVG của `\sqrt` (ảnh chụp Q09B vừa khung). Mật độ: trang vượt 60 đều thuộc loại trần 80 và có ngoại lệ trong storyboard. `refcheck.py 07`: 123 dẫn chiếu đúng, 0 sai. Ảnh chụp đã xem: P01, P03, P02, A00, A00B, A01, A03, H03, H06C, H09, H13, Q07, Q09B, Q09C, I02, I02C, I05, I03B, C06, C03, C03B, C00, C04, C05, R00, R01, R01B, R02B, R04, R04B, R07B, R08B (1600×900); C06 và vài trang ở 390×844.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Căn cứ: danh sách đã duyệt của điều phối viên (`merge-07.md`, 13 mục nhẹ sau hai lượt kiểm lại). Đề nghị sửa `exercises.md`:3 do điều phối viên ghi; không sửa ghi chú.
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1. Điều kiện dừng viết bằng $\prec$ | “Mở $c$ khi $c\preceq f$ …; ngược lại dừng.”; gợi ý “dừng khi $f\prec c$ hoặc $C$ rỗng” | H03B, H03C |
+| 2. Biến `d` trong giả mã IVF-PQ | `δ` ở ba dòng (và chú thích đống) | I04 |
+| 3. Chữ đổi nghĩa so với Bài 06 | ghi chú diễn giả thêm $Q$, $\mathcal C$ (note:71) | P03B |
+| 4. Luận đề ≤ 20 âm tiết | “Đồ thị nhiều tầng bớt phép đo, mã ngắn giảm chi phí đo; đổi lại, có thể sót hàng xóm.” (20; bản trước 21); dòng P00 của storyboard sửa | P00 |
+| 5. Câu nối sau đổi thứ tự | H12 ghi chú mở bằng “Không tham số nào giảm $122{,}88$ TB véc-tơ gốc, $97{,}9\%$ bộ nhớ.”; H14 ghi chú mở bằng câu ba thừa số của truy vấn HNSW | H12, H14 |
+| 6. Câu nối Q09B, Q09C | đặt ở ghi chú diễn giả để giữ mật độ: Q09B “Bảng tra cho đúng $\widetilde d$; còn cần chặn độ lệch so với $d$.”; Q09C câu nối từ cận sai số sang quét mã | Q09B, Q09C |
+| 7. Đầu ra Q09C | thêm “$H$ là đống giữ $K$ cặp nhỏ nhất”; bỏ “tăng dần” (bước 3 đã nêu) để giữ ≤ 60 âm tiết | Q09C |
+| 8. Tổng chi phí SEARCH-LAYER | thêm dòng “Tổng, kỳ vọng do tra tập băm: $\Theta(\vert V\vert D)+O(\vert V\vert \log\vert V\vert +\sum_cg_c)$”; Trường hợp biên rút còn 13 âm tiết; ví dụ 7/4 phép đo chuyển xuống ghi chú diễn giả để giữ 8 dòng | H06C |
+| 9. Dòng > 20 âm tiết | R01B: (a) một dòng, (b) ba phép so thành danh sách; R05B, R08: tách dòng | R01B, R05B, R08 |
+| 10. R04B 7 dòng | dòng kiểm 48 bit chuyển xuống ghi chú diễn giả, còn 6 dòng | R04B |
+| 11. Ghi chú tiên quyết nêu chỗ dùng | P03 bỏ câu nêu chỗ dùng, “Năm kết quả”; P03B bỏ cụm “dùng cho …” | P03, P03B |
+| 12. “giả thiết hay bị bỏ quên” | xóa | Q09B |
+| 13. Lời văn | R08B “Dự đoán $12\,800+17\,184\,\mathit{nprobe}$: tăng tuyến tính theo $\mathit{nprobe}$, cộng hằng $12\,800$” (theo ex:190); C00 “với” chữ thường; C06 “Câu hỏi: Cấu trúc …”; bỏ nhãn “Kiểm:” ở R02B, R04B, R08B | R08B, C00, C06, R02B, R04B |
+
+**Kiểm G17 lại (đã chạy).** `check_deck.py 8796`: 84 trang; console 0, request hỏng 0, `.katex-error` 0, `fragment` 0; `hash_strand` `#/2…7` đúng; không cuộn ngang ở 390; `overflow_1600` chỉ Q09B (cờ giả `\sqrt`); vượt 60 âm tiết chỉ ở trang trần 80 đã ghi ngoại lệ (H06C 75 → 65). `refcheck.py 07`: 152 đúng, 0 sai. `git diff --check` trên tệp Bài 07: sạch. Ảnh chụp đã xem: R01B, H06C (1600×900).
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | đạt | 0/0/0/3 | chấp nhận; ba mục vào `merge-07.md` (mục 1–3) |
+| B | đạt | 0/0/0/10 | chấp nhận; mười mục vào `merge-07.md` (mục 4–13) |
+
+Lượt sửa sau kiểm lại: 13/13 mục làm; câu nối Q09B/Q09C đặt trong ghi chú diễn giả, ví dụ 7 so với 4 phép đo của H06C và dòng kiểm 48 bit của R04B chuyển xuống ghi chú diễn giả để giữ mật độ — chấp nhận. Đề nghị sửa ghi chú để lại cho người dùng: `exercises.md` dòng 3 ghi "07.15 và 07.17–07.19" là bài recitation. `lan-can-da-dang.svg` deck không dùng nhưng ghi chú 07 còn dẫn: giữ.
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 84 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở Q09B là path SVG của `\sqrt` (cờ giả); mười ba trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 152 dẫn chiếu `07.k`, 0 sai. `git diff --check` sạch. Điều phối viên đã kiểm Mệnh đề 07.31 có trên deck (Q09B) và con số 77,7 GB không còn.
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.

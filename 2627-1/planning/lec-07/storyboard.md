@@ -1655,3 +1655,217 @@ Thay mục "Storyboard ghi chú tự học" (mã `L07-N`) phía trên. Mỗi ch�
 - topic-05: Ví dụ 07.18 và hình `tep-dao-du` đứng trước Mệnh đề 07.35.
 - topic-07: Ví dụ 07.21 dùng $v_1,\ldots,v_4$ và hình `note-lan-can-da-dang.svg` (bản của hình deck với nhãn v1–v4, sinh bằng `generate_note_svg.py`).
 - `exercises.md`: mục `## Mức vận dụng (thực hành)` chứa Bài tập 07.17–07.19; 07.17 bỏ hai câu trùng 07.15; 07.16 dùng $k_c$, $N$, $k_c^{\mathrm{opt}}$, $g(k_c)$ và điểm cắt $N=4k_c^2/15$.
+
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+Mục này thay mọi mục từng trang và mọi bảng thời gian ở trên cho deck hiện hành; các mục cũ giữ làm lịch sử. Căn cứ: bảng phát hiện 2026-11-13 trong `review-log.md` (31 dòng), quyết định điều phối `edit-decisions.md` (G1–G18, D07), ghi chú `materials/lec-07/lecture-note.md` và `exercises.md` (không sửa). Âm tiết đếm bằng script kiểm deck của điều phối viên (token có chữ cái, bỏ tiêu đề, KaTeX, giả mã, hình, ô bảng chỉ có số, ghi chú diễn giả); “GCDG” là số âm tiết ghi chú diễn giả; “trước” là deck md5 `47178aa7` (HEAD `45ddcf9`).
+
+**Số trang:** 69 → 84 = 68 trang giảng (120 phút) + 16 trang bài tập thực hành (60 phút). Thêm 15 trang: P03B, H06C, Q09B, Q09C, I02C, I03B, C06, C03B (tách C03) và bảy trang “Lời giải:” R01B, R02B, R04B, R05B, R06B, R07B, R08B. Không bỏ trang nào; không đổi `id`/`data-slide-id` của trang cũ. Đổi thứ tự: H14, H13 đứng trước H12 (thứ tự 07.21 → 07.22 → 07.23 của ghi chú). Nhịp giảng $120/68\approx1{,}76$ phút mỗi trang, chậm hơn mốc 1,2–1,5 của Bài 09, 10 vì 15 trang chứng minh, chi phí và tổng kết cần chạy tay.
+
+### Bản đồ mạch
+
+| Mạch | Tiền tố | Loại | Chức năng | Vào | Ra | Trang tiêu đề mạch | Trang bài toán có hình |
+|---|---|---|---|---|---|---|---|
+| 1. Bài toán hàng xóm gần đúng | P, A | giới thiệu và mô hình | Kho $10^{10}$ véc-tơ, tìm đúng/gần đúng, độ thu hồi, hai thừa số chi phí và hai nguồn thiếu điểm | Bài 01 (01.2, 01.8, 01.16, 01.17), Bài 06 (06.14, 06.26) | $S$, $n_c$, $\widetilde d$; Mệnh đề 07.3, 07.7 | P00 (bìa) | P01 |
+| 2. Tìm kiếm trên đồ thị lân cận | H | thuật toán | Tham lam, cực tiểu cục bộ, SEARCH-LAYER, bất biến, chi phí | Mệnh đề 07.7 | Bất biến đúng trên $V$; $\vert V\vert $ còn mở | HT, `id="mach-2"`, `#/2` | H00 |
+| 3. HNSW | H | thuật toán và chi phí | Cạnh dài, tầng, truy vấn, phân phối tầng, chèn, $O(\log N)$, bộ nhớ, tham số | SEARCH-LAYER | 125,5 TB, véc-tơ gốc 97,9% | NT, `#/3` | H06B |
+| 4. Lượng tử hóa tích (PQ) | Q | mô hình, thuật toán, chi phí | VQ, PQ, ADC, bảng tra, cận sai số, quét mã | 97,9% bộ nhớ là véc-tơ gốc | 5,12 TB, 5,12 s; $n_c=N$ | QT, `#/4` | Q00 |
+| 5. IVF-PQ | I | thuật toán, chi phí, ứng dụng | Tệp đảo, phần dư, truy vấn, chi phí, danh sách lệch | Bảng tra, cận sai số | 5,2 TB, 3,6 ms khi cân bằng; 3,3 lần khi lệch | IT, `#/5` | I00 |
+| 6. Tổng kết và tự kiểm tra | C | tổng kết | Hình bốn cấu trúc, hai bảng, trả lời có điều kiện, tự kiểm tra, nguồn | Mọi kết quả 07.1–07.37 | Chọn IVF-PQ có điều kiện; nối Bài 08 | CT, `#/6` | C06 |
+| 7. Bài tập thực hành | R | thực hành (60 phút) | Bài tập 07.17, 07.15, 07.18, 07.19 trên sổ Faiss, mỗi bài có trang “Lời giải:” | Mạch 4–5 | Phiếu số đo, đồ thị | RT, `#/7` | R00 |
+
+### Chu trình theo cụm
+
+| Cụm | Giới hạn có số | Ý tưởng | Chạy tay | Đầu vào/Đầu ra | Giả mã | Tính đúng | Chi phí |
+|---|---|---|---|---|---|---|---|
+| Quét đủ (mốc) | P01 | — | A00 (ghi chú diễn giả) | A00 | ghi chú | A00 (Mệnh đề 07.3) | A00 |
+| Tham lam | H00 | H01 | H01 | — | — | H01B (Mệnh đề 07.11) | ghi chú H01 |
+| SEARCH-LAYER | H01B | H03 (so với tham lam) | H03B, H03C | H04 | H05 | H06 | H06C |
+| Truy vấn HNSW | H06B | H07 | H09 (ví dụ) | H09 | H09 | H09 (Hệ quả 07.18) | H14 |
+| Chèn HNSW | H08 | H10 | H10 | H10B | H10B | ghi chú H10B (ba tính chất) | ghi chú H10B (số lời gọi) |
+| Mã hóa VQ | Q00 | Q00 | Q00 | Q02 | công thức Q02 | ghi chú Q02 (Thuật toán 07.2 với $K=1$) | Q02, Q03 |
+| Quét mã PQ | Q03 | Q04, Q08 | Q05, Q06, Q09 | Q09C | ba bước Q09C | Q09C | Q11, Q10 |
+| Truy vấn IVF-PQ | Q10 | I00, I02 | I01, I02B, I05 | I04 | I04 | ghi chú I04 | I03, I03B |
+
+Chu trình rút gọn có lý do: tham lam là trường hợp $ef=1$ của SEARCH-LAYER (Hệ quả 07.14), nên không có giả mã riêng; quét đủ là thuật toán mốc của Bài 01, chỉ phát biểu kết quả.
+
+### Mục tiêu và trang phục vụ
+
+| Mục tiêu (note:11–16) | Trang |
+|---|---|
+| 1. Tìm đúng, tìm gần đúng, độ thu hồi, hai nguồn thiếu điểm | A00, A00B, A01, A01B, A03; C01B câu 4 |
+| 2. Tham lam, SEARCH-LAYER, bất biến | H01–H06C; C01 câu 1 |
+| 3. Truy vấn, chèn HNSW, phân phối tầng, bộ nhớ, ba giả thiết | H06B–H12; C01 câu 2 |
+| 4. VQ, PQ, ADC, bảng tra, cận sai số | Q00–Q10, Q09B; R01–R05B |
+| 5. Truy vấn IVF-PQ, chi phí, danh sách lệch | I00–I03B; C01B câu 3; R06–R08B |
+| 6. So sánh, chọn chỉ mục | C06, C03, C03B, C00, C04 |
+
+### Từng trang
+
+### Mạch 1. Bài toán hàng xóm gần đúng
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| P00 | Chỉ mục hàng xóm gần đúng | ngoài chu trình | Đọc luận đề; nêu ba cấu trúc | Câu luận đề; Bài 06 (LSH) | Nêu đánh đổi đo ít/đo rẻ với thiếu hàng xóm | phần mở đầu | Sửa 2026-11-13: luận đề 24 → 20 âm tiết mỗi dòng (F46); ghi chú bỏ câu xuất xứ, đổi “lớp” thành “bài giảng”; sau kiểm lại: luận đề “Đồ thị nhiều tầng bớt phép đo, mã ngắn giảm chi phí đo; …” (20 âm tiết; bản trước 21) | 48 → 44 | 151 → 146 | 0,5 |
+| P03 | Tiên quyết và quy ước | cầu nối | Đối chiếu bốn dòng Nhắc lại với Bài 01, 06 | $\mathcal N_k$, $\operatorname{recall@}k$ (01.2, 01.17), 01.16(c), LSH 06.26, bất đẳng thức tam giác 06.14 | Dùng lại mà không định nghĩa lại | Kiến thức tiên quyết | Sửa 2026-11-13 (F25): thay hai dòng LSH/tổng theo nhóm bằng bốn dòng Nhắc lại của ghi chú; số khối ở ghi chú diễn giả (tối đa một số mỗi mặt trang); sau kiểm lại: ghi chú bỏ câu nêu chỗ dùng, “Năm kết quả” | 56 → 58 | 150 → 113 | 1,5 |
+| P03B | Tiên quyết và quy ước, ký hiệu | cầu nối | Đọc ký hiệu, quy ước chỉ số, công cụ xác suất | $\mathbb E[X]=\sum\Pr[X\ge t]$, chặn hợp, chuỗi hình học; $Y,q,K,d$ | Ký hiệu dùng đến hết bài | Kiến thức tiên quyết, Bảng ký hiệu | Thêm 2026-11-13 (tách P03, F25, F26): P03 cũ 56 âm tiết không chứa thêm được; ký hiệu $d$ Euclid và quy ước đếm từ 1/từ 0 theo note:66–67; sau kiểm lại: ghi chú thêm $Q$, $\mathcal C$, bỏ câu nêu chỗ dùng | — → 50 | — → 134 | 1 |
+| P02 | Mục tiêu học tập | ngoài chu trình | Đọc sáu mục tiêu | Sáu mục tiêu của ghi chú | Mỗi mục tiêu có trang phục vụ (bảng phủ mục tiêu dưới đây) | Mục tiêu học tập | Sửa 2026-11-13 (F24): 3 → 6 mục tiêu theo note:11–16, trong trần 80; ghi chú diễn giả bỏ câu chỉ đường | 55 → 78 | 157 → 137 | 1 |
+| P04 | Nội dung | ngoài chu trình | Định vị bảy mạch | Danh sách 1–7, Đọc trước | Số mạch khớp `#/2…7` | — | Sửa 2026-11-13: ghi chú bỏ câu khẩu hiệu (F43), “lớp” → “bài giảng” | 58 → 59 | 150 → 134 | 0,5 |
+| P05 | Vấn đề trung tâm | tình huống, vấn đề | Nêu nhu cầu và câu trả lời có điều kiện của năm mạch | $10^{10}$ véc-tơ; giả sử 6 TB, 10 ms | Nhắc lại bằng số ở C04 | Mục 1, Tình huống 07.1 | Sửa 2026-11-13 (F53, F41): thêm dòng trả lời mạch 6; “(giả định)” → “giả sử”; ghi chú bỏ câu xuất xứ | 54 → 57 | 149 → 126 | 1,5 |
+| P01 | Ví dụ: truy hồi ngữ nghĩa trên mười tỷ véc-tơ | ví dụ dẫn nhập | Tính 122,88 TB và $3{,}07\cdot10^{13}$ lượt; trả lời câu hỏi 3072/307,2 lần | Hình quy trình nhúng; BIODS 271 | Hai số dùng lại ở A00, Q10, C04 | §1, Bài tập 07.1(a) | Sửa 2026-11-13 (F44, F50, F40): thêm dòng “Tính …”; ghi chú bỏ khẳng định ngoài ghi chú và câu “giả định, không phải số đo”; thêm semantic retrieval, embedding model | 36 → 45 | 202 → 148 | 2 |
+| A00 | Bài toán $K$ hàng xóm gần nhất | hình thức hóa, thuật toán mốc | Viết đầu vào/đầu ra; đọc $\mathcal N_3(q)=\{4,2,5\}$; nêu Mệnh đề 07.3 | Năm khoảng cách của Ví dụ 07.1 | Tập đúng làm mốc cho mọi chỉ mục | Định nghĩa 07.1, Thuật toán 07.2, Mệnh đề 07.3 | Sửa 2026-11-13 (F26, F28): ký hiệu $\mathcal N_K$, tập chỉ số; thêm dòng Mệnh đề 07.3; bảng năm điểm viết thành một dòng dữ kiện để giữ 5 dòng | 48 → 57 | 142 → 137 | 2 |
+| A00B | Tìm hàng xóm gần đúng | hình thức hóa | Phân biệt tìm đúng/gần đúng; nêu hai cách thiếu $y_2$ | $\widehat{\mathcal N}_3(q)=\{4,5,1\}$ | Hai nguồn thiếu điểm | Định nghĩa 07.1, Ví dụ 07.2 | Sửa 2026-11-13 (F26, F40): $\widehat{\mathcal N}_K$; ANN, “chỉ mục hàng xóm (vector index)”; 59 → 56 | 59 → 56 | 150 → 134 | 2 |
+| A01 | Độ thu hồi tại $K$ | hình thức hóa, kiểm tra | Tính $\operatorname{recall@}3=2/3$ và câu hỏi $2/5$ | Hình Venn năm điểm (vẽ lại) | Lời giải Bài tập 07.2(a) | Định nghĩa 07.4, Ví dụ 07.2 | Sửa 2026-11-13 (F34, F47): bỏ ví dụ recall@5 ngoài ghi chú; `do-thu-hoi.svg` vẽ lại theo $\{4,2,5\}$, $\{4,5,1\}$; tr.8 | 45 → 45 | 105 → 136 | 2 |
+| A01B | Độ thu hồi trung bình | hình thức hóa, kiểm tra | Tính $0{,}9$ và tỷ lệ $9/10$ | Bài tập 07.2(b) | Phân biệt trung bình với tỷ lệ đúng hoàn toàn | Định nghĩa 07.4 | Giữ; ghi chú dẫn Bài tập 07.2(b), `nok` theo ô mã | 58 → 58 | 123 → 118 | 1,5 |
+| A02 | Bốn trục đánh giá chỉ mục | ứng dụng | Nêu điều kiện chọn B theo $(\tau,T_{\max})$ | Bảng bốn trục | Lời giải theo Bài tập 07.3 | Nhận xét 07.6 | Sửa 2026-11-13 (F39, F52): Lưu ý chuyển xuống ghi chú, 63 → 50; lời giải theo vùng của Bài tập 07.3 | 63 → 50 | 134 → 155 | 2 |
+| A03 | Hai thừa số chi phí và hai nguồn thiếu điểm | hình thức hóa (kết quả) | Đọc Mệnh đề 07.7; xếp bốn cấu trúc theo thừa số | $S$, $n_c$, $\widetilde d$ | Cột “Thiếu điểm vì” dùng lại ở C01B câu 4 | Mệnh đề 07.7 | Sửa 2026-11-13 (F28): thay dòng “Mô hình ≈” bằng phát biểu (a)–(d) gọn; đổi tiêu đề theo ghi chú; ngoại lệ mật độ (bảng so sánh) | 64 → 78 | 149 → 139 | 2 |
+
+Tổng mạch: 13 trang, 19,5 phút.
+
+### Mạch 2. Tìm kiếm trên đồ thị lân cận
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| HT | Tìm kiếm trên đồ thị lân cận | điểm vào mạch 2 | — | Dòng dẫn | — | — | Sửa 2026-11-13: tên đỉnh $\mathrm b$, $\mathrm s$, $\mathrm z$ chữ đứng (F26) | 34 → 34 | 82 → 80 | 0,5 |
+| H00 | Đồ thị lân cận | tình huống, vấn đề (trang bài toán có hình) | Đọc đồ thị bảy đỉnh, cấu trúc chỉ mục | Hình bảy đỉnh; $n_c=10^{10}$ | Nêu dữ liệu chỉ mục lưu | Định nghĩa 07.8 | Sửa 2026-11-13 (F40, F35): proximity graph, entry point, $\mathcal L(y)$; ghi chú bỏ câu xuất xứ, công thức $N(4D+s_{id}g)$ | 46 → 52 | 137 → 146 | 1,5 |
+| H01 | Tìm kiếm tham lam | trực giác, ví dụ chạy tay | Lập vết tham lam ba hàng | Vết $\mathrm e\to\mathrm a\to\mathrm b$ | Kết luận dừng ở $\mathrm b{:}5$ | Thuật toán 07.9, Ví dụ 07.3 | Sửa 2026-11-13 (F26, F40, F35): chữ đứng; greedy search; ghi chú bỏ câu xuất xứ | 47 → 53 | 111 → 124 | 1,5 |
+| H01B | Cực tiểu cục bộ | hình thức hóa (kết quả) | Phát biểu Mệnh đề 07.11; chứng minh trong ghi chú | Định nghĩa 07.10 | $\mathrm b$, $\mathrm z$ đều là cực tiểu cục bộ | Định nghĩa 07.10, Mệnh đề 07.11 | Sửa 2026-11-13 (F28): Nhận xét thay bằng Mệnh đề 07.11; local minimum | 47 → 47 | 126 → 155 | 1,5 |
+| H03 | Tìm kiếm chùm | trực giác (so với tham lam) | Nêu vai trò $W$, $C$, $ef$; đọc quy ước $\prec$ | Đồ thị bảy đỉnh | Quy ước $\prec$ dùng ở H05–H06 | §2.2 mở | Sửa 2026-11-13 (F27, F40, F41): thêm Quy ước $\prec$; beam width; ghi chú bỏ khẳng định chung | 58 → 59 | 169 → 147 | 2 |
+| H03B | Ví dụ: tìm kiếm chùm trên đồ thị bảy đỉnh | ví dụ chạy tay | Lập $C$, $W$ bốn bước | Bảng vết bốn hàng | Nhánh $\mathrm s$ còn trong $C$ | Ví dụ 07.4 | Sửa 2026-11-13: dòng “Tính …”; chữ đứng; ghi chú bỏ câu xuất xứ; sau kiểm lại: điều kiện mở viết $c\preceq f$ | 37 → 37 | 135 → 139 | 2,5 |
+| H03C | Ví dụ: tìm kiếm chùm trên đồ thị bảy đỉnh, bước cuối | ví dụ chạy tay, kiểm tra | Tính tiếp tới khi dừng; câu hỏi $ef=2$ | Bảng vết ba hàng | Lời giải Ví dụ 07.5 | Ví dụ 07.4, 07.5 | Sửa 2026-11-13 (F44): dòng “tính tiếp $C$, $W$ đến khi dừng”; ghi 7 phép đo; sau kiểm lại: gợi ý dừng khi $f\prec c$ | 35 → 37 | 125 → 138 | 2,5 |
+| H04 | Thuật toán: SEARCH-LAYER | Đầu vào/Đầu ra | Đọc đầu vào, đầu ra theo $\prec$ | Hình trạng thái $V,C,W$ | Phân biệt thấy/mở | Thuật toán 07.12 | Sửa 2026-11-13 (F27): đầu ra theo $\prec$ | 49 → 50 | 147 → 138 | 1,5 |
+| H05 | Thuật toán: SEARCH-LAYER | giả mã, đọc giả mã | Đọc thao tác quyết định (so với $f$) | Giả mã 13 dòng | Ví dụ mở $\mathrm s$ | Thuật toán 07.12 | Sửa 2026-11-13 (F27, F42): `f ≺ c`, `y ≺ f`; ghi chú bỏ câu chỉ đường | 8 → 8 | 186 → 150 | 2 |
+| H06 | Tính đúng: SEARCH-LAYER | tính đúng | Chứng minh bất biến khởi tạo–duy trì–kết thúc | Bảng bốn bước; hình $ef=2$ | Phản ví dụ $\mathrm z\notin V$ | Mệnh đề 07.13 | Sửa 2026-11-13 (F27): bất biến theo $\prec$; ghi chú bỏ “một tập” và câu “kiểm bằng chương trình” | 47 → 43 | 202 → 171 | 2,5 |
+| H06C | Chi phí: SEARCH-LAYER | chi phí | Đọc bảng chi phí bốn hàng; 7 và 4 phép đo | Bảng chi phí của ghi chú | Thừa số $\vert V\vert $ còn mở (dẫn vào mạch 3) | Thuật toán 07.12 (bảng chi phí), Nhận xét 07.15 | Thêm 2026-11-13 (F29): cụm thuật toán thiếu bước chi phí; ngoại lệ mật độ (bảng chi phí); sau kiểm lại: thêm dòng tổng chi phí kỳ vọng; ví dụ 7/4 phép đo chuyển xuống ghi chú; dòng Trường hợp biên rút gọn | — → 65 | — → 146 | 2 |
+
+Tổng mạch: 11 trang, 20 phút.
+
+### Mạch 3. Đồ thị thế giới nhỏ phân tầng (HNSW)
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| NT | Đồ thị thế giới nhỏ phân tầng (HNSW) | điểm vào mạch 3 | — | Dòng dẫn | — | — | Sửa 2026-11-13: 98% → 97,9% | 38 → 38 | 98 → 92 | 0,5 |
+| H06B | Ví dụ: cạnh dài | tình huống, vấn đề (trang bài toán có hình) | Tính số bước tham lam 6 và 3 | Đường thẳng 12 điểm | Vai trò cạnh dài | Ví dụ 07.6 | Sửa 2026-11-13 (F26, F44): $p_1,\ldots,p_{11}$; dòng “Tính …”; ghi chú bỏ câu xuất xứ | 47 → 47 | 148 → 140 | 2 |
+| H07 | Đồ thị nhiều tầng | hình thức hóa | Đọc cấu trúc tầng | Hình ba tầng | $Y_0\supseteq Y_1\supseteq\cdots$ | Định nghĩa 07.16 | Sửa 2026-11-13 (F35, F42): ghi chú bỏ câu chỉ đường và câu xuất xứ, thêm $Y_\ell$ | 57 → 57 | 157 → 118 | 1,5 |
+| H09 | Thuật toán: truy vấn HNSW | Đầu vào/Đầu ra, giả mã, tính đúng | Đọc giả mã; nêu Hệ quả 07.18 | Hình ba tầng gọn | Đầu ra đúng trên $V_0$ | Thuật toán 07.17, Hệ quả 07.18 | Sửa 2026-11-13 (F28, F41): đầu ra theo Hệ quả 07.18; $\mathit{efSearch}$; bỏ “thường” | 44 → 50 | 148 → 133 | 2,5 |
+| H08 | Phân phối tầng của điểm mới | hình thức hóa, chứng minh | Chứng minh $\Pr[\ell\ge k]=\rho^k$ | $U$, $m_L$, $\rho$ | Phân phối hình học | Mệnh đề 07.19 | Sửa 2026-11-13 (F42): ghi chú “đúng với mọi $m_L>0$” | 50 → 52 | 157 → 146 | 2 |
+| H08B | Ví dụ: số điểm mỗi tầng của kho mười tỷ véc-tơ | ví dụ vận dụng | Tính bảng $16^{-k}$, $N\rho^k$ | $\rho=1/16$ | Khoảng 8 tầng trên tầng 0 | Ví dụ 07.8 | Sửa 2026-11-13 (F50, F42): ghi chú bỏ câu mô phỏng ngoài ghi chú và câu chỉ đường | 12 → 12 | 107 → 71 | 1,5 |
+| H10 | Ví dụ: chèn một điểm vào đồ thị ba tầng | ví dụ chạy tay | Xác định lân cận ở tầng 1, 0 | Bảng ba tầng | Nối $p_2,p_4$; $p_3,p_2$ | Ví dụ 07.9 | Sửa 2026-11-13 (F26): $\mathit{efConstruction}$, $p_i$, $M_{\max}$ | 51 → 51 | 140 → 120 | 2 |
+| H10B | Thuật toán: chèn HNSW | Đầu vào/Đầu ra, giả mã | Đọc pha 1, pha 2; số lời gọi | Giả mã 10 dòng | Ba tính chất được giữ (ghi chú) | Thuật toán 07.20 | Sửa 2026-11-13 (F29, F49): ghi chú thêm số lời gọi và ba tính chất; “Thuật toán 3 của bài báo HNSW”; $\mathcal R$ | 33 → 33 | 151 → 138 | 2 |
+| H14 | Chi phí: truy vấn HNSW | chi phí (kết quả) | Đọc ba thừa số và ba giả thiết | Bảng ba thừa số | Cận $O(\log N)$ có điều kiện | Mệnh đề 07.21 | Sửa 2026-11-13 (F33, F48, F51): “$\le1/\rho$”; bỏ câu đính chính nguồn; đặt trước H13, H12 theo thứ tự ghi chú; sau kiểm lại: ghi chú mở bằng câu nối ba thừa số | 77 → 79 | 231 → 205 | 2 |
+| H13 | Chi phí: bộ nhớ HNSW | chi phí | Tính 264,5 byte và 97,9% | Bảng hai thành phần | Véc-tơ gốc chiếm 97,9% | Mệnh đề 07.22, Ví dụ 07.10 | Sửa 2026-11-13 (F33, F35): bỏ công thức 302 byte; 265 → 264,5; bỏ câu “giả định, không phải số đo” | 59 → 60 | 154 → 117 | 2 |
+| H12 | Ba tham số của HNSW | ứng dụng, kiểm tra | Chọn tham số để giảm độ trễ | Bảng ba tham số | Lời giải giảm $\mathit{efSearch}$ | Nhận xét 07.23 | Sửa 2026-11-13 (F34, F51): cột “Tăng tham số thì” theo note:976–981; chuyển sau H13; ngoại lệ mật độ (bảng); sau kiểm lại: ghi chú mở bằng câu nối về 122,88 TB véc-tơ gốc | 56 → 61 | 152 → 136 | 2 |
+
+Tổng mạch: 11 trang, 20 phút.
+
+### Mạch 4. Lượng tử hóa tích (PQ)
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| QT | Lượng tử hóa tích (PQ) | điểm vào mạch 4 | — | Dòng dẫn | — | — | Sửa 2026-11-13: ghi chú nhắc cận sai số | 39 → 39 | 84 → 86 | 0,5 |
+| Q00 | Lượng tử hóa véc-tơ | tình huống, vấn đề (trang bài toán có hình), ví dụ | Mã hóa $x$; câu hỏi $y$ | Ba tâm; $\mathcal C$ | Lời giải Bài tập 07.8 | Định nghĩa 07.24, Ví dụ 07.11 | Sửa 2026-11-13 (F26, F40): $\mathcal C$; codebook, centroid, reconstruction ở ghi chú | 56 → 53 | 152 → 152 | 2 |
+| Q02 | Thuật toán: mã hóa VQ | Đầu vào/Đầu ra, chi phí | Đọc argmin với phá hòa | $\mathcal C$ | $\Theta(kD)$ | Thuật toán 07.25, Nhận xét 07.26 | Sửa 2026-11-13 (F26): $\mathcal C$; công thức mã theo Định nghĩa 07.24 | 55 → 55 | 116 → 140 | 1,5 |
+| Q03 | Chi phí: một bộ mã lớn | chi phí (giới hạn của VQ) | Tính $9{,}4\cdot10^{21}$ byte | $k=2^{64}$, $D=128$ | Giới hạn dẫn vào PQ | Ví dụ 07.12 | Sửa 2026-11-13 (F34, F26): bỏ hàng k-means; thêm dòng kiểm $7{,}7\cdot10^7$ lần; bỏ $b$ | 72 → 67 | 127 → 77 | 1,5 |
+| Q04 | Mã PQ và tái dựng | hình thức hóa | Đọc định nghĩa PQ, tái dựng | Hình bốn đoạn | Mã $m\log_2k^*$ bit | Định nghĩa 07.27 | Sửa 2026-11-13 (F26): $\mathcal C^{(j)}$, $m\log_2k^*$ | 57 → 56 | 137 → 136 | 1,5 |
+| Q05 | Ví dụ: mã hóa PQ hai đoạn | ví dụ chạy tay | Tính tâm gần nhất từng đoạn | Bảng hai đoạn | Mã $(0,1)$, sai số 0,18 | Ví dụ 07.13 | Sửa 2026-11-13 (F44): “Tính …”; ghi chú Mệnh đề 07.28(b), bỏ câu xuất xứ | 22 → 22 | 91 → 123 | 2 |
+| Q07 | Chi phí: kích thước mã và bộ mã PQ | chi phí (kết quả) | Đọc Mệnh đề 07.28(c); so VQ/PQ | Bảng VQ–PQ | $2^{56}$ lần | Mệnh đề 07.28, Ví dụ 07.14 | Sửa 2026-11-13 (F26, F34, F50): $m\log_2k^*$; Lưu ý thay bằng Mệnh đề 07.28; ghi chú bỏ khẳng định ngoài ghi chú | 62 → 51 | 165 → 146 | 2 |
+| Q06 | Ví dụ: khoảng cách bất đối xứng của mã $(0,1)$ | tình huống, ví dụ dẫn nhập | Tính 0,31 so với 0,07 | Hình ADC | Sai lệch 0,24 = 0,18 + 0,06 | Ví dụ 07.15 | Sửa 2026-11-13 (F35): ghi chú bỏ câu xuất xứ | 40 → 40 | 152 → 131 | 1,5 |
+| Q08 | Khoảng cách bất đối xứng (ADC) | hình thức hóa | Đọc định nghĩa ADC/SDC | Tổng theo đoạn | $k^*$ số hạng mỗi đoạn | Định nghĩa 07.29 | Giữ mặt trang; ghi chú nêu SDC theo ghi chú | 58 → 58 | 139 → 145 | 1,5 |
+| Q09 | Bảng tra khoảng cách | thuật toán (ý tưởng), ví dụ | Lập bảng $T$; chấm hai mã | Bảng $2\times2$ | 0,31 và 13,51 | Mệnh đề 07.30 | Giữ; ghi chú dẫn Mệnh đề 07.30 | 40 → 40 | 68 → 68 | 2 |
+| Q09B | Cận sai số của khoảng cách bất đối xứng | hình thức hóa (kết quả), chứng minh, kiểm tra | Phát biểu (a), (b); kiểm $0{,}292\le0{,}424$; phản ví dụ bình phương | Ví dụ 07.15 | Cận cho khoảng cách, không cho bình phương | Mệnh đề 07.31 | Thêm 2026-11-13 (F23, nghiêm trọng): kết quả cốt lõi của mục tiêu 4 chưa có trang; sau kiểm lại: ghi chú mở bằng câu nối; bỏ “giả thiết hay bị bỏ quên” | — → 33 | — → 162 | 2,5 |
+| Q09C | Thuật toán: quét mã PQ bằng bảng tra | Đầu vào/Đầu ra, thuật toán, tính đúng | Đọc ba bước; nêu vì sao đúng theo $\widetilde d$ | Bảng $T$, đống $H$ | Đúng theo $\widetilde d$ (Mệnh đề 07.3) | Thuật toán 07.32 | Thêm 2026-11-13 (F28): thuật toán của ghi chú chưa có trang; sau kiểm lại: Đầu ra thêm “$H$ là đống giữ $K$ cặp nhỏ nhất”; ghi chú mở bằng câu nối | — → 59 | — → 132 | 2 |
+| Q11 | Chi phí: bảng tra và chấm mã | chi phí | So $k^*D+mn_c$ với $Dn_c$ | Bảng ba hàng | 512 lần tra thay 3072 lượt | Thuật toán 07.32 (bảng chi phí) | Sửa 2026-11-13: hàng lập bảng theo ghi chú ($mk^*$ ô × $D/m$); ghi chú bỏ khẳng định ngoài ghi chú | 76 → 77 | 146 → 132 | 2 |
+| Q10 | Chi phí: PQ quét đầy đủ | chi phí | Đọc 5,12 TB, 5,12 giây | Bảng hai cột | PQ không giảm $n_c$ | Ví dụ 07.16 | Sửa 2026-11-13 (F26, F35): $b=8$ → $k^*=256$; ghi chú bỏ câu “không phải số đo”; 512 lần | 67 → 65 | 158 → 139 | 1,5 |
+
+Tổng mạch: 14 trang, 24 phút.
+
+### Mạch 5. Tệp đảo kết hợp PQ (IVF-PQ)
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| IT | Tệp đảo kết hợp PQ (IVF-PQ) | điểm vào mạch 5 | — | Dòng dẫn | — | — | Sửa 2026-11-13: $\mathit{nprobe}$; nêu điều kiện cân bằng | 36 → 36 | 94 → 76 | 0,5 |
+| I00 | Tệp đảo (IVF) | tình huống, vấn đề (trang bài toán có hình) | Đọc bốn ô, chọn hai danh sách | Hình tệp đảo; 16 điểm | Chấm 8 điểm | Định nghĩa 07.34, Ví dụ 07.17 | Sửa 2026-11-13 (F40, F35): coarse quantizer, inverted list; ghi chú bỏ câu xuất xứ | 49 → 50 | 156 → 145 | 2 |
+| I01 | Chọn danh sách cần mở | thuật toán (bước chọn), ví dụ | Xếp bốn tâm; câu hỏi $\mathit{nprobe}=3$ | Bảng bốn tâm | $y_3$ ở ô bên cạnh | Định nghĩa 07.34, Bài tập 07.11(c) | Giữ mặt trang; ghi chú dẫn Bài tập 07.11(c) | 32 → 32 | 173 → 162 | 2,5 |
+| I02 | Mã hóa phần dư | tình huống, hình thức hóa | Đọc $r(y)$, $\widetilde q_i$, nội dung $L_i$ | Hình phần dư | Một bảng tra mỗi danh sách | §5.2 mở | Sửa 2026-11-13 (F31): bỏ “chính xác hơn với cùng số bit” và “(tâm thô là trọng tâm ô)”; residual, residual query | 55 → 52 | 148 → 90 | 2 |
+| I02B | Ví dụ: truy vấn dư theo đúng danh sách | ví dụ chạy tay | Tính 1,25 và 31,25 | Bảng hai truy vấn dư | Lỗi dùng nhầm $\widetilde q_0$ | Ví dụ 07.18 | Sửa 2026-11-13: ghi chú bỏ câu xuất xứ | 23 → 23 | 101 → 83 | 2 |
+| I02C | Phần dư và truy vấn dư | hình thức hóa (kết quả), chứng minh | Phát biểu (a), (b) với giả thiết trọng tâm | $\widetilde q_i$, $\widehat r(y)$ | (b) không áp dụng cho bốn tâm của ví dụ | Mệnh đề 07.35 | Thêm 2026-11-13 (F23, F31): cận sai số trên phần dư và phạm vi đúng của (b) | — → 53 | — → 169 | 2,5 |
+| I04 | Thuật toán: truy vấn IVF-PQ | Đầu vào/Đầu ra, giả mã, tính đúng | Đọc giả mã; câu tính đúng ở ghi chú | Giả mã 8 dòng | $H$ giữ đúng $K$ cặp đã chấm | Thuật toán 07.36 | Sửa 2026-11-13 (F29): ghi chú thêm lập luận tính đúng theo 07.35(a) và 07.3; sau kiểm lại: giả mã dùng δ | 51 → 43 | 125 → 143 | 2 |
+| I05 | Ví dụ: truy vấn IVF-PQ | ví dụ chạy tay, kiểm tra | Xác định kết quả, số mã; câu hỏi $K=4$, $\mathit{nprobe}=1$ | Bảng hai danh sách | Lời giải Bài tập 07.11(a): $3/4$ | Ví dụ 07.19, Bài tập 07.11(a) | Sửa 2026-11-13 (F44, F52): dòng “Xác định …”; câu hỏi theo Bài tập 07.11(a) | 30 → 39 | 110 → 150 | 2,5 |
+| I03 | Chi phí: truy vấn IVF-PQ | chi phí | Tính $3{,}63\cdot10^9$, 3,6 ms | Bảng ba bước | 1409 lần | Mệnh đề 07.37, Ví dụ 07.20 | Sửa 2026-11-13 (F35): ghi chú bỏ “giả định minh họa”; nêu (a)/(b) | 69 → 71 | 186 → 131 | 2 |
+| I03B | Ví dụ: danh sách lệch trên dữ liệu tổng hợp | ứng dụng, kiểm giả thiết | Tính 31,7 so với số đo 106 | Sổ thực hành, $k_c=4096$ | Đánh giá thấp 3,3 lần | Tình huống 07.2 | Thêm 2026-11-13 (F30): mục tiêu 5 chưa có trang | — → 57 | — → 135 | 2 |
+
+Tổng mạch: 10 trang, 20 phút.
+
+### Mạch 6. Tổng kết và tự kiểm tra
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| CT | Tổng kết và tự kiểm tra | điểm vào mạch 6 | — | Dòng dẫn | — | — | Sửa 2026-11-13: ghi chú thêm cận sai số và ngưỡng độ thu hồi | 41 → 41 | 88 → 90 | 0,5 |
+| C06 | Quét đủ và bốn chỉ mục trên kho mở đầu | trang mở mạch có hình | Đọc hình bộ nhớ, thời gian so với 6 TB, 10 ms | Hình `bon-chi-muc-kho-mo-dau.svg` | Câu hỏi: cấu trúc nào thỏa hai ngân sách | Tình huống 07.1, Ví dụ 07.10, 07.16, 07.20 | Thêm 2026-11-13 (F36): mạch tổng kết mở bằng trang có hình; sau kiểm lại: “Câu hỏi: Cấu trúc …” | — → 31 | — → 142 | 2 |
+| C03 | Kết quả và giả thiết không được bỏ | tổng kết | Đối chiếu năm kết quả của Mục 1–3 | Bảng năm hàng | Phản ví dụ ở ghi chú | Tóm tắt chương | Tách 2026-11-13 (F39, F23): 81 âm tiết vượt trần; thêm hàng Mệnh đề 07.3, 07.7 | 81 → 70 | 149 → 131 | 2 |
+| C03B | Kết quả và giả thiết không được bỏ, PQ và IVF-PQ | tổng kết | Đối chiếu bốn kết quả của Mục 4–5 | Bảng bốn hàng | Hàng cận sai số ADC | Tóm tắt chương | Thêm 2026-11-13 (tách C03; F23): hàng Mệnh đề 07.31 | — → 50 | — → 96 | 1,5 |
+| C00 | Thuật toán, bảo đảm và chi phí | tổng kết | So bốn thuật toán | Bảng bốn hàng | Bảo đảm bằng công thức | §6 | Sửa 2026-11-13 (F23, F34, F26): bảo đảm LSH và PQ theo note:1615–1617; $b$ bảng; $\vert V\vert \cdot D$; 80 → 67; sau kiểm lại: “với” chữ thường | 80 → 67 | 147 → 106 | 2,5 |
+| C04 | Câu trả lời cho vấn đề trung tâm | tổng kết (trả lời có điều kiện) | Trả lời bằng số của tình huống mở bài | Bốn dòng; 6 TB, 10 ms | Lưu ý kiểm giả thiết cân bằng | Tình huống 07.1 | Sửa 2026-11-13 (F30, F41, F43): thêm kiểm giả thiết; “giả sử”; ghi chú bỏ câu nói về chính văn bản | 58 → 56 | 138 → 148 | 2,5 |
+| C01 | Câu hỏi tự kiểm tra, câu 1–2 | kiểm tra | Trả lời hai câu, nêu kết quả đã dùng | Bài tập 07.5, 07.6(b) | 64,4 GB với $s_{id}=4$ | Bài tập 07.5, 07.6 | Sửa 2026-11-13 (F32): câu 2 theo Bài tập 07.6(b) | 36 → 35 | 173 → 182 | 2,5 |
+| C01B | Câu hỏi tự kiểm tra, câu 3–4 | kiểm tra | Trả lời hai câu | Bài tập 07.12, 07.13 | Gắn nguyên nhân với thừa số | Bài tập 07.12, 07.13 | Sửa 2026-11-13: ghi chú dẫn số bài tập | 43 → 43 | 171 → 143 | 2,5 |
+| C05 | Nguồn và tài liệu đọc | tổng kết | Ghi nguồn, mở ghi chú và bài tập | Nguồn; liên kết viewer | Câu nối Bài 08 | Tài liệu tham khảo | Sửa 2026-11-13 (F47): HNSW 2020, TPAMI 42(4); liên kết mmds.org; liên kết `exercises.md`; câu nối Bài 08; bỏ câu xuất xứ | 54 → 59 | 146 → 147 | 0,5 |
+
+Tổng mạch: 9 trang, 16,5 phút.
+
+### Mạch 7. Bài tập thực hành (60 phút)
+
+| ID | Tiêu đề | Bước chu trình | Mục đích, hành động của sinh viên | Đối tượng trung tâm; dữ kiện kế thừa | Sản phẩm, bằng chứng | Khối ghi chú | Quyết định và lý do | ÂT trước → sau | GCDG trước → sau | Phút |
+|---|---|---|---|---|---|---|---|---|---|---:|
+| RT | Bài tập thực hành | điểm vào mạch 7 | — | Dòng dẫn | — | — | Sửa 2026-11-13: ghi chú dẫn Bài tập 07.15, 07.17–07.19 | 40 → 40 | 92 → 100 | 1 |
+| R00 | Sổ thực hành và dữ liệu | trang mở mạch có hình | Đọc bốn luồng dữ liệu của sổ | Hình `thuc-hanh-du-lieu.svg` | Biết mảng nào dùng cho việc nào | Tình huống 07.2, `exercises.md` | Sửa 2026-11-13 (F36): bảng mảng thay bằng hình luồng dữ liệu; “Nhu cầu:” trên mặt trang | 53 → 31 | 137 → 156 | 5 |
+| R01 | Bài tập: mã PQ trên dữ liệu tổng hợp | đề (07.17) | Dự đoán ba kích thước; so PQ $4\times8$ với VQ 4096 tâm | Phiếu ba hàng | Bảng kích thước, ba so sánh | Bài tập 07.17 | Sửa 2026-11-13 (F38): thêm câu (b); $\log_2k^*$ thay $b$ | 43 → 74 | 153 → 128 | 6 |
+| R01B | Bài tập: mã PQ trên dữ liệu tổng hợp | Lời giải (07.17) | Đối chiếu lời giải | 4 byte; $(4,256,16)$; $(10\,000,4)$ | — | Bài tập 07.17 | Thêm 2026-11-13 (F37); sau kiểm lại: (a) một dòng; ba phép so (b) thành danh sách | — → 48 | — → 136 | 3 |
+| R02 | Bài tập: tái dựng véc-tơ thứ 123 | đề (07.15) | Viết vế phải ô mã 96; giải thích `True` | Ô mã 96–97 | Biểu thức và lời giải thích | Bài tập 07.15 | Sửa 2026-11-13 (F38, F43): ghi Bài tập 07.15; ghi chú bỏ phủ định chồng | 37 → 54 | 227 → 128 | 6 |
+| R02B | Bài tập: tái dựng véc-tơ thứ 123 | Lời giải (07.15) | Đối chiếu biểu thức `np.hstack` | Biểu thức | — | Bài tập 07.15 | Thêm 2026-11-13 (F37); sau kiểm lại: bỏ nhãn “Kiểm:” | — → 55 | — → 65 | 3 |
+| R04 | Bài tập: ba cấu hình cùng ngân sách 6 byte | đề (07.18a, b) | Dự đoán `dsub`, `ksub`, `code_size`; ghi MSE, thời gian | Phiếu ba hàng | Phiếu số đo | Bài tập 07.18 | Sửa 2026-11-13 (F26): cột `nbits` thay $b$; thêm `code_size` | 49 → 51 | 124 → 101 | 5 |
+| R04B | Bài tập: ba cấu hình cùng ngân sách 6 byte | Lời giải (07.18a, b) | Đối chiếu bảng dự đoán | Bảng ba hàng | — | Bài tập 07.18 | Thêm 2026-11-13 (F37); sau kiểm lại: dòng kiểm 48 bit chuyển xuống ghi chú, còn 6 dòng | — → 25 | — → 74 | 2 |
+| R05 | Bài tập: ba cấu hình cùng ngân sách 6 byte, giải thích | đề (07.18c) | Giải thích thời gian bằng $k^*D$; so MSE với bài giảng 8 | Nhắc lại chi phí mã hóa | Lời giải thích | Bài tập 07.18 | Sửa 2026-11-13: đề theo câu (c) của `exercises.md` | 66 → 67 | 176 → 78 | 4 |
+| R05B | Bài tập: ba cấu hình cùng ngân sách 6 byte, giải thích | Lời giải (07.18c) | Đối chiếu $262\,144$; $4\,096$; $512$ | — | — | Bài tập 07.18 | Thêm 2026-11-13 (G5); sau kiểm lại: tách dòng > 20 âm tiết | — → 57 | — → 76 | 3 |
+| R06 | Bài tập: chỉ mục IVF-PQ | đề (07.19a) | Đọc chuỗi cấu hình | Ô mã 149–151 | Phiếu năm cột | Bài tập 07.19 | Sửa 2026-11-13 (F40): “mã đa nghĩa (polysemous codes)”; $\log_2k^*$ | 34 → 58 | 140 → 98 | 4 |
+| R06B | Bài tập: chỉ mục IVF-PQ | Lời giải (07.19a) | Đối chiếu $k_c=200$, $m=16$, 16 byte, 50 | — | — | Bài tập 07.19 | Thêm 2026-11-13 (F37) | — → 58 | — → 71 | 2 |
+| R07 | Bài tập: chỉ mục IVF-PQ, đo theo số danh sách mở | đề (07.19b) | Chạy ô mã 152–155, ghi năm dòng | Ô mã 155 | Phiếu năm dòng | Bài tập 07.19 | Sửa 2026-11-13 (F43): bỏ câu tự hỏi tự trả lời và lời dặn; bảng ý nghĩa chuyển sang R07B | 38 → 42 | 194 → 97 | 6 |
+| R07B | Bài tập: chỉ mục IVF-PQ, đo theo số danh sách mở | Lời giải (07.19b) | Đối chiếu cột số mã $50\,\mathit{nprobe}$ | Phiếu năm dòng | — | Bài tập 07.19 | Thêm 2026-11-13 (F37) | — → 26 | — → 84 | 3 |
+| R08 | Bài tập: chỉ mục IVF-PQ, đồ thị và giải thích | đề (07.19c) | Vẽ đồ thị; so với Mệnh đề 07.37(a); xét `nok/100` | Nhắc lại công thức chi phí | Đồ thị và lập luận | Bài tập 07.19 | Sửa 2026-11-13 (F38, F41): câu hỏi theo 07.19(c); bảng chuyển sang R07B; sau kiểm lại: câu hỏi tách hai dòng | 42 → 50 | 199 → 84 | 5 |
+| R08B | Bài tập: chỉ mục IVF-PQ, đồ thị và giải thích | Lời giải (07.19c) | Đối chiếu dự đoán chi phí và lập luận | — | — | Bài tập 07.19 | Thêm 2026-11-13 (F38): lời giải theo `exercises.md`; sau kiểm lại: “tăng tuyến tính theo $\mathit{nprobe}$, cộng hằng $12\,800$”; bỏ nhãn “Kiểm:” | — → 58 | — → 80 | 2 |
+
+Tổng mạch: 16 trang, 60 phút.
+
+### Ngoại lệ mật độ (âm tiết đếm bằng script; trần 60, 80 cho mục tiêu, bảng so sánh, bảng chi phí, tổng kết, đề recitation)
+
+| Trang | Âm tiết trước → sau | Dòng | Loại và lý do |
+|---|---|---:|---|
+| P02 | 55 → 78 | 6 | mục tiêu, trần 80; sáu mục tiêu của ghi chú (đếm tay bằng `wc -w`: 78) |
+| A03 | 64 → 78 | 8 | bảng so sánh có phát biểu Mệnh đề 07.7 (3 dòng + bảng 5 hàng); trần 80, 8 dòng như trang bảng chi phí |
+| H06C | — → 65 | 8 | bảng chi phí 5 hàng + Mô hình + dòng tổng + Trường hợp biên |
+| H14 | 77 → 79 | 7 | bảng chi phí |
+| H12 | 56 → 61 | 5 | bảng so sánh ba tham số, trần 80 |
+| Q03 | 72 → 67 | 6 | bảng chi phí |
+| Q11 | 76 → 77 | 7 | bảng chi phí |
+| Q10 | 67 → 65 | 6 | bảng chi phí |
+| I03 | 69 → 71 | 8 | bảng chi phí |
+| C03 | 81 → 70 | 6 | bảng tổng kết (tách khỏi 81 âm tiết) |
+| C00 | 80 → 67 | 6 | bảng so sánh |
+| R01 | 43 → 74 | 7 | đề recitation (câu (a) + phiếu 4 hàng + câu (b) + Nguồn), trần 80 |
+| R05 | 66 → 67 | 3 | đề recitation |
+| R04, R07B | 51; 26 | 7 | phiếu số đo 4 hoặc 6 hàng (bảng vết); R04B rút về 6 dòng sau kiểm lại |
+
+Mọi trang khác ≤ 60 âm tiết; trang có bảng vết (H01, H03B, H03C, H10, Q09, I05) có 7–8 dòng, trong ngưỡng 8 của bảng vết; các trang còn lại ≤ 6 dòng. Ghi chú diễn giả trên 150 âm tiết chỉ ở trang chứng minh, lời giải hoặc tổng kết nguồn: H01B 155, H06 171, H14 179, Q09B 156, I02C 169 (chứng minh); A02 155, Q00 152, I01 162, C01 182 (lời giải); R00 156 (hướng dẫn chạy sổ); không trang nào vượt 250.
+
+### Thời gian
+
+| Mạch | 1 | 2 | 3 | 4 | 5 | 6 | Phần giảng | 7 (bài tập) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Trang | 13 | 11 | 11 | 14 | 10 | 9 | 68 | 16 |
+| Phút | 19,5 | 20 | 20 | 24 | 20 | 16,5 | 120 | 60 |
+
+Thời gian tiết kiệm: H08B, Q05, Q09, I02B, H03B chạy tay nhanh hơn lượt 2026-10-28 vì dữ kiện đã có trên trang trước; C04, C01, C01B giữ 2,5 phút. Phần bài tập: RT 1; R00 5; nhiệm vụ 1 (R01–R02B) 18; nhiệm vụ 2 (R04–R05B) 14; nhiệm vụ 3 (R06–R08B) 22.
+
+### Xuất xứ dữ kiện tự dựng
+
+Danh sách “Dữ kiện tự dựng” ở `review-log.md` (rl:911) không đổi; dữ kiện mới của đợt này đều lấy từ ghi chú (Ví dụ 07.1–07.20, Tình huống 07.1, 07.2, Bài tập 07.1–07.19). Câu xuất xứ đã bỏ khỏi ghi chú diễn giả theo G6.
