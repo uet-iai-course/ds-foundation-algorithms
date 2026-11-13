@@ -551,3 +551,97 @@ Quy ước dẫn: `html:` là dòng của deck, `note:` là dòng của `lecture
 ### Quyết định của người dùng (2026-11-13)
 
 - Quyết định của người dùng (2026-11-13): thống nhất thuật ngữ "véc-tơ" cho deck và ghi chú (tên tiếng Anh "vector" chỉ trong ngoặc ở lần dùng đầu). Deck 02 còn "véc tơ" (18 chỗ) và "vector" (2 chỗ): đổi thành "véc-tơ".
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Căn cứ.** Bảng phát hiện của mục "Rà soát deck theo nguyên tắc deck mới và đối chiếu ghi chú bài giảng (2026-11-13)" ở trên (32 dòng: 2 nghiêm trọng, 15 trung bình, 15 nhẹ) và quyết định của người dùng ("véc-tơ"); quyết định G1–G18 và D02 của điều phối viên (`SP/fix/edit-decisions.md`). Ghi chú bài giảng và `exercises.md` là chuẩn nội dung và không đổi (md5 `51d6f535`, `4bd4edaf` lúc bắt đầu và lúc kết thúc). Deck sau đợt sửa: md5 `2e033ad9`.
+
+**Tác tử.** Vai trò: tác tử sửa deck Bài 02 (một tác tử ghi tệp), `no-ai-slop` chế độ Edit, tự kiểm theo `eval.md`. Loại, mô hình và effort do điều phối viên ghi theo lời gọi công cụ. Không commit, không `git add`.
+
+**Kết quả.** 93 → 101 trang (80 trang giảng, 14 trang Đọc thêm, 7 trang bài tập); bảy section ngoài giữ nguyên. Thêm 10 trang (`lec02-s01-10`, `-s01-11`, `-s02-14`, `-s02-15`, `-s03-18`, `-s03-19`, `-s04-13`, `-s07-04b`, `-s07-05b`, `-s07-06b`), bỏ `lec02-s03-06a`, gộp `lec02-s06-02` vào `lec02-s06-01`. Chi tiết từng trang ở `storyboard.md`, mục cùng tên.
+
+**Hình.** Mới, sinh bằng `tools/courses/ds-foundation-algorithms/2627-1/img/lec-02/render-deck-figures-2026-11.py`: `web-scan.svg`, `two-docs.svg`, `matvec-row.svg`, `cost-01.svg`; bản dẫn xuất đổi nhãn theo ký hiệu của ghi chú: `cost-07-q.svg` ($V\to Q$), `sys-03-x.svg`, `sys-09-x.svg` (B₁ → X₁); ghi chú vẫn dùng bản gốc. Sửa: `sys-04.svg` ($f\to h$, bỏ "quy tắc minh họa") qua `scripts/render-system-figures.py`; chạy lại script vào thư mục tạm cho thấy chỉ `sys-04.svg` đổi. Không còn trang nào dùng `google-data-machines.svg` (ghi chú cũng không dùng). Nhãn hình mới ≥ 20 px trong viewBox, hiển thị gần tỷ lệ 1 ở 1280×720.
+
+**Xuất xứ dữ liệu.** Đợt này không thêm dữ kiện tự dựng: mọi số trên deck lấy từ ghi chú (Ví dụ 02.1–02.19, 02.23, bảng chi phí của Thuật toán 02.18, 02.25) và `exercises.md`; xuất xứ các dữ kiện tự dựng của ghi chú đã ghi ở mục "Ghi chú bài giảng và tệp bài tập theo chuẩn 2026-11 (đợt B2)".
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| nghiêm trọng: thiếu Ví dụ 02.1, dùng số liệu Google | sửa: s01-03 thành "Ví dụ: đọc kho web trên một máy" (20 tỷ trang × 20 KB = 400 TB; 132 ngày; 3,2 giờ; hình `web-scan.svg`); s01-09 Nhu cầu 400 TB/132 ngày; s07-01 dòng thu hồi; bỏ số liệu Google và ba nguồn khỏi mặt trang, ghi chú diễn giả, s07-08 | s01-03, s01-09, s07-01, s07-08, s01-04 | Kết luận s01-03 theo đề xuất |
+| nghiêm trọng: kết quả cốt lõi không có trang | sửa: (1) Bổ đề 02.2 và Định nghĩa 02.1 ở s01-10, phản ví dụ ở s01-11; (2) s02-11 còn Định nghĩa 02.14 và Ví dụ 02.5, Mệnh đề 02.15 đủ ba giả thiết ở s02-14, chứng minh bất biến ở s02-15; (3) Mệnh đề 02.31, Hệ quả 02.32 và bảng $n=16$ ở s04-13; (4) dòng Mệnh đề 02.35 ở s04-08; (5) Nhận xét 02.13 ở s02-04 | s01-10, s01-11, s02-11, s02-14, s02-15, s04-13, s04-08, s02-04 | (5) theo phương án "thêm vào s02-04" |
+| trung bình: thiếu trang bài toán có hình sau tiêu đề mạch | sửa: mạch 2 đưa s02-02 lên sau s02-00, hình `two-docs.svg`, Nhu cầu "chó có ở cả hai máy"; s02-01 đổi vai thành trang ý tưởng; mạch 3 s03-02 có hình `matvec-row.svg` và Nhu cầu PageRank $10^{12}$; mạch 4 s04-01 "Cộng 16 số trên một máy và trên bốn máy" có hình `cost-01.svg`; mạch 6 s06-01 có hình cụm và kết quả mong đợi | s02-02, s02-01, s03-02, s04-01, s06-01 | mạch 5 mở bằng s05-02 có hình `sys-02.svg`; mạch 7 không thêm hình: hai bảng tổng kết và đề sách dạng chữ (G14 "khi phù hợp") |
+| trung bình: ký hiệu khác bảng ký hiệu | sửa toàn deck: $X_j$, $Z$, $h$, $(k,x)$, $\Omega^*$, $\mathcal W$, $\ell_i$, $E$, $(s,\kappa)$, $(s^\ast,\kappa^\ast)$, $t_u$, $Y_z$, $A_{11}$, $Q$, $T_{\text{truyền}}$, $W_P$; hình `sys-04.svg` ghi $h$; `cost-07-q.svg`, `sys-03-x.svg`, `sys-09-x.svg` | toàn deck | ba hình gốc giữ cho ghi chú (ghi chú tự nêu tương ứng nhãn) |
+| trung bình: chữ hai nghĩa | sửa: dòng "Ký hiệu:" của s01-07 theo bảng ký hiệu; bỏ khai báo chín chữ hai nghĩa; s04-01 bỏ dòng "$p$ vẫn là số hàng ma trận" | s01-07, s04-01 | sau khi áp bảng ký hiệu, không còn chữ hai nghĩa |
+| trung bình: thuật ngữ khác ghi chú | sửa: "Chi phí truyền thông" (s04-05, s07-07), "tổng khối lượng tính toán" (s04-00, s04-01, ghi chú diễn giả), "véc-tơ", "khối con", "tủ máy (rack)"; dòng dẫn s06-00 "cụm Hadoop sáu container" | s04-00, s04-01, s04-05, s07-07, s03-*, s06-00 | |
+| trung bình: đặc tả ma trận $p\times q$ | sửa: s03-02, s03-06 theo $q\times q$, "(Mệnh đề 02.19)"; ghi chú diễn giả dẫn Bài tập 02.5; thêm bảng chi phí của Thuật toán 02.18 ở s03-18 | s03-02, s03-06, s03-18 | |
+| trung bình: nội dung, ứng dụng, nguồn ngoài ghi chú | sửa: bỏ s03-06a (côsin, IIR); s03-11a giữ, bỏ IIR và "$q$ cột"; s04-06, s04-10 dẫn Định nghĩa 02.37, 02.39, bỏ Cornell; s05-02 bỏ tên lớp API; bỏ Dean–Ghemawat và Apache khỏi mọi ghi chú diễn giả; s07-08 theo tài liệu tham khảo của ghi chú | s03-06a, s03-11a, s04-06, s04-10, s05-02, s07-08 và ghi chú diễn giả | |
+| trung bình: mục tiêu khác ghi chú | sửa: sáu mục tiêu rút gọn, mục 5 nhãn Đọc thêm, 80 âm tiết (đếm lại tay: 80) | s01-08 | phần kỳ vọng thời gian khi tác vụ hỏng của mục tiêu 5 thuộc Đọc thêm, không có trang |
+| trung bình: thiếu tiên quyết | sửa: ba dòng "Nhắc lại:" theo đề xuất (Định nghĩa 01.8, Nhận xét 01.3, Định nghĩa 01.13); bất biến (Mệnh đề 01.12) trong ghi chú diễn giả | s01-07 | giữ trần 60: 59 âm tiết |
+| trung bình: thứ tự cụm thuật toán, thiếu bảng chi phí | sửa: mạch 2 theo thứ tự s02-02 → s02-01 → s02-06…08 → s02-05 → s02-03 → s02-09, s02-10 → s02-13; quyết định 3 cũ được thay (ghi ở `storyboard.md`); bảng chi phí s03-18, s03-19; câu chi phí của Thuật toán 02.22 trong Kết luận s03-10, của Thuật toán 02.9 trong dòng Mô hình s02-03; bước tính tay $(2,3,2)\to(2,6)$ ở s03-03 trước giả mã | mạch 2, s03-03, s03-10, s03-18, s03-19 | thuật toán đếm từ phân biệt không có bảng riêng vì ghi chú chỉ có câu chi phí |
+| trung bình: recitation không có trang "Lời giải:" | sửa: thêm s07-04b, s07-05b, s07-06b cùng tiêu đề, theo lời giải Bài tập 02.6, 02.7, 02.8 (Map theo phần tử, khóa $g$, $H=n$/$H=m$, phản ví dụ 6, chia nguyên 1 thay 1,5); đề có câu (a)(b)(c); ghi chú diễn giả trang đề có năng lực, gợi ý, hướng dẫn chấm 10 điểm | s07-04…s07-06b, s07-09 | |
+| trung bình: thiếu liên kết viewer | sửa: liên kết "Ghi chú bài giảng" và "Bài tập" qua `material-viewer.html`, liên kết Bài 03 | s07-08 | |
+| trung bình: câu xuất xứ, rào đón, từ làm mềm | sửa: viết lại ghi chú diễn giả của mọi trang; mặt trang "Giả sử" thay "Ví dụ giả định" (s04-09, s07-01) | toàn deck | grep "do học phần", "tự dựng", "minh họa", "giả định", "tự chọn", "không phải số đo": 0 |
+| trung bình: khẳng định ngoài ghi chú, README | sửa: bỏ SUCCEEDED (s06-10), câu 3 của s06-12 và câu 4 của s07-03 dựa trên `part-*` và bộ đếm 5/4/3; s05-04 "$m\cdot r=4$ tệp"; s05-08 bỏ "thường" | s06-10, s06-12, s07-03, s05-04, s05-08 | |
+| trung bình: s01-05 không có số | sửa: số của Ví dụ 02.2 trong khối ba máy, gộp $3+7+14=24$, kiểm tra theo thứ tự chỉ số | s01-05 | giữ thành phần HTML `sum-machines` (thành phần mẫu của deck 02) thay cho `note-cong-sau-so.svg`: cùng số, nhãn lớn hơn |
+| trung bình: giả thiết Mệnh đề 02.11 | sửa: đủ bốn giả thiết, "(Mệnh đề 02.11)"; điều kiện áp dụng "không tác vụ nào chạy lại" trong ghi chú diễn giả; bỏ câu về chạy lại | s02-13 | |
+| nhẹ: tiến trình điều phối trong mạch chính | sửa: s02-04 thành "Hàm, tác vụ và máy" (Nhận xét 02.13); tiến trình điều phối chỉ ở mạch 5 (s05-07 đã có) | s02-04 | |
+| nhẹ: câu chỉ đường | sửa: bỏ câu chỉ đường trong ghi chú diễn giả và dòng "mạch 5 là Đọc thêm" của s06-01; ánh xạ mạch 6 ↔ Mục 5 ghi ở `storyboard.md` | toàn deck | ghi chú diễn giả trang Nội dung và trang Nguồn giữ tên mạch vì mô tả cấu trúc bài |
+| nhẹ: ghi chú diễn giả dài | sửa: mọi trang 40–150 âm tiết, trừ chứng minh và lời giải ≤ 250 (s01-10 175, s02-13 221, s02-15 174, s04-13 160, s07-03 166); s05-00 82 | toàn deck | |
+| nhẹ: câu kết khẩu hiệu | sửa: s01-03 "3,2 giờ"; s07-01 theo đề xuất; s01-05 một Kết luận; s02-01 đổi vai, dòng "Ý nghĩa:" | s01-03, s01-05, s02-01, s07-01 | |
+| nhẹ: chữ đậm ngoài danh sách | sửa: bỏ ở s02-04, s04-07; s04-01 dùng KaTeX | s02-04, s04-01, s04-07 | |
+| nhẹ: thiếu dòng "Tính …" | sửa: thêm ở s02-05, s03-05, s03-10, s03-15, s04-04; thêm cả s04-02, s03-16a | các trang ví dụ | |
+| nhẹ: công thức chữ thô trong ghi chú diễn giả | sửa: mọi công thức trong ghi chú diễn giả viết `$…$` | toàn deck | |
+| nhẹ: nhãn Đọc thêm/Thực hành trên trang tiêu đề mạch | sửa: nhãn đặt đầu `p.strand-lead` của s05-00, s06-00 | s05-00, s06-00 | dòng dẫn kể cả nhãn 23 âm tiết |
+| nhẹ: dẫn MMDS sai mục | sửa: bỏ §2.5.1 ở s04-02, s04-12; s03-07 dẫn §2.3.5, tr.36 | s04-02, s04-12, s03-07 | |
+| nhẹ: miền đầu vào, vai trò chương trình chính | sửa: $n\ge0$; chương trình chính trả $D=0$ khi công việc 1 không có cặp đầu ra | s03-07, s03-09, s03-11 | |
+| nhẹ: "Kết quả đã dùng" dẫn trang | sửa: dẫn Định nghĩa 02.6–02.8, Mệnh đề 02.11, 02.15, 02.31, Hệ quả 02.32, Ví dụ 02.23, Mệnh đề 02.35 | s07-03 | câu 3 đổi sang cộng 16 số để dùng Hệ quả 02.32 |
+| nhẹ: thiếu giới hạn cụm thực hành | sửa: dòng "Lưu ý: … không đo được $S_P$" | s06-01 | |
+| nhẹ: tính chặn, Mệnh đề 02.43 | sửa: dòng tính chặn và Kết luận "(Mệnh đề 02.43)"; Định nghĩa 02.42 và phản ví dụ trong ghi chú diễn giả | s05-11 | Spark không có trang (R2) |
+| nhẹ: từ khóa giả mã | sửa: "phát", "tổng các phần tử của L"; khóa $g$ trong lời giải | s02-03, s03-04, s07-04b…06b | |
+| nhẹ: `no-ai-slop` | sửa: xóa hai câu lặp, ba câu lời bình, liệt kê phủ định, câu tương phản "pha logic, không phải biên vật lý", "có thể tăng"; ba ghi chú recitation mở bằng năng lực riêng | s03-08, s06-11, s01-04, s02-01, s02-09, s07-04…06 | |
+
+**Kiểm tra (G17).** Máy chủ `127.0.0.1:8796`, `check_deck.py` (Playwright, 1600×900 và 390×844): 101 trang, 7 section ngoài, 0 mã trùng; 0 lỗi console, 0 request hỏng, 0 `.katex-error`, 0 trang thiếu ghi chú diễn giả; `hash_strand` đúng `mach-2…7` ở `#/2…7`; phím mũi tên chuyển trang; 390 px không cuộn ngang; `disp_gt3` rỗng. `overflow_1600` chỉ có `lec02-s04-13` với độ lệch phải 15 607 px, cờ giả do path SVG của `\sqrt` KaTeX (ảnh chụp không tràn). `over60`: chỉ các trang có trần 80 ghi trong `storyboard.md`, cao nhất 80 (s01-08). `refcheck.py 02`: 294 dẫn chiếu đúng, 0 sai. `git diff --check`: sạch. Đếm tay: mục tiêu 80 âm tiết; dòng dẫn tiêu đề mạch 20–24 âm tiết. Đã tự xem ảnh chụp 1600×900 của các trang mới và trang sửa nhiều (s01-03, s01-05, s01-08, s01-10, s01-11, s02-02, s02-04, s02-05, s02-10, s02-14, s02-15, s03-02, s03-06, s03-10, s03-16a, s03-18, s04-01, s04-05, s04-08, s04-13, s05-00, s05-11, s06-01, s07-01, s07-04b, s07-06b, s07-07, s07-08) và vài ảnh 390×844.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Căn cứ: danh sách đã duyệt `SP/fix/lec-02/merge-02.md` (hai lượt kiểm lại độ chính xác và mạch đều đạt; 15 mục nhẹ) và hai quyết định của điều phối viên. Cùng tác tử sửa, cùng phạm vi ghi (G18). Deck sau lượt: 102 trang, md5 `e01a9905`; ghi chú và `exercises.md` không đổi.
+
+| mục | xử lý | trang |
+|---|---|---|
+| quyết định: trang mở mạch 7 có hình | thêm `lec02-s07-10` "Kho 400 TB và hai văn bản": hình `web-scan.svg` và `two-docs-wide.svg` (bản ngang mới của `two-docs.svg`, nhãn 22–25 px, cùng script), dòng "Nhắc lại:" bằng số, một dòng "Câu hỏi:" không lộ lời giải; 1 phút lấy từ s07-03 | s07-10, s07-03 |
+| quyết định: không thêm Bài tập 02.5 | ghi lý do (ngân sách 60 phút đã dùng cho ba bài sách) trong `storyboard.md` | — |
+| 1. định nghĩa $L'_k$ | thêm "$L'_k$ là danh sách Reduce nhận sau Combine." vào dòng Mệnh đề | s02-14 |
+| 2. dãy khác rỗng, gộp trái sang phải | "dãy $e_1,\ldots,e_\ell$ khác rỗng"; "$\bigoplus$ gộp dãy từ trái sang phải" ở dòng Định nghĩa | s01-10 |
+| 3. câu ngoài ghi chú | bỏ câu về lỗi chương trình; câu về tủ viết lại theo đề xuất | s05-12 |
+| 4. số cặp công việc 2 | "$D$ trung gian khi không Combine" | s07-06b |
+| 5. nhãn hình | `sys-03-x.svg`: A, D "bản sao khối X₁", B, C "không có bản sao" (hộp 215–220 px không chứa đủ "bản sao khối của X₁" ở cỡ 23 px); `sys-09-x.svg`: "Đọc bản sao khối của X₁"; `alt` và dòng chú s05-03 cập nhật | s05-03, s05-09 |
+| 6. dòng Combine | thêm "giữ khóa, kiểu $V_2$"; rút "như" để giữ trần 80 (79 âm tiết) | s07-07 |
+| 7. rào đón, phủ định, bình luận | s04-00 theo câu đề xuất; s07-00, s05-00 bỏ câu phủ định; s02-13 "Phần còn lại thuộc hai hàm của người lập trình"; s01-10 "Bổ đề cho giá trị của phép gộp; số phép toán và thời gian được đếm ở mạch chi phí"; s03-06 "Giả thiết $v$ vừa bộ nhớ chỉ ảnh hưởng chi phí" | s04-00, s07-00, s05-00, s02-13, s01-10, s03-06 |
+| 8. câu chỉ đường | bỏ ở s01-07, s01-11; s04-00 bỏ câu về bài thực hành | s01-07, s01-11, s04-00 |
+| 9. câu chia cho 1000 | hai câu chuyển sang ghi chú diễn giả s01-04, cắt khỏi s01-03 | s01-03, s01-04 |
+| 10. lặp trang trước | s03-08 mở bằng câu đề xuất; s03-13 bỏ mục 1 | s03-08, s03-13 |
+| 11. thẻ lặp hình, Lưu ý dài | s04-01: Nhu cầu theo đề xuất, bỏ ba thẻ biểu tượng; s06-01: Lưu ý rút gọn | s04-01, s06-01 |
+| 12. Nhắc lại $T_P$ | dòng đầu s04-09 thành "Nhắc lại: $T_P=\sum T_{\text{pha}}$ (Định nghĩa 02.30)"; định nghĩa bằng lời chuyển vào ghi chú diễn giả | s04-09 |
+| 13. nhãn hàng, câu lệch tải | s02-01 nhãn "nhóm (`sort`)"; s02-04 câu lệch tải thành dòng "Lưu ý:" cuối trang, dòng dẫn nêu reducer và tác vụ | s02-01, s02-04 |
+| 14. dòng 4 của câu trả lời | theo đề xuất; ghi chú diễn giả dẫn Ví dụ 02.12, Hệ quả 02.32, Ví dụ 02.13 | s07-01 |
+| 15. câu Gợi ý lặp | cắt nửa sau | s07-04 |
+
+**Kiểm tra lại (G17).** `check_deck.py 8796`: 102 trang, 7 section, 0 mã trùng, 0 lỗi console/request/KaTeX ở 1600×900 và 390×844, 0 trang thiếu ghi chú diễn giả, `hash_strand` đúng `mach-2…7`, 390 px không cuộn ngang, `disp_gt3` rỗng, `notes_gt250` rỗng. `overflow_1600`: `lec02-s04-13` và `lec02-s07-01` (+15 607, +15 419 px), cờ giả do `\sqrt` KaTeX; ảnh chụp không tràn. `over60`: chỉ các trang trần 80 đã ghi ngoại lệ, cao nhất 80 (s01-08); s07-06b 59. `refcheck.py 02`: 296 đúng, 0 sai. `git diff --check`: sạch. Đã xem ảnh 1600×900 của s07-10, s04-01, s02-04, s07-01 và ảnh hình `sys-03-x`, `sys-09-x`, `two-docs-wide`.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | đạt | 0/0/0/6 | chấp nhận; sáu mục vào `merge-02.md` (mục 1–6) |
+| B | đạt | 0/0/0/10 | chấp nhận; chín mục vào `merge-02.md` (mục 7–15); thêm trang mở mạch 7 có hình như Bài 08 |
+
+Quyết định của điều phối viên trong lượt này: thêm trang s07-10 "Kho 400 TB và hai văn bản" mở mạch 7 (hình `web-scan.svg`, `two-docs-wide.svg`; 1 phút lấy từ s07-03); không thêm Bài tập 02.5 vào recitation vì ba bài sách hiện có đã dùng hết 60 phút.
+
+Lượt sửa sau kiểm lại: 15/15 mục làm; `sys-03-x.svg` ghi "bản sao khối X₁"/"không có bản sao" vì nhãn dài không vừa hộp ở cỡ 23 px; s07-07 79 âm tiết — chấp nhận. Deck 93 → 102 trang (80 giảng, 120 phút; 14 trang Đọc thêm không tính giờ; recitation 60 phút). `google-data-machines.svg` không còn deck hay ghi chú nào dùng: xóa trong commit này.
+
+Đề nghị sửa ghi chú để lại cho người dùng: ghi chú dùng bản `cost-07-q`, `sys-03-x`, `sys-09-x` và bỏ các câu giải thích nhãn V, B₁ của hình cũ.
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 102 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s04-13, s07-01 là path SVG của `\sqrt` (cờ giả); mười bốn trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 296 dẫn chiếu, 0 sai. `git diff --check` sạch. Không còn số liệu Google; Ví dụ 02.1 mở bài và được thu hồi ở s07-01. Điều phối viên tự xem ảnh s07-10 ở 1600×900; mọi SVG mới đều có trang dùng.
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
