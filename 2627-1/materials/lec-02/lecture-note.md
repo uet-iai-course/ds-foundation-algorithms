@@ -1302,9 +1302,9 @@ Gọi $T$ là thời gian chuyển đủ $Q$ MB. Theo định nghĩa băng thôn
 **Kiểm tra lại.** Nếu hiểu nhầm 100 MB/s là băng thông của mỗi máy, ta được 1 giây, nhỏ hơn cận dưới 4 giây.
 :::
 
-![Tủ rack gửi có bốn máy, mỗi máy gửi 100 MB; tất cả đi qua một đường nối dùng chung có B = 100 MB/s tới máy nhận ở tủ rack nhận; tổng lượng truyền V = 4 × 100 = 400 MB.](img/lec-02/cost-07.svg)
+![Tủ rack gửi có bốn máy, mỗi máy gửi 100 MB; tất cả đi qua một đường nối dùng chung có B = 100 MB/s tới máy nhận ở tủ rack nhận; tổng lượng truyền Q = 4 × 100 = 400 MB.](img/lec-02/cost-07-q.svg)
 
-Hình vẽ bốn luồng 100 MB nhập vào một đường nối; nhãn $V$ trên hình là lượng truyền $Q$ của ghi chú. Đường nối chỉ chuyển 100 MB mỗi giây dù bốn máy gửi đồng thời. Mệnh đề 02.38 giải thích yêu cầu đưa tính toán tới gần dữ liệu ở Mục 1.1: nếu tác vụ Map chạy trên máy có bản sao của khối, khối không đi qua đường nối liên tủ, nên $Q$ trên đường đó giảm và cận dưới $Q/B$ giảm theo. Vị trí dữ liệu không làm mất việc đọc khối từ đĩa: phần đó vẫn nằm trong $I$ của Định nghĩa 02.33.
+Hình vẽ bốn luồng 100 MB nhập vào một đường nối. Đường nối chỉ chuyển 100 MB mỗi giây dù bốn máy gửi đồng thời. Mệnh đề 02.38 giải thích yêu cầu đưa tính toán tới gần dữ liệu ở Mục 1.1: nếu tác vụ Map chạy trên máy có bản sao của khối, khối không đi qua đường nối liên tủ, nên $Q$ trên đường đó giảm và cận dưới $Q/B$ giảm theo. Vị trí dữ liệu không làm mất việc đọc khối từ đĩa: phần đó vẫn nằm trong $I$ của Định nghĩa 02.33.
 
 <!-- note-topic-id: lec-02-topic-15 -->
 ### 4.5 Mức tăng tốc
@@ -1410,9 +1410,9 @@ Mục 4 lấy thời gian điều phối, truyền và nhóm làm dữ kiện. C
 
 Hình cho thấy số tác vụ Map không phải số máy: sáu phần đầu vào $\mathrm S_1,\ldots,\mathrm S_6$, tức $X_1,\ldots,X_6$, cho sáu tác vụ trên ba máy, và máy xong tác vụ trước thì nhận tác vụ sau. Ngoài lợi ích cân bằng tải nêu ở Nhận xét 02.13, tác vụ nhỏ còn giúp phục hồi nhanh, vì một máy hỏng chỉ làm mất các tác vụ nhỏ (trang chiếu MMDS, tr.27–28).
 
-![Hai tủ rack. Tủ 1 có máy A giữ một bản sao khối B₁ và máy B không có B₁; tủ 2 có máy C không có B₁ và máy D giữ một bản sao B₁. Map ở A hoặc D đọc tại máy; nếu Map chạy ở B thì đọc từ A trong cùng tủ; nhãn C đọc từ A đi qua đường nối giữa hai tủ.](img/lec-02/sys-03.svg)
+![Hai tủ rack. Tủ 1 có máy A giữ một bản sao khối X₁ và máy B không có bản sao; tủ 2 có máy C không có bản sao và máy D giữ một bản sao khối X₁. Map ở A hoặc D đọc tại máy; nếu Map chạy ở B thì đọc từ A trong cùng tủ; nhãn C đọc từ A đi qua đường nối giữa hai tủ.](img/lec-02/sys-03-x.svg)
 
-Tiến trình điều phối ưu tiên giao tác vụ Map cho máy có bản sao khối đầu vào (trang chiếu MMDS, tr.24). Trên hình, khối đầu vào (nhãn B₁ trên hình) có bản sao ở máy $\mathrm A$ và máy $\mathrm D$, nên tác vụ Map chạy ở một trong hai máy đó đọc tại chỗ, còn chạy ở máy $\mathrm B$ thì đọc từ $\mathrm A$ qua mạng của tủ 1. Nhãn "C đọc từ A" là trường hợp bản ở $\mathrm D$ không dùng được: dữ liệu đi qua đường nối liên tủ. Tác vụ Map đọc một bản, nên hai bản sao không làm tăng số bản ghi đầu vào.
+Tiến trình điều phối ưu tiên giao tác vụ Map cho máy có bản sao khối đầu vào (trang chiếu MMDS, tr.24). Trên hình, khối của phần đầu vào $X_1$ có bản sao ở máy $\mathrm A$ và máy $\mathrm D$, nên tác vụ Map chạy ở một trong hai máy đó đọc tại chỗ, còn chạy ở máy $\mathrm B$ thì đọc từ $\mathrm A$ qua mạng của tủ 1. Nhãn "C đọc từ A" là trường hợp bản ở $\mathrm D$ không dùng được: dữ liệu đi qua đường nối liên tủ. Tác vụ Map đọc một bản, nên hai bản sao không làm tăng số bản ghi đầu vào.
 
 ![Sơ đồ trạng thái tác vụ: Chờ chuyển sang Đang chạy khi giao việc, ghi rõ máy nhận; Đang chạy chuyển sang Hoàn tất khi báo xong, ghi vị trí đầu ra; khi mất liên lạc hoặc lỗi, tác vụ xếp lại hàng chờ.](img/lec-02/sys-07.svg)
 
@@ -1530,11 +1530,11 @@ Bước 1 của chứng minh dùng giả thiết hàm xác định, Bước 2 d�
 **Kiểm tra lại.** Đầu ra: (mèo, 2), (chim, 1) từ $\mathrm R_0$ và (chó, 2) từ $\mathrm R_1$, như Ví dụ 02.20; chó không bị đếm 3 dù $\mathrm M_1$ đã chạy hai lần.
 :::
 
-![Máy A hỏng; M₁ đã xong và đầu ra Map cục bộ trên máy A bị mất. Máy B còn hoạt động đọc bản sao B₁ và chạy lại M₁. Reduce đang đợi lấy phần trung gian từ địa chỉ mới. Chú thích: đầu vào còn bản sao; đầu ra trung gian đã mất phải được tính lại.](img/lec-02/sys-09.svg)
+![Máy A hỏng; M₁ đã xong và đầu ra Map cục bộ trên máy A bị mất. Máy B còn hoạt động đọc bản sao khối của X₁ và chạy lại M₁. Reduce đang đợi lấy phần trung gian từ địa chỉ mới. Chú thích: đầu vào còn bản sao; đầu ra trung gian đã mất phải được tính lại.](img/lec-02/sys-09-x.svg)
 
 ![R₀ trên máy hỏng chưa hoàn tất, đầu ra tạm bị bỏ; R₀ chạy lại trên máy khác, lấy phần trung gian, tính và ghi O₀. Hệ tệp phân tán giữ O₀ khi hoàn tất và O₁ đã có, giữ lại. Giả sử các phần trung gian Map và bản sao O₁ vẫn truy cập được.](img/lec-02/sys-10.svg)
 
-Hình thứ nhất là câu (a) của Mệnh đề 02.41 trên Ví dụ 02.21: khối đầu vào (nhãn B₁ trên hình) còn bản sao nên $\mathrm M_1$ chạy lại được, còn đầu ra trung gian phải tính lại. Hình thứ hai là câu (b): $\mathrm R_0$ đang chạy thì máy hỏng, phần đầu ra tạm bị bỏ và $\mathrm R_0$ chạy lại từ các tệp trung gian; tệp đầu ra $\mathrm O_1$ của $\mathrm R_1$, theo nhãn trên hình, đã nằm trên DFS nên được giữ, và các tác vụ Map không phải chạy lại khi tệp trung gian của chúng còn đọc được.
+Hình thứ nhất là câu (a) của Mệnh đề 02.41 trên Ví dụ 02.21: khối của phần đầu vào $X_1$ (khối chứa $d_1$) còn bản sao nên $\mathrm M_1$ chạy lại được, còn đầu ra trung gian phải tính lại. Hình thứ hai là câu (b): $\mathrm R_0$ đang chạy thì máy hỏng, phần đầu ra tạm bị bỏ và $\mathrm R_0$ chạy lại từ các tệp trung gian; tệp đầu ra $\mathrm O_1$ của $\mathrm R_1$, theo nhãn trên hình, đã nằm trên DFS nên được giữ, và các tác vụ Map không phải chạy lại khi tệp trung gian của chúng còn đọc được.
 
 ::: remark Nhận xét 02.44 (Trong thực hành: máy chậm và tác vụ dự phòng)
 Một máy chạy chậm, chẳng hạn vì đĩa hỏng dần hay vì chạy công việc khác, kéo dài pha chứa nó theo Định nghĩa 02.30. Gần cuối mỗi pha, hệ thống chạy thêm **bản dự phòng** (backup task) của các tác vụ còn đang chạy, và bản nào xong trước được chấp nhận (trang chiếu MMDS, tr.29). Khi đó cùng một tác vụ có hai lần chạy đồng thời, và Mệnh đề 02.43 vẫn áp được vì hệ thống chỉ chấp nhận một lần chạy. Cam kết đó chỉ áp cho đầu ra của công việc: nếu hàm Map gửi thư hay ghi vào một dịch vụ bên ngoài, hai lần chạy gửi hai lần.

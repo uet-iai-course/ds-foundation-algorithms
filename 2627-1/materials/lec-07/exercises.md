@@ -1,6 +1,6 @@
 # Bài tập Bài 07 — Chỉ mục hàng xóm gần đúng
 
-Các bài tập củng cố 07.15–07.19 dưới đây lấy từ bài giảng 8 (class 8) của học phần Princeton COS 597A *Vector Search* (viết tắt P8), và từ sổ thực hành `class-08-runbook-for-students.ipynb` đi kèm (gọi tắt là sổ, ô đánh số từ 0), kèm gợi ý và lời giải. Mọi số hiệu Định nghĩa, Định lý, Mệnh đề, Bổ đề, Hệ quả, Nhận xét, Thuật toán, Ví dụ và Tình huống 07.k là của [ghi chú Bài 07](material-viewer.html?doc=materials/lec-07/lecture-note.md&deck=lecture-07-chi-muc-hang-xom-gan-dung.html), nơi Bài tập 07.1–07.14 đứng ngay sau các mục; ký hiệu dùng như trong bảng ký hiệu của ghi chú. Ba nhiệm vụ chạy mã, Bài tập 07.17–07.19, là bài tập trên lớp (recitation) của [bộ trang chiếu Bài 07](lecture-07-chi-muc-hang-xom-gan-dung.html).
+Các bài tập củng cố 07.15–07.19 dưới đây lấy từ bài giảng 8 (class 8) của học phần Princeton COS 597A *Vector Search* (viết tắt P8), và từ sổ thực hành `class-08-runbook-for-students.ipynb` đi kèm (gọi tắt là sổ, ô đánh số từ 0), kèm gợi ý và lời giải. Mọi số hiệu Định nghĩa, Định lý, Mệnh đề, Bổ đề, Hệ quả, Nhận xét, Thuật toán, Ví dụ và Tình huống 07.k là của [ghi chú Bài 07](material-viewer.html?doc=materials/lec-07/lecture-note.md&deck=lecture-07-chi-muc-hang-xom-gan-dung.html), nơi Bài tập 07.1–07.14 đứng ngay sau các mục; ký hiệu dùng như trong bảng ký hiệu của ghi chú. Bài tập 07.15 và ba nhiệm vụ chạy mã, Bài tập 07.17–07.19, là bài tập trên lớp (recitation) của [bộ trang chiếu Bài 07](lecture-07-chi-muc-hang-xom-gan-dung.html).
 
 ## Mục tiêu và bài tập
 

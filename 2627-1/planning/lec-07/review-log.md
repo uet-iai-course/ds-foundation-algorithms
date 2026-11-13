@@ -1085,3 +1085,20 @@ Lượt sửa sau kiểm lại: 13/13 mục làm; câu nối Q09B/Q09C đặt tr
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 84 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở Q09B là path SVG của `\sqrt` (cờ giả); mười ba trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 152 dẫn chiếu `07.k`, 0 sai. `git diff --check` sạch. Điều phối viên đã kiểm Mệnh đề 07.31 có trên deck (Q09B) và con số 77,7 GB không còn.
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa ghi chú theo đề nghị của đợt sửa deck (2026-11-13)
+
+| mục | thay đổi | vị trí |
+|---|---|---|
+| Danh sách bài tập trên lớp | Thêm Bài tập 07.15 (deck R02/R02B): "Bài tập 07.15 và ba nhiệm vụ chạy mã, Bài tập 07.17–07.19, là bài tập trên lớp …"; khớp tập {07.15, 07.17, 07.18, 07.19} của mạch R trên deck | `materials/lec-07/exercises.md` dòng 3 |
+
+Người dùng duyệt các đề nghị sửa ghi chú ngày 2026-11-13.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+| vai trò | loại tác tử | mô hình | effort | kết quả |
+|---|---|---|---|---|
+| sửa ghi chú | general-purpose | opus (Opus 5.5) | high | chấp nhận |
+| kiểm lại độ chính xác, mạch, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | đạt |
+
+Điều phối viên đối chiếu từng thay đổi với tệp nguồn (nhãn SVG, bảng ký hiệu, số bài recitation trong deck). Kiểm trình xem ở 1600×900 và 390×844: không lỗi console, không yêu cầu hỏng, 0 `.katex-error`, ảnh tải đủ; `git diff --check` sạch. Chấp nhận.

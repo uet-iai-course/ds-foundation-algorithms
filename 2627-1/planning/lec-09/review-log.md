@@ -619,3 +619,20 @@ Lượt sửa sau kiểm lại: 15/16 mục làm, mục 4 không làm có lý do
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 111 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không tràn khung, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`, phím mũi tên chạy; chín trang trên 60 âm tiết đều thuộc loại trần 80 (P02 79, P04B 71, P07 79, F13 63, F18 69, M14 73, D18 67, T02 80, T04 70); không trang nào quá 3 công thức hiển thị hay ghi chú diễn giả quá 250 âm tiết. `refcheck.py`: 130 dẫn chiếu `09.k`, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh P02, X06 (1600×900); tính lại F14 ($19/3$). SVG `decision-map.svg` không trang nào dùng (từ trước đợt này), giữ vì `planning/lec-01/storyboard.md` còn ghi tên.
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa ghi chú theo đề nghị của đợt sửa deck (2026-11-13)
+
+| mục | thay đổi | vị trí |
+|---|---|---|
+| Danh sách bài tập trên lớp | Thêm Bài tập 09.20 (BHK Bài 6.7; deck X06/X06B): "Sáu bài 09.10, 09.11, 09.12, 09.15, 09.16 và 09.20 (MMDS Bài 4.5.1, 4.4.1, 4.5.3, 4.6.1, 4.6.3, BHK Bài 6.7) là …"; khớp danh sách lời giải ở trang XT của deck | `materials/lec-09/exercises.md` dòng 3 |
+
+Người dùng duyệt các đề nghị sửa ghi chú ngày 2026-11-13.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+| vai trò | loại tác tử | mô hình | effort | kết quả |
+|---|---|---|---|---|
+| sửa ghi chú | general-purpose | opus (Opus 5.5) | high | chấp nhận |
+| kiểm lại độ chính xác, mạch, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | đạt |
+
+Điều phối viên đối chiếu từng thay đổi với tệp nguồn (nhãn SVG, bảng ký hiệu, số bài recitation trong deck). Kiểm trình xem ở 1600×900 và 390×844: không lỗi console, không yêu cầu hỏng, 0 `.katex-error`, ảnh tải đủ; `git diff --check` sạch. Chấp nhận.

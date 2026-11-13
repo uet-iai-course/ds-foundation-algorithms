@@ -1288,7 +1288,7 @@ $k$ tạo ra một đánh đổi: tăng $k$ làm $B_{\text{task}}$ giảm theo $
 **Kiểm tra lại.** Phần ma trận $56+32=88=S_{\text{blocks}}$; phần véc-tơ $64=8\cdot2\cdot4=8kn$; $I=152$ byte.
 :::
 
-![Khối ma trận trên đĩa được đọc tuần tự qua bộ đệm B_buf; phép tính dùng dải điểm vào r_b và cộng dồn vào dải tích lũy z_a; mỗi dải n/k giá trị.](img/lec-03/cost-memory.svg)
+![Khối ma trận trên đĩa được đọc tuần tự qua bộ đệm B_buf; phép tính dùng dải điểm vào r_b và cộng dồn vào dải tổng z_a; mỗi dải n/k giá trị.](img/lec-03/cost-memory.svg)
 
 Hình tách ba phần bộ nhớ của một tác vụ: bộ đệm chỉ giữ một phần nhỏ của khối, còn hai dải phải nằm trọn trong bộ nhớ. Đó là lý do $B_{\text{task}}$ phụ thuộc $n/k$ mà không phụ thuộc kích thước khối.
 
@@ -1539,7 +1539,7 @@ Vậy trang 1 có điểm 1 và mọi trang $2,\ldots,n$ có điểm $1/2$.
 <!-- note-topic-id: lec-03-topic-15 -->
 ## 5. Thực hành tính PageRank
 
-Ba đồ thị của MMDS, đồ thị gốc Hình 5.1, biến thể C cụt Hình 5.3 và biến thể bẫy C Hình 5.6, đã có nghiệm tính tay ở Mục 2. Một chương trình chạy Thuật toán 03.10 trên số thực dấu phẩy động phải cho cùng các con số đó, sai khác không quá ngưỡng đã chọn. Mã thực hành [pagerank.py](materials/lec-03/code/pagerank.py), kèm [hướng dẫn chạy](materials/lec-03/code/practice-README.md), cài đặt Thuật toán 03.10 bằng Python 3, chỉ dùng thư viện chuẩn (`argparse`, `json`, `math`, `sys`).
+Ba đồ thị của MMDS, đồ thị gốc Hình 5.1, biến thể C cụt Hình 5.3 và biến thể bẫy C Hình 5.6, đã có nghiệm tính tay ở Mục 2. Một chương trình chạy Thuật toán 03.10 trên số thực dấu phẩy động phải cho lại các con số đó trong một dung sai. Theo Hệ quả 03.16 với $\beta=4/5$, trên số học chính xác, khi thuật toán dừng vì đạt ngưỡng $\tau$, véc-tơ trả về cách $r^*$ không quá $4\tau$. Phép làm tròn còn có thể làm kết quả khác ở các chữ số cuối. Mã thực hành [pagerank.py](materials/lec-03/code/pagerank.py), kèm [hướng dẫn chạy](materials/lec-03/code/practice-README.md), cài đặt Thuật toán 03.10 bằng Python 3, chỉ dùng thư viện chuẩn (`argparse`, `json`, `math`, `sys`).
 
 ### 5.1 Dữ liệu và một vòng cập nhật
 

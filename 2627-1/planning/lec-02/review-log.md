@@ -645,3 +645,22 @@ Lượt sửa sau kiểm lại: 15/15 mục làm; `sys-03-x.svg` ghi "bản sao 
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 102 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s04-13, s07-01 là path SVG của `\sqrt` (cờ giả); mười bốn trang trên 60 âm tiết đều thuộc loại trần 80 có ngoại lệ trong storyboard. `refcheck.py`: 296 dẫn chiếu, 0 sai. `git diff --check` sạch. Không còn số liệu Google; Ví dụ 02.1 mở bài và được thu hồi ở s07-01. Điều phối viên tự xem ảnh s07-10 ở 1600×900; mọi SVG mới đều có trang dùng.
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa ghi chú theo đề nghị của đợt sửa deck (2026-11-13)
+
+| mục | thay đổi | vị trí |
+|---|---|---|
+| Hình cost-07 | Đổi `img/lec-02/cost-07.svg` (nhãn $V$) sang `cost-07-q.svg` (nhãn $Q$); alt ghi "tổng lượng truyền Q = 4 × 100 = 400 MB"; bỏ vế "nhãn $V$ trên hình là lượng truyền $Q$ của ghi chú" trong câu đọc hình sau Ví dụ 02.17 | `materials/lec-02/lecture-note.md` dòng 1305, 1307 |
+| Hình sys-03 | Đổi `sys-03.svg` sang `sys-03-x.svg` (nhãn "bản sao khối X₁"); viết lại alt theo nhãn mới; câu đọc hình: "khối đầu vào (nhãn B₁ trên hình)" → "khối của phần đầu vào $X_1$" | `materials/lec-02/lecture-note.md` dòng 1413, 1415 |
+| Hình sys-09 | Đổi `sys-09.svg` sang `sys-09-x.svg` (nhãn "bản sao khối của X₁"); alt "bản sao B₁" → "bản sao khối của X₁"; câu đọc hình: "khối đầu vào (nhãn B₁ trên hình)" → "khối của phần đầu vào $X_1$ (khối chứa $d_1$)", khớp Ví dụ 02.20–02.21 | `materials/lec-02/lecture-note.md` dòng 1533, 1537 |
+
+Người dùng duyệt các đề nghị sửa ghi chú ngày 2026-11-13.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+| vai trò | loại tác tử | mô hình | effort | kết quả |
+|---|---|---|---|---|
+| sửa ghi chú | general-purpose | opus (Opus 5.5) | high | chấp nhận |
+| kiểm lại độ chính xác, mạch, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | đạt |
+
+Điều phối viên đối chiếu từng thay đổi với tệp nguồn (nhãn SVG, bảng ký hiệu, số bài recitation trong deck). Kiểm trình xem ở 1600×900 và 390×844: không lỗi console, không yêu cầu hỏng, 0 `.katex-error`, ảnh tải đủ; `git diff --check` sạch. Chấp nhận.

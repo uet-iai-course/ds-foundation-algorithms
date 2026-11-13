@@ -910,3 +910,20 @@ Lượt sửa sau kiểm lại: 13/13 mục làm; bốn chỗ điều chỉnh đ
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 81 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không tràn khung, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; mười trang trên 60 âm tiết đều thuộc loại trần 80 có căn cứ trong storyboard (P01 79, A02 69, K06 72, R10 68, B13 70, C00 79, C00B 61, C03 79, C01 79, X01 72); không trang nào quá 3 công thức hiển thị hay ghi chú diễn giả quá 250 âm tiết. `refcheck.py`: 108 dẫn chiếu `08.k`, 0 sai. `git diff --check` sạch. Không còn cụm "do học phần …" trong deck. Điều phối viên đối chiếu dấu của $\phi$ ở B10 với note:1258–1266 và tự xem ảnh K17 (1600×900).
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa ghi chú theo đề nghị của đợt sửa deck (2026-11-13)
+
+| mục | thay đổi | vị trí |
+|---|---|---|
+| Danh sách bài tập trên lớp | Thêm Bài tập 08.7 (BHK Bài 6.2; deck X05/X05B): "Năm bài 08.7, 08.10–08.13 (BHK Bài 6.2, MMDS Bài 4.3.1–4.3.3 và 4.2.1) là …"; khớp tập của mạch X trên deck (XT) | `materials/lec-08/exercises.md` dòng 3 |
+
+Người dùng duyệt các đề nghị sửa ghi chú ngày 2026-11-13.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+| vai trò | loại tác tử | mô hình | effort | kết quả |
+|---|---|---|---|---|
+| sửa ghi chú | general-purpose | opus (Opus 5.5) | high | chấp nhận |
+| kiểm lại độ chính xác, mạch, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | đạt |
+
+Điều phối viên đối chiếu từng thay đổi với tệp nguồn (nhãn SVG, bảng ký hiệu, số bài recitation trong deck). Kiểm trình xem ở 1600×900 và 390×844: không lỗi console, không yêu cầu hỏng, 0 `.katex-error`, ảnh tải đủ; `git diff --check` sạch. Chấp nhận.

@@ -867,3 +867,22 @@ Lượt sửa sau kiểm lại: 17/17 mục làm; s03-21 ghi giả thiết bằn
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 83 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s03-13 là path SVG của `\underbrace` (điều phối viên xem ảnh: thanh khối lượng nằm trong khung); năm trang trên 60 âm tiết đều thuộc loại trần 80 (s01-03 80, s04-12 78, s07-02 69, s07-08 72, s07-01 72). `refcheck.py`: 121 dẫn chiếu, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh s03-13, s07-14 (1600×900).
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa ghi chú theo đề nghị của đợt sửa deck (2026-11-13)
+
+| mục | thay đổi | vị trí |
+|---|---|---|
+| Alt hình cost-memory | "dải tích lũy z_a" → "dải tổng z_a", khớp bảng ký hiệu, Định nghĩa 03.21 và nhãn "Dải tổng z_a" trên hình; không còn "dải tích lũy" trong ghi chú | `materials/lec-03/lecture-note.md` dòng 1291 |
+| Mở đầu Mục 5 | "sai khác không quá ngưỡng đã chọn" → "Theo Hệ quả 03.16 với $\beta=4/5$, khi chương trình đạt ngưỡng $\tau$, véc-tơ trả về cách nghiệm $r^*$ không quá $4\tau$."; khớp hệ số $\beta/(1-\beta)=4$ sau Hệ quả 03.16 và ghi chú diễn giả của deck | `materials/lec-03/lecture-note.md` dòng 1542 |
+| Mở đầu Mục 5, sửa theo duyệt của điều phối viên | Câu ở dòng trên khẳng định kết quả dấu phẩy động trùng nghiệm tính tay và bỏ điều kiện số học chính xác của Hệ quả 03.16. Sửa thành "… phải cho lại các con số đó trong một dung sai. Theo Hệ quả 03.16 với $\beta=4/5$, trên số học chính xác, khi thuật toán dừng vì đạt ngưỡng $\tau$, véc-tơ trả về cách $r^*$ không quá $4\tau$. Phép làm tròn còn có thể làm kết quả khác ở các chữ số cuối."; khớp dòng 1133 ("có thể khác ở các chữ số cuối", "Phép so sánh dùng dung sai") và Nhận xét 03.18 ("trên số học chính xác") | `materials/lec-03/lecture-note.md` dòng 1542 |
+
+Người dùng duyệt các đề nghị sửa ghi chú ngày 2026-11-13.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+| vai trò | loại tác tử | mô hình | effort | kết quả |
+|---|---|---|---|---|
+| sửa ghi chú | general-purpose | opus (Opus 5.5) | high | chấp nhận |
+| kiểm lại độ chính xác, mạch, no-ai-slop Detect (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | đạt, một mục trung bình ở note:1542 |
+
+Điều phối viên đối chiếu từng thay đổi với tệp nguồn (nhãn SVG, bảng ký hiệu, số bài recitation trong deck). Kiểm lại yêu cầu sửa note:1542 (dấu phẩy động, Hệ quả 03.16 chỉ đúng trên số học chính xác); tác tử sửa đã sửa, điều phối viên chấp nhận. Kiểm trình xem ở 1600×900 và 390×844: không lỗi console, không yêu cầu hỏng, 0 `.katex-error`, ảnh tải đủ; `git diff --check` sạch. Chấp nhận.
