@@ -6,16 +6,17 @@
 
 Đối tượng: sinh viên năm 2 (lập trình, toán rời rạc, xác suất cơ bản, cây và hàng đợi ưu tiên). 120 phút giảng và 60 phút bài tập vận dụng trong cùng tệp HTML.
 
-Mục tiêu học tập trên deck (P02), mỗi mục một sản phẩm kiểm được:
+Mục tiêu học tập trên deck (P02), mỗi mục một sản phẩm kiểm được. Sửa 2026-11-13: bảy mục tiêu đánh số như ghi chú (note:11–17) và bảng "Mục tiêu và bài tập" của `exercises.md`; trước đó deck có sáu mục tiêu, gộp mục tiêu 2 và 3 của ghi chú. Lượt sửa sau kiểm lại: mục 1 "mọi thông điệp", mục 5 nêu kết quả chứng minh, mục 6 "dài dưới", mục 7 khôi phục "chọn cặp mô hình–bộ mã"; để giữ 80 âm tiết, "tách mô hình–bộ mã" (mục 1), "đầu mục" (mục 4) và `ESCAPE`, `EOS` (mục 5) chuyển xuống ghi chú diễn giả P02.
 
-1. Đặc tả nén; chứng minh không mã nào rút ngắn mọi thông điệp; tách mô hình, bộ mã. Kiểm: T05 câu 1 (đếm chuỗi), P07; tách mô hình khỏi bộ mã kiểm cùng T05 câu 2.
-2. Kiểm mã tiền tố, tổng Kraft; tính entropy, chứng minh hai cận. Kiểm: K21 (trường hợp dấu bằng), X01 (Kraft bằng cách đếm lá).
-3. Chạy Huffman tĩnh; chứng minh tối ưu; đếm chi phí. Kiểm: H17, X02, T05 câu 2.
-4. Chạy Huffman thích nghi; chứng minh tăng–đổi giữ tính chất anh em. Kiểm: A20, X03.
-5. Mã hóa, giải mã bằng khoảng; chuỗi bit dài dưới $I(x)+2$. Kiểm: X04, T05 câu 3.
-6. Chạy mã số học 16 bit với bit chờ; giải thích $N\le2^{R-2}$; chọn cặp mô hình–bộ mã. Kiểm: G06 (Câu hỏi về bit chờ), G15, T05 câu 4; phần chọn cặp: T03, T04.
+1. Đặc tả nén; chứng minh không mã nào rút ngắn mọi thông điệp. Kiểm: T05 câu 1 (đếm chuỗi), P07; tách mô hình khỏi bộ mã kiểm cùng T05 câu 2.
+2. Kiểm mã tiền tố, giải mã bằng cây; dựng mã theo Kraft. Kiểm: X01 (Kraft bằng cách đếm lá), K04, K11.
+3. Tính tự thông tin, entropy; chứng minh hai cận. Kiểm: K21 (trường hợp dấu bằng), X04 (Bài tập 10.15, theo `exercises.md`).
+4. Chạy Huffman tĩnh; chứng minh tối ưu; đếm chi phí (gồm đầu mục, H16). Kiểm: H17, X02, T05 câu 2.
+5. Chạy Huffman thích nghi; chứng minh tăng–đổi giữ tính chất anh em (gồm `ESCAPE`, `EOS`, A15–A18). Kiểm: A20, X03.
+6. Mã hóa, giải mã bằng khoảng; chuỗi bit dài dưới $I(x)+2$. Kiểm: X04, T05 câu 3.
+7. Chạy mã số học 16 bit, bit chờ; giải thích $N\le2^{R-2}$; chọn cặp mô hình–bộ mã (gồm tách mô hình khỏi bộ mã của mục 1). Kiểm: G06 (Câu hỏi về bit chờ), G15, T05 câu 4; phần chọn cặp: T03, T04.
 
-Sáu mục tiêu của deck gộp mục tiêu 2–3 và 6–7 của ghi chú. Ngoài phạm vi mặt trang (chỉ ở ghi chú bài giảng hoặc ghi chú diễn giả): chứng minh McMillan, mã khối $j$ ký hiệu, Mệnh đề 10.33 (chứng minh và phát biểu ở ghi chú diễn giả), chứng minh Mệnh đề 10.27 và Bổ đề 10.24 (ghi chú diễn giả), mã số học thích nghi (NG Chương 6), cách lan truyền nhớ của EE398A-3, `scale_counts`, cận Fibonacci tổng quát, chứng minh đầy đủ Mệnh đề 10.41.
+Ngoài phạm vi mặt trang (chỉ ở ghi chú bài giảng hoặc ghi chú diễn giả): chứng minh McMillan, mã khối $j$ ký hiệu, Mệnh đề 10.33 (chứng minh và phát biểu ở ghi chú diễn giả), chứng minh Mệnh đề 10.27 và Bổ đề 10.24 (ghi chú diễn giả), mã số học thích nghi (NG Chương 6), cách lan truyền nhớ của EE398A-3, cận Fibonacci tổng quát, chứng minh đầy đủ Mệnh đề 10.41.
 
 ## Nguồn và quyết định chọn nguồn
 
@@ -56,11 +57,11 @@ Các mã dưới đây liệt kê theo cột chu trình, không theo thứ tự 
 
 ## Thuật ngữ và ký hiệu
 
-Bảng Việt–Anh và bảng ký hiệu của ghi chú ở cuối tệp áp dụng cho deck. Tên tiếng Anh nêu ở lần đầu trên mặt trang: mã ký hiệu (symbol code), từ mã (codeword), giải mã duy nhất (uniquely decodable code) ở P06; cây mã (code tree) ở K04; độ dài trung bình (average length), mã tiền tố tối ưu (optimal prefix code) ở K16; mô hình xác suất (statistical model), tĩnh (static), thích nghi (adaptive), bậc (order), bộ mã (coder) ở P09; quy tắc phá hòa (tie-breaking rule), `EOS` (end of stream) ở P10; tiền tố (prefix), mã tiền tố (prefix code), mã tức thời (instantaneous code) ở K02; khoảng mã (code interval), tổng Kraft (Kraft sum) ở K08; tự thông tin (self-information), entropy ở K15; đầu mục (header) ở H16; cây có trọng số (weighted tree), tính chất anh em (sibling property) ở A03; xác suất tích lũy (cumulative probability), khoảng ký hiệu (symbol interval), khoảng chuỗi (sequence interval) ở S03; thanh ghi (register) ở G01; tràn dưới (underflow) ở G03; chuẩn hóa (renormalization), bit chờ (pending bits) ở G04; cây nhị phân hoàn hảo (perfect binary tree) ở X01. Mặt trang dùng "mã số học", "mô hình thích nghi", "số đếm", "Lời giải".
+Bảng Việt–Anh và bảng ký hiệu của ghi chú ở cuối tệp áp dụng cho deck. Tên tiếng Anh nêu ở lần đầu trên mặt trang: mã ký hiệu (symbol code), từ mã (codeword), giải mã duy nhất (uniquely decodable code) ở P06; cây mã (code tree) ở K04; độ dài trung bình (average length), mã tiền tố tối ưu (optimal prefix code) ở K16; mô hình xác suất (statistical model), tĩnh (static), thích nghi (adaptive), bậc (order), bộ mã (coder) ở P09; quy tắc phá hòa (tie-breaking rule), `EOS` (end of stream) ở P10; tiền tố (prefix), mã tiền tố (prefix code), mã tức thời (instantaneous code) ở K02; khoảng mã (code interval), tổng Kraft (Kraft sum) ở K08; tự thông tin (self-information), entropy ở K15; đầu mục (header) ở H16; cây có trọng số (weighted tree), tính chất anh em (sibling property) ở A03; xác suất tích lũy (cumulative probability), khoảng ký hiệu (symbol interval), khoảng chuỗi (sequence interval) ở S03; thanh ghi (register) ở G01; tràn dưới (underflow) ở G03; chuẩn hóa (renormalization), bit chờ (pending bits) ở G04; cây nhị phân hoàn hảo (perfect binary tree) ở X01. Mặt trang dùng "mã số học", "mô hình thích nghi", "số đếm", "Lời giải". Sửa 2026-11-13: prefix-free code ở K02 (mặt trang); lossless compression ở ghi chú diễn giả P00; expected code length ở ghi chú diễn giả K16.
 
 ## Tài sản trực quan
 
-17 SVG mới trong `img/lec-10/`, sinh bởi `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-10/generate_deck_svg.py` (danh sách và trang dùng ở `storyboard.md`, mục "Hình"). Rộng 1 200 đơn vị, cao theo khung hiển thị của lớp `.stream-figure` (360 px), `.stream-short` (270 px), `.stream-mini` (150 px), `.stream-tall` (520 px), chữ nhỏ nhất 20 đơn vị, nên nhãn khi chiếu ở 1280×720 khoảng 18–24 px. Lớp gốc của deck là `reveal course-deck lecture-compression`; `lecture-course.css` chỉ thêm `.lecture-compression` vào các selector của khối Bài 08 (D5).
+18 SVG mới trong `img/lec-10/` (thêm `bai-10-12-cay-hoan-hao` cho X01 ngày 2026-11-13), sinh bởi `../tools/courses/ds-foundation-algorithms/2627-1/img/lec-10/generate_deck_svg.py` (danh sách và trang dùng ở `storyboard.md`, mục "Hình"). Rộng 1 200 đơn vị, cao theo khung hiển thị của lớp `.stream-figure` (360 px), `.stream-short` (270 px), `.stream-mini` (150 px), `.stream-tall` (520 px), chữ nhỏ nhất 20 đơn vị, nên nhãn khi chiếu ở 1280×720 khoảng 18–24 px. Lớp gốc của deck là `reveal course-deck lecture-compression`; `lecture-course.css` chỉ thêm `.lecture-compression` vào các selector của khối Bài 08 (D5).
 
 ## Tên mạch và trang tiêu đề mạch
 
