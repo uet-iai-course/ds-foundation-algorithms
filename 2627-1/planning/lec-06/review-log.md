@@ -1283,3 +1283,15 @@ Việc để lại cho người dùng (CSS chung, ngoài phạm vi đợt này):
 Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 89 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s03-01, s03-04, s04-12 là path SVG của `\sqrt` KaTeX (điều phối viên xem ảnh s04-12: trang vừa khung); tám trang trên 60 âm tiết đều thuộc loại trần 80 (s01-02 78, s02-13 66, s04-10 75, s06-05 80, s06-02 62, s06-01 70, s06-08 61, s07-07 75). `refcheck.py`: 126 dẫn chiếu `06.k`, 0 sai. Thuật ngữ: chỉ còn "véc-tơ (vector)" ở lần dùng đầu và tên tệp `chuan-vector.svg`. `git diff --check` trên tệp Bài 06 sạch. Điều phối viên tự xem ảnh s04-15 (hình mới `ho-bam-theo-do-do.svg`) ở 1600×900.
 
 Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
+
+## Sửa CSS: phông mã tiếng Việt và độ rộng hình trong trình xem (2026-11-13)
+
+Người dùng duyệt hai việc CSS để lại ở đợt sửa deck (2026-11-13). Điều phối viên làm trực tiếp (bảo trì CSS chung, không thuộc quy trình bài).
+
+| mục | thay đổi | tệp |
+|---|---|---|
+| Phông `pre code` | `monospace` trên Linux là DejaVu Sans Mono, đặt sai dấu chồng ("số", "nếu"). Đặt `--r-code-font` cho `.reveal` và `font-family` cho `.markdown-body code` thành Consolas, Liberation Mono, Noto Sans Mono, SF Mono, Courier New, monospace; đồng bộ từ `shared/css/` cho mọi khóa học (`sync_shared_css.py --check`: 0 bản khác) | `lecture-style.css`, `material-viewer.css` |
+| `.wordmap-cards code` (deck 02) | `font-family: monospace` → `var(--r-code-font)` | `lecture-course.css` |
+| Hình ghi chú | Mọi hình `img/lec-NN` có `min-width: 900px` trong cột 808 px nên cuộn ngang ở màn rộng. Thêm `@media screen and (min-width: 1100px)` đặt `min-width: 0` (cột 690–808 px); dưới 1100 px giữ khung cuộn 900 px; bản in không đổi | `material-viewer-course.css` |
+
+Kiểm: `snapshot.py --sample` trước và sau, `compare.py`: chỉ đổi `--r-code-font` và `font-family` của phần tử mã, cộng sai khác điểm ảnh nhỏ do khử răng cưa. Deck 01–15 và mẫu: không khối mã nào tràn ở 1600×900. Trình xem ghi chú 01, 03, 05, 06: 0 hình cuộn ngang ở 1280 và 1600, vẫn cuộn ở 390; ảnh chụp giả mã Thuật toán 06.33 trên deck (`lec06-s04-16`) và trình xem hiển thị đúng dấu. Trình xem của math-4-AI, rl-plan, deep-learning, statistical-learning-theory: phông mã mới, không lỗi console, không `.katex-error`. Đề nghị đổi "số i có" thành "đếm i có" ở note:1185 không còn cần.

@@ -19,6 +19,13 @@
   max-width: none;
 }
 
+@media screen and (min-width: 1100px) {
+  /* Cột nội dung rộng 690–808 px: hình co vừa cột, không cuộn ngang. */
+  .markdown-body img[src^="img/lec-"] {
+    min-width: 0;
+  }
+}
+
 @media print {
   /* Co SVG của các bài vừa giấy thay cho chiều rộng cuộn trên màn hình. */
   .markdown-body p:has(> img[src^="img/lec-"]) {

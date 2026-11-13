@@ -209,7 +209,7 @@
 
 .reveal.course-deck .wordmap-cards pre { box-shadow:none; margin:16px 0; width:100%; font-size:22px; background:#edf4ff; padding:12px; box-sizing:border-box; }
 
-.reveal.course-deck .wordmap-cards code { font-family:monospace; white-space:pre-wrap; padding:0; line-height:1.5; max-height:none; }
+.reveal.course-deck .wordmap-cards code { font-family:var(--r-code-font); white-space:pre-wrap; padding:0; line-height:1.5; max-height:none; }
 
 .reveal.course-deck .wordmap-strip { border-left:4px solid #2f3e7a; padding-left:16px; margin-top:18px; }
 
