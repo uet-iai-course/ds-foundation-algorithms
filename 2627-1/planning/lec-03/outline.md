@@ -160,3 +160,32 @@ Mục này thay mục "Ghi chú tự học đã phát hành" ở trên (bảy ch
 ### Lệch thuật ngữ với Bài 04 (sửa ở đợt B4, không sửa ở lượt này)
 
 Bài 04 viết $\ell$ cho số cạnh (Bài 03: $m$), $\bar M=M_0+uz^{\mathsf T}$ (Bài 03: $\mathbf 1_{\mathcal D}$), "vector" (Bài 03: "véc-tơ"), "cụm thao túng liên kết" (Bài 03: "trại thư rác"), "phân phối dịch chuyển" (Bài 03: "phân phối nhảy", có ghi chú tên của Bài 04); câu "Bài 03 viết $T_{\max}$" ở deck Bài 04 lỗi thời; `planning/lec-04/outline.md` còn ghi "$\bar M$ là ma trận $S$ của Bài 03".
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+Deck sửa theo bảng phát hiện 2026-11-13 trong `review-log.md` và quyết định G1–G18, D03 của điều phối viên; ghi chú bài giảng là chuẩn nội dung. Deck 72 → 82 trang (73 trang giảng, 120 phút; 9 trang bài tập, 60 phút). Chi tiết từng trang: `storyboard.md`, mục cùng tên. Mục này thay các điểm sau của các mục trên: "véc tơ" (quyết định 7 cũ) thành "véc-tơ" (quyết định người dùng 2026-11-13); "Cận sai số hậu nghiệm chỉ đọc thêm" thành nội dung chính (Hệ quả 03.16); danh sách "Khác biệt với bộ trang chiếu" và bảng "Tương ứng ký hiệu deck ↔ ghi chú" đã được xử lý trên deck.
+
+**Mục tiêu học tập trên deck** (theo sáu mục tiêu chính của ghi chú, note:11–16; mục tiêu đọc thêm không lên deck):
+
+1. Lập ma trận liên kết, tính một vòng, giải $r=M_0r$ có tổng 1.
+2. Nhận diện nút cụt, bẫy liên kết; tính một vòng đầy đủ; giải hệ có bước nhảy.
+3. Chứng minh bảo toàn tổng, hội tụ; chọn ngưỡng dừng từ cận sai số.
+4. Lưu liên kết ra, chia khối; đặc tả Map, Combine, Reduce; chứng minh tính đúng.
+5. Tính dung lượng, bộ nhớ tác vụ, đầu vào Map, Reduce (có, không Combine), thời gian Map.
+6. Chạy `pagerank.py`, đối chiếu tính tay.
+
+**Mạch và thứ tự.**
+
+| Mạch | Tên | Trang (thứ tự deck) | Số trang | Phút |
+|---|---|---|---:|---:|
+| 1 | Bài toán xếp hạng trang web | s01-01, s01-07, s01-03, s01-02, s01-06, s01-04, s01-05, s02-02, s02-03, s02-04, s02-05, s02-07, s02-08 | 13 | 21 |
+| 2 | Mô hình và thuật toán PageRank | s03-00, s03-01, s03-02, s03-03, s03-17, s03-04…s03-12, s03-18, s03-19, s03-13, s03-14, s03-20, s03-21, s03-22, s03-16 | 22 | 39 |
+| 3 | Tính PageRank trên đồ thị lớn | s04-00, s04-01, s04-02, s03-15, s04-03, s04-11, s04-04, s04-05, s04-06, s04-09, s04-07, s04-08, s04-12, s04-10 | 14 | 22 |
+| 4 | Chi phí và lợi ích của cách tính | s05-00…s05-09 | 10 | 15 |
+| 5 | Thực hành tính PageRank | s06-00…s06-07 | 8 | 13,5 |
+| 6 | Tổng kết và tự kiểm tra | s07-00, s07-02, s07-08, s07-01, s07-03, s07-09 | 6 | 9,5 |
+| 7 | Bài tập vận dụng | s07-T, s07-07, s07-10, s07-04, s07-11, s07-05, s07-12, s07-06, s07-13 | 9 | 60 |
+
+Trang mới: s03-17 (cấu trúc nơ thắt), s03-18 (Tính đúng: PageRank lặp, Mệnh đề 03.11), s03-19 (Chi phí: một vòng PageRank lặp), s03-20 (Chứng minh: hội tụ, Định lý 03.15), s03-21 (Cận sai số khi dừng, Hệ quả 03.16), s03-22 (Ví dụ 03.13), s04-12 (Chi phí: một vòng theo khối), s07-10…s07-13 (bốn trang "Lời giải:"). Gộp: s02-06 vào s02-05. Tách: s03-14 thành s03-14 và s03-20. Trang bài toán có hình đầu mạch 3, 4, 5: s04-01, s05-01, s06-01.
+
+**Ký hiệu và thuật ngữ trên deck (theo bảng ký hiệu của ghi chú).** $K$ số vòng tối đa; $t_{\text{dừng}}$ số vòng thực chạy; $P$ số máy; $B_{\text{task}}$, $B_{\text{buf}}$ bộ nhớ; $b_{\text{eff}}$ băng thông; $\mathbf 1_{\mathcal D}$ trong $\bar M=M_0+u\,\mathbf 1_{\mathcal D}^{\mathsf T}$ (ghi chú diễn giả); $\mathrm I_n$ ma trận đơn vị; tên trang chữ đứng ($r_{\mathrm A}$); "véc-tơ"; "dải tổng" $z_a$; "phần chung"; "người lướt ngẫu nhiên (random surfer)"; "bước nhảy (còn gọi là dịch chuyển, teleport)"; "đánh thuế (taxation)" trong ghi chú diễn giả; "cấu trúc nơ thắt (bowtie)", "thành phần liên thông mạnh (SCC)". Số liệu theo ghi chú: $H$ 144 → 132 byte, $C$ 296 → 284 byte; $m\approx10^{10}$, $4{,}4\cdot10^{10}$ byte, 86 vòng cho sai số $10^{-8}$; nguồn quy mô $10^9$ trang là trang chiếu MMDS tr.48.

@@ -1,6 +1,6 @@
 # Bài 03 — Storyboard triển khai
 
-**Bản hiện hành (2026-10-14).** Deck có 72 trang: 67 trang giảng (120 phút) và 5 trang bài tập (60 phút); bảy mạch 14/16/13/10/8/6/5 trang (sau lượt sửa sau rà ba vai, s03-15 thuộc mạch 3). Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp. Dòng "Trạng thái" ngay dưới, bảng "Bảy phần của bài giảng" và các phiếu "Storyboard chi tiết" là bản trước đợt sửa, giữ để đối chiếu. Mã `lec03-sNN-MM` là mã lịch sử: tiền tố `sNN` không còn bằng số mạch (s01-xx và s02-xx thuộc mạch 1, s03-xx mạch 2, s04-xx mạch 3, s05-xx mạch 4, s06-xx mạch 5, s07-00…03, 07-08, 07-09 mạch 6, s07-T và s07-04…07 mạch 7).
+**Bản hiện hành (2026-11-13).** Deck có 82 trang (73 trang giảng, 120 phút; 9 trang bài tập, 60 phút); thứ tự, quyết định, âm tiết và thời lượng hiện hành nằm ở mục "Sửa deck theo bảng phát hiện 2026-11-13" cuối tệp. Đoạn sau mô tả bản 2026-10-14. **Bản 2026-10-14.** Deck có 72 trang: 67 trang giảng (120 phút) và 5 trang bài tập (60 phút); bảy mạch 14/16/13/10/8/6/5 trang (sau lượt sửa sau rà ba vai, s03-15 thuộc mạch 3). Thứ tự, quyết định, âm tiết, số dòng và thời lượng hiện hành nằm ở mục "Sửa toàn diện theo chuẩn 2026-10-14" cuối tệp. Dòng "Trạng thái" ngay dưới, bảng "Bảy phần của bài giảng" và các phiếu "Storyboard chi tiết" là bản trước đợt sửa, giữ để đối chiếu. Mã `lec03-sNN-MM` là mã lịch sử: tiền tố `sNN` không còn bằng số mạch (s01-xx và s02-xx thuộc mạch 1, s03-xx mạch 2, s04-xx mạch 3, s05-xx mạch 4, s06-xx mạch 5, s07-00…03, 07-08, 07-09 mạch 6, s07-T và s07-04…07 mạch 7).
 
 Trạng thái: Hoàn tất bảy phần, 63 slide (59 slide giảng trong 120 phút và bốn bài tập trong 60 phút), ghi chú tự học và mã Python đã kiểm định. Bản mới thay cấu trúc deck cũ theo yêu cầu.
 
@@ -729,7 +729,7 @@ Thời lượng 15 phút/bài chỉ ở storyboard, không xuất hiện trên m
 - Kết nối vào – ra: vào từ note-02; ra cho phần 4 (chia khối phải tái lập đúng quy tắc này) và phần 6 (code cài đúng công thức).
 - Nguồn: MMDS 5.1 và hai bộ slide tham khảo (MMDS 5.1.3–5.1.5, trang 182–187; vết Fraction đã kiểm; chỉ định chứng minh co); bộ trang chiếu public `lecture-03-pagerank-mo-hinh-va-tinh-toan.html`, phần s03.
 - Slides liên quan: phần s03, slide lec03-s03-01…lec03-s03-16 (nút cụt, bẫy, teleport, bù δ, quy tắc đầy đủ, bảng một vòng, bảo toàn, hội tụ, thuật toán, dừng).
-- Ngoại lệ: quy tắc bù δ khác công thức taxation thiếu khối lượng ở sách trang 186–187 — nguồn là slide MMDS 42/52, Stanford 45/54; cận hậu nghiệm β/(1−β)Δ chỉ đọc thêm; không dùng Banach.
+- Ngoại lệ: quy tắc bù δ khác công thức taxation thiếu khối lượng ở sách trang 186–187 — nguồn là slide MMDS 42/52, Stanford 45/54; cận hậu nghiệm β/(1−β)Δ chỉ đọc thêm (quyết định này bị thay ngày 2026-11-13: Hệ quả 03.16 thuộc mạch chính của ghi chú, trang `lec03-s03-21`); không dùng Banach.
 
 ## lec03-note-04 — Tính trên đồ thị lớn: biểu diễn thưa và MapReduce theo khối
 - Mục tiêu: lập bảng nguồn–bậc ra–đích; chia $M_0$ thành $k^2$ khối với k dải; đặc tả Map/Combine/Reduce và pha δ; giải thích bản ghi seed (i,0) và snapshot r bất biến; chứng minh tính đúng của cách chia khối.
@@ -960,3 +960,151 @@ Ghi chú `materials/lec-03/lecture-note.md` viết lại theo chuẩn giáo trì
 | — | (không có id) | `exercises.md` | s07-T, s07-04, s07-05, s07-06, s07-07 | Bài tập 03.7–03.12 | recitation: 03.8 ↔ s07-04, 03.9 ↔ s07-05, 03.10 ↔ s07-06, 03.7 ↔ s07-07 |
 
 Các trang mở đầu không mang `note-topic-id` riêng: `s01-02` (Nội dung) ứng với hình cấu trúc chương ở đầu Mục 1; `s01-07` (Tiên quyết và quy ước) ứng với "Kiến thức tiên quyết" và "Bảng ký hiệu"; `s01-03` (Mục tiêu học tập) ứng với "Mục tiêu học tập". Phần đọc thêm nằm giữa Mục 4 và Mục 5, tiêu đề "Đọc thêm: Loại nút cụt đệ quy", thu gọn mặc định bằng `<!-- note-collapsed -->`.
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+Căn cứ: bảng phát hiện "Rà soát deck theo nguyên tắc deck mới và đối chiếu ghi chú bài giảng (2026-11-13)" trong `review-log.md` (27 dòng) và quyết định người dùng cùng ngày ("véc-tơ"); quyết định của điều phối viên G1–G18 và D03; ghi chú `materials/lec-03/lecture-note.md` và `exercises.md` là chuẩn nội dung. Deck 72 → 82 trang, rồi 83 trang sau lượt sửa sau kiểm lại. Mục này thay mọi mục trang trước đó trong tệp (các mục 2026-09 và 2026-10 chỉ giữ làm lịch sử), gồm bảng trang của mục "Sửa toàn diện theo chuẩn 2026-10-14" và đoạn "Ánh xạ chủ đề của ghi chú (2026-11-11)" ở phần trang chiếu.
+
+**Quyết định cũ bị thay.** (1) "Cận hậu nghiệm $\beta/(1-\beta)\Delta$ chỉ đọc thêm" (mục `lec03-note-03`): Hệ quả 03.16 thuộc mạch chính của ghi chú, nay có trang `lec03-s03-21` và Ví dụ 03.13 ở `lec03-s03-22` (D03). (2) Lời giải recitation chỉ trong ghi chú diễn giả: mỗi bài có trang "Lời giải:" kế tiếp cùng tiêu đề (G5). (3) Ký hiệu của deck theo bảng ký hiệu của ghi chú: $K$, $t_{\text{dừng}}$, $P$, $B_{\text{task}}$, $\mathbf 1_{\mathcal D}$, chữ đứng cho tên trang, "véc-tơ", "dải tổng", "phần chung", "người lướt ngẫu nhiên (random surfer)", "bước nhảy (còn gọi là dịch chuyển, teleport)", "đánh thuế (taxation)".
+
+### Bản đồ mạch
+
+| Mạch | Tên (khớp trang Nội dung) | Loại | Mục ghi chú | Trang tiêu đề | Trang bài toán có hình | Số trang | Phút |
+|---:|---|---|---|---|---|---:|---:|
+| 1 | Bài toán xếp hạng trang web | giới thiệu, khái niệm | Mục 1 | bìa | `lec03-s01-04` (`intro-ranking.svg`), `lec03-s01-05` | 13 | 21 |
+| 2 | Mô hình và thuật toán PageRank | khái niệm, thuật toán | Mục 2 | `lec03-s03-00` (`mach-2`) | `lec03-s03-01` (`model-one-round.svg`) | 22 | 39 |
+| 3 | Tính PageRank trên đồ thị lớn | thuật toán, hệ thống | Mục 3 | `lec03-s04-00` (`mach-3`) | `lec03-s04-01` (`large-problem.svg`, mới) | 14 | 22 |
+| 4 | Chi phí và lợi ích của cách tính | chi phí | Mục 4 | `lec03-s05-00` (`mach-4`) | `lec03-s05-01` (`cost-timeline.svg`) | 10 | 15 |
+| 5 | Thực hành tính PageRank (Thực hành) | thực hành | Mục 5 | `lec03-s06-00` (`mach-5`) | `lec03-s06-01` (`practice-flow.svg`, mới) | 8 | 13,5 |
+| 6 | Tổng kết và tự kiểm tra | tổng kết | Tình huống, Tóm tắt | `lec03-s07-00` (`mach-6`) | `lec03-s07-14` (`summary-question.svg`, mới ở lượt sửa sau kiểm lại) | 7 | 9,5 |
+| 7 | Bài tập vận dụng | recitation | `exercises.md` 03.7–03.10 | `lec03-s07-T` (`mach-7`) | `lec03-s07-07` (hình 5.4 và 5.7) | 9 | 60 |
+
+Tổng (sau lượt sửa sau kiểm lại): 74 trang giảng, 120 phút. Trước lượt đó: 73 trang giảng, 120 phút (trung bình 1,64 phút mỗi trang, cao hơn nhịp 1,2–1,5 phút của Bài 09, 10 vì mạch 2 có bốn trang chứng minh, tính đúng và cận sai số; bù bằng gộp s02-05 với s02-06 và rút thời lượng mạch 1 từ 26,5 xuống 21 phút, mạch 5 từ 20 xuống 13,5 phút); 9 trang bài tập, 60 phút. Phần đọc thêm của ghi chú (loại nút cụt đệ quy) không có trang.
+
+**Cụm thuật toán PageRank lặp** (thứ tự quy tắc cụm): giới hạn có số (s03-04, s03-05: tổng $19/48$; dồn về $(0,0,1,0)$) → ý tưởng (s03-06, s03-07) → nhận xét cấu trúc (s03-08, ba phần cùng dùng $r^t$) → chạy tay (s03-09, s03-10) → Đầu vào/Đầu ra và giả mã (s03-11) → đọc giả mã (ghi chú s03-11, s03-12) → tính đúng (s03-18) → câu chi phí và bảng đếm (s03-19) → kết quả (s03-13 bảo toàn, s03-14 hội tụ, s03-20 chứng minh, s03-21 cận sai số, s03-22 ví dụ) → câu hỏi (s03-16). **Cụm một vòng theo khối:** giới hạn (s04-01, đọc ghi lặp trong ghi chú s03-15) → ý tưởng so với Thuật toán 02.18 (s03-15) → chia khối (s04-03, s04-11, s04-04) → Map, Combine, Reduce (s04-05, s04-06, s04-09) → chạy tay (s04-07) → tính đúng (s04-08) → bảng đếm (s04-12) → câu hỏi (s04-10).
+
+### Trang theo thứ tự deck
+
+Âm tiết đếm bằng `SP/audit/check_deck.py` (token có chữ cái, bỏ tiêu đề, KaTeX, mã, hình, ô bảng chỉ có số); cột "trước" lấy từ lượt rà 2026-11-13 (`SP/audit/scan/03/density.json`). Trang mục tiêu đếm lại bằng tay: 80 âm tiết (11 + 17 + 14 + 15 + 17 + 6); sau lượt sửa sau kiểm lại 80 âm tiết (9 + 17 + 14 + 15 + 19 + 6). Dòng: đoạn `p`, mục `li`, hàng bảng `tr` kể cả hàng tiêu đề, khối `visual-result`; mã, giả mã và dòng nguồn `ex-note` không tính.
+
+| # | Mạch | Mã | Tiêu đề | Quyết định | Âm tiết trước → sau | Trần | Dòng | Phút | Lý do |
+|---:|---:|---|---|---|---|---:|---:|---:|---|
+| 1 | 1 | `lec03-s01-01` | PageRank:mô hình và tính toán | `sửa` | 50 → 49 | — | 1 | 0,5 | "véc-tơ"; ghi chú nêu tốc độ $\beta^t$ |
+| 2 | 1 | `lec03-s01-07` | Tiên quyết và quy ước | `sửa` | 60 → 56 | 60 | 5 | 1,5 | thêm dòng Nhắc lại thời gian pha $\max_\nu t_\nu$, mức tăng tốc $T_1/T_P$, cận $Q/b_{\text{eff}}$ (phát hiện 25); mô hình byte chuyển sang mạch 4 để giữ trần |
+| 3 | 1 | `lec03-s01-03` | Mục tiêu học tập | `sửa` | 73 → 80 | 80 | 6 | 1 | sáu mục tiêu theo note:11–16, bỏ mục Đọc thêm (phát hiện 2); ghi chú ánh xạ mục tiêu theo bảng ex:7–15 (phát hiện 26) |
+| 4 | 1 | `lec03-s01-02` | Nội dung | `sửa` | 54 → 54 | 80 | 8 | 0,5 | ghi chú viết lại theo các trang mới; mặt trang giữ nguyên |
+| 5 | 1 | `lec03-s01-06` | Vấn đề trung tâm | `sửa` | 60 → 59 | 60 | 6 | 2 | dòng 1 và 2 rút gọn, dòng 2 thêm tốc độ $\beta^t$; ghi chú bỏ câu xuất xứ, nguồn trang chiếu MMDS tr.48 (phát hiện 15, 20) |
+| 6 | 1 | `lec03-s01-04` | Xếp hạng các trang kết quả | `sửa` | 17 → 21 | 60 | 1 | 1,5 | caption nêu thư rác theo từ (note:89); ghi chú bỏ câu rào đón, nhận xét bên lề giữ một lần ở đây (phát hiện 8, 16, 20) |
+| 7 | 1 | `lec03-s01-05` | Ví dụ: ma trận đặc của một tỷ trang | `sửa` | 39 → 40 | 60 | 5 | 1,5 | "Giả định" → "Đồ thị có"; ghi chú bỏ câu xuất xứ, nguồn trang chiếu MMDS tr.48 (phát hiện 15) |
+| 8 | 1 | `lec03-s02-02` | Bài toán xếp hạng trang web | `sửa` | 40 → 46 | 60 | 6 | 1,5 | Giả thiết thêm khuyên (Định nghĩa 03.1); caption nói dương thay "chưa xác định" |
+| 9 | 1 | `lec03-s02-03` | Ví dụ: bốn trang web | `sửa` | 41 → 41 | 60 | 7 | 1,5 | dòng "Xác định bậc ra." tách câu |
+| 10 | 1 | `lec03-s02-04` | Đếm liên kết vào | `sửa` | 60 → 57 | 60 | 7 | 2,5 | Nhu cầu: trại thư rác (note:91, phát hiện 8, 21c); bỏ dòng chuẩn hóa, số vào câu kết; bỏ "chưa phải kết quả PageRank" (phát hiện 16) |
+| 11 | 1 | `lec03-s02-05` | Ví dụ: bốn trang web, chia và cộng điểm tại A | `gộp` | 29 → 32 | 60 | 2 | 2,5 | gộp s02-05 với s02-06 (Ví dụ 03.4: chia tại nguồn và cộng tại đích); dòng "Tính" (phát hiện 22); bù thời gian cho các trang thêm ở mạch 2 |
+| 12 | 1 | `lec03-s02-07` | Ví dụ: bốn trang web, kết quả sau một vòng | `sửa` | 35 → 34 | 60 | 7 | 2,5 | dòng "Tính một vòng đồng bộ" với Định nghĩa 03.2; ghi chú bỏ câu chỉ đường, thêm lỗi dùng điểm mới (tổng $9/8$) |
+| 13 | 1 | `lec03-s02-08` | Câu hỏi về bài toán xếp hạng | `sửa` | 49 → 53 | 60 | 4 | 2 | dòng "Câu hỏi:" mang dữ kiện (phát hiện 21b) |
+| 14 | 2 | `lec03-s03-00` | 2. Mô hình và thuật toán PageRank | `sửa` | 38 → 36 | — | 2 | 0,5 | từ khóa "Bước nhảy"; ghi chú nêu tính đúng, tốc độ, cận sai số |
+| 15 | 2 | `lec03-s03-01` | Chia điểm và người lướt ngẫu nhiên | `sửa` | 56 → 53 | 60 | 4 | 1,5 | "người lướt ngẫu nhiên (random surfer)" thay "người đọc", "bước đi ngẫu nhiên" (phát hiện 3); ghi chú bỏ câu chỉ đường |
+| 16 | 2 | `lec03-s03-02` | Ma trận liên kết | `sửa` | 43 → 45 | 60 | 4 | 1,5 | "ma trận liên kết (transition matrix)" trên mặt trang |
+| 17 | 2 | `lec03-s03-03` | Lặp phép truyền điểm | `sửa` | 43 → 21 | 60 | 6 | 2,5 | bảng ba vòng và $r^*=(1/3,2/9,2/9,2/9)$ của Ví dụ 03.6 (phát hiện 8); $r^0=u$, $u_i=1/n$ định nghĩa tại đây; bỏ câu "chưa bảo đảm hội tụ" |
+| 18 | 2 | `lec03-s03-17` | Cấu trúc nơ thắt của web | `thêm` | — → 33 | 60 | 2 | 1 | cấu trúc nơ thắt (note:348–359, cầu nối của Mục 2.2, phát hiện 8); hình mới `bowtie-web.svg` vì `note-no-that-web.svg` có nhãn 19–23 trên viewBox 1100 |
+| 19 | 2 | `lec03-s03-04` | Nút cụt | `sửa` | 37 → 34 | 60 | 7 | 1,5 | bảng ba vòng của Ví dụ 03.7, tổng $3/4$, $13/24$, $19/48$ (phát hiện 8); bỏ thanh `.dead-mass` |
+| 20 | 2 | `lec03-s03-05` | Bẫy liên kết | `sửa` | 53 → 38 | 60 | 7 | 1,5 | định nghĩa theo Định nghĩa 03.7; bảng ba vòng của Ví dụ 03.8 và giới hạn $(0,0,1,0)$ (phát hiện 8) |
+| 21 | 2 | `lec03-s03-06` | Bước nhảy | `sửa` | 57 → 53 | 60 | 5 | 1,5 | tiêu đề "Bước nhảy" theo ghi chú; "Bước nhảy (còn gọi là dịch chuyển, teleport)"; caption Ví dụ 03.11 ($95/148\approx0{,}64$); ghi chú "đánh thuế (taxation)" và câu dương thay câu phủ định (phát hiện 3, 8, 16) |
+| 22 | 2 | `lec03-s03-07` | Phân phối lại điểm ở nút cụt | `sửa` | 34 → 34 | 60 | 4 | 1,5 | ghi chú: tổng $1-\beta\delta$ của công thức không bù |
+| 23 | 2 | `lec03-s03-08` | Quy tắc cập nhật đầy đủ | `sửa` | 22 → 23 | 60 | 7 | 2 | "Dạng khác:" viết $F(r)$; caption dẫn Định nghĩa 03.8; ghi chú nêu Mệnh đề 03.9 |
+| 24 | 2 | `lec03-s03-09` | Ví dụ: bốn trang web, một vòng có bước nhảy | `sửa` | 26 → 26 | 60 | 7 | 1,5 | dòng "Tính $r^1$" (phát hiện 22) |
+| 25 | 2 | `lec03-s03-10` | Ví dụ: nút cụt C, một vòng | `sửa` | 30 → 27 | 60 | 6 | 1,5 | "Phần chung" thay "Thành phần chung"/"Chung" (phát hiện 3); dòng "Tính"; ghi chú Mệnh đề 03.9(b) |
+| 26 | 2 | `lec03-s03-11` | Thuật toán: PageRank lặp | `sửa` | 41 → 43 | 60 | 3 | 2 | $K$ thay $T_{\max}$; Đầu ra có $t_{\text{dừng}}$, $\Delta$; giả mã theo note:585–597 (phát hiện 3, 27); câu chi phí chuyển sang s03-19 |
+| 27 | 2 | `lec03-s03-12` | Độ thay đổi và điều kiện dừng | `sửa` | 36 → 28 | 60 | 6 | 2 | "Định nghĩa." cho $\Delta_t$, thêm $\Delta_0$; $K$; ghi chú Ví dụ 03.12, bỏ câu rào đón (phát hiện 16) |
+| 28 | 2 | `lec03-s03-18` | Tính đúng: PageRank lặp | `thêm` | — → 49 | 60 | 5 | 2,5 | Tính đúng: PageRank lặp, bảng khởi tạo–duy trì–kết thúc của Mệnh đề 03.11; ghi chú phản ví dụ $404/375$ (phát hiện 1) |
+| 29 | 2 | `lec03-s03-19` | Chi phí: một vòng PageRank lặp | `thêm` | — → 56 | 80 | 7 | 1 | Chi phí: một vòng PageRank lặp, bảng bốn bước, $3n+m=\Theta(n+m)$, $16n$ byte (phát hiện 10, 27) |
+| 30 | 2 | `lec03-s03-13` | Bảo toàn tổng điểm | `sửa` | 43 → 42 | 60 | 5 | 1,5 | tiêu đề "Bảo toàn tổng điểm" + "(Mệnh đề 03.13)" (phát hiện 21d); thanh `.complete-mass` đặt trong `.grid2` (phát hiện 12, D03); ghi chú Mệnh đề 03.17 |
+| 31 | 2 | `lec03-s03-14` | Hội tụ của PageRank đầy đủ | `tách` | 56 → 22 | 60 | 4 | 2 | tách: định lý (a)–(c) của Định lý 03.15 và hình; chứng minh sang s03-20 (phát hiện 1, 11) |
+| 32 | 2 | `lec03-s03-20` | Chứng minh: hội tụ của PageRank đầy đủ | `thêm` | — → 49 | 60 | 5 | 3 | Chứng minh: hội tụ, bốn bước theo note:743–765; $\bar M$ dùng $\mathbf 1_{\mathcal D}$ trong ghi chú (phát hiện 3, 11) |
+| 33 | 2 | `lec03-s03-21` | Cận sai số khi dừng | `thêm` | — → 31 | 60 | 5 | 2,5 | Cận sai số khi dừng (Hệ quả 03.16), $\tau\le(1-\beta)\varepsilon/\beta$ (phát hiện 1) |
+| 34 | 2 | `lec03-s03-22` | Ví dụ: sai số sau hai vòng trên bốn trang | `thêm` | — → 30 | 60 | 6 | 2,5 | Ví dụ 03.13: $r^*$, sai số $4/175\le8/25$, 86 vòng (phát hiện 1) |
+| 35 | 2 | `lec03-s03-16` | Câu hỏi về mô hình và thuật toán | `sửa` | 42 → 49 | 60 | 4 | 2 | dòng "Câu hỏi:" mang dữ kiện; câu 3 thêm cận sai số $4\cdot0{,}08$ |
+| 36 | 3 | `lec03-s04-00` | 3. Tính PageRank trên đồ thị lớn | `sửa` | 35 → 34 | — | 2 | 0,5 | "véc-tơ"; ghi chú theo mạch mới |
+| 37 | 3 | `lec03-s04-01` | Một tỷ trang trên một máy | `sửa` | 53 → 27 | 60 | 2 | 1,5 | trang bài toán có hình `large-problem.svg` với $m\approx10^{10}$, $4{,}4\cdot10^{10}$, $1{,}6\cdot10^{10}$ byte (phát hiện 7); tiêu đề "Một tỷ trang trên một máy" |
+| 38 | 3 | `lec03-s04-02` | Ví dụ: danh sách liên kết ra của bốn trang | `sửa` | 43 → 55 | 60 | 8 | 1,5 | Định nghĩa 03.19 trên mặt trang; dòng tính "dựng lại cột A"; bỏ lời chú của người soạn (phát hiện 18, 22) |
+| 39 | 3 | `lec03-s03-15` | Ví dụ: cộng đóng góp theo trang đích | `sửa` | 38 → 28 | 60 | 8 | 1,5 | dòng "Tính $r^1_{\mathrm A}$"; chữ đứng; ghi chú Nhận xét 03.20 (đọc ghi lặp) |
+| 40 | 3 | `lec03-s04-03` | Chia ma trận và véc-tơ thành khối | `sửa` | 37 → 39 | 60 | 8 | 1,5 | Định nghĩa 03.21 trên mặt trang; bỏ dòng `matrix-note`; "véc-tơ" |
+| 41 | 3 | `lec03-s04-11` | Ví dụ: dải điểm cấp cho từng khối | `sửa` | 53 → 49 | 60 | 5 | 1 | dòng "Xác định dải điểm" (phát hiện 22); "dải tổng" thay "tích lũy"; bỏ dòng mô tả trùng ghi chú |
+| 42 | 3 | `lec03-s04-04` | Dữ liệu trong một khối | `sửa` | 56 → 56 | 60 | 8 | 1,5 | chữ đứng tên trang; ghi chú bỏ câu chỉ đường |
+| 43 | 3 | `lec03-s04-05` | Thuật toán: Map và Combine trên một khối | `sửa` | 45 → 45 | 60 | 5 | 2,5 | giả mã tiếng Việt theo note:1061–1071; chữ đứng tên trang |
+| 44 | 3 | `lec03-s04-06` | Thuật toán: Reduce và điểm ở nút cụt | `sửa` | 42 → 34 | 60 | 4 | 1,5 | thêm "Đầu ra:" (phát hiện 21e); thẻ "Pha $\delta$", "Cặp khởi tạo"; giả mã theo ghi chú |
+| 45 | 3 | `lec03-s04-09` | Tổ chức một vòng tính | `sửa` | 19 → 18 | 60 | 1 | 1 | chuyển lên trước ví dụ gộp khối (thứ tự note: thuật toán → sơ đồ → Ví dụ 03.18 → Mệnh đề 03.23); ghi chú bỏ nhận xét bên lề §5.2.5 |
+| 46 | 3 | `lec03-s04-07` | Ví dụ: bốn trang web, gộp hai khối tại B | `sửa` | 20 → 27 | 60 | 4 | 2 | ví dụ gộp tại B (Ví dụ 03.18) với cặp khởi tạo, hình mới `rlarge-merge-b.svg` (phát hiện 14) |
+| 47 | 3 | `lec03-s04-08` | Tính đúng: chia khối | `sửa` | 60 → 58 | 60 | 5 | 2,5 | Giả thiết đủ của Mệnh đề 03.23: phân hoạch, bậc toàn cục, cùng $r$, $\delta$ một lần, cặp khởi tạo (phát hiện 13); ghi chú bốn phản ví dụ |
+| 48 | 3 | `lec03-s04-12` | Chi phí: một vòng theo khối | `thêm` | — → 78 | 80 | 8 | 1,5 | Chi phí: một vòng theo khối, bảng sáu bước của Thuật toán 03.22 (phát hiện 10) |
+| 49 | 3 | `lec03-s04-10` | Câu hỏi về cách chia khối | `sửa` | 48 → 55 | 60 | 4 | 2 | dòng "Câu hỏi:" mang dữ kiện (phát hiện 21b) |
+| 50 | 4 | `lec03-s05-00` | 4. Chi phí và lợi ích của cách tính | `sửa` | 39 → 39 | — | 2 | 0,5 | ghi chú bỏ câu "không phải số đo" (phát hiện 15) |
+| 51 | 4 | `lec03-s05-01` | Bốn khối trên một máy và trên bốn máy | `sửa` | 39 → 44 | 60 | 3 | 1,5 | trang bài toán có hình `cost-timeline.svg` (một máy 8, bốn máy 3) và dòng Ký hiệu bốn đại lượng (phát hiện 7); bỏ bốn thẻ biểu tượng; $B_{\text{task}}$, $P$ thay $B$, $p$ (phát hiện 3) |
+| 52 | 4 | `lec03-s05-02` | Chi phí: dung lượng biểu diễn đồ thị | `sửa` | 50 → 43 | 80 | 6 | 1,5 | "=" ở $S_{\text{adj}}$; thêm hàng $S_{\text{blocks}}=8R+4m$ (Mệnh đề 03.26) (phát hiện 27) |
+| 53 | 4 | `lec03-s05-03` | Chi phí: bộ nhớ một tác vụ | `sửa` | 30 → 29 | 60 | 4 | 1,5 | "=" ở $B_{\text{task}}$; alt "dải tổng"; ghi chú bỏ "mô hình giả định" (phát hiện 15, 27) |
+| 54 | 4 | `lec03-s05-04` | Chi phí: dữ liệu đầu vào các tác vụ | `sửa` | 54 → 55 | 80 | 7 | 2 | Mô hình theo Định nghĩa 02.33; caption $I=S_{\text{blocks}}+8kn$; ghi chú số theo tác vụ của Ví dụ 03.20; bỏ từ làm mềm (phát hiện 19) |
+| 55 | 4 | `lec03-s05-05` | Chi phí: Combine và đầu vào Reduce | `sửa` | 43 → 27 | 60 | 5 | 2 | $H$ 144 → 132, $C$ 296 → 284, $1/12$ (phát hiện 4) |
+| 56 | 4 | `lec03-s05-06` | Chi phí: thời gian pha Map khi tăng số máy | `sửa` | 24 → 26 | 60 | 3 | 2 | $P$ máy; cận $\max(W/P,w_{\max})$ trên mặt trang; ghi chú bỏ "tham số giả định" |
+| 57 | 4 | `lec03-s05-07` | Chi phí: dữ liệu qua mạng | `sửa` | 37 → 31 | 60 | 3 | 1 | điều kiện "một đường nối dùng chung" vào dòng Mô hình; $Q\le H$; giả thiết cặp khởi tạo tại máy Reduce (phát hiện 13) |
+| 58 | 4 | `lec03-s05-08` | Chi phí: thời gian một vòng và cả công việc | `sửa` | 39 → 35 | 60 | 9 | 1 | $t_{\text{dừng}}$ thay $L$ (phát hiện 3) |
+| 59 | 4 | `lec03-s05-09` | Câu hỏi về chi phí | `sửa` | 39 → 44 | 60 | 4 | 2 | dòng "Câu hỏi:" mang dữ kiện; $P$ |
+| 60 | 5 | `lec03-s06-00` | 5. Thực hành tính PageRank | `sửa` | 33 → 33 | — | 2 | 0,5 | "véc-tơ"; ghi chú nêu ba đồ thị |
+| 61 | 5 | `lec03-s06-01` | Chương trình và các số tính tay | `sửa` | 38 → 26 | 60 | 2 | 1 | trang bài toán có hình `practice-flow.svg` (phát hiện 7); tiêu đề "Chương trình và các số tính tay" |
+| 62 | 5 | `lec03-s06-02` | Dữ liệu và giao diện hàm | `sửa` | 51 → 51 | 60 | 5 | 1,5 | $K$ (`max_iter`); ghi chú bỏ câu chỉ đường, nêu Nhận xét 03.12 (phát hiện 17, 23) |
+| 63 | 5 | `lec03-s06-03` | Mã cập nhật một vòng | `sửa` | 14 → 14 | 60 | 1 | 2 | ghi chú theo Nhận xét 03.33, bỏ lời chú của người soạn (phát hiện 18) |
+| 64 | 5 | `lec03-s06-04` | Mã lặp và điều kiện dừng | `sửa` | 24 → 22 | 60 | 5 | 2 | caption nêu cận $4\Delta$; ghi chú bỏ lời đệm (phát hiện 19) |
+| 65 | 5 | `lec03-s06-05` | Chạy chương trình trên ba đồ thị | `sửa` | 29 → 16 | 60 | 5 | 2,5 | bảng ba biến thể của Ví dụ 03.24 (20/12/34 vòng); sai số thật $1{,}6\cdot10^{-9}$ (phát hiện 8, 19) |
+| 66 | 5 | `lec03-s06-06` | Kiểm chứng kết quả | `sửa` | 51 → 51 | 60 | 6 | 2 | caption Trường hợp biên theo note:1621 thay câu chỉ đường (phát hiện 17) |
+| 67 | 5 | `lec03-s06-07` | Câu hỏi về chương trình | `sửa` | 56 → 56 | 60 | 4 | 2 | ghi chú: tổng $404/375$ và cận sai số |
+| 68 | 6 | `lec03-s07-00` | 6. Tổng kết và tự kiểm tra | `sửa` | 40 → 40 | — | 2 | 0,5 | ghi chú bỏ "Không có khái niệm mới" (phát hiện 16) |
+| 69 | 6 | `lec03-s07-02` | Kết quả và giả thiết không được bỏ | `sửa` | 71 → 65 | 80 | 6 | 2 | hàng "Dừng và cận sai số" với Hệ quả 03.16; hàng hội tụ $2\beta^t$; $K$ (phát hiện 1, 3) |
+| 70 | 6 | `lec03-s07-08` | Thuật toán, bảo đảm và chi phí | `sửa` | 74 → 72 | 80 | 5 | 1,5 | $3n+m=\Theta(n+m)$; bảo đảm sai số $\le4\Delta$; "=" ở $4(n+m)$; ghi chú $H$ 144 → 132 (phát hiện 4, 27) |
+| 71 | 6 | `lec03-s07-01` | Câu trả lời cho vấn đề trung tâm | `sửa` | 75 → 71 | 80 | 6 | 2,5 | $m\approx10^{10}$, $4{,}4\cdot10^{10}$ byte, 86 vòng (phát hiện 9); bỏ "chưa đặt $m$" và nhận xét bên lề |
+| 72 | 6 | `lec03-s07-03` | Câu hỏi tự kiểm tra | `sửa` | 60 → 57 | 60 | 5 | 2,5 | "Câu hỏi: trả lời và nêu kết quả đã dùng." (phát hiện 21a); bốn câu rút gọn |
+| 73 | 6 | `lec03-s07-09` | Nguồn và tài liệu đọc | `sửa` | 54 → 58 | 80 | 5 | 0,5 | nguồn trang chiếu MMDS và CS246 09-pagerank; liên kết "Bài tập" (exercises.md) và "Bài 04" theo deck 09/10 |
+| 74 | 7 | `lec03-s07-T` | 7. Bài tập vận dụng | `sửa` | 40 → 40 | — | 2 | 0,5 | dòng dẫn và từ khóa theo thứ tự mới; ghi chú bỏ câu chỉ đường |
+| 75 | 7 | `lec03-s07-07` | Bài tập: biểu diễn hai đồ thị theo liên kết ra | `sửa` | 41 → 41 | 80 | 2 | 7 | Bài tập 03.7 lên đầu mạch 7 (mức nhận biết, phát hiện 26); ghi chú: năng lực, gợi ý, chấm; bỏ "mục 7, Bài 4" (phát hiện 5) |
+| 76 | 7 | `lec03-s07-10` | Bài tập: biểu diễn hai đồ thị theo liên kết ra | `thêm` | — → 51 | 80 | 12 | 3 | "Lời giải:" Bài tập 03.7, hai bảng (phát hiện 6) |
+| 77 | 7 | `lec03-s07-04` | Bài tập: điểm theo liên kết của ba trang | `sửa` | 48 → 48 | 80 | 3 | 10 | Bài tập 03.8; bỏ "mục 7, Bài 1" và câu rào đón (phát hiện 5, 16) |
+| 78 | 7 | `lec03-s07-11` | Bài tập: điểm theo liên kết của ba trang | `thêm` | — → 21 | 60 | 5 | 5 | "Lời giải:" Bài tập 03.8 theo ex:66–83 |
+| 79 | 7 | `lec03-s07-05` | Bài tập: ba trang có bước nhảy | `sửa` | 36 → 40 | 80 | 3 | 12 | Bài tập 03.9; "so với bài trước" theo đề ex:88; bỏ "mục 7, Bài 2" |
+| 80 | 7 | `lec03-s07-12` | Bài tập: ba trang có bước nhảy | `thêm` | — → 27 | 60 | 5 | 6 | "Lời giải:" Bài tập 03.9 theo ex:93–106 |
+| 81 | 7 | `lec03-s07-06` | Bài tập: ngưỡng lưu ma trận thưa | `sửa` | 57 → 57 | 80 | 5 | 11 | Bài tập 03.10; thêm $n\ge2$ (phát hiện 26); bỏ "mục 7, Bài 3" và lời chú của người soạn |
+| 82 | 7 | `lec03-s07-13` | Bài tập: ngưỡng lưu ma trận thưa | `thêm` | — → 25 | 60 | 4 | 5,5 | "Lời giải:" Bài tập 03.10 theo ex:116–128 |
+| — | 1 | `lec03-s02-06` | Ví dụ: bốn trang web, cộng điểm tại A | `gộp` | 13 → — | — | — | −2,5 | gộp vào `lec03-s02-05` (Ví dụ 03.4 có hai hình liền nhau); hình `graph-receive.svg` dùng ở s02-05 |
+
+**Ngoại lệ mật độ.** Không trang trần 60 nào vượt 60; không trang trần 80 nào vượt 80 (s01-03 80, s04-12 78, s07-08 72, s07-01 71, s07-02 65). Ngoại lệ dòng theo quyết định 2 cũ (bảng dữ liệu, vết hoặc chi phí tối đa 8 dòng kể cả hàng bảng): s02-03 (7), s02-04 (7), s02-07 (7), s03-04 (7), s03-05 (7), s03-09 (7), s03-19 (7), s04-02 (8), s04-03 (8, ma trận 5 hàng), s04-04 (8), s04-12 (8, bảng chi phí 7 hàng), s05-04 (7), s01-02 (8, Nội dung hai cột). Khối thẻ tính như hình: s03-08 (ba thẻ công thức), s03-15 (ba thẻ luồng), s05-08 (dải năm pha). Trang lời giải `lec03-s07-10` có hai bảng đặt cạnh nhau (6 và 4 hàng) cùng hai dòng chữ, 51 âm tiết: bảng là lời giải của đề nên không tách. Giả mã đứng riêng kèm hai dòng đặc tả: s03-11 (11 dòng), s04-05, s04-06.
+
+**Mục tiêu → trang phục vụ.** Mục tiêu 1: s03-02, s03-03, s02-07, Bài tập 03.8 (s07-04, s07-11). Mục tiêu 2: s03-04…s03-10, Bài tập 03.9 (s07-05, s07-12). Mục tiêu 3: s03-18, s03-13, s03-14, s03-20, s03-21, s03-22, câu 3 của s03-16. Mục tiêu 4: s04-02…s04-08, s04-12, Bài tập 03.7 (s07-07, s07-10). Mục tiêu 5: s05-01…s05-09, Bài tập 03.10 (s07-06, s07-13). Mục tiêu 6: s06-01…s06-07.
+
+**Recitation (60 phút).** Thứ tự theo mức của `exercises.md`: Bài tập 03.7 (MMDS 5.2.2) s07-07 + s07-10, 10 phút; 03.8 (5.1.1) s07-04 + s07-11, 15 phút; 03.9 (5.1.2) s07-05 + s07-12, 18 phút; 03.10 (5.2.1) s07-06 + s07-13, 16,5 phút; trang tiêu đề mạch 0,5 phút. Mục tiêu 3 và 6 không có bài trong `exercises.md` (bảng ex:7–15), nên không thêm bài (G5). Ghi chú diễn giả trang đề có năng lực kiểm, gợi ý và hướng dẫn chấm; trang lời giải có lỗi thường gặp.
+
+**Ánh xạ chủ đề ghi chú → trang (thay bảng 2026-11-11).** `lec-03-topic-01`: s01-01…s01-05, s02-02…s02-04. `topic-02`: s02-05, s02-07, s02-08. `topic-03`: s03-00…s03-03. `topic-04`: s03-17, s03-04, s03-05. `topic-05`: s03-06…s03-10. `topic-06`: s03-11, s03-12, s03-18, s03-19. `topic-07`: s03-13, s03-14, s03-20, s03-21, s03-22, s03-16 (Mệnh đề 03.17 trong ghi chú diễn giả s03-13, s03-20 và bảng s06-05). `topic-08`: s04-00, s04-01, s04-02. `topic-09`: s03-15. `topic-10`: s04-03, s04-11, s04-04, s04-05, s04-06, s04-09, s04-07, s04-08, s04-12, s04-10. `topic-11`: s05-00, s05-01, s05-02. `topic-12`: s05-03, s05-04, s05-05, s05-07. `topic-13`: s05-06, s05-08, s05-09. `topic-14` (đọc thêm): không có trang. `topic-15`: s06-00…s06-07. `topic-16`: s01-06, s07-01, s07-09. `topic-17`: s07-00, s07-02, s07-08, s07-03. `exercises.md`: s07-T, s07-07, s07-10, s07-04, s07-11, s07-05, s07-12, s07-06, s07-13.
+
+**Hình.** Mới: `large-problem.svg`, `practice-flow.svg`, `bowtie-web.svg` (script `tools/courses/ds-foundation-algorithms/2627-1/img/lec-03/scripts/render_strand_problems.py`), `rlarge-merge-b.svg` (`render_large.py`). Sinh lại: cỡ chữ nhỏ nhất 24 → 25 trong `render_problem.py`, `render_model.py`; `cost-timeline.svg` 24–28 → 29–30; `intro-scale.svg` 22 → 23; `cost-memory.svg` "Dải tổng"; `desc` của `model-spider-trap.svg`, `visual-contraction.svg`. Mọi nhãn SVG trên trang đo ở khung 1280×720 đạt 18,2–29,4 px.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Căn cứ: danh sách 17 mục đã duyệt của điều phối viên (`SP/fix/lec-03/merge-03.md`), gồm quyết định thêm trang mở mạch 6 có hình. Deck 82 → 83 trang (74 trang giảng, 9 trang bài tập). Âm tiết sau lượt sửa đo bằng `check_deck.py`.
+
+| Mã | Tiêu đề | Quyết định | Âm tiết trước → sau | Trần | Phút | Lý do |
+|---|---|---|---|---:|---:|---|
+| `lec03-s07-14` | Xếp hạng một tỷ trang | `thêm` | — → 29 | 60 | 1 | trang mở mạch 6 có hình `summary-question.svg`: nhắc lại Tình huống 03.1 ($10^9$ trang, $m\approx10^{10}$, $8\cdot10^{18}$ byte) và dòng "Câu hỏi:", không lời giải, không khái niệm mới; đặt sau `s07-00`, trước `s07-02` |
+| `lec03-s07-01` | Câu trả lời cho vấn đề trung tâm | `sửa` | 71 → 72 | 80 | 2,5 → 2 | dòng 2 nêu điều kiện "bốn trang, $\beta=4/5$" cho $r^*_{\mathrm A}=9/28$; bù 0,5 phút cho trang mới |
+| `lec03-s07-03` | Câu hỏi tự kiểm tra | giữ | 57 → 57 | 60 | 2,5 → 2 | bù 0,5 phút cho trang mới |
+| `lec03-s07-02` | Kết quả và giả thiết không được bỏ | `sửa` | 65 → 69 | 80 | 2 | hàng "Dừng và cận sai số" thêm $0<\beta<1$, cập nhật đồng bộ |
+| `lec03-s05-01` | Bốn khối trên một máy và trên bốn máy | `sửa` | 44 → 48 | 60 | 1,5 | hình dữ kiện mới `four-blocks-data.svg` (bốn khối 2, 2, 3, 1 cạnh), không dùng chung `cost-timeline.svg` với s05-06 và không nêu đáp số; dòng Ký hiệu "$S_{\cdot}$ dung lượng", "$I$ đầu vào Map, $H$ đầu vào Reduce" |
+| `lec03-s03-20` | Chứng minh: hội tụ của PageRank đầy đủ | `sửa` | 49 → 54 | 60 | 3 | Bước 3 chỉ cho $\beta^t\lVert r^0-r^*\rVert_1$; cuối Bước 4 mới dùng "$r^*$ là phân phối" để có $\le2$ và (c); Bước 1 phát biểu đúng Bổ đề 03.14 |
+| `lec03-s03-21` | Cận sai số khi dừng | `sửa` | 31 → 43 | 60 | 2,5 | "Giả thiết như định lý hội tụ"; Ý nghĩa nêu "khi trả trạng thái đạt ngưỡng"; ghi chú "trên số học chính xác" |
+| `lec03-s03-18` | Tính đúng: PageRank lặp | `sửa` | 49 → 51 | 60 | 2,5 | thêm $r^0=u$ và $t_{\text{dừng}}\le K$; phản ví dụ $404/375$ giữ trong ghi chú diễn giả (thêm một dòng sẽ vượt trần 60) |
+| `lec03-s03-22` | Ví dụ: sai số sau hai vòng trên bốn trang | `sửa` | 30 → 36 | 60 | 2,5 | dòng "Tính" thêm số vòng để cận (c) đạt $10^{-8}$ |
+| `lec03-s01-07` | Tiên quyết và quy ước | `sửa` | 56 → 60 | 60 | 1,5 | "qua đường băng thông $b_{\text{eff}}$" |
+| `lec03-s01-03` | Mục tiêu học tập | `sửa` | 80 → 80 | 80 | 1 | mục tiêu 5 "đầu vào Reduce có và không có Combine"; bù ở mục tiêu 1 ($\sum_ir_i=1$ viết bằng công thức); ghi chú "Mục tiêu 1…6" |
+| `lec03-s03-15` | Ví dụ: cộng đóng góp theo trang đích | `sửa` | 28 → 30 | 60 | 1,5 | caption nêu giới hạn dải dọc ($z$ dài bằng $r$, đọc ghi đĩa) làm câu nối sang chia khối |
+| `lec03-s04-09` | Tổ chức một vòng tính | `sửa` | 18 → 18 | 60 | 1 | caption bỏ kiểu "X, không phải Y" |
+| `lec03-s05-03` | Chi phí: bộ nhớ một tác vụ | `sửa` | 29 → 24 | 60 | 1,5 | caption bỏ "không phải của cả máy" |
+| `lec03-s03-14` | Hội tụ của PageRank đầy đủ | `sửa` | 22 → 22 | 60 | 2 | `alt` của hình viết dương |
+| `lec03-s07-T` | Bài tập vận dụng | `sửa` | 40 → 38 | — | 0,5 | dòng dẫn bao cả Bài tập 03.10 ("so hai cách lưu"), 23 âm tiết |
+| `lec03-s03-06`, `lec03-s06-01`, `lec03-s06-07` | — | `sửa` | không đổi mặt trang | — | — | chỉ ghi chú diễn giả: bỏ câu về tên của Bài 04; "không quá $4\tau$ (Hệ quả 03.16)"; lỗi `r[i] += …` viết theo note:1623, bỏ số $404/375$ |
+
+Thời lượng mạch 6 sau lượt này: s07-00 0,5; s07-14 1; s07-02 2; s07-08 1,5; s07-01 2; s07-03 2; s07-09 0,5; tổng 9,5 phút; tổng giảng vẫn 120 phút (74 trang, 1,62 phút mỗi trang). Mạch 6 có 7 trang. Mật độ: không trang trần 60 nào vượt 60; trần 80: s01-03 80, s04-12 78, s07-08 72, s07-01 72, s07-02 69.

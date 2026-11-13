@@ -784,3 +784,86 @@ Quy ước dẫn: `html:` là dòng trong deck, `note:` là `lecture-note.md`, `
 ### Quyết định của người dùng (2026-11-13)
 
 - Quyết định của người dùng (2026-11-13): thống nhất thuật ngữ "véc-tơ" cho deck và ghi chú (tên tiếng Anh "vector" chỉ trong ngoặc ở lần dùng đầu). Deck 03 còn "véc tơ" (44 chỗ): đổi thành "véc-tơ".
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Bối cảnh.** Yêu cầu người dùng (2026-11-13): sửa deck 01–10 theo nguyên tắc deck mới và bảng phát hiện của từng bài, nội dung thống nhất theo ghi chú bài giảng. Căn cứ: bảng phát hiện ở mục trên (27 dòng), quyết định người dùng 2026-11-13 ("véc-tơ"), quyết định G1–G18 và D03 của điều phối viên. Không sửa `materials/`, CSS, deck khác; không commit.
+
+**Tác tử.** Tác tử sửa deck (writer) cho Bài 03, `no-ai-slop` chế độ Edit; loại, mô hình và effort do điều phối viên ghi từ lời gọi công cụ. Bản sao trước khi sửa: `SP/fix/lec-03/backup/`.
+
+**Kết quả.** Deck 72 → 82 trang: 73 trang giảng (120 phút), 9 trang bài tập (60 phút). Thêm s03-17, s03-18, s03-19, s03-20, s03-21, s03-22, s04-12, s07-10, s07-11, s07-12, s07-13; gộp s02-06 vào s02-05; tách s03-14 (định lý) và s03-20 (chứng minh). Chi tiết trang, âm tiết trước/sau và thời lượng ở `storyboard.md`, mục cùng tên.
+
+**Xuất xứ số liệu (ghi một lần, không đưa lên mặt trang).** Quy mô $n=10^9$ trang lấy từ trang chiếu MMDS Chương 5, tr.48; khoảng 10 liên kết ra mỗi trang từ MMDS §5.2.1, tr.190. Mô hình 8 byte mỗi điểm hay ô ma trận, 4 byte mỗi mã trang hay bậc ra, 12 byte mỗi cặp trung gian là mô hình byte của ghi chú (Định nghĩa 03.25). Thời gian $c_e$ mỗi cạnh là tham số mô hình của ghi chú, không có giá trị số. Các phản ví dụ ($404/375$, $13/12$, $6/5$, $97/300$, $18/37$) và Ví dụ 03.13 do ghi chú dựng trên đồ thị MMDS Hình 5.1, 5.3, 5.6.
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| nghiêm trọng: thiếu Mục 2.4–2.5 (Mệnh đề 03.11, Định lý 03.15(b)(c), Hệ quả 03.16, Ví dụ 03.13) | đã sửa | s03-18, s03-14, s03-20, s03-21, s03-22, s07-02, s01-03, s03-12 | thêm Tính đúng (bảng khởi tạo–duy trì–kết thúc, phản ví dụ $404/375$ trong ghi chú diễn giả), định lý (a)–(c), chứng minh bốn bước, cận $\beta\Delta_t/(1-\beta)$ với $\tau=\varepsilon/4$, ví dụ $4/175\le8/25$ và 86 vòng; hàng "Dừng và cận sai số" ở s07-02; bỏ câu "$\Delta_t$ nhỏ không cho biết trực tiếp sai số"; quyết định cũ storyboard:732 được ghi là đã thay |
+| trung bình: mục tiêu học tập lệch ghi chú | đã sửa | s01-03 | sáu mục tiêu theo note:11–16, bỏ mục đọc thêm; 80 âm tiết (đếm tay 11 + 17 + 14 + 15 + 17 + 6); mỗi mục tiêu có trang phục vụ (storyboard, "Mục tiêu → trang phục vụ") |
+| trung bình: ký hiệu và thuật ngữ ($T_{\max}$, $p$, $L$, $B$, $z$, "véc tơ", $r_A$, "dải tích lũy", "Thành phần chung", "người đọc", "taxation", "Bước nhảy ngẫu nhiên (teleport)") | đã sửa | toàn deck; s03-01, s03-06, s03-10, s03-11, s05-01, s05-08, s03-20 (ghi chú), s04-11, `cost-memory.svg` | $K$, $P$, $t_{\text{dừng}}$, $B_{\text{task}}$, $\mathbf 1_{\mathcal D}$; "véc-tơ" (0 chỗ "véc tơ"); tên trang trong KaTeX viết `\mathrm`; "dải tổng" cả trong nhãn SVG; "phần chung"; "người lướt ngẫu nhiên (random surfer)"; "Bước nhảy (còn gọi là dịch chuyển, teleport)"; "đánh thuế (taxation)" trong ghi chú diễn giả s03-06 |
+| trung bình: $H$ 96/84, $C$ 248/236 thay vì 144/132, 296/284 | đã sửa | s05-05, s07-08 | bảng ba cột theo note:1337 (cặp từ Map, cặp khởi tạo, $H$); caption $C$ 296 → 284 byte, khoảng 4,1%; ghi chú $12/144=1/12$; $Q=84$ ở s05-07 kèm giả thiết cặp khởi tạo tạo tại máy Reduce |
+| trung bình: dẫn chiếu "mục 7, Bài 1…4" | đã sửa | s07-04, s07-05, s07-06, s07-07, s07-T | ghi chú diễn giả dẫn Bài tập 03.8, 03.9, 03.10, 03.7; câu "Lời giải và hướng dẫn chấm nằm trong…" của s07-T bỏ |
+| trung bình: không có trang "Lời giải:" | đã sửa | s07-10, s07-11, s07-12, s07-13 | mỗi đề có trang kế tiếp cùng tiêu đề, mở bằng "**Lời giải:**", khớp ex:34–54, 66–83, 93–106, 116–128; hướng dẫn chấm ở trang đề, lỗi thường gặp ở trang lời giải |
+| trung bình: mạch 3–5 thiếu trang bài toán có hình | đã sửa | s04-01, s05-01, s06-01 | s04-01 "Một tỷ trang trên một máy" với `large-problem.svg` ($10^{-8}$ ô khác 0; $8\cdot10^{18}$, $4{,}4\cdot10^{10}$, $1{,}6\cdot10^{10}$ byte); s05-01 dùng `cost-timeline.svg` (8 và 3 đơn vị) và dòng Ký hiệu thay bốn thẻ biểu tượng, không thêm trang; s06-01 với `practice-flow.svg`. Mạch 6 không có hình đầu mạch (trang mở là bảng kết quả, như T02 của Bài 09) |
+| trung bình: ví dụ và nội dung của ghi chú không có trang (thư rác, Ví dụ 03.6, nơ thắt, 03.7, 03.8, 03.11, Mệnh đề 03.17, Ví dụ 03.24) | đã sửa | s01-04, s02-04, s03-03, s03-17, s03-04, s03-05, s03-06, s03-13, s06-05 | thư rác theo từ ở s01-04, trại thư rác ở Nhu cầu s02-04; bảng ba vòng và $r^*=(1/3,2/9,2/9,2/9)$; trang nơ thắt mới; bảng ba vòng của Ví dụ 03.7 và 03.8; caption $95/148\approx0{,}64$; Mệnh đề 03.17 trong ghi chú diễn giả s03-13, s03-20 và cột "Nghiệm chính xác" của s06-05; bảng ba biến thể 20/12/34 vòng |
+| trung bình: câu trả lời vấn đề trung tâm thiếu số | đã sửa | s07-01, s01-06 | dòng 2 thêm 86 vòng cho $10^{-8}$; dòng 3 $m\approx10^{10}$, $4{,}4\cdot10^{10}$ byte; bỏ "chưa đặt giá trị $m$"; ghi chú theo Tình huống 03.1 |
+| trung bình: thiếu câu chi phí và bảng đếm | đã sửa | s03-19, s04-12, s07-08 | bảng bốn bước, $3n+m=\Theta(n+m)$, $16n$ byte; bảng sáu bước của Thuật toán 03.22 trên trang mới sau tính đúng (s04-06 không đủ chỗ) |
+| trung bình: s03-14 dồn định lý, chứng minh, hình; chạm chân trang | đã sửa | s03-14, s03-20 | tách hai trang; ảnh 1600×900 của cả hai nằm trong khung |
+| trung bình: `.mass-bar` tràn ở s03-13 | đã sửa | s03-13 | đặt thanh trong `.grid2` cạnh dòng dữ kiện, nhãn "(1) 3/5", "(2) 1/5", "(3) 1/5" (D03, không sửa CSS); ảnh 1600×900 xác nhận thanh nằm trong khung; cờ `overflow_1600` còn lại là cờ giả của `\underbrace` |
+| trung bình: thiếu giả thiết quyết định (s04-08, s05-07) | đã sửa | s04-08, s05-07 | s04-08 dòng Giả thiết: dải phân hoạch, bậc toàn cục, cùng $r$, $\delta$ một lần, mỗi trang một cặp $(i,0)$; bốn phản ví dụ trong ghi chú diễn giả; s05-07 dòng Mô hình nêu đường nối dùng chung, ghi chú nêu cận $42/b_{\text{eff}}$ khi bỏ |
+| nhẹ: ví dụ gộp khối tại A thay vì B | đã sửa | s04-07 | Ví dụ 03.18: $L_{\mathrm B}=[0,1/12,1/8]$, $z_{\mathrm B}=5/24$, $r^1_{\mathrm B}=13/60$; hình mới `rlarge-merge-b.svg`; `rlarge-merge-a.svg` không còn dùng |
+| nhẹ: câu xuất xứ số liệu; nguồn $n=10^9$ | đã sửa | s01-05, s01-06, s05-00, s05-01, s05-03, s05-06, s07-09 | "Giả định" → "Đồ thị có"; bỏ "không phải số đo", "mô hình giả định", "tham số giả định", "chỉ dùng để đối chiếu"; nguồn trang chiếu MMDS tr.48; xuất xứ ghi ở đoạn trên |
+| nhẹ: câu rào đón, liệt kê phủ định | đã sửa | s02-04, s02-07, s03-03, s03-06, s03-12, s03-13, s03-14, s05-05, s05-07, s07-00, s07-04, s01-04 | bỏ html:147, 179, 244, 389, 400, 668, 687, 858, 75, 944; html:290 thay bằng câu dương "mọi trang có xác suất tới ít nhất $(1-\beta)/n$"; html:378 thay bằng cận của Hệ quả 03.16 ở s03-21 |
+| nhẹ: câu chỉ đường | đã sửa | s01-07, s02-07, s03-01, s03-03, s03-13, s04-01, s06-02, s06-05, s06-06, s07-T | bỏ các câu; caption s06-06 thay bằng trường hợp biên của note:1621 |
+| nhẹ: lời chú của người soạn | đã sửa | s04-02, s04-07, s06-03, s07-06 | bỏ cả bốn câu |
+| nhẹ: từ làm mềm | đã sửa | s05-04, s06-05, s06-04 | "$Q$ chỉ đếm phần đi qua mạng; $Q\le H$" (s05-04 ghi chú bỏ câu); s06-05 nêu độ lệch $8\cdot10^{-10}$ và sai số thật $1{,}6\cdot10^{-9}$; bỏ "để người dùng biết tình trạng" |
+| nhẹ: nhận xét bên lề lặp ba lần | đã sửa | s01-04, s01-06, s07-01 | giữ ở s01-04, bỏ ở hai trang còn lại |
+| nhẹ: nhãn và tiền tố (a)–(e) | đã sửa | s07-03, s02-08, s03-16, s04-10, s05-09, s02-04, s03-13, s04-06 | (a) "Câu hỏi: trả lời và nêu kết quả đã dùng."; (b) dòng "Câu hỏi:" mang dữ kiện đồ thị; (c) Nhu cầu nêu trại thư rác; (d) tiêu đề "Bảo toàn tổng điểm" + "(Mệnh đề 03.13)"; (e) "Đầu ra: cặp $(i,F(r)_i)$" |
+| nhẹ: trang "Ví dụ" thiếu dòng "Tính" | đã sửa | s02-05, s02-07, s03-09, s03-10, s03-15, s04-02, s04-07, s04-11 | s02-06 gộp vào s02-05; s04-02 "Lập bản ghi…; dựng lại cột A", s04-11 "Xác định dải điểm…" |
+| nhẹ: ghi chú diễn giả quá 150 âm tiết | đã sửa | s04-07, s05-05, s06-02, s06-04, s06-05, s06-06, s07-01, s05-04 | sau sửa các trang này 82–136 token; trang dài nhất ngoài chứng minh: s04-08 (165, ghi chú chứng minh và bốn phản ví dụ), s03-20 (168, chứng minh) |
+| nhẹ: nhãn SVG dưới 18 px; `desc` sai | đã sửa | s02-04, s03-01, s03-04, s03-07, s01-05, s05-01, s05-06, s03-05, s03-14 | cỡ nhỏ nhất 24 → 25 trong `render_problem.py`, `render_model.py`; `cost-timeline.svg` lên 29–30, `intro-scale.svg` lên 23 (hai hình này cũng dưới 18 px khi đo lại); sửa `desc` của `model-spider-trap.svg`, `visual-contraction.svg`; đo trên mọi trang: 18,2–29,4 px |
+| nhẹ: s01-07 thiếu kết quả Bài 02 về thời gian và truyền | đã sửa | s01-07 | dòng "Nhắc lại: $C=I+H$; thời gian pha $\max_\nu t_\nu$; mức tăng tốc $T_1/T_P$; chuyển $Q$ byte cần ít nhất $Q/b_{\text{eff}}$ giây"; mô hình byte chuyển sang mạch 4 để giữ trần 60 |
+| nhẹ: thứ tự recitation, "$n\ge2$", ánh xạ mục tiêu | đã sửa | s07-07, s07-06, s01-03 | 03.7 lên đầu mạch 7; đề s07-06 thêm $n\ge2$; ghi chú s01-03 theo bảng ex:7–15 |
+| nhẹ: đặc tả và công thức ("Đầu ra", "≈", $O$) | đã sửa | s03-11, s05-02, s05-03, s07-08 | Đầu ra có $t_{\text{dừng}}$, $\Delta$; "=" ở $S_{\text{adj}}$, $B_{\text{task}}$, $4(n+m)$; $3n+m=\Theta(n+m)$ |
+
+**Kiểm G17 (tác tử tự chạy).** `check_deck.py` (máy chủ 8796, 1600×900 và 390×844): 82 trang, 7 section ngoài, 0 lỗi console/trang, 0 request hỏng, 0 `.katex-error`, 0 trùng mã, mọi trang có ghi chú diễn giả, không trang nào quá 3 công thức hiển thị, không cuộn ngang ở 390, `hash_strand` đúng `mach-2…7` ở `#/2…7`, `style_blocks=1` (thẻ runtime), 0 `fragment`; `over60` chỉ gồm các trang trần 80 (s01-03 80, s04-12 78, s07-08 72, s07-01 71, s07-02 65); `overflow_1600` chỉ còn s03-13 với độ lệch 19 033 px (cờ giả `\underbrace`, ảnh chụp xác nhận). `refcheck.py 03`: 118 dẫn chiếu đúng, 0 sai; mỗi mặt trang có tối đa một số hiệu khối. `git diff --check` trên deck, `img/lec-03/`, `planning/lec-03/`: sạch. Ảnh chụp các trang mới và trang sửa nhiều: `SP/fix/lec-03/shots2…4/`.
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Căn cứ: danh sách 17 mục đã duyệt của điều phối viên sau hai lượt kiểm lại (`SP/fix/lec-03/merge-03.md`: 4 trung bình, 13 nhẹ), gồm quyết định thêm trang mở mạch 6 có hình. Cùng tác tử sửa, cùng phạm vi ghi (G18). Deck 82 → 83 trang.
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1 [TB] thứ tự chứng minh hội tụ; Bước 1 | đã sửa: Bước 3 chỉ cho $\lVert r^t-r^*\rVert_1\le\beta^t\lVert r^0-r^*\rVert_1$; cuối Bước 4: "$r^*$ là phân phối, $\lVert r^0-r^*\rVert_1\le2$, cho (b), (c)"; Bước 1 "ma trận không âm có tổng mỗi cột $\le1$ thì không làm tăng $\lVert\cdot\rVert_1$"; ghi chú diễn giả đổi theo | s03-20 |
+| 2 [TB] số $404/375$ sai chỗ | đã sửa: lỗi `r[i] += …` trộn điểm cũ với điểm mới, trái với cập nhật đồng bộ (Mệnh đề 03.11), theo note:1623 | s06-07 (ghi chú) |
+| 3 [nhẹ] sai khác cho phép | đã sửa: "cách nghiệm không quá $4\tau$ (Hệ quả 03.16)" | s06-01 (ghi chú) |
+| 4 [nhẹ] giả thiết của Hệ quả 03.16 | đã sửa: "Giả thiết như định lý hội tụ" (viết bằng lời vì mặt trang đã có "(Hệ quả 03.16)", tối đa một số hiệu mỗi trang); Ý nghĩa "khi trả trạng thái đạt ngưỡng"; ghi chú "trên số học chính xác" và ba giả thiết | s03-21 |
+| 5 [nhẹ] hàng "Dừng và cận sai số" | đã sửa: thêm $0<\beta<1$, cập nhật đồng bộ | s07-02 |
+| 6 [nhẹ] điều kiện của $9/28$ | đã sửa: "bốn trang, $\beta=4/5$: $r^*_{\mathrm A}=9/28$" | s07-01 |
+| 7 [nhẹ] dòng Ký hiệu | đã sửa: "$S_{\cdot}$ dung lượng", "$I$ đầu vào Map, $H$ đầu vào Reduce, $Q$ byte qua mạng" | s05-01 |
+| 8 [nhẹ] $r^0=u$, $t_{\text{dừng}}\le K$, phản ví dụ | đã sửa: thêm $r^0=u$ và $t_{\text{dừng}}\le K$ vào Mệnh đề; phản ví dụ $404/375$ giữ trong ghi chú diễn giả vì thêm dòng sẽ vượt trần 60 (51 → khoảng 65) | s03-18 |
+| 9 [TB] trang mở mạch 6 có hình | đã sửa: trang mới `lec03-s07-14` "Xếp hạng một tỷ trang" với `summary-question.svg` (mới), dòng Nhắc lại và dòng "Câu hỏi:", không lời giải; bù 1 phút bằng s07-01 và s07-03 (mỗi trang −0,5); storyboard bỏ lý do "như T02 của Bài 09" | s07-14 |
+| 10 [TB] s05-01 dùng chung hình và lộ đáp số | đã sửa: hình dữ kiện mới `four-blocks-data.svg` (bốn khối, cạnh của từng khối, 2, 2, 3, 1 cạnh); caption chỉ nêu dữ kiện; $3c_e$ giữ ở s05-06 | s05-01 |
+| 11 [nhẹ] dòng "Tính" | đã sửa: thêm "số vòng để cận (c) đạt $10^{-8}$" | s03-22 |
+| 12 [nhẹ] đường băng thông | đã sửa: "chuyển $Q$ byte qua đường băng thông $b_{\text{eff}}$" (60 âm tiết, bằng trần) | s01-07 |
+| 13 [nhẹ] mục tiêu 5; "Mục 1" | đã sửa: "đầu vào Reduce có và không có Combine"; bù ở mục tiêu 1 ($\sum_ir_i=1$ bằng công thức) và bỏ "tác vụ"; đếm tay 9 + 17 + 14 + 15 + 19 + 6 = 80; ghi chú "Mục tiêu 1…6" | s01-03 |
+| 14 [nhẹ] câu nối sang chia khối | đã sửa: caption "Reduce cho $r^1_{\mathrm A}=7/20$; chia dải dọc thì $z$ dài bằng $r$, gần mỗi số hạng phải đọc ghi đĩa" | s03-15 |
+| 15 [nhẹ] câu về tên của Bài 04 | đã sửa: bỏ | s03-06 (ghi chú) |
+| 16 [nhẹ] kiểu "X, không phải Y" | đã sửa: s04-09 "$k^2$ tác vụ khối chạy trên số máy tùy chọn; với $k=2$, bốn tác vụ chạy được trên hai máy"; s05-03 bỏ vế phủ định; `alt` của s03-14 viết dương | s04-09, s05-03, s03-14 |
+| 17 [nhẹ] dòng dẫn mạch 7; câu thay thế trong storyboard | đã sửa: "Muốn kiểm mô hình điểm và cách lưu đồ thị, phải lập bảng liên kết ra, hệ cân bằng, so hai cách lưu." (23 âm tiết); storyboard ghi mục 2026-11-13 thay mọi mục trang trước đó | s07-T; `storyboard.md` |
+
+**Kiểm G17 sau lượt sửa.** `check_deck.py 8796`: 83 trang, 7 section, 0 lỗi console/trang, 0 request hỏng, 0 `.katex-error`, 0 trùng mã, 0 thiếu ghi chú, `hscroll_390` false, `hash_strand` đúng `mach-2…7`; `over60` chỉ trang trần 80 (s01-03 80, s04-12 78, s07-08 72, s07-01 72, s07-02 69); `overflow_1600` chỉ cờ giả s03-13. `refcheck.py 03`: 121 đúng, 0 sai; tối đa một số hiệu khối mỗi mặt trang. Nhãn SVG mới: `four-blocks-data.svg` 20,1 px, `summary-question.svg` 22,7 px. `git diff --check` trên deck, `img/lec-03/`, `planning/lec-03/`: sạch.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | cần sửa | 0/0/2/6 | chấp nhận; thứ tự chứng minh s03-20 (cận 2 cần $r^*$ là phân phối, note:260–271) và con số $404/375$ gán sai ở s06-07 (note:655, 1623). Tám mục vào `merge-03.md` |
+| B | cần sửa | 0/0/2/8 | chấp nhận; mạch 6 thêm trang mở có hình (như Bài 08–10), s05-01 không dùng chung hình và không lộ đáp số của s05-06. Chín mục vào `merge-03.md` |
+
+Lượt sửa sau kiểm lại: 17/17 mục làm; s03-21 ghi giả thiết bằng lời (một số hiệu khối mỗi trang); phản ví dụ $404/375$ ở s03-18 giữ trong ghi chú diễn giả vì trần 60 — chấp nhận. Trang mới s07-14 "Xếp hạng một tỷ trang" (hình `summary-question.svg`), hình dữ kiện mới `four-blocks-data.svg` cho s05-01. Nhịp mạch 2 khoảng 1,77 phút/trang (bốn trang chứng minh mới) — chấp nhận. `rlarge-merge-a.svg` không còn trang nào dùng: xóa trong commit này. Đề nghị sửa ghi chú để lại cho người dùng: note:1291 (alt "dải tích lũy" → "dải tổng"), note:1542 ("không quá ngưỡng" → "không quá $4\tau$").
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 83 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s03-13 là path SVG của `\underbrace` (điều phối viên xem ảnh: thanh khối lượng nằm trong khung); năm trang trên 60 âm tiết đều thuộc loại trần 80 (s01-03 80, s04-12 78, s07-02 69, s07-08 72, s07-01 72). `refcheck.py`: 121 dẫn chiếu, 0 sai. `git diff --check` sạch. Điều phối viên tự xem ảnh s03-13, s07-14 (1600×900).
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
