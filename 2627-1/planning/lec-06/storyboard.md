@@ -18,6 +18,20 @@ Cập nhật 2026-10-14 (căn chỉnh văn phong). Bảng dưới thay bảng c�
 
 Tổng: 70 trang giảng, 120 phút; 8 trang bài tập, 60 phút; 78 trang. Trang tiêu đề mạch của mạch 7 lấy 0,5 phút từ Bài 3.4.1 (12 → 11,5 phút). Lượt sửa deck sau năm báo cáo (2026-10-14) thêm `lec06-s04-14` (thuật toán tìm cặp với họ nhạy cảm, 1,5 phút) ngay sau trang tiêu đề mạch 4; 1,5 phút lấy từ s04-01, s04-04, s04-06 (mỗi trang 2 → 1,5 phút); mạch 4 giữ 25,5 phút với 15 trang.
 
+**Cập nhật 2026-11-13 (sửa deck theo bảng phát hiện, `review-log.md` mục "Sửa deck theo bảng phát hiện 2026-11-13").** Bảng sau thay bảng trên cho deck hiện hành; bảng trên giữ làm lịch sử.
+
+| Mạch, loại và chức năng | Trang tiêu đề mạch; trang mở có hình | Tình huống, đầu vào → sản phẩm | Các bước và mã trang | Trang | Phút |
+|---|---|---|---|---:|---:|
+| 1. Bài toán tìm cặp tương đồng; giới thiệu | Bìa `lec06-s01-01` | Kho một triệu tài liệu (Ví dụ 06.1); chữ ký Bài 05 → bài toán tìm cặp (Định nghĩa 06.1), năm câu trả lời có điều kiện | s01-01, s01-06, s01-02, s01-07, s01-08, s01-03, s01-04, s01-05 | 8 | 10 |
+| 2. Phân dải chữ ký MinHash; thuật toán và chi phí | `lec06-s02-00`; s02-01 có hình | Bốn tập đặc trưng → $\mathcal C$, $P_{b,r}(s)$, $Q$, $K$ | giới hạn có số và ý tưởng s02-01; ví dụ s02-06; chạy tay s02-02–05; Đầu vào/Đầu ra s02-07; giả mã s02-08; tính đúng s02-09, s02-15; xác suất s02-10–12; chi phí s02-13, s02-16; câu hỏi s02-14 | 17 | 29 |
+| 3. Khoảng cách và họ nhạy cảm; khái niệm | `lec06-s03-00`; s03-01 có hình | Hai điểm, năm độ đo → họ $(d_1,d_2,p_1,p_2)$, AND, OR | s03-01–06; s03-07–08; s03-09–12; s03-13 | 14 | 27 |
+| 4. Các họ băm theo độ đo; thuật toán | `lec06-s04-00`; **s04-15** bài toán có hình (mới) | Véc-tơ bit, hướng, điểm → ba họ cơ sở, chữ ký dấu, chi phí chữ ký | bài toán s04-15; Hamming s04-01–02; góc s04-03, s04-05, chạy tay s04-04, **Thuật toán 06.33 s04-16** (mới), tính đúng và ví dụ s04-12; Euclid s04-06, s04-07, s04-08, s04-13, s04-09; chi phí s04-10; câu hỏi s04-11 | 16 | 26 |
+| 5. Ứng dụng tìm cặp tương đồng; vận dụng | `lec06-s05-00`; s05-01 có hình | Hai nguồn hồ sơ, mô hình vân tay, bản tin → đổi biểu diễn hoặc họ hàm | thực thể s05-01, **s05-09** (Ví dụ 06.17), **s05-10** (Tình huống 06.1); vân tay s05-02–04; bản tin s05-05, s05-07, **s05-11** (Tình huống 06.3); câu hỏi s05-06, s05-08 | 12 | 18 |
+| 6. Tổng kết và tự kiểm tra | `lec06-s06-00`; **s06-09** có hình (mới) | Toàn bài → khung bốn khối, hai bảng, trả lời có điều kiện, câu hỏi, nguồn | s06-09, s06-05, s06-02, s06-01, s06-03 (gộp s06-04), s06-08 | 7 | 10 |
+| 7. Bài tập vận dụng; recitation | `lec06-s07-00`; không trang hình (lý do ở phiếu s07-00) | Bảy bài MMDS → bảy cặp trang đề / "Lời giải:" | s07-01/11, s07-02/12, s07-03/13, s07-04/14, s07-05/15, s07-06/16, s07-07/17 | 15 | 60 |
+
+Tổng: 74 trang giảng, 120 phút (trung bình khoảng 1,62 phút mỗi trang); 15 trang bài tập, 60 phút; 89 trang. Thêm `lec06-s04-15`, `lec06-s04-16`, `lec06-s05-09`, `lec06-s05-10`, `lec06-s05-11`, `lec06-s06-09` và bảy trang "Lời giải:" `lec06-s07-11`…`17`; bỏ `lec06-s04-14`; gộp `lec06-s06-04` vào `lec06-s06-03`.
+
 ## Phân bổ thời gian khi phần giảng vượt 60 trang
 
 Phần giảng có 70 trang cho 120 phút (69 trang trước lượt sửa deck sau năm báo cáo), trung bình khoảng 1,71 phút mỗi trang. Mười tám trang tăng thêm, gồm trang `lec06-s04-14` thêm sau năm báo cáo và mười bảy trang gồm 6 trang tiêu đề mạch (2,5 phút giảng và 0,5 phút recitation), 4 trang mở đầu hoặc kết luận mới (s01-06, s01-08, s06-05, s06-08) và 7 trang tách (s01-07, s02-15, s02-16, s04-12, s04-13, s05-07, s05-08), phút của trang tách chia lại từ trang gốc. Không phần nào chuyển sang đọc thêm; không bỏ ví dụ hay chứng minh cốt lõi.
@@ -32,6 +46,19 @@ Phần giảng có 70 trang cho 120 phút (69 trang trước lượt sửa deck 
 | 6 | 4 → 7 | 8 → 11 | +3 cho bảng kết quả và trang nguồn |
 | 7 | 7 → 8 | 60 → 60 | 0,5 phút trang tiêu đề lấy từ Bài 3.4.1 |
 
+
+**Phân bổ thời gian sau sửa 2026-11-13.** Nội dung cốt lõi của ghi chú được thêm trang (Thuật toán 06.33, Ví dụ 06.17, Tình huống 06.1 và 06.3, trang bài toán mạch 4, trang mở mạch 6); phút bù bằng cách bỏ s04-14, gộp s06-04 và rút phút ở các trang có ghi chú diễn giả đã bỏ câu ngoài ghi chú.
+
+| Mạch | Trang trước → sau | Phút trước → sau | Bù trừ |
+|---|---|---|---|
+| 1 | 8 → 8 | 10 → 10 | 0 |
+| 2 | 17 → 17 | 30 → 29 | s02-12 2,5 → 2; s02-14 3 → 2,5 |
+| 3 | 14 → 14 | 28 → 27 | s03-07 3 → 2,5; s03-13 3 → 2,5 |
+| 4 | 15 → 16 | 25,5 → 26 | −s04-14 (1,5); +s04-15 (1,5); +s04-16 (2); s04-05, s04-09 2,5 → 2; s04-07 2 → 1,5 |
+| 5 | 9 → 12 | 15,5 → 18 | +s05-09 (1,5), +s05-10 (2), +s05-11 (1,5); s05-01, s05-03, s05-04 2,5 → 2; s05-02 2 → 1,5; s05-07 1,5 → 1 |
+| 6 | 7 → 7 | 11 → 10 | +s06-09 (1); −s06-04 (2) |
+| 7 | 8 → 15 | 60 → 60 | mỗi bài chia phút cũ cho trang đề và trang "Lời giải:" |
+
 ## Ngoại lệ mật độ và bố cục
 
 - `lec06-s01-07` (Nội dung): 8 dòng, vì trang phải liệt kê đủ bảy mạch và dòng Đọc trước; danh sách chia hai cột trong `agenda-slide` để vừa khung, không thu nhỏ chữ.
@@ -42,6 +69,8 @@ Phần giảng có 70 trang cho 120 phút (69 trang trước lượt sửa deck 
 - Lượt sửa deck sau năm báo cáo (2026-10-14), đếm bằng `density.py` của vai sinh viên (token có chữ hoặc chữ số, ô chỉ có số bị bỏ): trang trần 80 là `lec06-s01-02` (79), `lec06-s01-07` (56), `lec06-s02-13` (67), `lec06-s02-16` (41; 40 sau lượt sửa cuối), `lec06-s04-10` (76), `lec06-s06-05` (78), `lec06-s06-02` (74; 76 sau lượt sửa cuối), `lec06-s06-01` (73; 76 sau lượt sửa cuối), `lec06-s06-08` (65, trang nguồn, ngoại lệ mới: trang tổng kết liệt kê nguồn và móc nối Bài 07) và bảy trang đề recitation (29–77). Mọi trang trần 60 có ≤ 60 âm tiết, mọi dòng ≤ 20 âm tiết.
 - Trang có bảng dữ liệu (s02-02, s02-04, s02-05, s02-14, s03-06, s04-01, s04-04, s04-06, s07-02) đếm 7 dòng vì hàng tiêu đề và mỗi hàng bảng là một dòng; bảng chi phí và bảng so sánh (s02-13, s04-10, s06-05) theo trần 8 hàng. Bảng `lec06-s06-05` có đúng 8 hàng gồm hàng tiêu đề.
 - Trang đề recitation giữ một dòng ngắn "Nguồn: MMDS, Bài …, tr.…" (lớp `ex-note`) theo quyết định của điều phối viên; từ lượt sửa deck sau năm báo cáo, tên đầy đủ của sách và chữ viết tắt MMDS đã có ở trang Nội dung.
+
+- **Sửa 2026-11-13** (đếm bằng `check_deck.py` của điều phối viên: token có chữ, bỏ tiêu đề, KaTeX, `pre`, hình, ô chỉ có số; mục tiêu đếm lại bằng tay). Trang trần 80: `lec06-s01-02` (mục tiêu, 78; đếm tay 19 + 11 + 14 + 19 + 15), `lec06-s02-13` (bảng chi phí, 66), `lec06-s04-10` (bảng chi phí, 75; thêm hàng "So hai chữ ký"), `lec06-s06-05` (bảng kết quả, 80), `lec06-s06-02` (bảng thuật toán, 62), `lec06-s06-01` (tổng kết, 73; 70 sau kiểm lại), `lec06-s06-08` (trang nguồn, 61), `lec06-s07-07` (đề recitation, 75). Mọi trang khác ≤ 60: `lec06-s01-06` 60, `lec06-s02-01` 60, `lec06-s05-10` 60, `lec06-s05-09` 59, `lec06-s06-03` 57. Trang bảng 7–8 dòng: `lec06-s05-03` (7, thêm dòng "Tính"), `lec06-s04-10` (8), `lec06-s06-05` (8), `lec06-s07-11` (7), `lec06-s07-14` (8), `lec06-s07-15` (7). Ghi chú diễn giả trên 150 âm tiết: `lec06-s06-03` (186, lời giải bốn câu, trần ~250), `lec06-s02-09` (155, tính đúng, không đổi).
 
 ## Quy tắc thể hiện và giới hạn chung
 
@@ -69,6 +98,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-01` (mã cũ `N01`); số hiệu: mở chương. **Thời lượng:** 0,5 phút (trước 0.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: câu luận đề lên bìa và viết đầy đủ LSH; nguồn chuyển vào ghi chú diễn giả. Âm tiết mặt trang 32 → 49.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: viết đầy đủ "locality-sensitive hashing" và "(bucket)" trong câu luận đề (24 âm tiết, trần 25 của bìa); ghi chú bỏ mẫu dấu hai chấm báo kịch tính. Âm tiết mặt trang 51 → 51.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả bỏ câu lấy "Bài này" làm chủ ngữ (F20). Âm tiết mặt trang 49 → 49.
 
 #### lec06-s01-06 — Tiên quyết và quy ước
 
@@ -84,6 +114,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: mạch mở đầu bắt buộc có trang Nhắc lại/Ký hiệu. Âm tiết mặt trang — → 58.
 - **Ánh xạ ghi chú:** `lec-06-topic-18`; số hiệu: Kiến thức tiên quyết; Nhận xét 06.2. **Thời lượng:** 1,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (sinh viên): bỏ $V$ chưa định nghĩa, viết "$\mathrm{SIG}$ cỡ $n\times C$". Âm tiết mặt trang 58 → 59.
+- **Sửa 2026-11-13:** quyết định `sửa`: F10, thêm dòng "Nhắc lại:" biến cố bù, độc lập, chặn hợp, tuyến tính kỳ vọng, Cauchy–Schwarz (ghi chú, Kiến thức tiên quyết); gộp hai dòng "Ký hiệu:" và tách dòng "Quy ước:" để giữ ≤ 6 dòng, ≤ 60 âm tiết; ghi chú diễn giả dẫn Định lý 05.10, Mệnh đề 05.12, nêu bất đẳng thức Jensen, bỏ câu chỉ đường tới ghi chú Bài 05 (F20). Âm tiết mặt trang 59 → 60.
 
 #### lec06-s01-02 — Mục tiêu học tập
 
@@ -99,6 +130,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-01` (mã cũ `N01`); số hiệu: Mục tiêu học tập. **Thời lượng:** 1 phút (trước 1 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: trang gộp mục lục và mục tiêu 89 âm tiết vượt trần 80; tách thành Mục tiêu và Nội dung. Âm tiết mặt trang 89 → 76. Tiêu đề cũ: “Nội dung và mục tiêu”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B2, B6, B11: mục tiêu viết bằng lời thay $P_{b,r}(s)$ và $(d_1,d_2,p_1,p_2)$; "dải (band)"; ghi chú nêu thao tác mỗi mục tiêu đòi, bỏ bảng ánh xạ điều phối. Âm tiết mặt trang 76 → 79.
+- **Sửa 2026-11-13:** quyết định `sửa`: F4, năm mục tiêu viết lại theo ghi chú (note:11–15): phân biệt ứng viên giả/cặp bỏ sót và chứng minh đầu ra đúng; đếm công việc phát cặp, xác minh; năm độ đo; chi phí chữ ký; đối sánh thực thể, vân tay, bản tin. Đếm tay (token có chữ, bỏ KaTeX): 19 + 11 + 14 + 19 + 15 = 78 ≤ 80; mỗi dòng ≤ 20. Âm tiết mặt trang 79 → 78.
 
 #### lec06-s01-07 — Nội dung
 
@@ -115,6 +147,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-01`; số hiệu: —. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: viết đầy đủ tác giả, tên sách và "MMDS, ấn bản 3"; ghi chú bỏ nhãn "Mạch N", nêu mạch 4 và 5 là hai nhánh song song. Âm tiết mặt trang 47 → 56.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch): ghi chú nêu đúng phạm vi song song, phần ứng dụng dùng lại thuật toán tổng quát. Âm tiết mặt trang 56 → 56.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả bỏ "thuật toán tìm cặp với họ nhạy cảm" (F2, trang s04-14 bị bỏ); mạch 4 mô tả theo Mục 4 của ghi chú. Âm tiết mặt trang 53 → 53.
 
 #### lec06-s01-08 — Vấn đề trung tâm
 
@@ -131,6 +164,8 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-01`; số hiệu: Hệ quả 06.8 (dòng 2). **Thời lượng:** 1,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A1, B1: năm dòng viết bằng lời, không ký hiệu chưa định nghĩa; dòng AND/OR nêu đúng cơ chế AND rồi OR với hàm độc lập; dòng cuối là giới hạn chung; bỏ số $5\cdot10^{11}$ trước khi được tính; danh sách không đánh số theo mạch; ghi chú bỏ câu chỉ đường. Âm tiết mặt trang 59 → 59.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ (rà lại mạch): dòng cuối thành kết luận có điều kiện "Chưa giả thiết phân bố tương đồng: xấu nhất xét mọi cặp"; rút dòng 1–2 để giữ trần 60. Âm tiết mặt trang 59 → 60.
+- **Sửa 2026-11-13:** quyết định `sửa`: F14, mỗi dòng là câu trả lời có điều kiện kèm số của ghi chú (Ví dụ 06.4, 06.12; ba họ; Nhận xét 06.40; Mục 2.5); ghi chú diễn giả bỏ câu chỉ đường "Dòng đầu… Dòng thứ hai…" (F20) và đưa trường hợp xấu nhất $K=\binom C2$ vào ghi chú. Âm tiết mặt trang 60 → 59.
+- **Sửa sau kiểm lại 2026-11-13:** mục 7, 9: dòng ba họ thêm "($D=2$)" cho Euclid; ghi chú diễn giả thay "Dòng cuối" bằng tên kết quả ($\mathbb E[K]\le N+10^8$). Âm tiết mặt trang 59 → 59.
 
 #### lec06-s01-03 — Ví dụ: kho một triệu tài liệu
 
@@ -147,6 +182,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: đổi sang khuôn trang ví dụ (dữ kiện, yêu cầu, bước, Kết luận); bỏ dòng nguồn. Âm tiết mặt trang 46 → 51. Tiêu đề cũ: “Chi phí so sánh mọi cặp chữ ký”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ: thêm bước $499\,999{,}5$ giây; kết luận nêu chữ ký $10^9$ byte; ghi chú bỏ "bản soạn", mở bằng việc tính số của vấn đề trung tâm. Âm tiết mặt trang 52 → 52.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ (rà lại toán): đơn vị $1\,\mu\mathrm{s}$. Âm tiết mặt trang 52 → 52.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, câu "giả định minh họa, không phải số đo" thay bằng "Giả định mỗi lần so một cặp chữ ký mất $1\,\mu$s" (note:80); dẫn Ví dụ 06.1. Âm tiết mặt trang 51 → 51.
 
 #### lec06-s01-04 — Bài toán tìm cặp tương đồng
 
@@ -162,6 +198,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-01` (mã cũ `N01`); số hiệu: Định nghĩa 06.1. **Thời lượng:** 2 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: nhãn Đầu vào/Đầu ra in đậm; câu luận đề đã lên bìa nên câu cuối đổi thành Lưu ý. Âm tiết mặt trang 40 → 28.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: "cặp bỏ sót (false negative)" trong dòng Lưu ý. Âm tiết mặt trang 28 → 35.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả "(Định nghĩa 06.1)" thay "(Định nghĩa 06.1 của ghi chú)" (G4). Âm tiết mặt trang 35 → 35.
 
 #### lec06-s01-05 — Câu hỏi về bài toán tìm cặp
 
@@ -177,6 +214,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-01` (mã cũ `N01`); số hiệu: Bài tập 06.1; Nhận xét 06.2. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tách câu dài; câu 2 cũ (bộ tạo trả $10^6$ cặp) chuyển sang trang trả lời vấn đề trung tâm làm con số thu hồi. Âm tiết mặt trang 80 → 42. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: trung bình (sư phạm), nhẹ (sinh viên): thêm "Nhắc lại:" bốn tập và chữ ký trước khi dùng; gộp thành hai câu hỏi có nhiệm vụ. Âm tiết mặt trang 42 → 43.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, bỏ "số liệu câu 1–2 là dữ kiện luyện tập"; dẫn Bài tập 06.1(b, c). Âm tiết mặt trang 43 → 43.
 
 ### Mạch 2. Phân dải chữ ký MinHash
 
@@ -194,6 +232,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: trang tiêu đề mạch bắt buộc. Âm tiết mặt trang — → 32 (dòng dẫn ≤ 25 âm tiết theo quy tắc trang tiêu đề mạch).
 - **Ánh xạ ghi chú:** `lec-06-topic-02`. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: ghi chú bỏ "Mạch này", "giao cho mạch sau". Âm tiết mặt trang 32 → 32.
+- **Sửa 2026-11-13:** quyết định `sửa`: F20, F23: bỏ câu "Phần này chứng minh…"; ghi chú 102 → 84 âm tiết, nêu đầu ra của mạch. Âm tiết mặt trang 32 → 32.
 
 #### lec06-s02-01 — Dải, khóa dải và cặp ứng viên
 
@@ -209,6 +248,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Định nghĩa 06.3. **Thời lượng:** 1 phút (trước 1 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng Nhu cầu; bỏ chuỗi mũi tên; tách ex-note sang ghi chú; định nghĩa cặp ứng viên bằng "gọi là". Âm tiết mặt trang 84 → 59. Tiêu đề cũ: “Ý tưởng phân dải chữ ký”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B12, B11: thêm dòng ví dụ dẫn nhập (cột 2 và 4 cùng $(0,2,1)$), đổi "Ý nghĩa" thành "Trực quan." đặt trước định nghĩa; "cặp ứng viên (candidate pair)". Âm tiết mặt trang 59 → 59.
+- **Sửa 2026-11-13:** quyết định `sửa`: F17, "Nhu cầu:" có số ($10^9$ byte, $499\,999\,500\,000$ cặp); thêm dòng "Băm một hàng: cặp $s=0{,}3$ chung thùng với xác suất $0{,}3$" (note:166) và "Trực quan." theo khuôn "Tương tự … nhưng …"; dòng "Ví dụ." cột 2 và 4 chuyển sang s02-06 (đã có) để giữ 6 dòng; ghi chú diễn giả bỏ câu "So hai tuple rẻ hơn…" và câu AND/OR (đã ở s03-12). Âm tiết mặt trang 57 → 60.
 
 #### lec06-s02-06 — Ví dụ: năm cột, dải ba hàng
 
@@ -224,6 +264,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Ví dụ 06.2. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: khuôn trang ví dụ; còn một câu Kết luận; ex-note chuyển sang ghi chú. Âm tiết mặt trang 67 → 43. Tiêu đề cũ: “Ví dụ trùng dải với ba hàng”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (sư phạm): một câu kết luận, dùng cặp 2–5 trùng hai hàng làm phản ví dụ. Âm tiết mặt trang 55 → 48.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả dẫn Ví dụ 06.2, bỏ câu "Sách giả định có rất nhiều thùng" (ngoài ghi chú), thay bằng phép so khóa đầy đủ của Mệnh đề 06.5. Âm tiết mặt trang 36 → 36.
 
 #### lec06-s02-02 — Ví dụ: bốn tập đặc trưng
 
@@ -239,6 +280,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Ví dụ 06.3. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: ví dụ xuyên suốt gọi bằng tên; thêm yêu cầu; nguồn sang ghi chú. Âm tiết mặt trang 32 → 22. Tiêu đề cũ: “Phân dải chữ ký của bốn tập”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (mạch): ghi chú nêu lý do $r=1$ và nơi kiểm điều kiện cả tuple. Âm tiết mặt trang 22 → 22.
+- **Sửa 2026-11-13:** quyết định `sửa`: F11, dòng khóa viết $k_{j,c}=(j,z_{j,c})$ với $z_{j,c}$ là tuple (bảng ký hiệu của ghi chú); ghi chú diễn giả bỏ câu chỉ đường "được kiểm ở câu hỏi cuối phần", "được dùng lại" (F20), dẫn Ví dụ 06.3, 05.12, Bài tập 06.2(b). Âm tiết mặt trang 22 → 20.
 
 #### lec06-s02-03 — Ví dụ: bốn tập đặc trưng, thùng của dải 1
 
@@ -254,6 +296,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Ví dụ 06.3. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: gộp hai bảng thành một bảng bốn hàng để không quá sáu dòng. Âm tiết mặt trang 38 → 29. Tiêu đề cũ: “Thùng của dải 1”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B18: bảng cùng khuôn "Khóa dải | Tài liệu | Cặp phát" với s02-04. Âm tiết mặt trang 33 → 37.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 30 → 30.
 
 #### lec06-s02-04 — Ví dụ: bốn tập đặc trưng, hợp qua hai dải
 
@@ -269,6 +312,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Ví dụ 06.3. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: bỏ lưới hai cột; định nghĩa $Q$, $K$ bằng "là". Âm tiết mặt trang 39 → 34. Tiêu đề cũ: “Hợp các cặp qua hai dải”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B18: cột "Mã" đổi thành "Tài liệu". Âm tiết mặt trang 36 → 37.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 35 → 35.
 
 #### lec06-s02-05 — Ví dụ: bốn tập đặc trưng, xác minh
 
@@ -284,6 +328,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Ví dụ 06.3. **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: định nghĩa ứng viên giả trên trang; ex-note "không khôi phục cặp chưa sinh" chuyển sang s02-15. Âm tiết mặt trang 53 → 38. Tiêu đề cũ: “Xác minh bằng Jaccard gốc”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: "ứng viên giả (false positive)". Âm tiết mặt trang 38 → 40.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 40 → 40.
 
 #### lec06-s02-07 — Thuật toán: phân dải và xác minh
 
@@ -299,6 +344,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Định nghĩa 06.3; Thuật toán 06.4. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Thuật toán:, nhãn Đầu vào/Đầu ra in đậm. Âm tiết mặt trang 18 → 15. Tiêu đề cũ: “Đặc tả phân dải và xác minh”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (toán, sinh viên): Đầu vào ghi tập "hữu hạn, không rỗng"; bỏ $V$; ghi chú giải thích ký hiệu cắt lát. Âm tiết mặt trang 13 → 18.
+- **Sửa 2026-11-13:** quyết định `sửa`: F11, ô "Khóa dải" theo Định nghĩa 06.3: $z_{j,c}=(\mathrm{SIG}_{(j-1)r+1,c},\ldots,\mathrm{SIG}_{jr,c})$, $k_{j,c}=(j,z_{j,c})$; ghi chú diễn giả bỏ "phân tích ở các trang xác suất" (F20), dẫn Hệ quả 06.8. Âm tiết mặt trang 18 → 18.
 
 #### lec06-s02-08 — Thuật toán: phân dải và xác minh
 
@@ -314,6 +360,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Thuật toán 06.4. **Thời lượng:** 3 phút (trước 3.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: đổi tiêu đề; ghi chú diễn giả thành đoạn đọc giả mã. Âm tiết mặt trang 17 → 13. Tiêu đề cũ: “Thuật toán phân dải và xác minh”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: kiểm trình duyệt: thẻ trạng thái tách "$b=2$, $r=1$" khỏi tiêu đề để công thức không ngắt dòng. Âm tiết mặt trang 12 → 12.
+- **Sửa 2026-11-13:** quyết định `sửa`: F21, câu "bỏ bước 6 … bước 7 tùy chọn" thay bằng Nhận xét 06.6: luôn kiểm Jaccard gốc; lọc theo $\widehat s$ có thể thêm cặp bỏ sót khi $\widehat s<t\le s$. Âm tiết mặt trang 11 → 11.
 
 #### lec06-s02-09 — Tính đúng: phân dải và xác minh
 
@@ -329,6 +376,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-02` (mã cũ `N02`); số hiệu: Mệnh đề 06.5. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: 103 âm tiết, vượt 1,5 lần trần; giữ mệnh đề, bất biến và bảng khởi tạo–duy trì–kết thúc. Âm tiết mặt trang 103 → 59. Tiêu đề cũ: “Tính đúng của phân dải”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B13: bất biến hai chiều "danh sách khóa $(j,z)$ bằng tập cột đã chèn có tuple $z$"; bảng dùng "cột" thay "mã". Âm tiết mặt trang 59 → 60.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 60 → 60.
 
 #### lec06-s02-15 — Tính đúng: phân dải và xác minh
 
@@ -344,6 +392,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: phần thứ hai tách từ s02-09: phát cặp, xác minh, dừng, biên, lưu ý. Âm tiết mặt trang — → 59.
 - **Ánh xạ ghi chú:** `lec-06-topic-02`; số hiệu: Mệnh đề 06.5; Nhận xét 06.6. **Thời lượng:** 1 phút.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ: "mã tài liệu" trong ghi chú. Âm tiết mặt trang 60 → 60.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả "định lý kế tiếp" thay bằng "$1-P_{b,r}(s)$ của Định lý 06.7" (F20). Âm tiết mặt trang 59 → 59.
 
 #### lec06-s02-10 — Xác suất trùng một dải
 
@@ -359,6 +408,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-03` (mã cũ `N03`); số hiệu: Ví dụ 06.4. **Thời lượng:** 2 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: Nhu cầu và Giả thiết thành dòng có nhãn; bỏ hai thẻ, số đưa vào dòng Ví dụ. Âm tiết mặt trang 57 → 49.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (sư phạm): dòng ví dụ số đặt trước công thức $s^r$. Âm tiết mặt trang 49 → 52.
+- **Sửa 2026-11-13:** quyết định `sửa`: F22, ghi chú diễn giả viết khẳng định: "Xác suất lấy theo cách chọn hoán vị; cặp được cố định trước", bỏ hai câu "không thuộc … / không là …". Âm tiết mặt trang 52 → 52.
 
 #### lec06-s02-11 — Xác suất thành ứng viên
 
@@ -373,6 +423,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Nguồn:** B §3.4.2 tr.93–95; M PDF 54; S3 PDF 49.
 - **Ánh xạ ghi chú:** `lec-06-topic-03` (mã cũ `N03`); số hiệu: Định lý 06.7; Hệ quả 06.8. **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: khuôn trang kết quả: Định lý, Chứng minh một dòng, Ý nghĩa có số. Âm tiết mặt trang 43 → 46.
+- **Sửa 2026-11-13:** quyết định `sửa`: F13, định lý nêu đủ giả thiết "$n=br$ MinHash lý tưởng (hoán vị chọn đều) được chọn độc lập"; F12, "(Định lý 06.7)" đứng sau phát biểu, bỏ khỏi dòng "Ví dụ."; F18, ghi chú diễn giả "khoảng 1 trên 2 800" (note:380), dẫn Hệ quả 06.8. Âm tiết mặt trang 46 → 50.
 
 #### lec06-s02-12 — Đường cong S và chọn số dải
 
@@ -388,6 +439,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-03` (mã cũ `N03`); số hiệu: Ví dụ 06.5; Mệnh đề 06.9; Nhận xét 06.10. **Thời lượng:** 2,5 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `giữ`: chỉ đổi câu cuối thành Kết luận và bỏ dòng nguồn. Âm tiết mặt trang 35 → 31.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B6, B7, B11, B20: "nghiệm một nửa $s_{1/2}$", "(S-curve)"; ghi chú: chữ S cần $b\ge2$ và $r\ge2$, bỏ câu biên soạn về dấu chấm thập phân của hình (ngoại lệ hình giữ như cũ). Âm tiết mặt trang 32 → 37.
+- **Sửa 2026-11-13:** quyết định `sửa`: F5, kết luận "chọn $b,r$ với $(1/b)^{1/r}\approx t$; đặt thấp hơn $t$ để ít bỏ sót, cao hơn $t$ để ít ứng viên giả" (Nhận xét 06.10); F22, ghi chú diễn giả tách ba vai trò $t$, $s_{1/2}$, $(1/b)^{1/r}$ và câu "$P_{b,r}(s)$ là xác suất của một cặp…". Âm tiết mặt trang 37 → 37. **Thời lượng:** 2 phút (trước 2,5).
 
 #### lec06-s02-13 — Chi phí: phân dải và xác minh
 
@@ -403,6 +455,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-04` (mã cũ `N04`); số hiệu: Mệnh đề 06.11. **Thời lượng:** 2,5 phút (trước 3.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: 90 âm tiết; bảng đổi về cột Bước, Số lần, Chi phí mỗi lần, Đóng góp; bộ nhớ và xấu nhất sang s02-16. Âm tiết mặt trang 90 → 53. Tiêu đề cũ: “Chi phí phân dải và xác minh”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A5, B12, B18: mô hình ghi tập gốc đã sắp xếp trong bộ nhớ chính; cột đóng góp ghi biểu thức đếm trước ký hiệu tiệm cận; "mã tài liệu"; ghi chú: trường hợp đĩa ($2K$ lần đọc ngẫu nhiên) và bước 6 của §3.4.3. Âm tiết mặt trang 54 → 67.
+- **Sửa 2026-11-13:** quyết định `sửa`: F21, ghi chú diễn giả bỏ "$2K$ lần đọc ngẫu nhiên" và "bước 6" (ngoài ghi chú), thêm nhầm lẫn $Q$/$K$ (note:337) và ba số của Ví dụ 06.6; ghi chú 152 → 135. Âm tiết mặt trang 66 → 66.
 
 #### lec06-s02-16 — Chi phí: bộ nhớ và trường hợp xấu nhất
 
@@ -419,6 +472,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-04`; số hiệu: Ví dụ 06.6; Nhận xét 06.12; Mệnh đề 06.13. **Thời lượng:** 1,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A5, B18: bộ nhớ phụ ghi "ngoài SIG và tập gốc". Âm tiết mặt trang 38 → 41.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch): công thức $\mathbb E[K]$, $\mathbb E[Q]$ (Mệnh đề 06.13) lên mặt trang thay dòng bộ số bốn tập, bộ số chuyển vào ghi chú. Âm tiết mặt trang 41 → 40.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả dẫn Nhận xét 06.12, dòng nguồn dẫn Mệnh đề 06.11, 06.13. Âm tiết mặt trang 39 → 39.
 
 #### lec06-s02-14 — Câu hỏi về phân dải
 
@@ -433,6 +487,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Nguồn:** B Ex 3.8/ §3.4; câu kiểm tra áp dụng nguyên dữ kiện nguồn, tham số đã duyệt.
 - **Ánh xạ ghi chú:** `lec-06-topic-02, lec-06-topic-03` (mã cũ `N02,N03,N04`); số hiệu: Bài tập 06.2, 06.3. **Thời lượng:** 3 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: câu 3 viết "Giải thích vì sao"; tập và bảng gộp để không quá sáu dòng. Âm tiết mặt trang 42 → 32. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả dẫn "Bài tập 06.2(b), 06.3(b, c)" thay "Ghi chú bài giảng: …" (G4). Âm tiết mặt trang 32 → 32. **Thời lượng:** 2,5 phút (trước 3).
 
 ### Mạch 3. Khoảng cách và họ nhạy cảm
 
@@ -450,6 +505,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: trang tiêu đề mạch bắt buộc. Âm tiết mặt trang — → 38 (dòng dẫn ≤ 25 âm tiết theo quy tắc trang tiêu đề mạch).
 - **Ánh xạ ghi chú:** `lec-06-topic-05`. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (mạch, sư phạm): dòng dẫn nêu cả độ đo, họ băm và phép ghép; từ khóa "Bốn độ đo"; ghi chú bỏ nhãn quy trình. Âm tiết mặt trang 38 → 36.
+- **Sửa 2026-11-13:** quyết định `sửa`: F11, từ khóa "Năm độ đo" (note:13); ghi chú diễn giả bỏ "Phần này định nghĩa…" (F20), thêm "véc-tơ (vector)" ở lần dùng đầu (G13). Âm tiết mặt trang 36 → 36.
 
 #### lec06-s03-01 — Độ đo khoảng cách
 
@@ -465,8 +521,9 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-05` (mã cũ `N05`); số hiệu: Ví dụ 06.7. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng Nhu cầu; tách câu dài; Kết luận một câu. Âm tiết mặt trang 55 → 32. Tiêu đề cũ: “Khoảng cách giữa hai điểm”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (sư phạm): ví dụ viết "tổng độ lệch", "độ dài đoạn thẳng", "độ lệch lớn nhất" thay $L_1,L_2,L_\infty$ chưa định nghĩa. Âm tiết mặt trang 34 → 45.
+- **Sửa 2026-11-13:** quyết định `sửa`: F22, ghi chú diễn giả: "Ba giá trị là ba cách đo khác nhau" thay câu tương phản; dẫn Ví dụ 06.7; G13. Âm tiết mặt trang 45 → 45.
 
-#### lec06-s03-02 — Độ đo khoảng cách và chuẩn vector
+#### lec06-s03-02 — Độ đo khoảng cách và chuẩn véc-tơ
 
 - **Mục đích và vai trò:** Nêu miền và bốn tiên đề trước khi dùng độ đo.
 - **Thông điệp:** Độ đo mô tả gần–xa bằng một hàm có điều kiện xác định.
@@ -480,6 +537,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-05` (mã cũ `N05`); số hiệu: Định nghĩa 06.14. **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: định nghĩa bằng "là", bốn dòng tiên đề gộp còn hai; một khối công thức. Âm tiết mặt trang 24 → 25.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: "Ý nghĩa" đổi thành "Nhận xét."; "$L_2$ (Euclid)". Âm tiết mặt trang 25 → 26.
+- **Sửa 2026-11-13:** quyết định `sửa`: F11, "Độ đo khoảng cách (metric)" theo Định nghĩa 06.14; G13, tiêu đề "chuẩn véc-tơ", dòng chuẩn ghi "véc-tơ (vector)" ở lần dùng đầu trên mặt trang. Âm tiết mặt trang 26 → 32.
 
 #### lec06-s03-03 — Khoảng cách Jaccard
 
@@ -495,6 +553,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-05` (mã cũ `N05`); số hiệu: Mệnh đề 06.15. **Thời lượng:** 2 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: định nghĩa bằng "là"; Chứng minh một dòng; đổi tên tập thứ ba thành $W$ để không trùng $C$. Âm tiết mặt trang 39 → 33.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B14: thêm "Mệnh đề. $d_J$ là khoảng cách…" trước chứng minh. Âm tiết mặt trang 34 → 46.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 45 → 45.
 
 #### lec06-s03-04 — Khoảng cách góc
 
@@ -510,6 +569,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-05` (mã cũ `N05`); số hiệu: Định nghĩa 06.16; Ví dụ 06.8; Nhận xét 06.17. **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: bốn khối công thức thành bảng hai hàng; Lưu ý thay ex-note. Âm tiết mặt trang 41 → 27.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B9, B11: định nghĩa ghi "trên các hướng (vector đơn vị)"; "độ tương đồng cosin (cosine similarity)"; công thức bọc ngoặc để không ngắt dòng. Âm tiết mặt trang 27 → 38.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13 "véc-tơ đơn vị" trên mặt trang và trong ghi chú diễn giả. Âm tiết mặt trang 38 → 38.
 
 #### lec06-s03-05 — Khoảng cách chỉnh sửa
 
@@ -525,6 +585,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-05` (mã cũ `N05`); số hiệu: Ví dụ 06.9; Định nghĩa 06.18; Mệnh đề 06.19. **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: bảng ba thao tác thay bằng một dòng vết; định nghĩa bằng "là". Âm tiết mặt trang 66 → 40. Tiêu đề cũ: “Khoảng cách chỉnh sửa chuỗi”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11, nhẹ: "(edit distance)", "(longest common subsequence)"; công thức $|x|+|y|-2L$ thành dòng "Mệnh đề."; ghi chú phân biệt Levenshtein. Âm tiết mặt trang 40 → 58.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả: câu "Đây là lập luận giá trị tối ưu, không cung cấp…" viết khẳng định (F22). Âm tiết mặt trang 57 → 57.
 
 #### lec06-s03-06 — Khoảng cách Hamming
 
@@ -539,6 +600,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Nguồn:** B §3.5.6/Ex 3.17 tr.101/PDF 30.
 - **Ánh xạ ghi chú:** `lec-06-topic-05` (mã cũ `N05`); số hiệu: Ví dụ 06.10; Định nghĩa 06.20; Nhận xét 06.21. **Thời lượng:** 1,5 phút (trước 1.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `giữ`: thêm câu định nghĩa bằng "là" và dòng Ký hiệu; bỏ câu kết luận thừa. Âm tiết mặt trang 32 → 31.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13; ghi chú diễn giả "chưa giải bài toán tìm cặp" viết khẳng định. Âm tiết mặt trang 31 → 31.
 
 #### lec06-s03-07 — Họ băm nhạy cảm theo tính cục bộ
 
@@ -554,6 +616,8 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-06` (mã cũ `N06`); số hiệu: Định nghĩa 06.22. **Thời lượng:** 3 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: Nhu cầu và Định nghĩa có nhãn; giữ điều kiện trên mặt trang. Âm tiết mặt trang 53 → 40.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B12, B15, B11: Nhu cầu có số của MinHash trước định nghĩa; hai công thức hiển thị hết chiều ngang, hình chuyển xuống; "(locality-sensitive family)". Âm tiết mặt trang 41 → 52.
+- **Sửa 2026-11-13:** quyết định `sửa`: F9, `mien-gan-xa.svg` vẽ lại (viewBox 730×300, ba ô chữ ba–bốn dòng), nhãn nhỏ nhất 19,5 px khi chiếu 1280×720 (trước 14,7 px); F22, ghi chú diễn giả "Định nghĩa đòi hai cận; họ MinHash cho thêm đẳng thức…" (Nhận xét 06.24). Âm tiết mặt trang 51 → 51. **Thời lượng:** 2,5 phút (trước 3).
+- **Sửa sau kiểm lại 2026-11-13:** mục 2: `mien-gan-xa.svg` bỏ dòng "Pr[h(x)=h(y)]" ở ô giữa, ô giữa chỉ còn "Giữa", "d₁ < d < d₂", "không có cận chung" (note:871, 873); nhãn nhỏ nhất vẫn 19,5 px; trình xem ghi chú 06 hiển thị đúng. Âm tiết mặt trang 51 → 51.
 
 #### lec06-s03-08 — Ví dụ: họ MinHash theo Jaccard
 
@@ -568,6 +632,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Nguồn:** B §3.6.2/Ex 3.18 tr.104–105/PDF 33–34.
 - **Ánh xạ ghi chú:** `lec-06-topic-06` (mã cũ `N06`); số hiệu: Hệ quả 06.23; Ví dụ 06.11. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Ví dụ:; hai thẻ chứa câu thành hai dòng. Âm tiết mặt trang 36 → 35. Tiêu đề cũ: “Họ MinHash theo Jaccard”.
+- **Sửa 2026-11-13:** quyết định `sửa`: F16, thêm dòng "Tính bộ tham số với $d_1=0{,}3$, $d_2=0{,}6$."; ghi chú diễn giả dẫn Ví dụ 06.11, Nhận xét 06.24. Âm tiết mặt trang 35 → 40.
 
 #### lec06-s03-09 — Phép ghép đồng thời
 
@@ -583,6 +648,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-07` (mã cũ `N07`); số hiệu: Định nghĩa 06.25; Mệnh đề 06.26. **Thời lượng:** 2,5 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tách câu dài; bảng nhỏ thành dòng Ví dụ. Âm tiết mặt trang 73 → 45.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A1, B5, B12: Nhu cầu "cần hạ $p_2$ về gần 0"; dòng ví dụ nêu họ $(0{,}2;\ 0{,}6;\ 0{,}8;\ 0{,}4)$ của Ví dụ 3.19 và đứng trước công thức; ghi chú nêu AND tăng tỷ số, không tăng hiệu. Âm tiết mặt trang 45 → 53.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 52 → 52.
 
 #### lec06-s03-10 — Phép ghép ít nhất một
 
@@ -599,6 +665,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tách câu dài; bảng nhỏ thành dòng Ví dụ. Âm tiết mặt trang 73 → 53.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B12: Nhu cầu có số, ví dụ trước định nghĩa; ghi chú: từng phép ghép riêng không tăng độ chênh; số hiệu 06.25 → 06.26. Âm tiết mặt trang 54 → 57.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ: dấu câu trong ghi chú. Âm tiết mặt trang 57 → 57.
+- **Sửa 2026-11-13:** quyết định `sửa`: F21, bỏ câu "OR thường đặt sau AND" (ngoài ghi chú). Âm tiết mặt trang 55 → 55.
 
 #### lec06-s03-11 — Ví dụ: hai thứ tự ghép trên 16 phép thử
 
@@ -614,6 +681,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-07` (mã cũ `N07`); số hiệu: Ví dụ 06.12. **Thời lượng:** 2,5 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Ví dụ:; Lưu ý đứng trước Kết luận. Âm tiết mặt trang 71 → 52. Tiêu đề cũ: “So sánh hai thứ tự ghép”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: dòng dữ kiện thêm nhiệm vụ "tính cận theo hai thứ tự ghép". Âm tiết mặt trang 57 → 60.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 55 → 55.
 
 #### lec06-s03-12 — Phân dải như phép ghép AND rồi OR
 
@@ -629,6 +697,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-07` (mã cũ `N07`); số hiệu: Nhận xét 06.27. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: bỏ chuỗi mũi tên; ex-note thành dòng thường. Âm tiết mặt trang 46 → 33. Tiêu đề cũ: “Thực hiện AND rồi OR bằng phân dải”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: số hiệu Nhận xét 06.26 → 06.27. Âm tiết mặt trang 34 → 34.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 33 → 33.
 
 #### lec06-s03-13 — Câu hỏi về độ đo và phép ghép
 
@@ -644,6 +713,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-05, lec-06-topic-07` (mã cũ `N05,N06,N07`); số hiệu: Bài tập 06.5, 06.7. **Thời lượng:** 3 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `giữ`: chỉ bỏ dòng nguồn. Âm tiết mặt trang 48 → 36. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B17: câu 1 (21 âm tiết) tách thành hai câu. Âm tiết mặt trang 38 → 39.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, bỏ "số liệu là dữ kiện luyện tập"; dẫn Bài tập 06.5(c, d), 06.7. Âm tiết mặt trang 37 → 37. **Thời lượng:** 2,5 phút (trước 3).
 
 ### Mạch 4. Các họ băm theo độ đo
 
@@ -662,8 +732,10 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-08`. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B4, C: từ khóa thêm "Thuật toán chung", rút còn bốn cụm; ghi chú nêu mạch 4 và 5 là hai nhánh song song, bỏ "giao cho mạch sau". Âm tiết mặt trang 40 → 32.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch): ghi chú sửa phạm vi "song song". Âm tiết mặt trang 32 → 32.
+- **Sửa 2026-11-13:** quyết định `sửa`: F2, từ khóa "Chọn tọa độ · Siêu phẳng · Chữ ký dấu · Chiếu có dịch · Chi phí chữ ký" (bỏ "Thuật toán chung"); ghi chú diễn giả nêu thuật toán phân dải kế thừa, họ còn thiếu, bỏ câu chỉ đường; ghi chú 99 → 77. Âm tiết mặt trang 32 → 36.
+- **Sửa sau kiểm lại 2026-11-13:** mục 9: ghi chú diễn giả bỏ câu chỉ đường "Ba họ cùng giả thiết của chúng đi vào bảng tổng kết." Âm tiết mặt trang 36 → 36.
 
-#### lec06-s04-14 — Thuật toán: tìm cặp với họ nhạy cảm
+#### lec06-s04-14 — Thuật toán: tìm cặp với họ nhạy cảm (đã bỏ 2026-11-13)
 
 - **Mạch và mục đích:** Mạch 4, thuật toán. Phát biểu thuật toán tìm cặp với một họ $(d_1,d_2,p_1,p_2)$-nhạy cảm bất kỳ, để ba họ cơ sở của mạch có chỗ dùng chung và Bài 07 có chế độ truy vấn để dẫn lại.
 - **Thao tác của sinh viên:** Đọc Đầu vào, Đầu ra; so giả mã với giả mã phân dải s02-08 và chỉ ra hai dòng khác (tạo khóa, xác minh); đọc bảo đảm theo cặp.
@@ -677,6 +749,22 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `thêm` theo A4 của điều phối viên (phát hiện nghiêm trọng của vai chuyên gia: mạch 4 thiếu trang đặc tả và giả mã cho thuật toán tổng quát). Âm tiết mặt trang — → 39; giả mã 7 dòng; mạch 4 thành 15 trang, trang Nội dung không đổi.
 - **Ánh xạ ghi chú:** `lec-06-topic-07`; ghi chú không có khối riêng, gần nhất là Thuật toán 06.4 và Mệnh đề 06.26. **Thời lượng:** 1,5 phút (lấy từ s04-01, s04-04, s04-06).
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ: ghi chú giải thích chỉ số $e$. Âm tiết mặt trang 39 → 39.
+- **Sửa 2026-11-13:** quyết định `bỏ`: F2 và D06, ghi chú không có thuật toán "tìm cặp với họ nhạy cảm" (note:1006, 1395; storyboard cũ ghi "ghi chú không có khối riêng"), trang mở mạch 4 bằng tên và giả mã, dùng chỉ số $e$ ngoài bảng ký hiệu. Chức năng của trang (khóa $(j,g_j(x))$, $br$ hàm độc lập dùng chung, bảo đảm qua Mệnh đề 06.26) chuyển vào ghi chú diễn giả của trang bài toán mới `lec06-s04-15`. 1,5 phút chuyển cho s04-15. Âm tiết mặt trang 39 → —.
+
+#### lec06-s04-15 — Véc-tơ bit, hướng và điểm
+
+- **Mạch và vị trí:** mạch 4, trang bài toán có hình ngay sau trang tiêu đề mạch (quy ước 2026-10-28/29; D06).
+- **Mục đích:** nêu nhu cầu và khó khăn chính của mạch bằng ba cặp có số của ghi chú: kho lưu thành véc-tơ bit hoặc véc-tơ số, MinHash chỉ băm tập, nên khối chữ ký của Thuật toán 06.4 còn thiếu một họ băm cho từng độ đo.
+- **Thao tác của sinh viên:** đọc ba cặp và khoảng cách của chúng trên hình; chỉ ra khối nào của khung phải thay, khối nào giữ.
+- **Đối tượng trung tâm:** hình `ho-bam-theo-do-do.svg` (mới): $10101$, $11110$ với Hamming 3; $(1,2,-1)$, $(2,1,1)$ với góc $\pi/3$; $(2,7)$, $(6,4)$ với Euclid 5; ô "Họ băm ?" và ba khối giữ nguyên.
+- **Dữ kiện và ký hiệu kế thừa:** Ví dụ 06.10, 06.8, 06.7; Thuật toán 06.4; Nhận xét 06.27; Mệnh đề 06.26.
+- **Sản phẩm học tập:** nhu cầu "mỗi độ đo cần một họ có bộ tham số chứng minh được"; ghi chú diễn giả nêu khóa $(j,g_j(x))$ với $br$ hàm chọn độc lập, dùng chung, và bảo đảm $1-(1-p_1^r)^b$ cho cặp gần (chức năng của trang s04-14 đã bỏ).
+- **Bằng chứng kiểm tra:** hàng "Ba họ cơ sở" của s06-05, câu hỏi s04-11.
+- **Kết nối vào–ra:** vào: định nghĩa họ và phép ghép (mạch 3); ra: họ chọn tọa độ s04-01.
+- **Nguồn:** note:1004–1006, 1395; MMDS §3.6.3, §3.7.
+- **Ánh xạ ghi chú:** `lec-06-topic-08`; Mục 4 (đoạn mở). **Thời lượng:** 1,5 phút (lấy từ s04-14 đã bỏ).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 44; ghi chú diễn giả 129 âm tiết.
+- **Sửa sau kiểm lại 2026-11-13:** mục 5: `ho-bam-theo-do-do.svg`, hai mũi tên Khóa dải → Ứng viên → Xác minh bắt đầu ở mép phải khối trước (khối rộng 145, cách 180). Âm tiết mặt trang 44 → 44.
 
 #### lec06-s04-01 — Họ băm chọn tọa độ
 
@@ -693,6 +781,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng Nhu cầu có dữ kiện; ex-note sang ghi chú. Âm tiết mặt trang 46 → 32.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B7, nhẹ: "vector có $D$ thành phần rời rạc"; hàm định nghĩa bằng câu "là"; thời lượng 2 → 1,5 phút cho s04-14. Âm tiết mặt trang 32 → 41.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch): ghi chú mở bằng câu nối với thuật toán tìm cặp với họ nhạy cảm. Âm tiết mặt trang 41 → 41.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13; ghi chú diễn giả bỏ câu nối với "thuật toán tìm cặp với họ nhạy cảm" (F2). Âm tiết mặt trang 41 → 41.
 
 #### lec06-s04-02 — Tính nhạy cảm của họ chọn tọa độ
 
@@ -708,6 +797,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-08` (mã cũ `N08`); số hiệu: Mệnh đề 06.29; Nhận xét 06.30. **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: thêm dòng Giả thiết; Lưu ý thay câu kết luận. Âm tiết mặt trang 37 → 39.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (toán): miền $0\le d_1<d_2\le D$; ghi chú nêu giới hạn $D$ hàm của MMDS và lấy có hoàn lại; số hiệu 06.28 → 06.29. Âm tiết mặt trang 40 → 40.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13; ghi chú diễn giả bỏ câu "MMDS xem việc họ chỉ có $D$ hàm … giới hạn độ dốc" (ngoài ghi chú). Âm tiết mặt trang 39 → 39.
 
 #### lec06-s04-03 — Hàm băm dấu theo siêu phẳng
 
@@ -723,6 +813,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-09` (mã cũ `N09`); số hiệu: Ví dụ 06.14; Định nghĩa 06.31. **Thời lượng:** 2 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `giữ`: tách khối công thức dài; câu cuối thành Ý nghĩa. Âm tiết mặt trang 38 → 29.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B12, B11: thêm Nhu cầu ($\theta(x,2x)=0$), "Ý nghĩa" thành "Trực quan."; "(hyperplane)"; hàm định nghĩa bằng câu "là"; hình thu nhỏ để vừa khung. Âm tiết mặt trang 29 → 45.
+- **Sửa 2026-11-13:** quyết định `sửa`: F9, `phap-tuyen-dau.svg` nhãn nhỏ nhất 30 (trước 26), hiển thị 19,2 px khi chiếu 1280×720 (trước 16,6 px); F19, F22, ghi chú diễn giả: "Pháp tuyến $v_1$ có tọa độ $\pm1$ và cố định; phân phối đẳng hướng là giả thiết của Định lý 06.32", bỏ "không phải chính mặt đó". Âm tiết mặt trang 45 → 45.
 
 #### lec06-s04-05 — Tính nhạy cảm của họ siêu phẳng
 
@@ -738,8 +829,10 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-09` (mã cũ `N09`); số hiệu: Định lý 06.32. **Thời lượng:** 2,5 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `giữ`: thêm nhãn Giả thiết và số hiệu. Âm tiết mặt trang 32 → 28.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11, nhẹ: "(isotropic)"; ví dụ nêu cặp $(1,2,-1)$, $(2,1,1)$; số hiệu 06.31 → 06.32. Âm tiết mặt trang 29 → 32.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13 trong ghi chú diễn giả. Âm tiết mặt trang 31 → 31. **Thời lượng:** 2 phút (trước 2,5).
+- **Sửa sau kiểm lại 2026-11-13:** mục 10: ghi chú diễn giả "Theo độ, bộ tham số là $(180-d)/180$." Âm tiết mặt trang 31 → 31.
 
-#### lec06-s04-04 — Ví dụ: chữ ký dấu của hai vector, ba pháp tuyến
+#### lec06-s04-04 — Ví dụ: chữ ký dấu của hai véc-tơ, ba pháp tuyến
 
 - **Mục đích và vai trò:** Ghép $m$ hàm dấu thành chữ ký và áp quy tắc $\widehat\theta=\pi\widehat p_{\ne}$ trên Ví dụ 3.22; phân biệt sai lệch do mẫu nhỏ và do pháp tuyến không đẳng hướng.
 - **Thông điệp:** Quy tắc ước lượng chỉ có bảo đảm khi pháp tuyến đẳng hướng và đủ nhiều; ba pháp tuyến dấu $\pm1$ cho $120^\circ$ so với góc thật $38{,}05^\circ$.
@@ -753,6 +846,22 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-09` (mã cũ `N09`); số hiệu: Ví dụ 06.15. **Thời lượng:** 1,5 phút (trước 2 phút; lượt sửa deck chuyển 0,5 phút cho s04-14).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: 66 âm tiết; ví dụ giữ ở trang này, quy tắc ước lượng sang s04-12. Âm tiết mặt trang 66 → 31. Tiêu đề cũ: “Chữ ký dấu và ước lượng góc”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: nửa câu định nghĩa "chữ ký dấu (sketch)" trước khi dùng; thời lượng 2 → 1,5 phút. Âm tiết mặt trang 31 → 41.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13, tiêu đề "hai véc-tơ"; F19, ghi chú diễn giả dẫn Ví dụ 06.15, bỏ câu "lấy từ Ví dụ 3.22 là dữ kiện cố định … thực thi của quy tắc"; trang là bước chạy tay ngay trước Đầu vào/Đầu ra của s04-16. Âm tiết mặt trang 41 → 41. **Thời lượng:** 1,5 phút.
+
+#### lec06-s04-16 — Thuật toán: chữ ký dấu và ước lượng góc
+
+- **Mạch và vị trí:** mạch 4, cụm thuật toán chữ ký dấu: sau vết chạy tay s04-04, trước trang đúng/áp dụng s04-12 (F6).
+- **Mục đích:** đặc tả Thuật toán 06.33: "Đầu vào:", "Đầu ra:", giả mã 7 dòng của ghi chú, một câu đọc giả mã nêu thao tác quyết định.
+- **Thao tác của sinh viên:** đối chiếu giả mã với vết chạy s04-04 (bước 2, 3 với $m=3$); chỉ ra bước chọn pháp tuyến chạy một lần, dùng chung.
+- **Đối tượng trung tâm:** giả mã chữ ký dấu và ước lượng $\widehat\theta_{cd}=\pi\widehat p_{\ne}$.
+- **Dữ kiện và ký hiệu kế thừa:** Định nghĩa 06.31, Định lý 06.32, Ví dụ 06.15; ký hiệu $m$, $v$, $\widehat p_{\ne}$, $\widehat\theta$ của bảng ký hiệu.
+- **Sản phẩm học tập:** thuật toán có đặc tả đầy đủ; chi phí $O(mD)$ bộ nhớ, $O(CmD)$, $O(m)$ mỗi cặp nêu trong ghi chú diễn giả và hàng mới của s04-10.
+- **Bằng chứng kiểm tra:** recitation s07-05/s07-15 (Bài tập 06.24); hàng "Chữ ký dấu, ước lượng góc" của s06-02.
+- **Kết nối vào–ra:** vào: s04-04; ra: tính đúng của ước lượng và ví dụ số ở s04-12.
+- **Nguồn:** note:1168–1204; MMDS §3.7.3; Blum, Hopcroft, Kannan §2.5.
+- **Ánh xạ ghi chú:** `lec-06-topic-09`; Thuật toán 06.33. **Thời lượng:** 2 phút. Giả mã giữ chữ "số i có" của ghi chú (sau kiểm lại).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 35; ghi chú diễn giả 146 âm tiết.
+- **Sửa sau kiểm lại 2026-11-13:** mục 1: giả mã khôi phục "số i có" theo note:1185 (lỗi phông mã là việc CSS chung, điều phối viên báo người dùng); ghi chú diễn giả "vòng tính dấu và bước ước lượng" thay "bước 2 và bước 3". Âm tiết mặt trang 35 → 35.
 
 #### lec06-s04-12 — Ước lượng góc từ chữ ký dấu
 
@@ -768,6 +877,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: phần thứ hai tách từ s04-04; nhãn "Quy tắc:" đổi thành "Thuật toán." theo quyết định điều phối viên. Âm tiết mặt trang — → 42.
 - **Ánh xạ ghi chú:** `lec-06-topic-09`; số hiệu: Thuật toán 06.33. **Thời lượng:** 1 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (toán, chuyên gia): nhãn "Quy tắc ước lượng."; "$2\pi/3$, tức $120^\circ$"; ghi chú thêm độ lệch chuẩn $\pi\sqrt{p(1-p)/m}$ (khoảng $42^\circ$ với $m=3$) và quan hệ $m$ với $n$; số hiệu 06.32 → 06.33. Âm tiết mặt trang 43 → 46.
+- **Sửa 2026-11-13:** quyết định `sửa`: F6, F12: bỏ nhãn "Quy tắc ước lượng." (quy tắc nay ở Thuật toán 06.33, s04-16); dòng đầu là lập luận đúng của bộ ước lượng $\mathbb E[\widehat p_{\ne}]=\theta/\pi$ (Định lý 06.32, tuyến tính kỳ vọng); F21, ghi chú diễn giả bỏ số "khoảng $42^\circ$", thay bằng phương sai $(\theta/\pi)(1-\theta/\pi)/m$ của ghi chú; F23, ghi chú 167 → 125. Âm tiết mặt trang 45 → 38.
 
 #### lec06-s04-06 — Ví dụ: ba điểm trên trục thứ nhất
 
@@ -783,6 +893,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-10` (mã cũ `N10`); số hiệu: Ví dụ 06.16. **Thời lượng:** 1,5 phút (trước 2 phút; lượt sửa deck chuyển 0,5 phút cho s04-14).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng Nhu cầu; tách câu dài. Âm tiết mặt trang 78 → 38. Tiêu đề cũ: “Chia trục chiếu thành khoảng”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B7, B18: "mã thùng"; ghi chú: hàm cùng dạng trong $\mathbb R^3$, $u=e_1$, $\delta=0$; thời lượng 2 → 1,5 phút. Âm tiết mặt trang 38 → 48.
+- **Sửa 2026-11-13:** quyết định `sửa`: F16, dòng dữ kiện mang yêu cầu "Tính mã thùng $\lfloor x_1/a\rfloor$ trên trục thứ nhất" (giữ 7 dòng của trang bảng); F19, bỏ câu đổi ký hiệu $p_i\to z_i$ của sách; dẫn Ví dụ 06.16. Âm tiết mặt trang 48 → 42.
 
 #### lec06-s04-07 — Họ chiếu có dịch ngẫu nhiên
 
@@ -798,6 +909,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-10` (mã cũ `N10`); số hiệu: Định nghĩa 06.34. **Thời lượng:** 2 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: câu mở thành Nhu cầu; câu cuối thành Lưu ý. Âm tiết mặt trang 57 → 37.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B7, trung bình (sư phạm): định nghĩa trên $\mathbb R^D$ với $u$ đều trên mặt cầu đơn vị; Nhu cầu có ví dụ cực đoan $0{,}99$ và $1{,}01$; ghi chú: cận chỉ cho $D=2$, MMDS không có độ dịch. Âm tiết mặt trang 37 → 46.
+- **Sửa 2026-11-13:** quyết định `sửa`: G13; ghi chú diễn giả dẫn Định nghĩa 06.34, bỏ câu đối chiếu nguồn trùng dòng Nguồn. Âm tiết mặt trang 46 → 46. **Thời lượng:** 1,5 phút (trước 2).
 
 #### lec06-s04-08 — Xác suất chung thùng khi cố định hướng
 
@@ -813,6 +925,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-10` (mã cũ `N10`); số hiệu: Bổ đề 06.35. **Thời lượng:** 1 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: 77 âm tiết; phát biểu bổ đề ở trang này, chứng minh hai trường hợp sang s04-13. Âm tiết mặt trang 77 → 28.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: số hiệu Bổ đề 06.34 → 06.35. Âm tiết mặt trang 29 → 29.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 28 → 28.
 
 #### lec06-s04-13 — Chứng minh: xác suất chung thùng khi cố định hướng
 
@@ -827,6 +940,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Nguồn:** MMDS §3.7.4, tr.112; Datar và cộng sự §3.2.
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: phần chứng minh tách từ s04-08. Âm tiết mặt trang — → 44.
 - **Ánh xạ ghi chú:** `lec-06-topic-10`; số hiệu: Bổ đề 06.35. **Thời lượng:** 2 phút.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 44 → 44.
 
 #### lec06-s04-09 — Tính nhạy cảm của họ chiếu hai chiều
 
@@ -842,6 +956,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-10` (mã cũ `N10`); số hiệu: Định lý 06.36; Nhận xét 06.37. **Thời lượng:** 2,5 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: bố cục còn sáu dòng, một khối công thức; thêm số hiệu. Âm tiết mặt trang 37 → 38.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B12, B15, nhẹ: "Định lý." lên đầu trang, chứng minh theo thứ tự cặp gần → cặp xa; công thức nội dòng bọc ngoặc; "tức" → "nên"; ghi chú: cận xa không cần dịch đều, nhận xét định tính §3.7.5; số hiệu 06.35 → 06.36. Âm tiết mặt trang 39 → 43.
+- **Sửa 2026-11-13:** quyết định `sửa`: F18, câu "MMDS §3.7.5 nêu định tính … sách không tính hai xác suất này" thay bằng tóm tắt Nhận xét 06.37 ($P(\rho)$ giảm chặt, họ $(d_1,d_2,P(d_1),P(d_2))$-nhạy cảm với $D\ge2$); bỏ câu rào về hình. Âm tiết mặt trang 42 → 42. **Thời lượng:** 2 phút (trước 2,5).
 
 #### lec06-s04-10 — Chi phí: chữ ký theo ba họ
 
@@ -858,6 +973,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: 102 âm tiết; bảng đổi về khuôn Bước, Số lần, Chi phí mỗi lần, Đóng góp; chi tiết phép tính sang ghi chú. Âm tiết mặt trang 102 → 69. Tiêu đề cũ: “Chi phí tính chữ ký theo họ băm”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B12, C: cột "Phép tính mỗi lần" ghi số phép tính trước $O(\cdot)$; dòng tổng; ghi chú nêu $m$ đóng vai $n$; số hiệu 06.37 → 06.38. Âm tiết mặt trang 70 → 76.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình, nhẹ (rà lại mạch): kết luận dẫn thuật toán tổng quát và nêu $m=br$. Âm tiết mặt trang 76 → 76.
+- **Sửa 2026-11-13:** quyết định `sửa`: F6, thêm hàng "So hai chữ ký | 1 mỗi cặp | $m$ | $O(m)$" (Thuật toán 06.33); kết luận "thùng, $Q$, $K$ tính thêm như phân dải, với $m=br$" thay "như thuật toán tổng quát" (F2); G13; bảng chi phí 5 hàng, 8 dòng; trần 80. Âm tiết mặt trang 71 → 75.
 
 #### lec06-s04-11 — Câu hỏi về các họ theo độ đo
 
@@ -873,6 +989,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-08, lec-06-topic-09, lec-06-topic-10` (mã cũ `N08,N09,N10`); số hiệu: Bài tập 06.8–06.10. **Thời lượng:** 2,5 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tách câu 3 thành hai câu ngắn. Âm tiết mặt trang 68 → 50. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B16, B7: câu 4 ghi $a=2$ và $u$ đều; ghi chú: cận xa đúng với mọi $\delta$. Âm tiết mặt trang 51 → 58.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, bỏ "số liệu là dữ kiện luyện tập"; dẫn Bài tập 06.8, 06.9(a), 06.10(a, c). Âm tiết mặt trang 57 → 57.
 
 ### Mạch 5. Ứng dụng tìm cặp tương đồng
 
@@ -891,6 +1008,8 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-11`. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B4, C: ghi chú mở bằng quan hệ với các họ theo độ đo, bỏ "giao cho mạch sau"; 95 âm tiết. Âm tiết mặt trang 36 → 36.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch): ghi chú nêu OR 1024 là thuật toán tổng quát với họ hàm ba ô, $r=1$, $b=1024$. Âm tiết mặt trang 36 → 36.
+- **Sửa 2026-11-13:** quyết định `sửa`: F11, từ khóa "Hàm ba ô cho vân tay" (Định nghĩa 06.41); ghi chú diễn giả viết lại theo đoạn kết Mục 5 của ghi chú, bỏ "OR 1024 là thuật toán tìm cặp với họ…" (F2). Âm tiết mặt trang 36 → 36.
+- **Sửa sau kiểm lại 2026-11-13:** mục 6: ghi chú diễn giả thêm "ở đối sánh thực thể, bước chấm điểm đóng vai bước xác minh" (Định nghĩa 06.39), thống nhất với s05-09. Âm tiết mặt trang 36 → 36.
 
 #### lec06-s05-01 — Đối sánh thực thể
 
@@ -907,8 +1026,39 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng Nhu cầu; tách câu dài; Kết luận một câu. Âm tiết mặt trang 69 → 52.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B10, B11: OR trên ba hàm cố định, không áp được $1-(1-p)^b$; "(entity resolution)"; ghi chú ghi chu trình rút gọn. Âm tiết mặt trang 52 → 60.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ: dấu chấm thừa trong ghi chú. Âm tiết mặt trang 60 → 60.
+- **Sửa 2026-11-13:** quyết định `sửa`: F20, ghi chú diễn giả bỏ câu "Chu trình được rút gọn…" và câu chấm điểm (nay ở s05-09, s05-10), thêm hai nguyên nhân sai khác của Nhận xét 06.40; ghi chú 140 → 106. Âm tiết mặt trang 60 → 60. **Thời lượng:** 2 phút (trước 2,5).
+- **Sửa sau kiểm lại 2026-11-13:** mục 10: ghi chú diễn giả "Có thể sắp hồ sơ theo từng trường thay cho bảng băm." (tài liệu không làm chủ ngữ). Âm tiết mặt trang 60 → 60.
 
-#### lec06-s05-02 — Họ băm ba ô cho vân tay
+#### lec06-s05-09 — Ví dụ: chấm điểm tên Bill và William
+
+- **Mạch và vị trí:** mạch 5, cụm đối sánh thực thể, sau s05-01 (F7).
+- **Mục đích:** chạy bước chấm điểm thay bước xác minh: khoảng cách chỉnh sửa của Bill, William và mức trừ $\kappa d^2$ (Ví dụ 06.17).
+- **Thao tác của sinh viên:** tìm dãy con chung dài nhất, tính $d=5$, mức trừ $25\kappa$ và $4\kappa$ khi dùng bảng tên tương đương.
+- **Đối tượng trung tâm:** $d=4+7-2\cdot3=5$; $\kappa d^2$.
+- **Dữ kiện và ký hiệu kế thừa:** Mệnh đề 06.19; thang 300 điểm của Định nghĩa 06.39.
+- **Sản phẩm học tập:** con số của bước chấm điểm, nối khoảng cách chỉnh sửa (mạch 3) với ứng dụng.
+- **Bằng chứng kiểm tra:** câu 1 của s05-06 (Bài tập 06.12).
+- **Kết nối vào–ra:** vào: s05-01; ra: kiểm chất lượng nhóm điểm s05-10.
+- **Nguồn:** note:1426–1435; MMDS §3.8.2, tr.115–116.
+- **Ánh xạ ghi chú:** `lec-06-topic-11`; Ví dụ 06.17. **Thời lượng:** 1,5 phút.
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 59; ghi chú diễn giả 118 âm tiết.
+- **Sửa sau kiểm lại 2026-11-13:** mục 4: ghi chú diễn giả đặt "(Mệnh đề 06.19)" sau phép tính $d=4+7-2\cdot3=5$. Âm tiết mặt trang 59 → 59.
+
+#### lec06-s05-10 — Kiểm kết quả đối sánh bằng trường ngày
+
+- **Mạch và vị trí:** mạch 5, cụm đối sánh thực thể, sau s05-09 (F7; mục tiêu 5 dẫn Tình huống 06.1–06.4).
+- **Mục đích:** đưa Tình huống 06.1 lên deck: hàm khóa cố định không cho xác suất bỏ sót, nên chất lượng tập kết quả được ước lượng bằng trường ngày.
+- **Thao tác của sinh viên:** đọc mô hình hỗn hợp, suy $\eta=(45-\bar\tau)/35$, đọc kết luận mức 185 điểm.
+- **Đối tượng trung tâm:** $\bar\tau=10\eta+45(1-\eta)$.
+- **Dữ kiện và ký hiệu kế thừa:** Nhận xét 06.40; độ trễ 0–90 ngày, trung bình 45 và 10 ngày.
+- **Sản phẩm học tập:** phép đo gián tiếp chất lượng khi không có bảo đảm xác suất; giới hạn: cặp bỏ sót không đo được.
+- **Bằng chứng kiểm tra:** Bài tập 06.27 (tự học, cùng mô hình hỗn hợp).
+- **Kết nối vào–ra:** vào: s05-09; ra: vân tay s05-02, nơi có mô hình xác suất.
+- **Nguồn:** note:1574–1597; MMDS §3.8.3, tr.116–117.
+- **Ánh xạ ghi chú:** `lec-06-topic-19`; Tình huống 06.1. **Thời lượng:** 2 phút.
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 60; ghi chú diễn giả 150 âm tiết.
+
+#### lec06-s05-02 — Hàm ba ô cho vân tay
 
 - **Mục đích và vai trò:** Định nghĩa biểu diễn vân tay bằng tập ô và họ băm ba ô; nêu vì sao MMDS không dùng MinHash ở đây.
 - **Thông điệp:** Chỉ ảnh chứa đặc trưng ở cả ba ô mới vào thùng chung.
@@ -923,6 +1073,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng Nhu cầu; câu 31 âm tiết chuyển sang ghi chú. Âm tiết mặt trang 86 → 59.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ: "(minutia)". Âm tiết mặt trang 59 → 60.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ (rà lại mạch): ghi chú nêu hàm ba ô chọn ngẫu nhiên, khác ba hàm khóa cố định. Âm tiết mặt trang 60 → 60.
+- **Sửa 2026-11-13:** quyết định `sửa`: F11, tiêu đề "Hàm ba ô cho vân tay"; dòng "ba ô chọn từ lưới trước khi xét ảnh" theo Định nghĩa 06.41 (thay "chọn ngẫu nhiên"); ghi chú diễn giả: xác suất va chạm tính dưới mô hình sinh ảnh (Mệnh đề 06.42). Âm tiết mặt trang 60 → 60. **Thời lượng:** 1,5 phút (trước 2).
 
 #### lec06-s05-03 — Ví dụ: xác suất va chạm của hàm ba ô
 
@@ -938,6 +1089,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-12` (mã cũ `N12`); số hiệu: Mệnh đề 06.42. **Thời lượng:** 2,5 phút (trước 3 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: 99 âm tiết; hai dòng Giả thiết, bảng hai hàng, một Kết luận; ex-note sang ghi chú. Âm tiết mặt trang 99 → 55. Tiêu đề cũ: “Xác suất va chạm của hàm ba ô”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: số hiệu Mệnh đề 06.41 → 06.42. Âm tiết mặt trang 56 → 56.
+- **Sửa 2026-11-13:** quyết định `sửa`: F16, thêm dòng "Tính $q_F$, $q_T$."; F19, bỏ "MMDS viết khoảng một phần 200" và "không phải số đo trên dữ liệu vân tay". Trang bảng 7 dòng. Âm tiết mặt trang 55 → 56. **Thời lượng:** 2 phút (trước 2,5).
 
 #### lec06-s05-04 — Phép ghép trong đối sánh vân tay
 
@@ -954,6 +1106,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: một dòng dẫn, bảng hai hàng, một khối công thức. Âm tiết mặt trang 69 → 54.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A2, B17: dòng Giả thiết độc lập (giả định MMDS) thay dòng 21 âm tiết; $P_{\rm miss}$ đổi thành $1-P_T$; ghi chú: chỉ độc lập có điều kiện, $0{,}0150$ là cận dưới theo Jensen. Âm tiết mặt trang 60 → 57.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch): ghi chú nêu OR 1024 là thuật toán tổng quát, AND hai nhóm OR lấy giao hai tập cặp. Âm tiết mặt trang 57 → 57.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, F21, F23: bỏ "sách lấy $0{,}063^2$ …" và "OR 1024 là thuật toán tìm cặp…"; dẫn Ví dụ 06.18; ghi chú 166 → 149. Âm tiết mặt trang 53 → 53. **Thời lượng:** 2 phút (trước 2,5).
 
 #### lec06-s05-05 — Bản tin gần trùng
 
@@ -969,6 +1122,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-13` (mã cũ `N13`); số hiệu: Định nghĩa 06.43; Tình huống 06.3. **Thời lượng:** 1,5 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: 108 âm tiết; nhu cầu và định nghĩa ở trang này, ví dụ Sudzo sang s05-07. Âm tiết mặt trang 108 → 58. Tiêu đề cũ: “Shingle theo từ dừng cho bản tin”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: "từ dừng (stop word)". Âm tiết mặt trang 58 → 56.
+- **Sửa 2026-11-13:** quyết định `sửa`: F21, F22: bỏ "thường vài trăm từ", "bài toán cùng chủ đề cần kỹ thuật khác"; định nghĩa từ dừng theo Định nghĩa 06.43; số $0{,}75$/$0{,}25$/$1/3$ chuyển sang s05-11. Âm tiết mặt trang 56 → 56.
 
 #### lec06-s05-07 — Ví dụ: shingle theo từ dừng
 
@@ -984,6 +1138,21 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: ví dụ tách từ s05-05. Âm tiết mặt trang — → 57.
 - **Ánh xạ ghi chú:** `lec-06-topic-13`; số hiệu: Ví dụ 06.19. **Thời lượng:** 1,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: dòng dữ kiện thêm nhiệm vụ "liệt kê shingle". Âm tiết mặt trang 57 → 60.
+- **Sửa 2026-11-13:** quyết định `giữ`: không có phát hiện trên trang; rà G13 và dẫn chiếu, không đổi. Âm tiết mặt trang 60 → 60. **Thời lượng:** 1 phút (trước 1,5), bù cho trang bản tin s05-11.
+
+#### lec06-s05-11 — Ví dụ: bản tin gần trùng, 20 dải 5 hàng
+
+- **Mạch và vị trí:** mạch 5, cụm bản tin gần trùng, sau s05-07 (F7).
+- **Mục đích:** đưa Tình huống 06.3 lên deck: với $(b,r)=(20,5)$, cặp cùng bản tin ($\approx0{,}75$) và cặp cùng quảng cáo ($\approx0{,}25$) có xác suất thành ứng viên $0{,}995564$ và $0{,}019351$; shingle ký tự cho cả hai khoảng $1/3$.
+- **Thao tác của sinh viên:** thế Jaccard vào (2.1); so với $s_{1/2}\approx0{,}509$; giải thích vì sao shingle ký tự không tách được hai loại cặp.
+- **Đối tượng trung tâm:** bảng hai loại cặp × hai biểu diễn.
+- **Dữ kiện và ký hiệu kế thừa:** Định lý 06.7, Mệnh đề 06.9, Định nghĩa 06.43, Ví dụ 06.19.
+- **Sản phẩm học tập:** đổi biểu diễn làm hai loại cặp tách xa trên trục Jaccard, nên đường cong S phân biệt được chúng.
+- **Bằng chứng kiểm tra:** s05-08 (Bài tập 06.14) cho bước tạo shingle; câu 2 của s06-03 cho chọn cấu hình.
+- **Kết nối vào–ra:** vào: s05-07; ra: câu hỏi s05-06, s05-08.
+- **Nguồn:** note:1616–1635; MMDS §3.8.6, tr.120–121.
+- **Ánh xạ ghi chú:** `lec-06-topic-19`; Tình huống 06.3. **Thời lượng:** 1,5 phút.
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 55; ghi chú diễn giả 126 âm tiết.
 
 #### lec06-s05-06 — Câu hỏi về đối sánh thực thể và vân tay
 
@@ -999,6 +1168,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-11, lec-06-topic-12` (mã cũ `N11,N12,N13`); số hiệu: Bài tập 06.12, 06.13. **Thời lượng:** 1,5 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `tách`: 107 âm tiết; câu shingle sang s05-08. Âm tiết mặt trang 107 → 50. Tiêu đề cũ: “Câu hỏi về các ứng dụng”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A2, nhẹ: dữ kiện hồ sơ lên dòng "Câu hỏi:"; câu vân tay nêu giả định độc lập của MMDS. Âm tiết mặt trang 51 → 58.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, bỏ "số liệu câu 3 là dữ kiện luyện tập"; dẫn Bài tập 06.12, 06.13. Âm tiết mặt trang 57 → 57.
 
 #### lec06-s05-08 — Câu hỏi về shingle theo từ dừng
 
@@ -1014,6 +1184,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: câu hỏi tách từ s05-06. Âm tiết mặt trang — → 30. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Ánh xạ ghi chú:** `lec-06-topic-13`; số hiệu: Bài tập 06.14. **Thời lượng:** 1 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: ghi chú bỏ "bản soạn". Âm tiết mặt trang 30 → 30.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, bỏ "câu luyện tập không lấy từ sách"; dẫn Bài tập 06.14. Âm tiết mặt trang 30 → 30.
 
 ### Mạch 6. Tổng kết và tự kiểm tra
 
@@ -1031,6 +1202,22 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: trang tiêu đề mạch bắt buộc. Âm tiết mặt trang — → 39 (dòng dẫn ≤ 25 âm tiết theo quy tắc trang tiêu đề mạch).
 - **Ánh xạ ghi chú:** `lec-06-topic-14`. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B4, C: dòng dẫn "Muốn trả lời bài toán kho một triệu tài liệu…"; ghi chú 92 âm tiết, bỏ câu "Mạch này không đưa khái niệm mới". Âm tiết mặt trang 39 → 39.
+- **Sửa 2026-11-13:** quyết định `sửa`: ghi chú diễn giả "bốn thuật toán" (bảng s06-02 sau khi bỏ hàng thuật toán tổng quát). Âm tiết mặt trang 39 → 39.
+
+#### lec06-s06-09 — Khung tìm cặp bốn khối
+
+- **Mạch và vị trí:** mạch 6, trang mở có hình ngay sau trang tiêu đề mạch (F8; mẫu C06 của Bài 08).
+- **Mục đích:** nhắc lại số của tình huống mở bài ($499\,999\,500\,000$ cặp, $5{,}79$ ngày) và chỉ thành phần của khung mà từng phần đã xây hoặc thay, trước hai bảng tổng kết.
+- **Thao tác của sinh viên:** trả lời "Câu hỏi:" mỗi khối cần giả thiết nào để có bảo đảm.
+- **Đối tượng trung tâm:** hình `quy-trinh-cap.svg` (dùng lại của s01-04 và ghi chú).
+- **Dữ kiện và ký hiệu kế thừa:** Ví dụ 06.1; sơ đồ bốn khối của Mục 1.
+- **Sản phẩm học tập:** danh sách giả thiết theo khối, khớp hàng của s06-05.
+- **Bằng chứng kiểm tra:** lời giải trong ghi chú diễn giả.
+- **Kết nối vào–ra:** vào: trang tiêu đề mạch 6; ra: s06-05.
+- **Nguồn:** note:127–131, 1660–1664.
+- **Ánh xạ ghi chú:** `lec-06-topic-14`; Ví dụ 06.1. **Thời lượng:** 1 phút.
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 57; ghi chú diễn giả 81 âm tiết.
+- **Sửa sau kiểm lại 2026-11-13:** mục 6: dòng "Ứng dụng đổi biểu diễn hoặc họ hàm; thùng và xác minh giữ nguyên." (note:1663); dòng đầu rút "khối khóa dải, khối ứng viên" để giữ 60 âm tiết. Âm tiết mặt trang 57 → 60.
 
 #### lec06-s06-05 — Kết quả và giả thiết không được bỏ
 
@@ -1046,6 +1233,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: mạch kết luận bắt buộc có bảng Kết quả, Giả thiết không được bỏ, Công thức hoặc thuật toán. Âm tiết mặt trang — → 63.
 - **Ánh xạ ghi chú:** `lec-06-topic-14`; số hiệu: Mệnh đề 06.5; Định lý 06.7; Định nghĩa 06.22; Mệnh đề 06.26. **Thời lượng:** 2 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B3: thêm hàng ba họ cơ sở, vân tay (giả định độc lập), khóa thực thể; $P$ đổi thành $\Pr[h(x)=h(y)]$; 8 hàng bảng (trần 8). Âm tiết mặt trang 63 → 78.
+- **Sửa 2026-11-13:** quyết định `sửa`: F13, cột "Công thức hoặc thuật toán"; hàng "MinHash chọn đều, độc lập trong và giữa các dải"; hàng vân tay rút "va chạm độc lập (giả định MMDS)" để giữ trần 80; G13 trong ghi chú. Âm tiết mặt trang 78 → 80. **Thời lượng:** 2 phút.
 
 #### lec06-s06-02 — Thuật toán, bảo đảm và chi phí
 
@@ -1062,6 +1250,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: đổi vai trò thành bảng Thuật toán, Đầu vào, Bảo đảm, Chi phí; nội dung cũ chuyển sang s06-01 và ghi chú diễn giả. Âm tiết mặt trang 82 → 53. Tiêu đề cũ: “Chi phí và hai loại sai số”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B7, A4: thêm hàng thuật toán tìm cặp với họ nhạy cảm; đầu vào chiếu "$\mathbb R^D$", bảo đảm "khi $D=2$"; bỏ $\Sigma^D$; ghi chú bỏ cặp câu khẩu hiệu. Âm tiết mặt trang 54 → 74.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ: "$Cbr$ lần tính hàm, cộng phân dải". Âm tiết mặt trang 74 → 76.
+- **Sửa 2026-11-13:** quyết định `sửa`: F2, bỏ hàng "Tìm cặp với họ nhạy cảm" (không có trong ghi chú); F6, hàng "Chữ ký dấu, ước lượng góc" theo Thuật toán 06.33 ($\mathbb E[\widehat p_{\ne}]=\theta/\pi$; $O(CmD)$, $O(m)$ mỗi cặp); F22, ghi chú "tăng $b$ giảm bỏ sót và tăng $\mathbb E[K]$". Âm tiết mặt trang 75 → 62. **Thời lượng:** 1,5 phút.
 
 #### lec06-s06-01 — Câu trả lời cho vấn đề trung tâm
 
@@ -1078,6 +1267,8 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: gộp s06-01 và s06-02 cũ thành năm kết luận có điều kiện theo thứ tự trang vấn đề trung tâm; thu hồi kho một triệu tài liệu bằng số cặp và giả định luyện tập; bỏ hình (đã ở s01-04). Âm tiết mặt trang 64 → 78. Tiêu đề cũ: “Quy trình tìm cặp tương đồng”.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A3, C: tiêu đề "Câu trả lời cho vấn đề trung tâm"; bỏ dòng giả định $10^6$ cặp; thêm giả định $s\le0{,}1$ cho cặp nền, $\mathbb E[K]\le N+10^8$ và khoảng 100 giây; dòng 3–4 có số và giả thiết; số $10^6$ cặp giữ trong ghi chú như số liệu luyện tập. Âm tiết mặt trang 80 → 73.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: trung bình (rà lại mạch, toán): dòng 3 nêu bảo đảm và giả thiết của ba họ, chi phí tách khỏi giả thiết; dòng 6 "thời gian xác minh kỳ vọng không quá khoảng 100 giây", $1\,\mu\mathrm{s}$; ghi chú dẫn Mệnh đề 06.13, không cần các cặp độc lập, $\mathbb E[Q]\le20N+10^8$, cùng giả định $1\,\mu\mathrm{s}$ với s01-03. Âm tiết mặt trang 73 → 76.
+- **Sửa 2026-11-13:** quyết định `sửa`: F19, F21, F23: bỏ "Số liệu luyện tập: bộ tạo trả $10^6$ cặp…" và "giả định $s\le0{,}1$ là dữ kiện minh họa"; dẫn Ví dụ 06.4, 06.12, 06.18, Nhận xét 06.12; ghi chú 165 → 141. Âm tiết mặt trang 73 → 73. **Thời lượng:** 2 phút.
+- **Sửa sau kiểm lại 2026-11-13:** mục 7, 9: thêm dòng "Khóa thực thể cố định: không có xác suất bỏ sót." (khớp s01-08); gộp hai dòng giả định phân bố và thời gian thành một dòng có $N\ll10^8$, $100$ giây, $5{,}79$ ngày, giữ 6 dòng, 70 âm tiết (trần 80); ghi chú diễn giả gọi tên kết quả thay "Dòng k", bỏ câu $\mathbb E[Q]$ để giữ 145 âm tiết. Âm tiết mặt trang 73 → 70.
 
 #### lec06-s06-03 — Câu hỏi tự kiểm tra
 
@@ -1093,8 +1284,9 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N14`); số hiệu: Bài tập 06.3, 06.4, Nhận xét 06.10 (2026-11-11; trước là Bài tập 06.16–06.18). **Thời lượng:** 2,5 phút (trước 2.5 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng "Câu hỏi: trả lời và nêu kết quả đã dùng."; câu MinHash chuyển sang s06-04, câu "giữ r, tăng b" chuyển vào đây. Âm tiết mặt trang 52 → 34. Tiêu đề cũ: “Câu hỏi tổng hợp về phân dải”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ (toán): ghi chú gọi $0{,}1^{1/4}$ là xấp xỉ, thêm nghiệm một nửa $\approx0{,}509$; "kỳ vọng của $K$". Âm tiết mặt trang 34 → 34.
+- **Sửa 2026-11-13:** quyết định `sửa` và `gộp` s06-04: F1, F15: bốn câu dùng dữ kiện ghi chú (Bài tập 06.4, 06.3(a), 06.6, 06.11) thay sáu câu có dữ kiện ngoài ghi chú; ghi chú diễn giả có lời giải, kết quả đã dùng và tiêu chí (186 âm tiết, trong trần ~250 của lời giải). Âm tiết mặt trang 34 → 57. **Thời lượng:** 2,5 phút.
 
-#### lec06-s06-04 — Câu hỏi tự kiểm tra
+#### lec06-s06-04 — Câu hỏi tự kiểm tra (đã gộp vào s06-03, 2026-11-13)
 
 - **Mục đích và vai trò:** Kiểm tra tổng hợp MT4–MT6: AND–OR trên họ siêu phẳng, chọn họ và chi phí cho một ứng dụng mới, đánh đổi hai loại sai số khi tăng $b$.
 - **Thông điệp:** Kết quả số chỉ có ý nghĩa trong mô hình đã nêu.
@@ -1108,6 +1300,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N14`); số hiệu: Bài tập 06.7, 06.11, Mệnh đề 06.38 (2026-11-11; trước là Bài tập 06.15, 06.19, 06.27). **Thời lượng:** 2 phút (trước 2 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: mở bằng "Câu hỏi: trả lời và nêu kết quả đã dùng."; đánh số tiếp 4–6. Âm tiết mặt trang 69 → 51. Tiêu đề cũ: “Câu hỏi tổng hợp về họ băm và ứng dụng”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B17: câu 6 rút còn 18 âm tiết. Âm tiết mặt trang 55 → 52.
+- **Sửa 2026-11-13:** quyết định `gộp` vào `lec06-s06-03`: F1, F15, "Câu hỏi tự kiểm tra" 2–4 câu; ba câu cũ dùng dữ kiện ngoài ghi chú (vector 128 chiều, cấu hình $b=10$, $r=4$) và dẫn sai Bài tập 06.15, 06.19, 06.27. 2 phút: 0,5 cho s06-03, 1 cho s06-09, 0,5 trả về phần giảng. Âm tiết mặt trang 41 → —.
 
 #### lec06-s06-08 — Nguồn và tài liệu đọc
 
@@ -1124,6 +1317,7 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-15`; số hiệu: Hướng dẫn đọc thêm và tài liệu tham khảo. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11, B17: HNSW, PQ viết đầy đủ trong ghi chú, mặt trang "chỉ mục đồ thị HNSW và lượng tử hóa tích (PQ)"; tên đầy đủ Datar và cộng sự; nhãn "Đối chiếu:" thành "Nguồn:"; trang nguồn theo trần 80 (ngoại lệ). Âm tiết mặt trang 64 → 65.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ (rà lại toán): ghi chú tách bài về nhà (06.15–06.19, 06.26, 06.27, 06.29, 06.30) khỏi bài giải trên lớp; từ 2026-11-11 các số này là bài MMDS tự học trong `exercises.md`. Âm tiết mặt trang 65 → 65.
+- **Sửa 2026-11-13:** quyết định `sửa`: F24, "đồ thị thế giới nhỏ phân tầng (HNSW)"; G14, liên kết `exercises.md` cạnh liên kết ghi chú và liên kết Bài 07; ghi chú diễn giả bỏ câu mô tả ghi chú và tiêu chí so sánh Bài 07 ngoài ghi chú. Trang nguồn 61 âm tiết, ngoại lệ trần 80 như lượt trước (65). Âm tiết mặt trang 57 → 61.
 
 ### Mạch 7. Bài tập vận dụng
 
@@ -1141,6 +1335,8 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `thêm`: trang tiêu đề mạch bắt buộc. Âm tiết mặt trang — → 40 (dòng dẫn ≤ 25 âm tiết theo quy tắc trang tiêu đề mạch).
 - **Ánh xạ ghi chú:** `lec-06-topic-16`. **Thời lượng:** 0,5 phút.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: C: nhãn "Nhu cầu:" in đậm; "bảy bài"; từ khóa rút gọn; ghi chú: Bài 3.4.4 là đọc thêm. Âm tiết mặt trang 41 → 36.
+- **Sửa 2026-11-13:** quyết định `sửa`: F25, ghi chú diễn giả "Lời giải theo Bài tập 06.20–06.25 và 06.28" thay "nằm trong ghi chú bài giảng". Mạch 7 không có trang bài toán có hình (F8, nhẹ): mỗi trang đề đã mang dữ kiện của bài sách, mẫu Bài 10 (X01) cũng mở thẳng bằng bài sách; thêm trang hình sẽ lấy phút của 60 phút bài tập. Âm tiết mặt trang 35 → 35.
+- **Sửa sau kiểm lại 2026-11-13:** mục 8: mạch 7 nay có hình trên trang đề đầu tiên s07-01; lý do cũ ("không trang hình") thay bằng: hình đường cong S đặt ở s07-01, không thêm trang riêng để giữ 60 phút bài tập. Âm tiết mặt trang 35 → 35.
 
 #### lec06-s07-01 — Bài tập: bảng giá trị đường cong S
 
@@ -1156,6 +1352,17 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N16`); số hiệu: Bài tập 06.20. **Thời lượng:** 11,5 phút (trước 12 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Bài tập:; bảng cấu hình thành một dòng công thức; giữ dòng nguồn số bài sách. Âm tiết mặt trang 37 → 34. Tiêu đề cũ: “Bảng giá trị đường cong S”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B8: ghi chú thêm giá trị $s=0{,}9$ của $(5,50)$: $1-4{,}1\cdot10^{-20}$. Âm tiết mặt trang 37 → 36.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.20" (tệp bài tập). Âm tiết mặt trang 33 → 33. **Thời lượng:** 6 phút (trước 11,5; 5,5 sang s07-11).
+- **Sửa sau kiểm lại 2026-11-13:** mục 8: thêm hình `xac-suat-phan-dai.svg` (hai đường đã giảng của Ví dụ 06.5, không lộ ba cấu hình của đề), lớp `lsh-figure` (với `lsh-short` nhãn chỉ 15,4 px; nay 22,5 px); gộp dòng "Lập bảng" và "Lưu ý" để vừa khung; ảnh 1600×900 không tràn. Âm tiết mặt trang 33 → 29.
+
+#### lec06-s07-11 — Bài tập: bảng giá trị đường cong S
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-01` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.20 của tệp bài tập, cùng số và cùng bước: năm hàng $s=0{,}2;0{,}4;0{,}5;0{,}6;0{,}8$ của bảng 27 giá trị (bốn hàng còn lại trong ghi chú diễn giả) và giá trị $1-4{,}1\cdot10^{-20}$ tại $s=0{,}9$.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.20.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.20. **Thời lượng:** 5,5 phút (từ s07-01).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 17; ghi chú diễn giả 48 âm tiết.
 
 #### lec06-s07-02 — Bài tập: nghiệm một nửa của đường cong S
 
@@ -1171,6 +1378,16 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N16`); số hiệu: Bài tập 06.21. **Thời lượng:** 6 phút (trước 6 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Bài tập:; đề tự chứa bằng bảng cấu hình. Âm tiết mặt trang 36 → 30. Tiêu đề cũ: “Ngưỡng của đường cong S”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B6: tiêu đề "Bài tập: nghiệm một nửa của đường cong S"; ghi chú dùng "nghiệm một nửa $s_{1/2}$". Âm tiết mặt trang 31 → 30.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.21" (tệp bài tập). Âm tiết mặt trang 29 → 29. **Thời lượng:** 3 phút (trước 6).
+
+#### lec06-s07-12 — Bài tập: nghiệm một nửa của đường cong S
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-02` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.21 của tệp bài tập, cùng số và cùng bước: phép biến đổi và bảng ba nghiệm so với ba xấp xỉ; kết luận chiều sai lệch.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.21.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.21. **Thời lượng:** 3 phút (từ s07-02).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 22; ghi chú diễn giả 56 âm tiết.
 
 #### lec06-s07-03 — Bài tập: xác suất qua nhiều tầng ghép
 
@@ -1186,8 +1403,18 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N16`); số hiệu: Bài tập 06.22. **Thời lượng:** 10 phút (trước 10 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Bài tập:; bảng bốn ý thành bốn dòng (a)–(d). Âm tiết mặt trang 64 → 43. Tiêu đề cũ: “Xác suất qua nhiều tầng ghép”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: nguồn "MMDS" thay "MMDS 3e". Âm tiết mặt trang 54 → 53.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.22" (tệp bài tập). Âm tiết mặt trang 42 → 42. **Thời lượng:** 5 phút (trước 10).
 
-#### lec06-s07-04 — Bài tập: hàm chọn tọa độ trên bốn vector
+#### lec06-s07-13 — Bài tập: xác suất qua nhiều tầng ghép
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-03` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.22 của tệp bài tập, cùng số và cùng bước: bốn chuỗi ghép với xác suất trung gian; $37/64$ và $49/64$ tại $p=1/2$.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.22.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.22. **Thời lượng:** 5 phút (từ s07-03).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 24; ghi chú diễn giả 63 âm tiết.
+
+#### lec06-s07-04 — Bài tập: hàm chọn tọa độ trên bốn véc-tơ
 
 - **Mục đích và vai trò:** Liệt kê hàm Hamming nhận từng cặp của bốn vector.
 - **Thông điệp:** Mỗi cặp được nhận bởi đúng các tọa độ mà nó trùng.
@@ -1201,8 +1428,18 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N16`); số hiệu: Bài tập 06.23. **Thời lượng:** 6 phút (trước 6 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: bảng 4 × 6 thành một dòng KaTeX với tên vector chữ đứng. Âm tiết mặt trang 38 → 32. Tiêu đề cũ: “Hàm chọn tọa độ trên bốn vector”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: nguồn "MMDS" thay "MMDS 3e"; tên vector A–D giữ theo sách. Âm tiết mặt trang 33 → 32.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.23" (tệp bài tập). G13, tiêu đề "véc-tơ". Âm tiết mặt trang 31 → 31. **Thời lượng:** 3 phút (trước 6).
 
-#### lec06-s07-05 — Bài tập: chữ ký dấu của ba vector
+#### lec06-s07-14 — Bài tập: hàm chọn tọa độ trên bốn véc-tơ
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-04` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.23 của tệp bài tập, cùng số và cùng bước: bảng sáu cặp, tập chỉ số và $d_H$; số hàm bằng $6-d_H$.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.23.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.23. **Thời lượng:** 3 phút (từ s07-04).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 20; ghi chú diễn giả 83 âm tiết.
+
+#### lec06-s07-05 — Bài tập: chữ ký dấu của ba véc-tơ
 
 - **Mục đích và vai trò:** Tính đủ chữ ký và đối chiếu góc thật cho Bài 3.7.2.
 - **Thông điệp:** Bốn phép thử cố định cho một ước lượng góc có thể sai lệch.
@@ -1216,6 +1453,17 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N16`); số hiệu: Bài tập 06.24. **Thời lượng:** 10 phút (trước 10 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Bài tập:; ex-note quy ước dấu thành dòng Quy ước. Âm tiết mặt trang 39 → 29. Tiêu đề cũ: “Chữ ký dấu và góc giữa ba vector”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: B11: nguồn "MMDS" thay "MMDS 3e". Âm tiết mặt trang 30 → 29.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.24" (tệp bài tập). G13, tiêu đề "véc-tơ". Âm tiết mặt trang 28 → 28. **Thời lượng:** 5 phút (trước 10).
+
+#### lec06-s07-15 — Bài tập: chữ ký dấu của ba véc-tơ
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-05` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.24 của tệp bài tập, cùng số và cùng bước: mười hai tích, ba chữ ký, bảng ba cặp với góc ước lượng và góc thật.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.24.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.24. **Thời lượng:** 5 phút (từ s07-05).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 20; ghi chú diễn giả 90 âm tiết.
+- **Sửa sau kiểm lại 2026-11-13:** mục 3: ghi chú diễn giả "cả ví dụ nằm ngoài bảo đảm của định lý; cặp $y$, $z$ cho đúng $180^\circ$ vì $y=-z$" (ex:287). Âm tiết mặt trang 20 → 20.
 
 #### lec06-s07-06 — Bài tập: thùng chiếu trên ba trục
 
@@ -1232,6 +1480,17 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: tiền tố Bài tập:. Âm tiết mặt trang 41 → 30. Tiêu đề cũ: “Thùng chiếu trên ba trục”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: nhẹ: khoảng $[ka,(k+1)a)$, $k\in\mathbb Z$, bọc ngoặc để không ngắt dòng; ghi chú nêu sách viết $j$. Âm tiết mặt trang 30 → 29.
 - **Lượt sửa cuối 2026-10-14 (sau hai lượt rà lại):** quyết định `sửa`: nhẹ: "mã thùng" trong ghi chú. Âm tiết mặt trang 29 → 29.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.25" (tệp bài tập). F19, bỏ câu ký hiệu $p_1,p_2,p_3$ của sách. Âm tiết mặt trang 29 → 29. **Thời lượng:** 4 phút (trước 8).
+
+#### lec06-s07-16 — Bài tập: thùng chiếu trên ba trục
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-06` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.25 của tệp bài tập, cùng số và cùng bước: bảng mã thùng với $a=1$, $a=2$ và hai tập cặp ứng viên; trục trùng của từng cặp.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.25.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.25. **Thời lượng:** 4 phút (từ s07-06).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 35; ghi chú diễn giả 71 âm tiết.
+- **Sửa sau kiểm lại 2026-11-13:** mục 11: nhãn "Lưu ý:" thay "Kết luận:". Âm tiết mặt trang 35 → 35.
 
 #### lec06-s07-07 — Bài tập: hai cấu trúc ghép cho vân tay
 
@@ -1247,6 +1506,16 @@ Cập nhật 2026-10-14: phiếu được xếp theo thứ tự trang của deck
 - **Ánh xạ ghi chú:** `lec-06-topic-16` (mã cũ `N16`); số hiệu: Bài tập 06.28. **Thời lượng:** 8 phút (trước 8 phút).
 - **Căn chỉnh 2026-10-14:** quyết định `sửa`: 98 âm tiết; tách giả thiết thành dòng có nhãn. Âm tiết mặt trang 98 → 73. Tiêu đề cũ: “So sánh hai cấu trúc ghép cho vân tay”. Loại bài tập: trang câu hỏi, lời giải trong ghi chú diễn giả.
 - **Lượt sửa deck 2026-10-14 (năm báo cáo):** quyết định `sửa`: A2: dòng giả định độc lập của MMDS; ghi chú: không suy từ việc chọn hàm độc lập, $(1-q_T)^{2048}$ là cận dưới. Âm tiết mặt trang 75 → 77.
+- **Sửa 2026-11-13:** quyết định `sửa`: F3, lời giải chuyển sang trang "Lời giải:" kế tiếp; ghi chú diễn giả trang đề còn mục đích kiểm, gợi ý, lỗi thường gặp và hướng dẫn chấm theo bước (10 điểm); F25, dẫn "Bài tập 06.28" (tệp bài tập). Âm tiết mặt trang 75 → 75. **Thời lượng:** 4 phút (trước 8).
+
+#### lec06-s07-17 — Bài tập: hai cấu trúc ghép cho vân tay
+
+- **Mạch và vị trí:** mạch 7, trang "Lời giải:" cùng tiêu đề, ngay sau trang đề `lec06-s07-07` (F3; quy ước 2026-10-28/29).
+- **Mục đích:** trình bày lời giải Bài tập 06.28 của tệp bài tập, cùng số và cùng bước: $q_F$, $q_T$; bảng OR 2048 so với AND hai nhóm OR 1024; so sánh cùng 2048 hàm.
+- **Thao tác của sinh viên:** so bài làm với từng bước; chấm theo hướng dẫn ở ghi chú diễn giả trang đề.
+- **Nguồn:** `exercises.md`, Bài tập 06.28.
+- **Ánh xạ ghi chú:** `lec-06-topic-16`; Bài tập 06.28. **Thời lượng:** 4 phút (từ s07-07).
+- **Sửa 2026-11-13:** quyết định `thêm`. Âm tiết mặt trang — → 39; ghi chú diễn giả 82 âm tiết.
 
 ## Kiến trúc ghi chú bài giảng tự học
 
@@ -1487,7 +1756,105 @@ Lượt editor giữ 60 trang và thứ tự cũ, bảy phần, 120 phút giản
 
 N02 và ghi chú s02-08 mô tả đúng biến thể: bỏ bước 6 kiểm chữ ký của sách, kiểm gốc bắt buộc cho mọi ứng viên; sách chỉ gắn “tùy chọn” cho bước 7 kiểm gốc. N09 định nghĩa quy tắc ước lượng trước áp dụng, nhưng vẫn dùng vết dấu trước chứng minh hình học; không đổi thứ tự trang. N10 thêm SVG tam giác và chuỗi ell=rho|cos phi| → điều kiện cần phi>pi/3; không ấn định tỷ lệ với a. N11 thu hồi khoảng cách chỉnh sửa trong điểm phạt theo trường. N12 định nghĩa đặc trưng đường vân và truy hồi hợp–hợp–giao–xác minh; không đổi điều kiện hóa của q_T,q_F. N15 giữ công thức hỗn hợp và tách rõ giả thiết đều khỏi riêng ràng buộc 0–90.
 
-## Ánh xạ `data-slide-id` ↔ `note-topic-id` (căn chỉnh 2026-10-14)
+## Ánh xạ `data-slide-id` ↔ `note-topic-id` (cập nhật 2026-11-13)
+
+Bảng thay bảng căn chỉnh 2026-10-14 cho deck hiện hành (89 trang, theo thứ tự deck). Trang bỏ: `lec06-s04-14`; trang gộp: `lec06-s06-04` (vào `lec06-s06-03`).
+
+| `data-slide-id` | Tiêu đề trang | `note-topic-id` | Số hiệu trong ghi chú | Phút |
+|---|---|---|---|---:|
+| `lec06-s01-01` | Tìm cặp tương đồng bằng LSH | `lec-06-topic-01` | mở chương | 0,5 |
+| `lec06-s01-06` | Tiên quyết và quy ước | `lec-06-topic-18` | Kiến thức tiên quyết; Nhận xét 06.2 | 1,5 |
+| `lec06-s01-02` | Mục tiêu học tập | `lec-06-topic-01` | Mục tiêu học tập | 1 |
+| `lec06-s01-07` | Nội dung | `lec-06-topic-01` | — | 0,5 |
+| `lec06-s01-08` | Vấn đề trung tâm | `lec-06-topic-01` | Hệ quả 06.8 (dòng 2) | 1,5 |
+| `lec06-s01-03` | Ví dụ: kho một triệu tài liệu | `lec-06-topic-01` | Ví dụ 06.1 | 1,5 |
+| `lec06-s01-04` | Bài toán tìm cặp tương đồng | `lec-06-topic-01` | Định nghĩa 06.1 | 2 |
+| `lec06-s01-05` | Câu hỏi về bài toán tìm cặp | `lec-06-topic-01` | Bài tập 06.1(b, c); Nhận xét 06.2 | 1,5 |
+| `lec06-s02-00` | 2. Phân dải chữ ký MinHash | `lec-06-topic-02` | — | 0,5 |
+| `lec06-s02-01` | Dải, khóa dải và cặp ứng viên | `lec-06-topic-02` | Định nghĩa 06.3 | 1 |
+| `lec06-s02-06` | Ví dụ: năm cột, dải ba hàng | `lec-06-topic-02` | Ví dụ 06.2 | 1,5 |
+| `lec06-s02-02` | Ví dụ: bốn tập đặc trưng | `lec-06-topic-02` | Ví dụ 06.3 | 1,5 |
+| `lec06-s02-03` | Ví dụ: bốn tập đặc trưng, thùng của dải 1 | `lec-06-topic-02` | Ví dụ 06.3 | 1,5 |
+| `lec06-s02-04` | Ví dụ: bốn tập đặc trưng, hợp qua hai dải | `lec-06-topic-02` | Ví dụ 06.3 | 1,5 |
+| `lec06-s02-05` | Ví dụ: bốn tập đặc trưng, xác minh | `lec-06-topic-02` | Ví dụ 06.3 | 2 |
+| `lec06-s02-07` | Thuật toán: phân dải và xác minh | `lec-06-topic-02` | Định nghĩa 06.3; Thuật toán 06.4 | 1,5 |
+| `lec06-s02-08` | Thuật toán: phân dải và xác minh | `lec-06-topic-02` | Thuật toán 06.4 | 3 |
+| `lec06-s02-09` | Tính đúng: phân dải và xác minh | `lec-06-topic-02` | Mệnh đề 06.5 | 1,5 |
+| `lec06-s02-15` | Tính đúng: phân dải và xác minh | `lec-06-topic-02` | Mệnh đề 06.5; Nhận xét 06.6 | 1 |
+| `lec06-s02-10` | Xác suất trùng một dải | `lec-06-topic-03` | Ví dụ 06.4 | 2 |
+| `lec06-s02-11` | Xác suất thành ứng viên | `lec-06-topic-03` | Định lý 06.7; Hệ quả 06.8 | 2 |
+| `lec06-s02-12` | Đường cong S và chọn số dải | `lec-06-topic-03` | Ví dụ 06.5; Mệnh đề 06.9; Nhận xét 06.10 | 2 |
+| `lec06-s02-13` | Chi phí: phân dải và xác minh | `lec-06-topic-04` | Mệnh đề 06.11 | 2,5 |
+| `lec06-s02-16` | Chi phí: bộ nhớ và trường hợp xấu nhất | `lec-06-topic-04` | Ví dụ 06.6; Nhận xét 06.12; Mệnh đề 06.13 | 1,5 |
+| `lec06-s02-14` | Câu hỏi về phân dải | `lec-06-topic-02, lec-06-topic-03` | Bài tập 06.2(b), 06.3(b, c) | 2,5 |
+| `lec06-s03-00` | 3. Khoảng cách và họ nhạy cảm | `lec-06-topic-05` | — | 0,5 |
+| `lec06-s03-01` | Độ đo khoảng cách | `lec-06-topic-05` | Ví dụ 06.7 | 1,5 |
+| `lec06-s03-02` | Độ đo khoảng cách và chuẩn véc-tơ | `lec-06-topic-05` | Định nghĩa 06.14 | 2 |
+| `lec06-s03-03` | Khoảng cách Jaccard | `lec-06-topic-05` | Mệnh đề 06.15 | 2 |
+| `lec06-s03-04` | Khoảng cách góc | `lec-06-topic-05` | Định nghĩa 06.16; Ví dụ 06.8; Nhận xét 06.17 | 2 |
+| `lec06-s03-05` | Khoảng cách chỉnh sửa | `lec-06-topic-05` | Ví dụ 06.9; Định nghĩa 06.18; Mệnh đề 06.19 | 2 |
+| `lec06-s03-06` | Khoảng cách Hamming | `lec-06-topic-05` | Ví dụ 06.10; Định nghĩa 06.20; Nhận xét 06.21 | 1,5 |
+| `lec06-s03-07` | Họ băm nhạy cảm theo tính cục bộ | `lec-06-topic-06` | Định nghĩa 06.22 | 2,5 |
+| `lec06-s03-08` | Ví dụ: họ MinHash theo Jaccard | `lec-06-topic-06` | Hệ quả 06.23; Ví dụ 06.11 | 1,5 |
+| `lec06-s03-09` | Phép ghép đồng thời | `lec-06-topic-07` | Định nghĩa 06.25; Mệnh đề 06.26 | 2,5 |
+| `lec06-s03-10` | Phép ghép ít nhất một | `lec-06-topic-07` | Định nghĩa 06.25; Mệnh đề 06.26 | 2,5 |
+| `lec06-s03-11` | Ví dụ: hai thứ tự ghép trên 16 phép thử | `lec-06-topic-07` | Ví dụ 06.12 | 2,5 |
+| `lec06-s03-12` | Phân dải như phép ghép AND rồi OR | `lec-06-topic-07` | Nhận xét 06.27 | 1,5 |
+| `lec06-s03-13` | Câu hỏi về độ đo và phép ghép | `lec-06-topic-05, lec-06-topic-07` | Bài tập 06.5(c, d), 06.7 | 2,5 |
+| `lec06-s04-00` | 4. Các họ băm theo độ đo | `lec-06-topic-08` | — | 0,5 |
+| `lec06-s04-15` | Véc-tơ bit, hướng và điểm | `lec-06-topic-08` | Mục 4 (đoạn mở); Ví dụ 06.7, 06.8, 06.10; Nhận xét 06.27; Mệnh đề 06.26 | 1,5 |
+| `lec06-s04-01` | Họ băm chọn tọa độ | `lec-06-topic-08` | Ví dụ 06.13; Định nghĩa 06.28 | 1,5 |
+| `lec06-s04-02` | Tính nhạy cảm của họ chọn tọa độ | `lec-06-topic-08` | Mệnh đề 06.29; Nhận xét 06.30 | 2 |
+| `lec06-s04-03` | Hàm băm dấu theo siêu phẳng | `lec-06-topic-09` | Ví dụ 06.14; Định nghĩa 06.31 | 2 |
+| `lec06-s04-05` | Tính nhạy cảm của họ siêu phẳng | `lec-06-topic-09` | Định lý 06.32 | 2 |
+| `lec06-s04-04` | Ví dụ: chữ ký dấu của hai véc-tơ, ba pháp tuyến | `lec-06-topic-09` | Ví dụ 06.15 | 1,5 |
+| `lec06-s04-16` | Thuật toán: chữ ký dấu và ước lượng góc | `lec-06-topic-09` | Thuật toán 06.33 | 2 |
+| `lec06-s04-12` | Ước lượng góc từ chữ ký dấu | `lec-06-topic-09` | Định lý 06.32; Thuật toán 06.33; Tình huống 06.4 | 1 |
+| `lec06-s04-06` | Ví dụ: ba điểm trên trục thứ nhất | `lec-06-topic-10` | Ví dụ 06.16 | 1,5 |
+| `lec06-s04-07` | Họ chiếu có dịch ngẫu nhiên | `lec-06-topic-10` | Định nghĩa 06.34 | 1,5 |
+| `lec06-s04-08` | Xác suất chung thùng khi cố định hướng | `lec-06-topic-10` | Bổ đề 06.35 | 1 |
+| `lec06-s04-13` | Chứng minh: xác suất chung thùng khi cố định hướng | `lec-06-topic-10` | Bổ đề 06.35 | 2 |
+| `lec06-s04-09` | Tính nhạy cảm của họ chiếu hai chiều | `lec-06-topic-10` | Định lý 06.36; Nhận xét 06.37 | 2 |
+| `lec06-s04-10` | Chi phí: chữ ký theo ba họ | `lec-06-topic-17` | Mệnh đề 06.38 | 1,5 |
+| `lec06-s04-11` | Câu hỏi về các họ theo độ đo | `lec-06-topic-08, lec-06-topic-09, lec-06-topic-10` | Bài tập 06.8, 06.9(a), 06.10(a, c) | 2,5 |
+| `lec06-s05-00` | 5. Ứng dụng tìm cặp tương đồng | `lec-06-topic-11` | — | 0,5 |
+| `lec06-s05-01` | Đối sánh thực thể | `lec-06-topic-11` | Định nghĩa 06.39; Nhận xét 06.40 | 2 |
+| `lec06-s05-09` | Ví dụ: chấm điểm tên Bill và William | `lec-06-topic-11` | Ví dụ 06.17; Mệnh đề 06.19 | 1,5 |
+| `lec06-s05-10` | Kiểm kết quả đối sánh bằng trường ngày | `lec-06-topic-19` | Tình huống 06.1; Nhận xét 06.40 | 2 |
+| `lec06-s05-02` | Hàm ba ô cho vân tay | `lec-06-topic-12` | Định nghĩa 06.41 | 1,5 |
+| `lec06-s05-03` | Ví dụ: xác suất va chạm của hàm ba ô | `lec-06-topic-12` | Mệnh đề 06.42 | 2 |
+| `lec06-s05-04` | Phép ghép trong đối sánh vân tay | `lec-06-topic-12` | Ví dụ 06.18; Tình huống 06.2 | 2 |
+| `lec06-s05-05` | Bản tin gần trùng | `lec-06-topic-13` | Định nghĩa 06.43 | 1,5 |
+| `lec06-s05-07` | Ví dụ: shingle theo từ dừng | `lec-06-topic-13` | Ví dụ 06.19 | 1 |
+| `lec06-s05-11` | Ví dụ: bản tin gần trùng, 20 dải 5 hàng | `lec-06-topic-19` | Tình huống 06.3 | 1,5 |
+| `lec06-s05-06` | Câu hỏi về đối sánh thực thể và vân tay | `lec-06-topic-11, lec-06-topic-12` | Bài tập 06.12, 06.13 | 1,5 |
+| `lec06-s05-08` | Câu hỏi về shingle theo từ dừng | `lec-06-topic-13` | Bài tập 06.14 | 1 |
+| `lec06-s06-00` | 6. Tổng kết và tự kiểm tra | `lec-06-topic-14` | — | 0,5 |
+| `lec06-s06-09` | Khung tìm cặp bốn khối | `lec-06-topic-14` | Ví dụ 06.1; sơ đồ Mục 1 | 1 |
+| `lec06-s06-05` | Kết quả và giả thiết không được bỏ | `lec-06-topic-14` | Mệnh đề 06.5; Định lý 06.7; Định nghĩa 06.22; Mệnh đề 06.26, 06.29; Định lý 06.32, 06.36; Mệnh đề 06.42; Nhận xét 06.40 | 2 |
+| `lec06-s06-02` | Thuật toán, bảo đảm và chi phí | `lec-06-topic-14` | Thuật toán 06.4, 06.33; Mệnh đề 06.11, 06.38 | 1,5 |
+| `lec06-s06-01` | Câu trả lời cho vấn đề trung tâm | `lec-06-topic-14` | Tóm tắt chương; Ví dụ 06.4, 06.12, 06.18; Mệnh đề 06.13 | 2 |
+| `lec06-s06-03` | Câu hỏi tự kiểm tra | `lec-06-topic-16` | Bài tập 06.3(a), 06.4, 06.6, 06.11 | 2,5 |
+| `lec06-s06-08` | Nguồn và tài liệu đọc | `lec-06-topic-15` | Hướng dẫn đọc thêm và tài liệu tham khảo | 0,5 |
+| `lec06-s07-00` | 7. Bài tập vận dụng | `lec-06-topic-16` | — | 0,5 |
+| `lec06-s07-01` | Bài tập: bảng giá trị đường cong S | `lec-06-topic-16` | Bài tập 06.20 | 6 |
+| `lec06-s07-11` | Bài tập: bảng giá trị đường cong S | `lec-06-topic-16` | Bài tập 06.20, lời giải | 5,5 |
+| `lec06-s07-02` | Bài tập: nghiệm một nửa của đường cong S | `lec-06-topic-16` | Bài tập 06.21 | 3 |
+| `lec06-s07-12` | Bài tập: nghiệm một nửa của đường cong S | `lec-06-topic-16` | Bài tập 06.21, lời giải | 3 |
+| `lec06-s07-03` | Bài tập: xác suất qua nhiều tầng ghép | `lec-06-topic-16` | Bài tập 06.22 | 5 |
+| `lec06-s07-13` | Bài tập: xác suất qua nhiều tầng ghép | `lec-06-topic-16` | Bài tập 06.22, lời giải | 5 |
+| `lec06-s07-04` | Bài tập: hàm chọn tọa độ trên bốn véc-tơ | `lec-06-topic-16` | Bài tập 06.23 | 3 |
+| `lec06-s07-14` | Bài tập: hàm chọn tọa độ trên bốn véc-tơ | `lec-06-topic-16` | Bài tập 06.23, lời giải | 3 |
+| `lec06-s07-05` | Bài tập: chữ ký dấu của ba véc-tơ | `lec-06-topic-16` | Bài tập 06.24 | 5 |
+| `lec06-s07-15` | Bài tập: chữ ký dấu của ba véc-tơ | `lec-06-topic-16` | Bài tập 06.24, lời giải | 5 |
+| `lec06-s07-06` | Bài tập: thùng chiếu trên ba trục | `lec-06-topic-16` | Bài tập 06.25 | 4 |
+| `lec06-s07-16` | Bài tập: thùng chiếu trên ba trục | `lec-06-topic-16` | Bài tập 06.25, lời giải | 4 |
+| `lec06-s07-07` | Bài tập: hai cấu trúc ghép cho vân tay | `lec-06-topic-16` | Bài tập 06.28 | 4 |
+| `lec06-s07-17` | Bài tập: hai cấu trúc ghép cho vân tay | `lec-06-topic-16` | Bài tập 06.28, lời giải | 4 |
+
+Tổng phút theo mạch: mạch 1: 10; mạch 2: 29; mạch 3: 27; mạch 4: 26; mạch 5: 18; mạch 6: 10; mạch 7: 60. Phần giảng 120 phút, bài tập 60 phút.
+
+## Ánh xạ `data-slide-id` ↔ `note-topic-id` (căn chỉnh 2026-10-14, lịch sử)
 
 | `data-slide-id` | Tiêu đề trang | `note-topic-id` | Số hiệu trong ghi chú | Phút |
 |---|---|---|---|---:|

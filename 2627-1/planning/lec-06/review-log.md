@@ -1204,3 +1204,82 @@ Mục tiêu 1 (phân dải, khử lặp, xác minh) không có bài sách phù h
 
 Theo quyết định người dùng 2026-11-13 ("dùng 'véc-tơ'"), tác tử chỉnh sửa ghi chú (`general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit) đổi "vector" thành "véc-tơ" trong ghi chú; tên tiếng Anh giữ trong ngoặc ở lần dùng đầu. Chạy trước đợt sửa deck, không chạy cùng tác tử deck. Điều phối viên đọc word-diff (chỉ có thay thuật ngữ và chú thích tiếng Anh), `git diff --check` sạch; trình xem ở 1440×900 và 390×844: 0 lỗi console, 0 request hỏng, 0 `.katex-error`, không cuộn ngang. Quyết định: chấp nhận.
 - Ghi chú 06: 83/85 chỗ đổi trong `lecture-note.md` (mục 3.1, tiêu đề Ví dụ 06.8, 06.10, 06.13 đổi theo), 18/18 trong `exercises.md`; giữ "(vector)" lần đầu, tên tệp `chuan-vector.svg`, "(normal vector)". Không SVG nào của ghi chú có chữ "vector".
+
+## Sửa deck theo bảng phát hiện 2026-11-13
+
+**Bối cảnh.** Yêu cầu người dùng (2026-11-13): sửa deck 01–10 theo nguyên tắc deck mới và bảng phát hiện của từng bài, nội dung thống nhất theo ghi chú bài giảng. Căn cứ: bảng phát hiện mục "Rà soát deck theo nguyên tắc deck mới và đối chiếu ghi chú bài giảng (2026-11-13)" ở trên, quyết định người dùng 2026-11-13 ("véc-tơ"), quyết định của điều phối viên G1–G18 và D06. Ghi chú `lecture-note.md` và `exercises.md` đọc ở bản sau commit 28df153; không sửa `materials/`, không sửa CSS.
+
+**Tác tử.** Vai trò: tác tử sửa deck (writer) Bài 06; `no-ai-slop` chế độ Edit, tự kiểm theo `eval.md`. Loại, mô hình và effort do điều phối viên ghi từ lời gọi công cụ. Không commit.
+
+**Xuất xứ số liệu.** Lượt sửa không thêm số tự dựng: mọi số mới trên mặt trang và trong ghi chú diễn giả lấy từ ghi chú (Ví dụ 06.1–06.18, Tình huống 06.1, 06.3, 06.4, Mục 2.5) và `exercises.md` (Bài tập 06.20–06.25, 06.28). Các câu hỏi cũ dùng dữ kiện ngoài ghi chú (s06-03, s06-04: $\mathrm{SIG}$ $(2,1,2,0)$, $(1,1,1,1)$; $b=10$, $r=4$; véc-tơ 128 chiều) đã bị thay.
+
+**Kết quả.** 78 → 89 trang (giảng 70 → 74, bài tập 8 → 15). Thêm `lec06-s04-15`, `lec06-s04-16`, `lec06-s05-09`, `lec06-s05-10`, `lec06-s05-11`, `lec06-s06-09`, `lec06-s07-11`…`17`; bỏ `lec06-s04-14`; gộp `lec06-s06-04` vào `lec06-s06-03`. Thời lượng 120 + 60 phút (bảng ở `storyboard.md`).
+
+| phát hiện | xử lý | trang | ghi chú |
+|---|---|---|---|
+| trung bình · s06-03, s06-04: dẫn chiếu Bài tập 06.15–06.19, 06.27 trỏ sai khối | Đã sửa: hai trang gộp thành một trang bốn câu dùng chính bài của ghi chú (Bài tập 06.4, 06.3(a), 06.6, 06.11); ghi chú diễn giả có lời giải, kết quả đã dùng, tiêu chí, dẫn đúng số bài | s06-03 (gộp s06-04) | Chọn cách thứ hai của đề xuất; đồng thời xử lý dòng "Câu hỏi tự kiểm tra 2–4 câu" |
+| trung bình · s04-00, s04-14: không trang bài toán có hình; thuật toán ngoài ghi chú | Đã sửa: bỏ s04-14; thêm trang bài toán `lec06-s04-15` có hình `ho-bam-theo-do-do.svg` (ba cặp của Ví dụ 06.10, 06.8, 06.7, "Nhu cầu:", dòng "Thuật toán 06.4 giữ thùng và xác minh; cần $br$ hàm của một họ"); khóa $(j,g_j(x))$ và bảo đảm qua Mệnh đề 06.26 chuyển vào ghi chú diễn giả; từ khóa trang tiêu đề mạch 4 bỏ "Thuật toán chung"; ghi chú diễn giả s01-07, s04-00, s04-01, s04-10, s05-00, s05-04, s06-02 bỏ dẫn chiếu tới thuật toán đã bỏ; bảng s06-02 bỏ hàng "Tìm cặp với họ nhạy cảm" | s04-00, s04-15, s01-07, s04-01, s04-10, s05-00, s05-04, s06-02 | D06; chỉ số $e$ không còn |
+| trung bình · s07-01…07: không trang "Lời giải:" | Đã sửa: thêm bảy trang `lec06-s07-11`…`17` cùng tiêu đề, nhãn "Lời giải:", bước theo `exercises.md` 06.20–06.25, 06.28; s07-11 hiện năm hàng ($s=0{,}2;0{,}4;0{,}5;0{,}6;0{,}8$) của bảng 27 giá trị, bốn hàng còn lại trong ghi chú diễn giả; ghi chú diễn giả trang đề có hướng dẫn chấm theo bước (10 điểm) | s07-01…07, s07-11…17 | Phút mỗi bài chia cho trang đề và trang lời giải; tổng 60 |
+| trung bình · s01-02: mục tiêu thiếu phần của ghi chú | Đã sửa: năm mục tiêu theo note:11–15 (phân biệt ứng viên giả/bỏ sót, chứng minh đầu ra đúng; đếm công việc phát cặp, xác minh; năm độ đo; chi phí chữ ký; đối sánh thực thể, vân tay, bản tin) | s01-02 | 79 → 78 âm tiết, đếm tay 19 + 11 + 14 + 19 + 15 |
+| trung bình · s02-12: kết luận đồng nhất $s_{1/2}$ với $(1/b)^{1/r}$ | Đã sửa: "chọn $b,r$ với $(1/b)^{1/r}\approx t$; đặt thấp hơn $t$ để ít bỏ sót, cao hơn $t$ để ít ứng viên giả"; ghi chú diễn giả nêu ba vai trò (Nhận xét 06.10) | s02-12 | Theo đề xuất |
+| trung bình · s04-12 (s04-04, s04-10): thiếu Thuật toán 06.33 | Đã sửa: thêm `lec06-s04-16` "Thuật toán: chữ ký dấu và ước lượng góc" (Đầu vào/Đầu ra, giả mã 7 dòng của ghi chú, câu đọc giả mã); s04-12 bỏ nhãn "Quy tắc ước lượng.", nêu $\mathbb E[\widehat p_{\ne}]=\theta/\pi$; s04-10 thêm hàng "So hai chữ ký … $O(m)$"; s06-02 hàng "Chữ ký dấu, ước lượng góc" | s04-16, s04-12, s04-10, s06-02 | Giả mã đổi "số i có" thành "đếm i có" vì phông mã hiển thị sai chữ "ố" |
+| trung bình · s05-01, s05-05: Ví dụ 06.17, Tình huống 06.1, 06.3 không có trang | Đã sửa: thêm `lec06-s05-09` (Bill và William, $d=5$, $25\kappa\to4\kappa$), `lec06-s05-10` (trường ngày, $\eta=(45-\bar\tau)/35$), `lec06-s05-11` (bản tin, $P_{20,5}(0{,}75)\approx0{,}995564$, $P_{20,5}(0{,}25)\approx0{,}019351$) | s05-09, s05-10, s05-11, s05-01, s05-05 | Mạch 5: 15,5 → 18 phút |
+| nhẹ · s06-05, s07-01: mạch 6, 7 không có trang hình mở mạch | Mạch 6: đã sửa, thêm `lec06-s06-09` "Khung tìm cặp bốn khối" (hình `quy-trinh-cap.svg`, nhắc lại số của Ví dụ 06.1, "Câu hỏi:"). Mạch 7: không thêm | s06-09, s07-00 | Mạch 7: mỗi trang đề đã mang dữ kiện của bài sách; deck mẫu Bài 10 mở mạch bài tập bằng bài sách; trang hình sẽ lấy phút của 60 phút bài tập. Lý do ghi ở phiếu s07-00 |
+| nhẹ · s03-07, s04-03: nhãn SVG < 18 px | Đã sửa qua script: `mien-gan-xa.svg` viewBox 730×300, nhãn hiển thị 19,5 px; `phap-tuyen-dau.svg` nhãn 30–34, hiển thị 19,2 px (đo Playwright 1280×720) | s03-07, s04-03 | Mọi 14 lần dùng hình trên deck ≥ 19,2 px |
+| nhẹ · s01-06: thiếu "Nhắc lại:" công cụ xác suất, Cauchy–Schwarz | Đã sửa: dòng "Nhắc lại: biến cố bù, độc lập, chặn hợp, tuyến tính kỳ vọng; Cauchy–Schwarz."; Jensen trong ghi chú diễn giả | s01-06 | Gộp hai dòng "Ký hiệu:" để giữ 6 dòng, 60 âm tiết |
+| nhẹ · s02-07, s03-00, s03-02, s05-02, s05-00: ký hiệu, thuật ngữ khác ghi chú | Đã sửa: $z_{j,c}$, $k_{j,c}=(j,z_{j,c})$ (s02-07, s02-02); "Năm độ đo"; "Độ đo khoảng cách (metric)"; tiêu đề "Hàm ba ô cho vân tay", từ khóa "Hàm ba ô" | s02-02, s02-07, s03-00, s03-02, s05-02, s05-00 | — |
+| nhẹ · s04-14, s04-12, s02-11: nhãn ngoài danh sách; số hiệu không sau phát biểu | Đã sửa: s04-14 bỏ; "Quy tắc ước lượng." bỏ; "(Định lý 06.7)" đặt sau phát biểu định lý | s02-11, s04-12 | — |
+| nhẹ · s02-11, s06-05: thiếu giả thiết Định lý 06.7; tiêu đề cột | Đã sửa: "Nếu $n=br$ MinHash lý tưởng (hoán vị chọn đều) được chọn độc lập…"; cột "Công thức hoặc thuật toán"; hàng "MinHash chọn đều, độc lập trong và giữa các dải" | s02-11, s06-05 | s06-05 rút hàng vân tay để giữ 80 âm tiết |
+| nhẹ · s01-08: vấn đề trung tâm thiếu điều kiện | Đã sửa: năm dòng có điều kiện và số (bỏ sót $\approx0{,}00036$; $0{,}88$/$0{,}10$; ba phân phối chọn hàm; khóa cố định không có xác suất bỏ sót; $\mathbb E[K]\le N+10^8$) | s01-08 | 59 âm tiết |
+| nhẹ · s06-03, s06-04: 6 câu; dữ kiện ngoài ghi chú | Đã sửa cùng dòng trung bình đầu bảng: 4 câu, dữ kiện của ghi chú | s06-03 | — |
+| nhẹ · s03-08, s04-06, s05-03: thiếu dòng "Tính …" | Đã sửa: "Tính bộ tham số với $d_1=0{,}3$, $d_2=0{,}6$."; "Tính mã thùng $\lfloor x_1/a\rfloor$ trên trục thứ nhất."; "Tính $q_F$, $q_T$." | s03-08, s04-06, s05-03 | s04-06 gộp vào dòng dữ kiện để giữ 7 dòng |
+| nhẹ · s02-01, s02-07: giới hạn không số; thiếu so sánh với cách đã biết | Đã sửa: "Nhu cầu: chữ ký $10^9$ byte vừa bộ nhớ nhưng còn $499\,999\,500\,000$ cặp."; "Băm một hàng: cặp $s=0{,}3$ chung thùng với xác suất $0{,}3$."; "Trực quan. Tương tự băm một hàng, nhưng khóa là cả $r$ hàng của một dải." | s02-01 | Không viết "$0{,}3^r$" trên s02-01 vì công thức một dải chỉ được chứng minh ở s02-10; dòng "Ví dụ." cột 2, 4 bỏ (đã có ở s02-06) |
+| nhẹ · s04-09, s02-11: ghi chú diễn giả cũ hơn ghi chú | Đã sửa: tóm tắt Nhận xét 06.37 ($P(\rho)$ giảm chặt, $D\ge2$); "khoảng 1 trên 2 800" | s04-09, s02-11 | — |
+| nhẹ · 13 trang: câu xuất xứ số liệu, đính chính sách | Đã sửa: bỏ mọi câu nêu (s01-03 viết "Giả định mỗi lần so một cặp chữ ký mất $1\,\mu$s"; s01-05, s03-13, s04-03, s04-11, s05-03, s05-04, s05-06, s05-08, s06-01, s06-03/04, s07-06); dòng "Nguồn: …" giữ | 13 trang nêu ở cột phát hiện | `grep` "luyện tập", "minh họa", "MMDS viết", "sách lấy": 0 |
+| nhẹ · 10 trang: câu chỉ đường, tài liệu làm chủ ngữ, lời chú người soạn | Đã sửa: s01-06, s01-08, s02-00, s02-02, s02-07, s03-00, s04-00 viết lại; s04-14 bỏ; s05-01 bỏ "Chu trình được rút gọn" (nay có s05-09, s05-10); s01-01 bỏ "Bài này…" | các trang nêu | — |
+| nhẹ · 6 trang: số, khẳng định ngoài ghi chú | Đã sửa: s02-08 theo Nhận xét 06.6; s02-13 bỏ "$2K$ lần đọc ngẫu nhiên"; s03-10 bỏ "OR thường đặt sau AND"; s04-12 bỏ "$42^\circ$", thay phương sai của ghi chú; s05-05 bỏ "vài trăm từ"; s06-01 bỏ "$5\cdot10^5$ lần" | s02-08, s02-13, s03-10, s04-12, s05-05, s06-01 | Cùng lượt: s02-06 bỏ "Sách giả định rất nhiều thùng", s04-02 bỏ "giới hạn độ dốc", s06-08 bỏ tiêu chí so sánh Bài 07 ngoài ghi chú |
+| nhẹ · 6 trang: tương phản nhị phân, từ làm mềm | Đã sửa: các câu viết khẳng định theo đề xuất (s03-01, s02-10, s02-12, s03-07, s05-05, s06-02) | s03-01, s02-10, s02-12, s03-07, s05-05, s06-02 | Cùng lượt: s03-05, s03-06, s04-03, s07-16 |
+| nhẹ · s02-00, s04-14, s04-12, s05-04, s06-01: ghi chú diễn giả dài | Đã sửa: 102 → 84; s04-14 bỏ; 167 → 125; 166 → 149; 165 → 141 | s02-00, s04-12, s05-04, s06-01 | `notes_gt250`: 0; trên 150: s06-03 (186, lời giải), s02-09 (155, tính đúng, không đổi) |
+| nhẹ · s06-08: HNSW không có tên đầy đủ trước | Đã sửa: "đồ thị thế giới nhỏ phân tầng (HNSW) và lượng tử hóa tích (PQ)"; thêm liên kết `exercises.md` và liên kết Bài 07 theo deck 09/10 | s06-08 | — |
+| nhẹ · s07-00…07: vị trí lời giải "của ghi chú" | Đã sửa: "Bài tập 06.20" (tệp bài tập), "Lời giải theo Bài tập 06.20–06.25 và 06.28" | s07-00…07 | Cùng lượt: mọi "Ghi chú bài giảng: Bài tập …", "của ghi chú" bỏ (G4) |
+
+**Thuật ngữ "véc-tơ" (G13).** 24 chỗ "vector"/"Vector" còn lại trên mặt trang, ghi chú diễn giả và `alt` đổi thành "véc-tơ"; "(vector)" ở lần dùng đầu (ghi chú diễn giả s03-00, mặt trang s03-02); giữ tên tệp `chuan-vector.svg`. SVG không có chữ "vector".
+
+**Kiểm tự làm (G17).** `check_deck.py` (8796, 1600×900 và 390×844): 89 trang, 7 section ngoài, 0 lỗi console/trang, 0 request hỏng, 0 request ngoài, 0 `.katex-error`, 0 trùng mã, 0 trang thiếu ghi chú, `disp_gt3` rỗng, `notes_gt250` rỗng, `notes_lt40` rỗng, 0 `fragment`, `style_blocks=1` (thẻ runtime), `hash_strand` `#/2…7` → `mach-2…7`, phím mũi tên chuyển trang, `hscroll_390` sai. `overflow_1600`: s03-01, s03-04, s04-12 với độ lệch phải 14 000–16 000 px, đáy âm: cờ giả do path SVG của `\sqrt` KaTeX ($\sqrt{2580}$ ở s04-12 là trang mới bị cờ); ảnh chụp 1600×900 cho thấy nội dung gọn trong khung. `refcheck.py 06`: 124 đúng, 0 sai. `git diff --check`: sạch. Trang trên 60 âm tiết đều thuộc loại trần 80 và có ngoại lệ ở `storyboard.md`. Ảnh chụp đã xem: s01-02, s01-06, s03-07, s04-03, s04-10, s04-12, s04-15, s04-16, s05-10, s05-11, s06-03, s06-05, s06-09, s07-15, s07-17 (1600×900) và s05-09 (390×844).
+
+### Lượt sửa sau kiểm lại (2026-11-13)
+
+Theo danh sách đã duyệt của điều phối viên (`merge-06.md`: 1 trung bình, 10 nhẹ). Phông `code`: điều phối viên quyết giữ chữ của ghi chú, lỗi dấu chồng là việc CSS chung báo người dùng.
+
+| mục | xử lý | trang |
+|---|---|---|
+| 1 · nhẹ · giả mã "đếm i có" | Khôi phục "số i có" theo note:1185; ghi chú diễn giả "vòng tính dấu và bước ước lượng" thay "bước 2 và bước 3" | s04-16 |
+| 2 · nhẹ · ô giữa của `mien-gan-xa.svg` có dòng xác suất | Bỏ dòng "Pr[h(x)=h(y)]" ở ô giữa; ô giữa còn "Giữa", "d₁ < d < d₂", "không có cận chung", khớp `alt` note:871 và câu đọc hình note:873. Sửa qua script; trình xem ghi chú 06 (1440, 390): 0 lỗi console, 0 `.katex-error`, không cuộn ngang | s03-07 (và ghi chú) |
+| 3 · nhẹ · phạm vi bảo đảm ở s07-15 | "cả ví dụ nằm ngoài bảo đảm của định lý; cặp $y$, $z$ cho đúng $180^\circ$ vì $y=-z$" (ex:287) | s07-15 |
+| 4 · nhẹ · vị trí số hiệu | "(Mệnh đề 06.19)" sau phép tính $d=4+7-2\cdot3=5$ | s05-09 |
+| 5 · nhẹ · mũi tên bắt đầu trong khối | `ho-bam-theo-do-do.svg`: mũi tên từ mép phải khối trước (x1 = 584, 769, 949) | s04-15 |
+| 6 · trung bình · mạch ứng dụng | s06-09: "Ứng dụng đổi biểu diễn hoặc họ hàm; thùng và xác minh giữ nguyên." (note:1663); s05-00 ghi chú diễn giả: "ở đối sánh thực thể, bước chấm điểm đóng vai bước xác minh" (Định nghĩa 06.39), thống nhất với s05-09 | s06-09, s05-00 |
+| 7 · nhẹ · vấn đề ↔ câu trả lời | s01-08 thêm "($D=2$)"; s06-01 thêm dòng khóa thực thể cố định, gộp hai dòng giả định phân bố và thời gian (giữ 6 dòng, 70 âm tiết) | s01-08, s06-01 |
+| 8 · nhẹ · hình mở mạch 7 | Thêm `xac-suat-phan-dai.svg` lên s07-01 (hai đường của Ví dụ 06.5, không lộ lời giải); lớp `lsh-figure` vì `lsh-short` cho nhãn 15,4 px, nay 22,5 px; lý do ở phiếu s07-00 sửa | s07-01, s07-00 |
+| 9 · nhẹ · câu chỉ đường | Bỏ "Ba họ cùng giả thiết…" (s04-00); "Dòng k" thay bằng tên kết quả (s01-08, s06-01) | s04-00, s01-08, s06-01 |
+| 10 · nhẹ · tài liệu làm chủ ngữ | "Có thể sắp hồ sơ theo từng trường thay cho bảng băm."; "Theo độ, bộ tham số là $(180-d)/180$." | s05-01, s04-05 |
+| 11 · nhẹ · nhãn kết luận | "Lưu ý:" thay "Kết luận:" | s07-16 |
+
+`outline.md`: dòng trống cuối tệp đã bỏ. Kiểm lại G17: `check_deck.py` 89 trang, 0 lỗi console/request/KaTeX, `notes_gt250` rỗng, `hash_strand` đúng, `hscroll_390` sai, `overflow_1600` chỉ ba cờ giả `\sqrt` (s03-01, s03-04, s04-12); s06-09 60, s06-01 70 âm tiết, mọi trang > 60 thuộc trần 80. `refcheck.py 06`: 126 đúng, 0 sai. `git diff --check` các tệp Bài 06: sạch. Nhãn SVG (1280×720) ≥ 19,2 px ở mọi lần dùng.
+
+### Kiểm lại và duyệt của điều phối viên (2026-11-13)
+
+**Tác tử (theo lời gọi công cụ).** Sửa deck: `general-purpose`, `opus` (Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; lượt sửa sau kiểm lại do cùng tác tử (tiếp tục bằng `SendMessage`). Kiểm lại vai A (độ chính xác và khớp ghi chú) và vai B (mạch, cấu trúc, văn phong, `no-ai-slop` Detect): mỗi vai một tác tử `general-purpose`, `opus` (Opus 5.5), effort `high`, chỉ đọc.
+
+| vai | kết luận | phát hiện (chặn/nghiêm trọng/trung bình/nhẹ) | quyết định |
+|---|---|---|---|
+| A | đạt | 0/0/0/4 | chấp nhận; năm mục vào `merge-06.md` (mục 1–5, gồm mũi tên của hình mới) |
+| B | cần sửa | 0/0/1/6 | chấp nhận; sáu mục vào `merge-06.md` (mục 6–11); s06-09 theo note:1663 |
+
+Lượt sửa sau kiểm lại: 11/11 mục làm; mục 7 thêm dòng khóa thực thể vào s06-01 thay cho dòng vân tay ở s01-08 (s01-08 ở 59/60 âm tiết); mục 8 hình s07-01 dùng lớp `lsh-figure` để nhãn 22,5 px — chấp nhận. Giả mã s04-16 giữ chữ "số i có" của ghi chú.
+
+Việc để lại cho người dùng (CSS chung, ngoài phạm vi đợt này): phông `pre code` (DejaVu Sans Mono) đặt sai dấu chồng tiếng Việt ("nếu", "số") trên mọi deck và trình xem ghi chú; trình xem hiển thị ảnh của ghi chú 06 rộng 900 px trong khung cuộn ngang (có từ trước).
+
+Kiểm của điều phối viên sau lượt sửa: `check_deck.py` (Playwright, 1600×900 và 390×844) 89 trang, ID không trùng, 0 lỗi console/trang, 0 request hỏng hoặc ra ngoài, 0 `.katex-error`, không cuộn ngang ở 390 px, `#/2…7` mở đúng `mach-2…7`; cờ `overflow_1600` ở s03-01, s03-04, s04-12 là path SVG của `\sqrt` KaTeX (điều phối viên xem ảnh s04-12: trang vừa khung); tám trang trên 60 âm tiết đều thuộc loại trần 80 (s01-02 78, s02-13 66, s04-10 75, s06-05 80, s06-02 62, s06-01 70, s06-08 61, s07-07 75). `refcheck.py`: 126 dẫn chiếu `06.k`, 0 sai. Thuật ngữ: chỉ còn "véc-tơ (vector)" ở lần dùng đầu và tên tệp `chuan-vector.svg`. `git diff --check` trên tệp Bài 06 sạch. Điều phối viên tự xem ảnh s04-15 (hình mới `ho-bam-theo-do-do.svg`) ở 1600×900.
+
+Quyết định: **chấp nhận**; mọi phát hiện của bảng 2026-11-13 đã đóng.
