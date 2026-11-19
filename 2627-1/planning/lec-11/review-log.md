@@ -222,3 +222,235 @@ Kiểm tra: section mở/đóng 62/62; 55 `data-slide-id` và 6 `id` duy nhất.
 ### Sửa sau rà lại đợt 2 (2026-10-14)
 
 Theo báo cáo rà lại đợt 2 (không có phát hiện chặn bàn giao, nghiêm trọng hoặc trung bình), viết lại 6 ghi chú diễn giả của trang tiêu đề mạch: bỏ các câu lấy tài liệu hoặc trang làm chủ ngữ ("Phần này …", "Trang đầu …", "trang tiếp …", "Phần cuối …", "ở phần sau") theo `AGENTS.md` "Tiêu chuẩn trang chiếu và ghi chú diễn giả"; chủ ngữ mới là đối tượng, thuật toán hoặc kết quả; giữ ba ý kế thừa, nhiệm vụ, kết quả giao và độ dài 40–100 âm tiết (no-ai-slop, chế độ Edit). Dòng từ khóa: khoảng trắng trong mỗi cụm và trước dấu "·" đổi thành khoảng trắng không ngắt (`&nbsp;`), nên dấu "·" không đứng đầu dòng và không cụm nào bị tách ở 1600×900; không sửa CSS. Kiểm lại: section mở/đóng cân bằng; `#/2` … `#/N` mở đúng trang tiêu đề mạch ở 1600×900; 0 lỗi console, 0 `.katex-error`; `git diff --check` sạch.
+
+## Dựng lại theo nguyên tắc 2026-11 (bắt đầu 2026-11-19)
+
+Căn cứ: `2627-1/planning/lec-11/prompt-xay-dung-bai-11.md`; người dùng chốt Q1–Q10 theo cột "Đề xuất" ngày 2026-11-19 (Q2–Q8 ghi vào `NGUYEN-TAC-HOC-PHAN.md`: GC-DSFA-2, GC-DSFA-3, GC-DSFA-13, NT-DSFA-10, NT-DSFA-11, NT-DSFA-12, VP-DSFA-8). Điều phối viên: Claude Opus 5.5 (`claude-opus-5-5`). Các mục cũ ở trên giữ nguyên làm lịch sử.
+
+### Nhật ký tác tử
+
+| Giai đoạn | Vai | Loại | Mô hình | Nỗ lực | Ghi tệp | Kết quả |
+|---|---|---|---|---|---|---|
+| I.1 | Lập kế hoạch (ghi `outline.md`) | general-purpose | opus (Claude Opus 5.5) | high | `outline.md` | chấp nhận, kèm quyết định D1–D13 (xem "Duyệt outline") |
+| I.2 | Phân tích nguồn (chỉ đọc; báo cáo trong scratchpad) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận (xem "Duyệt phân tích nguồn") |
+| I.4 | Soạn ghi chú và SVG (`no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | `lecture-note.md`, `img/lec-11/`, script hình | chấp nhận làm bản đóng băng v1 (27 167 âm tiết, md5 `781229e7`) để rà |
+| I.5 | Rà ghi chú: sinh viên năm 2 (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không (báo cáo scratchpad) | chấp nhận báo cáo |
+| I.5 | Rà ghi chú: độ chính xác toán và thuật toán (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không (báo cáo scratchpad) | chấp nhận báo cáo |
+| I.5 | Rà ghi chú: chuyên gia nén dữ liệu (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không (báo cáo scratchpad) | chấp nhận báo cáo |
+| I.5 | Rà ghi chú: sư phạm và văn phong (chỉ đọc, `no-ai-slop` Detect) | general-purpose | opus (Claude Opus 5.5) | high | không (báo cáo scratchpad) | chấp nhận báo cáo |
+| I.5 | Rà ghi chú: mạch và móc nối (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không (báo cáo scratchpad) | chấp nhận báo cáo |
+| I.6 | Biên tập ghi chú (cùng tác tử I.4, tiếp tục bằng SendMessage; `no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | `lecture-note.md`, `img/lec-11/note-*.svg`, script hình | xong, bản v2 md5 `3ab5a114` (29 990 âm tiết); chờ kiểm lại |
+| I.6 | Kiểm lại: độ chính xác toán và thuật toán (cùng tác tử I.5, SendMessage) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận: 19/19 phát hiện I.5 đã sửa; mới 0 chặn, 0 nghiêm trọng, 2 trung bình, 5 nhẹ → lượt sửa 2 |
+| I.6 | Kiểm lại: mạch và móc nối (cùng tác tử I.5, SendMessage) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận: TB1–TB10 đã sửa; mới 0/0/0, 4 nhẹ → lượt sửa 2 |
+| I.6 | Biên tập lượt 2 và sửa câu gzip (cùng tác tử I.4) | general-purpose | opus (Claude Opus 5.5) | high | `lecture-note.md` | chấp nhận (v3 md5 `ae0d35e2`, 30 394 âm tiết; sửa câu gzip sau kiểm lại lần 2) |
+| I.6 | Đồng bộ `outline.md` (cùng tác tử I.1) | general-purpose | opus (Claude Opus 5.5) | high | `outline.md` | chấp nhận; cập nhật lần 2 đóng R1–R3, D10 |
+| II.1 | Chọn bài tập (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận (xem "Duyệt danh sách bài tập") |
+| II.2 | Soạn `exercises.md` (`no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | `exercises.md` | đang chạy |
+
+### Duyệt phân tích nguồn (I.2)
+
+Quyết định: **chấp nhận**. Điều phối viên đã kiểm lại: (1) CMU `compression3-lz.pdf` trang chiếu 4 định nghĩa $p$ là "position of the longest match in the dictionary (relative to the cursor)", tức khoảng lùi; câu "bài CMU dùng vị trí tuyệt đối, đánh số từ 0" ở bản cũ (X02, Bài 2 cũ) sai, kết quả `abcdcdcdcdcdce` không đổi; Nelson–Gailly dùng chỉ số trong bộ đệm cửa sổ (PDF 175–176). (2) Hình 11.9 (PDF 258): tự tính $CPC^T$ trực chuẩn với dịch mức 128 cho hàng 0 là `186 -18 15 -9 23 -9 -14 -19`; hình in ô $(0,7)$ là 19, lỗi dấu của sách. Các phát hiện khác ghi nhận để lập kế hoạch:
+
+- LZW độ rộng mã thay đổi ($T=2^b$, early/late change) không có trong nguồn được giao (Nelson–Gailly Chương 9 chỉ có LZW12 cố định 12 bit, 256 là END_OF_STREAM, mã đầu 257); bản dựng lại không đưa nội dung này vào phần chính (VP6).
+- Chuỗi `ppqpprpqrpqrq` là chuỗi CMU `aabaacabcabcb` đổi nhãn; vết CMU không chạm nhánh `k = next_code`; cần ví dụ nguồn cho nhánh này (`abababa` hay chuỗi của sách) hoặc ghi lý do.
+- Hình 11.11: văn bản nói làm tròn, chương trình và hình theo chia nguyên cắt về 0; ô $(1,3)$ in 11, đúng là −11. Ghi chú dùng làm tròn theo văn bản, chỉ chọn ô cho cùng kết quả ở cả hai cách; đính chính ghi ở đây, không ghi trong ghi chú (VP18).
+- `(i,EOS)` của LZ78, restart marker, lấy mẫu thưa màu là quy ước không có trong nguồn trục (lấy mẫu thưa chỉ ở CMU lossy 14, 31).
+- `assign1a` và Nelson–Gailly không có bài tập cho Bài 11; nguồn bài tập chỉ là các trang chiếu recitation CMU (BT-DSFA-2).
+
+Báo cáo: scratchpad phiên `lec11-source-analysis.md`, script `lec11_traces.py` (không đưa vào repo).
+
+### Duyệt outline (I.3)
+
+Quyết định: **chấp nhận**, chờ người dùng duyệt theo Q10. Điều phối viên đã đọc mục 0–7 và 13–14 của `outline.md`, đối chiếu với báo cáo phân tích nguồn; số Hình 11.9 hàng 0 đã tự tính lại. Quyết định cho các điểm D của outline mục 13:
+
+| Mã | Quyết định của điều phối viên | Lý do |
+|---|---|---|
+| D1 | Sáu mạch nội dung; storyboard được tách mạch 5 nếu quá tải | NT10, NT-DSFA-11 |
+| D2 | Chấp nhận: một quy ước $(d,\ell,c)$ khoảng lùi; sửa câu sai về CMU | CMU-LZ tc. 4 (đã kiểm) |
+| D3 | Chấp nhận mã byte thật 97–99; ghi đổi số ở đây khi soạn | mã $0..255$ là giá trị byte (NG tr. 220) |
+| D4 | Chấp nhận lượng tử hóa cả khối Hình 11.9 với $q=2$, làm tròn; ô $(0,7)$ dùng $-19$ | phép tính của chương trên dữ liệu và công thức nguồn; khối duy nhất có điểm ảnh |
+| D5 | Chấp nhận | LZ78 `(i,EOS)` dựa Nhận xét 10.4 |
+| D6 | Chấp nhận: bỏ đổi độ rộng mã | không có nguồn (VP6) |
+| D7 | Ví dụ chính là IWOMBAT (NG tr. 217); cho phép thêm vết tối thiểu `abababa` viết "Giả sử", vì nguồn không có vết đầy đủ chạm nhánh $k=\texttt{next\_code}$ và GC-DSFA-9 cần ví dụ chạy tay; nêu cho người dùng ở điểm dừng | GC10, GC-DSFA-9; nguồn gốc ghi ở đây (VP18) |
+| D8, D9, D11, D13 | Chấp nhận như đề xuất | |
+| D10 | Chấp nhận CMU-LZ tc. 7 làm bài của `exercises.md`, đề nêu $W=6$, $L=4$ của tc. 5, ghi chỉnh theo BT-DSFA-6 | prompt II.1 cho phép câu hỏi có trên hai bộ slide CMU |
+| D12 | Dùng "hệ số AC" (định nghĩa tại chỗ là 63 hệ số còn lại); người soạn tìm nguồn dùng thuật ngữ, nếu không có thì vẫn giữ như tên gọi chuẩn | VP2 (ký hiệu chuẩn) |
+
+### Năm báo cáo rà ghi chú trên bản đóng băng v1 (I.5)
+
+Bản đóng băng: `lecture-note.md` md5 `781229e7fe9949bc18a9a6dec98efa85`, 27 167 âm tiết. Báo cáo đầy đủ ở scratchpad phiên (không đưa vào repo); bảng dưới tóm tắt số phát hiện và các phát hiện mức nghiêm trọng, đã được điều phối viên kiểm bằng chứng.
+
+| Vai | Chặn bàn giao | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---:|---:|---:|---:|
+| Sinh viên năm 2 | 0 | 3 | 8 | 20 |
+| Độ chính xác toán và thuật toán | 0 | 0 | 3 | 15 |
+| Chuyên gia nén dữ liệu | 0 | 1 | 7 | 19 |
+| Sư phạm và văn phong (`no-ai-slop` Detect) | 0 | 1 | 14 | 26 |
+| Mạch và móc nối | 0 | 0 | 10 | 19 |
+
+| Mức độ | Vị trí | Vấn đề | Bằng chứng | Quyết định |
+|---|---|---|---|---|
+| nghiêm trọng | Bảng ký hiệu dòng 37; $m$, $s$, $b$, $P$, $H$, $r$, $\alpha$, $\beta$, $x,y$ | Chữ mang nhiều nghĩa, trái câu "mỗi chữ giữ một nghĩa" (VP4, GC7) | $m$: số mẫu, số mã LZW, độ dài cụm, chỉ số Bổ đề 11.27; $s$ hai nghĩa trong Định nghĩa 11.32 | yêu cầu sửa (quyết định 1) |
+| nghiêm trọng | Bài tập 11.1(c) | Đề hỏi vì sao "không thể", lời giải và Tình huống 11.1 chỉ ra cách làm được | dòng 171, 183, 1639 (điều phối viên đã đọc) | yêu cầu sửa (quyết định 2) |
+| nghiêm trọng | dòng 152, 1657 | Mệnh đề 10.2 bị đọc thành "kéo dài một số đầu vào" | Mệnh đề 10.2 chỉ cho $\lvert\varphi(u)\rvert\ge n$ (điều phối viên đã đọc) | yêu cầu sửa (quyết định 3) |
+| nghiêm trọng | Nhận xét 11.35, dòng 1486 | "64 lần so với 8 bit" trái nguồn | CMU-L trang chiếu 17: ".125 bits/pixel (factor of 200)", ảnh màu (điều phối viên đã xem) | yêu cầu sửa (quyết định 4) |
+
+Các phát hiện trung bình và nhẹ được áp dụng theo bảng quyết định gửi biên tập viên (26 quyết định; bác bỏ: đề xuất ra bài `exercises.md` trên dữ liệu mới, trái BT-DSFA-1/2). Các trung bình chính: ghép cận làm tròn với số đo chương trình cắt thương của NG (Tình huống 11.1); giả thiết "không cụm nào khớp" không thể xảy ra (Tình huống 11.2); mã độ dài loạt theo cả ảnh thay vì theo khối như NG; "ảnh xám" thay vì ảnh VGA 256 màu (NG tr. 246); câu nối hai phía ở ranh giới 2→3, 3→4; kết luận Mục 6 sai về chi phí LZ77 và giả thiết; câu hỏi trung tâm chưa trả lời phần văn bản; tóm tắt thiếu số hiệu thuật toán; ba mục tiêu thiếu bài tập; thiếu ví dụ số trước Định nghĩa 11.29, 11.32.
+
+### Kiểm lại sau biên tập (I.6)
+
+| Mức độ | Vị trí (v2) | Vấn đề | Bằng chứng | Quyết định |
+|---|---|---|---|---|
+| trung bình | dòng 1154, 1179 | Chữ cũ $m$, $x$ sót sau khi đổi ký hiệu | Bổ đề 11.27 dùng $\mu$; $x$ là chuỗi đầu vào | yêu cầu sửa |
+| trung bình | Định nghĩa 11.32, Mệnh đề 11.33, Ví dụ 11.13, Thuật toán 11.34 | Bộ $(r,0)$ đóng khối gán cho NG; NG đếm loạt số 0 xuyên khối (tr. 267, 270–271) | vai thuật toán đọc mã `OutputCode` | yêu cầu sửa: ghi là quy ước của chương, một câu "Trong thực hành" mô tả chương trình NG |
+| nhẹ | dòng 1012; Ví dụ 11.14; Tình huống 11.4; ký hiệu tại chỗ; độ phủ mục tiêu 2, 3, 6 | xem báo cáo kiểm lại | | yêu cầu sửa (lượt 2) |
+
+Điều phối viên đã đối chiếu số đo Calgary của Tình huống 11.4 với CMU 15-499 `compression1-2.pdf` trang chiếu 10 (GZIP 2,59; LZ77 3,94 bit mỗi ký tự): khớp. Nguồn này cùng bộ slide CMU 15-499 của học phần (P8).
+
+Kiểm lại lần 2 trên v3 (md5 `ae0d35e27658e9f39c76af7ed7895b41`): vai thuật toán 0/0/0/1 nhẹ (câu "mỗi bộ ba" mô tả sai định dạng gzip ở Tình huống 11.4; yêu cầu sửa, đã giao); vai mạch 0/0/0/0. Mọi phát hiện chặn bàn giao và nghiêm trọng của I.5 đã được giải quyết.
+
+### Nguồn gốc số liệu và chỗ chỉnh so với sách (từ người soạn, VP18, BT8)
+
+Bản đầy đủ do người soạn ghi; chép nguyên văn dưới đây để giữ trong repo. Mục 1–4 viết cho bản v1; các số đã đổi sau biên tập (Tình huống 11.2: 96 000 byte với $\ell=1$, cận phép so $\le2{,}1\cdot10^9$; cận chương trình NG 9,60 / 18,23 / 44,12; mã độ dài loạt theo khối, 31 bộ; $1/(1-\alpha)\approx4{,}25$) ghi ở mục 5–6 và là số hiện hành.
+
+#### Bài 11 — Ghi chú của người soạn (giai đoạn I.4), để điều phối viên đưa vào review-log
+
+Tệp ghi: `ds-foundation-algorithms/2627-1/materials/lec-11/lecture-note.md` (27167 âm tiết theo `wc -w`, 1752 dòng).
+Script kiểm phép tính: `scratchpad/lec11_writer_checks.py` (đầu ra `lec11_writer_checks.out`); script hình: `tools/courses/ds-foundation-algorithms/2627-1/img/lec-11/generate_note_svg.py`.
+
+#### 1. Nguồn gốc số liệu tự dựng (không có trong nguồn)
+
+| Vị trí | Số liệu | Cách có |
+|---|---|---|
+| Mục 1.1, đoạn nhầm lẫn RMS | hai cách tái tạo cùng RMS 2 (64 điểm lệch 2; 4 điểm lệch 8) | "Giả sử", chương dựng |
+| Ví dụ 11.1, Bài tập 11.1 | bit mỗi điểm 3,48; 2,30; 1,28; 0,90; 0,64 (CHEETAH), 2,60; 1,78; 1,08; 0,79; 0,60 (CLOWN) | tính từ NG Hình 11.14 |
+| Ví dụ 11.14 | vết LZ77 `aabaacabcabcb`, $W=6$, $L=4$: (0,0,a)(1,1,b)(3,2,c)(5,2,c)(3,3,b); 70 / 72 / 90 / 104 bit | chương tính; độ rộng mã LZ78 3 bit và LZW 9 bit viết "Giả sử" |
+| Ví dụ 11.6, 11.7 | ba mã cuối 98, 99, 98 và mục 263 = `bc`, 264 = `cb`; vết giải mã đủ 10 mã | chương tính (CMU chỉ in 7 mã đầu) |
+| Ví dụ 11.8(b), hình `note-lzw-ma-chua-co.svg` | vết `abababa` → 97, 98, 256, 258 | "Giả sử", theo D7 |
+| Bài tập 11.6 | chuỗi toàn chữ a; $n=6$ → 97, 256, 257; $n=r(r+1)/2$ → $r$ mã, mọi mã từ mã thứ hai đi qua nhánh $k=\texttt{next\_code}$ | bài cuối mục do chương dựng (thay đề "ba bộ nén" của outline, nội dung đó đã ở Ví dụ 11.14) |
+| Bài tập 11.3(c) | 100 chữ A, $W=4096$, $L=16$: 7 bộ ba, 25 bit mỗi bộ ba, 175 bit | chương tính |
+| Bài tập 11.2 | điểm hòa vốn $m=2$ (17 bit), $m=4$ (27 bit) | tính từ 17/27 bit của NG tr.208 |
+| Mục 2.3 | 14 bit mỗi bộ ba với $W=6$, $L=4$; hòa vốn 1,75 ký tự | Mệnh đề 11.9(d) |
+| Mục 3.3 | 25 bit mỗi cặp với $M=2^{16}$ và trường ký tự 9 bit | Mệnh đề 11.16(d) |
+| Ví dụ 11.9–11.13 | trung bình 151,25; tổng hàng 1 220 … 1 176; $F$ thực hàng 0; năng lượng 43 372 / 43 333; tỷ lệ 80 %, 85 %, 4,4 %; $\hat F$ ($q=2$, làm tròn, 30 số khác 0); $\tilde F$; $\tilde P$; RMS điểm ảnh 4,21; RMS hệ số 4,12 ($\sum(F-\tilde F)^2=1\,086$); tỷ số lớn nhất 8/17 ở ô (3,4); dãy zigzag, lượt 55, 30 bộ ba, biên độ 6 + 39 bit | chương tính trên dữ liệu NG Hình 11.9 và công thức NG tr.259–260 (D4 cho phép) |
+| Mục 5.1 | IDCT của $F$ đã làm tròn lệch khối gốc tối đa 1 mức xám | chương tính |
+| Định lý 11.31, Ví dụ 11.12, Bài tập 11.9, Tình huống 11.1 | $\sum Q^2=5\,856$, $21\,184$, $124\,384$; $\beta(1,2,5)\approx4{,}78$; $9{,}10$; $22{,}04$; nhân đôi 9,57; 18,19; 44,09 | chương tính |
+| Phạm vi Định lý 11.31 | làm tròn điểm ảnh cộng tối đa 1/2 vào RMS (bất đẳng thức tam giác), cắt không làm tăng sai số | chương chứng minh |
+| Mục 5.4, Tình huống 11.1 | $1\,024$ / $8\,192$ phép nhân mỗi khối; $1\,024\,000$ mỗi ảnh; $\approx1{,}02\cdot10^9$ cả kho; dải $2\,560$ điểm | đếm theo NG tr.255–256, 267 |
+| Hình `note-cheetah-byte-rms.svg`, đoạn đọc | giảm 17 577 byte / tăng 6,6 (q 1→5); giảm 5 138 / tăng 6,5 (q 5→25) | tính từ NG Hình 11.14 |
+| Tình huống 11.1 | "Giả sử mọi ảnh như CHEETAH.GS": 18,4 MB ($q=2$), 10,2 MB ($q=5$); $q=2$ bảo đảm ngưỡng 10 vì $\beta(2)+0{,}5\approx9{,}60$ | chương tính |
+| Tình huống 11.2 | "Giả sử không cụm nào khớp": 192 000 byte (24 bit/điểm), 72 000 byte (LZSS 9 bit); $\approx4{,}2\cdot10^9$ phép so | chương tính từ NG tr.179 |
+| Tình huống 11.3 | LZW12: 13 mã × 12 bit = 156 bit = 19,5 byte | chương tính; đã kiểm mã LZW12.C phát `END_OF_STREAM` ở cuối (NG tr.220, 224) |
+| Nhận xét 11.25 | hệ số tải $\le3\,839/5\,021\approx0{,}76$; $1/(1-\alpha)\approx4{,}2$ lần dò | chương tính, cận CLRS §11.4 (dưới giả thiết băm đều; ghi chú nói rõ hàm băm của NG không thỏa) |
+| Mục 1.2 | mô hình bậc 0 trả cùng số bit cho lần lặp thứ hai của `aac` | lập luận của chương |
+
+#### 2. Chỗ chỉnh so với nguồn (đính chính chỉ ghi ở đây, không ghi trong ghi chú — VP18)
+
+- CMU-LZ tc. 17, 19 in mã 112, 113, 114 cho a, b, c; ghi chú dùng mã byte thật 97, 98, 99 (D3).
+- CMU-LZ tc. 5 ghi bộ ba đầu `(_,0,a)`; ghi chú viết $(0,0,\mathrm a)$ như NG tr.175.
+- CMU định nghĩa vị trí "relative to the cursor" (khoảng lùi); NG dùng chỉ số trong bộ đệm cửa sổ (tr.175–176). Ghi chú dùng khoảng lùi, nêu cách ghi của NG một câu (D2). NG $(38,9,\mathrm A)$ (tr.176) được viết lại $(1,9,\mathrm A)$ trong Bài tập 11.3.
+- NG tr.176: đoạn mã giải nén gọi `fwrite` từ vùng nguồn trước vòng chép (sai khi chồng lấn) — không trích; ghi chú theo văn bản NG tr.176–177.
+- NG tr.179 "4 096-byte window, sixteen-byte look-ahead … 12 + 4 + 8 = 24 bit": ghi chú diễn đạt là trường độ dài 4 bit, $\ell\le15$, vùng nhìn trước 16 byte kể cả ký tự kế, để khớp $\lceil\log_2(L+1)\rceil$ của Mệnh đề 11.9.
+- NG tr.183 ví dụ "Go To Statement Considered Harmful": các mảnh của cách tối ưu ("Go ", T, o, "Stat") không ghép lại đúng cụm gốc (thiếu dấu cách); ghi chú chỉ dùng tổng 75 / 68 bit.
+- NG tr.211: từ điển sau 19 ký tự in mất dấu cách ở mục 3, 5, 8; ghi chú dùng `D␣`, `DA␣`, `␣` (khớp Hình 9.1). Đề lấy 19 ký tự đầu, bỏ "...".
+- NG tr.215–216: bảng LZW mất dấu cách ở 259, 260, 261, 265; ghi chú dùng `D␣`, `␣WE`, `E␣`, `B␣`. Tiêu đề bảng NG có dấu cách cuối; ghi chú dùng chuỗi 19 ký tự không dấu cách cuối (khớp "nineteen-character").
+- NG tr.217: "decodes code 300 and outputs the IWOMBATI string" — ghi chú dùng `IWOMBAT`; "occurs in the table" hiểu là "trong đầu vào".
+- NG LZW12.C: mã 256 = `END_OF_STREAM`, mã đầu 257 — ghi chú dùng quy ước văn xuôi (256 là cụm đầu), biến thể nêu ở Nhận xét 11.25 và Tình huống 11.3.
+- NG Hình 11.9 ô (0,7) in 19, tính ra −19 (giá trị thực −18,94); ghi chú dùng −19 (D4).
+- NG Hình 11.11 theo phép cắt và có lỗi dấu ô (1,3); ghi chú chỉ dùng ô (0,2), (0,4), (2,0), cho cùng kết quả khi làm tròn và khi cắt (Bài tập 11.8, đoạn sau Mệnh đề 11.30).
+- NG tr.259 nói bước lượng tử "from one to 255", mâu thuẫn với công thức ($Q_{77}=376$ ở $q=25$); không dùng câu đó.
+- NG tr.264 bảng số bit in "7 to −4", "32 to 64"; ghi chú nêu quy tắc $s=\lfloor\log_2\lvert a\rvert\rfloor+1$ và các khoảng đúng.
+- Cột "Ratio" của NG Hình 11.14 không khớp đều với $1-\text{byte}/64\,000$ (ví dụ $q=2$: 71,3 % so với 72 %); ghi chú không dùng cột này.
+- Mã độ dài loạt định nghĩa trên dòng nối các khối (như DCT.C để loạt số 0 kéo qua khối, NG tr.267), số 0 cuối dòng suy từ độ dài $64K$; không đưa mã kết thúc khối EOB của JPEG chuẩn (không có trong nguồn).
+- "Hệ số AC": NG không dùng; văn bản PDF của CMU-L không trích được chữ (lỗi phông) nên không xác nhận được thuật ngữ trong nguồn; giữ theo D12, định nghĩa tại chỗ (Định nghĩa 11.32).
+- Kết quả Wyner–Ziv chỉ có qua CMU-LZ tc. 10 "[Wyner-Ziv 94]"; ghi "Chứng minh nằm ngoài phạm vi học phần", không có trích dẫn đầy đủ.
+
+#### 3. Chứng minh do chương viết (nhãn `bổ sung`, D11)
+
+Bổ đề 11.7, Định lý 11.8, Mệnh đề 11.9, Bổ đề 11.12, Định lý 11.15, Mệnh đề 11.16, Bổ đề 11.21, Mệnh đề 11.22, Định lý 11.23, Mệnh đề 11.24, Bổ đề 11.27, Mệnh đề 11.28, Mệnh đề 11.30, Định lý 11.31, Mệnh đề 11.33, lập luận "từ khối sang ảnh" sau Thuật toán 11.34. Nguồn chỉ phát biểu (CMU-L tc. 12; NG tr.217, 259–260) hoặc không có.
+
+#### 4. Giáo trình đã đối chiếu theo mục (GC25)
+
+- Mục 1: NG tr.246–247, 259, 266, 287; Mệnh đề 10.2.
+- Mục 2: NG tr.174–185, 200, 208–209; CMU-LZ tc. 3–10; CLRS §2.1 (cách viết bất biến).
+- Mục 3: NG tr.208–213; CMU-LZ tc. 11–14, 18; CLRS §11.2.
+- Mục 4: NG tr.213–226; CMU-LZ tc. 15–19; CLRS §11.2, §11.4.
+- Mục 5: NG tr.250–289 (đặc biệt 254–268, 287); CMU-L tc. 9–17.
+- Mục 6, Tình huống: NG tr.170–171, 179, 208, 213–215, 246–247, 287; CMU-LZ tc. 3, 8, 20.
+- Thứ tự trình bày theo outline (không đổi so với NG ngoài việc đặt định nghĩa DCT dạng ma trận trước dạng tổng kép, lý do: Hình 11.6 chỉ trực chuẩn khi $N=8$).
+
+#### 5. Bổ sung sau lượt biên tập I.6 (bản sau md5 3ab5a114…)
+
+Số liệu "Giả sử" và số liệu tự tính mới:
+
+| Vị trí | Số liệu | Cách có |
+|---|---|---|
+| Mục 1 (đoạn kho ảnh), Tình huống 11.1, Bài tập 11.11 | danh mục 1 000 ảnh "giả sử là ảnh xám 8 bit như các tệp .GS" | NG tr.246 nói ảnh VGA 256 màu theo bảng màu; giả thiết ảnh xám do chương đặt (CG5) |
+| Mở Mục 3 | tên riêng 9 ký tự ở vị trí 1 000–1 008 và 11 000–11 008; $W=4\,096$; lịch sử $x[6\,904..10\,999]$ | "Giả sử", minh họa giới hạn cửa sổ theo NG tr.208 |
+| Bài tập 11.1(c)–(e) | hệ số chung $q=2$, thêm 5 607 byte (≈21 %); hàng 0 của khối Hình 11.9 và của khối tái tạo (Ví dụ 11.12) cho RMS $\sqrt{17}\approx4{,}12$; $m=1$: 256 ảnh, 255 chuỗi ngắn | số từ NG Hình 11.14 và từ phép tính của chương |
+| Bài tập 11.3(c) | $L=15$ (cấu hình NG): 8 bộ ba, 24 bit mỗi bộ ba, 192 bit | chương tính lại (thay 7 bộ ba/175 bit của v1, $L=16$) |
+| Bài tập 11.4(d) | chứng minh các cụm đôi một khác nhau | chương dựng |
+| 5.2, ví dụ trước Định nghĩa 11.29 | $F_{01}=-18$, bước 5, khoảng $(-22{,}5;\,-17{,}5]$ | từ khối Hình 11.9 |
+| 5.3, ví dụ trước Định nghĩa 11.32; Ví dụ 11.13 | "Giả sử khối liền trước có $\hat F_{00}=60$", nên $\delta=2$, bộ ba $(0,2,2)$; 31 bộ (30 bộ ba và bộ $(9,0)$); biên độ 2 + 39 bit | "Giả sử" của chương (thay "khối đầu tiên của ảnh" ở v1) |
+| Định nghĩa 11.32 | mã độ dài loạt theo từng khối; loạt số 0 cuối khối mã bằng bộ $(r,0)$ | NG tr.263 ("until the block is complete") và tr.271 (số bit 0 dùng cho loạt số 0 trong DCT.C); không đưa EOB của JPEG chuẩn |
+| Ví dụ 11.12 | $E_{\mathrm{RMS}}(A,\tilde A)=4{,}18$ trước làm tròn điểm ảnh, bằng RMS hệ số với $F$ chính xác | chương tính |
+| Bài tập 11.10 (mới) | tổng cột của $A$: 173, 198, 110, 215, 180, 163, 180, 269; hàng 1 của $T$ làm tròn 3 chữ số; $F_{01}\approx-17{,}98$ (chính xác $-18{,}00$); 12 bộ ba của vị trí 16–30 | chương tính trên khối Hình 11.9 |
+| Nhận xét 11.35, Bài tập 11.9(c), Tình huống 11.1 | cận của chương trình NG $\sqrt{\tfrac1{64}\sum(Q-\tfrac12)^2}+\tfrac12$: 9,60; 18,23; 44,12; tỷ số số đo/cận 0,45; 0,38; 0,25 | theo TT4, chương tính |
+| Nhận xét 11.35 | ví dụ CMU-L tc. 17: 0,125 bpp, ảnh màu, "factor of 200"; $24/0{,}125=192$ | sửa theo CG1 (v1 ghi sai "64 lần so với 8 bit") |
+| Tình huống 11.2 | "Giả sử mỗi bộ ba chỉ khớp $\ell=1$": 32 000 bộ ba, 96 000 byte; LZSS 72 000 byte; cận $\le2{,}1\cdot10^9$ phép so | thay kịch bản "không cụm nào khớp" (không thể xảy ra với $W=4\,096$, CG2) |
+| Tình huống 11.4 (mới) | Calgary corpus, gzip 2,59 bpc, LZ77 3,94 bpc (CMU-I tc. 9–10, đã xem ảnh trang); "Giả sử kho $10^9$ byte": ≈3,2·10⁸ và ≈4,9·10⁸ byte; cận $6{,}6\cdot10^{13}$ phép so | số đo nguồn; cỡ kho do chương giả sử |
+| Mục 6 | điểm hòa vốn 1,75; 3; 3,125; 1,125; 1,5 ký tự; trung bình 2,6 / 2,17 / 1,3 ký tự mỗi đơn vị trên `aabaacabcabcb` | chương tính |
+| Nhận xét 11.25 | $\alpha\approx0{,}765$, $1/(1-\alpha)\approx4{,}25$ (ghi ≈4,3) | sửa làm tròn theo CG |
+| Ví dụ 11.14 | ghi đủ sáu cặp LZ78, gồm $(2,\mathrm c)$, $(5,\mathrm b)$ | theo quyết định 11; bài recitation 11.14 thành bài tự kiểm |
+| 5.1 | $256^4\approx4{,}3\cdot10^9$ số hạng cho khối $256\times256$ | chương tính |
+
+Chỗ chỉnh so với nguồn (thêm): NG tr.200 (bắt đầu với mã hẹp rồi tăng) thuộc LZSS, đã bỏ khỏi Nhận xét 11.25 (D6); GIF dẫn NG tr.170 thay CMU-LZ tc. 3; BTLZ ghi "chuẩn của British Telecom" (CMU-LZ tc. 18); bảng lượng tử chuẩn dẫn NG tr.259–260 cho "thử nghiệm của ủy ban JPEG", CMU-L tc. 15 cho bảng số; phép cắt thương dẫn NG tr.261, 269.
+
+#### 6. Lượt sửa thứ hai I.6 (md5 ae0d35e2…)
+
+- Bài tập 11.11(d): "giả sử mã và mã cha mỗi trường 2 byte, ký tự 1 byte" → bảng LZW12 $5\,021\cdot5=25\,105$ byte; LZ77 $W+L+1=4\,112$ byte (chương tính; NG tr.218–219 chỉ cho cấu trúc nút và cỡ bảng).
+- Bộ $(r,0)$ đóng khối ghi rõ là quy ước của chương; NG chỉ dẫn cho cách ghi biên độ bằng số bit (tr.263–264). Cách xử lý loạt số 0 của DCT.C (đếm xuyên khối, loạt 1–16 bằng 4 bit, xả ở cuối tệp; tr.267, 270–271) nêu một câu trong Nhận xét 11.35.
+- Tình huống 11.4: cận $6{,}6\cdot10^{13}$ ghi là cận của Thuật toán 11.5 với cấu hình giả sử $W=4\,096$, $L=15$, không phải chi phí của gzip.
+
+
+### Kiểm cuối ghi chú (I.7, điều phối viên)
+
+Bản cuối: `lecture-note.md` md5 `4b9cd9af3fdda50c45031f8d6e181f1d`, 30 407 âm tiết (`wc -w`, trong 12 000–32 000; GC-DSFA-6), 1 869 dòng. Thay đổi sau v3 chỉ là câu gzip ở Tình huống 11.4 (điều phối viên đọc diff).
+
+Kiểm trên viewer (máy chủ tĩnh tạm cổng 8793, đã tắt), URL `2627-1/material-viewer.html?doc=materials/lec-11/lecture-note.md&deck=lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html`, Chromium Playwright:
+
+- 1600×900 và 390×844: 0 lỗi hay cảnh báo console, 0 request hỏng, 0 `.katex-error` trên 2 307 biểu thức, không tràn ngang trang (`scrollWidth` 1585/1600, 375/390), 10/10 SVG tải được; 38 khối gập đóng mặc định; 21 `note-topic-id` hợp lệ (viewer không báo lỗi mã chủ đề). Đã xem ảnh chụp đầu trang rộng và giữa trang hẹp: ma trận $8\times8$ cuộn ngang trong khung công thức, không tràn trang (đã biết).
+- In: 38/38 khối gập mở; PDF 95 trang.
+
+Bảng kiểm GC26:
+
+| Mục kiểm | Kết quả | Căn cứ |
+|---|---|---|
+| Mỗi mục tiêu có kết quả/ví dụ và bài tập | đạt | vai mạch, kiểm lại lần 2: sáu mục tiêu đều có bài (11.1(d)(e), 11.2–11.3(d), 11.4(e), 11.5–11.6, 11.7–11.10, 11.11(d)) |
+| GC18 cho khái niệm trọng tâm; tính tay trước giả mã | đạt | I.5 sư phạm; ví dụ số thêm trước Định nghĩa 11.29, 11.32 (I.6) |
+| Ký hiệu trong bảng hoặc gọi tên tại chỗ; không dẫn về sau | đạt | kiểm lại lần 2 hai vai: không còn chữ hai nghĩa; 392 tham chiếu trỏ đúng, chỉ danh sách xem trước bốn tình huống (theo mẫu Bài 10) |
+| Kết quả đủ phần GC21/GC-DSFA-8, có chứng minh hoặc nguồn có trang | đạt | I.5 thuật toán |
+| Ví dụ có kết quả số và kiểm tra; mọi số tính lại độc lập | đạt | vai thuật toán chạy script độc lập (I.5, I.6 hai lần) |
+| Bài tập có `hint` và `solution` đầy đủ | đạt | 11 bài, mỗi bài một `hint`, một `solution` |
+| Không "xem trang chiếu", câu mảnh; chứng minh chia bước, `aligned` | đạt | I.5 sư phạm, sinh viên |
+| Móc nối, "Trong thực hành" (GC14), kết mục (GC15, câu nối một phía) | đạt | vai mạch, kiểm lại |
+| VP18–VP23 (`no-ai-slop` Detect) | đạt sau biên tập | I.5 sư phạm; biên tập viên tự rà `eval.md` |
+| Giáo trình đã tham khảo theo mục | đạt | mục 4 của ghi chú người soạn ở trên |
+| Số hiệu liên tục, khối không lồng, render đúng ở hai kích thước và khi in | đạt | script tham chiếu; kiểm viewer ở trên |
+| Nhất quán với deck, bài tập cùng bài | chờ giai đoạn II–III | deck dựng lại sau; `exercises.md` chưa có |
+
+Kết luận giai đoạn I: ghi chú đạt kiểm định, chờ người dùng duyệt theo Q10 trước khi commit `fix(materials-11)`. Thẻ Bài 11 chưa thêm vào `index.html` (deck chưa đạt).
+
+### Duyệt danh sách bài tập (II.1)
+
+Quyết định: **chấp nhận** danh sách 11.12–11.17 (báo cáo scratchpad `lec11-II1-chon-bai.md`): 11.12 CMU-LZ trang chiếu 5 (recitation), 11.13 trang chiếu 6 (recitation), 11.14 trang chiếu 7 (LZSS, không recitation; đề nêu $W=6$, $L=4$ của trang chiếu 5, BT-DSFA-6), 11.15 trang chiếu 13 (recitation), 11.16 trang chiếu 16 (recitation), 11.17 CMU-L trang chiếu 11 (recitation). Câu hỏi loại: CMU-LZ 18 (câu trả lời in trên trang), 26, 27, 30 (Burrows–Wheeler, ngoài phạm vi), CMU-L 5, 25, 32 (lượng tử véc-tơ, wavelet, JPEG2000; ngoài Q9). Quyết định cho năm điểm người chọn bài nêu:
+
+1. Tiêu đề khối theo prompt: `(Tên ngắn; CMU 15-499, compression3-lz.pdf, trang chiếu N)`.
+2. 11.17: rút "Cosine or Fourier" thành "biến đổi cosine" (rút gọn theo BT-DSFA-6; biến đổi Fourier không có trong ghi chú, lập luận như nhau); ghi chỗ chỉnh.
+3. 11.15: phương án A (giữ ghi chú; đề đòi quá trình: nút hiện tại, tra con, cây đủ sáu nút, kiểm Định lý 11.15(a) sau từng cặp). Lý do: CMU trang chiếu 14 cũng in vết đầy đủ; Ví dụ 11.14 cần các cặp để kiểm 72 bit.
+4. Mục tiêu 1 và 6: không có bài nguồn; dựa vào Bài tập 11.1 và 11.11 của ghi chú (BT-DSFA-1, BT9). Phép tính số JPEG dựa vào 11.7–11.10.
+5. Trang bài tập tổng hợp của "Tổng kết" (NT-DSFA-10) dùng 11.14.
+
+### Duyệt của người dùng và chỉ mục (I.8)
+
+Người dùng 2026-11-19: "hãy đưa lecture note lên index, commit và push" (duyệt ghi chú theo Q10). Thêm thẻ Bài 11 vào `2627-1/index.html` theo mẫu thẻ Bài 10: "Ghi chú bài giảng" có liên kết viewer; "Bài giảng" và "Bài tập" ghi `Chưa có` (deck dựng lại và `exercises.md` chưa đạt kiểm định). Kiểm Chromium: 1600×900 và 390×844 không lỗi console, không request hỏng, không tràn ngang; nút "Mở ghi chú" mở đúng viewer Bài 11. Liên kết `exercises.md` trong mục "Bài tập củng cố" của ghi chú trỏ tới tệp sẽ có ở commit giai đoạn II.
