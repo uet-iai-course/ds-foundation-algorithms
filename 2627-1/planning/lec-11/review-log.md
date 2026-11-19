@@ -650,3 +650,9 @@ Phiếu `slide_authoring_standard.md` (mục "Phiếu kiểm tra trước khi du
 Giới hạn chung của học phần (không thuộc deck này, cần người dùng quyết nếu muốn sửa): ở 390×844 RevealJS chuyển sang chế độ cuộn với tỷ lệ khoảng 0,29 nên chữ thân bài còn 7–8 px và hash `#/5`–`#/7` dừng sớm một trang; chân trang ẩn trên mạch mở đầu; chưa chốt đơn vị đo của mức chữ 0.75em (theo `section` hay `.reveal`). Bài 09, 10 có cùng hiện tượng.
 
 Xóa 12 SVG của deck cũ (`lz77-overlap`, `lz77-roundtrip`, `lz77-window`, `lz78-roundtrip`, `lz78-trie`, `lzw-kwkwk`, `lzw-trace`, `dct-basis`, `jpeg-pipeline`, `quantization`, `two-contracts`, `zigzag`): không còn tệp HTML, Markdown hay JS nào tham chiếu (grep); còn trong lịch sử git (D-SB5).
+
+### Quyết định của người dùng sau bàn giao (2026-11-19)
+
+- **Bài tập 11.17(a):** người dùng duyệt đề xuất sửa ("Sửa và commit"). Người soạn bài tập (cùng tác tử II.2; general-purpose, opus, high) viết lại ý mục tiêu 1 theo NG tr. 255 (khối lớn hơn có lẽ nén tốt hơn nhưng lợi giảm nhanh; $64\times64$ có thể không nén tốt hơn nhiều so với bốn khối $16\times16$; JPEG chọn $8\times8$ để cài đặt được) và chỉnh ba câu cùng mức khẳng định ("hầu như không giúp đoán nhau" → "ít giúp đoán nhau"; câu kết (a) "chỉ lợi ít về ba mục tiêu"). Điều phối viên đọc diff (4 dòng, không đổi con số) và đối chiếu NG tr. 255: **chấp nhận**. Câu tương ứng trên deck `lec11-s07-10` đã cùng ý. Viewer không lỗi KaTeX hay console (người soạn kiểm).
+- **Màn hẹp 390×844:** người dùng chọn "Chấp nhận là giới hạn chung"; ghi vào `NGUYEN-TAC-HOC-PHAN.md` mục 5.
+- **`NGUYEN-TAC-*.md`:** người dùng chọn chưa commit.

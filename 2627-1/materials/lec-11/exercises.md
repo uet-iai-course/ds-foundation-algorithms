@@ -222,16 +222,16 @@ Mỗi hệ số của phép biến đổi là một tổng trên mọi điểm c
 ::: solution
 **Câu (a).** Gọi $m$ là số điểm của ảnh.
 
-- Mục tiêu 1. Tương quan giữa các điểm ảnh giảm nhanh theo khoảng cách: các điểm cách nhau mười lăm, hai mươi vị trí hầu như không giúp đoán nhau (NG, tr.255). Trên cả ảnh, phần lớn các cặp điểm cách nhau xa như vậy và hầu như không tương quan, nên vùng biến đổi lớn hơn khối $8\times8$ không khử thêm được tương quan đáng kể.
-- Mục tiêu 2. Trên một khối $8\times8$ của ảnh CHEETAH.GS, năng lượng đã dồn vào vài hệ số tần số thấp (Ví dụ 11.10). Vì các điểm xa nhau hầu như không giúp đoán nhau, mở rộng vùng biến đổi ít lợi thêm cho mục tiêu này (NG, tr.255).
+- Mục tiêu 1. Khối lớn hơn có lẽ nén tốt hơn, nhưng lợi giảm nhanh, vì các điểm cách nhau mười lăm, hai mươi vị trí ít giúp đoán nhau: một khối $64\times64$ có thể không nén tốt hơn nhiều so với bốn khối $16\times16$, trong khi thời gian tính tăng nhanh. JPEG chọn khối $8\times8$ để cài đặt được (NG, tr.255). Biến đổi trên cả ảnh vì vậy chỉ thêm được ít lợi so với khối nhỏ.
+- Mục tiêu 2. Trên một khối $8\times8$ của ảnh CHEETAH.GS, năng lượng đã dồn vào vài hệ số tần số thấp (Ví dụ 11.10). Vì các điểm xa nhau ít giúp đoán nhau, mở rộng vùng biến đổi ít lợi thêm cho mục tiêu này (NG, tr.255).
 - Mục tiêu 3. DCT của mỗi khối $8\times8$ đã có các mẫu cosine tần số cao, là những hàm cơ sở mà mục tiêu này nhắm tới (Định nghĩa 11.26). Bước lượng tử tăng theo tần số (Định nghĩa 11.29) khai thác các mẫu đó ngay trong từng khối, nên biến đổi cả ảnh không thêm lợi ích cho mục tiêu 3.
 - Chi phí và bộ nhớ. Theo định nghĩa trực tiếp, mỗi hệ số là tổng trên mọi điểm của vùng (Định nghĩa 11.26, với vùng $8\times8$). Trên cả ảnh có $m$ hệ số, mỗi hệ số $m$ số hạng, tổng $m^2$ số hạng. Chia ảnh thành $m/64$ khối $8\times8$, tổng là $(m/64)\cdot64\cdot64=64m$ số hạng, ít hơn $m/64$ lần. Với ảnh CHEETAH.GS, $m=64\,000$: $m^2\approx4{,}1\cdot10^9$ số hạng so với $64m\approx4{,}1\cdot10^6$ số hạng. Phép biến đổi trên cả ảnh còn phải giữ cả $m$ điểm trong bộ nhớ, còn Thuật toán 11.34 chỉ giữ một dải $8\times m_{\mathrm w}$ điểm, với CHEETAH.GS là $8\cdot320=2\,560$ điểm.
 
-Vậy biến đổi trên cả ảnh không đạt ba mục tiêu tốt hơn, nhưng tốn gấp $m/64$ lần số số hạng và phải giữ cả ảnh trong bộ nhớ.
+Vậy biến đổi trên cả ảnh chỉ lợi ít về ba mục tiêu, nhưng tốn gấp $m/64$ lần số số hạng và phải giữ cả ảnh trong bộ nhớ.
 
 **Câu (b).** Chia ảnh thành các khối $8\times8$ và biến đổi cosine từng khối, tức mã hóa theo khối (block coding), như Thuật toán 11.34 với DCT của Định nghĩa 11.26.
 
-- Mục tiêu 1. Hai điểm cùng khối cách nhau không quá 7 vị trí theo mỗi chiều, gần hơn khoảng mười lăm, hai mươi vị trí mà ở đó các điểm hầu như không giúp đoán nhau (NG, tr.255).
+- Mục tiêu 1. Hai điểm cùng khối cách nhau không quá 7 vị trí theo mỗi chiều, gần hơn khoảng mười lăm, hai mươi vị trí mà ở đó các điểm ít giúp đoán nhau (NG, tr.255).
 - Mục tiêu 2. Trên khối của ảnh CHEETAH.GS ở Ví dụ 11.10, hệ số DC chiếm khoảng $80\%$ năng lượng, sáu hệ số có $u+v\le2$ chiếm khoảng $85\%$, còn 28 hệ số có $u+v\ge8$ chỉ chiếm khoảng $4{,}4\%$. DCT bảo toàn năng lượng (Mệnh đề 11.28(c)), nên bỏ 28 hệ số đó chỉ làm mất khoảng $4{,}4\%$ năng lượng của khối.
 - Mục tiêu 3. Trong mỗi khối, bước lượng tử $Q_{uv}=1+(1+u+v)q$ tăng theo tần số (Định nghĩa 11.29), nên hệ số của các mẫu cosine tần số cao bị chia cho bước lớn và phần lớn về 0. Với $q=2$, khối ở Ví dụ 11.11 còn 30 hệ số khác 0 trong 64, và hàng cuối toàn số 0. Sai số của mỗi khối bị chặn bởi $\beta(q)$ (Định lý 11.31). Trên phần lớn năm ảnh xám của NG, $q\le5$ chỉ làm giảm nhẹ độ nét (Nhận xét 11.35).
 - Chi phí và bộ nhớ. DCT tốn $1\,024$ phép nhân mỗi khối và $\Theta(m)$ cho cả ảnh, với bộ nhớ một dải $8\times m_{\mathrm w}$ điểm (Thuật toán 11.34).
