@@ -249,7 +249,21 @@ Căn cứ: `2627-1/planning/lec-11/prompt-xay-dung-bai-11.md`; người dùng ch
 | II.3 | Rà bài tập: thuật toán (cùng tác tử I.5, SendMessage) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo (0/0/1/3) |
 | II.3 | Rà bài tập: sư phạm và văn phong (cùng tác tử I.5, `no-ai-slop` Detect) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo (0/1/4/7) |
 | II.3 | Biên tập `exercises.md` (cùng tác tử II.2), hai lượt | general-purpose | opus (Claude Opus 5.5) | high | `exercises.md` | chấp nhận (md5 `d51a0647`) |
-| III.1 | Lập storyboard (`no-ai-slop` Edit cho chữ mặt trang dự kiến) | general-purpose | opus (Claude Opus 5.5) | high | `storyboard.md` | đang chạy |
+| III.1 | Lập storyboard (`no-ai-slop` Edit cho chữ mặt trang dự kiến) | general-purpose | opus (Claude Opus 5.5) | high | `storyboard.md` | sửa theo D-SB1…10: giảng 55 trang (10+9+8+8+11+9), recitation 10; đóng băng để qua cổng |
+| III.2 | Cổng storyboard (chỉ đọc, `no-ai-slop` Detect) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo: 1/7/9/19 → yêu cầu sửa |
+| III.2 | Sửa storyboard sau cổng (cùng tác tử III.1), hai lượt | general-purpose | opus (Claude Opus 5.5) | high | `storyboard.md` | chấp nhận |
+| III.2 | Kiểm lại cổng (cùng tác tử cổng) | general-purpose | opus (Claude Opus 5.5) | high | không | qua cổng: 0/0/1/7, sửa nhỏ không cần kiểm lại |
+| III.3 | Viết deck (`no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | deck HTML, `img/lec-11/*-trang-chieu.svg`, script hình deck | chấp nhận làm bản đóng băng v1 (md5 `9511e68e`, 66 trang) |
+| III.4 | Rà deck: sinh viên năm 2 (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo |
+| III.4 | Rà deck: độ chính xác toán và thuật toán (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo |
+| III.4 | Rà deck: chuyên gia nén dữ liệu (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo |
+| III.4 | Rà deck: sư phạm và văn phong (chỉ đọc, `no-ai-slop` Detect) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo |
+| III.4 | Rà deck: mạch truyện (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo |
+| III.5 | Biên tập deck (cùng tác tử III.3; `no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | deck HTML, hình deck, mục 8 `storyboard.md` | xong, v2 md5 `65efd9dd` (55 + 11 trang); chờ kiểm lại |
+| III.5 | Kiểm lại: độ chính xác (cùng tác tử III.4) | general-purpose | opus (Claude Opus 5.5) | high | không | 10/10 phát hiện đã sửa; mới 0/0/0/4 |
+| III.5 | Kiểm lại: mạch truyện, cả deck (cùng tác tử III.4) | general-purpose | opus (Claude Opus 5.5) | high | không | 2 trung bình đã sửa; mới 0/0/0/4 |
+| III.5 | Kiểm lại: sư phạm và mật độ (cùng tác tử III.4) | general-purpose | opus (Claude Opus 5.5) | high | không | 2 nghiêm trọng, 6 trung bình đã giải quyết; mới 0/0/0/8 |
+| III.5 | Sửa nhỏ cuối, hai lượt (cùng tác tử III.3) | general-purpose | opus (Claude Opus 5.5) | high | deck HTML, mục 8 `storyboard.md` | chấp nhận (md5 `8ca3dd82`) |
 
 ### Duyệt phân tích nguồn (I.2)
 
@@ -520,3 +534,119 @@ Bảng độ phủ: mục tiêu 1 và 6 ghi "—" (dựa vào Bài tập 11.1, 1
 ### Kiểm cuối bài tập (II.4, điều phối viên)
 
 Viewer `material-viewer.html?doc=materials/lec-11/exercises.md&deck=lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html` (máy chủ tĩnh tạm, đã tắt): 1600×900 và 390×844 không lỗi console, không request hỏng, 0 `.katex-error` trên 390 biểu thức, không tràn ngang trang; 12 khối gập đóng mặc định, mở hết khi in. Bốn bảng lời giải cuộn ngang trong khung bảng ở 390 px (11.12(b), 11.14(b), 11.15(a), 11.15(c)), không tràn trang. Đã xem ảnh màn hẹp. Liên kết "Bài tập" thêm vào thẻ Bài 11 của `index.html` (BT13); nút mở đúng tệp; hai liên kết `exercises.md` trong ghi chú trỏ đúng. Độ phủ: mục tiêu 1 và 6 không có bài nguồn, dựa vào Bài tập 11.1 và 11.11 của ghi chú (BT-DSFA-1, BT9).
+
+### Duyệt storyboard (III.1)
+
+Bản đầu: 6 mạch nội dung, phần giảng 55 trang (trần), recitation 10 trang. Quyết định cho các điểm người lập nêu:
+
+| Mã | Quyết định | Lý do |
+|---|---|---|
+| D-SB1 | Thêm bài có "Lời giải:" cho cụm "hai đặc tả" từ Bài tập 11.1 (Hình 11.14), bù hai trang bằng gộp trang trùng ý, giữ ≤ 55 | NT24 |
+| D-SB2 | Chấp nhận 55 trang giảng với lý do trong storyboard | NT-DSFA-11 |
+| D-SB3 | Không tách mạch JPEG | 6 mạch trong 5–7 (NT10) |
+| D-SB4 | Hình riêng cho deck có hậu tố `-trang-chieu.svg` | thống nhất với Bài 10 |
+| D-SB5 | Xóa 12 SVG của deck cũ trong commit deck nếu không còn tham chiếu | thay bằng hình mới; còn trong lịch sử git |
+| D-SB6 | Không dòng nối sang Bài 12 | D13 |
+| D-SB7 | Lời giải 11.13 ở ghi chú diễn giả; đề trên trang giữ dữ liệu, nhiệm vụ, câu hỏi như `exercises.md`, chỉ rút câu dẫn; trang đề vượt 80 âm tiết ghi ngoại lệ có số | BT11, BT-DSFA-11, NT17 |
+| D-SB8 | Bác: giữ thứ tự ghi chú | NT2 |
+| D-SB9 | "Bài tập về nhà" gồm 11.1–11.11 theo mục và 11.12–11.17 nếu ≤ 80 âm tiết | NT15, NT-DSFA-10 |
+| D-SB10 | Lớp gốc `reveal course-deck lecture-compression-dict` | P7; luật CSS do điều phối viên thêm |
+
+### Cổng storyboard (III.2)
+
+Kết luận cổng: chưa qua (chặn bàn giao 1, nghiêm trọng 7, trung bình 9, nhẹ 19). Nguyên nhân chính: phần recitation lập từ bản `exercises.md` trước biên tập II.3.
+
+| Mức độ | Trang chiếu | Vấn đề | Quyết định |
+|---|---|---|---|
+| chặn bàn giao | lec11-s07-05…07 | Đề và lời giải 11.16 không khớp `exercises.md` đã commit (NT24, BT-DSFA-11) | yêu cầu sửa: lấy nguyên văn bản md5 `d51a0647` |
+| nghiêm trọng | lec11-s07-08/09, lec11-s07-03 | Đề, lời giải 11.17 và 11.15 lệch `exercises.md` | yêu cầu sửa |
+| nghiêm trọng | lec11-s02-01 | "Như mã từng ký hiệu, mỗi bộ ba có số bit cố định" sai | yêu cầu sửa |
+| nghiêm trọng | lec11-s03-07 | BTLZ ghi "ít dùng nhất", nguồn là LRU | yêu cầu sửa |
+| nghiêm trọng | lec11-s06-03 | 70/72/90 bit thiếu giả thiết; cận làm tròn 9,60 đặt cạnh số đo chương trình cắt thương | yêu cầu sửa |
+| nghiêm trọng | lec11-s05-08 | Mệnh đề 11.33 bỏ giả thiết "mỗi khối đúng 64 số" | yêu cầu sửa |
+| nghiêm trọng | lec11-s01-10 | Bỏ điều kiện "mô hình bậc 0" | yêu cầu sửa |
+| trung bình | lec11-s06-08 | Không có dòng nối sang Bài 12 | bác: `sources/source.md` mục "Quan hệ tiên quyết sau điều chỉnh" không có quan hệ buổi 11 → 12 |
+| trung bình, nhẹ | nhiều trang | xem báo cáo cổng | yêu cầu sửa |
+
+Kiểm lại cổng: mọi phát hiện từ trung bình trở lên của lượt đầu đã giải quyết; mới 0 chặn, 0 nghiêm trọng, 1 trung bình (hàng đề xuất cũ về 11.16 còn ở mục 7), 7 nhẹ → sửa nhỏ, qua cổng. Recitation 11 trang được điều phối viên chấp nhận: đề 11.16 (~142 âm tiết) và 11.17 (~150) giữ nguyên văn `exercises.md` nên mỗi đề hai trang, và cụm LZ78, LZW, JPEG cần trang "Lời giải:" (NT24; NT-DSFA-11 cho phép vượt khoảng khi có lý do, ghi ở mục 12 của storyboard).
+
+Sửa nhỏ sau cổng đã áp dụng (8/8; con số gzip 2,59 bit mỗi ký tự ở `lec11-s06-03` để trong ghi chú diễn giả vì mặt trang sẽ vượt 90 âm tiết, lý do ghi trong storyboard). Storyboard đóng băng làm đầu vào viết deck.
+
+### Viết deck (III.3) và CSS của bài
+
+Deck v1: 66 trang (55 giảng, 11 recitation), 7 `<section>` ngoài, md5 `9511e68ef2cf846f57bf5169fe3326fc`; 8 hình `img/lec-11/*-trang-chieu.svg` sinh bằng `tools/courses/ds-foundation-algorithms/2627-1/img/lec-11/generate_deck_svg.py`. Người viết không đề xuất sửa ghi chú hay bài tập. Lệch storyboard có lý do: `lec11-s03-01` (dữ kiện vị trí 1 000 / 11 000 vào ghi chú diễn giả), `lec11-s03-03` (dòng đọc giả mã vào ghi chú diễn giả), bố cục `lec11-s05-02`, `lec11-s05-04` cho ma trận $8\times8$, tiêu đề ", lời giải" (NT16), `lec11-s07-10` rút câu chữ lời giải.
+
+CSS: điều phối viên thêm 14 dòng vào cuối `2627-1/lecture-course.css`, mọi selector trong phạm vi `.reveal.course-deck.lecture-compression-dict` (chỉ deck Bài 11 dùng lớp này; không đổi luật nào của deck khác): chép các luật thành phần `.stream-*` của Bài 10 sang lớp mới và một luật mới `.ex-grid2.dict-matrix-split` cho hai trang có ma trận $8\times8$. Không cần kiểm lại deck khác vì không selector cũ nào đổi.
+
+Mật độ `deck_lint` v1 (`scratchpad/lec11-deck-lint-v1.txt`): ba trang vượt 1,5 lần trần: `lec11-s06-04` (đề 11.14) 111 > 90, `lec11-s07-01` (đề 11.12) 129 > 120, `lec11-s07-03` (đề 11.15) 125 > 120; và nhiều trang vượt trần nhưng dưới 1,5 lần chưa có trong danh sách ngoại lệ — chuyển cho năm vai rà và biên tập.
+
+### Năm báo cáo rà deck (III.4)
+
+| Vai | Chặn bàn giao | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---:|---:|---:|---:|
+| Sinh viên năm 2 | 0 | 1 | 6 | 12 |
+| Độ chính xác toán và thuật toán | 0 | 0 | 3 | 7 |
+| Chuyên gia nén dữ liệu | 0 | 1 | 2 | 9 |
+| Sư phạm và văn phong (`no-ai-slop` Detect) | 0 | 2 | 6 | 14 |
+| Mạch truyện | 0 | 0 | 2 | 9 |
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Quyết định |
+|---|---|---|---|---|
+| nghiêm trọng | lec11-s06-04, lec11-s07-01, lec11-s07-03 | Đề vượt 1,5 lần trần (111 > 90; 129, 125 > 120) | `deck_lint` v1 | yêu cầu sửa: `s06-04` là đề chép bài nguồn (trần 80, NT-DSFA-7); hai trang recitation dồn dữ kiện vào KaTeX/bảng, còn vượt thì tách trang |
+| nghiêm trọng | lec11-s06-04 (ghi chú diễn giả) | "Cặp 17 bit, ký tự 9 bit, nên ngưỡng 3": điểm hòa vốn là 2; ngưỡng 3 là của gzip | Bài tập 11.2(b); NG tr. 185; CMU-LZ trang chiếu 8 | yêu cầu sửa |
+| trung bình | 12 trang | Vượt trần không có ngoại lệ | `deck_lint` v1 | yêu cầu sửa: rút hoặc ghi ngoại lệ có số |
+| trung bình | lec11-s06-01/02 | Bảo đảm LZ78, LZW thiếu giả thiết từ điển | Định lý 11.15, 11.23 | yêu cầu sửa |
+| trung bình | lec11-s07-10 | Lời giải 11.17 nói mạnh hơn NG tr. 255 (deck chép `exercises.md`) | điều phối viên đọc NG tr. 255 | deck viết đúng NG; đề xuất sửa `exercises.md` cho tác giả (NT3) |
+| trung bình | nhiều trang | ký hiệu trước định nghĩa; dẫn phần không phát biểu; nối mạch 4→5; Vấn đề trung tâm; s01-10; s05-07/08; ba lỗi độ chính xác | năm báo cáo | yêu cầu sửa (bảng quyết định `scratchpad/lec11-III5-quyet-dinh.md`, 14 mục) |
+| — | toàn học phần | Chế độ cuộn Reveal ở 390×844: chữ 7–8 px, hash `#/5`–`#/7` lệch một trang; đơn vị 0.75em; chân trang ẩn ở mạch mở đầu | có cả ở Bài 09, 10 | không sửa trong deck này; ghi là giới hạn chung của học phần, nêu cho người dùng |
+
+### Đề xuất sửa bài tập cho tác giả (NT3)
+
+- `materials/lec-11/exercises.md`, lời giải Bài tập 11.17(a), ý mục tiêu 1: câu "vùng biến đổi lớn hơn khối $8\times8$ không khử thêm được tương quan đáng kể" nói mạnh hơn NG tr. 255. Sách viết khối lớn hơn có lẽ nén tốt hơn nhưng lợi giảm nhanh (các điểm cách 15–20 vị trí ít giúp đoán nhau; khối $64\times64$ có thể không hơn bốn khối $16\times16$), có lý do dùng $16\times16$, và JPEG chọn $8\times8$ để cài đặt được. Đề xuất viết: "… nên mở rộng vùng biến đổi quá cỡ vài chục điểm ít lợi thêm, trong khi chi phí tăng nhanh (NG, tr. 255)". Chờ tác giả duyệt.
+
+Điều phối viên sửa bảng mạch (mục 1) và tiêu đề mạch 6 trong `storyboard.md`: ghi `lec-11-topic-20` là nguồn của bài tổng hợp `lec11-s06-04`, `lec11-s06-05` (phát hiện nhẹ của vai mạch, ngoài phạm vi ghi của biên tập viên).
+
+Kiểm lại v2 (md5 `65efd9dd`): mọi phát hiện chặn bàn giao và nghiêm trọng của III.4 đã giải quyết (ba trang đề: `s06-04` 103 trong nhóm đề chép bài nguồn, trần 80, giới hạn 120; `s07-01`, `s07-03` 119 < 120 nhờ viết dữ kiện bằng KaTeX; câu ngưỡng LZSS đã sửa). Mọi trang vượt trần có ngoại lệ khớp `deck_lint`. 16 phát hiện nhẹ mới gửi lượt sửa cuối.
+
+Sửa nhỏ cuối: 16 phát hiện nhẹ đã áp dụng (một không áp dụng: bộ nhớ nén ảnh trên `lec11-s06-03` sẽ vượt 90 âm tiết, để ở ghi chú diễn giả). Điều phối viên yêu cầu khôi phục nguyên văn câu điều kiện của đề 11.14 trên `lec11-s06-04` (BT11) sau khi lượt rút chữ đã cắt "Tại con trỏ $p$" và "độ khớp dài nhất"; trang 90 âm tiết, trong nhóm đề chép bài nguồn (trần 80, giới hạn 120). Ba lượt diff mặt trang được người biên tập đọc từng dòng; điều phối viên đối chiếu câu điều kiện 11.14 với `exercises.md`: khớp.
+
+### Kiểm cuối deck (III.6, điều phối viên)
+
+Bản cuối: `2627-1/lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html` md5 `8ca3dd82a76be5504047ad7bb20f8afd`, 66 trang (6 mạch nội dung 55 trang + recitation 11 trang). Máy chủ tĩnh tạm `python -m http.server 8820 --bind 127.0.0.1 --directory ds-foundation-algorithms` (đã tắt).
+
+- `tools/courses/math-4-AI/2627-1/scripts/deck_check.py`: 66 trang, console 0, pageerror 0, request lỗi 0, `.katex-error` 0. Cờ OVERFLOW ở `lec11-s01-07`, `s05-02`, `s05-03`, `s05-05`, `s06-01` đều là phần tử `path` SVG của KaTeX (dấu căn) bị đo ngoài khung theo chiều ngang; điều phối viên xem ảnh chụp 1600×900 của các trang này: nội dung nằm trong khung, không chồng, không cắt (dương tính giả đã biết của công cụ). Cỡ chữ nhỏ nhất theo `section` 0,8 trở lên, trừ bìa 0,62 (phụ đề bìa).
+- `tools/deck/deck_lint.py --course ds-foundation-algorithms`: 40 phát hiện, chỉ gồm `SYLL60`/`LINES6` của các trang có ngoại lệ ở mục 8 storyboard hoặc trang có trần 80 dưới trần, và 3 `STRUCT` đã biết (mục 5 của `NGUYEN-TAC-HOC-PHAN.md`); không `NOTES150`, `LABEL`, `BANNED`.
+- `tools/deck/footer_check.py`: 0 trang chạm chân trang hay đáy khung. `tools/deck/formula_overflow.py`: không công thức nào tràn ở 390 px.
+- Trang tiêu đề mạch: ở 1600×900, `#/2`…`#/7` mở đúng `mach-2`…`mach-7` (`lec11-sKK-00`), số "2."…"7." khớp; trang "Nội dung" liệt kê đúng 7 tên mạch. Ở 390×844, `#/2`…`#/4` đúng; `#/5`…`#/7` dừng sớm một trang (chế độ cuộn của RevealJS; Bài 09, 10 như nhau) — giới hạn chung của học phần, không sửa trong deck này. Đã xem ảnh `mach-5` ở 1600×900 và `mach-3` ở 390×844.
+- Tham chiếu raster: không có (`src` chỉ `.svg`); không `<style>`, không `fragment`.
+- Bàn phím: `ArrowRight`, `ArrowDown` chuyển đúng chỉ số (từ `#/1`: `(1,1)`).
+- Liên kết trình xem: deck có đúng hai liên kết `material-viewer.html?doc=materials/lec-11/{lecture-note,exercises}.md&deck=lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html`.
+- `index.html`: thẻ Bài 11 thêm liên kết "Bài giảng"; mở từ chỉ mục ở 1600×900 và 390×844 không lỗi console, không tràn ngang, tới đúng trang bìa `lec11-s01-01`.
+
+Phiếu `slide_authoring_standard.md` (mục "Phiếu kiểm tra trước khi duyệt"):
+
+| Mục | Kết quả | Căn cứ |
+|---|---|---|
+| Tiêu đề gọi đúng đối tượng, không câu hỏi hay chỉ dẫn | đạt | vai sư phạm III.4, kiểm lại |
+| Văn phong học thuật, `no-ai-slop` | đạt | người viết Edit; vai sư phạm Detect, kiểm lại 0 trung bình |
+| Không văn nói, chỉ dẫn biên soạn, mã nội bộ | đạt | vai sư phạm; ghi chú diễn giả đã bỏ mã quyết định |
+| Mỗi trang có mục đích trong storyboard | đạt | cổng storyboard; storyboard khớp 66 `data-slide-id` |
+| Phần mở nhu cầu, nối kết quả sang phần sau | đạt | vai mạch, kiểm lại cả deck |
+| Trang tiêu đề mạch; khớp "Nội dung" và `#/N`; mở đầu và kết luận đủ trang | đạt (ở 1600×900) | kiểm trên; NT11, NT15 |
+| Mật độ: không vượt trần thiếu ngoại lệ, không thu chữ | đạt | `deck_lint` khớp mục 8 storyboard; không trang nào quá 1,5 lần trần |
+| Trang vấn đề có ví dụ dẫn nhập có số; chạy tay trước giả mã | đạt (thay "Muốn …/Nhu cầu:" bằng câu khẳng định, NT14) | vai mạch, vai thuật toán |
+| Phần kết thu hồi tình huống ban đầu, có tự kiểm tra | đạt | `lec11-s06-03`, `lec11-s06-06` |
+| Một trọng tâm mỗi trang; chú thích khớp hình | đạt | vai sinh viên, sư phạm |
+| Tiên quyết và ký hiệu thiết lập trước khi dùng | đạt sau III.5 | vai sinh viên (NT9) đã sửa |
+| Cụm thuật toán đủ đặc tả, ví dụ, giả mã, tính đúng, dừng, biên, chi phí | đạt | vai thuật toán |
+| Ví dụ tính lại được | đạt | vai thuật toán chạy lại mọi vết và số |
+| Mô hình chi phí trước phép tính; số hạng truy được | đạt | vai thuật toán, chuyên gia |
+| Hình, giả mã, bảng, lời giải cùng dữ kiện và ký hiệu | đạt | vai thuật toán; đề và lời giải khớp `exercises.md` |
+| Câu hỏi có lời giải trong ghi chú diễn giả | đạt | `lec11-s06-06` |
+| Render đọc được, không tràn hay chồng; hình và liên kết hoạt động | đạt ở 1280×720/1600×900; ở 390×844 chữ nhỏ do chế độ cuộn (giới hạn chung) | kiểm trên |
+| Không `fragment`; công thức render đúng | đạt | kiểm trên |
+| Sai khác với nguồn và ngoại lệ có lý do trong nhật ký | đạt | storyboard mục 0, 8, 12; nhật ký này |
+
+Giới hạn chung của học phần (không thuộc deck này, cần người dùng quyết nếu muốn sửa): ở 390×844 RevealJS chuyển sang chế độ cuộn với tỷ lệ khoảng 0,29 nên chữ thân bài còn 7–8 px và hash `#/5`–`#/7` dừng sớm một trang; chân trang ẩn trên mạch mở đầu; chưa chốt đơn vị đo của mức chữ 0.75em (theo `section` hay `.reveal`). Bài 09, 10 có cùng hiện tượng.
+
+Xóa 12 SVG của deck cũ (`lz77-overlap`, `lz77-roundtrip`, `lz77-window`, `lz78-roundtrip`, `lz78-trie`, `lzw-kwkwk`, `lzw-trace`, `dct-basis`, `jpeg-pipeline`, `quantization`, `two-contracts`, `zigzag`): không còn tệp HTML, Markdown hay JS nào tham chiếu (grep); còn trong lịch sử git (D-SB5).

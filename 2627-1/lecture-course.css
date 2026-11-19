@@ -692,3 +692,17 @@
 .reveal.course-deck.lecture-stream table.stream-even th, .reveal.course-deck.lecture-stream table.stream-even td, .reveal.course-deck.lecture-compression table.stream-even th, .reveal.course-deck.lecture-compression table.stream-even td { text-align: center; }
 .reveal.course-deck.lecture-stream table.stream-even th:first-child, .reveal.course-deck.lecture-stream table.stream-even tbody th, .reveal.course-deck.lecture-compression table.stream-even th:first-child, .reveal.course-deck.lecture-compression table.stream-even tbody th { text-align: left; }
 .reveal.course-deck.lecture-stream table.stream-even .stream-pick, .reveal.course-deck.lecture-compression table.stream-even .stream-pick { border-left: 3px solid #2f3e7a; border-right: 3px solid #2f3e7a; }
+/* Bài 11: nén bằng từ điển và nén mất dữ liệu (.lecture-compression-dict), dùng lại thành phần của Bài 10. */
+.reveal.course-deck.lecture-compression-dict .slides > section > section { box-sizing: border-box; padding-left: 28px; padding-right: 28px; }
+.reveal.course-deck.lecture-compression-dict .stream-figure { margin: 10px 0; }
+.reveal.course-deck.lecture-compression-dict .stream-figure img { display: block; width: 100%; max-height: 360px; margin: 0 auto; object-fit: contain; }
+.reveal.course-deck.lecture-compression-dict .stream-short img { max-height: 270px; }
+.reveal.course-deck.lecture-compression-dict .stream-mini img { max-height: 150px; }
+.reveal.course-deck.lecture-compression-dict .stream-tall img { max-height: 520px; }
+.reveal.course-deck.lecture-compression-dict .ex-grid2 > div { min-width: 0; }
+.reveal.course-deck.lecture-compression-dict .example-slide .stream-compact th,
+.reveal.course-deck.lecture-compression-dict .example-slide .stream-compact td { padding: 5px 10px; }
+.reveal.course-deck.lecture-compression-dict .ex-table th[scope="row"] { white-space: nowrap; }
+/* Bài 11, trang có ma trận 8 × 8 (lec11-s05-02, lec11-s05-04): cột ma trận rộng theo nội dung (khoảng 750–815 px), cột chữ lấy phần còn lại. */
+.reveal.course-deck.lecture-compression-dict .ex-grid2.dict-matrix-split { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+.reveal.course-deck.lecture-compression-dict { --r-code-font: Consolas, "SF Mono", "Liberation Mono", "Noto Mono", "Courier New", monospace; }

@@ -1,167 +1,904 @@
-<!doctype html><html lang="vi"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 11: Nén bằng từ điển và nén mất dữ liệu</title>
-<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
-<style>
-.reveal .slides section[data-slide-id]{font-size:.84em}.reveal h1,.reveal h2{color:#2f3e7a}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75em}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.55em}.card{border:1px solid #cfd8dc;border-radius:10px;padding:.42em .58em}.accent{background:#f7efe6;border-color:#b15a2b}.check{background:#edf4ff;border:2px solid #2f3e7a;border-radius:10px;padding:.35em .55em}.figure{display:block;max-width:96%;max-height:385px;margin:.1em auto}.short{max-height:300px}.code{white-space:pre-wrap;font:normal .9em/1.25 "Courier New",monospace;background:#263238;color:#fff;padding:.5em .65em;border-radius:8px}.trace{width:100%;border-collapse:collapse;font-size:.9em}.trace th,.trace td{border:1px solid #b0bec5;padding:.24em .35em;text-align:center}.trace th{background:#e9eef8}.small,.tiny{font-size:.9em}.math{font-size:1.04em;text-align:center}.tag{display:inline-block;padding:.1em .42em;border-radius:999px;background:#f7efe6;color:#8a431f;font-weight:700}
-</style></head><body><div class="reveal"><div class="slides">
+<!doctype html>
+<html lang="vi" data-lecture="11">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Bài 11: Nén bằng từ điển và nén mất dữ liệu</title>
+  <meta name="description" content="LZ77, LZ78, LZW cho dữ liệu phải khôi phục đúng; đường ống DCT, lượng tử hóa, zigzag của JPEG cho ảnh chỉ cần khôi phục gần đúng; chứng minh, chi phí và bài tập theo Nelson–Gailly Chương 8, 9, 11 và CMU 15-499."/>
+  <link rel="stylesheet" href="revealjs/dist/reset.css"/>
+  <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
+  <link rel="stylesheet" href="lecture-style.css"/>
+  <link rel="stylesheet" href="lecture-course.css"/>
+  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
+</head>
+<body>
+<div class="reveal course-deck lecture-compression-dict"><div class="slides">
 
-<section>
-<section data-slide-id="P00"><h1>Nén bằng từ điển và nén mất dữ liệu</h1><h3>Bài 11 · Giải thuật nền tảng của Khoa học dữ liệu</h3><p>Năm học 2026–2027 · Học kỳ 1</p><p>Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p><aside class="notes">Bài 10 mã hóa xác suất ký hiệu. Bài 11 khai thác cụm lặp trong chuỗi rồi chuyển sang một đặc tả khác: ảnh sau giải nén chỉ cần gần ảnh gốc. Nguồn trục: Nelson–Gailly Chương 8–9 và 11; slide CMU 15-499 `compression3-lz`, `compression4-lossy`.</aside></section>
-<section data-slide-id="P01"><h2>Mục tiêu học tập</h2><ul><li>Mã hóa và giải mã LZ77, LZ78, LZW trên một chuỗi ngắn.</li><li>Giải thích phép sao chép chồng lấn và trường hợp mã LZW chưa có.</li><li>Phân biệt từ điển cửa sổ với từ điển cụm tăng dần.</li><li>Theo dõi JPEG mất dữ liệu dựa trên biến đổi cosine rời rạc (DCT).</li><li>Chọn đặc tả khôi phục phù hợp với kiểu dữ liệu.</li></ul><aside class="notes">Mỗi mục tiêu có một câu kiểm tra hoặc bài tập tương ứng. Yêu cầu sinh viên giải thích trạng thái và điều kiện hợp lệ, không chỉ tính ra dòng mã.</aside></section>
-<section data-slide-id="P03" class="agenda-slide"><h2>Nội dung</h2><ol><li>Mở đầu</li><li>Nén LZ77 với cửa sổ trượt</li><li>Nén LZ78 với từ điển tăng dần</li><li>Nén LZW</li><li>Nén ảnh mất dữ liệu bằng JPEG</li><li>Tổng kết và tự kiểm tra</li><li>Bài tập vận dụng</li></ol><aside class="notes"><p>Mở đầu tách hai đặc tả khôi phục: đúng từng byte và sai số có kiểm soát. Nén LZ77 với cửa sổ trượt thay cụm lặp gần bằng tham chiếu. Nén LZ78 với từ điển tăng dần giữ cụm ở xa mà cửa sổ đã quên. Nén LZW bỏ ký tự thô khỏi cặp LZ78. Nén ảnh mất dữ liệu bằng JPEG đổi đặc tả sang cân bằng tốc độ bit với sai số. Tổng kết và tự kiểm tra chọn phương pháp theo hợp đồng khôi phục; bài tập vận dụng chạy lại từng phương pháp.</p></aside></section>
-<section data-slide-id="P02"><h2>Hai đặc tả khôi phục</h2><img class="figure short" src="img/lec-11/two-contracts.svg" alt="Hai đặc tả: nén từ điển khôi phục đúng chuỗi byte, JPEG khôi phục ảnh gần đúng"/><p class="small">Sai một byte phá đặc tả của LZ. Sai số có kiểm soát là một phần của JPEG mất dữ liệu dựa trên DCT.</p><aside class="notes">LZ77, LZ78 và LZW là không mất thông tin. Phần JPEG trong bài dùng biến đổi cosine rời rạc và lượng tử hóa nên mất thông tin. JPEG còn có các chế độ khác, nhưng nằm ngoài phạm vi. CMU `compression3-lz`, slide logic 2; `compression4-lossy`, slide logic 2 và 13.</aside></section>
+<section aria-label="Mở đầu">
+<section data-slide-id="lec11-s01-01" class="title-slide">
+<h1 class="lecture-title">Nén bằng từ điển và nén mất dữ liệu</h1>
+<p class="slide-detail">Bài 11 · LZ77, LZ78, LZW và JPEG</p>
+<p class="supporting-text">Dữ liệu phải khôi phục đúng được nén bằng từ điển mà bộ giải mã tự dựng lại; ảnh chỉ cần khôi phục gần đúng được nén bằng lượng tử hóa hệ số cosine, với sai số bị chặn theo bước lượng tử.</p>
+<p class="course-name">Giải thuật nền tảng của Khoa học dữ liệu</p>
+<p class="term-name">Học kỳ 1 · Năm học 2026–2027</p>
+<p class="institution-name">Trường Đại học Công nghệ · Đại học Quốc gia Hà Nội</p>
+<aside class="notes"><p>Bài 10 mã từng ký hiệu theo một mô hình đếm: mã Huffman và mã số học khôi phục đúng từng bit. Hai họ bộ nén mới ứng với hai đặc tả khôi phục. Nén bằng từ điển (dictionary-based compression) gồm LZ77, LZ78, LZW, dành cho dữ liệu phải khôi phục đúng và có cụm ký tự lặp lại. Nén mất dữ liệu (lossy compression) theo đường ống biến đổi cosine của JPEG dành cho ảnh chụp chỉ cần khôi phục gần đúng.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, phần mở đầu và Tóm tắt chương; Nelson và Gailly, <em>The Data Compression Book</em>, Chương 7–9, 11; Blelloch, CMU 15-499, phần nén bằng từ điển và phần nén mất dữ liệu.</p></aside>
 </section>
 
-<section>
-<section id="mach-2" data-slide-id="LT" class="strand-title">
+<section data-slide-id="lec11-s01-02" class="example-slide">
+<h2>Tiên quyết và quy ước</h2>
+<p><strong>Nhắc lại:</strong></p>
+<ul>
+<li>không mã khôi phục đúng nào rút ngắn mọi thông điệp (Mệnh đề 10.2);</li>
+<li>Huffman dưới entropy cộng 1 bit mỗi ký hiệu (Hệ quả 10.19), mã số học dưới $I(x)+2$ bit (Định lý 10.34);</li>
+<li>hai phía chung bảng chữ cái, quy tắc mã, cách dừng (Nhận xét 10.4);</li>
+<li>một bộ đếm $0,\ldots,r$ cần $\lceil\log_2(r+1)\rceil$ bit.</li>
+</ul>
+<p><strong>Ký hiệu:</strong> $x=x_1\cdots x_n$ trên $\Sigma$, $\lvert\Sigma\rvert=256$; $m$ số mẫu.</p>
+<aside class="notes"><p>Entropy của phân phối ký hiệu ghi chú Bài 10 viết $H(P)$; ở Bài 11, chữ $P$ dành cho khối điểm ảnh. Mệnh đề 10.2 là bước đếm trong chứng minh Mệnh đề 11.2. Hệ quả 10.19 giải thích vì sao ảnh chụp gần như không nén được bằng Huffman: biểu đồ tần suất điểm ảnh gần phẳng nên entropy gần 8 bit. Nhận xét 10.4 là gốc của các giả thiết "cùng quy tắc" ở Định lý 11.15 và 11.23. Số bit của một bộ đếm (Bài 08, Mục 1.4) cho cỡ các trường của bộ ba LZ77 và cặp LZ78. Mã của một byte là chính giá trị byte, $\mathrm a\mapsto97$; một ký tự đứng riêng viết chữ đứng $\mathrm a$, dấu cách viết <code>␣</code>.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Kiến thức tiên quyết và Bảng ký hiệu.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-03" class="example-slide">
+<h2>Mục tiêu học tập</h2>
+<p>Sau bài, người học có thể:</p>
+<ol>
+<li>Phân biệt đặc tả khôi phục đúng với đặc tả khôi phục gần đúng, tính tốc độ bit và sai số căn bình phương trung bình, chứng minh rằng bộ nén rút ngắn mọi đầu vào phải làm mất dữ liệu.</li>
+<li>Mã hóa và giải mã LZ77 bằng bộ ba khoảng lùi–độ dài–ký tự, kể cả khi vùng nguồn chồng lên vùng đích, chứng minh bộ giải mã khôi phục đúng và đếm chi phí theo cỡ cửa sổ và cỡ vùng nhìn trước.</li>
+<li>Mã hóa và giải mã LZ78, dựng cây từ điển và chứng minh bằng quy nạp rằng hai phía giữ cùng từ điển.</li>
+</ol>
+<aside class="notes"><p>Mỗi mục tiêu ứng với một sản phẩm kiểm được. Mục tiêu 1: tính tốc độ bit và sai số RMS trên bảng số đo của Nelson và Gailly, đếm số chuỗi bit ngắn hơn (Bài tập 11.1). Mục tiêu 2: vết mã hóa và giải mã LZ77, kể cả bộ ba có độ dài lớn hơn khoảng lùi (Bài tập 11.12, 11.13, 11.14). Mục tiêu 3: vết và cây từ điển LZ78 (Bài tập 11.15).</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Mục tiêu học tập.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-04" class="example-slide">
+<h2>Mục tiêu học tập</h2>
+<ol start="4">
+<li>Mã hóa và giải mã LZW, xử lý mã chưa có trong từ điển của bộ giải mã và chứng minh mã đó chỉ có thể bằng mã kế tiếp.</li>
+<li>Tính biến đổi cosine, lượng tử hóa, thứ tự zigzag và mã độ dài loạt trên một khối $8\times8$, chỉ ra bước làm mất dữ liệu và chặn sai số tái tạo theo bước lượng tử.</li>
+<li>Chọn phương pháp nén cho một kho dữ liệu theo đặc tả khôi phục, dạng dư thừa của dữ liệu và chi phí bộ nhớ.</li>
+</ol>
+<aside class="notes"><p>Mục tiêu 4 được kiểm bằng Bài tập 11.16 về mã chưa có trong từ điển của bộ giải mã. Mục tiêu 5 được kiểm bằng Bài tập 11.7–11.10 và Bài tập 11.17 về biến đổi theo khối. Mục tiêu 6 được kiểm bằng Bài tập 11.11, chọn và loại bộ nén cho ba kho dữ liệu.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Mục tiêu học tập.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-05" class="agenda-slide">
+<h2>Nội dung</h2>
+<div class="ex-grid2"><ol>
+<li><a href="#/1">Mở đầu</a></li>
+<li><a href="#/2">Nén bằng cửa sổ trượt LZ77</a></li>
+<li><a href="#/3">Nén bằng từ điển cụm LZ78</a></li>
+<li><a href="#/4">Nén LZW với từ điển nạp sẵn</a></li>
+</ol><ol start="5">
+<li><a href="#/5">Nén ảnh JPEG dựa trên biến đổi cosine rời rạc</a></li>
+<li><a href="#/6">Tổng kết</a></li>
+<li><a href="#/7">Bài tập trên lớp</a></li>
+</ol></div>
+<p><strong>Đọc trước:</strong> Nelson và Gailly, Chương 7–9, 11.</p>
+<aside class="notes"><p>Mạch 2, 3, 4 cùng giữ đặc tả khôi phục đúng $y=x$, mỗi mạch sửa một giới hạn của mạch trước: LZ77 trỏ vào cửa sổ văn bản, LZ78 trỏ vào từ điển cụm, LZW bỏ ký tự thô khỏi đơn vị mã. Mạch 5 đổi đặc tả sang khôi phục gần đúng cho ảnh. Mạch 6 đặt các bảo đảm và chi phí cạnh nhau để chọn bộ nén cho từng kho. Mạch 7 gồm năm bài tập trên lớp.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Hướng dẫn đọc thêm và tài liệu tham khảo.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-06" class="example-slide">
+<h2>Vấn đề trung tâm</h2>
+<div class="question-box"><p><strong>Câu hỏi:</strong> Một kho văn bản phải khôi phục đúng từng byte; một danh mục $1\,000$ ảnh, 64 MB, chỉ cần khôi phục gần đúng. Thuật toán nào đạt từng đặc tả trong một lượt đọc với bộ nhớ hữu hạn, và đổi lại được bao nhiêu byte?</p></div>
+<aside class="notes"><p>Câu trả lời theo từng mạch. LZ77 giữ cửa sổ $W$ ký tự, hợp với cụm lặp gần. LZ78 và LZW giữ từ điển tối đa $M$ mục, hợp với cụm lặp xa. JPEG lượng tử hóa các hệ số cosine, đổi số byte lấy sai số mỗi khối bị chặn theo bước lượng tử. Mạch "Tổng kết" thu hồi con số 64 MB. Giới hạn bộ nhớ trong cài đặt của Nelson và Gailly: cửa sổ $4\,096$ byte cho LZ77, từ điển $4\,096$ mã 12 bit cho LZW. Mỗi ảnh của danh mục có $320\times200$ điểm, 1 byte mỗi điểm.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §1; Nelson và Gailly, tr. 179, 208, 218–219, 246.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-07" class="example-slide">
+<h2>Hai đặc tả khôi phục</h2>
+<div class="ex-grid2">
+<div>
+<p>Bộ giải nén trả lại ảnh gốc hoặc một ảnh gần nó; khi chỉ cần khôi phục gần đúng, nhiều ảnh được chung một dòng bit.</p>
+<p><strong>Ví dụ 11.1.</strong> Ảnh CHEETAH.GS, $64\,000$ điểm 8 bit, hệ số chất lượng (quality factor) $q$:</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">$q$</th><th scope="col">byte</th><th scope="col">bit mỗi điểm</th><th scope="col">RMS</th></tr></thead><tbody>
+<tr><th scope="row">1</th><td>$27\,809$</td><td>$3{,}48$</td><td>$4{,}3$</td></tr>
+<tr><th scope="row">2</th><td>$18\,367$</td><td>$2{,}30$</td><td>$6{,}9$</td></tr>
+<tr><th scope="row">25</th><td>$5\,094$</td><td>$0{,}64$</td><td>$17{,}4$</td></tr>
+</tbody></table>
+</div>
+<div>
+<p><strong>Định nghĩa 11.1.</strong> Với $x=(x_1,\ldots,x_m)\in\mathcal X$, bộ nén $\varphi:\mathcal X\to\{0,1\}^*$, bộ giải nén $\psi:\{0,1\}^*\to\mathcal X$:</p>
+<ul>
+<li>Tốc độ bit (bit rate) $R(x)=\lvert\varphi(x)\rvert/m$.</li>
+<li>Sai số căn bình phương trung bình (root mean squared error, RMS) $E_{\mathrm{RMS}}(x,y)=\sqrt{\tfrac1m\sum_i(x_i-y_i)^2}$.</li>
+<li>Khôi phục đúng: $\psi(\varphi(x))=x$ với mọi $x$.</li>
+<li>Khôi phục gần đúng, với ngưỡng $\varepsilon\ge0$: $E_{\mathrm{RMS}}(x,\psi(\varphi(x)))\le\varepsilon$ với mọi $x\in\mathcal X$.</li>
+</ul>
+</div>
+</div>
+<aside class="notes"><p>Tốc độ bit bằng 8 nhân số byte chia cho $64\,000$. Từ $q=1$ tới $q=25$, số byte giảm khoảng $5{,}5$ lần, sai số tăng khoảng 4 lần. Nén theo đặc tả khôi phục đúng là nén không mất thông tin (lossless compression); theo đặc tả gần đúng với $\varepsilon&gt;0$ là nén mất dữ liệu (lossy compression, còn gọi là nén mất thông tin). Khôi phục đúng là trường hợp $\varepsilon=0$, vì $E_{\mathrm{RMS}}(x,y)=0$ khi và chỉ khi mọi mẫu trùng nhau. Nhầm lẫn dễ gặp: coi hai ảnh cùng RMS là giống nhau về mắt. Trên một khối $8\times8$, lệch 2 mức ở mọi điểm và lệch 8 mức ở 4 điểm cùng cho $E_{\mathrm{RMS}}=2$, nhưng cách thứ hai tạo một đốm nhìn thấy được.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §1.1 (Ví dụ 11.1, Định nghĩa 11.1); Nelson và Gailly, Hình 11.14, tr. 287.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-08" class="example-slide">
+<h2>Giới hạn của bộ nén rút ngắn mọi ảnh</h2>
+<p><strong>Mệnh đề 11.2.</strong> <strong>Giả thiết:</strong> $\mathcal X=\{0,\ldots,255\}^m$, $m\ge1$; $\lvert\varphi(x)\rvert&lt;8m$ với mọi $x\in\mathcal X$. <strong>Kết luận:</strong> với mọi $\psi$, có ảnh $x$ để $\psi(\varphi(x))\ne x$.</p>
+<p><strong>Chứng minh.</strong> Có $2^{8m}$ ảnh nhưng chỉ $2^{8m}-1$ chuỗi bit ngắn hơn $8m$, nên $\varphi$ gán cùng dòng bit cho hai ảnh (Mệnh đề 10.2); $\psi$ trả một ảnh cho dòng bit đó, nên tái tạo sai ít nhất một ảnh.</p>
+<figure class="stream-figure stream-short"><img src="img/lec-11/hai-dac-ta-trang-chieu.svg" alt="Hai hàng. Hàng trên, khôi phục đúng: văn bản x qua bộ nén φ thành dòng bit, qua bộ giải nén ψ thành y; điều kiện y = x với mọi x; mỗi x một dòng bit riêng. Hàng dưới, khôi phục gần đúng: khối ảnh P qua φ và ψ thành P̃; điều kiện, khung viền nét đứt: sai số RMS giữa P và P̃ không quá ε; nhiều khối chung một dòng bit"/></figure>
+<aside class="notes"><p>Giả thiết "mọi ảnh" chỉ dùng ở bước đếm: $\varphi$ đưa $2^{8m}$ ảnh vào $2^{8m}-1$ chuỗi ngắn hơn, nên không đơn ánh, và một trong hai ảnh chung dòng bit bị tái tạo sai. Huffman vẫn rút ngắn ảnh có biểu đồ tần suất lệch, nhưng không rút ngắn mọi ảnh. Đặc tả gần đúng chấp nhận đúng hệ quả đó, như hàng dưới của hình: nhiều ảnh chung một dòng bit và nhận cùng ảnh tái tạo. Văn bản, mã nguồn, tệp thực thi phải khôi phục đúng từng byte (Nhận xét 11.3).</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §1.1 (Mệnh đề 11.2, Nhận xét 11.3).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-09" class="example-slide">
+<h2>Bài tập: chọn hệ số chất lượng theo ngưỡng sai số</h2>
+<p><strong>Bài tập 11.1(b).</strong> <strong>Câu hỏi:</strong> Hai ảnh xám CHEETAH.GS và CLOWN.GS, mỗi ảnh $64\,000$ byte, được nén bằng chương trình của Nelson và Gailly ở năm hệ số chất lượng:</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col" rowspan="2">$q$</th><th scope="colgroup" colspan="2">CHEETAH.GS</th><th scope="colgroup" colspan="2">CLOWN.GS</th></tr><tr><th scope="col">byte</th><th scope="col">RMS</th><th scope="col">byte</th><th scope="col">RMS</th></tr></thead><tbody>
+<tr><th scope="row">1</th><td>$27\,809$</td><td>$4{,}3$</td><td>$20\,835$</td><td>$3{,}7$</td></tr>
+<tr><th scope="row">2</th><td>$18\,367$</td><td>$6{,}9$</td><td>$14\,243$</td><td>$5{,}6$</td></tr>
+<tr><th scope="row">5</th><td>$10\,232$</td><td>$10{,}9$</td><td>$8\,636$</td><td>$8{,}6$</td></tr>
+<tr><th scope="row">10</th><td>$7\,167$</td><td>$13{,}6$</td><td>$6\,355$</td><td>$10{,}9$</td></tr>
+<tr><th scope="row">25</th><td>$5\,094$</td><td>$17{,}4$</td><td>$4\,811$</td><td>$14{,}1$</td></tr>
+</tbody></table>
+<p>(b) Với yêu cầu $E_{\mathrm{RMS}}\le10$, chọn trong năm hệ số trên hệ số lớn nhất cho mỗi ảnh và so số byte của hai ảnh.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> đọc cột RMS từ trên xuống và dừng ở dòng cuối cùng còn không quá 10. Bài đọc đánh đổi giữa số byte và sai số của Định nghĩa 11.1 trên hai ảnh khác nội dung. Nhầm lẫn dễ gặp: chọn hệ số nhỏ nhất đạt ngưỡng thay cho hệ số lớn nhất. Các câu (a), (c), (d), (e) của Bài tập 11.1 là bài về nhà.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §1.1 (Bài tập 11.1); Nelson và Gailly, Hình 11.14, tr. 287.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s01-10" class="example-slide">
+<h2>Bài tập: chọn hệ số chất lượng theo ngưỡng sai số</h2>
+<p><strong>Lời giải:</strong></p>
+<ul>
+<li>CHEETAH.GS: RMS $6{,}9\le10$ ở $q=2$, $10{,}9&gt;10$ ở $q=5$; chọn $q=2$, $18\,367$ byte.</li>
+<li>CLOWN.GS: RMS $8{,}6\le10$ ở $q=5$, $10{,}9&gt;10$ ở $q=10$; chọn $q=5$, $8\,636$ byte.</li>
+<li>CLOWN.GS cần khoảng $47\%$ số byte của CHEETAH.GS.</li>
+</ul>
+<p class="ex-takeaway">Với dữ liệu phải khôi phục đúng, phần còn khai thác được là cụm lặp: Huffman theo tần suất từng ký hiệu trả cho lần lặp thứ hai của <code>aac</code> trong <code>aacaacabcabaaac</code> cùng số bit như lần đầu.</p>
+<aside class="notes"><p>$8\,636/18\,367\approx0{,}47$. Kiểm tra: ở mỗi ảnh, số byte giảm và RMS tăng khi $q$ tăng, nên hệ số lớn nhất còn đạt ngưỡng là dòng cuối cùng thỏa $E_{\mathrm{RMS}}\le10$. Câu (c): hệ số chung $q=2$ trả thêm $5\,607$ byte, khoảng $21\%$, tất cả ở CLOWN.GS. Hình 11.14 gốc còn có $q=3$ và $q=4$; với bảng đầy đủ, CHEETAH.GS chọn $q=4$, $11\,731$ byte, RMS $9{,}9$, nên đề giới hạn "trong năm hệ số trên". Với văn bản, mô hình bậc 0 gán cho chữ $\mathrm a$ ở vị trí 4 cùng xác suất như ở vị trí 1, nên mỗi lần lặp tốn số bit tỷ lệ với độ dài cụm. Muốn mã một lần lặp bằng số bit gần như không phụ thuộc độ dài cụm, bộ nén phải trỏ ngược tới lần xuất hiện trước.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §1.1 (lời giải Bài tập 11.1), §1.2.</p></aside>
+</section>
+</section>
+
+<section aria-label="Nén bằng cửa sổ trượt LZ77">
+<section id="mach-2" data-slide-id="lec11-s02-00" class="strand-title">
   <div class="strand-title-body">
-    <h2><span class="strand-number">2.</span>Nén LZ77 với cửa sổ trượt</h2>
-    <p class="strand-lead">Muốn nén luồng lớn trong một lượt với bộ nhớ hữu hạn, phải thay cụm lặp gần bằng tham chiếu về cửa sổ.</p>
-    <p class="strand-keys">Bộ&nbsp;ba&nbsp;tham&nbsp;chiếu&nbsp;· Cụm&nbsp;khớp&nbsp;dài&nbsp;nhất&nbsp;· Sao&nbsp;chép&nbsp;chồng&nbsp;lấn&nbsp;· Giải&nbsp;mã&nbsp;· Chi&nbsp;phí</p>
+    <h2><span class="strand-number">2.</span>Nén bằng cửa sổ trượt LZ77</h2>
+    <p class="strand-lead">Mỗi lần lặp của một cụm được thay bằng một bộ ba trỏ ngược vào phần vừa đọc.</p>
+    <p class="strand-keys">Cửa&nbsp;sổ&nbsp;trượt&nbsp;· Bộ&nbsp;ba&nbsp;· Sao&nbsp;chép&nbsp;chồng&nbsp;lấn&nbsp;· Khôi&nbsp;phục&nbsp;đúng</p>
   </div>
-  <aside class="notes"><p>Hai đặc tả khôi phục đã tách nén không mất dữ liệu khỏi nén mất dữ liệu; LZ phải khôi phục đúng từng byte. LZ77 giữ một cửa sổ hữu hạn và phát bộ ba gồm khoảng lùi, độ dài và ký tự kế. Vết trên aacaacabc dẫn tới thuật toán chọn cụm khớp dài nhất; sao chép chồng lấn mở rộng cụm, giải mã không cần tìm kiếm, bất biến cửa sổ bảo đảm khôi phục đúng, và chi phí phụ thuộc kích thước cửa sổ. Cụm lặp ở xa bị cửa sổ quên, dẫn tới từ điển LZ78.</p></aside>
-</section>
-<section data-slide-id="L00"><h1>LZ77: trỏ về dữ liệu vừa thấy</h1><p>Một luồng nhật ký lớn phải nén trong một lượt. Bộ nén không thể giữ toàn bộ lịch sử nên chỉ duy trì một cửa sổ hữu hạn.</p><div class="grid2"><div class="card"><h3>Đầu ra</h3><p>Bộ ba tham chiếu và ký tự kế tiếp.</p></div><div class="card accent"><h3>Giới hạn</h3><p>Bộ nhớ theo cửa sổ; tìm cụm khớp chi phối thời gian mã hóa.</p></div></div><aside class="notes">Cửa sổ giới hạn bộ nhớ và phạm vi lặp có thể khai thác. Phần đã biết cung cấp tham chiếu cho vùng sắp mã hóa. Nguồn: Nelson–Gailly Chương 8, PDF tr. 174–180; CMU logic 3–4.</aside></section>
-<section data-slide-id="L01"><h2>Cửa sổ chia dữ liệu thành hai miền</h2><img class="figure" src="img/lec-11/lz77-window.svg" alt="Cửa sổ LZ77 gồm từ điển bên trái và vùng nhìn trước bên phải"/><aside class="notes">Con trỏ là biên giữa phần đã mã hóa và vùng nhìn trước. Cụm khớp bắt đầu trong từ điển. Một token phải cho bộ giải mã biết vị trí nguồn, số ký tự cần chép và ký tự theo sau. CMU logic 4; Nelson–Gailly Ch.8, PDF tr.177.</aside></section>
-<section data-slide-id="L02"><h2>Hai dạng bộ ba</h2><div class="grid2"><div class="card"><h3>Ký tự thô</h3><p>$(0,0,c)$ ghi trực tiếp ký tự $c$.</p></div><div class="card accent"><h3>Tham chiếu</h3><p>$(d,\ell,c)$ chép $\ell$ ký tự từ khoảng lùi $d$, rồi ghi $c$.</p></div></div><p class="small">Nếu cụm khớp chạm cuối dữ liệu, $c=EOS$ và bộ giải mã không phát ký hiệu này.</p><aside class="notes">EOS là ký hiệu dành riêng, không thuộc bảng chữ cái dữ liệu. Bài dùng khoảng lùi thay cho vị trí tuyệt đối của CMU. Nguồn: CMU logic 4–6.</aside></section>
-<section data-slide-id="L04"><h2>Vết mã hóa giữ ba trạng thái</h2><table class="trace"><thead><tr><th>Đã xử lý</th><th>Tiền tố nhìn trước</th><th>Phát</th></tr></thead><tbody><tr><td>rỗng</td><td><code>aacaacabc…</code></td><td>$(0,0,a)$</td></tr><tr><td><code>a</code></td><td><code>acaacabc…</code></td><td>$(1,1,c)$</td></tr><tr><td><code>aac</code></td><td><code>aacabc…</code></td><td>$(3,4,b)$</td></tr></tbody></table><p>Bộ ba thứ ba chép tuần tự bốn ký tự từ khoảng lùi ba.</p><aside class="notes">Dữ kiện theo CMU logic 5, đổi position thành khoảng lùi. Mỗi hàng ghi tiền tố đã xử lý, cụm dài nhất còn lại và token được phát. Sau token thường, con trỏ trượt qua độ dài cụm cộng một ký tự.</aside></section>
-<section data-slide-id="L03"><h2>Chọn cụm khớp dài nhất</h2><p class="small">Literal: $d=\ell=0$. Tham chiếu: $1\le d\le\min(W,|output|)$, $1\le\ell\le L$.</p><div class="code">while còn ký tự chưa mã hóa:
-  tìm cụm dài nhất khớp tiền tố vùng nhìn trước
-  nếu không khớp: phát (0, 0, ký_tự_đầu)
-  nếu có: phát (d, ℓ, ký_tự_kế hoặc EOS)
-  trượt qua ℓ + 1 ký tự, hoặc ℓ nếu c = EOS</div><aside class="notes">Điều kiện trước: W, L, Sigma và EOS đã được hai phía biết. Mỗi vòng tiêu thụ ít nhất một ký tự nên thuật toán dừng. Đây là biến thể tham lam của nguồn; không tuyên bố tối ưu số bit vì chi phí token phụ thuộc định dạng. Giải mã phải xử lý đúng khi vùng nguồn và vùng đích chồng nhau. CMU logic 4–5.</aside></section>
-<section data-slide-id="L05"><h2>Sao chép chồng lấn mở rộng cụm</h2><img class="figure short" src="img/lec-11/lz77-overlap.svg" alt="Bộ ba LZ77 (3,4,b) chép chồng lấn từ aac để tạo aaca rồi thêm b"/><aside class="notes">Trong vết CMU, đầu ra đã có `aac`. Bộ ba `(3,4,b)` đọc lần lượt `a`, `a`, `c`, rồi đọc lại `a` vừa ghi; sau đó thêm `b`. Bộ giải mã phải sao chép từng ký tự từ trái sang phải. Nguồn: CMU `compression3-lz.pdf`, logic 5.</aside></section>
-<section data-slide-id="L06"><h2>Giải mã không cần tìm kiếm</h2><div class="code">for mỗi (d, ℓ, c):
-  nếu ℓ=0: require d=0 và c thuộc Σ
-  nếu ℓ&gt;0: require 1 ≤ d ≤ min(W, |output|), 1 ≤ ℓ ≤ L
-              và c thuộc Σ ∪ {EOS}
-  lặp ℓ lần: xuất output[|output| − d]
-  nếu c ≠ EOS: xuất c
-  nếu c = EOS: require đây là token cuối; dừng</div><aside class="notes">Đầu vào là chuỗi bộ ba đã đóng khung và thỏa các cận hiển thị; EOS chỉ hợp lệ ở token cuối. Với literal, vòng lặp rỗng rồi phát ký tự. Với tham chiếu, phần vừa khôi phục có thể làm nguồn cho bước chép kế. Nguồn: CMU logic 6; Nelson–Gailly Chương 8, PDF tr. 174–180.</aside></section>
-<section data-slide-id="L07"><h2>Hai nhánh đều bảo toàn lịch sử</h2><p><strong>Bất biến:</strong> trước mỗi bộ ba, cửa sổ giải mã bằng hậu tố tương ứng của dữ liệu gốc.</p><div class="grid2"><div class="card"><h3>Token thường</h3><p>Chép $\ell$ ký tự, phát $c\in\Sigma$, rồi chuyển sang token kế.</p></div><div class="card accent"><h3>Token cuối có EOS</h3><p>Chép $\ell$ ký tự, không phát $EOS$ và dừng.</p></div></div><p>Do đó bộ giải mã khôi phục đúng toàn bộ chuỗi.</p><aside class="notes">Giả sử EOS chỉ xuất hiện ở token cuối. Cơ sở: hai cửa sổ khởi tạo giống nhau. Với token thường, tham chiếu nằm trong lịch sử đúng; chép tuần tự cho đúng cụm rồi thêm c, nên bất biến giữ cho bước kế. Với token cuối, chép đúng cụm còn lại, không phát EOS và dừng. Hai nhánh bao phủ toàn bộ dòng token hợp lệ.</aside></section>
-<section data-slide-id="L08"><h2>Cửa sổ quyết định chi phí</h2><table class="trace"><thead><tr><th>Đại lượng</th><th>Cận hoặc tác động</th></tr></thead><tbody><tr><td>Mã hóa vét cạn</td><td>$O(nWL)$ khi thử tối đa $W$ vị trí, so tối đa $L$ ký tự</td></tr><tr><td>Giải mã</td><td>$O(n)$ theo số ký tự đầu ra</td></tr><tr><td>Bộ nhớ làm việc</td><td>$O(W+L)$ cho cửa sổ và vùng nhìn trước</td></tr><tr><td>Chi phí token</td><td>Tham chiếu có lợi khi bit cho $d,\ell,c$ ít hơn dữ liệu thay</td></tr></tbody></table><aside class="notes">n là độ dài chuỗi đầu vào hoặc đầu ra. Cận O(nWL) là bản tìm kiếm vét cạn; băm tiền tố hoặc cấu trúc tìm kiếm khác có thể giảm ứng viên nhưng cần giả thiết riêng. Lặp xa hơn W không còn trong từ điển. Không suy ra tỷ lệ nén cố định. CMU logic 7–10.</aside></section>
-<section data-slide-id="L09"><h2>Kiểm tra bộ ba chồng lấn</h2><div class="check"><strong>Câu hỏi:</strong> Đầu ra hiện là <code>aac</code>. Bộ ba $(3,4,b)$ bổ sung chuỗi nào? Ký tự chép thứ tư lấy từ đâu?</div><aside class="notes">Đáp án: chép `aaca`, rồi thêm `b`, nên bộ ba bổ sung `aacab`. Ký tự chép thứ tư đọc lại ký tự `a` vừa được ghi ở bước chép thứ nhất. Nguồn dữ kiện: CMU `compression3-lz.pdf`, logic 5.</aside></section>
+  <aside class="notes"><p>Từ đặc tả khôi phục đúng của Định nghĩa 11.1 và cụm lặp <code>aac</code> của chuỗi <code>aacaacabcabaaac</code>, LZ77 thay mỗi lần lặp bằng bộ ba khoảng lùi–độ dài–ký tự. Bộ mã hóa chọn cụm khớp dài nhất, bộ giải mã chép từng ký tự theo thứ tự; chứng minh khôi phục đúng dùng bất biến vòng lặp, và chi phí được đếm theo $W$, $L$. LZ78 nhận lại giới hạn của cửa sổ: một cụm chỉ dùng lại được khi lần xuất hiện trước còn nằm trong $W$ ký tự cuối.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.</p></aside>
 </section>
 
-<section>
-<section id="mach-3" data-slide-id="ZT" class="strand-title">
-  <div class="strand-title-body">
-    <h2><span class="strand-number">3.</span>Nén LZ78 với từ điển tăng dần</h2>
-    <p class="strand-lead">Muốn dùng lại cụm lặp cách xa nhau, phải giữ từ điển cụm tăng dần trong toàn luồng.</p>
-    <p class="strand-keys">Cặp&nbsp;mã&nbsp;cụm&nbsp;và&nbsp;ký&nbsp;tự&nbsp;· Cây&nbsp;cụm&nbsp;· Quy&nbsp;nạp&nbsp;theo&nbsp;số&nbsp;cặp&nbsp;· Từ&nbsp;điển&nbsp;đầy</p>
-  </div>
-  <aside class="notes"><p>Cửa sổ LZ77 có thể quên cụm cũ. LZ78 giữ từ điển tăng trong toàn luồng; mỗi cụm mới bằng một cụm đã biết thêm đúng một ký tự. Bốn cặp đầu trên aabaac tạo cùng một từ điển ở hai phía; mã hóa và giải mã dùng cùng phép cập nhật, quy nạp theo số cặp chứng minh hai từ điển trùng nhau, và định dạng phải quy định cách xử lý khi từ điển đầy. Mỗi cặp còn mang một ký tự thô; LZW bỏ ký tự này.</p></aside>
-</section>
-<section data-slide-id="Z00"><h1>LZ78: tích lũy các cụm đã học</h1><p>Một luồng ký hiệu có cụm lặp cách xa nhau và chỉ được đọc một lượt. Cửa sổ LZ77 có thể quên cụm cũ; LZ78 giữ từ điển tăng trong toàn luồng.</p><div class="grid2"><div class="card"><h3>Đầu ra</h3><p>Cặp mã cụm và ký tự mới.</p></div><div class="card accent"><h3>Giới hạn</h3><p>Từ điển tăng dần; định dạng phải quy định khi đầy.</p></div></div><aside class="notes">Nguồn không cho quy mô số nên chỉ nêu giới hạn định tính. Cây cụm cho phép mỗi mục mới dùng lại một tiền tố đã biết; chi phí bộ nhớ phụ thuộc số mục. Nguồn: Nelson–Gailly Chương 9, PDF tr. 208–213; CMU logic 11–12.</aside></section>
-<section data-slide-id="Z01"><h2>Mỗi cụm mới thêm đúng một ký tự</h2><img class="figure" src="img/lec-11/lz78-trie.svg" alt="Cây từ điển LZ78 trong đó cụm mới bằng cụm cha nối một ký tự"/><p>Cụm mới = cụm đã biết + một ký tự mới.</p><aside class="notes">Từ điển khởi tạo có gốc mã 0 ánh xạ chuỗi rỗng. Trực giác cây dẫn tới quy tắc D[next]=D[i]+c; bốn cặp đầu trong vết CMU sẽ dùng đúng một cạnh mới ở mỗi bước. CMU logic 11–13.</aside></section>
-<section data-slide-id="Z02"><h2>Bốn cặp đầu tạo cùng một từ điển</h2><table class="trace"><thead><tr><th>Tiền tố còn lại</th><th>Phát</th><th>Mục mới</th><th>Chuỗi đã xử lý</th></tr></thead><tbody><tr><td><code>aabaac…</code></td><td>$(0,a)$</td><td>$D[1]=a$</td><td><code>a</code></td></tr><tr><td><code>abaac…</code></td><td>$(1,b)$</td><td>$D[2]=ab$</td><td><code>aab</code></td></tr><tr><td><code>aac…</code></td><td>$(1,a)$</td><td>$D[3]=aa$</td><td><code>aabaa</code></td></tr><tr><td><code>cabc…</code></td><td>$(0,c)$</td><td>$D[4]=c$</td><td><code>aabaac</code></td></tr></tbody></table><aside class="notes">Nguồn: CMU logic 13–14, chuỗi `aabaacabcabcb`. Mỗi hàng dùng quy tắc `D[next]=D[i]+c`. Phía mã hóa tìm cụm; phía giải mã đọc chỉ số và ký tự; cả hai thêm cùng một mục.</aside></section>
-<section data-slide-id="Z03"><h2>Hai phía dùng cùng phép cập nhật</h2><div class="grid2"><div><h3>Mã hóa</h3><div class="code">D[0] ← ε; next ← 1
-while còn dữ liệu:
-  w ← cụm dài nhất khớp
-  nếu hết ngay sau w: phát (mã(w), EOS); dừng
-  c ← ký tự sau w; phát (mã(w), c)
-  D[next] ← w+c; next++</div></div><div><h3>Giải mã</h3><div class="code">D[0] ← ε; next ← 1
-for mỗi (i, c):
-  require i có trong D
-  nếu c=EOS: require đây là token cuối; xuất D[i]; dừng
-  phrase ← D[i]+c; xuất phrase
-  D[next] ← phrase; next++</div></div></div><aside class="notes">Dòng cặp có khung nên bộ giải mã biết ranh giới từng token. Token thường `(i,c)` có thể là token cuối khi còn đúng một ký tự mới sau cụm đã biết. Chỉ phát `(i,EOS)` khi đầu vào kết thúc ngay sau một cụm đã biết. EOS không được thêm vào từ điển hoặc đầu ra. Nguồn: Nelson–Gailly Chương 9, PDF tr. 208–211; CMU logic 12–14.</aside></section>
-<section data-slide-id="Z04"><h2>Quy nạp theo số cặp</h2><ol><li><strong>Cơ sở:</strong> hai phía có $D[0]=\epsilon$.</li><li><strong>Token thường $(i,c)$:</strong> cùng tạo $D[i]+c$, xuất cụm và thêm cùng mục; token này có thể là token cuối.</li><li><strong>Token $(i,EOS)$:</strong> chỉ xuất $D[i]$ rồi dừng; token này chỉ hợp lệ khi nguồn hết ngay sau cụm đã biết.</li></ol><p>Mỗi token tiêu thụ dữ liệu hoặc kết thúc dòng, nên mã hóa dừng và giải mã khôi phục đúng chuỗi.</p><aside class="notes">Mệnh đề giả sử dòng token được đóng khung, chỉ số hợp lệ, hai phía dùng cùng chính sách từ điển và EOS nằm ngoài bảng chữ cái. Sau token thường, hai từ điển vẫn giống nhau. Với token EOS, không thêm mục và không phát EOS. Hai nhánh bao phủ cả trường hợp ký tự mới là ký tự cuối lẫn trường hợp nguồn kết thúc đúng sau một cụm đã biết.</aside></section>
-<section data-slide-id="Z05"><h2>Từ điển toàn luồng cần biểu diễn gọn</h2><table class="trace"><thead><tr><th>Lựa chọn khi đầy</th><th>Hệ quả</th></tr></thead><tbody><tr><td>Dừng thêm</td><td>Mã hợp lệ; không học cụm mới</td></tr><tr><td>Khởi tạo lại</td><td>Thích nghi lại; phải báo hiệu đồng bộ</td></tr><tr><td>Tăng độ rộng</td><td>Giữ thêm cụm; mỗi mã tốn nhiều bit hơn</td></tr></tbody></table><p class="small">Với trie/băm phù hợp: thời gian gần tuyến tính hoặc kỳ vọng theo $n$; $O(M)$ bộ nhớ cho $M$ mục dạng (cha, ký tự).</p><aside class="notes">Lưu mỗi mục bằng con trỏ cha và ký tự để tránh sao chép cả cụm. Nếu mỗi lần tìm hoặc nối phải quét chuỗi, chi phí có thể tăng bậc hai. Nguồn: Nelson–Gailly Chương 9, PDF tr. 211–213; CMU logic 18.</aside></section>
-<section data-slide-id="Z06"><h2>Kiểm tra phần còn lại của vết LZ78</h2><div class="check"><strong>Câu hỏi:</strong> Từ trạng thái $D[1]=a,D[2]=ab,D[3]=aa,D[4]=c$, mã hóa phần <code>abcabcb</code>. Hai cặp kế tiếp là gì, $D[5]$, $D[6]$ bằng gì và chuỗi đầy đủ được khôi phục ra sao?</div><aside class="notes">Đáp án theo CMU logic 13–14: phát `(2,c)` và `(5,b)`; `D[5]=abc`, `D[6]=abcb`; ghép các cụm cho `aabaacabcabcb`. LZ78 gửi cả mã cụm lẫn ký tự mới; LZW sẽ suy ra ký tự này từ cụm kế.</aside></section>
+<section data-slide-id="lec11-s02-01" class="example-slide">
+<h2>Con trỏ ngược vào phần vừa đọc</h2>
+<p><strong>Câu hỏi:</strong> đọc một lượt, giữ một đoạn hữu hạn, bộ mã hóa (encoder) mã mỗi lần lặp của một cụm bằng số bit cố định thế nào để bộ giải mã (decoder) giải đúng?</p>
+<p><strong>Trực quan.</strong> Huffman thay từng ký hiệu; LZ77 thay cả một cụm bằng bộ ba cỡ cố định $(d,\ell,c)$: lùi $d$, chép $\ell$ ký tự, viết thêm $c$.</p>
+<aside class="notes"><p>Ziv và Lempel công bố thuật toán năm 1977; phần văn bản vừa đọc đóng vai từ điển. Trong cài đặt của Nelson và Gailly, đoạn được giữ dài vài nghìn ký tự, còn phần đã đọc nhưng chưa mã hóa dài từ mười tới một trăm ký tự. Bộ ba có cỡ cố định trong khi cụm nó thay có độ dài thay đổi; mã Huffman thì thay đúng một ký hiệu bằng một từ mã. Bài giảng CMU 15-499 xếp LZSS và gzip vào họ LZ77.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2, §2.1; Nelson và Gailly, tr. 174; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 3–4.</p></aside>
 </section>
 
-<section>
-<section id="mach-4" data-slide-id="WT" class="strand-title">
-  <div class="strand-title-body">
-    <h2><span class="strand-number">4.</span>Nén LZW</h2>
-    <p class="strand-lead">Muốn chỉ phát mã cụm, phải nạp sẵn bảng chữ cái và cho hai phía cùng dựng từ điển.</p>
-    <p class="strand-keys">Từ&nbsp;điển&nbsp;nạp&nbsp;sẵn&nbsp;· Vết&nbsp;mã&nbsp;hóa&nbsp;· Mã&nbsp;chưa&nbsp;có&nbsp;· Độ&nbsp;trễ&nbsp;một&nbsp;mục&nbsp;· Định&nbsp;dạng&nbsp;bit</p>
-  </div>
-  <aside class="notes"><p>LZ78 phát cặp mã cụm và ký tự mới. LZW khởi tạo 256 byte trong từ điển và chỉ phát mã cụm; ký tự mới được suy ra từ cụm kế. Vết mã hóa trên p, q, r khái quát thành thuật toán; giải mã dựng lại vết và xử lý trường hợp mã kế đến trước mục từ với độ trễ một mục; định dạng bit được tách thành hợp đồng riêng. Ba phương pháp LZ đều khôi phục đúng từng ký tự; ảnh cho phép sai số có kiểm soát.</p></aside>
-</section>
-<section data-slide-id="W00"><h1>LZW: bỏ ký tự khỏi cặp LZ78</h1><p>Một luồng byte lớn được đọc một lượt. LZW nạp sẵn bảng chữ cái nên chỉ phát mã cụm; đổi lại, hai phía phải quản lý cùng từ điển.</p><div class="grid2"><div class="card"><h3>Khởi tạo</h3><p>$D[0..255]$ là các byte; <code>next_code=256</code>.</p></div><div class="card accent"><h3>Quy tắc</h3><p>Nếu $wk$ đã có thì kéo dài $w$; nếu chưa có thì phát mã của $w$ rồi thêm $wk$.</p></div></div><aside class="notes">LZW suy ra ký tự mới của LZ78 từ cụm kế. Phần vết chạy dùng dòng mã nguyên đã đóng khung: mã 256 là mục mới đầu tiên, không dành cho EOS. Chuỗi rỗng cho dòng mã rỗng. Định dạng bit hữu hạn sẽ được tách thành một hợp đồng riêng. Nguồn: CMU logic 15–17; Nelson–Gailly Chương 9, PDF tr. 214–226.</aside></section>
-<section data-slide-id="W02"><h2>Vết mã hóa ghi cả lần kéo dài</h2><p class="small">Ánh xạ byte: $p\mapsto112$, $q\mapsto113$, $r\mapsto114$; <code>next_code=256</code>.</p><img class="figure" src="img/lec-11/lzw-trace.svg" alt="Vết đầy đủ mã hóa LZW chuỗi ppqpprpqrpqrq, gồm quyết định kéo dài, mã phát và mục từ 256 đến 264"/><aside class="notes">Nguồn chuỗi và quy tắc: CMU logic 17. Deck đổi ba ký tự của nguồn thành p, q, r để tránh lẫn với biến w, k trong giả mã; ánh xạ mã byte được công bố trên mặt trang. Dòng mã đầy đủ là `112,112,113,256,114,257,260,113,114,113`. Từ điển mới: 256=`pp`, 257=`pq`, 258=`qp`, 259=`ppr`, 260=`rp`, 261=`pqr`, 262=`rpq`, 263=`qr`, 264=`rq`. Mỗi hàng “chưa có” thực hiện nhánh phát mã rồi thêm cụm.</aside></section>
-<section data-slide-id="W01"><h2>Mã hóa khái quát hóa vết chạy</h2><div class="code">D[0..255] ← các byte; next_code ← 256
-nếu đầu vào rỗng: trả dòng mã rỗng
-w ← byte đầu
-for mỗi byte kế k:
-  nếu w+k có trong D: w ← w+k
-  ngược lại: phát mã(w); D[next_code] ← w+k
-               next_code++; w ← k
-phát mã(w)</div><aside class="notes">Phần vết dùng mô hình lý tưởng khi từ điển chưa đầy. Mỗi vòng đọc một byte nên thuật toán dừng. Trường hợp rỗng trả ngay; với đầu vào không rỗng, lệnh phát cuối xử lý cụm còn lại. Nguồn: CMU logic 17; Nelson–Gailly PDF tr. 214–217.</aside></section>
-<section data-slide-id="W03"><h2>Giải mã dựng lại vết mã hóa</h2><p class="small">$p\mapsto112$, $q\mapsto113$, $r\mapsto114$; <code>next_code=256</code>. Ba mã đầu tạo $D[256]=pp$, $D[257]=pq$.</p><div class="code">old ← mã đầu; require old thuộc bảng chữ cái
-w ← D[old]; xuất w
-for mỗi mã k đã có trong D:
-  entry ← D[k]; xuất entry
-  D[next_code] ← w + first(entry)
-  next_code++; w ← entry</div><aside class="notes">Đây là đường thường trong mô hình dòng mã nguyên. Sau ba mã 112,112,113, đầu ra là `ppq` và bộ giải mã có 256=`pp`, 257=`pq`. Bộ mã hóa có thể vừa tạo thêm đúng một mục mà bộ giải mã chưa đủ cụm kế để suy ra; độ trễ đó dẫn đến trường hợp mã đến trước mục. CMU logic 19; Nelson–Gailly PDF tr. 220–226.</aside></section>
-<section data-slide-id="W04"><h2>Mã kế có thể đến trước mục từ</h2><img class="figure short" src="img/lec-11/lzw-kwkwk.svg" alt="Trường hợp mã LZW chưa có: mã bằng next_code nên cụm là w nối ký tự đầu của w"/><aside class="notes">Nếu k=next_code, phía mã hóa vừa tạo w+first(w) rồi phát mã đó trước khi phía giải mã thêm mục. Vì vậy entry được xác định duy nhất. Nếu k lớn hơn next_code, dòng mã hỏng. Nhánh này ghép với đường thường để tạo bộ giải mã đầy đủ. CMU logic 16.</aside></section>
-<section data-slide-id="W05"><h2>Giải mã đầy đủ kiểm soát độ trễ một mục</h2><div class="code">nếu dòng mã rỗng: trả chuỗi rỗng
-old ← mã đầu; require old thuộc bảng chữ cái
-w ← D[old]; xuất w
-for mỗi mã k:
-  nếu k có trong D: entry ← D[k]
-  nếu k = next_code: entry ← w + first(w)
-  nếu k &gt; next_code: báo lỗi
-  xuất entry; D[next_code] ← w + first(entry)
-  next_code++; w ← entry</div><p class="small">Trước mã kế, mọi mã nhỏ hơn <code>next_code</code> trùng ở hai phía; bộ mã hóa có thể đi trước đúng mục mang mã <code>next_code</code>.</p><aside class="notes">Mệnh đề: với cùng bảng chữ cái và chính sách từ điển, bộ giải mã khôi phục đúng tiền tố. Trước mỗi mã kế, mọi mục có mã nhỏ hơn `next_code` của bộ giải mã trùng với bộ mã hóa; bộ mã hóa có thể đã tạo đúng một mục tại mã `next_code`. Vì vậy k nhỏ hơn next là đường thường, k bằng next là trường hợp duy nhất chưa có nhưng hợp lệ, còn k lớn hơn next là lỗi. Sau khi xuất entry và thêm `w+first(entry)`, bất biến độ trễ một mục được duy trì.</aside></section>
-<section data-slide-id="W06"><h2>Định dạng bit là hợp đồng riêng</h2><ul><li>Với mã rộng $b$ bit, ngưỡng hiện tại là $T=2^b$; `MAX` là giới hạn cuối.</li><li>Định dạng công bố mã đầu tiên bộ mã hóa phát bằng $b+1$ bit.</li><li>Định dạng cũng công bố lúc bộ giải mã đổi độ rộng trước khi đọc, có tính đến độ trễ một mục.</li><li>Khi đạt `MAX`, dừng thêm hoặc khởi tạo lại bằng tín hiệu đồng bộ.</li></ul><aside class="notes">T chỉ mô tả biên biểu diễn của b bit; MAX mô tả giới hạn cuối của từ điển. Không thể yêu cầu hai phía cùng đổi độ rộng khi biến next_code cục bộ chạm T vì bộ giải mã có thể trễ bộ mã hóa một mục. Hợp đồng bit phải chốt hai mốc: mã đầu tiên phía mã hóa ghi bằng b+1 bit và vị trí phía giải mã chuyển sang b+1 bit trước khi đọc. Các định dạng có thể chọn quy ước early-change hoặc late-change; bài không chốt công thức khi nguồn không quy định. Khi đạt MAX, hai phía freeze hoặc reset qua tín hiệu đã công bố. Nelson–Gailly mô tả riêng biến thể mã cố định 12 bit ở Chương 9, PDF tr. 214–226. Với băm kỳ vọng O(1), mã hóa kỳ vọng O(n), giải mã O(n) theo đầu ra và mỗi mục (cha, ký tự) chiếm O(1) từ máy.</aside></section>
-<section data-slide-id="W07"><h2>Kiểm tra mã chưa có</h2><div class="check"><strong>Câu hỏi:</strong> Bộ giải mã có cụm trước $w=\texttt{aba}$ và <code>next_code=271</code>. So sánh ba mã kế 270, 271 và 272: mã nào tra bảng, mã nào suy ra, mã nào lỗi?</div><aside class="notes">Mã 270 nhỏ hơn next nên phải tra trong từ điển. Mã 271 bằng next là trường hợp duy nhất chưa có nhưng hợp lệ: entry=`abaa`; xuất `abaa`; thêm D[271]=`abaa`, rồi tăng next. Mã 272 lớn hơn next nên báo lỗi. LZ khôi phục đúng dữ liệu; JPEG ở phần sau đổi sang hợp đồng tốc độ bit–sai số.</aside></section>
+<section data-slide-id="lec11-s02-02" class="example-slide">
+<h2>Ví dụ: chuỗi <code>aacaacabcabaaac</code>, ba bộ ba đầu</h2>
+<p>Cỡ cửa sổ $W=6$, độ khớp tối đa $L=4$; con trỏ $p$: số ký tự đã mã hóa. Xác định ba bộ ba đầu.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">$p$</th><th scope="col">đã mã hóa</th><th scope="col">so khớp</th><th scope="col">bộ ba</th></tr></thead><tbody>
+<tr><td>$0$</td><td>rỗng</td><td>không có khoảng lùi</td><td>$(0,0,\mathrm a)$</td></tr>
+<tr><td>$1$</td><td><code>a</code></td><td>$d=1$: $\ell=1$, ký tự kế $\mathrm c$</td><td>$(1,1,\mathrm c)$</td></tr>
+<tr><td>$3$</td><td><code>aac</code></td><td>$d=1,2,3$: $\ell=0,1,4$</td><td>$(3,4,\mathrm b)$</td></tr>
+</tbody></table>
+<figure class="stream-figure stream-short"><img src="img/lec-11/lz77-cua-so-trang-chieu.svg" alt="Chuỗi aacaacabcabaaac trong mười lăm ô đánh số 1 đến 15; vạch đứng sau ô 3 là con trỏ p = 3. Ô 1 đến 3, aac, viền liền, là lịch sử x[1..3]. Ô 4 đến 7, aaca, viền nét đứt, là vùng nhìn trước x[4..7]. Ô 8, b, viền đậm, là ký tự kế. Mũi tên cong từ ô 4 lùi về ô 1 ghi lùi d = 3"/></figure>
+<p><strong>Diễn giải:</strong> ba bộ ba phủ $1+2+5=8$ ký tự; ở $p=3$, nguồn $x_4$ nằm trong đoạn đang mã hóa, nên độ khớp vượt khoảng lùi.</p>
+<aside class="notes"><p>Ở $p=3$, khoảng lùi $d=3$ so $x_4,\ldots,x_7$ với $x_1,\ldots,x_4$ và khớp đủ $L=4$ ký tự; lần so cuối đặt $x_7$ cạnh $x_4$, một ô bên phải con trỏ. Ký tự kế $x_8=\mathrm b$ nằm ngoài bốn ô so khớp: $L$ chặn độ dài khớp, không chặn vị trí của ký tự kế. Bộ ba đầu không có khoảng lùi nào nên ghi $d=0$. Hai bộ ba còn lại của chuỗi là Bài tập 11.12 trên lớp.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.1 (Ví dụ 11.2); Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 5.</p></aside>
 </section>
 
-<section>
-<section id="mach-5" data-slide-id="JT" class="strand-title">
-  <div class="strand-title-body">
-    <h2><span class="strand-number">5.</span>Nén ảnh mất dữ liệu bằng JPEG</h2>
-    <p class="strand-lead">Muốn giảm dung lượng ảnh khi chấp nhận sai số, phải biến đổi khối sang tần số rồi lượng tử hóa.</p>
-    <p class="strand-keys">Tốc&nbsp;độ&nbsp;bit&nbsp;và&nbsp;sai&nbsp;số&nbsp;· Khối&nbsp;8×8&nbsp;· DCT&nbsp;· Lượng&nbsp;tử&nbsp;hóa&nbsp;· Zigzag&nbsp;và&nbsp;RLE</p>
-  </div>
-  <aside class="notes"><p>LZ77, LZ78 và LZW giữ đúng từng ký tự. Với kho ảnh, đặc tả đổi thành cân bằng tốc độ bit với sai số RMS. Ảnh được chia thành khối 8×8 và biểu diễn bằng DCT; lượng tử hóa theo ma trận ưu tiên tần số thấp, dòng DC và AC dùng zigzag và mã độ dài loạt, IDCT tái tạo khối, và chi phí tỉ lệ với số điểm ảnh. Bốn phương pháp còn phải được đối chiếu theo hợp đồng khôi phục.</p></aside>
-</section>
-<section data-slide-id="J00"><h1>JPEG mất dữ liệu dựa trên DCT</h1><p>Một kho ảnh lớn cần giảm dung lượng lưu trữ và băng thông. Khôi phục đúng từng mẫu ảnh không còn là yêu cầu; phải cân bằng kích thước với sai số.</p><div class="grid2"><div class="card"><h3>Đầu ra</h3><p>Ảnh gần ảnh gốc theo mức chất lượng đã chọn.</p></div><div class="card accent"><h3>Không phù hợp</h3><p>Dữ liệu nhãn, văn bản trong ảnh hoặc phép đo cần bảo toàn tuyệt đối.</p></div></div><aside class="notes">DCT là biến đổi cosine rời rạc. Phần này chỉ xét JPEG mất dữ liệu dựa trên DCT; JPEG có các chế độ khác ngoài phạm vi. Không suy rộng JPEG cho dữ liệu cần bảo toàn phép đo. Nguồn: Nelson–Gailly Chương 11, PDF tr. 246–266, và CMU `compression4-lossy` logic 2, 13–16.</aside></section>
-<section data-slide-id="J01"><h2>Tốc độ bit và sai số cùng tạo đặc tả</h2><div class="grid2"><div class="card"><h3>Tốc độ bit</h3><p>Số bit của dòng nén hoặc bit trên mỗi điểm ảnh.</p></div><div class="card"><h3>Căn sai số bình phương trung bình (RMS)</h3><p>Khoảng cách giữa ảnh gốc $X$ và ảnh tái tạo $\hat X$.</p></div></div><p class="math">$E_{RMS}=\sqrt{\frac1N\sum_{i=1}^{N}(X_i-\hat X_i)^2}$</p><p>Lượng tử mạnh thường giảm kích thước nhưng tăng sai số; không có tỷ lệ cố định cho mọi ảnh.</p><aside class="notes">Hai ảnh có cùng RMS vẫn có thể khác nhau về chất lượng cảm nhận, nên đại lượng này không thay thế đánh giá thị giác. Mức lượng tử mạnh hơn thường tạo nhiều số 0 hơn và tăng sai lệch, nhưng kết quả còn phụ thuộc nội dung ảnh. Nguồn: Nelson–Gailly Chương 11, PDF tr. 258–266.</aside></section>
-<section data-slide-id="J02"><h2>Hai vị trí có thể làm mất dữ liệu</h2><img class="figure" src="img/lec-11/jpeg-pipeline.svg" alt="Đường ống JPEG dựa trên DCT: lấy mẫu thưa sai màu là mất dữ liệu tùy chọn; lượng tử hóa không khả nghịch nói chung; DC và AC được mã hóa riêng"/><p class="small">DC là hệ số một chiều; AC là 63 hệ số còn lại.</p><aside class="notes">Lấy mẫu thưa sai màu là tùy chọn và có thể mất dữ liệu. DCT khả nghịch nếu giữ chính xác hệ số; phép làm tròn khi lượng tử hóa không khả nghịch nói chung. Sai phân DC, zigzag, mã độ dài loạt và mã entropy khôi phục đúng đầu vào của từng bước. Nguồn: Nelson–Gailly Chương 11, PDF tr. 252–264; CMU logic 13–16.</aside></section>
-<section data-slide-id="J03"><h2>Khối 8×8 tạo đơn vị xử lý cục bộ</h2><ul><li>Biến đổi cần giảm tương quan, gom năng lượng và cho phép lược thành phần ít quan trọng.</li><li>Biến đổi toàn ảnh theo mô hình tính trực tiếp của nguồn tốn bộ nhớ và kém thích nghi cục bộ.</li><li>JPEG chia từng thành phần thành khối $8\times8$ rồi trừ 128 trước DCT.</li><li>Khối giới hạn chi phí, nhưng lượng tử mạnh có thể làm lộ biên khối.</li></ul><aside class="notes">Ảnh được đổi sang thành phần độ chói và sai màu; kênh sai màu có thể lấy mẫu thưa hơn. Dịch mức biến miền 0–255 thành −128–127. Ba mục tiêu biến đổi và nhược điểm của xử lý toàn ảnh theo mô hình trực tiếp lấy từ CMU logic 11; không khẳng định mọi thuật toán biến đổi nhanh toàn ảnh đều đắt. Nelson–Gailly Chương 11, PDF tr. 252–258 và 268.</aside></section>
-<section data-slide-id="J05"><h2>Trực giác định tính về tần số không gian</h2><img class="figure" src="img/lec-11/dct-basis.svg" alt="Minh họa định tính mẫu trơn và mẫu đổi sáng tối nhanh hơn theo hai trục; không phải giá trị hàm cơ sở DCT"/><p>DCT của từng khối thường gom năng lượng ảnh tự nhiên vào một số hệ số tần số thấp.</p><aside class="notes">Hình chỉ minh họa số lần đổi sáng tối, không phải mẫu cơ sở DCT tính chính xác. Biến đổi theo khối khai thác cấu trúc cục bộ và giới hạn trạng thái làm việc; đổi lại, mỗi khối được xử lý riêng. Công thức tiếp theo đo mức đóng góp của từng mẫu tần số. CMU logic 9–12; Nelson–Gailly PDF tr. 255–258.</aside></section>
-<section data-slide-id="J04"><h2>DCT biểu diễn khối bằng tần số không gian</h2><p class="math">$C_{u,v}=\alpha(u)\alpha(v)\sum_{x=0}^{7}\sum_{y=0}^{7} f_{x,y}\cos\!\frac{(2x+1)u\pi}{16}\cos\!\frac{(2y+1)v\pi}{16}$</p><p class="small">$x,y,u,v\in\{0,\ldots,7\}$; $\alpha(0)=1/\sqrt8$, $\alpha(t)=1/2$ với $t&gt;0$.</p><aside class="notes">Với chuẩn hóa này, biến đổi trực chuẩn. C00 là thành phần một chiều; chỉ số lớn hơn mô tả thay đổi nhanh hơn. Lượng tử hóa sẽ chia từng Cuv cho bước Quv rồi làm tròn. Nelson–Gailly PDF tr. 255–258; CMU logic 7–12.</aside></section>
-<section data-slide-id="J06"><h2>Lượng tử hóa tạo sai số có chủ đích</h2><p class="math">$\hat C_{u,v}=\operatorname{round}\!\left(\frac{C_{u,v}}{Q_{u,v}}\right),\qquad \tilde C_{u,v}=Q_{u,v}\hat C_{u,v},\quad Q_{u,v}>0$</p><img class="figure short" src="img/lec-11/quantization.svg" alt="Hai phép lượng tử từ ví dụ số của Nelson–Gailly: âm chín với bước bảy thành âm một rồi âm bảy; ba với bước mười một thành không"/><aside class="notes">Số liệu lấy trực tiếp từ Nelson–Gailly Hình 11.10–11.11, PDF tr. 260–261. Tại (0,2), C=-9, Q=7 nên C-hat=-1 và C-tilde=-7. Tại (0,4), C=3, Q=11 nên C-hat=0 và C-tilde=0. Sách mô tả bước lượng tử là số nguyên từ 1 đến 255; bài chỉ cần điều kiện Q dương. Không dùng các ô có quy ước làm tròn dễ gây mâu thuẫn. CMU logic 15.</aside></section>
-<section data-slide-id="J07"><h2>Ma trận lượng tử đặt ưu tiên theo tần số</h2><ul><li>Bước nhỏ ở vùng tần số thấp giữ biến thiên chậm.</li><li>Bước lớn ở vùng tần số cao thường tạo thêm hệ số 0.</li><li>Lượng tử mạnh thường giảm kích thước nhưng tăng sai số RMS.</li><li>Ma trận giải nén phải có trong đầu mục hoặc được suy ra theo chuẩn.</li></ul><aside class="notes">Không có tỷ lệ kích thước–sai số cố định: ảnh và bộ mã entropy cũng ảnh hưởng kết quả. CMU logic 15 hiển thị một bảng lượng tử JPEG và ghi có thể điều chỉnh bởi hệ số chất lượng; deck dùng hai ô của Nelson–Gailly để giữ truy nguyên số liệu.</aside></section>
-<section data-slide-id="J08"><h2>DC và AC tạo hai dòng ký hiệu</h2><img class="figure" style="max-height:245px" src="img/lec-11/zigzag.svg" alt="Quét zigzag khối 8 nhân 8 từ DC đến 63 hệ số AC; hai vị trí ví dụ ở lượt 6 và 15"/><div class="grid2"><div class="card"><p style="margin:.08em 0"><strong>DC:</strong> $C_{0,0}$; sai phân với khối trước cùng thành phần theo thứ tự quét.</p></div><div class="card accent"><p style="margin:.08em 0"><strong>AC:</strong> 63 ô còn lại; zigzag rồi mã độ dài loạt (RLE).</p></div></div><aside class="notes">DC là hệ số một chiều; AC là 63 hệ số còn lại. Đếm zigzag từ 1, hai ô lượng tử ở trang trước xuất hiện tại lượt 6 và 15; giá trị 0 ở (0,4) góp vào một loạt 0. RLE là mã độ dài loạt. Sai phân DC dùng DC của khối trước trong cùng thành phần theo thứ tự quét; mốc khởi động lại, nếu có, tái lập dự đoán theo định dạng. Zigzag và RLE không làm mất thêm dữ liệu. CMU logic 16; Nelson–Gailly PDF tr. 260–263.</aside></section>
-<section data-slide-id="J09"><h2>IDCT tái tạo hệ số đã lượng tử</h2><p class="math">$\tilde f_{x,y}=\sum_{u=0}^{7}\sum_{v=0}^{7}\alpha(u)\alpha(v)\tilde C_{u,v}\cos\!\frac{(2x+1)u\pi}{16}\cos\!\frac{(2y+1)v\pi}{16}$</p><p class="small">Giải mã entropy → khôi phục DC/AC → nhân $Q_{u,v}$ → IDCT → hoàn nguyên mức và màu.</p><aside class="notes">IDCT đảo DCT đối với hệ số đầu vào. Nó tái tạo từ C-tilde, không từ C gốc, nên không phục hồi sai số lượng tử. Nếu mã hóa đã lấy mẫu thưa sai màu, nội suy cũng không phục hồi mẫu đã bỏ. Với khối 8x8 cố định, chi phí toàn ảnh tăng tuyến tính theo số mẫu.</aside></section>
-<section data-slide-id="J10"><h2>Chi phí tỉ lệ với số điểm ảnh</h2><table class="trace"><thead><tr><th>Bước</th><th>Chi phí theo mỗi khối 8×8</th><th>Bộ nhớ làm việc</th></tr></thead><tbody><tr><td>DCT/IDCT</td><td>hằng số phép toán cho khối cố định</td><td>một vài khối</td></tr><tr><td>Lượng tử, zigzag</td><td>64 phép chia/làm tròn và 64 vị trí</td><td>64 hệ số</td></tr><tr><td>Toàn ảnh $N$ mẫu</td><td>$\Theta(N)$ với khối cố định</td><td>có thể xử lý theo dải</td></tr></tbody></table><p>Lượng tử mạnh thường giảm tốc độ bit và tăng sai số; mức đổi phụ thuộc ảnh và cách mã hóa.</p><aside class="notes">Mô hình RAM coi phép toán số học có chi phí hằng. Cài đặt DCT nhanh đổi hằng số. Độ phức tạp tuyến tính không cho một tỷ lệ nén hoặc RMS cố định.</aside></section>
-<section data-slide-id="J11"><h2>Kiểm tra đường ống JPEG</h2><div class="check"><strong>Câu hỏi:</strong> Với $C_{0,2}=-9,Q_{0,2}=7$, tính $\hat C$ và $\tilde C$. Ô này ở lượt zigzag nào? Phân biệt DC, AC và nêu bước nào làm mất dữ liệu.</div><aside class="notes">Đáp án: C-hat=-1 và C-tilde=-7; ô (0,2) là lượt 6 nếu đếm từ 1 và thuộc 63 hệ số AC. DC là C00, được mã sai phân trong cùng thành phần; AC được quét zigzag và RLE trước mã entropy. Lượng tử hóa không khả nghịch nói chung; lấy mẫu thưa sai màu là bước mất dữ liệu tùy chọn trước DCT. Nguồn số: Nelson–Gailly Hình 11.10–11.11, PDF tr. 260–261.</aside></section>
+<section data-slide-id="lec11-s02-03" class="example-slide">
+<h2>Cửa sổ, vùng nhìn trước và bộ ba</h2>
+<p><strong>Định nghĩa 11.4.</strong> Cho $W,L\ge1$ và con trỏ $0\le p&lt;n$.</p>
+<ul>
+<li>Cửa sổ trượt (sliding window) tại $p$ gồm lịch sử (search buffer) $x[\max(1,p-W+1)..p]$ và vùng nhìn trước (look-ahead buffer) $x[p+1..\min(p+L,n)]$.</li>
+<li>Bộ ba (token) $(d,\ell,c)$: khoảng lùi (distance), độ dài khớp (match length), ký tự kế: $0\le\ell\le L$, $p+\ell+1\le n$, $c=x_{p+\ell+1}$.</li>
+<li>Nếu $\ell=0$ thì $d=0$; nếu $\ell\ge1$ thì $1\le d\le\min(W,p)$ và $x_{p+j}=x_{p+j-d}$, $j=1,\ldots,\ell$.</li>
+<li>Bộ ba mô tả $x[p+1..p+\ell+1]$; con trỏ lên $p+\ell+1$.</li>
+</ul>
+<p><strong>Lưu ý:</strong> có thể $\ell&gt;d$, khi đó nguồn chồng lên đích.</p>
+<aside class="notes"><p>Bộ ba $(3,4,\mathrm b)$ của ví dụ có $\ell=4&gt;d=3$, nên đoạn nguồn $x[1..4]$ chồng lên đoạn đích $x[4..7]$ ở ô 4. Điều kiện $d\le p$ giữ vị trí nguồn đầu tiên $p+1-d$ không nhỏ hơn 1. Điều kiện $p+\ell+1\le n$ giữ cho bộ ba cuối có ký tự kế thật, nên dòng bộ ba không cần <code>EOS</code>. Nelson và Gailly ghi thay cho $d$ vị trí của cụm trong bộ đệm cửa sổ (offset); hai cách ghi chứa cùng thông tin khi hai phía biết vị trí con trỏ. Bộ đệm nhìn trước $L+1$ ký tự của Nelson và Gailly ứng với độ dài khớp tối đa $L$.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.1 (Định nghĩa 11.4); Nelson và Gailly, tr. 175; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 4.</p></aside>
 </section>
 
-<section>
-<section id="mach-6" data-slide-id="ST" class="strand-title">
-  <div class="strand-title-body">
-    <h2><span class="strand-number">6.</span>Tổng kết và tự kiểm tra</h2>
-    <p class="strand-lead">Muốn chọn phương pháp nén, phải đối chiếu hợp đồng khôi phục, chi phí trạng thái và điều kiện tiết kiệm bit.</p>
-    <p class="strand-keys">LZ77&nbsp;· LZ78&nbsp;· LZW&nbsp;· JPEG&nbsp;· Chọn&nbsp;và&nbsp;loại&nbsp;phương&nbsp;án</p>
-  </div>
-  <aside class="notes"><p>Ba phương pháp từ điển và JPEG dựa trên DCT đã có thuật toán và chi phí. Bảng đối chiếu nêu khi nào mỗi phương pháp tiết kiệm bit, trạng thái phải giữ và tiêu chí đầu ra: đúng từng ký tự hay cân bằng tốc độ bit với sai số. Câu hỏi tự kiểm tra yêu cầu chọn và loại phương án cho kho ảnh xem trước. Năm nhiệm vụ của CMU 15-499 chạy lại từng phương pháp.</p></aside>
-</section>
-<section data-slide-id="S00"><h1>Chọn cấu trúc theo hợp đồng và chi phí</h1><table class="trace"><thead><tr><th>Phương pháp</th><th>Khi có thể tiết kiệm bit</th><th>Chi phí trạng thái</th><th>Tiêu chí đầu ra</th></tr></thead><tbody><tr><td>LZ77</td><td>tham chiếu ngắn hơn cụm lặp gần</td><td>cửa sổ hữu hạn</td><td>đúng từng ký tự</td></tr><tr><td>LZ78</td><td>cặp mã ngắn hơn cụm đã học</td><td>từ điển tăng dần</td><td>đúng từng ký tự</td></tr><tr><td>LZW</td><td>mã cụm ngắn hơn dãy byte</td><td>từ điển và hợp đồng mã</td><td>đúng từng ký tự</td></tr><tr><td>JPEG dựa trên DCT</td><td>lượng tử tạo nhiều hệ số 0</td><td>khối và hệ số</td><td>cân bằng tốc độ bit–sai số</td></tr></tbody></table><aside class="notes">Không có phương pháp nào mặc nhiên nén được mọi đầu vào. LZ phải trả chi phí token hoặc mã từ điển; JPEG phải chọn điểm làm việc giữa tốc độ bit và sai số. Hai họ giải quyết hai hợp đồng khôi phục khác nhau.</aside></section>
-<section data-slide-id="S01"><h2>Chọn và loại phương án</h2><div class="check"><strong>Câu hỏi:</strong> Một kho ảnh xem trước cho phép sai số, cần giảm băng thông và vẫn phải theo dõi chất lượng tái tạo. Chọn một phương pháp trong bài, nêu hai lý do theo ràng buộc và loại ít nhất một phương án còn lại.</div><aside class="notes">Chọn JPEG mất dữ liệu dựa trên DCT vì đầu ra cho phép gần đúng và có thể điều chỉnh lượng tử để đổi tốc độ bit lấy sai số. Loại LZ77, LZ78 hoặc LZW vì chúng giữ đúng chuỗi byte và không khai thác trực tiếp tương quan không gian; vẫn phải tính chi phí mã, nên không có bảo đảm tỷ lệ nén. Chấp nhận câu trả lời khác nếu người học nêu rõ hợp đồng, nguồn dư thừa và chi phí trạng thái.</aside></section>
+<section data-slide-id="lec11-s02-04" class="example-slide">
+<h2>Thuật toán: mã hóa LZ77 tham lam</h2>
+<p><strong>Đầu vào:</strong> chuỗi $x_1\cdots x_n$; $W,L\ge1$, $W$ chung cho hai phía. <strong>Đầu ra:</strong> dãy bộ ba theo Định nghĩa 11.4, đóng khung (bộ giải mã biết khi nào hết bộ ba).</p>
+<ol>
+<li>Đặt $p\leftarrow0$.</li>
+<li>Trong khi $p&lt;n$:
+<ol>
+<li>với mỗi $d=1,\ldots,\min(W,p)$, so $x_{p+i}$ với $x_{p+i-d}$, $i=1,2,\ldots$, tới lần đầu không khớp; $\ell(d)$ là số lần khớp, không quá $\min(L,n-p-1)$;</li>
+<li>đặt $\ell\leftarrow\max_d\ell(d)$, với $\ell=0$ khi $p=0$; $d$ là khoảng lùi nhỏ nhất đạt $\ell$, hoặc $d=0$ khi $\ell=0$;</li>
+<li>phát $(d,\ell,x_{p+\ell+1})$; đặt $p\leftarrow p+\ell+1$.</li>
+</ol></li>
+</ol>
+<aside class="notes"><p>Bước 2.1 là phép quyết định và tốn kém nhất, tối đa $\min(W,p)(L+1)$ phép so mỗi lượt. Bất biến của bộ mã hóa: trước mỗi lượt, các bộ ba đã phát mô tả nối tiếp đúng $x[1..p]$. Khởi tạo với $p=0$; mỗi lượt chọn $\ell(d)$ thỏa điều kiện khớp và $c=x_{p+\ell+1}$, nên bộ ba mới hợp lệ; khi dừng, $p=n$. Mỗi lượt tăng $p$ ít nhất 1, nên vòng lặp dừng sau không quá $n$ lượt. Hai khoảng lùi cho cùng độ khớp thì chọn cái nào bộ giải mã cũng giải đúng, vì nó chỉ đọc $d$ đã phát. Tham lam không bảo đảm ít bit nhất: trong ví dụ của Nelson và Gailly, cách tham lam tốn 75 bit, cách tốt nhất 68 bit.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.1 (Thuật toán 11.5), §2.3 (Nhận xét 11.10); Nelson và Gailly, tr. 178, 183.</p></aside>
 </section>
 
-<section>
-<section id="mach-7" data-slide-id="XT" class="strand-title">
-  <div class="strand-title-body">
-    <h2><span class="strand-number">7.</span>Bài tập vận dụng</h2>
-    <p class="strand-lead">Muốn kiểm các vết mã hóa và biến đổi, phải hoàn tất năm nhiệm vụ của CMU 15-499.</p>
-    <p class="strand-keys">Vết&nbsp;LZ77&nbsp;· Giải&nbsp;mã&nbsp;bộ&nbsp;ba&nbsp;· Vết&nbsp;LZ78&nbsp;· Độ&nbsp;trễ&nbsp;của&nbsp;LZW&nbsp;· Chọn&nbsp;biến&nbsp;đổi</p>
-  </div>
-  <aside class="notes"><p>Thuật toán LZ77, LZ78, LZW và đường ống JPEG đã có. Năm nhiệm vụ của CMU 15-499 kiểm lại: hoàn tất vết LZ77 trên aacaacabcabaaac, giải mã một bộ ba khi nguồn dùng vị trí tuyệt đối, hoàn tất vết LZ78 và vẽ cây từ điển, chứng minh cách xử lý độ trễ một mục của LZW, và chọn biến đổi cho nén mất dữ liệu. Ký hiệu được đổi cho thống nhất với bài giảng; dữ kiện giữ nguyên.</p></aside>
+<section data-slide-id="lec11-s02-05" class="example-slide">
+<h2>Thuật toán: giải mã LZ77</h2>
+<p><strong>Ví dụ 11.3.</strong> Giải $(3,4,\mathrm b)$ sau $y=$ <code>aac</code>: $y_{3+j}\leftarrow y_j$, $j=1,\ldots,4$; bước $j=4$ đọc $y_4$ ghi ở $j=1$.</p>
+<figure class="stream-figure stream-mini"><img src="img/lec-11/lz77-chep-chong-lan-trang-chieu.svg" alt="Một hàng tám ô y1 đến y8 chứa aacaacab; ba ô đầu aac có trước bộ ba. Bốn mũi tên cong ghi j = 1 đến 4 chép y1 sang y4, y2 sang y5, y3 sang y6, y4 sang y7. Ô y4 viền nét đứt đậm: đích của bước j = 1 và nguồn của bước j = 4. Ô y8 = b là ký tự kế"/></figure>
+<p><strong>Đầu vào:</strong> bộ ba $(d_t,\ell_t,c_t)$, $t\le\tau$, đóng khung, không hỏng. <strong>Đầu ra:</strong> $y$.</p>
+<ol>
+<li>Đặt $y$ rỗng, $p\leftarrow0$.</li>
+<li>Với $t=1,\ldots,\tau$:
+<ol>
+<li>nếu $\ell_t\ge1$, $d_t&gt;p$: báo hỏng; ngược lại, với $j=1,\ldots,\ell_t$ tăng dần, $y_{p+j}\leftarrow y_{p+j-d_t}$;</li>
+<li>gán $y_{p+\ell_t+1}\leftarrow c_t$, rồi $p\leftarrow p+\ell_t+1$.</li>
+</ol></li>
+<li>Trả về $y$.</li>
+</ol>
+<aside class="notes"><p>Ví dụ 11.3 kết thúc bằng $y_8\leftarrow\mathrm b$, cho <code>aacaacab</code>. Bộ giải mã không so khớp: nó chỉ chép theo $j$ tăng dần, và thứ tự đó đủ để chép đúng cả khi đoạn nguồn chồng lên đoạn đích. Phản ví dụ: một lệnh chép cả khối $y[1..4]$ đọc $y_4$ khi ô này chưa được ghi. Nelson và Gailly gặp cùng hiện tượng với 100 chữ A: một bộ ba mã mười ký tự khi bản giải mã mới có một ký tự. Bộ giải mã tốn $\sum_t(\ell_t+1)=n$ phép ghi, nên thời gian giải mã gần như không đổi khi $W$, $L$ lớn lên.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.2 (Ví dụ 11.3, Thuật toán 11.6); Nelson và Gailly, tr. 176–178; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 6.</p></aside>
 </section>
-<section data-slide-id="X00"><h1>Bài tập củng cố</h1><p>Năm nhiệm vụ lấy trực tiếp từ ví dụ và câu hỏi của CMU 15-499.</p><div class="grid3"><div class="card">LZ77</div><div class="card">LZ78 và LZW</div><div class="card accent">Biến đổi mất dữ liệu</div></div><aside class="notes">Các nhiệm vụ dùng CMU `compression3-lz.pdf` và `compression4-lossy.pdf` đã được ánh xạ cho bài. Dữ kiện toán học được giữ nguyên; ký hiệu được đổi để thống nhất với phần giảng.</aside></section>
-<section data-slide-id="X01"><h2>Hoàn tất vết mã hóa LZ77</h2><p>Chuỗi: <code>aacaacabcabaaac</code>. Từ điển tối đa 6 ký tự; vùng nhìn trước tối đa 4 ký tự.</p><p>Ba bộ ba đầu: $(0,0,a)$, $(1,1,c)$, $(3,4,b)$.</p><ol><li>Đánh dấu cửa sổ sau mỗi bộ ba.</li><li>Điền các bộ ba còn lại bằng cụm khớp dài nhất.</li><li>Nêu bước nào dùng sao chép chồng lấn.</li></ol><aside class="notes">Nguồn trực tiếp: CMU `compression3-lz.pdf`, logic 5. Theo quy ước khoảng lùi của deck, hai bộ ba còn lại là `(3,3,a)` và `(1,2,c)`. Bộ ba `(3,4,b)` và `(1,2,c)` dùng ký tự vừa sinh làm nguồn. Toàn bộ năm token giải mã thành `aacaacabcabaaac`. Chấm 4 điểm cửa sổ, 4 điểm token, 2 điểm chồng lấn. Chấp nhận position của CMU nếu quy ước được nêu và kết quả khớp.</aside></section>
-<section data-slide-id="X02"><h2>Giải mã một bộ ba LZ77</h2><div class="grid2"><div class="card"><h3>Phần giảng</h3><p>$(d,\ell,c)$ dùng khoảng lùi $d$.</p></div><div class="card accent"><h3>Bài nguồn CMU</h3><p>$(p,\ell,c)$ dùng vị trí tuyệt đối $p$, đánh số từ 0.</p></div></div><p>Từ điển hiện tại: <code>abcd</code>; $p=2$ trỏ tới <code>c</code>. Token là <span class="tag">$(2,9,e)$</span>.</p><ol><li>Phát biểu quy ước rồi viết chín ký tự được chép.</li><li>Viết chuỗi sau khi thêm <code>e</code>; chỉ ra dữ liệu vừa tạo được đọc lại ở đâu.</li></ol><aside class="notes">Nguồn trực tiếp: CMU `compression3-lz.pdf`, logic 6. Đây là vị trí tuyệt đối p, không phải khoảng lùi d của phần giảng. Bắt đầu ở `c`: sao chép `cdcdcdcdc`, rồi thêm e thành `cdcdcdcdce`; toàn bộ đầu ra là `abcdcdcdcdcdce`. Từ ký tự sao chép thứ ba trở đi, nguồn gồm dữ liệu vừa tạo. Chấm 2 điểm quy ước, 6 điểm chuỗi, 2 điểm giải thích chồng lấn.</aside></section>
-<section data-slide-id="X03"><h2>Hoàn tất vết mã hóa LZ78</h2><p>Chuỗi: <code>aabaacabcabcb</code>. Khởi tạo $D[0]=\epsilon$.</p><p>Bốn cặp đầu: $(0,a),(1,b),(1,a),(0,c)$.</p><ol><li>Điền các cặp còn lại.</li><li>Vẽ cây từ điển sau mỗi cặp.</li><li>Giải mã lại để kiểm tra.</li></ol><aside class="notes">Nguồn trực tiếp: CMU `compression3-lz.pdf`, logic 13–14. Hai cặp còn lại là `(2,c)` và `(5,b)`. Từ điển cuối: D1=`a`, D2=`ab`, D3=`aa`, D4=`c`, D5=`abc`, D6=`abcb`. Ghép các cụm khôi phục `aabaacabcabcb`. Chấm 5 điểm cặp, 3 điểm cây/mã, 2 điểm khôi phục.</aside></section>
-<section data-slide-id="X04"><h2>Xử lý độ trễ một mục của LZW</h2><p>Trước mã kế, mọi mã nhỏ hơn <code>next_code</code> trùng ở hai phía; bộ mã hóa có thể đi trước đúng mục <code>next_code</code>.</p><ol><li>Chứng minh khi $k=\texttt{next\_code}$, cụm cần xuất là $w+first(w)$.</li><li>Viết mục từ mới $D[k]$.</li><li>Phân loại $k&lt;\texttt{next\_code}$ và $k&gt;\texttt{next\_code}$.</li></ol><aside class="notes">Nguồn trực tiếp: CMU `compression3-lz.pdf`, logic 16 “LZW: Possible Problem”. Với k nhỏ hơn next, tra mục đã đồng bộ. Với k bằng next, phía mã hóa vừa thêm `w+first(w)` tại mã k rồi phát k; phía giải mã suy entry đó và thêm cùng mục. Với k lớn hơn next, độ trễ vượt một mục nên dòng mã hỏng.</aside></section>
-<section data-slide-id="X05"><h2>Chọn biến đổi cho nén mất dữ liệu</h2><p>Một biến đổi phù hợp cần giảm tương quan, tạo nhiều hệ số nhỏ và cho phép lược thành phần ít quan trọng.</p><ol><li>Theo mô hình tính trực tiếp của nguồn, nêu hai nhược điểm khi biến đổi cosine hoặc Fourier trên toàn ảnh.</li><li>Giải thích vì sao chia khối giảm hai nhược điểm đó.</li><li>Nêu một rủi ro của xử lý theo khối.</li></ol><aside class="notes">Nguồn trực tiếp: CMU `compression4-lossy.pdf`, logic 11. Theo mô hình nguồn, biến đổi toàn ảnh cần nhiều trạng thái và kém thích nghi với cấu trúc cục bộ; chia ảnh thành khối nhỏ giới hạn chi phí và khai thác cục bộ. Rủi ro là biên khối có thể lộ khi lượng tử mạnh. Không khẳng định mọi thuật toán biến đổi nhanh toàn ảnh đều đắt. Chấm theo ba mục tiêu, hai nhược điểm, lợi ích chia khối và rủi ro; không yêu cầu phép đo ngoài nguồn.</aside></section>
+
+<section data-slide-id="lec11-s02-06" class="example-slide">
+<h2>Tính đúng: giải mã LZ77</h2>
+<p><strong>Định lý 11.8.</strong> <strong>Giả thiết:</strong> $x\in\Sigma^n$; $W,L\ge1$; dãy bộ ba do Thuật toán 11.5 sinh từ $x$; Thuật toán 11.6 giải nó, chép tuần tự, giữ ít nhất $W$ ký tự cuối; dòng không hỏng.</p>
+<p><strong>Kết luận:</strong> Thuật toán 11.6 trả về $y=x$.</p>
+<p><strong>Lưu ý:</strong> kết luận đúng cho mọi dãy bộ ba hợp lệ nối từ $p=0$ tới $p=n$, kể cả không tham lam.</p>
+<aside class="notes"><p>Định lý bảo đảm khôi phục đúng; độ dài dòng bộ ba do Mệnh đề 11.9 đếm. Hai điều kiện về bộ giải mã đều cần. Chép tuần tự cho phép đọc ô vừa ghi trong cùng bộ ba. Giữ $W$ ký tự cuối là đủ vì mọi khoảng lùi đều không quá $W$; Thuật toán 11.6 giữ cả $y$ nên thỏa điều kiện này. Chứng minh chỉ dùng điều kiện khớp của Định nghĩa 11.4, nên phần "kể cả không tham lam" áp dụng cho gzip, vốn có thể chọn cụm ngắn hơn để cụm kế tiếp dài hơn: mỗi đơn vị mã của gzip vẫn thỏa điều kiện khớp của Định nghĩa 11.4.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.2 (Định lý 11.8), Tình huống 11.4.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s02-07" class="example-slide">
+<h2>Ý tưởng chứng minh: tính đúng của giải mã LZ77</h2>
+<p><strong>Nhắc lại:</strong> bất biến vòng lặp đúng lúc khởi tạo, được giữ qua mỗi lượt.</p>
+<ol>
+<li>Đặt $p_1=0$, $p_{t+1}=p_t+\ell_t+1$; bất biến: trước lượt $t$, $y=x[1..p_t]$.</li>
+<li>Khởi tạo: trước lượt 1, $y$ rỗng và $p_1=0$.</li>
+<li>Duy trì: vì $1\le d_t\le p_t$ và chép theo $j$ tăng dần (giả thiết chép tuần tự), nguồn $p_t+j-d_t\in[1;\,p_t+j-1]$ đã ghi đúng (giả thiết quy nạp), và điều kiện khớp $x_{p_t+j-d_t}=x_{p_t+j}$ cho ô đích đúng; rồi ghi $c_t=x_{p_t+\ell_t+1}$.</li>
+<li>Kết thúc: $p_{\tau+1}=n$, nên $y=x$.</li>
+</ol>
+<p>Bỏ chép tuần tự: chép khối cho $(3,4,\mathrm b)$ đọc $y_4$ trước khi ghi.</p>
+<aside class="notes"><p>Bước 3 là Bổ đề 11.7, chứng minh bằng quy nạp theo $j$ với giả thiết quy nạp $y[1..p_t+j-1]=x[1..p_t+j-1]$. Phản ví dụ ở dòng cuối: lệnh chép khối đọc cả đoạn nguồn $y[1..4]$ khi mới có $y[1..3]$. Bước 3 còn dùng bất biến của bộ mã hóa: bộ ba thứ $t$ hợp lệ tại $p_t$, nên $1\le d_t\le p_t$ khi $\ell_t\ge1$. Bất biến đặt trên chính văn bản đã giải mã; bộ giải mã không cần cấu trúc nào khác. Bỏ "giữ ít nhất $W$ ký tự cuối": một bộ giải mã chỉ giữ $W'&lt;W$ ký tự cuối không đọc được nguồn của bộ ba có $d&gt;W'$.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.2 (Bổ đề 11.7, chứng minh Định lý 11.8); ghi chú Bài 05 (chứng minh Mệnh đề 05.19).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s02-08" class="example-slide">
+<h2>Chi phí: LZ77</h2>
+<p><strong>Mô hình:</strong> đếm phép so, phép ghi ký tự; xấu nhất; $\tau\le n$ bộ ba.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Bước</th><th scope="col">Số lần</th><th scope="col">Chi phí mỗi lần</th><th scope="col">Đóng góp</th></tr></thead><tbody>
+<tr><td>mã hóa, 2.1</td><td>$\tau$</td><td>$\le\min(W,p)\,(L+1)$ phép so</td><td>$O(nWL)$</td></tr>
+<tr><td>mã hóa, 2.2–2.3</td><td>$\tau$</td><td>$O(W)$</td><td>$O(nW)$</td></tr>
+<tr><td>giải mã</td><td>$\tau$</td><td>$\ell_t+1$ phép ghi</td><td>$n$</td></tr>
+</tbody></table>
+<p>Bộ nhớ: mã hóa $W+L+1$ ký tự, giải mã $W$ ký tự.</p>
+<p>Bộ ba $\lceil\log_2W\rceil+\lceil\log_2(L+1)\rceil+8$ bit; $W=6$, $L=4$ cho 14 bit, có lợi khi mô tả hơn $1{,}75$ ký tự (Mệnh đề 11.9(d)).</p>
+<p>Cụm chỉ dùng lại được khi lần trước còn trong cửa sổ; $W$ từ $4\,096$ lên $65\,536$ làm tìm vét cạn chậm 16 lần.</p>
+<aside class="notes"><p>Trường khoảng lùi tốn $\lceil\log_2W\rceil$ bit vì khi $\ell\ge1$ bộ ba ghi $d-1\in\{0,\ldots,W-1\}$, còn khi $\ell=0$ bộ giải mã bỏ qua trường này. Với $W=4\,096$ và $L=15$, bộ ba $(0,0,c)$ tốn $12+4+8=24$ bit cho một ký tự 8 bit. LZSS phát xen kẽ cặp vị trí–độ dài 17 bit và ký tự rời 9 bit, phân biệt bằng một bit cờ. Gzip băm mọi chuỗi con dài 3 của cửa sổ, giới hạn số vị trí thử trong mỗi ngăn và mã các trường bằng mã Huffman, nên mỗi byte tốn một số hằng phép so. LZ77 với cửa sổ đủ dài tối ưu tiệm cận cho một lớp nguồn ngẫu nhiên; chứng minh nằm ngoài phạm vi học phần.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §2.3 (Mệnh đề 11.9, Nhận xét 11.10, Bài tập 11.2); Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 7–10.</p></aside>
+</section>
+</section>
+
+<section aria-label="Nén bằng từ điển cụm LZ78">
+<section id="mach-3" data-slide-id="lec11-s03-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Nén bằng từ điển cụm LZ78</h2>
+    <p class="strand-lead">Hai phía dựng cùng một từ điển cụm từ chính dòng mã nhận được, nên không cần truyền từ điển.</p>
+    <p class="strand-keys">Từ&nbsp;điển&nbsp;cụm&nbsp;· Cây&nbsp;từ&nbsp;điển&nbsp;· Cặp&nbsp;mã–ký&nbsp;tự&nbsp;· Đồng&nbsp;bộ&nbsp;hai&nbsp;từ&nbsp;điển</p>
+  </div>
+  <aside class="notes"><p>Từ bộ ba LZ77, Định lý 11.8 và giới hạn của cửa sổ $W$, LZ78 chuyển con trỏ từ văn bản sang một từ điển cụm có cấu trúc cây. Hai phía dựng từ điển đó bằng cùng một quy tắc, và quy nạp theo số cặp chứng minh hai từ điển luôn trùng nhau; chi phí tính theo số phép tra con và cỡ từ điển. LZW nhận lại giới hạn mới: mỗi cặp vẫn mang một ký tự ở dạng thô.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-01" class="example-slide">
+<h2>Ví dụ: chuỗi <code>aabaacabcabcb</code>, bốn cặp đầu</h2>
+<p><strong>Câu hỏi:</strong> giữ những cụm nào, và bộ giải mã biết chúng thế nào khi không có cửa sổ?</p>
+<p><strong>Trực quan.</strong> Như LZ77, mỗi cặp thay một cụm; khác ở chỗ trỏ vào danh sách cụm; hai phía cùng thêm đoạn vừa mã vào danh sách.</p>
+<p>Xác định bốn cặp đầu.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">cụm, ký tự phá khớp</th><th scope="col">cặp</th><th scope="col">mục thêm</th></tr></thead><tbody>
+<tr><td>$\varnothing$, $\mathrm a$</td><td>$(0,\mathrm a)$</td><td>$D[1]=\texttt{a}$</td></tr>
+<tr><td>$\texttt{a}$, $\mathrm b$</td><td>$(1,\mathrm b)$</td><td>$D[2]=\texttt{ab}$</td></tr>
+<tr><td>$\texttt{a}$, $\mathrm a$</td><td>$(1,\mathrm a)$</td><td>$D[3]=\texttt{aa}$</td></tr>
+<tr><td>$\varnothing$, $\mathrm c$</td><td>$(0,\mathrm c)$</td><td>$D[4]=\texttt{c}$</td></tr>
+</tbody></table>
+<aside class="notes"><p>Giới hạn của LZ77 có số: với $W=4\,096$, một tên 9 ký tự ở các vị trí $1\,000$–$1\,008$ lặp lại ở $11\,000$–$11\,008$; khi tới lần thứ hai, $p=10\,999$ và lịch sử chỉ gồm $x[6\,904..10\,999]$, nên cả 9 ký tự phải mã lại. Đọc bảng theo từng ký tự: cụm hiện tại kéo dài chừng nào còn trong danh sách; $x_2$ và $x_4$ chỉ kéo dài cụm <code>a</code>, không phát cặp. Mã 0 ứng với chuỗi rỗng $\varnothing$. Ziv và Lempel công bố LZ78 năm 1978; bộ giải mã dựng lại danh sách từ chính dòng cặp. Kiểm tra: bốn cặp mô tả $1+2+2+1=6$ ký tự <code>aabaac</code>. Hai cặp còn lại là Bài tập 11.15 trên lớp.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3, §3.1 (Ví dụ 11.4); Nelson và Gailly, tr. 208–210; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 11–13.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-02" class="example-slide">
+<h2>Từ điển cụm, cặp LZ78 và cây từ điển</h2>
+<p><strong>Định nghĩa 11.11.</strong></p>
+<ul>
+<li>Từ điển cụm (phrase dictionary) $D$ gán mỗi mã $0,\ldots,\lvert D\rvert-1$ một chuỗi, $D[0]$ rỗng.</li>
+<li>Cặp $(i,c)$ mô tả $D[i]\,c$; sau cặp, hai phía thêm $D[\lvert D\rvert]\leftarrow D[i]\,c$. Cặp cuối có thể là $(i,\texttt{EOS})$, với <code>EOS</code> là ký hiệu kết thúc dòng.</li>
+<li>Cây từ điển (dictionary tree, trie, multiway tree): mục thêm từ $(i,c)$ là con của nút $i$ qua cạnh $c$.</li>
+</ul>
+<div class="ex-grid2">
+<p><strong>Bổ đề 11.12.</strong> Với phép thêm $D[i]\,c$, $i$ đã có, mọi tiền tố của cụm trong $D$ cũng thuộc $D$; cụm khớp dài nhất tìm bằng cách đi xuống cây.</p>
+<figure class="stream-figure"><img src="img/lec-11/lz78-cay-trang-chieu.svg" alt="Cây từ điển sau bốn cặp đầu. Gốc 0, chuỗi rỗng; cạnh a tới nút 1, cụm a; cạnh c tới nút 4, cụm c. Từ nút 1, cạnh a tới nút 3, cụm aa; cạnh b tới nút 2, cụm ab"/></figure>
+</div>
+<aside class="notes"><p><code>EOS</code> là ký hiệu kết thúc dòng, nằm ngoài $\Sigma$. Cặp không cần trường độ dài, vì bộ giải mã biết $\lvert D[i]\rvert$. Cụm của nút $j$ đọc bằng cách nối nhãn cạnh trên đường từ gốc tới $j$: gốc qua $\mathrm a$ tới 1, qua $\mathrm b$ tới 2 cho <code>ab</code>. Bổ đề chứng minh bằng quy nạp theo số mục: mỗi mục mới có dạng $D[i]\,c$ với $i$ đã có, nên mọi tiền tố của nó đã có. Phản ví dụ khi bỏ điều kiện đó: một từ điển nhận <code>ab</code> khi chưa có <code>a</code> không đóng với tiền tố, và nút <code>ab</code> không có cha trên cây.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.1 (Định nghĩa 11.11, Bổ đề 11.12); Nelson và Gailly, tr. 209; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 11.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-03" class="example-slide">
+<h2>Thuật toán: mã hóa LZ78</h2>
+<p><strong>Đầu vào:</strong> chuỗi $x_1\cdots x_n$; từ điển không giới hạn. <strong>Đầu ra:</strong> dãy cặp $(i_1,c_1),\ldots,(i_\tau,c_\tau)$, đóng khung.</p>
+<ol>
+<li>Đặt $D$ chỉ gồm $D[0]$ rỗng, nút hiện tại $i\leftarrow0$.</li>
+<li>Với mỗi $c=x_1,\ldots,x_n$:
+<ol>
+<li>nếu nút $i$ có con $j$ qua cạnh $c$, đặt $i\leftarrow j$;</li>
+<li>nếu không, phát $(i,c)$, thêm nút $\lvert D\rvert$ làm con của $i$ qua $c$, đặt $i\leftarrow0$.</li>
+</ol></li>
+<li>Nếu sau ký tự cuối $i\ne0$, phát $(i,\texttt{EOS})$.</li>
+</ol>
+<p><strong>Bất biến:</strong> các cặp đã phát mô tả $x[1..p]$; $D[i]$ là phần đọc sau $p$.</p>
+<aside class="notes"><p>Phép quyết định là phép tra con ở bước 2.1, một lần mỗi ký tự; cụm mới $D[i]\,c$ luôn chưa có trong $D$, vì nút $i$ không có con qua $c$. Bất biến đúng khi khởi tạo ($p=0$, $i=0$), được giữ vì bước đi xuống cho $D[j]=D[i]\,c$ còn bước phát cặp mô tả đúng phần đã đọc rồi đưa $i$ về gốc; khi hết chuỗi, bước 3 mô tả phần còn lại. Trường hợp biên: ký tự chưa từng gặp luôn cho cặp $(0,c)$; chuỗi kết thúc ngay sau một cặp thường thì không có cặp <code>EOS</code>.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.1 (Thuật toán 11.13); Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 12.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-04" class="example-slide">
+<h2>Thuật toán: giải mã LZ78</h2>
+<p><strong>Ví dụ 11.5.</strong> Giải $(0,\mathrm a)$, $(1,\mathrm b)$, $(1,\mathrm a)$, $(0,\mathrm c)$: xuất <code>a</code>, <code>ab</code>, <code>aa</code>, <code>c</code> và thêm mục 1–4 trùng mục của bộ mã hóa.</p>
+<p><strong>Đầu vào:</strong> dãy cặp $(i_t,c_t)$, $t=1,\ldots,\tau$, đóng khung, không hỏng. <strong>Đầu ra:</strong> chuỗi $y$.</p>
+<ol>
+<li>Đặt $D$ chỉ gồm $D[0]$ rỗng, $y$ rỗng.</li>
+<li>Với mỗi cặp $(i_t,c_t)$:
+<ol>
+<li>nếu $i_t\ge\lvert D\rvert$, báo dòng hỏng;</li>
+<li>nếu $c_t=\texttt{EOS}$, nối $D[i_t]$ vào $y$ và dừng;</li>
+<li>nếu không, nối $D[i_t]\,c_t$ vào $y$, thêm $D[\lvert D\rvert]\leftarrow D[i_t]\,c_t$.</li>
+</ol></li>
+<li>Trả về $y$.</li>
+</ol>
+<aside class="notes"><p>Bộ giải mã không cần biết bộ mã hóa đã đi xuống cây ra sao; nó chỉ cần có cùng từ điển trước mỗi cặp, rồi đọc cụm theo mã nhận được; hai phía dùng cùng quy tắc thêm mục của Định nghĩa 11.11. Bản giải mã của Ví dụ 11.5 lớn dần: <code>a</code>, <code>aab</code>, <code>aabaa</code>, <code>aabaac</code>. Cụm $D[i_t]$ đọc được bằng cách đi từ nút $i_t$ lên gốc rồi đảo thứ tự, khi mỗi nút lưu cặp (mã cha, ký tự).</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.2 (Ví dụ 11.5, Thuật toán 11.14); Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 14.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-05" class="example-slide">
+<h2>Tính đúng: LZ78</h2>
+<p><strong>Định lý 11.15.</strong> <strong>Giả thiết:</strong> Thuật toán 11.14 giải dãy cặp do Thuật toán 11.13 sinh từ $x$; hai phía cùng từ điển đầu, quy tắc thêm mục, đánh mã; từ điển không giới hạn; dòng không hỏng.</p>
+<p><strong>Kết luận:</strong> sau cặp thứ $t$: (a) $D'$ (từ điển bộ giải mã) có $\lvert D'\rvert=\lvert D\rvert$, $D'[j]=D[j]$ với mọi $j$; (b) $y=x[1..p_t]$, $p_t$ ký tự của $t$ cặp đầu. Khi dừng, $y=x$.</p>
+<aside class="notes"><p>Với $t=0$, $p_0=0$ và hai từ điển chỉ có $D[0]$. Kết luận (a) là bất biến trên từ điển; (b) là hệ quả. Phạm vi: định lý giả thiết từ điển không giới hạn; khi từ điển đầy, hai phía còn phải dùng chung quy tắc xử lý từ điển đầy.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.2 (Định lý 11.15).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-06" class="example-slide">
+<h2>Ý tưởng chứng minh: đồng bộ từ điển của LZ78</h2>
+<ol>
+<li>Quy nạp theo $t$; cơ sở $t=0$: hai từ điển chỉ có $D[0]$; $y$ rỗng.</li>
+<li>Cặp thường: đoạn kế tiếp là $D[i_t]\,c_t$ (bất biến bộ mã hóa); theo (a), $D'[i_t]=D[i_t]$.</li>
+<li>Hai phía thêm cùng $D[i_t]\,c_t$ ở cùng mã (giả thiết cùng quy tắc): giữ (a).</li>
+<li>Cặp <code>EOS</code>: đoạn cuối là $D[i_\tau]$, nên $y=x$.</li>
+</ol>
+<p>Bỏ cùng quy tắc: bộ giải mã chỉ thêm mục khi $i_t\ge1$ thiếu mã 1 ở $(1,\mathrm b)$.</p>
+<aside class="notes"><p>So với Định lý 11.8: LZ77 giữ bất biến trên văn bản đã giải mã, vì mỗi bộ ba trỏ vào văn bản đó; LZ78 giữ bất biến trên từ điển, vì mỗi cặp trỏ vào từ điển, và văn bản đúng là hệ quả. Ở bước 2, mã $i_t$ có trong từ điển của bộ mã hóa trước cặp $t$, nên theo (a) nó cũng có ở bộ giải mã. Phản ví dụ: sau cặp $(0,\mathrm a)$, bộ giải mã lệch quy tắc chỉ có mã 0, trong khi bộ mã hóa đã gán mã 1 cho <code>a</code>. Một quy tắc lệch nhẹ hơn, như đánh mã mục mới từ 2, không làm bộ giải mã báo lỗi nhưng làm mọi mã sau trỏ sai cụm.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.2 (chứng minh Định lý 11.15).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s03-07" class="example-slide">
+<h2>Chi phí: LZ78</h2>
+<p><strong>Mô hình:</strong> phép tra con, thêm nút, ghi ký tự; từ điển tối đa $M$ mục.</p>
+<p><strong>Nhắc lại:</strong> băm đều, hệ số tải hằng cho tra, chèn kỳ vọng $O(1)$.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Bước</th><th scope="col">Số lần</th><th scope="col">Chi phí mỗi lần</th><th scope="col">Đóng góp</th></tr></thead><tbody>
+<tr><td>tra con</td><td>$n$</td><td>$O(1)$ kỳ vọng</td><td>$O(n)$</td></tr>
+<tr><td>thêm nút</td><td>$\tau\le n$</td><td>$O(1)$</td><td>$O(\tau)$</td></tr>
+<tr><td>giải mã</td><td>$\tau$</td><td>$\lvert D[i_t]\rvert+1$ phép ghi</td><td>$n$</td></tr>
+</tbody></table>
+<p>Bộ nhớ $\le M$ nút; cặp $\lceil\log_2M\rceil+9$ bit, $M=2^{16}$ cho 25 bit, có lợi khi mô tả hơn $3{,}125$ ký tự.</p>
+<p>Mỗi cặp vẫn mang một ký tự thô: 6 trong 13 ký tự của <code>aabaacabcabcb</code>.</p>
+<aside class="notes"><p>Bảng băm lấy khóa (mã cha, ký tự); danh sách con cho $O(\lvert\Sigma\rvert)$ phép so mỗi lần tra. Trường ký tự 9 bit vì chứa thêm <code>EOS</code> (Mệnh đề 11.16). Khi từ điển đầy, Nelson và Gailly ngừng thêm mục; <code>compress</code> của UNIX xóa cả từ điển rồi dựng lại khi tỷ lệ nén giảm; GIF bỏ từ điển khi đạt cỡ tối đa; chuẩn BTLZ của British Telecom bỏ mục ít được dùng gần đây nhất (least recently used, LRU). So với LZ77: $n$ phép tra thay $O(nWL)$ phép so, nhưng cặp 25 bit dài hơn bộ ba 24 bit với $W=4\,096$, $L=15$.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §3.3 (Mệnh đề 11.16, Nhận xét 11.17); Cormen và cộng sự, Chương 11; Nelson và Gailly, tr. 212–213; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 18.</p></aside>
+</section>
+</section>
+
+<section aria-label="Nén LZW với từ điển nạp sẵn">
+<section id="mach-4" data-slide-id="lec11-s04-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Nén LZW với từ điển nạp sẵn</h2>
+    <p class="strand-lead">Bộ giải mã dựng lại đúng mọi cụm dù luôn biết từ điển muộn hơn bộ mã hóa một bước.</p>
+    <p class="strand-keys">Từ&nbsp;điển&nbsp;nạp&nbsp;sẵn&nbsp;· Mã&nbsp;kế&nbsp;tiếp&nbsp;· Độ&nbsp;trễ&nbsp;một&nbsp;mục&nbsp;· Mã&nbsp;chưa&nbsp;có&nbsp;trong&nbsp;từ&nbsp;điển</p>
+  </div>
+  <aside class="notes"><p>Từ cặp LZ78 và Định lý 11.15 về đồng bộ hai từ điển, LZW bỏ ký tự thô khỏi mỗi đơn vị mã nhờ một từ điển nạp sẵn mọi cụm một byte. Bộ giải mã biết mỗi mục muộn hơn một mã, nên có thể nhận mã chưa có trong từ điển của nó, và vẫn giải đúng trường hợp đó. Mạch nén ảnh nhận lại giới hạn chung của ba thuật toán LZ: chúng chỉ khai thác cụm khớp đúng từng ký tự.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-01" class="example-slide">
+<h2>Ví dụ: chuỗi <code>aabaacabcabcb</code>, mã LZW</h2>
+<p><strong>Câu hỏi:</strong> bỏ ký tự thô khỏi đơn vị mã thế nào mà bộ giải mã vẫn dựng lại được từ điển và chuỗi?</p>
+<p>Từ điển nạp sẵn (preloaded dictionary): 256 cụm một byte, mã bằng giá trị byte; mã mới từ 256.</p>
+<p><strong>Trực quan.</strong> Như LZ78, cụm kéo dài khi còn trong từ điển; khác ở chỗ ký tự phá khớp mở cụm kế tiếp.</p>
+<p>Xác định dòng mã.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">$t$</th><th scope="col">mã (cụm)</th><th scope="col">mục thêm</th><th scope="col">$t$</th><th scope="col">mã (cụm)</th><th scope="col">mục thêm</th></tr></thead><tbody>
+<tr><td>1</td><td>$97\ (\texttt{a})$</td><td>$256=\texttt{aa}$</td><td>6</td><td>$257\ (\texttt{ab})$</td><td>$261=\texttt{abc}$</td></tr>
+<tr><td>2</td><td>$97\ (\texttt{a})$</td><td>$257=\texttt{ab}$</td><td>7</td><td>$260\ (\texttt{ca})$</td><td>$262=\texttt{cab}$</td></tr>
+<tr><td>3</td><td>$98\ (\texttt{b})$</td><td>$258=\texttt{ba}$</td><td>8</td><td>$98\ (\texttt{b})$</td><td>$263=\texttt{bc}$</td></tr>
+<tr><td>4</td><td>$256\ (\texttt{aa})$</td><td>$259=\texttt{aac}$</td><td>9</td><td>$99\ (\texttt{c})$</td><td>$264=\texttt{cb}$</td></tr>
+<tr><td>5</td><td>$99\ (\texttt{c})$</td><td>$260=\texttt{ca}$</td><td>10</td><td>$98\ (\texttt{b})$</td><td>—</td></tr>
+</tbody></table>
+<aside class="notes"><p>Mã của cụm một byte là chính giá trị byte: $\mathrm a\mapsto97$, $\mathrm b\mapsto98$, $\mathrm c\mapsto99$. Cột $t$ cho thứ tự phát: mã 1–5 ở nửa trái, 6–10 ở nửa phải. Mỗi mục thêm là cụm vừa phát nối với ký tự vừa đọc, và ký tự đó mở cụm kế tiếp. Mã 256 được thêm khi phát mã thứ nhất và được phát ở mã thứ tư. Kiểm tra: 10 mã, 9 mục mới vì mã cuối không thêm mục; các cụm nối lại đủ 13 ký tự. Với từ điển $2^{16}$ mục, bỏ trường ký tự thì mỗi đơn vị mã còn 16 bit thay vì 25 bit. Welch công bố LZW năm 1984; dòng mã đóng khung bằng số mã, không dành mã cho <code>EOS</code>.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4, §4.1 (Ví dụ 11.6); Nelson và Gailly, tr. 214; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 15, 17.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-02" class="example-slide">
+<h2>Thuật toán: mã hóa LZW</h2>
+<p><strong>Đầu vào:</strong> chuỗi byte $x_1\cdots x_n$; từ điển không giới hạn. <strong>Đầu ra:</strong> dòng mã $k_1,\ldots,k_\tau$, đóng khung bằng $\tau$.</p>
+<ol>
+<li>Nạp sẵn $D[v]$, $v=0,\ldots,255$; đặt mã kế tiếp $\texttt{next\_code}\leftarrow256$, $w\leftarrow x_1$.</li>
+<li>Với mỗi $c=x_2,\ldots,x_n$:
+<ol>
+<li>nếu $w\,c$ có trong $D$, đặt $w\leftarrow w\,c$;</li>
+<li>nếu không, phát mã của $w$, thêm $D[\texttt{next\_code}]\leftarrow w\,c$, tăng $\texttt{next\_code}$, đặt $w\leftarrow c$.</li>
+</ol></li>
+<li>Phát mã của $w$.</li>
+</ol>
+<p>Với $w_t=D[k_t]$ và $\operatorname{first}$ là ký tự đầu, mục thêm khi phát $k_t$, $t&lt;\tau$, là $w_t\operatorname{first}(w_{t+1})$ (Định nghĩa 11.18).</p>
+<aside class="notes"><p>Bất biến: trước mỗi lượt, $w$ là một cụm có trong $D$, và các cụm của những mã đã phát nối với $w$ cho đúng phần đã đọc. Bước 2.1 tra khóa (mã của $w$, $c$), giống bước đi xuống cây của LZ78. Hệ quả của thay đổi: ký tự cuối của mục mới thuộc cụm kế tiếp, nên bộ giải mã chỉ biết mục đó sau khi giải xong cụm kế tiếp. Trường hợp biên: $n=1$ cho một mã là chính byte $x_1$; một byte chưa từng gặp vẫn có mã vì từ điển được nạp sẵn.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.1 (Định nghĩa 11.18, Thuật toán 11.19); Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 15.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-03" class="example-slide">
+<h2>Ví dụ: mã chưa có trong từ điển của bộ giải mã</h2>
+<p><strong>Ví dụ 11.7.</strong> Giải 97, 97, 98: bộ giải mã chỉ thêm được $D[256]=\texttt{aa}$ khi đọc mã thứ hai, chậm hơn bộ mã hóa một mục.</p>
+<p><strong>Ví dụ 11.8.</strong> Giả sử đầu vào <code>abababa</code>; bộ mã hóa phát $97,98,256,258$.</p>
+<figure class="stream-figure stream-short"><img src="img/lec-11/lzw-ma-chua-co-trang-chieu.svg" alt="Hai hàng bốn cột cho đầu vào abababa. Hàng mã hóa: phát 97, thêm 256 = ab; phát 98, thêm 257 = ba; phát 256, thêm 258 = aba; phát 258. Hàng giải mã: đọc 97, xuất a; đọc 98, xuất b, thêm 256 = ab; đọc 256, xuất ab, thêm 257 = ba; ô cuối viền nét đứt đậm: đọc 258 bằng next_code, xuất aba, thêm 258 = aba. Mũi tên chéo nối mỗi mục bộ mã hóa thêm với cột kế tiếp của bộ giải mã"/></figure>
+<p>Đọc $258=\texttt{next\_code}$: cụm vừa xuất là $w=\texttt{ab}$, nên cụm mới là $w\operatorname{first}(w)=\texttt{aba}$; thêm $258=\texttt{aba}$.</p>
+<p><strong>Diễn giải:</strong> các cụm <code>a</code>, <code>b</code>, <code>ab</code>, <code>aba</code> nối lại thành <code>abababa</code>.</p>
+<aside class="notes"><p>Bảy mã còn lại của Ví dụ 11.7 thêm các mục 258–264 trùng Ví dụ 11.6, và mọi mã đọc vào đều nhỏ hơn $\texttt{next\_code}$ lúc đó. Ở Ví dụ 11.8, bộ mã hóa phát mã 258 mà nó vừa thêm ở cột trước, nên bộ giải mã nhận mã đó trước khi kịp thêm mục 258. Đoạn <code>ababa</code> có dạng ký tự, chuỗi, ký tự, chuỗi, ký tự $\chi S\chi S\chi$ với $\chi=\mathrm a$, $S=$ <code>b</code>. Nelson và Gailly gặp cùng tình huống với cụm IWOMBAT.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.2 (Ví dụ 11.7, 11.8); Nelson và Gailly, tr. 217; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 16, 19.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-04" class="example-slide">
+<h2>Thuật toán: giải mã LZW</h2>
+<p>Nhánh 3.2 xử lý mã mà bộ mã hóa vừa thêm. <strong>Đầu vào:</strong> dòng mã $k_1,\ldots,k_\tau$, đóng khung, không hỏng; hai phía cùng nạp sẵn, cùng mã đầu 256. <strong>Đầu ra:</strong> chuỗi $y$.</p>
+<ol>
+<li>Nạp sẵn $D[v]$, $v=0,\ldots,255$; $\texttt{next\_code}\leftarrow256$; nếu $\tau=0$, trả về $y$ rỗng.</li>
+<li>Nếu $k_1\ge256$, báo dòng hỏng; ngược lại $w\leftarrow D[k_1]$, $y\leftarrow w$.</li>
+<li>Với $t=2,\ldots,\tau$ và $k=k_t$:
+<ol>
+<li>nếu $k&lt;\texttt{next\_code}$: $e\leftarrow D[k]$;</li>
+<li>nếu $k=\texttt{next\_code}$: $e\leftarrow w\operatorname{first}(w)$;</li>
+<li>nếu $k&gt;\texttt{next\_code}$: báo dòng hỏng;</li>
+<li>nối $e$ vào $y$; thêm $D[\texttt{next\_code}]\leftarrow w\operatorname{first}(e)$, tăng $\texttt{next\_code}$; đặt $w\leftarrow e$.</li>
+</ol></li>
+<li>Trả về $y$.</li>
+</ol>
+<aside class="notes"><p>Nhánh 3.2 dựa vào Mệnh đề 11.22(b): khi mã chưa có, cụm của nó phải là $w\operatorname{first}(w)$. Nhánh 3.3 dựa vào Mệnh đề 11.22(a): trên dòng đúng, mã lớn hơn $\texttt{next\_code}$ không bao giờ xuất hiện. Ở nhánh 3.2, $\operatorname{first}(e)=\operatorname{first}(w)$, nên mục thêm ở bước 3.4 cũng là $e$. Bước 3.4 thêm mục chậm một mã so với bộ mã hóa. Cụm được ghi ra theo thứ tự đúng bằng một ngăn xếp khi đi từ mục lên gốc.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.2 (Thuật toán 11.20); Nelson và Gailly, tr. 221; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 16, 19.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-05" class="example-slide">
+<h2>Tính đúng: giải mã LZW</h2>
+<p><strong>Định lý 11.23.</strong> <strong>Giả thiết:</strong> $x$ chuỗi byte, $n\ge1$; Thuật toán 11.20 giải dòng mã $k_1,\ldots,k_\tau$ do Thuật toán 11.19 sinh từ $x$, $w_t=D[k_t]$; hai phía cùng từ điển nạp sẵn, cùng mã đầu 256, cùng quy tắc thêm mục; dòng không hỏng; từ điển không giới hạn.</p>
+<p><strong>Kết luận:</strong> sau mã $k_t$: (a) $y=w_1\cdots w_t$; (b) $w=w_t$; (c) các mục $256,\ldots,254+t$ của hai phía trùng nhau. Khi dừng, $y=x$.</p>
+<aside class="notes"><p>Kết luận (c) chậm một mục so với Định lý 11.15: sau mã thứ $t$, bộ giải mã LZW mới có các mục tới $254+t$. Giá của việc bỏ ký tự thô là nhánh 3.2 cùng Mệnh đề 11.22. Phạm vi: với từ điển $M$ mục, hai phía còn phải dùng chung quy tắc xử lý từ điển đầy.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.2 (Định lý 11.23).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-06" class="example-slide">
+<h2>Ý tưởng chứng minh: tính đúng của giải mã LZW</h2>
+<p>Quy nạp theo $t$.</p>
+<ol>
+<li><strong>Bổ đề 11.21.</strong> (a) Khi phát $k_t$, bộ mã hóa thêm $D[255+t]=w_t\operatorname{first}(w_{t+1})$; (b) khi phát $k_{t+1}$ chỉ có các mục tới $255+t$, nên $k_{t+1}\le255+t$; (c) bộ giải mã đọc $k_{t+1}$ khi $\texttt{next\_code}=255+t$.</li>
+<li>Nếu $k_{t+1}&lt;255+t$: mục đã có ở bộ giải mã và trùng mục bộ mã hóa theo (c), nên $e=w_{t+1}$.</li>
+<li><strong>Mệnh đề 11.22.</strong> (a) Không có $k_{t+1}&gt;\texttt{next\_code}$; (b) nếu $k_{t+1}=255+t$ thì $w_{t+1}=w_t\operatorname{first}(w_t)$, đúng giá trị nhánh 3.2 trả về.</li>
+<li>Mục thêm ở mã $255+t$ là $w_t\operatorname{first}(w_{t+1})$, trùng bộ mã hóa: (c) được giữ; sau $k_\tau$, $y=x$.</li>
+</ol>
+<p>Bỏ nhánh 3.2: dòng $97,98,256,258$ không giải được.</p>
+<aside class="notes"><p>Cơ sở $t=1$: khi phát $k_1$, từ điển chỉ có cụm một byte, nên $w_1=x_1$ và $k_1&lt;256$. Ở bước 1, bộ mã hóa thêm một mục mỗi lần phát, bắt đầu từ 256, còn bộ giải mã không thêm mục khi đọc $k_1$, nên khi đọc $k_{t+1}$ nó mới có $t-1$ mục mới. Ở bước 3, $w_{t+1}=w_t\operatorname{first}(w_{t+1})$ bắt đầu bằng $w_t$, nên $\operatorname{first}(w_{t+1})=\operatorname{first}(w_t)$. Bỏ "cùng mã đầu 256": một bộ giải mã dành mã 256 cho kết thúc dòng đọc mã 256 của Ví dụ 11.6 thành lệnh dừng. Bỏ "không hỏng": mã lớn hơn $\texttt{next\_code}$ có thể xuất hiện, và nhánh 3.3 dừng thay vì trả chuỗi sai.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.2 (Bổ đề 11.21, Mệnh đề 11.22, chứng minh Định lý 11.23).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s04-07" class="example-slide">
+<h2>Chi phí: LZW</h2>
+<p><strong>Mô hình:</strong> tra theo khóa (mã của $w$, $c$), thêm, ghi ký tự; băm đều, hệ số tải $\alpha&lt;1$ hằng; mã $b$ bit, $M=2^b$ mục.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Bước</th><th scope="col">Số lần</th><th scope="col">Chi phí mỗi lần</th><th scope="col">Đóng góp</th></tr></thead><tbody>
+<tr><td>tra $w\,c$</td><td>$n-1$</td><td>$O(1)$ kỳ vọng</td><td>$O(n)$</td></tr>
+<tr><td>phát và thêm</td><td>$\tau-1$</td><td>$O(1)$</td><td>$O(\tau)$</td></tr>
+<tr><td>giải mã</td><td>$\tau$</td><td>$\lvert w_t\rvert$ phép ghi</td><td>$n$</td></tr>
+</tbody></table>
+<p>Dòng mã $\tau b$ bit, bộ nhớ $O(M)$ mục (Mệnh đề 11.24); <code>aabaacabcabcb</code> với mã 9 bit: 90 so với 104 bit.</p>
+<p>Trên ảnh chụp, cụm khớp đúng rất ngắn, nên ba thuật toán LZ gần như không rút ngắn được ảnh.</p>
+<aside class="notes"><p>Một cụm có lợi khi dài hơn $9/8$ ký tự, tức ít nhất hai ký tự; ở Ví dụ 11.6 chỉ ba trong mười mã là cụm hai ký tự. Chương trình LZW12 của Nelson và Gailly dùng mã 12 bit, dành mã 256 cho <code>END_OF_STREAM</code>, và băm vào mảng $5\,021$ ô, nên $\alpha\le0{,}765$; nếu băm đều, một lần tìm không thành công cần kỳ vọng không quá $4{,}25$ lần dò, còn hàm băm thật dùng phép dịch bit và XOR nên không thỏa giả thiết đó. Chương trình <code>compress</code> của UNIX và định dạng GIF dùng LZW. Trên ảnh chụp, cùng một đường nét ở hai hàng kề lệch nhau một mức xám ở một hai trong mỗi hai mươi điểm, nên cụm khớp đúng rất ngắn.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §4.3 (Mệnh đề 11.24, Nhận xét 11.25); Nelson và Gailly, tr. 170, 214, 218–224, 247.</p></aside>
+</section>
+</section>
+
+<section aria-label="Nén ảnh JPEG dựa trên biến đổi cosine rời rạc">
+<section id="mach-5" data-slide-id="lec11-s05-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Nén ảnh JPEG dựa trên biến đổi cosine rời rạc</h2>
+    <p class="strand-lead">Chỉ bước lượng tử hóa bỏ dữ liệu, và sai số tái tạo bị chặn theo độ thô của bước đó.</p>
+    <p class="strand-keys">Dịch&nbsp;mức&nbsp;· Biến&nbsp;đổi&nbsp;cosine&nbsp;· Lượng&nbsp;tử&nbsp;hóa&nbsp;· Thứ&nbsp;tự&nbsp;zigzag&nbsp;· Mã&nbsp;độ&nbsp;dài&nbsp;loạt</p>
+  </div>
+  <aside class="notes"><p>Ba thuật toán LZ giữ $y=x$ nhưng gần như không rút ngắn được ảnh chụp, nên với ảnh, mạch đổi sang đặc tả khôi phục gần đúng của Định nghĩa 11.1. Biến đổi cosine dồn năng lượng của khối $8\times8$ vào vài hệ số, lượng tử hóa làm tròn các hệ số với sai số chặn theo bước lượng tử, rồi các hệ số được mã không mất thêm thông tin. Mạch "Tổng kết" nhận bảo đảm $E_{\mathrm{RMS}}\le\beta(q)+\tfrac12$ cho cả ảnh và chi phí $\Theta(m)$.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-01" class="example-slide">
+<h2>Ba giai đoạn nén ảnh</h2>
+<p>Ảnh chỉ cần khôi phục gần đúng: CHEETAH.GS, $64\,000$ điểm, $E_{\mathrm{RMS}}$ dưới ngưỡng chọn trước, bộ nhớ vài hàng, thời gian tuyến tính.</p>
+<p><strong>Câu hỏi:</strong> bỏ phần nào của khối để giảm byte mà sai số vẫn bị chặn?</p>
+<p>JPEG (Joint Photographic Experts Group): biến đổi cosine rời rạc (discrete cosine transform, DCT), lượng tử hóa (quantization), mã hóa entropy (entropy coding).</p>
+<figure class="stream-figure stream-short"><img src="img/lec-11/jpeg-duong-ong-trang-chieu.svg" alt="Hai hàng sáu khối. Hàng nén: khối P; dịch mức; DCT; lượng tử hóa, khối viền nét đứt đậm ghi chỉ bước này làm mất dữ liệu; sai phân DC, zigzag; độ dài loạt, mã entropy; ra dòng bit có ghi q. Hàng giải nén chạy ngược: giải mã entropy, loạt; đảo zigzag, cộng dồn DC; giải lượng tử; IDCT; cộng 128, làm tròn; khối P̃ cắt về [0, 255]"/></figure>
+<aside class="notes"><p>Đọc hình: mỗi khối của hàng dưới đảo ngược khối phía trên nó, trừ lượng tử hóa, vì từ số nguyên lượng tử chỉ dựng lại được bội của bước lượng tử. Giai đoạn thứ ba gồm sai phân DC, thứ tự zigzag, mã độ dài loạt và mã entropy; JPEG cơ sở (baseline) dùng mã Huffman, mã số học thuộc bản mở rộng. Ảnh màu được nén như ba ảnh xám, mỗi ảnh một thành phần màu, như R, G, B hoặc độ sáng và hai thành phần sắc độ. Mã hóa biến đổi tuyến tính viết hệ số thành tích của một ma trận với khối; mỗi hàng của ma trận là một hàm cơ sở.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5; Nelson và Gailly, tr. 250–251, 264; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 7–8, 13–14.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-02" class="example-slide">
+<h2>Ví dụ: khối $8\times8$ của CHEETAH.GS và hệ số DC</h2>
+<p><strong>Trực quan.</strong> Các điểm trong một khối gần nhau; viết khối thành tổng 64 mẫu cosine thì phần lớn năng lượng (tổng bình phương) dồn vào vài hệ số tần số thấp.</p>
+$$P=\begin{bmatrix}
+140&144&147&140&140&155&179&175\\
+144&152&140&147&140&148&167&179\\
+152&155&136&167&163&162&152&172\\
+168&145&156&160&152&155&136&160\\
+162&148&156&148&140&136&147&162\\
+147&167&140&155&155&140&136&162\\
+136&156&123&167&162&144&140&147\\
+148&155&136&155&152&147&147&136
+\end{bmatrix}$$
+<p>Tính hệ số DC: tổng $9\,680$, trung bình $151{,}25$; dịch mức $A=P-128$ (hàng $\xi$, cột $\eta$) có tổng $1\,488$; mẫu tần số 0 gồm tám giá trị $1/\sqrt8$, nên $F_{00}=\tfrac18\sum_{\xi,\eta}A_{\xi\eta}=1\,488/8=186$.</p>
+<aside class="notes"><p>Khối là khối Hình 11.9 của Nelson và Gailly. Tổng tám hàng là $1\,220+1\,217+1\,259+1\,232+1\,199+1\,202+1\,175+1\,176=9\,680$. $F_{00}$ bằng 8 lần độ sáng trung bình sau dịch mức, $8\cdot23{,}25=186$; Nelson và Gailly in 186 ở ô $(0,0)$ của ma trận hệ số. Lý do chọn khối $8\times8$: với khối $256\times256$, mỗi hệ số có $65\,536$ số hạng và cả khối cần $256^4\approx4{,}3\cdot10^9$ số hạng; các điểm cách nhau mười lăm, hai mươi vị trí hầu như không giúp đoán nhau, nên khối lớn ít lợi thêm.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.1 (Ví dụ 11.9); Nelson và Gailly, Hình 11.9, tr. 254–258.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-03" class="example-slide">
+<h2>Dịch mức, DCT và IDCT</h2>
+<p><strong>Định nghĩa 11.26.</strong> Dịch mức (level shift): $A=P-128$, giá trị trong $\{-128,\ldots,127\}$. Ma trận DCT $T=(T_{u\xi})$, $u,\xi\in\{0,\ldots,7\}$:</p>
+$$T_{0\xi}=\tfrac1{\sqrt8},\qquad T_{u\xi}=\tfrac12\cos\tfrac{(2\xi+1)u\pi}{16}\quad(u\ge1).$$
+<p>DCT của $A$ là $F=TAT^{\top}$; $F_{00}$ là hệ số DC (DC coefficient). Biến đổi ngược (inverse DCT, IDCT) của $G$ là $T^{\top}GT$.</p>
+<figure class="stream-figure stream-mini"><img src="img/lec-11/dct-ham-co-so-trang-chieu.svg" alt="Tám ô trên một hàng, ô u = 0 đến 7 vẽ tám cột là các phần tử hàng u của ma trận T tại ξ = 0 đến 7, cột lên là dương, xuống là âm. Ô u = 0 có tám cột bằng nhau, khoảng 0,35; hàng u đổi dấu đúng u lần; cột cao nhất khoảng 0,49"/></figure>
+<p>Hàng $u$ của $T$ đổi dấu đúng $u$ lần.</p>
+<p><strong>Ví dụ 11.10.</strong> Trên khối CHEETAH.GS, hệ số DC chiếm khoảng $80\%$ tổng bình phương các hệ số.</p>
+<aside class="notes"><p>Dạng tổng kép: $F_{uv}=\gamma(u)\gamma(v)\sum_{\xi,\eta}A_{\xi\eta}\cos\frac{(2\xi+1)u\pi}{16}\cos\frac{(2\eta+1)v\pi}{16}$, với $\gamma(0)=1/\sqrt8$, $\gamma(u)=\tfrac12$ khi $u\ge1$. $F_{uv}$ đo mức khối giống mẫu tần số $u$ theo chiều dọc và $v$ theo chiều ngang. Nelson và Gailly gọi ma trận DCT là $C$. Ví dụ 11.10 đầy đủ: tổng bình phương của khối là $43\,372$; với hệ số làm tròn là $43\,333$, trong đó hệ số DC có $186^2=34\,596$, còn 28 hệ số có $u+v\ge8$ chỉ chiếm khoảng $4{,}4\%$. DCT không rút ngắn khối: mỗi hệ số cần 11 bit.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.1 (Định nghĩa 11.26, Ví dụ 11.10); Nelson và Gailly, tr. 255–258, 268; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 9, 12.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-04" class="example-slide">
+<h2>Lượng tử hóa</h2>
+<p><strong>Trực quan.</strong> Như thước vạch thưa, bước 5 ghi mọi số trong $(-22{,}5;-17{,}5]$, kể cả $F_{01}$, thành $-4$.</p>
+<p><strong>Định nghĩa 11.29.</strong> Bước lượng tử $Q_{uv}=1+(1+u+v)\,q$; lượng tử hóa làm tròn tới số nguyên gần nhất, xa 0 khi phần lẻ $\tfrac12$: $\hat F_{uv}=\operatorname{round}(F_{uv}/Q_{uv})$; giải lượng tử (dequantization) $\tilde F_{uv}=Q_{uv}\hat F_{uv}$.</p>
+<div class="ex-grid2 dict-matrix-split">
+<div>
+<p><strong>Ví dụ 11.11.</strong> Khối CHEETAH.GS, $q=2$, $Q_{uv}=3+2(u+v)$.</p>
+<p>Có 30 số khác 0; hàng cuối toàn 0.</p>
+</div>
+<div>
+$$\hat F=\begin{bmatrix}
+62&-4&2&-1&2&-1&-1&-1\\
+4&-5&3&-1&-1&1&1&0\\
+-1&-3&0&0&-1&0&-1&0\\
+-1&0&1&-1&0&0&0&0\\
+0&1&1&0&-1&1&1&1\\
+0&0&-1&0&0&0&0&0\\
+1&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0
+\end{bmatrix}$$
+</div>
+</div>
+<aside class="notes"><p>Hệ số $F_{01}=-18$; giải lượng tử cho $-4\cdot5=-20$, lệch 2. Với quy tắc làm tròn về số chẵn, $-22{,}5$ cũng cho $-4$, nên đầu mở của khoảng phụ thuộc quy tắc xa 0. Bước tăng theo đường chéo $u+v$: các ô cùng đường chéo có cùng bước, mỗi đường chéo xa gốc hơn có bước lớn hơn đường trước đúng $q$; $q$ được ghi vào tệp nén để bộ giải nén dựng lại đúng $Q$. Vài ô của ví dụ: $186/3=62$; $-34/7\approx-4{,}86$, làm tròn được $-5$; $15/25=0{,}6$, được 1. Nhầm lẫn dễ gặp: coi lượng tử hóa "chỉ làm tròn" nên không đáng kể; với bước 31 ở ô $(7,7)$, mọi hệ số từ $-15$ tới $15$ đều thành 0.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.2 (Định nghĩa 11.29, Ví dụ 11.11); Nelson và Gailly, Hình 11.10, tr. 259–260; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 3.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-05" class="example-slide">
+<h2>Sai số tái tạo của một khối</h2>
+<p><strong>Định lý 11.31.</strong> <strong>Giả thiết:</strong> $F=TAT^{\top}$ và $\tilde A=T^{\top}\tilde FT$ tính bằng số thực chính xác; lượng tử hóa làm tròn tới số nguyên gần nhất; $\tilde A$ chưa làm tròn, chưa cắt. <strong>Kết luận:</strong></p>
+$$\begin{aligned}E_{\mathrm{RMS}}(A,\tilde A)&=\sqrt{\tfrac1{64}\textstyle\sum_{u,v}(F_{uv}-\tilde F_{uv})^2}\\&\le\beta(q)=\tfrac12\sqrt{\tfrac1{64}\textstyle\sum_{u,v}Q_{uv}^2}.\end{aligned}$$
+<p>Với $q=2$, $\beta(2)\approx9{,}10$; khối CHEETAH.GS tái tạo có $E_{\mathrm{RMS}}(A,\tilde A)=4{,}18$ mức xám (Ví dụ 11.12).</p>
+<p><strong>Ý nghĩa:</strong> cận không phụ thuộc nội dung ảnh, nên chọn được $q$ trước khi nén.</p>
+<aside class="notes"><p>Với $q=2$, $\sum_{u,v}Q_{uv}^2=21\,184$, nên $\beta(2)=\tfrac12\sqrt{21\,184/64}\approx9{,}10$. Ở Ví dụ 11.12, sai số RMS trên hệ số là $4{,}12$ khi dùng hệ số đã làm tròn và $4{,}18$ khi dùng hệ số chính xác, bằng đúng $E_{\mathrm{RMS}}(A,\tilde A)$ như đẳng thức của định lý. Sau khi làm tròn và cắt điểm ảnh, sai số đo được là $4{,}21$; điểm lệch nhiều nhất lệch 11 mức. Cận đạt được khi mọi hệ số lệch đúng nửa bước. Định lý chặn sai số, không cho số bit: số bit chỉ đo được trên từng ảnh.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.2 (Định lý 11.31, Ví dụ 11.12), Tình huống 11.1.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-06" class="example-slide">
+<h2>Ý tưởng chứng minh: cận sai số tái tạo</h2>
+<p><strong>Nhắc lại:</strong> $X$ trực chuẩn khi $XX^{\top}=I$; khi đó $X^{-1}=X^{\top}$.</p>
+<ol>
+<li><strong>Mệnh đề 11.28.</strong> (a) $TT^{\top}=I$, nên $A-\tilde A=T^{\top}(F-\tilde F)T$ (giả thiết tính chính xác); (c) biến đổi trực chuẩn giữ tổng bình phương.</li>
+<li><strong>Kỹ thuật.</strong> Áp (c) cho $T^{\top}$: sai số trên điểm ảnh bằng sai số trên hệ số.</li>
+<li><strong>Mệnh đề 11.30.</strong> Vì $\lvert z-\operatorname{round}(z)\rvert\le\tfrac12$ (giả thiết làm tròn),
+$$\lvert F_{uv}-\tilde F_{uv}\rvert\le Q_{uv}/2;$$
+cộng bình phương, chia 64, lấy căn.</li>
+</ol>
+<aside class="notes"><p>Bước 1: tích hai hàng khác nhau của $T$ là một tổng cosine $\sum_{\xi=0}^{7}\cos\big((2\xi+1)\mu\pi/16\big)=0$ với $0&lt;\mu&lt;16$ (Bổ đề 11.27, chứng minh bằng tổng xếp lồng). Bước 2 dùng vết: tổng bình phương các phần tử của $X$ bằng $\operatorname{tr}(XX^{\top})$, và $\operatorname{tr}(XY)=\operatorname{tr}(YX)$. Bước 3: mỗi giá trị $\hat F_{uv}$ ứng với cả một khoảng, nên lượng tử hóa không khả nghịch. Bỏ giả thiết thì hỏng: cắt về 0 thay cho làm tròn làm cận nhân đôi; biến đổi $\tfrac12TAT^{\top}$ không trực chuẩn làm sai số trên điểm ảnh gấp đôi. Phép cắt về $[0;255]$ không làm sai số tăng, còn làm tròn điểm ảnh cộng tối đa $\tfrac12$.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.1 (Bổ đề 11.27, Mệnh đề 11.28), §5.2 (Mệnh đề 11.30, chứng minh Định lý 11.31); Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 12.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-07" class="example-slide">
+<h2>Sai phân DC, thứ tự zigzag và mã độ dài loạt</h2>
+<p>Khối $\hat F$ vẫn gồm 64 số nguyên, trong đó 34 số 0.</p>
+<p><strong>Trực quan.</strong> Đọc theo đường chéo $u+v$ tăng dần thì phần lớn số 0 đứng thành loạt dài về cuối dãy; mỗi loạt ghi bằng một số đếm.</p>
+<p><strong>Định nghĩa 11.32.</strong></p>
+<ul>
+<li>Sai phân DC $\delta_\kappa=\hat F_{00}^{(\kappa)}-\hat F_{00}^{(\kappa-1)}$, $\hat F_{00}^{(0)}=0$; hệ số AC (AC coefficients) là 63 hệ số còn lại.</li>
+<li>Thứ tự zigzag (zig-zag sequence): $u+v$ tăng dần, đổi chiều sau mỗi đường chéo.</li>
+<li>Mã độ dài loạt (run-length encoding, RLE): số khác $0$ là $a$ cho $(r,s,a)$, $r$ số $0$ đứng trước, $s=\lfloor\log_2\lvert a\rvert\rfloor+1$; loạt $r$ số $0$ cuối khối cho $(r,0)$.</li>
+</ul>
+<aside class="notes"><p>Các khối xử lý theo thứ tự đọc, nên $\delta_1=\hat F_{00}^{(1)}$; các khối kề nhau có độ sáng trung bình gần nhau, nên sai phân DC nhỏ. Vị trí zigzag đếm từ 1. Quy tắc đầy đủ của zigzag: trong một đường chéo, $u$ tăng khi $u+v$ lẻ, giảm khi $u+v$ chẵn; zigzag đi theo các đường chéo có cùng bước lượng tử. $s$ là số bit ghi $\lvert a\rvert$: $s=1$ cho $\pm1$, $s=2$ cho $\pm2,\pm3$. Bộ $(r,0)$ là quy ước của chương, không phải mã kết thúc khối của JPEG chuẩn. Phần $(r,s)$ được mã tiếp bằng mã entropy, như mã Huffman (JPEG cơ sở) hay mã số học của Bài 10. Ví dụ: mười bốn số đầu theo đường chéo tận cùng $0,0,0,-1$, ghi gọn thành $(3,1,-1)$.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.3 (Định nghĩa 11.32); Nelson và Gailly, tr. 261–264; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 14, 16.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-08" class="example-slide">
+<h2>Ví dụ: dãy zigzag của khối đã lượng tử</h2>
+<div class="ex-grid2">
+<div>
+<p>Giả sử khối liền trước có $\hat F_{00}=60$, nên $\delta=2$. Xác định dãy bộ của khối.</p>
+<ul>
+<li>Vị trí 1: DC cho $(0,2,2)$.</li>
+<li>Vị trí 11–13 là ba số 0, nên vị trí 14 cho $(3,1,-1)$.</li>
+<li>Số khác 0 cuối ở vị trí 55, nên chín số 0 cuối cho $(9,0)$.</li>
+</ul>
+<p><strong>Diễn giải:</strong> 64 số của khối thu gọn thành 31 bộ.</p>
+<p><strong>Mệnh đề 11.33.</strong> <strong>Giả thiết:</strong> mỗi khối đúng 64 số, các bộ truyền đúng. <strong>Kết luận:</strong> bộ giải mã dựng lại đúng $\hat F^{(\kappa)}$, nên chỉ lượng tử hóa làm mất dữ liệu.</p>
+</div>
+<figure class="stream-figure stream-tall"><img src="img/lec-11/zigzag-khoi-luong-tu-trang-chieu.svg" alt="Lưới 8 × 8 các số nguyên lượng tử của khối CHEETAH.GS với q = 2; ô khác 0 tô nền và ghi giá trị. Đường gấp khúc nối tâm các ô theo thứ tự zigzag. Ba ô viền đậm: ô (0, 2) ở vị trí 6, ô (0, 4) ở vị trí 15, ô (4, 7) ở vị trí 55, số khác 0 cuối cùng"/></figure>
+</div>
+<aside class="notes"><p>Vị trí 2–10 không có số 0 xen giữa, nên cho chín bộ ba $(0,s,a)$; số khác 0 cuối ở vị trí 55 là ô $(4,7)$. Khối cho 30 bộ ba, gồm một bộ ba DC và 29 bộ ba AC, cùng bộ $(9,0)$. Phần biên độ tốn 2 bit cho DC và 39 bit cho 29 hệ số AC. Chứng minh mệnh đề: thứ tự zigzag là song ánh giữa 64 ô và 64 vị trí, và $\hat F_{00}^{(\kappa)}=\delta_1+\cdots+\delta_\kappa$ theo tổng xếp lồng; giả thiết "mỗi khối đúng 64 số" cho bộ giải mã biết khối kết thúc ở đâu.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.3 (Ví dụ 11.13, Mệnh đề 11.33).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-09" class="example-slide">
+<h2>Thuật toán: nén và giải nén theo khối $8\times8$</h2>
+<p>Chỉ bước lượng tử hóa phụ thuộc $q$. <strong>Đầu vào:</strong> ảnh xám 8 bit, cạnh chia hết cho 8; $q$. <strong>Đầu ra:</strong> dòng bit có ghi $q$; giải nén cho $\tilde P$ cùng cỡ.</p>
+<div class="ex-grid2">
+<div>
+<h3>Nén</h3>
+<ol>
+<li>Ghi $q$; dựng $Q$, $T$.</li>
+<li>Với mỗi khối $\kappa$:
+<ol>
+<li>$A=P-128$; $F=TAT^{\top}$;</li>
+<li>$\hat F_{uv}=\operatorname{round}(F_{uv}/Q_{uv})$;</li>
+<li>$\delta_\kappa=\hat F_{00}^{(\kappa)}-\hat F_{00}^{(\kappa-1)}$, $\hat F_{00}^{(0)}=0$;</li>
+<li>xếp zigzag, mã độ dài loạt, mã entropy.</li>
+</ol></li>
+</ol>
+</div>
+<div>
+<h3>Giải nén</h3>
+<ol>
+<li>Đọc $q$; dựng $Q$, $T$.</li>
+<li>Với mỗi khối $\kappa$:
+<ol>
+<li>giải mã entropy, độ dài loạt tới đủ 64 số;</li>
+<li>cộng dồn DC, đặt AC theo zigzag;</li>
+<li>$\tilde F_{uv}=Q_{uv}\hat F_{uv}$; $\tilde A=T^{\top}\tilde FT$;</li>
+<li>$\tilde P$: cộng 128, làm tròn, cắt về $[0;255]$.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+<aside class="notes"><p>Phép quyết định là lượng tử hóa: bước duy nhất phụ thuộc $q$, quyết định cả số bộ ba lẫn sai số. Khối đi theo thứ tự đọc: từng dải 8 hàng từ trên xuống, trong dải từ trái sang phải. Hai phía dùng cùng $T$, cùng công thức $Q$ theo $q$, cùng thứ tự zigzag và cùng mã entropy: mã Huffman trong JPEG cơ sở, mã số học trong bản mở rộng (Bài 10). Trường hợp biên: khối có mọi hệ số AC bằng 0 cho bộ ba DC cùng $(63,0)$; cạnh không chia hết cho 8 nằm ngoài giả thiết; $q=0$ chỉ còn sai số làm tròn.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.4 (Thuật toán 11.34); Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 14.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s05-10" class="example-slide">
+<h2>Chi phí: nén một ảnh theo khối</h2>
+<p><strong>Mô hình:</strong> phép nhân (DCT, IDCT), phép chia (lượng tử hóa), xử lý một hệ số (bước khác); $K=m/64$ khối.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Bước</th><th scope="col">Số lần</th><th scope="col">Chi phí mỗi lần</th><th scope="col">Đóng góp</th></tr></thead><tbody>
+<tr><td>dịch mức</td><td>$K$</td><td>64 phép trừ</td><td>$m$</td></tr>
+<tr><td>DCT</td><td>$K$</td><td>$1\,024$ phép nhân</td><td>$16m$</td></tr>
+<tr><td>lượng tử hóa</td><td>$K$</td><td>64 phép chia</td><td>$m$</td></tr>
+<tr><td>sai phân, zigzag, loạt, entropy</td><td>$K$</td><td>$O(64)$</td><td>$O(m)$</td></tr>
+<tr><td>giải nén</td><td>$K$</td><td>$64+1\,024$ phép nhân, $O(64)$</td><td>$O(m)$</td></tr>
+</tbody></table>
+<p>Thời gian $\Theta(m)$; bộ nhớ một dải $8\times m_{\mathrm w}$ điểm, $m_{\mathrm w}$ điểm mỗi hàng.</p>
+<p><strong>Bảo đảm:</strong> theo Mệnh đề 11.33 và Định lý 11.31, ảnh tái tạo có $E_{\mathrm{RMS}}\le\beta(q)+\tfrac12$ khi DCT, IDCT chính xác.</p>
+<aside class="notes"><p>CHEETAH.GS có $1\,000$ khối, nên DCT tốn $1\,024\,000$ phép nhân. Bình phương sai số RMS của cả ảnh là trung bình bình phương sai số của các khối, nên không quá $\beta(q)^2$; làm tròn điểm ảnh cộng tối đa $\tfrac12$. Tính trực tiếp theo tổng kép, DCT tốn $8\,192$ phép nhân mỗi khối, gấp 8 lần dạng ma trận. Chương trình của Nelson và Gailly cắt thương về 0, nên cận của nó ở $q=2$ là $18{,}23$, và số đo $6{,}9$ của nó không được $\beta(q)$ bảo đảm. Với $q&gt;5$ ảnh lộ hiện tượng khối (blocking artifacts). JPEG thường nén khoảng 10 lần; một ví dụ của CMU trên ảnh màu đạt $0{,}125$ bit mỗi điểm, khoảng 200 lần so với 24 bit.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §5.4 (Thuật toán 11.34, Nhận xét 11.35); Nelson và Gailly, tr. 255–256, 287; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 13, 17.</p></aside>
+</section>
+</section>
+
+<section aria-label="Tổng kết">
+<section id="mach-6" data-slide-id="lec11-s06-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Tổng kết</h2>
+    <p class="strand-lead">Đặc tả khôi phục và dạng dư thừa của dữ liệu quyết định nên dùng bộ nén nào.</p>
+    <p class="strand-keys">Bảng&nbsp;kết&nbsp;quả&nbsp;· Bảng&nbsp;thuật&nbsp;toán&nbsp;· Vấn&nbsp;đề&nbsp;trung&nbsp;tâm&nbsp;· Bài&nbsp;tập&nbsp;về&nbsp;nhà</p>
+  </div>
+  <aside class="notes"><p>Bốn bảo đảm của bài, Định lý 11.8, 11.15, 11.23, 11.31, cùng bốn bảng chi phí được đặt cạnh giả thiết không được bỏ và theo cùng mô hình chi phí. Từ đó câu hỏi trung tâm được trả lời có điều kiện cho kho văn bản và danh mục ảnh. Mạch kết thúc bằng một bài tập tổng hợp về LZSS, bốn câu hỏi tự kiểm tra và danh sách bài về nhà theo từng mục.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §6, Tóm tắt chương.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-01" class="example-slide">
+<h2>Kết quả chính</h2>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Kết quả</th><th scope="col">Giả thiết không được bỏ</th><th scope="col">Công thức hoặc thuật toán</th></tr></thead><tbody>
+<tr><td>Mệnh đề 11.2</td><td>$\lvert\varphi(x)\rvert&lt;8m$ với mọi ảnh $x$</td><td>có $x$: $\psi(\varphi(x))\ne x$</td></tr>
+<tr><td>Định lý 11.8 (LZ77)</td><td>chép tuần tự; giữ $W$ ký tự cuối</td><td>$y_{p+j}\leftarrow y_{p+j-d}$, $j$ tăng dần; $y=x$</td></tr>
+<tr><td>Định lý 11.15 (LZ78)</td><td>cùng từ điển đầu, quy tắc thêm mục, đánh mã, xử lý từ điển đầy</td><td>$D'[j]=D[j]$ sau mỗi cặp; $y=x$</td></tr>
+<tr><td>Định lý 11.23 (LZW)</td><td>cùng nạp sẵn, mã đầu 256, xử lý từ điển đầy; dòng không hỏng</td><td>$k=\texttt{next\_code}\Rightarrow e=w\operatorname{first}(w)$; $y=x$</td></tr>
+<tr><td>Định lý 11.31</td><td>DCT chính xác; lượng tử hóa làm tròn</td><td>$E_{\mathrm{RMS}}(A,\tilde A)\le\beta(q)=\tfrac12\sqrt{\tfrac1{64}\sum Q_{uv}^2}$</td></tr>
+<tr><td>Mệnh đề 11.33</td><td>mỗi khối đúng 64 số</td><td>chỉ lượng tử hóa làm mất dữ liệu</td></tr>
+</tbody></table>
+<aside class="notes"><p>Mỗi giả thiết bị bỏ thì hỏng ở một chỗ cụ thể. Chép cả khối một lần đọc ô chưa ghi khi $\ell&gt;d$. Hai phía LZ78 hoặc LZW lệch quy tắc thêm mục thì mọi mã sau trỏ sai cụm, và hai định lý giả thiết từ điển không giới hạn: với từ điển $M$ mục, hai phía phải chung quy tắc xử lý từ điển đầy. Bộ giải mã LZW thiếu nhánh $k=\texttt{next\_code}$ không giải được dòng $97,98,256,258$. Phép cắt về 0 gần như nhân đôi cận. Cận sai số không cho số byte.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Tóm tắt chương (Giả thiết hay bị bỏ quên).</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-02" class="example-slide">
+<h2>Bốn thuật toán</h2>
+<p><strong>Mô hình:</strong> so, tra hoặc ghi ký tự; phép nhân cho DCT; kỳ vọng khi băm đều.</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Thuật toán</th><th scope="col">Đầu vào</th><th scope="col">Bảo đảm</th><th scope="col">Chi phí</th></tr></thead><tbody>
+<tr><td>LZ77 (Thuật toán 11.5, 11.6)</td><td>chuỗi $n$ ký tự; $W$, $L$</td><td>$y=x$</td><td>mã hóa $O(nWL)$, giải mã $n$ phép ghi; bộ ba $\lceil\log_2W\rceil+\lceil\log_2(L+1)\rceil+8$ bit</td></tr>
+<tr><td>LZ78 (Thuật toán 11.13, 11.14)</td><td>chuỗi; từ điển $M$ mục</td><td>$y=x$ nếu chung quy tắc từ điển đầy</td><td>kỳ vọng $O(n)$; cặp $\lceil\log_2M\rceil+9$ bit</td></tr>
+<tr><td>LZW (Thuật toán 11.19, 11.20)</td><td>chuỗi byte; mã $b$ bit, $M=2^b$</td><td>$y=x$ nếu chung quy tắc từ điển đầy, kể cả mã chưa có</td><td>kỳ vọng $O(n)$; $\tau b$ bit</td></tr>
+<tr><td>Nén theo khối (Thuật toán 11.34)</td><td>ảnh $m$ điểm; $q$</td><td>$E_{\mathrm{RMS}}\le\beta(q)$ mỗi khối</td><td>$\Theta(m)$; $1\,024$ phép nhân mỗi khối</td></tr>
+</tbody></table>
+<aside class="notes"><p>Dạng dư thừa mỗi thuật toán khai thác: LZ77, cụm lặp trong $W$ ký tự gần nhất; LZ78 và LZW, cụm lặp ở mọi khoảng cách; nén theo khối, năng lượng dồn về tần số thấp và giới hạn của mắt. Trạng thái: $W+L+1$ ký tự; cây tối đa $M$ mục; một dải $8\times m_{\mathrm w}$ điểm. Điểm hòa vốn: $1{,}75$ ký tự với bộ ba 14 bit, 3 với bộ ba 24 bit, $3{,}125$ với cặp 25 bit, $1{,}125$ với mã LZW 9 bit. Mọi biến thể LZ đều giữ một từ điển các chuỗi đã gặp. LZ77 từng nén tốt hơn nhưng chậm hơn LZ78; bản gzip của LZ77 dùng bảng băm nên chạy nhanh gần bằng các bản LZ78.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §6 (bảng chọn phương pháp, Nhận xét 11.36); Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 3, 20.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-03" class="example-slide">
+<h2>Vấn đề trung tâm</h2>
+<ul>
+<li>Văn bản, một lượt: cụm lặp gần dùng cửa sổ LZ77 ($W+L+1$ ký tự), cụm lặp xa dùng từ điển LZ78 hoặc LZW ($M$ mục); cả ba cho $y=x$; trên <code>aabaacabcabcb</code>: 70, 72, 90 bit (LZ77, LZ78, LZW) so với 104.</li>
+<li>Ảnh, ngưỡng 10 mức xám: nếu DCT chính xác, lượng tử hóa làm tròn, mỗi ảnh có $E_{\mathrm{RMS}}\le\beta(q)+\tfrac12$; $q=2$ cho $9{,}60\le10$.</li>
+<li>Danh mục $1\,000$ ảnh, 64 MB: chương trình của Nelson và Gailly (lượng tử hóa bằng cắt thương về 0) ở $q=2$ còn khoảng $18{,}4$ MB nếu mọi ảnh như CHEETAH.GS, không được $\beta(q)$ bảo đảm.</li>
+</ul>
+<aside class="notes"><p>Mỗi bộ nén từ điển chỉ rút ngắn văn bản khi một đơn vị mã mô tả trung bình hơn số ký tự hòa vốn. Ba con số 70, 72, 90 bit dùng $W=6$, $L=4$ cho LZ77, mã cụm 3 bit cho LZ78 và mã 9 bit cho LZW. Trên bộ dữ liệu chuẩn Calgary (Calgary corpus), gzip, một biến thể LZ77, đạt $2{,}59$ bit mỗi ký tự. Bộ nhớ của nén ảnh là một dải $8\times m_{\mathrm w}$ điểm. Cận $9{,}60=\beta(2)+\tfrac12$ đặt trước khi nén; cận của chương trình cắt thương ở $q=2$ khoảng $18{,}2$, nên con số $18{,}4$ MB dựa trên số đo $6{,}9$ của CHEETAH.GS. LZ77 trên ảnh chụp với mỗi bộ ba khớp 1 ký tự cho $96\,000$ byte, gấp $1{,}5$ ảnh gốc.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, §6 (Ví dụ 11.14), Tình huống 11.1, 11.2, 11.4; Blelloch, CMU 15-499, phần nhập môn, trang chiếu 9–10.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-04" class="example-slide">
+<h2>Bài tập: LZSS kiểu gzip</h2>
+<p><strong>Bài tập 11.14.</strong> <strong>Câu hỏi:</strong> LZSS kiểu gzip phát một trong hai dạng mục, với chữ số đầu là bit cờ (flag bit):</p>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">mục</th><th scope="col">dùng khi</th><th scope="col">thao tác</th></tr></thead><tbody>
+<tr><td>$(0,d,\ell)$</td><td>$\ell\ge3$</td><td>chép $\ell$ ký tự từ khoảng lùi $d$; $p\leftarrow p+\ell$</td></tr>
+<tr><td>$(1,c)$, $c=x_{p+1}$</td><td>$\ell&lt;3$</td><td>ghi ký tự rời $c$; $p\leftarrow p+1$</td></tr>
+</tbody></table>
+<p>Tại con trỏ $p$, bộ mã hóa tính độ khớp dài nhất $\ell$ và khoảng lùi $d$ như bước 2.1–2.2 của Thuật toán 11.5, với $1\le d\le\min(W,p)$, cận $\ell\le\min(L,n-p)$ thay cho $\min(L,n-p-1)$, và cho phép $\ell&gt;d$.</p>
+<p>$x=\texttt{aacaacabcabaaac}$, $n=15$, $W=6$, $L=4$; ba mục đầu: $(1,\mathrm a),(1,\mathrm a),(1,\mathrm c)$.</p>
+<p>(a) Xác định mục thứ tư. (b) Hoàn tất dãy mục tới hết chuỗi và đếm số mục của mỗi dạng.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> sau ba mục đầu, $p=3$ và lịch sử là $x[1..3]=$ <code>aac</code>; thử $d=1,2,3$. Bài dùng lại cửa sổ, độ khớp và phép chép chồng lấn của LZ77: các mục dạng thứ nhất thỏa điều kiện khớp của Định nghĩa 11.4, nên bộ giải mã chép tuần tự cho đúng đoạn, như trong chứng minh Định lý 11.8. Ngưỡng 3 là độ khớp tối thiểu của gzip, nơi bảng băm lấy khóa là mọi chuỗi con dài 3 của cửa sổ. Với cặp 17 bit và ký tự rời 9 bit của Nelson và Gailly, cụm 2 ký tự đã có lợi khi mã bằng cặp (Bài tập 11.2(b)).</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.14; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 7–8.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-05" class="example-slide">
+<h2>Bài tập: LZSS kiểu gzip</h2>
+<p><strong>Lời giải:</strong></p>
+<ul>
+<li>(a) Tại $p=3$, cận $\min(4,15-3)=4$: $\ell(1)=0$, $\ell(2)=1$, $\ell(3)=4$ vì $x[4..7]=$ <code>aaca</code> khớp $x[1..4]$; độ khớp $4\ge3$, nên mục thứ tư là $(0,3,4)$, con trỏ lên $p=7$.</li>
+<li>(b) Tiếp theo $(1,\mathrm b)$, $(0,3,3)$, $(1,\mathrm a)$, $(1,\mathrm a)$, $(1,\mathrm a)$, $(1,\mathrm c)$; tại $p=12$, độ khớp 2 nhỏ hơn ngưỡng 3, nên bộ mã hóa ghi ký tự rời.</li>
+<li>Dãy gồm 10 mục: 2 mục dạng thứ nhất, 8 mục dạng thứ hai; các mục phủ $4+3+8=15=n$ ký tự.</li>
+</ul>
+<aside class="notes"><p>Các bước của câu (b). Tại $p=7$: $x_8=\mathrm b$ không có trong lịch sử <code>acaaca</code>, độ khớp 0. Tại $p=8$: $d=3$ cho <code>cab</code> khớp $x[6..8]$, độ khớp 3; $\ell(6)=2$, các khoảng lùi khác cho 0. Tại $p=11$: độ khớp 1 với $d=2$ và $d=5$. Tại $p=12$: độ khớp 2 với $d=1$, vì $x_{13}x_{14}=$ <code>aa</code> khớp $x_{12}x_{13}$ còn $x_{15}=\mathrm c$ khác $x_{14}$. Tại $p=13$: độ khớp 1. Tại $p=14$: cận $\min(4,1)=1$, độ khớp 1 với $d=6$. Trên cùng chuỗi, LZ77 tham lam phát 5 bộ ba. Nhầm lẫn dễ gặp: dùng cận $\min(L,n-p-1)$ của LZ77, vốn chừa chỗ cho ký tự kế mà LZSS không cần.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, lời giải Bài tập 11.14.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-06" class="example-slide">
+<h2>Câu hỏi tự kiểm tra</h2>
+<p><strong>Câu hỏi:</strong> trả lời và nêu kết quả đã dùng.</p>
+<ol>
+<li>Vì sao không bộ nén khôi phục đúng nào rút ngắn mọi ảnh một điểm 8 bit?</li>
+<li>Giải mã LZ77 $(1,9,\mathrm A)$ sau <code>A</code> bằng lệnh chép khối thì sai ở đâu?</li>
+<li>Bộ giải mã LZ78 chỉ thêm mục khi $i_t\ge1$; vì sao cặp $(1,\mathrm b)$ hỏng?</li>
+<li>Với $q=2$, $\lvert F_{77}\rvert$ nguyên nhỏ nhất bằng bao nhiêu để $\hat F_{77}\ne0$?</li>
+</ol>
+<aside class="notes"><p><strong>Lời giải:</strong> (1) Có 256 ảnh một điểm nhưng chỉ 255 chuỗi bit ngắn hơn 8 bit, nên hai ảnh chung một dòng bit và một trong hai bị tái tạo sai (Mệnh đề 11.2). (2) Lệnh chép khối đọc cả đoạn nguồn $y[1..9]$ một lần khi bản giải mã mới có $y_1$; tám ô $y_2,\ldots,y_9$ chưa được ghi; Bổ đề 11.7 cần chép từng ký tự theo thứ tự tăng. (3) Sau $(0,\mathrm a)$, bộ giải mã đó chưa có mã 1, trong khi bộ mã hóa đã gán mã 1 cho <code>a</code>; giả thiết cùng quy tắc thêm mục của Định lý 11.15 bị vi phạm. (4) $Q_{77}=1+15\cdot2=31$; theo Mệnh đề 11.30(a) cần $\lvert F_{77}\rvert\ge15{,}5$, tức ít nhất 16.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Mệnh đề 11.2, Bài tập 11.1(e), 11.3, 11.7(a), Bổ đề 11.7, Định lý 11.15, Mệnh đề 11.30.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-07" class="example-slide">
+<h2>Bài tập về nhà</h2>
+<table class="ex-table stream-compact"><thead><tr><th scope="col">Mục</th><th scope="col">Bài tập</th></tr></thead><tbody>
+<tr><td>1. Khôi phục đúng và khôi phục gần đúng</td><td>11.1 (câu (b) trên lớp)</td></tr>
+<tr><td>2. Nén bằng cửa sổ trượt LZ77</td><td>11.2, 11.3; 11.12, 11.13, 11.14 (trên lớp)</td></tr>
+<tr><td>3. Nén bằng từ điển cụm LZ78</td><td>11.4; 11.15 (trên lớp)</td></tr>
+<tr><td>4. Thuật toán LZW</td><td>11.5, 11.6; 11.16 (trên lớp)</td></tr>
+<tr><td>5. Nén ảnh JPEG dựa trên DCT</td><td>11.7, 11.8, 11.9, 11.10; 11.17 (trên lớp)</td></tr>
+<tr><td>6. Chọn phương pháp nén</td><td>11.11</td></tr>
+</tbody></table>
+<p><a href="material-viewer.html?doc=materials/lec-11/lecture-note.md&amp;deck=lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-11/exercises.md&amp;deck=lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html">Bài tập</a></p>
+<aside class="notes"><p>Cột "Mục" theo tên mục của ghi chú bài giảng, nơi Bài tập 11.1–11.11 nằm ở cuối mỗi mục; Bài tập 11.12–11.17 nằm trong tệp bài tập, cùng gợi ý và lời giải. Bài tập 11.1 có câu (b) trên lớp ở mạch mở đầu; các câu còn lại là bài về nhà. Bài tập 11.17 cần cả Mục 5: biến đổi cosine, lượng tử hóa, mã hóa theo khối và chi phí. Bài tập 11.11 ghép các bảo đảm của cả bài để chọn bộ nén cho ba kho dữ liệu.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Bài tập 11.1–11.11; tệp bài tập Bài 11, Bài tập 11.12–11.17.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s06-08" class="example-slide">
+<h2>Tài liệu tham khảo</h2>
+<ul>
+<li>Nelson, M. và Gailly, J.-L. (1995). <em>The Data Compression Book</em>, ấn bản 2, M&amp;T Books: Chương 7–9, 11.</li>
+<li>Blelloch, G. (2003). CMU 15-499, <em>Algorithms in the Real World</em>: nhập môn, trang chiếu 9–10; nén bằng từ điển, 3–21; nén mất dữ liệu, 3, 7–17.</li>
+<li>Cormen, T. H. và cộng sự (2022). <em>Introduction to Algorithms</em>, ấn bản 4, MIT Press: Chương 2, 11.</li>
+<li>Ziv, J. và Lempel, A. (1977), "A Universal Algorithm for Sequential Data Compression"; (1978), "Compression of Individual Sequences via Variable-Rate Coding". Welch, T. (1984), "A Technique for High-Performance Data Compression".</li>
+</ul>
+<aside class="notes"><p>Trang chiếu của Blelloch ghi tên học phần là "15-499: Algorithms and Applications". Số trang của Nelson và Gailly là số trang của bản điện tử: Chương 7 "Dictionary-Based Compression", tr. 170–171; Chương 8 "Sliding Window Compression", tr. 174–185; Chương 9 "LZ78 Compression", tr. 208–226; Chương 11 "Lossy Graphics Compression", tr. 245–289. Bài báo của Ziv và Lempel đăng trên <em>IEEE Transactions on Information Theory</em>, bài của Welch trên <em>IEEE Computer</em>; cả ba được dẫn theo sách của Nelson và Gailly. Cormen và cộng sự: Chương 2 cho bất biến vòng lặp, Chương 11 cho bảng băm.</p><p class="note-source"><strong>Nguồn:</strong> ghi chú bài giảng Bài 11, Hướng dẫn đọc thêm và tài liệu tham khảo.</p></aside>
+</section>
+</section>
+
+<section aria-label="Bài tập trên lớp">
+<section id="mach-7" data-slide-id="lec11-s07-00" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Bài tập trên lớp</h2>
+    <p class="strand-lead">Năm bài trên lớp kiểm từng bước của ba bộ nén từ điển và lý do JPEG biến đổi theo khối.</p>
+    <p class="strand-keys">Vết&nbsp;LZ77&nbsp;· Bộ&nbsp;ba&nbsp;chồng&nbsp;lấn&nbsp;· Vết&nbsp;LZ78&nbsp;· Mã&nbsp;chưa&nbsp;có&nbsp;· Mã&nbsp;hóa&nbsp;theo&nbsp;khối</p>
+  </div>
+  <aside class="notes"><p>Năm bài theo thứ tự các mạch 2–5: hoàn tất vết LZ77, giải mã một bộ ba chồng lấn, hoàn tất vết LZ78, mã chưa có trong từ điển của bộ giải mã LZW, chọn vùng biến đổi cho ảnh. Người học trình bày vết tay ba bộ nén từ điển, phép gán cho mã chưa có và lý do chọn khối $8\times8$.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.12, 11.13, 11.15, 11.16, 11.17; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 5, 6, 13, 16; phần nén mất dữ liệu, trang chiếu 11.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-01" class="example-slide">
+<h2>Bài tập: hoàn tất vết LZ77</h2>
+<p><strong>Bài tập 11.12.</strong> <strong>Câu hỏi:</strong> $x=\texttt{aacaacabcabaaac}$, $n=15$, mã hóa bằng Thuật toán 11.5 với $W=6$ và $L=4$; ba bộ ba đầu $(0,0,\mathrm a),(1,1,\mathrm c),(3,4,\mathrm b)$, sau đó $p=8.$</p>
+<ul>
+<li>(a) Xác định hai bộ ba còn lại. Với mỗi bộ ba, ghi lịch sử, vùng nhìn trước và độ khớp $\ell(d)$ của từng khoảng lùi $d$.</li>
+<li>(b) Giải mã năm bộ ba bằng Thuật toán 11.6 và ghi bản giải mã sau mỗi bộ ba. Chỉ ra các bộ ba có $\ell&gt;d$ và bước chép đọc một ô vừa ghi trong cùng bộ ba.</li>
+<li>(c) Tính số bit của dòng năm bộ ba theo Mệnh đề 11.9(d) và so với số bit của $x$ khi ghi 8 bit mỗi ký tự.</li>
+</ul>
+<p class="ex-note"><strong>Nguồn:</strong> Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 5.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> tại $p=8$, lịch sử gồm sáu ký tự $x[3..8]$; với mỗi $d=1,\ldots,6$, so $x_9,x_{10},\ldots$ lần lượt với $x_{9-d},x_{10-d},\ldots$ tới lần đầu không khớp.</p><p><strong>Lời giải:</strong> (a) Tại $p=8$: lịch sử <code>caacab</code>, vùng nhìn trước <code>caba</code>, cận 4, $\ell(d)=0,0,3,0,0,2$; chỉ $d=3$ đạt độ khớp lớn nhất, bộ ba thứ tư $(3,3,\mathrm a)$, con trỏ lên 12. Tại $p=12$: lịch sử <code>abcaba</code>, vùng nhìn trước <code>aac</code>, cận 2, $\ell(d)=2,0,1,0,0,1$; bộ ba thứ năm $(1,2,\mathrm c)$, con trỏ lên $15=n$. (b) Bản giải mã sau từng bộ ba: <code>a</code>, <code>aac</code>, <code>aacaacab</code>, <code>aacaacabcaba</code>, <code>aacaacabcabaaac</code>. Hai bộ ba có $\ell&gt;d$: $(3,4,\mathrm b)$, bước $j=4$ đọc $y_4$ ghi ở bước 1; $(1,2,\mathrm c)$, bước $j=2$ đọc $y_{13}$ ghi ở bước 1. (c) Mỗi bộ ba $3+3+8=14$ bit, năm bộ ba 70 bit so với 120 bit, tỷ số khoảng $0{,}58$; trung bình 3 ký tự mỗi bộ ba, trên mức hòa vốn $1{,}75$. Nhầm lẫn dễ gặp: quên cận $\min(L,n-p-1)$ chừa ký tự kế ở cuối chuỗi.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.12; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 5.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-02" class="example-slide">
+<h2>Bài tập: bộ ba có độ dài lớn hơn khoảng lùi</h2>
+<p><strong>Bài tập 11.13.</strong> <strong>Câu hỏi:</strong> Bộ giải mã LZ77 (Thuật toán 11.6) đã dựng bản giải mã $y=$ <code>abcd</code>, tức $p=4$, và đọc bộ ba kế tiếp $(d,\ell,c)=(2,9,\mathrm e)$.</p>
+<ul>
+<li>(a) Giải mã bộ ba: ghi phép gán ở từng bước chép $j=1,\ldots,9$ và cho bản giải mã sau bộ ba.</li>
+<li>(b) Xác định các bước chép đọc một ô nguồn được ghi ngay trong lượt giải mã bộ ba này.</li>
+</ul>
+<p class="ex-note"><strong>Nguồn:</strong> Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 6.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> viết vị trí nguồn của bước chép thứ $j$ theo $p$, $j$, $d$ (bước 2.1 của Thuật toán 11.6), rồi so với $p$.</p><p><strong>Lời giải:</strong> (a) Bộ ba hợp lệ vì $\ell=9\ge1$ và $d=2\le p=4$. Với $j=1,\ldots,9$ theo thứ tự tăng, gán $y_{4+j}\leftarrow y_{2+j}$, rồi $y_{14}\leftarrow\mathrm e$; bản giải mã <code>abcdcdcdcdcdce</code>, 14 ký tự. (b) Vị trí nguồn $2+j$ vượt $p=4$ khi $j\ge3$: bảy bước $j=3,\ldots,9$ đọc ô ghi ở bước $j-2$ của chính lượt này; hai bước đầu đọc $y_3$, $y_4$ đã có. Kiểm tra: chín ký tự chép <code>cdcdcdcdc</code> lặp đoạn <code>cd</code> với chu kỳ $d=2$. Nhầm lẫn dễ gặp: đọc số đầu của bộ ba là vị trí đếm từ đầu chuỗi; ở đây nó là khoảng lùi tính từ con trỏ.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.13; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 6.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-03" class="example-slide">
+<h2>Bài tập: hoàn tất vết LZ78</h2>
+<p><strong>Bài tập 11.15.</strong> <strong>Câu hỏi:</strong> $x=\texttt{aabaacabcabcb}$, $n=13$, mã hóa bằng Thuật toán 11.13; bốn cặp đầu $(0,\mathrm a),(1,\mathrm b),(1,\mathrm a),(0,\mathrm c)$ mô tả $x[1..6]=\texttt{aabaac}$.</p>
+<ul>
+<li>(a) Lập vết bước 2 của thuật toán từ $x_7$ tới hết chuỗi: với mỗi ký tự đọc, ghi nút hiện tại, kết quả phép tra con ở bước 2.1 và cặp phát ra ở bước 2.2, nếu có.</li>
+<li>(b) Liệt kê mọi mục của từ điển sau cặp cuối và vẽ cây từ điển, ghi nhãn cạnh.</li>
+<li>(c) Giải mã toàn bộ dãy cặp, gồm bốn cặp đầu và các cặp ở câu (a), bằng Thuật toán 11.14 và kiểm tra kết luận (a) của Định lý 11.15 sau mỗi cặp.</li>
+</ul>
+<p class="ex-note"><strong>Nguồn:</strong> Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 13.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> cặp thứ $t$ thêm nút $t$ dưới nút $i_t$ qua cạnh $c_t$ (Định nghĩa 11.11). Dựng cây sau bốn cặp đầu, rồi từ $x_7$ đi xuống từ gốc. Nhầm lẫn dễ gặp: phát cặp ngay khi cụm hiện tại đã có trong từ điển; quên rằng nút hiện tại trở về gốc sau mỗi cặp.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.15; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 13.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-04" class="example-slide">
+<h2>Bài tập: hoàn tất vết LZ78</h2>
+<p><strong>Lời giải:</strong></p>
+<ul>
+<li>(a) $x_7=\mathrm a$, $x_8=\mathrm b$: đi $0\to1\to2$; $x_9=\mathrm c$: nút 2 không có con qua $\mathrm c$, phát $(2,\mathrm c)$, thêm nút 5, cụm <code>abc</code>.</li>
+<li>$x_{10},x_{11},x_{12}$: đi $0\to1\to2\to5$; $x_{13}=\mathrm b$: nút 5 không có con qua $\mathrm b$, phát $(5,\mathrm b)$, thêm nút 6, cụm <code>abcb</code>; chuỗi hết với $i=0$, không có cặp <code>EOS</code>.</li>
+<li>(b) $D[1..6]$: <code>a</code>, <code>ab</code>, <code>aa</code>, <code>c</code>, <code>abc</code>, <code>abcb</code>; nút 5 là con của 2 qua $\mathrm c$, nút 6 là con của 5 qua $\mathrm b$.</li>
+<li>(c) Bộ giải mã xuất <code>a</code>, <code>ab</code>, <code>aa</code>, <code>c</code>, <code>abc</code>, <code>abcb</code>; sau cặp thứ $t$ mỗi phía có $t+1$ mục và mục mới trùng nhau, cuối cùng $y=x$.</li>
+</ul>
+<aside class="notes"><p>Cây đầy đủ: gốc có cạnh $\mathrm a$ tới nút 1 và cạnh $\mathrm c$ tới nút 4; nút 1 có cạnh $\mathrm a$ tới nút 3 và cạnh $\mathrm b$ tới nút 2; nút 2 có cạnh $\mathrm c$ tới nút 5; nút 5 có cạnh $\mathrm b$ tới nút 6; các nút 3, 4, 6 là lá. Nối nhãn cạnh từ gốc tới nút 6 được $\mathrm a\,\mathrm b\,\mathrm c\,\mathrm b$, đúng $D[6]$. Kiểm tra: sáu cụm dài $1+2+2+1+3+4=13$ ký tự. Hai cặp $(2,\mathrm c)$, $(5,\mathrm b)$ trùng phần LZ78 của Ví dụ 11.14.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, lời giải Bài tập 11.15.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-05" class="example-slide">
+<h2>Bài tập: mã chưa có trong từ điển của bộ giải mã LZW, dữ kiện</h2>
+<p><strong>Bài tập 11.16.</strong> <strong>Câu hỏi:</strong> Dòng mã $k_1,\ldots,k_\tau$ của một chuỗi được tạo bằng Thuật toán 11.19 và giải bằng Thuật toán 11.20; từ điển của hai phía không giới hạn số mục.</p>
+<p>Đầu vào chứa liền nhau đoạn $\chi\,S\,\chi\,S\,\chi$, với $\chi$ là một ký tự, $S$ là một chuỗi và cụm $\chi\,S$ đã có mã trong từ điển.</p>
+<p>Bộ mã hóa phát mã $k_t$ của cụm $\chi\,S$ và thêm mục $\chi\,S\,\chi$; ngay sau đó nó phát $k_{t+1}$, mã của chính mục vừa thêm.</p>
+<aside class="notes"><p>Đoạn $\chi\,S\,\chi\,S\,\chi$ là dạng làm bộ mã hóa phát ngay mã vừa thêm (phần Phạm vi của Mệnh đề 11.22). Ví dụ quen thuộc: đoạn <code>ababa</code> trong <code>abababa</code>, với $\chi=\mathrm a$, $S=$ <code>b</code> và cụm <code>ab</code> đã có mã 256 (Ví dụ 11.8(b)). Nhầm lẫn dễ gặp: đọc $\chi\,S\,\chi$ là ba cụm riêng; ở đây $\chi\,S$ là một cụm đã có mã, còn $\chi\,S\,\chi$ là mục bộ mã hóa thêm.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.16.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-06" class="example-slide">
+<h2>Bài tập: mã chưa có trong từ điển của bộ giải mã LZW, câu hỏi</h2>
+<p>Bộ giải mã đọc $k_t$ và xuất $\chi\,S$, rồi đọc $k_{t+1}$ và không thấy mã này trong từ điển của mình.</p>
+<ul>
+<li>(a) Xác định $k_{t+1}$ theo $t$ và $\texttt{next\_code}$ của bộ giải mã lúc đọc $k_{t+1}$, rồi giải thích vì sao bộ giải mã chưa có mục $k_{t+1}$.</li>
+<li>(b) Xác định cụm mà bộ giải mã gán cho $k_{t+1}$ và mục nó thêm, chỉ từ cụm $\chi\,S$ vừa xuất, rồi kiểm kết quả bằng Mệnh đề 11.22(b).</li>
+</ul>
+<p class="ex-note"><strong>Nguồn:</strong> Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 16.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> so mã của mục mà bộ mã hóa thêm khi phát $k_t$ (Bổ đề 11.21(a)) với $\texttt{next\_code}$ của bộ giải mã khi đọc $k_{t+1}$ (Bổ đề 11.21(c)). Nhầm lẫn dễ gặp: coi mã chưa có trong từ điển là dấu hiệu dòng mã hỏng.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.16; Blelloch, CMU 15-499, phần nén bằng từ điển, trang chiếu 16.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-07" class="example-slide">
+<h2>Bài tập: mã chưa có trong từ điển của bộ giải mã LZW, lời giải</h2>
+<p><strong>Lời giải:</strong></p>
+<ul>
+<li>(a) Theo Bổ đề 11.21(a), khi phát $k_t$ bộ mã hóa thêm mục $255+t$, nên $k_{t+1}=255+t$. Theo Bổ đề 11.21(c), bộ giải mã đã thêm các mục $256,\ldots,254+t$, nên $\texttt{next\_code}=255+t=k_{t+1}$.</li>
+<li>Bộ giải mã chỉ thêm mục $255+t$ sau khi biết ký tự đầu của cụm kế tiếp, mà cụm đó là cụm của chính $k_{t+1}$.</li>
+<li>(b) Cụm kế tiếp bắt đầu bằng $\chi\,S$, nên ký tự đầu là $\chi$; bộ giải mã gán $e=\chi\,S\,\chi=w\operatorname{first}(w)$ với $w=\chi\,S$ (nhánh 3.2) và thêm $\chi\,S\,\chi$ ở mã $255+t$, trùng bộ mã hóa.</li>
+<li>Mệnh đề 11.22(b) với $w_t=\chi\,S$ cho $w_{t+1}=w_t\operatorname{first}(w_t)=\chi\,S\,\chi$.</li>
+</ul>
+<aside class="notes"><p>Kiểm tra bằng dòng mã $97,98,256,258$ của Ví dụ 11.8(b): $t=3$, $\chi=\mathrm a$, $S=$ <code>b</code>, $k_4=258=255+3$; bộ giải mã có $\texttt{next\_code}=258$ và gán cho 258 cụm <code>aba</code>. Với $S$ rỗng, đoạn là <code>aaa</code>, như hai cụm đầu <code>a</code>, <code>aa</code> của chuỗi toàn chữ $\mathrm a$ ở Bài tập 11.6, nơi $k_2=256=255+1$. Bài áp dụng Mệnh đề 11.22(b), không chứng minh lại mệnh đề đó.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, lời giải Bài tập 11.16.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-08" class="example-slide">
+<h2>Bài tập: biến đổi trên toàn ảnh và mã hóa theo khối, ba mục tiêu</h2>
+<p><strong>Bài tập 11.17.</strong> <strong>Câu hỏi:</strong> Một phép biến đổi tuyến tính dùng để nén ảnh được chọn theo ba mục tiêu:</p>
+<ol>
+<li>khử tương quan (decorrelate): các điểm ảnh gần nhau có giá trị tương quan, tức giúp đoán nhau, còn các hệ số sau biến đổi không còn tương quan với nhau;</li>
+<li>làm cho nhiều hệ số có giá trị nhỏ;</li>
+<li>có những hàm cơ sở (basis function) mà mắt bỏ qua được; với DCT của Định nghĩa 11.26, hàm cơ sở là các mẫu cosine dựng từ các hàng của ma trận $T$, và mỗi hệ số là trọng số của một mẫu.</li>
+</ol>
+<aside class="notes"><p>Ba mục tiêu là ba tiêu chí đánh giá một phép biến đổi; câu hỏi của bài còn đòi xét chi phí tính toán. Nhầm lẫn dễ gặp: chỉ trả lời bằng chi phí mà bỏ ba mục tiêu, hoặc ngược lại.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.17.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-09" class="example-slide">
+<h2>Bài tập: biến đổi trên toàn ảnh và mã hóa theo khối, câu hỏi</h2>
+<p>Dựa trên ba mục tiêu trên và chi phí tính toán, trả lời hai câu sau và dẫn số hiệu các kết quả của ghi chú được dùng.</p>
+<ul>
+<li>(a) Giải thích vì sao áp dụng biến đổi cosine một lần trên toàn bộ ảnh là cách làm kém.</li>
+<li>(b) Nêu cách khắc phục.</li>
+</ul>
+<p class="ex-note"><strong>Nguồn:</strong> Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 11.</p>
+<aside class="notes"><p><strong>Gợi ý:</strong> mỗi hệ số của phép biến đổi là một tổng trên mọi điểm của vùng biến đổi. So số số hạng khi vùng là cả ảnh $m$ điểm và khi vùng là một khối $8\times8$. Nhầm lẫn dễ gặp: chỉ so số phép tính mà không xét ba mục tiêu; câu (a) cần cả lý do về tương quan giữa các điểm xa nhau.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, Bài tập 11.17; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 11.</p></aside>
+</section>
+
+<section data-slide-id="lec11-s07-10" class="example-slide">
+<h2>Bài tập: biến đổi trên toàn ảnh và mã hóa theo khối, lời giải</h2>
+<p><strong>Lời giải:</strong></p>
+<ul>
+<li>(a) Khối lớn có thể nén tốt hơn, nhưng lợi giảm nhanh vì điểm cách 15–20 vị trí ít giúp đoán nhau: $64\times64$ có thể không tốt hơn nhiều so với bốn khối $16\times16$.</li>
+<li>Cả ảnh: $m^2\approx4{,}1\cdot10^9$ số hạng, so với $64m\approx4{,}1\cdot10^6$ khi chia khối.</li>
+<li>(b) Mã hóa theo khối (block coding): biến đổi từng khối $8\times8$, JPEG chọn vì dễ cài đặt; DC chiếm khoảng $80\%$ năng lượng (Ví dụ 11.10), $Q_{uv}$ tăng theo tần số (Định nghĩa 11.29).</li>
+<li>Chi phí $\Theta(m)$ (Thuật toán 11.34); lộ hiện tượng khối (blocking artifacts) khi $q&gt;5$ (Nhận xét 11.35).</li>
+</ul>
+<aside class="notes"><p>Nelson và Gailly ghi khối lớn hơn có lẽ nén tốt hơn, có lý do để dùng khối $16\times16$, và ủy ban JPEG chọn $8\times8$ vì cài đặt thực tế. Lời giải theo từng mục tiêu. Mục tiêu 1: hai điểm cùng khối cách nhau không quá 7 vị trí theo mỗi chiều. Mục tiêu 2: 28 hệ số có $u+v\ge8$ chỉ chiếm khoảng $4{,}4\%$ năng lượng, và DCT bảo toàn năng lượng (Mệnh đề 11.28(c)), nên bỏ chúng chỉ mất khoảng $4{,}4\%$ năng lượng của khối. Mục tiêu 3: bước lượng tử $Q_{uv}=1+(1+u+v)q$ tăng theo tần số nên hệ số của các mẫu cosine tần số cao phần lớn về 0; với $q=2$, khối ở Ví dụ 11.11 còn 30 hệ số khác 0 trong 64, và sai số mỗi khối bị chặn bởi $\beta(q)$ (Định lý 11.31). Với CHEETAH.GS, $m=64\,000$. Trên cả ảnh $m$ điểm có $m$ hệ số, mỗi hệ số $m$ số hạng, tổng $m^2$. Biến đổi cả ảnh còn phải giữ cả $m$ điểm trong bộ nhớ, còn mã hóa theo khối chỉ giữ một dải $8\times m_{\mathrm w}$ điểm. Kiểm tra: $m^2/(64m)=m/64=1\,000$, đúng bằng số khối $40\cdot25$ của CHEETAH.GS; bộ nhớ $8\cdot320=2\,560$ điểm. Biến đổi trên cả ảnh tốn gấp $m/64$ lần số số hạng mà lợi về ba mục tiêu nhỏ.</p><p class="note-source"><strong>Nguồn:</strong> tệp bài tập Bài 11, lời giải Bài tập 11.17; Nelson và Gailly, tr. 255; Blelloch, CMU 15-499, phần nén mất dữ liệu, trang chiếu 11.</p></aside>
+</section>
 </section>
 
 <div class="footer">Giải thuật nền tảng của Khoa học dữ liệu · Học kỳ 1, 2026–2027 · Bài 11</div>
-</div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/markdown/markdown.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealMarkdown,RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script></body></html>
+
+</div></div>
+<script src="revealjs/dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/math/math.js"></script>
+<script>
+Reveal.initialize({width:1280,height:720,margin:.04,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:!new URLSearchParams(location.search).has("receiver"),hash:true,
+katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});
+</script><script>
+window.addEventListener("message", (event) => {
+  if (event.origin !== location.origin || typeof event.data !== "string") return;
+  let message;
+  try { message = JSON.parse(event.data); } catch { return; }
+  if (message.namespace !== "reveal-notes" || message.type !== "connected") return;
+  try {
+    if (event.source.opener !== window) return;
+    const target = event.source.document;
+    if (!target.getElementById("lecture-katex-style")) {
+      const style = target.createElement("link");
+      style.id = "lecture-katex-style";
+      style.rel = "stylesheet";
+      style.href = new URL("vendor/katex/dist/katex.min.css", document.baseURI).href;
+      style.addEventListener("load", () => {
+        for (const face of document.fonts) target.fonts.add(face);
+      }, { once: true });
+      target.head.append(style);
+    }
+  } catch {}
+});
+</script>
+</body>
+</html>
