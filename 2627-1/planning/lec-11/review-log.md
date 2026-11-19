@@ -245,7 +245,11 @@ Căn cứ: `2627-1/planning/lec-11/prompt-xay-dung-bai-11.md`; người dùng ch
 | I.6 | Biên tập lượt 2 và sửa câu gzip (cùng tác tử I.4) | general-purpose | opus (Claude Opus 5.5) | high | `lecture-note.md` | chấp nhận (v3 md5 `ae0d35e2`, 30 394 âm tiết; sửa câu gzip sau kiểm lại lần 2) |
 | I.6 | Đồng bộ `outline.md` (cùng tác tử I.1) | general-purpose | opus (Claude Opus 5.5) | high | `outline.md` | chấp nhận; cập nhật lần 2 đóng R1–R3, D10 |
 | II.1 | Chọn bài tập (chỉ đọc) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận (xem "Duyệt danh sách bài tập") |
-| II.2 | Soạn `exercises.md` (`no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | `exercises.md` | đang chạy |
+| II.2 | Soạn `exercises.md` (`no-ai-slop` Edit) | general-purpose | opus (Claude Opus 5.5) | high | `exercises.md` | chấp nhận làm bản đóng băng v1 (md5 `f24f2fee`, 6 bài 11.12–11.17) |
+| II.3 | Rà bài tập: thuật toán (cùng tác tử I.5, SendMessage) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo (0/0/1/3) |
+| II.3 | Rà bài tập: sư phạm và văn phong (cùng tác tử I.5, `no-ai-slop` Detect) | general-purpose | opus (Claude Opus 5.5) | high | không | chấp nhận báo cáo (0/1/4/7) |
+| II.3 | Biên tập `exercises.md` (cùng tác tử II.2), hai lượt | general-purpose | opus (Claude Opus 5.5) | high | `exercises.md` | chấp nhận (md5 `d51a0647`) |
+| III.1 | Lập storyboard (`no-ai-slop` Edit cho chữ mặt trang dự kiến) | general-purpose | opus (Claude Opus 5.5) | high | `storyboard.md` | đang chạy |
 
 ### Duyệt phân tích nguồn (I.2)
 
@@ -454,3 +458,65 @@ Quyết định: **chấp nhận** danh sách 11.12–11.17 (báo cáo scratchpa
 ### Duyệt của người dùng và chỉ mục (I.8)
 
 Người dùng 2026-11-19: "hãy đưa lecture note lên index, commit và push" (duyệt ghi chú theo Q10). Thêm thẻ Bài 11 vào `2627-1/index.html` theo mẫu thẻ Bài 10: "Ghi chú bài giảng" có liên kết viewer; "Bài giảng" và "Bài tập" ghi `Chưa có` (deck dựng lại và `exercises.md` chưa đạt kiểm định). Kiểm Chromium: 1600×900 và 390×844 không lỗi console, không request hỏng, không tràn ngang; nút "Mở ghi chú" mở đúng viewer Bài 11. Liên kết `exercises.md` trong mục "Bài tập củng cố" của ghi chú trỏ tới tệp sẽ có ở commit giai đoạn II.
+
+### Rà bài tập (II.3)
+
+| Mức độ | Vị trí | Vấn đề | Bằng chứng | Quyết định |
+|---|---|---|---|---|
+| nghiêm trọng | Bài tập 11.16 | Chép lại chứng minh tổng quát của Mệnh đề 11.22(b) và đoạn sau nó (BT1); câu hỏi phụ không phải phép tính trên dữ kiện (BT-DSFA-6) | vai sư phạm, ghi chú dòng 936–950; vai thuật toán (nhẹ) cùng ý | yêu cầu sửa: giữ câu hỏi của CMU-LZ trang chiếu 16 trên mẫu $\chi S\chi S\chi$, áp Bổ đề 11.21 cho trường hợp của mẫu, kiểm bằng dẫn Mệnh đề 11.22(b), bỏ câu (c); bác đề xuất dựng chuỗi cụ thể (dữ kiện mới) |
+| trung bình | 11.15(a) | Hai cặp cuối đã in ở Ví dụ 11.14 | ghi chú dòng 1668–1669 | yêu cầu sửa theo phương án A: câu (a) là vết bước tra con |
+| trung bình | 11.17(a) | "Theo ba mục tiêu" nhưng mục tiêu 3 được trả lời bằng lập luận chi phí | vai thuật toán; vai sư phạm | yêu cầu sửa: "dựa trên ba mục tiêu và chi phí tính toán", tách chi phí |
+| trung bình | 11.17(b) | Lời giải trùng câu trả lời ở đầu Mục 5.1 | vai sư phạm | sửa một phần: dẫn số hiệu kết quả; bác thêm phép tính khối $16\times16$ (không phải dữ kiện trang chiếu nguồn) |
+| trung bình | tiêu đề khối | Ghi tên tệp PDF | vai sư phạm | bác bỏ: giữ dạng tiêu đề của prompt người dùng (II.2) |
+| nhẹ | nhiều chỗ | xem báo cáo | | áp dụng, trừ thứ tự bài theo mức (giữ như Bài 10, BT-DSFA-4) |
+
+Kiểm lại trên v2 (md5 `29d98755`): vai thuật toán 0/0/0/0; vai sư phạm 0/0/1/3 (câu tương quan ở 11.17(a) vượt căn cứ NG tr. 255; cụm lộ kết quả ở đề 11.16; hai câu dồn ý) → yêu cầu sửa; điều phối viên đọc diff bản cuối md5 `d51a0647c0527bb16a06f9de53898315`: bốn chỗ đúng như yêu cầu, không đổi số. Đề 11.16 giữ "thêm mục $\chi S\chi$" vì là dữ kiện của trang chiếu 16 ("enters Sc into dictionary").
+
+### Chỗ chỉnh so với trang chiếu nguồn (BT-DSFA-6, BT8; từ người soạn bài tập)
+
+#### Bài 11 — II.2 người soạn `exercises.md`: ghi chú cho điều phối viên
+
+Tệp: `ds-foundation-algorithms/2627-1/materials/lec-11/exercises.md` (6 khối, mỗi khối 1 hint + 1 solution). Không commit. Cập nhật sau lượt biên tập II.3 (quyết định `lec11-II3-quyet-dinh.md`): md5 `29d987556efc66a62e6e33b8447f72d8`. Danh sách chỉnh dưới đây là trạng thái sau II.3.
+Script kiểm vết: `scratchpad/lec11_ii2_check.py` (đầu ra `lec11_ii2_check.out`, kết thúc "OK"); kiểm hiển thị: `scratchpad/lec11_ii2_render.py` (1600×900 và 390×844: 0 `.katex-error`, 0 lỗi console, không cuộn ngang trang; bốn bảng lời giải cuộn ngang trong khung bảng ở 390 px; công thức duy nhất từng tràn đã ngắt bằng `aligned`).
+
+#### Danh sách khối
+
+| Mức | Khối | Recitation |
+|---|---|---|
+| Nhận biết | 11.13 (Bộ ba có độ dài lớn hơn khoảng lùi; CMU 15-499, compression3-lz.pdf, trang chiếu 6) | có |
+| Tính toán/chứng minh | 11.12 (Hoàn tất vết LZ77; …, trang chiếu 5) | có |
+| | 11.14 (LZSS kiểu gzip; …, trang chiếu 7) | không |
+| | 11.15 (Hoàn tất vết LZ78; …, trang chiếu 13) | có |
+| | 11.16 (Mã chưa có trong từ điển của bộ giải mã LZW; …, trang chiếu 16) | có |
+| Vận dụng | 11.17 (Biến đổi trên toàn ảnh và mã hóa theo khối; CMU 15-499, compression4-lossy.pdf, trang chiếu 11) | có |
+
+Bảng độ phủ: mục tiêu 1 và 6 ghi "—" (dựa vào Bài tập 11.1, 11.11 của ghi chú, theo quyết định II.1 điểm 4).
+
+#### Chỗ chỉnh so với nguồn (BT-DSFA-6)
+
+- **11.12** (LZ tc. 5): dịch; "Dictionary (size = 6)" → $W=6$, "Buffer (size = 4)" → $L=4$ (Định nghĩa 11.4); $(p,l,c)$ → $(d,\ell,c)$; literal `(_,0,a)` → $(0,0,\mathrm a)$; thêm "con trỏ ở $p=8$" (suy từ ba bộ ba đã cho, $1+2+5$); hai "?" → câu (a); thêm (b) giải mã năm bộ ba, chỉ bộ ba $\ell>d$ và bước đọc ô vừa ghi, (c) số bit theo Mệnh đề 11.9(d) — phép tính trên chính dữ kiện.
+- **11.13** (LZ tc. 6): dịch; "dict = abcd" → bản giải mã $y=$ `abcd`, $p=4$; $p$ (vị trí tương đối của CMU) → $d$; "What if l > p? (only part of the message is in the dictionary.)" bỏ khỏi đề (II.3: câu đó lộ ý câu (b)), nhiệm vụ còn nguyên ở dữ kiện $(2,9,\mathrm e)$; "What does this give?" → (a), đòi phép gán từng bước; thêm (b) các bước đọc ô vừa ghi. Gợi ý không cho sẵn công thức $2+j$ (II.3). Đọc $2$ là chỉ số tuyệt đối từ 0 cũng cho cùng kết quả (chỉ ghi ở đây).
+- **11.14** (LZ tc. 7, không recitation): dịch; "position" → khoảng lùi $d$ (tương đối như tc. 4); nêu $W=6$, $L=4$ của tc. 5 (D10); nêu quy tắc tiến con trỏ, cận $\min(L,n-p)$ (dạng $(0,d,\ell)$ không có ký tự kế), chọn $d$ nhỏ nhất khi hòa (như bước 2.2 Thuật toán 11.5), "Uses the second format if length < 3" viết thành hai điều kiện $\ell\ge3$/$\ell<3$; gọi chữ số đầu là bit cờ (Nhận xét 11.10); "[?]" → (a); thêm (b) hoàn tất dãy và đếm mục mỗi dạng. Khi hòa, quy tắc chọn $d$ không đổi kết quả (mọi lượt có độ khớp lớn nhất duy nhất hoặc ra dạng thứ hai). II.3: "Kiểm tra lại" nêu vì sao Bổ đề 11.7 áp dụng cho mục LZSS ($1\le d\le p$ và điều kiện khớp là hai điều kiện chứng minh dùng).
+- **11.15** (LZ tc. 13): dịch; bỏ hình cây đã điền đủ (rút gọn: nút 5, 6 là đáp số); "R" → gốc 0, $D[0]$ rỗng; "Output" → cặp $(i,c)$; phương án A theo II.3: câu (a) là "lập vết bước 2 từ $x_7$: nút hiện tại, kết quả tra con, cặp phát", không còn câu "xác định các cặp còn lại"; (b) "liệt kê mọi mục sau cặp cuối", không nêu số mục; (c) giải mã toàn bộ dãy (bốn cặp đầu và các cặp ở (a)) và kiểm Định lý 11.15(a) sau từng cặp. Hai cặp chỉ đối chiếu với Ví dụ 11.14 ở "Kiểm tra lại". Tc. 14 chỉ dùng đối chiếu.
+- **11.16** (LZ tc. 16), viết lại ở II.3 theo mẫu trừu tượng của trang chiếu: "…SSc… where S[0] = c" → đoạn $\chi\,S\,\chi\,S\,\chi$ với cụm $\chi\,S$ đã có mã ($S$ của CMU ứng với $\chi S$, $c$ ứng với $\chi$; ký hiệu theo Mệnh đề 11.22 của ghi chú); $id_1,id_2$ → $k_t,k_{t+1}$; thêm "từ điển của hai phía không giới hạn số mục" (giả thiết của Bổ đề 11.21, không phải dữ kiện số). "What do we do?" tách thành (a) xác định $k_{t+1}=255+t=\texttt{next\_code}$ và vì sao bộ giải mã chưa có mục đó (Bổ đề 11.21(a)(c), đúng trường hợp của mẫu); (b) cụm gán cho $k_{t+1}$ và mục thêm, kiểm bằng cách dẫn Mệnh đề 11.22(b), không chứng minh lại tổng quát. Bỏ câu (c) cũ và chỉ số $s$. Bỏ câu mở "chậm hơn một mục, vì …" (lời giảng giải). Không dựng chuỗi cụ thể (trang chiếu không có). Kiểm máy (giữ): mọi chuỗi độ dài 1–10 trên $\{\mathrm a,\mathrm b,\mathrm c\}$, 44 886 lần $k=\texttt{next\_code}$, 0 lần trái $w\operatorname{first}(w)$, không lần nào $k>\texttt{next\_code}$.
+- **11.17** (L tc. 11): dịch; "Goals" → câu dẫn có danh sách đánh số; "Cosine of Fourier" (lỗi in của "Cosine or Fourier") rút thành "biến đổi cosine" (quyết định II.1 điểm 2); II.3: giải nghĩa tại chỗ "khử tương quan" (điểm gần nhau tương quan, hệ số sau biến đổi không còn tương quan) và "hàm cơ sở" (mẫu cosine dựng từ các hàng của $T$, Định nghĩa 11.26); hai câu hỏi → (a), (b) giữ câu chữ nguồn ("vì sao … kém", "khắc phục"); yêu cầu trình bày "dựa trên ba mục tiêu và chi phí tính toán, dẫn số hiệu". Lời giải: mỗi câu tách bốn ý (mục tiêu 1, 2, 3, chi phí và bộ nhớ); mục tiêu 2 ở (a) nêu "mở rộng vùng ít lợi thêm" (NG, tr.255); mục tiêu 3 chỉ dựa trên Định nghĩa 11.29; câu có nguồn dẫn "(NG, tr.255)" thay "Mục 5.1". Tỷ lệ $m/64=1\,000$ tính trên CHEETAH.GS (dữ kiện của ghi chú). Không thêm phép tính khối $16\times16$ (bác, BT-DSFA-6); không dùng wavelet (CMU-L tc. 22, ngoài Q9). Bảng độ phủ ghi "11.17 (mã hóa theo khối và chi phí của DCT)" ở mục tiêu 5.
+
+#### Điểm cần điều phối viên lưu ý
+
+- Đoạn mở ghi "Bài tập 11.12 và 11.15 dùng cùng chuỗi với Ví dụ 11.2 và Ví dụ 11.4" (BT1, quan hệ với ghi chú); 11.15 "Kiểm tra lại" đối chiếu Ví dụ 11.14, 11.16 "Kiểm tra lại" đối chiếu Ví dụ 11.8(b) và Bài tập 11.6.
+- Đoạn mở bỏ "Hệ quả" khỏi danh sách loại khối (ghi chú Bài 11 không có Hệ quả).
+- Ở 390 px, bốn bảng lời giải (11.12(b), 11.14(b), 11.15(a), 11.15(c)) cuộn ngang trong khung bảng; trang không cuộn ngang.
+
+#### Lượt II.3: phát hiện không áp dụng
+
+- SP trung bình (tiêu đề dùng tên tệp PDF thay CMU-LZ, CMU-L): bác theo quyết định 4, giữ dạng của prompt.
+- SP nghiêm trọng, phần đề xuất dựng chuỗi và dòng mã cụ thể cho 11.16: bác theo quyết định 1 (trang chiếu 16 không có chuỗi cụ thể).
+- SP trung bình 11.17, đề xuất thêm phép tính khối $16\times16$: bác theo quyết định 3 (dữ kiện mới).
+- SP trung bình 11.15, phương án rút Ví dụ 11.14 của ghi chú: không áp dụng (quyết định 2, không sửa ghi chú).
+- TT nhẹ (đổi số để 11.12 đứng trước 11.13): bác theo quyết định 5 (xếp theo mức như Bài 10, BT-DSFA-4).
+- SP nhẹ đề xuất đổi đề 11.17(a) thành "So sánh …": không áp dụng; quyết định 3 giữ câu hỏi của nguồn ("vì sao … kém").
+
+
+### Kiểm cuối bài tập (II.4, điều phối viên)
+
+Viewer `material-viewer.html?doc=materials/lec-11/exercises.md&deck=lecture-11-nen-bang-tu-dien-va-nen-mat-du-lieu.html` (máy chủ tĩnh tạm, đã tắt): 1600×900 và 390×844 không lỗi console, không request hỏng, 0 `.katex-error` trên 390 biểu thức, không tràn ngang trang; 12 khối gập đóng mặc định, mở hết khi in. Bốn bảng lời giải cuộn ngang trong khung bảng ở 390 px (11.12(b), 11.14(b), 11.15(a), 11.15(c)), không tràn trang. Đã xem ảnh màn hẹp. Liên kết "Bài tập" thêm vào thẻ Bài 11 của `index.html` (BT13); nút mở đúng tệp; hai liên kết `exercises.md` trong ghi chú trỏ đúng. Độ phủ: mục tiêu 1 và 6 không có bài nguồn, dựa vào Bài tập 11.1 và 11.11 của ghi chú (BT-DSFA-1, BT9).
